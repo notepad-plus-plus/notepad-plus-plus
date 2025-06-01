@@ -2592,7 +2592,7 @@ void Notepad_plus::checkDocState()
 	enableCommand(IDM_VIEW_GOTO_NEW_INSTANCE, !isCurrentDirty && !isCurrentUntitled, MENU);
 	enableCommand(IDM_VIEW_LOAD_IN_NEW_INSTANCE, !isCurrentDirty && !isCurrentUntitled, MENU);
 	
-	enableCommand(IDM_EDIT_TOGGLE_READONLY_SYS, !isCurrentMonitoringOn && !isCurrentDirty, MENU);
+	enableCommand(IDM_EDIT_TOGGLE_READONLY_SYS, !isCurrentUntitled && !isCurrentMonitoringOn && !isCurrentDirty, MENU);
 	enableCommand(IDM_EDIT_TOGGLE_READONLY_EDTR, !isCurrentMonitoringOn && !isCurrentSysReadOnly, MENU);
 
 	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_TOGGLE_READONLY_SYS, MF_BYCOMMAND | (isCurrentSysReadOnly ? MF_CHECKED : MF_UNCHECKED));

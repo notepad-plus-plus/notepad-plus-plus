@@ -1506,6 +1506,24 @@ HFONT createFont(const wchar_t* fontName, int fontSize, bool isBold, HWND hDestP
 	return newFont;
 }
 
+bool toggleReadOnlyFlagFromFileAttributes(const wchar_t* fileFullPath)
+{
+	DWORD dwFileAttribs = ::GetFileAttributes(fileFullPath);
+
+	if (dwFileAttribs == INVALID_FILE_ATTRIBUTES || (dwFileAttribs & FILE_ATTRIBUTE_DIRECTORY))
+		return false;
+
+	bool isReadonlyOriginally = (dwFileAttribs & FILE_ATTRIBUTE_READONLY) != 0;
+
+	dwFileAttribs = isReadonlyOriginally
+						? (dwFileAttribs & ~FILE_ATTRIBUTE_READONLY) // on -> off
+						: (dwFileAttribs | FILE_ATTRIBUTE_READONLY); // off -> on
+
+	return ::SetFileAttributes(fileFullPath, dwFileAttribs) == TRUE
+			   ? !isReadonlyOriginally // If SetFileAttributes succeeds then we report back the toggled status
+			   : isReadonlyOriginally; // If SetFileAttributes fails then we report back the original unchanged status
+}
+
 bool removeReadOnlyFlagFromFileAttributes(const wchar_t* fileFullPath)
 {
 	DWORD dwFileAttribs = ::GetFileAttributes(fileFullPath);

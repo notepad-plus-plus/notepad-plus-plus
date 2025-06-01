@@ -115,7 +115,7 @@
     #define    IDM_EDIT_FILENAMETOCLIP                          (IDM_EDIT + 30)
     #define    IDM_EDIT_CURRENTDIRTOCLIP                        (IDM_EDIT + 31)
     #define    IDM_MACRO_RUNMULTIMACRODLG                       (IDM_EDIT + 32)
-    #define    IDM_EDIT_CLEARREADONLY                           (IDM_EDIT + 33)
+    #define    IDM_EDIT_TOGGLE_READONLY_SYS                     (IDM_EDIT + 33)
     #define    IDM_EDIT_COLUMNMODE                              (IDM_EDIT + 34)
     #define    IDM_EDIT_BLOCK_COMMENT_SET                       (IDM_EDIT + 35)
     #define    IDM_EDIT_BLOCK_UNCOMMENT                         (IDM_EDIT + 36)
@@ -184,7 +184,6 @@
     #define    IDM_EDIT_MULTISELECTSSKIP                        (IDM_EDIT + 99)
     #define    IDM_EDIT_SORTLINES_LOCALE_ASCENDING              (IDM_EDIT + 100)
     #define    IDM_EDIT_SORTLINES_LOCALE_DESCENDING             (IDM_EDIT + 101)
-    #define    IDM_EDIT_SETREADONLY_SYS                         (IDM_EDIT + 102)
 
     #define    IDM_EDIT_AUTOCOMPLETE                            (50000 + 0)
     #define    IDM_EDIT_AUTOCOMPLETE_CURRENTFILE                (50000 + 1)

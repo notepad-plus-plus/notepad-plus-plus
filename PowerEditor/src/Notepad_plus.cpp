@@ -2587,14 +2587,15 @@ void Notepad_plus::checkDocState()
 	enableCommand(IDM_VIEW_LOAD_IN_NEW_INSTANCE, !(isCurrentDirty || isCurrentUntitled), MENU);
 
 	bool isSysReadOnly = curBuf->getFileReadOnly();
-	enableCommand(IDM_EDIT_CLEARREADONLY, isSysReadOnly, MENU);
+	bool isMonitoringOn = curBuf->isMonitoringOn();
+	bool isUserReadOnly = curBuf->getUserReadOnly();
+	enableCommand(IDM_EDIT_SETREADONLY, !isMonitoringOn && !isSysReadOnly, MENU);
 
-	bool doEnable = !(curBuf->isMonitoringOn() || isSysReadOnly);
-	enableCommand(IDM_EDIT_SETREADONLY, doEnable, MENU);
-	enableCommand(IDM_EDIT_SETREADONLY_SYS, doEnable, MENU);
+	bool isDirty = curBuf->isDirty();
+	enableCommand(IDM_EDIT_TOGGLE_READONLY_SYS, !isMonitoringOn && !isDirty, MENU);
 
-	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_SETREADONLY, MF_BYCOMMAND | (curBuf->getUserReadOnly() ? MF_CHECKED : MF_UNCHECKED));
-	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_SETREADONLY_SYS, MF_BYCOMMAND | (isSysReadOnly ? MF_CHECKED : MF_UNCHECKED));
+	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_SETREADONLY, MF_BYCOMMAND | (isUserReadOnly ? MF_CHECKED : MF_UNCHECKED));
+	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_TOGGLE_READONLY_SYS, MF_BYCOMMAND | (isSysReadOnly ? MF_CHECKED : MF_UNCHECKED));
 
 	enableCommand(IDM_FILE_DELETE, isFileExisting, MENU);
 	enableCommand(IDM_FILE_OPEN_CMD, isFileExisting, MENU);
@@ -2622,9 +2623,8 @@ void Notepad_plus::checkDocState()
 
 	enableCommand(IDM_FILE_SAVEAS, !curBuf->isInaccessible(), MENU);
 	enableCommand(IDM_FILE_RENAME, !curBuf->isInaccessible(), MENU);
-	if (curBuf->isInaccessible())
-		enableCommand(IDM_EDIT_CLEARREADONLY, false, MENU);
 	enableCommand(IDM_VIEW_GOTO_ANOTHER_VIEW, !curBuf->isInaccessible(), MENU);
+	enableCommand(IDM_EDIT_TOGGLE_READONLY_SYS, !curBuf->isInaccessible(), MENU);		
 	enableCommand(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, !curBuf->isInaccessible(), MENU);
 	enableCommand(IDM_VIEW_GOTO_NEW_INSTANCE, !curBuf->isInaccessible() && !curBuf->isDirty() && !curBuf->isUntitled(), MENU);
 	enableCommand(IDM_VIEW_LOAD_IN_NEW_INSTANCE, !curBuf->isInaccessible() && !curBuf->isDirty() && !curBuf->isUntitled(), MENU);
@@ -7337,7 +7337,6 @@ void Notepad_plus::launchDocumentListPanel(bool changeFromBtnCmd)
 			tabIconSet = (((tabBarStatus & TAB_ALTICONS) == TAB_ALTICONS) ? 1 : NppDarkMode::isEnabled() ? 2 : 0);
 
 		HIMAGELIST hImgLst = _mainDocTab.getImgLst(tabIconSet);
-
 
 		_pDocumentListPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst);
 		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();

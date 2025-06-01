@@ -368,6 +368,7 @@ Notepad++ Custom Style
             <WordsStyle name="PREDECLARED IDENTIFIERS" styleID="19" fgColor="678C67" bgColor="293134" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
             <WordsStyle name="NUMBER" styleID="4" fgColor="FFCD22" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING" styleID="6" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING RAW" styleID="20" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CHARACTER" styleID="7" fgColor="FF8409" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="10" fgColor="E8E2B7" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="VERBATIM" styleID="13" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />

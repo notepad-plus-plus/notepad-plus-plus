@@ -462,6 +462,7 @@ Installation:
             <WordsStyle name="PREDECLARED IDENTIFIERS" styleID="19" fgColor="B589B5" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
             <WordsStyle name="NUMBER" styleID="4" fgColor="2AA198" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING" styleID="6" fgColor="2AA198" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING RAW" styleID="20" fgColor="2AA198" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CHARACTER" styleID="7" fgColor="2AA198" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="10" fgColor="586E75" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="VERBATIM" styleID="13" fgColor="2AA198" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />

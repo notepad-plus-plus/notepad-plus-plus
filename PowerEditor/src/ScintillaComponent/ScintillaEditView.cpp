@@ -1148,6 +1148,11 @@ void ScintillaEditView::setCppLexer(LangType langType)
 
     setLexerFromLangID(L_CPP);
 
+	if (langType == L_GOLANG)
+	{
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.cpp.backquoted.strings"), reinterpret_cast<LPARAM>("1"));
+	}
+
 	if (langType != L_RC)
     {
         if (doxygenKeyWords)

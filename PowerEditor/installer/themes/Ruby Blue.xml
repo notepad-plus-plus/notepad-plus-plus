@@ -99,6 +99,7 @@ http://sourceforge.net/donate/index.php?group_id=95717
             <WordsStyle name="PREDECLARED IDENTIFIERS" styleID="19" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
             <WordsStyle name="NUMBER" styleID="4" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING" styleID="6" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING RAW" styleID="20" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CHARACTER" styleID="7" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="10" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="VERBATIM" styleID="13" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />

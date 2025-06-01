@@ -73,6 +73,7 @@ https://notepad-plus-plus.org/donate/
             <WordsStyle name="PREDECLARED IDENTIFIERS" styleID="19" fgColor="00FFFF" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="instre2" />
             <WordsStyle name="NUMBER" styleID="4" fgColor="FF8000" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING" styleID="6" fgColor="FFFF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING RAW" styleID="20" fgColor="FFFF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CHARACTER" styleID="7" fgColor="FF8080" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="10" fgColor="FFCC00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="VERBATIM" styleID="13" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />

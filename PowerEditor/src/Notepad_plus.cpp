@@ -2565,9 +2565,16 @@ void Notepad_plus::checkDocState()
 	Buffer * curBuf = _pEditView->getCurrentBuffer();
 
 	bool isCurrentDirty = curBuf->isDirty();
-	bool isSeveralDirty = isCurrentDirty;
+	bool isCurrentUntitled = curBuf->isUntitled();
+	bool isCurrentSysReadOnly = curBuf->getFileReadOnly();
+	bool isCurrentInaccessible = curBuf->isInaccessible();
+	bool isCurrentMonitoringOn = curBuf->isMonitoringOn();
+	bool isCurrentUserReadOnly = curBuf->getUserReadOnly();
+
 	bool isNetworkProblem;
 	bool isFileExisting = doesFileExist(curBuf->getFullPathName(), 1000, &isNetworkProblem);
+
+	bool isSeveralDirty = isCurrentDirty;
 	if (!isCurrentDirty)
 	{
 		for (size_t i = 0; i < MainFileManager.getNbBuffers(); ++i)
@@ -2579,36 +2586,30 @@ void Notepad_plus::checkDocState()
 			}
 		}
 	}
-
-	bool isCurrentUntitled = curBuf->isUntitled();
+	
 	enableCommand(IDM_FILE_SAVE, isCurrentDirty, MENU | TOOLBAR);
 	enableCommand(IDM_FILE_SAVEALL, isSeveralDirty, MENU | TOOLBAR);
-	enableCommand(IDM_VIEW_GOTO_NEW_INSTANCE, !(isCurrentDirty || isCurrentUntitled), MENU);
-	enableCommand(IDM_VIEW_LOAD_IN_NEW_INSTANCE, !(isCurrentDirty || isCurrentUntitled), MENU);
+	enableCommand(IDM_VIEW_GOTO_NEW_INSTANCE, !isCurrentDirty && !isCurrentUntitled, MENU);
+	enableCommand(IDM_VIEW_LOAD_IN_NEW_INSTANCE, !isCurrentDirty && !isCurrentUntitled, MENU);
+	
+	enableCommand(IDM_EDIT_TOGGLE_READONLY_SYS, !isCurrentMonitoringOn && !isCurrentDirty, MENU);
+	enableCommand(IDM_EDIT_TOGGLE_READONLY_EDTR, !isCurrentMonitoringOn && !isCurrentSysReadOnly, MENU);
 
-	bool isSysReadOnly = curBuf->getFileReadOnly();
-	bool isMonitoringOn = curBuf->isMonitoringOn();
-	bool isUserReadOnly = curBuf->getUserReadOnly();
-	enableCommand(IDM_EDIT_TOGGLE_READONLY_EDTR, !isMonitoringOn && !isSysReadOnly, MENU);
+	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_TOGGLE_READONLY_SYS, MF_BYCOMMAND | (isCurrentSysReadOnly ? MF_CHECKED : MF_UNCHECKED));
+	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_TOGGLE_READONLY_EDTR, MF_BYCOMMAND | (isCurrentUserReadOnly ? MF_CHECKED : MF_UNCHECKED));
 
-	bool isDirty = curBuf->isDirty();
-	enableCommand(IDM_EDIT_TOGGLE_READONLY_SYS, !isMonitoringOn && !isDirty, MENU);
-
-	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_TOGGLE_READONLY_EDTR, MF_BYCOMMAND | (isUserReadOnly ? MF_CHECKED : MF_UNCHECKED));
-	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_TOGGLE_READONLY_SYS, MF_BYCOMMAND | (isSysReadOnly ? MF_CHECKED : MF_UNCHECKED));
-
+	enableCommand(IDM_FILE_RELOAD, isFileExisting, MENU);
 	enableCommand(IDM_FILE_DELETE, isFileExisting, MENU);
 	enableCommand(IDM_FILE_OPEN_CMD, isFileExisting, MENU);
 	enableCommand(IDM_FILE_OPEN_FOLDER, isFileExisting, MENU);
-	enableCommand(IDM_FILE_RELOAD, isFileExisting, MENU);
 	enableCommand(IDM_FILE_CONTAININGFOLDERASWORKSPACE, isFileExisting, MENU);
 
 	enableCommand(IDM_FILE_OPEN_DEFAULT_VIEWER, isFileExisting ? isAssoCommandExisting(curBuf->getFullPathName()) : false, MENU);
 
-	enableCommand(IDM_VIEW_IN_FIREFOX, isFileExisting, MENU);
-	enableCommand(IDM_VIEW_IN_CHROME, isFileExisting, MENU);
 	enableCommand(IDM_VIEW_IN_IE, isFileExisting, MENU);
 	enableCommand(IDM_VIEW_IN_EDGE, isFileExisting, MENU);
+	enableCommand(IDM_VIEW_IN_CHROME, isFileExisting, MENU);
+	enableCommand(IDM_VIEW_IN_FIREFOX, isFileExisting, MENU);
 
 	enableConvertMenuItems(curBuf->getEolFormat());
 	checkUnicodeMenuItems();
@@ -2617,17 +2618,18 @@ void Notepad_plus::checkDocState()
 	if (_pAnsiCharPanel)
 		_pAnsiCharPanel->switchEncoding();
 
-	enableCommand(IDM_VIEW_MONITORING, !curBuf->isUntitled(), MENU | TOOLBAR);
-	checkMenuItem(IDM_VIEW_MONITORING, curBuf->isMonitoringOn());
-	_toolBar.setCheck(IDM_VIEW_MONITORING, curBuf->isMonitoringOn());
+	enableCommand(IDM_VIEW_MONITORING, !isCurrentUntitled, MENU | TOOLBAR);
+	checkMenuItem(IDM_VIEW_MONITORING, isCurrentMonitoringOn);
+	_toolBar.setCheck(IDM_VIEW_MONITORING, isCurrentMonitoringOn);
 
-	enableCommand(IDM_FILE_SAVEAS, !curBuf->isInaccessible(), MENU);
-	enableCommand(IDM_FILE_RENAME, !curBuf->isInaccessible(), MENU);
-	enableCommand(IDM_VIEW_GOTO_ANOTHER_VIEW, !curBuf->isInaccessible(), MENU);
-	enableCommand(IDM_EDIT_TOGGLE_READONLY_SYS, !curBuf->isInaccessible(), MENU);		
-	enableCommand(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, !curBuf->isInaccessible(), MENU);
-	enableCommand(IDM_VIEW_GOTO_NEW_INSTANCE, !curBuf->isInaccessible() && !curBuf->isDirty() && !curBuf->isUntitled(), MENU);
-	enableCommand(IDM_VIEW_LOAD_IN_NEW_INSTANCE, !curBuf->isInaccessible() && !curBuf->isDirty() && !curBuf->isUntitled(), MENU);
+	enableCommand(IDM_FILE_SAVEAS, !isCurrentInaccessible, MENU);
+	enableCommand(IDM_FILE_RENAME, !isCurrentInaccessible, MENU);
+	enableCommand(IDM_VIEW_GOTO_ANOTHER_VIEW, !isCurrentInaccessible, MENU);
+	enableCommand(IDM_EDIT_TOGGLE_READONLY_SYS, !isCurrentInaccessible, MENU);		
+	enableCommand(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, !isCurrentInaccessible, MENU);
+
+	enableCommand(IDM_VIEW_GOTO_NEW_INSTANCE, !isCurrentInaccessible && !isCurrentDirty && !isCurrentUntitled, MENU);
+	enableCommand(IDM_VIEW_LOAD_IN_NEW_INSTANCE, !isCurrentInaccessible && !isCurrentDirty && !isCurrentUntitled, MENU);
 }
 
 void Notepad_plus::checkUndoState()

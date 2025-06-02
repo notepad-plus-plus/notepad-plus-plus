@@ -46,7 +46,8 @@
                   <xs:attribute name="commentLine" type="xs:string" use="optional"/>
                   <xs:attribute name="commentStart" type="xs:string" use="optional"/>
                   <xs:attribute name="commentEnd" type="xs:string" use="optional"/>
-                  <xs:attribute name="tabSettings" type="xs:unsignedByte" use="optional"/>
+                  <xs:attribute name="tabSettings" type="xs:integer" use="optional"/>
+                  <xs:attribute name="backspaceUnindent" type="xs:string" use="optional"/>
                 </xs:complexType>
               </xs:element>
             </xs:sequence>

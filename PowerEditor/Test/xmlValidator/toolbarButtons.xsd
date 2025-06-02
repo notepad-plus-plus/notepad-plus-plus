@@ -12,7 +12,7 @@
                     <xs:element minOccurs="0" maxOccurs="unbounded" name="Button">
                       <xs:complexType>
                         <xs:attribute name="hide" type="xs:string" use="required"/>
-                        <xs:attribute name="index" type="xs:unsignedByte" use="required"/>
+                        <xs:attribute name="index" type="xs:integer" use="required"/>
                         <xs:attribute name="id" type="xs:unsignedShort" use="required"/>
                         <xs:attribute name="name" type="xs:string" use="required"/>
                       </xs:complexType>

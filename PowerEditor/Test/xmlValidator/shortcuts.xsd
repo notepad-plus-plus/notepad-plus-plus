@@ -12,10 +12,10 @@
                   <xs:sequence>
                     <xs:element maxOccurs="unbounded" name="Action">
                       <xs:complexType>
-                        <xs:attribute name="type" type="xs:unsignedByte" use="required"/>
-                        <xs:attribute name="message" type="xs:unsignedByte" use="required"/>
+                        <xs:attribute name="type" type="xs:integer" use="required"/>
+                        <xs:attribute name="message" type="xs:integer" use="required"/>
                         <xs:attribute name="wParam" type="xs:unsignedShort" use="required"/>
-                        <xs:attribute name="lParam" type="xs:unsignedByte" use="required"/>
+                        <xs:attribute name="lParam" type="xs:integer" use="required"/>
                         <xs:attribute name="sParam" type="xs:string" use="required"/>
                       </xs:complexType>
                     </xs:element>
@@ -24,7 +24,7 @@
                   <xs:attribute name="Ctrl" type="xs:string" use="required"/>
                   <xs:attribute name="Alt" type="xs:string" use="required"/>
                   <xs:attribute name="Shift" type="xs:string" use="required"/>
-                  <xs:attribute name="Key" type="xs:unsignedByte" use="required"/>
+                  <xs:attribute name="Key" type="xs:integer" use="required"/>
                 </xs:complexType>
               </xs:element>
             </xs:sequence>
@@ -41,7 +41,7 @@
                       <xs:attribute name="Ctrl" type="xs:string" use="required"/>
                       <xs:attribute name="Alt" type="xs:string" use="required"/>
                       <xs:attribute name="Shift" type="xs:string" use="required"/>
-                      <xs:attribute name="Key" type="xs:unsignedByte" use="required"/>
+                      <xs:attribute name="Key" type="xs:integer" use="required"/>
                     </xs:extension>
                   </xs:simpleContent>
                 </xs:complexType>

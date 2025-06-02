@@ -57,8 +57,9 @@ OutFile ".\build\npp.${APPVERSION}.Installer.exe"
    VIAddVersionKey	"FileVersion"		"${Version}"
    VIAddVersionKey	"ProductVersion"	"${ProdVer}"
 ; ------------------------------------------------------------------------
- 
+
 ; Insert CheckIfRunning function as an installer and uninstaller function.
+Var runningNppDetected
 !insertmacro CheckIfRunning ""
 !insertmacro CheckIfRunning "un."
 
@@ -117,6 +118,7 @@ Var diffArchDir2Remove
 Var noUpdater
 Var closeRunningNpp
 Var runNppAfterSilentInstall
+Var relaunchNppAfterSilentInstall
 
 !ifdef ARCH64 || ARCHARM64
 ; this is needed for the 64-bit InstallDirRegKey patch
@@ -133,7 +135,7 @@ Function .onInit
 	;   so the InstallDirRegKey checks for the irrelevant HKLM\SOFTWARE\WOW6432Node\Notepad++, explanation:
 	;   https://nsis.sourceforge.io/Reference/SetRegView
 	;
-!ifdef ARCH64 || ARCHARM64	
+!ifdef ARCH64 || ARCHARM64
 	${If} ${RunningX64}
 		System::Call kernel32::GetCommandLine()t.r0 ; get the original cmdline (where a possible "/D=..." is not hidden from us by NSIS)
 		${StrStr} $1 $0 "/D="
@@ -152,6 +154,7 @@ Function .onInit
 	;
 	; --- PATCH END ---
 
+	StrCpy $runningNppDetected "false" ; reset
 
 	; Begin of "/closeRunningNpp"
 	${GetParameters} $R0 
@@ -172,14 +175,13 @@ closeRunningNppCheckDone:
 	IfSilent 0 notInSilentMode
 	System::Call 'kernel32::OpenMutex(i 0x100000, b 0, t "nppInstance") i .R0'
 	IntCmp $R0 0 nppNotRunning
+	StrCpy $runningNppDetected "true"
 	System::Call 'kernel32::CloseHandle(i $R0)' ; a Notepad++ instance is running, tidy-up the opened mutex handle only
 	SetErrorLevel 5 ; set an exit code > 0 otherwise the installer returns 0 aka SUCCESS ('5' means here the future ERROR_ACCESS_DENIED when trying to overwrite the notepad++.exe file...)
-	Quit ; silent installation is silent, currently we cannot continue without a user interaction (TODO: a new "/closeRunningNppAutomatically" installer optional param...)
+	Quit ; silent installation is silent, we cannot continue here without a user interaction (or the installation should have been launched with the "/closeRunningNpp" param)
 nppNotRunning:
 notInSilentMode:
 	; End of "/closeRunningNpp"
-	
-	
 
 	; Begin of "/noUpdater"
 	${GetParameters} $R0 
@@ -200,7 +202,6 @@ updaterDone:
 	${EndIf}
 	; End of "/noUpdater"
 
-
 	; Begin of "/runNppAfterSilentInstall"
 	${GetParameters} $R0 
 	${GetOptions} $R0 "/runNppAfterSilentInstall" $R1 ;case insensitive 
@@ -212,7 +213,18 @@ runNpp:
 	StrCpy $runNppAfterSilentInstall "true"
 runNppDone:
 	; End of "/runNppAfterSilentInstall"
-	
+
+	; Begin of "/relaunchNppAfterSilentInstall"
+	${GetParameters} $R0 
+	${GetOptions} $R0 "/relaunchNppAfterSilentInstall" $R1 ;case insensitive 
+	IfErrors noRelaunchNpp relaunchNpp
+noRelaunchNpp:
+	StrCpy $relaunchNppAfterSilentInstall "false"
+	Goto relaunchNppDone
+relaunchNpp:
+	StrCpy $relaunchNppAfterSilentInstall "true"
+relaunchNppDone:
+	; End of "/relaunchNppAfterSilentInstall"
 
 	${If} ${SectionIsSelected} ${PluginsAdmin}
 		!insertmacro SetSectionFlag ${AutoUpdater} ${SF_RO}
@@ -382,10 +394,14 @@ FunctionEnd
 ; which is visible in control panel in column named "size"
 
 Section -FinishSection
-  Call writeInstallInfoInRegistry
-  IfSilent 0 theEnd
-  	${If} $runNppAfterSilentInstall == "true"
-		Call LaunchNpp
+	Call writeInstallInfoInRegistry
+	IfSilent 0 theEnd
+	${If} $runNppAfterSilentInstall == "true"
+		Call LaunchNpp ; always launch
+	${ElseIf} $relaunchNppAfterSilentInstall == "true"
+		${If} $runningNppDetected == "true"
+			Call LaunchNpp ; relaunch
+		${EndIf}
 	${EndIf}
 theEnd:
 SectionEnd

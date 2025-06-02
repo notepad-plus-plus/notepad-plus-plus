@@ -5943,7 +5943,11 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			{
 				const wchar_t* val = n->Value();
 				if (val)
-					_nppGUI._autoUpdateOpt._doAutoUpdate = (!lstrcmp(val, L"yes"))?false:true;
+				{
+					// for backward compatibility with older configs
+					_nppGUI._autoUpdateOpt._doAutoUpdate = (!lstrcmp(val, L"yes")) ? 
+						NppGUI::AutoUpdateMode::autoupdate_disabled : NppGUI::AutoUpdateMode::autoupdate_on_startup;
+				}
 
 				int i;
 				val = element->Attribute(L"intervalDays", &i);
@@ -5953,6 +5957,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				val = element->Attribute(L"nextUpdateDate");
 				if (val)
 					_nppGUI._autoUpdateOpt._nextUpdateDate = Date(val);
+
+				val = element->Attribute(L"autoUpdateMode", &i);
+				if (val)
+					_nppGUI._autoUpdateOpt._doAutoUpdate = static_cast<NppGUI::AutoUpdateMode>(i); // newer config, so overwrite
 			}
 		}
 
@@ -7429,9 +7437,10 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 	// <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20161022">no</GUIConfig>
 	{
-		TiXmlElement *element = insertGUIConfigBoolNode(newGUIRoot, L"noUpdate", !_nppGUI._autoUpdateOpt._doAutoUpdate);
+		TiXmlElement *element = insertGUIConfigBoolNode(newGUIRoot, L"noUpdate", !(_nppGUI._autoUpdateOpt._doAutoUpdate != NppGUI::autoupdate_disabled));
 		element->SetAttribute(L"intervalDays", _nppGUI._autoUpdateOpt._intervalDays);
 		element->SetAttribute(L"nextUpdateDate", _nppGUI._autoUpdateOpt._nextUpdateDate.toString().c_str());
+		element->SetAttribute(L"autoUpdateMode", _nppGUI._autoUpdateOpt._doAutoUpdate);
 	}
 
 	// <GUIConfig name="Auto-detection">yes</GUIConfig>	

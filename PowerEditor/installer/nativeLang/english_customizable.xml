@@ -1352,13 +1352,18 @@ Translation note:
 						<Element name="DirectWrite (draw to GDI DC)"/>
 						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="Disable"/>
+						<Element name="Enable on Notepad++ startup"/>
+						<Element name="Enable on Notepad++ exit"/>
+					</ComboBox>
 					<Item id="6308" name="system tray"/>
 					<Item id="6363" name="rendering mode"/>
+					<Item id="6365" name="Auto-updater:"/>
 					<Item id="6312" name="File Status Auto-Detection"/>
 					<Item id="6313" name="Update silently"/>
 					<Item id="6325" name="Scroll to the last line after update"/>
 					<Item id="6322" name="Session file ext.:"/>
-					<Item id="6323" name="Enable Notepad++ auto-updater"/>
 					<Item id="6324" name="Document Switcher (Ctrl+TAB)"/>
 					<Item id="6331" name="Show only filename in title bar"/>
 					<Item id="6334" name="Autodetect character encoding"/>

@@ -3089,11 +3089,15 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DETECTENCODING, BM_SETCHECK, nppGUI._detectEncoding, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SAVEALLCONFIRM, BM_SETCHECK, nppGUI._saveAllConfirm, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_AUTOUPDATE, BM_SETCHECK, nppGUI._autoUpdateOpt._doAutoUpdate, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_AUTOUPDATE_AT_EXIT, BM_SETCHECK, nppGUI._autoUpdateOpt._atAppExit, 0);
+			if (!nppGUI._autoUpdateOpt._doAutoUpdate)
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_AUTOUPDATE_AT_EXIT), FALSE);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCPEEKER, BM_SETCHECK, nppGUI._isDocPeekOnTab ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCPEEKONMAP, BM_SETCHECK, nppGUI._isDocPeekOnMap ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MUTE_SOUNDS, BM_SETCHECK, nppGUI._muteSounds ? BST_CHECKED : BST_UNCHECKED, 0);
 
-			::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_AUTOUPDATE), nppGUI._doesExistUpdater?SW_SHOW:SW_HIDE);
+			::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_AUTOUPDATE), nppGUI._doesExistUpdater ? SW_SHOW : SW_HIDE);
+			::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_AUTOUPDATE_AT_EXIT), nppGUI._doesExistUpdater ? SW_SHOW : SW_HIDE);
 
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_SESSIONFILEEXT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(nppGUI._definedSessionExt.c_str()));
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_WORKSPACEFILEEXT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(nppGUI._definedWorkspaceExt.c_str()));
@@ -3184,6 +3188,14 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 
 				case IDC_CHECK_AUTOUPDATE:
 					nppGUI._autoUpdateOpt._doAutoUpdate = isCheckedOrNot(static_cast<int32_t>(wParam));
+					if (nppGUI._autoUpdateOpt._doAutoUpdate)
+						::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_AUTOUPDATE_AT_EXIT), TRUE);
+					else
+						::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_AUTOUPDATE_AT_EXIT), FALSE);
+					return TRUE;
+
+				case IDC_CHECK_AUTOUPDATE_AT_EXIT:
+					nppGUI._autoUpdateOpt._atAppExit = isCheckedOrNot(static_cast<int32_t>(wParam));
 					return TRUE;
 
 				case IDC_CHECK_DETECTENCODING:

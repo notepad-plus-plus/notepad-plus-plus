@@ -5931,7 +5931,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			{
 				const wchar_t* val = n->Value();
 				if (val)
-					_nppGUI._autoUpdateOpt._doAutoUpdate = (!lstrcmp(val, L"yes"))?false:true;
+					_nppGUI._autoUpdateOpt._doAutoUpdate = (!lstrcmp(val, L"yes")) ? false : true;
 
 				int i;
 				val = element->Attribute(L"intervalDays", &i);
@@ -5941,6 +5941,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				val = element->Attribute(L"nextUpdateDate");
 				if (val)
 					_nppGUI._autoUpdateOpt._nextUpdateDate = Date(val);
+
+				val = element->Attribute(L"atAppExit");
+				if (val)
+					_nppGUI._autoUpdateOpt._atAppExit = (!lstrcmp(val, L"yes")) ? true : false;
 			}
 		}
 
@@ -7420,6 +7424,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		TiXmlElement *element = insertGUIConfigBoolNode(newGUIRoot, L"noUpdate", !_nppGUI._autoUpdateOpt._doAutoUpdate);
 		element->SetAttribute(L"intervalDays", _nppGUI._autoUpdateOpt._intervalDays);
 		element->SetAttribute(L"nextUpdateDate", _nppGUI._autoUpdateOpt._nextUpdateDate.toString().c_str());
+		element->SetAttribute(L"atAppExit", _nppGUI._autoUpdateOpt._atAppExit ? L"yes" : L"no");
 	}
 
 	// <GUIConfig name="Auto-detection">yes</GUIConfig>	

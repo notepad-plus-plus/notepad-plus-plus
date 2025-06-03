@@ -19,7 +19,7 @@
                      .*?\s+(IS|AS)\s                                          # It ends CREATE declaration
                      .*?[\s\x22]((PROCEDURE)|(FUNCTION))[\s\x22]              # At least one containing procedure or function
                      (?s:.*?)                                                 # source code
-                     ;\s*END (?(?=\x22)|\s+)(?:\k'PACKAGE_NAME')\s*;          # Named END (best practice)
+                     [^\w]END (?(?=\x22)|\s+)(?:\k'PACKAGE_NAME')\s*;          # Named END (best practice)
                      "
             displayMode="$className->$functionName"
          >
@@ -54,7 +54,7 @@
                   (?'STORED_NAME'(([A-Z]\w*)|(\x22[^\x22]*?\x22)))(?!\.)   # Object name
                   .*?\s+(IS|AS)\s                                          # It ends CREATE declaration
                   (?s:.*?)                                                 # source code
-                  ;\s*END(?(?=\x22)|\s+)(?:\k'STORED_NAME')\s*;            # Named END (best practice)
+                  [^\w]END(?(?=\x22)|\s+)(?:\k'STORED_NAME')\s*;            # Named END (best practice)
                   "
             displayMode="$className->$functionName"
          >

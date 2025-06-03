@@ -461,9 +461,6 @@ Translation note:
 				<Item CMDID="41004" name="Đóng tất cả"/>
 				<Item CMDID="41021" name="Khôi phục tệp bị đóng gần đây"/>
 				<Item CMDID="41007" name="Lưu tất cả"/>
-				<Item CMDID="44043" name="Hiển thị các thẻ theo chiều dọc"/>
-				<Item CMDID="44044" name="Hiển thị các thẻ trên nhiều dòng"/>
-				<Item CMDID="44132" name="Bật/tắt hiển thị nhiều dòng bằng nút cuộn chuột"/>
 				<!-- New Tab Bar pop-up menu -->
 			</TabBar>
 			<TrayIcon>
@@ -999,7 +996,6 @@ Translation note:
 					<Item id="6119" name="Nhiều dòng"/>
 					<Item id="6120" name="Thẳng đứng"/>
 					<Item id="6121" name="Thoát khi đóng thẻ cuối cùng"/>
-					<Item id="6127" name="Chuyển đổi nhiều dòng bằng nút cuộn chuột"/>
 					<Item id="6128" name="Biểu tượng thay thế"/>
 					<Item id="6125" name="Hành vi"/>
 					<Item id="6126" name="Quan sát &amp;&amp; cảm nhận"/>

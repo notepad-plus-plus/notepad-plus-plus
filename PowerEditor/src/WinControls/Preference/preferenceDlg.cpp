@@ -1241,9 +1241,12 @@ intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 				::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SHOWONLYPINNEDBUTTON), FALSE);
 			}
 
+			bool mouseWheelToggleMultiLine = nppGUI._tabMouseWheelToggleMultiLine;
+
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DBCLICK2CLOSE, BM_SETCHECK, tabBarStatus & TAB_DBCLK2CLOSE, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_VERTICAL, BM_SETCHECK, tabBarStatus & TAB_VERTICAL, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_MULTILINE, BM_SETCHECK, tabBarStatus & TAB_MULTILINE, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_MOUSEWHEELTOGGLEMULTILINE, BM_SETCHECK, mouseWheelToggleMultiLine, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_LAST_EXIT, BM_SETCHECK, tabBarStatus & TAB_QUITONEMPTY, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_ALTICONS, BM_SETCHECK, tabBarStatus & TAB_ALTICONS, 0);
 
@@ -1286,6 +1289,7 @@ intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 						nppGUI._tabStatus &= ~TAB_HIDE;
 
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_TAB_MULTILINE), !toBeHidden);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_TAB_MOUSEWHEELTOGGLEMULTILINE), !toBeHidden);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_TAB_VERTICAL), !toBeHidden);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_REDUCE), !toBeHidden);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_LOCK), !toBeHidden);
@@ -1332,6 +1336,13 @@ intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 						nppGUI._tabStatus &= ~TAB_MULTILINE;
 
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_MULTILINETABBAR, 0, 0);
+					return TRUE;
+				}
+
+				case IDC_CHECK_TAB_MOUSEWHEELTOGGLEMULTILINE:
+				{
+					const bool isChecked = isCheckedOrNot(IDC_CHECK_TAB_MOUSEWHEELTOGGLEMULTILINE);
+					nppGUI._tabMouseWheelToggleMultiLine = isChecked;
 					return TRUE;
 				}
 

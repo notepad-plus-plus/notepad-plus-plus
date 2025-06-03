@@ -5020,17 +5020,6 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					isFailed = true;
 			}
 
-			val = element->Attribute(L"mouseWheelToggleMultiLine");
-			if (val)
-			{
-				if (!lstrcmp(val, L"on"))
-					_nppGUI._tabMouseWheelToggleMultiLine = true;
-				else if (!lstrcmp(val, L"off"))
-					_nppGUI._tabMouseWheelToggleMultiLine = false;
-				else
-					isFailed = true;
-			}
-
 			val = element->Attribute(L"hide");
 			if (val)
 			{
@@ -7353,7 +7342,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->InsertEndChild(TiXmlText(pStr));
 	}
 
-	// <GUIConfig name="TabBar" dragAndDrop="yes" drawTopBar="yes" drawInactiveTab="yes" reduce="yes" closeButton="yes" pinButton="yes" showOnlyPinnedButton="no" buttonsOninactiveTabs="no" doubleClick2Close="no" vertical="no" multiLine="no" mouseWheelToggleMultiLine="off" hide="no" quitOnEmpty="no" iconSetNumber="0" />
+	// <GUIConfig name="TabBar" dragAndDrop="yes" drawTopBar="yes" drawInactiveTab="yes" reduce="yes" closeButton="yes" pinButton="yes" showOnlyPinnedButton="no" buttonsOninactiveTabs="no" doubleClick2Close="no" vertical="no" multiLine="no" hide="no" quitOnEmpty="no" iconSetNumber="0" />
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
 		GUIConfigElement->SetAttribute(L"name", L"TabBar");

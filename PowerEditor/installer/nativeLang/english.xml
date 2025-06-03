@@ -462,9 +462,6 @@ Translation note:
 				<Item CMDID="41004" name="Close All"/>
 				<Item CMDID="41021" name="Restore Recent Closed File"/>
 				<Item CMDID="41007" name="Save All"/>
-				<Item CMDID="44043" name="Show Tabs in Vertical Orientation"/>
-				<Item CMDID="44044" name="Show Tabs in Multi-line"/>
-				<Item CMDID="44132" name="Toggle Multi-line with Mouse Wheel"/>
 				<!-- New Tab Bar pop-up menu -->
 			</TabBar>
 			<TrayIcon>
@@ -1001,7 +998,6 @@ Translation note:
 					<Item id="6119" name="Multi-line"/>
 					<Item id="6120" name="Vertical"/>
 					<Item id="6121" name="Exit on close the last tab"/>
-					<Item id="6127" name="Toggle Multi-line with Mouse Wheel"/>
 					<Item id="6128" name="Alternate icons"/>
 					<Item id="6125" name="Behavior"/>
 					<Item id="6126" name="Look &amp;&amp; feel"/>

@@ -458,6 +458,11 @@ Translation note:
 				<Item CMDID="44114" name="Apply Color 4"/>
 				<Item CMDID="44115" name="Apply Color 5"/>
 				<Item CMDID="44110" name="Remove Color"/>
+				<!-- New Tab Bar pop-up menu -->
+				<Item CMDID="41004" name="Close All"/>
+				<Item CMDID="41021" name="Restore Recent Closed File"/>
+				<Item CMDID="41007" name="Save All"/>
+				<!-- New Tab Bar pop-up menu -->
 			</TabBar>
 			<TrayIcon>
 				<Item id="43101" name="Activate"/>

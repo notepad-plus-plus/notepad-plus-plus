@@ -93,9 +93,6 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 
 	if (nppParamInst.getNativeLangSpeaker()->isRTL() && nppParamInst.getNativeLangSpeaker()->isEditZoneRTL())
 		_isRTL = true;
-
-	// backup original tab name
-	_originalTabName = fileName;
 }
 
 

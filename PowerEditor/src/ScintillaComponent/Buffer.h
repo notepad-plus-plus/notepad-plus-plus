@@ -170,10 +170,6 @@ public:
 
 	const wchar_t * getFileName() const { return _fileName; }
 
-	const wchar_t * getOriginalTabName() const { return _originalTabName.c_str(); }
-
-	void setOriginalTabName(const wchar_t* tabName) { _originalTabName.assign(tabName); }
-
 	void normalizeTabName(std::wstring& tabName);
 
 	BufferID getID() const { return _id; }
@@ -408,7 +404,6 @@ private:
 	bool _needLexer = false; // new buffers do not need lexing, Scintilla takes care of that
 	//these properties have to be duplicated because of multiple references
 
-	std::wstring _originalTabName;
 	bool _isUntitledTabRenamed = false;
 
 	//All the vectors must have the same size at all times

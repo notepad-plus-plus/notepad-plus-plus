@@ -2494,7 +2494,6 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			buf->setUserReadOnly(session._mainViewFiles[i]._isUserReadOnly);
 			buf->setPinned(session._mainViewFiles[i]._isPinned);
 
-			buf->setOriginalTabName(session._mainViewFiles[i]._originalTabName.c_str());
 			buf->setUntitledTabRenamedStatus(session._mainViewFiles[i]._isUntitledTabRenamed);
 
 			if (isSnapshotMode && !session._mainViewFiles[i]._backupFilePath.empty() && doesFileExist(session._mainViewFiles[i]._backupFilePath.c_str()))
@@ -2632,7 +2631,6 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			buf->setUserReadOnly(session._subViewFiles[k]._isUserReadOnly);
 			buf->setPinned(session._subViewFiles[k]._isPinned);
 
-			buf->setOriginalTabName(session._subViewFiles[k]._originalTabName.c_str());
 			buf->setUntitledTabRenamedStatus(session._subViewFiles[k]._isUntitledTabRenamed);
 
 			if (isSnapshotMode && !session._subViewFiles[k]._backupFilePath.empty() && doesFileExist(session._subViewFiles[k]._backupFilePath.c_str()))

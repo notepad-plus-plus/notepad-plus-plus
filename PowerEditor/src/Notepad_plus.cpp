@@ -6366,7 +6366,6 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includeUntitled
 			sfi._individualTabColour = docTab[k]->getIndividualTabColourId(static_cast<int>(i));
 			sfi._isRTL = buf->isRTL();
 
-			sfi._originalTabName = buf->getOriginalTabName();
 			sfi._isUntitledTabRenamed = buf->isUntitledTabRenamed();
 
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());

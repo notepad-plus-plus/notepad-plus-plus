@@ -69,18 +69,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					// make a temporary tab name from first line of document
 					wstring content1stLineTabName = _pEditView->getLine(0);
 					buffer->normalizeTabName(content1stLineTabName);
-					if (content1stLineTabName.empty())
-						content1stLineTabName = buffer->getOriginalTabName();
 
 					// check whether there is any buffer with the same name
-					// skip this check when restoring original tab name
-					BufferID sameNamedBufferId = BUFFER_INVALID;
-					if (content1stLineTabName != buffer->getOriginalTabName())
-					{
-						sameNamedBufferId = _pDocTab->findBufferByName(content1stLineTabName.c_str());
-						if (sameNamedBufferId == BUFFER_INVALID)
-							sameNamedBufferId = _pNonDocTab->findBufferByName(content1stLineTabName.c_str());
-					}
+					BufferID sameNamedBufferId = _pDocTab->findBufferByName(content1stLineTabName.c_str());
+					if (sameNamedBufferId == BUFFER_INVALID)
+						sameNamedBufferId = _pNonDocTab->findBufferByName(content1stLineTabName.c_str());
 
 					if (!content1stLineTabName.empty() && content1stLineTabName != buffer->getFileName() && sameNamedBufferId == BUFFER_INVALID)
 					{

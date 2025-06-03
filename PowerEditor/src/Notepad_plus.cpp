@@ -9226,10 +9226,6 @@ void Notepad_plus::dispTabBarPopupMenu(void)
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RESTORELASTCLOSEDFILE, L"Restore Recent Closed File"));
 			itemUnitArray.push_back(MenuItemUnit(0, NULL));
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVEALL, L"Save All"));
-			itemUnitArray.push_back(MenuItemUnit(0, NULL));
-			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_DRAWTABBAR_VERTICAL, L"Show Tabs in Vertical Orientation"));
-			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_DRAWTABBAR_MULTILINE, L"Show Tabs in Multi-line"));
-			itemUnitArray.push_back(MenuItemUnit(IDM_MOUSEWHEEL_TABBAR_MULTILINE, L"Toggle Multi-line with Mouse Wheel"));
 		}
 
 		_tabBarPopupMenu.create(_pPublicInterface->getHSelf(), itemUnitArray, _mainMenuHandle);
@@ -9251,13 +9247,6 @@ void Notepad_plus::dispTabBarPopupMenu(void)
 			}
 		}
 		_tabBarPopupMenu.enableItem(IDM_FILE_SAVEALL, isSeveralDirty);
-
-		NppParameters& nppParam = NppParameters::getInstance();
-		NppGUI& nppGUI = nppParam.getNppGUI();
-
-		_tabBarPopupMenu.checkItem(IDM_VIEW_DRAWTABBAR_VERTICAL, (nppGUI._tabStatus & TAB_VERTICAL));
-		_tabBarPopupMenu.checkItem(IDM_VIEW_DRAWTABBAR_MULTILINE, (nppGUI._tabStatus & TAB_MULTILINE));
-		_tabBarPopupMenu.checkItem(IDM_MOUSEWHEEL_TABBAR_MULTILINE, (nppGUI._tabMouseWheelToggleMultiLine));
 	}
 
 	POINT p;

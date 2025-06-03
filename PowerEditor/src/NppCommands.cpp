@@ -4041,42 +4041,6 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
-		case IDM_VIEW_DRAWTABBAR_VERTICAL:
-		{
-			NppParameters& nppParam = NppParameters::getInstance();
-			NppGUI& nppGUI = nppParam.getNppGUI();
-
-			if (nppGUI._tabStatus & TAB_VERTICAL)
-				nppGUI._tabStatus &= ~TAB_VERTICAL;
-			else
-				nppGUI._tabStatus |= TAB_VERTICAL;
-
-			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_VERTICALTABBAR, 0, 0);
-		}
-		break;
-
-		case IDM_VIEW_DRAWTABBAR_MULTILINE:
-		{
-			NppParameters& nppParam = NppParameters::getInstance();
-			NppGUI& nppGUI = nppParam.getNppGUI();
-
-			if (nppGUI._tabStatus & TAB_MULTILINE)
-				nppGUI._tabStatus &= ~TAB_MULTILINE;
-			else
-				nppGUI._tabStatus |= TAB_MULTILINE;
-
-			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_MULTILINETABBAR, 0, 0);
-		}
-		break;
-
-		case IDM_MOUSEWHEEL_TABBAR_MULTILINE:
-		{
-			NppParameters& nppParam = NppParameters::getInstance();
-			NppGUI& nppGUI = nppParam.getNppGUI();
-			nppGUI._tabMouseWheelToggleMultiLine = (nppGUI._tabMouseWheelToggleMultiLine) ? false : true;
-		}
-		break;
-
 		default :
 			if (id > IDM_FILEMENU_LASTONE && id < (IDM_FILEMENU_LASTONE + _lastRecentFileList.getMaxNbLRF() + 1))
 			{

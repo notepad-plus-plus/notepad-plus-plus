@@ -3790,7 +3790,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			_lastRecentFileList.updateMenu();
 			if (_tabBarPopupMenu.isCreated())
 			{
-				// we'll only enable/disable the "Restore Recent Closed File", make it look like Visual Studio
+				// we'll only enable/disable the "Restore Recent Closed File" instead of adding/removing it
 				_tabBarPopupMenu.enableItem(IDM_FILE_RESTORELASTCLOSEDFILE, _lastRecentFileList.hasSeparators());
 			}
 			break;

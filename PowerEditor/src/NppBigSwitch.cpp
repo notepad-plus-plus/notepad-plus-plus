@@ -41,6 +41,7 @@ using namespace std;
 #endif
 
 std::atomic<bool> g_bNppExitFlag{ false };
+const UINT WM_TASKBARCREATED = ::RegisterWindowMessage(L"TaskbarCreated");
 
 
 struct SortTaskListPred final
@@ -4362,6 +4363,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 						break;
 					}
 				}
+				return TRUE;
+			}
+
+			else if (message == WM_TASKBARCREATED)
+			{
+				if (!_pTrayIco)
+					return TRUE;
+
+				// re-add tray icon
+				_pTrayIco->reAddTrayIcon();
 				return TRUE;
 			}
 

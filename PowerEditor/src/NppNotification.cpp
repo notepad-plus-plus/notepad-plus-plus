@@ -62,7 +62,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 				// auto make temporary name for untitled documents
 				Buffer* buffer = notifyView->getCurrentBuffer();
-				const NewDocDefaultSettings& ndds = NppParameters::getInstance().getNppGUI().getNewDocDefaultSettings();
+				const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+				const NewDocDefaultSettings& ndds = nppGui.getNewDocDefaultSettings();
 				intptr_t curLineIndex = _pEditView->execute(SCI_LINEFROMPOSITION, notification->position);
 				if (curLineIndex == 0 && ndds._useContentAsTabName && buffer->isUntitled() && !buffer->isUntitledTabRenamed())
 				{
@@ -96,7 +97,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 						// for the backup system
 						wstring oldBackUpFileName = buffer->getBackupFileName();
-						bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
+						bool isSnapshotMode = nppGui.isSnapshotMode();
 						if (isSnapshotMode && !oldBackUpFileName.empty())
 						{
 							wstring newBackUpFileName = oldBackUpFileName;

@@ -2069,8 +2069,6 @@ bool Notepad_plus::fileRename(BufferID id)
 			success = MainFileManager.moveFile(bufferID, fn.c_str());
 			scnN.nmhdr.code = success ? NPPN_FILERENAMED : NPPN_FILERENAMECANCEL;
 			_pluginsManager.notify(&scnN);
-
-			buf->setUntitledTabRenamedStatus(true);
 		}
 	}
 	else

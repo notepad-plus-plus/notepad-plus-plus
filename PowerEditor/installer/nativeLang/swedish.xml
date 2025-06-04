@@ -1109,6 +1109,7 @@ Translation note:
 					<Item id="6419" name="Nytt dokument"/>
 					<Item id="6420" name="Tillämpa på öppnade ANSI-filer"/>
 					<Item id="6432" name="Öppna alltid ett nytt dokument vid uppstart"/>
+					<Item id="6433" name="Använd första raden i dokumentet som namnet på namnlösa flikar"/>
 				</NewDoc>
 
 				<DefaultDir title="Standardmapp">

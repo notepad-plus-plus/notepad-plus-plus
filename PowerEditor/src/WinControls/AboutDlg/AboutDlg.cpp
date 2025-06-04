@@ -52,9 +52,10 @@ void AppendDisplayAdaptersInfo(wstring& strOut, const unsigned int maxAdaptersIn
 		nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
 	if ((lStatus == ERROR_SUCCESS) && (dwSubkeysCount > 0))
 	{
+		DWORD dwAdapterSubkeysFound = 0;
 		for (DWORD i = 0; i < dwSubkeysCount; ++i)
 		{
-			if (i >= maxAdaptersIn)
+			if (dwAdapterSubkeysFound >= maxAdaptersIn)
 			{
 				strOut += L"\n    - warning, search has been limited to maximum number of adapter records: "
 					+ std::to_wstring(maxAdaptersIn);
@@ -77,6 +78,7 @@ void AppendDisplayAdaptersInfo(wstring& strOut, const unsigned int maxAdaptersIn
 				if (::RegQueryValueExW(hkAdapterSubKey, L"DriverDesc", nullptr, &dwType, (LPBYTE)wszKeyVal, &dwSize)
 					== ERROR_SUCCESS)
 				{
+					dwAdapterSubkeysFound++;
 					strOut += strAdapterNo + L": Description - ";
 					strOut += wszKeyVal;
 				}

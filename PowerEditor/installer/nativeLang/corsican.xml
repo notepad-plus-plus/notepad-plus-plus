@@ -13,7 +13,7 @@ Additionnal information about Corsican localization:
 2. History of Corsican translation for Notepad++:
 
 	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8), Apr. 20th (v8.8),
-			  May 28th (v8.8.2)
+			  June 4th (v8.8.2)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
 			  June 13th (v8.6.9), Sept. 8th (v8.7), Oct. 21st (v8.7.1), Nov. 20th (v8.7.2), Nov. 29th (v8.7.3)
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
@@ -1138,6 +1138,7 @@ Additionnal information about Corsican localization:
 					<Item id="6419" name="Ducumentu novu"/>
 					<Item id="6420" name="Appiecà à i schedarii ANSI aperti"/>
 					<Item id="6432" name="Sempre apre un ducumentu novu di più à u lanciu"/>
+					<Item id="6433" name="Impiegà a prima linea di u ducumentu cum’è nome d’unghjetta senza titulu"/>
 				</NewDoc>
 
 				<DefaultDir title="Cartulare predefinitu">

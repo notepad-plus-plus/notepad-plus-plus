@@ -12,14 +12,14 @@
       <parser id="oracle_function" displayName="Oracle SQL" commentExpr="((\/\*([^\*]|\*[^\/])*\*\/)|(--.*?$))">
          <classRange
             mainExpr="(?isx)^\h*CREATE(\s+OR\s+REPLACE)?\s+                   # Declaration beginning
-                     ((NON\s+)?EDITIONABLE\s+)?                               # Optional editionable clause
-                     (PROCEDURE|FUNCTION|PACKAGE([\s]+BODY)?)                                      # Object type
+                     ((NON)?EDITIONABLE\s+)?                                  # Optional editionable clause
+                     (PROCEDURE|FUNCTION|PACKAGE([\s]+BODY)?)                 # Object type
                      ((((\s*\x22[^\x22]*?\x22)|(\s+[A-Z]\w*))\.)|\s*)         # Object owner (not mandatory)
                      (?'PACKAGE_NAME'(([A-Z]\w*)|(\x22[^\x22]*?\x22)))(?!\.)  # Object name
                      .*?\s+(IS|AS)\s                                          # It ends CREATE declaration
                      .*?[\s\x22]((PROCEDURE)|(FUNCTION))[\s\x22]              # At least one containing procedure or function
                      (?s:.*?)                                                 # source code
-                     [^\w]END (?(?=\x22)|\s+)(?:\k'PACKAGE_NAME')\s*;          # Named END (best practice)
+                     [^\w]END (?(?=\x22)|\s+)(?:\k'PACKAGE_NAME')\s*;         # Named END (best practice)
                      "
             displayMode="$className->$functionName"
          >
@@ -48,13 +48,13 @@
          </classRange>
          <function
             mainExpr="(?isx)^\h*CREATE(\s+OR\s+REPLACE)?\s+                # Declaration beginning
-                  ((NON\s+)?EDITIONABLE\s+)?                               # Optional editionable clause
+                  ((NON)?EDITIONABLE\s+)?                                  # Optional editionable clause
                   ((PROCEDURE)|(FUNCTION)|PACKAGE([\s]+BODY)?)             # Object type
                   ((((\s*\x22[^\x22]*?\x22)|(\s+[A-Z]\w*))\.)|\s*)         # Object owner (not mandatory)
                   (?'STORED_NAME'(([A-Z]\w*)|(\x22[^\x22]*?\x22)))(?!\.)   # Object name
                   .*?\s+(IS|AS)\s                                          # It ends CREATE declaration
                   (?s:.*?)                                                 # source code
-                  [^\w]END(?(?=\x22)|\s+)(?:\k'STORED_NAME')\s*;            # Named END (best practice)
+                  [^\w]END(?(?=\x22)|\s+)(?:\k'STORED_NAME')\s*;           # Named END (best practice)
                   "
             displayMode="$className->$functionName"
          >

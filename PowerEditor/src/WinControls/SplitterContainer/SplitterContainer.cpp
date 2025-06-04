@@ -322,13 +322,9 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 		case WM_RBUTTONUP:
 		{
+			// transfer the message to its parent
 			HWND parent = ::GetParent(getHSelf());
-
-			NMHDR nhmdr;
-			nhmdr.hwndFrom = getHSelf();
-			nhmdr.code = NM_RCLICK;
-
-			::SendMessage(parent, WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&nhmdr));
+			::SendMessage(parent, WM_RBUTTONUP, wParam, lParam);
 
 			return TRUE;
 		}

@@ -2279,12 +2279,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 						break;
 				}
 			}
-			else if ((_pMainSplitter && lpnmhdr->hwndFrom == _pMainSplitter->getHSelf())
-				|| lpnmhdr->hwndFrom == _subSplitter.getHSelf())
-			{
-				dispTabBarPopupMenu();
-				return TRUE;
-			}
 
 			SCNotification *notification = reinterpret_cast<SCNotification *>(lParam);
 
@@ -3027,7 +3021,41 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_RBUTTONUP:
 		{
-			dispTabBarPopupMenu();
+			// Create the additional non-tab-zone popup
+			if (!_noTabZonePopupMenu.isCreated())
+			{
+				vector<MenuItemUnit> itemUnitArray;
+				{
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL, L"Close All"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RESTORELASTCLOSEDFILE, L"Restore Recent Closed File"));
+					itemUnitArray.push_back(MenuItemUnit(0, NULL));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVEALL, L"Save All"));
+				}
+
+				_noTabZonePopupMenu.create(_pPublicInterface->getHSelf(), itemUnitArray, _mainMenuHandle);
+				_nativeLangSpeaker.changeLangTabContextMenu(_noTabZonePopupMenu.getMenuHandle());
+			}
+
+			// we'll only enable/disable the "Restore Recent Closed File" item, instead of adding/removing it
+			_noTabZonePopupMenu.enableItem(IDM_FILE_RESTORELASTCLOSEDFILE, (_lastRecentFileList.getSize() > 0));
+
+			bool areDirty = false;
+			for (size_t i = 0; i < MainFileManager.getNbBuffers(); ++i)
+			{
+				if (MainFileManager.getBufferByIndex(i)->isDirty())
+				{
+					areDirty = true;
+					break;
+				}
+			}
+			_noTabZonePopupMenu.enableItem(IDM_FILE_SAVEALL, areDirty);
+
+			POINT pt;
+			GetCursorPos(&pt);
+
+			// Display the menu
+			_noTabZonePopupMenu.display(pt);
+
 			return TRUE;
 		}
 
@@ -3811,10 +3839,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_RECENTFILELIST_UPDATE:
 		{
 			_lastRecentFileList.updateMenu();
-			if (_tabBarPopupMenu.isCreated())
+			if (_noTabZonePopupMenu.isCreated())
 			{
-				// we'll only enable/disable the "Restore Recent Closed File", make it look like Visual Studio
-				_tabBarPopupMenu.enableItem(IDM_FILE_RESTORELASTCLOSEDFILE, _lastRecentFileList.hasSeparators());
+				// we'll only enable/disable the "Restore Recent Closed File" instead of adding/removing it
+				_noTabZonePopupMenu.enableItem(IDM_FILE_RESTORELASTCLOSEDFILE, (_lastRecentFileList.getSize() > 0));
 			}
 			break;
 		}
@@ -3823,10 +3851,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			_lastRecentFileList.switchMode();
 			_lastRecentFileList.updateMenu();
-			if (_tabBarPopupMenu.isCreated())
+			if (_noTabZonePopupMenu.isCreated())
 			{
 				// we'll only enable/disable the "Restore Recent Closed File" instead of adding/removing it
-				_tabBarPopupMenu.enableItem(IDM_FILE_RESTORELASTCLOSEDFILE, _lastRecentFileList.hasSeparators());
+				_noTabZonePopupMenu.enableItem(IDM_FILE_RESTORELASTCLOSEDFILE, (_lastRecentFileList.getSize() > 0));
 			}
 			break;
 		}

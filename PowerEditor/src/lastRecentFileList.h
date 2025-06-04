@@ -82,10 +82,6 @@ public:
 		return (_hParentMenu != NULL);
 	};
 
-	bool hasSeparators() const {
-		return _hasSeparators;
-	}
-
 private:
 	recentList _lrfl;
 	Accelerator *_pAccelerator = nullptr;

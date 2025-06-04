@@ -7188,9 +7188,9 @@ bool Notepad_plus::reloadLang()
 	{
 		_nativeLangSpeaker.changeLangTabContextMenu(_tabPopupMenu.getMenuHandle());
 	}
-	if (_tabBarPopupMenu.isCreated())
+	if (_noTabZonePopupMenu.isCreated())
 	{
-		_nativeLangSpeaker.changeLangTabContextMenu(_tabBarPopupMenu.getMenuHandle());
+		_nativeLangSpeaker.changeLangTabContextMenu(_noTabZonePopupMenu.getMenuHandle());
 	}
 	if (_tabPopupDropMenu.isCreated())
 	{
@@ -9221,46 +9221,4 @@ BOOL Notepad_plus::notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId, 
 		return TRUE;
 	}
 	return FALSE;
-}
-
-// Display tab bar popup menu
-void Notepad_plus::dispTabBarPopupMenu(void)
-{
-	// Create the menu
-	if (!_tabBarPopupMenu.isCreated())
-	{
-		vector<MenuItemUnit> itemUnitArray;
-		{
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL, L"Close All"));
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RESTORELASTCLOSEDFILE, L"Restore Recent Closed File"));
-			itemUnitArray.push_back(MenuItemUnit(0, NULL));
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVEALL, L"Save All"));
-		}
-
-		_tabBarPopupMenu.create(_pPublicInterface->getHSelf(), itemUnitArray, _mainMenuHandle);
-		_nativeLangSpeaker.changeLangTabContextMenu(_tabBarPopupMenu.getMenuHandle());
-	}
-
-	// Modify the menu
-	{
-		// we'll only enable/disable the "Restore Recent Closed File" item instead of removing it, like Visual Studio
-		_tabBarPopupMenu.enableItem(IDM_FILE_RESTORELASTCLOSEDFILE, _lastRecentFileList.hasSeparators());
-
-		bool isSeveralDirty = false;
-		for (size_t i = 0; i < MainFileManager.getNbBuffers(); ++i)
-		{
-			if (MainFileManager.getBufferByIndex(i)->isDirty())
-			{
-				isSeveralDirty = true;
-				break;
-			}
-		}
-		_tabBarPopupMenu.enableItem(IDM_FILE_SAVEALL, isSeveralDirty);
-	}
-
-	POINT p;
-	GetCursorPos(&p);
-
-	// Display the menu
-	_tabBarPopupMenu.display(p);
 }

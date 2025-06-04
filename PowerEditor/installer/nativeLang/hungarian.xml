@@ -3,9 +3,9 @@
 <!-- Email: batagy.ford kukac gmail pont com, stocki.r kukac gmail pont com -->
 <!-- Forum topic: https://notepad-plus-plus.org/community/topic/80/hungarian-translation -->
 <!-- Prohardver topic: https://prohardver.hu/tema/re_notepad/friss.html -->
-<!-- For Notepad++ Version 8.4.3, modified on 2022.07.05 • For Notepad++ v8.7.3 updated at 2024.12.05 -->
+<!-- For more information see the Commits History: https://github.com/notepad-plus-plus/notepad-plus-plus/commits/master/PowerEditor/installer/nativeLang/hungarian.xml -->
 <NotepadPlus>
-	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.8">
+	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -137,6 +137,8 @@
 					<Item id="42060" name="Sorok rendezése &amp;fordított betűrendben"/>
 					<Item id="42080" name="Sorok rendezése &amp;betűrendben, kis- és nagybetűtől függetlenül"/>
 					<Item id="42081" name="Sorok rendezése &amp;fordított betűrendben, kis- és nagybetűtől függetlenül"/>
+					<Item id="42100" name="Sorok rendezése ter&amp;ületi beállítások szerint"/>
+					<Item id="42101" name="Sorok rendezése ter&amp;ületi beállítások szerinti fordított sorrendben"/>
 					<Item id="42061" name="Sorok rendezése e&amp;gész számok szerint növekvően"/>
 					<Item id="42062" name="Sorok rendezése egés&amp;z számok szerint csökkenően"/>
 					<Item id="42063" name="Sorok rendezése &amp;tizedes számok szerint növekvően (tizedesvessző alapján)"/>
@@ -424,7 +426,7 @@
 				<Item CMDID="41009" name="Balra lévők bezárása"/>
 				<Item CMDID="41018" name="Jobbra lévők bezárása"/>
 				<Item CMDID="41024" name="Az összes változatlan bezárása"/>
-				<Item CMDID="44048" name="Fül kitűzése" alternativeName="Kitűzés feloldása"/>
+				<Item CMDID="44048" name="Fül kitűzése" alternativeName="Fül kitűzésének feloldása"/>
 				<Item CMDID="41006" name="Mentés"/>
 				<Item CMDID="41008" name="Mentés másként…"/>
 				<Item CMDID="1" name="Megnyitás máshol"/>
@@ -490,7 +492,7 @@
 				<Item id="1633" name="Kiemelések eltávol&amp;ítása"/>
 				<Item id="1635" name="Csere a &amp;megnyitott dokumentumokban"/>
 				<Item id="1636" name="Keresés a &amp;megnyitott dokumentumokban"/>
-				<Item id="1654" name="🛈 Fájlnévsz&amp;űrő:"/>
+				<Item id="1654" name="Fájlnévsz&amp;űrő:"/>
 				<Item id="1655" name="&amp;Mappa:"/>
 				<Item id="1656" name="Az &amp;összes keresése"/>
 				<Item id="1658" name="A&amp;lmappákban is"/>
@@ -946,35 +948,35 @@
 			<Preference title="Gépház">
 				<Item id="6001" name="&amp;Bezárás"/>
 				<Global title="Általános">
-					<Item id="6123" name="N&amp;yelv"/>
+					<Item id="6123" name="&amp;Nyelv"/>
 					<Item id="6131" name="Menüsor"/>
-					<Item id="6122" name="Elrejtés (ideiglenes &amp;megjelenítés: Alt vagy F10)"/>
-					<Item id="6132" name="A j&amp;obb oldali parancsikonok (＋ ▼ ✕) elrejtése"/>
+					<Item id="6122" name="&amp;Elrejtés (ideiglenes megjelenítés: Alt vagy F10)"/>
+					<Item id="6132" name="&amp;A jobb oldali parancsikonok (＋ ▼ ✕) elrejtése"/>
 					<Item id="6133" name="Állapotsor"/>
-					<Item id="6134" name="&amp;Elrejtés"/>
+					<Item id="6134" name="El&amp;rejtés"/>
 				</Global>
 
 				<Toolbar title="Eszköztár">
-					<Item id="6102" name="El&amp;rejtés"/>
+					<Item id="6102" name="&amp;Elrejtés"/>
 					<Item id="6103" name="Kicsi &amp;Fluent UI-ikonok"/>
-					<Item id="6104" name="Nagy Fl&amp;uent UI-ikonok"/>
-					<Item id="6129" name="Kicsi ki&amp;töltött Fluent UI-ikonok"/>
-					<Item id="6130" name="Nagy kitö&amp;ltött Fluent UI-ikonok"/>
+					<Item id="6104" name="&amp;Nagy Fluent UI-ikonok"/>
+					<Item id="6129" name="K&amp;icsi kitöltött Fluent UI-ikonok"/>
+					<Item id="6130" name="N&amp;agy kitöltött Fluent UI-ikonok"/>
 					<Item id="6105" name="&amp;Hagyományos kicsi ikonok"/>
 					<Item id="6011" name="Színezés"/>
-					<Item id="6012" name="Teljes"/>
-					<Item id="6013" name="Részleges"/>
+					<Item id="6012" name="&amp;Teljes"/>
+					<Item id="6013" name="&amp;Részleges"/>
 					<Item id="6014" name="Színválasztás"/>
-					<Item id="6015" name="Alapértelmezett"/>
-					<Item id="6016" name="Piros"/>
-					<Item id="6017" name="Zöld"/>
-					<Item id="6018" name="Kék"/>
-					<Item id="6019" name="Lila"/>
-					<Item id="6020" name="Cián"/>
-					<Item id="6021" name="Olajzöld"/>
-					<Item id="6022" name="Sárga"/>
-					<Item id="6023" name="Rendszer kiemelőszíne"/>
-					<Item id="6024" name="Egyéni"/>
+					<Item id="6015" name="Alap&amp;értelmezett"/>
+					<Item id="6016" name="&amp;Piros"/>
+					<Item id="6017" name="&amp;Zöld"/>
+					<Item id="6018" name="&amp;Kék"/>
+					<Item id="6019" name="&amp;Lila"/>
+					<Item id="6020" name="&amp;Cián"/>
+					<Item id="6021" name="&amp;Olajzöld"/>
+					<Item id="6022" name="&amp;Sárga"/>
+					<Item id="6023" name="A ren&amp;dszer kiemelőszíne"/>
+					<Item id="6024" name="E&amp;gyéni"/>
 				</Toolbar>
 
 				<Tabbar title="Dokumentumfülek">
@@ -982,16 +984,18 @@
 					<Item id="6108" name="F&amp;ülek rögzítése („fogd és vidd” kikapcsolása)"/>
 					<Item id="6109" name="Az &amp;inaktív fülek elsötétítése"/>
 					<Item id="6110" name="Az &amp;aktív fül színes sávval jelölése"/>
-					<Item id="6111" name="Gombok megjele&amp;nítése az inaktív füleken"/>
-					<Item id="6112" name="Be&amp;zárásgomb megjelenítése"/>
-					<Item id="6113" name="Bez&amp;árás dupla kattintással"/>
-					<Item id="6115" name="Fülek kitűzésének engedélyezése"/>
-					<Item id="6135" name="C&amp;sak a „kitűzött” gombok megjelenítése"/>
-					<Item id="6118" name="Elre&amp;jtés"/>
-					<Item id="6119" name="T&amp;öbbsoros elrendezés"/>
-					<Item id="6120" name="Fü&amp;ggőleges megjelenítés"/>
+					<Item id="6111" name="&amp;Gombok megjelenítése az inaktív füleken"/>
+					<Item id="6112" name="Bezá&amp;rásgomb megjelenítése"/>
+					<Item id="6113" name="Be&amp;zárás dupla kattintással"/>
+					<Item id="6115" name="Fü&amp;lek kitűzésének engedélyezése"/>
+					<Item id="6135" name="C&amp;sak a „kitűzve” állapotú gomb megjelenítése"/>
+					<Item id="6118" name="&amp;Elrejtés"/>
+					<Item id="6119" name="&amp;Többsoros elrendezés"/>
+					<Item id="6120" name="&amp;Függőleges megjelenítés"/>
 					<Item id="6121" name="&amp;Kilépés az utolsó fül bezárásakor"/>
 					<Item id="6128" name="Alternatí&amp;v ikonok"/>
+					<Item id="6125" name="Viselkedés"/>
+					<Item id="6126" name="Megjelenés és működés"/><!-- Based on the standard translations (the translator) -->
 				</Tabbar>
 
 				<Scintillas title="Szerkesztés">
@@ -1104,6 +1108,7 @@
 					<Item id="6419" name="Új dokumentum"/>
 					<Item id="6420" name="A&amp;NSI-fájlokat megnyitva is"/>
 					<Item id="6432" name="Egy &amp;új dokumentum megnyitása minden indításkor"/>
+					<Item id="6433" name="A &amp;dokumentumok első sorának használata a névtelen lapokhoz"/>
 				</NewDoc>
 
 				<DefaultDir title="Alapértelmezett mappa">
@@ -1321,7 +1326,7 @@
 					<Item id="6271" name="Keresőmotor (a „Keresés az interneten” parancshoz)"/>
 					<Item id="6272" name="&amp;DuckDuckGo"/>
 					<Item id="6273" name="&amp;Google"/>
-					<Item id="6274" name="&amp;Bing"/>
+					<Item id="6274" name="B&amp;ing"/><!-- No longer in the Preferences (the translator) -->
 					<Item id="6275" name="&amp;Yahoo!"/><!-- Stack Overflow is missing for acc. letter (the translator) -->
 					<Item id="6276" name="&amp;Egyéni keresőmotor beállítása:"/>
 					<!-- Don't change anything after Example: -->
@@ -1468,6 +1473,9 @@ A felhőben tárolandó beállításai törlődnek. Kérjük, állítson be megf
 			<DroppingFolderAsProjectModeWarning title="Érvénytelen művelet" message="A Notepad++-ra vagy csak fájlokat, vagy csak mappákat ejthet (mindkettőt nem), mivel a „fogd és vidd” műveletre projektmód van beállítva.
 A művelet végrehajtásához a „Gépház” párbeszédpanel „Alapértelmezett mappa” szakaszában az „Egy mappa »fogd és vidd« ejtésekor a fájlok megnyitása…” lehetőség engedélyezése szükséges"/>
 			<SortingError title="Rendezési hiba" message="Nem hajtható végre számszerű rendezés a(z) $INT_REPLACE$. sor miatt"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SortLocaleMultiple title="Nem történt rendezés" message="Nem támogatott a többszörös kijelöléssel történő rendezés"/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleUnknown title="Sikertelen rendezés" message="Sajnos nem sikerült megállapítani a rendezés sikertelenségének okát"/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+			<SortLocaleExcept title="Sikertelen rendezés" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Javaslatok az oszlopos kijelöléshez" message="Háromféle módon használhatja az oszlopos kijelölést:
 
 1. Billentyűzettel és egérrel: tartsa nyomva az Altot, majd az egér bal gombját lenyomva indítson kijelölést

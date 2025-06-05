@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2025-05-20"><!-- basiert auf english.xml 8.8.1 vom 17.05.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2025-06-05"><!-- basiert auf english.xml 8.8.1 vom 04.06.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1117,6 +1117,7 @@ Translation note:
 					<Item id="6419" name="Neues Dokument"/>
 					<Item id="6420" name="Auch beim Öffnen von ANSI-Dateien"/>
 					<Item id="6432" name="Öffne beim Starten immer zusätzlich ein neues Dokument"/>
+					<Item id="6433" name="Die erste Zeile des Dokuments als Tab-Name verwenden"/>
 				</NewDoc>
 
 				<DefaultDir title="Standardverzeichnis">

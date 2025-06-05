@@ -707,6 +707,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	msg.wParam = 0;
 	Win32Exception::installHandler();
 	MiniDumper mdump;	//for debugging purposes.
+	bool isException = false;
 	try
 	{
 		notepad_plus_plus.init(hInstance, NULL, quotFileName.c_str(), &cmdLineParams);
@@ -731,6 +732,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	}
 	catch (int i)
 	{
+		isException = true;
 		wchar_t str[50] = L"God Damned Exception:";
 		wchar_t code[10];
 		wsprintf(code, L"%d", i);
@@ -740,11 +742,13 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	}
 	catch (std::runtime_error & ex)
 	{
+		isException = true;
 		::MessageBoxA(Notepad_plus_Window::gNppHWND, ex.what(), "Runtime Exception", MB_OK);
 		doException(notepad_plus_plus);
 	}
 	catch (const Win32Exception & ex)
 	{
+		isException = true;
 		wchar_t message[1024];
 		wsprintf(message, L"An exception occurred. Notepad++ cannot recover and must be shut down.\r\nThe exception details are as follows:\r\n"
 			L"Code:\t0x%08X\r\nType:\t%S\r\nException address: 0x%p", ex.code(), ex.what(), ex.where());
@@ -754,18 +758,20 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	}
 	catch (std::exception & ex)
 	{
+		isException = true;
 		::MessageBoxA(Notepad_plus_Window::gNppHWND, ex.what(), "General Exception", MB_OK);
 		doException(notepad_plus_plus);
 	}
 	catch (...) // this shouldn't ever have to happen
 	{
+		isException = true;
 		::MessageBoxA(Notepad_plus_Window::gNppHWND, "An exception that we did not yet found its name is just caught", "Unknown Exception", MB_OK);
 		doException(notepad_plus_plus);
 	}
 
 	doUpdateNpp = nppGui._autoUpdateOpt._doAutoUpdate; // refresh, maybe user activated these opts in Preferences
 	updateAtExit = nppGui._autoUpdateOpt._atAppExit; // refresh
-	if (!nppParameters.isEndSessionCritical() && TheFirstOne && isUpExist && isGtXP && isSignatureOK && doUpdateNpp && updateAtExit)
+	if (!isException && !nppParameters.isEndSessionCritical() && TheFirstOne && isUpExist && isGtXP && isSignatureOK && doUpdateNpp && updateAtExit)
 	{
 		std::wstring updaterParams = L"-v";
 		//updaterParams += VERSION_INTERNAL_VALUE; // TEMP:
@@ -800,6 +806,8 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 			if (nppGui._autoUpdateOpt._intervalDays < 0) // Make sure interval days value is positive
 				nppGui._autoUpdateOpt._intervalDays = 0 - nppGui._autoUpdateOpt._intervalDays;
 			nppGui._autoUpdateOpt._nextUpdateDate = Date(nppGui._autoUpdateOpt._intervalDays);
+			nppParameters.createXmlTreeFromGUIParams();
+			nppParameters.saveConfig_xml();
 		}
 
 		// to be removed

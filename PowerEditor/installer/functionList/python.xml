@@ -22,7 +22,7 @@
 					<nameExpr expr="\w+(?=\s*[\(|:])" />
 				</className>
 				<function
-					mainExpr="\s(async )?def\x20\K.+?(?=(:$|,$|:\s*#))"
+					mainExpr="\s(async )?def\x20\K.+?(?=(:\h*$|,\h*$|:\s*#))"
 				>
 					<functionName>
 						<funcNameExpr expr=".*" />
@@ -30,7 +30,7 @@
 				</function>
 			</classRange>
 			<function
-				mainExpr="^(async )?def\x20\K.+?(?=(:$|,$|:\s*#))"
+				mainExpr="^(async )?def\x20\K.+?(?=(:\h*$|,\h*$|:\s*#))"
 			>
 				<functionName>
 					<nameExpr expr=".*" />

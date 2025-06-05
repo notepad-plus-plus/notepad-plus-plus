@@ -50,7 +50,19 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			if (notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT))
 			{
+				// Make temporary tab name automatically by using the 1st line of content for untitled documents
+				Buffer* buffer = notifyView->getCurrentBuffer();
+				const NewDocDefaultSettings& ndds = NppParameters::getInstance().getNppGUI().getNewDocDefaultSettings();
+				intptr_t curLineIndex = _pEditView->execute(SCI_LINEFROMPOSITION, notification->position);
+				if (curLineIndex == 0 && ndds._useContentAsTabName && buffer->isUntitled() && !buffer->isUntitledTabRenamed())
+				{
+					useFirstLineAsTabName(buffer);
+				}
+
+				// Hold the correct position for "Begin/End &Select" or "Begin/End Select in Column Mode" commands
 				_pEditView->updateBeginEndSelectPosition(notification->modificationType & SC_MOD_INSERTTEXT, notification->position, notification->length);
+
+				// While the text modification, we make sure the link beblow the modification will be reprocessed
 				_linkTriggered = true;
 				::InvalidateRect(notifyView->getHSelf(), NULL, TRUE);
 			}
@@ -59,59 +71,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{
 				// for the backup system
 				_pEditView->getCurrentBuffer()->setModifiedStatus(true);
-
-				// auto make temporary name for untitled documents
-				Buffer* buffer = notifyView->getCurrentBuffer();
-				const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
-				const NewDocDefaultSettings& ndds = nppGui.getNewDocDefaultSettings();
-				intptr_t curLineIndex = _pEditView->execute(SCI_LINEFROMPOSITION, notification->position);
-				if (curLineIndex == 0 && ndds._useContentAsTabName && buffer->isUntitled() && !buffer->isUntitledTabRenamed())
-				{
-					// make a temporary tab name from first line of document
-					wstring content1stLineTabName = _pEditView->getLine(0);
-					buffer->normalizeTabName(content1stLineTabName);
-
-					// check whether there is any buffer with the same name
-					BufferID sameNamedBufferId = _pDocTab->findBufferByName(content1stLineTabName.c_str());
-					if (sameNamedBufferId == BUFFER_INVALID)
-						sameNamedBufferId = _pNonDocTab->findBufferByName(content1stLineTabName.c_str());
-
-					if (!content1stLineTabName.empty() && content1stLineTabName != buffer->getFileName() && sameNamedBufferId == BUFFER_INVALID)
-					{
-						// notify tab name changing
-						SCNotification scnNotif{};
-						scnNotif.nmhdr.code = NPPN_FILEBEFORERENAME;
-						scnNotif.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
-						scnNotif.nmhdr.idFrom = (uptr_t)buffer->getID();
-						_pluginsManager.notify(&scnNotif);
-
-						// backup old file path
-						wstring oldFileNamePath = buffer->getFullPathName();
-
-						// set tab name
-						buffer->setFileName(content1stLineTabName.c_str());
-
-						// notify tab renamed
-						scnNotif.nmhdr.code = NPPN_FILERENAMED;
-						_pluginsManager.notify(&scnNotif);
-
-						// for the backup system
-						wstring oldBackUpFileName = buffer->getBackupFileName();
-						bool isSnapshotMode = nppGui.isSnapshotMode();
-						if (isSnapshotMode && !oldBackUpFileName.empty())
-						{
-							wstring newBackUpFileName = oldBackUpFileName;
-							newBackUpFileName.replace(newBackUpFileName.rfind(oldFileNamePath), oldFileNamePath.length(), content1stLineTabName);
-
-							if (doesFileExist(newBackUpFileName.c_str()))
-								::ReplaceFile(newBackUpFileName.c_str(), oldBackUpFileName.c_str(), nullptr, REPLACEFILE_IGNORE_MERGE_ERRORS | REPLACEFILE_IGNORE_ACL_ERRORS, 0, 0);
-							else
-								::MoveFileEx(oldBackUpFileName.c_str(), newBackUpFileName.c_str(), MOVEFILE_REPLACE_EXISTING);
-
-							buffer->setBackupFileName(newBackUpFileName);
-						}
-					}
-				}
 			}
 
 			if (notification->modificationType & SC_MOD_CHANGEINDICATOR)

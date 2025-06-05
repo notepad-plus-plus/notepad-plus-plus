@@ -194,6 +194,7 @@ public:
 	bool fileDelete(BufferID id = BUFFER_INVALID);
 	bool fileRename(BufferID id = BUFFER_INVALID);
 	bool fileRenameUntitledPluginAPI(BufferID id, const wchar_t* tabNewName);
+	bool useFirstLineAsTabName(BufferID id);
 
 	void unPinnedForAllBuffers();
 	bool switchToFile(BufferID buffer);			//find buffer in active view then in other view.

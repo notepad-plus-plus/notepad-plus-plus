@@ -1719,11 +1719,11 @@ bool Notepad_plus::fileCloseAllButCurrent()
 	return true;
 }
 
-bool Notepad_plus::fileSave(BufferID id)
+bool Notepad_plus::fileSave(BufferID bufferID)
 {
-	BufferID bufferID = id;
-	if (id == BUFFER_INVALID)
+	if (bufferID == BUFFER_INVALID)
 		bufferID = _pEditView->getCurrentBufferID();
+
 	Buffer * buf = MainFileManager.getBufferByID(bufferID);
 
 	if (!buf->getFileReadOnly() && buf->isDirty())	//cannot save if readonly
@@ -1931,11 +1931,11 @@ bool Notepad_plus::fileSaveAll()
 	return true;
 }
 
-bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
+bool Notepad_plus::fileSaveAs(BufferID bufferID, bool isSaveCopy)
 {
-	BufferID bufferID = id;
-	if (id == BUFFER_INVALID)
+	if (bufferID == BUFFER_INVALID)
 		bufferID = _pEditView->getCurrentBufferID();
+
 	Buffer * buf = MainFileManager.getBufferByID(bufferID);
 
 	wstring origPathname = buf->getFullPathName();
@@ -2034,11 +2034,11 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 	}
 }
 
-bool Notepad_plus::fileRename(BufferID id)
+bool Notepad_plus::fileRename(BufferID bufferID)
 {
-	BufferID bufferID = id;
-	if (id == BUFFER_INVALID)
+	if (bufferID == BUFFER_INVALID)
 		bufferID = _pEditView->getCurrentBufferID();
+
 	Buffer * buf = MainFileManager.getBufferByID(bufferID);
 
 	SCNotification scnN{};
@@ -2142,6 +2142,64 @@ bool Notepad_plus::fileRename(BufferID id)
 	}
 
 	return success;
+}
+
+// Make a temporary tab name from first line of document
+bool Notepad_plus::useFirstLineAsTabName(BufferID bufferID)
+{
+	if (bufferID == BUFFER_INVALID)
+		return false;
+	Buffer* buffer = MainFileManager.getBufferByID(bufferID);
+
+	wstring content1stLineTabName = _pEditView->getLine(0);
+	buffer->normalizeTabName(content1stLineTabName);
+	if (content1stLineTabName.empty())
+		return false;
+
+	// check whether there is any buffer with the same name
+	BufferID sameNamedBufferId = _pDocTab->findBufferByName(content1stLineTabName.c_str());
+	if (sameNamedBufferId == BUFFER_INVALID)
+		sameNamedBufferId = _pNonDocTab->findBufferByName(content1stLineTabName.c_str());
+
+	if (content1stLineTabName != buffer->getFileName() && sameNamedBufferId == BUFFER_INVALID)
+	{
+		// notify tab name changing
+		SCNotification scnNotif{};
+		scnNotif.nmhdr.code = NPPN_FILEBEFORERENAME;
+		scnNotif.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
+		scnNotif.nmhdr.idFrom = (uptr_t)buffer->getID();
+		_pluginsManager.notify(&scnNotif);
+
+		// backup old file path
+		wstring oldFileNamePath = buffer->getFullPathName();
+
+		// set tab name
+		buffer->setFileName(content1stLineTabName.c_str());
+
+		// notify tab renamed
+		scnNotif.nmhdr.code = NPPN_FILERENAMED;
+		_pluginsManager.notify(&scnNotif);
+
+		// for the backup system
+		wstring oldBackUpFileName = buffer->getBackupFileName();
+		bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
+		if (isSnapshotMode && !oldBackUpFileName.empty())
+		{
+			wstring newBackUpFileName = oldBackUpFileName;
+			newBackUpFileName.replace(newBackUpFileName.rfind(oldFileNamePath), oldFileNamePath.length(), content1stLineTabName);
+
+			if (doesFileExist(newBackUpFileName.c_str()))
+				::ReplaceFile(newBackUpFileName.c_str(), oldBackUpFileName.c_str(), nullptr, REPLACEFILE_IGNORE_MERGE_ERRORS | REPLACEFILE_IGNORE_ACL_ERRORS, 0, 0);
+			else
+				::MoveFileEx(oldBackUpFileName.c_str(), newBackUpFileName.c_str(), MOVEFILE_REPLACE_EXISTING);
+
+			buffer->setBackupFileName(newBackUpFileName);
+		}
+
+		return true;
+	}
+
+	return false;
 }
 
 bool Notepad_plus::fileRenameUntitledPluginAPI(BufferID id, const wchar_t* tabNewName)

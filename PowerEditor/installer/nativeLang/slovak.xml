@@ -1105,6 +1105,7 @@
 					<Item id="6419" name="Nový dokument"/>
 					<Item id="6420" name="Použiť pri otváraní ANSI súborov"/>
 					<Item id="6432" name="Pri spustení vždy otvoriť nový dokument"/>
+					<Item id="6433" name="Použiť prvý riadok dokumentu ako názov karty bez názvu"/>
 				</NewDoc>
 
 				<DefaultDir title="Predvolený priečinok">

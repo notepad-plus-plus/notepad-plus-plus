@@ -951,6 +951,7 @@ struct NppGUI final
 		bool _doAutoUpdate = true;
 		int _intervalDays = 15;
 		Date _nextUpdateDate;
+		bool _atAppExit = false;
 		AutoUpdateOptions(): _nextUpdateDate(Date()) {};
 	}
 	_autoUpdateOpt;

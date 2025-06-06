@@ -506,6 +506,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	DPIManagerV2::initDpiAPI();
 
 	bool doUpdateNpp = nppGui._autoUpdateOpt._doAutoUpdate;
+	bool updateAtExit = nppGui._autoUpdateOpt._atAppExit;
 	bool doUpdatePluginList = nppGui._autoUpdateOpt._doAutoUpdate;
 
 	if (doFunctionListExport || doPrintAndQuit) // export functionlist feature will serialize functionlist on the disk, then exit Notepad++. So it's important to not launch into existing instance, and keep it silent.
@@ -622,24 +623,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 
 	std::wstring updaterFullPath = updaterDir + L"gup.exe";
 
-	std::wstring updaterParams = L"-v";
-	updaterParams += VERSION_INTERNAL_VALUE;
-
 	bool isUpExist = nppGui._doesExistUpdater = doesFileExist(updaterFullPath.c_str());
-
-    if (doUpdateNpp) // check more detail
-    {
-        Date today(0);
-
-        if (today < nppGui._autoUpdateOpt._nextUpdateDate)
-            doUpdateNpp = false;
-    }
-
-	if (doUpdatePluginList)
-	{
-		// TODO: detect update frequency
-		// Due to the code signing problem, the Plugin List cannot be updated independently of Notepad++ for now.
-	}
 
 	// wingup doesn't work with the obsolete security layer (API) under xp since downloads are secured with SSL on notepad_plus_plus.org
 	winVer ver = nppParameters.getWinVersion();
@@ -648,8 +632,12 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	SecurityGuard securityGuard;
 	bool isSignatureOK = securityGuard.checkModule(updaterFullPath, nm_gup);
 
-	if (TheFirstOne && isUpExist && isGtXP && isSignatureOK)
+	if (TheFirstOne && isUpExist && isGtXP && isSignatureOK && doUpdateNpp && !updateAtExit)
 	{
+		std::wstring updaterParams = L"-v";
+		//updaterParams += VERSION_INTERNAL_VALUE; // TEMP:
+		updaterParams += L"8.79\0"; // TEMP: for testing only (to force the update also for the latest N++ installed)
+
 		if (nppParameters.archType() == IMAGE_FILE_MACHINE_AMD64)
 		{
 			updaterParams += L" -px64";
@@ -657,6 +645,17 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 		else if (nppParameters.archType() == IMAGE_FILE_MACHINE_ARM64)
 		{
 			updaterParams += L" -parm64";
+		}
+
+		// check if update interval elapsed
+		Date today(0);
+		if (today < nppGui._autoUpdateOpt._nextUpdateDate)
+				doUpdateNpp = false;
+
+		if (doUpdatePluginList)
+		{
+			// TODO: detect update frequency
+			// Due to the code signing problem, the Plugin List cannot be updated independently of Notepad++ for now.
 		}
 
 		if (doUpdateNpp)
@@ -708,6 +707,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	msg.wParam = 0;
 	Win32Exception::installHandler();
 	MiniDumper mdump;	//for debugging purposes.
+	bool isException = false;
 	try
 	{
 		notepad_plus_plus.init(hInstance, NULL, quotFileName.c_str(), &cmdLineParams);
@@ -732,6 +732,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	}
 	catch (int i)
 	{
+		isException = true;
 		wchar_t str[50] = L"God Damned Exception:";
 		wchar_t code[10];
 		wsprintf(code, L"%d", i);
@@ -741,11 +742,13 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	}
 	catch (std::runtime_error & ex)
 	{
+		isException = true;
 		::MessageBoxA(Notepad_plus_Window::gNppHWND, ex.what(), "Runtime Exception", MB_OK);
 		doException(notepad_plus_plus);
 	}
 	catch (const Win32Exception & ex)
 	{
+		isException = true;
 		wchar_t message[1024];
 		wsprintf(message, L"An exception occurred. Notepad++ cannot recover and must be shut down.\r\nThe exception details are as follows:\r\n"
 			L"Code:\t0x%08X\r\nType:\t%S\r\nException address: 0x%p", ex.code(), ex.what(), ex.where());
@@ -755,13 +758,90 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	}
 	catch (std::exception & ex)
 	{
+		isException = true;
 		::MessageBoxA(Notepad_plus_Window::gNppHWND, ex.what(), "General Exception", MB_OK);
 		doException(notepad_plus_plus);
 	}
 	catch (...) // this shouldn't ever have to happen
 	{
+		isException = true;
 		::MessageBoxA(Notepad_plus_Window::gNppHWND, "An exception that we did not yet found its name is just caught", "Unknown Exception", MB_OK);
 		doException(notepad_plus_plus);
+	}
+
+	doUpdateNpp = nppGui._autoUpdateOpt._doAutoUpdate; // refresh, maybe user activated these opts in Preferences
+	updateAtExit = nppGui._autoUpdateOpt._atAppExit; // refresh
+	if (!isException && !nppParameters.isEndSessionCritical() && TheFirstOne && isUpExist && isGtXP && isSignatureOK && doUpdateNpp && updateAtExit)
+	{
+		std::wstring updaterParams = L"-v";
+		//updaterParams += VERSION_INTERNAL_VALUE; // TEMP:
+		updaterParams += L"8.79\0"; // TEMP: for testing only (to force the update also for the latest N++ installed)
+
+		if (nppParameters.archType() == IMAGE_FILE_MACHINE_AMD64)
+		{
+			updaterParams += L" -px64";
+		}
+		else if (nppParameters.archType() == IMAGE_FILE_MACHINE_ARM64)
+		{
+			updaterParams += L" -parm64";
+		}
+
+		// check if update interval elapsed
+		Date today(0);
+		if (today < nppGui._autoUpdateOpt._nextUpdateDate)
+				doUpdateNpp = false;
+
+		if (doUpdatePluginList)
+		{
+			// TODO: detect update frequency
+			// Due to the code signing problem, the Plugin List cannot be updated independently of Notepad++ for now.
+		}
+
+		if (doUpdateNpp)
+		{
+			Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
+			updater.run();
+
+			// Update next update date
+			if (nppGui._autoUpdateOpt._intervalDays < 0) // Make sure interval days value is positive
+				nppGui._autoUpdateOpt._intervalDays = 0 - nppGui._autoUpdateOpt._intervalDays;
+			nppGui._autoUpdateOpt._nextUpdateDate = Date(nppGui._autoUpdateOpt._intervalDays);
+			nppParameters.createXmlTreeFromGUIParams();
+			nppParameters.saveConfig_xml();
+		}
+
+		// to be removed
+		doUpdatePluginList = false;
+
+		if (doUpdatePluginList)
+		{
+			// Update Plugin List
+			std::wstring upPlParams = L"-v";
+			upPlParams += notepad_plus_plus.getPluginListVerStr();
+
+			if (nppParameters.archType() == IMAGE_FILE_MACHINE_AMD64)
+			{
+				upPlParams += L" -px64";
+			}
+			else if (nppParameters.archType() == IMAGE_FILE_MACHINE_ARM64)
+			{
+				upPlParams += L" -parm64";
+			}
+
+			upPlParams += L" -upZip";
+
+			// override "InfoUrl" in gup.xml
+			upPlParams += L" https://notepad-plus-plus.org/update/pluginListDownloadUrl.php";
+
+			// indicate the pluginList installation location
+			upPlParams += nppParameters.getPluginConfDir();
+
+			Process updater(updaterFullPath.c_str(), upPlParams.c_str(), updaterDir.c_str());
+			updater.run();
+
+			// TODO: Update next update date
+			// Due to the code signing problem, the Plugin List cannot be updated independently of Notepad++ for now.
+		}
 	}
 
 	return static_cast<int>(msg.wParam);

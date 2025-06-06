@@ -1308,6 +1308,8 @@ Installation:
             <WordsStyle name="BYTE STRING" styleID="21" fgColor="2AA198" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="RAW BYTE STRING" styleID="22" fgColor="CCB8CC" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="BYTE CHARACTER" styleID="23" fgColor="2AA198" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="C STRING" styleID="24" fgColor="2AA198" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="RAW C STRING" styleID="25" fgColor="CCB8CC" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="sas" desc="SAS" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="839496" bgColor="002B36" fontName="" fontStyle="" fontSize="" />

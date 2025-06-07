@@ -70,7 +70,7 @@
                     <Item subMenuId="encoding-japanese"  name="Japonez"/>
                     <Item subMenuId="encoding-korean" name="Corean"/>
                     <Item subMenuId="encoding-northEuropean" name="Nord-european"/>
-                    <Item subMenuId="encoding-thai" name="Tailandez"/>
+                    <Item subMenuId="encoding-thai" name="Thailandez"/>
                     <Item subMenuId="encoding-turkish" name="Turc"/>
                     <Item subMenuId="encoding-westernEuropean" name="Vest-european"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamez"/>
@@ -1009,7 +1009,7 @@
 					<Item id="6121" name="Ieși la închiderea ultimei file"/>
 					<Item id="6128" name="Pictograme alternative (Iconițe alternative)"/>
 					<Item id="6125" name="Comportament"/>
-					<Item id="6126" name="Aspect și senzație"/>
+					<Item id="6126" name="Aspectul vizual"/>
 				</Tabbar>
 				
                 <Scintillas title="Editare 1">

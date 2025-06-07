@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
     Italian translation for Notepad++ 8.8.2
-    Last modified Sun, May 18nd, 2025.
+    Last modified Sat, Jun 7th, 2025.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <!--
@@ -1113,6 +1113,7 @@ Translation note:
 					<Item id="6419" name="Nuovo Documento"/>
 					<Item id="6420" name="Applica all&apos;apertura di file ANSI"/>
 					<Item id="6432" name="Aggiungi un nuovo documento all'avvio"/>
+					<Item id="6433" name="Utilizza la prima riga del documento come nome della scheda senza titolo"/>
 				</NewDoc>
 
 				<DefaultDir title="Cartella predefinita">

@@ -1248,3 +1248,8 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//scnNotification->nmhdr.code = NPPN_NATIVELANGCHANGED;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp
 	//scnNotification->nmhdr.idFrom = 0; // preserved for the future use, must be zero
+
+	#define NPPN_TOOLBARICONSETCHANGED (NPPN_FIRST + 32) // To notify plugins that toolbar icon set selection has changed
+	//scnNotification->nmhdr.code = NPPN_TOOLBARICONSETCHANGED;
+	//scnNotification->nmhdr.hwndFrom = hwndNpp;
+	//scnNotification->nmhdr.idFrom = 0;

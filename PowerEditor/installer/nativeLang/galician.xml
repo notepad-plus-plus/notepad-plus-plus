@@ -33,7 +33,7 @@ Translation note:
 					<Item subMenuId="edit-indent" name="Tab&amp;ulación"/>
 					<Item subMenuId="edit-convertCaseTo" name="Conversión de &amp;maiúsculas e minúsculas"/>
 					<Item subMenuId="edit-lineOperations" name="Operacións con li&amp;ñas"/>
-					<Item subMenuId="edit-comment" name="Comen&amp;tar / Descomentar"/>
+					<Item subMenuId="edit-comment" name="Comen&amp;tar/Descomentar"/>
 					<Item subMenuId="edit-autoCompletion" name="&amp;Autocompletar"/>
 					<Item subMenuId="edit-eolConversion" name="Con&amp;versión fin de liña"/>
 					<Item subMenuId="edit-blankOperations" name="Operacións de limpe&amp;za"/>
@@ -1108,6 +1108,7 @@ Translation note:
 					<Item id="6419" name="Novo documento"/>
 					<Item id="6420" name="Aplicar aos arquivos ANSI abertos"/>
 					<Item id="6432" name="Abrir sempre un novo documento adicional ao inicio"/>
+					<Item id="6433" name="Usar a primeira liña do documento como nome da pestana"/>
 				</NewDoc>
 
 				<DefaultDir title="Carpeta predeterminada">

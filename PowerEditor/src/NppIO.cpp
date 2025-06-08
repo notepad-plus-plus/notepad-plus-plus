@@ -2388,7 +2388,7 @@ bool Notepad_plus::isFileSession(const wchar_t * filename)
 		}
 		usrSessionExt += definedSessionExt;
 
-		if (!wcsicmp(pExt, usrSessionExt.c_str()))
+		if (!_wcsicmp(pExt, usrSessionExt.c_str()))
 		{
 			return true;
 		}
@@ -2412,7 +2412,7 @@ bool Notepad_plus::isFileWorkspace(const wchar_t * filename)
 		}
 		usrWorkspaceExt += definedWorkspaceExt;
 
-		if (!wcsicmp(pExt, usrWorkspaceExt.c_str()))
+		if (!_wcsicmp(pExt, usrWorkspaceExt.c_str()))
 		{
 			return true;
 		}

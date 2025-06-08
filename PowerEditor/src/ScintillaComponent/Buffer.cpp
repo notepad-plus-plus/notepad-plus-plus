@@ -277,15 +277,15 @@ void Buffer::setFileName(const wchar_t *fn)
 
 	if (determinedLang == L_TEXT)	// language can probably be refined
 	{
-		if ((wcsicmp(_fileName, L"makefile") == 0) || (wcsicmp(_fileName, L"GNUmakefile") == 0))
+		if ((_wcsicmp(_fileName, L"makefile") == 0) || (_wcsicmp(_fileName, L"GNUmakefile") == 0))
 			determinedLang = L_MAKEFILE;
-		else if (wcsicmp(_fileName, L"CmakeLists.txt") == 0)
+		else if (_wcsicmp(_fileName, L"CmakeLists.txt") == 0)
 			determinedLang = L_CMAKE;
-		else if ((wcsicmp(_fileName, L"SConstruct") == 0) || (wcsicmp(_fileName, L"SConscript") == 0) || (wcsicmp(_fileName, L"wscript") == 0))
+		else if ((_wcsicmp(_fileName, L"SConstruct") == 0) || (_wcsicmp(_fileName, L"SConscript") == 0) || (_wcsicmp(_fileName, L"wscript") == 0))
 			determinedLang = L_PYTHON;
-		else if ((wcsicmp(_fileName, L"Rakefile") == 0) || (wcsicmp(_fileName, L"Vagrantfile") == 0))
+		else if ((_wcsicmp(_fileName, L"Rakefile") == 0) || (_wcsicmp(_fileName, L"Vagrantfile") == 0))
 			determinedLang = L_RUBY;
-		else if ((wcsicmp(_fileName, L"crontab") == 0) || (wcsicmp(_fileName, L"PKGBUILD") == 0) || (wcsicmp(_fileName, L"APKBUILD") == 0))
+		else if ((_wcsicmp(_fileName, L"crontab") == 0) || (_wcsicmp(_fileName, L"PKGBUILD") == 0) || (_wcsicmp(_fileName, L"APKBUILD") == 0))
 			determinedLang = L_BASH;
 	}
 
@@ -1627,7 +1627,7 @@ int FileManager::detectCodepage(char* buf, size_t len)
 	uchardet_handle_data(ud, buf, len);
 	uchardet_data_end(ud);
 	const char* cs = uchardet_get_charset(ud);
-	if (stricmp(cs, "TIS-620") != 0) // TIS-620 detection is disabled here because uchardet detects usually wrongly UTF-8 as TIS-620
+	if (_stricmp(cs, "TIS-620") != 0) // TIS-620 detection is disabled here because uchardet detects usually wrongly UTF-8 as TIS-620
 		codepage = EncodingMapper::getInstance().getEncodingFromString(cs);
 	uchardet_delete(ud);
 	return codepage;
@@ -1997,7 +1997,7 @@ BufferID FileManager::getBufferFromName(const wchar_t* name)
 {
 	for (auto buf : _buffers)
 	{
-		if (wcsicmp(name, buf->getFullPathName()) == 0)
+		if (_wcsicmp(name, buf->getFullPathName()) == 0)
 		{
 			if (!(buf->_referees.empty()) && buf->_referees[0]->isVisible())
 			{

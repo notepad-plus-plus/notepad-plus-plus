@@ -705,7 +705,7 @@ std::wstring LocalizationSwitcher::getLangFromXmlFileName(const wchar_t *fn) con
 	size_t nbItem = sizeof(localizationDefs)/sizeof(LocalizationSwitcher::LocalizationDefinition);
 	for (size_t i = 0 ; i < nbItem ; ++i)
 	{
-		if (0 == wcsicmp(fn, localizationDefs[i]._xmlFileName))
+		if (0 == _wcsicmp(fn, localizationDefs[i]._xmlFileName))
 			return localizationDefs[i]._langName;
 	}
 	return std::wstring();
@@ -716,7 +716,7 @@ std::wstring LocalizationSwitcher::getXmlFilePathFromLangName(const wchar_t *lan
 {
 	for (size_t i = 0, len = _localizationList.size(); i < len ; ++i)
 	{
-		if (0 == wcsicmp(langName, _localizationList[i].first.c_str()))
+		if (0 == _wcsicmp(langName, _localizationList[i].first.c_str()))
 			return _localizationList[i].second;
 	}
 	return std::wstring();
@@ -1781,7 +1781,7 @@ const wchar_t* NppParameters::getUserDefinedLangNameFromExt(wchar_t *ext, wchar_
 		// Force to use dark mode UDL in dark mode or to use  light mode UDL in light mode
 		for (size_t j = 0, len = extVect.size(); j < len; ++j)
 		{
-			if (!wcsicmp(extVect[j].c_str(), ext) || (wcschr(fullName, '.') && !wcsicmp(extVect[j].c_str(), fullName)))
+			if (!_wcsicmp(extVect[j].c_str(), ext) || (wcschr(fullName, '.') && !_wcsicmp(extVect[j].c_str(), fullName)))
 			{
 				// preserve ext matched UDL
 				iMatched = i;
@@ -2114,7 +2114,7 @@ int NppParameters::getCmdIdFromMenuEntryItemName(HMENU mainMenuHandle, const std
 	{
 		wchar_t menuEntryString[menuItemStrLenMax];
 		::GetMenuString(mainMenuHandle, i, menuEntryString, menuItemStrLenMax, MF_BYPOSITION);
-		if (wcsicmp(menuEntryName.c_str(), purgeMenuItemString(menuEntryString).c_str()) == 0)
+		if (_wcsicmp(menuEntryName.c_str(), purgeMenuItemString(menuEntryString).c_str()) == 0)
 		{
 			vector< pair<HMENU, int> > parentMenuPos;
 			HMENU topMenu = ::GetSubMenu(mainMenuHandle, i);
@@ -2139,7 +2139,7 @@ int NppParameters::getCmdIdFromMenuEntryItemName(HMENU mainMenuHandle, const std
 					//  Check current menu position.
 					wchar_t cmdStr[menuItemStrLenMax];
 					::GetMenuString(currMenu, currMenuPos, cmdStr, menuItemStrLenMax, MF_BYPOSITION);
-					if (wcsicmp(menuItemName.c_str(), purgeMenuItemString(cmdStr).c_str()) == 0)
+					if (_wcsicmp(menuItemName.c_str(), purgeMenuItemString(cmdStr).c_str()) == 0)
 					{
 						return ::GetMenuItemID(currMenu, currMenuPos);
 					}
@@ -2174,7 +2174,7 @@ int NppParameters::getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, const 
 	{
 		wchar_t menuItemString[menuItemStrLenMax];
 		::GetMenuString(pluginsMenu, i, menuItemString, menuItemStrLenMax, MF_BYPOSITION);
-		if (wcsicmp(pluginName.c_str(), purgeMenuItemString(menuItemString).c_str()) == 0)
+		if (_wcsicmp(pluginName.c_str(), purgeMenuItemString(menuItemString).c_str()) == 0)
 		{
 			HMENU pluginMenu = ::GetSubMenu(pluginsMenu, i);
 			int nbPluginCmd = ::GetMenuItemCount(pluginMenu);
@@ -2182,7 +2182,7 @@ int NppParameters::getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, const 
 			{
 				wchar_t pluginCmdStr[menuItemStrLenMax];
 				::GetMenuString(pluginMenu, j, pluginCmdStr, menuItemStrLenMax, MF_BYPOSITION);
-				if (wcsicmp(pluginCmdName.c_str(), purgeMenuItemString(pluginCmdStr).c_str()) == 0)
+				if (_wcsicmp(pluginCmdName.c_str(), purgeMenuItemString(pluginCmdStr).c_str()) == 0)
 				{
 					return ::GetMenuItemID(pluginMenu, j);
 				}

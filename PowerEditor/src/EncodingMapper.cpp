@@ -89,7 +89,7 @@ bool isInListA(const char *token, const char *list)
 				word[j] = '\0';
 				j = 0;
 				
-				if (!stricmp(token, word))
+				if (!_stricmp(token, word))
 					return true;
 			}
 		}

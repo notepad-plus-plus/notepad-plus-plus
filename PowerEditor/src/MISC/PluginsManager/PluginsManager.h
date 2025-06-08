@@ -152,7 +152,7 @@ private:
 
 	bool isInLoadedDlls(const wchar_t *fn) const {
 		for (size_t i = 0; i < _loadedDlls.size(); ++i)
-			if (wcsicmp(fn, _loadedDlls[i]._fileName.c_str()) == 0)
+			if (_wcsicmp(fn, _loadedDlls[i]._fileName.c_str()) == 0)
 				return true;
 		return false;
 	}

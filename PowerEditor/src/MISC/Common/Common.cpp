@@ -282,7 +282,7 @@ bool isInList(const wchar_t *token, const wchar_t *list)
 				word[j] = '\0';
 				j = 0;
 
-				if (!wcsicmp(token, word))
+				if (!_wcsicmp(token, word))
 					return true;
 			}
 		}

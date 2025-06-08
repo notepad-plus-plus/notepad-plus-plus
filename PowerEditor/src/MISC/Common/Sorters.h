@@ -128,11 +128,11 @@ public:
 				{
 					if (isDescending())
 					{
-						return wcsicmp(getSortKey(a).c_str(), getSortKey(b).c_str()) > 0;
+						return _wcsicmp(getSortKey(a).c_str(), getSortKey(b).c_str()) > 0;
 					}
 					else
 					{
-						return wcsicmp(getSortKey(a).c_str(), getSortKey(b).c_str()) < 0;
+						return _wcsicmp(getSortKey(a).c_str(), getSortKey(b).c_str()) < 0;
 					}
 				});
 		}
@@ -142,11 +142,11 @@ public:
 				{
 					if (isDescending())
 					{
-						return wcsicmp(a.c_str(), b.c_str()) > 0;
+						return _wcsicmp(a.c_str(), b.c_str()) > 0;
 					}
 					else
 					{
-						return wcsicmp(a.c_str(), b.c_str()) < 0;
+						return _wcsicmp(a.c_str(), b.c_str()) < 0;
 					}
 				});
 		}

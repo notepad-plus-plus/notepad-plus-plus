@@ -378,12 +378,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_TOOLBARICONSCHANGED:
 		{
 			refreshInternalPanelIcons();
-			// Notify plugins that toolbar icons have changed TODO
-			//SCNotification scnN{};
-			//scnN.nmhdr.code = ;
-			//scnN.nmhdr.hwndFrom = hwnd;
-			//scnN.nmhdr.idFrom = 0;
-			//_pluginsManager.notify(&scnN);
+			// Notify plugins that toolbar icons have changed
+			SCNotification scnN{};
+			scnN.nmhdr.code = NPPN_TOOLBARICONSETCHANGED;
+			scnN.nmhdr.hwndFrom = hwnd;
+			scnN.nmhdr.idFrom = _toolBar.getState();
+			_pluginsManager.notify(&scnN);
 			return TRUE;
 		}
 

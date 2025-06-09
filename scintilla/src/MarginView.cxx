@@ -124,7 +124,7 @@ void MarginView::DropGraphics() noexcept {
 }
 
 void MarginView::RefreshPixMaps(Surface *surfaceWindow, const ViewStyle &vsDraw) {
-	if (!pixmapSelPattern) {
+	if (!(pixmapSelPattern && pixmapSelPatternOffset1)) {
 		constexpr int patternSize = 8;
 		pixmapSelPattern = surfaceWindow->AllocatePixMap(patternSize, patternSize);
 		pixmapSelPatternOffset1 = surfaceWindow->AllocatePixMap(patternSize, patternSize);
@@ -278,7 +278,7 @@ void MarginView::PaintOneMargin(Surface *surface, PRectangle rc, PRectangle rcOn
 	const Point ptOrigin = model.GetVisibleOriginInMain();
 	const Sci::Line lineStartPaint = static_cast<Sci::Line>(rcOneMargin.top + ptOrigin.y) / vs.lineHeight;
 	Sci::Line visibleLine = model.TopLineOfMain() + lineStartPaint;
-	XYPOSITION yposScreen = lineStartPaint * vs.lineHeight - ptOrigin.y;
+	XYPOSITION yposScreen = static_cast<XYPOSITION>(lineStartPaint * vs.lineHeight) - ptOrigin.y;
 	// Work out whether the top line is whitespace located after a
 	// lessening of fold level which implies a 'fold tail' but which should not
 	// be displayed until the last of a sequence of whitespace.

@@ -283,6 +283,12 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	// Wrapping support
 	WrapPending wrapPending;
 	ActionDuration durationWrapOneByte;
+	bool insideWrapScroll;
+	struct LineDocSub {
+		Scintilla::Line lineDoc = 0;
+		Scintilla::Line subLine = 0;
+	};
+	std::optional<LineDocSub> scrollToAfterWrap;
 
 	bool convertPastes;
 
@@ -346,7 +352,7 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	void ThinRectangularRange();
 	void InvalidateSelection(SelectionRange newMain, bool invalidateWholeSelection=false);
 	void InvalidateWholeSelection();
-	SelectionRange LineSelectionRange(SelectionPosition currentPos_, SelectionPosition anchor_) const;
+	SelectionRange LineSelectionRange(SelectionPosition currentPos_, SelectionPosition anchor_) const noexcept;
 	void SetSelection(SelectionPosition currentPos_, SelectionPosition anchor_);
 	void SetSelection(Sci::Position currentPos_, Sci::Position anchor_);
 	void SetSelection(SelectionPosition currentPos_);
@@ -417,7 +423,7 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	Sci::Position FormatRange(Scintilla::Message iMessage, Scintilla::uptr_t wParam, Scintilla::sptr_t lParam);
 	long TextWidth(Scintilla::uptr_t style, const char *text);
 
-	virtual void SetVerticalScrollPos() = 0;
+	virtual void SetVerticalScrollPos();
 	virtual void SetHorizontalScrollPos() = 0;
 	virtual bool ModifyScrollBars(Sci::Line nMax, Sci::Line nPage) = 0;
 	virtual void ReconfigureScrollBars();
@@ -593,7 +599,7 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	void SetFoldExpanded(Sci::Line lineDoc, bool expanded);
 	void FoldLine(Sci::Line line, Scintilla::FoldAction action);
 	void FoldExpand(Sci::Line line, Scintilla::FoldAction action, Scintilla::FoldLevel level);
-	Sci::Line ContractedFoldNext(Sci::Line lineStart) const;
+	Sci::Line ContractedFoldNext(Sci::Line lineStart) const noexcept;
 	void EnsureLineVisible(Sci::Line lineDoc, bool enforcePolicy);
 	void FoldChanged(Sci::Line line, Scintilla::FoldLevel levelNow, Scintilla::FoldLevel levelPrev);
 	void NeedShown(Sci::Position pos, Sci::Position len);

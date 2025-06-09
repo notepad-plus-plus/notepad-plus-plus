@@ -50,6 +50,7 @@ public:
 	// ILexer5 methods
 	const char * SCI_METHOD GetName() override;
 	int SCI_METHOD GetIdentifier() override;
+	const char *SCI_METHOD PropertyGet(const char *key) override;
 };
 
 }

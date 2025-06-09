@@ -189,3 +189,5 @@ trimmed in raw strings.
 {7}~~~~ = true       {1}# invalid character in key
 {6}invalid{0}           {1}# invalid, missing value
 {6}key{0} {8}={0} {2}identifier{0}  {1}# also invalid, identifier must be one of true, false, inf, nan
+{6}key{0} {8}={0} {15}"unterminated string
+{6}key{0} {8}={0} {15}'other unterminated string

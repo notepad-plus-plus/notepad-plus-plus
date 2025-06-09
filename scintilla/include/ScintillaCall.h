@@ -324,6 +324,8 @@ public:
 	int AutoCGetMaxHeight();
 	void AutoCSetStyle(int style);
 	int AutoCGetStyle();
+	void AutoCSetImageScale(int scalePercent);
+	int AutoCGetImageScale();
 	void SetIndent(int indentSize);
 	int Indent();
 	void SetUseTabs(bool useTabs);
@@ -387,6 +389,7 @@ public:
 	Line LineFromPosition(Position pos);
 	Position PositionFromLine(Line line);
 	void LineScroll(Position columns, Line lines);
+	void ScrollVertical(Line docLine, Line subLine);
 	void ScrollCaret();
 	void ScrollRange(Position secondary, Position primary);
 	void ReplaceSel(const char *text);

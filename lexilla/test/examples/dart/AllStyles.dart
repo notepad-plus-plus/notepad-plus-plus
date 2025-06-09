@@ -332,3 +332,8 @@ var s3 = """multi-line
 ${x}
 strings
 """;
+
+var s1 = 'Unterminated string;
+var s2 = "Unterminated string;
+var s3 = r'Unterminated raw string;
+var s4 = r'Unterminated raw string;

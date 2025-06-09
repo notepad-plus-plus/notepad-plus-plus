@@ -347,4 +347,7 @@
  0 402 401 |     '';
  0 401 401 | 
  0 401 400 | }
+ 0 400 400   
+ 0 400 400   message = "unterminated string;
+ 0 400 400   message2 = "unterminated string;
  0 400   0   

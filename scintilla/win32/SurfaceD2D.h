@@ -9,7 +9,7 @@
 #define SURFACED2D_H
 
 namespace Scintilla::Internal {
-	
+
 extern bool LoadD2D() noexcept;
 extern void ReleaseD2D() noexcept;
 extern ID2D1Factory1 *pD2DFactory;

@@ -489,7 +489,7 @@ void InterpolateVariable(LexAccessor &styler, int state, Sci_Position &i, char &
     styler.ColourTo(pos, SCE_RB_OPERATOR);
     state = SCE_RB_GLOBAL;
     pos += 2;
-    unsigned len = 0;
+    int len = 0;
     if (chNext == '$') {
         if (chNext2 == '-') {
             ++pos;

@@ -1102,6 +1102,7 @@ void ScintillaGTK::ScrollText(Sci::Line linesToMove) {
 }
 
 void ScintillaGTK::SetVerticalScrollPos() {
+	Editor::SetVerticalScrollPos();
 	DwellEnd(true);
 	gtk_adjustment_set_value(GTK_ADJUSTMENT(adjustmentv), static_cast<gdouble>(topLine));
 }
@@ -2375,29 +2376,6 @@ bool ScintillaGTK::KoreanIME() {
 	return lastNonCommonScript == G_UNICODE_SCRIPT_HANGUL;
 }
 
-void ScintillaGTK::MoveImeCarets(Sci::Position pos) {
-	// Move carets relatively by bytes
-	for (size_t r=0; r<sel.Count(); r++) {
-		const Sci::Position positionInsert = sel.Range(r).Start().Position();
-		sel.Range(r) = SelectionRange(positionInsert + pos);
-	}
-}
-
-void ScintillaGTK::DrawImeIndicator(int indicator, Sci::Position len) {
-	// Emulate the visual style of IME characters with indicators.
-	// Draw an indicator on the character before caret by the character bytes of len
-	// so it should be called after InsertCharacter().
-	// It does not affect caret positions.
-	if (indicator < 8 || indicator > INDICATOR_MAX) {
-		return;
-	}
-	pdoc->DecorationSetCurrentIndicator(indicator);
-	for (size_t r=0; r<sel.Count(); r++) {
-		const Sci::Position positionInsert = sel.Range(r).Start().Position();
-		pdoc->DecorationFillRange(positionInsert - len, 1, len);
-	}
-}
-
 namespace {
 
 std::vector<int> MapImeIndicators(PangoAttrList *attrs, const char *u8Str) {
@@ -2624,24 +2602,16 @@ bool ScintillaGTK::RetrieveSurroundingThis(GtkIMContext *context) {
 		const Sci::Position startByte = pdoc->LineStart(line);
 		const Sci::Position endByte = pdoc->LineEnd(line);
 
-		std::string utf8Text;
-		gint cursorIndex; // index of the cursor inside utf8Text, in bytes
-		const char *charSetBuffer;
+		std::string utf8Text = UTF8FromEncoded(RangeText(startByte, endByte));
+		gint cursorIndex = UTF8FromEncoded(RangeText(startByte, pos)).length();
 
-		if (IsUnicodeMode() || ! *(charSetBuffer = CharacterSetID())) {
-			utf8Text = RangeText(startByte, endByte);
-			cursorIndex = pos - startByte;
+		if (pdoc->TentativeActive()) {
+			// Prepare one line feed with no preedit under PreeditChangedInlineThis();
 		} else {
-			// Need to convert
-			std::string tmpbuf = RangeText(startByte, pos);
-			utf8Text = ConvertText(&tmpbuf[0], tmpbuf.length(), "UTF-8", charSetBuffer, false);
-			cursorIndex = utf8Text.length();
-			if (endByte > pos) {
-				tmpbuf = RangeText(pos, endByte);
-				utf8Text += ConvertText(&tmpbuf[0], tmpbuf.length(), "UTF-8", charSetBuffer, false);
-			}
+			// reconvert key triggers CandidateBox to show up
+			// when quick phrase input on fcitx (or maybe accented input on mac)
+			SetCandidateWindowPos();
 		}
-
 		gtk_im_context_set_surrounding(context, &utf8Text[0], utf8Text.length(), cursorIndex);
 
 		return true;
@@ -2657,6 +2627,10 @@ gboolean ScintillaGTK::RetrieveSurrounding(GtkIMContext *context, ScintillaGTK *
 
 bool ScintillaGTK::DeleteSurroundingThis(GtkIMContext *, gint characterOffset, gint characterCount) {
 	try {
+		if (pdoc->TentativeActive()) {
+			// First remove composition text so that correct surrounding text is deleted.
+			pdoc->TentativeUndo();
+		}
 		const Sci::Position startByte = pdoc->GetRelativePosition(CurrentPosition(), characterOffset);
 		if (startByte == INVALID_POSITION)
 			return false;
@@ -3119,6 +3093,8 @@ void ScintillaGTK::SetDocPointer(Document *document) {
 	}
 
 	Editor::SetDocPointer(document);
+
+	ChangeScrollBars();
 
 	if (sciAccessible) {
 		// the accessible needs have the old Document, but also the new one active

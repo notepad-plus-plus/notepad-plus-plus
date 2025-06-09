@@ -96,6 +96,10 @@ bool SelectionPosition::operator >=(const SelectionPosition &other) const noexce
 	return *this > other;
 }
 
+double SelectionPosition::VirtualSpaceWidth(double spaceWidth) const noexcept {
+	return static_cast<double>(virtualSpace) * spaceWidth;
+}
+
 std::string SelectionPosition::ToString() const {
 	std::string result = std::to_string(position);
 	if (virtualSpace) {

@@ -1382,7 +1382,8 @@ HRESULT MeasurePositions(TextPositions &poses, const TextWide &tbuf, IDWriteText
 	int ti=0;
 	for (unsigned int ci=0; ci<count; ci++) {
 		for (unsigned int inCluster=0; inCluster<clusterMetrics[ci].length; inCluster++) {
-			poses.buffer[ti++] = position + clusterMetrics[ci].width * (inCluster + 1) / clusterMetrics[ci].length;
+			const float proportion = static_cast<float>(inCluster + 1) / clusterMetrics[ci].length;
+			poses.buffer[ti++] = position + clusterMetrics[ci].width * proportion;
 		}
 		position += clusterMetrics[ci].width;
 	}

@@ -43,10 +43,10 @@ static void ColouriseMaximaDoc(Sci_PositionU startPos, Sci_Position length, int 
 
   styler.StartAt(startPos);
 
-  Sci_PositionU lengthDoc = startPos + length;
+  Sci_Position lengthDoc = startPos + length;
   styler.StartSegment(startPos);
 
-  Sci_PositionU i = startPos;
+  Sci_Position i = startPos;
 
   // If we are in the middle of a comment we go back to its start before highlighting
   if(lastStyle == SCE_MAXIMA_COMMENT)
@@ -201,7 +201,7 @@ static void ColouriseMaximaDoc(Sci_PositionU startPos, Sci_Position length, int 
 	// All other keywords are functions if they are followed
 	// by an opening parenthesis
 	char nextNonwhitespace = ' ';
-	for (Sci_PositionU o = i + 1; o < lengthDoc; o++)
+	for (Sci_Position o = i + 1; o < lengthDoc; o++)
 	  {
 	    nextNonwhitespace = styler.SafeGetCharAt(o);
 	    if(!IsASCII(nextNonwhitespace) || !isspacechar(nextNonwhitespace))

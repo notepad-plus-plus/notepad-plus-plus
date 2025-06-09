@@ -44,6 +44,24 @@ TEST_CASE("WordList") {
 		REQUIRE(!wl.InList(sClass));
 	}
 
+	SECTION("StringViewInList") {
+		wl.Set("else struct i ^gtk");
+		std::string_view svStruct = "struct";
+		REQUIRE(wl.InList(svStruct));
+		std::string_view svClass = "class";
+		REQUIRE(!wl.InList(svClass));
+
+		// Test single characters
+		std::string_view svI = "i";
+		REQUIRE(wl.InList(svI));
+		std::string_view svA = "a";
+		REQUIRE(!wl.InList(svA));
+
+		// Test prefix
+		std::string_view svPrefix = "gtk_prefix";
+		REQUIRE(wl.InList(svPrefix));
+	}
+
 	SECTION("InListUnicode") {
 		// "cheese" in English
 		// "kase" ('k', 'a with diaeresis', 's', 'e') in German

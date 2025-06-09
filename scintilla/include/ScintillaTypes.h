@@ -303,6 +303,7 @@ enum class ChangeHistoryOption {
 enum class UndoSelectionHistoryOption {
 	Disabled = 0,
 	Enabled = 1,
+	Scroll = 2,
 };
 
 enum class FoldLevel {

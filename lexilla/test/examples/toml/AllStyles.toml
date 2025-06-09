@@ -189,3 +189,5 @@ points = [ { x = 1, y = 2, z = 3 },
 ~~~~ = true       # invalid character in key
 invalid           # invalid, missing value
 key = identifier  # also invalid, identifier must be one of true, false, inf, nan
+key = "unterminated string
+key = 'other unterminated string

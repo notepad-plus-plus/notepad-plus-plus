@@ -204,6 +204,7 @@ LexicalClass lexicalClasses[] = {
 	24, "SCE_DART_KW_SECONDARY", "identifier", "Secondary keywords",
 	25, "SCE_DART_KW_TERTIARY", "identifier", "Tertiary keywords",
 	26, "SCE_DART_KW_TYPE", "identifier", "Global types",
+	27, "SCE_DART_STRINGEOL", "error literal string", "End of line where string is not closed",
 };
 
 class LexerDart : public DefaultLexer {
@@ -342,6 +343,10 @@ void LexerDart::Lex(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyl
 	int chPrevNonWhite = 0;
 	EscapeSequence escSeq;
 
+	if (initStyle == SCE_DART_STRINGEOL) {
+		initStyle = SCE_DART_DEFAULT;
+	}
+
 	if (startPos != 0) {
 		// backtrack to the line where interpolation starts
 		BacktrackToStart(styler, DartLineStateMaskInterpolation, startPos, lengthDoc, initStyle);
@@ -457,6 +462,8 @@ void LexerDart::Lex(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyl
 		case SCE_DART_TRIPLE_RAWSTRING_DQ:
 			if (sc.atLineStart && !IsTripleString(sc.state)) {
 				sc.SetState(SCE_DART_DEFAULT);
+			} else if (sc.atLineEnd && !IsTripleString(sc.state)) {
+				sc.ChangeState(SCE_DART_STRINGEOL);
 			} else if (sc.ch == '\\' && !IsRaw(sc.state)) {
 				if (escSeq.resetEscapeState(sc.state, sc.chNext)) {
 					sc.SetState(SCE_DART_ESCAPECHAR);
@@ -485,6 +492,12 @@ void LexerDart::Lex(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyl
 					sc.Forward(2);
 				}
 				sc.Forward();
+				sc.SetState(SCE_DART_DEFAULT);
+			}
+			break;
+
+		case SCE_DART_STRINGEOL:
+			if (sc.atLineStart) {
 				sc.SetState(SCE_DART_DEFAULT);
 			}
 			break;

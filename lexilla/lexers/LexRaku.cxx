@@ -1424,7 +1424,7 @@ void SCI_METHOD LexerRaku::Lex(Sci_PositionU startPos, Sci_Position length, int 
 				}
 				const int state = sc.state;
 				sc.Forward();
-				char ch_delim = 0;
+				int ch_delim = 0;
 				if (setSpecialVar.Contains(sc.ch)
 						&& !setWord.Contains(sc.chNext)) {	// Process Special Var
 					ch_delim = -1;
@@ -1532,7 +1532,7 @@ void SCI_METHOD LexerRaku::Fold(Sci_PositionU startPos, Sci_Position length, int
 
 	// init char and style variables
 	char chNext = styler[startPos];
-	int stylePrev = styler.StyleAt(startPos - 1);
+	int stylePrev = startPos > 0 ? styler.StyleAt(startPos - 1) : 0;
 	int styleNext = styler.StyleAt(startPos);
 	int styleNextStartLine = styler.StyleAt(lineStartNext);
 	int visibleChars = 0;

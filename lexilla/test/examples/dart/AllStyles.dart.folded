@@ -332,4 +332,9 @@
  0 401 401 | ${x}
  0 401 401 | strings
  0 401 400 | """;
+ 0 400 400   
+ 0 400 400   var s1 = 'Unterminated string;
+ 0 400 400   var s2 = "Unterminated string;
+ 0 400 400   var s3 = r'Unterminated raw string;
+ 0 400 400   var s4 = r'Unterminated raw string;
  0 400   0   

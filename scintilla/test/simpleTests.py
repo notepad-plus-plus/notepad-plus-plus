@@ -3188,6 +3188,7 @@ class TestAutoComplete(unittest.TestCase):
 		self.assertEqual(self.ed.AutoCGetIgnoreCase(), 0)
 		self.assertEqual(self.ed.AutoCGetAutoHide(), 1)
 		self.assertEqual(self.ed.AutoCGetDropRestOfWord(), 0)
+		self.assertEqual(self.ed.AutoCGetImageScale(), 100)
 
 	def testChangeDefaults(self):
 		self.ed.AutoCSetSeparator(ord('-'))
@@ -3221,6 +3222,10 @@ class TestAutoComplete(unittest.TestCase):
 		self.ed.AutoCSetStyle(13)
 		self.assertEqual(self.ed.AutoCGetStyle(), 13)
 		self.ed.AutoCSetStyle(self.ed.STYLE_DEFAULT)
+
+		self.ed.AutoCSetImageScale(200)
+		self.assertEqual(self.ed.AutoCGetImageScale(), 200)
+		self.ed.AutoCSetImageScale(100)
 
 	def testAutoShow(self):
 		self.assertEqual(self.ed.AutoCActive(), 0)

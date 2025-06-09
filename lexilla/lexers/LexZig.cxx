@@ -163,6 +163,7 @@ LexicalClass lexicalClasses[] = {
 	15, "SCE_ZIG_KW_TERTIARY", "identifier", "Tertiary keywords",
 	16, "SCE_ZIG_KW_TYPE", "identifier", "Global types",
 	17, "SCE_ZIG_IDENTIFIER_STRING", "identifier", "Identifier using @\"\" syntax",
+	18, "SCE_ZIG_STRINGEOL", "error literal string", "End of line where string is not closed",
 };
 
 class LexerZig : public DefaultLexer {
@@ -262,6 +263,10 @@ void LexerZig::Lex(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle
 	int lineState = 0;
 	EscapeSequence escSeq;
 
+	if (initStyle == SCE_ZIG_STRINGEOL) {
+		initStyle = SCE_ZIG_DEFAULT;
+	}
+
 	StyleContext sc(startPos, lengthDoc, initStyle, styler);
 
 	while (sc.More()) {
@@ -311,6 +316,8 @@ void LexerZig::Lex(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle
 		case SCE_ZIG_IDENTIFIER_STRING:
 			if (sc.atLineStart) {
 				sc.SetState(SCE_ZIG_DEFAULT);
+			} else if (sc.atLineEnd && sc.state != SCE_ZIG_MULTISTRING) {
+				sc.ChangeState(SCE_ZIG_STRINGEOL);
 			} else if (sc.ch == '\\' && sc.state != SCE_ZIG_MULTISTRING) {
 				escSeq.resetEscapeState(sc.state, sc.chNext);
 				sc.SetState(SCE_ZIG_ESCAPECHAR);
@@ -323,6 +330,12 @@ void LexerZig::Lex(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle
 			} else if ((sc.ch == '\'' && sc.state == SCE_ZIG_CHARACTER) ||
 					(sc.ch == '\"' && (sc.state == SCE_ZIG_STRING || sc.state == SCE_ZIG_IDENTIFIER_STRING))) {
 				sc.ForwardSetState(SCE_ZIG_DEFAULT);
+			}
+			break;
+
+		case SCE_ZIG_STRINGEOL:
+			if (sc.atLineStart) {
+				sc.SetState(SCE_ZIG_DEFAULT);
 			}
 			break;
 

@@ -49,4 +49,9 @@
 {0} {9}comment{0} {15}~ A multiple-line
  comment directive~{0}
 
+{1}; test for folding from segment to ends
+{5}data{0} {9}segment{0}
+{5}hw{0} {9}db{0} {3}"HW!"{0}
+{5}data{0} {9}ends{0}
+
 {1};end

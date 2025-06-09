@@ -671,7 +671,7 @@ void SCI_METHOD LexerSQL::Fold(Sci_PositionU startPos, Sci_Position length, int 
 		}
 		lineCurrent = styler.GetLine(startPos);
 		if (lineCurrent > 0)
-			levelCurrent = styler.LevelAt(lineCurrent - 1) >> 16;
+			levelCurrent = FoldLevelStart(styler.LevelAt(lineCurrent - 1));
 	}
 	// And because folding ends at ';', keep going until we find one
 	// Otherwise if create ... view ... as is split over multiple
@@ -947,15 +947,9 @@ void SCI_METHOD LexerSQL::Fold(Sci_PositionU startPos, Sci_Position length, int 
 			}
 		}
 		if (atEOL) {
-			const int levelUse = levelCurrent;
-			int lev = levelUse | levelNext << 16;
-			if (visibleChars == 0 && options.foldCompact)
-				lev |= SC_FOLDLEVELWHITEFLAG;
-			if (levelUse < levelNext)
-				lev |= SC_FOLDLEVELHEADERFLAG;
-			if (lev != styler.LevelAt(lineCurrent)) {
-				styler.SetLevel(lineCurrent, lev);
-			}
+			const int lev = FoldLevelForCurrentNext(levelCurrent, levelNext) |
+				FoldLevelFlags(levelCurrent, levelNext, visibleChars == 0 && options.foldCompact);
+			styler.SetLevelIfDifferent(lineCurrent, lev);
 			lineCurrent++;
 			levelCurrent = levelNext;
 			visibleChars = 0;

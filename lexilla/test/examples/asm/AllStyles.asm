@@ -49,4 +49,9 @@ movq
  comment ~ A multiple-line
  comment directive~
 
+; test for folding from segment to ends
+data segment
+hw db "HW!"
+data ends
+
 ;end

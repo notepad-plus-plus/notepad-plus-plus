@@ -150,6 +150,7 @@ LexicalClass lexicalClasses[] = {
 	13, "SCE_NIX_KEYWORD2", "identifier", "Keywords 2",
 	14, "SCE_NIX_KEYWORD3", "identifier", "Keywords 3",
 	15, "SCE_NIX_KEYWORD4", "identifier", "Keywords 4",
+	16, "SCE_NIX_STRINGEOL", "error literal string", "End of line where string is not closed",
 };
 
 class LexerNix : public DefaultLexer {
@@ -266,6 +267,10 @@ void LexerNix::Lex(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle
 
 	std::vector<InterpolatingState> interpolatingStack;
 
+	if (initStyle == SCE_NIX_STRINGEOL) {
+		initStyle = SCE_NIX_DEFAULT;
+	}
+
 	if (startPos != 0) {
 		// backtrack to the line where interpolation starts
 		BacktrackToStart(styler, NixLineStateMaskInterpolation, startPos, lengthDoc, initStyle);
@@ -323,6 +328,8 @@ void LexerNix::Lex(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle
 		case SCE_NIX_STRING:
 			if (sc.atLineStart) {
 				sc.SetState(SCE_NIX_DEFAULT);
+			} else if (sc.atLineEnd) {
+				sc.ChangeState(SCE_NIX_STRINGEOL);
 			} else if (sc.ch == '\\' && AnyOf(sc.chNext, '"', '\\', 'n', 'r', 't', '$')) {
 				sc.SetState(SCE_NIX_STRING);
 				sc.ChangeState(SCE_NIX_ESCAPECHAR);
@@ -336,6 +343,12 @@ void LexerNix::Lex(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle
 			} else if (sc.Match('$','$')) {
 				sc.Forward();
 				continue;
+			}
+			break;
+
+		case SCE_NIX_STRINGEOL:
+			if (sc.atLineStart) {
+				sc.SetState(SCE_NIX_DEFAULT);
 			}
 			break;
 

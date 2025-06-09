@@ -16,6 +16,12 @@ using namespace Scintilla::Internal;
 
 namespace Scintilla::Internal {
 
+// Silence 'magic' number use since the set of DBCS lead and trail bytes differ
+// between encodings and would require many constant declarations that would just
+// obscure the behaviour.
+
+// NOLINTBEGIN(*-magic-numbers)
+
 bool DBCSIsLeadByte(int codePage, char ch) noexcept {
 	// Byte ranges found in Wikipedia articles with relevant search strings in each case
 	const unsigned char uch = ch;
@@ -90,6 +96,8 @@ bool IsDBCSValidSingleByte(int codePage, int ch) noexcept {
 		return false;
 	}
 }
+
+// NOLINTEND(*-magic-numbers)
 
 using CodePageToFoldMap = std::map<int, FoldMap>;
 CodePageToFoldMap cpToFoldMap;

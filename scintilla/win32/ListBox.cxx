@@ -73,6 +73,10 @@ using namespace Scintilla::Internal;
 
 namespace {
 
+void *PtrFromLParam(Scintilla::sptr_t lParam) noexcept {
+	return reinterpret_cast<void *>(lParam);
+}
+
 struct ListItemData {
 	const char *text;
 	int pixId;
@@ -152,6 +156,7 @@ class ListBoxX : public ListBox {
 	int maxItemCharacters = 0;
 	unsigned int aveCharWidth = 8;
 	Window *parent = nullptr;
+	WNDPROC prevWndProc{};
 	int ctrlID = 0;
 	UINT dpi = USER_DEFAULT_SCREEN_DPI;
 	IListBoxDelegate *delegate = nullptr;
@@ -183,6 +188,7 @@ class ListBoxX : public ListBox {
 	LRESULT NcHitTest(WPARAM, LPARAM) const;
 	void CentreItem(int n);
 	void AllocateBitMap();
+	LRESULT PASCAL ListProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
 	static LRESULT PASCAL ControlWndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
 
 	static constexpr POINT ItemInset {0, 0};	// Padding around whole item
@@ -776,9 +782,8 @@ void ListBoxX::AllocateBitMap() {
 	graphics.pixmapLine->Init(graphics.bm.DC(), GetID());
 }
 
-LRESULT PASCAL ListBoxX::ControlWndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam) {
+LRESULT PASCAL ListBoxX::ListProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam) {
 	try {
-		ListBoxX *lbx = static_cast<ListBoxX *>(PointerFromWindow(::GetParent(hWnd)));
 		switch (iMessage) {
 		case WM_ERASEBKGND:
 			return TRUE;
@@ -793,9 +798,7 @@ LRESULT PASCAL ListBoxX::ControlWndProc(HWND hWnd, UINT iMessage, WPARAM wParam,
 				const LRESULT lResult = ::SendMessage(hWnd, LB_ITEMFROMPOINT, 0, lParam);
 				if (HIWORD(lResult) == 0) {
 					ListBox_SetCurSel(hWnd, LOWORD(lResult));
-					if (lbx) {
-						lbx->OnSelChange();
-					}
+					OnSelChange();
 				}
 			}
 			return 0;
@@ -803,11 +806,8 @@ LRESULT PASCAL ListBoxX::ControlWndProc(HWND hWnd, UINT iMessage, WPARAM wParam,
 		case WM_LBUTTONUP:
 			return 0;
 
-		case WM_LBUTTONDBLCLK: {
-				if (lbx) {
-					lbx->OnDoubleClick();
-				}
-			}
+		case WM_LBUTTONDBLCLK:
+			OnDoubleClick();
 			return 0;
 
 		case WM_MBUTTONDOWN:
@@ -818,12 +818,17 @@ LRESULT PASCAL ListBoxX::ControlWndProc(HWND hWnd, UINT iMessage, WPARAM wParam,
 			break;
 		}
 
-		WNDPROC prevWndProc = reinterpret_cast<WNDPROC>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 		if (prevWndProc) {
 			return ::CallWindowProc(prevWndProc, hWnd, iMessage, wParam, lParam);
 		}
-		return ::DefWindowProc(hWnd, iMessage, wParam, lParam);
 	} catch (...) {
+	}
+	return ::DefWindowProc(hWnd, iMessage, wParam, lParam);
+}
+
+LRESULT PASCAL ListBoxX::ControlWndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam) {
+	if (ListBoxX *lbx = static_cast<ListBoxX *>(PointerFromWindow(::GetParent(hWnd)))) {
+		return lbx->ListProc(hWnd, iMessage, wParam, lParam);
 	}
 	return ::DefWindowProc(hWnd, iMessage, wParam, lParam);
 }
@@ -834,16 +839,15 @@ LRESULT ListBoxX::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam
 			HINSTANCE hinstanceParent = GetWindowInstance(HwndFromWindow(*parent));
 			// Note that LBS_NOINTEGRALHEIGHT is specified to fix cosmetic issue when resizing the list
 			// but has useful side effect of speeding up list population significantly
-			lb = ::CreateWindowEx(
-				0, TEXT("listbox"), TEXT(""),
+			lb = ::CreateWindowExW(
+				0, WC_LISTBOXW, L"",
 				WS_CHILD | WS_VSCROLL | WS_VISIBLE |
 				LBS_OWNERDRAWFIXED | LBS_NODATA | LBS_NOINTEGRALHEIGHT,
 				0, 0, 150,80, hWnd,
 				reinterpret_cast<HMENU>(static_cast<ptrdiff_t>(ctrlID)),
 				hinstanceParent,
 				nullptr);
-			WNDPROC prevWndProc = SubclassWindow(lb, ControlWndProc);
-			::SetWindowLongPtr(lb, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(prevWndProc));
+			prevWndProc = SubclassWindow(lb, ControlWndProc);
 		}
 		break;
 
@@ -870,13 +874,13 @@ LRESULT ListBoxX::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam
 		break;
 
 	case WM_MEASUREITEM: {
-			MEASUREITEMSTRUCT *pMeasureItem = reinterpret_cast<MEASUREITEMSTRUCT *>(lParam);
+			MEASUREITEMSTRUCT *pMeasureItem = static_cast<MEASUREITEMSTRUCT *>(PtrFromLParam(lParam));
 			pMeasureItem->itemHeight = ItemHeight();
 		}
 		break;
 
 	case WM_DRAWITEM:
-		Draw(reinterpret_cast<DRAWITEMSTRUCT *>(lParam));
+		Draw(static_cast<DRAWITEMSTRUCT *>(PtrFromLParam(lParam)));
 		break;
 
 	case WM_DESTROY:
@@ -890,7 +894,7 @@ LRESULT ListBoxX::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam
 		return TRUE;
 
 	case WM_GETMINMAXINFO: {
-			MINMAXINFO *minMax = reinterpret_cast<MINMAXINFO*>(lParam);
+			MINMAXINFO *minMax = static_cast<MINMAXINFO*>(PtrFromLParam(lParam));
 			minMax->ptMaxTrackSize = MaxTrackSize();
 			minMax->ptMinTrackSize = MinTrackSize();
 		}
@@ -946,12 +950,11 @@ LRESULT ListBoxX::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam
 LRESULT PASCAL ListBoxX::StaticWndProc(
     HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam) {
 	if (iMessage == WM_CREATE) {
-		CREATESTRUCT *pCreate = reinterpret_cast<CREATESTRUCT *>(lParam);
+		CREATESTRUCT *pCreate = static_cast<CREATESTRUCT *>(PtrFromLParam(lParam));
 		SetWindowPointer(hWnd, pCreate->lpCreateParams);
 	}
 	// Find C++ object associated with window.
-	ListBoxX *lbx = static_cast<ListBoxX *>(PointerFromWindow(hWnd));
-	if (lbx) {
+	if (ListBoxX *lbx = static_cast<ListBoxX *>(PointerFromWindow(hWnd))) {
 		return lbx->WndProc(hWnd, iMessage, wParam, lParam);
 	}
 	return ::DefWindowProc(hWnd, iMessage, wParam, lParam);

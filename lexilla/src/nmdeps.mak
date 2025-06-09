@@ -41,6 +41,7 @@ $(DIR_O)/LexAccessor.obj: \
 	../lexlib/LexAccessor.cxx \
 	../../scintilla/include/ILexer.h \
 	../../scintilla/include/Sci_Position.h \
+	../../scintilla/include/Scintilla.h \
 	../lexlib/LexAccessor.h \
 	../lexlib/CharacterSet.h
 $(DIR_O)/LexerBase.obj: \
@@ -897,7 +898,9 @@ $(DIR_O)/LexMake.obj: \
 	../lexlib/Accessor.h \
 	../lexlib/StyleContext.h \
 	../lexlib/CharacterSet.h \
-	../lexlib/LexerModule.h
+	../lexlib/LexerModule.h \
+	../lexlib/OptionSet.h \
+	../lexlib/DefaultLexer.h
 $(DIR_O)/LexMarkdown.obj: \
 	../lexers/LexMarkdown.cxx \
 	../../scintilla/include/ILexer.h \

@@ -50,6 +50,7 @@ public:
 	Sci::Position VirtualSpace() const noexcept {
 		return virtualSpace;
 	}
+	[[nodiscard]] double VirtualSpaceWidth(double spaceWidth) const noexcept;
 	void SetVirtualSpace(Sci::Position virtualSpace_) noexcept {
 		PLATFORM_ASSERT(virtualSpace_ < 800000000);
 		if (virtualSpace_ >= 0)

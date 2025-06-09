@@ -40,6 +40,7 @@
 #include <QTextLayout>
 #include <QTextLine>
 #include <QLibrary>
+#include <QtMath>
 
 using namespace Scintilla;
 
@@ -994,6 +995,7 @@ private:
 	bool unicodeMode{false};
 	int visibleRows{5};
 	QMap<int,QPixmap> images;
+	float imageScale{1.0};
 };
 ListBoxImpl::ListBoxImpl() noexcept = default;
 
@@ -1034,10 +1036,11 @@ void ListBoxImpl::Create(Window &parent,
 	int maxIconWidth = 0;
 	int maxIconHeight = 0;
 	foreach (QPixmap im, images) {
-		if (maxIconWidth < im.width())
-			maxIconWidth = im.width();
-		if (maxIconHeight < im.height())
-			maxIconHeight = im.height();
+		im.setDevicePixelRatio(imageScale);
+		if (maxIconWidth < im.width() / im.devicePixelRatio())
+			maxIconWidth = im.width() / im.devicePixelRatio();
+		if (maxIconHeight < im.height() / im.devicePixelRatio())
+			maxIconHeight = im.height() / im.devicePixelRatio();
 	}
 	list->setIconSize(QSize(maxIconWidth, maxIconHeight));
 
@@ -1085,8 +1088,8 @@ int ListBoxImpl::CaretFromEdge()
 	ListWidget *list = GetWidget();
 	int maxIconWidth = 0;
 	foreach (QPixmap im, images) {
-		if (maxIconWidth < im.width())
-			maxIconWidth = im.width();
+		if (maxIconWidth < im.width() / im.devicePixelRatio())
+			maxIconWidth = im.width() / im.devicePixelRatio();
 	}
 
 	int extra;
@@ -1165,9 +1168,9 @@ void ListBoxImpl::RegisterQPixmapImage(int type, const QPixmap& pm)
 	ListWidget *list = GetWidget();
 	if (list) {
 		QSize iconSize = list->iconSize();
-		if (pm.width() > iconSize.width() || pm.height() > iconSize.height())
-			list->setIconSize(QSize(qMax(pm.width(), iconSize.width()),
-						 qMax(pm.height(), iconSize.height())));
+		if (pm.width() / pm.devicePixelRatio() > iconSize.width() || pm.height() / pm.devicePixelRatio() > iconSize.height())
+			list->setIconSize(QSize(qMax(qFloor(pm.width() / pm.devicePixelRatio()), iconSize.width()),
+						 qMax(qFloor(pm.height() / pm.devicePixelRatio()), iconSize.height())));
 	}
 
 }
@@ -1226,8 +1229,9 @@ void ListBoxImpl::SetList(const char *list, char separator, char typesep)
 		Append(startword, numword?atoi(numword + 1):-1);
 	}
 }
-void ListBoxImpl::SetOptions(ListOptions)
+void ListBoxImpl::SetOptions(ListOptions options_)
 {
+	imageScale = options_.imageScale;
 }
 ListWidget *ListBoxImpl::GetWidget() const noexcept
 {

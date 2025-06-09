@@ -280,6 +280,7 @@ void ScintillaQt::ScrollText(Sci::Line linesToMove)
 
 void ScintillaQt::SetVerticalScrollPos()
 {
+	Editor::SetVerticalScrollPos();
 	scrollArea->verticalScrollBar()->setValue(topLine);
 	emit verticalScrolled(topLine);
 }

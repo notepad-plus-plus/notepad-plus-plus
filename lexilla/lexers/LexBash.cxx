@@ -1268,14 +1268,9 @@ void SCI_METHOD LexerBash::Fold(Sci_PositionU startPos_, Sci_Position length, in
 		}
 
 		if (atEOL) {
-			int lev = levelPrev;
-			if (visibleChars == 0 && options.foldCompact)
-				lev |= SC_FOLDLEVELWHITEFLAG;
-			if ((levelCurrent > levelPrev) && (visibleChars > 0))
-				lev |= SC_FOLDLEVELHEADERFLAG;
-			if (lev != styler.LevelAt(lineCurrent)) {
-				styler.SetLevel(lineCurrent, lev);
-			}
+			const int lev = levelPrev |
+				FoldLevelFlags(levelPrev, levelCurrent, visibleChars == 0 && options.foldCompact, visibleChars > 0);
+			styler.SetLevelIfDifferent(lineCurrent, lev);
 			lineCurrent++;
 			levelPrev = levelCurrent;
 			visibleChars = 0;

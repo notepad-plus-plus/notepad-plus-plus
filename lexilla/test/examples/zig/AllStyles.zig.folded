@@ -288,4 +288,8 @@
  0 401 401 |     @"really red",
  0 401 400 | };
  0 400 400   const color: Color = .@"really red";
+ 0 400 400   
+ 0 400 400   const s1 = "Unterminated string
+ 0 400 400   const s2 = 'Unterminated character
+ 0 400 400   const s3 = @"Unterminated identifier string
  0 400   0   

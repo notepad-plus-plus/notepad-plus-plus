@@ -1951,6 +1951,7 @@ void ScintillaCocoa::ScrollText(Sci::Line) {
  * Modifies the vertical scroll position to make the current top line show up as such.
  */
 void ScintillaCocoa::SetVerticalScrollPos() {
+	Editor::SetVerticalScrollPos();
 	NSScrollView *scrollView = ScrollContainer();
 	if (scrollView) {
 		NSClipView *clipView = scrollView.contentView;

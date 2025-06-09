@@ -288,3 +288,7 @@
     {17}@"really red"{5},{0}
 {5}};{0}
 {13}const{0} {10}color{5}:{0} {10}Color{0} {5}={0} {5}.{17}@"really red"{5};{0}
+
+{13}const{0} {10}s1{0} {5}={0} {18}"Unterminated string
+{13}const{0} {10}s2{0} {5}={0} {18}'Unterminated character
+{13}const{0} {10}s3{0} {5}={0} {18}@"Unterminated identifier string

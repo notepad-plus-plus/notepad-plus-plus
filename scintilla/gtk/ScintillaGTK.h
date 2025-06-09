@@ -243,8 +243,6 @@ private:
 	bool DeleteSurroundingThis(GtkIMContext *context, gint characterOffset, gint characterCount);
 	static gboolean DeleteSurrounding(GtkIMContext *context, gint characterOffset, gint characterCount,
 					  ScintillaGTK *sciThis);
-	void MoveImeCarets(Sci::Position pos);
-	void DrawImeIndicator(int indicator, Sci::Position len);
 	void SetCandidateWindowPos();
 
 	static void StyleSetText(GtkWidget *widget, GtkStyle *previous, void *);

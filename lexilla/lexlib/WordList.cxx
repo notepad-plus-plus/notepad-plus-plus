@@ -191,8 +191,29 @@ bool WordList::InList(const char *s) const noexcept {
 
 /** convenience overload so can easily call with std::string.
  */
-bool WordList::InList(const std::string &s) const noexcept {
-	return InList(s.c_str());
+
+bool WordList::InList(std::string_view sv) const noexcept {
+	if (!words || sv.empty())
+		return false;
+	const char first = sv[0];
+	const unsigned char firstChar = first;
+	if (int j = starts[firstChar]; j >= 0) {
+		const std::string_view after = sv.substr(1);
+		for (; words[j][0] == first; j++) {
+			if (std::string_view(words[j] + 1) == after) {
+				return true;
+			}
+		}
+	}
+	if (int j = starts[static_cast<unsigned int>('^')]; j >= 0) {
+		for (; words[j][0] == '^';j++) {
+			// Use rfind with 0 position to act like C++20 starts_with for C++17
+			if (sv.rfind(words[j] + 1, 0) == 0) {
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 /** similar to InList, but word s can be a substring of keyword.

@@ -303,7 +303,7 @@ int UnicodeFromUTF8(std::string_view sv) noexcept {
 			return UnicodeFromUTF8(reinterpret_cast<const unsigned char *>(sv.data()));
 		}
 	}
-	// Failure so let the caller know  
+	// Failure so let the caller know
 	return unicodeReplacementChar;
 }
 
@@ -325,6 +325,10 @@ const unsigned char UTF8BytesOfLead[256] = {
 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, // E0 - EF
 4, 4, 4, 4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // F0 - FF
 };
+
+// Silence 'magic' number warning as UTF-8 needs to distinguish byte values and byte value ranges.
+
+// NOLINTBEGIN(*-magic-numbers)
 
 // Return both the width of the first character in the string and a status
 // saying whether it is valid or invalid.
@@ -402,6 +406,8 @@ int UTF8Classify(const unsigned char *us, size_t len) noexcept {
 
 	return UTF8MaskInvalid | 1;
 }
+
+// NOLINTEND(*-magic-numbers)
 
 int UTF8Classify(const char *s, size_t len) noexcept {
 	return UTF8Classify(reinterpret_cast<const unsigned char *>(s), len);

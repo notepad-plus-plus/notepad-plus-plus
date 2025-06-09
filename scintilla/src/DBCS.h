@@ -28,14 +28,12 @@ bool DBCSIsLeadByte(int codePage, char ch) noexcept;
 bool DBCSIsTrailByte(int codePage, char ch) noexcept;
 bool IsDBCSValidSingleByte(int codePage, int ch) noexcept;
 
-// Calculate a number from a DBCS byte pair that can be used to index into an array or map. 
+// Calculate a number from a DBCS byte pair that can be used to index into an array or map.
 // Should only be called with genuine DBCS character pairs which means that ch1 has top bit set.
 constexpr uint16_t DBCSIndex(char ch1, char ch2) noexcept {
-	constexpr unsigned int highStart = 0x80U;
-	constexpr unsigned int byteMultiply = 0x100U;
-	const unsigned char uch1 = ch1;
+	const unsigned char uch1 = ch1 & 0x7F;
 	const unsigned char uch2 = ch2;
-	return ((uch1 - highStart) * byteMultiply) + uch2;
+	return (uch1 << 8) | uch2;
 }
 
 struct DBCSPair {

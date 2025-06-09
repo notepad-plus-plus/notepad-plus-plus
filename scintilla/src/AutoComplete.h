@@ -25,6 +25,7 @@ public:
 	bool ignoreCase;
 	bool chooseSingle;
 	AutoCompleteOption options;
+	float imageScale;
 	std::unique_ptr<ListBox> lb;
 	Sci::Position posStart;
 	Sci::Position startLen;

@@ -58,9 +58,8 @@ int CompareNCaseInsensitive(const char *a, const char *b, size_t len) noexcept {
 	}
 	if (len == 0)
 		return 0;
-	else
-		// Either *a or *b is nul
-		return *a - *b;
+	// Either *a or *b is nul
+	return *a - *b;
 }
 
 }

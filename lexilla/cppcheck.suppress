@@ -171,7 +171,6 @@ constParameterPointer:lexilla/lexers/LexTCMD.cxx
 invalidscanf:lexilla/lexers/LexTCMD.cxx
 constParameterReference:lexilla/lexers/LexTeX.cxx
 variableScope:lexilla/lexers/LexTeX.cxx
-constVariableReference:lexilla/lexers/LexTroff.cxx
 knownConditionTrueFalse:lexilla/lexers/LexVB.cxx
 constParameterReference:lexilla/lexers/LexVerilog.cxx
 variableScope:lexilla/lexers/LexVerilog.cxx

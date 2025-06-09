@@ -1174,6 +1174,12 @@ set void AutoCSetStyle=2109(int style,)
 # Get the style number used for auto-completion and user lists fonts.
 get int AutoCGetStyle=2120(,)
 
+# Set the scale factor in percent for auto-completion list images.
+set void AutoCSetImageScale=2815(int scalePercent,)
+
+# Get the scale factor in percent for auto-completion list images.
+get int AutoCGetImageScale=2816(,)
+
 # Set the number of spaces used for one level of indentation.
 set void SetIndent=2122(int indentSize,)
 
@@ -1337,6 +1343,7 @@ get ChangeHistoryOption GetChangeHistory=2781(,)
 enu UndoSelectionHistoryOption=SC_UNDO_SELECTION_HISTORY_
 val SC_UNDO_SELECTION_HISTORY_DISABLED=0
 val SC_UNDO_SELECTION_HISTORY_ENABLED=1
+val SC_UNDO_SELECTION_HISTORY_SCROLL=2
 
 # Enable or disable undo selection history.
 set void SetUndoSelectionHistory=2782(UndoSelectionHistoryOption undoSelectionHistory,)
@@ -1414,6 +1421,9 @@ fun position PositionFromLine=2167(line line,)
 
 # Scroll horizontally and vertically.
 fun void LineScroll=2168(position columns, line lines)
+
+# Scroll vertically with allowance for wrapping.
+fun void ScrollVertical=2817(line docLine, line subLine)
 
 # Ensure the caret is visible.
 fun void ScrollCaret=2169(,)
@@ -1565,7 +1575,7 @@ fun void CallTipCancel=2201(,)
 fun bool CallTipActive=2202(,)
 
 # Retrieve the position where the caret was before displaying the call tip.
-fun position CallTipPosStart=2203(,)
+get position CallTipPosStart=2203(,)
 
 # Set the start position in order to change when backspacing removes the calltip.
 set void CallTipSetPosStart=2214(position posStart,)

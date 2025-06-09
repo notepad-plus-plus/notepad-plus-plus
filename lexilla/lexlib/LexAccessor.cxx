@@ -11,6 +11,7 @@
 #include <algorithm>
 
 #include "ILexer.h"
+#include "Scintilla.h"
 
 #include "LexAccessor.h"
 #include "CharacterSet.h"
@@ -71,6 +72,23 @@ std::string LexAccessor::GetRangeLowered(Sci_PositionU startPos_, Sci_PositionU 
 	std::string s(len, '\0');
 	GetRangeLowered(startPos_, endPos_, s.data(), len + 1);
 	return s;
+}
+
+void LexAccessor::SetLevelIfDifferent(Sci_Position line, int level) {
+	if (level != pAccess->GetLevel(line)) {
+		pAccess->SetLevel(line, level);
+	}
+}
+
+int FoldLevelFlags(int levelLine, int levelNext, bool white, bool headerPermitted) noexcept {
+	int flags = 0;
+	if (white) {
+		flags |= SC_FOLDLEVELWHITEFLAG;
+	}
+	if ((levelLine < levelNext) && (headerPermitted)) {
+		flags |= SC_FOLDLEVELHEADERFLAG;
+	}
+	return flags;
 }
 
 }

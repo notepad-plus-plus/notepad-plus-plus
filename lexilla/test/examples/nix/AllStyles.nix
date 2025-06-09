@@ -347,3 +347,6 @@ stdenv.mkDerivation rec {
     '';
 
 }
+
+message = "unterminated string;
+message2 = "unterminated string;

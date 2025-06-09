@@ -347,3 +347,6 @@ string
     ''{7};{0}
 
 {7}}{0}
+
+{10}message{0} {7}={0} {16}"unterminated string;
+{10}message2{0} {7}={0} {16}"unterminated string;

@@ -196,7 +196,7 @@ void LineMarker::DrawFoldingMark(Surface *surface, const PRectangle &rcWhole, Fo
 	// To centre +/-, odd strokeWidth -> odd symbol width, even -> even
 	const XYPOSITION widthSymbol =
 		((std::lround(minDimension * pixelDivisions) % 2) == (std::lround(widthStroke * pixelDivisions) % 2)) ?
-		minDimension : minDimension - 1.0f / pixelDivisions;
+		minDimension : minDimension - (1.0 / static_cast<XYPOSITION>(pixelDivisions));
 
 	const Point centre = PixelAlign(rcWhole.Centre(), pixelDivisions);
 
@@ -464,11 +464,13 @@ void LineMarker::Draw(Surface *surface, const PRectangle &rcWhole, const Font *f
 		break;
 
 	case MarkerSymbol::DotDotDot: {
-			XYPOSITION right = static_cast<XYPOSITION>(centreX - 6);
+			// 3 2x2 dots with 3 pixels between, margin must be 12 wide to show all
+			constexpr XYPOSITION pitchDots = 5.0;
+			XYPOSITION xBlob = std::floor(centreX - (pitchDots + 1));
 			for (int b = 0; b < 3; b++) {
-				const PRectangle rcBlob(right, rc.bottom - 4, right + 2, rc.bottom - 2);
+				const PRectangle rcBlob(xBlob, rc.bottom - 4, xBlob + 2, rc.bottom - 2);
 				surface->FillRectangle(rcBlob, fore);
-				right += 5.0f;
+				xBlob += pitchDots;
 			}
 		}
 		break;
@@ -516,26 +518,28 @@ void LineMarker::Draw(Surface *surface, const PRectangle &rcWhole, const Font *f
 		break;
 
 	case MarkerSymbol::Bar: {
+			// Hide cap by continuing a bit.
+			constexpr XYPOSITION continueLength = 5.0;
 			PRectangle rcBar = rcWhole;
-			const XYPOSITION widthBar = std::floor(rcWhole.Width() / 3.0);
+			const XYPOSITION widthBar = std::ceil(rcWhole.Width() / 3.0);
 			rcBar.left = centreX - std::floor(widthBar / 2.0);
 			rcBar.right = rcBar.left + widthBar;
-			surface->SetClip(rcWhole);
+			surface->SetClip(rcWhole);	// Hide continued caps
 			switch (part) {
 			case LineMarker::FoldPart::headWithTail:
 				surface->RectangleDraw(rcBar, FillStroke(back, fore, strokeWidth));
 				break;
 			case LineMarker::FoldPart::head:
-				rcBar.bottom += 5;
+				rcBar.bottom += continueLength;
 				surface->RectangleDraw(rcBar, FillStroke(back, fore, strokeWidth));
 				break;
 			case LineMarker::FoldPart::tail:
-				rcBar.top -= 5;
+				rcBar.top -= continueLength;
 				surface->RectangleDraw(rcBar, FillStroke(back, fore, strokeWidth));
 				break;
 			case LineMarker::FoldPart::body:
-				rcBar.top -= 5;
-				rcBar.bottom += 5;
+				rcBar.top -= continueLength;
+				rcBar.bottom += continueLength;
 				surface->RectangleDraw(rcBar, FillStroke(back, fore, strokeWidth));
 				break;
 			default:

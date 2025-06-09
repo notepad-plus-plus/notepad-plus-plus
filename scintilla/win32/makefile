@@ -18,11 +18,12 @@ LIBSCI = $(DIR_BIN)/libscintilla.a
 WARNINGS = -Wpedantic -Wall -Wextra
 
 ifdef CLANG
-CXX = clang++
+  CXX = clang++
 else
-# MinGW GCC
-LIBSMINGW = -lstdc++
-STRIPOPTION = -s
+  # MinGW GCC
+  LIBSMINGW = -lstdc++
+  STRIPOPTION = -s
+  WARNINGS += -Wconversion
 endif
 ARFLAGS = rc
 RANLIB ?= ranlib
@@ -36,9 +37,9 @@ normalize = $(if $(windir),$(subst /,\,$1),$1)
 PYTHON = $(if $(windir),pyw,python3)
 
 ifdef windir
-DEL = $(if $(wildcard $(dir $(SHELL))rm.exe), $(dir $(SHELL))rm.exe -f, del /q)
+  DEL = $(if $(wildcard $(dir $(SHELL))rm.exe), $(dir $(SHELL))rm.exe -f, del /q)
 else
-DEL = rm -f
+  DEL = rm -f
 endif
 
 vpath %.h ../src ../include
@@ -52,14 +53,14 @@ INCLUDES=-I ../include -I ../src
 BASE_FLAGS += $(WARNINGS)
 
 ifdef NO_CXX11_REGEX
-DEFINES += -DNO_CXX11_REGEX
+  DEFINES += -DNO_CXX11_REGEX
 endif
 
 DEFINES += -D$(if $(DEBUG),DEBUG,NDEBUG)
 BASE_FLAGS += $(if $(DEBUG),-g,-O3)
 
 ifndef DEBUG
-STRIPFLAG=$(STRIPOPTION)
+  STRIPFLAG=$(STRIPOPTION)
 endif
 
 CXX_BASE_FLAGS =--std=c++17 $(BASE_FLAGS)

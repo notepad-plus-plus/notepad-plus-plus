@@ -2,6 +2,8 @@
 // All platform headers should be included before Scintilla headers
 // and each of these groups are then divided into directory groups.
 
+// Qt platform layer not handled as it doesn't define a strong ordering of headers.
+
 // Base of the repository relative to this file
 
 //base:..
@@ -16,8 +18,6 @@
 //source:cocoa/*.mm
 //source:cocoa/*.h
 //source:test/unit/*.cxx
-//source:lexilla/src/*.cxx
-//source:lexilla/test/*.cxx
 
 // C standard library
 #include <stddef.h>
@@ -71,6 +71,7 @@
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdkwayland.h>
 #include <gtk/gtk-a11y.h>
+#include <cairo/cairo-gobject.h>
 
 // Windows headers
 #include <windows.h>

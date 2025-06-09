@@ -288,3 +288,7 @@ const Color = enum {
     @"really red",
 };
 const color: Color = .@"really red";
+
+const s1 = "Unterminated string
+const s2 = 'Unterminated character
+const s3 = @"Unterminated identifier string

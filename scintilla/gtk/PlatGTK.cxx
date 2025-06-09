@@ -27,6 +27,9 @@
 #if defined(GDK_WINDOWING_WAYLAND)
 #include <gdk/gdkwayland.h>
 #endif
+#if GTK_CHECK_VERSION(3, 10, 0)
+#include <cairo/cairo-gobject.h>
+#endif
 
 #include "ScintillaTypes.h"
 #include "ScintillaMessages.h"
@@ -1432,6 +1435,7 @@ class ListBoxX : public ListBox {
 #if GTK_CHECK_VERSION(3,0,0)
 	std::unique_ptr<GtkCssProvider, GObjectReleaser> cssProvider;
 #endif
+	float imageScale;
 public:
 	IListBoxDelegate *delegate;
 
@@ -1439,7 +1443,7 @@ public:
 		pixhash(nullptr), pixbuf_renderer(nullptr),
 		renderer(nullptr),
 		desiredVisibleRows(5), maxItemCharacters(0),
-		aveCharWidth(1),
+		aveCharWidth(1), imageScale(1.0),
 		delegate(nullptr) {
 	}
 	// Deleted so ListBoxX objects can not be copied.
@@ -1673,7 +1677,13 @@ void ListBoxX::Create(Window &parent, int, Point, int, bool, Technology) {
 
 	/* Tree and its model */
 	GtkListStore *store =
-		gtk_list_store_new(N_COLUMNS, GDK_TYPE_PIXBUF, G_TYPE_STRING);
+		gtk_list_store_new(N_COLUMNS,
+#if GTK_CHECK_VERSION(3, 10, 0)
+		CAIRO_GOBJECT_TYPE_SURFACE,
+#else
+		GDK_TYPE_PIXBUF,
+#endif
+		G_TYPE_STRING);
 
 	list = gtk_tree_view_new_with_model(GTK_TREE_MODEL(store));
 	g_signal_connect(G_OBJECT(list), "style-set", G_CALLBACK(StyleSet), nullptr);
@@ -1701,7 +1711,13 @@ void ListBoxX::Create(Window &parent, int, Point, int, bool, Technology) {
 	gtk_cell_renderer_set_fixed_size(pixbuf_renderer, 0, -1);
 	gtk_tree_view_column_pack_start(column, pixbuf_renderer, FALSE);
 	gtk_tree_view_column_add_attribute(column, pixbuf_renderer,
-					   "pixbuf", PIXBUF_COLUMN);
+#if GTK_CHECK_VERSION(3, 10, 0)
+					   "surface",
+#else
+					   "pixbuf",
+#endif
+					   PIXBUF_COLUMN);
+
 
 	renderer = gtk_cell_renderer_text_new();
 	gtk_cell_renderer_text_set_fixed_height_from_font(GTK_CELL_RENDERER_TEXT(renderer), 1);
@@ -1915,11 +1931,20 @@ void ListBoxX::Append(char *s, int type) {
 		if (nullptr == list_image->pixbuf)
 			init_pixmap(list_image);
 		if (list_image->pixbuf) {
+#if GTK_CHECK_VERSION(3, 10, 0)
+			cairo_surface_t *surface = gdk_cairo_surface_create_from_pixbuf(list_image->pixbuf, imageScale, nullptr);
+			gtk_list_store_set(GTK_LIST_STORE(store), &iter,
+					   PIXBUF_COLUMN, surface,
+					   TEXT_COLUMN, s, -1);
+
+			const gint pixbuf_width = gdk_pixbuf_get_width(list_image->pixbuf) / imageScale;
+#else
 			gtk_list_store_set(GTK_LIST_STORE(store), &iter,
 					   PIXBUF_COLUMN, list_image->pixbuf,
 					   TEXT_COLUMN, s, -1);
 
 			const gint pixbuf_width = gdk_pixbuf_get_width(list_image->pixbuf);
+#endif
 			gint renderer_height, renderer_width;
 			gtk_cell_renderer_get_fixed_size(pixbuf_renderer,
 							 &renderer_width, &renderer_height);
@@ -2125,7 +2150,8 @@ void ListBoxX::SetList(const char *listText, char separator, char typesep) {
 	}
 }
 
-void ListBoxX::SetOptions(ListOptions) {
+void ListBoxX::SetOptions(ListOptions options_) {
+	imageScale = options_.imageScale;
 }
 
 Menu::Menu() noexcept : mid(nullptr) {}

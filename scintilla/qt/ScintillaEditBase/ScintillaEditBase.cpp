@@ -21,11 +21,6 @@
 #include <QScrollBar>
 #include <QTextFormat>
 
-constexpr int IndicatorInput = static_cast<int>(Scintilla::IndicatorNumbers::Ime);
-constexpr int IndicatorTarget = IndicatorInput + 1;
-constexpr int IndicatorConverted = IndicatorInput + 2;
-constexpr int IndicatorUnknown = IndicatorInput + 3;
-
 // Q_WS_MAC and Q_WS_X11 aren't defined in Qt5
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #ifdef Q_OS_MAC
@@ -458,31 +453,6 @@ bool ScintillaEditBase::IsHangul(const QChar qchar)
 				HangulJamoExtendedA || HangulJamoExtendedB;
 }
 
-void ScintillaEditBase::MoveImeCarets(Scintilla::Position offset)
-{
-	// Move carets relatively by bytes
-	for (size_t r=0; r < sqt->sel.Count(); r++) {
-		const Sci::Position positionInsert = sqt->sel.Range(r).Start().Position();
-		sqt->sel.Range(r) = SelectionRange(positionInsert + offset);
- 	}
-}
-
-void ScintillaEditBase::DrawImeIndicator(int indicator, int len)
-{
-	// Emulate the visual style of IME characters with indicators.
-	// Draw an indicator on the character before caret by the character bytes of len
-	// so it should be called after InsertCharacter().
-	// It does not affect caret positions.
-	if (indicator < INDICATOR_CONTAINER || indicator > INDICATOR_MAX) {
-		return;
-	}
-	sqt->pdoc->DecorationSetCurrentIndicator(indicator);
-	for (size_t r=0; r< sqt-> sel.Count(); r++) {
-		const Sci::Position positionInsert = sqt->sel.Range(r).Start().Position();
-		sqt->pdoc->DecorationFillRange(positionInsert - len, 1, len);
-	}
-}
-
 namespace {
 
 int GetImeCaretPos(QInputMethodEvent *event)
@@ -613,7 +583,7 @@ void ScintillaEditBase::inputMethodEvent(QInputMethodEvent *event)
 
 			sqt->InsertCharacter(std::string_view(oneChar.data(), oneCharLen), CharacterSource::TentativeInput);
 
-			DrawImeIndicator(imeIndicator[i], oneCharLen);
+			sqt->DrawImeIndicator(imeIndicator[i], oneCharLen);
 			i += ucWidth;
 		}
 
@@ -622,13 +592,13 @@ void ScintillaEditBase::inputMethodEvent(QInputMethodEvent *event)
 		const int imeEndToImeCaretU16 = imeCaretPos - preeditStrLen;
 		const Sci::Position imeCaretPosDoc = sqt->pdoc->GetRelativePositionUTF16(sqt->CurrentPosition(), imeEndToImeCaretU16);
 
-		MoveImeCarets(- sqt->CurrentPosition() + imeCaretPosDoc);
+		sqt->MoveImeCarets(- sqt->CurrentPosition() + imeCaretPosDoc);
 
 		if (IsHangul(preeditStr.at(0))) {
 #ifndef Q_OS_WIN
 			if (imeCaretPos > 0) {
 				int oneCharBefore = sqt->pdoc->GetRelativePosition(sqt->CurrentPosition(), -1);
-				MoveImeCarets(- sqt->CurrentPosition() + oneCharBefore);
+				sqt->MoveImeCarets(- sqt->CurrentPosition() + oneCharBefore);
 			}
 #endif
 			sqt->view.imeCaretBlockOverride = true;

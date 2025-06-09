@@ -130,7 +130,7 @@
 
     <h1>Scintilla Documentation</h1>
 
-    <p>Last edited 29 March 2025 NH</p>
+    <p>Last edited 29 May 2025 NH</p>
 
     <p style="background:#90F0C0">Scintilla 5 has moved the lexers from Scintilla into a new
     <a href="Lexilla.html">Lexilla</a> project.<br />
@@ -151,6 +151,8 @@
     discussion of folding</a>.<br />
      <a class="jump" href="https://github.com/geany/geany/files/5204338/Scintilla-var.aq-Tutorial.pdf">
      Beginner's Guide to lexing and folding</a>.<br />
+     <a class="jump" href="https://www.youtube.com/watch?v=M07iGUA07rY">
+     Video on writing a lexer with wxStyledTextCtrl</a>.<br />
      The <a class="jump" href="SciCoding.html">coding style</a> used in Scintilla and SciTE is
     worth following if you want to contribute code to Scintilla but is not compulsory.</p>
 
@@ -1324,6 +1326,35 @@ struct Sci_TextRangeFull {
      This is most commonly desired in conjunction with virtual space but is an independent
      setting so works without virtual space.</p>
 
+    <table class="standard" summary="Virtual space options">
+      <tbody valign="top">
+        <tr>
+          <th align="left"><code>SCVS_NONE</code></th>
+          <td>0</td>
+          <td>The default: no virtual space.</td>
+        </tr>
+
+        <tr>
+          <th align="left"><code>SCVS_RECTANGULARSELECTION</code></th>
+          <td>1</td>
+          <td>Virtual space is enabled for rectangular selections.</td>
+        </tr>
+
+        <tr>
+          <th align="left"><code>SCVS_USERACCESSIBLE</code></th>
+          <td>2</td>
+          <td>Virtual space is enabled for user actions such as right arrow key or clicking beyond line end.</td>
+        </tr>
+
+        <tr>
+          <th align="left"><code>SCVS_NOWRAPLINESTART</code></th>
+          <td>4</td>
+          <td>Left arrow does not wrap to the previous line.</td>
+        </tr>
+
+      </tbody>
+    </table>
+
     <p>
     <b id="SCI_SETRECTANGULARSELECTIONMODIFIER">SCI_SETRECTANGULARSELECTIONMODIFIER(int modifier)</b><br />
     <b id="SCI_GETRECTANGULARSELECTIONMODIFIER">SCI_GETRECTANGULARSELECTIONMODIFIER &rarr; int</b><br />
@@ -2054,6 +2085,14 @@ struct Sci_TextToFindFull {
           <td>Restore selection for each undo and redo.</td>
         </tr>
 
+        <tr>
+          <th align="left"><code>SC_UNDO_SELECTION_HISTORY_SCROLL</code></th>
+
+          <td>2</td>
+
+          <td>Restore vertical scroll position. Has no effect without <code>SC_UNDO_SELECTION_HISTORY_ENABLED</code>.</td>
+        </tr>
+
       </tbody>
     </table>
 
@@ -2358,6 +2397,7 @@ struct Sci_TextToFindFull {
      <a class="message" href="#SCI_GETFIRSTVISIBLELINE">SCI_GETFIRSTVISIBLELINE &rarr; line</a><br />
      <a class="message" href="#SCI_SETXOFFSET">SCI_SETXOFFSET(int xOffset)</a><br />
      <a class="message" href="#SCI_GETXOFFSET">SCI_GETXOFFSET &rarr; int</a><br />
+     <a class="message" href="#SCI_SCROLLVERTICAL">SCI_SCROLLVERTICAL(line docLine, line subLine)</a><br />
      <a class="message" href="#SCI_LINESCROLL">SCI_LINESCROLL(position columns, line lines)</a><br />
      <a class="message" href="#SCI_SCROLLCARET">SCI_SCROLLCARET</a><br />
      <a class="message" href="#SCI_SCROLLRANGE">SCI_SCROLLRANGE(position secondary, position primary)</a><br />
@@ -2390,6 +2430,26 @@ struct Sci_TextToFindFull {
      The <code class="parameter">xOffset</code> is the horizontal scroll position in pixels of the start of the text
     view. A value of 0 is the normal position with the first text column visible at the left of the
     view.</p>
+
+    <p><b id="SCI_SCROLLVERTICAL">SCI_SCROLLVERTICAL(line docLine, line subLine)</b><br />
+     Sets the vertical scroll position to be the display line for the
+     <code class="parameter">subLine</code> of the <code class="parameter">docLine</code>, similar to<br>
+     <code>SCI_SETFIRSTVISIBLELINE(SCI_VISIBLEFROMDOCLINE(docLine) + subLine)</code>.</p>
+
+     <p>The <code class="parameter">subLine</code> is capped to the maximum number of sublines
+     for that document line which may change because of styling and wrapping. It is ignored when line
+     wrapping is off.</p>
+
+     <p>If line wrapping is on, then that
+     <code class="parameter">docLine</code>/<code class="parameter">subLine</code>
+     is remembered and reapplied as lines are wrapped.
+     This ensures that when wrapping is completed, which may take some time, the line at the top of the view is that
+     requested by the application and the view range is stable during the wrapping process.
+     It is forgotten once the document is fully wrapped or the user
+     performs scrolling manually such as by dragging the scroll bar.</p>
+
+     <p>This method is a good way for applications to restore the user's positional context when re-selecting a
+     document as it is robust to changes in window width and styles.</p>
 
     <p><b id="SCI_LINESCROLL">SCI_LINESCROLL(position columns, line lines)</b><br />
      This will attempt to scroll the display by the number of columns and lines that you specify.
@@ -3631,7 +3691,7 @@ struct Sci_TextToFindFull {
     <td>&check;</td>
     <td>&check;</td></tr>
    <tr>
-    <th align="left"><code>SC_CHARSET_GREEK</code></td>
+    <th align="left"><code>SC_CHARSET_GREEK</code></th>
     <td>161</td>
     <td>&check;</td>
     <td></td>
@@ -4539,8 +4599,8 @@ struct Sci_TextToFindFull {
     <p>Using a margin number outside the valid range has no
     effect. By default, margin 0 is set to display line numbers, but is given a width of 0, so it
     is hidden. Margin 1 is set to display non-folding symbols and is given a width of 16 pixels, so
-    it is visible. Margin 2 is set to display the folding symbols, but is given a width of 0, so it
-    is hidden. Of course, you can set the margins to be whatever you wish.</p>
+    it is visible. Margin 2 is a symbol margin that is given a width of 0, so it is hidden.
+    Of course, you can set the margins to be whatever you wish.</p>
 
     <p>Styled text margins used to show revision and blame information:</p>
     <p><img src="styledmargin.png" alt="Styled text margins used to show revision and blame information" /></p>
@@ -5221,7 +5281,7 @@ struct Sci_TextToFindFull {
        </tr>
       </tbody>
     </table>
-    <p></p>
+    <br />
 
     <table class="standard" summary="IME interaction">
       <caption>IME interaction support</caption>
@@ -6475,6 +6535,8 @@ struct Sci_TextToFindFull {
      <a class="message" href="#SCI_AUTOCGETMAXWIDTH">SCI_AUTOCGETMAXWIDTH &rarr; int</a><br />
      <a class="message" href="#SCI_AUTOCSETSTYLE">SCI_AUTOCSETSTYLE(int style)</a><br />
      <a class="message" href="#SCI_AUTOCGETSTYLE">SCI_AUTOCGETSTYLE &rarr; int</a><br />
+     <a class="message" href="#SCI_AUTOCSETIMAGESCALE">SCI_AUTOCSETIMAGESCALE(int scale)</a><br />
+     <a class="message" href="#SCI_AUTOCGETIMAGESCALE">SCI_AUTOCGETIMAGESCALE &rarr; int</a><br />
      <a class="element" href="#SC_ELEMENT_LIST">SC_ELEMENT_LIST : colouralpha</a><br />
      <a class="element" href="#SC_ELEMENT_LIST_BACK">SC_ELEMENT_LIST_BACK : colouralpha</a><br />
      <a class="element" href="#SC_ELEMENT_LIST_SELECTED">SC_ELEMENT_LIST_SELECTED : colouralpha</a><br />
@@ -6705,6 +6767,16 @@ struct Sci_TextToFindFull {
       <a class="seealso" href="#SCI_ALLOCATEEXTENDEDSTYLES">SCI_ALLOCATEEXTENDEDSTYLES(1)</a> before <code>SCI_AUTOCSETSTYLE</code> and use the
       result as the argument to <code>SCI_AUTOCSETSTYLE</code> and <code>SCI_STYLESETFONT</code> and others.
     </p>
+
+    <p>
+      <b id="SCI_AUTOCSETIMAGESCALE">SCI_AUTOCSETIMAGESCALE(int scalePercent)</b><br />
+      <b id="SCI_AUTOCGETIMAGESCALE">SCI_AUTOCGETIMAGESCALE &rarr; int</b><br />
+
+      Get or set the scale factor in percent for <em>all</em> autocompletion list images. This is useful on macOS with
+      a retina display where each display unit is 2 pixels: use a factor of 200 so that each image pixel is displayed using a screen pixel.
+      The default scale, 100, will stretch each image pixel to cover 4 screen pixels on a retina display.
+    </p>
+    <p>This is currently only implemented for the Qt and GTK platforms.</p>
 
     <p>
      <b id="SC_ELEMENT_LIST">SC_ELEMENT_LIST : colouralpha</b><br />

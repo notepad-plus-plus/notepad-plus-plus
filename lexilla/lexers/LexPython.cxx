@@ -409,7 +409,6 @@ public:
 	explicit LexerPython() :
 		DefaultLexer("python", SCLEX_PYTHON, lexicalClasses, std::size(lexicalClasses)) {
 	}
-	~LexerPython() override = default;
 	void SCI_METHOD Release() override {
 		delete this;
 	}
@@ -534,11 +533,7 @@ void LexerPython::ProcessLineEnd(StyleContext &sc, std::vector<SingleFStringExpS
 	}
 
 	if (!fstringStateStack.empty()) {
-		std::pair<Sci_Position, std::vector<SingleFStringExpState> > val;
-		val.first = sc.currentLine;
-		val.second = fstringStateStack;
-
-		ftripleStateAtEol.insert(val);
+		ftripleStateAtEol.insert({sc.currentLine, fstringStateStack});
 	}
 
 	if ((sc.state == SCE_P_DEFAULT)

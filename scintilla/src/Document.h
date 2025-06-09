@@ -173,7 +173,7 @@ public:
 };
 
 // Base class for view state that can be held and transferred without understanding the contents.
-// Declared here but real implementation subclass declared in EditModel 
+// Declared here but real implementation subclass declared in EditModel
 struct ViewState {
 	ViewState() noexcept = default;
 	// Deleted so ViewState objects can not be copied

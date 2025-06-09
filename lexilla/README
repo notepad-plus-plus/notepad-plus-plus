@@ -27,12 +27,12 @@ directory conventionally called "lexilla".
 To use GCC, run lexilla/src/makefile:
 	make
 
-To use Clang, run lexilla/test/makefile:
+To use Clang, run lexilla/src/makefile:
 	make CLANG=1
 On macOS, CLANG is set automatically so this can just be
 	make
 
-To use MSVC, run lexilla/test/lexilla.mak:
+To use MSVC, run lexilla/src/lexilla.mak:
 	nmake -f lexilla.mak
 
 To build a debugging version of the library, add DEBUG=1 to the command:

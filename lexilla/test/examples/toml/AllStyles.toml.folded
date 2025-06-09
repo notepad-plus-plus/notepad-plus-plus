@@ -189,4 +189,6 @@
  0 401   0 | ~~~~ = true       # invalid character in key
  0 401   0 | invalid           # invalid, missing value
  0 401   0 | key = identifier  # also invalid, identifier must be one of true, false, inf, nan
+ 0 401   0 | key = "unterminated string
+ 0 401   0 | key = 'other unterminated string
  0 401   0 | 

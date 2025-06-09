@@ -4072,6 +4072,10 @@ namespace {
 
 enum class OtherID { oidNone, oidStart, oidContinue };
 
+// Silence 'magic' number warning as these character values are not used in multiple places.
+
+// NOLINTBEGIN(*-magic-numbers)
+
 // Some characters are treated as valid for identifiers even
 // though most characters from their category are not.
 // Values copied from http://www.unicode.org/Public/9.0.0/ucd/PropList.txt
@@ -4160,6 +4164,8 @@ bool OmitXidContinue(int character) noexcept {
 		return false;
 	}
 }
+
+// NOLINTEND(*-magic-numbers)
 
 }
 

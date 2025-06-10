@@ -344,8 +344,6 @@ private:
 	WindowsMenu _windowsMenu;
 	HMENU _mainMenuHandle = NULL;
 
-	bool _sysMenuEntering = false;
-
 	// make sure we don't recursively call doClose when closing the last file with -quitOnEmpty
 	bool _isAttemptingCloseOnQuit = false;
 

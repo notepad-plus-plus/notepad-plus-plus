@@ -2983,13 +2983,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				return TRUE;
 			}
 
-			if (wParam == SC_KEYMENU && lParam == VK_SPACE)
+			if ((wParam == SC_KEYMENU && lParam != VK_SPACE))
 			{
-				_sysMenuEntering = true;
-			}
-			else if (wParam == 0xF093) //it should be SC_MOUSEMENU. A bug?
-			{
-				_sysMenuEntering = true;
+				const NppGUI & nppgui = nppParam.getNppGUI();
+				if (!nppgui._menuBarShow)
+				{
+					HMENU curMenuHandle = (!::GetMenu(hwnd)) ? _mainMenuHandle : NULL;
+					::SetMenu(hwnd, curMenuHandle);
+
+					return FALSE;	// must return here to prevent the system from activating the menu bar
+				}
 			}
 
 			return ::DefWindowProc(hwnd, message, wParam, lParam);
@@ -3778,24 +3781,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			_windowsMenu.initPopupMenu(reinterpret_cast<HMENU>(wParam), _pDocTab);
 			return TRUE;
-		}
-
-		case WM_ENTERMENULOOP:
-		{
-			const NppGUI & nppgui = nppParam.getNppGUI();
-			if (!nppgui._menuBarShow && !wParam && !_sysMenuEntering)
-				::SetMenu(hwnd, _mainMenuHandle);
-
-			return TRUE;
-		}
-
-		case WM_EXITMENULOOP:
-		{
-			const NppGUI & nppgui = nppParam.getNppGUI();
-			if (!nppgui._menuBarShow && !wParam && !_sysMenuEntering)
-				::SetMenu(hwnd, NULL);
-			_sysMenuEntering = false;
-			return FALSE;
 		}
 
 		case WM_DPICHANGED:

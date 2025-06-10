@@ -635,9 +635,9 @@ BEGIN
     COMBOBOX        IDC_COMBO_SC_TECHNOLOGY_CHOICE,37,96,115,100,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     LTEXT           "rendering mode",IDC_SC_TECHNOLOGY_STATIC,157,97,88,8
 
-    // "Enable Notepad++ auto-updater" should be always the 1st item, because it'll be hidden if GUP.exe is absent
-    CONTROL         "Enable Notepad++ auto-updater",IDC_CHECK_AUTOUPDATE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,118,150,10
-    CONTROL         "At exit",IDC_CHECK_AUTOUPDATE_AT_EXIT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,191,118,70,10
+    // "Notepad++ auto-updater" should be always the 1st item, because it'll be hidden if GUP.exe is absent
+    RTEXT           "Auto-updater:",IDC_AUTOUPDATE_STATIC,22,119,83,10
+    COMBOBOX        IDC_COMBO_AUTOUPDATE,109,118,115,10,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     CONTROL         "Mute all sounds",IDC_CHECK_MUTE_SOUNDS,"Button", BS_AUTOCHECKBOX | WS_TABSTOP,37,133,190,10
     CONTROL         "Autodetect character encoding",IDC_CHECK_DETECTENCODING,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,148,217,10
     CONTROL         "Show only filename in title bar",IDC_CHECK_SHORTTITLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,163,217,10

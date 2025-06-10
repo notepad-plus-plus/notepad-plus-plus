@@ -505,9 +505,9 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	NppDarkMode::initDarkMode();
 	DPIManagerV2::initDpiAPI();
 
-	bool doUpdateNpp = nppGui._autoUpdateOpt._doAutoUpdate;
-	bool updateAtExit = nppGui._autoUpdateOpt._atAppExit;
-	bool doUpdatePluginList = nppGui._autoUpdateOpt._doAutoUpdate;
+	bool doUpdateNpp = nppGui._autoUpdateOpt._doAutoUpdate != NppGUI::autoupdate_disabled;
+	bool updateAtExit = nppGui._autoUpdateOpt._doAutoUpdate == NppGUI::autoupdate_on_exit;
+	bool doUpdatePluginList = nppGui._autoUpdateOpt._doAutoUpdate != NppGUI::autoupdate_disabled;
 
 	if (doFunctionListExport || doPrintAndQuit) // export functionlist feature will serialize functionlist on the disk, then exit Notepad++. So it's important to not launch into existing instance, and keep it silent.
 	{
@@ -635,8 +635,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	if (TheFirstOne && isUpExist && isGtXP && isSignatureOK && doUpdateNpp && !updateAtExit)
 	{
 		std::wstring updaterParams = L"-v";
-		//updaterParams += VERSION_INTERNAL_VALUE; // TEMP:
-		updaterParams += L"8.79\0"; // TEMP: for testing only (to force the update also for the latest N++ installed)
+		updaterParams += VERSION_INTERNAL_VALUE;
 
 		if (nppParameters.archType() == IMAGE_FILE_MACHINE_AMD64)
 		{
@@ -769,13 +768,12 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 		doException(notepad_plus_plus);
 	}
 
-	doUpdateNpp = nppGui._autoUpdateOpt._doAutoUpdate; // refresh, maybe user activated these opts in Preferences
-	updateAtExit = nppGui._autoUpdateOpt._atAppExit; // refresh
+	doUpdateNpp = nppGui._autoUpdateOpt._doAutoUpdate != NppGUI::autoupdate_disabled; // refresh, maybe user activated these opts in Preferences
+	updateAtExit = nppGui._autoUpdateOpt._doAutoUpdate == NppGUI::autoupdate_on_exit; // refresh
 	if (!isException && !nppParameters.isEndSessionCritical() && TheFirstOne && isUpExist && isGtXP && isSignatureOK && doUpdateNpp && updateAtExit)
 	{
 		std::wstring updaterParams = L"-v";
-		//updaterParams += VERSION_INTERNAL_VALUE; // TEMP:
-		updaterParams += L"8.79\0"; // TEMP: for testing only (to force the update also for the latest N++ installed)
+		updaterParams += VERSION_INTERNAL_VALUE;
 
 		if (nppParameters.archType() == IMAGE_FILE_MACHINE_AMD64)
 		{

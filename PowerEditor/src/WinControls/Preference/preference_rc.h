@@ -250,7 +250,6 @@
 #define IDC_CHECK_CLICKABLELINK_NOUNDERLINE            6320
 #define IDC_EDIT_SESSIONFILEEXT                        6321
 #define IDC_SESSIONFILEEXT_STATIC                      6322
-#define IDC_CHECK_AUTOUPDATE                           6323
 #define IDC_DOCUMENTSWITCHER_STATIC                    6324
 #define IDC_CHECK_UPDATEGOTOEOF                        6325
 #define IDC_CHECK_ENABLSMARTHILITE                     6326
@@ -268,8 +267,6 @@
 #define IDC_CHECK_SMARTHILITEWHOLEWORDONLY             6338
 #define IDC_CHECK_SMARTHILITEUSEFINDSETTINGS           6339
 #define IDC_CHECK_SMARTHILITEANOTHERRVIEW              6340
-#define IDC_CHECK_AUTOUPDATE_AT_EXIT                   6341
-
 
 #define IDC_DOCUMENTPEEK_STATIC                        6344
 #define IDC_CHECK_ENABLEDOCPEEKER                      6345
@@ -286,6 +283,9 @@
 
 #define IDC_COMBO_SC_TECHNOLOGY_CHOICE                 6362
 #define IDC_SC_TECHNOLOGY_STATIC                       6363
+
+#define IDC_COMBO_AUTOUPDATE                           6364
+#define IDC_AUTOUPDATE_STATIC                          6365
 
 #define IDD_PREFERENCE_SUB_NEWDOCUMENT                 6400
 #define IDC_FORMAT_GB_STATIC                           6401

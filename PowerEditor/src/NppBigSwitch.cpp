@@ -764,7 +764,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_DISABLEAUTOUPDATE:
 		{
 			NppGUI & nppGUI = nppParam.getNppGUI();
-			nppGUI._autoUpdateOpt._doAutoUpdate = false;
+			nppGUI._autoUpdateOpt._doAutoUpdate = NppGUI::autoupdate_disabled;
 			return TRUE;
 		}
 
@@ -3529,7 +3529,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			//printStr(L"you've got me"));
 			NppGUI & nppGUI = nppParam.getNppGUI();
-			nppGUI._autoUpdateOpt._doAutoUpdate = false;
+			nppGUI._autoUpdateOpt._doAutoUpdate = NppGUI::autoupdate_disabled;
 			return TRUE;
 		}
 

@@ -2997,7 +2997,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_LBUTTONDBLCLK:
 		{
-			::SendMessage(hwnd, WM_COMMAND, IDM_FILE_NEW, 0);
+			POINT pt;
+			::GetCursorPos(&pt);
+			if (!_mainDocTab.isPointInBorder(pt))	// no need to check for _subDocTab here
+				::SendMessage(hwnd, WM_COMMAND, IDM_FILE_NEW, 0);
+
 			return TRUE;
 		}
 

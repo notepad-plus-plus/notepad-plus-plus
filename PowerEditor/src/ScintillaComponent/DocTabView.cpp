@@ -267,3 +267,33 @@ void DocTabView::reSizeTo(RECT & rc)
 	SendMessage(_hParent, NPPM_INTERNAL_UPDATECLICKABLELINKS, reinterpret_cast<WPARAM>(_pView), 0);
 }
 
+// Check if a (clicked) point is within the border
+bool DocTabView::isPointInBorder(POINT pt) const
+{
+	RECT rcView;
+	::GetClientRect(_pView->getHSelf(), &rcView);
+	::ClientRectToScreenRect(_pView->getHSelf(), &rcView);
+
+	RECT rcViewWithBorder = rcView;
+	NppParameters& nppParam = NppParameters::getInstance();
+	NppGUI& nppGUI = nppParam.getNppGUI();
+	if (nppGUI._tabStatus & TAB_HIDE)
+	{
+		// if the tab bar is hidden, there will be no border
+		// which means no matter where the point is, it can't be within the border
+
+		return false;
+	}
+	else
+	{
+		int borderWidth = nppParam.getSVP()._borderWidth + borderWidthOffset;
+
+		rcViewWithBorder.left -= borderWidth;
+		rcViewWithBorder.right += borderWidth * 2;
+		rcViewWithBorder.top -= borderWidth;
+		rcViewWithBorder.bottom += (borderWidth * 2);
+	}
+
+	return (::PtInRect(&rcViewWithBorder, pt) && !::PtInRect(&rcView, pt));
+};
+

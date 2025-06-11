@@ -20,6 +20,7 @@
 #include "Parameters.h"
 #include "localization.h"
 #include <cassert>
+#include "DocTabView.h"
 
 
 
@@ -143,6 +144,30 @@ void SplitterContainer::rotateTo(DIRECTION direction)
 	}
 	_splitter.rotate();
 
+}
+
+// Check if a point is within the border 
+// Must use this if you want to use SplitterContainer class for notification of mouse events
+bool SplitterContainer::isPointInBorder(POINT pt, Window* whichWnd /* = nullptr */) const
+{
+	// If no window is specified, get window from point
+	Window* pWnd = whichWnd;
+	if (!pWnd)
+	{
+		POINT ptTmp = pt;
+		::ScreenToClient(_splitter.getHSelf(), &ptTmp);
+		pWnd = (isVertical())
+			? (ptTmp.x < 0 ? _pWin0 : _pWin1)
+			: (ptTmp.y < 0 ? _pWin0 : _pWin1);
+	}
+
+	if (!pWnd) return false;
+
+	// Get document tab view
+	const DocTabView* pDocTabView = dynamic_cast<DocTabView*>(pWnd);
+	if (!pDocTabView) return false;
+
+	return pDocTabView->isPointInBorder(pt);
 }
 
 LRESULT CALLBACK SplitterContainer::staticWinProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -307,6 +332,7 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			POINT pt;
 			::GetCursorPos(&pt);
+			POINT ptOrg = pt;
 			::ScreenToClient(_splitter.getHSelf(), &pt);
 
 			HWND parent = ::GetParent(getHSelf());
@@ -316,7 +342,10 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 				: (pt.y < 0 ? _pWin0 : _pWin1);
 
 			::SendMessage(parent, NPPM_INTERNAL_SWITCHVIEWFROMHWND, 0, reinterpret_cast<LPARAM>(targetWindow->getHSelf()));
-			::SendMessage(parent, WM_COMMAND, IDM_FILE_NEW, 0);
+
+			if (!isPointInBorder(ptOrg, targetWindow))
+				::SendMessage(parent, WM_COMMAND, IDM_FILE_NEW, 0);
+
 			return TRUE;
 		}
 

@@ -24,6 +24,7 @@ const int UNSAVED_IMG_INDEX = 1;
 const int REDONLY_IMG_INDEX = 2;
 const int MONITORING_IMG_INDEX = 3;
 
+const int borderWidthOffset = 2;
 
 class DocTabView : public TabBarPlus
 {
@@ -89,6 +90,7 @@ public :
 			index = 0;
 		return _pIconListVector[index]->getHandle();
 	};
+	bool isPointInBorder(POINT pt) const;
 
 private :
 	ScintillaEditView *_pView = nullptr;

@@ -83,4 +83,5 @@ private :
 	static LRESULT CALLBACK staticWinProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	LRESULT runProc(UINT Message, WPARAM wParam, LPARAM lParam);
 	void rotateTo(DIRECTION direction);
+	bool isPointInBorder(POINT pt, Window* whichWnd = nullptr) const;
 };

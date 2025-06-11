@@ -2085,6 +2085,9 @@ bool Notepad_plus::fileRename(BufferID bufferID)
 		wchar_t *tabNewName = reinterpret_cast<wchar_t *>(strDlg.doDialog());
 		if (tabNewName)
 		{
+			if (oldFileNamePath == tabNewName) // No change but user clicks on OK
+				return false;
+
 			wstring tabNewNameStr = tabNewName;
 			trim(tabNewNameStr); // No leading and trailing space allowed
 
@@ -2110,10 +2113,12 @@ bool Notepad_plus::fileRename(BufferID bufferID)
 					L"Rename failed",
 					MB_OK | MB_ICONSTOP);
 			}
-			else
+			else // The change will be done here
 			{
-				_pluginsManager.notify(&scnN);
+				_pluginsManager.notify(&scnN); // send NPPN_FILEBEFORERENAME
+
 				buf->setFileName(tabNewNameStr.c_str());
+
 				scnN.nmhdr.code = NPPN_FILERENAMED;
 				_pluginsManager.notify(&scnN);
 

@@ -24,7 +24,6 @@ using namespace std;
 void ShortcutMapper::initTabs()
 {
 	_hTabCtrl = ::GetDlgItem(_hSelf, IDC_BABYGRID_TABBAR);
-	NppDarkMode::subclassTabControl(_hTabCtrl);
 	TCITEM tie{};
 	tie.mask = TCIF_TEXT;
 

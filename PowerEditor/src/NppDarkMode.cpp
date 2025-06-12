@@ -2137,7 +2137,6 @@ namespace NppDarkMode
 
 				return 0;
 			}
-			break;
 
 			case WM_NCCALCSIZE:
 			{
@@ -2149,22 +2148,8 @@ namespace NppDarkMode
 				auto lpRect = reinterpret_cast<LPRECT>(lParam);
 				::InflateRect(lpRect, -(pBorderMetricsData->_xEdge), -(pBorderMetricsData->_yEdge));
 
-				auto style = ::GetWindowLongPtr(hWnd, GWL_STYLE);
-				bool hasVerScrollbar = (style & WS_VSCROLL) == WS_VSCROLL;
-				if (hasVerScrollbar)
-				{
-					lpRect->right -= pBorderMetricsData->_xScroll;
-				}
-
-				bool hasHorScrollbar = (style & WS_HSCROLL) == WS_HSCROLL;
-				if (hasHorScrollbar)
-				{
-					lpRect->bottom -= pBorderMetricsData->_yScroll;
-				}
-
-				return 0;
+				break;
 			}
-			break;
 
 			case WM_DPICHANGED:
 			case WM_DPICHANGED_AFTERPARENT:

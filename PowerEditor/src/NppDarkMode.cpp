@@ -1761,102 +1761,98 @@ namespace NppDarkMode
 		SetWindowSubclass(hwnd, GroupboxSubclass, g_groupboxSubclassID, pButtonData);
 	}
 
-	constexpr UINT_PTR g_tabSubclassID = 42;
-
-	static LRESULT CALLBACK TabSubclass(
-		HWND hWnd,
-		UINT uMsg,
-		WPARAM wParam,
-		LPARAM lParam,
-		UINT_PTR uIdSubclass,
-		DWORD_PTR /*dwRefData*/
-	)
+	static void paintTab(HWND hWnd, HDC hdc, const RECT& rect)
 	{
-		switch (uMsg)
+		::FillRect(hdc, &rect, NppDarkMode::getDlgBackgroundBrush());
+
+		auto holdPen = static_cast<HPEN>(::SelectObject(hdc, NppDarkMode::getEdgePen()));
+
+		auto holdClip = ::CreateRectRgn(0, 0, 0, 0);
+		if (::GetClipRgn(hdc, holdClip) != 1)
 		{
-			case WM_ERASEBKGND:
+			::DeleteObject(holdClip);
+			holdClip = nullptr;
+		}
+
+		auto hFont = reinterpret_cast<HFONT>(::SendMessage(hWnd, WM_GETFONT, 0, 0));
+		auto holdFont = ::SelectObject(hdc, hFont);
+
+		POINT ptCursor{};
+		::GetCursorPos(&ptCursor);
+		::ScreenToClient(hWnd, &ptCursor);
+
+		bool hasFocusRect = false;
+		if (::GetFocus() == hWnd)
+		{
+			const auto uiState = static_cast<DWORD>(::SendMessage(hWnd, WM_QUERYUISTATE, 0, 0));
+			hasFocusRect = ((uiState & UISF_HIDEFOCUS) != UISF_HIDEFOCUS);
+		}
+
+		const int iSelTab = TabCtrl_GetCurSel(hWnd);
+		const int nTabs = TabCtrl_GetItemCount(hWnd);
+		for (int i = 0; i < nTabs; ++i)
+		{
+			RECT rcItem{};
+			TabCtrl_GetItemRect(hWnd, i, &rcItem);
+			RECT rcFrame{ rcItem };
+
+			RECT rcIntersect{};
+			if (::IntersectRect(&rcIntersect, &rect, &rcItem) == TRUE)
 			{
-				if (NppDarkMode::isEnabled())
+				const bool isHot = ::PtInRect(&rcItem, ptCursor) == TRUE;
+				const bool isSelectedTab = (i == iSelTab);
+
+				::SetBkMode(hdc, TRANSPARENT);
+
+				HRGN hClip = ::CreateRectRgnIndirect(&rcItem);
+				::SelectClipRgn(hdc, hClip);
+
+				::InflateRect(&rcItem, -1, -1);
+				rcItem.right += 1;
+
+				std::wstring label(MAX_PATH, L'\0');
+				TCITEM tci{};
+				tci.mask = TCIF_TEXT | TCIF_IMAGE | TCIF_STATE;
+				tci.dwStateMask = TCIS_HIGHLIGHTED;
+				tci.pszText = label.data();
+				tci.cchTextMax = MAX_PATH - 1;
+
+				TabCtrl_GetItem(hWnd, i, &tci);
+
+				const auto nStyle = ::GetWindowLongPtr(hWnd, GWL_STYLE);
+				const bool isBtn = (nStyle & TCS_BUTTONS) == TCS_BUTTONS;
+				if (isBtn)
 				{
-					return TRUE;
+					const bool isHighlighted = (tci.dwState & TCIS_HIGHLIGHTED) == TCIS_HIGHLIGHTED;
+					::FillRect(hdc, &rcItem, isHighlighted ? NppDarkMode::getHotBackgroundBrush() : NppDarkMode::getDlgBackgroundBrush());
+					::SetTextColor(hdc, isHighlighted ? NppDarkMode::getLinkTextColor() : NppDarkMode::getDarkerTextColor());
 				}
-				break;
-			}
-
-		case WM_PAINT:
-		{
-			if (!NppDarkMode::isEnabled())
-			{
-				break;
-			}
-
-			LONG_PTR dwStyle = GetWindowLongPtr(hWnd, GWL_STYLE);
-			if ((dwStyle & TCS_BUTTONS) || (dwStyle & TCS_VERTICAL))
-			{
-				break;
-			}
-
-			PAINTSTRUCT ps{};
-			HDC hdc = ::BeginPaint(hWnd, &ps);
-			::FillRect(hdc, &ps.rcPaint, NppDarkMode::getDlgBackgroundBrush());
-
-			auto holdPen = static_cast<HPEN>(::SelectObject(hdc, NppDarkMode::getEdgePen()));
-
-			HRGN holdClip = CreateRectRgn(0, 0, 0, 0);
-			if (1 != GetClipRgn(hdc, holdClip))
-			{
-				DeleteObject(holdClip);
-				holdClip = nullptr;
-			}
-
-			HFONT hFont = reinterpret_cast<HFONT>(SendMessage(hWnd, WM_GETFONT, 0, 0));
-			auto hOldFont = SelectObject(hdc, hFont);
-
-			POINT ptCursor{};
-			::GetCursorPos(&ptCursor);
-			ScreenToClient(hWnd, &ptCursor);
-
-			int nTabs = TabCtrl_GetItemCount(hWnd);
-
-			int nSelTab = TabCtrl_GetCurSel(hWnd);
-			for (int i = 0; i < nTabs; ++i)
-			{
-				RECT rcItem{};
-				TabCtrl_GetItemRect(hWnd, i, &rcItem);
-				RECT rcFrame = rcItem;
-
-				RECT rcIntersect{};
-				if (IntersectRect(&rcIntersect, &ps.rcPaint, &rcItem))
+				else
 				{
-					bool bHot = PtInRect(&rcItem, ptCursor);
-					bool isSelectedTab = (i == nSelTab);
-
-					HRGN hClip = CreateRectRgnIndirect(&rcItem);
-
-					SelectClipRgn(hdc, hClip);
-
-					SetTextColor(hdc, (bHot || isSelectedTab ) ? NppDarkMode::getTextColor() : NppDarkMode::getDarkerTextColor());
-
-					::InflateRect(&rcItem, -1, -1);
-					rcItem.right += 1;
-
 					// for consistency getBackgroundBrush()
 					// would be better, than getCtrlBackgroundBrush(),
 					// however default getBackgroundBrush() has same color
 					// as getDlgBackgroundBrush()
-					::FillRect(hdc, &rcItem, isSelectedTab ? NppDarkMode::getDlgBackgroundBrush() : bHot ? NppDarkMode::getHotBackgroundBrush() : NppDarkMode::getCtrlBackgroundBrush());
+					auto getBrush = [&]() -> HBRUSH {
+						if (isSelectedTab)
+						{
+							return NppDarkMode::getDlgBackgroundBrush();
+						}
 
-					SetBkMode(hdc, TRANSPARENT);
+						if (isHot)
+						{
+							return NppDarkMode::getHotBackgroundBrush();
+						}
+						return NppDarkMode::getCtrlBackgroundBrush();
+						};
 
-					wchar_t label[MAX_PATH]{};
-					TCITEM tci{};
-					tci.mask = TCIF_TEXT;
-					tci.pszText = label;
-					tci.cchTextMax = MAX_PATH - 1;
+					::FillRect(hdc, &rcItem, getBrush());
+					::SetTextColor(hdc, (isHot || isSelectedTab) ? NppDarkMode::getTextColor() : NppDarkMode::getDarkerTextColor());
+				}
 
-					::SendMessage(hWnd, TCM_GETITEM, i, reinterpret_cast<LPARAM>(&tci));
-
-					RECT rcText = rcItem;
+				RECT rcText{ rcItem };
+				if (!isBtn)
+				{
 					if (isSelectedTab)
 					{
 						::OffsetRect(&rcText, 0, -1);
@@ -1867,62 +1863,184 @@ namespace NppDarkMode
 					{
 						rcFrame.right += 1;
 					}
-
-					::FrameRect(hdc, &rcFrame, NppDarkMode::getEdgeBrush());
-
-					DrawText(hdc, label, -1, &rcText, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-
-					DeleteObject(hClip);
-
-					SelectClipRgn(hdc, holdClip);
 				}
-			}
 
-			SelectObject(hdc, hOldFont);
-
-			SelectClipRgn(hdc, holdClip);
-			if (holdClip)
-			{
-				DeleteObject(holdClip);
-				holdClip = nullptr;
-			}
-
-			SelectObject(hdc, holdPen);
-
-			EndPaint(hWnd, &ps);
-			return 0;
-		}
-
-		case WM_NCDESTROY:
-		{
-			::RemoveWindowSubclass(hWnd, TabSubclass, uIdSubclass);
-			break;
-		}
-
-		case WM_PARENTNOTIFY:
-		{
-			switch (LOWORD(wParam))
-			{
-				case WM_CREATE:
+				if (tci.iImage != -1)
 				{
-					auto hwndUpdown = reinterpret_cast<HWND>(lParam);
-					if (NppDarkMode::subclassTabUpDownControl(hwndUpdown))
+					int cx = 0;
+					int cy = 0;
+					auto hImagelist = TabCtrl_GetImageList(hWnd);
+					static constexpr int offset = 2;
+					::ImageList_GetIconSize(hImagelist, &cx, &cy);
+					::ImageList_Draw(hImagelist, tci.iImage, hdc, rcText.left + offset, rcText.top + (((rcText.bottom - rcText.top) - cy) / 2), ILD_NORMAL);
+					rcText.left += cx;
+				}
+
+				::DrawText(hdc, label.c_str(), -1, &rcText, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+				::FrameRect(hdc, &rcFrame, NppDarkMode::getEdgeBrush());
+
+				if (isSelectedTab && hasFocusRect)
+				{
+					::InflateRect(&rcFrame, -2, -1);
+					::DrawFocusRect(hdc, &rcFrame);
+				}
+
+				::SelectClipRgn(hdc, holdClip);
+				::DeleteObject(hClip);
+			}
+		}
+
+		::SelectObject(hdc, holdFont);
+		::SelectClipRgn(hdc, holdClip);
+		if (holdClip != nullptr)
+		{
+			::DeleteObject(holdClip);
+			holdClip = nullptr;
+		}
+		::SelectObject(hdc, holdPen);
+	}
+
+	static constexpr UINT_PTR g_tabSubclassID = 42;
+
+	static LRESULT CALLBACK TabSubclass(
+		HWND hWnd,
+		UINT uMsg,
+		WPARAM wParam,
+		LPARAM lParam,
+		UINT_PTR uIdSubclass,
+		DWORD_PTR dwRefData
+	)
+	{
+		auto* pTabBufferData = reinterpret_cast<BufferData*>(dwRefData);
+		const auto& hMemDC = pTabBufferData->_hMemDC;
+
+		switch (uMsg)
+		{
+			case WM_NCDESTROY:
+			{
+				::RemoveWindowSubclass(hWnd, TabSubclass, uIdSubclass);
+				delete pTabBufferData;
+				break;
+			}
+
+			case WM_ERASEBKGND:
+			{
+				if (!NppDarkMode::isEnabled())
+				{
+					break;
+				}
+
+				const auto* hdc = reinterpret_cast<HDC>(wParam);
+				if (hdc != hMemDC)
+				{
+					return FALSE;
+				}
+				return TRUE;
+			}
+
+			case WM_PAINT:
+			{
+				if (!NppDarkMode::isEnabled())
+				{
+					break;
+				}
+
+				const auto nStyle = ::GetWindowLongPtr(hWnd, GWL_STYLE);
+				if ((nStyle & TCS_VERTICAL) == TCS_VERTICAL)
+				{
+					break;
+				}
+
+				PAINTSTRUCT ps{};
+				HDC hdc = ::BeginPaint(hWnd, &ps);
+
+				if (ps.rcPaint.right <= ps.rcPaint.left || ps.rcPaint.bottom <= ps.rcPaint.top)
+				{
+					::EndPaint(hWnd, &ps);
+					return 0;
+				}
+
+				RECT rcClient{};
+				::GetClientRect(hWnd, &rcClient);
+
+				if (pTabBufferData->ensureBuffer(hdc, rcClient))
+				{
+					const int savedState = ::SaveDC(hMemDC);
+					::IntersectClipRect(
+						hMemDC,
+						ps.rcPaint.left, ps.rcPaint.top, ps.rcPaint.right, ps.rcPaint.bottom
+					);
+
+					NppDarkMode::paintTab(hWnd, hMemDC, rcClient);
+
+					::RestoreDC(hMemDC, savedState);
+
+					::BitBlt(
+						hdc,
+						ps.rcPaint.left, ps.rcPaint.top,
+						ps.rcPaint.right - ps.rcPaint.left,
+						ps.rcPaint.bottom - ps.rcPaint.top,
+						hMemDC,
+						ps.rcPaint.left, ps.rcPaint.top,
+						SRCCOPY
+					);
+				}
+
+				::EndPaint(hWnd, &ps);
+				return 0;
+			}
+
+			case WM_UPDATEUISTATE:
+			{
+				if ((HIWORD(wParam) & (UISF_HIDEACCEL | UISF_HIDEFOCUS)) != 0)
+				{
+					::InvalidateRect(hWnd, nullptr, FALSE);
+				}
+				break;
+			}
+
+			case WM_PARENTNOTIFY:
+			{
+				if (LOWORD(wParam) == WM_CREATE)
+				{
+					auto hUpDown = reinterpret_cast<HWND>(lParam);
+					if (NppDarkMode::subclassTabUpDownControl(hUpDown))
 					{
 						return 0;
 					}
-					break;
 				}
+				break;
 			}
-			return 0;
-		}
 
+			default:
+			{
+				break;
+			}
 		}
-		return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+		return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
 	}
 
-	void subclassTabControl(HWND hwnd)
+	void subclassTabControl(HWND hWnd)
 	{
-		SetWindowSubclass(hwnd, TabSubclass, g_tabSubclassID, 0);
+		if (::GetWindowSubclass(hWnd, TabSubclass, g_tabSubclassID, nullptr) == FALSE)
+		{
+			auto pTabBufferData = reinterpret_cast<DWORD_PTR>(new BufferData());
+			::SetWindowSubclass(hWnd, TabSubclass, g_tabSubclassID, pTabBufferData);
+		}
+	}
+
+	static void setTabCtrlSubclassAndTheme(HWND hWnd, NppDarkModeParams p)
+	{
+		if (p._theme)
+		{
+			NppDarkMode::setDarkTooltips(hWnd, ToolTipsType::tabbar);
+		}
+
+		if (p._subclass)
+		{
+			NppDarkMode::subclassTabControl(hWnd);
+		}
 	}
 
 	struct BorderMetricsData
@@ -2826,6 +2944,12 @@ namespace NppDarkMode
 			if (wcscmp(className, TOOLBARCLASSNAME) == 0)
 			{
 				NppDarkMode::themeToolbar(hwnd, p);
+				return TRUE;
+			}
+
+			if (wcscmp(className, WC_TABCONTROL) == 0)
+			{
+				NppDarkMode::setTabCtrlSubclassAndTheme(hwnd, p);
 				return TRUE;
 			}
 

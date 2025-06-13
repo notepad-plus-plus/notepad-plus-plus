@@ -10,6 +10,7 @@ Created by:          Jani Kesänen (jani dot kesanen gmail com)
 Released:            25.06.2019
 License:             GPL2
 					 2023-09-30: update Perl support.
+					 2025-06-10: update Rust support (added type 24, 25 - by schnurlos).
  -->
 <NotepadPlus>
     <LexerStyles>
@@ -1382,6 +1383,8 @@ License:             GPL2
             <WordsStyle name="BYTE STRING" styleID="21" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="3" fontSize="" />
             <WordsStyle name="RAW BYTE STRING" styleID="22" fgColor="DFAF8F" bgColor="3F3F3F" fontName="" fontStyle="3" fontSize="" />
             <WordsStyle name="BYTE CHARACTER" styleID="23" fgColor="DCA3A3" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="C STRING" styleID="24" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="RAW C STRING" styleID="25" fgColor="DFAF8F" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="sas" desc="SAS" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="" fontSize="" />

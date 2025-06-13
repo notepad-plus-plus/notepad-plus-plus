@@ -2969,7 +2969,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				((toTray == sta_close || toTray == sta_minimize_close) && wParam == SC_CLOSE)
 			)
 			{
-				if (nullptr == _pTrayIco)
+				if (!_pTrayIco)
 				{
 					HICON icon = nullptr;
 					Notepad_plus_Window::loadTrayIcon(_pPublicInterface->getHinst(), &icon);
@@ -2983,15 +2983,24 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				return TRUE;
 			}
 
-			if (wParam == SC_KEYMENU && lParam == VK_SPACE)
+			if ((wParam & 0xFFF0) == SC_KEYMENU && lParam == VK_SPACE) // typing Alt-Space to have the system menu of application icon in the title bar
 			{
 				_sysMenuEntering = true;
 			}
-			else if (wParam == 0xF093) //it should be SC_MOUSEMENU. A bug?
+			else if ((wParam & 0xFFF0) == SC_MOUSEMENU) // clicking the application icon in the title bar to have the system menu
 			{
 				_sysMenuEntering = true;
 			}
 
+			return ::DefWindowProc(hwnd, message, wParam, lParam);
+		}
+
+		case WM_NCRBUTTONDOWN: // right click on the title bar to have system menu (in the form of contextual menu beside of mouse cursor)
+		{
+			if (wParam == HTCAPTION)
+			{
+				_sysMenuEntering = true;
+			}
 			return ::DefWindowProc(hwnd, message, wParam, lParam);
 		}
 

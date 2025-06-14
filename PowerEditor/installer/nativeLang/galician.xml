@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Galego" filename="galician.xml" version="8.7.9">
+	<Native-Langue name="Galego" filename="galician.xml" version="8.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -33,7 +33,7 @@ Translation note:
 					<Item subMenuId="edit-indent" name="Tab&amp;ulación"/>
 					<Item subMenuId="edit-convertCaseTo" name="Conversión de &amp;maiúsculas e minúsculas"/>
 					<Item subMenuId="edit-lineOperations" name="Operacións con li&amp;ñas"/>
-					<Item subMenuId="edit-comment" name="Comen&amp;tar / Descomentar"/>
+					<Item subMenuId="edit-comment" name="Comen&amp;tar/Descomentar"/>
 					<Item subMenuId="edit-autoCompletion" name="&amp;Autocompletar"/>
 					<Item subMenuId="edit-eolConversion" name="Con&amp;versión fin de liña"/>
 					<Item subMenuId="edit-blankOperations" name="Operacións de limpe&amp;za"/>
@@ -137,6 +137,8 @@ Translation note:
 					<Item id="42060" name="Ordenar liñas en sentido descendente"/>
 					<Item id="42080" name="Ordenar liñas en ascendente ignorando maiúsculas e minúsculas"/>
 					<Item id="42081" name="Ordenar liñas en descendente ignorando maiúsculas e minúsculas"/>
+					<Item id="42100" name="Ordenar liñas en orden ascendente"/>
+					<Item id="42101" name="Ordenar liñas en orden descendente"/>
 					<Item id="42061" name="Orden de liñas numérico ascendente"/>
 					<Item id="42062" name="Orden de liñas numérico descendente"/>
 					<Item id="42063" name="Ordenar liñas como decimais (coma) ascendente"/>
@@ -946,13 +948,38 @@ Translation note:
 			<Preference title="Preferencias">
 				<Item id="6001" name="Pechar"/>
 				<Global title="Xerais">
+					<Item id="6123" name="Idioma"/>
+					<Item id="6131" name="Menú"/>
+					<Item id="6122" name="Ocultar (use Alt ou F10 para alternalo)"/>
+					<Item id="6132" name="Ocultar atallos ＋ ▼ ✕ "/>
+					<Item id="6133" name="Barra de estado"/>
+					<Item id="6134" name="Ocultar"/>
+				</Global>
+
+				<Toolbar title="Barra de ferramentas">
 					<Item id="6102" name="Ocultar"/>
 					<Item id="6103" name="Iconas pequenas sin recheo"/>
 					<Item id="6104" name="Iconas grandes sin recheo"/>
 					<Item id="6129" name="Iconas pequenas con recheo"/>
 					<Item id="6130" name="Iconas grandes con recheo"/>
 					<Item id="6105" name="Iconas pequenas predeterminadas"/>
+					<Item id="6011" name="Coreado"/>
+					<Item id="6012" name="Completo"/>
+					<Item id="6013" name="Parcial"/>
+					<Item id="6014" name="Cores"/>
+					<Item id="6015" name="Predeterminado"/>
+					<Item id="6016" name="Vermello"/>
+					<Item id="6017" name="Verde"/>
+					<Item id="6018" name="Azul"/>
+					<Item id="6019" name="Violeta"/>
+					<Item id="6020" name="Cian"/>
+					<Item id="6021" name="Verde oliva"/>
+					<Item id="6022" name="Amarelo"/>
+					<Item id="6023" name="Cor de realce"/>
+					<Item id="6024" name="Personalizado"/>
+				</Toolbar>
 
+				<Tabbar title="Barra de estado">
 					<Item id="6107" name="Reducir texto"/>
 					<Item id="6108" name="Bloquear (impedir arrastrar e soltar)"/>
 					<Item id="6109" name="Oscurecer pestanas inactivas"/>
@@ -961,21 +988,15 @@ Translation note:
 					<Item id="6112" name="Botón de peche"/>
 					<Item id="6113" name="Dobre clic para pechar pestana"/>
 					<Item id="6115" name="Activar a opción de fixar pestanas"/>
+					<Item id="6135" name="Mostrar só o botón de fixado"/>
 					<Item id="6118" name="Oculta"/>
 					<Item id="6119" name="Multiliña"/>
 					<Item id="6120" name="Vertical"/>
 					<Item id="6121" name="Saír ao pechar a derradeira"/>
 					<Item id="6128" name="Iconas alternativas"/>
-
-					<Item id="6133" name="Barra de estado"/>
-					<Item id="6134" name="Ocultar"/>
-
-					<Item id="6131" name="Menú"/>
-					<Item id="6122" name="Ocultar (use Alt ou F10 para alternar)"/>
-					<Item id="6132" name="Ocultar atallos ＋ ▼ ✕ "/>
-
-					<Item id="6123" name="Idioma"/>
-				</Global>
+					<Item id="6125" name="Comportamento"/>
+					<Item id="6126" name="Aspecto &amp;&amp; Estilo"/>
+				</Tabbar>
 
 				<Scintillas title="Edición 1">
 					<Item id="6216" name="Configuración do cursor"/>
@@ -994,6 +1015,7 @@ Translation note:
 					<Item id="6239" name="Manter a selección se preme o botón dereito fóra da selección"/>
 					<Item id="6245" name="Habilitar espazo virtual"/>
 					<Item id="6214" name="Permitir copiar/cortar liña sin selección"/>
+					<Item id="6225" name="Aplicar a cor personalizada ao primeiro plano do texto seleccionado"/>
 					<Item id="6651" name="Indicador de liña actual"/>
 					<Item id="6652" name="Ningún"/>
 					<Item id="6653" name="Fondo resaltado"/>
@@ -1032,8 +1054,8 @@ Translation note:
 					<Item id="7115" name="Ton personalizado"/>
 					<Item id="7116" name="Fondo da interfaz"/>
 					<Item id="7117" name="Pestanas de opcións"/>
-					<Item id="7118" name="Ventá activa"/>
-					<Item id="7119" name="Principal"/>
+					<Item id="7118" name="Control do fondo"/>
+					<Item id="7119" name="Diálogo de fondo"/>
 					<Item id="7120" name="Erro"/>
 					<Item id="7121" name="Texto"/>
 					<Item id="7122" name="Texto máis escuro"/>
@@ -1086,6 +1108,7 @@ Translation note:
 					<Item id="6419" name="Novo documento"/>
 					<Item id="6420" name="Aplicar aos arquivos ANSI abertos"/>
 					<Item id="6432" name="Abrir sempre un novo documento adicional ao inicio"/>
+					<Item id="6433" name="Usar a primeira liña do documento como nome da pestana"/>
 				</NewDoc>
 
 				<DefaultDir title="Carpeta predeterminada">
@@ -1100,7 +1123,7 @@ Translation note:
 					<Item id="4009" name="Extensións soportadas:"/>
 					<Item id="4010" name="Extensións rexistradas:"/>
 				</FileAssoc>
-				
+
 				<Language title="Linguaxes">
 					<Item id="6505" name="Dispoñibles"/>
 					<Item id="6506" name="Desactivadas"/>
@@ -1449,6 +1472,9 @@ A súa configuración na nube cancelarase. Reinicie cun valor coherente usando o
 			<DroppingFolderAsProjectModeWarning title="Acción non válida" message="Só pode soltar arquivos ou carpetas, pero non ambos, porque está soltando Carpeta como modo Proxecto.
 Debe habilitar &quot;Abrir tódolos arquivos da carpeta&quot; en vez de iniciar &quot;Carpeta como espazo de traballo&quot; na carpeta que se solta en &quot;Carpeta por defecto&quot; no cadro de diálogo de Preferencias para que esta operación funcione."/>
 			<SortingError title="Erro de clasificación" message="Non se pode realizar a ordenación numérica debido á liña $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SortLocaleMultiple title="Ordenación non realizada" message="Non é posible ordenar seleccións múltiples."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleUnknown title="Ordenación fallida" message="Non se pode determinar a causa pola que fallou a ordenación."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+			<SortLocaleExcept title="Ordenación fallida" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Suxerencia do modo de columna" message="
 Hai 3 formas de cambiar ao modo de selección de columnas:
 
@@ -1472,7 +1498,7 @@ Hai 3 formas de cambiar ao modo de selección de columnas:
 moverase á Papeleira de reciclaxe e este documento pecharase.
 ¿Continuar?"/>
 			<NoBackupDoSaveFile title="Gardar" message="Non se pode encontrar o seu arquivo de copia de seguridade (eliminado desde fóra).
-Gárdeo ou os seus datos perderanse.
+Gárdeo ou perderá os seus datos.
 ¿Desexa gardar o arquivo &quot;$STR_REPLACE$&quot;?"/>
 			<DoReloadOrNot title="Recargar" message="&quot;$STR_REPLACE$&quot;
 
@@ -1523,6 +1549,11 @@ Parece que o arquivo para abrir no é un arquivo de proxecto válido."/>
 			<UDLNewNameError title="Erro UDL" message="Este nome é usado por outra linguaxe.
 É necesario darlle outro."/>
 			<UDLRemoveCurrentLang title="Eliminar a linguaxe actual" message="¿Está seguro?"/>
+			<UDL_importSuccessful title="Lenguaje definido por el usuario" message="Importación correcta."/>
+			<UDL_importFails title="Lenguaje definido por el usuario" message="Erro de importación."/>
+			<UDL_saveBeforeImport title="Lenguaje definido por el usuario" message="Antes de exportar, garde a súa definición de linguaxe usando &quot;Gardar como...&quot;."/><!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_exportSuccessful title="Lenguaje definido por el usuario" message="Exportación correcta."/>
+			<UDL_exportFails title="Lenguaje definido por el usuario" message="Erro de exportación."/>
 			<SCMapperDoDeleteOrNot title="Confirmación" message="¿Está seguro de que desexa eliminar este acceso directo?"/>
 			<FindCharRangeValueError title="Problema de valor de rango" message="Debe escribir entre 0 e 255."/><!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Erro ao gardar" message="O arquivo non se pode gardar e pode estar protexido.
@@ -1839,9 +1870,22 @@ Faga clic no botón dereito &quot;?&quot; para abrir o sitio web do manual do us
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell e JSON.
 
 Se selecciona o modo avanzado pero non edita arquivos nas linguaxes mencionadas, a sangría permanecerá no modo básico."/>
+
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Activando &quot;Global override&quot; aquí, anulará esa opción en tódolos estilos de linguaxe. É posible que desexe usar a configuración &quot;Default Style&quot;."/>
 			<scintillaRenderingTechnology-tip value="Pode mellorar a representación de caracteres especiais ou resolver algúns problemas gráficos. Reinicie Notepad++ para aplicar os cambios."/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="lonx.: $STR_REPLACE1$    liñ.: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Liña: $STR_REPLACE1$    Col.: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Pos.: "/>
+			<statusbar-Sel value="Sel.: "/>
+			<statusbar-Sel-number value="Sel."/>
+			<toolbar-accent-tip value="Esta opción fai que as iconas da barra de ferramentas sigan a cor de realce do sistema Windows. É a cor usada nos botóns, bordos e mosaicos do menú Inicio de Windows. Para cambiala, vaia a Configuración &gt; Personalización &gt; Cores e, a continuación, seleccione a cor de realce que desexe."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -177,12 +177,12 @@
 					<Item id="42025" name="儲存巨集(&amp;S)"/>
 					<Item id="42026" name="文字由右至左"/>
 					<Item id="42027" name="文字由左至右"/>
-					<Item id="42028" name="設為唯讀(&amp;S)"/>
+					<Item id="42028" name="在 Notepad++ 中設為唯讀"/>
 					<Item id="42029" name="複製路徑及檔名"/>
 					<Item id="42030" name="複製檔名"/>
 					<Item id="42031" name="複製路徑"/>
 					<Item id="42032" name="重複執行巨集(&amp;R)..."/>
-					<Item id="42033" name="取消唯讀"/>
+					<Item id="42033" name="檔案系統權限唯讀"/>
 					<Item id="42035" name="單行註解"/>
 					<Item id="42036" name="解除單行註解"/>
 					<Item id="42055" name="移除空行"/>

@@ -203,7 +203,6 @@ Translation note:
 					<Item id="42087" name="Kopier alle filnavn til utklippstavelen"/>
 					<Item id="42088" name="Kopier alle filstier til utklippstavelen"/>
 					<Item id="42032" name="Utfør en makro flere ganger ..."/>
-					<Item id="42033" name="Fjern merke for skrivebeskyttet"/>
 					<Item id="42035" name="Kommenter ut linje"/>
 					<Item id="42036" name="Ta inn utkommentert linje"/>
 					<Item id="42055" name="Fjern tomme linjer"/>
@@ -439,7 +438,6 @@ Translation note:
 				<Item CMDID="41014" name="Last inn på nytt"/>
 				<Item CMDID="41010" name="Skriv ut..."/>
 				<Item CMDID="42028" name="Skrivebeskyttet"/>
-				<Item CMDID="42033" name="Fjern skrivebeskyttelse"/>
 				<Item CMDID="2" name="Kopier til utklippstavelen"/>
 				<Item CMDID="42029" name="Kopier full filsti til utklippstavlen"/>
 				<Item CMDID="42030" name="Kopier filnavn til utklippstavlen"/>

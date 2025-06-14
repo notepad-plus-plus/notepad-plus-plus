@@ -207,7 +207,6 @@
 					<Item id="42032" name="係咁執行 mac&amp;ro..."/>
 
 					<!-- type: Edit menu (cont'd) -->
-					<Item id="42033" name="取消唯讀屬性"/>
 					<Item id="42035" name="轉做單行式註解"/>
 					<Item id="42036" name="取消單行式註解"/>
 					<Item id="42055" name="剷走空行"/>
@@ -504,7 +503,6 @@
 				<Item CMDID="41014" name="喺磁碟重新 load 過"/><!-- #new v8.4.8 -->
 				<Item CMDID="41010" name="Print 出嚟..."/><!-- #new v8.4.8 -->
 				<Item CMDID="42028" name="唯讀"/><!-- #new v8.4.8 -->
-				<Item CMDID="42033" name="取消唯讀屬性"/><!-- #new v8.4.8 -->
 				<Item CMDID="2" name="抄去剪貼簿"/><!-- #new v8.4.8 -->
 				<Item CMDID="42029" name="抄低個檔案路徑"/><!-- #new v8.4.8 -->
 				<Item CMDID="42030" name="抄低個檔名"/><!-- #new v8.4.8 -->

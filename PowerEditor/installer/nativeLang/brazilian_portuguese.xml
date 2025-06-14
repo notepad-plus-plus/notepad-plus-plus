@@ -203,7 +203,6 @@ Translation note:
 					<Item id="42087" name="Copiar todos os nomes de arquivos"/>
 					<Item id="42088" name="Copiar todos os caminhos de arquivos"/>
 					<Item id="42032" name="Executar macro múltiplas vezes..."/>
-					<Item id="42033" name="Desmarcar como somente leitura"/>
 					<Item id="42035" name="Comentar linha única"/>
 					<Item id="42036" name="Remover comentário de linha única"/>
 					<Item id="42055" name="Remover linhas vazias"/>
@@ -439,7 +438,6 @@ Translation note:
 				<Item CMDID="41014" name="Recarregar"/>
 				<Item CMDID="41010" name="Imprimir"/>
 				<Item CMDID="42028" name="Somente Leitura"/>
-				<Item CMDID="42033" name="Desmarcar Somente Leitura"/>
 				<Item CMDID="2" name="Copiar para Área de Transferência"/>
 				<Item CMDID="42029" name="Copiar Caminho Completo"/>
 				<Item CMDID="42030" name="Copiar Nome do Arquivo"/>

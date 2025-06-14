@@ -165,7 +165,6 @@
 					<Item id="42030" name="Current Filename to Clipboard"/>
 					<Item id="42031" name="Current Dir. Path to Clipboard"/>
 					<Item id="42032" name="Run a Macro Multiple Times..."/>
-					<Item id="42033" name="Clear Read-Only Flag"/>
 					<Item id="42035" name="Single Line Comment"/>
 					<Item id="42036" name="Single Line Uncomment"/>
 					<Item id="42055" name="Remove Empty Lines"/>

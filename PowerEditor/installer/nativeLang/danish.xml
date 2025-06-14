@@ -183,7 +183,6 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="42087" name="Alle filnavne til udklipsholder"/>
 					<Item id="42088" name="Alle filstier til udklipsholder"/>
 					<Item id="42032" name="&amp;Kør en makro flere gange..."/>
-					<Item id="42033" name="Fjern skrivebeskyttelse"/>
 					<Item id="42035" name="Liniekommentar til"/>
 					<Item id="42036" name="Liniekommentar  fra"/>
 					<Item id="42055" name="Fjern tomme linier"/>
@@ -404,7 +403,6 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Item CMDID="41014" name="Genindlæs"/>
 				<Item CMDID="41010" name="Udskriv.."/>
 				<Item CMDID="42028" name="Skrivebeskyttet"/>
-				<Item CMDID="42033" name="Fjern skrivebeskyttelse"/>
 				<Item CMDID="2" name="Kopiér"/>
 				<Item CMDID="42029" name="Fuld fiisti"/>
 				<Item CMDID="42030" name="Filnavn"/>

@@ -132,7 +132,6 @@
 					<Item id="42030" name="Copiar nombre del archivo"/>
 					<Item id="42031" name="Copiar ruta de la carpeta"/>
 					<Item id="42032" name="Ejecutar una macro varias veces..."/>
-					<Item id="42033" name="Quitar indicador de solo lectura"/>
 					<Item id="42035" name="Comentar selección"/>
 					<Item id="42036" name="Sin comentar selección"/>
 					<Item id="42055" name="Eliminar líneas vacías"/>

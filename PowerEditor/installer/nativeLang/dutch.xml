@@ -207,7 +207,6 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 					<Item id="42087" name="Alle bestandsnamen kopiëren"/>
 					<Item id="42088" name="Alle bestandspaden kopiëren"/>
 					<Item id="42032" name="Macro meerdere keren uitvoeren..."/>
-					<Item id="42033" name="Alleen-lezen opheffen"/>
 					<Item id="42035" name="Regelcommentaar aan"/>
 					<Item id="42036" name="Regelcommentaar uit"/>
 					<Item id="42055" name="Lege regels verwijderen"/>
@@ -440,7 +439,6 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 				<Item CMDID="41014" name="Opnieuw laden"/>
 				<Item CMDID="41010" name="Afdrukken..."/>
 				<Item CMDID="42028" name="Alleen-lezen"/>
-				<Item CMDID="42033" name="Alleen-lezen opheffen"/>
 				<Item CMDID="2" name="Naar klembord kopiëren"/>
 				<Item CMDID="42029" name="Volledig bestandspad kopiëren"/>
 				<Item CMDID="42030" name="Bestandsnaam kopiëren"/>

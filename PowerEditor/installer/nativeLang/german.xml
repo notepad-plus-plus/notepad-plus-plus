@@ -212,7 +212,6 @@ Translation note:
 					<Item id="42087" name="Alle Dateinamen kopieren"/>
 					<Item id="42088" name="Alle vollständigen Dateipfade kopieren"/>
 					<Item id="42032" name="Makro &amp;mehrfach ausführen …"/>
-					<Item id="42033" name="Schreibschutz-Attribut l&amp;öschen"/>
 					<Item id="42035" name="Zeilen aus&amp;kommentieren"/>
 					<Item id="42036" name="Auskommentierung der Zeilen a&amp;ufheben"/>
 					<Item id="42055" name="&amp;Leerzeilen (nur völlig leere) löschen"/>
@@ -448,7 +447,6 @@ Translation note:
 				<Item CMDID="41014" name="Neu &amp;laden"/>
 				<Item CMDID="41010" name="&amp;Drucken …"/>
 				<Item CMDID="42028" name="Sch&amp;reibschutz"/>
-				<Item CMDID="42033" name="Schreibschutz au&amp;fheben"/>
 				<Item CMDID="2" name="In Zwischenablage kopieren"/>
 				<Item CMDID="42029" name="Vollständigen Dateipfad &amp;kopieren"/>
 				<Item CMDID="42030" name="Nur Datei&amp;namen kopieren"/>

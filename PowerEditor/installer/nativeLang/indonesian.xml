@@ -185,7 +185,6 @@ Last modified by Sahid A.Z. on 3/3/2023
 					<Item id="42087" name="Salin Semua Nama Berkas"/>
 					<Item id="42088" name="Salin Semua Jalur Berkas"/>
 					<Item id="42032" name="&amp;Jalankan Makro Beberapa Kali..."/>
-					<Item id="42033" name="Hapus Tanda Baca-Saja"/>
 					<Item id="42035" name="Komentar Baris Tunggal"/>
 					<Item id="42036" name="Hapus Komentar Baris Tunggal"/>
 					<Item id="42055" name="Hapus Baris Kosong"/>
@@ -408,7 +407,6 @@ Last modified by Sahid A.Z. on 3/3/2023
 				<Item CMDID="41014" name="Muat ulang"/>
 				<Item CMDID="41010" name="Cetak..."/>
 				<Item CMDID="42028" name="Baca-Saja"/>
-				<Item CMDID="42033" name="Hapus Tanda Baca-Saja"/>
 				<Item CMDID="2" name="Salin ke Papan Klip"/>
 				<Item CMDID="42029" name="Salin Jalur Berkas Lengkap"/>
 				<Item CMDID="42030" name="Salin Semua Nama Berkas"/>

@@ -194,14 +194,14 @@ Translation note:
 					<Item id="42025" name="Enregistrer la macro"/>
 					<Item id="42026" name="Texte de droite à gauche"/>
 					<Item id="42027" name="Texte de gauche à droite"/>
-					<Item id="42028" name="Lecture seule pour le document actuel"/>
+					<Item id="42028" name="Lecture seule dans Notepad++"/>
 					<Item id="42029" name="Copier le chemin complet du document actuel"/>
 					<Item id="42030" name="Copier le nom du document actuel"/>
 					<Item id="42031" name="Copier le dossier du document actuel"/>
 					<Item id="42087" name="Copier tous les noms des documents"/>
 					<Item id="42088" name="Copier tous les dossiers des documents"/>
 					<Item id="42032" name="Exécuter une macro en boucle..."/>
-					<Item id="42033" name="Enlever l’attribut de lecture seule du fichier"/>
+					<Item id="42033" name="Attribut de lecture seule du fichier"/>
 					<Item id="42035" name="Commenter (mode ligne)"/>
 					<Item id="42036" name="Décommenter (mode ligne)"/>
 					<Item id="42055" name="Enlever les lignes vides"/>
@@ -436,8 +436,8 @@ Translation note:
 				<Item CMDID="41016" name="Supprimer le fichier actuel"/>
 				<Item CMDID="41014" name="Recharger"/>
 				<Item CMDID="41010" name="Imprimer"/>
-				<Item CMDID="42028" name="Lecture seule pour le document actuel"/>
-				<Item CMDID="42033" name="Enlever l’attribut de lecture seule du fichier"/>
+				<Item CMDID="42028" name="Lecture seule dans Notepad++"/>
+				<Item CMDID="42033" name="Attribut de lecture seule du fichier"/>
 				<Item CMDID="2" name="Copier dans le presse-papiers"/>
 				<Item CMDID="42029" name="Copier le chemin complet du document actuel"/>
 				<Item CMDID="42030" name="Copier le nom du fichier actuel"/>

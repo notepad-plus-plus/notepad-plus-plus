@@ -213,7 +213,6 @@ Translation note:
 					<Item id="42087" name="Kopiuj nazwy wszystkich plików"/>
 					<Item id="42088" name="Kopiuj ścieżki wszystkich plików"/>
 					<Item id="42032" name="&amp;Uruchom makro wielokrotnie..."/>
-					<Item id="42033" name="Usuń atrybut tylko do odczytu z pliku"/>
 					<Item id="42035" name="Wstaw komentarz liniowy"/>
 					<Item id="42036" name="Usuń komentarz liniowy"/>
 					<Item id="42055" name="Usuń puste linie"/>
@@ -449,7 +448,6 @@ Translation note:
 				<Item CMDID="41014" name="Odśwież"/>
 				<Item CMDID="41010" name="Drukuj..."/>
 				<Item CMDID="42028" name="Zablokuj edycję"/>
-				<Item CMDID="42033" name="Usuń atrybut tylko do odczytu z pliku"/>
 				<Item CMDID="2" name="Kopiuj do schowka"/>
 				<Item CMDID="42029" name="Kopiuj ścieżkę pliku"/>
 				<Item CMDID="42030" name="Kopiuj nazwę pliku"/>

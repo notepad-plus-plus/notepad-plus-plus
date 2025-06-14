@@ -200,7 +200,6 @@
 					<Item id="42087" name="Kopiraj vsa imena datotek"/>
 					<Item id="42088" name="Kopiraj vse poti datotek"/>
 					<Item id="42032" name="&amp;Poženi makro večkrat..."/>
-					<Item id="42033" name="Počisti zastavico Samo za branje"/>
 					<Item id="42035" name="Komentiraj enovrstični komentar"/>
 					<Item id="42036" name="Odkomentiraj enovrstični komentar"/>
 					<Item id="42055" name="Odstrani prazne vrstice"/>
@@ -433,7 +432,6 @@
 				<Item CMDID="41014" name="Ponovno naloži"/>
 				<Item CMDID="41010" name="Natisni..."/>
 				<Item CMDID="42028" name="Samo za branje"/>
-				<Item CMDID="42033" name="Počisti zastavico Samo za branje"/>
 				<Item CMDID="2" name="Kopiraj v odložišče"/>
 				<Item CMDID="42029" name="Kopiraj celotno pot datoteke"/>
 				<Item CMDID="42030" name="Kopiraj ime datoteke"/>

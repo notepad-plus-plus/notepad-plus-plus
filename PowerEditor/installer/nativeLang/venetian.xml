@@ -206,7 +206,6 @@ Translation note:
 					<Item id="42087" name="Tuti i nomi file ne i Scaraboci"/>
 					<Item id="42088" name="Tuti i percorsi file ne i Scaraboci"/>
 					<Item id="42032" name="Exegui na macro pì volte..."/>
-					<Item id="42033" name="Puƚisi el flag de soƚa ƚetura"/>
 					<Item id="42035" name="Comenta riga ugnoƚa"/>
 					<Item id="42036" name="Scomenta riga ugnoƚa"/>
 					<Item id="42055" name="Rimovi righe vode"/>
@@ -440,7 +439,6 @@ Translation note:
 				<Item CMDID="41014" name="Recarga"/>
 				<Item CMDID="41010" name="Stanpa..."/>
 				<Item CMDID="42028" name="Soƚa ƚetura"/>
-				<Item CMDID="42033" name="Reinposta flag soƚa ƚetura"/>
 				<Item CMDID="2" name="Còpia negli scaraboci"/>
 				<Item CMDID="42029" name="Còpia percorso file"/>
 				<Item CMDID="42030" name="Còpia nòme file"/>

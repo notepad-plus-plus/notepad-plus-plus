@@ -204,7 +204,6 @@
                     <Item id="42087" name="Copiază toate numele fișierelor"/>
                     <Item id="42088" name="Copiază toate căile fișierelor"/>
                     <Item id="42032" name="&amp;Execută o macrocomandă de mai multe ori..."/>
-                    <Item id="42033" name="Elimină eticheta doar citire"/>
                     <Item id="42035" name="Comentează pe o singură linie"/>
                     <Item id="42036" name="Anulează comentariul pe o singură linie"/>
                     <Item id="42055" name="Elimină liniile goale"/>
@@ -441,7 +440,6 @@
 					<Item CMDID="41014" name="Reîncarcă"/>
 					<Item CMDID="41010" name="Tipărire..."/>
                     <Item CMDID="42028" name="Modul doar citire"/>
-                    <Item CMDID="42033" name="Șterge marcajul pentru modul doar citire"/>
 					<Item CMDID="2" name="Copiază în clipboard"/>
 					<Item CMDID="42029" name="Copiază calea fișierului în clipboard"/>
                     <Item CMDID="42030" name="Copiază numele fișierului în clipboard"/>

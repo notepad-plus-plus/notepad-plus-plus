@@ -201,7 +201,6 @@
 					<Item id="42087" name="Kopiraj nazive svih datoteka"/>
 					<Item id="42088" name="Kopiraj putanje svih datoteka"/>
 					<Item id="42032" name="Pokreni makro više puta..."/>
-					<Item id="42033" name="Ukloni oznaku samo za čitanje"/>
 					<Item id="42035" name="Jednolinijski komentar"/>
 					<Item id="42036" name="Poništi jednolinijski komentar"/>
 					<Item id="42055" name="Ukloni prazne linije"/>
@@ -437,7 +436,6 @@
 				<Item CMDID="41014" name="Ponovo učitaj"/>
 				<Item CMDID="41010" name="Odštampaj..."/>
 				<Item CMDID="42028" name="Samo za čitanje"/>
-				<Item CMDID="42033" name="Ukloni oznaku samo za čitanje"/>
 				<Item CMDID="2" name="Kopiraj u clipboard"/>
 				<Item CMDID="42029" name="Kopiraj punu putanju datoteke"/>
 				<Item CMDID="42030" name="Kopiraj naziv datoteke"/>

@@ -201,7 +201,6 @@
 					<Item id="42087" name="Všetky názvy súborov"/>
 					<Item id="42088" name="Všetky cesty súborov"/>
 					<Item id="42032" name="Spustiť makro viacnásobne…"/>
-					<Item id="42033" name="Odstrániť označenie &quot;Iba na čítanie&quot;"/>
 					<Item id="42035" name="Zakomentovať riadok"/>
 					<Item id="42036" name="Odkomentovať riadok"/>
 					<Item id="42055" name="Odstrániť prázdne riadky"/>
@@ -437,7 +436,6 @@
 				<Item CMDID="41014" name="Obnoviť"/>
 				<Item CMDID="41010" name="Tlačiť…"/>
 				<Item CMDID="42028" name="Iba na čítanie"/>
-				<Item CMDID="42033" name="Odstrániť označenie Iba na čítanie"/>
 				<Item CMDID="2" name="Kopírovať do schránky"/>
 				<Item CMDID="42029" name="Skopírovať celú cestu k súboru"/>
 				<Item CMDID="42030" name="Skopírovať názov súboru"/>

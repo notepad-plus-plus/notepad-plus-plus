@@ -206,7 +206,6 @@ Translation note:
 					<Item id="42087" name="Copia tutti i Nomi File"/>
 					<Item id="42088" name="Copia Tutti i percorsi file"/>
 					<Item id="42032" name="Esegui una macro più volte..."/>
-					<Item id="42033" name="Rimuovi attributo di sola lettura del file"/>
 					<Item id="42035" name="Commenta singola riga"/>
 					<Item id="42036" name="Rimuovi commento per singola riga"/>
 					<Item id="42055" name="Rimuovi righe vuote"/>
@@ -442,7 +441,6 @@ Translation note:
 				<Item CMDID="41014" name="Ricarica"/>
 				<Item CMDID="41010" name="Stampa..."/>
 				<Item CMDID="42028" name="Sola lettura"/>
-				<Item CMDID="42033" name="Rimuovi l&apos;attributo di sola lettura del file"/>
 				<Item CMDID="2" name="Copia negli appunti"/>
 				<Item CMDID="42029" name="Copia il percorso completo del file"/>
 				<Item CMDID="42030" name="Copia il nome del file"/>

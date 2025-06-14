@@ -203,7 +203,6 @@ Translation note:
 					<Item id="42087" name="すべての文書のファイル名"/>
 					<Item id="42088" name="すべての文書のフルパス"/>
 					<Item id="42032" name="マクロを複数回実行(&amp;R)..."/>
-					<Item id="42033" name="ファイルの読み取り専用を解除"/>
 					<Item id="42035" name="行コメント化"/>
 					<Item id="42036" name="行コメント解除"/>
 					<Item id="42055" name="空行をすべて削除"/>
@@ -443,7 +442,6 @@ Translation note:
 				<Item CMDID="41014" name="再読み込み"/>
 				<Item CMDID="41010" name="印刷..."/>
 				<Item CMDID="42028" name="読み取り専用モード"/>
-				<Item CMDID="42033" name="ファイルの読み取り専用を解除"/>
 				<Item CMDID="2" name="クリップボードにコピー"/>
 				<Item CMDID="42029" name="フルパスをコピー"/>
 				<Item CMDID="42030" name="ファイル名をコピー"/>

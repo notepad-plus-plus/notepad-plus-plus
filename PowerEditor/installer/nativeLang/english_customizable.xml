@@ -196,14 +196,14 @@ Translation note:
 					<Item id="42025" name="&amp;Save Currently Recorded Macro..."/>
 					<Item id="42026" name="Text Direction RTL"/>
 					<Item id="42027" name="Text Direction LTR"/>
-					<Item id="42028" name="&amp;Set Read-Only"/>
+					<Item id="42028" name="Read-Only in Notepad++"/>
 					<Item id="42029" name="Copy Current File Path"/>
 					<Item id="42030" name="Copy Current Filename"/>
 					<Item id="42031" name="Copy Current Dir. Path"/>
 					<Item id="42087" name="Copy All Filenames"/>
 					<Item id="42088" name="Copy All File Paths"/>
 					<Item id="42032" name="&amp;Run a Macro Multiple Times..."/>
-					<Item id="42033" name="Clear Read-Only Flag"/>
+					<Item id="42033" name="Clear Read-Only Attribute in Windows"/>
 					<Item id="42035" name="Single Line Comment"/>
 					<Item id="42036" name="Single Line Uncomment"/>
 					<Item id="42055" name="Remove Empty Lines"/>
@@ -438,8 +438,8 @@ Translation note:
 				<Item CMDID="41016" name="Move to Recycle Bin"/>
 				<Item CMDID="41014" name="Reload"/>
 				<Item CMDID="41010" name="Print..."/>
-				<Item CMDID="42028" name="Read-Only"/>
-				<Item CMDID="42033" name="Clear Read-Only Flag"/>
+				<Item CMDID="42028" name="Read-Only in Notepad++"/>
+				<Item CMDID="42033" name="Read-Only Attribute in Windows"/>
 				<Item CMDID="2" name="Copy to Clipboard"/>
 				<Item CMDID="42029" name="Copy Full File Path"/>
 				<Item CMDID="42030" name="Copy Filename"/>

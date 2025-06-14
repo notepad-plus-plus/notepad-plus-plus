@@ -2587,13 +2587,13 @@ void Notepad_plus::checkDocState()
 	enableCommand(IDM_VIEW_LOAD_IN_NEW_INSTANCE, !(isCurrentDirty || isCurrentUntitled), MENU);
 
 	bool isSysReadOnly = curBuf->getFileReadOnly();
-	enableCommand(IDM_EDIT_CLEARREADONLY, isSysReadOnly, MENU);
 
 	bool doEnable = !(curBuf->isMonitoringOn() || isSysReadOnly);
-	enableCommand(IDM_EDIT_SETREADONLY, doEnable, MENU);
+	enableCommand(IDM_EDIT_TOGGLEREADONLY, doEnable, MENU);
 
 	bool isUserReadOnly = curBuf->getUserReadOnly();
-	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_SETREADONLY, MF_BYCOMMAND | (isUserReadOnly ? MF_CHECKED : MF_UNCHECKED));
+	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_TOGGLEREADONLY, MF_BYCOMMAND | (isUserReadOnly ? MF_CHECKED : MF_UNCHECKED));
+	
 
 	enableCommand(IDM_FILE_DELETE, isFileExisting, MENU);
 	enableCommand(IDM_FILE_OPEN_CMD, isFileExisting, MENU);
@@ -2621,8 +2621,17 @@ void Notepad_plus::checkDocState()
 
 	enableCommand(IDM_FILE_SAVEAS, !curBuf->isInaccessible(), MENU);
 	enableCommand(IDM_FILE_RENAME, !curBuf->isInaccessible(), MENU);
-	if (curBuf->isInaccessible())
-		enableCommand(IDM_EDIT_CLEARREADONLY, false, MENU);
+	if (curBuf->isInaccessible() || isCurrentUntitled)
+	{
+		::CheckMenuItem(_mainMenuHandle, IDM_EDIT_TOGGLESYSTEMREADONLY, MF_BYCOMMAND | MF_UNCHECKED);
+		enableCommand(IDM_EDIT_TOGGLESYSTEMREADONLY, false, MENU);
+	}
+	else
+	{
+		enableCommand(IDM_EDIT_TOGGLESYSTEMREADONLY, true, MENU);
+		::CheckMenuItem(_mainMenuHandle, IDM_EDIT_TOGGLESYSTEMREADONLY, MF_BYCOMMAND | (isSysReadOnly ? MF_CHECKED : MF_UNCHECKED));
+	}
+
 	enableCommand(IDM_VIEW_GOTO_ANOTHER_VIEW, !curBuf->isInaccessible(), MENU);
 	enableCommand(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, !curBuf->isInaccessible(), MENU);
 	enableCommand(IDM_VIEW_GOTO_NEW_INSTANCE, !curBuf->isInaccessible() && !curBuf->isDirty() && !curBuf->isUntitled(), MENU);

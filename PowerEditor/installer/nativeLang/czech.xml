@@ -145,7 +145,6 @@
 					<Item id="42030" name="Kopírovat název aktuálního souboru"/>
 					<Item id="42031" name="Kopírovat název (i s cestou) aktuálního adresáře souboru"/>
 					<Item id="42032" name="Spustit makro více&amp;krát..."/>
-					<Item id="42033" name="Zrušit p&amp;říznak Pouze pro čtení"/>
 					<Item id="42034" name="Editor s&amp;loupce..."/>
 					<Item id="42035" name="Zakomentovat blok"/>
 					<Item id="42036" name="Odkomentovat blok"/>
@@ -449,7 +448,6 @@
 				<Item CMDID="41014" name="Znovu načíst"/>
 				<Item CMDID="41010" name="Tisk..."/>
 				<Item CMDID="42028" name="Pouze pro čtení"/>
-				<Item CMDID="42033" name="Vymazat příznak &quot;Pouze pro čtení&quot;"/>
 				<Item CMDID="2" name="Kopírovat do Schránky"/>
 				<Item CMDID="42029" name="Kopírovat název souboru i s cestou"/>
 				<Item CMDID="42030" name="Kopírovat název souboru"/>

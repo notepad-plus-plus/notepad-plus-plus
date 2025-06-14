@@ -201,7 +201,6 @@ Translation note:
 					<Item id="42087" name="Sao chép tất cả tên tệp"/>
 					<Item id="42088" name="Sao chép tất cả đường dẫn tệp "/>
 					<Item id="42032" name="Chạy một vĩ lệnh nhiều lần..."/>
-					<Item id="42033" name="Xóa cờ chỉ-đọc"/>
 					<Item id="42035" name="Chú thích dòng đơn"/>
 					<Item id="42036" name="Bỏ chú thích dòng đơn"/>
 					<Item id="42055" name="Loại bỏ dòng trống"/>
@@ -437,7 +436,6 @@ Translation note:
 				<Item CMDID="41014" name="Nạp lại"/>
 				<Item CMDID="41010" name="In ấn..."/>
 				<Item CMDID="42028" name="Chỉ đọc"/>
-				<Item CMDID="42033" name="Xóa cờ chỉ-đọc"/>
 				<Item CMDID="2" name="Sao chép vào bảng tạm"/>
 				<Item CMDID="42029" name="Sao chép đường dẫn tệp đầy đủ"/>
 				<Item CMDID="42030" name="Sao chép tên tệp"/>

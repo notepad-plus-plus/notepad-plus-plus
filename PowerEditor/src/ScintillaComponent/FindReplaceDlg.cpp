@@ -6447,17 +6447,6 @@ int Progress::createProgressWindow()
 
 	::SendMessage(_hPBar, PBM_SETRANGE, 0, MAKELPARAM(0, 100));
 
-	// Set border so user can distinguish easier progress bar,
-	// especially, when getBackgroundColor is very similar or same 
-	// as getDlgBackgroundColor
-	NppDarkMode::setBorder(_hPBar, NppDarkMode::isEnabled());
-	NppDarkMode::disableVisualStyle(_hPBar, NppDarkMode::isEnabled());
-	if (NppDarkMode::isEnabled())
-	{
-		::SendMessage(_hPBar, PBM_SETBKCOLOR, 0, static_cast<LPARAM>(NppDarkMode::getBackgroundColor()));
-		::SendMessage(_hPBar, PBM_SETBARCOLOR, 0, static_cast<LPARAM>(NppDarkMode::getDarkerTextColor()));
-	}
-
 	wstring cancel = pNativeSpeaker->getLocalizedStrFromID("common-cancel", L"Cancel");
 	_hBtn = ::CreateWindowEx(0, WC_BUTTON, cancel.c_str(),
 		WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON,

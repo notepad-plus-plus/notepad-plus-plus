@@ -2572,6 +2572,234 @@ namespace NppDarkMode
 		SetWindowSubclass(hwnd, ListViewSubclass, g_listViewSubclassID, 0);
 	}
 
+	struct ProgressBarData
+	{
+		ThemeData _themeData{ VSCLASS_PROGRESS };
+		BufferData _bufferData;
+
+		int _iStateID = PBFS_NORMAL; // PBFS_PARTIAL for cyan color
+	};
+
+	static void getProgressBarRects(HWND hWnd, RECT* rcEmpty, RECT* rcFilled)
+	{
+		const auto pos = static_cast<int>(::SendMessage(hWnd, PBM_GETPOS, 0, 0));
+
+		PBRANGE range{};
+		::SendMessage(hWnd, PBM_GETRANGE, TRUE, reinterpret_cast<LPARAM>(&range));
+		const int iMin = range.iLow;
+
+		const int currPos = pos - iMin;
+		if (currPos != 0)
+		{
+			const int totalWidth = rcEmpty->right - rcEmpty->left;
+			rcFilled->left = rcEmpty->left;
+			rcFilled->top = rcEmpty->top;
+			rcFilled->bottom = rcEmpty->bottom;
+			rcFilled->right = rcEmpty->left + static_cast<int>(static_cast<double>(currPos) / (range.iHigh - iMin) * totalWidth);
+
+			rcEmpty->left = rcFilled->right; // to avoid painting under filled part
+		}
+	}
+
+	static void paintProgressBar(HWND hWnd, HDC hdc, const ProgressBarData& progressBarData)
+	{
+		const auto& hTheme = progressBarData._themeData._hTheme;
+
+		RECT rcClient{};
+		::GetClientRect(hWnd, &rcClient);
+
+		NppDarkMode::paintRoundFrameRect(hdc, rcClient, NppDarkMode::getEdgePen(), 0, 0);
+
+		::InflateRect(&rcClient, -1, -1);
+		rcClient.left = 1;
+
+		RECT rcFill{};
+		NppDarkMode::getProgressBarRects(hWnd, &rcClient, &rcFill);
+		::DrawThemeBackground(hTheme, hdc, PP_FILL, progressBarData._iStateID, &rcFill, nullptr);
+		::FillRect(hdc, &rcClient, NppDarkMode::getCtrlBackgroundBrush());
+	}
+
+	static constexpr UINT_PTR g_progressBarSubclassID = 42;
+
+	static LRESULT CALLBACK ProgressBarSubclass(
+		HWND hWnd,
+		UINT uMsg,
+		WPARAM wParam,
+		LPARAM lParam,
+		UINT_PTR uIdSubclass,
+		DWORD_PTR dwRefData
+	)
+	{
+		auto* pProgressBarData = reinterpret_cast<ProgressBarData*>(dwRefData);
+		auto& themeData = pProgressBarData->_themeData;
+		auto& bufferData = pProgressBarData->_bufferData;
+		const auto& hMemDC = bufferData._hMemDC;
+
+		switch (uMsg)
+		{
+			case WM_NCDESTROY:
+			{
+				::RemoveWindowSubclass(hWnd, ProgressBarSubclass, uIdSubclass);
+				delete pProgressBarData;
+				break;
+			}
+
+			case WM_ERASEBKGND:
+			{
+				if (!NppDarkMode::isEnabled() || !themeData.ensureTheme(hWnd))
+				{
+					break;
+				}
+
+				const auto* hdc = reinterpret_cast<HDC>(wParam);
+				if (hdc != hMemDC)
+				{
+					return FALSE;
+				}
+				return TRUE;
+			}
+
+			case WM_PAINT:
+			{
+				if (!NppDarkMode::isEnabled())
+				{
+					break;
+				}
+
+				PAINTSTRUCT ps{};
+				HDC hdc = ::BeginPaint(hWnd, &ps);
+
+				if (ps.rcPaint.right <= ps.rcPaint.left || ps.rcPaint.bottom <= ps.rcPaint.top)
+				{
+					::EndPaint(hWnd, &ps);
+					return 0;
+				}
+
+				RECT rcClient{};
+				::GetClientRect(hWnd, &rcClient);
+
+				if (bufferData.ensureBuffer(hdc, rcClient))
+				{
+					const int savedState = ::SaveDC(hMemDC);
+					::IntersectClipRect(
+						hMemDC,
+						ps.rcPaint.left, ps.rcPaint.top, ps.rcPaint.right, ps.rcPaint.bottom
+					);
+
+					NppDarkMode::paintProgressBar(hWnd, hMemDC, *pProgressBarData);
+
+					::RestoreDC(hMemDC, savedState);
+
+					::BitBlt(
+						hdc,
+						ps.rcPaint.left, ps.rcPaint.top,
+						ps.rcPaint.right - ps.rcPaint.left,
+						ps.rcPaint.bottom - ps.rcPaint.top,
+						hMemDC,
+						ps.rcPaint.left, ps.rcPaint.top,
+						SRCCOPY
+					);
+				}
+
+				::EndPaint(hWnd, &ps);
+				return 0;
+			}
+
+			case WM_DPICHANGED:
+			case WM_DPICHANGED_AFTERPARENT:
+			{
+				themeData.closeTheme();
+				return 0;
+			}
+
+			case WM_THEMECHANGED:
+			{
+				themeData.closeTheme();
+				break;
+			}
+
+			case PBM_SETSTATE:
+			{
+				switch (wParam)
+				{
+					case PBST_NORMAL:
+					{
+						pProgressBarData->_iStateID = PBFS_NORMAL; // green
+						break;
+					}
+
+					case PBST_ERROR:
+					{
+						pProgressBarData->_iStateID = PBFS_ERROR; // red
+						break;
+					}
+
+					case PBST_PAUSED:
+					{
+						pProgressBarData->_iStateID = PBFS_PAUSED; // yellow
+						break;
+					}
+
+					default:
+					{
+						break;
+					}
+				}
+				break;
+			}
+
+			default:
+			{
+				break;
+			}
+		}
+		return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+	}
+
+	static void subclassProgressBar(HWND hWnd)
+	{
+		if (::GetWindowSubclass(hWnd, ProgressBarSubclass, g_progressBarSubclassID, nullptr) == FALSE)
+		{
+			auto pProgressBarData = reinterpret_cast<DWORD_PTR>(new ProgressBarData());
+			::SetWindowSubclass(hWnd, ProgressBarSubclass, g_progressBarSubclassID, pProgressBarData);
+		}
+	}
+
+	static void setProgressBarClassicTheme(HWND hWnd)
+	{
+		auto nStyle = ::GetWindowLongPtr(hWnd, GWL_STYLE);
+		const bool hasFlag = (nStyle & WS_DLGFRAME) == WS_DLGFRAME;
+
+		if (NppDarkMode::isEnabled() != hasFlag)
+		{
+			nStyle ^= WS_DLGFRAME;
+			::SetWindowLongPtr(hWnd, GWL_STYLE, nStyle);
+		}
+
+		NppDarkMode::disableVisualStyle(hWnd, NppDarkMode::isEnabled());
+		if (NppDarkMode::isEnabled())
+		{
+			::SendMessage(hWnd, PBM_SETBKCOLOR, 0, static_cast<LPARAM>(NppDarkMode::getBackgroundColor()));
+			static constexpr COLORREF greenFill = HEXRGB(0x06B025);
+			::SendMessage(hWnd, PBM_SETBARCOLOR, 0, static_cast<LPARAM>(greenFill));
+		}
+	}
+
+	static void subclassAndThemeProgressBar(HWND hWnd, NppDarkModeParams p)
+	{
+		if (p._theme)
+		{
+			if (p._subclass)
+			{
+				NppDarkMode::subclassProgressBar(hWnd);
+			}
+		}
+		else
+		{
+			NppDarkMode::setProgressBarClassicTheme(hWnd);
+		}
+	}
+
 	struct UpDownData
 	{
 		BufferData _bufferData;
@@ -2935,6 +3163,12 @@ namespace NppDarkMode
 			if (wcscmp(className, WC_TABCONTROL) == 0)
 			{
 				NppDarkMode::setTabCtrlSubclassAndTheme(hwnd, p);
+				return TRUE;
+			}
+
+			if (wcscmp(className, PROGRESS_CLASS) == 0)
+			{
+				NppDarkMode::subclassAndThemeProgressBar(hwnd, p);
 				return TRUE;
 			}
 

@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.7.9">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -137,6 +137,8 @@ Translation note:
 					<Item id="42060" name="Sortera rader lexikografiskt fallande"/>
 					<Item id="42080" name="Sortera rader lexikografiskt stigande, ignorera skiftläge"/>
 					<Item id="42081" name="Sortera rader lexikografiskt fallande, ignorera skiftläge"/>
+					<Item id="42100" name="Sortera rader enligt nationella inställningar stigande"/>
+					<Item id="42101" name="Sortera rader enligt nationella inställningar fallande"/>
 					<Item id="42061" name="Sortera rader som heltal stigande"/>
 					<Item id="42062" name="Sortera rader som heltal fallande"/>
 					<Item id="42063" name="Sortera rader som decimaltal (komma) stigande"/>
@@ -947,13 +949,38 @@ Translation note:
 			<Preference title="Inställningar">
 				<Item id="6001" name="Stäng"/>
 				<Global title="Allmänt">
+					<Item id="6123" name="Gränssnittsspråk"/>
+					<Item id="6131" name="Meny"/>
+					<Item id="6122" name="Dölj (använd Alt eller F10 för att visa)"/>
+					<Item id="6132" name="Dölj knapparna ＋ ▼ ✕ på högersidan"/>
+					<Item id="6133" name="Statusfält"/>
+					<Item id="6134" name="Dölj"/>
+				</Global>
+
+				<Toolbar title="Verktygsfält">
 					<Item id="6102" name="Dölj"/>
 					<Item id="6103" name="Fluent: Små"/>
 					<Item id="6104" name="Fluent: Stora"/>
 					<Item id="6129" name="Fluent (ifyllda): Små"/>
 					<Item id="6130" name="Fluent (ifyllda): Stora"/>
 					<Item id="6105" name="Standardikoner: Små"/>
+					<Item id="6011" name="Färgläggning"/>
+					<Item id="6012" name="Fullständig"/>
+					<Item id="6013" name="Delvis"/>
+					<Item id="6014" name="Färgval"/>
+					<Item id="6015" name="Standard"/>
+					<Item id="6016" name="Röd"/>
+					<Item id="6017" name="Grön"/>
+					<Item id="6018" name="Blå"/>
+					<Item id="6019" name="Lila"/>
+					<Item id="6020" name="Turkos"/>
+					<Item id="6021" name="Olivgrön"/>
+					<Item id="6022" name="Gul"/>
+					<Item id="6023" name="Systemaccent"/>
+					<Item id="6024" name="Anpassad"/>
+				</Toolbar>
 
+				<Tabbar title="Flikfält">
 					<Item id="6107" name="Förminska"/>
 					<Item id="6108" name="Lås flikar (inget drag-och-släpp)"/>
 					<Item id="6109" name="Gör inaktiva flikar mörkare"/>
@@ -962,21 +989,15 @@ Translation note:
 					<Item id="6112" name="Visa knapp för att stänga flik"/>
 					<Item id="6113" name="Dubbelklicka för att stänga dokument"/>
 					<Item id="6115" name="Gör det möjligt att fästa flikar"/>
+					<Item id="6135" name="Visa endast knapp för att fästa flikar"/>
 					<Item id="6118" name="Dölj"/>
 					<Item id="6119" name="Flera rader"/>
 					<Item id="6120" name="Vertikalt"/>
 					<Item id="6121" name="Avsluta när sista fliken stängs"/>
 					<Item id="6128" name="Alternativa ikoner"/>
-					
-					<Item id="6133" name="Statusfält"/>
-					<Item id="6134" name="Dölj"/>
-
-					<Item id="6131" name="Menyrad"/>
-					<Item id="6122" name="Dölj (använd Alt eller F10 för att visa)"/>
-					<Item id="6132" name="Dölj knapparna ＋ ▼ ✕ på högersidan"/>
-
-					<Item id="6123" name="Gränssnittsspråk"/>
-				</Global>
+					<Item id="6125" name="Beteende"/>
+					<Item id="6126" name="Utseende och känsla"/>
+				</Tabbar>
 
 				<Scintillas title="Redigering 1">
 					<Item id="6216" name="Inställningar för textmarkör"/>
@@ -995,6 +1016,7 @@ Translation note:
 					<Item id="6239" name="Behåll markering när man klickar utanför markeringen"/>
 					<Item id="6245" name="Aktivera virtuellt utrymme"/>
 					<Item id="6214" name="Kopiera/klipp ut aktuell rad när ingenting är markerat"/>
+					<Item id="6225" name="Tillämpa anpassad förgrundsfärg på markerad text"/>
 					<Item id="6651" name="Indikator för aktuell rad"/>
 					<Item id="6652" name="Ingen"/>
 					<Item id="6653" name="Markerad bakgrund"/>
@@ -1031,18 +1053,18 @@ Translation note:
 					<Item id="7108" name="Turkos"/>
 					<Item id="7109" name="Olivgrön"/>
 					<Item id="7115" name="Anpassad"/>
-					<Item id="7116" name="Primär fönsterbakgrund"/>
-					<Item id="7117" name="Hovringsfärg"/>
-					<Item id="7118" name="Aktiva element"/>
-					<Item id="7119" name="Sekundär fönsterbakgrund"/>
+					<Item id="7116" name="Bakgrund för innehåll"/>
+					<Item id="7117" name="Hovringsfärg för menyraden"/>
+					<Item id="7118" name="Bakgrund för kontrollelement"/>
+					<Item id="7119" name="Bakgrund för dialogfönster"/>
 					<Item id="7120" name="Felmeddelanden"/>
 					<Item id="7121" name="Primär text"/>
 					<Item id="7122" name="Sekundär text"/>
-					<Item id="7123" name="Inaktiverade element"/>
-					<Item id="7124" name="Kantlinjer"/>
+					<Item id="7123" name="Inaktiverad text"/>
+					<Item id="7124" name="Elementkonturer"/>
 					<Item id="7125" name="Länktext"/>
-					<Item id="7126" name="Kantmarkering"/>
-					<Item id="7127" name="Inaktiverade kantlinjer"/>
+					<Item id="7126" name="Markerade elementkonturer"/>
+					<Item id="7127" name="Inaktiva elementkonturer"/>
 					<Item id="7130" name="Återställ"/>
 					<Item id="7135" name="Toner"/>
 				</DarkMode>
@@ -1087,6 +1109,7 @@ Translation note:
 					<Item id="6419" name="Nytt dokument"/>
 					<Item id="6420" name="Tillämpa på öppnade ANSI-filer"/>
 					<Item id="6432" name="Öppna alltid ett nytt dokument vid uppstart"/>
+					<Item id="6433" name="Använd första raden i dokumentet som namnet på namnlösa flikar"/>
 				</NewDoc>
 
 				<DefaultDir title="Standardmapp">
@@ -1290,7 +1313,7 @@ Translation note:
 				</Performance>
 
 				<Cloud title="Moln och länkar">
-					<Item id="6262" name="Inställning för moln"/>
+					<Item id="6262" name="Inställningar för moln"/>
 					<Item id="6263" name="Inget moln"/>
 					<Item id="6267" name="Ange sökvägen till din molnmapp här:"/>
 					<Item id="6318" name="Inställningar för klickbara länkar"/>
@@ -1331,7 +1354,7 @@ Translation note:
 						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
 					<Item id="6308" name="systemfältet"/>
-					<Item id="6363" name="renderingsläge"/>
+					<Item id="6363" name="som renderingsläge"/>
 					<Item id="6312" name="Identifiera filstatus automatiskt"/>
 					<Item id="6313" name="Tyst uppdatering"/>
 					<Item id="6325" name="Gå till sista raden efter uppdatering"/>
@@ -1451,6 +1474,9 @@ Dina inställningar för molnet kommer att avbrytas. Återställ värdet i inst�
 			<DroppingFolderAsProjectModeWarning title="Felaktig åtgärd" message="Du kan endast släppa filer eller mappar men inte båda eftersom du är i läget för att släppa mappar som projekt.
 Du måste aktivera &quot;Öppna alla filer inuti mappar som släpps i stället för att öppna dem som arbetsytor&quot; via avsnittet &quot;Standardmapp&quot; i inställningarna för att denna åtgärd ska fungera."/>
 			<SortingError title="Sorteringsfel" message="Kan inte utföra numerisk sortering på grund av rad $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SortLocaleMultiple title="Sorteringen genomfördes inte" message="Stöd saknas för att sortera flera markeringar."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleUnknown title="Sorteringen misslyckades" message="Anledningen till att sorteringen misslyckades är okänd."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+			<SortLocaleExcept title="Sorteringen misslyckades" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Tips för kolumnläge" message="
 Det finns 3 sätt att växla till kolumnmarkeringsläget:
 
@@ -1521,6 +1547,11 @@ Vill du fortsätta?"/>
 			<UDLNewNameError title="UDL-fel" message="Detta namn används av ett annat språk.
 Använd ett annat namn."/>
 			<UDLRemoveCurrentLang title="Ta bort aktuellt språk" message="Är du säker?"/>
+			<UDL_importSuccessful title="Användardefinierat språk" message="Importeringen slutfördes."/>
+			<UDL_importFails title="Användardefinierat språk" message="Misslyckades att importera."/>
+			<UDL_saveBeforeImport title="Användardefinierat språk" message="Spara dina språkdefinitioner genom att klicka på &quot;Spara som...&quot; innan du exporterar."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_exportSuccessful title="Användardefinierat språk" message="Exporteringen slutfördes."/>
+			<UDL_exportFails title="Användardefinierat språk" message="Misslyckades att exportera."/>
 			<SCMapperDoDeleteOrNot title="Är du säker?" message="Är du säker på att du vill radera detta kortkommando?"/>
 			<FindCharRangeValueError title="Felaktigt intervall" message="Du måste ange ett värde mellan 0 och 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Misslyckades att spara" message="Filen kunde inte sparas och kanske är skrivskyddad.
@@ -1837,9 +1868,22 @@ Klicka på knappen &quot;?&quot; till höger för att öppna webbplatsen med anv
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell och JSON.
 
 Om du väljer avancerat läge men inte redigerar filer i de omfattande språken kommer indraget förbli i enkelt läge."/>
+
 			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
 			<global-override-tip value="Om &quot;Global override&quot; aktiveras här kommer samma parameter att åsidosättas i alla språkstilar. Du vill förmodligen egentligen använda inställningen &quot;Default Style&quot; i stället"/>
 			<scintillaRenderingTechnology-tip value="Kan förbättra renderingen av specialtecken eller lösa några grafikproblem. Starta om Notepad++ för att tillämpa ändringarna."/>
+			
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="längd: $STR_REPLACE1$    rader: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Rd: $STR_REPLACE1$    Kol: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Pos: "/>
+			<statusbar-Sel value="Mrk: "/>
+			<statusbar-Sel-number value="Mrk"/>
+			<toolbar-accent-tip value="Detta alternativ får ikonerna i ditt verktygsfält att följa systemets accentfärg i Windows. Accentfärgen är den färgmarkering som används för knappar, kantlinjer och startmenyns paneler i Windows. Gå till Inställningar &gt; Anpassning &gt; Färger och välj sedan en önskad accentfärg."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

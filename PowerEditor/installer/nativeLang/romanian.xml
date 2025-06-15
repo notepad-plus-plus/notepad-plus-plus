@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 8.8.2
--    Ultima modificare a fost făcută 01 iunie 2025 de către Miloiu Andrei-Valentin
+-    Traducerea în română pentru Notepad++ 8.8.1
+-    Ultima modificare a fost făcută 16 iunie 2025 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang -->
 <NotepadPlus>
-    <Native-Langue name="Romanian" filename="romanian.xml" version="8.8.2">
+    <Native-Langue name="Romanian" filename="romanian.xml" version="8.8.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -229,8 +229,6 @@
                     <Item id="43053" name="&amp;Selectează toate caracterele aflate între 2 (două paranteze) {}, [] sau ()"/>
                     <Item id="43009" name="Salt la acolada perec&amp;he"/>
                     <Item id="43010" name="Găsește rezultatul &amp;anterior"/>
-                    <Item id="43009" name="Salt la acolada pereche"/>
-                    <Item id="43010" name="Găsește &amp;anteriorul"/>
                     <Item id="43011" name="Căutare &amp;incrementală"/>
                     <Item id="43013" name="Găsește în fișie&amp;re"/>
                     <Item id="43014" name="Găsește re&amp;zultatul volatil următor"/>

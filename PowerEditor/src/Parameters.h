@@ -946,9 +946,10 @@ struct NppGUI final
 	// items with no Notepad++ GUI to set
 	std::wstring _commandLineInterpreter = CMD_INTERPRETER;
 
+	enum AutoUpdateMode { autoupdate_disabled, autoupdate_on_startup, autoupdate_on_exit };
 	struct AutoUpdateOptions
 	{
-		bool _doAutoUpdate = true;
+		AutoUpdateMode _doAutoUpdate = autoupdate_on_startup;
 		int _intervalDays = 15;
 		Date _nextUpdateDate;
 		AutoUpdateOptions(): _nextUpdateDate(Date()) {};

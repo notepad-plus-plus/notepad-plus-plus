@@ -203,7 +203,6 @@ Translation note:
 					<Item id="42087" name="Kopiera alla filnamn"/>
 					<Item id="42088" name="Kopiera alla filsökvägar"/>
 					<Item id="42032" name="&amp;Kör ett makro flera gånger..."/>
-					<Item id="42033" name="Inaktivera skrivskydd"/>
 					<Item id="42035" name="Kommentera rad"/>
 					<Item id="42036" name="Avkommentera rad"/>
 					<Item id="42055" name="Ta bort tomma rader"/>
@@ -439,7 +438,6 @@ Translation note:
 				<Item CMDID="41014" name="Ladda om"/>
 				<Item CMDID="41010" name="Skriv ut..."/>
 				<Item CMDID="42028" name="Aktivera skrivskydd"/>
-				<Item CMDID="42033" name="Inaktivera skrivskydd"/>
 				<Item CMDID="2" name="Kopiera till urklipp"/>
 				<Item CMDID="42029" name="Kopiera fullständig sökväg"/>
 				<Item CMDID="42030" name="Kopiera filens namn"/>

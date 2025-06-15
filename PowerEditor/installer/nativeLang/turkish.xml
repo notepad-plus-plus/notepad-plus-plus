@@ -201,7 +201,6 @@
 					<Item id="42087" name="Tüm Dosya Adlarını Kopyala"/>
 					<Item id="42088" name="Tüm Dosya Yollarını Kopyala"/>
 					<Item id="42032" name="&amp;Makroyu Birden Çok Kez Çalıştır"/>
-					<Item id="42033" name="Salt Okunur İşaretini Kaldır"/>
 					<Item id="42035" name="Tek Satır Yorum Alanı Aç"/>
 					<Item id="42036" name="Tek Satır Yorum Alanını Kapat"/>
 					<Item id="42055" name="Boş Satırları Kaldır"/>
@@ -437,7 +436,6 @@
 				<Item CMDID="41014" name="Yeniden Yükle"/>
 				<Item CMDID="41010" name="Yazdır..."/>
 				<Item CMDID="42028" name="Salt Okunur"/>
-				<Item CMDID="42033" name="Salt Okunur Özniteliğini Temizle"/>
 				<Item CMDID="2" name="Panoya Kopyala"/>
 				<Item CMDID="42029" name="Tam Dosya Yolunu Kopyala"/>
 				<Item CMDID="42030" name="Dosya Adını Kopyala"/>

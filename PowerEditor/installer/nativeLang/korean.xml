@@ -203,7 +203,6 @@ Translation note:
 					<Item id="42087" name="모든 파일 이름 복사"/>
 					<Item id="42088" name="모든 파일 경로 복사"/>
 					<Item id="42032" name="매크로 반복 실행...(&amp;R)"/>
-					<Item id="42033" name="읽기 전용 해제"/>
 					<Item id="42035" name="한 줄 주석 달기"/>
 					<Item id="42036" name="한 줄 주석 제거"/>
 					<Item id="42055" name="빈 줄 제거"/>
@@ -437,7 +436,6 @@ Translation note:
 				<Item CMDID="41014" name="다시 불러오기"/>
 				<Item CMDID="41010" name="인쇄..."/>
 				<Item CMDID="42028" name="읽기 전용 설정"/>
-				<Item CMDID="42033" name="읽기 전용 해제"/>
 				<Item CMDID="2" name="클립보드에 복사"/>
 				<Item CMDID="42029" name="전체 파일 경로 복사"/>
 				<Item CMDID="42030" name="파일 이름 복사"/>

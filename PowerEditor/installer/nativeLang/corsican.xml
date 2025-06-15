@@ -231,7 +231,6 @@ Additionnal information about Corsican localization:
 					<Item id="42087" name="Cupià tutti i nomi di schedariu"/>
 					<Item id="42088" name="Cupià tutti i chjassi di schedariu"/>
 					<Item id="42032" name="&amp;Lancià una prucedura parechje volte…"/>
-					<Item id="42033" name="Caccià a marca di lettura sola da u schedariu"/>
 					<Item id="42035" name="Mette in cummentu a linea sola"/>
 					<Item id="42036" name="Caccià u cummentu da a linea sola"/>
 					<Item id="42055" name="Caccià e linee viote"/>
@@ -467,7 +466,6 @@ Additionnal information about Corsican localization:
 				<Item CMDID="41014" name="Ricaricà"/>
 				<Item CMDID="41010" name="Stampà…"/>
 				<Item CMDID="42028" name="Lettura sola"/>
-				<Item CMDID="42033" name="Caccià a marca di lettura sola da u ducumentu"/>
 				<Item CMDID="2" name="Cupià in u preme’papei"/>
 				<Item CMDID="42029" name="Cupià u chjassu cumpletu di schedariu"/>
 				<Item CMDID="42030" name="Cupià u nome di schedariu"/>

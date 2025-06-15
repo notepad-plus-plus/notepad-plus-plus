@@ -284,6 +284,9 @@ IDI_UNSAVED_ALT_ICON            ICON      "icons/standard/tabbar/unsaved_alt.ico
 IDI_READONLY_ICON               ICON      "icons/standard/tabbar/readonly.ico"
 IDI_READONLY_DM_ICON            ICON      "icons/dark/tabbar/readonly.ico"
 IDI_READONLY_ALT_ICON           ICON      "icons/standard/tabbar/readonly_alt.ico"
+IDI_READONLYSYS_ICON            ICON      "icons/standard/tabbar/readonly_sys.ico"
+IDI_READONLYSYS_DM_ICON         ICON      "icons/dark/tabbar/readonly_sys.ico"
+IDI_READONLYSYS_ALT_ICON        ICON      "icons/standard/tabbar/readonly_sys_alt.ico"
 IDI_MONITORING_ICON             ICON      "icons/standard/tabbar/monitoring.ico"
 IDI_MONITORING_DM_ICON          ICON      "icons/dark/tabbar/monitoring.ico"
 
@@ -628,8 +631,8 @@ BEGIN
         MENUITEM "Character &Panel",         IDM_EDIT_CHAR_PANEL
         MENUITEM "Clipboard &History",       IDM_EDIT_CLIPBOARDHISTORY_PANEL
         MENUITEM SEPARATOR
-        MENUITEM "&Set Read-Only",           IDM_EDIT_SETREADONLY
-        MENUITEM "Clear Read-Only Flag",     IDM_EDIT_CLEARREADONLY
+        MENUITEM "Read-Only in Notepad++",            IDM_EDIT_TOGGLEREADONLY
+        MENUITEM "Read-Only Attribute in Windows",    IDM_EDIT_TOGGLESYSTEMREADONLY
     END
 
     POPUP "&Search"

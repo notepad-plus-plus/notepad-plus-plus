@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.8.2:
+Updated to :
 - added new lines
 - little fixes
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.8.2">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.8.1">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->

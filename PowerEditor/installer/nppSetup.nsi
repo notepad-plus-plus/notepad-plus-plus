@@ -57,8 +57,9 @@ OutFile ".\build\npp.${APPVERSION}.Installer.exe"
    VIAddVersionKey	"FileVersion"		"${Version}"
    VIAddVersionKey	"ProductVersion"	"${ProdVer}"
 ; ------------------------------------------------------------------------
- 
+
 ; Insert CheckIfRunning function as an installer and uninstaller function.
+Var runningNppDetected
 !insertmacro CheckIfRunning ""
 !insertmacro CheckIfRunning "un."
 
@@ -152,6 +153,7 @@ Function .onInit
 	;
 	; --- PATCH END ---
 
+	StrCpy $runningNppDetected "false" ; reset
 
 	; Begin of "/closeRunningNpp"
 	${GetParameters} $R0 
@@ -172,14 +174,13 @@ closeRunningNppCheckDone:
 	IfSilent 0 notInSilentMode
 	System::Call 'kernel32::OpenMutex(i 0x100000, b 0, t "nppInstance") i .R0'
 	IntCmp $R0 0 nppNotRunning
+	StrCpy $runningNppDetected "true"
 	System::Call 'kernel32::CloseHandle(i $R0)' ; a Notepad++ instance is running, tidy-up the opened mutex handle only
 	SetErrorLevel 5 ; set an exit code > 0 otherwise the installer returns 0 aka SUCCESS ('5' means here the future ERROR_ACCESS_DENIED when trying to overwrite the notepad++.exe file...)
 	Quit ; silent installation is silent, currently we cannot continue without a user interaction (TODO: a new "/closeRunningNppAutomatically" installer optional param...)
 nppNotRunning:
 notInSilentMode:
 	; End of "/closeRunningNpp"
-	
-	
 
 	; Begin of "/noUpdater"
 	${GetParameters} $R0 
@@ -385,6 +386,7 @@ Section -FinishSection
   Call writeInstallInfoInRegistry
   IfSilent 0 theEnd
   	${If} $runNppAfterSilentInstall == "true"
+	${AndIf} $runningNppDetected == "true" ; relaunch only if Notepad++ was already running before the installation
 		Call LaunchNpp
 	${EndIf}
 theEnd:

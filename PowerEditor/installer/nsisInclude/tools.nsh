@@ -52,6 +52,7 @@ FunctionEnd
 		System::Call 'kernel32::OpenMutex(i 0x100000, b 0, t "nppInstance") i .R0'
 		
 		IntCmp $R0 0 NotRunning
+			StrCpy $runningNppDetected "true"
 			System::Call 'kernel32::CloseHandle(i $R0)'
 			MessageBox MB_RETRYCANCEL|MB_DEFBUTTON1|MB_ICONSTOP "Cannot continue the installation: Notepad++ is running.\
 			          $\n$\n\
@@ -236,6 +237,7 @@ FunctionEnd
 	IntPtrCmp $0 0 processNotRunning
 	IsWindow $0 0 processNotRunning
 
+	StrCpy $runningNppDetected "true"
 	IfSilent skipDetailPrint 0
 	DetailPrint "Closing the ${RUNPROC_WND_CLASS} app running..."
   skipDetailPrint:

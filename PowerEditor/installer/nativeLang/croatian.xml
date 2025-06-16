@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: May 30, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: June 16, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
@@ -196,14 +196,14 @@
 					<Item id="42025" name="&amp;Spremi upravo snimljeni makro..."/>
 					<Item id="42026" name="&amp;Smjer teksta s desna na lijevo"/>
 					<Item id="42027" name="&amp;Smjer teksta s lijeva na desno"/>
-					<Item id="42028" name="Označ&amp;i samo za čitanje"/>
+					<Item id="42028" name="Samo za č&amp;itanje u Notepadu++"/>
 					<Item id="42029" name="Kopiraj naziv i &amp;put trenutne datoteke"/>
 					<Item id="42030" name="Kopiraj &amp;naziv trenutne datoteke"/>
 					<Item id="42031" name="Kopiraj naziv i put &amp;mape trenutne datoteke"/>
 					<Item id="42087" name="Kopiraj nazive &amp;svih otvorenih datoteka"/>
 					<Item id="42088" name="Kopiraj nazive i putove s&amp;vih otvorenih datoteka"/>
 					<Item id="42032" name="Pok&amp;reni makro više puta..."/>
-					<Item id="42033" name="O&amp;dstrani oznaku samo za čitanje"/>
+					<Item id="42033" name="Oznaka samo za čitanje u &amp;Windowsima"/>
 					<Item id="42035" name="Zakomentiraj &amp;redak"/>
 					<Item id="42036" name="Odkomentiraj r&amp;edak"/>
 					<Item id="42055" name="Izbriši p&amp;razne retke"/>
@@ -446,8 +446,8 @@
 				<Item CMDID="41016" name="Premjesti u koš za smeće"/>
 				<Item CMDID="41014" name="Ponovo učitaj"/>
 				<Item CMDID="41010" name="Ispiši..."/>
-				<Item CMDID="42028" name="Samo za čitanje"/>
-				<Item CMDID="42033" name="Odstrani oznaku Samo za čitanje"/>
+				<Item CMDID="42028" name="Samo za čitanje u Notepadu++"/>
+				<Item CMDID="42033" name="Oznaka Samo za čitanje u Windowsima"/>
 				<Item CMDID="2" name="Kopiraj u međuspremnik"/>
 				<Item CMDID="42029" name="Kopiraj naziv i put datoteke"/>
 				<Item CMDID="42030" name="Kopiraj naziv datoteke"/>
@@ -1117,6 +1117,7 @@
 					<Item id="6419" name="Novi dokument"/>
 					<Item id="6420" name="Primijeni na otvorene ANSI datoteke"/>
 					<Item id="6432" name="Uvijek otvori dodatni novi dokument pri pokretanju"/>
+					<Item id="6433" name="Upotrijebi prvi redak dokumenta kao ime kartice"/>
 				</NewDoc>
 
 				<DefaultDir title="Zadana mapa">

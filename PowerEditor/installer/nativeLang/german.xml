@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2025-06-05"><!-- basiert auf english.xml 8.8.1 vom 04.06.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.1"><!-- Datum: 16.06.2025, basiert auf english.xml 8.8.1 vom 04.06.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->

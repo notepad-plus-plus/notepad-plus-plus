@@ -11,8 +11,16 @@ using Microsoft.Owin.Security.OpenIdConnect;
 
 namespace $OwinNamespace$
 {
+    // check if comments are causing parsing problems
+    /* check if comments are causing parsing problems
+       check if comments are causing parsing problems
+    */
     public partial class $OwinClass$
     {
+        // check if comments are causing parsing problems
+        /* check if comments are causing parsing problems
+           check if comments are causing parsing problems
+        */
         private static string clientId = ConfigurationManager.AppSettings["ida:ClientId"];
         private static string aadInstance = ConfigurationManager.AppSettings["ida:AADInstance"];
         private static string tenantId = ConfigurationManager.AppSettings["ida:TenantId"];
@@ -25,6 +33,11 @@ namespace $OwinNamespace$
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions());
 
+            // check if comments are causing parsing problems
+            /* check if comments are causing parsing problems
+               check if comments are causing parsing problems
+            */
+
             app.UseOpenIdConnectAuthentication(
                 new OpenIdConnectAuthenticationOptions
                 {
@@ -35,3 +48,8 @@ namespace $OwinNamespace$
         }
     }
 }
+
+// check if comments are causing parsing problems
+/* check if comments are causing parsing problems
+   check if comments are causing parsing problems
+*/

@@ -196,13 +196,14 @@
 					<Item id="42025" name="Az aktuális makrófelvétel mentése…"/>
 					<Item id="42026" name="Szö&amp;vegirány: jobbról balra"/>
 					<Item id="42027" name="Szöv&amp;egirány: balról jobbra"/>
-					<Item id="42028" name="Í&amp;rásvédetté alakítás"/>
+					<Item id="42028" name="Csak olvashat&amp;ó a Notepad++-ban"/>
 					<Item id="42029" name="&amp;A fájl teljes elérési útvonala"/>
 					<Item id="42030" name="A &amp;fájl neve"/>
 					<Item id="42031" name="A &amp;mappa útvonala"/>
 					<Item id="42087" name="M&amp;inden fájlnév"/>
 					<Item id="42088" name="Mi&amp;nden elérési útvonal"/>
 					<Item id="42032" name="Makró többszöri futtatása…"/>
+					<Item id="42033" name="Csak olvasható attrib&amp;útum a Windowsban"/>
 					<Item id="42035" name="S&amp;or megjegyzéssé alakítása"/>
 					<Item id="42036" name="So&amp;r megjegyzésének feloldása"/>
 					<Item id="42055" name="Ü&amp;res sorok eltávolítása"/>
@@ -437,7 +438,8 @@
 				<Item CMDID="41016" name="Lomtárba helyezés"/>
 				<Item CMDID="41014" name="Újratöltés"/>
 				<Item CMDID="41010" name="Nyomtatás…"/>
-				<Item CMDID="42028" name="Írásvédetté alakítás"/>
+				<Item CMDID="42028" name="Csak olvasható a Notepad++-ban"/>
+				<Item CMDID="42033" name="Csak olvasható attribútum a Windowsban"/>
 				<Item CMDID="2" name="Másolás a vágólapra"/>
 				<Item CMDID="42029" name="Teljes elérési út másolása"/>
 				<Item CMDID="42030" name="Fájlnév másolása"/>

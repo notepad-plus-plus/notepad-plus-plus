@@ -6862,7 +6862,49 @@ std::vector<wstring> Notepad_plus::loadCommandlineParams(const wchar_t * command
 		const wchar_t *pFn = fnss.getFileName(i);
 		if (!pFn) return std::vector<wstring>();
 
-		BufferID bufID = doOpen(pFn, recursive, readOnly);
+		intptr_t fileLineNumber = lineNumber;
+		intptr_t fileColumnNumber = columnNumber;
+
+		wstring fileName(pFn);
+		// handle inputs of type a.txt[:<line>[:<column>]]
+		try
+		{
+			// parse [:<line>]
+			size_t lastColon = fileName.rfind(':');
+			// skip paths like C:\ or C:/
+			if (
+				lastColon < (fileName.size() - 1) &&
+				fileName[lastColon + 1] != '/' &&
+				fileName[lastColon + 1] != '\\'
+			)
+			{
+				fileLineNumber = std::stoi(fileName.substr(lastColon + 1));
+				fileName.erase(lastColon);
+
+				// parse [:<line>[:<column>]]
+				lastColon = fileName.rfind(':');
+				if (
+					lastColon < (fileName.size() - 1) &&
+					fileName[lastColon + 1] != '/' &&
+					fileName[lastColon + 1] != '\\'
+				)
+				{
+					fileColumnNumber = fileLineNumber;
+					fileLineNumber = std::stoi(fileName.substr(lastColon + 1));
+					fileName.erase(lastColon);
+				}
+			}
+		}
+		catch (const std::invalid_argument&)
+		{
+			// reset values
+			fileLineNumber = lineNumber;
+			fileColumnNumber = columnNumber;
+
+			// TODO: show warning to user?
+		}
+
+		BufferID bufID = doOpen(fileName, recursive, readOnly);
 		if (bufID == BUFFER_INVALID)	//cannot open file
 			continue;
 
@@ -6878,7 +6920,7 @@ std::vector<wstring> Notepad_plus::loadCommandlineParams(const wchar_t * command
 			pBuf->setLangType(lt);
 		}
 
-		if (lineNumber >= 0 || positionNumber >= 0)
+		if (fileLineNumber >= 0 || positionNumber >= 0)
 		{
 			//we have to move the cursor manually
 			int iView = currentView();	//store view since fileswitch can cause it to change
@@ -6895,13 +6937,13 @@ std::vector<wstring> Notepad_plus::loadCommandlineParams(const wchar_t * command
 				}
 				_pEditView->execute(SCI_GOTOPOS, positionNumber);
 			}
-			else if (columnNumber < 0)
+			else if (fileColumnNumber < 0)
 			{
-				_pEditView->execute(SCI_GOTOLINE, lineNumber - 1);
+				_pEditView->execute(SCI_GOTOLINE, fileLineNumber - 1);
 			}
 			else
 			{
-				auto pos = _pEditView->execute(SCI_FINDCOLUMN, lineNumber - 1, columnNumber - 1);
+				auto pos = _pEditView->execute(SCI_FINDCOLUMN, fileLineNumber - 1, fileColumnNumber - 1);
 				_pEditView->execute(SCI_GOTOPOS, pos);
 			}
 

@@ -2829,26 +2829,93 @@ void Notepad_plus::copyMarkedLines()
 
 std::mutex mark_mutex;
 
+INT_PTR CALLBACK CutCancelDlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	UNREFERENCED_PARAMETER(lParam);
+
+	switch (message)
+	{
+	case WM_COMMAND:
+		if (LOWORD(wParam) == IDC_BTN_CANCEL_CUT)
+		{
+			Notepad_plus* pNpp = reinterpret_cast<Notepad_plus*>(GetWindowLongPtr(hDlg, GWLP_USERDATA));
+			if (pNpp)
+				pNpp->_cancelCutOperation = true;
+			EndDialog(hDlg, 0);
+			return TRUE;
+		}
+		break;
+	case WM_CLOSE:
+		EndDialog(hDlg, 0);
+		return TRUE;
+	}
+	return FALSE;
+}
+
+
 void Notepad_plus::cutMarkedLines()
 {
 	std::lock_guard<std::mutex> lock(mark_mutex);
+	_cancelCutOperation = false;
 
 	intptr_t lastLine = _pEditView->lastZeroBasedLineNumber();
 	wstring globalStr = L"";
 
 	_pEditView->execute(SCI_BEGINUNDOACTION);
-	for (intptr_t i = lastLine ; i >= 0 ; i--)
+
+	int linesProcessed = 0;
+
+	HWND hDlg = CreateDialogParam(
+		::GetModuleHandle(NULL),
+		MAKEINTRESOURCE(IDD_CUT_CANCEL_DIALOG),
+		_pPublicInterface->getHSelf(),
+		CutCancelDlgProc,
+		reinterpret_cast<LPARAM>(this)
+	);
+	
+	SetWindowLongPtr(hDlg, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
+	ShowWindow(hDlg, SW_SHOW);
+
+	for (intptr_t i = lastLine; i >= 0; i--)
 	{
+		if (_cancelCutOperation)
+		{
+			std::wstring status = L"Cut operation cancelled after " + std::to_wstring(linesProcessed) + L" lines.";
+			::SendMessage(_pPublicInterface->getHSelf(), NPPM_SETSTATUSBAR, STATUSBAR_DOC_TYPE, (LPARAM)status.c_str());
+			break;
+		}
 		if (bookmarkPresent(i))
 		{
 			wstring currentStr = getMarkedLine(i) + globalStr;
 			globalStr = currentStr;
 
 			deleteMarkedline(i);
+			linesProcessed++;
+
+			if (linesProcessed % 5000 == 0)
+			{
+				std::wstring status = L"Cut " + std::to_wstring(linesProcessed) + L" lines...";
+				::SendMessage(_pPublicInterface->getHSelf(), NPPM_SETSTATUSBAR, STATUSBAR_DOC_TYPE, (LPARAM)status.c_str());
+
+				MSG msg;
+				while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+				{
+					TranslateMessage(&msg);
+					DispatchMessage(&msg);
+				}
+			}
 		}
 	}
+
 	_pEditView->execute(SCI_ENDUNDOACTION);
+	if (hDlg)
+	{
+		DestroyWindow(hDlg);
+	}	
 	str2Clipboard(globalStr, _pPublicInterface->getHSelf());
+
+	std::wstring finalStatus = L"Finished cutting " + std::to_wstring(linesProcessed) + L" lines.";
+	::SendMessage(_pPublicInterface->getHSelf(), NPPM_SETSTATUSBAR, STATUSBAR_DOC_TYPE, (LPARAM)finalStatus.c_str());
 }
 
 void Notepad_plus::deleteMarkedLines(bool isMarked)

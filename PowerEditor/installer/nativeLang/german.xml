@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.1"><!-- Datum: 16.06.2025, basiert auf english.xml 8.8.1 vom 04.06.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.1"><!-- Datum: 17.06.2025, basiert auf english.xml 8.8.1 vom 16.06.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -205,13 +205,14 @@ Translation note:
 					<Item id="42025" name="Aufgenommenes Makro s&amp;peichern …"/>
 					<Item id="42026" name="Schreib&amp;richtung von rechts nach links"/>
 					<Item id="42027" name="Schreibrichtung von lin&amp;ks nach rechts"/>
-					<Item id="42028" name="Schreibsch&amp;utz"/>
+					<Item id="42028" name="Schreibsch&amp;utz in Notepad++"/>
 					<Item id="42029" name="Vollständigen Datei&amp;pfad kopieren"/>
 					<Item id="42030" name="Nur Datei&amp;namen kopieren"/>
 					<Item id="42031" name="Nur &amp;Verzeichnispfad kopieren"/>
 					<Item id="42087" name="Alle Dateinamen kopieren"/>
 					<Item id="42088" name="Alle vollständigen Dateipfade kopieren"/>
 					<Item id="42032" name="Makro &amp;mehrfach ausführen …"/>
+					<Item id="42033" name="Schreibschutz-Attribut in Windows"/>
 					<Item id="42035" name="Zeilen aus&amp;kommentieren"/>
 					<Item id="42036" name="Auskommentierung der Zeilen a&amp;ufheben"/>
 					<Item id="42055" name="&amp;Leerzeilen (nur völlig leere) löschen"/>
@@ -446,7 +447,8 @@ Translation note:
 				<Item CMDID="41016" name="L&amp;öschen"/>
 				<Item CMDID="41014" name="Neu &amp;laden"/>
 				<Item CMDID="41010" name="&amp;Drucken …"/>
-				<Item CMDID="42028" name="Sch&amp;reibschutz"/>
+				<Item CMDID="42028" name="Schreibsch&amp;utz in Notepad++"/>
+				<Item CMDID="42033" name="Schreibschutz-Attribut in Windows"/>
 				<Item CMDID="2" name="In Zwischenablage kopieren"/>
 				<Item CMDID="42029" name="Vollständigen Dateipfad &amp;kopieren"/>
 				<Item CMDID="42030" name="Nur Datei&amp;namen kopieren"/>
@@ -1601,7 +1603,7 @@ OK auswählen um die Suche zu öffnen oder in den Vordergrund zu bringen.
 Falls die Regex-Rückwärtssuche dennoch benötigt wird, kann deren Aktivierung im Benutzerhandbuch nachgeschlagen werden."/>
 			<PrintError title="0" message="Druckerdokument kann nicht gestartet werden."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 			<FindAutoChangeOfInSelectionWarning title="Suchwarnung" message="Der Status des Kontrollkästchens 'In Auswahl' wurde automatisch geändert.
-			Bitte die Suchbedingungen überprüfen, bevor die Aktion ausgeführt wird."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+Bitte die Suchbedingungen überprüfen, bevor die Aktion ausgeführt wird."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Neustart von Notepad++ erforderlich" message="Notepad++ muss zur Anzeige der Tastenkürzel neu gestartet werden."/>
 		</MessageBox>
 		<ClipboardHistory>

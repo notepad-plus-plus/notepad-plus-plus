@@ -194,13 +194,14 @@
 					<Item id="42025" name="Uložiť aktuálne zaznamenané ma&amp;kro…"/>
 					<Item id="42026" name="Smer textu sprava doľava"/>
 					<Item id="42027" name="Smer textu zľava doprava"/>
-					<Item id="42028" name="&amp;Nastaviť &quot;Iba na čítanie&quot;"/>
+					<Item id="42028" name="Iba na čítanie v Notepad++"/>
 					<Item id="42029" name="Skopírovať cestu k aktuálnemu súboru"/>
 					<Item id="42030" name="Skopírovať názov aktuálneho súboru"/>
 					<Item id="42031" name="Skopírovať cestu k aktuálnemu priečinku"/>
 					<Item id="42087" name="Všetky názvy súborov"/>
 					<Item id="42088" name="Všetky cesty súborov"/>
 					<Item id="42032" name="Spustiť makro viacnásobne…"/>
+					<Item id="42033" name="Atribút Iba na čítanie vo Windowse"/>
 					<Item id="42035" name="Zakomentovať riadok"/>
 					<Item id="42036" name="Odkomentovať riadok"/>
 					<Item id="42055" name="Odstrániť prázdne riadky"/>
@@ -435,7 +436,8 @@
 				<Item CMDID="41016" name="Presunúť do koša…"/>
 				<Item CMDID="41014" name="Obnoviť"/>
 				<Item CMDID="41010" name="Tlačiť…"/>
-				<Item CMDID="42028" name="Iba na čítanie"/>
+				<Item CMDID="42028" name="Iba na čítanie v Notepad++"/>
+				<Item CMDID="42033" name="Atribút Iba na čítanie vo Windowse"/>
 				<Item CMDID="2" name="Kopírovať do schránky"/>
 				<Item CMDID="42029" name="Skopírovať celú cestu k súboru"/>
 				<Item CMDID="42030" name="Skopírovať názov súboru"/>

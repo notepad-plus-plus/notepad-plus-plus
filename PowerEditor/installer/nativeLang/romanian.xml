@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
 -    Traducerea în română pentru Notepad++ 8.8.1
--    Ultima modificare a fost făcută 16 iunie 2025 de către Miloiu Andrei-Valentin
+-    Ultima modificare a fost făcută 17 iunie 2025 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang -->
 <NotepadPlus>
@@ -197,13 +197,14 @@
                     <Item id="42025" name="&amp;Salvează macrocomanda înregistrată în prezent..."/>
                     <Item id="42026" name="Text de la dreapta la stânga (RTL)"/>
                     <Item id="42027" name="Text de la stânga la dreapta (LTR)"/>
-                    <Item id="42028" name="Setează modul doar citire"/>
+                    <Item id="42028" name="&amp;Setează modul Doar în citire (modul Numai în citire) în Notepad++"/>
                     <Item id="42029" name="Copiază calea actuală a fișierului"/>
                     <Item id="42030" name="Copiază numele actual al fișierului"/>
                     <Item id="42031" name="Copiază calea actuală a folderului"/>
                     <Item id="42087" name="Copiază toate numele fișierelor"/>
                     <Item id="42088" name="Copiază toate căile fișierelor"/>
                     <Item id="42032" name="&amp;Execută o macrocomandă de mai multe ori..."/>
+		    <Item id="42033" name="Atributul Doar în citire (Numai în citire) în Windows"/>
                     <Item id="42035" name="Comentează pe o singură linie"/>
                     <Item id="42036" name="Anulează comentariul pe o singură linie"/>
                     <Item id="42055" name="Elimină liniile goale"/>
@@ -439,7 +440,8 @@
                     <Item CMDID="41016" name="Mută în Coșul de gunoi (Coșul de reciclare)"/>
 					<Item CMDID="41014" name="Reîncarcă"/>
 					<Item CMDID="41010" name="Tipărire..."/>
-                    <Item CMDID="42028" name="Modul doar citire"/>
+                    <Item CMDID="42028" name="Modul doar în citire (Modul numai în citire) în Notepad++"/>
+					<Item CMDID="42033" name="Atributul Doar în citire (Numai în citire) în Windows"/>
 					<Item CMDID="2" name="Copiază în clipboard"/>
 					<Item CMDID="42029" name="Copiază calea fișierului în clipboard"/>
                     <Item CMDID="42030" name="Copiază numele fișierului în clipboard"/>

@@ -204,7 +204,7 @@
                     <Item id="42087" name="Copiază toate numele fișierelor"/>
                     <Item id="42088" name="Copiază toate căile fișierelor"/>
                     <Item id="42032" name="&amp;Execută o macrocomandă de mai multe ori..."/>
-					<Item id="42033" name="Atributul Doar în citire (Numai în citire) în Windows"/>
+		    <Item id="42033" name="Atributul Doar în citire (Numai în citire) în Windows"/>
                     <Item id="42035" name="Comentează pe o singură linie"/>
                     <Item id="42036" name="Anulează comentariul pe o singură linie"/>
                     <Item id="42055" name="Elimină liniile goale"/>
@@ -557,49 +557,49 @@
 
             <MD5FromFilesDlg title="Generează sumă de control MD5 din fișiere">
                 <Item id="1922" name="Alege fișierele pentru generare MD5..."/>
-                <Item id="1924" name="Copiază în clipboard"/>
+                <Item id="1924" name="Copiază în memorie"/>
                 <Item id="2"    name="&amp;Închidere"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Generează sumă de control MD5">
                 <Item id="1932" name="Tratează fiecare linie ca pe un &amp;șir separat"/>
-                <Item id="1934" name="Copiază în clipboard"/>
+                <Item id="1934" name="Copiază în memorie"/>
                 <Item id="2"    name="&amp;Închidere"/>
             </MD5FromTextDlg>
 
             <SHA256FromFilesDlg title="Generează sumă de control SHA-256 din fișiere">
                 <Item id="1922" name="Alege fișiere pentru &amp;a genera SHA-256..."/>
-                <Item id="1924" name="Co&amp;piază în clipboard"/>
+                <Item id="1924" name="Co&amp;piază în memorie"/>
                 <Item id="2"    name="&amp;Închidere"/>
             </SHA256FromFilesDlg>
 
             <SHA256FromTextDlg title="Generează sumă de control SHA-256">
                 <Item id="1932" name="Tratează fiecare linie ca pe un &amp;șir separat"/>
-                <Item id="1934" name="Co&amp;piază în clipboard"/>
+                <Item id="1934" name="Co&amp;piază în memorie"/>
                 <Item id="2"    name="&amp;Închidere"/>
             </SHA256FromTextDlg>
 
 			<SHA1FromFilesDlg title="Generează sumă de control SHA-1 din fișiere">
 				<Item id="1922" name="Alegere fișiere pentru &amp;a genera SHA-1..."/>
-				<Item id="1924" name="Co&amp;piază în clipboard"/>
+				<Item id="1924" name="Co&amp;piază în memorie"/>
 				<Item id="2" name="&amp;Închidere"/>
 			</SHA1FromFilesDlg>
 
 			<SHA1FromTextDlg title="Generează sumă de control SHA-1">
 				<Item id="1932" name="Tratează fiecare linie ca pe un &amp;șir separat"/>
-				<Item id="1934" name="Co&amp;piază în clipboard"/>
+				<Item id="1934" name="Co&amp;piază în memorie"/>
 				<Item id="2" name="&amp;Închidere"/>
 			</SHA1FromTextDlg>
 
 			<SHA512FromFilesDlg title="Generează sumă de control SHA-512 din fișiere">
 				<Item id="1922" name="Alege fișiere pentru &amp;a genera SHA-512..."/>
-				<Item id="1924" name="Co&amp;piază în clipboard"/>
+				<Item id="1924" name="Co&amp;piază în memorie"/>
 				<Item id="2" name="&amp;Închidere"/>
 			</SHA512FromFilesDlg>
 
 			<SHA512FromTextDlg title="Generează sumă de control SHA-512">
 				<Item id="1932" name="Tratează fiecare linie ca pe un &amp;șir separat"/>
-				<Item id="1934" name="Co&amp;piază în clipboard"/>
+				<Item id="1934" name="Co&amp;piază în memorie"/>
 				<Item id="2" name="&amp;Închidere"/>
 			</SHA512FromTextDlg>
             

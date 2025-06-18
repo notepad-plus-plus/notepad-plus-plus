@@ -514,6 +514,7 @@ Translation note:
 					<Item id="1727" name="⤵ Copy from Find to Replace"/>
 					<Item id="1728" name="⤴ Copy from Replace to Find"/>
 				</Menu>
+				<Item id="regex-flavor-tip" name="Regex flavor: Boost.Regex (Perl syntax)&#x0a;See Notepad++ documentation for details."/>
 			</Find>
 
 			<IncrementalFind title="">

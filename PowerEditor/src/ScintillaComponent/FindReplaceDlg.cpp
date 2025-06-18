@@ -1593,7 +1593,11 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 			 wstring findInFilesFilterTip = pNativeSpeaker->getLocalizedStrFromID("find-in-files-filter-tip", L"Find in cpp, cxx, h, hxx && hpp:\r*.cpp *.cxx *.h *.hxx *.hpp\r\rFind in all files except exe, obj && log:\r*.* !*.exe !*.obj !*.log\r\rFind in all files but exclude folders tests, bin && bin64:\r*.* !\\tests !\\bin*\r\rFind in all files but exclude all folders log or logs recursively:\r*.* !+\\log*");
 			 _filterTip = CreateToolTip(IDD_FINDINFILES_FILTERS_STATIC, _hSelf, _hInst, const_cast<PTSTR>(findInFilesFilterTip.c_str()), _isRTL);
-
+			 // Added tooltip to display the regex flavor used in the Find dialog.
+			 std::wstring regexTip = pNativeSpeaker->getLocalizedStrFromID("regex-flavor-tip", L"Regex flavor: Boost.Regex (Perl syntax)\nSee Notepad++ documentation for details.");
+			 std::vector<wchar_t> regexTipBuffer(regexTip.begin(), regexTip.end());
+			 regexTipBuffer.push_back(L'\0');
+			 CreateToolTip(IDREGEXP, _hSelf, _hInst, const_cast<LPWSTR>(regexTip.c_str()), _isRTL);
 			 wstring dirFromActiveDocTip = pNativeSpeaker->getLocalizedStrFromID("find-in-files-dir-from-active-doc-tip", L"Fill directory field based on active document");
 			 _dirFromActiveDocTip = CreateToolTip(IDD_FINDINFILES_SETDIRFROMDOC_BUTTON, _hSelf, _hInst, const_cast<PTSTR>(dirFromActiveDocTip.c_str()), _isRTL);
 

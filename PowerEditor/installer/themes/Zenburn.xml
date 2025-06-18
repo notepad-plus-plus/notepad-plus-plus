@@ -10,7 +10,6 @@ Created by:          Jani Kesänen (jani dot kesanen gmail com)
 Released:            25.06.2019
 License:             GPL2
 					 2023-09-30: update Perl support.
-					 2025-06-10: update Rust support (added type 24, 25 - by schnurlos).
  -->
 <NotepadPlus>
     <LexerStyles>

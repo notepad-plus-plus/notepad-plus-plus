@@ -10,7 +10,6 @@ Notepad++ Custom Style
         Info:    Inspired by Oblivion theme for gedit.
 
 				 2023-09-30: update Perl support.
-				 2025-06-10: update Rust support (incl. type 24, 25 - by schnurlos).
  -->
 <NotepadPlus>
     <LexerStyles>

@@ -382,7 +382,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			SCNotification scnN{};
 			scnN.nmhdr.code = NPPN_TOOLBARICONSETCHANGED;
 			scnN.nmhdr.hwndFrom = hwnd;
-			scnN.nmhdr.idFrom = 0;
+			scnN.nmhdr.idFrom = _toolBar.getState();
 			_pluginsManager.notify(&scnN);
 			return TRUE;
 		}

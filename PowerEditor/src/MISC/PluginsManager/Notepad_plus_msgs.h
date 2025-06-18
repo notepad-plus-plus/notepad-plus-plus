@@ -1252,4 +1252,6 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	#define NPPN_TOOLBARICONSETCHANGED (NPPN_FIRST + 32) // To notify plugins that toolbar icon set selection has changed
 	//scnNotification->nmhdr.code = NPPN_TOOLBARICONSETCHANGED;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
-	//scnNotification->nmhdr.idFrom = 0;
+	//scnNotification->nmhdr.idFrom = iconSetChoice;
+	// where iconSetChoice could be 1 of 5 possible values:
+	// 0 (Fluent UI: small), 1 (Fluent UI: large), 2 (Filled Fluent UI: small), 3 (Filled Fluent UI: large) and 4 (Standard icons: small).

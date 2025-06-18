@@ -3,9 +3,6 @@
 Dark mode default style for Notepad++.
 This file is based on Zenburn them (zenburn.xml)
 License:             GPL2
-
-2025-06-10: update Rust support (added type 24, 25 - by schnurlos).
-
 -->
 <NotepadPlus>
     <LexerStyles>

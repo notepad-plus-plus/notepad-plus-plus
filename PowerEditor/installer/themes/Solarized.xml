@@ -44,8 +44,6 @@ Installation:
     For Windows Vista or 7:
     Copy this file to C:\Users\%%USERNAME%%\AppData\Roaming\Notepad++\themes
 
-	2025-06-10: update Rust support (added type 24, 25 - by schnurlos).
-
 //-->
 <NotepadPlus>
     <LexerStyles>

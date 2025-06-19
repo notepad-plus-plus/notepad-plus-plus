@@ -12,7 +12,8 @@ Additionnal information about Corsican localization:
 
 2. History of Corsican translation for Notepad++:
 
-	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8), Apr. 20th (v8.8)
+	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8), Apr. 20th (v8.8),
+			  June 26th (v8.8.1)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
 			  June 13th (v8.6.9), Sept. 8th (v8.7), Oct. 21st (v8.7.1), Nov. 20th (v8.7.2), Nov. 29th (v8.7.3)
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
@@ -35,7 +36,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.8">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -139,7 +140,7 @@ Additionnal information about Corsican localization:
 					<Item id="41015" name="Arregistrà una c&amp;opia cù u nome…"/>
 					<Item id="41016" name="Dispia&amp;zzà in a curbella"/>
 					<Item id="41017" name="&amp;Rinuminà…"/>
-					<Item id="41021" name="Apre u schedariu chjosu pocu fà"/>
+					<Item id="41021" name="Risturà u schedariu chjosu pocu fà"/>
 					<Item id="41022" name="Apre u cartulare cum’è spaziu di tra&amp;vagliu…"/>
 					<Item id="41023" name="Apre in l’appiecazione prede&amp;finita"/>
 					<Item id="42001" name="&amp;Taglià"/>
@@ -167,6 +168,8 @@ Additionnal information about Corsican localization:
 					<Item id="42060" name="Ordinà e linee da manera lessicugrafica discendente"/>
 					<Item id="42080" name="Ordinà e linee da manera less. crescente è rispittendu MAIU/minu"/>
 					<Item id="42081" name="Ordinà e linee da manera less. discendente è rispittendu MAIU/minu"/>
+					<Item id="42100" name="Ordinà e linee da manera linguistica crescente"/>
+					<Item id="42101" name="Ordinà e linee da manera linguistica discendente"/>
 					<Item id="42061" name="Ordinà e linee cum’è numeri interi crescente"/>
 					<Item id="42062" name="Ordinà e linee cum’è numeri interi discendente"/>
 					<Item id="42063" name="Ordinà e linee cum’è numeri decimali (virgula) crescente"/>
@@ -224,13 +227,14 @@ Additionnal information about Corsican localization:
 					<Item id="42025" name="&amp;Arregistrà a prucedura arricurdata…"/>
 					<Item id="42026" name="Testu da diritta à manca"/>
 					<Item id="42027" name="Testu da manca à diritta"/>
-					<Item id="42028" name="&amp;Lettura sola per u schedariu attuale"/>
+					<Item id="42028" name="Lettura sola in Notepad++"/>
 					<Item id="42029" name="Cupià u chjassu cumpletu di u schedariu attuale"/>
 					<Item id="42030" name="Cupià u nome di schedariu di u schedariu attuale"/>
 					<Item id="42031" name="Cupià u chjassu cumpletu di u cartulare attuale"/>
 					<Item id="42087" name="Cupià tutti i nomi di schedariu"/>
 					<Item id="42088" name="Cupià tutti i chjassi di schedariu"/>
 					<Item id="42032" name="&amp;Lancià una prucedura parechje volte…"/>
+					<Item id="42033" name="Attributu di lettura sola in Windows"/>
 					<Item id="42035" name="Mette in cummentu a linea sola"/>
 					<Item id="42036" name="Caccià u cummentu da a linea sola"/>
 					<Item id="42055" name="Caccià e linee viote"/>
@@ -465,7 +469,8 @@ Additionnal information about Corsican localization:
 				<Item CMDID="41016" name="Dispiazzà in a curbella"/>
 				<Item CMDID="41014" name="Ricaricà"/>
 				<Item CMDID="41010" name="Stampà…"/>
-				<Item CMDID="42028" name="Lettura sola"/>
+				<Item CMDID="42028" name="Lettura sola in Notepad++"/>
+				<Item CMDID="42033" name="Attributu di lettura sola in Windows"/>		  
 				<Item CMDID="2" name="Cupià in u preme’papei"/>
 				<Item CMDID="42029" name="Cupià u chjassu cumpletu di schedariu"/>
 				<Item CMDID="42030" name="Cupià u nome di schedariu"/>
@@ -696,7 +701,7 @@ Additionnal information about Corsican localization:
 				<MainCommandNames>
 					<Item id="41019" name="Apre cù l’espluratore u cartulare cuntenendu u schedariu"/>
 					<Item id="41020" name="Apre cù l’invitu di cumanda u cartulare cuntenendu u schedariu"/>
-					<Item id="41021" name="Apre u schedariu chjosu pocu fà"/>
+					<Item id="41021" name="Risturà u schedariu chjosu pocu fà"/>
 					<Item id="45001" name="Cunversione di fine di linea à u furmatu Windows (CR LF)"/>
 					<Item id="45002" name="Cunversione di fine di linea à u furmatu Unix (LF)"/>
 					<Item id="45003" name="Cunversione di fine di linea à u furmatu Macintosh (CR)"/>
@@ -1019,6 +1024,8 @@ Additionnal information about Corsican localization:
 					<Item id="6120" name="Verticale"/>
 					<Item id="6121" name="Esce quandu l’ultima unghjetta si chjode"/>
 					<Item id="6128" name="Icone alternative"/>
+					<Item id="6125" name="Cumpurtamentu"/>
+					<Item id="6126" name="Aspettu"/>
 				</Tabbar>
 
 				<Scintillas title="Mudificazione 1">
@@ -1131,6 +1138,7 @@ Additionnal information about Corsican localization:
 					<Item id="6419" name="Ducumentu novu"/>
 					<Item id="6420" name="Appiecà à i schedarii ANSI aperti"/>
 					<Item id="6432" name="Sempre apre un ducumentu novu di più à u lanciu"/>
+					<Item id="6433" name="Impiegà a prima linea di u ducumentu cum’è nome d’unghjetta senza titulu"/>
 				</NewDoc>
 
 				<DefaultDir title="Cartulare predefinitu">
@@ -1375,13 +1383,18 @@ Additionnal information about Corsican localization:
 						<Element name="DirectWrite (disegnà nant’à GDI DC)"/>
 						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="Disattivà"/>
+						<Element name="Attivà à u lanciu di Notepad++"/>
+						<Element name="Attivà à l’esce di Notepad++"/>
+					</ComboBox>
 					<Item id="6308" name="u spaziu di nutificazione di u sistema"/>
 					<Item id="6363" name="modu di restituzione"/>
+					<Item id="6365" name="Messa à livellu autumatica :"/>
 					<Item id="6312" name="Detezione autumatica di statu di schedariu"/>
 					<Item id="6313" name="Mudificazione senza avertimentu"/>
 					<Item id="6325" name="Andà à l’ultima linea dopu a mudificazione"/>
 					<Item id="6322" name="Estensione di sched. di sessione :"/>
-					<Item id="6323" name="Attivà u rinnovu autumaticu di Notepad++"/>
 					<Item id="6324" name="Cambiamentu di ducumentu (Ctrl+Tabul.)"/>
 					<Item id="6331" name="Affissà solu u nome di schedariu in a barra di titulu"/>
 					<Item id="6334" name="Detezione autumatica di cudificazione di caratteru"/>
@@ -1495,7 +1508,10 @@ I vostri parametri di u nivulu anu da esse abbandunati. Ci vole à rimette un va
 			<SessionFileInvalidError title="Ùn si pò micca caricà una sessione" message="U schedariu di sessione hè sia alteratu, sia inaccettevule."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Azzione inaccetevule" message="Pudete depone solu schedarii o cartulari ma micca tremindui, perchè site in u modu di dipositu Cartulare cum’è spaziu di travagliu.
 Ci vole à attivà l’ozzione « À u depone d’un cartulare, apre tutti i schedarii invece d’impiegallu cum’è spaziu di travagliu » in a sezzione « Cartulare predefinitu » di e Preferenze per fà què."/>
-			<SortingError title="Sbagliu di classificazione" message="Impussibule di fà una classificazione numerica per via di a linea $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SortingError title="Sbagliu di a messa in ordine" message="Impussibule di fà una messa in ordine numerica per via di a linea $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SortLocaleMultiple title="Messa in ordine micca realizata" message="A messa in ordine di parechje selezzioni ùn hè micca accettata."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleUnknown title="Fiascu di a messa in ordine" message="Ùn si pò micca determinà a ragione di u fiascu di a messa in ordine."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+			<SortLocaleExcept title="Fiascu di a messa in ordine" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Minichichja di modu culonna" message="
 Ci hè 3 manere di passà à u modu di selezzione da a culonna :
 
@@ -1618,6 +1634,7 @@ S’è vo avete bisognu di a funzione di ricerca RegEx à l’arritrosa, lighjit
 			<FindAutoChangeOfInSelectionWarning title="Avertimentu di ricerca" message="U statu di l’ozzione « In a selezzione » hè statu mudificatu autumaticamente.
 Ci vole à verificà a cundizione di ricerca prima di fà l’azzione."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ richiede d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per affissà l’accurtatoghji di u listinu di diritta."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Fiascu di u cambiamentu d’attributu di lettura sola di u schedariu" message="Ci vole à lancià Notepad++ in modu Amministratore per cambià l’attributi di u schedariu."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Cronolugia di u preme’papei"/>

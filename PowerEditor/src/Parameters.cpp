@@ -6010,6 +6010,15 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				else if (lstrcmp(value, L"no") == 0)
 					_nppGUI._dateTimeReverseDefaultOrder = false;
 			}
+
+			const wchar_t* tzValue = element->Attribute(L"includeTimezone");
+			if (tzValue && tzValue[0])
+			{
+				if (lstrcmp(tzValue, L"yes") == 0)
+					_nppGUI._includeTimezoneInInsertDateTime = true;
+				else if (lstrcmp(tzValue, L"no") == 0)
+					_nppGUI._includeTimezoneInInsertDateTime = false;
+			}
 		}
 
 		else if (!lstrcmp(nm, L"wordCharList"))
@@ -7708,6 +7717,8 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(L"customizedFormat", _nppGUI._dateTimeFormat.c_str());
 		const wchar_t* pStr = (_nppGUI._dateTimeReverseDefaultOrder) ? L"yes" : L"no";
 		GUIConfigElement->SetAttribute(L"reverseDefaultOrder", pStr);
+		const wchar_t* tzStr = (_nppGUI._includeTimezoneInInsertDateTime) ? L"yes" : L"no";
+		GUIConfigElement->SetAttribute(L"includeTimezone", tzStr);
 	}
 
 	// <GUIConfig name="wordCharList" useDefault="yes" charsAdded=".$%"  />

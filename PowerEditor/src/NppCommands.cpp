@@ -84,17 +84,46 @@ void Notepad_plus::command(int id)
 			GetTimeFormatEx(LOCALE_NAME_USER_DEFAULT, TIME_NOSECONDS, &currentTime, NULL, timeStr, sizeof(timeStr) / sizeof(timeStr[0]));
 
 			wstring dateTimeStr;
+			wstring timeWithTZ;
+			if (NppParameters::getInstance().getNppGUI()._includeTimezoneInInsertDateTime)
+			{
+				TIME_ZONE_INFORMATION tzInfo;
+				DWORD tzResult = GetTimeZoneInformation(&tzInfo);
+				wchar_t* timezoneName = nullptr;
+
+				switch (tzResult)
+				{
+				case TIME_ZONE_ID_STANDARD:
+					timezoneName = tzInfo.StandardName;
+					break;
+				case TIME_ZONE_ID_DAYLIGHT:
+					timezoneName = tzInfo.DaylightName;
+					break;
+				default:
+					timezoneName = tzInfo.StandardName;
+					break;
+				}
+
+				timeWithTZ = timeStr;
+				timeWithTZ += L" ";
+				timeWithTZ += timezoneName;
+			}
+			else
+			{
+				timeWithTZ = timeStr;
+			}
+
 			if (NppParameters::getInstance().getNppGUI()._dateTimeReverseDefaultOrder)
 			{
 				// reverse default order: DATE + TIME
 				dateTimeStr = dateStr;
 				dateTimeStr += L" ";
-				dateTimeStr += timeStr;
+				dateTimeStr += timeWithTZ;
 			}
 			else
 			{
 				// default: TIME + DATE (Microsoft Notepad behaviour)
-				dateTimeStr = timeStr;
+				dateTimeStr = timeWithTZ;
 				dateTimeStr += L" ";
 				dateTimeStr += dateStr;
 			}

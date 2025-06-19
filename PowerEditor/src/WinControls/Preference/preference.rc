@@ -516,12 +516,14 @@ BEGIN
     CONTROL         "Open session in a new instance (and save session automatically on exit)",IDC_SESSIONININST_RADIO,"Button",BS_AUTORADIOBUTTON | BS_MULTILINE | BS_TOP,17,46,256,20
 
     GROUPBOX        "Customize insert Date Time",IDC_DATETIMEFORMAT_GB_STATIC,11,80,268,98,BS_CENTER
-    CONTROL         "Reverse default date time order (short && long formats)",IDD_DATETIMEFORMAT_REVERSEORDER_CHECK,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | BS_TOP | WS_TABSTOP,17,93,256,20
+    CONTROL         "Reverse default date time order (short && long formats)",IDD_DATETIMEFORMAT_REVERSEORDER_CHECK,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | BS_TOP | WS_TABSTOP,17,93,256,16
+    CONTROL         "Include Timezone in date/time display", IDD_DATETIMEFORMAT_INCLUDE_TZ_CHECK, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 17, 108, 220, 14
     RTEXT           "yyyy-MM-dd HH:mm:ss\nH:m d/M/yyyy\nMMM d, yyyy  tt h:m",IDC_STATIC,36,118,77,25
     LTEXT           "1985-10-26 16:24:42\n16:24 26/10/1985\nOct 26, 1985  PM 4:24",IDC_STATIC,136,118,94,25
     RTEXT           "Custom format:",IDD_DATETIMEFORMAT_STATIC,14,148,77,8
     EDITTEXT        IDC_DATETIMEFORMAT_EDIT,92,146,175,12,ES_AUTOHSCROLL
     LTEXT           "",IDD_DATETIMEFORMAT_RESULT_STATIC,94,163,180,8
+
 
     GROUPBOX        "Panel State and [-nosession] *",IDC_PANEL_IGNORESESSION_GB_STATIC,288,3,160,175,BS_CENTER
     LTEXT           "Remember panel state (panel is open) in other instances (multi-instance mode) or when using command line parameter [-nosession]",IDD_STATIC_PANELSTATE_DESCRIPTION,294,14,150,40

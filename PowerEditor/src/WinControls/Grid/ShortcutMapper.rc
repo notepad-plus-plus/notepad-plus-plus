@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+#pragma code_page(65001)
 
 #include <windows.h>
 #include "ShortcutMapper_rc.h"
@@ -32,6 +33,7 @@ BEGIN
     EDITTEXT        IDC_BABYGRID_INFO,4,283,442,29,ES_MULTILINE | ES_AUTOHSCROLL | ES_READONLY | WS_VSCROLL | NOT WS_TABSTOP
     RTEXT           "Filter:",IDC_BABYGRID_STATIC,4,318,25,8
     EDITTEXT        IDC_BABYGRID_FILTER,32,316,414,12,ES_AUTOHSCROLL | ES_WANTRETURN
+    PUSHBUTTON      "✕", IDC_BABYGRID_FILTER_CLEAR, 440, 316, 12, 12, WS_TABSTOP
     PUSHBUTTON      "Modify",IDM_BABYGRID_MODIFY,120,333,47,14
     PUSHBUTTON      "Clear",IDM_BABYGRID_CLEAR,174,333,47,14
     PUSHBUTTON      "Delete",IDM_BABYGRID_DELETE,228,333,47,14

@@ -203,7 +203,7 @@ Translation note:
 					<Item id="42087" name="Copy All Filenames"/>
 					<Item id="42088" name="Copy All File Paths"/>
 					<Item id="42032" name="&amp;Run a Macro Multiple Times..."/>
-					<Item id="42033" name="Clear Read-Only Attribute in Windows"/>
+					<Item id="42033" name="Read-Only Attribute in Windows"/>
 					<Item id="42035" name="Single Line Comment"/>
 					<Item id="42036" name="Single Line Uncomment"/>
 					<Item id="42055" name="Remove Empty Lines"/>

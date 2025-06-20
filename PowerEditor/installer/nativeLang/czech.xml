@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.8.1  3/May/2025  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.8.1  20/Jun/2025  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
@@ -140,11 +140,12 @@
 					<Item id="42025" name="U&amp;ložit aktuálně zaznamenané makro"/>
 					<Item id="42026" name="Směr textu zprava doleva"/>
 					<Item id="42027" name="Směr textu zleva doprava"/>
-					<Item id="42028" name="Nastavit p&amp;říznak Pouze pro čtení"/>
+					<Item id="42028" name="Nastavit kartu dokumentu na 'Pouze pro &amp;čtení'"/>
 					<Item id="42029" name="Kopírovat název (i s cestou) aktuálního souboru"/>
 					<Item id="42030" name="Kopírovat název aktuálního souboru"/>
 					<Item id="42031" name="Kopírovat název (i s cestou) aktuálního adresáře souboru"/>
 					<Item id="42032" name="Spustit makro více&amp;krát..."/>
+					<Item id="42033" name="Nastavit soubor dokumentu na 'Pouze pro čtení' (atribut ve &amp;Windows)"/>
 					<Item id="42034" name="Editor s&amp;loupce..."/>
 					<Item id="42035" name="Zakomentovat blok"/>
 					<Item id="42036" name="Odkomentovat blok"/>
@@ -447,7 +448,8 @@
 				<Item CMDID="41016" name="Přesunout do Koše"/>
 				<Item CMDID="41014" name="Znovu načíst"/>
 				<Item CMDID="41010" name="Tisk..."/>
-				<Item CMDID="42028" name="Pouze pro čtení"/>
+				<Item CMDID="42028" name="Dokument 'Pouze pro čtení'"/>
+				<Item CMDID="42033" name="Atribut souboru dokumentu 'Pouze pro čtení'"/>
 				<Item CMDID="2" name="Kopírovat do Schránky"/>
 				<Item CMDID="42029" name="Kopírovat název souboru i s cestou"/>
 				<Item CMDID="42030" name="Kopírovat název souboru"/>
@@ -1029,6 +1031,8 @@
 					<Item id="6121" name="Ukončit při uzavření poslední karty"/>
 					<Item id="6128" name="Alternativní ikony"/>
 					<Item id="6135" name="Zobrazovat připínací tlačítko jen na připnutých"/>
+					<Item id="6125" name="Chování"/>
+					<Item id="6126" name="Vzhled a dojem"/>
 				</Tabbar>
 				<Scintillas title="Editace 1">
 					<Item id="6214" name="Povolit Kopírování/Vyjmutí celého řádku bez výběru"/>
@@ -1136,6 +1140,7 @@
 					<Item id="6419" name="Nový dokument"/>
 					<Item id="6420" name="Aplikovat při otevř. ANSI-souboru"/>
 					<Item id="6432" name="Vždy otevři při startu nový dokument navíc"/>
+					<Item id="6433" name="Používat první řádky dokumentů pro názvy nepojmenovaných karet"/>
 					<Item id="-1" name="Zobrazení"/>
 				</NewDoc>
 				<DefaultDir title="Implicitní adresář">
@@ -1264,13 +1269,17 @@
 						<Element name="DirectWrite (vykreslovat do GDI DC)"/>
 						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="Zakázat"/>
+						<Element name="Povolit při startu Notepadu++"/>
+						<Element name="Povolit při ukončení Notepadu++"/>
+					</ComboBox>
 					<Item id="6114" name="Povolit přepínání"/>
 					<Item id="6117" name="Povolit MRU (nedávno použité)"/>
 					<Item id="6308" name="oznamovací oblast"/>
 					<Item id="6312" name="Automatická detekce stavu souboru"/>
 					<Item id="6313" name="Aktualizovat skrytě"/>
 					<Item id="6322" name="Přípona souboru relace:"/>
-					<Item id="6323" name="Povolit autom. aktualizaci Notepadu++"/>
 					<Item id="6324" name="Přepínač dokumentů (Ctrl+TAB)"/>
 					<Item id="6325" name="Přejít na poslední řádek po aktualizaci"/>
 					<Item id="6331" name="V záhlaví Notepadu++ zobrazovat pouze název souboru"/>
@@ -1282,6 +1291,7 @@
 					<Item id="6360" name="Ztlumit všechny zvuky"/>
 					<Item id="6361" name="Povolit potvrzovací dialog &quot;Uložit všechny&quot;"/>
 					<Item id="6363" name="vykreslovací režim"/>
+					<Item id="6365" name="Automat. aktualizace:"/>
 				</MISC>
 				<Backup title="Zálohování">
 					<Item id="6219" name="Uživatelsky definovaný adresář pro zálohování"/>

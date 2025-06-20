@@ -250,6 +250,7 @@
 #define IDC_CHECK_CLICKABLELINK_NOUNDERLINE            6320
 #define IDC_EDIT_SESSIONFILEEXT                        6321
 #define IDC_SESSIONFILEEXT_STATIC                      6322
+//#define IDC_CHECK_AUTOUPDATE                           6323
 #define IDC_DOCUMENTSWITCHER_STATIC                    6324
 #define IDC_CHECK_UPDATEGOTOEOF                        6325
 #define IDC_CHECK_ENABLSMARTHILITE                     6326

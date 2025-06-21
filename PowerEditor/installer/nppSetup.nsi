@@ -30,6 +30,8 @@ SetCompressor /SOLID lzma	; This reduces installer size by approx 30~35%
 ; Installer is DPI-aware: not scaled by the DWM, no blurry text
 ManifestDPIAware true
 
+Var winSysDir
+
 !include "nsisInclude\winVer.nsh"
 !include "nsisInclude\globalDef.nsh"
 !include "nsisInclude\tools.nsh"
@@ -135,8 +137,8 @@ Function .onInit
 	;   so the InstallDirRegKey checks for the irrelevant HKLM\SOFTWARE\WOW6432Node\Notepad++, explanation:
 	;   https://nsis.sourceforge.io/Reference/SetRegView
 	;
-!ifdef ARCH64 || ARCHARM64
-	${If} ${RunningX64}
+!ifdef ARCH64 || ARCHARM64	; installation of 64 bits Notepad++ & its 64 bits components
+	${If} ${RunningX64} ; Windows 64 bits
 		System::Call kernel32::GetCommandLine()t.r0 ; get the original cmdline (where a possible "/D=..." is not hidden from us by NSIS)
 		${StrStr} $1 $0 "/D="
 		${If} "$1" == ""
@@ -250,8 +252,9 @@ relaunchNppDone:
 	; save selected language to registry
 	WriteRegStr HKLM "SOFTWARE\${APPNAME}" 'InstallerLanguage' '$Language'
 
-!ifdef ARCH64 || ARCHARM64 ; x64 or ARM64
-	${If} ${RunningX64}
+!ifdef ARCH64 || ARCHARM64 ; x64 or ARM64 : installation of 64 bits Notepad++ & its 64 bits components
+	StrCpy $winSysDir $WINDIR\System32
+	${If} ${RunningX64} ; Windows 64 bits
 		; disable registry redirection (enable access to 64-bit portion of registry)
 		SetRegView 64
 		
@@ -272,13 +275,14 @@ doDelete32:
 		StrCpy $diffArchDir2Remove $PROGRAMFILES\${APPNAME}
 noDelete32:
 		
-	${Else}
+	${Else} ; Windows 32 bits
 		MessageBox MB_OK "You cannot install Notepad++ 64-bit version on your 32-bit system.$\nPlease download and install Notepad++ 32-bit version instead."
 		Abort
 	${EndIf}
 
-!else ; 32-bit installer
-	${If} ${RunningX64}
+!else ; installation of 32 bits Notepad++ & its 32 bits components
+	StrCpy $winSysDir $WINDIR\SysWOW64
+	${If} ${RunningX64}  ; Windows 64 bits
 		; check if 64-bit version has been installed if yes, ask user to remove it
 		IfFileExists $PROGRAMFILES64\${APPNAME}\notepad++.exe 0 noDelete64
 		MessageBox MB_YESNO "You are trying to install 32-bit version while 64-bit version is already installed. Would you like to remove Notepad++ 64 bit version before proceeding further?$\n(Your custom config files will be kept)"  /SD IDYES IDYES doDelete64 IDNO noDelete64
@@ -337,7 +341,7 @@ ${MementoSection} "Context Menu Entry" explorerContextMenu
 	
 
 	IfFileExists $INSTDIR\contextmenu\NppShell.dll 0 +2
-		ExecWait 'rundll32.exe "$INSTDIR\contextmenu\NppShell.dll",CleanupDll'
+		ExecWait '"$winSysDir\rundll32.exe" "$INSTDIR\contextmenu\NppShell.dll",CleanupDll'
 
 
 	!ifdef ARCH64
@@ -359,7 +363,7 @@ ${MementoSection} "Context Menu Entry" explorerContextMenu
 
 	!endif
 	
-	ExecWait 'regsvr32 /s "$INSTDIR\contextMenu\NppShell.dll"'
+	ExecWait '"$winSysDir\regsvr32.exe" /s "$INSTDIR\contextMenu\NppShell.dll"'
 
 ${MementoSectionEnd}
 

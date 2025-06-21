@@ -375,6 +375,39 @@ void stripIgnoredParams(ParamVector & params)
 	}
 }
 
+bool launchUpdater(const std::wstring& updaterFullPath, const std::wstring& updaterDir)
+{
+	NppParameters& nppParameters = NppParameters::getInstance();
+	NppGUI& nppGui = nppParameters.getNppGUI();
+
+	// check if update interval elapsed
+	Date today(0);
+	if (today < nppGui._autoUpdateOpt._nextUpdateDate)
+		return false;
+
+	std::wstring updaterParams = L"-v";
+	updaterParams += VERSION_INTERNAL_VALUE;
+
+	if (nppParameters.archType() == IMAGE_FILE_MACHINE_AMD64)
+	{
+		updaterParams += L" -px64";
+	}
+	else if (nppParameters.archType() == IMAGE_FILE_MACHINE_ARM64)
+	{
+		updaterParams += L" -parm64";
+	}
+
+	Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
+	updater.run();
+
+	// Update next update date
+	if (nppGui._autoUpdateOpt._intervalDays < 0) // Make sure interval days value is positive
+		nppGui._autoUpdateOpt._intervalDays = 0 - nppGui._autoUpdateOpt._intervalDays;
+	nppGui._autoUpdateOpt._nextUpdateDate = Date(nppGui._autoUpdateOpt._intervalDays);
+
+	return true;
+}
+
 } // namespace
 
 
@@ -634,72 +667,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 
 	if (TheFirstOne && isUpExist && isGtXP && isSignatureOK && doUpdateNpp && !updateAtExit)
 	{
-		std::wstring updaterParams = L"-v";
-		updaterParams += VERSION_INTERNAL_VALUE;
-
-		if (nppParameters.archType() == IMAGE_FILE_MACHINE_AMD64)
-		{
-			updaterParams += L" -px64";
-		}
-		else if (nppParameters.archType() == IMAGE_FILE_MACHINE_ARM64)
-		{
-			updaterParams += L" -parm64";
-		}
-
-		// check if update interval elapsed
-		Date today(0);
-		if (today < nppGui._autoUpdateOpt._nextUpdateDate)
-				doUpdateNpp = false;
-
-		if (doUpdatePluginList)
-		{
-			// TODO: detect update frequency
-			// Due to the code signing problem, the Plugin List cannot be updated independently of Notepad++ for now.
-		}
-
-		if (doUpdateNpp)
-		{
-			Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
-			updater.run();
-
-			// Update next update date
-			if (nppGui._autoUpdateOpt._intervalDays < 0) // Make sure interval days value is positive
-				nppGui._autoUpdateOpt._intervalDays = 0 - nppGui._autoUpdateOpt._intervalDays;
-			nppGui._autoUpdateOpt._nextUpdateDate = Date(nppGui._autoUpdateOpt._intervalDays);
-		}
-
-		// to be removed
-		doUpdatePluginList = false;
-
-		if (doUpdatePluginList)
-		{
-			// Update Plugin List
-			std::wstring upPlParams = L"-v"; 
-			upPlParams += notepad_plus_plus.getPluginListVerStr();
-
-			if (nppParameters.archType() == IMAGE_FILE_MACHINE_AMD64)
-			{
-				upPlParams += L" -px64";
-			}
-			else if (nppParameters.archType() == IMAGE_FILE_MACHINE_ARM64)
-			{
-				upPlParams += L" -parm64";
-			}
-
-			upPlParams += L" -upZip";
-
-			// override "InfoUrl" in gup.xml
-			upPlParams += L" https://notepad-plus-plus.org/update/pluginListDownloadUrl.php";
-
-			// indicate the pluginList installation location
-			upPlParams += nppParameters.getPluginConfDir();
-
-			Process updater(updaterFullPath.c_str(), upPlParams.c_str(), updaterDir.c_str());
-			updater.run();
-
-			// TODO: Update next update date
-			// Due to the code signing problem, the Plugin List cannot be updated independently of Notepad++ for now.
-		}
+		launchUpdater(updaterFullPath, updaterDir);
 	}
 
 	MSG msg{};
@@ -772,73 +740,11 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	updateAtExit = nppGui._autoUpdateOpt._doAutoUpdate == NppGUI::autoupdate_on_exit; // refresh
 	if (!isException && !nppParameters.isEndSessionCritical() && TheFirstOne && isUpExist && isGtXP && isSignatureOK && doUpdateNpp && updateAtExit)
 	{
-		std::wstring updaterParams = L"-v";
-		updaterParams += VERSION_INTERNAL_VALUE;
-
-		if (nppParameters.archType() == IMAGE_FILE_MACHINE_AMD64)
+		if (launchUpdater(updaterFullPath, updaterDir))
 		{
-			updaterParams += L" -px64";
-		}
-		else if (nppParameters.archType() == IMAGE_FILE_MACHINE_ARM64)
-		{
-			updaterParams += L" -parm64";
-		}
-
-		// check if update interval elapsed
-		Date today(0);
-		if (today < nppGui._autoUpdateOpt._nextUpdateDate)
-				doUpdateNpp = false;
-
-		if (doUpdatePluginList)
-		{
-			// TODO: detect update frequency
-			// Due to the code signing problem, the Plugin List cannot be updated independently of Notepad++ for now.
-		}
-
-		if (doUpdateNpp)
-		{
-			Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
-			updater.run();
-
-			// Update next update date
-			if (nppGui._autoUpdateOpt._intervalDays < 0) // Make sure interval days value is positive
-				nppGui._autoUpdateOpt._intervalDays = 0 - nppGui._autoUpdateOpt._intervalDays;
-			nppGui._autoUpdateOpt._nextUpdateDate = Date(nppGui._autoUpdateOpt._intervalDays);
+			// for updating the nextUpdateDate in the already saved config.xml
 			nppParameters.createXmlTreeFromGUIParams();
 			nppParameters.saveConfig_xml();
-		}
-
-		// to be removed
-		doUpdatePluginList = false;
-
-		if (doUpdatePluginList)
-		{
-			// Update Plugin List
-			std::wstring upPlParams = L"-v";
-			upPlParams += notepad_plus_plus.getPluginListVerStr();
-
-			if (nppParameters.archType() == IMAGE_FILE_MACHINE_AMD64)
-			{
-				upPlParams += L" -px64";
-			}
-			else if (nppParameters.archType() == IMAGE_FILE_MACHINE_ARM64)
-			{
-				upPlParams += L" -parm64";
-			}
-
-			upPlParams += L" -upZip";
-
-			// override "InfoUrl" in gup.xml
-			upPlParams += L" https://notepad-plus-plus.org/update/pluginListDownloadUrl.php";
-
-			// indicate the pluginList installation location
-			upPlParams += nppParameters.getPluginConfDir();
-
-			Process updater(updaterFullPath.c_str(), upPlParams.c_str(), updaterDir.c_str());
-			updater.run();
-
-			// TODO: Update next update date
-			// Due to the code signing problem, the Plugin List cannot be updated independently of Notepad++ for now.
 		}
 	}
 

@@ -1291,12 +1291,18 @@
 						<Element name="DirectWrite（繪製到 GDI DC）"/>
 						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="關閉"/>
+						<Element name="啟用在 Notepad++ 起動時"/>
+						<Element name="啟用在 Notepad++ 關閉時"/>
+					</ComboBox>
 					<Item id="6308" name="系統匣"/>
+					<Item id="6363" name="繪製模式"/>
+					<Item id="6365" name="自動更新："/>
 					<Item id="6312" name="自動更新檔案狀態"/>
 					<Item id="6313" name="於背景自動更新"/>
 					<Item id="6325" name="更新後捲動至最後一行"/>
 					<Item id="6322" name="工作階段檔案副檔名："/>
-					<Item id="6323" name="自動更新 Notepad++"/>
 					<Item id="6324" name="文件切換器（Ctrl + TAB）"/>
 					<Item id="6331" name="在標題列僅顯示檔案名稱（隱藏資料夾路徑）"/>
 					<Item id="6334" name="自動偵測檔案編碼"/>

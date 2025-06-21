@@ -1350,13 +1350,18 @@ Translation note:
 						<Element name="DirectWrite (rendu sur GDI DC)"/>
 						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="Désactiver"/>
+						<Element name="Activer au démarage de Notepad++"/>
+						<Element name="Activer à la fermeture de Notepad++"/>
+					</ComboBox>
 					<Item id="6308" name="la barre de notifications"/>
 					<Item id="6363" name="mode de rendu"/>
+					<Item id="6365" name="Mise à jour automatique :"/>
 					<Item id="6312" name="Surveillance de l’état des fichiers"/>
 					<Item id="6313" name="Mise à jour sans alerte"/>
 					<Item id="6325" name="Aller à la dernière ligne après mise à jour"/>
 					<Item id="6322" name="Ext. fichier session :"/>
-					<Item id="6323" name="Activer la mise à jour automatique"/>
 					<Item id="6324" name="Commutateur de documents (Ctrl+Tab)"/>
 					<Item id="6331" name="Afficher seulement le nom du fichier dans la barre de titre"/>
 					<Item id="6334" name="Détecter l’encodage automatiquement"/>

@@ -57,6 +57,7 @@ public :
 
 protected :
 	intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
+	int _lastToolTipIndex = -1;
 
 private :
 	TaskList _taskList;

@@ -20,6 +20,7 @@
 #include "colors.h"
 #include "ImageListSet.h"
 #include "Parameters.h"
+#include "TaskListDlg.h"
 
 void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem, int index2set)
 {
@@ -28,30 +29,30 @@ void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem
 	_currentIndex = index2set;
 
 	INITCOMMONCONTROLSEX icex{};
-    
-    // Ensure that the common control DLL is loaded. 
-    icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
+
+	// Ensure that the common control DLL is loaded. 
+	icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
     icex.dwICC  = ICC_LISTVIEW_CLASSES;
-    InitCommonControlsEx(&icex);
+	InitCommonControlsEx(&icex);
 
 	_nbItem = nbItem;
-    
-    // Create the list-view window in report view with label editing enabled.
-	int listViewStyles = LVS_REPORT | LVS_OWNERDATA | LVS_NOCOLUMNHEADER | LVS_NOSORTHEADER\
-						| /*LVS_NOSCROLL |*/ LVS_SINGLESEL | LVS_AUTOARRANGE | LVS_OWNERDRAWFIXED\
-						| LVS_SHAREIMAGELISTS/* | WS_BORDER*/;
 
-	_hSelf = ::CreateWindow(WC_LISTVIEW, 
-                                L"", 
-                                WS_CHILD | listViewStyles,
-                                0,
-                                0, 
-                                0,
-                                0,
-                                _hParent, 
-                                NULL, 
-                                hInst,
-                                NULL);
+	// Create the list-view window in report view with label editing enabled.
+	int listViewStyles = LVS_REPORT | LVS_OWNERDATA | LVS_NOCOLUMNHEADER | LVS_NOSORTHEADER\
+		| /*LVS_NOSCROLL |*/ LVS_SINGLESEL | LVS_AUTOARRANGE | LVS_OWNERDRAWFIXED\
+		| LVS_SHAREIMAGELISTS/* | WS_BORDER*/;
+
+	_hSelf = ::CreateWindow(WC_LISTVIEW,
+		L"",
+		WS_CHILD | listViewStyles,
+		0,
+		0,
+		0,
+		0,
+		_hParent,
+		NULL,
+		hInst,
+		NULL);
 	if (!_hSelf)
 	{
 		throw std::runtime_error("TaskList::init : CreateWindowEx() function return null");
@@ -75,8 +76,18 @@ void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem
 	ListView_SetItemCountEx(_hSelf, _nbItem, LVSICF_NOSCROLL);
 	ListView_SetImageList(_hSelf, hImaLst, LVSIL_SMALL);
 
-	ListView_SetItemState(_hSelf, _currentIndex, LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED);
+	ListView_SetItemState(_hSelf, _currentIndex, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
 	ListView_SetBkColor(_hSelf, NppDarkMode::isEnabled() ? NppDarkMode::getBackgroundColor() : lightYellow);
+
+	_hToolTip = CreateWindowEx(0, TOOLTIPS_CLASS, nullptr, WS_POPUP | TTS_ALWAYSTIP,
+		CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, _hSelf, nullptr, GetModuleHandle(nullptr), nullptr);
+
+	TOOLINFO ti = { sizeof(TOOLINFO) };
+	ti.uFlags = TTF_IDISHWND | TTF_SUBCLASS;
+	ti.hwnd = _hSelf;
+	ti.uId = (UINT_PTR)_hSelf;
+	ti.lpszText = LPSTR_TEXTCALLBACK;
+	SendMessage(_hToolTip, TTM_ADDTOOL, 0, (LPARAM)&ti);
 }
 
 void TaskList::destroy()
@@ -217,11 +228,60 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 			return TRUE;
 		}
 
+		case WM_MOUSEMOVE:
+		{
+			POINT pt;
+			GetCursorPos(&pt);
+			ScreenToClient(_hSelf, &pt);
+
+
+			LVHITTESTINFO hit = {};
+			hit.pt = pt;
+			int hoveredIndex = ListView_HitTest(_hSelf, &hit);
+
+
+			if (hoveredIndex != _lastToolTipIndex && hoveredIndex >= 0) {
+				wchar_t buf[MAX_PATH] = { 0 };
+				ListView_GetItemText(_hSelf, hoveredIndex, 0, buf, MAX_PATH);
+
+
+				TOOLINFO ti = { sizeof(TOOLINFO) };
+				ti.uFlags = TTF_IDISHWND;
+				ti.hwnd = _hSelf;
+				ti.uId = (UINT_PTR)_hSelf;
+				ti.lpszText = buf;
+				SendMessage(_hToolTip, TTM_UPDATETIPTEXT, 0, (LPARAM)&ti);
+
+
+				_lastToolTipIndex = hoveredIndex;
+			}
+			break;
+		}
+
 		case WM_KEYDOWN :
 		{
 			return TRUE;
 		}
 		
+		case WM_NOTIFY:
+		{
+			LPNMHDR nmhdr = (LPNMHDR)lParam;
+			if (nmhdr->code == TTN_GETDISPINFO) {
+				NMTTDISPINFO* dispInfo = (NMTTDISPINFO*)lParam;
+				if (_lastToolTipIndex >= 0) {
+					// Set the tooltip text to the full file path
+					wcsncpy_s(
+						dispInfo->szText,
+						_countof(dispInfo->szText),
+						_taskListInfo->_tlfsLst[_lastToolTipIndex]._fn.c_str(),
+						_TRUNCATE
+					);
+					dispInfo->szText[_countof(dispInfo->szText) - 1] = L'\0';
+				}
+				return TRUE;
+			}
+			break;
+		}
 
 		case WM_GETDLGCODE :
 		{
@@ -277,4 +337,5 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 		default :
 			return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
 	}
+	return 0;
 }

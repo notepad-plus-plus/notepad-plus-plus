@@ -24,6 +24,7 @@
 #ifndef WM_MOUSEWHEEL
 #define WM_MOUSEWHEEL 0x020A
 #endif //WM_MOUSEWHEEL
+struct TaskListInfo;
 
 class TaskList : public Window
 {
@@ -50,6 +51,10 @@ public:
 	HFONT GetFontSelected() {return _hFontSelected;}
 
 protected:
+
+	HWND _hToolTip = nullptr;
+	int _lastToolTipIndex = -1;
+	TaskListInfo* _taskListInfo = nullptr;
 
 	WNDPROC _defaultProc = nullptr;
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);

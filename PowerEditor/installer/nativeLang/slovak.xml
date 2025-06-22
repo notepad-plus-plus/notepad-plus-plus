@@ -1349,13 +1349,18 @@
 						<Element name="DirectWrite (vykresliť do GDI DC)"/>
 						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="Zakázať"/>
+						<Element name="Povoliť pri spustení Notepad++"/>
+						<Element name="Povoliť pri ukončení Notepad++"/>
+					</ComboBox>
 					<Item id="6308" name="oblasti oznámení"/>
 					<Item id="6363" name="režim renderovania"/>
+					<Item id="6365" name="Automatická aktualizácia:"/>
 					<Item id="6312" name="Automatické zisťovanie stavu súboru"/>
 					<Item id="6313" name="Tichá aktualizácia"/>
 					<Item id="6325" name="Skočiť po aktualizácii na posledný riadok"/>
 					<Item id="6322" name="Prípona súboru relácie:"/>
-					<Item id="6323" name="Povoliť automatické aktualizácie programu Notepad++"/>
 					<Item id="6324" name="Prepínanie dokumentov (Ctrl+Tab)"/>
 					<Item id="6331" name="Zobrazovať v záhlaví okna iba názov súboru"/>
 					<Item id="6334" name="Automatické zisťovanie kódovania znakov"/>

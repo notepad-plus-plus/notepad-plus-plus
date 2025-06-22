@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.1"><!-- Datum: 17.06.2025, basiert auf english.xml 8.8.1 vom 16.06.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.1"><!-- Datum: 22.06.2025, basiert auf english.xml 8.8.1 vom 21.06.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1361,13 +1361,18 @@ Translation note:
 						<Element name="DirectWrite (zeichnen in GDI DC)"/>
 						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="Deaktivieren"/>
+						<Element name="Aktivieren beim Start von Notepad++"/>
+						<Element name="Aktivieren beim Beenden von Notepad++"/>
+					</ComboBox>
 					<Item id="6308" name="Infobereich (Tray)"/>
 					<Item id="6363" name="Darstellungsmodus"/>
+					<Item id="6365" name="Automatische Aktualisierung"/>
 					<Item id="6312" name="Automatische Änderungserkennung"/>
 					<Item id="6313" name="Ohne Rückfrage aktualisieren"/>
 					<Item id="6325" name="Nach Aktualisierung zum Ende scrollen"/>
 					<Item id="6322" name="Sitzungsdatei-Erw.:"/>
-					<Item id="6323" name="Automatische Updates aktivieren"/>
 					<Item id="6324" name="Dokumentenumschalter (Strg+Tab)"/>
 					<Item id="6331" name="Nur Dateinamen in der Titelleiste anzeigen"/>
 					<Item id="6334" name="Kodierung automatisch erkennen"/>

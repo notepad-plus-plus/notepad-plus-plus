@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 15 Jun 2025, for Notepad++ 8.8.1
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 22 Jun 2025
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -203,6 +203,7 @@ Translation note:
 					<Item id="42087" name="Copiar todos os nomes de arquivos"/>
 					<Item id="42088" name="Copiar todos os caminhos de arquivos"/>
 					<Item id="42032" name="Executar macro múltiplas vezes..."/>
+					<Item id="42033" name="Atributo Apenas-Leitura no Windows"/>
 					<Item id="42035" name="Comentar linha única"/>
 					<Item id="42036" name="Remover comentário de linha única"/>
 					<Item id="42055" name="Remover linhas vazias"/>
@@ -438,6 +439,7 @@ Translation note:
 				<Item CMDID="41014" name="Recarregar"/>
 				<Item CMDID="41010" name="Imprimir"/>
 				<Item CMDID="42028" name="Somente Leitura"/>
+				<Item CMDID="42033" name="Atributo Apenas-Leitura no Windows"/>
 				<Item CMDID="2" name="Copiar para Área de Transferência"/>
 				<Item CMDID="42029" name="Copiar Caminho Completo"/>
 				<Item CMDID="42030" name="Copiar Nome do Arquivo"/>
@@ -1350,13 +1352,18 @@ Translation note:
 						<Element name="DirectWrite (estendendo a GDI DC)"/>
 						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="Desabilitar"/>
+						<Element name="Habilitar ao iniciar o Notepad++"/>
+						<Element name="Habilitar ao encerrar o Notepad++"/>
+					</ComboBox>
 					<Item id="6308" name="bandeja"/>
 					<Item id="6363" name="modo renderização"/>
+					<Item id="6365" name="Auto-atualizar:"/>
 					<Item id="6312" name="Autodetectar estado de arquivos"/>
 					<Item id="6313" name="Atualizar silenciosamente"/>
 					<Item id="6325" name="Ir para a última linha depois de atualizar"/>
 					<Item id="6322" name="Extensão do arquivo de sessão:"/>
-					<Item id="6323" name="Habilitar auto-atualização do Notepad++"/>
 					<Item id="6324" name="Alternador de documentos (Ctrl+TAB)"/>
 					<Item id="6331" name="Exibir somente o nome do arquivo no título"/>
 					<Item id="6334" name="Autodetectar codificação do caractere"/>

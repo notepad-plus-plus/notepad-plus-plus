@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: April 24, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: June 25, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.8.0">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -118,7 +118,7 @@
 					<Item id="42004" name="Vrati poni&amp;šteno"/>
 					<Item id="42005" name="&amp;Zalijepi"/>
 					<Item id="42006" name="Iz&amp;briši"/>
-					<Item id="42007" name="Odaberi s&amp;ve"/>
+					<Item id="42007" name="O&amp;daberi sve"/>
 					<Item id="42020" name="Po&amp;četak/kraj izbora"/>
 					<Item id="42089" name="Po&amp;četak/kraj izbora u Radu u stupcima"/>
 					<Item id="42084" name="Vrijeme i datum (&amp;kratko)"/>
@@ -127,16 +127,18 @@
 					<Item id="42008" name="&amp;Povećaj uvlaku retka"/>
 					<Item id="42009" name="&amp;Smanji uvlaku retka"/>
 					<Item id="42010" name="Udvostruči &amp;trenutni redak"/>
-					<Item id="42079" name="Izbriši s&amp;ve dvostruke retke"/>
+					<Item id="42079" name="Izbri&amp;ši sve dvostruke retke"/>
 					<Item id="42077" name="Izbriši &amp;uzastopne dvostruke retke"/>
 					<Item id="42012" name="&amp;Prelomi retke"/>
 					<Item id="42013" name="&amp;Spoji retke"/>
 					<Item id="42014" name="Trenutni redak pomakni &amp;gore"/>
 					<Item id="42015" name="Trenutni redak pomakni &amp;dolje"/>
-					<Item id="42059" name="S&amp;ortiraj retke rastuće (velika slova prije malih, 10 prije 2)"/>
-					<Item id="42060" name="Sortiraj retke padaju&amp;će (mala slova prije velikih, 2 prije 10)"/>
+					<Item id="42059" name="Sortiraj retke rastuće (&amp;velika slova prije malih, 10 prije 2)"/>
+					<Item id="42060" name="Sortiraj retke padajuće (mala slova prije veliki&amp;h, 2 prije 10)"/>
 					<Item id="42080" name="Sort&amp;iraj retke rastuće ignorirajući velika i mala slova"/>
 					<Item id="42081" name="Sortiraj retke padajuće ig&amp;norirajući velika i mala slova"/>
+					<Item id="42100" name="Sortiraj retke rastuće prema l&amp;okalnom jeziku"/>
+					<Item id="42101" name="Sortiraj retke padaju&amp;će prema lokalnom jeziku"/>
 					<Item id="42061" name="Sortira&amp;j retke s cijelim brojevima rastuće (2 prije 10)"/>
 					<Item id="42062" name="Sortiraj retke s cije&amp;lim brojevima padajuće (10 prije 2)"/>
 					<Item id="42063" name="Sortiraj r&amp;etke s decimalnim brojevima (zarez) rastuće"/>
@@ -194,13 +196,14 @@
 					<Item id="42025" name="&amp;Spremi upravo snimljeni makro..."/>
 					<Item id="42026" name="&amp;Smjer teksta s desna na lijevo"/>
 					<Item id="42027" name="&amp;Smjer teksta s lijeva na desno"/>
-					<Item id="42028" name="Označ&amp;i samo za čitanje"/>
+					<Item id="42028" name="Samo za čitanje u Notepadu&amp;++"/>
 					<Item id="42029" name="Kopiraj naziv i &amp;put trenutne datoteke"/>
 					<Item id="42030" name="Kopiraj &amp;naziv trenutne datoteke"/>
 					<Item id="42031" name="Kopiraj naziv i put &amp;mape trenutne datoteke"/>
 					<Item id="42087" name="Kopiraj nazive &amp;svih otvorenih datoteka"/>
 					<Item id="42088" name="Kopiraj nazive i putove s&amp;vih otvorenih datoteka"/>
 					<Item id="42032" name="Pok&amp;reni makro više puta..."/>
+					<Item id="42033" name="Oznaka samo za čitanje u &amp;Windowsima"/>
 					<Item id="42035" name="Zakomentiraj &amp;redak"/>
 					<Item id="42036" name="Odkomentiraj r&amp;edak"/>
 					<Item id="42055" name="Izbriši p&amp;razne retke"/>
@@ -443,7 +446,8 @@
 				<Item CMDID="41016" name="Premjesti u koš za smeće"/>
 				<Item CMDID="41014" name="Ponovo učitaj"/>
 				<Item CMDID="41010" name="Ispiši..."/>
-				<Item CMDID="42028" name="Samo za čitanje"/>
+				<Item CMDID="42028" name="Samo za čitanje u Notepadu++"/>
+				<Item CMDID="42033" name="Oznaka Samo za čitanje u Windowsima"/>
 				<Item CMDID="2" name="Kopiraj u međuspremnik"/>
 				<Item CMDID="42029" name="Kopiraj naziv i put datoteke"/>
 				<Item CMDID="42030" name="Kopiraj naziv datoteke"/>
@@ -989,16 +993,18 @@
 					<Item id="6108" name="Zaključaj (bez premještanja kartica)"/>
 					<Item id="6109" name="Promijeni boju neaktivnih jezičaka"/>
 					<Item id="6110" name="Vrh aktivnog jezička u boji"/>
-					<Item id="6111" name="Sakrij gumbe neaktivnih jezičaka"/>
+					<Item id="6111" name="Prikaži gumbe neaktivnih jezičaka"/>
 					<Item id="6112" name="Prikaži gumb za zatvaranje"/>
 					<Item id="6113" name="Zatvori karticu dvoklikom"/>
 					<Item id="6115" name="Omogući prikvačivanje kartica"/>
-					<Item id="6135" name="Prikaži pribadaču samo na prikvačenim karticama"/>
+					<Item id="6135" name="Prikaži pribadaču samo prikvačenih kartica"/>
 					<Item id="6118" name="Sakrij"/>
 					<Item id="6119" name="U više redaka"/>
 					<Item id="6120" name="Okomito"/>
 					<Item id="6121" name="Izlaz iz programa pri zatvaranju zadnje kartice"/>
 					<Item id="6128" name="Alternativne ikone"/>
+					<Item id="6125" name="Ponašanje"/>
+					<Item id="6126" name="Izgled i dojam"/>
 				</Tabbar>
 
 				<Scintillas title="Uređivanje 1">
@@ -1111,6 +1117,7 @@
 					<Item id="6419" name="Novi dokument"/>
 					<Item id="6420" name="Primijeni na otvorene ANSI datoteke"/>
 					<Item id="6432" name="Uvijek otvori dodatni novi dokument pri pokretanju"/>
+					<Item id="6433" name="Upotrijebi prvi redak dokumenta kao ime neimenovane kartice"/>
 				</NewDoc>
 
 				<DefaultDir title="Zadana mapa">
@@ -1126,6 +1133,7 @@
 					<Item id="4009" name="Podržani nastavci:"/>
 					<Item id="4010" name="Registrirani nastavci:"/>
 				</FileAssoc>
+
 
 				<Language title="Programske sintakse">
 					<Item id="6505" name="Dostupne sintakse"/>
@@ -1232,7 +1240,7 @@
 
 				<Backup title="Sigurnosna kopija">
 					<Item id="6817" name="Snimke sesije i periodične sigurnosne kopije"/>
-					<Item id="6818" name="Uključi snimke sesije i periodične sigurnosne kopije"/>
+					<Item id="6818" name="Omogući snimke sesije i periodične sigurnosne kopije"/>
 					<Item id="6819" name="Sigurnos. kopija svakih"/>
 					<Item id="6821" name="sekundi"/>
 					<Item id="6822" name="Put sigur. kopija:"/>
@@ -1342,8 +1350,8 @@
 
 				<MISC title="Razno">
 					<ComboBox id="6347">
-						<Element name="Uključi za aktivnu datoteku"/>
-						<Element name="Uključi za sve otvorene datoteke"/>
+						<Element name="Omogući za aktivnu datoteku"/>
+						<Element name="Omogući za sve otvorene datoteke"/>
 						<Element name="Isključi"/>
 					</ComboBox>
 					<ComboBox id="6307">
@@ -1359,24 +1367,29 @@
 						<Element name="DirectWrite (povući u GDI DC)"/>
 						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="Isključi"/>
+						<Element name="Omogući pri pokretanju Notepada++"/>
+						<Element name="Omogući pri zatvaranju Notepada++"/>
+					</ComboBox>
 					<Item id="6308" name="sistemsku traku"/>
 					<Item id="6363" name="način iscrtavanja"/>
+					<Item id="6365" name="Automatsko ažuriranje:"/>
 					<Item id="6312" name="Automatsko prepoznavanje stanja datoteke"/>
 					<Item id="6313" name="Tiho ažuriranje"/>
 					<Item id="6325" name="Po ažuriranju idi na zadnji redak"/>
 					<Item id="6322" name="Nastavak datoteke sesije:"/>
-					<Item id="6323" name="Automatska nadogradnja Notepada++"/>
 					<Item id="6324" name="Promjena kartica (Ctrl + Tab)"/>
 					<Item id="6331" name="U naslovnoj vrpci prikaži samo naziv datoteke"/>
 					<Item id="6334" name="Automatski detektiraj enkoding"/>
 					<Item id="6337" name="Nast. datoteke radnog prostora:"/>
 					<Item id="6114" name="Omogući promjenu kartica"/>
-					<Item id="6117" name="Uključi povijest otvaranja datoteka"/>
+					<Item id="6117" name="Omogući povijest otvaranja datoteka"/>
 					<Item id="6344" name="Pogled na neaktivni dokument"/>
 					<Item id="6345" name="Pogled na karticu dokumenta"/>
 					<Item id="6346" name="Pogled na mapu dokumenta"/>
 					<Item id="6360" name="Isključi sve zvukove"/>
-					<Item id="6361" name="Uključi dijalog za potvrdu spremanja svih datoteka"/>
+					<Item id="6361" name="Omogući dijalog za potvrdu spremanja svih datoteka"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Makro pokrenuti više puta">
@@ -1480,6 +1493,9 @@ Vaše postavke oblaka će biti poništene. Molim, resetirajte odgovarajuću vrij
 			<DroppingFolderAsProjectModeWarning title="Pogrešna akcija" message="Možete ispustiti samo datoteke ili mape, ali ne oboje, jer ispuštate Mape u Projektnom načinu.
 Morate omogućiti &quot;Otvori sve datoteke mape umjesto pokretanja 'Mapa kao radni prostor' pri prenošenju mape&quot; u odjeljku &quot;Zadana mapa&quot; dijaloga Postavki kako bi ova operacija radila."/>
 			<SortingError title="Greška sortiranja" message="Nije moguće izvesti numeričko sortiranje zbog retka $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SortLocaleMultiple title="Sortiranje nije provedeno" message="Sortiranje višestrukih odabira nije podržano."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleUnknown title="Neuspjelo sortiranje" message="Ne može se odrediti razlog zašto sortiranje nije uspjelo."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+			<SortLocaleExcept title="Neuspjelo sortiranje" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Savjet za Rad u stupcima" message="
 Postoje 3 načina za prijelaz na Rad u stupcima
 
@@ -1603,6 +1619,7 @@ Ako vam je potrebna značajka pretraživanja regularnih izraza unatrag, potraži
 			<FindAutoChangeOfInSelectionWarning title="Upozorenje pretraživanja" message="Stanje potvrdnog okvira &quot;U označenom&quot; je automatski promijenjeno.
 Prije izvođenja radnje provjerite uvjet pretraživanja."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ treba ponovno pokrenuti" message="Potreban je restart Notepada++ za prikaz prečaca s desne strane izborničke vrpce"/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Promjena atributa datoteke samo za čitanje nije uspjela" message="Pokrenite Notepad++ kao administrator kako biste promijenili atribute datoteke."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Povijest međuspremnika"/>

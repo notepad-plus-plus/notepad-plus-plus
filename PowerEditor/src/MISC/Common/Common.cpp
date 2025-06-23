@@ -1517,21 +1517,29 @@ bool removeReadOnlyFlagFromFileAttributes(const wchar_t* fileFullPath)
 	return (::SetFileAttributes(fileFullPath, dwFileAttribs) != FALSE);
 }
 
-// return true when set to read-only, false otherwise
-bool toggleReadOnlyFlagFromFileAttributes(const wchar_t* fileFullPath)
+// return false when failed, otherwise true and then the isChangedToReadOnly output will be set
+// accordingly to the changed file R/O-state
+bool toggleReadOnlyFlagFromFileAttributes(const wchar_t* fileFullPath, bool& isChangedToReadOnly)
 {
 	DWORD dwFileAttribs = ::GetFileAttributes(fileFullPath);
-
 	if (dwFileAttribs == INVALID_FILE_ATTRIBUTES || (dwFileAttribs & FILE_ATTRIBUTE_DIRECTORY))
 		return false;
+
 	if (dwFileAttribs & FILE_ATTRIBUTE_READONLY)
 		dwFileAttribs &= ~FILE_ATTRIBUTE_READONLY;
 	else
 		dwFileAttribs |= FILE_ATTRIBUTE_READONLY;
 	
-	::SetFileAttributes(fileFullPath, dwFileAttribs);
-
-	return (dwFileAttribs & FILE_ATTRIBUTE_READONLY) != 0;
+	if (::SetFileAttributes(fileFullPath, dwFileAttribs))
+	{
+		isChangedToReadOnly = (dwFileAttribs & FILE_ATTRIBUTE_READONLY) != 0;
+		return true;
+	}
+	else
+	{
+		// probably the ERROR_ACCESS_DENIED (5) (TODO: UAC-prompt candidate)
+		return false;
+	}
 }
 
 // "For file I/O, the "\\?\" prefix to a path string tells the Windows APIs to disable all string parsing

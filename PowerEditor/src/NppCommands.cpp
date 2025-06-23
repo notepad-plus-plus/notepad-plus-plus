@@ -2107,9 +2107,10 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_TOGGLESYSTEMREADONLY:
 		{
-			Buffer * buf = _pEditView->getCurrentBuffer();
-			bool isSysReadOnly = toggleReadOnlyFlagFromFileAttributes(buf->getFullPathName());
-			buf->setFileReadOnly(isSysReadOnly);
+			Buffer* buf = _pEditView->getCurrentBuffer();
+			bool isSysReadOnly = false;
+			if (toggleReadOnlyFlagFromFileAttributes(buf->getFullPathName(), isSysReadOnly))
+				buf->setFileReadOnly(isSysReadOnly);
 		}
 		break;
 

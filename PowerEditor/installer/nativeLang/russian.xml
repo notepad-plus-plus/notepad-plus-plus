@@ -1295,12 +1295,16 @@ Updated to :
 						<Element name="DirectWrite (отобр. GDI DC)"/>
 						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="Отключено"/>
+						<Element name="При запуске Notepad++"/>
+						<Element name="При закрытии Notepad++"/>
+					</ComboBox>
 					<Item id="6308" name="в системный трей"/>
 					<Item id="6312" name="Отслеживание Изменений в Файлах"/>
 					<Item id="6313" name="Обновлять не спрашивая"/>
 					<Item id="6325" name="К последней строке после обновл."/>
 					<Item id="6322" name="Расширение файла сессии:"/>
-					<Item id="6323" name="Автоматическое обновление Notepad++"/>
 					<Item id="6324" name="Переключение Документов  (Ctrl+TAB)"/>
 					<Item id="6331" name="Отображать в заголовке только имя файла"/>
 					<Item id="6114" name="Отображать список"/>
@@ -1313,6 +1317,7 @@ Updated to :
 					<Item id="6360" name="Отключить все звуки"/>
 					<Item id="6361" name="Запрашивать подтверждение для команды 'Сохранить Все'"/>
 					<Item id="6363" name="режим визуализации"/>
+					<Item id="6365" name="Авто-обновление:"/>
 				</MISC>
 				<MultiInstance title="Режим Откр. и Дата">
 					<Item id="6151" name="Режим Открытия Файлов*"/>

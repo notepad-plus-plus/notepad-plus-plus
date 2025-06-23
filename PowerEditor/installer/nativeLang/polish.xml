@@ -10,7 +10,7 @@ Translation note:
 	- Updated by Patryk Skorupa (ppskorupa@outlook.com) to version 7.7.2 (29/07/2019)
 	- Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
 	- Updated by Piotr Kostrzewski (piotrkostrzewski2@@outlook.com) to version 8.7.2 (27.11.2024)
-	- Updated by Arkadiusz Michalski (webref.pl) to version 8.8.1 (16.06.2025)
+	- Updated by Arkadiusz Michalski (webref.pl) to version 8.8.1 (25.06.2025)
 
 	The most recent version of this file can usually be downloaded from:
 		https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
@@ -1363,13 +1363,18 @@ Translation note:
 						<Element name="DirectWrite (rysuj do GDI DC)"/>
 						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="Wyłączona"/>
+						<Element name="Włączona przy uruchamianiu Notepad++"/>
+						<Element name="Włączona przy zamykaniu Notepad++"/>
+					</ComboBox>
 					<Item id="6308" name="zasobnika systemowego"/>
 					<Item id="6363" name="tryb renderowania"/>
+					<Item id="6365" name="Auto aktualizacja:"/>
 					<Item id="6312" name="Autowykrywanie stanu pliku"/>
 					<Item id="6313" name="Uaktualniaj po cichu"/>
 					<Item id="6325" name="Przewiń na koniec po uaktualnieniu"/>
 					<Item id="6322" name="Rozszerzenie pliku sesji:"/>
-					<Item id="6323" name="Automatycznie aktualizuj Notepad++"/>
 					<Item id="6324" name="Przełączanie dokumentów (Ctrl+TAB)"/>
 					<Item id="6331" name="Pokazuj w pasku tytułu tylko nazwę pliku"/>
 					<Item id="6334" name="Automatycznie wykrywaj kodowanie"/>
@@ -1607,6 +1612,7 @@ Jeśli potrzebujesz funkcji wstecznego wyszukiwania wyrażeń regularnych to zap
 			<FindAutoChangeOfInSelectionWarning title="Ostrzeżenie dotyczące wyszukiwania" message="Stan pola „W zaznaczeniu” został automatycznie zmodyfikowany.
 Przed wykonaniem czynności sprawdź warunki wyszukiwania."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ wymaga ponownego uruchomienia" message="Notepad++ wymaga ponownego uruchomienia, aby wyświetlić przyciski ＋ ▼ ✕ widoczne z prawej strony paska menu."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Nieudana zmiana atrybutu tylko do odczytu dla pliku" message="Aby zmienić atrybut tylko do odczytu dla pliku uruchom program Notepad++ jako administrator."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historia schowka"/>

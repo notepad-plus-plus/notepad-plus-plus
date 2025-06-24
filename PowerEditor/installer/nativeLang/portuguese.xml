@@ -108,7 +108,7 @@ Translation note:
 					<Item id="41014" name="Recarregar do disco"/>
 					<Item id="41015" name="Guardar uma cópia como..."/>
 					<Item id="41016" name="Mover para a reciclagem"/>
-					<Item id="41017" name="Renomear..."/>
+					<Item id="41017" name="Mudar o nome..."/>
 					<Item id="41021" name="Restaurar ficheiro fechado recentemente"/>
 					<Item id="41022" name="Abrir pasta como área de trabalho..."/>
 					<Item id="41023" name="Abrir no visualizador predefinido"/>
@@ -196,13 +196,14 @@ Translation note:
 					<Item id="42025" name="Guardar a macro atualmente gravada"/>
 					<Item id="42026" name="Direção do texto - direita para a esquerda"/>
 					<Item id="42027" name="Direção do texto - esquerda para a direita"/>
-					<Item id="42028" name="Definir como só de leitura"/>
+					<Item id="42028" name="Só de leitura no Notepad++"/>
 					<Item id="42029" name="Copiar caminho do ficheiro atual"/>
 					<Item id="42030" name="Copiar nome do ficheiro atual"/>
 					<Item id="42031" name="Copiar caminho da pasta atual"/>
 					<Item id="42087" name="Copiar todos os nomes de ficheiros"/>
 					<Item id="42088" name="Copiar todas as localizações de ficheiros"/>
 					<Item id="42032" name="Executar macro várias vezes..."/>
+					<Item id="42033" name="Atributo só de leitura no Windows"/>
 					<Item id="42035" name="Comentar bloco"/>
 					<Item id="42036" name="Descomentar bloco"/>
 					<Item id="42055" name="Remover linhas em branco"/>
@@ -433,11 +434,12 @@ Translation note:
 				<Item CMDID="41020" name="Abrir a pasta de conteúdo na Linha de comandos"/>
 				<Item CMDID="41025" name="Abrir a pasta de conteúdo como Área de trabalho"/>
 				<Item CMDID="41023" name="Abrir no visualizador predefinido"/>
-				<Item CMDID="41017" name="Renomear..."/>
+				<Item CMDID="41017" name="Mudar o nome..."/>
 				<Item CMDID="41016" name="Mover para a Reciclagem"/>
 				<Item CMDID="41014" name="Recarregar"/>
 				<Item CMDID="41010" name="Imprimir..."/>
 				<Item CMDID="42028" name="Só de leitura"/>
+				<Item CMDID="42033" name="Atributo só de leitura no Windows"/>
 				<Item CMDID="2" name="Copiar para a área de transferência"/>
 				<Item CMDID="42029" name="Copiar caminho do ficheiro atual"/>
 				<Item CMDID="42030" name="Copiar nome do ficheiro"/>
@@ -771,8 +773,8 @@ Translation note:
 				<Item id="5012" name="CONFLITO ENCONTRADO!"/>
 			</ShortcutMapperSubDialg>
 			<UserDefine title="Definido pelo utilizador">
-				<Item id="20001" name="Inic. rápida"/>
-				<Item id="20002" name="Renomear"/>
+				<Item id="20001" name="Afixar"/>
+				<Item id="20002" name="Mudar o nome"/>
 				<Item id="20003" name="Criar novo..."/>
 				<Item id="20004" name="Remover"/>
 				<Item id="20005" name="Guardar como..."/>
@@ -782,7 +784,7 @@ Translation note:
 				<Item id="20011" name="Transparência"/>
 				<Item id="20015" name="Importar..."/>
 				<Item id="20016" name="Exportar..."/>
-				<Item id="20017" name="Remover inic. rápida"/>
+				<Item id="20017" name="Desafixar"/>
 				<StylerDialog title="Janela do estilo">
 					<Item id="25030" name="Opções do tipo de letra:"/>
 					<Item id="25006" name="Cor do primeiro plano"/>
@@ -992,6 +994,8 @@ Translation note:
 					<Item id="6120" name="Vertical"/>
 					<Item id="6121" name="Sair ao fechar o último separador"/>
 					<Item id="6128" name="Ícones alternativos"/>
+					<Item id="6125" name="Comportamento"/>
+					<Item id="6126" name="Aspeto visual"/>
 				</Tabbar>
 					
 				<Scintillas title="Edição 1">
@@ -1104,6 +1108,7 @@ Translation note:
 					<Item id="6419" name="Novo documento"/>
 					<Item id="6420" name="Aplicar a ficheiros ANSI abertos"/>
 					<Item id="6432" name="Abrir sempre um novo documento adicionalmente ao arranque"/>
+					<Item id="6433" name="Utilizar a primeira linha do documento como nome do separador sem título"/>
 				</NewDoc>
 
 				<DefaultDir title="Pasta predefinida">
@@ -1347,6 +1352,11 @@ Translation note:
 						<Element name="DirectWrite (desenhar para DC GDI)"/>
 						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="Desativar"/>
+						<Element name="Ativar no arranque do Notepad++"/>
+						<Element name="Ativar ao sair do Notepad++"/>
+					</ComboBox>
 					<Item id="6308" name="área de notificação"/>
 					<Item id="6363" name="modo de renderização"/>
 					<Item id="6312" name="Deteção automática do estado do ficheiro"/>
@@ -1454,8 +1464,8 @@ Continuar?"/><!-- HowToReproduce: when you openned file is modified and saved, t
 			<DocReloadWarning title="Recarregar" message="Tem a certeza que quer recarregar o ficheiro atual e perder as alterações efetuadas no Notepad++?"/>
 			<FileLockedWarning title="Ocorreu um erro ao Guardar" message="Por favor, verifique se o ficheiro está aberto noutro programa."/>
 			<FileAlreadyOpenedInNpp title="" message="O ficheiro já está aberto no Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
-			<RenameTabTemporaryNameAlreadyInUse title="Ocorreu um erro ao renomear" message="O nome especificado já está a ser utilizado noutro separador."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
-			<RenameTabTemporaryNameIsEmpty title="Ocorreu um erro ao renomear" message="O nome especificado não pode estar em branco ou conter apenas espaço(s) ou TAB(s)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
+			<RenameTabTemporaryNameAlreadyInUse title="Ocorreu um erro ao mudar o nome" message="O nome especificado já está a ser utilizado noutro separador."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="Ocorreu um erro ao mudar o nome" message="O nome especificado não pode estar em branco ou conter apenas espaço(s) ou TAB(s)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Eliminar ficheiro" message="Ocorreu um erro ao eliminar o ficheiro."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="Está a tentar abrir demasiados ficheiros." message="Está prestes a abrir $INT_REPLACE$ ficheiros.
@@ -1568,7 +1578,7 @@ Teste esses comandos e, se necessário, edite-os novamente.
 
 Em alternativa, pode reverter para o Notepad++ v8.5.2 e restaurar os dados anteriores.
 O Notepad++ fará uma cópia de segurança do seu antigo &quot;shortcuts.xml&quot; e guardá-lo-á como &quot;shortcuts.xml.v8.5.2.backup&quot;.
-A renomear &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, os seus comandos devem estar restaurados e a funcionar corretamente."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+A mudar o nome &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, os seus comandos devem estar restaurados e a funcionar corretamente."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<NotEnoughRoom4Saving title="Erro ao guardar" message="Ocorreu um erro ao guardar o ficheiro.
 É possível que não haja espaço suficiente em disco para guardar o ficheiro. O seu ficheiro não foi guardado."/>
 			<FileInaccessibleUserSession title="Ficheiro inacessível" message="Alguns ficheiros da sua sessão guardada &quot;$STR_REPLACE$&quot; não podem ser acedidos. Podem ser abertos como ficheiros vazios e só de leitura para que permaneçam na lista de documentos.
@@ -1591,6 +1601,7 @@ Se necessitar da funcionalidade de pesquisa regex retroativa, consulte o manual 
 			<FindAutoChangeOfInSelectionWarning title="Aviso de pesquisa" message="O estado da caixa de verificação &quot;Na seleção&quot; foi automaticamente modificado.
 Verifique a condição de localização antes de continuar."/><!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="O Notepad++ precisa de ser reiniciado" message="O Notepad++ precisa de ser reiniciado para mostrar os atalhos do menu do botão direito."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Falha na alteração dos atributos só de leitura do ficheiro" message="Executa o Notepad++ como administrador para alterar os atributos do ficheiro."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>
@@ -1670,7 +1681,7 @@ Verifique a condição de localização antes de continuar."/><!-- HowToReproduc
 					<Item id="3128" name="Localizar em projetos..."/>
 				</WorkspaceMenu>
 				<ProjectMenu>
-					<Item id="3111" name="Renomear"/>
+					<Item id="3111" name="Mudar o nome"/>
 					<Item id="3112" name="Adicionar pasta"/>
 					<Item id="3113" name="Adicionar ficheiros..."/>
 					<Item id="3117" name="Adicionar ficheiros da pasta..."/>
@@ -1679,7 +1690,7 @@ Verifique a condição de localização antes de continuar."/><!-- HowToReproduc
 					<Item id="3119" name="Mover para baixo"/>
 				</ProjectMenu>
 				<FolderMenu>
-					<Item id="3111" name="Renomear"/>
+					<Item id="3111" name="Mudar o nome"/>
 					<Item id="3112" name="Adicionar pasta"/>
 					<Item id="3113" name="Adicionar ficheiros..."/>
 					<Item id="3117" name="Adicionar ficheiros da pasta..."/>
@@ -1688,7 +1699,7 @@ Verifique a condição de localização antes de continuar."/><!-- HowToReproduc
 					<Item id="3119" name="Mover para baixo"/>
 				</FolderMenu>
 				<FileMenu>
-					<Item id="3111" name="Renomear"/>
+					<Item id="3111" name="Mudar o nome"/>
 					<Item id="3115" name="Remover"/>
 					<Item id="3116" name="Modificar caminho do ficheiro"/>
 					<Item id="3118" name="Mover para cima"/>
@@ -1768,13 +1779,13 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 			<common-ok value="Confirmar"/>
 			<common-cancel value="Cancelar"/>
 			<common-name value="Nome"/>
-			<tabrename-title value="Renomear separador atual"/>
+			<tabrename-title value="Mudar o nome do separador atual"/>
 			<tabrename-newname value="Novo nome"/>
 			<splitter-rotate-left value="Rodar para a esquerda"/>
 			<splitter-rotate-right value="Rodar para a direita"/>
 			<userdefined-title-new value="Criar nova linguagem..."/>
 			<userdefined-title-save value="Guardar o nome da linguagem atual como..."/>
-			<userdefined-title-rename value="Renomear nome da linguagem atual"/>
+			<userdefined-title-rename value="Mudar o nome da linguagem atual"/>
 			<summary value="Resumo"/>
 			<summary-filepath value="Caminho completo: "/>
 			<summary-filecreatetime value="Criado em: "/>
@@ -1904,9 +1915,9 @@ Hugo Carvalho <hugokarvalho@hotmail.com>
 07/04/2021 (version 8.0, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 8.8)
 
 Filipe Mota <blackspirits@gmail.com>
-27/03/2023 (version 8.5.1, 8.6.3, 8.7, 8.8)
+27/03/2023 (version 8.5, 8.6, 8.7, 8.8)
 
-Last modified: 10 May 2025 by Hugo Carvalho and Filipe Mota (BlackSpirits)
+Last modified: 24 June 2025 by Filipe Mota (BlackSpirits)
 
 TRADUÇÃO DE ACORDO COM O NOVO ACORDO ORTOGRÁFICO
 POR FAVOR, NÃO ALTERE A ORDEM, POIS ISSO TORNA MAIS DIFÍCIL A COMPARAÇÃO ENTRE OS FICHEIROS PT E EN

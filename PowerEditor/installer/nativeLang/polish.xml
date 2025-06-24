@@ -1612,7 +1612,7 @@ Jeśli potrzebujesz funkcji wstecznego wyszukiwania wyrażeń regularnych to zap
 			<FindAutoChangeOfInSelectionWarning title="Ostrzeżenie dotyczące wyszukiwania" message="Stan pola „W zaznaczeniu” został automatycznie zmodyfikowany.
 Przed wykonaniem czynności sprawdź warunki wyszukiwania."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ wymaga ponownego uruchomienia" message="Notepad++ wymaga ponownego uruchomienia, aby wyświetlić przyciski ＋ ▼ ✕ widoczne z prawej strony paska menu."/>
-			<NoAdminRight2ChangeReadOnlyFileAttribute title="Nieudana zmiana atrybutu tylko do odczytu dla pliku" message="Aby zmienić atrybut pliku uruchom program Notepad++ jako administrator."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Nieudana zmiana atrybutu tylko do odczytu dla pliku" message="Aby zmienić atrybut tylko do odczytu dla pliku uruchom program Notepad++ jako administrator."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historia schowka"/>

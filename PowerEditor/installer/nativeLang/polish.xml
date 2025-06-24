@@ -10,7 +10,7 @@ Translation note:
 	- Updated by Patryk Skorupa (ppskorupa@outlook.com) to version 7.7.2 (29/07/2019)
 	- Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
 	- Updated by Piotr Kostrzewski (piotrkostrzewski2@@outlook.com) to version 8.7.2 (27.11.2024)
-	- Updated by Arkadiusz Michalski (webref.pl) to version 8.8.1 (23.06.2025)
+	- Updated by Arkadiusz Michalski (webref.pl) to version 8.8.1 (25.06.2025)
 
 	The most recent version of this file can usually be downloaded from:
 		https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
@@ -1612,6 +1612,7 @@ Jeśli potrzebujesz funkcji wstecznego wyszukiwania wyrażeń regularnych to zap
 			<FindAutoChangeOfInSelectionWarning title="Ostrzeżenie dotyczące wyszukiwania" message="Stan pola „W zaznaczeniu” został automatycznie zmodyfikowany.
 Przed wykonaniem czynności sprawdź warunki wyszukiwania."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ wymaga ponownego uruchomienia" message="Notepad++ wymaga ponownego uruchomienia, aby wyświetlić przyciski ＋ ▼ ✕ widoczne z prawej strony paska menu."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Nieudana zmiana atrybutu tylko do odczytu dla pliku" message="Aby zmienić atrybut pliku uruchom program Notepad++ jako administrator."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historia schowka"/>

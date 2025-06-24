@@ -1352,13 +1352,18 @@
 						<Element name="DirectWrite (GDI DC-be rajzolással)"/>
 						<Element name="DirectWrite (DirectX 11-gyel)"/>
 					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="Kikapcsolva"/>
+						<Element name="Engedélyezve a Notepad++ indításakor"/>
+						<Element name="Engedélyezve a Notepad++ bezárásakor"/>
+					</ComboBox>
 					<Item id="6308" name="az értesítési területre"/>
 					<Item id="6363" name="renderelési mód"/>
+					<Item id="6365" name="Aut&amp;omatikus frissítés:"/>
 					<Item id="6312" name="&amp;Automatikus fájlállapot-felismerés"/>
 					<Item id="6313" name="&amp;Figyelmeztetés nélküli fájlfrissítés"/>
 					<Item id="6325" name="F&amp;rissítés után az utolsó sorhoz görgetés"/>
 					<Item id="6322" name="A &amp;munkamenetfájl kiterjesztése:"/>
-					<Item id="6323" name="A &amp;Notepad++ automatikus frissítésének engedélyezése"/>
 					<Item id="6324" name="Dokumentumváltó panel (Ctrl + Tab)"/>
 					<Item id="6331" name="&amp;Csak a fájlnév megjelenítése a címsorban"/>
 					<Item id="6334" name="Au&amp;tomatikus karakterkódolás-felismerés"/>
@@ -1596,6 +1601,7 @@ Ha szüksége van a visszafelé történő reguláris keresésre, a Felhasznál�
 			<FindAutoChangeOfInSelectionWarning title="Keresési figyelmeztetés" message="Az „A kijelölésben” jelölőnégyzet állapota automatikusan módosítva lett.
 Kérjük, a művelet végrehajtása előtt ellenőrizze a keresési feltételeket"/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="A Notepad++ újraindítása szükséges" message="Újra kell indítani a Notepad++-t a jobb oldali parancsikonok megjelenítéséhez"/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="A fájl csak olvasható attribútumának megváltoztatása sikertelen" message="Kérjük, futtassa a Notepad++-t rendszergazdaként a fájl attribútumának módosításához"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Vágólap-előzmények"/>

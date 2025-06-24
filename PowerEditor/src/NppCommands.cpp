@@ -2110,7 +2110,26 @@ void Notepad_plus::command(int id)
 			Buffer* buf = _pEditView->getCurrentBuffer();
 			bool isSysReadOnly = false;
 			if (toggleReadOnlyFlagFromFileAttributes(buf->getFullPathName(), isSysReadOnly))
+			{
 				buf->setFileReadOnly(isSysReadOnly);
+			}
+			else
+			{
+				if (_isAdministrator)
+				{
+					MessageBox(_pPublicInterface->getHSelf(), GetLastErrorAsString(GetLastError()).c_str(),	L"Changing file read-only attributes failed", MB_OK | MB_ICONWARNING);
+				}
+				else
+				{
+					// Not in admin mode, and file might be protected. So we can't change the file attributes.
+					_nativeLangSpeaker.messageBox("NoAdminRight2ChangeReadOnlyFileAttribute",
+						_pPublicInterface->getHSelf(),
+						L"Please run Notepad++ as administrator to change the file attributes.",
+						L"Changing file read-only attributes failed",
+						MB_OK | MB_ICONWARNING);
+				}
+
+			}
 		}
 		break;
 

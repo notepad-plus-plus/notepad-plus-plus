@@ -264,8 +264,8 @@ BEGIN
     COMBOBOX        IDC_COMBO_OTHERCP,257,125,100,140,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     RTEXT           "Default language:",IDC_DEFAULTLANG_STATIC,16,125,77,8
     COMBOBOX        IDC_COMBO_DEFAULTLANG,98,123,100,140,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    CONTROL         "Always open a new document in addition at startup",IDC_CHECK_ADDNEWDOCONSTARTUP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,23,152,250,10
-    CONTROL         "Use the first line of document as untitled tab name",IDC_CHECK_USECONTENTASTABNAME,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,23,165,250,10
+    CONTROL         "Always open a new document in addition at startup",IDC_CHECK_ADDNEWDOCONSTARTUP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,23,152,270,10
+    CONTROL         "Use the first line of document as untitled tab name",IDC_CHECK_USECONTENTASTABNAME,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,23,165,270,10
 END
 
 

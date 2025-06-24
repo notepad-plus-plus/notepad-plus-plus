@@ -408,8 +408,8 @@
 				<Item CMDID="41016" name="移至回收筒"/>
 				<Item CMDID="41014" name="重新載入"/>
 				<Item CMDID="41010" name="列印"/>
-				<Item CMDID="42028" name="唯讀"/>
-				<Item CMDID="42033" name="取消唯讀"/>
+				<Item CMDID="42028" name="在 Notepad++ 中設為唯讀"/>
+				<Item CMDID="42033" name="檔案系統權限唯讀"/>
 				<Item CMDID="2" name="複製到剪貼簿"/>
 				<Item CMDID="42029" name="複製完整路徑檔名"/>
 				<Item CMDID="42030" name="複製檔名"/>
@@ -1470,6 +1470,7 @@
 			<RTLvsDirectWrite title="無法執行「文字由右至左」指令" message="「文字由右至左」指令與「直接寫入」模式不相容。 請在偏好設定對話框的「其他」中停用「直接寫入」模式，然後重新​​啟動 Notepad++ 。"/>
 			<FileMemoryAllocationFailed title="例外狀況：檔案記憶體分配失敗" message="可能沒有足夠的連續可用記憶體供 Notepad++ 載入檔案。"/>
 			<Need2Restart2ShowMenuShortcuts title="重新啟動 Notepad++" message="Notepad++ 需要重新啟動才能顯示選單右邊捷徑。"/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="更改檔案維讀屬性失敗" message="請在系統管理員模式下重新啟動 Notepad++ 以使用此功能。"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="剪貼簿記錄"/>

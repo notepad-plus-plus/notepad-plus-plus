@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: June 22, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: June 25, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
@@ -1117,7 +1117,7 @@
 					<Item id="6419" name="Novi dokument"/>
 					<Item id="6420" name="Primijeni na otvorene ANSI datoteke"/>
 					<Item id="6432" name="Uvijek otvori dodatni novi dokument pri pokretanju"/>
-					<Item id="6433" name="Upotrijebi prvi redak dokumenta kao ime kartice"/>
+					<Item id="6433" name="Upotrijebi prvi redak dokumenta kao ime neimenovane kartice"/>
 				</NewDoc>
 
 				<DefaultDir title="Zadana mapa">
@@ -1619,6 +1619,7 @@ Ako vam je potrebna značajka pretraživanja regularnih izraza unatrag, potraži
 			<FindAutoChangeOfInSelectionWarning title="Upozorenje pretraživanja" message="Stanje potvrdnog okvira &quot;U označenom&quot; je automatski promijenjeno.
 Prije izvođenja radnje provjerite uvjet pretraživanja."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ treba ponovno pokrenuti" message="Potreban je restart Notepada++ za prikaz prečaca s desne strane izborničke vrpce"/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Promjena atributa datoteke samo za čitanje nije uspjela" message="Pokrenite Notepad++ kao administrator kako biste promijenili atribute datoteke."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Povijest međuspremnika"/>

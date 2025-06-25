@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.8.1  20/Jun/2025  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.8.1  25/Jun/2025  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
@@ -493,8 +493,8 @@
 				<Item id="1611" name="&amp;Nahradit:"/>
 				<Item id="1614" name="Počet"/>
 				<Item id="1615" name="Najít vše"/>
-				<Item id="1616" name="Označit řádek"/>
-				<Item id="1618" name="Zrušit stávající označení při novém hledání"/>
+				<Item id="1616" name="Označit příslušný řádek zálo&amp;žkou"/>
+				<Item id="1618" name="Zrušit stávající označ. při novém hledání"/>
 				<Item id="1620" name="Najít:"/>
 				<Item id="1624" name="Mód vyhledávání"/>
 				<Item id="1625" name="Normální"/>
@@ -1597,6 +1597,7 @@ Pokud opravdu potřebujete funkci zpětného vyhledávání při regulárních v
 
 Před provedením akce si prosím nejprve ověřte nastavené podmínky."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Restartujte Notepad++" message="Je zapotřebí restartovat Notepad++, aby se vpravo mohly zobrazit ovládací prvky hlavního menu."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Změna atributu souboru 'pouze pro čtení' se nezdařila." message="Pro změnu atributů souboru spusťte Notepad++ s právy administrátora."/>
 		</MessageBox>
 		
 		<ClipboardHistory>

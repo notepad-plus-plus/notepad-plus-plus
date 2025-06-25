@@ -13,7 +13,7 @@ Additionnal information about Corsican localization:
 2. History of Corsican translation for Notepad++:
 
 	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8), Apr. 20th (v8.8),
-			  June 20th (v8.8.2)
+			  June 25th (v8.8.1)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
 			  June 13th (v8.6.9), Sept. 8th (v8.7), Oct. 21st (v8.7.1), Nov. 20th (v8.7.2), Nov. 29th (v8.7.3)
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
@@ -36,7 +36,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.8.2">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1383,13 +1383,18 @@ Additionnal information about Corsican localization:
 						<Element name="DirectWrite (disegnà nant’à GDI DC)"/>
 						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="Disattivà"/>
+						<Element name="Attivà à u lanciu di Notepad++"/>
+						<Element name="Attivà à l’esce di Notepad++"/>
+					</ComboBox>
 					<Item id="6308" name="u spaziu di nutificazione di u sistema"/>
 					<Item id="6363" name="modu di restituzione"/>
+					<Item id="6365" name="Messa à livellu autumatica :"/>
 					<Item id="6312" name="Detezione autumatica di statu di schedariu"/>
 					<Item id="6313" name="Mudificazione senza avertimentu"/>
 					<Item id="6325" name="Andà à l’ultima linea dopu a mudificazione"/>
 					<Item id="6322" name="Estensione di sched. di sessione :"/>
-					<Item id="6323" name="Attivà u rinnovu autumaticu di Notepad++"/>
 					<Item id="6324" name="Cambiamentu di ducumentu (Ctrl+Tabul.)"/>
 					<Item id="6331" name="Affissà solu u nome di schedariu in a barra di titulu"/>
 					<Item id="6334" name="Detezione autumatica di cudificazione di caratteru"/>
@@ -1629,6 +1634,7 @@ S’è vo avete bisognu di a funzione di ricerca RegEx à l’arritrosa, lighjit
 			<FindAutoChangeOfInSelectionWarning title="Avertimentu di ricerca" message="U statu di l’ozzione « In a selezzione » hè statu mudificatu autumaticamente.
 Ci vole à verificà a cundizione di ricerca prima di fà l’azzione."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ richiede d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per affissà l’accurtatoghji di u listinu di diritta."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Fiascu di u cambiamentu d’attributi di lettura sola di u schedariu" message="Ci vole à lancià Notepad++ in modu Amministratore per cambià l’attributi di u schedariu."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Cronolugia di u preme’papei"/>

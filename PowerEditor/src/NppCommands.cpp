@@ -2117,7 +2117,7 @@ void Notepad_plus::command(int id)
 			{
 				if (_isAdministrator)
 				{
-					MessageBox(_pPublicInterface->getHSelf(), GetLastErrorAsString(GetLastError()).c_str(),	L"Changing file read-only attributes failed", MB_OK | MB_ICONWARNING);
+					MessageBox(_pPublicInterface->getHSelf(), GetLastErrorAsString(GetLastError()).c_str(),	L"Changing file read-only attribute failed", MB_OK | MB_ICONWARNING);
 				}
 				else
 				{
@@ -2125,7 +2125,7 @@ void Notepad_plus::command(int id)
 					_nativeLangSpeaker.messageBox("NoAdminRight2ChangeReadOnlyFileAttribute",
 						_pPublicInterface->getHSelf(),
 						L"Please run Notepad++ as administrator to change the file attributes.",
-						L"Changing file read-only attributes failed",
+						L"Changing file read-only attribute failed",
 						MB_OK | MB_ICONWARNING);
 				}
 

@@ -1601,7 +1601,7 @@ If you require the backward regex searching feature, consult the user manual for
 			<FindAutoChangeOfInSelectionWarning title="Search warning" message="The &quot;In selection&quot; checkbox state has been automatically modified.
 Please verify the search condition before performing the action."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ needs to be restarted" message="Notepad++ needs to be restarted to show right menu shortcuts."/>
-			<NoAdminRight2ChangeReadOnlyFileAttribute title="Changing file read-only attributes failed" message="Please run Notepad++ as administrator to change the file attributes."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Changing file read-only attribute failed" message="Please run Notepad++ as administrator to change the file attributes."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Clipboard History"/>

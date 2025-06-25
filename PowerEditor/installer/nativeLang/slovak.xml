@@ -1600,6 +1600,7 @@ Ak potrebujete funkciu spätného vyhľadávania pomocou regulárnych výrazov, 
 			<FindAutoChangeOfInSelectionWarning title="Upozornenie na vyhľadávanie" message="Stav začiarkavacieho poľa &quot;Vo výbere&quot; sa automaticky zmení.
 Prosím, overte podmienku vyhľadávania pred vykonaním akcie."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ je potrebné reštartovať" message="Notepad++ je potrebné reštartovať, aby sa zobrazili ovládacie prvky."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Zmena atribútu súboru len na čítanie zlyhala" message="Na zmenu atribútu súboru spustite Notepad++ ako správca."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="História schránky"/>

@@ -1601,6 +1601,7 @@ Se necessitar da funcionalidade de pesquisa regex retroativa, consulte o manual 
 			<FindAutoChangeOfInSelectionWarning title="Aviso de pesquisa" message="O estado da caixa de verificação &quot;Na seleção&quot; foi automaticamente modificado.
 Verifique a condição de localização antes de continuar."/><!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="O Notepad++ precisa de ser reiniciado" message="O Notepad++ precisa de ser reiniciado para mostrar os atalhos do menu do botão direito."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Falha na alteração dos atributos só de leitura do ficheiro" message="Executa o Notepad++ como administrador para alterar os atributos do ficheiro."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>

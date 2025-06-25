@@ -5,7 +5,7 @@ Updated to :
 - little fixes
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.8.1">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.8.2">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -1009,7 +1009,6 @@ Updated to :
 					<Item id="6133" name="Строка Статуса"/>
 					<Item id="6134" name="Скрыть"/>
 				</Global>
-
 				<Toolbar title="Панель Инструментов">
 					<Item id="6102" name="Скрыть"/>
 					<Item id="6103" name="Fluent UI: мелкие"/>

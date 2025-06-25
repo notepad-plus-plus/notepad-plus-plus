@@ -1603,6 +1603,7 @@ OKボタンを押すと検索ダイアログが開きます。
 			<FindAutoChangeOfInSelectionWarning title="検索条件についての注意" message="「選択内のみ」のチェックボックスが自動で変更されました。
 検索条件が予期したものであるか確認してから、操作を続けてください。"/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ を再起動してください" message="メニュー右端のボタンを表示するには、Notepad++ を再起動してください。"/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="読み取り専用属性を変更できませんでした" message="このファイルの読み取り専用属性を変更するには、Notepad++ を管理者権限で実行してください。"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="クリップボード履歴"/>

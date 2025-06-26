@@ -3013,7 +3013,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_LBUTTONDBLCLK:
 		{
-			::SendMessage(hwnd, WM_COMMAND, IDM_FILE_NEW, 0);
+			DocTabView* curTabView = (currentView() == MAIN_VIEW) ? &_mainDocTab : &_subDocTab;
+			::SendMessage(curTabView->getHSelf(), WM_LBUTTONDBLCLK, wParam, lParam);
+
 			return TRUE;
 		}
 

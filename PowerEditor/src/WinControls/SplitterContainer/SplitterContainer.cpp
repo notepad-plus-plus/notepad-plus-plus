@@ -316,7 +316,7 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 				: (pt.y < 0 ? _pWin0 : _pWin1);
 
 			::SendMessage(parent, NPPM_INTERNAL_SWITCHVIEWFROMHWND, 0, reinterpret_cast<LPARAM>(targetWindow->getHSelf()));
-			::SendMessage(parent, WM_COMMAND, IDM_FILE_NEW, 0);
+			::SendMessage(parent, WM_LBUTTONDBLCLK, wParam, lParam);
 			return TRUE;
 		}
 

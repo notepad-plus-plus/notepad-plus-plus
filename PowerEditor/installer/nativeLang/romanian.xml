@@ -1635,7 +1635,7 @@ Dacă ai nevoie de funcția de căutare inversă regex, consultă manualul utili
 			<FindAutoChangeOfInSelectionWarning title="Avertisment de căutare" message="Starea casetei de selectare &quot;În selecție&quot; a fost modificată automat.
 Te rugăm să verifici condiția de căutare înainte de a efectua acțiunea."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ trebuie repornit" message="Notepad++ trebuie repornit ca să afișeze comenzile rapide (scurtăturile) din meniul din dreapta."/>
-			<NoAdminRight2ChangeReadOnlyFileAttribute title="Schimbarea atributelor de tip Doar în citire (Numai în citire) a fișierului a eșuat" message="Te rugăm să rulezi Notepad++ ca administrator pentru schimbarea atributelor."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Schimbarea atributului de tip Doar în citire (Numai în citire) a fișierului a eșuat" message="Te rugăm să rulezi Notepad++ ca administrator pentru schimbarea atributului."/>
 		</MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Istoricul clipboard-ului"/>

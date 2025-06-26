@@ -1595,7 +1595,7 @@ Notepad++ сделает резервную копию вашего старог
 			<FindAutoChangeOfInSelectionWarning title="Предупреждение о поиске" message="Состояние флажка &quot;В выделенном&quot; было автоматически изменено.
 Пожалуйста, проверьте условие поиска перед выполнением действия."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ необходимо перезапустить" message="Notepad++ необходимо перезапустить, чтобы отобразить нужные значки меню."/>
-			<NoAdminRight2ChangeReadOnlyFileAttribute title="Не удалось изменить атрибут файла 'только для чтения'" message="Чтобы изменять атрибуты файлов, запустите Notepad++ от имени администратора."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Не удалось изменить атрибут файла 'только для чтения'" message="Чтобы изменять атрибут файлов, запустите Notepad++ от имени администратора."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="История Буфера"/>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 22 Jun 2025
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 25 Jun 2025
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -1601,6 +1601,7 @@ Se for necessário executar uma busca regex para trás, consulte o manual de usu
 			<FindAutoChangeOfInSelectionWarning title="Aviso da Localização" message="O estado da caixa de seleção &quot;Na seleção&quot; foi modificado automaticamente.
 Por favor verifique a condição de localização antes de continuar."/> <!-- Como Reproduzir: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 		<Need2Restart2ShowMenuShortcuts title="O Notepad++ precisa ser reiniciado" message="O Notepad++ precisa ser reiniciado para mostrar os atalhos de botão direito."/>
+		<NoAdminRight2ChangeReadOnlyFileAttribute title="Falha na mudança de atributo de apenas leitura do arquivo" message="Por favor execute o Notepad++ como administrador para mudar os atributos de arquivo."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>

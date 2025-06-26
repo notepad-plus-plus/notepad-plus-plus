@@ -274,7 +274,7 @@ so your enhanced file can be included in Notepad++ future release.
             <WordsStyle name="ADDED" styleID="6" fgColor="0080FF" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="nfo" desc="Dos Style" ext="">
-            <WordsStyle name="DEFAULT" styleID="32" fgColor="C0C0C0" bgColor="000000" fontSize="10" fontStyle="0" />
+            <WordsStyle name="DEFAULT" styleID="32" fgColor="C0C0C0" bgColor="000000" fontSize="" fontStyle="0" />
         </LexerType>
         <LexerType name="errorlist" desc="ErrorList" ext="">
             <WordsStyle name="DEFAULT STYLE" styleID="0" fgColor="000000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
@@ -744,7 +744,7 @@ so your enhanced file can be included in Notepad++ future release.
             <WordsStyle name="IDENTIFIER" styleID="11" fgColor="000000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENTBLOCK" styleID="12" fgColor="008000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRINGEOL" styleID="13" fgColor="FFFF00" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="BUILTINS" styleID="14" fgColor="000000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="10" keywordClass="instre2" />
+            <WordsStyle name="BUILTINS" styleID="14" fgColor="000000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
             <WordsStyle name="F STRING" styleID="16" fgColor="808080" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="F CHARACTER" styleID="17" fgColor="808080" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="F TRIPLE" styleID="18" fgColor="FF8000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
@@ -1012,7 +1012,7 @@ so your enhanced file can be included in Notepad++ future release.
         <!-- Attention : Don't modify the name of styleID="0" -->
         <WidgetStyle name="Default Style" styleID="32" fgColor="000000" bgColor="FFB0FF" fontName="Courier New" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Indent guideline style" styleID="37" fgColor="C0C0C0" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
-        <WidgetStyle name="Brace highlight style" styleID="34" fgColor="FF0000" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="12" />
+        <WidgetStyle name="Brace highlight style" styleID="34" fgColor="FF0000" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="" />
         <WidgetStyle name="Bad brace colour" styleID="35" fgColor="800000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Current line background colour" styleID="0" bgColor="FF80C0" />
         <!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->

@@ -862,7 +862,7 @@ Installation:
             <WordsStyle name="IDENTIFIER" styleID="11" fgColor="000087" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENTBLOCK" styleID="12" fgColor="87875f" bgColor="d7d7af" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="STRINGEOL" styleID="13" fgColor="87875f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="BUILTINS" styleID="14" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="10" keywordClass="instre2" />
+            <WordsStyle name="BUILTINS" styleID="14" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
             <WordsStyle name="F STRING" styleID="16" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="F CHARACTER" styleID="17" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="F TRIPLE" styleID="18" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />

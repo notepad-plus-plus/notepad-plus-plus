@@ -215,8 +215,8 @@ https://notepad-plus-plus.org/donate/
             <!-- TYPEDEF styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
             <WordsStyle name="TYPEDEF"                      styleID="22" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="" fontSize="" keywordClass="type1" />
             <WordsStyle name="MU"                           styleID="23" fgColor="66FF00" bgColor="000000" fontName="" fontStyle="" fontSize="" />
-            <WordsStyle name="POSITIONAL"                   styleID="24" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="9" />
-            <WordsStyle name="ASSOCIATIVE"                  styleID="25" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="9" />
+            <WordsStyle name="POSITIONAL"                   styleID="24" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ASSOCIATIVE"                  styleID="25" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CALLABLE"                     styleID="26" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="GRAMMAR"                      styleID="27" fgColor="C0C0C0" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CLASS"                        styleID="28" fgColor="C0C0C0" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
@@ -581,7 +581,7 @@ https://notepad-plus-plus.org/donate/
             <WordsStyle name="OPERATOR" styleID="10" fgColor="FFCC00" bgColor="000000" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="IDENTIFIER" styleID="11" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENTBLOCK" styleID="12" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
-            <WordsStyle name="BUILTINS" styleID="14" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="10" keywordClass="instre2" />
+            <WordsStyle name="BUILTINS" styleID="14" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
             <WordsStyle name="STRINGEOL" styleID="13" fgColor="FFFF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="F STRING" styleID="16" fgColor="66FF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="F CHARACTER" styleID="17" fgColor="66FF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />

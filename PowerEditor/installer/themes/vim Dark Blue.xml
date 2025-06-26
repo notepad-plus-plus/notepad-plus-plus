@@ -738,7 +738,7 @@
             <WordsStyle name="OPERATOR" styleID="10" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="IDENTIFIER" styleID="11" fgColor="C0C0C0" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENTBLOCK" styleID="12" fgColor="80A0FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="BUILTINS" styleID="14" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="10" keywordClass="instre2" />
+            <WordsStyle name="BUILTINS" styleID="14" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
         </LexerType>
         <LexerType name="raku" desc="Raku" ext="">
             <WordsStyle name="DEFAULT"                      styleID="0" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="" fontSize="" />

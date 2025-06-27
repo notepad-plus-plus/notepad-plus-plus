@@ -5,7 +5,7 @@ Updated to :
 - little fixes
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.8.2">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.8.1">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->

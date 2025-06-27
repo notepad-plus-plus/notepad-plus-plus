@@ -5,7 +5,7 @@
 		- Radoš Milićev (https://github.com/rammba)
 -->
 <NotepadPlus>
-	<Native-Langue name="Srpski" filename="serbian.xml"  version="8.8">
+	<Native-Langue name="Srpski" filename="serbian.xml"  version="8.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -137,6 +137,8 @@
 					<Item id="42060" name="Poređaj linije leksikografski opadajuće"/>
 					<Item id="42080" name="Poređaj leks. rastuće bez obzira na veličinu slova"/>
 					<Item id="42081" name="Poređaj leks. opadajuće bez obzira na veličinu slova"/>
+					<Item id="42100" name="Poređaj linije rastuće po lokalnom jeziku"/>
+					<Item id="42101" name="Poređaj linije opadajuće po lokalnom jeziku"/>
 					<Item id="42061" name="Poređaj linije kao cele brojeve rastuće"/>
 					<Item id="42062" name="Poređaj linije kao cele brojeve opadajuće"/>
 					<Item id="42063" name="Poređaj linije kao dec. brojeve (zarez) rastuće"/>
@@ -194,13 +196,14 @@
 					<Item id="42025" name="Sačuvaj trenutno snimljeni makro"/>
 					<Item id="42026" name="Smer teksta s desna na levo (RTL)"/>
 					<Item id="42027" name="Smer teksta s leva na desno (LTR)"/>
-					<Item id="42028" name="Postavi samo za čitanje"/>
+					<Item id="42028" name="Samo za čitanje u Notepad++"/>
 					<Item id="42029" name="Kopiraj putanju trenutne datoteke"/>
 					<Item id="42030" name="Kopiraj naziv trenutne datoteke"/>
 					<Item id="42031" name="Kopiraj trenutnu putanju direktorijuma"/>
 					<Item id="42087" name="Kopiraj nazive svih datoteka"/>
 					<Item id="42088" name="Kopiraj putanje svih datoteka"/>
 					<Item id="42032" name="Pokreni makro više puta..."/>
+					<Item id="42033" name="Atribut samo za čitanje na Windows-u"/>
 					<Item id="42035" name="Jednolinijski komentar"/>
 					<Item id="42036" name="Poništi jednolinijski komentar"/>
 					<Item id="42055" name="Ukloni prazne linije"/>
@@ -435,7 +438,8 @@
 				<Item CMDID="41016" name="Pomeri u kantu"/>
 				<Item CMDID="41014" name="Ponovo učitaj"/>
 				<Item CMDID="41010" name="Odštampaj..."/>
-				<Item CMDID="42028" name="Samo za čitanje"/>
+				<Item CMDID="42028" name="Samo za čitanje u Notepad++"/>
+				<Item CMDID="42033" name="Atribut samo za čitanje na Windows-u"/>
 				<Item CMDID="2" name="Kopiraj u clipboard"/>
 				<Item CMDID="42029" name="Kopiraj punu putanju datoteke"/>
 				<Item CMDID="42030" name="Kopiraj naziv datoteke"/>
@@ -990,6 +994,8 @@
 					<Item id="6120" name="Uspravno"/>
 					<Item id="6121" name="Zatvori zatvaranjem poslednjeg tab-a"/>
 					<Item id="6128" name="Obrni ikonice"/>
+					<Item id="6125" name="Ponašanje"/>
+					<Item id="6126" name="Izgled i osećaj"/>
 				</Tabbar>
 
 				<Scintillas title="Uređivanje 1">
@@ -1102,6 +1108,7 @@
 					<Item id="6419" name="Novi dokument"/>
 					<Item id="6420" name="Primeni na otvorene ANSI dat."/>
 					<Item id="6432" name="Uvek otvori novi dokument prilikom pokretanja"/>
+					<Item id="6433" name="Koristi prvu liniju kao ime neimenovanog tab-a"/>
 				</NewDoc>
 
 				<DefaultDir title="Podrazumevani dir.">
@@ -1345,13 +1352,18 @@
 						<Element name="DirectWrite (crtaj na GDI DC)"/>
 						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="Onemogući"/>
+						<Element name="Omogući pri pokretanju Notepad++"/>
+						<Element name="Omogući pri zatvaranju Notepad++"/>
+					</ComboBox>
 					<Item id="6308" name="sistemska traka"/>
 					<Item id="6363" name="režim renderovanja"/>
+					<Item id="6365" name="Samoažuriranje:"/>
 					<Item id="6312" name="Samoprepoznavanje statusa datoteke"/>
 					<Item id="6313" name="Tiho ažuriranje"/>
 					<Item id="6325" name="Idi na poslednju liniju nakon ažur."/>
 					<Item id="6322" name="Ekstenzija datoteke u sesiji:"/>
-					<Item id="6323" name="Omogući Notepad++ samoažuriranje"/>
 					<Item id="6324" name="Biranje dokumenta (Ctrl+TAB)"/>
 					<Item id="6331" name="Prikaži samo naziv datoteke u naslovnoj traci"/>
 					<Item id="6334" name="Automatski detektuj kodiranje karaktera"/>
@@ -1466,6 +1478,9 @@ Podešavanja u oblaku će biti otkazana. Resetujte vrednost u dijalogu za prefer
 			<DroppingFolderAsProjectModeWarning title="Nevalidna akcija" message="Možete ubaciti samo fajlove ili foldere, ne oba, zato što koristite mod ubacivanja foldera kao projekta.
 Morate omogućiti &quot;Otvori sve datoteke u folderu umesto pokretanja foldera kao workspace-a prilikom ubacivanja foldera&quot; u sekciji &quot;Podrazumevani direktorijum&quot; u dijalogu za preference kako bi ova operacija radila."/>
 			<SortingError title="Greška pri sortiranju" message="Brojčano sortiranje se ne može izvršiti zbog linije $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SortLocaleMultiple title="Sortiranje nije izvršeno" message="Sortiranje višestrukog odabira nije podržano."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleUnknown title="Neuspešno sortiranje" message="Razlog neuspešnog sortiranja se ne može utvrditi."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+			<SortLocaleExcept title="Neuspešno sortiranje" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Savet za mod kolone" message="
 Postoje 3 načina da uključite mod odabira kolone:
 
@@ -1586,6 +1601,7 @@ Ako zahtevate obrnuti smer pretrage regularnih izraza, konsultujte uputstvo sa i
 			<FindAutoChangeOfInSelectionWarning title="Upozorenje pretrage" message="Vrednost &quot;U izboru&quot; je automatski izmenjena.
 Molimo potvrdite uslove pretrage pre izvršenja akcije."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ se mora ponovo pokrenuti" message="Notepad++ se mora ponovo pokrenuti da bi prikazao prečice u desnom meniju."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Neuspešna izmena atributa samo za čitanje" message="Molimo pokrenite Notepad++ kao administrator da biste izmenili atribute datoteke."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Istorija clipboard-a"/>

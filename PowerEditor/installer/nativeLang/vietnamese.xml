@@ -135,8 +135,10 @@ Translation note:
 					<Item id="42015" name="Di chuyển dòng hiện tại xuống"/>
 					<Item id="42059" name="Sắp xếp các dòng theo kiểu từ điển tăng dần"/>
 					<Item id="42060" name="Sắp xếp các dòng theo kiểu từ điển giảm dần"/>
-					<Item id="42080" name="Sắp xếp dòng kiểu từ điển tăng dần bỏ qua hoa thường"/>
-					<Item id="42081" name="Sắp xếp dòng kiểu từ điển giảm dần bỏ qua hoa thường"/>
+					<Item id="42080" name="Sắp xếp các dòng kiểu từ điển tăng dần bỏ qua hoa thường"/>
+					<Item id="42081" name="Sắp xếp các dòng kiểu từ điển giảm dần bỏ qua hoa thường"/>
+					<Item id="42100" name="Sắp xếp các dòng theo ngữ cảnh địa phương thứ tự tăng dần"/>
+					<Item id="42101" name="Sắp xếp các dòng theo ngữ cảnh địa phương thứ tự giảm dần"/>
 					<Item id="42061" name="Sắp xếp các dòng như số nguyên tăng dần"/>
 					<Item id="42062" name="Sắp xếp các dòng như số nguyên giảm dần"/>
 					<Item id="42063" name="Sắp xếp các dòng như số thập phân (phẩy) tăng dần"/>
@@ -201,6 +203,7 @@ Translation note:
 					<Item id="42087" name="Sao chép tất cả tên tệp"/>
 					<Item id="42088" name="Sao chép tất cả đường dẫn tệp "/>
 					<Item id="42032" name="Chạy một vĩ lệnh nhiều lần..."/>
+					<Item id="42033" name="Thuộc tính Chỉ đọc trong Windows"/>
 					<Item id="42035" name="Chú thích dòng đơn"/>
 					<Item id="42036" name="Bỏ chú thích dòng đơn"/>
 					<Item id="42055" name="Loại bỏ dòng trống"/>
@@ -943,13 +946,38 @@ Translation note:
 			<Preference title="Sở thích">
 				<Item id="6001" name="Đóng"/>
 				<Global title="Tổng quát">
+					<Item id="6123" name="Địa phương hoá"/>
+					<Item id="6131" name="Bảng chọn"/>
+					<Item id="6122" name="Ẩn thanh bảng chọn (dùng phím Alt hay F10 để bật tắt)"/>
+					<Item id="6132" name="Ẩn các lối tắt bên phải ＋ ▼ ✕ từ thanh bảng chọn (Cần khởi động lại Notepad++)"/>
+					<Item id="6133" name="Thanh trạng thái"/>
+					<Item id="6134" name="Ẩn"/>
+				</Global>
+
+				<Toolbar title="Thanh công cụ">
 					<Item id="6102" name="Ẩn"/>
 					<Item id="6103" name="Fluent UI: nhỏ"/>
 					<Item id="6104" name="Fluent UI: lớn"/>
 					<Item id="6129" name="Fluent UI Đặc: nhỏ"/>
 					<Item id="6130" name="Fluent UI Đặc: lớn"/>
 					<Item id="6105" name="Biểu tượng chuẩn: nhỏ"/>
+					<Item id="6011" name="Tô màu"/>
+					<Item id="6012" name="Toàn bộ"/>
+					<Item id="6013" name="Một phần"/>
+					<Item id="6014" name="Tuỳ chọn màu sắc"/>
+					<Item id="6015" name="Mặc định"/>
+					<Item id="6016" name="Đỏ"/>
+					<Item id="6017" name="Xanh lá cây"/>
+					<Item id="6018" name="Xanh lam"/>
+					<Item id="6019" name="Tím"/>
+					<Item id="6020" name="Xanh lơ"/>
+					<Item id="6021" name="Xanh ôliu"/>
+					<Item id="6022" name="Vàng"/>
+					<Item id="6023" name="Điểm nhấn hệ thống"/>
+					<Item id="6024" name="Tuỳ chỉnh"/>
+				</Toolbar>
 
+				<Tabbar title="Thanh Tab">
 					<Item id="6107" name="Giảm"/>
 					<Item id="6108" name="Khóa (không có kéo và thả)"/>
 					<Item id="6109" name="Làm tối các thẻ không hoạt động"/>
@@ -958,21 +986,16 @@ Translation note:
 					<Item id="6112" name="Hiện nút đóng"/>
 					<Item id="6113" name="Nháy đúp để đóng tài liệu"/>
 					<Item id="6115" name="Bật tính năng ghim thẻ"/>
+					<Item id="6135" name="Chỉ hiện nút ghim thẻ"/>
 					<Item id="6118" name="Ẩn"/>
 					<Item id="6119" name="Nhiều dòng"/>
 					<Item id="6120" name="Thẳng đứng"/>
 					<Item id="6121" name="Thoát khi đóng thẻ cuối cùng"/>
 					<Item id="6128" name="Biểu tượng thay thế"/>
+					<Item id="6125" name="Hành vi"/>
+					<Item id="6126" name="Quan sát &amp;&amp; cảm nhận"/>
+				</Tabbar>
 
-					<Item id="6133" name="Thanh trạng thái"/>
-					<Item id="6134" name="Ẩn"/>
-
-					<Item id="6131" name="Bảng chọn"/>
-					<Item id="6122" name="Ẩn thanh bảng chọn (dùng phím Alt hay F10 để bật tắt)"/>
-					<Item id="6132" name="Ẩn các lối tắt bên phải ＋ ▼ ✕ từ thanh bảng chọn (Cần khởi động lại Notepad++)"/>
-
-					<Item id="6123" name="Địa phương hoá"/>
-				</Global>
 
 				<Scintillas title="Chỉnh sửa 1">
 					<Item id="6216" name="Thiết đặt con trỏ văn bản"/>
@@ -1320,6 +1343,18 @@ Translation note:
 						<Element name="Đóng vào"/>
 						<Element name="Thu nhỏ / đóng vào"/>
 					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (tương thích tốt nhất)"/>
+						<Element name="DirectWrite (mặc định)"/>
+						<Element name="DirectWrite (giữ lại khung)"/>
+						<Element name="DirectWrite (vẽ vào GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="Vô hiệu hoá"/>
+						<Element name="Kích hoạt khi khởi động Notepad++"/>
+						<Element name="Kích hoạt khi thoát Notepad++"/>
+					</ComboBox>
 					<Item id="6308" name="khay hệ thống"/>
 					<Item id="6312" name="Tự phát hiện trạng thái tệp"/>
 					<Item id="6313" name="Lặng lẽ cập nhật"/>
@@ -1440,6 +1475,9 @@ Các thiết đặt đám mây của bạn sẽ bị huỷ. Xin hãy đặt lạ
 			<DroppingFolderAsProjectModeWarning title="Hành động không hợp lệ" message="Bạn chỉ có thể thả tệp hoặc thư mục chứ không phải cả hai, bởi vì bạn đang ở chế độ thả Thư mục như là dự án.
 bạn phải bật &quot;Mở tất cả các tệp của thư mục thay vì chạy Thư mục như là không gian làm việc khi thả thư mục&quot; trong mục &quot;Thư mục mặc định&quot; của hộp thoại Thiết đặt để làm cho thao tác này hoạt động được."/>
 			<SortingError title="Lỗi sắp xếp" message="Không thể thực hiện sắp xếp số do dòng $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SortLocaleMultiple title="Không sắp xếp được" message="Không hỗ trợ sắp xếp nhiều lựa chọn"/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleUnknown title="Sắp xếp thất bại" message="Không thể xác định nguyên nhân sắp xếp thất bại."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+			<SortLocaleExcept title="Sắp xếp thất bại" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Mẹo chế độ cột" message="
 Có 3 cách để chuyển sang chế độ chọn cột:
 
@@ -1510,6 +1548,11 @@ Bạn có muốn tiếp tục không?"/>
 			<UDLNewNameError title="Lỗi UDL" message="Tên này đã được một ngôn ngữ khác sử dụng,
 xin hãy chọn tên khác."/>
 			<UDLRemoveCurrentLang title="Loại bỏ ngôn ngữ hiện tại" message="Bạn chắc chưa?"/>
+			<UDL_importSuccessful title="Ngôn ngữ người dùng tự định nghĩa" message="Nhập dữ liệu thành công."/>
+			<UDL_importFails title="Ngôn ngữ người dùng tự định nghĩa" message="Nhập dữ liệu thất bại."/>
+			<UDL_saveBeforeImport title="Ngôn ngữ người dùng tự định nghĩa" message="Trước khi xuất dữ liệu, hãy lưu định nghĩa ngôn ngữ của bạn lại bằng cách nhấn vào nút &quot;Lưu như...&quot;."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_exportSuccessful title="Ngôn ngữ người dùng tự định nghĩa" message="Xuất dữ liệu thành công."/>
+			<UDL_exportFails title="Ngôn ngữ người dùng tự định nghĩa" message="Xuất dữ liệu thất bại."/>
 			<SCMapperDoDeleteOrNot title="Bạn chắc chưa?" message="Bạn có chắc là muốn xoá phím tắt này không?"/>
 			<FindCharRangeValueError title="Vấn đề giá trị khoảng" message="Bạn phải nhập trong khoảng từ 0 đến 255."/>
 			<OpenInAdminMode title="Lưu thất bại" message="Tệp không thể được lưu và có thể nó đã được bảo vệ.
@@ -1555,6 +1598,7 @@ Nếu bạn cần tính năng tìm kiếm biểu thức chính quy ngược chi�
 			<FindAutoChangeOfInSelectionWarning title="Cảnh báo tìm kiếm" message="Hộp kiểm &quot;Trong phần được chọn&quot; đã bị tự động sửa đổi.
 Xin vui lòng xác nhận lại điều kiện tìm kiếm trước khi thực hiện hành động này."/><!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ cần được khởi động lại" message="Notepad++ cần được khởi động lại để hiển thị các lối tắt ở bảng chọn bên phải."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Thay đổi thuộc tính chỉ đọc của tệp thất bại" message="Vui lòng chạy Notepad++ với quyền quản trị viên để thay đổi thuộc tính của tệp."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Lịch sử bảng tạm"/>
@@ -1828,6 +1872,19 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Nếu bạn chọn chế độ nâng cao nhưng không sửa tệp viết bằng các ngôn ngữ nêu trên thì thụt lề sẽ vẫn ở chế độ cơ bản."/>
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Kích hoạt &quot;Global override&quot; ở đây sẽ ghi đè các tham số ở tất cả các kiểu dáng ngôn ngữ. Nhiều khả năng bạn sẽ muốn dùng thiết đặt &quot;Default Style&quot; thay vào đó"/>
+			<scintillaRenderingTechnology-tip value="Có thể cải thiện việc hiển thị các ký tự đặc biệt hoặc giải quyết một số vấn đề về đồ họa, hãy khởi động lại Notepad++ để áp dụng các thay đổi."/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="độ dài: $STR_REPLACE1$    dòng: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Ln: $STR_REPLACE1$    Col: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Pos: "/>
+			<statusbar-Sel value="Sel: "/>
+			<statusbar-Sel-number value="Sel"/>
+			<toolbar-accent-tip value="Tùy chọn này làm cho các biểu tượng thanh công cụ của bạn theo màu nhấn của hệ thống Windows. Màu nhấn là màu nổi bật được sử dụng trong các nút, đường viền và ô menu Bắt đầu trong Windows. Để thay đổi, hãy vào Cài đặt &gt; Cá nhân hóa &gt; Màu sắc, sau đó chọn màu nhấn ưa thích của bạn."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

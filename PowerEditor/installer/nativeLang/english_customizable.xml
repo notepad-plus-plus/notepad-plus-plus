@@ -1776,6 +1776,7 @@ Find in all files but exclude all folders log or logs recursively:
 			<finder-open-selected-paths value="Open Selected Pathname(s)"/>
 			<finder-purge-for-every-search value="Purge for every search"/>
 			<finder-wrap-long-lines value="Word wrap long lines"/>
+			<find-replace-max-length-warning value="$STR_REPLACE$ Exceeded the maximum length of $INT_REPLACE$ characters. Extra characters will be truncated."/>
 			<common-ok value="OK"/>
 			<common-cancel value="Cancel"/>
 			<common-name value="Name"/>

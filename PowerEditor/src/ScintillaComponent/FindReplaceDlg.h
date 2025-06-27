@@ -43,6 +43,8 @@ enum DIALOG_TYPE {FIND_DLG, REPLACE_DLG, FINDINFILES_DLG, FINDINPROJECTS_DLG, MA
 #define FIND_STATUS_REPLACE_END_REACHED_TEXT L"Replace: Reached document end, started from top."
 #define FIND_STATUS_REPLACE_TOP_REACHED_TEXT L"Replace: Reached document beginning, started from bottom."
 
+#define WARNING_FIND_REPLACE_MAX_LENGTH	L"$STR_REPLACE$ Exceeded the maximum length of $INT_REPLACE$ characters. Extra characters will be truncated."
+
 enum InWhat{ALL_OPEN_DOCS, FILES_IN_DIR, CURRENT_DOC, CURR_DOC_SELECTION, FILES_IN_PROJECTS};
 
 struct FoundInfo {

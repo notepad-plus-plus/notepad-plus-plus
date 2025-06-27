@@ -1729,6 +1729,7 @@ Tìm trong tất cả các tệp nhưng loại trừ tất cả thư mục log h
 			<finder-open-selected-paths value="Mở tất cả (các) tên đường dẫn được chọn"/>
 			<finder-purge-for-every-search value="Tẩy sạch cho mỗi lần tìm kiếm"/>
 			<finder-wrap-long-lines value="Bọc từ ở các dòng dài"/>
+			<find-replace-max-length-warning value="$STR_REPLACE$ Vượt quá giới hạn $INT_REPLACE$ ký tự. Các ký tự thừa sẽ bị cắt bỏ."/>
 			<common-ok value="OK"/>
 			<common-cancel value="Huỷ"/>
 			<common-name value="Tên"/>

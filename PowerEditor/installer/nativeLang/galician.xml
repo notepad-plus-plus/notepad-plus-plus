@@ -33,7 +33,7 @@ Translation note:
 					<Item subMenuId="edit-indent" name="Tab&amp;ulación"/>
 					<Item subMenuId="edit-convertCaseTo" name="Conversión de &amp;maiúsculas e minúsculas"/>
 					<Item subMenuId="edit-lineOperations" name="Operacións con li&amp;ñas"/>
-					<Item subMenuId="edit-comment" name="Comen&amp;tar/Descomentar"/>
+					<Item subMenuId="edit-comment" name="Comen&amp;tar / Descomentar"/>
 					<Item subMenuId="edit-autoCompletion" name="&amp;Autocompletar"/>
 					<Item subMenuId="edit-eolConversion" name="Con&amp;versión fin de liña"/>
 					<Item subMenuId="edit-blankOperations" name="Operacións de limpe&amp;za"/>
@@ -196,13 +196,14 @@ Translation note:
 					<Item id="42025" name="&amp;Gardar macro actualmente gravada"/>
 					<Item id="42026" name="Texto dereita-esquerda"/>
 					<Item id="42027" name="Texto esquerda-dereita"/>
-					<Item id="42028" name="&amp;Só lectura"/>
+					<Item id="42028" name="Só lectura en Notepad++"/>
 					<Item id="42029" name="Copiar a ruta actual do arquivo"/>
 					<Item id="42030" name="Copiar o nome actual do arquivo"/>
 					<Item id="42031" name="Copiar o nome actual da carpeta"/>
 					<Item id="42087" name="Copiar tódolos nomes dos arquivos"/>
 					<Item id="42088" name="Copiar tódalas rutas dos arquivos"/>
 					<Item id="42032" name="&amp;Executar macro múltiples veces..."/>
+					<Item id="42033" name="Atributo de só lectura en Windows"/>
 					<Item id="42035" name="Comentar unha liña"/>
 					<Item id="42036" name="Descomentar unha liña"/>
 					<Item id="42055" name="Eliminar liñas baleiras"/>
@@ -437,7 +438,8 @@ Translation note:
 				<Item CMDID="41016" name="Mover á Papeleira de reciclaxe"/>
 				<Item CMDID="41014" name="Recargar"/>
 				<Item CMDID="41010" name="Imprimir..."/>
-				<Item CMDID="42028" name="Só lectura"/>
+				<Item CMDID="42028" name="Só lectura en Notepad++"/>
+				<Item CMDID="42033" name="Atributo de só lectura en Windows"/>
 				<Item CMDID="2" name="Copiar ao portapapeis"/>
 				<Item CMDID="42029" name="Copiar ruta completa do arquivo"/>
 				<Item CMDID="42030" name="Copiar nome do arquivo"/>
@@ -1349,13 +1351,18 @@ Translation note:
 						<Element name="DirectWrite (debuxar a GDI DC)"/>
 						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="Desactivar"/>
+						<Element name="Activar ao iniciar Notepad++"/>
+						<Element name="Activar ao saír de Notepad++"/>
+					</ComboBox>
 					<Item id="6308" name="barra de notificacións"/>
 					<Item id="6363" name="modo de representación"/>
+					<Item id="6365" name="Actualizador:"/>
 					<Item id="6312" name="Autodetectar estado do arquivo"/>
 					<Item id="6313" name="Actualizar sen notificar"/>
 					<Item id="6325" name="Ir á última liña tras actualizar"/>
 					<Item id="6322" name="Extensión do arquivo de sesión:"/>
-					<Item id="6323" name="Actualizar automaticamente Notepad++"/>
 					<Item id="6324" name="Cambiar de documento (Ctrl+TAB)"/>
 					<Item id="6331" name="Mostrar só o nome do arquivo no título da ventá"/>
 					<Item id="6334" name="Autodetectar codificación"/>
@@ -1597,6 +1604,7 @@ Se necesita a función de busca regex cara atrás, consulte o manual do usuario 
 			<FindAutoChangeOfInSelectionWarning title="Advertencia da busca" message="O estado do recadro &quot;Na selección&quot; modificouse automáticamente.
 Por favor, comprobe a condición da busca antes de realizar a acción."/><!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="É necesario reiniciar Notepad++" message="Debe reiniciar Notepad++ para mostrar os accesos directos da dereita no menú."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Non se pode cambiar o atributo de só lectura do arquivo" message="Reinicie Notepad++ como administrador para poder cambialo."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historial do portapapeis"/>

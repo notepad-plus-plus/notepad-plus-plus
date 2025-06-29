@@ -5845,6 +5845,7 @@ intptr_t CALLBACK MultiInstanceSubDlg::run_dlgProc(UINT message, WPARAM wParam, 
 			::SendDlgItemMessage(_hSelf, IDC_MONOINST_RADIO, BM_SETCHECK, multiInstSetting == monoInst?BST_CHECKED:BST_UNCHECKED, 0);
 
 			::SendDlgItemMessage(_hSelf, IDD_DATETIMEFORMAT_REVERSEORDER_CHECK, BM_SETCHECK, nppGUI._dateTimeReverseDefaultOrder ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDD_DATETIMEFORMAT_INCLUDE_TZ_CHECK, BM_SETCHECK, nppGUI._includeTimezoneInInsertDateTime ? BST_CHECKED : BST_UNCHECKED, 0);
 
 			::SetDlgItemText(_hSelf, IDC_DATETIMEFORMAT_EDIT, nppGUI._dateTimeFormat.c_str());
 			wstring datetimeStr = getDateTimeStrFrom(nppGUI._dateTimeFormat, _BTTF_time);
@@ -5910,6 +5911,12 @@ intptr_t CALLBACK MultiInstanceSubDlg::run_dlgProc(UINT message, WPARAM wParam, 
 				case IDD_DATETIMEFORMAT_REVERSEORDER_CHECK:
 				{
 					nppGUI._dateTimeReverseDefaultOrder = isCheckedOrNot(IDD_DATETIMEFORMAT_REVERSEORDER_CHECK);
+				}
+				break;
+
+				case IDD_DATETIMEFORMAT_INCLUDE_TZ_CHECK:
+				{
+					nppGUI._includeTimezoneInInsertDateTime = isCheckedOrNot(IDD_DATETIMEFORMAT_INCLUDE_TZ_CHECK);
 				}
 				break;
 

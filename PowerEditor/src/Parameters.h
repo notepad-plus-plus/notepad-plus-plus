@@ -918,6 +918,7 @@ struct NppGUI final
 
 	std::wstring _dateTimeFormat = L"yyyy-MM-dd HH:mm:ss";
 	bool _dateTimeReverseDefaultOrder = false;
+	bool _includeTimezoneInInsertDateTime = false;
 
 	void setTabReplacedBySpace(bool b) {_tabReplacedBySpace = b;};
 	const NewDocDefaultSettings & getNewDocDefaultSettings() const {return _newDocDefaultSettings;};

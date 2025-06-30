@@ -1074,6 +1074,11 @@ bool NppParameters::reloadStylers(const wchar_t* stylePath)
 	_lexerStylerVect.clear();
 	_widgetStyleArray.clear();
 
+	for (int index = 0; index < _nbLang; ++index)
+		delete _langList[index];
+	_nbLang = 0;
+
+	getLangKeywordsFromXmlTree();
 	getUserStylersFromXmlTree();
 
 	//  Reload plugin styles.

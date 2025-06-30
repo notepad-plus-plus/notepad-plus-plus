@@ -1,43 +1,33 @@
-Notepad++ v8.8.1 regression-fixes, bug-fixes & new features:
+Notepad++ v8.8.2 regression-fixes, bug-fixes & new features:
 
- 1. Fix ShortcutMapper regression (from v8.7.6) of displaying wrong shortcut while editing.
- 2. Fix Find in files progress bar visual regression (from v8.8).
- 3. Fix search result cut off result content due to nul characters ('\0').
- 4. Add Locale-based line sort feature.
- 5. Enable selection history for undo & redo.
- 6. Fix plugins removal failure issue (fixed in WinGUp).
- 7. Fix tab settings for external lexers cannot be saved issue.
- 8. Add ErrorList syntax highlighting.
- 9. Fix disabled Paste command with no previous text-data in clipboard.
-10. Fix wrong directory opened for opening files issue.
-11. Improve Find dialog look & feel (more space).
-
-
-Notepad++ v8.8 new features, regression-fixes & bug-fixes:
-
- 1. Update to scintilla 5.5.6 & Lexilla 5.4.4.
- 2. Fix a hanging issue on regexp regression.
- 3. Fix vertical tab bar messed up regression.
- 4. Add option to apply different color to fluent toolbar icons.
- 5. Add "Show only pinned button" option to prevent from inacurate click.	
- 6. Fix broken cloned file state after Notepad++ restart.    
- 7. Fix inactive buffer reloading problem.
- 8. Dark mode enhancements: combobox, slider, treeview edit, inactive menu bar & toolbar chevron.
- 9. Reorganize GUI (add Toolbar & Tab Bar sections) of Preferences dialog.
-10. Fix invalid dot-character(s) handling in filenames checking.
-11. Fix crash when using custom toolbar icons.
-12. Add class & method recognization ability for JavaScript function list.
-13. Remove toolbarIcons.xml, use toolbarButtonsConf.xml for toolbar custom icons & hiding buttons.
-14. Add GUI option in Preferences dialog instead of using zero length enableSelectFgColor.xml.
-15. Fix "Keep selection when right-click outside of selection" not working issue.
-16. Fix Find dialog status text too left visual glitch.
-17. Force npcNoInputC0 value as "true" by default to avoid C0 code input.
-18. Remove "-pluginMessage" argument unnecessary restriction.
-19. Fix an easter egg not showing issue.
+ 1. Fix regression of folding state not being remembered through sessions.
+ 2. Fix "Go To Settings" links in Style Configurator regression (from v8.8).
+ 3. Fix small regression of tab background (hovered) highlighting issue after drag&drop.
+ 4. Fix an unresponsive (hang) issue due to hide lines.
+ 5. Fix installer security issue by using absolute path instead of unspecified path (CVE-2025-49144).
+ 6. Installer component "WinGUp": update cURL to 8.13.0 for fixing cURL's security issue CVE-2025-0167.
+ 7. Update to scintilla 5.5.7 & Lexilla 5.4.5.
+ 8. Add feature to update Notepad++ on exit.
+ 9. Add `/relaunchNppAfterSilentInstall` command argument for installer.
+10. Add feature to set read-only attribute on file so user can toggle (set/remove) read-only attribute of a file.
+11. Add new plugin API: NPPM_GETTOOLBARICONSETMODE & NPPN_TOOLBARICONSETCHANGED to get toolbar icon set choice.
+12. Deprecate 3 APIs: Deprecate NPPM_GETOPENFILENAMES, NPPM_GETOPENFILENAMESPRIMARY & NPPM_GETOPENFILENAMESSECOND.
+13. Add new feature of using first line of untitled document for its tab name.
+14. Enhance NPPM_DARKMODESUBCLASSANDTHEME: Enable darkmode progress bar for plugins.
+15. Various dark mode enhancements.    
+16. Fix right click on caption bar unhidding main menu.
+17. Fix rename tab error message when tab name is unchanged.
+18. Fix Python FunctionList absorbing next function issue if space after colon.
+19. Remove .log from errorlist lexer's default extensions.
+20. Make raw string syntax highlighting work for Golang.
+21. Fix Notepad++ tray icon lost after Windows Taskbar crashing & being relaunched.       
+22. Fix changing toolbar icon set not updating to matching panel icon set.
+23. Fix Windows dialog file list not react with keystroke (character match).
+24. Add "*" mark on modified file entries in "Windows" dropdown menu.
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.8.1/
+https://notepad-plus-plus.org/downloads/v8.8.2/
 
 
 Included plugins:
@@ -49,4 +39,4 @@ Included plugins:
 
 Updater (Installer only):
 
-* WinGUp (for Notepad++) v5.3.2
+* WinGUp (for Notepad++) v5.3.3

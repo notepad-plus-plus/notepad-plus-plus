@@ -203,6 +203,7 @@ Translation note:
 					<Item id="42087" name="Kopiera alla filnamn"/>
 					<Item id="42088" name="Kopiera alla filsökvägar"/>
 					<Item id="42032" name="&amp;Kör ett makro flera gånger..."/>
+					<Item id="42033" name="Skrivskyddsattribut i Windows"/>
 					<Item id="42035" name="Kommentera rad"/>
 					<Item id="42036" name="Avkommentera rad"/>
 					<Item id="42055" name="Ta bort tomma rader"/>
@@ -405,7 +406,7 @@ Translation note:
 					<Item id="42041" name="Töm listan med senast använda filer"/>
 					<Item id="48016" name="Ändra kortkommando/Radera makro..."/>
 					<Item id="48017" name="Ändra kortkommando/Radera kommando..."/>
-					
+
 					<Item id="11001" name="F&amp;önster..."/>
 					<Item id="11002" name="Namn, A till Ö"/>
 					<Item id="11003" name="Namn, Ö till A"/>
@@ -438,6 +439,7 @@ Translation note:
 				<Item CMDID="41014" name="Ladda om"/>
 				<Item CMDID="41010" name="Skriv ut..."/>
 				<Item CMDID="42028" name="Aktivera skrivskydd"/>
+				<Item CMDID="42033" name="Skrivskyddsattribut i Windows"/>
 				<Item CMDID="2" name="Kopiera till urklipp"/>
 				<Item CMDID="42029" name="Kopiera fullständig sökväg"/>
 				<Item CMDID="42030" name="Kopiera filens namn"/>
@@ -462,7 +464,7 @@ Translation note:
 				<Item id="43102" name="Ny"/>
 				<Item id="43103" name="Ny och klistra in"/>
 				<Item id="43104" name="Öppna..."/>
-				<Item id="43013" name="Hitta i filer..."/>
+				<Item id="43013" name="Sök i filer..."/>
 				<Item id="43105" name="Stäng systemfältsikon"/>
 			</TrayIcon>
 		</Menu>
@@ -500,7 +502,6 @@ Translation note:
 				<Item id="1626" name="&amp;Utökat (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="Ersätt i filer"/>
 				<Item id="1665" name="Ersätt i projekt"/>
-				<Item id="1661" name="Följ nuvarande dokument"/>
 				<Item id="1662" name="Projektpanel nr. 1"/>
 				<Item id="1663" name="Projektpanel nr. 2"/>
 				<Item id="1664" name="Projektpanel nr. 3"/>
@@ -508,7 +509,7 @@ Translation note:
 				<Item id="1686" name="&amp;Genomskinlighet"/>
 				<Item id="1703" name="&amp;. matchar ny rad"/>
 				<Item id="1721" name="▲"/>
-				<Item id="1723" name="▼ Hitta nästa"/>
+				<Item id="1723" name="▼ Sök nästa"/>
 				<Item id="1725" name="Ko&amp;piera markerad text"/>
 				<Menu>
 					<Item id="1726" name="⇅ Byt Sök med Ersätt"/>
@@ -743,8 +744,8 @@ Translation note:
 					<Item id="44105" name="Öppna projektpanel nr. 2"/>
 					<Item id="44106" name="Öppna projektpanel nr. 3"/>
 					<Item id="44107" name="Öppna mapp som arbetsyta"/>
-					<Item id="44108" name="Öppna funktionslista"/>
 					<Item id="44109" name="Öppna dokumentlista"/>
+					<Item id="44108" name="Öppna funktionslista"/>
 					<Item id="44110" name="Ta bort flikfärg"/>
 					<Item id="44111" name="Tillämpa flikfärg 1"/>
 					<Item id="44112" name="Tillämpa flikfärg 2"/>
@@ -1351,13 +1352,18 @@ Translation note:
 						<Element name="DirectWrite (rita till GDI DC)"/>
 						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="Inaktivera"/>
+						<Element name="Aktivera när Notepad++ startar"/>
+						<Element name="Aktivera när Notepad++ avslutas"/>
+					</ComboBox>
 					<Item id="6308" name="systemfältet"/>
 					<Item id="6363" name="som renderingsläge"/>
+					<Item id="6365" name="Uppdatera automatiskt:"/>
 					<Item id="6312" name="Identifiera filstatus automatiskt"/>
 					<Item id="6313" name="Tyst uppdatering"/>
 					<Item id="6325" name="Gå till sista raden efter uppdatering"/>
 					<Item id="6322" name="Filändelse för sessionsfil:"/>
-					<Item id="6323" name="Uppdatera Notepad++ automatiskt"/>
 					<Item id="6324" name="Byt dokument (Ctrl + tabb)"/>
 					<Item id="6331" name="Visa endast filnamn i namnlisten"/>
 					<Item id="6334" name="Identifiera teckenkodning automatiskt"/>
@@ -1407,9 +1413,9 @@ Translation note:
 				<Item id="2" name="Avbryt"/>
 			</ColumnEditor>
 			<FindInFinder title="Sök i sökresultat">
-				<Item id="1" name="Hitta alla"/>
+				<Item id="1" name="Sök alla"/>
 				<Item id="2" name="Stäng"/>
-				<Item id="1711" name="Hitta &amp;vad:"/>
+				<Item id="1711" name="Sök &amp;vad:"/>
 				<Item id="1713" name="Sök &amp;bara i hittade rader"/>
 				<Item id="1714" name="Matcha bara &amp;hela ord"/>
 				<Item id="1715" name="Matcha &amp;skiftläge"/>
@@ -1436,7 +1442,7 @@ Du kan aktivera denna dialogruta i inställningarna senare."/>
 				<Item id="7" name="N&amp;ej"/>
 				<Item id="4" name="&amp;Alltid"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
-			
+
 			<DebugInfo title="Felsökningsinformation">
 				<Item id="1752" name="&amp;Kopiera felsökningsinfo till urklipp"/>
 				<Item id="1" name="OK"/>
@@ -1595,6 +1601,7 @@ Se användarmanualen för instruktioner om hur man aktiverar reguljär bakåtsö
 			<FindAutoChangeOfInSelectionWarning title="Sökvarning" message="Tillståndet hos kryssrutan &quot;I markering&quot; har ändrats automatiskt.
 Kontrollera sökvillkoren innan du utför åtgärden."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ behöver startas om" message="Notepad++ behöver startas om för att visa knapparna på högersidan."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Misslyckades att ändra filens skrivskyddsattribut" message="Starta Notepad++ som administratör för att ändra filattribut."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>
@@ -1703,7 +1710,7 @@ Kontrollera sökvillkoren innan du utför åtgärden."/> <!-- HowToReproduce: ht
 		<MiscStrings>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders.  -->
 			<word-chars-list-tip value="Detta gör det möjligt att inkludera ytterligare tecken i aktuella ordtecken när du dubbelklickar för att markera eller söker med alternativet &quot;Matcha hela ord&quot; markerat."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
-			
+
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
 			<eol-custom-color-tip value="Gå till stilkonfigureringen för att ändra den anpassade standardfärgen för radslut (&quot;EOL custom color&quot;)."/>
 
@@ -1718,17 +1725,17 @@ Kontrollera sökvillkoren innan du utför åtgärden."/> <!-- HowToReproduce: ht
 			<default-open-save-select-folder value="Välj en standardmapp"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Använd Shift + Enter för att söka i omvänd riktning"/>
 			<two-find-buttons-tip value="Sök med två knappar"/>
-			<find-in-files-filter-tip value="Hitta i cpp, cxx, h, hxx och hpp:
+			<find-in-files-filter-tip value="Sök i cpp, cxx, h, hxx och hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
-Hitta i alla filer utom exe, obj och log:
+Sök i alla filer utom exe, obj och log:
 *.* !*.exe !*.obj !*.log
 
-Hitta i alla filer men exkludera mapparna &quot;tests&quot;, &quot;bin&quot; och &quot;bin64&quot;:
+Sök i alla filer men exkludera mapparna &quot;tests&quot;, &quot;bin&quot; och &quot;bin64&quot;:
 *.* !\tests !\bin*
 
-Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot; rekursivt:
-*.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
+Sök i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot; rekursivt:
+*.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Välj en mapp att söka från"/><!-- HowToReproduce: Search > Find in Files > [...] -->
 			<find-in-files-dir-from-active-doc-tip value="Fyll mappfältet med aktivt dokument"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
 			<find-status-top-reached value="Sök: Början av dokumentet har nåtts, där första förekomsten hittades ifrån slutet."/>
@@ -1867,10 +1874,10 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 
 Om du väljer avancerat läge men inte redigerar filer i de omfattande språken kommer indraget förbli i enkelt läge."/>
 
-			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
+			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Om &quot;Global override&quot; aktiveras här kommer samma parameter att åsidosättas i alla språkstilar. Du vill förmodligen egentligen använda inställningen &quot;Default Style&quot; i stället"/>
 			<scintillaRenderingTechnology-tip value="Kan förbättra renderingen av specialtecken eller lösa några grafikproblem. Starta om Notepad++ för att tillämpa ändringarna."/>
-			
+
 			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
 			<statusbar-length-lines value="längd: $STR_REPLACE1$    rader: $STR_REPLACE2$"/>
 

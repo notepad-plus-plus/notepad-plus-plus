@@ -205,3 +205,23 @@ void AnsiCharPanel::insertString(LPWSTR string2insert) const
 	(*_ppEditView)->execute(SCI_ADDTEXT, len, reinterpret_cast<LPARAM>(multiByteStr));
 	(*_ppEditView)->grabFocus();
 }
+
+void AnsiCharPanel::reloadLang()
+{
+	NppParameters& nppParam = NppParameters::getInstance();
+	NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+	wstring valStr = pNativeSpeaker->getAttrNameStr(L"Value", "AsciiInsertion", "ColumnVal");
+	wstring hexStr = pNativeSpeaker->getAttrNameStr(L"Hex", "AsciiInsertion", "ColumnHex");
+	wstring charStr = pNativeSpeaker->getAttrNameStr(L"Character", "AsciiInsertion", "ColumnChar");
+	wstring htmlNameStr = pNativeSpeaker->getAttrNameStr(L"HTML Name", "AsciiInsertion", "ColumnHtmlName");
+	wstring htmlNumberStr = pNativeSpeaker->getAttrNameStr(L"HTML Decimal", "AsciiInsertion", "ColumnHtmlNumber");
+	wstring htmlHexNbStr = pNativeSpeaker->getAttrNameStr(L"HTML Hexadecimal", "AsciiInsertion", "ColumnHtmlHexNb");
+
+	short index = 0;
+	_listView.setColumnText(index++, valStr);
+	_listView.setColumnText(index++, hexStr);
+	_listView.setColumnText(index++, charStr);
+	_listView.setColumnText(index++, htmlNameStr);
+	_listView.setColumnText(index++, htmlNumberStr);
+	_listView.setColumnText(index++, htmlHexNbStr);
+}

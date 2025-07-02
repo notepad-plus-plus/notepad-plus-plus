@@ -836,10 +836,6 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 
 		case WM_INITDIALOG:
 		{
-			FunctionListPanel::initPreferencesMenu();
-
-			NppParameters& nppParam = NppParameters::getInstance();
-
 			setDpi();
 			const int editWidth = _dpiManager.scale(100);
 			const int editWidthSep = _dpiManager.scale(105); //editWidth + 5
@@ -919,11 +915,7 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 
 			ShowWindow(_hToolbarMenu, SW_SHOW);
 
-			// tips text for toolbar buttons
-			NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
-			_sortTipStr = pNativeSpeaker->getAttrNameStr(_sortTipStr.c_str(), FL_FUNCTIONLISTROOTNODE, FL_SORTLOCALNODENAME);
-			_reloadTipStr = pNativeSpeaker->getAttrNameStr(_reloadTipStr.c_str(), FL_FUNCTIONLISTROOTNODE, FL_RELOADLOCALNODENAME);
-			_preferenceTipStr = pNativeSpeaker->getAttrNameStr(_preferenceTipStr.c_str(), FL_FUNCTIONLISTROOTNODE, FL_PREFERENCESLOCALNODENAME);
+			reloadLang();
 
 			_hSearchEdit = CreateWindowEx(WS_EX_CLIENTEDGE, WC_EDIT, NULL,
 								WS_CHILD | WS_VISIBLE | ES_AUTOVSCROLL,
@@ -1082,3 +1074,17 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 	}
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 }
+
+void FunctionListPanel::reloadLang() 
+{
+	if (::IsMenu(_hPreferencesMenu))
+		::DestroyMenu(_hPreferencesMenu);
+	
+	initPreferencesMenu();
+
+	NppParameters& nppParam = NppParameters::getInstance();
+	NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+	_sortTipStr = pNativeSpeaker->getAttrNameStr(_sortTipStr.c_str(), FL_FUNCTIONLISTROOTNODE, FL_SORTLOCALNODENAME);
+	_reloadTipStr = pNativeSpeaker->getAttrNameStr(_reloadTipStr.c_str(), FL_FUNCTIONLISTROOTNODE, FL_RELOADLOCALNODENAME);
+	_preferenceTipStr = pNativeSpeaker->getAttrNameStr(_preferenceTipStr.c_str(), FL_FUNCTIONLISTROOTNODE, FL_PREFERENCESLOCALNODENAME);
+};

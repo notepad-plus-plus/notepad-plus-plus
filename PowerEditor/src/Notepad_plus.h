@@ -439,6 +439,7 @@ private:
 	void hideCurrentView();
 	bool bothActive() { return (_mainWindowStatus & WindowBothActive) == WindowBothActive; };
 	bool reloadLang();
+	bool reloadDockableDlgLang();
 	bool loadStyles();
 
 	int currentView() {

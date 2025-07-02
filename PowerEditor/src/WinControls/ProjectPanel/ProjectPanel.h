@@ -100,6 +100,8 @@ public:
 	};
 	bool enumWorkSpaceFiles(HTREEITEM tvFrom, const std::vector<std::wstring> & patterns, std::vector<std::wstring> & fileNames);
 
+	void reloadLang() override;
+
 protected:
 	TreeView _treeView;
 	HIMAGELIST _hImaLst = nullptr;

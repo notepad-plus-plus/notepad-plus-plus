@@ -153,6 +153,16 @@ public:
 
 	bool selectItemFromPath(const std::wstring& itemPath) const;
 
+	void reloadLang() override {
+		NppParameters& nppParam = NppParameters::getInstance();
+		NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+		_expandAllFolders = pNativeSpeaker->getAttrNameStr(_expandAllFolders.c_str(), FOLDERASWORKSPACE_NODE, "ExpandAllFoldersTip");
+		_collapseAllFolders = pNativeSpeaker->getAttrNameStr(_collapseAllFolders.c_str(), FOLDERASWORKSPACE_NODE, "CollapseAllFoldersTip");
+		_locateCurrentFile = pNativeSpeaker->getAttrNameStr(_locateCurrentFile.c_str(), FOLDERASWORKSPACE_NODE, "LocateCurrentFileTip");
+		destroyMenus();
+		initPopupMenus();
+	};
+
 protected:
 	HWND _hToolbarMenu = nullptr;
 	std::vector<HIMAGELIST> _iconListVector;

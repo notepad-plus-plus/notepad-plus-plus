@@ -26,6 +26,8 @@
 #include "Common.h"
 #include "StaticDialog.h"
 #include "NppDarkMode.h"
+#include "Parameters.h"
+#include "localization.h"
 
 
 
@@ -71,6 +73,7 @@ public:
 
 	virtual void setBackgroundColor(COLORREF) {}
 	virtual void setForegroundColor(COLORREF) {}
+	virtual void reloadLang() {}
 
 	void display(bool toShow = true) const override {
 		::SendMessage(_hParent, toShow ? NPPM_DMMSHOW : NPPM_DMMHIDE, 0, reinterpret_cast<LPARAM>(_hSelf));

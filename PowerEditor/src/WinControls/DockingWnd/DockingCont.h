@@ -69,6 +69,7 @@ public:
 	tTbData* findToolbarByName(wchar_t* pszName);
 
 	void showToolbar(tTbData *pTbData, BOOL state);
+	void changeToolbarCaption(tTbData* pTbData);
 
 	BOOL updateInfo(HWND hClient) {
 		for (size_t iTb = 0; iTb < _vTbData.size(); ++iTb)

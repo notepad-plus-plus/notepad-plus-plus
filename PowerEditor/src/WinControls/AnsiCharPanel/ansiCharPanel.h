@@ -57,6 +57,8 @@ public:
 		_listView.redraw(true);
 	};
 
+	void reloadLang() override;
+
 protected:
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 

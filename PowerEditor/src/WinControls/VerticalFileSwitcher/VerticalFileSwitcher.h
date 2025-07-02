@@ -93,6 +93,13 @@ public:
 		startColumnSort();
 	};
 
+	void reloadLang() override {
+		if (::IsMenu(_hGlobalMenu))
+			::DestroyMenu(_hGlobalMenu);
+		initPopupMenus();
+		reload();
+	};
+
 	void updateTabOrder(){
 		if (_lastSortingDirection == SORT_DIRECTION_NONE) {
 			_fileListView.reload();

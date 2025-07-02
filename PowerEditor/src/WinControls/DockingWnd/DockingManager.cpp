@@ -716,6 +716,20 @@ void DockingManager::showDockableDlg(wchar_t* pszName, BOOL view)
 	}
 }
 
+void DockingManager::changeDockableDlgCaption(HWND hDlg, const wchar_t* newCaption)
+{
+	for (size_t i = 0, len = _vContainer.size(); i < len; ++i)
+	{
+		tTbData* pTbData = _vContainer[i]->findToolbarByWnd(hDlg);
+		if (pTbData != NULL)
+		{
+			pTbData->pszName = newCaption;
+			_vContainer[i]->changeToolbarCaption(pTbData);
+			return;
+		}
+	}
+}
+
 LRESULT DockingManager::SendNotify(HWND hWnd, UINT message)
 {
 	NMHDR nmhdr{};

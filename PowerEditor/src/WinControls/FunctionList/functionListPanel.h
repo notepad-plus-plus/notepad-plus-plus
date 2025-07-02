@@ -89,6 +89,8 @@ public:
 		TreeView_SetTextColor(_treeViewSearchResult.getHSelf(), fgColour);
 	};
 
+	void reloadLang() override;
+
     void setParent(HWND parent2set){
         _hParent = parent2set;
     };

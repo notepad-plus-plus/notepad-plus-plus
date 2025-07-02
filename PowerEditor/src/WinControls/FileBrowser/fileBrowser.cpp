@@ -107,8 +107,6 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 	{
 		case WM_INITDIALOG:
 		{
-			NppParameters& nppParam = NppParameters::getInstance();
-
 			constexpr DWORD style = WS_CHILD | WS_VISIBLE | TBSTYLE_FLAT | TBSTYLE_LIST | TBSTYLE_TRANSPARENT | TBSTYLE_TOOLTIPS | TBSTYLE_CUSTOMERASE;
 			_hToolbarMenu = CreateWindowEx(WS_EX_LAYOUTRTL, TOOLBARCLASSNAME, NULL, style, 0, 0, 0, 0, _hSelf, nullptr, _hInst, NULL);
 
@@ -165,12 +163,6 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			tbButtons[2].fsStyle = BTNS_BUTTON;
 			tbButtons[2].iString = 0;
 
-			// tips text for toolbar buttons
-			NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
-			_expandAllFolders = pNativeSpeaker->getAttrNameStr(_expandAllFolders.c_str(), FOLDERASWORKSPACE_NODE, "ExpandAllFoldersTip");
-			_collapseAllFolders = pNativeSpeaker->getAttrNameStr(_collapseAllFolders.c_str(), FOLDERASWORKSPACE_NODE, "CollapseAllFoldersTip");
-			_locateCurrentFile = pNativeSpeaker->getAttrNameStr(_locateCurrentFile.c_str(), FOLDERASWORKSPACE_NODE, "LocateCurrentFileTip");
-
 			::SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
 			::SendMessage(_hToolbarMenu, TB_SETBUTTONSIZE, 0, MAKELONG(iconSizeDyn, iconSizeDyn));
 			::SendMessage(_hToolbarMenu, TB_ADDBUTTONS, sizeof(tbButtons) / sizeof(TBBUTTON), reinterpret_cast<LPARAM>(&tbButtons));
@@ -178,7 +170,7 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			
 			ShowWindow(_hToolbarMenu, SW_SHOW);
 
-			FileBrowser::initPopupMenus();
+			reloadLang();
 
 			std::vector<int> imgIds = _treeView.getImageIds(
 				{ IDI_FB_ROOTOPEN, IDI_FB_ROOTCLOSE, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE }
@@ -468,10 +460,17 @@ bool FileBrowser::selectCurrentEditingFile() const
 
 void FileBrowser::destroyMenus() 
 {
-	::DestroyMenu(_hGlobalMenu);
-	::DestroyMenu(_hRootMenu);
-	::DestroyMenu(_hFolderMenu);
-	::DestroyMenu(_hFileMenu);
+	if (::IsMenu(_hGlobalMenu))
+		::DestroyMenu(_hGlobalMenu);
+
+	if (::IsMenu(_hRootMenu))
+		::DestroyMenu(_hRootMenu);
+
+	if (::IsMenu(_hFolderMenu))
+		::DestroyMenu(_hFolderMenu);
+
+	if (::IsMenu(_hFileMenu))
+		::DestroyMenu(_hFileMenu);
 }
 
 wstring FileBrowser::getNodePath(HTREEITEM node) const

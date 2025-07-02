@@ -49,6 +49,7 @@ public :
 	void setActiveTab(int iCont, int iItem);
 	void showDockableDlg(HWND hDlg, BOOL view);
 	void showDockableDlg(wchar_t* pszName, BOOL view);
+	void changeDockableDlgCaption(HWND hDlg, const wchar_t* newCaption);
 
 	DockingCont* toggleActiveTb(DockingCont* pContSrc, UINT message, BOOL bNew = FALSE, LPRECT rcFloat = NULL);
 	DockingCont* toggleVisTb(DockingCont* pContSrc, UINT message, LPRECT rcFloat = NULL);

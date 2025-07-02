@@ -174,7 +174,7 @@ tTbData* DockingCont::findToolbarByName(wchar_t* pszName)
 	// find entry by handle
 	for (size_t iTb = 0, len = _vTbData.size(); iTb < len; ++iTb)
 	{
-		if (lstrcmp(pszName, _vTbData[iTb]->pszName) == 0)
+		if (lstrcmp(pszName, _vTbData[iTb]->pszName.c_str()) == 0)
 		{
 			pTbData = _vTbData[iTb];
 		}
@@ -937,7 +937,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 						toolTip.destroy();
 
 						toolTip.init(_hInst, hwnd);
-						toolTip.Show(rc, (reinterpret_cast<tTbData*>(tcItem.lParam))->pszName, info.pt.x, info.pt.y + 20);
+						toolTip.Show(rc, (reinterpret_cast<tTbData*>(tcItem.lParam))->pszName.c_str(), info.pt.x, info.pt.y + 20);
 					}
 				}
 
@@ -971,7 +971,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 				break;
 
 			toolTip.init(_hInst, hwnd);
-			toolTip.Show(rc, reinterpret_cast<tTbData*>(tcItem.lParam)->pszName, info.pt.x, info.pt.y + 20);
+			toolTip.Show(rc, reinterpret_cast<tTbData*>(tcItem.lParam)->pszName.c_str(), info.pt.x, info.pt.y + 20);
 			return 0;
 		}
 
@@ -1059,8 +1059,8 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT* pDrawItemStruct)
 
 	auto tbData = reinterpret_cast<tTbData*>(tcItem.lParam);
 
-	const wchar_t* text = tbData->pszName;
-	int length = lstrlen(tbData->pszName);
+	const wchar_t* text = tbData->pszName.c_str();
+	int length = static_cast<int>(tbData->pszName.length());
 
 	// get drawing context
 	HDC hDc = pDrawItemStruct->hDC;
@@ -1623,6 +1623,24 @@ void DockingCont::viewToolbar(tTbData *pTbData)
 	onSize();
 }
 
+void DockingCont::changeToolbarCaption(tTbData* pTbData)
+{
+	TCITEM tcItem{};
+	int iTabPos = searchPosInTab(pTbData);
+	tcItem.mask = TCIF_PARAM;
+	tcItem.lParam = reinterpret_cast<LPARAM>(pTbData);
+
+	// only change caption if the tab exists
+	if (iTabPos != -1)
+	{
+		::SendMessage(_hContTab, TCM_SETITEM, iTabPos, reinterpret_cast<LPARAM>(&tcItem));
+
+		// trigger the tab to update if it is currently active
+		if (getActiveTb() == iTabPos)
+			selectTab(iTabPos);
+	}
+}
+
 int DockingCont::searchPosInTab(tTbData* pTbData)
 {
 	TCITEM tcItem {};
@@ -1699,7 +1717,7 @@ void DockingCont::selectTab(int iTab)
 			::SendMessage(_hContTab, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 			if (!tcItem.lParam)
 				continue;
-			pszTabTxt = reinterpret_cast<tTbData*>(tcItem.lParam)->pszName;
+			pszTabTxt = reinterpret_cast<tTbData*>(tcItem.lParam)->pszName.c_str();
 
 			// get current font width
 			GetTextExtentPoint32(hDc, pszTabTxt, lstrlen(pszTabTxt), &size);

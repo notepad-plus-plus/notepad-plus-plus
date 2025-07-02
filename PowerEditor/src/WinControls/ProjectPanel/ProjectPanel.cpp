@@ -47,36 +47,7 @@ intptr_t CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 	{
 		case WM_INITDIALOG :
 		{
-			ProjectPanel::initMenus();
-
-			// Create toolbar menu
-			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST;
-			_hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
-								   0,0,0,0,_hSelf, nullptr, _hInst, nullptr);
-
-			TBBUTTON tbButtons[2]{};
-
-			NppParameters& nppParam = NppParameters::getInstance();
-			NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
-			wstring workspace_entry = pNativeSpeaker->getProjectPanelLangMenuStr("Entries", 0, PM_WORKSPACEMENUENTRY);
-			wstring edit_entry = pNativeSpeaker->getProjectPanelLangMenuStr("Entries", 1, PM_EDITMENUENTRY);
-
-			tbButtons[0].idCommand = IDB_PROJECT_BTN;
-			tbButtons[0].iBitmap = I_IMAGENONE;
-			tbButtons[0].fsState = TBSTATE_ENABLED;
-			tbButtons[0].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
-			tbButtons[0].iString = (intptr_t)workspace_entry.c_str();
-
-			tbButtons[1].idCommand = IDB_EDIT_BTN;
-			tbButtons[1].iBitmap = I_IMAGENONE;
-			tbButtons[1].fsState = TBSTATE_ENABLED;
-			tbButtons[1].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
-			tbButtons[1].iString = (intptr_t)edit_entry.c_str();
-
-			SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
-			SendMessage(_hToolbarMenu, TB_ADDBUTTONS, sizeof(tbButtons) / sizeof(TBBUTTON), reinterpret_cast<LPARAM>(&tbButtons));
-			SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0); 
-			ShowWindow(_hToolbarMenu, SW_SHOW);
+			ProjectPanel::reloadLang();
 
 			std::vector<int> imgIds = _treeView.getImageIds(
 				{ IDI_PROJECT_WORKSPACE, IDI_PROJECT_WORKSPACEDIRTY, IDI_PROJECT_PROJECT, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE, IDI_PROJECT_FILEINVALID }
@@ -195,7 +166,6 @@ intptr_t CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 		{
 			_treeView.destroy();
 			destroyMenus();
-			::DestroyWindow(_hToolbarMenu);
 			break;
 		}
 
@@ -316,11 +286,56 @@ void ProjectPanel::initMenus()
 
 void ProjectPanel::destroyMenus() 
 {
-	::DestroyMenu(_hWorkSpaceMenu);
-	::DestroyMenu(_hProjectMenu);
-	::DestroyMenu(_hFolderMenu);
-	::DestroyMenu(_hFileMenu);
+	if (::IsMenu(_hWorkSpaceMenu))
+		::DestroyMenu(_hWorkSpaceMenu);
+
+	if (::IsMenu(_hProjectMenu))
+		::DestroyMenu(_hProjectMenu);
+
+	if (::IsMenu(_hFolderMenu))
+		::DestroyMenu(_hFolderMenu);
+
+	if (::IsMenu(_hFileMenu))
+		::DestroyMenu(_hFileMenu);
+
+	if (::IsWindow(_hToolbarMenu))
+		::DestroyWindow(_hToolbarMenu);
 }
+
+void ProjectPanel::reloadLang()
+{
+	destroyMenus();
+	initMenus();
+
+	// Create toolbar menu
+	int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST;
+	_hToolbarMenu = CreateWindowEx(0, TOOLBARCLASSNAME, NULL, style,
+		0, 0, 0, 0, _hSelf, nullptr, _hInst, nullptr);
+
+	TBBUTTON tbButtons[2]{};
+
+	NppParameters& nppParam = NppParameters::getInstance();
+	NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+	wstring workspace_entry = pNativeSpeaker->getProjectPanelLangMenuStr("Entries", 0, PM_WORKSPACEMENUENTRY);
+	wstring edit_entry = pNativeSpeaker->getProjectPanelLangMenuStr("Entries", 1, PM_EDITMENUENTRY);
+
+	tbButtons[0].idCommand = IDB_PROJECT_BTN;
+	tbButtons[0].iBitmap = I_IMAGENONE;
+	tbButtons[0].fsState = TBSTATE_ENABLED;
+	tbButtons[0].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
+	tbButtons[0].iString = (intptr_t)workspace_entry.c_str();
+
+	tbButtons[1].idCommand = IDB_EDIT_BTN;
+	tbButtons[1].iBitmap = I_IMAGENONE;
+	tbButtons[1].fsState = TBSTATE_ENABLED;
+	tbButtons[1].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
+	tbButtons[1].iString = (intptr_t)edit_entry.c_str();
+
+	SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
+	SendMessage(_hToolbarMenu, TB_ADDBUTTONS, sizeof(tbButtons) / sizeof(TBBUTTON), reinterpret_cast<LPARAM>(&tbButtons));
+	SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0);
+	ShowWindow(_hToolbarMenu, SW_SHOW);
+};
 
 bool ProjectPanel::openWorkSpace(const wchar_t *projectFileName, bool force)
 {

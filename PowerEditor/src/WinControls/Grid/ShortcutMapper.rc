@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+﻿// This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -32,7 +32,7 @@ BEGIN
     EDITTEXT        IDC_BABYGRID_INFO,4,283,442,29,ES_MULTILINE | ES_AUTOHSCROLL | ES_READONLY | WS_VSCROLL | NOT WS_TABSTOP
     RTEXT           "Filter:",IDC_BABYGRID_STATIC,4,318,25,8
     EDITTEXT        IDC_BABYGRID_FILTER,32,316,414,12,ES_AUTOHSCROLL | ES_WANTRETURN
-    PUSHBUTTON      "?", IDC_BABYGRID_FILTER_CLEAR, 440, 316, 12, 12, WS_TABSTOP
+    PUSHBUTTON      "✕", IDC_BABYGRID_FILTER_CLEAR, 440, 316, 12, 12, WS_TABSTOP
     PUSHBUTTON      "Modify",IDM_BABYGRID_MODIFY,120,333,47,14
     PUSHBUTTON      "Clear",IDM_BABYGRID_CLEAR,174,333,47,14
     PUSHBUTTON      "Delete",IDM_BABYGRID_DELETE,228,333,47,14

@@ -148,6 +148,16 @@ void DockingCont::removeToolbar(const tTbData& data)
 			// remove tab
 			removeTab(_vTbData[iTb]);
 
+			// remove caption info
+			for (auto it = _captionList.begin(); it != _captionList.end(); it++)
+			{
+				if (it->hClient == data.hClient)
+				{
+					_captionList.erase(it);
+					break;
+				}
+			}
+
 			// free resources
 			delete _vTbData[iTb];
 			vector<tTbData*>::iterator itr = _vTbData.begin() + iTb;
@@ -174,7 +184,7 @@ tTbData* DockingCont::findToolbarByName(wchar_t* pszName)
 	// find entry by handle
 	for (size_t iTb = 0, len = _vTbData.size(); iTb < len; ++iTb)
 	{
-		if (lstrcmp(pszName, _vTbData[iTb]->pszName.c_str()) == 0)
+		if (lstrcmp(pszName, _vTbData[iTb]->pszName) == 0)
 		{
 			pTbData = _vTbData[iTb];
 		}
@@ -937,7 +947,9 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 						toolTip.destroy();
 
 						toolTip.init(_hInst, hwnd);
-						toolTip.Show(rc, (reinterpret_cast<tTbData*>(tcItem.lParam))->pszName.c_str(), info.pt.x, info.pt.y + 20);
+
+						tbCaptionInfo captionInfo = getDisplayCaptionInfo(reinterpret_cast<tTbData*>(tcItem.lParam));
+						toolTip.Show(rc, captionInfo.displayName.c_str(), info.pt.x, info.pt.y + 20);
 					}
 				}
 
@@ -971,7 +983,10 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 				break;
 
 			toolTip.init(_hInst, hwnd);
-			toolTip.Show(rc, reinterpret_cast<tTbData*>(tcItem.lParam)->pszName.c_str(), info.pt.x, info.pt.y + 20);
+
+			tbCaptionInfo captionInfo = getDisplayCaptionInfo(reinterpret_cast<tTbData*>(tcItem.lParam));
+			toolTip.Show(rc, captionInfo.displayName.c_str(), info.pt.x, info.pt.y + 20);
+
 			return 0;
 		}
 
@@ -1059,8 +1074,9 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT* pDrawItemStruct)
 
 	auto tbData = reinterpret_cast<tTbData*>(tcItem.lParam);
 
-	const wchar_t* text = tbData->pszName.c_str();
-	int length = static_cast<int>(tbData->pszName.length());
+	tbCaptionInfo captionInfo = getDisplayCaptionInfo(tbData);
+	const wchar_t* text = captionInfo.displayName.c_str();
+	int length = static_cast<int32_t>(captionInfo.displayName.length());
 
 	// get drawing context
 	HDC hDc = pDrawItemStruct->hDC;
@@ -1603,6 +1619,10 @@ void DockingCont::viewToolbar(tTbData *pTbData)
 	{
 		// set only params and text even if icon available
 		::SendMessage(_hContTab, TCM_INSERTITEM, iItemCnt, reinterpret_cast<LPARAM>(&tcItem));
+
+		// update caption list
+		updateDisplayCaptionInfo(pTbData->hClient, pTbData->pszName, pTbData->pszAddInfo, (pTbData->uMask & DWS_ADDINFO));
+
 		selectTab(iItemCnt);
 	}
 	// if exists select it and update data
@@ -1623,7 +1643,7 @@ void DockingCont::viewToolbar(tTbData *pTbData)
 	onSize();
 }
 
-void DockingCont::changeToolbarCaption(tTbData* pTbData)
+void DockingCont::changeToolbarCaption(tTbData* pTbData, const wchar_t* newDisplayName, const wchar_t* newAddInfo /* = nullptr */, bool useAddInfo /* = false */)
 {
 	TCITEM tcItem{};
 	int iTabPos = searchPosInTab(pTbData);
@@ -1633,12 +1653,70 @@ void DockingCont::changeToolbarCaption(tTbData* pTbData)
 	// only change caption if the tab exists
 	if (iTabPos != -1)
 	{
-		::SendMessage(_hContTab, TCM_SETITEM, iTabPos, reinterpret_cast<LPARAM>(&tcItem));
+		// update caption list (fall back to use registered name if the new name is empty)
+		bool useAdditionalInfo = ((pTbData->uMask & DWS_ADDINFO) || useAddInfo);
+		wstring newDisplayNameStr = (newDisplayName && (newDisplayName[0] != L'\0')) ? newDisplayName : pTbData->pszName;
+		int tabIndex = updateDisplayCaptionInfo(pTbData->hClient, newDisplayNameStr.c_str(), newAddInfo, useAdditionalInfo);
 
 		// trigger the tab to update if it is currently active
-		if (getActiveTb() == iTabPos)
-			selectTab(iTabPos);
+		if (getActiveTb() == tabIndex)
+			selectTab(tabIndex);
 	}
+}
+
+int DockingCont::updateDisplayCaptionInfo(HWND hClient, const wchar_t* displayName, const wchar_t* additionalInfo /* = nullptr */, bool useAddInfo /* = false */)
+{
+	for (int index = 0; index < static_cast<int32_t>(_captionList.size()); ++index)
+	{
+		tbCaptionInfo& captionInfo = _captionList.at(index);
+		if (captionInfo.hClient == hClient)
+		{
+			captionInfo.displayName = displayName;
+			captionInfo.useAddInfo = useAddInfo;
+			if (additionalInfo)
+				captionInfo.additionalInfo = additionalInfo;
+
+			return index;
+		}
+	}
+
+	// add new caption info
+	tbCaptionInfo newCaptionInfo{};
+	newCaptionInfo.hClient = hClient;
+	newCaptionInfo.displayName = displayName;
+	newCaptionInfo.useAddInfo = useAddInfo;
+	if (additionalInfo)
+		newCaptionInfo.additionalInfo = additionalInfo;
+
+	_captionList.push_back(newCaptionInfo);
+	return static_cast<int32_t>(_captionList.size() - 1);
+}
+
+tbCaptionInfo DockingCont::getDisplayCaptionInfo(const tTbData* pTbData) const
+{
+	tbCaptionInfo result{};
+	result.hClient = pTbData->hClient;
+	result.displayName = pTbData->pszName;
+	result.useAddInfo = (pTbData->uMask & DWS_ADDINFO);
+	if ((pTbData->uMask & DWS_ADDINFO) && (lstrlen(pTbData->pszAddInfo) != 0))
+		result.additionalInfo = pTbData->pszAddInfo;
+
+	for (const tbCaptionInfo& captionInfo : _captionList)
+	{
+		if (captionInfo.hClient == result.hClient)
+		{
+			if (!captionInfo.displayName.empty())
+				result.displayName = captionInfo.displayName;
+
+			result.useAddInfo = captionInfo.useAddInfo;
+			if (!captionInfo.additionalInfo.empty())
+				result.additionalInfo = captionInfo.additionalInfo;
+
+			break;
+		}
+	}
+
+	return result;
 }
 
 int DockingCont::searchPosInTab(tTbData* pTbData)
@@ -1664,7 +1742,6 @@ void DockingCont::selectTab(int iTab)
 {
 	if (iTab != -1)
 	{
-		const wchar_t	*pszMaxTxt	= NULL;
 		TCITEM tcItem {};
 		SIZE size = {};
 		int maxWidth = 0;
@@ -1710,14 +1787,15 @@ void DockingCont::selectTab(int iTab)
 		HDC		hDc	= ::GetDC(_hContTab);
 		SelectObject(hDc, _hFont);
 
+		wstring pszMaxTxt = L"\0";
 		for (int iItem = 0; iItem < iItemCnt; ++iItem)
 		{
-			const wchar_t *pszTabTxt = NULL;
-
 			::SendMessage(_hContTab, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 			if (!tcItem.lParam)
 				continue;
-			pszTabTxt = reinterpret_cast<tTbData*>(tcItem.lParam)->pszName.c_str();
+
+			tbCaptionInfo captionInfo = getDisplayCaptionInfo(reinterpret_cast<tTbData*>(tcItem.lParam));
+			const wchar_t* pszTabTxt = captionInfo.displayName.c_str();
 
 			// get current font width
 			GetTextExtentPoint32(hDc, pszTabTxt, lstrlen(pszTabTxt), &size);
@@ -1735,7 +1813,7 @@ void DockingCont::selectTab(int iTab)
 		for (int iItem = 0; iItem < iItemCnt; ++iItem)
 		{
 			wstring szText;
-			if (iItem == iTab && pszMaxTxt)
+			if (iItem == iTab && !pszMaxTxt.empty())
 			{
 				// fake here an icon before text ...
 				szText = L"        ";
@@ -1774,14 +1852,14 @@ bool DockingCont::updateCaption()
 	if (!tcItem.lParam) return false;
 
 	// update caption text
-	_pszCaption = ((tTbData*)tcItem.lParam)->pszName;
+	tbCaptionInfo displayCaption = getDisplayCaptionInfo(reinterpret_cast<tTbData*>(tcItem.lParam));
+	_pszCaption = displayCaption.displayName;
 
 	// test if additional information are available
-	if ((((tTbData*)tcItem.lParam)->uMask & DWS_ADDINFO) && 
-		(lstrlen(((tTbData*)tcItem.lParam)->pszAddInfo) != 0))
+	if (displayCaption.useAddInfo && !displayCaption.additionalInfo.empty())
 	{
 		_pszCaption += L" - ";
-		_pszCaption += ((tTbData*)tcItem.lParam)->pszAddInfo; 
+		_pszCaption += displayCaption.additionalInfo;
 	}
 
 	if (_isFloating == true)

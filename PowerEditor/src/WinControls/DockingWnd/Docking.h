@@ -17,7 +17,6 @@
 
 #pragma once
 
-#include <string>
 #include <windows.h>
 
 // ATTENTION : It's a part of interface header, so don't include the others header here
@@ -50,7 +49,7 @@
 
 struct tTbData {
 	HWND hClient = nullptr;                  // client Window Handle
-	std::wstring pszName;					 // name of plugin (shown in window)
+	const wchar_t* pszName = nullptr;        // name of plugin (shown in window)
 	int dlgID = 0;                           // a funcItem provides the function pointer to start a dialog. Please parse here these ID
 
 	// user modifications

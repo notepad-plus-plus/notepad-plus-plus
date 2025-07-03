@@ -36,6 +36,14 @@ enum eMousePos {
 	posClose
 };
 
+// use for displaying
+struct tbCaptionInfo {
+	HWND hClient = nullptr;                  // client Window Handle
+	std::wstring displayName;				 // name of plugin (shown in window)
+	bool useAddInfo = false;				 // additional information are in use (same as DWS_ADDINFO)
+	std::wstring additionalInfo;			 // for plugin to display additional information
+};
+
 // some fix modify values for GUI
 #define	HIGH_CAPTION		18
 #define CAPTION_GAP			2
@@ -69,7 +77,9 @@ public:
 	tTbData* findToolbarByName(wchar_t* pszName);
 
 	void showToolbar(tTbData *pTbData, BOOL state);
-	void changeToolbarCaption(tTbData* pTbData);
+	void changeToolbarCaption(tTbData* pTbData, const wchar_t* newDisplayName, const wchar_t* newAddInfo = nullptr, bool useAddInfo = false);
+	int updateDisplayCaptionInfo(HWND hClient, const wchar_t* displayName, const wchar_t* additionalInfo = nullptr, bool useAddInfo = false);
+	tbCaptionInfo getDisplayCaptionInfo(const tTbData* pTbData) const;
 
 	BOOL updateInfo(HWND hClient) {
 		for (size_t iTb = 0; iTb < _vTbData.size(); ++iTb)
@@ -188,6 +198,9 @@ private:
 	// caption params
 	BOOL _isTopCaption = CAPTION_TOP;
 	std::wstring _pszCaption;
+
+	// list of window captions (for displaying only)
+	std::vector<tbCaptionInfo> _captionList;
 
 	BOOL _isMouseDown = FALSE;
 	BOOL _isMouseClose = FALSE;

@@ -994,7 +994,7 @@ void Notepad_plus::saveDockingParams()
 
 		for (size_t j = 0, len2 = vDataVis.size(); j < len2 ; ++j)
 		{
-			if (!vDataVis[j]->pszName.empty())
+			if (vDataVis[j]->pszName && vDataVis[j]->pszName[0])
 			{
 				PluginDlgDockingInfo pddi(vDataVis[j]->pszModuleName, vDataVis[j]->dlgID, int32_t(i), vDataVis[j]->iPrevCont, true);
 				vPluginDockInfo.push_back(pddi);
@@ -1006,7 +1006,7 @@ void Notepad_plus::saveDockingParams()
 
 		for (size_t j = 0, len3 = vDataAll.size(); j < len3 ; ++j)
 		{
-			if (!vDataAll[j]->pszName.empty() && !vCont[i]->isTbVis(vDataAll[j]))
+			if ((vDataAll[j]->pszName && vDataAll[j]->pszName[0]) && (!vCont[i]->isTbVis(vDataAll[j])))
 			{
 				PluginDlgDockingInfo pddi(vDataAll[j]->pszModuleName, vDataAll[j]->dlgID, int32_t(i), vDataAll[j]->iPrevCont, false);
 				vPluginDockInfo.push_back(pddi);
@@ -7290,7 +7290,7 @@ bool Notepad_plus::reloadDockableDlgLang()
 	// Find results
 	if (_findReplaceDlg.isCreated())
 	{
-		title_temp = _nativeLangSpeaker.getLocalizedStrFromID("find-result-caption", L"");
+		title_temp = _nativeLangSpeaker.getLocalizedStrFromID("find-result-caption", L"Search results");
 		Finder* pMainFinder = _findReplaceDlg.getMainFinder();
 		if (pMainFinder)
 		{
@@ -7409,9 +7409,11 @@ void Notepad_plus::launchClipboardHistoryPanel()
 		// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
 		data.dlgID = IDM_EDIT_CLIPBOARDHISTORY_PANEL;
 
-		wstring title = pNativeSpeaker->getAttrNameStr(CH_PROJECTPANELTITLE, "ClipboardHistory", "PanelTitle");
-		if (title.length() < 32)
+		wstring title_temp = pNativeSpeaker->getAttrNameStr(CH_PROJECTPANELTITLE, "ClipboardHistory", "PanelTitle");
+		static wchar_t title[32];
+		if (title_temp.length() < 32)
 		{
+			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
@@ -7464,9 +7466,11 @@ void Notepad_plus::launchDocumentListPanel(bool changeFromBtnCmd)
 		// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
 		data.dlgID = IDM_VIEW_DOCLIST;
 
-		wstring title = pNativeSpeaker->getAttrNameStr(FS_PROJECTPANELTITLE, "DocList", "PanelTitle");
-		if (title.length() < 32)
+		wstring title_temp = pNativeSpeaker->getAttrNameStr(FS_PROJECTPANELTITLE, "DocList", "PanelTitle");
+		static wchar_t title[32];
+		if (title_temp.length() < 32)
 		{
+			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
@@ -7543,9 +7547,11 @@ void Notepad_plus::launchAnsiCharPanel()
 		// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
 		data.dlgID = IDM_EDIT_CHAR_PANEL;
 
-		wstring title = pNativeSpeaker->getAttrNameStr(AI_PROJECTPANELTITLE, "AsciiInsertion", "PanelTitle");
-		if (title.length() < 85)
+		wstring title_temp = pNativeSpeaker->getAttrNameStr(AI_PROJECTPANELTITLE, "AsciiInsertion", "PanelTitle");
+		static wchar_t title[85];
+		if (title_temp.length() < 85)
 		{
+			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
@@ -7587,11 +7593,13 @@ void Notepad_plus::launchFileBrowser(const vector<wstring> & folders, const wstr
 		data.dlgID = IDM_VIEW_FILEBROWSER;
 
 		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
-		wstring title = pNativeSpeaker->getAttrNameStr(FB_PANELTITLE, FOLDERASWORKSPACE_NODE, "PanelTitle");
+		wstring title_temp = pNativeSpeaker->getAttrNameStr(FB_PANELTITLE, FOLDERASWORKSPACE_NODE, "PanelTitle");
 
 		const int titleLen = 64;
-		if (title.length() < titleLen)
+		static wchar_t title[titleLen];
+		if (title_temp.length() < titleLen)
 		{
+			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
@@ -7747,9 +7755,11 @@ void Notepad_plus::launchDocMap()
 		data.dlgID = IDM_VIEW_DOC_MAP;
 
 		NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
-		wstring title = pNativeSpeaker->getAttrNameStr(DM_PANELTITLE, "DocumentMap", "PanelTitle");
-		if (title.length() < 32)
+		wstring title_temp = pNativeSpeaker->getAttrNameStr(DM_PANELTITLE, "DocumentMap", "PanelTitle");
+		static wchar_t title[32];
+		if (title_temp.length() < 32)
 		{
+			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
@@ -7789,10 +7799,12 @@ void Notepad_plus::launchFunctionList()
 		data.dlgID = IDM_VIEW_FUNC_LIST;
 
 		NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
-		wstring title = pNativeSpeaker->getAttrNameStr(FL_PANELTITLE, FL_FUNCTIONLISTROOTNODE, "PanelTitle");
+		wstring title_temp = pNativeSpeaker->getAttrNameStr(FL_PANELTITLE, FL_FUNCTIONLISTROOTNODE, "PanelTitle");
 
-		if (title.length() < 32)
+		static wchar_t title[32];
+		if (title_temp.length() < 32)
 		{
+			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;
 		}
 

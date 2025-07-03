@@ -20,7 +20,7 @@ echo on
 if %SIGN% == 0 goto NoSign
 
 set signtoolWin11="C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64\signtool.exe"
-set signBinary=%signtoolWin11% sign /fd SHA256 /tr http://timestamp.digicert.com /td sha256 /a /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/
+set signBinary=%signtoolWin11% sign /fd SHA512 /tr http://timestamp.acs.microsoft.com /td sha512 /a /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/
 
 
 %signBinary% ..\bin\notepad++.exe
@@ -32,11 +32,11 @@ If ErrorLevel 1 goto End
 
 %signBinary% ..\bin\NppShell.x86.dll
 If ErrorLevel 1 goto End
-%signBinary% ..\bin64\NppShell.msix
+rem %signBinary% ..\bin64\NppShell.msix
 If ErrorLevel 1 goto End
 %signBinary% ..\bin64\NppShell.x64.dll
 If ErrorLevel 1 goto End
-%signBinary% ..\binarm64\NppShell.msix
+rem %signBinary% ..\binarm64\NppShell.msix
 If ErrorLevel 1 goto End
 %signBinary% ..\binarm64\NppShell.arm64.dll
 If ErrorLevel 1 goto End

@@ -9,7 +9,7 @@
 <NotepadPlus>
    <functionList>
       <!-- ========================================================= [ PL/SQL ] -->
-      <parser id="oracle_function" displayName="Oracle SQL" commentExpr="((\/\*([^\*]|\*[^\/])*\*\/)|(--.*?$))">
+      <parser id="oracle_function" displayName="Oracle SQL" commentExpr="((?s)(\/\*.*?\*\/)|(?-s)(--.*?$))">
          <classRange
             mainExpr="(?isx)^\h*CREATE(\s+OR\s+REPLACE)?\s+                   # Declaration beginning
                      ((NON)?EDITIONABLE\s+)?                                  # Optional editionable clause
@@ -28,20 +28,22 @@
                      ((((\x22[^\x22]*?\x22)|([A-Z]\w*))\.)|\s*)                                    # Object owner (not mandatory)
                      (?'PACKAGE_NAME'(([A-Z]\w*)|(\x22[^\x22]*?\x22)))(?!\.)                       # Object name
                      (\s*\([^\)]*?\))?                                                             # Parameters
-                     (?('FUNCTION_TYPE')(.*?RETURN\s+[A-Z]\w*)|)                                   # Return type for functions
+                     (?('FUNCTION_TYPE')(.*?RETURN\s+[A-Z][\w\.%]*)|)                              # Return type for functions
                      "/>
             </className>
             <function
-               mainExpr="(?isx)^\h*((PROCEDURE)|(FUNCTION))(?(?=\s*\x22)\s*|\s+) # Object type
-                        (([A-Z]\w*)|(\x22[^\x22]*?\x22))                         # Object name
-                        .*?(?=(\s+IS\s|\s+AS\s|;))                               # It ends CREATE declaration
+               mainExpr="(?isx)^\h*((PROCEDURE)|(?'FUNCTION_TYPE'FUNCTION))(?(?=\s*\x22)\s*|\s+) # Object type
+                        (([A-Z]\w*)|(\x22[^\x22]*?\x22))                            # Object name
+                        .*?                                                         # Everything between function name and AS|IS|;
+                        (?('FUNCTION_TYPE')(.*?RETURN\s+[A-Z][\w\.%]*)|)            # Return type for functions
+                        (?=(\s+IS\s|\s+AS\s|;))                                     # It ends CREATE declaration
                         "
             >
                <functionName>
                   <funcNameExpr expr="(?isx)((PROCEDURE)|(?'FUNCTION_TYPE'FUNCTION))(?(?=\s*\x22)\s*|\s+) # Object type
                                  \K(([A-Z]\w*)|(\x22[^\x22]*?\x22))                                       # Object name
                                  (\s*\([^\)]*?\))?                                                        # Parameters
-                                 (?('FUNCTION_TYPE')(.*?RETURN\s+[A-Z]\w*)|)                              # Return type for functions
+                                 (?('FUNCTION_TYPE')(.*?RETURN\s+[A-Z][\w\.%]*)|)                         # Return type for functions
                                  "/>
                </functionName>
             </function>
@@ -60,10 +62,10 @@
          >
             <functionName>
                <nameExpr expr="(?isx)(PROCEDURE|(?'FUNCTION_TYPE'FUNCTION)|PACKAGE([\s]+BODY)?)(?(?=\s*\x22)\s*|\s+)   # Object type
-                  ((((\x22[^\x22]*?\x22)|([A-Z]\w*))\.)|\s*)                                     # Object owner (not mandatory)
-                  (?'STORED_NAME'(([A-Z]\w*)|(\x22[^\x22]*?\x22)))(?!\.)                           # Object name
-                  (\s*\([^\)]*?\))?                                                                # Parameters
-                  (?('FUNCTION_TYPE')(.*?RETURN\s+[A-Z]\w*)|)                                      # Return type for functions
+                  ((((\x22[^\x22]*?\x22)|([A-Z]\w*))\.)|\s*)                        # Object owner (not mandatory)
+                  (?'STORED_NAME'(([A-Z]\w*)|(\x22[^\x22]*?\x22)))(?!\.)            # Object name
+                  (\s*\([^\)]*?\))?                                                 # Parameters
+                  (?('FUNCTION_TYPE')(.*?RETURN\s+[A-Z][\w\.%]*)|)                  # Return type for functions
                   "/>
             </functionName>
          </function>

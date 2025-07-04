@@ -54,6 +54,44 @@ wstring getTextFromCombo(HWND hCombo)
 	return wstring(str);
 }
 
+int32_t getTextLengthFromCombo(HWND hCombo)
+{
+	return static_cast<int32_t>(::SendMessage(hCombo, WM_GETTEXTLENGTH, 0, 0));
+}
+
+wstring getComboTitle(HWND hDialog, UINT comboID)
+{
+	HWND hStatic = nullptr;
+	wchar_t comboTitle[MAX_PATH] = { '\0' };
+
+	switch (comboID)
+	{
+		case IDFINDWHAT:
+			hStatic = ::GetDlgItem(hDialog, IDFINDWHAT_STATIC);
+			break;
+
+		case IDREPLACEWITH:
+			hStatic = ::GetDlgItem(hDialog, ID_STATICTEXT_REPLACE);
+			break;
+
+		case IDD_FINDINFILES_FILTERS_COMBO:
+			hStatic = ::GetDlgItem(hDialog, IDD_FINDINFILES_FILTERS_STATIC);
+			break;
+
+		case IDD_FINDINFILES_DIR_COMBO:
+			hStatic = ::GetDlgItem(hDialog, IDD_FINDINFILES_DIR_STATIC);
+			break;
+
+		default:
+			break;
+	}
+
+	if (hStatic)
+		::SendMessage(hStatic, WM_GETTEXT, MAX_PATH - 1, reinterpret_cast<LPARAM>(comboTitle));
+
+	return wstring(comboTitle);
+}
+
 void delLeftWordInEdit(HWND hEdit)
 {
 	wchar_t str[FINDREPLACE_MAXLENGTH] = { '\0' };
@@ -1927,6 +1965,35 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			switch (LOWORD(wParam))
 			{
 //Single actions
+				case IDFINDWHAT:
+				case IDREPLACEWITH:
+				case IDD_FINDINFILES_FILTERS_COMBO:
+				case IDD_FINDINFILES_DIR_COMBO:
+				{
+					if (HIWORD(wParam) == CBN_KILLFOCUS)
+					{
+						setStatusbarMessage(wstring(), FSNoMessage);
+
+						HWND hCombo = ::GetDlgItem(_hSelf, LOWORD(wParam));
+						int textLength = getTextLengthFromCombo(hCombo);
+						if (textLength >= FINDREPLACE_MAXLENGTH)
+						{
+							NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+							if (!pNativeSpeaker)
+								return TRUE;
+
+							wstring warningMsg = pNativeSpeaker->getLocalizedStrFromID("find-replace-max-length-warning", WARNING_FIND_REPLACE_MAX_LENGTH);
+							warningMsg = stringReplace(warningMsg, L"$STR_REPLACE$", getComboTitle(_hSelf, LOWORD(wParam)));
+							warningMsg = stringReplace(warningMsg, L"$INT_REPLACE$", std::to_wstring(FINDREPLACE_MAXLENGTH-1));
+
+							setStatusbarMessage(warningMsg, FSMessage);
+
+							updateCombo(LOWORD(wParam));
+						}
+					}
+				}
+				break;
+
 				case IDC_2_BUTTONS_MODE:
 				{
 					bool is2ButtonsMode = isCheckedOrNot(IDC_2_BUTTONS_MODE);

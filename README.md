@@ -23,7 +23,9 @@ _Since the release of version 8.8.3 Notepad++ is signed using code signing certi
 - **Created:** 2025-07-09
 - **Expires:** 2035-07-09
 
-https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/nppRoot.crt
+Primary Location: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/nppRoot.crt<br/>
+Secondary Location: https://notepad-plus-plus.org/nppRoot.crt<br/>
+Tertiary Location: https://npp-user-manual.org/docs/certs/nppRoot.crt
 
 Notepad++ Code Signing Certificate
 ----------------------------------

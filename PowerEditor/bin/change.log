@@ -1,3 +1,10 @@
+Notepad++ v8.8.3 vulnerability-fixes & new enhancement:
+
+ 1. Use self-signed certificate to sign new release binaries.
+ 2. Fix uninstaller security issue (CVE-2025-49144).
+ 3. Enhance security for DLL loading.
+
+
 Notepad++ v8.8.2 regression-fixes, bug-fixes & new features:
 
  1. Fix regression of folding state not being remembered through sessions.
@@ -14,20 +21,20 @@ Notepad++ v8.8.2 regression-fixes, bug-fixes & new features:
 12. Deprecate 3 APIs: Deprecate NPPM_GETOPENFILENAMES, NPPM_GETOPENFILENAMESPRIMARY & NPPM_GETOPENFILENAMESSECOND.
 13. Add new feature of using first line of untitled document for its tab name.
 14. Enhance NPPM_DARKMODESUBCLASSANDTHEME: Enable darkmode progress bar for plugins.
-15. Various dark mode enhancements.    
+15. Various dark mode enhancements.
 16. Fix right click on caption bar unhidding main menu.
 17. Fix rename tab error message when tab name is unchanged.
 18. Fix Python FunctionList absorbing next function issue if space after colon.
 19. Remove .log from errorlist lexer's default extensions.
 20. Make raw string syntax highlighting work for Golang.
-21. Fix Notepad++ tray icon lost after Windows Taskbar crashing & being relaunched.       
+21. Fix Notepad++ tray icon lost after Windows Taskbar crashing & being relaunched.
 22. Fix changing toolbar icon set not updating to matching panel icon set.
 23. Fix Windows dialog file list not react with keystroke (character match).
 24. Add "*" mark on modified file entries in "Windows" dropdown menu.
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.8.2/
+https://notepad-plus-plus.org/downloads/v8.8.3/
 
 
 Included plugins:

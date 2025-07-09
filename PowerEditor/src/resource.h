@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2023 Don HO <don.h@free.fr>
+// Copyright (C)2025 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,14 +19,14 @@
 
 //************ Notepad++ version **************************
 
-#define NOTEPAD_PLUS_VERSION L"Notepad++ v8.8.2"
+#define NOTEPAD_PLUS_VERSION L"Notepad++ v8.8.3"
 
 // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71
 // ex : #define VERSION_VALUE L"5.63\0"
-#define VERSION_INTERNAL_VALUE L"8.82\0"
+#define VERSION_INTERNAL_VALUE L"8.83\0"
 
-#define VERSION_PRODUCT_VALUE L"8.8.2\0"
-#define VERSION_DIGITALVALUE 8, 8, 2, 0
+#define VERSION_PRODUCT_VALUE L"8.8.3\0"
+#define VERSION_DIGITALVALUE 8, 8, 3, 0
 
 //**********************************************************
 

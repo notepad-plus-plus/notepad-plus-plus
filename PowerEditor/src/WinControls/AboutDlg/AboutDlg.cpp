@@ -33,6 +33,56 @@ using namespace std;
 
 
 // local DebugInfo helper
+void AppendZerosizedXmlConfigFileNamesPresent(wstring& strOut, const unsigned int maxFilesToReportIn)
+{
+	NppParameters& nppParam = NppParameters::getInstance();
+	vector<wstring> folderPathsToCheck;
+	folderPathsToCheck.push_back(nppParam.getNppPath()); // always check the notepad++.exe dir for the trigger files
+	if (!nppParam.isLocal())
+		folderPathsToCheck.push_back(nppParam.getSettingsFolder()); // also check in the %APPDATA%\Notepad++\
+
+	unsigned int reportedFilesCounter = 0;
+	for (const auto& i : folderPathsToCheck)
+	{
+		wstring searchPath = i;
+		if (searchPath.empty())
+			continue; // skip
+		if (searchPath.back() != L'\\')
+			searchPath += L'\\';
+		searchPath += L"*.xml";
+
+		WIN32_FIND_DATAW findFileData{};
+		findFileData.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
+		HANDLE hFind = ::FindFirstFileW(searchPath.c_str(), &findFileData);
+		if (hFind == INVALID_HANDLE_VALUE)
+			continue; // not a single xml-file there, skip
+
+		do
+		{
+			if (!(findFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+			{
+				if ((findFileData.nFileSizeHigh == 0) && (findFileData.nFileSizeLow == 0))
+				{
+					// found a zero-size xml file there, report its filename W/O path
+					if (reportedFilesCounter >= maxFilesToReportIn)
+					{
+						strOut += L" (warning, search has been limited to max " + std::to_wstring(maxFilesToReportIn) + L" trigger files)";
+						::FindClose(hFind);
+						return; // interrupt
+					}
+					strOut += L' ';
+					strOut += findFileData.cFileName;
+					reportedFilesCounter++;
+				}
+			}
+		} while (::FindNextFileW(hFind, &findFileData) != FALSE);
+
+		::FindClose(hFind);
+	}
+}
+
+
+// local DebugInfo helper
 void AppendDisplayAdaptersInfo(wstring& strOut, const unsigned int maxAdaptersIn)
 {
 	strOut += L"\n    installed Display Class adapters: ";
@@ -307,10 +357,9 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_debugInfoStr += _isAdmin ? L"ON" : L"OFF";
 			_debugInfoStr += L"\r\n";
 
-			// local conf
-			_debugInfoStr += L"Local Conf mode : ";
-			bool doLocalConf = (NppParameters::getInstance()).isLocal();
-			_debugInfoStr += doLocalConf ? L"ON" : L"OFF";
+			// Notepad++ specific configuration "trigger" files
+			_debugInfoStr += L"Zero-sized config files present :";
+			AppendZerosizedXmlConfigFileNamesPresent(_debugInfoStr, 20); // report max 20 such files
 			_debugInfoStr += L"\r\n";
 
 			// Cloud config directory
@@ -414,7 +463,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 					::ReleaseDC(nullptr, hdc);
 				}
 				_debugInfoStr += L"\n    visible monitors count: " + std::to_wstring(::GetSystemMetrics(SM_CMONITORS));
-				AppendDisplayAdaptersInfo(_debugInfoStr, 4); // survey up to 4 potential graphics card Registry records
+				AppendDisplayAdaptersInfo(_debugInfoStr, 6); // survey up to 6 potential graphics card Registry records
 			}
 			_debugInfoStr += L"\r\n";
 

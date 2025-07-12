@@ -244,6 +244,19 @@ HINSTANCE Command::run(HWND hWnd, const wchar_t* cwd)
 	return res;
 }
 
+void RunDlg::insertVariable( const wchar_t *variable )
+{
+	wchar_t cmd[ MAX_PATH ]{};
+	::GetDlgItemText(_hSelf, IDC_COMBO_RUN_PATH, cmd, MAX_PATH);
+	
+	wchar_t cmdNew[ MAX_PATH ]{};
+	wcsncpy_s( cmdNew, _countof( cmdNew ), cmd, _TRUNCATE );
+	wcsncat_s( cmdNew, _countof( cmdNew ), L"$(", _TRUNCATE );
+	wcsncat_s( cmdNew, _countof( cmdNew ), variable, _TRUNCATE );
+	wcsncat_s( cmdNew, _countof( cmdNew ), L")", _TRUNCATE );
+	::SetDlgItemText( _hSelf, IDC_COMBO_RUN_PATH, cmdNew );
+}
+
 intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
@@ -406,7 +419,89 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 					return TRUE;
 				}
 
-				default :
+				case IDC_BUTTON_VARIABLES:
+				{
+					RECT rcButton;
+					GetWindowRect( ::GetDlgItem( _hSelf, IDC_BUTTON_VARIABLES ), &rcButton );
+
+					HMENU hmenu;            // menu template
+					HMENU hVariablePopup;  // shortcut menu
+					hmenu = ::LoadMenu( _hInst, MAKEINTRESOURCE( IDR_RUN_DLG_VARIABLES ) );
+					hVariablePopup = ::GetSubMenu( hmenu, 0 );
+					TrackPopupMenu( hVariablePopup, TPM_LEFTALIGN, rcButton.right, rcButton.top, 0, _hSelf, NULL );
+					PostMessage( _hSelf, WM_NULL, 0, 0 );
+					DestroyMenu( hmenu );
+
+					return TRUE;
+				}
+
+				case IDM_RUN_DLG_VARMENU_FULL_CURRENT_PATH:
+				{
+					insertVariable( fullCurrentPath );
+				}
+				break;
+
+				case IDM_RUN_DLG_VARMENU_CURRENT_DIRECTORY:
+				{
+					insertVariable( currentDirectory );
+				}
+				break;
+
+				case IDM_RUN_DLG_VARMENU_FILE_NAME:
+				{
+					insertVariable( onlyFileName );
+				}
+				break;
+
+				case IDM_RUN_DLG_VARMENU_NAME_PART:
+				{
+					insertVariable( fileNamePart );
+				}
+				break;
+
+				case IDM_RUN_DLG_VARMENU_EXT_PART:
+				{
+					insertVariable( fileExtPart );
+				}
+				break;
+
+				case IDM_RUN_DLG_VARMENU_CURRENT_WORD:
+				{
+					insertVariable( currentWord );
+				}
+				break;
+
+				case IDM_RUN_DLG_VARMENU_NPP_DIRECTORY:
+				{
+					insertVariable( nppDir );
+				}
+				break;
+
+				case IDM_RUN_DLG_VARMENU_NPP_FULL_FILE_PATH:
+				{
+					insertVariable( nppFullFilePath );
+				}
+				break;
+
+				case IDM_RUN_DLG_VARMENU_CURRENT_LINE:
+				{
+					insertVariable( currentLine );
+				}
+				break;
+
+				case IDM_RUN_DLG_VARMENU_CURRENT_COLUMN:
+				{
+					insertVariable( currentColumn );
+				}
+				break;
+
+				case IDM_RUN_DLG_VARMENU_CURRENT_LINESTR:
+				{
+					insertVariable( currentLineStr );
+				}
+				break;
+
+				default:
 					break;
 			}
 		}

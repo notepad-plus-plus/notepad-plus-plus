@@ -244,6 +244,56 @@ HINSTANCE Command::run(HWND hWnd, const wchar_t* cwd)
 	return res;
 }
 
+void RunDlg::insertVariable(unsigned char id)
+{
+	wchar_t cmd[MAX_PATH]{};
+	::GetDlgItemText(_hSelf, IDC_COMBO_RUN_PATH, cmd, MAX_PATH);
+
+	wstring variable;
+	switch (id)
+	{
+	case 0:
+		variable = fullCurrentPath;
+		break;
+	case 1:
+		variable = currentDirectory;
+		break;
+	case 2:
+		variable = onlyFileName;
+		break;
+	case 3:
+		variable = fileNamePart;
+		break;
+	case 4:
+		variable = fileExtPart;
+		break;
+	case 5:
+		variable = currentWord;
+		break;
+	case 6:
+		variable = nppDir;
+		break;
+	case 7:
+		variable = nppFullFilePath;
+		break;
+	case 8:
+		variable = currentLine;
+		break;
+	case 9:
+		variable = currentColumn;
+		break;
+	case 10:
+		variable = currentLineStr;
+		break;
+	default:
+		return; // Invalid id number
+	}
+
+	wstring cmdNew = cmd;
+	cmdNew += L"$(" + variable + L")";
+	::SetDlgItemText(_hSelf, IDC_COMBO_RUN_PATH, cmdNew.c_str());
+}
+
 intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
@@ -312,6 +362,12 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 
 		case WM_COMMAND:
 		{
+			if (LOWORD(wParam) >= IDM_RUN_DLG_VARMENU_START && LOWORD(wParam) <= IDM_RUN_DLG_VARMENU_END)
+			{
+				insertVariable(static_cast<unsigned char>(LOWORD(wParam) - IDM_RUN_DLG_VARMENU_START));
+				return TRUE;
+			}
+
 			switch (LOWORD(wParam))
 			{
 				case IDCANCEL :
@@ -406,7 +462,23 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 					return TRUE;
 				}
 
-				default :
+				case IDC_BUTTON_VARIABLES:
+				{
+					RECT rcButton;
+					GetWindowRect(::GetDlgItem(_hSelf, IDC_BUTTON_VARIABLES), &rcButton);
+
+					HMENU hmenu;            // menu template
+					HMENU hVariablePopup;  // shortcut menu
+					hmenu = ::LoadMenu(_hInst, MAKEINTRESOURCE(IDR_RUN_DLG_MENU_VARIABLES));
+					hVariablePopup = ::GetSubMenu(hmenu, 0);
+					TrackPopupMenu(hVariablePopup, TPM_LEFTALIGN, rcButton.right, rcButton.top, 0, _hSelf, NULL);
+					PostMessage(_hSelf, WM_NULL, 0, 0);
+					DestroyMenu(hmenu);
+
+					return TRUE;
+				}
+
+				default:
 					break;
 			}
 		}

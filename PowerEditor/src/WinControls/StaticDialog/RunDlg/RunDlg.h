@@ -59,7 +59,7 @@ public :
 	void destroy() override {};
 
 protected :
-	void insertVariable(const wchar_t *variable);
+	void insertVariable(unsigned char id);
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private :

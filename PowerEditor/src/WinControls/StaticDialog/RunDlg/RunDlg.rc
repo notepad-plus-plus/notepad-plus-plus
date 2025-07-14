@@ -39,20 +39,20 @@ BEGIN
     PUSHBUTTON      "&Cancel",IDCANCEL,230,60,50,14
 END
 
-IDR_RUN_DLG_VARIABLES MENU
+IDR_RUN_DLG_MENU_VARIABLES MENU
 BEGIN
     POPUP "Variables menu"
     BEGIN
-        MENUITEM "&FULL_CURRENT_PATH\tThe full path to the active file",                                         IDM_RUN_DLG_VARMENU_FULL_CURRENT_PATH
-        MENUITEM "CURRENT_&DIRECTORY\tThe active file’s directory",                                              IDM_RUN_DLG_VARMENU_CURRENT_DIRECTORY
-        MENUITEM "FILE_&NAME\tThe active file’s name",                                                           IDM_RUN_DLG_VARMENU_FILE_NAME
-        MENUITEM "NAME_&PART\tThe filename without extension",                                                   IDM_RUN_DLG_VARMENU_NAME_PART
-        MENUITEM "E&XT_PART\tThe extension (with the .)",                                                        IDM_RUN_DLG_VARMENU_EXT_PART
-        MENUITEM "CURRENT_&WORD\tThe active selection in Notepad++, or the word under the caret",                IDM_RUN_DLG_VARMENU_CURRENT_WORD
-        MENUITEM "NPP_&DIRECTORY\tThe directory where the notepad++.exe executable is located",                  IDM_RUN_DLG_VARMENU_NPP_DIRECTORY
-        MENUITEM "NPP_F&ULL_FILE_PATH\tThe full path to the notepad++.exe",                                      IDM_RUN_DLG_VARMENU_NPP_FULL_FILE_PATH 
-        MENUITEM "CURRENT_&LINE\tThe line number where the caret is currently located in the editor window",     IDM_RUN_DLG_VARMENU_CURRENT_LINE
-        MENUITEM "CURRENT_&COLUMN\tThe column number where the caret is currently located in the editor window", IDM_RUN_DLG_VARMENU_CURRENT_COLUMN
-        MENUITEM "CURRENT_LINE&STR\tThe text of the current line",                                               IDM_RUN_DLG_VARMENU_CURRENT_LINESTR
+        MENUITEM "&FULL_CURRENT_PATH\tFull path to active file",      IDM_RUN_DLG_VARMENU_START + 0
+        MENUITEM "CURRENT_&DIRECTORY\tActive file's directory",       IDM_RUN_DLG_VARMENU_START + 1
+        MENUITEM "FILE_&NAME\tActive file’s name",                    IDM_RUN_DLG_VARMENU_START + 2
+        MENUITEM "NAME_&PART\tFile name without extension",           IDM_RUN_DLG_VARMENU_START + 3
+        MENUITEM "E&XT_PART\tFile extension (with .)",                IDM_RUN_DLG_VARMENU_START + 4
+        MENUITEM "CURRENT_&WORD\tSelected word or word under caret",  IDM_RUN_DLG_VARMENU_START + 5
+        MENUITEM "NPP_&DIRECTORY\tnotepad++.exe directory",           IDM_RUN_DLG_VARMENU_START + 6
+        MENUITEM "NPP_F&ULL_FILE_PATH\tFull path of notepad++.exe",   IDM_RUN_DLG_VARMENU_START + 7
+        MENUITEM "CURRENT_&LINE\tLine number of caret",               IDM_RUN_DLG_VARMENU_START + 8
+        MENUITEM "CURRENT_&COLUMN\tColumn number of caret",           IDM_RUN_DLG_VARMENU_START + 9
+        MENUITEM "CURRENT_LINE&STR\tCurrent line text",               IDM_RUN_DLG_VARMENU_START + 10
     END
 END

@@ -1541,8 +1541,8 @@ Soll die Datei trotzdem gespeichert werden?"/>
 			<LoadLangsFailed title="Konfigurator" message="Laden der Datei 'langs.xml' ist fehlgeschlagen!
 Soll die Datei 'langs.xml' wiederhergestellt werden?"/>
 			<LoadLangsFailedFinal title="Konfigurator" message="Laden der Datei 'langs.xml' ist fehlgeschlagen!"/>
-			<FolderAsWorspaceSubfolderExists title="'Verzeichnis als Arbeitsbereich'-Problem" message="Ein Unterverzeichnis existiert im Verzeichnis das hinzugefügt werden soll.
-Bitte dieses Verzeichnis vorher entfernen bevor das Verzeichnis &quot;$STR_REPLACE$&quot; hinzugefügt wird."/>
+			<FolderAsWorspaceSubfolderExists title="'Verzeichnis als Arbeitsbereich'-Problem" message="Ein Unterverzeichnis existiert im Verzeichnis, das hinzugefügt werden soll.
+Bitte das Unterverzeichnis aus dem Arbeitsbereich entfernen, bevor das Verzeichnis &quot;$STR_REPLACE$&quot; hinzugefügt wird."/>
 
 			<ProjectPanelChanged title="$STR_REPLACE$" message="Der Arbeitsbereich wurde geändert. Soll er jetzt gespeichert werden?"/>
 			<ProjectPanelSaveError title="$STR_REPLACE$" message="Ein Fehler ist beim Speichern der Arbeitsbereichsdatei aufgetreten.

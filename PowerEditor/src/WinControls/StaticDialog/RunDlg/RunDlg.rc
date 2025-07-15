@@ -45,7 +45,7 @@ BEGIN
     BEGIN
         MENUITEM "&FULL_CURRENT_PATH\tFull path to active file",      IDM_RUN_DLG_VARMENU_START + 0
         MENUITEM "CURRENT_&DIRECTORY\tActive file's directory",       IDM_RUN_DLG_VARMENU_START + 1
-        MENUITEM "FILE_&NAME\tActive file’s name",                    IDM_RUN_DLG_VARMENU_START + 2
+        MENUITEM "FILE_&NAME\tActive file's name",                    IDM_RUN_DLG_VARMENU_START + 2
         MENUITEM "NAME_&PART\tFile name without extension",           IDM_RUN_DLG_VARMENU_START + 3
         MENUITEM "E&XT_PART\tFile extension (with .)",                IDM_RUN_DLG_VARMENU_START + 4
         MENUITEM "CURRENT_&WORD\tSelected word or word under caret",  IDM_RUN_DLG_VARMENU_START + 5

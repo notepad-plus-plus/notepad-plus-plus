@@ -33,35 +33,29 @@ using namespace std;
 
 
 // local DebugInfo helper
-void AppendZerosizedXmlConfigFileNamesPresent(wstring& strOut, const unsigned int maxFilesToReportIn)
+void AppendZerosizedXmlConfigFileNamesPresent(wstring& strOut, const wstring& strFolderToCheckIn, const unsigned int maxFilesToReportIn)
 {
-	NppParameters& nppParam = NppParameters::getInstance();
-	vector<wstring> folderPathsToCheck;
-	folderPathsToCheck.push_back(nppParam.getNppPath()); // always check the notepad++.exe dir for the trigger files
-	if (!nppParam.isLocal())
-		folderPathsToCheck.push_back(nppParam.getSettingsFolder()); // also check in the %APPDATA%\Notepad++\
+	wstring searchPath = strFolderToCheckIn;
+	if (searchPath.empty())
+		return; // skip
+	if (searchPath.back() != L'\\')
+		searchPath += L'\\';
+	searchPath += L"*.xml";
+
+	WIN32_FIND_DATAW findFileData{};
+	findFileData.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
+	HANDLE hFind = ::FindFirstFileW(searchPath.c_str(), &findFileData);
+	if (hFind == INVALID_HANDLE_VALUE)
+		return; // not a single xml-file there, skip
 
 	unsigned int reportedFilesCounter = 0;
-	for (const auto& i : folderPathsToCheck)
+	do
 	{
-		wstring searchPath = i;
-		if (searchPath.empty())
-			continue; // skip
-		if (searchPath.back() != L'\\')
-			searchPath += L'\\';
-		searchPath += L"*.xml";
-
-		WIN32_FIND_DATAW findFileData{};
-		findFileData.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
-		HANDLE hFind = ::FindFirstFileW(searchPath.c_str(), &findFileData);
-		if (hFind == INVALID_HANDLE_VALUE)
-			continue; // not a single xml-file there, skip
-
-		do
+		if (!(findFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 		{
-			if (!(findFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+			if ((findFileData.nFileSizeHigh == 0) && (findFileData.nFileSizeLow == 0))
 			{
-				if ((findFileData.nFileSizeHigh == 0) && (findFileData.nFileSizeLow == 0))
+				if (lstrcmpiW(findFileData.cFileName, L"doLocalConf.xml") != 0) // this is reported separately
 				{
 					// found a zero-size xml file there, report its filename W/O path
 					if (reportedFilesCounter >= maxFilesToReportIn)
@@ -75,10 +69,10 @@ void AppendZerosizedXmlConfigFileNamesPresent(wstring& strOut, const unsigned in
 					reportedFilesCounter++;
 				}
 			}
-		} while (::FindNextFileW(hFind, &findFileData) != FALSE);
+		}
+	} while (::FindNextFileW(hFind, &findFileData) != FALSE);
 
-		::FindClose(hFind);
-	}
+	::FindClose(hFind);
 }
 
 
@@ -357,10 +351,21 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_debugInfoStr += _isAdmin ? L"ON" : L"OFF";
 			_debugInfoStr += L"\r\n";
 
-			// Notepad++ specific configuration "trigger" files
-			_debugInfoStr += L"Zero-sized config files present :";
-			AppendZerosizedXmlConfigFileNamesPresent(_debugInfoStr, 20); // report max 20 such files
+			// local conf
+			_debugInfoStr += L"Local Conf mode : ";
+			_debugInfoStr += nppParam.isLocal() ? L"ON" : L"OFF";
 			_debugInfoStr += L"\r\n";
+
+			// Notepad++ specific configuration "trigger" files
+			_debugInfoStr += L"0-length config files present (NppExeDir):";
+			AppendZerosizedXmlConfigFileNamesPresent(_debugInfoStr, nppParam.getNppPath(), 20); // report max 20 such files
+			_debugInfoStr += L"\r\n";
+			if (!nppParam.isLocal())
+			{
+				_debugInfoStr += L"0-length config files present (NppAppDataDir):";
+				AppendZerosizedXmlConfigFileNamesPresent(_debugInfoStr, nppParam.getSettingsFolder(), 20); // report max 20 such files
+				_debugInfoStr += L"\r\n";
+			}
 
 			// Cloud config directory
 			_debugInfoStr += L"Cloud Config : ";

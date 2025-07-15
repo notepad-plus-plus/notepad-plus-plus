@@ -1043,7 +1043,7 @@ NppParameters::~NppParameters()
 }
 
 
-bool NppParameters::reloadStylers(const wchar_t* stylePath)
+bool NppParameters::reloadStylers(const wchar_t* stylePath, bool doReloadLexerPlugins /*= true*/)
 {
 	delete _pXmlUserStylerDoc;
 
@@ -1077,9 +1077,12 @@ bool NppParameters::reloadStylers(const wchar_t* stylePath)
 	getUserStylersFromXmlTree();
 
 	//  Reload plugin styles.
-	for ( size_t i = 0; i < getExternalLexerDoc()->size(); ++i)
+	if (doReloadLexerPlugins)
 	{
-		getExternalLexerFromXmlTree( getExternalLexerDoc()->at(i) );
+		for (size_t i = 0; i < getExternalLexerDoc()->size(); ++i)
+		{
+			getExternalLexerFromXmlTree(getExternalLexerDoc()->at(i));
+		}
 	}
 	return true;
 }

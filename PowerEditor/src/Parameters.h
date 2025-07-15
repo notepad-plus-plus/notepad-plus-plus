@@ -1524,7 +1524,7 @@ public:
 
 	bool load();
 	bool reloadLang();
-	bool reloadStylers(const wchar_t *stylePath = nullptr);
+	bool reloadStylers(const wchar_t* stylePath = nullptr, bool doReloadLexerPlugins = true);
 	void destroyInstance();
 	std::wstring getSettingsFolder();
 

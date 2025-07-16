@@ -20,7 +20,7 @@ _Since the release of version 8.8.3 Notepad++ is signed using code signing certi
 - **Serial Number:** 7A137FBEA48E8D469D2B43D49EBBCB21
 - **Fingerprint:** C80539FF7076D22E73A01F164108DAFBF06E45E4
 - **Created:** 2025-07-09
-- **Expires:** 2035-07-09
+- **Expires:** 2055-07-09
 
 Primary Location: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/nppRoot.crt<br/>
 Secondary Location: https://notepad-plus-plus.org/nppRoot.crt<br/>

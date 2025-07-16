@@ -848,6 +848,7 @@ struct NppGUI final
 	bool _menuBarShow = true;
 
 	int _tabStatus = (TAB_DRAWTOPBAR | TAB_DRAWINACTIVETAB | TAB_DRAGNDROP | TAB_REDUCE | TAB_CLOSEBUTTON | TAB_PINBUTTON);
+	bool _forceTabbarVisible = false;
 
 	bool _splitterPos = POS_VERTICAL;
 	int _userDefineDlgStatus = UDD_DOCKED;

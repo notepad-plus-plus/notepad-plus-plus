@@ -159,7 +159,8 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 		if (cmdLineParams->_isNoTab)
 		{
 			// Restore old settings when tab bar has been hidden from tab bar.
-			nppGUI._tabStatus = tabStatusOld;
+			if (!(tabStatusOld & TAB_HIDE))
+				nppGUI._forceTabbarVisible = true;
 		}
 	}
 

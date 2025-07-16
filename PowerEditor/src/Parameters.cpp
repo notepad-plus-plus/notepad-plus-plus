@@ -7364,7 +7364,14 @@ void NppParameters::createXmlTreeFromGUIParams()
 		pStr = (_nppGUI._tabStatus & TAB_MULTILINE) ? L"yes" : L"no";
 		GUIConfigElement->SetAttribute(L"multiLine", pStr);
 
-		pStr = (_nppGUI._tabStatus & TAB_HIDE) ? L"yes" : L"no";
+		if (_nppGUI._forceTabbarVisible)
+		{
+			pStr = L"no";
+		}
+		else
+		{
+			pStr = (_nppGUI._tabStatus & TAB_HIDE) ? L"yes" : L"no";
+		}
 		GUIConfigElement->SetAttribute(L"hide", pStr);
 
 		pStr = (_nppGUI._tabStatus & TAB_QUITONEMPTY) ? L"yes" : L"no";

@@ -1260,6 +1260,12 @@ intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 					::SendMessage(::GetParent(_hParent), WM_SIZE, 0, 0);
 
+					// At startup, if "-notabbar" or "asNotepad.xml" is used, and tab bar was not hidden in the previous session,
+					// we force tab bar visible in the next session by setting _forceTabbarVisible to true.
+					// However, if "Hide tab bar" option is changed manually by user, then we don't force tab bar visible for the next session,
+					// and apply user's choice instead.
+					nppGUI._forceTabbarVisible = false;
+
 					return TRUE;
 				}
 

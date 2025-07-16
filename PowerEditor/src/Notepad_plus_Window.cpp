@@ -287,7 +287,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 		if (doesFileExist(themePath.c_str()))
 		{
 			nppGUI._themeName.assign(themePath);
-			nppParams.reloadStylers(themePath.c_str(), false);
+			nppParams.reloadStylers(themePath.c_str());
 			::SendMessage(_hSelf, WM_UPDATESCINTILLAS, TRUE, 0);
 		}
 	}

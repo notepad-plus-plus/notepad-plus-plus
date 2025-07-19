@@ -1889,6 +1889,7 @@ If you select advanced mode but do not edit files in the aforementioned language
 			<statusbar-Sel value="Sel: "/>
 			<statusbar-Sel-number value="Sel"/>
 			<toolbar-accent-tip value="This option makes your toolbar icons follow Windows system accent color. Accent color is the highlight color used in buttons, borders, and Start menu tiles in Windows. To change it, go to Settings &gt; Personalization &gt; Colors, then select your preferred accent color."/>
+			<max-len-on-search-tip value="Only 2046 bytes are allowed for the find/replace text length - your input could be truncated."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

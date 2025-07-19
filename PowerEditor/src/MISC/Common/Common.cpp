@@ -2094,4 +2094,61 @@ bool isCoreWindows()
 
 	return isCoreWindows;
 }
+
+bool ControlInfoTip::init(HINSTANCE hInst, HWND ctrl2attached, HWND ctrl2attachedParent, const wstring& tipStr, bool isRTL)
+{
+	_hWndInfoTip = CreateWindowEx(isRTL ? WS_EX_LAYOUTRTL : 0, TOOLTIPS_CLASS, NULL,
+		WS_POPUP | TTS_ALWAYSTIP | TTS_BALLOON,
+		CW_USEDEFAULT, CW_USEDEFAULT,
+		CW_USEDEFAULT, CW_USEDEFAULT,
+		ctrl2attachedParent, NULL,
+		hInst, NULL);
+
+	if (!_hWndInfoTip)
+		return false;
+
+	_toolInfo.cbSize = sizeof(_toolInfo);
+	_toolInfo.hwnd = ctrl2attachedParent;
+	_toolInfo.uFlags = TTF_IDISHWND | TTF_TRACK;
+	_toolInfo.uId = (UINT_PTR)ctrl2attached;
+	_toolInfo.lpszText = const_cast<PTSTR>(tipStr.c_str());
+
+	if (!SendMessage(_hWndInfoTip, TTM_ADDTOOL, 0, (LPARAM)&_toolInfo))
+	{
+		::DestroyWindow(_hWndInfoTip);
+		_hWndInfoTip = nullptr;
+		return false;
+	}
+
+	SendMessage(_hWndInfoTip, TTM_SETMAXTIPWIDTH, 0, 200);
+	SendMessage(_hWndInfoTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((15000), (0)));
+	SendMessage(_hWndInfoTip, TTM_ACTIVATE, TRUE, 0); // Activates the tooltip control globally
+
+	return true;
+}
+
+void ControlInfoTip::show() const
+{
+	if (!isValid())	return;
+
+	RECT rcComboBox;
+	GetWindowRect(reinterpret_cast<HWND>(_toolInfo.uId), &rcComboBox);
+
+	int xPos = rcComboBox.left + (rcComboBox.right - rcComboBox.left) / 2;
+	int yPos = rcComboBox.top + 25;
+
+	SendMessage(_hWndInfoTip, TTM_TRACKPOSITION, 0, MAKELPARAM(xPos, yPos));
+	SendMessage(_hWndInfoTip, TTM_TRACKACTIVATE, (WPARAM)TRUE, (LPARAM)&_toolInfo);
+}
+
+void ControlInfoTip::hide()
+{
+	if (_hWndInfoTip)
+	{
+		SendMessage(_hWndInfoTip, TTM_TRACKACTIVATE, (WPARAM)FALSE, (LPARAM)&_toolInfo);
+		DestroyWindow(_hWndInfoTip);
+		_hWndInfoTip = nullptr;
+	}
+}
+
 #pragma warning(default:4996)

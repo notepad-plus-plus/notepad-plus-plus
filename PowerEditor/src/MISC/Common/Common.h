@@ -19,6 +19,7 @@
 #include <string>
 #include <sstream>
 #include <windows.h>
+#include <commctrl.h>
 #include <iso646.h>
 #include <cstdint>
 #include <unordered_set>
@@ -296,3 +297,34 @@ bool doesPathExist(const wchar_t* path, DWORD milliSec2wait = 0, bool* isTimeout
 bool isWindowVisibleOnAnyMonitor(const RECT& rectWndIn);
 
 bool isCoreWindows();
+
+class ControlInfoTip final
+{
+public:
+	ControlInfoTip() {};
+	~ControlInfoTip() {
+		if (_hWndInfoTip) {
+			hide();
+		}
+	};
+	bool init(HINSTANCE hInst, HWND ctrl2attached, HWND ctrl2attachedParent, const std::wstring& tipStr, bool isRTL);
+
+	bool isValid() const {
+		return _hWndInfoTip != nullptr;
+	};
+
+	HWND getTipHandle() const {
+		return _hWndInfoTip;
+	};
+
+	void show() const;
+	
+	void hide();
+
+private:
+	HWND _hWndInfoTip = nullptr;
+	TOOLINFO _toolInfo = {};
+
+	ControlInfoTip(const ControlInfoTip&) = delete;
+	ControlInfoTip& operator=(const ControlInfoTip&) = delete;
+};

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 25 Jun 2025
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 24 Jul 2025 for 8.8.3+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.8.1">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.8.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1889,6 +1889,9 @@ Se você ativar o modo avançado mas não editar arquivos destas linguagens, a i
  			<statusbar-Sel value="Sel: "/>
  			<statusbar-Sel-number value="Sel"/>
 			<toolbar-accent-tip value="Esta opção faz com que os ícondes de sua barra de ferramentas sigam a cor principal do sistema Windows. A cor principal é a cor de destaque usada em botões, margens, e títulos no Menu Iniciar do Windows. Para alterar, acesse Configurações &gt; Preferências &gt; Cores, e então selecione seu padrão de  cores preferido."/>
+			<max-len-on-search-tip value="São permitidos apenas $INT_REPLACE$ caracteres para tamanho de texto de localização/substituição - o seu texto pode ser truncado, e não será salvo para a próxima sessão."/>
+			<max-len-on-save-tip value="Este texto de localização (> $INT_REPLACE$ caracteres) não será salvo para a próxima sessão."/>
+			<goto-setting-tip value="Encontre sua configuração aqui"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

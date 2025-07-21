@@ -1889,7 +1889,7 @@ Om du väljer avancerat läge men inte redigerar filer i de omfattande språken 
 			<statusbar-Sel value="Mrk: "/>
 			<statusbar-Sel-number value="Mrk"/>
 			<toolbar-accent-tip value="Detta alternativ får ikonerna i ditt verktygsfält att följa systemets accentfärg i Windows. Accentfärgen är den färgmarkering som används för knappar, kantlinjer och startmenyns paneler i Windows. Gå till Inställningar &gt; Anpassning &gt; Färger och välj sedan en önskad accentfärg."/>
-			<max-len-on-search-tip value="Endast textlängder på 2046 byte tillåts för Sök/Ersätt och din inmatning kanske trunkeras."/>
+			<max-len-on-search-tip value="Endast textlängder på 2046 tecken tillåts för Sök/Ersätt och din inmatning kanske trunkeras."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

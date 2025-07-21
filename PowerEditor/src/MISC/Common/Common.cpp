@@ -2095,7 +2095,7 @@ bool isCoreWindows()
 	return isCoreWindows;
 }
 
-bool ControlInfoTip::init(HINSTANCE hInst, HWND ctrl2attached, HWND ctrl2attachedParent, const wstring& tipStr, bool isRTL)
+bool ControlInfoTip::init(HINSTANCE hInst, HWND ctrl2attached, HWND ctrl2attachedParent, const wstring& tipStr, bool isRTL, unsigned int remainTimeMillisecond /* = 0 */)
 {
 	_hWndInfoTip = CreateWindowEx(isRTL ? WS_EX_LAYOUTRTL : 0, TOOLTIPS_CLASS, NULL,
 		WS_POPUP | TTS_ALWAYSTIP | TTS_BALLOON,
@@ -2121,8 +2121,10 @@ bool ControlInfoTip::init(HINSTANCE hInst, HWND ctrl2attached, HWND ctrl2attache
 	}
 
 	SendMessage(_hWndInfoTip, TTM_SETMAXTIPWIDTH, 0, 200);
-	SendMessage(_hWndInfoTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((15000), (0)));
-	SendMessage(_hWndInfoTip, TTM_ACTIVATE, TRUE, 0); // Activates the tooltip control globally
+	SendMessage(_hWndInfoTip, TTM_ACTIVATE, TRUE, 0);
+
+	if (remainTimeMillisecond)
+		SetTimer(ctrl2attachedParent, IDT_HIDE_TOOLTIP, remainTimeMillisecond, NULL);
 
 	return true;
 }

@@ -3126,8 +3126,7 @@ void ScintillaEditView::performGlobalStyles()
 	{
 		caretColor = pStyle->_fgColor;
 	}
-	//execute(SCI_SETCARETFORE, caretColor);
-	setElementColour(SC_ELEMENT_CARET, caretColor); // SCI_SETCARETFORE is deprecated
+	setElementColour(SC_ELEMENT_CARET, caretColor);
 
 	COLORREF multiEditCaretColor = darkGrey;
 	pStyle = stylers.findByName(L"Multi-edit carets color");

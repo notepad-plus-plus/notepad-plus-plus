@@ -434,5 +434,7 @@ private :
 	CloudAndLinkSubDlg _cloudAndLinkSubDlg;
 	SearchEngineSubDlg _searchEngineSubDlg;
 	SearchingSubDlg _searchingSubDlg;
+
+	ControlInfoTip _gotoTip;
 };
 

@@ -109,8 +109,22 @@ bool PreferenceDlg::goToSection(size_t iPage, intptr_t ctrlID)
 	if (ctrlID != -1)
 	{
 		::SetFocus(::GetDlgItem(_wVector[iPage]._dlg->getHSelf(), int(ctrlID)));
-	}
+		if (_gotoTip.isValid())
+		{
+			_gotoTip.hide();
+		}
 
+		NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		static wstring hereTip = pNativeSpeaker->getLocalizedStrFromID("goto-setting-tip", L"Find your setting here");
+		bool isSuccessful = _gotoTip.init(_hInst, ::GetDlgItem(_wVector[iPage]._dlg->getHSelf(), int(ctrlID)), _hSelf, hereTip.c_str(), pNativeSpeaker->isRTL(), 2000);
+
+		if (!isSuccessful)
+			return false;
+
+		NppDarkMode::setDarkTooltips(_gotoTip.getTipHandle(), NppDarkMode::ToolTipsType::tooltip);
+		
+		_gotoTip.show();
+	}
 	return true;
 }
 
@@ -224,6 +238,29 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
 			return TRUE;
+		}
+
+		case WM_NCLBUTTONDOWN:
+		{
+			if (_gotoTip.isValid())
+			{
+				_gotoTip.hide();
+			}
+			return FALSE;
+		}
+
+		case WM_TIMER:
+		{
+			if (wParam == IDT_HIDE_TOOLTIP)
+			{
+				if (_gotoTip.isValid())
+				{
+					_gotoTip.hide();
+					KillTimer(_hSelf, IDT_HIDE_TOOLTIP);
+					return TRUE;
+				}
+			}
+			break;
 		}
 
 		case WM_CTLCOLORLISTBOX:

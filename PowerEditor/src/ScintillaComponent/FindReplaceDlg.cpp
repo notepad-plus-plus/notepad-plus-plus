@@ -1950,7 +1950,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							if (!_maxLenOnSearchTip.isValid()) // Create the tooltip and add the tool ONLY ONCE
 							{
 								NativeLangSpeaker* pNativeSpeaker = nppParamInst.getNativeLangSpeaker();
-								static wstring maxLenOnSearchTip = pNativeSpeaker->getLocalizedStrFromID("max-len-on-search-tip", L"Only 2046 bytes are allowed for the find/replace text length - your input could be truncated.");
+								static wstring maxLenOnSearchTip = pNativeSpeaker->getLocalizedStrFromID("max-len-on-search-tip", L"Only 2046 characters are allowed for the find/replace text length - your input could be truncated.");
 								bool isSuccessful = _maxLenOnSearchTip.init(_hInst, hComboBox, _hSelf, maxLenOnSearchTip.c_str(), _isRTL);
 
 								if (!isSuccessful)

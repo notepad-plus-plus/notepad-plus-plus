@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.1"><!-- Datum: 26.06.2025, basiert auf english.xml 8.8.1 vom 26.06.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.1"><!-- Datum: 30.07.2025, basiert auf english.xml 8.8.1 vom 23.07.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -643,8 +643,8 @@ Translation note:
 					<Item id="2219" name="Standard-Schlüsselwörter:"/>
 					<Item id="2221" name="Benutzerdefinierte Schlüsselwörter:"/>
 					<Item id="2225" name="Sprache:"/>
-					<Item id="2226" name="Erzwinge Vordergrundfarbe f. alle Stile"/>
-					<Item id="2227" name="Erzwinge Hintergrundfarbe f. alle Stile"/>
+					<Item id="2226" name="Vordergrundfarbe erzw. f. alle Stile"/>
+					<Item id="2227" name="Hintergrundfarbe erzw. f. alle Stile"/>
 					<Item id="2228" name="Erzwinge Schriftart für alle Stile"/>
 					<Item id="2229" name="Erzwinge Schriftgröße für alle Stile"/>
 					<Item id="2230" name="Erzwinge Fettschrift für alle Stile"/>
@@ -794,7 +794,7 @@ Translation note:
 				<Item id="20015" name="Importieren …"/>
 				<Item id="20016" name="Exportieren …"/>
 				<Item id="20017" name="Abdocken"/>
-				<StylerDialog title="Stiloptionen für benutzerdefinierte Sprachen">
+				<StylerDialog title="Stiloptionen für benutzerdefinierte Sprache">
 					<Item id="25030" name="Schriftoptionen:"/>
 					<Item id="25006" name="Vordergrundfarbe:"/>
 					<Item id="25007" name="Hintergrundfarbe:"/>
@@ -957,7 +957,7 @@ Translation note:
 			<Preference title="Optionen">
 				<Item id="6001" name="S&amp;chließen"/>
 				<Global title="Allgemein">
-					<Item id="6123" name="Sprache"/>
+					<Item id="6123" name="Menüsprache"/>
 					<Item id="6131" name="Menü"/>
 					<Item id="6122" name="Ausblenden (Umschalten mit Alt oder F10)"/>
 					<Item id="6132" name="Schaltflächen '＋ ▼ ✕' ausblenden"/>
@@ -1310,7 +1310,7 @@ Translation note:
 				<Performance title="Leistung">
 					<Item id="7141" name="Einschränkung für große Dateien"/>
 					<Item id="7143" name="Aktivieren der Einschränkung für große Dateien (keine Syntaxhervorhebung)"/>
-					<Item id="7144" name="Große Dateigröße definieren:"/>
+					<Item id="7144" name="Große Datei definieren:"/>
 					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="Klammerübereinstimmung zulassen"/>
 					<Item id="7148" name="Auto-Vervollständigung zulassen"/>
@@ -1362,13 +1362,13 @@ Translation note:
 						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
 					<ComboBox id="6364">
-						<Element name="Deaktivieren"/>
-						<Element name="Aktivieren beim Start von Notepad++"/>
-						<Element name="Aktivieren beim Beenden von Notepad++"/>
+						<Element name="deaktivieren"/>
+						<Element name="beim Start von Notepad++"/>
+						<Element name="beim Beenden von Notepad++"/>
 					</ComboBox>
 					<Item id="6308" name="Infobereich (Tray)"/>
 					<Item id="6363" name="Darstellungsmodus"/>
-					<Item id="6365" name="Automatische Aktualisierung"/>
+					<Item id="6365" name="Autom. Aktualisierung"/>
 					<Item id="6312" name="Automatische Änderungserkennung"/>
 					<Item id="6313" name="Ohne Rückfrage aktualisieren"/>
 					<Item id="6325" name="Nach Aktualisierung zum Ende scrollen"/>
@@ -1884,7 +1884,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Wenn diese 'Intelligente Einrückung' gewählt wird, aber keine Dateien in den oben genannten Sprachen bearbeitet werden, bleibt die Einrückung im Standard-Modus."/>
 
 			<!-- Don't translate "Global override" and "Default Style" -->
-			<global-override-tip value="Das Aktivieren der 'Global override' überschreibt die Parameter in allen Schriftstilen. Was aber wahrscheinlich stattdessen gewünscht ist, sind die Einstellungen für 'Default Style'"/>
+			<global-override-tip value="Das Aktivieren von 'Global override' überschreibt die Parameter in allen Schriftstilen. Was aber wahrscheinlich stattdessen gewünscht ist, sind die Einstellungen für 'Default Style'"/>
 			<scintillaRenderingTechnology-tip value="Verwende DirectWrite (kann die Darstellung von Sonderzeichen verbessern oder einige Grafikprobleme beheben - erfordert einen Neustart von Notepad++."/>
 
 			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
@@ -1898,6 +1898,9 @@ Wenn diese 'Intelligente Einrückung' gewählt wird, aber keine Dateien in den o
 			<statusbar-Sel value="Gew: "/>
 			<statusbar-Sel-number value="Gew"/>
 			<toolbar-accent-tip value="Mit dieser Option werden die Symbolleistensymbole der Akzentfarbe des Windows-Systems angepasst. Die Akzentfarbe ist die Farbe, mit der Schaltflächen, Rahmen und Startmenükacheln in Windows hervorgehoben werden. Um sie zu ändern, gehen Sie zu Einstellungen &gt; Personalisierung &gt; Farben und wählen Sie dann Ihre bevorzugte Akzentfarbe."/>
+			<max-len-on-search-tip value="Es sind nur $INT_REPLACE$ Zeichen erlaubt für die Suchen/Ersetzen-Textlänge - deine Eingabe könnte gekürzt werden und wird für die nächste Sitzung nicht gespeichert."/>
+			<max-len-on-save-tip value="Diese Sucheingabe (> $INT_REPLACE$ Zeichen) wird für die nächste Sitzung nicht gespeichert."/>
+			<goto-setting-tip value="Finde hier deine Einstellungen"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

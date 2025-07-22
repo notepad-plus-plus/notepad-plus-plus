@@ -1888,6 +1888,7 @@ Ak vyberiete pokročilý režim, ale neupravujete súbory vo vyššie uvedených
 			<statusbar-Sel-number value="Ozn"/>
 			<toolbar-accent-tip value="Táto možnosť spôsobí, že ikony na paneli s nástrojmi budú mať farbu motívu Windowsu. Farba motívu je farba zvýraznenia používaná v tlačidlách, okrajoch a dlaždiciach ponuky Štart vo Windowse. Ak ju chcete zmeniť, prejdite do Nastavenia &gt; Prispôsobenie &gt; Farby, potom vyberte preferovanú farbu."/>
 			<max-len-on-search-tip value="Povolená dĺžka pre hľadať/nahradiť text je len 2046 znakov - váš vstup môže byť skrátený."/>
+			<goto-setting-tip value="Nastavenia nájdete tu"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

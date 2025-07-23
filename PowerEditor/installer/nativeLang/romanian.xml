@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 8.8.1
--    Ultima modificare a fost făcută 25 iunie 2025 de către Miloiu Andrei-Valentin
+-    Traducerea în română pentru Notepad++ 8.8.3
+-    Ultima modificare a fost făcută 01 august 2025 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang -->
 <NotepadPlus>
-    <Native-Langue name="Romanian" filename="romanian.xml" version="8.8.1">
+    <Native-Langue name="Romanian" filename="romanian.xml" version="8.8.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1130,6 +1130,7 @@
                     <Item id="6419" name="Document nou"/>
                     <Item id="6420" name="Se aplică la fișierele ANSI deschise"/>
 					<Item id="6432" name="Deschide întotdeauna un document nou în plus la pornire"/>
+					<Item id="6433" name="Folosește prima linie a documentului ca nume de filă fără titlu"/>
                 </NewDoc>
 
                 <DefaultDir title="Folder implicit">
@@ -1933,6 +1934,9 @@ Dacă selectezi modul avansat, dar nu editezi fișiere în limbile menționate m
  			<statusbar-Sel value="Sel: "/>
  			<statusbar-Sel-number value="Sel"/>
 			<toolbar-accent-tip value="Această opțiune face ca pictogramele tale din bara de instrumente să urmeze culoarea de accent a sistemului Windows. Culoarea de accent este culoarea de evidențiere folosită la butoane, chenare și borduri din meniul Start din Windows. Ca să o schimbi, mergi la Setări &gt; Personalizare &gt; Culori, apoi selectează-ți culoarea de accent preferată."/>
+			<max-len-on-search-tip value="Sunt permise doar caractere $INT_REPLACE$ pentru lungimea textului de căutare/înlocuire - datele introduse de tine ar putea fi trunchiate și nu vor fi salvate pentru următoarea sesiune."/>
+			<max-len-on-save-tip value="Această intrare de căutare (> $INT_REPLACE$ caractere) nu va fi salvată pentru următoarea sesiune."/>
+			<goto-setting-tip value="Găsește-ți setarea aici"/>
 		</MiscStrings>
     </Native-Langue>
 </NotepadPlus>

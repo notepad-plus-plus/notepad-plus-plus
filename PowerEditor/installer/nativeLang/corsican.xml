@@ -13,7 +13,7 @@ Additionnal information about Corsican localization:
 2. History of Corsican translation for Notepad++:
 
 	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8), Apr. 20th (v8.8),
-			  June 26th (v8.8.1)
+			  June 26th (v8.8.1+), July 24th (v8.8.3+)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
 			  June 13th (v8.6.9), Sept. 8th (v8.7), Oct. 21st (v8.7.1), Nov. 20th (v8.7.2), Nov. 29th (v8.7.3)
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
@@ -36,7 +36,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.8.1">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.8.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -671,7 +671,7 @@ Additionnal information about Corsican localization:
 					<Item id="2230" name="Sfurzà a grafia grassa à tutti i stili"/>
 					<Item id="2231" name="Sfurzà a grafia cursiva à tutti i stili"/>
 					<Item id="2232" name="Sfurzà a grafia sottulin. à tutti i stili"/>
-					<Item id="2234" name="Andà à i parametri"/>
+					<Item id="2234" name="Accede à u parametru"/>
 					<!-- Don't translate "Global override" -->
 					<Item id="2235" name="Cosa serà a « Global override » ?"/>
 				</SubDialog>
@@ -1914,6 +1914,9 @@ S’è vo selezziunate u modu espertu ma ùn mudificate micca i schedarii in i l
 			<statusbar-Sel value="Sel : "/>
 			<statusbar-Sel-number value="Sel"/>
 			<toolbar-accent-tip value="St’ozzione permette à l’icone di a vostra barra d’attrezzi d’aduttà u culore d’accentuazione di u sistema Windows. U culore d’accentuazione hè u culore di messa in evidenza impiegatu da Windows per i buttoni, i bordi è e musaiche di u listinu « Démarrer ». Per mudificallu, accidite à Parametri &gt; Persunalizà &gt; Culori, eppò selezziunate u vostru culore d’accentuazione preferitu."/>
+			<max-len-on-search-tip value="Solu $INT_REPLACE$ caratteri sò permessi per a lunghezza di u testu di ricerca è di rimpiazzamentu - a vostra stampittera puderia esse truncata è ùn seria micca arregistrata per a prossima sessione."/>
+			<max-len-on-save-tip value="Sta stampittera di ricerca (> $INT_REPLACE$ caratteri) ùn serà micca arregistrata per a prossima sessione."/>
+			<goto-setting-tip value="Mudificà u parametru quì"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

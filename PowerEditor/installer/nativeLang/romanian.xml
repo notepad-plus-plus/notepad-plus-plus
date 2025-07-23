@@ -795,7 +795,7 @@
                 <Item id="20012" name="Ignoră tipul de litere"/>
                 <Item id="20011" name="Transparență"/>
                 <Item id="20015" name="Importare..."/>
-                <Item id="20016" name="Export..."/>
+                <Item id="20016" name="Exportare..."/>
 				<Item id="20017" name="Deconectează"/>
 				<StylerDialog title="Dialogul stilizatorului">
 					<Item id="25030" name="Opțiuni pentru font:"/>

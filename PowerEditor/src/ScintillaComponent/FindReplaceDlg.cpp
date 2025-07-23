@@ -511,7 +511,7 @@ int FindReplaceDlg::saveComboHistory(int id, int maxcount, vector<wstring> & str
 	for (int i = 0 ; i < count ; ++i)
 	{
 		auto cbTextLen = ::SendMessage(hCombo, CB_GETLBTEXTLEN, i, 0);
-		if (cbTextLen <= FINDREPLACE_MAXLENGTH2SAVE - 2)
+		if (cbTextLen <= FINDREPLACE_MAXLENGTH2SAVE - 1)
 		{
 			::SendMessage(hCombo, CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(text));
 			strings.push_back(wstring(text));
@@ -1973,7 +1973,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							}
 							_maxLenOnSearchTip.show();
 						}
-						else if (length >= FINDREPLACE_MAXLENGTH2SAVE - 1)
+						else if (length >= FINDREPLACE_MAXLENGTH2SAVE - 1) // FINDREPLACE_MAXLENGTH2SAVE < length < FINDREPLACE_MAXLENGTH
 						{
 							if (!_maxLenOnSearchTip.isValid()) // Create the tooltip and add the tool ONLY ONCE
 							{

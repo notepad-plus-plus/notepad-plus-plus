@@ -61,19 +61,24 @@ void delLeftWordInEdit(HWND hEdit)
 	WORD cursor = 0;
 	::SendMessage(hEdit, EM_GETSEL, (WPARAM)&cursor, 0);
 	WORD wordstart = cursor;
-	while (wordstart > 0) {
+	while (wordstart > 0)
+	{
 		wchar_t c = str[wordstart - 1];
 		if (c != ' ' && c != '\t')
 			break;
 		--wordstart;
 	}
-	while (wordstart > 0) {
+
+	while (wordstart > 0)
+	{
 		wchar_t c = str[wordstart - 1];
 		if (c == ' ' || c == '\t')
 			break;
 		--wordstart;
 	}
-	if (wordstart < cursor) {
+
+	if (wordstart < cursor)
+	{
 		::SendMessage(hEdit, EM_SETSEL, (WPARAM)wordstart, (LPARAM)cursor);
 		::SendMessage(hEdit, EM_REPLACESEL, (WPARAM)TRUE, reinterpret_cast<LPARAM>(L""));
 	}
@@ -506,7 +511,7 @@ int FindReplaceDlg::saveComboHistory(int id, int maxcount, vector<wstring> & str
 	for (int i = 0 ; i < count ; ++i)
 	{
 		auto cbTextLen = ::SendMessage(hCombo, CB_GETLBTEXTLEN, i, 0);
-		if (cbTextLen <= FINDREPLACE_MAXLENGTH - 1)
+		if (cbTextLen <= FINDREPLACE_MAXLENGTH2SAVE - 1)
 		{
 			::SendMessage(hCombo, CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(text));
 			strings.push_back(wstring(text));
@@ -1551,8 +1556,8 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 			HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
 
-			::SendMessage(hFindCombo, CB_LIMITTEXT, FINDREPLACE_MAXLENGTH - 2, 0);
-			::SendMessage(hReplaceCombo, CB_LIMITTEXT, FINDREPLACE_MAXLENGTH - 2, 0);
+			::SendMessage(hFindCombo, CB_LIMITTEXT, FINDREPLACE_MAXLENGTH - 1, 0);
+			::SendMessage(hReplaceCombo, CB_LIMITTEXT, FINDREPLACE_MAXLENGTH - 1, 0);
 
 			HWND hFiltersCombo = ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO);
 			HWND hDirCombo = ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO);
@@ -1945,13 +1950,40 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					{
 						HWND hComboBox = ::GetDlgItem(_hSelf, LOWORD(wParam));	
 						LRESULT length = ::GetWindowTextLength(hComboBox);
-						if (length >= FINDREPLACE_MAXLENGTH - 2)
+
+
+						if (length >= FINDREPLACE_MAXLENGTH - 1)
 						{
 							if (!_maxLenOnSearchTip.isValid()) // Create the tooltip and add the tool ONLY ONCE
 							{
 								NativeLangSpeaker* pNativeSpeaker = nppParamInst.getNativeLangSpeaker();
-								static wstring maxLenOnSearchTip = pNativeSpeaker->getLocalizedStrFromID("max-len-on-search-tip", L"Only 2046 characters are allowed for the find/replace text length - your input could be truncated.");
+								wstring tip = pNativeSpeaker->getLocalizedStrFromID("max-len-on-search-tip", L"Only $INT_REPLACE$ characters are allowed for the find/replace text length - your input could be truncated, and it won't be saved for the next session.");
+								tip = stringReplace(tip, L"$INT_REPLACE$", std::to_wstring(FINDREPLACE_MAXLENGTH - 1));
+
+								static wstring maxLenOnSearchTip = tip;
+
 								bool isSuccessful = _maxLenOnSearchTip.init(_hInst, hComboBox, _hSelf, maxLenOnSearchTip.c_str(), _isRTL);
+
+								if (!isSuccessful)
+								{
+									return FALSE;
+								}
+
+								NppDarkMode::setDarkTooltips(_maxLenOnSearchTip.getTipHandle(), NppDarkMode::ToolTipsType::tooltip);
+							}
+							_maxLenOnSearchTip.show();
+						}
+						else if (length >= FINDREPLACE_MAXLENGTH2SAVE - 1) // FINDREPLACE_MAXLENGTH2SAVE < length < FINDREPLACE_MAXLENGTH
+						{
+							if (!_maxLenOnSearchTip.isValid()) // Create the tooltip and add the tool ONLY ONCE
+							{
+								NativeLangSpeaker* pNativeSpeaker = nppParamInst.getNativeLangSpeaker();
+								wstring tip = pNativeSpeaker->getLocalizedStrFromID("max-len-on-save-tip", L"This search input (> $INT_REPLACE$ characters) won't be saved for the next session");
+								tip = stringReplace(tip, L"$INT_REPLACE$", std::to_wstring(FINDREPLACE_MAXLENGTH2SAVE - 1));
+
+								static wstring maxLenOnSaveTip = tip;
+
+								bool isSuccessful = _maxLenOnSearchTip.init(_hInst, hComboBox, _hSelf, maxLenOnSaveTip.c_str(), _isRTL);
 
 								if (!isSuccessful)
 								{

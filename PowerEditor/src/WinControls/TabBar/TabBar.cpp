@@ -1175,14 +1175,35 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 		case WM_LBUTTONDBLCLK:
 		{
-			bool isDbClk2Close = NppParameters::getInstance().getNppGUI()._tabStatus & TAB_DBCLK2CLOSE;
-			if (isDbClk2Close)
+			NppParameters& nppParam = NppParameters::getInstance();
+			NppGUI& nppGUI = nppParam.getNppGUI();
+
+			bool isVertical = nppGUI._tabStatus & TAB_VERTICAL;
+			bool isDbClk2Close = nppGUI._tabStatus & TAB_DBCLK2CLOSE;
+
+			int xPos = LOWORD(lParam);
+			int yPos = HIWORD(lParam);
+			int currentTabOn = getTabIndexAt(xPos, yPos);
+
+			if (currentTabOn != -1)
 			{
-				int xPos = LOWORD(lParam);
-				int yPos = HIWORD(lParam);
-				int currentTabOn = getTabIndexAt(xPos, yPos);
-				notify(TCN_TABDELETE, currentTabOn);
+				if (isDbClk2Close)
+					notify(TCN_TABDELETE, currentTabOn);
 			}
+			else
+			{
+				POINT pt{};
+				GetCursorPos(&pt);
+
+				RECT rcLastTab{};
+				TabCtrl_GetItemRect(_hSelf, static_cast<int32_t>(TabCtrl_GetItemCount(_hSelf)) - 1, &rcLastTab);
+				ClientRectToScreenRect(_hSelf, &rcLastTab);
+
+				bool isDbClickOnTabStrip = isVertical ? (pt.x < rcLastTab.right) : (pt.y < rcLastTab.bottom);
+				if (isDbClickOnTabStrip)
+					::SendMessage(_hParent, WM_COMMAND, IDM_FILE_NEW, 0);
+			}
+
 			return TRUE;
 		}
 

@@ -5,7 +5,7 @@
 2. Tüm yorumlar açıklama içindir, çeviri için değil.
 -->
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="8.7.3">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="8.8.1">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -137,6 +137,8 @@
 					<Item id="42060" name="Alfabetik Olarak Sırala (Azalan)"/>
 					<Item id="42080" name="Satırları Alfb. Ve Boyutu Görmezden Gel. Sırala (Artan)"/>
 					<Item id="42081" name="Satırları Alfb. Ve Boyutu Görmezden Gel. Sırala (Azalan)"/>
+					<Item id="42100" name="Satırları Yerel Düzende Sırala (Artan)"/>
+					<Item id="42101" name="Satırları Yerel Düzende Sırala (Azalan)"/>
 					<Item id="42061" name="Tam Sayı Olarak Sırala (Artan)"/>
 					<Item id="42062" name="Tam Sayı Olarak Sırala (Azalan)"/>
 					<Item id="42063" name="Virgüle Göre Ondalıklı Olarak Sırala (Artan)"/>
@@ -194,13 +196,14 @@
 					<Item id="42025" name="&amp;Geçerli Makroyu Kaydet..."/>
 					<Item id="42026" name="Sağdan Sola Metin Yönü"/>
 					<Item id="42027" name="Soldan Sağa Metin Yönü"/>
-					<Item id="42028" name="Salt Okunur Yap"/>
+					<Item id="42028" name="Notepad++ Üzerinde Salt Okunur"/>
 					<Item id="42029" name="Geçerli Dosyanın Yolunu Kopyala"/>
 					<Item id="42030" name="Geçerli Dosya Adını Kopyala"/>
 					<Item id="42031" name="Geçerli Dizin Yolunu Kopyala"/>
 					<Item id="42087" name="Tüm Dosya Adlarını Kopyala"/>
 					<Item id="42088" name="Tüm Dosya Yollarını Kopyala"/>
 					<Item id="42032" name="&amp;Makroyu Birden Çok Kez Çalıştır"/>
+					<Item id="42033" name="Windows Üzerinde Salt Okunur Özniteliği"/>
 					<Item id="42035" name="Tek Satır Yorum Alanı Aç"/>
 					<Item id="42036" name="Tek Satır Yorum Alanını Kapat"/>
 					<Item id="42055" name="Boş Satırları Kaldır"/>
@@ -435,7 +438,8 @@
 				<Item CMDID="41016" name="Çöp Kutusuna Taşı"/>
 				<Item CMDID="41014" name="Yeniden Yükle"/>
 				<Item CMDID="41010" name="Yazdır..."/>
-				<Item CMDID="42028" name="Salt Okunur"/>
+				<Item CMDID="42028" name="Notepad++ Üzerinde Salt Okunur"/>
+				<Item CMDID="42033" name="Windows Üzerinde Salt Okunur Özniteliği"/>
 				<Item CMDID="2" name="Panoya Kopyala"/>
 				<Item CMDID="42029" name="Tam Dosya Yolunu Kopyala"/>
 				<Item CMDID="42030" name="Dosya Adını Kopyala"/>
@@ -823,6 +827,7 @@
 				<Folder title="Klasör &amp;&amp; Varsayılanlar">
 					<Item id="21101" name="Varsayılan Stil"/>
 					<Item id="21102" name="Stilci…"/>
+					<Item id="21103" name="Kullanıcı Tanımlı Diller çevrimiçi yardım"/>
 					<Item id="21105" name="Belgelendirme"/>
 					<Item id="21106" name="&amp;Sıkı kapat (boş satırları da kapat)"/>
 					<Item id="21220" name="Kod 1 Stilinde Kapat"/>
@@ -946,36 +951,56 @@
 			<Preference title="Tercihler">
 				<Item id="6001" name="Kapat"/>
 				<Global title="Genel">
+					<Item id="6123" name="Yerelleştirme"/>
+					<Item id="6131" name="Menü"/>
+					<Item id="6122" name="Gizle (Alt ya da F10 tuşuyla geçiş yapın)"/>
+					<Item id="6132" name="Sağdaki Kısayolları Gizle ＋ ▼ ✕"/>
+					<Item id="6133" name="Durum Çubuğu"/>
+					<Item id="6134" name="Gizle"/>
+				</Global>
+
+				<Toolbar title="Toolbar">
 					<Item id="6102" name="Gizle"/>
 					<Item id="6103" name="Fluent Arayüz: küçük"/>
 					<Item id="6104" name="Fluent Arayüz: geniş"/>
 					<Item id="6129" name="Dolgun Fluent Arayüz: küçük"/>
 					<Item id="6130" name="Dolgun Fluent Arayüz: geniş"/>
 					<Item id="6105" name="Standart Simgeler: küçük"/>
+					<Item id="6011" name="Renklendirme"/>
+					<Item id="6012" name="Tamamı"/>
+					<Item id="6013" name="Kısmi"/>
+					<Item id="6014" name="Renk tercihi"/>
+					<Item id="6015" name="Varsayılan"/>
+					<Item id="6016" name="Kırmızı"/>
+					<Item id="6017" name="Yeşil"/>
+					<Item id="6018" name="Mavi"/>
+					<Item id="6019" name="Mor"/>
+					<Item id="6020" name="Açık Mavi"/>
+					<Item id="6021" name="Zeytin Yeşili"/>
+					<Item id="6022" name="Sarı"/>
+					<Item id="6023" name="Sistem Tonu"/>
+					<Item id="6024" name="Kişisel"/>
+				</Toolbar>
 
+				<Tabbar title="Sekme Çubuğu">
 					<Item id="6107" name="Küçült"/>
 					<Item id="6108" name="Kilitle (sürükle ve bırak devre dışı)"/>
 					<Item id="6109" name="Etkin olmayan sekme rengini değiştir"/>
 					<Item id="6110" name="Etkin sekmede renkli bir çubuk çiz"/>
-					<Item id="6112" name="Her sekmede kapatma tuşunu göster"/>
+					<Item id="6111" name="Etkin olmayan sekmelerde düğmeleri göster"/>
+					<Item id="6112" name="Kapatma tuşunu göster"/>
 					<Item id="6113" name="Çift tıklandığında belgeyi kapat"/>
 					<Item id="6115" name="Sekme sabitleme özelliğini etkinleştir"/>
+					<Item id="6135" name="Sadece sabitlenmiş düğmeyi göster"/>
 					<Item id="6118" name="Gizle"/>
 					<Item id="6119" name="Çoklu satır"/>
 					<Item id="6120" name="Dikey"/>
 					<Item id="6121" name="Kapatılan son sekmeden çık"/>
 					<Item id="6128" name="Alternatif Simgeler"/>
-
-					<Item id="6133" name="Durum Çubuğu"/>
-					<Item id="6134" name="Gizle"/>
-
-					<Item id="6131" name="Menü"/>
-					<Item id="6122" name="Menü çubuğunu gizle (Alt veya F10 tuşlarıyla göster/gizle)"/>
-					<Item id="6132" name="Sağdaki ＋ ▼ ✕ kısayolları menü çubuğundan gizle (Notepad++ yeniden başlatılmalıdır)"/>
+					<Item id="6125" name="Davranış"/>
+					<Item id="6126" name="Bak &amp;&amp; hisset"/>
+				</Tabbar>
 					
-					<Item id="6123" name="Yerelleştir"/>
-				</Global>
-
 				<Scintillas title="Düzenleme 1">
 					<Item id="6216" name="İmleç Ayarları"/>
 					<Item id="6217" name="Genişlik:"/>
@@ -994,6 +1019,7 @@
 					<Item id="6239" name="Seçimin dışında sağ tıklanırsa seçimi koru"/>
 					<Item id="6245" name="Sanal Alanı Etkinleştir"/>
 					<Item id="6214" name="Satırı Seçmeden Kopyalamayı/Kesmeyi Etkinleştir"/>
+					<Item id="6225" name="Seçilmiş yazının arkaplanına özel rengi uygula"/>
 					<Item id="6651" name="Şimdiki Satır İşaretçisi"/>
 					<Item id="6652" name="Hiçbiri"/>
 					<Item id="6653" name="Arka Planı Vurgula"/>
@@ -1030,10 +1056,10 @@
 					<Item id="7108" name="Açık Mavi"/>
 					<Item id="7109" name="Zeytin Yeşili"/>
 					<Item id="7115" name="Kişisel"/>
-					<Item id="7116" name="Üst"/>
-					<Item id="7117" name="Menü Odağı"/>
-					<Item id="7118" name="Etkin"/>
-					<Item id="7119" name="Temel"/>
+					<Item id="7116" name="İçerik Arkaplanı"/>
+					<Item id="7117" name="Odak Öğesi"/>
+					<Item id="7118" name="Kontrol Arkaplanı"/>
+					<Item id="7119" name="İletişim Arkaplanı"/>
 					<Item id="7120" name="Hata"/>
 					<Item id="7121" name="Yazı"/>
 					<Item id="7122" name="Koyu Yazı"/>
@@ -1086,6 +1112,7 @@
 					<Item id="6419" name="Yeni Belge"/>
 					<Item id="6420" name="Açılmış ANSI dosyalarına uygula"/>
 					<Item id="6432" name="Başlangıçta her zaman yeni bir belge aç"/>
+					<Item id="6433" name="Belgenin ilk satırını adlandırılmamış sekme ismi olarak kullan"/>
 				</NewDoc>
 
 				<DefaultDir title="Varsayılan Dizin">
@@ -1190,6 +1217,7 @@
 					<Item id="6908" name="Bul Alanını Seçili Yazı ile Doldur"/>
 					<Item id="6909" name="Hiçbir Şey Seçilmediyse İşaretçi Altındaki sözcüğü Seç"/>
 					<Item id="6910" name="&quot;Seçimde&quot; oto-kontrol için en az boyut:"/>
+					<Item id="6913" name="Aktif Belgeye Dayanarak Dosya Dizininde Bul Seçeneğini Doldur"/>
 				</Searching>
 
 				<RecentFilesHistory title="Son Kull. Dosya Geçmişi">
@@ -1321,12 +1349,25 @@
 						<Element name="Kapat"/>
 						<Element name="Küçült / Kapat"/>
 					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (En Uyumlu)"/>
+						<Element name="DirectWrite (Varsayılan)"/>
+						<Element name="DirectWrite (Çerçeveleri Koru)"/>
+						<Element name="DirectWrite (GDI DC Üzerine Çiz)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="Etkisizleştir"/>
+						<Element name="Notepad++ başlangıcında etkinleştir"/>
+						<Element name="Notepad++ kapatışında etkinleştir"/>
+					</ComboBox>
 					<Item id="6308" name="Görev Çubuğu"/>
+					<Item id="6363" name="Görselleştirme Modu"/>
+					<Item id="6365" name="Oto-Güncelleyici:"/>
 					<Item id="6312" name="Dosya Durumunu Otomatik Algıla"/>
 					<Item id="6313" name="Sessiz güncelle"/>
 					<Item id="6325" name="Güncellemeden sonra son satıra kaydır"/>
 					<Item id="6322" name="Oturumun dosya uzantısı:"/>
-					<Item id="6323" name="Notepad++'ı otomatik güncelle"/>
 					<Item id="6324" name="Belge Değiştirici (Ctrl + Tab)"/>
 					<Item id="6331" name="Başlık çubuğunda sadece dosya adını göster"/>
 					<Item id="6334" name="Karakter kodlamasını otomatik olarak algıla"/>
@@ -1441,6 +1482,9 @@ Buluta yedekleme iptal edilecektir. Lütfen Tercihler'den tutarlı bir konum aya
 			<DroppingFolderAsProjectModeWarning title="Geçersiz İşlem" message="Sadece klasör ya da dosyaları bırakabilirsiniz fakat ikisini birden yapamazsınız, çünkü Klasörü Proje modu olarak bırakıyorsunuz.
 Bu işlemin çalışması için, klasör bırakmada, klasörü Çalışma alanı olarak başlatmak yerine &quot; Ayarlar içindeki&quot; &quot;Varsayılan Dizin&quot; bölümünde &quot;Klasördeki tüm dosyaları aç&quot; seçeneği etkinleştirmelisiniz."/>
 			<SortingError title="Sıralama Hatası" message="$INT_REPLACE$ satırındaki hatadan dolayı Numerik sıralanamadı."/>
+			<SortLocaleMultiple title="Sıralama Gerçekleşmedi" message="Çoklu seçin desteklenmiyor."/><!-- NasılTekrarlanır: Çoklu seçim yapın ve Düzen | Satır İşlemleri | Satırları Yerel Düzende Sırala'yı seçin. -->
+			<SortLocaleUnknown title="Sıralama Başarısız" message="Sıralamanın başarısız olma sebebi belirlenemiyor."/><!-- NasılTekrarlanır: Bu durum teoriktir; neyin buna neden olacağı bilinmiyor. -->
+			<SortLocaleExcept title="Sıralama Başarısız" message="$STR_REPLACE$"/><!-- NasılTekrarlanır: 32-bit Notepad++ içinde büyük bir dosya açın, mesela 500MB / 90bin satırlı ve Düzen | Satır İşlemleri | Satırları Yerel Düzende Sırala'yı seçin. -->
 			<ColumnModeTip title="Sütun Modu İpucu" message="
 Sütun seçme moduna geçmek için 3 yol var:
 
@@ -1506,8 +1550,13 @@ Devam etmek istiyor musunuz?"/>
 			<UDLNewNameError title="UDL Hatası" message="Bu ad başka bir dil tarafından kullanılıyor,
 lütfen yeni bir ad verin."/>
 			<UDLRemoveCurrentLang title="Şu Anki Dili Kaldır" message="Emin misiniz?"/>
+			<UDL_importSuccessful title="Kullanıcı Tanımlı Dil" message="İçeri alım başarılı."/>
+			<UDL_importFails title="Kullanıcı Tanımlı Dil" message="İçeri alım başarısız."/>
+			<UDL_saveBeforeImport title="Kullanıcı Tanımlı Dil" message="Dışa aktarma öncesinde, dil tanımınızı &quot;Farklı Kaydet...&quot; seçeneğine tıklayarak kaydedin."/> <!-- NasılTekrarlanır: Kullanıcı Dili penceresinde "Kullanıcı Tanımlı Dil" seçin, sonrasında "Dışa Ver..." dümesine basın. -->
+			<UDL_exportSuccessful title="Kullanıcı Tanımlı Dil" message="Dışa aktarma başarılı."/>
+			<UDL_exportFails title="Kullanıcı Tanımlı Dil" message="Dışa aktarma başarısız."/>
 			<SCMapperDoDeleteOrNot title="Emin misiniz?" message="Bu kısayolu silmek istediğinize emin misiniz?"/>
-			<FindCharRangeValueError title="Aralık Değeri Problemi" message="0 ile 255 arasında bir giriş yapmalısınız."/>
+			<FindCharRangeValueError title="Aralık Değeri Problemi" message="0 ile 255 arasında bir giriş yapmalısınız."/> <!-- NasılTekrarlanır: Ara menüsü, Aralıktaki karakterleri bul, Özel Aralık seçin, herhangi bir düzenle kutusunda 999 girin, ve Ara'ya basın. -->
 			<OpenInAdminMode title="Kayıt Başarısız" message="Dosya kaydedilemedi, korumalı olabilir.
 Notepad++ı Yönetici olarak başlatmak ister misiniz?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Kayıt Başarısız" message="Dosya kaydedilemedi, korumalı olabilir.
@@ -1548,6 +1597,10 @@ Bul penceresini açmak için Tamam tuşuna basın veya ona odaklayın.
 			
 Eğer geriye doğru düzenli ifade arama özelliğine ihtiyacınız varsa, kullanıcı kılavuzundaki talimatlarla etkinleştirin."/>
 			<PrintError title="0" message="Yazıcı belgesi başlatılamıyor."/><!-- title="0" kullanarak Windows İS varsayılan "Hata" tercüme başlığını kullanabilirsiniz. -->
+			<FindAutoChangeOfInSelectionWarning title="Arama Uyarısı" message="&quot;Seçimde&quot; kutucuk değeri otomatik olarak değiştirildi.
+Bu eylemi gerçekleştirmeden önce lütfen arama durumunu doğrulayın."/> <!-- NasılTekrarlanır: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+			<Need2Restart2ShowMenuShortcuts title="Notepad++ Yeniden Başlatılmalı" message="Doğru menü kısayollarının gösterimi için Notepad++ yeniden başlatılmalı."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Dosyanın Salt Okunur Özniteliği Değişimi Başarısız" message="Dosya niteliklerinin değişmesi için lütfen Notepad++'ı yönetici olarak çalıştırın."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Pano Geçmişi"/>
@@ -1683,6 +1736,7 @@ Eğer geriye doğru düzenli ifade arama özelliğine ihtiyacınız varsa, kulla
 Tüm dosyalarda bul ama şu klasörleri tekrarlı olarak hariç tut - log ya da logs:
 *.* !+\log*"/><!-- NasılTekrarlanır: Bul penceresinde Farenin ucu "Dosyalarda Bul" sekmesi içinde "Filtreler" etiketi üzerinde tutulur. -->
 			<find-in-files-select-folder value="İçinde arama yapılacak bir klasör seçin"/><!-- NasılTekrarlanır: Bul > Dosyalarda Bul > [...] -->
+			<find-in-files-dir-from-active-doc-tip value="Dizin alanını aktif belgeye dayanarak doldur"/><!-- NasılTekrarlanır: Ara > Dosyalarda Bul > [<<] -->
 			<find-status-top-reached value="Bulma: Dosyanın başına ulaşıldı, sondan birinci eşleşme bulundu."/>
 			<find-status-end-reached value="Bulma: Dosyanın sonuna ulaşıldı, baştan birinci eşleşme bulundu."/>
 			<find-status-replaceinfiles-1-replaced value="Dosyalarda Değiştir: 1 eşleşme değiştirildi"/>
@@ -1819,6 +1873,19 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Eğer gelişmiş modu seçerseniz fakat belirtilen dilleri düzenlemezseniz, girinti basit modda kalacaktır."/>
 			<!-- "Global override" ve "Default Style" kelimelerini değiştirme -->
 			<global-override-tip value="Burada &quot;Global override&quot; etkinleştirmek tüm dil stillerindeki parametreyi değiştirecektir. Yapmak istediğiniz ise, muhtemelen ayarlardaki &quot;Default Style&quot; seçeneğini kullanmak"/>
+			<scintillaRenderingTechnology-tip value="Özel karakterlerin gösterimini iyileştirebilir veya bazı grafik sorunlarını çözebilir, değişimleri onaylamak için Notepad++'ı yeniden başlatın."/>
+
+			<!-- Durum çubuğundaki kısıtlı alandan dolayı, eğer 'length' & 'lines' çevirileri İngilizce kelimelerden çok daha uzunsa, çevirmek yerine lütfen onları İngilizce bırakın. -->
+			<statusbar-length-lines value="mesafe: $STR_REPLACE1$    strlr: $STR_REPLACE2$"/>
+
+			<!-- Durum çubuğundaki kısıtlı alandan dolayı, eğer 'Ln' & 'Col' çevirileri İngilizce kelimelerden uzunsa, çevirmek yerine lütfen onları İngilizce bırakın. -->
+			<statusbar-Ln-Col value="St: $STR_REPLACE1$    Stn: $STR_REPLACE2$"/>
+
+			<!-- Durum çubuğundaki kısıtlı alandan dolayı, eğer 'Pos' & 'Sel' çevirileri İngilizce kelimelerden uzunsa, çevirmek yerine lütfen onları İngilizce bırakın. -->
+			<statusbar-Pos value="Poz: "/>
+			<statusbar-Sel value="Seç: "/>
+			<statusbar-Sel-number value="Seç"/>
+			<toolbar-accent-tip value="Bu seçenek, araç çubuğu simgelerinizin Windows sistem tema rengini izlemesini sağlar. Tema rengi, Windows üzerindeki düğmelerde, çerçevelerde ve Başlat menüsü desenlerinde vurgulamak için kullanılır. Değiştirmek için, Ayarlar &gt; Kişiselleştirme &gt; Renklere gidin, sonrasında tercih ettiğiniz tema rengini seçin."/>			
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

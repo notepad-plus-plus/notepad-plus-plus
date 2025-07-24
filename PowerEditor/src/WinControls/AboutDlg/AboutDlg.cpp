@@ -35,7 +35,7 @@ using namespace std;
 // local DebugInfo helper
 void AppendDisplayAdaptersInfo(wstring& strOut, const unsigned int maxAdaptersIn)
 {
-	strOut += L"\n    installed Display Class adapters: ";
+	strOut += L"\r\n    installed Display Class adapters: ";
 
 	const wchar_t wszRegDisplayClassWinNT[] = L"SYSTEM\\CurrentControlSet\\Control\\Class\\{4D36E968-E325-11CE-BFC1-08002BE10318}";
 	HKEY hkDisplayClass = nullptr;
@@ -43,7 +43,7 @@ void AppendDisplayAdaptersInfo(wstring& strOut, const unsigned int maxAdaptersIn
 		KEY_ENUMERATE_SUB_KEYS | KEY_QUERY_VALUE, &hkDisplayClass);
 	if ((lStatus != ERROR_SUCCESS) || !hkDisplayClass)
 	{
-		strOut += L"\n    - error, failed to open the Registry Display Class key!";
+		strOut += L"\r\n    - error, failed to open the Registry Display Class key!";
 		return;
 	}
 
@@ -57,7 +57,7 @@ void AppendDisplayAdaptersInfo(wstring& strOut, const unsigned int maxAdaptersIn
 		{
 			if (dwAdapterSubkeysFound >= maxAdaptersIn)
 			{
-				strOut += L"\n    - warning, search has been limited to maximum number of adapter records: "
+				strOut += L"\r\n    - warning, search has been limited to maximum number of adapter records: "
 					+ std::to_wstring(maxAdaptersIn);
 				break;
 			}
@@ -69,7 +69,7 @@ void AppendDisplayAdaptersInfo(wstring& strOut, const unsigned int maxAdaptersIn
 			lStatus = ::RegOpenKeyExW(HKEY_LOCAL_MACHINE, strAdapterSubKey.c_str(), 0, KEY_READ, &hkAdapterSubKey);
 			if ((lStatus == ERROR_SUCCESS) && hkAdapterSubKey)
 			{
-				strAdapterNo.insert(0, L"\n        "); // doubling the output indentation
+				strAdapterNo.insert(0, L"\r\n        "); // doubling the output indentation
 				const unsigned int nKeyValMaxLen = 127;
 				const DWORD dwKeyValMaxSize = nKeyValMaxLen * sizeof(wchar_t);
 				wchar_t wszKeyVal[nKeyValMaxLen + 1]{}; // +1 ... to ensure NUL termination
@@ -235,7 +235,6 @@ void AboutDlg::doDialog()
 	goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 }
 
-
 intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
@@ -253,7 +252,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_debugInfoStr += L"\r\n";
 
 			// Build time
-			_debugInfoStr += L"Build time : ";
+			_debugInfoStr += L"Build time: ";
 			wstring buildTime;
 			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 			buildTime += wmc.char2wchar(__DATE__, CP_ACP);
@@ -263,19 +262,19 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_debugInfoStr += L"\r\n";
 
 #if defined(__clang__)
-			_debugInfoStr += L"Built with : Clang ";
+			_debugInfoStr += L"Built with: Clang ";
 			_debugInfoStr += wmc.char2wchar(__clang_version__, CP_ACP);
 			_debugInfoStr += L"\r\n";
 #elif defined(__GNUC__)
-			_debugInfoStr += L"Built with : GCC ";
+			_debugInfoStr += L"Built with: GCC ";
 			_debugInfoStr += wmc.char2wchar(__VERSION__, CP_ACP);
 			_debugInfoStr += L"\r\n";
 #elif !defined(_MSC_VER)
-			_debugInfoStr += L"Built with : (unknown)\r\n";
+			_debugInfoStr += L"Built with: (unknown)\r\n";
 #endif
 
 			// Scintilla/Lexilla version
-			_debugInfoStr += L"Scintilla/Lexilla included : ";
+			_debugInfoStr += L"Scintilla/Lexilla included: ";
 			{
 				string strSciLexVer = NPP_SCINTILLA_VERSION;
 				strSciLexVer += "/";
@@ -285,12 +284,12 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_debugInfoStr += L"\r\n";
 
 			// Boost Regex version
-			_debugInfoStr += L"Boost Regex included : ";
+			_debugInfoStr += L"Boost Regex included: ";
 			_debugInfoStr += wmc.char2wchar(NPP_BOOST_REGEX_VERSION, CP_ACP);
 			_debugInfoStr += L"\r\n";
 
 			// Binary path
-			_debugInfoStr += L"Path : ";
+			_debugInfoStr += L"Path: ";
 			wchar_t nppFullPath[MAX_PATH]{};
 			::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
 			_debugInfoStr += nppFullPath;
@@ -298,39 +297,39 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 			// Command line as specified for program launch
 			// The _cmdLinePlaceHolder will be replaced later by refreshDebugInfo()
-			_debugInfoStr += L"Command Line : ";
+			_debugInfoStr += L"Command Line: ";
 			_debugInfoStr += _cmdLinePlaceHolder;
 			_debugInfoStr += L"\r\n";
 
 			// Administrator mode
-			_debugInfoStr += L"Admin mode : ";
+			_debugInfoStr += L"Admin mode: ";
 			_debugInfoStr += _isAdmin ? L"ON" : L"OFF";
 			_debugInfoStr += L"\r\n";
 
 			// local conf
-			_debugInfoStr += L"Local Conf mode : ";
+			_debugInfoStr += L"Local Conf mode: ";
 			bool doLocalConf = (NppParameters::getInstance()).isLocal();
 			_debugInfoStr += doLocalConf ? L"ON" : L"OFF";
 			_debugInfoStr += L"\r\n";
 
 			// Cloud config directory
-			_debugInfoStr += L"Cloud Config : ";
+			_debugInfoStr += L"Cloud Config: ";
 			const wstring& cloudPath = nppParam.getNppGUI()._cloudPath;
 			_debugInfoStr += cloudPath.empty() ? L"OFF" : cloudPath;
 			_debugInfoStr += L"\r\n";
 
 			// Periodic Backup
-			_debugInfoStr += L"Periodic Backup : ";
+			_debugInfoStr += L"Periodic Backup: ";
 			_debugInfoStr += nppGui.isSnapshotMode() ? L"ON" : L"OFF";
 			_debugInfoStr += L"\r\n";
 
 			// Placeholders
-			_debugInfoStr += L"Placeholders : ";
+			_debugInfoStr += L"Placeholders: ";
 			_debugInfoStr += nppGui._keepSessionAbsentFileEntries ? L"ON" : L"OFF";
 			_debugInfoStr += L"\r\n";
 
 			// SC_TECHNOLOGY
-			_debugInfoStr += L"Scintilla Rendering Mode : ";
+			_debugInfoStr += L"Scintilla Rendering Mode: ";
 			switch (nppGui._writeTechnologyEngine)
 			{
 				case defaultTechnology:
@@ -357,7 +356,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_debugInfoStr += L"\r\n";
 
 			// Multi-instance
-			_debugInfoStr += L"Multi-instance Mode : ";
+			_debugInfoStr += L"Multi-instance Mode: ";
 			switch (nppGui._multiInstSetting)
 			{
 				case monoInst:
@@ -374,8 +373,13 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			}
 			_debugInfoStr += L"\r\n";
 
+			// asNotepad
+			_debugInfoStr += L"asNotepad: ";
+			_debugInfoStr += nppParam.isAsNotepadStyle() ? L"ON" : L"OFF";
+			_debugInfoStr += L"\r\n";
+
 			// File Status Auto-Detection
-			_debugInfoStr += L"File Status Auto-Detection : ";
+			_debugInfoStr += L"File Status Auto-Detection: ";
 			if (nppGui._fileAutoDetection == cdDisabled)
 			{
 				_debugInfoStr += L"cdDisabled";
@@ -397,23 +401,23 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_debugInfoStr += L"\r\n";
 
 			// Dark Mode
-			_debugInfoStr += L"Dark Mode : ";
+			_debugInfoStr += L"Dark Mode: ";
 			_debugInfoStr += nppGui._darkmode._isEnabled ? L"ON" : L"OFF";
 			_debugInfoStr += L"\r\n";
 
 			// Display Info
-			_debugInfoStr += L"Display Info : ";
+			_debugInfoStr += L"Display Info:";
 			{
 				HDC hdc = ::GetDC(nullptr); // desktop DC
 				if (hdc)
 				{
-					_debugInfoStr += L"\n    primary monitor: " + std::to_wstring(::GetDeviceCaps(hdc, HORZRES));
+					_debugInfoStr += L"\r\n    primary monitor: " + std::to_wstring(::GetDeviceCaps(hdc, HORZRES));
 					_debugInfoStr += L"x" + std::to_wstring(::GetDeviceCaps(hdc, VERTRES));
 					_debugInfoStr += L", scaling " + std::to_wstring(::GetDeviceCaps(hdc, LOGPIXELSX) * 100 / 96);
 					_debugInfoStr += L"%";
 					::ReleaseDC(nullptr, hdc);
 				}
-				_debugInfoStr += L"\n    visible monitors count: " + std::to_wstring(::GetSystemMetrics(SM_CMONITORS));
+				_debugInfoStr += L"\r\n    visible monitors count: " + std::to_wstring(::GetSystemMetrics(SM_CMONITORS));
 				AppendDisplayAdaptersInfo(_debugInfoStr, 4); // survey up to 4 potential graphics card Registry records
 			}
 			_debugInfoStr += L"\r\n";
@@ -486,7 +490,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 				}
 			}
 
-			_debugInfoStr += L"OS Name : ";
+			_debugInfoStr += L"OS Name: ";
 			_debugInfoStr += szProductName;
 			_debugInfoStr += L" (";
 			_debugInfoStr += (NppParameters::getInstance()).getWinVerBitStr();
@@ -495,14 +499,14 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 			if (szReleaseId[0] != '\0')
 			{
-				_debugInfoStr += L"OS Version : ";
+				_debugInfoStr += L"OS Version: ";
 				_debugInfoStr += szReleaseId;
 				_debugInfoStr += L"\r\n";
 			}
 
 			if (szCurrentBuildNumber[0] != '\0')
 			{
-				_debugInfoStr += L"OS Build : ";
+				_debugInfoStr += L"OS Build: ";
 				_debugInfoStr += szCurrentBuildNumber;
 				_debugInfoStr += L".";
 				_debugInfoStr += szUBR;
@@ -513,7 +517,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 				constexpr size_t bufSizeACP = 32;
 				wchar_t szACP[bufSizeACP] = { '\0' };
 				swprintf(szACP, bufSizeACP, L"%u", ::GetACP());
-				_debugInfoStr += L"Current ANSI codepage : ";
+				_debugInfoStr += L"Current ANSI codepage: ";
  				_debugInfoStr += szACP;
 				_debugInfoStr += L"\r\n";
 			}
@@ -538,7 +542,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			}
 
 			// Plugins
-			_debugInfoStr += L"Plugins : ";
+			_debugInfoStr += L"Plugins: ";
 			_debugInfoStr += _loadedPlugins.length() == 0 ? L"none" : _loadedPlugins;
 			_debugInfoStr += L"\r\n";
 

@@ -1910,6 +1910,7 @@ public:
 	ColumnEditorParam _columnEditParam;
 	unsigned long getScintillaModEventMask() const { return _sintillaModEventMask; };
 	void addScintillaModEventMask(unsigned long mask2Add) { _sintillaModEventMask |= mask2Add; };
+	bool isAsNotepadStyle() const { return _asNotepadStyle; }
 
 private:
 	NppParameters();

@@ -1013,7 +1013,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_GETCURRENTWORD:
 		case NPPM_GETCURRENTLINESTR:
 		{
-			const int strSize = CURRENTWORD_MAXLENGTH;
+			const int strSize = FINDREPLACE_MAXLENGTH * 2;
 			wchar_t str[strSize] = { '\0' };
 			wchar_t *pTchar = reinterpret_cast<wchar_t *>(lParam);
 

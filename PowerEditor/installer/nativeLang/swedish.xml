@@ -1889,6 +1889,9 @@ Om du väljer avancerat läge men inte redigerar filer i de omfattande språken 
 			<statusbar-Sel value="Mrk: "/>
 			<statusbar-Sel-number value="Mrk"/>
 			<toolbar-accent-tip value="Detta alternativ får ikonerna i ditt verktygsfält att följa systemets accentfärg i Windows. Accentfärgen är den färgmarkering som används för knappar, kantlinjer och startmenyns paneler i Windows. Gå till Inställningar &gt; Anpassning &gt; Färger och välj sedan en önskad accentfärg."/>
+			<max-len-on-search-tip value="Endast textlängder på $INT_REPLACE$ tecken tillåts för Sök/Ersätt. Din inmatning kanske trunkeras och kommer inte att sparas till nästa session."/>
+			<goto-setting-tip value="Hitta din inställning här"/>
+			<max-len-on-save-tip value="Denna sökinmatning (> $INT_REPLACE$ tecken) kommer inte att sparas till nästa session."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

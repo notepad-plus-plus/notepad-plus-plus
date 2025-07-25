@@ -9,10 +9,10 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepadplusplus(at)rockytdr.33mail.com)
 
-Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
+Last modified on 2025-07-25 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
-	<Native-Langue name="Nederlands" filename="dutch.xml" version="8.6.8">
+	<Native-Langue name="Nederlands" filename="dutch.xml" version="8.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -24,7 +24,7 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 					<Item menuId="encoding" name="&amp;Tekenset"/>
 					<Item menuId="language" name="&amp;Syntaxis"/>
 					<Item menuId="settings" name="&amp;Instellingen"/>
-					<Item menuId="tools" name="&amp;Gereedschappen"/>
+					<Item menuId="tools" name="&amp;Gereedschap"/>
 					<Item menuId="macro" name="&amp;Macro"/>
 					<Item menuId="run" name="&amp;Uitvoeren"/>
 					<Item menuId="Plugins" name="&amp;Plugins"/>
@@ -100,6 +100,7 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 					<Item id="41003" name="&amp;Sluiten"/>
 					<Item id="41004" name="&amp;Alles sluiten"/>
 					<Item id="41005" name="Overige documenten sluiten"/>
+					<Item id="41026" name="Alle documenten sluiten, behalve vastgemaakte"/>
 					<Item id="41009" name="Documenten aan de linkerkant sluiten"/>
 					<Item id="41018" name="Documenten aan de rechterkant sluiten"/>
 					<Item id="41024" name="Ongewijzigde documenten sluiten"/>
@@ -143,6 +144,8 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 					<Item id="42060" name="Regels lexicografisch aflopend sorteren"/>
 					<Item id="42080" name="Regels lexicografisch oplopend hoofdletterongevoelig sorteren"/>
 					<Item id="42081" name="Regels lexicografisch aflopend hoofdletterongevoelig sorteren"/>
+					<Item id="42100" name="Regels op basis van lokale taalinstellingen oplopend sorteren"/>
+					<Item id="42101" name="Regels op basis van lokale taalinstellingen aflopend sorteren"/>
 					<Item id="42061" name="Regels als gehele getallen oplopend sorteren"/>
 					<Item id="42062" name="Regels als gehele getallen aflopend sorteren"/>
 					<Item id="42063" name="Regels als decimalen (komma) oplopend sorteren"/>
@@ -200,13 +203,14 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 					<Item id="42025" name="Momenteel opgenomen macro ops&amp;laan..."/>
 					<Item id="42026" name="Tekstrichting rechts-links"/>
 					<Item id="42027" name="Tekstrichting links-rechts"/>
-					<Item id="42028" name="Instellen als alleen-&amp;lezen"/>
+					<Item id="42028" name="Alleen-lezen in Notepad++"/>
 					<Item id="42029" name="Huidig bestandspad kopiëren"/>
 					<Item id="42030" name="Huidige bestandsnaam kopiëren"/>
 					<Item id="42031" name="Pad naar huidige map kopiëren"/>
 					<Item id="42087" name="Alle bestandsnamen kopiëren"/>
 					<Item id="42088" name="Alle bestandspaden kopiëren"/>
 					<Item id="42032" name="Macro meerdere keren uitvoeren..."/>
+					<Item id="42033" name="Alleen-lezen-attribuut in Windows"/>
 					<Item id="42035" name="Regelcommentaar aan"/>
 					<Item id="42036" name="Regelcommentaar uit"/>
 					<Item id="42055" name="Lege regels verwijderen"/>
@@ -228,7 +232,7 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 					<Item id="43051" name="Regels zonder bladwijzer wissen"/>
 					<Item id="43050" name="Bladwijzers omkeren"/>
 					<Item id="43052" name="Zoeken naar tekens in &amp;bereik..."/>
-					<Item id="43053" name="Alles selecteren tussen bij elkaar horende &amp;haakjes"/>
+					<Item id="43053" name="Alles s&amp;electeren tussen {} [] of ()"/>
 					<Item id="43009" name="Ga naar overeenkomend &amp;haakje"/>
 					<Item id="43010" name="Vorig&amp;e zoeken"/>
 					<Item id="43011" name="&amp;Snel zoeken..."/>
@@ -361,6 +365,7 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 					<Item id="10005" name="Naar begin verplaatsen"/>
 					<Item id="10006" name="Naar einde verplaatsen"/>
 					<Item id="46001" name="Stijlconfigurator..."/>
+					<Item id="46016" name="Geen (normale tekst)"/>
 					<Item id="46250" name="Aangepaste syntaxismarkering ontwerpen..."/>
 					<Item id="46300" name="Map met aangepaste syntaxissen openen..."/>
 					<Item id="46301" name="Notepad++-collectie van aangepaste syntaxissen"/>
@@ -416,17 +421,19 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 					<Item id="11005" name="Pad van Z naar A"/>
 					<Item id="11006" name="Type van A naar Z"/>
 					<Item id="11007" name="Type van Z naar A"/>
-					<Item id="11008" name="Grootte van klein naar groot"/>
-					<Item id="11009" name="Grootte van groot naar klein"/>
+					<Item id="11008" name="Inhoudlengte oplopend"/>
+					<Item id="11009" name="Inhoudlengte aflopend"/>
 				</Commands>
 			</Main>
 			<TabBar>
 				<Item CMDID="41003" name="Sluiten"/>
 				<Item CMDID="0" name="Meerdere tabs sluiten"/>
 				<Item CMDID="41005" name="Overige documenten sluiten"/>
+				<Item CMDID="41026" name="Alles sluiten, behalve vastgemaakte"/>
 				<Item CMDID="41009" name="Documenten aan de linkerkant sluiten"/>
 				<Item CMDID="41018" name="Documenten aan de rechterkant sluiten"/>
 				<Item CMDID="41024" name="Ongewijzigde documenten sluiten"/>
+				<Item CMDID="44048" name="Tab vastmaken" alternativeName="Tab losmaken"/>
 				<Item CMDID="41006" name="Opslaan"/>
 				<Item CMDID="41008" name="Opslaan als..."/>
 				<Item CMDID="1" name="Openen in"/>
@@ -438,7 +445,8 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 				<Item CMDID="41016" name="Naar prullenbak verplaatsen"/>
 				<Item CMDID="41014" name="Opnieuw laden"/>
 				<Item CMDID="41010" name="Afdrukken..."/>
-				<Item CMDID="42028" name="Alleen-lezen"/>
+				<Item CMDID="42028" name="Alleen-lezen in Notepad++"/>
+				<Item CMDID="42033" name="Alleen-lezen-attribuut in Windows"/>
 				<Item CMDID="2" name="Naar klembord kopiëren"/>
 				<Item CMDID="42029" name="Volledig bestandspad kopiëren"/>
 				<Item CMDID="42030" name="Bestandsnaam kopiëren"/>
@@ -633,14 +641,16 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 					<Item id="2219" name="Standaard trefwoorden"/>
 					<Item id="2221" name="Aangepaste trefwoorden"/>
 					<Item id="2225" name="Syntaxis:"/>
-					<Item id="2226" name="Voorgrondkleur vervangen"/>
-					<Item id="2227" name="Achtergrondkleur vervangen"/>
-					<Item id="2228" name="Normaal lettertype vervangen"/>
-					<Item id="2229" name="Lettergrootte vervangen"/>
-					<Item id="2230" name="Vet lettertype vervangen"/>
-					<Item id="2231" name="Cursief lettertype vervangen"/>
-					<Item id="2232" name="Onderstreept lettertype vervangen"/>
+					<Item id="2226" name="Voorgrondkleur forceren voor alle stijlen"/>
+					<Item id="2227" name="Achtergrondkleur forceren voor alle stijlen"/>
+					<Item id="2228" name="Keuze voor lettertype forceren voor alle stijlen"/>
+					<Item id="2229" name="Keuze voor lettertype-grootte forceren voor alle stijlen"/>
+					<Item id="2230" name="Keuze voor vet forceren voor alle stijlen"/>
+					<Item id="2231" name="Keuze voor cursief forceren voor alle stijlen"/>
+					<Item id="2232" name="Keuze voor onderstrepen forceren voor alle stijlen"/>
 					<Item id="2234" name="Naar instellingen gaan"/>
+					<!-- Don't translate "Global override" -->
+					<Item id="2235" name="Wat is Global override?"/>
 				</SubDialog>
 			</StyleConfig>
 
@@ -755,8 +765,8 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 					<Item id="11005" name="Sorteren op pad van Z naar A"/>
 					<Item id="11006" name="Sorteren op type van A naar Z"/>
 					<Item id="11007" name="Sorteren op type van Z naar A"/>
-					<Item id="11008" name="Sorteren op grootte, van klein naar groot"/>
-					<Item id="11009" name="Sorteren op grootte, van groot naar klein"/>
+					<Item id="11008" name="Sorteren op inhoudlengte oplopend"/>
+					<Item id="11009" name="Sorteren op inhoudlengte aflopend"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Sneltoets">
@@ -821,6 +831,7 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 				<Folder title="Algemeen">
 					<Item id="21101" name="Standaardstijl"/>
 					<Item id="21102" name="Opmaak"/>
+					<Item id="21103" name="Online hulp voor aangepaste syntaxis"/>
 					<Item id="21105" name="Documentatie"/>
 					<Item id="21106" name="Lege regels samenvouwen"/>
 					<Item id="21220" name="Code samenvouwen (type 1)"/>
@@ -944,41 +955,62 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 			<Preference title="Voorkeuren">
 				<Item id="6001" name="Sluiten"/>
 				<Global title="Algemeen">
+					<Item id="6123" name="Lokalisatie"/>
+					<Item id="6131" name="Menu"/>
+					<Item id="6122" name="Menubalk verbergen (tonen met Alt of F10)"/>
+					<Item id="6132" name="Snelkoppelingen ＋ ▼ ✕ rechts verbergen"/>
+					<Item id="6133" name="Statusbalk"/>
+					<Item id="6134" name="Verbergen"/>
+				</Global>
+
+				<Toolbar title="Werkbalk">
 					<Item id="6102" name="Verbergen"/>
 					<Item id="6103" name="Fluent UI: klein"/>
 					<Item id="6104" name="Fluent UI: groot"/>
 					<Item id="6129" name="Gevulde fluent UI: klein"/>
 					<Item id="6130" name="Gevulde fluent UI: groot"/>
 					<Item id="6105" name="Standaardpictogrammen: klein"/>
+					<Item id="6011" name="Kleuren"/>
+					<Item id="6012" name="Volledig"/>
+					<Item id="6013" name="Gedeeltelijk"/>
+					<Item id="6014" name="Kleurkeuze"/>
+					<Item id="6015" name="Standaard"/>
+					<Item id="6016" name="Rood"/>
+					<Item id="6017" name="Groen"/>
+					<Item id="6018" name="Blauw"/>
+					<Item id="6019" name="Paars"/>
+					<Item id="6020" name="Cyaan"/>
+					<Item id="6021" name="Olijf"/>
+					<Item id="6022" name="Geel"/>
+					<Item id="6023" name="Systeemkleur"/>
+					<Item id="6024" name="Aangepast"/>
+				</Toolbar>
 
+				<Tabbar title="Tabblad-balk">
 					<Item id="6107" name="Kleine tabs"/>
-					<Item id="6108" name="Slepen en neerzetten uitschakelen"/>
-					<Item id="6109" name="Inactieve tabbladen camoufleren"/>
+					<Item id="6108" name="Vergrendelen (slepen en neerzetten uitschakelen)"/>
+					<Item id="6109" name="Kleur van inactieve tab wijzigen"/>
 					<Item id="6110" name="Actieve tabbladen accentueren"/>
-					<Item id="6112" name="Knop sluiten op elke tab weergeven"/>
+					<Item id="6111" name="Knoppen weergeven op niet-actieve tabbladen"/>
+					<Item id="6112" name="Knop sluiten weergeven"/>
 					<Item id="6113" name="Document sluiten door dubbelklikken"/>
+					<Item id="6115" name="Functie voor tab vastzetten inschakelen"/>
+					<Item id="6135" name="Alleen vastgezette knop weergeven"/>
 					<Item id="6118" name="Verbergen"/>
 					<Item id="6119" name="Tabs in meerdere rijen weergeven"/>
 					<Item id="6120" name="Verticale tabs"/>
 					<Item id="6121" name="Afsluiten bij sluiten van laatste tab"/>
 					<Item id="6128" name="Alternatieve pictogrammen"/>
-
-					<Item id="6133" name="Statusbalk"/>
-					<Item id="6134" name="Verbergen"/>
-
-					<Item id="6131" name="Menu"/>
-					<Item id="6122" name="Menubalk verbergen (tonen met Alt of F10)"/>
-					<Item id="6132" name="Snelkoppelingen ＋ ▼ ✕ rechts in menubalk verbergen (Notepad++ moet opnieuw worden gestart)"/>
-
-					<Item id="6123" name="Taal"/>
-				</Global>
+					<Item id="6125" name="Gedrag"/>
+					<Item id="6126" name="Gedrag en uiterlijk"/>
+				</Tabbar>
 
 				<Scintillas title="Bewerken 1">
 					<Item id="6216" name="Cursor-instellingen"/>
 					<Item id="6217" name="Breedte:"/>
 					<Item id="6219" name="Knippersnelheid:"/>
-					<Item id="6221" name="100"/>
-					<Item id="6222" name="0"/>
+					<Item id="6221" name="Snel"/>
+					<Item id="6222" name="Traag"/>
 					<Item id="6246" name="Opdrachten voor in-/uitvouwen van huidig niveau omschakelbaar maken"/>
 					<Item id="6227" name="Automatische terugloop"/>
 					<Item id="6228" name="Standaard"/>
@@ -990,6 +1022,7 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 					<Item id="6239" name="Selectie behouden bij rechtsklikken buiten selectie"/>
 					<Item id="6245" name="Virtuele ruimte inschakelen"/>
 					<Item id="6214" name="Kopiëren/knippen van regel zonder te selecteren inschakelen"/>
+					<Item id="6225" name="Aangepaste kleur toepassen op voorgrond van geselecteerde tekst"/>
 					<Item id="6651" name="Indicator voor huidige regel"/>
 					<Item id="6652" name="Geen"/>
 					<Item id="6653" name="Achtergrond markeren"/>
@@ -1026,10 +1059,10 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 					<Item id="7108" name="Cyaan"/>
 					<Item id="7109" name="Olijf"/>
 					<Item id="7115" name="Aangepast"/>
-					<Item id="7116" name="Bovenkant"/>
-					<Item id="7117" name="Opgelicht menu (hot-track)"/>
-					<Item id="7118" name="Actief"/>
-					<Item id="7119" name="Hoofd"/>
+					<Item id="7116" name="Inhoud-achtergrond"/>
+					<Item id="7117" name="Hot-track item"/>
+					<Item id="7118" name="Bedieningsachtergrond"/>
+					<Item id="7119" name="Venster-achtergrond"/>
 					<Item id="7120" name="Fout"/>
 					<Item id="7121" name="Tekst"/>
 					<Item id="7122" name="Donkerdere tekst"/>
@@ -1082,6 +1115,7 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 					<Item id="6419" name="Nieuw document"/>
 					<Item id="6420" name="Toepassen op geopende ANSI-bestanden"/>
 					<Item id="6432" name="Steeds een extra nieuw document openen bij opstarten"/>
+					<Item id="6433" name="Eerste regel van document gebruiken als naam voor naamloos tabblad"/>
 				</NewDoc>
 
 				<DefaultDir title="Standaardmap">
@@ -1097,19 +1131,28 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 					<Item id="4010" name="Geregistreerd:"/>
 				</FileAssoc>
 
+
 				<Language title="Syntaxismarkering">
 					<Item id="6505" name="Beschikbare items"/>
 					<Item id="6506" name="Uitgeschakelde items"/>
 					<Item id="6507" name="Compacte indeling inschakelen"/>
 					<Item id="6508" name="Syntaxis-menu"/>
+					<Item id="6335" name="Backslash als escape-teken behandelen voor SQL"/>
+				</Language>
+
+				<Indentation title="Inspringing">
+					<Item id="7161" name="Auto-inspringing"/>
+					<Item id="7162" name="Geen"/>
+					<Item id="7163" name="Basis"/>
+					<Item id="7164" name="Geavanceerd"/>
 					<Item id="6301" name="Inspringing-instellingen"/>
 					<Item id="6302" name="Spatieteken(s)"/>
 					<Item id="6303" name="Grootte inspringing:"/>
 					<Item id="6310" name="Inspringing met:"/>
 					<Item id="6311" name="Tab-teken"/>
 					<Item id="6510" name="Standaardwaarde gebruiken"/>
-					<Item id="6335" name="Backslash als SQL escape-teken behandelen"/>
-				</Language>
+					<Item id="6512" name="Backspace-toets verwijdert inspringing in plaats van een spatie"/>
+				</Indentation>
 
 				<Highlighting title="Markeren">
 					<Item id="6351" name="Alle overeenkomsten van token stileren"/>
@@ -1177,6 +1220,7 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 					<Item id="6908" name="Zoekveld vullen met geselecteerde tekst"/>
 					<Item id="6909" name="Woord onder 'dakje' selecteren wanneer niets geselecteerd is"/>
 					<Item id="6910" name="Minimale grootte voor automatisch controleren &quot;in selectie&quot;:"/>
+					<Item id="6913" name="Mapveld voor zoeken in bestanden opvullen gebaseerd op actief document"/>
 				</Searching>
 
 				<RecentFilesHistory title="Recente bestanden">
@@ -1193,9 +1237,9 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 				<Backup title="Back-up">
 					<Item id="6817" name="Sessie-momentopname en regelmatige back-up"/>
 					<Item id="6818" name="Sessie-momentopname en regelmatige back-up inschakelen"/>
-					<Item id="6819" name="Back-up elke"/>
-					<Item id="6821" name="seconden bijwerken"/>
-					<Item id="6822" name="Map:"/>
+					<Item id="6819" name="Back-up triggeren bij wijziging elke"/>
+					<Item id="6821" name="seconden"/>
+					<Item id="6822" name="Backup-map:"/>
 					<Item id="6309" name="Huidige sessie onthouden voor volgende start"/>
 					<Item id="6825" name="Niet-toegankelijke bestanden van vorige sessie onthouden"/>
 					<Item id="6801" name="Back-up bij opslaan"/>
@@ -1298,15 +1342,35 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 
 				<MISC title="Overig">
 					<ComboBox id="6347">
-						<Element name="Inschakelen"/>
+						<Element name="Inschakelen voor huidig bestand"/>
 						<Element name="Inschakelen voor alle geopende documenten"/>
 						<Element name="Uitschakelen"/>
 					</ComboBox>
+					<ComboBox id="6307">
+						<Element name="Geen actie op"/>
+						<Element name="Minimaliseren naar"/>
+						<Element name="Sluiten naar"/>
+						<Element name="Minimaliseren/sluiten naar"/>
+					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (meest compatibel)"/>
+						<Element name="DirectWrite (standaard)"/>
+						<Element name="DirectWrite (frames behouden)"/>
+						<Element name="DirectWrite (tekenen naar GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="Uitschakelen"/>
+						<Element name="Inschakelen bij opstarten van Notepad++"/>
+						<Element name="Inschakelen bij afsluiten van Notepad++"/>
+					</ComboBox>
+					<Item id="6308" name="Naar systeemvak minimaliseren"/>
+					<Item id="6363" name="rendermodus"/>
+					<Item id="6365" name="Auto-updater:"/>
 					<Item id="6312" name="Bestandswijziging detecteren"/>
 					<Item id="6313" name="In stilte bijwerken"/>
 					<Item id="6325" name="Na bijwerken naar de laatste regel gaan"/>
 					<Item id="6322" name="Bestandsextensie sessie:"/>
-					<Item id="6323" name="Notepad++ automatisch bijwerken"/>
 					<Item id="6324" name="Wisselen tussen documenten (Ctrl+Tab)"/>
 					<Item id="6331" name="Alleen de bestandsnaam in de titelbalk weergeven"/>
 					<Item id="6334" name="Tekenset automatisch detecteren"/>
@@ -1385,6 +1449,11 @@ U kunt dit dialoogvenster later terug inschakelen via voorkeuren."/>
 				<Item id="7" name="&amp;Nee"/>
 				<Item id="4" name="&amp;Altijd ja"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+
+			<DebugInfo title="Debug-info">
+				<Item id="1752" name="&amp;Debug-info naar klembord kopiëren"/>
+				<Item id="1" name="OK"/>
+			</DebugInfo>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1416,6 +1485,9 @@ Uw online instellingen zullen geannuleerd worden. Stel een coherente waarde in v
 			<DroppingFolderAsProjectModeWarning title="Ongeldige actie" message="U kunt alleen bestanden of mappen neerzetten, maar niet allebei tegelijk, omdat u in projectmodus map neerzetten zit.
 U moet &quot;vij neerzetten van een map alle bestanden openen in plaats van de map als werkruimte te starten&quot; inschakelen in de sectie &quot;standaardmap&quot; van het voorkeurenvenster om deze handeling te laten werken."/>
 			<SortingError title="Sorteerfout" message="Kan numerieke sortering niet uitvoeren vanwege regel $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SortLocaleMultiple title="Sorteren niet uitgevoerd" message="Het sorteren van meerdere selecties wordt niet ondersteund."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleUnknown title="Sorteren mislukt" message="De reden waarom het sorteren mislukte, kan niet worden vastgesteld."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+			<SortLocaleExcept title="Sorteren mislukt" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Tip voor kolommodus" message="
 Er zijn 3 manieren om over te schakelen naar de kolomselectie-modus:
 
@@ -1486,8 +1558,13 @@ Wilt u doorgaan?"/>
 			<UDLNewNameError title="UDL-fout" message="Deze naam wordt gebruikt door een andere taal.
 Geef een andere naam op."/>
 			<UDLRemoveCurrentLang title="Huidige taal verwijderen" message="Weet u het zeker?"/>
+			<UDL_importSuccessful title="Aangepaste syntaxis" message="Importeren gelukt."/>
+			<UDL_importFails title="Aangepaste syntaxis" message="Importeren mislukt."/>
+			<UDL_saveBeforeImport title="Aangepaste syntaxis" message="Sla uw syntaxis-definitie op door op de knop &quot;Opslaan Als...&quot; te klikken voordat u exporteert."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_exportSuccessful title="Aangepaste syntaxis" message="Exporteren gelukt."/>
+			<UDL_exportFails title="Aangepaste syntaxis" message="Exporteren mislukt."/>
 			<SCMapperDoDeleteOrNot title="Weet u het zeker?" message="Weet u zeker dat u deze snelkoppeling wilt verwijderen?"/>
-			<FindCharRangeValueError title="Probleem met bereik van waarde" message="U moet een waarde opgeven tussen 0 en 255."/>
+			<FindCharRangeValueError title="Probleem met bereik van waarde" message="U moet een waarde opgeven tussen 0 en 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Opslaan mislukt" message="Het bestand kan niet opgeslagen worden en kan beveiligd zijn.
 Wilt u Notepad++ starten in beheerdersmodus?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Opslaan mislukt" message="Het bestand kan niet opgeslagen worden en kan beveiligd zijn.
@@ -1523,6 +1600,15 @@ Wilt u deze plaatshouders aanmaken?
 Opmerking: als u ervoor kiest om de plaatshouders niet aan te maken of ze later te sluiten, zal uw sessie worden GEWIJZIGD BIJ HET AFSLUITEN! We raden u aan nu een back-up te maken van uw &quot;session.xml&quot;."/>
 			<RTLvsDirectWrite title="Kan tekstrichting rechts-links niet uitvoeren" message="Tekstrichting rechts-links is niet compatibel met de modus DirectWrite. Schakel de DirectWrite-modus uit in de overige-sectie van het voorkeurenvenster en start Notepad++ opnieuw."/>
 			<FileMemoryAllocationFailed title="Uitzondering: toewijzing van bestandsgeheugen mislukt" message="Er is vermoedelijk onvoldoende aaneensluitend vrij geheugen voor het bestand om geladen te worden door Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FindRegexBackwardDisabled title="Regex achterwaarts zoeken uitgeschakeld" message="Achterwaarts regex zoeken is standaard uitgeschakeld omwille van potentieel onverwachte resultaten. Om een achterwaartse zoekopdracht uit te voeren, opent u het zoekvenster en selecteert u ofwel normale of uitgebreide zoekmodus in plaats van reguliere expressie.
+Druk op OK om het zoekvenster te openen en de focus erop te zetten.
+			
+Als u de functie voor achterwaarts regex-zoeken nodig hebt, raadpleegt u de gebruikershandleiding voor instructies om ze in te schakelen."/>
+			<PrintError title="0" message="Kan printer-document niet starten."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<FindAutoChangeOfInSelectionWarning title="Zoeken-waarschuwing" message="De status van het vakje &quot;in selectie&quot; is automatisch gewijzigd.
+Verifieer de zoekvoorwaarde voordat u de handeling uitvoert."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+			<Need2Restart2ShowMenuShortcuts title="Notepad++ moet opnieuw gestart worden" message="Notepad++ nmoet opnieuw gestart worden om snelkoppelingen in het rechter menu weer te geven."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Wijzigen van alleen-lezen-attribuut van bestand is mislukt" message="Start Notepad++ als administrator om de bestandsattributen te wijzigen."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Geschiedenis van klembord"/>
@@ -1658,8 +1744,9 @@ Zoeken in alle bestanden maar de mappen tests, bin en bin64 uitsluiten:
 Zoeken in alle bestanden maar alle log- of logs-mappen recursief uitsluiten:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Een map selecteren om in te zoeken"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Zoeken: eerste overeenkomst vanaf einde van document gevonden. Het begin van het document is bereikt."/>
-			<find-status-end-reached value="Zoeken: eerste overeenkomst vanaf begin van document gevonden. Het einde van het document is bereikt."/>
+			<find-in-files-dir-from-active-doc-tip value="Mapveld vullen gebaseerd op actief document"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
+			<find-status-top-reached value="Zoeken: begin van document bereikt. Eerste overeenkomst vanaf einde van document gevonden."/>
+			<find-status-end-reached value="Zoeken: einde van document bereikt. Eerste overeenkomst vanaf begin van document gevonden."/>
 			<find-status-replaceinfiles-1-replaced value="Vervangen in bestanden: 1 overeenkomst vervangen"/>
 			<find-status-replaceinfiles-nb-replaced value="Vervangen in bestanden: $INT_REPLACE$ overeenkomsten vervangen"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Vervangen in geopende bestanden: 1 overeenkomst vervangen"/>
@@ -1673,8 +1760,8 @@ Zoeken in alle bestanden maar alle log- of logs-mappen recursief uitsluiten:
 			<find-status-replaceall-1-replaced value="Alles vervangen: 1 overeenkomst vervangen"/>
 			<find-status-replaceall-nb-replaced value="Alles vervangen: $INT_REPLACE$ overeenkomsten vervangen"/>
 			<find-status-replaceall-readonly value="Alles vervangen: kan tekst niet vervangen. Huidig document is alleen-lezen"/>
-			<find-status-replace-end-reached value="Vervangen: eerste overeenkomst vanaf begin van document vervangen. Het einde van het document is bereikt"/>
-			<find-status-replace-top-reached value="Vervangen: eerste overeenkomst vanaf einde van document vervangen. Het begin van het document is bereikt"/>
+			<find-status-replace-end-reached value="Vervangen: einde van document bereikt. Begonnen vanaf begin."/>
+			<find-status-replace-top-reached value="Vervangen: begin van document bereikt. Begonnen vanaf einde."/>
 			<find-status-replaced-next-found value="Vervangen: 1 overeenkomst vervangen. Volgende overeenkomst gevonden"/>
 			<find-status-replaced-without-continuing value="Vervangen: 1 overeenkomst vervangen."/>
 			<find-status-replaced-next-not-found value="Vervangen: 1 overeenkomst vervangen. Geen nieuwe overeenkomsten gevonden"/>
@@ -1691,7 +1778,9 @@ Zoeken in alle bestanden maar alle log- of logs-mappen recursief uitsluiten:
 			<finder-collapse-all value="Alles samenvouwen"/>
 			<finder-uncollapse-all value="Alles uitvouwen"/>
 			<finder-copy value="Geselecteerde regel(s) kopiëren"/>
+			<finder-copy-selected-paths value="Geselecteerde padnaam/-namen kopiëren"/>
 			<finder-clear-all value="Alles wissen"/>
+			<finder-open-selected-paths value="Geselecteerde padnamen openen"/>
 			<finder-purge-for-every-search value="Leegmaken voor elke zoekopdracht"/>
 			<finder-wrap-long-lines value="Lange regels laten teruglopen"/>
 			<common-ok value="Ok"/>
@@ -1784,7 +1873,32 @@ Klik op de knop &quot;?&quot; rechts om de website met gebruikershandleiding te 
 			<npcCustomColor-tip value="Ga naar de stijlconfigurator om de standaard aangepaste kleur voor geselecteerde witruimte en niet-afdrukbare tekens te wijzigen (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Instellingen voor weergave van niet-afdrukbare tekens toepassen op C0, C1 stuurtekens and Unicode-regeleindes (nieuwe regel, regelscheidingsteken en alinea-scheidingsteken)."/>
 			<searchingInSelThresh-tip value="Aantal geselecteerde tekens in de bewerkingszone zodat het selectievakje &quot;In selectie&quot; automatisch wordt ingeschakeld wanneer het dialoogvenster Zoeken wordt geactiveerd. De maximale waarde is 1024. Stel de waarde in op 0 om automatisch aanvinken uit te schakelen."/>
+			<verticalEdge-tip value="Voeg uw kolommarkering toe door de positie ervan aan te geven met een decimaal getal. U kunt meerdere kolommarkeringen definiëren door witruimte te gebruiken om de verschillende getallen van elkaar te scheiden.."/>
+			<fileSaveAsCopySaveButton-tip value="Houd Shift ingedrukt terwijl u op Opslaan drukt om de kopie te openen na het opslaan."/>
+			<autoIndentBasic-tip value="Zorg ervoor dat de inspringing van de huidige regel (dus de nieuwe regel die is gemaakt door op de ENTER-toets te drukken) overeenkomt met de inspringing van de vorige regel."/>
+			<autoIndentAdvanced-tip value="Slim inspringen inschakelen voor &quot;C-achtige&quot; talen en Python. De &quot;C-achtige&quot; talen zijn onder andere:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell en JSON.
+
+Als u de geavanceerde modus selecteert maar geen bestanden in de bovengenoemde talen bewerkt, blijft de inspringing in de basismodus staan."/>
+
+			<!-- Don't translate "Global override" and "Default Style" -->
+			<global-override-tip value="Als u hier &quot;Global override&quot; inschakelt, wordt die parameter in alle taalstijlen overschreven. Wat u waarschijnlijk echt wilt, is de &quot;Default Style&quot;-instellingen gebruiken"/>
+			<scintillaRenderingTechnology-tip value="Kan het rendere nvan speciale tekens verbeteren of sommige grafische problemen oplossen. Start Notepad++ opnieuw om de wijzigingen toe te passen."/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="lengte: $STR_REPLACE1$    regels: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Reg: $STR_REPLACE1$    Kol: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Pos: "/>
+			<statusbar-Sel value="Sel: "/>
+			<statusbar-Sel-number value="Sel"/>
+			<toolbar-accent-tip value="Met deze optie volgen de pictogrammen op uw werkbalk de accentkleur van het Windows-systeem. De accentkleur is de kleur die wordt gebruikt voor knoppen, randen en tegels in het Startmenu in Windows. Om deze kleur te wijzigen, gaat u naar Instellingen > Personalisatie > Kleuren en selecteert u de gewenste accentkleur."/>
+			<max-len-on-search-tip value="Slechts $INT_REPLACE$ tekens zijn toegelaten als tekstlengte voor het zoeken/vervangen - uw invoer kan afgekapt worden en zal niet opgeslagen worden voor de volgende sessie."/>
+			<max-len-on-save-tip value="Deze zoek-invoer (> $INT_REPLACE$ tekens) wordt niet opgeslagen voor de volgende sessie."/>
+			<goto-setting-tip value="Zoek hier uw instelling"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
-

@@ -1868,8 +1868,6 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 			Style nfoStyle;
 			nfoStyle._styleID = STYLE_DEFAULT;
-			nfoStyle._fontName = L"Lucida Console";
-			nfoStyle._fontSize = 10;
 
 			if (pStyler)
 			{
@@ -1879,6 +1877,8 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 					nfoStyle._bgColor = pDefStyle->_bgColor;
 					nfoStyle._fgColor = pDefStyle->_fgColor;
 					nfoStyle._colorStyle = pDefStyle->_colorStyle;
+					nfoStyle._fontName = pDefStyle->_fontName;
+					nfoStyle._fontSize = pDefStyle->_fontSize;
 				}
 			}
 			setSpecialStyle(nfoStyle);

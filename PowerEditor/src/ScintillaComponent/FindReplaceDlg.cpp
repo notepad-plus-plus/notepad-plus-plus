@@ -49,15 +49,21 @@ void addText2Combo(const wchar_t * txt2add, HWND hCombo)
 
 wstring getTextFromCombo(HWND hCombo)
 {
-	wchar_t str[FINDREPLACE_MAXLENGTH] = { '\0' };
-	::SendMessage(hCombo, WM_GETTEXT, FINDREPLACE_MAXLENGTH - 1, reinterpret_cast<LPARAM>(str));
-	return wstring(str);
+	const int strSize = FINDREPLACE_MAXLENGTH;
+	auto str = std::make_unique<wchar_t[]>(strSize);
+	std::fill_n(str.get(), strSize, L'\0');
+
+	::SendMessage(hCombo, WM_GETTEXT, FINDREPLACE_MAXLENGTH - 1, reinterpret_cast<LPARAM>(str.get()));
+	return wstring(str.get());
 }
 
 void delLeftWordInEdit(HWND hEdit)
 {
-	wchar_t str[FINDREPLACE_MAXLENGTH] = { '\0' };
-	::SendMessage(hEdit, WM_GETTEXT, FINDREPLACE_MAXLENGTH - 1, reinterpret_cast<LPARAM>(str));
+	const int strSize = FINDREPLACE_MAXLENGTH;
+	auto str = std::make_unique<wchar_t[]>(strSize);
+	std::fill_n(str.get(), strSize, L'\0');
+
+	::SendMessage(hEdit, WM_GETTEXT, FINDREPLACE_MAXLENGTH - 1, reinterpret_cast<LPARAM>(str.get()));
 	WORD cursor = 0;
 	::SendMessage(hEdit, EM_GETSEL, (WPARAM)&cursor, 0);
 	WORD wordstart = cursor;
@@ -491,7 +497,10 @@ void FindReplaceDlg::saveFindHistory()
 
 int FindReplaceDlg::saveComboHistory(int id, int maxcount, vector<wstring> & strings, bool saveEmpty)
 {
-	wchar_t text[FINDREPLACE_MAXLENGTH] = { '\0' };
+	const int strSize = FINDREPLACE_MAXLENGTH;
+	auto text = std::make_unique<wchar_t[]>(strSize);
+	std::fill_n(text.get(), strSize, L'\0');
+
 	HWND hCombo = ::GetDlgItem(_hSelf, id);
 	int count = static_cast<int32_t>(::SendMessage(hCombo, CB_GETCOUNT, 0, 0));
 	count = std::min<int>(count, maxcount);
@@ -513,8 +522,8 @@ int FindReplaceDlg::saveComboHistory(int id, int maxcount, vector<wstring> & str
 		auto cbTextLen = ::SendMessage(hCombo, CB_GETLBTEXTLEN, i, 0);
 		if (cbTextLen <= FINDREPLACE_MAXLENGTH2SAVE - 1)
 		{
-			::SendMessage(hCombo, CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(text));
-			strings.push_back(wstring(text));
+			::SendMessage(hCombo, CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(text.get()));
+			strings.push_back(wstring(text.get()));
 		}
 	}
 	return count;
@@ -4857,7 +4866,9 @@ LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM
 
 	bool isDropped = ::SendMessage(hwndCombo, CB_GETDROPPEDSTATE, 0, 0) != 0;
 
-	static wchar_t draftString[FINDREPLACE_MAXLENGTH]{};
+	const size_t strSize = FINDREPLACE_MAXLENGTH;
+	auto draftString = std::make_unique<wchar_t[]>(strSize);
+	std::fill_n(draftString.get(), strSize, L'\0');
 
 	if (isDropped && (message == WM_KEYDOWN) && (wParam == VK_DELETE))
 	{
@@ -4891,7 +4902,7 @@ LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM
 	else if ((message == WM_KEYDOWN) && (wParam == VK_DOWN) && (::SendMessage(hwndCombo, CB_GETCURSEL, 0, 0) == CB_ERR))
 	{
 		// down key on unselected combobox item -> store current edit text as draft
-		::SendMessage(hwndCombo, WM_GETTEXT, FINDREPLACE_MAXLENGTH - 1, reinterpret_cast<LPARAM>(draftString));
+		::SendMessage(hwndCombo, WM_GETTEXT, FINDREPLACE_MAXLENGTH - 1, reinterpret_cast<LPARAM>(draftString.get()));
 	}
 	else if ((message == WM_KEYDOWN) && (wParam == VK_UP) && (::SendMessage(hwndCombo, CB_GETCURSEL, 0, 0) == CB_ERR))
 	{
@@ -4899,11 +4910,11 @@ LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM
 		::SendMessage(hwndCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1));
 		return 0;
 	}
-	else if ((message == WM_KEYDOWN) && (wParam == VK_UP) && (::SendMessage(hwndCombo, CB_GETCURSEL, 0, 0) == 0) && std::wcslen(draftString) > 0)
+	else if ((message == WM_KEYDOWN) && (wParam == VK_UP) && (::SendMessage(hwndCombo, CB_GETCURSEL, 0, 0) == 0) && std::wcslen(draftString.get()) > 0)
 	{
 		// up key on top selected combobox item -> restore draft to edit text
 		::SendMessage(hwndCombo, CB_SETCURSEL, WPARAM(-1), 0);
-		::SendMessage(hwndCombo, WM_SETTEXT, FINDREPLACE_MAXLENGTH - 1, reinterpret_cast<LPARAM>(draftString));
+		::SendMessage(hwndCombo, WM_SETTEXT, FINDREPLACE_MAXLENGTH - 1, reinterpret_cast<LPARAM>(draftString.get()));
 		::SendMessage(hwndCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1));
 		return 0;
 
@@ -6225,9 +6236,12 @@ void FindIncrementDlg::markSelectedTextInc(bool enable, FindOption *opt)
 	if (range.cpMin == range.cpMax)
 		return;
 
-	wchar_t text2Find[FINDREPLACE_MAXLENGTH]{};
-	(*(_pFRDlg->_ppEditView))->getGenericSelectedText(text2Find, FINDREPLACE_MAXLENGTH, false);	//do not expand selection (false)
-	opt->_str2Search = text2Find;
+	const int strSize = FINDREPLACE_MAXLENGTH;
+	auto text2Find = std::make_unique<wchar_t[]>(strSize);
+	std::fill_n(text2Find.get(), strSize, L'\0');
+
+	(*(_pFRDlg->_ppEditView))->getGenericSelectedText(text2Find.get(), FINDREPLACE_MAXLENGTH, false);	//do not expand selection (false)
+	opt->_str2Search = text2Find.get();
 	_pFRDlg->markAllInc(opt);
 }
 

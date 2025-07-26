@@ -511,9 +511,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			const NppGUI& nppGui = nppParam.getNppGUI();
 			if (nppGui._fillFindFieldWithSelected)
 			{
-				wchar_t str[strSize]{};
-				_pEditView->getGenericSelectedText(str, strSize, nppGui._fillFindFieldSelectCaret);
-				_findReplaceDlg.setSearchText(str);
+				auto str = std::make_unique<wchar_t[]>(strSize);
+				std::fill_n(str.get(), strSize, L'\0');
+
+				_pEditView->getGenericSelectedText(str.get(), strSize, nppGui._fillFindFieldSelectCaret);
+				_findReplaceDlg.setSearchText(str.get());
 			}
 
 			if (isFirstTime)
@@ -527,13 +529,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_FINDINPROJECTS:
 		{
 			constexpr int strSize = FINDREPLACE_MAXLENGTH;
-			wchar_t str[strSize]{};
+			auto str = std::make_unique<wchar_t[]>(strSize);
+			std::fill_n(str.get(), strSize, L'\0');
 
 			bool isFirstTime = not _findReplaceDlg.isCreated();
 			_findReplaceDlg.doDialog(FIND_DLG, _nativeLangSpeaker.isRTL());
 
-			_pEditView->getGenericSelectedText(str, strSize);
-			_findReplaceDlg.setSearchText(str);
+			_pEditView->getGenericSelectedText(str.get(), strSize);
+			_findReplaceDlg.setSearchText(str.get());
 			if (isFirstTime)
 				_nativeLangSpeaker.changeDlgLang(_findReplaceDlg.getHSelf(), "Find");
 			_findReplaceDlg.launchFindInProjectsDlg();
@@ -544,15 +547,17 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_FINDINFINDERDLG:
 		{
 			constexpr int strSize = FINDREPLACE_MAXLENGTH;
-			wchar_t str[strSize]{};
+			auto str = std::make_unique<wchar_t[]>(strSize);
+			std::fill_n(str.get(), strSize, L'\0');
+
 			Finder *launcher = reinterpret_cast<Finder *>(wParam);
 
 			bool isFirstTime = !_findInFinderDlg.isCreated();
 
 			_findInFinderDlg.doDialog(launcher, _nativeLangSpeaker.isRTL());
 
-			_pEditView->getGenericSelectedText(str, strSize);
-			_findReplaceDlg.setSearchText(str);
+			_pEditView->getGenericSelectedText(str.get(), strSize);
+			_findReplaceDlg.setSearchText(str.get());
 			setFindReplaceFolderFilter(NULL, NULL);
 
 			if (isFirstTime)

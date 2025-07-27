@@ -1019,40 +1019,44 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_GETCURRENTLINESTR:
 		{
 			const int strSize = CURRENTWORD_MAXLENGTH;
-			wchar_t str[strSize] = { '\0' };
+			auto str = std::make_unique<wchar_t[]>(strSize);
+			std::fill_n(str.get(), strSize, L'\0');
+
 			wchar_t *pTchar = reinterpret_cast<wchar_t *>(lParam);
 
 			if (message == NPPM_GETCURRENTWORD)
-				_pEditView->getGenericSelectedText(str, strSize);
+				_pEditView->getGenericSelectedText(str.get(), strSize);
 			else if (message == NPPM_GETCURRENTLINESTR)
-				_pEditView->getLine(_pEditView->getCurrentLineNumber(), str, strSize);
+				_pEditView->getLine(_pEditView->getCurrentLineNumber(), str.get(), strSize);
 
 			// For the compatibility reason, if wParam is 0, then we assume the size of wstring buffer (lParam) is large enough.
 			// otherwise we check if the wstring buffer size is enough for the wstring to copy.
 			if (wParam != 0)
 			{
-				if (lstrlen(str) >= int(wParam))	//buffer too small
+				if (lstrlen(str.get()) >= int(wParam))	//buffer too small
 				{
 					return FALSE;
 				}
 				else //buffer large enough, perform safe copy
 				{
-					lstrcpyn(pTchar, str, static_cast<int32_t>(wParam));
+					lstrcpyn(pTchar, str.get(), static_cast<int32_t>(wParam));
 					return TRUE;
 				}
 			}
 
-			lstrcpy(pTchar, str);
+			lstrcpy(pTchar, str.get());
 			return TRUE;
 		}
 
 		case NPPM_GETFILENAMEATCURSOR: // wParam = buffer length, lParam = (wchar_t*)buffer
 		{
 			constexpr int strSize = CURRENTWORD_MAXLENGTH;
-			wchar_t str[strSize]{};
+			auto str = std::make_unique<wchar_t[]>(strSize);
+			std::fill_n(str.get(), strSize, L'\0');
+
 			int hasSlash = 0;
 
-			_pEditView->getGenericSelectedText(str, strSize); // this is either the selected text, or the word under the cursor if there is no selection
+			_pEditView->getGenericSelectedText(str.get(), strSize); // this is either the selected text, or the word under the cursor if there is no selection
 			hasSlash = FALSE;
 			for (int i = 0; str[i] != 0; i++)
 				if (CharacterIs(str[i], L"\\/"))
@@ -1064,13 +1068,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				intptr_t start = 0;
 				intptr_t end = 0;
 				const wchar_t *delimiters;
-				wchar_t strLine[strSize]{};
+				auto strLine = std::make_unique<wchar_t[]>(strSize);
+				std::fill_n(strLine.get(), strSize, L'\0');
+
 				size_t lineNumber = 0;
 				intptr_t col = 0;
 
 				lineNumber = _pEditView->getCurrentLineNumber();
 				col = _pEditView->execute(SCI_GETCURRENTPOS) - _pEditView->execute(SCI_POSITIONFROMLINE, lineNumber);
-				_pEditView->getLine(lineNumber, strLine, strSize);
+				_pEditView->getLine(lineNumber, strLine.get(), strSize);
 
 				// find the start
 				start = col;
@@ -1085,17 +1091,17 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				delimiters = L" \t:()[]<>\"\r\n";
 				while ((strLine[end] != 0) && (CharacterIs(strLine[end], delimiters) == FALSE)) end++;
 
-				lstrcpyn(str, &strLine[start], static_cast<int>(end - start + 1));
+				lstrcpyn(str.get(), &strLine[start], static_cast<int>(end - start + 1));
 			}
 
-			if (lstrlen(str) >= int(wParam))	//buffer too small
+			if (lstrlen(str.get()) >= int(wParam))	//buffer too small
 			{
 				return FALSE;
 			}
 			else //buffer large enough, perform safe copy
 			{
 				wchar_t* pTchar = reinterpret_cast<wchar_t*>(lParam);
-				lstrcpyn(pTchar, str, static_cast<int32_t>(wParam));
+				lstrcpyn(pTchar, str.get(), static_cast<int32_t>(wParam));
 				return TRUE;
 			}
 		}

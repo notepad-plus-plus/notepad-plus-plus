@@ -146,10 +146,15 @@ void Notepad_plus::command(int id)
 
 		case IDM_FILE_CONTAININGFOLDERASWORKSPACE:
 		{
-			wchar_t currentFile[CURRENTWORD_MAXLENGTH] = { '\0' };
-			wchar_t currentDir[CURRENTWORD_MAXLENGTH] = { '\0' };
-			::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETFULLCURRENTPATH, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentFile));
-			::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir));
+			const int strSize = CURRENTWORD_MAXLENGTH;
+			auto currentFile = std::make_unique<wchar_t[]>(strSize);
+			std::fill_n(currentFile.get(), strSize, L'\0');
+
+			auto currentDir = std::make_unique<wchar_t[]>(strSize);
+			std::fill_n(currentDir.get(), strSize, L'\0');
+
+			::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETFULLCURRENTPATH, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentFile.get()));
+			::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir.get()));
 	
 			if (!_pFileBrowser)
 			{
@@ -157,9 +162,9 @@ void Notepad_plus::command(int id)
 			}
 
 			vector<wstring> folders;
-			folders.push_back(currentDir);
+			folders.push_back(currentDir.get());
 			
-			launchFileBrowser(folders, currentFile);
+			launchFileBrowser(folders, currentFile.get());
 		}
 		break;
 
@@ -430,8 +435,11 @@ void Notepad_plus::command(int id)
 			if (!textLen)
 				return;
 
-			char *pBinText = new char[textLen + 1];
-			_pEditView->getSelectedText(pBinText, textLen + 1);
+			const size_t strSize = textLen + 1;
+			auto pBinText = std::make_unique<char[]>(strSize);
+			std::fill_n(pBinText.get(), strSize, '\0');
+
+			_pEditView->getSelectedText(pBinText.get(), textLen + 1);
 
 			// Open the clipboard and empty it.
 			if (!::OpenClipboard(NULL))
@@ -458,10 +466,8 @@ void Notepad_plus::command(int id)
 				::CloseClipboard();
 				return;
 			}
-			memcpy(lpucharCopy, pBinText, textLen * sizeof(unsigned char));
+			memcpy(lpucharCopy, pBinText.get(), textLen * sizeof(unsigned char));
 			lpucharCopy[textLen] = 0;    // null character
-
-			delete[] pBinText;
 
 			::GlobalUnlock(hglbCopy);
 
@@ -581,8 +587,12 @@ void Notepad_plus::command(int id)
 				return;
 
 			HWND hwnd = _pPublicInterface->getHSelf();
-			wchar_t currentWord[CURRENTWORD_MAXLENGTH] = { '\0' };
-			::SendMessage(hwnd, NPPM_GETFILENAMEATCURSOR, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentWord));
+
+			const int strSize = CURRENTWORD_MAXLENGTH;
+			auto currentWord = std::make_unique<wchar_t[]>(strSize);
+			std::fill_n(currentWord.get(), strSize, L'\0');
+
+			::SendMessage(hwnd, NPPM_GETFILENAMEATCURSOR, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentWord.get()));
 			
 			wchar_t cmd2Exec[CURRENTWORD_MAXLENGTH] = { '\0' };
 			if (id == IDM_EDIT_OPENINFOLDER)
@@ -595,27 +605,29 @@ void Notepad_plus::command(int id)
 			}
 
 			// Full file path: could be a folder or a file
-			if (doesPathExist(currentWord))
+			if (doesPathExist(currentWord.get()))
 			{
 				wstring fullFilePath = id == IDM_EDIT_OPENINFOLDER ? L"/select," : L"";
 				fullFilePath += L"\"";
-				fullFilePath += currentWord;
+				fullFilePath += currentWord.get();
 				fullFilePath += L"\"";
 
 				if (id == IDM_EDIT_OPENINFOLDER ||
-					(id == IDM_EDIT_OPENASFILE && !doesDirectoryExist(currentWord)))
+					(id == IDM_EDIT_OPENASFILE && !doesDirectoryExist(currentWord.get())))
 					::ShellExecute(hwnd, L"open", cmd2Exec, fullFilePath.c_str(), L".", SW_SHOW);
 			}
 			else // Relative file path - need concatenate with current full file path
 			{
-				wchar_t currentDir[CURRENTWORD_MAXLENGTH] = { '\0' };
-				::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir));
+				auto currentDir = std::make_unique<wchar_t[]>(strSize);
+				std::fill_n(currentDir.get(), strSize, L'\0');
+
+				::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir.get()));
 
 				wstring fullFilePath = id == IDM_EDIT_OPENINFOLDER ? L"/select," : L"";
 				fullFilePath += L"\"";
-				fullFilePath += currentDir;
+				fullFilePath += currentDir.get();
 				fullFilePath += L"\\";
-				fullFilePath += currentWord;
+				fullFilePath += currentWord.get();
 
 				if ((id == IDM_EDIT_OPENASFILE && 
 					(!doesFileExist(fullFilePath.c_str() + 1)))) // + 1 for skipping the 1st char '"'

@@ -227,7 +227,7 @@ public:
 
 	// Finalize hash; call it before using ReportHash(Stl)
 	void Final();
-
+/*
 #ifdef SHA1_UTILITY_FUNCTIONS
 	bool ReportHash(wchar_t* tszReport, REPORT_TYPE rtReportType = REPORT_HEX) const;
 #endif
@@ -236,7 +236,7 @@ public:
 	bool ReportHashStl(std::basic_string<wchar_t>& strOut, REPORT_TYPE rtReportType =
 		REPORT_HEX) const;
 #endif
-
+*/
 	// Get the raw message digest (20 bytes)
 	bool GetHash(UINT_8* pbDest20) const;
 

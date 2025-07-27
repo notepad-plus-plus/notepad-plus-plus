@@ -201,7 +201,7 @@ void CSHA1::Final()
 	Transform(m_state, m_buffer);
 #endif
 }
-
+/*
 #ifdef SHA1_UTILITY_FUNCTIONS
 bool CSHA1::ReportHash(wchar_t* tszReport, REPORT_TYPE rtReportType) const
 {
@@ -247,7 +247,7 @@ bool CSHA1::ReportHashStl(std::basic_string<wchar_t>& strOut, REPORT_TYPE rtRepo
 	return bResult;
 }
 #endif
-
+*/
 bool CSHA1::GetHash(UINT_8* pbDest20) const
 {
 	if(pbDest20 == NULL) return false;

@@ -1018,7 +1018,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_GETCURRENTWORD:
 		case NPPM_GETCURRENTLINESTR:
 		{
-			const int strSize = CURRENTWORD_MAXLENGTH;
+			const int strSize = CURRENTWORD_MAXLENGTH; // "If you are using the ShellExecute/Ex function, then you become subject to the INTERNET_MAX_URL_LENGTH (around 2048)
+			                                           // command line length limit imposed by the ShellExecute/Ex functions."
+			                                           // https://devblogs.microsoft.com/oldnewthing/20031210-00/?p=41553
+
 			auto str = std::make_unique<wchar_t[]>(strSize);
 			std::fill_n(str.get(), strSize, L'\0');
 
@@ -1031,21 +1034,22 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			// For the compatibility reason, if wParam is 0, then we assume the size of wstring buffer (lParam) is large enough.
 			// otherwise we check if the wstring buffer size is enough for the wstring to copy.
-			if (wParam != 0)
+			BOOL result = FALSE;
+			if (wParam == 0)
 			{
-				if (lstrlen(str.get()) >= int(wParam))	//buffer too small
-				{
-					return FALSE;
-				}
-				else //buffer large enough, perform safe copy
+				lstrcpy(pTchar, str.get()); // compatibility mode - don't check the size
+				result = TRUE;
+			}
+			else
+			{
+				if (lstrlen(str.get()) < int(wParam))	// buffer large enough, perform safe copy
 				{
 					lstrcpyn(pTchar, str.get(), static_cast<int32_t>(wParam));
-					return TRUE;
+					result = TRUE;
 				}
 			}
 
-			lstrcpy(pTchar, str.get());
-			return TRUE;
+			return result;
 		}
 
 		case NPPM_GETFILENAMEATCURSOR: // wParam = buffer length, lParam = (wchar_t*)buffer

@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.1"><!-- Datum: 24.07.2025, basiert auf english.xml 8.8.1 vom 23.07.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.1"><!-- Datum: 28.07.2025, basiert auf english.xml 8.8.1 vom 23.07.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -794,7 +794,7 @@ Translation note:
 				<Item id="20015" name="Importieren …"/>
 				<Item id="20016" name="Exportieren …"/>
 				<Item id="20017" name="Abdocken"/>
-				<StylerDialog title="Stiloptionen für benutzerdefinierte Sprachen">
+				<StylerDialog title="Stiloptionen für benutzerdefinierte Sprache">
 					<Item id="25030" name="Schriftoptionen:"/>
 					<Item id="25006" name="Vordergrundfarbe:"/>
 					<Item id="25007" name="Hintergrundfarbe:"/>
@@ -957,7 +957,7 @@ Translation note:
 			<Preference title="Optionen">
 				<Item id="6001" name="S&amp;chließen"/>
 				<Global title="Allgemein">
-					<Item id="6123" name="Sprache"/>
+					<Item id="6123" name="Menüsprache"/>
 					<Item id="6131" name="Menü"/>
 					<Item id="6122" name="Ausblenden (Umschalten mit Alt oder F10)"/>
 					<Item id="6132" name="Schaltflächen '＋ ▼ ✕' ausblenden"/>
@@ -1310,7 +1310,7 @@ Translation note:
 				<Performance title="Leistung">
 					<Item id="7141" name="Einschränkung für große Dateien"/>
 					<Item id="7143" name="Aktivieren der Einschränkung für große Dateien (keine Syntaxhervorhebung)"/>
-					<Item id="7144" name="Große Dateigröße definieren:"/>
+					<Item id="7144" name="Große Datei definieren:"/>
 					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="Klammerübereinstimmung zulassen"/>
 					<Item id="7148" name="Auto-Vervollständigung zulassen"/>
@@ -1362,13 +1362,13 @@ Translation note:
 						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
 					<ComboBox id="6364">
-						<Element name="Deaktivieren"/>
-						<Element name="Aktivieren beim Start von Notepad++"/>
-						<Element name="Aktivieren beim Beenden von Notepad++"/>
+						<Element name="deaktivieren"/>
+						<Element name="beim Start von Notepad++"/>
+						<Element name="beim Beenden von Notepad++"/>
 					</ComboBox>
 					<Item id="6308" name="Infobereich (Tray)"/>
 					<Item id="6363" name="Darstellungsmodus"/>
-					<Item id="6365" name="Automatische Aktualisierung"/>
+					<Item id="6365" name="Autom. Aktualisierung"/>
 					<Item id="6312" name="Automatische Änderungserkennung"/>
 					<Item id="6313" name="Ohne Rückfrage aktualisieren"/>
 					<Item id="6325" name="Nach Aktualisierung zum Ende scrollen"/>

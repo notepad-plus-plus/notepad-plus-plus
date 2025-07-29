@@ -8201,7 +8201,7 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 			id = IDM_LANG_HTML;	break;
 		case L_XML :
 			id = IDM_LANG_XML; break;
-		case L_JS :
+		case L_JS_EMBEDDED :
 		case L_JAVASCRIPT:
 			id = IDM_LANG_JS; break;
 		case L_JSON:

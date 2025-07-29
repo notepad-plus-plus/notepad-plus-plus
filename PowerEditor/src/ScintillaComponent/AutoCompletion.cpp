@@ -1223,7 +1223,7 @@ const wchar_t * AutoCompletion::getApiFileName()
         _curLang = L_TEXT;
 
 	if (_curLang == L_JAVASCRIPT)
-        _curLang = L_JS;
+        _curLang = L_JS_EMBEDDED;
 
 	return ScintillaEditView::_langNameInfoArray[_curLang]._langName;
 }

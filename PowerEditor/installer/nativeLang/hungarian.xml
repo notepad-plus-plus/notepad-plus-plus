@@ -1012,7 +1012,7 @@
 					<Item id="6234" name="&amp;Érintőpad-problémák miatt a haladó szintű görgetés letiltása"/>
 					<Item id="6215" name="B&amp;etűsimítás engedélyezése"/>
 					<Item id="6236" name="Az &amp;utolsó sornál lejjebb görgetés engedélyezése"/>
-					<Item id="6239" name="Kijelölés &amp;megtartása a kijelölésen kívül jobb egérgombbal történő kattintáskor is"/>
+					<Item id="6239" name="Kijelölés &amp;megtartása a kijelölésen kívül jobb egérgombbal kattintva is"/>
 					<Item id="6245" name="S&amp;orvégi virtuális szóközök engedélyezése"/>
 					<Item id="6214" name="Ki&amp;jelölés nélküli sormásolás és -kivágás engedélyezése"/>
 					<Item id="6225" name="Eg&amp;yéni szín a kijelölt szöveg előteréhez"/>
@@ -1348,21 +1348,21 @@
 					<ComboBox id="6362">
 						<Element name="GDI (legjobb kompatibilitás)"/>
 						<Element name="DirectWrite (alapértelmezett)"/>
-						<Element name="DirectWrite (képkockamegőrzéssel)"/>
-						<Element name="DirectWrite (GDI DC-be rajzolással)"/>
+						<Element name="DirectWrite (képkockamegőrző)"/>
+						<Element name="DirectWrite (GDI DC-be rajzolva)"/>
 						<Element name="DirectWrite (DirectX 11-gyel)"/>
 					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Kikapcsolva"/>
-						<Element name="Engedélyezve a Notepad++ indításakor"/>
-						<Element name="Engedélyezve a Notepad++ bezárásakor"/>
+						<Element name="Engedélyezve Notepad++-indításkor"/>
+						<Element name="Engedélyezve Notepad++-bezáráskor"/>
 					</ComboBox>
 					<Item id="6308" name="az értesítési területre"/>
 					<Item id="6363" name="renderelési mód"/>
 					<Item id="6365" name="Aut&amp;omatikus frissítés:"/>
 					<Item id="6312" name="&amp;Automatikus fájlállapot-felismerés"/>
 					<Item id="6313" name="&amp;Figyelmeztetés nélküli fájlfrissítés"/>
-					<Item id="6325" name="F&amp;rissítés után az utolsó sorhoz görgetés"/>
+					<Item id="6325" name="F&amp;rissítés után utolsó sorhoz görgetés"/>
 					<Item id="6322" name="A &amp;munkamenetfájl kiterjesztése:"/>
 					<Item id="6324" name="Dokumentumváltó panel (Ctrl + Tab)"/>
 					<Item id="6331" name="&amp;Csak a fájlnév megjelenítése a címsorban"/>
@@ -1372,7 +1372,7 @@
 					<Item id="6117" name="A &amp;legutóbbi használat sorrendjével"/>
 					<Item id="6344" name="Dokumentum-előnézet"/>
 					<Item id="6345" name="Előné&amp;zeti kép a dokumentumfülön"/>
-					<Item id="6346" name="Me&amp;gjelenítés a „Dokumentumtérkép”-en"/>
+					<Item id="6346" name="Me&amp;gjelenítés itt: „Dokumentumtérkép”"/>
 					<Item id="6360" name="Az &amp;összes hang némítása"/>
 					<Item id="6361" name="Megerő&amp;sítés kérése „Az összes mentése” esetén"/>
 				</MISC>
@@ -1889,6 +1889,9 @@ Ha a „Haladó szintű” módot választja, de nem a fenti nyelvek fájljait s
 			<statusbar-Sel value="Kij.: "/>
 			<statusbar-Sel-number value="Kij."/>
 			<toolbar-accent-tip value="A beállítással az eszköztár ikonjaira a Windows kiemelőszíne alkalmazható. A kiemelőszín egy, a Windows gombjaiban, szegélyeiben és a Start menüben az elemek hangsúlyozására használt szín. A módosításhoz kattintson a ⚙ Beállítások » Személyre szabás » Színek lehetőségre, majd válassza ki a kívánt Kiemelőszínt"/>
+			<max-len-on-search-tip value="A „Keresés”/„Csere” szöveghossza legfeljebb $INT_REPLACE$ karakter lehet - előfordulhat, hogy a megadott szöveg vége le lesz vágva, és a következő munkamenetre nem lesz mentve"/>
+			<max-len-on-save-tip value="Ennek a keresendő szövegnek egy ($INT_REPLACE$ karakter feletti) része nem lesz mentve a következő munkamenetre"/>
+			<goto-setting-tip value="Keresés a beállítások között"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

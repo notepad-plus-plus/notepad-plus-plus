@@ -815,7 +815,7 @@ public:
 	bool isPythonStyleIndentation(LangType typeDoc) const{
 		return (typeDoc == L_PYTHON || typeDoc == L_COFFEESCRIPT || typeDoc == L_HASKELL ||\
 			typeDoc == L_C || typeDoc == L_CPP || typeDoc == L_OBJC || typeDoc == L_CS || typeDoc == L_JAVA ||\
-			typeDoc == L_PHP || typeDoc == L_JS || typeDoc == L_JAVASCRIPT || typeDoc == L_MAKEFILE ||\
+			typeDoc == L_PHP || typeDoc == L_JS_EMBEDDED || typeDoc == L_JAVASCRIPT || typeDoc == L_MAKEFILE ||\
 			typeDoc == L_ASN1 || typeDoc == L_GDSCRIPT);
 	};
 

@@ -367,7 +367,7 @@ void FunctionListPanel::reload()
 	Buffer* currentBuf = (*_ppEditView)->getCurrentBuffer();
 	const wchar_t *fn = currentBuf->getFileName();
 	LangType langID = currentBuf->getLangType();
-	if (langID == L_JS)
+	if (langID == L_JS_EMBEDDED)
 		langID = L_JAVASCRIPT;
 
 	const wchar_t *udln = NULL;

@@ -438,8 +438,8 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						else if (pLvdi->item.iSubItem == 2) // Type
 						{
 							NppParameters& nppParameters = NppParameters::getInstance();
-							Lang *lang = nppParameters.getLangFromID(buf->getLangType());
-							if (NULL != lang)
+							Lang* lang = nppParameters.getLangFromID(buf->getLangType());
+							if (lang)
 							{
 								text = lang->getLangName();
 							}

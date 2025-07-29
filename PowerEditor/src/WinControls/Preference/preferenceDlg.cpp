@@ -3438,7 +3438,7 @@ intptr_t CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 			{
 				LangType lt = static_cast<LangType>(i);
 				str.clear();
-				if (lt != L_USER && lt != L_JS)
+				if (lt != L_USER && lt != L_JS_EMBEDDED)
 				{
 					int cmdID = nppParam.langTypeToCommandID(lt);
 					if ((cmdID != -1))
@@ -4149,14 +4149,20 @@ intptr_t CALLBACK IndentationSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 									return FALSE;
 								}
 
-								if (lang->_langID == L_JS)
+								if (lang->_langID == L_JS_EMBEDDED)
 								{
 									Lang* ljs = nppParam.getLangFromID(L_JAVASCRIPT);
+									if (!ljs)
+										return FALSE;
+
 									ljs->_tabSize = tabSize;
 								}
 								else if (lang->_langID == L_JAVASCRIPT)
 								{
-									Lang* ljavascript = nppParam.getLangFromID(L_JS);
+									Lang* ljavascript = nppParam.getLangFromID(L_JS_EMBEDDED);
+									if (!ljavascript)
+										return FALSE;
+
 									ljavascript->_tabSize = tabSize;
 								}
 
@@ -4242,14 +4248,18 @@ intptr_t CALLBACK IndentationSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 						if (!lang->_tabSize || lang->_tabSize == -1)
 							lang->_tabSize = nppGUI._tabSize;
 
-						if (lang->_langID == L_JS)
+						if (lang->_langID == L_JS_EMBEDDED)
 						{
 							Lang *ljs = nppParam.getLangFromID(L_JAVASCRIPT);
+							if (!ljs) return FALSE;
+
 							ljs->_isTabReplacedBySpace = isTabReplacedBySpace;
 						}
 						else if (lang->_langID == L_JAVASCRIPT)
 						{
-							Lang *ljavascript = nppParam.getLangFromID(L_JS);
+							Lang *ljavascript = nppParam.getLangFromID(L_JS_EMBEDDED);
+							if (!ljavascript) return FALSE;
+
 							ljavascript->_isTabReplacedBySpace = isTabReplacedBySpace;
 						}
 
@@ -4282,14 +4292,18 @@ intptr_t CALLBACK IndentationSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 						if (!lang->_tabSize || lang->_tabSize == -1)
 							lang->_tabSize = nppGUI._tabSize;
 
-						if (lang->_langID == L_JS)
+						if (lang->_langID == L_JS_EMBEDDED)
 						{
 							Lang* ljs = nppParam.getLangFromID(L_JAVASCRIPT);
+							if (!ljs) return FALSE;
+
 							ljs->_isBackspaceUnindent = isBackspaceUnindent;
 						}
 						else if (lang->_langID == L_JAVASCRIPT)
 						{
-							Lang* ljavascript = nppParam.getLangFromID(L_JS);
+							Lang* ljavascript = nppParam.getLangFromID(L_JS_EMBEDDED);
+							if (!ljavascript) return FALSE;
+
 							ljavascript->_isBackspaceUnindent = isBackspaceUnindent;
 						}
 

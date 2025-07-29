@@ -4405,7 +4405,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			//
 			for (int i = L_TEXT ; i < nppParam.L_END ; ++i)
 			{
-				if (static_cast<LangType>(i) != L_USER)
+				if (static_cast<LangType>(i) != L_USER && static_cast<LangType>(i) != L_JS_EMBEDDED)
 				{
 					int cmdID = nppParam.langTypeToCommandID(static_cast<LangType>(i));
 					if ((cmdID != -1))

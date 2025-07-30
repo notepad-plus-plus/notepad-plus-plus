@@ -324,6 +324,9 @@ void ProjectPanel::destroyMenus()
 
 bool ProjectPanel::openWorkSpace(const wchar_t *projectFileName, bool force)
 {
+	if (!projectFileName)
+		return false;
+
 	if ((!force) && (_workSpaceFilePath.length() > 0))
 	{ // Return if it is better to keep the current workspace tree
 		wstring newWorkspace = projectFileName;

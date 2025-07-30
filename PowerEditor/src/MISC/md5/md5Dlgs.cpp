@@ -360,6 +360,7 @@ void HashFromTextDlg::generateHash()
 				break;
 
 				default:
+					delete[] text;
 					return;
 			}
 
@@ -444,6 +445,7 @@ void HashFromTextDlg::generateHashPerLine()
 							break;
 
 							default:
+								delete[] text;
 								return;
 						}
 

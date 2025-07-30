@@ -3061,6 +3061,7 @@ bool FindReplaceDlg::processFindNext(const wchar_t *txt2find, const FindOption *
 	else if (posFind == FIND_INVALID_REGULAR_EXPRESSION)
 	{ // error
 		setStatusbarMessageWithRegExprErr(*_ppEditView);
+		delete[] pText;
 		return false;
 	}
 
@@ -3655,8 +3656,9 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 
 			default:
 			{
-				delete [] pTextFind;
-				delete [] pTextReplace;
+				delete[] pTextFind;
+				if (pTextReplace)
+					delete[] pTextReplace;
 				return nbProcessed;
 			}
 
@@ -3672,8 +3674,9 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 		findReplaceInfo._endRange += replaceDelta;									//adjust end of range in case of replace
 	}
 
-	delete [] pTextFind;
-	delete [] pTextReplace;
+	delete[] pTextFind;
+	if (pTextReplace)
+		delete[] pTextReplace;
 
 	if (nbProcessed > 0)
 	{

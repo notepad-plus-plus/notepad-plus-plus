@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.1"><!-- Datum: 28.07.2025, basiert auf english.xml 8.8.1 vom 23.07.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.1"><!-- Datum: 30.07.2025, basiert auf english.xml 8.8.1 vom 23.07.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -643,8 +643,8 @@ Translation note:
 					<Item id="2219" name="Standard-Schlüsselwörter:"/>
 					<Item id="2221" name="Benutzerdefinierte Schlüsselwörter:"/>
 					<Item id="2225" name="Sprache:"/>
-					<Item id="2226" name="Erzwinge Vordergrundfarbe f. alle Stile"/>
-					<Item id="2227" name="Erzwinge Hintergrundfarbe f. alle Stile"/>
+					<Item id="2226" name="Vordergrundfarbe erzw. f. alle Stile"/>
+					<Item id="2227" name="Hintergrundfarbe erzw. f. alle Stile"/>
 					<Item id="2228" name="Erzwinge Schriftart für alle Stile"/>
 					<Item id="2229" name="Erzwinge Schriftgröße für alle Stile"/>
 					<Item id="2230" name="Erzwinge Fettschrift für alle Stile"/>

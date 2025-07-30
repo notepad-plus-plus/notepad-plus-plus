@@ -4340,6 +4340,7 @@ void ScintillaEditView::setTabSettings(Lang* lang)
 		if (lang->_langID == L_JAVASCRIPT)
 		{
 			Lang* ljs = NppParameters::getInstance().getLangFromID(L_JS_EMBEDDED);
+			if (!ljs) return;
 			execute(SCI_SETTABWIDTH, ljs->_tabSize > 0 ? ljs->_tabSize : lang->_tabSize);
 			execute(SCI_SETUSETABS, !ljs->_isTabReplacedBySpace);
 			execute(SCI_SETBACKSPACEUNINDENTS, ljs->_isBackspaceUnindent);

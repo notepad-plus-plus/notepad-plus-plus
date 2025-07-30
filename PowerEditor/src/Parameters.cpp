@@ -9148,3 +9148,14 @@ COLORREF NppParameters::getFindDlgStatusMsgColor(int colourIndex)
 
 	return findDlgStatusMessageColor[colourIndex];
 }
+
+LanguageNameInfo NppParameters::getLangNameInfoFromNameID(const wstring& langNameID)
+{
+	LanguageNameInfo res;
+	for (LanguageNameInfo lnf : ScintillaEditView::_langNameInfoArray)
+	{
+		if (lnf._langName == langNameID)
+			return lnf;
+	}
+	return res;
+}

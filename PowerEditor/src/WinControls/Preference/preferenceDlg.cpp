@@ -20,6 +20,8 @@
 #include "EncodingMapper.h"
 #include "localization.h"
 #include <algorithm>
+#include "ScintillaEditView.h"
+
 
 #define MyGetGValue(rgb)      (LOBYTE((rgb)>>8))
 
@@ -3990,7 +3992,9 @@ intptr_t CALLBACK IndentationSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 			const int nbLang = nppParam.getNbLang();
 			for (int i = 0; i < nbLang; ++i)
 			{
-				::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(nppParam.getLangFromIndex(i)->_langName.c_str()));
+				LanguageNameInfo lni = nppParam.getLangNameInfoFromNameID(nppParam.getLangFromIndex(i)->_langName);
+				if (lni._shortName)
+					::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(lni._shortName));
 			}
 			const int index2Begin = 0;
 			::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_SETCURSEL, index2Begin, 0);
@@ -4149,23 +4153,6 @@ intptr_t CALLBACK IndentationSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 									return FALSE;
 								}
 
-								if (lang->_langID == L_JS_EMBEDDED)
-								{
-									Lang* ljs = nppParam.getLangFromID(L_JAVASCRIPT);
-									if (!ljs)
-										return FALSE;
-
-									ljs->_tabSize = tabSize;
-								}
-								else if (lang->_langID == L_JAVASCRIPT)
-								{
-									Lang* ljavascript = nppParam.getLangFromID(L_JS_EMBEDDED);
-									if (!ljavascript)
-										return FALSE;
-
-									ljavascript->_tabSize = tabSize;
-								}
-
 								lang->_tabSize = tabSize;
 
 								// write in langs.xml
@@ -4248,21 +4235,6 @@ intptr_t CALLBACK IndentationSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 						if (!lang->_tabSize || lang->_tabSize == -1)
 							lang->_tabSize = nppGUI._tabSize;
 
-						if (lang->_langID == L_JS_EMBEDDED)
-						{
-							Lang *ljs = nppParam.getLangFromID(L_JAVASCRIPT);
-							if (!ljs) return FALSE;
-
-							ljs->_isTabReplacedBySpace = isTabReplacedBySpace;
-						}
-						else if (lang->_langID == L_JAVASCRIPT)
-						{
-							Lang *ljavascript = nppParam.getLangFromID(L_JS_EMBEDDED);
-							if (!ljavascript) return FALSE;
-
-							ljavascript->_isTabReplacedBySpace = isTabReplacedBySpace;
-						}
-
 						lang->_isTabReplacedBySpace = isTabReplacedBySpace;
 
 						// write in langs.xml
@@ -4291,21 +4263,6 @@ intptr_t CALLBACK IndentationSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 						if (!lang) return FALSE;
 						if (!lang->_tabSize || lang->_tabSize == -1)
 							lang->_tabSize = nppGUI._tabSize;
-
-						if (lang->_langID == L_JS_EMBEDDED)
-						{
-							Lang* ljs = nppParam.getLangFromID(L_JAVASCRIPT);
-							if (!ljs) return FALSE;
-
-							ljs->_isBackspaceUnindent = isBackspaceUnindent;
-						}
-						else if (lang->_langID == L_JAVASCRIPT)
-						{
-							Lang* ljavascript = nppParam.getLangFromID(L_JS_EMBEDDED);
-							if (!ljavascript) return FALSE;
-
-							ljavascript->_isBackspaceUnindent = isBackspaceUnindent;
-						}
 
 						lang->_isBackspaceUnindent = isBackspaceUnindent;
 

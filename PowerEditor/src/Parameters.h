@@ -1507,6 +1507,8 @@ private:
 	std::wstring _lastCmdLabel;
 };
 
+struct LanguageNameInfo;
+
 class NppParameters final
 {
 private:
@@ -1911,6 +1913,8 @@ public:
 	unsigned long getScintillaModEventMask() const { return _sintillaModEventMask; };
 	void addScintillaModEventMask(unsigned long mask2Add) { _sintillaModEventMask |= mask2Add; };
 	bool isAsNotepadStyle() const { return _asNotepadStyle; }
+
+	LanguageNameInfo getLangNameInfoFromNameID(const std::wstring& langNameID);
 
 private:
 	NppParameters();

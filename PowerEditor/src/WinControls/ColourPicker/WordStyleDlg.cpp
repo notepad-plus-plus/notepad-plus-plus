@@ -1022,7 +1022,9 @@ void WordStyleDlg::setStyleListFromLexer(int index)
 		const wchar_t *langName = _lsArray.getLexerNameFromIndex(index - 1);
 		const wchar_t *ext = NppParameters::getInstance().getLangExtFromName(langName);
 		const wchar_t *userExt = (_lsArray.getLexerStylerByName(langName))->getLexerUserExt();
-		::SendDlgItemMessage(_hSelf, IDC_DEF_EXT_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(ext));
+
+		if (ext)
+			::SendDlgItemMessage(_hSelf, IDC_DEF_EXT_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(ext));
 
 		// WM_SETTEXT cause sending WM_COMMAND message with EN_CHANGE.
 		// That makes status dirty, even it shouldn't in this case.

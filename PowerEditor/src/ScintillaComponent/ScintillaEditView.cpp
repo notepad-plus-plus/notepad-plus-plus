@@ -4333,24 +4333,11 @@ void ScintillaEditView::restoreHiddenLines()
 
 void ScintillaEditView::setTabSettings(Lang* lang)
 {
-	if (!lang) return;
-
 	if (lang && lang->_tabSize != -1 && lang->_tabSize != 0)
 	{
-		if (lang->_langID == L_JAVASCRIPT)
-		{
-			Lang* ljs = NppParameters::getInstance().getLangFromID(L_JS_EMBEDDED);
-			if (!ljs) return;
-			execute(SCI_SETTABWIDTH, ljs->_tabSize > 0 ? ljs->_tabSize : lang->_tabSize);
-			execute(SCI_SETUSETABS, !ljs->_isTabReplacedBySpace);
-			execute(SCI_SETBACKSPACEUNINDENTS, ljs->_isBackspaceUnindent);
-		}
-		else
-		{
-			execute(SCI_SETTABWIDTH, lang->_tabSize);
-			execute(SCI_SETUSETABS, !lang->_isTabReplacedBySpace);
-			execute(SCI_SETBACKSPACEUNINDENTS, lang->_isBackspaceUnindent);
-		}
+		execute(SCI_SETTABWIDTH, lang->_tabSize);
+		execute(SCI_SETUSETABS, !lang->_isTabReplacedBySpace);
+		execute(SCI_SETBACKSPACEUNINDENTS, lang->_isBackspaceUnindent);
 	}
 	else
 	{

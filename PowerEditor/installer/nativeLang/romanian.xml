@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 8.8.2
--    Ultima modificare a fost făcută 23 iulie 2025 de către Miloiu Andrei-Valentin
+-    Traducerea în română pentru Notepad++ 8.8.3
+-    Ultima modificare a fost făcută 01 august 2025 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang -->
 <NotepadPlus>
-    <Native-Langue name="Romanian" filename="romanian.xml" version="8.8.2">
+    <Native-Langue name="Romanian" filename="romanian.xml" version="8.8.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -13,7 +13,7 @@
                     <Item menuId="file" name="&amp;Fișier"/>
                     <Item menuId="edit" name="&amp;Editare"/>
                     <Item menuId="search" name="&amp;Căutare"/>
-                    <Item menuId="view" name="&amp;Afișare (Vizualizare)"/>
+                    <Item menuId="view" name="&amp;Afișare"/>
                     <Item menuId="encoding" name="C&amp;odificare"/>
                     <Item menuId="language" name="&amp;Limbaj"/>
                     <Item menuId="settings" name="Se&amp;tări"/>
@@ -25,7 +25,7 @@
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="file-openFolder" name="Deschide &amp;folderul (dosarul) conținător"/>
+                    <Item subMenuId="file-openFolder" name="Deschide folderul gazdă"/>
                     <Item subMenuId="file-closeMore" name="Închide &amp;mai multe documente"/>
                     <Item subMenuId="file-recentFiles" name="&amp;Fișiere recente"/>
                     <Item subMenuId="edit-insert" name="Inserare"/>					
@@ -467,7 +467,7 @@
                 <Item id="43103" name="Nou și lipește"/>
                 <Item id="43104" name="Deschide..."/>
                 <Item id="43013" name="Găsire în fișiere..."/>
-                <Item id="43105" name="Închide pictograma (iconița) din bara de pictograme (din bara de iconițe)"/>
+                <Item id="43105" name="Închide iconița din bara de iconițe"/>
             </TrayIcon>
         </Menu>
 		
@@ -557,49 +557,49 @@
 
             <MD5FromFilesDlg title="Generează sumă de control MD5 din fișiere">
                 <Item id="1922" name="Alege fișierele pentru generare MD5..."/>
-                <Item id="1924" name="Copiază în clipboard"/>
+                <Item id="1924" name="Copiază în memorie"/>
                 <Item id="2"    name="&amp;Închidere"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Generează sumă de control MD5">
                 <Item id="1932" name="Tratează fiecare linie ca pe un &amp;șir separat"/>
-                <Item id="1934" name="Copiază în clipboard"/>
+                <Item id="1934" name="Copiază în memorie"/>
                 <Item id="2"    name="&amp;Închidere"/>
             </MD5FromTextDlg>
 
             <SHA256FromFilesDlg title="Generează sumă de control SHA-256 din fișiere">
                 <Item id="1922" name="Alege fișiere pentru &amp;a genera SHA-256..."/>
-                <Item id="1924" name="Co&amp;piază în clipboard"/>
+                <Item id="1924" name="Co&amp;piază în memorie"/>
                 <Item id="2"    name="&amp;Închidere"/>
             </SHA256FromFilesDlg>
 
             <SHA256FromTextDlg title="Generează sumă de control SHA-256">
                 <Item id="1932" name="Tratează fiecare linie ca pe un &amp;șir separat"/>
-                <Item id="1934" name="Co&amp;piază în clipboard"/>
+                <Item id="1934" name="Co&amp;piază în memorie"/>
                 <Item id="2"    name="&amp;Închidere"/>
             </SHA256FromTextDlg>
 
 			<SHA1FromFilesDlg title="Generează sumă de control SHA-1 din fișiere">
 				<Item id="1922" name="Alegere fișiere pentru &amp;a genera SHA-1..."/>
-				<Item id="1924" name="Co&amp;piază în clipboard"/>
+				<Item id="1924" name="Co&amp;piază în memorie"/>
 				<Item id="2" name="&amp;Închidere"/>
 			</SHA1FromFilesDlg>
 
 			<SHA1FromTextDlg title="Generează sumă de control SHA-1">
 				<Item id="1932" name="Tratează fiecare linie ca pe un &amp;șir separat"/>
-				<Item id="1934" name="Co&amp;piază în clipboard"/>
+				<Item id="1934" name="Co&amp;piază în memorie"/>
 				<Item id="2" name="&amp;Închidere"/>
 			</SHA1FromTextDlg>
 
 			<SHA512FromFilesDlg title="Generează sumă de control SHA-512 din fișiere">
 				<Item id="1922" name="Alege fișiere pentru &amp;a genera SHA-512..."/>
-				<Item id="1924" name="Co&amp;piază în clipboard"/>
+				<Item id="1924" name="Co&amp;piază în memorie"/>
 				<Item id="2" name="&amp;Închidere"/>
 			</SHA512FromFilesDlg>
 
 			<SHA512FromTextDlg title="Generează sumă de control SHA-512">
 				<Item id="1932" name="Tratează fiecare linie ca pe un &amp;șir separat"/>
-				<Item id="1934" name="Co&amp;piază în clipboard"/>
+				<Item id="1934" name="Co&amp;piază în memorie"/>
 				<Item id="2" name="&amp;Închidere"/>
 			</SHA512FromTextDlg>
             
@@ -795,7 +795,7 @@
                 <Item id="20012" name="Ignoră tipul de litere"/>
                 <Item id="20011" name="Transparență"/>
                 <Item id="20015" name="Importare..."/>
-                <Item id="20016" name="Exportare..."/>
+                <Item id="20016" name="Export..."/>
 				<Item id="20017" name="Deconectează"/>
 				<StylerDialog title="Dialogul stilizatorului">
 					<Item id="25030" name="Opțiuni pentru font:"/>
@@ -1130,6 +1130,7 @@
                     <Item id="6419" name="Document nou"/>
                     <Item id="6420" name="Se aplică la fișierele ANSI deschise"/>
 					<Item id="6432" name="Deschide întotdeauna un document nou în plus la pornire"/>
+					<Item id="6433" name="Folosește prima linie a documentului ca nume de filă fără titlu"/>
                 </NewDoc>
 
                 <DefaultDir title="Folder implicit">

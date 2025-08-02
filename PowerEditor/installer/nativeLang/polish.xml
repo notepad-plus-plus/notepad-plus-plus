@@ -10,13 +10,13 @@ Translation note:
 	- Updated by Patryk Skorupa (ppskorupa@outlook.com) to version 7.7.2 (29/07/2019)
 	- Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
 	- Updated by Piotr Kostrzewski (piotrkostrzewski2@@outlook.com) to version 8.7.2 (27.11.2024)
-	- Updated by Arkadiusz Michalski (webref.pl) to version 8.8.1 (25.06.2025)
+	- Updated by Arkadiusz Michalski (webref.pl) to version 8.8.3 (02.08.2025)
 
 	The most recent version of this file can usually be downloaded from:
 		https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="polski" filename="polish.xml" version="8.8.1">
+	<Native-Langue name="polski" filename="polish.xml" version="8.8.3">
 		<Menu>
 			<Main>
 				<!-- Główne menu -->
@@ -1900,6 +1900,9 @@ Jeśli wybierzesz tryb zaawansowany, ale nie edytujesz plików w wymienionych j�
 			<statusbar-Sel value="Selekcja: "/>
 			<statusbar-Sel-number value="Selekcje"/>
 			<toolbar-accent-tip value="Ta opcja sprawia, że ​​ikony paska narzędzi są zgodne z wiodącym kolorem systemu Windows. Kolor wiodący to kolor wyróżnienia używany w przyciskach, obramowaniach i kafelkach menu Start w systemie Windows. Aby go zmienić, przejdź kolejno do Ustawienia &gt; Personalizacja &gt; Kolory, a następnie wybierz preferowany kolor wiodący."/>
+			<max-len-on-search-tip value="Tylko $INT_REPLACE$ znaków jest dozwolonych w polu „Szukany tekst” - wprowadzone dane mogą zostać obcięte i nie zostaną zapisane dla następnej sesji."/>
+			<max-len-on-save-tip value="Szukany tekst ma więcej niż $INT_REPLACE$ znaków i nie zostanie zapisany dla następnej sesji."/>
+			<goto-setting-tip value="Tutaj znajdziesz swoje ustawienie"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

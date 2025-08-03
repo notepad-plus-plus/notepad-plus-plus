@@ -1874,6 +1874,8 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 			Style nfoStyle;
 			nfoStyle._styleID = STYLE_DEFAULT;
+
+			// Use Lucida Console as default font for ASCII Art, to have the best display effect
 			nfoStyle._fontName = L"Lucida Console";
 			nfoStyle._fontSize = 10;
 
@@ -1884,6 +1886,19 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 				{
 					nfoStyle._bgColor = pDefStyle->_bgColor;
 					nfoStyle._fgColor = pDefStyle->_fgColor;
+
+					// But if user changes it in stylers.xml or in theme's stylers XML file manually,
+					// let it be overrided.
+					if (!pDefStyle->_fontName.empty())
+					{
+						nfoStyle._fontName = pDefStyle->_fontName;
+
+						if (pDefStyle->_fontSize != STYLE_NOT_USED)
+							nfoStyle._fontSize = pDefStyle->_fontSize;
+
+						if (pDefStyle->_fontStyle != STYLE_NOT_USED)
+							nfoStyle._fontStyle = pDefStyle->_fontStyle;
+					}
 					nfoStyle._colorStyle = pDefStyle->_colorStyle;
 				}
 			}

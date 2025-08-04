@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="简体中文" filename="chineseSimplified.xml" version="8.7.5">
+	<Native-Langue name="简体中文" filename="chineseSimplified.xml" version="8.8.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -137,6 +137,8 @@ Translation note:
 					<Item id="42060" name="降序排列文本行"/>
 					<Item id="42080" name="升序排列行（不分大小写）"/>
 					<Item id="42081" name="降序排列行（不分大小写）"/>
+					<Item id="42100" name="按区域设置升序排列行"/>
+					<Item id="42101" name="按区域设置降序排列行"/>
 					<Item id="42061" name="升序排列整数"/>
 					<Item id="42062" name="降序排列整数"/>
 					<Item id="42063" name="升序排列小数（逗号作为小数点）"/>
@@ -201,6 +203,7 @@ Translation note:
 					<Item id="42087" name="复制所有文件名"/>
 					<Item id="42088" name="复制所有文件路径"/>
 					<Item id="42032" name="重复运行宏(&amp;R)..."/>
+					<Item id="42033" name="Windows中的只读属性"/>
 					<Item id="42035" name="设置行注释"/>
 					<Item id="42036" name="取消行注释"/>
 					<Item id="42055" name="移除空行"/>
@@ -316,7 +319,6 @@ Translation note:
 					<Item id="44112" name="使用颜色2"/>
 					<Item id="44113" name="使用颜色3"/>
 					<Item id="44114" name="使用颜色4"/>
-					<Item id="44097" name="监控 (tail -f)"/>
 					<Item id="44115" name="使用颜色5"/>
 					<Item id="44130" name="显示非打印字符"/>
 					<Item id="44131" name="显示控制字符和 Unicode 行尾符"/>
@@ -356,12 +358,8 @@ Translation note:
 					<Item id="10005" name="移动到最前"/>
 					<Item id="10006" name="移动到最后"/>
 					<Item id="46001" name="语言格式设置..."/>
-					<Item id="46015" name="MS-DOS风格"/>
-					<Item id="46019" name="INI文件(MS)"/>
 					<Item id="46016" name="无(普通文本)"/>
-					<Item id="46017" name="资源文件"/>
 					<Item id="46250" name="自定义语言格式..."/>
-					<Item id="46033" name="集合"/>
 					<Item id="46300" name="打开用户自定义语言文件夹..."/>
 					<Item id="46301" name="Notepad++ 用户自定义语言仓库"/>
 					<Item id="46180" name="用户自定义"/>
@@ -424,22 +422,24 @@ Translation note:
 				<Item CMDID="41003" name="关闭"/>
 				<Item CMDID="0" name="关闭多个标签页"/>
 				<Item CMDID="41005" name="关闭其他所有"/>
+				<Item CMDID="41026" name="除固定全部关闭"/>
 				<Item CMDID="41009" name="关闭左边所有"/>
 				<Item CMDID="41018" name="关闭右边所有"/>
 				<Item CMDID="41024" name="关闭所有未修改"/>
+				<Item CMDID="44048" name="固定标签" alternativeName="取消固定标签"/>
 				<Item CMDID="41006" name="保存"/>
 				<Item CMDID="41008" name="另存为..."/>
 				<Item CMDID="1" name="打开至"/>
 				<Item CMDID="41019" name="打开所在文件夹"/>
 				<Item CMDID="41020" name="打开所在文件夹(命令行)"/>
 				<Item CMDID="41025" name="打开所在文件夹工作区"/>
-				<Item CMDID="41026" name="除固定全部关闭"/>
 				<Item CMDID="41023" name="使用默认查看器打开"/>
 				<Item CMDID="41017" name="重命名..."/>
 				<Item CMDID="41016" name="移至回收站"/>
 				<Item CMDID="41014" name="重新载入"/>
 				<Item CMDID="41010" name="打印..."/>
 				<Item CMDID="42028" name="设置为只读"/>
+				<Item CMDID="42033" name="Windows中的只读属性"/>
 				<Item CMDID="2" name="复制到剪贴板"/>
 				<Item CMDID="42029" name="复制文件路径"/>
 				<Item CMDID="42030" name="复制文件名"/>
@@ -452,7 +452,6 @@ Translation note:
 				<Item CMDID="10003" name="移动到新窗口"/>
 				<Item CMDID="10004" name="在新窗口中打开"/>
 				<Item CMDID="4" name="对标签使用颜色"/>
-				<Item CMDID="44048" name="固定标签" alternativeName="取消固定标签"/>
 				<Item CMDID="44111" name="使用颜色1"/>
 				<Item CMDID="44112" name="使用颜色2"/>
 				<Item CMDID="44113" name="使用颜色3"/>
@@ -643,6 +642,7 @@ Translation note:
 					<Item id="2231" name="使用全局斜体样式"/>
 					<Item id="2232" name="使用全局下划线样式"/>
 					<Item id="2234" name="前往设置"/>
+					<!-- Don't translate "Global override" -->
 					<Item id="2235" name="什么是「Global override」？"/>
 				</SubDialog>
 			</StyleConfig>
@@ -732,12 +732,6 @@ Translation note:
 					<Item id="44066" name="展开层次6"/>
 					<Item id="44067" name="展开层次7"/>
 					<Item id="44068" name="展开层次8"/>
-					<Item id="44110" name="移除页签颜色"/>
-					<Item id="44111" name="页签使用颜色一"/>
-					<Item id="44112" name="页签使用颜色二"/>
-					<Item id="44113" name="页签使用颜色三"/>
-					<Item id="44114" name="页签使用颜色四"/>
-					<Item id="44115" name="页签使用颜色五"/>
 					<Item id="44081" name="切换工程面板1"/>
 					<Item id="44082" name="切换工程面板2"/>
 					<Item id="44083" name="切换工程面板3"/>
@@ -791,16 +785,6 @@ Translation note:
 				<Item id="20015" name="导入..."/>
 				<Item id="20016" name="导出..."/>
 				<Item id="20017" name="取消停靠"/>
-
-				<Item id="0" name="色彩格式"/>
-				<Item id="1" name="字型色彩"/>
-				<Item id="2" name="背景色彩"/>
-				<Item id="3" name="字型格式"/>
-				<Item id="4" name="字型名称："/>
-				<Item id="5" name="字型大小"/>
-				<Item id="6" name="粗体"/>
-				<Item id="7" name="斜体"/>
-				<Item id="8" name="底线"/>
 				<StylerDialog title="格式设计框">
 					<Item id="25030" name="字体"/>
 					<Item id="25006" name="前景颜色"/>
@@ -964,35 +948,55 @@ Translation note:
 			<Preference title="首选项">
 				<Item id="6001" name="关闭"/>
 				<Global title="常用">
+					<Item id="6123" name="界面语言"/>
+					<Item id="6131" name="菜单"/>
+					<Item id="6122" name="隐藏菜单栏 (按下 Alt 或 F10 显示)"/>
+					<Item id="6132" name="隐藏菜单栏右侧 ＋ ▼ ✕ 快捷键 (需重启Notepad++)"/>
+					<Item id="6133" name="状态栏"/>
+					<Item id="6134" name="隐藏"/>
+				</Global>
+				
+				<Toolbar title="工具栏">
 					<Item id="6102" name="隐藏"/>
 					<Item id="6103" name="Fluent UI 图标：小"/>
 					<Item id="6104" name="Fluent UI 图标：大"/>
 					<Item id="6129" name="Fluent UI 填充图标：小"/>
 					<Item id="6130" name="Fluent UI 填充图标：大"/>
 					<Item id="6105" name="标准图标：小"/>
+					<Item id="6011" name="着色"/>
+					<Item id="6012" name="完成"/>
+					<Item id="6013" name="部分"/>
+					<Item id="6014" name="颜色选择"/>
+					<Item id="6015" name="默认"/>
+					<Item id="6016" name="红色"/>
+					<Item id="6017" name="绿色"/>
+					<Item id="6018" name="蓝色"/>
+					<Item id="6019" name="紫色"/>
+					<Item id="6020" name="青色"/>
+					<Item id="6021" name="草褐色"/>
+					<Item id="6022" name="黄色"/>
+					<Item id="6023" name="跟随系统"/>
+					<Item id="6024" name="自定义"/>
+				</Toolbar>
+				
+				<Tabbar title="标签栏">
 					<Item id="6107" name="缩小"/>
 					<Item id="6108" name="锁定 (不允许拖放)"/>
 					<Item id="6109" name="非当前标签变暗"/>
 					<Item id="6110" name="为当前标签绘制颜色条"/>					
 					<Item id="6111" name="显示状态列"/>
-
 					<Item id="6112" name="标签显示关闭按钮"/>
 					<Item id="6113" name="双击关闭标签"/>
 					<Item id="6115" name="启用固定标签功能"/>
+					<Item id="6135" name="仅显示固定按钮"/>
 					<Item id="6118" name="隐藏标签栏"/>
 					<Item id="6119" name="多行显示"/>
 					<Item id="6120" name="垂直显示"/>
 					<Item id="6121" name="关闭最后一个标签时退出"/>
 					<Item id="6128" name="使用替代图标"/>
-					<Item id="6133" name="状态栏"/>
-					<Item id="6134" name="隐藏"/>
-					<Item id="6131" name="菜单"/>
-					<Item id="6122" name="隐藏菜单栏 (按下 Alt 或 F10 显示)"/>
-					<Item id="6132" name="隐藏菜单栏右侧 ＋ ▼ ✕ 快捷键 (需重启Notepad++)"/>
-					<Item id="6123" name="界面语言"/>
 					<Item id="6125" name="文件切換器"/>
-					<Item id="6127" name="停用副档名栏"/>
-				</Global>
+					<Item id="6126" name="观&amp;&amp;感"/>
+				</Tabbar>
 
 				<Scintillas title="编辑1">
 					<Item id="6216" name="光标设置"/>
@@ -1011,6 +1015,7 @@ Translation note:
 					<Item id="6239" name="选区外右键点击时保留选区"/>
 					<Item id="6245" name="启用行尾虚拟空格"/>
 					<Item id="6214" name="启用无选区时直接复制/剪切行"/>
+					<Item id="6225" name="为所选文字前景应用自定义颜色"/>
 					<Item id="6651" name="当前行指示器"/>
 					<Item id="6652" name="不显示"/>
 					<Item id="6653" name="背景高亮"/>
@@ -1036,7 +1041,6 @@ Translation note:
 				</Scintillas2>
 
 				<DarkMode title="深色模式">
-					<Item id="7101" name="启用深色模式"/><!-- #legacy v8.4.7 -->
 					<Item id="7131" name="浅色模式"/>
 					<Item id="7132" name="深色模式"/>
 					<Item id="7133" name="跟随系统"/>
@@ -1081,8 +1085,6 @@ Translation note:
 					<Item id="6296" name="在正文显示"/>
 					<Item id="6211" name="侧边线设置"/>
 					<Item id="6213" name="背景色模式"/>
-					<Item id="6237" name="条线用来参考每行字数的上限，输入十进制数字来决定条线的位置。
-想要划多一点线的话，用空格分隔多组数字即可。"/>
 					<Item id="6231" name="边框宽度"/>
 					<Item id="6235" name="无边框"/>
 					<Item id="6208" name="边距"/>
@@ -1106,6 +1108,7 @@ Translation note:
 					<Item id="6419" name="新建文档"/>
 					<Item id="6420" name="应用于打开 ANSI 文件"/>
 					<Item id="6432" name="启动时始终打开一个新文档"/>
+					<Item id="6433" name="将文档的第一行作为无标题文件名"/>
 				</NewDoc>
 
 				<DefaultDir title="默认目录">
@@ -1121,15 +1124,12 @@ Translation note:
 					<Item id="4010" name="注册的扩展名:"/>
 				</FileAssoc>
 
+
 				<Language title="语言">
 					<Item id="6505" name="可用项"/>
 					<Item id="6506" name="禁用项"/>
 					<Item id="6507" name="紧凑语言菜单"/>
 					<Item id="6508" name="程序语言菜单"/>
-					<Item id="6301" name="制表符设置"/>
-					<Item id="6302" name="替换为空格"/>
-					<Item id="6303" name="制表符宽度:"/>
-					<Item id="6510" name="使用默认值"/>
 					<Item id="6335" name="视反斜杠为 SQL 转义字符"/>
 				</Language>
 
@@ -1204,7 +1204,6 @@ Translation note:
 				</Print>
 
 				<Searching title="搜索">
-					<Item id="6901" name="点击查找/取代时，不要将选取的字自动输入到对话框"/><!-- #legacy v8.4.4 -->
 					<Item id="6902" name="在查找对话框中使用等宽字体（需要重启Notepad++）"/>
 					<Item id="6903" name="搜索输出到结果窗口后，保持查找对话框开启"/>
 					<Item id="6904" name="替换所有打开文件前需确认"/>
@@ -1256,7 +1255,6 @@ Translation note:
 					<Item id="6824" name="忽略数字"/>
 					<Item id="6811" name="从第"/>
 					<Item id="6813" name="个字符开始"/>
-					<Item id="6814" name="有效值:1 - 9"/><!-- #legacy v8.4.9 -->
 					<Item id="6872" name="使用简版自动补全列表"/>
 					<Item id="6815" name="输入时提示函数参数"/>
 					<Item id="6851" name="自动输入"/>
@@ -1347,12 +1345,25 @@ Translation note:
 						<Element name="关闭至"/>
 						<Element name="最小化 / 关闭至"/>
 					</ComboBox>
-					<Item id="6308" name="系统托盘"/>
+					<ComboBox id="6362">
+						<Element name="GDI (most compatible)"/>
+						<Element name="DirectWrite (default)"/>
+						<Element name="DirectWrite (retain frames)"/>
+						<Element name="DirectWrite (draw to GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="禁用"/>
+						<Element name="在Notepad启动时"/>
+						<Element name="在Notepad退出时"/>
+					</ComboBox>
+					<Item id="6308" name="系统托盘"/>				
+					<Item id="6363" name="rendering mode"/>
+					<Item id="6365" name="Auto-updater:"/>
 					<Item id="6312" name="自动检测文件状态"/>
 					<Item id="6313" name="自动更新文件"/>
 					<Item id="6325" name="更新后定位到末行"/>
 					<Item id="6322" name="会话文件扩展名:"/>
-					<Item id="6323" name="启用 Notepad++ 自动更新"/>
 					<Item id="6324" name="文档切换 (Ctrl+TAB)"/>
 					<Item id="6331" name="在标题栏仅显示文件名"/>
 					<Item id="6334" name="自动检测字符编码"/>
@@ -1386,7 +1397,6 @@ Translation note:
 				<Item id="2033" name="插入数字(&amp;N)"/>
 				<Item id="2030" name="初始值(&amp;I):"/>
 				<Item id="2031" name="增量(&amp;Y):"/>
-				<Item id="2035" name="齐头补零(&amp;Z)"/>
 				<Item id="2038" name="开头补齐(&amp;L):"/>
 				<ComboBox id="2039">
 					<Element name="无"/>
@@ -1432,6 +1442,7 @@ Translation note:
 				<Item id="7" name="&amp;取消"/>
 				<Item id="4" name="始终允许"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+
 			<DebugInfo title="调试信息">
 				<Item id="1752" name="&amp;复制调试信息到剪贴板"/>
 				<Item id="1" name="确定"/>
@@ -1467,6 +1478,9 @@ Translation note:
 			<DroppingFolderAsProjectModeWarning title="无效操作" message="您只能在拖放文件或文件夹中二选一，由于您正在将文件夹拖放为项目模式。
 您必须到“首选项”对话框的“默认目录”部分，启用“拖放文件夹时开启文件夹中所有文件，而不开启文件夹工作区”，才能完成此操作。"/>
 			<SortingError title="排序错误" message="由于第$INT_REPLACE$行的问题，无法执行数字排序。"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SortLocaleMultiple title="未执行排序" message="不支持对多个选择进行排序。"/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleUnknown title="排序失败" message="无法确定排序失败的原因。"/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+			<SortLocaleExcept title="排序未执行" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="列选模式提示" message="
 有3种方法可切换到列选模式:
 
@@ -1537,6 +1551,11 @@ Translation note:
 			<UDLNewNameError title="用户定义语言错误" message="此名称已被其他语言占用，
 请更换一个。"/>
 			<UDLRemoveCurrentLang title="移除当前语言" message="您确定么？"/>
+			<UDL_importSuccessful title="用户定义语言" message="导入成功。"/>
+			<UDL_importFails title="用户定义语言" message="导入失败。"/>
+			<UDL_saveBeforeImport title="用户定义语言" message="导出前，单击“另存为…&quot”按钮保存您的自定义语言。"/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_exportSuccessful title="用户定义语言" message="导出成功"/>
+			<UDL_exportFails title="用户定义语言" message="导出失败"/>
 			<SCMapperDoDeleteOrNot title="您确定么？" message="您确定要删除此快捷键么？"/>
 			<FindCharRangeValueError title="阈值问题" message="您应当输入0-255之间的数字。"/>
 			<OpenInAdminMode title="保存失败" message="文件无法保存，它可能受到保护。
@@ -1574,6 +1593,15 @@ Notepad++ 会备份旧的 “shortcuts.xml”，并将其保存为 “shortcuts.
 注意：选择不创建或后续关闭了的话，您的会话将在退出时被修改！建议您立即备份“session.xml”。"/>
 			<RTLvsDirectWrite title="无法运行从右到左" message="从右到左与 DirectWrite 模式不兼容。请在“首选项”对话框的“其他”部分禁用 DirectWrite 模式，并重新启动 Notepad++。"/>
 			<FileMemoryAllocationFailed title="异常：文件内存分配失败" message="Notepad++ 正在加载的文件可能没有足够的连续可用内存。"/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FindRegexBackwardDisabled title="正则表达式反向搜索已禁用" message="默认情况下，由于可能产生意外结果，因此禁用反向正则表达式搜索。
+			要执行反向搜索，请打开“查找”对话框并选择常规或扩展搜索模式，而不是正则表达式。 
+			点击“确定”按钮打开“查找”对话框或将其设置为焦点。 
+			如果需要反向正则表达式搜索功能，请查阅用户手册以了解启用该功能的说明。"/>
+			<PrintError title="0" message="无法启动打印机文档。"/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<FindAutoChangeOfInSelectionWarning title="搜索警告" message="在“选择”复选框状态已自动修改。
+			请先验证搜索条件，然后再执行操作。"/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+			<Need2Restart2ShowMenuShortcuts title="需要重新启动Notepad++" message="需要重新启动Notepad++才能显示右侧菜单快捷方式"/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="更改文件只读属性失败" message="请以管理员身份运行记事本++以更改文件属性。"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="剪贴板历史"/>
@@ -1709,6 +1737,7 @@ Notepad++ 会备份旧的 “shortcuts.xml”，并将其保存为 “shortcuts.
 查找所有文件但递归式排除所有叫 log 或 logs 的文件夹：
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="选择要搜索的文件夹"/><!-- HowToReproduce: Search > Find in Files > [...] -->
+			<find-in-files-dir-from-active-doc-tip value="根据活动文档填写目录字段"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
 			<find-status-top-reached value="查找：查找到从下到上的首个匹配项。已查找至文档最顶部。"/>
 			<find-status-end-reached value="查找：查找到从上到下的首个匹配项。已查找至文档最底部。"/>
 			<find-status-replaceinfiles-1-replaced value="在文件中替换：已替换1个匹配项。"/>
@@ -1742,7 +1771,9 @@ Notepad++ 会备份旧的 “shortcuts.xml”，并将其保存为 “shortcuts.
 			<finder-collapse-all value="全部折叠"/>
 			<finder-uncollapse-all value="全部展开"/>
 			<finder-copy value="复制选中行"/>
+			<finder-copy-selected-paths value="复制选中路径(s)"/>
 			<finder-clear-all value="全部清除"/>
+			<finder-open-selected-paths value="打开选中路径(s)"/>
 			<finder-purge-for-every-search value="每次搜索时清除"/>
 			<finder-wrap-long-lines value="自动换行"/>
 			<common-ok value="确定"/>
@@ -1836,7 +1867,25 @@ U+FEFF：零宽无间断空格
 			<npcIncludeCcUniEol-tip value="将非打印字符外观设置应用于 C0、C1 控制和 Unicode 行尾符（下一行符、行分隔符和段分隔符）字符。"/>
 			<searchingInSelThresh-tip value="编辑区中已选取的字符数，用于在激活查找对话框时，判断是否自动选中“选取范围内”复选框。最大值为 1024。将该值设为 0 则禁用自动选中。"/>
 			<verticalEdge-tip value="用数字表示对应列的位置，即可添加侧边线。用空格分隔不同数字以定义多条侧边线。"/>
+			<fileSaveAsCopySaveButton-tip value="按住Shift键并按“保存”按钮，即可在保存后打开副本。"/>
+			<autoIndentBasic-tip value="确保当前行的缩进（即按ENTER键创建的新行）与上一行的缩进相匹配。"/>
+			<autoIndentAdvanced-tip value="支持对“类C”语言和Python的智能缩进。“类C”语言包括： C、C++、Java、C#、Objective-C、PHP、JavaScript、JSP、CSS、Perl、Rust、PowerShell和JSON。 如果选择高级模式，但未编辑上述语言的文件，则缩进将保持在基本模式。"/>
+
+			<!-- Don't translate "Global override" and "Default Style" -->
+			<global-override-tip value="E启用此处的“全局覆盖”将覆盖所有语言样式的该参数。您可能真正需要的是使用“默认样式”设置。"/>
+			<scintillaRenderingTechnology-tip value="可能改善特殊字符的呈现或解决某些图形问题，重新启动Notepad++以应用更改。"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="length: $STR_REPLACE1$    lines: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Ln: $STR_REPLACE1$    Col: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Pos: "/>
+			<statusbar-Sel value="Sel: "/>
+			<statusbar-Sel-number value="Sel"/>
+			<toolbar-accent-tip value="此选项可使工具栏图标采用Windows系统的高亮颜色。高亮颜色是Windows中按钮、边框和开始菜单磁贴使用的高亮颜色。若要更改该颜色，请转到“设置”>“个性化”>“颜色”，然后选择首选的高亮颜色。"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
-

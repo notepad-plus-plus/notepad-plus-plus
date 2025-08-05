@@ -17,12 +17,21 @@
 Var installPath
 Var doLocalConf
 Var keepUserData
+
 Function un.onInit
+
+!ifdef ARCH64 || ARCHARM64 ; x64 or ARM64 : installation of 64 bits Notepad++ & its 64 bits components
+	StrCpy $winSysDir "$WINDIR\System32"
+!else ; installation of 32 bits Notepad++ & its 32 bits components
+	StrCpy $winSysDir "$WINDIR\SysWOW64"
+!endif
+
 	StrCpy $keepUserData "false"	; default value(It is must, otherwise few files such as shortcuts.xml, contextMenu.xml etc, will not be removed when $INSTDIR\doLocalConf.xml is not available.)
 	; determinate theme path for uninstall themes
 	StrCpy $installPath "$APPDATA\${APPNAME}"
 	StrCpy $doLocalConf "false"
 	IfFileExists $INSTDIR\doLocalConf.xml doesExist noneExist
+
 doesExist:
 	StrCpy $installPath $INSTDIR
 	StrCpy $doLocalConf "true"

@@ -248,6 +248,20 @@ void Searching::displaySectionCentered(size_t posStart, size_t posEnd, Scintilla
 	// Adjust so that we see the entire match; primarily horizontally
 	pEditView->execute(SCI_SCROLLRANGE, posStart, posEnd);
 
+	// make sure won't start/end the selection in the middle of a multibyte character,
+	// or in between a CR/LF pair for Windows files
+	// (needed for stale search-results where user has made doc edits after the search)
+	if (posStart > 0)
+	{
+		posStart = pEditView->execute(SCI_POSITIONBEFORE, posStart);
+		posStart = pEditView->execute(SCI_POSITIONAFTER, posStart);
+	}
+	if (posEnd > 0)
+	{
+		posEnd = pEditView->execute(SCI_POSITIONBEFORE, posEnd);
+		posEnd = pEditView->execute(SCI_POSITIONAFTER, posEnd);
+	}
+
 	// Move cursor to end of result and select result
 	pEditView->execute(SCI_GOTOPOS, posEnd);
 	pEditView->execute(SCI_SETANCHOR, posStart);

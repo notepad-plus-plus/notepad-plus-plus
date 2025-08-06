@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: June 25, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: August 5, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
@@ -1909,6 +1909,9 @@ Ako odaberete napredni način, ali ne uređujete datoteke na gore navedenim jezi
 			<statusbar-Sel value="Ozn: "/>
 			<statusbar-Sel-number value="Ozn"/>
 			<toolbar-accent-tip value="Uz ovu opciju ikone na alatnoj traci prate sistemsku akcentiranu boju. Akcentirana boja je boja za isticanje korištena za gumbe, rubove i u Start izborniku Windowsa. Kako bi ju promijenili, idite u Postavke &gt; Personalizacija &gt; Boje i odaberite željenu akcentiranu boju."/>
+			<max-len-on-search-tip value="Dopuštena je samo $INT_REPLACE$ znakova duljine teksta za pronalaženje/zamjenu - vaš unos bi mogao biti skraćen i neće biti spremljen za sljedeću sesiju."/>
+			<max-len-on-save-tip value="Ovaj unos za pretraživanje (> $INT_REPLACE$ znakova) neće biti spremljen za sljedeću sesiju."/>
+			<goto-setting-tip value="Pronađite svoju postavku ovdje"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

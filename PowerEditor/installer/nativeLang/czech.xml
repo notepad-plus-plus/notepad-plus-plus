@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.8.1  25/Jun/2025  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.8.4  7/Aug/2025  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.8.1">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.8.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1890,6 +1890,9 @@ Pokud zvolíte Pokročilý režim, ale nebudete upravovat soubory výše zmíně
 			<statusbar-Sel value="Ozn: "/>
 			<statusbar-Sel-number value="Ozn"/>
 			<toolbar-accent-tip value="Touto volbou vynutíte u ikon nástrojové lišty Notepadu++ použití systémové barvy Windows určené pro zvýrazňování. Tato barva je součástí zvýraznění interaktivních prvků uživatelského rozhraní jako jsou tlačítka, okraje nebo dlaždice Startovní nabídky Windows. Pro její případnou změnu přejděte do systémového Nastavení &gt; Přizpůsobení &gt; Barvy, poté vyberte preferovanou barvu pro zvýrazňování."/>
+			<max-len-on-search-tip value="Povolená délka textu pro pole Najít/Nahradit je pouze $INT_REPLACE$ znaků - Vámi zadaný text může být zkrácen a neuložen pro další relaci."/>
+			<max-len-on-save-tip value="Tento vstup (> $INT_REPLACE$ znaků) nebude uložen pro další relaci."/>
+			<goto-setting-tip value="Nastavení najdete zde"/>
 		</MiscStrings>
 
 	</Native-Langue>

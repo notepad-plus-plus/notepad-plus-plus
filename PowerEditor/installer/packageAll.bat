@@ -22,6 +22,10 @@ if %SIGN% == 0 goto NoSign
 set signtoolWin11="C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64\signtool.exe"
 set signBinary=%signtoolWin11% sign /fd SHA512 /tr http://timestamp.acs.microsoft.com /td sha512 /a /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/
 
+REM macro is used to sign NppShell.dll & NppShell.msix with hash algorithm SHA256, due to signtool.exe bug:
+REM https://learn.microsoft.com/en-us/windows/msix/package/signing-known-issues 
+set signBinarySha256=%signtoolWin11% sign /fd SHA256 /tr http://timestamp.acs.microsoft.com /td sha512 /a /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/
+
 
 %signBinary% ..\bin\notepad++.exe
 If ErrorLevel 1 goto End
@@ -30,15 +34,17 @@ If ErrorLevel 1 goto End
 %signBinary% ..\binarm64\notepad++.exe
 If ErrorLevel 1 goto End
 
-%signBinary% ..\bin\NppShell.x86.dll
+%signBinarySha256% ..\bin\NppShell.x86.dll
 If ErrorLevel 1 goto End
-rem %signBinary% ..\bin64\NppShell.msix
+
+%signBinarySha256% ..\bin64\NppShell.msix
 If ErrorLevel 1 goto End
-%signBinary% ..\bin64\NppShell.x64.dll
+%signBinarySha256% ..\bin64\NppShell.x64.dll
 If ErrorLevel 1 goto End
-rem %signBinary% ..\binarm64\NppShell.msix
+
+%signBinarySha256% ..\binarm64\NppShell.msix
 If ErrorLevel 1 goto End
-%signBinary% ..\binarm64\NppShell.arm64.dll
+%signBinarySha256% ..\binarm64\NppShell.arm64.dll
 If ErrorLevel 1 goto End
 
 %signBinary% ..\bin\plugins\Config\nppPluginList.dll

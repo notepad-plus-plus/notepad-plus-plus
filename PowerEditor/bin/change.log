@@ -1,3 +1,8 @@
+Notepad++ v8.8.5 regression-fix:
+
+ 1. Fix "Edit with Notepad++" context menu not being installed correctly regression.
+ 
+
 Notepad++ v8.8.4 vulnerability-fixes, bug-fixes & new enhancement:
 
  1. Fix -notabbar & asNotepad.xml stop hiding tabbar regression (from v8.7.9).
@@ -14,7 +19,7 @@ Notepad++ v8.8.4 vulnerability-fixes, bug-fixes & new enhancement:
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.8.4/
+https://notepad-plus-plus.org/downloads/v8.8.5/
 
 
 Included plugins:

@@ -1,6 +1,6 @@
 echo off
 rem This file is part of Notepad++ project
-rem Copyright (C)2021 Don HO <don.h@free.fr>
+rem Copyright (C)2025 Don HO <don.h@free.fr>
 rem
 rem This program is free software: you can redistribute it and/or modify
 rem it under the terms of the GNU General Public License as published by
@@ -34,18 +34,18 @@ If ErrorLevel 1 goto End
 %signBinary% ..\binarm64\notepad++.exe
 If ErrorLevel 1 goto End
 
-%signBinarySha256% ..\bin\NppShell.x86.dll
-If ErrorLevel 1 goto End
-
-%signBinarySha256% ..\bin64\NppShell.msix
-If ErrorLevel 1 goto End
-%signBinarySha256% ..\bin64\NppShell.x64.dll
-If ErrorLevel 1 goto End
-
-%signBinarySha256% ..\binarm64\NppShell.msix
-If ErrorLevel 1 goto End
-%signBinarySha256% ..\binarm64\NppShell.arm64.dll
-If ErrorLevel 1 goto End
+REM %signBinarySha256% ..\bin\NppShell.x86.dll
+REM If ErrorLevel 1 goto End
+REM 
+REM %signBinarySha256% ..\bin64\NppShell.msix
+REM If ErrorLevel 1 goto End
+REM %signBinarySha256% ..\bin64\NppShell.x64.dll
+REM If ErrorLevel 1 goto End
+REM 
+REM %signBinarySha256% ..\binarm64\NppShell.msix
+REM If ErrorLevel 1 goto End
+REM %signBinarySha256% ..\binarm64\NppShell.arm64.dll
+REM If ErrorLevel 1 goto End
 
 %signBinary% ..\bin\plugins\Config\nppPluginList.dll
 If ErrorLevel 1 goto End

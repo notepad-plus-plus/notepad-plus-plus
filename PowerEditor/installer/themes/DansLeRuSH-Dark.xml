@@ -1162,7 +1162,7 @@ Installation : Copy this file to "%APPDATA%\Notepad++\themes" and in a portable 
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="A7A7A7" />
         <WidgetStyle name="Multi-edit carets color" styleID="0" fgColor="A7A7A7" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="EEEEEC" />
-        <WidgetStyle name="Line number margin" styleID="33" fgColor="8F8F8F" bgColor="363636" fontName="" fontStyle="0" fontSize="9" />
+        <WidgetStyle name="Line number margin" styleID="33" fgColor="8F8F8F" bgColor="363636" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Bookmark margin" styleID="0" bgColor="363636" />
         <WidgetStyle name="Change History margin" styleID="0" bgColor="363636" />
         <WidgetStyle name="Change History modified" styleID="0" fgColor="FF8000" bgColor="FF8000" />
@@ -1203,6 +1203,6 @@ Installation : Copy this file to "%APPDATA%\Notepad++\themes" and in a portable 
         <WidgetStyle name="URL hovered" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Document map" styleID="0" fgColor="C7C7C7" bgColor="2E2E2E" />
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
-        <WidgetStyle name="Global override" styleID="0" fgColor="C7C7C7" bgColor="2E2E2E" fontName="Source Code Pro" fontStyle="0" fontSize="10" />
+        <WidgetStyle name="Global override" styleID="0" fgColor="C7C7C7" bgColor="2E2E2E" fontName="Source Code Pro" fontStyle="0" fontSize="" />
     </GlobalStyles>
 </NotepadPlus>

@@ -1789,6 +1789,6 @@ License:             GPL2
         <WidgetStyle name="URL hovered" styleID="0" fgColor="A3DCA3" />
         <WidgetStyle name="Document map" styleID="0" fgColor="000000" bgColor="FFFFFF" />
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
-        <WidgetStyle name="Global override" styleID="0" fgColor="DCDCCC" bgColor="3F3F3F" fontName="Consolas" fontStyle="0" fontSize="10" />
+        <WidgetStyle name="Global override" styleID="0" fgColor="DCDCCC" bgColor="3F3F3F" fontName="Consolas" fontStyle="0" fontSize="" />
     </GlobalStyles>
 </NotepadPlus>

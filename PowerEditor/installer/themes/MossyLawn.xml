@@ -1219,6 +1219,6 @@ Installation:
         <WidgetStyle name="URL hovered" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Document map" styleID="0" fgColor="F2C476" bgColor="58693D" />
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
-        <WidgetStyle name="Global override" styleID="0" fgColor="F2C476" bgColor="58693D" fontName="Consolas" fontStyle="0" fontSize="10" />
+        <WidgetStyle name="Global override" styleID="0" fgColor="F2C476" bgColor="58693D" fontName="Consolas" fontStyle="0" fontSize="" />
     </GlobalStyles>
 </NotepadPlus>

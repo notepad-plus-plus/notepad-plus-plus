@@ -899,7 +899,7 @@ http://sourceforge.net/donate/index.php?group_id=95717
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="FFFFFF" />
         <WidgetStyle name="Multi-edit carets color" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="FFFFFF" />
-        <WidgetStyle name="Line number margin" styleID="33" fgColor="FFFFFF" bgColor="1F4661" fontName="" fontStyle="0" fontSize="8" />
+        <WidgetStyle name="Line number margin" styleID="33" fgColor="FFFFFF" bgColor="1F4661" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Bookmark margin" styleID="0" bgColor="1F4661" />
         <WidgetStyle name="Change History margin" styleID="0" bgColor="1F4661" />
         <WidgetStyle name="Change History modified" styleID="0" fgColor="FF8000" bgColor="FF8000" />
@@ -940,6 +940,6 @@ http://sourceforge.net/donate/index.php?group_id=95717
         <WidgetStyle name="URL hovered" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Document map" styleID="0" fgColor="FFFFFF" bgColor="112435" />
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
-        <WidgetStyle name="Global override" styleID="0" fgColor="FFFF80" bgColor="FF8000" fontName="Courier New" fontStyle="0" fontSize="10" />
+        <WidgetStyle name="Global override" styleID="0" fgColor="FFFF80" bgColor="FF8000" fontName="Courier New" fontStyle="0" fontSize="" />
     </GlobalStyles>
 </NotepadPlus>

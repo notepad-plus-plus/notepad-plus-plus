@@ -1121,6 +1121,6 @@ Notepad++ Custom Style
         <WidgetStyle name="URL hovered" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Document map" styleID="0" fgColor="E0E2E4" bgColor="293134" />
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
-        <WidgetStyle name="Global override" styleID="0" fgColor="E0E2E4" bgColor="293134" fontName="Courier New" fontStyle="0" fontSize="10" />
+        <WidgetStyle name="Global override" styleID="0" fgColor="E0E2E4" bgColor="293134" fontName="Courier New" fontStyle="0" fontSize="" />
     </GlobalStyles>
 </NotepadPlus>

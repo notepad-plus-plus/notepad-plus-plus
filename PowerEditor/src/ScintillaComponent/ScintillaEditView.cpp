@@ -3919,15 +3919,19 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, size_t initial, siz
 	//Defined in ScintillaEditView.h :
 	//const UCHAR MASK_FORMAT = 0x03;
 
-	UCHAR f = format & MASK_FORMAT;
-
+	bool useUppercase = false;
 	int base = 10;
-	if (f == BASE_16)
+	if (format == BASE_16)
 		base = 16;
-	else if (f == BASE_08)
+	else if (format == BASE_08)
 		base = 8;
-	else if (f == BASE_02)
+	else if (format == BASE_02)
 		base = 2;
+	else if (format == BASE_16_UPPERCASE)
+	{
+		base = 16;
+		useUppercase = true;
+	}
 
 	const int stringSize = 512;
 	char str[stringSize];
@@ -3966,7 +3970,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, size_t initial, siz
 			cmi[i]._selLpos += totalDiff;
 			cmi[i]._selRpos += totalDiff;
 
-			variedFormatNumber2String<char>(str, stringSize, numbers.at(i), base, kib, lead);
+			variedFormatNumber2String<char>(str, stringSize, numbers.at(i), base, useUppercase, kib, lead);
 
 			const bool hasVirtualSpc = cmi[i]._nbVirtualAnchorSpc > 0;
 			if (hasVirtualSpc) // if virtual space is present, then insert space

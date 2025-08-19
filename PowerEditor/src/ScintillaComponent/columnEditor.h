@@ -45,10 +45,14 @@ public :
 	void switchTo(bool toText);
 	UCHAR getFormat();
 	ColumnEditorParam::leadingChoice getLeading();
+	UCHAR getHexCase(void);
 
 protected :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private :
 	ScintillaEditView **_ppEditView = nullptr;
+	void setNumericFields(const ColumnEditorParam& colEditParam);
+	int getNumericFieldValueFromText(int formatChoice, wchar_t str[], size_t stringSize);
+	int sendValidationErrorMessage(int whichFlashRed, int formatChoice, wchar_t str[]);
 };

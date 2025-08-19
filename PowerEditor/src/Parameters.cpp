@@ -2649,13 +2649,15 @@ void NppParameters::feedColumnEditorParameters(TiXmlNode *node)
 	if (strVal)
 	{
 		if (lstrcmp(strVal, L"hex") == 0)
-			_columnEditParam._formatChoice = 1;
+			_columnEditParam._formatChoice = BASE_16;
+		else if (lstrcmp(strVal, L"hexuc") == 0)
+			_columnEditParam._formatChoice = BASE_16_UPPERCASE;
 		else if (lstrcmp(strVal, L"oct") == 0)
-			_columnEditParam._formatChoice = 2;
+			_columnEditParam._formatChoice = BASE_08;
 		else if (lstrcmp(strVal, L"bin") == 0)
-			_columnEditParam._formatChoice = 3;
+			_columnEditParam._formatChoice = BASE_02;
 		else // "dec"
-			_columnEditParam._formatChoice = 0;
+			_columnEditParam._formatChoice = BASE_10;
 	}
 
 	strVal = (childNode->ToElement())->Attribute(L"leadingChoice");
@@ -4370,11 +4372,13 @@ bool NppParameters::writeColumnEditorSettings() const
 	(numberNode.ToElement())->SetAttribute(L"increase", _columnEditParam._increaseNum);
 	(numberNode.ToElement())->SetAttribute(L"repeat", _columnEditParam._repeatNum);
 	wstring format = L"dec";
-	if (_columnEditParam._formatChoice == 1)
+	if (_columnEditParam._formatChoice == BASE_16)
 		format = L"hex";
-	else if (_columnEditParam._formatChoice == 2)
+	else if (_columnEditParam._formatChoice == BASE_16_UPPERCASE)
+		format = L"hexuc";
+	else if (_columnEditParam._formatChoice == BASE_08)
 		format = L"oct";
-	else if (_columnEditParam._formatChoice == 3)
+	else if (_columnEditParam._formatChoice == BASE_02)
 		format = L"bin";
 	(numberNode.ToElement())->SetAttribute(L"formatChoice", format);
 	wstring leading = L"none";

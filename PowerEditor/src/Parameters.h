@@ -1320,7 +1320,7 @@ struct ColumnEditorParam final
 	int _initialNum = -1;
 	int _increaseNum = -1;
 	int _repeatNum = -1;
-	int _formatChoice = 0; // 0:Dec 1:Hex 2:Oct 3:Bin
+	int _formatChoice = 0; // 0:Dec 1:Hex 2:Oct 3:Bin 4:HexUpperCase
 	leadingChoice _leadingChoice = noneLeading;
 };
 

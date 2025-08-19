@@ -51,4 +51,7 @@ protected :
 
 private :
 	ScintillaEditView **_ppEditView = nullptr;
+	void _setNumericFields(const ColumnEditorParam& colEditParam);
+	int _getNumericFieldValueFromText(int formatChoice, wchar_t str[], size_t stringSize);
+	int _sendValidationErrorMessage(int whichFlashRed, int formatChoice, wchar_t str[]);
 };

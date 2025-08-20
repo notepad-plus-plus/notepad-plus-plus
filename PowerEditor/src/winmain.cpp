@@ -408,6 +408,72 @@ bool launchUpdater(const std::wstring& updaterFullPath, const std::wstring& upda
 	return true;
 }
 
+DWORD nppUacSave(const wchar_t* wszTempFilePath, const wchar_t* wszProtectedFilePath2Save)
+{
+	if (!doesFileExist(wszTempFilePath))
+		return ERROR_FILE_NOT_FOUND;
+	if (lstrlenW(wszProtectedFilePath2Save) == 0)
+		return ERROR_INVALID_PARAMETER;
+
+	DWORD dwRetCode = ERROR_SUCCESS;
+
+	bool isOutputReadOnly = false;
+	bool isOutputHidden = false;
+	bool isOutputSystem = false;
+	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
+	if (getFileAttributesExWithTimeout(wszProtectedFilePath2Save, &attributes))
+	{
+		if (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES && !(attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+		{
+			isOutputReadOnly = (attributes.dwFileAttributes & FILE_ATTRIBUTE_READONLY) != 0;
+			isOutputHidden = (attributes.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN) != 0;
+			isOutputSystem = (attributes.dwFileAttributes & FILE_ATTRIBUTE_SYSTEM) != 0;
+			if (isOutputReadOnly) attributes.dwFileAttributes &= ~FILE_ATTRIBUTE_READONLY;
+			if (isOutputHidden) attributes.dwFileAttributes &= ~FILE_ATTRIBUTE_HIDDEN;
+			if (isOutputSystem) attributes.dwFileAttributes &= ~FILE_ATTRIBUTE_SYSTEM;
+			if (isOutputReadOnly || isOutputHidden || isOutputSystem)
+				::SetFileAttributes(wszProtectedFilePath2Save, attributes.dwFileAttributes); // temporarily remove the problematic ones
+		}
+	}
+
+	// cannot use simple MoveFile here as it retains the tempfile permissions when on the same volume...
+	if (!::CopyFileW(wszTempFilePath, wszProtectedFilePath2Save, FALSE))
+	{
+		// fails if the destination file exists and has the R/O and/or Hidden attribute set
+		dwRetCode = ::GetLastError();
+	}
+	else
+	{
+		// ok, now dispose of the tempfile used
+		::DeleteFileW(wszTempFilePath);
+	}
+
+	// set back the possible original file attributes
+	if (isOutputReadOnly || isOutputHidden || isOutputSystem)
+	{
+		if (isOutputReadOnly) attributes.dwFileAttributes |= FILE_ATTRIBUTE_READONLY;
+		if (isOutputHidden) attributes.dwFileAttributes |= FILE_ATTRIBUTE_HIDDEN;
+		if (isOutputSystem) attributes.dwFileAttributes |= FILE_ATTRIBUTE_SYSTEM;
+		::SetFileAttributes(wszProtectedFilePath2Save, attributes.dwFileAttributes);
+	}
+
+	return dwRetCode;
+}
+
+DWORD nppUacSetFileAttributes(const DWORD dwFileAttribs, const wchar_t* wszFilePath)
+{
+	if (!doesFileExist(wszFilePath))
+		return ERROR_FILE_NOT_FOUND;
+	if (dwFileAttribs == INVALID_FILE_ATTRIBUTES || (dwFileAttribs & FILE_ATTRIBUTE_DIRECTORY))
+		return ERROR_INVALID_PARAMETER;
+
+	if (!::SetFileAttributes(wszFilePath, dwFileAttribs))
+		return ::GetLastError();
+
+	return ERROR_SUCCESS;
+}
+
 } // namespace
 
 
@@ -417,6 +483,31 @@ std::chrono::steady_clock::time_point g_nppStartTimePoint{};
 int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance*/, _In_ PWSTR pCmdLine, _In_ int /*nShowCmd*/)
 {
 	g_nppStartTimePoint = std::chrono::steady_clock::now();
+	
+	// Notepad++ UAC OPS /////////////////////////////////////////////////////////////////////////////////////////////
+	if ((lstrlenW(pCmdLine) > 0) && (__argc >= 2)) // safe (if pCmdLine is NULL, lstrlen returns 0)
+	{
+		const wchar_t* wszNppUacOpSign = __wargv[1];
+
+		if ((__argc == 4) && (wcscmp(wszNppUacOpSign, NPP_UAC_SAVE_SIGN) == 0))
+		{
+			// __wargv[x]: 2 ... tempFilePath, 3  ...  protectedFilePath2Save
+			return static_cast<int>(nppUacSave(__wargv[2], __wargv[3]));
+		}
+
+		if ((__argc == 4) && (wcscmp(wszNppUacOpSign, NPP_UAC_SETFILEATTRIBUTES_SIGN) == 0))
+		{
+			// __wargv[x]: 2 ... dwFileAttributes (string), 3  ...  filePath
+			try
+			{
+				return static_cast<int>(nppUacSetFileAttributes(static_cast<DWORD>(std::stoul(std::wstring(__wargv[2]))), __wargv[3]));
+			}
+			catch ([[maybe_unused]] const std::exception& e)
+			{
+				return static_cast<int>(ERROR_INVALID_PARAMETER); // conversion error (check e.what() for details)
+			}
+		}
+	} // Notepad++ UAC OPS////////////////////////////////////////////////////////////////////////////////////////////
 
 	bool TheFirstOne = true;
 	::SetLastError(NO_ERROR);

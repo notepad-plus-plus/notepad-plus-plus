@@ -65,6 +65,15 @@ namespace // anonymous
 		return defvalue; // fallback unknown
 	}
 
+	// local helper to get the current system time in milliseconds since Unix epoch (January 1, 1970)
+	ULONGLONG GetUnixSysTimeInMilliseconds()
+	{
+		FILETIME ft;
+		::GetSystemTimeAsFileTime(&ft); // 100-nanosecond intervals since January 1, 1601 (UTC)
+		ULONGLONG ullTime = (((ULONGLONG)ft.dwHighDateTime) << 32) | ft.dwLowDateTime;
+		const ULONGLONG EPOCH_DIFF = 116444736000000000ULL; // difference between Jan 1, 1601 and Jan 1, 1970 in 100-ns intervals
+		return (ullTime - EPOCH_DIFF) / 10000; // subtract the diff and convert to milliseconds
+	}
 } // anonymous namespace
 
 using namespace std;
@@ -1323,7 +1332,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 	Buffer* buffer = getBufferByID(id);
 	bool isHiddenOrSys = false;
 
-	wchar_t fullpath[MAX_PATH] = { 0 };
+	wchar_t fullpath[MAX_PATH]{};
 	if (isWin32NamespacePrefixedFileName(filename))
 	{
 		// use directly the raw file name, skip the GetFullPathName WINAPI
@@ -1338,7 +1347,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 		}
 	}
 	
-	wchar_t dirDest[MAX_PATH];
+	wchar_t dirDest[MAX_PATH]{};
 	wcscpy_s(dirDest, MAX_PATH, fullpath);
 	::PathRemoveFileSpecW(dirDest);
 
@@ -1379,105 +1388,134 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 
 	int encoding = buffer->getEncoding();
 
-	if (UnicodeConvertor.openFile(fullpath))
+	wstring strTempFile = L"";
+	if (!UnicodeConvertor.openFile(fullpath))
 	{
-		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);	//generate new document
+		if (NppParameters::getInstance().isEndSessionCritical())
+			return SavingStatus::SaveOpenFailed; // cannot continue to the UAC-prompt at the Windows logoff/reboot/shutdown time
 
-		size_t lengthDoc = _pscratchTilla->getCurrentDocLen();
-		char* buf = (char*)_pscratchTilla->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
-		bool isWrittenSuccessful = false;
+		if (UnicodeConvertor.getLastFileErrorState() != ERROR_ACCESS_DENIED)
+			return SavingStatus::SaveOpenFailed; // cannot be solved by the UAC-prompt
 
-		if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write
-		{
-			isWrittenSuccessful = UnicodeConvertor.writeFile(buf, lengthDoc);
-			if (lengthDoc == 0)
-				isWrittenSuccessful = true;
-		}
-		else
-		{
-			if (lengthDoc == 0)
-			{
-				isWrittenSuccessful = UnicodeConvertor.writeFile(buf, 0);
-			}
-			else
-			{
-				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-				size_t grabSize = 0;
-				for (size_t i = 0; i < lengthDoc; i += grabSize)
-				{
-					grabSize = lengthDoc - i;
-					if (grabSize > blockSize)
-						grabSize = blockSize;
+		// ERROR_ACCESS_DENIED, swap to temporary file copy for the UAC elevation way
+		wchar_t wszBuf[MAX_PATH + 1]{};
+		if (::GetTempPath(MAX_PATH, wszBuf) == 0)
+			return SavingStatus::SaveOpenFailed; // cannot continue
+		strTempFile = wszBuf;
+		strTempFile += L"npp-" + std::to_wstring(GetUnixSysTimeInMilliseconds()) + L".tmp"; // make unique temporary filename
+		if (!UnicodeConvertor.openFile(strTempFile.c_str()))
+			return SavingStatus::SaveOpenFailed; // cannot continue, weird
+	}
 
-					int newDataLen = 0;
-					int incompleteMultibyteChar = 0;
-					const char* newData = wmc.encode(SC_CP_UTF8, encoding, buf + i, static_cast<int>(grabSize), &newDataLen, &incompleteMultibyteChar);
-					grabSize -= incompleteMultibyteChar;
-					isWrittenSuccessful = UnicodeConvertor.writeFile(newData, newDataLen);
-				}
-			}
-		}
+	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);	//generate new document
 
-		UnicodeConvertor.closeFile();
+	size_t lengthDoc = _pscratchTilla->getCurrentDocLen();
+	char* buf = (char*)_pscratchTilla->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
+	bool isWrittenSuccessful = false;
 
-		// Error, we didn't write the entire document to disk.
-		if (!isWrittenSuccessful)
-		{
-			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
-			return SavingStatus::SaveWritingFailed;
-		}
-
-		if (isHiddenOrSys)
-			::SetFileAttributes(fullpath, attributes.dwFileAttributes);
-
-		if (isCopy) // "Save a Copy As..." command
-		{
-			unsigned long MODEVENTMASK_ON = NppParameters::getInstance().getScintillaModEventMask();
-			_pscratchTilla->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
-			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
-			_pscratchTilla->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
-			return SavingStatus::SaveOK;	//all done - we don't change the current buffer's path to "fullpath", since it's "Save a Copy As..." action.
-		}
-
-		buffer->setFileName(fullpath);
-
-		// if not a large file and language is normal text (not defined)
-		// we may try determine its language from its content 
-		if (!buffer->isLargeFile() && buffer->_lang == L_TEXT)
-		{
-			LangType detectedLang = detectLanguageFromTextBeginning((unsigned char*)buf, lengthDoc);
-
-			// if a language is detected from the content
-			if (detectedLang != L_TEXT)
-			{
-				buffer->_lang = detectedLang;
-				buffer->doNotify(BufferChangeFilename | BufferChangeTimestamp | BufferChangeLanguage);
-			}
-		}
-		buffer->setDirty(false);
-		buffer->setUnsync(false);
-		buffer->setSavePointDirty(false);
-		buffer->setStatus(DOC_REGULAR);
-		buffer->checkFileState();
-
-
-		_pscratchTilla->execute(SCI_SETSAVEPOINT);
-		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
-
-		wstring backupFilePath = buffer->getBackupFileName();
-		if (!backupFilePath.empty())
-		{
-			// delete backup file
-			buffer->setBackupFileName(wstring());
-			::DeleteFile(backupFilePath.c_str());
-		}
-
-		return SavingStatus::SaveOK;
+	if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write
+	{
+		isWrittenSuccessful = UnicodeConvertor.writeFile(buf, lengthDoc);
+		if (lengthDoc == 0)
+			isWrittenSuccessful = true;
 	}
 	else
 	{
-		return SavingStatus::SaveOpenFailed;
+		if (lengthDoc == 0)
+		{
+			isWrittenSuccessful = UnicodeConvertor.writeFile(buf, 0);
+		}
+		else
+		{
+			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+			size_t grabSize = 0;
+			for (size_t i = 0; i < lengthDoc; i += grabSize)
+			{
+				grabSize = lengthDoc - i;
+				if (grabSize > blockSize)
+					grabSize = blockSize;
+
+				int newDataLen = 0;
+				int incompleteMultibyteChar = 0;
+				const char* newData = wmc.encode(SC_CP_UTF8, encoding, buf + i, static_cast<int>(grabSize), &newDataLen, &incompleteMultibyteChar);
+				grabSize -= incompleteMultibyteChar;
+				isWrittenSuccessful = UnicodeConvertor.writeFile(newData, newDataLen);
+			}
+		}
 	}
+
+	UnicodeConvertor.closeFile();
+
+	if (isHiddenOrSys && strTempFile.empty())
+		::SetFileAttributes(fullpath, attributes.dwFileAttributes);
+
+	// Error, we didn't write the entire document to disk.
+	if (!isWrittenSuccessful)
+	{
+		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+		if (!strTempFile.empty())
+			::DeleteFileW(strTempFile.c_str());
+		return SavingStatus::SaveWritingFailed;
+	}
+
+	if (!strTempFile.empty())
+	{
+		// elevated saving/overwriting of the original file by the help of the tempfile
+		wstring strCmdLineParams = NPP_UAC_SAVE_SIGN;
+		strCmdLineParams += L" \"" + strTempFile + L"\" \"";
+		strCmdLineParams += fullpath;
+		strCmdLineParams += L"\"";
+		DWORD dwNppUacOpError = invokeNppUacOp(strCmdLineParams);
+		if (dwNppUacOpError != NO_ERROR)
+		{
+			::DeleteFileW(strTempFile.c_str()); // ensure no failed op remnant
+			::SetLastError(dwNppUacOpError); // set that as our current thread one for reporting later
+			return SavingStatus::SaveWritingFailed;
+		}
+	}
+
+	if (isCopy) // "Save a Copy As..." command
+	{
+		unsigned long MODEVENTMASK_ON = NppParameters::getInstance().getScintillaModEventMask();
+		_pscratchTilla->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+		_pscratchTilla->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+		return SavingStatus::SaveOK;	//all done - we don't change the current buffer's path to "fullpath", since it's "Save a Copy As..." action.
+	}
+
+	buffer->setFileName(fullpath);
+
+	// if not a large file and language is normal text (not defined)
+	// we may try determine its language from its content 
+	if (!buffer->isLargeFile() && buffer->_lang == L_TEXT)
+	{
+		LangType detectedLang = detectLanguageFromTextBeginning((unsigned char*)buf, lengthDoc);
+
+		// if a language is detected from the content
+		if (detectedLang != L_TEXT)
+		{
+			buffer->_lang = detectedLang;
+			buffer->doNotify(BufferChangeFilename | BufferChangeTimestamp | BufferChangeLanguage);
+		}
+	}
+	buffer->setDirty(false);
+	buffer->setUnsync(false);
+	buffer->setSavePointDirty(false);
+	buffer->setStatus(DOC_REGULAR);
+	buffer->checkFileState();
+
+	_pscratchTilla->execute(SCI_SETSAVEPOINT);
+	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+
+	wstring backupFilePath = buffer->getBackupFileName();
+	if (!backupFilePath.empty())
+	{
+		// delete backup file
+		buffer->setBackupFileName(wstring());
+		::DeleteFile(backupFilePath.c_str());
+	}
+
+	return SavingStatus::SaveOK;
 }
 
 size_t FileManager::nextUntitledNewNumber() const

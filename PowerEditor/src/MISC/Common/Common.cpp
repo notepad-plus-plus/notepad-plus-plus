@@ -1537,7 +1537,24 @@ bool toggleReadOnlyFlagFromFileAttributes(const wchar_t* fileFullPath, bool& isC
 	}
 	else
 	{
-		// probably the ERROR_ACCESS_DENIED (5) (TODO: UAC-prompt candidate)
+		if (::GetLastError() == ERROR_ACCESS_DENIED)
+		{
+			// try to set elevated
+			wstring strCmdLineParams = NPP_UAC_SETFILEATTRIBUTES_SIGN;
+			strCmdLineParams += L" \"" + to_wstring(dwFileAttribs) + L"\" \"";
+			strCmdLineParams += fileFullPath;
+			strCmdLineParams += L"\"";
+			DWORD dwNppUacOpError = invokeNppUacOp(strCmdLineParams);
+			if (dwNppUacOpError == NO_ERROR)
+			{
+				isChangedToReadOnly = (dwFileAttribs & FILE_ATTRIBUTE_READONLY) != 0;
+				return true;
+			}
+			else
+			{
+				::SetLastError(dwNppUacOpError); // set that as our current thread one for a possible reporting later
+			}
+		}
 		return false;
 	}
 }
@@ -2154,3 +2171,44 @@ void ControlInfoTip::hide()
 }
 
 #pragma warning(default:4996)
+
+DWORD invokeNppUacOp(std::wstring& strCmdLineParams)
+{
+	if ((strCmdLineParams.length() == 0) || (strCmdLineParams.length() > (USHRT_MAX / sizeof(WCHAR))))
+	{
+		// no cmdline or it exceeds the current max WinOS 32767 WCHARs
+		return ERROR_INVALID_PARAMETER;
+	}
+
+	wstring strBuf(MAX_PATH/2, L'\0');
+	do
+	{
+		strBuf.resize(strBuf.length() * 2, L'\0');
+		if (strBuf.length() > (USHRT_MAX / sizeof(WCHAR)))
+			return ERROR_FILENAME_EXCED_RANGE;
+		::SetLastError(NO_ERROR);
+		if (!::GetModuleFileNameW(NULL, &strBuf[0], static_cast<DWORD>(strBuf.length())))
+			return ::GetLastError();
+	} while (::GetLastError() == ERROR_INSUFFICIENT_BUFFER);
+
+	SHELLEXECUTEINFOW sei{};
+	sei.cbSize = sizeof(SHELLEXECUTEINFOW);
+	sei.lpVerb = L"runas"; // UAC prompt
+	sei.nShow = SW_SHOWNORMAL;
+	sei.fMask = SEE_MASK_NOCLOSEPROCESS; // sei.hProcess member receives the launched process handle
+	sei.lpFile = strBuf.c_str(); // notepad++.exe fullpath
+	sei.lpParameters = strCmdLineParams.c_str();
+	if (!::ShellExecuteExW(&sei))
+		return ::GetLastError();
+
+	// wait for the elevated Notepad++ process to finish
+	DWORD dwError = NO_ERROR;
+	if (sei.hProcess) // beware - do not check here for the INVALID_HANDLE_VALUE (valid GetCurrentProcess() pseudohandle)
+	{
+		::WaitForSingleObject(sei.hProcess, INFINITE);
+		::GetExitCodeProcess(sei.hProcess, &dwError);
+		::CloseHandle(sei.hProcess);
+	}
+
+	return dwError;
+}

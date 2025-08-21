@@ -148,11 +148,14 @@ public:
 	size_t convert(char* p, size_t _size);
 	char* getNewBuf() { return reinterpret_cast<char*>(m_pNewBuf); }
 
+	DWORD getLastFileErrorState() { return m_dwLastFileError; }
+
 protected:
 	UniMode m_eEncoding;
 	std::unique_ptr<Win32_IO_File> m_pFile;
 	ubyte* m_pNewBuf;
 	size_t m_nBufSize;
 	bool m_bFirstWrite;
+	DWORD m_dwLastFileError;
 };
 

@@ -683,8 +683,11 @@ bool Notepad_plus::doSave(BufferID id, const wchar_t * filename, bool isCopy)
 	}
 	else if (res == SavingStatus::SaveWritingFailed)
 	{
-		wstring errorMessage = GetLastErrorAsString(GetLastError());
-		::MessageBox(_pPublicInterface->getHSelf(), errorMessage.c_str(), L"Save failed", MB_OK | MB_ICONWARNING);
+		if (!(NppParameters::getInstance()).isEndSessionCritical()) // can we report to the user?
+		{
+			wstring errorMessage = GetLastErrorAsString(::GetLastError());
+			::MessageBox(_pPublicInterface->getHSelf(), errorMessage.c_str(), L"Save failed", MB_OK | MB_ICONWARNING);
+		}
 	}
 	else if (res == SavingStatus::SaveOpenFailed)
 	{

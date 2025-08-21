@@ -1077,7 +1077,7 @@ wstring CustomFileDialog::doSaveDlg()
 
 	CurrentDirBackup backup;
 
-	_impl->addFlags(FOS_PATHMUSTEXIST | FOS_FILEMUSTEXIST | FOS_FORCEFILESYSTEM);
+	_impl->addFlags(FOS_PATHMUSTEXIST | FOS_FILEMUSTEXIST | FOS_FORCEFILESYSTEM | FOS_NOTESTFILECREATE);
 	bool bOk = _impl->show();
 	return bOk ? _impl->getResultFilename() : L"";
 }

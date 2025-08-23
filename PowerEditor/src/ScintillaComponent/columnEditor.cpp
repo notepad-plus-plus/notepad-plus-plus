@@ -73,16 +73,20 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			::SendMessage(::GetDlgItem(_hSelf, IDC_COL_LEADING_COMBO), CB_SETCURSEL, curSel, 0);
 
 			int format = IDC_COL_DEC_RADIO;
-			if (colEditParam._formatChoice == BASE_16)
+			if ((colEditParam._formatChoice & BASE_16) == BASE_16)	// either BASE_16 or BASE_16_UC
 				format = IDC_COL_HEX_RADIO;
 			else if (colEditParam._formatChoice == BASE_08)
 				format = IDC_COL_OCT_RADIO;
 			else if (colEditParam._formatChoice == BASE_02)
 				format = IDC_COL_BIN_RADIO;
-			else if (colEditParam._formatChoice == BASE_16_UC)
-				format = IDC_COL_HEXUC_RADIO;
 
 			::SendDlgItemMessage(_hSelf, format, BM_SETCHECK,  TRUE, 0);
+
+			// populate the Hex-Case dropdown and activate correct case
+			::SendDlgItemMessage(_hSelf, IDC_COL_HEXUC_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"a-f"));
+			::SendDlgItemMessage(_hSelf, IDC_COL_HEXUC_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"A-F"));
+			UCHAR uc = (colEditParam._formatChoice == BASE_16_UC) ? 1 : 0;
+			::SendDlgItemMessage(_hSelf, IDC_COL_HEXUC_COMBO, CB_SETCURSEL, uc, 0);	// activate correct case
 
 			switchTo(colEditParam._mainChoice);
 			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
@@ -161,25 +165,25 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		{
 			switch (LOWORD(wParam))
 			{
-				case IDCANCEL : // Close
+				case IDCANCEL: // Close
 					display(false);
 					return TRUE;
 
-				case IDOK :
-                {
+				case IDOK:
+				{
 					(*_ppEditView)->execute(SCI_BEGINUNDOACTION);
-					
+
 					constexpr int stringSize = 1024;
 					wchar_t str[stringSize]{};
-					
+
 					bool isTextMode = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_TEXT_RADIO, BM_GETCHECK, 0, 0));
-					
+
 					if (isTextMode)
 					{
 						::SendDlgItemMessage(_hSelf, IDC_COL_TEXT_EDIT, WM_GETTEXT, stringSize, reinterpret_cast<LPARAM>(str));
 
 						display(false);
-						
+
 						if ((*_ppEditView)->execute(SCI_SELECTIONISRECTANGLE) || (*_ppEditView)->execute(SCI_GETSELECTIONS) > 1)
 						{
 							ColumnModeInfos colInfos = (*_ppEditView)->getColumnModeSelectInfo();
@@ -197,9 +201,9 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							auto endLine = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, endPos);
 
 							constexpr int lineAllocatedLen = 1024;
-							wchar_t *line = new wchar_t[lineAllocatedLen];
+							wchar_t* line = new wchar_t[lineAllocatedLen];
 
-							for (size_t i = cursorLine ; i <= static_cast<size_t>(endLine); ++i)
+							for (size_t i = cursorLine; i <= static_cast<size_t>(endLine); ++i)
 							{
 								auto lineBegin = (*_ppEditView)->execute(SCI_POSITIONFROMLINE, i);
 								auto lineEnd = (*_ppEditView)->execute(SCI_GETLINEENDPOSITION, i);
@@ -209,7 +213,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 								if (lineLen > lineAllocatedLen)
 								{
-									delete [] line;
+									delete[] line;
 									line = new wchar_t[lineLen];
 								}
 								(*_ppEditView)->getGenericText(line, lineLen, lineBegin, lineEnd);
@@ -227,12 +231,12 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 									auto posRelative2Start = posAbs2Start - lineBegin;
 									if (posRelative2Start > static_cast<long long>(s2r.length()))
 										posRelative2Start = s2r.length();
-										
+
 									s2r.insert(posRelative2Start, str);
 								}
 								(*_ppEditView)->replaceTarget(s2r.c_str(), lineBegin, lineEnd);
 							}
-							delete [] line;
+							delete[] line;
 						}
 					}
 					else
@@ -240,13 +244,25 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 						ColumnEditorParam colEditParam = NppParameters::getInstance()._columnEditParam;
 
 						::GetDlgItemText(_hSelf, IDC_COL_INITNUM_EDIT, str, stringSize);
-						size_t initialNumber = (lstrcmp(str, L"") == 0) ? -1 : _getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
+						size_t initialNumber = _getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
+						if (initialNumber == -1)
+						{
+							initialNumber = colEditParam._initialNum;	// on error, use stored value
+						}
 
 						::GetDlgItemText(_hSelf, IDC_COL_INCREASENUM_EDIT, str, stringSize);
-						size_t increaseNumber = (lstrcmp(str, L"") == 0) ? -1 : _getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
+						size_t increaseNumber = _getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
+						if (increaseNumber == -1)
+						{
+							increaseNumber = colEditParam._increaseNum;	// on error, use stored value
+						}
 
 						::GetDlgItemText(_hSelf, IDC_COL_REPEATNUM_EDIT, str, stringSize);
-						size_t repeat = (lstrcmp(str, L"") == 0) ? -1 : _getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
+						size_t repeat = _getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
+						if (repeat == -1)
+						{
+							repeat = colEditParam._increaseNum;	// on error, use stored value
+						}
 
 						if (repeat == 0)
 						{
@@ -296,7 +312,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							}
 
 							constexpr int lineAllocatedLen = 1024;
-							wchar_t *line = new wchar_t[lineAllocatedLen];
+							wchar_t* line = new wchar_t[lineAllocatedLen];
 
 							UCHAR f = format & MASK_FORMAT;
 							UCHAR u = format & MASK_FORMAT_UC;
@@ -315,7 +331,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							size_t nb = std::max<size_t>(nbInit, nbEnd);
 
 
-							for (size_t i = cursorLine ; i <= size_t(endLine) ; ++i)
+							for (size_t i = cursorLine; i <= size_t(endLine); ++i)
 							{
 								auto lineBegin = (*_ppEditView)->execute(SCI_POSITIONFROMLINE, i);
 								auto lineEnd = (*_ppEditView)->execute(SCI_GETLINEENDPOSITION, i);
@@ -325,7 +341,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 								if (lineLen > lineAllocatedLen)
 								{
-									delete [] line;
+									delete[] line;
 									line = new wchar_t[lineLen];
 								}
 								(*_ppEditView)->getGenericText(line, lineLen, lineBegin, lineEnd);
@@ -349,21 +365,21 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 									auto posRelative2Start = posAbs2Start - lineBegin;
 									if (posRelative2Start > static_cast<long long>(s2r.length()))
 										posRelative2Start = s2r.length();
-										
+
 									s2r.insert(posRelative2Start, str);
 								}
 
 								(*_ppEditView)->replaceTarget(s2r.c_str(), int(lineBegin), int(lineEnd));
 							}
-							delete [] line;
+							delete[] line;
 						}
 					}
 					(*_ppEditView)->execute(SCI_ENDUNDOACTION);
-                    (*_ppEditView)->grabFocus();
-                    return TRUE;
-                }
-				case IDC_COL_TEXT_RADIO :
-				case IDC_COL_NUM_RADIO :
+					(*_ppEditView)->grabFocus();
+					return TRUE;
+				}
+				case IDC_COL_TEXT_RADIO:
+				case IDC_COL_NUM_RADIO:
 				{
 					ColumnEditorParam& colEditParam = NppParameters::getInstance()._columnEditParam;
 					colEditParam._mainChoice = (wParam == IDC_COL_TEXT_RADIO) ? activeText : activeNumeric;
@@ -375,7 +391,6 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				case IDC_COL_OCT_RADIO:
 				case IDC_COL_HEX_RADIO:
 				case IDC_COL_BIN_RADIO:
-				case IDC_COL_HEXUC_RADIO:
 				{
 					ColumnEditorParam& colEditParam = NppParameters::getInstance()._columnEditParam;
 					colEditParam._formatChoice = BASE_10; // dec
@@ -385,8 +400,6 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 						colEditParam._formatChoice = BASE_08;
 					else if (wParam == IDC_COL_BIN_RADIO)
 						colEditParam._formatChoice = BASE_02;
-					else if (wParam == IDC_COL_HEXUC_RADIO)
-						colEditParam._formatChoice = BASE_16_UC;
 
 					_setNumericFields(colEditParam);	// reformat the field text to be based on the new radix
 
@@ -487,6 +500,15 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 								colEditParam._leadingChoice = getLeading();
 								return TRUE;
 							}
+							else if(LOWORD(wParam) == IDC_COL_HEXUC_COMBO)
+							{
+								ColumnEditorParam& colEditParam = NppParameters::getInstance()._columnEditParam;
+								if ((colEditParam._formatChoice & BASE_16) == BASE_16 )
+									colEditParam._formatChoice = getHexCase();
+
+								_setNumericFields(colEditParam);	// want the GUI fields to update case when combobox changes
+								return TRUE;
+							}
 						}
 						break;
 					}
@@ -557,14 +579,19 @@ UCHAR ColumnEditorDlg::getFormat()
 {
 	UCHAR f = BASE_10; // Dec by default
 	if (isCheckedOrNot(IDC_COL_HEX_RADIO))
-		f = BASE_16;
+		f = BASE_16 | getHexCase();	// will give BASE_16 or BASE_16_UC, depending on case selector
 	else if (isCheckedOrNot(IDC_COL_OCT_RADIO))
 		f = BASE_08;
 	else if (isCheckedOrNot(IDC_COL_BIN_RADIO))
 		f = BASE_02;
-	else if (isCheckedOrNot(IDC_COL_HEXUC_RADIO))
-		f = BASE_16_UC;
 	return f;
+}
+
+
+UCHAR ColumnEditorDlg::getHexCase(void)
+{
+	int curSel = static_cast<int>(::SendDlgItemMessage(_hSelf, IDC_COL_HEXUC_COMBO, CB_GETCURSEL, 0, 0));
+	return (curSel == 1) ? BASE_16_UC : BASE_16;
 }
 
 ColumnEditorParam::leadingChoice ColumnEditorDlg::getLeading()
@@ -672,7 +699,7 @@ int ColumnEditorDlg::_getNumericFieldValueFromText(int formatChoice, wchar_t str
 	}
 
 	// convert string in base to int value; on error, return -1
-	wchar_t* pEnd;
+	wchar_t* pEnd = nullptr;
 	num = static_cast<int>(std::wcstol(str, &pEnd, base));
 	if (pEnd == nullptr || *pEnd != L'\0')
 	{

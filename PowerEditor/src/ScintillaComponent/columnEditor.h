@@ -45,6 +45,7 @@ public :
 	void switchTo(bool toText);
 	UCHAR getFormat();
 	ColumnEditorParam::leadingChoice getLeading();
+	UCHAR getHexCase(void);
 
 protected :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;

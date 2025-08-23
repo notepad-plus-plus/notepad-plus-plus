@@ -18,7 +18,7 @@
 | **Windows Server 2008** | v8.4.6  \*               |          No               |
 | **Windows 7**           | current version          |          No               |
 | **Windows 8**           | current version          |          No               |
-| **Windows 8.1**         | current version          |          Yes              |
+| **Windows 8.1**         | current version          |          No               |
 | **Windows 10**          | current version          |          Yes              |
 | **Windows 11**          | current version          |          Yes              |
 

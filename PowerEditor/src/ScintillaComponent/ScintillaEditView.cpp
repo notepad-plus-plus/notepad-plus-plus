@@ -3920,6 +3920,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, size_t initial, siz
 	//const UCHAR MASK_FORMAT = 0x03;
 
 	UCHAR f = format & MASK_FORMAT;
+	UCHAR u = format & MASK_FORMAT_UC;
 
 	int base = 10;
 	if (f == BASE_16)
@@ -3966,7 +3967,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, size_t initial, siz
 			cmi[i]._selLpos += totalDiff;
 			cmi[i]._selRpos += totalDiff;
 
-			variedFormatNumber2String<char>(str, stringSize, numbers.at(i), base, kib, lead);
+			variedFormatNumber2String<char>(str, stringSize, numbers.at(i), base, u, kib, lead);
 
 			const bool hasVirtualSpc = cmi[i]._nbVirtualAnchorSpc > 0;
 			if (hasVirtualSpc) // if virtual space is present, then insert space

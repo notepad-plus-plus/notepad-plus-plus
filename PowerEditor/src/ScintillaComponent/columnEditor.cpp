@@ -87,6 +87,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			::SendDlgItemMessage(_hSelf, IDC_COL_HEXUC_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"A-F"));
 			UCHAR uc = (colEditParam._formatChoice == BASE_16_UC) ? 1 : 0;
 			::SendDlgItemMessage(_hSelf, IDC_COL_HEXUC_COMBO, CB_SETCURSEL, uc, 0);	// activate correct case
+			EnableWindow(GetDlgItem(_hSelf, IDC_COL_HEXUC_COMBO), format == IDC_COL_HEX_RADIO);	// enable combobox only if hex is chosen
 
 			switchTo(colEditParam._mainChoice);
 			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
@@ -394,14 +395,15 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				{
 					ColumnEditorParam& colEditParam = NppParameters::getInstance()._columnEditParam;
 					colEditParam._formatChoice = BASE_10; // dec
-					if (wParam == IDC_COL_HEX_RADIO)
-						colEditParam._formatChoice = BASE_16;
-					else if (wParam == IDC_COL_OCT_RADIO)
+					if (LOWORD(wParam) == IDC_COL_HEX_RADIO)
+						colEditParam._formatChoice = getHexCase();	// will pick appropriate UC or LC version of hex
+					else if (LOWORD(wParam) == IDC_COL_OCT_RADIO)
 						colEditParam._formatChoice = BASE_08;
-					else if (wParam == IDC_COL_BIN_RADIO)
+					else if (LOWORD(wParam) == IDC_COL_BIN_RADIO)
 						colEditParam._formatChoice = BASE_02;
 
 					_setNumericFields(colEditParam);	// reformat the field text to be based on the new radix
+					EnableWindow(GetDlgItem(_hSelf, IDC_COL_HEXUC_COMBO), LOWORD(wParam) == IDC_COL_HEX_RADIO);	// enable combobox only if hex is chosen
 
 					return TRUE;
 				}

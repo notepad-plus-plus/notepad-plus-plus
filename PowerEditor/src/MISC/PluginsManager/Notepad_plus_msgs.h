@@ -1025,7 +1025,15 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Return toolbar icon set choice as an integer value. Here are 5 possible values:
 	// 0 (Fluent UI: small), 1 (Fluent UI: large), 2 (Filled Fluent UI: small), 3 (Filled Fluent UI: large) and 4 (Standard icons: small).
 
-	// For RUNCOMMAND_USER
+	#define NPPM_GETSETTINGSDIRPATH (NPPMSG + 119)
+	// int NPPM_GETSETTINGSDIRPATH(size_t strLen, wchar_t *settingsDirPath)
+	// Get -settingsDir path. It's useful if plugins want to store its settings with the rest of Notepad++ configuration, if this path is set.
+	// wParam[in]: strLen - size of allocated buffer "settingsDirPath"
+	// lParam[out]: settingsDirPath - Users should call it with settingsDirPath be NULL to get the required number of wchar_t (not including the terminating nul character),
+	//              allocate settingsDirPath buffer with the return value + 1, then call it again to get the path.
+	// Returns the number of wchar_t copied/to copy. If the return value is 0, then this path is not set, or the "strLen" is not enough to copy the path.
+
+// For RUNCOMMAND_USER
 	#define VAR_NOT_RECOGNIZED 0
 	#define FULL_CURRENT_PATH 1
 	#define CURRENT_DIRECTORY 2

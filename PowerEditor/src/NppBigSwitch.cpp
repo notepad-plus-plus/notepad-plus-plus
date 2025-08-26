@@ -3218,6 +3218,20 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return settingsOnCloudPath.length();
 		}
 
+		case NPPM_GETSETTINGSDIRPATH:
+		{
+			wstring settingsDirPath = nppParam.getCmdSettingsDir();
+			if (lParam != 0)
+			{
+				if (settingsDirPath.length() >= static_cast<size_t>(wParam))
+				{
+					return 0;
+				}
+				lstrcpy(reinterpret_cast<wchar_t *>(lParam), settingsDirPath.c_str());
+			}
+			return settingsDirPath.length();
+		}
+
 		case NPPM_SETLINENUMBERWIDTHMODE:
 		{
 			if (lParam != LINENUMWIDTH_DYNAMIC && lParam != LINENUMWIDTH_CONSTANT)

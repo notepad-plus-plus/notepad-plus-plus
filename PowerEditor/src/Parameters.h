@@ -1892,6 +1892,10 @@ public:
 		_cmdSettingsDir = settingsDir;
 	};
 
+	const std::wstring getCmdSettingsDir() {
+		return _cmdSettingsDir;
+	};
+
 	void setTitleBarAdd(const std::wstring& titleAdd) {
 		_titleBarAdditional = titleAdd;
 	}

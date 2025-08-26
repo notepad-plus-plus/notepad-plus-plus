@@ -3218,6 +3218,23 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return settingsOnCloudPath.length();
 		}
 
+		case NPPM_GETNPPSETTINGSDIRPATH:
+		{
+			// get the path (-settingsDir, Cloud directory, AppData or NppDir selection handled by _userPath, returned by .getUserPath())
+			wstring settingsDirPath = nppParam.getUserPath();
+
+			// if the LPARAM is a big enough non-null pointer, populate that memory with the path string
+			if (lParam != 0)
+			{
+				if (settingsDirPath.length() >= static_cast<size_t>(wParam))
+					return 0;
+				lstrcpy(reinterpret_cast<wchar_t*>(lParam), settingsDirPath.c_str());
+			}
+
+			// the message returns the string length
+			return settingsDirPath.length();
+		}
+
 		case NPPM_SETLINENUMBERWIDTHMODE:
 		{
 			if (lParam != LINENUMWIDTH_DYNAMIC && lParam != LINENUMWIDTH_CONSTANT)

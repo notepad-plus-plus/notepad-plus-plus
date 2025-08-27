@@ -2651,7 +2651,7 @@ void NppParameters::feedColumnEditorParameters(TiXmlNode *node)
 		if (lstrcmp(strVal, L"hex") == 0)
 			_columnEditParam._formatChoice = BASE_16;
 		else if (lstrcmp(strVal, L"hexuc") == 0)
-			_columnEditParam._formatChoice = BASE_16_UC;
+			_columnEditParam._formatChoice = BASE_16_UPPERCASE;
 		else if (lstrcmp(strVal, L"oct") == 0)
 			_columnEditParam._formatChoice = BASE_08;
 		else if (lstrcmp(strVal, L"bin") == 0)
@@ -4374,7 +4374,7 @@ bool NppParameters::writeColumnEditorSettings() const
 	wstring format = L"dec";
 	if (_columnEditParam._formatChoice == BASE_16)
 		format = L"hex";
-	else if (_columnEditParam._formatChoice == BASE_16_UC)
+	else if (_columnEditParam._formatChoice == BASE_16_UPPERCASE)
 		format = L"hexuc";
 	else if (_columnEditParam._formatChoice == BASE_08)
 		format = L"oct";

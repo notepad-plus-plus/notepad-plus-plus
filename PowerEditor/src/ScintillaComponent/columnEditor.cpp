@@ -57,7 +57,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 			::SetDlgItemText(_hSelf, IDC_COL_TEXT_EDIT, colEditParam._insertedTextContent.c_str());
 
-			_setNumericFields(colEditParam);
+			setNumericFields(colEditParam);
 			
 			::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"None"));
 			::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Zeros"));
@@ -73,7 +73,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			::SendMessage(::GetDlgItem(_hSelf, IDC_COL_LEADING_COMBO), CB_SETCURSEL, curSel, 0);
 
 			int format = IDC_COL_DEC_RADIO;
-			if ((colEditParam._formatChoice & BASE_16) == BASE_16)	// either BASE_16 or BASE_16_UC
+			if ((colEditParam._formatChoice == BASE_16) || (colEditParam._formatChoice == BASE_16_UPPERCASE))	// either BASE_16 or BASE_16_UC
 				format = IDC_COL_HEX_RADIO;
 			else if (colEditParam._formatChoice == BASE_08)
 				format = IDC_COL_OCT_RADIO;
@@ -85,7 +85,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			// populate the Hex-Case dropdown and activate correct case
 			::SendDlgItemMessage(_hSelf, IDC_COL_HEXUC_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"a-f"));
 			::SendDlgItemMessage(_hSelf, IDC_COL_HEXUC_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"A-F"));
-			UCHAR uc = (colEditParam._formatChoice == BASE_16_UC) ? 1 : 0;
+			UCHAR uc = (colEditParam._formatChoice == BASE_16_UPPERCASE) ? 1 : 0;
 			::SendDlgItemMessage(_hSelf, IDC_COL_HEXUC_COMBO, CB_SETCURSEL, uc, 0);	// activate correct case
 			EnableWindow(GetDlgItem(_hSelf, IDC_COL_HEXUC_COMBO), format == IDC_COL_HEX_RADIO);	// enable combobox only if hex is chosen
 
@@ -245,21 +245,21 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 						ColumnEditorParam colEditParam = NppParameters::getInstance()._columnEditParam;
 
 						::GetDlgItemText(_hSelf, IDC_COL_INITNUM_EDIT, str, stringSize);
-						size_t initialNumber = _getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
+						size_t initialNumber = getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
 						if (initialNumber == -1)
 						{
 							initialNumber = colEditParam._initialNum;	// on error, use stored value
 						}
 
 						::GetDlgItemText(_hSelf, IDC_COL_INCREASENUM_EDIT, str, stringSize);
-						size_t increaseNumber = _getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
+						size_t increaseNumber = getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
 						if (increaseNumber == -1)
 						{
 							increaseNumber = colEditParam._increaseNum;	// on error, use stored value
 						}
 
 						::GetDlgItemText(_hSelf, IDC_COL_REPEATNUM_EDIT, str, stringSize);
-						size_t repeat = _getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
+						size_t repeat = getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
 						if (repeat == -1)
 						{
 							repeat = colEditParam._increaseNum;	// on error, use stored value
@@ -315,16 +315,19 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							constexpr int lineAllocatedLen = 1024;
 							wchar_t* line = new wchar_t[lineAllocatedLen];
 
-							UCHAR f = format & MASK_FORMAT;
-							UCHAR u = format & MASK_FORMAT_UC;
-
 							size_t base = 10;
-							if (f == BASE_16)
+							bool useUppercase = false;
+							if (format == BASE_16)
 								base = 16;
-							else if (f == BASE_08)
+							else if (format == BASE_08)
 								base = 8;
-							else if (f == BASE_02)
+							else if (format == BASE_02)
 								base = 2;
+							else if (format == BASE_16_UPPERCASE)
+							{
+								base = 16;
+								useUppercase = true;
+							}
 
 							size_t endNumber = *numbers.rbegin();
 							size_t nbEnd = getNbDigits(endNumber, base);
@@ -352,7 +355,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 								//
 								// Calcule wstring
 								//
-								variedFormatNumber2String<wchar_t>(str, stringSize, numbers.at(i - cursorLine), base, u, nb, getLeading());
+								variedFormatNumber2String<wchar_t>(str, stringSize, numbers.at(i - cursorLine), base, useUppercase, nb, getLeading());
 
 								if (lineEndCol < cursorCol)
 								{
@@ -402,7 +405,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 					else if (LOWORD(wParam) == IDC_COL_BIN_RADIO)
 						colEditParam._formatChoice = BASE_02;
 
-					_setNumericFields(colEditParam);	// reformat the field text to be based on the new radix
+					setNumericFields(colEditParam);	// reformat the field text to be based on the new radix
 					EnableWindow(GetDlgItem(_hSelf, IDC_COL_HEXUC_COMBO), LOWORD(wParam) == IDC_COL_HEX_RADIO);	// enable combobox only if hex is chosen
 
 					return TRUE;
@@ -437,12 +440,12 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 										return TRUE;
 									}
 
-									int num = _getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
+									int num = getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
 									if (num == -1)
 									{
 										num = colEditParam._initialNum;
-										_setNumericFields(colEditParam);	// reformat the strings to eliminate error
-										whichFlashRed = _sendValidationErrorMessage(LOWORD(wParam), colEditParam._formatChoice, str);
+										setNumericFields(colEditParam);	// reformat the strings to eliminate error
+										whichFlashRed = sendValidationErrorMessage(LOWORD(wParam), colEditParam._formatChoice, str);
 									}
 									
 									colEditParam._initialNum = num;
@@ -458,12 +461,12 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 										return TRUE;
 									}
 
-									int num = _getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
+									int num = getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
 									if (num == -1)
 									{
 										num = colEditParam._increaseNum;
-										_setNumericFields(colEditParam);	// reformat the strings to eliminate error
-										whichFlashRed = _sendValidationErrorMessage(LOWORD(wParam), colEditParam._formatChoice, str);
+										setNumericFields(colEditParam);	// reformat the strings to eliminate error
+										whichFlashRed = sendValidationErrorMessage(LOWORD(wParam), colEditParam._formatChoice, str);
 									}
 
 									colEditParam._increaseNum = num;
@@ -479,12 +482,12 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 										return TRUE;
 									}
 
-									int num = _getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
+									int num = getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
 									if (num == -1)
 									{
 										num = colEditParam._repeatNum;
-										_setNumericFields(colEditParam);	// reformat the strings to eliminate error
-										whichFlashRed = _sendValidationErrorMessage(LOWORD(wParam), colEditParam._formatChoice, str);
+										setNumericFields(colEditParam);	// reformat the strings to eliminate error
+										whichFlashRed = sendValidationErrorMessage(LOWORD(wParam), colEditParam._formatChoice, str);
 									}
 
 									colEditParam._repeatNum = num;
@@ -508,7 +511,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 								if ((colEditParam._formatChoice & BASE_16) == BASE_16 )
 									colEditParam._formatChoice = getHexCase();
 
-								_setNumericFields(colEditParam);	// want the GUI fields to update case when combobox changes
+								setNumericFields(colEditParam);	// want the GUI fields to update case when combobox changes
 								return TRUE;
 							}
 						}
@@ -581,7 +584,7 @@ UCHAR ColumnEditorDlg::getFormat()
 {
 	UCHAR f = BASE_10; // Dec by default
 	if (isCheckedOrNot(IDC_COL_HEX_RADIO))
-		f = BASE_16 | getHexCase();	// will give BASE_16 or BASE_16_UC, depending on case selector
+		f = getHexCase();	// will give BASE_16 or BASE_16_UC, depending on case selector
 	else if (isCheckedOrNot(IDC_COL_OCT_RADIO))
 		f = BASE_08;
 	else if (isCheckedOrNot(IDC_COL_BIN_RADIO))
@@ -593,7 +596,7 @@ UCHAR ColumnEditorDlg::getFormat()
 UCHAR ColumnEditorDlg::getHexCase(void)
 {
 	int curSel = static_cast<int>(::SendDlgItemMessage(_hSelf, IDC_COL_HEXUC_COMBO, CB_GETCURSEL, 0, 0));
-	return (curSel == 1) ? BASE_16_UC : BASE_16;
+	return (curSel == 1) ? BASE_16_UPPERCASE : BASE_16;
 }
 
 ColumnEditorParam::leadingChoice ColumnEditorDlg::getLeading()
@@ -622,7 +625,7 @@ ColumnEditorParam::leadingChoice ColumnEditorDlg::getLeading()
 	return leading;
 }
 
-void ColumnEditorDlg::_setNumericFields(const ColumnEditorParam& colEditParam)
+void ColumnEditorDlg::setNumericFields(const ColumnEditorParam& colEditParam)
 {
 	if (colEditParam._formatChoice == BASE_10)
 	{
@@ -639,7 +642,7 @@ void ColumnEditorDlg::_setNumericFields(const ColumnEditorParam& colEditParam)
 		switch (colEditParam._formatChoice)
 		{
 			case BASE_16:		// hex
-			case BASE_16_UC:	// or hex w/ uppercase A-F
+			case BASE_16_UPPERCASE:	// or hex w/ uppercase A-F
 				base = 16;
 				break;
 			case BASE_08:		// oct
@@ -652,7 +655,7 @@ void ColumnEditorDlg::_setNumericFields(const ColumnEditorParam& colEditParam)
 				base = 10;
 				break;
 		}
-		size_t useUpper = (colEditParam._formatChoice & MASK_FORMAT_UC);
+		bool useUpper = (colEditParam._formatChoice == BASE_16_UPPERCASE);
 
 		constexpr int stringSize = 1024;
 		wchar_t str[stringSize]{};
@@ -678,7 +681,7 @@ void ColumnEditorDlg::_setNumericFields(const ColumnEditorParam& colEditParam)
 }
 
 // Convert the string to an integer, depending on base
-int ColumnEditorDlg::_getNumericFieldValueFromText(int formatChoice, wchar_t str[], size_t /*stringSize*/)
+int ColumnEditorDlg::getNumericFieldValueFromText(int formatChoice, wchar_t str[], size_t /*stringSize*/)
 {
 	int num = 0;
 	int base = 0;
@@ -686,7 +689,7 @@ int ColumnEditorDlg::_getNumericFieldValueFromText(int formatChoice, wchar_t str
 	switch (formatChoice)
 	{
 		case BASE_16:
-		case BASE_16_UC:	// or hex w/ uppercase A-F
+		case BASE_16_UPPERCASE:
 			base = 16;
 			break;
 		case BASE_08:
@@ -711,7 +714,7 @@ int ColumnEditorDlg::_getNumericFieldValueFromText(int formatChoice, wchar_t str
 	return num;
 }
 
-int ColumnEditorDlg::_sendValidationErrorMessage(int whichFlashRed, int formatChoice, wchar_t str[])
+int ColumnEditorDlg::sendValidationErrorMessage(int whichFlashRed, int formatChoice, wchar_t str[])
 {
 	wchar_t wcMsg[1024];
 	const wchar_t *wcRadixNote;
@@ -721,7 +724,7 @@ int ColumnEditorDlg::_sendValidationErrorMessage(int whichFlashRed, int formatCh
 	switch (formatChoice)
 	{
 		case BASE_16:
-		case BASE_16_UC:
+		case BASE_16_UPPERCASE:
 			wcRadixNote = L"Hex numbers use 0-9, A-F!";
 			break;
 		case BASE_08:

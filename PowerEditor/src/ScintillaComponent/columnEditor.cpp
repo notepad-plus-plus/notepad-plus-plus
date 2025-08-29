@@ -245,24 +245,28 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 						ColumnEditorParam colEditParam = NppParameters::getInstance()._columnEditParam;
 
 						::GetDlgItemText(_hSelf, IDC_COL_INITNUM_EDIT, str, stringSize);
-						size_t initialNumber = getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
+
+						int initialNumber = getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
 						if (initialNumber == -1)
 						{
-							initialNumber = colEditParam._initialNum;	// on error, use stored value
+							whichFlashRed = sendValidationErrorMessage(IDC_COL_INITNUM_EDIT, colEditParam._formatChoice, str);
+							return TRUE;
 						}
 
 						::GetDlgItemText(_hSelf, IDC_COL_INCREASENUM_EDIT, str, stringSize);
-						size_t increaseNumber = getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
+						int increaseNumber = getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
 						if (increaseNumber == -1)
 						{
-							increaseNumber = colEditParam._increaseNum;	// on error, use stored value
+							whichFlashRed = sendValidationErrorMessage(IDC_COL_INCREASENUM_EDIT, colEditParam._formatChoice, str);
+							return TRUE;
 						}
 
 						::GetDlgItemText(_hSelf, IDC_COL_REPEATNUM_EDIT, str, stringSize);
-						size_t repeat = getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
+						int repeat = getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
 						if (repeat == -1)
 						{
-							repeat = colEditParam._increaseNum;	// on error, use stored value
+							whichFlashRed = sendValidationErrorMessage(IDC_COL_REPEATNUM_EDIT, colEditParam._formatChoice, str);
+							return TRUE;
 						}
 
 						if (repeat == 0)
@@ -302,7 +306,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							const size_t kiMaxSize = 1 + (size_t)endLine - (size_t)cursorLine;
 							while (numbers.size() < kiMaxSize)
 							{
-								for (size_t i = 0; i < repeat; i++)
+								for (int i = 0; i < repeat; i++)
 								{
 									numbers.push_back(curNumber);
 
@@ -631,10 +635,18 @@ void ColumnEditorDlg::setNumericFields(const ColumnEditorParam& colEditParam)
 	{
 		if (colEditParam._initialNum != -1)
 			::SetDlgItemInt(_hSelf, IDC_COL_INITNUM_EDIT, colEditParam._initialNum, FALSE);
+		else
+			::SetDlgItemText(_hSelf, IDC_COL_INITNUM_EDIT, L"");
+
 		if (colEditParam._increaseNum != -1)
 			::SetDlgItemInt(_hSelf, IDC_COL_INCREASENUM_EDIT, colEditParam._increaseNum, FALSE);
+		else
+			::SetDlgItemText(_hSelf, IDC_COL_INCREASENUM_EDIT, L"");
+
 		if (colEditParam._repeatNum != -1)
 			::SetDlgItemInt(_hSelf, IDC_COL_REPEATNUM_EDIT, colEditParam._repeatNum, FALSE);
+		else
+			::SetDlgItemText(_hSelf, IDC_COL_REPEATNUM_EDIT, L"");
 	}
 	else
 	{
@@ -665,16 +677,24 @@ void ColumnEditorDlg::setNumericFields(const ColumnEditorParam& colEditParam)
 			variedFormatNumber2String<wchar_t>(str, stringSize, colEditParam._initialNum, base, useUpper, getNbDigits(colEditParam._initialNum, base), getLeading());
 			::SetDlgItemText(_hSelf, IDC_COL_INITNUM_EDIT, str);
 		}
+		else
+			::SetDlgItemText(_hSelf, IDC_COL_INITNUM_EDIT, L"");
+
 		if (colEditParam._increaseNum != -1)
 		{
 			variedFormatNumber2String<wchar_t>(str, stringSize, colEditParam._increaseNum, base, useUpper, getNbDigits(colEditParam._increaseNum, base), getLeading());
 			::SetDlgItemText(_hSelf, IDC_COL_INCREASENUM_EDIT, str);
 		}
+		else
+			::SetDlgItemText(_hSelf, IDC_COL_INCREASENUM_EDIT, L"");
+
 		if (colEditParam._repeatNum != -1)
 		{
 			variedFormatNumber2String<wchar_t>(str, stringSize, colEditParam._repeatNum, base, useUpper, getNbDigits(colEditParam._repeatNum, base), getLeading());
 			::SetDlgItemText(_hSelf, IDC_COL_REPEATNUM_EDIT, str);
 		}
+		else
+			::SetDlgItemText(_hSelf, IDC_COL_REPEATNUM_EDIT, L"");
 
 	}
 	return;

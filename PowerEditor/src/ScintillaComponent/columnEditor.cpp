@@ -306,7 +306,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							const size_t kiMaxSize = 1 + (size_t)endLine - (size_t)cursorLine;
 							while (numbers.size() < kiMaxSize)
 							{
-								for (size_t i = 0; i < repeat; i++)
+								for (int i = 0; i < repeat; i++)
 								{
 									numbers.push_back(curNumber);
 

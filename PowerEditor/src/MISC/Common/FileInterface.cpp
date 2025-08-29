@@ -54,7 +54,10 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 		{
 			bool isFromNetwork = PathIsNetworkPath(fname);
 			if (isFromNetwork && isTimeoutReached) // The file doesn't exist, and the file is a network file, plus the network problem has been detected due to timeout
-				return;                             // In this case, we don't call createFile to prevent hanging
+			{
+				_dwErrorCode = ERROR_FILE_NOT_FOUND; // store
+				return;                              // In this case, we don't call createFile to prevent hanging
+			}
 		}
 
 		_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, dispParam, _attribParam, NULL);
@@ -67,6 +70,9 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 			dispParam = CREATE_ALWAYS;
 			_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, dispParam, _attribParam, NULL);
 		}
+
+		if (_hFile == INVALID_HANDLE_VALUE)
+			_dwErrorCode = ::GetLastError(); // store
 
 		if (fileExists && (dispParam == CREATE_ALWAYS) && (_hFile != INVALID_HANDLE_VALUE))
 		{
@@ -91,7 +97,7 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 			else
 			{
 				msg += " failed to open, CreateFileW ErrorCode: ";
-				msg += std::to_string(::GetLastError());
+				msg += std::to_string(_dwErrorCode);
 			}
 			writeLog(nppIssueLog.c_str(), msg.c_str());
 		}
@@ -100,11 +106,13 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 
 void Win32_IO_File::close()
 {
+	_dwErrorCode = NO_ERROR; // reset
+
 	if (isOpened())
 	{
 		NppParameters& nppParam = NppParameters::getInstance();
 
-		DWORD flushError = NOERROR;
+		DWORD flushError = NO_ERROR;
 		if (_written)
 		{
 			if (!::FlushFileBuffers(_hFile))
@@ -159,7 +167,14 @@ Please try using another storage and also check if your saved data is not corrup
 				}
 			}
 		}
-		::CloseHandle(_hFile);
+
+		_dwErrorCode = flushError; // store possible flushing error 1st
+
+		if (!::CloseHandle(_hFile))
+		{
+			if (!flushError)
+				_dwErrorCode = ::GetLastError(); // store
+		}
 
 		_hFile = INVALID_HANDLE_VALUE;
 
@@ -194,6 +209,8 @@ Please try using another storage and also check if your saved data is not corrup
 
 bool Win32_IO_File::write(const void *wbuf, size_t buf_size)
 {
+	_dwErrorCode = NO_ERROR; // reset
+
 	if (!isOpened() || (wbuf == nullptr))
 		return false;
 
@@ -203,6 +220,7 @@ bool Win32_IO_File::write(const void *wbuf, size_t buf_size)
 	size_t bytes_left_to_write = buf_size;
 
 	BOOL success = FALSE;
+	DWORD writeError = NO_ERROR; // use also a local var here to be 100% thread-safe
 
 	do
 	{
@@ -219,6 +237,10 @@ bool Win32_IO_File::write(const void *wbuf, size_t buf_size)
 			bytes_left_to_write -= static_cast<size_t>(bytes_written);
 			total_bytes_written += static_cast<size_t>(bytes_written);
 		}
+		else
+		{
+			writeError = ::GetLastError();
+		}
 	} while (success && bytes_left_to_write);
 
 	NppParameters& nppParam = NppParameters::getInstance();
@@ -234,11 +256,11 @@ bool Win32_IO_File::write(const void *wbuf, size_t buf_size)
 
 			std::string msg = _path;
 			msg += " written failed: ";
-			std::wstring lastErrorMsg = GetLastErrorAsString(::GetLastError());
+			std::wstring lastErrorMsg = GetLastErrorAsString(writeError);
 			msg += wstring2string(lastErrorMsg, CP_UTF8);
 			writeLog(nppIssueLog.c_str(), msg.c_str());
 		}
-
+		_dwErrorCode = writeError; // store
 		return false;
 	}
 	else

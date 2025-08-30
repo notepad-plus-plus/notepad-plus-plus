@@ -42,9 +42,10 @@ void ColumnEditorDlg::display(bool toShow) const
 
 intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-	static HBRUSH hRedBrush = NULL;
+	static HBRUSH hRedBrush = nullptr;
 	static int whichFlashRed = 0;
-	static COLORREF rgbRed = RGB(255, 0, 0);
+	constexpr COLORREF rgbRed = RGB(255, 0, 0);
+	static HWND hCurrentBalloonTip = nullptr;
 
 	switch (message)
 	{
@@ -166,9 +167,19 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		{
 			switch (LOWORD(wParam))
 			{
-				case IDCANCEL: // Close
-					display(false);
+				case IDCANCEL: // in case of ESC keystroke
+				{
+					if (hCurrentBalloonTip && IsWindowVisible(hCurrentBalloonTip)) // if current baloon tip shown, just hide it
+					{
+						ShowWindow(hCurrentBalloonTip, SW_HIDE);
+					}
+					else // if current baloon tip doesn't show, we hide Column Editor dialog
+					{
+						display(false);
+					}
+
 					return TRUE;
+				}
 
 				case IDOK:
 				{
@@ -529,12 +540,38 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 		case WM_TIMER:
 		{
-			if(wParam == IDT_COL_FLASH_TIMER)
+			static int idRedraw = 0;
+
+			if (wParam == IDT_COL_FLASH_TIMER)
 			{
 				KillTimer(_hSelf, IDT_COL_FLASH_TIMER);
-				int idRedraw = whichFlashRed;	// keep the ID for the one whose flash is ending...
+
+				idRedraw = whichFlashRed;		// keep the ID for the one whose flash is ending...
 				whichFlashRed = 0;				// must be 0 before the redraw, otherwise it will maintain color
 				redrawDlgItem(idRedraw, true);	// redraw the just the one that was flashed
+
+				// Remember the latest/current baloon tip handle
+				hCurrentBalloonTip = [](HWND hEditControl) -> HWND {
+					HWND hTooltip = FindWindowEx(NULL, NULL, L"tooltips_class32", NULL);
+
+					while (hTooltip)
+					{
+						HWND hParent = GetParent(hTooltip);
+						if (hParent == hEditControl || hParent == GetParent(hEditControl))
+						{
+							return hTooltip;
+						}
+						hTooltip = FindWindowEx(NULL, hTooltip, L"tooltips_class32", NULL);
+					}
+					return NULL;
+				}(GetDlgItem(_hSelf, idRedraw));
+			}
+
+			if (wParam == IDC_COL_BALLONTIP_TIMER)
+			{
+				KillTimer(_hSelf, IDC_COL_BALLONTIP_TIMER);
+
+				SendMessage(GetDlgItem(_hSelf, idRedraw), EM_HIDEBALLOONTIP, 0, 0);
 			}
 
 			break;
@@ -766,6 +803,8 @@ int ColumnEditorDlg::sendValidationErrorMessage(int whichFlashRed, int formatCho
 	SendMessage(GetDlgItem(_hSelf, whichFlashRed), EM_SHOWBALLOONTIP, 0, (LPARAM)&ebt);
 
 	SetTimer(_hSelf, IDT_COL_FLASH_TIMER, 250, NULL);
+	SetTimer(_hSelf, IDC_COL_BALLONTIP_TIMER, 3500, NULL);
+
 	redrawDlgItem(whichFlashRed);
 
 	return whichFlashRed;

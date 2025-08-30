@@ -4936,6 +4936,20 @@ LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM
 		return 0;
 
 	}
+	else if (message == WM_PASTE)
+	{
+		// needed to allow CR (i.e., multiline) into combobox text
+		wstring s = strFromClipboard();
+		const wchar_t* pWc = s.c_str();
+		size_t len = wcslen(pWc);
+		if (len > 0 && len < FINDREPLACE_MAXLENGTH)
+		{
+			::SendMessage(hwndCombo, CB_SETCURSEL, static_cast<WPARAM>(-1), 0); // remove selection - to allow using down arrow to get to last searched word
+			::SendMessage(hwndCombo, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(pWc));
+			::SendMessage(hwndCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1)); // select all text - fast edit
+			return 0;
+		}
+	}
 	return CallWindowProc(originalComboEditProc, hwnd, message, wParam, lParam);
 }
 

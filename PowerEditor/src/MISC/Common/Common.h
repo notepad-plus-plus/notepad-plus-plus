@@ -169,6 +169,7 @@ std::wstring stringTakeWhileAdmissable(const std::wstring& input, const std::wst
 double stodLocale(const std::wstring& str, _locale_t loc, size_t* idx = NULL);
 
 bool str2Clipboard(const std::wstring &str2cpy, HWND hwnd);
+std::wstring strFromClipboard();
 class Buffer;
 bool buf2Clipboard(const std::vector<Buffer*>& buffers, bool isFullPath, HWND hwnd);
 

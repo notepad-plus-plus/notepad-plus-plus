@@ -3990,6 +3990,24 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_WINDOW_SORT_FD_ASC:
+		{
+			WindowsDlg windowsDlg;
+			windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
+			windowsDlg.sortDateTimeASC();
+			windowsDlg.doSort();
+		}
+		break;
+
+		case IDM_WINDOW_SORT_FD_DSC:
+		{
+			WindowsDlg windowsDlg;
+			windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
+			windowsDlg.sortDateTimeDSC();
+			windowsDlg.doSort();
+		}
+		break;
+
 		case IDM_SYSTRAYPOPUP_NEWDOC:
 		{
 			NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();

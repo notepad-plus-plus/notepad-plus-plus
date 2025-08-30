@@ -65,6 +65,8 @@ public :
 	void sortFileTypeDSC();
 	void sortFileSizeASC();
 	void sortFileSizeDSC();
+	void sortDateTimeASC();
+	void sortDateTimeDSC();
 	void doRefresh(bool invalidate = false);
 
 public:

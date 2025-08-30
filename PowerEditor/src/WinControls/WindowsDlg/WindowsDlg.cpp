@@ -151,9 +151,17 @@ struct BufferEquivalent
 		return compare(i1, i2);
 	}
 
+	static inline unsigned long long to_u64(const FILETIME& ft)
+	{
+		ULARGE_INTEGER u;
+		u.LowPart = ft.dwLowDateTime;
+		u.HighPart = ft.dwHighDateTime;
+		return u.QuadPart; // 100-ns ticks since 1601 UTC
+	}
+
 	bool compare(int i1, int i2) const
 	{
-		if (_iColumn >= 0 && _iColumn <= 3)
+		if (_iColumn >= 0 && _iColumn <= 4)
 		{
 			BufferID bid1 = _pTab->getBufferByIndex(i1);
 			BufferID bid2 = _pTab->getBufferByIndex(i2);
@@ -205,6 +213,14 @@ struct BufferEquivalent
 
 				if (t1 != t2) // default to filepath sorting when equivalent
 					return (t1 < t2);
+			}
+			else if (_iColumn == 4)
+			{
+				const auto v1 = to_u64(b1->getLastModifiedTimestamp());
+				const auto v2 = to_u64(b2->getLastModifiedTimestamp());
+
+				if (v1 != v2)
+					return (v1 < v2); //_isAscending ? (v1 < v2) : (v1 > v2);
 			}
 
 			// _iColumn == 1
@@ -1162,6 +1178,16 @@ void WindowsDlg::sortFileSizeASC()
 void WindowsDlg::sortFileSizeDSC()
 {
 	sort(3, true);
+}
+
+void WindowsDlg::sortDateTimeASC()
+{
+	sort(4, false);
+}
+
+void WindowsDlg::sortDateTimeDSC()
+{
+	sort(4, true);
 }
 
 void WindowsDlg::refreshMap()

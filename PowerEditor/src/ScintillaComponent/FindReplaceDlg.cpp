@@ -4938,16 +4938,29 @@ LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM
 	}
 	else if (message == WM_PASTE)
 	{
-		// needed to allow CR (i.e., multiline) into combobox text
-		wstring s = strFromClipboard();
-		const wchar_t* pWc = s.c_str();
-		size_t len = wcslen(pWc);
-		if (len > 0 && len < FINDREPLACE_MAXLENGTH)
+		// needed to allow CR (i.e., multiline) into combobox text;
+		// (the default functionality terminates the paste at the first CR character)
+
+		wstring clipboardText = strFromClipboard();
+
+		if (!clipboardText.empty())
 		{
-			::SendMessage(hwndCombo, CB_SETCURSEL, static_cast<WPARAM>(-1), 0); // remove selection - to allow using down arrow to get to last searched word
-			::SendMessage(hwndCombo, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(pWc));
-			::SendMessage(hwndCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1)); // select all text - fast edit
-			return 0;
+			wstring origText = getTextFromCombo(hwndCombo);
+
+			DWORD selRange = (DWORD)::SendMessage(hwndCombo, CB_GETEDITSEL, NULL, NULL);
+			DWORD selStartIndex = LOWORD(selRange);
+			DWORD selEndIndex = HIWORD(selRange);
+
+			wstring newText = origText.substr(0, selStartIndex) + clipboardText + origText.substr(selEndIndex);
+			const wchar_t* pWcNewText = newText.c_str();
+
+			if (wcslen(pWcNewText) < FINDREPLACE_MAXLENGTH)
+			{
+				::SendMessage(hwndCombo, CB_SETCURSEL, static_cast<WPARAM>(-1), 0); // remove selection - to allow using down arrow to get to last searched word
+				::SendMessage(hwndCombo, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(pWcNewText));
+				::SendMessage(hwndCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1)); // select all text - fast edit
+				return 0;
+			}
 		}
 	}
 	return CallWindowProc(originalComboEditProc, hwnd, message, wParam, lParam);

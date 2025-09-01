@@ -1540,6 +1540,7 @@ bool toggleReadOnlyFlagFromFileAttributes(const wchar_t* fileFullPath, bool& isC
 		if (::GetLastError() == ERROR_ACCESS_DENIED)
 		{
 			// try to set elevated
+			// (notepad++.exe #UAC-SETFILEATTRIBUTES# attrib_flags_number_str dest_file_path)
 			wstring strCmdLineParams = NPP_UAC_SETFILEATTRIBUTES_SIGN;
 			strCmdLineParams += L" \"" + to_wstring(dwFileAttribs) + L"\" \"";
 			strCmdLineParams += fileFullPath;
@@ -2180,23 +2181,19 @@ DWORD invokeNppUacOp(std::wstring& strCmdLineParams)
 		return ERROR_INVALID_PARAMETER;
 	}
 
-	wstring strBuf(MAX_PATH/2, L'\0');
-	do
+	wchar_t wszNppFullPath[MAX_PATH]{};
+	::SetLastError(NO_ERROR);
+	if (!::GetModuleFileName(NULL, wszNppFullPath, MAX_PATH) || (::GetLastError() == ERROR_INSUFFICIENT_BUFFER))
 	{
-		strBuf.resize(strBuf.length() * 2, L'\0');
-		if (strBuf.length() > (USHRT_MAX / sizeof(WCHAR)))
-			return ERROR_FILENAME_EXCED_RANGE;
-		::SetLastError(NO_ERROR);
-		if (!::GetModuleFileNameW(NULL, &strBuf[0], static_cast<DWORD>(strBuf.length())))
-			return ::GetLastError();
-	} while (::GetLastError() == ERROR_INSUFFICIENT_BUFFER);
+		return ::GetLastError();
+	}
 
 	SHELLEXECUTEINFOW sei{};
 	sei.cbSize = sizeof(SHELLEXECUTEINFOW);
 	sei.lpVerb = L"runas"; // UAC prompt
 	sei.nShow = SW_SHOWNORMAL;
 	sei.fMask = SEE_MASK_NOCLOSEPROCESS; // sei.hProcess member receives the launched process handle
-	sei.lpFile = strBuf.c_str(); // notepad++.exe fullpath
+	sei.lpFile = wszNppFullPath;
 	sei.lpParameters = strCmdLineParams.c_str();
 	if (!::ShellExecuteExW(&sei))
 		return ::GetLastError();

@@ -1398,9 +1398,11 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 			return SavingStatus::SaveOpenFailed; // cannot be solved by the UAC-prompt
 
 		// ERROR_ACCESS_DENIED, swap to temporary file copy for the UAC elevation way
+
 		wchar_t wszBuf[MAX_PATH + 1]{};
 		if (::GetTempPath(MAX_PATH, wszBuf) == 0)
 			return SavingStatus::SaveOpenFailed; // cannot continue
+
 		strTempFile = wszBuf;
 		strTempFile += L"npp-" + std::to_wstring(GetUnixSysTimeInMilliseconds()) + L".tmp"; // make unique temporary filename
 		if (!UnicodeConvertor.openFile(strTempFile.c_str()))
@@ -1461,6 +1463,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 	if (!strTempFile.empty())
 	{
 		// elevated saving/overwriting of the original file by the help of the tempfile
+		// (notepad++.exe #UAC-SAVE# temp_file_path dest_file_path)
 		wstring strCmdLineParams = NPP_UAC_SAVE_SIGN;
 		strCmdLineParams += L" \"" + strTempFile + L"\" \"";
 		strCmdLineParams += fullpath;

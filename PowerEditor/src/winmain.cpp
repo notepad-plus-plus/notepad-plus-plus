@@ -410,10 +410,10 @@ bool launchUpdater(const std::wstring& updaterFullPath, const std::wstring& upda
 
 DWORD nppUacSave(const wchar_t* wszTempFilePath, const wchar_t* wszProtectedFilePath2Save)
 {
+	if ((lstrlenW(wszTempFilePath) == 0) || (lstrlenW(wszProtectedFilePath2Save) == 0)) // safe check (lstrlen returns 0 for possible nullptr)
+		return ERROR_INVALID_PARAMETER;
 	if (!doesFileExist(wszTempFilePath))
 		return ERROR_FILE_NOT_FOUND;
-	if (lstrlenW(wszProtectedFilePath2Save) == 0)
-		return ERROR_INVALID_PARAMETER;
 
 	DWORD dwRetCode = ERROR_SUCCESS;
 
@@ -463,6 +463,8 @@ DWORD nppUacSave(const wchar_t* wszTempFilePath, const wchar_t* wszProtectedFile
 
 DWORD nppUacSetFileAttributes(const DWORD dwFileAttribs, const wchar_t* wszFilePath)
 {
+	if (lstrlenW(wszFilePath) == 0) // safe check (lstrlen returns 0 for possible nullptr)
+		return ERROR_INVALID_PARAMETER;
 	if (!doesFileExist(wszFilePath))
 		return ERROR_FILE_NOT_FOUND;
 	if (dwFileAttribs == INVALID_FILE_ATTRIBUTES || (dwFileAttribs & FILE_ATTRIBUTE_DIRECTORY))

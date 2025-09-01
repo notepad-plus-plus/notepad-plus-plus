@@ -4942,31 +4942,28 @@ LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM
 		// (the default functionality terminates the paste at the first CR character)
 
 		CLIPFORMAT cfColumnSelect = static_cast<CLIPFORMAT>(::RegisterClipboardFormat(L"MSDEVColumnSelect"));
-		if (::IsClipboardFormatAvailable(cfColumnSelect))
+		if (!::IsClipboardFormatAvailable(cfColumnSelect))
 		{
-			return 0;  // prevent paste of column block data
-		}
-
-		wstring clipboardText = strFromClipboard();
-
-		if (!clipboardText.empty())
-		{
-			wstring origText = getTextFromCombo(hwndCombo);
-
-			DWORD selRange = (DWORD)::SendMessage(hwndCombo, CB_GETEDITSEL, NULL, NULL);
-			DWORD selStartIndex = LOWORD(selRange);
-			DWORD selEndIndex = HIWORD(selRange);
-
-			wstring newText = origText.substr(0, selStartIndex) + clipboardText + origText.substr(selEndIndex);
-
-			if (newText.length() < FINDREPLACE_MAXLENGTH)
+			wstring clipboardText = strFromClipboard();
+			if (!clipboardText.empty())
 			{
-				::SendMessage(hwndCombo, CB_SETCURSEL, static_cast<WPARAM>(-1), 0); // remove selection - to allow using down arrow to get to last searched word
-				::SendMessage(hwndCombo, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(newText.c_str()));
-				::SendMessage(hwndCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1)); // select all text - fast edit
-				return 0;
+				wstring origText = getTextFromCombo(hwndCombo);
+
+				DWORD selRange = (DWORD)::SendMessage(hwndCombo, CB_GETEDITSEL, NULL, NULL);
+				DWORD selStartIndex = LOWORD(selRange);
+				DWORD selEndIndex = HIWORD(selRange);
+
+				wstring newText = origText.substr(0, selStartIndex) + clipboardText + origText.substr(selEndIndex);
+				if (newText.length() < FINDREPLACE_MAXLENGTH)
+				{
+					::SendMessage(hwndCombo, CB_SETCURSEL, static_cast<WPARAM>(-1), 0); // remove selection - to allow using down arrow to get to last searched word
+					::SendMessage(hwndCombo, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(newText.c_str()));
+					::SendMessage(hwndCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1)); // select all text - fast edit
+				}
 			}
 		}
+
+		return 0;
 	}
 	return CallWindowProc(originalComboEditProc, hwnd, message, wParam, lParam);
 }

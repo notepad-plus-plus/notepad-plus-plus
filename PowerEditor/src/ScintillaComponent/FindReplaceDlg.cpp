@@ -4941,6 +4941,12 @@ LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM
 		// needed to allow CR (i.e., multiline) into combobox text;
 		// (the default functionality terminates the paste at the first CR character)
 
+		CLIPFORMAT cfColumnSelect = static_cast<CLIPFORMAT>(::RegisterClipboardFormat(L"MSDEVColumnSelect"));
+		if (::IsClipboardFormatAvailable(cfColumnSelect))
+		{
+			return 0;  // prevent paste of column block data
+		}
+
 		wstring clipboardText = strFromClipboard();
 
 		if (!clipboardText.empty())
@@ -4952,12 +4958,11 @@ LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM
 			DWORD selEndIndex = HIWORD(selRange);
 
 			wstring newText = origText.substr(0, selStartIndex) + clipboardText + origText.substr(selEndIndex);
-			const wchar_t* pWcNewText = newText.c_str();
 
-			if (wcslen(pWcNewText) < FINDREPLACE_MAXLENGTH)
+			if (newText.length() < FINDREPLACE_MAXLENGTH)
 			{
 				::SendMessage(hwndCombo, CB_SETCURSEL, static_cast<WPARAM>(-1), 0); // remove selection - to allow using down arrow to get to last searched word
-				::SendMessage(hwndCombo, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(pWcNewText));
+				::SendMessage(hwndCombo, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(newText.c_str()));
 				::SendMessage(hwndCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1)); // select all text - fast edit
 				return 0;
 			}

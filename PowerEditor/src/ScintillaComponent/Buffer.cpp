@@ -1102,12 +1102,30 @@ bool FileManager::deleteFile(BufferID id)
 }
 
 
-bool FileManager::moveFile(BufferID id, const wchar_t * newFileName)
+bool FileManager::moveFile(BufferID id, const wchar_t* newFileName)
 {
-	Buffer* buf = getBufferByID(id);
-	const wchar_t *fileNamePath = buf->getFullPathName();
-	if (::MoveFileEx(fileNamePath, newFileName, MOVEFILE_REPLACE_EXISTING | MOVEFILE_COPY_ALLOWED | MOVEFILE_WRITE_THROUGH) == 0)
+	if (id == BUFFER_INVALID)
 		return false;
+
+	Buffer* buf = getBufferByID(id);
+	const wchar_t* fileNamePath = buf->getFullPathName();
+	if (!::MoveFileExW(fileNamePath, newFileName, MOVEFILE_REPLACE_EXISTING | MOVEFILE_COPY_ALLOWED | MOVEFILE_WRITE_THROUGH))
+	{
+		if (::GetLastError() != ERROR_ACCESS_DENIED)
+			return false;
+
+		// ERROR_ACCESS_DENIED, try to move elevated
+		// (notepad++.exe #UAC-MOVEFILE# original_file_path new_file_path)
+		wstring strCmdLineParams = NPP_UAC_MOVEFILE_SIGN;
+		strCmdLineParams += L" \"";
+		strCmdLineParams += fileNamePath;
+		strCmdLineParams += L"\" \"";
+		strCmdLineParams += newFileName;
+		strCmdLineParams += L"\"";
+		DWORD dwNppUacOpError = invokeNppUacOp(strCmdLineParams);
+		if (dwNppUacOpError != NO_ERROR)
+			return false;
+	}
 
 	buf->setFileName(newFileName);
 	return true;

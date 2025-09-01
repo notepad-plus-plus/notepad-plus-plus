@@ -335,4 +335,5 @@ private:
 
 #define NPP_UAC_SAVE_SIGN L"#UAC-SAVE#"
 #define NPP_UAC_SETFILEATTRIBUTES_SIGN L"#UAC-SETFILEATTRIBUTES#"
+#define NPP_UAC_MOVEFILE_SIGN L"#UAC-MOVEFILE#"
 DWORD invokeNppUacOp(std::wstring& strCmdLineParams);

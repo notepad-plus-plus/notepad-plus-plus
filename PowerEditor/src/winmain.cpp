@@ -476,6 +476,19 @@ DWORD nppUacSetFileAttributes(const DWORD dwFileAttribs, const wchar_t* wszFileP
 	return ERROR_SUCCESS;
 }
 
+DWORD nppUacMoveFile(const wchar_t* wszOriginalFilePath, const wchar_t* wszNewFilePath)
+{
+	if ((lstrlenW(wszOriginalFilePath) == 0) || (lstrlenW(wszNewFilePath) == 0)) // safe check (lstrlen returns 0 for possible nullptr)
+		return ERROR_INVALID_PARAMETER;
+	if (!doesFileExist(wszOriginalFilePath))
+		return ERROR_FILE_NOT_FOUND;
+
+	if (!::MoveFileEx(wszOriginalFilePath, wszNewFilePath, MOVEFILE_REPLACE_EXISTING | MOVEFILE_COPY_ALLOWED | MOVEFILE_WRITE_THROUGH))
+		return ::GetLastError();
+	else
+		return ERROR_SUCCESS;
+}
+
 } // namespace
 
 
@@ -490,23 +503,31 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	if ((lstrlenW(pCmdLine) > 0) && (__argc >= 2)) // safe (if pCmdLine is NULL, lstrlen returns 0)
 	{
 		const wchar_t* wszNppUacOpSign = __wargv[1];
-
-		if ((__argc == 4) && (wcscmp(wszNppUacOpSign, NPP_UAC_SAVE_SIGN) == 0))
+		if (lstrlenW(wszNppUacOpSign) > lstrlenW(L"#UAC-#"))
 		{
-			// __wargv[x]: 2 ... tempFilePath, 3  ...  protectedFilePath2Save
-			return static_cast<int>(nppUacSave(__wargv[2], __wargv[3]));
-		}
-
-		if ((__argc == 4) && (wcscmp(wszNppUacOpSign, NPP_UAC_SETFILEATTRIBUTES_SIGN) == 0))
-		{
-			// __wargv[x]: 2 ... dwFileAttributes (string), 3  ...  filePath
-			try
+			if ((__argc == 4) && (wcscmp(wszNppUacOpSign, NPP_UAC_SAVE_SIGN) == 0))
 			{
-				return static_cast<int>(nppUacSetFileAttributes(static_cast<DWORD>(std::stoul(std::wstring(__wargv[2]))), __wargv[3]));
+				// __wargv[x]: 2 ... tempFilePath, 3  ...  protectedFilePath2Save
+				return static_cast<int>(nppUacSave(__wargv[2], __wargv[3]));
 			}
-			catch ([[maybe_unused]] const std::exception& e)
+
+			if ((__argc == 4) && (wcscmp(wszNppUacOpSign, NPP_UAC_SETFILEATTRIBUTES_SIGN) == 0))
 			{
-				return static_cast<int>(ERROR_INVALID_PARAMETER); // conversion error (check e.what() for details)
+				// __wargv[x]: 2 ... dwFileAttributes (string), 3  ...  filePath
+				try
+				{
+					return static_cast<int>(nppUacSetFileAttributes(static_cast<DWORD>(std::stoul(std::wstring(__wargv[2]))), __wargv[3]));
+				}
+				catch ([[maybe_unused]] const std::exception& e)
+				{
+					return static_cast<int>(ERROR_INVALID_PARAMETER); // conversion error (check e.what() for details)
+				}
+			}
+
+			if ((__argc == 4) && (wcscmp(wszNppUacOpSign, NPP_UAC_MOVEFILE_SIGN) == 0))
+			{
+				// __wargv[x]: 2 ... originalFilePath, 3  ...  newFilePath
+				return static_cast<int>(nppUacMoveFile(__wargv[2], __wargv[3]));
 			}
 		}
 	} // Notepad++ UAC OPS////////////////////////////////////////////////////////////////////////////////////////////

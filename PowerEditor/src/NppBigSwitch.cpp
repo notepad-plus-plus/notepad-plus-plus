@@ -3218,18 +3218,53 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return settingsOnCloudPath.length();
 		}
 
-		case NPPM_GETSETTINGSDIRPATH:
+		case NPPM_GETNPPSETTINGSDIRPATH:
 		{
+			bool wantString = (lParam != 0);
+
+			// -settingsDir takes top priority
 			wstring settingsDirPath = nppParam.getCmdSettingsDir();
-			if (lParam != 0)
+			if (!settingsDirPath.empty())
 			{
-				if (settingsDirPath.length() >= static_cast<size_t>(wParam))
+				if (wantString)
 				{
-					return 0;
+					if (settingsDirPath.length() >= static_cast<size_t>(wParam))
+						return 0;
+					lstrcpy(reinterpret_cast<wchar_t*>(lParam), settingsDirPath.c_str());
 				}
-				lstrcpy(reinterpret_cast<wchar_t *>(lParam), settingsDirPath.c_str());
+				return settingsDirPath.length();
 			}
-			return settingsDirPath.length();
+
+			// cloud directory is next priority
+			const NppGUI& nppGUI = nppParam.getNppGUI();
+			wstring settingsOnCloudPath = nppGUI._cloudPath;
+			if (!settingsOnCloudPath.empty())
+			{
+				if (wantString)
+				{
+					if (settingsOnCloudPath.length() >= static_cast<size_t>(wParam))
+						return 0;
+					lstrcpy(reinterpret_cast<wchar_t*>(lParam), settingsOnCloudPath.c_str());
+				}
+				return settingsOnCloudPath.length();
+			}
+
+			// finally, getSettingsFolder will give the appropriate value for doLocalConf-vs-AppData
+			wstring settingsFolder = nppParam.getSettingsFolder();
+			if (!settingsFolder.empty())
+			{
+				if (wantString)
+				{
+					if (settingsFolder.length() >= static_cast<size_t>(wParam))
+						return 0;
+					lstrcpy(reinterpret_cast<wchar_t*>(lParam), settingsFolder.c_str());
+				}
+				return settingsFolder.length();
+			}
+
+			// none of the options worked, so send the error value
+			return 0;
+
 		}
 
 		case NPPM_SETLINENUMBERWIDTHMODE:

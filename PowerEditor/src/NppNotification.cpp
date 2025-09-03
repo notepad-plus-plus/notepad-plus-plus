@@ -388,7 +388,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 				// Open URL
 				wstring url = notifyView->getGenericTextAsString(static_cast<size_t>(startPos), static_cast<size_t>(endPos));
-				::ShellExecute(_pPublicInterface->getHSelf(), L"open", url.c_str(), NULL, NULL, SW_SHOW);
+				::ShellExecute(_pPublicInterface->getHSelf(), NULL, url.c_str(), NULL, NULL, SW_SHOWNORMAL);
 			}
 			break;
 		}
@@ -1269,3 +1269,4 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 	}
 	return FALSE;
 }
+

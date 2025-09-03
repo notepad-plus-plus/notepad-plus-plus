@@ -318,12 +318,6 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_debugInfoStr += cloudPath.empty() ? L"OFF" : cloudPath;
 			_debugInfoStr += L"\r\n";
 
-			// -settingsDir Path
-			_debugInfoStr += L"SettingsDir Config: ";
-			const wstring& settingsDirPath = nppParam.getCmdSettingsDir();
-			_debugInfoStr += settingsDirPath.empty() ? L"OFF" : settingsDirPath;
-			_debugInfoStr += L"\r\n";
-
 			// Periodic Backup
 			_debugInfoStr += L"Periodic Backup: ";
 			_debugInfoStr += nppGui.isSnapshotMode() ? L"ON" : L"OFF";

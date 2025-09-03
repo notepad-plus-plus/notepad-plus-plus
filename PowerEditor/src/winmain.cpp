@@ -489,6 +489,20 @@ DWORD nppUacMoveFile(const wchar_t* wszOriginalFilePath, const wchar_t* wszNewFi
 		return ERROR_SUCCESS;
 }
 
+DWORD nppUacCreateEmptyFile(const wchar_t* wszNewEmptyFilePath)
+{
+	if (lstrlenW(wszNewEmptyFilePath) == 0) // safe check (lstrlen returns 0 for possible nullptr)
+		return ERROR_INVALID_PARAMETER;
+	if (doesFileExist(wszNewEmptyFilePath))
+		return ERROR_FILE_EXISTS;
+
+	Win32_IO_File file(wszNewEmptyFilePath);
+	if (!file.isOpened())
+		return file.getLastErrorCode();
+
+	return ERROR_SUCCESS;
+}
+
 } // namespace
 
 
@@ -528,6 +542,12 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 			{
 				// __wargv[x]: 2 ... originalFilePath, 3  ...  newFilePath
 				return static_cast<int>(nppUacMoveFile(__wargv[2], __wargv[3]));
+			}
+
+			if ((__argc == 3) && (wcscmp(wszNppUacOpSign, NPP_UAC_CREATEEMPTYFILE_SIGN) == 0))
+			{
+				// __wargv[x]: 2 ... newEmptyFilePath
+				return static_cast<int>(nppUacCreateEmptyFile(__wargv[2]));
 			}
 		}
 	} // Notepad++ UAC OPS////////////////////////////////////////////////////////////////////////////////////////////

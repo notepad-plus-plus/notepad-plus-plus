@@ -1079,21 +1079,23 @@ bool FileManager::reloadBufferDeferred(BufferID id)
 
 bool FileManager::deleteFile(BufferID id)
 {
+	if (id == BUFFER_INVALID)
+		return false;
+
 	const Buffer* buf = getBufferByID(id);
 	wstring fileNamePath = buf->getFullPathName();
+	if (!doesFileExist(fileNamePath.c_str()))
+		return false;
 
 	// Make sure to form a string with double '\0' terminator.
 	fileNamePath.append(1, '\0');
-
-	if (!doesFileExist(fileNamePath.c_str()))
-		return false;
 
 	SHFILEOPSTRUCT fileOpStruct = {};
 	fileOpStruct.hwnd = NULL;
 	fileOpStruct.pFrom = fileNamePath.c_str();
 	fileOpStruct.pTo = NULL;
 	fileOpStruct.wFunc = FO_DELETE;
-	fileOpStruct.fFlags = FOF_ALLOWUNDO;
+	fileOpStruct.fFlags = FOF_ALLOWUNDO | FOF_NOCONFIRMATION; // FOF_NOCONFIRMATION - prevent possible redundant shell-dlg (Notepad++ uses its own delete-confirmation dlg)
 	fileOpStruct.fAnyOperationsAborted = false;
 	fileOpStruct.hNameMappings         = NULL;
 	fileOpStruct.lpszProgressTitle     = NULL;
@@ -2079,10 +2081,26 @@ BufferID FileManager::getBufferFromDocument(Document doc)
 }
 
 
-bool FileManager::createEmptyFile(const wchar_t * path)
+bool FileManager::createEmptyFile(const wchar_t* path)
 {
 	Win32_IO_File file(path);
-	return file.isOpened();
+	if (!file.isOpened())
+	{
+		if (file.getLastErrorCode() != ERROR_ACCESS_DENIED)
+			return false;
+
+		// ERROR_ACCESS_DENIED, try the same but elevated
+		// (notepad++.exe #UAC-CREATEEMPTYFILE# new_empty_file_path)
+		wstring strCmdLineParams = NPP_UAC_CREATEEMPTYFILE_SIGN;
+		strCmdLineParams += L" \"";
+		strCmdLineParams += path;
+		strCmdLineParams += L"\"";
+		DWORD dwNppUacOpError = invokeNppUacOp(strCmdLineParams);
+		if (dwNppUacOpError != NO_ERROR)
+			return false;
+	}
+
+	return true;
 }
 
 

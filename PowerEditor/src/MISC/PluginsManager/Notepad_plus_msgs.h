@@ -1027,13 +1027,16 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_GETNPPSETTINGSDIRPATH (NPPMSG + 119)
 	// int NPPM_GETNPPSETTINGSDIRPATH(size_t strLen, wchar_t *settingsDirPath)
-	// Get path for the active NPP settings: it will use -settingsDir path if that's defined; if not, it will use Cloud directory if that's defined;
+	// Get path for the active Notepad++ settings: it will use -settingsDir path if that's defined; if not, it will use Cloud directory if that's defined;
 	// if not, it will use the AppData settings directory, or finally the installation path. This allows plugins to have one interface to find out
 	// where the active Notepad++ settings are stored, whichever location they are currently set to.
 	// wParam[in]: strLen - size of allocated buffer "settingsDirPath"
 	// lParam[out]: settingsDirPath - Users should call it with settingsDirPath be NULL to get the required number of wchar_t (not including the terminating nul character),
 	//              allocate settingsDirPath buffer with the return value + 1, then call it again to get the path.
 	// Returns the number of wchar_t copied/to copy. If the return value is 0, then the "strLen" is not enough to copy the path, or the settings path could not be determined.
+	// 
+	// Note: This message is for the active Notepad++ configuration location.  If you are looking for the settings directory for plugins (...\Plugins\Config\),
+	// use NPPM_GETPLUGINSCONFIGDIR instead.
 
 // For RUNCOMMAND_USER
 	#define VAR_NOT_RECOGNIZED 0

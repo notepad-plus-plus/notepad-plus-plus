@@ -3249,21 +3249,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				return settingsOnCloudPath.length();
 			}
 
-			// finally, getSettingsFolder will give the appropriate value for doLocalConf-vs-AppData
-			wstring settingsFolder = nppParam.getSettingsFolder();
-			if (!settingsFolder.empty())
+			// finally, getUserPath() will give the appropriate value for doLocalConf-vs-AppData (grabs the private _userPath attribute)
+			wstring settingsFolder = nppParam.getUserPath();
+			if (wantString)
 			{
-				if (wantString)
-				{
-					if (settingsFolder.length() >= static_cast<size_t>(wParam))
-						return 0;
-					lstrcpy(reinterpret_cast<wchar_t*>(lParam), settingsFolder.c_str());
-				}
-				return settingsFolder.length();
+				if (settingsFolder.length() >= static_cast<size_t>(wParam))
+					return 0;
+				lstrcpy(reinterpret_cast<wchar_t*>(lParam), settingsFolder.c_str());
 			}
-
-			// none of the options worked, so send the error value
-			return 0;
+			return settingsFolder.length();
 
 		}
 

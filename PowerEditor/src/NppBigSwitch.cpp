@@ -3220,45 +3220,19 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETNPPSETTINGSDIRPATH:
 		{
-			bool wantString = (lParam != 0);
+			// get the path (-settingsDir, Cloud directory, AppData or NppDir selection handled by _userPath, returned by .getUserPath())
+			wstring settingsDirPath = nppParam.getUserPath();
 
-			// -settingsDir takes top priority
-			wstring settingsDirPath = nppParam.getCmdSettingsDir();
-			if (!settingsDirPath.empty())
+			// if the LPARAM is a big enough non-null pointer, populate that memory with the path string
+			if (lParam != 0)
 			{
-				if (wantString)
-				{
-					if (settingsDirPath.length() >= static_cast<size_t>(wParam))
-						return 0;
-					lstrcpy(reinterpret_cast<wchar_t*>(lParam), settingsDirPath.c_str());
-				}
-				return settingsDirPath.length();
-			}
-
-			// cloud directory is next priority
-			const NppGUI& nppGUI = nppParam.getNppGUI();
-			wstring settingsOnCloudPath = nppGUI._cloudPath;
-			if (!settingsOnCloudPath.empty())
-			{
-				if (wantString)
-				{
-					if (settingsOnCloudPath.length() >= static_cast<size_t>(wParam))
-						return 0;
-					lstrcpy(reinterpret_cast<wchar_t*>(lParam), settingsOnCloudPath.c_str());
-				}
-				return settingsOnCloudPath.length();
-			}
-
-			// finally, getUserPath() will give the appropriate value for doLocalConf-vs-AppData (grabs the private _userPath attribute)
-			wstring settingsFolder = nppParam.getUserPath();
-			if (wantString)
-			{
-				if (settingsFolder.length() >= static_cast<size_t>(wParam))
+				if (settingsDirPath.length() >= static_cast<size_t>(wParam))
 					return 0;
-				lstrcpy(reinterpret_cast<wchar_t*>(lParam), settingsFolder.c_str());
+				lstrcpy(reinterpret_cast<wchar_t*>(lParam), settingsDirPath.c_str());
 			}
-			return settingsFolder.length();
 
+			// the message returns the string length
+			return settingsDirPath.length();
 		}
 
 		case NPPM_SETLINENUMBERWIDTHMODE:

@@ -4965,9 +4965,7 @@ LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM
 
 					if (changedText != origText)
 					{
-						//::SendMessage(hwndCombo, CB_SETCURSEL, static_cast<WPARAM>(-1), 0); // remove selection - to allow using down arrow to get to last searched word
 						::SendMessage(hwndCombo, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(changedText.c_str()));
-						//::SendMessage(hwndCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1)); // select all text - fast edit
 
 						::SendMessage(hParent, WM_COMMAND,
 							MAKELPARAM(hwndCombo == hFindWhatCombo ? IDFINDWHAT : IDREPLACEWITH, CBN_EDITUPDATE),

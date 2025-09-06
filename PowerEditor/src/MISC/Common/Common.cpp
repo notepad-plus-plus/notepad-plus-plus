@@ -955,6 +955,29 @@ bool str2Clipboard(const wstring &str2cpy, HWND hwnd)
 	return true;
 }
 
+std::wstring strFromClipboard()
+{
+	std::wstring clipboardText;
+	if (::OpenClipboard(NULL))
+	{
+		if (::IsClipboardFormatAvailable(CF_UNICODETEXT))
+		{
+			HANDLE hClipboardData = ::GetClipboardData(CF_UNICODETEXT);
+			if (hClipboardData)
+			{
+				wchar_t* pWc = static_cast<wchar_t*>(::GlobalLock(hClipboardData));
+				if (pWc)
+				{
+					clipboardText = pWc;
+					::GlobalUnlock(hClipboardData);
+				}
+			}
+		}
+		::CloseClipboard();
+	}
+	return clipboardText;
+}
+
 bool buf2Clipboard(const std::vector<Buffer*>& buffers, bool isFullPath, HWND hwnd)
 {
 	const wstring crlf = L"\r\n";

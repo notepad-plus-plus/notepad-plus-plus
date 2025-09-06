@@ -4954,7 +4954,9 @@ LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM
 				{
 					wstring origText = getTextFromCombo(hwndCombo);
 
-					DWORD selStartIndex, selEndIndex;
+					DWORD selStartIndex = 0;
+					DWORD selEndIndex = 0;
+					// In case there are selected text in combo box field
 					::SendMessage(hwndCombo, CB_GETEDITSEL, (WPARAM)&selStartIndex, (LPARAM)&selEndIndex);
 					
 					wstring changedText = origText.substr(0, selStartIndex) + clipboardText + origText.substr(selEndIndex);

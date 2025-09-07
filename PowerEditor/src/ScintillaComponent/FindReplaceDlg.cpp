@@ -4952,26 +4952,10 @@ LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM
 				wstring clipboardText = strFromClipboard();
 				if (!clipboardText.empty())
 				{
-					wstring origText = getTextFromCombo(hwndCombo);
-
-					DWORD selStartIndex = 0;
-					DWORD selEndIndex = 0;
-					// In case there are selected text in combo box field
-					::SendMessage(hwndCombo, CB_GETEDITSEL, (WPARAM)&selStartIndex, (LPARAM)&selEndIndex);
-					
-					wstring changedText = origText.substr(0, selStartIndex) + clipboardText + origText.substr(selEndIndex);
-					if (changedText.length() > FINDREPLACE_MAXLENGTH - 1)
+					HWND hEdit = GetWindow(hwndCombo, GW_CHILD);
+					if (hEdit)
 					{
-						changedText = changedText.substr(0, FINDREPLACE_MAXLENGTH - 1);
-					}
-
-					if (changedText != origText)
-					{
-						::SendMessage(hwndCombo, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(changedText.c_str()));
-
-						::SendMessage(hParent, WM_COMMAND,
-							MAKELPARAM(hwndCombo == hFindWhatCombo ? IDFINDWHAT : IDREPLACEWITH, CBN_EDITUPDATE),
-							reinterpret_cast<LPARAM>(hwndCombo));
+						SendMessage(hEdit, EM_REPLACESEL, TRUE, (LPARAM)clipboardText.c_str());
 					}
 				}
 			}

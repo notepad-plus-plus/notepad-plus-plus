@@ -4050,8 +4050,12 @@ void FindReplaceDlg::setSearchText(wchar_t * txt2find)
 	if (txt2find && txt2find[0])
 	{
 		// We got a valid search string
-		::SendMessage(hCombo, CB_SETCURSEL, static_cast<WPARAM>(-1), 0); // remove selection - to allow using down arrow to get to last searched word
-		::SetDlgItemText(_hSelf, IDFINDWHAT, txt2find);
+		HWND hEdit = GetWindow(hCombo, GW_CHILD);
+		if (hEdit)
+		{
+			::SendMessage(hEdit, EM_SETSEL, 0, static_cast<WPARAM>(-1));
+			::SendMessage(hEdit, EM_REPLACESEL, TRUE, (LPARAM)txt2find);
+		}
 	}
 	::SendMessage(hCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1)); // select all text - fast edit
 }
@@ -4955,7 +4959,7 @@ LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM
 					HWND hEdit = GetWindow(hwndCombo, GW_CHILD);
 					if (hEdit)
 					{
-						SendMessage(hEdit, EM_REPLACESEL, TRUE, (LPARAM)clipboardText.c_str());
+						::SendMessage(hEdit, EM_REPLACESEL, TRUE, (LPARAM)clipboardText.c_str());
 					}
 				}
 			}

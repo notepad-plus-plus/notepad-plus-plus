@@ -4053,7 +4053,7 @@ void FindReplaceDlg::setSearchText(wchar_t * txt2find)
 		HWND hEdit = GetWindow(hCombo, GW_CHILD);
 		if (hEdit)
 		{
-			::SendMessage(hEdit, EM_SETSEL, 0, static_cast<WPARAM>(-1));
+			::SendMessage(hEdit, EM_SETSEL, 0, static_cast<WPARAM>(-1)); // Select all text
 			::SendMessage(hEdit, EM_REPLACESEL, TRUE, (LPARAM)txt2find);
 		}
 	}

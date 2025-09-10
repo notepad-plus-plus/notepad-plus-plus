@@ -29,7 +29,6 @@
 
 #define FIND_INVALID_REGULAR_EXPRESSION -2
 
-#define FINDREPLACE_MAXLENGTH 16384      // the maximum length of the string (decrease 1 for '\0') to search in the editor
 #define FINDREPLACE_MAXLENGTH2SAVE 2048  // the maximum length of the string (decrease 1 for '\0') to save in the config.xml file
 
 #define FINDTEMPSTRING_MAXSIZE 1024*1024

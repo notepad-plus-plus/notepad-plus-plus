@@ -1377,7 +1377,8 @@ void Notepad_plus::command(int id)
 
 			if (nppGui._fillFindFieldWithSelected)
 			{
-				if (lstrlen(str.get()) <= FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT)
+				int selLen = lstrlen(str.get());
+				if (selLen > 0 && selLen <= nppGui._fillFindWhatThreshold)
 				{
 					_findReplaceDlg.setSearchText(str.get());
 				}

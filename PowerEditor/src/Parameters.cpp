@@ -6185,6 +6185,17 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				_nppGUI._inSelectionAutocheckThreshold = FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT;
 			}
 
+			int fillFindWhatThresh;
+			if (element->Attribute(L"fillFindWhatThreshold", &fillFindWhatThresh) &&
+				(fillFindWhatThresh >= 1 && fillFindWhatThresh <= FINDREPLACE_MAXLENGTH - 1))
+			{
+				_nppGUI._fillFindWhatThreshold = fillFindWhatThresh;
+			}
+			else
+			{
+				_nppGUI._fillFindWhatThreshold = FILL_FINDWHAT_THRESHOLD_DEFAULT;
+			}
+
 			const wchar_t* optFillDirFieldFromActiveDoc = element->Attribute(L"fillDirFieldFromActiveDoc");
 			if (optFillDirFieldFromActiveDoc)
 			{
@@ -7827,6 +7838,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(L"confirmReplaceInAllOpenDocs", _nppGUI._confirmReplaceInAllOpenDocs ? L"yes" : L"no");
 		GUIConfigElement->SetAttribute(L"replaceStopsWithoutFindingNext", _nppGUI._replaceStopsWithoutFindingNext ? L"yes" : L"no");
 		GUIConfigElement->SetAttribute(L"inSelectionAutocheckThreshold", _nppGUI._inSelectionAutocheckThreshold);
+		GUIConfigElement->SetAttribute(L"fillFindWhatThreshold", _nppGUI._fillFindWhatThreshold);
 		GUIConfigElement->SetAttribute(L"fillDirFieldFromActiveDoc", _nppGUI._fillDirFieldFromActiveDoc ? L"yes" : L"no");
 	}
 

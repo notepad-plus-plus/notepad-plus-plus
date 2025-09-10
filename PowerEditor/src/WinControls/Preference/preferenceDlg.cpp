@@ -6979,7 +6979,7 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 						return TRUE;
 					}
 
-					if (newValue > FINDREPLACE_MAXLENGTH)
+					if (newValue >= FINDREPLACE_MAXLENGTH)
 					{
 						newValue = FINDREPLACE_MAXLENGTH - 1;
 						::SetDlgItemInt(_hSelf, IDC_FILLFINDWHAT_THRESHOLD_EDIT, newValue, FALSE);

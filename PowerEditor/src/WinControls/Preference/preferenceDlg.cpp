@@ -6874,7 +6874,10 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_FILL_DIR_FIELD_FROM_ACTIVE_DOC, BM_SETCHECK, nppGUI._fillDirFieldFromActiveDoc, 0);
 
 			NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-			wstring tipInSelectionText = pNativeSpeaker->getLocalizedStrFromID("searchingInSelThresh-tip", L"Minimum number of selected characters in edit zone to automatically check the \"In selection\" checkbox when the Find dialog is activated. The maximum value is 1024. Set the value to 0 to disable auto-checking.");
+			wstring tipInSelectionText = pNativeSpeaker->getLocalizedStrFromID("searchingInSelThresh-tip", L"Minimum number of selected characters in edit zone to automatically check the \"In selection\" checkbox when the Find dialog is activated. The maximum value is $INT_REPLACE$. Set the value to 0 to disable auto-checking.");
+			
+			tipInSelectionText = stringReplace(tipInSelectionText, L"$INT_REPLACE$", std::to_wstring(FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT));
+
 			_tipInSelThresh = CreateToolTip(IDC_INSELECTION_THRESH_QUESTION_BUTTON, _hSelf, _hInst, const_cast<PTSTR>(tipInSelectionText.c_str()), pNativeSpeaker->isRTL());
 			if (_tipInSelThresh != nullptr)
 			{
@@ -6884,7 +6887,10 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				::SendMessage(_tipInSelThresh, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
 			}
 
-			wstring tipFillFindWhatText = pNativeSpeaker->getLocalizedStrFromID("searchingFillFindWhat-tip", L"Maximun number of selected characters in edit zone to fill automatically the \"Find what\" field when the Ctrl-F is triggered. The maximum value is 16383, which is the maximum size of \"Find what\" field, limited by the system.");
+			wstring tipFillFindWhatText = pNativeSpeaker->getLocalizedStrFromID("searchingFillFindWhat-tip", L"Maximun number of selected characters in edit zone to fill automatically the \"Find what\" field when the Ctrl-F is triggered. The maximum value is $INT_REPLACE$, which is the maximum size of \"Find what\" field, limited by the system.");
+
+			tipFillFindWhatText = stringReplace(tipFillFindWhatText, L"$INT_REPLACE$", std::to_wstring(FINDREPLACE_MAXLENGTH - 1));
+
 			_tipFillFindWhatThresh = CreateToolTip(IDC_FILLFINDWHAT_THRESH_QUESTION_BUTTON, _hSelf, _hInst, const_cast<PTSTR>(tipFillFindWhatText.c_str()), pNativeSpeaker->isRTL());
 			if (_tipFillFindWhatThresh != nullptr)
 			{

@@ -1211,7 +1211,8 @@ Translation note:
 					<Item id="6908" name="Remplir le champ de recherche avec le texte sélectionné"/>
 					<Item id="6909" name="Sélectionner le mot sous le curseur si rien n’est sélectionné"/>
 					<Item id="6910" name="Taille minimale pour l’auto-coche de « Dans la sélection » :"/>
-					<Item id="6913" name="Remplir le champ Répertoire de la Recherche dans les fichiers en se basant sur la document actif"/>
+					<Item id="6913" name="Remplir le champ de &quot;Dossier&quot; de &quot;Recherche dans les fichiers&quot; avec chemin du fichier actif"/>
+					<Item id="6916" name=" : Nombre max. de caractères sélectionnés à copier dans le champ de recherche"/>
 				</Searching>
 
 				<RecentFilesHistory title="Fichiers récents">
@@ -1860,7 +1861,8 @@ Cliquez sur le bouton « ? » à droite pour ouvrir le site web du manuel utilis
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Aller dans le Configurateur de style pour changer la couleur personnalisée par défaut pour la sélection des caractères blancs et des caractères non-imprimables (« Couleur personnalisée des caractères non-imprimables »)."/>
 			<npcIncludeCcUniEol-tip value="Applique les paramètres d’apparence des caractères non-imprimables aux contrôles C0, C1 et aux caractères Unicode EOL (ligne suivante, séparateur de ligne et séparateur de paragraphe)."/>
-			<searchingInSelThresh-tip value="Nombre de caractères sélectionnés dans la zone d’édition pour cocher automatiquement la case « Dans sélection » quand la fenêtre de recherche est activée. La valeur maximale est 1024. Mettre la valeur à 0 pour désactiver l’auto-coche."/>
+			<searchingInSelThresh-tip value="Nombre minimal de caractères sélectionnés dans la zone d’édition pour cocher automatiquement la case « Dans sélection » quand la fenêtre de recherche est activée. La valeur maximale est $INT_REPLACE$. Mettre la valeur à 0 pour désactiver l’auto-coche."/>
+			<searchingFillFindWhat-tip value="Nombre maximal de caractères sélectionnés dans la zone de texte à utiliser pour remplir automatiquement le champ « Rechercher » lors de l'activation de la combinaison Ctrl+F. La valeur maximale est $INT_REPLACE$, soit la taille maximale du champ « Rechercher », limitée par le système."/>
 			<verticalEdge-tip value="Ajoutez votre marqueur de colonne en indiquant sa position avec un nombre entier. Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour séparer les différents nombres."/>
 			<fileSaveAsCopySaveButton-tip value="Maintenez Shift en appuyant sur Enregistrer pour ouvrir une copie après enregistrement."/>
 			<autoIndentBasic-tip value="Assurez-vous que la ligne courante (c'est-à-dire la nouvelle ligne saisie en appuyant sur ENTRÉE) a la même indentation que la ligne précédente."/>

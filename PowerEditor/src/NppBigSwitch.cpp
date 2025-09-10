@@ -515,7 +515,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				std::fill_n(str.get(), strSize, L'\0');
 
 				_pEditView->getGenericSelectedText(str.get(), strSize, nppGui._fillFindFieldSelectCaret);
-				_findReplaceDlg.setSearchText(str.get());
+
+				int selLen = lstrlen(str.get());
+				if (selLen > 0 && selLen <= nppGui._fillFindWhatThreshold)
+				{
+					_findReplaceDlg.setSearchText(str.get());
+				}
 			}
 
 			if (isFirstTime)

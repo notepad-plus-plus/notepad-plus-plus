@@ -273,6 +273,7 @@ public:
 
 private:
 	HWND _tipInSelThresh = nullptr;
+	HWND _tipFillFindWhatThresh = nullptr;
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 };
 

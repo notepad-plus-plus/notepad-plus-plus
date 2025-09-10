@@ -164,7 +164,10 @@ const int COPYDATA_FULL_CMDLINE = 3;
 
 #define NPP_STYLING_FILESIZE_LIMIT_DEFAULT (200 * 1024 * 1024) // 200MB+ file won't be styled
 
+#define FINDREPLACE_MAXLENGTH 16384      // the maximum length of the string (decrease 1 for '\0') to search in the editor
+
 const int FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT = 1024;
+const int FILL_FINDWHAT_THRESHOLD_DEFAULT = 1024;
 
 const wchar_t fontSizeStrs[][3] = {L"", L"5", L"6", L"7", L"8", L"9", L"10", L"11", L"12", L"14", L"16", L"18", L"20", L"22", L"24", L"26", L"28"};
 
@@ -906,6 +909,7 @@ struct NppGUI final
 	bool _confirmReplaceInAllOpenDocs = true;
 	bool _replaceStopsWithoutFindingNext = false;
 	int _inSelectionAutocheckThreshold = FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT;
+	int _fillFindWhatThreshold = FILL_FINDWHAT_THRESHOLD_DEFAULT;
 	bool _fillDirFieldFromActiveDoc = false;
 	bool _muteSounds = false;
 	bool _enableFoldCmdToggable = false;

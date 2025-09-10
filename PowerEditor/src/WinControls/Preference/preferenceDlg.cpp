@@ -311,6 +311,8 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				NppDarkMode::setDarkTooltips(_performanceSubDlg._largeFileRestrictionTip, NppDarkMode::ToolTipsType::tooltip);
 			if (_searchingSubDlg._tipInSelThresh != nullptr)
 				NppDarkMode::setDarkTooltips(_searchingSubDlg._tipInSelThresh, NppDarkMode::ToolTipsType::tooltip);
+			if (_searchingSubDlg._tipFillFindWhatThresh != nullptr)
+				NppDarkMode::setDarkTooltips(_searchingSubDlg._tipFillFindWhatThresh, NppDarkMode::ToolTipsType::tooltip);
 
 			if (_indentationSubDlg._tipAutoIndentBasic)
 				NppDarkMode::setDarkTooltips(_indentationSubDlg._tipAutoIndentBasic, NppDarkMode::ToolTipsType::tooltip);
@@ -6858,7 +6860,13 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET, BM_SETCHECK, nppGUI._fillFindFieldSelectCaret, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MONOSPACEDFONT_FINDDLG, BM_SETCHECK, nppGUI._monospacedFontFindDlg, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_FINDDLG_ALWAYS_VISIBLE, BM_SETCHECK, nppGUI._findDlgAlwaysVisible, 0);
+			::SetDlgItemInt(_hSelf, IDC_FILLFINDWHAT_THRESHOLD_EDIT, nppGUI._fillFindWhatThreshold, 0);
+
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_FILLFINDWHAT_THRESH_QUESTION_BUTTON), nppGUI._fillFindFieldWithSelected ? TRUE : FALSE);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_FILLFINDWHAT_THRESHOLD_EDIT), nppGUI._fillFindFieldWithSelected ? TRUE : FALSE);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_FILLFINDWHAT_THRESHOLD_STATIC), nppGUI._fillFindFieldWithSelected ? TRUE : FALSE);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET), nppGUI._fillFindFieldWithSelected ? TRUE : FALSE);
+
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_CONFIRMREPLOPENDOCS, BM_SETCHECK, nppGUI._confirmReplaceInAllOpenDocs, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_REPLACEANDSTOP, BM_SETCHECK, nppGUI._replaceStopsWithoutFindingNext, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SHOWONCEPERFOUNDLINE, BM_SETCHECK, nppGUI._finderShowOnlyOneEntryPerFoundLine, 0);
@@ -6866,10 +6874,11 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_FILL_DIR_FIELD_FROM_ACTIVE_DOC, BM_SETCHECK, nppGUI._fillDirFieldFromActiveDoc, 0);
 
 			NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-			wstring tipText = pNativeSpeaker->getLocalizedStrFromID("searchingInSelThresh-tip", L"Number of selected characters in edit zone to automatically check the \"In selection\" checkbox when the Find dialog is activated. The maximum value is 1024. Set the value to 0 to disable auto-checking.");
+			wstring tipInSelectionText = pNativeSpeaker->getLocalizedStrFromID("searchingInSelThresh-tip", L"Minimum number of selected characters in edit zone to automatically check the \"In selection\" checkbox when the Find dialog is activated. The maximum value is $INT_REPLACE$. Set the value to 0 to disable auto-checking.");
+			
+			tipInSelectionText = stringReplace(tipInSelectionText, L"$INT_REPLACE$", std::to_wstring(FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT));
 
-			_tipInSelThresh = CreateToolTip(IDC_INSELECTION_THRESH_QUESTION_BUTTON, _hSelf, _hInst, const_cast<PTSTR>(tipText.c_str()), pNativeSpeaker->isRTL());
-
+			_tipInSelThresh = CreateToolTip(IDC_INSELECTION_THRESH_QUESTION_BUTTON, _hSelf, _hInst, const_cast<PTSTR>(tipInSelectionText.c_str()), pNativeSpeaker->isRTL());
 			if (_tipInSelThresh != nullptr)
 			{
 				::SendMessage(_tipInSelThresh, TTM_SETMAXTIPWIDTH, 0, 260);
@@ -6878,6 +6887,18 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				::SendMessage(_tipInSelThresh, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
 			}
 
+			wstring tipFillFindWhatText = pNativeSpeaker->getLocalizedStrFromID("searchingFillFindWhat-tip", L"Maximun number of selected characters in edit zone to fill automatically the \"Find what\" field when the Ctrl-F is triggered. The maximum value is $INT_REPLACE$, which is the maximum size of \"Find what\" field, limited by the system.");
+
+			tipFillFindWhatText = stringReplace(tipFillFindWhatText, L"$INT_REPLACE$", std::to_wstring(FINDREPLACE_MAXLENGTH - 1));
+
+			_tipFillFindWhatThresh = CreateToolTip(IDC_FILLFINDWHAT_THRESH_QUESTION_BUTTON, _hSelf, _hInst, const_cast<PTSTR>(tipFillFindWhatText.c_str()), pNativeSpeaker->isRTL());
+			if (_tipFillFindWhatThresh != nullptr)
+			{
+				::SendMessage(_tipFillFindWhatThresh, TTM_SETMAXTIPWIDTH, 0, 260);
+
+				// Make tip stay 30 seconds
+				::SendMessage(_tipFillFindWhatThresh, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
+			}
 			return TRUE;
 		}
 
@@ -6895,7 +6916,7 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		{
 			auto hdc = reinterpret_cast<HDC>(wParam);
 			const int dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
-			if (dlgCtrlID == IDC_INSELECTION_THRESH_QUESTION_BUTTON)
+			if (dlgCtrlID == IDC_INSELECTION_THRESH_QUESTION_BUTTON || dlgCtrlID == IDC_FILLFINDWHAT_THRESH_QUESTION_BUTTON)
 			{
 				return NppDarkMode::onCtlColorDlgLinkText(hdc, true);
 			}
@@ -6914,35 +6935,72 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 		case WM_COMMAND:
 		{
-			if ((LOWORD(wParam) == IDC_INSELECTION_THRESHOLD_EDIT) &&
-				(HIWORD(wParam) == EN_CHANGE))
+			if (HIWORD(wParam) == EN_CHANGE)
 			{
-				constexpr int stringSize = 5;
-				wchar_t str[stringSize]{};
-				::GetDlgItemText(_hSelf, IDC_INSELECTION_THRESHOLD_EDIT, str, stringSize);
-
-				if (lstrcmp(str, L"") == 0)
+				if (LOWORD(wParam) == IDC_INSELECTION_THRESHOLD_EDIT)
 				{
-					::SetDlgItemInt(_hSelf, IDC_INSELECTION_THRESHOLD_EDIT, nppGUI._inSelectionAutocheckThreshold, FALSE);
-					return FALSE;
+					constexpr int stringSize = 5;
+					wchar_t str[stringSize]{};
+					::GetDlgItemText(_hSelf, IDC_INSELECTION_THRESHOLD_EDIT, str, stringSize);
+
+					if (lstrcmp(str, L"") == 0)
+					{
+						::SetDlgItemInt(_hSelf, IDC_INSELECTION_THRESHOLD_EDIT, FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT, FALSE);
+						return TRUE;
+					}
+
+					UINT newValue = ::GetDlgItemInt(_hSelf, IDC_INSELECTION_THRESHOLD_EDIT, nullptr, FALSE);
+
+					if (static_cast<int>(newValue) == nppGUI._inSelectionAutocheckThreshold)
+					{
+						return TRUE;
+					}
+
+					if (newValue > FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT)
+					{
+						::SetDlgItemInt(_hSelf, IDC_INSELECTION_THRESHOLD_EDIT, FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT, FALSE);
+						newValue = FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT;
+					}
+
+					nppGUI._inSelectionAutocheckThreshold = newValue;
+
+					return TRUE;
 				}
-
-				UINT newValue = ::GetDlgItemInt(_hSelf, IDC_INSELECTION_THRESHOLD_EDIT, nullptr, FALSE);
-
-				if (static_cast<int>(newValue) == nppGUI._inSelectionAutocheckThreshold)
+				else if (LOWORD(wParam) == IDC_FILLFINDWHAT_THRESHOLD_EDIT)
 				{
-					return FALSE;
+					constexpr int stringSize = 6;
+					wchar_t str[stringSize]{};
+					::GetDlgItemText(_hSelf, IDC_FILLFINDWHAT_THRESHOLD_EDIT, str, stringSize);
+
+					if (lstrcmp(str, L"") == 0)
+					{
+						::SetDlgItemInt(_hSelf, IDC_FILLFINDWHAT_THRESHOLD_EDIT, FILL_FINDWHAT_THRESHOLD_DEFAULT, FALSE);
+						return TRUE;
+					}
+
+					UINT newValue = ::GetDlgItemInt(_hSelf, IDC_FILLFINDWHAT_THRESHOLD_EDIT, nullptr, FALSE);
+
+					if (static_cast<int>(newValue) == nppGUI._fillFindWhatThreshold)
+					{
+						return TRUE;
+					}
+
+					if (newValue >= FINDREPLACE_MAXLENGTH)
+					{
+						newValue = FINDREPLACE_MAXLENGTH - 1;
+						::SetDlgItemInt(_hSelf, IDC_FILLFINDWHAT_THRESHOLD_EDIT, newValue, FALSE);
+					}
+
+					if (newValue == 0)
+					{
+						newValue = 1;
+						::SetDlgItemInt(_hSelf, IDC_FILLFINDWHAT_THRESHOLD_EDIT, newValue, FALSE);
+					}
+
+					nppGUI._fillFindWhatThreshold = newValue;
+
+					return TRUE;
 				}
-
-				if (newValue > FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT)
-				{
-					::SetDlgItemInt(_hSelf, IDC_INSELECTION_THRESHOLD_EDIT, FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT, FALSE);
-					newValue = FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT;
-				}
-
-				nppGUI._inSelectionAutocheckThreshold = newValue;
-
-				return TRUE;
 			}
 
 			switch (wParam)
@@ -6951,6 +7009,10 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				{
 					nppGUI._fillFindFieldWithSelected = isCheckedOrNot(IDC_CHECK_FILL_FIND_FIELD_WITH_SELECTED);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET), nppGUI._fillFindFieldWithSelected ? TRUE : FALSE);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_FILLFINDWHAT_THRESH_QUESTION_BUTTON), nppGUI._fillFindFieldWithSelected ? TRUE : FALSE);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_FILLFINDWHAT_THRESHOLD_EDIT), nppGUI._fillFindFieldWithSelected ? TRUE : FALSE);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_FILLFINDWHAT_THRESHOLD_STATIC), nppGUI._fillFindFieldWithSelected ? TRUE : FALSE);
+
 					if (!nppGUI._fillFindFieldWithSelected)
 					{
 						::SendDlgItemMessage(_hSelf, IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET, BM_SETCHECK, BST_UNCHECKED, 0);

@@ -1985,7 +1985,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 								static wstring maxLenOnSearchTip = tip;
 
-								bool isSuccessful = _maxLenOnSearchTip.init(_hInst, hComboBox, _hSelf, maxLenOnSearchTip.c_str(), _isRTL);
+								bool isSuccessful = _maxLenOnSearchTip.init(_hInst, hComboBox, _hSelf, maxLenOnSearchTip.c_str(), _isRTL, 0, 170);
 
 								if (!isSuccessful)
 								{
@@ -1994,7 +1994,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 								NppDarkMode::setDarkTooltips(_maxLenOnSearchTip.getTipHandle(), NppDarkMode::ToolTipsType::tooltip);
 							}
-							_maxLenOnSearchTip.show();
+							_maxLenOnSearchTip.show(ControlInfoTip::showPosition::beginning);
 						}
 						else if (length >= FINDREPLACE_MAXLENGTH2SAVE - 1) // FINDREPLACE_MAXLENGTH2SAVE < length < FINDREPLACE_MAXLENGTH
 						{
@@ -2006,7 +2006,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 								static wstring maxLenOnSaveTip = tip;
 
-								bool isSuccessful = _maxLenOnSearchTip.init(_hInst, hComboBox, _hSelf, maxLenOnSaveTip.c_str(), _isRTL);
+								bool isSuccessful = _maxLenOnSearchTip.init(_hInst, hComboBox, _hSelf, maxLenOnSaveTip.c_str(), _isRTL, 0, 170);
 
 								if (!isSuccessful)
 								{
@@ -2015,7 +2015,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 								NppDarkMode::setDarkTooltips(_maxLenOnSearchTip.getTipHandle(), NppDarkMode::ToolTipsType::tooltip);
 							}
-							_maxLenOnSearchTip.show();
+							_maxLenOnSearchTip.show(ControlInfoTip::showPosition::beginning);
 						}
 						else
 						{

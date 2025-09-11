@@ -2136,7 +2136,7 @@ bool isCoreWindows()
 	return isCoreWindows;
 }
 
-bool ControlInfoTip::init(HINSTANCE hInst, HWND ctrl2attached, HWND ctrl2attachedParent, const wstring& tipStr, bool isRTL, unsigned int remainTimeMillisecond /* = 0 */)
+bool ControlInfoTip::init(HINSTANCE hInst, HWND ctrl2attached, HWND ctrl2attachedParent, const wstring& tipStr, bool isRTL, unsigned int remainTimeMillisecond /* = 0 */, int maxWidth /* = 200 */)
 {
 	_hWndInfoTip = CreateWindowEx(isRTL ? WS_EX_LAYOUTRTL : 0, TOOLTIPS_CLASS, NULL,
 		WS_POPUP | TTS_ALWAYSTIP | TTS_BALLOON,
@@ -2161,7 +2161,7 @@ bool ControlInfoTip::init(HINSTANCE hInst, HWND ctrl2attached, HWND ctrl2attache
 		return false;
 	}
 
-	SendMessage(_hWndInfoTip, TTM_SETMAXTIPWIDTH, 0, 200);
+	SendMessage(_hWndInfoTip, TTM_SETMAXTIPWIDTH, 0, maxWidth);
 	SendMessage(_hWndInfoTip, TTM_ACTIVATE, TRUE, 0);
 
 	if (remainTimeMillisecond)
@@ -2170,14 +2170,22 @@ bool ControlInfoTip::init(HINSTANCE hInst, HWND ctrl2attached, HWND ctrl2attache
 	return true;
 }
 
-void ControlInfoTip::show() const
+void ControlInfoTip::show(showPosition pos) const
 {
 	if (!isValid())	return;
 
 	RECT rcComboBox;
 	GetWindowRect(reinterpret_cast<HWND>(_toolInfo.uId), &rcComboBox);
 
-	int xPos = rcComboBox.left + (rcComboBox.right - rcComboBox.left) / 2;
+	int xPos = 0;
+
+	if (pos == beginning)
+		xPos = rcComboBox.left + 15;
+	else if (pos == middle)
+		xPos = rcComboBox.left + (rcComboBox.right - rcComboBox.left) / 2;
+	else // (pos == end)
+		xPos = rcComboBox.left + (rcComboBox.right - rcComboBox.left) - 15;
+
 	int yPos = rcComboBox.top + 25;
 
 	SendMessage(_hWndInfoTip, TTM_TRACKPOSITION, 0, MAKELPARAM(xPos, yPos));

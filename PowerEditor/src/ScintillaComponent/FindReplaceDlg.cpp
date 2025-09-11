@@ -2015,7 +2015,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 								NppDarkMode::setDarkTooltips(_maxLenOnSearchTip.getTipHandle(), NppDarkMode::ToolTipsType::tooltip);
 							}
-							_maxLenOnSearchTip.show();
+							_maxLenOnSearchTip.show(ControlInfoTip::showPosition::end);
 						}
 						else
 						{

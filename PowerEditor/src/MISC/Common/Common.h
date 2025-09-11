@@ -321,7 +321,8 @@ public:
 		return _hWndInfoTip;
 	};
 
-	void show() const;
+	enum showPosition {beginning, middle, end};
+	void show(showPosition pos = middle) const;
 	
 	void hide();
 

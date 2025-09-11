@@ -2170,14 +2170,22 @@ bool ControlInfoTip::init(HINSTANCE hInst, HWND ctrl2attached, HWND ctrl2attache
 	return true;
 }
 
-void ControlInfoTip::show() const
+void ControlInfoTip::show(showPosition pos) const
 {
 	if (!isValid())	return;
 
 	RECT rcComboBox;
 	GetWindowRect(reinterpret_cast<HWND>(_toolInfo.uId), &rcComboBox);
 
-	int xPos = rcComboBox.left + (rcComboBox.right - rcComboBox.left) / 2;
+	int xPos = 0;
+
+	if (pos == beginning)
+		xPos = rcComboBox.left + 6;
+	else if (pos == middle)
+		xPos = rcComboBox.left + (rcComboBox.right - rcComboBox.left) / 2;
+	else // (pos == end)
+		xPos = rcComboBox.left + (rcComboBox.right - rcComboBox.left) - 6;
+
 	int yPos = rcComboBox.top + 25;
 
 	SendMessage(_hWndInfoTip, TTM_TRACKPOSITION, 0, MAKELPARAM(xPos, yPos));

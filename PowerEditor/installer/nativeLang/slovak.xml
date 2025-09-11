@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.8.1">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.8.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -39,6 +39,7 @@
 					<Item subMenuId="edit-onSelection" name="V&amp;ybraný text"/>
 					<Item subMenuId="edit-multiSelectALL" name="Viacnásobný výber VŠETKO"/>
 					<Item subMenuId="edit-multiSelectNext" name="Viacnásobný výber Ďalší"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Iba na čítanie v Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="História zmien"/>
 					<Item subMenuId="search-markAll" name="Použiť štýl na vše&amp;tky tokeny"/>
 					<Item subMenuId="search-markOne" name="Použiť štýl na &amp;jeden token"/>
@@ -414,6 +415,8 @@
 					<Item id="11007" name="Typ od Z po A"/>
 					<Item id="11008" name="Dĺžka obsahu ↑"/>
 					<Item id="11009" name="Dĺžka obsahu ↓"/>
+					<Item id="11010" name="Čas úpravy ↑"/>
+					<Item id="11011" name="Čas úpravy ↓"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -1211,6 +1214,7 @@
 					<Item id="6909" name="Ak nie je nič označené, označiť slovo na pozícii kurzora"/>
 					<Item id="6910" name="Minimálna dĺžka na automatické začiarknutie &quot;Vo výbere&quot;:"/>
 					<Item id="6913" name="Vyplniť pole Priečinok v Hľadať v súboroch z aktívneho dokumentu"/>
+					<Item id="6916" name=": Maximálny počet znakov na automatické vloženie do poľa Hľadať"/>
 				</Searching>
 
 				<RecentFilesHistory title="História súborov">
@@ -1617,6 +1621,7 @@ Prosím, overte podmienku vyhľadávania pred vykonaním akcie."/> <!-- HowToRep
 			<ColumnPath name="Cesta"/>
 			<ColumnType name="Typ"/>
 			<ColumnSize name="Veľkosť"/>
+			<ColumnDateTime name="Čas úpravy"/>
 			<NbDocsTotal name="Počet dokumentov:"/>
 			<MenuCopyName name="Kopírovať názov(y)"/>
 			<MenuCopyPath name="Kopírovať cestu(y)"/>
@@ -1864,7 +1869,8 @@ Kliknutím na tlačidlo &quot;?&quot; vpravo otvoríte webovú stránku s použ�
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Prejdite do Nastavenia štýlov a zmeňte predvolenú vlastnú farbu pre vybrané biele a netlačiteľné znaky (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Použite nastavenia vzhľadu netlačiteľných znakov pre riadiace znaky C0, C1 a znaky Unicode EOL (ďalší riadok, oddeľovač riadkov a oddeľovač odsekov)."/>
-			<searchingInSelThresh-tip value="Počet vybraných znakov v oblasti úprav na automatické začiarknutie políčka &quot;Vo výbere&quot; pri aktivácii dialógového okna Hľadať. Maximálna hodnota je 1024. Ak chcete vypnúť automatickú kontrolu, nastavte hodnotu na 0."/>
+			<searchingInSelThresh-tip value="Minimálny počet vybraných znakov v oblasti úprav na automatické začiarknutie políčka &quot;Vo výbere&quot; pri aktivácii dialógového okna Hľadať. Maximálna hodnota je $INT_REPLACE$. Ak chcete vypnúť automatickú kontrolu, nastavte hodnotu na 0."/>
+			<searchingFillFindWhat-tip value="Maximálny počet vybraných znakov v oblasti úprav na automatické začiarknutie políčka &quot;Vo výbere&quot; pri stlačení Ctrl-F. Maximálna hodnota je $INT_REPLACE$, čo je maximálna veľkosť poľa &quot;Hľadať&quot;, obmedzená systémom."/>
 			<verticalEdge-tip value="Pridajte značku stĺpca uvedením jeho pozície pomocou desatinného čísla. Môžete definovať niekoľko značiek stĺpcov tak, že jednotlivé čísla oddelíte bielymi znakmi."/>
 			<fileSaveAsCopySaveButton-tip value="Ak chcete po uložení otvoriť kópiu, podržte kláves Shift a stlačte tlačidlo Uložiť."/>
 			<autoIndentBasic-tip value="Uistite sa, že odsadenie aktuálneho riadka (t. j. nového riadka vytvoreného stlačením klávesu ENTER) sa zhoduje s odsadením predchádzajúceho riadka."/>
@@ -1889,6 +1895,9 @@ Ak vyberiete pokročilý režim, ale neupravujete súbory vo vyššie uvedených
 			<toolbar-accent-tip value="Táto možnosť spôsobí, že ikony na paneli s nástrojmi budú mať farbu motívu Windowsu. Farba motívu je farba zvýraznenia používaná v tlačidlách, okrajoch a dlaždiciach ponuky Štart vo Windowse. Ak ju chcete zmeniť, prejdite do Nastavenia &gt; Prispôsobenie &gt; Farby, potom vyberte preferovanú farbu."/>
 			<max-len-on-search-tip value="Povolená dĺžka pre hľadať/nahradiť text je len $INT_REPLACE$ znakov - váš vstup môže byť orezaný, a neuloží sa pre ďalšiu reláciu."/>
 			<max-len-on-save-tip value="Toto vyhľadávanie (> $INT_REPLACE$ znakov) sa neuloží pre ďalšiu reláciu."/>
+			<len-limit-exceeded-tip value="Prekročená dĺžka: Váš vstup prekročil povolený limit a môže byť orezaný a nebude uložený do ďalšej relácie."/>
+			<max-len-on-search-tip value="Váš vstup prekročil povolený limit a môže byť orezaný a nebude uložený do ďalšej relácie."/>
+			<max-len-on-save-tip value="Váš vstup je príliš dlhý a nemusí sa uložiť do ďalšej relácie."/>
 			<goto-setting-tip value="Nastavenia nájdete tu"/>
 		</MiscStrings>
 	</Native-Langue>

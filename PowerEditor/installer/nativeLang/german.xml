@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.1"><!-- Datum: 30.07.2025, basiert auf english.xml 8.8.1 vom 23.07.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.1"><!-- Datum: 30.09.2025, basiert auf english.xml 8.8.1 vom 30.09.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -50,6 +50,7 @@ Translation note:
 					<Item subMenuId="edit-onSelection" name="Mit Auswahl"/>
 					<Item subMenuId="edit-multiSelectALL" name="Mehrfachauswahl ALLE"/>
 					<Item subMenuId="edit-multiSelectNext" name="Mehrfachauswahl Nächstes"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Nur Lesen in Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="Änderungs-Historie"/>
 					<Item subMenuId="search-markAll" name="&amp;Alle Treffer hervorheben"/>
 					<Item subMenuId="search-markOne" name="Di&amp;esen Treffer hervorheben"/>
@@ -205,7 +206,9 @@ Translation note:
 					<Item id="42025" name="Aufgenommenes Makro s&amp;peichern …"/>
 					<Item id="42026" name="Schreib&amp;richtung von rechts nach links"/>
 					<Item id="42027" name="Schreibrichtung von lin&amp;ks nach rechts"/>
-					<Item id="42028" name="Schreibsch&amp;utz in Notepad++"/>
+					<Item id="42028" name="Schreibsch&amp;utz im aktuellen Dokument"/>
+					<Item id="42102" name="Schreibschutz für alle Dokumente"/>
+					<Item id="42103" name="Hebe Schreibschutz für alle Dokumente auf"/>
 					<Item id="42029" name="Vollständigen Datei&amp;pfad kopieren"/>
 					<Item id="42030" name="Nur Datei&amp;namen kopieren"/>
 					<Item id="42031" name="Nur &amp;Verzeichnispfad kopieren"/>
@@ -425,6 +428,8 @@ Translation note:
 					<Item id="11007" name="Typ Z bis A"/>
 					<Item id="11008" name="Inhaltslänge aufsteigend"/>
 					<Item id="11009" name="Inhaltslänge absteigend"/>
+					<Item id="11010" name="Änderungszeit aufsteigend"/>
+					<Item id="11011" name="Änderungszeit absteigend"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -1223,6 +1228,7 @@ Translation note:
 					<Item id="6909" name="Das Wort unter dem Cursor verwenden wenn nichts gewählt ist"/>
 					<Item id="6910" name="Mindestgröße für die automatische Aktivierung von 'In Auswahl'"/>
 					<Item id="6913" name="Suche im Dateiverzeichnisfeld basierend auf dem aktiven Dokument ausfüllen"/>
+					<Item id="6916" name=": Max. Zeichen für automatisches Ausfüllen des Suchfelds aus der Auswahl"/>
 				</Searching>
 
 				<RecentFilesHistory title="Zuletzt geöffn. Dateien">
@@ -1588,6 +1594,8 @@ Bitte die Kommandos daher testen und falls nötig editieren.
 Alternativ dazu kann auch auf die ältere Version Notepad++ v8.5.2 gewechselt und dort die aktuellen Daten gesichert werden.
 Notepad++ wird ein Backup der alten &quot;shortcuts.xml&quot; machen und die Datei als &quot;shortcuts.xml.v8.5.2.backup&quot; speichern.
 Beim darauf folgenden Umbenennen der &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; sollten die Kommandos wiederhergestellt sein und wieder funktionieren."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<FullReadOnlySavingForbidden title="Speichern fehlgeschlagen" message="Kann Datei nicht speichern.
+Der Schreibschutz von Notepad++ verhindert das Speichern dieser Datei."/>
 			<NotEnoughRoom4Saving title="Speichern fehlgeschlagen" message="Konnte Datei nicht speichern.
 Es ist nicht genug Speicherplatz vorhanden, daher wurde die Datei nicht gespeichert."/>
 			<FileInaccessibleUserSession title="Datei nicht zugänglich" message="Einige Dateien der manuell gespeicherten Sitzung &quot;$STR_REPLACE$&quot; sind nicht zugänglich. Sie können aber als leere Datei und schreibgeschützt als Platzhalter geöffnet werden.
@@ -1627,6 +1635,7 @@ Bitte die Suchbedingungen überprüfen, bevor die Aktion ausgeführt wird."/> <!
 			<ColumnPath name="Pfad"/>
 			<ColumnType name="Typ"/>
 			<ColumnSize name="Größe"/>
+			<ColumnDateTime name="Änderungszeit"/>
 			<NbDocsTotal name="Gesamtzahl Dokumente:"/>
 			<MenuCopyName name="Name(n) kopieren"/>
 			<MenuCopyPath name="Pfadname(n) kopieren"/>
@@ -1874,7 +1883,8 @@ Ein Klick auf &quot;?&quot; öffnet die Webseite des Benutzerhandbuchs."/>
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Im Stil-Konfigurator kann die Standardfarbe für die speziellen Leerzeichen und die nicht druckbaren Zeichen angepasst werden (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Einstellungen für das Erscheinungsbild von nicht druckbaren Zeichen auf die Steuerzeichen C0, C1 und Unicode EOL (nächste Zeile, Zeilen- und Absatztrenner) anwenden."/>
-			<searchingInSelThresh-tip value="Anzahl der ausgewählten Zeichen (max. 1024) in der Bearbeitungszone, um das Kontrollkästchen 'In Auswahl' automatisch zu aktivieren, wenn der Suchdialog aktiviert wird. Diesen Wert auf 0 setzen, um die automatische Markierung zu deaktivieren."/>
+			<searchingInSelThresh-tip value="Minimale Anzahl der ausgewählten Zeichen in der Bearbeitungszone, um das Kontrollkästchen 'In Auswahl' automatisch zu aktivieren, wenn der Suchdialog aktiviert wird. Der Maximalwert ist $INT_REPLACE$, der Wert 0 deaktiviert die automatische Überprüfung."/>
+			<searchingFillFindWhat-tip value="Maximale Anzahl der ausgewählten Zeichen in der Bearbeitungszone, um das Kontrollkästchen 'In Auswahl' automatisch zu aktivieren, wenn der Suchdialog aktiviert wird. Der Maximalwert ist $INT_REPLACE$, das ist die Maximalgröße vom 'Suchen nach:'-Feld, limitiert durch das System."/>
 			<verticalEdge-tip value="Eine Spaltenmarkierung kann hinzugefügt werden, indem ihre Position mit einer Dezimalzahl angeben wird. Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Zahlen durch Leerzeichen getrennt werden."/>
 			<fileSaveAsCopySaveButton-tip value="Drücke die Shift-Taste während des Speicherns um die Kopie nach dem Speichern zu öffnen."/>
 			<autoIndentBasic-tip value="Stelle sicher, dass die Einrückung in der aktuellen Zeile (z.B. erstellt durch das Drücken der ENTER-Taste) mit der Einrückung in der vorigen Zeile übereinstimmt."/>
@@ -1898,8 +1908,9 @@ Wenn diese 'Intelligente Einrückung' gewählt wird, aber keine Dateien in den o
 			<statusbar-Sel value="Gew: "/>
 			<statusbar-Sel-number value="Gew"/>
 			<toolbar-accent-tip value="Mit dieser Option werden die Symbolleistensymbole der Akzentfarbe des Windows-Systems angepasst. Die Akzentfarbe ist die Farbe, mit der Schaltflächen, Rahmen und Startmenükacheln in Windows hervorgehoben werden. Um sie zu ändern, gehen Sie zu Einstellungen &gt; Personalisierung &gt; Farben und wählen Sie dann Ihre bevorzugte Akzentfarbe."/>
-			<max-len-on-search-tip value="Es sind nur $INT_REPLACE$ Zeichen erlaubt für die Suchen/Ersetzen-Textlänge - deine Eingabe könnte gekürzt werden und wird für die nächste Sitzung nicht gespeichert."/>
-			<max-len-on-save-tip value="Diese Sucheingabe (> $INT_REPLACE$ Zeichen) wird für die nächste Sitzung nicht gespeichert."/>
+			<len-limit-exceeded-tip value="Zeichen-Limit überschritten: Ihre Eingabe überschreitet ev. die zulässige Grenze und wurde möglicherweise gekürzt, und wird auch für die nächste Sitzung nicht gespeichert."/>
+			<max-len-on-search-tip value="Ihre Eingabe überschreitet ev. die zulässige Grenze und wurde möglicherweise gekürzt, und wird auch für die nächste Sitzung nicht gespeichert."/>
+			<max-len-on-save-tip value="Ihre Eingabe ist sehr lang und wird möglicherweise nicht für Ihre nächste Sitzung gespeichert."/>
 			<goto-setting-tip value="Finde hier deine Einstellungen"/>
 		</MiscStrings>
 	</Native-Langue>

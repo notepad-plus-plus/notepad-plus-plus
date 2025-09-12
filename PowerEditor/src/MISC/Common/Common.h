@@ -311,7 +311,7 @@ public:
 			hide();
 		}
 	};
-	bool init(HINSTANCE hInst, HWND ctrl2attached, HWND ctrl2attachedParent, const std::wstring& tipStr, bool isRTL, unsigned int remainTimeMillisecond = 0); // remainTimeMillisecond = 0: no timeout
+	bool init(HINSTANCE hInst, HWND ctrl2attached, HWND ctrl2attachedParent, const std::wstring& tipStr, bool isRTL, unsigned int remainTimeMillisecond = 0, int maxWidth = 200); // remainTimeMillisecond = 0: no timeout
 
 	bool isValid() const {
 		return _hWndInfoTip != nullptr;

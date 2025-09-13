@@ -1218,6 +1218,7 @@ Translation note:
 					<Item id="6909" name="何も選択されていないときは、カーソル位置の単語を自動入力する"/>
 					<Item id="6910" name="この文字数以上を選択時に「選択内のみ」を自動でオン"/>
 					<Item id="6913" name="「複数ファイル内検索」にて、現在の文書のディレクトリを初期値にする"/>
+					<Item id="6916" name=": 自動入力を行う最大の文字数"/>
 				</Searching>
 
 
@@ -1860,7 +1861,8 @@ U+FEFF : zero-width no-break space（ゼロ幅改行なしスペース）
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="色を変更したい場合は、スタイル設定から変更してください (&quot;Non-printing characters custom color&quot;)。"/>
 			<npcIncludeCcUniEol-tip value="非表示文字の表示設定を、C0、C1制御コードと、Unicode改行文字（Next Line、Line Separator、Paragraph Separator）にも適用します。"/>
-			<searchingInSelThresh-tip value="編集画面でこの文字数以上を選択したまま検索画面を開くと、「選択内のみ」を自動でオンにします。最大値は 1024 です。0 にするとこの動作を無効にできます。"/>
+			<searchingInSelThresh-tip value="編集画面でこの文字数以上を選択したまま検索画面を開くと、「選択内のみ」を自動でオンにします。最大値は $INT_REPLACE$ です。0 にするとこの動作を無効にできます。"/>
+			<searchingFillFindWhat-tip value="編集画面でこの文字数以内を選択したまま検索画面を開くと、「検索文字列」欄に自動入力します。最大値は $INT_REPLACE$ で、これはシステムによる制限です。"/>
 			<verticalEdge-tip value="線を表示したい桁位置を指定してください。複数の値を半角スペースで区切って記入することで、複数の線を表示できます。"/>
 			<fileSaveAsCopySaveButton-tip value="Shiftを押しながら「保存」を押すと、複製したファイルを開きます。"/>
 			<autoIndentBasic-tip value="現在の行（エンターキーを押して作成された新しい行）のインデントを、前の行のインデントと同じにします。"/>

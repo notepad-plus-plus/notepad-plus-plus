@@ -634,7 +634,7 @@ UCHAR ColumnEditorDlg::getFormat()
 }
 
 
-UCHAR ColumnEditorDlg::getHexCase(void)
+UCHAR ColumnEditorDlg::getHexCase()
 {
 	int curSel = static_cast<int>(::SendDlgItemMessage(_hSelf, IDC_COL_HEXUC_COMBO, CB_GETCURSEL, 0, 0));
 	return (curSel == 1) ? BASE_16_UPPERCASE : BASE_16;

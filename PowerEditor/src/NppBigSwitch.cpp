@@ -503,25 +503,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_LAUNCHFINDINFILESDLG:
 		{
 			// Find in files function code should be here due to the number of parameters (2) cannot be passed via WM_COMMAND
-			constexpr int strSize = FINDREPLACE_MAXLENGTH;
+			//constexpr int strSize = 32;// FINDREPLACE_MAXLENGTH;
 
 			bool isFirstTime = !_findReplaceDlg.isCreated();
 			_findReplaceDlg.doDialog(FIND_DLG, _nativeLangSpeaker.isRTL());
 
-			const NppGUI& nppGui = nppParam.getNppGUI();
-			if (nppGui._fillFindFieldWithSelected)
-			{
-				auto str = std::make_unique<wchar_t[]>(strSize);
-				std::fill_n(str.get(), strSize, L'\0');
-
-				_pEditView->getGenericSelectedText(str.get(), strSize, nppGui._fillFindFieldSelectCaret);
-
-				int selLen = lstrlen(str.get());
-				if (selLen > 0 && selLen <= nppGui._fillFindWhatThreshold)
-				{
-					_findReplaceDlg.setSearchText(str.get());
-				}
-			}
+			_findReplaceDlg.setSearchTextWithSettings();
 
 			if (isFirstTime)
 				_nativeLangSpeaker.changeFindReplaceDlgLang(_findReplaceDlg);

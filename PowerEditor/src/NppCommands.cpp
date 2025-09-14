@@ -1356,16 +1356,6 @@ void Notepad_plus::command(int id)
 		case IDM_SEARCH_REPLACE :
 		case IDM_SEARCH_MARK :
 		{
-			const int strSize = FINDREPLACE_MAXLENGTH;
-			auto str = std::make_unique<wchar_t[]>(strSize);
-			std::fill_n(str.get(), strSize, L'\0');
-
-			const NppGUI& nppGui = (NppParameters::getInstance()).getNppGUI();
-			if (nppGui._fillFindFieldWithSelected)
-			{
-				_pEditView->getGenericSelectedText(str.get(), strSize, nppGui._fillFindFieldSelectCaret);
-			}
-
 			bool isFirstTime = !_findReplaceDlg.isCreated();
 
 			DIALOG_TYPE dlgID = FIND_DLG;
@@ -1375,14 +1365,7 @@ void Notepad_plus::command(int id)
 				dlgID = MARK_DLG;
 			_findReplaceDlg.doDialog(dlgID, _nativeLangSpeaker.isRTL());
 
-			if (nppGui._fillFindFieldWithSelected)
-			{
-				int selLen = lstrlen(str.get());
-				if (selLen > 0 && selLen <= nppGui._fillFindWhatThreshold)
-				{
-					_findReplaceDlg.setSearchText(str.get());
-				}
-			}
+			_findReplaceDlg.setSearchTextWithSettings();
 
 			setFindReplaceFolderFilter(NULL, NULL);
 

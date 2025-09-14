@@ -468,6 +468,7 @@ public:
     char * getWordOnCaretPos(char * txt, size_t size);
     wchar_t * getGenericWordOnCaretPos(wchar_t * txt, int size);
 	wchar_t * getGenericSelectedText(wchar_t * txt, int size, bool expand = true);
+	size_t getGenericSelectedText2(wchar_t * txt, Sci_Position& size, bool expand = true);
 	intptr_t searchInTarget(const wchar_t * Text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const;
 	void appendGenericText(const wchar_t * text2Append) const;
 	void addGenericText(const wchar_t * text2Append) const;

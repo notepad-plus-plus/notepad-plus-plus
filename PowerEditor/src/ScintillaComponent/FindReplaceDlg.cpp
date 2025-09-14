@@ -1975,7 +1975,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						LRESULT length = ::GetWindowTextLength(hComboBox);
 
 
-						if (length >= FINDREPLACE_MAXLENGTH - 1)
+						if (length > FINDREPLACE_MAXLENGTH - 1)
 						{
 							if (!_maxLenOnSearchTip.isValid()) // Create the tooltip and add the tool ONLY ONCE
 							{
@@ -5357,7 +5357,7 @@ bool FindReplaceDlg::replaceInProjectsConfirmCheck()
 	return confirmed;
 }
 
-bool FindReplaceDlg::replaceInOpenDocsConfirmCheck(void)
+bool FindReplaceDlg::replaceInOpenDocsConfirmCheck()
 {
 	bool confirmed = false;
 
@@ -5373,6 +5373,29 @@ bool FindReplaceDlg::replaceInOpenDocsConfirmCheck(void)
 	}
 
 	return confirmed;
+}
+
+bool FindReplaceDlg::setSearchTextWithSettings()
+{
+	const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+	if (nppGui._fillFindFieldWithSelected)
+	{
+		Sci_Position selStrCharNum = 0;
+		size_t selStrNeededByte = (*_ppEditView)->getGenericSelectedText2(nullptr, selStrCharNum, nppGui._fillFindFieldSelectCaret);
+
+		if (selStrNeededByte && selStrCharNum <= nppGui._fillFindWhatThreshold)
+		{
+			Sci_Position selStrByteLen = selStrNeededByte + 1;
+			auto str = std::make_unique<wchar_t[]>(selStrByteLen);
+			std::fill_n(str.get(), selStrByteLen, L'\0');
+
+			(*_ppEditView)->getGenericSelectedText2(str.get(), selStrByteLen, nppGui._fillFindFieldSelectCaret);
+			setSearchText(str.get());
+
+			return true;
+		}
+	}
+	return false;
 }
 
 wstring Finder::getHitsString(int count) const

@@ -1039,7 +1039,7 @@ void CustomFileDialog::setSaveAsCopy(bool isSavingAsCopy)
 	}
 }
 
-bool CustomFileDialog::getOpenTheCopyAfterSaveAsCopy(void)
+bool CustomFileDialog::getOpenTheCopyAfterSaveAsCopy()
 {
 	return (_impl->_savingAsCopyInfo & SAVE_AS_COPY_OPEN) != 0;
 }

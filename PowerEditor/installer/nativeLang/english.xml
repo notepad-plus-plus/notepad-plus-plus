@@ -1867,7 +1867,7 @@ Click on &quot;?&quot; button on right to open website with User Manual."/>
 			<npcCustomColor-tip value="Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Apply non-printing characters appearance settings to C0, C1 control and Unicode EOL (next line, line separator and paragraph separator) characters."/>
 			<searchingInSelThresh-tip value="Minimum number of selected characters in edit zone to automatically check the &quot;In selection&quot; checkbox when the Find dialog is activated. The maximum value is $INT_REPLACE$. Set the value to 0 to disable auto-checking."/>
-			<searchingFillFindWhat-tip value="Maximun number of selected characters in edit zone to fill automatically the &quot;Find what&quot; field when the Ctrl-F is triggered. The maximum value is $INT_REPLACE$, which is the maximum size of &quot;Find what&quot; field, limited by the system."/>
+			<searchingFillFindWhat-tip value="Maximum number of selected characters in edit zone to fill automatically the &quot;Find what&quot; field when the Ctrl-F is triggered. The maximum value is $INT_REPLACE$, which is the maximum size of &quot;Find what&quot; field, limited by the system."/>
 			<verticalEdge-tip value="Add your column marker by indicating its position with a decimal number. You can define several column markers by using white space to separate the different numbers."/>
 			<fileSaveAsCopySaveButton-tip value="Hold Shift while pressing Save to open the copy after saving."/>
 			<autoIndentBasic-tip value="Ensure that the indentation of the current line (i.e. the new line created by pressing the ENTER key) matches the indentation of the previous line."/>
@@ -1891,8 +1891,9 @@ If you select advanced mode but do not edit files in the aforementioned language
 			<statusbar-Sel value="Sel: "/>
 			<statusbar-Sel-number value="Sel"/>
 			<toolbar-accent-tip value="This option makes your toolbar icons follow Windows system accent color. Accent color is the highlight color used in buttons, borders, and Start menu tiles in Windows. To change it, go to Settings &gt; Personalization &gt; Colors, then select your preferred accent color."/>
-			<max-len-on-search-tip value="Only $INT_REPLACE$ characters are allowed for the find/replace text length - your input could be truncated, and it won't be saved for the next session."/>
-			<max-len-on-save-tip value="This search input (> $INT_REPLACE$ characters) won't be saved for the next session."/>
+			<len-limit-exceeded-tip value="Length limit exceeded: Your input may exceed the limit allowed and could have been truncated, and it won't be saved for the next session."/>
+			<max-len-on-search-tip value="Your input may exceed the limit allowed and could have been truncated, and it won't be saved for the next session."/>
+			<max-len-on-save-tip value="The length of your input is very long and may not be saved for your next session."/>
 			<goto-setting-tip value="Find your setting here"/>
 		</MiscStrings>
 	</Native-Langue>

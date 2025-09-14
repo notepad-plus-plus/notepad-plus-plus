@@ -287,7 +287,7 @@ public :
 
 	void replaceAllInOpenedDocs();
 	void findAllIn(InWhat op);
-	void setSearchText(wchar_t * txt2find);
+	void setSearchText(const wchar_t * txt2find);
 
 	void gotoNextFoundResult(int direction = 0) const {
 		if (_pFinder) _pFinder->gotoNextFoundResult(direction);
@@ -336,14 +336,13 @@ public :
 		_tab.getCurrentTitle(label, MAX_PATH);
 		::SetWindowText(_hSelf, label);
 	}
-	void beginNewFilesSearch()
-	{
+
+	void beginNewFilesSearch() {
 		_pFinder->beginNewFilesSearch();
 		_pFinder->addSearchLine(getText2search().c_str());
 	}
 
-	void finishFilesSearch(int count, int searchedCount, bool searchedEntireNotSelection)
-	{
+	void finishFilesSearch(int count, int searchedCount, bool searchedEntireNotSelection) {
 		_pFinder->finishFilesSearch(count, searchedCount, searchedEntireNotSelection, _env);
 	}
 
@@ -421,6 +420,7 @@ public :
 	DIALOG_TYPE getCurrentStatus() {return _currentStatus;};
 	Finder* getFinderFrom(HWND hwnd);
 	int regexBackwardMsgBox();
+	const wchar_t* setSearchTextWithSettings();
 
 protected :
 	void resizeDialogElements();
@@ -526,7 +526,7 @@ private:
 	void drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
 	bool replaceInFilesConfirmCheck(const std::wstring& directory, const std::wstring& fileTypes);
 	bool replaceInProjectsConfirmCheck();
-	bool replaceInOpenDocsConfirmCheck(void);
+	bool replaceInOpenDocsConfirmCheck();
 
 	ContextMenu _swapPopupMenu;
 	enum SwapButtonStatus {swap, down, up} _swapButtonStatus = swap;

@@ -38,7 +38,7 @@ public:
 	void setCheckbox(const wchar_t* text, bool isActive = true);
 	void setExtIndex(int extTypeIndex);
 	void setSaveAsCopy(bool isSavingAsCopy);
-	bool getOpenTheCopyAfterSaveAsCopy(void);
+	bool getOpenTheCopyAfterSaveAsCopy();
 
 	void enableFileTypeCheckbox(const std::wstring& text, bool value);
 	bool getFileTypeCheckboxValue() const;

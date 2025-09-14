@@ -464,10 +464,10 @@ public:
 
 	void getVisibleStartAndEndPosition(intptr_t* startPos, intptr_t* endPos);
     char * getWordFromRange(char * txt, size_t size, size_t pos1, size_t pos2);
-	char * getSelectedText(char * txt, size_t size, bool expand = true);
+	char * getSelectedTextToMultiChar(char * txt, size_t size, bool expand = true);
+	const wchar_t* getSelectedTextToWChar(bool expand = true, Sci_Position* selCharNumber = nullptr);
     char * getWordOnCaretPos(char * txt, size_t size);
-    wchar_t * getGenericWordOnCaretPos(wchar_t * txt, int size);
-	wchar_t * getGenericSelectedText(wchar_t * txt, int size, bool expand = true);
+
 	intptr_t searchInTarget(const wchar_t * Text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const;
 	void appendGenericText(const wchar_t * text2Append) const;
 	void addGenericText(const wchar_t * text2Append) const;

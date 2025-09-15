@@ -1618,6 +1618,7 @@ Please verify the search condition before performing the action."/> <!-- HowToRe
 			<ColumnPath name="Path"/>
 			<ColumnType name="Type"/>
 			<ColumnSize name="Size"/>
+			<ColumnDateTime name="Date/Time"/>
 			<NbDocsTotal name="total documents:"/>
 			<MenuCopyName name="Copy Name(s)"/>
 			<MenuCopyPath name="Copy Pathname(s)"/>
@@ -1895,3 +1896,5 @@ If you select advanced mode but do not edit files in the aforementioned language
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
+
+

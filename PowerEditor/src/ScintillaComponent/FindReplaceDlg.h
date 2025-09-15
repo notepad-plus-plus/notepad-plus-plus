@@ -287,7 +287,7 @@ public :
 
 	void replaceAllInOpenedDocs();
 	void findAllIn(InWhat op);
-	void setSearchText(wchar_t * txt2find);
+	void setSearchText(const wchar_t * txt2find);
 
 	void gotoNextFoundResult(int direction = 0) const {
 		if (_pFinder) _pFinder->gotoNextFoundResult(direction);

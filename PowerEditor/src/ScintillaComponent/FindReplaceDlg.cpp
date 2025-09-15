@@ -1579,8 +1579,8 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 			HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
 
-			::SendMessage(hFindCombo, CB_LIMITTEXT, FINDREPLACE_MAXLENGTH - 1, 0);
-			::SendMessage(hReplaceCombo, CB_LIMITTEXT, FINDREPLACE_MAXLENGTH - 1, 0);
+			::SendMessage(hFindCombo, CB_LIMITTEXT, FINDREPLACE_MAXLENGTH * 2 - 1, 0);
+			::SendMessage(hReplaceCombo, CB_LIMITTEXT, FINDREPLACE_MAXLENGTH * 2 - 1, 0);
 
 			HWND hFiltersCombo = ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO);
 			HWND hDirCombo = ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO);
@@ -1971,11 +1971,37 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				{
 					if (HIWORD(wParam) == CBN_EDITUPDATE)
 					{
-						HWND hComboBox = ::GetDlgItem(_hSelf, LOWORD(wParam));	
-						LRESULT length = ::GetWindowTextLength(hComboBox);
+						HWND hComboBox = ::GetDlgItem(_hSelf, LOWORD(wParam));
+						HWND hEdit = GetWindow(hComboBox, GW_CHILD);
+						if (!hEdit)
+							return FALSE;
 
+						static int maxLength = (int)SendMessage(hEdit, EM_GETLIMITTEXT, 0, 0);
+						LRESULT length = ::GetWindowTextLength(hEdit);
 
-						if (length > FINDREPLACE_MAXLENGTH - 1)
+						if (length >= maxLength) // should be (FINDREPLACE_MAXLENGTH * 2 - 1)
+						{
+							if (!_maxLenOnSearchTip.isValid()) // Create the tooltip and add the tool ONLY ONCE
+							{
+								NativeLangSpeaker* pNativeSpeaker = nppParamInst.getNativeLangSpeaker();
+								wstring tip = pNativeSpeaker->getLocalizedStrFromID("len-limit-exceeded-tip", L"Length limit exceeded: Only $INT_REPLACE$ characters are allowed for the find/replace text length - your input could be truncated, and it won't be saved for the next session.");
+								tip = stringReplace(tip, L"$INT_REPLACE$", std::to_wstring(FINDREPLACE_MAXLENGTH - 1));
+
+								static wstring maxLenOnSearchTip = tip;
+
+								bool isSuccessful = _maxLenOnSearchTip.init(_hInst, hComboBox, _hSelf, maxLenOnSearchTip.c_str(), _isRTL, 0, 170);
+
+								if (!isSuccessful)
+								{
+									return FALSE;
+								}
+
+								NppDarkMode::setDarkTooltips(_maxLenOnSearchTip.getTipHandle(), NppDarkMode::ToolTipsType::tooltip);
+							}
+							_maxLenOnSearchTip.show(ControlInfoTip::showPosition::beginning);
+							
+						}
+						else if (length > FINDREPLACE_MAXLENGTH - 1)
 						{
 							if (!_maxLenOnSearchTip.isValid()) // Create the tooltip and add the tool ONLY ONCE
 							{
@@ -4044,7 +4070,7 @@ int FindReplaceDlg::regexBackwardMsgBox()
 	return msgboxID;
 }
 
-void FindReplaceDlg::setSearchText(wchar_t * txt2find)
+void FindReplaceDlg::setSearchText(const wchar_t * txt2find)
 {
 	HWND hCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 	if (txt2find && txt2find[0])
@@ -5381,17 +5407,11 @@ bool FindReplaceDlg::setSearchTextWithSettings()
 	if (nppGui._fillFindFieldWithSelected)
 	{
 		Sci_Position selStrCharNum = 0;
-		size_t selStrNeededByte = (*_ppEditView)->getGenericSelectedText2(nullptr, selStrCharNum, nppGui._fillFindFieldSelectCaret);
+		const wchar_t* selStr = (*_ppEditView)->getSelectedTextAndCharNum(selStrCharNum, nppGui._fillFindFieldSelectCaret);
 
-		if (selStrNeededByte && selStrCharNum <= nppGui._fillFindWhatThreshold)
+		if (selStr && selStrCharNum <= nppGui._fillFindWhatThreshold)
 		{
-			Sci_Position selStrByteLen = selStrNeededByte + 1;
-			auto str = std::make_unique<wchar_t[]>(selStrByteLen);
-			std::fill_n(str.get(), selStrByteLen, L'\0');
-
-			(*_ppEditView)->getGenericSelectedText2(str.get(), selStrByteLen, nppGui._fillFindFieldSelectCaret);
-			setSearchText(str.get());
-
+			setSearchText(selStr);
 			return true;
 		}
 	}

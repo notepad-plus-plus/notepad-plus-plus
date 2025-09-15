@@ -2810,17 +2810,19 @@ char * ScintillaEditView::getSelectedText(char * txt, size_t size, bool expand)
 {
 	if (!size)
 		return NULL;
+
 	Sci_CharacterRangeFull range = getSelection();
 	if (range.cpMax == range.cpMin && expand)
 	{
 		expandWordSelection();
 		range = getSelection();
 	}
+
 	if (!(static_cast<Sci_Position>(size) > (range.cpMax - range.cpMin)))	//there must be atleast 1 byte left for zero terminator
 	{
 		range.cpMax = range.cpMin + size -1;	//keep room for zero terminator
 	}
-	//getText(txt, range.cpMin, range.cpMax);
+
 	return getWordFromRange(txt, size, range.cpMin, range.cpMax);
 }
 
@@ -2837,7 +2839,9 @@ wchar_t * ScintillaEditView::getGenericSelectedText(wchar_t * txt, int size, boo
 	return txt;
 }
 
-size_t ScintillaEditView::getGenericSelectedText2(wchar_t * txt, Sci_Position& size, bool expand)
+// get the selected text & selected text character number (not the multi-chars lenghth for the allocation).
+// This function returns the pointer of wide char string (wchar_t *) that we don't need to and should not deallocate.  
+const wchar_t * ScintillaEditView::getSelectedTextAndCharNum(Sci_Position& selCharNumber, bool expand)
 {
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	size_t cp = execute(SCI_GETCODEPAGE);
@@ -2850,23 +2854,22 @@ size_t ScintillaEditView::getGenericSelectedText2(wchar_t * txt, Sci_Position& s
 		range = getSelection();
 	}
 
-	if (!txt)
-	{
-		// return the selected string's character number
-		size = execute(SCI_COUNTCHARACTERS, range.cpMin, range.cpMax);
+	// return the selected string's character number
+	selCharNumber = execute(SCI_COUNTCHARACTERS, range.cpMin, range.cpMax);
 
-		// then return the selected string's total bytes (without counting the last NULL char) 
-		return execute(SCI_GETSELTEXT, 0, NULL);
-	}
+	if (!selCharNumber)
+		return nullptr;
 
-	txtA = new char[size + 1];
+	// then get the selected string's total bytes (without counting the last NULL char) 
+	auto neededByte = execute(SCI_GETSELTEXT, 0, NULL);
+
+	txtA = new char[neededByte + 1];
 	execute(SCI_GETSELTEXT, 0, reinterpret_cast<LPARAM>(txtA));
 
 	const wchar_t * txtW = wmc.char2wchar(txtA, cp);
-	wcscpy_s(txt, size, txtW);
 	delete [] txtA;
 
-	return lstrlen(txt);
+	return txtW;
 }
 
 intptr_t ScintillaEditView::searchInTarget(const wchar_t * text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const

@@ -41,6 +41,7 @@ Translation note:
 					<Item subMenuId="edit-onSelection" name="För markerad te&amp;xt"/>
 					<Item subMenuId="edit-multiSelectALL" name="Multimarkera ALLA"/>
 					<Item subMenuId="edit-multiSelectNext" name="Multimarkera nästkommande"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Skrivskyddad i Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="Förändringshistorik"/>
 					<Item subMenuId="search-markAll" name="Sti&amp;lsätt alla förekomster"/>
 					<Item subMenuId="search-markOne" name="S&amp;tilsätt en förekomst"/>
@@ -196,7 +197,9 @@ Translation note:
 					<Item id="42025" name="&amp;Spara inspelat makro..."/>
 					<Item id="42026" name="Textriktning, höger till vänster"/>
 					<Item id="42027" name="Textriktning, vänster till höger"/>
-					<Item id="42028" name="Aktivera skrivsk&amp;ydd"/>
+					<Item id="42028" name="Aktivera skrivskydd för aktuellt dokument"/>
+					<Item id="42102" name="Aktivera skrivskydd för alla dokument"/>
+					<Item id="42103" name="Inaktivera skrivskydd för alla dokument"/>
 					<Item id="42029" name="Kopiera aktuell sökväg"/>
 					<Item id="42030" name="Kopiera aktuellt filnamn"/>
 					<Item id="42031" name="Kopiera aktuell mappsökväg"/>
@@ -416,6 +419,8 @@ Translation note:
 					<Item id="11007" name="Typ, Ö till A"/>
 					<Item id="11008" name="Innehållets längd, stigande"/>
 					<Item id="11009" name="Innehållets längd, fallande"/>
+					<Item id="11010" name="Ändrat klockslag, stigande"/>
+					<Item id="11011" name="Ändrat klockslag, fallande"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -1214,6 +1219,7 @@ Translation note:
 					<Item id="6909" name="Markera ord under textmarkören när ingenting är markerat"/>
 					<Item id="6910" name="Minimal storlek för att markera &quot;I markering&quot; automatiskt"/>
 					<Item id="6913" name="Fyll mappfältet i &quot;Sök i filer&quot; med aktivt dokument"/>
+					<Item id="6916" name=": Max antal tecken för att automatiskt fylla i sökfältet med markerad text"/>
 				</Searching>
 
 				<RecentFilesHistory title="Senast öppnade filer">
@@ -1579,6 +1585,8 @@ Var god testa dessa kommandon och redigera dem vid behov.
 Annars kan du nedgradera till Notepad++ v8.5.2 och återställa din föregående data.
 Notepad++ kommer att säkerhetskopiera din gamla &quot;shortcuts.xml&quot; och spara den som &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Byt namn på &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; så bör dina kommandon återställas och fungera ordentligt."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<FullReadOnlySavingForbidden title="Misslyckades att spara" message="Kan inte spara filen.
+Det fullständiga skrivskyddet i Notepad++ förbjuder sparning och förhindrade filen från att sparas."/>
 			<NotEnoughRoom4Saving title="Misslyckades att spara" message="Misslyckades att spara filen.
 Det verkar inte finnas tillräckligt mycket diskutrymme för att spara filen. Din fil sparades inte."/>
 			<FileInaccessibleUserSession title="Filen är otillgänglig" message="Vissa filer från din manuellt sparade session &quot;$STR_REPLACE$&quot; är otillgängliga. De kan öppnas som platshållare i form av tomma och skrivskyddade dokument.
@@ -1618,6 +1626,7 @@ Kontrollera sökvillkoren innan du utför åtgärden."/> <!-- HowToReproduce: ht
 			<ColumnPath name="Sökväg"/>
 			<ColumnType name="Typ"/>
 			<ColumnSize name="Storlek"/>
+			<ColumnDateTime name="Ändrat klockslag"/>
 			<NbDocsTotal name="total antal dokument:"/>
 			<MenuCopyName name="Kopiera namn"/>
 			<MenuCopyPath name="Kopiera sökväg(ar)"/>
@@ -1865,7 +1874,8 @@ Klicka på knappen &quot;?&quot; till höger för att öppna webbplatsen med anv
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Gå till stilkonfigureringen för att ändra den anpassade standardfärgen för utvalda blanksteg och icke utskrivbara tecken (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Tillämpa utseendeinställningar för icke utskrivbara tecken på C0- och C1-kontrolltecken samt Unicode-radslutstecken (nästa rad, radavgränsare och paragrafavgränsare)."/>
-			<searchingInSelThresh-tip value="Antalet markerade tecken i redigeringsområdet för att automatiskt markera kryssrutan &quot;I markering&quot; i sökdialogen. Det maximala värdet är 1024. Ändra värdet till 0 för att inaktivera automatisk kontroll."/>
+			<searchingInSelThresh-tip value="Minimala antalet markerade tecken i redigeringsområdet för att automatiskt markera kryssrutan &quot;I markering&quot; i sökdialogen. Det maximala värdet är $INT_REPLACE$. Ändra värdet till 0 för att inaktivera automatisk kontroll."/>
+			<searchingFillFindWhat-tip value="Maximala antalet markerade tecken i redigeringsområdet för att automatiskt fylla i fältet &quot;Sök efter&quot; när Ctrl+F trycks. Det maximala värdet är $INT_REPLACE$, som är den maximala storleken för fältet &quot;Sök efter&quot; vilket begränsas av systemet."/>
 			<verticalEdge-tip value="Lägg till din kolumnmarkör genom att ange dess position med ett decimaltal. Separera talen med blanksteg för att ange flera kolumnmarkörer."/>
 			<fileSaveAsCopySaveButton-tip value="Håll ned Shift och klicka på sparaknappen för att öppna kopian efteråt."/>
 			<autoIndentBasic-tip value="Ser till att indraget för aktuell rad (d.v.s. radbrytningen som skapas med ENTER-tangenten) stämmer överens med indraget från den föregående raden."/>
@@ -1889,9 +1899,10 @@ Om du väljer avancerat läge men inte redigerar filer i de omfattande språken 
 			<statusbar-Sel value="Mrk: "/>
 			<statusbar-Sel-number value="Mrk"/>
 			<toolbar-accent-tip value="Detta alternativ får ikonerna i ditt verktygsfält att följa systemets accentfärg i Windows. Accentfärgen är den färgmarkering som används för knappar, kantlinjer och startmenyns paneler i Windows. Gå till Inställningar &gt; Anpassning &gt; Färger och välj sedan en önskad accentfärg."/>
-			<max-len-on-search-tip value="Endast textlängder på $INT_REPLACE$ tecken tillåts för Sök/Ersätt. Din inmatning kanske trunkeras och kommer inte att sparas till nästa session."/>
+			<len-limit-exceeded-tip value="Överskriden längdgräns: Din inmatning kanske överskrider den tillåtna gränsen och kan ha trunkerats. Den kommer inte att sparas till nästa session."/>
+			<max-len-on-search-tip value="Din inmatning kanske överskrider den tillåtna gränsen och kan ha trunkerats. Den kommer inte att sparas till nästa session."/>
+			<max-len-on-save-tip value="Din inmatning är riktigt lång och kanske inte kommer att sparas till nästa session."/>
 			<goto-setting-tip value="Hitta din inställning här"/>
-			<max-len-on-save-tip value="Denna sökinmatning (> $INT_REPLACE$ tecken) kommer inte att sparas till nästa session."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

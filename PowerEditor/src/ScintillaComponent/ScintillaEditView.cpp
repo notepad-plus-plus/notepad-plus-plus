@@ -2793,20 +2793,8 @@ char * ScintillaEditView::getWordOnCaretPos(char * txt, size_t size)
     return getWordFromRange(txt, size, range.first, range.second);
 }
 
-wchar_t * ScintillaEditView::getGenericWordOnCaretPos(wchar_t * txt, int size)
-{
-	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-	size_t cp = execute(SCI_GETCODEPAGE);
-	char *txtA = new char[size + 1];
-	getWordOnCaretPos(txtA, size);
 
-	const wchar_t * txtW = wmc.char2wchar(txtA, cp);
-	wcscpy_s(txt, size, txtW);
-	delete [] txtA;
-	return txt;
-}
-
-char * ScintillaEditView::getSelectedText(char * txt, size_t size, bool expand)
+char * ScintillaEditView::getSelectedTextToMultiChar(char * txt, size_t size, bool expand)
 {
 	if (!size)
 		return NULL;
@@ -2826,22 +2814,9 @@ char * ScintillaEditView::getSelectedText(char * txt, size_t size, bool expand)
 	return getWordFromRange(txt, size, range.cpMin, range.cpMax);
 }
 
-wchar_t * ScintillaEditView::getGenericSelectedText(wchar_t * txt, int size, bool expand)
-{
-	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-	size_t cp = execute(SCI_GETCODEPAGE);
-	char *txtA = new char[size + 1];
-	getSelectedText(txtA, size, expand);
-
-	const wchar_t * txtW = wmc.char2wchar(txtA, cp);
-	wcscpy_s(txt, size, txtW);
-	delete [] txtA;
-	return txt;
-}
-
-// get the selected text & selected text character number (not the multi-chars lenghth for the allocation).
+// get the selected text & selected text character number (not the multi-chars lenghth for the allocation, if selCharNumber is not nul).
 // This function returns the pointer of wide char string (wchar_t *) that we don't need to and should not deallocate.  
-const wchar_t * ScintillaEditView::getSelectedTextAndCharNum(Sci_Position& selCharNumber, bool expand)
+const wchar_t * ScintillaEditView::getSelectedTextToWChar(bool expand, Sci_Position* selCharNumber)
 {
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	size_t cp = execute(SCI_GETCODEPAGE);
@@ -2854,10 +2829,13 @@ const wchar_t * ScintillaEditView::getSelectedTextAndCharNum(Sci_Position& selCh
 		range = getSelection();
 	}
 
-	// return the selected string's character number
-	selCharNumber = execute(SCI_COUNTCHARACTERS, range.cpMin, range.cpMax);
+	auto selNum = execute(SCI_COUNTCHARACTERS, range.cpMin, range.cpMax);
 
-	if (!selCharNumber)
+	// return the selected string's character number
+	if (selCharNumber)
+		*selCharNumber = selNum;
+
+	if (selNum == 0)
 		return nullptr;
 
 	// then get the selected string's total bytes (without counting the last NULL char) 

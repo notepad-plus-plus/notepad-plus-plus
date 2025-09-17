@@ -420,7 +420,7 @@ public :
 	DIALOG_TYPE getCurrentStatus() {return _currentStatus;};
 	Finder* getFinderFrom(HWND hwnd);
 	int regexBackwardMsgBox();
-	bool setSearchTextWithSettings();
+	const wchar_t* setSearchTextWithSettings();
 
 protected :
 	void resizeDialogElements();

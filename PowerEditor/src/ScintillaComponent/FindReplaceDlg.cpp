@@ -5401,21 +5401,24 @@ bool FindReplaceDlg::replaceInOpenDocsConfirmCheck()
 	return confirmed;
 }
 
-bool FindReplaceDlg::setSearchTextWithSettings()
+// return NULL if nothing to set in find field.
+// Otherwise return string pointer (wchar_t *) in which the selected text was copied.
+// Note that the string pointer don't need to and should not be deallocated.
+const wchar_t* FindReplaceDlg::setSearchTextWithSettings()
 {
 	const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 	if (nppGui._fillFindFieldWithSelected)
 	{
 		Sci_Position selStrCharNum = 0;
-		const wchar_t* selStr = (*_ppEditView)->getSelectedTextAndCharNum(selStrCharNum, nppGui._fillFindFieldSelectCaret);
+		const wchar_t* selStr = (*_ppEditView)->getSelectedTextToWChar(nppGui._fillFindFieldSelectCaret, &selStrCharNum);
 
 		if (selStr && selStrCharNum <= nppGui._fillFindWhatThreshold)
 		{
 			setSearchText(selStr);
-			return true;
+			return selStr;
 		}
 	}
-	return false;
+	return nullptr;
 }
 
 wstring Finder::getHitsString(int count) const
@@ -6327,12 +6330,11 @@ void FindIncrementDlg::markSelectedTextInc(bool enable, FindOption *opt)
 	if (range.cpMin == range.cpMax)
 		return;
 
-	const int strSize = FINDREPLACE_MAXLENGTH;
-	auto text2Find = std::make_unique<wchar_t[]>(strSize);
-	std::fill_n(text2Find.get(), strSize, L'\0');
+	auto text2Find = (*(_pFRDlg->_ppEditView))->getSelectedTextToWChar(false);	//do not expand selection (false)
+	if (!text2Find)
+		return;
 
-	(*(_pFRDlg->_ppEditView))->getGenericSelectedText(text2Find.get(), FINDREPLACE_MAXLENGTH, false);	//do not expand selection (false)
-	opt->_str2Search = text2Find.get();
+	opt->_str2Search = text2Find;
 	_pFRDlg->markAllInc(opt);
 }
 

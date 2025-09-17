@@ -439,7 +439,7 @@ void Notepad_plus::command(int id)
 			auto pBinText = std::make_unique<char[]>(strSize);
 			std::fill_n(pBinText.get(), strSize, '\0');
 
-			_pEditView->getSelectedText(pBinText.get(), textLen + 1);
+			_pEditView->getSelectedTextToMultiChar(pBinText.get(), textLen + 1);
 
 			// Open the clipboard and empty it.
 			if (!::OpenClipboard(NULL))
@@ -1382,10 +1382,6 @@ void Notepad_plus::command(int id)
 
 		case IDM_SEARCH_FINDINCREMENT :
 		{
-			const int strSize = FINDREPLACE_MAXLENGTH;
-			auto str = std::make_unique<wchar_t[]>(strSize);
-			std::fill_n(str.get(), strSize, L'\0');
-
 			static bool isFirstTime = true;
 			if (isFirstTime)
 			{
@@ -1393,9 +1389,9 @@ void Notepad_plus::command(int id)
 				isFirstTime = false;
 			}
 
-			_pEditView->getGenericSelectedText(str.get(), strSize, false);
-			if (0 != str[0])         // the selected text is not empty, then use it
-				_incrementFindDlg.setSearchText(str.get(), _pEditView->getCurrentBuffer()->getUnicodeMode() != uni8Bit);
+			auto str = _pEditView->getSelectedTextToWChar(false);
+			if (str)         // the selected text is not empty, then use it
+				_incrementFindDlg.setSearchText(str, _pEditView->getCurrentBuffer()->getUnicodeMode() != uni8Bit);
 
 			_incrementFindDlg.display();
 		}
@@ -1443,13 +1439,10 @@ void Notepad_plus::command(int id)
 			if (isFirstTime)
 				_findReplaceDlg.doDialog(FIND_DLG, _nativeLangSpeaker.isRTL(), false);
 
-			const int strSize = FINDREPLACE_MAXLENGTH;
-			auto str = std::make_unique<wchar_t[]>(strSize);
-			std::fill_n(str.get(), strSize, L'\0');
+			const wchar_t* str = _findReplaceDlg.setSearchTextWithSettings();
+			if (str)
+				_findReplaceDlg._env->_str2Search = str;
 
-			_pEditView->getGenericSelectedText(str.get(), strSize);
-			_findReplaceDlg.setSearchText(str.get());
-			_findReplaceDlg._env->_str2Search = str.get();
 			setFindReplaceFolderFilter(NULL, NULL);
 			if (isFirstTime)
 				_nativeLangSpeaker.changeFindReplaceDlgLang(_findReplaceDlg);
@@ -1459,7 +1452,7 @@ void Notepad_plus::command(int id)
 			op._whichDirection = (id == IDM_SEARCH_SETANDFINDNEXT?DIR_DOWN:DIR_UP);
 
 			FindStatus status = FSNoMessage;
-			_findReplaceDlg.processFindNext(str.get(), &op, &status);
+			_findReplaceDlg.processFindNext(str, &op, &status);
 			if (status == FSEndReached)
 			{
 				wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-end-reached", FIND_STATUS_END_REACHED_TEXT);
@@ -1498,10 +1491,8 @@ void Notepad_plus::command(int id)
 		case IDM_SEARCH_VOLATILE_FINDNEXT :
 		case IDM_SEARCH_VOLATILE_FINDPREV :
 		{
-			const int strSize = FINDREPLACE_MAXLENGTH;
-			auto str = std::make_unique<wchar_t[]>(strSize);
-			std::fill_n(str.get(), strSize, L'\0');
-			_pEditView->getGenericSelectedText(str.get(), strSize);
+			auto str = _pEditView->getSelectedTextToWChar();
+			if (!str) return;
 
 			FindOption op;
 			op._isMatchCase = false;
@@ -1511,7 +1502,7 @@ void Notepad_plus::command(int id)
 			op._whichDirection = (id == IDM_SEARCH_VOLATILE_FINDNEXT ? DIR_DOWN : DIR_UP);
 
 			FindStatus status = FSNoMessage;
-			_findReplaceDlg.processFindNext(str.get(), &op, &status);
+			_findReplaceDlg.processFindNext(str, &op, &status);
 			if (status == FSEndReached)
 			{
 				wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-end-reached", FIND_STATUS_END_REACHED_TEXT);
@@ -1543,26 +1534,11 @@ void Notepad_plus::command(int id)
 			else // (id == IDM_SEARCH_MARKALLEXT5)
 				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT5;
 
-			const int strSize = FINDREPLACE_MAXLENGTH;
-			auto selectedText = std::make_unique<wchar_t[]>(strSize);
-			std::fill_n(selectedText.get(), strSize, L'\0');
+			auto selectedText = _pEditView->getSelectedTextToWChar(true);
 
-			auto wordOnCaret = std::make_unique<wchar_t[]>(strSize);
-			std::fill_n(wordOnCaret.get(), strSize, L'\0');
-
-			_pEditView->getGenericSelectedText(selectedText.get(), strSize, false);
-			_pEditView->getGenericWordOnCaretPos(wordOnCaret.get(), strSize);
-
-			if (selectedText[0] == '\0')
+			if (selectedText)
 			{
-				if (lstrlen(wordOnCaret.get()) > 0)
-				{
-					_findReplaceDlg.markAll(wordOnCaret.get(), styleID);
-				}
-			}
-			else
-			{
-				_findReplaceDlg.markAll(selectedText.get(), styleID);
+				_findReplaceDlg.markAll(selectedText, styleID);
 			}
 		}
 		break;
@@ -3489,20 +3465,16 @@ void Notepad_plus::command(int id)
         case IDM_ABOUT:
 		{
 			bool doAboutDlg = false;
-			const int maxSelLen = 64;
 			auto textLen = _pEditView->execute(SCI_GETSELTEXT, 0, 0);
 			if (textLen <= 0)
-				doAboutDlg = true;
-			if (textLen > maxSelLen)
 				doAboutDlg = true;
 
 			if (!doAboutDlg)
 			{
-				char author[maxSelLen+1] = "";
-				_pEditView->getSelectedText(author, maxSelLen + 1);
-				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-				const wchar_t * authorW = wmc.char2wchar(author, _nativeLangSpeaker.getLangEncoding());
-				int iQuote = getQuoteIndexFrom(authorW);
+				int iQuote = -1;
+				auto authorW = _pEditView->getSelectedTextToWChar();
+				if (authorW)
+					iQuote = getQuoteIndexFrom(authorW);
 
 				if (iQuote == -1)
 				{

@@ -1984,8 +1984,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							if (!_maxLenOnSearchTip.isValid()) // Create the tooltip and add the tool ONLY ONCE
 							{
 								NativeLangSpeaker* pNativeSpeaker = nppParamInst.getNativeLangSpeaker();
-								wstring tip = pNativeSpeaker->getLocalizedStrFromID("len-limit-exceeded-tip", L"Length limit exceeded: Only $INT_REPLACE$ characters are allowed for the find/replace text length - your input could be truncated, and it won't be saved for the next session.");
-								tip = stringReplace(tip, L"$INT_REPLACE$", std::to_wstring(FINDREPLACE_MAXLENGTH - 1));
+								wstring tip = pNativeSpeaker->getLocalizedStrFromID("len-limit-exceeded-tip", L"Length limit exceeded: Your input may exceed the limit allowed and could have been truncated, and it won't be saved for the next session.");
 
 								static wstring maxLenOnSearchTip = tip;
 
@@ -2006,8 +2005,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							if (!_maxLenOnSearchTip.isValid()) // Create the tooltip and add the tool ONLY ONCE
 							{
 								NativeLangSpeaker* pNativeSpeaker = nppParamInst.getNativeLangSpeaker();
-								wstring tip = pNativeSpeaker->getLocalizedStrFromID("max-len-on-search-tip", L"Only $INT_REPLACE$ characters are allowed for the find/replace text length - your input could be truncated, and it won't be saved for the next session.");
-								tip = stringReplace(tip, L"$INT_REPLACE$", std::to_wstring(FINDREPLACE_MAXLENGTH - 1));
+								wstring tip = pNativeSpeaker->getLocalizedStrFromID("max-len-on-search-tip", L"Your input may exceed the limit allowed and could have been truncated, and it won't be saved for the next session.");
 
 								static wstring maxLenOnSearchTip = tip;
 
@@ -2027,8 +2025,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							if (!_maxLenOnSearchTip.isValid()) // Create the tooltip and add the tool ONLY ONCE
 							{
 								NativeLangSpeaker* pNativeSpeaker = nppParamInst.getNativeLangSpeaker();
-								wstring tip = pNativeSpeaker->getLocalizedStrFromID("max-len-on-save-tip", L"This search input (> $INT_REPLACE$ characters) won't be saved for the next session");
-								tip = stringReplace(tip, L"$INT_REPLACE$", std::to_wstring(FINDREPLACE_MAXLENGTH2SAVE - 1));
+								wstring tip = pNativeSpeaker->getLocalizedStrFromID("max-len-on-save-tip", L"The length of your input is very long and may not be saved for your next session.");
 
 								static wstring maxLenOnSaveTip = tip;
 

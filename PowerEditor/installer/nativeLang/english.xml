@@ -1891,8 +1891,9 @@ If you select advanced mode but do not edit files in the aforementioned language
 			<statusbar-Sel value="Sel: "/>
 			<statusbar-Sel-number value="Sel"/>
 			<toolbar-accent-tip value="This option makes your toolbar icons follow Windows system accent color. Accent color is the highlight color used in buttons, borders, and Start menu tiles in Windows. To change it, go to Settings &gt; Personalization &gt; Colors, then select your preferred accent color."/>
-			<max-len-on-search-tip value="Only $INT_REPLACE$ characters are allowed for the find/replace text length - your input could be truncated, and it won't be saved for the next session."/>
-			<max-len-on-save-tip value="This search input (> $INT_REPLACE$ characters) won't be saved for the next session."/>
+			<len-limit-exceeded-tip value="Length limit exceeded: Your input may exceed the limit allowed and could have been truncated, and it won't be saved for the next session."/>
+			<max-len-on-search-tip value="Your input may exceed the limit allowed and could have been truncated, and it won't be saved for the next session."/>
+			<max-len-on-save-tip value="The length of your input is very long and may not be saved for your next session."/>
 			<goto-setting-tip value="Find your setting here"/>
 		</MiscStrings>
 	</Native-Langue>

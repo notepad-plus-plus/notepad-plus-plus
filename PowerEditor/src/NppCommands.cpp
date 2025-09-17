@@ -1440,8 +1440,9 @@ void Notepad_plus::command(int id)
 				_findReplaceDlg.doDialog(FIND_DLG, _nativeLangSpeaker.isRTL(), false);
 
 			const wchar_t* str = _findReplaceDlg.setSearchTextWithSettings();
-			if (str)
-				_findReplaceDlg._env->_str2Search = str;
+			if (!str) return;
+
+			_findReplaceDlg._env->_str2Search = str;
 
 			setFindReplaceFolderFilter(NULL, NULL);
 			if (isFirstTime)

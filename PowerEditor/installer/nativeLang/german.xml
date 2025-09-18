@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.1"><!-- Datum: 12.09.2025, basiert auf english.xml 8.8.1 vom 10.09.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.1"><!-- Datum: 18.09.2025, basiert auf english.xml 8.8.1 vom 18.09.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1900,8 +1900,9 @@ Wenn diese 'Intelligente Einrückung' gewählt wird, aber keine Dateien in den o
 			<statusbar-Sel value="Gew: "/>
 			<statusbar-Sel-number value="Gew"/>
 			<toolbar-accent-tip value="Mit dieser Option werden die Symbolleistensymbole der Akzentfarbe des Windows-Systems angepasst. Die Akzentfarbe ist die Farbe, mit der Schaltflächen, Rahmen und Startmenükacheln in Windows hervorgehoben werden. Um sie zu ändern, gehen Sie zu Einstellungen &gt; Personalisierung &gt; Farben und wählen Sie dann Ihre bevorzugte Akzentfarbe."/>
-			<max-len-on-search-tip value="Es sind nur $INT_REPLACE$ Zeichen erlaubt für die Suchen/Ersetzen-Textlänge - deine Eingabe könnte gekürzt werden und wird für die nächste Sitzung nicht gespeichert."/>
-			<max-len-on-save-tip value="Diese Sucheingabe (> $INT_REPLACE$ Zeichen) wird für die nächste Sitzung nicht gespeichert."/>
+			<len-limit-exceeded-tip value="Zeichen-Limit überschritten: Ihre Eingabe überschreitet ev. die zulässige Grenze und wurde möglicherweise gekürzt, und wird auch für die nächste Sitzung nicht gespeichert."/>
+			<max-len-on-search-tip value="Ihre Eingabe überschreitet ev. die zulässige Grenze und wurde möglicherweise gekürzt, und wird auch für die nächste Sitzung nicht gespeichert."/>
+			<max-len-on-save-tip value="Ihre Eingabe ist sehr lang und wird möglicherweise nicht für Ihre nächste Sitzung gespeichert."/>
 			<goto-setting-tip value="Finde hier deine Einstellungen"/>
 		</MiscStrings>
 	</Native-Langue>

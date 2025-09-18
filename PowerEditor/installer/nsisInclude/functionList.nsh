@@ -38,6 +38,11 @@ SectionGroup "Function List Files" functionListComponent
 		File ".\functionList\cs.xml"
 	${MementoSectionEnd}
 
+	${MementoSection} "CSS" CSS_FL
+		SetOutPath "$INSTDIR\functionList"
+		File ".\functionList\css.xml"
+	${MementoSectionEnd}
+
 	${MementoSection} "Assembly" Assembly_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\asm.xml"
@@ -281,6 +286,10 @@ SectionGroup un.functionListComponent
 
 	Section un.C#_FL
 		Delete "$INSTDIR\functionList\cs.xml"
+	SectionEnd
+
+	Section un.CSS_FL
+		Delete "$INSTDIR\functionList\css.xml"
 	SectionEnd
 
 	Section un.JavaScript_FL

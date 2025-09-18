@@ -1891,7 +1891,9 @@ Om du väljer avancerat läge men inte redigerar filer i de omfattande språken 
 			<statusbar-Sel value="Mrk: "/>
 			<statusbar-Sel-number value="Mrk"/>
 			<toolbar-accent-tip value="Detta alternativ får ikonerna i ditt verktygsfält att följa systemets accentfärg i Windows. Accentfärgen är den färgmarkering som används för knappar, kantlinjer och startmenyns paneler i Windows. Gå till Inställningar &gt; Anpassning &gt; Färger och välj sedan en önskad accentfärg."/>
-			<max-len-on-search-tip value="Endast textlängder på 2046 tecken tillåts för Sök/Ersätt och din inmatning kanske trunkeras."/>
+			<len-limit-exceeded-tip value="Överskriden längdgräns: Din inmatning kanske överskrider den tillåtna gränsen och kan ha trunkerats. Den kommer inte att sparas till nästa session."/>
+			<max-len-on-search-tip value="Din inmatning kanske överskrider den tillåtna gränsen och kan ha trunkerats. Den kommer inte att sparas till nästa session."/>
+			<max-len-on-save-tip value="Din inmatning är riktigt lång och kanske inte kommer att sparas till nästa session."/>
 			<goto-setting-tip value="Hitta din inställning här"/>
 		</MiscStrings>
 	</Native-Langue>

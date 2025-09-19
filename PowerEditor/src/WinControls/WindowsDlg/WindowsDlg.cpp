@@ -38,6 +38,7 @@ using namespace std;
 #define WD_CLMNPATH					"ColumnPath"
 #define WD_CLMNTYPE					"ColumnType"
 #define WD_CLMNSIZE					"ColumnSize"
+#define WD_CLMNDT                   "ColumnDateTime"
 #define WD_NBDOCSTOTAL				"NbDocsTotal"
 #define WD_MENUCOPYNAME				"MenuCopyName"
 #define WD_MENUCOPYPATH				"MenuCopyPath"
@@ -151,9 +152,17 @@ struct BufferEquivalent
 		return compare(i1, i2);
 	}
 
+	static inline unsigned long long to_u64(const FILETIME& ft)
+	{
+		ULARGE_INTEGER u;
+		u.LowPart = ft.dwLowDateTime;
+		u.HighPart = ft.dwHighDateTime;
+		return u.QuadPart; // 100-ns ticks since 1601 UTC
+	}
+
 	bool compare(int i1, int i2) const
 	{
-		if (_iColumn >= 0 && _iColumn <= 3)
+		if (_iColumn >= 0 && _iColumn <= 4)
 		{
 			BufferID bid1 = _pTab->getBufferByIndex(i1);
 			BufferID bid2 = _pTab->getBufferByIndex(i2);
@@ -205,6 +214,14 @@ struct BufferEquivalent
 
 				if (t1 != t2) // default to filepath sorting when equivalent
 					return (t1 < t2);
+			}
+			else if (_iColumn == 4)
+			{
+				const auto v1 = to_u64(b1->getLastModifiedTimestamp());
+				const auto v2 = to_u64(b2->getLastModifiedTimestamp());
+
+				if (v1 != v2)
+					return (v1 < v2); //_isAscending ? (v1 < v2) : (v1 > v2);
 			}
 
 			// _iColumn == 1
@@ -449,6 +466,29 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 							size_t docSize = buf->docLength();
 							string docSizeText = to_string(docSize);
 							text = wstring(docSizeText.begin(), docSizeText.end());
+						}
+						else if (pLvdi->item.iSubItem == 4) // Date/Time
+						{
+							FILETIME ft = buf->getLastModifiedTimestamp();
+
+							// handle unsaved or unknown timestamp
+							if (ft.dwLowDateTime == 0 && ft.dwHighDateTime == 0) {
+								text = L""; // or L"—"
+							}
+							else {
+								FILETIME localFt{};
+								SYSTEMTIME st{};
+								if (FileTimeToLocalFileTime(&ft, &localFt) && FileTimeToSystemTime(&localFt, &st)) {
+									wchar_t bufW[20]; // "YYYY-MM-DD HH:MM:SS" = 19 + NUL
+									swprintf(bufW, 20, L"%04u-%02u-%02u %02u:%02u:%02u",
+										st.wYear, st.wMonth, st.wDay,
+										st.wHour, st.wMinute, st.wSecond);
+									text = bufW;
+								}
+								else {
+									text = L"";
+								}
+							}
 						}
 
 						if (static_cast<int>(text.length()) < pLvdi->item.cchTextMax)
@@ -752,6 +792,11 @@ BOOL WindowsDlg::onInitDialog()
 	lvColumn.cx = 100;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 3, LPARAM(&lvColumn));
 
+	columnText = L"⇵ " + pNativeSpeaker->getAttrNameStr(L"Date/Time", WD_ROOTNODE, WD_CLMNDT);
+	lvColumn.pszText = const_cast<wchar_t*>(columnText.c_str());
+	lvColumn.cx = 120;
+	SendMessage(_hList, LVM_INSERTCOLUMN, 4, LPARAM(&lvColumn));
+
 	fitColumnsToSize();
 
 	if (_lastKnownLocation.bottom > 0 && _lastKnownLocation.right > 0)
@@ -845,6 +890,23 @@ void WindowsDlg::updateColumnNames()
 	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 3, 0));
 	SendMessage(_hList, LVM_SETCOLUMN, 3, LPARAM(&lvColumn));
+
+	// Date/Time
+	lvColumn.fmt = LVCFMT_LEFT;
+	columnText = pNativeSpeaker->getAttrNameStr(L"Date/Time", WD_ROOTNODE, WD_CLMNDT);
+	if (_currentColumn != 4) {
+		columnText = L"⇵ " + columnText;
+	}
+	else if (_reverseSort) {
+		columnText = L"△ " + columnText;
+	}
+	else {
+		columnText = L"▽ " + columnText;
+	}
+	lvColumn.pszText = const_cast<wchar_t*>(columnText.c_str());
+	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 4, 0));
+	SendMessage(_hList, LVM_SETCOLUMN, 4, LPARAM(&lvColumn));
+
 }
 
 void WindowsDlg::onSize(UINT nType, int cx, int cy)
@@ -923,6 +985,7 @@ void WindowsDlg::fitColumnsToSize()
 		len -= static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 0, 0));
 		len -= static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 2, 0));
 		len -= static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 3, 0));
+		len -= static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 4, 0));
 		len -= GetSystemMetrics(SM_CXVSCROLL);
 		len -= 1;
 		SendMessage(_hList, LVM_SETCOLUMNWIDTH, 1, len);
@@ -1162,6 +1225,16 @@ void WindowsDlg::sortFileSizeASC()
 void WindowsDlg::sortFileSizeDSC()
 {
 	sort(3, true);
+}
+
+void WindowsDlg::sortDateTimeASC()
+{
+	sort(4, false);
+}
+
+void WindowsDlg::sortDateTimeDSC()
+{
+	sort(4, true);
 }
 
 void WindowsDlg::refreshMap()

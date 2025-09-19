@@ -13,7 +13,7 @@ Additionnal information about Corsican localization:
 2. History of Corsican translation for Notepad++:
 
 	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8), Apr. 20th (v8.8),
-			  June 26th (v8.8.1+), July 24th (v8.8.3+)
+			  June 26th (v8.8.1+), July 24th (v8.8.3+), Sep. 30th (v8.8.5+)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
 			  June 13th (v8.6.9), Sept. 8th (v8.7), Oct. 21st (v8.7.1), Nov. 20th (v8.7.2), Nov. 29th (v8.7.3)
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
@@ -36,7 +36,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.8.3">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.8.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -72,6 +72,7 @@ Additionnal information about Corsican localization:
 					<Item subMenuId="edit-onSelection" name="Per &amp;a selezzione"/>
 					<Item subMenuId="edit-multiSelectALL" name="Selezzione multiple di tuttu"/>
 					<Item subMenuId="edit-multiSelectNext" name="Selezzione multiple di a prossima"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Lettura sola in Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="Cronolugia di i cambiamenti"/>
 					<Item subMenuId="search-markAll" name="Marcà &amp;tutte l’occurenze di testu"/>
 					<Item subMenuId="search-markOne" name="Stilizà una occu&amp;renza di testu"/>
@@ -227,7 +228,9 @@ Additionnal information about Corsican localization:
 					<Item id="42025" name="&amp;Arregistrà a prucedura arricurdata…"/>
 					<Item id="42026" name="Testu da diritta à manca"/>
 					<Item id="42027" name="Testu da manca à diritta"/>
-					<Item id="42028" name="Lettura sola in Notepad++"/>
+					<Item id="42028" name="Lettura sola per u ducumentu attuale"/>
+					<Item id="42102" name="Lettura sola per tutti i ducumenti"/>
+					<Item id="42103" name="Caccià a lettura sola per tutti i ducumenti"/>
 					<Item id="42029" name="Cupià u chjassu cumpletu di u schedariu attuale"/>
 					<Item id="42030" name="Cupià u nome di schedariu di u schedariu attuale"/>
 					<Item id="42031" name="Cupià u chjassu cumpletu di u cartulare attuale"/>
@@ -447,6 +450,8 @@ Additionnal information about Corsican localization:
 					<Item id="11007" name="Tipu da Z à A"/>
 					<Item id="11008" name="Lunghezza di cuntenutu crescente"/>
 					<Item id="11009" name="Lunghezza di cuntenutu discendente"/>
+					<Item id="11010" name="Ora di mudificazione d’anziana à recente"/>
+					<Item id="11011" name="Ora di mudificazione da recente à anziana"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -1242,7 +1247,8 @@ Additionnal information about Corsican localization:
 					<Item id="6908" name="Riempie u campu di ricerca cù u testu selezziunatu"/>
 					<Item id="6909" name="Selezziunà a parolla sottu à u cursore s’è nunda hè selezziunatu"/>
 					<Item id="6910" name="Dimensione minima per a verificazione autumatica di l’ozzione « In a selezzione »"/>
-					<Item id="6913" name="Riempie u campu Cartulare di a ricerca in schedarii secondu à u ducumentu attivu"/>
+					<Item id="6913" name="Riempie u campu Cartulare di « Circà in schedarii » cù u chjassu di u ducumentu attivu"/>
+					<Item id="6916" name=" : Numeru massimu di caratteri selezziunati à cupià in u campu di ricerca"/>
 				</Searching>
 
 				<RecentFilesHistory title="Schedarii recenti">
@@ -1612,6 +1618,8 @@ Ci vole à pruvà ste cumande è, s’ella hè bisognu, à mudificalle.
 Un altra pussibilità hè di rivene à a versione Notepad++ v8.5.2 è risturà i vostri dati anteriore.
 Notepad++ hà da fà una salvaguardia di u vostru « shortcuts.xml » è arregistrallu cù u nome « shortcuts.xml.v8.5.2.backup ».
 Rinuminendu « shortcuts.xml.v8.5.2.backup » in « shortcuts.xml », e vostre cumande duverianu funziunà currettamente."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<FullReadOnlySavingForbidden title="Fiascu di l’arregistramentu" message="Ùn si pò arregistrà u schedariu.
+U modu d’arregistramentu tutale in lettura sola di Notepad++ hà impeditu d’arregistrà u schedariu."/>
 			<NotEnoughRoom4Saving title="Fiascu di l’arregistramentu" message="Fiascu à l’arregistramentu di u schedariu.
 Pare ch’ella ùn ci sia abbastanza piazza nant’à u discu per arregistrà u schedariu. U vostru schedariu ùn hè micca arregistratu."/>
 			<FileInaccessibleUserSession title="Schedariu inaccessibile" message="Certi schedarii di a vostra sessione arregistrata manualmente « $STR_REPLACE$ » sò inaccessibile. Ponu esse aperti cum’è ducumenti vioti è in lettura sola tale spazii riservati.
@@ -1651,6 +1659,7 @@ Ci vole à verificà a cundizione di ricerca prima di fà l’azzione."/> <!-- H
 			<ColumnPath name="Chjassu"/>
 			<ColumnType name="Tipu"/>
 			<ColumnSize name="Dimensione"/>
+			<ColumnDateTime name="Ora di mudificazione"/>
 			<NbDocsTotal name="numeru di ducumenti :"/>
 			<MenuCopyName name="Cupià u(i) nome(i)"/>
 			<MenuCopyPath name="Cupià u(i) nome(i) di chjassu"/>
@@ -1890,7 +1899,8 @@ Impiegà u buttone « ? » à diritta per apre u manuale di l’utilizatore na
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Accidite à u Cunfiguratore di stilu per persunalizà u culore predefinitu di i spazii bianchi selezziunati è di i caratteri nonstampevule (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Appiecate i parametri d’apparenza di caratteri nonstampevule à i caratteri di cuntrollu C0, C1 è quelli di fine di linea Unicode (linea seguente, separadore di linea è separadore di paragrafu)."/>
-			<searchingInSelThresh-tip value="Numeru di caratteri selezziunati in l’area di mudificazione per cuntrollà autumaticamente l’ozzione « In a selezzione » quandu u dialogu di ricerca hè attivatu. U valore massimu hè 1024. Definite u valore à 0 per disattivà a verificazione autumatica."/>
+			<searchingInSelThresh-tip value="Numeru minimu di caratteri selezziunati in l’area di mudificazione per attivà autumaticamente l’ozzione « In a selezzione » quandu u dialogu di ricerca hè attivatu. U valore massimu hè $INT_REPLACE$. Definite u valore à 0 per disattivà a verificazione autumatica."/>
+			<searchingFillFindWhat-tip value="Numeru massimu di caratteri selezziunati in l’area di testu à impiegà per riempie autumaticamente u campu « Cosa à circà » quandu a funzione di ricerca Ctrl-F hè affissata. U valore massimu hè $INT_REPLACE$ chì hè a dimensione massima di u campu « Cosa à circà », limitata da u sistema."/>
 			<verticalEdge-tip value="Aghjunghjite u vostru marcatore di culonna indichendu a so pusizione cù un numeru interu. Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà ogni numeru."/>
 			<fileSaveAsCopySaveButton-tip value="Mantinite u tastu Maius quandu s’appoghja nant’à u buttone Arregistà per apre a copia dopu à l’arregistramentu."/>
 			<autoIndentBasic-tip value="Assicurassi chì l’indentazione di a linea currente (i.e. a linea nova creata da u tastu ENTRÉE) currisponde à l’indentazione di a linea precedente."/>
@@ -1914,8 +1924,9 @@ S’è vo selezziunate u modu espertu ma ùn mudificate micca i schedarii in i l
 			<statusbar-Sel value="Sel : "/>
 			<statusbar-Sel-number value="Sel"/>
 			<toolbar-accent-tip value="St’ozzione permette à l’icone di a vostra barra d’attrezzi d’aduttà u culore d’accentuazione di u sistema Windows. U culore d’accentuazione hè u culore di messa in evidenza impiegatu da Windows per i buttoni, i bordi è e musaiche di u listinu « Démarrer ». Per mudificallu, accidite à Parametri &gt; Persunalizà &gt; Culori, eppò selezziunate u vostru culore d’accentuazione preferitu."/>
-			<max-len-on-search-tip value="Solu $INT_REPLACE$ caratteri sò permessi per a lunghezza di u testu di ricerca è di rimpiazzamentu - a vostra stampittera puderia esse truncata è ùn seria micca arregistrata per a prossima sessione."/>
-			<max-len-on-save-tip value="Sta stampittera di ricerca (> $INT_REPLACE$ caratteri) ùn serà micca arregistrata per a prossima sessione."/>
+			<len-limit-exceeded-tip value="Limitu di longhezza trapassatu : a vostra stampittera pò eccede u limitu permessu è pò esse stata truncata, dunque ùn serà micca arregistrata per a prossima sessione."/>
+			<max-len-on-search-tip value="A vostra stampittera pò eccede u limitu permessu è pò esse stata truncata, dunque ùn serà micca arregistrata per a prossima sessione."/>
+			<max-len-on-save-tip value="A longhezza di a vostra stampittera hè longa longa è puderia ùn esse arregistrata per a prossima sessione."/>
 			<goto-setting-tip value="Mudificà u parametru quì"/>
 		</MiscStrings>
 	</Native-Langue>

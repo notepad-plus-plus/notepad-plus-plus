@@ -868,6 +868,37 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			return TRUE;
 		}
 
+		case WM_RBUTTONUP:
+		{
+			NppParameters& nppParam = NppParameters::getInstance();
+			const NppGUI& nppGUI = nppParam.getNppGUI();
+
+			bool isVertical = nppGUI._tabStatus & TAB_VERTICAL;
+
+			int xPos = LOWORD(lParam);
+			int yPos = HIWORD(lParam);
+			int currentTabOn = getTabIndexAt(xPos, yPos);
+
+			if (currentTabOn != -1)
+			{
+				// call default handler (to trigger default tab pop-up menu)
+				return ::CallWindowProc(_tabBarDefaultProc, hwnd, Message, wParam, lParam);
+			}
+
+			POINT pt{};
+			GetCursorPos(&pt);
+
+			RECT rcLastTab{};
+			TabCtrl_GetItemRect(_hSelf, static_cast<int32_t>(TabCtrl_GetItemCount(_hSelf)) - 1, &rcLastTab);
+			ClientRectToScreenRect(_hSelf, &rcLastTab);
+
+			bool isDbClickOnTabStrip = isVertical ? (pt.x < rcLastTab.right) : (pt.y < rcLastTab.bottom);
+			if (isDbClickOnTabStrip)
+				::SendMessage(_hParent, NPPM_INTERNAL_NOTABZONEPOPUPMENU, 0, 0);
+
+			return TRUE;
+		}
+
 		case WM_MOUSEMOVE :
 		{
 			if (_mightBeDragging && !_isDragging)

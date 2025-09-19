@@ -3021,6 +3021,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_RBUTTONUP:
 		{
+			// no need to check for current view, always use _mainDocTab
+			::SendMessage(_mainDocTab.getHSelf(), WM_RBUTTONUP, wParam, lParam);
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_NOTABZONEPOPUPMENU:
+		{
 			// Create the additional non-tab-zone popup
 			if (!_noTabZonePopupMenu.isCreated())
 			{

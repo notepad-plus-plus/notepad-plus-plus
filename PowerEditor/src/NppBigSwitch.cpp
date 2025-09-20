@@ -1952,6 +1952,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return nppParam.getNppGUI()._tabStatus & TAB_REDUCE ? TRUE : FALSE;
 		}
 
+		case NPPM_INTERNAL_CHANGEGLOBALREADONLYNPPMODE:
+		{
+			changeReadOnlyUserModeForAllFiles(static_cast<bool>(wParam));
+			return TRUE;
+		}
+
 		// ADD: success->hwnd; failure->NULL
 		// REMOVE: success->NULL; failure->hwnd
 		case NPPM_MODELESSDIALOG:

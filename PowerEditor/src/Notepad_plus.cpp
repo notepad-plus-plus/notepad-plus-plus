@@ -2588,7 +2588,8 @@ void Notepad_plus::checkDocState()
 
 	bool isSysReadOnly = curBuf->getFileReadOnly();
 
-	bool doEnable = !(curBuf->isMonitoringOn() || isSysReadOnly);
+	bool doEnable = !(curBuf->isMonitoringOn() || isSysReadOnly ||
+		(NppParameters::getInstance().getNppGUI()._globalReadonlyNppMode == NppGUI::global_readonly_npp_mode_forensic));
 	enableCommand(IDM_EDIT_TOGGLEREADONLY, doEnable, MENU);
 
 	bool isUserReadOnly = curBuf->getUserReadOnly();
@@ -4720,6 +4721,9 @@ bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne)
 		if (tabToClose->nbItem() == 1)  //need alternative doc, add new one. Use special logic to prevent flicker of adding new tab then closing other
 		{
 			BufferID newID = MainFileManager.newEmptyDocument();
+			if (newID == BUFFER_INVALID)
+				return false;
+
 			MainFileManager.addBufferReference(newID, viewToClose);
 			tabToClose->setBuffer(0, newID);        //can safely use id 0, last (only) tab open
 			activateBuffer(newID, whichOne);        //activate. DocTab already activated but not a problem
@@ -6845,7 +6849,7 @@ std::vector<wstring> Notepad_plus::loadCommandlineParams(const wchar_t * command
 	intptr_t columnNumber = pCmdParams->_column2go;
 	intptr_t positionNumber = pCmdParams->_pos2go;
 	bool recursive = pCmdParams->_isRecursive;
-	bool readOnly = pCmdParams->_isReadOnly;
+	bool readOnly = (pCmdParams->_isReadOnly || pCmdParams->_isGlobalReadonlyNppModeToggleAllowed || pCmdParams->_isGlobalReadonlyNppModeForensic);
 	bool openFoldersAsWorkspace = pCmdParams->_openFoldersAsWorkspace;
 	bool monitorFiles = pCmdParams->_monitorFiles;
 
@@ -9217,4 +9221,37 @@ BOOL Notepad_plus::notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId, 
 		return TRUE;
 	}
 	return FALSE;
+}
+
+void Notepad_plus::changeReadOnlyUserModeForAllFiles(bool ro)
+{
+	if ((NppParameters::getInstance().getNppGUI()._globalReadonlyNppMode == NppGUI::global_readonly_npp_mode_forensic)
+		&& (ro != true))
+		return; // Forensic mode active, refuse to cease the R/O state
+
+	// make R/O changes in both views
+
+	for (size_t i = 0; i < _mainDocTab.nbItem(); ++i)
+	{
+		BufferID id = _mainDocTab.getBufferByIndex(i);
+		if (id == BUFFER_INVALID)
+			continue;
+		Buffer* buf = MainFileManager.getBufferByID(id);
+		if (buf == nullptr)
+			continue;
+
+		buf->setUserReadOnly(ro);
+	}
+
+	for (size_t i = 0; i < _subDocTab.nbItem(); ++i)
+	{
+		BufferID id = _subDocTab.getBufferByIndex(i);
+		if (id == BUFFER_INVALID)
+			continue;
+		Buffer* buf = MainFileManager.getBufferByID(id);
+		if (buf == nullptr)
+			continue;
+
+		buf->setUserReadOnly(ro);
+	}
 }

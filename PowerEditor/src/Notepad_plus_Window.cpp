@@ -92,6 +92,17 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 
 	nppGUI._isCmdlineNosessionActivated = cmdLineParams->_isNoSession;
 
+	nppGUI._isCmdlineGlobalReadonlyNppModeActivated = (cmdLineParams->_isGlobalReadonlyNppModeToggleAllowed || cmdLineParams->_isGlobalReadonlyNppModeForensic);
+	if (nppGUI._isCmdlineGlobalReadonlyNppModeActivated)
+	{
+		// override current Preferences setting
+		nppGUI._globalReadonlyNppModeCfgBackup = nppGUI._globalReadonlyNppMode; // for restoring at Notepad++ exit
+		if (cmdLineParams->_isGlobalReadonlyNppModeToggleAllowed)
+			nppGUI._globalReadonlyNppMode = NppGUI::global_readonly_npp_mode_toggle_allowed;
+		if (cmdLineParams->_isGlobalReadonlyNppModeForensic)
+			nppGUI._globalReadonlyNppMode = NppGUI::global_readonly_npp_mode_forensic; // can override also the above readonly_mode_toggle_allowed (if used both)
+	}
+
 	_hIconAbsent = ::LoadIcon(hInst, MAKEINTRESOURCE(IDI_ICONABSENT));
 
 	_hSelf = ::CreateWindowEx(

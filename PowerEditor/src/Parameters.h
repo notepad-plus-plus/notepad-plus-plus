@@ -269,6 +269,8 @@ struct CmdLineParams
 {
 	bool _isNoPlugin = false;
 	bool _isReadOnly = false;
+	bool _isGlobalReadonlyNppModeToggleAllowed = false;
+	bool _isGlobalReadonlyNppModeForensic = false;
 	bool _isNoSession = false;
 	bool _isNoTab = false;
 	bool _isPreLaunch = false;
@@ -312,6 +314,8 @@ struct CmdLineParams
 struct CmdLineParamsDTO
 {
 	bool _isReadOnly = false;
+	bool _isGlobalReadonlyNppModeToggleAllowed = false;
+	bool _isGlobalReadonlyNppModeForensic = false;
 	bool _isNoSession = false;
 	bool _isSessionFile = false;
 	bool _isRecursive = false;
@@ -330,6 +334,8 @@ struct CmdLineParamsDTO
 	{
 		CmdLineParamsDTO dto;
 		dto._isReadOnly = params._isReadOnly;
+		dto._isGlobalReadonlyNppModeToggleAllowed = params._isGlobalReadonlyNppModeToggleAllowed;
+		dto._isGlobalReadonlyNppModeForensic = params._isGlobalReadonlyNppModeForensic;
 		dto._isNoSession = params._isNoSession;
 		dto._isSessionFile = params._isSessionFile;
 		dto._isRecursive = params._isRecursive;
@@ -1009,6 +1015,11 @@ struct NppGUI final
 	DarkModeConf _darkmode;
 
 	LargeFileRestriction _largeFileRestriction;
+
+	enum GlobalReadonlyNppMode { global_readonly_npp_mode_disabled = 0, global_readonly_npp_mode_toggle_allowed, global_readonly_npp_mode_forensic };
+	GlobalReadonlyNppMode _globalReadonlyNppMode = global_readonly_npp_mode_disabled;
+	bool _isCmdlineGlobalReadonlyNppModeActivated = false; // used if -roGlobalToggleAllowed or -roGlobalForensic is indicated at the launch time
+	GlobalReadonlyNppMode _globalReadonlyNppModeCfgBackup = global_readonly_npp_mode_disabled; // to store original val when overriding cmdline -roGlobalToggleAllowed or -roGlobalForensic is used
 };
 
 

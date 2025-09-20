@@ -441,10 +441,10 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
     {
         _isFileOpening = true;
 
-        Buffer * buf = MainFileManager.getBufferByID(buffer);
+        Buffer* buf = MainFileManager.getBufferByID(buffer);
 
-        // if file is read only, we set the view read only
-        if (isReadOnly)
+        // if file is read only or a global Notepad++ R/O-mode is in use, we set the view read-only
+        if (isReadOnly || (nppParam.getNppGUI()._globalReadonlyNppMode != NppGUI::global_readonly_npp_mode_disabled))
             buf->setUserReadOnly(true);
 
         // Notify plugins that current file is about to open
@@ -673,7 +673,15 @@ bool Notepad_plus::doSave(BufferID id, const wchar_t * filename, bool isCopy)
 		_pluginsManager.notify(&scnN);
 	}
 
-	if (res == SavingStatus::NotEnoughRoom)
+	if (res == SavingStatus::GlobalReadOnlyForensicMode)
+	{
+		_nativeLangSpeaker.messageBox("GlobalReadOnlyForensicModeActive",
+			_pPublicInterface->getHSelf(),
+			L"Cannot save file.\n\nThe Notepad++ global forensic read-only mode prevented the file from being saved.",
+			L"Save failed",
+			MB_OK);
+	}
+	else if (res == SavingStatus::NotEnoughRoom)
 	{
 		_nativeLangSpeaker.messageBox("NotEnoughRoom4Saving",
 			_pPublicInterface->getHSelf(),
@@ -2365,10 +2373,12 @@ void Notepad_plus::fileOpen()
 
 void Notepad_plus::fileNew()
 {
-    BufferID newBufID = MainFileManager.newEmptyDocument();
-
-    loadBufferIntoView(newBufID, currentView(), true);	//true, because we want multiple new files if possible
-    switchToFile(newBufID);
+	BufferID newBufID = MainFileManager.newEmptyDocument();
+	if (newBufID != BUFFER_INVALID)
+	{
+		loadBufferIntoView(newBufID, currentView(), true); // true, because we want multiple new files if possible
+		switchToFile(newBufID);
+	}
 }
 
 
@@ -2555,7 +2565,9 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			if (session._mainViewFiles[i]._encoding != -1)
 				buf->setEncoding(session._mainViewFiles[i]._encoding);
 
-			buf->setUserReadOnly(session._mainViewFiles[i]._isUserReadOnly);
+			buf->setUserReadOnly(session._mainViewFiles[i]._isUserReadOnly ||
+				(NppParameters::getInstance().getNppGUI()._globalReadonlyNppMode != NppGUI::global_readonly_npp_mode_disabled));
+
 			buf->setPinned(session._mainViewFiles[i]._isPinned);
 
 			buf->setUntitledTabRenamedStatus(session._mainViewFiles[i]._isUntitledTabRenamed);

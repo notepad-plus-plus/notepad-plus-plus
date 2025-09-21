@@ -899,19 +899,21 @@ void WindowsDlg::updateColumnNames()
 	// Date/Time
 	lvColumn.fmt = LVCFMT_LEFT;
 	columnText = pNativeSpeaker->getAttrNameStr(L"Date/Time", WD_ROOTNODE, WD_CLMNDT);
-	if (_currentColumn != 4) {
+	if (_currentColumn != 4) 
+	{
 		columnText = L"⇵ " + columnText;
 	}
-	else if (_reverseSort) {
+	else if (_reverseSort) 
+	{
 		columnText = L"△ " + columnText;
 	}
-	else {
+	else 
+	{
 		columnText = L"▽ " + columnText;
 	}
 	lvColumn.pszText = const_cast<wchar_t*>(columnText.c_str());
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 4, 0));
 	SendMessage(_hList, LVM_SETCOLUMN, 4, LPARAM(&lvColumn));
-
 }
 
 void WindowsDlg::onSize(UINT nType, int cx, int cy)
@@ -928,7 +930,8 @@ void WindowsDlg::onGetMinMaxInfo(MINMAXINFO* lpMMI)
 LRESULT WindowsDlg::onWinMgr(WPARAM wp, LPARAM lp)
 {
 	NMWINMGR &nmw = *reinterpret_cast<NMWINMGR *>(lp);
-	if (nmw.code==NMWINMGR::GET_SIZEINFO) {
+	if (nmw.code==NMWINMGR::GET_SIZEINFO) 
+	{
 		switch(wp)
 		{
 		case IDOK:

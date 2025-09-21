@@ -448,6 +448,8 @@ Updated to :
 					<Item id="11007" name="По типу от Z до A"/>
 					<Item id="11008" name="По размеру от Меньшего к Большему"/>
 					<Item id="11009" name="По размеру от Большего к Меньшему"/>
+					<Item id="11010" name="Время изменения по Возрастанию"/>
+					<Item id="11011" name="Время изменения по Убыванию"/>
 
 					<Item id="48015" name="Управление Плагинами..."/>
 					<Item id="48014" name="Открыть папку плагинов..."/>
@@ -808,6 +810,8 @@ Updated to :
 					<Item id="11007" name="Сортировать по типу от Z до A"/>
 					<Item id="11008" name="Сорт. по размеру от Меньшего к Большему"/>
 					<Item id="11009" name="Сорт. по размеру от Большего к Меньшему"/>
+					<Item id="11010" name="Время изменения файла по Возрастанию"/>
+					<Item id="11011" name="Время изменения файла по Убыванию"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Назначение Клавиш Быстрого Доступа">
@@ -1613,6 +1617,7 @@ Notepad++ сделает резервную копию вашего старог
 			<ColumnPath name="Путь"/>
 			<ColumnType name="Тип"/>
 			<ColumnSize name="Размер"/>
+			<ColumnDateTime name="Время изменения"/>
 			<NbDocsTotal name="всего :"/>
 			<MenuCopyName name="Имя файла в буфер"/>
 			<MenuCopyPath name="Путь и Имя в буфер"/>
@@ -1785,7 +1790,7 @@ Notepad++ сделает резервную копию вашего старог
 			<summary value="Информация о Файле"/>
 			<summary-filepath value="Полный путь к файлу :  "/>
 			<summary-filecreatetime value="Создан :  "/>
-			<summary-filemodifytime value="Обновлён :  "/>
+			<summary-filemodifytime value="Изменён :  "/>
 			<summary-nbchar value="Символов (без окончания строки) :  "/>
 			<summary-nbword value="Слов :  "/>
 			<summary-nbwordinsel value="Слов (в 1 выделении) :  "/>

@@ -468,7 +468,7 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 							string docSizeText = to_string(docSize);
 							text = wstring(docSizeText.begin(), docSizeText.end());
 						}
-						else if (pLvdi->item.iSubItem == 4) // Date/Time
+						else if (pLvdi->item.iSubItem == 4) // Modified time
 						{
 							FILETIME ft = buf->getLastModifiedTimestamp();
 
@@ -797,7 +797,7 @@ BOOL WindowsDlg::onInitDialog()
 	lvColumn.cx = 100;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 3, LPARAM(&lvColumn));
 
-	columnText = L"⇵ " + pNativeSpeaker->getAttrNameStr(L"Date/Time", WD_ROOTNODE, WD_CLMNDT);
+	columnText = L"⇵ " + pNativeSpeaker->getAttrNameStr(L"Modified time", WD_ROOTNODE, WD_CLMNDT);
 	lvColumn.pszText = const_cast<wchar_t*>(columnText.c_str());
 	lvColumn.cx = 120;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 4, LPARAM(&lvColumn));
@@ -896,9 +896,9 @@ void WindowsDlg::updateColumnNames()
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 3, 0));
 	SendMessage(_hList, LVM_SETCOLUMN, 3, LPARAM(&lvColumn));
 
-	// Date/Time
+	// Modified time
 	lvColumn.fmt = LVCFMT_LEFT;
-	columnText = pNativeSpeaker->getAttrNameStr(L"Date/Time", WD_ROOTNODE, WD_CLMNDT);
+	columnText = pNativeSpeaker->getAttrNameStr(L"Modified time", WD_ROOTNODE, WD_CLMNDT);
 	if (_currentColumn != 4) 
 	{
 		columnText = L"⇵ " + columnText;

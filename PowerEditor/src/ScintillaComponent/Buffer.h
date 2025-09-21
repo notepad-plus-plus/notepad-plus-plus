@@ -318,7 +318,22 @@ public:
 	std::wstring getBackupFileName() const { return _backupFileName; }
 	void setBackupFileName(const std::wstring& fileName) { _backupFileName = fileName; }
 
-	FILETIME getLastModifiedTimestamp() const { return _timeStamp; }
+	FILETIME getLastModifiedFileTimestamp() const { return _timeStamp; }
+	FILETIME getLastModifiedTimestamp() const {
+		if (_backupFileName.empty())
+			return _timeStamp;
+
+		WIN32_FILE_ATTRIBUTE_DATA attributes{};
+		attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
+		bool bWorkerThreadTerminated = true;
+		DWORD dwWin32ApiError = NO_ERROR;
+		BOOL bGetFileAttributesExSucceeded = getFileAttributesExWithTimeout(_backupFileName.c_str(), &attributes, 0, &bWorkerThreadTerminated, &dwWin32ApiError);
+		if (bGetFileAttributesExSucceeded && (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES) && !(attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+		{
+			return attributes.ftLastWriteTime;
+		}
+		return _timeStamp;
+	}
 
 	bool isLoadedDirty() const { return _isLoadedDirty; }
 	void setLoadedDirty(bool val) {	_isLoadedDirty = val; }

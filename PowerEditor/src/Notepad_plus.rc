@@ -1321,8 +1321,8 @@ BEGIN
                 MENUITEM "Type Z to A",                 IDM_WINDOW_SORT_FT_DSC
                 MENUITEM "Content Length Ascending",    IDM_WINDOW_SORT_FS_ASC
                 MENUITEM "Content Length Descending",   IDM_WINDOW_SORT_FS_DSC
-				MENUITEM "Date/Time Ascending",   		IDM_WINDOW_SORT_FD_ASC
-				MENUITEM "Date/Time Descending",  		IDM_WINDOW_SORT_FD_DSC
+                MENUITEM "Modified Time Ascending",   	IDM_WINDOW_SORT_FD_ASC
+                MENUITEM "Modified Time Descending",  	IDM_WINDOW_SORT_FD_DSC
             END
         MENUITEM "&Windows...",                 IDM_WINDOW_WINDOWS
         MENUITEM SEPARATOR

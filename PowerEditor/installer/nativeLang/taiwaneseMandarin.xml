@@ -384,6 +384,8 @@
 					<Item id="11007" name="副檔名從 Z 到 A"/>
 					<Item id="11008" name="檔案長度從小到大"/>
 					<Item id="11009" name="檔案長度從大到小"/>
+					<Item id="11010" name="修改時間從遠至近"/>
+					<Item id="11011" name="修改時間從近至遠"/>
 				</Commands>
 			</Main>
 			<Splitter>
@@ -1488,6 +1490,7 @@
 			<ColumnPath name="路徑"/>
 			<ColumnType name="類型"/>
 			<ColumnSize name="長度"/>
+			<ColumnDateTime name="修改時間"/>
 			<NbDocsTotal name="文件數："/>
 			<MenuCopyName name="複製檔名"/>
 			<MenuCopyPath name="複製檔案路徑"/>

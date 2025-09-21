@@ -414,6 +414,8 @@ Translation note:
 					<Item id="11007" name="Type de Z à A"/>
 					<Item id="11008" name="Taille de +petite à +grande"/>
 					<Item id="11009" name="Taille de +grande à +petite"/>
+					<Item id="11010" name="Heure de modification de +ancienne à +récente"/>
+					<Item id="11011" name="Heure de modification de +récente à +ancienne"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -1614,6 +1616,7 @@ Veuillez vérifier la condition de recherche avant de procéder à l'action."/> 
 			<ColumnPath name="Chemin"/>
 			<ColumnType name="Type"/>
 			<ColumnSize name="Taille"/>
+			<ColumnDateTime name="Heure de modification"/>
 			<NbDocsTotal name="nombre de documents :"/>
 			<MenuCopyName name="Copier le(s) nom(s)"/>
 			<MenuCopyPath name="Copier le(s) chemin(s) complet(s)"/>

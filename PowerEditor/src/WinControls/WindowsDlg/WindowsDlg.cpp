@@ -446,7 +446,8 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 							const wchar_t *fullName = buf->getFullPathName();
 							const wchar_t *fileName = buf->getFileName();
 							int len = lstrlen(fullName)-lstrlen(fileName);
-							if (!len) {
+							if (!len) 
+							{
 								len = 1;
 								fullName = L"";
 							}
@@ -472,20 +473,24 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 							FILETIME ft = buf->getLastModifiedTimestamp();
 
 							// handle unsaved or unknown timestamp
-							if (ft.dwLowDateTime == 0 && ft.dwHighDateTime == 0) {
+							if (ft.dwLowDateTime == 0 && ft.dwHighDateTime == 0) 
+							{
 								text = L""; // or L"—"
 							}
-							else {
+							else 
+							{
 								FILETIME localFt{};
 								SYSTEMTIME st{};
-								if (FileTimeToLocalFileTime(&ft, &localFt) && FileTimeToSystemTime(&localFt, &st)) {
+								if (FileTimeToLocalFileTime(&ft, &localFt) && FileTimeToSystemTime(&localFt, &st)) 
+								{
 									wchar_t bufW[20]; // "YYYY-MM-DD HH:MM:SS" = 19 + NUL
 									swprintf(bufW, 20, L"%04u-%02u-%02u %02u:%02u:%02u",
 										st.wYear, st.wMonth, st.wDay,
 										st.wHour, st.wMinute, st.wSecond);
 									text = bufW;
 								}
-								else {
+								else 
+								{
 									text = L"";
 								}
 							}

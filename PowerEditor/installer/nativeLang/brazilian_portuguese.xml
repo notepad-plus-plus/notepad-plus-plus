@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 24 Jul 2025 for 8.8.3+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 30 Sep 2025 for 8.8.5+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.8.3">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.8.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -41,6 +41,7 @@ Translation note:
 					<Item subMenuId="edit-onSelection" name="Na seleção"/>
 					<Item subMenuId="edit-multiSelectALL" name="Multi-seleciona TODOS"/>
 					<Item subMenuId="edit-multiSelectNext" name="Multi-seleciona Próximo"/>	
+					<Item subMenuId="edit-readonlyInNotepad++" name="Apenas-Leitura no Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="Histórico de Alterações"/>
 					<Item subMenuId="search-markAll" name="Marcar todos"/>
 					<Item subMenuId="search-markOne" name="Marcar um"/>
@@ -196,7 +197,9 @@ Translation note:
 					<Item id="42025" name="&amp;Salvar macro atual..."/>
 					<Item id="42026" name="Alinhar texto à direita"/>
 					<Item id="42027" name="Alinhar texto à esquerda"/>
-					<Item id="42028" name="Definir como somente leitura"/>
+					<Item id="42028" name="Apenas-Leitura para o Documento Atual"/>
+					<Item id="42102" name="Apenas-Leitura para todos os Documentos"/>
+					<Item id="42103" name="Remover Apenas-Leitura para todos os Documentos"/>
 					<Item id="42029" name="Copiar caminho completo do arquivo"/>
 					<Item id="42030" name="Copiar nome do arquivo"/>
 					<Item id="42031" name="Copiar caminho da pasta atual"/>
@@ -416,6 +419,8 @@ Translation note:
 					<Item id="11007" name="Tipo Z a A"/>
 					<Item id="11008" name="Tamanho, menor para maior"/>
 					<Item id="11009" name="Tamanho, maior para menor"/>
+					<Item id="11010" name="Hora da Modificação Ascendente"/>
+					<Item id="11011" name="Hora da Modificação Descendente"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -1214,6 +1219,7 @@ Translation note:
 					<Item id="6909" name="Selecionar palavra da posição atual do cursor quando nada for selecionado"/>
 					<Item id="6910" name="Tamanho Mínimo para Auto-Selecionar Opção &quot;Na seleção&quot;"/>
 					<Item id="6913" name="Preencher o campo 'Pasta' de 'Localizar nos arquivos' Baseado no Documento Ativo"/>
+					<Item id="6916" name=": Máx Caracteres para Auto-Preenchimento de Campo de Busca da Seleção"/>
 				</Searching>
 
 				<RecentFilesHistory title="Histórico de arquivos recentes">
@@ -1579,7 +1585,9 @@ Por favor, teste estes comandos e, se necessário, altere-os.
 Como alternativa, você pode voltar à versão v8.5.2 do Notepad++ e restaurar os dados anteriores.
 O Notepad++ irá efetuar backup do seu arquivo &quot;shortcuts.xml&quot; anterior e salvá-lo como &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Ao renomear &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, seus comandos devem ser restaurados e devem funcionar a contento."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
-			<NotEnoughRoom4Saving title="Falha ao salvar" message="Não foi possível salvar o arquivo.
+			<FullReadOnlySavingForbidden title="Erro ao Salvar" message="Não foi possível salvar o arquivo.
+O modo proibição de salvar em apenas-leitura total do Notepad++ impediu que o arquivo fosse salvo."/>
+			<NotEnoughRoom4Saving title="Erro ao salvar" message="Não foi possível salvar o arquivo.
 É possível que não haja espaço em disco suficiente para salvar o arquivo. Seu arquivo não foi salvo."/>
 			<FileInaccessibleUserSession title="Arquivo inacessível" message="Alguns arquivos da sua sessão salva &quot;$STR_REPLACE$&quot; não podem ser acessados. Eles podem ser abertos como arquivos vazios e apenas leitura para que permaneçam na lista de documentos.
 
@@ -1618,6 +1626,7 @@ Por favor verifique a condição de localização antes de continuar."/> <!-- Co
 			<ColumnPath name="Caminho"/>
 			<ColumnType name="Tipo"/>
 			<ColumnSize name="Tamanho"/>
+			<ColumnDateTime name="Hora de modificação"/>
 			<NbDocsTotal name="documentos totais:"/>
 			<MenuCopyName name="Copiar nome(s)"/>
 			<MenuCopyPath name="Copiar caminho(s)"/>
@@ -1865,7 +1874,8 @@ Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Usu�
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Acesse o Configurador de Estilos para mudar a cor padrão para espaços em branco e caracteres sem representação selecionados (&quot;Cor padrão para caracteres sem representação&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Aplicar as configurações de caracteres sem representação para os caracteres C0, C1 e EOL Unicode (próxima linha, separador de linha e separador de parágrafo)."/>
-			<searchingInSelThresh-tip value="Número de caracteres selecionados no modo editor para marcar automaticamente a opção &quot;Na seleção&quot; quando a caixa de diálogo Localizar for ativada. O valor máximo é 1024. Use o valor 0 para desabilitar a auto-seleção."/>
+			<searchingInSelThresh-tip value="Minimum number of selected characters in edit zone to automatically check the &quot;In selection&quot; checkbox when the Find dialog is activated. The maximum value is $INT_REPLACE$. Set the value to 0 to disable auto-checking."/>
+			<searchingFillFindWhat-tip value="Número máximo de caracteres selecionados no modo editor para preencher automaticamente o campo &quot;Localizar&quot; quando o Ctrl-F for utilizado. O valor máximo é $INT_REPLACE$, que é o valor máximo do campo &quot;Localizar&quot;, limitado pelo sistema."/>
 			<verticalEdge-tip value="Adicione seu marcador de coluna indicando a posição com um número decimal. É possível definir vários marcadores de coluna usando um espaço em branco para separar os números diferentes."/>
 			<fileSaveAsCopySaveButton-tip value="Pressione a tecla Shift enquanto clica em &quot;Salvar uma cópia como...&quot; para abrir a cópia após salvar."/>
 			<autoIndentBasic-tip value="Garantir que a indentação da linha atual (por exemplo, a nova linha criada ao pressionar a tecla ENTER) seja igual à indentação da linha anterior."/>

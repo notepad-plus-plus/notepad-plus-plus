@@ -416,6 +416,8 @@
 					<Item id="11007" name="Tí&amp;pus szerint Z-től A-ig"/>
 					<Item id="11008" name="A t&amp;artalom hossza szerint növekvő sorrendben"/>
 					<Item id="11009" name="A ta&amp;rtalom hossza szerint csökkenő sorrendben"/>
+					<Item id="11010" name="&amp;Módosítás dátuma szerint növekvő sorrendben"/>
+					<Item id="11011" name="Mó&amp;dosítás dátuma szerint csökkenő sorrendben"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -1619,6 +1621,7 @@ Kérjük, a művelet végrehajtása előtt ellenőrizze a keresési feltételeke
 			<ColumnPath name="Mappa"/>
 			<ColumnType name="Típus"/>
 			<ColumnSize name="Méret"/>
+			<ColumnDateTime name="Módosítva"/>
 			<NbDocsTotal name="Dokumentumok száma:"/>
 			<MenuCopyName name="Név: kijelölt(ek) másolása"/>
 			<MenuCopyPath name="Mappa: kijelölt teljes útvonal(ak) másolása"/>
@@ -1891,9 +1894,12 @@ Ha a „Haladó szintű” módot választja, de nem a fenti nyelvek fájljait s
 			<statusbar-Sel value="Kij.: "/>
 			<statusbar-Sel-number value="Kij."/>
 			<toolbar-accent-tip value="A beállítással az eszköztár ikonjaira a Windows kiemelőszíne alkalmazható. A kiemelőszín egy, a Windows gombjaiban, szegélyeiben és a Start menüben az elemek hangsúlyozására használt szín. A módosításhoz kattintson a ⚙ Beállítások » Személyre szabás » Színek lehetőségre, majd válassza ki a kívánt Kiemelőszínt"/>
-			<max-len-on-search-tip value="A „Keresés”/„Csere” szöveghossza legfeljebb $INT_REPLACE$ karakter lehet - előfordulhat, hogy a megadott szöveg vége le lesz vágva, és a következő munkamenetre nem lesz mentve"/>
-			<max-len-on-save-tip value="Ennek a keresendő szövegnek egy ($INT_REPLACE$ karakter feletti) része nem lesz mentve a következő munkamenetre"/>
+			<len-limit-exceeded-tip value="Karakterkorlát túllépve: előfordulhat, hogy a felvett szöveg meghaladja a megengedett hosszúságot, emiatt lehet, hogy rövidítve lesz, valamint a levágott részt nem menti a rendszer a következő munkamenethez"/>
+			<max-len-on-search-tip value="Előfordulhat, hogy a felvett szöveg meghaladja a megengedett hosszúságot, emiatt lehet, hogy rövidítve lesz, valamint a levágott részt nem menti a rendszer a következő munkamenethez"/>
+			<max-len-on-save-tip value="A felvett szöveg rendkívül hosszú, emiatt előfordulhat, hogy nem lehet teljesen menteni a következő munkamenethez"/>
 			<goto-setting-tip value="Keresés a beállítások között"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
+
+

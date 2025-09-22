@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.8.1">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.8.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -414,6 +414,8 @@
 					<Item id="11007" name="Typ od Z po A"/>
 					<Item id="11008" name="Dĺžka obsahu ↑"/>
 					<Item id="11009" name="Dĺžka obsahu ↓"/>
+					<Item id="11010" name="Čas úpravy ↑"/>
+					<Item id="11011" name="Čas úpravy ↓"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -1618,6 +1620,7 @@ Prosím, overte podmienku vyhľadávania pred vykonaním akcie."/> <!-- HowToRep
 			<ColumnPath name="Cesta"/>
 			<ColumnType name="Typ"/>
 			<ColumnSize name="Veľkosť"/>
+			<ColumnDateTime name="Čas úpravy"/>
 			<NbDocsTotal name="Počet dokumentov:"/>
 			<MenuCopyName name="Kopírovať názov(y)"/>
 			<MenuCopyPath name="Kopírovať cestu(y)"/>

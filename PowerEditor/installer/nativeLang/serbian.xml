@@ -5,7 +5,7 @@
 		- Radoš Milićev (https://github.com/rammba)
 -->
 <NotepadPlus>
-	<Native-Langue name="Srpski" filename="serbian.xml"  version="8.8.1">
+	<Native-Langue name="Srpski" filename="serbian.xml"  version="8.8.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -41,6 +41,7 @@
 					<Item subMenuId="edit-onSelection" name="&amp;Na izboru"/>
 					<Item subMenuId="edit-multiSelectALL" name="Višestruki odabir SVE"/>
 					<Item subMenuId="edit-multiSelectNext" name="Višestruki odabir naredno"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Samo za čitanje u Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="Istorija promena"/>
 					<Item subMenuId="search-markAll" name="Stilizuj &amp;sve pojave tokena"/>
 					<Item subMenuId="search-markOne" name="Stilizuj &amp;jedan token"/>
@@ -196,7 +197,9 @@
 					<Item id="42025" name="Sačuvaj trenutno snimljeni makro"/>
 					<Item id="42026" name="Smer teksta s desna na levo (RTL)"/>
 					<Item id="42027" name="Smer teksta s leva na desno (LTR)"/>
-					<Item id="42028" name="Samo za čitanje u Notepad++"/>
+					<Item id="42028" name="Samo za čitanje u trenutnom dokumentu"/>
+					<Item id="42102" name="Samo za čitanje za sve dokumente"/>
+					<Item id="42103" name="Poništi samo za čitanje za sve dokumente"/>
 					<Item id="42029" name="Kopiraj putanju trenutne datoteke"/>
 					<Item id="42030" name="Kopiraj naziv trenutne datoteke"/>
 					<Item id="42031" name="Kopiraj trenutnu putanju direktorijuma"/>
@@ -416,6 +419,8 @@
 					<Item id="11007" name="Tip od Z do A"/>
 					<Item id="11008" name="Rastuća dužina sadržaja"/>
 					<Item id="11009" name="Opadajuća dužina sadržaja"/>
+					<Item id="11010" name="Rastuće vreme izmene"/>
+					<Item id="11011" name="Opadajuće vreme izmene"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -1214,6 +1219,7 @@
 					<Item id="6909" name="Izaberi reč ispod pokazivača kad ništa nije izabrano"/>
 					<Item id="6910" name="Minimalna veličina za automatsku proveru za &quot;U izboru&quot;:"/>
 					<Item id="6913" name="Postavi aktivni dokument u direktorijum polje u &quot;Pronađi u datotekama&quot;"/>
+					<Item id="6916" name=": Maksimalno karaktera za automatsko popunjavanje polja za pretragu"/>
 				</Searching>
 
 				<RecentFilesHistory title="Istorija nedavnih dat.">
@@ -1579,6 +1585,8 @@ Testirajte komande i uredite ih ako je potrebno.
 Alternativno, možete spustiti Notepad++ na v8.5.2 i povratiti prethodne podatke.
 Notepad++ će backup-ovati stariji &quot;shortcuts.xml&quot; i sačuvati ga kao &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Preimenovanjem &quot;shortcuts.xml.v8.5.2.backup&quot; na &quot;shortcuts.xml&quot;, vaše komande će biti povraćene i radiće normalno."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<FullReadOnlySavingForbidden title="Neuspešno čuvanje" message="Datoteka se ne može sačuvati.
+Režim zabranjenog čuvanja u Notepad++, samo za čitanje, sprečio je da datoteka bude sačuvana."/>
 			<NotEnoughRoom4Saving title="Neuspešno čuvanje" message="Neuspešno čuvanje datoteke.
 Deluje da na disku nema dovoljno prostora da bi se sačuvala datoteka. Datoteka nije sačuvana."/>
 			<FileInaccessibleUserSession title="Nedostupna datoteka" message="Neke datoteke iz ručno sačuvane sesije &quot;$STR_REPLACE$&quot; su nedostupne. Mogu biti otvorene kao prazni dokumenti za čitanje.
@@ -1618,6 +1626,7 @@ Molimo potvrdite uslove pretrage pre izvršenja akcije."/> <!-- HowToReproduce: 
 			<ColumnPath name="Putanja"/>
 			<ColumnType name="Tip"/>
 			<ColumnSize name="Veličina"/>
+			<ColumnDateTime name="Vreme izmene"/>
 			<NbDocsTotal name="ukupno dokumenata:"/>
 			<MenuCopyName name="Kopiraj nazive"/>
 			<MenuCopyPath name="Kopiraj nazive putanja"/>
@@ -1865,7 +1874,8 @@ Klikni na &quot;?&quot; desno da otvoriš sajt sa uputstvom."/>
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Idi u &quot;Konfiguraciju stilova&quot; da promeniš podrazumevanu boju za whitespace i neštampajuće karaktere (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Primeni podešavanja izgleda za neštampajuće karaktere na C0, C1 kontrolu i Unicode EOL (naredna linija, separator linije i separator paragrafa) karaktere."/>
-			<searchingInSelThresh-tip value="Broj izabranih karaktera u zoni za uređivanje za automatsko uključivanje &quot;U izboru&quot; kada je dijalog za pronalaženje aktivan. Maksimum je 1024. Postavi 0 da isključiš automatsku proveru."/>
+			<searchingInSelThresh-tip value="Minimalan broj izabranih karaktera u zoni za uređivanje za automatsko uključivanje &quot;U izboru&quot; kada je dijalog za pronalaženje aktivan. Maksimum je $INT_REPLACE$. Postavi 0 da isključiš automatsku proveru."/>
+			<searchingFillFindWhat-tip value="Maksimalan broj izabranih karaktera u zoni za uređivanje za automatsko popunjavanje &quot;Pronađi&quot; polja kada se pritisne Ctrl-F. Maksimum je $INT_REPLACE$, što je maksimalna dužina za &quot;Pronađi&quot; polje, ograničena sistemom."/>
 			<verticalEdge-tip value="Dodaj marker koloni pokazujući njenu poziciju decimalnim brojem. Možeš definisati više markera tako što ćeš odvojiti brojeve whitespace-ovima."/>
 			<fileSaveAsCopySaveButton-tip value="Drži Shift dok pritiskaš &quot;Sačuvaj&quot; da otvoriš kopiju nakon čuvanja."/>
 			<autoIndentBasic-tip value="Postaraj se da uvlačenje trenutne linije (npr. napravi novu liniju pristikom na ENTER) bude isto kao i uvlačenje prethodne linije."/>
@@ -1889,6 +1899,12 @@ Ako izabereš napredni mod, a ne izmeniš datoteke u pomenutim jezicima, uvlače
 			<statusbar-Sel value="Izb: "/>
 			<statusbar-Sel-number value="Izb"/>
 			<toolbar-accent-tip value="Ova opcija čini da ikonice na traci sa alatima prate sistemsku akcentovanu boju. Akcentovana boja je boja za isticanje korišćena za dugmiće, ivice i u početnom meniju Windows-a. Da je promenite, idite u Podešavanja &gt; Personalizacija &gt; Boje i odaberite željenu akcentovanu boju."/>
+			<len-limit-exceeded-tip value="Ograničenje dužine premašeno: Vaš unos premašuje dozvoljeno ograničenje i može biti skraćen, a i neće biti sačuvan za narednu sesiju."/>
+			<max-len-on-search-tip value="Vaš unos premašuje dozvoljeno ograničenje i može biti skraćen, a i neće biti sačuvan za narednu sesiju."/>
+			<max-len-on-save-tip value="Vaš unos je veoma dugačak i možda neće biti sačuvan za narednu sesiju."/>
+			<goto-setting-tip value="Pronađi podešavanje ovde"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
+
+

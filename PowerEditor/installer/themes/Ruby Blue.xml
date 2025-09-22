@@ -350,7 +350,12 @@ http://sourceforge.net/donate/index.php?group_id=95717
             <WordsStyle name="TAGUNKNOWN" styleID="2" fgColor="FF0000" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ATTRIBUTE" styleID="3" fgColor="F0804F" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ATTRIBUTEUNKNOWN" styleID="4" fgColor="FF0000" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="SGMLDEFAULT" styleID="21" fgColor="FFFF00" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML DEFAULT" styleID="21" fgColor="FFFF00" bgColor="18344C" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML COMMAND" styleID="22" fgColor="7BD827" bgColor="1B3A55" fontName="" fontStyle="1" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="SGML 1ST PARAM" styleID="23" fgColor="7BD827" bgColor="1B3A55" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML DOUBLESTRING" styleID="24" fgColor="8DB0D3" bgColor="1B3A55" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML SIMPLESTRING" styleID="25" fgColor="FFFF00" bgColor="1B3A55" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML BLOCK DEFAULT" styleID="31" fgColor="000000" bgColor="000044" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CDATA" styleID="17" fgColor="8080C0" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="VALUE" styleID="19" fgColor="FFFF80" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ENTITY" styleID="10" fgColor="800080" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
@@ -457,7 +462,12 @@ http://sourceforge.net/donate/index.php?group_id=95717
             <WordsStyle name="TAGUNKNOWN" styleID="2" fgColor="FF0000" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ATTRIBUTE" styleID="3" fgColor="7BC22F" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ATTRIBUTEUNKNOWN" styleID="4" fgColor="FF0000" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="SGMLDEFAULT" styleID="21" fgColor="FFFF80" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML DEFAULT" styleID="21" fgColor="FFFF00" bgColor="18344C" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML COMMAND" styleID="22" fgColor="7BD827" bgColor="1B3A55" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="SGML 1ST PARAM" styleID="23" fgColor="7BD827" bgColor="1B3A55" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML DOUBLESTRING" styleID="24" fgColor="8DB0D3" bgColor="1B3A55" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML SIMPLESTRING" styleID="25" fgColor="FFFF00" bgColor="1B3A55" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML BLOCK DEFAULT" styleID="31" fgColor="000000" bgColor="000044" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CDATA" styleID="17" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ENTITY" styleID="10" fgColor="800080" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="USER ATTRIBUTES 1" styleID="192" fgColor="7BC22F" bgColor="112435" fontName="" fontStyle="0" fontSize="" keywordClass="substyle1" />

@@ -506,7 +506,12 @@ Installation : Copy this file to "%APPDATA%\Notepad++\themes" and in a portable 
             <WordsStyle name="TAGUNKNOWN" styleID="2" fgColor="A88AB6" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ATTRIBUTE" styleID="3" fgColor="FF5757" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ATTRIBUTEUNKNOWN" styleID="4" fgColor="FF5757" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="SGMLDEFAULT" styleID="21" fgColor="F57F3D" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML DEFAULT" styleID="21" fgColor="A88AB6" bgColor="400000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML COMMAND" styleID="22" fgColor="C0C0C0" bgColor="400000" fontName="" fontStyle="1" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="SGML 1ST PARAM" styleID="23" fgColor="C0C0C0" bgColor="400000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML DOUBLESTRING" styleID="24" fgColor="F57F3D" bgColor="400000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML SIMPLESTRING" styleID="25" fgColor="F57F3D" bgColor="400000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML BLOCK DEFAULT" styleID="31" fgColor="000000" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CDATA" styleID="17" fgColor="E6C74E" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="VALUE" styleID="19" fgColor="E6C74E" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ENTITY" styleID="10" fgColor="E6C74E" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
@@ -1117,7 +1122,12 @@ Installation : Copy this file to "%APPDATA%\Notepad++\themes" and in a portable 
             <WordsStyle name="TAGUNKNOWN" styleID="2" fgColor="A88AB6" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ATTRIBUTE" styleID="3" fgColor="FF5757" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ATTRIBUTEUNKNOWN" styleID="4" fgColor="FF5757" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="SGMLDEFAULT" styleID="21" fgColor="F57F3D" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML DEFAULT" styleID="21" fgColor="A88AB6" bgColor="400000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML COMMAND" styleID="22" fgColor="C0C0C0" bgColor="400000" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="SGML 1ST PARAM" styleID="23" fgColor="C0C0C0" bgColor="400000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML DOUBLESTRING" styleID="24" fgColor="F57F3D" bgColor="400000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML SIMPLESTRING" styleID="25" fgColor="F57F3D" bgColor="400000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML BLOCK DEFAULT" styleID="31" fgColor="000000" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CDATA" styleID="17" fgColor="F57F3D" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ENTITY" styleID="10" fgColor="E6C74E" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="USER ATTRIBUTES 1" styleID="192" fgColor="FF5757" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" keywordClass="substyle1" />

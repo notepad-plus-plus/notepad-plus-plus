@@ -418,7 +418,12 @@ Notepad++ Custom Style
             <WordsStyle name="TAGUNKNOWN" styleID="2" fgColor="8CBBAD" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="ATTRIBUTE" styleID="3" fgColor="B3B689" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="ATTRIBUTEUNKNOWN" styleID="4" fgColor="B3B689" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
-            <WordsStyle name="SGMLDEFAULT" styleID="21" fgColor="D39745" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML DEFAULT" styleID="21" fgColor="ABBFD3" bgColor="181818" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML COMMAND" styleID="22" fgColor="8CBBAD" bgColor="222222" fontName="" fontStyle="1" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="SGML 1ST PARAM" styleID="23" fgColor="B3B689" bgColor="222222" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML DOUBLESTRING" styleID="24" fgColor="E1E2CF" bgColor="222222" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML SIMPLESTRING" styleID="25" fgColor="E1E2CF" bgColor="222222" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML BLOCK DEFAULT" styleID="31" fgColor="000000" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CDATA" styleID="17" fgColor="D0D2B5" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="VALUE" styleID="19" fgColor="FF8000" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ENTITY" styleID="10" fgColor="BBBBBB" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
@@ -1019,7 +1024,12 @@ Notepad++ Custom Style
             <WordsStyle name="TAGUNKNOWN" styleID="2" fgColor="678CB1" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="ATTRIBUTE" styleID="3" fgColor="B3B689" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="ATTRIBUTEUNKNOWN" styleID="4" fgColor="B3B689" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
-            <WordsStyle name="SGMLDEFAULT" styleID="21" fgColor="D39745" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML DEFAULT" styleID="21" fgColor="ABBFD3" bgColor="181818" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML COMMAND" styleID="22" fgColor="8CBBAD" bgColor="222222" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="SGML 1ST PARAM" styleID="23" fgColor="B3B689" bgColor="222222" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML DOUBLESTRING" styleID="24" fgColor="E1E2CF" bgColor="222222" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML SIMPLESTRING" styleID="25" fgColor="E1E2CF" bgColor="222222" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SGML BLOCK DEFAULT" styleID="31" fgColor="000000" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CDATA" styleID="17" fgColor="D5E6F0" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ENTITY" styleID="10" fgColor="BBBBBB" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="USER ATTRIBUTES 1" styleID="192" fgColor="B3B689" bgColor="293134" fontName="" fontStyle="1" fontSize="" keywordClass="substyle1" />

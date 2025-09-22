@@ -838,11 +838,17 @@ void ScintillaEditView::setXmlLexer(LangType type)
 		const wchar_t *pKwArray[NB_LIST] = {NULL};
 		
 		setLexerFromLangID(L_XML);
-		
-		for (int i = 0 ; i < 4 ; ++i)
-			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(""));
+		makeStyle(type, pKwArray);
 
-        makeStyle(type, pKwArray);
+		// DOCTYPE command keywords
+		basic_string<char> keywordList("");
+		if (pKwArray[LANG_INDEX_INSTR])
+		{
+			basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
+			keywordList = wstring2string(kwlW, CP_ACP);
+		}
+
+		execute(SCI_SETKEYWORDS, 5, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_XML, LANG_INDEX_INSTR)));
 
 		// the XML portion of the lexer only allows substyles for attributes, not for tags (since it treats all tags the same),
 		//	so allocate all 8 substyles to attributes
@@ -871,6 +877,7 @@ void ScintillaEditView::setHTMLLexer()
 	const wchar_t *pKwArray[NB_LIST] = {NULL};
 	makeStyle(L_HTML, pKwArray);
 
+	// Tag keywords
 	basic_string<char> keywordList("");
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
@@ -879,7 +886,17 @@ void ScintillaEditView::setHTMLLexer()
 	}
 
 	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_HTML, LANG_INDEX_INSTR)));
-	
+
+	// DOCTYPE command keywords
+	basic_string<char> keywordList2("");
+	if (pKwArray[LANG_INDEX_INSTR2])
+	{
+		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR2];
+		keywordList2 = wstring2string(kwlW, CP_ACP);
+	}
+
+	execute(SCI_SETKEYWORDS, 5, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_HTML, LANG_INDEX_INSTR2)));
+
 	// HTML allows substyle lists for both tags and attributes, so allocate four of each
 	populateSubStyleKeywords(L_HTML, SCE_H_TAG, 4, LANG_INDEX_SUBSTYLE1, pKwArray);
 	populateSubStyleKeywords(L_HTML, SCE_H_ATTRIBUTE, 4, LANG_INDEX_SUBSTYLE5, pKwArray);

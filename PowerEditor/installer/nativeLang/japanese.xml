@@ -420,6 +420,8 @@ Translation note:
 					<Item id="11007" name="種類・降順"/>
 					<Item id="11008" name="コンテンツの長さ・小さい順"/>
 					<Item id="11009" name="コンテンツの長さ・大きい順"/>
+					<Item id="11010" name="更新日時・古い順"/>
+					<Item id="11011" name="更新日時・新しい順"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -1621,6 +1623,7 @@ OKボタンを押すと検索ダイアログが開きます。
 			<ColumnPath name="パス"/>
 			<ColumnType name="種類"/>
 			<ColumnSize name="サイズ"/>
+			<ColumnDateTime name="更新日時"/>
 			<NbDocsTotal name="文書数："/>
 			<MenuCopyName name="ファイル名をコピー"/>
 			<MenuCopyPath name="パスをコピー"/>

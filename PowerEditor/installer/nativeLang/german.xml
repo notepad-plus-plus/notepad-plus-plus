@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.1"><!-- Datum: 18.09.2025, basiert auf english.xml 8.8.1 vom 18.09.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.1"><!-- Datum: 22.09.2025, basiert auf english.xml 8.8.1 vom 21.09.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -425,6 +425,8 @@ Translation note:
 					<Item id="11007" name="Typ Z bis A"/>
 					<Item id="11008" name="Inhaltslänge aufsteigend"/>
 					<Item id="11009" name="Inhaltslänge absteigend"/>
+					<Item id="11010" name="Änderungszeit aufsteigend"/>
+					<Item id="11011" name="Änderungszeit absteigend"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -1628,6 +1630,7 @@ Bitte die Suchbedingungen überprüfen, bevor die Aktion ausgeführt wird."/> <!
 			<ColumnPath name="Pfad"/>
 			<ColumnType name="Typ"/>
 			<ColumnSize name="Größe"/>
+			<ColumnDateTime name="Änderungszeit"/>
 			<NbDocsTotal name="Gesamtzahl Dokumente:"/>
 			<MenuCopyName name="Name(n) kopieren"/>
 			<MenuCopyPath name="Pfadname(n) kopieren"/>

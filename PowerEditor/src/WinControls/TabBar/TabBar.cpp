@@ -481,12 +481,15 @@ void TabBarPlus::tabToStart(int index)
 
 	if (index <= 0)
 		return;
-
-	for (int i = index, j = index - 1; j >= 0; --i, --j)
+	int i = index, j = index - 1;
+	for (; j >= 0; --i, --j)
 	{
-		if (!exchangeTabItemData(i, j))
+		if (!exchangeTabItemData(i, j, false))
+		{
 			break;
+		}
 	}
+	setActiveTab(i);
 }
 
 void TabBarPlus::tabToEnd(int index)
@@ -496,12 +499,13 @@ void TabBarPlus::tabToEnd(int index)
 
 	if (index >= static_cast<int>(_nbItem))
 		return;
-
-	for (int i = index, j = index + 1; j < static_cast<int>(_nbItem); ++i, ++j)
+	int i = index, j = index + 1;
+	for (; j < static_cast<int>(_nbItem); ++i, ++j)
 	{
-		if (!exchangeTabItemData(i, j))
+		if (!exchangeTabItemData(i, j, false))
 			break;
 	}
+	setActiveTab(i);
 }
 
 void TabBarPlus::setCloseBtnImageList()
@@ -1829,7 +1833,7 @@ void TabBarPlus::setActiveTab(int tabIndex)
 	notify(TCN_SELCHANGE, tabIndex);
 }
 
-bool TabBarPlus::exchangeTabItemData(int oldTab, int newTab)
+bool TabBarPlus::exchangeTabItemData(int oldTab, int newTab, bool setToActive/* = true */)
 {
 	//1. shift their data, and insert the source
 	TCITEM itemData_nDraggedTab{}, itemData_shift{};
@@ -1877,7 +1881,8 @@ bool TabBarPlus::exchangeTabItemData(int oldTab, int newTab)
 	::SendMessage(_hParent, NPPM_INTERNAL_DOCORDERCHANGED, 0, oldTab);
 
 	//2. set to focus
-	setActiveTab(newTab);
+	if (setToActive)
+		setActiveTab(newTab);
 
 	return true;
 }

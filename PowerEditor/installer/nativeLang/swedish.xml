@@ -416,6 +416,8 @@ Translation note:
 					<Item id="11007" name="Typ, Ö till A"/>
 					<Item id="11008" name="Innehållets längd, stigande"/>
 					<Item id="11009" name="Innehållets längd, fallande"/>
+					<Item id="11010" name="Ändrat klockslag, stigande"/>
+					<Item id="11011" name="Ändrat klockslag, fallande"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -1619,6 +1621,7 @@ Kontrollera sökvillkoren innan du utför åtgärden."/> <!-- HowToReproduce: ht
 			<ColumnPath name="Sökväg"/>
 			<ColumnType name="Typ"/>
 			<ColumnSize name="Storlek"/>
+			<ColumnDateTime name="Ändrat klockslag"/>
 			<NbDocsTotal name="total antal dokument:"/>
 			<MenuCopyName name="Kopiera namn"/>
 			<MenuCopyPath name="Kopiera sökväg(ar)"/>

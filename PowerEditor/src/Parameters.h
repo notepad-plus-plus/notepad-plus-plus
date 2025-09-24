@@ -308,7 +308,8 @@ struct CmdLineParams
 	}
 };
 
-// A POD class to send CmdLineParams through WM_COPYDATA and to Notepad_plus::loadCommandlineParams
+// Command Line Parameters Data Transfer Object class:
+// A POD (Plain Old Data) class to send CmdLineParams through WM_COPYDATA and to Notepad_plus::loadCommandlineParams
 struct CmdLineParamsDTO
 {
 	bool _isReadOnly = false;
@@ -324,7 +325,7 @@ struct CmdLineParamsDTO
 
 	LangType _langType = L_EXTERNAL;
 	wchar_t _udlName[MAX_PATH] = {'\0'};
-	wchar_t _pluginMessage[MAX_PATH] = {'\0'};
+	wchar_t _pluginMessage[2048] = {'\0'};
 
 	static CmdLineParamsDTO FromCmdLineParams(const CmdLineParams& params)
 	{
@@ -342,7 +343,7 @@ struct CmdLineParamsDTO
 
 		dto._langType = params._langType;
 		wcsncpy(dto._udlName, params._udlName.c_str(), MAX_PATH);
-		wcsncpy(dto._pluginMessage, params._pluginMessage.c_str(), MAX_PATH);
+		wcsncpy(dto._pluginMessage, params._pluginMessage.c_str(), 2048);
 		return dto;
 	}
 };

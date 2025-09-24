@@ -109,6 +109,14 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 	if (NULL == _hSelf)
 		throw std::runtime_error("Notepad_plus_Window::init : CreateWindowEx() function return null");
 
+	if (!cmdLineParams->_pluginMessage.empty())
+	{
+		SCNotification scnN{};
+		scnN.nmhdr.code = NPPN_CMDLINEPLUGINMSG;
+		scnN.nmhdr.hwndFrom = _hSelf;
+		scnN.nmhdr.idFrom = reinterpret_cast<uptr_t>(cmdLineParams->_pluginMessage.c_str());
+		_notepad_plus_plus_core._pluginsManager.notify(&scnN);
+	}
 
 	PaintLocker paintLocker{_hSelf};
 

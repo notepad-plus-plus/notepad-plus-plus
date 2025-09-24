@@ -1237,10 +1237,28 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = 0;
 
-	#define NPPN_CMDLINEPLUGINMSG (NPPN_FIRST + 28)  // To notify plugins that the new argument for plugins (via '-pluginMessage="YOUR_PLUGIN_ARGUMENT"' in command line) is available
+	#define NPPN_CMDLINEPLUGINMSG (NPPN_FIRST + 28)  // To notify plugins that there are plugin arguments pluginMessage (wchar_t*) is available
 	//scnNotification->nmhdr.code = NPPN_CMDLINEPLUGINMSG;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = pluginMessage; //where pluginMessage is pointer of type wchar_t
+	// 
+	// User can pass arguments to plugins via command line argument using:
+	// -pluginMessage="PLUGIN1_ARG1=V1;PLUGIN1_ARG2=V2;PLUGIN2_ARG=V;..."
+	// 
+	// The full string (wchar_t*) will be delivered to all plugins via the NPPN_CMDLINEPLUGINMSG notification. Each plugins can parse and extract the arguments relevant to itself.
+	// 
+	// To avoid the collisions among plugins, the following protocol should be followed:
+	// 1. Each plugin must use its unique namespace (its folder name in plugins directory) as a prefix for its argument names.
+	// 2. The symbol ';' must be used as the delimiter between arguments when there are 2 or more arguments in the pluginMessage string.
+	// 3. The symbol '=' must be used as delimiter between argument names and their values.
+	// 
+	// Example (via the command line):
+	// -pluginMessage="NppExecScriptPath=C:\Program Files\Notepad++\plugins\NppExec\init.py;NppExecArg2=arg2Value;mimeToolsSettings=disable;pluginYInfo=show"
+	// 
+	// Interpretation:
+	// - Plugin "NppExec" processes: NppExecScriptPath=C:\Program Files\Notepad++\plugins\NppExec\init.py & NppExecArg2=arg2Value
+	// - Plugin "mimeTools" processes: mimeToolsSettings=disable
+	// - Plugin "pluginY" processes: pluginYInfo=show
 
 	#define NPPN_EXTERNALLEXERBUFFER (NPPN_FIRST + 29)  // To notify lexer plugins that the buffer (in idFrom) is just applied to a external lexer
 	//scnNotification->nmhdr.code = NPPN_EXTERNALLEXERBUFFER;

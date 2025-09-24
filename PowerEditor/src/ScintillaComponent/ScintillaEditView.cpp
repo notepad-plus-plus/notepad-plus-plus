@@ -4863,11 +4863,15 @@ bool ScintillaEditView::pasteToMultiSelection() const
 
 	vector<wstring> clipboardStrings;
 
-	wstring eol = L"\r\n";
-	if (clipboardStr.find(L"\n") != std::wstring::npos)
+	wstring eol;
+	if (clipboardStr.find(L"\r\n") != std::wstring::npos)
+		eol = L"\r\n";
+	else if (clipboardStr.find(L"\n") != std::wstring::npos)
 		eol = L"\n";
 	else if (clipboardStr.find(L"\r") != std::wstring::npos)
 		eol = L"\r";
+	else
+		eol = getEOLString();
 
 	stringSplit(clipboardStr, eol, clipboardStrings);
 	clipboardStrings.erase(clipboardStrings.cend() - 1); // remove the last empty string

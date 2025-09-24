@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: August 5, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: October 2, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
@@ -41,6 +41,7 @@
 					<Item subMenuId="edit-onSelection" name="&amp;Označeni tekst"/>
 					<Item subMenuId="edit-multiSelectALL" name="&amp;Višestruki odabir: Sve"/>
 					<Item subMenuId="edit-multiSelectNext" name="&amp;Višestruki odabir: Sljedeće"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Samo za čitanje u Notepadu++"/>
 					<Item subMenuId="search-changeHistory" name="Po&amp;vijest promjena"/>
 					<Item subMenuId="search-markAll" name="Ozna&amp;či stilom sva pojavljivanja"/>
 					<Item subMenuId="search-markOne" name="Označi stilom &amp;jednom"/>
@@ -196,7 +197,9 @@
 					<Item id="42025" name="&amp;Spremi upravo snimljeni makro..."/>
 					<Item id="42026" name="&amp;Smjer teksta s desna na lijevo"/>
 					<Item id="42027" name="&amp;Smjer teksta s lijeva na desno"/>
-					<Item id="42028" name="Samo za čitanje u Notepadu&amp;++"/>
+					<Item id="42028" name="Samo za čitanje u trenutačnom dokumentu"/>
+					<Item id="42102" name="Samo za čitanje za sve dokumente"/>
+					<Item id="42103" name="Očisti samo za čitanje za sve dokumente"/>
 					<Item id="42029" name="Kopiraj naziv i &amp;put trenutne datoteke"/>
 					<Item id="42030" name="Kopiraj &amp;naziv trenutne datoteke"/>
 					<Item id="42031" name="Kopiraj naziv i put &amp;mape trenutne datoteke"/>
@@ -424,6 +427,8 @@
 					<Item id="11007" name="T&amp;ip od Z do A"/>
 					<Item id="11008" name="Duljina sadržaja od m&amp;anje do veće"/>
 					<Item id="11009" name="Duljina sadržaja od &amp;veće do manje"/>
+					<Item id="11010" name="Modificirano vrijeme rastuće"/>
+					<Item id="11011" name="Modificirano vrijeme padajuće"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -1225,6 +1230,7 @@
 					<Item id="6909" name="Odaberi riječ pod kursorom kad ništa nije označeno"/>
 					<Item id="6910" name="Min. označenog teksta za auto. uključivanje &quot;U označenom&quot;:"/>
 					<Item id="6913" name="Ispuni polje Mapa pri traženju u datotekama prema aktivnom dokumentu"/>
+					<Item id="6916" name=": Maksimalan broj znakova za automatsko popunjavanje polja za pretraživanje iz odabira"/>
 				</Searching>
 
 				<RecentFilesHistory title="Povijest datoteka">
@@ -1595,6 +1601,8 @@ Molim, testirajte te naredbe u aktualnoj verziji Notepada++ i, ako je potrebno, 
 Alternativno, možete se vratiti na Notepad++ v8.5.2 i vratiti svoje prethodne podatke.
 Notepad++ će sigurnosno kopirati vaš stari &quot;shortcuts.xml&quot; i spremiti ga kao &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Promijenite naziv datoteke &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, i vaše bi naredbe trebale biti vraćene i ispravno raditi."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<FullReadOnlySavingForbidden title="Save failed" message="Ne mogu spremiti datoteku
+Notepad++ potpuni način rada samo za čitanje spriječio je spremanje datoteke."/>
 			<NotEnoughRoom4Saving title="Neuspjelo spremanje" message="Spremanje datoteke nije uspjelo.
 Izgleda da nema dovoljno mjesta na mediju za spremanje datoteke. Vaša datoteka nije spremljena."/>
 			<FileInaccessibleUserSession title="Datoteka nedostupna" message="Neke datoteke iz vaše ručno spremljene sesije &quot;$STR_REPLACE$&quot; su nedostupne. Mogu se otvoriti kao prazni dokumenti samo za čitanje, kao rezervirana mjesta.
@@ -1636,6 +1644,7 @@ Prije izvođenja radnje provjerite uvjet pretraživanja."/> <!-- HowToReproduce:
 			<ColumnPath name="Put"/>
 			<ColumnType name="Tip"/>
 			<ColumnSize name="Veličina"/>
+			<ColumnDateTime name="Modificirano vrijeme"/>
 			<NbDocsTotal name="ukupno dokumenata:"/>
 			<MenuCopyName name="Kopiraj naziv/nazive"/>
 			<MenuCopyPath name="Kopiraj naziv puta/nazive putova"/>
@@ -1883,9 +1892,8 @@ Kliknite &quot;?&quot; gumb s desne strane za otvaranje web stranice s Korisnič
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Idite na Prilagodbu stilova kako bi promijenili zadanu prilagođenu boju za odabrane prazne i neispisive znakove (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Primijeni postavke stilova neispisivih znakova na znakove C0, C1 kontrole i Unicode EOL (sljedeći redak, razdjelnik retka i razdjelnik odlomka)."/>
-			<searchingInSelThresh-tip value="Broj odabranih znakova u zoni uređivanja potreban da bi se automatski uključio potvrdni okvir &quot;U označenom&quot; kad se aktivira dijaloški okvir za pretraživanje.
-Maksimalna vrijednost je 1024.
-Postavite vrijednost na 0 za onemogućavanje automatskog uključivanja."/>
+			<searchingInSelThresh-tip value="Minimalni broj odabranih znakova u zoni uređivanja potreban da bi se automatski uključio potvrdni okvir &quot;U označenom&quot; kad se aktivira dijaloški okvir za pretraživanje. Maksimalna vrijednost je $INT_REPLACE$. Postavite vrijednost na 0 za onemogućavanje automatskog uključivanja."/>
+			<searchingFillFindWhat-tip value="Maksimalni broj odabranih znakova u području za uređivanje za automatsko popunjavanje polja &quot;Pronađi&quot; kada se aktivira Ctrl-F. Maksimalna vrijednost je $INT_REPLACE$, što je maksimalna veličina polja &quot;Pronađi&quot;, ograničena sustavom."/>
 			<verticalEdge-tip value="Dodajte svoju oznaku stupca označavanjem njenog položaja decimalnim brojem. Možete definirati više oznaka stupaca korištenjem razmaka za odvajanje različitih brojeva."/>
 			<fileSaveAsCopySaveButton-tip value="Držite tipku Shift dok klikate Spremi kopiju kao... kako biste otvorili kopiju nakon spremanja."/>
 			<autoIndentBasic-tip value="Osigurajte da uvlaka trenutnog retka (tj. novog retka stvorenog pritiskom na tipku ENTER) odgovara uvlaci prethodnog retka."/>
@@ -1909,8 +1917,9 @@ Ako odaberete napredni način, ali ne uređujete datoteke na gore navedenim jezi
 			<statusbar-Sel value="Ozn: "/>
 			<statusbar-Sel-number value="Ozn"/>
 			<toolbar-accent-tip value="Uz ovu opciju ikone na alatnoj traci prate sistemsku akcentiranu boju. Akcentirana boja je boja za isticanje korištena za gumbe, rubove i u Start izborniku Windowsa. Kako bi ju promijenili, idite u Postavke &gt; Personalizacija &gt; Boje i odaberite željenu akcentiranu boju."/>
-			<max-len-on-search-tip value="Dopuštena je samo $INT_REPLACE$ znakova duljine teksta za pronalaženje/zamjenu - vaš unos bi mogao biti skraćen i neće biti spremljen za sljedeću sesiju."/>
-			<max-len-on-save-tip value="Ovaj unos za pretraživanje (> $INT_REPLACE$ znakova) neće biti spremljen za sljedeću sesiju."/>
+			<len-limit-exceeded-tip value="Prekoračeno ograničenje duljine: Vaš unos možda premašuje dopušteno ograničenje i može biti skraćen, te se neće spremiti za sljedeću sesiju."/>
+			<max-len-on-search-tip value="Vaš unos možda premašuje dopušteno ograničenje i može biti skraćen, te se neće spremiti za sljedeću sesiju."/>
+			<max-len-on-save-tip value="Vaš unos je vrlo dugačak i neće biti spremljen za sljedeću sesiju."/>
 			<goto-setting-tip value="Pronađite svoju postavku ovdje"/>
 		</MiscStrings>
 	</Native-Langue>

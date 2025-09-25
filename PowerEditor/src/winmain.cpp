@@ -598,12 +598,9 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	std::wstring pluginMessage;
 	if (getParamValFromString(FLAG_PLUGIN_MESSAGE, params, pluginMessage))
 	{
-		if (pluginMessage.length() >= 2)
+		if (pluginMessage.length() >= 2 && (pluginMessage.front() == '"' && pluginMessage.back() == '"'))
 		{
-			if (pluginMessage.front() == '"' && pluginMessage.back() == '"')
-			{
-				pluginMessage = pluginMessage.substr(1, pluginMessage.length() - 2);
-			}
+			pluginMessage = pluginMessage.substr(1, pluginMessage.length() - 2);
 		}
 		cmdLineParams._pluginMessage = pluginMessage;
 	}

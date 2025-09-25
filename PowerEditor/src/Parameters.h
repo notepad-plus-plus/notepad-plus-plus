@@ -308,7 +308,8 @@ struct CmdLineParams
 	}
 };
 
-// A POD class to send CmdLineParams through WM_COPYDATA and to Notepad_plus::loadCommandlineParams
+// Command Line Parameters Data Transfer Object class:
+// A POD (Plain Old Data) class to send CmdLineParams through WM_COPYDATA and to Notepad_plus::loadCommandlineParams
 struct CmdLineParamsDTO
 {
 	bool _isReadOnly = false;

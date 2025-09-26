@@ -424,8 +424,8 @@
 					<Item id="11007" name="T&amp;ip od Z do A"/>
 					<Item id="11008" name="Duljina sadržaja od m&amp;anje do veće"/>
 					<Item id="11009" name="Duljina sadržaja od &amp;veće do manje"/>
-					<Item id="11010" name="Modificirano vrijeme rastuće"/>
-					<Item id="11011" name="Modificirano vrijeme padajuće"/>
+					<Item id="11010" name="Vrijeme izmjene rastuće"/>
+					<Item id="11011" name="Vrijeme izmjene padajuće"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -1639,7 +1639,7 @@ Prije izvođenja radnje provjerite uvjet pretraživanja."/> <!-- HowToReproduce:
 			<ColumnPath name="Put"/>
 			<ColumnType name="Tip"/>
 			<ColumnSize name="Veličina"/>
-			<ColumnDateTime name="Modificirano vrijeme"/>
+			<ColumnDateTime name="Vrijeme izmjene"/>
 			<NbDocsTotal name="ukupno dokumenata:"/>
 			<MenuCopyName name="Kopiraj naziv/nazive"/>
 			<MenuCopyPath name="Kopiraj naziv puta/nazive putova"/>
@@ -1723,7 +1723,7 @@ Prije izvođenja radnje provjerite uvjet pretraživanja."/> <!-- HowToReproduce:
 				<FileMenu>
 					<Item id="3111" name="Preimenuj"/>
 					<Item id="3115" name="Ukloni"/>
-					<Item id="3116" name="Modificiraj put datoteke"/>
+					<Item id="3116" name="Promijeni put datoteke"/>
 					<Item id="3118" name="Premjesti gore"/>
 					<Item id="3119" name="Premjesti dolje"/>
 				</FileMenu>
@@ -1811,7 +1811,7 @@ Nađi u svim datotekama s izuzetkom svih mapa log ili logs rekurzivno:
 			<summary value="Statistika"/>
 			<summary-filepath value="Puni put datoteke: "/>
 			<summary-filecreatetime value="Kreirano: "/>
-			<summary-filemodifytime value="Modificirano: "/>
+			<summary-filemodifytime value="Promijenjeno: "/>
 			<summary-nbchar value="Znakova (bez završetaka redaka): "/>
 			<summary-nbword value="Riječi: "/>
 			<summary-nbline value="Redaka: "/>

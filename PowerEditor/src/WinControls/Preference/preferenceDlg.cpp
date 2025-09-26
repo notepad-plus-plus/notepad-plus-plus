@@ -1892,6 +1892,28 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			setChecked(IDC_CHECK_NPC_INCLUDECCUNIEOL, svp._npcIncludeCcUniEol);
 			setChecked(IDC_CHECK_NPC_NOINPUTC0, svp._npcNoInputC0);
 
+			int iReadOnlyModeRadioId = 0;
+			switch (nppParam.getNppGUI()._globalReadonlyNppMode)
+			{
+				case NppGUI::global_readonly_npp_mode_forensic:
+					iReadOnlyModeRadioId = IDC_RADIO_GLOBALREADONLYMODE_FORENSIC;
+					break;
+				case NppGUI::global_readonly_npp_mode_toggle_allowed:
+					iReadOnlyModeRadioId = IDC_RADIO_GLOBALREADONLYMODE_TOGGLEALLOWED;
+					break;
+				case NppGUI::global_readonly_npp_mode_disabled:
+				default:
+					iReadOnlyModeRadioId = IDC_RADIO_GLOBALREADONLYMODE_DISABLED;
+			}
+			setChecked(iReadOnlyModeRadioId, true);
+			if (nppParam.getNppGUI()._isCmdlineGlobalReadonlyNppModeActivated)
+			{
+				// overriding cmdline param is in use, block the GUI
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_GLOBALREADONLYMODE_DISABLED), FALSE);
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_GLOBALREADONLYMODE_TOGGLEALLOWED), FALSE);
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_GLOBALREADONLYMODE_FORENSIC), FALSE);
+			}
+
 			wstring tipNote2Show = pNativeSpeaker->getLocalizedStrFromID("npcNote-tip",
 				L"Representation of selected \"non-ASCII\" whitespace and non-printing (control) characters.\n\n"\
 				L"NOTE:\n"\
@@ -2083,6 +2105,39 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				case IDC_CHECK_NPC_NOINPUTC0:
 				{
 					svp._npcNoInputC0 = isCheckedOrNot(IDC_CHECK_NPC_NOINPUTC0);
+					return TRUE;
+				}
+
+				case IDC_RADIO_GLOBALREADONLYMODE_DISABLED:
+				{
+					if (!nppParam.getNppGUI()._isCmdlineGlobalReadonlyNppModeActivated) // overriding cmdline param not in use?
+					{
+						nppParam.getNppGUI()._globalReadonlyNppMode = NppGUI::global_readonly_npp_mode_disabled;
+						const HWND grandParent = ::GetParent(_hParent);
+						::SendMessage(grandParent, NPPM_INTERNAL_CHANGEGLOBALREADONLYNPPMODE, false, 0);
+					}
+					return TRUE;
+				}
+
+				case IDC_RADIO_GLOBALREADONLYMODE_TOGGLEALLOWED:
+				{
+					if (!nppParam.getNppGUI()._isCmdlineGlobalReadonlyNppModeActivated) // overriding cmdline param not in use?
+					{
+						nppParam.getNppGUI()._globalReadonlyNppMode = NppGUI::global_readonly_npp_mode_toggle_allowed;
+						const HWND grandParent = ::GetParent(_hParent);
+						::SendMessage(grandParent, NPPM_INTERNAL_CHANGEGLOBALREADONLYNPPMODE, true, 0);
+					}
+					return TRUE;
+				}
+
+				case IDC_RADIO_GLOBALREADONLYMODE_FORENSIC:
+				{
+					if (!nppParam.getNppGUI()._isCmdlineGlobalReadonlyNppModeActivated) // overriding cmdline param not in use?
+					{
+						nppParam.getNppGUI()._globalReadonlyNppMode = NppGUI::global_readonly_npp_mode_forensic;
+						const HWND grandParent = ::GetParent(_hParent);
+						::SendMessage(grandParent, NPPM_INTERNAL_CHANGEGLOBALREADONLYNPPMODE, true, 0);
+					}
 					return TRUE;
 				}
 			}

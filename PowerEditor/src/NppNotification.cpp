@@ -1092,7 +1092,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			bool isSysReadOnly = buf->getFileReadOnly();
 			bool isInaccessible = buf->isInaccessible();
 			bool isUntitled = buf->isUntitled();
-			_tabPopupMenu.enableItem(IDM_EDIT_TOGGLEREADONLY, !isSysReadOnly && !buf->isMonitoringOn());
+			_tabPopupMenu.enableItem(IDM_EDIT_TOGGLEREADONLY, !isSysReadOnly && !buf->isMonitoringOn() &&
+				!(nppParam.getNppGUI()._globalReadonlyNppMode == NppGUI::global_readonly_npp_mode_forensic));
 			if (isInaccessible || isUntitled)
 			{
 				_tabPopupMenu.checkItem(IDM_EDIT_TOGGLESYSTEMREADONLY, false);

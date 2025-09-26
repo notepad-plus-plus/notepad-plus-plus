@@ -6443,6 +6443,24 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				}
 			}
 		}
+
+		else if (!lstrcmp(nm, L"globalReadonlyNppMode"))
+		{
+			TiXmlNode* n = childNode->FirstChild();
+			if (n)
+			{
+				const wchar_t* val = n->Value();
+				if (val)
+				{
+					if (lstrcmp(val, L"0") == 0)
+						_nppGUI._globalReadonlyNppMode = NppGUI::global_readonly_npp_mode_disabled;
+					else if (lstrcmp(val, L"1") == 0)
+						_nppGUI._globalReadonlyNppMode = NppGUI::global_readonly_npp_mode_toggle_allowed;
+					else if (lstrcmp(val, L"2") == 0)
+						_nppGUI._globalReadonlyNppMode = NppGUI::global_readonly_npp_mode_forensic;
+				}
+			}
+		}
 	}
 }
 
@@ -7928,6 +7946,18 @@ void NppParameters::createXmlTreeFromGUIParams()
 		setYesNoBoolAttribute(L"lightTbFluentMono", lightTbInfo._tbUseMono);
 		GUIConfigElement->SetAttribute(L"lightTabIconSet", lightDefaults._tabIconSet);
 		setYesNoBoolAttribute(L"lightTabUseTheme", lightDefaults._tabUseTheme);
+	}
+
+	// <GUIConfig name="readonlyGlobalNppMode">0</GUIConfig>
+	{
+		wchar_t szStr[12]{ '\0' };
+		if (_nppGUI._isCmdlineGlobalReadonlyNppModeActivated)
+			_itow(_nppGUI._globalReadonlyNppModeCfgBackup, szStr, 10);
+		else
+			_itow(_nppGUI._globalReadonlyNppMode, szStr, 10);
+		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
+		GUIConfigElement->SetAttribute(L"name", L"globalReadonlyNppMode");
+		GUIConfigElement->InsertEndChild(TiXmlText(szStr));
 	}
 
 	// <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" lineWrapMethod="aligned" currentLineHilitingShow="show" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="no" borderEdge="yes" edge="no" edgeNbColumn="80" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" borderWidth="2" smoothFont="no" />

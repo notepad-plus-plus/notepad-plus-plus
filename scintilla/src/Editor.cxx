@@ -4912,7 +4912,8 @@ void Editor::ButtonDownWithModifiers(Point pt, unsigned int curTime, KeyMod modi
 							return;
 						}
 						// Switch to just the click position
-						SetSelection(newPos, newPos);
+						// Commented it out because code below prevents the user from starting drag and copy
+						//SetSelection(newPos, newPos);
 					}
 					if (!sel.Range(selectionPart).Empty()) {
 						inDragDrop = DragDrop::initial;

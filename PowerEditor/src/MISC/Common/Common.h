@@ -339,4 +339,4 @@ private:
 #define NPP_UAC_SETFILEATTRIBUTES_SIGN L"#UAC-SETFILEATTRIBUTES#"
 #define NPP_UAC_MOVEFILE_SIGN L"#UAC-MOVEFILE#"
 #define NPP_UAC_CREATEEMPTYFILE_SIGN L"#UAC-CREATEEMPTYFILE#"
-DWORD invokeNppUacOp(std::wstring& strCmdLineParams);
+DWORD invokeNppUacOp(const std::wstring& strCmdLineParams);

@@ -2373,10 +2373,12 @@ void Notepad_plus::fileOpen()
 
 void Notepad_plus::fileNew()
 {
-    BufferID newBufID = MainFileManager.newEmptyDocument();
-
-    loadBufferIntoView(newBufID, currentView(), true);	//true, because we want multiple new files if possible
-    switchToFile(newBufID);
+	BufferID newBufID = MainFileManager.newEmptyDocument();
+	if (newBufID != BUFFER_INVALID)
+	{
+		loadBufferIntoView(newBufID, currentView(), true); // true, because we want multiple new files if possible
+		switchToFile(newBufID);
+	}
 }
 
 

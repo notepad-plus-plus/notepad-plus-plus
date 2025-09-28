@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Español" filename="spanish.xml" version="8.8.1">
+	<Native-Langue name="Español" filename="spanish.xml" version="8.8.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -41,6 +41,7 @@ Translation note:
 					<Item subMenuId="edit-onSelection" name="Selecció&amp;n"/>
 					<Item subMenuId="edit-multiSelectALL" name="Multiselección total"/>
 					<Item subMenuId="edit-multiSelectNext" name="Siguiente multiselección"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Atributo solo lectura en Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="Historial de cambios"/>
 					<Item subMenuId="search-markAll" name="Resaltar todas las coincid&amp;encias buscadas"/>
 					<Item subMenuId="search-markOne" name="Resaltar una coinci&amp;dencia"/>
@@ -153,7 +154,7 @@ Translation note:
 					<Item id="42068" name="Todas las iniciales a mayúsculas (mezcla)"/>
 					<Item id="42069" name="&amp;Inicial de frase a mayúscula"/>
 					<Item id="42070" name="Inicial de frase a mayúscula (mezcla)"/>
-					<Item id="42071" name="CAM&amp;BIAR todo a mayúsculas o MINÚSCULAS"/>
+					<Item id="42071" name="In&amp;vertir mayúsculas y MINÚSCULAS"/>
 					<Item id="42072" name="mAyúsculas y mInÚscuLAs &amp;ALeatoriO"/>
 					<Item id="42073" name="Abrir archivo"/>
 					<Item id="42074" name="Abrir carpeta contenedora en explorador de archivos"/>
@@ -196,7 +197,9 @@ Translation note:
 					<Item id="42025" name="&amp;Guardar macro actualmente grabada"/>
 					<Item id="42026" name="Texto derecha-izquierda"/>
 					<Item id="42027" name="Texto izquierda-derecha"/>
-					<Item id="42028" name="Solo lectura en Notepad++"/>
+					<Item id="42028" name="Atributo solo lectura en el documento actual"/>
+					<Item id="42102" name="Atributo solo lectura para todos los documentos"/>
+					<Item id="42103" name="Quitar atributo solo lectura para todos los documentos"/>
 					<Item id="42029" name="Copiar la ruta actual del archivo"/>
 					<Item id="42030" name="Copiar el nombre actual del archivo"/>
 					<Item id="42031" name="Copiar el nombre actual de la carpeta"/>
@@ -416,6 +419,8 @@ Translation note:
 					<Item id="11007" name="Tipo Z a A"/>
 					<Item id="11008" name="Tamaño menor a mayor"/>
 					<Item id="11009" name="Tamaño mayor a menor"/>
+					<Item id="11010" name="Hora modificada ascendente"/>
+					<Item id="11011" name="Hora modificada descendente"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -747,11 +752,11 @@ Translation note:
 					<Item id="44109" name="Cambiar a la lista de documentos"/>
 					<Item id="44108" name="Cambiar a lista de funciones"/>
 					<Item id="44110" name="Eliminar el color de la pestaña"/>
-					<Item id="44111" name="Aplicar la pestaña Color 1"/>
-					<Item id="44112" name="Aplicar la pestaña Color 2"/>
-					<Item id="44113" name="Aplicar la pestaña Color 3"/>
-					<Item id="44114" name="Aplicar la pestaña Color 4"/>
-					<Item id="44115" name="Aplicar la pestaña Color 5"/>
+					<Item id="44111" name="Aplicar color 1 a la pestaña"/>
+					<Item id="44112" name="Aplicar color 2 a la pestaña"/>
+					<Item id="44113" name="Aplicar color 3 a la pestaña"/>
+					<Item id="44114" name="Aplicar color 4 a la pestaña"/>
+					<Item id="44115" name="Aplicar color 5 a la pestaña"/>
 					<Item id="11002" name="Nombre A a Z"/>
 					<Item id="11003" name="Nombre Z a A"/>
 					<Item id="11004" name="Ruta A a Z"/>
@@ -1213,6 +1218,7 @@ Translation note:
 					<Item id="6909" name="Seleccionar la palabra bajo el cursor si no hay nada seleccionado"/>
 					<Item id="6910" name="Tamaño para la comprobación automática en &quot;Selección&quot;"/>
 					<Item id="6913" name="Rellenar el campo de búsqueda en el directorio de archivos en función del documento activo"/>
+					<Item id="6916" name=": Número máximo de caracteres para rellenar automáticamente el campo de búsqueda a partir de la selección"/>
 				</Searching>
 
 				<RecentFilesHistory title="Archivos recientes">
@@ -1483,21 +1489,15 @@ Debe habilitar &quot;Abrir todos los archivos de la carpeta&quot; en lugar de in
 			<ColumnModeTip title="Sugerencia del modo de columna" message="
 Hay 3 formas de cambiar al modo de selección de columnas:
 
-1- Con el teclado y el ratón
- Mantener pulsado Alt mientras arrastra con el botón
- izquierdo del ratón.
+1- Con el teclado y el ratón:
+Mantener pulsado Alt mientras arrastra con el botón izquierdo del ratón.
 
-2- Solo con el teclado
- Mantener pulsado Alt+Mayúsculas mientras se usan las teclas de las
- flechas.
+2- Solo con el teclado:
+Mantener pulsado Alt+Mayúsculas y usar las teclas de las flechas.
 
-3- Con el teclado o con el ratón
- Marque con el cursor la posición deseada de inicio del bloque
- de columnas y aplique la opción
- &quot;Selección de inicio/fin en modo columna&quot;.
- Mueva el cursor a la posición deseada al final del bloque
- de columnas, marque y aplique de nuevo la opción
- &quot;Selección de inicio/fin en modo columna&quot;."/>
+3- Con el teclado o con el ratón:
+Marque con el cursor la posición deseada de inicio del bloque de columnas y use la opción &quot;Selección de inicio/fin en modo columna&quot;.
+Mueva el cursor a la posición deseada al final del bloque de columnas, marque y use de nuevo la opción &quot;Selección de inicio/fin en modo columna&quot;."/>
 			<BufferInvalidWarning title="Error al guardar" message="No se puede guardar: el búfer no es válido."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<DoCloseOrNot title="Conservar archivo no existente" message="El archivo &quot;$STR_REPLACE$&quot; no existe.
 ¿Mantener este archivo en el editor?"/>
@@ -1584,7 +1584,9 @@ Pruebe estos comandos y, si es necesario, vuelva a editarlos.
 Alternativamente, puede reinstalar Notepad++ v8.5.2 y restaurar sus datos anteriores.
 Notepad++ hará una copia de seguridad de su antiguo &quot;shortcuts.xml&quot; y lo guardará como &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Cambie el nombre de &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; y sus comandos serán restaurados y funcionales de nuevo."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
-			<NotEnoughRoom4Saving title="Guardado fallido" message="No se ha podido guardar el archivo.
+			<FullReadOnlySavingForbidden title="Error al guardar" message="No se puede guardar el archivo.
+El modo de solo lectura total de Notepad++ impidió que se guardara el archivo."/>
+			<NotEnoughRoom4Saving title="Error al guardar" message="No se ha podido guardar el archivo.
 Parece que no hay espacio suficiente en el disco y no es posible guardarlo."/>
 			<FileInaccessibleUserSession title="Archivo inaccesible" message="Algunos archivos de su sesión guardada manualmente &quot;$STR_REPLACE$&quot; están inaccesibles. Se pueden abrir como documentos vacíos y de solo lectura como marcadores de posición.
 
@@ -1623,6 +1625,7 @@ Por favor, compruebe la condición de búsqueda antes de realizar la acción."/>
 			<ColumnPath name="Ruta"/>
 			<ColumnType name="Tipo"/>
 			<ColumnSize name="Tamaño"/>
+			<ColumnDateTime name="Hora de modificación"/>
 			<NbDocsTotal name="Total de documentos:"/>
 			<MenuCopyName name="Copiar nombre(s)"/>
 			<MenuCopyPath name="Copiar ruta(s)"/>
@@ -1870,8 +1873,9 @@ Haga clic en el botón derecho &quot;?&quot; para abrir el sitio web del manual 
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Vaya a &quot;Configurador de estilos&quot; para cambiar el color personalizado por defecto de los espacios en blanco y caracteres no imprimibles seleccionados. (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Aplicar ajustes de apariencia de caracteres no imprimibles a los caracteres de control C0, C1 y Unicode EOL (línea siguiente, separador de línea y separador de párrafo)."/>
-			<searchingInSelThresh-tip value="Número de caracteres seleccionados en la zona de edición para marcar automáticamente la casilla &quot;Selección&quot; cuando se activa el diálogo Buscar. El valor máximo es 1024. Establezca el valor en 0 para desactivar la comprobación automática."/>
-			<verticalEdge-tip value="Añada su marcador de columna indicando su posición con un número decimal. Puede definir varios marcadores utilizando espacios en blanco para separar los distintos números."/>
+			<searchingInSelThresh-tip value="Número mínimo de caracteres seleccionados en la zona de edición para marcar automáticamente la casilla &quot;En la selección&quot; cuando se activa el cuadro de diálogo Buscar. El valor máximo es $INT_REPLACE$. Establezca el valor en 0 para desactivar el marcado automático."/>
+			<searchingFillFindWhat-tip value="Número máximo de caracteres seleccionados en la zona de edición para rellenar automáticamente el campo &quot;Buscar&quot; cuando se pulsa Ctrl+F. El valor máximo es $INT_REPLACE$, que es el tamaño máximo del campo &quot;Buscar&quot;, limitado por el sistema."/>
+			<verticalEdge-tip value="Añada el marcador de columna indicando su posición con un número decimal. Puede definir varios marcadores de columna utilizando espacios en blanco para separar los diferentes números."/>
 			<fileSaveAsCopySaveButton-tip value="Mantenga pulsada la tecla Mayús mientras pulsa Guardar para abrir la copia después de guardarla."/>
 			<autoIndentBasic-tip value="Asegúrese de que la sangría de la línea actual (es decir, la nueva línea creada al pulsar la tecla ENTER) coincide con la sangría de la línea anterior."/>
 			<autoIndentAdvanced-tip value="Habilitar la sangría inteligente para lenguajes &quot;C-like&quot; y Python. Los lenguajes &quot;C-like&quot; incluyen:
@@ -1884,7 +1888,7 @@ Si selecciona el modo avanzado pero no edita archivos en los lenguajes mencionad
 			<scintillaRenderingTechnology-tip value="Puede mejorar la representación de caracteres especiales o resolver algunos problemas gráficos. Reinicie Notepad++ para aplicar los cambios."/>
 
 			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
-			<statusbar-length-lines value="long.: $STR_REPLACE1$    lín.: $STR_REPLACE2$"/>
+			<statusbar-length-lines value="long.: $STR_REPLACE1$    línea: $STR_REPLACE2$"/>
 
 			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
 			<statusbar-Ln-Col value="Lín.: $STR_REPLACE1$    Col.: $STR_REPLACE2$"/>
@@ -1893,7 +1897,11 @@ Si selecciona el modo avanzado pero no edita archivos en los lenguajes mencionad
 			<statusbar-Pos value="Pos.: "/>
 			<statusbar-Sel value="Sel.: "/>
 			<statusbar-Sel-number value="Sel."/>
-			<toolbar-accent-tip value="Esta opción hace que los iconos de la barra de herramientas sigan el color de realce del sistema Windows. Es el color utilizado en los botones, bordes y mosaicos del menú Inicio de Windows. Para cambiarla, vaya a Configuración &gt; Personalización &gt; Colores y, a continuación, seleccione el color de realce que desee."/>
+			<toolbar-accent-tip value="Esta opción hace que los iconos de la barra de herramientas sigan el color de resaltado del sistema Windows. El color de resaltado es el color destacado que se utiliza en los botones, bordes y mosaicos del menú Inicio de Windows. Para cambiarlo, vaya a Configuración > Personalización > Colores y seleccione el color de resaltado que prefiera."/>
+			<len-limit-exceeded-tip value="Se ha superado el límite de longitud: es posible que la entrada haya superado el límite permitido y se haya truncado, por lo que no se guardará para la próxima sesión."/>
+			<max-len-on-search-tip value="Es posible que la entrada haya superado el límite permitido y haya sido truncada, por lo que no se guardará para la próxima sesión."/>
+			<max-len-on-save-tip value="La longitud de la entrada es muy larga y es posible que no se guarde para la próxima sesión."/>
+			<goto-setting-tip value="Encuentre aquí su configuración"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

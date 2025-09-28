@@ -276,6 +276,8 @@ public:
 
 	void refreshInternalPanelIcons();
 
+	void changeReadOnlyUserModeForAllOpenedTabs(const bool ro);
+
 private:
 	Notepad_plus_Window* _pPublicInterface = nullptr;
     Window* _pMainWindow = nullptr;

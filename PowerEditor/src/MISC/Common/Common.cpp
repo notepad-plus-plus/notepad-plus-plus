@@ -2204,7 +2204,7 @@ void ControlInfoTip::hide()
 
 #pragma warning(default:4996)
 
-DWORD invokeNppUacOp(std::wstring& strCmdLineParams)
+DWORD invokeNppUacOp(const std::wstring& strCmdLineParams)
 {
 	if ((strCmdLineParams.length() == 0) || (strCmdLineParams.length() > (USHRT_MAX / sizeof(WCHAR))))
 	{

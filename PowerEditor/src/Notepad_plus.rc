@@ -631,7 +631,12 @@ BEGIN
         MENUITEM "Character &Panel",         IDM_EDIT_CHAR_PANEL
         MENUITEM "Clipboard &History",       IDM_EDIT_CLIPBOARDHISTORY_PANEL
         MENUITEM SEPARATOR
-        MENUITEM "Read-Only in Notepad++",            IDM_EDIT_TOGGLEREADONLY
+        POPUP "Read-&Only in Notepad++"
+        BEGIN
+            MENUITEM "Read-Only on Current Document",     IDM_EDIT_TOGGLEREADONLY
+            MENUITEM "Read-Only for All Documents",       IDM_EDIT_SETREADONLYFORALLDOCS
+            MENUITEM "Clear Read-Only for All Documents", IDM_EDIT_CLEARREADONLYFORALLDOCS
+        END
         MENUITEM "Read-Only Attribute in Windows",    IDM_EDIT_TOGGLESYSTEMREADONLY
     END
 

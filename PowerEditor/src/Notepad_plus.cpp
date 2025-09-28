@@ -2588,8 +2588,13 @@ void Notepad_plus::checkDocState()
 
 	bool isSysReadOnly = curBuf->getFileReadOnly();
 
-	bool doEnable = !(curBuf->isMonitoringOn() || isSysReadOnly);
+	bool doEnable = !(curBuf->isMonitoringOn() || isSysReadOnly ||
+		NppParameters::getInstance().getNppGUI()._isCmdlineFullReadOnlySavingForbiddenActivated);
 	enableCommand(IDM_EDIT_TOGGLEREADONLY, doEnable, MENU);
+	bool doEnableForAll = !(curBuf->isMonitoringOn() || 
+		NppParameters::getInstance().getNppGUI()._isCmdlineFullReadOnlySavingForbiddenActivated);
+	enableCommand(IDM_EDIT_SETREADONLYFORALLDOCS, doEnableForAll, MENU);
+	enableCommand(IDM_EDIT_CLEARREADONLYFORALLDOCS, doEnableForAll, MENU);
 
 	bool isUserReadOnly = curBuf->getUserReadOnly();
 	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_TOGGLEREADONLY, MF_BYCOMMAND | (isUserReadOnly ? MF_CHECKED : MF_UNCHECKED));
@@ -9217,4 +9222,27 @@ BOOL Notepad_plus::notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId, 
 		return TRUE;
 	}
 	return FALSE;
+}
+
+void Notepad_plus::changeReadOnlyUserModeForAllOpenedTabs(const bool ro)
+{
+	if (NppParameters::getInstance().getNppGUI()._isCmdlineFullReadOnlySavingForbiddenActivated
+		&& (ro != true))
+		return; // safety for forensic mode, refuse to cease the R/O state
+
+	// make R/O changes in both views
+	std::vector<DocTabView*> tabViews = { &_mainDocTab, &_subDocTab };
+	for (auto& pTabView : tabViews)
+	{
+		for (size_t i = 0; i < pTabView->nbItem(); ++i)
+		{
+			BufferID id = pTabView->getBufferByIndex(i);
+			if (id != BUFFER_INVALID)
+			{
+				Buffer* buf = MainFileManager.getBufferByID(id);
+				if (buf != nullptr)
+					buf->setUserReadOnly(ro);
+			}
+		}
+	}
 }

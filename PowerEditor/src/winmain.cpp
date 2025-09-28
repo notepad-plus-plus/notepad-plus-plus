@@ -314,7 +314,9 @@ int getGhostTypingSpeedFromParam(ParamVector & params)
 
 const wchar_t FLAG_MULTI_INSTANCE[] = L"-multiInst";
 const wchar_t FLAG_NO_PLUGIN[] = L"-noPlugin";
-const wchar_t FLAG_READONLY[] = L"-ro";
+const wchar_t FLAG_READONLY[] = L"-ro"; // for current cmdline file(s) only
+const wchar_t FLAG_FULL_READONLY[] = L"-fullReadOnly"; // user still can manually toggle OFF the R/O-state of N++ tabs, so saving of the tab filebuffers is possible
+const wchar_t FLAG_FULL_READONLY_SAVING_FORBIDDEN[] = L"-fullReadOnlySavingForbidden"; // user cannot toggle R/O-state of N++ tabs, impossible to save opened tab filebuffers
 const wchar_t FLAG_NOSESSION[] = L"-nosession";
 const wchar_t FLAG_NOTABBAR[] = L"-notabbar";
 const wchar_t FLAG_SYSTRAY[] = L"-systemtray";
@@ -581,6 +583,8 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	cmdLineParams._isNoTab = isInList(FLAG_NOTABBAR, params);
 	cmdLineParams._isNoPlugin = isInList(FLAG_NO_PLUGIN, params);
 	cmdLineParams._isReadOnly = isInList(FLAG_READONLY, params);
+	cmdLineParams._isFullReadOnly = isInList(FLAG_FULL_READONLY, params);
+	cmdLineParams._isFullReadOnlySavingForbidden = isInList(FLAG_FULL_READONLY_SAVING_FORBIDDEN, params);
 	cmdLineParams._isNoSession = isInList(FLAG_NOSESSION, params);
 	cmdLineParams._isPreLaunch = isInList(FLAG_SYSTRAY, params);
 	cmdLineParams._alwaysOnTop = isInList(FLAG_ALWAYS_ON_TOP, params);

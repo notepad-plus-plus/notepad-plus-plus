@@ -93,6 +93,9 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 
 	_currentStatus = type;
 
+	if (nppParamInst.getNppGUI()._isCmdlineFullReadOnlyActivated || nppParamInst.getNppGUI()._isCmdlineFullReadOnlySavingForbiddenActivated)
+		_isUserReadOnly = true; // preset for the FileManager loadFile(), newEmptyDocument() and bufferFromDocument() funcs
+
 	setFileName(fileName);
 	updateTimeStamp();
 	checkFileState();
@@ -742,6 +745,16 @@ bool Buffer::allowClickableLink() const
 	return (!_isLargeFile || nppGui._largeFileRestriction._allowClickableLink) || !nppGui._largeFileRestriction._isEnabled;
 }
 
+void Buffer::setUserReadOnly(bool ro)
+{
+	if (NppParameters::getInstance().getNppGUI()._isCmdlineFullReadOnlySavingForbiddenActivated
+		&& (ro != true))
+		return; // forensic mode active, refuse to cease the R/O state
+	_isUserReadOnly = ro;
+	doNotify(BufferChangeReadonly);
+}
+
+
 //filemanager
 
 FileManager::~FileManager()
@@ -1349,6 +1362,14 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 {
 	std::lock_guard<std::mutex> lock(save_mutex);
 
+	if (NppParameters::getInstance().getNppGUI()._isCmdlineFullReadOnlySavingForbiddenActivated)
+	{
+		// safety check
+		// - this code part can be reached in full-read-only mode e.g. when have opened a previous session
+		//   with some dirty (snapshot backed-up) file(s) and use the SaveAll
+		return SavingStatus::FullReadOnlySavingForbidden;
+	}
+
 	Buffer* buffer = getBufferByID(id);
 	bool isHiddenOrSys = false;
 
@@ -1590,17 +1611,21 @@ size_t FileManager::nextUntitledNewNumber() const
 
 BufferID FileManager::newEmptyDocument()
 {
-	wstring newTitle = ((NppParameters::getInstance()).getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
+	NppParameters& nppParams = NppParameters::getInstance();
 
-	wchar_t nb[10];
+	wstring newTitle = (nppParams.getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
+
+	wchar_t nb[10]{};
 	wsprintf(nb, L"%d", static_cast<int>(nextUntitledNewNumber()));
 	newTitle += nb;
 
 	Document doc = static_cast<Document>(_pscratchTilla->execute(SCI_CREATEDOCUMENT, 0, SC_DOCUMENTOPTION_TEXT_LARGE)); // this already sets a reference for filemanager
+	if (doc == 0) // if SCI_CREATEDOCUMENT fails, 0 is returned
+		return BUFFER_INVALID;
+
 	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str(), false);
 
-	NppParameters& nppParamInst = NppParameters::getInstance();
-	const NewDocDefaultSettings& ndds = (nppParamInst.getNppGUI()).getNewDocDefaultSettings();
+	const NewDocDefaultSettings& ndds = (nppParams.getNppGUI()).getNewDocDefaultSettings();
 	newBuf->_lang = ndds._lang;
 
 	BufferID id = newBuf;
@@ -1648,9 +1673,13 @@ BufferID FileManager::newPlaceholderDocument(const wchar_t* missingFilename, int
 		return BUFFER_INVALID;
 
 	BufferID buf = MainFileManager.newEmptyDocument();
+	if (buf == BUFFER_INVALID)
+		return BUFFER_INVALID;
+
 	_pNotepadPlus->loadBufferIntoView(buf, whichOne);
 	buf->setFileName(missingFilename);
 	buf->_currentStatus = DOC_INACCESSIBLE;
+
 	return buf;
 }
 

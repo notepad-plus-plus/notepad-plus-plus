@@ -845,6 +845,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 					NppGUI nppGui = (NppGUI)nppParam.getNppGUI();
 					nppGui._isCmdlineNosessionActivated = cmdLineParam->_isNoSession;
+					// the nppGui._isCmdlineFullReadOnlyActivated and nppGui._isCmdlineFullReadOnlySavingForbiddenActivated will not be updated
+					// accordingly the current cmdLineParam here on purpose (otherwise any accidental launching of the notepad++.exe could cease
+					// a previous CLI FullReadOnly Notepad++ setting, which can be especially unwanted in the case of the "forensic"
+					// FullReadOnlySavingForbiddenActivated mode)
 					break;
 				}
 

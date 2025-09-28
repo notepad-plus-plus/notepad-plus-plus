@@ -93,6 +93,9 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 
 	_currentStatus = type;
 
+	if (nppParamInst.getNppGUI()._isCmdlineFullReadOnlyActivated || nppParamInst.getNppGUI()._isCmdlineFullReadOnlySavingForbiddenActivated)
+		_isUserReadOnly = true; // preset for the FileManager loadFile(), newEmptyDocument() and bufferFromDocument() funcs
+
 	setFileName(fileName);
 	updateTimeStamp();
 	checkFileState();
@@ -742,6 +745,16 @@ bool Buffer::allowClickableLink() const
 	return (!_isLargeFile || nppGui._largeFileRestriction._allowClickableLink) || !nppGui._largeFileRestriction._isEnabled;
 }
 
+void Buffer::setUserReadOnly(bool ro)
+{
+	if (NppParameters::getInstance().getNppGUI()._isCmdlineFullReadOnlySavingForbiddenActivated
+		&& (ro != true))
+		return; // forensic mode active, refuse to cease the R/O state
+	_isUserReadOnly = ro;
+	doNotify(BufferChangeReadonly);
+}
+
+
 //filemanager
 
 FileManager::~FileManager()
@@ -1348,6 +1361,14 @@ std::mutex save_mutex;
 SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool isCopy)
 {
 	std::lock_guard<std::mutex> lock(save_mutex);
+
+	if (NppParameters::getInstance().getNppGUI()._isCmdlineFullReadOnlySavingForbiddenActivated)
+	{
+		// safety check
+		// - this code part can be reached in full-read-only mode e.g. when have opened a previous session
+		//   with some dirty (snapshot backed-up) file(s) and use the SaveAll
+		return SavingStatus::FullReadOnlySavingForbidden;
+	}
 
 	Buffer* buffer = getBufferByID(id);
 	bool isHiddenOrSys = false;

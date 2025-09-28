@@ -52,10 +52,11 @@ enum BufferStatusInfo {
 };
 
 enum SavingStatus {
-	SaveOK             = 0,
-	SaveOpenFailed     = 1,
-	SaveWritingFailed  = 2,
-	NotEnoughRoom      = 3
+	SaveOK                      = 0,
+	SaveOpenFailed              = 1,
+	SaveWritingFailed           = 2,
+	NotEnoughRoom               = 3,
+	FullReadOnlySavingForbidden = 4
 };
 
 struct BufferViewInfo {
@@ -202,11 +203,7 @@ public:
 	}
 
 	bool getUserReadOnly() const { return _isUserReadOnly; }
-
-	void setUserReadOnly(bool ro) {
-		_isUserReadOnly = ro;
-		doNotify(BufferChangeReadonly);
-	}
+	void setUserReadOnly(bool ro);
 
 	EolType getEolFormat() const { return _eolFormat; }
 

@@ -2588,8 +2588,13 @@ void Notepad_plus::checkDocState()
 
 	bool isSysReadOnly = curBuf->getFileReadOnly();
 
-	bool doEnable = !(curBuf->isMonitoringOn() || isSysReadOnly);
+	bool doEnable = !(curBuf->isMonitoringOn() || isSysReadOnly ||
+		NppParameters::getInstance().getNppGUI()._isCmdlineFullReadOnlySavingForbiddenActivated);
 	enableCommand(IDM_EDIT_TOGGLEREADONLY, doEnable, MENU);
+	bool doEnableForAll = !(curBuf->isMonitoringOn() || 
+		NppParameters::getInstance().getNppGUI()._isCmdlineFullReadOnlySavingForbiddenActivated);
+	enableCommand(IDM_EDIT_SETREADONLYFORALLDOCS, doEnableForAll, MENU);
+	enableCommand(IDM_EDIT_CLEARREADONLYFORALLDOCS, doEnableForAll, MENU);
 
 	bool isUserReadOnly = curBuf->getUserReadOnly();
 	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_TOGGLEREADONLY, MF_BYCOMMAND | (isUserReadOnly ? MF_CHECKED : MF_UNCHECKED));
@@ -6845,7 +6850,7 @@ std::vector<wstring> Notepad_plus::loadCommandlineParams(const wchar_t * command
 	intptr_t columnNumber = pCmdParams->_column2go;
 	intptr_t positionNumber = pCmdParams->_pos2go;
 	bool recursive = pCmdParams->_isRecursive;
-	bool readOnly = pCmdParams->_isReadOnly;
+	bool readOnly = (pCmdParams->_isReadOnly || pCmdParams->_isFullReadOnly || pCmdParams->_isFullReadOnlySavingForbidden);
 	bool openFoldersAsWorkspace = pCmdParams->_openFoldersAsWorkspace;
 	bool monitorFiles = pCmdParams->_monitorFiles;
 
@@ -9217,4 +9222,37 @@ BOOL Notepad_plus::notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId, 
 		return TRUE;
 	}
 	return FALSE;
+}
+
+void Notepad_plus::changeReadOnlyUserModeForAllOpenedTabs(const bool ro)
+{
+	if (NppParameters::getInstance().getNppGUI()._isCmdlineFullReadOnlySavingForbiddenActivated
+		&& (ro != true))
+		return; // safety for forensic mode, refuse to cease the R/O state
+
+	// make R/O changes in both views
+
+	for (size_t i = 0; i < _mainDocTab.nbItem(); ++i)
+	{
+		BufferID id = _mainDocTab.getBufferByIndex(i);
+		if (id == BUFFER_INVALID)
+			continue;
+		Buffer* buf = MainFileManager.getBufferByID(id);
+		if (buf == nullptr)
+			continue;
+
+		buf->setUserReadOnly(ro);
+	}
+
+	for (size_t i = 0; i < _subDocTab.nbItem(); ++i)
+	{
+		BufferID id = _subDocTab.getBufferByIndex(i);
+		if (id == BUFFER_INVALID)
+			continue;
+		Buffer* buf = MainFileManager.getBufferByID(id);
+		if (buf == nullptr)
+			continue;
+
+		buf->setUserReadOnly(ro);
+	}
 }

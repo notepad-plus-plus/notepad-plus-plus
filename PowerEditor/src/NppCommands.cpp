@@ -2083,10 +2083,22 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_TOGGLEREADONLY:
 		{
-			Buffer * buf = _pEditView->getCurrentBuffer();
+			Buffer* buf = _pEditView->getCurrentBuffer();
 			buf->setUserReadOnly(!buf->getUserReadOnly());
+			break;
 		}
-		break;
+
+		case IDM_EDIT_SETREADONLYFORALLDOCS:
+		{
+			changeReadOnlyUserModeForAllOpenedTabs(true);
+			break;
+		}
+
+		case IDM_EDIT_CLEARREADONLYFORALLDOCS:
+		{
+			changeReadOnlyUserModeForAllOpenedTabs(false);
+			break;
+		}
 
 		case IDM_EDIT_TOGGLESYSTEMREADONLY:
 		{
@@ -2111,10 +2123,9 @@ void Notepad_plus::command(int id)
 						L"Changing file read-only attribute failed",
 						MB_OK | MB_ICONWARNING);
 				}
-
 			}
+			break;
 		}
-		break;
 
 		case IDM_EDIT_MULTISELECTALL:
 		case IDM_EDIT_MULTISELECTALLMATCHCASE:
@@ -4300,6 +4311,8 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_MULTISELECTSSKIP:
 			case IDM_EDIT_SORTLINES_LOCALE_ASCENDING:
 			case IDM_EDIT_SORTLINES_LOCALE_DESCENDING:
+			case IDM_EDIT_SETREADONLYFORALLDOCS:
+			case IDM_EDIT_CLEARREADONLYFORALLDOCS:
 				_macro.push_back(recordedMacroStep(id));
 				break;
 

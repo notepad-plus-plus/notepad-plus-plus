@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Galego" filename="galician.xml" version="8.8.1">
+	<Native-Langue name="Galego" filename="galician.xml" version="8.8.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -41,6 +41,7 @@ Translation note:
 					<Item subMenuId="edit-onSelection" name="Selecció&amp;n"/>
 					<Item subMenuId="edit-multiSelectALL" name="Multiselección total"/>
 					<Item subMenuId="edit-multiSelectNext" name="Seguinte multiselección"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Atributo só lectura en Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="Historial de cambios"/>
 					<Item subMenuId="search-markAll" name="Resaltar tódalas coincidencias &amp;buscadas"/>
 					<Item subMenuId="search-markOne" name="Resaltar unha coinci&amp;dencia"/>
@@ -153,7 +154,7 @@ Translation note:
 					<Item id="42068" name="Todas as iniciales a maiúsculas (mesturar)"/>
 					<Item id="42069" name="&amp;Inicial de frase a maiúscula"/>
 					<Item id="42070" name="Inicial de frase a maiúscula (mesturar)"/>
-					<Item id="42071" name="CAM&amp;BIAR todo a maiúsculas ou MINÚSCULAS"/>
+					<Item id="42071" name="Inv&amp;ertir maiúsculas e MINÚSCULAS"/>
 					<Item id="42072" name="mAiúsculas e mInÚscuLAs &amp;ALeatoriO"/>
 					<Item id="42073" name="Abrir arquivo"/>
 					<Item id="42074" name="Abrir carpeta contedora no explorador de arquivos"/>
@@ -196,7 +197,9 @@ Translation note:
 					<Item id="42025" name="&amp;Gardar macro actualmente gravada"/>
 					<Item id="42026" name="Texto dereita-esquerda"/>
 					<Item id="42027" name="Texto esquerda-dereita"/>
-					<Item id="42028" name="Só lectura en Notepad++"/>
+					<Item id="42028" name="Atributo só lectura no documento actual"/>
+					<Item id="42102" name="Atributo só lectura para tódolos documentos"/>
+					<Item id="42103" name="Quitar atributo só lectura para tódolos documentos"/>
 					<Item id="42029" name="Copiar a ruta actual do arquivo"/>
 					<Item id="42030" name="Copiar o nome actual do arquivo"/>
 					<Item id="42031" name="Copiar o nome actual da carpeta"/>
@@ -416,6 +419,8 @@ Translation note:
 					<Item id="11007" name="Tipo Z a A"/>
 					<Item id="11008" name="Tamaño menor a maior"/>
 					<Item id="11009" name="Tamaño maior a menor"/>
+					<Item id="11010" name="Hora modificada ascendente"/>
+					<Item id="11011" name="Hora modificada descendente"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -747,11 +752,11 @@ Translation note:
 					<Item id="44109" name="Cambiar á lista de documentos"/>
 					<Item id="44108" name="Cambiar á lista de funcións"/>
 					<Item id="44110" name="Eliminar a cor da pestana"/>
-					<Item id="44111" name="Aplicar a pestana Cor 1"/>
-					<Item id="44112" name="Aplicar a pestana Cor 2"/>
-					<Item id="44113" name="Aplicar a pestana Cor 3"/>
-					<Item id="44114" name="Aplicar a pestana Cor 4"/>
-					<Item id="44115" name="Aplicar a pestana Cor 5"/>
+					<Item id="44111" name="Aplicar cor 1 á pestana"/>
+					<Item id="44112" name="Aplicar cor 2 á pestana"/>
+					<Item id="44113" name="Aplicar cor 3 á pestana"/>
+					<Item id="44114" name="Aplicar cor 4 á pestana"/>
+					<Item id="44115" name="Aplicar cor 5 á pestana"/>
 					<Item id="11002" name="Nome A a Z"/>
 					<Item id="11003" name="Nome Z a A"/>
 					<Item id="11004" name="Ruta A a Z"/>
@@ -1032,11 +1037,11 @@ Translation note:
 					<Item id="6249" name="Texto sin formato"/>
 					<Item id="6250" name="Cor personalizada"/>
 					<Item id="6252" name="Caracteres non imprimibles"/>
-					<Item id="6260" name="Apariencia"/>
+					<Item id="6260" name="Aparencia"/>
 					<Item id="6254" name="Abreviatura"/>
 					<Item id="6255" name="Punto de código"/>
 					<Item id="6256" name="Cor personalizada"/>
-					<Item id="6258" name="Aplicar axustes de apariencia a C0, C1 &amp;&amp; EOL de Unicode"/>
+					<Item id="6258" name="Aplicar axustes de aparencia a C0, C1 &amp;&amp; EOL de Unicode"/>
 					<Item id="6259" name="Impedir a introducción de caracteres de control (código C0) no documento"/>
 				</Scintillas2>
 
@@ -1213,6 +1218,7 @@ Translation note:
 					<Item id="6909" name="Seleccionar a palabra baixo o cursor se non hai nada seleccionado"/>
 					<Item id="6910" name="Tamaño para a comprobación automática en &quot;Selección&quot;"/>
 					<Item id="6913" name="Completar o campo de busca na ruta dos arquivos en función do documento activo"/>
+					<Item id="6916" name=": Número máximo de caracteres para encher automáticamente o campo de busca a partir da selección"/>
 				</Searching>
 
 				<RecentFilesHistory title="Arquivos recentes">
@@ -1483,19 +1489,15 @@ Debe habilitar &quot;Abrir tódolos arquivos da carpeta&quot; en vez de iniciar 
 			<ColumnModeTip title="Suxerencia do modo de columna" message="
 Hai 3 formas de cambiar ao modo de selección de columnas:
 
-1- Co teclado e o rato
- Manter pulsado Alt mentras arrastra co botón esquerdo do rato.
+1- Co teclado e o rato:
+Manter pulsado Alt mentras arrastra co botón esquerdo do rato.
  
-2- So co teclado
- Manter pulsado Alt+Maiúsculas mentras se usan as teclas de frechas.
+2- Só co teclado:
+Manter pulsado Alt+Maiúsculas e usar as teclas de frechas.
 
-3- Co teclado ou co rato
- Marque co cursor a posición desexada do inicio do bloque de
- columnas e aplique a opción
- &quot;Selección de inicio/fin no modo columna&quot;.
- Mova o cursor á posición desexada ao final do bloque de columnas,
- marque e a continuación aplique de novo a opción
- &quot;Selección de inicio/fin no modo columna&quot;."/>
+3- Co teclado ou co rato:
+Marque co cursor a posición desexada do inicio do bloque de columnas e use a opción &quot;Selección de inicio/fin no modo columna&quot;.
+Mova o cursor á posición desexada ao final do bloque de columnas, marque e a continuación use de novo a opción &quot;Selección de inicio/fin no modo columna&quot;."/>
 			<BufferInvalidWarning title="Erro ao gardar" message="Non se pode gardar: o búfer no é válido."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<DoCloseOrNot title="Conservar arquivo non existente" message="O arquivo &quot;$STR_REPLACE$&quot; non existe.
 ¿Manter este arquivo no editor?"/>
@@ -1582,7 +1584,9 @@ Probe estes comandos e, se é necesario, volva a editalos.
 Alternativamente, pode reinstalar Notepad++ v8.5.2 e restaurar os seus datos anteriores.
 Notepad++ fará unha copia de seguridade do seu antigo &quot;shortcuts.xml&quot; e gardarao como &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Cambie o nome de &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; e os comandos serán restaurados e funcionales de novo."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
-			<NotEnoughRoom4Saving title="Gardado fallido" message="Non se  pode gardar o arquivo.
+			<FullReadOnlySavingForbidden title="Erro ao gardar" message="Non se pode gardar o arquivo.
+O modo de só lectura total de Notepad++ impediu que se gardara o arquivo."/>
+			<NotEnoughRoom4Saving title="Erro ao gardar" message="Non se  pode gardar o arquivo.
 Parece que non hai espazo suficiente no disco e non é posible gardalo."/>
 			<FileInaccessibleUserSession title="Arquivo inaccesible" message="Algúns arquivos da súa sesión gardada manualmente &quot;$STR_REPLACE$&quot; están inaccesibles. Pódense abrir como documentos baleiros e de só lectura como marcadores de posición.
 
@@ -1621,6 +1625,7 @@ Por favor, comprobe a condición da busca antes de realizar a acción."/><!-- Ho
 			<ColumnPath name="Ruta"/>
 			<ColumnType name="Tipo"/>
 			<ColumnSize name="Tamaño"/>
+			<ColumnDateTime name="Hora de modificación"/>
 			<NbDocsTotal name="Total de documentos:"/>
 			<MenuCopyName name="Copiar nome(s)"/>
 			<MenuCopyPath name="Copiar ruta(s)"/>
@@ -1867,9 +1872,10 @@ Faga clic no botón dereito &quot;?&quot; para abrir o sitio web do manual do us
 
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Vaia a &quot;Configurador de estilos&quot; para cambiar a cor personalizada por defecto dos espazos en branco e caracteres non imprimibles seleccionados. (&quot;Non-printing characters custom color&quot;)."/>
-			<npcIncludeCcUniEol-tip value="Aplicar axustes de apariencia de caracteres non imprimibles aos caracteres de control C0, C1 e Unicode EOL (liña seguinte, separador de liña e separador de párrafo)."/>
-			<searchingInSelThresh-tip value="Número de caracteres seleccionados na zona de edición para marcar automáticamente o recadro &quot;Selección&quot; cando se activa o diálogo Buscar. O valor máximo é 1024. Estableza o valor en 0 para desactivar a comprobación automática."/>
-			<verticalEdge-tip value="Engada o seu marcador de columna indicando a súa posición cun número decimal. Pode definir varios marcadores utilizando espazos en branco para separar os distintos números."/>
+			<npcIncludeCcUniEol-tip value="Aplicar axustes de aparencia de caracteres non imprimibles aos caracteres de control C0, C1 e Unicode EOL (liña seguinte, separador de liña e separador de párrafo)."/>
+			<searchingInSelThresh-tip value="Número mínimo de caracteres seleccionados na zona de edición para marcar automáticamente o recadro &quot;Na selección&quot; cando se activa o cadro de diálogo Buscar. O valor máximo é $INT_REPLACE$. Estableza o valor en 0 para desactivar o marcado automático."/>
+			<searchingFillFindWhat-tip value="Número máximo de caracteres seleccionados na zona de edición para encher automáticamente o campo &quot;Buscar&quot; cando se pulsa Ctrl+F. o valor máximo é $INT_REPLACE$, que é o tamaño máximo do campo &quot;Buscar&quot;, limitado polo sistema."/>
+			<verticalEdge-tip value="Engada o marcador de columna indicando a súa posición cun número decimal. Pode definir varios marcadores de columna utilizando espazos en branco para separar os diferentes números."/>
 			<fileSaveAsCopySaveButton-tip value="Manteña pulsada a tecla Maiús mentras pulsa Gardar para abrir a copia despois de gardala."/>
 			<autoIndentBasic-tip value="Asegúrese de que a sangría da liña actual (é dicir, a nova liña creada ao pulsar a tecla ENTER) coincide coa sangría da liña anterior."/>
 			<autoIndentAdvanced-tip value="Habilitar a sangría intelixente para linguaxes &quot;C-like&quot; e Python. As linguaxes &quot;C-like&quot; inclúen:
@@ -1882,7 +1888,7 @@ Se selecciona o modo avanzado pero non edita arquivos nas linguaxes mencionadas,
 			<scintillaRenderingTechnology-tip value="Pode mellorar a representación de caracteres especiais ou resolver algúns problemas gráficos. Reinicie Notepad++ para aplicar os cambios."/>
 
 			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
-			<statusbar-length-lines value="lonx.: $STR_REPLACE1$    liñ.: $STR_REPLACE2$"/>
+			<statusbar-length-lines value="lonx.: $STR_REPLACE1$    liña: $STR_REPLACE2$"/>
 
 			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
 			<statusbar-Ln-Col value="Liña: $STR_REPLACE1$    Col.: $STR_REPLACE2$"/>
@@ -1891,7 +1897,11 @@ Se selecciona o modo avanzado pero non edita arquivos nas linguaxes mencionadas,
 			<statusbar-Pos value="Pos.: "/>
 			<statusbar-Sel value="Sel.: "/>
 			<statusbar-Sel-number value="Sel."/>
-			<toolbar-accent-tip value="Esta opción fai que as iconas da barra de ferramentas sigan a cor de realce do sistema Windows. É a cor usada nos botóns, bordos e mosaicos do menú Inicio de Windows. Para cambiala, vaia a Configuración &gt; Personalización &gt; Cores e, a continuación, seleccione a cor de realce que desexe."/>
+			<toolbar-accent-tip value="Esta opción fai que as iconas da barra de ferramentas sigan a cor de resaltado do sistema Windows. A cor de resaltado é a cor destacada que se utiliza nos botóns, bordos e mosaicos do menú Inicio de Windows. Para cambialo, vaia a Configuración > Personalización > Cores e seleccione a cor de resaltado que desexe."/>
+			<len-limit-exceeded-tip value="Superouse o límite de lonxitude: é posible que a entrada superara o límite permitido e se truncase, polo que non se gardará para a seguinte sesión."/>
+			<max-len-on-search-tip value="É posible que a entrada superara o límite permitido e se truncase, polo que non se gardará para a seguinte sesión."/>
+			<max-len-on-save-tip value="A lonxitude dea entrada é moi larga e é posible que non se garde para a seguinte sesión."/>
+			<goto-setting-tip value="Encontre aquí a súa configuración"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

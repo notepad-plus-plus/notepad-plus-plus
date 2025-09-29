@@ -594,10 +594,10 @@
 
 
 #define    IDM_SETTING    (IDM + 8000)
-//    #define    IDM_SETTING_TAB_SIZE                 (IDM_SETTING + 1)
-//    #define    IDM_SETTING_TAB_REPLACESPACE         (IDM_SETTING + 2)
-//    #define    IDM_SETTING_HISTORY_SIZE             (IDM_SETTING + 3)
-//    #define    IDM_SETTING_EDGE_SIZE                (IDM_SETTING + 4)
+//  #define    IDM_SETTING_TAB_SIZE                 (IDM_SETTING + 1)
+//  #define    IDM_SETTING_TAB_REPLACESPACE         (IDM_SETTING + 2)
+//  #define    IDM_SETTING_HISTORY_SIZE             (IDM_SETTING + 3)
+//  #define    IDM_SETTING_EDGE_SIZE                (IDM_SETTING + 4)
     #define    IDM_SETTING_IMPORTPLUGIN             (IDM_SETTING + 5)
     #define    IDM_SETTING_IMPORTSTYLETHEMES        (IDM_SETTING + 6)
     #define    IDM_SETTING_TRAYICON                 (IDM_SETTING + 8)

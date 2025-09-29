@@ -315,8 +315,6 @@ struct CmdLineParams
 struct CmdLineParamsDTO
 {
 	bool _isReadOnly = false;
-	bool _isFullReadOnly = false;
-	bool _isFullReadOnlySavingForbidden = false;
 	bool _isNoSession = false;
 	bool _isSessionFile = false;
 	bool _isRecursive = false;
@@ -335,8 +333,6 @@ struct CmdLineParamsDTO
 	{
 		CmdLineParamsDTO dto;
 		dto._isReadOnly = params._isReadOnly;
-		dto._isFullReadOnly = params._isFullReadOnly;
-		dto._isFullReadOnlySavingForbidden = params._isFullReadOnlySavingForbidden;
 		dto._isNoSession = params._isNoSession;
 		dto._isSessionFile = params._isSessionFile;
 		dto._isRecursive = params._isRecursive;
@@ -885,8 +881,8 @@ struct NppGUI final
 	bool _rememberLastSession = true; // remember next session boolean will be written in the settings
 	bool _keepSessionAbsentFileEntries = false;
 	bool _isCmdlineNosessionActivated = false; // used for if -nosession is indicated on the launch time
-	bool _isCmdlineFullReadOnlyActivated = false; // used for if -isFullReadOnly is indicated on the launch time
-	bool _isCmdlineFullReadOnlySavingForbiddenActivated = false; // used for if -isFullReadOnlySavingForbidden is indicated on the launch time
+	bool _isCmdlineFullReadOnlyActivated = false;
+	bool _isCmdlineFullReadOnlySavingForbiddenActivated = false;
 	bool _detectEncoding = true;
 	bool _saveAllConfirm = true;
 	bool _setSaveDlgExtFiltToAllTypes = false;

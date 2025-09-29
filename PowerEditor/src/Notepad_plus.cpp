@@ -6850,7 +6850,7 @@ std::vector<wstring> Notepad_plus::loadCommandlineParams(const wchar_t * command
 	intptr_t columnNumber = pCmdParams->_column2go;
 	intptr_t positionNumber = pCmdParams->_pos2go;
 	bool recursive = pCmdParams->_isRecursive;
-	bool readOnly = (pCmdParams->_isReadOnly || pCmdParams->_isFullReadOnly || pCmdParams->_isFullReadOnlySavingForbidden);
+	bool readOnly = pCmdParams->_isReadOnly;
 	bool openFoldersAsWorkspace = pCmdParams->_openFoldersAsWorkspace;
 	bool monitorFiles = pCmdParams->_monitorFiles;
 
@@ -9231,28 +9231,18 @@ void Notepad_plus::changeReadOnlyUserModeForAllOpenedTabs(const bool ro)
 		return; // safety for forensic mode, refuse to cease the R/O state
 
 	// make R/O changes in both views
-
-	for (size_t i = 0; i < _mainDocTab.nbItem(); ++i)
+	std::vector<DocTabView*> tabViews = { &_mainDocTab, &_subDocTab };
+	for (auto& pTabView : tabViews)
 	{
-		BufferID id = _mainDocTab.getBufferByIndex(i);
-		if (id == BUFFER_INVALID)
-			continue;
-		Buffer* buf = MainFileManager.getBufferByID(id);
-		if (buf == nullptr)
-			continue;
-
-		buf->setUserReadOnly(ro);
-	}
-
-	for (size_t i = 0; i < _subDocTab.nbItem(); ++i)
-	{
-		BufferID id = _subDocTab.getBufferByIndex(i);
-		if (id == BUFFER_INVALID)
-			continue;
-		Buffer* buf = MainFileManager.getBufferByID(id);
-		if (buf == nullptr)
-			continue;
-
-		buf->setUserReadOnly(ro);
+		for (size_t i = 0; i < pTabView->nbItem(); ++i)
+		{
+			BufferID id = pTabView->getBufferByIndex(i);
+			if (id != BUFFER_INVALID)
+			{
+				Buffer* buf = MainFileManager.getBufferByID(id);
+				if (buf != nullptr)
+					buf->setUserReadOnly(ro);
+			}
+		}
 	}
 }

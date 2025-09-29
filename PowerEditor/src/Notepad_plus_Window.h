@@ -36,7 +36,11 @@ notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-udl=\"My UDL Name\"] 
 -monitor: Open file with file monitoring enabled\r\
 -nosession : Launch Notepad++ without previous session\r\
 -notabbar : Launch Notepad++ without tab bar\r\
--ro : Make the filePath read only\r\
+-ro : Make the filePath read-only\r\
+-fullReadOnly : Open all files read-only by default,\r\
+     toggling the R/O off and saving is allowed\r\
+-fullReadOnlySavingForbidden : Open all files read-only by default,\r\
+     toggling the R/O off and saving is disabled\r\
 -systemtray : Launch Notepad++ directly in system tray\r\
 -loadingTime : Display Notepad++ loading time\r\
 -alwaysOnTop : Make Notepad++ always on top\r\

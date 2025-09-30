@@ -39,6 +39,7 @@
 					<Item subMenuId="edit-onSelection" name="V&amp;ybraný text"/>
 					<Item subMenuId="edit-multiSelectALL" name="Viacnásobný výber VŠETKO"/>
 					<Item subMenuId="edit-multiSelectNext" name="Viacnásobný výber Ďalší"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Iba na čítanie v Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="História zmien"/>
 					<Item subMenuId="search-markAll" name="Použiť štýl na vše&amp;tky tokeny"/>
 					<Item subMenuId="search-markOne" name="Použiť štýl na &amp;jeden token"/>

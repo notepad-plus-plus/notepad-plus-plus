@@ -41,6 +41,7 @@
 					<Item subMenuId="edit-onSelection" name="&amp;Na izboru"/>
 					<Item subMenuId="edit-multiSelectALL" name="Višestruki odabir SVE"/>
 					<Item subMenuId="edit-multiSelectNext" name="Višestruki odabir naredno"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Samo za čitanje u Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="Istorija promena"/>
 					<Item subMenuId="search-markAll" name="Stilizuj &amp;sve pojave tokena"/>
 					<Item subMenuId="search-markOne" name="Stilizuj &amp;jedan token"/>
@@ -196,7 +197,9 @@
 					<Item id="42025" name="Sačuvaj trenutno snimljeni makro"/>
 					<Item id="42026" name="Smer teksta s desna na levo (RTL)"/>
 					<Item id="42027" name="Smer teksta s leva na desno (LTR)"/>
-					<Item id="42028" name="Samo za čitanje u Notepad++"/>
+					<Item id="42028" name="Samo za čitanje u trenutnom dokumentu"/>
+					<Item id="42102" name="Samo za čitanje za sve dokumente"/>
+					<Item id="42103" name="Poništi samo za čitanje za sve dokumente"/>
 					<Item id="42029" name="Kopiraj putanju trenutne datoteke"/>
 					<Item id="42030" name="Kopiraj naziv trenutne datoteke"/>
 					<Item id="42031" name="Kopiraj trenutnu putanju direktorijuma"/>
@@ -1582,6 +1585,8 @@ Testirajte komande i uredite ih ako je potrebno.
 Alternativno, možete spustiti Notepad++ na v8.5.2 i povratiti prethodne podatke.
 Notepad++ će backup-ovati stariji &quot;shortcuts.xml&quot; i sačuvati ga kao &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Preimenovanjem &quot;shortcuts.xml.v8.5.2.backup&quot; na &quot;shortcuts.xml&quot;, vaše komande će biti povraćene i radiće normalno."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<FullReadOnlySavingForbidden title="Neuspešno čuvanje" message="Datoteka se ne može sačuvati.
+Režim zabranjenog čuvanja u Notepad++, samo za čitanje, sprečio je da datoteka bude sačuvana."/>
 			<NotEnoughRoom4Saving title="Neuspešno čuvanje" message="Neuspešno čuvanje datoteke.
 Deluje da na disku nema dovoljno prostora da bi se sačuvala datoteka. Datoteka nije sačuvana."/>
 			<FileInaccessibleUserSession title="Nedostupna datoteka" message="Neke datoteke iz ručno sačuvane sesije &quot;$STR_REPLACE$&quot; su nedostupne. Mogu biti otvorene kao prazni dokumenti za čitanje.

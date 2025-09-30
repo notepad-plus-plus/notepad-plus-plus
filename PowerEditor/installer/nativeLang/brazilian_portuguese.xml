@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 22 Sep 2025 for 8.8.5+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 30 Sep 2025 for 8.8.5+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -41,6 +41,7 @@ Translation note:
 					<Item subMenuId="edit-onSelection" name="Na seleção"/>
 					<Item subMenuId="edit-multiSelectALL" name="Multi-seleciona TODOS"/>
 					<Item subMenuId="edit-multiSelectNext" name="Multi-seleciona Próximo"/>	
+					<Item subMenuId="edit-readonlyInNotepad++" name="Apenas-Leitura no Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="Histórico de Alterações"/>
 					<Item subMenuId="search-markAll" name="Marcar todos"/>
 					<Item subMenuId="search-markOne" name="Marcar um"/>
@@ -196,7 +197,9 @@ Translation note:
 					<Item id="42025" name="&amp;Salvar macro atual..."/>
 					<Item id="42026" name="Alinhar texto à direita"/>
 					<Item id="42027" name="Alinhar texto à esquerda"/>
-					<Item id="42028" name="Definir como somente leitura"/>
+					<Item id="42028" name="Apenas-Leitura para o Documento Atual"/>
+					<Item id="42102" name="Apenas-Leitura para todos os Documentos"/>
+					<Item id="42103" name="Remover Apenas-Leitura para todos os Documentos"/>
 					<Item id="42029" name="Copiar caminho completo do arquivo"/>
 					<Item id="42030" name="Copiar nome do arquivo"/>
 					<Item id="42031" name="Copiar caminho da pasta atual"/>
@@ -1582,7 +1585,9 @@ Por favor, teste estes comandos e, se necessário, altere-os.
 Como alternativa, você pode voltar à versão v8.5.2 do Notepad++ e restaurar os dados anteriores.
 O Notepad++ irá efetuar backup do seu arquivo &quot;shortcuts.xml&quot; anterior e salvá-lo como &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Ao renomear &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, seus comandos devem ser restaurados e devem funcionar a contento."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
-			<NotEnoughRoom4Saving title="Falha ao salvar" message="Não foi possível salvar o arquivo.
+			<FullReadOnlySavingForbidden title="Erro ao Salvar" message="Não foi possível salvar o arquivo.
+O modo proibição de salvar em apenas-leitura total do Notepad++ impediu que o arquivo fosse salvo."/>
+			<NotEnoughRoom4Saving title="Erro ao salvar" message="Não foi possível salvar o arquivo.
 É possível que não haja espaço em disco suficiente para salvar o arquivo. Seu arquivo não foi salvo."/>
 			<FileInaccessibleUserSession title="Arquivo inacessível" message="Alguns arquivos da sua sessão salva &quot;$STR_REPLACE$&quot; não podem ser acessados. Eles podem ser abertos como arquivos vazios e apenas leitura para que permaneçam na lista de documentos.
 

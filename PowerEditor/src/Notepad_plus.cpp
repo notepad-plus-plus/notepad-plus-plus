@@ -2589,10 +2589,10 @@ void Notepad_plus::checkDocState()
 	bool isSysReadOnly = curBuf->getFileReadOnly();
 
 	bool doEnable = !(curBuf->isMonitoringOn() || isSysReadOnly ||
-		NppParameters::getInstance().getNppGUI()._isCmdlineFullReadOnlySavingForbiddenActivated);
+		NppParameters::getInstance().getNppGUI()._isFullReadOnlySavingForbidden);
 	enableCommand(IDM_EDIT_TOGGLEREADONLY, doEnable, MENU);
 	bool doEnableForAll = !(curBuf->isMonitoringOn() || 
-		NppParameters::getInstance().getNppGUI()._isCmdlineFullReadOnlySavingForbiddenActivated);
+		NppParameters::getInstance().getNppGUI()._isFullReadOnlySavingForbidden);
 	enableCommand(IDM_EDIT_SETREADONLYFORALLDOCS, doEnableForAll, MENU);
 	enableCommand(IDM_EDIT_CLEARREADONLYFORALLDOCS, doEnableForAll, MENU);
 
@@ -9226,7 +9226,7 @@ BOOL Notepad_plus::notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId, 
 
 void Notepad_plus::changeReadOnlyUserModeForAllOpenedTabs(const bool ro)
 {
-	if (NppParameters::getInstance().getNppGUI()._isCmdlineFullReadOnlySavingForbiddenActivated
+	if (NppParameters::getInstance().getNppGUI()._isFullReadOnlySavingForbidden
 		&& (ro != true))
 		return; // safety for forensic mode, refuse to cease the R/O state
 

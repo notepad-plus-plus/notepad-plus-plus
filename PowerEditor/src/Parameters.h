@@ -881,8 +881,8 @@ struct NppGUI final
 	bool _rememberLastSession = true; // remember next session boolean will be written in the settings
 	bool _keepSessionAbsentFileEntries = false;
 	bool _isCmdlineNosessionActivated = false; // used for if -nosession is indicated on the launch time
-	bool _isCmdlineFullReadOnlyActivated = false;
-	bool _isCmdlineFullReadOnlySavingForbiddenActivated = false;
+	bool _isFullReadOnly = false;
+	bool _isFullReadOnlySavingForbidden = false;
 	bool _detectEncoding = true;
 	bool _saveAllConfirm = true;
 	bool _setSaveDlgExtFiltToAllTypes = false;

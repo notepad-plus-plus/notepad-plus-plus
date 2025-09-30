@@ -91,8 +91,8 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 		_notepad_plus_plus_core._pluginsManager.disable();
 
 	nppGUI._isCmdlineNosessionActivated = cmdLineParams->_isNoSession;
-	nppGUI._isCmdlineFullReadOnlyActivated = cmdLineParams->_isFullReadOnly;
-	nppGUI._isCmdlineFullReadOnlySavingForbiddenActivated = cmdLineParams->_isFullReadOnlySavingForbidden;
+	nppGUI._isFullReadOnly = cmdLineParams->_isFullReadOnly;
+	nppGUI._isFullReadOnlySavingForbidden = cmdLineParams->_isFullReadOnlySavingForbidden;
 
 	_hIconAbsent = ::LoadIcon(hInst, MAKEINTRESOURCE(IDI_ICONABSENT));
 

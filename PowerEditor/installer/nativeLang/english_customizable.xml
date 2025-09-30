@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english_customizable.xml" version="8.8.1">
+	<Native-Langue name="English" filename="english_customizable.xml" version="8.8.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -41,6 +41,7 @@ Translation note:
 					<Item subMenuId="edit-onSelection" name="&amp;On Selection"/>
 					<Item subMenuId="edit-multiSelectALL" name="Multi-select ALL"/>
 					<Item subMenuId="edit-multiSelectNext" name="Multi-select Next"/>
+					<Item subMenuId="edit-readOnlyInNotepadPlusPlus" name="Read&amp;-Only in Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="Change History"/>
 					<Item subMenuId="search-markAll" name="Style &amp;All Occurrences of Token"/>
 					<Item subMenuId="search-markOne" name="Style &amp;One Token"/>
@@ -196,7 +197,7 @@ Translation note:
 					<Item id="42025" name="&amp;Save Currently Recorded Macro..."/>
 					<Item id="42026" name="Text Direction RTL"/>
 					<Item id="42027" name="Text Direction LTR"/>
-					<Item id="42028" name="Read-Only in Notepad++"/>
+					<Item id="42028" name="Read-Only on Current Document"/>
 					<Item id="42029" name="Copy Current File Path"/>
 					<Item id="42030" name="Copy Current Filename"/>
 					<Item id="42031" name="Copy Current Dir. Path"/>
@@ -210,6 +211,8 @@ Translation note:
 					<Item id="42056" name="Remove Empty Lines (Containing Blank characters)"/>
 					<Item id="42057" name="Insert Blank Line Above Current"/>
 					<Item id="42058" name="Insert Blank Line Below Current"/>
+					<Item id="42102" name="Read-Only for All Documents"/>
+					<Item id="42103" name="Clear Read-Only for All Documents"/>
 					<Item id="43001" name="&amp;Find..."/>
 					<Item id="43002" name="Find &amp;Next"/>
 					<Item id="43003" name="&amp;Replace..."/>

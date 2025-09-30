@@ -2566,7 +2566,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 				buf->setEncoding(session._mainViewFiles[i]._encoding);
 
 			buf->setUserReadOnly(session._mainViewFiles[i]._isUserReadOnly ||
-				nppParam.getNppGUI()._isCmdlineFullReadOnlyActivated || nppParam.getNppGUI()._isCmdlineFullReadOnlySavingForbiddenActivated);
+				nppParam.getNppGUI()._isFullReadOnly || nppParam.getNppGUI()._isFullReadOnlySavingForbidden);
 
 			buf->setPinned(session._mainViewFiles[i]._isPinned);
 
@@ -2705,7 +2705,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			buf->setLangType(typeToSet, pLn);
 			buf->setEncoding(session._subViewFiles[k]._encoding);
 			buf->setUserReadOnly(session._subViewFiles[k]._isUserReadOnly ||
-				nppParam.getNppGUI()._isCmdlineFullReadOnlyActivated || nppParam.getNppGUI()._isCmdlineFullReadOnlySavingForbiddenActivated);
+				nppParam.getNppGUI()._isFullReadOnly || nppParam.getNppGUI()._isFullReadOnlySavingForbidden);
 			buf->setPinned(session._subViewFiles[k]._isPinned);
 
 			buf->setUntitledTabRenamedStatus(session._subViewFiles[k]._isUntitledTabRenamed);

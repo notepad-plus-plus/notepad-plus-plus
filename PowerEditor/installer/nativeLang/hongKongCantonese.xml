@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.8.6">
+	<Native-Langue name="香港廣東話" filename="hongKongCantonese.xml" version="8.8.5">
 		<!--//
 		This localization project is maintained by real Hongkongers who speak native Hong Kong Cantonese.
 		Welcome issues and pull requests in Github repository:
@@ -42,6 +42,7 @@
 					<Item subMenuId="edit-onSelection" name="處理揀選範圍(&amp;O)"/>
 					<Item subMenuId="edit-multiSelectALL" name="多重選擇：全部"/><!-- #new v8.6.0 -->
 					<Item subMenuId="edit-multiSelectNext" name="多重選擇：下個"/><!-- #new v8.6.0 -->
+					<Item subMenuId="edit-readonlyInNotepad++" name="喺 Notepad++ set 做唯讀"/><!-- #new #next -->
 					<Item subMenuId="search-changeHistory" name="修改紀錄"/><!-- #new v8.5.5 -->
 					<Item subMenuId="search-markAll" name="成份文件咁做標記(&amp;A)"/>
 					<Item subMenuId="search-markOne" name="標記一次(&amp;O)"/><!-- #new v7.9.6 -->
@@ -214,7 +215,9 @@
 					<Item id="42027" name="文字方向：左至右"/>
 
 					<!-- type: Edit menu (cont'd) -->
-					<Item id="42028" name="喺 Notepad++ set 做唯讀"/>
+					<Item id="42028" name="將呢份文件 set 做唯讀"/>
+					<Item id="42102" name="將所有文件 set 做唯讀"/><!-- #new #next -->
+					<Item id="42103" name="將所有文件取消唯讀"/><!-- #new #next -->
 					<Item id="42029" name="抄低個檔案路徑"/>
 					<Item id="42030" name="抄低個檔名"/>
 					<Item id="42031" name="抄低個資料夾路徑"/>
@@ -478,6 +481,8 @@
 					<Item id="11007" name="副檔名 Z 至 A"/><!-- #new v8.3.2 -->
 					<Item id="11008" name="內容長度短至長"/><!-- #new v8.3.2 -->
 					<Item id="11009" name="內容長度長至短"/><!-- #new v8.3.2 -->
+					<Item id="11010" name="修改時間：由遠至近"/><!-- #new #next -->
+					<Item id="11011" name="修改時間：由近至遠"/><!-- #new #next -->
 				</Commands>
 			</Main>
 			<TabBar>
@@ -1316,7 +1321,7 @@
 					<Item id="6909" name="冇揀字嘅話，就揀浮標下面個字詞"/><!-- #new v8.4.5 -->
 					<Item id="6910" name="最少字數以自動剔選「限揀選範圍」"/><!-- #new v8.5.8 -->
 					<Item id="6913" name="根據目前份文件填上資料夾路徑"/><!-- #new v8.7.5 -->
-					<Item id="6916" name="字數上限：自動將揀咗嘅字填去輸入欄"/><!-- #new v8.8.6 -->
+					<Item id="6916" name="字數上限：自動將揀咗嘅字填去輸入欄"/><!-- #new #next -->
 				</Searching>
 
 				<RecentFilesHistory title="最近用過嘅檔案記錄">
@@ -1690,6 +1695,8 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
 又或者，你可以先將 Notepad++ 降級去 v8.5.2，回復舊有嘅資料用著先：
 Notepad++ 將你舊嗰份「shortcuts.xml」備份咗去「shortcuts.xml.v8.5.2.backup」。
 將「shortcuts.xml.v8.5.2.backup」改名做「shortcuts.xml」，咁就可以回復你啲舊指令嘞。"/><!-- #new v8.5.3 -->
+			<FullReadOnlySavingForbidden title="Save 唔到" message="Save 唔到。
+Notepad++ 嘅「全唯讀下禁止 saving 模式」唔畀 save。"/><!-- #new #next -->
 			<NotEnoughRoom4Saving title="Save 唔到" message="Save 唔到。
 似乎係磁碟唔夠位，留意返你嘅檔案係冇save到嘅。"/><!-- #new v8.5.8 -->
 			<FileInaccessibleUserSession title="檔案讀唔到" message="你想 save 嘅工作階段有檔案讀唔到，包括：
@@ -1731,6 +1738,7 @@ $STR_REPLACE$
 			<ColumnPath name="路徑"/>
 			<ColumnType name="類型"/>
 			<ColumnSize name="Size"/>
+			<ColumnDateTime name="修改時間"/><!-- #new #next -->
 			<NbDocsTotal name="文件數量："/><!-- #new v7.9.2 -->
 			<MenuCopyName name="抄低檔名"/><!-- #new v8.1.3 -->
 			<MenuCopyPath name="抄低路徑"/><!-- #new v8.1.3 -->
@@ -1991,7 +1999,7 @@ Click on &quot;?&quot; button on right to open website with User Manual."/><!-- 
 			<npcCustomColor-tip value="Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (&quot;Non-printing characters custom color&quot;)."/><!-- #new v8.5 #review commit aaab190 -->
 			<npcIncludeCcUniEol-tip value="非打印字元套用埋 C0、C1 同埋 Unicode EOL 字元（下一行、行分隔同埋段落分隔符號）"/><!-- #new v8.5.3 -->
 			<searchingInSelThresh-tip value="當「搵」對話框打開嗰陣，「限揀選範圍」選項會因應你揀咗幾多個字呢，嚟決定自動剔選，最大數值係 1024，set 做 0 就唔會再自動剔選。"/><!-- #new v8.5.8 -->
-			<searchingFillFindWhat-tip value="當撳 Ctrl-F 嗰陣，睇吓係咪要自動將揀咗嘅字填去「搵乜嘢」輸入欄，超過你嘅上限字數設定就唔填。受系統所限，最大數值為 $INT_REPLACE$。"/><!-- #new v8.8.6 -->
+			<searchingFillFindWhat-tip value="當撳 Ctrl-F 嗰陣，睇吓係咪要自動將揀咗嘅字填去「搵乜嘢」輸入欄，超過你嘅上限字數設定就唔填。受系統所限，最大數值為 $INT_REPLACE$。"/><!-- #new #next -->
 			<verticalEdge-tip value="填上十進位數字用嚟 mark 條跨行嘅垂直線，想劃多啲線嘅話，用空格分隔多組數字就得，多啲嚟密啲手。"/><!-- #new v8.6.5 -->
 			<fileSaveAsCopySaveButton-tip value="撳住 Shift 掣嚟撳呢個 Save 掣，可以順便打開埋個 copy。"/><!-- #new v8.7.0 -->
 			<autoIndentBasic-tip value="撳 Enter 掣開新一行嗰陣，確保而家新一行同上一行嘅縮排相同。"/><!-- #new v8.7.0 -->
@@ -2016,7 +2024,7 @@ C、C++、Java、C#、Objective-C、PHP、JavaScript、JSP、CSS、Perl、Rust�
 			<statusbar-Sel value="已選："/><!-- #new v8.8.0 -->
 			<statusbar-Sel-number value="選"/><!-- #new v8.8.0 -->
 			<toolbar-accent-tip value="呢個選項令工具列圖示顏色跟返你 Windows 嘅系統輔色設定。關於輔色 Accent color，Windows 咁講：「輔色是用來醒目提示使用者介面中的重要元素，例如按鈕、連結及其他互動式元件。」，你可以喺 Windows 設定 → 個人化 (Personalization) → 顏色 (Colors)，然後揀你想要嘅顏色。"/><!-- #new v8.8.0 -->
-			<len-limit-exceeded-tip value="超過字數上限：輸入超過上限，你嘅輸入可能會被截斷，亦冇辦法 save 落嚟畀下個工作階段用。"/><!-- #new v8.8.6 -->
+			<len-limit-exceeded-tip value="超過字數上限：輸入超過上限，你嘅輸入可能會被截斷，亦冇辦法 save 落嚟畀下個工作階段用。"/><!-- #new #next -->
 			<max-len-on-search-tip value="輸入字數超過上限，你嘅輸入可能會被截斷，亦冇辦法 save 落嚟畀下個工作階段用。"/><!-- #new v8.8.4 -->
 			<max-len-on-save-tip value="輸入字串太長，未必可以 save 落嚟畀下個工作階段用。"/><!-- #new v8.8.4 -->
 			<goto-setting-tip value="喺呢度搵設定"/><!-- #new v8.8.4 -->

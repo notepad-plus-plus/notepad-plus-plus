@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.8.4  7/Aug/2025  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.8.6  30/Sep/2025  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.8.3">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.8.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -43,6 +43,7 @@
 					<Item subMenuId="edit-onSelection" name="Vybraný te&amp;xt"/>
 					<Item subMenuId="edit-multiSelectALL" name="Vícenásobný výběr VŠE"/>
 					<Item subMenuId="edit-multiSelectNext" name="Vícenásobný výběr Další"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Příznak 'Pouze pro &amp;čtení' v Notepadu++"/>
 					<Item subMenuId="search-changeHistory" name="Historie změn"/>
 					<Item subMenuId="search-markAll" name="Ozn&amp;ačit všechny výskyty tokenu stylem"/>
 					<Item subMenuId="search-markOne" name="&amp;Označit token (jeden) stylem"/>
@@ -140,7 +141,7 @@
 					<Item id="42025" name="U&amp;ložit aktuálně zaznamenané makro"/>
 					<Item id="42026" name="Směr textu zprava doleva"/>
 					<Item id="42027" name="Směr textu zleva doprava"/>
-					<Item id="42028" name="Nastavit kartu dokumentu na 'Pouze pro &amp;čtení'"/>
+					<Item id="42028" name="Nastavit &amp;aktuální kartu dokumentu na 'Pouze pro čtení'"/>
 					<Item id="42029" name="Kopírovat název (i s cestou) aktuálního souboru"/>
 					<Item id="42030" name="Kopírovat název aktuálního souboru"/>
 					<Item id="42031" name="Kopírovat název (i s cestou) aktuálního adresáře souboru"/>
@@ -214,6 +215,8 @@
 					<Item id="42099" name="Přeskočit aktuální &amp;&amp; přejít na další vícenásobný výběr"/>
 					<Item id="42100" name="Setřídit řádky s přihlédnutím k národnímu prostředí vzestupně"/>
 					<Item id="42101" name="Setřídit řádky s přihlédnutím k národnímu prostředí sestupně"/>
+					<Item id="42102" name="&amp;Nastavit všechny karty dokumentů na 'Pouze pro čtení'"/>
+					<Item id="42103" name="&amp;Zrušit u všech karet dokumentů nastavení na 'Pouze pro čtení'"/>
 					<Item id="43001" name="&amp;Najít..."/>
 					<Item id="43002" name="Najít &amp;další"/>
 					<Item id="43003" name="Nah&amp;radit..."/>
@@ -426,6 +429,8 @@
 					<Item id="11007" name="Typu - od Z do A"/>
 					<Item id="11008" name="Délky obsahu - vzestupně"/>
 					<Item id="11009" name="Délky obsahu - sestupně"/>
+					<Item id="11010" name="Času posl. úpravy - vzestupně"/>
+					<Item id="11011" name="Času posl. úpravy - sestupně"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -1235,10 +1240,11 @@
 					<Item id="6905" name="Nahradit: Nepřesunovat se při nahrazení výrazu k následujícímu výskytu"/>
 					<Item id="6906" name="Okno s výsledky vyhledávání: zobrazovat pouze jeden záznam s nálezy na řádku, pokud je to možné"/>
 					<Item id="6907" name="Při vyvolání dialogového okna &quot;Najít&quot;"/>
-					<Item id="6908" name="Předvyplnit vyhledávací pole označeným textem"/>
+					<Item id="6908" name="Předvyplnit vyhledávací políčko &quot;Najít&quot; označeným textem"/>
 					<Item id="6909" name="Když není nic označeno, předvyplnit slovem na pozici kurzoru"/>
 					<Item id="6910" name="Minimální délka pro automatické zaškrtávaní &quot;Ve vybraném&quot;:"/>
-					<Item id="6913" name="Předvyplnit pole &quot;Adresář:&quot; v dialogu &quot;Najít v souborech&quot; podle aktivního dokumentu"/>
+					<Item id="6913" name="Předvyplnit políčko &quot;Adresář:&quot; v dialogu &quot;Najít v souborech&quot; podle aktivního dokumentu"/>
+					<Item id="6916" name=": Maximální počet znaků pro automatické vkládání z označeného do políčka &quot;Najít&quot;"/>
 				</Searching>
 				<RecentFilesHistory title="Historie posl. souborů">
 					<Item id="6304" name="Historie posledních souborů"/>
@@ -1575,6 +1581,8 @@ Vyzkoušejte si je prosím v aktuální verzi Notepadu++ a v případě potřeby
 Jako alternativu můžete využít přechod zpět na nižší verzi Notepadu++ (v8.5.2-) a obnovit svoje předchozí data ze zálohy, která bude vytvořena. Notepad++ nyní zazálohuje Váš stávající soubor &quot;shortcuts.xml&quot; a uloží ho jako &quot;shortcuts.xml.v8.5.2.backup&quot;.
 
 Přejmenováním &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; zpátky by se Vaše původní makra a příkazy měly obnovit a fungovat správně."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<FullReadOnlySavingForbidden title="Ukládání selhalo" message="Soubor nelze uložit.
+Režim Notepadu++ 'pouze pro čtení' zabránil uložení souboru."/>
 			<NotEnoughRoom4Saving title="Ukládání selhalo" message="Soubor se nepodařilo uložit.
 Zdá se, že na disku není dostatek místa pro uložení souboru. Váš soubor není uložen."/>
 			<FileInaccessibleUserSession title="Nedostupný soubor" message="Některé soubory z manuálně uložené relace &quot;$STR_REPLACE$&quot; nejsou aktuálně dostupné. Mohou být v otevírané relaci dočasně nahrazeny prázdnými nezapisovatelnými zástupnými dokumenty/kartami.
@@ -1617,6 +1625,7 @@ Před provedením akce si prosím nejprve ověřte nastavené podmínky."/> <!--
 			<ColumnPath name="Cesta"/>
 			<ColumnType name="Typ"/>
 			<ColumnSize name="Velikost"/>
+			<ColumnDateTime name="Čas posl. úpravy"/>
 			<NbDocsTotal name="celkem dokumentů:"/>
 			<MenuCopyName name="Kopírovat název(y)"/>
 			<MenuCopyPath name="Kopírovat cestu(y)"/>
@@ -1740,7 +1749,7 @@ Hledat ve všech souborech, ale vynechat složky tests, bin &amp;&amp; bin64:
 Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo logs:
 *.* !\\log*+"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Vyberte složku, kde chcete vyhledávat"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-in-files-dir-from-active-doc-tip value="Vyplní pole &quot;Adresář:&quot; podle aktivního dokumentu."/><!-- HowToReproduce: Search > Find in Files > [<<] -->
+			<find-in-files-dir-from-active-doc-tip value="Vyplní políčko &quot;Adresář:&quot; podle aktivního dokumentu."/><!-- HowToReproduce: Search > Find in Files > [<<] -->
 			<find-status-top-reached value="Vyhledávání: Dosažen začátek dokumentu, nalezen první výskyt zdola."/>
 			<find-status-end-reached value="Vyhledávání: Dosažen konec dokumentu, nalezen první výskyt shora."/>
 			<find-status-replaceinfiles-1-replaced value="Nahrazování v souborech: 1 výskyt nahrazen"/>
@@ -1870,7 +1879,8 @@ Kliknutím na &quot;?&quot; tlačítko vpravo otevřete webovou stránku s Uživ
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Přejděte do Úpravy stylu a změňte výchozí vlastní barvu pro vybrané prázdné a netisknutelné znaky. (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Použije nastavení vzhledu netisknutelných znaků pro řídící znaky C0, C1 (reprezentují další informace o textu jako jsou další řádek, oddělovač řádků, oddělovač odstavců) a pro Unicode EOL znaky." />
-			<searchingInSelThresh-tip value="Minimální počet vybraných znaků editační zóny, aby došlo k automatickému zaškrtnutí políčka &quot;Ve vybraném&quot; při aktivaci dialogu &quot;Najít&quot;. Nejvyšší možná hodnota je 1024. Pokud chcete toto automatické zaškrtávání zcela vypnout, nastavte hodnotu na 0."/>
+			<searchingInSelThresh-tip value="Minimální počet vybraných znaků editační zóny, aby došlo k automatickému zaškrtnutí políčka &quot;Ve vybraném&quot; při aktivaci dialogu &quot;Najít&quot;. Nejvyšší možná hodnota je $INT_REPLACE$. Pokud chcete toto automatické zaškrtávání zcela vypnout, nastavte hodnotu na 0."/>
+			<searchingFillFindWhat-tip value="Maximální počet vybraných znaků editační zóny pro automatické vyplnění políčka &quot;Najít&quot; při stisknutí Ctrl+F. Nejvyšší možná hodnota je $INT_REPLACE$, což je maximální délka políčka &quot;Najít&quot; limitovaná systémem."/>
 			<verticalEdge-tip value="Přidejte Vaši sloupcovou značku poukázáním na její pozici (decimální číslo). Můžete definovat více značek sloupců použitím více čísel oddělených prázdnými znaky."/>
 			<fileSaveAsCopySaveButton-tip value="Chcete-li po uložení kopii i otevřít, přidržte Shift při stisknutí tlačítka."/>
 			<autoIndentBasic-tip value="Zajistí, aby odsazení aktuálního řádku (tj. nového řádku vytvořeného stisknutím klávesy ENTER) odpovídalo odsazení předchozího řádku."/>
@@ -1890,8 +1900,9 @@ Pokud zvolíte Pokročilý režim, ale nebudete upravovat soubory výše zmíně
 			<statusbar-Sel value="Ozn: "/>
 			<statusbar-Sel-number value="Ozn"/>
 			<toolbar-accent-tip value="Touto volbou vynutíte u ikon nástrojové lišty Notepadu++ použití systémové barvy Windows určené pro zvýrazňování. Tato barva je součástí zvýraznění interaktivních prvků uživatelského rozhraní jako jsou tlačítka, okraje nebo dlaždice Startovní nabídky Windows. Pro její případnou změnu přejděte do systémového Nastavení &gt; Přizpůsobení &gt; Barvy, poté vyberte preferovanou barvu pro zvýrazňování."/>
-			<max-len-on-search-tip value="Povolená délka textu pro pole Najít/Nahradit je pouze $INT_REPLACE$ znaků - Vámi zadaný text může být zkrácen a neuložen pro další relaci."/>
-			<max-len-on-save-tip value="Tento vstup (> $INT_REPLACE$ znaků) nebude uložen pro další relaci."/>
+			<len-limit-exceeded-tip value="Překročena maximální délka: Vámi zadaný text mohl překročit povolený limit a mohl být zkrácen. Nebude uložen pro další relaci(e)."/>
+			<max-len-on-search-tip value="Vámi zadaný text mohl překročit povolenou délku a mohl být zkrácen. Nebude uložen pro další relaci(e)."/>
+			<max-len-on-save-tip value="Délka Vámi zadaného textu je příliš dlouhá a nemusí být uložena pro příští relaci(e)."/>
 			<goto-setting-tip value="Nastavení najdete zde"/>
 		</MiscStrings>
 

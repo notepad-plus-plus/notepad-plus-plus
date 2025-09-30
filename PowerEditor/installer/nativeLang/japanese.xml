@@ -41,6 +41,7 @@ Translation note:
 					<Item subMenuId="edit-onSelection" name="選択した文字列を(&amp;O)"/>
 					<Item subMenuId="edit-multiSelectALL" name="すべての一致を 選択する"/>
 					<Item subMenuId="edit-multiSelectNext" name="次の一致を 選択に追加"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Notepad++ 内で読み取り専用"/>
 					<Item subMenuId="search-changeHistory" name="編集履歴"/>
 					<Item subMenuId="search-markAll" name="選択した語をすべて色づけ(&amp;A)"/>
 					<Item subMenuId="search-markOne" name="選択した語を一つだけ色づけ(&amp;O)"/>
@@ -196,7 +197,9 @@ Translation note:
 					<Item id="42025" name="記録したマクロを保存(&amp;S)..."/>
 					<Item id="42026" name="書字方向を右から左へ"/>
 					<Item id="42027" name="書字方向を左から右へ"/>
-					<Item id="42028" name="Notepad++内で読み取り専用"/>
+					<Item id="42028" name="現在の文書を読み取り専用にする"/>
+					<Item id="42102" name="すべての文書を読み取り専用にする"/>
+					<Item id="42103" name="すべての文書の読み取り専用を解除する"/>
 					<Item id="42029" name="現在の文書のフルパス"/>
 					<Item id="42030" name="現在の文書のファイル名"/>
 					<Item id="42031" name="現在の文書のディレクトリ"/>
@@ -1584,6 +1587,8 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 代案として、Notepad++ 8.5.2 に戻し、以前のデータを復元することもできます。
 以前の「shortcuts.xml」は「shortcuts.xml.v8.5.2.backup」としてバックアップされています。
 復元されるときは、「shortcuts.xml.v8.5.2.backup」を「shortcuts.xml」にリネームしてください。"/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<FullReadOnlySavingForbidden title="保存に失敗しました" message="ファイルを保存できません。
+Notepad++ が強制読み取り専用モードのため、ファイルの保存を行いませんでした。"/>
 			<NotEnoughRoom4Saving title="保存に失敗しました" message="保存に失敗しました。
 保存先に十分な空き容量がないようです。ファイルは保存されませんでした。"/>
 			<FileInaccessibleUserSession title="ファイルにアクセスできません" message="手動で保存されたセッション「$STR_REPLACE$」の中に、アクセスできないファイルがあります。これらを、読み取り専用の空文書（プレースホルダー）として残しておくことができます。

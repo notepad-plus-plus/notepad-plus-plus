@@ -13,7 +13,7 @@ Additionnal information about Corsican localization:
 2. History of Corsican translation for Notepad++:
 
 	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8), Apr. 20th (v8.8),
-			  June 26th (v8.8.1+), July 24th (v8.8.3+), Sep. 22nd (v8.8.5+)
+			  June 26th (v8.8.1+), July 24th (v8.8.3+), Sep. 30th (v8.8.5+)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
 			  June 13th (v8.6.9), Sept. 8th (v8.7), Oct. 21st (v8.7.1), Nov. 20th (v8.7.2), Nov. 29th (v8.7.3)
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
@@ -72,6 +72,7 @@ Additionnal information about Corsican localization:
 					<Item subMenuId="edit-onSelection" name="Per &amp;a selezzione"/>
 					<Item subMenuId="edit-multiSelectALL" name="Selezzione multiple di tuttu"/>
 					<Item subMenuId="edit-multiSelectNext" name="Selezzione multiple di a prossima"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Lettura sola in Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="Cronolugia di i cambiamenti"/>
 					<Item subMenuId="search-markAll" name="Marcà &amp;tutte l’occurenze di testu"/>
 					<Item subMenuId="search-markOne" name="Stilizà una occu&amp;renza di testu"/>
@@ -227,7 +228,9 @@ Additionnal information about Corsican localization:
 					<Item id="42025" name="&amp;Arregistrà a prucedura arricurdata…"/>
 					<Item id="42026" name="Testu da diritta à manca"/>
 					<Item id="42027" name="Testu da manca à diritta"/>
-					<Item id="42028" name="Lettura sola in Notepad++"/>
+					<Item id="42028" name="Lettura sola per u ducumentu attuale"/>
+					<Item id="42102" name="Lettura sola per tutti i ducumenti"/>
+					<Item id="42103" name="Caccià a lettura sola per tutti i ducumenti"/>
 					<Item id="42029" name="Cupià u chjassu cumpletu di u schedariu attuale"/>
 					<Item id="42030" name="Cupià u nome di schedariu di u schedariu attuale"/>
 					<Item id="42031" name="Cupià u chjassu cumpletu di u cartulare attuale"/>
@@ -1615,6 +1618,8 @@ Ci vole à pruvà ste cumande è, s’ella hè bisognu, à mudificalle.
 Un altra pussibilità hè di rivene à a versione Notepad++ v8.5.2 è risturà i vostri dati anteriore.
 Notepad++ hà da fà una salvaguardia di u vostru « shortcuts.xml » è arregistrallu cù u nome « shortcuts.xml.v8.5.2.backup ».
 Rinuminendu « shortcuts.xml.v8.5.2.backup » in « shortcuts.xml », e vostre cumande duverianu funziunà currettamente."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<FullReadOnlySavingForbidden title="Fiascu di l’arregistramentu" message="Ùn si pò arregistrà u schedariu.
+U modu d’arregistramentu tutale in lettura sola di Notepad++ hà impeditu d’arregistrà u schedariu."/>
 			<NotEnoughRoom4Saving title="Fiascu di l’arregistramentu" message="Fiascu à l’arregistramentu di u schedariu.
 Pare ch’ella ùn ci sia abbastanza piazza nant’à u discu per arregistrà u schedariu. U vostru schedariu ùn hè micca arregistratu."/>
 			<FileInaccessibleUserSession title="Schedariu inaccessibile" message="Certi schedarii di a vostra sessione arregistrata manualmente « $STR_REPLACE$ » sò inaccessibile. Ponu esse aperti cum’è ducumenti vioti è in lettura sola tale spazii riservati.

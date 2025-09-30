@@ -41,6 +41,7 @@ Translation note:
 					<Item subMenuId="edit-onSelection" name="Selecció&amp;n"/>
 					<Item subMenuId="edit-multiSelectALL" name="Multiselección total"/>
 					<Item subMenuId="edit-multiSelectNext" name="Siguiente multiselección"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Atributo solo lectura en Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="Historial de cambios"/>
 					<Item subMenuId="search-markAll" name="Resaltar todas las coincid&amp;encias buscadas"/>
 					<Item subMenuId="search-markOne" name="Resaltar una coinci&amp;dencia"/>
@@ -196,7 +197,9 @@ Translation note:
 					<Item id="42025" name="&amp;Guardar macro actualmente grabada"/>
 					<Item id="42026" name="Texto derecha-izquierda"/>
 					<Item id="42027" name="Texto izquierda-derecha"/>
-					<Item id="42028" name="Solo lectura en Notepad++"/>
+					<Item id="42028" name="Atributo solo lectura en el documento actual"/>
+					<Item id="42102" name="Atributo solo lectura para todos los documentos"/>
+					<Item id="42103" name="Quitar atributo solo lectura para todos los documentos"/>
 					<Item id="42029" name="Copiar la ruta actual del archivo"/>
 					<Item id="42030" name="Copiar el nombre actual del archivo"/>
 					<Item id="42031" name="Copiar el nombre actual de la carpeta"/>
@@ -1581,7 +1584,9 @@ Pruebe estos comandos y, si es necesario, vuelva a editarlos.
 Alternativamente, puede reinstalar Notepad++ v8.5.2 y restaurar sus datos anteriores.
 Notepad++ hará una copia de seguridad de su antiguo &quot;shortcuts.xml&quot; y lo guardará como &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Cambie el nombre de &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; y sus comandos serán restaurados y funcionales de nuevo."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
-			<NotEnoughRoom4Saving title="Guardado fallido" message="No se ha podido guardar el archivo.
+			<FullReadOnlySavingForbidden title="Error al guardar" message="No se puede guardar el archivo.
+El modo de solo lectura total de Notepad++ impidió que se guardara el archivo."/>
+			<NotEnoughRoom4Saving title="Error al guardar" message="No se ha podido guardar el archivo.
 Parece que no hay espacio suficiente en el disco y no es posible guardarlo."/>
 			<FileInaccessibleUserSession title="Archivo inaccesible" message="Algunos archivos de su sesión guardada manualmente &quot;$STR_REPLACE$&quot; están inaccesibles. Se pueden abrir como documentos vacíos y de solo lectura como marcadores de posición.
 

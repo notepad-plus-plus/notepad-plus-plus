@@ -41,6 +41,7 @@
 					<Item subMenuId="edit-onSelection" name="A ki&amp;jelölt szövegrész alapján"/>
 					<Item subMenuId="edit-multiSelectALL" name="Többszörös ki&amp;jelölés az ÖSSZES egyezővel"/>
 					<Item subMenuId="edit-multiSelectNext" name="Többszörös ki&amp;jelölés a következő egyezővel"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Csak olvashat&amp;ó a Notepad++-ban"/>
 					<Item subMenuId="search-changeHistory" name="Mó&amp;dosítási előzmények"/>
 					<Item subMenuId="search-markAll" name="Az ö&amp;sszes elem kiemelése"/>
 					<Item subMenuId="search-markOne" name="A jele&amp;nlegi elem kiemelése"/>
@@ -196,7 +197,9 @@
 					<Item id="42025" name="Az aktuális makrófelvétel mentése…"/>
 					<Item id="42026" name="Szö&amp;vegirány: jobbról balra"/>
 					<Item id="42027" name="Szöv&amp;egirány: balról jobbra"/>
-					<Item id="42028" name="Csak olvashat&amp;ó a Notepad++-ban"/>
+					<Item id="42028" name="Az aktuális dokumentum csak olvashat&amp;ó"/>
+					<Item id="42102" name="Az &amp;összes dokumentum csak olvasható"/>
+					<Item id="42103" name="Az &amp;összes dokumentum csak olvasható beállításának törlése"/>
 					<Item id="42029" name="&amp;A fájl teljes elérési útvonala"/>
 					<Item id="42030" name="A &amp;fájl neve"/>
 					<Item id="42031" name="A &amp;mappa útvonala"/>
@@ -1582,6 +1585,8 @@ Kérjük, tesztelje ezeket a parancsokat, és ha szükséges, szerkessze újra �
 Alternatív megoldásként visszaválthat Notepad++ v8.5.2-re, és visszaállíthatja a korábbi adatokat.
 A Notepad++ biztonsági másolatot készít a régi „shortcuts.xml” fájlról, és elmenti azt „shortcuts.xml.v8.5.2.backup” néven.
 Egy „shortcuts.xml.v8.5.2.backup” » „shortcuts.xml” átnevezéssel a parancsokat sikeresen vissza kell tudnia állítani, és azoknak megfelelően működniük kell."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<FullReadOnlySavingForbidden title="Sikertelen mentés" message="Nem menthető el a fájl.
+A Notepad++ az összes dokumentumot csak olvashatóként kezeli, ami megakadályozza a fájl mentését"/>
 			<NotEnoughRoom4Saving title="Sikertelen mentés" message="Nem sikerült menteni a fájlt.
 Úgy tűnik, nincs elég hely a lemezen a fájl mentéséhez. A fájl nem lett elmentve."/>
 			<FileInaccessibleUserSession title="A fájl(ok) elérése sikertelen" message="Nem érhető el egy vagy több fájl a kézzel mentett munkamenetben: „$STR_REPLACE$”. Ezek ugyanakkor megnyithatók helykitöltő üres és csak olvasható dokumentumokként.

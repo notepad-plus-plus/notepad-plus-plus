@@ -675,9 +675,9 @@ bool Notepad_plus::doSave(BufferID id, const wchar_t * filename, bool isCopy)
 
 	if (res == SavingStatus::FullReadOnlySavingForbidden)
 	{
-		_nativeLangSpeaker.messageBox("FullReadOnlySavingForbiddenActive",
+		_nativeLangSpeaker.messageBox("FullReadOnlySavingForbidden",
 			_pPublicInterface->getHSelf(),
-			L"Cannot save file.\n\nThe Notepad++ forensic read-only mode prevented the file from being saved.",
+			L"Cannot save file.\nThe Notepad++ full read-only saving forbidden mode prevented the file from being saved.",
 			L"Save failed",
 			MB_OK);
 	}
@@ -2565,8 +2565,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			if (session._mainViewFiles[i]._encoding != -1)
 				buf->setEncoding(session._mainViewFiles[i]._encoding);
 
-			buf->setUserReadOnly(session._mainViewFiles[i]._isUserReadOnly ||
-				nppParam.getNppGUI()._isCmdlineFullReadOnlyActivated || nppParam.getNppGUI()._isCmdlineFullReadOnlySavingForbiddenActivated);
+			buf->setUserReadOnly(session._mainViewFiles[i]._isUserReadOnly || nppGUI._isFullReadOnly || nppGUI._isFullReadOnlySavingForbidden);
 
 			buf->setPinned(session._mainViewFiles[i]._isPinned);
 
@@ -2704,8 +2703,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			}
 			buf->setLangType(typeToSet, pLn);
 			buf->setEncoding(session._subViewFiles[k]._encoding);
-			buf->setUserReadOnly(session._subViewFiles[k]._isUserReadOnly ||
-				nppParam.getNppGUI()._isCmdlineFullReadOnlyActivated || nppParam.getNppGUI()._isCmdlineFullReadOnlySavingForbiddenActivated);
+			buf->setUserReadOnly(session._subViewFiles[k]._isUserReadOnly || nppGUI._isFullReadOnly || nppGUI._isFullReadOnlySavingForbidden);
 			buf->setPinned(session._subViewFiles[k]._isPinned);
 
 			buf->setUntitledTabRenamedStatus(session._subViewFiles[k]._isUntitledTabRenamed);

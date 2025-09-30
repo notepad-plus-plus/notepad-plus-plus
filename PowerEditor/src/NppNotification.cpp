@@ -1093,7 +1093,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			bool isInaccessible = buf->isInaccessible();
 			bool isUntitled = buf->isUntitled();
 			_tabPopupMenu.enableItem(IDM_EDIT_TOGGLEREADONLY, !isSysReadOnly && !buf->isMonitoringOn() &&
-				!(nppParam.getNppGUI()._isCmdlineFullReadOnlySavingForbiddenActivated));
+				!(nppParam.getNppGUI()._isFullReadOnlySavingForbidden));
 			if (isInaccessible || isUntitled)
 			{
 				_tabPopupMenu.checkItem(IDM_EDIT_TOGGLESYSTEMREADONLY, false);

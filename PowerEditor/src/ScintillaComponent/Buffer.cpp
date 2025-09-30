@@ -93,7 +93,7 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 
 	_currentStatus = type;
 
-	if (nppParamInst.getNppGUI()._isCmdlineFullReadOnlyActivated || nppParamInst.getNppGUI()._isCmdlineFullReadOnlySavingForbiddenActivated)
+	if (nppParamInst.getNppGUI()._isFullReadOnly || nppParamInst.getNppGUI()._isFullReadOnlySavingForbidden)
 		_isUserReadOnly = true; // preset for the FileManager loadFile(), newEmptyDocument() and bufferFromDocument() funcs
 
 	setFileName(fileName);
@@ -747,9 +747,9 @@ bool Buffer::allowClickableLink() const
 
 void Buffer::setUserReadOnly(bool ro)
 {
-	if (NppParameters::getInstance().getNppGUI()._isCmdlineFullReadOnlySavingForbiddenActivated
-		&& (ro != true))
-		return; // forensic mode active, refuse to cease the R/O state
+	if (ro != true && NppParameters::getInstance().getNppGUI()._isFullReadOnlySavingForbidden)
+		return; // full read-only saving forbidden mode active, refuse to cease the R/O state
+
 	_isUserReadOnly = ro;
 	doNotify(BufferChangeReadonly);
 }
@@ -1362,7 +1362,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 {
 	std::lock_guard<std::mutex> lock(save_mutex);
 
-	if (NppParameters::getInstance().getNppGUI()._isCmdlineFullReadOnlySavingForbiddenActivated)
+	if (NppParameters::getInstance().getNppGUI()._isFullReadOnlySavingForbidden)
 	{
 		// safety check
 		// - this code part can be reached in full-read-only mode e.g. when have opened a previous session

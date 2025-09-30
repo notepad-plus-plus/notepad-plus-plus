@@ -60,6 +60,7 @@ MenuPosition g_menuFolderPositions[] = {
 	{ 1,  21, -1, "edit-onSelection" },
 	{ 1,  23, -1, "edit-multiSelectALL" },
 	{ 1,  24, -1, "edit-multiSelectNext" },
+	{ 1,  33, -1, "edit-readonlyInNotepad++" },
 
 	{ 2,  18, -1, "search-changeHistory" },
 	{ 2,  20, -1, "search-markAll" },

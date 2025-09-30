@@ -41,6 +41,7 @@ Translation note:
 					<Item subMenuId="edit-onSelection" name="Selecció&amp;n"/>
 					<Item subMenuId="edit-multiSelectALL" name="Multiselección total"/>
 					<Item subMenuId="edit-multiSelectNext" name="Seguinte multiselección"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Atributo só lectura en Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="Historial de cambios"/>
 					<Item subMenuId="search-markAll" name="Resaltar tódalas coincidencias &amp;buscadas"/>
 					<Item subMenuId="search-markOne" name="Resaltar unha coinci&amp;dencia"/>
@@ -196,7 +197,9 @@ Translation note:
 					<Item id="42025" name="&amp;Gardar macro actualmente gravada"/>
 					<Item id="42026" name="Texto dereita-esquerda"/>
 					<Item id="42027" name="Texto esquerda-dereita"/>
-					<Item id="42028" name="Só lectura en Notepad++"/>
+					<Item id="42028" name="Atributo só lectura no documento actual"/>
+					<Item id="42102" name="Atributo só lectura para tódolos documentos"/>
+					<Item id="42103" name="Quitar atributo só lectura para tódolos documentos"/>
 					<Item id="42029" name="Copiar a ruta actual do arquivo"/>
 					<Item id="42030" name="Copiar o nome actual do arquivo"/>
 					<Item id="42031" name="Copiar o nome actual da carpeta"/>
@@ -1489,7 +1492,7 @@ Hai 3 formas de cambiar ao modo de selección de columnas:
 1- Co teclado e o rato:
 Manter pulsado Alt mentras arrastra co botón esquerdo do rato.
  
-2- So co teclado:
+2- Só co teclado:
 Manter pulsado Alt+Maiúsculas e usar as teclas de frechas.
 
 3- Co teclado ou co rato:
@@ -1581,7 +1584,9 @@ Probe estes comandos e, se é necesario, volva a editalos.
 Alternativamente, pode reinstalar Notepad++ v8.5.2 e restaurar os seus datos anteriores.
 Notepad++ fará unha copia de seguridade do seu antigo &quot;shortcuts.xml&quot; e gardarao como &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Cambie o nome de &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; e os comandos serán restaurados e funcionales de novo."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
-			<NotEnoughRoom4Saving title="Gardado fallido" message="Non se  pode gardar o arquivo.
+			<FullReadOnlySavingForbidden title="Erro ao gardar" message="Non se pode gardar o arquivo.
+O modo de só lectura total de Notepad++ impediu que se gardara o arquivo."/>
+			<NotEnoughRoom4Saving title="Erro ao gardar" message="Non se  pode gardar o arquivo.
 Parece que non hai espazo suficiente no disco e non é posible gardalo."/>
 			<FileInaccessibleUserSession title="Arquivo inaccesible" message="Algúns arquivos da súa sesión gardada manualmente &quot;$STR_REPLACE$&quot; están inaccesibles. Pódense abrir como documentos baleiros e de só lectura como marcadores de posición.
 

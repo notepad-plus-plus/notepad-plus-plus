@@ -2337,7 +2337,6 @@ bool Notepad_plus::fileDelete(BufferID id)
 		doClose(bufferID, SUB_VIEW, isSnapshotMode);
 
 		scnN.nmhdr.code = NPPN_FILEDELETED;
-		scnN.nmhdr.idFrom = (uptr_t)-1;
 		_pluginsManager.notify(&scnN);
 
 		return true;
@@ -2941,3 +2940,4 @@ void Notepad_plus::saveCurrentSession()
 {
 	::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_SAVECURRENTSESSION, 0, 0);
 }
+

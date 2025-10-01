@@ -41,6 +41,7 @@ Translation note:
 					<Item subMenuId="edit-onSelection" name="För markerad te&amp;xt"/>
 					<Item subMenuId="edit-multiSelectALL" name="Multimarkera ALLA"/>
 					<Item subMenuId="edit-multiSelectNext" name="Multimarkera nästkommande"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Skrivskyddad i Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="Förändringshistorik"/>
 					<Item subMenuId="search-markAll" name="Sti&amp;lsätt alla förekomster"/>
 					<Item subMenuId="search-markOne" name="S&amp;tilsätt en förekomst"/>
@@ -196,7 +197,9 @@ Translation note:
 					<Item id="42025" name="&amp;Spara inspelat makro..."/>
 					<Item id="42026" name="Textriktning, höger till vänster"/>
 					<Item id="42027" name="Textriktning, vänster till höger"/>
-					<Item id="42028" name="Aktivera skrivsk&amp;ydd"/>
+					<Item id="42028" name="Aktivera skrivskydd för aktuellt dokument"/>
+					<Item id="42102" name="Aktivera skrivskydd för alla dokument"/>
+					<Item id="42103" name="Inaktivera skrivskydd för alla dokument"/>
 					<Item id="42029" name="Kopiera aktuell sökväg"/>
 					<Item id="42030" name="Kopiera aktuellt filnamn"/>
 					<Item id="42031" name="Kopiera aktuell mappsökväg"/>
@@ -1582,6 +1585,8 @@ Var god testa dessa kommandon och redigera dem vid behov.
 Annars kan du nedgradera till Notepad++ v8.5.2 och återställa din föregående data.
 Notepad++ kommer att säkerhetskopiera din gamla &quot;shortcuts.xml&quot; och spara den som &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Byt namn på &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; så bör dina kommandon återställas och fungera ordentligt."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<FullReadOnlySavingForbidden title="Misslyckades att spara" message="Kan inte spara filen.
+Det fullständiga skrivskyddet i Notepad++ förbjuder sparning och förhindrade filen från att sparas."/>
 			<NotEnoughRoom4Saving title="Misslyckades att spara" message="Misslyckades att spara filen.
 Det verkar inte finnas tillräckligt mycket diskutrymme för att spara filen. Din fil sparades inte."/>
 			<FileInaccessibleUserSession title="Filen är otillgänglig" message="Vissa filer från din manuellt sparade session &quot;$STR_REPLACE$&quot; är otillgängliga. De kan öppnas som platshållare i form av tomma och skrivskyddade dokument.

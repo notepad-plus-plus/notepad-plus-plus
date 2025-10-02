@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: September 24, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: October 2, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
@@ -41,6 +41,7 @@
 					<Item subMenuId="edit-onSelection" name="&amp;Označeni tekst"/>
 					<Item subMenuId="edit-multiSelectALL" name="&amp;Višestruki odabir: Sve"/>
 					<Item subMenuId="edit-multiSelectNext" name="&amp;Višestruki odabir: Sljedeće"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Samo za čitanje u Notepadu++"/>
 					<Item subMenuId="search-changeHistory" name="Po&amp;vijest promjena"/>
 					<Item subMenuId="search-markAll" name="Ozna&amp;či stilom sva pojavljivanja"/>
 					<Item subMenuId="search-markOne" name="Označi stilom &amp;jednom"/>
@@ -196,7 +197,9 @@
 					<Item id="42025" name="&amp;Spremi upravo snimljeni makro..."/>
 					<Item id="42026" name="&amp;Smjer teksta s desna na lijevo"/>
 					<Item id="42027" name="&amp;Smjer teksta s lijeva na desno"/>
-					<Item id="42028" name="Samo za čitanje u Notepadu&amp;++"/>
+					<Item id="42028" name="Samo za čitanje u trenutačnom dokumentu"/>
+					<Item id="42102" name="Samo za čitanje za sve dokumente"/>
+					<Item id="42103" name="Očisti samo za čitanje za sve dokumente"/>
 					<Item id="42029" name="Kopiraj naziv i &amp;put trenutne datoteke"/>
 					<Item id="42030" name="Kopiraj &amp;naziv trenutne datoteke"/>
 					<Item id="42031" name="Kopiraj naziv i put &amp;mape trenutne datoteke"/>
@@ -424,8 +427,8 @@
 					<Item id="11007" name="T&amp;ip od Z do A"/>
 					<Item id="11008" name="Duljina sadržaja od m&amp;anje do veće"/>
 					<Item id="11009" name="Duljina sadržaja od &amp;veće do manje"/>
-					<Item id="11010" name="Vrijeme izmjene rastuće"/>
-					<Item id="11011" name="Vrijeme izmjene padajuće"/>
+					<Item id="11010" name="Modificirano vrijeme rastuće"/>
+					<Item id="11011" name="Modificirano vrijeme padajuće"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -1598,6 +1601,8 @@ Molim, testirajte te naredbe u aktualnoj verziji Notepada++ i, ako je potrebno, 
 Alternativno, možete se vratiti na Notepad++ v8.5.2 i vratiti svoje prethodne podatke.
 Notepad++ će sigurnosno kopirati vaš stari &quot;shortcuts.xml&quot; i spremiti ga kao &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Promijenite naziv datoteke &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, i vaše bi naredbe trebale biti vraćene i ispravno raditi."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<FullReadOnlySavingForbidden title="Save failed" message="Ne mogu spremiti datoteku
+Notepad++ potpuni način rada samo za čitanje spriječio je spremanje datoteke."/>
 			<NotEnoughRoom4Saving title="Neuspjelo spremanje" message="Spremanje datoteke nije uspjelo.
 Izgleda da nema dovoljno mjesta na mediju za spremanje datoteke. Vaša datoteka nije spremljena."/>
 			<FileInaccessibleUserSession title="Datoteka nedostupna" message="Neke datoteke iz vaše ručno spremljene sesije &quot;$STR_REPLACE$&quot; su nedostupne. Mogu se otvoriti kao prazni dokumenti samo za čitanje, kao rezervirana mjesta.
@@ -1639,7 +1644,7 @@ Prije izvođenja radnje provjerite uvjet pretraživanja."/> <!-- HowToReproduce:
 			<ColumnPath name="Put"/>
 			<ColumnType name="Tip"/>
 			<ColumnSize name="Veličina"/>
-			<ColumnDateTime name="Vrijeme izmjene"/>
+			<ColumnDateTime name="Modificirano vrijeme"/>
 			<NbDocsTotal name="ukupno dokumenata:"/>
 			<MenuCopyName name="Kopiraj naziv/nazive"/>
 			<MenuCopyPath name="Kopiraj naziv puta/nazive putova"/>
@@ -1723,7 +1728,7 @@ Prije izvođenja radnje provjerite uvjet pretraživanja."/> <!-- HowToReproduce:
 				<FileMenu>
 					<Item id="3111" name="Preimenuj"/>
 					<Item id="3115" name="Ukloni"/>
-					<Item id="3116" name="Promijeni put datoteke"/>
+					<Item id="3116" name="Modificiraj put datoteke"/>
 					<Item id="3118" name="Premjesti gore"/>
 					<Item id="3119" name="Premjesti dolje"/>
 				</FileMenu>
@@ -1811,7 +1816,7 @@ Nađi u svim datotekama s izuzetkom svih mapa log ili logs rekurzivno:
 			<summary value="Statistika"/>
 			<summary-filepath value="Puni put datoteke: "/>
 			<summary-filecreatetime value="Kreirano: "/>
-			<summary-filemodifytime value="Promijenjeno: "/>
+			<summary-filemodifytime value="Modificirano: "/>
 			<summary-nbchar value="Znakova (bez završetaka redaka): "/>
 			<summary-nbword value="Riječi: "/>
 			<summary-nbline value="Redaka: "/>

@@ -662,7 +662,7 @@ private:
 
 	HBITMAP generateSolidColourMenuItemIcon(COLORREF colour);
 
-	void clearChangesHistory();
+	void clearChangesHistory(int iView);
 	void changedHistoryGoTo(int idGoTo);
 
 	HMENU createMenuFromMenu(HMENU hSourceMenu, const std::vector<int>& commandIds);

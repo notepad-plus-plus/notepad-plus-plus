@@ -9030,19 +9030,33 @@ HBITMAP Notepad_plus::generateSolidColourMenuItemIcon(COLORREF colour)
 	return hNewBitmap;
 }
 
-
-void Notepad_plus::clearChangesHistory()
+void Notepad_plus::clearChangesHistory(int iView)
 {
-	Sci_Position pos = (Sci_Position)::SendMessage(_pEditView->getHSelf(), SCI_GETCURRENTPOS, 0, 0);
-	int chFlags = (int)::SendMessage(_pEditView->getHSelf(), SCI_GETCHANGEHISTORY, 0, 0);
+	// use current view by default
+	ScintillaEditView* pViewToChange = _pEditView;
+	ScintillaEditView* pAnotherView = _pNonEditView;
 
-	_pEditView->execute(SCI_EMPTYUNDOBUFFER);
-	_pEditView->execute(SCI_SETCHANGEHISTORY, SC_CHANGE_HISTORY_DISABLED);
-	_pEditView->execute(SCI_SETCHANGEHISTORY, chFlags);
-	_pEditView->execute(SCI_GOTOPOS, pos);
+	if (iView == MAIN_VIEW)
+	{
+		pViewToChange = &_mainEditView;
+		pAnotherView = &_subEditView;
+	}
+	else if (iView == SUB_VIEW)
+	{
+		pViewToChange = &_subEditView;
+		pAnotherView = &_mainEditView;
+	}
+
+	Sci_Position pos = static_cast<Sci_Position>(::SendMessage(pViewToChange->getHSelf(), SCI_GETCURRENTPOS, 0, 0));
+	int chFlags = static_cast<int>(::SendMessage(pViewToChange->getHSelf(), SCI_GETCHANGEHISTORY, 0, 0));
+
+	pViewToChange->execute(SCI_EMPTYUNDOBUFFER);
+	pViewToChange->execute(SCI_SETCHANGEHISTORY, SC_CHANGE_HISTORY_DISABLED);
+	pViewToChange->execute(SCI_SETCHANGEHISTORY, chFlags);
+	pViewToChange->execute(SCI_GOTOPOS, pos);
 
 	checkUndoState();
-	_pNonEditView->redraw(); // Prevent cloned document visual glichy on another view
+	pAnotherView->redraw(); // Prevent cloned document visual glitch on another view
 }
 
 // Based on https://github.com/notepad-plus-plus/notepad-plus-plus/issues/12248#issuecomment-1258561261.

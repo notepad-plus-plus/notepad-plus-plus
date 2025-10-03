@@ -173,6 +173,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Return the number of user defined languages identified
 
 	#define NPPM_GETCURRENTDOCINDEX (NPPMSG + 23)
+		#define UNDEFINED_VIEW (-1)
 		#define MAIN_VIEW 0
 		#define SUB_VIEW 1
 	// int NPPM_GETCURRENTDOCINDEX(0, int inView)

@@ -609,15 +609,21 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 		_subEditView.restoreCurrentPosPreStep();
 	}
 
+	auto svp = NppParameters::getInstance().getSVP();
+
 	// Once reload is complete, activate buffer which will take care of
 	// many settings such as update status bar, clickable link etc.
 	if ( ((currentView() == MAIN_VIEW) && mainVisible) || ((currentView() == SUB_VIEW) && subVisible))
 	{
 		activateBuffer(id, currentView(), true);
+
+		if (svp._isChangeHistoryMarginEnabled || svp._isChangeHistoryIndicatorEnabled)
+			clearChangesHistory(currentView());
 	}
 	else
 	{
 		// handle also the less usual case when the reloaded buffer is not in the current active view
+
 		int originalActiveView = currentView();
 		BufferID originalActiveBufferID = nullptr;
 		if (mainVisible)
@@ -631,11 +637,10 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 			activateBuffer(id, SUB_VIEW, true);
 		}
 		activateBuffer(originalActiveBufferID, originalActiveView, true); // set back the original
-	}
 
-	auto svp = NppParameters::getInstance().getSVP();
-	if (svp._isChangeHistoryMarginEnabled || svp._isChangeHistoryIndicatorEnabled)
-		clearChangesHistory();
+		if (svp._isChangeHistoryMarginEnabled || svp._isChangeHistoryIndicatorEnabled)
+			clearChangesHistory(otherView());
+	}
 
 	return res;
 }

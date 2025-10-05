@@ -100,18 +100,17 @@ enum class EolType: std::uint8_t
 EolType convertIntToFormatType(int value, EolType defvalue = EolType::osdefault);
 
 
-
-
 enum UniMode {
 	uni8Bit       = 0,  // ANSI
 	uniUTF8       = 1,  // UTF-8 with BOM
 	uni16BE       = 2,  // UTF-16 Big Endian with BOM
 	uni16LE       = 3,  // UTF-16 Little Endian with BOM
-	uniCookie     = 4,  // UTF-8 without BOM
-	uni7Bit       = 5,  // 
+	uniUTF8_NoBOM = 4,  // UTF-8 without BOM
+	uni7Bit       = 5,  // 0 - 127 ASCII
 	uni16BE_NoBOM = 6,  // UTF-16 Big Endian without BOM
 	uni16LE_NoBOM = 7,  // UTF-16 Little Endian without BOM
-	uniEnd};
+	uniEnd
+};
 
 enum ChangeDetect { cdDisabled = 0x0, cdEnabledOld = 0x01, cdEnabledNew = 0x02, cdAutoUpdate = 0x04, cdGo2end = 0x08 };
 enum BackupFeature {bak_none = 0, bak_simple = 1, bak_verbose = 2};
@@ -612,7 +611,7 @@ private :
 struct NewDocDefaultSettings final
 {
 	EolType _format = EolType::osdefault;
-	UniMode _unicodeMode = uniCookie;
+	UniMode _unicodeMode = uniUTF8_NoBOM;
 	bool _openAnsiAsUtf8 = true;
 	LangType _lang = L_TEXT;
 	int _codepage = -1; // -1 when not using
@@ -1821,6 +1820,20 @@ public:
 	winVer getWinVersion() const {return _winVersion;};
 	std::wstring getWinVersionStr() const;
 	std::wstring getWinVerBitStr() const;
+
+	int currentSystemCodepage() const { return _currentSystemCodepage; };
+	bool isCurrentSystemCodepageUTF8() const { return _currentSystemCodepage == 65001; };
+	int defaultCodepage() const { // return all the codepage except UTF8 (65001)
+		if (isCurrentSystemCodepageUTF8())
+		{
+			int localCodepage = 0;
+			// Get the system default codepage, which is the codepage before "Beta: Use Unicode UTF-8 for worldwide language support" option being checked
+			GetLocaleInfoEx(LOCALE_NAME_SYSTEM_DEFAULT, LOCALE_IDEFAULTANSICODEPAGE | LOCALE_RETURN_NUMBER, reinterpret_cast<LPTSTR>(&localCodepage), 2);
+			return localCodepage;
+		}
+		return _currentSystemCodepage;
+	};
+
 	FindHistory & getFindHistory() {return _findHistory;};
 	bool _isFindReplacing = false; // an on the fly variable for find/replace functions
 #ifndef	_WIN64
@@ -2084,6 +2097,8 @@ private:
 
 	bool _isPlaceHolderEnabled = false;
 	bool _theWarningHasBeenGiven = false;
+
+	int _currentSystemCodepage = -1;
 
 public:
 	std::wstring getWingupFullPath() const { return _wingupFullPath; };

@@ -638,8 +638,16 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	::DrawMenuBar(hwnd);
 
 
-	//Windows menu
+	// Windows menu
 	_windowsMenu.init(_mainMenuHandle);
+
+	// if user set system codepage to UTF8, ANSI encoding capacity should be disable once for all
+	if (NppParameters::getInstance().isCurrentSystemCodepageUTF8())
+	{
+		enableCommand(IDM_FORMAT_ANSI, false, MENU);
+		enableCommand(IDM_FORMAT_CONV2_ANSI, false, MENU);
+	}
+
 
 	// Update Scintilla context menu strings (translated)
 	vector<MenuItemUnit> & tmp = nppParam.getContextMenuItems();
@@ -2510,7 +2518,7 @@ int Notepad_plus::doDeleteOrNot(const wchar_t *fn)
 
 void Notepad_plus::enableMenu(int cmdID, bool doEnable) const
 {
-	int flag = doEnable?MF_ENABLED | MF_BYCOMMAND:MF_DISABLED | MF_GRAYED | MF_BYCOMMAND;
+	int flag = doEnable ? MF_ENABLED | MF_BYCOMMAND : MF_GRAYED | MF_DISABLED | MF_BYCOMMAND;
 	::EnableMenuItem(_mainMenuHandle, cmdID, flag);
 }
 
@@ -2724,6 +2732,9 @@ void Notepad_plus::setupColorSampleBitmapsOnMainMenuItems()
 	}
 }
 
+// doCheck searches for the menu item matching the provided id across the main menu and all of its submenus,
+// once the target id is found, it ensures that item is checked, and all other menu items at that same level are automatically unchecked.
+// If id is -1, then all the menu items are unchecked.
 bool doCheck(HMENU mainHandle, int id)
 {
 	MENUITEMINFO mii{};
@@ -2735,7 +2746,7 @@ bool doCheck(HMENU mainHandle, int id)
 	for (int i = 0; i < count; i++)
 	{
 		::GetMenuItemInfo(mainHandle, i, MF_BYPOSITION, &mii);
-		if (mii.fType == MFT_RADIOCHECK || mii.fType == MFT_STRING)
+		if (!(mii.fState & MFS_GRAYED) && (mii.fType == MFT_RADIOCHECK || mii.fType == MFT_STRING))
 		{
 			bool checked = mii.hSubMenu ? doCheck(mii.hSubMenu, id) : (mii.wID == (unsigned int)id);
 			if (checked)
@@ -3072,7 +3083,7 @@ void Notepad_plus::setUniModeText()
 				uniModeTextString = L"UTF-16 Big Endian"; break;
 			case uni16LE_NoBOM:
 				uniModeTextString = L"UTF-16 Little Endian"; break;
-			case uniCookie:
+			case uniUTF8_NoBOM:
 				uniModeTextString = L"UTF-8"; break;
 			default :
 				uniModeTextString = L"ANSI";
@@ -4191,7 +4202,7 @@ size_t Notepad_plus::getSelectedCharNumber(UniMode u)
 {
 	size_t result = 0;
 	size_t numSel = _pEditView->execute(SCI_GETSELECTIONS);
-	if (u == uniUTF8 || u == uniCookie)
+	if (u == uniUTF8 || u == uniUTF8_NoBOM)
 	{
 		for (size_t i = 0; i < numSel; ++i)
 		{
@@ -4254,7 +4265,7 @@ static inline size_t countUtf8Characters(const unsigned char *buf, size_t pos, s
 
 size_t Notepad_plus::getCurrentDocCharCount(UniMode u)
 {
-	if (u != uniUTF8 && u != uniCookie)
+	if (u != uniUTF8 && u != uniUTF8_NoBOM)
 	{
 		size_t numLines = _pEditView->execute(SCI_GETLINECOUNT);
 		auto result = _pEditView->execute(SCI_GETLENGTH);
@@ -4299,7 +4310,7 @@ size_t Notepad_plus::getCurrentDocCharCount(UniMode u)
 
 bool Notepad_plus::isFormatUnicode(UniMode u)
 {
-	return (u != uni8Bit && u != uni7Bit && u != uniUTF8 && u != uniCookie);
+	return (u != uni8Bit && u != uni7Bit && u != uniUTF8 && u != uniUTF8_NoBOM);
 }
 
 int Notepad_plus::getBOMSize(UniMode u)
@@ -5160,11 +5171,11 @@ void Notepad_plus::checkUnicodeMenuItems() const
 	int id = -1;
 	switch (um)
 	{
-		case uniUTF8   : id = IDM_FORMAT_UTF_8; break;
-		case uni16BE   : id = IDM_FORMAT_UTF_16BE; break;
-		case uni16LE   : id = IDM_FORMAT_UTF_16LE; break;
-		case uniCookie : id = IDM_FORMAT_AS_UTF_8; break;
-		case uni8Bit   : id = IDM_FORMAT_ANSI; break;
+		case uniUTF8       : id = IDM_FORMAT_UTF_8; break;
+		case uni16BE       : id = IDM_FORMAT_UTF_16BE; break;
+		case uni16LE       : id = IDM_FORMAT_UTF_16LE; break;
+		case uniUTF8_NoBOM : id = IDM_FORMAT_AS_UTF_8; break;
+		case uni8Bit       : id = IDM_FORMAT_ANSI; break;
 
 		case uni7Bit:
 		case uni16BE_NoBOM:
@@ -5174,24 +5185,21 @@ void Notepad_plus::checkUnicodeMenuItems() const
 			break;
 	}
 
-	if (encoding == -1)
+	HMENU _formatMenuHandle = ::GetSubMenu(_mainMenuHandle, MENUINDEX_FORMAT);
+
+	if (encoding == -1) // encoding is not used, so use uniMode to check menu item
 	{
-		// Uncheck all in the sub encoding menu
-        HMENU _formatMenuHandle = ::GetSubMenu(_mainMenuHandle, MENUINDEX_FORMAT);
+		// Uncheck all in the main & sub encoding menu
         doCheck(_formatMenuHandle, -1);
 
-		if (id == -1) //um == uni16BE_NoBOM || um == uni16LE_NoBOM
+		if (id != -1) 
 		{
-			// Uncheck all in the main encoding menu
-			::CheckMenuRadioItem(_mainMenuHandle, IDM_FORMAT_ANSI, IDM_FORMAT_AS_UTF_8, IDM_FORMAT_ANSI, MF_BYCOMMAND);
-			::CheckMenuItem(_mainMenuHandle, IDM_FORMAT_ANSI, MF_UNCHECKED | MF_BYCOMMAND);
+			DWORD state = GetMenuState(_formatMenuHandle, IDM_FORMAT_ANSI, MF_BYCOMMAND);
+			::CheckMenuRadioItem(_mainMenuHandle, (state & MFS_GRAYED) ? IDM_FORMAT_UTF_8 : IDM_FORMAT_ANSI, IDM_FORMAT_AS_UTF_8, id, MF_BYCOMMAND);
 		}
-		else
-		{
-			::CheckMenuRadioItem(_mainMenuHandle, IDM_FORMAT_ANSI, IDM_FORMAT_AS_UTF_8, id, MF_BYCOMMAND);
-		}
+		// else if (id == -1) => um == uni16BE_NoBOM || um == uni16LE_NoBOM, let all items unchecked.
 	}
-	else
+	else // encoding is used
 	{
 		const EncodingMapper& em = EncodingMapper::getInstance();
 		int cmdID = em.getIndexFromEncoding(encoding);
@@ -5202,12 +5210,7 @@ void Notepad_plus::checkUnicodeMenuItems() const
 		}
 		cmdID += IDM_FORMAT_ENCODE;
 
-		// Uncheck all in the main encoding menu
-		::CheckMenuRadioItem(_mainMenuHandle, IDM_FORMAT_ANSI, IDM_FORMAT_AS_UTF_8, IDM_FORMAT_ANSI, MF_BYCOMMAND);
-		::CheckMenuItem(_mainMenuHandle, IDM_FORMAT_ANSI, MF_UNCHECKED | MF_BYCOMMAND);
-
-		// Check the encoding item
-        HMENU _formatMenuHandle = ::GetSubMenu(_mainMenuHandle, MENUINDEX_FORMAT);
+		// Check the encoding item        
         doCheck(_formatMenuHandle, cmdID);
 	}
 }

@@ -117,11 +117,16 @@ public:
 	void removeHotSpot(Buffer * buffer) const;
 	size_t nextUntitledNewNumber() const;
 
+	void enableAutoDetectEncoding4Loading() { isAutoDetectEncodingDisabled4Loading = false; };
+	void disableAutoDetectEncoding4Loading() { isAutoDetectEncodingDisabled4Loading = true; }; // Disable the encoding auto-detection on loading file while switching among the different encoding.
+	                                                                                           // The value of isAutoDetectEncodingDisabled4Loading will be restored to false after each file loading 
+	                                                                                           // to restore the encoding auto-detection ability for other file loading operations. 
+
 private:
 	struct LoadedFileFormat {
 		LoadedFileFormat() = default;
 		LangType _language = L_TEXT;
-		int _encoding = 0;
+		int _encoding = uni8Bit;
 		EolType _eolFormat = EolType::osdefault;
 	};
 
@@ -137,6 +142,8 @@ private:
 	FileManager& operator=(FileManager&&) = delete;
 
 	int detectCodepage(char* buf, size_t len);
+	bool isAutoDetectEncodingDisabled4Loading = false;
+
 	bool loadFileData(Document doc, int64_t fileSize, const wchar_t* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LoadedFileFormat& fileFormat);
 	LangType detectLanguageFromTextBeginning(const unsigned char *data, size_t dataLen);
 
@@ -409,8 +416,12 @@ private:
 	std::wstring _userLangExt; // it's useful if only (_lang == L_USER)
 	bool _isDirty = false;
 	EolType _eolFormat = EolType::osdefault;
-	UniMode _unicodeMode = uniUTF8;
+
+	// if _encoding == -1, then _unicodeMode is used.
+	// otherwise _encoding is used.
 	int _encoding = -1;
+	UniMode _unicodeMode = uniUTF8;
+
 	bool _isUserReadOnly = false;
 	bool _isFromNetwork = false;
 	bool _needLexer = false; // new buffers do not need lexing, Scintilla takes care of that

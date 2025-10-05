@@ -516,7 +516,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			{
 				constexpr size_t bufSizeACP = 32;
 				wchar_t szACP[bufSizeACP] = { '\0' };
-				swprintf(szACP, bufSizeACP, L"%u", ::GetACP());
+				swprintf(szACP, bufSizeACP, L"%u", nppParam.currentSystemCodepage());
 				_debugInfoStr += L"Current ANSI codepage: ";
  				_debugInfoStr += szACP;
 				_debugInfoStr += L"\r\n";

@@ -89,7 +89,7 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 	_unicodeMode = ndds._unicodeMode;
 	_encoding = ndds._codepage;
 	if (_encoding != -1)
-		_unicodeMode = uniCookie;
+		_unicodeMode = uniUTF8_NoBOM;
 
 	_currentStatus = type;
 
@@ -1005,7 +1005,7 @@ bool FileManager::reloadBuffer(BufferID id)
 {
 	Buffer* buf = getBufferByID(id);
 	Document doc = buf->getDocument();
-	Utf8_16_Read UnicodeConvertor;
+	Utf8_16_Read unicodeConvertor;
 
 	LoadedFileFormat loadedFileFormat;
 	loadedFileFormat._encoding = buf->getEncoding();
@@ -1037,7 +1037,7 @@ bool FileManager::reloadBuffer(BufferID id)
 	char* data = new char[blockSize + 8]; // +8 for incomplete multibyte char
 
 	buf->_canNotify = false;	//disable notify during file load, we don't want dirty status to be triggered
-	bool res = loadFileData(doc, fileSize, buf->getFullPathName(), data, &UnicodeConvertor, loadedFileFormat);
+	bool res = loadFileData(doc, fileSize, buf->getFullPathName(), data, &unicodeConvertor, loadedFileFormat);
 	buf->_canNotify = true;
 
 	delete[] data;
@@ -1050,7 +1050,7 @@ bool FileManager::reloadBuffer(BufferID id)
 
 		buf->setSavePointDirty(false);
 
-		setLoadedBufferEncodingAndEol(buf, UnicodeConvertor, loadedFileFormat._encoding, loadedFileFormat._eolFormat);
+		setLoadedBufferEncodingAndEol(buf, unicodeConvertor, loadedFileFormat._encoding, loadedFileFormat._eolFormat);
 	}
 
 	return res;
@@ -1059,23 +1059,27 @@ bool FileManager::reloadBuffer(BufferID id)
 
 void FileManager::setLoadedBufferEncodingAndEol(Buffer* buf, const Utf8_16_Read& UnicodeConvertor, int encoding, EolType bkformat)
 {
-	if (encoding == -1)
+	int encoding2Set = encoding;
+	UniMode unimode2Set = UnicodeConvertor.getEncoding();
+
+	if (encoding2Set == -1)
 	{
 		NppParameters& nppParamInst = NppParameters::getInstance();
 		const NewDocDefaultSettings & ndds = (nppParamInst.getNppGUI()).getNewDocDefaultSettings();
-
-		UniMode um = UnicodeConvertor.getEncoding();
-		if (um == uni7Bit)
-			um = (ndds._openAnsiAsUtf8) ? uniCookie : uni8Bit;
-
-		buf->setUnicodeMode(um);
+		
+		if (unimode2Set == uni7Bit)
+			unimode2Set = (ndds._openAnsiAsUtf8) ? uniUTF8_NoBOM : uni8Bit;
 	}
 	else
 	{
 		// Test if encoding is set to UTF8 w/o BOM (usually for utf8 indicator of xml or html)
-		buf->setEncoding((encoding == SC_CP_UTF8)?-1:encoding);
-		buf->setUnicodeMode(uniCookie);
+		encoding2Set = ((encoding2Set == SC_CP_UTF8) ? -1 : encoding2Set);
+		unimode2Set = uniUTF8_NoBOM;
 	}
+
+	buf->setEncoding(encoding2Set);
+	buf->setUnicodeMode(unimode2Set);
+
 
 	// Since the buffer will be reloaded from the disk, EOL might have been changed
 	if (bkformat != EolType::unknown)
@@ -1208,7 +1212,7 @@ bool FileManager::backupCurrentBuffer()
 		if (buffer->isModified()) // buffer dirty and modified, write the backup file
 		{
 			UniMode mode = buffer->getUnicodeMode();
-			if (mode == uniCookie)
+			if (mode == uniUTF8_NoBOM)
 				mode = uni8Bit;	//set the mode to ANSI to prevent converter from adding BOM and performing conversions, Scintilla's data can be copied directly
 
 			Utf8_16_Write UnicodeConvertor;
@@ -1421,7 +1425,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 	}
 
 	UniMode mode = buffer->getUnicodeMode();
-	if (mode == uniCookie)
+	if (mode == uniUTF8_NoBOM)
 		mode = uni8Bit;	//set the mode to ANSI to prevent converter from adding BOM and performing conversions, Scintilla's data can be copied directly
 
 	Utf8_16_Write UnicodeConvertor;
@@ -1942,23 +1946,34 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 
 			if (lenFile == 0) break;
 
+			bool hasBOM = false;
             if (isFirstTime)
             {
-				const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+				NppParameters& nppParamInst = NppParameters::getInstance();
+				const NppGUI& nppGui = nppParamInst.getNppGUI();
+
+				//
+				// Detect encoding
+				//
 
 				// check if file contain any BOM
-                if (Utf8_16_Read::determineEncoding((unsigned char *)data, lenFile) != uni8Bit)
-                {
-                    // if file contains any BOM, then encoding will be erased,
-                    // and the document will be interpreted as UTF
+				if (Utf8_16_Read::determineEncodingFromBOM((unsigned char*)data, lenFile) != uni8Bit)
+				{
+					// if file contains any BOM, then encoding will be erased,
+					// and the document will be interpreted as UTF
 					fileFormat._encoding = -1;
+					hasBOM = true;
 				}
 				else if (fileFormat._encoding == -1)
 				{
-					if (nppGui._detectEncoding)
+					if (nppGui._detectEncoding && !isAutoDetectEncodingDisabled4Loading)
 						fileFormat._encoding = detectCodepage(data, lenFile);
-                }
-				
+				}
+
+				//
+				// Detect programming language
+				//
+
 				bool isLargeFile = fileSize >= nppGui._largeFileRestriction._largeFileSizeDefInByte;
 				if (!isLargeFile && fileFormat._language == L_TEXT)
 				{
@@ -1968,6 +1983,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 
                 isFirstTime = false;
             }
+
 
 			if (fileFormat._encoding != -1)
 			{
@@ -1980,19 +1996,52 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 				{
 					WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 					int newDataLen = 0;
-					const char *newData = wmc.encode(fileFormat._encoding, SC_CP_UTF8, data, static_cast<int32_t>(lenFile), &newDataLen, &incompleteMultibyteChar);
+					const char* newData = wmc.encode(fileFormat._encoding, SC_CP_UTF8, data, static_cast<int32_t>(lenFile), &newDataLen, &incompleteMultibyteChar);
 					_pscratchTilla->execute(SCI_APPENDTEXT, newDataLen, reinterpret_cast<LPARAM>(newData));
 				}
 
 				if (format == EolType::unknown)
 					format = getEOLFormatForm(data, lenFile, EolType::unknown);
 			}
-			else
+			else // (fileFormat._encoding == -1) => encoding not found yet or BOM found
 			{
+				NppParameters& nppParamInst = NppParameters::getInstance();
 				lenConvert = unicodeConvertor->convert(data, lenFile);
-				_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, reinterpret_cast<LPARAM>(unicodeConvertor->getNewBuf()));
-				if (format == EolType::unknown)
-					format = getEOLFormatForm(unicodeConvertor->getNewBuf(), unicodeConvertor->getNewSize(), EolType::unknown);
+
+				if (!nppParamInst.isCurrentSystemCodepageUTF8()) // Default mode: all other encodings
+				{
+					_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, reinterpret_cast<LPARAM>(unicodeConvertor->getNewBuf()));
+					if (format == EolType::unknown)
+						format = getEOLFormatForm(unicodeConvertor->getNewBuf(), unicodeConvertor->getNewSize(), EolType::unknown);
+				}
+				else // "Use Unicode UTF-8 for worldwide language support" option is enabled 
+				{
+					UniMode uniMode = unicodeConvertor->getEncoding();
+
+					if (hasBOM || // uniUTF8, uni16BE, uni16LE
+						uniMode == uni16BE_NoBOM || uniMode == uni16LE_NoBOM || uniMode == uniUTF8_NoBOM || uniMode == uni7Bit)
+					{
+						if (uniMode == uni7Bit)
+							fileFormat._encoding = nppParamInst.currentSystemCodepage();
+
+						_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, reinterpret_cast<LPARAM>(unicodeConvertor->getNewBuf()));
+
+						if (format == EolType::unknown)
+							format = getEOLFormatForm(unicodeConvertor->getNewBuf(), unicodeConvertor->getNewSize(), EolType::unknown);
+					}
+					else // if (uniMode == uni8Bit)
+					{
+						WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+						int newDataLen = 0;
+						fileFormat._encoding = nppParamInst.defaultCodepage();
+
+						const char* newData = wmc.encode(fileFormat._encoding, SC_CP_UTF8, data, static_cast<int32_t>(lenFile), &newDataLen, &incompleteMultibyteChar);
+						_pscratchTilla->execute(SCI_APPENDTEXT, newDataLen, reinterpret_cast<LPARAM>(newData));
+
+						if (format == EolType::unknown)
+							format = getEOLFormatForm(data, lenFile, EolType::unknown);
+					}
+				}
 			}
 
 			sciStatus = static_cast<int>(_pscratchTilla->execute(SCI_GETSTATUS));
@@ -2060,7 +2109,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 		//for empty files, if the default for new files is UTF8, and "Apply to opened ANSI files" is set, apply it
 		if ((fileSize == 0) && (fileFormat._encoding < 1))
 		{
-			if (ndds._unicodeMode == uniCookie && ndds._openAnsiAsUtf8)
+			if (ndds._unicodeMode == uniUTF8_NoBOM && ndds._openAnsiAsUtf8)
 				fileFormat._encoding = SC_CP_UTF8;
 		}
 	}

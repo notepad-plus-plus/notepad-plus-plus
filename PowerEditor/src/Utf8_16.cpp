@@ -140,7 +140,7 @@ size_t Utf8_16_Read::convert(char* buf, size_t len)
     {
 		case uni7Bit:
         case uni8Bit:
-        case uniCookie:
+        case uniUTF8_NoBOM:
 		{
             // Do nothing, pass through
 			m_nAllocatedBufSize = 0;
@@ -249,8 +249,9 @@ void Utf8_16_Read::determineEncoding()
 	else
 	{
 		u78 detectedEncoding = utf8_7bits_8bits();
+
 		if (detectedEncoding == utf8NoBOM)
-			m_eEncoding = uniCookie;
+			m_eEncoding = uniUTF8_NoBOM;
 		else if (detectedEncoding == ascii7bits)
 			m_eEncoding = uni7Bit;
 		else //(detectedEncoding == ascii8bits)
@@ -259,7 +260,7 @@ void Utf8_16_Read::determineEncoding()
 	}
 }
 
-UniMode Utf8_16_Read::determineEncoding(const unsigned char *buf, size_t bufLen)
+UniMode Utf8_16_Read::determineEncodingFromBOM(const unsigned char *buf, size_t bufLen)
 {
     // detect UTF-16 big-endian with BOM
 	if (bufLen > 1 && buf[0] == k_Boms[uni16BE][0] && buf[1] == k_Boms[uni16BE][1])
@@ -369,7 +370,7 @@ bool Utf8_16_Write::writeFile(const void* p, size_t _size)
 	{
 		case uni7Bit:
 		case uni8Bit:
-		case uniCookie:
+		case uniUTF8_NoBOM:
 		case uniUTF8:
 		{
 			// Normal write
@@ -436,7 +437,7 @@ size_t Utf8_16_Write::convert(char* p, size_t _size)
 		{
 		case uni7Bit:
 		case uni8Bit:
-		case uniCookie:
+		case uniUTF8_NoBOM:
 		{
 			// Normal write
 			m_pNewBuf = new ubyte[_size];

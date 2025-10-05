@@ -1003,8 +1003,11 @@ winVer NppParameters::getWindowsVersion()
 
 NppParameters::NppParameters()
 {
-	//Get windows version
+	// Get windows version
 	_winVersion = getWindowsVersion();
+
+	// Get current system code page
+	_currentSystemCodepage = GetACP();
 
 	// Prepare for default path
 	wchar_t nppPath[MAX_PATH];
@@ -5550,7 +5553,15 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 
 			if (element->Attribute(L"encoding", &i))
-				_nppGUI._newDocDefaultSettings._unicodeMode = (UniMode)i;
+			{
+				if (isCurrentSystemCodepageUTF8() // "Beta: Use Unicode UTF-8 for worldwide language support" option is checked in Windows
+					&& static_cast<UniMode>(i) == uni8Bit) // Notepad++ default new document setting is ANSI
+				{
+					// Force Notepad++ default new document setting from ANSI to UTF-8
+					i = static_cast<int>(uniUTF8);
+				}
+				_nppGUI._newDocDefaultSettings._unicodeMode = static_cast<UniMode>(i);
+			}
 
 			if (element->Attribute(L"lang", &i))
 				_nppGUI._newDocDefaultSettings._lang = (LangType)i;
@@ -5560,7 +5571,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 
 			const wchar_t* val = element->Attribute(L"openAnsiAsUTF8");
 			if (val)
-				_nppGUI._newDocDefaultSettings._openAnsiAsUtf8 = (lstrcmp(val, L"yes") == 0);
+				_nppGUI._newDocDefaultSettings._openAnsiAsUtf8 = isCurrentSystemCodepageUTF8() ? false : (lstrcmp(val, L"yes") == 0);
 
 			val = element->Attribute(L"addNewDocumentOnStartup");
 			if (val)

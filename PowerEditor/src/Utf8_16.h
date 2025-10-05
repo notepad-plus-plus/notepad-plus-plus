@@ -113,14 +113,14 @@ public:
 	size_t getNewSize() const { return m_nNewBufSize; }
 
 	UniMode getEncoding() const { return m_eEncoding; }
-    static UniMode determineEncoding(const unsigned char *buf, size_t bufLen);
+    static UniMode determineEncodingFromBOM(const unsigned char *buf, size_t bufLen);
 
 protected:
 	void determineEncoding();
 
 	u78 utf8_7bits_8bits();
 private:
-	UniMode    m_eEncoding = uni8Bit;
+	UniMode         m_eEncoding = uni8Bit;
 	ubyte*          m_pBuf = nullptr;
 	ubyte*          m_pNewBuf = nullptr;
 	// size of the new buffer

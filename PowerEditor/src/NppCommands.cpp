@@ -2757,6 +2757,11 @@ void Notepad_plus::command(int id)
 		case IDM_FORMAT_UTF_16LE :
 		case IDM_FORMAT_AS_UTF_8 :
 		{
+			if (_pEditView->getCodepage() == SC_CP_UTF8 && id == IDM_FORMAT_ANSI)
+			{
+				return;
+			}
+
 			Buffer * buf = _pEditView->getCurrentBuffer();
 
 			UniMode um;

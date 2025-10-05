@@ -345,6 +345,13 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 
 	_codepage = ::GetACP();
 
+	if (_codepage == 65001 // "Beta: Use Unicode UTF-8 for worldwide language support" option is checked in Windows
+		&& nppGui._newDocDefaultSettings._unicodeMode == uni8Bit) // and Notepad++ default new document setting is ANSI
+	{
+		// Then we change Notepad++ default new document setting to UTF-8
+		nppGui._newDocDefaultSettings._unicodeMode = uniCookie;
+	}
+
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 	_callWindowProc = CallWindowProc;
 	_scintillaDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(scintillaStatic_Proc)));
@@ -2461,10 +2468,12 @@ void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask)
 		{
 			execute(SCI_SETEOLMODE, static_cast<int>(_currentBuffer->getEolFormat()));
 		}
+
 		if (mask & BufferChangeReadonly)
 		{
 			execute(SCI_SETREADONLY, _currentBuffer->isReadOnly());
 		}
+
 		if (mask & BufferChangeUnicode)
 		{
             int enc = CP_ACP;

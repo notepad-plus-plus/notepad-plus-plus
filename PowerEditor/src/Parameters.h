@@ -276,6 +276,7 @@ struct CmdLineParams
 	bool _isPreLaunch = false;
 	bool _showLoadingTime = false;
 	bool _alwaysOnTop = false;
+	bool _displayCmdLineArgs = false;
 	intptr_t _line2go   = -1;
 	intptr_t _column2go = -1;
 	intptr_t _pos2go = -1;

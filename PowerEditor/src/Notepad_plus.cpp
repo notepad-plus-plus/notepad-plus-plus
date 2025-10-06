@@ -723,6 +723,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_colEditorDlg.init(_pPublicInterface->getHinst(), hwnd, &_pEditView);
 	_aboutDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_debugInfoDlg.init(_pPublicInterface->getHinst(), hwnd, _isAdministrator, _pluginsManager.getLoadedPluginNames());
+	_cmdLineArgsDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_runDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_runMacroDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_documentPeeker.init(_pPublicInterface->getHinst(), hwnd);

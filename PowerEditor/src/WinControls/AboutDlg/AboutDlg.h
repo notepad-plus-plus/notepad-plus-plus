@@ -92,6 +92,23 @@ private:
 	std::wstring _loadedPlugins;
 };
 
+
+class CmdLineArgsDlg : public StaticDialog
+{
+public:
+	CmdLineArgsDlg() = default;
+
+	void init(HINSTANCE hInst, HWND parent) {
+		Window::init(hInst, parent);
+	};
+
+	void doDialog();
+	void destroy() override {};
+
+protected:
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
+};
+
 class DoSaveOrNotBox : public StaticDialog
 {
 public:

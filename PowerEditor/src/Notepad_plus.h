@@ -321,6 +321,7 @@ private:
 	FindIncrementDlg _incrementFindDlg;
     AboutDlg _aboutDlg;
 	DebugInfoDlg _debugInfoDlg;
+	CmdLineArgsDlg _cmdLineArgsDlg;
 	RunDlg _runDlg;
 	HashFromFilesDlg _md5FromFilesDlg;
 	HashFromTextDlg _md5FromTextDlg;

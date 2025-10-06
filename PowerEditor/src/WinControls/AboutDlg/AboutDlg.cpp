@@ -646,6 +646,122 @@ void DebugInfoDlg::refreshDebugInfo()
 }
 
 
+const wchar_t COMMAND_ARG_HELP[] = L"Usage:\r\n\
+\r\n\
+notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-udl=\"My UDL Name\"] [-LlangCode] [-nLineNumber]\r\n\
+[-cColumnNumber] [-pPosition] [-xLeftPos] [-yTopPos] [-monitor] [-nosession] [-notabbar] [-systemtray]\r\n\
+[-loadingTime] [-ro] [-fullReadOnly] [-fullReadOnlySavingForbidden] [-alwaysOnTop] [-openSession] [-r]\r\n\
+[-qn=\"Easter egg name\" | -qt=\"a text to display.\" | -qf=\"D:\\my quote.txt\"] [-qSpeed1|2|3] [-quickPrint]\r\n\
+[-settingsDir=\"d:\\your settings dir\\\"] [-openFoldersAsWorkspace]  [-titleAdd=\"additional title bar text\"]\r\n\
+[filePath]\r\n\
+\r\n\
+--help: This help message\r\n\
+-multiInst: Launch another Notepad++ instance\r\n\
+-noPlugin: Launch Notepad++ without loading any plugin\r\n\
+-l: Open file or Ghost type with syntax highlighting of choice\r\n\
+-udl=\"My UDL Name\": Open file by applying User Defined Language\r\n\
+-L: Apply indicated localization, langCode is browser language code\r\n\
+-n: Scroll to indicated line on filePath\r\n\
+-c: Scroll to indicated column on filePath\r\n\
+-p: Scroll to indicated position on filePath\r\n\
+-x: Move Notepad++ to indicated left side position on the screen\r\n\
+-y: Move Notepad++ to indicated top position on the screen\r\n\
+-monitor: Open file with file monitoring enabled\r\n\
+-nosession: Launch Notepad++ without previous session\r\n\
+-notabbar: Launch Notepad++ without tab bar\r\n\
+-ro: Make the filePath read-only\r\n\
+-fullReadOnly: Open all files read-only by default, toggling the R/O off and saving is allowed\r\n\
+-fullReadOnlySavingForbidden: Open all files read-only by default, toggling the R/O off and saving is disabled\r\n\
+-systemtray: Launch Notepad++ directly in system tray\r\n\
+-loadingTime: Display Notepad++ loading time\r\n\
+-alwaysOnTop: Make Notepad++ always on top\r\n\
+-openSession: Open a session. filePath must be a session file\r\n\
+-r: Open files recursively. This argument will be ignored if filePath contains no wildcard character\r\n\
+-qn=\"Easter egg name\": Ghost type easter egg via its name\r\n\
+-qt=\"text to display.\": Ghost type the given text\r\n\
+-qf=\"D:\\my quote.txt\": Ghost type a file content via the file path\r\n\
+-qSpeed: Ghost typing speed. Value from 1 to 3 for slow, fast and fastest\r\n\
+-quickPrint: Print the file given as argument then quit Notepad++\r\n\
+-settingsDir=\"d:\\your settings dir\\\": Override the default settings dir\r\n\
+-openFoldersAsWorkspace: open filePath of folder(s) as workspace\r\n\
+-titleAdd=\"string\": add string to Notepad++ title bar\r\n\
+filePath: file or folder name to open (absolute or relative path name)\r\n\
+";
+
+void CmdLineArgsDlg::doDialog()
+{
+	if (!isCreated())
+		create(IDD_COMMANDLINEARGSBOX);
+
+	::SetDlgItemText(_hSelf, IDC_COMMANDLINEARGS_EDIT, COMMAND_ARG_HELP);
+
+	moveForDpiChange();
+	goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
+}
+
+intptr_t CALLBACK CmdLineArgsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+		case WM_INITDIALOG:
+		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+			return TRUE;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
+			return TRUE;
+		}
+
+		case WM_DPICHANGED:
+		{
+			_dpiManager.setDpiWP(wParam);
+			setPositionDpi(lParam);
+			getWindowRect(_rc);
+
+			return TRUE;
+		}
+
+		case WM_COMMAND:
+		{
+			switch (wParam)
+			{
+				case IDCANCEL:
+				case IDOK:
+					display(false);
+					return TRUE;
+
+				default:
+					break;
+			}
+			break;
+		}
+
+		case WM_DESTROY:
+		{
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
 void DoSaveOrNotBox::doDialog(bool isRTL)
 {
 

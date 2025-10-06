@@ -411,6 +411,11 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 		::MessageBoxW(NULL, wss.str().c_str(), L"Notepad++ loading time (hh:mm:ss.ms)", MB_OK);
 	}
 
+	if (cmdLineParams->_displayCmdLineArgs)
+	{
+		_notepad_plus_plus_core.command(IDM_CMDLINEARGUMENTS);
+	}
+
 	bool isSnapshotMode = nppGUI.isSnapshotMode();
 	if (isSnapshotMode)
 	{

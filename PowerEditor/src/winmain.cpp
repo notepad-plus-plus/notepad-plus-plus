@@ -574,12 +574,12 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	}
 
 	bool isParamePresent;
-	bool showHelp = isInList(FLAG_HELP, params);
 	bool isMultiInst = isInList(FLAG_MULTI_INSTANCE, params);
 	bool doFunctionListExport = isInList(FLAG_FUNCLSTEXPORT, params);
 	bool doPrintAndQuit = isInList(FLAG_PRINTANDQUIT, params);
 
 	CmdLineParams cmdLineParams;
+	cmdLineParams._displayCmdLineArgs = isInList(FLAG_HELP, params);
 	cmdLineParams._isNoTab = isInList(FLAG_NOTABBAR, params);
 	cmdLineParams._isNoPlugin = isInList(FLAG_NO_PLUGIN, params);
 	cmdLineParams._isReadOnly = isInList(FLAG_READONLY, params);
@@ -656,9 +656,6 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 		}
 		cmdLineParams._udlName = udlName;
 	}
-
-	if (showHelp)
-		::MessageBox(NULL, COMMAND_ARG_HELP, L"Notepad++ Command Argument Help", MB_OK);
 
 	if (cmdLineParams._localizationPath != L"")
 	{
@@ -793,7 +790,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 
 	bool isUpExist = nppGui._doesExistUpdater = doesFileExist(updaterFullPath.c_str());
 
-	// wingup doesn't work with the obsolete security layer (API) under xp since downloads are secured with SSL on notepad_plus_plus.org
+	// wingup doesn't work with the obsolete security layer (API) under xp since downloads are secured with SSL on notepad-plus-plus.org
 	winVer ver = nppParameters.getWinVersion();
 	bool isGtXP = ver > WV_XP;
 

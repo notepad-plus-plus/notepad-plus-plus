@@ -3551,8 +3551,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_CMDLINEARGUMENTS:
 		{
-			// Not translatable
-			::MessageBox(_pPublicInterface->getHSelf(), COMMAND_ARG_HELP, L"Notepad++ Command Argument Help", MB_OK | MB_APPLMODAL);
+			_cmdLineArgsDlg.doDialog();
 			break;
 		}
 

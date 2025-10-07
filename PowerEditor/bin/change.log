@@ -1,34 +1,37 @@
-Notepad++ v8.8.5 regression-fix:
+Notepad++ v8.8.6 new features & bug-fixes:
 
- 1. Fix "Edit with Notepad++" context menu not being installed correctly regression.
- 
-
-Notepad++ v8.8.4 vulnerability-fixes, bug-fixes & new enhancement:
-
- 1. Fix -notabbar & asNotepad.xml stop hiding tabbar regression (from v8.7.9).
- 2. Fix "Edit with Notepad++" not removed by uninstaller regression (from v8.8.3).
- 3. Fix possible heap memory leak.
- 4. Increase search input length from 2046 to 16383.
- 5. Add warning tip for the max length on search input (Find/Replace).
- 6. Fix JavaScript listed twice in Language & Indent settings of Preferences issue.
- 7. Fix external lexers showing several time in Indent settings issue.
- 8. Add button to insert variables in the run dialog.
- 9. Enhance "Go to settings": guide users to the related setting explicitly.
-10. Add a clear button for filter field in Shortcut Mapper.
-11. Make NFO font overridable by adding font name in Lexer "nfo" of stylers.xml.
+ 1. Add capacity of pasting multiline into Find/Replace fields.
+ 2. Improve UAC in Notepad++ for seamless elevated operations.
+ 3. Fix Pin Tab operation being too long with many opened documents.
+ 4. Add 2 new full-readonly modes via command line argument (-fullReadOnly & -fullReadOnlySavingForbidden).
+ 5. Add apply/remove read-only for all documents commands.
+ 6. Column Editor enhancement: GUI input fields now support radix to match the output format.
+ 7. Add Window dialog "File Modified Time" sorting capacity.
+ 8. Fix NPPN_CMDLINEPLUGINMSG not working issue & define the pluginMessage usage protocol.
+ 9. Fix pasting from column mode to multi-selection issue due to different EOL.
+10. Add NPPM_GETNPPSETTINGSDIRPATH message to get Notepad++ settings directory path.
+11. Enhance SQL function list parser.
+12. Fix C# function list not working with comments.
+13. Add function list ability for CSS.
+14. Allow user to customize max selected chars to auto-fill "Find what" field.
+15. Restore undo/redo behaviour in Find/Replace fields after Copy/Paste or Ctrl-F.
+16. Fix text corruption issue caused by selection within multibyte characters.
+17. Fix DOCTYPE styling in xml and html.
+18. Fix double clicking on edit zone border creates a new tab issue.
+19. Update cURL in WinGUp (Notepad++ updater) for fixing security issue CVE-2025-5399.
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.8.5/
+https://notepad-plus-plus.org/downloads/v8.8.6/
 
 
 Included plugins:
 
-1.  NppExport v0.4
-2.  Converter v4.6
-3.  Mime Tool v3.1
+ 1.  NppExport v0.4
+ 2.  Converter v4.7
+ 3.  Mime Tool v3.1
 
 
 Updater (Installer only):
 
-* WinGUp (for Notepad++) v5.3.3
+* WinGUp (for Notepad++) v5.3.4

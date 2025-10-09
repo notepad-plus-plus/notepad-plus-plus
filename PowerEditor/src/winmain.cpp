@@ -582,6 +582,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	g_nppStartTimePoint = std::chrono::steady_clock::now();
 
 	// DEBUG: TEMP: (will be removed in the final PR version) //////////////////////////
+	/*
 	HANDLE hNppGlobalMtx = ::OpenMutexW(SYNCHRONIZE, FALSE, L"Global\\nppInstanceGlb");
 	if (hNppGlobalMtx)
 	{
@@ -601,6 +602,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 			::MessageBoxW(NULL, msg.c_str(), L"Notepad++ wWinMain", MB_OK | MB_APPLMODAL | MB_ICONERROR);
 		}
 	}
+	*/
 	///////////////////////////////////////////////////////////////////////////////////
 
 	// try to create (or obtain handle to) Notepad++ instance mutex in the system Global-namespace

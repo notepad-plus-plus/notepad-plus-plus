@@ -9,32 +9,96 @@
 <NotepadPlus>
 	<functionList>
 		<!-- ======================================================== [ PERL ] -->
-		<!-- PERL - Practical Extraction and Reporting Language                -->
+		<!-- Perl - functions and packages, including fully-qualtified subroutine names -->
 
-		<parser
-			displayName="PERL"
-			id         ="perl_function"
-			commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-							(?m-s:\x23.*$)                                  # Single Line Comment
-						"
-		>
-			<function
-				mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-						sub
-						\s+
-						[A-Za-z_]\w*
-						(\s*\([^()]*\))?                                    # prototype or signature
-						(\s*\:\s*[^{]+)?                                    # attributes
-						\s*\{                                               # start of class body
+			<!--
+			... replacement perl parser ...: https://community.notepad-plus-plus.org/topic/19842
+			... make sure to rename the id\s*=\s*"perl_function" near the beginning with "perl_syntax" to match
+			-->
+
+			<parser
+				displayName="Perl"
+				id="perl_syntax"
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?m-s:\x23.*$)                                      # Single Line Comment
+						|	(?s:__(?:END|DATA)__.*\Z)                           # Discard up till end-of-text
 					"
 			>
-				<functionName>
-					<nameExpr expr="(?:sub\s+)?\K[A-Za-z_]\w*" />
-				</functionName>
-				<className>
-					<nameExpr expr="[A-Za-z_]\w*(?=\s*:{2})" />
-				</className>
-			</function>
-		</parser>
+				<classRange
+					mainExpr    ="(?x)                                          # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?m)                                                # ^ and $ match at line-breaks
+							(?'PACKAGE_HEADER'
+								^                                               # NO leading white-space at start-of-line
+								(?-i:package\b)
+							)
+							(?s:.*?)                                            # whatever,
+							(?=                                                 # ...up till
+								\s*                                             # ...optional leading white-space of
+								(?:
+									(?&amp;PACKAGE_HEADER)                      # ...next header
+								|	\Z                                          # ...or end-of-text
+								)
+							)
+						"
+				>
+					<className>
+						<nameExpr expr="(?x)                                    # free-spacing (see `RegEx - Pattern Modifiers`)
+								\s
+								\K                                              # discard text matched so far
+								[^;{]+
+							"
+						/>
+					</className>
+					<function
+						mainExpr="(?x)                                          # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?m)
+								^\h*
+								sub
+								\s+
+								(?:\w+\:\:)*                                    # optional prefix::package::names::
+								\w+
+								(?:\s*\([^()]*\))?                              # prototype or signature
+								(?:\s*\:\s*[^{]+)?                              # attributes
+								\s*\{                                           # start of function body
+							"
+					>
+						<functionName>
+							<funcNameExpr expr="(?x)                            # free-spacing (see `RegEx - Pattern Modifiers`)
+									(sub\s+)?
+									\K                                          # discard text matched so far
+									(?:\w+\:\:)*                                # optional prefix::package::names::
+									\w+                                         # move the \K to just before this line if you don't want prefix::package shown in the functionList Panel
+								"
+							/>
+						</functionName>
+					</function>
+				</classRange>
+				<function
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?m)
+							^\h*
+							sub
+							\s+
+							(?:\w+\:\:)*                                        # optional prefix::package::names::
+							\w+                                                 # add \K before the \w+ if you don't want prefix::package:: shown in the functionList Panel
+							(?:\s*\([^()]*\))?                                  # prototype or signature
+						  	(?:\s*\:\s*[^{]+)?                                  # attributes
+							\s*\{                                               # start of function body
+						"
+				>
+					<functionName>
+						<nameExpr expr="(?x)                                    # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?:sub\s+)?
+								\K                                              # discard text matched so far
+								(?:\w+\:\:)*                                    # optional prefix::package::names::
+								\w+
+							"
+						/>
+					</functionName>
+					<className>
+						<nameExpr expr="\s\K((::)?\w+)+(?=::)"/>
+					</className>
+				</function>
+			</parser>
 	</functionList>
 </NotepadPlus>

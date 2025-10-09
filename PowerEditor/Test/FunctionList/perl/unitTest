@@ -302,3 +302,20 @@ else
 {
     print "\nNo tags found.\n";
 }
+
+################ From here on was added by pryrt/PeterJones to test Notepad++'s FunctionList, and is not part of pltags source code
+sub MyClass::new        { return bless {}, 'MyClass' }
+sub MyClass::do_thing   { return 42 }
+sub MyClass::debug      { print "ok\n" }
+
+sub Other::run          { return 'running' }
+sub Other::stop         { return 'stopped' }
+
+package NameSpace::Block {
+    sub inBlock { return 1 }
+    sub inBlockProto($) { return $_[0] }
+    sub inBlockAttrib :prototype($) { return $_[0] }
+}
+
+package NameSpace::Semicolon;
+sub afterSemi { return 0 }

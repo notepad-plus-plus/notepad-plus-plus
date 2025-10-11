@@ -9031,8 +9031,9 @@ HBITMAP Notepad_plus::generateSolidColourMenuItemIcon(COLORREF colour)
 
 void Notepad_plus::clearChangesHistory(int iView)
 {
-	ScintillaEditView* pViewToChange;
-	ScintillaEditView* pAnotherView;
+	// use current view by default
+	ScintillaEditView* pViewToChange = _pEditView;
+	ScintillaEditView* pAnotherView = _pNonEditView;
 
 	if (iView == MAIN_VIEW)
 	{
@@ -9044,15 +9045,9 @@ void Notepad_plus::clearChangesHistory(int iView)
 		pViewToChange = &_subEditView;
 		pAnotherView = &_mainEditView;
 	}
-	else
-	{
-		// unknown, use current view
-		pViewToChange = _pEditView;
-		pAnotherView = _pNonEditView;
-	}
 
-	Sci_Position pos = (Sci_Position)::SendMessage(pViewToChange->getHSelf(), SCI_GETCURRENTPOS, 0, 0);
-	int chFlags = (int)::SendMessage(pViewToChange->getHSelf(), SCI_GETCHANGEHISTORY, 0, 0);
+	Sci_Position pos = static_cast<Sci_Position>(::SendMessage(pViewToChange->getHSelf(), SCI_GETCURRENTPOS, 0, 0));
+	int chFlags = static_cast<int>(::SendMessage(pViewToChange->getHSelf(), SCI_GETCHANGEHISTORY, 0, 0));
 
 	pViewToChange->execute(SCI_EMPTYUNDOBUFFER);
 	pViewToChange->execute(SCI_SETCHANGEHISTORY, SC_CHANGE_HISTORY_DISABLED);

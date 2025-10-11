@@ -661,7 +661,7 @@ private:
 
 	HBITMAP generateSolidColourMenuItemIcon(COLORREF colour);
 
-	void clearChangesHistory(int iView = UNDEFINED_VIEW);
+	void clearChangesHistory(int iView);
 	void changedHistoryGoTo(int idGoTo);
 
 	HMENU createMenuFromMenu(HMENU hSourceMenu, const std::vector<int>& commandIds);

@@ -1782,9 +1782,9 @@ void Notepad_plus::command(int id)
 			changedHistoryGoTo(id);
 		    break;
 			
-	    case IDM_SEARCH_CLEAR_CHANGE_HISTORY:
-			clearChangesHistory();
-		    break;
+		case IDM_SEARCH_CLEAR_CHANGE_HISTORY:
+			clearChangesHistory(currentView());
+			break;
 
         case IDM_LANG_USER_DLG :
         {

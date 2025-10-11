@@ -9033,6 +9033,7 @@ void Notepad_plus::clearChangesHistory(int iView)
 {
 	ScintillaEditView* pViewToChange;
 	ScintillaEditView* pAnotherView;
+
 	if (iView == MAIN_VIEW)
 	{
 		pViewToChange = &_mainEditView;
@@ -9045,7 +9046,7 @@ void Notepad_plus::clearChangesHistory(int iView)
 	}
 	else
 	{
-		// not defined (current view)
+		// unknown, use current view
 		pViewToChange = _pEditView;
 		pAnotherView = _pNonEditView;
 	}

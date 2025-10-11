@@ -175,7 +175,7 @@ closeRunningNppCheckDone:
 
 	; handle the possible Silent Mode (/S) & already running Notepad++ (without this an incorrect partial installation is possible)
 	IfSilent 0 notInSilentMode
-	System::Call 'kernel32::OpenMutex(i 0x100000, b 0, t "nppInstance") i .R0'
+	System::Call 'kernel32::OpenMutex(i 0x100000, b 0, t "Global\nppInstanceGlb") i .R0'
 	IntCmp $R0 0 nppNotRunning
 	StrCpy $runningNppDetected "true"
 	System::Call 'kernel32::CloseHandle(i $R0)' ; a Notepad++ instance is running, tidy-up the opened mutex handle only

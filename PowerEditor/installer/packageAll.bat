@@ -27,12 +27,11 @@ REM https://learn.microsoft.com/en-us/windows/msix/package/signing-known-issues
 set signBinarySha256=%signtoolWin11% sign /fd SHA256 /tr http://timestamp.acs.microsoft.com /td sha512 /a /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/
 
 
-%signBinary% ..\bin\notepad++.exe
+set baseBinaries=..\bin\notepad++.exe ..\bin64\notepad++.exe ..\binarm64\notepad++.exe ..\bin\plugins\Config\nppPluginList.dll ..\bin64\plugins\Config\nppPluginList.dll ..\binarm64\plugins\Config\nppPluginList.dll  ..\bin\updater\GUP.exe ..\bin64\updater\GUP.exe ..\binarm64\updater\GUP.exe ..\bin\updater\libcurl.dll ..\bin64\updater\libcurl.dll ..\binarm64\updater\libcurl.dll ..\bin\plugins\NppExport\NppExport.dll ..\bin64\plugins\NppExport\NppExport.dll ..\binarm64\plugins\NppExport\NppExport.dll ..\bin\plugins\mimeTools\mimeTools.dll ..\bin64\plugins\mimeTools\mimeTools.dll ..\binarm64\plugins\mimeTools\mimeTools.dll ..\bin\plugins\NppConverter\NppConverter.dll ..\bin64\plugins\NppConverter\NppConverter.dll ..\binarm64\plugins\NppConverter\NppConverter.dll
+
+%signBinary% %baseBinaries%
 If ErrorLevel 1 goto End
-%signBinary% ..\bin64\notepad++.exe
-If ErrorLevel 1 goto End
-%signBinary% ..\binarm64\notepad++.exe
-If ErrorLevel 1 goto End
+
 
 REM %signBinarySha256% ..\bin\NppShell.x86.dll
 REM If ErrorLevel 1 goto End
@@ -47,47 +46,8 @@ REM If ErrorLevel 1 goto End
 REM %signBinarySha256% ..\binarm64\NppShell.arm64.dll
 REM If ErrorLevel 1 goto End
 
-%signBinary% ..\bin\plugins\Config\nppPluginList.dll
-If ErrorLevel 1 goto End
-%signBinary% ..\bin64\plugins\Config\nppPluginList.dll
-If ErrorLevel 1 goto End
-%signBinary% ..\binarm64\plugins\Config\nppPluginList.dll
-If ErrorLevel 1 goto End
 
-%signBinary% ..\bin\updater\GUP.exe
-If ErrorLevel 1 goto End
-%signBinary% ..\bin64\updater\GUP.exe
-If ErrorLevel 1 goto End
-%signBinary% ..\binarm64\updater\GUP.exe
-If ErrorLevel 1 goto End
 
-%signBinary% ..\bin\updater\libcurl.dll
-If ErrorLevel 1 goto End
-%signBinary% ..\bin64\updater\libcurl.dll
-If ErrorLevel 1 goto End
-%signBinary% ..\binarm64\updater\libcurl.dll
-If ErrorLevel 1 goto End
-
-%signBinary% ..\bin\plugins\NppExport\NppExport.dll
-If ErrorLevel 1 goto End
-%signBinary% ..\bin64\plugins\NppExport\NppExport.dll
-If ErrorLevel 1 goto End
-%signBinary% ..\binarm64\plugins\NppExport\NppExport.dll
-If ErrorLevel 1 goto End
-
-%signBinary% ..\bin\plugins\mimeTools\mimeTools.dll
-If ErrorLevel 1 goto End
-%signBinary% ..\bin64\plugins\mimeTools\mimeTools.dll
-If ErrorLevel 1 goto End
-%signBinary% ..\binarm64\plugins\mimeTools\mimeTools.dll
-If ErrorLevel 1 goto End
-
-%signBinary% ..\bin\plugins\NppConverter\NppConverter.dll
-If ErrorLevel 1 goto End
-%signBinary% ..\bin64\plugins\NppConverter\NppConverter.dll
-If ErrorLevel 1 goto End
-%signBinary% ..\binarm64\plugins\NppConverter\NppConverter.dll
-If ErrorLevel 1 goto End
 
 :NoSign
 
@@ -545,6 +505,10 @@ ren npp.portable.minimalist.7z !7zvarMin!
 ren npp.portable.minimalist.x64.7z !7zvarMin64!
 ren npp.portable.minimalist.arm64.7z !7zvarMinArm64!
 
+if %SIGN% == 0 goto NoSignInstaller
+%signBinary% !nppInstallerVar! !nppInstallerVar64! !nppInstallerVarArm64!
+
+:NoSignInstaller
 
 cd ..
 

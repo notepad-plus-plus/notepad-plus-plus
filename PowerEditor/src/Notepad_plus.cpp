@@ -6382,15 +6382,13 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includeUntitled
 			sfi._isRTL = buf->isRTL();
 
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-			size_t maxLine = static_cast<size_t>(_invisibleEditView.execute(SCI_GETLINECOUNT));
 
-			for (size_t j = 0 ; j < maxLine ; ++j)
-			{
-				if ((_invisibleEditView.execute(SCI_MARKERGET, j) & (1 << MARK_BOOKMARK)) != 0)
-				{
-					sfi._marks.push_back(j);
-				}
+			long long nextMarkedLine = static_cast<long long>(_invisibleEditView.execute(SCI_MARKERNEXT, 0, (1 << MARK_BOOKMARK)));
+			while (nextMarkedLine != -1) {
+				sfi._marks.push_back(nextMarkedLine);
+				nextMarkedLine = static_cast<long long>(_invisibleEditView.execute(SCI_MARKERNEXT, nextMarkedLine + 1, (1 << MARK_BOOKMARK)));
 			}
+
 
 			if (i == activeIndex)
 			{

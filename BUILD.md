@@ -72,3 +72,29 @@ Building Notepad++ is regularly tested on a Windows system by using [MSYS2](http
 - When a project is built through MinGW-w64 with multilib support, a specific target can be forced by passing `TARGET_CPU` variable with `x86_64` or `i686` as value.
 - To use Clang instead of GCC for compilation provide `CXX` variable with `clang++` as value.
 - To use [Clang analyzer](https://clang-analyzer.llvm.org/) together with Clang provide `CLANGANALYZE=1` to the `mingw32-make` invocation.
+
+## Unit Testing
+
+Notepad++ includes many optional unit tests that help with debugging and ensuring functionality. 
+
+Unit tests for the Notepad++ application itself can be found at `notepad-plus-plus\PowerEditor\Test` under subfolders `FunctionList`, `UrlDetection` and `xmlValidator`
+
+### Running Unit Tests
+
+Before running the unit tests, ensure that Notepad++ has already been built using either method above and that the `notepad++.exe` executable is located inside the correct `bin` folder. **The unit tests use relative paths to find the executable and other files, and will return errors and exceptions if they are not found, so it's important to keep track of file paths when running the tests.** If you continue experiencing issues with relative directories for any of the test cases, you may need to consider hard-coding the correct directories.
+
+#### FunctionList
+
+1. Change directories to the `FunctionList` folder and run the `unitTestLauncher.ps1` file in PowerShell.
+2. Notepad++ will repeatedly open and close, as it is going through each unit test for the different functions of the application, showing whether or not each one passed or failed.
+3. Once the script completes, it will indicate whether or not all tests passed or failed.
+
+#### UrlDetection
+1. Change directories to the `UrlDetection` folder and run the `verifyUrlDetection.ps1` file in PowerShell.
+2. Notepad++ will automatically open, with a plugin, LuaScript, automatically loaded in at runtime. **If you experience an error saying that the current version of Notepad++ is not compatible with Lua, try downloading the latest release version of LuaScript and paste the `Lua.dll` and `LuaScript.dll` files under `notepad-plus-plus\PowerEditor\Test\UrlDetection\plugins\LuaScript`.**
+3. Follow the instructions in the `readMe.txt` file to run the unit tests through the application.
+
+#### xmlValidator
+1. Open the `validator_xml.py` Python file in your desired IDE, ensuring directories are correct to access the needed XML files.
+2. Run the file and XML files will be verified for correct syntax and validated.
+3. If all tests passed, the terminal will print `Done.`.

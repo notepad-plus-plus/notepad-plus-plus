@@ -409,8 +409,12 @@ private:
 	std::wstring _userLangExt; // it's useful if only (_lang == L_USER)
 	bool _isDirty = false;
 	EolType _eolFormat = EolType::osdefault;
-	UniMode _unicodeMode = uniUTF8;
+
+	// if _encoding == -1, then _unicodeMode is used.
+	// otherwise _encoding is used.
 	int _encoding = -1;
+	UniMode _unicodeMode = uniUTF8;
+
 	bool _isUserReadOnly = false;
 	bool _isFromNetwork = false;
 	bool _needLexer = false; // new buffers do not need lexing, Scintilla takes care of that

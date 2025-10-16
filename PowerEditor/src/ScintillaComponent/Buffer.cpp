@@ -89,7 +89,7 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 	_unicodeMode = ndds._unicodeMode;
 	_encoding = ndds._codepage;
 	if (_encoding != -1)
-		_unicodeMode = uniCookie;
+		_unicodeMode = uniUTF8_NoBOM;
 
 	_currentStatus = type;
 
@@ -1059,23 +1059,27 @@ bool FileManager::reloadBuffer(BufferID id)
 
 void FileManager::setLoadedBufferEncodingAndEol(Buffer* buf, const Utf8_16_Read& UnicodeConvertor, int encoding, EolType bkformat)
 {
-	if (encoding == -1)
+	int encoding2Set = encoding;
+	UniMode unimode2Set = UnicodeConvertor.getEncoding();
+
+	if (encoding2Set == -1)
 	{
 		NppParameters& nppParamInst = NppParameters::getInstance();
 		const NewDocDefaultSettings & ndds = (nppParamInst.getNppGUI()).getNewDocDefaultSettings();
-
-		UniMode um = UnicodeConvertor.getEncoding();
-		if (um == uni7Bit)
-			um = (ndds._openAnsiAsUtf8) ? uniCookie : uni8Bit;
-
-		buf->setUnicodeMode(um);
+		
+		if (unimode2Set == uni7Bit)
+			unimode2Set = (ndds._openAnsiAsUtf8) ? uniUTF8_NoBOM : uni8Bit;
 	}
 	else
 	{
 		// Test if encoding is set to UTF8 w/o BOM (usually for utf8 indicator of xml or html)
-		buf->setEncoding((encoding == SC_CP_UTF8)?-1:encoding);
-		buf->setUnicodeMode(uniCookie);
+		encoding2Set = ((encoding2Set == SC_CP_UTF8) ? -1 : encoding2Set);
+		unimode2Set = uniUTF8_NoBOM;
 	}
+
+	buf->setEncoding(encoding2Set);
+	buf->setUnicodeMode(unimode2Set);
+
 
 	// Since the buffer will be reloaded from the disk, EOL might have been changed
 	if (bkformat != EolType::unknown)
@@ -1208,7 +1212,7 @@ bool FileManager::backupCurrentBuffer()
 		if (buffer->isModified()) // buffer dirty and modified, write the backup file
 		{
 			UniMode mode = buffer->getUnicodeMode();
-			if (mode == uniCookie)
+			if (mode == uniUTF8_NoBOM)
 				mode = uni8Bit;	//set the mode to ANSI to prevent converter from adding BOM and performing conversions, Scintilla's data can be copied directly
 
 			Utf8_16_Write UnicodeConvertor;
@@ -1421,7 +1425,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 	}
 
 	UniMode mode = buffer->getUnicodeMode();
-	if (mode == uniCookie)
+	if (mode == uniUTF8_NoBOM)
 		mode = uni8Bit;	//set the mode to ANSI to prevent converter from adding BOM and performing conversions, Scintilla's data can be copied directly
 
 	Utf8_16_Write UnicodeConvertor;
@@ -1944,20 +1948,30 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 
             if (isFirstTime)
             {
-				const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+				NppParameters& nppParamInst = NppParameters::getInstance();
+				const NppGUI& nppGui = nppParamInst.getNppGUI();
 
 				// check if file contain any BOM
-                if (Utf8_16_Read::determineEncoding((unsigned char *)data, lenFile) != uni8Bit)
+                if (Utf8_16_Read::determineEncodingFromBOM((unsigned char *)data, lenFile) != uni8Bit) // BOM found - must be UNICODE
                 {
                     // if file contains any BOM, then encoding will be erased,
                     // and the document will be interpreted as UTF
 					fileFormat._encoding = -1;
 				}
-				else if (fileFormat._encoding == -1)
+				else if (fileFormat._encoding == -1 && nppGui._detectEncoding) // No BOM found & no specific encording & auto-detection allowed
 				{
-					if (nppGui._detectEncoding)
-						fileFormat._encoding = detectCodepage(data, lenFile);
+					fileFormat._encoding = detectCodepage(data, lenFile);
                 }
+
+
+				// End of ecoding detection
+				// Now process the exception:
+				if (nppParamInst.isCurrentSystemCodepageUTF8() // "Beta: Use Unicode UTF-8 for worldwide language support" option is checked in Windows
+					&& (fileFormat._encoding == uni8Bit || fileFormat._encoding == -1))
+				{
+					fileFormat._encoding = nppParamInst.defaultCodepage();
+				}
+
 				
 				bool isLargeFile = fileSize >= nppGui._largeFileRestriction._largeFileSizeDefInByte;
 				if (!isLargeFile && fileFormat._language == L_TEXT)
@@ -1968,6 +1982,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 
                 isFirstTime = false;
             }
+
 
 			if (fileFormat._encoding != -1)
 			{
@@ -2060,7 +2075,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 		//for empty files, if the default for new files is UTF8, and "Apply to opened ANSI files" is set, apply it
 		if ((fileSize == 0) && (fileFormat._encoding < 1))
 		{
-			if (ndds._unicodeMode == uniCookie && ndds._openAnsiAsUtf8)
+			if (ndds._unicodeMode == uniUTF8_NoBOM && ndds._openAnsiAsUtf8)
 				fileFormat._encoding = SC_CP_UTF8;
 		}
 	}

@@ -186,11 +186,7 @@ public :
 	NewDocumentSubDlg() = default;
 
 private :
-	void makeOpenAnsiAsUtf8(bool doIt){
-		if (!doIt)
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_OPENANSIASUTF8, BM_SETCHECK, BST_UNCHECKED, 0);
-		::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), doIt);
-	};
+	void makeOpenAnsiAsUtf8(bool doIt) const;
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 };
 

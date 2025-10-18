@@ -152,7 +152,11 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 	}
 	
 	const wchar_t * text2FindW = pHighlightView->getSelectedTextToWChar(false); //do not expand selection (false)
-
+	if (!text2FindW) 
+	{
+		return;
+	}
+	
 	highlightViewWithWord(pHighlightView, text2FindW);
 
 	if (nppGUI._smartHiliteOnAnotherView && unfocusView && unfocusView->isVisible())
@@ -167,3 +171,6 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 		highlightViewWithWord(unfocusView, text2FindW);
 	}
 }
+
+
+

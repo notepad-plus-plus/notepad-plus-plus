@@ -207,3 +207,18 @@ void DPIManagerV2::loadIcon(HINSTANCE hinst, const wchar_t* pszName, int cx, int
 		*phico = static_cast<HICON>(::LoadImage(hinst, pszName, IMAGE_ICON, cx, cy, fuLoad));
 	}
 }
+
+DWORD DPIManagerV2::getTextScaleFactor()
+{
+	static constexpr DWORD defaultVal = 100;
+	DWORD data = defaultVal;
+	DWORD dwBufSize = sizeof(data);
+	static constexpr LPCWSTR lpSubKey = L"Software\\Microsoft\\Accessibility";
+	static constexpr LPCWSTR lpValue = L"TextScaleFactor";
+
+	if (::RegGetValueW(HKEY_CURRENT_USER, lpSubKey, lpValue, RRF_RT_REG_DWORD, nullptr, &data, &dwBufSize) == ERROR_SUCCESS)
+	{
+		return data;
+	}
+	return defaultVal;
+}

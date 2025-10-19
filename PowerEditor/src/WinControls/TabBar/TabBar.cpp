@@ -68,11 +68,11 @@ void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMultiLin
 	{
 		const UINT dpi = DPIManagerV2::getDpiForWindow(_hParent);
 		LOGFONT lf{ DPIManagerV2::getDefaultGUIFontForDpi(dpi) };
-		lf.lfHeight = DPIManagerV2::scaleFont(8, dpi);
+		static const UINT fontSize = DPIManagerV2::scaleFontForFactor(8);
+		lf.lfHeight = DPIManagerV2::scaleFont(fontSize, dpi);
 		_hFont = ::CreateFontIndirect(&lf);
 		::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), 0);
 	}
-
 }
 
 void TabBar::destroy()
@@ -398,7 +398,8 @@ void TabBar::setFont()
 	_hFont = ::CreateFontIndirect(&lf);
 
 	lf.lfWeight = FW_HEAVY;
-	lf.lfHeight = DPIManagerV2::scaleFont(10, _dpiManager.getDpi());
+	static const UINT fontSize = DPIManagerV2::scaleFontForFactor(10);
+	lf.lfHeight = DPIManagerV2::scaleFont(fontSize, _dpiManager.getDpi());
 
 	_hLargeFont = ::CreateFontIndirect(&lf);
 

@@ -1609,7 +1609,8 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			const bool isMonospaced = NppParameters::getInstance().getNppGUI()._monospacedFontFindDlg;
 			if (isMonospaced)
 			{
-				hFont = createFont(L"Courier New", 8, false, _hSelf);
+				static const UINT fontSize = DPIManagerV2::scaleFontForFactor(8);
+				hFont = createFont(L"Courier New", fontSize, false, _hSelf);
 			}
 			else
 			{
@@ -1623,7 +1624,8 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 			LOGFONT lf{};
 			::GetObject(hFont, sizeof(lf), &lf);
-			lf.lfHeight = -(_dpiManager.scale(16) - 5);
+			static const UINT fontSize = DPIManagerV2::scaleFontForFactor(16) - 5;
+			lf.lfHeight = -(_dpiManager.scale(fontSize));
 			_hComboBoxFont = ::CreateFontIndirect(&lf);
 
 			for (const auto& hComboBox : { hFindCombo, hReplaceCombo, hFiltersCombo, hDirCombo })
@@ -4833,16 +4835,7 @@ void FindReplaceDlg::initOptionsFromDlg()
 void FindInFinderDlg::doDialog(Finder *launcher, bool isRTL)
 {
 	_pFinder2Search = launcher;
-	if (isRTL)
-	{
-		DLGTEMPLATE *pMyDlgTemplate = NULL;
-		HGLOBAL hMyDlgTemplate = makeRTLResource(IDD_FINDINFINDER_DLG, &pMyDlgTemplate);
-		::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
-		::GlobalFree(hMyDlgTemplate);
-	}
-	else
-		::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_FINDINFINDER_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
-
+	StaticDialog::myCreateDialogBoxIndirectParam(IDD_FINDINFINDER_DLG, isRTL);
 }
 
 void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)

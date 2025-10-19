@@ -1788,38 +1788,31 @@ void StylerDlg::move2CtrlRight(HWND hwndDlg, int ctrlID, HWND handle2Move, int h
     ::MoveWindow(handle2Move, p.x, p.y, handle2MoveWidth, handle2MoveHeight, TRUE);
 }
 
-intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK StylerDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-    StylerDlg * dlg = (StylerDlg *)::GetProp(hwnd, L"Styler dialog prop");
+    auto* dlg = static_cast<StylerDlg*>(::GetProp(_hSelf, L"Styler dialog prop"));
     NppParameters& nppParam = NppParameters::getInstance();
 
     switch (message)
     {
         case WM_INITDIALOG :
         {
-            NppDarkMode::setDarkTitleBar(hwnd);
-            NppDarkMode::autoSubclassAndThemeChildControls(hwnd);
+            NppDarkMode::setDarkTitleBar(_hSelf);
+            NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
             NativeLangSpeaker *pNativeLangSpeaker = nppParam.getNativeLangSpeaker();
-            pNativeLangSpeaker->changeUserDefineLangPopupDlg(hwnd);
+            pNativeLangSpeaker->changeUserDefineLangPopupDlg(_hSelf);
 
-            ::SetProp(hwnd, L"Styler dialog prop", (HANDLE)lParam);
-            dlg = (StylerDlg *)::GetProp(hwnd, L"Styler dialog prop");
+            ::SetProp(_hSelf, L"Styler dialog prop", reinterpret_cast<HANDLE>(lParam));
+            dlg = static_cast<StylerDlg*>(::GetProp(_hSelf, L"Styler dialog prop"));
             Style & style = SharedParametersDialog::_pUserLang->_styles.getStyler(dlg->_stylerIndex);
 
-            // move dialog over UDL GUI (position 0,0 of UDL window) so it wouldn't cover the code
-            RECT wrc{};
-            ::GetWindowRect(dlg->_parent, &wrc);
-            wrc.left = wrc.left < 0 ? 200 : wrc.left;   // if outside of visible area
-            wrc.top = wrc.top < 0 ? 200 : wrc.top;
-            ::SetWindowPos(hwnd, HWND_TOP, wrc.left, wrc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
-
-            ::SendDlgItemMessage(hwnd, IDC_STYLER_CHECK_UNDERLINE, BM_SETCHECK, style._fontStyle & FONTSTYLE_UNDERLINE, 0);
-            ::SendDlgItemMessage(hwnd, IDC_STYLER_CHECK_ITALIC,    BM_SETCHECK, style._fontStyle & FONTSTYLE_ITALIC, 0);
-            ::SendDlgItemMessage(hwnd, IDC_STYLER_CHECK_BOLD,      BM_SETCHECK, style._fontStyle & FONTSTYLE_BOLD, 0);
+            ::SendDlgItemMessage(_hSelf, IDC_STYLER_CHECK_UNDERLINE, BM_SETCHECK, style._fontStyle & FONTSTYLE_UNDERLINE, 0);
+            ::SendDlgItemMessage(_hSelf, IDC_STYLER_CHECK_ITALIC,    BM_SETCHECK, style._fontStyle & FONTSTYLE_ITALIC, 0);
+            ::SendDlgItemMessage(_hSelf, IDC_STYLER_CHECK_BOLD,      BM_SETCHECK, style._fontStyle & FONTSTYLE_BOLD, 0);
 
             // for the font size combo
-            HWND hFontSizeCombo = ::GetDlgItem(hwnd, IDC_STYLER_COMBO_FONT_SIZE);
+            HWND hFontSizeCombo = ::GetDlgItem(_hSelf, IDC_STYLER_COMBO_FONT_SIZE);
             for (size_t j = 0 ; j < int(sizeof(fontSizeStrs))/(3*sizeof(wchar_t)) ; ++j)
 				::SendMessage(hFontSizeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(fontSizeStrs[j]));
 
@@ -1834,7 +1827,7 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
                 ::SendMessage(hFontSizeCombo, CB_SETCURSEL, i, 0);
 
             // for the font name combo
-            HWND hFontNameCombo = ::GetDlgItem(hwnd, IDC_STYLER_COMBO_FONT_NAME);
+            HWND hFontNameCombo = ::GetDlgItem(_hSelf, IDC_STYLER_COMBO_FONT_NAME);
             const std::vector<wstring> & fontlist = nppParam.getFontList();
             for (size_t j = 0, len = fontlist.size() ; j < len ; ++j)
             {
@@ -1853,20 +1846,20 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
             if (style._bgColor == COLORREF(-1))
                 style._bgColor = white;
 
-            dlg->_pFgColour->init(dlg->_hInst, hwnd);
+            dlg->_pFgColour->init(dlg->_hInst, _hSelf);
             dlg->_pFgColour->setColour(style._fgColor);
             bool isFgEnabled = (style._colorStyle & COLORSTYLE_FOREGROUND) != 0;
             dlg->_pFgColour->setEnabled(isFgEnabled);
-            ::SendDlgItemMessage(hwnd, IDC_STYLER_CHECK_FG_TRANSPARENT, BM_SETCHECK, !isFgEnabled, 0);
-            dlg->_pBgColour->init(dlg->_hInst, hwnd);
+            ::SendDlgItemMessage(_hSelf, IDC_STYLER_CHECK_FG_TRANSPARENT, BM_SETCHECK, !isFgEnabled, 0);
+            dlg->_pBgColour->init(dlg->_hInst, _hSelf);
             dlg->_pBgColour->setColour(style._bgColor);
             bool isBgEnabled = (style._colorStyle & COLORSTYLE_BACKGROUND) != 0;
             dlg->_pBgColour->setEnabled(isBgEnabled);
-            ::SendDlgItemMessage(hwnd, IDC_STYLER_CHECK_BG_TRANSPARENT, BM_SETCHECK, !isBgEnabled, 0);
+            ::SendDlgItemMessage(_hSelf, IDC_STYLER_CHECK_BG_TRANSPARENT, BM_SETCHECK, !isBgEnabled, 0);
 
-            const int moveSize = DPIManagerV2::scale(25, hwnd);
-            dlg->move2CtrlRight(hwnd, IDC_STYLER_FG_STATIC, dlg->_pFgColour->getHSelf(), moveSize, moveSize);
-            dlg->move2CtrlRight(hwnd, IDC_STYLER_BG_STATIC, dlg->_pBgColour->getHSelf(), moveSize, moveSize);
+            const int moveSize = DPIManagerV2::scale(25, _hSelf);
+            dlg->move2CtrlRight(_hSelf, IDC_STYLER_FG_STATIC, dlg->_pFgColour->getHSelf(), moveSize, moveSize);
+            dlg->move2CtrlRight(_hSelf, IDC_STYLER_BG_STATIC, dlg->_pBgColour->getHSelf(), moveSize, moveSize);
 
             dlg->_pFgColour->display();
             dlg->_pBgColour->display();
@@ -1874,9 +1867,12 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
             unordered_map<int, int>::iterator iter = globalMappper().nestingMapper.begin();
             for (; iter != globalMappper().nestingMapper.end(); ++iter)
             {
-                ::SendDlgItemMessage(hwnd, iter->first, BM_SETCHECK, style._nesting & iter->second, 0);
-                ::EnableWindow(::GetDlgItem(hwnd, iter->first), dlg->_enabledNesters & iter->second);
+                ::SendDlgItemMessage(_hSelf, iter->first, BM_SETCHECK, style._nesting & iter->second, 0);
+                ::EnableWindow(::GetDlgItem(_hSelf, iter->first), dlg->_enabledNesters & iter->second);
             }
+
+            goToCenter();
+
             return TRUE;
         }
 
@@ -1907,19 +1903,19 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 
         case NPPM_INTERNAL_REFRESHDARKMODE:
         {
-            NppDarkMode::setDarkTitleBar(hwnd);
-            NppDarkMode::autoThemeChildControls(hwnd);
-            ::SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+            NppDarkMode::setDarkTitleBar(_hSelf);
+            NppDarkMode::autoThemeChildControls(_hSelf);
+            ::SetWindowPos(_hSelf, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
             return TRUE;
         }
 
         case WM_DPICHANGED:
         {
-            const int moveSize = DPIManagerV2::scale(25, hwnd);
-            dlg->move2CtrlRight(hwnd, IDC_STYLER_FG_STATIC, dlg->_pFgColour->getHSelf(), moveSize, moveSize);
-            dlg->move2CtrlRight(hwnd, IDC_STYLER_BG_STATIC, dlg->_pBgColour->getHSelf(), moveSize, moveSize);
+            const int moveSize = DPIManagerV2::scale(25, _hSelf);
+            dlg->move2CtrlRight(_hSelf, IDC_STYLER_FG_STATIC, dlg->_pFgColour->getHSelf(), moveSize, moveSize);
+            dlg->move2CtrlRight(_hSelf, IDC_STYLER_BG_STATIC, dlg->_pBgColour->getHSelf(), moveSize, moveSize);
 
-            DPIManagerV2::setPositionDpi(lParam, hwnd, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+            DPIManagerV2::setPositionDpi(lParam, _hSelf, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
 
             return TRUE;
         }
@@ -1932,18 +1928,18 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
             Style & style = SharedParametersDialog::_pUserLang->_styles.getStyler(dlg->_stylerIndex);
             if (HIWORD(wParam) == CBN_SELCHANGE)
             {
-                auto i = ::SendDlgItemMessage(hwnd, LOWORD(wParam), CB_GETCURSEL, 0, 0);
+                auto i = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETCURSEL, 0, 0);
                 if (LOWORD(wParam) == IDC_STYLER_COMBO_FONT_SIZE)
                 {
                     if (i != 0)
                     {
 						const size_t intStrLen = 3;
 						wchar_t intStr[intStrLen] = { '\0' };
-						auto lbTextLen = ::SendDlgItemMessage(hwnd, LOWORD(wParam), CB_GETLBTEXTLEN, i, 0);
+						auto lbTextLen = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETLBTEXTLEN, i, 0);
 						if (static_cast<size_t>(lbTextLen) > intStrLen - 1)
 							return TRUE;
 
-						::SendDlgItemMessage(hwnd, LOWORD(wParam), CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(intStr));
+						::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(intStr));
                         if (!intStr[0])
                             style._fontSize = -1;
                         else
@@ -1961,7 +1957,7 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
                 }
                 else if (LOWORD(wParam) == IDC_STYLER_COMBO_FONT_NAME)
                 {
-                    style._fontName = (wchar_t *)::SendDlgItemMessage(hwnd, LOWORD(wParam), CB_GETITEMDATA, i, 0);
+                    style._fontName = reinterpret_cast<wchar_t*>(::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETITEMDATA, i, 0));
                 }
 
                 // show changes to user, re-color document
@@ -1979,15 +1975,15 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
                     if (SharedParametersDialog::_pScintilla->getCurrentBuffer()->getLangType() == L_USER)
                         SharedParametersDialog::_pScintilla->styleChange();
 
-                    ::RemoveProp(hwnd, L"Styler dialog prop");
-                    ::EndDialog(hwnd, IDCANCEL);
+                    ::RemoveProp(_hSelf, L"Styler dialog prop");
+                    ::EndDialog(_hSelf, IDCANCEL);
                     return TRUE;
                 }
 
                 if (wParam == IDOK)
                 {
-                    ::RemoveProp(hwnd, L"Styler dialog prop");
-                    ::EndDialog(hwnd, IDOK);
+                    ::RemoveProp(_hSelf, L"Styler dialog prop");
+                    ::EndDialog(_hSelf, IDOK);
                     return TRUE;
                 }
 
@@ -1998,7 +1994,7 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 				{
 					if (wParam == IDC_STYLER_CHECK_FG_TRANSPARENT)
 					{
-						bool isTransparent = (BST_CHECKED == ::SendDlgItemMessage(hwnd, IDC_STYLER_CHECK_FG_TRANSPARENT, BM_GETCHECK, 0, 0));
+                        bool isTransparent = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_STYLER_CHECK_FG_TRANSPARENT, BM_GETCHECK, 0, 0));
 						dlg->_pFgColour->setEnabled(!isTransparent);
 						dlg->_pFgColour->redraw();
                         if (isTransparent)
@@ -2009,7 +2005,7 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 
 					if (wParam == IDC_STYLER_CHECK_BG_TRANSPARENT)
 					{
-						bool isTransparent = (BST_CHECKED == ::SendDlgItemMessage(hwnd, IDC_STYLER_CHECK_BG_TRANSPARENT, BM_GETCHECK, 0, 0));
+                        bool isTransparent = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_STYLER_CHECK_BG_TRANSPARENT, BM_GETCHECK, 0, 0));
 						dlg->_pBgColour->setEnabled(!isTransparent);
 						dlg->_pBgColour->redraw();
                         if (isTransparent)
@@ -2028,7 +2024,7 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 					{
 						style._colorStyle &= ~COLORSTYLE_FOREGROUND;
 					}
-					::SendDlgItemMessage(hwnd, IDC_STYLER_CHECK_FG_TRANSPARENT, BM_SETCHECK, !dlg->_pFgColour->isEnabled(), 0);
+					::SendDlgItemMessage(_hSelf, IDC_STYLER_CHECK_FG_TRANSPARENT, BM_SETCHECK, !dlg->_pFgColour->isEnabled(), 0);
 
 					if (dlg->_pBgColour->isEnabled())
 					{
@@ -2038,21 +2034,21 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 					{
 						style._colorStyle &= ~COLORSTYLE_BACKGROUND;
 					}
-					::SendDlgItemMessage(hwnd, IDC_STYLER_CHECK_BG_TRANSPARENT, BM_SETCHECK, !dlg->_pBgColour->isEnabled(), 0);
+					::SendDlgItemMessage(_hSelf, IDC_STYLER_CHECK_BG_TRANSPARENT, BM_SETCHECK, !dlg->_pBgColour->isEnabled(), 0);
 				}
                 style._fontStyle = FONTSTYLE_NONE;
-                if (BST_CHECKED == ::SendMessage(::GetDlgItem(hwnd, IDC_STYLER_CHECK_BOLD), BM_GETCHECK, 0, 0))
+                if (BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDC_STYLER_CHECK_BOLD), BM_GETCHECK, 0, 0))
                     style._fontStyle |= FONTSTYLE_BOLD;
-                if (BST_CHECKED == ::SendMessage(::GetDlgItem(hwnd, IDC_STYLER_CHECK_ITALIC), BM_GETCHECK, 0, 0))
+                if (BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDC_STYLER_CHECK_ITALIC), BM_GETCHECK, 0, 0))
                     style._fontStyle |= FONTSTYLE_ITALIC;
-                if (BST_CHECKED == ::SendMessage(::GetDlgItem(hwnd, IDC_STYLER_CHECK_UNDERLINE), BM_GETCHECK, 0, 0))
+                if (BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDC_STYLER_CHECK_UNDERLINE), BM_GETCHECK, 0, 0))
                     style._fontStyle |= FONTSTYLE_UNDERLINE;
 
                 style._nesting = SCE_USER_MASK_NESTING_NONE;
                 unordered_map<int, int>::iterator iter = globalMappper().nestingMapper.begin();
                 for (; iter != globalMappper().nestingMapper.end(); ++iter)
                 {
-                    if (BST_CHECKED == ::SendMessage(::GetDlgItem(hwnd, iter->first), BM_GETCHECK, 0, 0))
+                    if (BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, iter->first), BM_GETCHECK, 0, 0))
                         style._nesting |= iter->second;
                 }
 
@@ -2064,11 +2060,22 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
             }
             return FALSE;
         }
+
         case WM_CLOSE:
         {
+            Style& style = SharedParametersDialog::_pUserLang->_styles.getStyler(dlg->_stylerIndex);
+            style = dlg->_initialStyle;
+
+            // show changes to user, re-color document
+            if (SharedParametersDialog::_pScintilla->getCurrentBuffer()->getLangType() == L_USER)
+                SharedParametersDialog::_pScintilla->styleChange();
+
+            ::RemoveProp(_hSelf, L"Styler dialog prop");
+            ::EndDialog(_hSelf, IDCANCEL);
             return TRUE;
         }
-        default :
+
+        default:
             return FALSE;
     }
     return FALSE;

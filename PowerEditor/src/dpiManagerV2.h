@@ -137,6 +137,18 @@ public:
 
 	static void loadIcon(HINSTANCE hinst, const wchar_t* pszName, int cx, int cy, HICON* phico, UINT fuLoad = LR_DEFAULTCOLOR);
 
+	[[nodiscard]] static DWORD getTextScaleFactor();
+
+	[[nodiscard]] static int scaleFontForFactor(int pt, UINT textScaleFactor) {
+		static constexpr UINT defaultFontScaleFactor = 100;
+		return scale(pt, textScaleFactor, defaultFontScaleFactor);
+	}
+
+	[[nodiscard]] static int scaleFontForFactor(int pt) {
+		static const int scaleFactor = DPIManagerV2::getTextScaleFactor();
+		return scaleFontForFactor(pt, scaleFactor);
+	}
+
 private:
 	UINT _dpi = USER_DEFAULT_SCREEN_DPI;
 };

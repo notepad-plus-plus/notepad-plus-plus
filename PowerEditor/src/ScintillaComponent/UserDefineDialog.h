@@ -399,8 +399,12 @@ public :
 	};
 
     intptr_t doDialog() {
-        return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_STRING_DLG), _hParent,  dlgProc, reinterpret_cast<LPARAM>(this));
-    };
+        DLGTEMPLATE* pMyDlgTemplate = nullptr;
+        HGLOBAL hMyDlgTemplate = modifyResource(IDD_STRING_DLG, &pMyDlgTemplate, false);
+        const auto result = static_cast<intptr_t>(::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
+        ::GlobalFree(hMyDlgTemplate);
+        return result;
+    }
 
     void destroy() override {};
 	
@@ -423,32 +427,38 @@ private :
 	WNDPROC _oldEditProc = nullptr;
 };
 
-class StylerDlg
+class StylerDlg : public StaticDialog
 {
 public:
-    StylerDlg( HINSTANCE hInst, HWND parent, int stylerIndex = 0, int enabledNesters = -1):
-        _hInst(hInst), _parent(parent), _stylerIndex(stylerIndex), _enabledNesters(enabledNesters) {
+    StylerDlg(HINSTANCE hInst, HWND parent, int stylerIndex = 0, int enabledNesters = -1):
+        _stylerIndex(stylerIndex), _enabledNesters(enabledNesters) {
+        Window::init(hInst, parent);
         _pFgColour = new ColourPicker;
         _pBgColour = new ColourPicker;
         _initialStyle = SharedParametersDialog::_pUserLang->_styles.getStyler(stylerIndex);
-    };
+    }
 
     ~StylerDlg() {
         _pFgColour->destroy();
         _pBgColour->destroy();
         delete _pFgColour;
         delete _pBgColour;
-	};
+	}
 
-    long doDialog() {
-		return long(::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_STYLER_POPUP_DLG), _parent, dlgProc, reinterpret_cast<LPARAM>(this)));
-    };
+    void destroy() override {}
 
-    static intptr_t CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+    int doDialog() {
+        DLGTEMPLATE* pMyDlgTemplate = nullptr;
+        HGLOBAL hMyDlgTemplate = modifyResource(IDD_STYLER_POPUP_DLG, &pMyDlgTemplate, false);
+        const auto result = static_cast<int>(::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
+        ::GlobalFree(hMyDlgTemplate);
+        return result;
+    }
+
+protected:
+    intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private:
-    HINSTANCE _hInst = nullptr;
-    HWND _parent = nullptr;
     int _stylerIndex = 0;
     int _enabledNesters = 0;
     ColourPicker * _pFgColour = nullptr;

@@ -121,10 +121,13 @@ public:
 		return !(a == b);
 	};
 
-	virtual intptr_t doDialog()
-	{
-		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUT_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
-    };
+	virtual int doDialog() {
+		DLGTEMPLATE* pMyDlgTemplate = nullptr;
+		HGLOBAL hMyDlgTemplate = modifyResource(IDD_SHORTCUT_DLG, &pMyDlgTemplate, false);
+		const auto result = static_cast<int>(::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
+		::GlobalFree(hMyDlgTemplate);
+		return result;
+	}
 
 	virtual bool isValid() const { //valid should only be used in cases where the shortcut isEnabled().
 		if (_keyCombo._key == 0)
@@ -238,10 +241,13 @@ public:
 	std::string toString() const override;
 	std::string toString(size_t index) const;
 
-	intptr_t doDialog() override
-	{
-		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUTSCINT_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
-    };
+	int doDialog() override {
+		DLGTEMPLATE* pMyDlgTemplate = nullptr;
+		HGLOBAL hMyDlgTemplate = modifyResource(IDD_SHORTCUTSCINT_DLG, &pMyDlgTemplate, false);
+		const auto result = static_cast<int>(::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
+		::GlobalFree(hMyDlgTemplate);
+		return result;
+	}
 
 	//only compares the internal KeyCombos, nothing else
 	friend inline bool operator==(const ScintillaKeyMap & a, const ScintillaKeyMap & b) {

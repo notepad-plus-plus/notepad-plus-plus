@@ -70,15 +70,10 @@ const wchar_t defExtArray[nbSupportedLang][nbExtMax][extNameMax] =
 
 void RegExtDlg::doDialog(bool isRTL)
 {
-	if (isRTL)
-	{
-		DLGTEMPLATE *pMyDlgTemplate = nullptr;
-		HGLOBAL hMyDlgTemplate = makeRTLResource(IDD_REGEXT_BOX, &pMyDlgTemplate);
-		::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
-		::GlobalFree(hMyDlgTemplate);
-	}
-	else
-		::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_REGEXT_BOX), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
+	DLGTEMPLATE* pMyDlgTemplate = nullptr;
+	HGLOBAL hMyDlgTemplate = modifyResource(IDD_REGEXT_BOX, &pMyDlgTemplate, isRTL);
+	::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
+	::GlobalFree(hMyDlgTemplate);
 }
 
 intptr_t CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)

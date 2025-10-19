@@ -33,22 +33,17 @@ public:
 	~ShortcutMapper() = default;
 
 	void init(HINSTANCE hInst, HWND parent, GridState initState = STATE_MENU) {
-        Window::init(hInst, parent);
-        _currentState = initState;
-    };
+		Window::init(hInst, parent);
+		_currentState = initState;
+	};
 
 	void destroy() override {};
 	void doDialog(bool isRTL = false) {
-		if (isRTL)
-		{
-			DLGTEMPLATE *pMyDlgTemplate = NULL;
-			HGLOBAL hMyDlgTemplate = makeRTLResource(IDD_SHORTCUTMAPPER_DLG, &pMyDlgTemplate);
-			::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
-			::GlobalFree(hMyDlgTemplate);
-		}
-		else
-			::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUTMAPPER_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
-	};
+		DLGTEMPLATE* pMyDlgTemplate = nullptr;
+		HGLOBAL hMyDlgTemplate = modifyResource(IDD_SHORTCUTMAPPER_DLG, &pMyDlgTemplate, isRTL);
+		::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
+		::GlobalFree(hMyDlgTemplate);
+	}
 	void getClientRect(RECT & rc) const override;
 
 	bool findKeyConflicts(__inout_opt std::wstring * const keyConflictLocation,

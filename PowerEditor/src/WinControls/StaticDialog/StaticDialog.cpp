@@ -235,7 +235,7 @@ RECT StaticDialog::getViewablePositionRect(RECT testPositionRc) const
 	// Duplicate Dlg Template resource
 	const size_t sizeDlg = ::SizeofResource(hInst, hDialogRC);
 	buffer.resize(sizeDlg);
-	std::memcpy(buffer.data(), pDlgTemplate, sizeDlg);
+	::memcpy(buffer.data(), pDlgTemplate, sizeDlg);
 
 	*ppMyDlgTemplate = reinterpret_cast<DLGTEMPLATE*>(buffer.data());
 	return true;

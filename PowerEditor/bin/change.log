@@ -1,3 +1,12 @@
+Notepad++ v8.8.7 new features & bug-fixes:
+
+ 1. Sign Notepad++ binaries with GlobalSign certificat to fix false-positive alerts.
+ 2. Fix Monitoring in one view affects selections and position in second view.
+ 3. Fix Shortcut Mapper memory leak issue.
+ 4. Enhance Perl FunctionList for class.
+ 5. Fix pressing Alt or Tab causes controls redrawing problem in UDL dialog.
+
+
 Notepad++ v8.8.6 new features & bug-fixes:
 
  1. Add capacity of pasting multiline into Find/Replace fields.
@@ -22,7 +31,7 @@ Notepad++ v8.8.6 new features & bug-fixes:
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.8.6/
+https://notepad-plus-plus.org/downloads/v8.8.7/
 
 
 Included plugins:
@@ -34,4 +43,4 @@ Included plugins:
 
 Updater (Installer only):
 
-* WinGUp (for Notepad++) v5.3.4
+* WinGUp (for Notepad++) v5.3.5

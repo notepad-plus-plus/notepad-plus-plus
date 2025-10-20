@@ -49,11 +49,7 @@ static LRESULT CALLBACK hookProc(int nCode, WPARAM wParam, LPARAM lParam)
 
  int TaskListDlg::doDialog(bool isRTL) 
  {
-	 DLGTEMPLATE* pMyDlgTemplate = nullptr;
-	 HGLOBAL hMyDlgTemplate = modifyResource(IDD_TASKLIST_DLG, &pMyDlgTemplate, isRTL);
-	 const auto result = static_cast<int>(::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
-	 ::GlobalFree(hMyDlgTemplate);
-	 return result;
+	 return static_cast<int>(StaticDialog::myCreateDialogBoxIndirectParam(IDD_TASKLIST_DLG, isRTL));
 }
 
 intptr_t CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)

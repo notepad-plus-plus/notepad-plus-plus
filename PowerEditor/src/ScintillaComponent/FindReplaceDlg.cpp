@@ -4835,10 +4835,7 @@ void FindInFinderDlg::doDialog(Finder *launcher, bool isRTL)
 {
 	_pFinder2Search = launcher;
 
-	DLGTEMPLATE* pMyDlgTemplate = nullptr;
-	HGLOBAL hMyDlgTemplate = modifyResource(IDD_FINDINFINDER_DLG, &pMyDlgTemplate, isRTL);
-	::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
-	::GlobalFree(hMyDlgTemplate);
+	StaticDialog::myCreateDialogBoxIndirectParam(IDD_FINDINFINDER_DLG, isRTL);
 }
 
 void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)

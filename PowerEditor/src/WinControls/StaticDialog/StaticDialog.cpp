@@ -213,35 +213,37 @@ RECT StaticDialog::getViewablePositionRect(RECT testPositionRc) const
 	return returnRc;
 }
 
-HGLOBAL StaticDialog::dupDlgTemplate(int dialogID, DLGTEMPLATE** ppMyDlgTemplate)
+[[nodiscard]] static HGLOBAL dupDlgTemplate(HINSTANCE hInst, int dialogID, DLGTEMPLATE** ppMyDlgTemplate)
 {
 	// Get Dlg Template resource
-	HRSRC  hDialogRC = ::FindResource(_hInst, MAKEINTRESOURCE(dialogID), RT_DIALOG);
+	HRSRC hDialogRC = ::FindResourceW(hInst, MAKEINTRESOURCE(dialogID), RT_DIALOG);
 	if (!hDialogRC)
 		return nullptr;
 
-	HGLOBAL  hDlgTemplate = ::LoadResource(_hInst, hDialogRC);
+	HGLOBAL hDlgTemplate = ::LoadResource(hInst, hDialogRC);
 	if (!hDlgTemplate)
 		return nullptr;
 
-	const DLGTEMPLATE* pDlgTemplate = static_cast<DLGTEMPLATE*>(::LockResource(hDlgTemplate));
+	const auto* pDlgTemplate = static_cast<DLGTEMPLATE*>(::LockResource(hDlgTemplate));
 	if (!pDlgTemplate)
 		return nullptr;
 
 	// Duplicate Dlg Template resource
-	unsigned long sizeDlg = ::SizeofResource(_hInst, hDialogRC);
+	unsigned long sizeDlg = ::SizeofResource(hInst, hDialogRC);
 	HGLOBAL hMyDlgTemplate = ::GlobalAlloc(GPTR, sizeDlg);
-	if (!hMyDlgTemplate) return nullptr;
+	if (!hMyDlgTemplate)
+		return nullptr;
 
 	*ppMyDlgTemplate = static_cast<DLGTEMPLATE*>(::GlobalLock(hMyDlgTemplate));
-	if (!*ppMyDlgTemplate) return nullptr;
+	if (!*ppMyDlgTemplate)
+		return nullptr;
 
-	::memcpy(*ppMyDlgTemplate, pDlgTemplate, sizeDlg);
+	std::memcpy(*ppMyDlgTemplate, pDlgTemplate, sizeDlg);
 
 	return hMyDlgTemplate;
 }
 
-static bool setRTLResource(DLGTEMPLATE** ppMyDlgTemplate)
+[[nodiscard]] static bool setRTLResource(DLGTEMPLATE** ppMyDlgTemplate)
 {
 	auto* pMyDlgTemplateEx = reinterpret_cast<DLGTEMPLATEEX*>(*ppMyDlgTemplate);
 	if (!pMyDlgTemplateEx)
@@ -256,7 +258,7 @@ static bool setRTLResource(DLGTEMPLATE** ppMyDlgTemplate)
 }
 
 // based on https://stackoverflow.com/questions/14370238/can-i-dynamically-change-the-font-size-of-a-dialog-window-created-with-c-in-vi
-static std::byte* skipSz(std::byte* pData)
+[[nodiscard]] static std::byte* skipSz(std::byte* pData)
 {
 	auto* s = reinterpret_cast<WCHAR*>(pData);
 	while (*s != L'\0')
@@ -267,7 +269,7 @@ static std::byte* skipSz(std::byte* pData)
 	return reinterpret_cast<std::byte*>(s);
 }
 
-static std::byte* skipSzOrOrd(std::byte* pData)
+[[nodiscard]] static std::byte* skipSzOrOrd(std::byte* pData)
 {
 	auto* ptrElement = reinterpret_cast<WORD*>(pData);
 	const WORD firstElement = *ptrElement++; // check first element, which is always skipped
@@ -289,9 +291,9 @@ static std::byte* skipSzOrOrd(std::byte* pData)
 	return reinterpret_cast<std::byte*>(ptrElement);
 }
 
-static bool setFontSizeResource(DLGTEMPLATE** ppMyDlgTemplate, WORD fontSize)
+[[nodiscard]] static bool setFontSizeResource(DLGTEMPLATE** ppMyDlgTemplate, WORD fontSize)
 {
-	DLGTEMPLATEEX* pMyDlgTemplateEx = reinterpret_cast<DLGTEMPLATEEX*>(*ppMyDlgTemplate);
+	auto* pMyDlgTemplateEx = reinterpret_cast<DLGTEMPLATEEX*>(*ppMyDlgTemplate);
 	if (!pMyDlgTemplateEx)
 		return false;
 
@@ -316,9 +318,9 @@ static bool setFontSizeResource(DLGTEMPLATE** ppMyDlgTemplate, WORD fontSize)
 	return true;
 }
 
-HGLOBAL StaticDialog::modifyResource(int dialogID, DLGTEMPLATE **ppMyDlgTemplate, bool isRTL, WORD fontSize)
+[[nodiscard]] static HGLOBAL modifyResource(HINSTANCE hInst, int dialogID, DLGTEMPLATE **ppMyDlgTemplate, bool isRTL, WORD fontSize)
 {
-	HGLOBAL hMyDlgTemplate = StaticDialog::dupDlgTemplate(dialogID, ppMyDlgTemplate);
+	HGLOBAL hMyDlgTemplate = dupDlgTemplate(hInst, dialogID, ppMyDlgTemplate);
 	if (hMyDlgTemplate == nullptr)
 		return nullptr;
 
@@ -331,12 +333,27 @@ HGLOBAL StaticDialog::modifyResource(int dialogID, DLGTEMPLATE **ppMyDlgTemplate
 	return hMyDlgTemplate;
 }
 
+HWND StaticDialog::myCreateDialogIndirectParam(int dialogID, bool isRTL, WORD fontSize)
+{
+	DLGTEMPLATE* pMyDlgTemplate = nullptr;
+	HGLOBAL hMyDlgTemplate = modifyResource(_hInst, dialogID, &pMyDlgTemplate, isRTL, fontSize);
+	const auto result = ::CreateDialogIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
+	::GlobalFree(hMyDlgTemplate);
+	return result;
+}
+
+INT_PTR StaticDialog::myCreateDialogBoxIndirectParam(int dialogID, bool isRTL, WORD fontSize)
+{
+	DLGTEMPLATE* pMyDlgTemplate = nullptr;
+	HGLOBAL hMyDlgTemplate = modifyResource(_hInst, dialogID, &pMyDlgTemplate, isRTL, fontSize);
+	const auto result = ::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
+	::GlobalFree(hMyDlgTemplate);
+	return result;
+}
+
 void StaticDialog::create(int dialogID, bool isRTL, bool msgDestParent)
 {
-	DLGTEMPLATE* pMyDlgTemplate = NULL;
-	HGLOBAL hMyDlgTemplate = modifyResource(dialogID, &pMyDlgTemplate, isRTL);
-	_hSelf = ::CreateDialogIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
-	::GlobalFree(hMyDlgTemplate);
+	_hSelf = StaticDialog::myCreateDialogIndirectParam(dialogID, isRTL);
 
 	if (!_hSelf)
 	{

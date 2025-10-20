@@ -399,11 +399,7 @@ public :
 	};
 
     intptr_t doDialog() {
-        DLGTEMPLATE* pMyDlgTemplate = nullptr;
-        HGLOBAL hMyDlgTemplate = modifyResource(IDD_STRING_DLG, &pMyDlgTemplate, false);
-        const auto result = static_cast<intptr_t>(::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
-        ::GlobalFree(hMyDlgTemplate);
-        return result;
+        return StaticDialog::myCreateDialogBoxIndirectParam(IDD_STRING_DLG, false);
     }
 
     void destroy() override {};
@@ -448,11 +444,7 @@ public:
     void destroy() override {}
 
     int doDialog() {
-        DLGTEMPLATE* pMyDlgTemplate = nullptr;
-        HGLOBAL hMyDlgTemplate = modifyResource(IDD_STYLER_POPUP_DLG, &pMyDlgTemplate, false);
-        const auto result = static_cast<int>(::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
-        ::GlobalFree(hMyDlgTemplate);
-        return result;
+        return static_cast<int>(StaticDialog::myCreateDialogBoxIndirectParam(IDD_STYLER_POPUP_DLG, false));
     }
 
 protected:

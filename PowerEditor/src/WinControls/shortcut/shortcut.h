@@ -122,11 +122,7 @@ public:
 	};
 
 	virtual int doDialog() {
-		DLGTEMPLATE* pMyDlgTemplate = nullptr;
-		HGLOBAL hMyDlgTemplate = modifyResource(IDD_SHORTCUT_DLG, &pMyDlgTemplate, false);
-		const auto result = static_cast<int>(::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
-		::GlobalFree(hMyDlgTemplate);
-		return result;
+		return static_cast<int>(StaticDialog::myCreateDialogBoxIndirectParam(IDD_SHORTCUT_DLG, false));
 	}
 
 	virtual bool isValid() const { //valid should only be used in cases where the shortcut isEnabled().
@@ -242,11 +238,7 @@ public:
 	std::string toString(size_t index) const;
 
 	int doDialog() override {
-		DLGTEMPLATE* pMyDlgTemplate = nullptr;
-		HGLOBAL hMyDlgTemplate = modifyResource(IDD_SHORTCUTSCINT_DLG, &pMyDlgTemplate, false);
-		const auto result = static_cast<int>(::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
-		::GlobalFree(hMyDlgTemplate);
-		return result;
+		return static_cast<int>(StaticDialog::myCreateDialogBoxIndirectParam(IDD_SHORTCUTSCINT_DLG, false));
 	}
 
 	//only compares the internal KeyCombos, nothing else

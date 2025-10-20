@@ -39,10 +39,7 @@ public:
 
 	void destroy() override {};
 	void doDialog(bool isRTL = false) {
-		DLGTEMPLATE* pMyDlgTemplate = nullptr;
-		HGLOBAL hMyDlgTemplate = modifyResource(IDD_SHORTCUTMAPPER_DLG, &pMyDlgTemplate, isRTL);
-		::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
-		::GlobalFree(hMyDlgTemplate);
+		StaticDialog::myCreateDialogBoxIndirectParam(IDD_SHORTCUTMAPPER_DLG, isRTL);
 	}
 	void getClientRect(RECT & rc) const override;
 

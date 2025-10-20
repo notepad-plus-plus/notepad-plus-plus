@@ -1424,9 +1424,5 @@ int FileRelocalizerDlg::doDialog(const wchar_t *fn, bool isRTL)
 {
 	_fullFilePath = fn;
 
-	DLGTEMPLATE* pMyDlgTemplate = nullptr;
-	HGLOBAL hMyDlgTemplate = modifyResource(IDD_FILERELOCALIZER_DIALOG, &pMyDlgTemplate, isRTL);
-	const auto result = static_cast<int>(::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
-	::GlobalFree(hMyDlgTemplate);
-	return result;
+	return static_cast<int>(StaticDialog::myCreateDialogBoxIndirectParam(IDD_FILERELOCALIZER_DIALOG, isRTL));
 }

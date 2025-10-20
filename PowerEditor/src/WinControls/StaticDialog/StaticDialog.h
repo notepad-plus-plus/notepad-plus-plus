@@ -101,7 +101,6 @@ protected:
 	static intptr_t CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) = 0;
 
-	[[nodiscard]] HGLOBAL modifyResource(int dialogID, DLGTEMPLATE** ppMyDlgTemplate, bool isRTL, WORD fontSize = 8);
-private:
-	[[nodiscard]] HGLOBAL dupDlgTemplate(int dialogID, DLGTEMPLATE** ppMyDlgTemplate);
+	HWND myCreateDialogIndirectParam(int dialogID, bool isRTL, WORD fontSize = 8);
+	INT_PTR myCreateDialogBoxIndirectParam(int dialogID, bool isRTL, WORD fontSize = 8);
 };

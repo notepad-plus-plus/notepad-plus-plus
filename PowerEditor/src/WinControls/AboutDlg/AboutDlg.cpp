@@ -764,10 +764,7 @@ intptr_t CALLBACK CmdLineArgsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 void DoSaveOrNotBox::doDialog(bool isRTL)
 {
-	DLGTEMPLATE* pMyDlgTemplate = nullptr;
-	HGLOBAL hMyDlgTemplate = modifyResource(IDD_DOSAVEORNOTBOX, &pMyDlgTemplate, isRTL);
-	::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
-	::GlobalFree(hMyDlgTemplate);
+	StaticDialog::myCreateDialogBoxIndirectParam(IDD_DOSAVEORNOTBOX, isRTL);
 }
 
 void DoSaveOrNotBox::changeLang()
@@ -879,10 +876,7 @@ intptr_t CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 void DoSaveAllBox::doDialog(bool isRTL)
 {
-	DLGTEMPLATE* pMyDlgTemplate = nullptr;
-	HGLOBAL hMyDlgTemplate = modifyResource(IDD_DOSAVEALLBOX, &pMyDlgTemplate, isRTL);
-	::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
-	::GlobalFree(hMyDlgTemplate);
+	StaticDialog::myCreateDialogBoxIndirectParam(IDD_DOSAVEALLBOX, isRTL);
 }
 
 void DoSaveAllBox::changeLang()

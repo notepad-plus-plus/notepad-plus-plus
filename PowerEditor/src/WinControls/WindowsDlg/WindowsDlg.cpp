@@ -729,10 +729,7 @@ int WindowsDlg::doDialog()
 {
 	const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED);
 
-	DLGTEMPLATE* pMyDlgTemplate = nullptr;
-	HGLOBAL hMyDlgTemplate = modifyResource(IDD_WINDOWS, &pMyDlgTemplate, false);
-	const auto result = static_cast<int>(::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
-	::GlobalFree(hMyDlgTemplate);
+	const auto result = static_cast<int>(StaticDialog::myCreateDialogBoxIndirectParam(IDD_WINDOWS, false));
 
 	if (dpiContext != NULL)
 	{

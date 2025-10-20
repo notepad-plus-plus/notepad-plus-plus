@@ -19,34 +19,40 @@ echo on
 
 if %SIGN% == 0 goto NoSign
 
+REM commands to sign
+
 set signtoolWin11="C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64\signtool.exe"
-set signBinary=%signtoolWin11% sign /fd SHA512 /tr http://timestamp.acs.microsoft.com /td sha512 /a /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/
+
+set Sign_by_NppRootCert=%signtoolWin11% sign /fd SHA512 /tr http://timestamp.acs.microsoft.com /td sha512 /a /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/
+
+set Sign_by_GlobalSignCert=%signtoolWin11% sign /n "NOTEPAD++" /tr http://timestamp.globalsign.com/tsa/r6advanced1 /td SHA256 /fd SHA256
+
+set DOUBLE_SIGNING=/as
+
+REM files to be signed
+
+set nppBinaries=..\bin\notepad++.exe ..\bin64\notepad++.exe ..\binarm64\notepad++.exe
+
+set componentsBinaries=..\bin\plugins\Config\nppPluginList.dll ..\bin64\plugins\Config\nppPluginList.dll ..\binarm64\plugins\Config\nppPluginList.dll ..\bin\updater\GUP.exe ..\bin64\updater\GUP.exe ..\binarm64\updater\GUP.exe ..\bin\updater\libcurl.dll ..\bin64\updater\libcurl.dll ..\binarm64\updater\libcurl.dll
+
+set pluginBinaries=..\bin\plugins\NppExport\NppExport.dll ..\bin64\plugins\NppExport\NppExport.dll ..\binarm64\plugins\NppExport\NppExport.dll ..\bin\plugins\mimeTools\mimeTools.dll ..\bin64\plugins\mimeTools\mimeTools.dll ..\binarm64\plugins\mimeTools\mimeTools.dll ..\bin\plugins\NppConverter\NppConverter.dll ..\bin64\plugins\NppConverter\NppConverter.dll ..\binarm64\plugins\NppConverter\NppConverter.dll
+
 
 REM macro is used to sign NppShell.dll & NppShell.msix with hash algorithm SHA256, due to signtool.exe bug:
-REM https://learn.microsoft.com/en-us/windows/msix/package/signing-known-issues 
-set signBinarySha256=%signtoolWin11% sign /fd SHA256 /tr http://timestamp.acs.microsoft.com /td sha512 /a /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/
+REM "error 0x8007000B: The signature hash method specified (SHA512) must match the hash method used in the app package block map (SHA256)."
+REM "The hashAlgorithm specified in the /fd parameter is incorrect. Rerun SignTool using hashAlgorithm that matches the app package block map (used to create the app package)"
+REM Note that Publisher in Packaging/AppxManifest.xml‎ should match with the Subject of certificate.
+REM https://learn.microsoft.com/en-us/windows/msix/package/signing-known-issues
+set nppShellBinaries=..\bin\NppShell.x86.dll  ..\bin64\NppShell.msix  ..\bin64\NppShell.x64.dll ..\binarm64\NppShell.msix ..\binarm64\NppShell.arm64.dll
 
-
-set baseBinaries=..\bin\notepad++.exe ..\bin64\notepad++.exe ..\binarm64\notepad++.exe ..\bin\plugins\Config\nppPluginList.dll ..\bin64\plugins\Config\nppPluginList.dll ..\binarm64\plugins\Config\nppPluginList.dll  ..\bin\updater\GUP.exe ..\bin64\updater\GUP.exe ..\binarm64\updater\GUP.exe ..\bin\updater\libcurl.dll ..\bin64\updater\libcurl.dll ..\binarm64\updater\libcurl.dll ..\bin\plugins\NppExport\NppExport.dll ..\bin64\plugins\NppExport\NppExport.dll ..\binarm64\plugins\NppExport\NppExport.dll ..\bin\plugins\mimeTools\mimeTools.dll ..\bin64\plugins\mimeTools\mimeTools.dll ..\binarm64\plugins\mimeTools\mimeTools.dll ..\bin\plugins\NppConverter\NppConverter.dll ..\bin64\plugins\NppConverter\NppConverter.dll ..\binarm64\plugins\NppConverter\NppConverter.dll
-
-%signBinary% %baseBinaries%
+%Sign_by_NppRootCert% %nppBinaries% %componentsBinaries% %pluginBinaries%
 If ErrorLevel 1 goto End
 
+%Sign_by_GlobalSignCert% %DOUBLE_SIGNING% %nppBinaries% %componentsBinaries% %pluginBinaries%
+If ErrorLevel 1 goto End
 
-REM %signBinarySha256% ..\bin\NppShell.x86.dll
-REM If ErrorLevel 1 goto End
-REM 
-REM %signBinarySha256% ..\bin64\NppShell.msix
-REM If ErrorLevel 1 goto End
-REM %signBinarySha256% ..\bin64\NppShell.x64.dll
-REM If ErrorLevel 1 goto End
-REM 
-REM %signBinarySha256% ..\binarm64\NppShell.msix
-REM If ErrorLevel 1 goto End
-REM %signBinarySha256% ..\binarm64\NppShell.arm64.dll
-REM If ErrorLevel 1 goto End
-
-
+%Sign_by_GlobalSignCert% %nppShellBinaries%
+If ErrorLevel 1 goto End
 
 
 :NoSign
@@ -506,7 +512,10 @@ ren npp.portable.minimalist.x64.7z !7zvarMin64!
 ren npp.portable.minimalist.arm64.7z !7zvarMinArm64!
 
 if %SIGN% == 0 goto NoSignInstaller
-%signBinary% !nppInstallerVar! !nppInstallerVar64! !nppInstallerVarArm64!
+
+%Sign_by_NppRootCert% !nppInstallerVar! !nppInstallerVar64! !nppInstallerVarArm64!
+
+%Sign_by_GlobalSignCert% %DOUBLE_SIGNING% !nppInstallerVar! !nppInstallerVar64! !nppInstallerVarArm64!
 
 :NoSignInstaller
 

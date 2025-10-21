@@ -2855,8 +2855,8 @@ const wchar_t * ScintillaEditView::getSelectedTextToWChar(bool expand, Sci_Posit
 	if (selNum == 0)
 		return nullptr;
 
-	// then get the selected string's total bytes (without counting the last NULL char) 
-	auto neededByte = execute(SCI_GETSELTEXT, 0, NULL);
+	// then get the selected string's total bytes (without counting the last NULL char)
+	auto neededByte = execute(SCI_GETSELTEXT, 0, 0);
 
 	txtA = new char[neededByte + 1];
 	execute(SCI_GETSELTEXT, 0, reinterpret_cast<LPARAM>(txtA));

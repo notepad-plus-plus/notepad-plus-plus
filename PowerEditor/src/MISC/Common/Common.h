@@ -26,8 +26,10 @@
 #include <algorithm>
 #include <tchar.h>
 
+#if defined(_MSC_VER)
 #pragma deprecated(PathFileExists)  // Use doesFileExist, doesDirectoryExist or doesPathExist (for file or directory) instead.
 #pragma deprecated(PathIsDirectory) // Use doesDirectoryExist instead.
+#endif
 
 
 const bool dirUp = true;

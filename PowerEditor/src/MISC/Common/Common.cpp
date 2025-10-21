@@ -2078,7 +2078,10 @@ bool isWindowVisibleOnAnyMonitor(const RECT& rectWndIn)
 	return param4InOut.isWndVisibleOut;
 }
 
+#if defined(_MSC_VER)
 #pragma warning(disable:4996) // 'GetVersionExW': was declared deprecated
+#endif
+
 bool isCoreWindows()
 {
 	bool isCoreWindows = false;
@@ -2202,7 +2205,9 @@ void ControlInfoTip::hide()
 	}
 }
 
+#if defined(_MSC_VER)
 #pragma warning(default:4996)
+#endif
 
 DWORD invokeNppUacOp(const std::wstring& strCmdLineParams)
 {

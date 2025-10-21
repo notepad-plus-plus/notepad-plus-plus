@@ -274,7 +274,7 @@ T* variedFormatNumber2String(T* str, size_t strLen, size_t number, size_t base, 
 
 		size_t i = 0;
 		size_t j = tmpStr.length() - 1;
-		for (; j >= 0 && i < tmpStr.length(); i++, j--)
+		for (; i < tmpStr.length(); ++i, --j)
 		{
 			numberStr += tmpStr[j];
 		}

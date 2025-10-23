@@ -29,10 +29,6 @@ public :
 	ColumnEditorDlg() = default;
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView);
 
-	void create(int dialogID, bool isRTL = false, bool msgDestParent = true) override {
-		StaticDialog::create(dialogID, isRTL, msgDestParent);
-	};
-
 	void doDialog(bool isRTL = false) {
 		if (!isCreated())
 			create(IDD_COLUMNEDIT, isRTL);

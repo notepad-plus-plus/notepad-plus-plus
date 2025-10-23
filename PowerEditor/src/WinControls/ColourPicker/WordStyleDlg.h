@@ -71,7 +71,7 @@ class WordStyleDlg : public StaticDialog
 {
 public :
 	WordStyleDlg() = default;
-	~WordStyleDlg() {
+	~WordStyleDlg() override {
 		_goToSettings.destroy();
 		_globalOverrideLinkTip.destroy();
 
@@ -79,8 +79,8 @@ public :
 			::DestroyWindow(_globalOverrideTip);
 	};
 
-	void create(int dialogID, bool isRTL = false, bool msgDestParent = true) override;
-    void doDialog(bool isRTL = false);
+	void create(int dialogID, bool isRTL = false, bool msgDestParent = true, WORD fontSize = 8) override;
+	void doDialog(bool isRTL = false);
 	void destroy() override;
 	void prepare2Cancel();
 	void redraw(bool forceUpdate = false) const override;

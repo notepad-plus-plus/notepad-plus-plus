@@ -1609,7 +1609,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			const bool isMonospaced = NppParameters::getInstance().getNppGUI()._monospacedFontFindDlg;
 			if (isMonospaced)
 			{
-				static UINT fontSize = DPIManagerV2::scaleFontForFactor(8);
+				static const UINT fontSize = DPIManagerV2::scaleFontForFactor(8);
 				hFont = createFont(L"Courier New", fontSize, false, _hSelf);
 			}
 			else
@@ -1624,7 +1624,8 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 			LOGFONT lf{};
 			::GetObject(hFont, sizeof(lf), &lf);
-			lf.lfHeight = -(_dpiManager.scale(DPIManagerV2::scaleFontForFactor(16)) - 5);
+			static const UINT fontSize = DPIManagerV2::scaleFontForFactor(16) - 5;
+			lf.lfHeight = -(_dpiManager.scale(fontSize));
 			_hComboBoxFont = ::CreateFontIndirect(&lf);
 
 			for (const auto& hComboBox : { hFindCombo, hReplaceCombo, hFiltersCombo, hDirCombo })

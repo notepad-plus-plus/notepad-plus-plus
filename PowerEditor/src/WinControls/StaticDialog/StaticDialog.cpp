@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include <stdio.h>
 #include <windows.h>
 #include "StaticDialog.h"
 #include "Common.h"
@@ -22,11 +21,11 @@
 
 StaticDialog::~StaticDialog()
 {
-	if (isCreated())
+	if (StaticDialog::isCreated())
 	{
 		// Prevent run_dlgProc from doing anything, since its virtual
 		::SetWindowLongPtr(_hSelf, GWLP_USERDATA, 0);
-		destroy();
+		StaticDialog::destroy();
 	}
 }
 
@@ -294,7 +293,7 @@ RECT StaticDialog::getViewablePositionRect(RECT testPositionRc) const
 	enum result { failed = -1, noFont, success };
 
 	auto* pMyDlgTemplateEx = reinterpret_cast<DLGTEMPLATEEX*>(*ppMyDlgTemplate);
-	if (!pMyDlgTemplateEx)
+	if (!pMyDlgTemplateEx || pMyDlgTemplateEx->signature != 0xFFFF || pMyDlgTemplateEx->dlgVer != 1)
 		return failed;
 
 	// no need to check DS_SHELLFONT, as it already include DS_SETFONT (DS_SETFONT | DS_FIXEDSYS)
@@ -312,8 +311,7 @@ RECT StaticDialog::getViewablePositionRect(RECT testPositionRc) const
 	// WORD pointSize;
 	auto* pointSize = reinterpret_cast<WORD*>(pData);
 
-	static int scaleFactor = DPIManagerV2::getTextScaleFactor();
-	*pointSize = static_cast<WORD>(DPIManagerV2::scaleFontForFactor(fontSize, scaleFactor));
+	*pointSize = static_cast<WORD>(DPIManagerV2::scaleFontForFactor(fontSize));
 
 	return success;
 }
@@ -332,7 +330,7 @@ RECT StaticDialog::getViewablePositionRect(RECT testPositionRc) const
 	if (isRTL && !setRTLResource(ppMyDlgTemplate))
 		return false;
 
-	if (setFontSizeResource(ppMyDlgTemplate, fontSize) < 0)
+	if (fontSize != 0 && setFontSizeResource(ppMyDlgTemplate, fontSize) < 0)
 		return false;
 
 	return true;
@@ -360,9 +358,9 @@ INT_PTR StaticDialog::myCreateDialogBoxIndirectParam(int dialogID, bool isRTL, W
 	return ::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
 }
 
-void StaticDialog::create(int dialogID, bool isRTL, bool msgDestParent)
+void StaticDialog::create(int dialogID, bool isRTL, bool msgDestParent, WORD fontSize)
 {
-	_hSelf = StaticDialog::myCreateDialogIndirectParam(dialogID, isRTL);
+	_hSelf = StaticDialog::myCreateDialogIndirectParam(dialogID, isRTL, fontSize);
 
 	if (!_hSelf)
 	{

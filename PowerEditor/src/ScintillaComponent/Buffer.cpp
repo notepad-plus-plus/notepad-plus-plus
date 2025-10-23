@@ -1951,28 +1951,38 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 				NppParameters& nppParamInst = NppParameters::getInstance();
 				const NppGUI& nppGui = nppParamInst.getNppGUI();
 
+				//
+				// Detect encoding
+				//
+
 				// check if file contain any BOM
-                if (Utf8_16_Read::determineEncodingFromBOM((unsigned char *)data, lenFile) != uni8Bit) // BOM found - must be UNICODE
-                {
-                    // if file contains any BOM, then encoding will be erased,
-                    // and the document will be interpreted as UTF
+				if (Utf8_16_Read::determineEncodingFromBOM((unsigned char*)data, lenFile) != uni8Bit)
+				{
+					// if file contains any BOM, then encoding will be erased,
+					// and the document will be interpreted as UTF
 					fileFormat._encoding = -1;
 				}
-				else if (fileFormat._encoding == -1 && nppGui._detectEncoding) // No BOM found & no specific encording & auto-detection allowed
+				else if (fileFormat._encoding == -1)
 				{
-					fileFormat._encoding = detectCodepage(data, lenFile);
-                }
-
-
-				// End of ecoding detection
-				// Now process the exception:
-				if (nppParamInst.isCurrentSystemCodepageUTF8() // "Beta: Use Unicode UTF-8 for worldwide language support" option is checked in Windows
-					&& (fileFormat._encoding == uni8Bit || fileFormat._encoding == -1))
-				{
-					fileFormat._encoding = nppParamInst.defaultCodepage();
+					int guessedEncoding = detectCodepage(data, lenFile);
+					if (nppParamInst.isCurrentSystemCodepageUTF8()) // "Beta: Use Unicode UTF-8 for worldwide language support" option is checked in Windows
+					{
+						if (nppGui._detectEncoding)
+							fileFormat._encoding = guessedEncoding == uni8Bit || guessedEncoding == -1 ? nppParamInst.defaultCodepage() : guessedEncoding;
+						else
+							fileFormat._encoding = SC_CP_UTF8;
+					}
+					else
+					{
+						if (nppGui._detectEncoding)
+							fileFormat._encoding = guessedEncoding;
+					}
 				}
 
-				
+				//
+				// Detect programming language
+				//
+
 				bool isLargeFile = fileSize >= nppGui._largeFileRestriction._largeFileSizeDefInByte;
 				if (!isLargeFile && fileFormat._language == L_TEXT)
 				{
@@ -2002,7 +2012,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 				if (format == EolType::unknown)
 					format = getEOLFormatForm(data, lenFile, EolType::unknown);
 			}
-			else
+			else //  (fileFormat._encoding == -1) => BOM found
 			{
 				lenConvert = unicodeConvertor->convert(data, lenFile);
 				_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, reinterpret_cast<LPARAM>(unicodeConvertor->getNewBuf()));

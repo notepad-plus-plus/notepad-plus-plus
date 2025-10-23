@@ -5571,7 +5571,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 
 			const wchar_t* val = element->Attribute(L"openAnsiAsUTF8");
 			if (val)
-				_nppGUI._newDocDefaultSettings._openAnsiAsUtf8 = (lstrcmp(val, L"yes") == 0);
+				_nppGUI._newDocDefaultSettings._openAnsiAsUtf8 = isCurrentSystemCodepageUTF8() ? false : (lstrcmp(val, L"yes") == 0);
 
 			val = element->Attribute(L"addNewDocumentOnStartup");
 			if (val)

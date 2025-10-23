@@ -121,7 +121,7 @@ private:
 	struct LoadedFileFormat {
 		LoadedFileFormat() = default;
 		LangType _language = L_TEXT;
-		int _encoding = 0;
+		int _encoding = uni8Bit;
 		EolType _eolFormat = EolType::osdefault;
 	};
 

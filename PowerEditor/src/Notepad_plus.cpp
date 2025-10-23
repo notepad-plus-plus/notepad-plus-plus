@@ -6383,12 +6383,12 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includeUntitled
 
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
 
-			long long nextMarkedLine = static_cast<long long>(_invisibleEditView.execute(SCI_MARKERNEXT, 0, (1 << MARK_BOOKMARK)));
-			while (nextMarkedLine != -1) {
+			auto nextMarkedLine = _invisibleEditView.execute(SCI_MARKERNEXT, 0, (1 << MARK_BOOKMARK));
+			while (nextMarkedLine != -1)
+			{
 				sfi._marks.push_back(nextMarkedLine);
-				nextMarkedLine = static_cast<long long>(_invisibleEditView.execute(SCI_MARKERNEXT, nextMarkedLine + 1, (1 << MARK_BOOKMARK)));
+				nextMarkedLine = _invisibleEditView.execute(SCI_MARKERNEXT, nextMarkedLine + 1, (1 << MARK_BOOKMARK));
 			}
-
 
 			if (i == activeIndex)
 			{

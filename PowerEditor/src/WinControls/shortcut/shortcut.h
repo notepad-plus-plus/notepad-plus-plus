@@ -121,10 +121,9 @@ public:
 		return !(a == b);
 	};
 
-	virtual intptr_t doDialog()
-	{
-		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUT_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
-    };
+	virtual int doDialog() {
+		return static_cast<int>(StaticDialog::myCreateDialogBoxIndirectParam(IDD_SHORTCUT_DLG, false));
+	}
 
 	virtual bool isValid() const { //valid should only be used in cases where the shortcut isEnabled().
 		if (_keyCombo._key == 0)
@@ -238,10 +237,9 @@ public:
 	std::string toString() const override;
 	std::string toString(size_t index) const;
 
-	intptr_t doDialog() override
-	{
-		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUTSCINT_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
-    };
+	int doDialog() override {
+		return static_cast<int>(StaticDialog::myCreateDialogBoxIndirectParam(IDD_SHORTCUTSCINT_DLG, false));
+	}
 
 	//only compares the internal KeyCombos, nothing else
 	friend inline bool operator==(const ScintillaKeyMap & a, const ScintillaKeyMap & b) {

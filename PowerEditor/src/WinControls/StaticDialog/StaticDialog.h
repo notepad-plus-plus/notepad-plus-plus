@@ -23,27 +23,37 @@ typedef HRESULT (WINAPI * ETDTProc) (HWND, DWORD);
 
 enum class PosAlign { left, right, top, bottom };
 
+#pragma pack(push, 1)
 struct DLGTEMPLATEEX
 {
-      WORD   dlgVer = 0;
-      WORD   signature = 0;
-      DWORD  helpID = 0;
-      DWORD  exStyle = 0;
-      DWORD  style = 0;
-      WORD   cDlgItems = 0;
-      short  x = 0;
-      short  y = 0;
-      short  cx = 0;
-      short  cy = 0;
-      // The structure has more fields but are variable length
+	WORD   dlgVer = 0;
+	WORD   signature = 0;
+	DWORD  helpID = 0;
+	DWORD  exStyle = 0;
+	DWORD  style = 0;
+	WORD   cDlgItems = 0;
+	short  x = 0;
+	short  y = 0;
+	short  cx = 0;
+	short  cy = 0;
+	// The structure has more fields but are variable length
+	//sz_Or_Ord menu;
+	//sz_Or_Ord windowClass;
+	//WCHAR  title[titleLen];
+	//WORD   pointsize;
+	//WORD   weight;
+	//BYTE   italic;
+	//BYTE   charset;
+	//WCHAR  typeface[stringLen];
 };
+#pragma pack(pop)
 
 class StaticDialog : public Window
 {
 public :
-	virtual ~StaticDialog();
+	~StaticDialog() override;
 
-	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true);
+	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true, WORD fontSize = 8);
 
 	virtual bool isCreated() const {
 		return (_hSelf != nullptr);
@@ -91,5 +101,6 @@ protected:
 	static intptr_t CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) = 0;
 
-	HGLOBAL makeRTLResource(int dialogID, DLGTEMPLATE **ppMyDlgTemplate);
+	HWND myCreateDialogIndirectParam(int dialogID, bool isRTL, WORD fontSize);
+	INT_PTR myCreateDialogBoxIndirectParam(int dialogID, bool isRTL, WORD fontSize = 8);
 };

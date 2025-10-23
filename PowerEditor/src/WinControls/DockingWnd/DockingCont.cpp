@@ -79,7 +79,7 @@ void DockingCont::doDialog(bool willBeShown, bool isFloating)
 	if (!isCreated())
 	{
 		NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
-		create(IDD_CONTAINER_DLG, pNativeSpeaker->isRTL());
+		create(IDD_CONTAINER_DLG, pNativeSpeaker->isRTL(), true, 0);
 
 		_isFloating  = isFloating;
 

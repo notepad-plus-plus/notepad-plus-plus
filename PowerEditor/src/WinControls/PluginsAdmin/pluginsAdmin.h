@@ -143,9 +143,8 @@ class PluginsAdminDlg final : public StaticDialog
 {
 public :
 	PluginsAdminDlg();
-	~PluginsAdminDlg() = default;
 
-	void create(int dialogID, bool isRTL = false, bool msgDestParent = true) override;
+	void create(int dialogID, bool isRTL = false, bool msgDestParent = true, WORD fontSize = 8) override;
 
 	void doDialog(bool isRTL = false) {
 		if (!isCreated())

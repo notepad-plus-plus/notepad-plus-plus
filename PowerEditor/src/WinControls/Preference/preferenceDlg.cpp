@@ -3360,6 +3360,14 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 	return FALSE;
 }
 
+
+void NewDocumentSubDlg::makeOpenAnsiAsUtf8(bool doIt) const
+{
+	if (!doIt)
+		::SendDlgItemMessage(_hSelf, IDC_CHECK_OPENANSIASUTF8, BM_SETCHECK, BST_UNCHECKED, 0);
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), doIt && !NppParameters::getInstance().isCurrentSystemCodepageUTF8());
+}
+
 intptr_t CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
@@ -3399,8 +3407,8 @@ intptr_t CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 				case uniUTF8 :
 					ID2Check = IDC_RADIO_UTF8;
 					break;
-				case uniCookie :
-					ID2Check = IDC_RADIO_UTF8SANSBOM;
+				case uniUTF8_NoBOM :
+					ID2Check = IDC_RADIO_UTF8_NO_BOM;
 					break;
 
 				default : //uni8Bit
@@ -3435,8 +3443,15 @@ intptr_t CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 			}
 
 			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_OPENANSIASUTF8, BM_SETCHECK, (ID2Check == IDC_RADIO_UTF8SANSBOM && ndds._openAnsiAsUtf8)?BST_CHECKED:BST_UNCHECKED, 0);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), ID2Check == IDC_RADIO_UTF8SANSBOM);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_OPENANSIASUTF8, BM_SETCHECK, (ID2Check == IDC_RADIO_UTF8_NO_BOM && ndds._openAnsiAsUtf8)?BST_CHECKED:BST_UNCHECKED, 0);
+
+			bool isEnableAnsiAsUTF = ID2Check == IDC_RADIO_UTF8_NO_BOM;
+			if (nppParam.isCurrentSystemCodepageUTF8())
+			{
+				isEnableAnsiAsUTF = false;
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_ANSI), false);
+			}
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), isEnableAnsiAsUTF);
 
 			for (int i = L_TEXT + 1 ; i < nppParam.L_END ; ++i) // Skip L_TEXT
 			{
@@ -3525,8 +3540,8 @@ intptr_t CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 					ndds._codepage = -1;
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_OTHERCP), false);
 					return TRUE;
-				case IDC_RADIO_UTF8SANSBOM:
-					ndds._unicodeMode = uniCookie;
+				case IDC_RADIO_UTF8_NO_BOM:
+					ndds._unicodeMode = uniUTF8_NoBOM;
 					makeOpenAnsiAsUtf8(true);
 					ndds._codepage = -1;
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_OTHERCP), false);

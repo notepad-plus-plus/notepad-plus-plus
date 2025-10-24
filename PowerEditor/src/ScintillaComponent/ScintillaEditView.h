@@ -874,6 +874,7 @@ protected:
 	Buffer* _currentBuffer = nullptr;
 
 	int _codepage = CP_ACP;
+
 	bool _wrapRestoreNeeded = false;
 	bool _positionRestoreNeeded = false;
 	uint32_t _restorePositionRetryCount = 0;

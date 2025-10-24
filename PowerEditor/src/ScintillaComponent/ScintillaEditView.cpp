@@ -343,7 +343,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 		// so that existing plugins using SCI_SETTECHNOLOGY behave like before
 	}
 
-	_codepage = ::GetACP();
+	_codepage = nppParams.currentSystemCodepage();
 
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 	_callWindowProc = CallWindowProc;
@@ -1012,7 +1012,7 @@ void ScintillaEditView::setUserLexer(const wchar_t *userLangName)
 	int encoding = _currentBuffer->getEncoding();
 	if (encoding == -1)
 	{
-		if (unicodeMode == uniUTF8 || unicodeMode == uniCookie)
+		if (unicodeMode == uniUTF8 || unicodeMode == uniUTF8_NoBOM)
 			codepage = CP_UTF8;
 	}
 	else
@@ -2461,10 +2461,12 @@ void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask)
 		{
 			execute(SCI_SETEOLMODE, static_cast<int>(_currentBuffer->getEolFormat()));
 		}
+
 		if (mask & BufferChangeReadonly)
 		{
 			execute(SCI_SETREADONLY, _currentBuffer->isReadOnly());
 		}
+
 		if (mask & BufferChangeUnicode)
 		{
             int enc = CP_ACP;

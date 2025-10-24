@@ -295,7 +295,7 @@
 #define IDC_RADIO_F_MAC                                6404
 #define IDC_ENCODING_STATIC                            6405
 #define IDC_RADIO_ANSI                                 6406
-#define IDC_RADIO_UTF8SANSBOM                          6407
+#define IDC_RADIO_UTF8_NO_BOM                          6407
 #define IDC_RADIO_UTF8                                 6408
 #define IDC_RADIO_UTF16BIG                             6409
 #define IDC_RADIO_UTF16SMALL                           6410

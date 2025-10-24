@@ -1967,17 +1967,19 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 					int guessedEncoding = detectCodepage(data, lenFile);
 					if (nppParamInst.isCurrentSystemCodepageUTF8()) // "Beta: Use Unicode UTF-8 for worldwide language support" option is checked in Windows
 					{
-						if (nppGui._detectEncoding)
+						if (nppGui._detectEncoding && !isAutoDetectEncodingDisabled4Loading)
 							fileFormat._encoding = guessedEncoding == uni8Bit || guessedEncoding == -1 ? nppParamInst.defaultCodepage() : guessedEncoding;
 						else
 							fileFormat._encoding = SC_CP_UTF8;
 					}
 					else
 					{
-						if (nppGui._detectEncoding)
+						if (nppGui._detectEncoding && !isAutoDetectEncodingDisabled4Loading)
 							fileFormat._encoding = guessedEncoding;
 					}
 				}
+
+				isAutoDetectEncodingDisabled4Loading = false;
 
 				//
 				// Detect programming language

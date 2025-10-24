@@ -116,6 +116,9 @@ public:
 	size_t docLength(Buffer * buffer) const;
 	void removeHotSpot(Buffer * buffer) const;
 	size_t nextUntitledNewNumber() const;
+	void disableAutoDetectEncoding4Loading() { isAutoDetectEncodingDisabled4Loading = true; }; // Disable the encoding auto-detection on loading file while switching among the different encoding.
+	                                                                                           // The value of isAutoDetectEncodingDisabled4Loading will be restored to false after each file loading 
+	                                                                                           // to restore the encoding auto-detection ability for other file loading operations. 
 
 private:
 	struct LoadedFileFormat {
@@ -137,6 +140,8 @@ private:
 	FileManager& operator=(FileManager&&) = delete;
 
 	int detectCodepage(char* buf, size_t len);
+	bool isAutoDetectEncodingDisabled4Loading = false;
+
 	bool loadFileData(Document doc, int64_t fileSize, const wchar_t* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LoadedFileFormat& fileFormat);
 	LangType detectLanguageFromTextBeginning(const unsigned char *data, size_t dataLen);
 

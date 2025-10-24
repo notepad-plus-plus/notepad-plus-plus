@@ -2762,6 +2762,8 @@ void Notepad_plus::command(int id)
 				return;
 			}
 
+			MainFileManager.disableAutoDetectEncoding4Loading();
+
 			Buffer * buf = _pEditView->getCurrentBuffer();
 
 			UniMode um;
@@ -2891,6 +2893,8 @@ void Notepad_plus::command(int id)
         case IDM_FORMAT_KOI8U_CYRILLIC :
         case IDM_FORMAT_KOI8R_CYRILLIC :
         {
+			MainFileManager.disableAutoDetectEncoding4Loading();
+
 			int index = id - IDM_FORMAT_ENCODE;
 
 			const EncodingMapper& em = EncodingMapper::getInstance();

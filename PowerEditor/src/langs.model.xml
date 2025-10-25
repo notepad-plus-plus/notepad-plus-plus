@@ -520,7 +520,7 @@
             <Keywords name="instre1">ARGF ARGV BEGIN END ENV FALSE DATA NIL RUBY_PATCHLEVEL RUBY_PLATFORM RUBY_RELEASE_DATE RUBY_VERSION PLATFORM RELEASE_DATE STDERR STDIN STDOUT TOPLEVEL_BINDING TRUE __ENCODING__ __END__ __FILE__ __LINE__ alias and begin break case class def defined? do else elsif end ensure false for if in module next nil not or raise redo rescue retry return self super then true undef unless until when while yield</Keywords>
         </Language>
         <Language name="rust" ext="rs" commentLine="//" commentStart="/*" commentEnd="*/">
-            <Keywords name="instre1">abstract as async become box break const continue crate do dyn else enum extern false final fn for if impl in let loop macro match mod move mut override priv pub ref return self static struct super trait true try type typeof unsafe unsized use virtual where while yield</Keywords>
+            <Keywords name="instre1">abstract as async await become box break const continue crate do dyn else enum extern false final fn for gen if impl in let loop macro macro_rules match mod move mut override priv pub raw ref return safe self static struct super trait true try type typeof union unsafe unsized use virtual where while yield</Keywords>
             <Keywords name="instre2">bool char f32 f64 i128 i16 i32 i64 i8 isize str u128 u16 u32 u64 u8 usize</Keywords>
             <Keywords name="type1">Self</Keywords>
             <Keywords name="type2"></Keywords>

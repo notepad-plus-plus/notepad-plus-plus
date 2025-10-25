@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<NotepadPlus>
+    <AutoComplete language="Rust">
+        <Environment ignoreCase="no" startFunc="(" stopFunc=")" paramSeparator="," terminal=";" />
+
+        <!-- Strict keywords -->
+        <KeyWord name="as" />
+        <KeyWord name="async" />
+        <KeyWord name="await" />
+        <KeyWord name="break" />
+        <KeyWord name="const" />
+        <KeyWord name="continue" />
+        <KeyWord name="crate" />
+        <KeyWord name="dyn" />
+        <KeyWord name="else" />
+        <KeyWord name="enum" />
+        <KeyWord name="extern" />
+        <KeyWord name="false" />
+        <KeyWord name="fn" />
+        <KeyWord name="for" />
+        <KeyWord name="if" />
+        <KeyWord name="impl" />
+        <KeyWord name="in" />
+        <KeyWord name="let" />
+        <KeyWord name="loop" />
+        <KeyWord name="match" />
+        <KeyWord name="mod" />
+        <KeyWord name="move" />
+        <KeyWord name="mut" />
+        <KeyWord name="pub" />
+        <KeyWord name="ref" />
+        <KeyWord name="return" />
+        <KeyWord name="Self" />
+        <KeyWord name="self" />
+        <KeyWord name="static" />
+        <KeyWord name="struct" />
+        <KeyWord name="super" />
+        <KeyWord name="trait" />
+        <KeyWord name="true" />
+        <KeyWord name="type" />
+        <KeyWord name="unsafe" />
+        <KeyWord name="use" />
+        <KeyWord name="where" />
+        <KeyWord name="while" />
+
+        <!-- Reserved for future use -->
+        <KeyWord name="abstract" />
+        <KeyWord name="become" />
+        <KeyWord name="box" />
+        <KeyWord name="do" />
+        <KeyWord name="final" />
+        <KeyWord name="macro" />
+        <KeyWord name="override" />
+        <KeyWord name="priv" />
+        <KeyWord name="typeof" />
+        <KeyWord name="unsized" />
+        <KeyWord name="virtual" />
+        <KeyWord name="yield" />
+        <KeyWord name="gen" />
+        <KeyWord name="try" />
+
+        <!-- Weak Keywords -->
+        <KeyWord name="'static" />
+        <KeyWord name="macro_rules" />
+        <KeyWord name="raw" />
+        <KeyWord name="safe" />
+        <KeyWord name="union" />
+
+        <!-- Primitive types -->
+        <KeyWord name="bool" />
+        <KeyWord name="char" />
+        <KeyWord name="f32" />
+        <KeyWord name="f64" />
+        <KeyWord name="i128" />
+        <KeyWord name="i16" />
+        <KeyWord name="i32" />
+        <KeyWord name="i64" />
+        <KeyWord name="i8" />
+        <KeyWord name="isize" />
+        <KeyWord name="str" />
+        <KeyWord name="u128" />
+        <KeyWord name="u16" />
+        <KeyWord name="u32" />
+        <KeyWord name="u64" />
+        <KeyWord name="u8" />
+        <KeyWord name="usize" />
+
+        <!-- Common macros -->
+        <KeyWord name="eprintln!" func="yes">
+            <Overload retVal="()" descr="Prints to standard error with newline">
+                <Param name="format string (...)" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="format!" func="yes">
+            <Overload retVal="String" descr="Returns a formatted `String`">
+                <Param name="format string (...)" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="println!" func="yes">
+            <Overload retVal="()" descr="Prints to standard output with newline">
+                <Param name="format string (...)" />
+            </Overload>
+        </KeyWord>
+        <KeyWord name="print!" func="yes">
+            <Overload retVal="()" descr="Prints to standard output">
+                <Param name="format string (...)" />
+            </Overload>
+        </KeyWord>
+
+        <!-- System macros -->
+        <KeyWord name="macro_rules!" func="yes" />
+        <KeyWord name="dbg!" func="yes" />
+        <KeyWord name="assert!" func="yes" />
+        <KeyWord name="assert_eq!" func="yes" />
+        <KeyWord name="assert_ne!" func="yes" />
+        <KeyWord name="debug_assert!" func="yes" />
+        <KeyWord name="debug_assert_eq!" func="yes" />
+        <KeyWord name="panic!" func="yes" />
+        <KeyWord name="todo!" func="yes" />
+        <KeyWord name="unimplemented!" func="yes" />
+        <KeyWord name="unreachable!" func="yes" />
+        <KeyWord name="write!" func="yes" />
+        <KeyWord name="writeln!" func="yes" />
+        <KeyWord name="format_args!" func="yes" />
+        <KeyWord name="vec!" func="yes" />
+        <KeyWord name="concat!" func="yes" />
+        <KeyWord name="concat_idents!" func="yes" />
+        <KeyWord name="stringify!" func="yes" />
+        <KeyWord name="include!" func="yes" />
+        <KeyWord name="include_str!" func="yes" />
+        <KeyWord name="include_bytes!" func="yes" />
+        <KeyWord name="env!" func="yes" />
+        <KeyWord name="option_env!" func="yes" />
+        <KeyWord name="file!" func="yes" />
+        <KeyWord name="line!" func="yes" />
+        <KeyWord name="column!" func="yes" />
+        <KeyWord name="module_path!" func="yes" />
+        <KeyWord name="cfg!" func="yes" />
+        <KeyWord name="compile_error!" func="yes" />
+
+        <!-- Common types & constructors -->
+        <KeyWord name="Option::unwrap" func="yes">
+            <Overload retVal="T" descr="Returns the contained `Some` value, panics if `None`" />
+        </KeyWord>
+        <KeyWord name="String::new" func="yes">
+            <Overload retVal="String" descr="Creates a new, empty `String`" />
+        </KeyWord>
+        <KeyWord name="Vec::new" func="yes">
+            <Overload retVal="Vec&lt;T&gt;" descr="Creates a new, empty `Vec&lt;T&gt;`" />
+        </KeyWord>
+
+    </AutoComplete>
+</NotepadPlus>

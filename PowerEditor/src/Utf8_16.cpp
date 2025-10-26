@@ -131,7 +131,7 @@ size_t Utf8_16_Read::convert(char* buf, size_t len)
 
 	if (m_bFirstRead == true)
     {
-		determineEncodingFromBOM();
+		determineEncoding();
 		nSkip = m_nSkip;
 		m_bFirstRead = false;
 	}
@@ -207,7 +207,7 @@ size_t Utf8_16_Read::convert(char* buf, size_t len)
 }
 
 
-void Utf8_16_Read::determineEncodingFromBOM()
+void Utf8_16_Read::determineEncoding()
 {
 	INT uniTest = IS_TEXT_UNICODE_STATISTICS;
 	m_eEncoding = uni8Bit;
@@ -249,6 +249,7 @@ void Utf8_16_Read::determineEncodingFromBOM()
 	else
 	{
 		u78 detectedEncoding = utf8_7bits_8bits();
+
 		if (detectedEncoding == utf8NoBOM)
 			m_eEncoding = uniUTF8_NoBOM;
 		else if (detectedEncoding == ascii7bits)

@@ -116,11 +116,11 @@ public:
     static UniMode determineEncodingFromBOM(const unsigned char *buf, size_t bufLen);
 
 protected:
-	void determineEncodingFromBOM();
+	void determineEncoding();
 
 	u78 utf8_7bits_8bits();
 private:
-	UniMode    m_eEncoding = uni8Bit;
+	UniMode         m_eEncoding = uni8Bit;
 	ubyte*          m_pBuf = nullptr;
 	ubyte*          m_pNewBuf = nullptr;
 	// size of the new buffer

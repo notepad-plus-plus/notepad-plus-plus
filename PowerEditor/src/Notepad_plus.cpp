@@ -643,7 +643,10 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	// if user set system codepage to UTF8, ANSI encoding capacity should be disable once for all
 	if (NppParameters::getInstance().isCurrentSystemCodepageUTF8())
+	{
 		enableCommand(IDM_FORMAT_ANSI, false, MENU);
+		enableCommand(IDM_FORMAT_CONV2_ANSI, false, MENU);
+	}
 
 
 	// Update Scintilla context menu strings (translated)

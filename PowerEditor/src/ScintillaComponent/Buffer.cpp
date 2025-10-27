@@ -2010,13 +2010,13 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 				NppParameters& nppParamInst = NppParameters::getInstance();
 				lenConvert = unicodeConvertor->convert(data, lenFile);
 
-				if (!nppParamInst.isCurrentSystemCodepageUTF8())
+				if (!nppParamInst.isCurrentSystemCodepageUTF8()) // Default mode: all other encodings
 				{
 					_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, reinterpret_cast<LPARAM>(unicodeConvertor->getNewBuf()));
 					if (format == EolType::unknown)
 						format = getEOLFormatForm(unicodeConvertor->getNewBuf(), unicodeConvertor->getNewSize(), EolType::unknown);
 				}
-				else
+				else // "Use Unicode UTF-8 for worldwide language support" option is enabled 
 				{
 					UniMode uniMode = unicodeConvertor->getEncoding();
 

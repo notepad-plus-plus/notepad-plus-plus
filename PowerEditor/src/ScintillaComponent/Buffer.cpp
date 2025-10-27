@@ -2008,32 +2008,41 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 			else // (fileFormat._encoding == -1) => encoding not found yet or BOM found
 			{
 				NppParameters& nppParamInst = NppParameters::getInstance();
-
 				lenConvert = unicodeConvertor->convert(data, lenFile);
-				UniMode uniMode = unicodeConvertor->getEncoding();
 
-				if (hasBOM || // uniUTF8, uni16BE, uni16LE
-					uniMode == uni16BE_NoBOM || uniMode == uni16LE_NoBOM || uniMode == uniUTF8_NoBOM || uniMode == uni7Bit)
+				if (!nppParamInst.isCurrentSystemCodepageUTF8())
 				{
-					if (uniMode == uni7Bit)
-						fileFormat._encoding = nppParamInst.currentSystemCodepage();
-
 					_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, reinterpret_cast<LPARAM>(unicodeConvertor->getNewBuf()));
-
 					if (format == EolType::unknown)
 						format = getEOLFormatForm(unicodeConvertor->getNewBuf(), unicodeConvertor->getNewSize(), EolType::unknown);
 				}
-				else // if (uniMode == uni8Bit)
+				else
 				{
-					WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-					int newDataLen = 0;
-					fileFormat._encoding = nppParamInst.defaultCodepage();
+					UniMode uniMode = unicodeConvertor->getEncoding();
 
-					const char* newData = wmc.encode(fileFormat._encoding, SC_CP_UTF8, data, static_cast<int32_t>(lenFile), &newDataLen, &incompleteMultibyteChar);
-					_pscratchTilla->execute(SCI_APPENDTEXT, newDataLen, reinterpret_cast<LPARAM>(newData));
+					if (hasBOM || // uniUTF8, uni16BE, uni16LE
+						uniMode == uni16BE_NoBOM || uniMode == uni16LE_NoBOM || uniMode == uniUTF8_NoBOM || uniMode == uni7Bit)
+					{
+						if (uniMode == uni7Bit)
+							fileFormat._encoding = nppParamInst.currentSystemCodepage();
 
-					if (format == EolType::unknown)
-						format = getEOLFormatForm(data, lenFile, EolType::unknown);
+						_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, reinterpret_cast<LPARAM>(unicodeConvertor->getNewBuf()));
+
+						if (format == EolType::unknown)
+							format = getEOLFormatForm(unicodeConvertor->getNewBuf(), unicodeConvertor->getNewSize(), EolType::unknown);
+					}
+					else // if (uniMode == uni8Bit)
+					{
+						WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+						int newDataLen = 0;
+						fileFormat._encoding = nppParamInst.defaultCodepage();
+
+						const char* newData = wmc.encode(fileFormat._encoding, SC_CP_UTF8, data, static_cast<int32_t>(lenFile), &newDataLen, &incompleteMultibyteChar);
+						_pscratchTilla->execute(SCI_APPENDTEXT, newDataLen, reinterpret_cast<LPARAM>(newData));
+
+						if (format == EolType::unknown)
+							format = getEOLFormatForm(data, lenFile, EolType::unknown);
+					}
 				}
 			}
 

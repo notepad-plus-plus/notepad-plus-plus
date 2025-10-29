@@ -2757,21 +2757,24 @@ void Notepad_plus::command(int id)
 		case IDM_FORMAT_UTF_16LE :
 		case IDM_FORMAT_AS_UTF_8 :
 		{
-			if (NppParameters::getInstance().isCurrentSystemCodepageUTF8() && id == IDM_FORMAT_ANSI)
+			bool isUTF8System = NppParameters::getInstance().isCurrentSystemCodepageUTF8();
+
+			if (isUTF8System && id == IDM_FORMAT_ANSI)
 			{
 				return;
 			}
 
-			MainFileManager.disableAutoDetectEncoding4Loading();
-
 			Buffer * buf = _pEditView->getCurrentBuffer();
+
+			UniMode originalUm = buf->getUnicodeMode();
+			int originalEncoding = buf->getEncoding();
 
 			UniMode um;
 			bool shouldBeDirty = true;
 			switch (id)
 			{
 				case IDM_FORMAT_AS_UTF_8:
-					shouldBeDirty = buf->getUnicodeMode() != uni8Bit;
+					shouldBeDirty = originalUm != uni8Bit;
 					um = uniUTF8_NoBOM;
 					break;
 
@@ -2788,11 +2791,11 @@ void Notepad_plus::command(int id)
 					break;
 
 				default : // IDM_FORMAT_ANSI
-					shouldBeDirty = buf->getUnicodeMode() != uniUTF8_NoBOM;
+					shouldBeDirty = originalUm != uniUTF8_NoBOM;
 					um = uni8Bit;
 			}
 
-			if (buf->getEncoding() != -1)
+			if (originalEncoding != -1)
 			{
 				if (buf->isDirty())
 				{
@@ -2808,7 +2811,9 @@ void Notepad_plus::command(int id)
 						_pEditView->execute(SCI_EMPTYUNDOBUFFER);
 					}
 					else
+					{
 						return;
+					}
 				}
 
 				if (_pEditView->execute(SCI_CANUNDO) == TRUE)
@@ -2823,26 +2828,35 @@ void Notepad_plus::command(int id)
 						// Do nothing
 					}
 					else
+					{
 						return;
+					}
 				}
 
 				buf->setEncoding(-1);
 
 				if (um == uni8Bit)
-					_pEditView->execute(SCI_SETCODEPAGE, CP_ACP);
+				{
+					NppParameters& nppParams = NppParameters::getInstance();
+					_pEditView->execute(SCI_SETCODEPAGE, !nppParams.isCurrentSystemCodepageUTF8() ? CP_ACP : SC_CP_UTF8);
+				}
 				else
 					buf->setUnicodeMode(um);
+
+				MainFileManager.disableAutoDetectEncoding4Loading();
 				fileReload();
+				MainFileManager.enableAutoDetectEncoding4Loading();
 			}
 			else
 			{
-				if (buf->getUnicodeMode() != um)
+				if (originalUm != um)
 				{
 					buf->setUnicodeMode(um);
 					if (shouldBeDirty)
 						buf->setDirty(true);
 				}
 			}
+
 			break;
 		}
 
@@ -2893,8 +2907,6 @@ void Notepad_plus::command(int id)
         case IDM_FORMAT_KOI8U_CYRILLIC :
         case IDM_FORMAT_KOI8R_CYRILLIC :
         {
-			MainFileManager.disableAutoDetectEncoding4Loading();
-
 			int index = id - IDM_FORMAT_ENCODE;
 
 			const EncodingMapper& em = EncodingMapper::getInstance();
@@ -2939,7 +2951,10 @@ void Notepad_plus::command(int id)
             {
 				buf->setEncoding(encoding);
 				buf->setUnicodeMode(uniUTF8_NoBOM);
+
+				MainFileManager.disableAutoDetectEncoding4Loading();
 				fileReload();
+				MainFileManager.enableAutoDetectEncoding4Loading();
             }
 			break;
 		}

@@ -116,6 +116,8 @@ public:
 	size_t docLength(Buffer * buffer) const;
 	void removeHotSpot(Buffer * buffer) const;
 	size_t nextUntitledNewNumber() const;
+
+	void enableAutoDetectEncoding4Loading() { isAutoDetectEncodingDisabled4Loading = false; };
 	void disableAutoDetectEncoding4Loading() { isAutoDetectEncodingDisabled4Loading = true; }; // Disable the encoding auto-detection on loading file while switching among the different encoding.
 	                                                                                           // The value of isAutoDetectEncodingDisabled4Loading will be restored to false after each file loading 
 	                                                                                           // to restore the encoding auto-detection ability for other file loading operations. 

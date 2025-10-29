@@ -3333,7 +3333,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_ISTABBARHIDDEN:
 		{
 			NppGUI& nppGUI = nppParam.getNppGUI();
-			return nppGUI._tabStatus & TAB_HIDE;
+			return (nppGUI._tabStatus & TAB_HIDE) != 0;
 		}
 
 		case NPPM_HIDETOOLBAR:

@@ -5060,6 +5060,17 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 
 			if (isFailed)
 				_nppGUI._tabStatus = oldValue;
+
+			int tabCompactLabelLen = 0;
+			if (element->Attribute(L"tabCompactLabelLen", &tabCompactLabelLen))
+			{
+				if (tabCompactLabelLen < 0)
+					_nppGUI._tabCompactLabelLen = 0;
+				else if (tabCompactLabelLen > NB_MAX_TAB_COMPACT_LABEL_LEN)
+					_nppGUI._tabCompactLabelLen = NB_MAX_TAB_COMPACT_LABEL_LEN;
+				else
+					_nppGUI._tabCompactLabelLen = tabCompactLabelLen;
+			}
 		}
 		else if (!lstrcmp(nm, L"Auto-detection"))
 		{
@@ -7408,6 +7419,8 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 		pStr = (_nppGUI._tabStatus & TAB_ALTICONS) ? L"1" : L"0";
 		GUIConfigElement->SetAttribute(L"iconSetNumber", pStr);
+
+		GUIConfigElement->SetAttribute(L"tabCompactLabelLen", static_cast<int32_t>(_nppGUI._tabCompactLabelLen));
 	}
 
 	// <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>

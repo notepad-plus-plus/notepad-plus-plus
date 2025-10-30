@@ -855,6 +855,7 @@ struct NppGUI final
 
 	int _tabStatus = (TAB_DRAWTOPBAR | TAB_DRAWINACTIVETAB | TAB_DRAGNDROP | TAB_REDUCE | TAB_CLOSEBUTTON | TAB_PINBUTTON);
 	bool _forceTabbarVisible = false;
+	UINT _tabCompactLabelLen = 0; // 0 ... no compacting
 
 	bool _splitterPos = POS_VERTICAL;
 	int _userDefineDlgStatus = UDD_DOCKED;
@@ -1091,6 +1092,8 @@ const int NB_MAX_IMPORTED_UDL = 50;
 
 constexpr int NB_DEFAULT_LRF_CUSTOMLENGTH = 100;
 constexpr int NB_MAX_LRF_CUSTOMLENGTH = MAX_PATH - 1;
+
+inline constexpr int NB_MAX_TAB_COMPACT_LABEL_LEN = MAX_PATH - 3; // -3 for the possible ending ellipsis (...)
 
 const int NB_MAX_FINDHISTORY_FIND	= 30;
 const int NB_MAX_FINDHISTORY_REPLACE = 30;
@@ -1938,6 +1941,11 @@ public:
 	bool isAsNotepadStyle() const { return _asNotepadStyle; }
 
 	LanguageNameInfo getLangNameInfoFromNameID(const std::wstring& langNameID);
+
+	void setNbTabCompactLabelLen(UINT nb) {
+		_nppGUI._tabCompactLabelLen = nb;
+	}
+	UINT getNbTabCompactLabelLen() const { return _nppGUI._tabCompactLabelLen; }
 
 private:
 	NppParameters();

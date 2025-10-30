@@ -68,11 +68,14 @@ private:
 
 class TabbarSubDlg : public StaticDialog
 {
+friend class PreferenceDlg;
 public:
 	TabbarSubDlg() = default;
 	void setTabbarAlternateIcons(bool enable = false);
 
 private:
+	HWND _tabCompactLabelLenTip = nullptr;
+
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 };
 

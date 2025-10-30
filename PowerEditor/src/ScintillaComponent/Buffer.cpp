@@ -264,6 +264,22 @@ void Buffer::setFileName(const wchar_t *fn)
 
 	_fullPathName = fn;
 	_fileName = PathFindFileName(_fullPathName.c_str());
+
+	const UINT tabCompactLabelLen = nppParamInst.getNbTabCompactLabelLen();
+	if ((tabCompactLabelLen == 0) || (static_cast<UINT>(wcslen(_fileName)) <= tabCompactLabelLen))
+	{
+		_compactFileName = _fileName;
+	}
+	else
+	{
+		_compactFileName.resize(tabCompactLabelLen + 1, L'\0');
+		if (!::PathCompactPathExW(_compactFileName.data(), _fileName, static_cast<UINT>(_compactFileName.size()), 0))
+		{
+			// compacting failed, use the original instead
+			_compactFileName = _fileName;
+		}
+	}
+
 	_isFromNetwork = PathIsNetworkPath(fn);
 
 	// for _lang
@@ -358,6 +374,32 @@ void Buffer::normalizeTabName(wstring& tabName)
 	}
 }
 
+void Buffer::refreshCompactFileName()
+{
+	if (!_fileName)
+	{
+		_compactFileName = L"";
+	}
+	else
+	{
+		const UINT tabCompactLabelLen = NppParameters::getInstance().getNbTabCompactLabelLen();
+		if ((tabCompactLabelLen == 0) || (static_cast<UINT>(lstrlenW(_fileName)) <= tabCompactLabelLen))
+		{
+			_compactFileName = _fileName;
+		}
+		else
+		{
+			_compactFileName.resize(tabCompactLabelLen + 1, L'\0');
+			if (!::PathCompactPathExW(_compactFileName.data(), _fileName, static_cast<UINT>(_compactFileName.size()), 0))
+			{
+				// compacting failed, use the original instead
+				_compactFileName = _fileName;
+			}
+		}
+	}
+
+	doNotify(BufferChangeFilename);
+}
 
 bool Buffer::checkFileState() // returns true if the status has been changed (it can change into DOC_REGULAR too). false otherwise
 {

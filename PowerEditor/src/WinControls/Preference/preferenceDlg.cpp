@@ -102,6 +102,78 @@ static int encodings[] = {
 	20866
 };
 
+struct MsgData
+{
+	UINT uMsg = 0;
+	WPARAM wParam = 0;
+	LPARAM lParam = 0;
+};
+
+static LRESULT CALLBACK EditEnterProc(
+	HWND hwnd,
+	UINT Message,
+	WPARAM wParam,
+	LPARAM lParam,
+	UINT_PTR uIdSubclass,
+	DWORD_PTR dwRefData
+)
+{
+	auto* pMsgData = reinterpret_cast<MsgData*>(dwRefData);
+
+	switch (Message)
+	{
+		case WM_NCDESTROY:
+		{
+			::RemoveWindowSubclass(hwnd, EditEnterProc, uIdSubclass);
+			delete pMsgData;
+			break;
+		}
+
+		case WM_GETDLGCODE:
+		{
+			return (DLGC_WANTALLKEYS | ::DefSubclassProc(hwnd, Message, wParam, lParam));
+		}
+
+		case WM_CHAR:
+		{
+			if (wParam == VK_RETURN) // to avoid beep
+			{
+				return 0;
+			}
+			break;
+		}
+
+		case WM_KEYDOWN:
+		{
+			if (wParam == VK_RETURN)
+			{
+				::SendMessage(::GetParent(hwnd), pMsgData->uMsg, pMsgData->wParam, pMsgData->lParam);
+				return 0;
+			}
+			break;
+		}
+
+		default:
+			break;
+	}
+
+	return ::DefSubclassProc(hwnd, Message, wParam, lParam);
+}
+
+static void subclassEditToAcceptEnterKey(HWND hEdit, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	static constexpr UINT_PTR idSubclassEditEnter = 42424242; // just some random unique number
+	if (::GetWindowSubclass(hEdit, EditEnterProc, idSubclassEditEnter, nullptr) == FALSE)
+	{
+		auto pMsgData = std::make_unique<MsgData>(uMsg, wParam, lParam);
+		if (::SetWindowSubclass(hEdit, EditEnterProc, idSubclassEditEnter, reinterpret_cast<DWORD_PTR>(pMsgData.get())) == TRUE)
+		{
+			static_cast<void>(pMsgData.release());
+		}
+	}
+}
+
+
 bool PreferenceDlg::goToSection(size_t iPage, intptr_t ctrlID)
 {
 	::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_SETCURSEL, iPage, 0);
@@ -291,6 +363,9 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 			if (_toolbarSubDlg._accentTip != nullptr)
 				NppDarkMode::setDarkTooltips(_toolbarSubDlg._accentTip, NppDarkMode::ToolTipsType::tooltip);
+
+			if (_tabbarSubDlg._tabCompactLabelLenTip != nullptr)
+				NppDarkMode::setDarkTooltips(_tabbarSubDlg._tabCompactLabelLenTip, NppDarkMode::ToolTipsType::tooltip);
 
 			if (_editing2SubDlg._tip != nullptr)
 				NppDarkMode::setDarkTooltips(_editing2SubDlg._tip, NppDarkMode::ToolTipsType::tooltip);
@@ -1202,7 +1277,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 	return FALSE;
 }
 
-intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI& nppGUI = nppParam.getNppGUI();
@@ -1251,7 +1326,22 @@ intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			if (hideTabbar)
 				::SendMessage(_hSelf, WM_COMMAND, IDC_CHECK_TAB_HIDE, 0);
 
+			::SetDlgItemInt(_hSelf, IDC_EDIT_TABCOMPACTLABELLEN, nppParam.getNbTabCompactLabelLen(), FALSE);
+
+			NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+			wstring tabCompactLabelLenTip = pNativeSpeaker->getLocalizedStrFromID("tabbar-tabcompactlabellen-tip",
+				L"Limits the visible length of long tab names. Enter to apply the given value. Value range: 1-257 characters (0 disables the truncation).");
+			_tabCompactLabelLenTip = CreateToolTip(IDC_TABCOMPACTLABELLEN_TIP_STATIC, _hSelf, _hInst, tabCompactLabelLenTip.data(), pNativeSpeaker->isRTL());
+
+			HWND hEdit = ::GetDlgItem(_hSelf, IDC_EDIT_TABCOMPACTLABELLEN);
+			subclassEditToAcceptEnterKey(hEdit, WM_COMMAND, MAKEWPARAM(IDC_EDIT_TABCOMPACTLABELLEN, EN_KILLFOCUS), reinterpret_cast<LPARAM>(hEdit));
+
 			return TRUE;
+		}
+
+		case WM_CTLCOLOREDIT:
+		{
+			return NppDarkMode::onCtlColorCtrl(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORDLG:
@@ -1261,7 +1351,14 @@ intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 		case WM_CTLCOLORSTATIC:
 		{
-			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
+			auto hdc = reinterpret_cast<HDC>(wParam);
+			const int dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+			if (dlgCtrlID == IDC_TABCOMPACTLABELLEN_TIP_STATIC)
+			{
+				return NppDarkMode::onCtlColorDlgLinkText(hdc, true);
+			}
+
+			return NppDarkMode::onCtlColorDlg(hdc);
 		}
 
 		case WM_PRINTCLIENT:
@@ -1273,8 +1370,92 @@ intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			break;
 		}
 
+		case WM_DESTROY:
+		{
+			if (_tabCompactLabelLenTip)
+			{
+				::DestroyWindow(_tabCompactLabelLenTip);
+				_tabCompactLabelLenTip = nullptr;
+			}
+			return TRUE;
+		}
+
 		case WM_COMMAND:
 		{
+			switch (LOWORD(wParam))
+			{
+				case IDC_EDIT_TABCOMPACTLABELLEN:
+				{
+					switch (HIWORD(wParam))
+					{
+						case EN_KILLFOCUS:
+						{
+							constexpr int stringSize = 4;
+							wchar_t str[stringSize]{};
+							::GetDlgItemTextW(_hSelf, IDC_EDIT_TABCOMPACTLABELLEN, str, stringSize);
+							if (wcscmp(str, L"") == 0)
+							{
+								// user removed the value completely, the compacting is considered as disabled
+								nppParam.setNbTabCompactLabelLen(0);
+								::SetDlgItemInt(_hSelf, IDC_EDIT_TABCOMPACTLABELLEN, 0, FALSE);
+								::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETTING_TABCOMPACTLABELLEN, 0, 0);
+								return FALSE;
+							}
+
+							// not using the GetDlgItemInt for obtaining the edit-ctrl value as it fails for negative numbers inside
+							// (it can be inserted even into such a ES_NUMBER edit-ctrl via paste-cmd)
+							int iSize = 0;
+							try
+							{
+								iSize = stoi(str);
+							}
+							catch ([[maybe_unused]] invalid_argument const& ex)
+							{
+								iSize = -1;
+							}
+							catch ([[maybe_unused]] out_of_range const& ex)
+							{
+								iSize = -1;
+							}
+
+							if ((iSize >= 0) && (iSize == static_cast<int>(nppParam.getNbTabCompactLabelLen())))
+								return FALSE; // nothing changed
+
+							bool change = false;
+
+							if (iSize < 0)
+							{
+								iSize = 0;
+								change = true;
+							}
+							else if (iSize > NB_MAX_TAB_COMPACT_LABEL_LEN)
+							{
+								iSize = NB_MAX_TAB_COMPACT_LABEL_LEN;
+								change = true;
+							}
+
+							if (change)
+							{
+								::SetDlgItemInt(_hSelf, IDC_EDIT_TABCOMPACTLABELLEN, iSize, FALSE);
+							}
+
+							nppParam.setNbTabCompactLabelLen(iSize);
+							::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETTING_TABCOMPACTLABELLEN, 0, 0);
+
+							return TRUE;
+						}
+
+						default:
+							break;
+					}
+
+					return FALSE;
+				}
+
+				default:
+					break;
+			}
+
 			switch (wParam)
 			{
 				case IDC_CHECK_TAB_HIDE:

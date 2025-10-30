@@ -30,6 +30,7 @@
 
 //**********************************************************
 
+#define INFO_URL L"https://notepad-plus-plus.org/update/getDownloadUrl.php"
 
 
 #ifndef IDC_STATIC

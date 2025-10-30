@@ -3648,6 +3648,9 @@ void Notepad_plus::command(int id)
 						{
 							param += L" -parm64";
 						}
+
+						param += L" -i";
+						param += INFO_URL;
 					}
 					Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
 

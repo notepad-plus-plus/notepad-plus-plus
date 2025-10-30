@@ -399,6 +399,9 @@ bool launchUpdater(const std::wstring& updaterFullPath, const std::wstring& upda
 		updaterParams += L" -parm64";
 	}
 
+	updaterParams += L" -i";
+	updaterParams += INFO_URL;
+
 	Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
 	updater.run();
 

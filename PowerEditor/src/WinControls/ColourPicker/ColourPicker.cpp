@@ -14,11 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include <iostream>
 #include <stdexcept>
 #include "ColourPicker.h"
 #include "ColourPopup.h"
 #include "NppDarkMode.h"
+
+#include <commctrl.h>
 
 void ColourPicker::init(HINSTANCE hInst, HWND parent)
 {
@@ -28,27 +29,25 @@ void ColourPicker::init(HINSTANCE hInst, HWND parent)
 		0,
 		L"Button",
 		L"F",
-		WS_CHILD |  WS_VISIBLE,
+		WS_CHILD | WS_VISIBLE,
 		0, 0, 25, 25,
-		_hParent, NULL, _hInst, (LPVOID)0);
+		_hParent, nullptr, _hInst, nullptr);
 
 	if (!_hSelf)
 		throw std::runtime_error("ColourPicker::init : CreateWindowEx() function return null");
 
-	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
-	_buttonDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticWinProc)));
+	static constexpr UINT_PTR idSubclassClrPicker = 123;
+	::SetWindowSubclass(_hSelf, staticProc, idSubclassClrPicker, reinterpret_cast<DWORD_PTR>(this));
 }
 
 
 void ColourPicker::destroy()
 {
-	delete _pColourPopup;
-	_pColourPopup = NULL;
+	ColourPicker::destroyColorPopup();
 	::DestroyWindow(_hSelf);
 }
 
-
-void ColourPicker::drawBackground(HDC hDC)
+void ColourPicker::drawBackground(HDC hDC) const
 {
 	RECT rc;
 	HBRUSH hbrush;
@@ -74,11 +73,9 @@ void ColourPicker::drawBackground(HDC hDC)
 	::DeleteObject(hbrush);
 }
 
-
-void ColourPicker::drawForeground(HDC hDC)
+void ColourPicker::drawForeground(HDC hDC) const
 {
 	RECT rc;
-	HBRUSH hbrush = NULL;
 
 	if (!hDC || _isEnabled)
 		return;
@@ -90,8 +87,8 @@ void ColourPicker::drawForeground(HDC hDC)
 		 ((_currentColour >>  8) & 0xFF) +
 		 ((_currentColour >> 16) & 0xFF)) < 200)	//check if the color is too dark, if so, use white strikeout
 		strikeOut = RGB(0xFF,0xFF,0xFF);
-	if (!_isEnabled)
-		hbrush = ::CreateHatchBrush(HS_FDIAGONAL, strikeOut);
+
+	HBRUSH hbrush = ::CreateHatchBrush(HS_FDIAGONAL, strikeOut);
 	HGDIOBJ oldObj = ::SelectObject(hDC, hbrush);
 	::Rectangle(hDC, 0, 0, rc.right, rc.bottom);
 	::SelectObject(hDC, oldObj);
@@ -100,102 +97,124 @@ void ColourPicker::drawForeground(HDC hDC)
 	::SetBkMode(hDC, oldMode);
 }
 
-
-LRESULT ColourPicker::runProc(UINT Message, WPARAM wParam, LPARAM lParam)
+void ColourPicker::destroyColorPopup()
 {
+	if (_pColourPopup != nullptr)
+	{
+		_pColourPopup->destroy();
+		delete _pColourPopup;
+		_pColourPopup = nullptr;
+	}
+}
+
+LRESULT CALLBACK ColourPicker::staticProc(
+	HWND hwnd,
+	UINT Message,
+	WPARAM wParam,
+	LPARAM lParam,
+	UINT_PTR uIdSubclass,
+	DWORD_PTR dwRefData
+)
+{
+	auto* cpData = reinterpret_cast<ColourPicker*>(dwRefData);
+
 	switch (Message)
 	{
+		case WM_NCDESTROY:
+		{
+			::RemoveWindowSubclass(hwnd, staticProc, uIdSubclass);
+			break;
+		}
+
 		case WM_LBUTTONDBLCLK:
 		case WM_LBUTTONDOWN:
 		{
-			RECT rc;
-			POINT p;
-			Window::getClientRect(rc);
+			RECT rc{};
+			cpData->Window::getClientRect(rc);
 			::InflateRect(&rc, -2, -2);
-			p.x = rc.left;
-			p.y = rc.top + rc.bottom;
-			::ClientToScreen(_hSelf, &p);
+			POINT p{ rc.left, rc.top + rc.bottom };
+			::ClientToScreen(hwnd, &p);
 
-			if (!_pColourPopup)
+			if (!cpData->_pColourPopup)
 			{
-				_pColourPopup = new ColourPopup(_currentColour);
-				_pColourPopup->init(_hInst, _hSelf);
-				_pColourPopup->doDialog(p);
+				cpData->_pColourPopup = new ColourPopup(cpData->_currentColour);
+				cpData->_pColourPopup->init(cpData->_hInst, hwnd);
+				cpData->_pColourPopup->doDialog(p);
 			}
 			else
 			{
-				_pColourPopup->setColour(_currentColour);
-				_pColourPopup->doDialog(p);
-				_pColourPopup->display(true);
+				cpData->_pColourPopup->setColour(cpData->_currentColour);
+				cpData->_pColourPopup->doDialog(p);
+				cpData->_pColourPopup->display(true);
 			}
-			return TRUE;
+			return 0;
 		}
 
 		case WM_RBUTTONDOWN:
 		{
-			if (_disableRightClick)
-				return FALSE;
+			if (cpData->_disableRightClick)
+				break;
 
-			_isEnabled = !_isEnabled;
-			redraw();
-			::SendMessage(_hParent, WM_COMMAND, MAKELONG(0, CPN_COLOURPICKED), reinterpret_cast<LPARAM>(_hSelf));
-			break;
+			cpData->_isEnabled = !cpData->_isEnabled;
+			::SendMessage(cpData->_hParent, WM_COMMAND, MAKEWPARAM(0, CPN_COLOURPICKED), reinterpret_cast<LPARAM>(hwnd));
+			cpData->redraw();
+			return 0;
 		}
 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
-			if (_pColourPopup)
+			if (cpData->_pColourPopup)
 			{
-				::SendMessage(_pColourPopup->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+				::SendMessage(cpData->_pColourPopup->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 			}
 			return TRUE;
 		}
 
 		case WM_ERASEBKGND:
 		{
-			HDC dc = (HDC)wParam;
-			drawBackground(dc);
+			auto* hdc = reinterpret_cast<HDC>(wParam);
+			cpData->drawBackground(hdc);
 			return TRUE;
 		}
 
 		case WM_PAINT:
 		{
-			PAINTSTRUCT ps;
-			HDC dc = ::BeginPaint(_hSelf, &ps);
-			drawForeground(dc);
-			::EndPaint(_hSelf, &ps);
-			return TRUE;
+			PAINTSTRUCT ps{};
+			HDC hdc = ::BeginPaint(hwnd, &ps);
+			cpData->drawForeground(hdc);
+			::EndPaint(hwnd, &ps);
+			return 0;
 		}
 
 		case WM_PICKUP_COLOR:
 		{
-			_currentColour = (COLORREF)wParam;
-			redraw();
-
-			_pColourPopup->display(false);
-			::SendMessage(_hParent, WM_COMMAND, MAKELONG(0, CPN_COLOURPICKED), reinterpret_cast<LPARAM>(_hSelf));
+			if (const auto clr = static_cast<COLORREF>(wParam); cpData->_currentColour != clr)
+			{
+				cpData->_currentColour = clr;
+				::SendMessage(cpData->_hParent, WM_COMMAND, MAKEWPARAM(0, CPN_COLOURPICKED), reinterpret_cast<LPARAM>(hwnd));
+				cpData->redraw();
+			}
 			return TRUE;
 		}
 
 		case WM_ENABLE:
 		{
-			if ((BOOL)wParam == FALSE)
+			if (static_cast<BOOL>(wParam) == FALSE)
 			{
-				_currentColour = NppDarkMode::isEnabled() ? NppDarkMode::getDlgBackgroundColor() : ::GetSysColor(COLOR_3DFACE);
-				redraw();
+				cpData->_currentColour = NppDarkMode::isEnabled() ? NppDarkMode::getDlgBackgroundColor() : ::GetSysColor(COLOR_3DFACE);
+				cpData->redraw();
 			}
-			return TRUE;
+			return 0;
 		}
 
 		case WM_PICKUP_CANCEL:
 		{
-			_pColourPopup->display(false);
+			cpData->_pColourPopup->display(false);
 			return TRUE;
 		}
 
 		default:
-			return ::CallWindowProc(_buttonDefaultProc, _hSelf, Message, wParam, lParam);
+			break;
 	}
-
-	return FALSE;
+	return ::DefSubclassProc(hwnd, Message, wParam, lParam);
 }

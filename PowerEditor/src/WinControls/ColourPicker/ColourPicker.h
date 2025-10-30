@@ -21,36 +21,34 @@
 
 class ColourPopup;
 
-#define CPN_COLOURPICKED  (BN_CLICKED)
+#define CPN_COLOURPICKED (BN_CLICKED)
 
 class ColourPicker : public Window
 {
-public :
+public:
 	ColourPicker() = default;
-    ~ColourPicker() = default;
-	virtual void init(HINSTANCE hInst, HWND parent);
-	virtual void destroy();
-    void setColour(COLORREF c) {
-        _currentColour = c;
-    };
+	~ColourPicker() override = default;
+	void init(HINSTANCE hInst, HWND parent) override;
+	void destroy() override;
+	void setColour(COLORREF c) {
+		_currentColour = c;
+	}
 
-	COLORREF getColour() const {return _currentColour;};
-	bool isEnabled() {return _isEnabled;};
-	void setEnabled(bool enabled) {_isEnabled = enabled;};
-	void disableRightClick() {_disableRightClick = true;};
+	COLORREF getColour() const { return _currentColour; }
+	bool isEnabled() const { return _isEnabled; }
+	void setEnabled(bool enabled) { _isEnabled = enabled; }
+	void disableRightClick() { _disableRightClick = true; }
 
-private :
+private:
+	void destroyColorPopup();
+
+	ColourPopup* _pColourPopup = nullptr;
 	COLORREF _currentColour = RGB(0xFF, 0x00, 0x00);
-    WNDPROC _buttonDefaultProc = nullptr;
-	ColourPopup *_pColourPopup = nullptr;
 	bool _isEnabled = true;
 	bool _disableRightClick = false;
 
-    static LRESULT CALLBACK staticWinProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
-        return (((ColourPicker *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(Message, wParam, lParam));
-    };
-	LRESULT runProc(UINT Message, WPARAM wParam, LPARAM lParam);
-    void drawForeground(HDC hDC);
-	void drawBackground(HDC hDC);
-};
+	void drawForeground(HDC hDC) const;
+	void drawBackground(HDC hDC) const;
 
+	static LRESULT CALLBACK staticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
+};

@@ -292,6 +292,9 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			if (_toolbarSubDlg._accentTip != nullptr)
 				NppDarkMode::setDarkTooltips(_toolbarSubDlg._accentTip, NppDarkMode::ToolTipsType::tooltip);
 
+			if (_tabbarSubDlg._tabCompactLabelLenTip != nullptr)
+				NppDarkMode::setDarkTooltips(_tabbarSubDlg._tabCompactLabelLenTip, NppDarkMode::ToolTipsType::tooltip);
+
 			if (_editing2SubDlg._tip != nullptr)
 				NppDarkMode::setDarkTooltips(_editing2SubDlg._tip, NppDarkMode::ToolTipsType::tooltip);
 
@@ -1202,7 +1205,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 	return FALSE;
 }
 
-intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI& nppGUI = nppParam.getNppGUI();
@@ -1251,6 +1254,13 @@ intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			if (hideTabbar)
 				::SendMessage(_hSelf, WM_COMMAND, IDC_CHECK_TAB_HIDE, 0);
 
+			::SetDlgItemInt(_hSelf, IDC_EDIT_TABCOMPACTLABELLEN, nppParam.getNbTabCompactLabelLen(), FALSE);
+
+			NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+			wstring tabCompactLabelLenTip = pNativeSpeaker->getLocalizedStrFromID("tabbar-tabcompactlabellen-tip",
+				L"This is to limit the visible length of the tab name and thus the tab size. The allowed range is 0 - 257 characters, with 0 meaning that the compacting is disabled.");
+			_tabCompactLabelLenTip = CreateToolTip(IDC_TABCOMPACTLABELLEN_TIP_STATIC, _hSelf, _hInst, const_cast<PTSTR>(tabCompactLabelLenTip.c_str()), pNativeSpeaker->isRTL());
+
 			return TRUE;
 		}
 
@@ -1261,6 +1271,13 @@ intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 		case WM_CTLCOLORSTATIC:
 		{
+			auto hdc = reinterpret_cast<HDC>(wParam);
+			const int dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+			if (dlgCtrlID == IDC_TABCOMPACTLABELLEN_TIP_STATIC)
+			{
+				return NppDarkMode::onCtlColorDlgLinkText(hdc, true);
+			}
+			
 			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
 		}
 
@@ -1273,8 +1290,89 @@ intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			break;
 		}
 
+		case WM_DESTROY:
+		{
+			if (_tabCompactLabelLenTip)
+			{
+				::DestroyWindow(_tabCompactLabelLenTip);
+				_tabCompactLabelLenTip = nullptr;
+			}
+			return TRUE;
+		}
+
 		case WM_COMMAND:
 		{
+			switch (LOWORD(wParam))
+			{
+				case IDC_EDIT_TABCOMPACTLABELLEN:
+				{
+					switch (HIWORD(wParam))
+					{
+						case EN_KILLFOCUS:
+						{
+							constexpr int stringSize = 4;
+							wchar_t str[stringSize]{};
+							::GetDlgItemTextW(_hSelf, IDC_EDIT_TABCOMPACTLABELLEN, str, stringSize);
+							if (lstrcmpW(str, L"") == 0)
+							{
+								::SetDlgItemInt(_hSelf, IDC_EDIT_TABCOMPACTLABELLEN, nppParam.getNbTabCompactLabelLen(), FALSE);
+								return FALSE;
+							}
+
+							// not using the GetDlgItemInt for obtaining the edit-ctrl value as it fails for negative numbers inside
+							// (it can be inserted even into such a ES_NUMBER edit-ctrl via paste-cmd)
+							int iSize = 0;
+							try
+							{
+								iSize = stoi(str);
+							}
+							catch ([[maybe_unused]] invalid_argument const& ex)
+							{
+								iSize = -1;
+							}
+							catch ([[maybe_unused]] out_of_range const& ex)
+							{
+								iSize = -1;
+							}
+
+							if ((iSize >= 0) && (iSize == static_cast<int>(nppParam.getNbTabCompactLabelLen())))
+								return FALSE; // nothing changed
+
+							bool change = false;
+
+							if (iSize < 0)
+							{
+								iSize = 0;
+								change = true;
+							}
+							else if (iSize > NB_MAX_TAB_COMPACT_LABEL_LEN)
+							{
+								iSize = NB_MAX_TAB_COMPACT_LABEL_LEN;
+								change = true;
+							}
+
+							if (change)
+							{
+								::SetDlgItemInt(_hSelf, IDC_EDIT_TABCOMPACTLABELLEN, iSize, FALSE);
+							}
+
+							nppParam.setNbTabCompactLabelLen(iSize);
+							::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETTING_TABCOMPACTLABELLEN, 0, 0);
+
+							return TRUE;
+						}
+
+						default:
+							break;
+					}
+
+					return FALSE;
+				}
+
+				default:
+					break;
+			}
+
 			switch (wParam)
 			{
 				case IDC_CHECK_TAB_HIDE:

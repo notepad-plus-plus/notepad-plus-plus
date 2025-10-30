@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english.xml" version="8.8.1">
+	<Native-Langue name="English" filename="english.xml" version="8.8.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1001,6 +1001,7 @@ Translation note:
 					<Item id="6128" name="Alternate icons"/>
 					<Item id="6125" name="Behavior"/>
 					<Item id="6126" name="Look &amp;&amp; feel"/>
+					<Item id="6136" name="Max. tab label length:"/>
 				</Tabbar>
 
 				<Scintillas title="Editing 1">
@@ -1903,6 +1904,7 @@ If you select advanced mode but do not edit files in the aforementioned language
 			<max-len-on-search-tip value="Your input may exceed the limit allowed and could have been truncated, and it won't be saved for the next session."/>
 			<max-len-on-save-tip value="The length of your input is very long and may not be saved for your next session."/>
 			<goto-setting-tip value="Find your setting here"/>
+			<tabbar-tabcompactlabellen-tip value="This is to limit the visible length of the document tab name and thus the tab size. The allowed range is 0 - 257 characters, with 0 meaning that the compacting is disabled. Shortened names are recognizable by trailing ellipses."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

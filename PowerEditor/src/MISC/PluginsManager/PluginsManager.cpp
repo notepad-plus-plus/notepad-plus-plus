@@ -504,14 +504,14 @@ bool PluginsManager::loadPlugins(const wchar_t* dir, const PluginViewList* plugi
 // false otherwise
 bool PluginsManager::getShortcutByCmdID(int cmdID, ShortcutKey *sk)
 {
-	if (cmdID == 0 || !sk)
+	if (!sk)
 		return false;
 
 	const vector<PluginCmdShortcut> & pluginCmdSCList = (NppParameters::getInstance()).getPluginCommandList();
 
 	for (size_t i = 0, len = pluginCmdSCList.size(); i < len ; ++i)
 	{
-		if (pluginCmdSCList[i].getID() == (unsigned long)cmdID)
+		if (pluginCmdSCList[i].getInternalID() == cmdID)
 		{
 			const KeyCombo & kc = pluginCmdSCList[i].getKeyCombo();
 			if (kc._key == 0x00)
@@ -834,4 +834,5 @@ wstring PluginsManager::getLoadedPluginNames() const
 	}
 	return pluginPaths;
 }
+
 

@@ -178,6 +178,10 @@ public:
 
 	const wchar_t * getFileName() const { return _fileName; }
 
+	const wchar_t* getCompactFileName() const { return _compactFileName.c_str(); }
+
+	void refreshCompactFileName();
+
 	void normalizeTabName(std::wstring& tabName);
 
 	BufferID getID() const { return _id; }
@@ -441,6 +445,7 @@ private:
 	bool _isFileReadOnly = false;
 	std::wstring _fullPathName;
 	wchar_t * _fileName = nullptr; // points to filename part in _fullPathName
+	std::wstring _compactFileName; // shortened filename form of the _fileName with possible ellipsis (...) at the end
 	bool _needReloading = false; // True if Buffer needs to be reloaded on activation
 
 	std::wstring _tabCreatedTimeString;

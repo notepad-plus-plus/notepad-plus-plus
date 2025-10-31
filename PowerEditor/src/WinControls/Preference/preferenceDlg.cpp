@@ -1282,8 +1282,8 @@ intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			{
 				return NppDarkMode::onCtlColorDlgLinkText(hdc, true);
 			}
-			
-			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
+
+			return NppDarkMode::onCtlColorDlg(hdc);
 		}
 
 		case WM_PRINTCLIENT:

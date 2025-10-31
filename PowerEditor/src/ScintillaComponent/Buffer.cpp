@@ -273,7 +273,7 @@ void Buffer::setFileName(const wchar_t *fn)
 	else
 	{
 		_compactFileName.resize(tabCompactLabelLen + 1, L'\0');
-		if (!::PathCompactPathExW(&_compactFileName[0], _fileName, static_cast<UINT>(_compactFileName.size()), 0))
+		if (!::PathCompactPathExW(_compactFileName.data(), _fileName, static_cast<UINT>(_compactFileName.size()), 0))
 		{
 			// compacting failed, use the original instead
 			_compactFileName = _fileName;

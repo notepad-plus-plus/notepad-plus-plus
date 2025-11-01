@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="简体中文" filename="chineseSimplified.xml" version="8.8.3">
+	<Native-Langue name="简体中文" filename="chineseSimplified.xml" version="8.8.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -41,6 +41,7 @@ Translation note:
 					<Item subMenuId="edit-onSelection" name="对选中内容操作(&amp;O)"/>
 					<Item subMenuId="edit-multiSelectALL" name="多重选取（全部）"/>
 					<Item subMenuId="edit-multiSelectNext" name="多重选取（下一处）"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="在 Notepad++ 中只读"/>
 					<Item subMenuId="search-changeHistory" name="变更记录"/>
 					<Item subMenuId="search-markAll" name="用格式标记全部(&amp;A)"/>
 					<Item subMenuId="search-markOne" name="用格式标记选定的文本(&amp;O)"/>
@@ -196,14 +197,16 @@ Translation note:
 					<Item id="42025" name="保存录制宏(&amp;S)..."/>
 					<Item id="42026" name="文字方向从右到左"/>
 					<Item id="42027" name="文字方向从左到右"/>
-					<Item id="42028" name="设置为只读（仅本程序中）"/>
+					<Item id="42028" name="当前文件设为只读"/>
+					<Item id="42102" name="所有文件设为只读"/>
+					<Item id="42103" name="清除所有文件只读状态"/>
 					<Item id="42029" name="复制当前文件路径"/>
 					<Item id="42030" name="复制当前文件名"/>
 					<Item id="42031" name="复制当前目录路径"/>
 					<Item id="42087" name="复制所有文件名"/>
 					<Item id="42088" name="复制所有文件路径"/>
 					<Item id="42032" name="重复运行宏(&amp;R)..."/>
-					<Item id="42033" name="设置文件只读属性（Windows系统）"/>
+					<Item id="42033" name="设置 Windows 中的只读属性"/>
 					<Item id="42035" name="设置行注释"/>
 					<Item id="42036" name="取消行注释"/>
 					<Item id="42055" name="移除空行"/>
@@ -416,6 +419,8 @@ Translation note:
 					<Item id="11007" name="类型降序"/>
 					<Item id="11008" name="内容长度升序"/>
 					<Item id="11009" name="内容长度降序"/>
+					<Item id="11010" name="修改时间升序"/>
+					<Item id="11011" name="修改时间降序"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -439,7 +444,7 @@ Translation note:
 				<Item CMDID="41014" name="重新加载"/>
 				<Item CMDID="41010" name="打印..."/>
 				<Item CMDID="42028" name="设置为只读（仅本程序中）"/>
-				<Item CMDID="42033" name="设置文件只读属性（Windows系统）"/>
+				<Item CMDID="42033" name="设置 Windows 中的只读属性"/>
 				<Item CMDID="2" name="复制到剪贴板"/>
 				<Item CMDID="42029" name="复制文件路径"/>
 				<Item CMDID="42030" name="复制文件名"/>
@@ -1214,6 +1219,7 @@ Translation note:
 					<Item id="6909" name="未选中内容时，使用光标下的单词填充"/>
 					<Item id="6910" name="自动勾选“选取范围内”的最小值(选中字符数):"/>
 					<Item id="6913" name="使用当前文档所在目录填充目录字段(文件中查找)"/>
+					<Item id="6916" name=": 从选择内容自动填充查找字段的最大字符数"/>
 				</Searching>
 
 				<RecentFilesHistory title="最近文件记录">
@@ -1329,7 +1335,7 @@ Translation note:
 					<Item id="6274" name="必应"/>
 					<Item id="6275" name="雅虎"/>
 					<Item id="6276" name="自定义搜索引擎:"/>
-					<!-- Don't change anything after Example: https://www.google.com/search?q=$(CURRENT_WORD) -->
+					<!-- Don't change anything after Example: -->
 					<Item id="6278" name="示例: https://www.baidu.com/s?wd=$(CURRENT_WORD)"/>
 				</SearchEngine>
 
@@ -1618,6 +1624,7 @@ Notepad++ 会备份您旧的 “shortcuts.xml” 文件，并将其保存为 “
 			<ColumnPath name="路径"/>
 			<ColumnType name="类型"/>
 			<ColumnSize name="大小"/>
+			<ColumnDateTime name="修改时间"/>
 			<NbDocsTotal name="总计:"/>
 			<MenuCopyName name="复制名称"/>
 			<MenuCopyPath name="复制路径"/>

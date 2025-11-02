@@ -16,46 +16,31 @@
 
 
 #pragma once
-#include "ColourPopupResource.h"
+
 #include "resource.h"
-#include "Window.h"
 
-#define WM_PICKUP_COLOR  (COLOURPOPUP_USER + 1)
-#define WM_PICKUP_CANCEL (COLOURPOPUP_USER + 2)
+#include "StaticDialog.h"
 
+#define WM_PICKUP_COLOR (COLOURPOPUP_USER + 1)
 
-class ColourPopup : public Window
+class ColourPopup : public StaticDialog
 {
-public :
+public:
 	ColourPopup() = default;
 	explicit ColourPopup(COLORREF defaultColor) : _colour(defaultColor) {}
-	virtual ~ColourPopup() {}
+	~ColourPopup() override {}
 
-	bool isCreated() const
-	{
-		return (_hSelf != NULL);
-	}
-
-	void create(int dialogID);
+	void createColorPopup();
 	void doDialog(POINT p);
 
-	virtual void destroy()
-	{
+	void destroy() override {
 		::DestroyWindow(_hSelf);
 	}
 
-	void setColour(COLORREF c)
-	{
-		_colour = c;
-	}
-
-	COLORREF getSelColour(){return _colour;};
-
-private :
-	RECT _rc = {};
+private:
 	COLORREF _colour = RGB(0xFF, 0xFF, 0xFF);
 
-	static intptr_t CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
-	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	static intptr_t CALLBACK dlgClrPopupProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	static uintptr_t CALLBACK chooseColorDlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 };

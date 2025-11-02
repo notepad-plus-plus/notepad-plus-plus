@@ -330,14 +330,14 @@ RECT StaticDialog::getViewablePositionRect(RECT testPositionRc) const
 	return true;
 }
 
-HWND StaticDialog::myCreateDialogIndirectParam(int dialogID, bool isRTL, WORD fontSize)
+HWND StaticDialog::myCreateDialogIndirectParam(int dialogID, bool isRTL, WORD fontSize, DLGPROC myDlgProc)
 {
 	std::vector<std::byte> dlgTemplateData;
 
 	if (!modifyResource(_hInst, dialogID, dlgTemplateData, isRTL, fontSize))
-		return ::CreateDialogParam(_hInst, MAKEINTRESOURCE(dialogID), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
+		return ::CreateDialogParam(_hInst, MAKEINTRESOURCE(dialogID), _hParent, myDlgProc, reinterpret_cast<LPARAM>(this));
 
-	return ::CreateDialogIndirectParam(_hInst, reinterpret_cast<DLGTEMPLATE*>(dlgTemplateData.data()), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
+	return ::CreateDialogIndirectParam(_hInst, reinterpret_cast<DLGTEMPLATE*>(dlgTemplateData.data()), _hParent, myDlgProc, reinterpret_cast<LPARAM>(this));
 }
 
 INT_PTR StaticDialog::myCreateDialogBoxIndirectParam(int dialogID, bool isRTL, WORD fontSize)

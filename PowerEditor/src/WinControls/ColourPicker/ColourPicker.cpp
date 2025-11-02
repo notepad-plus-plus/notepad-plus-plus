@@ -129,25 +129,23 @@ LRESULT CALLBACK ColourPicker::staticProc(
 		case WM_LBUTTONDBLCLK:
 		case WM_LBUTTONDOWN:
 		{
-			RECT rc{};
-			cpData->Window::getClientRect(rc);
-			::InflateRect(&rc, -2, -2);
-			POINT p{ rc.left, rc.top + rc.bottom };
-			::ClientToScreen(hwnd, &p);
+			cpData->destroyColorPopup();
 
-			if (!cpData->_pColourPopup)
+			if (cpData->_pColourPopup == nullptr)
 			{
+				RECT rc{};
+				cpData->Window::getClientRect(rc);
+				::InflateRect(&rc, -2, -2);
+				POINT p{ rc.left, rc.top + rc.bottom };
+				::ClientToScreen(hwnd, &p);
+
 				cpData->_pColourPopup = new ColourPopup(cpData->_currentColour);
 				cpData->_pColourPopup->init(cpData->_hInst, hwnd);
 				cpData->_pColourPopup->doDialog(p);
+
+				return 0;
 			}
-			else
-			{
-				cpData->_pColourPopup->setColour(cpData->_currentColour);
-				cpData->_pColourPopup->doDialog(p);
-				cpData->_pColourPopup->display(true);
-			}
-			return 0;
+			break;
 		}
 
 		case WM_RBUTTONDOWN:
@@ -159,15 +157,6 @@ LRESULT CALLBACK ColourPicker::staticProc(
 			::SendMessage(cpData->_hParent, WM_COMMAND, MAKEWPARAM(0, CPN_COLOURPICKED), reinterpret_cast<LPARAM>(hwnd));
 			cpData->redraw();
 			return 0;
-		}
-
-		case NPPM_INTERNAL_REFRESHDARKMODE:
-		{
-			if (cpData->_pColourPopup)
-			{
-				::SendMessage(cpData->_pColourPopup->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
-			}
-			return TRUE;
 		}
 
 		case WM_ERASEBKGND:
@@ -188,6 +177,8 @@ LRESULT CALLBACK ColourPicker::staticProc(
 
 		case WM_PICKUP_COLOR:
 		{
+			cpData->destroyColorPopup();
+
 			if (const auto clr = static_cast<COLORREF>(wParam); cpData->_currentColour != clr)
 			{
 				cpData->_currentColour = clr;
@@ -205,12 +196,6 @@ LRESULT CALLBACK ColourPicker::staticProc(
 				cpData->redraw();
 			}
 			return 0;
-		}
-
-		case WM_PICKUP_CANCEL:
-		{
-			cpData->_pColourPopup->display(false);
-			return TRUE;
 		}
 
 		default:

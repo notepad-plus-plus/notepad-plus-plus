@@ -102,6 +102,78 @@ static int encodings[] = {
 	20866
 };
 
+struct MsgData
+{
+	UINT uMsg = 0;
+	WPARAM wParam = 0;
+	LPARAM lParam = 0;
+};
+
+static LRESULT CALLBACK EditEnterProc(
+	HWND hwnd,
+	UINT Message,
+	WPARAM wParam,
+	LPARAM lParam,
+	UINT_PTR uIdSubclass,
+	DWORD_PTR dwRefData
+)
+{
+	auto* pMsgData = reinterpret_cast<MsgData*>(dwRefData);
+
+	switch (Message)
+	{
+		case WM_NCDESTROY:
+		{
+			::RemoveWindowSubclass(hwnd, EditEnterProc, uIdSubclass);
+			delete pMsgData;
+			break;
+		}
+
+		case WM_GETDLGCODE:
+		{
+			return (DLGC_WANTALLKEYS | ::DefSubclassProc(hwnd, Message, wParam, lParam));
+		}
+
+		case WM_CHAR:
+		{
+			if (wParam == VK_RETURN) // to avoid beep
+			{
+				return 0;
+			}
+			break;
+		}
+
+		case WM_KEYDOWN:
+		{
+			if (wParam == VK_RETURN)
+			{
+				::SendMessage(::GetParent(hwnd), pMsgData->uMsg, pMsgData->wParam, pMsgData->lParam);
+				return 0;
+			}
+			break;
+		}
+
+		default:
+			break;
+	}
+
+	return ::DefSubclassProc(hwnd, Message, wParam, lParam);
+}
+
+static void subclassEditToAcceptEnterKey(HWND hEdit, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	static constexpr UINT_PTR idSubclassEditEnter = 42424242; // just some random unique number
+	if (::GetWindowSubclass(hEdit, EditEnterProc, idSubclassEditEnter, nullptr) == FALSE)
+	{
+		auto pMsgData = std::make_unique<MsgData>(uMsg, wParam, lParam);
+		if (::SetWindowSubclass(hEdit, EditEnterProc, idSubclassEditEnter, reinterpret_cast<DWORD_PTR>(pMsgData.get())) == TRUE)
+		{
+			static_cast<void>(pMsgData.release());
+		}
+	}
+}
+
+
 bool PreferenceDlg::goToSection(size_t iPage, intptr_t ctrlID)
 {
 	::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_SETCURSEL, iPage, 0);
@@ -1258,8 +1330,11 @@ intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 			NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
 			wstring tabCompactLabelLenTip = pNativeSpeaker->getLocalizedStrFromID("tabbar-tabcompactlabellen-tip",
-				L"This is to limit the visible length of the tab name and thus the tab size. The allowed range is 0 - 257 characters, with 0 meaning that the compacting is disabled.");
+				L"This is to limit the visible length of the tab name and thus the tab size. The allowed range is 0 - 257 characters, with 0 meaning that the compacting is disabled. Shortened names are recognizable by trailing ellipses.");
 			_tabCompactLabelLenTip = CreateToolTip(IDC_TABCOMPACTLABELLEN_TIP_STATIC, _hSelf, _hInst, tabCompactLabelLenTip.data(), pNativeSpeaker->isRTL());
+
+			HWND hEdit = ::GetDlgItem(_hSelf, IDC_EDIT_TABCOMPACTLABELLEN);
+			subclassEditToAcceptEnterKey(hEdit, WM_COMMAND, MAKEWPARAM(IDC_EDIT_TABCOMPACTLABELLEN, EN_KILLFOCUS), reinterpret_cast<LPARAM>(hEdit));
 
 			return TRUE;
 		}

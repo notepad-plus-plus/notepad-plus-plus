@@ -266,7 +266,7 @@ void Buffer::setFileName(const wchar_t *fn)
 	_fileName = PathFindFileName(_fullPathName.c_str());
 
 	const UINT tabCompactLabelLen = nppParamInst.getNbTabCompactLabelLen();
-	if ((tabCompactLabelLen == 0) || (static_cast<UINT>(lstrlenW(_fileName)) <= tabCompactLabelLen))
+	if ((tabCompactLabelLen == 0) || (static_cast<UINT>(wcslen(_fileName)) <= tabCompactLabelLen))
 	{
 		_compactFileName = _fileName;
 	}

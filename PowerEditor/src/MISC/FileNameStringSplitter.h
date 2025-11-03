@@ -91,7 +91,7 @@ public:
 
 	const stringVector& getFileNames() const {
 		return _fileNames;
-	};
+	}
 
 	const wchar_t * getFileName(size_t index) const {
 		if (index >= _fileNames.size())

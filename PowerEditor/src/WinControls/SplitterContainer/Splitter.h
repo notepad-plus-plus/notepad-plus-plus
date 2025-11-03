@@ -90,7 +90,7 @@ private:
 	int getClickZone(WH which);
 	void adjustZoneToDraw(RECT & rc2def, ZONE_TYPE whichZone);
 	void drawSplitter();
-	bool isVertical() const {return (_dwFlags & SV_VERTICAL) != 0;};
+	bool isVertical() const { return (_dwFlags & SV_VERTICAL) != 0; }
 	void paintArrow(HDC hdc, const RECT &rect, Arrow arrowDir);
 	void gotoTopLeft();
 	void gotoRightBottom();

@@ -33,7 +33,8 @@ class FunctionParser
 friend class FunctionParsersManager;
 public:
 	FunctionParser(const wchar_t *id, const wchar_t *displayName, const wchar_t *commentExpr, const std::wstring& functionExpr, const std::vector<std::wstring>& functionNameExprArray, const std::vector<std::wstring>& classNameExprArray):
-	  _id(id), _displayName(displayName), _commentExpr(commentExpr?commentExpr:L""), _functionExpr(functionExpr), _functionNameExprArray(functionNameExprArray), _classNameExprArray(classNameExprArray){};
+	  _id(id), _displayName(displayName), _commentExpr(commentExpr?commentExpr:L""), _functionExpr(functionExpr), _functionNameExprArray(functionNameExprArray), _classNameExprArray(classNameExprArray)
+	{}
 
 	virtual void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, std::wstring classStructName = L"") = 0;
 	void funcParse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, std::wstring classStructName = L"", const std::vector< std::pair<size_t, size_t> > * commentZones = NULL);
@@ -59,7 +60,8 @@ public:
 	FunctionZoneParser() = delete;
 	FunctionZoneParser(const wchar_t *id, const wchar_t *displayName, const wchar_t *commentExpr, const std::wstring& rangeExpr, const std::wstring& openSymbole, const std::wstring& closeSymbole,
 		const std::vector<std::wstring>& classNameExprArray, const std::wstring& functionExpr, const std::vector<std::wstring>& functionNameExprArray):
-		FunctionParser(id, displayName, commentExpr, functionExpr, functionNameExprArray, classNameExprArray), _rangeExpr(rangeExpr), _openSymbole(openSymbole), _closeSymbole(closeSymbole) {};
+		FunctionParser(id, displayName, commentExpr, functionExpr, functionNameExprArray, classNameExprArray), _rangeExpr(rangeExpr), _openSymbole(openSymbole), _closeSymbole(closeSymbole)
+	{}
 
 	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, std::wstring classStructName = L"") override;
 	
@@ -92,10 +94,10 @@ class FunctionMixParser : public FunctionZoneParser
 public:
 	FunctionMixParser(const wchar_t *id, const wchar_t *displayName, const wchar_t *commentExpr, const std::wstring& rangeExpr, const std::wstring& openSymbole, const std::wstring& closeSymbole,
 		const std::vector<std::wstring>& classNameExprArray, const std::wstring& functionExpr, const std::vector<std::wstring>& functionNameExprArray, FunctionUnitParser *funcUnitPaser):
-		FunctionZoneParser(id, displayName, commentExpr, rangeExpr,	openSymbole, closeSymbole, classNameExprArray, functionExpr, functionNameExprArray), _funcUnitPaser(funcUnitPaser){};
+		FunctionZoneParser(id, displayName, commentExpr, rangeExpr,	openSymbole, closeSymbole, classNameExprArray, functionExpr, functionNameExprArray), _funcUnitPaser(funcUnitPaser)
+	{}
 		
-	~FunctionMixParser()
-	{
+	~FunctionMixParser() override {
 		delete _funcUnitPaser;
 	}
 
@@ -125,7 +127,7 @@ struct AssociationInfo final
 			_userDefinedLangName = userDefinedLangName;
 		else
 			_userDefinedLangName.clear();
-	};
+	}
 };
 
 const int nbMaxUserDefined = 25;
@@ -136,9 +138,9 @@ struct ParserInfo
 	FunctionParser* _parser = nullptr;
 	std::wstring _userDefinedLangName;
 
-	ParserInfo() {};
-	ParserInfo(const std::wstring& id): _id(id) {};
-	ParserInfo(const std::wstring& id, const std::wstring& userDefinedLangName): _id(id), _userDefinedLangName(userDefinedLangName) {};
+	ParserInfo() {}
+	explicit ParserInfo(const std::wstring& id): _id(id) {}
+	explicit ParserInfo(const std::wstring& id, const std::wstring& userDefinedLangName): _id(id), _userDefinedLangName(userDefinedLangName) {}
 	~ParserInfo() { if (_parser) delete _parser; }
 };
 

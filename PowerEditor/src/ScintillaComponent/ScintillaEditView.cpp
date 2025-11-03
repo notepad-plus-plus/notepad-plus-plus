@@ -551,7 +551,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			struct MultiCaretInfo {
 				int _len2remove;
 				size_t _selIndex;
-				MultiCaretInfo(int len, size_t n) : _len2remove(len), _selIndex(n) {};
+				MultiCaretInfo(int len, size_t n) : _len2remove(len), _selIndex(n) {}
 			};
 
 			bool isColumnSelection = (execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE) || (execute(SCI_GETSELECTIONMODE) == SC_SEL_THIN);

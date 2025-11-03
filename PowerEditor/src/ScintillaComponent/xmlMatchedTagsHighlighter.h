@@ -26,7 +26,7 @@ class ScintillaEditView;
 
 class XmlMatchedTagsHighlighter {
 public:
-	explicit XmlMatchedTagsHighlighter(ScintillaEditView *pEditView):_pEditView(pEditView){};
+	explicit XmlMatchedTagsHighlighter(ScintillaEditView* pEditView) : _pEditView(pEditView) {}
 	void tagMatch(bool doHiliteAttr);
 	
 private:
@@ -50,7 +50,7 @@ private:
 	bool getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos);
 
 	// Allowed whitespace characters in XML
-	bool isWhitespace(intptr_t ch) { return ch == ' ' || ch == '\t' || ch == '\r' || ch == '\n'; }
+	static bool isWhitespace(intptr_t ch) { return ch == ' ' || ch == '\t' || ch == '\r' || ch == '\n'; }
 
 	FindResult findText(const char *text, intptr_t start, intptr_t end, int flags = 0);
 	FindResult findOpenTag(const std::string& tagName, intptr_t start, intptr_t end);
@@ -60,5 +60,3 @@ private:
 	std::vector< std::pair<intptr_t, intptr_t> > getAttributesPos(intptr_t start, intptr_t end);
 	
 };
-
-

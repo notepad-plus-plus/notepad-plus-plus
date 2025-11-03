@@ -57,47 +57,47 @@ class CustomFileDialog;
 
 class ProjectPanel : public DockingDlgInterface {
 public:
-	ProjectPanel(): DockingDlgInterface(IDD_PROJECTPANEL) {};
-	~ProjectPanel();
+	ProjectPanel() : DockingDlgInterface(IDD_PROJECTPANEL) {}
+	~ProjectPanel() override;
 
 	void init(HINSTANCE hInst, HWND hPere, int panelID) {
 		DockingDlgInterface::init(hInst, hPere);
 		_panelID = panelID;
 	}
 
-	void setParent(HWND parent2set){
+	void setParent(HWND parent2set) {
 		_hParent = parent2set;
-	};
+	}
 
 	void setPanelTitle(const std::wstring& title) {
 		_panelTitle = title;
-	};
-	const wchar_t * getPanelTitle() const {
+	}
+	const wchar_t* getPanelTitle() const {
 		return _panelTitle.c_str();
-	};
+	}
 
 	void newWorkSpace();
 	bool saveWorkspaceRequest();
 	bool openWorkSpace(const wchar_t *projectFileName, bool force = false);
 	bool saveWorkSpace();
 	bool saveWorkSpaceAs(bool saveCopyAs);
-	void setWorkSpaceFilePath(const wchar_t *projectFileName){
+	void setWorkSpaceFilePath(const wchar_t* projectFileName) {
 		_workSpaceFilePath = projectFileName;
-	};
-	const wchar_t * getWorkSpaceFilePath() const {
+	}
+	const wchar_t* getWorkSpaceFilePath() const {
 		return _workSpaceFilePath.c_str();
-	};
+	}
 	bool isDirty() const {
 		return _isDirty;
-	};
+	}
 	bool checkIfNeedSave();
 
 	void setBackgroundColor(COLORREF bgColour) override {
 		TreeView_SetBkColor(_treeView.getHSelf(), bgColour);
-	};
+	}
 	void setForegroundColor(COLORREF fgColour) override {
 		TreeView_SetTextColor(_treeView.getHSelf(), fgColour);
-	};
+	}
 	bool enumWorkSpaceFiles(HTREEITEM tvFrom, const std::vector<std::wstring> & patterns, std::vector<std::wstring> & fileNames);
 
 protected:
@@ -147,16 +147,15 @@ public :
 
 	int doDialog(const wchar_t *fn, bool isRTL = false);
 
-	void destroy() override {};
+	void destroy() override {}
 
 	std::wstring getFullFilePath() {
 		return _fullFilePath;
-	};
+	}
 
 protected :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private :
 	std::wstring _fullFilePath;
-
 };

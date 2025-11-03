@@ -26,7 +26,7 @@ class RegExtDlg : public StaticDialog
 {
 public :
 	RegExtDlg() = default;
-	~RegExtDlg() = default;
+	~RegExtDlg() override = default;
 	void doDialog(bool isRTL = false);
 
 
@@ -41,13 +41,13 @@ private :
 	bool deleteExts(const wchar_t *ext2Delete);
 	void writeNppPath();
 
-	int getNbSubKey(HKEY hKey) const {
+	static int getNbSubKey(HKEY hKey) {
 		int nbSubKey = 0;
 		long result = ::RegQueryInfoKey(hKey, NULL, NULL, NULL, (LPDWORD)&nbSubKey, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 		return (result == ERROR_SUCCESS)?nbSubKey:0;
 	}
 
-	int getNbSubValue(HKEY hKey) const {
+	static int getNbSubValue(HKEY hKey) {
 		int nbSubValue = 0;
 		long result = ::RegQueryInfoKey(hKey, NULL, NULL, NULL, NULL, NULL, NULL, (LPDWORD)&nbSubValue, NULL, NULL, NULL, NULL);
 		return (result == ERROR_SUCCESS)?nbSubValue:0;

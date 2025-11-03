@@ -26,15 +26,15 @@ struct MatchedCharInserted {
 	MatchedCharInserted() = delete;
 	char _c;
 	size_t _pos;
-	MatchedCharInserted(char c, size_t pos) : _c(c), _pos(pos) {};
+	MatchedCharInserted(char c, size_t pos) : _c(c), _pos(pos) {}
 };
 
 class InsertedMatchedChars {
 public:
-	void init(ScintillaEditView * pEditView) { _pEditView = pEditView; };
+	void init(ScintillaEditView* pEditView) { _pEditView = pEditView; }
 	void removeInvalidElements(MatchedCharInserted mci);
 	void add(MatchedCharInserted mci);
-	bool isEmpty() const { return _insertedMatchedChars.size() == 0; };
+	bool isEmpty() const { return _insertedMatchedChars.size() == 0; }
 	intptr_t search(char startChar, char endChar, size_t posToDetect);
 
 private:
@@ -47,11 +47,11 @@ public:
 	explicit AutoCompletion(ScintillaEditView * pEditView): _pEditView(pEditView), _funcCalltip(pEditView) {
 		//Do not load any language yet
 		_insertedMatchedChars.init(_pEditView);
-	};
+	}
 
 	~AutoCompletion(){
 		delete _pXmlFile;
-	};
+	}
 
 	enum class AutocompleteColorIndex {
 		autocompleteText,

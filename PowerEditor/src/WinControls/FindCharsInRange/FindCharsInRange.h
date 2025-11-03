@@ -30,18 +30,18 @@ public :
 		if (!ppEditView)
 			throw std::runtime_error("FindCharsInRangeDlg::init : ppEditView is null.");
 		_ppEditView = ppEditView;
-	};
+	}
 
 	void doDialog(bool isRTL = false) {
 		if (!isCreated())
 			create(IDD_FINDCHARACTERS, isRTL);
 		display();
-	};
+	}
 
 	void display(bool toShow = true) const override {
 		Window::display(toShow);
 		::SendMessageW(_hSelf, DM_REPOSITION, 0, 0);
-	};
+	}
 
 protected :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
@@ -52,4 +52,3 @@ private :
 	bool getRangeFromUI(unsigned char & startRange, unsigned char & endRange);
 	void getDirectionFromUI(bool & whichDirection, bool & isWrap);
 };
-

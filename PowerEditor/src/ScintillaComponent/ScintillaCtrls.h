@@ -27,7 +27,7 @@ public :
 	void init(HINSTANCE hInst, HWND hNpp) {
 		_hInst = hInst;
 		_hParent = hNpp;
-	};
+	}
 
 	HWND createSintilla(HWND hParent);
 	ScintillaEditView * getScintillaEditViewFrom(HWND handle2Find);

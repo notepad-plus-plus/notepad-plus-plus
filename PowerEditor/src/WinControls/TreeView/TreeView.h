@@ -34,10 +34,10 @@ struct TreeStateNode {
 class TreeView : public Window {
 public:
 	TreeView() = default;
-	virtual ~TreeView() = default;
+	~TreeView() override = default;
 
 	virtual void init(HINSTANCE hInst, HWND parent, int treeViewID);
-	virtual void destroy();
+	void destroy() override;
 	HTREEITEM addItem(const wchar_t *itemName, HTREEITEM hParentItem, int iImage, LPARAM lParam = 0);
 	bool setItemParam(HTREEITEM Item2Set, LPARAM param);
 	LPARAM getItemParam(HTREEITEM Item2Get) const;
@@ -50,48 +50,48 @@ public:
 
 	HTREEITEM getChildFrom(HTREEITEM hTreeItem) const {
 		return TreeView_GetChild(_hSelf, hTreeItem);
-	};
+	}
 	HTREEITEM getSelection() const {
 		return TreeView_GetSelection(_hSelf);
-	};
+	}
 	bool selectItem(HTREEITEM hTreeItem2Select) const {
 		return TreeView_SelectItem(_hSelf, hTreeItem2Select) == TRUE;
-	};
+	}
 	HTREEITEM getRoot() const {
 		return TreeView_GetRoot(_hSelf);
-	};
+	}
 	HTREEITEM getParent(HTREEITEM hItem) const {
 		return TreeView_GetParent(_hSelf, hItem);
-	};
+	}
 	HTREEITEM getNextSibling(HTREEITEM hItem) const {
 		return TreeView_GetNextSibling(_hSelf, hItem);
-	};
+	}
 	HTREEITEM getPrevSibling(HTREEITEM hItem) const {
 		return TreeView_GetPrevSibling(_hSelf, hItem);
-	};
-	
+	}
+
 	void expand(HTREEITEM hItem) const {
 		TreeView_Expand(_hSelf, hItem, TVE_EXPAND);
-	};
+	}
 
 	void fold(HTREEITEM hItem) const {
 		TreeView_Expand(_hSelf, hItem, TVE_COLLAPSE);
-	};
+	}
 
 	void foldExpandRecursively(HTREEITEM hItem, bool isFold) const;
 	void foldExpandAll(bool isFold) const;
 	
 	void foldAll() const {
 		foldExpandAll(true);
-	};
+	}
 
 	void expandAll() const {
 		foldExpandAll(false);
-	};
+	}
 
 	void toggleExpandCollapse(HTREEITEM hItem) const {
 		TreeView_Expand(_hSelf, hItem, TVE_TOGGLE);
-	};
+	}
 	void setItemImage(HTREEITEM hTreeItem, int iImage, int iSelectedImage);
 
 	// Drag and Drop operations
@@ -99,15 +99,15 @@ public:
 	void dragItem(HWND parentHandle, int x, int y);
 	bool isDragging() const {
 		return _isItemDragged;
-	};
+	}
 	bool dropItem();
 	void addCanNotDropInList(int val2set) {
 		_canNotDropInList.push_back(val2set);
-	};
+	}
 
 	void addCanNotDragOutList(int val2set) {
 		_canNotDragOutList.push_back(val2set);
-	};
+	}
 
 	bool moveDown(HTREEITEM itemToMove);
 	bool moveUp(HTREEITEM itemToMove);

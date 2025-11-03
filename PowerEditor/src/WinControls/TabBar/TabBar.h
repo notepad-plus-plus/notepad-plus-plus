@@ -82,7 +82,7 @@ class TabBar : public Window
 {
 public:
 	TabBar() = default;
-	virtual ~TabBar() = default;
+	~TabBar() override = default;
 	void destroy() override;
 	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isMultiLine = false);
 	void reSizeTo(RECT& rc2Adjust) override;
@@ -92,7 +92,7 @@ public:
 
 	int32_t getCurrentTabIndex() const {
 		return static_cast<int32_t>(SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
-	};
+	}
 
 	int32_t getItemCount() const {
 		return static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETITEMCOUNT, 0, 0));
@@ -103,7 +103,7 @@ public:
 	void deletAllItem() {
 		::SendMessage(_hSelf, TCM_DELETEALLITEMS, 0, 0);
 		_nbItem = 0;
-	};
+	}
 
 	void setImageList(HIMAGELIST himl);
 
@@ -119,7 +119,7 @@ public:
 
 	int getNextOrPrevTabIdx(bool isNext) const;
 
-	DPIManagerV2& dpiManager() { return _dpiManager; };
+	DPIManagerV2& dpiManager() { return _dpiManager; }
 
 protected:
 	size_t _nbItem = 0;
@@ -148,7 +148,7 @@ struct TabButtonZone
 
 	bool isHit(int x, int y, const RECT & tabRect, bool isVertical) const;
 	RECT getButtonRectFrom(const RECT & tabRect, bool isVertical) const;
-	void setOrder(int newOrder) { _order = newOrder; };
+	void setOrder(int newOrder) { _order = newOrder; }
 
 	HWND _parent = nullptr;
 	int _width = 0;
@@ -176,12 +176,12 @@ public :
 
 	POINT getDraggingPoint() const {
 		return _draggingPoint;
-	};
+	}
 
 	void resetDraggingPoint() {
 		_draggingPoint.x = 0;
 		_draggingPoint.y = 0;
-	};
+	}
 
 	static void triggerOwnerDrawTabbar(DPIManagerV2* pDPIManager);
 	static void doVertical();
@@ -256,7 +256,7 @@ protected:
 
 	static LRESULT CALLBACK TabBarPlus_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
 		return (((TabBarPlus *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
-	};
+	}
 	void setActiveTab(int tabIndex);
 	bool exchangeTabItemData(int oldTab, int newTab, bool setToActive = true);
 	void exchangeItemData(POINT point);

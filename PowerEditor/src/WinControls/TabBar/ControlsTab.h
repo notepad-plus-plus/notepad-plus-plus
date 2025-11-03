@@ -27,7 +27,7 @@ struct DlgInfo
     std::wstring _name;
 	std::wstring _internalName;
 
-	DlgInfo(Window *dlg, const wchar_t *name, const wchar_t *internalName = L""): _dlg(dlg), _name(name), _internalName(internalName) {};
+	DlgInfo(Window *dlg, const wchar_t *name, const wchar_t *internalName = L""): _dlg(dlg), _name(name), _internalName(internalName) {}
 };
 
 typedef std::vector<DlgInfo> WindowVector;
@@ -37,28 +37,23 @@ class ControlsTab final : public TabBar
 {
 public :
 	ControlsTab() = default;
-	virtual ~ControlsTab() = default;
+	~ControlsTab() override = default;
 
-	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isMultiLine = false)
+	void init(HINSTANCE hInst, HWND hwnd) override
 	{
-		TabBar::init(hInst, hwnd, isVertical, isMultiLine);
+		TabBar::init(hInst, hwnd, false, false);
 	}
 
 	void createTabs(WindowVector & winVector);
 
-	void destroy()
-	{
-		TabBar::destroy();
-	}
-
-	virtual void reSizeTo(RECT & rc);
+	void reSizeTo(RECT& rc) override;
 	void activateWindowAt(int index);
 
 	void clickedUpdate()
 	{
 		int indexClicked = int(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 		activateWindowAt(indexClicked);
-	};
+	}
 	void renameTab(size_t index, const wchar_t *newName);
 	bool renameTab(const wchar_t *internalName, const wchar_t *newName);
 
@@ -66,4 +61,3 @@ private:
 	WindowVector *_pWinVector = nullptr;
     int _current = 0;
 };
-

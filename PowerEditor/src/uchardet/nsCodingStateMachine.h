@@ -55,9 +55,9 @@ struct SMModel
   nsPkgInt stateTable;
   const PRUint32* charLenTable = nullptr;
   const char* name = nullptr;
-  SMModel(){};
+  SMModel(){}
   SMModel(nsPkgInt a,PRUint32 b,nsPkgInt c,const PRUint32* d, const char* e):
-	classTable(a), classFactor(b), stateTable(c), charLenTable(d), name(e){};
+	classTable(a), classFactor(b), stateTable(c), charLenTable(d), name(e){}
 } ;
 
 class nsCodingStateMachine {

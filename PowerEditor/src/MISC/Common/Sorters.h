@@ -31,7 +31,7 @@ private:
 protected:
 	bool isDescending() const {
 		return _isDescending;
-	};
+	}
 
 	std::wstring getSortKey(const std::wstring& input) {
 		if (isSortingSpecificColumns())
@@ -56,17 +56,17 @@ protected:
 		{
 			return input;
 		}
-	};
+	}
 
 	bool isSortingSpecificColumns() {
 		return _toColumn != 0;
-	};
+	}
 
 public:
 	ISorter(bool isDescending, size_t fromColumn, size_t toColumn) : _isDescending(isDescending), _fromColumn(fromColumn), _toColumn(toColumn) {
 		assert(_fromColumn <= _toColumn);
-	};
-	virtual ~ISorter() { };
+	}
+	virtual ~ISorter() {}
 	virtual void sort(std::vector<std::wstring>& lines) = 0;
 };
 
@@ -74,7 +74,7 @@ public:
 class LexicographicSorter : public ISorter
 {
 public:
-	LexicographicSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn) { };
+	LexicographicSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn) {}
 	
 	void sort(std::vector<std::wstring>& lines) override {
 		// Note that both branches here are equivalent in the sense that they always give the same answer.
@@ -109,14 +109,14 @@ public:
 				}
 			});
 		}
-	};
+	}
 };
 
 // Implementation of lexicographic sorting of lines, ignoring character casing
 class LexicographicCaseInsensitiveSorter : public ISorter
 {
 public:
-	LexicographicCaseInsensitiveSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn) { };
+	LexicographicCaseInsensitiveSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn) {}
 
 	void sort(std::vector<std::wstring>& lines) override {
 		// Note that both branches here are equivalent in the sense that they always give the same answer.
@@ -128,11 +128,11 @@ public:
 				{
 					if (isDescending())
 					{
-						return wcsicmp(getSortKey(a).c_str(), getSortKey(b).c_str()) > 0;
+						return _wcsicmp(getSortKey(a).c_str(), getSortKey(b).c_str()) > 0;
 					}
 					else
 					{
-						return wcsicmp(getSortKey(a).c_str(), getSortKey(b).c_str()) < 0;
+						return _wcsicmp(getSortKey(a).c_str(), getSortKey(b).c_str()) < 0;
 					}
 				});
 		}
@@ -142,21 +142,21 @@ public:
 				{
 					if (isDescending())
 					{
-						return wcsicmp(a.c_str(), b.c_str()) > 0;
+						return _wcsicmp(a.c_str(), b.c_str()) > 0;
 					}
 					else
 					{
-						return wcsicmp(a.c_str(), b.c_str()) < 0;
+						return _wcsicmp(a.c_str(), b.c_str()) < 0;
 					}
 				});
 		}
-	};
+	}
 };
 
 class IntegerSorter : public ISorter
 {
 public:
-	IntegerSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn) { };
+	IntegerSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn) {}
 
 	void sort(std::vector<std::wstring>& lines) override {
 		if (isSortingSpecificColumns())
@@ -496,7 +496,7 @@ public:
 				}
 			});
 		}
-	};
+	}
 };
 
 // Convert each line to a number and then sort.
@@ -512,9 +512,9 @@ public:
 #else
 		_usLocale = ::_create_locale(LC_NUMERIC, "en-US");
 #endif
-	};
+	}
 
-	~NumericSorter()
+	~NumericSorter() override
 	{
 #ifndef __MINGW32__
 		::_free_locale(_usLocale);
@@ -580,7 +580,7 @@ public:
 
 		assert(output.size() == lines.size());
 		lines = output;
-	};
+	}
 
 protected:
 	bool considerStringEmpty(const std::wstring& input) {
@@ -604,43 +604,43 @@ protected:
 class DecimalCommaSorter : public NumericSorter<double>
 {
 public:
-	DecimalCommaSorter(bool isDescending, size_t fromColumn, size_t toColumn) : NumericSorter<double>(isDescending, fromColumn, toColumn) { };
+	DecimalCommaSorter(bool isDescending, size_t fromColumn, size_t toColumn) : NumericSorter<double>(isDescending, fromColumn, toColumn) {}
 
 protected:
 	std::wstring prepareStringForConversion(const std::wstring& input) override {
 		std::wstring admissablePart = stringTakeWhileAdmissable(getSortKey(input), L" \t\r\n0123456789,-");
 		return stringReplace(admissablePart, L",", L".");
-	};
+	}
 
 	double convertStringToNumber(const std::wstring& input) override {
 		return stodLocale(input, _usLocale);
-	};
+	}
 };
 
 // Converts lines to double before sorting (assumes decimal dot).
 class DecimalDotSorter : public NumericSorter<double>
 {
 public:
-	DecimalDotSorter(bool isDescending, size_t fromColumn, size_t toColumn) : NumericSorter<double>(isDescending, fromColumn, toColumn) { };
+	DecimalDotSorter(bool isDescending, size_t fromColumn, size_t toColumn) : NumericSorter<double>(isDescending, fromColumn, toColumn) {}
 
 protected:
 	std::wstring prepareStringForConversion(const std::wstring& input) override {
 		return stringTakeWhileAdmissable(getSortKey(input), L" \t\r\n0123456789.-");
-	};
+	}
 
 	double convertStringToNumber(const std::wstring& input) override {
 		return stodLocale(input, _usLocale);
-	};
+	}
 };
 
 class ReverseSorter : public ISorter
 {
 public:
-	ReverseSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn) { };
+	ReverseSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn) {}
 
 	void sort(std::vector<std::wstring>& lines) override {
 		std::reverse(lines.begin(), lines.end());
-	};
+	}
 };
 
 class RandomSorter : public ISorter
@@ -650,10 +650,9 @@ public:
 
 	RandomSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn) {
 		seed = static_cast<unsigned>(time(NULL));
-	};
+	}
 
 	void sort(std::vector<std::wstring>& lines) override {
 		std::shuffle(lines.begin(), lines.end(), std::default_random_engine(seed));
-	};
+	}
 };
-

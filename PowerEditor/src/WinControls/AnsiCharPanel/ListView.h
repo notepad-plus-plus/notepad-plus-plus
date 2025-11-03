@@ -26,14 +26,14 @@ struct columnInfo {
 	size_t _width;
 	std::wstring _label;
 
-	columnInfo(const std::wstring & label, size_t width) : _width(width), _label(label) {};
+	columnInfo(const std::wstring& label, size_t width) : _width(width), _label(label) {}
 };
 
 class ListView : public Window
 {
 public:
 	ListView() = default;
-	virtual ~ListView() = default;
+	~ListView() override = default;
 
 	enum SortDirection {
 		sortEncrease = 0,
@@ -42,7 +42,7 @@ public:
 	// addColumn() should be called before init()
 	void addColumn(const columnInfo & column2Add) {
 		_columnInfos.push_back(column2Add);
-	};
+	}
 
 	void setColumnText(size_t i, std::wstring txt2Set) {
 		LVCOLUMN lvColumn{};
@@ -54,7 +54,7 @@ public:
 	// setStyleOption() should be called before init()
 	void setStyleOption(int32_t extraStyle) {
 		_extraStyle = extraStyle;
-	};
+	}
 
 	size_t findAlphabeticalOrderPos(const std::wstring& string2search, SortDirection sortDir);
 
@@ -62,17 +62,17 @@ public:
 	
 	size_t nbItem() const {
 		return ListView_GetItemCount(_hSelf);
-	};
+	}
 
 	long getSelectedIndex() const {
 		return ListView_GetSelectionMark(_hSelf);
-	};
+	}
 
 	void setSelection(int itemIndex) const {
 		ListView_SetItemState(_hSelf, itemIndex, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
 		ListView_EnsureVisible(_hSelf, itemIndex, false);
 		ListView_SetSelectionMark(_hSelf, itemIndex);
-	};
+	}
 
 	LPARAM getLParamFromIndex(int itemIndex) const;
 
@@ -85,9 +85,8 @@ public:
 
 	std::vector<size_t> getCheckedIndexes() const;
 
-	virtual void init(HINSTANCE hInst, HWND hwnd);
-	virtual void destroy();
-
+	void init(HINSTANCE hInst, HWND hwnd) override;
+	void destroy() override;
 
 protected:
 	int32_t _extraStyle = 0;

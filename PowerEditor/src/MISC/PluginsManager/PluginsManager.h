@@ -30,7 +30,7 @@ struct PluginCommand
 	std::wstring _pluginName;
 	int _funcID = 0;
 	PFUNCPLUGINCMD _pFunc = nullptr;
-	PluginCommand(const wchar_t *pluginName, int funcID, PFUNCPLUGINCMD pFunc): _pluginName(pluginName), _funcID(funcID), _pFunc(pFunc) {};
+	PluginCommand(const wchar_t* pluginName, int funcID, PFUNCPLUGINCMD pFunc): _pluginName(pluginName), _funcID(funcID), _pFunc(pFunc) {}
 };
 
 struct PluginInfo
@@ -71,7 +71,7 @@ struct LoadedDllInfo
 	{
 		// the plugin module's name, without '.dll'
 		_displayName = fileName.substr(0, fileName.find_last_of('.'));
-	};
+	}
 };
 
 class PluginsManager

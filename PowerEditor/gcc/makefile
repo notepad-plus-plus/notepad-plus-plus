@@ -64,13 +64,24 @@ LDFLAGS += -s
 else
 BUILD_TYPE := debug
 BUILD_SUFFIX := -debug
-CXXFLAGS += -Og -g -Wpedantic -Wall -Wextra -Wno-cast-function-type -Wno-overloaded-virtual -Wconversion
+CXXFLAGS += -Og \
+            -g \
+            -Wpedantic \
+            -Wall \
+            -Wextra \
+            -Wcast-align \
+            -Wconversion \
+            -Wextra-semi \
+            -Wformat=2 \
+            -Wmisleading-indentation \
+            -Wunused \
+            -Wno-cast-function-type \
+            -Wno-overloaded-virtual
 CPP_DEFINE += DEBUG
 endif
 
 ifeq ($(CXX),clang++)
   CXXFLAGS += -Wimplicit-fallthrough \
-              -Wformat=2 \
               -Wno-c++98-compat \
               -Wno-c++98-compat-pedantic \
               -Wno-reserved-id-macro \

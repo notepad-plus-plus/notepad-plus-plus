@@ -64,23 +64,24 @@ public:
 
 	bool isRTL() const {
 		return _isRTL;
-	};
+	}
 
 	bool isEditZoneRTL() const {
 		return _isEditZoneRTL;
-	};
+	}
 
 	const char * getFileName() const {
 		return _fileName;
-	};
+	}
 
 	const TiXmlNodeA * getNativeLangA() {
 		return _nativeLangA;
-	};
+	}
 
 	int getLangEncoding() const {
 		return _nativeLangEncoding;
-	};
+	}
+
 	bool getMsgBoxLang(const char *msgBoxTagName, std::wstring & title, std::wstring & message);
 	std::wstring getShortcutMapperLangStr(const char *nodeName, const wchar_t *defaultStr) const;
 	std::wstring getProjectPanelLangMenuStr(const char * nodeName, int cmdID, const wchar_t *defaultStr) const;
@@ -93,7 +94,7 @@ public:
 
 	void resetShortcutMenuNameMap() {
 		_shortcutMenuEntryNameMap.clear();
-	};
+	}
 
 	int messageBox(const char *msgBoxTagName, HWND hWnd, const wchar_t *message, const wchar_t *title, int msgBoxType, int intInfo = 0, const wchar_t *strInfo = NULL);
 private:

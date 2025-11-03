@@ -32,13 +32,13 @@ public :
 
 	void destroy() {
 		ImageList_Destroy(_hImglst);
-	};
+	}
 
 	void removeAll() {
 		ImageList_RemoveAll(_hImglst);
-	};
+	}
 
-	HIMAGELIST getHandle() const {return _hImglst;};
+	HIMAGELIST getHandle() const { return _hImglst; }
 	void addIcon(int iconID, int cx = 16, int cy = 16, int failIconID = -1, bool isToolbarNormal = false) const;
 	void addIcon(HICON hIcon) const;
 
@@ -96,7 +96,7 @@ const int HLIST_DISABLE_DM2 = 7;
 
 class ToolBarIcons
 {
-public :
+public:
 	ToolBarIcons() = default;
 
 	void init(ToolBarButtonUnit *buttonUnitArray, int arraySize, const std::vector<DynamicCmdIcoBmp>& cmds2add);
@@ -105,45 +105,45 @@ public :
 
 	HIMAGELIST getDefaultLst() const {
 		return _iconListVector[HLIST_DEFAULT].getHandle();
-	};
+	}
 
 	HIMAGELIST getDisableLst() const {
 		return _iconListVector[HLIST_DISABLE].getHandle();
-	};
+	}
 
 	HIMAGELIST getDefaultLstSet2() const {
 		return _iconListVector[HLIST_DEFAULT2].getHandle();
-	};
+	}
 
 	HIMAGELIST getDisableLstSet2() const {
 		return _iconListVector[HLIST_DISABLE2].getHandle();
-	};
+	}
 
 	HIMAGELIST getDefaultLstDM() const {
 		return _iconListVector[HLIST_DEFAULT_DM].getHandle();
-	};
+	}
 
 	HIMAGELIST getDisableLstDM() const {
 		return _iconListVector[HLIST_DISABLE_DM].getHandle();
-	};
+	}
 
 	HIMAGELIST getDefaultLstSetDM2() const {
 		return _iconListVector[HLIST_DEFAULT_DM2].getHandle();
-	};
+	}
 
 	HIMAGELIST getDisableLstSetDM2() const {
 		return _iconListVector[HLIST_DISABLE_DM2].getHandle();
-	};
+	}
 
 	void resizeIcon(int size) {
 		reInit(size);
-	};
+	}
 
 	void reInit(int size);
 
 	int getStdIconAt(int i) const {
 		return _tbiis[i]._stdIcon;
-	};
+	}
 
 	bool replaceIcon(size_t witchList, size_t iconIndex, const wchar_t *iconLocation) const {
 		if ((witchList != HLIST_DEFAULT) && (witchList != HLIST_DISABLE) && 
@@ -153,9 +153,9 @@ public :
 			return false;
 
 		return _iconListVector[witchList].changeIcon(iconIndex, iconLocation);
-	};
+	}
 
-private :
+private:
 	ToolBarIconIDs _tbiis;
 	std::vector<DynamicCmdIcoBmp> _moreCmds;
 

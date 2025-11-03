@@ -38,9 +38,9 @@ public:
 	~ByteArray() {
 		if (_pBytes)
 			delete [] _pBytes;
-	};
-	const unsigned char * getPointer() const {return _pBytes;};
-	size_t getLength() const {return _length;};
+	}
+	const unsigned char* getPointer() const { return _pBytes; }
+	size_t getLength() const { return _length; }
 protected:
 	unsigned char *_pBytes = nullptr;
 	size_t _length = 0;
@@ -53,27 +53,27 @@ public:
 
 class ClipboardHistoryPanel : public DockingDlgInterface {
 public:
-	ClipboardHistoryPanel(): DockingDlgInterface(IDD_CLIPBOARDHISTORY_PANEL), _ppEditView(NULL), _hwndNextCbViewer(NULL), _lbBgColor(-1), _lbFgColor(-1) {};
+	ClipboardHistoryPanel(): DockingDlgInterface(IDD_CLIPBOARDHISTORY_PANEL), _ppEditView(nullptr), _hwndNextCbViewer(nullptr), _lbBgColor(-1), _lbFgColor(-1) {}
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		DockingDlgInterface::init(hInst, hPere);
 		_ppEditView = ppEditView;
-	};
+	}
 
-    void setParent(HWND parent2set){
-        _hParent = parent2set;
-    };
+	void setParent(HWND parent2set) {
+		_hParent = parent2set;
+	}
 
 	ClipboardDataInfo getClipboadData();
 	void addToClipboadHistory(ClipboardDataInfo cbd);
 	int getClipboardDataIndex(const ClipboardDataInfo& cbd);
 
-	virtual void setBackgroundColor(COLORREF bgColour) {
+	void setBackgroundColor(COLORREF bgColour) override {
 		_lbBgColor = bgColour;
-    };
-	virtual void setForegroundColor(COLORREF fgColour) {
+	}
+	void setForegroundColor(COLORREF fgColour) override {
 		_lbFgColor = fgColour;
-    };
+	}
 
 	void drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
 
@@ -81,10 +81,10 @@ public:
 		bool bPreviousState = _isTrackingClipboardOps;
 		_isTrackingClipboardOps = bTrack;
 		return bPreviousState;
-	};
+	}
 
 protected:
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private:
 	ScintillaEditView **_ppEditView = nullptr;
@@ -94,4 +94,3 @@ private:
 	int _lbFgColor= -1;
 	bool _isTrackingClipboardOps = true; // false when we do not want to track & show some Clipboard operations
 };
-

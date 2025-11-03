@@ -53,22 +53,22 @@ public :
 
 	void doDialog();
 
-	void destroy() override {};
+	void destroy() override {}
 
 	void drawZone(long hY, long lY) {
 		_higherY = hY;
 		_lowerY = lY;
 		if (nullptr != _viewZoneCanvas)
 			::InvalidateRect(_viewZoneCanvas, nullptr, TRUE);
-	};
+	}
 
 	int getViewerHeight() const {
 		return (_lowerY - _higherY);
-	};
+	}
 
 	int getCurrentCenterPosY() const {
 		return (_lowerY - _higherY)/2 + _higherY;
-	};
+	}
 
 	static void setColour(COLORREF colour2Set, ViewZoneColorIndex i);
 
@@ -94,33 +94,33 @@ private :
 
 class DocumentMap : public DockingDlgInterface {
 public:
-	DocumentMap(): DockingDlgInterface(IDD_DOCUMENTMAP) {};
+	DocumentMap(): DockingDlgInterface(IDD_DOCUMENTMAP) {}
 
 	void create(tTbData * data, bool isRTL = false) override {
 		DockingDlgInterface::create(data, isRTL);
 		data->pszAddInfo = id4dockingCont.c_str();
-	};
+	}
 
 	void create(tTbData* data, std::array<int, 3> iconIDs, bool isRTL = false) override {
 		DockingDlgInterface::create(data, iconIDs, isRTL);
 		data->pszAddInfo = id4dockingCont.c_str();
-	};
+	}
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		DockingDlgInterface::init(hInst, hPere);
 		_ppEditView = ppEditView;
-	};
+	}
 
 	void display(bool toShow = true) const override {
 		DockingDlgInterface::display(toShow);
 		_vzDlg.display();
-	};
+	}
 
 	void redraw(bool forceUpdate = false) const override;
 
-	void setParent(HWND parent2set){
+	void setParent(HWND parent2set) {
 		_hParent = parent2set;
-	};
+	}
 
 	void vzDlgDisplay(bool toShow = true) {
 		_vzDlg.display(toShow);
@@ -138,7 +138,7 @@ public:
 	void foldAll(bool mode);
 	void setSyntaxHiliting();
 	void changeTextDirection(bool isRTL);
-	bool isTemporarilyShowing() const { return _isTemporarilyShowing; };
+	bool isTemporarilyShowing() const { return _isTemporarilyShowing; }
 	void setTemporarilyShowing(bool tempShowing) { _isTemporarilyShowing = tempShowing; }
 
 protected:

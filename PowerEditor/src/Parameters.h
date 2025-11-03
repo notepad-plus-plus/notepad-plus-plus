@@ -214,8 +214,8 @@ public:
 	intptr_t _KByteInDoc = _maxPeekLenInKB;
 
 	bool _isWrap = false;
-	bool isValid() const { return (_firstVisibleDisplayLine != -1); };
-	bool canScroll() const { return (_KByteInDoc < _maxPeekLenInKB); }; // _nbCharInDoc < _maxPeekLen : Don't scroll the document for the performance issue
+	bool isValid() const { return (_firstVisibleDisplayLine != -1); }
+	bool canScroll() const { return (_KByteInDoc < _maxPeekLenInKB); } // _nbCharInDoc < _maxPeekLen : Don't scroll the document for the performance issue
 };
 
 
@@ -251,8 +251,8 @@ struct sessionFileInfo : public Position
 
 struct Session
 {
-	size_t nbMainFiles() const {return _mainViewFiles.size();};
-	size_t nbSubFiles() const {return _subViewFiles.size();};
+	size_t nbMainFiles() const { return _mainViewFiles.size(); }
+	size_t nbSubFiles() const { return _subViewFiles.size(); }
 	size_t _activeView = 0;
 	size_t _activeMainIndex = 0;
 	size_t _activeSubIndex = 0;
@@ -392,7 +392,7 @@ struct ContainerTabInfo final
 	int _cont = 0;
 	int _activeTab = 0;
 
-	ContainerTabInfo(int cont, int activeTab) : _cont(cont), _activeTab(activeTab) {};
+	ContainerTabInfo(int cont, int activeTab) : _cont(cont), _activeTab(activeTab) {}
 };
 
 
@@ -479,15 +479,15 @@ struct GlobalOverride final
 
 struct StyleArray
 {
-	auto begin() { return _styleVect.begin(); };
-	auto end() { return _styleVect.end(); };
-	void clear() { _styleVect.clear(); };
+	auto begin() { return _styleVect.begin(); }
+	auto end() { return _styleVect.end(); }
+	void clear() { _styleVect.clear(); }
 
 	Style& getStyler(size_t index) {
 		if (index >=  _styleVect.size())
 			throw std::out_of_range("Styler index out of range");
 		return _styleVect[index];
-	};
+	}
 
 	void addStyler(int styleID, TiXmlNode *styleNode);
 
@@ -498,7 +498,7 @@ struct StyleArray
 		s._styleDesc = styleName;
 		s._fgColor = black;
 		s._bgColor = white;
-	};
+	}
 
 	Style* findByID(int id) {
 		for (size_t i = 0; i < _styleVect.size(); ++i)
@@ -507,7 +507,7 @@ struct StyleArray
 				return &(_styleVect[i]);
 		}
 		return nullptr;
-	};
+	}
 
 	Style* findByName(const std::wstring& name) {
 		for (size_t i = 0; i < _styleVect.size(); ++i)
@@ -516,7 +516,7 @@ struct StyleArray
 				return &(_styleVect[i]);
 		}
 		return nullptr;
-	};
+	}
 
 protected:
 	std::vector<Style> _styleVect;
@@ -551,11 +551,11 @@ public:
 
 	void setLexerUserExt(const wchar_t *lexerUserExt) {
 		_lexerUserExt = lexerUserExt;
-	};
+	}
 
-	const wchar_t * getLexerName() const {return _lexerName.c_str();};
-	const wchar_t * getLexerDesc() const {return _lexerDesc.c_str();};
-	const wchar_t * getLexerUserExt() const {return _lexerUserExt.c_str();};
+	const wchar_t* getLexerName() const { return _lexerName.c_str(); }
+	const wchar_t* getLexerDesc() const { return _lexerDesc.c_str(); }
+	const wchar_t* getLexerUserExt() const { return _lexerUserExt.c_str(); }
 
 private :
 	std::wstring _lexerName;
@@ -582,7 +582,7 @@ struct LexerStylerArray
 	{
 		assert(index < _lexerStylerVect.size());
 		return _lexerStylerVect[index];
-	};
+	}
 
 	const wchar_t * getLexerNameFromIndex(size_t index) const { return _lexerStylerVect[index].getLexerName(); }
 	const wchar_t * getLexerDescFromIndex(size_t index) const { return _lexerStylerVect[index].getLexerDesc(); }
@@ -595,13 +595,13 @@ struct LexerStylerArray
 				return &(_lexerStylerVect[i]);
 		}
 		return nullptr;
-	};
+	}
 
 	void addLexerStyler(const wchar_t *lexerName, const wchar_t *lexerDesc, const wchar_t *lexerUserExt, TiXmlNode *lexerNode);
 
 	void sort() {
 		std::sort(_lexerStylerVect.begin(), _lexerStylerVect.end(), SortLexersInAlphabeticalOrder());
-	};
+	}
 
 private :
 	std::vector<LexerStyler> _lexerStylerVect;
@@ -626,8 +626,8 @@ struct LangMenuItem final
 	int	_cmdID = -1;
 	std::wstring _langName;
 
-	LangMenuItem(LangType lt, int cmdID = 0, const std::wstring& langName = L""):
-	_langType(lt), _cmdID(cmdID), _langName(langName){};
+	LangMenuItem(LangType lt, int cmdID = 0, const std::wstring& langName = L"")
+		: _langType(lt), _cmdID(cmdID), _langName(langName) {}
 
 	bool operator<(const LangMenuItem& rhs) const
 	{
@@ -660,19 +660,19 @@ struct PrintSettings final {
 
 	PrintSettings() {
 		_marge.left = 0; _marge.top = 0; _marge.right = 0; _marge.bottom = 0;
-	};
+	}
 
 	bool isHeaderPresent() const {
 		return (!_headerLeft.empty() || !_headerMiddle.empty() || !_headerRight.empty());
-	};
+	}
 
 	bool isFooterPresent() const {
 		return (!_footerLeft.empty() || !_footerMiddle.empty() || !_footerRight.empty());
-	};
+	}
 
 	bool isUserMargePresent() const {
 		return ((_marge.left != 0) || (_marge.top != 0) || (_marge.right != 0) || (_marge.bottom != 0));
-	};
+	}
 };
 
 
@@ -707,7 +707,7 @@ public:
 	std::wstring toString() const // Return Notepad++ date format : YYYYMMDD
 	{
 		wchar_t dateStr[16];
-		wsprintf(dateStr, L"%04u%02u%02u", _year, _month, _day);
+		wsprintfW(dateStr, L"%04lu%02lu%02lu", _year, _month, _day);
 		return dateStr;
 	}
 
@@ -929,8 +929,8 @@ struct NppGUI final
 	std::wstring _dateTimeFormat = L"yyyy-MM-dd HH:mm:ss";
 	bool _dateTimeReverseDefaultOrder = false;
 
-	void setTabReplacedBySpace(bool b) {_tabReplacedBySpace = b;};
-	const NewDocDefaultSettings & getNewDocDefaultSettings() const {return _newDocDefaultSettings;};
+	void setTabReplacedBySpace(bool b) { _tabReplacedBySpace = b; }
+	const NewDocDefaultSettings& getNewDocDefaultSettings() const { return _newDocDefaultSettings; }
 	std::vector<LangMenuItem> _excludedLangList;
 	bool _isLangMenuCompact = true;
 
@@ -962,7 +962,7 @@ struct NppGUI final
 		AutoUpdateMode _doAutoUpdate = autoupdate_on_startup;
 		int _intervalDays = 15;
 		Date _nextUpdateDate;
-		AutoUpdateOptions(): _nextUpdateDate(Date()) {};
+		AutoUpdateOptions(): _nextUpdateDate(Date()) {}
 	}
 	_autoUpdateOpt;
 
@@ -993,7 +993,7 @@ struct NppGUI final
 	bool _fileSwitcherWithoutPathColumn = true;
 	int _fileSwitcherPathWidth = 50;
 	bool _fileSwitcherDisableListViewGroups = false;
-	bool isSnapshotMode() const {return _isSnapshotMode && _rememberLastSession && !_isCmdlineNosessionActivated;};
+	bool isSnapshotMode() const { return _isSnapshotMode && _rememberLastSession && !_isCmdlineNosessionActivated; }
 	bool _isSnapshotMode = true;
 	size_t _snapshotBackupTiming = 7000;
 	std::wstring _cloudPath; // this option will never be read/written from/to config.xml
@@ -1075,7 +1075,7 @@ struct ScintillaViewParams
 		if (paddingLen <= 0)
 			paddingLen = editViewWidth / defaultDiviser;
 		return paddingLen;
-	};
+	}
 
 	bool _lineCopyCutWithoutSelection = true;
 
@@ -1169,8 +1169,8 @@ struct Lang final
 		return _langKeyWordList[index];
 	}
 
-	LangType getLangID() const {return _langID;};
-	const wchar_t * getLangName() const {return _langName.c_str();};
+	LangType getLangID() const { return _langID; }
+	const wchar_t* getLangName() const { return _langName.c_str(); }
 
 	int getTabInfo() const
 	{
@@ -1224,9 +1224,9 @@ public:
 		return *this;
 	}
 
-	const wchar_t * getName() {return _name.c_str();};
-	const wchar_t * getExtention() {return _ext.c_str();};
-	const wchar_t * getUdlVersion() {return _udlVersion.c_str();};
+	const wchar_t* getName() { return _name.c_str(); }
+	const wchar_t* getExtention() { return _ext.c_str(); }
+	const wchar_t* getUdlVersion() { return _udlVersion.c_str(); }
 
 private:
 	StyleArray _styles;
@@ -1435,11 +1435,11 @@ public:
 		{
 			return iter->second;
 		}
-	};
+	}
 
 	void addThemeStylerSavePath(const std::wstring& key, const std::wstring& val) {
 		_themeStylerSavePath[key] = val;
-	};
+	}
 
 private:
 	std::vector<std::pair<std::wstring, std::wstring>> _themeList;
@@ -1477,7 +1477,7 @@ struct UdlXmlFileState final {
 	std::pair<unsigned char, unsigned char> _indexRange;
 
 	UdlXmlFileState(TiXmlDocument* doc, bool isDirty, bool isInDefaultSharedContainer, std::pair<unsigned char, unsigned char> range)
-		: _udlXmlDoc(doc), _isDirty(isDirty), _isInDefaultSharedContainer(isInDefaultSharedContainer), _indexRange(range) {};
+		: _udlXmlDoc(doc), _isDirty(isDirty), _isInDefaultSharedContainer(isInDefaultSharedContainer), _indexRange(range) {}
 };
 
 const int NB_LANG = 100;
@@ -1494,19 +1494,19 @@ public:
 	int getTopLevelItemNumber() const;
 	void push_back(const MenuItemUnit& m) {
 		_menuItems.push_back(m);
-	};
+	}
 
 	MenuItemUnit& getItemFromIndex(size_t i) {
 		return _menuItems[i];
-	};
+	}
 
 	void erase(size_t i) {
 		_menuItems.erase(_menuItems.begin() + i);
 	}
 
-	unsigned int getPosBase() const { return _posBase; };
+	unsigned int getPosBase() const { return _posBase; }
 
-	std::wstring getLastCmdLabel() const { return _lastCmdLabel; };
+	const std::wstring& getLastCmdLabel() const { return _lastCmdLabel; }
 
 private:
 	std::vector<MenuItemUnit> _menuItems;
@@ -1524,12 +1524,12 @@ private:
 	static NppParameters* getInstancePointer() {
 		static NppParameters* instance = new NppParameters;
 		return instance;
-	};
+	}
 
 public:
 	static NppParameters& getInstance() {
 		return *getInstancePointer();
-	};
+	}
 
 	static LangType getLangIDFromStr(const wchar_t *langName);
 	static std::wstring getLocPathFromStr(const std::wstring & localizationCode);
@@ -1570,7 +1570,7 @@ public:
 		return (i < size_t(_nbLang)) ? _langList[i] : nullptr;
 	}
 
-	int getNbLang() const {return _nbLang;};
+	int getNbLang() const { return _nbLang; }
 
 	LangType getLangFromExt(const wchar_t *ext);
 
@@ -1594,30 +1594,29 @@ public:
 		return nullptr;
 	}
 
-	int getNbLRFile() const {return _nbRecentFile;};
+	int getNbLRFile() const { return _nbRecentFile; }
 
 	std::wstring *getLRFile(int index) const {
 		return _LRFileList[index];
-	};
+	}
 
 	void setNbMaxRecentFile(UINT nb) {
 		_nbMaxRecentFile = nb;
-	};
+	}
 
-	UINT getNbMaxRecentFile() const {return _nbMaxRecentFile;};
+	UINT getNbMaxRecentFile() const { return _nbMaxRecentFile; }
 
 	void setPutRecentFileInSubMenu(bool doSubmenu) {
 		_putRecentFileInSubMenu = doSubmenu;
 	}
 
-	bool putRecentFileInSubMenu() const {return _putRecentFileInSubMenu;};
+	bool putRecentFileInSubMenu() const { return _putRecentFileInSubMenu; }
 
 	void setRecentFileCustomLength(int len) {
 		_recentFileCustomLength = len;
 	}
 
-	int getRecentFileCustomLength() const {return _recentFileCustomLength;};
-
+	int getRecentFileCustomLength() const { return _recentFileCustomLength; }
 
 	const ScintillaViewParams& getSVP() const {
 		return _svp;
@@ -1638,11 +1637,11 @@ public:
 	std::wstring writeStyles(LexerStylerArray & lexersStylers, StyleArray & globalStylers); // return "" if saving file succeeds, otherwise return the new saved file path
 	bool insertTabInfo(const wchar_t* langName, int tabInfo, bool backspaceUnindent);
 
-	LexerStylerArray & getLStylerArray() {return _lexerStylerVect;};
-	StyleArray & getGlobalStylers() {return _widgetStyleArray;};
+	LexerStylerArray& getLStylerArray() { return _lexerStylerVect; }
+	StyleArray& getGlobalStylers() { return _widgetStyleArray; }
 
-	StyleArray & getMiscStylerArray() {return _widgetStyleArray;};
-	GlobalOverride & getGlobalOverrideStyle() {return _nppGUI._globalOverride;};
+	StyleArray& getMiscStylerArray() { return _widgetStyleArray; }
+	GlobalOverride& getGlobalOverrideStyle() { return _nppGUI._globalOverride; }
 
 	COLORREF getCurLineHilitingColour();
 	void setCurLineHilitingColour(COLORREF colour2Set);
@@ -1652,18 +1651,18 @@ public:
 	const std::vector<std::wstring>& getFontList() const { return _fontlist; }
 
 	int getNbUserLang() const {return _nbUserLang;}
-	UserLangContainer & getULCFromIndex(size_t i) {return *_userLangArray[i];};
+	UserLangContainer& getULCFromIndex(size_t i) { return *_userLangArray[i]; }
 	UserLangContainer * getULCFromName(const wchar_t *userLangName);
 
-	int getNbExternalLang() const {return _nbExternalLang;};
+	int getNbExternalLang() const { return _nbExternalLang; }
 	int getExternalLangIndexFromName(const wchar_t *externalLangName) const;
 
-	ExternalLangContainer & getELCFromIndex(int i) {return *_externalLangArray[i];};
+	ExternalLangContainer& getELCFromIndex(int i) { return *_externalLangArray[i]; }
 
-	bool ExternalLangHasRoom() const {return _nbExternalLang < NB_MAX_EXTERNAL_LANG;};
+	bool ExternalLangHasRoom() const { return _nbExternalLang < NB_MAX_EXTERNAL_LANG; }
 
 	void getExternalLexerFromXmlTree(TiXmlDocument* externalLexerDoc);
-	std::vector<TiXmlDocument *> * getExternalLexerDoc() { return &_pXmlExternalLexerDoc; };
+	std::vector<TiXmlDocument*>* getExternalLexerDoc() { return &_pXmlExternalLexerDoc; }
 
 	void writeDefaultUDL();
 	void writeNonDefaultUDL();
@@ -1694,9 +1693,9 @@ public:
 
 	int addExternalLangToEnd(ExternalLangContainer * externalLang);
 
-	TiXmlDocumentA * getNativeLangA() const {return _pXmlNativeLangDocA;};
+	TiXmlDocumentA* getNativeLangA() const { return _pXmlNativeLangDocA; }
 
-	TiXmlDocument* getCustomizedToolButtons() const {return _pXmlToolButtonsConfDoc;};
+	TiXmlDocument* getCustomizedToolButtons() const { return _pXmlToolButtonsConfDoc; }
 
 	bool isTransparentAvailable() const {
 		return (_winVersion >= WV_VISTA);
@@ -1713,57 +1712,57 @@ public:
 		_cmdLineParams = cmdLineParams;
 	}
 
-	const CmdLineParamsDTO & getCmdLineParams() const {return _cmdLineParams;};
+	const CmdLineParamsDTO& getCmdLineParams() const { return _cmdLineParams; }
 
 	const std::wstring& getCmdLineString() const { return _cmdLineString; }
 	void setCmdLineString(const std::wstring& str) { _cmdLineString = str; }
 
-	void setFileSaveDlgFilterIndex(int ln) {_fileSaveDlgFilterIndex = ln;};
-	int getFileSaveDlgFilterIndex() const {return _fileSaveDlgFilterIndex;};
+	void setFileSaveDlgFilterIndex(int ln) { _fileSaveDlgFilterIndex = ln; }
+	int getFileSaveDlgFilterIndex() const { return _fileSaveDlgFilterIndex; }
 
-	bool isRemappingShortcut() const {return _shortcuts.size() != 0;};
+	bool isRemappingShortcut() const { return _shortcuts.size() != 0; }
 
-	std::vector<CommandShortcut> & getUserShortcuts() { return _shortcuts; };
+	std::vector<CommandShortcut> & getUserShortcuts() { return _shortcuts; }
 	void addUserModifiedIndex(size_t index);
 
-	std::vector<MacroShortcut> & getMacroList() { return _macros; };
-	std::vector<UserCommand> & getUserCommandList() { return _userCommands; };
-	std::vector<PluginCmdShortcut> & getPluginCommandList() { return _pluginCommands; };
-	std::vector<size_t> & getPluginModifiedKeyIndices() { return _pluginCustomizedCmds; };
+	std::vector<MacroShortcut>& getMacroList() { return _macros; }
+	std::vector<UserCommand>& getUserCommandList() { return _userCommands; }
+	std::vector<PluginCmdShortcut>& getPluginCommandList() { return _pluginCommands; }
+	std::vector<size_t>& getPluginModifiedKeyIndices() { return _pluginCustomizedCmds; }
 	void addPluginModifiedIndex(size_t index);
 
-	std::vector<ScintillaKeyMap> & getScintillaKeyList() { return _scintillaKeyCommands; };
-	std::vector<int> & getScintillaModifiedKeyIndices() { return _scintillaModifiedKeyIndices; };
+	std::vector<ScintillaKeyMap>& getScintillaKeyList() { return _scintillaKeyCommands; }
+	std::vector<int>& getScintillaModifiedKeyIndices() { return _scintillaModifiedKeyIndices; }
 	void addScintillaModifiedIndex(int index);
 
-	const Session & getSession() const {return _session;};
+	const Session& getSession() const { return _session; }
 
-	std::vector<MenuItemUnit>& getContextMenuItems() { return _contextMenuItems; };
-	std::vector<MenuItemUnit>& getTabContextMenuItems() { return _tabContextMenuItems; };
-	DynamicMenu& getMacroMenuItems() { return _macroMenuItems; };
-	DynamicMenu& getRunMenuItems() { return _runMenuItems; };
-	bool hasCustomContextMenu() const {return !_contextMenuItems.empty();};
-	bool hasCustomTabContextMenu() const {return !_tabContextMenuItems.empty();};
+	std::vector<MenuItemUnit>& getContextMenuItems() { return _contextMenuItems; }
+	std::vector<MenuItemUnit>& getTabContextMenuItems() { return _tabContextMenuItems; }
+	DynamicMenu& getMacroMenuItems() { return _macroMenuItems; }
+	DynamicMenu& getRunMenuItems() { return _runMenuItems; }
+	bool hasCustomContextMenu() const { return !_contextMenuItems.empty(); }
+	bool hasCustomTabContextMenu() const { return !_tabContextMenuItems.empty(); }
 
-	void setAccelerator(Accelerator *pAccel) {_pAccelerator = pAccel;};
-	Accelerator * getAccelerator() {return _pAccelerator;};
-	void setScintillaAccelerator(ScintillaAccelerator *pScintAccel) {_pScintAccelerator = pScintAccel;};
-	ScintillaAccelerator * getScintillaAccelerator() {return _pScintAccelerator;};
+	void setAccelerator(Accelerator* pAccel) { _pAccelerator = pAccel; }
+	Accelerator * getAccelerator() { return _pAccelerator; }
+	void setScintillaAccelerator(ScintillaAccelerator* pScintAccel) { _pScintAccelerator = pScintAccel; }
+	ScintillaAccelerator* getScintillaAccelerator() { return _pScintAccelerator; }
 
-	std::wstring getNppPath() const {return _nppPath;};
-	std::wstring getContextMenuPath() const {return _contextMenuPath;};
-	const wchar_t * getAppDataNppDir() const {return _appdataNppDir.c_str();};
-	const wchar_t * getPluginRootDir() const { return _pluginRootDir.c_str(); };
-	const wchar_t * getPluginConfDir() const { return _pluginConfDir.c_str(); };
-	const wchar_t * getUserPluginConfDir() const { return _userPluginConfDir.c_str(); };
-	const wchar_t * getWorkingDir() const {return _currentDirectory.c_str();};
-	const wchar_t * getWorkSpaceFilePath(int i) const {
+	const std::wstring& getNppPath() const { return _nppPath; }
+	const std::wstring& getContextMenuPath() const { return _contextMenuPath; }
+	const wchar_t* getAppDataNppDir() const { return _appdataNppDir.c_str(); }
+	const wchar_t* getPluginRootDir() const { return _pluginRootDir.c_str(); }
+	const wchar_t* getPluginConfDir() const { return _pluginConfDir.c_str(); }
+	const wchar_t* getUserPluginConfDir() const { return _userPluginConfDir.c_str(); }
+	const wchar_t* getWorkingDir() const { return _currentDirectory.c_str(); }
+	const wchar_t* getWorkSpaceFilePath(int i) const {
 		if (i < 0 || i > 2) return nullptr;
 		return _workSpaceFilePaths[i].c_str();
-	};
+	}
 
-	const std::vector<std::wstring> getFileBrowserRoots() const { return _fileBrowserRoot; };
-	std::wstring getFileBrowserSelectedItemPath() const { return _fileBrowserSelectedItemPath; };
+	const std::vector<std::wstring>& getFileBrowserRoots() const { return _fileBrowserRoot; }
+	const std::wstring& getFileBrowserSelectedItemPath() const { return _fileBrowserSelectedItemPath; }
 
 	void setWorkSpaceFilePath(int i, const wchar_t *wsFile);
 
@@ -1771,31 +1770,31 @@ public:
 
 	void setStartWithLocFileName(const std::wstring& locPath) {
 		_startWithLocFileName = locPath;
-	};
+	}
 
 	void setFunctionListExportBoolean(bool doIt) {
 		_doFunctionListExport = doIt;
-	};
+	}
 	bool doFunctionListExport() const {
 		return _doFunctionListExport;
-	};
+	}
 
 	void setPrintAndExitBoolean(bool doIt) {
 		_doPrintAndExit = doIt;
-	};
+	}
 	bool doPrintAndExit() const {
 		return _doPrintAndExit;
-	};
+	}
 
 	bool loadSession(Session& session, const wchar_t* sessionFileName, const bool bSuppressErrorMsg = false);
 
 	void setLoadedSessionFilePath(const std::wstring & loadedSessionFilePath) {
 		_loadedSessionFullFilePath = loadedSessionFilePath;
-	};
+	}
 
 	std::wstring getLoadedSessionFilePath() {
 		return _loadedSessionFullFilePath;
-	};
+	}
 
 	int langTypeToCommandID(LangType lt) const;
 
@@ -1807,9 +1806,9 @@ public:
 		std::wstring _mark;
 	};
 
-	FindDlgTabTitles & getFindDlgTabTitles() { return _findDlgTabTitles;};
+	FindDlgTabTitles& getFindDlgTabTitles() { return _findDlgTabTitles; }
 
-	bool asNotepadStyle() const {return _asNotepadStyle;};
+	bool asNotepadStyle() const { return _asNotepadStyle; }
 
 	bool reloadPluginCmds() {
 		return getPluginCmdsFromXmlTree();
@@ -1817,12 +1816,12 @@ public:
 
 	bool getContextMenuFromXmlTree(HMENU mainMenuHandle, HMENU pluginsMenu, bool isEditCM = true);
 	bool reloadContextMenuFromXmlTree(HMENU mainMenuHandle, HMENU pluginsMenu);
-	winVer getWinVersion() const {return _winVersion;};
+	winVer getWinVersion() const { return _winVersion; }
 	std::wstring getWinVersionStr() const;
 	std::wstring getWinVerBitStr() const;
 
-	int currentSystemCodepage() const { return _currentSystemCodepage; };
-	bool isCurrentSystemCodepageUTF8() const { return _currentSystemCodepage == 65001; };
+	int currentSystemCodepage() const { return _currentSystemCodepage; }
+	bool isCurrentSystemCodepageUTF8() const { return _currentSystemCodepage == 65001; }
 	int defaultCodepage() const { // return all the codepage except UTF8 (65001)
 		if (isCurrentSystemCodepageUTF8())
 		{
@@ -1832,9 +1831,9 @@ public:
 			return localCodepage;
 		}
 		return _currentSystemCodepage;
-	};
+	}
 
-	FindHistory & getFindHistory() {return _findHistory;};
+	FindHistory& getFindHistory() { return _findHistory; }
 	bool _isFindReplacing = false; // an on the fly variable for find/replace functions
 #ifndef	_WIN64
 	void safeWow64EnableWow64FsRedirection(BOOL Wow64FsEnableRedirection);
@@ -1848,7 +1847,7 @@ public:
 		return _themeSwitcher;
 	}
 
-	std::vector<std::wstring> & getBlackList() { return _blacklist; };
+	std::vector<std::wstring>& getBlackList() { return _blacklist; }
 	bool isInBlackList(const wchar_t* fn) const
 	{
 		for (const auto& element: _blacklist)
@@ -1894,7 +1893,7 @@ public:
 	void setCloudChoice(const wchar_t *pathChoice);
 	void removeCloudChoice();
 	bool isCloudPathChanged() const;
-	int archType() const { return ARCH_TYPE; };
+	int archType() const { return ARCH_TYPE; }
 	COLORREF getCurrentDefaultBgColor() const {
 		return _currentDefaultBgColor;
 	}
@@ -1913,7 +1912,7 @@ public:
 
 	void setCmdSettingsDir(const std::wstring& settingsDir) {
 		_cmdSettingsDir = settingsDir;
-	};
+	}
 
 	void setTitleBarAdd(const std::wstring& titleAdd) {
 		_titleBarAdditional = titleAdd;
@@ -1930,11 +1929,11 @@ public:
 	void setUdlXmlDirtyFromIndex(size_t i);
 	void setUdlXmlDirtyFromXmlDoc(const TiXmlDocument* xmlDoc);
 	void removeIndexFromXmlUdls(size_t i);
-	bool isStylerDocLoaded() const { return _pXmlUserStylerDoc != nullptr; };
+	bool isStylerDocLoaded() const { return _pXmlUserStylerDoc != nullptr; }
 
 	ColumnEditorParam _columnEditParam;
-	unsigned long getScintillaModEventMask() const { return _sintillaModEventMask; };
-	void addScintillaModEventMask(unsigned long mask2Add) { _sintillaModEventMask |= mask2Add; };
+	unsigned long getScintillaModEventMask() const { return _sintillaModEventMask; }
+	void addScintillaModEventMask(unsigned long mask2Add) { _sintillaModEventMask |= mask2Add; }
 	bool isAsNotepadStyle() const { return _asNotepadStyle; }
 
 	LanguageNameInfo getLangNameInfoFromNameID(const std::wstring& langNameID);
@@ -2017,11 +2016,11 @@ private:
 	std::array<COLORREF, 3> findDlgStatusMessageColor{ red, blue, darkGreen};
 
 public:
-	void setShortcutDirty() { _isAnyShortcutModified = true; };
+	void setShortcutDirty() { _isAnyShortcutModified = true; }
 	void setAdminMode(bool isAdmin) { _isAdminMode = isAdmin; }
 	bool isAdmin() const { return _isAdminMode; }
 	bool regexBackward4PowerUser() const { return _findHistory._regexBackward4PowerUser; }
-	bool isRegForOSAppRestartDisabled() const { return _isRegForOSAppRestartDisabled; };
+	bool isRegForOSAppRestartDisabled() const { return _isRegForOSAppRestartDisabled; }
 
 private:
 	bool _isAnyShortcutModified = false;
@@ -2101,27 +2100,26 @@ private:
 	int _currentSystemCodepage = -1;
 
 public:
-	std::wstring getWingupFullPath() const { return _wingupFullPath; };
-	std::wstring getWingupParams() const { return _wingupParams; };
-	std::wstring getWingupDir() const { return _wingupDir; };
-	bool shouldDoUAC() const { return _isElevationRequired; };
-	void setWingupFullPath(const std::wstring& val2set) { _wingupFullPath = val2set; };
-	void setWingupParams(const std::wstring& val2set) { _wingupParams = val2set; };
-	void setWingupDir(const std::wstring& val2set) { _wingupDir = val2set; };
-	void setElevationRequired(bool val2set) { _isElevationRequired = val2set; };
+	const std::wstring& getWingupFullPath() const { return _wingupFullPath; }
+	const std::wstring& getWingupParams() const { return _wingupParams; }
+	const std::wstring& getWingupDir() const { return _wingupDir; }
+	bool shouldDoUAC() const { return _isElevationRequired; }
+	void setWingupFullPath(const std::wstring& val2set) { _wingupFullPath = val2set; }
+	void setWingupParams(const std::wstring& val2set) { _wingupParams = val2set; }
+	void setWingupDir(const std::wstring& val2set) { _wingupDir = val2set; }
+	void setElevationRequired(bool val2set) { _isElevationRequired = val2set; }
 
-	bool doNppLogNetworkDriveIssue() const { return _doNppLogNetworkDriveIssue; };
-	bool doNppLogNulContentCorruptionIssue() const { return _doNppLogNulContentCorruptionIssue; };
-	void endSessionStart() { _isEndSessionStarted = true; };
-	bool isEndSessionStarted() const { return _isEndSessionStarted; };
-	void makeEndSessionCritical() { _isEndSessionCritical = true; };
-	bool isEndSessionCritical() const { return _isEndSessionCritical; };
+	bool doNppLogNetworkDriveIssue() const { return _doNppLogNetworkDriveIssue; }
+	bool doNppLogNulContentCorruptionIssue() const { return _doNppLogNulContentCorruptionIssue; }
+	void endSessionStart() { _isEndSessionStarted = true; }
+	bool isEndSessionStarted() const { return _isEndSessionStarted; }
+	void makeEndSessionCritical() { _isEndSessionCritical = true; }
+	bool isEndSessionCritical() const { return _isEndSessionCritical; }
 
-	void setPlaceHolderEnable(bool isEnabled) { _isPlaceHolderEnabled = isEnabled; };
+	void setPlaceHolderEnable(bool isEnabled) { _isPlaceHolderEnabled = isEnabled; }
 	bool isPlaceHolderEnabled() const { return _isPlaceHolderEnabled; }
-	void setTheWarningHasBeenGiven(bool isEnabled) { _theWarningHasBeenGiven = isEnabled; };
+	void setTheWarningHasBeenGiven(bool isEnabled) { _theWarningHasBeenGiven = isEnabled; }
 	bool theWarningHasBeenGiven() const { return _theWarningHasBeenGiven; }
-
 
 	void initTabCustomColors();
 	void setIndividualTabColor(COLORREF colour2Set, int colourIndex, bool isDarkMode);

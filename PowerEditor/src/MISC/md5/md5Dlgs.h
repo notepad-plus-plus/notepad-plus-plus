@@ -41,12 +41,12 @@ protected :
 	static LRESULT CALLBACK HashPathEditStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
 		const auto dlg = (HashFromFilesDlg *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
 		return (run_textEditProc(dlg->_oldHashPathEditProc, hwnd, message, wParam, lParam));
-	};
+	}
 
 	static LRESULT CALLBACK HashResultStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
 		const auto dlg = (HashFromFilesDlg *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
 		return (run_textEditProc(dlg->_oldHashResultProc, hwnd, message, wParam, lParam));
-	};
+	}
 
 private :
 	WNDPROC _oldHashPathEditProc = nullptr;
@@ -72,12 +72,12 @@ protected :
 	static LRESULT CALLBACK HashTextEditStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
 		const auto dlg = (HashFromTextDlg *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
 		return (run_textEditProc(dlg->_oldHashTextEditProc, hwnd, message, wParam, lParam));
-	};
+	}
 
 	static LRESULT CALLBACK HashResultStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
 		const auto dlg = (HashFromTextDlg *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
 		return (run_textEditProc(dlg->_oldHashResultProc, hwnd, message, wParam, lParam));
-	};
+	}
 
 private :
 	WNDPROC _oldHashTextEditProc = nullptr;

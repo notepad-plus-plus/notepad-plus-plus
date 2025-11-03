@@ -92,10 +92,10 @@ public:
 
 	const wchar_t* char2wchar(const char* mbStr, size_t codepage, int lenMbcs = -1, int* pLenOut = NULL, int* pBytesNotProcessed = NULL);
 	const wchar_t* char2wchar(const char* mbcs2Convert, size_t codepage, intptr_t* mstart, intptr_t* mend, int len = 0);
-	size_t getSizeW() { return _wideCharStr.size(); };
+	size_t getSizeW() const { return _wideCharStr.size(); }
 	const char* wchar2char(const wchar_t* wcStr, size_t codepage, int lenIn = -1, int* pLenOut = NULL);
 	const char* wchar2char(const wchar_t* wcStr, size_t codepage, intptr_t* mstart, intptr_t* mend, int lenIn = 0, int* lenOut = nullptr);
-	size_t getSizeA() { return _multiByteStr.size(); };
+	size_t getSizeA() const { return _multiByteStr.size(); }
 
 	const char* encode(UINT fromCodepage, UINT toCodepage, const char* txt2Encode, int lenIn = -1, int* pLenOut = NULL, int* pBytesNotProcessed = NULL) {
 		int lenWc = 0;
@@ -235,42 +235,42 @@ class Version final
 {
 public:
 	Version() = default;
-	Version(const std::wstring& versionStr);
+	explicit Version(const std::wstring& versionStr);
 
 	void setVersionFrom(const std::wstring& filePath);
 	std::wstring toString();
-	bool isNumber(const std::wstring& s) const {
+	static bool isNumber(const std::wstring& s) {
 		return !s.empty() &&
-			find_if(s.begin(), s.end(), [](wchar_t c) { return !_istdigit(c); }) == s.end();
-	};
+			find_if(s.begin(), s.end(), [](wchar_t c) { return !iswdigit(c); }) == s.end();
+	}
 
 	int compareTo(const Version& v2c) const;
 
 	bool operator < (const Version& v2c) const {
 		return compareTo(v2c) == -1;
-	};
+	}
 
 	bool operator <= (const Version& v2c) const {
 		int r = compareTo(v2c);
 		return r == -1 || r == 0;
-	};
+	}
 
 	bool operator > (const Version& v2c) const {
 		return compareTo(v2c) == 1;
-	};
+	}
 
 	bool operator >= (const Version& v2c) const {
 		int r = compareTo(v2c);
 		return r == 1 || r == 0;
-	};
+	}
 
 	bool operator == (const Version& v2c) const {
 		return compareTo(v2c) == 0;
-	};
+	}
 
 	bool operator != (const Version& v2c) const {
 		return compareTo(v2c) != 0;
-	};
+	}
 
 	bool empty() const {
 		return _major == 0 && _minor == 0 && _patch == 0 && _build == 0;
@@ -307,21 +307,22 @@ bool isCoreWindows();
 class ControlInfoTip final
 {
 public:
-	ControlInfoTip() {};
+	ControlInfoTip() = default;
 	~ControlInfoTip() {
 		if (_hWndInfoTip) {
 			hide();
 		}
-	};
+	}
+
 	bool init(HINSTANCE hInst, HWND ctrl2attached, HWND ctrl2attachedParent, const std::wstring& tipStr, bool isRTL, unsigned int remainTimeMillisecond = 0, int maxWidth = 200); // remainTimeMillisecond = 0: no timeout
 
 	bool isValid() const {
 		return _hWndInfoTip != nullptr;
-	};
+	}
 
 	HWND getTipHandle() const {
 		return _hWndInfoTip;
-	};
+	}
 
 	enum showPosition {beginning, middle, end};
 	void show(showPosition pos = middle) const;

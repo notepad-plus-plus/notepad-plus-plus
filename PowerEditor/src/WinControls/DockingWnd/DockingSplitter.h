@@ -28,9 +28,9 @@ class DockingSplitter : public Window
 {
 public :
 	DockingSplitter() = default;
-	~DockingSplitter() = default;
+	~DockingSplitter() override = default;
 
-	virtual void destroy() {};
+	void destroy() override {}
 
 public:
 	void init(HINSTANCE hInst, HWND hWnd, HWND hMessage, UINT flags);
@@ -53,4 +53,3 @@ private:
 	// get layout direction
 	bool _isRTL = false;
 };
-

@@ -22,7 +22,6 @@
 
 #include "DockingDlgInterface.h"
 #include "ansiCharPanel_rc.h"
-#include "ListView.h"
 #include "asciiListView.h"
 
 #define AI_PROJECTPANELTITLE		L"ASCII Codes Insertion Panel"
@@ -31,16 +30,16 @@ class ScintillaEditView;
 
 class AnsiCharPanel : public DockingDlgInterface {
 public:
-	AnsiCharPanel(): DockingDlgInterface(IDD_ANSIASCII_PANEL) {};
+	AnsiCharPanel(): DockingDlgInterface(IDD_ANSIASCII_PANEL) {}
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		DockingDlgInterface::init(hInst, hPere);
 		_ppEditView = ppEditView;
-	};
+	}
 
-	void setParent(HWND parent2set){
+	void setParent(HWND parent2set) {
 		_hParent = parent2set;
-	};
+	}
 
 	void switchEncoding();
 	void insertChar(unsigned char char2insert) const;
@@ -50,12 +49,12 @@ public:
 		ListView_SetBkColor(_listView.getHSelf(), bgColour);
 		ListView_SetTextBkColor(_listView.getHSelf(), bgColour);
 		_listView.redraw(true);
-	};
+	}
 
 	void setForegroundColor(COLORREF fgColour) override {
 		ListView_SetTextColor(_listView.getHSelf(), fgColour);
 		_listView.redraw(true);
-	};
+	}
 
 protected:
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;

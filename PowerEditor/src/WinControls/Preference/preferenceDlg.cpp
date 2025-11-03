@@ -1330,7 +1330,7 @@ intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 			NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
 			wstring tabCompactLabelLenTip = pNativeSpeaker->getLocalizedStrFromID("tabbar-tabcompactlabellen-tip",
-				L"This is to limit the visible length of the tab name and thus the tab size. The allowed range is 0 - 257 characters, with 0 meaning that the compacting is disabled. Shortened names are recognizable by trailing ellipses.");
+				L"Limits the visible length of long tab names. Enter to apply the given value. Value range: 1-257 characters (0 disables the truncation).");
 			_tabCompactLabelLenTip = CreateToolTip(IDC_TABCOMPACTLABELLEN_TIP_STATIC, _hSelf, _hInst, tabCompactLabelLenTip.data(), pNativeSpeaker->isRTL());
 
 			HWND hEdit = ::GetDlgItem(_hSelf, IDC_EDIT_TABCOMPACTLABELLEN);
@@ -1393,9 +1393,12 @@ intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 							constexpr int stringSize = 4;
 							wchar_t str[stringSize]{};
 							::GetDlgItemTextW(_hSelf, IDC_EDIT_TABCOMPACTLABELLEN, str, stringSize);
-							if (lstrcmpW(str, L"") == 0)
+							if (wcscmp(str, L"") == 0)
 							{
-								::SetDlgItemInt(_hSelf, IDC_EDIT_TABCOMPACTLABELLEN, nppParam.getNbTabCompactLabelLen(), FALSE);
+								// user removed the value completely, the compacting is considered as disabled
+								nppParam.setNbTabCompactLabelLen(0);
+								::SetDlgItemInt(_hSelf, IDC_EDIT_TABCOMPACTLABELLEN, 0, FALSE);
+								::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETTING_TABCOMPACTLABELLEN, 0, 0);
 								return FALSE;
 							}
 

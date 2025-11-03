@@ -1093,7 +1093,7 @@ const int NB_MAX_IMPORTED_UDL = 50;
 constexpr int NB_DEFAULT_LRF_CUSTOMLENGTH = 100;
 constexpr int NB_MAX_LRF_CUSTOMLENGTH = MAX_PATH - 1;
 
-constexpr int NB_MAX_TAB_COMPACT_LABEL_LEN = MAX_PATH - 3; // -3 for the possible ending ellipsis (...)
+inline constexpr int NB_MAX_TAB_COMPACT_LABEL_LEN = MAX_PATH - 3; // -3 for the possible ending ellipsis (...)
 
 const int NB_MAX_FINDHISTORY_FIND	= 30;
 const int NB_MAX_FINDHISTORY_REPLACE = 30;
@@ -1944,8 +1944,8 @@ public:
 
 	void setNbTabCompactLabelLen(UINT nb) {
 		_nppGUI._tabCompactLabelLen = nb;
-	};
-	UINT getNbTabCompactLabelLen() const { return _nppGUI._tabCompactLabelLen; };
+	}
+	UINT getNbTabCompactLabelLen() const { return _nppGUI._tabCompactLabelLen; }
 
 private:
 	NppParameters();

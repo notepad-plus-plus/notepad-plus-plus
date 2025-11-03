@@ -51,17 +51,17 @@ class DockingCont : public StaticDialog
 {
 public:
 	DockingCont();
-	~DockingCont();
+	~DockingCont() override;
 
 	HWND getTabWnd() {
 		return _hContTab;
-	};
-	HWND getCaptionWnd() { 
+	}
+	HWND getCaptionWnd() {
 		if (_isFloating == false)
 			return _hCaption;
 		else
 			return _hSelf;
-	};
+	}
 
 	tTbData* createToolbar(const tTbData& data);
 	void	 removeToolbar(const tTbData& data);
@@ -80,7 +80,7 @@ public:
 			}
 		}
 		return FALSE;
-	};
+	}
 
 	void setActiveTb(tTbData* pTbData);
 	void setActiveTb(int iItem);
@@ -88,7 +88,7 @@ public:
 	tTbData * getDataOfActiveTb();
 	std::vector<tTbData *> getDataOfAllTb() {
 		return _vTbData;
-	};
+	}
 	std::vector<tTbData *> getDataOfVisTb();
 	bool isTbVis(tTbData* data);
 
@@ -107,19 +107,19 @@ public:
 		BOOL	dragFromTabTemp = _dragFromTab;
 		_dragFromTab = FALSE;
 		return dragFromTabTemp;
-	};
+	}
 
 	void setCaptionTop(BOOL isTopCaption) {
 		_isTopCaption = (isTopCaption == CAPTION_TOP);
 		onSize();
-	};
+	}
 
 	void focusClient();
 
 	void SetActive(BOOL bState) {
 		_isActive = bState;
 		updateCaption();
-	};
+	}
 
 	void destroy() override {
 		for (auto& tTbData : _vTbData)
@@ -132,11 +132,11 @@ public:
 			delete tTbData;
 		}
 		::DestroyWindow(_hSelf);
-	};
+	}
 
 	void destroyFonts();
 
-protected :
+protected:
 
 	// Subclassing caption
 	LRESULT runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
@@ -167,7 +167,7 @@ protected :
 	void viewToolbar(tTbData *pTbData);
 	int  removeTab(tTbData* pTbData) {
 		return hideToolbar(pTbData, FALSE);
-	};
+	}
 
 	bool updateCaption();
 	LPARAM NotifyParent(UINT message);
@@ -218,4 +218,3 @@ private:
 	// data of added windows
 	std::vector<tTbData *> _vTbData;
 };
-

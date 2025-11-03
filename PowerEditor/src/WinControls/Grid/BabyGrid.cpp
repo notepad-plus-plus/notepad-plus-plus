@@ -97,7 +97,7 @@ struct GridHandleStruct
 	GridHandleStruct() {
 		for (int k = 0; k < MAX_COLS; k++)
 			columnwidths[k] = 50;
-	};
+	}
 
 } BGHS[MAX_GRIDS];
 

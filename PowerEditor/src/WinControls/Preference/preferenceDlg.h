@@ -28,13 +28,13 @@ class MiscSubDlg : public StaticDialog
 friend class PreferenceDlg;
 public :
 	MiscSubDlg() = default;
-	~MiscSubDlg() {
+	~MiscSubDlg() override {
 		if (_tipScintillaRenderingTechnology)
 		{
 			::DestroyWindow(_tipScintillaRenderingTechnology);
 			_tipScintillaRenderingTechnology = nullptr;
 		}
-	};
+	}
 
 private :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
@@ -84,7 +84,7 @@ class EditingSubDlg : public StaticDialog
 friend class PreferenceDlg;
 public :
 	EditingSubDlg() = default;
-	~EditingSubDlg() = default;
+	~EditingSubDlg() override = default;
 	
 private :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
@@ -97,7 +97,7 @@ class Editing2SubDlg : public StaticDialog
 friend class PreferenceDlg;
 public :
 	Editing2SubDlg() = default;
-	~Editing2SubDlg() {
+	~Editing2SubDlg() override {
 		if (_tip != nullptr)
 		{
 			::DestroyWindow(_tip);
@@ -112,7 +112,7 @@ public :
 				tip = nullptr;
 			}
 		}
-	};
+	}
 
 private:
 	HWND _tip = nullptr;
@@ -161,13 +161,13 @@ class MarginsBorderEdgeSubDlg : public StaticDialog
 friend class PreferenceDlg;
 public :
 	MarginsBorderEdgeSubDlg() = default;
-	~MarginsBorderEdgeSubDlg() {
+	~MarginsBorderEdgeSubDlg() override {
 		if (_verticalEdgeTip != nullptr)
 		{
 			::DestroyWindow(_verticalEdgeTip);
 			_verticalEdgeTip = nullptr;
 		}
-	};
+	}
 
 private :
 	HWND _verticalEdgeTip = nullptr;
@@ -180,7 +180,7 @@ struct LangID_Name
 {
 	LangType _id = L_TEXT;
 	std::wstring _name;
-	LangID_Name(LangType id, const std::wstring& name) : _id(id), _name(name){};
+	LangID_Name(LangType id, const std::wstring& name) : _id(id), _name(name) {}
 };
 
 class NewDocumentSubDlg : public StaticDialog
@@ -226,7 +226,7 @@ class IndentationSubDlg : public StaticDialog
 friend class PreferenceDlg;
 public :
 	IndentationSubDlg() = default;
-	~IndentationSubDlg() {
+	~IndentationSubDlg() override {
 		if (_tipAutoIndentBasic != nullptr)
 		{
 			::DestroyWindow(_tipAutoIndentBasic);
@@ -238,7 +238,7 @@ public :
 			::DestroyWindow(_tipAutoIndentAdvanced);
 			_tipAutoIndentAdvanced = nullptr;
 		}
-	};
+	}
 
 private :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
@@ -262,13 +262,13 @@ class SearchingSubDlg : public StaticDialog
 friend class PreferenceDlg;
 public:
 	SearchingSubDlg() = default;
-	~SearchingSubDlg() {
+	~SearchingSubDlg() override {
 		if (_tipInSelThresh != nullptr)
 		{
 			::DestroyWindow(_tipInSelThresh);
 			_tipInSelThresh = nullptr;
 		}
-	};
+	}
 
 private:
 	HWND _tipInSelThresh = nullptr;
@@ -322,10 +322,10 @@ class DelimiterSubDlg : public StaticDialog
 friend class PreferenceDlg;
 public :
 	DelimiterSubDlg() = default;
-	~DelimiterSubDlg() {
+	~DelimiterSubDlg() override {
 		if (_tip)
 			::DestroyWindow(_tip);
-	};
+	}
 
 private :
 	LONG _gapEditHor = 0;
@@ -364,10 +364,10 @@ class PerformanceSubDlg : public StaticDialog
 friend class PreferenceDlg;
 public :
 	PerformanceSubDlg() = default;
-	~PerformanceSubDlg() {
+	~PerformanceSubDlg() override {
 		if (_largeFileRestrictionTip)
 			::DestroyWindow(_largeFileRestrictionTip);
-	};
+	}
 
 private :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
@@ -389,13 +389,13 @@ public :
 			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 		}
 		display();
-	};
+	}
 
 	bool renameDialogTitle(const wchar_t *internalName, const wchar_t *newName);
 	
 	int getListSelectedIndex() const {
 		return static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_GETCURSEL, 0, 0));
-	};
+	}
 
 	void showDialogByName(const wchar_t *name) const;
 	bool setListSelection(size_t currentSel) const;
@@ -437,4 +437,3 @@ private :
 
 	ControlInfoTip _gotoTip;
 };
-

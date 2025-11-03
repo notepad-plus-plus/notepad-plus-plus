@@ -22,7 +22,7 @@ struct Token {
 	wchar_t * token;
 	int length;
 	bool isIdentifier;
-	Token(wchar_t * tok, int len, bool isID) : token(tok), length(len), isIdentifier(isID) {};
+	Token(wchar_t* tok, int len, bool isID) : token(tok), length(len), isIdentifier(isID) {}
 };
 
 struct FunctionValues {
@@ -30,7 +30,7 @@ struct FunctionValues {
 	int lastFunctionIdentifier;
 	int param;
 	int scopeLevel;
-	FunctionValues() : lastIdentifier(-1), lastFunctionIdentifier(-1), param(0), scopeLevel(-1) {};
+	FunctionValues() : lastIdentifier(-1), lastFunctionIdentifier(-1), param(0), scopeLevel(-1) {}
 };
 
 inline bool lower(wchar_t c) {

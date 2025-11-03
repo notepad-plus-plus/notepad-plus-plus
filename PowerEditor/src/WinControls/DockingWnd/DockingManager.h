@@ -30,9 +30,9 @@ class DockingSplitter;
 
 class DockingManager : public Window
 {
-public :
+public:
 	DockingManager();
-	~DockingManager();
+	~DockingManager() override;
 
 	void init(HINSTANCE hInst, HWND hWnd, Window ** ppWin);
 	void reSizeTo(RECT & rc) override;
@@ -40,7 +40,7 @@ public :
 	void setClientWnd(Window ** ppWin) {
 		_ppWindow = ppWin;
 		_ppMainWindow = ppWin;
-	};
+	}
 
 	void showFloatingContainers(bool show);
 
@@ -61,24 +61,24 @@ public :
 	// get all container in vector
 	std::vector<DockingCont*> & getContainerInfo() {
 		return _vContainer;
-	};
+	}
 	// get dock data (sized areas)
 	void getDockInfo(tDockMgr *pDockData) {
 		*pDockData	= _dockData;
-	};
+	}
 
 	// setting styles of docking
 	void setStyleCaption(BOOL captionOnTop) {
 		_vContainer[CONT_TOP]->setCaptionTop(captionOnTop);
 		_vContainer[CONT_BOTTOM]->setCaptionTop(captionOnTop);
-	};
+	}
 
 	int getDockedContSize(int iCont);
 	void setDockedContSize(int iCont, int iSize);
 	void destroy() override;
 	void resize();
 
-private :
+private:
 	Window						**_ppWindow = nullptr;
 	RECT						_rcWork = {};
 	RECT						_rect = {};

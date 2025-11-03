@@ -51,7 +51,7 @@ public :
 			::DestroyIcon(_hIcon);
 			_hIcon = nullptr;
 		}
-	};
+	}
 
 protected :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
@@ -72,13 +72,13 @@ public:
 		_isAdmin = isAdmin;
 		_loadedPlugins = loadedPlugins;
 		Window::init(hInst, parent);
-	};
+	}
 
 	void doDialog();
 
 	void refreshDebugInfo();
 
-	void destroy() override {};
+	void destroy() override {}
 
 protected:
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
@@ -98,12 +98,8 @@ class CmdLineArgsDlg : public StaticDialog
 public:
 	CmdLineArgsDlg() = default;
 
-	void init(HINSTANCE hInst, HWND parent) {
-		Window::init(hInst, parent);
-	};
-
 	void doDialog();
-	void destroy() override {};
+	void destroy() override {}
 
 protected:
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
@@ -120,15 +116,15 @@ public:
 			_fn = fn;
 
 		_isMulti = isMulti;
-	};
+	}
 
 	void doDialog(bool isRTL = false);
 
-	void destroy() override {};
+	void destroy() override {}
 
 	int getClickedButtonId() const {
 		return clickedButtonId;
-	};
+	}
 
 	void changeLang();
 
@@ -148,11 +144,11 @@ public:
 
 	void doDialog(bool isRTL = false);
 
-	void destroy() override {};
+	void destroy() override {}
 
 	int getClickedButtonId() const {
 		return clickedButtonId;
-	};
+	}
 
 	void changeLang();
 

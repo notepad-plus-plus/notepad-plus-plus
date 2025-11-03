@@ -361,11 +361,11 @@ struct ColumnModeInfo {
 	intptr_t _nbVirtualCaretSpc = 0;
 
 	ColumnModeInfo(intptr_t lPos, intptr_t rPos, intptr_t order, bool dir = L2R, intptr_t vAnchorNbSpc = 0, intptr_t vCaretNbSpc = 0)
-		: _selLpos(lPos), _selRpos(rPos), _order(order), _direction(dir), _nbVirtualAnchorSpc(vAnchorNbSpc), _nbVirtualCaretSpc(vCaretNbSpc){};
+		: _selLpos(lPos), _selRpos(rPos), _order(order), _direction(dir), _nbVirtualAnchorSpc(vAnchorNbSpc), _nbVirtualCaretSpc(vCaretNbSpc) {}
 
 	bool isValid() const {
 		return (_order >= 0 && _selLpos >= 0 && _selRpos >= 0 && _selLpos <= _selRpos);
-	};
+	}
 };
 
 //
@@ -405,15 +405,14 @@ friend class Finder;
 public:
 	ScintillaEditView(): Window() {
 		++_refCount;
-	};
+	}
 	
 	ScintillaEditView(bool isMainEditZone) : Window() {
 		_isMainEditZone = isMainEditZone;
 		++_refCount;
-	};
+	}
 
-	virtual ~ScintillaEditView()
-	{
+	~ScintillaEditView() override {
 		--_refCount;
 
 		if ((!_refCount)&&(_SciInit))
@@ -425,16 +424,15 @@ public:
 				delete it->second;
 			}
 		}
-	};
+	}
 
-	virtual void destroy()
-	{
+	void destroy() override {
 		::DestroyWindow(_hSelf);
 		_hSelf = NULL;
 		_pScintillaFunc = NULL;
-	};
+	}
 
-	virtual void init(HINSTANCE hInst, HWND hPere);
+	void init(HINSTANCE hInst, HWND hPere) override;
 
 	LRESULT execute(UINT Msg, WPARAM wParam=0, LPARAM lParam=0) const {
 		try {
@@ -444,7 +442,7 @@ public:
 		{
 			return -1;
 		}
-	};
+	}
 
 	void activateBuffer(BufferID buffer, bool force);
 
@@ -460,7 +458,7 @@ public:
 	intptr_t getSelectedTextCount() {
 		Sci_CharacterRangeFull range = getSelection();
 		return (range.cpMax - range.cpMin);
-	};
+	}
 
 	void getVisibleStartAndEndPosition(intptr_t* startPos, intptr_t* endPos);
     char * getWordFromRange(char * txt, size_t size, size_t pos1, size_t pos2);
@@ -490,18 +488,18 @@ public:
 	void beginOrEndSelect(bool isColumnMode);
 	bool beginEndSelectedIsStarted() const {
 		return _beginSelectPosition != -1;
-	};
+	}
 
 	size_t getCurrentDocLen() const {
 		return size_t(execute(SCI_GETLENGTH));
-	};
+	}
 
 	Sci_CharacterRangeFull getSelection() const {
 		Sci_CharacterRangeFull crange{};
 		crange.cpMin = execute(SCI_GETSELECTIONSTART);
 		crange.cpMax = execute(SCI_GETSELECTIONEND);
 		return crange;
-	};
+	}
 
 	void getWordToCurrentPos(wchar_t * str, intptr_t strLen) const {
 		auto caretPos = execute(SCI_GETCURRENTPOS);
@@ -510,17 +508,17 @@ public:
 		str[0] = '\0';
 		if ((caretPos - startPos) < strLen)
 			getGenericText(str, strLen, startPos, caretPos);
-	};
+	}
 
-    void doUserDefineDlg(bool willBeShown = true, bool isRTL = false) {
-        _userDefineDlg.doDialog(willBeShown, isRTL);
-    };
+	void doUserDefineDlg(bool willBeShown = true, bool isRTL = false) {
+		_userDefineDlg.doDialog(willBeShown, isRTL);
+	}
 
-    static UserDefineDialog * getUserDefineDlg() {return &_userDefineDlg;};
+	static UserDefineDialog* getUserDefineDlg() { return &_userDefineDlg; }
 
 	void beSwitched() {
 		_userDefineDlg.setScintilla(this);
-	};
+	}
 
     //Marge member and method
     static const int _SC_MARGE_LINENUMBER;
@@ -531,14 +529,14 @@ public:
     void showMargin(int whichMarge, bool willBeShown = true);
     void showChangeHistoryMargin(bool willBeShown = true);
 
-    bool hasMarginShown(int witchMarge) {
+	bool hasMarginShown(int witchMarge) {
 		return (execute(SCI_GETMARGINWIDTHN, witchMarge, 0) != 0);
-    };
+	}
 
     void updateBeginEndSelectPosition(bool is_insert, size_t position, size_t length);
     void marginClick(Sci_Position position, int modifiers);
 
-    void setMakerStyle(folderStyle style) {
+	void setMakerStyle(folderStyle style) {
 		bool display;
 		if (style == FOLDER_STYLE_NONE)
 		{
@@ -556,46 +554,44 @@ public:
 		for (int i = 0 ; i < NB_FOLDER_STATE ; ++i)
 			defineMarker(_markersArray[FOLDER_TYPE][i], _markersArray[style][i], foldfgColor, foldbgColor, activeFoldFgColor);
 		showMargin(ScintillaEditView::_SC_MARGE_FOLDER, display);
-    };
-
+	}
 
 	void setWrapMode(lineWrapMethod meth) {
 		int mode = (meth == LINEWRAP_ALIGNED)?SC_WRAPINDENT_SAME:\
 				(meth == LINEWRAP_INDENT)?SC_WRAPINDENT_INDENT:SC_WRAPINDENT_FIXED;
 		execute(SCI_SETWRAPINDENTMODE, mode);
-	};
-
+	}
 
 	void showWSAndTab(bool willBeShowed = true) {
 		execute(SCI_SETVIEWWS, willBeShowed?SCWS_VISIBLEALWAYS:SCWS_INVISIBLE);
 		execute(SCI_SETWHITESPACESIZE, 2, 0);
-	};
+	}
 
 	bool isShownSpaceAndTab() {
 		return (execute(SCI_GETVIEWWS) != 0);
-	};
+	}
 
 	void showEOL(bool willBeShowed = true) {
 		execute(SCI_SETVIEWEOL, willBeShowed);
-	};
+	}
 
 	bool isShownEol() {
 		return (execute(SCI_GETVIEWEOL) != 0);
-	};
+	}
 
 	void showNpc(bool willBeShown = true, bool isSearchResult = false);
 
 	bool isShownNpc() {
 		const auto& svp = NppParameters::getInstance().getSVP();
 		return svp._npcShow;
-	};
+	}
 
 	void maintainStateForNpc() {
 		const auto& svp = NppParameters::getInstance().getSVP();
-		const bool isShownNpc = svp._npcShow;
+		const bool isNpcShown = svp._npcShow;
 		const bool isShownCcUniEol = svp._ccUniEolShow;
 
-		if (isShownNpc && isShownCcUniEol)
+		if (isNpcShown && isShownCcUniEol)
 		{
 			showNpc(true);
 			showCcUniEol(true);
@@ -605,7 +601,7 @@ public:
 				setCRLF();
 			}
 		}
-		else if (!isShownNpc && isShownCcUniEol)
+		else if (!isNpcShown && isShownCcUniEol)
 		{
 			showNpc(false);
 		}
@@ -620,81 +616,81 @@ public:
 	bool isShownCcUniEol() {
 		const auto& svp = NppParameters::getInstance().getSVP();
 		return svp._ccUniEolShow;
-	};
+	}
 
 	void showInvisibleChars(bool willBeShown = true) {
 		showNpc(willBeShown);
 		showCcUniEol(willBeShown);
 		showWSAndTab(willBeShown);
 		showEOL(willBeShown);
-	};
+	}
 
 	void showIndentGuideLine(bool willBeShown = true);
 
 	bool isShownIndentGuide() const {
 		return (execute(SCI_GETINDENTATIONGUIDES) != 0);
-	};
+	}
 
-    void wrap(bool willBeWrapped = true) {
-        execute(SCI_SETWRAPMODE, willBeWrapped);
-    };
+	void wrap(bool willBeWrapped = true) {
+		execute(SCI_SETWRAPMODE, willBeWrapped);
+	}
 
-    bool isWrap() const {
-        return (execute(SCI_GETWRAPMODE) == SC_WRAP_WORD);
-    };
+	bool isWrap() const {
+		return (execute(SCI_GETWRAPMODE) == SC_WRAP_WORD);
+	}
 
 	bool isWrapSymbolVisible() const {
 		return (execute(SCI_GETWRAPVISUALFLAGS) != SC_WRAPVISUALFLAG_NONE);
-	};
+	}
 
-    void showWrapSymbol(bool willBeShown = true) {
+	void showWrapSymbol(bool willBeShown = true) {
 		execute(SCI_SETWRAPVISUALFLAGSLOCATION, SC_WRAPVISUALFLAGLOC_DEFAULT);
 		execute(SCI_SETWRAPVISUALFLAGS, willBeShown?SC_WRAPVISUALFLAG_END:SC_WRAPVISUALFLAG_NONE);
-    };
+	}
 
-	intptr_t getCurrentLineNumber()const {
+	intptr_t getCurrentLineNumber() const {
 		return execute(SCI_LINEFROMPOSITION, execute(SCI_GETCURRENTPOS));
-	};
+	}
 
 	intptr_t lastZeroBasedLineNumber() const {
 		auto endPos = execute(SCI_GETLENGTH);
 		return execute(SCI_LINEFROMPOSITION, endPos);
-	};
+	}
 
-	intptr_t getCurrentXOffset()const{
+	intptr_t getCurrentXOffset() const {
 		return execute(SCI_GETXOFFSET);
-	};
+	}
 
-	void setCurrentXOffset(long xOffset){
+	void setCurrentXOffset(long xOffset) {
 		execute(SCI_SETXOFFSET,xOffset);
-	};
+	}
 
-	void scroll(intptr_t column, intptr_t line){
+	void scroll(intptr_t column, intptr_t line) {
 		execute(SCI_LINESCROLL, column, line);
-	};
+	}
 
-	intptr_t getCurrentPointX()const{
+	intptr_t getCurrentPointX() const {
 		return execute(SCI_POINTXFROMPOSITION, 0, execute(SCI_GETCURRENTPOS));
-	};
+	}
 
-	intptr_t getCurrentPointY()const{
+	intptr_t getCurrentPointY() const {
 		return execute(SCI_POINTYFROMPOSITION, 0, execute(SCI_GETCURRENTPOS));
-	};
+	}
 
-	intptr_t getTextHeight()const{
+	intptr_t getTextHeight() const {
 		return execute(SCI_TEXTHEIGHT);
-	};
+	}
 
 	int getTextZoneWidth() const;
 
-	void gotoLine(intptr_t line){
+	void gotoLine(intptr_t line) {
 		if (line < execute(SCI_GETLINECOUNT))
 			execute(SCI_GOTOLINE,line);
-	};
+	}
 
 	intptr_t getCurrentColumnNumber() const {
-        return execute(SCI_GETCOLUMN, execute(SCI_GETCURRENTPOS));
-    };
+		return execute(SCI_GETCOLUMN, execute(SCI_GETCURRENTPOS));
+	}
 
 	std::pair<size_t, size_t> getSelectedCharsAndLinesCount(long long maxSelectionsForLineCount = -1) const;
 
@@ -702,11 +698,11 @@ public:
 
 	intptr_t getLineLength(size_t line) const {
 		return execute(SCI_GETLINEENDPOSITION, line) - execute(SCI_POSITIONFROMLINE, line);
-	};
+	}
 
 	intptr_t getLineIndent(size_t line) const {
 		return execute(SCI_GETLINEINDENTATION, line);
-	};
+	}
 
 	void setLineIndent(size_t line, size_t indent) const;
 
@@ -738,21 +734,21 @@ public:
 	void convertSelectedTextTo(const TextCase & caseToConvert);
 	void setMultiSelections(const ColumnModeInfos & cmi);
 
-    void convertSelectedTextToLowerCase() {
+	void convertSelectedTextToLowerCase() {
 		// if system is w2k or xp
 		if ((NppParameters::getInstance()).isTransparentAvailable())
 			convertSelectedTextTo(LOWERCASE);
 		else
 			execute(SCI_LOWERCASE);
-	};
+	}
 
-    void convertSelectedTextToUpperCase() {
+	void convertSelectedTextToUpperCase() {
 		// if system is w2k or xp
 		if ((NppParameters::getInstance()).isTransparentAvailable())
 			convertSelectedTextTo(UPPERCASE);
 		else
 			execute(SCI_UPPERCASE);
-	};
+	}
 
 	void convertSelectedTextToNewerCase(const TextCase & caseToConvert) {
 		// if system is w2k or xp
@@ -760,7 +756,7 @@ public:
 			convertSelectedTextTo(caseToConvert);
 		else
 			::MessageBox(_hSelf, L"This function needs a newer OS version.", L"Change Case Error", MB_OK | MB_ICONHAND);
-	};
+	}
 
 	void getCurrentFoldStates(std::vector<size_t> & lineStateVector);
 	void syncFoldStateWith(const std::vector<size_t> & lineStateVectorNew);
@@ -771,12 +767,12 @@ public:
 	void fold(size_t line, bool mode, bool shouldBeNotified = true);
 	bool isFolded(size_t line) const {
 		return (execute(SCI_GETFOLDEXPANDED, line) != 0);
-	};
+	}
 	void expand(size_t& line, bool doExpand, bool force = false, intptr_t visLevels = 0, intptr_t level = -1);
 
 	bool isCurrentLineFolded() const;
 	void foldCurrentPos(bool mode);
-	int getCodepage() const {return _codepage;};
+	int getCodepage() const { return _codepage; }
 
 	ColumnModeInfos getColumnModeSelectInfo();
 
@@ -788,16 +784,16 @@ public:
 		size_t docEnd = getCurrentDocLen();
 		execute(SCI_SETINDICATORCURRENT, indicatorNumber);
 		execute(SCI_INDICATORCLEARRANGE, docStart, docEnd - docStart);
-	};
+	}
 
 	bool getIndicatorRange(size_t indicatorNumber, size_t* from = NULL, size_t* to = NULL, size_t* cur = NULL);
 
 	static LanguageNameInfo _langNameInfoArray[L_EXTERNAL+1];
 
 	void bufferUpdated(Buffer * buffer, int mask);
-	BufferID getCurrentBufferID() { return _currentBufferID; };
-	Buffer * getCurrentBuffer() { return _currentBuffer; };
-	void setCurrentBuffer(Buffer *buf2set) { _currentBuffer = buf2set; };
+	BufferID getCurrentBufferID() { return _currentBufferID; }
+	Buffer* getCurrentBuffer() { return _currentBuffer; }
+	void setCurrentBuffer(Buffer* buf2set) { _currentBuffer = buf2set; }
 	void styleChange();
 
 	void hideLines();
@@ -807,14 +803,14 @@ public:
 	void showHiddenLines(size_t searchStart, bool endOfDoc, bool doDelete);
 	void restoreHiddenLines();
 
-	bool hasSelection() const { return !execute(SCI_GETSELECTIONEMPTY); };
+	bool hasSelection() const { return !execute(SCI_GETSELECTIONEMPTY); }
 
 	bool isPythonStyleIndentation(LangType typeDoc) const{
 		return (typeDoc == L_PYTHON || typeDoc == L_COFFEESCRIPT || typeDoc == L_HASKELL ||\
 			typeDoc == L_C || typeDoc == L_CPP || typeDoc == L_OBJC || typeDoc == L_CS || typeDoc == L_JAVA ||\
 			typeDoc == L_PHP || typeDoc == L_JS_EMBEDDED || typeDoc == L_JAVASCRIPT || typeDoc == L_MAKEFILE ||\
 			typeDoc == L_ASN1 || typeDoc == L_GDSCRIPT);
-	};
+	}
 
 	void defineDocType(LangType typeDoc);	//setup stylers for active document
 
@@ -826,29 +822,29 @@ public:
 
 	void mouseWheel(WPARAM wParam, LPARAM lParam) {
 		scintillaNew_Proc(_hSelf, WM_MOUSEWHEEL, wParam, lParam);
-	};
+	}
 
 	void setHotspotStyle(const Style& styleToSet);
-    void setTabSettings(Lang *lang);
-	bool isWrapRestoreNeeded() const {return _wrapRestoreNeeded;};
-	void setWrapRestoreNeeded(bool isWrapRestoreNeeded) {_wrapRestoreNeeded = isWrapRestoreNeeded;};
+	void setTabSettings(Lang* lang);
+	bool isWrapRestoreNeeded() const { return _wrapRestoreNeeded; }
+	void setWrapRestoreNeeded(bool isWrapRestoreNeeded) { _wrapRestoreNeeded = isWrapRestoreNeeded; }
 
 	bool isCJK() const {
 		return ((_codepage == CP_CHINESE_TRADITIONAL) || (_codepage == CP_CHINESE_SIMPLIFIED) ||
-			    (_codepage == CP_JAPANESE) || (_codepage == CP_KOREAN));
-	};
+				(_codepage == CP_JAPANESE) || (_codepage == CP_KOREAN));
+	}
 	void scrollPosToCenter(size_t pos);
 	std::wstring getEOLString() const;
 	void setBorderEdge(bool doWithBorderEdge);
 	void sortLines(size_t fromLine, size_t toLine, ISorter *pSort);
 	void changeTextDirection(bool isRTL);
 	bool isTextDirectionRTL() const;
-	void setPositionRestoreNeeded(bool val) { _positionRestoreNeeded = val; };
+	void setPositionRestoreNeeded(bool val) { _positionRestoreNeeded = val; }
 	void markedTextToClipboard(int indiStyle, bool doAll = false);
 	void removeAnyDuplicateLines();
 	bool expandWordSelection();
 	bool pasteToMultiSelection() const;
-	void setElementColour(int element, COLORREF color) const { execute(SCI_SETELEMENTCOLOUR, element, color | 0xFF000000); };
+	void setElementColour(int element, COLORREF color) const { execute(SCI_SETELEMENTCOLOUR, element, color | 0xFF000000); }
 
 protected:
 	static bool _SciInit;
@@ -899,7 +895,7 @@ protected:
 	void setSpecialStyle(const Style & styleToSet);	//by reference
 	void setSpecialIndicator(const Style & styleToSet) {
 		execute(SCI_INDICSETFORE, styleToSet._styleID, styleToSet._bgColor);
-	};
+	}
 
 	//Complex lexers (same lexer, different language)
 	void setXmlLexer(LangType type);
@@ -919,31 +915,31 @@ protected:
 	//Simple lexers
 	void setCssLexer() {
 		setLexer(L_CSS, LIST_0 | LIST_1 | LIST_4 | LIST_6);
-	};
+	}
 
 	void setLuaLexer() {
 		setLexer(L_LUA, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6 | LIST_7, SCE_LUA_IDENTIFIER, 4);
-	};
+	}
 
 	void setMakefileLexer() {
 		setLexer(L_MAKEFILE, LIST_NONE);
-	};
+	}
 
 	void setPropsLexer(bool isPropsButNotIni = true) {
 		LangType L_id = isPropsButNotIni ? L_PROPS : L_INI;
 		setLexer(L_id, LIST_NONE);
 		execute(SCI_STYLESETEOLFILLED, SCE_PROPS_SECTION, true);
-	};
+	}
 
 	void setSqlLexer() {
 		const bool kbBackSlash = NppParameters::getInstance().getNppGUI()._backSlashIsEscapeCharacterForSql;
 		setLexer(L_SQL, LIST_0 | LIST_1 | LIST_4);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("sql.backslash.escapes"), reinterpret_cast<LPARAM>(kbBackSlash ? "1" : "0"));
-	};
+	}
 
 	void setMSSqlLexer() {
 		setLexer(L_MSSQL, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
-	};
+	}
 
 	void setBashLexer() {
 		setLexerFromLangID(L_BASH);
@@ -961,155 +957,155 @@ protected:
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.comment"), reinterpret_cast<LPARAM>("1"));
-	};
+	}
 
 	void setVBLexer() {
 		setLexer(L_VB, LIST_0);
-	};
+	}
 
 	void setPascalLexer() {
 		setLexer(L_PASCAL, LIST_0);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
-	};
+	}
 
 	void setPerlLexer() {
 		setLexer(L_PERL, LIST_0);
-	};
+	}
 
 	void setPythonLexer() {
 		setLexer(L_PYTHON, LIST_0 | LIST_1, SCE_P_IDENTIFIER);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.quotes.python"), reinterpret_cast<LPARAM>("1"));
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.python.decorator.attributes"), reinterpret_cast<LPARAM>("1"));
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.python.identifier.attributes"), reinterpret_cast<LPARAM>("1"));
-	};
+	}
 	
 	void setGDScriptLexer() {
 		setLexer(L_GDSCRIPT, LIST_0 | LIST_1, SCE_GD_IDENTIFIER);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.gdscript.keywords2.no.sub.identifiers"), reinterpret_cast<LPARAM>("1"));
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.gdscript.whinge.level"), reinterpret_cast<LPARAM>("1"));
-	};
+	}
 
 	void setBatchLexer() {
 		setLexer(L_BATCH, LIST_0);
-	};
+	}
 
 	void setTeXLexer() {
 		for (int i = 0 ; i < 4 ; ++i)
 			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(""));
 		setLexer(L_TEX, LIST_NONE);
-	};
+	}
 
 	void setNsisLexer() {
 		setLexer(L_NSIS, LIST_0 | LIST_1 | LIST_2 | LIST_3);
-	};
+	}
 
 	void setFortranLexer() {
 		setLexer(L_FORTRAN, LIST_0 | LIST_1 | LIST_2);
-	};
+	}
 
 	void setFortran77Lexer() {
 		setLexer(L_FORTRAN_77, LIST_0 | LIST_1 | LIST_2);
-	};
+	}
 
 	void setLispLexer(){
 		setLexer(L_LISP, LIST_0 | LIST_1);
-	};
+	}
 
 	void setSchemeLexer(){
 		setLexer(L_SCHEME, LIST_0 | LIST_1);
-	};
+	}
 
 	void setAsmLexer(){
 		setLexer(L_ASM, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6 | LIST_7);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.asm.syntax.based"), reinterpret_cast<LPARAM>("1"));
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.asm.comment.multiline"), reinterpret_cast<LPARAM>("1"));
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.asm.comment.explicit"), reinterpret_cast<LPARAM>("1"));
-	};
+	}
 
 	void setDiffLexer(){
 		setLexer(L_DIFF, LIST_NONE);
-	};
+	}
 
 	void setPostscriptLexer(){
 		setLexer(L_PS, LIST_0 | LIST_1 | LIST_2 | LIST_3);
-	};
+	}
 
 	void setRubyLexer(){
 		setLexer(L_RUBY, LIST_0);
 		execute(SCI_STYLESETEOLFILLED, SCE_RB_POD, true);
-	};
+	}
 
 	void setSmalltalkLexer(){
 		setLexer(L_SMALLTALK, LIST_0);
-	};
+	}
 
 	void setVhdlLexer(){
 		setLexer(L_VHDL, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
-	};
+	}
 
 	void setKixLexer(){
 		setLexer(L_KIX, LIST_0 | LIST_1 | LIST_2);
-	};
+	}
 
 	void setAutoItLexer(){
 		setLexer(L_AU3, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
-	};
+	}
 
 	void setCamlLexer(){
 		setLexer(L_CAML, LIST_0 | LIST_1 | LIST_2);
-	};
+	}
 
 	void setAdaLexer(){
 		setLexer(L_ADA, LIST_0);
-	};
+	}
 
 	void setVerilogLexer(){
 		setLexer(L_VERILOG, LIST_0 | LIST_1);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
-	};
+	}
 
 	void setMatlabLexer(){
 		setLexer(L_MATLAB, LIST_0);
-	};
+	}
 
 	void setHaskellLexer(){
 		setLexer(L_HASKELL, LIST_0);
-	};
+	}
 
 	void setInnoLexer() {
 		setLexer(L_INNO, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
-	};
+	}
 
 	void setCmakeLexer() {
 		setLexer(L_CMAKE, LIST_0 | LIST_1 | LIST_2);
-	};
+	}
 
 	void setYamlLexer() {
 		setLexer(L_YAML, LIST_0);
-	};
+	}
 
-    //--------------------
+	//--------------------
 
-    void setCobolLexer() {
+	void setCobolLexer() {
 		setLexer(L_COBOL, LIST_0 | LIST_1 | LIST_2);
-	};
-    void setGui4CliLexer() {
+	}
+	void setGui4CliLexer() {
 		setLexer(L_GUI4CLI, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4);
-	};
-    void setDLexer() {
+	}
+	void setDLexer() {
 		setLexer(L_D, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
-	};
-    void setPowerShellLexer() {
+	}
+	void setPowerShellLexer() {
 		setLexer(L_POWERSHELL, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
-	};
-    void setRLexer() {
+	}
+	void setRLexer() {
 		setLexer(L_R, LIST_0 | LIST_1 | LIST_2);
-	};
+	}
 
-    void setCoffeeScriptLexer() {
+	void setCoffeeScriptLexer() {
 		setLexer(L_COFFEESCRIPT, LIST_0 | LIST_1 | LIST_2  | LIST_3);
-	};
+	}
 
 	void setBaanCLexer() {
 		setLexer(L_BAANC, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6 | LIST_7 | LIST_8);
@@ -1121,102 +1117,102 @@ protected:
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.baan.sections"), reinterpret_cast<LPARAM>("1"));
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.baan.inner.level"), reinterpret_cast<LPARAM>("1"));
 		execute(SCI_STYLESETEOLFILLED, SCE_BAAN_STRINGEOL, true);
-	};
+	}
 
 	void setSrecLexer() {
 		setLexer(L_SREC, LIST_NONE);
-	};
+	}
 
 	void setIHexLexer() {
 		setLexer(L_IHEX, LIST_NONE);
-	};
+	}
 
 	void setTEHexLexer() {
 		setLexer(L_TEHEX, LIST_NONE);
-	};
+	}
 
 	void setAsn1Lexer() {
-		setLexer(L_ASN1, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
-	};
+		setLexer(L_ASN1, LIST_0 | LIST_1 | LIST_2 | LIST_3);
+	}
 
 	void setAVSLexer() {
 		setLexer(L_AVS, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
 		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_#"));
-	};
+	}
 
 	void setBlitzBasicLexer() {
-		setLexer(L_BLITZBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
-	};
+		setLexer(L_BLITZBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3);
+	}
 
 	void setPureBasicLexer() {
-		setLexer(L_PUREBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
-	};
+		setLexer(L_PUREBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3);
+	}
 
 	void setFreeBasicLexer() {
-		setLexer(L_FREEBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
-	};
+		setLexer(L_FREEBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3);
+	}
 
 	void setCsoundLexer() {
 		setLexer(L_CSOUND, LIST_0 | LIST_1 | LIST_2);
 		execute(SCI_STYLESETEOLFILLED, SCE_CSOUND_STRINGEOL, true);
-	};
+	}
 
 	void setErlangLexer() {
-		setLexer(L_ERLANG, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5); 
-	};
+		setLexer(L_ERLANG, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
+	}
 
 	void setESCRIPTLexer() {
-		setLexer(L_ESCRIPT, LIST_0 | LIST_1 | LIST_2); 
-	};
+		setLexer(L_ESCRIPT, LIST_0 | LIST_1 | LIST_2);
+	}
 
 	void setForthLexer() {
 		setLexer(L_FORTH, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
 		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789%-"));
-	};
+	}
 
 	void setLatexLexer() {
-		setLexer(L_LATEX, LIST_NONE); 
-	};
+		setLexer(L_LATEX, LIST_NONE);
+	}
 
 	void setMMIXALLexer() {
-		setLexer(L_MMIXAL, LIST_0 | LIST_1 | LIST_2); 
-	};
+		setLexer(L_MMIXAL, LIST_0 | LIST_1 | LIST_2);
+	}
 
 	void setNimrodLexer() {
 		setLexer(L_NIM, LIST_0);
-	};
+	}
 
 	void setNncrontabLexer() {
-		setLexer(L_NNCRONTAB, LIST_0 | LIST_1 | LIST_2); 
+		setLexer(L_NNCRONTAB, LIST_0 | LIST_1 | LIST_2);
 		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789%-"));
-	};
+	}
 
 	void setOScriptLexer() {
 		setLexer(L_OSCRIPT, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
 		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_$"));
-	};
+	}
 
 	void setREBOLLexer() {
 		setLexer(L_REBOL, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
 		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!.'+-*&|=_~"));
-	};
+	}
 
 	void setRegistryLexer() {
-		setLexer(L_REGISTRY, LIST_NONE); 
-	};
+		setLexer(L_REGISTRY, LIST_NONE);
+	}
 
 	void setRustLexer() {
 		setLexer(L_RUST, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6); 
 		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_#"));
-	};
+	}
 
 	void setSpiceLexer() {
-		setLexer(L_SPICE, LIST_0 | LIST_1 | LIST_2); 
-	};
+		setLexer(L_SPICE, LIST_0 | LIST_1 | LIST_2);
+	}
 
 	void setTxt2tagsLexer() {
-		setLexer(L_TXT2TAGS, LIST_NONE); 
-	};
+		setLexer(L_TXT2TAGS, LIST_NONE);
+	}
 
 	void setVisualPrologLexer() {
 		setLexer(L_VISUALPROLOG, LIST_0 | LIST_1 | LIST_2 | LIST_3);
@@ -1224,21 +1220,21 @@ protected:
 	
 	void setHollywoodLexer() {
 		setLexer(L_HOLLYWOOD, LIST_0 | LIST_1 | LIST_2 | LIST_3);
-	};	
+	}
 
 	void setRakuLexer(){
 		setLexer(L_RAKU, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.raku.comment.multiline"), reinterpret_cast<LPARAM>("1"));
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.raku.comment.pod"), reinterpret_cast<LPARAM>("1"));
-	};
+	}
 
 	void setTomlLexer(){
 		setLexer(L_TOML, LIST_0);
-	};
+	}
 
 	void setSasLexer(){
 		setLexer(L_SAS, LIST_0 | LIST_1 | LIST_2 | LIST_3);
-	};
+	}
 
 	void setErrorListLexer() {
 		setLexer(L_ERRORLIST, LIST_NONE);
@@ -1249,7 +1245,7 @@ protected:
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.errorlist.escape.sequences"), reinterpret_cast<LPARAM>("1"));
 	}
 
-    //--------------------
+	//--------------------
 
 	void setSearchResultLexer() {
 		if (execute(SCI_GETLEXER) == SCLEX_SEARCHRESULT)
@@ -1260,7 +1256,7 @@ protected:
 		execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_FILE_HEADER, true);
 		execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_SEARCH_HEADER, true);
 		setLexer(L_SEARCHRESULT, LIST_NONE);
-	};
+	}
 
 	bool isNeededFolderMargin(LangType typeDoc) const {
 		switch (typeDoc)
@@ -1277,15 +1273,15 @@ protected:
 			default:
 				return true;
 		}
-	};
+	}
 //END: Lexers and Styling
 
-    void defineMarker(int marker, int markerType, COLORREF fore, COLORREF back, COLORREF foreActive) {
-	    execute(SCI_MARKERDEFINE, marker, markerType);
-	    execute(SCI_MARKERSETFORE, marker, fore);
-	    execute(SCI_MARKERSETBACK, marker, back);
+	void defineMarker(int marker, int markerType, COLORREF fore, COLORREF back, COLORREF foreActive) {
+		execute(SCI_MARKERDEFINE, marker, markerType);
+		execute(SCI_MARKERSETFORE, marker, fore);
+		execute(SCI_MARKERSETBACK, marker, back);
 		execute(SCI_MARKERSETBACKSELECTED, marker, foreActive);
-	};
+	}
 
 	int codepage2CharSet() const {
 		switch (_codepage)
@@ -1297,9 +1293,8 @@ protected:
 			case CP_GREEK : return SC_CHARSET_GREEK;
 			default : return 0;
 		}
-	};
+	}
 
 	std::pair<size_t, size_t> getWordRange();
 	void getFoldColor(COLORREF& fgColor, COLORREF& bgColor, COLORREF& activeFgColor);
 };
-

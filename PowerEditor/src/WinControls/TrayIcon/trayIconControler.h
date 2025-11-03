@@ -31,11 +31,10 @@ class trayIconControler
 public:
   trayIconControler(HWND hwnd, UINT uID, UINT uCBMsg, HICON hicon, const wchar_t *tip);
   int doTrayIcon(DWORD op);
-  bool isInTray() const {return _isIconShown;};
+  bool isInTray() const { return _isIconShown; }
   int reAddTrayIcon();
 
 private:
   NOTIFYICONDATA _nid;
   bool _isIconShown = false;
 };
-

@@ -22,7 +22,7 @@
 class IDAllocator
 {
 public:
-	IDAllocator(int start, int maximumID) : _start(start), _nextID(start), _maximumID(maximumID) {};
+	IDAllocator(int start, int maximumID) : _start(start), _nextID(start), _maximumID(maximumID) {}
 
 	/// Returns -1 if not enough available
 	int allocate(int quantity) {
@@ -35,9 +35,9 @@ public:
 		}
 
 		return retVal;
-	};
+	}
 
-	bool isInRange(int id) { return (id >= _start && id < _nextID); }
+	bool isInRange(int id) const { return (id >= _start && id < _nextID); }
 
 private:
 	int _start = 0;

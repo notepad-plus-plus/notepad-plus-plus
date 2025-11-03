@@ -16,13 +16,10 @@
 
 #pragma once
 
-#include <cwctype>
-#include <algorithm>
 #include "StaticDialog.h"
 #include "pluginsAdminRes.h"
 #include "TabBar.h"
 #include "ListView.h"
-#include "tinyxml.h"
 #include "URLCtrl.h"
 
 class PluginsManager;
@@ -76,7 +73,7 @@ struct NppCurrentStatus
 	// it should determine :
 	// 1. deployment location : %ProgramFile%   %appdata%   %other%
 	// 2. gitup launch mode:    ADM             ADM         NOMAL
-	bool shouldLaunchInAdmMode() { return _isInProgramFiles; };
+	bool shouldLaunchInAdmMode() const { return _isInProgramFiles; }
 };
 
 enum COLUMN_TYPE { COLUMN_PLUGIN, COLUMN_VERSION };
@@ -103,21 +100,21 @@ public:
 		{
 			delete i;
 		}
-	};
+	}
 
 	void pushBack(PluginUpdateInfo* pi);
-	HWND getViewHwnd() { return _ui.getHSelf(); };
-	void displayView(bool doShow) const { _ui.display(doShow); };
-	std::vector<size_t> getCheckedIndexes() const { return _ui.getCheckedIndexes(); };
+	HWND getViewHwnd() { return _ui.getHSelf(); }
+	void displayView(bool doShow) const { _ui.display(doShow); }
+	std::vector<size_t> getCheckedIndexes() const { return _ui.getCheckedIndexes(); }
 	std::vector<PluginUpdateInfo*> fromUiIndexesToPluginInfos(const std::vector<size_t>& ) const;
-	long getSelectedIndex() const { return _ui.getSelectedIndex(); };
-	void setSelection(int index) const { _ui.setSelection(index); };
-	void initView(HINSTANCE hInst, HWND parent) { _ui.init(hInst, parent); };
-	void addColumn(const columnInfo & column2Add) { _ui.addColumn(column2Add); };
+	long getSelectedIndex() const { return _ui.getSelectedIndex(); }
+	void setSelection(int index) const { _ui.setSelection(index); }
+	void initView(HINSTANCE hInst, HWND parent) { _ui.init(hInst, parent); }
+	void addColumn(const columnInfo& column2Add) { _ui.addColumn(column2Add); }
 	void reSizeView(RECT & rc) { _ui.reSizeToWH(rc); }
-	void setViewStyleOption(int32_t extraStyle) { _ui.setStyleOption(extraStyle); };
-	size_t nbItem() const { return _ui.nbItem(); };
-	PluginUpdateInfo* getPluginInfoFromUiIndex(size_t index) const { return reinterpret_cast<PluginUpdateInfo*>(_ui.getLParamFromIndex(static_cast<int>(index))); };
+	void setViewStyleOption(int32_t extraStyle) { _ui.setStyleOption(extraStyle); }
+	size_t nbItem() const { return _ui.nbItem(); }
+	PluginUpdateInfo* getPluginInfoFromUiIndex(size_t index) const { return reinterpret_cast<PluginUpdateInfo*>(_ui.getLParamFromIndex(static_cast<int>(index))); }
 	PluginUpdateInfo* findPluginInfoFromFolderName(const std::wstring& folderName, int& index) const;
 	bool removeFromListIndex(size_t index2remove);
 	bool hideFromListIndex(size_t index2Hide);
@@ -152,15 +149,15 @@ public :
 			create(IDD_PLUGINSADMIN_DLG, isRTL);
 		}
 		display();
-	};
+	}
 
 	bool initFromJson();
 
 	void switchDialog(int indexToSwitch);
-	void setPluginsManager(PluginsManager *pluginsManager) { _pPluginsManager = pluginsManager; };
+	void setPluginsManager(PluginsManager* pluginsManager) { _pPluginsManager = pluginsManager; }
 
 	bool updateList();
-	void setAdminMode(bool isAdm) { _nppCurrentStatus._isAdminMode = isAdm; };
+	void setAdminMode(bool isAdm) { _nppCurrentStatus._isAdminMode = isAdm; }
 
 	bool installPlugins();
 	bool updatePlugins();
@@ -169,13 +166,13 @@ public :
 	void changeTabName(LIST_TYPE index, const wchar_t *name2change);
 	void changeColumnName(COLUMN_TYPE index, const wchar_t *name2change);
 	std::wstring getPluginListVerStr() const;
-	const PluginViewList & getAvailablePluginUpdateInfoList() const {
+	const PluginViewList& getAvailablePluginUpdateInfoList() const {
 		return _availableList;
-	};
+	}
 	
-	PluginViewList & getIncompatibleList() {
+	PluginViewList& getIncompatibleList() {
 		return _incompatibleList;
-	};
+	}
 
 protected:
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
@@ -206,11 +203,11 @@ private :
 	long searchFromCurrentSel(const PluginViewList& inWhichList, const std::wstring& str2search, bool inWhichPart, bool isNextMode) const;
 	long searchInNamesFromCurrentSel(const PluginViewList& inWhichList, const std::wstring& str2search, bool isNextMode) const {
 		return searchFromCurrentSel(inWhichList, str2search, _inNames, isNextMode);
-	};
+	}
 
 	long searchInDescsFromCurrentSel(const PluginViewList& inWhichList, const std::wstring& str2search, bool isNextMode) const {
 		return searchFromCurrentSel(inWhichList, str2search, _inDescs, isNextMode);
-	};
+	}
 	
 	bool initAvailablePluginsViewFromList();
 	bool initIncompatiblePluginList();
@@ -224,4 +221,3 @@ private :
 	};
 	bool exitToInstallRemovePlugins(Operation op, const std::vector<PluginUpdateInfo*>& puis);
 };
-

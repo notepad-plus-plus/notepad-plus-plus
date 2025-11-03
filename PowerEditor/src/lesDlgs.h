@@ -34,18 +34,15 @@ class ButtonDlg : public StaticDialog
 {
 public:
     ButtonDlg() = default;
-    void init(HINSTANCE hInst, HWND parent) override {
-        Window::init(hInst, parent);
-    };
 
     void doDialog(bool isRTL = false);
-    void destroy() override {};
+    void destroy() override {}
     int getButtonStatus() const {
         return _buttonStatus;
-    };
+    }
     void setButtonStatus(int buttonStatus) {
         _buttonStatus = buttonStatus;
-    };
+    }
 
     void display(bool toShow = true) const override {
         int cmdToShow = toShow?SW_SHOW:SW_HIDE;
@@ -54,7 +51,7 @@ public:
             cmdToShow = (_buttonStatus != buttonStatus_nada)?SW_SHOW:SW_HIDE; 
         }
         ::ShowWindow(_hSelf, cmdToShow);
-    };
+    }
 
 protected:
     intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;

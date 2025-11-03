@@ -29,15 +29,15 @@ public:
 	ShortcutMapper() : StaticDialog(), _currentState(STATE_MENU) {
 		_shortcutFilter = std::vector<std::wstring>();
 		_dialogInitDone = false;
-	};
-	~ShortcutMapper() = default;
+	}
+	~ShortcutMapper() override = default;
 
 	void init(HINSTANCE hInst, HWND parent, GridState initState = STATE_MENU) {
 		Window::init(hInst, parent);
 		_currentState = initState;
-	};
+	}
 
-	void destroy() override {};
+	void destroy() override {}
 	void doDialog(bool isRTL = false) {
 		StaticDialog::myCreateDialogBoxIndirectParam(IDD_SHORTCUTMAPPER_DLG, isRTL);
 	}

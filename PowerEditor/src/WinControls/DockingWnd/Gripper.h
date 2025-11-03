@@ -46,11 +46,11 @@ public:
 	Gripper() = default;
 
 	void init(HINSTANCE hInst, HWND hParent) {
-		_hInst   = hInst;	
+		_hInst   = hInst;
 		_hParent = hParent;
 		DWORD hwndExStyle = (DWORD)GetWindowLongPtr(_hParent, GWL_EXSTYLE);
 		_isRTL = hwndExStyle & WS_EX_LAYOUTRTL;
-	};
+	}
 
 	void startGrip(DockingCont* pCont, DockingManager* pDockMgr);
 
@@ -71,7 +71,7 @@ public:
 		if (_hbrush) {
 			::DeleteObject(_hbrush);
 		}
-	};
+	}
 
 protected :
 
@@ -95,21 +95,21 @@ protected :
 	void CalcRectToScreen(HWND hWnd, RECT *rc) {
 		ClientRectToScreenRect(hWnd, rc);
 		ShrinkRcToSize(rc);
-	};
+	}
 	void CalcRectToClient(HWND hWnd, RECT *rc) {
 		ScreenRectToClientRect(hWnd, rc);
 		ShrinkRcToSize(rc);
-	};
+	}
 	void ShrinkRcToSize(RECT *rc) {
 		_isRTL ? rc->right = rc->left - rc->right : rc->right -= rc->left;
 		rc->bottom -= rc->top;
-	};
+	}
 	void DoCalcGripperRect(RECT* rc, RECT rcCorr, POINT pt) {
 		if ((rc->left + rc->right) < pt.x)
 			rc->left = pt.x - 20;
 		if ((rc->top + rc->bottom) < pt.y)
 			rc->top  += rcCorr.bottom - rc->bottom;
-	};
+	}
 
 private:
 	// Handle

@@ -149,5 +149,5 @@ protected :
 				break;
 		}
 		return FALSE;
-	};
+	}
 };

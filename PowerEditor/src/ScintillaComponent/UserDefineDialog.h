@@ -231,7 +231,7 @@ class GlobalMappers
             setLexerMapper[SCE_USER_KWLIST_FOLDERS_IN_CODE1_OPEN] 	= "userDefine.foldersInCode1Open";
             setLexerMapper[SCE_USER_KWLIST_FOLDERS_IN_CODE1_MIDDLE] = "userDefine.foldersInCode1Middle";
             setLexerMapper[SCE_USER_KWLIST_FOLDERS_IN_CODE1_CLOSE] 	= "userDefine.foldersInCode1Close";
-        };
+        }
 };
 
 GlobalMappers & globalMappper();
@@ -303,57 +303,57 @@ class UserDefineDialog : public SharedParametersDialog
 friend class ScintillaEditView;
 public :
     UserDefineDialog();
-    ~UserDefineDialog();
+    ~UserDefineDialog() override;
     void init(HINSTANCE hInst, HWND hPere, ScintillaEditView *pSev) {
         if (!_pScintilla)
         {
             Window::init(hInst, hPere);
             _pScintilla = pSev;
         }
-    };
+    }
     void setScintilla(ScintillaEditView *pScinView) {
         _pScintilla = pScinView;
-    };
+    }
 
     void destroy() override {
         // A Ajouter les fils...
-    };
+    }
     int getWidth() const override {
         return _dlgPos.right;
-    };
+    }
     int getHeight() const override {
         return _dlgPos.bottom;
-    };
+    }
     void doDialog(bool willBeShown = true, bool isRTL = false) {
         if (!isCreated())
             create(IDD_GLOBAL_USERDEFINE_DLG, isRTL);
         display(willBeShown);
-    };
+    }
     void reSizeTo(RECT & rc) override// should NEVER be const !!!
     {
         Window::reSizeTo(rc);
         display(false);
         display();
-    };
+    }
     void reloadLangCombo();
     void changeStyle();
-    bool isDocked() const {return _status == DOCK;};
-    void setDockStatus(bool isDocked) {_status = isDocked;};
+    bool isDocked() const { return _status == DOCK; }
+    void setDockStatus(bool isDocked) { _status = isDocked; }
     HWND getFolderHandle() const {
         return _folderStyleDlg.getHSelf();
-    };
+    }
     HWND getKeywordsHandle() const {
         return _keyWordsStyleDlg.getHSelf();
-    };
+    }
     HWND getCommentHandle() const {
         return _commentStyleDlg.getHSelf();
-    };
+    }
     HWND getSymbolHandle() const {
         return _symbolsStyleDlg.getHSelf();
-    };
+    }
     void setTabName(int index, const wchar_t *name2set) {
         _ctrlTab.renameTab(index, name2set);
-    };
+    }
 protected :
     intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 private :
@@ -373,11 +373,11 @@ private :
         ::GetWindowRect(_hSelf, &_dlgPos);
         _dlgPos.right -= _dlgPos.left;
         _dlgPos.bottom -= _dlgPos.top;
-    };
-    void restorePosSize(){reSizeTo(_dlgPos);};
+    }
+    void restorePosSize(){ reSizeTo(_dlgPos); }
     void enableLangAndControlsBy(size_t index);
 protected :
-    void setKeywords2List(int) override {};
+    void setKeywords2List(int) override {}
     void updateDlg() override;
 };
 
@@ -396,13 +396,13 @@ public :
 		{
 			_restrictedChars = restrictedChars;
 		}
-	};
+	}
 
     intptr_t doDialog() {
         return StaticDialog::myCreateDialogBoxIndirectParam(IDD_STRING_DLG, false);
     }
 
-    void destroy() override {};
+    void destroy() override {}
 	
 protected :
     intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM) override;

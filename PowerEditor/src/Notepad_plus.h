@@ -115,7 +115,7 @@ struct QuoteParams
 {
 	enum Speed { slow = 0, rapid, speedOfLight };
 
-	QuoteParams() {};
+	QuoteParams() {}
 	QuoteParams(const wchar_t* quoter, Speed speed, bool shouldBeTrolling, int encoding, LangType lang, const wchar_t* quote) :
 		_quoter(quoter), _speed(speed), _shouldBeTrolling(shouldBeTrolling), _encoding(encoding), _lang(lang), _quote(quote) {}
 
@@ -126,7 +126,7 @@ struct QuoteParams
 		_encoding = SC_CP_UTF8;
 		_lang = L_TEXT;
 		_quote = nullptr;
-	};
+	}
 
 	const wchar_t* _quoter = nullptr;
 	Speed _speed = rapid;
@@ -250,15 +250,15 @@ public:
 	std::vector<std::wstring> addNppPlugins(const wchar_t *extFilterName, const wchar_t *extFilter);
     int getHtmlXmlEncoding(const wchar_t *fileName) const;
 
-	HACCEL getAccTable() const{
+	HACCEL getAccTable() const {
 		return _accelerator.getAccTable();
-	};
+	}
 
 	bool emergency(const std::wstring& emergencySavedDir);
 
 	Buffer* getCurrentBuffer()	{
 		return _pEditView->getCurrentBuffer();
-	};
+	}
 
 	void launchDocumentBackupTask();
 	int getQuoteIndexFrom(const wchar_t* quoter) const;
@@ -267,7 +267,7 @@ public:
 
 	std::wstring getPluginListVerStr() const {
 		return _pluginsAdminDlg.getPluginListVerStr();
-	};
+	}
 
 	void minimizeDialogs();
 	void restoreMinimizeDialogs();
@@ -440,7 +440,7 @@ private:
 	bool viewVisible(int whichOne);
 	void hideView(int whichOne);
 	void hideCurrentView();
-	bool bothActive() { return (_mainWindowStatus & WindowBothActive) == WindowBothActive; };
+	bool bothActive() { return (_mainWindowStatus & WindowBothActive) == WindowBothActive; }
 	bool reloadLang();
 	bool loadStyles();
 
@@ -651,7 +651,7 @@ private:
 	static DWORD WINAPI monitorFileOnChange(void * params);
 	struct MonitorInfo final {
 		MonitorInfo(Buffer *buf, HWND nppHandle) :
-			_buffer(buf), _nppHandle(nppHandle) {};
+			_buffer(buf), _nppHandle(nppHandle) {}
 		Buffer *_buffer = nullptr;
 		HWND _nppHandle = nullptr;
 	};

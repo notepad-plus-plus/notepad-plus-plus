@@ -22,17 +22,17 @@ class DPIManager
 public:
     DPIManager() { 
 		init();
-	};
+	}
     
     // Get screen DPI.
-    int getDPIX() { return _dpiX; };
-    int getDPIY() { return _dpiY; };
+    int getDPIX() { return _dpiX; }
+    int getDPIY() { return _dpiY; }
 
     // Convert between raw pixels and relative pixels.
-    int scaleX(int x) { return MulDiv(x, _dpiX, 96); };
-    int scaleY(int y) { return MulDiv(y, _dpiY, 96); };
-    int unscaleX(int x) { return MulDiv(x, 96, _dpiX); };
-    int unscaleY(int y) { return MulDiv(y, 96, _dpiY); };
+    int scaleX(int x) { return MulDiv(x, _dpiX, 96); }
+    int scaleY(int y) { return MulDiv(y, _dpiY, 96); }
+    int unscaleX(int x) { return MulDiv(x, 96, _dpiX); }
+    int unscaleY(int y) { return MulDiv(y, 96, _dpiY); }
 
     // Determine the screen dimensions in relative pixels.
     int scaledScreenWidth() { return scaledSystemMetricX(SM_CXSCREEN); }
@@ -63,14 +63,14 @@ public:
     // Determine if screen resolution meets minimum requirements in relative pixels.
     bool isResolutionAtLeast(int cxMin, int cyMin) 
     { 
-        return (scaledScreenWidth() >= cxMin) && (scaledScreenHeight() >= cyMin); 
+        return (scaledScreenWidth() >= cxMin) && (scaledScreenHeight() >= cyMin);
     }
 
     // Convert a point size (1/72 of an inch) to raw pixels.
-    int pointsToPixels(int pt) { return MulDiv(pt, _dpiY, 72); };
+    int pointsToPixels(int pt) { return MulDiv(pt, _dpiY, 72); }
 
     // Invalidate any cached metrics.
-    void Invalidate() { init(); };
+    void Invalidate() { init(); }
 
 private:
 	// X and Y DPI values are provided, though to date all 
@@ -90,7 +90,7 @@ private:
             _dpiY = GetDeviceCaps(hdc, LOGPIXELSY);
             ReleaseDC(NULL, hdc);
         }
-	};
+	}
 
     // This returns a 96-DPI scaled-down equivalent value for nIndex 
     // For example, the value 120 at 120 DPI setting gets scaled down to 96		
@@ -98,7 +98,7 @@ private:
     // have equal X and Y scale values
     int scaledSystemMetricX(int nIndex) {
         return MulDiv(GetSystemMetrics(nIndex), 96, _dpiX); 
-    };
+    }
 
     // This returns a 96-DPI scaled-down equivalent value for nIndex 
     // For example, the value 120 at 120 DPI setting gets scaled down to 96		

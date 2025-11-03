@@ -58,9 +58,9 @@ struct SearchParameters {
 	std::wstring _text2Find;
 	bool _doSort = false;
 
-	bool hasParams()const{
+	bool hasParams() const {
 		return (_text2Find != L"" || _doSort);
-	};
+	}
 };
 
 struct TreeParams {
@@ -70,28 +70,28 @@ struct TreeParams {
 
 class FunctionListPanel : public DockingDlgInterface {
 public:
-	FunctionListPanel(): DockingDlgInterface(IDD_FUNCLIST_PANEL), _pTreeView(&_treeView) {};
-	~FunctionListPanel();
+	FunctionListPanel(): DockingDlgInterface(IDD_FUNCLIST_PANEL), _pTreeView(&_treeView) {}
+	~FunctionListPanel() override;
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView);
 
 	void display(bool toShow = true) const override {
 		DockingDlgInterface::display(toShow);
-	};
+	}
 
 	void setBackgroundColor(COLORREF bgColour) override {
 		TreeView_SetBkColor(_treeView.getHSelf(), bgColour);
 		TreeView_SetBkColor(_treeViewSearchResult.getHSelf(), bgColour);
-	};
+	}
 
 	void setForegroundColor(COLORREF fgColour) override {
 		TreeView_SetTextColor(_treeView.getHSelf(), fgColour);
 		TreeView_SetTextColor(_treeViewSearchResult.getHSelf(), fgColour);
-	};
+	}
 
-    void setParent(HWND parent2set){
-        _hParent = parent2set;
-    };
+	void setParent(HWND parent2set){
+		_hParent = parent2set;
+	}
 	
 	// functionalities
 	static int CALLBACK categorySortFunc(LPARAM lParam1, LPARAM lParam2, LPARAM /*lParamSort*/);

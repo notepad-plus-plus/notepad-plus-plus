@@ -49,7 +49,7 @@ struct FoundInfo {
 	FoundInfo(intptr_t start, intptr_t end, size_t lineNumber, const wchar_t *fullPath)
 		: _lineNumber(lineNumber), _fullPath(fullPath) {
 		_ranges.push_back(std::pair<intptr_t, intptr_t>(start, end));
-	};
+	}
 	std::vector<std::pair<intptr_t, intptr_t>> _ranges;
 	size_t _lineNumber = 0;
 	std::wstring _fullPath;
@@ -98,7 +98,7 @@ public:
 				(option->_isMatchCase ? SCFIND_MATCHCASE : 0) |
 				(option->_searchType == FindRegex ? SCFIND_REGEXP|SCFIND_POSIX : 0) |
 				((option->_searchType == FindRegex && option->_dotMatchesNewline) ? SCFIND_REGEXP_DOTMATCHESNL : 0);
-	};
+	}
 	static void displaySectionCentered(size_t posStart, size_t posEnd, ScintillaEditView * pEditView, bool isDownwards = true);
 
 private:
@@ -110,19 +110,18 @@ private:
 class Finder : public DockingDlgInterface {
 friend class FindReplaceDlg;
 public:
-
 	Finder() : DockingDlgInterface(IDD_FINDRESULT) {
 		_markingsStruct._length = 0;
 		_markingsStruct._markings = NULL;
-	};
+	}
 
-	~Finder() {
+	~Finder() override {
 		_scintView.destroy();
 	}
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		DockingDlgInterface::init(hInst, hPere);
 		_ppEditView = ppEditView;
-	};
+	}
 
 	void addSearchLine(const wchar_t *searchName);
 	void addFileNameTitle(const wchar_t * fileName);
@@ -145,7 +144,7 @@ public:
 	void deleteResult();
 	std::vector<std::wstring> getResultFilePaths(bool onlyInSelectedText) const;
 	bool canFind(const wchar_t *fileName, size_t lineNumber, size_t* indexToStartFrom) const;
-	void setVolatiled(bool val) { _canBeVolatiled = val; };
+	void setVolatiled(bool val) { _canBeVolatiled = val; }
 	std::wstring getHitsString(int count) const;
 
 	LRESULT scintillaExecute(UINT msg, WPARAM wParam = 0, LPARAM lParam = 0) const {
@@ -189,7 +188,7 @@ private:
 
 	void setFinderReadOnly(bool isReadOnly) {
 		_scintView.execute(SCI_SETREADONLY, isReadOnly);
-	};
+	}
 
 	bool isLineActualSearchResult(const std::wstring & s) const;
 	std::wstring & prepareStringForClipboard(std::wstring & s) const;
@@ -236,7 +235,7 @@ public:
 		_options._isMatchCase = false;
 		_options._isWholeWord = false;
 		_options._isMatchLineNumber = true;
-	};
+	}
 
 private:
 	Finder  *_pFinder2Search = nullptr;
@@ -259,7 +258,7 @@ public :
 		_uniFileName = new char[(_fileNameLenMax + 3) * 2];
 		_winVer = (NppParameters::getInstance()).getWinVersion();
 		_env = &_options;
-	};
+	}
 
 	~FindReplaceDlg();
 
@@ -268,7 +267,7 @@ public :
 		if (!ppEditView)
 			throw std::runtime_error("FindIncrementDlg::init : ppEditView is null.");
 		_ppEditView = ppEditView;
-	};
+	}
 
 	void create(int dialogID, bool isRTL = false, bool msgDestParent = true, bool toShow = true);
 	
@@ -291,40 +290,40 @@ public :
 
 	void gotoNextFoundResult(int direction = 0) const {
 		if (_pFinder) _pFinder->gotoNextFoundResult(direction);
-	};
+	}
 
 	void putFindResult(int result) {
 		_findAllResult = result;
-	};
-	const wchar_t * getDir2Search() const {return _env->_directory.c_str();};
+	}
+	const wchar_t * getDir2Search() const { return _env->_directory.c_str(); }
 
 	void getPatterns(std::vector<std::wstring> & patternVect);
 	void getAndValidatePatterns(std::vector<std::wstring> & patternVect);
 
 	void launchFindInFilesDlg() {
 		doDialog(FINDINFILES_DLG);
-	};
+	}
 
 	void launchFindInProjectsDlg() {
 		doDialog(FINDINPROJECTS_DLG);
-	};
+	}
 
 	void setFindInFilesDirFilter(const wchar_t *dir, const wchar_t *filters);
 	void setProjectCheckmarks(FindHistory *findHistory, int Msk);
 	void enableProjectCheckmarks();
 
-	std::wstring getText2search() const {
+	const std::wstring& getText2search() const {
 		return _env->_str2Search;
-	};
+	}
 
-	const std::wstring & getFilters() const {return _env->_filters;};
-	const std::wstring & getDirectory() const {return _env->_directory;};
-	const FindOption & getCurrentOptions() const {return *_env;};
-	bool isRecursive() const { return _env->_isRecursive; };
-	bool isInHiddenDir() const { return _env->_isInHiddenDir; };
-	bool isProjectPanel_1() const { return _env->_isProjectPanel_1; };
-	bool isProjectPanel_2() const { return _env->_isProjectPanel_2; };
-	bool isProjectPanel_3() const { return _env->_isProjectPanel_3; };
+	const std::wstring& getFilters() const { return _env->_filters; }
+	const std::wstring& getDirectory() const { return _env->_directory; }
+	const FindOption& getCurrentOptions() const { return *_env; }
+	bool isRecursive() const { return _env->_isRecursive; }
+	bool isInHiddenDir() const { return _env->_isInHiddenDir; }
+	bool isProjectPanel_1() const { return _env->_isProjectPanel_1; }
+	bool isProjectPanel_2() const { return _env->_isProjectPanel_2; }
+	bool isProjectPanel_3() const { return _env->_isProjectPanel_3; }
 	void saveFindHistory();
 	void changeTabName(DIALOG_TYPE index, const wchar_t *name2change) {
 		TCITEM tie{};
@@ -353,7 +352,7 @@ public :
 			_pFinder->display();
 			_pFinder->_scintView.grabFocus();
 		}
-	};
+	}
 
 	bool allowCopyAction() {
 		HWND focusedHwnd = GetFocus();
@@ -364,7 +363,7 @@ public :
 			return finder->_scintView.hasSelection();
 		}
 		return false;
-	};
+	}
 
 	HWND getHFindResults() {
 		if (_pFinder)
@@ -385,7 +384,7 @@ public :
 				}
 			}
 		}
-	};
+	}
 
 	void updateFinderScintillaForNpc(bool onlyColor = false) {
 		if (_pFinder && _pFinder->isCreated())
@@ -400,7 +399,7 @@ public :
 				}
 			}
 		}
-	};
+	}
 
 	Finder* getMainFinder() const {
 		return _pFinder;
@@ -417,7 +416,7 @@ public :
 	std::wstring getScopeInfoForStatusBar(FindOption const *pFindOpt) const;
 	Finder * createFinder();
 	bool removeFinder(Finder *finder2remove);
-	DIALOG_TYPE getCurrentStatus() {return _currentStatus;};
+	DIALOG_TYPE getCurrentStatus() { return _currentStatus; }
 	Finder* getFinderFrom(HWND hwnd);
 	int regexBackwardMsgBox();
 	const wchar_t* setSearchTextWithSettings();
@@ -500,13 +499,13 @@ private:
 
 	void setDefaultButton(int nID) {
 		SendMessage(_hSelf, DM_SETDEFID, nID, 0L);
-	};
+	}
 
 	void gotoCorrectTab() {
 		auto currentIndex = _tab.getCurrentTabIndex();
 		if (currentIndex != _currentStatus)
 			_tab.activateAt(_currentStatus);
-	};
+	}
 	
 	FindStatus getFindStatus() {
 		return _statusbarFindStatus;
@@ -534,7 +533,7 @@ private:
 	static LRESULT CALLBACK swapButtonProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
 		const auto dlg = (FindReplaceDlg*)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
 		return (run_swapButtonProc(dlg->_oldSwapButtonProc, hwnd, message, wParam, lParam));
-	};
+	}
 	WNDPROC _oldSwapButtonProc = nullptr;
 };
 
@@ -549,7 +548,7 @@ public :
 
 	void setSearchText(const wchar_t* txt2find, bool) {
 		::SendDlgItemMessage(_hSelf, IDC_INCFINDTEXT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(txt2find));
-	};
+	}
 
 	void setFindStatus(FindStatus iStatus, int nbCounted);
 	

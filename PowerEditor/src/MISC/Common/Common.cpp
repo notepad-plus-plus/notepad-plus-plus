@@ -1890,7 +1890,7 @@ struct GetDiskFreeSpaceParamResult
 	BOOL _result = FALSE;
 	bool _isTimeoutReached = true;
 
-	GetDiskFreeSpaceParamResult(wstring dirPath) : _dirPath(dirPath) {};
+	GetDiskFreeSpaceParamResult(wstring dirPath) : _dirPath(dirPath) {}
 };
 
 DWORD WINAPI getDiskFreeSpaceExWorker(void* data)
@@ -1899,7 +1899,7 @@ DWORD WINAPI getDiskFreeSpaceExWorker(void* data)
 	inAndOut->_result = ::GetDiskFreeSpaceExW(inAndOut->_dirPath.c_str(), &(inAndOut->_freeBytesForUser), nullptr, nullptr);
 	inAndOut->_isTimeoutReached = false;
 	return ERROR_SUCCESS;
-};
+}
 
 BOOL getDiskFreeSpaceWithTimeout(const wchar_t* dirPath, ULARGE_INTEGER* freeBytesForUser, DWORD milliSec2wait, bool* isTimeoutReached)
 {
@@ -1960,7 +1960,7 @@ DWORD WINAPI getFileAttributesExWorker(void* data)
 		inAndOut->_error = ::GetLastError();
 	inAndOut->_isTimeoutReached = false;
 	return ERROR_SUCCESS;
-};
+}
 
 BOOL getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBUTE_DATA* fileAttr,
 	DWORD milliSec2wait, bool* isTimeoutReached, DWORD* pdwWin32ApiError)

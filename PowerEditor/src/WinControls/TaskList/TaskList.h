@@ -33,11 +33,11 @@ public:
 		_rc.top = 0;
 		_rc.right = 150;
 		_rc.bottom = 0;
-	};
+	}
 
-	virtual ~TaskList() = default;
+	~TaskList() override = default;
 	void init(HINSTANCE hInst, HWND hwnd, HIMAGELIST hImaLst, int nbItem, int index2set);
-	virtual void destroy();
+	void destroy() override;
 	void setFont(const wchar_t *fontName, int fontSize);
 	RECT adjustSize();
 	int getCurrentIndex() const {return _currentIndex;}
@@ -45,7 +45,7 @@ public:
 
 	HIMAGELIST getImgLst() const {
 		return ListView_GetImageList(_hSelf, LVSIL_SMALL);
-	};
+	}
 
 	HFONT GetFontSelected() {return _hFontSelected;}
 
@@ -56,7 +56,7 @@ protected:
 
 	static LRESULT CALLBACK staticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
 		return (((TaskList *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
-	};
+	}
 
 	HFONT _hFont = nullptr;
 	HFONT _hFontSelected = nullptr;
@@ -64,4 +64,3 @@ protected:
 	int _currentIndex = 0;
 	RECT _rc = {};
 };
-

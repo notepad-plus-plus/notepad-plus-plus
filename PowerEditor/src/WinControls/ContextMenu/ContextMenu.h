@@ -26,7 +26,7 @@ struct MenuItemUnit final
 
 	MenuItemUnit() = default;
 	MenuItemUnit(unsigned long cmdID, const std::wstring& itemName, const std::wstring& parentFolderName = std::wstring())
-		: _cmdID(cmdID), _itemName(itemName), _parentFolderName(parentFolderName){};
+		: _cmdID(cmdID), _itemName(itemName), _parentFolderName(parentFolderName) {}
 	MenuItemUnit(unsigned long cmdID, const wchar_t* itemName, const wchar_t* parentFolderName = nullptr);
 };
 

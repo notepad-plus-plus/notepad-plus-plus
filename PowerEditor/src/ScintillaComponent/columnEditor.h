@@ -35,7 +35,7 @@ public :
 		const bool isTextMode = isCheckedOrNot(IDC_COL_TEXT_RADIO);
 		display();
 		::SetFocus(::GetDlgItem(_hSelf, isTextMode?IDC_COL_TEXT_EDIT:IDC_COL_INITNUM_EDIT));
-	};
+	}
 
 	void display(bool toShow = true) const override;
 	void switchTo(bool toText);

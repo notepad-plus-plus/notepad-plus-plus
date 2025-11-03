@@ -917,7 +917,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 		// Standard flags for main parent usually used in NPPN_DARKMODECHANGED.
 		constexpr ULONG dmfHandleChange = 0x0000000CUL;
-	};
+	}
 
 	// ULONG NPPM_DARKMODESUBCLASSANDTHEME(ULONG dmFlags, HWND hwnd)
 	// Add support for generic dark mode to plugin dialog. Subclassing is applied automatically unless DWS_USEOWNDARKMODE flag is used.

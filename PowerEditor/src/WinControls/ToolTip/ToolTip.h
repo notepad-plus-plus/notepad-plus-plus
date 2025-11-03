@@ -32,7 +32,7 @@ public:
 			::DestroyWindow(_hSelf);
 			_hSelf = nullptr;
 		}
-	};
+	}
 
 	void init(HINSTANCE hInst, HWND hParent) override;
 	void Show(RECT rectTitle, const wchar_t* pszTitleText, int iXOff = 0, int iWidthOff = 0);

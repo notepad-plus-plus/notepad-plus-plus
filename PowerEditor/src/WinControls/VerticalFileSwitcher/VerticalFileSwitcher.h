@@ -33,73 +33,73 @@ LRESULT run_listViewProc(WNDPROC oldEditProc, HWND hwnd, UINT message, WPARAM wP
 
 class VerticalFileSwitcher : public DockingDlgInterface {
 public:
-	VerticalFileSwitcher(): DockingDlgInterface(IDD_DOCLIST) {};
+	VerticalFileSwitcher(): DockingDlgInterface(IDD_DOCLIST) {}
 
 	void init(HINSTANCE hInst, HWND hPere, HIMAGELIST hImaLst) {
 		DockingDlgInterface::init(hInst, hPere);
 		_hImaLst = hImaLst;
-	};
+	}
 
-	virtual void display(bool toShow = true) const; 
+	void display(bool toShow = true) const override;
 
-    void setParent(HWND parent2set){
-        _hParent = parent2set;
-    };
-	
+	void setParent(HWND parent2set){
+		_hParent = parent2set;
+	}
+
 	//Activate document in scintilla by using the internal index
 	void activateDoc(TaskLstFnStatus *tlfs) const;
 
 	void closeDoc(TaskLstFnStatus *tlfs) const;
 
-	int newItem(BufferID bufferID, int iView){
+	int newItem(BufferID bufferID, int iView) {
 		return _fileListView.newItem(bufferID, iView);
-	};
+	}
 
-	int closeItem(BufferID bufferID, int iView){
+	int closeItem(BufferID bufferID, int iView) {
 		return _fileListView.closeItem(bufferID, iView);
-	};
+	}
 
 	void activateItem(BufferID bufferID, int iView) {
 		_fileListView.activateItem(bufferID, iView);
-	};
+	}
 
 	void setItemIconStatus(BufferID bufferID) {
 		_fileListView.setItemIconStatus(bufferID) ;
-	};
+	}
 
 	void setItemColor(BufferID bufferID) {
 		_fileListView.setItemColor(bufferID);
-	};
+	}
 
 	std::wstring getFullFilePath(size_t i) const {
 		return _fileListView.getFullFilePath(i);
-	};
+	}
 
 	int setHeaderOrder(int columnIndex);
 	void updateHeaderArrow();
 
 	int nbSelectedFiles() const {
 		return _fileListView.nbSelectedFiles();
-	};
+	}
 
 	std::vector<BufferViewInfo> getSelectedFiles(bool reverse = false) const {
 		return _fileListView.getSelectedFiles(reverse);
-	};
+	}
 
 	void startColumnSort();
 
 	void reload(){
 		_fileListView.reload();
 		startColumnSort();
-	};
+	}
 
 	void updateTabOrder(){
 		if (_lastSortingDirection == SORT_DIRECTION_NONE) {
 			_fileListView.reload();
 		}
-	};
+	}
 
-	virtual void setBackgroundColor(COLORREF bgColour) {
+	void setBackgroundColor(COLORREF bgColour) override {
 		_fileListView.setBackgroundColor(bgColour);
 		
 		auto r = GetRValue(bgColour);
@@ -127,21 +127,21 @@ public:
 		{
 			_bgColor = ::ColorAdjustLuma(bgColour, luminenceIncrementBy, TRUE);
 		}
-	};
+	}
 
-	virtual void setForegroundColor(COLORREF fgColour) {
+	void setForegroundColor(COLORREF fgColour) override {
 		_fileListView.setForegroundColor(fgColour);
-    };
+	}
 protected:
 	HMENU _hGlobalMenu = NULL;
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	void initPopupMenus();
 	void popupMenuCmd(int cmdID);
 
 	static LRESULT CALLBACK listViewStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
 		const auto dlg = (VerticalFileSwitcher*)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
 		return (run_listViewProc(dlg->_defaultListViewProc, hwnd, message, wParam, lParam));
-	};
+	}
 private:
 	bool colHeaderRClick = false;
 	int _lastSortingColumn = 0;

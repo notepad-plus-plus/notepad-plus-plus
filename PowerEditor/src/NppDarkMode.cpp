@@ -1250,7 +1250,7 @@ namespace NppDarkMode
 		bool isSizeSet = false;
 		SIZE szBtn{};
 
-		ButtonData() {};
+		ButtonData() {}
 
 		// Saves width and height from the resource file for use as restrictions.
 		ButtonData(HWND hWnd)
@@ -2051,7 +2051,7 @@ namespace NppDarkMode
 		LONG _xScroll = ::GetSystemMetrics(SM_CXVSCROLL);
 		LONG _yScroll = ::GetSystemMetrics(SM_CYVSCROLL);
 
-		BorderMetricsData() {};
+		BorderMetricsData() {}
 
 		BorderMetricsData(HWND hWnd)
 		{

@@ -123,9 +123,9 @@ private:
 class WindowsMenu
 {
 public:
-	WindowsMenu() {};
-	~WindowsMenu() {};
-	void init(HMENU hMainMenu); 
+	WindowsMenu() {}
+	~WindowsMenu() {}
+	void init(HMENU hMainMenu);
 	void initPopupMenu(HMENU hMenu, DocTabView *pTab);
 
 private:

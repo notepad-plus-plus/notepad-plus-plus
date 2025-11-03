@@ -39,7 +39,7 @@ public :
 				return 0;
 
 		return doPrint(true);
-	};
+	}
 	size_t doPrint(bool justDoIt);
 
 private :
@@ -49,4 +49,3 @@ private :
 	size_t _endPos = 0;
 	bool _isRTL = false;
 };
-

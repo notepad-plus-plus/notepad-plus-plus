@@ -69,7 +69,7 @@ public:
     :mModel(model), mReversed(PR_FALSE) { Reset(); }
   nsSingleByteCharSetProber(const SequenceModel *model, PRBool reversed, nsCharSetProber* nameProber)
     :mModel(model), mReversed(reversed), mNameProber(nameProber) { Reset(); }
-  nsSingleByteCharSetProber(): mModel(0), mReversed(0){};
+  nsSingleByteCharSetProber(): mModel(0), mReversed(0){}
   virtual const char* GetCharSetName();
   virtual nsProbingState HandleData(const char* aBuf, PRUint32 aLen);
   virtual nsProbingState GetState(void) {return mState;}

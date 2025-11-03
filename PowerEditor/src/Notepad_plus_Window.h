@@ -28,37 +28,37 @@ public:
 
 	HACCEL getAccTable() const {
 		return _notepad_plus_plus_core.getAccTable();
-	};
+	}
 
 	bool emergency(const std::wstring& emergencySavedDir) {
 		return _notepad_plus_plus_core.emergency(emergencySavedDir);
-	};
+	}
 
 	bool isPrelaunch() const {
 		return _isPrelaunch;
-	};
+	}
 
 	void setIsPrelaunch(bool val) {
 		_isPrelaunch = val;
-	};
+	}
 
 	std::wstring getPluginListVerStr() const {
 		return _notepad_plus_plus_core.getPluginListVerStr();
-	};
+	}
 
 	void destroy() override {
 		if (_hIconAbsent)
 			::DestroyIcon(_hIconAbsent);
 		::DestroyWindow(_hSelf);
-	};
+	}
 
 	static const wchar_t * getClassName() {
 		return _className;
-	};
+	}
 
 	HICON getAbsentIcoHandle() {
 		return _hIconAbsent;
-	};
+	}
 
 	static HWND gNppHWND;	//static handle to Notepad++ window, NULL if non-existent
 

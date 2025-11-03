@@ -40,7 +40,7 @@ struct iconLocator {
 	std::wstring _iconLocation;
 
 	iconLocator(size_t iList, size_t iIcon, const std::wstring& iconLoc)
-		: _listIndex(iList), _iconIndex(iIcon), _iconLocation(iconLoc){};
+		: _listIndex(iList), _iconIndex(iIcon), _iconLocation(iconLoc) {}
 };
 
 struct ToolbarPluginButtonsConf
@@ -57,7 +57,7 @@ class ToolBar : public Window
 {
 public :
 	ToolBar() = default;
-	~ToolBar() = default;
+	~ToolBar() override = default;
 
     void initTheme(TiXmlDocument* toolIconsDocRoot);
     void initHideButtonsConf(TiXmlDocument* toolButtonsDocRoot, ToolBarButtonUnit* buttonUnitArray, int arraySize);
@@ -67,7 +67,7 @@ public :
 	void destroy() override;
 	void enable(int cmdID, bool doEnable) const {
 		::SendMessage(_hSelf, TB_ENABLEBUTTON, cmdID, static_cast<LPARAM>(doEnable));
-	};
+	}
 
 	int getWidth() const override;
 	int getHeight() const override;
@@ -80,27 +80,27 @@ public :
 
 	bool getCheckState(int ID2Check) const {
 		return bool(::SendMessage(_hSelf, TB_GETSTATE, ID2Check, 0) & TBSTATE_CHECKED);
-	};
+	}
 
 	void setCheck(int ID2Check, bool willBeChecked) const {
 		::SendMessage(_hSelf, TB_CHECKBUTTON, ID2Check, MAKELONG(willBeChecked, 0));
-	};
+	}
 
 	toolBarStatusType getState() const {
 		return _state;
-	};
+	}
 
-    bool change2CustomIconsIfAny() {    
-	    if (!_toolIcons) return false;
+	bool change2CustomIconsIfAny() const {
+		if (!_toolIcons) return false;
 
-	    for (size_t i = 0, len = _customIconVect.size(); i < len; ++i)
-		    changeIcons(_customIconVect[i]._listIndex, _customIconVect[i]._iconIndex, (_customIconVect[i]._iconLocation).c_str());
-        return true;
-    };
+		for (size_t i = 0, len = _customIconVect.size(); i < len; ++i)
+			changeIcons(_customIconVect[i]._listIndex, _customIconVect[i]._iconIndex, (_customIconVect[i]._iconLocation).c_str());
+		return true;
+	}
 
-	bool changeIcons(size_t whichLst, size_t iconIndex, const wchar_t *iconLocation){
+	bool changeIcons(size_t whichLst, size_t iconIndex, const wchar_t* iconLocation) const {
 		return _toolBarIcons.replaceIcon(whichLst, iconIndex, iconLocation);
-	};
+	}
 
 	void registerDynBtn(UINT message, toolbarIcons* iconHandles, HICON absentIco);
 	void registerDynBtnDM(UINT message, toolbarIconsWithDarkMode* iconHandles);
@@ -132,35 +132,35 @@ private :
 
 	void setDefaultImageList() {
 		::SendMessage(_hSelf, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDefaultLst()));
-	};
+	}
 
 	void setDisableImageList() {
 		::SendMessage(_hSelf, TB_SETDISABLEDIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDisableLst()));
-	};
+	}
 
 	void setDefaultImageList2() {
 		::SendMessage(_hSelf, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDefaultLstSet2()));
-	};
+	}
 
 	void setDisableImageList2() {
 		::SendMessage(_hSelf, TB_SETDISABLEDIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDisableLstSet2()));
-	};
+	}
 
 	void setDefaultImageListDM() {
 		::SendMessage(_hSelf, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDefaultLstDM()));
-	};
+	}
 
 	void setDisableImageListDM() {
 		::SendMessage(_hSelf, TB_SETDISABLEDIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDisableLstDM()));
-	};
+	}
 
 	void setDefaultImageListDM2() {
 		::SendMessage(_hSelf, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDefaultLstSetDM2()));
-	};
+	}
 
 	void setDisableImageListDM2() {
 		::SendMessage(_hSelf, TB_SETDISABLEDIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDisableLstSetDM2()));
-	};
+	}
 
 	void reset(bool create = false);
 	void setState(toolBarStatusType state);
@@ -169,13 +169,13 @@ private :
 class ReBar : public Window
 {
 public :
-	ReBar():Window() { usedIDs.clear(); };
+	ReBar():Window() { usedIDs.clear(); }
 
 	void destroy() override {
 		::DestroyWindow(_hSelf);
 		_hSelf = nullptr;
 		usedIDs.clear();
-	};
+	}
 
 	void init(HINSTANCE hInst, HWND hPere) override;
 	bool addBand(REBARBANDINFO * rBand, bool useID);	//useID true if ID from info should be used (false for plugins). wID in bandinfo will be set to used ID

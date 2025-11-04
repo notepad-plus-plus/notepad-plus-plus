@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "DoubleBuffer.h"
+#include "NppDarkMode.h"
 #include <commctrl.h>
 #include <cassert>
 #include <memory>
@@ -22,7 +23,7 @@
 void DoubleBuffer::subclass(HWND hWnd)
 {
 	std::unique_ptr<DoubleBuffer> self(new DoubleBuffer);
-	if (::SetWindowSubclass(hWnd, s_subclassWndProc, 0, reinterpret_cast<DWORD_PTR>(self.get())))
+	if (::SetWindowSubclass(hWnd, s_subclassWndProc, static_cast<UINT_PTR>(NppDarkMode::SubclassID::first), reinterpret_cast<DWORD_PTR>(self.get())))
 	{
 		self.release();
 	}

@@ -21,9 +21,6 @@
 #define _WIN32_IE	0x0600
 #endif //_WIN32_IE
 
-#include "menuCmdID.h"
-#include "resource.h"
-#include <stdint.h>
 #include <windows.h>
 #include <commctrl.h>
 #include "Window.h"
@@ -40,7 +37,6 @@
 
 #define WM_TABSETSTYLE	(WM_APP + 0x024)
 
-const int marge = 8;
 const int nbCtrlMax = 10;
 
 const wchar_t TABBAR_ACTIVEFOCUSEDINDCATOR[64] = L"Active tab focused indicator";
@@ -84,18 +80,18 @@ public:
 	TabBar() = default;
 	~TabBar() override = default;
 	void destroy() override;
-	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isMultiLine = false);
+	virtual void init(HINSTANCE hInst, HWND parent, bool isVertical = false, bool isMultiLine = false);
 	void reSizeTo(RECT& rc2Adjust) override;
 	int insertAtEnd(const wchar_t *subTabName);
 	void activateAt(int index) const;
 	void getCurrentTitle(wchar_t *title, int titleLen);
 
-	int32_t getCurrentTabIndex() const {
-		return static_cast<int32_t>(SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
+	int getCurrentTabIndex() const {
+		return static_cast<int>(SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 	}
 
-	int32_t getItemCount() const {
-		return static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETITEMCOUNT, 0, 0));
+	int getItemCount() const {
+		return static_cast<int>(::SendMessage(_hSelf, TCM_GETITEMCOUNT, 0, 0));
 	}
 
 	void deletItemAt(size_t index);
@@ -110,6 +106,8 @@ public:
     size_t nbItem() const {
         return _nbItem;
     }
+
+	void destroyFonts();
 
 	void setFont();
 
@@ -170,7 +168,7 @@ public :
 		id0, id1, id2, id3, id4, id5, id6, id7, id8, id9
 	};
 
-	void init(HINSTANCE hInst, HWND hwnd, bool isVertical, bool isMultiLine, unsigned char buttonsStatus = 0);
+	void init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMultiLine, unsigned char buttonsStatus = 0);
 
 	void destroy() override;
 
@@ -221,7 +219,6 @@ protected:
 	int _nTabDragged = -1;
 	int _previousTabSwapped = -1;
 	POINT _draggingPoint{}; // coordinate of Screen
-	WNDPROC _tabBarDefaultProc = nullptr;
 
 	RECT _currentHoverTabRect{};
 	int _currentHoverTabItem = -1; // -1 : no mouse on any tab
@@ -253,10 +250,8 @@ protected:
 	HWND _tooltips = nullptr;
 
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK TabBarPlusProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 
-	static LRESULT CALLBACK TabBarPlus_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
-		return (((TabBarPlus *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
-	}
 	void setActiveTab(int tabIndex);
 	bool exchangeTabItemData(int oldTab, int newTab, bool setToActive = true);
 	void exchangeItemData(POINT point);
@@ -277,11 +272,11 @@ protected:
 		return getTabIndexAt(p.x, p.y);
 	}
 
-	int32_t getTabIndexAt(int x, int y) const {
+	int getTabIndexAt(int x, int y) const {
 		TCHITTESTINFO hitInfo{};
 		hitInfo.pt.x = x;
 		hitInfo.pt.y = y;
-		return static_cast<int32_t>(::SendMessage(_hSelf, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&hitInfo)));
+		return static_cast<int>(::SendMessage(_hSelf, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&hitInfo)));
 	}
 
 	bool isPointInParentZone(POINT screenPoint) const {

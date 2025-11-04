@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.8.5">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.8.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -996,6 +996,7 @@
 					<Item id="6128" name="Alternatívne ikony"/>
 					<Item id="6125" name="Správanie"/>
 					<Item id="6126" name="Vzhľad a správanie"/>
+					<Item id="6136" name="Max. dĺžka popisu karty:"/>
 				</Tabbar>
 				
 				<Scintillas title="Úprava 1">
@@ -1899,6 +1900,7 @@ Ak vyberiete pokročilý režim, ale neupravujete súbory vo vyššie uvedených
 			<max-len-on-search-tip value="Váš vstup prekročil povolený limit a môže byť orezaný a nebude uložený do ďalšej relácie."/>
 			<max-len-on-save-tip value="Váš vstup je príliš dlhý a nemusí sa uložiť do ďalšej relácie."/>
 			<goto-setting-tip value="Nastavenia nájdete tu"/>
+			<tabbar-tabcompactlabellen-tip value="Obmedzuje viditeľnú dĺžku dlhých názvov kariet. Zadajte hodnotu, ktorú chcete použiť. Rozsah hodnôt: 1 – 257 znakov (hodnota 0 zakáže skracovanie)."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

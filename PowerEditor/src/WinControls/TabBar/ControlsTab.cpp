@@ -39,8 +39,8 @@ void ControlsTab::activateWindowAt(int index)
 void ControlsTab::reSizeTo(RECT & rc)
 {
 	TabBar::reSizeTo(rc);
-	rc.left += marge;
-	rc.top += marge;	
+	rc.left += 8;
+	rc.top += 8;
 	rc.bottom -= 55;
 	rc.right -= 20;
 
@@ -71,8 +71,8 @@ bool ControlsTab::renameTab(const wchar_t *internalName, const wchar_t *newName)
 
 void ControlsTab::renameTab(size_t index, const wchar_t *newName)
 {
-	TCITEM tie;
+	TCITEM tie{};
 	tie.mask = TCIF_TEXT;
-	tie.pszText = (wchar_t *)newName;
+	tie.pszText = const_cast<wchar_t*>(newName);
 	TabCtrl_SetItem(_hSelf, index, &tie);
 }

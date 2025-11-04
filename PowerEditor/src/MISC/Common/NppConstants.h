@@ -16,8 +16,8 @@
 
 #pragma once
 
-const bool dirUp = true;
-const bool dirDown = false;
+inline constexpr bool dirUp = true;
+inline constexpr bool dirDown = false;
 
 inline constexpr int NPP_CP_WIN_1252 = 1252;
 inline constexpr int NPP_CP_DOS_437 = 437;

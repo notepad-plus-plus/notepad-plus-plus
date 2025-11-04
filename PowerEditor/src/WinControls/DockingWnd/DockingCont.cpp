@@ -1148,7 +1148,7 @@ intptr_t CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			::SetWindowSubclass(_hCaption, DockingCaptionSubclass, static_cast<UINT_PTR>(NppDarkMode::SubclassID::first), reinterpret_cast<DWORD_PTR>(this));
 
 			// intial subclassing of tab
-			::SetWindowSubclass(_hContTab, DockingTabSubclass, static_cast<UINT_PTR>(NppDarkMode::SubclassID::second), reinterpret_cast<DWORD_PTR>(this));
+			::SetWindowSubclass(_hContTab, DockingTabSubclass, static_cast<UINT_PTR>(NppDarkMode::SubclassID::first), reinterpret_cast<DWORD_PTR>(this));
 
 			// set min tab width
 			const int tabDpiPadding = _dpiManager.scale(g_dockingContTabIconSize + g_dockingContTabIconPadding * 2);

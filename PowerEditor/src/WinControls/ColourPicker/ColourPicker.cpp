@@ -18,6 +18,7 @@
 #include "ColourPicker.h"
 #include "ColourPopup.h"
 #include "NppDarkMode.h"
+#include "NppConstants.h"
 
 #include <commctrl.h>
 
@@ -36,8 +37,7 @@ void ColourPicker::init(HINSTANCE hInst, HWND parent)
 	if (!_hSelf)
 		throw std::runtime_error("ColourPicker::init : CreateWindowEx() function return null");
 
-	static constexpr UINT_PTR idSubclassClrPicker = 123;
-	::SetWindowSubclass(_hSelf, staticProc, idSubclassClrPicker, reinterpret_cast<DWORD_PTR>(this));
+	::SetWindowSubclass(_hSelf, staticProc, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(this));
 }
 
 

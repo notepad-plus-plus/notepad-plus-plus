@@ -1145,12 +1145,10 @@ intptr_t CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			_hCaption = ::GetDlgItem(_hSelf, IDC_BTN_CAPTION);
 
 			// intial subclassing of caption
-			constexpr UINT_PTR idSubclassCaption = 1;
-			::SetWindowSubclass(_hCaption, DockingCaptionSubclass, idSubclassCaption, reinterpret_cast<DWORD_PTR>(this));
+			::SetWindowSubclass(_hCaption, DockingCaptionSubclass, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(this));
 
 			// intial subclassing of tab
-			constexpr UINT_PTR idSubclassTab = 2;
-			::SetWindowSubclass(_hContTab, DockingTabSubclass, idSubclassTab, reinterpret_cast<DWORD_PTR>(this));
+			::SetWindowSubclass(_hContTab, DockingTabSubclass, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(this));
 
 			// set min tab width
 			const int tabDpiPadding = _dpiManager.scale(g_dockingContTabIconSize + g_dockingContTabIconPadding * 2);

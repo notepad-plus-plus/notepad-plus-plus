@@ -15,6 +15,8 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
+
+#include "NppConstants.h"
 #include <vector>
 #include <string>
 #include <sstream>
@@ -31,27 +33,6 @@
 #pragma deprecated(PathIsDirectory) // Use doesDirectoryExist instead.
 #endif
 
-
-const bool dirUp = true;
-const bool dirDown = false;
-
-#define NPP_CP_WIN_1252           1252
-#define NPP_CP_DOS_437            437
-#define NPP_CP_BIG5               950
-
-#define LINKTRIGGERED WM_USER+555
-
-#define BCKGRD_COLOR (RGB(255,102,102))
-#define TXT_COLOR    (RGB(255,255,255))
-
-#ifndef __MINGW32__
-#define WCSTOK wcstok
-#else
-#define WCSTOK wcstok_s
-#endif
-
-
-#define NPP_INTERNAL_FUNCTION_STR L"Notepad++::InternalFunction"
 
 
 std::wstring folderBrowser(HWND parent, const std::wstring & title = L"", int outputCtrlID = 0, const wchar_t *defaultStr = NULL);
@@ -155,8 +136,6 @@ protected:
 	StringBuffer<char> _multiByteStr;
 	StringBuffer<wchar_t> _wideCharStr;
 };
-
-#define REBARBAND_SIZE sizeof(REBARBANDINFO)
 
 std::wstring pathRemoveFileSpec(std::wstring & path);
 std::wstring pathAppend(std::wstring &strDest, const std::wstring & str2append);
@@ -302,8 +281,6 @@ bool isWindowVisibleOnAnyMonitor(const RECT& rectWndIn);
 bool isCoreWindows();
 
 
-#define IDT_HIDE_TOOLTIP 1001
-
 class ControlInfoTip final
 {
 public:
@@ -337,9 +314,4 @@ private:
 	ControlInfoTip& operator=(const ControlInfoTip&) = delete;
 };
 
-
-#define NPP_UAC_SAVE_SIGN L"#UAC-SAVE#"
-#define NPP_UAC_SETFILEATTRIBUTES_SIGN L"#UAC-SETFILEATTRIBUTES#"
-#define NPP_UAC_MOVEFILE_SIGN L"#UAC-MOVEFILE#"
-#define NPP_UAC_CREATEEMPTYFILE_SIGN L"#UAC-CREATEEMPTYFILE#"
 DWORD invokeNppUacOp(const std::wstring& strCmdLineParams);

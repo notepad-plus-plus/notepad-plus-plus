@@ -853,8 +853,7 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 			const DWORD tbExStyle = static_cast<DWORD>(::SendMessage(_hToolbarMenu, TB_GETEXTENDEDSTYLE, 0, 0));
 			::SendMessage(_hToolbarMenu, TB_SETEXTENDEDSTYLE, 0, tbExStyle | TBSTYLE_EX_DOUBLEBUFFER);
 
-			constexpr UINT_PTR idSubclassFunclstToolbar = 2;
-			::SetWindowSubclass(_hToolbarMenu, funclstToolbarProc, idSubclassFunclstToolbar, 0);
+			::SetWindowSubclass(_hToolbarMenu, funclstToolbarProc, static_cast<UINT_PTR>(SubclassID::first), 0);
 
 			const int iconSizeDyn = _dpiManager.scale(16);
 			constexpr int nbIcons = 3;
@@ -930,8 +929,7 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 								2, 2, editWidth, editHeight,
 								_hToolbarMenu, reinterpret_cast<HMENU>(IDC_SEARCHFIELD_FUNCLIST), _hInst, 0 );
 
-			constexpr UINT_PTR idSubclassFunclstSearchEdit = 3;
-			::SetWindowSubclass(_hSearchEdit, funclstSearchEditProc, idSubclassFunclstSearchEdit, 0);
+			::SetWindowSubclass(_hSearchEdit, funclstSearchEditProc, static_cast<UINT_PTR>(SubclassID::first), 0);
 
 			if (_hFontSearchEdit == nullptr)
 			{

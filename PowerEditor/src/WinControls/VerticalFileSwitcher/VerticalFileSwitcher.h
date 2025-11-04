@@ -151,7 +151,6 @@ private:
 	WNDPROC _defaultListViewProc = nullptr;
 
 	static COLORREF _bgColor;
-	static const UINT_PTR _fileSwitcherNotifySubclassID = 42;
 	static LRESULT listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	static LRESULT CALLBACK FileSwitcherNotifySubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 	void autoSubclassWindowNotify(HWND hParent);

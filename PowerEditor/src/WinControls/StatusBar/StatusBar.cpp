@@ -97,9 +97,6 @@ struct StatusBarSubclassInfo
 };
 
 
-constexpr UINT_PTR g_statusBarSubclassID = 42;
-
-
 static LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
 {
 	StatusBarSubclassInfo* pStatusBarInfo = reinterpret_cast<StatusBarSubclassInfo*>(dwRefData);
@@ -280,7 +277,7 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 	StatusBarSubclassInfo* pStatusBarInfo = new StatusBarSubclassInfo(::CreateFontIndirect(&lf));
 	_pStatusBarInfo = pStatusBarInfo;
 
-	SetWindowSubclass(_hSelf, StatusBarSubclass, g_statusBarSubclassID, reinterpret_cast<DWORD_PTR>(pStatusBarInfo));
+	SetWindowSubclass(_hSelf, StatusBarSubclass, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(pStatusBarInfo));
 
 	DoubleBuffer::subclass(_hSelf);
 

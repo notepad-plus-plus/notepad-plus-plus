@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 30 Sep 2025 for 8.8.5+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 05 Nov 2025 for 8.8.7+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.8.5">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.8.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1001,6 +1001,7 @@ Translation note:
 					<Item id="6128" name="Ícones alternativos"/>
 					<Item id="6125" name="Comportamento"/>
 					<Item id="6126" name="Olhar &amp;&amp; sentir"/>
+					<Item id="6136" name="Tam. máx. de nome em aba:"/>
 				</Tabbar>
 				
 				<Scintillas title="Edição 1">
@@ -1902,6 +1903,7 @@ Se você ativar o modo avançado mas não editar arquivos destas linguagens, a i
 			<max-len-on-search-tip value="São permitidos apenas $INT_REPLACE$ caracteres para tamanho de texto de localização/substituição - o seu texto pode ser truncado, e não será salvo para a próxima sessão."/>
 			<max-len-on-save-tip value="Este texto de localização (> $INT_REPLACE$ caracteres) não será salvo para a próxima sessão."/>
 			<goto-setting-tip value="Encontre sua configuração aqui"/>
+			<!-- <tabbar-tabcompactlabellen-tip value="Limita o tamanho visível de nomes longos em abas. Use para aplicar o tamanho desejado. Faixa de valores: 1-257 caracteres (0 desabilita a limitação)."/> -->
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

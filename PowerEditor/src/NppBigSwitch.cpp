@@ -3113,12 +3113,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				std::vector<tTbData *> tbData = dockContainer[i]->getDataOfAllTb();
 				for (size_t j = 0, len2 = tbData.size() ; j < len2 ; ++j)
 				{
-					if (wcsicmp(moduleName, tbData[j]->pszModuleName) == 0)
+					if (_wcsicmp(moduleName, tbData[j]->pszModuleName) == 0)
 					{
 						if (!windowName)
 							return (LRESULT)tbData[j]->hClient;
 
-						if (wcsicmp(windowName, tbData[j]->pszName) == 0)
+						if (_wcsicmp(windowName, tbData[j]->pszName) == 0)
 							return (LRESULT)tbData[j]->hClient;
 					}
 				}

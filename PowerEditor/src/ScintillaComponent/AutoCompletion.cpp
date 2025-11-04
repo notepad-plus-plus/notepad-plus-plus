@@ -350,7 +350,7 @@ bool AutoCompletion::showAutoComplete(AutocompleteType autocType, bool autoInser
 				if (_ignoreCase)
 				{
 					wstring kwSufix = _keyWordArray[i].substr(0, len);
-					compareResult = wcsicmp(beginChars, kwSufix.c_str());
+					compareResult = _wcsicmp(beginChars, kwSufix.c_str());
 				}
 				else
 				{

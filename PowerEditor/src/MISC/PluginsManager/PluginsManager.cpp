@@ -337,7 +337,7 @@ bool PluginsManager::loadPlugins(const wchar_t* dir, const PluginViewList* plugi
 		const wchar_t* incompatibleWarningWithSolution = L"%s's version %s is not compatible to this version of Notepad++ (v%s).\r\nAs a result the plugin cannot be loaded.\r\n\r\nGo to Updates section and update your plugin to %s for solving the compatibility issue.";
 
 		wstring foundFileName = foundData.cFileName;
-		if (foundFileName != L"." && foundFileName != L".." && wcsicmp(foundFileName.c_str(), L"Config") != 0)
+		if (foundFileName != L"." && foundFileName != L".." && _wcsicmp(foundFileName.c_str(), L"Config") != 0)
 		{
 			wstring pluginsFullPathFilter = pluginsFolder;
 			pathAppend(pluginsFullPathFilter, foundFileName);
@@ -409,7 +409,7 @@ bool PluginsManager::loadPlugins(const wchar_t* dir, const PluginViewList* plugi
 		while (::FindNextFile(hFindFolder, &foundData))
 		{
 			wstring foundFileName2 = foundData.cFileName;
-			if (foundFileName2 != L"." && foundFileName2 != L".." && wcsicmp(foundFileName2.c_str(), L"Config") != 0)
+			if (foundFileName2 != L"." && foundFileName2 != L".." && _wcsicmp(foundFileName2.c_str(), L"Config") != 0)
 			{
 				wstring pluginsFullPathFilter2 = pluginsFolder;
 				pathAppend(pluginsFullPathFilter2, foundFileName2);
@@ -652,7 +652,7 @@ void PluginsManager::runPluginCommand(const wchar_t *pluginName, int commandID)
 {
 	for (size_t i = 0, len = _pluginsCommands.size() ; i < len ; ++i)
 	{
-		if (!wcsicmp(_pluginsCommands[i]._pluginName.c_str(), pluginName))
+		if (!_wcsicmp(_pluginsCommands[i]._pluginName.c_str(), pluginName))
 		{
 			if (_pluginsCommands[i]._funcID == commandID)
 			{

@@ -732,7 +732,7 @@ BEGIN
             MENUITEM "Paste to (Replace) Bookmarked Lines",    IDM_SEARCH_PASTEMARKEDLINES
             MENUITEM "Remove Bookmarked Lines",                IDM_SEARCH_DELETEMARKEDLINES
             MENUITEM "Remove Non-Bookmarked Lines",            IDM_SEARCH_DELETEUNMARKEDLINES
-            MENUITEM "Inverse Bookmark",                       IDM_SEARCH_INVERSEMARKS
+            MENUITEM "Inverse Bookmarks",                      IDM_SEARCH_INVERSEMARKS
         END
         MENUITEM SEPARATOR
         MENUITEM "Find characters in rang&e...",       IDM_SEARCH_FINDCHARINRANGE

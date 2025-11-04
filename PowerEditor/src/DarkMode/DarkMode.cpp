@@ -160,7 +160,7 @@ void RefreshTitleBarThemeColor(HWND hWnd)
 bool IsColorSchemeChangeMessage(LPARAM lParam)
 {
 	bool is = false;
-	if (lParam && (0 == lstrcmpi(reinterpret_cast<LPCWCH>(lParam), L"ImmersiveColorSet")) && _RefreshImmersiveColorPolicyState)
+	if (lParam && (lstrcmpi(reinterpret_cast<LPCWCH>(lParam), L"ImmersiveColorSet") == 0) && _RefreshImmersiveColorPolicyState)
 	{
 		_RefreshImmersiveColorPolicyState();
 		is = true;

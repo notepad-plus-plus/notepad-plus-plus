@@ -226,7 +226,7 @@ Translation note:
 					<Item id="43020" name="Paste to (Replace) Bookmarked Lines"/>
 					<Item id="43021" name="Remove Bookmarked Lines"/>
 					<Item id="43051" name="Remove Non-Bookmarked Lines"/>
-					<Item id="43050" name="Inverse Bookmark"/>
+					<Item id="43050" name="Inverse Bookmarks"/>
 					<Item id="43052" name="Find characters in rang&amp;e..."/>
 					<Item id="43053" name="Select All In-betw&amp;een {} [] or ()"/>
 					<Item id="43009" name="Go to &amp;Matching Brace"/>

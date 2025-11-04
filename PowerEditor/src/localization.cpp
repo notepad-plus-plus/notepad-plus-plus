@@ -162,7 +162,7 @@ void NativeLangSpeaker::init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEngl
 				// get original file name (defined by Notpad++) from the attribute
                 _fileName = element->Attribute("filename");
 
-				if (!loadIfEnglish && _fileName && stricmp("english.xml", _fileName) == 0)
+				if (!loadIfEnglish && _fileName && _stricmp("english.xml", _fileName) == 0)
                 {
 					_nativeLangA = NULL;
 					return;

@@ -154,8 +154,8 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 		CONST wchar_t* msftTEXTest_site = L"http://www.msftncsi.com/ncsi.txt";
 		bool online = false;
 		online = (0 != IsNetworkAlive(&netstatus));
-		online = online && (0 == GetLastError());
-		online = online && (0 == IsDestinationReachable(msftTEXTest_site, &oci));
+		online = online && (GetLastError() == 0);
+		online = online && (IsDestinationReachable(msftTEXTest_site, &oci) == 0);
 		if (!online)
 		{
 			winTEXTrust_data.fdwRevocationChecks = WTD_REVOKE_NONE;

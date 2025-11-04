@@ -6307,7 +6307,7 @@ bool Notepad_plus::getIntegralDockingData(tTbData & dockData, int & iCont, bool 
 	{
 		const PluginDlgDockingInfo & pddi = dockingData._pluginDockInfo[i];
 
-		if (!wcsicmp(pddi._name.c_str(), dockData.pszModuleName) && (pddi._internalID == dockData.dlgID))
+		if (!_wcsicmp(pddi._name.c_str(), dockData.pszModuleName) && (pddi._internalID == dockData.dlgID))
 		{
 			iCont				= pddi._currContainer;
 			isVisible			= pddi._isVisible;
@@ -8348,11 +8348,11 @@ int Notepad_plus::getQuoteIndexFrom(const wchar_t* quoter) const
 	if (!quoter)
 		return -1;
 
-	if (wcsicmp(quoter, L"Get them all!!!") == 0)
+	if (_wcsicmp(quoter, L"Get them all!!!") == 0)
 		return -2;
 
 	int nbQuote = sizeof(quotes) / sizeof(QuoteParams);
-	if (wcsicmp(quoter, L"random") == 0)
+	if (_wcsicmp(quoter, L"random") == 0)
 	{
 		srand(static_cast<UINT>(time(NULL)));
 		return getRandomNumber(nbQuote);
@@ -8360,7 +8360,7 @@ int Notepad_plus::getQuoteIndexFrom(const wchar_t* quoter) const
 
 	for (int i = 0; i < nbQuote; ++i)
 	{
-		if (wcsicmp(quotes[i]._quoter, quoter) == 0)
+		if (_wcsicmp(quotes[i]._quoter, quoter) == 0)
 			return i;
 	}
 	return -1;

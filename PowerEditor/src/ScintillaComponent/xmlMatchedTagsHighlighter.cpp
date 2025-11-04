@@ -257,7 +257,7 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
 							// If we didn't find any close tags between the open and our close,
 							// and there's no open tags remaining to find
 							// then the open we found was the right one, and we can return it
-							if (0 == closeTagsFound && 0 == openTagsRemaining)
+							if (closeTagsFound == 0 && openTagsRemaining == 0)
 							{
 								xmlTags.tagOpenStart = nextOpenTag.start;
 								xmlTags.tagOpenEnd = nextOpenTag.end + 1;
@@ -362,7 +362,7 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
 									// If we didn't find any open tags between our open and the close,
 									// and there's no close tags remaining to find
 									// then the close we found was the right one, and we can return it
-									if (0 == openTagsFound && 0 == closeTagsRemaining)
+									if (openTagsFound == 0 && closeTagsRemaining == 0)
 									{
 										xmlTags.tagCloseStart = nextCloseTag.start;
 										xmlTags.tagCloseEnd = nextCloseTag.end + 1;
@@ -572,7 +572,7 @@ XmlMatchedTagsHighlighter::FindResult XmlMatchedTagsHighlighter::findText(const 
 	search.chrg.cpMax = static_cast<Sci_Position>(end);
 
 	LangType lang = (_pEditView->getCurrentBuffer())->getLangType();
-	if (lang == L_XML || (lang == L_HTML && wcsicmp(PathFindExtension((_pEditView->getCurrentBuffer())->getFileName()), L".xhtml") == 0))
+	if (lang == L_XML || (lang == L_HTML && _wcsicmp(PathFindExtension((_pEditView->getCurrentBuffer())->getFileName()), L".xhtml") == 0))
 		flags = flags | SCFIND_MATCHCASE;
 
 	intptr_t result = _pEditView->execute(SCI_FINDTEXTFULL, flags, reinterpret_cast<LPARAM>(&search));

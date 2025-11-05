@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.8.1">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.8.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1006,6 +1006,7 @@ Translation note:
 					<Item id="6128" name="別デザインのアイコンを使用する"/>
 					<Item id="6125" name="挙動の設定"/>
 					<Item id="6126" name="見た目の設定"/>
+					<Item id="6136" name="タブに表示する最大の文字数:"/>
 				</Tabbar>
 
 				<Scintillas title="編集画面 1">
@@ -1898,6 +1899,7 @@ C、C++、Java、C#、Objective-C、PHP、JavaScript、JSP、CSS、Perl、Rust�
 			<max-len-on-search-tip value="入力された文字列が上限を超えたため、切り捨てられた可能性があります。また、次回のセッションにも引き継がれません。"/>
 			<max-len-on-save-tip value="入力された文字列が非常に長いため、次回のセッションに引き継がれない可能性があります。"/>
 			<goto-setting-tip value="関連する設定はこちら"/>
+			<tabbar-tabcompactlabellen-tip value="タブの名称が長いときに、表示する文字数を制限します。Enterキーを押すと反映されます。設定可能な値: 1-257 文字 (無効にするには 0 を入力)。"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

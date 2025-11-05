@@ -1004,7 +1004,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 						}
 						else
 						{
-							if (isCloseHoverOld && !_isCloseHover)
+							if (isCloseHoverOld && (isFromTabToTab || !_isCloseHover))
 								InvalidateRect(hwnd, &currentHoverTabRectOld, FALSE);
 
 							if (_isCloseHover)
@@ -1044,7 +1044,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 						}
 						else
 						{
-							if (isPinHoverOld && !_isPinHover)
+							if (isPinHoverOld && (isFromTabToTab || !_isPinHover))
 								InvalidateRect(hwnd, &currentHoverTabRectOld, FALSE);
 
 							if (_isPinHover)

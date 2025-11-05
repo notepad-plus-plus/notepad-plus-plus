@@ -158,12 +158,6 @@ intptr_t CALLBACK FolderStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LP
             return SharedParametersDialog::run_dlgProc(Message, wParam, lParam);
         }
 
-        case WM_DPICHANGED_AFTERPARENT:
-        {
-            _pageLink.destroy();
-            return TRUE;
-        }
-
         case WM_COMMAND:
         {
             switch (wParam)
@@ -200,11 +194,7 @@ intptr_t CALLBACK FolderStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LP
                     return SharedParametersDialog::run_dlgProc(Message, wParam, lParam);
             }
         }
-        case WM_DESTROY:
-        {
-            _pageLink.destroy();
-            return TRUE;
-        }
+
         default :
             return SharedParametersDialog::run_dlgProc(Message, wParam, lParam);
     }

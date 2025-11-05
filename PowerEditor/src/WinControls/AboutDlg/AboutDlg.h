@@ -45,7 +45,6 @@ public :
 
 	void destroy() override {
 		//_emailLink.destroy();
-		_pageLink.destroy();
 		if (_hIcon != nullptr)
 		{
 			::DestroyIcon(_hIcon);

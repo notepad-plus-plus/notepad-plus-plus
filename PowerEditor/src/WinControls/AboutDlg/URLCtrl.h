@@ -18,7 +18,7 @@
 #pragma once
 
 #include "Window.h"
-#include "Common.h"
+#include <string>
 
 class URLCtrl : public Window {
 public:
@@ -36,14 +36,10 @@ protected :
 	HWND _msgDest = nullptr;
 	unsigned long _cmdID = 0;
 
-    WNDPROC  _oldproc = nullptr;
     COLORREF _linkColor = RGB(0xFF, 0xFF, 0xFF);
     COLORREF _visitedColor = RGB(0xFF, 0xFF, 0xFF);
     bool  _clicking = false;
 
-    static LRESULT CALLBACK URLCtrlProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
-        return ((URLCtrl *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(hwnd, Message, wParam, lParam);
-    }
-    LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK URLCtrlProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
+	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 };
-

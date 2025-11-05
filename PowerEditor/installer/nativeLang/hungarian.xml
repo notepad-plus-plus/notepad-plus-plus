@@ -5,7 +5,7 @@
 <!-- Prohardver topic: https://prohardver.hu/tema/re_notepad/friss.html -->
 <!-- For more information see the Commits History: https://github.com/notepad-plus-plus/notepad-plus-plus/commits/master/PowerEditor/installer/nativeLang/hungarian.xml -->
 <NotepadPlus>
-	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.8.1">
+	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.8.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1001,6 +1001,7 @@
 					<Item id="6128" name="Alternatí&amp;v ikonok"/>
 					<Item id="6125" name="Viselkedés"/>
 					<Item id="6126" name="Megjelenés és működés"/><!-- Based on the standard translations (the translator) -->
+					<Item id="6136" name="&amp;Maximális fülcímkehossz:"/>
 				</Tabbar>
 
 				<Scintillas title="Szerkesztés">
@@ -1411,10 +1412,10 @@
 				</ComboBox>
 				<Item id="2036" name="&amp;Számok ismétlése:"/>
 				<Item id="2032" name="Formátum (számrendszer)"/>
-				<Item id="2024" name="&amp;Decimális (10-es)"/>
-				<Item id="2025" name="Ok&amp;tális (8-as)"/>
-				<Item id="2026" name="&amp;Hexadec. (16-os)"/>
-				<Item id="2027" name="B&amp;ináris (2-es)"/>
+				<Item id="2024" name="&amp;Dec (10-es)"/>
+				<Item id="2025" name="Ok&amp;t (8-as)"/>
+				<Item id="2026" name="&amp;Hex (16)"/>
+				<Item id="2027" name="B&amp;in (2-es)"/>
 				<Item id="1" name="&amp;OK"/>
 				<Item id="2" name="&amp;Mégse"/>
 			</ColumnEditor>
@@ -1903,6 +1904,7 @@ Ha a „Haladó szintű” módot választja, de nem a fenti nyelvek fájljait s
 			<max-len-on-search-tip value="Előfordulhat, hogy a felvett szöveg meghaladja a megengedett hosszúságot, emiatt lehet, hogy rövidítve lesz, valamint a levágott részt nem menti a rendszer a következő munkamenethez"/>
 			<max-len-on-save-tip value="A felvett szöveg rendkívül hosszú, emiatt előfordulhat, hogy nem lehet teljesen menteni a következő munkamenethez"/>
 			<goto-setting-tip value="Keresés a beállítások között"/>
+			<tabbar-tabcompactlabellen-tip value="A terjedelmes lapnevek hosszának korlátozása. A megadott érték alkalmazásához nyomjon Entert. Értéktartomány: 1–257 karakter (a 0 kikapcsolja a levágást)"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

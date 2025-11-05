@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.1"><!-- Datum: 30.09.2025, basiert auf english.xml 8.8.1 vom 30.09.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.7"><!-- Datum: 09.11.2025, basiert auf english.xml 8.8.7 vom 03.11.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1010,6 +1010,7 @@ Translation note:
 					<Item id="6128" name="Alternative Symbole"/>
 					<Item id="6125" name="Verhalten"/>
 					<Item id="6126" name="Aussehen &amp;&amp; Wirkung (Look &amp;&amp; feel)"/>
+					<Item id="6136" name="Max. Länge f. Tab-Namen:"/>
 				</Tabbar>
 
 				<Scintillas title="Bearbeiten 1">
@@ -1912,6 +1913,7 @@ Wenn diese 'Intelligente Einrückung' gewählt wird, aber keine Dateien in den o
 			<max-len-on-search-tip value="Ihre Eingabe überschreitet ev. die zulässige Grenze und wurde möglicherweise gekürzt, und wird auch für die nächste Sitzung nicht gespeichert."/>
 			<max-len-on-save-tip value="Ihre Eingabe ist sehr lang und wird möglicherweise nicht für Ihre nächste Sitzung gespeichert."/>
 			<goto-setting-tip value="Finde hier deine Einstellungen"/>
+			<tabbar-tabcompactlabellen-tip value="Kürzt die sichtbare Länge der Tab-Namen. Enter drücken um den Wert zu übernehmen. Eingabebereich: 1-257 Zeichen (0 deaktiviert das Abkürzen)."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

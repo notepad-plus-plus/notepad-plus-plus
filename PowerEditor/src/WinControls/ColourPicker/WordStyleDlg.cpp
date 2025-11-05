@@ -277,8 +277,6 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 		{
 			_dpiManager.setDpiWP(wParam);
 
-			_goToSettings.destroy();
-
 			const int cpDynamicalSize = _dpiManager.scale(25);
 			move2CtrlRight(IDC_FG_STATIC, _pFgColour->getHSelf(), cpDynamicalSize, cpDynamicalSize);
 			move2CtrlRight(IDC_BG_STATIC, _pBgColour->getHSelf(), cpDynamicalSize, cpDynamicalSize);
@@ -1399,8 +1397,6 @@ void WordStyleDlg::doDialog(bool isRTL)
 
 void WordStyleDlg::destroy()
 {
-	_goToSettings.destroy();
-
 	if (_pFgColour != nullptr)
 	{
 		_pFgColour->destroy();

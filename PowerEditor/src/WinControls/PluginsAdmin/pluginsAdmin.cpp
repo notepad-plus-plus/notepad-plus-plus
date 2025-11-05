@@ -1177,7 +1177,6 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		case WM_DPICHANGED:
 		{
 			_dpiManager.setDpiWP(wParam);
-			_repoLink.destroy();
 
 			const size_t szColVer = _dpiManager.scale(100);
 			const size_t szColName = szColVer * 2;
@@ -1328,12 +1327,6 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				}
 			}
 
-			return TRUE;
-		}
-
-		case WM_DESTROY:
-		{
-			_repoLink.destroy();
 			return TRUE;
 		}
 	}

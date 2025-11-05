@@ -72,9 +72,6 @@ class WordStyleDlg : public StaticDialog
 public :
 	WordStyleDlg() = default;
 	~WordStyleDlg() override {
-		_goToSettings.destroy();
-		_globalOverrideLinkTip.destroy();
-
 		if (_globalOverrideTip)
 			::DestroyWindow(_globalOverrideTip);
 	}

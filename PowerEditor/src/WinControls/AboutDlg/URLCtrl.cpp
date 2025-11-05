@@ -16,8 +16,13 @@
 
 
 #include "URLCtrl.h"
+
+#include <commctrl.h>
+
+#include "Common.h"
+#include "NppConstants.h"
 #include "NppDarkMode.h"
-#include "Parameters.h"
+#include "dpiManagerV2.h"
 
 
 void URLCtrl::create(HWND itemHandle, const wchar_t * link, COLORREF linkColor)
@@ -36,10 +41,7 @@ void URLCtrl::create(HWND itemHandle, const wchar_t * link, COLORREF linkColor)
 	_visitedColor = RGB(128,0,128);
 
 	// subclass the static control
-	_oldproc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(itemHandle, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(URLCtrlProc)));
-
-	// associate the URL structure with the static control
-	::SetWindowLongPtr(itemHandle, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
+	::SetWindowSubclass(itemHandle, URLCtrlProc, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(this));
 
 	// save hwnd
 	_hSelf = itemHandle;
@@ -58,10 +60,7 @@ void URLCtrl::create(HWND itemHandle, int cmd, HWND msgDest)
     _linkColor = RGB(0,0,255);
 
 	// subclass the static control
-	_oldproc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(itemHandle, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(URLCtrlProc)));
-
-	// associate the URL structure with the static control
-	::SetWindowLongPtr(itemHandle, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
+	::SetWindowSubclass(itemHandle, URLCtrlProc, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(this));
 
 	// save hwnd
 	_hSelf = itemHandle;
@@ -115,14 +114,24 @@ void URLCtrl::action()
 	}
 }
 
-LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK URLCtrl::URLCtrlProc(
+	HWND hwnd,
+	UINT Message,
+	WPARAM wParam,
+	LPARAM lParam,
+	UINT_PTR uIdSubclass,
+	DWORD_PTR dwRefData
+)
 {
-    switch(Message)
-    {
-	    // Free up the structure we allocated
-	    case WM_NCDESTROY:
-		    //HeapFree(GetProcessHeap(), 0, url);
-		    break;
+	auto* pRefData = reinterpret_cast<URLCtrl*>(dwRefData);
+
+	switch (Message)
+	{
+		case WM_NCDESTROY:
+		{
+			::RemoveWindowSubclass(hwnd, URLCtrlProc, uIdSubclass);
+			break;
+		}
 
 	    // Paint the static control using our custom
 	    // colours, and with an underline text style
@@ -142,10 +151,10 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 			PAINTSTRUCT ps{};
             HDC hdc = ::BeginPaint(hwnd, &ps);
 
-			if ((_linkColor == _visitedColor) || (_linkColor == NppDarkMode::getDarkerTextColor()))
+			if ((pRefData->_linkColor == pRefData->_visitedColor) || (pRefData->_linkColor == NppDarkMode::getDarkerTextColor()))
 			{
-				_linkColor = NppDarkMode::isEnabled() ? NppDarkMode::getDarkerTextColor() : _visitedColor;
-				::SetTextColor(hdc, _linkColor);
+				pRefData->_linkColor = NppDarkMode::isEnabled() ? NppDarkMode::getDarkerTextColor() : pRefData->_visitedColor;
+				::SetTextColor(hdc, pRefData->_linkColor);
 			}
 			else if (NppDarkMode::isEnabled())
 			{
@@ -153,23 +162,23 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 			}
 			else
 			{
-				::SetTextColor(hdc, _linkColor);
+				::SetTextColor(hdc, pRefData->_linkColor);
 			}
 
             ::SetBkColor(hdc, getCtrlBgColor(GetParent(hwnd))); ///*::GetSysColor(COLOR_3DFACE)*/);
 
 			// Create an underline font
-			if (_hfUnderlined == nullptr)
+			if (pRefData->_hfUnderlined == nullptr)
 			{
 				// Get the default GUI font
 				LOGFONT lf{ DPIManagerV2::getDefaultGUIFontForDpi(::GetParent(hwnd)) };
 				lf.lfUnderline = TRUE;
 
 				// Create a new font
-				_hfUnderlined = ::CreateFontIndirect(&lf);
+				pRefData->_hfUnderlined = ::CreateFontIndirect(&lf);
 			}
 
-		    HANDLE hOld = SelectObject(hdc, _hfUnderlined);
+			auto hOld = static_cast<HFONT>(::SelectObject(hdc, pRefData->_hfUnderlined));
 
 		    // Draw the text!
 			wchar_t szWinText[MAX_PATH] = { '\0' };
@@ -183,54 +192,74 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 		    return 0;
         }
 
-	    case WM_SETTEXT:
-        {
-            LRESULT ret = ::CallWindowProc(_oldproc, hwnd, Message, wParam, lParam);
-            ::InvalidateRect(hwnd, 0, 0);
-            return ret;
-        }
-	    // Provide a hand cursor when the mouse moves over us
-	    //case WM_SETCURSOR:
-        case WM_MOUSEMOVE:
-        {
-            ::SetCursor(loadHandCursor());
-            return TRUE;
-        }
+		case WM_DPICHANGED_AFTERPARENT:
+		{
+			pRefData->destroy();
+			return 0;
+		}
 
-	    case WM_LBUTTONDOWN:
-		    _clicking = true;
-		    break;
+		case WM_SETTEXT:
+		{
+			const LRESULT ret = ::DefSubclassProc(hwnd, Message, wParam, lParam);
+			::InvalidateRect(hwnd, 0, 0);
+			return ret;
+		}
+		// Provide a hand cursor when the mouse moves over us
+		//case WM_SETCURSOR:
+		case WM_MOUSEMOVE:
+		{
+			::SetCursor(pRefData->loadHandCursor());
+			return 0;
+		}
 
-	    case WM_LBUTTONUP:
-		    if (_clicking)
-		    {
-			    _clicking = false;
+		case WM_LBUTTONDOWN:
+		{
+			pRefData->_clicking = true;
+			break;
+		}
 
-				action();
-		    }
-
-		    break;
+		case WM_LBUTTONUP:
+		{
+			if (pRefData->_clicking)
+			{
+				pRefData->_clicking = false;
+				pRefData->action();
+			}
+			break;
+		}
 
 		//Support using space to activate this object
 		case WM_KEYDOWN:
+		{
 			if (wParam == VK_SPACE)
-				_clicking = true;
+				pRefData->_clicking = true;
+
 			break;
+		}
 
 		case WM_KEYUP:
-			if (wParam == VK_SPACE && _clicking)
+		{
+			if (wParam == VK_SPACE && pRefData->_clicking)
 			{
-				_clicking = false;
-
-				action();
+				pRefData->_clicking = false;
+				pRefData->action();
 			}
 			break;
+		}
 
-	    // A standard static control returns HTTRANSPARENT here, which
-	    // prevents us from receiving any mouse messages. So, return
-	    // HTCLIENT instead.
-	    case WM_NCHITTEST:
-		    return HTCLIENT;
-    }
-    return ::CallWindowProc(_oldproc, hwnd, Message, wParam, lParam);
+		// A standard static control returns HTTRANSPARENT here, which
+		// prevents us from receiving any mouse messages. So, return
+		// HTCLIENT instead.
+		case WM_NCHITTEST:
+		{
+			return HTCLIENT;
+		}
+
+		case WM_DESTROY:
+		{
+			pRefData->destroy();
+			break;
+		}
+	}
+	return ::DefSubclassProc(hwnd, Message, wParam, lParam);
 }

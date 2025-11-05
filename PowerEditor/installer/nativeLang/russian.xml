@@ -492,8 +492,8 @@ Updated to :
 				<Item CMDID="41016" name="Удалить файл в корзину"/>
 				<Item CMDID="41014" name="Обновить с диска"/>
 				<Item CMDID="41010" name="Печать..."/>
-				<Item CMDID="42028" name="&quot;Только Чтение&quot; в Notepad++"/>
-				<Item CMDID="42033" name="Атрибут &quot;Только Чтение&quot; в Windows"/>
+				<Item CMDID="42028" name="&quot;Только Чтение&quot; Текущего Документа"/>
+				<Item CMDID="42033" name="&quot;Только Чтение&quot; в Windows"/>
 				<Item CMDID="2" name="Копировать в Буфер"/>
 				<Item CMDID="42029" name="Полный Путь с Именем"/>
 				<Item CMDID="42030" name="Имя файла"/>
@@ -1058,6 +1058,7 @@ Updated to :
 					<Item id="6112" name="Кнопка закрытия"/>
 					<Item id="6115" name="Возможность закрепления вкладки"/>
 					<Item id="6135" name="Отображать только закрепленные кнопки"/>
+					<Item id="6136" name="Макс. длина метки вкладки:"/>
 					<Item id="6111" name="Отображать кнопки неактивных вкладок"/>
 				</Tabbar>
 				<Scintillas title="Правка 1">
@@ -1893,6 +1894,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 			<len-limit-exceeded-tip value="Превышен лимит длины: Введенные вами данные превышают допустимый лимит и могут быть обрезаны и не будут сохранены для следующей сессии."/>
 			<max-len-on-search-tip value="Введенные вами данные превышают допустимый лимит и могут быть обрезаны и не будут сохранены для следующей сессии."/>
 			<max-len-on-save-tip value="Длина введенных вами данных очень велика и не будет сохранена для следующей сессии."/>
+			<tabbar-tabcompactlabellen-tip value="Ограничивает видимую длину имён вкладок. Нажмите Enter, чтобы применить заданное значение. Диапазон значений: от 1 до 257 символов (0 отключает усечение)."/>
 			<goto-setting-tip value="Найдите свои настройки здесь"/>
 			<statusbar-length-lines value="длина: $STR_REPLACE1$    строк: $STR_REPLACE2$"/>
 			<statusbar-Ln-Col value="Стр: $STR_REPLACE1$    Кол: $STR_REPLACE2$"/>

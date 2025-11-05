@@ -16,7 +16,6 @@
 
 #include "DoubleBuffer.h"
 #include "NppConstants.h"
-#include "NppDarkMode.h"
 #include <commctrl.h>
 #include <cassert>
 #include <memory>
@@ -24,7 +23,7 @@
 void DoubleBuffer::subclass(HWND hWnd)
 {
 	std::unique_ptr<DoubleBuffer> self(new DoubleBuffer);
-	if (::SetWindowSubclass(hWnd, s_subclassWndProc, static_cast<UINT_PTR>(SubclassID::second), reinterpret_cast<DWORD_PTR>(self.get())))
+	if (::SetWindowSubclass(hWnd, s_subclassWndProc, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(self.get())))
 	{
 		self.release();
 	}

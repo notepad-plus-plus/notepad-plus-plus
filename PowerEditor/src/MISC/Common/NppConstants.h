@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2021 Don HO <don.h@free.fr>
+// Copyright (C)2025 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,9 +19,9 @@
 const bool dirUp = true;
 const bool dirDown = false;
 
-#define NPP_CP_WIN_1252           1252
-#define NPP_CP_DOS_437            437
-#define NPP_CP_BIG5               950
+inline constexpr int NPP_CP_WIN_1252 = 1252;
+inline constexpr int NPP_CP_DOS_437 = 437;
+inline constexpr int NPP_CP_BIG5 = 950;
 
 #define LINKTRIGGERED WM_USER+555
 
@@ -48,7 +48,7 @@ const bool dirDown = false;
 
 enum class SubclassID : unsigned int
 {
-	first = 42,
-	second = 1984,
-	third = 666
+	darkMode = 42,
+	first = 666,
+	second = 1984
 };

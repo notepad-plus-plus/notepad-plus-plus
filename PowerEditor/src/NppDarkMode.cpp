@@ -1470,8 +1470,6 @@ namespace NppDarkMode
 		DWORD_PTR dwRefData
 	)
 	{
-		UNREFERENCED_PARAMETER(uIdSubclass);
-
 		auto pButtonData = reinterpret_cast<ButtonData*>(dwRefData);
 
 		switch (uMsg)
@@ -1485,7 +1483,7 @@ namespace NppDarkMode
 
 			case WM_NCDESTROY:
 			{
-				::RemoveWindowSubclass(hWnd, ButtonSubclass, static_cast<UINT_PTR>(SubclassID::first));
+				::RemoveWindowSubclass(hWnd, ButtonSubclass, uIdSubclass);
 				delete pButtonData;
 				break;
 			}

@@ -261,7 +261,7 @@ LRESULT CALLBACK VerticalFileSwitcher::FileSwitcherNotifySubclass(
 
 void VerticalFileSwitcher::autoSubclassWindowNotify(HWND hParent)
 {
-	::SetWindowSubclass(hParent, VerticalFileSwitcher::FileSwitcherNotifySubclass, static_cast<UINT_PTR>(NppDarkMode::SubclassID::first), 0);
+	::SetWindowSubclass(hParent, VerticalFileSwitcher::FileSwitcherNotifySubclass, static_cast<UINT_PTR>(SubclassID::first), 0);
 }
 
 intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)

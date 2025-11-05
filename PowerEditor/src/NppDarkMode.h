@@ -82,12 +82,6 @@ namespace NppDarkMode
 		dark = 2
 	};
 
-	enum class SubclassID : unsigned int
-	{
-		first = 42,
-		second = 1984
-	};
-
 	constexpr UINT WM_SETBUTTONIDEALSIZE = (WM_USER + 4200);
 
 	void initDarkMode();				// pulls options from NppParameters

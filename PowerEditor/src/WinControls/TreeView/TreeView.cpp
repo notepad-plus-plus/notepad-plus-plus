@@ -51,7 +51,7 @@ void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
 	const int itemHeight = DPIManagerV2::scale(g_treeviewIcoSize + g_treeviewItemPadding * 2, _hParent);
 	TreeView_SetItemHeight(_hSelf, itemHeight);
 
-	::SetWindowSubclass(_hSelf, staticProc, static_cast<UINT_PTR>(NppDarkMode::SubclassID::first), reinterpret_cast<DWORD_PTR>(this));
+	::SetWindowSubclass(_hSelf, staticProc, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(this));
 }
 
 

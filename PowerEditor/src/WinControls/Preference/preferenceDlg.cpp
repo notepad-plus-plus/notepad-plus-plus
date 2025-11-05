@@ -162,10 +162,10 @@ static LRESULT CALLBACK EditEnterProc(
 
 static void subclassEditToAcceptEnterKey(HWND hEdit, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	if (::GetWindowSubclass(hEdit, EditEnterProc, static_cast<UINT_PTR>(NppDarkMode::SubclassID::first), nullptr) == FALSE)
+	if (::GetWindowSubclass(hEdit, EditEnterProc, static_cast<UINT_PTR>(SubclassID::first), nullptr) == FALSE)
 	{
 		auto pMsgData = std::make_unique<MsgData>(uMsg, wParam, lParam);
-		if (::SetWindowSubclass(hEdit, EditEnterProc, static_cast<UINT_PTR>(NppDarkMode::SubclassID::first), reinterpret_cast<DWORD_PTR>(pMsgData.get())) == TRUE)
+		if (::SetWindowSubclass(hEdit, EditEnterProc, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(pMsgData.get())) == TRUE)
 		{
 			static_cast<void>(pMsgData.release());
 		}

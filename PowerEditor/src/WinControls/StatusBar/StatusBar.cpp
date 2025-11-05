@@ -277,7 +277,7 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 	StatusBarSubclassInfo* pStatusBarInfo = new StatusBarSubclassInfo(::CreateFontIndirect(&lf));
 	_pStatusBarInfo = pStatusBarInfo;
 
-	SetWindowSubclass(_hSelf, StatusBarSubclass, static_cast<UINT_PTR>(NppDarkMode::SubclassID::first), reinterpret_cast<DWORD_PTR>(pStatusBarInfo));
+	SetWindowSubclass(_hSelf, StatusBarSubclass, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(pStatusBarInfo));
 
 	DoubleBuffer::subclass(_hSelf);
 

@@ -247,6 +247,7 @@
     <ClInclude Include="..\src\dpiManagerV2.h" />
     <ClInclude Include="..\src\keys.h" />
     <ClInclude Include="..\src\localizationString.h" />
+    <ClInclude Include="..\src\MISC\Common\NppConstants.h" />
     <ClInclude Include="..\src\MISC\Common\Sorters.h" />
     <ClInclude Include="..\src\MISC\Common\SortLocale.h" />
     <ClInclude Include="..\src\MISC\Common\verifySignedfile.h" />

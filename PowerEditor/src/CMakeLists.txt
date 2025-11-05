@@ -201,7 +201,7 @@ SET(src_files
 )
 
 SET(include_files
-			./NppConstants.h
+			./MISC/Common/NppConstants.h
 			./clipboardFormats.h
 			./DarkMode/DarkMode.h
 			./DarkMode/IatHook.h

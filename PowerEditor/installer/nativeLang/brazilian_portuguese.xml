@@ -1002,7 +1002,6 @@ Translation note:
 					<Item id="6125" name="Comportamento"/>
 					<Item id="6126" name="Olhar &amp;&amp; sentir"/>
 					<Item id="6136" name="Tam. máx. de nome em aba:"/>
-					<Item id="6136" name="Max. tab label length:"/>
 				</Tabbar>
 				
 				<Scintillas title="Edição 1">

@@ -1569,7 +1569,7 @@ namespace NppDarkMode
 	void subclassButtonControl(HWND hwnd)
 	{
 		DWORD_PTR pButtonData = reinterpret_cast<DWORD_PTR>(new ButtonData(hwnd));
-		SetWindowSubclass(hwnd, ButtonSubclass, static_cast<UINT_PTR>(SubclassID::first), pButtonData);
+		SetWindowSubclass(hwnd, ButtonSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), pButtonData);
 
 		// The following code handles default English localization during Notepad++ launch for button size.
 		// For other languages, NativeLangSpeaker::resizeCheckboxRadioBtn will adjust button dimensions.
@@ -1752,7 +1752,7 @@ namespace NppDarkMode
 	void subclassGroupboxControl(HWND hwnd)
 	{
 		DWORD_PTR pButtonData = reinterpret_cast<DWORD_PTR>(new ButtonData());
-		SetWindowSubclass(hwnd, GroupboxSubclass, static_cast<UINT_PTR>(SubclassID::first), pButtonData);
+		SetWindowSubclass(hwnd, GroupboxSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), pButtonData);
 	}
 
 	static void paintTab(HWND hWnd, HDC hdc, const RECT& rect)
@@ -2015,10 +2015,10 @@ namespace NppDarkMode
 
 	void subclassTabControl(HWND hWnd)
 	{
-		if (::GetWindowSubclass(hWnd, TabSubclass, static_cast<UINT_PTR>(SubclassID::first), nullptr) == FALSE)
+		if (::GetWindowSubclass(hWnd, TabSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), nullptr) == FALSE)
 		{
 			auto pTabBufferData = reinterpret_cast<DWORD_PTR>(new BufferData());
-			::SetWindowSubclass(hWnd, TabSubclass, static_cast<UINT_PTR>(SubclassID::first), pTabBufferData);
+			::SetWindowSubclass(hWnd, TabSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), pTabBufferData);
 		}
 	}
 
@@ -2211,7 +2211,7 @@ namespace NppDarkMode
 	static void subclassCustomBorderForListBoxAndEditControls(HWND hwnd)
 	{
 		auto pBorderMetricsData = reinterpret_cast<DWORD_PTR>(new BorderMetricsData(hwnd));
-		SetWindowSubclass(hwnd, CustomBorderSubclass, static_cast<UINT_PTR>(SubclassID::first), pBorderMetricsData);
+		SetWindowSubclass(hwnd, CustomBorderSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), pBorderMetricsData);
 	}
 
 	struct ComboboxData
@@ -2488,11 +2488,11 @@ namespace NppDarkMode
 
 	void subclassComboBoxControl(HWND hWnd)
 	{
-		if (::GetWindowSubclass(hWnd, ComboBoxSubclass, static_cast<UINT_PTR>(SubclassID::first), nullptr) == FALSE)
+		if (::GetWindowSubclass(hWnd, ComboBoxSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), nullptr) == FALSE)
 		{
 			auto cbStyle = ::GetWindowLongPtr(hWnd, GWL_STYLE) & CBS_DROPDOWNLIST;
 			auto pComboboxData = reinterpret_cast<DWORD_PTR>(new ComboboxData(cbStyle));
-			::SetWindowSubclass(hWnd, ComboBoxSubclass, static_cast<UINT_PTR>(SubclassID::first), pComboboxData);
+			::SetWindowSubclass(hWnd, ComboBoxSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), pComboboxData);
 		}
 	}
 
@@ -2555,7 +2555,7 @@ namespace NppDarkMode
 
 	static void subclassListViewControl(HWND hwnd)
 	{
-		SetWindowSubclass(hwnd, ListViewSubclass, static_cast<UINT_PTR>(SubclassID::first), 0);
+		SetWindowSubclass(hwnd, ListViewSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), 0);
 	}
 
 	struct ProgressBarData
@@ -2742,10 +2742,10 @@ namespace NppDarkMode
 
 	static void subclassProgressBar(HWND hWnd)
 	{
-		if (::GetWindowSubclass(hWnd, ProgressBarSubclass, static_cast<UINT_PTR>(SubclassID::first), nullptr) == FALSE)
+		if (::GetWindowSubclass(hWnd, ProgressBarSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), nullptr) == FALSE)
 		{
 			auto pProgressBarData = reinterpret_cast<DWORD_PTR>(new ProgressBarData());
-			::SetWindowSubclass(hWnd, ProgressBarSubclass, static_cast<UINT_PTR>(SubclassID::first), pProgressBarData);
+			::SetWindowSubclass(hWnd, ProgressBarSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), pProgressBarData);
 		}
 	}
 
@@ -3042,10 +3042,10 @@ namespace NppDarkMode
 	{
 		if (cmpWndClassName(hWnd, UPDOWN_CLASS))
 		{
-			if (::GetWindowSubclass(hWnd, UpDownSubclass, static_cast<UINT_PTR>(SubclassID::first), nullptr) == FALSE)
+			if (::GetWindowSubclass(hWnd, UpDownSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), nullptr) == FALSE)
 			{
 				auto pUpdownData = reinterpret_cast<DWORD_PTR>(new UpDownData(hWnd));
-				::SetWindowSubclass(hWnd, UpDownSubclass, static_cast<UINT_PTR>(SubclassID::first), pUpdownData);
+				::SetWindowSubclass(hWnd, UpDownSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), pUpdownData);
 				NppDarkMode::setDarkExplorerTheme(hWnd);
 				return true;
 			}
@@ -3320,7 +3320,7 @@ namespace NppDarkMode
 #ifndef __MINGW64__ // mingw build for 64 bit has issue with GetWindowSubclass, it is undefined
 
 		bool changed = false;
-		if (::GetWindowSubclass(hwnd, CustomBorderSubclass, static_cast<UINT_PTR>(SubclassID::first), nullptr) == TRUE)
+		if (::GetWindowSubclass(hwnd, CustomBorderSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), nullptr) == TRUE)
 		{
 			if (NppDarkMode::isEnabled())
 			{
@@ -3911,7 +3911,7 @@ namespace NppDarkMode
 
 	void autoSubclassAndThemePluginDockWindow(HWND hwnd)
 	{
-		SetWindowSubclass(hwnd, PluginDockWindowSubclass, static_cast<UINT_PTR>(SubclassID::first), 0);
+		SetWindowSubclass(hwnd, PluginDockWindowSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), 0);
 		NppDarkMode::autoSubclassAndThemeChildControls(hwnd, true, g_isAtLeastWindows10);
 	}
 
@@ -3965,7 +3965,7 @@ namespace NppDarkMode
 
 		if (dmfBitwiseCheck(dmfSubclassParent))
 		{
-			const bool success = ::SetWindowSubclass(hwnd, PluginDockWindowSubclass, static_cast<UINT_PTR>(SubclassID::first), 0) == TRUE;
+			const bool success = ::SetWindowSubclass(hwnd, PluginDockWindowSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), 0) == TRUE;
 			if (success)
 			{
 				result |= dmfSubclassParent;
@@ -4097,9 +4097,9 @@ namespace NppDarkMode
 
 	void autoSubclassCtlColor(HWND hWnd)
 	{
-		if (::GetWindowSubclass(hWnd, WindowCtlColorSubclass, static_cast<UINT_PTR>(SubclassID::first), nullptr) == FALSE)
+		if (::GetWindowSubclass(hWnd, WindowCtlColorSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), nullptr) == FALSE)
 		{
-			::SetWindowSubclass(hWnd, WindowCtlColorSubclass, static_cast<UINT_PTR>(SubclassID::first), 0);
+			::SetWindowSubclass(hWnd, WindowCtlColorSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), 0);
 		}
 	}
 
@@ -4168,7 +4168,7 @@ namespace NppDarkMode
 
 	void autoSubclassAndThemeWindowNotify(HWND hwnd)
 	{
-		SetWindowSubclass(hwnd, WindowNotifySubclass, static_cast<UINT_PTR>(SubclassID::first), 0);
+		SetWindowSubclass(hwnd, WindowNotifySubclass, static_cast<UINT_PTR>(SubclassID::darkMode), 0);
 	}
 
 	void setDarkTitleBar(HWND hwnd)

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: October 2, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: November 5, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.8.1">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.8.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1010,6 +1010,7 @@
 					<Item id="6128" name="Alternativne ikone"/>
 					<Item id="6125" name="Ponašanje"/>
 					<Item id="6126" name="Izgled i dojam"/>
+					<Item id="6136" name="Max. duljina jezička:"/>
 				</Tabbar>
 
 				<Scintillas title="Uređivanje 1">
@@ -1892,8 +1893,8 @@ Kliknite &quot;?&quot; gumb s desne strane za otvaranje web stranice s Korisnič
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Idite na Prilagodbu stilova kako bi promijenili zadanu prilagođenu boju za odabrane prazne i neispisive znakove (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Primijeni postavke stilova neispisivih znakova na znakove C0, C1 kontrole i Unicode EOL (sljedeći redak, razdjelnik retka i razdjelnik odlomka)."/>
-			<searchingInSelThresh-tip value="Minimalni broj odabranih znakova u zoni uređivanja potreban da bi se automatski uključio potvrdni okvir &quot;U označenom&quot; kad se aktivira dijaloški okvir za pretraživanje. Maksimalna vrijednost je $INT_REPLACE$. Postavite vrijednost na 0 za onemogućavanje automatskog uključivanja."/>
-			<searchingFillFindWhat-tip value="Maksimalni broj odabranih znakova u području za uređivanje za automatsko popunjavanje polja &quot;Pronađi&quot; kada se aktivira Ctrl-F. Maksimalna vrijednost je $INT_REPLACE$, što je maksimalna veličina polja &quot;Pronađi&quot;, ograničena sustavom."/>
+			<searchingInSelThresh-tip value="Minimalan broj odabranih znakova u zoni uređivanja potreban da bi se automatski uključio potvrdni okvir &quot;U označenom&quot; kad se aktivira dijaloški okvir za pretraživanje. Maksimalna vrijednost je $INT_REPLACE$. Postavite vrijednost na 0 za onemogućavanje automatskog uključivanja."/>
+			<searchingFillFindWhat-tip value="Maksimalan broj odabranih znakova u području za uređivanje za automatsko popunjavanje polja &quot;Pronađi&quot; kada se aktivira Ctrl-F. Maksimalna vrijednost je $INT_REPLACE$, što je maksimalna veličina polja &quot;Pronađi&quot;, ograničena sustavom."/>
 			<verticalEdge-tip value="Dodajte svoju oznaku stupca označavanjem njenog položaja decimalnim brojem. Možete definirati više oznaka stupaca korištenjem razmaka za odvajanje različitih brojeva."/>
 			<fileSaveAsCopySaveButton-tip value="Držite tipku Shift dok klikate Spremi kopiju kao... kako biste otvorili kopiju nakon spremanja."/>
 			<autoIndentBasic-tip value="Osigurajte da uvlaka trenutnog retka (tj. novog retka stvorenog pritiskom na tipku ENTER) odgovara uvlaci prethodnog retka."/>
@@ -1921,6 +1922,7 @@ Ako odaberete napredni način, ali ne uređujete datoteke na gore navedenim jezi
 			<max-len-on-search-tip value="Vaš unos možda premašuje dopušteno ograničenje i može biti skraćen, te se neće spremiti za sljedeću sesiju."/>
 			<max-len-on-save-tip value="Vaš unos je vrlo dugačak i neće biti spremljen za sljedeću sesiju."/>
 			<goto-setting-tip value="Pronađite svoju postavku ovdje"/>
+			<tabbar-tabcompactlabellen-tip value="Ograničava vidljivu duljinu dugih naziva na jezičcima kartica. Pritisnite Enter za primjenu zadane vrijednosti. Raspon vrijednosti: 1-257 znakova (0 onemogućuje skraćivanje)."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

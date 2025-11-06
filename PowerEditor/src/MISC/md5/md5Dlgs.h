@@ -23,8 +23,6 @@ enum hashType {hash_md5 = 16, hash_sha1 = 20, hash_sha256 = 32, hash_sha512 = 64
 #define HASH_MAX_LENGTH hash_sha512
 #define HASH_STR_MAX_LENGTH (hash_sha512 * 2 + 1)
 
-LRESULT run_textEditProc(WNDPROC oldEditProc, HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
-
 class HashFromFilesDlg : public StaticDialog
 {
 public :
@@ -38,19 +36,7 @@ protected :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	hashType _ht = hash_md5;
 
-	static LRESULT CALLBACK HashPathEditStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
-		const auto dlg = (HashFromFilesDlg *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
-		return (run_textEditProc(dlg->_oldHashPathEditProc, hwnd, message, wParam, lParam));
-	}
-
-	static LRESULT CALLBACK HashResultStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
-		const auto dlg = (HashFromFilesDlg *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
-		return (run_textEditProc(dlg->_oldHashResultProc, hwnd, message, wParam, lParam));
-	}
-
 private :
-	WNDPROC _oldHashPathEditProc = nullptr;
-	WNDPROC _oldHashResultProc = nullptr;
 	HFONT _hFont = nullptr;
 };
 
@@ -69,18 +55,6 @@ protected :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	hashType _ht = hash_md5;
 
-	static LRESULT CALLBACK HashTextEditStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
-		const auto dlg = (HashFromTextDlg *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
-		return (run_textEditProc(dlg->_oldHashTextEditProc, hwnd, message, wParam, lParam));
-	}
-
-	static LRESULT CALLBACK HashResultStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
-		const auto dlg = (HashFromTextDlg *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
-		return (run_textEditProc(dlg->_oldHashResultProc, hwnd, message, wParam, lParam));
-	}
-
 private :
-	WNDPROC _oldHashTextEditProc = nullptr;
-	WNDPROC _oldHashResultProc = nullptr;
 	HFONT _hFont = nullptr;
 };

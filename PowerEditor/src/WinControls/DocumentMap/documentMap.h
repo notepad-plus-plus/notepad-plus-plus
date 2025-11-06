@@ -44,7 +44,7 @@ enum moveMode {
 class ViewZoneDlg : public StaticDialog
 {
 public :
-	ViewZoneDlg() : StaticDialog(), _viewZoneCanvas(nullptr), _canvasDefaultProc(nullptr), _higherY(0), _lowerY(0) {}
+	ViewZoneDlg() : StaticDialog(), _viewZoneCanvas(nullptr), _higherY(0), _lowerY(0) {}
 
 	enum class ViewZoneColorIndex {
 		focus,
@@ -75,9 +75,6 @@ public :
 protected :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
-	static LRESULT CALLBACK canvasStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
-	LRESULT CALLBACK canvas_runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
-
 	static COLORREF _focus;
 	static COLORREF _frost;
 
@@ -85,10 +82,11 @@ protected :
 
 private :
 	HWND _viewZoneCanvas = nullptr;
-	WNDPROC _canvasDefaultProc = nullptr;
 	
 	long _higherY = 0;
 	long _lowerY = 0;
+
+	static LRESULT CALLBACK CanvasProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 };
 
 

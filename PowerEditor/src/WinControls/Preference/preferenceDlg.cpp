@@ -16,11 +16,14 @@
 
 #include <shlwapi.h>
 #include "preferenceDlg.h"
-#include "lesDlgs.h"
 #include "EncodingMapper.h"
 #include "localization.h"
 #include <algorithm>
 #include "ScintillaEditView.h"
+
+#include <commctrl.h>
+
+#include "NppConstants.h"
 
 
 #define MyGetGValue(rgb)      (LOBYTE((rgb)>>8))
@@ -1756,12 +1759,24 @@ bool hasOnlyNumSpaceInClipboard()
 	return true;
 }
 
-static WNDPROC oldFunclstToolbarProc = NULL;
-static LRESULT CALLBACK editNumSpaceProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+static LRESULT CALLBACK EditNumSpaceProc(
+	HWND hWnd,
+	UINT uMsg,
+	WPARAM wParam,
+	LPARAM lParam,
+	UINT_PTR uIdSubclass,
+	[[maybe_unused]] DWORD_PTR /*dwRefData*/
+)
 {
 	static bool canPaste = false;
-	switch (message)
+	switch (uMsg)
 	{
+		case WM_NCDESTROY:
+		{
+			::RemoveWindowSubclass(hWnd, EditNumSpaceProc, uIdSubclass);
+			break;
+		}
+
 		case WM_KEYDOWN:
 		{
 			bool ctrl = GetKeyState(VK_CONTROL) & 0x8000;
@@ -1775,7 +1790,7 @@ static LRESULT CALLBACK editNumSpaceProc(HWND hwnd, UINT message, WPARAM wParam,
 				canPaste = hasOnlyNumSpaceInClipboard();
 
 				if (shift_INS && !canPaste) // Shift-INS is different from Ctrl-V, it doesn't pass by WM_CHAR afterward, so we stop here
-					return TRUE;
+					return 0;
 			}
 		}
 		break;
@@ -1797,7 +1812,7 @@ static LRESULT CALLBACK editNumSpaceProc(HWND hwnd, UINT message, WPARAM wParam,
 			{
 				if (!canPaste) // it comes from Ctrl-V of WM_KEYDOWN: the format is not correct or nothing to paste, so stop here
 				{
-					return TRUE;
+					return 0;
 				}
 				else
 				{
@@ -1812,7 +1827,7 @@ static LRESULT CALLBACK editNumSpaceProc(HWND hwnd, UINT message, WPARAM wParam,
 			{
 				if (wParam != VK_BACK && wParam != ' ' && (wParam < '0' || wParam > '9')) // If input char is not number or white space, stop here
 				{
-					return TRUE;
+					return 0;
 				}
 			}
 		}
@@ -1821,7 +1836,7 @@ static LRESULT CALLBACK editNumSpaceProc(HWND hwnd, UINT message, WPARAM wParam,
 		default:
 			break;
 	}
-	return oldFunclstToolbarProc(hwnd, message, wParam, lParam);
+	return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
 }
 
 
@@ -1829,7 +1844,7 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = nppParam.getNppGUI();
-	ScintillaViewParams& svp = (ScintillaViewParams&)nppParam.getSVP();
+	auto& svp = const_cast<ScintillaViewParams&>(nppParam.getSVP());
 	
 	switch (message)
 	{
@@ -2961,7 +2976,7 @@ void MarginsBorderEdgeSubDlg::initScintParam()
 	}
 	::SendDlgItemMessage(_hSelf, IDC_COLUMNPOS_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(edgeColumnPosStr.c_str()));
 
-	oldFunclstToolbarProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(::GetDlgItem(_hSelf, IDC_COLUMNPOS_EDIT), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(editNumSpaceProc)));
+	::SetWindowSubclass(::GetDlgItem(_hSelf, IDC_COLUMNPOS_EDIT), EditNumSpaceProc, static_cast<UINT_PTR>(SubclassID::first), 0);
 }
 
 intptr_t CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)

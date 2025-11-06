@@ -16,6 +16,10 @@
 
 
 #include "documentMap.h"
+
+#include <commctrl.h>
+
+#include "NppConstants.h"
 #include "ScintillaEditView.h"
 
 
@@ -498,15 +502,14 @@ void ViewZoneDlg::doDialog()
 
 intptr_t CALLBACK ViewZoneDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-	switch (message) 
+	switch (message)
 	{
-        case WM_INITDIALOG :
+		case WM_INITDIALOG:
 		{
 			_viewZoneCanvas = ::GetDlgItem(_hSelf, IDC_VIEWZONECANVAS);
-			if (NULL != _viewZoneCanvas)
+			if (_viewZoneCanvas != nullptr)
 			{
-				::SetWindowLongPtr(_viewZoneCanvas, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
-				_canvasDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_viewZoneCanvas, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(canvasStaticProc)));
+				::SetWindowSubclass(_viewZoneCanvas, ViewZoneDlg::CanvasProc, static_cast<UINT_PTR>(SubclassID::first), 0);
 				return TRUE;
 			}
 			break;
@@ -525,9 +528,9 @@ intptr_t CALLBACK ViewZoneDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			break;
 		}
 
-		case WM_DRAWITEM :
+		case WM_DRAWITEM:
 		{
-			drawPreviewZone((DRAWITEMSTRUCT *)lParam);
+			drawPreviewZone(reinterpret_cast<DRAWITEMSTRUCT*>(lParam));
 			return TRUE;
 		}
 
@@ -557,55 +560,47 @@ intptr_t CALLBACK ViewZoneDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 	return FALSE;
 }
 
-LRESULT CALLBACK ViewZoneDlg::canvasStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
+LRESULT CALLBACK ViewZoneDlg::CanvasProc(
+	HWND hWnd,
+	UINT uMsg,
+	WPARAM wParam,
+	LPARAM lParam,
+	UINT_PTR uIdSubclass,
+	[[maybe_unused]] DWORD_PTR /*dwRefData*/
+)
 {
-	ViewZoneDlg *pViewZoneDlg = reinterpret_cast<ViewZoneDlg *>(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
-	if (!pViewZoneDlg)
-		return FALSE;
-	return pViewZoneDlg->canvas_runProc(hwnd, message, wParam, lParam);
-}
-
-LRESULT CALLBACK ViewZoneDlg::canvas_runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-	switch (message)
-    {
-		case WM_DESTROY:
+	switch (uMsg)
+	{
+		case WM_NCDESTROY:
 		{
-			//::MessageBoxA(NULL,"Destroy","",MB_OK);
+			::RemoveWindowSubclass(hWnd, ViewZoneDlg::CanvasProc, uIdSubclass);
+			break;
 		}
-		return TRUE;
 
 		case WM_KEYDOWN:
+		{
+			HWND hParent = ::GetParent(hWnd);
 			if (wParam == VK_UP)
 			{
-				::SendMessage(_hParent, DOCUMENTMAP_SCROLL, static_cast<WPARAM>(moveUp), 0);
+				::SendMessage(hParent, DOCUMENTMAP_SCROLL, static_cast<WPARAM>(moveUp), 0);
 			}
 			if (wParam == VK_DOWN)
 			{
-				::SendMessage(_hParent, DOCUMENTMAP_SCROLL, static_cast<WPARAM>(moveDown), 0);
+				::SendMessage(hParent, DOCUMENTMAP_SCROLL, static_cast<WPARAM>(moveDown), 0);
 			}
 			if (wParam == VK_PRIOR)
 			{
-				::SendMessage(_hParent, DOCUMENTMAP_SCROLL, static_cast<WPARAM>(moveUp), 1);
+				::SendMessage(hParent, DOCUMENTMAP_SCROLL, static_cast<WPARAM>(moveUp), 1);
 			}
 			if (wParam == VK_NEXT)
 			{
-				::SendMessage(_hParent, DOCUMENTMAP_SCROLL, static_cast<WPARAM>(moveDown), 1);
+				::SendMessage(hParent, DOCUMENTMAP_SCROLL, static_cast<WPARAM>(moveDown), 1);
 			}
 			break;
-
-        case WM_SIZE:
-        {
-            break;
-        }
-
-		case WM_NOTIFY:
-		{
 		}
-		return TRUE;
 
-        default :
-            return _canvasDefaultProc(hwnd, message, wParam, lParam);
-    }
-	return _canvasDefaultProc(hwnd, message, wParam, lParam);
+		 default:
+			break;
+	}
+	return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
 }

@@ -18,8 +18,11 @@
 #include "TaskList.h"
 #include "TaskListDlg_rc.h"
 #include "colors.h"
-#include "ImageListSet.h"
-#include "Parameters.h"
+
+#include <commctrl.h>
+
+#include "NppConstants.h"
+#include "NppDarkMode.h"
 
 void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem, int index2set)
 {
@@ -57,8 +60,7 @@ void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem
 		throw std::runtime_error("TaskList::init : CreateWindowEx() function return null");
 	}
 
-	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
-	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticProc)));
+	::SetWindowSubclass(_hSelf, TaskListSelectProc, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(this));
 
 	DWORD exStyle = ListView_GetExtendedListViewStyle(_hSelf);
 	exStyle |= LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT | LVS_EX_DOUBLEBUFFER;
@@ -167,114 +169,106 @@ int TaskList::updateCurrentIndex()
 	return _currentIndex;
 }
 
-LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
+void TaskList::moveSelection(int direction)
 {
-	switch (Message)
+	auto getNextIndex = [&]() -> int
 	{
+		const int next = _currentIndex + direction;
+		if (next < 0)
+			return _nbItem - 1;
+		if (next >= _nbItem)
+			return 0;
+		return next;
+	};
+
+	const int newIndex = getNextIndex();
+
+	// Clear current
+	ListView_SetItemState(_hSelf, _currentIndex, 0, LVIS_SELECTED | LVIS_FOCUSED);
+	ListView_RedrawItems(_hSelf, _currentIndex, _currentIndex);
+
+	// Set new
+	ListView_SetItemState(_hSelf, newIndex, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
+	ListView_RedrawItems(_hSelf, newIndex, newIndex);
+	::UpdateWindow(_hSelf);
+
+	_currentIndex = newIndex;
+	ListView_EnsureVisible(_hSelf, _currentIndex, TRUE);
+}
+
+LRESULT CALLBACK TaskList::TaskListSelectProc(
+	HWND hWnd,
+	UINT uMsg,
+	WPARAM wParam,
+	LPARAM lParam,
+	UINT_PTR uIdSubclass,
+	DWORD_PTR dwRefData
+)
+{
+	auto* pRefData = reinterpret_cast<TaskList*>(dwRefData);
+
+	switch (uMsg)
+	{
+		case WM_NCDESTROY:
+		{
+			::RemoveWindowSubclass(hWnd, TaskList::TaskListSelectProc, uIdSubclass);
+			break;
+		}
+
 		case WM_KEYUP:
 		{
 			if (wParam == VK_CONTROL)
 			{
-				::SendMessage(_hParent, WM_COMMAND, ID_PICKEDUP, _currentIndex);
+				::SendMessage(pRefData->_hParent, WM_COMMAND, ID_PICKEDUP, pRefData->_currentIndex);
 			}
-		}
-		return TRUE;
-
-		case WM_MOUSEWHEEL :
-		{
-			short zDelta = (short) HIWORD(wParam);
-			if (zDelta > 0)
-			{
-				int32_t selected = (_currentIndex - 1) < 0 ? (_nbItem - 1) : (_currentIndex - 1);
-				ListView_SetItemState(_hSelf, _currentIndex, 0, LVIS_SELECTED|LVIS_FOCUSED);
-				// tells what item(s) to be repainted
-				ListView_RedrawItems(_hSelf, _currentIndex, _currentIndex);
-				// repaint item(s)
-				UpdateWindow(_hSelf); 
-				ListView_SetItemState(_hSelf, selected, LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED);
-				// tells what item(s) to be repainted
-				ListView_RedrawItems(_hSelf, selected, selected);
-				// repaint item(s)
-				UpdateWindow(_hSelf);              
-				_currentIndex = selected;
-			}
-			else
-			{
-				int32_t selected = (_currentIndex + 1) > (_nbItem - 1) ? 0 : (_currentIndex + 1);
-				ListView_SetItemState(_hSelf, _currentIndex, 0, LVIS_SELECTED|LVIS_FOCUSED);
-				// tells what item(s) to be repainted
-				ListView_RedrawItems(_hSelf, _currentIndex, _currentIndex);
-				// repaint item(s)
-				UpdateWindow(_hSelf); 
-				ListView_SetItemState(_hSelf, selected, LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED);
-				// tells what item(s) to be repainted
-				ListView_RedrawItems(_hSelf, selected, selected);
-				// repaint item(s)
-				UpdateWindow(_hSelf);
-				_currentIndex = selected;
-			}
-			ListView_EnsureVisible(_hSelf, _currentIndex, true);
-			return TRUE;
+			return 0;
 		}
 
-		case WM_KEYDOWN :
+		case WM_MOUSEWHEEL:
 		{
-			return TRUE;
+			const auto zDelta = static_cast<short>(HIWORD(wParam));
+			pRefData->moveSelection(zDelta > 0 ? -1 : 1);
+			return 0;
 		}
-		
 
-		case WM_GETDLGCODE :
+		case WM_KEYDOWN:
 		{
-			const MSG *msg = (MSG*)lParam;
+			return 0;
+		}
 
-			if ( msg != NULL)
+		case WM_GETDLGCODE:
+		{
+			const auto* msg = reinterpret_cast<MSG*>(lParam);
+
+			if (msg != nullptr)
 			{
 				if ((msg->message == WM_KEYDOWN) && (0x80 & GetKeyState(VK_CONTROL)))
 				{
 					// Shift+Tab is cool but I think VK_UP and VK_LEFT are also cool :-)
-					if (((msg->wParam == VK_TAB) && (0x80 & GetKeyState(VK_SHIFT))) ||
-					    (msg->wParam == VK_UP))
-					{ 
-						int32_t selected = (_currentIndex - 1) < 0 ? (_nbItem - 1) : (_currentIndex - 1);
-						ListView_SetItemState(_hSelf, _currentIndex, 0, LVIS_SELECTED|LVIS_FOCUSED);
-						// tells what item(s) to be repainted
-						ListView_RedrawItems(_hSelf, _currentIndex, _currentIndex);
-						// repaint item(s)
-						UpdateWindow(_hSelf); 
-						ListView_SetItemState(_hSelf, selected, LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED);
-						// tells what item(s) to be repainted
-						ListView_RedrawItems(_hSelf, selected, selected);
-						// repaint item(s)
-						UpdateWindow(_hSelf);              
-						_currentIndex = selected;
+					if (((msg->wParam == VK_TAB) && (0x80 & GetKeyState(VK_SHIFT)))
+						|| (msg->wParam == VK_UP)
+						|| (msg->wParam == VK_LEFT))
+					{
+						pRefData->moveSelection(-1);
 					}
 					// VK_DOWN and VK_RIGHT do the same as VK_TAB does
-					else if ((msg->wParam == VK_TAB) || (msg->wParam == VK_DOWN))
+					else if ((msg->wParam == VK_TAB)
+						|| (msg->wParam == VK_DOWN)
+						|| (msg->wParam == VK_RIGHT))
 					{
-						int32_t selected = (_currentIndex + 1) > (_nbItem - 1) ? 0 : (_currentIndex + 1);
-						ListView_SetItemState(_hSelf, _currentIndex, 0, LVIS_SELECTED|LVIS_FOCUSED);
-						// tells what item(s) to be repainted
-						ListView_RedrawItems(_hSelf, _currentIndex, _currentIndex);
-						// repaint item(s)
-						UpdateWindow(_hSelf);
-						ListView_SetItemState(_hSelf, selected, LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED);
-						// tells what item(s) to be repainted
-						ListView_RedrawItems(_hSelf, selected, selected);
-						// repaint item(s)
-						UpdateWindow(_hSelf);              
-						_currentIndex = selected;
+						pRefData->moveSelection(1);
 					}
-					ListView_EnsureVisible(_hSelf, _currentIndex, true);
 				}
 				else
 				{
-					return TRUE;
+					return 0;
 				}
 			}
-			return DLGC_WANTALLKEYS	;
+			return DLGC_WANTALLKEYS;
 		}
 
-		default :
-			return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
+		default:
+			break;
 	}
+	return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
 }

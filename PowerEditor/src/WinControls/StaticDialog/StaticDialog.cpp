@@ -19,7 +19,8 @@
 
 #include "StaticDialog.h"
 #include "Common.h"
-//#include "NppDarkMode.h"
+#include "NppDarkMode.h"
+#include "dpiManagerV2.h"
 
 StaticDialog::~StaticDialog()
 {
@@ -362,7 +363,6 @@ void StaticDialog::create(int dialogID, bool isRTL, bool msgDestParent, WORD fon
 		return;
 	}
 
-	NppDarkMode::setDarkTitleBar(_hSelf);
 	setDpi();
 
 	// if the destination of message NPPM_MODELESSDIALOG is not its parent, then it's the grand-parent
@@ -395,4 +395,3 @@ intptr_t CALLBACK StaticDialog::dlgProc(HWND hwnd, UINT message, WPARAM wParam, 
 		}
 	}
 }
-

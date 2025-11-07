@@ -17,35 +17,88 @@
 
 #include "dpiManagerV2.h"
 
+#include <windows.h>
+
 #include <commctrl.h>
 
-template <typename P>
-bool ptrFn(HMODULE handle, P& pointer, const char* name)
+namespace NppDarkMode
 {
-	auto p = reinterpret_cast<P>(::GetProcAddress(handle, name));
-	if (p != nullptr)
+	bool isWindows10();
+}
+
+template <typename P>
+inline auto LoadFn(HMODULE handle, P& pointer, const char* name) noexcept -> bool
+{
+	if (auto* proc = ::GetProcAddress(handle, name); proc != nullptr)
 	{
-		pointer = p;
+		pointer = reinterpret_cast<P>(reinterpret_cast<INT_PTR>(proc));
 		return true;
 	}
 	return false;
+}
+
+[[nodiscard]] static UINT WINAPI DummyGetDpiForSystem()
+{
+	UINT dpi = USER_DEFAULT_SCREEN_DPI;
+	if (HDC hdc = ::GetDC(nullptr); hdc != nullptr)
+	{
+		dpi = static_cast<UINT>(::GetDeviceCaps(hdc, LOGPIXELSX));
+		::ReleaseDC(nullptr, hdc);
+	}
+	return dpi;
+}
+
+[[nodiscard]] static UINT WINAPI DummyGetDpiForWindow([[maybe_unused]] HWND hwnd)
+{
+	return DummyGetDpiForSystem();
+}
+
+[[nodiscard]] static int WINAPI DummyGetSystemMetricsForDpi(int nIndex, UINT dpi)
+{
+	return DPIManagerV2::scale(::GetSystemMetrics(nIndex), dpi);
+}
+
+[[nodiscard]] static BOOL WINAPI DummySystemParametersInfoForDpi(UINT uiAction, UINT uiParam, PVOID pvParam, UINT fWinIni, [[maybe_unused]] UINT dpi)
+{
+	return ::SystemParametersInfoW(uiAction, uiParam, pvParam, fWinIni);
+}
+
+[[nodiscard]] static BOOL WINAPI DummyIsValidDpiAwarenessContext([[maybe_unused]] DPI_AWARENESS_CONTEXT value)
+{
+	return FALSE;
+}
+
+[[nodiscard]] static DPI_AWARENESS_CONTEXT WINAPI DummySetThreadDpiAwarenessContext([[maybe_unused]] DPI_AWARENESS_CONTEXT dpiContext)
+{
+	return nullptr;
+}
+
+static BOOL WINAPI DummyAdjustWindowRectExForDpi(
+	[[maybe_unused]] LPRECT lpRect,
+	[[maybe_unused]] DWORD dwStyle,
+	[[maybe_unused]] BOOL bMenu,
+	[[maybe_unused]] DWORD dwExStyle,
+	[[maybe_unused]] UINT dpi
+)
+{
+	return FALSE;
 }
 
 using fnGetDpiForSystem = UINT (WINAPI*)(VOID);
 using fnGetDpiForWindow = UINT (WINAPI*)(HWND hwnd);
 using fnGetSystemMetricsForDpi = int (WINAPI*)(int nIndex, UINT dpi);
 using fnSystemParametersInfoForDpi = BOOL (WINAPI*)(UINT uiAction, UINT uiParam, PVOID pvParam, UINT fWinIni, UINT dpi);
+using fnIsValidDpiAwarenessContext = BOOL (WINAPI*)(DPI_AWARENESS_CONTEXT value);
 using fnSetThreadDpiAwarenessContext = DPI_AWARENESS_CONTEXT (WINAPI*)(DPI_AWARENESS_CONTEXT dpiContext);
 using fnAdjustWindowRectExForDpi = BOOL (WINAPI*)(LPRECT lpRect, DWORD dwStyle, BOOL bMenu, DWORD dwExStyle, UINT dpi);
 
-
-fnGetDpiForSystem _fnGetDpiForSystem = nullptr;
-fnGetDpiForWindow _fnGetDpiForWindow = nullptr;
-fnGetSystemMetricsForDpi _fnGetSystemMetricsForDpi = nullptr;
-fnSystemParametersInfoForDpi _fnSystemParametersInfoForDpi = nullptr;
-fnSetThreadDpiAwarenessContext _fnSetThreadDpiAwarenessContext = nullptr;
-fnAdjustWindowRectExForDpi _fnAdjustWindowRectExForDpi = nullptr;
-
+static fnGetDpiForSystem _fnGetDpiForSystem = DummyGetDpiForSystem;
+static fnGetDpiForWindow _fnGetDpiForWindow = DummyGetDpiForWindow;
+static fnGetSystemMetricsForDpi _fnGetSystemMetricsForDpi = DummyGetSystemMetricsForDpi;
+static fnSystemParametersInfoForDpi _fnSystemParametersInfoForDpi = DummySystemParametersInfoForDpi;
+static fnIsValidDpiAwarenessContext _fnIsValidDpiAwarenessContext = DummyIsValidDpiAwarenessContext;
+static fnSetThreadDpiAwarenessContext _fnSetThreadDpiAwarenessContext = DummySetThreadDpiAwarenessContext;
+static fnAdjustWindowRectExForDpi _fnAdjustWindowRectExForDpi = DummyAdjustWindowRectExForDpi;
 
 void DPIManagerV2::initDpiAPI()
 {
@@ -54,12 +107,13 @@ void DPIManagerV2::initDpiAPI()
 		HMODULE hUser32 = ::GetModuleHandleW(L"user32.dll");
 		if (hUser32 != nullptr)
 		{
-			ptrFn(hUser32, _fnGetDpiForSystem, "GetDpiForSystem");
-			ptrFn(hUser32, _fnGetDpiForWindow, "GetDpiForWindow");
-			ptrFn(hUser32, _fnGetSystemMetricsForDpi, "GetSystemMetricsForDpi");
-			ptrFn(hUser32, _fnSystemParametersInfoForDpi, "SystemParametersInfoForDpi");
-			ptrFn(hUser32, _fnSetThreadDpiAwarenessContext, "SetThreadDpiAwarenessContext");
-			ptrFn(hUser32, _fnAdjustWindowRectExForDpi, "AdjustWindowRectExForDpi");
+			LoadFn(hUser32, _fnGetDpiForSystem, "GetDpiForSystem");
+			LoadFn(hUser32, _fnGetDpiForWindow, "GetDpiForWindow");
+			LoadFn(hUser32, _fnGetSystemMetricsForDpi, "GetSystemMetricsForDpi");
+			LoadFn(hUser32, _fnSystemParametersInfoForDpi, "SystemParametersInfoForDpi");
+			LoadFn(hUser32, _fnIsValidDpiAwarenessContext, "IsValidDpiAwarenessContext");
+			LoadFn(hUser32, _fnSetThreadDpiAwarenessContext, "SetThreadDpiAwarenessContext");
+			LoadFn(hUser32, _fnAdjustWindowRectExForDpi, "AdjustWindowRectExForDpi");
 
 		}
 	}
@@ -67,59 +121,43 @@ void DPIManagerV2::initDpiAPI()
 
 int DPIManagerV2::getSystemMetricsForDpi(int nIndex, UINT dpi)
 {
-	if (_fnGetSystemMetricsForDpi != nullptr)
-	{
-		return _fnGetSystemMetricsForDpi(nIndex, dpi);
-	}
-	return DPIManagerV2::scale(::GetSystemMetrics(nIndex), dpi);
+	return _fnGetSystemMetricsForDpi(nIndex, dpi);
+}
+
+bool DPIManagerV2::isValidDpiAwarenessContext(DPI_AWARENESS_CONTEXT value)
+{
+	return _fnIsValidDpiAwarenessContext(value) == TRUE;
 }
 
 DPI_AWARENESS_CONTEXT DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT dpiContext)
 {
-	if (_fnSetThreadDpiAwarenessContext != nullptr)
+	if (DPIManagerV2::isValidDpiAwarenessContext(dpiContext))
 	{
 		return _fnSetThreadDpiAwarenessContext(dpiContext);
 	}
-	return NULL;
+	return nullptr;
 }
 
-BOOL DPIManagerV2::adjustWindowRectExForDpi(LPRECT lpRect, DWORD dwStyle, BOOL bMenu, DWORD dwExStyle, UINT dpi)
+bool DPIManagerV2::adjustWindowRectExForDpi(LPRECT lpRect, DWORD dwStyle, BOOL bMenu, DWORD dwExStyle, UINT dpi)
 {
-	if (_fnAdjustWindowRectExForDpi != nullptr)
-	{
-		return _fnAdjustWindowRectExForDpi(lpRect, dwStyle, bMenu, dwExStyle, dpi);
-	}
-	return FALSE;
+	return _fnAdjustWindowRectExForDpi(lpRect, dwStyle, bMenu, dwExStyle, dpi) == TRUE;
 }
 
 UINT DPIManagerV2::getDpiForSystem()
 {
-	if (_fnGetDpiForSystem != nullptr)
-	{
-		return _fnGetDpiForSystem();
-	}
-
-	UINT dpi = USER_DEFAULT_SCREEN_DPI;
-	HDC hdc = ::GetDC(nullptr);
-	if (hdc != nullptr)
-	{
-		dpi = ::GetDeviceCaps(hdc, LOGPIXELSX);
-		::ReleaseDC(nullptr, hdc);
-	}
-	return dpi;
+	return _fnGetDpiForSystem();
 }
 
 UINT DPIManagerV2::getDpiForWindow(HWND hWnd)
 {
-	if (_fnGetDpiForWindow != nullptr)
+	if (hWnd != nullptr)
 	{
-		const auto dpi = _fnGetDpiForWindow(hWnd);
-		if (dpi > 0)
+		if (const auto dpi = _fnGetDpiForWindow(hWnd); dpi > 0)
 		{
 			return dpi;
 		}
 	}
-	return getDpiForSystem();
+	return DPIManagerV2::getDpiForSystem();
 }
 
 void DPIManagerV2::setPositionDpi(LPARAM lParam, HWND hWnd, UINT flags)
@@ -137,21 +175,11 @@ void DPIManagerV2::setPositionDpi(LPARAM lParam, HWND hWnd, UINT flags)
 
 LOGFONT DPIManagerV2::getDefaultGUIFontForDpi(UINT dpi, FontType type)
 {
-	int result = 0;
 	LOGFONT lf{};
 	NONCLIENTMETRICS ncm{};
 	ncm.cbSize = sizeof(NONCLIENTMETRICS);
-	if (_fnSystemParametersInfoForDpi != nullptr
-		&& (_fnSystemParametersInfoForDpi(SPI_GETNONCLIENTMETRICS, sizeof(NONCLIENTMETRICS), &ncm, 0, dpi) != FALSE))
-	{
-		result = 2;
-	}
-	else if (::SystemParametersInfo(SPI_GETNONCLIENTMETRICS, sizeof(NONCLIENTMETRICS), &ncm, 0) != FALSE)
-	{
-		result = 1;
-	}
 
-	if (result > 0)
+	if (_fnSystemParametersInfoForDpi(SPI_GETNONCLIENTMETRICS, sizeof(NONCLIENTMETRICS), &ncm, 0, dpi) == TRUE)
 	{
 		switch (type)
 		{
@@ -167,6 +195,12 @@ LOGFONT DPIManagerV2::getDefaultGUIFontForDpi(UINT dpi, FontType type)
 				break;
 			}
 
+			case FontType::message:
+			{
+				lf = ncm.lfMessageFont;
+				break;
+			}
+
 			case FontType::caption:
 			{
 				lf = ncm.lfCaptionFont;
@@ -178,22 +212,17 @@ LOGFONT DPIManagerV2::getDefaultGUIFontForDpi(UINT dpi, FontType type)
 				lf = ncm.lfSmCaptionFont;
 				break;
 			}
-			//case FontType::message:
-			default:
-			{
-				lf = ncm.lfMessageFont;
-				break;
-			}
+		}
+
+		if (_fnSystemParametersInfoForDpi == DummySystemParametersInfoForDpi)
+		{
+			lf.lfHeight = scaleFont(lf.lfHeight, dpi);
 		}
 	}
 	else // should not happen, fallback
 	{
-		auto hf = static_cast<HFONT>(::GetStockObject(DEFAULT_GUI_FONT));
-		::GetObject(hf, sizeof(LOGFONT), &lf);
-	}
-
-	if (result < 2)
-	{
+		auto* hf = static_cast<HFONT>(::GetStockObject(DEFAULT_GUI_FONT));
+		::GetObjectW(hf, sizeof(LOGFONT), &lf);
 		lf.lfHeight = scaleFont(lf.lfHeight, dpi);
 	}
 

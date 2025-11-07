@@ -1852,7 +1852,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 			const auto style = static_cast<DWORD>(::GetWindowLongPtr(_hSelf, GWL_STYLE));
 			const auto exStyle = static_cast<DWORD>(::GetWindowLongPtr(_hSelf, GWL_EXSTYLE));
-			if (_dpiManager.adjustWindowRectExForDpi(&rcClient, style, FALSE, exStyle, newDpi) == FALSE)
+			if (!_dpiManager.adjustWindowRectExForDpi(&rcClient, style, FALSE, exStyle, newDpi))
 			{
 				const LONG padding = _dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER, newDpi);
 				xBorder = (_dpiManager.getSystemMetricsForDpi(SM_CXFRAME, newDpi) + padding) * 2;
@@ -6656,7 +6656,7 @@ RECT Progress::getDpiScaledWindowRect(UINT dpi) const
 
 	const DWORD style = WS_POPUP | WS_CAPTION;
 	const DWORD exStyle = WS_EX_APPWINDOW | WS_EX_TOOLWINDOW | WS_EX_OVERLAPPEDWINDOW | (pNativeSpeaker->isRTL() ? WS_EX_LAYOUTRTL : 0);
-	if (_dpiManager.adjustWindowRectExForDpi(&rc, style, FALSE, exStyle, dpi) == FALSE)
+	if (!_dpiManager.adjustWindowRectExForDpi(&rc, style, FALSE, exStyle, dpi))
 	{
 		rc.right = xClient + xBorderPadding;
 		rc.bottom = yClient + yBorderPadding;

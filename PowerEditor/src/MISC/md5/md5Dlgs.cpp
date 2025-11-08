@@ -50,7 +50,7 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 			::SendMessage(hHashResult, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), TRUE);
 
 			::SetWindowSubclass(hHashPathEdit, TextEditSelectAllProc, static_cast<UINT_PTR>(SubclassID::first), 0);
-			::SetWindowSubclass(hHashResult, TextEditSelectAllProc, static_cast<UINT_PTR>(SubclassID::second), 0);
+			::SetWindowSubclass(hHashResult, TextEditSelectAllProc, static_cast<UINT_PTR>(SubclassID::first), 0);
 		}
 		return TRUE;
 
@@ -503,7 +503,7 @@ intptr_t CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			::SendMessage(hHashResult, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), TRUE);
 
 			::SetWindowSubclass(hHashTextEdit, TextEditSelectAllProc, static_cast<UINT_PTR>(SubclassID::first), 0);
-			::SetWindowSubclass(hHashResult, TextEditSelectAllProc, static_cast<UINT_PTR>(SubclassID::second), 0);
+			::SetWindowSubclass(hHashResult, TextEditSelectAllProc, static_cast<UINT_PTR>(SubclassID::first), 0);
 		}
 		return TRUE;
 

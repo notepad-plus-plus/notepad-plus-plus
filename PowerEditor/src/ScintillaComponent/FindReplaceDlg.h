@@ -530,11 +530,6 @@ private:
 	ContextMenu _swapPopupMenu;
 	enum SwapButtonStatus {swap, down, up} _swapButtonStatus = swap;
 	HWND _hSwapButton = nullptr;
-	static LRESULT CALLBACK swapButtonProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
-		const auto dlg = (FindReplaceDlg*)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
-		return (run_swapButtonProc(dlg->_oldSwapButtonProc, hwnd, message, wParam, lParam));
-	}
-	WNDPROC _oldSwapButtonProc = nullptr;
 };
 
 //FindIncrementDlg: incremental search dialog, docked in rebar

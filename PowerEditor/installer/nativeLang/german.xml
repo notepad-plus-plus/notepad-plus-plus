@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.7"><!-- Datum: 05.11.2025, basiert auf english.xml 8.8.7 vom 03.11.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.7"><!-- Datum: 09.11.2025, basiert auf english.xml 8.8.7 vom 03.11.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1010,7 +1010,7 @@ Translation note:
 					<Item id="6128" name="Alternative Symbole"/>
 					<Item id="6125" name="Verhalten"/>
 					<Item id="6126" name="Aussehen &amp;&amp; Wirkung (Look &amp;&amp; feel)"/>
-					<Item id="6136" name="Max. Tab-Namen Länge:"/>
+					<Item id="6136" name="Max. Länge f. Tab-Namen:"/>
 				</Tabbar>
 
 				<Scintillas title="Bearbeiten 1">

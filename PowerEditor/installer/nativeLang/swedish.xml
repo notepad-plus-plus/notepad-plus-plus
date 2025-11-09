@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.8.1">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.8.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -35,13 +35,13 @@ Translation note:
 					<Item subMenuId="edit-lineOperations" name="&amp;Radoperationer"/>
 					<Item subMenuId="edit-comment" name="Ko&amp;mmentera/avkommentera"/>
 					<Item subMenuId="edit-autoCompletion" name="Automatisk komple&amp;ttering"/>
-					<Item subMenuId="edit-eolConversion" name="Kon&amp;vertering av radbrytningar"/>
+					<Item subMenuId="edit-eolConversion" name="Kon&amp;vertera radbrytningar"/>
 					<Item subMenuId="edit-blankOperations" name="&amp;Blanksteg"/>
 					<Item subMenuId="edit-pasteSpecial" name="Klistra in s&amp;pecial"/>
 					<Item subMenuId="edit-onSelection" name="För markerad te&amp;xt"/>
 					<Item subMenuId="edit-multiSelectALL" name="Multimarkera ALLA"/>
 					<Item subMenuId="edit-multiSelectNext" name="Multimarkera nästkommande"/>
-					<Item subMenuId="edit-readonlyInNotepad++" name="Skrivskyddad i Notepad++"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Skrivskydd i Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="Förändringshistorik"/>
 					<Item subMenuId="search-markAll" name="Sti&amp;lsätt alla förekomster"/>
 					<Item subMenuId="search-markOne" name="S&amp;tilsätt en förekomst"/>
@@ -120,8 +120,8 @@ Translation note:
 					<Item id="42005" name="K&amp;listra in"/>
 					<Item id="42006" name="Ra&amp;dera"/>
 					<Item id="42007" name="Markera &amp;allt"/>
-					<Item id="42020" name="Markera &amp;start/slut"/>
-					<Item id="42089" name="Start/slut på markering i kolumnläge"/>
+					<Item id="42020" name="Inled/av&amp;sluta markering"/>
+					<Item id="42089" name="Inled/avsluta markering i kolumnläge"/>
 					<Item id="42084" name="Datum och tid (kort)"/>
 					<Item id="42085" name="Datum och tid (lång)"/>
 					<Item id="42086" name="Datum och tid (anpassad)"/>
@@ -1001,6 +1001,7 @@ Translation note:
 					<Item id="6128" name="Alternativa ikoner"/>
 					<Item id="6125" name="Beteende"/>
 					<Item id="6126" name="Utseende och känsla"/>
+					<Item id="6136" name="Max. längd på fliketiketter:"/>
 				</Tabbar>
 
 				<Scintillas title="Redigering 1">
@@ -1495,10 +1496,10 @@ Det finns 3 sätt att växla till kolumnmarkeringsläget:
 2. (Endast tangentbord)  Håll ned Alt + Shift och använd piltangenterna
 
 3. (Tangentbord eller mus)
-	  Placera markören vid önskad start på kolumnblockets position, kör
-	   sedan kommandot &quot;Start/slut på markering i kolumnläge&quot;;
-	  Flytta markören vid önskat slut på kolumnblockets position, kör
-	   sedan kommandot &quot;Start/slut på markering i kolumnläge&quot; igen"/>
+      Placera markören vid önskad start på kolumnblockets position, kör
+       sedan kommandot &quot;Inled/avsluta markering i kolumnläge&quot;;
+      Flytta markören vid önskat slut på kolumnblockets position, kör
+       sedan kommandot &quot;Inled/avsluta markering i kolumnläge&quot; igen"/>
 			<BufferInvalidWarning title="Misslyckades att spara" message="Kan inte spara: Bufferten är felaktig."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<DoCloseOrNot title="Behålla fil som inte längre finns" message="Filen &quot;$STR_REPLACE$&quot; finns inte längre.
 Ska filen behållas i Notepad++?"/>
@@ -1903,6 +1904,7 @@ Om du väljer avancerat läge men inte redigerar filer i de omfattande språken 
 			<max-len-on-search-tip value="Din inmatning kanske överskrider den tillåtna gränsen och kan ha trunkerats. Den kommer inte att sparas till nästa session."/>
 			<max-len-on-save-tip value="Din inmatning är riktigt lång och kanske inte kommer att sparas till nästa session."/>
 			<goto-setting-tip value="Hitta din inställning här"/>
+			<tabbar-tabcompactlabellen-tip value="Begränsar längden som syns på långa flikar. Tryck på Enter för att verkställa angivet värde. Värdesintervall: 1-257 tecken (0 inaktiverar trunkering)."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

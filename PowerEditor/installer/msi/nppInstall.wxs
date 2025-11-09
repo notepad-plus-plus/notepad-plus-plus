@@ -8,6 +8,12 @@
 	<Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
 
 	<!--
+	Icon for "Add/Remove Programs"
+	-->
+	<Icon Id="Icon.ico" SourceFile="..\images\npp_inst.ico"/>
+	<Property Id="ARPPRODUCTICON" Value="Icon.ico" />
+	
+	<!--
 	Installation directory structure
 	-->
     <StandardDirectory Id="ProgramFiles64Folder">

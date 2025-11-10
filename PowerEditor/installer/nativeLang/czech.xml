@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.8.6  30/Sep/2025  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.8.8  10/Nov/2025  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.8.5">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.8.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -265,7 +265,7 @@
 					<Item id="43047" name="Př&amp;edchozí vyhledaný výsledek"/>
 					<Item id="43048" name="&amp;Vybrat a najít další"/>
 					<Item id="43049" name="&amp;Vybrat a najít předchozí"/>
-					<Item id="43050" name="Inverze záložky"/>
+					<Item id="43050" name="Inverze záložek"/>
 					<Item id="43051" name="Odstranit řádky neoznačené záložkami"/>
 					<Item id="43052" name="Najít znaky z rozsa&amp;hu..."/>
 					<Item id="43053" name="Vybrat vše &amp;mezi souvisejícími závorkami {}, [] nebo ()"/>
@@ -1038,6 +1038,7 @@
 					<Item id="6135" name="Zobrazovat připínací tlačítko jen na připnutých"/>
 					<Item id="6125" name="Chování"/>
 					<Item id="6126" name="Vzhled a dojem"/>
+					<Item id="6136" name="Max. délka pojmenování karty:"/>
 				</Tabbar>
 				<Scintillas title="Editace 1">
 					<Item id="6214" name="Povolit Kopírování/Vyjmutí celého řádku bez výběru"/>
@@ -1904,6 +1905,7 @@ Pokud zvolíte Pokročilý režim, ale nebudete upravovat soubory výše zmíně
 			<max-len-on-search-tip value="Vámi zadaný text mohl překročit povolenou délku a mohl být zkrácen. Nebude uložen pro další relaci(e)."/>
 			<max-len-on-save-tip value="Délka Vámi zadaného textu je příliš dlouhá a nemusí být uložena pro příští relaci(e)."/>
 			<goto-setting-tip value="Nastavení najdete zde"/>
+			<tabbar-tabcompactlabellen-tip value="Omezuje viditelnou délku dlouhých názvů karet. Stisknutím klávesy Enter použijete zde zadanou hodnotu okamžitě. Rozsah hodnot: 1–257 znaků (0 zakáže zkracování)."/>
 		</MiscStrings>
 
 	</Native-Langue>

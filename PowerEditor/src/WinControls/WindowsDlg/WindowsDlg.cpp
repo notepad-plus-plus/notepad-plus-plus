@@ -727,9 +727,9 @@ void WindowsDlg::updateButtonState()
 
 int WindowsDlg::doDialog()
 {
-	const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContextSafe(DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED);
+	const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED);
 	const auto result = static_cast<int>(StaticDialog::myCreateDialogBoxIndirectParam(IDD_WINDOWS, false));
-	DPIManagerV2::setThreadDpiAwarenessContextSafe(dpiContext);
+	DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
 
 	return result;
 }

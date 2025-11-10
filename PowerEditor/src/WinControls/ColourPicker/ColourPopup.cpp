@@ -50,9 +50,9 @@ void ColourPopup::doDialog(POINT p)
 {
 	if (!isCreated())
 	{
-		const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContextSafe(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+		const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 		createColorPopup();
-		DPIManagerV2::setThreadDpiAwarenessContextSafe(dpiContext);
+		DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
 
 		::SetWindowPos(_hSelf, HWND_TOP, p.x, p.y, 0, 0, SWP_NOSIZE | SWP_SHOWWINDOW);
 	}
@@ -230,9 +230,9 @@ intptr_t CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 					Window::display(false);
 
-					const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContextSafe(DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED);
+					const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED);
 					ChooseColorW(&cc);
-					DPIManagerV2::setThreadDpiAwarenessContextSafe(dpiContext);
+					DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
 
 					::SendMessage(_hParent, WM_PICKUP_COLOR, cc.rgbResult, 0);
 

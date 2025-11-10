@@ -37,7 +37,7 @@ inline auto LoadFn(HMODULE handle, P& pointer, const char* name) noexcept -> boo
 	return false;
 }
 
-static UINT WINAPI DummyGetDpiForSystem()
+[[nodiscard]] static UINT WINAPI DummyGetDpiForSystem()
 {
 	UINT dpi = USER_DEFAULT_SCREEN_DPI;
 	if (HDC hdc = ::GetDC(nullptr); hdc != nullptr)
@@ -48,27 +48,27 @@ static UINT WINAPI DummyGetDpiForSystem()
 	return dpi;
 }
 
-static UINT WINAPI DummyGetDpiForWindow([[maybe_unused]] HWND hwnd)
+[[nodiscard]] static UINT WINAPI DummyGetDpiForWindow([[maybe_unused]] HWND hwnd)
 {
 	return DummyGetDpiForSystem();
 }
 
-static int WINAPI DummyGetSystemMetricsForDpi(int nIndex, UINT dpi)
+[[nodiscard]] static int WINAPI DummyGetSystemMetricsForDpi(int nIndex, UINT dpi)
 {
 	return DPIManagerV2::scale(::GetSystemMetrics(nIndex), dpi);
 }
 
-static BOOL WINAPI DummySystemParametersInfoForDpi(UINT uiAction, UINT uiParam, PVOID pvParam, UINT fWinIni, [[maybe_unused]] UINT dpi)
+[[nodiscard]] static BOOL WINAPI DummySystemParametersInfoForDpi(UINT uiAction, UINT uiParam, PVOID pvParam, UINT fWinIni, [[maybe_unused]] UINT dpi)
 {
 	return ::SystemParametersInfoW(uiAction, uiParam, pvParam, fWinIni);
 }
 
-static BOOL WINAPI DummyIsValidDpiAwarenessContext([[maybe_unused]] DPI_AWARENESS_CONTEXT value)
+[[nodiscard]] static BOOL WINAPI DummyIsValidDpiAwarenessContext([[maybe_unused]] DPI_AWARENESS_CONTEXT value)
 {
 	return FALSE;
 }
 
-static DPI_AWARENESS_CONTEXT WINAPI DummySetThreadDpiAwarenessContext([[maybe_unused]] DPI_AWARENESS_CONTEXT dpiContext)
+[[nodiscard]] static DPI_AWARENESS_CONTEXT WINAPI DummySetThreadDpiAwarenessContext([[maybe_unused]] DPI_AWARENESS_CONTEXT dpiContext)
 {
 	return nullptr;
 }
@@ -124,28 +124,23 @@ int DPIManagerV2::getSystemMetricsForDpi(int nIndex, UINT dpi)
 	return _fnGetSystemMetricsForDpi(nIndex, dpi);
 }
 
-BOOL DPIManagerV2::isValidDpiAwarenessContext(DPI_AWARENESS_CONTEXT value)
+bool DPIManagerV2::isValidDpiAwarenessContext(DPI_AWARENESS_CONTEXT value)
 {
-	return _fnIsValidDpiAwarenessContext(value);
+	return _fnIsValidDpiAwarenessContext(value) == TRUE;
 }
 
 DPI_AWARENESS_CONTEXT DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT dpiContext)
 {
-	return _fnSetThreadDpiAwarenessContext(dpiContext);
-}
-
-DPI_AWARENESS_CONTEXT DPIManagerV2::setThreadDpiAwarenessContextSafe(DPI_AWARENESS_CONTEXT dpiContext)
-{
-	if (DPIManagerV2::isValidDpiAwarenessContext(dpiContext) == TRUE)
+	if (DPIManagerV2::isValidDpiAwarenessContext(dpiContext))
 	{
 		return _fnSetThreadDpiAwarenessContext(dpiContext);
 	}
 	return nullptr;
 }
 
-BOOL DPIManagerV2::adjustWindowRectExForDpi(LPRECT lpRect, DWORD dwStyle, BOOL bMenu, DWORD dwExStyle, UINT dpi)
+bool DPIManagerV2::adjustWindowRectExForDpi(LPRECT lpRect, DWORD dwStyle, BOOL bMenu, DWORD dwExStyle, UINT dpi)
 {
-	return _fnAdjustWindowRectExForDpi(lpRect, dwStyle, bMenu, dwExStyle, dpi);
+	return _fnAdjustWindowRectExForDpi(lpRect, dwStyle, bMenu, dwExStyle, dpi) == TRUE;
 }
 
 UINT DPIManagerV2::getDpiForSystem()

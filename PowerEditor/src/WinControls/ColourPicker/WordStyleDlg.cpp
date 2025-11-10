@@ -1344,9 +1344,9 @@ void WordStyleDlg::doDialog(bool isRTL)
 {
 	if (!isCreated())
 	{
-		const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContextSafe(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+		const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 		WordStyleDlg::create(IDD_STYLER_DLG, isRTL);
-		DPIManagerV2::setThreadDpiAwarenessContextSafe(dpiContext);
+		DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
 		prepare2Cancel();
 	}
 

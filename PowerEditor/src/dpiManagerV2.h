@@ -51,11 +51,11 @@ public:
 		return getSystemMetricsForDpi(nIndex, _dpi);
 	}
 
-	static BOOL isValidDpiAwarenessContext(DPI_AWARENESS_CONTEXT value);
+	[[nodiscard]] static bool isValidDpiAwarenessContext(DPI_AWARENESS_CONTEXT value);
+	// includes check for `DPI_AWARENESS_CONTEXT dpiContext` via `isValidDpiAwarenessContext`
 	static DPI_AWARENESS_CONTEXT setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT dpiContext);
-	static DPI_AWARENESS_CONTEXT setThreadDpiAwarenessContextSafe(DPI_AWARENESS_CONTEXT dpiContext);
 
-	static BOOL adjustWindowRectExForDpi(LPRECT lpRect, DWORD dwStyle, BOOL bMenu, DWORD dwExStyle, UINT dpi);
+	static bool adjustWindowRectExForDpi(LPRECT lpRect, DWORD dwStyle, BOOL bMenu, DWORD dwExStyle, UINT dpi);
 
 	static UINT getDpiForSystem();
 	static UINT getDpiForWindow(HWND hWnd);

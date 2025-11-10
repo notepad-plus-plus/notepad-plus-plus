@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Français" filename="french.xml" version="8.8.1">
+	<Native-Langue name="Français" filename="french.xml" version="8.8.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -997,6 +997,7 @@ Translation note:
 					<Item id="6128" name="Icônes alternatives"/>
 					<Item id="6125" name="Comportement"/>
 					<Item id="6126" name="Aspect visuel"/>
+					<Item id="6136" name="Taille max. du libellé d'onglet :"/>
 				</Tabbar>
 
 				<Scintillas title="Zones d’édition 1">
@@ -1893,6 +1894,7 @@ Si vous sélectionnez le mode avancé sans modifier les fichiers des langues men
 			<max-len-on-search-tip value="Votre saisie peut dépasser la limite autorisée et avoir été tronquée, et elle ne sera pas enregistrée pour la prochaine session."/>
 			<max-len-on-save-tip value="La longueur de votre saisie est très longue et il se peut qu'elle ne soit pas enregistrée pour votre prochaine session."/>
 			<goto-setting-tip value="Réglage du paramètre ici"/>
+			<tabbar-tabcompactlabellen-tip value="Limiter la longueur du libellé pour compacter l'onglet. Appuyez sur Entrée pour appliquer la valeur indiquée. Valeurs possibles : 1 à 257 caractères (0 désactive la troncature)."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

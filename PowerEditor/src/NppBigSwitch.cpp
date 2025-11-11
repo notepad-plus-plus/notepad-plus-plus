@@ -23,7 +23,6 @@
 #include <atomic>
 #include "Notepad_plus_Window.h"
 #include "TaskListDlg.h"
-#include "ImageListSet.h"
 #include "ShortcutMapper.h"
 #include "ansiCharPanel.h"
 #include "clipboardHistoryPanel.h"
@@ -212,21 +211,16 @@ LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 			try
 			{
 				NppDarkMode::setDarkTitleBar(hwnd);
+				NppDarkMode::autoSubclassWindowMenuBar(hwnd);
+				NppDarkMode::autoSubclassCtlColor(hwnd);
 
 				_notepad_plus_plus_core._pPublicInterface = this;
 				LRESULT lRet = _notepad_plus_plus_core.init(hwnd);
 
 				if (NppDarkMode::isEnabled() && NppDarkMode::isExperimentalSupported())
 				{
-					RECT rcClient;
-					GetWindowRect(hwnd, &rcClient);
-
 					// Inform application of the frame change.
-					SetWindowPos(hwnd,
-						NULL,
-						rcClient.left, rcClient.top,
-						rcClient.right - rcClient.left, rcClient.bottom - rcClient.top,
-						SWP_FRAMECHANGED);
+					::SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
 				}
 
 				SetOSAppRestart();
@@ -263,50 +257,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 	LRESULT result = FALSE;
 	NppParameters& nppParam = NppParameters::getInstance();
 
-	if (NppDarkMode::isDarkMenuEnabled() && NppDarkMode::isEnabled() && NppDarkMode::runUAHWndProc(hwnd, message, wParam, lParam, &result))
-	{
-		return result;
-	}
-
 	switch (message)
 	{
 		case WM_NCACTIVATE:
 		{
 			// Note: lParam is -1 to prevent endless loops of calls
 			::SendMessage(_dockingManager.getHSelf(), WM_NCACTIVATE, wParam, -1);
-			result = ::DefWindowProc(hwnd, message, wParam, lParam);
-			if (NppDarkMode::isDarkMenuEnabled() && NppDarkMode::isEnabled())
-			{
-				NppDarkMode::drawUAHMenuNCBottomLine(hwnd);
-			}
-
 			NppDarkMode::calculateTreeViewStyle();
-			return result;
-		}
-
-		case WM_NCPAINT:
-		{
-			result = ::DefWindowProc(hwnd, message, wParam, lParam);
-			if (NppDarkMode::isDarkMenuEnabled() && NppDarkMode::isEnabled())
-			{
-				NppDarkMode::drawUAHMenuNCBottomLine(hwnd);
-			}
-			return result;
-		}
-
-		case WM_ERASEBKGND:
-		{
-			if (NppDarkMode::isEnabled())
-			{
-				RECT rc{};
-				GetClientRect(hwnd, &rc);
-				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDlgBackgroundBrush());
-				return 0;
-			}
-			else
-			{
-				return ::DefWindowProc(hwnd, message, wParam, lParam);
-			}
+			return ::DefWindowProc(hwnd, message, wParam, lParam);
 		}
 
 		case WM_SETTINGCHANGE:

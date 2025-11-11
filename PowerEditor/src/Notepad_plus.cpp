@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include <time.h>
+
 #include <shlwapi.h>
 #include <wininet.h>
 #include "Notepad_plus.h"
@@ -24,12 +24,9 @@
 #include "FileNameStringSplitter.h"
 #include "lesDlgs.h"
 #include "Utf8_16.h"
-#include "regExtDlg.h"
 #include "RunDlg.h"
-#include "ShortcutMapper.h"
 #include "preferenceDlg.h"
 #include "TaskListDlg.h"
-#include "xmlMatchedTagsHighlighter.h"
 #include "EncodingMapper.h"
 #include "ansiCharPanel.h"
 #include "clipboardHistoryPanel.h"
@@ -2726,7 +2723,7 @@ void Notepad_plus::setupColorSampleBitmapsOnMainMenuItems()
 	// Adds tab colour icons
 	for (int i = 0; i < 5; ++i)
 	{
-		COLORREF colour = nppParam.getIndividualTabColor(i, NppDarkMode::isDarkMenuEnabled(), true);
+		COLORREF colour = nppParam.getIndividualTabColor(i, NppDarkMode::isEnabled(), true);
 		HBITMAP hBitmap = generateSolidColourMenuItemIcon(colour);
 		SetMenuItemBitmaps(_mainMenuHandle, IDM_VIEW_TAB_COLOUR_1 + i, MF_BYCOMMAND, hBitmap, hBitmap);
 	}

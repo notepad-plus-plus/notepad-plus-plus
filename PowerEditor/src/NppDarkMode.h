@@ -44,7 +44,6 @@ namespace NppDarkMode
 	struct Options
 	{
 		bool enable = false;
-		bool enableMenubar = false;
 		bool enablePlugin = false;
 	};
 
@@ -90,7 +89,6 @@ namespace NppDarkMode
 	void initAdvancedOptions();
 
 	bool isEnabled();
-	bool isDarkMenuEnabled();
 	bool isEnabledForPlugins();
 	bool isExperimentalActive();
 	bool isExperimentalSupported();
@@ -176,11 +174,6 @@ namespace NppDarkMode
 	void handleSettingChange(HWND hwnd, LPARAM lParam, bool isFromBtn = false);
 	bool isDarkModeReg();
 
-	// processes messages related to UAH / custom menubar drawing.
-	// return true if handled, false to continue with normal processing in your wndproc
-	bool runUAHWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam, LRESULT* lr);
-	void drawUAHMenuNCBottomLine(HWND hWnd);
-
 	// from DarkMode.h
 	void initExperimentalDarkMode();
 	void setDarkMode(bool useDark, bool fixDarkScrollbar);
@@ -216,6 +209,7 @@ namespace NppDarkMode
 	ULONG autoSubclassAndThemePlugin(HWND hwnd, ULONG dmFlags);
 	void autoSubclassCtlColor(HWND hWnd);
 	void autoSubclassAndThemeWindowNotify(HWND hwnd);
+	void autoSubclassWindowMenuBar(HWND hWnd);
 
 	void setDarkTitleBar(HWND hwnd);
 	void setDarkExplorerTheme(HWND hwnd);

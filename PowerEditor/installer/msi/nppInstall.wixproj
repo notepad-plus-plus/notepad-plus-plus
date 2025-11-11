@@ -4,4 +4,7 @@
     <OutputType>Package</OutputType>
 	<Platform>x64</Platform>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DebugType>none</DebugType>
+  </PropertyGroup>
 </Project>

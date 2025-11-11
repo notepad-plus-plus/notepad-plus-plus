@@ -468,12 +468,14 @@ If ErrorLevel 1 goto End
 "C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.portable.arm64.7z .\zipped.package.releaseArm64\*
 If ErrorLevel 1 goto End
 
+cd .\msi\
+dotnet build -c release -p:OutputPath=..\build\
+If ErrorLevel 1 goto End
+
+cd ..\build\
 
 rem set var locally in this batch file
 setlocal enableDelayedExpansion 
-
-cd .\build\
-
 
 for %%a in (npp.*.Installer.exe) do (
   rem echo a = %%a
@@ -493,6 +495,8 @@ for %%a in (npp.*.Installer.exe) do (
   set 7zvarMin=!nppInstallerVar:Installer.exe=portable.minimalist.7z!
   set 7zvarMin64=!nppInstallerVar:Installer.exe=portable.minimalist.x64.7z!
   set 7zvarMinArm64=!nppInstallerVar:Installer.exe=portable.minimalist.arm64.7z!
+  
+  set nppInstallerVarMsi64=!nppInstallerVar:Installer.exe=Installer.x64.msi!
 )
 
 rem echo zipvar=!zipvar!
@@ -502,25 +506,38 @@ rem echo 7zvar64=!7zvar64!
 rem echo 7zvarMin=!7zvarMin!
 rem echo 7zvarMin64=!7zvarMin64!
 ren npp.portable.zip !zipvar!
+If ErrorLevel 1 goto End
 ren npp.portable.x64.zip !zipvar64!
+If ErrorLevel 1 goto End
 ren npp.portable.arm64.zip !zipvarArm64!
+If ErrorLevel 1 goto End
 ren npp.portable.7z !7zvar!
+If ErrorLevel 1 goto End
 ren npp.portable.x64.7z !7zvar64!
+If ErrorLevel 1 goto End
 ren npp.portable.arm64.7z !7zvarArm64!
+If ErrorLevel 1 goto End
 ren npp.portable.minimalist.7z !7zvarMin!
+If ErrorLevel 1 goto End
 ren npp.portable.minimalist.x64.7z !7zvarMin64!
+If ErrorLevel 1 goto End
 ren npp.portable.minimalist.arm64.7z !7zvarMinArm64!
+If ErrorLevel 1 goto End
+ren npp.Installer.x64.msi !nppInstallerVarMsi64!
+If ErrorLevel 1 goto End
 
 if %SIGN% == 0 goto NoSignInstaller
 
-%Sign_by_NppRootCert% !nppInstallerVar! !nppInstallerVar64! !nppInstallerVarArm64!
+%Sign_by_NppRootCert% !nppInstallerVar! !nppInstallerVar64! !nppInstallerVarArm64! !nppInstallerVarMsi64!
+If ErrorLevel 1 goto End
 
-%Sign_by_GlobalSignCert% %DOUBLE_SIGNING% !nppInstallerVar! !nppInstallerVar64! !nppInstallerVarArm64!
+%Sign_by_GlobalSignCert% %DOUBLE_SIGNING% !nppInstallerVar! !nppInstallerVar64! !nppInstallerVarArm64! !nppInstallerVarMsi64!
+If ErrorLevel 1 goto End
 
 :NoSignInstaller
 
-cd ..
-
 endlocal
+
+cd ..
 
 :End

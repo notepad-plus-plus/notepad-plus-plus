@@ -9,10 +9,10 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepadplusplus(at)rockytdr.33mail.com)
 
-Last modified on 2025-07-25 by Thomas De Rocker (RockyTDR).
+Last modified on 2025-11-11 by xylographe.
 -->
 <NotepadPlus>
-	<Native-Langue name="Nederlands" filename="dutch.xml" version="8.8.1">
+	<Native-Langue name="Nederlands" filename="dutch.xml" version="8.8.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1008,6 +1008,7 @@ Last modified on 2025-07-25 by Thomas De Rocker (RockyTDR).
 					<Item id="6128" name="Alternatieve pictogrammen"/>
 					<Item id="6125" name="Gedrag"/>
 					<Item id="6126" name="Gedrag en uiterlijk"/>
+					<Item id="6136" name="Max. tabbladnaamlengte:"/>
 				</Tabbar>
 
 				<Scintillas title="Bewerken 1">
@@ -1610,7 +1611,7 @@ Opmerking: als u ervoor kiest om de plaatshouders niet aan te maken of ze later 
 			<FileMemoryAllocationFailed title="Uitzondering: toewijzing van bestandsgeheugen mislukt" message="Er is vermoedelijk onvoldoende aaneensluitend vrij geheugen voor het bestand om geladen te worden door Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 			<FindRegexBackwardDisabled title="Regex achterwaarts zoeken uitgeschakeld" message="Achterwaarts regex zoeken is standaard uitgeschakeld omwille van potentieel onverwachte resultaten. Om een achterwaartse zoekopdracht uit te voeren, opent u het zoekvenster en selecteert u ofwel normale of uitgebreide zoekmodus in plaats van reguliere expressie.
 Druk op OK om het zoekvenster te openen en de focus erop te zetten.
-			
+
 Als u de functie voor achterwaarts regex-zoeken nodig hebt, raadpleegt u de gebruikershandleiding voor instructies om ze in te schakelen."/>
 			<PrintError title="0" message="Kan printer-document niet starten."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 			<FindAutoChangeOfInSelectionWarning title="Zoeken-waarschuwing" message="De status van het vakje &quot;In selectie&quot; is automatisch gewijzigd.
@@ -1910,6 +1911,7 @@ Als u de geavanceerde modus selecteert maar geen bestanden in de bovengenoemde t
 			<max-len-on-search-tip value="Uw invoer is mogelijk te lang. Uw invoer kan afgekapt worden en zal niet opgeslagen worden voor de volgende sessie."/>
 			<max-len-on-save-tip value="Uw invoer is mogelijk te lang om opgeslagen te worden voor de volgende sessie."/>
 			<goto-setting-tip value="Zoek hier uw instelling"/>
+			<tabbar-tabcompactlabellen-tip value="Beperk de zichtbare lengte van tabbladnamen. Voer een waarde van 1 tot 257 tekens in of 0 om niet af te breken."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -21,16 +21,15 @@
 #include "DarkMode/UAHMenuBar.h"
 
 #include <dwmapi.h>
+#include <shlwapi.h>
 #include <uxtheme.h>
 #include <vssym32.h>
 
+#include <memory>
+
 #include "Parameters.h"
-#include "resource.h"
 #include "dpiManagerV2.h"
-
-#include <shlwapi.h>
-
-#include <array>
+#include "resource.h"
 
 #ifdef __GNUC__
 #include <cmath>
@@ -190,7 +189,7 @@ namespace NppDarkMode
 	};
 
 	// black (default)
-	static const Colors darkColors{
+	static constexpr Colors darkColors{
 		HEXRGB(0x202020),   // background
 		HEXRGB(0x383838),   // softerBackground
 		HEXRGB(0x454545),   // hotBackground
@@ -205,11 +204,11 @@ namespace NppDarkMode
 		HEXRGB(0x484848)    // disabledEdgeColor
 	};
 
-	constexpr int offsetEdge = HEXRGB(0x1C1C1C);
+	static constexpr int offsetEdge = HEXRGB(0x1C1C1C);
 
 	// red tone
-	constexpr int offsetRed = HEXRGB(0x100000);
-	static const Colors darkRedColors{
+	static constexpr int offsetRed = HEXRGB(0x100000);
+	static constexpr Colors darkRedColors{
 		darkColors.background + offsetRed,
 		darkColors.softerBackground + offsetRed,
 		darkColors.hotBackground + offsetRed,
@@ -225,8 +224,8 @@ namespace NppDarkMode
 	};
 
 	// green tone
-	constexpr int offsetGreen = HEXRGB(0x001000);
-	static const Colors darkGreenColors{
+	static constexpr int offsetGreen = HEXRGB(0x001000);
+	static constexpr Colors darkGreenColors{
 		darkColors.background + offsetGreen,
 		darkColors.softerBackground + offsetGreen,
 		darkColors.hotBackground + offsetGreen,
@@ -242,8 +241,8 @@ namespace NppDarkMode
 	};
 
 	// blue tone
-	constexpr int offsetBlue = HEXRGB(0x000020);
-	static const Colors darkBlueColors{
+	static constexpr int offsetBlue = HEXRGB(0x000020);
+	static constexpr Colors darkBlueColors{
 		darkColors.background + offsetBlue,
 		darkColors.softerBackground + offsetBlue,
 		darkColors.hotBackground + offsetBlue,
@@ -259,8 +258,8 @@ namespace NppDarkMode
 	};
 
 	// purple tone
-	constexpr int offsetPurple = HEXRGB(0x100020);
-	static const Colors darkPurpleColors{
+	static constexpr int offsetPurple = HEXRGB(0x100020);
+	static constexpr Colors darkPurpleColors{
 		darkColors.background + offsetPurple,
 		darkColors.softerBackground + offsetPurple,
 		darkColors.hotBackground + offsetPurple,
@@ -276,8 +275,8 @@ namespace NppDarkMode
 	};
 
 	// cyan tone
-	constexpr int offsetCyan = HEXRGB(0x001020);
-	static const Colors darkCyanColors{
+	static constexpr int offsetCyan = HEXRGB(0x001020);
+	static constexpr Colors darkCyanColors{
 		darkColors.background + offsetCyan,
 		darkColors.softerBackground + offsetCyan,
 		darkColors.hotBackground + offsetCyan,
@@ -293,8 +292,8 @@ namespace NppDarkMode
 	};
 
 	// olive tone
-	constexpr int offsetOlive = HEXRGB(0x101000);
-	static const Colors darkOliveColors{
+	static constexpr int offsetOlive = HEXRGB(0x101000);
+	static constexpr Colors darkOliveColors{
 		darkColors.background + offsetOlive,
 		darkColors.softerBackground + offsetOlive,
 		darkColors.hotBackground + offsetOlive,
@@ -310,9 +309,9 @@ namespace NppDarkMode
 	};
 
 	// customized
-	Colors darkCustomizedColors{ darkColors };
+	static Colors darkCustomizedColors{ darkColors };
 
-	ColorTone g_colorToneChoice = blackTone;
+	static ColorTone g_colorToneChoice = blackTone;
 
 	void setDarkTone(ColorTone colorToneChoice)
 	{
@@ -339,15 +338,15 @@ namespace NppDarkMode
 		}
 	};
 
-	Theme tDefault(darkColors);
-	Theme tR(darkRedColors);
-	Theme tG(darkGreenColors);
-	Theme tB(darkBlueColors);
-	Theme tP(darkPurpleColors);
-	Theme tC(darkCyanColors);
-	Theme tO(darkOliveColors);
+	static Theme tDefault(darkColors);
+	static Theme tR(darkRedColors);
+	static Theme tG(darkGreenColors);
+	static Theme tB(darkBlueColors);
+	static Theme tP(darkPurpleColors);
+	static Theme tC(darkCyanColors);
+	static Theme tO(darkOliveColors);
 
-	Theme tCustom(darkCustomizedColors);
+	static Theme tCustom(darkCustomizedColors);
 
 
 	static Theme& getTheme()
@@ -385,10 +384,9 @@ namespace NppDarkMode
 
 	static Options configuredOptions()
 	{
-		NppGUI nppGui = NppParameters::getInstance().getNppGUI();
+		const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 		Options opt;
 		opt.enable = nppGui._darkmode._isEnabled;
-		opt.enableMenubar = opt.enable;
 		opt.enablePlugin = nppGui._darkmode._isEnabledPlugin;
 
 		g_colorToneChoice = nppGui._darkmode._colorTone;
@@ -465,7 +463,6 @@ namespace NppDarkMode
 			NppGUI& nppGUI = nppParam.getNppGUI();
 			nppGUI._darkmode._isEnabled = NppDarkMode::isDarkModeReg() && !IsHighContrast();
 			_options.enable = nppGUI._darkmode._isEnabled;
-			_options.enableMenubar = _options.enable;
 		}
 
 		setDarkMode(_options.enable, true);
@@ -496,12 +493,6 @@ namespace NppDarkMode
 			setDarkMode(_options.enable, _options.enable);
 		}
 
-		if (_options.enableMenubar != config.enableMenubar)
-		{
-			supportedChanged = true;
-			_options.enableMenubar = config.enableMenubar;
-		}
-
 		// other options not supported to change at runtime currently
 
 		if (!supportedChanged && !forceRefresh)
@@ -530,11 +521,6 @@ namespace NppDarkMode
 	bool isEnabledForPlugins()
 	{
 		return _options.enablePlugin;
-	}
-
-	bool isDarkMenuEnabled()
-	{
-		return _options.enableMenubar;
 	}
 
 	bool isExperimentalActive()
@@ -899,10 +885,10 @@ namespace NppDarkMode
 	{
 		DWORD data{};
 		DWORD dwBufSize = sizeof(data);
-		LPCTSTR lpSubKey = L"Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize";
-		LPCTSTR lpValue = L"AppsUseLightTheme";
+		static constexpr LPCWSTR lpSubKey = L"Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize";
+		static constexpr LPCWSTR lpValue = L"AppsUseLightTheme";
 
-		auto result = RegGetValue(HKEY_CURRENT_USER, lpSubKey, lpValue, RRF_RT_REG_DWORD, nullptr, &data, &dwBufSize);
+		const auto result = ::RegGetValueW(HKEY_CURRENT_USER, lpSubKey, lpValue, RRF_RT_REG_DWORD, nullptr, &data, &dwBufSize);
 		if (result != ERROR_SUCCESS)
 		{
 			return false;
@@ -910,206 +896,6 @@ namespace NppDarkMode
 
 		// dark mode is 0, light mode is 1
 		return data == 0UL;
-	}
-
-	// processes messages related to UAH / custom menubar drawing.
-	// return true if handled, false to continue with normal processing in your wndproc
-	bool runUAHWndProc(HWND hWnd, UINT message, WPARAM /*wParam*/, LPARAM lParam, LRESULT* lr)
-	{
-		static HTHEME g_menuTheme = nullptr;
-
-		switch (message)
-		{
-		case WM_UAHDRAWMENU:
-		{
-			auto pUDM = reinterpret_cast<UAHMENU*>(lParam);
-			RECT rc{};
-
-			// get the menubar rect
-			{
-				MENUBARINFO mbi{};
-				mbi.cbSize = sizeof(MENUBARINFO);
-				GetMenuBarInfo(hWnd, OBJID_MENU, 0, &mbi);
-
-				RECT rcWindow{};
-				GetWindowRect(hWnd, &rcWindow);
-
-				// the rcBar is offset by the window rect
-				rc = mbi.rcBar;
-				OffsetRect(&rc, -rcWindow.left, -rcWindow.top);
-
-				rc.top -= 1;
-			}
-
-			FillRect(pUDM->hdc, &rc, NppDarkMode::getDlgBackgroundBrush());
-
-			*lr = 0;
-
-			return true;
-		}
-
-		case WM_UAHDRAWMENUITEM:
-		{
-			auto pUDMI = reinterpret_cast<UAHDRAWMENUITEM*>(lParam);
-
-			// get the menu item string
-			wchar_t menuString[256] = { '\0' };
-			MENUITEMINFO mii{};
-			{
-				mii.cbSize = sizeof(MENUITEMINFO);
-				mii.fMask = MIIM_STRING;
-				mii.dwTypeData = menuString;
-				mii.cch = (sizeof(menuString) / 2) - 1;
-
-				GetMenuItemInfo(pUDMI->um.hmenu, pUDMI->umi.iPosition, TRUE, &mii);
-			}
-
-			// get the item state for drawing
-
-			DWORD dwFlags = DT_CENTER | DT_SINGLELINE | DT_VCENTER;
-
-			int iTextStateID = MBI_NORMAL;
-			int iBackgroundStateID = MBI_NORMAL;
-			{
-				if (pUDMI->dis.itemState & ODS_SELECTED)
-				{
-					// clicked
-					iTextStateID = MBI_PUSHED;
-					iBackgroundStateID = MBI_PUSHED;
-				}
-				else if (pUDMI->dis.itemState & ODS_HOTLIGHT)
-				{
-					// hot tracking
-					iTextStateID = (pUDMI->dis.itemState & ODS_INACTIVE) ? MBI_DISABLEDHOT : MBI_HOT;
-					iBackgroundStateID = MBI_HOT;
-				}
-				else if ((pUDMI->dis.itemState & ODS_GRAYED) || (pUDMI->dis.itemState & ODS_DISABLED) || (pUDMI->dis.itemState & ODS_INACTIVE))
-				{
-					// disabled / grey text / inactive
-					iTextStateID = MBI_DISABLED;
-					iBackgroundStateID = MBI_DISABLED;
-				}
-				else if (pUDMI->dis.itemState & ODS_DEFAULT)
-				{
-					// normal display
-					iTextStateID = MBI_NORMAL;
-					iBackgroundStateID = MBI_NORMAL;
-				}
-
-				if (pUDMI->dis.itemState & ODS_NOACCEL)
-				{
-					dwFlags |= DT_HIDEPREFIX;
-				}
-			}
-
-			if (!g_menuTheme)
-			{
-				g_menuTheme = OpenThemeData(hWnd, VSCLASS_MENU);
-			}
-
-			switch (iBackgroundStateID)
-			{
-				case MBI_NORMAL:
-				case MBI_DISABLED:
-				{
-					::FillRect(pUDMI->um.hdc, &pUDMI->dis.rcItem, NppDarkMode::getDlgBackgroundBrush());
-					break;
-				}
-
-				case MBI_HOT:
-				case MBI_DISABLEDHOT:
-				{
-					::FillRect(pUDMI->um.hdc, &pUDMI->dis.rcItem, NppDarkMode::getHotBackgroundBrush());
-					break;
-				}
-
-				case MBI_PUSHED:
-				case MBI_DISABLEDPUSHED:
-				{
-					::FillRect(pUDMI->um.hdc, &pUDMI->dis.rcItem, NppDarkMode::getCtrlBackgroundBrush());
-					break;
-				}
-
-				default:
-				{
-					::DrawThemeBackground(g_menuTheme, pUDMI->um.hdc, MENU_BARITEM, iBackgroundStateID, &pUDMI->dis.rcItem, nullptr);
-					break;
-				}
-			}
-
-			DTTOPTS dttopts{};
-			dttopts.dwSize = sizeof(DTTOPTS);
-			dttopts.dwFlags = DTT_TEXTCOLOR;
-			switch (iTextStateID)
-			{
-				case MBI_NORMAL:
-				case MBI_HOT:
-				case MBI_PUSHED:
-				{
-					dttopts.crText = NppDarkMode::getTextColor();
-					break;
-				}
-
-				case MBI_DISABLED:
-				case MBI_DISABLEDHOT:
-				case MBI_DISABLEDPUSHED:
-				{
-					dttopts.crText = NppDarkMode::getDisabledTextColor();
-					break;
-				}
-			}
-
-			::DrawThemeTextEx(g_menuTheme, pUDMI->um.hdc, MENU_BARITEM, iTextStateID, menuString, mii.cch, dwFlags, &pUDMI->dis.rcItem, &dttopts);
-
-			*lr = 0;
-
-			return true;
-		}
-
-		case WM_DPICHANGED:
-		case WM_DPICHANGED_AFTERPARENT:
-		case WM_THEMECHANGED:
-		{
-			if (g_menuTheme)
-			{
-				CloseThemeData(g_menuTheme);
-				g_menuTheme = nullptr;
-			}
-			// continue processing in main wndproc
-			return false;
-		}
-		default:
-			return false;
-		}
-	}
-
-	void drawUAHMenuNCBottomLine(HWND hWnd)
-	{
-		MENUBARINFO mbi{};
-		mbi.cbSize = sizeof(MENUBARINFO);
-		if (!GetMenuBarInfo(hWnd, OBJID_MENU, 0, &mbi))
-		{
-			return;
-		}
-
-		RECT rcClient{};
-		GetClientRect(hWnd, &rcClient);
-		MapWindowPoints(hWnd, nullptr, (POINT*)&rcClient, 2);
-
-		RECT rcWindow{};
-		GetWindowRect(hWnd, &rcWindow);
-
-		OffsetRect(&rcClient, -rcWindow.left, -rcWindow.top);
-
-		// the rcBar is offset by the window rect
-		RECT rcAnnoyingLine = rcClient;
-		rcAnnoyingLine.bottom = rcAnnoyingLine.top;
-		rcAnnoyingLine.top--;
-
-
-		HDC hdc = GetWindowDC(hWnd);
-		FillRect(hdc, &rcAnnoyingLine, NppDarkMode::getDlgBackgroundBrush());
-		ReleaseDC(hWnd, hdc);
 	}
 
 	// from DarkMode.h
@@ -3317,8 +3103,6 @@ namespace NppDarkMode
 			NppDarkMode::subclassCustomBorderForListBoxAndEditControls(hwnd);
 		}
 
-#ifndef __MINGW64__ // mingw build for 64 bit has issue with GetWindowSubclass, it is undefined
-
 		bool changed = false;
 		if (::GetWindowSubclass(hwnd, CustomBorderSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), nullptr) == TRUE)
 		{
@@ -3341,8 +3125,6 @@ namespace NppDarkMode
 		{
 			::SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
 		}
-
-#endif // !__MINGW64__
 	}
 
 	void subclassAndThemeListView(HWND hwnd, NppDarkModeParams p)
@@ -4169,6 +3951,249 @@ namespace NppDarkMode
 	void autoSubclassAndThemeWindowNotify(HWND hwnd)
 	{
 		SetWindowSubclass(hwnd, WindowNotifySubclass, static_cast<UINT_PTR>(SubclassID::darkMode), 0);
+	}
+
+	static void paintMenuBar(HWND hWnd, HDC hdc)
+	{
+		// get the menubar rect
+		MENUBARINFO mbi{};
+		mbi.cbSize = sizeof(MENUBARINFO);
+		::GetMenuBarInfo(hWnd, OBJID_MENU, 0, &mbi);
+
+		RECT rcWindow{};
+		::GetWindowRect(hWnd, &rcWindow);
+
+		// the rcBar is offset by the window rect
+		RECT rcBar{ mbi.rcBar };
+		::OffsetRect(&rcBar, -rcWindow.left, -rcWindow.top);
+
+		rcBar.top -= 1;
+
+		::FillRect(hdc, &rcBar, NppDarkMode::getDlgBackgroundBrush());
+	}
+
+	static void paintMenuBarItems(UAHDRAWMENUITEM& UDMI, const HTHEME& hTheme)
+	{
+		// get the menu item string
+		std::wstring buffer(MAX_PATH, L'\0');
+		MENUITEMINFO mii{};
+		mii.cbSize = sizeof(MENUITEMINFO);
+		mii.fMask = MIIM_STRING;
+		mii.dwTypeData = buffer.data();
+		mii.cch = MAX_PATH - 1;
+
+		::GetMenuItemInfoW(UDMI.um.hmenu, static_cast<UINT>(UDMI.umi.iPosition), TRUE, &mii);
+
+		// get the item state for drawing
+
+		DWORD dwFlags = DT_CENTER | DT_SINGLELINE | DT_VCENTER;
+
+		int iTextStateID = MBI_NORMAL;
+		int iBackgroundStateID = MBI_NORMAL;
+		if ((UDMI.dis.itemState & ODS_SELECTED) == ODS_SELECTED)
+		{
+			// clicked
+			iTextStateID = MBI_PUSHED;
+			iBackgroundStateID = MBI_PUSHED;
+		}
+		else if ((UDMI.dis.itemState & ODS_HOTLIGHT) == ODS_HOTLIGHT)
+		{
+			// hot tracking
+			iTextStateID = ((UDMI.dis.itemState & ODS_INACTIVE) == ODS_INACTIVE) ? MBI_DISABLEDHOT : MBI_HOT;
+			iBackgroundStateID = MBI_HOT;
+		}
+		else if (((UDMI.dis.itemState & ODS_GRAYED) == ODS_GRAYED)
+			|| ((UDMI.dis.itemState & ODS_DISABLED) == ODS_DISABLED)
+			|| ((UDMI.dis.itemState & ODS_INACTIVE) == ODS_INACTIVE))
+		{
+			// disabled / grey text / inactive
+			iTextStateID = MBI_DISABLED;
+			iBackgroundStateID = MBI_DISABLED;
+		}
+		else if ((UDMI.dis.itemState & ODS_DEFAULT) == ODS_DEFAULT)
+		{
+			// normal display
+			iTextStateID = MBI_NORMAL;
+			iBackgroundStateID = MBI_NORMAL;
+		}
+
+		if ((UDMI.dis.itemState & ODS_NOACCEL) == ODS_NOACCEL)
+		{
+			dwFlags |= DT_HIDEPREFIX;
+		}
+
+		switch (iBackgroundStateID)
+		{
+			case MBI_NORMAL:
+			case MBI_DISABLED:
+			{
+				::FillRect(UDMI.um.hdc, &UDMI.dis.rcItem, NppDarkMode::getDlgBackgroundBrush());
+				break;
+			}
+
+			case MBI_HOT:
+			case MBI_DISABLEDHOT:
+			{
+				::FillRect(UDMI.um.hdc, &UDMI.dis.rcItem, NppDarkMode::getHotBackgroundBrush());
+				break;
+			}
+
+			case MBI_PUSHED:
+			case MBI_DISABLEDPUSHED:
+			{
+				::FillRect(UDMI.um.hdc, &UDMI.dis.rcItem, NppDarkMode::getCtrlBackgroundBrush());
+				break;
+			}
+
+			default:
+			{
+				::DrawThemeBackground(hTheme, UDMI.um.hdc, MENU_BARITEM, iBackgroundStateID, &UDMI.dis.rcItem, nullptr);
+				break;
+			}
+		}
+
+		DTTOPTS dttopts{};
+		dttopts.dwSize = sizeof(DTTOPTS);
+		dttopts.dwFlags = DTT_TEXTCOLOR;
+		switch (iTextStateID)
+		{
+			case MBI_NORMAL:
+			case MBI_HOT:
+			case MBI_PUSHED:
+			{
+				dttopts.crText = NppDarkMode::getTextColor();
+				break;
+			}
+
+			case MBI_DISABLED:
+			case MBI_DISABLEDHOT:
+			case MBI_DISABLEDPUSHED:
+			{
+				dttopts.crText = NppDarkMode::getDisabledTextColor();
+				break;
+			}
+
+			default:
+			{
+				break;
+			}
+		}
+
+		::DrawThemeTextEx(hTheme, UDMI.um.hdc, MENU_BARITEM, iTextStateID, buffer.c_str(), static_cast<int>(mii.cch), dwFlags, &UDMI.dis.rcItem, &dttopts);
+	}
+
+	static void drawUAHMenuNCBottomLine(HWND hWnd)
+	{
+		MENUBARINFO mbi{};
+		mbi.cbSize = sizeof(MENUBARINFO);
+		if (::GetMenuBarInfo(hWnd, OBJID_MENU, 0, &mbi) == FALSE)
+		{
+			return;
+		}
+
+		RECT rcClient{};
+		::GetClientRect(hWnd, &rcClient);
+		::MapWindowPoints(hWnd, nullptr, reinterpret_cast<POINT*>(&rcClient), 2);
+
+		RECT rcWindow{};
+		::GetWindowRect(hWnd, &rcWindow);
+
+		::OffsetRect(&rcClient, -rcWindow.left, -rcWindow.top);
+
+		// the rcBar is offset by the window rect
+		RECT rcAnnoyingLine{ rcClient };
+		rcAnnoyingLine.bottom = rcAnnoyingLine.top;
+		rcAnnoyingLine.top--;
+
+
+		HDC hdc = ::GetWindowDC(hWnd);
+		::FillRect(hdc, &rcAnnoyingLine, NppDarkMode::getDlgBackgroundBrush());
+		::ReleaseDC(hWnd, hdc);
+	}
+
+	static LRESULT CALLBACK WindowMenuBarSubclass(
+		HWND hWnd,
+		UINT uMsg,
+		WPARAM wParam,
+		LPARAM lParam,
+		UINT_PTR uIdSubclass,
+		DWORD_PTR dwRefData
+	)
+	{
+		auto* pMenuThemeData = reinterpret_cast<ThemeData*>(dwRefData);
+
+		if (uMsg != WM_NCDESTROY && (!NppDarkMode::isEnabled() || !pMenuThemeData->ensureTheme(hWnd)))
+		{
+			return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+		}
+
+		switch (uMsg)
+		{
+			case WM_NCDESTROY:
+			{
+				::RemoveWindowSubclass(hWnd, WindowMenuBarSubclass, uIdSubclass);
+				delete pMenuThemeData;
+				break;
+			}
+
+			case WM_UAHDRAWMENU:
+			{
+				auto* pUDM = reinterpret_cast<UAHMENU*>(lParam);
+				paintMenuBar(hWnd, pUDM->hdc);
+
+				return 0;
+			}
+
+			case WM_UAHDRAWMENUITEM:
+			{
+				auto* pUDMI = reinterpret_cast<UAHDRAWMENUITEM*>(lParam);
+				paintMenuBarItems(*pUDMI, pMenuThemeData->_hTheme);
+
+				return 0;
+			}
+
+#if 0 // for debugging
+			case WM_UAHMEASUREMENUITEM:
+			{
+				auto* pMMI = reinterpret_cast<UAHMEASUREMENUITEM*>(lParam);
+				return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+			}
+#endif
+
+			case WM_DPICHANGED:
+			case WM_DPICHANGED_AFTERPARENT:
+			case WM_THEMECHANGED:
+			{
+				pMenuThemeData->closeTheme();
+				break;
+			}
+
+			case WM_NCACTIVATE:
+			case WM_NCPAINT:
+			{
+				const LRESULT retVal = ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+				drawUAHMenuNCBottomLine(hWnd);
+				return retVal;
+			}
+
+			default:
+			{
+				break;
+			}
+		}
+		return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+	}
+
+	void autoSubclassWindowMenuBar(HWND hWnd)
+	{
+		if (::GetWindowSubclass(hWnd, WindowMenuBarSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), nullptr) == FALSE)
+		{
+			auto pMenuThemeData = std::make_unique<ThemeData>(VSCLASS_MENU);
+			if (::SetWindowSubclass(hWnd, WindowMenuBarSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), reinterpret_cast<DWORD_PTR>(pMenuThemeData.get())) == TRUE)
+			{
+				static_cast<void>(pMenuThemeData.release());
+			}
+		}
 	}
 
 	void setDarkTitleBar(HWND hwnd)

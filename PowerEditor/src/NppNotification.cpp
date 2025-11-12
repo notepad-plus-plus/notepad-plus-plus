@@ -20,7 +20,7 @@
 #include "functionListPanel.h"
 #include "xmlMatchedTagsHighlighter.h"
 #include "VerticalFileSwitcher.h"
-#include "ProjectPanel.h"
+#include "NppDarkMode.h"
 #include "documentMap.h"
 #include "Common.h"
 #include <stack>
@@ -1077,7 +1077,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			// Adds colour icons
 			for (int i = 0; i < 5; ++i)
 			{
-				COLORREF colour = nppParam.getIndividualTabColor(i, NppDarkMode::isDarkMenuEnabled(), true);
+				COLORREF colour = nppParam.getIndividualTabColor(i, NppDarkMode::isEnabled(), true);
 				HBITMAP hBitmap = generateSolidColourMenuItemIcon(colour);
 				SetMenuItemBitmaps(_tabPopupMenu.getMenuHandle(), IDM_VIEW_TAB_COLOUR_1 + i, MF_BYCOMMAND, hBitmap, hBitmap);
 			}

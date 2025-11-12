@@ -1,603 +1,1824 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!--
+Translation note:
+1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
+2. All the comments are for explanation, they are not for translation.
+-->
 <NotepadPlus>
-	<Native-Langue name="Azərbaycan" filename="azerbaijan.xml">
+	<Native-Langue name="Azərbaycan" filename="azerbaijan.xml" version="8.7.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
 				<Entries>
 					<Item menuId="file" name="Fayl"/>
-					<Item menuId="edit" name="Redaktə"/>
-					<Item menuId="search" name="Axtar"/>
+					<Item menuId="edit" name="Düzəliş"/>
+					<Item menuId="search" name="Axtarış"/>
 					<Item menuId="view" name="Görünüş"/>
-					<Item menuId="encoding" name="Kodla"/>
-					<Item menuId="language" name="Sintaksis"/>
-					<Item menuId="settings" name="Nizamlar"/>
+					<Item menuId="encoding" name="Kodlaşdırma"/>
+					<Item menuId="language" name="Dil"/>
+					<Item menuId="settings" name="Parametrlər"/>
+					<Item menuId="tools" name="Alətlər"/>
 					<Item menuId="macro" name="Makro"/>
-					<Item menuId="run" name="İşə sal"/>
-					<Item menuId="Plugins" name="Plaginlər"/>
+					<Item menuId="run" name="İcraya"/>
+					<Item menuId="Plugins" name="Əlavələr"/>
 					<Item menuId="Window" name="Pəncərə"/>
 				</Entries>
-
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item subMenuId="edit-copyToClipboard" name="Bufferə kopiya et"/>
-					<Item subMenuId="edit-indent" name="Abzas"/>
-					<Item subMenuId="edit-convertCaseTo" name="Həriflərin registerini dəyiş"/>
-					<Item subMenuId="edit-lineOperations" name="Sətir əməliyatları"/>
-					<Item subMenuId="edit-comment" name="Şərhi Sil/Əlavə et"/>
-					<Item subMenuId="edit-autoCompletion" name="Avtomatik tamamlanma"/>
-					<Item subMenuId="edit-eolConversion" name="EOL Konversiya"/>
-
-					<Item subMenuId="search-markAll" name="Hamısını qeyd et"/>
-					<Item subMenuId="search-unmarkAll" name="Heç birini qeyd etmə"/>
-					<Item subMenuId="search-jumpUp" name="Yuxarı səviyyəyə qalx"/>
-					<Item subMenuId="search-jumpDown" name="Aşağı səviyyəyə düş"/>
-					<Item subMenuId="search-bookmark" name="Tağlar"/>
-
-					<Item subMenuId="view-showSymbol" name="Simvolu göstər"/>
-					<Item subMenuId="view-zoom" name="Miqyas"/>
-					<Item subMenuId="view-moveCloneDocument" name="Bu sənədi Daşı/Kopiya et"/>
-					<Item subMenuId="view-collapseLevel" name="Səviyyəni daralt"/>
-					<Item subMenuId="view-uncollapseLevel" name="Səviyyəni genişləndir"/>
-
-					<Item subMenuId="encoding-characterSets" name="Simvolların Yığımı"/>
+					<Item subMenuId="file-openFolder" name="Klasörü Aç"/>
+					<Item subMenuId="file-closeMore" name="Bir neçə Sənədi Bağla"/>
+					<Item subMenuId="file-recentFiles" name="Son Sənədlər"/>
+					<Item subMenuId="edit-insert" name="Daxil Et"/>
+					<Item subMenuId="edit-copyToClipboard" name="Kopyala və Şəkilləri Yadda Saxla"/>
+					<Item subMenuId="edit-indent" name="Sətir Büzülməsi"/>
+					<Item subMenuId="edit-convertCaseTo" name="Harf Sözünü Dəyişdir"/>
+					<Item subMenuId="edit-lineOperations" name="Sətir Əməliyyatları"/>
+					<Item subMenuId="edit-comment" name="Şərh Et/Yox Et"/>
+					<Item subMenuId="edit-autoCompletion" name="Avtomatik Tamamlama"/>
+					<Item subMenuId="edit-eolConversion" name="EOL Dəyişməsi"/>
+					<Item subMenuId="edit-blankOperations" name="Boşluq Əməliyyatları"/>
+					<Item subMenuId="edit-pasteSpecial" name="Xüsusi Yerləşdirmə"/>
+					<Item subMenuId="edit-onSelection" name="Seçimdə"/>
+					<Item subMenuId="edit-multiSelectALL" name="Hamısını Seç"/>
+					<Item subMenuId="edit-multiSelectNext" name="Növbəti Seç"/>
+					<Item subMenuId="search-changeHistory" name="Dəyişiklik Tarixi"/>
+					<Item subMenuId="search-markAll" name="Stil Bütün Tokenləri"/>
+					<Item subMenuId="search-markOne" name="Stil Bir Token"/>
+					<Item subMenuId="search-unmarkAll" name="Stil Təmizlə"/>
+					<Item subMenuId="search-jumpUp" name="Yuxarıya Keç"/>
+					<Item subMenuId="search-jumpDown" name="Aşağıya Keç"/>
+					<Item subMenuId="search-copyStyledText" name="Stil Yerləşdirilmiş Mətni Kopyala"/>
+					<Item subMenuId="search-bookmark" name="Əlfəcin"/>
+					<Item subMenuId="view-currentFileIn" name="Cari Sənədi Gör"/>
+					<Item subMenuId="view-showSymbol" name="Simvolu Göstər"/>
+					<Item subMenuId="view-zoom" name="Yaxınlaşdır"/>
+					<Item subMenuId="view-moveCloneDocument" name="Cari Sənədi Daşın/Şəkil Et"/>
+					<Item subMenuId="view-tab" name="Tab"/>
+					<Item subMenuId="view-collapseLevel" name="Səviyyəni Bük"/>
+					<Item subMenuId="view-uncollapseLevel" name="Səviyyəni Aç"/>
+					<Item subMenuId="view-project" name="Layihə"/>
+					<Item subMenuId="encoding-characterSets" name="Simvol Dəstləri"/>
 					<Item subMenuId="encoding-arabic" name="Ərəb"/>
 					<Item subMenuId="encoding-baltic" name="Baltik"/>
 					<Item subMenuId="encoding-celtic" name="Kelt"/>
 					<Item subMenuId="encoding-cyrillic" name="Kiril"/>
 					<Item subMenuId="encoding-centralEuropean" name="Mərkəzi Avropa"/>
 					<Item subMenuId="encoding-chinese" name="Çin"/>
-					<Item subMenuId="encoding-easternEuropean" name="Eastern European"/>
+					<Item subMenuId="encoding-easternEuropean" name="Şərqi Avropa"/>
 					<Item subMenuId="encoding-greek" name="Yunan"/>
 					<Item subMenuId="encoding-hebrew" name="İvrit"/>
-					<Item subMenuId="encoding-japanese" name="Yapon"/>
+					<Item subMenuId="encoding-japanese" name="Yaponiya"/>
 					<Item subMenuId="encoding-korean" name="Koreya"/>
-					<Item subMenuId="encoding-northEuropean" name="North European"/>
+					<Item subMenuId="encoding-northEuropean" name="Şimali Avropa"/>
 					<Item subMenuId="encoding-thai" name="Tay"/>
 					<Item subMenuId="encoding-turkish" name="Türk"/>
-					<Item subMenuId="encoding-westernEuropean" name="Western European"/>
+					<Item subMenuId="encoding-westernEuropean" name="Qərbi Avropa"/>
 					<Item subMenuId="encoding-vietnamese" name="Vyetnam"/>
-
-					<Item subMenuId="settings-import" name="Import"/>
+					<Item subMenuId="language-userDefinedLanguage" name="İstifadəçi Tərtib Edilən Dil"/>
+					<Item subMenuId="settings-import" name="İdxal Et"/>
+					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
+					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>
+					<Item subMenuId="window-sortby" name="Sıralama"/>
 				</SubEntries>
 
 				<!-- all menu item -->
 				<Commands>
-					<Item id="41001" name="Yeni"/>
-					<Item id="41002" name="Aç"/>
-					<Item id="41003" name="Bağla"/>
-					<Item id="41004" name="Hamısını bağla"/>
-					<Item id="41005" name="Digər sənədləri bağla"/>
-					<Item id="41006" name="Yadda saxla"/>
-					<Item id="41007" name="Hamısını yadda saxla"/>
-					<Item id="41008" name="Fərqli yadda saxla..."/>
-					<Item id="41010" name="Çap..."/>
-					<Item id="1001" name="Çap et"/>
-					<Item id="41011" name="Çıxış"/>
-					<Item id="41012" name="Sessiyanı yüklə..."/>
-					<Item id="41013" name="Sessiyanı yadda saxla..."/>
-					<Item id="41014" name="Diskdən yenidən yüklə"/>
-					<Item id="41015" name="Kopiyasını yadda saxla..."/>
-					<Item id="41016" name="Sil"/>
-					<Item id="41017" name="Adını dəyiş..."/>
-
-					<Item id="42001" name="Kəs"/>
-					<Item id="42002" name="Kopiya et"/>
-					<Item id="42003" name="Qaytar geri"/>
-					<Item id="42004" name="Qabağa"/>
-					<Item id="42005" name="Yapışdır"/>
-					<Item id="42006" name="Sil"/>
-					<Item id="42007" name="Hamısını seç"/>
-					<Item id="42008" name="Abzası artır"/>
-					<Item id="42009" name="Abzası azalt"/>
-					<Item id="42010" name="Seçilən sətiri dublikat et"/>
-					<Item id="42012" name="Sətirləri böl"/>
-					<Item id="42013" name="Sətirləri birləşdir"/>
-					<Item id="42014" name="Seçilən sətiri yuxarı daşı"/>
-					<Item id="42015" name="Seçilən sətiri aşağı daşı"/>
-					<Item id="42016" name="BÖYÜK HƏRFLƏR"/>
-					<Item id="42017" name="kiçik hərflər"/>
-					<Item id="42018" name="Qeydi başla"/>
-					<Item id="42019" name="Qeydi dayandır"/>
-					<Item id="42021" name="Oynat"/>
-					<Item id="42022" name="Blok şərh"/>
-					<Item id="42023" name="Axıcı şərh"/>
-					<Item id="42024" name="Boşluqları kəs"/>
-					<Item id="42025" name="Yazılan makronu yadda saxla"/>
-					<Item id="42026" name="Mətn istiqaməti - sağdan sola"/>
-					<Item id="42027" name="Mətn istiqaməti - soldan sağa"/>
-					<Item id="42028" name="Ancaq oxumaq"/>
-					<Item id="42029" name="Faylın adını və yolunu kopiya et"/>
-					<Item id="42030" name="Faylın adını kopiya et"/>
-					<Item id="42031" name="Qovluğun yolunu kopiya et"/>
-					<Item id="42032" name="Makronu bir neçə dəfə işlət..."/>
-					<Item id="42035" name="Bloku Şərhləndir"/>
-					<Item id="42036" name="Bloku Şərhləndirmə"/>
-
-					<Item id="43001" name="Tap..."/>
-					<Item id="43002" name="Sonrakını tap"/>
-					<Item id="43003" name="Əvəz et..."/>
-					<Item id="43004" name="Sətirə keç..."/>
-					<Item id="43005" name="Tağ (qoy/sil)"/>
-					<Item id="43006" name="Sonrakı tağ"/>
-					<Item id="43007" name="Əvvəlki tağ"/>
-					<Item id="43008" name="Bütün tağları sil"/>
-					<Item id="43009" name="Eşlenen mötərizələrin kənarına keç"/>
-					<Item id="43010" name="Öndəkini tap"/>
-					<Item id="43011" name="İnkrement axtarış"/>
-					<Item id="43013" name="Fayllarda tap"/>
-					<Item id="43014" name="Seç və sonrakını (registerlə) tap"/>
-					<Item id="43015" name="Seç və əvvəlkini (registerlə) tap"/>
-					<Item id="43016" name="Hamısını seç"/>
-					<Item id="43017" name="Heçbirini seçmə"/>
-					<Item id="43018" name="Seçilən sətirləri kəs"/>
-					<Item id="43019" name="Seçilən sətirləri kopiya et"/>
-					<Item id="43020" name="Seçilən sətirlərə (dəyişərək) yapışdır"/>
-					<Item id="43021" name="Seçilə sətirləri sil"/>
-					<Item id="43022" name="1-ci stili istfadə et"/>
-					<Item id="43023" name="1-ci stili təmizlə"/>
-					<Item id="43024" name="2-ci stili istifadə et"/>
-					<Item id="43025" name="2-ci stili təmizlə"/>
-					<Item id="43026" name="3-cü stili istifadə et"/>
-					<Item id="43027" name="3-cü stili təmizlə"/>
-					<Item id="43028" name="4-cü stili istifadə et"/>
-					<Item id="43029" name="4-cü stili təmizlə"/>
-					<Item id="43030" name="5-ci stili istifadə et"/>
-					<Item id="43031" name="5-ci stili təmizlə"/>
-					<Item id="43032" name="Bütun stilləri təmizlə"/>
+					<Item id="41001" name="&amp;Yeni"/>
+					<Item id="41002" name="&amp;Aç..."/>
+					<Item id="41019" name="Explorer"/>
+					<Item id="41020" name="cmd"/>
+					<Item id="41025" name="Fayl Kimi Yerləşdirmə"/>
+					<Item id="41003" name="&amp;Bağla"/>
+					<Item id="41004" name="Hamısını Bağla"/>
+					<Item id="41005" name="Cari Sənədi İstisna Etməklə Hamısını Bağla"/>
+					<Item id="41026" name="Sabitlənmiş Sənədləri İstisna Etməklə Hamısını Bağla"/>
+					<Item id="41009" name="Soldan Hamısını Bağla"/>
+					<Item id="41018" name="Sağdan Hamısını Bağla"/>
+					<Item id="41024" name="Dəyişilməyənləri Hamısını Bağla"/>
+					<Item id="41006" name="&amp;Yadda Saxla"/>
+					<Item id="41007" name="Hamısını Yadda Saxla"/>
+					<Item id="41008" name="Başqa Adla Yadda Saxla..."/>
+					<Item id="41010" name="&amp;Çap et..."/>
+					<Item id="1001" name="İndi Çap Et"/>
+					<Item id="41011" name="&amp;Çıxış"/>
+					<Item id="41012" name="Sessiyanı Yüklə..."/>
+					<Item id="41013" name="Sessiyanı Yadda Saxla..."/>
+					<Item id="41014" name="Diskdən Yüklə"/>
+					<Item id="41015" name="Kopya Yadda Saxla..."/>
+					<Item id="41016" name="Təkrarı Qaytar"/>
+					<Item id="41017" name="&amp;Adı Dəyiş..."/>
+					<Item id="41021" name="Son Bağlanmış Faylı Bərpa Et"/>
+					<Item id="41022" name="Faylı &amp;Yerləşdirmə Kimi Aç..."/>
+					<Item id="41023" name="&amp;Varsayılan Görüntüləyicidə Aç"/>
+					<Item id="42001" name="&amp;Kəsmək"/>
+					<Item id="42002" name="&amp;Kopyalamaq"/>
+					<Item id="42003" name="&amp;Geri alın"/>
+					<Item id="42004" name="&amp;Yenidən et"/>
+					<Item id="42005" name="&amp;Yapışdır"/>
+					<Item id="42006" name="&amp;Sil"/>
+					<Item id="42007" name="&amp;Hamısını Seç"/>
+					<Item id="42020" name="Başla/Sonlandır Seçim"/>
+					<Item id="42089" name="Başla/Sonlandır Seçimi Sütun Modunda"/>
+					<Item id="42084" name="Qısa Tarix"/>
+					<Item id="42085" name="Uzun Tarix"/>
+					<Item id="42086" name="Xüsusi Tarix"/>
+					<Item id="42008" name="Sətir Daxilində İndent artır"/>
+					<Item id="42009" name="Sətir Daxilində İndent Azalt"/>
+					<Item id="42010" name="Cari Sətiri Təkrarla"/>
+					<Item id="42079" name="Yenə Dublikat Sətirləri Sil"/>
+					<Item id="42077" name="Ardıcıl Dublikat Sətirləri Sil"/>
+					<Item id="42012" name="Sətirləri Ayır"/>
+					<Item id="42013" name="Sətirləri Birləşdir"/>
+					<Item id="42014" name="Cari Sətiri Yuxarı Hərəkət etdir"/>
+					<Item id="42015" name="Cari Sətiri Aşağı Hərəkət etdir"/>
+					<Item id="42059" name="Sətirləri Lexik Cəhətdən Artan Sıralama"/>
+					<Item id="42060" name="Sətirləri Lexik Cəhətdən Azalan Sıralama"/>
+					<Item id="42080" name="Sətirləri Lexik Artan Sıralama, Böyük Kiçik Hərfə Baxılmadan"/>
+					<Item id="42081" name="Sətirləri Lexik Azalan Sıralama, Böyük Kiçik Hərfə Baxılmadan"/>
+					<Item id="42061" name="Sətirləri Tam ədəd olaraq Artan Sıralama"/>
+					<Item id="42062" name="Sətirləri Tam ədəd olaraq Azalan Sıralama"/>
+					<Item id="42063" name="Sətirləri Onluq ədədlər (Vergül) Artan Sıralama"/>
+					<Item id="42064" name="Sətirləri Onluq ədədlər (Vergül) Azalan Sıralama"/>
+					<Item id="42065" name="Sətirləri Onluq ədədlər (Nöqtə) Artan Sıralama"/>
+					<Item id="42066" name="Sətirləri Onluq ədədlər (Nöqtə) Azalan Sıralama"/>
+					<Item id="42083" name="Sətir Sırasını Tərsinə Çevirmək"/>
+					<Item id="42078" name="Sətir Sırasını Təsadüfi Hərəkət et"/>
+					<Item id="42016" name="&amp;BÖYÜK HƏRF"/>
+					<Item id="42017" name="&amp;kiçik hərf"/>
+					<Item id="42067" name="Proper Case"/>
+					<Item id="42068" name="Proper Case (blend)"/>
+					<Item id="42069" name="&amp;Cümlə halda"/>
+					<Item id="42070" name="Cümlə halda (blend)"/>
+					<Item id="42071" name="&amp;İnvert edilmiş vəziyyətdə"/>
+					<Item id="42072" name="&amp;Təsadüfi Hərf"/>
+					<Item id="42073" name="Faylı Aç"/>
+					<Item id="42074" name="Explorer-də Aç"/>
+					<Item id="42075" name="İnternetdə Axtarış et"/>
+					<Item id="42076" name="Axtarış Mühərrikini Dəyiş..."/>
+					<Item id="42090" name="Hərfi Axtarış Et &amp;&amp; Tam Söz"/>
+					<Item id="42091" name="Yalnız Hərf Uyğunluğu"/>
+					<Item id="42092" name="Yalnız Tam Söz Uyğunluğu"/>
+					<Item id="42093" name="Hərfi Axtarış Et &amp;&amp; Tam Söz Uyğunluğu"/>
+					<Item id="42094" name="Hərfi Axtarış Et &amp;&amp; Tam Söz"/>
+					<Item id="42095" name="Yalnız Hərf Uyğunluğu"/>
+					<Item id="42096" name="Yalnız Tam Söz Uyğunluğu"/>
+					<Item id="42097" name="Hərfi Axtarış Et &amp;&amp; Tam Söz Uyğunluğu"/>
+					<Item id="42098" name="Sonra Seçilmiş Multi-seçimi Undo et"/>
+					<Item id="42099" name="Cari Multi-seçimi Keç"/>
+					<Item id="42018" name="Yazmağa Başla"/>
+					<Item id="42047" name="Blok Şərhini Ləğv Et"/>
+					<Item id="42024" name="Sonrakı Məkanları Kəs"/>
+					<Item id="42042" name="İlkin Məkanları Kəs"/>
+					<Item id="42043" name="İlkin və Sonrakı Məkanları Kəs"/>
+					<Item id="42044" name="EOL-i Məkanla Dəyiş"/>
+					<Item id="42045" name="İkisini də Kəs və EOL-i Məkanla Dəyiş"/>
+					<Item id="42046" name="TAB-ı Məkanla Dəyiş"/>
+					<Item id="42054" name="Məkanları TAB-a Dəyiş (Hamısı)"/>
+					<Item id="42053" name="Məkanları TAB-a Dəyiş (İlkin)"/>
+					<Item id="42038" name="HTML Məzmununu Yapışdır"/>
+					<Item id="42039" name="RTF Məzmununu Yapışdır"/>
+					<Item id="42048" name="İkilik Məzmununu Kopyala"/>
+					<Item id="42049" name="İkilik Məzmununu Kəs"/>
+					<Item id="42050" name="İkilik Məzmununu Yapışdır"/>
+					<Item id="42082" name="Linki Kopyala"/>
+					<Item id="42037" name="Sütun Modu..."/>
+					<Item id="42034" name="Sütun və Redaktor..."/>
+					<Item id="42051" name="Simvol və Panel"/>
+					<Item id="42052" name="Klipbord və Tarix"/>
+					<Item id="42025" name="Hal-hazırda Qeydə Alınan Makronu Yadda Saxla..."/>
+					<Item id="42026" name="Yazı Yönü RTL"/>
+					<Item id="42027" name="Yazı Yönü LTR"/>
+					<Item id="42028" name="Yalnız Oxumağa Təyin Et"/>
+					<Item id="42029" name="Hal-hazırki Fayl Yolunu Kopyala"/>
+					<Item id="42030" name="Hal-hazırki Fayl Adını Kopyala"/>
+					<Item id="42031" name="Hal-hazırki Qovluq Yolunu Kopyala"/>
+					<Item id="42087" name="Bütün Fayl Adlarını Kopyala"/>
+					<Item id="42088" name="Bütün Fayl Yollarını Kopyala"/>
+					<Item id="42032" name="Makronu Çoxsaylı Dəfə İşə Sal..."/>
+					<Item id="42033" name="Yalnız Oxumağı Təmizlə"/>
+					<Item id="42035" name="Tək Sətirli Şərh"/>
+					<Item id="42036" name="Tək Sətirli Şərh Ləğv Et"/>
+					<Item id="42055" name="Boş Sətirləri Sil"/>
+					<Item id="42056" name="Boş Sətirləri Sil (Ağ Karakterlər Təşkil Edənlər)"/>
+					<Item id="42057" name="Cari Yuxarıya Boş Sətir Əlavə Et"/>
+					<Item id="42058" name="Cari Aşağıya Boş Sətir Əlavə Et"/>
+					<Item id="43001" name="Axtar..."/>
+					<Item id="43002" name="Sonrakını Axtar"/>
+					<Item id="43003" name="Əvəz Et..."/>
+					<Item id="43004" name="Ged..."/>
+					<Item id="43005" name="İşarə Kitabını Dəyiş"/>
+					<Item id="43006" name="Sonrakı İşarə Kitabını Tap"/>
+					<Item id="43007" name="Əvvəlki İşarə Kitabını Tap"/>
+					<Item id="43008" name="Bütün İşarə Kitablarını Təmizlə"/>
+					<Item id="43018" name="İşarələnmiş Sətirləri Kəs"/>
+					<Item id="43019" name="İşarələnmiş Sətirləri Kopyala"/>
+					<Item id="43020" name="İşarələnmiş Sətirləri Yapışdır (Əvəz Et)"/>
+					<Item id="43021" name="İşarələnmiş Sətirləri Sil"/>
+					<Item id="43051" name="İşarələnməmiş Sətirləri Sil"/>
+					<Item id="43050" name="Tərsinə İşarələmək"/>
+					<Item id="43052" name="Rəng Aralığında Simvolları Axtar..."/>
+					<Item id="43053" name="{} [] və ya () Arasında Hamısını Seç"/>
+					<Item id="43009" name="Uyğun Parantezi Tap"/>
+					<Item id="43010" name="Əvvəlki Axtar"/>
+					<Item id="43011" name="İncremental Axtar"/>
+					<Item id="43013" name="Fayllarda Axtar"/>
+					<Item id="43014" name="Növbəti (Dəyişən) Axtar"/>
+					<Item id="43015" name="Əvvəlki (Dəyişən) Axtar"/>
+					<Item id="43022" name="1-ci Stilin İstifadəsi"/>
+					<Item id="43023" name="1-ci Stili Təmizlə"/>
+					<Item id="43024" name="2-ci Stilin İstifadəsi"/>
+					<Item id="43025" name="2-ci Stili Təmizlə"/>
+					<Item id="43026" name="3-cü Stilin İstifadəsi"/>
+					<Item id="43027" name="3-cü Stili Təmizlə"/>
+					<Item id="43028" name="4-cü Stilin İstifadəsi"/>
+					<Item id="43029" name="4-cü Stili Təmizlə"/>
+					<Item id="43030" name="5-ci Stilin İstifadəsi"/>
+					<Item id="43031" name="5-ci Stili Təmizlə"/>
+					<Item id="43032" name="Bütün Stilləri Təmizlə"/>
 					<Item id="43033" name="1-ci stil"/>
 					<Item id="43034" name="2-ci stil"/>
 					<Item id="43035" name="3-cü stil"/>
 					<Item id="43036" name="4-cü stil"/>
 					<Item id="43037" name="5-ci stil"/>
-					<Item id="43038" name="Stili tap"/>
+					<Item id="43038" name="Axtarış Stili"/>
 					<Item id="43039" name="1-ci stil"/>
 					<Item id="43040" name="2-ci stil"/>
 					<Item id="43041" name="3-cü stil"/>
 					<Item id="43042" name="4-cü stil"/>
 					<Item id="43043" name="5-ci stil"/>
-					<Item id="43044" name="Stili tap"/>
-					<Item id="43045" name="Axtarışın nəticəsinin pəncərəsi"/>
-					<Item id="43046" name="Sonraki axtaşın nəticələri"/>
-					<Item id="43047" name="Əvvəlki axtaşın nəticələri"/>
-					<Item id="43048" name="Seç və sonrakını tap"/>
-					<Item id="43049" name="Seç və əvvəlkini tap"/>
-					<Item id="43050" name="Seçilənləri tərsinə et"/>
-					<Item id="44009" name="Mətni bütün pəncərəyə"/>
-					<Item id="44010" name="Bütün dərəcələri daralt"/>
-					<Item id="44011" name="İstifadəçi təyinli dialoq..."/>
-					<Item id="44019" name="Bütün simvolları göstər"/>
-					<Item id="44020" name="Abzasları göstər"/>
-					<Item id="44022" name="Sətirlərin transferi"/>
-					<Item id="44023" name="Yaxınlaşdır	Ctrl+Mouse Wheel Up"/>
-					<Item id="44024" name="Uzaqlaşdır	Ctrl+Mouse Wheel Down"/>
-					<Item id="44025" name="Boşluq və abzasları göstər"/>
-					<Item id="44026" name="Sətirlərin sonlarını göstər"/>
-					<Item id="44029" name="Bütün dərəcələri genişləndir"/>
-					<Item id="44030" name="Seçilən səviyyəni daralt"/>
-					<Item id="44031" name="Seçilən səviyyəni genişləndir"/>
-					<Item id="44032" name="Tam ekran rejimi"/>
-					<Item id="44033" name="İlkin miqyası bərpa et"/>
-					<Item id="44034" name="Həmişə pəncərələrin üstündə tut"/>
-					<Item id="44035" name="Şaquli sürüşdürməni sinxronizasiya et"/>
-					<Item id="44036" name="Üfiqi sürüşdürməni sinxronizasiya et"/>
-					<Item id="44041" name="Sətiri keçirdən simvolu göstər"/>
-					<Item id="44072" name="Digər pəncərəyə keç"/>
+					<Item id="43044" name="Axtarış Stili"/>
+					<Item id="43055" name="1-ci Stil"/>
+					<Item id="43056" name="2-ci Stil"/>
+					<Item id="43057" name="3-cü Stil"/>
+					<Item id="43058" name="4-cü Stil"/>
+					<Item id="43059" name="5-ci Stil"/>
+					<Item id="43060" name="Bütün Stillər"/>
+					<Item id="43061" name="Axtarış Stili"/>
+					<Item id="43062" name="1-ci Stilin İstifadəsi"/>
+					<Item id="43063" name="2-ci Stilin İstifadəsi"/>
+					<Item id="43064" name="3-cü Stilin İstifadəsi"/>
+					<Item id="43065" name="4-cü Stilin İstifadəsi"/>
+					<Item id="43066" name="5-ci Stilin İstifadəsi"/>
+					<Item id="43067" name="Növbəti Dəyişikliyə Get"/>
+					<Item id="43068" name="Əvvəlki Dəyişikliyə Get"/>
+					<Item id="43069" name="Dəyişiklik Tarixini Təmizlə"/>
+					<Item id="43045" name="Axtarış Nəticələri Pəncərəsi"/>
+					<Item id="43046" name="Sonrakı Axtarış Nəticəsi"/>
+					<Item id="43047" name="Əvvəlki Axtarış Nəticəsi"/>
+					<Item id="43048" name="Seç və Sonrakını Axtar"/>
+					<Item id="43049" name="Seç və Əvvəlkini Axtar"/>
+					<Item id="43054" name="İşarə..."/>
+					<Item id="43501" name="Seçiləni Bağla"/>
+					<Item id="43502" name="Digərlərini Bağla"/>
+					<Item id="43503" name="Seçilən Adları Kopyala"/>
+					<Item id="43504" name="Seçilən Yol Adlarını Kopyala"/>
+					<Item id="44009" name="Post-it"/>
+					<Item id="44010" name="Hamısını Bük"/>
+					<Item id="44011" name="Diqqət Dağıtmayan Rejim"/>
+					<Item id="44019" name="Bütün Simvolları Göstər"/>
+					<Item id="44020" name="Girinti Bələdçisini Göstər"/>
+					<Item id="44022" name="Söz Sarmasını Aktivləşdir"/>
+					<Item id="44023" name="Zoom &amp;İn (Ctrl+Mouse Wheel Up)"/>
+					<Item id="44024" name="Zoom &amp;Out (Ctrl+Mouse Wheel Down)"/>
+					<Item id="44025" name="Boşluq və TAB Göstər"/>
+					<Item id="44026" name="Sətir Sonunu Göstər"/>
+					<Item id="44029" name="Hamısını Açı"/>
+					<Item id="44030" name="Cari Səviyyəni Bük"/>
+					<Item id="44031" name="Cari Səviyyəni Açı"/>
+					<Item id="44049" name="Xülasə..."/>
+					<Item id="44080" name="Sənəd Xəritəsi"/>
+					<Item id="44070" name="Sənəd Siyahısı"/>
+					<Item id="44084" name="Funksiya Siyahısı"/>
+					<Item id="44085" name="Qovluq kimi İş Yeri"/>
+					<Item id="44086" name="1-ci Tab"/>
+					<Item id="44087" name="2-ci Tab"/>
+					<Item id="44088" name="3-cü Tab"/>
+					<Item id="44089" name="4-cü Tab"/>
+					<Item id="44090" name="5-ci Tab"/>
+					<Item id="44091" name="6-cı Tab"/>
+					<Item id="44092" name="7-ci Tab"/>
+					<Item id="44093" name="8-ci Tab"/>
+					<Item id="44094" name="9-cu Tab"/>
+					<Item id="44116" name="Birinci Tab"/>
+					<Item id="44117" name="Son Tab"/>
+					<Item id="44095" name="Sonraki Tab"/>
+					<Item id="44096" name="Əvvəlki Tab"/>
+					<Item id="44097" name="Monitorinq (tail -f)"/>
+					<Item id="44098" name="Tabı İrəlilət"/>
+					<Item id="44099" name="Tabı Geriyə Götür"/>
+					<Item id="44110" name="Rəng Sil"/>
+					<Item id="44111" name="Rəng 1-i Tətbiq Et"/>
+					<Item id="44112" name="Rəng 2-ni Tətbiq Et"/>
+					<Item id="44113" name="Rəng 3-ü Tətbiq Et"/>
+					<Item id="44114" name="Rəng 4-ü Tətbiq Et"/>
+					<Item id="44115" name="Rəng 5-i Tətbiq Et"/>
+					<Item id="44130" name="Çap Olunmayan Simvolları Göstər"/>
+					<Item id="44131" name="Nəzarət Simvolları və Unicode EOL Göstər"/>
+					<Item id="44032" name="Tam Ekran Modunu Dəyiş"/>
+					<Item id="44033" name="Standart Zoom-u Bərpa Et"/>
+					<Item id="44034" name="Həmişə Üstündə"/>
+					<Item id="44035" name="Şaquli Sürüşməni Sinxronlaşdır"/>
+					<Item id="44036" name="Üfüqi Sürüşməni Sinxronlaşdır"/>
+					<Item id="44041" name="Sarmada Simvolu Göstər"/>
+					<Item id="44072" name="Başqa Görünüşə Fokuslan"/>
+					<Item id="44081" name="Layihə Paneli 1"/>
+					<Item id="44082" name="Layihə Paneli 2"/>
+					<Item id="44083" name="Layihə Paneli 3"/>
+					<Item id="45001" name="Windows (CR LF)"/>
+					<Item id="45002" name="Unix (LF)"/>
+					<Item id="45003" name="Macintosh (CR)"/>
+					<Item id="45004" name="ANSI"/>
+					<Item id="45005" name="UTF-8-BOM"/>
+					<Item id="45006" name="UTF-16 BE BOM"/>
+					<Item id="45007" name="UTF-16 LE BOM"/>
+					<Item id="45008" name="UTF-8"/>
+					<Item id="45009" name="ANSI-yə Keç"/>
+					<Item id="45010" name="UTF-8-ə Keç"/>
+					<Item id="45011" name="UTF-8-BOM-a Keç"/>
+					<Item id="45012" name="UTF-16 BE BOM-a Keç"/>
+					<Item id="45013" name="UTF-16 LE BOM-a Keç"/>
+					<Item id="45060" name="Big5 (Ənənəvi)"/>
+					<Item id="45061" name="GB2312 (Sadələşdirilmiş)"/>
+					<Item id="45054" name="OEM 861: İsləndiya"/>
+					<Item id="45057" name="OEM 865: Şimali"/>
+					<Item id="45053" name="OEM 860: Portuqaliya"/>
+					<Item id="45056" name="OEM 863: Fransız"/>
+					<Item id="10001" name="Başqa Görünüşə Keç"/>
+					<Item id="10002" name="Başqa Görünüşə Klonla"/>
+					<Item id="10003" name="Yeni Nüsxəyə Keç"/>
+					<Item id="10004" name="Yeni Nüsxədə Aç"/>
+					<Item id="10005" name="Başlanğıca Keç"/>
+					<Item id="10006" name="Sonuncuya Keç"/>
+					<Item id="46001" name="Stil Konfiquratoru..."/>
+					<Item id="46016" name="Heç bir şey (Normal Mətn)"/>
+					<Item id="46250" name="Öz dilinizi müəyyən edin..."/>
+					<Item id="46300" name="İstifadəçi Tərtibindəki Dil Qovluğunu Aç..."/>
+					<Item id="46301" name="Notepad++ İstifadəçi Tərtibindəki Diller Kolleksiyası"/>
+					<Item id="46180" name="İstifadəçi Tərtibindəki"/>
+					<Item id="47000" name="Notepad++ Haqqında"/>
+					<Item id="47010" name="Komanda Sətiri Arqümentləri..."/>
+					<Item id="47001" name="Notepad++ Ana Səhifəsi"/>
+					<Item id="47002" name="Notepad++ Layihə Səhifəsi"/>
+					<Item id="47003" name="Notepad++ Onlayn İstifadəçi Təlimatı"/>
+					<Item id="47004" name="Notepad++ İcmalı (Forum)"/>
+					<Item id="47012" name="Yazılım məlumatları..."/>
+					<Item id="47005" name="Daha çox plagin əldə et"/>
+					<Item id="47006" name="Notepad++ yeniləməsini həyata keçir"/>
+					<Item id="47009" name="Yeniləyici proksisi qur..."/>
+					<Item id="48005" name="Plaginləri idxal et..."/>
+					<Item id="48006" name="Stil mövzularını idxal et..."/>
+					<Item id="48018" name="Pop-up Kontekst Menyusunu redaktə et"/>
+					<Item id="48009" name="Qısa yollara baxış..."/>
+					<Item id="48011" name="Parametrlər..."/>
+					<Item id="48014" name="Plaginlər qovluğunu aç..."/>
+					<Item id="48015" name="Plaginlər Admin..."/>
+					<Item id="48501" name="Yarat..."/>
+					<Item id="48502" name="Fayllardan yarat..."/>
+					<Item id="48503" name="Seçimdən təqdim edilən məlumatla yarat"/>
+					<Item id="48504" name="Yarat..."/>
+					<Item id="48505" name="Fayllardan yarat..."/>
+					<Item id="48506" name="Seçimdən təqdim edilən məlumatla yarat"/>
+					<Item id="48507" name="Yarat..."/>
+					<Item id="48508" name="Fayllardan yarat..."/>
+					<Item id="48509" name="Seçimdən təqdim edilən məlumatla yarat"/>
+					<Item id="48510" name="Yarat..."/>
+					<Item id="48511" name="Fayllardan yarat..."/>
+					<Item id="48512" name="Seçimdən təqdim edilən məlumatla yarat"/>
+					<Item id="49000" name="İcra et..."/>
 
-					<Item id="45001" name="(Windows) Formatına çevir"/>
-					<Item id="45002" name="(UNIX) Formatına çevir"/>
-					<Item id="45003" name="(MAC) Formatına çevir"/>
-					<Item id="45004" name="Kodla (ANSI)"/>
-					<Item id="45005" name="Kodla (UTF-8)"/>
-					<Item id="45006" name="Kodla (UCS-2 Big Endian)"/>
-					<Item id="45007" name="Kodla (UCS-2 Little Endian)"/>
-					<Item id="45008" name="Kodla (UTF-8 without BOM)"/>
-					<Item id="45009" name="Çevir (ANSI)"/>
-					<Item id="45010" name="Çevir (UTF-8 without BOM)"/>
-					<Item id="45011" name="Çevir (UTF-8)"/>
-					<Item id="45012" name="Çevir (UCS-2 Big Endian)"/>
-					<Item id="45013" name="Çevir (UCS-2 Little Endian)"/>
+					<Item id="50000" name="Funksiya Tamamlama"/>
+					<Item id="50001" name="Söz Tamamlama"/>
+					<Item id="50002" name="Funksiya Parametrləri İpucu"/>
+					<Item id="50010" name="Funksiya Parametrləri Əvvəlki İpucu"/>
+					<Item id="50011" name="Funksiya Parametrləri Növbəti İpucu"/>
+					<Item id="50005" name="Makro qeydi açıq/bağla"/>
+					<Item id="50006" name="Yol Tamamlama"/>
+					<Item id="44042" name="Sətirləri Gizlət"/>
+					<Item id="42040" name="Bütün Son Yaradılan Faylları Aç"/>
+					<Item id="42041" name="Son Yaradılan Fayl Siyahısını Təmizlə"/>
+					<Item id="48016" name="Qısa yolu Dəyişdir / Makro Sil..."/>
+					<Item id="48017" name="Qısa yolu Dəyişdir / Əmri Sil..."/>
 
-					<Item id="10001" name="Digər pəncərəyə keç"/>
-					<Item id="10002" name="Digər pəncərəyə kopiya et"/>
-					<Item id="10003" name="Yeni pəncərəyə keçirt"/>
-					<Item id="10004" name="Yeni pəncərədə aç"/>
-
-
-					<Item id="46001" name="Stilin konfiqurasiyası..."/>
-					<Item id="46180" name="İstifadəçinin nizamları"/>
-					<Item id="47000" name="Notepad++ haqqında"/>
-					<Item id="47001" name="Notepad++ vebsaytı"/>
-					<Item id="47002" name="Notepad++ layihə-səhifəsi"/>
-					<Item id="47003" name="Onlayn kömək"/>
-					<Item id="47004" name="Forum"/>
-					<Item id="47005" name="Plaginləri yüklə"/>
-					<Item id="47006" name="Yeni versiyanın olmasını yoxla"/>
-					<Item id="47008" name="Kömək"/>
-					<Item id="48005" name="Plagin(ləri) import et"/>
-					<Item id="48006" name="Tema(ları) import et"/>
-					<Item id="48009" name="Qısayol Xəritəsi..."/>
-					<Item id="48011" name="Nizamlar..."/>
-					<Item id="49000" name="İşə sal..."/>
-
-					<Item id="50000" name="Funksiya tamamla"/>
-					<Item id="50001" name="Söz tamamla"/>
-					<Item id="50002" name="Funksiyalarla kömək"/>
-					<Item id="42034" name="Sütun redaktoru..."/>
-					<Item id="44042" name="Sətirləri gizlət"/>
-					<Item id="42040" name="Son istifadə olunan faylları aç"/>
-					<Item id="42041" name="Son işlədilən faylların siyahısını sil"/>
-					<Item id="48016" name="Qısayolu dəyiş/Macronu sil..."/>
-					<Item id="48017" name="Qısayolu dəyiş/Komandanı sil..."/>
+					<Item id="11001" name="&amp;Windows..."/>
+					<Item id="11002" name="Ad A-dan Z-yə"/>
+					<Item id="11003" name="Ad Z-dən A-ya"/>
+					<Item id="11004" name="Yol A-dan Z-yə"/>
+					<Item id="11005" name="Yol Z-dən A-ya"/>
+					<Item id="11006" name="Növ A-dan Z-yə"/>
+					<Item id="11007" name="Növ Z-dən A-ya"/>
+					<Item id="11008" name="Məzmun Uzunluğu Artan"/>
+					<Item id="11009" name="Məzmun Uzunluğu Azalan"/>
 				</Commands>
-
 			</Main>
-			<Splitter>
-			</Splitter>
-
 			<TabBar>
-				<Item CMID="0" name="Bağla"/>
-				<Item CMID="1" name="Digər sənədləri bağla"/>
-				<Item CMID="2" name="Yadda saxla"/>
-				<Item CMID="3" name="Fərqli yadda saxla..."/>
-				<Item CMID="4" name="Çap et"/>
-				<Item CMID="5" name="Diğər pəncərəyə keç"/>
-				<Item CMID="6" name="Diğər pəncərəyə kopiya et"/>
-				<Item CMID="7" name="Faylın yolunu bufferə kopiya et"/>
-				<Item CMID="8" name="Faylın adını bufferə kopiya et"/>
-				<Item CMID="9" name="Qovluğun yolunu bufferə kopiya et"/>
-				<Item CMID="10" name="Adını dəyişdir"/>
-				<Item CMID="11" name="Sil"/>
-				<Item CMID="12" name="Ancaq oxumaq"/>
-				<Item CMID="13" name="&quot;Ancaq oxumaq&quot; tağını götür"/>
-				<Item CMID="14" name="Yeni pəncərəyə keçirt"/>
-				<Item CMID="15" name="Yeni pəncərədə aç"/>
+					<Item CMDID="41003" name="Bağla"/>
+					<Item CMDID="0" name="Bir neçə Tabı Bağla"/>
+					<Item CMDID="41005" name="Bu Hariç Hamısını Bağla"/>
+					<Item CMDID="41026" name="Sabitlənmişlər Hariç Hamısını Bağla"/>
+					<Item CMDID="41009" name="Sola Yerləşdirilmiş Hamısını Bağla"/>
+					<Item CMDID="41018" name="Sağa Yerləşdirilmiş Hamısını Bağla"/>
+					<Item CMDID="41024" name="Dəyişilməyənləri Bağla"/>
+					<Item CMDID="44048" name="Tabı Sabitle" alternativeName="Tabı Sabitlikdən Çıxart"/>
+					<Item CMDID="41006" name="Yadda Saxla"/>
+					<Item CMDID="41008" name="Farklı Saxla..."/>
+					<Item CMDID="1" name="Aç..."/>
+					<Item CMDID="41019" name="Explorer-da İçərdiyi Qovluğu Aç"/>
+					<Item CMDID="41020" name="cmd-də İçərdiyi Qovluğu Aç"/>
+					<Item CMDID="41025" name="İçərdiyi Qovluğu İş Sahəsi Kimi Aç"/>
+					<Item CMDID="41023" name="Defolt Baxıcıda Aç"/>
+					<Item CMDID="41017" name="Adını Dəyiş..."/>
+					<Item CMDID="41016" name="Zibil Qutusuna Köçür"/>
+					<Item CMDID="41014" name="Yenidən Yüklə"/>
+					<Item CMDID="41010" name="Çap Et..."/>
+					<Item CMDID="42028" name="Yalnız Oxunur"/>
+					<Item CMDID="42033" name="Yalnız Oxunur Flagını Sil"/>
+					<Item CMDID="2" name="Kopyala"/>
+					<Item CMDID="42029" name="Tam Fayl Yolunu Kopyala"/>
+					<Item CMDID="42030" name="Fayl Adını Kopyala"/>
+					<Item CMDID="42031" name="Cari Kataloqun Yolunu Kopyala"/>
+					<Item CMDID="3" name="Dokumenti Hərəkət Etdir"/>
+					<Item CMDID="10005" name="Başlanğıca Hərəkət Et"/>
+					<Item CMDID="10006" name="Sona Hərəkət Et"/>
+					<Item CMDID="10001" name="Digər Görüntüyə Hərəkət Et"/>
+					<Item CMDID="10002" name="Digər Görüntüyə Klonla"/>
+					<Item CMDID="10003" name="Yeni Nümunəyə Hərəkət Et"/>
+					<Item CMDID="10004" name="Yeni Nümunədə Aç"/>
+					<Item CMDID="4" name="Tabə Rəng Tətbiq Et"/>
+					<Item CMDID="44111" name="Rəng 1 Tətbiq Et"/>
+					<Item CMDID="44112" name="Rəng 2 Tətbiq Et"/>
+					<Item CMDID="44113" name="Rəng 3 Tətbiq Et"/>
+					<Item CMDID="44114" name="Rəng 4 Tətbiq Et"/>
+					<Item CMDID="44115" name="Rəng 5 Tətbiq Et"/>
+					<Item CMDID="44110" name="Rəngi Sil"/>
 			</TabBar>
-
+			<TrayIcon>
+					<Item id="43101" name="Aktiv Et"/>
+					<Item id="43102" name="Yeni"/>
+					<Item id="43103" name="Yeni və Yerləşdir"/>
+					<Item id="43104" name="Aç..."/>
+					<Item id="43013" name="Fayllarda Axtar..."/>
+					<Item id="43105" name="Sistemdəki İkonu Bağla"/>
+			</TrayIcon>
 		</Menu>
 
 		<Dialog>
-			<Find title="" titleFind="Tap" titleReplace="Əvəz et" titleFindInFiles="Fayllarda axtar">
-				<Item id="1" name="Sonrakını tap"/>
-				<Item id="2" name="Bağla"/>
-				<Item id="1620" name="Tap :"/>
-				<Item id="1603" name="Ancaq bütöv sözlər"/>
-				<Item id="1604" name="Registeri nəzərə al"/>
-				<Item id="1605" name="Daimi ifadə"/>
-				<Item id="1606" name="Axtarışa davam et"/>
-				<Item id="1614" name="Say"/>
-				<Item id="1615" name="Hamısını tap"/>
-				<Item id="1616" name="Sətiri seç"/>
-				<Item id="1618" name="Yeni axtarış üçün təmizlə"/>
-				<Item id="1611" name="Fərqli əvəz et :"/>
-				<Item id="1608" name="Əvəz et"/>
-				<Item id="1609" name="Hamısını əvəz et"/>
-				<Item id="1623" name="Şəffaflıq"/>
-				<Item id="1687" name="Arxa planda olarkən"/>
-				<Item id="1688" name="Həmişə"/>
-				<Item id="1632" name="Seçilmiş qisimdə"/>
-				<Item id="1633" name="Təmizlə"/>
-				<Item id="1635" name="Açıq olan sənədlərdə hamısını əvəz et"/>
-				<Item id="1636" name="Açıq olan sənədlərdə hamısını axtar"/>
-				<Item id="1654" name="Filterlər :"/>
-				<Item id="1655" name="Qovluq :"/>
-				<Item id="1656" name="Hamısını tap"/>
-				<Item id="1658" name="Bütün alt qovluqlarda"/>
-				<Item id="1659" name="Gizli qovluqlarda"/>
-				<Item id="1624" name="Axtarış rejimi"/>
-				<Item id="1625" name="Normal"/>
-				<Item id="1626" name="Genişləndirilmiş (\n, \r, \t, \0, \x...)"/>
-				<Item id="1660" name="Fayllarda əvəz et"/>
-				<Item id="1641" name="Bu sənəddə hamısını tap"/>
-				<Item id="1686" name="Şəffaflıq"/>
+			<Find title="" titleFind="Axtar" titleReplace="Əvəz Et" titleFindInFiles="Fayllarda Axtar" titleFindInProjects="Proyektlərdə Axtar" titleMark="İşarələyin">
+					<Item id="1" name="Sonrakı Axtarış"/>
+					<Item id="1722" name="Geri istiqamət"/>
+					<Item id="2" name="Bağla"/>
+					<Item id="1620" name="Axtardığınız nədir:"/>
+					<Item id="1603" name="Yalnız tam sözləri uyğunlaşdır"/>
+					<Item id="1604" name="Hərf böyük/kiçik uyğunsuzluğuna diqqət et"/>
+					<Item id="1605" name="Regulyar ifadə"/>
+					<Item id="1606" name="Dönüşüm"/>
+					<Item id="1614" name="Say"/>
+					<Item id="1615" name="Hamısını işarələyin"/>
+					<Item id="1616" name="Sətiri işarələyin"/>
+					<Item id="1618" name="Hər axtarış üçün təmizləyin"/>
+					<Item id="1611" name="Əvəz edin:"/>
+					<Item id="1608" name="Əvəz et"/>
+					<Item id="1609" name="Hamısını əvəz et"/>
+					<Item id="1687" name="Fokus itirildikdə"/>
+					<Item id="1688" name="Həmişə"/>
+					<Item id="1632" name="Seçimdə"/>
+					<Item id="1633" name="Bütün işarələri təmizləyin"/>
+					<Item id="1635" name="Bütün açıq sənədlərdə hamısını əvəz et"/>
+					<Item id="1636" name="Bütün açıq sənədlərdə hamısını axtar"/>
+					<Item id="1654" name="Filtrlər:"/>
+					<Item id="1655" name="Kataloq:"/>
+					<Item id="1656" name="Hamısını axtar"/>
+					<Item id="1658" name="Bütün alt-qovluqlarda"/>
+					<Item id="1659" name="Gizli qovluqlarda"/>
+					<Item id="1624" name="Axtarış rejimi"/>
+					<Item id="1625" name="Normal"/>
+					<Item id="1626" name="Genişlənmiş (\n, \r, \t, \0, \x...)"/>
+					<Item id="1660" name="Fayllarda Əvəz Et"/>
+					<Item id="1665" name="Proyektlərdə Əvəz Et"/>
+					<Item id="1662" name="Proyekt Paneli 1"/>
+					<Item id="1663" name="Proyekt Paneli 2"/>
+					<Item id="1664" name="Proyekt Paneli 3"/>
+					<Item id="1641" name="Cari sənəddə hamısını axtar"/>
+					<Item id="1686" name="Şəffaflıq"/>
+					<Item id="1703" name=". yeni sətir ilə uyğun gəlir"/>
+					<Item id="1721" name="▲"/>
+					<Item id="1723" name="▼ Sonrakı Axtar"/>
+					<Item id="1725" name="İşarələnmiş mətnin surətini çıxarın"/>
+				<Menu>
+					<Item id="1726" name="⇅ Axtarışı Əvəz Et ilə dəyişdir"/>
+					<Item id="1727" name="⤵ Axtarışdan Əvəz Etə surətini çıxar"/>
+					<Item id="1728" name="⤴ Əvəz Etdən Axtarışa surətini çıxar"/>
+				</Menu>
 			</Find>
 
-			<GoToLine title="Sətirə Keçid...">
-				<Item id="2007" name="Sətir"/>
-				<Item id="2008" name="Sütun"/>
-				<Item id="1" name="Keçid"/>
-				<Item id="2" name="İmtina"/>
-				<Item id="2004" name="Olduğunuz mövqe :"/>
-				<Item id="2005" name="Gedeceyim mövqe :"/>
-				<Item id="2006" name="Ora sonuncu mövqe :"/>
+			<IncrementalFind title="">
+					<Item id="1681" name="Axtar:"/>
+					<Item id="1685" name="Hərf böyüklüyünə uyğun gəl"/>
+					<Item id="1690" name="Hamısını işarələyin"/>
+			</IncrementalFind>
+
+			<FindCharsInRange title="Find Characters in Range...">
+					<Item id="2" name="Bağla"/>
+					<Item id="2901" name="Qeyri-ASCII xarakterləri (128–255)"/>
+					<Item id="2902" name="ASCII xarakterləri (0–127)"/>
+					<Item id="2903" name="Özəl aralıq (0–255):"/>
+					<Item id="2906" name="Yuxarı"/>
+					<Item id="2907" name="Aşağı"/>
+					<Item id="2908" name="İstiqamət"/>
+					<Item id="2909" name="Ətrafda bükül"/>
+					<Item id="2910" name="Axtar"/>
+			</FindCharsInRange>
+
+			<GoToLine title="Getmək...">
+					<Item id="2007" name="Sətir"/>
+					<Item id="2008" name="Offset"/>
+					<Item id="1" name="Get"/>
+					<Item id="2" name="Heç yerə getmirəm"/>
+					<Item id="2004" name="Buradasınız:"/>
+					<Item id="2005" name="Getmək istədiyiniz yer:"/>
+					<Item id="2006" name="Daha irəli getmək mümkün deyil:"/>
 			</GoToLine>
 
-			<Run title="İşə sal...">
-				<Item id="1903" name="Proqramı işə sal"/>
-				<Item id="1" name="İşə sal"/>
-				<Item id="2" name="İmtina"/>
-				<Item id="1904" name="Yadda saxla..."/>
+			<Run title="İcra et...">
+					<Item id="1903" name="İcra olunacaq proqram"/>
+					<Item id="1" name="İcra et"/>
+					<Item id="2" name="Ləğv et"/>
+					<Item id="1904" name="Yadda saxla..."/>
 			</Run>
 
-			<StyleConfig title="Stilin konfiqurasiyası">
-				<Item id="2" name="İmtina"/>
-				<Item id="2301" name="Yadda saxla və bağla"/>
-				<Item id="2303" name="Şəffaflıq"/>
-				<Item id="2306" name="Tema seç : "/>
+			<MD5FromFilesDlg title="Fayllardan MD5 xülasəsini yarat">
+					<Item id="1922" name="MD5 yaratmaq üçün faylları seçin..."/>
+					<Item id="1924" name="Buferə &amp;kopyala"/>
+					<Item id="2" name="Bağla"/>
+			</MD5FromFilesDlg>
 
+			<MD5FromTextDlg title="MD5 xülasəsini yarat">
+					<Item id="1932" name="Hər sətri ayrı-ayrı mətn kimi qəbul et"/>
+					<Item id="1934" name="Buferə &amp;kopyala"/>
+					<Item id="2" name="Bağla"/>
+			</MD5FromTextDlg>
+
+			<SHA256FromFilesDlg title="SHA-256 xülasəsini fayllardan yarat">
+					<Item id="1922" name="SHA-256 yaratmaq üçün faylları seçin..."/>
+					<Item id="1924" name="Buferə &amp;kopyala"/>
+					<Item id="2" name="Bağla"/>
+			</SHA256FromFilesDlg>
+
+			<SHA256FromTextDlg title="SHA-256 xülasəsini yarat">
+					<Item id="1932" name="Hər sətri ayrı bir &amp;sətir kimi qəbul et"/>
+					<Item id="1934" name="Buferə &amp;kopyala"/>
+					<Item id="2" name="Bağla"/>
+			</SHA256FromTextDlg>
+
+			<SHA1FromFilesDlg title="Fayllardan SHA-1 xülasəsini yarat">
+					<Item id="1922" name="SHA-1 yaratmaq üçün faylları &amp;seçin..."/>
+					<Item id="1924" name="Buferə &amp;kopyala"/>
+					<Item id="2" name="Bağla"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="SHA-1 xülasəsini yarat">
+					<Item id="1932" name="Hər sətiri &amp;ayrı bir sətir kimi emal et"/>
+					<Item id="1934" name="Buferə &amp;kopyala"/>
+					<Item id="2" name="Bağla"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="Fayllardan SHA-512 xülasəsini yarat">
+					<Item id="1922" name="SHA-512 yaratmaq üçün faylları &amp;seçin..."/>
+					<Item id="1924" name="Buferə &amp;kopyala"/>
+					<Item id="2" name="Bağla"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="SHA-512 xülasəsini yarat">
+					<Item id="1932" name="Hər sətiri &amp;ayrı bir sətir kimi emal et"/>
+					<Item id="1934" name="Buferə &amp;kopyala"/>
+					<Item id="2" name="Bağla"/>
+			</SHA512FromTextDlg>
+			<PluginsAdminDlg title="Pluginlər İdarəetməsi" titleAvailable="Mövcud" titleUpdates="Yeniləmələr" titleInstalled="Quraşdırılmış" titleIncompatible="Uyğunsuz">
+				<ColumnPlugin name="Plugin"/>
+				<ColumnVersion name="Versiya"/>
+				<Item id="5501" name="&amp;Axtarış:"/>
+				<Item id="5503" name="&amp;Quraşdır"/>
+				<Item id="5504" name="&amp;Yenilə"/>
+				<Item id="5505" name="&amp;Sil"/>
+				<Item id="5508" name="&amp;Növbəti"/>
+				<Item id="5509" name="Plugin siyahısının versiyası:"/>
+				<Item id="5511" name="Plugin siyahısının anbarı"/>
+				<Item id="2" name="Bağla"/>
+			</PluginsAdminDlg>
+
+			<StyleConfig title="Üslub Konfiquratoru">
+  				  <Item id="2" name="Ləğv et"/>
+  				  <Item id="2301" name="Saxla &amp;&amp; Bağla"/>
+  				  <Item id="2303" name="Şəffaflıq"/>
+  				  <Item id="2306" name="Mövzunu seçin: "/>
 				<SubDialog>
 					<Item id="2204" name="Qalın"/>
-					<Item id="2205" name="İtalyan"/>
+					<Item id="2205" name="Italik"/>
 					<Item id="2206" name="Ön plan rəngi"/>
 					<Item id="2207" name="Arxa plan rəngi"/>
-					<Item id="2208" name="Şriftin adı :"/>
-					<Item id="2209" name="Şriftin ölçüsü :"/>
-					<Item id="2212" name="Rəngli stil"/>
-					<Item id="2213" name="Şriftin stili"/>
-					<Item id="2214" name="İlkin fayl növü :"/>
-					<Item id="2216" name="İstifadəçi fayl növü :"/>
-					<Item id="2218" name="Altınnan xətt çək"/>
-					<Item id="2219" name="İlkin açar-sözlər"/>
-					<Item id="2221" name="İstifadəçi açar-sözlər"/>
-					<Item id="2225" name="Dil :"/>
-					<Item id="2226" name="Ön plan ümumi rənginə icazə ver"/>
-					<Item id="2227" name="Arxa plan ümumi rənginə icazə ver"/>
-					<Item id="2228" name="Ümumi şriftə icazə ver"/>
-					<Item id="2229" name="Şriftin ümumi ölçüsünə icazə ver"/>
-					<Item id="2230" name="Bütün şriftlər qalın olsun"/>
-					<Item id="2231" name="Bütün şriftlər italyan stilində olsun"/>
-					<Item id="2232" name="Bütün şriftlərin altında xətt olsun"/>
-				</SubDialog>
+					<Item id="2208" name="Şrift adı:"/>
+					<Item id="2209" name="Şrift ölçüsü:"/>
+					<Item id="2211" name="Üslub:"/>
+					<Item id="2212" name="Rəng üslubu"/>
+					<Item id="2213" name="Şrift üslubu"/>
+					<Item id="2214" name="Varsayılan uzantı:"/>
+					<Item id="2216" name="İstifadəçi uzantısı:"/>
+					<Item id="2218" name="Alt xət"/>
+					<Item id="2219" name="Varsayılan açar sözlər"/>
+					<Item id="2221" name="İstifadəçi tərəfindən müəyyən edilmiş açar sözlər"/>
+					<Item id="2225" name="Dil:"/>
+					<Item id="2226" name="Bütün üslublar üçün ön plan rəngini məcburi et"/>
+					<Item id="2227" name="Bütün üslublar üçün arxa plan rəngini məcburi et"/>
+					<Item id="2228" name="Bütün üslublar üçün şrift seçimini məcburi et"/>
+					<Item id="2229" name="Bütün üslublar üçün şrift ölçüsü seçimini məcburi et"/>
+					<Item id="2230" name="Bütün üslublar üçün qalın seçimlərini məcburi et"/>
+					<Item id="2231" name="Bütün üslublar üçün italik seçimlərini məcburi et"/>
+					<Item id="2232" name="Bütün üslublar üçün alt xət seçimlərini məcburi et"/>
+					<Item id="2234" name="Ayarları aç"/>
 
+					<!-- Don't translate "Global override" -->
+					<Item id="2235" name="Qlobal üstələmə nədir?"/>
+				</SubDialog>
 			</StyleConfig>
 
-			<UserDefine title="İstifadəçi nizamları">
-				<Item id="20002" name="Adını dəyiş"/>
-				<Item id="20003" name="Təzəsini yarat..."/>
-				<Item id="20004" name="Silmək"/>
-				<Item id="20005" name="Fərqli yadda saxla..."/>
-				<Item id="20007" name="İstifadəçi dili : "/>
-				<Item id="20009" name="Ext. :"/>
-				<Item id="20012" name="Ignore case"/>
+			<ShortcutMapper title="Shortcut Mapper">
+				<Item id="2602" name="Dəyişdir"/>
+				<Item id="2603" name="Sil"/>
+				<Item id="2606" name="Təmizlə"/>
+				<Item id="2607" name="Filtr: "/>
+				<Item id="1" name="Bağla"/>
+				<ColumnName name="Ad"/>
+				<ColumnShortcut name="Qısa yol"/>
+				<ColumnCategory name="Kateqoriya"/>
+				<ColumnPlugin name="Plugin"/>
+				<MainMenuTab name="Əsas menyu"/>
+				<MacrosTab name="Makrolar"/>
+				<RunCommandsTab name="Əmr işlədilməsi"/>
+				<PluginCommandsTab name="Plugin əmrləri"/>
+				<ScintillaCommandsTab name="Scintilla əmrləri"/>
+				<ConflictInfoOk name="Bu element üçün qısa yol münaqişəsi yoxdur."/>
+				<ConflictInfoEditing name="Heç bir münaqişə yoxdur . . ."/>
+				<AboutCategory name="Haqqında"/>
+				<ModifyContextMenu name="Dəyişdir"/>
+				<DeleteContextMenu name="Sil"/>
+				<ClearContextMenu name="Təmizlə"/>
+				<MainCommandNames>
+					<Item id="41019" name="Explorer-də aid olan qovluğu aç"/>
+					<Item id="41020" name="Komanda Əmrində aid olan qovluğu aç"/>
+					<Item id="41021" name="Son bağlı faylı bərpa et"/>
+					<Item id="45001" name="EOL Konversiyası Windows (CR LF)-ə"/>
+					<Item id="45002" name="EOL Konversiyası Unix (LF)-ə"/>
+					<Item id="45003" name="EOL Konversiyası Macintosh (CR)-ə"/>
+					<Item id="43022" name="1-ci stil ilə hamısını stil et"/>
+					<Item id="43024" name="2-ci stil ilə hamısını stil et"/>
+					<Item id="43026" name="3-cü stil ilə hamısını stil et"/>
+					<Item id="43028" name="4-cü stil ilə hamısını stil et"/>
+					<Item id="43030" name="5-ci stil ilə hamısını stil et"/>
+					<Item id="43062" name="1-ci stil ilə birini stil et"/>
+					<Item id="43063" name="2-ci stil ilə birini stil et"/>
+					<Item id="43064" name="3-cü stil ilə birini stil et"/>
+					<Item id="43065" name="4-cü stil ilə birini stil et"/>
+					<Item id="43066" name="5-ci stil ilə birini stil et"/>
+					<Item id="43023" name="1-ci stili təmizlə"/>
+					<Item id="43025" name="2-ci stili təmizlə"/>
+					<Item id="43027" name="3-cü stili təmizlə"/>
+					<Item id="43029" name="4-cü stili təmizlə"/>
+					<Item id="43031" name="5-ci stili təmizlə"/>
+					<Item id="43032" name="Bütün stilləri təmizlə"/>
+					<Item id="43033" name="1-ci stilin əvvəlki stili"/>
+					<Item id="43034" name="2-ci stilin əvvəlki stili"/>
+					<Item id="43035" name="3-cü stilin əvvəlki stili"/>
+					<Item id="43036" name="4-cü stilin əvvəlki stili"/>
+					<Item id="43037" name="5-ci stilin əvvəlki stili"/>
+					<Item id="43038" name="Find Mark stilinin əvvəlki stili"/>
+					<Item id="43039" name="1-ci stilin növbəti stili"/>
+					<Item id="43040" name="2-ci stilin növbəti stili"/>
+					<Item id="43041" name="3-cü stilin növbəti stili"/>
+					<Item id="43042" name="4-cü stilin növbəti stili"/>
+					<Item id="43043" name="5-ci stilin növbəti stili"/>
+					<Item id="43044" name="Find Mark stilinin növbəti stili"/>
+					<Item id="43055" name="1-ci stilin stilizə olunmuş mətnini kopyala"/>
+					<Item id="43056" name="2-ci stilin stilizə olunmuş mətnini kopyala"/>
+					<Item id="43057" name="3-cü stilin stilizə olunmuş mətnini kopyala"/>
+					<Item id="43058" name="4-cü stilin stilizə olunmuş mətnini kopyala"/>
+					<Item id="43059" name="5-ci stilin stilizə olunmuş mətnini kopyala"/>
+					<Item id="43060" name="Bütün stillərin stilizə olunmuş mətnini kopyala"/>
+					<Item id="43061" name="Find Mark stilinin stilizə olunmuş mətnini kopyala"/>
+					<Item id="44100" name="Cari faylı Firefox-da göstər"/>
+					<Item id="44101" name="Cari faylı Chrome-da göstər"/>
+					<Item id="44103" name="Cari faylı IE-də göstər"/>
+					<Item id="44102" name="Cari faylı Edge-də göstər"/>
+					<Item id="50003" name="Əvvəlki sənədə keç"/>
+					<Item id="50004" name="Sonraki sənədə keç"/>
+					<Item id="44051" name="Səviyyə 1-i bük"/>
+					<Item id="44052" name="Səviyyə 2-ni bük"/>
+					<Item id="44053" name="Səviyyə 3-ü bük"/>
+					<Item id="44054" name="Səviyyə 4-ü bük"/>
+					<Item id="44055" name="Səviyyə 5-i bük"/>
+					<Item id="44056" name="Səviyyə 6-ı bük"/>
+					<Item id="44057" name="Səviyyə 7-ni bük"/>
+					<Item id="44058" name="Səviyyə 8-i bük"/>
+					<Item id="44061" name="Səviyyə 1-i aç"/>
+					<Item id="44062" name="Səviyyə 2-ni aç"/>
+					<Item id="44063" name="Səviyyə 3-ü aç"/>
+					<Item id="44064" name="Səviyyə 4-ü aç"/>
+					<Item id="44065" name="Səviyyə 5-i aç"/>
+					<Item id="44066" name="Səviyyə 6-ı aç"/>
+					<Item id="44067" name="Səviyyə 7-ni aç"/>
+					<Item id="44068" name="Səviyyə 8-i aç"/>
+					<Item id="44081" name="Layihə Paneli 1-i dəyiş"/>
+					<Item id="44082" name="Layihə Paneli 2-ni dəyiş"/>
+					<Item id="44083" name="Layihə Paneli 3-ü dəyiş"/>
+					<Item id="44085" name="Qovluğu iş sahəsi kimi dəyiş"/>
+					<Item id="44080" name="Sənəd xəritəsini dəyiş"/>
+					<Item id="44070" name="Sənəd siyahısını dəyiş"/>
+					<Item id="44084" name="Funksiya siyahısını dəyiş"/>
+					<Item id="50005" name="Makro qeyd etməsini dəyiş"/>
+					<Item id="44104" name="Layihə Paneli 1-ə keç"/>
+					<Item id="44105" name="Layihə Paneli 2-yə keç"/>
+					<Item id="44106" name="Layihə Paneli 3-ə keç"/>
+					<Item id="44107" name="Qovluğu iş sahəsi kimi dəyiş"/>
+					<Item id="44109" name="Sənəd siyahısına keç"/>
+					<Item id="44108" name="Funksiya siyahısına keç"/>
+					<Item id="44110" name="Tab rəngini sil"/>
+					<Item id="44111" name="Tab rəngi 1 tətbiq et"/>
+					<Item id="44112" name="Tab rəngi 2 tətbiq et"/>
+					<Item id="44113" name="Tab rəngi 3 tətbiq et"/>
+					<Item id="44114" name="Tab rəngi 4 tətbiq et"/>
+					<Item id="44115" name="Tab rəngi 5 tətbiq et"/>
+					<Item id="11002" name="Adla A-dan Z-yə sıralan"/>
+					<Item id="11003" name="Adla Z-dən A-ya sıralan"/>
+					<Item id="11004" name="Yol ilə A-dan Z-yə sıralan"/>
+					<Item id="11005" name="Yol ilə Z-dən A-ya sıralan"/>
+					<Item id="11006" name="Növ ilə A-dan Z-yə sıralan"/>
+					<Item id="11007" name="Növ ilə Z-dən A-ya sıralan"/>
+					<Item id="11008" name="Məzmun uzunluğu ilə artan sıralan"/>
+					<Item id="11009" name="Məzmun uzunluğu ilə azalan sıralan"/>
+				</MainCommandNames>
+			</ShortcutMapper>
+			<ShortcutMapperSubDialg title="Qısa Yol">
+  				  <Item id="1" name="Təsdiq et"/>
+  				  <Item id="2" name="İmtina et"/>
+  				  <Item id="5006" name="Ad"/>
+  				  <Item id="5008" name="Əlavə et"/>
+  				  <Item id="5009" name="Sil"/>
+   				 <Item id="5010" name="Tətbiq et"/>
+   				 <Item id="5007" name="Bu, bu əmrdən qısa yolu siləcək"/>
+   				 <Item id="5012" name="MÜNAQİŞƏ TAPILDI!"/>
+			</ShortcutMapperSubDialg>
+			<UserDefine title="İstifadəçi Tərifləri">
+				<Item id="20001" name="Liman"/>
+				<Item id="20002" name="Yenidən adlandır"/>
+				<Item id="20003" name="Yenisini yarat..."/>
+				<Item id="20004" name="Sil"/>
+				<Item id="20005" name="Fərqli saxla..."/>
+				<Item id="20007" name="İstifadəçi dili"/>
+				<Item id="20009" name="Uzantı:"/>
+				<Item id="20012" name="Registrə məhəl qoyma"/>
 				<Item id="20011" name="Şəffaflıq"/>
-				<Item id="0" name="Rəngli stillər"/>
-				<Item id="1" name="Ön plan rəngi"/>
-				<Item id="2" name="Arxa plan rəngi"/>
-				<Item id="3" name="Şriftin stili"/>
-				<Item id="4" name="Şriftin adı :"/>
-				<Item id="5" name="Şriftin ölçüsü :"/>
-				<Item id="6" name="Qalın"/>
-				<Item id="7" name="İtalyan"/>
-				<Item id="8" name="Altınnan xətt çək"/>
-
-				<Folder title="İlkin-qovluq">
-					<Item id="21101" name="İlkin stil nizamları"/>
-					<Item id="21201" name="Qovluğu açmaq açar-sözləri nizamları"/>
-					<Item id="21301" name="Qovluğu bağlamaq açar-sözləri nizamları"/>
+				<Item id="20015" name="İdxal..."/>
+				<Item id="20016" name="İxrac..."/>
+				<Item id="20017" name="Ayır"/>
+				<StylerDialog title="Stil Qurğusu">
+					<Item id="25030" name="Şrift seçimləri"/>
+					<Item id="25006" name="Ön plan rəngi"/>
+					<Item id="25007" name="Arxa plan rəngi"/>
+					<Item id="25031" name="Ad:"/>
+					<Item id="25032" name="Ölçü:"/>
+					<Item id="25001" name="Qalın"/>
+					<Item id="25002" name="İtalik"/>
+					<Item id="25003" name="Altı xətli"/>
+					<Item id="25029" name="Yuva"/>
+					<Item id="25008" name="Ayırıcı 1"/>
+					<Item id="25009" name="Ayırıcı 2"/>
+					<Item id="25010" name="Ayırıcı 3"/>
+					<Item id="25011" name="Ayırıcı 4"/>
+					<Item id="25012" name="Ayırıcı 5"/>
+					<Item id="25013" name="Ayırıcı 6"/>
+					<Item id="25014" name="Ayırıcı 7"/>
+					<Item id="25015" name="Ayırıcı 8"/>
+					<Item id="25018" name="Açar söz 1"/>
+					<Item id="25019" name="Açar söz 2"/>
+					<Item id="25020" name="Açar söz 3"/>
+					<Item id="25021" name="Açar söz 4"/>
+					<Item id="25022" name="Açar söz 5"/>
+					<Item id="25023" name="Açar söz 6"/>
+					<Item id="25024" name="Açar söz 7"/>
+					<Item id="25025" name="Açar söz 8"/>
+					<Item id="25016" name="Şərh"/>
+					<Item id="25017" name="Şərh xətti"/>
+					<Item id="25026" name="Operator 1"/>
+					<Item id="25027" name="Operator 2"/>
+					<Item id="25028" name="Nömrələr"/>
+					<Item id="25033" name="Şəffaf"/>
+					<Item id="25034" name="Şəffaf"/>
+					<Item id="1" name="Tamam"/>
+					<Item id="2" name="Ləğv et"/>
+				</StylerDialog>
+				<Folder title="Qovluq &amp;&amp; Standart">
+					<Item id="21101" name="Standart stil"/>
+					<Item id="21102" name="Stil Qurğusu"/>
+					<Item id="21105" name="Sənədləşdirmə"/>
+					<Item id="21106" name="Qatlama &amp;kompakt (boş xətləri də qatla)"/>
+					<Item id="21220" name="Kod 1 stilində qatlama"/>
+					<Item id="21224" name="Açıq:"/>
+					<Item id="21225" name="Orta:"/>
+					<Item id="21226" name="Bağlı:"/>
+					<Item id="21227" name="Stil Qurğusu"/>
+					<Item id="21320" name="Kod 2 stilində qatlama (ayırıcılar tələb olunur)"/>
+					<Item id="21324" name="Açıq:"/>
+					<Item id="21325" name="Orta:"/>
+					<Item id="21326" name="Bağlı:"/>
+					<Item id="21327" name="Stil Qurğusu"/>
+					<Item id="21420" name="Şərh stilində qatlama"/>
+					<Item id="21424" name="Açıq:"/>
+					<Item id="21425" name="Orta:"/>
+					<Item id="21426" name="Bağlı:"/>
+					<Item id="21427" name="Stil Qurğusu"/>
 				</Folder>
-
-				<Keywords title="Açar-sözləri listi">
+				<Keywords title="Açar Sözlər Siyahısı">
 					<Item id="22101" name="1-ci Qrup"/>
 					<Item id="22201" name="2-ci Qrup"/>
 					<Item id="22301" name="3-cü Qrup"/>
 					<Item id="22401" name="4-cü Qrup"/>
-					<Item id="22113" name="Ön əlavə rejimi"/>
-					<Item id="22213" name="Ön əlavə rejimi"/>
-					<Item id="22313" name="Ön əlavə rejimi"/>
-					<Item id="22413" name="Ön əlavə rejimi"/>
+					<Item id="22451" name="5-ci Qrup"/>
+					<Item id="22501" name="6-cı Qrup"/>
+					<Item id="22551" name="7-ci Qrup"/>
+					<Item id="22601" name="8-ci Qrup"/>
+					<Item id="22121" name="Prefiks rejimi"/>
+					<Item id="22221" name="Prefiks rejimi"/>
+					<Item id="22321" name="Prefiks rejimi"/>
+					<Item id="22421" name="Prefiks rejimi"/>
+					<Item id="22471" name="Prefiks rejimi"/>
+					<Item id="22521" name="Prefiks rejimi"/>
+					<Item id="22571" name="Prefiks rejimi"/>
+					<Item id="22621" name="Prefiks rejimi"/>
+					<Item id="22122" name="Stil Qurğusu"/>
+					<Item id="22222" name="Stil Qurğusu"/>
+					<Item id="22322" name="Stil Qurğusu"/>
+					<Item id="22422" name="Stil Qurğusu"/>
+					<Item id="22472" name="Stil Qurğusu"/>
+					<Item id="22522" name="Stil Qurğusu"/>
+					<Item id="22572" name="Stil Qurğusu"/>
+					<Item id="22622" name="Stil Qurğusu"/>
 				</Keywords>
-
-				<Comment title="Şərh sayı">
-					<Item id="23301" name="Şərh sətiri"/>
-					<Item id="23101" name="Şərhləri bloklaşdır"/>
-					<Item id="23113" name="Şərhləri bağla :"/>
-					<Item id="23115" name="Şərhləri bağla :"/>
-					<Item id="23116" name="Açar-sözünü simvol kimi işlət"/>
-					<Item id="23117" name="Açar-sözlərini simvollar kimi işlət"/>
-					<Item id="23201" name=" Sayı "/>
+				<Comment title="Şərh &amp;&amp; Nömrə">
+					<Item id="23003" name="Xətt şərhi mövqeyi"/>
+					<Item id="23004" name="Hər yerdə icazə ver"/>
+					<Item id="23005" name="Xəttin əvvəlində məcbur et"/>
+					<Item id="23006" name="Boşluğa icazə ver"/>
+					<Item id="23001" name="Şərhlərin qatlanmasına icazə ver"/>
+					<Item id="23326" name="Stil Qurğusu"/>
+					<Item id="23323" name="Açıq"/>
+					<Item id="23324" name="Davam simvolu"/>
+					<Item id="23325" name="Bağlı"/>
+					<Item id="23301" name="Şərh xətti stili"/>
+					<Item id="23124" name="Stil Qurğusu"/>
+					<Item id="23122" name="Açıq"/>
+					<Item id="23123" name="Bağlı"/>
+					<Item id="23101" name="Şərh stili"/>
+					<Item id="23201" name="Nömrə stili"/>
+					<Item id="23220" name="Stil Qurğusu"/>
+					<Item id="23230" name="Prefiks 1"/>
+					<Item id="23232" name="Prefiks 2"/>
+					<Item id="23234" name="Əlavələr 1"/>
+					<Item id="23236" name="Əlavələr 2"/>
+					<Item id="23238" name="Suffiks 1"/>
+					<Item id="23240" name="Suffiks 2"/>
+					<Item id="23242" name="Aralıq:"/>
+					<Item id="23244" name="Onluq ayırıcı"/>
+					<Item id="23245" name="Nöqtə"/>
+					<Item id="23246" name="Vergül"/>
+					<Item id="23247" name="Hər ikisi"/>
 				</Comment>
-
-				<Operator title="Operatorlar">
-					<Item id="24107" name="Operator"/>
-					<Item id="24103" name="Mövcud simvollar"/>
-					<Item id="24101" name="Aktiv olan operatorlar"/>
-					<Item id="24201" name="Ayırıcıyı 1"/>
-					<Item id="24211" name="Açan sərhəd :"/>
-					<Item id="24214" name="Bağlayan sərhəd :"/>
-					<Item id="24301" name="Ayırıcıyı 2"/>
-					<Item id="24311" name="Açan sərhəd :"/>
-					<Item id="24314" name="Bağlayan sərhəd :"/>
+				<Operator title="Operatorlar &amp;&amp; Ayırıcı">
+					<Item id="24101" name="Operatorlar stili"/>
+					<Item id="24113" name="Stil Qurğusu"/>
+					<Item id="24116" name="Operatorlar 1"/>
+					<Item id="24117" name="Operatorlar 2 (ayırıcılar tələb olunur)"/>
+					<Item id="24201" name="Ayırıcı 1 stili"/>
+					<Item id="24220" name="Açıq:"/>
+					<Item id="24221" name="Qaçış:"/>
+					<Item id="24222" name="Bağlı:"/>
+					<Item id="24223" name="Stil Qurğusu"/>
+					<Item id="24301" name="Ayırıcı 2 stili"/>
+					<Item id="24320" name="Açıq:"/>
+					<Item id="24321" name="Qaçış:"/>
+					<Item id="24322" name="Bağlı:"/>
+					<Item id="24323" name="Stil Qurğusu"/>
+					<Item id="24401" name="Ayırıcı 3 stili"/>
+					<Item id="24420" name="Açıq:"/>
+					<Item id="24421" name="Qaçış:"/>
+					<Item id="24422" name="Bağlı:"/>
+					<Item id="24423" name="Stil Qurğusu"/>
+					<Item id="24451" name="Ayırıcı 4 stili"/>
+					<Item id="24470" name="Açıq:"/>
+					<Item id="24471" name="Qaçış:"/>
+					<Item id="24472" name="Bağlı:"/>
+					<Item id="24473" name="Stil Qurğusu"/>
+					<Item id="24501" name="Ayırıcı 5 stili"/>
+					<Item id="24520" name="Açıq:"/>
+					<Item id="24521" name="Qaçış:"/>
+					<Item id="24522" name="Bağlı:"/>
+					<Item id="24523" name="Stil Qurğusu"/>
+					<Item id="24551" name="Ayırıcı 6 stili"/>
+					<Item id="24570" name="Açıq:"/>
+					<Item id="24571" name="Qaçış:"/>
+					<Item id="24572" name="Bağlı:"/>
+					<Item id="24573" name="Stil Qurğusu"/>
+					<Item id="24601" name="Ayırıcı 7 stili"/>
+					<Item id="24620" name="Açıq:"/>
+					<Item id="24621" name="Qaçış:"/>
+					<Item id="24622" name="Bağlı:"/>
+					<Item id="24623" name="Stil Qurğusu"/>
+					<Item id="24651" name="Ayırıcı 8 stili"/>
+					<Item id="24670" name="Açıq:"/>
+					<Item id="24671" name="Qaçış:"/>
+					<Item id="24672" name="Bağlı:"/>
+					<Item id="24673" name="Stil Qurğusu"/>
 				</Operator>
-
-				<Item id="24001" name="Enable escape character :"/>
 			</UserDefine>
-
-			<Preference title="Nizamlar">
+			<Preference title="Nizamlamalar">
 				<Item id="6001" name="Bağla"/>
-
 				<Global title="Ümumi">
+					<Item id="6101" name="Alət paneli"/>
 					<Item id="6102" name="Gizlət"/>
-					<Item id="6103" name="Balaca ikonlar"/>
-					<Item id="6104" name="Böyük ikonlar"/>
-					<Item id="6105" name="Standart ikonlar"/>
-
-					<Item id="6107" name="Kiçiltmək"/>
-					<Item id="6108" name="Qıfılla (yer dəyişməsinə qadağa et)"/>
-					<Item id="6109" name="Aktiv olmayan başlıqlar boz olsun"/>
-					<Item id="6110" name="Üstündə sarı xətt olsun"/>
-
-					<Item id="6112" name="Bağla düyməsini göstər"/>
-					<Item id="6113" name="Başlığı iki kliklə bağla"/>
+					<Item id="6103" name="Fluent UI: kiçik"/>
+					<Item id="6104" name="Fluent UI: böyük"/>
+					<Item id="6129" name="Dolu Fluent UI: kiçik"/>
+					<Item id="6130" name="Dolu Fluent UI: böyük"/>
+					<Item id="6105" name="Standart nişanlar: kiçik"/>
+					<Item id="6106" name="Vərəq paneli"/>
+					<Item id="6107" name="Azalt"/>
+					<Item id="6108" name="Kilidlə (sürüklə və burax yoxdur)"/>
+					<Item id="6109" name="Aktiv olmayan vərəqin rəngini dəyiş"/>
+					<Item id="6110" name="Aktiv vərəqdə rəngli xətt çək"/>
+					<Item id="6112" name="Bağlama düyməsini göstər"/>
+					<Item id="6113" name="Sənədi bağlamaq üçün iki dəfə kliklə"/>
+					<Item id="6115" name="Vərəqi sabitləmə xüsusiyyətini aktivləşdir"/>
 					<Item id="6118" name="Gizlət"/>
-					<Item id="6119" name="Kaskad"/>
+					<Item id="6119" name="Çoxsətirli"/>
 					<Item id="6120" name="Şaquli"/>
+					<Item id="6121" name="Son vərəqi bağlayanda çıx"/>
+					<Item id="6128" name="Alternativ nişanlar"/>
 
-					<Item id="6121" name="Menyu paneli"/>
-					<Item id="6122" name="Gizlət (Seçim üçün &quot;Alt&quot; və ya &quot;F1&quot; düyməsini basın)"/>
-					<Item id="6123" name="İnterfeys dili"/>
+				<Item id="6133" name="Status Bar"/>
+					<Item id="6134" name="Gizlət"/>
+
+					<Item id="6131" name="Menyu"/>
+					<Item id="6122" name="Menyu panelini gizlət (Alt və ya F10 düyməsi ilə açıb bağlamaq üçün)"/>
+					<Item id="6132" name="Menyu panelindəki sağ qısayolları gizlət ＋ ▼ ✕ (Notepad++ yenidən başlatmaq tələb olunur)"/>
+
+					<Item id="6123" name="Lokalizasiya"/>
 				</Global>
 
-				<Scintillas title="Redaktə etmək">
-					<Item id="6216" name="Yapışdırma nizamları"/>
-					<Item id="6217" name="En :"/>
-					<Item id="6219" name="Yanma sürəti :"/>
+				<Scintillas title="Redaktə 1">
+					<Item id="6216" name="Kursor Parametrləri"/>
+					<Item id="6217" name="Eni:"/>
+					<Item id="6219" name="Yanıb-sönmə tezliyi:"/>
 					<Item id="6221" name="F"/>
 					<Item id="6222" name="S"/>
-					<Item id="6224" name="Multi-Redaktə nizamları"/>
-					<Item id="6201" name="Blokun qıraqlarının stili"/>
-					<Item id="6202" name="Sadə"/>
-					<Item id="6203" name="Oxlar"/>
-					<Item id="6204" name="Dairələr"/>
-					<Item id="6205" name="Dördbucaqlar"/>
-					<Item id="6226" name="Heç nə"/>
-
-					<Item id="6227" name="Line Wrap"/>
-					<Item id="6228" name="İlkin nizamlar"/>
-					<Item id="6229" name="Aligned"/>
-					<Item id="6230" name="Indent"/>
-
-					<Item id="6206" name="Sətirlərin nömrələrinin göstər"/>
-					<Item id="6207" name="Tağları göstər"/>
-					<Item id="6208" name="Şaquli sərhədini göstər"/>
-					<Item id="6209" name="Sütun sayı : "/>
-
-					<Item id="6211" name="Səhifənin şaquli sərhədinin nizamları"/>
-					<Item id="6212" name="Xətt rejimi"/>
-					<Item id="6213" name="Arxa plan rejimi"/>
-					<Item id="6214" name="Seçilmiş sətiri vurğula"/>
+					<Item id="6246" name="Cari səviyyə qatlanma/qatlanma əmrlərini dəyişdirilə bilən et"/>
+					<Item id="6227" name="Xətt qırma"/>
+					<Item id="6228" name="Standart"/>
+					<Item id="6229" name="Düzülmüş"/>
+					<Item id="6230" name="Girinti"/>
+					<Item id="6234" name="Toxunma paneli problemi səbəbi ilə qabaqcıl sürüşdürmə xüsusiyyətini söndür"/>
+					<Item id="6215" name="Hamar şrifti aktivləşdir"/>
+					<Item id="6236" name="Son xəttin ötəsində sürüşdürməni aktivləşdir"/>
+					<Item id="6239" name="Seçimdən kənarda sağ klikləndikdə seçimi saxla"/>
+					<Item id="6245" name="Virtual məkanı aktivləşdir"/>
+					<Item id="6214" name="Seçim olmadan Xətti Kopyala/Kəs xüsusiyyətini aktivləşdir"/>
+					<Item id="6651" name="Cari Xətt Göstəricisi"/>
+					<Item id="6652" name="Heç biri"/>
+					<Item id="6653" name="Arxa fonu vurğula"/>
+					<Item id="6654" name="Çərçivə"/>
+					<Item id="6655" name="Eni:"/>
 				</Scintillas>
 
-				<NewDoc title="Yeni sənəd/İlkin qovluq">
-					<Item id="6401" name="Format"/>
-					<Item id="6402" name="Windows"/>
-					<Item id="6403" name="Unix"/>
-					<Item id="6404" name="Mac"/>
-					<Item id="6405" name="Kodlamaq"/>
+				<Scintillas2 title="Redaktə 2">
+					<Item id="6521" name="Çoxlu Redaktə"/>
+					<Item id="6522" name="Çoxlu Redaktəni aktivləşdir (Ctrl+Siçan klik/seçim)"/>
+					<Item id="6523" name="Sütun Seçimini Çoxlu Redaktəyə aktivləşdir"/>
+					<Item id="6247" name="EOL (CRLF)"/><!-- "(CRLF)" tərcümə edilməyib -->
+					<Item id="6248" name="Standart"/>
+					<Item id="6249" name="Sadə Mətn"/>
+					<Item id="6250" name="Xüsusi Rəng"/>
+					<Item id="6252" name="Çap Olunmayan Simvollar"/>
+					<Item id="6260" name="Görünüş"/>
+					<Item id="6254" name="Qısaltma"/>
+					<Item id="6255" name="Kod nöqtəsi"/>
+					<Item id="6256" name="Xüsusi Rəng"/>
+					<Item id="6258" name="Görünüş parametrlərini C0, C1 &amp;&amp; Unicode EOL üçün tətbiq et"/>
+					<Item id="6259" name="Sənədə nəzarət simvolu (C0 kodu) yazılmasının qarşısını al"/>
+				</Scintillas2>
+
+				<DarkMode title="Qaranlıq Rejim">
+					<Item id="7131" name="İşıq rejimi"/>
+					<Item id="7132" name="Qaranlıq rejimi"/>
+					<Item id="7133" name="Windows-a uyğunlaş"/>
+					<Item id="7102" name="Qara"/>
+					<Item id="7103" name="Qırmızı"/>
+					<Item id="7104" name="Yaşıl"/>
+					<Item id="7105" name="Mavi"/>
+					<Item id="7107" name="Bənövşəyi"/>
+					<Item id="7108" name="Mavi-yaşıl"/>
+					<Item id="7109" name="Zeytun"/>
+					<Item id="7115" name="Xüsusi"/>
+					<Item id="7116" name="Üst"/>
+					<Item id="7117" name="Menyu isti iz"/>
+					<Item id="7118" name="Aktiv"/>
+					<Item id="7119" name="Əsas"/>
+					<Item id="7120" name="Xəta"/>
+					<Item id="7121" name="Mətn"/>
+					<Item id="7122" name="Tünd mətn"/>
+					<Item id="7123" name="Deaktiv edilmiş mətn"/>
+					<Item id="7124" name="Kənar"/>
+					<Item id="7125" name="Link"/>
+					<Item id="7126" name="Kənar vurğusu"/>
+					<Item id="7127" name="Deaktiv edilmiş kənar"/>
+					<Item id="7130" name="Sıfırla"/>
+					<Item id="7135" name="Tonlar"/>
+				</DarkMode>
+
+				<MarginsBorderEdge title="Kənarlar/Çərçivə/Kənar">
+					<Item id="6201" name="Qatlanma Kənarı Stili"/>
+					<Item id="6202" name="Sadə"/>
+					<Item id="6203" name="Ox"/>
+					<Item id="6204" name="Dairə ağacı"/>
+					<Item id="6205" name="Qutu ağacı"/>
+					<Item id="6226" name="Heç biri"/>
+					<Item id="6291" name="Xətt Nömrəsi"/>
+					<Item id="6206" name="Göstər"/>
+					<Item id="6292" name="Dinamik en"/>
+					<Item id="6293" name="Sabit en"/>
+					<Item id="6207" name="Xatirə nişanını göstər"/>
+					<Item id="6295" name="Dəyişiklik Tarixçəsi"/>
+					<Item id="6223" name="Kənarda göstər"/>
+					<Item id="6296" name="Mətndə göstər"/>
+					<Item id="6211" name="Şaquli Kənar Parametrləri"/>
+					<Item id="6213" name="Arxa fon rejimi"/>
+					<Item id="6231" name="Çərçivə Eni"/>
+					<Item id="6235" name="Kənar yoxdur"/>
+					<Item id="6208" name="Doldurma"/>
+					<Item id="6209" name="Sol"/>
+					<Item id="6210" name="Sağ"/>
+					<Item id="6212" name="Diqqət Dağıtmadan"/>
+				</MarginsBorderEdge>
+
+				<NewDoc title="Yeni Sənəd">
+					<Item id="6401" name="Format (Xətt sonu)"/>
+					<Item id="6402" name="Windows (CR LF)"/>
+					<Item id="6403" name="Unix (LF)"/>
+					<Item id="6404" name="Macintosh (CR)"/>
+					<Item id="6405" name="Kodlaşdırma"/>
 					<Item id="6406" name="ANSI"/>
-					<Item id="6407" name="UTF-8 without BOM"/>
-					<Item id="6408" name="UTF-8"/>
-					<Item id="6409" name="UCS-2 Big Endian"/>
-					<Item id="6410" name="UCS-2 Little Endian"/>
-					<Item id="6411" name="Sintaksis :"/>
-					<Item id="6413" name="Sənədi açmaq/yadda saxlamaq qovluğu"/>
-					<Item id="6414" name="Seçilən sənədi izlə "/>
-					<Item id="6415" name="Sonuncu qovluğu yadda saxla"/>
-					<Item id="6419" name="Yeni sənəd"/>
-					<Item id="6420" name="ANSI faylı açarkan tətbiq et"/>
+					<Item id="6407" name="UTF-8"/>
+					<Item id="6408" name="UTF-8 BOM ilə"/>
+					<Item id="6409" name="UTF-16 Big Endian BOM ilə"/>
+					<Item id="6410" name="UTF-16 Little Endian BOM ilə"/>
+					<Item id="6411" name="Standart dil:"/>
+					<Item id="6419" name="Yeni Sənəd"/>
+					<Item id="6420" name="Açılmış ANSI fayllarına tətbiq et"/>
+					<Item id="6432" name="Həmişə başlanğıcda əlavə yeni sənəd aç"/>
 				</NewDoc>
 
-				<FileAssoc title="Faylların əlaqələri">
-					<Item id="4009" name="Dəstəklənən fayllar:"/>
-					<Item id="4010" name="Qeydli fayllar :"/>
+				<DefaultDir title="Standart Qovluq">
+					<Item id="6413" name="Standart Aç/Saxla fayl Qovluğu"/>
+					<Item id="6414" name="Cari sənədi izlə"/>
+					<Item id="6415" name="Son istifadə olunan qovluğu xatırla"/>
+					<Item id="6431" name="Qovluq buraxıldıqda İş Sahəsi kimi başlatmaq əvəzinə qovluqdakı bütün faylları aç"/>
+				</DefaultDir>
+
+				<FileAssoc title="Fayl Assosiasiyası">
+					<Item id="4008" name="Zəhmət olmasa Notepad++ çıxın və bu xüsusiyyətdən istifadə etmək üçün Notepad++ Administrator rejimində yenidən başladın."/>
+					<Item id="4009" name="Dəstəklənən uzantılar:"/>
+					<Item id="4010" name="Qeydiyyatdan keçmiş uzantılar:"/>
 				</FileAssoc>
 
-				<LangMenu title="Dil menyusu/Başlıqların nizamları">
-					<Item id="6301" name="Başlıqların nizamları"/>
-					<Item id="6302" name="Boşluqla dəyişdir"/>
-					<Item id="6303" name="Tabulasıya : "/>
-					<Item id="6505" name="İstifadə edilən"/>
-					<Item id="6506" name="İstifadə edilməyən"/>
+				<Language title="Dil">
+					<Item id="6505" name="Mövcud elementlər"/>
+					<Item id="6506" name="Deaktiv edilmiş elementlər"/>
 					<Item id="6507" name="Dil menyusunu yığcam et"/>
-					<Item id="6508" name="Menyu dili"/>
-					<Item id="6510" name="İlkin nizamlar"/>
-				</LangMenu>
+					<Item id="6508" name="Dil Menyusu"/>
+					<Item id="6335" name="SQL üçün backslash simvolunu qaçış simvolu kimi qəbul et"/>
+				</Language>
 
-				<Print title="Çap">
-					<Item id="6601" name="Sətirin nömrəsini çap et"/>
-					<Item id="6602" name="Rəng nizamları"/>
-					<Item id="6603" name="WYSIWYG (göründüyü kimi)"/>
-					<Item id="6604" name="Invert"/>
-					<Item id="6605" name="Qara ağ"/>
-					<Item id="6606" name="Arxa plan rəngini yığışdır"/>
-					<Item id="6607" name="Abzas (mm)"/>
+				<Indentation title="Girinti">
+					<Item id="7161" name="Avtomatik girinti"/>
+					<Item id="7162" name="Heç biri"/>
+					<Item id="7163" name="Əsas"/>
+					<Item id="7164" name="Qabaqcıl"/>
+					<Item id="6301" name="Girinti Parametrləri"/>
+					<Item id="6302" name="Boşluq simvol(lar)ı"/>
+					<Item id="6303" name="Girinti ölçüsü:"/>
+					<Item id="6310" name="Girinti üçün istifadə et:"/>
+					<Item id="6311" name="Tab simvolu"/>
+					<Item id="6510" name="Standart dəyəri istifadə et"/>
+					<Item id="6512" name="Backspace düyməsi tək boşluq silmək əvəzinə girintini azaldır"/>
+				</Indentation>
+
+				<Highlighting title="Vurğulama">
+					<Item id="6351" name="Tokenin bütün hallarını vurğula"/>
+					<Item id="6352" name="Registrə həssas"/>
+					<Item id="6353" name="Yalnız tam sözü uyğunlaşdır"/>
+					<Item id="6333" name="Ağıllı Vurğulama"/>
+					<Item id="6326" name="Aktivləşdir"/>
+					<Item id="6354" name="Uyğunlaşdırma"/>
+					<Item id="6332" name="Registrə həssas"/>
+					<Item id="6338" name="Yalnız tam sözü uyğunlaşdır"/>
+					<Item id="6339" name="Axtarış dialoqu parametrlərini istifadə et"/>
+					<Item id="6340" name="Başqa görünüşü vurğula"/>
+					<Item id="6329" name="Uyğunlaşan Teqləri Vurğula"/>
+					<Item id="6327" name="Aktivləşdir"/>
+					<Item id="6328" name="Teq atributlarını vurğula"/>
+					<Item id="6330" name="Şərh/php/asp zonasını vurğula"/>
+				</Highlighting>
+
+					<Print title="Çap">
+					<Item id="6601" name="Xətt nömrəsini çap et"/>
+					<Item id="6602" name="Rəng Seçimləri"/>
+					<Item id="6603" name="WYSIWYG"/>
+					<Item id="6604" name="Tərsinə çevir"/>
+					<Item id="6605" name="Qara fon üzərində ağ"/>
+					<Item id="6606" name="Arxa fon rəngi olmadan"/>
+					<Item id="6607" name="Kənar Parametrləri (Vahid:mm)"/>
 					<Item id="6612" name="Sol"/>
 					<Item id="6613" name="Üst"/>
 					<Item id="6614" name="Sağ"/>
 					<Item id="6615" name="Alt"/>
 					<Item id="6706" name="Qalın"/>
-					<Item id="6707" name="İtalyan"/>
+					<Item id="6707" name="İtalik"/>
 					<Item id="6708" name="Başlıq"/>
-					<Item id="6709" name="Sol hissəsi"/>
-					<Item id="6710" name="Orta hissəsində"/>
-					<Item id="6711" name="Sağ hissəsi"/>
+					<Item id="6709" name="Sol hissə"/>
+					<Item id="6710" name="Orta hissə"/>
+					<Item id="6711" name="Sağ hissə"/>
 					<Item id="6717" name="Qalın"/>
-					<Item id="6718" name="İtalyan"/>
-					<Item id="6719" name="Alt bilgi"/>
-					<Item id="6720" name="Sol hissəsi"/>
-					<Item id="6721" name="Orta hissəsində"/>
-					<Item id="6722" name="Sağ hissəsi"/>
+					<Item id="6718" name="İtalik"/>
+					<Item id="6719" name="Altbilgi"/>
+					<Item id="6720" name="Sol hissə"/>
+					<Item id="6721" name="Orta hissə"/>
+					<Item id="6722" name="Sağ hissə"/>
 					<Item id="6723" name="Əlavə et"/>
-					<Item id="6725" name="Bilgi :"/>
-					<Item id="6728" name="Üst və alt bilgi"/>
+					<ComboBox id="6724">
+						<Element name="Tam fayl adı yolu"/>
+						<Element name="Fayl adı"/>
+						<Element name="Fayl qovluğu"/>
+						<Element name="Səhifə"/>
+						<Element name="Qısa tarix formatı"/>
+						<Element name="Uzun tarix formatı"/>
+						<Element name="Vaxt"/>
+					</ComboBox>
+					<Item id="6725" name="Dəyişən:"/>
+					<Item id="6727" name="Burada dəyişən parametrlərinizi göstərin"/>
+					<Item id="6728" name="Başlıq və Altbilgi"/>
 				</Print>
 
-				<MISC title="Digər">
-					<Item id="6304" name="Açılmış sənədlərin tarixi"/>
-					<Item id="6305" name="İşə salarkən yoxlama"/>
-					<Item id="6306" name="Maks. sənəd sayı :"/>
-					<Item id="6309" name="Axırıncı sessiyanın sənədlərini aç"/>
-					<Item id="6312" name="Statusu avtomatik təyinləşdir"/>
-					<Item id="6313" name="Soruşmadan yenilə"/>
-					<Item id="6318" name="Linklərin nizamları"/>
-					<Item id="6318" name="Linklərin nizamları"/>
-					<Item id="6325" name="Yenilədikdən sonra sona kimi sürüşdür"/>
-					<Item id="6319" name="İcazə ver"/>
-					<Item id="6320" name="Altınnan xətt çəkmə"/>
-					<Item id="6322" name="Sessiya faylın tipi:"/>
-					<Item id="6323" name="Notepad++ avtomatik yenilə"/>
-					<Item id="6324" name="Sənədlərin komutasiyası (Ctrl+TAB)"/>
-					<Item id="6326" name="İntellektual işıqlandırma"/>
-					<Item id="6329" name="Uyğun olan teqləri işıqlandır"/>
-					<Item id="6327" name="İcazə ver"/>
-					<Item id="6328" name="Müvafiq teqləri işiqlandır"/>
-					<Item id="6330" name="Şərh/php/asp sahələrini işıqlandır"/>
+				<Searching title="Axtarış">
+					<Item id="6902" name="Axtarış dialoqunda monospaced şrift istifadə et (Notepad++ yenidən başlatmaq tələb olunur)"/>
+					<Item id="6903" name="Nəticələr pəncərəsinə çıxış verən axtarışdan sonra Axtarış dialoqu açıq qalsın"/>
+					<Item id="6904" name="Bütün Açıq Sənədlərdə Hamısını Dəyişdirməni təsdiqlə"/>
+					<Item id="6905" name="Dəyişdir: Növbəti uyğunluğa keçmə"/>
+					<Item id="6906" name="Axtarış Nəticələri pəncərəsi: mümkünsə hər tapılan xətt üçün yalnız bir giriş göstər"/>
+					<Item id="6907" name="Axtarış Dialoqu Çağırıldıqda"/>
+					<Item id="6908" name="Seçilmiş Mətnlə Axtarış Sahəsini Doldur"/>
+					<Item id="6909" name="Heç nə seçilmədikdə Kursor Altındakı Sözü Seç"/>
+					<Item id="6910" name="&quot;Seçimdə&quot; avtomatik yoxlaması üçün minimum ölçü:"/>
+					<Item id="6913" name="Aktiv Sənədə əsaslanaraq Fayllarda Axtarış Qovluğu Sahəsini Doldur"/>
+				</Searching>
 
-					<Item id="6331" name="Başlıqda yalnız faylın adını göstər"/>
-					<Item id="6114" name="İcazə ver"/>
-					<Item id="6117" name="Enable MRU behaviour"/>
-				</MISC>
+				<RecentFilesHistory title="Son Fayllar Tarixçəsi">
+					<Item id="6304" name="Son Fayllar Tarixçəsi"/>
+					<Item id="6306" name="Maks. giriş sayı:"/>
+					<Item id="6305" name="Başlatma zamanı yoxlama"/>
+					<Item id="6429" name="Göstər"/>
+					<Item id="6424" name="Alt menyuda"/>
+					<Item id="6425" name="Yalnız Fayl Adı"/>
+					<Item id="6426" name="Tam Fayl Adı Yolu"/>
+					<Item id="6427" name="Maksimum Uzunluğu Fərdiləşdir:"/>
+				</RecentFilesHistory>
 
-				<Backup title="Ehtiyatlaşdırma/Avtomatik Tamamlanma">
-					<Item id="6801" name="Ehtiyatlaşdırma"/>
+				<Backup title="Ehtiyat Nüsxə">
+					<Item id="6817" name="Sessiya anlıq görüntüsü və dövri ehtiyat nüsxə"/>
+					<Item id="6818" name="Sessiya anlıq görüntüsü və dövri ehtiyat nüsxəni aktivləşdir"/>
+					<Item id="6819" name="Hər dəyişiklikdə ehtiyat nüsxəni aktivləşdir"/>
+					<Item id="6821" name="saniyə"/>
+					<Item id="6822" name="Ehtiyat nüsxə yolu:"/>
+					<Item id="6309" name="Növbəti başlatma üçün cari sessiyanı xatırla"/>
+					<Item id="6825" name="Keçmiş sessiyadan əlçatmaz faylları xatırla"/>
+					<Item id="6801" name="Saxlama zamanı ehtiyat nüsxə"/>
 					<Item id="6315" name="Heç biri"/>
-					<Item id="6316" name="Sadə Ehtiyatlaşdırma"/>
-					<Item id="6317" name="Geniş Ehtiyatlaşdırma"/>
-					<Item id="6804" name="İstifadəçi ehtiyatlaşdırma qovluğu"/>
-					<Item id="6803" name="Qovluq :"/>
-					<Item id="6807" name="Avtomatik Tamamlanma"/>
-					<Item id="6808" name="Giriş üçün avto-tamamlamağa icazə ver"/>
-					<Item id="6809" name="Funksiya tamamla"/>
-					<Item id="6810" name="Söz tamamla"/>
-					<Item id="6811" name="...dən"/>
-					<Item id="6813" name="ci(ü) simvol"/>
-					<Item id="6814" name="Cari Dəyər : 1 - 9"/>
-					<Item id="6815" name="Funksiyanın parametirlərini daxil edərkən kömək et"/>
+					<Item id="6316" name="Sadə ehtiyat nüsxə"/>
+					<Item id="6317" name="Ətraflı ehtiyat nüsxə"/>
+					<Item id="6804" name="Xüsusi Ehtiyat Nüsxə Qovluğu"/>
+					<Item id="6803" name="Qovluq:"/>
 				</Backup>
 
+				<AutoCompletion title="Avtomatik Tamamlama">
+					<Item id="6807" name="Avtomatik Tamamlama"/>
+					<Item id="6808" name="Hər girişdə avtomatik tamamlamanı aktivləşdir"/>
+					<Item id="6809" name="Funksiya tamamlaması"/>
+					<Item id="6810" name="Söz tamamlaması"/>
+					<Item id="6816" name="Funksiya və söz tamamlaması"/>
+					<Item id="6869" name="Seçimi daxil et"/>
+					<Item id="6870" name="TAB"/><!-- Klaviaturadakı TAB düyməsi, normalda tərcümə etmək lazım deyil -->
+					<Item id="6871" name="ENTER"/><!-- Klaviaturadakı ENTER düyməsi, normalda tərcümə etmək lazım deyil -->
+					<Item id="6824" name="Rəqəmləri nəzərə alma"/>
+					<Item id="6811" name="Başlayaraq"/>
+					<Item id="6813" name="ci simvoldan"/>
+					<Item id="6872" name="Avtomatik tamamlama siyahısını qısa et"/>
+					<Item id="6815" name="Funksiya parametrləri ipucunu girişdə göstər"/>
+					<Item id="6851" name="Avtomatik Daxil Et"/>
+					<Item id="6857" name=" html/xml bağlama teqi"/>
+					<Item id="6858" name="Açıq"/>
+					<Item id="6859" name="Bağlı"/>
+					<Item id="6860" name="Uyğunlaşan cüt 1:"/>
+					<Item id="6863" name="Uyğunlaşan cüt 2:"/>
+					<Item id="6866" name="Uyğunlaşan cüt 3:"/>
+				</AutoCompletion>
+
+				<MultiInstance title="Çoxlu Nümunə &amp; Tarix">
+					<Item id="6151" name="Çoxlu nümunə parametrləri *"/>
+					<Item id="6152" name="Sessiyanı yeni nümunədə aç (və çıxış zamanı sessiyanı avtomatik saxla)"/>
+					<Item id="6153" name="Həmişə çoxlu nümunə rejimində"/>
+					<Item id="6154" name="Standart (tək nümunə)"/>
+					<Item id="6155" name="* Bu parametrin dəyişdirilməsi üçün Notepad++ yenidən başlatmaq tələb olunur"/>
+					<Item id="6171" name="Tarix Saatını Fərdiləşdir"/>
+					<Item id="6175" name="Standart tarix saatı sırasını tərsinə çevir (qısa &amp;&amp; uzun formatlar)"/>
+					<Item id="6172" name="Fərdi format:"/>
+					<Item id="6181" name="Panel vəziyyəti və [-nosession] *"/>
+					<Item id="6182" name="Panel vəziyyətini (panel açıqdır) digər nümunələrdə (çoxlu nümunə rejimi) və ya [-nosession] parametri ilə istifadə edərkən xatırla"/>
+					<Item id="6183" name="Mübadilə Tarixçəsi"/>
+					<Item id="6184" name="Sənəd Siyahısı"/>
+					<Item id="6185" name="Simvol Paneli"/>
+					<Item id="6186" name="Qovluq İş Sahəsi kimi"/>
+					<Item id="6187" name="Layihə Panelləri"/>
+					<Item id="6188" name="Sənəd Xəritəsi"/>
+					<Item id="6189" name="Funksiya Siyahısı"/>
+					<Item id="6190" name="Plugin Panelləri"/>
+				</MultiInstance>
+
+				<Delimiter title="Ayırıcı">
+					<Item id="6251" name="Ayırıcı seçimi parametrləri (Ctrl + Siçan ikiqat klik)"/>
+					<Item id="6252" name="Açıq"/>
+					<Item id="6255" name="Bağlı"/>
+					<Item id="6256" name="Bir neçə xəttdə icazə ver"/>
+					<Item id="6161" name="Söz simvolları siyahısı"/>
+					<Item id="6162" name="Standart Söz simvolları siyahısını olduğu kimi istifadə et"/>
+					<Item id="6163" name="Sözün bir hissəsi kimi öz simvollarınızı əlavə edin (nə etdiyinizi bilmirsinizsə, bunu seçməyin)"/>
+				</Delimiter>
+
+				<Performance title="Performans">
+					<Item id="7141" name="Böyük Fayl Məhdudiyyəti"/>
+					<Item id="7143" name="Böyük Fayl Məhdudiyyətini aktivləşdir (sintaksis vurğulama yoxdur)"/>
+					<Item id="7144" name="Böyük Fayl Ölçüsünü Təyin Et:"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
+					<Item id="7147" name="Qıvrım mötərizə uyğunluğuna icazə ver"/>
+					<Item id="7148" name="Avtomatik tamamlamaya icazə ver"/>
+					<Item id="7149" name="Ağıllı vurğulamaya icazə ver"/>
+					<Item id="7150" name="Qlobal olaraq Söz Qırmanı deaktivləşdir"/>
+					<Item id="7151" name="URL kliklə bilən linkə icazə ver"/>
+					<Item id="7152" name="≥2GB faylları açarkən xəbərdarlığı gizlət"/>
+				</Performance>
+
+				<Cloud title="Bulud &amp; Link">
+					<Item id="6262" name="Bulud üzərində parametrlər"/>
+					<Item id="6263" name="Bulud yoxdur"/>
+					<Item id="6267" name="Bulud yeri yolunu burada təyin edin:"/>
+					<Item id="6318" name="Kliklə bilən Link Parametrləri"/>
+					<Item id="6319" name="Aktivləşdir"/>
+					<Item id="6320" name="Alt xətt yoxdur"/>
+					<Item id="6350" name="Tam qutu rejimini aktivləşdir"/>
+					<Item id="6264" name="URI fərdiləşdirilmiş sxemlər:"/>
+				</Cloud>
+
+				<SearchEngine title="Axtarış Mühərriki">
+					<Item id="6271" name="Axtarış Mühərriki (&quot;İnternetdə Axtar&quot; əmri üçün)"/>
+					<Item id="6272" name="DuckDuckGo"/>
+					<Item id="6273" name="Google"/>
+					<Item id="6274" name="Bing"/>
+					<Item id="6275" name="Yahoo!"/>
+					<Item id="6276" name="Axtarış mühərrikinizi burada təyin edin:"/>
+					<!-- Misal: -dan sonra heç nə dəyişməyin -->
+					<Item id="6278" name="Misal: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+				</SearchEngine>
+
+				<MISC title="DİGƏR">
+					<ComboBox id="6347">
+						<Element name="Cari fayl üçün aktivləşdir"/>
+						<Element name="Bütün açıq fayllar üçün aktivləşdir"/>
+						<Element name="Deaktivləşdir"/>
+					</ComboBox>
+					<ComboBox id="6307">
+						<Element name="Heç bir əməliyyat etmə"/>
+						<Element name="Kiçilt"/>
+						<Element name="Bağla"/>
+						<Element name="Kiçilt / Bağla"/>
+					</ComboBox>
+					<Item id="6308" name="sistem tray"/>
+					<Item id="6312" name="Fayl Vəziyyətini Avtomatik Aşkarlama"/>
+					<Item id="6313" name="Sessiz şəkildə yenilə"/>
+					<Item id="6325" name="Yeniləmədən sonra son xəttə sürüş"/>
+					<Item id="6322" name="Sessiya fayl uzantısı:"/>
+					<Item id="6323" name="Notepad++ avtomatik yeniləməsini aktivləşdir"/>
+					<Item id="6324" name="Sənəd Dəyişdirici (Ctrl+TAB)"/>
+					<Item id="6331" name="Başlıq çubuğunda yalnız fayl adını göstər"/>
+					<Item id="6334" name="Simvol kodlaşdırmasını avtomatik aşkarla"/>
+					<Item id="6349" name="DirectWrite istifadə et (Xüsusi simvolların renderini yaxşılaşdıra bilər, Notepad++ yenidən başlatmaq tələb olunur)"/>
+					<Item id="6337" name="İş Sahəsi fayl uzantısı:"/>
+					<Item id="6114" name="Aktivləşdir"/>
+					<Item id="6117" name="MRU davranışını aktivləşdirin"/>
+					<Item id="6344" name="Sənədə Nəzər Yetir"/>
+					<Item id="6345" name="Vərəqdə nəzər yetir"/>
+					<Item id="6346" name="Sənəd Xəritəsində nəzər yetir"/>
+					<Item id="6360" name="Bütün səsləri söndür"/>
+					<Item id="6361" name="Hamısını Saxla təsdiq dialoqunu aktivləşdir"/>
+				</MISC>
 			</Preference>
-
-			<MultiMacro title="Macronu bir neçə dəfə işə sal">
-				<Item id="1" name="İşə sal"/>
-				<Item id="2" name="İmtina"/>
-				<Item id="8006" name="Macronu işə sal :"/>
-				<Item id="8001" name="İşə sal"/>
+			<MultiMacro title="Makronu Bir Neçə Dəfə İşlə">
+				<Item id="1" name="&amp;İşlə"/>
+				<Item id="2" name="&amp;Ləğv et"/>
+				<Item id="8006" name="İşlədiləcək makro"/>
+				<Item id="8001" name="İşlə"/>
 				<Item id="8005" name="dəfə"/>
-				<Item id="8002" name="Faylı sonuna qədər icra et"/>
+				<Item id="8002" name="Faylın sonuna qədər işlə"/>
 			</MultiMacro>
-
 			<Window title="Pəncərələr">
-				<Item id="1" name="Aktivləşdir"/>
-				<Item id="2" name="OK"/>
-				<Item id="7002" name="Yadda saxla"/>
-				<Item id="7003" name="Pəncərəni(ri) bağla"/>
-				<Item id="7004" name="Sırala"/>
+				<Item id="1" name="&amp;Aktiv et"/>
+				<Item id="2" name="&amp;OK"/>
+				<Item id="7002" name="&amp;Saxla"/>
+				<Item id="7003" name="&amp;Pəncərə(ləri) bağla"/>
+				<Item id="7004" name="Vərəqləri sırala"/>
 			</Window>
-
-			<ColumnEditor title="Sütun Redaktəsi">
-				<Item id="2023" name="Yerləşdiriləcək mətin"/>
-				<Item id="2033" name="Yerləşdiriləcək sayı"/>
-				<Item id="2030" name="İlk rəqəm :"/>
-				<Item id="2031" name="Addım :"/>
-				<Item id="2035" name="Sıfır Əlavə et"/>
+			<ColumnEditor title="Sütun Redaktoru">
+				<Item id="2023" name="&amp;Daxil ediləcək mətn"/>
+				<Item id="2033" name="&amp;Daxil ediləcək nömrə"/>
+				<Item id="2030" name="&amp;Başlanğıc nömrəsi:"/>
+				<Item id="2031" name="Artım &amp;ilə:"/>
+				<Item id="2038" name="&amp;Başlanğıc:"/>
+				<ComboBox id="2039">
+					<Element name="Heç biri"/>
+					<Element name="Sıfırlar"/>
+					<Element name="Boşluqlar"/>
+				</ComboBox>
+				<Item id="2036" name="&amp;Təkrar:"/>
 				<Item id="2032" name="Format"/>
-				<Item id="2024" name="Dec"/>
-				<Item id="2025" name="Oct"/>
-				<Item id="2026" name="Hex"/>
-				<Item id="2027" name="Bin"/>
+				<Item id="2024" name="&amp;Onluq"/>
+				<Item id="2025" name="&amp;Səkkizlik"/>
+				<Item id="2026" name="&amp;Onaltılıq"/>
+				<Item id="2027" name="&amp;İkilik"/>
 				<Item id="1" name="OK"/>
-				<Item id="2" name="İmtina"/>
+				<Item id="2" name="Ləğv et"/>
 			</ColumnEditor>
+			<FindInFinder title="Axtarış nəticələrində tap">
+				<Item id="1" name="Hamısını tap"/>
+				<Item id="2" name="Bağla"/>
+				<Item id="1711" name="&amp;Nə axtarılır:"/>
+				<Item id="1713" name="Yalnız tapılan xətlərdə axtar"/>
+				<Item id="1714" name="Yalnız tam sözü uyğunlaşdır"/>
+				<Item id="1715" name="Registrə həssas"/>
+				<Item id="1716" name="Axtarış rejimi"/>
+				<Item id="1717" name="&amp;Normal"/>
+				<Item id="1719" name="Re&amp;qular ifadə"/>
+				<Item id="1718" name="Genişləndirilmiş (\n, \r, \t, \0, \x...)"/>
+				<Item id="1720" name="&amp;. yeni xəttlə uyğunlaşır"/>
+			</FindInFinder>
+			<DoSaveOrNot title="Saxla">
+				<Item id="1761" name="&quot;$STR_REPLACE$&quot; faylını saxla?"/>
+				<Item id="6" name="&amp;Bəli"/>
+				<Item id="7" name="&amp;Xeyr"/>
+				<Item id="2" name="&amp;Ləğv et"/>
+				<Item id="4" name="Hamısına &amp;Bəli"/>
+				<Item id="5" name="Hamısına &amp;Xeyr"/>
+			</DoSaveOrNot>
+			<DoSaveAll title="Hamısını Saxla Təsdiqi">
+				<Item id="1766" name="Bütün dəyişdirilmiş sənədləri saxlamaq istədiyinizə əminsiniz?
 
+Bu dialoqu bir daha görmək istəmirsinizsə, &quot;Həmişə Bəli&quot; seçin.
+Bu dialoqu daha sonra Nizamlamalarda yenidən aktivləşdirə bilərsiniz."/>
+				<Item id="6" name="&amp;Bəli"/>
+				<Item id="7" name="&amp;Xeyr"/>
+				<Item id="4" name="&amp;Həmişə Bəli"/>
+			</DoSaveAll><!-- HowToReproduce: Nizamlamalarda "Hamısını Saxla təsdiq dialoqunu aktivləşdir" seçimini yoxlayın, sonra "Hamısını Saxla" düyməsini basın. -->
+
+			<DebugInfo title="Debug Məlumatı">
+				<Item id="1752" name="&amp;Debug məlumatını mübadilə buferinə köçür"/>
+				<Item id="1" name="OK"/>
+			</DebugInfo>
 		</Dialog>
+		<MessageBox>
+			<!-- $INT_REPLACE$ və $STR_REPLACE$ əvəz ediləcək dəyərlərdir, bu dəyərləri tərcümə etməyin. -->
+			<ContextMenuXmlEditWarning title="contextMenu redaktəsi" message="contextMenu.xml faylını redaktə etməklə Notepad++ popup kontekst menyusunu dəyişə bilərsiniz.
+contextMenu.xml faylını dəyişdikdən sonra Notepad++ yenidən başlatmaq lazımdır."/>
+			<SaveCurrentModifWarning title="Cari Dəyişikliyi Saxla" message="Cari dəyişikliyi saxlamalısınız.
+Bütün saxlanılmış dəyişikliklər geri qaytarıla bilməz.
+
+Davam etmək istəyirsiniz?"/><!-- HowToReproduce: açıq fayl dəyişdirilib, lakin saxlanılmayıb və siz fayl kodlaşdırmasını dəyişirsiniz. -->
+			<LoseUndoAbilityWarning title="Geri Alma Qabiliyyətini İtirmək Xəbərdarlığı" message="Cari dəyişikliyi saxlamalısınız.
+Bütün saxlanılmış dəyişikliklər geri qaytarıla bilməz.
+
+Davam etmək istəyirsiniz?"/><!-- HowToReproduce: açıq fayl dəyişdirilib və saxlanılıb, sonra siz fayl kodlaşdırmasını dəyişirsiniz. -->
+			<CannotMoveDoc title="Yeni Notepad++ Nümunəsinə Köçür" message="Sənəd dəyişdirilib, saxlayın və yenidən cəhd edin."/><!-- HowToReproduce: Notepad++-dən təmiz (dəyişdirilməmiş) faylı Notepad++ xaricindəki bir yerə sürükləyin, yeni Notepad++ nümunəsi yaradılacaq. Sonra ilk Notepad++-dən saxlanılmamış faylı yeni nümunəyə sürükləyin. -->
+			<DocReloadWarning title="Yenidən yüklə" message="Cari faylı yenidən yükləyib Notepad++-də edilən dəyişiklikləri itirmək istədiyinizə əminsiniz?"/>
+			<FileLockedWarning title="Saxlama uğursuz oldu" message="Zəhmət olmasa bu faylın başqa proqramda açıq olub-olmadığını yoxlayın"/>
+			<FileAlreadyOpenedInNpp title="" message="Fayl artıq Notepad++-də açıqdır."/><!-- HowToReproduce: Yeni sənəd açın və "c:/tmp/foo" faylını açın, bu yeni sənədi "c:/tmp/foo" kimi saxlayın, "bəli" cavabını verin, sonra bu mesaj görünəcək. -->
+			<RenameTabTemporaryNameAlreadyInUse title="Yenidən adlandırma uğursuz oldu" message="Təyin edilən ad artıq başqa vərəqdə istifadə olunur."/><!-- HowToReproduce: Adsız sənədin vərəqini yenidən adlandırın və artıq mövcud olan başqa adsız sənədin adını verin. -->
+			<RenameTabTemporaryNameIsEmpty title="Yenidən adlandırma uğursuz oldu" message="Təyin edilən ad boş ola bilməz və ya yalnız boşluq(lar) və ya TAB(lar) ola bilməz."/><!-- HowToReproduce: Adsız sənədin vərəqini yenidən adlandırın və boş sətir və ya yalnız boşluqlar verin. -->
+			<DeleteFileFailed title="Faylı Sil" message="Faylı silmək uğursuz oldu"/><!-- HowToReproduce: Bu mesaj sistem xətasını qarşısını almaq üçündür. Təkrarlamaq çətindir. -->
+
+			<NbFileToOpenImportantWarning title="Açılacaq faylların sayı çox böyükdür" message="$INT_REPLACE$ fayl açılmaq üzrədir.
+Onları açmaq istədiyinizə əminsiniz?"/><!-- HowToReproduce: Nizamlamalarda "Qovluq buraxıldıqda İş Sahəsi kimi başlatmaq əvəzinə qovluqdakı bütün faylları aç" seçimini yoxlayın, sonra 200-dən çox fayl olan qovluğu Notepad++-ə sürükləyin. -->
+			<SettingsOnCloudError title="Buludda Nizamlamalar" message="Görünür ki, buludda nizamlamalar yolu yalnız oxunan diskdədir,
+ya da yazmaq üçün icazə tələb olunan qovluqdadır.
+Buludda nizamlamalarınız ləğv ediləcək. Zəhmət olmasa Nizamlamalar dialoqu vasitəsilə uyğun dəyər təyin edin."/>
+			<FilePathNotFoundWarning title="Fayl Aç" message="Açmağa çalışdığınız fayl mövcud deyil."/><!-- HowToReproduce: Bu mesaj sistem xətasını qarşısını almaq üçündür. Təkrarlamaq çətindir. -->
+			<SessionFileInvalidError title="Sessiya Yüklənə Bilmədi" message="Sessiya faylı ya zədələnib, ya da etibarsızdır."/><!-- HowToReproduce: "Fayl -> Sessiyanı Saxla..." menyusu vasitəsilə cari sessiyanı saxlayın, başqa redaktorla bu sessiyanı dəyişdirərək etibarsız XML faylı edin. Sonra bu etibarsız sessiyanı "Fayl -> Sessiyanı Yüklə..." menyusu vasitəsilə yükləyin. -->
+			<DroppingFolderAsProjectModeWarning title="Etibarsız əməliyyat" message="Yalnız faylları və ya yalnız qovluqları buraxa bilərsiniz, hər ikisini yox, çünki siz Qovluq İş Sahəsi kimi buraxma rejimindəsiniz.
+Bu əməliyyatın işləməsi üçün Nizamlamalarda &quot;Qovluq buraxıldıqda İş Sahəsi kimi başlatmaq əvəzinə qovluqdakı bütün faylları aç&quot; seçimini aktivləşdirməlisiniz."/>
+			<SortingError title="Sıralama Xətası" message="$INT_REPLACE$ xətti səbəbi ilə rəqəmsal sıralama edilə bilməz."/><!-- HowToReproduce: Bu mesaj sistem xətasını qarşısını almaq üçündür. Təkrarlamaq çətindir. -->
+			<ColumnModeTip title="Sütun Rejimi İpucu" message="
+Sütun seçim rejiminə keçmək üçün 3 üsul var:
+
+1. (Klaviatura və Siçan)  Alt düyməsini basılı saxlayaraq sol siçanla sürükləyin
+
+2. (Yalnız Klaviatura)  Alt+Shift düymələrini basılı saxlayaraq ox düymələrindən istifadə edin
+
+3. (Klaviatura və ya Siçan)
+      Kursoru sütun blokunun başlanğıc mövqeyinə qoyun, sonra
+       &quot;Sütun Rejimində Seçimə Başla/Bitir&quot; əmrini icra edin;
+      Kursoru sütun blokunun bitmə mövqeyinə qoyun, sonra
+       &quot;Sütun Rejimində Seçimə Başla/Bitir&quot; əmrini yenidən icra edin"/>
+			<BufferInvalidWarning title="Saxlama uğursuz oldu" message="Saxlamaq mümkün deyil: Bufer etibarsızdır."/><!-- HowToReproduce: Bu mesaj sistem xətasını qarşısını almaq üçündür. Təkrarlamaq çətindir. -->
+			<DoCloseOrNot title="Mövcud olmayan faylı saxla" message="&quot;$STR_REPLACE$&quot; faylı artıq mövcud deyil.
+Bu faylı redaktorda saxlamaq istəyirsiniz?"/>
+			<DoDeleteOrNot title="Faylı sil" message="&quot;$STR_REPLACE$&quot; faylı
+Sizin Zibil qutunuza köçürüləcək və bu sənəd bağlanacaq.
+Davam etmək istəyirsiniz?"/>
+			<NoBackupDoSaveFile title="Saxla" message="Ehtiyat nüsxəniz tapılmadı (xaricdən silinib).
+Faylı saxlamazsanız, məlumatlarınız itəcək
+&quot;$STR_REPLACE$&quot; faylını saxlamaq istəyirsiniz?"/>
+			<DoReloadOrNot title="Yenidən yüklə" message="&quot;$STR_REPLACE$&quot;
+
+Bu fayl başqa proqram tərəfindən dəyişdirilib.
+Yenidən yükləmək istəyirsiniz?"/>
+			<DoReloadOrNotAndLooseChange title="Yenidən yüklə" message="&quot;$STR_REPLACE$&quot;
+
+Bu fayl başqa proqram tərəfindən dəyişdirilib.
+Onu yenidən yükləyib Notepad++-də edilən dəyişiklikləri itirmək istəyirsiniz?"/>
+			<PrehistoricSystemDetected title="Köhnə sistem aşkarlandı" message="Görünür ki, siz hələ də köhnə sistem istifadə edirsiniz. Bu xüsusiyyət yalnız müasir sistemlərdə işləyir, təəssüf ki."/><!-- HowToReproduce: Windows XP altında "Sənəd Xəritəsi"ni başladın. -->
+			<XpUpdaterProblem title="Notepad++ Yeniləyici" message="Notepad++ yeniləyicisi XP ilə uyğun deyil, çünki XP-də təhlükəsizlik təbəqəsi köhnəlib.
+Notepad++ səhifəsinə keçib ən son versiyanı yükləmək istəyirsiniz?"/><!-- HowToReproduce: Windows XP altında "? -> Notepad++ Yenilə" menyusunu işə salın. -->
+			<GUpProxyConfNeedAdminMode title="Proxy Nizamlamaları" message="Zəhmət olmasa Notepad++-i Admin rejimində yenidən başladın ki, proxy nizamlamalarını tənzimləyəsiniz."/>
+			<DocTooDirtyToMonitor title="Monitorinq problemi" message="Sənəd dəyişdirilib. Zəhmət olmasa monitorinqdən əvvəl dəyişikliyi saxlayın."/>
+			<DocNoExistToMonitor title="Monitorinq problemi" message="Fayl monitorinq üçün mövcud olmalıdır."/>
+			<FileTooBigToOpen title="Fayl ölçüsü problemi" message="Fayl Notepad++ tərəfindən açılmaq üçün çox böyükdür."/><!-- HowToReproduce: 4GB fayl açmağa cəhd edin (təkrarlamaq asan deyil, sisteminizdən asılıdır). -->
+			<FileLoadingException title="Xəta kodu: $STR_REPLACE$" message="Fayl yüklənərkən xəta baş verdi!"/>
+			<WantToOpenHugeFile title="Böyük fayl açma xəbərdarlığı" message="2GB+ böyüklüyündə fayl açmaq bir neçə dəqiqə çəkə bilər.
+Onu açmaq istəyirsiniz?"/>
+			<CreateNewFileOrNot title="Yeni fayl yarat" message="&quot;$STR_REPLACE$&quot; mövcud deyil. Yaratmaq istəyirsiniz?"/>
+			<CreateNewFileError title="Yeni fayl yaratma xətası" message="&quot;$STR_REPLACE$&quot; faylını yaratmaq mümkün olmadı."/><!-- HowToReproduce: Bu mesaj sistem xətasını qarşısını almaq üçündür. Təkrarlamaq çətindir. -->
+			<OpenFileError title="XƏTA" message="&quot;$STR_REPLACE$&quot; faylını açmaq mümkün olmadı."/>
+			<OpenFileNoFolderError title="Fayl açıla bilmədi" message="&quot;$STR_REPLACE1$&quot; faylını açmaq mümkün deyil:
+&quot;$STR_REPLACE2$&quot; qovluğu mövcud deyil."/>
+			<FileBackupFailed title="Fayl ehtiyat nüsxəsi uğursuz oldu" message="Faylın əvvəlki versiyası &quot;$STR_REPLACE$&quot; ehtiyat qovluğuna saxlanıla bilmədi.
+
+Cari faylı hər halda saxlamaq istəyirsiniz?"/><!-- HowToReproduce: Bu mesaj sistem xətasını qarşısını almaq üçündür. Təkrarlamaq çətindir. -->
+			<LoadStylersFailed title="stylers.xml yüklənmədi" message="&quot;$STR_REPLACE$&quot; yüklənmədi!"/>
+			<LoadLangsFailed title="Konfiqurator" message="langs.xml yüklənmədi!
+langs.xml faylını bərpa etmək istəyirsiniz?"/><!-- HowToReproduce: Notepad++-i bağlayın. Başqa redaktorla "langs.xml" faylının məzmununu silin (0 uzunluq) və saxlayın. Notepad++-i açın. -->
+			<LoadLangsFailedFinal title="Konfiqurator" message="langs.xml yüklənmədi!"/><!-- HowToReproduce: Notepad++-i bağlayın. Başqa redaktorla "langs.xml" faylını etibarsız XML faylı edin və saxlayın. Notepad++-i açın. -->
+			<FolderAsWorspaceSubfolderExists title="İş Sahəsi kimi Qovluq əlavə etmə problemi" message="Əlavə etmək istədiyiniz qovluğun alt qovluğu mövcuddur.
+&quot;$STR_REPLACE$&quot; qovluğunu əlavə etməzdən əvvəl onun kökünü paneldən silin."/><!-- HowToReproduce: "c:\temp\aFolder\" kimi qovluğu "İş Sahəsi kimi Qovluq" panelinə əlavə edin, sonra "c:\temp\" əlavə etməyə cəhd edin. -->
+
+			<ProjectPanelChanged title="$STR_REPLACE$" message="İş sahəsi dəyişdirilib. Onu saxlamaq istəyirsiniz?"/>
+			<ProjectPanelSaveError title="$STR_REPLACE$" message="İş sahəsi faylını yazarkən xəta baş verdi.
+İş sahəniz saxlanılmayıb."/><!-- HowToReproduce: Bu mesaj sistem xətasını qarşısını almaq üçündür. Təkrarlamaq çətindir. -->
+			<ProjectPanelOpenDoSaveDirtyWsOrNot title="İş Sahəsini Aç" message="Cari iş sahəsi dəyişdirilib. Cari layihəni saxlamaq istəyirsiniz?"/>
+			<ProjectPanelNewDoSaveDirtyWsOrNot title="Yeni İş Sahəsi" message="Cari iş sahəsi dəyişdirilib. Cari layihəni saxlamaq istəyirsiniz?"/>
+			<ProjectPanelOpenFailed title="İş Sahəsini Aç" message="İş sahəsi açıla bilmədi.
+Görünür ki, açmaq istədiyiniz fayl etibarlı layihə faylı deyil."/>
+			<ProjectPanelRemoveFolderFromProject title="Layihədən qovluğu sil" message="Bütün alt elementlər silinəcək.
+Bu qovluğu layihədən silmək istədiyinizə əminsiniz?"/>
+			<ProjectPanelRemoveFileFromProject title="Layihədən faylı sil" message="Bu faylı layihədən silmək istədiyinizə əminsiniz?"/>
+			<ProjectPanelReloadError title="İş Sahəsini Yenidən Yüklə" message="Yenidən yüklənəcək fayl tapılmadı."/>
+			<ProjectPanelReloadDirty title="İş Sahəsini Yenidən Yüklə" message="Cari iş sahəsi dəyişdirilib. Yenidən yükləmə bütün dəyişiklikləri ləğv edəcək.
+Davam etmək istəyirsiniz?"/>
+			<UDLNewNameError title="UDL Xətası" message="Bu ad başqa dil tərəfindən istifadə olunur,
+zəhmət olmasa başqa ad verin."/>
+			<UDLRemoveCurrentLang title="Cari dili sil" message="Əminsiniz?"/>
+			<SCMapperDoDeleteOrNot title="Əminsiniz?" message="Bu qısayolu silmək istədiyinizə əminsiniz?"/>
+			<FindCharRangeValueError title="Aralıq dəyəri problemi" message="0 ilə 255 arasında dəyər daxil etməlisiniz."/>
+			<OpenInAdminMode title="Saxlama uğursuz oldu" message="Fayl saxlanıla bilmədi və qorunur ola bilər.
+Notepad++-i Admin rejimində başlatmaq istəyirsiniz?"/>
+			<OpenInAdminModeWithoutCloseCurrent title="Saxlama uğursuz oldu" message="Fayl saxlanıla bilmədi və qorunur ola bilər.
+Notepad++-i Admin rejimində başlatmaq istəyirsiniz?"/>
+			<OpenInAdminModeFailed title="Admin rejimində açma uğursuz oldu" message="Notepad++ Admin rejimində açıla bilmədi."/><!-- HowToReproduce: Admin hüquqlarınız yoxdursa və qorunan yerdə (məsələn, "C:\Program Files\" alt qovluğunda) dəyişdirilmiş fayl saxlamaq istəyirsinizsə, bu mesaj "Admin rejimində aç" dialoqunda "Bəli" cavabı verdikdən sonra görünəcək. -->
+			<ViewInBrowser title="Cari Faylı Brauzerdə Göstər" message="Tətbiq sisteminizdə tapılmadı."/>
+			<ExitToUpdatePlugins title="Notepad++ bağlanmaq üzrədir" message="Bəli düyməsini basarsanız, Notepad++ bağlanacaq və əməliyyatlar davam edəcək.
+Bütün əməliyyatlar bitdikdən sonra Notepad++ yenidən başladılacaq.
+Davam etmək istəyirsiniz?"/>
+			<NeedToRestartToLoadPlugins title="Notepad++ yenidən başladılmalıdır" message="Yüklədiyiniz pluginləri yükləmək üçün Notepad++-i yenidən başlatmalısınız."/><!-- HowToReproduce: "Nizamlamalar -> İdxal -> Plugin(lər) idxal et..." menyusu vasitəsilə plugin idxal edin. -->
+			<ChangeHistoryEnabledWarning title="Notepad++ yenidən başladılmalıdır" message="Dəyişiklik Tarixçəsini aktivləşdirmək üçün Notepad++-i yenidən başlatmalısınız."/><!-- HowToReproduce: Nizamlamalar dialoqunda "Dəyişiklik Tarixçəsini göstər" seçimini söndürün. -->
+			<WindowsSessionExit title="Notepad++ - Windows sessiyası bağlanır" message="Windows sessiyası bağlanmaq üzrədir, lakin sizdə saxlanılmamış məlumatlar var. Notepad++-i indi bağlamaq istəyirsiniz?"/>
+			<LanguageMenuCompactWarning title="Yığcam Dil Menyusu" message="Bu seçim növbəti başlatmada dəyişdiriləcək."/><!-- HowToReproduce: Nizamlamalar dialoqunda "Dil/Dil Menyusu" bölməsində "Dil menyusunu yığcam et" seçimini dəyişdirin. -->
+			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Saxlanılmamış dəyişikliklər ləğv ediləcək!
+Temaları dəyişməzdən əvvəl dəyişikliklərinizi saxlamaq istəyirsiniz?"/><!-- HowToReproduce: Stil Konfiquratoru dialoqunda bəzi temanı dəyişdirin və saxlamadan başqa temaya keçin. -->
+			<MacroAndRunCmdlWarning title="Makro və Əmrlərin Uyğunluğu" message="Notepad++ v.8.5.2 (və ya daha köhnə) versiyasında saxlanılmış Makro və Əmrləriniz Notepad++-in cari versiyası ilə uyğun olmaya bilər.
+Zəhmət olmasa bu əmrləri yoxlayın və lazım gələrsə, yenidən redaktə edin.
+
+Alternativ olaraq, Notepad++ v8.5.2 versiyasına geri qayıda və əvvəlki məlumatlarınızı bərpa edə bilərsiniz.
+Notepad++ köhnə &quot;shortcuts.xml&quot; faylını ehtiyat nüsxə kimi saxlayacaq və &quot;shortcuts.xml.v8.5.2.backup&quot; kimi qeyd edəcək.
+&quot;shortcuts.xml.v8.5.2.backup&quot; faylını &quot;shortcuts.xml&quot; adına dəyişdirərək əmrləriniz bərpa ediləcək və düzgün işləyəcək."/><!-- HowToReproduce: Notepad++-i bağlayın, shortcuts.xml.v8.5.2.backup və v852ShortcutsCompatibilityWarning.xml fayllarını silin, Notepad++-i yenidən başladın, Qısayol Xəritəsi vasitəsilə qısayolları silin və ya dəyişdirin, Notepad++-i bağlayın, sonra bu mesaj görünəcək. -->
+			<NotEnoughRoom4Saving title="Saxlama uğursuz oldu" message="Fayl saxlanıla bilmədi.
+Görünür ki, diskdə faylı saxlamaq üçün kifayət qədər yer yoxdur. Faylınız saxlanılmayıb."/>
+			<FileInaccessibleUserSession title="Fayl əlçatmazdır" message="&quot;$STR_REPLACE$&quot; əl ilə saxlanılmış sessiyanızdan bəzi fayllar əlçatmazdır. Onlar boş və yalnız oxunan sənədlər kimi açıla bilər.
+
+Bu sənədləri yaratmaq istəyirsiniz?
+
+QEYD: Sənədləri yaratmamaq və ya sonradan bağlamaq seçimi ilə əl ilə saxlanılmış sessiyanız çıxış zamanı DƏYİŞDİRİLMƏYƏCƏK."/>
+			<FileInaccessibleDefaultSessionXml title="Fayl əlçatmazdır" message="Keçmiş sessiyanızdan bəzi fayllar əlçatmazdır. Onlar boş və yalnız oxunan sənədlər kimi açıla bilər.
+
+Bu sənədləri yaratmaq istəyirsiniz?
+
+QEYD: Sənədləri yaratmamaq və ya sonradan bağlamaq seçimi ilə sessiyanız ÇIXIŞ ZAMANI DƏYİŞDİRİLƏCƏK! Təqdim edirik ki, &quot;session.xml&quot; faylını indi ehtiyat nüsxə kimi saxlayasınız."/>
+			<RTLvsDirectWrite title="RTL işlədilə bilməz" message="RTL DirectWrite rejimi ilə uyğun deyil. Zəhmət olmasa Nizamlamalar dialoqunda DirectWrite rejimini söndürün və Notepad++-i yenidən başladın."/>
+			<FileMemoryAllocationFailed title="Xəta: Fayl yaddaş ayrılması uğursuz oldu" message="Notepad++ tərəfindən yüklənən fayl üçün kifayət qədər bitişik yaddaş yoxdur."/><!-- HowToReproduce: x86 Notepad++-da ümumi ölçüsü ~700MB-dan çox olan bir neçə fayl açmağa cəhd edin (bu, kompüterin yaddaş konfiqurasiyası və cari sistem yaddaş istifadəsindən asılıdır...). -->
+			<FindRegexBackwardDisabled title="Regex geriyə axtarış deaktivdir" message="Standart olaraq, gözlənilməz nəticələrə səbəb ola biləcəyi üçün geriyə regex axtarışı deaktivdir. Geriyə axtarış etmək üçün Axtarış dialoqunu açın və normal və ya genişləndirilmiş axtarış rejimini seçin, regex əvəzinə.
+Axtarış dialoqunu açmaq və ya ona fokus vermək üçün OK düyməsini basın.
+
+Əgər geriyə regex axtarışı xüsusiyyətinə ehtiyacınız varsa, istifadəçi təlimat kitabına müraciət edərək onu aktivləşdirmək üçün təlimatları oxuyun."/>
+			<PrintError title="0" message="Printer sənədi başladıla bilmədi."/><!-- title="0" istifadə edərək Windows OS-un standart tərcümə olunmuş "Xəta" başlığını istifadə edin. -->
+		</MessageBox>
+		<ClipboardHistory>
+			<PanelTitle name="Mübadilə Tarixçəsi"/>
+		</ClipboardHistory>
+		<DocList>
+			<PanelTitle name="Sənəd Siyahısı"/>
+			<ColumnName name="Ad"/>
+			<ColumnExt name="Uzantı"/>
+			<ColumnPath name="Yol"/>
+			<ListGroups name="Görünüşə görə qruplaşdır"/>
+		</DocList>
+		<WindowsDlg>
+			<ColumnName name="Ad"/>
+			<ColumnPath name="Yol"/>
+			<ColumnType name="Tip"/>
+			<ColumnSize name="Ölçü"/>
+			<NbDocsTotal name="ümumi sənədlər:"/>
+			<MenuCopyName name="Ad(lar)ı Köçür"/>
+			<MenuCopyPath name="Yol ad(lar)ını Köçür"/>
+		</WindowsDlg>
+		<AsciiInsertion>
+			<PanelTitle name="ASCII Kodları Əlavə Paneli"/>
+			<ColumnVal name="Dəyər"/>
+			<ColumnHex name="Hex"/>
+			<ColumnChar name="Simvol"/>
+			<ColumnHtmlName name="HTML Adı"/>
+			<ColumnHtmlNumber name="HTML Onluq"/>
+			<ColumnHtmlHexNb name="HTML Onaltılıq"/>
+		</AsciiInsertion>
+		<DocumentMap>
+			<PanelTitle name="Sənəd Xəritəsi"/>
+		</DocumentMap>
+		<FunctionList>
+			<PanelTitle name="Funksiya Siyahısı"/>
+			<SortTip name="Çeşidlə"/>
+			<ReloadTip name="Yenidən yüklə"/>
+			<PreferencesTip name="Nizamlamalar"/>
+			<PreferencesInitialSort name="Funksiyaları standart olaraq (A-dan Z-yə) çeşidlə"/>
+		</FunctionList>
+		<FolderAsWorkspace>
+			<PanelTitle name="Qovluq İş Sahəsi kimi"/>
+			<SelectFolderFromBrowserString name="İş Sahəsi panelinə əlavə etmək üçün qovluq seçin"/>
+			<ExpandAllFoldersTip name="Hamısını aç"/>
+			<CollapseAllFoldersTip name="Hamısını qatla"/>
+			<LocateCurrentFileTip name="Cari faylı tap"/>
+			<Menu>
+				<Item id="3511" name="Sil"/>
+				<Item id="3512" name="Hamısını Sil"/>
+				<Item id="3513" name="Əlavə et"/>
+				<Item id="3514" name="Sistem tərəfindən işlə"/>
+				<Item id="3515" name="Aç"/>
+				<Item id="3516" name="Yolu köçür"/>
+				<Item id="3517" name="Fayllarda tap..."/>
+				<Item id="3518" name="Burada Explorer"/>
+				<Item id="3519" name="Burada CMD"/>
+				<Item id="3520" name="Fayl adını köçür"/>
+			</Menu>
+		</FolderAsWorkspace>
+		<ProjectManager>
+			<PanelTitle name="Layihə"/>
+			<WorkspaceRootName name="İş Sahəsi"/>
+			<NewProjectName name="Layihə Adı"/>
+			<NewFolderName name="Qovluq Adı"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="İş Sahəsi"/>
+					<Item id="1" name="Redaktə"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="Yeni İş Sahəsi"/>
+					<Item id="3123" name="İş Sahəsini Aç"/>
+					<Item id="3124" name="İş Sahəsini Yenidən Yüklə"/>
+					<Item id="3125" name="Saxla"/>
+					<Item id="3126" name="Fərqli Saxla..."/>
+					<Item id="3127" name="Kopya Fərqli Saxla..."/>
+					<Item id="3121" name="Yeni Layihə Əlavə Et"/>
+					<Item id="3128" name="Layihələrdə tap..."/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Yenidən adlandır"/>
+					<Item id="3112" name="Qovluq Əlavə Et"/>
+					<Item id="3113" name="Fayl(lar) Əlavə Et..."/>
+					<Item id="3117" name="Qovluqdan Fayl(lar) Əlavə Et..."/>
+					<Item id="3114" name="Sil"/>
+					<Item id="3118" name="Yuxarıya köçür"/>
+					<Item id="3119" name="Aşağıya köçür"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Yenidən adlandır"/>
+					<Item id="3112" name="Qovluq Əlavə Et"/>
+					<Item id="3113" name="Fayl(lar) Əlavə Et..."/>
+					<Item id="3117" name="Qovluqdan Fayl(lar) Əlavə Et..."/>
+					<Item id="3114" name="Sil"/>
+					<Item id="3118" name="Yuxarıya köçür"/>
+					<Item id="3119" name="Aşağıya köçür"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Yenidən adlandır"/>
+					<Item id="3115" name="Sil"/>
+					<Item id="3116" name="Fayl Yolunu Dəyişdir"/>
+					<Item id="3118" name="Yuxarıya köçür"/>
+					<Item id="3119" name="Aşağıya köçür"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
+		<MiscStrings>
+			<!-- $INT_REPLACE$ və $STR_REPLACE$ əvəz ediləcək dəyərlərdir, bu dəyərləri tərcümə etməyin. -->
+			<word-chars-list-tip value="Bu, cari söz simvollarına əlavə simvollar daxil etməyə imkan verir, beləliklə ikiqat kliklə seçim edərkən və ya &quot;Yalnız tam sözü uyğunlaşdır&quot; seçimi aktiv olduqda axtarış edərkən istifadə olunur."/><!-- HowToReproduce: Nizamlamalar dialoqunda "Ayırıcı" bölməsində "?" düyməsinin üzərinə siçanı gətirin. -->
+
+			<!-- "(&quot;EOL custom color&quot;)" tərcümə edilməyib -->
+			<eol-custom-color-tip value="Standart EOL xüsusi rəngini dəyişdirmək üçün Stil Konfiquratoruna keçin (&quot;EOL custom color&quot;)."/>
+
+			<word-chars-list-warning-begin value="Diqqət: "/>
+			<word-chars-list-space-warning value="$INT_REPLACE$ boşluq(lar)"/>
+			<word-chars-list-tab-warning value="$INT_REPLACE$ TAB(lar)"/>
+			<word-chars-list-warning-end value="  simvollar siyahınızda."/><!-- HowToReproduce: Nizamlamalar dialoqunda "Ayırıcı" bölməsində "Sözün bir hissəsi kimi öz simvollarınızı əlavə edin\r(nə etdiyinizi bilmirsinizsə, bunu seçməyin)" seçimini yoxlayın, sonra mətn sahəsinə boşluq daxil edin. -->
+			<backup-select-folder value="Ehtiyat nüsxə qovluğu kimi qovluq seçin"/><!-- HowToReproduce: Nizamlamalar > Nizamlamalar > Ehtiyat Nüsxə > [...] -->
+			<cloud-invalid-warning value="Etibarsız yol."/>
+			<cloud-restart-warning value="Zəhmət olmasa Notepad++-i yenidən başladın ki, təsir göstərsin."/>
+			<cloud-select-folder value="Notepad++-in nizamlamalarını oxuduğu/yazdığı qovluğu seçin"/><!-- HowToReproduce: Nizamlamalar dialoqunda "Bulud" bölməsində "Bulud yeri yolunu burada təyin edin: " seçimini yoxlayın, sonra "..." düyməsini basın. Bu mesaj "Qovluq Seç" dialoqunda göstərilir. -->
+			<default-open-save-select-folder value="Standart qovluq kimi qovluq seçin"/><!-- HowToReproduce: Nizamlamalar > Nizamlamalar > Standart Qovluq > [...] -->
+			<shift-change-direction-tip value="Əks istiqamətdə axtarış etmək üçün Shift+Enter istifadə edin"/>
+			<two-find-buttons-tip value="2 axtarış düyməsi rejimi"/>
+			<find-in-files-filter-tip value="cpp, cxx, h, hxx &amp;&amp; hpp fayllarında tap:
+*.cpp *.cxx *.h *.hxx *.hpp
+
+exe, obj &amp;&amp; log faylları istisna olmaqla bütün fayllarda tap:
+*.* !*.exe !*.obj !*.log
+
+tests, bin &amp;&amp; bin64 qovluqları istisna olmaqla bütün fayllarda tap:
+*.* !\tests !\bin*
+
+log və ya logs qovluqlarını istisna edərək bütün fayllarda tap:
+*.* !+\log*"/><!-- HowToReproduce: Axtarış dialoqunda "Fayllarda tap" bölməsində "Filtrlər" etiketinin üzərinə siçanı gətirin. -->
+			<find-in-files-select-folder value="Axtarış üçün qovluq seçin"/><!-- HowToReproduce: Axtarış > Fayllarda tap > [...] -->
+			<find-in-files-dir-from-active-doc-tip value="Aktiv sənədə əsaslanaraq Qovluq sahəsini doldur"/><!-- HowToReproduce: Axtarış > Fayllarda tap > [<<] -->
+			<find-status-top-reached value="Tap: Sənədin başlanğıcına çatdı, altdan ilk uyğunluq tapıldı."/>
+			<find-status-end-reached value="Tap: Sənədin sonuna çatdı, yuxarıdan ilk uyğunluq tapıldı."/>
+			<find-status-replaceinfiles-1-replaced value="Fayllarda Dəyişdir: 1 uyğunluq dəyişdirildi"/>
+			<find-status-replaceinfiles-nb-replaced value="Fayllarda Dəyişdir: $INT_REPLACE$ uyğunluq dəyişdirildi"/>
+			<find-status-replaceinopenedfiles-1-replaced value="Açıq Fayllarda Dəyişdir: 1 uyğunluq dəyişdirildi"/>
+			<find-status-replaceinopenedfiles-nb-replaced value="Açıq Fayllarda Dəyişdir: $INT_REPLACE$ uyğunluq dəyişdirildi"/>
+			<find-status-invalid-re value="Tap: Etibarsız regular ifadə"/>
+			<find-status-search-failed value="Tap: Axtarış uğursuz oldu"/>
+			<find-status-mark-1-match value="İşarə: 1 uyğunluq"/>
+			<find-status-mark-nb-matches value="İşarə: $INT_REPLACE$ uyğunluq"/>
+			<find-status-count-1-match value="Say: 1 uyğunluq"/>
+			<find-status-count-nb-matches value="Say: $INT_REPLACE$ uyğunluq"/>
+			<find-status-replaceall-1-replaced value="Hamısını Dəyişdir: 1 uyğunluq dəyişdirildi"/>
+			<find-status-replaceall-nb-replaced value="Hamısını Dəyişdir: $INT_REPLACE$ uyğunluq dəyişdirildi"/>
+			<find-status-replaceall-readonly value="Hamısını Dəyişdir: Mətn dəyişdirilə bilməz. Cari sənəd yalnız oxunandır"/>
+			<find-status-replace-end-reached value="Dəyişdir: Sənədin sonuna çatdı, yuxarıdan başladı."/>
+			<find-status-replace-top-reached value="Dəyişdir: Sənədin başlanğıcına çatdı, altdan başladı."/>
+			<find-status-replaced-next-found value="Dəyişdir: 1 uyğunluq dəyişdirildi. Növbəti uyğunluq tapıldı."/>
+			<find-status-replaced-without-continuing value="Dəyişdir: 1 uyğunluq dəyişdirildi."/>
+			<find-status-replaced-next-not-found value="Dəyişdir: 1 uyğunluq dəyişdirildi. Daha çox uyğunluq tapılmadı."/>
+			<find-status-replace-not-found value="Dəyişdir: heç bir uyğunluq tapılmadı"/>
+			<find-status-replace-readonly value="Dəyişdir: Mətn dəyişdirilə bilməz. Cari sənəd yalnız oxunandır"/>
+			<find-status-cannot-find value="Tap: &quot;$STR_REPLACE$&quot; mətni tapıla bilmədi"/>
+			<find-status-cannot-find-pebkac-maybe value="Verilən uyğunluq tapılmadı. &quot;Ətrafında dolan&quot; (AÇIQ), &quot;Registrə həssas&quot; (SÖNDÜR) və ya &quot;Yalnız tam sözü uyğunlaşdır&quot; (SÖNDÜR) seçimlərini yoxlamağı unutmuş ola bilərsiniz."/>
+			<find-status-scope-selection value="seçilmiş mətndə"/>
+			<find-status-scope-all value="bütün faylda"/>
+			<find-status-scope-backward value="faylın başlanğıcından kursoradək"/>
+			<find-status-scope-forward value="kursordan faylın sonuna qədər"/>
+			<finder-find-in-finder value="Bu axtarış nəticələrində tap..."/>
+			<finder-close-this value="Bu axtarış nəticələrini bağla"/>
+			<finder-collapse-all value="Hamısını qatla"/>
+			<finder-uncollapse-all value="Hamısını aç"/>
+			<finder-copy value="Seçilmiş Xətt(lər)i Köçür"/>
+			<finder-copy-selected-paths value="Seçilmiş Yol ad(lar)ını Köçür"/>
+			<finder-clear-all value="Hamısını təmizlə"/>
+			<finder-open-selected-paths value="Seçilmiş Yol ad(lar)ını Aç"/>
+			<finder-purge-for-every-search value="Hər axtarış üçün təmizlə"/>
+			<finder-wrap-long-lines value="Uzun xətləri qır"/>
+			<common-ok value="OK"/>
+			<common-cancel value="Ləğv et"/>
+			<common-name value="Ad"/>
+			<tabrename-title value="Cari Vərəqi Yenidən Adlandır"/>
+			<tabrename-newname value="Yeni ad"/>
+			<splitter-rotate-left value="Sola fırlat"/>
+			<splitter-rotate-right value="Sağa fırlat"/>
+			<userdefined-title-new value="Yeni Dil Yarat..."/>
+			<userdefined-title-save value="Cari Dili Adla Saxla..."/>
+			<userdefined-title-rename value="Cari Dili Yenidən Adlandır"/>
+			<summary value="Xülasə"/>
+			<summary-filepath value="Tam fayl yolu: "/>
+			<summary-filecreatetime value="Yaradılma tarixi: "/>
+			<summary-filemodifytime value="Dəyişdirilmə tarixi: "/>
+			<summary-nbchar value="Simvollar (sətir sonları olmadan): "/>
+			<summary-nbword value="Sözlər: "/>
+			<summary-nbline value="Sətirlər: "/>
+			<summary-nbbyte value="Sənədin uzunluğu: "/>
+			<summary-nbsel1 value=" seçilmiş simvol ("/>
+			<summary-nbsel2 value=" bayt) "/>
+			<summary-nbrange value=" aralıq"/>
+			<progress-hits-title value="Uyğunluqlar:"/>
+			<progress-cancel-info value="Əməliyyat ləğv edilir, zəhmət olmasa gözləyin..."/>
+			<find-in-files-progress-title value="Fayllarda Axtarış irəliləyişi..."/>
+			<replace-in-files-confirm-title value="Əminsiniz?"/>
+			<replace-in-files-confirm-directory value="Bütün halları aşağıdakı qovluqda əvəzləmək istədiyinizə əminsinizmi:"/>
+			<replace-in-files-confirm-filetype value="Fayl növü üzrə:"/>
+			<replace-in-files-progress-title value="Fayllarda Əvəz Etmə irəliləyişi..."/>
+			<replace-in-projects-confirm-title value="Əminsiniz?"/>
+			<replace-in-projects-confirm-message value="Seçilmiş Layihə Panel(lər)indəki bütün sənədlərdə bütün halları əvəzləmək istəyirsiniz?"/>
+			<replace-in-open-docs-confirm-title value="Əminsiniz?"/>
+			<replace-in-open-docs-confirm-message value="Açıq sənədlərdəki bütün halları əvəzləmək istədiyinizə əminsiniz?"/>
+			<find-result-caption value="Axtarış nəticələri"/>
+			<find-result-title value="Axtarış"/>
+			<find-result-title-info value="($INT_REPLACE1$ uyğunluq $INT_REPLACE2$ faylda, $INT_REPLACE3$ fayl axtarıldı)"/>
+			<find-result-title-info-selections value="($INT_REPLACE1$ uyğunluq $INT_REPLACE2$ seçimdə, $INT_REPLACE3$ fayl axtarıldı)"/>
+			<find-result-title-info-options-searchmode-normal value="Normal"/>
+			<find-result-title-info-options-searchmode-extended value="Genişləndirilmiş"/>
+			<find-result-title-info-options-searchmode-regexp value="RegEx"/>
+			<find-result-title-info-options-case value="Böyük-kiçik hərf"/>
+			<find-result-title-info-options-word value="Söz"/>
+			<find-result-title-info-extra value=" - Sətir Filtri Rejimi: yalnız filtrlənmiş nəticələr göstərilir"/>
+			<find-result-hits value="($INT_REPLACE$ uyğunluq)"/>
+			<find-result-line-prefix value="Sətir"/>
+			<find-regex-zero-length-match value="sıfır uzunluqlu uyğunluq"/>
+			<session-save-folder-as-workspace value="Qovluğu İş Mühiti kimi Saxla"/>
+			<tab-untitled-string value="yeni "/>
+			<file-save-assign-type value="&amp;Uzantı əlavə et"/>
+			<close-panel-tip value="Bağla"/>
+			<IncrementalFind-FSFound value="$INT_REPLACE$ uyğunluq tapıldı"/>
+			<IncrementalFind-FSNotFound value="İfadə tapılmadı"/>
+			<IncrementalFind-FSTopReached value="Səhifənin əvvəlinə çatıldı, alt hissədən davam edildi"/>
+			<IncrementalFind-FSEndReached value="Səhifənin sonuna çatıldı, yuxarıdan davam edildi"/>
+			<contextMenu-styleAlloccurrencesOfToken value="Token-in bütün halları üçün stil tətbiq et"/>
+			<contextMenu-styleOneToken value="Bir token üçün stil tətbiq et"/>
+			<contextMenu-clearStyle value="Stili sil"/>
+			<contextMenu-PluginCommands value="Plugin əmrləri"/>
+			<largeFileRestriction-tip value="Bəzi funksiyalar böyük fayllarda performansı zəiflədə bilər. Bu funksiyalar böyük fayl açıldıqda avtomatik olaraq qeyri-aktiv edilə bilər. Buradan tənzimləyə bilərsiniz.
+
+QEYD:
+1. Buradakı seçimləri dəyişmək üçün hal-hazırda açıq olan böyük faylları yenidən açmaq lazımdır.
+
+2. Əgər 'Söz Qırılmasını qlobal şəkildə Deaktiv et' işarələnibsə və siz böyük fayl açsanız, 'Söz Qırılması' bütün fayllar üçün qeyri-aktiv ediləcək. Onu 'Baxış → Söz Qırılması' menyusundan yenidən aktiv edə bilərsiniz."/>
+<npcNote-tip value="Seçilmiş 'ASCII olmayan' boşluq və çap olunmayan (nəzarət) simvolların nümayişi.
+
+QEYD:
+Nümayiş funksiyası istifadə olunarsa, mətnə tətbiq olunan simvol effektləri deaktiv olacaq.
+
+Seçilmiş boşluq və çap olunmayan simvolların tam siyahısı üçün İstifadəçi Təlimatına baxın.
+
+İstifadəçi Təlimatının yerləşdiyi saytı açmaq üçün bu düyməni klikləyin."/>
+<npcAbbreviation-tip value="Qısaltma : ad
+NBSP : fasiləsiz boşluq
+ZWSP : sıfır eni olan boşluq
+ZWNBSP : sıfır eni olan fasiləsiz boşluq
+
+Tam siyahı üçün İstifadəçi Təlimatına baxın.
+Sağdakı &quot;?&quot; düyməsinə klikləyin və veb sayt açılsın."/>
+<npcCodepoint-tip value="Kod nöqtəsi : ad
+U+00A0 : fasiləsiz boşluq
+U+200B : sıfır eni olan boşluq
+U+FEFF : sıfır eni olan fasiləsiz boşluq
+
+Tam siyahı üçün İstifadəçi Təlimatına baxın.
+Sağdakı &quot;?&quot; düyməsinə klikləyin və veb sayt açılsın."/>
+<npcCustomColor-tip value="Seçilmiş boşluq və çap olunmayan simvollar üçün standart xüsusi rəngi dəyişmək üçün Stil Konfiquratoruna keçin (&quot;Çap olunmayan simvolların xüsusi rəngi&quot;)."/>
+<npcIncludeCcUniEol-tip value="Çap olunmayan simvol görünüş ayarlarını C0, C1 nəzarət simvollarına və Unicode EOL (növbəti sətir, sətir ayırıcı və paraqraf ayırıcı) simvollarına tətbiq et."/>
+<searchingInSelThresh-tip value="Tap dialoqu aktiv olduqda 'Seçim daxilində' qutusunun avtomatik işarələnməsi üçün redaktə zonasındakı seçilmiş simvolların sayı. Maksimum dəyər 1024-dir. Bu funksiyanı deaktiv etmək üçün 0 təyin edin."/>
+<verticalEdge-tip value="Sütun markerini onluq ədəd ilə mövqeyini göstərərək əlavə edin. Bir neçə marker təyin etmək üçün rəqəmləri boşluq ilə ayırın."/>
+<fileSaveAsCopySaveButton-tip value="Saxla düyməsinə Shift basaraq kliklədikdə, saxlanıldıqdan sonra nüsxə açılacaq."/>
+<autoIndentBasic-tip value="ENTER düyməsi ilə yaradılmış yeni sətirin girintisi əvvəlki sətirin girintisinə uyğun olacaq."/>
+<autoIndentAdvanced-tip value="C-bənzər dillər və Python üçün ağıllı girinti aktiv et. C-bənzər dillərə aiddir:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell və JSON.
+
+Əgər qabaqcıl rejimi seçsəniz, lakin yuxarıda qeyd edilən dillərdə işləmirsinizsə, girinti əsas rejimdə qalacaq."/>
+<global-override-tip value="Buradakı 'Global override' seçimini aktivləşdirmək bütün dillər üçün bu parametri dəyişəcək. Əslində istədiyiniz şey 'Default Style' ayarlarından istifadə etmək ola bilər"/>
+		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

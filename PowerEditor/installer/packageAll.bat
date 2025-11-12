@@ -528,10 +528,13 @@ If ErrorLevel 1 goto End
 
 if %SIGN% == 0 goto NoSignInstaller
 
-%Sign_by_NppRootCert% !nppInstallerVar! !nppInstallerVar64! !nppInstallerVarArm64! !nppInstallerVarMsi64!
+%Sign_by_NppRootCert% !nppInstallerVar! !nppInstallerVar64! !nppInstallerVarArm64!
 If ErrorLevel 1 goto End
 
-%Sign_by_GlobalSignCert% %DOUBLE_SIGNING% !nppInstallerVar! !nppInstallerVar64! !nppInstallerVarArm64! !nppInstallerVarMsi64!
+%Sign_by_GlobalSignCert% %DOUBLE_SIGNING% !nppInstallerVar! !nppInstallerVar64! !nppInstallerVarArm64!
+If ErrorLevel 1 goto End
+
+%Sign_by_GlobalSignCert% /d "Notepad++ x64 MSI" !nppInstallerVarMsi64!
 If ErrorLevel 1 goto End
 
 :NoSignInstaller

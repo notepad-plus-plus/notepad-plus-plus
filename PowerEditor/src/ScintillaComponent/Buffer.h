@@ -89,6 +89,7 @@ public:
 	void addBufferReference(BufferID id, ScintillaEditView * identifer);	//called by Scintilla etc indirectly
 
 	BufferID loadFile(const wchar_t * filename, Document doc = static_cast<Document>(NULL), int encoding = -1, const wchar_t *backupFileName = nullptr, FILETIME fileNameTimestamp = {});	//ID == BUFFER_INVALID on failure. If Doc == NULL, a new file is created, otherwise data is loaded in given document
+	BufferID loadTemporaryFile(const wchar_t* filename, Document doc = static_cast<Document>(NULL), int encoding = -1, const wchar_t* backupFileName = nullptr, FILETIME fileNameTimestamp = {});
 	BufferID newEmptyDocument();
 	// create an empty placeholder for a missing file when loading session
 	BufferID newPlaceholderDocument(const wchar_t * missingFilename, int whichOne, const wchar_t* userCreatedSessionName);
@@ -394,6 +395,9 @@ public:
 	bool isPinned() const { return _isPinned; }
 	void setPinned(bool isPinned) { _isPinned = isPinned; }
 
+	bool isTemporary() const { return _isTemporary; }
+  void setTemporary(bool isTemporary) { _isTemporary = isTemporary; }
+
 private:
 	int indexOfReference(const ScintillaEditView * identifier) const;
 
@@ -485,4 +489,5 @@ private:
 
 	bool _isRTL = false;
 	bool _isPinned = false;
+  bool _isTemporary = false;
 };

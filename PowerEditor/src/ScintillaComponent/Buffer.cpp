@@ -1042,6 +1042,17 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 	}
 }
 
+BufferID FileManager::loadTemporaryFile(const wchar_t* filename, Document doc, int encoding, const wchar_t* backupFileName, FILETIME fileNameTimestamp)
+{
+  auto id = loadFile(filename, doc, encoding, backupFileName, fileNameTimestamp);
+	if (id != BUFFER_INVALID)
+	{
+		Buffer* buf = getBufferByID(id);
+		buf->setTemporary(true);
+	}
+	return id;
+}
+
 
 bool FileManager::reloadBuffer(BufferID id)
 {
@@ -2180,7 +2191,7 @@ BufferID FileManager::getBufferFromName(const wchar_t* name)
 	{
 		if (_wcsicmp(name, buf->getFullPathName()) == 0)
 		{
-			if (!(buf->_referees.empty()) && buf->_referees[0]->isVisible())
+			if (!(buf->_referees.empty()) && buf->_referees[0]->isVisible() && !buf->isTemporary())
 			{
 				return buf->getID();
 			}

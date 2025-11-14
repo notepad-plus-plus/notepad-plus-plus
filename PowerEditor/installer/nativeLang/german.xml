@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.7"><!-- Datum: 09.11.2025, basiert auf english.xml 8.8.7 vom 03.11.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.7"><!-- Datum: 04.12.2025, basiert auf english.xml 8.8.7 vom 02.12.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -149,6 +149,8 @@ Translation note:
 					<Item id="42081" name="Zeilen alph. absteigend sortieren, Schreibung ignorieren"/>
 					<Item id="42100" name="Zeilen in lokaler Reihenfolge aufsteigend sortieren"/>
 					<Item id="42101" name="Zeilen in lokaler Reihenfolge absteigend sortieren"/>
+					<Item id="42104" name="Zeilen der Länge nach aufsteigend sortieren"/>
+					<Item id="42105" name="Zeilen der Länge nach absteigend sortieren"/>
 					<Item id="42061" name="Zeilen als Ganzzahlen aufsteigend sortieren"/>
 					<Item id="42062" name="Zeilen als Ganzzahlen absteigend sortieren"/>
 					<Item id="42063" name="Zeilen als Dezimalzahlen (Komma) aufsteigend sortieren"/>
@@ -1010,7 +1012,7 @@ Translation note:
 					<Item id="6128" name="Alternative Symbole"/>
 					<Item id="6125" name="Verhalten"/>
 					<Item id="6126" name="Aussehen &amp;&amp; Wirkung (Look &amp;&amp; feel)"/>
-					<Item id="6136" name="Max. Länge f. Tab-Namen:"/>
+					<Item id="6136" name="Max. Länge für Tab-Namen:"/>
 				</Tabbar>
 
 				<Scintillas title="Bearbeiten 1">
@@ -1058,7 +1060,7 @@ Translation note:
 				<DarkMode title="Dunkler Modus">
 					<Item id="7131" name="Heller Modus"/>
 					<Item id="7132" name="Dunkler Modus"/>
-					<Item id="7133" name="Folge Windows"/>
+					<Item id="7133" name="Folge Einstellung von Windows"/>
 					<Item id="7102" name="Schwarz"/>
 					<Item id="7103" name="Rot"/>
 					<Item id="7104" name="Grün"/>
@@ -1130,7 +1132,7 @@ Translation note:
 					<Item id="6413" name="Verzeichnis beim Öffnen/Speichern"/>
 					<Item id="6414" name="Wie aktuelle Datei"/>
 					<Item id="6415" name="Letztes Verzeichnis merken"/>
-					<Item id="6431" name="Verzeichnis-Drag&amp;&amp;Drop öffnet alle Dateien darin statt &quot;Verzeichnis als Arbeitsbereich&quot; zu starten"/>
+					<Item id="6431" name="Verzeichnis-Drag&amp;&amp;Drop öffnet alle Dateien darin statt 'Verzeichnis als Arbeitsbereich' zu starten"/>
 				</DefaultDir>
 
 				<FileAssoc title="Dateiverknüpfungen">
@@ -1324,7 +1326,7 @@ Translation note:
 					<Item id="7149" name="Intelligente Hervorhebung zulassen"/>
 					<Item id="7150" name="Wortumbruch global deaktivieren"/>
 					<Item id="7151" name="URL anklickbaren Link zulassen"/>
-					<Item id="7152" name="Unterdrücke Warnung beim Öffnen von Dateien ≥2GB"/>
+					<Item id="7152" name="Unterdrücke Warnung beim Öffnen von Dateien ≥ 2GB"/>
 				</Performance>
 
 				<Cloud title="Cloud &amp; Links">
@@ -1857,8 +1859,8 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 ACHTUNG:
 1. Wenn Sie die Optionen hier ändern, müssen Sie die aktuell geöffneten großen Dateien erneut öffnen um die Änderung zu erhalten.
 
-2. Wenn &quot;Wortumbruch global deaktivieren&quot; aktiv ist und Sie eine große Datei öffnen, wird &quot;Wortumbruch&quot; für alle Dateien deaktiviert. Sie können das aber über das Menü &quot;Ansicht-&gt;Wortumbruch&quot; wieder aktivieren."/>
-			<npcNote-tip value="Darstellung von ausgewählten &quot;Nicht-ASCII&quot; Leerzeichen und nicht druckbaren (Steuer-) Zeichen.
+2. Wenn 'Wortumbruch global deaktivieren' aktiv ist und Sie eine große Datei öffnen, wird 'Wortumbruch' für alle Dateien deaktiviert. Sie können das aber über das Menü 'Ansicht-&gt;Wortumbruch' wieder aktivieren."/>
+			<npcNote-tip value="Darstellung von ausgewählten 'Nicht-ASCII' Leerzeichen und nicht druckbaren (Steuer-) Zeichen.
 
 HINWEIS:
 Die Verwendung der Darstellung deaktiviert die Zeicheneffekte im Text.
@@ -1912,8 +1914,8 @@ Wenn diese 'Intelligente Einrückung' gewählt wird, aber keine Dateien in den o
 			<len-limit-exceeded-tip value="Zeichen-Limit überschritten: Ihre Eingabe überschreitet ev. die zulässige Grenze und wurde möglicherweise gekürzt, und wird auch für die nächste Sitzung nicht gespeichert."/>
 			<max-len-on-search-tip value="Ihre Eingabe überschreitet ev. die zulässige Grenze und wurde möglicherweise gekürzt, und wird auch für die nächste Sitzung nicht gespeichert."/>
 			<max-len-on-save-tip value="Ihre Eingabe ist sehr lang und wird möglicherweise nicht für Ihre nächste Sitzung gespeichert."/>
-			<goto-setting-tip value="Finde hier deine Einstellungen"/>
-			<tabbar-tabcompactlabellen-tip value="Kürzt die sichtbare Länge der Tab-Namen. Enter drücken um den Wert zu übernehmen. Eingabebereich: 1-257 Zeichen (0 deaktiviert das Abkürzen)."/>
+			<goto-setting-tip value="Finden Sie hier Ihre Einstellungen"/>
+			<tabbar-tabcompactlabellen-tip value="Kürzt die sichtbare Länge der Tab-Namen. 'Enter'-Taste drücken um den Eingabewert zu übernehmen. Mögliche Eingabe: 1-257 Zeichen (0 deaktiviert das Kürzen der Tab-Namen)."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

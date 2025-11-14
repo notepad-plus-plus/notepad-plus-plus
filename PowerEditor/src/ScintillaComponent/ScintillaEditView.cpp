@@ -15,16 +15,16 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <memory>
-#include <bitset>
 #include <shlwapi.h>
 #include <cinttypes>
 #include <windowsx.h>
-#include <versionhelpers.h>
 #include "ScintillaEditView.h"
 #include "Parameters.h"
 #include "localization.h"
 #include "Sorters.h"
-#include "verifySignedfile.h"
+
+#include "dpiManagerV2.h"
+
 #include "ILexer.h"
 #include "Lexilla.h"
 
@@ -257,9 +257,8 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	const COLORREF hiddenLinesGreen = RGB(0x77, 0xCC, 0x77);
 	long hiddenLinesGreenWithAlpha = hiddenLinesGreen | 0xFF000000;
 	setElementColour(SC_ELEMENT_HIDDEN_LINE, hiddenLinesGreenWithAlpha);
-	
-	NppParameters& nppParams = NppParameters::getInstance();
-	if (nppParams._dpiManager.scaleX(100) >= 150)
+
+	if (DPIManagerV2::scale(100, _hParent) >= 150)
 	{
 		execute(SCI_RGBAIMAGESETWIDTH, 18);
 		execute(SCI_RGBAIMAGESETHEIGHT, 18);
@@ -317,6 +316,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE_EXT4, true);
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE_EXT5, true);
 
+	NppParameters& nppParams = NppParameters::getInstance();
 	NppGUI& nppGui = nppParams.getNppGUI();
 
 	HMODULE hNtdllModule = ::GetModuleHandle(L"ntdll.dll");
@@ -3004,12 +3004,14 @@ void ScintillaEditView::showMargin(int whichMarge, bool willBeShown)
 	}
 	else
 	{
-		DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
-		int width = dpiManager.scaleX(3);
+		const UINT dpi = DPIManagerV2::getDpiForWindow(_hParent);
+		int width = 0;
 		if (whichMarge == _SC_MARGE_SYMBOL)
-			width = dpiManager.scaleX(16);
+			width = DPIManagerV2::scale(16, dpi);
 		else if (whichMarge == _SC_MARGE_FOLDER)
-			width = dpiManager.scaleX(14);
+			width = DPIManagerV2::scale(14, dpi);
+		else
+			width = DPIManagerV2::scale(3, dpi);
 
 		execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShown ? width : 0);
 	}
@@ -3017,8 +3019,7 @@ void ScintillaEditView::showMargin(int whichMarge, bool willBeShown)
 
 void ScintillaEditView::showChangeHistoryMargin(bool willBeShown)
 {
-	DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
-	int	width = dpiManager.scaleX(9);
+	const int width = DPIManagerV2::scale(9, _hParent);
 	execute(SCI_SETMARGINWIDTHN, _SC_MARGE_CHANGEHISTORY, willBeShown ? width : 0);
 }
 

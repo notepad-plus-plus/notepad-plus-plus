@@ -42,12 +42,14 @@ intptr_t CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			wstring htmlNumberStr = pNativeSpeaker->getAttrNameStr(L"HTML Decimal", "AsciiInsertion", "ColumnHtmlNumber");
 			wstring htmlHexNbStr = pNativeSpeaker->getAttrNameStr(L"HTML Hexadecimal", "AsciiInsertion", "ColumnHtmlHexNb");
 
-			_listView.addColumn(columnInfo(valStr, nppParam._dpiManager.scaleX(45)));
-			_listView.addColumn(columnInfo(hexStr, nppParam._dpiManager.scaleX(45)));
-			_listView.addColumn(columnInfo(charStr, nppParam._dpiManager.scaleX(70)));
-			_listView.addColumn(columnInfo(htmlNameStr, nppParam._dpiManager.scaleX(90)));
-			_listView.addColumn(columnInfo(htmlNumberStr, nppParam._dpiManager.scaleX(100)));
-			_listView.addColumn(columnInfo(htmlHexNbStr, nppParam._dpiManager.scaleX(120)));
+			StaticDialog::setDpi();
+
+			_listView.addColumn(columnInfo(valStr, _dpiManager.scale(45)));
+			_listView.addColumn(columnInfo(hexStr, _dpiManager.scale(45)));
+			_listView.addColumn(columnInfo(charStr, _dpiManager.scale(70)));
+			_listView.addColumn(columnInfo(htmlNameStr, _dpiManager.scale(90)));
+			_listView.addColumn(columnInfo(htmlNumberStr, _dpiManager.scale(100)));
+			_listView.addColumn(columnInfo(htmlHexNbStr, _dpiManager.scale(120)));
 
 			_listView.init(_hInst, _hSelf);
 			int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();

@@ -206,7 +206,6 @@ SET(include_files
 			./DarkMode/DarkMode.h
 			./DarkMode/IatHook.h
 			./DarkMode/UAHMenuBar.h
-			./dpiManager.h
 			./dpiManagerV2.h
 			./keys.h
 			./localizationString.h

@@ -15,10 +15,11 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-
 #include "TaskListDlg.h"
+
+#include "Notepad_plus_msgs.h"
 #include "Parameters.h"
-#include "resource.h"
+#include "TaskListDlg_rc.h"
 
 int TaskListDlg::_instanceCount = 0;
 
@@ -34,13 +35,13 @@ static LRESULT CALLBACK hookProc(int nCode, WPARAM wParam, LPARAM lParam)
     }
 	else if ((nCode >= 0) && (wParam == WM_MOUSEWHEEL) && windowsVersion >= WV_WIN10)
 	{
-		MSLLHOOKSTRUCT* pMD = (MSLLHOOKSTRUCT*)lParam;
+		auto* pMD = reinterpret_cast<MSLLHOOKSTRUCT*>(lParam);
 		RECT rCtrl{};
 		GetWindowRect(hWndServer, &rCtrl);
 		//to avoid duplicate messages, only send this message to the list control if it comes from outside the control window. if the message occurs whilst the mouse is inside the control, the control will have receive the mouse wheel message itself
 		if (false == PtInRect(&rCtrl, pMD->pt))
 		{
-			::PostMessage(hWndServer, WM_MOUSEWHEEL, (WPARAM)pMD->mouseData, MAKELPARAM(pMD->pt.x, pMD->pt.y));
+			::PostMessage(hWndServer, WM_MOUSEWHEEL, WPARAM{ pMD->mouseData }, MAKELPARAM(pMD->pt.x, pMD->pt.y));
 		}
 	}
 
@@ -61,7 +62,7 @@ intptr_t CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
 			::SendMessage(_hParent, WM_GETTASKLISTINFO, reinterpret_cast<WPARAM>(&_taskListInfo), 0);
-			int nbTotal = static_cast<int32_t>(_taskListInfo._tlfsLst.size());
+			const int nbTotal = static_cast<int>(_taskListInfo._tlfsLst.size());
 
 			int i2set = _taskListInfo._currentIndex + (_initDir == dirDown?1:-1);
 			
@@ -72,7 +73,7 @@ intptr_t CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 				i2set = 0;
 
 			_taskList.init(_hInst, _hSelf, _hImalist, nbTotal, i2set);
-			_taskList.setFont(L"Verdana", NppParameters::getInstance()._dpiManager.scaleY(14));
+			_taskList.setFont(10);
 			_rc = _taskList.adjustSize();
 
 			reSizeTo(_rc);
@@ -82,9 +83,6 @@ intptr_t CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			hWndServer = _hSelf;
 			windowsVersion = NppParameters::getInstance().getWinVersion();
 
-#ifndef WH_MOUSE_LL
-#define WH_MOUSE_LL 14
-#endif
 			_hHooker = ::SetWindowsHookEx(WH_MOUSE_LL, hookProc, _hInst, 0);
 			hook = _hHooker;
 			return FALSE;
@@ -128,21 +126,21 @@ intptr_t CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 
 		case WM_DRAWITEM :
 		{
-			drawItem((DRAWITEMSTRUCT *)lParam);
+			drawItem(reinterpret_cast<DRAWITEMSTRUCT*>(lParam));
 			return TRUE;
 		}
 
 		case WM_NOTIFY:
 		{
-			switch (((LPNMHDR)lParam)->code)
+			switch (reinterpret_cast<LPNMHDR>(lParam)->code)
 			{
 				case LVN_GETDISPINFO:
 				{
-					LV_ITEM &lvItem = reinterpret_cast<LV_DISPINFO FAR *>(lParam)->item;
+					auto& lvItem = reinterpret_cast<NMLVDISPINFOW*>(lParam)->item;
 
 					TaskLstFnStatus & fileNameStatus = _taskListInfo._tlfsLst[lvItem.iItem];
 
-					lvItem.pszText = (wchar_t *)fileNameStatus._fn.c_str();
+					lvItem.pszText = fileNameStatus._fn.data();
 					lvItem.iImage = fileNameStatus._status;
 
 					return TRUE;
@@ -227,5 +225,5 @@ void TaskListDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	// DRAW TEXT
 	//
 	::SetTextColor(hDC, textColor);
-	::DrawText(hDC, label, lstrlen(label), &rect, DT_SINGLELINE | DT_VCENTER | DT_NOPREFIX);
+	::DrawText(hDC, label, -1, &rect, DT_SINGLELINE | DT_VCENTER | DT_NOPREFIX);
 }

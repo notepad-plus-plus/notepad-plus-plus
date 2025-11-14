@@ -14,8 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
+#include <algorithm>
 #include <memory>
-#include <regex>
+#include <string>
+#include <vector>
 #include <shlwapi.h>
 #include "Notepad_plus_Window.h"
 #include "EncodingMapper.h"
@@ -36,6 +39,7 @@
 #include "calc_sha1.h"
 #include "sha512.h"
 #include "SortLocale.h"
+#include "dpiManagerV2.h"
 
 using namespace std;
 
@@ -1821,23 +1825,20 @@ void Notepad_plus::command(int id)
 				}
 				else if ((isUDDlgDocked)&&(!isUDDlgVisible))
 				{
-                    if (!_pMainSplitter)
-                    {
-                        _pMainSplitter = new SplitterContainer;
-                        _pMainSplitter->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf());
+					auto* pWindow = bothActive() ? &_subSplitter : dynamic_cast<Window*>(_pDocTab);
 
-                        Window *pWindow;
-                        if (bothActive())
-                            pWindow = &_subSplitter;
-                        else
-                            pWindow = _pDocTab;
-						int splitterSizeDyn = NppParameters::getInstance()._dpiManager.scaleX(splitterSize);
-                        _pMainSplitter->create(pWindow, ScintillaEditView::getUserDefineDlg(), splitterSizeDyn, SplitterMode::RIGHT_FIX, 45);
-                    }
+					if (!_pMainSplitter)
+					{
+						_pMainSplitter = new SplitterContainer;
+						_pMainSplitter->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf());
+
+						const int splitterSizeDyn = DPIManagerV2::scale(splitterSize, _pPublicInterface->getHSelf());
+						_pMainSplitter->create(pWindow, ScintillaEditView::getUserDefineDlg(), splitterSizeDyn, SplitterMode::RIGHT_FIX, 45);
+					}
 
 					_pMainWindow = _pMainSplitter;
 
-					_pMainSplitter->setWin0((bothActive())?(Window *)&_subSplitter:(Window *)_pDocTab);
+					_pMainSplitter->setWin0(pWindow);
 
 					::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 					_pMainWindow->display();

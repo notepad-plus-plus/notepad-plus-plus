@@ -21,8 +21,11 @@
 
 #include <commctrl.h>
 
+#include <cwchar>
+
 #include "NppConstants.h"
 #include "NppDarkMode.h"
+#include "dpiManagerV2.h"
 
 void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem, int index2set)
 {
@@ -83,12 +86,9 @@ void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem
 
 void TaskList::destroy()
 {
-	if (_hFont)
-		DeleteObject(_hFont);
-	if (_hFontSelected)
-		DeleteObject(_hFontSelected);
+	TaskList::destroyFont();
 	::DestroyWindow(_hSelf);
-	_hSelf = NULL;
+	_hSelf = nullptr;
 }
 
 RECT TaskList::adjustSize()
@@ -132,27 +132,44 @@ RECT TaskList::adjustSize()
 	return _rc;
 }
 
-void TaskList::setFont(const wchar_t *fontName, int fontSize)
+void TaskList::setFont(int fontSize, const wchar_t* fontName)
 {
-	if (_hFont)
-		::DeleteObject(_hFont);
-	if (_hFontSelected)
-		::DeleteObject(_hFontSelected);
+	TaskList::destroyFont();
 
-	_hFont = ::CreateFont(fontSize, 0, 0, 0,
-		                   FW_NORMAL,
-			               0, 0, 0, 0,
-			               0, 0, 0, 0,
-				           fontName);
+	auto lf = LOGFONT{ DPIManagerV2::getDefaultGUIFontForDpi(_hParent) };
 
-	_hFontSelected = ::CreateFont(fontSize, 0, 0, 0,
-		                   FW_BOLD,
-			               0, 0, 0, 0,
-			               0, 0, 0, 0,
-				           fontName);
+	static const int fontSizeFactor = DPIManagerV2::scaleFontForFactor(fontSize);
+	lf.lfHeight = DPIManagerV2::scaleFont(fontSizeFactor, _hParent);
+
+	if (fontName != nullptr && std::wcslen(fontName) < LF_FACESIZE)
+	{
+		::ZeroMemory(lf.lfFaceName, LF_FACESIZE);
+		::wcsncpy_s(lf.lfFaceName, fontName, LF_FACESIZE);
+	}
+
+	_hFont = ::CreateFontIndirectW(&lf);
+
+	lf.lfWeight = FW_BOLD;
+
+	_hFontSelected = ::CreateFontIndirectW(&lf);
 
 	if (_hFont)
 		::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), 0);
+}
+
+void TaskList::destroyFont()
+{
+	if (_hFont != nullptr)
+	{
+		::DeleteObject(_hFont);
+		_hFont = nullptr;
+	}
+
+	if (_hFontSelected != nullptr)
+	{
+		::DeleteObject(_hFontSelected);
+		_hFontSelected = nullptr;
+	}
 }
 
 int TaskList::updateCurrentIndex()

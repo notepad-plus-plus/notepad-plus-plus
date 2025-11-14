@@ -36,9 +36,11 @@ public:
 	}
 
 	~TaskList() override = default;
+	using Window::init;
 	void init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem, int index2set);
 	void destroy() override;
-	void setFont(const wchar_t *fontName, int fontSize);
+	void setFont(int fontSize, const wchar_t* fontName = nullptr);
+	void destroyFont();
 	RECT adjustSize();
 	int getCurrentIndex() const {return _currentIndex;}
 	int updateCurrentIndex();

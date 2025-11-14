@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
+#include <ctime>
 #include <shlwapi.h>
 #include <wininet.h>
 #include "Notepad_plus.h"
@@ -37,6 +37,7 @@
 #include "fileBrowser.h"
 #include "Common.h"
 #include "NppDarkMode.h"
+#include "dpiManagerV2.h"
 
 using namespace std;
 
@@ -430,7 +431,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	//--Splitter Section--//
 	bool isVertical = (nppGUI._splitterPos == POS_VERTICAL);
 
-	int splitterSizeDyn = nppParam._dpiManager.scaleX(splitterSize);
+	const int splitterSizeDyn = DPIManagerV2::scale(splitterSize, dpi);
 	_subSplitter.init(_pPublicInterface->getHinst(), hwnd);
 	_subSplitter.create(&_mainDocTab, &_subDocTab, splitterSizeDyn, SplitterMode::DYNAMIC, 50, isVertical);
 
@@ -4832,7 +4833,8 @@ void Notepad_plus::dockUserDlg()
             pWindow = &_subSplitter;
         else
             pWindow = _pDocTab;
-		int splitterSizeDyn = NppParameters::getInstance()._dpiManager.scaleX(splitterSize);
+
+		const int splitterSizeDyn = DPIManagerV2::scale(splitterSize, _pPublicInterface->getHSelf());
         _pMainSplitter->create(pWindow, ScintillaEditView::getUserDefineDlg(), splitterSizeDyn, SplitterMode::RIGHT_FIX, 45);
     }
 

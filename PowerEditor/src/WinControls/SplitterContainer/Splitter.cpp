@@ -14,12 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include <iostream>
 #include <stdexcept>
 #include <windows.h>
 #include "Splitter.h"
-#include "Parameters.h"
 #include "NppDarkMode.h"
+#include "dpiManagerV2.h"
 
 bool Splitter::_isHorizontalRegistered = false;
 bool Splitter::_isVerticalRegistered = false;
@@ -38,10 +37,9 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize, double iSpli
 	Window::init(hInst, hPere);
 	_splitterSize = splitterSize;
 
-	WNDCLASSEX wcex;
+	WNDCLASSEX wcex{};
 	DWORD dwExStyle = 0L;
 	DWORD dwStyle   = WS_CHILD | WS_VISIBLE;
-
 
 	_hParent = hPere;
 	_dwFlags = dwFlags;
@@ -538,9 +536,13 @@ void Splitter::drawSplitter()
 		hBrushTop = ::GetSysColorBrush(COLOR_3DSHADOW);
 	}
 
-	DPIManager& dpiMgr = NppParameters::getInstance()._dpiManager;
+	const UINT dpi = DPIManagerV2::getDpiForParent(_hParent); // _hParent is SplitterContainer, and its parent is main window
+	const auto scaledSizeOne = LONG{ DPIManagerV2::scale(1, dpi) };
+	const auto scaledSizeTwo = LONG{ DPIManagerV2::scale(2, dpi) };
+	const auto scaledSizeThree = LONG{ DPIManagerV2::scale(3, dpi) };
+	const auto scaledSizeFour = LONG{ DPIManagerV2::scale(4, dpi) };
 
-	if ((_splitterSize >= dpiMgr.scaleX(4)) && (_dwFlags & SV_RESIZEWTHPERCNT))
+	if ((_splitterSize >= scaledSizeFour) && (_dwFlags & SV_RESIZEWTHPERCNT))
 	{
 		adjustZoneToDraw(TLrc, ZONE_TYPE::topLeft);
 		adjustZoneToDraw(BRrc, ZONE_TYPE::bottomRight);
@@ -550,18 +552,18 @@ void Splitter::drawSplitter()
 	if (isVertical())
 	{
 		rcToDraw2.top    = (_dwFlags & SV_RESIZEWTHPERCNT) ? _clickZone2TL.bottom : 0;
-		rcToDraw2.bottom = rcToDraw2.top + dpiMgr.scaleX(2);
+		rcToDraw2.bottom = rcToDraw2.top + scaledSizeTwo;
 
-		rcToDraw1.top    = rcToDraw2.top + dpiMgr.scaleX(1);
-		rcToDraw1.bottom = rcToDraw1.top + dpiMgr.scaleX(2);
+		rcToDraw1.top    = rcToDraw2.top + scaledSizeOne;
+		rcToDraw1.bottom = rcToDraw1.top + scaledSizeTwo;
 	}
 	else
 	{
-		rcToDraw2.top    = dpiMgr.scaleX(1);
-		rcToDraw2.bottom = dpiMgr.scaleX(3);
+		rcToDraw2.top    = scaledSizeOne;
+		rcToDraw2.bottom = scaledSizeThree;
 
-		rcToDraw1.top    = dpiMgr.scaleX(2);
-		rcToDraw1.bottom = dpiMgr.scaleX(4);
+		rcToDraw1.top    = scaledSizeTwo;
+		rcToDraw1.bottom = scaledSizeFour;
 	}
 
 	int bottom = 0;
@@ -574,40 +576,39 @@ void Splitter::drawSplitter()
 	{
 		if (isVertical())
 		{
-			rcToDraw2.left  = dpiMgr.scaleX(1);
-			rcToDraw2.right = dpiMgr.scaleX(3);
+			rcToDraw2.left  = scaledSizeOne;
+			rcToDraw2.right = scaledSizeThree;
 
-			rcToDraw1.left  = dpiMgr.scaleX(2);
-			rcToDraw1.right = dpiMgr.scaleX(4);
+			rcToDraw1.left  = scaledSizeTwo;
+			rcToDraw1.right = scaledSizeFour;
 		}
 		else
 		{
 			rcToDraw2.left = _clickZone2TL.right;
-			rcToDraw2.right = rcToDraw2.left + dpiMgr.scaleX(2);
+			rcToDraw2.right = rcToDraw2.left + scaledSizeTwo;
 
 			rcToDraw1.left = rcToDraw2.left;
-			rcToDraw1.right = rcToDraw1.left + dpiMgr.scaleX(2);
+			rcToDraw1.right = rcToDraw1.left + scaledSizeTwo;
 		}
 
-		int n = dpiMgr.scaleX(4);
 		while (rcToDraw1.right <= (isVertical() ? rc.right : rc.right - _clickZone2BR.right))
 		{
 			::FillRect(hdc, &rcToDraw1, hBrush);
 			::FillRect(hdc, &rcToDraw2, hBrushTop);
 
-			rcToDraw2.left  += n;
-			rcToDraw2.right += n;
-			rcToDraw1.left  += n;
-			rcToDraw1.right += n;
+			rcToDraw2.left  += scaledSizeFour;
+			rcToDraw2.right += scaledSizeFour;
+			rcToDraw1.left  += scaledSizeFour;
+			rcToDraw1.right += scaledSizeFour;
 		}
 
-		rcToDraw2.top    += n;
-		rcToDraw2.bottom += n;
-		rcToDraw1.top    += n;
-		rcToDraw1.bottom += n;
+		rcToDraw2.top    += scaledSizeFour;
+		rcToDraw2.bottom += scaledSizeFour;
+		rcToDraw1.top    += scaledSizeFour;
+		rcToDraw1.bottom += scaledSizeFour;
 	}
 
-	if ((_splitterSize >= dpiMgr.scaleX(4)) && (_dwFlags & SV_RESIZEWTHPERCNT))
+	if ((_splitterSize >= scaledSizeFour) && (_dwFlags & SV_RESIZEWTHPERCNT))
 		paintArrow(hdc, BRrc, isVertical() ? Arrow::right : Arrow::down);
 
 	if (isDarkMode)

@@ -3651,6 +3651,9 @@ void Notepad_plus::command(int id)
 
 						param += L" -i";
 						param += INFO_URL;
+
+						param += L" -d";
+						param += FORCED_DOWNLOAD_DOMAIN;
 					}
 					Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
 

@@ -402,6 +402,9 @@ bool launchUpdater(const std::wstring& updaterFullPath, const std::wstring& upda
 	updaterParams += L" -i";
 	updaterParams += INFO_URL;
 
+	updaterParams += L" -d";
+	updaterParams += FORCED_DOWNLOAD_DOMAIN;
+
 	Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
 	updater.run();
 

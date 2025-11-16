@@ -60,6 +60,7 @@
 **.rb text
 **.roff text
 **.rs text
+**.snx text
 **.sql text
 **.st text
 **.tcl text

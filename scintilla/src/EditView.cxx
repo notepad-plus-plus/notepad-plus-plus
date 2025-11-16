@@ -602,7 +602,7 @@ void EditView::LayoutLine(const EditModel &model, Surface *surface, const ViewSt
 // Fill the LineLayout bidirectional data fields according to each char style
 
 void EditView::UpdateBidiData(const EditModel &model, const ViewStyle &vstyle, LineLayout *ll) {
-	if (model.BidirectionalEnabled()) {
+	if (model.BidirectionalEnabled() && (ll->numCharsInLine >= 0)) {
 		ll->EnsureBidiData();
 		for (int stylesInLine = 0; stylesInLine < ll->numCharsInLine; stylesInLine++) {
 			ll->bidiData->stylesFonts[stylesInLine] = vstyle.styles[ll->styles[stylesInLine]].font;

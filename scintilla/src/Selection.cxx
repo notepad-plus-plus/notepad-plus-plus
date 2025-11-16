@@ -29,23 +29,24 @@ namespace {
 // Generically convert a string to a integer value throwing if the conversion failed.
 // Failures include values that are out of range for the destination variable.
 template <typename T>
-void ValueFromString(std::string_view sv, T &value) {
+void ValueFromString(std::string_view &sv, T &value) {
 	const std::from_chars_result res = std::from_chars(sv.data(), sv.data() + sv.size(), value);
 	if (res.ec != std::errc{}) {
 		if (res.ec == std::errc::result_out_of_range)
 			throw std::runtime_error("from_chars out of range.");
 		throw std::runtime_error("from_chars failed.");
 	}
+	sv.remove_prefix(res.ptr - sv.data());
 }
 
 }
 
-SelectionPosition::SelectionPosition(std::string_view sv) : position(0) {
-	if (const size_t v = sv.find('v'); v != std::string_view::npos) {
-		ValueFromString(sv.substr(v + 1), virtualSpace);
-		sv = sv.substr(0, v);
-	}
+SelectionPosition::SelectionPosition(std::string_view &sv) : position(0) {
 	ValueFromString(sv, position);
+	if (!sv.empty() && sv.front() == 'v') {
+		sv.remove_prefix(1);
+		ValueFromString(sv, virtualSpace);
+	}
 }
 
 void SelectionPosition::MoveForInsertDelete(bool insertion, Sci::Position startChange, Sci::Position length, bool moveForEqual) noexcept {
@@ -109,14 +110,13 @@ std::string SelectionPosition::ToString() const {
 	return result;
 }
 
-SelectionRange::SelectionRange(std::string_view sv) {
-	const size_t dash = sv.find('-');
-	if (dash == std::string_view::npos) {
-		anchor = SelectionPosition(sv);
+SelectionRange::SelectionRange(std::string_view &sv) {
+	anchor = SelectionPosition(sv);
+	if (sv.empty() || sv.front() != '-') {
 		caret = anchor;
 	} else {
-		anchor = SelectionPosition(sv.substr(0, dash));
-		caret = SelectionPosition(sv.substr(dash + 1));
+		sv.remove_prefix(1);
+		caret = SelectionPosition(sv);
 	}
 }
 
@@ -274,10 +274,13 @@ Selection::Selection(std::string_view sv) : mainRange(0), moveExtends(false), te
 			sv.remove_prefix(1);
 		}
 
-		// Non-zero main index at end after '#'
-		if (const size_t hash = sv.find('#'); hash != std::string_view::npos) {
-			ValueFromString(sv.substr(hash + 1), mainRange);
-			sv = sv.substr(0, hash);
+		// Non-zero main index at start after '#'
+		if (!sv.empty() && sv.front() == '#') {
+			sv.remove_prefix(1);
+			ValueFromString(sv, mainRange);
+			if (!sv.empty() && sv.front() == ',') {
+				sv.remove_prefix(1);
+			}
 		}
 
 		// Remainder is list of ranges
@@ -288,13 +291,12 @@ Selection::Selection(std::string_view sv) : mainRange(0), moveExtends(false), te
 				ranges.emplace_back(SelectionPosition(0));
 			}
 		} else {
-			size_t comma = sv.find(',');
-			while (comma != std::string_view::npos) {
-				ranges.emplace_back(sv.substr(0, comma));
-				sv.remove_prefix(comma + 1);
-				comma = sv.find(',');
+			while (!sv.empty()) {
+				if (sv.front() == ',') {
+					sv.remove_prefix(1);
+				}
+				ranges.emplace_back(sv);
 			}
-			ranges.emplace_back(sv);
 			if (mainRange >= ranges.size()) {
 				mainRange = ranges.size() - 1;
 			}
@@ -595,6 +597,11 @@ std::string Selection::ToString() const {
 		// No prefix.
 		break;
 	}
+	if (mainRange > 0) {
+		result += '#';
+		result += std::to_string(mainRange);
+		result += ',';
+	}
 	if (selType == SelTypes::rectangle || selType == SelTypes::thin) {
 		result += rangeRectangular.ToString();
 	} else {
@@ -604,11 +611,6 @@ std::string Selection::ToString() const {
 			}
 			result += ranges[r].ToString();
 		}
-	}
-
-	if (mainRange > 0) {
-		result += '#';
-		result += std::to_string(mainRange);
 	}
 
 	return result;

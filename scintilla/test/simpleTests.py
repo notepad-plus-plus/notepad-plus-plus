@@ -312,6 +312,24 @@ class TestSimple(unittest.TestCase):
 		self.assertEqual(self.ed.Contents(), b"\tx\tb")
 		self.assertEqual(self.ed.GetLineIndentPosition(0), 1)
 
+	def testRectangularIndent(self):
+		self.ed.VirtualSpaceOptions = 3
+		self.ed.AddText(3, b"\n\n\n")
+		self.ed.RectangularSelectionAnchor = 2
+		self.ed.RectangularSelectionCaret = 0
+		self.ed.TabIndents = 0
+		self.ed.UseTabs = 1
+		self.ed.Tab()
+		self.assertEqual(self.ed.Contents(), b"\t\n\t\n\t\n")
+		self.assertEqual(self.ed.GetSelectionSerialized(), b'T#2,5-1')
+		self.assertEqual(self.ed.GetSelectionNAnchor(0), 5)
+		self.assertEqual(self.ed.GetSelectionNCaret(0), 5)
+		self.assertEqual(self.ed.GetSelectionNAnchor(1), 3)
+		self.assertEqual(self.ed.GetSelectionNCaret(1), 3)
+		self.assertEqual(self.ed.GetSelectionNAnchor(2), 1)
+		self.assertEqual(self.ed.GetSelectionNCaret(2), 1)
+		self.ed.VirtualSpaceOptions = 0
+
 	def testGetCurLine(self):
 		self.ed.AddText(1, b"x")
 		data = ctypes.create_string_buffer(b"\0" * 100)

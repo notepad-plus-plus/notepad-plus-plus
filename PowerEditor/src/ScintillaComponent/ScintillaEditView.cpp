@@ -411,13 +411,12 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			return TRUE;
 		}
 
-		case WM_MOUSEHWHEEL :
+		case WM_MOUSEHWHEEL:
 		{
-			::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam) > 0)?SB_LINERIGHT:SB_LINELEFT, 0);
-			return TRUE;
+			return ::CallWindowProc(_scintillaDefaultProc, hwnd, Message, wParam, lParam);
 		}
 
-		case WM_MOUSEWHEEL :
+		case WM_MOUSEWHEEL:
 		{
 			if (LOWORD(wParam) & MK_RBUTTON)
 			{

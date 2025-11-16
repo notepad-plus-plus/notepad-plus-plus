@@ -45,6 +45,9 @@ Differentiate between labels and variables
 using namespace Scintilla;
 using namespace Lexilla;
 
+// Intermediate style for compund identifiers; this style won't be seen in lexed documents
+#define SCE_ABL_IDENTIFIERCOMPOUND 30
+
 namespace {
    // Use an unnamed namespace to protect the functions and classes from name conflicts
 
@@ -341,7 +344,14 @@ void SCI_METHOD LexerABL::Lex(Sci_PositionU startPos, Sci_Position length, int i
                char s[1000];
                sc.GetCurrentLowered(s, sizeof(s));
                bool isLastWordEnd = (s[0] == 'e' && s[1] =='n' && s[2] == 'd' && !IsAlphaNumeric(s[3]) && s[3] != '-');  // helps to identify "end trigger" phrase
-               if ((isSentenceStart && keywords2.InListAbbreviated (s,'(')) || (!isLastWordEnd && keywords3.InListAbbreviated (s,'('))) {
+               if (sc.ch == '.' && setWord.Contains(sc.chNext)) {
+                   // identifier.identifer[.identifier ...] - stay in the identifier state until not id char and not .
+                   // - is not included in the test above because it's not valid as the start of an identifier
+                   sc.Forward();
+                   sc.ChangeState(SCE_ABL_IDENTIFIERCOMPOUND);
+                   break;
+               }
+               else if ((isSentenceStart && keywords2.InListAbbreviated (s,'(')) || (!isLastWordEnd && keywords3.InListAbbreviated (s,'('))) {
                   sc.ChangeState(SCE_ABL_BLOCK);
                   isSentenceStart = false;
                }
@@ -364,6 +374,17 @@ void SCI_METHOD LexerABL::Lex(Sci_PositionU startPos, Sci_Position length, int i
                sc.SetState(SCE_ABL_DEFAULT);
             }
             break;
+         case SCE_ABL_IDENTIFIERCOMPOUND:
+             // identifier.identifer[.identifier ...] - exit this state when we find something
+             // that's not a valid character in an identifier
+             // .* is included for cases like: USING System.Collections.*
+             if (sc.ch != '.' && sc.ch != '-' && !(sc.ch == '*' && sc.chPrev == '.') && !setWord.Contains(sc.ch)) {
+                 // change the entire compound identifier back to SCE_ABL_IDENTIFIER
+                 sc.ChangeState(SCE_ABL_IDENTIFIER);
+                 sc.SetState(SCE_ABL_DEFAULT);
+                 isSentenceStart = false;
+             }
+             break;
          case SCE_ABL_PREPROCESSOR:
             if (sc.atLineStart && !continuationLine) {
                sc.SetState(SCE_ABL_DEFAULT);

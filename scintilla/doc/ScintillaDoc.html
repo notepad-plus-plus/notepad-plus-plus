@@ -1444,6 +1444,9 @@ struct Sci_TextRangeFull {
      <b id="SCI_GETSELECTIONSERIALIZED">SCI_GETSELECTIONSERIALIZED(&lt;unused&gt;, char *selectionString) &rarr; position</b><br />
      Set or query the selection type and positions as a serialized string.
      The format of this string may change in future versions so should not be persisted beyond the current session.</p>
+     <p>The format is currently<br/><code>[selType:R|L|T] [# mainRange ,] [anchor [v virtualSpace] [- caret [v virtualSpace]]] [, ...]</code>
+     <br/>Example of a multiple selection with virtual space: <code>#1,5v3-2,1</code>
+     </p>
 
     <p>
      <b id="SC_ELEMENT_SELECTION_ADDITIONAL_TEXT">SC_ELEMENT_SELECTION_ADDITIONAL_TEXT : colouralpha</b><br />
@@ -2031,7 +2034,7 @@ struct Sci_TextToFindFull {
     <p><b id="SCI_GETUNDOSEQUENCE">SCI_GETUNDOSEQUENCE &rarr; int</b><br />
      Determine if an undo sequence is active with a positive value indicating that a sequence is active and 0 that there is no current sequence.
      The value returned is the nesting depth of the sequence, that is, the number of times <code>SCI_BEGINUNDOACTION</code>
-     was called without a correspnding <code>SCI_ENDUNDOACTION</code>.
+     was called without a corresponding <code>SCI_ENDUNDOACTION</code>.
      A negative value indicates an error.</p>
 
     <p><b id="SCI_ADDUNDOACTION">SCI_ADDUNDOACTION(int token, int flags)</b><br />
@@ -3840,8 +3843,8 @@ struct Sci_TextToFindFull {
     <p><b id="SCI_STYLESETINVISIBLEREPRESENTATION">SCI_STYLESETINVISIBLEREPRESENTATION(int style, const char *representation)</b><br />
     <b id="SCI_STYLEGETINVISIBLEREPRESENTATION">SCI_STYLEGETINVISIBLEREPRESENTATION(int style, char *representation NUL-terminated) &rarr; int</b><br />
      When a style is made invisible with <a class="seealso" href="#SCI_STYLESETVISIBLE">SCI_STYLESETVISIBLE</a>, text is difficult to edit as
-     the cursor can be at both sides of the invisible text segment. With these messages invisible text segements can be made visible with a single
-     UTF8 characater giving the user an indication if the cursor is left or right of the invisible text. The character is displayed using the current style.</p>
+     the cursor can be at both sides of the invisible text segment. With these messages invisible text segments can be made visible with a single
+     UTF8 character giving the user an indication if the cursor is left or right of the invisible text. The character is displayed using the current style.</p>
 
     <p>The <code>representation</code> parameter is a zero terminated string holding the one character used to represent the invisible text segment. Only the first character
     is used, the character is decoded as UTF-8.</p>
@@ -6535,7 +6538,7 @@ struct Sci_TextToFindFull {
      <a class="message" href="#SCI_AUTOCGETMAXWIDTH">SCI_AUTOCGETMAXWIDTH &rarr; int</a><br />
      <a class="message" href="#SCI_AUTOCSETSTYLE">SCI_AUTOCSETSTYLE(int style)</a><br />
      <a class="message" href="#SCI_AUTOCGETSTYLE">SCI_AUTOCGETSTYLE &rarr; int</a><br />
-     <a class="message" href="#SCI_AUTOCSETIMAGESCALE">SCI_AUTOCSETIMAGESCALE(int scale)</a><br />
+     <a class="message" href="#SCI_AUTOCSETIMAGESCALE">SCI_AUTOCSETIMAGESCALE(int scalePercent)</a><br />
      <a class="message" href="#SCI_AUTOCGETIMAGESCALE">SCI_AUTOCGETIMAGESCALE &rarr; int</a><br />
      <a class="element" href="#SC_ELEMENT_LIST">SC_ELEMENT_LIST : colouralpha</a><br />
      <a class="element" href="#SC_ELEMENT_LIST_BACK">SC_ELEMENT_LIST_BACK : colouralpha</a><br />
@@ -8274,10 +8277,10 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
     style is wider than the window then the break occurs after the last character that completely
     fits on the line. The horizontal scroll bar does not appear when wrap mode is on.</p>
 
-        <p>For wrapped lines Scintilla can draw visual flags (little arrows) at end of a a subline of a
-        wrapped line and at begin of the next subline. These can be enabled individually, but if Scintilla
-        draws the visual flag at the beginning of the next subline this subline will be indented by one char.
-        Independent from drawing a visual flag at the begin the subline can have an indention.</p>
+    <p>For wrapped lines Scintilla can draw visual flags (little arrows) at end of a a subline of a
+    wrapped line and at begin of the next subline. These can be enabled individually, but if Scintilla
+    draws the visual flag at the beginning of the next subline this subline will be indented by one char.
+    Independent from drawing a visual flag at the begin the subline can have an indentation.</p>
 
     <p>Much of the time used by Scintilla is spent on laying out and drawing text. The same text
     layout calculations may be performed many times even when the data used in these calculations
@@ -8441,7 +8444,7 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
                 <a class="message" href="#StyleDefinition"><code>STYLE_DEFAULT</code></a>.
                 There are no limits on indent sizes, but values        less than 0 or large values may have
                 undesirable effects.<br />
-                The indention of sublines is independent of visual flags, but if
+                The indentation of sublines is independent of visual flags, but if
                 <code>SC_WRAPVISUALFLAG_START</code> is set an indent of at least 1 is used.
      </p>
 
@@ -10525,6 +10528,13 @@ EM_SETTARGETDEVICE
         <tr>
           <td align="left"><code>DISABLE_D2D</code></td>
           <td>(Win32) Build Scintilla without Direct2D/DirectWrite.</td>
+        </tr>
+
+        <tr>
+          <td align="left"><code>PTRDIFF_DOESNT_ALIAS_INT</code></td>
+          <td>Define if <code>ptrdiff_t*</code> does not alias <code>int*</code>.
+          This is detected automatically, but the check may be unreliable.
+          Try to define this symbol in case of errors about undefined symbols.</td>
         </tr>
       </tbody>
     </table>

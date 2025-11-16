@@ -1356,6 +1356,16 @@ $(DIR_O)/LexScriptol.o: \
 	../lexlib/StyleContext.h \
 	../lexlib/CharacterSet.h \
 	../lexlib/LexerModule.h
+$(DIR_O)/LexSINEX.o: \
+	../lexers/LexSINEX.cxx \
+	../../scintilla/include/ILexer.h \
+	../../scintilla/include/Sci_Position.h \
+	../../scintilla/include/Scintilla.h \
+	../include/SciLexer.h \
+	../lexlib/LexAccessor.h \
+	../lexlib/Accessor.h \
+	../lexlib/CharacterSet.h \
+	../lexlib/LexerModule.h
 $(DIR_O)/LexSmalltalk.o: \
 	../lexers/LexSmalltalk.cxx \
 	../../scintilla/include/ILexer.h \

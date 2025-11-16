@@ -62,6 +62,7 @@
 #include <mutex>
 #include <thread>
 #include <future>
+#include <type_traits>
 
 // GTK headers
 #include <glib.h>

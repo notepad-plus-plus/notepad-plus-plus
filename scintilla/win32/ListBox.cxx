@@ -77,6 +77,13 @@ void *PtrFromLParam(Scintilla::sptr_t lParam) noexcept {
 	return reinterpret_cast<void *>(lParam);
 }
 
+// These are reasonable initial guesses that may be refined by measurement or calls.
+constexpr SIZE sizeList { 150, 80 };
+constexpr int commonLineHeight = 10;
+constexpr unsigned int commonCharacterWidth = 8;
+constexpr int commonItemLength = 12;
+constexpr int defaultVisibleRows = 9;
+
 struct ListItemData {
 	const char *text;
 	int pixId;
@@ -115,11 +122,11 @@ public:
 	}
 };
 
-const TCHAR ListBoxX_ClassName[] = TEXT("ListBoxX");
+const TCHAR *ListBoxX_ClassName = TEXT("ListBoxX");
 
 ColourRGBA ColourElement(std::optional<ColourRGBA> colour, int nIndex) {
 	if (colour.has_value()) {
-		return colour.value();
+		return colour.value().Opaque();
 	}
 	return ColourFromSys(nIndex);
 }
@@ -143,7 +150,7 @@ struct LBGraphics {
 }
 
 class ListBoxX : public ListBox {
-	int lineHeight = 10;
+	int lineHeight = commonLineHeight;
 	HFONT fontCopy {};
 	std::unique_ptr<FontWin> fontWin;
 	Technology technology = Technology::Default;
@@ -152,9 +159,9 @@ class ListBoxX : public ListBox {
 	HWND lb {};
 	bool unicodeMode = false;
 	int codePage = 0;
-	int desiredVisibleRows = 9;
+	int desiredVisibleRows = defaultVisibleRows;
 	int maxItemCharacters = 0;
-	unsigned int aveCharWidth = 8;
+	unsigned int aveCharWidth = commonCharacterWidth;
 	Window *parent = nullptr;
 	WNDPROC prevWndProc{};
 	int ctrlID = 0;
@@ -248,10 +255,11 @@ void ListBoxX::Create(Window &parent_, int ctrlID_, Point location_, int lineHei
 	HWND hwndParent = HwndFromWindow(*parent);
 	HINSTANCE hinstanceParent = GetWindowInstance(hwndParent);
 	// Window created as popup so not clipped within parent client area
+	constexpr int startPosition = 100;	// Arbitrary as will be moved immediately
 	wid = ::CreateWindowEx(
 		WS_EX_WINDOWEDGE, ListBoxX_ClassName, TEXT(""),
 		WS_POPUP | frameStyle,
-		100,100, 150,80, hwndParent,
+		startPosition,startPosition, sizeList.cx,sizeList.cy, hwndParent,
 		{},
 		hinstanceParent,
 		this);
@@ -272,7 +280,8 @@ void ListBoxX::SetFont(const Font *font) {
 		fontCopy = pfm->HFont();
 		SetWindowFont(lb, fontCopy, 0);
 		fontWin = pfm->Duplicate();
-		codePage = unicodeMode ? CpUtf8 : CodePageFromCharSet(fontWin->GetCharacterSet(), 1252);
+		codePage = unicodeMode ? CpUtf8 :
+			CodePageFromCharSet(fontWin->GetCharacterSet(), codePageWindowsLatin);
 		graphics.Release();
 	}
 }
@@ -303,7 +312,6 @@ PRectangle ListBoxX::GetDesiredRect() {
 
 	int width = MinClientWidth();
 	int textSize = 0;
-	int averageCharWidth = 8;
 
 	// Make a measuring surface
 	std::unique_ptr<Surface> surfaceItem(Surface::Allocate(technology));
@@ -320,7 +328,7 @@ PRectangle ListBoxX::GetDesiredRect() {
 	}
 
 	maxCharWidth = static_cast<int>(std::ceil(surfaceItem->WidthText(fontWin.get(), "W")));
-	averageCharWidth = static_cast<int>(surfaceItem->AverageCharWidth(fontWin.get()));
+	const int averageCharWidth = static_cast<int>(surfaceItem->AverageCharWidth(fontWin.get()));
 
 	width = std::max({ width, textSize, (maxItemCharacters + 1) * averageCharWidth });
 
@@ -534,16 +542,13 @@ void ListBoxX::AdjustWindowRect(PRectangle *rc, UINT dpiAdjust) const noexcept {
 }
 
 int ListBoxX::ItemHeight() const noexcept {
-	int itemHeight = lineHeight + (TextInset.y * 2);
+	const int itemHeight = lineHeight + (TextInset.y * 2);
 	const int pixHeight = images.GetHeight() + (ImageInset.y * 2);
-	if (itemHeight < pixHeight) {
-		itemHeight = pixHeight;
-	}
-	return itemHeight;
+	return std::max(itemHeight, pixHeight);
 }
 
 int ListBoxX::MinClientWidth() const noexcept {
-	return 12 * (aveCharWidth+aveCharWidth/3);
+	return commonItemLength * (aveCharWidth+aveCharWidth/3);
 }
 
 POINT ListBoxX::MinTrackSize() const noexcept {
@@ -556,7 +561,7 @@ POINT ListBoxX::MinTrackSize() const noexcept {
 POINT ListBoxX::MaxTrackSize() const noexcept {
 	PRectangle rc = PRectangle::FromInts(0, 0,
 		std::max<int>(static_cast<unsigned int>(MinClientWidth()),
-		maxCharWidth * maxItemCharacters + TextInset.x * 2 +
+		(maxCharWidth * maxItemCharacters) + (TextInset.x * 2) +
 		 TextOffset() + SystemMetricsForDpi(SM_CXVSCROLL, dpi)),
 		ItemHeight() * lti.Count());
 	AdjustWindowRect(&rc, dpi);
@@ -743,7 +748,7 @@ void ListBoxX::CentreItem(int n) {
 }
 
 void ListBoxX::AllocateBitMap() {
-	const SIZE extent { GetClientExtent().x, lineHeight };
+	const SIZE extent { GetClientExtent().x, ItemHeight() };
 
 	graphics.bm.Create({}, extent.cx, -extent.cy, nullptr);
 	if (!graphics.bm) {
@@ -843,7 +848,7 @@ LRESULT ListBoxX::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam
 				0, WC_LISTBOXW, L"",
 				WS_CHILD | WS_VSCROLL | WS_VISIBLE |
 				LBS_OWNERDRAWFIXED | LBS_NODATA | LBS_NOINTEGRALHEIGHT,
-				0, 0, 150,80, hWnd,
+				0, 0, sizeList.cx, sizeList.cy, hWnd,
 				reinterpret_cast<HMENU>(static_cast<ptrdiff_t>(ctrlID)),
 				hinstanceParent,
 				nullptr);
@@ -932,10 +937,7 @@ LRESULT ListBoxX::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam
 			const int nRows = GetVisibleRows();
 			int linesToScroll = std::clamp(nRows - 1, 1, 3);
 			linesToScroll *= wheelDelta.Actions();
-			int top = ListBox_GetTopIndex(lb) + linesToScroll;
-			if (top < 0) {
-				top = 0;
-			}
+			const int top = std::max(0, ListBox_GetTopIndex(lb) + linesToScroll);
 			ListBox_SetTopIndex(lb, top);
 		}
 		break;

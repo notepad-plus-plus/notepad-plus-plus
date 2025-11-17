@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include <time.h>
+#include <ctime>
 
 #include <shlobj.h>
 #include "Parameters.h"
@@ -23,8 +23,8 @@
 #include "localization.h"
 #include "localizationString.h"
 #include "UserDefineDialog.h"
-#include "WindowsDlgRc.h"
 #include "Notepad_plus_Window.h"
+#include "NppConstants.h"
 
 #ifdef _MSC_VER
 #pragma warning(disable : 4996) // for GetVersionEx()

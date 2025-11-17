@@ -221,7 +221,6 @@ SET(include_files
 			./NppDarkMode.h
 			./ScintillaComponent/columnEditor_rc.h
 			./ScintillaComponent/FindReplaceDlg_rc.h
-			./ScintillaComponent/ScintillaRef.h
 			./Utf8.h
 			./WinControls/AboutDlg/AboutDlg.h
 			./WinControls/AnsiCharPanel/ansiCharPanel.h

@@ -15,12 +15,11 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-#include <time.h>
+#include <ctime>
 #include <shlwapi.h>
 #include <shlobj.h>
 #include "Notepad_plus_Window.h"
 #include "CustomFileDialog.h"
-#include "EncodingMapper.h"
 #include "VerticalFileSwitcher.h"
 #include "functionListPanel.h"
 #include "ReadDirectoryChanges.h"
@@ -28,6 +27,7 @@
 #include "fileBrowser.h"
 #include <unordered_set>
 #include "Common.h"
+#include "NppConstants.h"
 
 using namespace std;
 

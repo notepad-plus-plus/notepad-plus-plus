@@ -15,20 +15,29 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <memory>
-#include <shlwapi.h>
 #include <cinttypes>
 #include <windowsx.h>
 #include "ScintillaEditView.h"
 #include "Parameters.h"
 #include "localization.h"
 #include "Sorters.h"
-
-#include "dpiManagerV2.h"
-
 #include "ILexer.h"
 #include "Lexilla.h"
 
+#include <windows.h>
+
+#include <commctrl.h>
+
+#include <array>
+
+#include "NppConstants.h"
+#include "dpiManagerV2.h"
+#include "rgba_icons.h"
+
 using namespace std;
+
+static constexpr int MAX_FOLD_COLLAPSE_LEVEL = 8;
+static constexpr int MAX_FOLD_LINES_MORE_THAN = 99;
 
 // initialize the static variable
 bool ScintillaEditView::_SciInit = false;
@@ -170,6 +179,130 @@ LanguageNameInfo ScintillaEditView::_langNameInfoArray[L_EXTERNAL + 1] = {
 	{L"ext",              L"External",               L"External",                                          L_EXTERNAL,        "null"}
 };
 
+static constexpr char g_ZWSP[] = "\xE2\x80\x8B";
+
+static constexpr std::array<std::array<const char*, 3>, 64> g_ccUniEolChars{ {
+	// C0
+	{"\x00", "NUL", "U+0000"},               // U+0000 : Null
+	{"\x01", "SOH", "U+0001"},               // U+0001 : Start of Heading
+	{"\x02", "STX", "U+0002"},               // U+0002 : Start of Text
+	{"\x03", "ETX", "U+0003"},               // U+0003 : End of Text
+	{"\x04", "EOT", "U+0004"},               // U+0004 : End of Transmission
+	{"\x05", "ENQ", "U+0005"},               // U+0005 : Enquiry
+	{"\x06", "ACK", "U+0006"},               // U+0006 : Acknowledge
+	{"\a", "BEL", "U+0007"},                 // U+0007 : Bell
+	{"\b", "BS", "U+0008"},                  // U+0008 : Backspace
+	{"\v", "VT", "U+000B"},                  // U+000B : Line Tabulation
+	{"\f", "FF", "U+000C"},                  // U+000C : Form Feed
+	{"\x0E", "SO", "U+000E"},                // U+000E : Shift Out
+	{"\x0F", "SI", "U+000F"},                // U+000F : Shift In
+	{"\x10", "DLE", "U+0010"},               // U+0010 : Data Link Escape
+	{"\x11", "DC1", "U+0011"},               // U+0011 : Device Control One
+	{"\x12", "DC2", "U+0012"},               // U+0012 : Device Control Two
+	{"\x13", "DC3", "U+0013"},               // U+0013 : Device Control Three
+	{"\x14", "DC4", "U+0014"},               // U+0014 : Device Control Four
+	{"\x15", "NAK", "U+0015"},               // U+0015 : Negative Acknowledge
+	{"\x16", "SYN", "U+0016"},               // U+0016 : Synchronous Idle
+	{"\x17", "ETB", "U+0017"},               // U+0017 : End of Transmission Block
+	{"\x18", "CAN", "U+0018"},               // U+0018 : Cancel
+	{"\x19", "EM", "U+0019"},                // U+0019 : End of Medium
+	{"\x1A", "SUB", "U+001A"},               // U+001A : Substitute
+	{"\x1B", "ESC", "U+001B"},               // U+001B : Escape
+	{"\x1C", "FS", "U+001C"},                // U+001C : Information Separator Four
+	{"\x1D", "GS", "U+001D"},                // U+001D : Information Separator Three
+	{"\x1E", "RS", "U+001E"},                // U+001E : Information Separator Two
+	{"\x1F", "US", "U+001F"},                // U+001F : Information Separator One
+	{"\x7F", "DEL", "U+007F"},               // U+007F : Delete
+	// C1
+	{"\xC2\x80", "PAD", "U+0080"},           // U+0080 : Padding Character
+	{"\xC2\x81", "HOP", "U+0081"},           // U+0081 : High Octet Preset
+	{"\xC2\x82", "BPH", "U+0082"},           // U+0082 : Break Permitted Here
+	{"\xC2\x83", "NBH", "U+0083"},           // U+0083 : No Break Here
+	{"\xC2\x84", "IND", "U+0084"},           // U+0084 : Index
+	//{"\xC2\x85", "NEL", "U+0085"},          // U+0085 : Next Line
+	{"\xC2\x86", "SSA", "U+0086"},           // U+0086 : Start of Selected Area
+	{"\xC2\x87", "ESA", "U+0087"},           // U+0087 : End of Selected Area
+	{"\xC2\x88", "HTS", "U+0088"},           // U+0088 : Character (Horizontal) Tabulation Set
+	{"\xC2\x89", "HTJ", "U+0089"},           // U+0089 : Character (Horizontal) Tabulation With Justification
+	{"\xC2\x8A", "VTS", "U+008A"},           // U+008A : Vertical (Line) Tabulation Set
+	{"\xC2\x8B", "PLD", "U+008B"},           // U+008B : Partial Line Forward (Down)
+	{"\xC2\x8C", "PLU", "U+008C"},           // U+008C : Partial Line Backward (Up)
+	{"\xC2\x8D", "RI", "U+008D"},            // U+008D : Reverse Line Feed (Index)
+	{"\xC2\x8E", "SS2", "U+008E"},           // U+008E : Single-Shift Two
+	{"\xC2\x8F", "SS3", "U+008F"},           // U+008F : Single-Shift Three
+	{"\xC2\x90", "DCS", "U+0090"},           // U+0090 : Device Control String
+	{"\xC2\x91", "PU1", "U+0091"},           // U+0091 : Private Use One
+	{"\xC2\x92", "PU2", "U+0092"},           // U+0092 : Private Use Two
+	{"\xC2\x93", "STS", "U+0093"},           // U+0093 : Set Transmit State
+	{"\xC2\x94", "CCH", "U+0094"},           // U+0094 : Cancel Character
+	{"\xC2\x95", "MW", "U+0095"},            // U+0095 : Message Waiting
+	{"\xC2\x96", "SPA", "U+0096"},           // U+0096 : Start of Protected Area
+	{"\xC2\x97", "EPA", "U+0097"},           // U+0097 : End of Protected Area
+	{"\xC2\x98", "SOS", "U+0098"},           // U+0098 : Start of String
+	{"\xC2\x99", "SGCI", "U+0099"},          // U+0099 : Single Graphic Character Introducer
+	{"\xC2\x9A", "SCI", "U+009A"},           // U+009A : Single Character Introducer
+	{"\xC2\x9B", "CSI", "U+009B"},           // U+009B : Control Sequence Introducer
+	{"\xC2\x9C", "ST", "U+009C"},            // U+009C : String Terminator
+	{"\xC2\x9D", "OSC", "U+009D"},           // U+009D : Operating System Command
+	{"\xC2\x9E", "PM", "U+009E"},            // U+009E : Private Message
+	{"\xC2\x9F", "APC", "U+009F"},           // U+009F : Application Program Command
+	// Unicode EOL
+	{"\xC2\x85", "NEL", "U+0085"},           // U+0085 : Next Line
+	{"\xE2\x80\xA8", "LS", "U+2028"},        // U+2028 : Line Separator
+	{"\xE2\x80\xA9", "PS", "U+2029"}         // U+2029 : Paragraph Separator
+} };
+
+static constexpr std::array<std::array<const char*, 3>, 49> g_nonPrintingChars{ {
+	{"\xC2\xA0", "NBSP", "U+00A0"},          // U+00A0 : no-break space
+	{"\xC2\xAD", "SHY", "U+00AD"},           // U+00AD : soft hyphen
+	{"\xD8\x9C", "ALM", "U+061C"},           // U+061C : arabic letter mark
+	{"\xDC\x8F", "SAM", "U+070F"},           // U+070F : syriac abbreviation mark
+	{"\xE1\x9A\x80", "OSPM", "U+1680"},      // U+1680 : ogham space mark
+	{"\xE1\xA0\x8E", "MVS", "U+180E"},       // U+180E : mongolian vowel separator
+	{"\xE2\x80\x80", "NQSP", "U+2000"},      // U+2000 : en quad
+	{"\xE2\x80\x81", "MQSP", "U+2001"},      // U+2001 : em quad
+	{"\xE2\x80\x82", "ENSP", "U+2002"},      // U+2002 : en space
+	{"\xE2\x80\x83", "EMSP", "U+2003"},      // U+2003 : em space
+	{"\xE2\x80\x84", "3/MSP", "U+2004"},     // U+2004 : three-per-em space
+	{"\xE2\x80\x85", "4/MSP", "U+2005"},     // U+2005 : four-per-em space
+	{"\xE2\x80\x86", "6/MSP", "U+2006"},     // U+2006 : six-per-em space
+	{"\xE2\x80\x87", "FSP", "U+2007"},       // U+2007 : figure space
+	{"\xE2\x80\x88", "PSP", "U+2008"},       // U+2008 : punctuation space
+	{"\xE2\x80\x89", "THSP", "U+2009"},      // U+2009 : thin space
+	{"\xE2\x80\x8A", "HSP", "U+200A"},       // U+200A : hair space
+	{"\xE2\x80\x8B", "ZWSP", "U+200B"},      // U+200B : zero-width space
+	{"\xE2\x80\x8C", "ZWNJ", "U+200C"},      // U+200C : zero-width non-joiner
+	{"\xE2\x80\x8D", "ZWJ", "U+200D"},       // U+200D : zero-width joiner
+	{"\xE2\x80\x8E", "LRM", "U+200E"},       // U+200E : left-to-right mark
+	{"\xE2\x80\x8F", "RLM", "U+200F"},       // U+200F : right-to-left mark
+	{"\xE2\x80\xAA", "LRE", "U+202A"},       // U+202A : left-to-right embedding
+	{"\xE2\x80\xAB", "RLE", "U+202B"},       // U+202B : right-to-left embedding
+	{"\xE2\x80\xAC", "PDF", "U+202C"},       // U+202C : pop directional formatting
+	{"\xE2\x80\xAD", "LRO", "U+202D"},       // U+202D : left-to-right override
+	{"\xE2\x80\xAE", "RLO", "U+202E"},       // U+202E : right-to-left override
+	{"\xE2\x80\xAF", "NNBSP", "U+202F"},     // U+202F : narrow no-break space
+	{"\xE2\x81\x9F", "MMSP", "U+205F"},      // U+205F : medium mathematical space
+	{"\xE2\x81\xA0", "WJ", "U+2060"},        // U+2060 : word joiner
+	{"\xE2\x81\xA1", "(FA)", "U+2061"},      // U+2061 : function application
+	{"\xE2\x81\xA2", "(IT)", "U+2062"},      // U+2062 : invisible times
+	{"\xE2\x81\xA3", "(IS)", "U+2063"},      // U+2063 : invisible separator
+	{"\xE2\x81\xA4", "(IP)", "U+2064"},      // U+2064 : invisible plus
+	{"\xE2\x81\xA6", "LRI", "U+2066"},       // U+2066 : left-to-right isolate
+	{"\xE2\x81\xA7", "RLI", "U+2067"},       // U+2067 : right-to-left isolate
+	{"\xE2\x81\xA8", "FSI", "U+2068"},       // U+2068 : first strong isolate
+	{"\xE2\x81\xA9", "PDI", "U+2069"},       // U+2069 : pop directional isolate
+	{"\xE2\x81\xAA", "ISS", "U+206A"},       // U+206A : inhibit symmetric swapping
+	{"\xE2\x81\xAB", "ASS", "U+206B"},       // U+206B : activate symmetric swapping
+	{"\xE2\x81\xAC", "IAFS", "U+206C"},      // U+206C : inhibit arabic form shaping
+	{"\xE2\x81\xAD", "AAFS", "U+206D"},      // U+206D : activate arabic form shaping
+	{"\xE2\x81\xAE", "NADS", "U+206E"},      // U+206E : national digit shapes
+	{"\xE2\x81\xAF", "NODS", "U+206F"},      // U+206F : nominal digit shapes
+	{"\xE3\x80\x80", "IDSP", "U+3000"},      // U+3000 : ideographic space
+	{"\xEF\xBB\xBF", "ZWNBSP", "U+FEFF"},    // U+FEFF : zero-width no-break space
+	{"\xEF\xBF\xB9", "IAA", "U+FFF9"},       // U+FFF9 : interlinear annotation anchor
+	{"\xEF\xBF\xBA", "IAS", "U+FFFA"},       // U+FFFA : interlinear annotation separator
+	{"\xEF\xBF\xBB", "IAT", "U+FFFB"}        // U+FFFB : interlinear annotation terminator
+} };
 
 size_t getNbDigits(size_t aNum, size_t base)
 {
@@ -3575,8 +3708,8 @@ void ScintillaEditView::setMultiSelections(const ColumnModeInfos & cmi)
 	{
 		if (cmi[i].isValid())
 		{
-			intptr_t selStart = cmi[i]._direction == L2R?cmi[i]._selLpos:cmi[i]._selRpos;
-			intptr_t selEnd   = cmi[i]._direction == L2R?cmi[i]._selRpos:cmi[i]._selLpos;
+			const intptr_t selStart = cmi[i]._isDirectionL2R ? cmi[i]._selLpos : cmi[i]._selRpos;
+			const intptr_t selEnd = cmi[i]._isDirectionL2R ? cmi[i]._selRpos : cmi[i]._selLpos;
 			execute(SCI_SETSELECTIONNSTART, i, selStart);
 			execute(SCI_SETSELECTIONNEND, i, selEnd);
 		}
@@ -3874,13 +4007,13 @@ ColumnModeInfos ScintillaEditView::getColumnModeSelectInfo()
 
 			if (absPosSelStartPerLine == absPosSelEndPerLine && execute(SCI_SELECTIONISRECTANGLE))
 			{
-				bool dir = nbVirtualAnchorSpc<nbVirtualCaretSpc?L2R:R2L;
-				columnModeInfos.push_back(ColumnModeInfo(absPosSelStartPerLine, absPosSelEndPerLine, i, dir, nbVirtualAnchorSpc, nbVirtualCaretSpc));
+				const bool isDirL2R = nbVirtualAnchorSpc < nbVirtualCaretSpc;
+				columnModeInfos.push_back(ColumnModeInfo(absPosSelStartPerLine, absPosSelEndPerLine, i, isDirL2R, nbVirtualAnchorSpc, nbVirtualCaretSpc));
 			}
-			else if (absPosSelStartPerLine > absPosSelEndPerLine)
-				columnModeInfos.push_back(ColumnModeInfo(absPosSelEndPerLine, absPosSelStartPerLine, i, R2L, nbVirtualAnchorSpc, nbVirtualCaretSpc));
+			else if (absPosSelStartPerLine > absPosSelEndPerLine) // is R2L
+				columnModeInfos.push_back(ColumnModeInfo(absPosSelEndPerLine, absPosSelStartPerLine, i, false, nbVirtualAnchorSpc, nbVirtualCaretSpc));
 			else
-				columnModeInfos.push_back(ColumnModeInfo(absPosSelStartPerLine, absPosSelEndPerLine, i, L2R, nbVirtualAnchorSpc, nbVirtualCaretSpc));
+				columnModeInfos.push_back(ColumnModeInfo(absPosSelStartPerLine, absPosSelEndPerLine, i, true, nbVirtualAnchorSpc, nbVirtualCaretSpc));
 		}
 	}
 	return columnModeInfos;

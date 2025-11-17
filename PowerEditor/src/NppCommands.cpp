@@ -41,6 +41,8 @@
 #include "SortLocale.h"
 #include "dpiManagerV2.h"
 
+#include "NppConstants.h"
+
 using namespace std;
 
 std::mutex command_mutex;

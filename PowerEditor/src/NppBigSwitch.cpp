@@ -32,6 +32,7 @@
 #include "functionListPanel.h"
 #include "fileBrowser.h"
 #include "NppDarkMode.h"
+#include "NppConstants.h"
 
 using namespace std;
 

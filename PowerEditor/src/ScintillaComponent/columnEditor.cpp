@@ -19,6 +19,7 @@
 //#include <algorithm>
 #include "columnEditor.h"
 #include "ScintillaEditView.h"
+#include "NppConstants.h"
 
 using namespace std;
 

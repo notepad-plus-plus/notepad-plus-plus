@@ -15,13 +15,22 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-#include <shlwapi.h>
 #include "FindReplaceDlg.h"
 #include "ScintillaEditView.h"
 #include "Notepad_plus_msgs.h"
 #include "localization.h"
 #include "Common.h"
 #include "Utf8.h"
+
+#include <windows.h>
+
+#include <commctrl.h>
+
+#include <cstring>
+#include <memory>
+#include <string>
+
+#include "NppConstants.h"
 
 using namespace std;
 

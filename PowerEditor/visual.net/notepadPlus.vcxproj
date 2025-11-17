@@ -261,7 +261,6 @@
     <ClInclude Include="..\src\NppDarkMode.h" />
     <ClInclude Include="..\src\ScintillaComponent\columnEditor_rc.h" />
     <ClInclude Include="..\src\ScintillaComponent\FindReplaceDlg_rc.h" />
-    <ClInclude Include="..\src\ScintillaComponent\ScintillaRef.h" />
     <ClInclude Include="..\src\Utf8.h" />
     <ClInclude Include="..\src\WinControls\AboutDlg\AboutDlg.h" />
     <ClInclude Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel.h" />

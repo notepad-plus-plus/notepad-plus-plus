@@ -52,3 +52,69 @@ enum class SubclassID : unsigned int
 	first = 666,
 	second = 1984
 };
+
+// ScintillaRef
+
+enum changeHistoryState
+{
+	disable,
+	margin,
+	indicator,
+	marginIndicator
+};
+
+enum folderStyle
+{
+	FOLDER_TYPE,
+	FOLDER_STYLE_SIMPLE,
+	FOLDER_STYLE_ARROW,
+	FOLDER_STYLE_CIRCLE,
+	FOLDER_STYLE_BOX,
+	FOLDER_STYLE_NONE
+};
+
+enum lineWrapMethod
+{
+	LINEWRAP_DEFAULT,
+	LINEWRAP_ALIGNED,
+	LINEWRAP_INDENT
+};
+
+enum lineHiliteMode
+{
+	LINEHILITE_NONE,
+	LINEHILITE_HILITE,
+	LINEHILITE_FRAME
+};
+
+// ScintillaRef
+
+// ScintillaEditView
+
+inline constexpr bool fold_expand = true;
+inline constexpr bool fold_collapse = false;
+
+inline constexpr int MODEVENTMASK_OFF = 0;
+
+enum TextCase : unsigned char
+{
+	UPPERCASE,
+	LOWERCASE,
+	PROPERCASE_FORCE,
+	PROPERCASE_BLEND,
+	SENTENCECASE_FORCE,
+	SENTENCECASE_BLEND,
+	INVERTCASE,
+	RANDOMCASE
+};
+
+enum NumBase : unsigned char
+{
+	BASE_10,
+	BASE_16,
+	BASE_08,
+	BASE_02,
+	BASE_16_UPPERCASE
+};
+
+// ScintillaEditView

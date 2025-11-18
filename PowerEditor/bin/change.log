@@ -1,37 +1,19 @@
-Notepad++ v8.8.7 new features & bug-fixes:
+Notepad++ v8.8.8 new features, regression fixes & bug-fixes:
 
- 1. Sign Notepad++ binaries with GlobalSign certificat to fix false-positive alerts.
- 2. Fix Monitoring in one view affects selections and position in second view.
- 3. Fix Shortcut Mapper memory leak issue.
- 4. Enhance Perl FunctionList for class.
- 5. Fix pressing Alt or Tab causes controls redrawing problem in UDL dialog.
-
-
-Notepad++ v8.8.6 new features & bug-fixes:
-
- 1. Add capacity of pasting multiline into Find/Replace fields.
- 2. Improve UAC in Notepad++ for seamless elevated operations.
- 3. Fix Pin Tab operation being too long with many opened documents.
- 4. Add 2 new full-readonly modes via command line argument (-fullReadOnly & -fullReadOnlySavingForbidden).
- 5. Add apply/remove read-only for all documents commands.
- 6. Column Editor enhancement: GUI input fields now support radix to match the output format.
- 7. Add Window dialog "File Modified Time" sorting capacity.
- 8. Fix NPPN_CMDLINEPLUGINMSG not working issue & define the pluginMessage usage protocol.
- 9. Fix pasting from column mode to multi-selection issue due to different EOL.
-10. Add NPPM_GETNPPSETTINGSDIRPATH message to get Notepad++ settings directory path.
-11. Enhance SQL function list parser.
-12. Fix C# function list not working with comments.
-13. Add function list ability for CSS.
-14. Allow user to customize max selected chars to auto-fill "Find what" field.
-15. Restore undo/redo behaviour in Find/Replace fields after Copy/Paste or Ctrl-F.
-16. Fix text corruption issue caused by selection within multibyte characters.
-17. Fix DOCTYPE styling in xml and html.
-18. Fix double clicking on edit zone border creates a new tab issue.
-19. Update cURL in WinGUp (Notepad++ updater) for fixing security issue CVE-2025-5399.
+ 1. Add Notepad++ MSI (x64) for enterprise IT deployment.
+ 2. Security enhancement: Prevent Notepad++ updater from being hijacked.
+ 3. Fix multi-selection crash (regression) when smart highlighting is enabled.
+ 4. Add tab label length limitation option to have reasonable tab width.
+ 5. Improve the performance of saving session on exit.
+ 6. Fix Distraction free mode disabling tab bar hiding regression.
+ 7. Add text scale support.
+ 8. Fix switching among some encoding not working issue.
+ 9. Fix Notepad++ not handle system default code page UTF-8 well.
+10. Improve Rust handling: keywords and autoCompletion.
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.8.7/
+https://notepad-plus-plus.org/downloads/v8.8.8/
 
 
 Included plugins:
@@ -43,4 +25,4 @@ Included plugins:
 
 Updater (Installer only):
 
-* WinGUp (for Notepad++) v5.3.5
+* WinGUp (for Notepad++) v5.3.7

@@ -15,13 +15,22 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-#include <shlwapi.h>
 #include "FindReplaceDlg.h"
 #include "ScintillaEditView.h"
 #include "Notepad_plus_msgs.h"
 #include "localization.h"
 #include "Common.h"
 #include "Utf8.h"
+
+#include <windows.h>
+
+#include <commctrl.h>
+
+#include <cstring>
+#include <memory>
+#include <string>
+
+#include "NppConstants.h"
 
 using namespace std;
 
@@ -257,7 +266,6 @@ void Searching::displaySectionCentered(size_t posStart, size_t posEnd, Scintilla
 }
 
 WNDPROC FindReplaceDlg::originalFinderProc = nullptr;
-WNDPROC FindReplaceDlg::originalComboEditProc = nullptr;
 
 FindReplaceDlg::~FindReplaceDlg()
 {
@@ -1572,21 +1580,14 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			// Change handler of edit element in the comboboxes to support Ctrl+Backspace
 			COMBOBOXINFO cbinfo{};
 			cbinfo.cbSize = sizeof(COMBOBOXINFO);
-			GetComboBoxInfo(hFindCombo, &cbinfo);
-			if (!cbinfo.hwndItem) return FALSE;
+			for (const auto& hCombo : { hFindCombo, hReplaceCombo, hFiltersCombo, hDirCombo })
+			{
+				if (::GetComboBoxInfo(hCombo, &cbinfo) == FALSE || cbinfo.hwndItem == nullptr)
+					return FALSE;
 
-			originalComboEditProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(cbinfo.hwndItem, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(comboEditProc)));
-			SetWindowLongPtr(cbinfo.hwndItem, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(cbinfo.hwndCombo));
-			GetComboBoxInfo(hReplaceCombo, &cbinfo);
-			SetWindowLongPtr(cbinfo.hwndItem, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(comboEditProc));
-			SetWindowLongPtr(cbinfo.hwndItem, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(cbinfo.hwndCombo));
-			GetComboBoxInfo(hFiltersCombo, &cbinfo);
-			SetWindowLongPtr(cbinfo.hwndItem, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(comboEditProc));
-			SetWindowLongPtr(cbinfo.hwndItem, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(cbinfo.hwndCombo));
-			GetComboBoxInfo(hDirCombo, &cbinfo);
-			SetWindowLongPtr(cbinfo.hwndItem, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(comboEditProc));
-			SetWindowLongPtr(cbinfo.hwndItem, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(cbinfo.hwndCombo));
-
+				::SetWindowSubclass(cbinfo.hwndItem, FindReplaceDlg::ComboEditProc, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(cbinfo.hwndCombo));
+			}
+			
 			setDpi();
 
 			HFONT hFont = nullptr;
@@ -4881,93 +4882,151 @@ LRESULT FAR PASCAL FindReplaceDlg::finderProc(HWND hwnd, UINT message, WPARAM wP
 		return CallWindowProc(originalFinderProc, hwnd, message, wParam, lParam);
 }
 
-LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK FindReplaceDlg::ComboEditProc(
+	HWND hWnd,
+	UINT uMsg,
+	WPARAM wParam,
+	LPARAM lParam,
+	UINT_PTR uIdSubclass,
+	DWORD_PTR dwRefData
+)
 {
-	HWND hwndCombo = reinterpret_cast<HWND>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
+	auto* hwndCombo = reinterpret_cast<HWND>(dwRefData);
 
-	bool isDropped = ::SendMessage(hwndCombo, CB_GETDROPPEDSTATE, 0, 0) != 0;
-
-	const size_t strSize = FINDREPLACE_MAXLENGTH;
-	auto draftString = std::make_unique<wchar_t[]>(strSize);
-	std::fill_n(draftString.get(), strSize, L'\0');
-
-	if (isDropped && (message == WM_KEYDOWN) && (wParam == VK_DELETE))
+	static constexpr size_t strSize = FINDREPLACE_MAXLENGTH;
+	static auto draftString = []() -> std::unique_ptr<wchar_t[]>
 	{
-		auto curSel = ::SendMessage(hwndCombo, CB_GETCURSEL, 0, 0);
-		if (curSel != CB_ERR)
+		auto ptr = std::make_unique<wchar_t[]>(strSize);
+		std::fill_n(ptr.get(), strSize, L'\0');
+		return ptr;
+	}();
+
+	switch (uMsg)
+	{
+		case WM_NCDESTROY:
 		{
-			auto itemsRemaining = ::SendMessage(hwndCombo, CB_DELETESTRING, curSel, 0);
-			// if we close the dropdown and reopen it, it will be correctly-sized for remaining items
-			::SendMessage(hwndCombo, CB_SHOWDROPDOWN, FALSE, 0);
-			if (itemsRemaining > 0)
-			{
-				if (itemsRemaining == curSel)
-				{
-					--curSel;
-				}
-				::SendMessage(hwndCombo, CB_SETCURSEL, curSel, 0);
-				::SendMessage(hwndCombo, CB_SHOWDROPDOWN, TRUE, 0);
-			}
-			return 0;
+			::RemoveWindowSubclass(hWnd, FindReplaceDlg::ComboEditProc, uIdSubclass);
+			draftString.reset(nullptr);
+			break;
 		}
-	}
-	else if (message == WM_CHAR && wParam == 0x7F) // ASCII "DEL" (Ctrl+Backspace)
-	{
-		delLeftWordInEdit(hwnd);
-		return 0;
-	}
-	else if (message == WM_SETFOCUS)
-	{
-		draftString[0] = '\0';
-	}
-	else if ((message == WM_KEYDOWN) && (wParam == VK_DOWN) && (::SendMessage(hwndCombo, CB_GETCURSEL, 0, 0) == CB_ERR))
-	{
-		// down key on unselected combobox item -> store current edit text as draft
-		::SendMessage(hwndCombo, WM_GETTEXT, FINDREPLACE_MAXLENGTH, reinterpret_cast<LPARAM>(draftString.get()));
-	}
-	else if ((message == WM_KEYDOWN) && (wParam == VK_UP) && (::SendMessage(hwndCombo, CB_GETCURSEL, 0, 0) == CB_ERR))
-	{
-		// up key on unselected combobox item -> no change but select current edit text
-		::SendMessage(hwndCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1));
-		return 0;
-	}
-	else if ((message == WM_KEYDOWN) && (wParam == VK_UP) && (::SendMessage(hwndCombo, CB_GETCURSEL, 0, 0) == 0) && std::wcslen(draftString.get()) > 0)
-	{
-		// up key on top selected combobox item -> restore draft to edit text
-		::SendMessage(hwndCombo, CB_SETCURSEL, WPARAM(-1), 0);
-		::SendMessage(hwndCombo, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(draftString.get()));
-		::SendMessage(hwndCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1));
-		return 0;
 
-	}
-	else if (message == WM_PASTE)
-	{
-		// needed to allow CR (i.e., multiline) into combobox text;
-		// (the default functionality terminates the paste at the first CR character)
-
-		HWND hParent = ::GetParent(hwndCombo);
-		HWND hFindWhatCombo = ::GetDlgItem(hParent, IDFINDWHAT);
-		HWND hReplaceWithCombo = ::GetDlgItem(hParent, IDREPLACEWITH);
-		if ((hwndCombo == hFindWhatCombo) || (hwndCombo == hReplaceWithCombo))
+		case WM_KEYDOWN:
 		{
-			CLIPFORMAT cfColumnSelect = static_cast<CLIPFORMAT>(::RegisterClipboardFormat(L"MSDEVColumnSelect"));
-			if (!::IsClipboardFormatAvailable(cfColumnSelect))
+			if (wParam != VK_DELETE && wParam != VK_DOWN && wParam != VK_UP)
 			{
-				wstring clipboardText = strFromClipboard();
-				if (!clipboardText.empty())
+				break;
+			}
+
+			auto curSel = ::SendMessage(hwndCombo, CB_GETCURSEL, 0, 0);
+			switch (wParam)
+			{
+				case VK_DELETE:
 				{
-					HWND hEdit = GetWindow(hwndCombo, GW_CHILD);
-					if (hEdit)
+					if (::SendMessage(hwndCombo, CB_GETDROPPEDSTATE, 0, 0) == FALSE) // isNotDropped
 					{
-						::SendMessage(hEdit, EM_REPLACESEL, TRUE, (LPARAM)clipboardText.c_str());
+						break;
+					}
+
+					if (curSel == CB_ERR)
+					{
+						break;
+					}
+
+					const auto itemsRemaining = ::SendMessage(hwndCombo, CB_DELETESTRING, curSel, 0);
+					// if we close the dropdown and reopen it, it will be correctly-sized for remaining items
+					::SendMessage(hwndCombo, CB_SHOWDROPDOWN, FALSE, 0);
+					if (itemsRemaining > 0)
+					{
+						if (itemsRemaining == curSel)
+						{
+							--curSel;
+						}
+						::SendMessage(hwndCombo, CB_SETCURSEL, curSel, 0);
+						::SendMessage(hwndCombo, CB_SHOWDROPDOWN, TRUE, 0);
+					}
+					return 0;
+				}
+
+				case VK_DOWN:
+				{
+					if (curSel == CB_ERR)
+					{
+						// down key on unselected combobox item -> store current edit text as draft
+						::SendMessage(hwndCombo, WM_GETTEXT, WPARAM{ strSize }, reinterpret_cast<LPARAM>(draftString.get()));
+					}
+					break;
+				}
+
+				case VK_UP:
+				{
+					if (curSel == CB_ERR)
+					{
+						// up key on unselected combobox item -> no change but select current edit text
+						::SendMessage(hwndCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1));
+						return 0;
+					}
+
+					if ((curSel == 0) && std::wcslen(draftString.get()) > 0)
+					{
+						// up key on top selected combobox item -> restore draft to edit text
+						::SendMessage(hwndCombo, CB_SETCURSEL, static_cast<WPARAM>(-1), 0);
+						::SendMessage(hwndCombo, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(draftString.get()));
+						::SendMessage(hwndCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1));
+						return 0;
+					}
+					break;
+				}
+
+				default:
+					break;
+			}
+			break;
+		}
+
+		case WM_CHAR:
+		{
+			if (wParam == 0x7F) // ASCII DEL (Ctrl+Backspace)
+			{
+				delLeftWordInEdit(hWnd);
+				return 0;
+			}
+			break;
+		}
+
+		case WM_SETFOCUS:
+		{
+			draftString[0] = L'\0';
+			break;
+		}
+
+		case WM_PASTE:
+		{
+			// needed to allow CR (i.e., multiline) into combobox text;
+			// (the default functionality terminates the paste at the first CR character)
+
+			HWND hParent = ::GetParent(hwndCombo);
+			HWND hFindWhatCombo = ::GetDlgItem(hParent, IDFINDWHAT);
+			HWND hReplaceWithCombo = ::GetDlgItem(hParent, IDREPLACEWITH);
+			if ((hwndCombo == hFindWhatCombo) || (hwndCombo == hReplaceWithCombo))
+			{
+				const auto cfColumnSelect = static_cast<CLIPFORMAT>(::RegisterClipboardFormatW(L"MSDEVColumnSelect"));
+				if (::IsClipboardFormatAvailable(cfColumnSelect) == FALSE)
+				{
+					const auto clipboardText = std::wstring{ strFromClipboard() };
+					if (!clipboardText.empty())
+					{
+						::SendMessage(hWnd, EM_REPLACESEL, TRUE, reinterpret_cast<LPARAM>(clipboardText.c_str()));
 					}
 				}
+				return 0;
 			}
-
-			return 0;
+			break;
 		}
+
+		default:
+			break;
 	}
-	return CallWindowProc(originalComboEditProc, hwnd, message, wParam, lParam);
+	return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
 }
 
 void FindReplaceDlg::hideOrShowCtrl4reduceOrNormalMode(DIALOG_TYPE dlgT)

@@ -112,12 +112,14 @@ friend class FindReplaceDlg;
 public:
 	Finder() : DockingDlgInterface(IDD_FINDRESULT) {
 		_markingsStruct._length = 0;
-		_markingsStruct._markings = NULL;
+		_markingsStruct._markings = nullptr;
 	}
 
 	~Finder() override {
 		_scintView.destroy();
 	}
+
+	using DockingDlgInterface::init;
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		DockingDlgInterface::init(hInst, hPere);
 		_ppEditView = ppEditView;
@@ -246,8 +248,6 @@ private:
 	void writeOptions();
 };
 
-LRESULT run_swapButtonProc(WNDPROC oldEditProc, HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
-
 class FindReplaceDlg : public StaticDialog
 {
 friend class FindIncrementDlg;
@@ -262,6 +262,7 @@ public :
 
 	~FindReplaceDlg();
 
+	using Window::init;
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		Window::init(hInst, hPere);
 		if (!ppEditView)
@@ -269,6 +270,7 @@ public :
 		_ppEditView = ppEditView;
 	}
 
+	using StaticDialog::create;
 	void create(int dialogID, bool isRTL = false, bool msgDestParent = true, bool toShow = true);
 	
 	void initOptionsFromDlg();
@@ -328,7 +330,7 @@ public :
 	void changeTabName(DIALOG_TYPE index, const wchar_t *name2change) {
 		TCITEM tie{};
 		tie.mask = TCIF_TEXT;
-		tie.pszText = (wchar_t *)name2change;
+		tie.pszText = const_cast<wchar_t*>(name2change);
 		TabCtrl_SetItem(_tab.getHSelf(), index, &tie);
 
 		wchar_t label[MAX_PATH]{};
@@ -425,9 +427,8 @@ protected :
 	void resizeDialogElements();
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	static WNDPROC originalFinderProc;
-	static WNDPROC originalComboEditProc;
 
-	static LRESULT FAR PASCAL comboEditProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK ComboEditProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 
 	// Window procedure for the finder
 	static LRESULT FAR PASCAL finderProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
@@ -537,6 +538,8 @@ class FindIncrementDlg : public StaticDialog
 {
 public :
 	FindIncrementDlg() = default;
+
+	using Window::init;
 	void init(HINSTANCE hInst, HWND hPere, FindReplaceDlg *pFRDlg, bool isRTL = false);
 	void destroy() override;
 	void display(bool toShow = true) const override;

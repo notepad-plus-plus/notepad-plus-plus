@@ -177,8 +177,6 @@ T* variedFormatNumber2String(T* str, size_t strLen, size_t number, size_t base, 
 	return str;
 }
 
-typedef LRESULT (WINAPI *CallWindowProcFunc) (WNDPROC,HWND,UINT,WPARAM,LPARAM);
-
 struct ColumnModeInfo {
 	intptr_t _selLpos = 0;
 	intptr_t _selRpos = 0;
@@ -673,14 +671,11 @@ protected:
 
     static const int _markersArray[][NB_FOLDER_STATE];
 
-	static LRESULT CALLBACK scintillaStatic_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
-	LRESULT scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK ScintillaProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 
 	bool _isMainEditZone = false;
 	SCINTILLA_FUNC _pScintillaFunc = nullptr;
 	SCINTILLA_PTR  _pScintillaPtr = nullptr;
-	static WNDPROC _scintillaDefaultProc;
-	CallWindowProcFunc _callWindowProc = nullptr;
 	BufferID attachDefaultDoc();
 
 	//Store the current buffer so it can be retrieved later

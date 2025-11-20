@@ -25,6 +25,7 @@
 #include "UserDefineDialog.h"
 #include "WindowsDlgRc.h"
 #include "Notepad_plus_Window.h"
+#include "md5.h"
 
 #ifdef _MSC_VER
 #pragma warning(disable : 4996) // for GetVersionEx()
@@ -1280,6 +1281,9 @@ bool NppParameters::load()
 	std::wstring langs_xml_path(_userPath);
 	pathAppend(langs_xml_path, L"langs.xml");
 
+	std::wstring modelLangsPath(_nppPath);
+	pathAppend(modelLangsPath, L"langs.model.xml");
+
 	BOOL doRecover = FALSE;
 	if (doesFileExist(langs_xml_path.c_str()))
 	{
@@ -1309,9 +1313,7 @@ bool NppParameters::load()
 
 	if (doRecover)
 	{
-		std::wstring srcLangsPath(_nppPath);
-		pathAppend(srcLangsPath, L"langs.model.xml");
-		::CopyFile(srcLangsPath.c_str(), langs_xml_path.c_str(), FALSE);
+		::CopyFile(modelLangsPath.c_str(), langs_xml_path.c_str(), FALSE);
 	}
 
 	_pXmlDoc = new TiXmlDocument(langs_xml_path);
@@ -1339,6 +1341,7 @@ bool NppParameters::load()
 	}
 	else
 		getLangKeywordsFromXmlTree();
+
 
 	//---------------------------//
 	// config.xml : for per-user //
@@ -1376,7 +1379,6 @@ bool NppParameters::load()
 	{
 		std::wstring srcStylersPath(_nppPath);
 		pathAppend(srcStylersPath, L"stylers.model.xml");
-
 		::CopyFile(srcStylersPath.c_str(), _stylerPath.c_str(), TRUE);
 	}
 
@@ -1912,7 +1914,9 @@ void NppParameters::getLangKeywordsFromXmlTree()
 {
 	TiXmlNode *root =
 		_pXmlDoc->FirstChild(L"NotepadPlus");
-		if (!root) return;
+
+	if (!root) return;
+	updateKeyWordsFromModelXml(root);
 	feedKeyWordsParameters(root);
 }
 
@@ -1939,7 +1943,415 @@ bool NppParameters::getUserStylersFromXmlTree()
 {
 	TiXmlNode *root = _pXmlUserStylerDoc->FirstChild(L"NotepadPlus");
 	if (!root) return false;
+	updateUserStylersFromModelXml(root);
 	return feedStylerArray(root);
+}
+
+void NppParameters::updateKeyWordsFromModelXml(TiXmlNode* rootUser)
+{
+	std::wstring modelLangsPath(_nppPath);
+	pathAppend(modelLangsPath, L"langs.model.xml");
+	TiXmlDocument* pXmlModel = new TiXmlDocument(modelLangsPath);
+	int buffer_size = WideCharToMultiByte(CP_ACP, 0, modelLangsPath.c_str(), static_cast<int>(modelLangsPath.length()), nullptr, 0, nullptr, nullptr);
+	std::string sModelPath(buffer_size, 0);
+	WideCharToMultiByte(CP_ACP, 0, modelLangsPath.c_str(), static_cast<int>(modelLangsPath.length()), sModelPath.data(), buffer_size, nullptr, nullptr);
+
+	// if there's a problem loading the model XML, just exit out (don't need to warn the user, since the main Langs XML has already been loaded
+	//	the same logic will be used for any other errors while trying to do this XML merge
+	if (!pXmlModel->LoadFile())
+		return;
+
+	TiXmlNode* rootModel = pXmlModel->FirstChild(L"NotepadPlus");
+	if (!rootModel)
+		return;
+
+	// now that the model is reasonable, it's reasonable to do the MD5-checking
+	MD5 md5;
+	std::string md5digest_model = md5.digestFile(sModelPath.c_str());
+	buffer_size = MultiByteToWideChar(CP_UTF8, 0, md5digest_model.c_str(), static_cast<int>(md5digest_model.length()), nullptr, 0);
+	std::wstring wsDigest(buffer_size, 0);
+	MultiByteToWideChar(CP_UTF8, 0, md5digest_model.c_str(), static_cast<int>(md5digest_model.length()), wsDigest.data(), buffer_size);
+
+	std::string sUserText{};
+	_pXmlDoc->Print(sUserText);
+	std::string md5digest_user_text_before = md5.digestString(sUserText.c_str());
+
+	// if modelMD5 is the same as the one seen in the XML, don't need to merge in the model...
+	TiXmlElement* peRootUser = rootUser->ToElement();
+	const wchar_t* pwct_modelMD5 = peRootUser->Attribute(L"modelMD5");
+	buffer_size = WideCharToMultiByte(CP_UTF8, 0, pwct_modelMD5 ? pwct_modelMD5 : L"", -1, nullptr, 0, nullptr, nullptr);
+	std::string s_modelMD5_from_xml(buffer_size, 0);
+	WideCharToMultiByte(CP_UTF8, 0, pwct_modelMD5 ? pwct_modelMD5 : L"", -1, s_modelMD5_from_xml.data(), buffer_size, nullptr, nullptr);
+	s_modelMD5_from_xml.pop_back();	// remove the NULL-terminator
+	if (md5digest_model == s_modelMD5_from_xml)
+		return;
+
+	// update (or add) the MD5 stored in the XML
+	peRootUser->SetAttribute(L"modelMD5", wsDigest.c_str());
+
+	// get the <Languages> element from both user and model langs
+	TiXmlElement* langsTopUser = rootUser->FirstChildElement(L"Languages");
+	TiXmlElement* langsTopModel = rootModel->FirstChildElement(L"Languages");
+	if (!langsTopUser || !langsTopModel)
+		return;
+
+	// map each of the user-file's languages -> element-pointer, to keep track of the languages already in the user-file
+	map<std::wstring, TiXmlElement*> mapUserLanguages{};
+	for (TiXmlElement* langFromUser = langsTopUser->FirstChildElement(L"Language");
+		langFromUser;
+		langFromUser = langFromUser->NextSiblingElement(L"Language"))
+	{
+		const wchar_t* languageName = langFromUser->Attribute(L"name");
+		if (languageName)
+			mapUserLanguages[languageName] = langFromUser;
+	}
+
+	// for each language in the Model,
+	for (TiXmlElement* langFromModel = langsTopModel->FirstChildElement(L"Language");
+		langFromModel;
+		langFromModel = langFromModel->NextSiblingElement(L"Language"))
+	{
+		std::wstring modelLanguageName = langFromModel->Attribute(L"name");
+		if (!modelLanguageName.length())
+			continue;
+
+		// see if language already exists in UserLanguages
+		if (mapUserLanguages.contains(modelLanguageName))
+		{
+			// if so, see if I need to update individual entries
+
+			// first, enumerate each keywords name -> element pointer, so I know what's already there
+			map<std::wstring, TiXmlElement*> mapUserKeywords{};
+			for (TiXmlElement* keywordsFromUser = mapUserLanguages[modelLanguageName]->FirstChildElement(L"Keywords");
+				keywordsFromUser;
+				keywordsFromUser = keywordsFromUser->NextSiblingElement(L"Keywords"))
+			{
+				const wchar_t* keywordsName = keywordsFromUser->Attribute(L"name");
+				if (keywordsName)
+					mapUserKeywords[keywordsName] = keywordsFromUser;
+			}
+
+			// then, for each Keywords entry in the model, check to see if it already exists in the user list
+			for (TiXmlElement* keywordsFromModel = langFromModel->FirstChildElement(L"Keywords");
+				keywordsFromModel;
+				keywordsFromModel = keywordsFromModel->NextSiblingElement(L"Keywords"))
+			{
+				std::wstring modelKeywordsName = keywordsFromModel->Attribute(L"name");
+				if (!modelKeywordsName.length())
+					continue;
+
+				// does this Keywords element exist in User already?
+				if (mapUserKeywords.contains(modelKeywordsName))
+				{
+					// if Keywords element in user langs.xml, need to check to see if any words are missing from its contents
+
+					// start by extracting the list of words in the user version of this Keywords element
+					TiXmlNode* pChild = mapUserKeywords[modelKeywordsName]->FirstChild();
+					std::wstring wsText = pChild ? pChild->Value() : L"";
+					std::vector<std::wstring> vwsUserWords{};
+					std::map<std::wstring, bool> mapUserWords{};
+					if (!wsText.empty())
+					{
+						std::wstring wsToken;
+						std::wistringstream wstrm(wsText);
+						while (wstrm >> wsToken)
+						{
+							vwsUserWords.push_back(wsToken);
+							mapUserWords[wsToken] = true;
+						}
+					}
+
+					// then go through each word in the model, and add it to the list if it's not already there
+					int nWordsAdded = 0;
+					TiXmlNode* pChildModel = keywordsFromModel->FirstChild();
+					std::wstring wsTextModel = pChildModel ? pChildModel->Value() : L"";
+					if (!wsTextModel.empty())
+					{
+						std::wstring wsToken;
+						std::wistringstream wstrm(wsTextModel);
+						while (wstrm >> wsToken)
+						{
+							if (!mapUserWords.contains(wsToken))
+							{
+								vwsUserWords.push_back(wsToken);
+								mapUserWords[wsToken] = true;
+								++nWordsAdded;
+							}
+						}
+					}
+
+					// if there were any words added to the list, need to update the element contents
+					if (nWordsAdded)
+					{
+						// sort the words in standard case-sensitive alphabetical order
+						std::sort(vwsUserWords.begin(), vwsUserWords.end());
+
+						// convert that list into space-separated string, with at most 8000 characters per line
+						size_t lineLength = 0, maxLineLength = 8000;
+						bool first = true;
+						std::wstring wsOutputWords(L"");
+						for (auto wsWord : vwsUserWords)
+						{
+							if (!first)
+							{
+								// space between words
+								wsOutputWords += L" ";
+								lineLength += 1;
+							}
+							first = false;
+
+							if (lineLength + wsWord.length() >= maxLineLength)
+							{
+								// start next line
+								lineLength = 0;
+								wsOutputWords += L"\n                ";
+							}
+
+							// add this word to the output string
+							wsOutputWords += wsWord;
+							lineLength += wsWord.length();
+						}
+
+						// and update the XML's value
+						pChild->SetValue(wsOutputWords);
+					}
+				}
+				else
+				{
+					// if this Keywords element doesn't exist in user list, need to clone it from model to the right parent language in the user list
+					TiXmlNode* p_clone = keywordsFromModel->Clone();
+					mapUserLanguages[modelLanguageName]->LinkEndChild(p_clone);
+				}
+			}
+
+			// Also, since <Language name="..." ...> can have other attributes, need to check to make sure that
+			//		the user langs copy of language isn't missing any of the attributes from the model
+			TiXmlElement* thisLanguageFromUser = mapUserLanguages[modelLanguageName];
+			for (TiXmlAttribute* attrModel = langFromModel->FirstAttribute();
+				attrModel;
+				attrModel = attrModel->Next())
+			{
+				// if attribute not in user, need to add it (but leave it alone if the user-langs has it, but is just an empty string, because that's intentionally blank)
+				const wchar_t* pwcUserValue = thisLanguageFromUser->Attribute(attrModel->Name());
+				if (!pwcUserValue)
+					thisLanguageFromUser->SetAttribute(attrModel->Name(), attrModel->Value());
+			}
+		}
+		else
+		{
+			// otherwise, since Language doesn't exist in User Languages, need to duplicate/clone from model to user-langs structure
+			TiXmlNode* p_clone = langFromModel->Clone();
+			langsTopUser->LinkEndChild(p_clone);
+		}
+	}
+
+	// check the user-langs document for changes
+	sUserText = "";
+	_pXmlDoc->Print(sUserText);
+	std::string md5digest_user_text_after = md5.digestString(sUserText.c_str());
+	if (md5digest_user_text_before != md5digest_user_text_after)
+		_pXmlDoc->SaveFile();
+
+	return;
+}
+
+void NppParameters::updateUserStylersFromModelXml(TiXmlNode* rootUser)
+{
+	std::wstring modelStylersPath(_nppPath);
+	pathAppend(modelStylersPath, L"stylers.model.xml");
+	TiXmlDocument* pXmlModel = new TiXmlDocument(modelStylersPath);
+	int buffer_size = WideCharToMultiByte(CP_ACP, 0, modelStylersPath.c_str(), static_cast<int>(modelStylersPath.length()), nullptr, 0, nullptr, nullptr);
+	std::string sModelPath(buffer_size, 0);
+	WideCharToMultiByte(CP_ACP, 0, modelStylersPath.c_str(), static_cast<int>(modelStylersPath.length()), sModelPath.data(), buffer_size, nullptr, nullptr);
+
+	// if there's a problem loading the model XML, just exit out (don't need to warn the user, since the UserStylers XML has already been loaded
+	//	the same logic will be used for any other errors while trying to do this XML merge
+	if (!pXmlModel->LoadFile())
+		return;
+
+	TiXmlNode* rootModel = pXmlModel->FirstChild(L"NotepadPlus");
+	if (!rootModel)
+		return;
+
+	// now that the model is reasonable, it's reasonable to do the MD5-checking
+	MD5 md5;
+	std::string md5digest_model = md5.digestFile(sModelPath.c_str());
+	buffer_size = MultiByteToWideChar(CP_UTF8, 0, md5digest_model.c_str(), static_cast<int>(md5digest_model.length()), nullptr, 0);
+	std::wstring wsDigest(buffer_size, 0);
+	MultiByteToWideChar(CP_UTF8, 0, md5digest_model.c_str(), static_cast<int>(md5digest_model.length()), wsDigest.data(), buffer_size);
+
+	std::string sUserText{};
+	_pXmlUserStylerDoc->Print(sUserText);
+	std::string md5digest_user_text_before = md5.digestString(sUserText.c_str());
+
+	// if modelMD5 is the same as the one seen in the XML, don't need to merge in the model...
+	TiXmlElement* peRootUser = rootUser->ToElement();
+	const wchar_t* pwct_modelMD5 = peRootUser->Attribute(L"modelMD5");
+	buffer_size = WideCharToMultiByte(CP_UTF8, 0, pwct_modelMD5 ? pwct_modelMD5 : L"", -1, nullptr, 0, nullptr, nullptr);
+	std::string s_modelMD5_from_xml(buffer_size, 0);
+	WideCharToMultiByte(CP_UTF8, 0, pwct_modelMD5 ? pwct_modelMD5 : L"", -1, s_modelMD5_from_xml.data(), buffer_size, nullptr, nullptr);
+	s_modelMD5_from_xml.pop_back();	// remove the NULL-terminator
+	if (md5digest_model == s_modelMD5_from_xml)
+		return;
+
+	// update (or add) the MD5 stored in the XML
+	peRootUser->SetAttribute(L"modelMD5", wsDigest.c_str());
+
+	// find the lexer-styles elements from both user and model structures
+	TiXmlElement* lsUser = peRootUser->FirstChildElement(L"LexerStyles");
+	TiXmlElement* lsModel = rootModel->FirstChildElement(L"LexerStyles");
+	if (!lsUser || !lsModel)
+		return;
+
+	// map UserStyler's lexer name -> element-pointer
+	map<std::wstring, TiXmlElement*> mapUserLexers{};
+	for (TiXmlElement* lexerFromUser = lsUser->FirstChildElement(L"LexerType");
+		lexerFromUser;
+		lexerFromUser = lexerFromUser->NextSiblingElement(L"LexerType"))
+	{
+		const wchar_t* lexerName = lexerFromUser->Attribute(L"name");
+		if (lexerName)
+			mapUserLexers[lexerName] = lexerFromUser;
+	}
+
+	// For each lexer in the model,
+	for (TiXmlElement* lexerFromModel = lsModel->FirstChildElement(L"LexerType");
+		lexerFromModel;
+		lexerFromModel = lexerFromModel->NextSiblingElement(L"LexerType"))
+	{
+		std::wstring modelLexerName = lexerFromModel->Attribute(L"name");
+		if (!modelLexerName.length())
+			continue;
+
+		// see if lexer already exists in UserStyles
+		if (mapUserLexers.contains(modelLexerName))
+		{
+			// if so, see if I need to update individual entries
+
+			// first, enumerate each words-style ID -> element-pointer, so I know what's already there
+			map<std::wstring, TiXmlElement*> mapUserWordsStyles{};
+			for (TiXmlElement* wordsStyleFromUser = mapUserLexers[modelLexerName]->FirstChildElement(L"WordsStyle");
+				wordsStyleFromUser;
+				wordsStyleFromUser = wordsStyleFromUser->NextSiblingElement(L"WordsStyle"))
+			{
+				const wchar_t* wordsStyleID = wordsStyleFromUser->Attribute(L"styleID");
+				if (wordsStyleID)
+					mapUserWordsStyles[wordsStyleID] = wordsStyleFromUser;
+			}
+
+			// then, for each words-style in the Model, check to see if it already exists in the user list
+			for (TiXmlElement* wordsStyleFromModel = lexerFromModel->FirstChildElement(L"WordsStyle");
+				wordsStyleFromModel;
+				wordsStyleFromModel = wordsStyleFromModel->NextSiblingElement(L"WordsStyle"))
+			{
+				std::wstring modelWordsStyleID = wordsStyleFromModel->Attribute(L"styleID");
+				if (!modelWordsStyleID.length())
+					continue;
+
+				// does it exist in User already?
+				if (mapUserWordsStyles.contains(modelWordsStyleID))
+				{
+					// if already exists, check for missing attributes
+
+					// need the element from user, to be able to check its attributes against the model's attributes
+					TiXmlElement* elementFromUser = mapUserWordsStyles[modelWordsStyleID];
+
+					// loop through each attribute in the model's element
+					for (TiXmlAttribute* attrModel = wordsStyleFromModel->FirstAttribute();
+						attrModel != nullptr;
+						attrModel = attrModel->Next())
+					{
+						// if attribute not in user, need to add it (but leave it alone if it's there but an empty string, because then it's intentionally set blank)
+						const wchar_t* pwcUserValue = elementFromUser->Attribute(attrModel->Name());
+						if (!pwcUserValue)
+							elementFromUser->SetAttribute(attrModel->Name(), attrModel->Value());
+					}
+				}
+				else
+				{
+					// if doesn't exist, need to clone it from model to the right parent lexer in the user list
+					TiXmlNode* p_clone = wordsStyleFromModel->Clone();
+					mapUserLexers[modelLexerName]->LinkEndChild(p_clone);
+				}
+			}
+		}
+		else
+		{
+			// otherwise, if Lexer doesn't exist in the userStyles, need to duplicate/clone from model to userStyles
+			TiXmlNode* p_clone = lexerFromModel->Clone();
+			lsUser->LinkEndChild(p_clone);
+		}
+	}
+
+	// now move on to GlobalStyles
+	TiXmlNode* gsUser = rootUser->FirstChildElement(L"GlobalStyles");
+	TiXmlNode* gsModel = rootModel->FirstChildElement(L"GlobalStyles");
+	if (!gsUser || !gsModel)
+		return;
+
+	// map UserStyler's widget styleID||name -> node-pointer
+	map<std::wstring, TiXmlElement*> mapUserWidgets{};
+	for (TiXmlElement* widgetFromUser = gsUser->FirstChildElement(L"WidgetStyle");
+		widgetFromUser;
+		widgetFromUser = widgetFromUser->NextSiblingElement(L"WidgetStyle"))
+	{
+		// use StyleID for the map's key, or if styleID not found or if "0" then use the widget's name (lowercase) instead
+		std::wstring widgetKey = widgetFromUser->Attribute(L"styleID");
+		if (!widgetKey.length() || widgetKey == L"0" || (decStrVal(widgetKey.c_str())>256) || (decStrVal(widgetKey.c_str())<0))
+			widgetKey = widgetFromUser->Attribute(L"name");
+
+		// add widget to map using the key
+		if (widgetKey.length())
+		{
+			widgetKey = stringToLower(widgetKey);
+			mapUserWidgets[widgetKey] = widgetFromUser;
+		}
+	}
+
+	// for each WidgetStyle in the model,
+	for (TiXmlElement* widgetFromModel = gsModel->FirstChildElement(L"WidgetStyle");
+		widgetFromModel;
+		widgetFromModel = widgetFromModel->NextSiblingElement(L"WidgetStyle"))
+	{
+		// extract the key
+		std::wstring widgetKey = widgetFromModel->Attribute(L"styleID");
+		if (!widgetKey.length() || widgetKey == L"0" || (decStrVal(widgetKey.c_str()) > 256) || (decStrVal(widgetKey.c_str()) < 0))
+			widgetKey = widgetFromModel->Attribute(L"name");
+		if (!widgetKey.length())
+			continue;
+
+		// see if WidgetStyle already exists in UserStyles
+		widgetKey = stringToLower(widgetKey);
+		if (mapUserWidgets.contains(widgetKey))
+		{
+			// if so, see if I need to update individual attributes
+			for (TiXmlAttribute* attrModel = widgetFromModel->FirstAttribute();
+				attrModel != nullptr;
+				attrModel = attrModel->Next())
+			{
+				// if attribute not in user, need to add it (but leave it alone if it's there but an empty string, because then it's intentionally set blank)
+				const wchar_t* pwcUserValue = mapUserWidgets[widgetKey]->Attribute(attrModel->Name());
+				if (!pwcUserValue)
+					mapUserWidgets[widgetKey]->SetAttribute(attrModel->Name(), attrModel->Value());
+			}
+		}
+		else
+		{
+			// otherwise, need to duplicate/clone from model to userStyles
+			TiXmlNode* p_clone = widgetFromModel->Clone();
+			gsUser->LinkEndChild(p_clone);
+		}
+	}
+
+	// check the UserStyler document for changes
+	sUserText = "";
+	_pXmlUserStylerDoc->Print(sUserText);
+	std::string md5digest_user_text_after = md5.digestString(sUserText.c_str());
+	if (md5digest_user_text_before != md5digest_user_text_after)
+		writeStyles(_lexerStylerVect, _widgetStyleArray);
+
+	return;
+
 }
 
 
@@ -4207,10 +4619,10 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 	return true;
 }
 
-void LexerStylerArray::addLexerStyler(const wchar_t *lexerName, const wchar_t *lexerDesc, const wchar_t *lexerUserExt , TiXmlNode *lexerNode)
+void LexerStylerArray::addLexerStyler(const wchar_t* lexerName, const wchar_t* lexerDesc, const wchar_t* lexerUserExt, TiXmlNode* lexerNode)
 {
 	_lexerStylerVect.emplace_back();
-	LexerStyler & ls = _lexerStylerVect.back();
+	LexerStyler& ls = _lexerStylerVect.back();
 	ls.setLexerName(lexerName);
 	if (lexerDesc)
 		ls.setLexerDesc(lexerDesc);
@@ -4218,12 +4630,12 @@ void LexerStylerArray::addLexerStyler(const wchar_t *lexerName, const wchar_t *l
 	if (lexerUserExt)
 		ls.setLexerUserExt(lexerUserExt);
 
-	for (TiXmlNode *childNode = lexerNode->FirstChildElement(L"WordsStyle");
-		 childNode ;
-		 childNode = childNode->NextSibling(L"WordsStyle") )
+	for (TiXmlNode* childNode = lexerNode->FirstChildElement(L"WordsStyle");
+		childNode;
+		childNode = childNode->NextSibling(L"WordsStyle"))
 	{
-		TiXmlElement *element = childNode->ToElement();
-		const wchar_t *styleIDStr = element->Attribute(L"styleID");
+		TiXmlElement* element = childNode->ToElement();
+		const wchar_t* styleIDStr = element->Attribute(L"styleID");
 
 		if (styleIDStr)
 		{
@@ -4236,7 +4648,7 @@ void LexerStylerArray::addLexerStyler(const wchar_t *lexerName, const wchar_t *l
 	}
 }
 
-void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
+void StyleArray::addStyler(int styleID, TiXmlNode* styleNode)
 {
 	bool isUser = styleID >> 16 == L_USER;
 	if (isUser)
@@ -4247,16 +4659,16 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 	}
 
 	_styleVect.emplace_back();
-	Style & s = _styleVect.back();
+	Style& s = _styleVect.back();
 	s._styleID = styleID;
 
 	if (styleNode)
 	{
-		TiXmlElement *element = styleNode->ToElement();
+		TiXmlElement* element = styleNode->ToElement();
 
 		// For _fgColor & _bgColor :
 		// RGB() | (result & 0xFF000000): it's for the case of -1 (0xFFFFFFFF) returned by "hexStrVal(str)"
-		const wchar_t *str = element->Attribute(L"name");
+		const wchar_t* str = element->Attribute(L"name");
 		if (str)
 		{
 			if (isUser)
@@ -4317,7 +4729,7 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 			s._keywordClass = getKwClassFromName(str);
 		}
 
-		TiXmlNode *v = styleNode->FirstChild();
+		TiXmlNode* v = styleNode->FirstChild();
 		if (v)
 		{
 			s._keywords = v->Value();
@@ -4729,15 +5141,15 @@ std::wstring NppParameters::getLocPathFromStr(const std::wstring & localizationC
 }
 
 
-void NppParameters::feedKeyWordsParameters(TiXmlNode *node)
+void NppParameters::feedKeyWordsParameters(TiXmlNode* node)
 {
-	TiXmlNode *langRoot = node->FirstChildElement(L"Languages");
+	TiXmlNode* langRoot = node->FirstChildElement(L"Languages");
 	if (!langRoot)
 		return;
 
-	for (TiXmlNode *langNode = langRoot->FirstChildElement(L"Language");
-		langNode ;
-		langNode = langNode->NextSibling(L"Language") )
+	for (TiXmlNode* langNode = langRoot->FirstChildElement(L"Language");
+		langNode;
+		langNode = langNode->NextSibling(L"Language"))
 	{
 		if (_nbLang < NB_LANG)
 		{
@@ -4756,13 +5168,13 @@ void NppParameters::feedKeyWordsParameters(TiXmlNode *node)
 				const wchar_t* buVal = element->Attribute(L"backspaceUnindent");
 				_langList[_nbLang]->setTabInfo(tsVal ? tabSettings : -1, buVal && !lstrcmp(buVal, L"yes"));
 
-				for (TiXmlNode *kwNode = langNode->FirstChildElement(L"Keywords");
-					kwNode ;
-					kwNode = kwNode->NextSibling(L"Keywords") )
+				for (TiXmlNode* kwNode = langNode->FirstChildElement(L"Keywords");
+					kwNode;
+					kwNode = kwNode->NextSibling(L"Keywords"))
 				{
-					const wchar_t *indexName = (kwNode->ToElement())->Attribute(L"name");
-					TiXmlNode *kwVal = kwNode->FirstChild();
-					const wchar_t *keyWords = L"";
+					const wchar_t* indexName = (kwNode->ToElement())->Attribute(L"name");
+					TiXmlNode* kwVal = kwNode->FirstChild();
+					const wchar_t* keyWords = L"";
 					if ((indexName) && (kwVal))
 						keyWords = kwVal->Value();
 

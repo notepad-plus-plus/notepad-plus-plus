@@ -2143,6 +2143,9 @@ private:
 	bool getUserStylersFromXmlTree();
 	std::pair<unsigned char, unsigned char> addUserDefineLangsFromXmlTree(TiXmlDocument *tixmldoc);
 
+	void updateUserStylersFromModelXml(TiXmlNode* userRoot);
+	void updateKeyWordsFromModelXml(TiXmlNode* userRoot);
+
 	bool getShortcutsFromXmlTree();
 
 	bool getMacrosFromXmlTree();

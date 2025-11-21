@@ -5375,10 +5375,27 @@ bool FindReplaceDlg::replaceInOpenDocsConfirmCheck()
 	return confirmed;
 }
 
-// return NULL if nothing to set in find field.
-// Otherwise return string pointer (wchar_t *) in which the selected text was copied.
-// Note that the string pointer don't need to and should not be deallocated.
-const wchar_t* FindReplaceDlg::setSearchTextWithSettings()
+// Expand selection (if needed) and set the selected text in Find What field.
+// Return empty string if nothing to set in find field.
+// Otherwise return string in which the selected text was copied.
+wstring FindReplaceDlg::setSearchText()
+{
+	const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+	Sci_Position selStrCharNum = 0;
+	const wchar_t* selStr = (*_ppEditView)->getSelectedTextToWChar(true, &selStrCharNum);
+
+	if (selStr && selStrCharNum <= nppGui._fillFindWhatThreshold)
+	{
+		setSearchText(selStr);
+		return selStr;
+	}
+	return L"";
+}
+
+// Set the selected text in Find What field, according the Search settings.
+// Return empty string if nothing to set in find field.
+// Otherwise return string in which the selected text was copied.
+wstring FindReplaceDlg::setSearchTextWithSettings()
 {
 	const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 	if (nppGui._fillFindFieldWithSelected)
@@ -5392,7 +5409,7 @@ const wchar_t* FindReplaceDlg::setSearchTextWithSettings()
 			return selStr;
 		}
 	}
-	return nullptr;
+	return L"";
 }
 
 wstring Finder::getHitsString(int count) const

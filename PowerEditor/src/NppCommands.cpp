@@ -1443,8 +1443,8 @@ void Notepad_plus::command(int id)
 			if (isFirstTime)
 				_findReplaceDlg.doDialog(FIND_DLG, _nativeLangSpeaker.isRTL(), false);
 
-			const wchar_t* str = _findReplaceDlg.setSearchTextWithSettings();
-			if (!str) return;
+			wstring str = _findReplaceDlg.setSearchText();
+			if (str.empty()) return;
 
 			_findReplaceDlg._env->_str2Search = str;
 
@@ -1457,7 +1457,7 @@ void Notepad_plus::command(int id)
 			op._whichDirection = (id == IDM_SEARCH_SETANDFINDNEXT?DIR_DOWN:DIR_UP);
 
 			FindStatus status = FSNoMessage;
-			_findReplaceDlg.processFindNext(str, &op, &status);
+			_findReplaceDlg.processFindNext(str.c_str(), &op, &status);
 			if (status == FSEndReached)
 			{
 				wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-end-reached", FIND_STATUS_END_REACHED_TEXT);

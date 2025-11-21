@@ -419,7 +419,8 @@ public :
 	DIALOG_TYPE getCurrentStatus() { return _currentStatus; }
 	Finder* getFinderFrom(HWND hwnd);
 	int regexBackwardMsgBox();
-	const wchar_t* setSearchTextWithSettings();
+	std::wstring setSearchText();
+	std::wstring setSearchTextWithSettings();
 
 protected :
 	void resizeDialogElements();

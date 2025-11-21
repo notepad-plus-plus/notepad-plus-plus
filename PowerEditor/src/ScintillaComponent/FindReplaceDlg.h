@@ -46,13 +46,14 @@ enum DIALOG_TYPE {FIND_DLG, REPLACE_DLG, FINDINFILES_DLG, FINDINPROJECTS_DLG, MA
 enum InWhat{ALL_OPEN_DOCS, FILES_IN_DIR, CURRENT_DOC, CURR_DOC_SELECTION, FILES_IN_PROJECTS};
 
 struct FoundInfo {
-	FoundInfo(intptr_t start, intptr_t end, size_t lineNumber, const wchar_t *fullPath)
-		: _lineNumber(lineNumber), _fullPath(fullPath) {
+	FoundInfo(intptr_t start, intptr_t end, size_t lineNumber, const wchar_t *fullPath, const wchar_t *lineContent = L"")
+		: _lineNumber(lineNumber), _fullPath(fullPath), _lineContent(lineContent) {
 		_ranges.push_back(std::pair<intptr_t, intptr_t>(start, end));
 	}
 	std::vector<std::pair<intptr_t, intptr_t>> _ranges;
 	size_t _lineNumber = 0;
 	std::wstring _fullPath;
+	std::wstring _lineContent;
 };
 
 struct TargetRange {
@@ -109,6 +110,7 @@ private:
 //Finder: Dockable window that contains search results
 class Finder : public DockingDlgInterface {
 friend class FindReplaceDlg;
+friend INT_PTR CALLBACK exportResultsDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 public:
 	Finder() : DockingDlgInterface(IDD_FINDRESULT) {
 		_markingsStruct._length = 0;
@@ -136,6 +138,7 @@ public:
 	void purgeToggle();
 	void copy();
 	void copyPathnames();
+	void exportResults();
 	void beginNewFilesSearch();
 	void finishFilesSearch(int count, int searchedCount, bool searchedEntireNotSelection, const FindOption *pFindOpt);
 	
@@ -185,6 +188,8 @@ private:
 	bool _purgeBeforeEverySearch = false;
 
 	std::wstring _prefixLineStr;
+	std::wstring _lastSearchQuery;
+	std::wstring _lastSearchScope;
 
 	void setFinderReadOnly(bool isReadOnly) {
 		_scintView.execute(SCI_SETREADONLY, isReadOnly);

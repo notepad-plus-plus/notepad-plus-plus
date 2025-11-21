@@ -86,6 +86,7 @@ struct FindOption
 	bool _isProjectPanel_3 = false;
 	bool _dotMatchesNewline = false;
 	bool _isMatchLineNumber = false; // always false for main search
+	bool _ignoreOpenedBuffers = false;
 };
 
 //This class contains generic search functions as static functions for easy access
@@ -324,6 +325,7 @@ public :
 	bool isProjectPanel_1() const { return _env->_isProjectPanel_1; }
 	bool isProjectPanel_2() const { return _env->_isProjectPanel_2; }
 	bool isProjectPanel_3() const { return _env->_isProjectPanel_3; }
+	bool ignoreOpenedBuffers() const { return  _env->_ignoreOpenedBuffers; }
 	void saveFindHistory();
 	void changeTabName(DIALOG_TYPE index, const wchar_t *name2change) {
 		TCITEM tie{};

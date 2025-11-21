@@ -410,6 +410,8 @@ void FindReplaceDlg::fillFindHistory()
 
 	::SendDlgItemMessage(_hSelf, IDC_2_BUTTONS_MODE, BM_SETCHECK, findHistory._isSearch2ButtonsMode, 0);
 
+	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_IGNORE_OPENED_BUFFERS_CHECK, BM_SETCHECK, findHistory._ignoreOpenedBuffers, 0);
+
 	if (findHistory._searchMode == FindHistory::regExpr)
 	{
 		//regex doesn't allow wholeword
@@ -1073,6 +1075,7 @@ void FindInFinderDlg::initFromOptions()
 	setChecked(IDREGEXP_FIFOLDER, _options._searchType == FindRegex);
 
 	setChecked(IDREDOTMATCHNL_FIFOLDER, _options._dotMatchesNewline);
+	setChecked(IDD_FINDINFILES_IGNORE_OPENED_BUFFERS_CHECK, _options._ignoreOpenedBuffers);
 	::EnableWindow(::GetDlgItem(_hSelf, IDREDOTMATCHNL_FIFOLDER), _options._searchType == FindRegex);
 }
 
@@ -1085,6 +1088,7 @@ void FindInFinderDlg::writeOptions()
 	_options._isMatchCase = isCheckedOrNot(IDMATCHCASE_FIFOLDER);
 	_options._searchType = isCheckedOrNot(IDREGEXP_FIFOLDER) ? FindRegex : isCheckedOrNot(IDEXTENDED_FIFOLDER) ? FindExtended : FindNormal;
 	_options._dotMatchesNewline = isCheckedOrNot(IDREDOTMATCHNL_FIFOLDER);
+	_options._ignoreOpenedBuffers = isCheckedOrNot(IDD_FINDINFILES_IGNORE_OPENED_BUFFERS_CHECK);
 }
 
 intptr_t CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
@@ -2906,6 +2910,10 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				}
 				return TRUE;
 
+				case IDD_FINDINFILES_IGNORE_OPENED_BUFFERS_CHECK:
+					findHistory._ignoreOpenedBuffers = _options._ignoreOpenedBuffers = isCheckedOrNot(IDD_FINDINFILES_IGNORE_OPENED_BUFFERS_CHECK);
+					return TRUE;
+
 				default :
 					break;
 			}
@@ -4228,6 +4236,7 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable, bool projectPanels
 	showFindDlgItem(IDD_FINDINFILES_PROJECT2_CHECK, isEnable && projectPanels);
 	showFindDlgItem(IDD_FINDINFILES_PROJECT3_CHECK, isEnable && projectPanels);
 	showFindDlgItem(IDD_FINDINFILES_SETDIRFROMDOC_BUTTON, isEnable && (!projectPanels));
+	showFindDlgItem(IDD_FINDINFILES_IGNORE_OPENED_BUFFERS_CHECK, isEnable && (!projectPanels));
 }
 
 void FindReplaceDlg::getPatterns(vector<wstring> & patternVect)
@@ -4257,6 +4266,7 @@ void FindReplaceDlg::saveInMacro(size_t cmd, int cmdType)
 	booleans |= _options._isWholeWord?IDF_WHOLEWORD:0;
 	booleans |= _options._isMatchCase?IDF_MATCHCASE:0;
 	booleans |= _options._dotMatchesNewline?IDF_REDOTMATCHNL:0;
+	booleans |= _options._ignoreOpenedBuffers ? IDF_FINDINFILES_IGNORE_OPENED_BUFFERS_CHECK : 0;
 
 	::SendMessage(_hParent, WM_FRSAVE_INT, IDNORMAL, _options._searchType);
 	if (cmd == IDCMARKALL)
@@ -4420,6 +4430,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const wstring& s
 				_env->_isWrapAround = ((intValue & IDF_WRAP) > 0);
 				_env->_whichDirection = ((intValue & IDF_WHICH_DIRECTION) > 0);
 				_env->_dotMatchesNewline = ((intValue & IDF_REDOTMATCHNL) > 0);
+				_env->_ignoreOpenedBuffers = ((intValue & IDF_FINDINFILES_IGNORE_OPENED_BUFFERS_CHECK) > 0);
 				break;
 			case IDNORMAL:
 				_env->_searchType = static_cast<SearchType>(intValue);
@@ -4814,6 +4825,7 @@ void FindReplaceDlg::initOptionsFromDlg()
 	_options._isProjectPanel_1 =  isCheckedOrNot(IDD_FINDINFILES_PROJECT1_CHECK);
 	_options._isProjectPanel_2 =  isCheckedOrNot(IDD_FINDINFILES_PROJECT2_CHECK);
 	_options._isProjectPanel_3 =  isCheckedOrNot(IDD_FINDINFILES_PROJECT3_CHECK);
+	_options._ignoreOpenedBuffers = isCheckedOrNot(IDD_FINDINFILES_IGNORE_OPENED_BUFFERS_CHECK);
 }
 
 void FindInFinderDlg::doDialog(Finder *launcher, bool isRTL)

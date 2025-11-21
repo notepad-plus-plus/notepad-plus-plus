@@ -421,8 +421,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				if (nppGui._smartHiliteOnAnotherView)
 				{
 					auto selectedText = _pEditView->getSelectedTextToWChar(false);
-					if (selectedText)
-						_smartHighlighter.highlightViewWithWord(notifyView, selectedText);
+					if (!selectedText.empty())
+						_smartHighlighter.highlightViewWithWord(notifyView, selectedText.c_str());
 				}
 				break;
 			}

@@ -971,8 +971,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (message == NPPM_GETCURRENTWORD)
 			{
 				auto txtW = _pEditView->getSelectedTextToWChar();
-				if (txtW)
-					wcscpy_s(str.get(), strSize, txtW);
+				wcscpy_s(str.get(), strSize, txtW.c_str());
 			}
 			else if (message == NPPM_GETCURRENTLINESTR)
 			{
@@ -1008,8 +1007,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			int hasSlash = 0;
 
 			auto txtW = _pEditView->getSelectedTextToWChar(); // this is either the selected text, or the word under the cursor if there is no selection
-			if (txtW)
-				wcscpy_s(str.get(), strSize, txtW);
+			wcscpy_s(str.get(), strSize, txtW.c_str());
 
 			hasSlash = FALSE;
 			for (int i = 0; str[i] != 0; i++)

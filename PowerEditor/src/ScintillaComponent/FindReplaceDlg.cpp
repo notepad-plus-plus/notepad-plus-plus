@@ -5382,11 +5382,11 @@ wstring FindReplaceDlg::setSearchText()
 {
 	const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 	Sci_Position selStrCharNum = 0;
-	const wchar_t* selStr = (*_ppEditView)->getSelectedTextToWChar(true, &selStrCharNum);
+	auto selStr = (*_ppEditView)->getSelectedTextToWChar(true, &selStrCharNum);
 
-	if (selStr && selStrCharNum <= nppGui._fillFindWhatThreshold)
+	if (!selStr.empty() && selStrCharNum <= nppGui._fillFindWhatThreshold)
 	{
-		setSearchText(selStr);
+		setSearchText(selStr.c_str());
 		return selStr;
 	}
 	return L"";
@@ -5401,11 +5401,11 @@ wstring FindReplaceDlg::setSearchTextWithSettings()
 	if (nppGui._fillFindFieldWithSelected)
 	{
 		Sci_Position selStrCharNum = 0;
-		const wchar_t* selStr = (*_ppEditView)->getSelectedTextToWChar(nppGui._fillFindFieldSelectCaret, &selStrCharNum);
+		auto selStr = (*_ppEditView)->getSelectedTextToWChar(nppGui._fillFindFieldSelectCaret, &selStrCharNum);
 
-		if (selStr && selStrCharNum <= nppGui._fillFindWhatThreshold)
+		if (!selStr.empty() && selStrCharNum <= nppGui._fillFindWhatThreshold)
 		{
-			setSearchText(selStr);
+			setSearchText(selStr.c_str());
 			return selStr;
 		}
 	}
@@ -6322,7 +6322,7 @@ void FindIncrementDlg::markSelectedTextInc(bool enable, FindOption *opt)
 		return;
 
 	auto text2Find = (*(_pFRDlg->_ppEditView))->getSelectedTextToWChar(false);	//do not expand selection (false)
-	if (!text2Find)
+	if (text2Find.empty())
 		return;
 
 	opt->_str2Search = text2Find;

@@ -2834,8 +2834,7 @@ char * ScintillaEditView::getSelectedTextToMultiChar(char * txt, size_t size, bo
 }
 
 // get the selected text & selected text character number (not the multi-chars lenghth for the allocation, if selCharNumber is not nul).
-// This function returns the pointer of wide char string (wchar_t *) that we don't need to and should not deallocate.  
-const wchar_t * ScintillaEditView::getSelectedTextToWChar(bool expand, Sci_Position* selCharNumber)
+wstring ScintillaEditView::getSelectedTextToWChar(bool expand, Sci_Position* selCharNumber)
 {
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	size_t cp = execute(SCI_GETCODEPAGE);
@@ -2855,7 +2854,7 @@ const wchar_t * ScintillaEditView::getSelectedTextToWChar(bool expand, Sci_Posit
 		*selCharNumber = selNum;
 
 	if (selNum == 0)
-		return nullptr;
+		return L"";
 
 	// then get the selected string's total bytes (without counting the last NULL char)
 	auto neededByte = execute(SCI_GETSELTEXT, 0, 0);

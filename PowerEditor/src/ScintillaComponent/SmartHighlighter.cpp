@@ -151,11 +151,8 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 			return;
 	}
 	
-	const wchar_t * text2FindW = pHighlightView->getSelectedTextToWChar(false); //do not expand selection (false)
-	if (!text2FindW) 
-	{
-		return;
-	}
+	auto text2FindW = pHighlightView->getSelectedTextToWChar(false); //do not expand selection (false)
+	if (text2FindW.empty()) return;
 	
 	highlightViewWithWord(pHighlightView, text2FindW);
 

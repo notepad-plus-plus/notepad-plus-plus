@@ -463,7 +463,7 @@ public:
 	void getVisibleStartAndEndPosition(intptr_t* startPos, intptr_t* endPos);
     char * getWordFromRange(char * txt, size_t size, size_t pos1, size_t pos2);
 	char * getSelectedTextToMultiChar(char * txt, size_t size, bool expand = true);
-	const wchar_t* getSelectedTextToWChar(bool expand = true, Sci_Position* selCharNumber = nullptr);
+	std::wstring getSelectedTextToWChar(bool expand = true, Sci_Position* selCharNumber = nullptr);
     char * getWordOnCaretPos(char * txt, size_t size);
 
 	intptr_t searchInTarget(const wchar_t * Text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const;

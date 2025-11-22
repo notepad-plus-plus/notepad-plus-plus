@@ -186,6 +186,8 @@
     #define    IDM_EDIT_SORTLINES_LOCALE_DESCENDING             (IDM_EDIT + 101)
     #define    IDM_EDIT_SETREADONLYFORALLDOCS                   (IDM_EDIT + 102)
     #define    IDM_EDIT_CLEARREADONLYFORALLDOCS                 (IDM_EDIT + 103)
+    #define    IDM_EDIT_SORTLINES_LENGTH_ASCENDING              (IDM_EDIT + 104)
+    #define    IDM_EDIT_SORTLINES_LENGTH_DESCENDING             (IDM_EDIT + 105)
 
     #define    IDM_EDIT_AUTOCOMPLETE                            (50000 + 0)
     #define    IDM_EDIT_AUTOCOMPLETE_CURRENTFILE                (50000 + 1)

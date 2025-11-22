@@ -758,6 +758,8 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING:
 		case IDM_EDIT_SORTLINES_REVERSE_ORDER:
 		case IDM_EDIT_SORTLINES_RANDOMLY:
+		case IDM_EDIT_SORTLINES_LENGTH_ASCENDING:
+		case IDM_EDIT_SORTLINES_LENGTH_DESCENDING:
 		{
 			std::lock_guard<std::mutex> lock(command_mutex);
 
@@ -813,7 +815,8 @@ void Notepad_plus::command(int id)
 								id == IDM_EDIT_SORTLINES_INTEGER_DESCENDING ||
 								id == IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING ||
 								id == IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING ||
-								id == IDM_EDIT_SORTLINES_LEXICO_CASE_INSENS_DESCENDING;
+								id == IDM_EDIT_SORTLINES_LEXICO_CASE_INSENS_DESCENDING ||
+								id == IDM_EDIT_SORTLINES_LENGTH_DESCENDING;
 
 			_pEditView->execute(SCI_BEGINUNDOACTION);
 			std::unique_ptr<ISorter> pSorter;
@@ -836,6 +839,10 @@ void Notepad_plus::command(int id)
 			else if (id == IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING || id == IDM_EDIT_SORTLINES_DECIMALDOT_ASCENDING)
 			{
 				pSorter = std::unique_ptr<ISorter>(new DecimalDotSorter(isDescending, fromColumn, toColumn));
+			}
+			else if (id == IDM_EDIT_SORTLINES_LENGTH_ASCENDING || id == IDM_EDIT_SORTLINES_LENGTH_DESCENDING)
+			{
+				pSorter = std::unique_ptr<ISorter>(new LineLengthSorter(isDescending, fromColumn, toColumn));
 			}
 			else if (id == IDM_EDIT_SORTLINES_REVERSE_ORDER)
 			{
@@ -4362,6 +4369,8 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_SORTLINES_LOCALE_DESCENDING:
 			case IDM_EDIT_SETREADONLYFORALLDOCS:
 			case IDM_EDIT_CLEARREADONLYFORALLDOCS:
+			case IDM_EDIT_SORTLINES_LENGTH_ASCENDING:
+			case IDM_EDIT_SORTLINES_LENGTH_DESCENDING:
 				_macro.push_back(recordedMacroStep(id));
 				break;
 

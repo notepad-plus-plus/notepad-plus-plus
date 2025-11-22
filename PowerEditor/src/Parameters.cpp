@@ -1959,11 +1959,17 @@ void NppParameters::updateKeyWordsFromModelXml(TiXmlNode* rootUser)
 	// if there's a problem loading the model XML, just exit out (don't need to warn the user, since the main Langs XML has already been loaded
 	//	the same logic will be used for any other errors while trying to do this XML merge
 	if (!pXmlModel->LoadFile())
+	{
+		delete pXmlModel;
 		return;
+	}
 
 	TiXmlNode* rootModel = pXmlModel->FirstChild(L"NotepadPlus");
 	if (!rootModel)
+	{
+		delete pXmlModel;
 		return;
+	}
 
 	// now that the model is reasonable, it's reasonable to do the MD5-checking
 	MD5 md5;
@@ -1984,7 +1990,10 @@ void NppParameters::updateKeyWordsFromModelXml(TiXmlNode* rootUser)
 	WideCharToMultiByte(CP_UTF8, 0, pwct_modelMD5 ? pwct_modelMD5 : L"", -1, s_modelMD5_from_xml.data(), buffer_size, nullptr, nullptr);
 	s_modelMD5_from_xml.pop_back();	// remove the NULL-terminator
 	if (md5digest_model == s_modelMD5_from_xml)
+	{
+		delete pXmlModel;
 		return;
+	}
 
 	// update (or add) the MD5 stored in the XML
 	peRootUser->SetAttribute(L"modelMD5", wsDigest.c_str());
@@ -1993,10 +2002,13 @@ void NppParameters::updateKeyWordsFromModelXml(TiXmlNode* rootUser)
 	TiXmlElement* langsTopUser = rootUser->FirstChildElement(L"Languages");
 	TiXmlElement* langsTopModel = rootModel->FirstChildElement(L"Languages");
 	if (!langsTopUser || !langsTopModel)
+	{
+		delete pXmlModel;
 		return;
+	}
 
 	// map each of the user-file's languages -> element-pointer, to keep track of the languages already in the user-file
-	map<std::wstring, TiXmlElement*> mapUserLanguages{};
+	std::map<std::wstring, TiXmlElement*> mapUserLanguages{};
 	for (TiXmlElement* langFromUser = langsTopUser->FirstChildElement(L"Language");
 		langFromUser;
 		langFromUser = langFromUser->NextSiblingElement(L"Language"))
@@ -2021,7 +2033,7 @@ void NppParameters::updateKeyWordsFromModelXml(TiXmlNode* rootUser)
 			// if so, see if I need to update individual entries
 
 			// first, enumerate each keywords name -> element pointer, so I know what's already there
-			map<std::wstring, TiXmlElement*> mapUserKeywords{};
+			std::map<std::wstring, TiXmlElement*> mapUserKeywords{};
 			for (TiXmlElement* keywordsFromUser = mapUserLanguages[modelLanguageName]->FirstChildElement(L"Keywords");
 				keywordsFromUser;
 				keywordsFromUser = keywordsFromUser->NextSiblingElement(L"Keywords"))
@@ -2152,6 +2164,7 @@ void NppParameters::updateKeyWordsFromModelXml(TiXmlNode* rootUser)
 	if (md5digest_user_text_before != md5digest_user_text_after)
 		_pXmlDoc->SaveFile();
 
+	delete pXmlModel;
 	return;
 }
 
@@ -2167,11 +2180,17 @@ void NppParameters::updateUserStylersFromModelXml(TiXmlNode* rootUser)
 	// if there's a problem loading the model XML, just exit out (don't need to warn the user, since the UserStylers XML has already been loaded
 	//	the same logic will be used for any other errors while trying to do this XML merge
 	if (!pXmlModel->LoadFile())
+	{
+		delete pXmlModel;
 		return;
+	}
 
 	TiXmlNode* rootModel = pXmlModel->FirstChild(L"NotepadPlus");
 	if (!rootModel)
+	{
+		delete pXmlModel;
 		return;
+	}
 
 	// now that the model is reasonable, it's reasonable to do the MD5-checking
 	MD5 md5;
@@ -2192,7 +2211,10 @@ void NppParameters::updateUserStylersFromModelXml(TiXmlNode* rootUser)
 	WideCharToMultiByte(CP_UTF8, 0, pwct_modelMD5 ? pwct_modelMD5 : L"", -1, s_modelMD5_from_xml.data(), buffer_size, nullptr, nullptr);
 	s_modelMD5_from_xml.pop_back();	// remove the NULL-terminator
 	if (md5digest_model == s_modelMD5_from_xml)
+	{
+		delete pXmlModel;
 		return;
+	}
 
 	// update (or add) the MD5 stored in the XML
 	peRootUser->SetAttribute(L"modelMD5", wsDigest.c_str());
@@ -2201,10 +2223,13 @@ void NppParameters::updateUserStylersFromModelXml(TiXmlNode* rootUser)
 	TiXmlElement* lsUser = peRootUser->FirstChildElement(L"LexerStyles");
 	TiXmlElement* lsModel = rootModel->FirstChildElement(L"LexerStyles");
 	if (!lsUser || !lsModel)
+	{
+		delete pXmlModel;
 		return;
+	}
 
 	// map UserStyler's lexer name -> element-pointer
-	map<std::wstring, TiXmlElement*> mapUserLexers{};
+	std::map<std::wstring, TiXmlElement*> mapUserLexers{};
 	for (TiXmlElement* lexerFromUser = lsUser->FirstChildElement(L"LexerType");
 		lexerFromUser;
 		lexerFromUser = lexerFromUser->NextSiblingElement(L"LexerType"))
@@ -2229,7 +2254,7 @@ void NppParameters::updateUserStylersFromModelXml(TiXmlNode* rootUser)
 			// if so, see if I need to update individual entries
 
 			// first, enumerate each words-style ID -> element-pointer, so I know what's already there
-			map<std::wstring, TiXmlElement*> mapUserWordsStyles{};
+			std::map<std::wstring, TiXmlElement*> mapUserWordsStyles{};
 			for (TiXmlElement* wordsStyleFromUser = mapUserLexers[modelLexerName]->FirstChildElement(L"WordsStyle");
 				wordsStyleFromUser;
 				wordsStyleFromUser = wordsStyleFromUser->NextSiblingElement(L"WordsStyle"))
@@ -2290,7 +2315,7 @@ void NppParameters::updateUserStylersFromModelXml(TiXmlNode* rootUser)
 		return;
 
 	// map UserStyler's widget styleID||name -> node-pointer
-	map<std::wstring, TiXmlElement*> mapUserWidgets{};
+	std::map<std::wstring, TiXmlElement*> mapUserWidgets{};
 	for (TiXmlElement* widgetFromUser = gsUser->FirstChildElement(L"WidgetStyle");
 		widgetFromUser;
 		widgetFromUser = widgetFromUser->NextSiblingElement(L"WidgetStyle"))
@@ -2350,8 +2375,8 @@ void NppParameters::updateUserStylersFromModelXml(TiXmlNode* rootUser)
 	if (md5digest_user_text_before != md5digest_user_text_after)
 		writeStyles(_lexerStylerVect, _widgetStyleArray);
 
+	delete pXmlModel;
 	return;
-
 }
 
 

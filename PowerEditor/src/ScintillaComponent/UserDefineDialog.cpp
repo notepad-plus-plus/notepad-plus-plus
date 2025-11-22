@@ -24,6 +24,10 @@
 #include "CustomFileDialog.h"
 //#include "Common.h"
 
+#include <commctrl.h>
+
+#include "NppConstants.h"
+
 using namespace std;
 
 UserLangContainer * SharedParametersDialog::_pUserLang = NULL;
@@ -158,12 +162,6 @@ intptr_t CALLBACK FolderStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LP
             return SharedParametersDialog::run_dlgProc(Message, wParam, lParam);
         }
 
-        case WM_DPICHANGED_AFTERPARENT:
-        {
-            _pageLink.destroy();
-            return TRUE;
-        }
-
         case WM_COMMAND:
         {
             switch (wParam)
@@ -200,11 +198,7 @@ intptr_t CALLBACK FolderStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LP
                     return SharedParametersDialog::run_dlgProc(Message, wParam, lParam);
             }
         }
-        case WM_DESTROY:
-        {
-            _pageLink.destroy();
-            return TRUE;
-        }
+
         default :
             return SharedParametersDialog::run_dlgProc(Message, wParam, lParam);
     }
@@ -1605,10 +1599,9 @@ intptr_t CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
 			// Re-route to Subclassed the edit control's proc if needed
-			if (_restrictedChars.length())
+			if (!_restrictedChars.empty())
 			{
-				::SetWindowLongPtr(GetDlgItem(_hSelf, IDC_STRING_EDIT), GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
-				_oldEditProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(GetDlgItem(_hSelf, IDC_STRING_EDIT), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(customEditProc)));
+				::SetWindowSubclass(::GetDlgItem(_hSelf, IDC_STRING_EDIT), CustomEditProc, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(this));
 			}
 
             ::SetWindowText(_hSelf, _title.c_str());
@@ -1695,48 +1688,55 @@ intptr_t CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 	return FALSE;
 }
 
-LRESULT StringDlg::customEditProc(HWND hEdit, UINT msg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK StringDlg::CustomEditProc(
+	HWND hWnd,
+	UINT uMsg,
+	WPARAM wParam,
+	LPARAM lParam,
+	UINT_PTR uIdSubclass,
+	DWORD_PTR dwRefData
+)
 {
-	StringDlg *pSelf = reinterpret_cast<StringDlg *>(::GetWindowLongPtr(hEdit, GWLP_USERDATA));
-	if (!pSelf)
-	{
-		return 0;
-	}
+	auto* pRefData = reinterpret_cast<StringDlg*>(dwRefData);
 
-	switch (msg)
+	switch (uMsg)
 	{
-	case WM_CHAR:
-		if (0x80 & GetKeyState(VK_CONTROL))
+		case WM_NCDESTROY:
 		{
-			switch (wParam)
+			::RemoveWindowSubclass(hWnd, StringDlg::CustomEditProc, uIdSubclass);
+			break;
+		}
+
+		case WM_CHAR:
+		{
+			if (0x80 & GetKeyState(VK_CONTROL))
 			{
-			case 0x16: // ctrl - V
-				pSelf->HandlePaste(hEdit);
-				return 0;
+				switch (wParam)
+				{
+					case 0x16: // ctrl - V
+						pRefData->HandlePaste(hWnd);
+						return 0;
 
-			case 0x03: // ctrl - C
-			case 0x18: // ctrl - X
-			default:
-				// Let them go to default
-				break;
+					case 0x03: // ctrl - C
+					case 0x18: // ctrl - X
+					default:
+						// Let them go to default
+						break;
+				}
 			}
+			else
+			{
+				// If Key pressed not permitted, then return 0
+				if (!pRefData->isAllowed(reinterpret_cast<wchar_t*>(&wParam)))
+					return 0;
+			}
+			break;
 		}
-		else
-		{
-			// If Key pressed not permitted, then return 0
-			if (!pSelf->isAllowed(reinterpret_cast<wchar_t*>(&wParam)))
-				return 0;
-		}
-		break;
 
-	case WM_DESTROY:
-		// Reset the message handler to the original one
-		SetWindowLongPtr(hEdit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(pSelf->_oldEditProc));
-		return 0;
+		default:
+			break;
 	}
-
-	// Process the message using the default handler
-	return CallWindowProc(pSelf->_oldEditProc, hEdit, msg, wParam, lParam);
+	return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
 }
 
 bool StringDlg::isAllowed([[maybe_unused]] const wstring & txt)

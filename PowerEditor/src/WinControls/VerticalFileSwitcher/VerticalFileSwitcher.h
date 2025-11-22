@@ -29,11 +29,9 @@ struct sortCompareData {
   int sortDirection = 0;
 };
 
-LRESULT run_listViewProc(WNDPROC oldEditProc, HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
-
 class VerticalFileSwitcher : public DockingDlgInterface {
 public:
-	VerticalFileSwitcher(): DockingDlgInterface(IDD_DOCLIST) {}
+	VerticalFileSwitcher() : DockingDlgInterface(IDD_DOCLIST) {}
 
 	void init(HINSTANCE hInst, HWND hPere, HIMAGELIST hImaLst) {
 		DockingDlgInterface::init(hInst, hPere);
@@ -138,20 +136,15 @@ protected:
 	void initPopupMenus();
 	void popupMenuCmd(int cmdID);
 
-	static LRESULT CALLBACK listViewStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
-		const auto dlg = (VerticalFileSwitcher*)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
-		return (run_listViewProc(dlg->_defaultListViewProc, hwnd, message, wParam, lParam));
-	}
 private:
 	bool colHeaderRClick = false;
 	int _lastSortingColumn = 0;
 	int _lastSortingDirection = SORT_DIRECTION_NONE;
 	VerticalFileSwitcherListView _fileListView;
 	HIMAGELIST _hImaLst = nullptr;
-	WNDPROC _defaultListViewProc = nullptr;
 
 	static COLORREF _bgColor;
 	static LRESULT listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	static LRESULT CALLBACK FileSwitcherNotifySubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
-	void autoSubclassWindowNotify(HWND hParent);
+	static LRESULT CALLBACK ListViewParentNotifyProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 };

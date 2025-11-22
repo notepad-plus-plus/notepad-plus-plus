@@ -14,8 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
+#include <algorithm>
 #include <memory>
-#include <regex>
+#include <string>
+#include <vector>
 #include <shlwapi.h>
 #include "Notepad_plus_Window.h"
 #include "EncodingMapper.h"
@@ -36,6 +39,9 @@
 #include "calc_sha1.h"
 #include "sha512.h"
 #include "SortLocale.h"
+#include "dpiManagerV2.h"
+
+#include "NppConstants.h"
 
 using namespace std;
 
@@ -1390,8 +1396,8 @@ void Notepad_plus::command(int id)
 			}
 
 			auto str = _pEditView->getSelectedTextToWChar(false);
-			if (str)         // the selected text is not empty, then use it
-				_incrementFindDlg.setSearchText(str, _pEditView->getCurrentBuffer()->getUnicodeMode() != uni8Bit);
+			if (!str.empty())         // the selected text is not empty, then use it
+				_incrementFindDlg.setSearchText(str.c_str(), _pEditView->getCurrentBuffer()->getUnicodeMode() != uni8Bit);
 
 			_incrementFindDlg.display();
 		}
@@ -1439,8 +1445,8 @@ void Notepad_plus::command(int id)
 			if (isFirstTime)
 				_findReplaceDlg.doDialog(FIND_DLG, _nativeLangSpeaker.isRTL(), false);
 
-			const wchar_t* str = _findReplaceDlg.setSearchTextWithSettings();
-			if (!str) return;
+			wstring str = _findReplaceDlg.setSearchText();
+			if (str.empty()) return;
 
 			_findReplaceDlg._env->_str2Search = str;
 
@@ -1453,7 +1459,7 @@ void Notepad_plus::command(int id)
 			op._whichDirection = (id == IDM_SEARCH_SETANDFINDNEXT?DIR_DOWN:DIR_UP);
 
 			FindStatus status = FSNoMessage;
-			_findReplaceDlg.processFindNext(str, &op, &status);
+			_findReplaceDlg.processFindNext(str.c_str(), &op, &status);
 			if (status == FSEndReached)
 			{
 				wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-end-reached", FIND_STATUS_END_REACHED_TEXT);
@@ -1493,7 +1499,7 @@ void Notepad_plus::command(int id)
 		case IDM_SEARCH_VOLATILE_FINDPREV :
 		{
 			auto str = _pEditView->getSelectedTextToWChar();
-			if (!str) return;
+			if (str.empty()) return;
 
 			FindOption op;
 			op._isMatchCase = false;
@@ -1503,7 +1509,7 @@ void Notepad_plus::command(int id)
 			op._whichDirection = (id == IDM_SEARCH_VOLATILE_FINDNEXT ? DIR_DOWN : DIR_UP);
 
 			FindStatus status = FSNoMessage;
-			_findReplaceDlg.processFindNext(str, &op, &status);
+			_findReplaceDlg.processFindNext(str.c_str(), &op, &status);
 			if (status == FSEndReached)
 			{
 				wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-end-reached", FIND_STATUS_END_REACHED_TEXT);
@@ -1537,9 +1543,9 @@ void Notepad_plus::command(int id)
 
 			auto selectedText = _pEditView->getSelectedTextToWChar(true);
 
-			if (selectedText)
+			if (!selectedText.empty())
 			{
-				_findReplaceDlg.markAll(selectedText, styleID);
+				_findReplaceDlg.markAll(selectedText.c_str(), styleID);
 			}
 		}
 		break;
@@ -1821,23 +1827,20 @@ void Notepad_plus::command(int id)
 				}
 				else if ((isUDDlgDocked)&&(!isUDDlgVisible))
 				{
-                    if (!_pMainSplitter)
-                    {
-                        _pMainSplitter = new SplitterContainer;
-                        _pMainSplitter->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf());
+					auto* pWindow = bothActive() ? &_subSplitter : dynamic_cast<Window*>(_pDocTab);
 
-                        Window *pWindow;
-                        if (bothActive())
-                            pWindow = &_subSplitter;
-                        else
-                            pWindow = _pDocTab;
-						int splitterSizeDyn = NppParameters::getInstance()._dpiManager.scaleX(splitterSize);
-                        _pMainSplitter->create(pWindow, ScintillaEditView::getUserDefineDlg(), splitterSizeDyn, SplitterMode::RIGHT_FIX, 45);
-                    }
+					if (!_pMainSplitter)
+					{
+						_pMainSplitter = new SplitterContainer;
+						_pMainSplitter->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf());
+
+						const int splitterSizeDyn = DPIManagerV2::scale(splitterSize, _pPublicInterface->getHSelf());
+						_pMainSplitter->create(pWindow, ScintillaEditView::getUserDefineDlg(), splitterSizeDyn, SplitterMode::RIGHT_FIX, 45);
+					}
 
 					_pMainWindow = _pMainSplitter;
 
-					_pMainSplitter->setWin0((bothActive())?(Window *)&_subSplitter:(Window *)_pDocTab);
+					_pMainSplitter->setWin0(pWindow);
 
 					::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 					_pMainWindow->display();
@@ -3509,8 +3512,8 @@ void Notepad_plus::command(int id)
 			{
 				int iQuote = -1;
 				auto authorW = _pEditView->getSelectedTextToWChar();
-				if (authorW)
-					iQuote = getQuoteIndexFrom(authorW);
+				if (!authorW.empty())
+					iQuote = getQuoteIndexFrom(authorW.c_str());
 
 				if (iQuote == -1)
 				{
@@ -3651,6 +3654,9 @@ void Notepad_plus::command(int id)
 
 						param += L" -i";
 						param += INFO_URL;
+
+						param += L" -d";
+						param += FORCED_DOWNLOAD_DOMAIN;
 					}
 					Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
 

@@ -408,7 +408,7 @@ protected :
     intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM) override;
 
 	// Custom proc to subclass edit control
-	LRESULT static CALLBACK customEditProc(HWND hEdit, UINT msg, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK CustomEditProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 
 	bool isAllowed(const std::wstring& txt);
 	void HandlePaste(HWND hEdit);
@@ -420,7 +420,6 @@ private :
 	std::wstring _restrictedChars;
     int _txtLen = 0;
 	bool _shouldGotoCenter = false;
-	WNDPROC _oldEditProc = nullptr;
 };
 
 class StylerDlg : public StaticDialog

@@ -9,10 +9,10 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepadplusplus(at)rockytdr.33mail.com)
 
-Last modified on 2025-07-25 by Thomas De Rocker (RockyTDR).
+Last modified on 2025-11-11 by xylographe.
 -->
 <NotepadPlus>
-	<Native-Langue name="Nederlands" filename="dutch.xml" version="8.8.1">
+	<Native-Langue name="Nederlands" filename="dutch.xml" version="8.8.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -48,6 +48,7 @@ Last modified on 2025-07-25 by Thomas De Rocker (RockyTDR).
 					<Item subMenuId="edit-onSelection" name="&amp;Voor selectie"/>
 					<Item subMenuId="edit-multiSelectALL" name="ALLES multi-selecteren"/>
 					<Item subMenuId="edit-multiSelectNext" name="Volgende multi-selecteren"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Alleen-lezen in Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="Geschiedenis wijzigen"/>
 					<Item subMenuId="search-markAll" name="&amp;Alle overeenkomsten van token stileren"/>
 					<Item subMenuId="search-markOne" name="&amp;Eén token stileren"/>
@@ -203,14 +204,16 @@ Last modified on 2025-07-25 by Thomas De Rocker (RockyTDR).
 					<Item id="42025" name="Momenteel opgenomen macro ops&amp;laan..."/>
 					<Item id="42026" name="Tekstrichting rechts-links"/>
 					<Item id="42027" name="Tekstrichting links-rechts"/>
-					<Item id="42028" name="Alleen-lezen in Notepad++"/>
+					<Item id="42028" name="Alleen-lezen voor dit document"/>
+					<Item id="42102" name="Alleen-lezen voor alle documenten"/>
+					<Item id="42103" name="Alleen-lezen wissen voor alle documenten"/>
 					<Item id="42029" name="Huidig bestandspad kopiëren"/>
 					<Item id="42030" name="Huidige bestandsnaam kopiëren"/>
 					<Item id="42031" name="Pad naar huidige map kopiëren"/>
 					<Item id="42087" name="Alle bestandsnamen kopiëren"/>
 					<Item id="42088" name="Alle bestandspaden kopiëren"/>
 					<Item id="42032" name="Macro meerdere keren uitvoeren..."/>
-					<Item id="42033" name="Alleen-lezen-attribuut in Windows"/>
+					<Item id="42033" name="Alleen-lezen kenmerk in Windows"/>
 					<Item id="42035" name="Regelcommentaar aan"/>
 					<Item id="42036" name="Regelcommentaar uit"/>
 					<Item id="42055" name="Lege regels verwijderen"/>
@@ -423,6 +426,8 @@ Last modified on 2025-07-25 by Thomas De Rocker (RockyTDR).
 					<Item id="11007" name="Type van Z naar A"/>
 					<Item id="11008" name="Inhoudlengte oplopend"/>
 					<Item id="11009" name="Inhoudlengte aflopend"/>
+					<Item id="11010" name="Wijzigingstijd oplopend"/>
+					<Item id="11011" name="Wijzigingstijd aflopend"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -446,7 +451,7 @@ Last modified on 2025-07-25 by Thomas De Rocker (RockyTDR).
 				<Item CMDID="41014" name="Opnieuw laden"/>
 				<Item CMDID="41010" name="Afdrukken..."/>
 				<Item CMDID="42028" name="Alleen-lezen in Notepad++"/>
-				<Item CMDID="42033" name="Alleen-lezen-attribuut in Windows"/>
+				<Item CMDID="42033" name="Alleen-lezen kenmerk in Windows"/>
 				<Item CMDID="2" name="Naar klembord kopiëren"/>
 				<Item CMDID="42029" name="Volledig bestandspad kopiëren"/>
 				<Item CMDID="42030" name="Bestandsnaam kopiëren"/>
@@ -1003,6 +1008,7 @@ Last modified on 2025-07-25 by Thomas De Rocker (RockyTDR).
 					<Item id="6128" name="Alternatieve pictogrammen"/>
 					<Item id="6125" name="Gedrag"/>
 					<Item id="6126" name="Gedrag en uiterlijk"/>
+					<Item id="6136" name="Max. tabbladnaamlengte:"/>
 				</Tabbar>
 
 				<Scintillas title="Bewerken 1">
@@ -1026,11 +1032,11 @@ Last modified on 2025-07-25 by Thomas De Rocker (RockyTDR).
 					<Item id="6651" name="Indicator voor huidige regel"/>
 					<Item id="6652" name="Geen"/>
 					<Item id="6653" name="Achtergrond markeren"/>
-					<Item id="6654" name="Frame"/>
+					<Item id="6654" name="Kader"/>
 					<Item id="6655" name="Breedte:"/>
 				</Scintillas>
 
-				<Scintillas2 title="Editing 2">
+				<Scintillas2 title="Bewerken 2">
 					<Item id="6521" name="Meervoudig bewerken"/>
 					<Item id="6522" name="Meervoudig bewerken inschakelen (Ctrl+Muis klikken/selectie)"/>
 					<Item id="6523" name="Kolomselectie naar meervoudig bewerken inschakelen"/>
@@ -1218,9 +1224,10 @@ Last modified on 2025-07-25 by Thomas De Rocker (RockyTDR).
 					<Item id="6906" name="Zoekresultaatvenster: slechts een item per gevonden regel weergeven indien mogelijk"/>
 					<Item id="6907" name="Wanneer het zoekvenster opgeroepen is"/>
 					<Item id="6908" name="Zoekveld vullen met geselecteerde tekst"/>
-					<Item id="6909" name="Woord onder 'dakje' selecteren wanneer niets geselecteerd is"/>
-					<Item id="6910" name="Minimale grootte voor automatisch controleren &quot;in selectie&quot;:"/>
+					<Item id="6909" name="Woord onder cursor selecteren wanneer niets geselecteerd is"/>
+					<Item id="6910" name="Minimale grootte voor automatisch aanvinken &quot;In selectie&quot;:"/>
 					<Item id="6913" name="Mapveld voor zoeken in bestanden opvullen gebaseerd op actief document"/>
+					<Item id="6916" name=": Maximaal aantal tekens van selectie naar zoekveld"/>
 				</Searching>
 
 				<RecentFilesHistory title="Recente bestanden">
@@ -1586,6 +1593,8 @@ Test deze opdrachten en bewerk ze indien nodig.
 Als alternatief kunt u downgraden naar Notepad++ v8.5.2 en uw vorige gegevens herstellen.
 Notepad++ zal een reservekopie maken van uw oude &quot;shortcuts.xml&quot; en het opslaan als &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Door de naam te wijzigen van &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, zouden uw opdrachten hersteld moeten worden en goed moeten werken."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<FullReadOnlySavingForbidden title="Opslaan mislukt" message="Bestand opslaan is mislukt.
+De schrijfbeveiliging van Notepad++ verhindert het opslaan van dit bestand."/>
 			<NotEnoughRoom4Saving title="Opslaan mislukt" message="Bestand opslaan is mislukt.
 Er lijkt niet voldoende ruimte op de schijf te zijn om het bestand op te slaan. Uw bestand is niet opgeslagen."/>
 			<FileInaccessibleUserSession title="Bestand niet toegankelijk" message="Sommige bestanden van uw handmatig opgeslagen sessie &quot;$STR_REPLACE$&quot; zijn niet toegankelijk. Ze kunnen worden geopend als lege en alleen-lezen-documenten als plaatshouders.
@@ -1602,13 +1611,13 @@ Opmerking: als u ervoor kiest om de plaatshouders niet aan te maken of ze later 
 			<FileMemoryAllocationFailed title="Uitzondering: toewijzing van bestandsgeheugen mislukt" message="Er is vermoedelijk onvoldoende aaneensluitend vrij geheugen voor het bestand om geladen te worden door Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 			<FindRegexBackwardDisabled title="Regex achterwaarts zoeken uitgeschakeld" message="Achterwaarts regex zoeken is standaard uitgeschakeld omwille van potentieel onverwachte resultaten. Om een achterwaartse zoekopdracht uit te voeren, opent u het zoekvenster en selecteert u ofwel normale of uitgebreide zoekmodus in plaats van reguliere expressie.
 Druk op OK om het zoekvenster te openen en de focus erop te zetten.
-			
+
 Als u de functie voor achterwaarts regex-zoeken nodig hebt, raadpleegt u de gebruikershandleiding voor instructies om ze in te schakelen."/>
 			<PrintError title="0" message="Kan printer-document niet starten."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
-			<FindAutoChangeOfInSelectionWarning title="Zoeken-waarschuwing" message="De status van het vakje &quot;in selectie&quot; is automatisch gewijzigd.
-Verifieer de zoekvoorwaarde voordat u de handeling uitvoert."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+			<FindAutoChangeOfInSelectionWarning title="Zoeken-waarschuwing" message="De status van het vakje &quot;In selectie&quot; is automatisch gewijzigd.
+Verifieer de zoekvoorwaarden voordat u de handeling uitvoert."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ moet opnieuw gestart worden" message="Notepad++ nmoet opnieuw gestart worden om snelkoppelingen in het rechter menu weer te geven."/>
-			<NoAdminRight2ChangeReadOnlyFileAttribute title="Wijzigen van alleen-lezen-attribuut van bestand is mislukt" message="Start Notepad++ als administrator om de bestandsattributen te wijzigen."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Wijzigen van alleen-lezen kenmerk van bestand is mislukt" message="Start Notepad++ in de beheerdersmodus om bestandskenmerken te wijzigen."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Geschiedenis van klembord"/>
@@ -1625,6 +1634,7 @@ Verifieer de zoekvoorwaarde voordat u de handeling uitvoert."/> <!-- HowToReprod
 			<ColumnPath name="Pad"/>
 			<ColumnType name="Type"/>
 			<ColumnSize name="Grootte"/>
+			<ColumnDateTime name="Wijzigingstijd"/>
 			<NbDocsTotal name="totaal aantal documenten: "/>
 			<MenuCopyName name="Namen kopiëren"/>
 			<MenuCopyPath name="Padnamen kopiëren"/>
@@ -1872,7 +1882,8 @@ Klik op de knop &quot;?&quot; rechts om de website met gebruikershandleiding te 
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Ga naar de stijlconfigurator om de standaard aangepaste kleur voor geselecteerde witruimte en niet-afdrukbare tekens te wijzigen (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Instellingen voor weergave van niet-afdrukbare tekens toepassen op C0, C1 stuurtekens and Unicode-regeleindes (nieuwe regel, regelscheidingsteken en alinea-scheidingsteken)."/>
-			<searchingInSelThresh-tip value="Aantal geselecteerde tekens in de bewerkingszone zodat het selectievakje &quot;In selectie&quot; automatisch wordt ingeschakeld wanneer het dialoogvenster Zoeken wordt geactiveerd. De maximale waarde is 1024. Stel de waarde in op 0 om automatisch aanvinken uit te schakelen."/>
+			<searchingInSelThresh-tip value="Minimaal aantal geselecteerde tekens in het bewerkingsgebied om het vakje &quot;In selectie&quot; automatisch aan te vinken wanneer het zoekvenster geactiveerd wordt. De maximale waarde is $INT_REPLACE$. Stel de waarde in op 0 om automatisch aanvinken uit te schakelen."/>
+			<searchingFillFindWhat-tip value="Maximaal aantal geselecteerde tekens in het bewerkingsgebied om het zoekveld automatisch te vullen wanneer Ctrl-F wordt geactiveerd. De maximale waarde is $INT_REPLACE$, dit is de maximale grootte van het zoekveld, beperkt door het systeem."/>
 			<verticalEdge-tip value="Voeg uw kolommarkering toe door de positie ervan aan te geven met een decimaal getal. U kunt meerdere kolommarkeringen definiëren door witruimte te gebruiken om de verschillende getallen van elkaar te scheiden.."/>
 			<fileSaveAsCopySaveButton-tip value="Houd Shift ingedrukt terwijl u op Opslaan drukt om de kopie te openen na het opslaan."/>
 			<autoIndentBasic-tip value="Zorg ervoor dat de inspringing van de huidige regel (dus de nieuwe regel die is gemaakt door op de ENTER-toets te drukken) overeenkomt met de inspringing van de vorige regel."/>
@@ -1896,9 +1907,11 @@ Als u de geavanceerde modus selecteert maar geen bestanden in de bovengenoemde t
 			<statusbar-Sel value="Sel: "/>
 			<statusbar-Sel-number value="Sel"/>
 			<toolbar-accent-tip value="Met deze optie volgen de pictogrammen op uw werkbalk de accentkleur van het Windows-systeem. De accentkleur is de kleur die wordt gebruikt voor knoppen, randen en tegels in het Startmenu in Windows. Om deze kleur te wijzigen, gaat u naar Instellingen > Personalisatie > Kleuren en selecteert u de gewenste accentkleur."/>
-			<max-len-on-search-tip value="Slechts $INT_REPLACE$ tekens zijn toegelaten als tekstlengte voor het zoeken/vervangen - uw invoer kan afgekapt worden en zal niet opgeslagen worden voor de volgende sessie."/>
-			<max-len-on-save-tip value="Deze zoek-invoer (> $INT_REPLACE$ tekens) wordt niet opgeslagen voor de volgende sessie."/>
+			<len-limit-exceeded-tip value="Tekenlimiet overschreden: uw invoer overschrijdt de toegestane limiet en is mogelijk afgekapt, en zal niet opgeslagen worden voor de volgende sessie."/>
+			<max-len-on-search-tip value="Uw invoer is mogelijk te lang. Uw invoer kan afgekapt worden en zal niet opgeslagen worden voor de volgende sessie."/>
+			<max-len-on-save-tip value="Uw invoer is mogelijk te lang om opgeslagen te worden voor de volgende sessie."/>
 			<goto-setting-tip value="Zoek hier uw instelling"/>
+			<tabbar-tabcompactlabellen-tip value="Beperk de zichtbare lengte van tabbladnamen. Voer een waarde van 1 tot 257 tekens in of 0 om niet af te breken."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

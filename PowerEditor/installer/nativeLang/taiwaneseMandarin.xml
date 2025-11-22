@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.8.1">
+	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.8.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -955,6 +955,7 @@
 					<Item id="6121" name="關閉最後一個文件時關閉程式"/>
 					<Item id="6125" name="功能表現"/>
 					<Item id="6126" name="外觀與體驗"/>
+					<Item id="6136" name="標籤名最大長度："/>
 				</Tabbar>
 
 				<Scintillas title="編輯一">
@@ -1718,6 +1719,7 @@ C、C++、Java、C#、Objective-C、PHP、JavaScript、JSP、CSS、Perl、Rust�
 			<max-len-on-search-tip value="輸入內容可能超出允許的限制並已被截斷，此輸入也將不會保存以供下次 Notepad++ 啟動時使用。"/>
 			<max-len-on-save-tip value="輸入內容過長，可能無法保存以供下次 Notepad++ 啟動時使用。"/>
 			<goto-setting-tip value="相關的偏好設定在此"/>
+			<tabbar-tabcompactlabellen-tip value="限制頁籤名稱的可見長度。按 Enter 鍵套用設定值。設定值範圍：1-257 個字元（0 取消截斷頁籤名稱功能）。"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -17,16 +17,15 @@
 #include <algorithm>
 #include <stdexcept>
 #include <shlwapi.h>
-#include <uxtheme.h>
-#include <cassert>
+#include <commctrl.h>
 #include <locale>
 #include "StaticDialog.h"
 #include "CustomFileDialog.h"
 #include "FileInterface.h"
 #include "Common.h"
 #include "Utf8.h"
-#include "Parameters.h"
 #include "Buffer.h"
+#include "dpiManagerV2.h"
 
 using namespace std;
 
@@ -1513,20 +1512,15 @@ wstring getDateTimeStrFrom(const wstring& dateTimeFormat, const SYSTEMTIME& st)
 // Don't forget to use DeleteObject(createdFont) before leaving the program
 HFONT createFont(const wchar_t* fontName, int fontSize, bool isBold, HWND hDestParent)
 {
-	HDC hdc = GetDC(hDestParent);
-
 	LOGFONT logFont{};
-	logFont.lfHeight = DPIManagerV2::scaleFont(fontSize, hDestParent);
+	const int fontSizeScaled = DPIManagerV2::scaleFontForFactor(fontSize);
+	logFont.lfHeight = DPIManagerV2::scaleFont(fontSizeScaled, hDestParent);
 	if (isBold)
 		logFont.lfWeight = FW_BOLD;
 
-	wcscpy_s(logFont.lfFaceName, fontName);
+	::wcsncpy_s(logFont.lfFaceName, fontName, size_t{ LF_FACESIZE - 1 });
 
-	HFONT newFont = CreateFontIndirect(&logFont);
-
-	ReleaseDC(hDestParent, hdc);
-
-	return newFont;
+	return ::CreateFontIndirectW(&logFont);
 }
 
 bool removeReadOnlyFlagFromFileAttributes(const wchar_t* fileFullPath)

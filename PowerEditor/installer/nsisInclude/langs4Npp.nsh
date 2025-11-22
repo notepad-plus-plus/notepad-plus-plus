@@ -143,6 +143,9 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Japanese" japanese
 		CopyFiles "$PLUGINSDIR\nppLocalization\japanese.xml" "$INSTDIR\localization\japanese.xml"
 	${MementoSectionEnd}
+	${MementoUnselectedSection} "Kabyle" kabyle
+		CopyFiles "$PLUGINSDIR\nppLocalization\kabyle.xml" "$INSTDIR\localization\kabyle.xml"
+	${MementoSectionEnd}
 	${MementoUnselectedSection} "Kannada" kannada
 		CopyFiles "$PLUGINSDIR\nppLocalization\kannada.xml" "$INSTDIR\localization\kannada.xml"
 	${MementoSectionEnd}

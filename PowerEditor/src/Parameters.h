@@ -19,21 +19,21 @@
 #include "tinyxmlA.h"
 #include "tinyxml.h"
 #include "Scintilla.h"
-#include "ScintillaRef.h"
 #include "ToolBar.h"
 #include "UserDefineLangReference.h"
 #include "colors.h"
 #include "shortcut.h"
 #include "ContextMenu.h"
-#include "dpiManager.h"
 #include "NppDarkMode.h"
-#include <assert.h>
+#include <cassert>
 #include <map>
 #include <array>
 #include <shlwapi.h>
 #include "ILexer.h"
 #include "Lexilla.h"
 #include "DockingCont.h"
+
+#include "NppConstants.h"
 
 #ifdef _WIN64
 
@@ -1924,8 +1924,6 @@ public:
 	const std::wstring& getTitleBarAdd() const {
 		return _titleBarAdditional;
 	}
-
-	DPIManager _dpiManager;
 
 	std::wstring static getSpecialFolderLocation(int folderKind);
 

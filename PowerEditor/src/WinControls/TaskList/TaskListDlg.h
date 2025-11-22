@@ -17,11 +17,14 @@
 
 #pragma once
 
-#include "Common.h"
+#include <windows.h>
+
+#include <string>
+#include <vector>
+
+#include "Window.h"
 #include "StaticDialog.h"
-#include "TaskListDlg_rc.h"
 #include "TaskList.h"
-#include "Notepad_plus_msgs.h"
 
 #define	TASKLIST_USER    (WM_USER + 8000)
 #define WM_GETTASKLISTINFO (TASKLIST_USER + 01)
@@ -48,6 +51,7 @@ class TaskListDlg : public StaticDialog
 {
 public :
 	TaskListDlg() : StaticDialog() { _instanceCount++; }
+	using Window::init;
 	void init(HINSTANCE hInst, HWND parent, HIMAGELIST hImgLst, bool dir) {
 		Window::init(hInst, parent);
 		_hImalist = hImgLst;

@@ -385,8 +385,10 @@ public :
 	void doDialog(bool isRTL = false) {
 		if (!isCreated())
 		{
+			const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 			create(IDD_PREFERENCE_BOX, isRTL);
 			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
+			DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
 		}
 		display();
 	}

@@ -19,18 +19,19 @@
 
 //************ Notepad++ version **************************
 
-#define NOTEPAD_PLUS_VERSION L"Notepad++ v8.8.7"
+#define NOTEPAD_PLUS_VERSION L"Notepad++ v8.8.8"
 
 // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71
 // ex : #define VERSION_VALUE L"5.63\0"
-#define VERSION_INTERNAL_VALUE L"8.87\0"
+#define VERSION_INTERNAL_VALUE L"8.88\0"
 
-#define VERSION_PRODUCT_VALUE L"8.8.7\0"
-#define VERSION_DIGITALVALUE 8, 8, 7, 0
+#define VERSION_PRODUCT_VALUE L"8.8.8\0"
+#define VERSION_DIGITALVALUE 8, 8, 8, 0
 
 //**********************************************************
 
 #define INFO_URL L"https://notepad-plus-plus.org/update/getDownloadUrl.php"
+#define FORCED_DOWNLOAD_DOMAIN L"https://github.com/notepad-plus-plus/notepad-plus-plus/"
 
 
 #ifndef IDC_STATIC

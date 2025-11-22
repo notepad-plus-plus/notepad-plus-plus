@@ -2,6 +2,7 @@ name: Bug
 description: File a bug/issue
 title: "[BUG] <title>"
 #labels: ["bug"]
+#type: bug
 body:
 - type: checkboxes
   attributes:
@@ -13,6 +14,39 @@ body:
     options:
     - label: I have searched the existing issues
       required: true
+- type: checkboxes
+  attributes:
+    label: Is the issue reproducible in Notepad++ without plugin?
+    description: |
+      If feasible, try launching Notepad++ without any plugins.
+      Some updates to Notepad++ modify communication rules used by plugins,
+      and if plugin developers do not keep their plugins in sync with these changes, issues may arise.
+      Running without plugins can help diagnose specific problems.
+      You can use cmdline `notepad++.exe -noPlugin`
+      or rename your plugin folder, usually "C:\Program Files\Notepad++\plugins\" to e.g. "...\plugins.bak\").
+    options:
+    - label: I have tried Notepad++ without plugin
+      required: false
+- type: checkboxes
+  attributes:
+    label: Is the issue reproducible in portable version of Notepad++?
+    description: |
+      If feasible, try launching portable version of Notepad++.
+      It can help to diagnose if specific configuration is causing issue.
+    options:
+    - label: I have tried portable version of Notepad++
+      required: false
+- type: checkboxes
+  attributes:
+    label: Does the issue affect SciTE?
+    description: |
+      Notepad++ relies on the Lexilla and Scintilla libraries.
+      For more details, visit https://github.com/ScintillaOrg/lexilla and https://sourceforge.net/p/scintilla.
+      Consider using the reference program SciTE to verify whether the issue is a genuine bug in Notepad++.
+      Download Scite from here https://www.scintilla.org/SciTEDownload.html.
+    options:
+    - label: I have tried SciTE
+      required: false
 - type: textarea
   attributes:
     label: Description of the Issue
@@ -63,16 +97,6 @@ body:
     label: Anything else?
     description: |
       Links? References? Anything that will give us more context about the issue you are encountering!
-
-      If feasible, try launching Notepad++ without any plugins.
-      Some updates to Notepad++ modify communication rules used by plugins,
-      and if plugin developers do not keep their plugins in sync with these changes, issues may arise.
-      Running without plugins can help diagnose specific problems.
-
-      Notepad++ relies on the Lexilla and Scintilla libraries.
-      For more details, visit https://github.com/ScintillaOrg/lexilla and https://sourceforge.net/p/scintilla.
-      Consider using the reference program SciTE to verify whether the issue is a genuine bug in Notepad++.
-      Download Scite from here https://www.scintilla.org/SciTEDownload.html.
 
       Tip: You can attach images or relevant text files by clicking this area to highlight it and then dragging files in.
   validations:

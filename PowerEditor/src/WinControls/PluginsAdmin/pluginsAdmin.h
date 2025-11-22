@@ -146,7 +146,9 @@ public :
 	void doDialog(bool isRTL = false) {
 		if (!isCreated())
 		{
-			create(IDD_PLUGINSADMIN_DLG, isRTL);
+			const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+			PluginsAdminDlg::create(IDD_PLUGINSADMIN_DLG, isRTL);
+			DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
 		}
 		display();
 	}

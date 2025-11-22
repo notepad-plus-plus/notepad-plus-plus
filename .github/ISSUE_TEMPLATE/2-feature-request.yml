@@ -2,6 +2,7 @@ name: Feature request
 description: Suggest an idea for Notepad++
 title: "[Feature request] <title>"
 #labels: ["feature"]
+#type: feature
 body:
 - type: checkboxes
   attributes:

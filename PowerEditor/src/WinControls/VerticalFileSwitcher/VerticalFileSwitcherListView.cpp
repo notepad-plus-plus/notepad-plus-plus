@@ -19,6 +19,7 @@
 #include "VerticalFileSwitcherListView.h"
 #include "Buffer.h"
 #include "localization.h"
+#include "dpiManagerV2.h"
 
 using namespace std;
 
@@ -83,7 +84,7 @@ void VerticalFileSwitcherListView::destroy()
 	{
 		item.iItem = i;
 		ListView_GetItem(_hSelf, &item);
-		TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
+		auto* tlfs = reinterpret_cast<TaskLstFnStatus*>(item.lParam);
 		delete tlfs;
 	}
 	::DestroyWindow(_hSelf);
@@ -101,14 +102,18 @@ void VerticalFileSwitcherListView::initList()
 	bool isExtColumn = !nppParams.getNppGUI()._fileSwitcherWithoutExtColumn;
 	bool isPathColumn = !nppParams.getNppGUI()._fileSwitcherWithoutPathColumn;
 
+	const UINT dpi = DPIManagerV2::getDpiForWindow(_hParent);
+	const int extWidthDyn = DPIManagerV2::scale(nppParams.getNppGUI()._fileSwitcherExtWidth, dpi);
+	const int pathWidthDyn = DPIManagerV2::scale(nppParams.getNppGUI()._fileSwitcherPathWidth, dpi);
+
 	RECT rc{};
 	::GetClientRect(_hParent, &rc);
 	int nameWidth = rc.right - rc.left;
 	int colIndex = 0;
 	if (isExtColumn)
-		nameWidth -= nppParams._dpiManager.scaleX(nppParams.getNppGUI()._fileSwitcherExtWidth);
+		nameWidth -= extWidthDyn;
 	if (isPathColumn)
-		nameWidth -= nppParams._dpiManager.scaleX(nppParams.getNppGUI()._fileSwitcherPathWidth);
+		nameWidth -= pathWidthDyn;
 
 	//add columns
 	wstring nameStr = pNativeSpeaker->getAttrNameStr(L"Name", FS_ROOTNODE, FS_CLMNNAME);
@@ -116,12 +121,12 @@ void VerticalFileSwitcherListView::initList()
 	if (isExtColumn)
 	{
 		wstring extStr = pNativeSpeaker->getAttrNameStr(L"Ext.", FS_ROOTNODE, FS_CLMNEXT);
-		insertColumn(extStr.c_str(), nppParams._dpiManager.scaleX(nppParams.getNppGUI()._fileSwitcherExtWidth), ++colIndex); //2nd column
+		insertColumn(extStr.c_str(), extWidthDyn, ++colIndex); //2nd column
 	}
 	if (isPathColumn)
 	{
 		wstring pathStr = pNativeSpeaker->getAttrNameStr(L"Path", FS_ROOTNODE, FS_CLMNPATH);
-		insertColumn(pathStr.c_str(), nppParams._dpiManager.scaleX(nppParams.getNppGUI()._fileSwitcherPathWidth), ++colIndex); //2nd column if .ext is off
+		insertColumn(pathStr.c_str(), pathWidthDyn, ++colIndex); //2nd column if .ext is off
 	}
 
 	TaskListInfo taskListInfo;
@@ -440,8 +445,10 @@ void VerticalFileSwitcherListView::resizeColumns(int totalWidth)
 	bool isExtColumn = !nppParams.getNppGUI()._fileSwitcherWithoutExtColumn;
 	bool isPathColumn = !nppParams.getNppGUI()._fileSwitcherWithoutPathColumn;
 
-	const int extWidthDyn = nppParams._dpiManager.scaleX(nppParams.getNppGUI()._fileSwitcherExtWidth);
-	const int pathWidthDyn = nppParams._dpiManager.scaleX(nppParams.getNppGUI()._fileSwitcherPathWidth);
+	const UINT dpi = DPIManagerV2::getDpiForWindow(_hParent);
+	const int extWidthDyn = DPIManagerV2::scale(nppParams.getNppGUI()._fileSwitcherExtWidth, dpi);
+	const int pathWidthDyn = DPIManagerV2::scale(nppParams.getNppGUI()._fileSwitcherPathWidth, dpi);
+
 	int totalColWidthDynExceptName = 0;
 	int colIndex = 0;
 

@@ -206,7 +206,6 @@ SET(include_files
 			./DarkMode/DarkMode.h
 			./DarkMode/IatHook.h
 			./DarkMode/UAHMenuBar.h
-			./dpiManager.h
 			./dpiManagerV2.h
 			./keys.h
 			./localizationString.h
@@ -222,7 +221,6 @@ SET(include_files
 			./NppDarkMode.h
 			./ScintillaComponent/columnEditor_rc.h
 			./ScintillaComponent/FindReplaceDlg_rc.h
-			./ScintillaComponent/ScintillaRef.h
 			./Utf8.h
 			./WinControls/AboutDlg/AboutDlg.h
 			./WinControls/AnsiCharPanel/ansiCharPanel.h

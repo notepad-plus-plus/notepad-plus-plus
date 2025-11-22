@@ -112,12 +112,13 @@ friend class FindReplaceDlg;
 public:
 	Finder() : DockingDlgInterface(IDD_FINDRESULT) {
 		_markingsStruct._length = 0;
-		_markingsStruct._markings = NULL;
+		_markingsStruct._markings = nullptr;
 	}
 
 	~Finder() override {
 		_scintView.destroy();
 	}
+
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		DockingDlgInterface::init(hInst, hPere);
 		_ppEditView = ppEditView;
@@ -186,6 +187,8 @@ private:
 
 	std::wstring _prefixLineStr;
 
+	using DockingDlgInterface::init;
+
 	void setFinderReadOnly(bool isReadOnly) {
 		_scintView.execute(SCI_SETREADONLY, isReadOnly);
 	}
@@ -245,8 +248,6 @@ private:
 	void initFromOptions();
 	void writeOptions();
 };
-
-LRESULT run_swapButtonProc(WNDPROC oldEditProc, HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 class FindReplaceDlg : public StaticDialog
 {
@@ -328,7 +329,7 @@ public :
 	void changeTabName(DIALOG_TYPE index, const wchar_t *name2change) {
 		TCITEM tie{};
 		tie.mask = TCIF_TEXT;
-		tie.pszText = (wchar_t *)name2change;
+		tie.pszText = const_cast<wchar_t*>(name2change);
 		TabCtrl_SetItem(_tab.getHSelf(), index, &tie);
 
 		wchar_t label[MAX_PATH]{};
@@ -419,15 +420,15 @@ public :
 	DIALOG_TYPE getCurrentStatus() { return _currentStatus; }
 	Finder* getFinderFrom(HWND hwnd);
 	int regexBackwardMsgBox();
-	const wchar_t* setSearchTextWithSettings();
+	std::wstring setSearchText();
+	std::wstring setSearchTextWithSettings();
 
 protected :
 	void resizeDialogElements();
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	static WNDPROC originalFinderProc;
-	static WNDPROC originalComboEditProc;
 
-	static LRESULT FAR PASCAL comboEditProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK ComboEditProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 
 	// Window procedure for the finder
 	static LRESULT FAR PASCAL finderProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
@@ -485,6 +486,9 @@ private:
 
 	ControlInfoTip _maxLenOnSearchTip;
 
+	using Window::init;
+	using StaticDialog::create;
+
 	void enableFindDlgItem(int dlgItemID, bool isEnable = true);
 	void showFindDlgItem(int dlgItemID, bool isShow = true);
 
@@ -530,11 +534,6 @@ private:
 	ContextMenu _swapPopupMenu;
 	enum SwapButtonStatus {swap, down, up} _swapButtonStatus = swap;
 	HWND _hSwapButton = nullptr;
-	static LRESULT CALLBACK swapButtonProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
-		const auto dlg = (FindReplaceDlg*)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
-		return (run_swapButtonProc(dlg->_oldSwapButtonProc, hwnd, message, wParam, lParam));
-	}
-	WNDPROC _oldSwapButtonProc = nullptr;
 };
 
 //FindIncrementDlg: incremental search dialog, docked in rebar
@@ -542,6 +541,7 @@ class FindIncrementDlg : public StaticDialog
 {
 public :
 	FindIncrementDlg() = default;
+
 	void init(HINSTANCE hInst, HWND hPere, FindReplaceDlg *pFRDlg, bool isRTL = false);
 	void destroy() override;
 	void display(bool toShow = true) const override;
@@ -564,6 +564,8 @@ private :
 
 	ReBar* _pRebar = nullptr;
 	REBARBANDINFO _rbBand{};
+
+	using Window::init;
 
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	void markSelectedTextInc(bool enable, FindOption *opt = NULL);

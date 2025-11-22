@@ -1,0 +1,18 @@
+ 0 400   0   Escape Sequence 32m
+ 0 400   0   [32mColour 32 (Green)[0m
+ 0 400   0   
+ 0 400   0   Escape Sequence 1;32m
+ 0 400   0   [1;32mColour 32 (Green) + Bold[0m
+ 0 400   0   
+ 0 400   0   Escape Sequence 92m
+ 0 400   0   [92mColour 92 (Bright Green)[0m
+ 0 400   0   
+ 0 400   0   Escape Sequence 36m
+ 0 400   0   [36mColour 36 (Cyan)[0m
+ 0 400   0   
+ 0 400   0   Escape Sequence 1;36m
+ 0 400   0   [1;36mColour 36 (Cyan) + Bold[0m
+ 0 400   0   
+ 0 400   0   Escape Sequence 92m
+ 0 400   0   [96mColour 96 (Bright Cyan)[0m
+ 0 400   0   

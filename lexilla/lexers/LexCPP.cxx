@@ -528,7 +528,7 @@ const LexicalClass lexicalClasses[] = {
 	27, "SCE_C_ESCAPESEQUENCE", "literal string escapesequence", "Escape sequence",
 };
 
-constexpr int sizeLexicalClasses{ std::size(lexicalClasses) };
+constexpr int sizeLexicalClasses = static_cast<int>(std::size(lexicalClasses));
 
 }
 

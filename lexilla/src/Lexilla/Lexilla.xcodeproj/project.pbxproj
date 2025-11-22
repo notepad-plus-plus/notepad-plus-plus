@@ -161,6 +161,7 @@
 		0DFB4F5F94B018794ADB389D /* LexDart.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 1F274010A7943C43BA265511 /* LexDart.cxx */; };
 		CEC8496B8D9712E6EEDBC301 /* LexZig.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 71684CF6BCC80369BCE2F893 /* LexZig.cxx */; };
 		4A444CF5A75E52E2C5537328 /* LexNix.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 81E2488CB0A0DC6B67AA08DD /* LexNix.cxx */; };
+		FE5F4B168F37B523E4D1EFCD /* LexSINEX.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 0D814275A1A8A9FA6D10447C /* LexSINEX.cxx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -320,6 +321,7 @@
 		1F274010A7943C43BA265511 /* LexDart.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexDart.cxx; path = ../../lexers/LexDart.cxx; sourceTree = SOURCE_ROOT; };
 		71684CF6BCC80369BCE2F893 /* LexZig.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexZig.cxx; path = ../../lexers/LexZig.cxx; sourceTree = SOURCE_ROOT; };
 		81E2488CB0A0DC6B67AA08DD /* LexNix.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexNix.cxx; path = ../../lexers/LexNix.cxx; sourceTree = SOURCE_ROOT; };
+		0D814275A1A8A9FA6D10447C /* LexSINEX.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexSINEX.cxx; path = ../../lexers/LexSINEX.cxx; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -463,6 +465,7 @@
 				28BA733824E34D9700272C2D /* LexRust.cxx */,
 				28BA72D224E34D9200272C2D /* LexSAS.cxx */,
 				28BA731D24E34D9500272C2D /* LexScriptol.cxx */,
+				0D814275A1A8A9FA6D10447C /* LexSINEX.cxx */,
 				28BA72D424E34D9200272C2D /* LexSmalltalk.cxx */,
 				28BA72CC24E34D9100272C2D /* LexSML.cxx */,
 				28BA72DE24E34D9200272C2D /* LexSorcus.cxx */,
@@ -749,6 +752,7 @@
 				0DFB4F5F94B018794ADB389D /* LexDart.cxx in Sources */,
 				CEC8496B8D9712E6EEDBC301 /* LexZig.cxx in Sources */,
 				4A444CF5A75E52E2C5537328 /* LexNix.cxx in Sources */,
+				FE5F4B168F37B523E4D1EFCD /* LexSINEX.cxx in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -876,7 +880,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5.4.5;
+				CURRENT_PROJECT_VERSION = 5.4.6;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 4F446KW87E;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -904,7 +908,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5.4.5;
+				CURRENT_PROJECT_VERSION = 5.4.6;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 4F446KW87E;
 				DYLIB_COMPATIBILITY_VERSION = 1;

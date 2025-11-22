@@ -1,0 +1,41 @@
+ 0 400 400   // all of "Progress.Lang.Object" is styled as SCE_ABL_IDENTIFIER
+ 0 400 400   DEFINE VARIABLE obj1 AS Progress.Lang.Object.
+ 0 400 400   
+ 0 400 400   // "Object" by itself is styled as SCE_ABL_WORD when not part of a compound identifier
+ 0 400 400   DEFINE VARIABLE obj1 AS OBJECT.
+ 0 400 400   
+ 0 400 400   // "Object2" isn't a keyword so it's styled as SCE_ABL_IDENTIFIER
+ 0 400 400   DEFINE VARIABLE obj1 AS Object2.
+ 0 400 400   
+ 0 400 400   // "name" (which is a keyword) is styled as SCE_ABL_IDENTIFIER when part of a compound identifier
+ 0 400 400   DISPLAY customer.name.
+ 0 400 400   DISPLAY sports.customer.name.
+ 0 400 400   
+ 0 400 400   // "name" by itself is styled as SCE_ABL_WORD when not part of a compound identifier
+ 0 400 400   DISPLAY name.
+ 0 400 400   
+ 0 400 400   // make sure that SCE_ABL_IDENTIFIER spans an identifier which contains a hyphen
+ 0 400 400   DISPLAY customer.cust-num.
+ 0 400 400   DISPLAY customer.cust-name.
+ 0 400 400   
+ 0 400 400   // underscore is a valid character at the beginning of an identifier
+ 0 400 400   DISPLAY _user._user-id.
+ 0 400 400   
+ 0 400 400   // - is not a valid character at the beginning of an identifier
+ 0 400 400   DISPLAY sports.-address.
+ 0 400 400   
+ 0 400 400   // the attribute is styled as SCE_ABL_WORD
+ 0 400 400   MESSAGE customer.name:VISIBLE.
+ 0 400 400   
+ 0 400 400   // filename and extension is styled as SCE_ABL_IDENTIFIER
+ 0 400 400   RUN dir1/dir2/myprocedure.p.
+ 0 400 400   RUN dir1/dir2/name.p
+ 0 400 400   RUN myprocedure.p
+ 0 400 400   RUN name.p
+ 0 400 400   
+ 0 400 400   // .* in USING statement is styled as SCE_ABL_IDENTIFIER
+ 0 400 400   USING System.Windows.Forms.*.
+ 0 400 400   
+ 0 400 400   // * in an identifier (not following . as above) is invalid
+ 0 400 400   DEFINE VARIABLE a AS Progress.Lang*.
+ 1 400 400   

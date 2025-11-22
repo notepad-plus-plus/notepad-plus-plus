@@ -137,6 +137,7 @@ extern const LexerModule lmRuby;
 extern const LexerModule lmRust;
 extern const LexerModule lmSAS;
 extern const LexerModule lmScriptol;
+extern const LexerModule lmSINEX;
 extern const LexerModule lmSmalltalk;
 extern const LexerModule lmSML;
 extern const LexerModule lmSorc;
@@ -293,6 +294,7 @@ void AddEachLexer() {
 		&lmRust,
 		&lmSAS,
 		&lmScriptol,
+		&lmSINEX,
 		&lmSmalltalk,
 		&lmSML,
 		&lmSorc,

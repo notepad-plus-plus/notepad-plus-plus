@@ -1,0 +1,17 @@
+ 0 400   0   # Simple nesting
+ 0 400   0   t" { "" } "
+ 1 400   0   
+ 0 400   0   # Multi-line field with comment
+ 0 400   0   t" {
+ 1 400   0   
+ 0 400   0   "" # comment
+ 1 400   0   
+ 0 400   0   } "
+ 1 400   0   
+ 0 400   0   # Single quoted continued with \
+ 0 400   0   t" \
+ 0 400   0   "
+ 1 400   0   
+ 0 400   0   # 4 nested t-strings
+ 0 400   0   t'Outer {t"nested {1} {t"nested {2} {t"nested {3} {t"nested {4}"}"}"}"}'
+ 1 400   0   

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# LexFacer.py - regenerate the SciLexer.h files from the Scintilla.iface interface
+# LexFacer.py - regenerate the SciLexer.h files from the LexicalStyles.iface interface
 # definition file.
 # Implemented 2000 by Neil Hodgson neilh@scintilla.org
 # Requires Python 3.6 or later

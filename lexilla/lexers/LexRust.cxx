@@ -7,12 +7,12 @@
 // Copyright 1998-2005 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <assert.h>
-#include <ctype.h>
+#include <cstdlib>
+#include <cassert>
+#include <cstring>
+#include <cctype>
+#include <cstdio>
+#include <cstdarg>
 
 #include <string>
 #include <string_view>
@@ -93,7 +93,7 @@ static const char * const rustWordLists[NUM_RUST_KEYWORD_LISTS + 1] = {
 	"Keywords 5",
 	"Keywords 6",
 	"Keywords 7",
-	0,
+	nullptr,
 };
 
 struct OptionSetRust : public OptionSet<OptionsRust> {
@@ -131,12 +131,42 @@ struct OptionSetRust : public OptionSet<OptionsRust> {
 	}
 };
 
+const LexicalClass lexicalClasses[] = {
+	// Lexer rust SCLEX_RUST SCE_RUST_:
+	0, "SCE_RUST_DEFAULT", "default", "White space",
+	1, "SCE_RUST_COMMENTBLOCK", "comment", "Comment",
+	2, "SCE_RUST_COMMENTLINE", "comment line", "Line comment",
+	3, "SCE_RUST_COMMENTBLOCKDOC", "comment documentation", "Doc comment",
+	4, "SCE_RUST_COMMENTLINEDOC", "comment documentation line", "Doc comment line",
+	5, "SCE_RUST_NUMBER", "literal numeric", "Number",
+	6, "SCE_RUST_WORD", "keyword", "Keywords",
+	7, "SCE_RUST_WORD2", "identifier", "Keywords 2",
+	8, "SCE_RUST_WORD3", "identifier", "Keywords 3",
+	9, "SCE_RUST_WORD4", "identifier", "Keywords 4",
+	10, "SCE_RUST_WORD5", "identifier", "Keywords 5",
+	11, "SCE_RUST_WORD6", "identifier", "Keywords 6",
+	12, "SCE_RUST_WORD7", "identifier", "Keywords 7",
+	13, "SCE_RUST_STRING", "literal string", "Regular string",
+	14, "SCE_RUST_STRINGR", "literal string raw", "Raw string",
+	15, "SCE_RUST_CHARACTER", "literal string character", "Character",
+	16, "SCE_RUST_OPERATOR", "operator", "Operator",
+	17, "SCE_RUST_IDENTIFIER", "identifier", "Identifier",
+	18, "SCE_RUST_LIFETIME", "annotation", "Lifetime",
+	19, "SCE_RUST_MACRO", "macro preprocessor", "Macro",
+	20, "SCE_RUST_LEXERROR", "error", "Lexical error",
+	21, "SCE_RUST_BYTESTRING", "literal string", "Byte string",
+	22, "SCE_RUST_BYTESTRINGR", "literal string raw", "Raw byte string",
+	23, "SCE_RUST_BYTECHARACTER", "literal string character", "Byte character",
+	24, "SCE_RUST_CSTRING", "literal string", "C string",
+	25, "SCE_RUST_CSTRINGR", "literal string raw", "Raw C string",
+};
+
 class LexerRust : public DefaultLexer {
 	WordList keywords[NUM_RUST_KEYWORD_LISTS];
 	OptionsRust options;
 	OptionSetRust osRust;
 public:
-	LexerRust() : DefaultLexer("rust", SCLEX_RUST) {
+	LexerRust() : DefaultLexer("rust", SCLEX_RUST, lexicalClasses, std::size(lexicalClasses)) {
 	}
 	virtual ~LexerRust() {
 	}
@@ -166,7 +196,7 @@ public:
 	void SCI_METHOD Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess) override;
 	void SCI_METHOD Fold(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess) override;
 	void * SCI_METHOD PrivateCall(int, void *) override {
-		return 0;
+		return nullptr;
 	}
 	static ILexer5 *LexerFactoryRust() {
 		return new LexerRust();

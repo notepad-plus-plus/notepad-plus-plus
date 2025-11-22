@@ -40,15 +40,9 @@ size_t Chunk::Length() const noexcept {
 
 namespace {
 
-#ifdef __APPLE__
-// Archaic macOS colours for the default: black on light yellow
-constexpr ColourRGBA colourTextAndArrow(black);
-constexpr ColourRGBA colourBackground(0xff, 0xff, 0xc6);
-#else
 // Grey on white
 constexpr ColourRGBA colourTextAndArrow(0x80, 0x80, 0x80);
 constexpr ColourRGBA colourBackground(white);
-#endif
 
 constexpr ColourRGBA silver(0xc0, 0xc0, 0xc0);
 

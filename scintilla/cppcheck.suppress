@@ -23,15 +23,9 @@ knownArgument:scintilla/src/SparseVector.h
 // cppcheck 2.11 can't find system headers on Win32.
 missingIncludeSystem
 
-// cppcheck 2.11 limits checking of complex functions unless --check-level=exhaustive
-checkLevelNormal:scintilla/src/Editor.cxx
-
 // The cast converts from 'unsigned char ' to 'char' so isn't unused.
 // Redundant code: Found unused cast of expression 'leadByte'
 constStatement:scintilla/src/Document.cxx
-
-// ILexer5* is not pointing at logically const
-constParameterPointer:scintilla/src/Document.cxx
 
 // Some non-explicit constructors are used for conversions or are private to lexers
 noExplicitConstructor
@@ -64,7 +58,7 @@ constVariableReference:scintilla/gtk/ScintillaGTKAccessible.cxx
 constVariablePointer:scintilla/gtk/ScintillaGTKAccessible.cxx
 
 // moc_ files show #error as they are not built with standard context
-preprocessorErrorDirective:scintilla/qt/*.cpp
+preprocessorErrorDirective:scintilla/qt/**.cpp
 
 // Doesn't understand Qt slots macro
 unknownMacro:scintilla/qt/ScintillaEditBase/*.h

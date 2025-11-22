@@ -1,0 +1,17 @@
+{0}Escape Sequence 32m
+{23}[32m{42}Colour 32 (Green){23}[0m{40}
+{0}
+Escape Sequence 1;32m
+{23}[1;32m{50}Colour 32 (Green) + Bold{23}[0m{40}
+{0}
+Escape Sequence 92m
+{23}[92m{50}Colour 92 (Bright Green){23}[0m{40}
+{0}
+Escape Sequence 36m
+{23}[36m{46}Colour 36 (Cyan){23}[0m{40}
+{0}
+Escape Sequence 1;36m
+{23}[1;36m{54}Colour 36 (Cyan) + Bold{23}[0m{40}
+{0}
+Escape Sequence 92m
+{23}[96m{54}Colour 96 (Bright Cyan){23}[0m{40}

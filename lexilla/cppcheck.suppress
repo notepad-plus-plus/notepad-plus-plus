@@ -60,7 +60,6 @@ unreadVariable:lexilla/lexers/LexBaan.cxx
 variableScope:lexilla/lexers/LexBaan.cxx
 constParameterPointer:lexilla/lexers/LexBaan.cxx
 constParameterReference:lexilla/lexers/LexBash.cxx
-knownConditionTrueFalse:lexilla/lexers/LexBash.cxx
 variableScope:lexilla/lexers/LexBash.cxx
 constVariable:lexilla/lexers/LexBasic.cxx
 constParameterReference:lexilla/lexers/LexBullant.cxx
@@ -76,6 +75,7 @@ constParameterPointer:lexilla/lexers/LexCoffeeScript.cxx
 knownConditionTrueFalse:lexilla/lexers/LexCoffeeScript.cxx
 constVariableReference:lexilla/lexers/LexConf.cxx
 constParameterReference:lexilla/lexers/LexCPP.cxx
+knownConditionTrueFalse:lexilla/lexers/LexCPP.cxx
 variableScope:lexilla/lexers/LexCSS.cxx
 constVariablePointer:lexilla/lexers/LexCSS.cxx
 knownConditionTrueFalse:lexilla/lexers/LexDataflex.cxx
@@ -156,6 +156,7 @@ constParameterReference:lexilla/lexers/LexRuby.cxx
 constParameterReference:lexilla/lexers/LexRust.cxx
 knownConditionTrueFalse:lexilla/lexers/LexScriptol.cxx
 constParameterReference:lexilla/lexers/LexScriptol.cxx
+constParameterReference:lexilla/lexers/LexSINEX.cxx
 constParameterPointer:lexilla/lexers/LexSmalltalk.cxx
 variableScope:lexilla/lexers/LexSpecman.cxx
 unreadVariable:lexilla/lexers/LexSpice.cxx

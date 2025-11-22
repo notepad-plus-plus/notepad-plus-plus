@@ -89,7 +89,7 @@ loop iterates over characters, like this:
 An alternative would be to use a "state-based" approach.  The outer loop
 would iterate over states, like this:
 
-  lengthDoc = startPos+lenth ;
+  lengthDoc = startPos+length ;
   for ( unsigned int i = startPos ;; ) {
     char ch = styler.SafeGetCharAt(i);
     int new_state = 0 ;

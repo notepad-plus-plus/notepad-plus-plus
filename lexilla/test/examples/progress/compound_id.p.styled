@@ -1,0 +1,40 @@
+{12}// all of "Progress.Lang.Object" is styled as SCE_ABL_IDENTIFIER
+{2}DEFINE{0} {2}VARIABLE{0} {7}obj1{0} {2}AS{0} {7}Progress.Lang.Object.{0}
+
+{12}// "Object" by itself is styled as SCE_ABL_WORD when not part of a compound identifier
+{2}DEFINE{0} {2}VARIABLE{0} {7}obj1{0} {2}AS{0} {2}OBJECT{6}.{0}
+
+{12}// "Object2" isn't a keyword so it's styled as SCE_ABL_IDENTIFIER
+{2}DEFINE{0} {2}VARIABLE{0} {7}obj1{0} {2}AS{0} {7}Object2{6}.{0}
+
+{12}// "name" (which is a keyword) is styled as SCE_ABL_IDENTIFIER when part of a compound identifier
+{2}DISPLAY{0} {7}customer.name.{0}
+{2}DISPLAY{0} {7}sports.customer.name.{0}
+
+{12}// "name" by itself is styled as SCE_ABL_WORD when not part of a compound identifier
+{2}DISPLAY{0} {2}name{6}.{0}
+
+{12}// make sure that SCE_ABL_IDENTIFIER spans an identifier which contains a hyphen
+{2}DISPLAY{0} {7}customer.cust-num.{0}
+{2}DISPLAY{0} {7}customer.cust-name.{0}
+
+{12}// underscore is a valid character at the beginning of an identifier
+{2}DISPLAY{0} {7}_user._user-id.{0}
+
+{12}// - is not a valid character at the beginning of an identifier
+{2}DISPLAY{0} {7}sports{6}.-{7}address{6}.{0}
+
+{12}// the attribute is styled as SCE_ABL_WORD
+{2}MESSAGE{0} {7}customer.name{6}:{2}VISIBLE{6}.{0}
+
+{12}// filename and extension is styled as SCE_ABL_IDENTIFIER
+{2}RUN{0} {7}dir1{6}/{7}dir2{6}/{7}myprocedure.p.{0}
+{2}RUN{0} {7}dir1{6}/{7}dir2{6}/{7}name.p{0}
+{2}RUN{0} {7}myprocedure.p{0}
+{2}RUN{0} {7}name.p{0}
+
+{12}// .* in USING statement is styled as SCE_ABL_IDENTIFIER
+{2}USING{0} {7}System.Windows.Forms.*.{0}
+
+{12}// * in an identifier (not following . as above) is invalid
+{2}DEFINE{0} {2}VARIABLE{0} {7}a{0} {2}AS{0} {7}Progress.Lang{6}*.{0}

@@ -385,8 +385,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_subEditView.execute(SCI_STYLESETCHECKMONOSPACED, STYLE_DEFAULT, true);
 
 	// Restore also the possible previous selection for each undo/redo op (memory cost min 150B for each op)
-	_mainEditView.execute(SCI_SETUNDOSELECTIONHISTORY, SC_UNDO_SELECTION_HISTORY_ENABLED);
-	_subEditView.execute(SCI_SETUNDOSELECTIONHISTORY, SC_UNDO_SELECTION_HISTORY_ENABLED);
+	_mainEditView.execute(SCI_SETUNDOSELECTIONHISTORY, SC_UNDO_SELECTION_HISTORY_ENABLED | SC_UNDO_SELECTION_HISTORY_SCROLL);
+	_subEditView.execute(SCI_SETUNDOSELECTIONHISTORY, SC_UNDO_SELECTION_HISTORY_ENABLED | SC_UNDO_SELECTION_HISTORY_SCROLL);
 
 	const auto& hf = _mainDocTab.getFont(nppGUI._tabStatus & TAB_REDUCE);
 	if (hf)

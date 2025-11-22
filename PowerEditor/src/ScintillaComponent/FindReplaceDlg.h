@@ -119,7 +119,6 @@ public:
 		_scintView.destroy();
 	}
 
-	using DockingDlgInterface::init;
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		DockingDlgInterface::init(hInst, hPere);
 		_ppEditView = ppEditView;
@@ -187,6 +186,8 @@ private:
 	bool _purgeBeforeEverySearch = false;
 
 	std::wstring _prefixLineStr;
+
+	using DockingDlgInterface::init;
 
 	void setFinderReadOnly(bool isReadOnly) {
 		_scintView.execute(SCI_SETREADONLY, isReadOnly);
@@ -262,7 +263,6 @@ public :
 
 	~FindReplaceDlg();
 
-	using Window::init;
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		Window::init(hInst, hPere);
 		if (!ppEditView)
@@ -270,7 +270,6 @@ public :
 		_ppEditView = ppEditView;
 	}
 
-	using StaticDialog::create;
 	void create(int dialogID, bool isRTL = false, bool msgDestParent = true, bool toShow = true);
 	
 	void initOptionsFromDlg();
@@ -486,6 +485,9 @@ private:
 
 	ControlInfoTip _maxLenOnSearchTip;
 
+	using Window::init;
+	using StaticDialog::create;
+
 	void enableFindDlgItem(int dlgItemID, bool isEnable = true);
 	void showFindDlgItem(int dlgItemID, bool isShow = true);
 
@@ -539,7 +541,6 @@ class FindIncrementDlg : public StaticDialog
 public :
 	FindIncrementDlg() = default;
 
-	using Window::init;
 	void init(HINSTANCE hInst, HWND hPere, FindReplaceDlg *pFRDlg, bool isRTL = false);
 	void destroy() override;
 	void display(bool toShow = true) const override;
@@ -562,6 +563,8 @@ private :
 
 	ReBar* _pRebar = nullptr;
 	REBARBANDINFO _rbBand{};
+
+	using Window::init;
 
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	void markSelectedTextInc(bool enable, FindOption *opt = NULL);

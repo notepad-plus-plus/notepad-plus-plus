@@ -261,7 +261,7 @@ public :
 		_env = &_options;
 	}
 
-	~FindReplaceDlg();
+	~FindReplaceDlg() override;
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		Window::init(hInst, hPere);
@@ -426,12 +426,11 @@ public :
 protected :
 	void resizeDialogElements();
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
-	static WNDPROC originalFinderProc;
 
 	static LRESULT CALLBACK ComboEditProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 
 	// Window procedure for the finder
-	static LRESULT FAR PASCAL finderProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK FinderProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 
 	void combo2ExtendedMode(int comboID);
 

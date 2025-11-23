@@ -643,10 +643,6 @@ public:
 	void setCRLF(long color = -1);
 	void setNpcAndCcUniEOL(long color = -1);
 
-	void mouseWheel(WPARAM wParam, LPARAM lParam) {
-		scintillaNew_Proc(_hSelf, WM_MOUSEWHEEL, wParam, lParam);
-	}
-
 	void setTabSettings(Lang* lang);
 	bool isWrapRestoreNeeded() const { return _wrapRestoreNeeded; }
 	void setWrapRestoreNeeded(bool isWrapRestoreNeeded) { _wrapRestoreNeeded = isWrapRestoreNeeded; }

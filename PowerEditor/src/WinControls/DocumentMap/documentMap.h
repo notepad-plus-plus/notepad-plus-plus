@@ -22,19 +22,11 @@
 
 #define DM_PANELTITLE     L"Document Map"
 
-#define DOCUMENTMAP_SCROLL        (WM_USER + 4) // DM_SETDEFID uses WM_USER + 1
-#define DOCUMENTMAP_MOUSECLICKED  (WM_USER + 5) // DM_REPOSITION uses WM_USER + 2
-#define DOCUMENTMAP_MOUSEWHEEL    (WM_USER + 3)
-
 const wchar_t VIEWZONE_DOCUMENTMAP[64] = L"Document map";
 
 class ScintillaEditView;
 class Buffer;
 struct MapPosition;
-
-const bool moveDown = true;
-const bool moveUp = false;
-
 
 enum moveMode {
 	perLine,
@@ -154,4 +146,6 @@ private:
 	intptr_t _displayZoom = -1;
 	intptr_t _displayWidth = 0;
 	std::wstring id4dockingCont = DM_NOFOCUSWHILECLICKINGCAPTION;
+
+	using DockingDlgInterface::init;
 };

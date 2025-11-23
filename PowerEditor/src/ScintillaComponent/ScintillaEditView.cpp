@@ -509,6 +509,9 @@ LRESULT CALLBACK ScintillaEditView::scintillaStatic_Proc(HWND hwnd, UINT Message
 {
 	ScintillaEditView *pScint = (ScintillaEditView *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
 
+	if (Message == DOCUMENTMAP_MOUSEWHEEL)
+		return ::CallWindowProc(_scintillaDefaultProc, hwnd, WM_MOUSEWHEEL, wParam, lParam);
+
 	if (Message == WM_MOUSEWHEEL || Message == WM_MOUSEHWHEEL)
 	{
 		POINT pt{};

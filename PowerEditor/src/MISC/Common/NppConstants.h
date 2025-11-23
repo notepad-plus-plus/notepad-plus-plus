@@ -16,6 +16,8 @@
 
 #pragma once
 
+#include <windows.h>
+
 inline constexpr bool dirUp = true;
 inline constexpr bool dirDown = false;
 
@@ -118,3 +120,9 @@ enum NumBase : unsigned char
 };
 
 // ScintillaEditView
+
+// documentMap
+
+inline constexpr UINT DOCUMENTMAP_MOUSEWHEEL = (WM_USER + 3);
+
+// documentMap

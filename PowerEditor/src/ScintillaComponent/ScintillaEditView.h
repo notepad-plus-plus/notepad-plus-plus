@@ -231,11 +231,11 @@ class ScintillaEditView : public Window
 {
 friend class Finder;
 public:
-	ScintillaEditView(): Window() {
+	ScintillaEditView() : Window() {
 		++_refCount;
 	}
 	
-	ScintillaEditView(bool isMainEditZone) : Window() {
+	explicit ScintillaEditView(bool isMainEditZone) noexcept : Window() {
 		_isMainEditZone = isMainEditZone;
 		++_refCount;
 	}
@@ -243,21 +243,16 @@ public:
 	~ScintillaEditView() override {
 		--_refCount;
 
-		if ((!_refCount)&&(_SciInit))
+		if (!_refCount && _SciInit)
 		{
 			Scintilla_ReleaseResources();
-
-			for (BufferStyleMap::iterator it(_hotspotStyles.begin()); it != _hotspotStyles.end(); ++it )
-			{
-				delete it->second;
-			}
 		}
 	}
 
 	void destroy() override {
 		::DestroyWindow(_hSelf);
-		_hSelf = NULL;
-		_pScintillaFunc = NULL;
+		_hSelf = nullptr;
+		_pScintillaFunc = nullptr;
 	}
 
 	void init(HINSTANCE hInst, HWND hPere) override;
@@ -652,7 +647,6 @@ public:
 		scintillaNew_Proc(_hSelf, WM_MOUSEWHEEL, wParam, lParam);
 	}
 
-	void setHotspotStyle(const Style& styleToSet);
 	void setTabSettings(Lang* lang);
 	bool isWrapRestoreNeeded() const { return _wrapRestoreNeeded; }
 	void setWrapRestoreNeeded(bool isWrapRestoreNeeded) { _wrapRestoreNeeded = isWrapRestoreNeeded; }
@@ -702,10 +696,6 @@ protected:
 	bool _wrapRestoreNeeded = false;
 	bool _positionRestoreNeeded = false;
 	uint32_t _restorePositionRetryCount = 0;
-
-	typedef std::unordered_map<int, Style> StyleMap;
-	typedef std::unordered_map<BufferID, StyleMap*> BufferStyleMap;
-	BufferStyleMap _hotspotStyles;
 
 	intptr_t _beginSelectPosition = -1;
 	static std::string _defaultCharList;

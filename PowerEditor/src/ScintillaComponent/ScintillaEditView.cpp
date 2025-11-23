@@ -29,6 +29,8 @@
 #include <commctrl.h>
 
 #include <array>
+#include <string>
+#include <vector>
 
 #include "NppConstants.h"
 #include "dpiManagerV2.h"
@@ -876,19 +878,6 @@ void ScintillaEditView::setSpecialStyle(const Style & styleToSet)
 		execute(SCI_STYLESETSIZE, styleID, styleToSet._fontSize);
 }
 
-void ScintillaEditView::setHotspotStyle(const Style& styleToSet)
-{
-	StyleMap* styleMap;
-	if ( _hotspotStyles.find(_currentBuffer) == _hotspotStyles.end() )
-	{
-		_hotspotStyles[_currentBuffer] = new StyleMap;
-	}
-	styleMap = _hotspotStyles[_currentBuffer];
-	(*styleMap)[styleToSet._styleID] = styleToSet;
-
-	setStyle(styleToSet);
-}
-
 void ScintillaEditView::setStyle(Style styleToSet)
 {
 	GlobalOverride & go = NppParameters::getInstance().getGlobalOverrideStyle();
@@ -1007,28 +996,28 @@ void ScintillaEditView::setXmlLexer(LangType type)
 
 void ScintillaEditView::setHTMLLexer()
 {
-	const wchar_t *pKwArray[NB_LIST] = {NULL};
+	const wchar_t *pKwArray[NB_LIST]{};
 	makeStyle(L_HTML, pKwArray);
 
 	// Tag keywords
-	basic_string<char> keywordList("");
+	std::string keywordList;
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
+		std::wstring kwlW = pKwArray[LANG_INDEX_INSTR];
 		keywordList = wstring2string(kwlW, CP_ACP);
 	}
 
 	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_HTML, LANG_INDEX_INSTR)));
 
 	// DOCTYPE command keywords
-	basic_string<char> keywordList2("");
+	std::string keywordList2;
 	if (pKwArray[LANG_INDEX_INSTR2])
 	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR2];
+		std::wstring kwlW = pKwArray[LANG_INDEX_INSTR2];
 		keywordList2 = wstring2string(kwlW, CP_ACP);
 	}
 
-	execute(SCI_SETKEYWORDS, 5, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_HTML, LANG_INDEX_INSTR2)));
+	execute(SCI_SETKEYWORDS, 5, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList2, L_HTML, LANG_INDEX_INSTR2)));
 
 	// HTML allows substyle lists for both tags and attributes, so allocate four of each
 	populateSubStyleKeywords(L_HTML, SCE_H_TAG, 4, LANG_INDEX_SUBSTYLE1, pKwArray);
@@ -1959,7 +1948,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 		}
 	}
 
-	ScintillaViewParams & svp = (ScintillaViewParams &)NppParameters::getInstance().getSVP();
+	const ScintillaViewParams& svp = NppParameters::getInstance().getSVP();
 	if (svp._folderStyle != FOLDER_STYLE_NONE)
 		showMargin(_SC_MARGE_FOLDER, isNeededFolderMargin(typeDoc));
 
@@ -2602,23 +2591,24 @@ void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask)
 
 		if (mask & BufferChangeUnicode)
 		{
-            int enc = CP_ACP;
+			int enc = CP_ACP;
 			if (buffer->getUnicodeMode() == uni8Bit)
-			{	//either 0 or CJK codepage
-				LangType typeDoc = buffer->getLangType();
+			{
+				//either 0 or CJK codepage
 				if (isCJK())
 				{
+					LangType typeDoc = buffer->getLangType();
 					if (typeDoc == L_CSS || typeDoc == L_CAML || typeDoc == L_ASM || typeDoc == L_MATLAB)
 						enc = CP_ACP;	//you may also want to set charsets here, not yet implemented
 					else
 						enc = _codepage;
 				}
-                else
-                    enc = CP_ACP;
+				else
+					enc = CP_ACP;
 			}
 			else	//CP UTF8 for all unicode
 				enc = SC_CP_UTF8;
-            execute(SCI_SETCODEPAGE, enc);
+			execute(SCI_SETCODEPAGE, enc);
 		}
 	}
 }
@@ -4027,7 +4017,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, const wchar_t *str)
 		if (cmi[i].isValid())
 		{
 			intptr_t len2beReplace = cmi[i]._selRpos - cmi[i]._selLpos;
-			intptr_t diff = lstrlen(str) - len2beReplace;
+			intptr_t diff = std::wcslen(str) - len2beReplace;
 
 			cmi[i]._selLpos += totalDiff;
 			cmi[i]._selRpos += totalDiff;
@@ -4052,7 +4042,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, const wchar_t *str)
 
 			if (hasVirtualSpc)
 			{
-				totalDiff += cmi[i]._nbVirtualAnchorSpc + lstrlen(str);
+				totalDiff += cmi[i]._nbVirtualAnchorSpc + std::wcslen(str);
 
 				// Now there's no more virtual space
 				cmi[i]._nbVirtualAnchorSpc = 0;
@@ -4074,7 +4064,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, size_t initial, siz
 	// If there is no column mode info available, no need to do anything
 	// If required a message can be shown to user, that select column properly or something similar
 	// It is just a double check as taken in called method (in case this method is called from multiple places)
-	if (cmi.size() <= 0)
+	if (cmi.size() == 0)
 		return;
 	// 0000 00 00 : Dec BASE_10
 	// 0000 00 01 : Hex BASE_16
@@ -5027,7 +5017,7 @@ bool ScintillaEditView::pasteToMultiSelection() const
 		execute(SCI_ENDUNDOACTION);
 		return true;
 	}
-	else if (nbSelections < nbClipboardStr) // not enough holes for insertion, every hole has several insertions
+	else // not enough holes for insertion, every hole has several insertions
 	{
 		size_t nbStr2takeFromClipboard = nbClipboardStr / nbSelections;
 
@@ -5038,16 +5028,16 @@ bool ScintillaEditView::pasteToMultiSelection() const
 			LRESULT posStart = execute(SCI_GETSELECTIONNSTART, i);
 			LRESULT posEnd = execute(SCI_GETSELECTIONNEND, i);
 			wstring severalStr;
-			wstring eol = getEOLString();
+			std::wstring eolStr = getEOLString();
 			for (size_t k = 0; k < nbStr2takeFromClipboard && j < nbClipboardStr; ++k)
 			{
 				severalStr += clipboardStrings[j];
-				severalStr += eol;
+				severalStr += eolStr;
 				++j;
 			}
 
 			// remove the latest added EOL
-			severalStr.erase(severalStr.length() - eol.length());
+			severalStr.erase(severalStr.length() - eolStr.length());
 
 			replaceTarget(severalStr.c_str(), posStart, posEnd);
 			posStart += severalStr.length();

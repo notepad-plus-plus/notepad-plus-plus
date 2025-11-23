@@ -1,6 +1,7 @@
 #include "ResultsExporter.h"
 #include "FindReplaceDlg.h"
 #include "../MISC/Common/FileInterface.h"
+#include "../MISC/Common/Common.h"
 #include "../Utf8_16.h"
 #include <fstream>
 #include <sstream>
@@ -108,25 +109,25 @@ bool ResultsExporter::exportResults(const ExportOptions& options, std::wstring& 
 
 void ResultsExporter::buildMetadata()
 {
-	_metadata.searchQuery = _searchQuery;
-	_metadata.searchScope = _searchScope;
-	_metadata.totalMatches = static_cast<int>(_foundInfos.size());
-	_metadata.filesMatched = 0;
-	_metadata.filesSearched = 0;
+	_metadata._searchQuery = _searchQuery;
+	_metadata._searchScope = _searchScope;
+	_metadata._totalMatches = static_cast<int>(_foundInfos.size());
+	_metadata._filesMatched = 0;
+	_metadata._filesSearched = 0;
 
 	// Capture export time for reproducibility
 	SYSTEMTIME st{};
 	GetSystemTime(&st);  // Returns void, always succeeds
-	_metadata.timestamp = st;
+	_metadata._timestamp = st;
 
-	_metadata.notepadppVersion = L"8.8.8";
+	_metadata._notepadppVersion = L"8.8.8";
 
-	_metadata.matchCase = false;
-	_metadata.matchWholeWord = false;
-	_metadata.useRegularExpression = false;
-	_metadata.wrapAround = false;
-	_metadata.replaceQuery = L"";
-	_metadata.searchDirectory = L"";
+	_metadata._matchCase = false;
+	_metadata._matchWholeWord = false;
+	_metadata._useRegularExpression = false;
+	_metadata._wrapAround = false;
+	_metadata._replaceQuery = L"";
+	_metadata._searchDirectory = L"";
 }
 
 void ResultsExporter::gatherResults()
@@ -146,30 +147,30 @@ void ResultsExporter::gatherResults()
 		if (!foundInfo._ranges.empty() && !lineContent.empty()) {
 			for (const auto& range : foundInfo._ranges) {
 				ExportResult result;
-				result.filePath = foundInfo._fullPath;
-				result.lineNumber = foundInfo._lineNumber;
-				result.matchRanges.push_back(range);
+				result._filePath = foundInfo._fullPath;
+				result._lineNumber = foundInfo._lineNumber;
+				result._matchRanges.push_back(range);
 
 				// Defensive bounds checking: ensure range indices are valid and not negative
 				if (range.first >= 0 && range.first < range.second &&
 					range.second <= static_cast<intptr_t>(lineContent.length())) {
-					result.matchedText = lineContent.substr(range.first, range.second - range.first);
+					result._matchedText = lineContent.substr(range.first, range.second - range.first);
 				}
 
-				result.lineContent = lineContent;
+				result._lineContent = lineContent;
 				_results.push_back(result);
 			}
 		} else if (!lineContent.empty()) {
 			// No ranges found but we have content, still add result with empty match
 			ExportResult result;
-			result.filePath = foundInfo._fullPath;
-			result.lineNumber = foundInfo._lineNumber;
-			result.lineContent = lineContent;
+			result._filePath = foundInfo._fullPath;
+			result._lineNumber = foundInfo._lineNumber;
+			result._lineContent = lineContent;
 			_results.push_back(result);
 		}
 	}
 
-	_metadata.filesMatched = static_cast<int>(uniqueFiles.size());
+	_metadata._filesMatched = static_cast<int>(uniqueFiles.size());
 }
 
 std::string ResultsExporter::formatAsCSV(const CSV_ExportOptions& csvOpts)
@@ -180,20 +181,33 @@ std::string ResultsExporter::formatAsCSV(const CSV_ExportOptions& csvOpts)
 		if (csvOpts.includeFilePaths) {
 			oss << "File" << csvOpts.delimiter;
 		}
-		oss << "Line" << csvOpts.delimiter << "Content";
+		oss << "Line" << csvOpts.delimiter << "Match Offset" << csvOpts.delimiter
+			<< "Matched Text" << csvOpts.delimiter << "Full Line Content";
 		oss << "\r\n";
 	}
 
 	for (const auto& result : _results) {
 		if (csvOpts.includeFilePaths) {
-			std::string filePath = wstringToUtf8(result.filePath);
+			std::string filePath = wstringToUtf8(result._filePath);
 			oss << escapeCSVField(filePath, csvOpts.quoteFields) << csvOpts.delimiter;
 		}
 
-		oss << result.lineNumber << csvOpts.delimiter;
+		oss << result._lineNumber << csvOpts.delimiter;
 
-		// Export full line content (not just the matched text fragment)
-		std::string lineContent = wstringToUtf8(result.lineContent);
+		// Export match offset - character position where match starts
+		if (!result._matchRanges.empty()) {
+			oss << result._matchRanges[0].first;
+		} else {
+			oss << "-1";  // No match found
+		}
+		oss << csvOpts.delimiter;
+
+		// Export the matched text (the actual search result, not full line)
+		std::string matchedText = wstringToUtf8(result._matchedText);
+		oss << escapeCSVField(matchedText, csvOpts.quoteFields) << csvOpts.delimiter;
+
+		// Export full line content (provides context for the match)
+		std::string lineContent = wstringToUtf8(result._lineContent);
 		oss << escapeCSVField(lineContent, csvOpts.quoteFields);
 
 		oss << "\r\n";
@@ -204,7 +218,8 @@ std::string ResultsExporter::formatAsCSV(const CSV_ExportOptions& csvOpts)
 
 std::string ResultsExporter::escapeCSVField(const std::string& field, bool alwaysQuote)
 {
-	// RFC 4180 compliance requires quoting fields with special characters
+	// RFC 4180 compliance: wrap in quotes if field contains special characters (comma, newline, quote)
+	// Do not convert newlines to escape sequences - CSV standard preserves them in quoted fields
 	bool needsQuote = alwaysQuote ||
 		field.find(',') != std::string::npos ||
 		field.find(';') != std::string::npos ||
@@ -216,19 +231,16 @@ std::string ResultsExporter::escapeCSVField(const std::string& field, bool alway
 		return field;
 	}
 
-	// Escape quotes by doubling
+	// Escape double quotes by doubling them (RFC 4180 standard)
+	// Preserve newlines and other characters as-is within quoted field
 	std::string escaped;
 	escaped += '"';
 	for (char c : field) {
 		if (c == '"') {
+			// Double quotes escape as "" within quoted field
 			escaped += "\"\"";
-		} else if (c == '\n') {
-			escaped += "\\n";
-		} else if (c == '\r') {
-			escaped += "\\r";
-		} else if (c == '\t') {
-			escaped += "\\t";
 		} else {
+			// Keep all other characters including newlines as-is
 			escaped += c;
 		}
 	}
@@ -284,10 +296,10 @@ std::string ResultsExporter::buildJSONFlat(const JSON_ExportOptions& jsonOpts)
 	oss << "{\n";
 	if (jsonOpts.includeMetadata) {
 		oss << "  \"metadata\": {\n";
-		oss << "    \"searchQuery\": \"" << jsonEscape(wstringToUtf8(_metadata.searchQuery)) << "\",\n";
-		oss << "    \"searchScope\": \"" << jsonEscape(wstringToUtf8(_metadata.searchScope)) << "\",\n";
-		oss << "    \"totalMatches\": " << _metadata.totalMatches << ",\n";
-		oss << "    \"filesMatched\": " << _metadata.filesMatched << "\n";
+		oss << "    \"searchQuery\": \"" << jsonEscape(wstringToUtf8(_metadata._searchQuery)) << "\",\n";
+		oss << "    \"searchScope\": \"" << jsonEscape(wstringToUtf8(_metadata._searchScope)) << "\",\n";
+		oss << "    \"totalMatches\": " << _metadata._totalMatches << ",\n";
+		oss << "    \"filesMatched\": " << _metadata._filesMatched << "\n";
 		oss << "  },\n";
 	}
 
@@ -297,11 +309,11 @@ std::string ResultsExporter::buildJSONFlat(const JSON_ExportOptions& jsonOpts)
 		const auto& result = _results[i];
 		oss << "    {\n";
 		if (jsonOpts.includeFilePaths) {
-			oss << "      \"file\": \"" << jsonEscape(wstringToUtf8(result.filePath)) << "\",\n";
+			oss << "      \"file\": \"" << jsonEscape(wstringToUtf8(result._filePath)) << "\",\n";
 		}
-		oss << "      \"line\": " << result.lineNumber << ",\n";
-		oss << "      \"text\": \"" << jsonEscape(wstringToUtf8(result.lineContent)) << "\",\n";
-		oss << "      \"match\": \"" << jsonEscape(wstringToUtf8(result.matchedText)) << "\"\n";
+		oss << "      \"line\": " << result._lineNumber << ",\n";
+		oss << "      \"text\": \"" << jsonEscape(wstringToUtf8(result._lineContent)) << "\",\n";
+		oss << "      \"match\": \"" << jsonEscape(wstringToUtf8(result._matchedText)) << "\"\n";
 		oss << "    }";
 		if (i < _results.size() - 1) {
 			oss << ",";
@@ -322,16 +334,16 @@ std::string ResultsExporter::buildJSONGroupedByFile(const JSON_ExportOptions& js
 
 	// Group results by file
 	for (const auto& result : _results) {
-		resultsByFile[result.filePath].push_back(&result);
+		resultsByFile[result._filePath].push_back(&result);
 	}
 
 	oss << "{\n";
 	if (jsonOpts.includeMetadata) {
 		oss << "  \"metadata\": {\n";
-		oss << "    \"searchQuery\": \"" << jsonEscape(wstringToUtf8(_metadata.searchQuery)) << "\",\n";
-		oss << "    \"searchScope\": \"" << jsonEscape(wstringToUtf8(_metadata.searchScope)) << "\",\n";
-		oss << "    \"totalMatches\": " << _metadata.totalMatches << ",\n";
-		oss << "    \"filesMatched\": " << _metadata.filesMatched << "\n";
+		oss << "    \"searchQuery\": \"" << jsonEscape(wstringToUtf8(_metadata._searchQuery)) << "\",\n";
+		oss << "    \"searchScope\": \"" << jsonEscape(wstringToUtf8(_metadata._searchScope)) << "\",\n";
+		oss << "    \"totalMatches\": " << _metadata._totalMatches << ",\n";
+		oss << "    \"filesMatched\": " << _metadata._filesMatched << "\n";
 		oss << "  },\n";
 	}
 
@@ -346,9 +358,9 @@ std::string ResultsExporter::buildJSONGroupedByFile(const JSON_ExportOptions& js
 		for (size_t i = 0; i < results.size(); ++i) {
 			const auto* result = results[i];
 			oss << "        {\n";
-			oss << "          \"line\": " << result->lineNumber << ",\n";
-			oss << "          \"text\": \"" << jsonEscape(wstringToUtf8(result->lineContent)) << "\",\n";
-			oss << "          \"match\": \"" << jsonEscape(wstringToUtf8(result->matchedText)) << "\"\n";
+			oss << "          \"line\": " << result->_lineNumber << ",\n";
+			oss << "          \"text\": \"" << jsonEscape(wstringToUtf8(result->_lineContent)) << "\",\n";
+			oss << "          \"match\": \"" << jsonEscape(wstringToUtf8(result->_matchedText)) << "\"\n";
 			oss << "        }";
 			if (i < results.size() - 1) {
 				oss << ",";
@@ -396,20 +408,20 @@ std::string ResultsExporter::formatPlainTextCompact()
 {
 	std::ostringstream oss;
 
-	oss << "Search Results: \"" << wstringToUtf8(_metadata.searchQuery) << "\" ("
-		<< _metadata.totalMatches << " matches in " << _metadata.filesMatched << " file";
-	if (_metadata.filesMatched != 1) oss << "s";
+	oss << "Search Results: \"" << wstringToUtf8(_metadata._searchQuery) << "\" ("
+		<< _metadata._totalMatches << " matches in " << _metadata._filesMatched << " file";
+	if (_metadata._filesMatched != 1) oss << "s";
 	oss << ")\r\n";
 	oss << "-----------------------------------------------------\r\n\r\n";
 
 	std::wstring currentFile;
 	for (const auto& result : _results) {
-		if (result.filePath != currentFile) {
-			currentFile = result.filePath;
-			oss << wstringToUtf8(result.filePath) << "\r\n";
+		if (result._filePath != currentFile) {
+			currentFile = result._filePath;
+			oss << wstringToUtf8(result._filePath) << "\r\n";
 		}
-		oss << "  " << result.lineNumber << ":   "
-			<< wstringToUtf8(result.lineContent) << "\r\n";
+		oss << "  " << result._lineNumber << ":   "
+			<< wstringToUtf8(result._lineContent) << "\r\n";
 	}
 
 	return oss.str();
@@ -420,27 +432,27 @@ std::string ResultsExporter::formatPlainTextReadable()
 	std::ostringstream oss;
 
 	oss << "SEARCH RESULTS EXPORT\r\n";
-	oss << "Search Query:  " << wstringToUtf8(_metadata.searchQuery) << "\r\n";
-	oss << "Search Scope:  " << wstringToUtf8(_metadata.searchScope) << "\r\n";
-	oss << "Total Matches: " << _metadata.totalMatches << "\r\n";
-	oss << "Files Matched: " << _metadata.filesMatched << "\r\n";
+	oss << "Search Query:  " << wstringToUtf8(_metadata._searchQuery) << "\r\n";
+	oss << "Search Scope:  " << wstringToUtf8(_metadata._searchScope) << "\r\n";
+	oss << "Total Matches: " << _metadata._totalMatches << "\r\n";
+	oss << "Files Matched: " << _metadata._filesMatched << "\r\n";
 	oss << "\r\n---------------------------------------------------\r\n\r\n";
 
 	std::wstring currentFile;
 	for (const auto& result : _results) {
-		if (result.filePath != currentFile) {
+		if (result._filePath != currentFile) {
 			if (!currentFile.empty()) oss << "\r\n";
-			currentFile = result.filePath;
-			oss << wstringToUtf8(result.filePath) << "\r\n";
+			currentFile = result._filePath;
+			oss << wstringToUtf8(result._filePath) << "\r\n";
 			oss << "---------------------------------------------------\r\n";
 		}
 
-		oss << "  Line " << result.lineNumber;
-		if (!result.matchRanges.empty()) {
-			oss << ", Column " << (result.matchRanges[0].first + 1);
+		oss << "  Line " << result._lineNumber;
+		if (!result._matchRanges.empty()) {
+			oss << ", Column " << (result._matchRanges[0].first + 1);
 		}
 		oss << ":\r\n";
-		oss << "    " << wstringToUtf8(result.lineContent) << "\r\n";
+		oss << "    " << wstringToUtf8(result._lineContent) << "\r\n";
 	}
 
 	return oss.str();
@@ -452,37 +464,37 @@ std::string ResultsExporter::formatPlainTextFullDetails()
 
 	oss << "SEARCH RESULTS EXPORT\r\n";
 	oss << "Generated: " << getCurrentTimestamp() << "\r\n";
-	oss << "Notepad++ Version: " << wstringToUtf8(_metadata.notepadppVersion) << "\r\n";
+	oss << "Notepad++ Version: " << wstringToUtf8(_metadata._notepadppVersion) << "\r\n";
 	oss << "---------------------------------------------------\r\n\r\n";
 
 	oss << "Search Parameters:\r\n";
-	oss << "  Query: " << wstringToUtf8(_metadata.searchQuery) << "\r\n";
-	oss << "  Match Case: " << (_metadata.matchCase ? "Yes" : "No") << "\r\n";
-	oss << "  Match Whole Word: " << (_metadata.matchWholeWord ? "Yes" : "No") << "\r\n";
-	oss << "  Regular Expression: " << (_metadata.useRegularExpression ? "Yes" : "No") << "\r\n";
-	oss << "  Scope: " << wstringToUtf8(_metadata.searchScope) << "\r\n";
+	oss << "  Query: " << wstringToUtf8(_metadata._searchQuery) << "\r\n";
+	oss << "  Match Case: " << (_metadata._matchCase ? "Yes" : "No") << "\r\n";
+	oss << "  Match Whole Word: " << (_metadata._matchWholeWord ? "Yes" : "No") << "\r\n";
+	oss << "  Regular Expression: " << (_metadata._useRegularExpression ? "Yes" : "No") << "\r\n";
+	oss << "  Scope: " << wstringToUtf8(_metadata._searchScope) << "\r\n";
 	oss << "\r\nResults Summary:\r\n";
-	oss << "  Total Matches: " << _metadata.totalMatches << "\r\n";
-	oss << "  Files Matched: " << _metadata.filesMatched << "\r\n";
+	oss << "  Total Matches: " << _metadata._totalMatches << "\r\n";
+	oss << "  Files Matched: " << _metadata._filesMatched << "\r\n";
 	oss << "\r\nResults:\r\n";
 	oss << "---------------------------------------------------\r\n\r\n";
 
 	std::wstring currentFile;
 	for (const auto& result : _results) {
-		if (result.filePath != currentFile) {
+		if (result._filePath != currentFile) {
 			if (!currentFile.empty()) oss << "\r\n";
-			currentFile = result.filePath;
-			oss << "FILE: " << wstringToUtf8(result.filePath) << "\r\n";
+			currentFile = result._filePath;
+			oss << "FILE: " << wstringToUtf8(result._filePath) << "\r\n";
 			oss << "---------------------------------------------------\r\n";
 		}
 
-		oss << "  Line " << result.lineNumber;
-		if (!result.matchRanges.empty()) {
-			oss << " (Column " << (result.matchRanges[0].first + 1) << ")";
+		oss << "  Line " << result._lineNumber;
+		if (!result._matchRanges.empty()) {
+			oss << " (Column " << (result._matchRanges[0].first + 1) << ")";
 		}
 		oss << ":\r\n";
-		oss << "    Full Text: " << wstringToUtf8(result.lineContent) << "\r\n";
-		oss << "    Matched:   " << wstringToUtf8(result.matchedText) << "\r\n\r\n";
+		oss << "    Full Text: " << wstringToUtf8(result._lineContent) << "\r\n";
+		oss << "    Matched:   " << wstringToUtf8(result._matchedText) << "\r\n\r\n";
 	}
 
 	return oss.str();
@@ -519,23 +531,7 @@ bool ResultsExporter::writeToFile(const std::string& content, const std::wstring
 // Utility methods
 std::string ResultsExporter::wstringToUtf8(const std::wstring& str)
 {
-	if (str.empty()) return std::string();
-
-	// Calculate required buffer size for UTF-8 conversion
-	int size_needed = WideCharToMultiByte(CP_UTF8, 0, &str[0], (int)str.size(), NULL, 0, NULL, NULL);
-	if (size_needed <= 0) {
-		// Conversion size calculation failed, return empty string
-		return std::string();
-	}
-
-	std::string result(size_needed, 0);
-	int converted = WideCharToMultiByte(CP_UTF8, 0, &str[0], (int)str.size(), &result[0], size_needed, NULL, NULL);
-	if (converted <= 0) {
-		// Conversion failed, return empty string instead of corrupted data
-		return std::string();
-	}
-
-	return result;
+	return wstring2string(str, CP_UTF8);
 }
 
 std::string ResultsExporter::getCurrentTimestamp()

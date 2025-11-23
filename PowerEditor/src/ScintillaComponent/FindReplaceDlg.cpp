@@ -5889,7 +5889,7 @@ INT_PTR CALLBACK exportResultsDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LP
 			::ShowWindow(::GetDlgItem(hwndDlg, IDC_JSON_PRETTYPRINT_CHECK), SW_HIDE);
 			::ShowWindow(::GetDlgItem(hwndDlg, IDC_JSON_METADATA_CHECK), SW_HIDE);
 			::ShowWindow(::GetDlgItem(hwndDlg, IDC_PLAINTEXT_STYLE_COMBO), SW_HIDE);
-			::ShowWindow(::GetDlgItem(hwndDlg, IDC_PLAINTEXT_STYLE_COMBO), SW_HIDE);
+			::ShowWindow(::GetDlgItem(hwndDlg, IDC_PLAINTEXT_STYLE_LABEL), SW_HIDE);
 
 			// Trigger initial preview generation
 			::SendMessage(hwndDlg, WM_COMMAND, MAKEWPARAM(IDC_EXPORT_FORMAT_CSV, BN_CLICKED), reinterpret_cast<LPARAM>(::GetDlgItem(hwndDlg, IDC_EXPORT_FORMAT_CSV)));
@@ -5908,9 +5908,11 @@ INT_PTR CALLBACK exportResultsDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LP
 				// Show/hide controls based on selected format
 				::ShowWindow(::GetDlgItem(hwndDlg, IDC_CSV_HEADERS_CHECK), wID == IDC_EXPORT_FORMAT_CSV ? SW_SHOW : SW_HIDE);
 				::ShowWindow(::GetDlgItem(hwndDlg, IDC_CSV_DELIMITER_COMBO), wID == IDC_EXPORT_FORMAT_CSV ? SW_SHOW : SW_HIDE);
+				::ShowWindow(::GetDlgItem(hwndDlg, IDC_CSV_DELIMITER_LABEL), wID == IDC_EXPORT_FORMAT_CSV ? SW_SHOW : SW_HIDE);
 				::ShowWindow(::GetDlgItem(hwndDlg, IDC_JSON_PRETTYPRINT_CHECK), wID == IDC_EXPORT_FORMAT_JSON ? SW_SHOW : SW_HIDE);
 				::ShowWindow(::GetDlgItem(hwndDlg, IDC_JSON_METADATA_CHECK), wID == IDC_EXPORT_FORMAT_JSON ? SW_SHOW : SW_HIDE);
 				::ShowWindow(::GetDlgItem(hwndDlg, IDC_PLAINTEXT_STYLE_COMBO), wID == IDC_EXPORT_FORMAT_PLAINTEXT ? SW_SHOW : SW_HIDE);
+				::ShowWindow(::GetDlgItem(hwndDlg, IDC_PLAINTEXT_STYLE_LABEL), wID == IDC_EXPORT_FORMAT_PLAINTEXT ? SW_SHOW : SW_HIDE);
 
 				// Update format state
 				if (wID == IDC_EXPORT_FORMAT_CSV)

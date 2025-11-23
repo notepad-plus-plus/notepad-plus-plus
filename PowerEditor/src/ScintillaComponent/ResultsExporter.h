@@ -43,28 +43,28 @@ struct ExportOptions {
 };
 
 struct ExportResult {
-	std::wstring filePath;
-	size_t lineNumber = 0;
-	std::wstring lineContent;
-	std::vector<std::pair<intptr_t, intptr_t>> matchRanges;
-	std::wstring matchedText;
+	std::wstring _filePath;
+	size_t _lineNumber = 0;
+	std::wstring _lineContent;
+	std::vector<std::pair<intptr_t, intptr_t>> _matchRanges;
+	std::wstring _matchedText;
 };
 
 // Captures search context for reproducibility in exports
 struct SearchMetadata {
-	std::wstring searchQuery;
-	std::wstring replaceQuery;
-	std::wstring searchScope;
-	std::wstring searchDirectory;
-	bool matchCase = false;
-	bool matchWholeWord = false;
-	bool useRegularExpression = false;
-	bool wrapAround = false;
-	int totalMatches = 0;
-	int filesSearched = 0;
-	int filesMatched = 0;
-	SYSTEMTIME timestamp = {};
-	std::wstring notepadppVersion;
+	std::wstring _searchQuery;
+	std::wstring _replaceQuery;
+	std::wstring _searchScope;
+	std::wstring _searchDirectory;
+	bool _matchCase = false;
+	bool _matchWholeWord = false;
+	bool _useRegularExpression = false;
+	bool _wrapAround = false;
+	int _totalMatches = 0;
+	int _filesSearched = 0;
+	int _filesMatched = 0;
+	SYSTEMTIME _timestamp = {};
+	std::wstring _notepadppVersion;
 };
 
 // Forward declaration of FoundInfo from FindReplaceDlg.h

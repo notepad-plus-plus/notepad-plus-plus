@@ -2,7 +2,7 @@ name: Plugin Files Release Notifier
 
 on:
   push:
-    branches: 'master'
+    branches: ['master']
 
   workflow_dispatch:
 
@@ -12,9 +12,9 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
-         fetch-depth: 0
+          fetch-depth: 0
       - name: Get changes
         run: |
           $any_changed = $false

@@ -114,12 +114,13 @@ friend INT_PTR CALLBACK exportResultsDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wPa
 public:
 	Finder() : DockingDlgInterface(IDD_FINDRESULT) {
 		_markingsStruct._length = 0;
-		_markingsStruct._markings = NULL;
+		_markingsStruct._markings = nullptr;
 	}
 
 	~Finder() override {
 		_scintView.destroy();
 	}
+
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		DockingDlgInterface::init(hInst, hPere);
 		_ppEditView = ppEditView;
@@ -191,6 +192,8 @@ private:
 	std::wstring _lastSearchQuery;
 	std::wstring _lastSearchScope;
 
+	using DockingDlgInterface::init;
+
 	void setFinderReadOnly(bool isReadOnly) {
 		_scintView.execute(SCI_SETREADONLY, isReadOnly);
 	}
@@ -250,8 +253,6 @@ private:
 	void initFromOptions();
 	void writeOptions();
 };
-
-LRESULT run_swapButtonProc(WNDPROC oldEditProc, HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 class FindReplaceDlg : public StaticDialog
 {
@@ -333,7 +334,7 @@ public :
 	void changeTabName(DIALOG_TYPE index, const wchar_t *name2change) {
 		TCITEM tie{};
 		tie.mask = TCIF_TEXT;
-		tie.pszText = (wchar_t *)name2change;
+		tie.pszText = const_cast<wchar_t*>(name2change);
 		TabCtrl_SetItem(_tab.getHSelf(), index, &tie);
 
 		wchar_t label[MAX_PATH]{};
@@ -431,9 +432,8 @@ protected :
 	void resizeDialogElements();
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	static WNDPROC originalFinderProc;
-	static WNDPROC originalComboEditProc;
 
-	static LRESULT FAR PASCAL comboEditProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK ComboEditProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 
 	// Window procedure for the finder
 	static LRESULT FAR PASCAL finderProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
@@ -491,6 +491,9 @@ private:
 
 	ControlInfoTip _maxLenOnSearchTip;
 
+	using Window::init;
+	using StaticDialog::create;
+
 	void enableFindDlgItem(int dlgItemID, bool isEnable = true);
 	void showFindDlgItem(int dlgItemID, bool isShow = true);
 
@@ -543,6 +546,7 @@ class FindIncrementDlg : public StaticDialog
 {
 public :
 	FindIncrementDlg() = default;
+
 	void init(HINSTANCE hInst, HWND hPere, FindReplaceDlg *pFRDlg, bool isRTL = false);
 	void destroy() override;
 	void display(bool toShow = true) const override;
@@ -565,6 +569,8 @@ private :
 
 	ReBar* _pRebar = nullptr;
 	REBARBANDINFO _rbBand{};
+
+	using Window::init;
 
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	void markSelectedTextInc(bool enable, FindOption *opt = NULL);

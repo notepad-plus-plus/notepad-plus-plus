@@ -231,11 +231,11 @@ class ScintillaEditView : public Window
 {
 friend class Finder;
 public:
-	ScintillaEditView(): Window() {
+	ScintillaEditView() : Window() {
 		++_refCount;
 	}
 	
-	ScintillaEditView(bool isMainEditZone) : Window() {
+	explicit ScintillaEditView(bool isMainEditZone) noexcept : Window() {
 		_isMainEditZone = isMainEditZone;
 		++_refCount;
 	}
@@ -243,21 +243,16 @@ public:
 	~ScintillaEditView() override {
 		--_refCount;
 
-		if ((!_refCount)&&(_SciInit))
+		if (!_refCount && _SciInit)
 		{
 			Scintilla_ReleaseResources();
-
-			for (BufferStyleMap::iterator it(_hotspotStyles.begin()); it != _hotspotStyles.end(); ++it )
-			{
-				delete it->second;
-			}
 		}
 	}
 
 	void destroy() override {
 		::DestroyWindow(_hSelf);
-		_hSelf = NULL;
-		_pScintillaFunc = NULL;
+		_hSelf = nullptr;
+		_pScintillaFunc = nullptr;
 	}
 
 	void init(HINSTANCE hInst, HWND hPere) override;
@@ -648,11 +643,6 @@ public:
 	void setCRLF(long color = -1);
 	void setNpcAndCcUniEOL(long color = -1);
 
-	void mouseWheel(WPARAM wParam, LPARAM lParam) {
-		scintillaNew_Proc(_hSelf, WM_MOUSEWHEEL, wParam, lParam);
-	}
-
-	void setHotspotStyle(const Style& styleToSet);
 	void setTabSettings(Lang* lang);
 	bool isWrapRestoreNeeded() const { return _wrapRestoreNeeded; }
 	void setWrapRestoreNeeded(bool isWrapRestoreNeeded) { _wrapRestoreNeeded = isWrapRestoreNeeded; }
@@ -703,17 +693,13 @@ protected:
 	bool _positionRestoreNeeded = false;
 	uint32_t _restorePositionRetryCount = 0;
 
-	typedef std::unordered_map<int, Style> StyleMap;
-	typedef std::unordered_map<BufferID, StyleMap*> BufferStyleMap;
-	BufferStyleMap _hotspotStyles;
-
 	intptr_t _beginSelectPosition = -1;
 	static std::string _defaultCharList;
 	bool _isMultiPasteActive = false;
 
 //Lexers and Styling
 	void restyleBuffer();
-	const char * getCompleteKeywordList(std::basic_string<char> & kwl, LangType langType, int keywordIndex);
+	const char * concatToBuildKeywordList(std::basic_string<char> & kwl, LangType langType, int keywordIndex);
 	void setKeywords(LangType langType, const char *keywords, int index);
 	void populateSubStyleKeywords(LangType langType, int baseStyleID, int numSubStyles, int firstLangIndex, const wchar_t **pKwArray);
 	void setLexer(LangType langID, int whichList, int baseStyleID = STYLE_NOT_USED, int numSubStyles = 8);

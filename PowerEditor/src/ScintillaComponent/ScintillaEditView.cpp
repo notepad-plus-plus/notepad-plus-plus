@@ -29,6 +29,8 @@
 #include <commctrl.h>
 
 #include <array>
+#include <string>
+#include <vector>
 
 #include "NppConstants.h"
 #include "dpiManagerV2.h"
@@ -507,6 +509,9 @@ LRESULT CALLBACK ScintillaEditView::scintillaStatic_Proc(HWND hwnd, UINT Message
 {
 	ScintillaEditView *pScint = (ScintillaEditView *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
 
+	if (Message == DOCUMENTMAP_MOUSEWHEEL)
+		return ::CallWindowProc(_scintillaDefaultProc, hwnd, WM_MOUSEWHEEL, wParam, lParam);
+
 	if (Message == WM_MOUSEWHEEL || Message == WM_MOUSEHWHEEL)
 	{
 		POINT pt{};
@@ -544,13 +549,12 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			return TRUE;
 		}
 
-		case WM_MOUSEHWHEEL :
+		case WM_MOUSEHWHEEL:
 		{
-			::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam) > 0)?SB_LINERIGHT:SB_LINELEFT, 0);
-			return TRUE;
+			return ::CallWindowProc(_scintillaDefaultProc, hwnd, Message, wParam, lParam);
 		}
 
-		case WM_MOUSEWHEEL :
+		case WM_MOUSEWHEEL:
 		{
 			if (LOWORD(wParam) & MK_RBUTTON)
 			{
@@ -876,19 +880,6 @@ void ScintillaEditView::setSpecialStyle(const Style & styleToSet)
 		execute(SCI_STYLESETSIZE, styleID, styleToSet._fontSize);
 }
 
-void ScintillaEditView::setHotspotStyle(const Style& styleToSet)
-{
-	StyleMap* styleMap;
-	if ( _hotspotStyles.find(_currentBuffer) == _hotspotStyles.end() )
-	{
-		_hotspotStyles[_currentBuffer] = new StyleMap;
-	}
-	styleMap = _hotspotStyles[_currentBuffer];
-	(*styleMap)[styleToSet._styleID] = styleToSet;
-
-	setStyle(styleToSet);
-}
-
 void ScintillaEditView::setStyle(Style styleToSet)
 {
 	GlobalOverride & go = NppParameters::getInstance().getGlobalOverrideStyle();
@@ -981,7 +972,7 @@ void ScintillaEditView::setXmlLexer(LangType type)
 			keywordList = wstring2string(kwlW, CP_ACP);
 		}
 
-		execute(SCI_SETKEYWORDS, 5, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_XML, LANG_INDEX_INSTR)));
+		execute(SCI_SETKEYWORDS, 5, reinterpret_cast<LPARAM>(concatToBuildKeywordList(keywordList, L_XML, LANG_INDEX_INSTR)));
 
 		// the XML portion of the lexer only allows substyles for attributes, not for tags (since it treats all tags the same),
 		//	so allocate all 8 substyles to attributes
@@ -1007,28 +998,28 @@ void ScintillaEditView::setXmlLexer(LangType type)
 
 void ScintillaEditView::setHTMLLexer()
 {
-	const wchar_t *pKwArray[NB_LIST] = {NULL};
+	const wchar_t *pKwArray[NB_LIST]{};
 	makeStyle(L_HTML, pKwArray);
 
 	// Tag keywords
-	basic_string<char> keywordList("");
+	std::string keywordList;
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
+		std::wstring kwlW = pKwArray[LANG_INDEX_INSTR];
 		keywordList = wstring2string(kwlW, CP_ACP);
 	}
 
-	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_HTML, LANG_INDEX_INSTR)));
+	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(concatToBuildKeywordList(keywordList, L_HTML, LANG_INDEX_INSTR)));
 
 	// DOCTYPE command keywords
-	basic_string<char> keywordList2("");
+	std::string keywordList2;
 	if (pKwArray[LANG_INDEX_INSTR2])
 	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR2];
+		std::wstring kwlW = pKwArray[LANG_INDEX_INSTR2];
 		keywordList2 = wstring2string(kwlW, CP_ACP);
 	}
 
-	execute(SCI_SETKEYWORDS, 5, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_HTML, LANG_INDEX_INSTR2)));
+	execute(SCI_SETKEYWORDS, 5, reinterpret_cast<LPARAM>(concatToBuildKeywordList(keywordList2, L_HTML, LANG_INDEX_INSTR2)));
 
 	// HTML allows substyle lists for both tags and attributes, so allocate four of each
 	populateSubStyleKeywords(L_HTML, SCE_H_TAG, 4, LANG_INDEX_SUBSTYLE1, pKwArray);
@@ -1047,7 +1038,7 @@ void ScintillaEditView::setEmbeddedJSLexer()
 		keywordList = wstring2string(kwlW, CP_ACP);
 	}
 
-	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_JS_EMBEDDED, LANG_INDEX_INSTR)));
+	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(concatToBuildKeywordList(keywordList, L_JS_EMBEDDED, LANG_INDEX_INSTR)));
 	populateSubStyleKeywords(L_JS_EMBEDDED, SCE_HJ_WORD, 8, LANG_INDEX_SUBSTYLE1, pKwArray);
 	execute(SCI_STYLESETEOLFILLED, SCE_HJ_DEFAULT, true);
 	execute(SCI_STYLESETEOLFILLED, SCE_HJ_COMMENT, true);
@@ -1078,8 +1069,8 @@ void ScintillaEditView::setJsonLexer(bool isJson5)
 		keywordList2 = wstring2string(kwlW, CP_ACP);
 	}
 
-	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_JSON, LANG_INDEX_INSTR)));
-	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList2, L_JSON, LANG_INDEX_INSTR2)));
+	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(concatToBuildKeywordList(keywordList, L_JSON, LANG_INDEX_INSTR)));
+	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(concatToBuildKeywordList(keywordList2, L_JSON, LANG_INDEX_INSTR2)));
 
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
@@ -1102,7 +1093,7 @@ void ScintillaEditView::setEmbeddedPhpLexer()
 		keywordList = wstring2string(kwlW, CP_ACP);
 	}
 
-	execute(SCI_SETKEYWORDS, 4, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_PHP, LANG_INDEX_INSTR)));
+	execute(SCI_SETKEYWORDS, 4, reinterpret_cast<LPARAM>(concatToBuildKeywordList(keywordList, L_PHP, LANG_INDEX_INSTR)));
 	populateSubStyleKeywords(L_PHP, SCE_HPHP_WORD, 8, LANG_INDEX_SUBSTYLE1, pKwArray);
 
 	execute(SCI_STYLESETEOLFILLED, SCE_HPHP_DEFAULT, true);
@@ -1123,7 +1114,7 @@ void ScintillaEditView::setEmbeddedAspLexer()
 
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("asp.default.language"), reinterpret_cast<LPARAM>("2"));
 
-	execute(SCI_SETKEYWORDS, 2, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_VB, LANG_INDEX_INSTR)));
+	execute(SCI_SETKEYWORDS, 2, reinterpret_cast<LPARAM>(concatToBuildKeywordList(keywordList, L_VB, LANG_INDEX_INSTR)));
 
 	populateSubStyleKeywords(L_ASP, SCE_HB_WORD, 8, LANG_INDEX_SUBSTYLE1, pKwArray);
 
@@ -1289,7 +1280,7 @@ void ScintillaEditView::setExternalLexer(LangType typeDoc)
 				{
 					keywordList = wstring2string(style._keywords, CP_ACP);
 				}
-				execute(SCI_SETKEYWORDS, style._keywordClass, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, typeDoc, style._keywordClass)));
+				execute(SCI_SETKEYWORDS, style._keywordClass, reinterpret_cast<LPARAM>(concatToBuildKeywordList(keywordList, typeDoc, style._keywordClass)));
 			}
 		}
 	}
@@ -1330,21 +1321,21 @@ void ScintillaEditView::setCppLexer(LangType langType)
 		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
 		keywordListInstruction = wstring2string(kwlW, CP_ACP);
 	}
-	cppInstrs = getCompleteKeywordList(keywordListInstruction, langType, LANG_INDEX_INSTR);
+	cppInstrs = concatToBuildKeywordList(keywordListInstruction, langType, LANG_INDEX_INSTR);
 
 	if (pKwArray[LANG_INDEX_TYPE])
 	{
 		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE];
 		keywordListType = wstring2string(kwlW, CP_ACP);
 	}
-	cppTypes = getCompleteKeywordList(keywordListType, langType, LANG_INDEX_TYPE);
+	cppTypes = concatToBuildKeywordList(keywordListType, langType, LANG_INDEX_TYPE);
 
 	if (pKwArray[LANG_INDEX_INSTR2])
 	{
 		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR2];
 		keywordListGlobalclass = wstring2string(kwlW, CP_ACP);
 	}
-	cppGlobalclass = getCompleteKeywordList(keywordListGlobalclass, langType, LANG_INDEX_INSTR2);
+	cppGlobalclass = concatToBuildKeywordList(keywordListGlobalclass, langType, LANG_INDEX_INSTR2);
 
 	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(cppInstrs));
 	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(cppTypes));
@@ -1397,21 +1388,21 @@ void ScintillaEditView::setJsLexer()
 			basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
 			keywordListInstruction = wstring2string(kwlW, CP_ACP);
 		}
-		const char *jsInstrs = getCompleteKeywordList(keywordListInstruction, L_JAVASCRIPT, LANG_INDEX_INSTR);
+		const char *jsInstrs = concatToBuildKeywordList(keywordListInstruction, L_JAVASCRIPT, LANG_INDEX_INSTR);
 
 		if (pKwArray[LANG_INDEX_TYPE])
 		{
 			basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE];
 			keywordListType = wstring2string(kwlW, CP_ACP);
 		}
-		const char *jsTypes = getCompleteKeywordList(keywordListType, L_JAVASCRIPT, LANG_INDEX_TYPE);
+		const char *jsTypes = concatToBuildKeywordList(keywordListType, L_JAVASCRIPT, LANG_INDEX_TYPE);
 
 		if (pKwArray[LANG_INDEX_INSTR2])
 		{
 			basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR2];
 			keywordListInstruction2 = wstring2string(kwlW, CP_ACP);
 		}
-		const char *jsInstrs2 = getCompleteKeywordList(keywordListInstruction2, L_JAVASCRIPT, LANG_INDEX_INSTR2);
+		const char *jsInstrs2 = concatToBuildKeywordList(keywordListInstruction2, L_JAVASCRIPT, LANG_INDEX_INSTR2);
 
 		execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(jsInstrs));
 		execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(jsTypes));
@@ -1462,7 +1453,7 @@ void ScintillaEditView::setJsLexer()
 			basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
 			keywordListInstruction = wstring2string(kwlW, CP_ACP);
 		}
-		const char *jsEmbeddedInstrs = getCompleteKeywordList(keywordListInstruction, L_JS_EMBEDDED, LANG_INDEX_INSTR);
+		const char *jsEmbeddedInstrs = concatToBuildKeywordList(keywordListInstruction, L_JS_EMBEDDED, LANG_INDEX_INSTR);
 		execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(jsEmbeddedInstrs));
 	}
 
@@ -1498,14 +1489,14 @@ void ScintillaEditView::setTclLexer()
 		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
 		keywordListInstruction = wstring2string(kwlW, CP_ACP);
 	}
-	tclInstrs = getCompleteKeywordList(keywordListInstruction, L_TCL, LANG_INDEX_INSTR);
+	tclInstrs = concatToBuildKeywordList(keywordListInstruction, L_TCL, LANG_INDEX_INSTR);
 
 	if (pKwArray[LANG_INDEX_TYPE])
 	{
 		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE];
 		keywordListType = wstring2string(kwlW, CP_ACP);
 	}
-	tclTypes = getCompleteKeywordList(keywordListType, L_TCL, LANG_INDEX_TYPE);
+	tclTypes = concatToBuildKeywordList(keywordListType, L_TCL, LANG_INDEX_TYPE);
 
 	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(tclInstrs));
 	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(tclTypes));
@@ -1524,21 +1515,21 @@ void ScintillaEditView::setObjCLexer(LangType langType)
 	{
 		objcInstr1Kwl = wstring2string(pKwArray[LANG_INDEX_INSTR], CP_ACP);
 	}
-	const char *objcInstrs = getCompleteKeywordList(objcInstr1Kwl, langType, LANG_INDEX_INSTR);
+	const char *objcInstrs = concatToBuildKeywordList(objcInstr1Kwl, langType, LANG_INDEX_INSTR);
 
 	basic_string<char> objcInstr2Kwl("");
 	if (pKwArray[LANG_INDEX_INSTR2])
 	{
 		objcInstr2Kwl = wstring2string(pKwArray[LANG_INDEX_INSTR2], CP_ACP);
 	}
-	const char *objCDirective = getCompleteKeywordList(objcInstr2Kwl, langType, LANG_INDEX_INSTR2);
+	const char *objCDirective = concatToBuildKeywordList(objcInstr2Kwl, langType, LANG_INDEX_INSTR2);
 
 	basic_string<char> objcTypeKwl("");
 	if (pKwArray[LANG_INDEX_TYPE])
 	{
 		objcTypeKwl = wstring2string(pKwArray[LANG_INDEX_TYPE], CP_ACP);
 	}
-	const char *objcTypes = getCompleteKeywordList(objcTypeKwl, langType, LANG_INDEX_TYPE);
+	const char *objcTypes = concatToBuildKeywordList(objcTypeKwl, langType, LANG_INDEX_TYPE);
 
 
 	basic_string<char> objcType2Kwl("");
@@ -1546,7 +1537,7 @@ void ScintillaEditView::setObjCLexer(LangType langType)
 	{
 		objcType2Kwl = wstring2string(pKwArray[LANG_INDEX_TYPE2], CP_ACP);
 	}
-	const char *objCQualifier = getCompleteKeywordList(objcType2Kwl, langType, LANG_INDEX_TYPE2);
+	const char *objCQualifier = concatToBuildKeywordList(objcType2Kwl, langType, LANG_INDEX_TYPE2);
 
 
 
@@ -1598,10 +1589,10 @@ void ScintillaEditView::setTypeScriptLexer()
 	};
 
 	std::string keywordListInstruction = getKeywordList(LANG_INDEX_INSTR);
-	const char* tsInstructions = getCompleteKeywordList(keywordListInstruction, L_TYPESCRIPT, LANG_INDEX_INSTR);
+	const char* tsInstructions = concatToBuildKeywordList(keywordListInstruction, L_TYPESCRIPT, LANG_INDEX_INSTR);
 
 	string keywordListType = getKeywordList(LANG_INDEX_TYPE);
-	const char* tsTypes = getCompleteKeywordList(keywordListType, L_TYPESCRIPT, LANG_INDEX_TYPE);
+	const char* tsTypes = concatToBuildKeywordList(keywordListType, L_TYPESCRIPT, LANG_INDEX_TYPE);
 
 	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(tsInstructions));
 	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(tsTypes));
@@ -1623,7 +1614,7 @@ void ScintillaEditView::setKeywords(LangType langType, const char *keywords, int
 {
 	std::basic_string<char> wordList;
 	wordList = (keywords)?keywords:"";
-	execute(SCI_SETKEYWORDS, index, reinterpret_cast<LPARAM>(getCompleteKeywordList(wordList, langType, index)));
+	execute(SCI_SETKEYWORDS, index, reinterpret_cast<LPARAM>(concatToBuildKeywordList(wordList, langType, index)));
 }
 
 void ScintillaEditView::populateSubStyleKeywords(LangType langType, int baseStyleID, int numSubStyles, int firstLangIndex, const wchar_t **pKwArray)
@@ -1638,7 +1629,7 @@ void ScintillaEditView::populateSubStyleKeywords(LangType langType, int baseStyl
 			int ss = firstLangIndex + i;
 			int styleID = firstID + i;
 			basic_string<char> userWords = pKwArray[ss] ? wmc.wchar2char(pKwArray[ss], CP_ACP) : "";
-			execute(SCI_SETIDENTIFIERS, styleID, reinterpret_cast<LPARAM>(getCompleteKeywordList(userWords, langType, ss)));
+			execute(SCI_SETIDENTIFIERS, styleID, reinterpret_cast<LPARAM>(concatToBuildKeywordList(userWords, langType, ss)));
 		}
 	}
 }
@@ -1959,7 +1950,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 		}
 	}
 
-	ScintillaViewParams & svp = (ScintillaViewParams &)NppParameters::getInstance().getSVP();
+	const ScintillaViewParams& svp = NppParameters::getInstance().getSVP();
 	if (svp._folderStyle != FOLDER_STYLE_NONE)
 		showMargin(_SC_MARGE_FOLDER, isNeededFolderMargin(typeDoc));
 
@@ -2602,23 +2593,24 @@ void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask)
 
 		if (mask & BufferChangeUnicode)
 		{
-            int enc = CP_ACP;
+			int enc = CP_ACP;
 			if (buffer->getUnicodeMode() == uni8Bit)
-			{	//either 0 or CJK codepage
-				LangType typeDoc = buffer->getLangType();
+			{
+				//either 0 or CJK codepage
 				if (isCJK())
 				{
+					LangType typeDoc = buffer->getLangType();
 					if (typeDoc == L_CSS || typeDoc == L_CAML || typeDoc == L_ASM || typeDoc == L_MATLAB)
 						enc = CP_ACP;	//you may also want to set charsets here, not yet implemented
 					else
 						enc = _codepage;
 				}
-                else
-                    enc = CP_ACP;
+				else
+					enc = CP_ACP;
 			}
 			else	//CP UTF8 for all unicode
 				enc = SC_CP_UTF8;
-            execute(SCI_SETCODEPAGE, enc);
+			execute(SCI_SETCODEPAGE, enc);
 		}
 	}
 }
@@ -3688,7 +3680,7 @@ void ScintillaEditView::updateLineNumberWidth()
 }
 
 
-const char * ScintillaEditView::getCompleteKeywordList(std::basic_string<char> & kwl, LangType langType, int keywordIndex)
+const char * ScintillaEditView::concatToBuildKeywordList(std::basic_string<char> & kwl, LangType langType, int keywordIndex)
 {
 	kwl += " ";
 	const wchar_t* defKwl_generic = NppParameters::getInstance().getWordList(langType, keywordIndex);
@@ -4027,7 +4019,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, const wchar_t *str)
 		if (cmi[i].isValid())
 		{
 			intptr_t len2beReplace = cmi[i]._selRpos - cmi[i]._selLpos;
-			intptr_t diff = lstrlen(str) - len2beReplace;
+			intptr_t diff = std::wcslen(str) - len2beReplace;
 
 			cmi[i]._selLpos += totalDiff;
 			cmi[i]._selRpos += totalDiff;
@@ -4052,7 +4044,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, const wchar_t *str)
 
 			if (hasVirtualSpc)
 			{
-				totalDiff += cmi[i]._nbVirtualAnchorSpc + lstrlen(str);
+				totalDiff += cmi[i]._nbVirtualAnchorSpc + std::wcslen(str);
 
 				// Now there's no more virtual space
 				cmi[i]._nbVirtualAnchorSpc = 0;
@@ -4074,7 +4066,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, size_t initial, siz
 	// If there is no column mode info available, no need to do anything
 	// If required a message can be shown to user, that select column properly or something similar
 	// It is just a double check as taken in called method (in case this method is called from multiple places)
-	if (cmi.size() <= 0)
+	if (cmi.size() == 0)
 		return;
 	// 0000 00 00 : Dec BASE_10
 	// 0000 00 01 : Hex BASE_16
@@ -5027,7 +5019,7 @@ bool ScintillaEditView::pasteToMultiSelection() const
 		execute(SCI_ENDUNDOACTION);
 		return true;
 	}
-	else if (nbSelections < nbClipboardStr) // not enough holes for insertion, every hole has several insertions
+	else // not enough holes for insertion, every hole has several insertions
 	{
 		size_t nbStr2takeFromClipboard = nbClipboardStr / nbSelections;
 
@@ -5038,16 +5030,16 @@ bool ScintillaEditView::pasteToMultiSelection() const
 			LRESULT posStart = execute(SCI_GETSELECTIONNSTART, i);
 			LRESULT posEnd = execute(SCI_GETSELECTIONNEND, i);
 			wstring severalStr;
-			wstring eol = getEOLString();
+			std::wstring eolStr = getEOLString();
 			for (size_t k = 0; k < nbStr2takeFromClipboard && j < nbClipboardStr; ++k)
 			{
 				severalStr += clipboardStrings[j];
-				severalStr += eol;
+				severalStr += eolStr;
 				++j;
 			}
 
 			// remove the latest added EOL
-			severalStr.erase(severalStr.length() - eol.length());
+			severalStr.erase(severalStr.length() - eolStr.length());
 
 			replaceTarget(severalStr.c_str(), posStart, posEnd);
 			posStart += severalStr.length();

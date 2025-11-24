@@ -28,7 +28,8 @@ scintillaScriptsDirectory = os.path.join(scintillaDirectory, "scripts")
 sys.path.append(scintillaScriptsDirectory)
 import Face
 
-scintillaBinDirectory = os.path.join(scintillaDirectory, "bin")
+# To debug a particular Scintilla build, set environment variable SCINTILLA_BIN to its directory
+scintillaBinDirectory = os.environ.get('SCINTILLA_BIN', os.path.join(scintillaDirectory, "bin"))
 
 lexillaDirectory = os.path.join(scintillaDirectory, "..", "lexilla")
 lexillaBinDirectory = os.path.join(lexillaDirectory, "bin")
@@ -54,6 +55,7 @@ WS_OVERLAPPEDWINDOW = 0xcf0000
 WS_VISIBLE = 0x10000000
 WS_HSCROLL = 0x100000
 WS_VSCROLL = 0x200000
+CS_GLOBALCLASS = 0x4000
 WA_INACTIVE = 0
 MF_POPUP = 16
 MF_SEPARATOR = 0x800
@@ -139,12 +141,12 @@ class WNDCLASS(ctypes.Structure):
 		('lpzClassName', LPCWSTR),
 	)
 
-hinst = ctypes.windll.kernel32.GetModuleHandleW(0)
+hinst = None
 
 def RegisterClass(name, func, background = 0):
 	# register a window class for toplevel windows.
 	wc = WNDCLASS()
-	wc.style = 0
+	wc.style = CS_GLOBALCLASS
 	wc.lpfnWndProc = func
 	wc.cls_extra = 0
 	wc.wnd_extra = 0

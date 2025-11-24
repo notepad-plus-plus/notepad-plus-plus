@@ -23,6 +23,12 @@
 #include "ScintillaEditView.h"
 
 
+#define DOCUMENTMAP_SCROLL        (WM_USER + 4) // DM_SETDEFID uses WM_USER + 1
+#define DOCUMENTMAP_MOUSECLICKED  (WM_USER + 5) // DM_REPOSITION uses WM_USER + 2
+
+static constexpr bool moveDown = true;
+static constexpr bool moveUp = false;
+
 void DocumentMap::reloadMap()
 {
 	if (_pMapView && _ppEditView)
@@ -156,8 +162,9 @@ sprintf(dchar, "%f", ddd);
 		// 19     => 11.5
 		// 20     => 12
 */
-double zoomRatio[] = {1, 1, 1, 1, 1.5, 2, 2.5, 2.5, 3.5, 3.5,\
-4, 4.5, 5, 5, 5.5, 6, 6.5, 7, 7, 7.5, 8, 8.5, 8.5, 9.5, 9.5, 10, 10.5, 11, 11, 11.5, 12};
+
+static constexpr double zoomRatio[]{ 1, 1, 1, 1, 1.5, 2, 2.5, 2.5, 3.5, 3.5,
+4, 4.5, 5, 5, 5.5, 6, 6.5, 7, 7, 7.5, 8, 8.5, 8.5, 9.5, 9.5, 10, 10.5, 11, 11, 11.5, 12 };
 
 void DocumentMap::wrapMap(const ScintillaEditView *editView)
 {
@@ -377,7 +384,7 @@ intptr_t CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 		case WM_NOTIFY:
 		{
-			switch (((LPNMHDR)lParam)->code)
+			switch (reinterpret_cast<LPNMHDR>(lParam)->code)
 			{
 				case DMN_CLOSE:
 				{
@@ -440,13 +447,13 @@ intptr_t CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 		case DOCUMENTMAP_MOUSEWHEEL:
 		{
-			(*_ppEditView)->mouseWheel(wParam, lParam);
+			::SendMessage((*_ppEditView)->getHSelf(), DOCUMENTMAP_MOUSEWHEEL, wParam, lParam);
+			return TRUE;
 		}
-		return TRUE;
 
-        default :
-            return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
-    }
+		default:
+			break;
+	}
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 }
 
@@ -579,22 +586,35 @@ LRESULT CALLBACK ViewZoneDlg::CanvasProc(
 
 		case WM_KEYDOWN:
 		{
-			HWND hParent = ::GetParent(hWnd);
-			if (wParam == VK_UP)
+			HWND hParent = ::GetParent(::GetParent(hWnd));
+			switch (wParam)
 			{
-				::SendMessage(hParent, DOCUMENTMAP_SCROLL, static_cast<WPARAM>(moveUp), 0);
-			}
-			if (wParam == VK_DOWN)
-			{
-				::SendMessage(hParent, DOCUMENTMAP_SCROLL, static_cast<WPARAM>(moveDown), 0);
-			}
-			if (wParam == VK_PRIOR)
-			{
-				::SendMessage(hParent, DOCUMENTMAP_SCROLL, static_cast<WPARAM>(moveUp), 1);
-			}
-			if (wParam == VK_NEXT)
-			{
-				::SendMessage(hParent, DOCUMENTMAP_SCROLL, static_cast<WPARAM>(moveDown), 1);
+				case VK_UP:
+				{
+					::SendMessage(hParent, DOCUMENTMAP_SCROLL, static_cast<WPARAM>(moveUp), 0);
+					break;
+				}
+
+				case VK_DOWN:
+				{
+					::SendMessage(hParent, DOCUMENTMAP_SCROLL, static_cast<WPARAM>(moveDown), 0);
+					break;
+				}
+
+				case VK_PRIOR:
+				{
+					::SendMessage(hParent, DOCUMENTMAP_SCROLL, static_cast<WPARAM>(moveUp), 1);
+					break;
+				}
+
+				case VK_NEXT:
+				{
+					::SendMessage(hParent, DOCUMENTMAP_SCROLL, static_cast<WPARAM>(moveDown), 1);
+					break;
+				}
+
+				default:
+					break;
 			}
 			break;
 		}

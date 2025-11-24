@@ -703,7 +703,7 @@ protected:
 
 //Lexers and Styling
 	void restyleBuffer();
-	const char * getCompleteKeywordList(std::basic_string<char> & kwl, LangType langType, int keywordIndex);
+	const char * concatToBuildKeywordList(std::basic_string<char> & kwl, LangType langType, int keywordIndex);
 	void setKeywords(LangType langType, const char *keywords, int index);
 	void populateSubStyleKeywords(LangType langType, int baseStyleID, int numSubStyles, int firstLangIndex, const wchar_t **pKwArray);
 	void setLexer(LangType langID, int whichList, int baseStyleID = STYLE_NOT_USED, int numSubStyles = 8);

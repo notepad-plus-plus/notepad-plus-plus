@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <ctime>
 #include <iomanip>
+#include <map>
 #include <set>
 
 ResultsExporter::ResultsExporter(const std::vector<FoundInfo>& foundInfos,

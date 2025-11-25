@@ -16,23 +16,27 @@
 
 #pragma once
 
-#include "tinyxmlA.h"
-#include "tinyxml.h"
-#include "Scintilla.h"
+#include <shlwapi.h>
+
+#include <array>
+#include <cassert>
+#include <map>
+
+#include <ILexer.h>
+#include <Lexilla.h>
+#include <Scintilla.h>
+#include <tinyxml2.h>
+
+#include <tinyxml.h>
+#include <tinyxmlA.h>
+
 #include "ToolBar.h"
 #include "UserDefineLangReference.h"
 #include "colors.h"
 #include "shortcut.h"
 #include "ContextMenu.h"
 #include "NppDarkMode.h"
-#include <cassert>
-#include <map>
-#include <array>
-#include <shlwapi.h>
-#include "ILexer.h"
-#include "Lexilla.h"
 #include "DockingCont.h"
-
 #include "NppConstants.h"
 
 #ifdef _WIN64
@@ -1696,7 +1700,7 @@ public:
 
 	int addExternalLangToEnd(ExternalLangContainer * externalLang);
 
-	TiXmlDocumentA* getNativeLangA() const { return _pXmlNativeLangDocA; }
+	tinyxml2::XMLDocument* getNativeLang() const { return _pXmlNativeLangDoc; }
 
 	TiXmlDocument* getCustomizedToolButtons() const { return _pXmlToolButtonsConfDoc; }
 
@@ -1966,7 +1970,7 @@ private:
 
 	TiXmlDocumentA *_pXmlShortcutDocA = nullptr; // shortcuts.xml
 
-	TiXmlDocumentA *_pXmlNativeLangDocA = nullptr; // nativeLang.xml
+	tinyxml2::XMLDocument* _pXmlNativeLangDoc = nullptr; // nativeLang.xml
 	TiXmlDocumentA *_pXmlContextMenuDocA = nullptr; // contextMenu.xml
 	TiXmlDocumentA *_pXmlTabContextMenuDocA = nullptr; // tabContextMenu.xml
 

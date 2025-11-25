@@ -14,10 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include <ctime>
+#include "Notepad_plus.h"
+
 #include <shlwapi.h>
 #include <wininet.h>
-#include "Notepad_plus.h"
+
+#include <ctime>
+
+#include <tinyxml2.h>
+
 #include "Notepad_plus_Window.h"
 #include "CustomFileDialog.h"
 #include "Printer.h"
@@ -135,8 +140,8 @@ Notepad_plus::Notepad_plus()
 	ZeroMemory(&_prevSelectedRange, sizeof(_prevSelectedRange));
 
 	NppParameters& nppParam = NppParameters::getInstance();
-	TiXmlDocumentA *nativeLangDocRootA = nppParam.getNativeLangA();
-    _nativeLangSpeaker.init(nativeLangDocRootA);
+	tinyxml2::XMLDocument* nativeLangDocRoot = nppParam.getNativeLang();
+    _nativeLangSpeaker.init(nativeLangDocRoot);
 
 	LocalizationSwitcher & localizationSwitcher = nppParam.getLocalizationSwitcher();
     const char *fn = _nativeLangSpeaker.getFileName();
@@ -7156,13 +7161,13 @@ bool Notepad_plus::reloadLang()
 		return false;
 	}
 
-	TiXmlDocumentA *nativeLangDocRootA = nppParam.getNativeLangA();
-	if (!nativeLangDocRootA)
+	tinyxml2::XMLDocument* nativeLangDocRoot = nppParam.getNativeLang();
+	if (nativeLangDocRoot == nullptr)
 	{
 		return false;
 	}
 
-    _nativeLangSpeaker.init(nativeLangDocRootA, true);
+    _nativeLangSpeaker.init(nativeLangDocRoot, true);
 
     nppParam.reloadContextMenuFromXmlTree(_mainMenuHandle, _pluginsManager.getMenuHandle());
 

@@ -16,23 +16,27 @@
 
 #pragma once
 
-#include "tinyxmlA.h"
-#include "tinyxml.h"
-#include "Scintilla.h"
+#include <shlwapi.h>
+
+#include <array>
+#include <cassert>
+#include <map>
+
+#include <ILexer.h>
+#include <Lexilla.h>
+#include <Scintilla.h>
+
+#include <tinyxml.h>
+
+#include "NppXml.h"
+
 #include "ToolBar.h"
 #include "UserDefineLangReference.h"
 #include "colors.h"
 #include "shortcut.h"
 #include "ContextMenu.h"
 #include "NppDarkMode.h"
-#include <cassert>
-#include <map>
-#include <array>
-#include <shlwapi.h>
-#include "ILexer.h"
-#include "Lexilla.h"
 #include "DockingCont.h"
-
 #include "NppConstants.h"
 
 #ifdef _WIN64
@@ -1696,7 +1700,7 @@ public:
 
 	int addExternalLangToEnd(ExternalLangContainer * externalLang);
 
-	TiXmlDocumentA* getNativeLangA() const { return _pXmlNativeLangDocA; }
+	NppXml::Document getNativeLang() const { return _pXmlNativeLangDoc; }
 
 	TiXmlDocument* getCustomizedToolButtons() const { return _pXmlToolButtonsConfDoc; }
 
@@ -1964,11 +1968,11 @@ private:
 	std::vector<UdlXmlFileState> _pXmlUserLangsDoc; // userDefineLang customized XMLs
 	TiXmlDocument * _pXmlToolButtonsConfDoc = nullptr; // toolbarButtonsConf.xml
 
-	TiXmlDocumentA *_pXmlShortcutDocA = nullptr; // shortcuts.xml
+	NppXml::Document _pXmlShortcutDoc = nullptr; // shortcuts.xml
 
-	TiXmlDocumentA *_pXmlNativeLangDocA = nullptr; // nativeLang.xml
-	TiXmlDocumentA *_pXmlContextMenuDocA = nullptr; // contextMenu.xml
-	TiXmlDocumentA *_pXmlTabContextMenuDocA = nullptr; // tabContextMenu.xml
+	NppXml::Document _pXmlNativeLangDoc = nullptr; // nativeLang.xml
+	NppXml::Document _pXmlContextMenuDoc = nullptr; // contextMenu.xml
+	NppXml::Document _pXmlTabContextMenuDoc = nullptr; // tabContextMenu.xml
 
 	std::vector<TiXmlDocument *> _pXmlExternalLexerDoc; // External lexer plugins' XMLs
 
@@ -2176,23 +2180,23 @@ private:
 	void feedUserStyles(TiXmlNode *node);
 	void feedUserKeywordList(TiXmlNode *node);
 	void feedUserSettings(TiXmlNode *node);
-	void feedShortcut(TiXmlNodeA *node);
-	void feedMacros(TiXmlNodeA *node);
-	void feedUserCmds(TiXmlNodeA *node);
-	void feedPluginCustomizedCmds(TiXmlNodeA *node);
-	void feedScintKeys(TiXmlNodeA *node);
+	void feedShortcut(NppXml::Node node);
+	void feedMacros(NppXml::Node node);
+	void feedUserCmds(NppXml::Node node);
+	void feedPluginCustomizedCmds(NppXml::Node node);
+	void feedScintKeys(NppXml::Node node);
 
-	void getActions(TiXmlNodeA *node, Macro & macro);
-	bool getShortcuts(TiXmlNodeA *node, Shortcut & sc, std::string* folderName = nullptr);
-	bool getInternalCommandShortcuts(TiXmlNodeA* node, CommandShortcut& cs, std::string* folderName = nullptr);
+	void getActions(NppXml::Node node, Macro& macro);
+	bool getShortcuts(NppXml::Node node, Shortcut& sc, std::string* folderName = nullptr);
+	bool getInternalCommandShortcuts(NppXml::Node node, CommandShortcut& cs, std::string* folderName = nullptr);
 
 	void writeStyle2Element(const Style & style2Write, Style & style2Sync, TiXmlElement *element);
 	void insertUserLang2Tree(TiXmlNode *node, UserLangContainer *userLang);
-	void insertCmd(TiXmlNodeA *cmdRoot, const CommandShortcut & cmd);
-	void insertMacro(TiXmlNodeA *macrosRoot, const MacroShortcut & macro, const std::string& folderName);
-	void insertUserCmd(TiXmlNodeA *userCmdRoot, const UserCommand & userCmd, const std::string& folderName);
-	void insertScintKey(TiXmlNodeA *scintKeyRoot, const ScintillaKeyMap & scintKeyMap);
-	void insertPluginCmd(TiXmlNodeA *pluginCmdRoot, const PluginCmdShortcut & pluginCmd);
+	void insertCmd(NppXml::Node cmdRoot, const CommandShortcut& cmd);
+	void insertMacro(NppXml::Node macrosRoot, const MacroShortcut& macro, const std::string& folderName);
+	void insertUserCmd(NppXml::Node userCmdRoot, const UserCommand& userCmd, const std::string& folderName);
+	void insertScintKey(NppXml::Node scintKeyRoot, const ScintillaKeyMap& scintKeyMap);
+	void insertPluginCmd(NppXml::Node pluginCmdRoot, const PluginCmdShortcut& pluginCmd);
 	TiXmlElement * insertGUIConfigBoolNode(TiXmlNode *r2w, const wchar_t *name, bool bVal);
 	void insertDockingParamNode(TiXmlNode *GUIRoot);
 	void writeExcludedLangList(TiXmlElement *element);

@@ -3546,22 +3546,7 @@ void Notepad_plus::command(int id)
 
 			if (doAboutDlg)
 			{
-				//bool isFirstTime = !_aboutDlg.isCreated();
 				_aboutDlg.doDialog();
-				/*
-				if (isFirstTime && _nativeLangSpeaker.getNativeLangA())
-				{
-					if (_nativeLangSpeaker.getLangEncoding() == NPP_CP_BIG5)
-					{
-						const char *authorName = "«J¤µ§^";
-						HWND hItem = ::GetDlgItem(_aboutDlg.getHSelf(), IDC_AUTHOR_NAME);
-
-						WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-						const wchar_t *authorNameW = wmc.char2wchar(authorName, NPP_CP_BIG5);
-						::SetWindowText(hItem, authorNameW);
-					}
-				}
-				*/
 			}
 			break;
 		}

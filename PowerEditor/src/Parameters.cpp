@@ -1916,7 +1916,7 @@ void NppParameters::getLangKeywordsFromXmlTree()
 		_pXmlDoc->FirstChild(L"NotepadPlus");
 
 	if (!root) return;
-	updateKeyWordsFromModelXml(root);
+	updateFromModelXml(root, ConfXml::lang);	// updateKeyWordsFromModelXml(root);
 	feedKeyWordsParameters(root);
 }
 
@@ -1943,20 +1943,46 @@ bool NppParameters::getUserStylersFromXmlTree()
 {
 	TiXmlNode *root = _pXmlUserStylerDoc->FirstChild(L"NotepadPlus");
 	if (!root) return false;
-	updateUserStylersFromModelXml(root);
+	updateFromModelXml(root, ConfXml::styles);		// updateUserStylersFromModelXml(root);
 	return feedStylerArray(root);
 }
 
-void NppParameters::updateKeyWordsFromModelXml(TiXmlNode* rootUser)
+void NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 {
-	std::wstring modelLangsPath(_nppPath);
-	pathAppend(modelLangsPath, L"langs.model.xml");
-	TiXmlDocument* pXmlModel = new TiXmlDocument(modelLangsPath);
-	int buffer_size = WideCharToMultiByte(CP_ACP, 0, modelLangsPath.c_str(), static_cast<int>(modelLangsPath.length()), nullptr, 0, nullptr, nullptr);
-	std::string sModelPath(buffer_size, 0);
-	WideCharToMultiByte(CP_ACP, 0, modelLangsPath.c_str(), static_cast<int>(modelLangsPath.length()), sModelPath.data(), buffer_size, nullptr, nullptr);
+	// Determine conf-specific information first
+	std::wstring modelXmlFilename = L"";
+	TiXmlDocument* pXmlDocument = nullptr;
+	std::wstring mainElementName = L"";
+	switch (whichConf)
+	{
+		case ConfXml::lang:
+		{
+			modelXmlFilename = L"langs.model.xml";
+			pXmlDocument = _pXmlDoc;
+			mainElementName = L"Languages";
+			break;
+		}
+		case ConfXml::styles:
+		{
+			modelXmlFilename = L"stylers.model.xml";
+			pXmlDocument = _pXmlUserStylerDoc;
+			mainElementName = L"LexerStyles";
+			break;
+		}
+		default:
+		{
+			// if it's an unknown config file, return immediately, as there's nothing to do
+			return;
+		}
+	}
 
-	// if there's a problem loading the model XML, just exit out (don't need to warn the user, since the main Langs XML has already been loaded
+	// Get the XML document
+	std::wstring modelXmlPath(_nppPath);
+	pathAppend(modelXmlPath, modelXmlFilename);
+	TiXmlDocument* pXmlModel = new TiXmlDocument(modelXmlPath);
+	std::string sModelPath = wstring2string(modelXmlPath, CP_ACP);
+
+	// if there's a problem loading the model XML, just exit out (don't need to warn the user, since the main XML has already been loaded
 	//	the same logic will be used for any other errors while trying to do this XML merge
 	if (!pXmlModel->LoadFile())
 	{
@@ -1964,7 +1990,7 @@ void NppParameters::updateKeyWordsFromModelXml(TiXmlNode* rootUser)
 		return;
 	}
 
-	TiXmlNode* rootModel = pXmlModel->FirstChild(L"NotepadPlus");
+	TiXmlElement* rootModel = pXmlModel->FirstChildElement(L"NotepadPlus");
 	if (!rootModel)
 	{
 		delete pXmlModel;
@@ -1974,20 +2000,16 @@ void NppParameters::updateKeyWordsFromModelXml(TiXmlNode* rootUser)
 	// now that the model is reasonable, it's reasonable to do the MD5-checking
 	MD5 md5;
 	std::string md5digest_model = md5.digestFile(sModelPath.c_str());
-	buffer_size = MultiByteToWideChar(CP_UTF8, 0, md5digest_model.c_str(), static_cast<int>(md5digest_model.length()), nullptr, 0);
-	std::wstring wsDigest(buffer_size, 0);
-	MultiByteToWideChar(CP_UTF8, 0, md5digest_model.c_str(), static_cast<int>(md5digest_model.length()), wsDigest.data(), buffer_size);
+	std::wstring wsDigest = string2wstring(md5digest_model, CP_UTF8);
 
 	std::string sUserText{};
-	_pXmlDoc->Print(sUserText);
+	pXmlDocument->Print(sUserText);
 	std::string md5digest_user_text_before = md5.digestString(sUserText.c_str());
 
 	// if modelMD5 is the same as the one seen in the XML, don't need to merge in the model...
 	TiXmlElement* peRootUser = rootUser->ToElement();
 	const wchar_t* pwct_modelMD5 = peRootUser->Attribute(L"modelMD5");
-	buffer_size = WideCharToMultiByte(CP_UTF8, 0, pwct_modelMD5 ? pwct_modelMD5 : L"", -1, nullptr, 0, nullptr, nullptr);
-	std::string s_modelMD5_from_xml(buffer_size, 0);
-	WideCharToMultiByte(CP_UTF8, 0, pwct_modelMD5 ? pwct_modelMD5 : L"", -1, s_modelMD5_from_xml.data(), buffer_size, nullptr, nullptr);
+	std::string s_modelMD5_from_xml = wstring2string(pwct_modelMD5 ? pwct_modelMD5 : L"\n", CP_UTF8);
 	s_modelMD5_from_xml.pop_back();	// remove the NULL-terminator
 	if (md5digest_model == s_modelMD5_from_xml)
 	{
@@ -1998,18 +2020,62 @@ void NppParameters::updateKeyWordsFromModelXml(TiXmlNode* rootUser)
 	// update (or add) the MD5 stored in the XML
 	peRootUser->SetAttribute(L"modelMD5", wsDigest.c_str());
 
-	// get the <Languages> element from both user and model langs
-	TiXmlElement* langsTopUser = rootUser->FirstChildElement(L"Languages");
-	TiXmlElement* langsTopModel = rootModel->FirstChildElement(L"Languages");
-	if (!langsTopUser || !langsTopModel)
+	// get the main internal <Languages> element from both user and model
+	
+	TiXmlElement* mainElemUser = rootUser->FirstChildElement(mainElementName);
+	TiXmlElement* mainElemModel = rootModel->FirstChildElement(mainElementName);
+	if (!mainElemUser || !mainElemModel)
 	{
 		delete pXmlModel;
 		return;
 	}
 
+	switch (whichConf)
+	{
+		case ConfXml::lang:
+		{
+			updateLangXml(mainElemUser, mainElemModel);
+			break;
+		}
+		case ConfXml::styles:
+		{
+			updateStylesXml(peRootUser, rootModel, mainElemUser, mainElemModel);
+			break;
+		}
+	}
+
+	// check the user-langs document for changes
+	sUserText = "";
+	pXmlDocument->Print(sUserText);
+	std::string md5digest_user_text_after = md5.digestString(sUserText.c_str());
+	if (md5digest_user_text_before != md5digest_user_text_after)
+	{
+		switch (whichConf)
+		{
+			case ConfXml::lang:
+			{
+				pXmlDocument->SaveFile();
+				break;
+			}
+			case ConfXml::styles:
+			{
+				writeStyles(_lexerStylerVect, _widgetStyleArray);
+				break;
+			}
+		}
+	}
+
+	delete pXmlModel;
+	return;
+}
+
+void NppParameters::updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* mainElemModel)
+{
+	// pryrt TODO: replicate the core of updateKeyWordsFromModelXml to here
+
 	// map each of the user-file's languages -> element-pointer, to keep track of the languages already in the user-file
 	std::map<std::wstring, TiXmlElement*> mapUserLanguages{};
-	for (TiXmlElement* langFromUser = langsTopUser->FirstChildElement(L"Language");
+	for (TiXmlElement* langFromUser = mainElemUser->FirstChildElement(L"Language");
 		langFromUser;
 		langFromUser = langFromUser->NextSiblingElement(L"Language"))
 	{
@@ -2019,7 +2085,7 @@ void NppParameters::updateKeyWordsFromModelXml(TiXmlNode* rootUser)
 	}
 
 	// for each language in the Model,
-	for (TiXmlElement* langFromModel = langsTopModel->FirstChildElement(L"Language");
+	for (TiXmlElement* langFromModel = mainElemModel->FirstChildElement(L"Language");
 		langFromModel;
 		langFromModel = langFromModel->NextSiblingElement(L"Language"))
 	{
@@ -2153,84 +2219,20 @@ void NppParameters::updateKeyWordsFromModelXml(TiXmlNode* rootUser)
 		{
 			// otherwise, since Language doesn't exist in User Languages, need to duplicate/clone from model to user-langs structure
 			TiXmlNode* p_clone = langFromModel->Clone();
-			langsTopUser->LinkEndChild(p_clone);
+			mainElemUser->LinkEndChild(p_clone);
 		}
 	}
 
-	// check the user-langs document for changes
-	sUserText = "";
-	_pXmlDoc->Print(sUserText);
-	std::string md5digest_user_text_after = md5.digestString(sUserText.c_str());
-	if (md5digest_user_text_before != md5digest_user_text_after)
-		_pXmlDoc->SaveFile();
-
-	delete pXmlModel;
 	return;
 }
 
-void NppParameters::updateUserStylersFromModelXml(TiXmlNode* rootUser)
+void NppParameters::updateStylesXml(TiXmlElement* rootUser, TiXmlElement* rootModel, TiXmlElement* mainElemUser, TiXmlElement* mainElemModel)
 {
-	std::wstring modelStylersPath(_nppPath);
-	pathAppend(modelStylersPath, L"stylers.model.xml");
-	TiXmlDocument* pXmlModel = new TiXmlDocument(modelStylersPath);
-	int buffer_size = WideCharToMultiByte(CP_ACP, 0, modelStylersPath.c_str(), static_cast<int>(modelStylersPath.length()), nullptr, 0, nullptr, nullptr);
-	std::string sModelPath(buffer_size, 0);
-	WideCharToMultiByte(CP_ACP, 0, modelStylersPath.c_str(), static_cast<int>(modelStylersPath.length()), sModelPath.data(), buffer_size, nullptr, nullptr);
-
-	// if there's a problem loading the model XML, just exit out (don't need to warn the user, since the UserStylers XML has already been loaded
-	//	the same logic will be used for any other errors while trying to do this XML merge
-	if (!pXmlModel->LoadFile())
-	{
-		delete pXmlModel;
-		return;
-	}
-
-	TiXmlNode* rootModel = pXmlModel->FirstChild(L"NotepadPlus");
-	if (!rootModel)
-	{
-		delete pXmlModel;
-		return;
-	}
-
-	// now that the model is reasonable, it's reasonable to do the MD5-checking
-	MD5 md5;
-	std::string md5digest_model = md5.digestFile(sModelPath.c_str());
-	buffer_size = MultiByteToWideChar(CP_UTF8, 0, md5digest_model.c_str(), static_cast<int>(md5digest_model.length()), nullptr, 0);
-	std::wstring wsDigest(buffer_size, 0);
-	MultiByteToWideChar(CP_UTF8, 0, md5digest_model.c_str(), static_cast<int>(md5digest_model.length()), wsDigest.data(), buffer_size);
-
-	std::string sUserText{};
-	_pXmlUserStylerDoc->Print(sUserText);
-	std::string md5digest_user_text_before = md5.digestString(sUserText.c_str());
-
-	// if modelMD5 is the same as the one seen in the XML, don't need to merge in the model...
-	TiXmlElement* peRootUser = rootUser->ToElement();
-	const wchar_t* pwct_modelMD5 = peRootUser->Attribute(L"modelMD5");
-	buffer_size = WideCharToMultiByte(CP_UTF8, 0, pwct_modelMD5 ? pwct_modelMD5 : L"", -1, nullptr, 0, nullptr, nullptr);
-	std::string s_modelMD5_from_xml(buffer_size, 0);
-	WideCharToMultiByte(CP_UTF8, 0, pwct_modelMD5 ? pwct_modelMD5 : L"", -1, s_modelMD5_from_xml.data(), buffer_size, nullptr, nullptr);
-	s_modelMD5_from_xml.pop_back();	// remove the NULL-terminator
-	if (md5digest_model == s_modelMD5_from_xml)
-	{
-		delete pXmlModel;
-		return;
-	}
-
-	// update (or add) the MD5 stored in the XML
-	peRootUser->SetAttribute(L"modelMD5", wsDigest.c_str());
-
-	// find the lexer-styles elements from both user and model structures
-	TiXmlElement* lsUser = peRootUser->FirstChildElement(L"LexerStyles");
-	TiXmlElement* lsModel = rootModel->FirstChildElement(L"LexerStyles");
-	if (!lsUser || !lsModel)
-	{
-		delete pXmlModel;
-		return;
-	}
+	// pryrt TODO: replicate the core of updateUserStylersFromModelXml to here
 
 	// map UserStyler's lexer name -> element-pointer
 	std::map<std::wstring, TiXmlElement*> mapUserLexers{};
-	for (TiXmlElement* lexerFromUser = lsUser->FirstChildElement(L"LexerType");
+	for (TiXmlElement* lexerFromUser = mainElemUser->FirstChildElement(L"LexerType");
 		lexerFromUser;
 		lexerFromUser = lexerFromUser->NextSiblingElement(L"LexerType"))
 	{
@@ -2240,7 +2242,7 @@ void NppParameters::updateUserStylersFromModelXml(TiXmlNode* rootUser)
 	}
 
 	// For each lexer in the model,
-	for (TiXmlElement* lexerFromModel = lsModel->FirstChildElement(L"LexerType");
+	for (TiXmlElement* lexerFromModel = mainElemModel->FirstChildElement(L"LexerType");
 		lexerFromModel;
 		lexerFromModel = lexerFromModel->NextSiblingElement(L"LexerType"))
 	{
@@ -2304,7 +2306,7 @@ void NppParameters::updateUserStylersFromModelXml(TiXmlNode* rootUser)
 		{
 			// otherwise, if Lexer doesn't exist in the userStyles, need to duplicate/clone from model to userStyles
 			TiXmlNode* p_clone = lexerFromModel->Clone();
-			lsUser->LinkEndChild(p_clone);
+			mainElemUser->LinkEndChild(p_clone);
 		}
 	}
 
@@ -2322,7 +2324,7 @@ void NppParameters::updateUserStylersFromModelXml(TiXmlNode* rootUser)
 	{
 		// use StyleID for the map's key, or if styleID not found or if "0" then use the widget's name (lowercase) instead
 		std::wstring widgetKey = widgetFromUser->Attribute(L"styleID");
-		if (!widgetKey.length() || widgetKey == L"0" || (decStrVal(widgetKey.c_str())>256) || (decStrVal(widgetKey.c_str())<0))
+		if (!widgetKey.length() || widgetKey == L"0" || (decStrVal(widgetKey.c_str()) > 256) || (decStrVal(widgetKey.c_str()) < 0))
 			widgetKey = widgetFromUser->Attribute(L"name");
 
 		// add widget to map using the key
@@ -2368,17 +2370,8 @@ void NppParameters::updateUserStylersFromModelXml(TiXmlNode* rootUser)
 		}
 	}
 
-	// check the UserStyler document for changes
-	sUserText = "";
-	_pXmlUserStylerDoc->Print(sUserText);
-	std::string md5digest_user_text_after = md5.digestString(sUserText.c_str());
-	if (md5digest_user_text_before != md5digest_user_text_after)
-		writeStyles(_lexerStylerVect, _widgetStyleArray);
-
-	delete pXmlModel;
 	return;
 }
-
 
 bool NppParameters::getUserParametersFromXmlTree()
 {

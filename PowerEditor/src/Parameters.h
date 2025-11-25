@@ -2141,8 +2141,10 @@ private:
 	bool getUserStylersFromXmlTree();
 	std::pair<unsigned char, unsigned char> addUserDefineLangsFromXmlTree(TiXmlDocument *tixmldoc);
 
-	void updateUserStylersFromModelXml(TiXmlNode* userRoot);
-	void updateKeyWordsFromModelXml(TiXmlNode* userRoot);
+	enum ConfXml { lang, styles };
+	void updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf);
+	void updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* mainElemModel);
+	void updateStylesXml(TiXmlElement* rootUser, TiXmlElement* rootModel, TiXmlElement* mainElemUser, TiXmlElement* mainElemModel);
 
 	bool getShortcutsFromXmlTree();
 

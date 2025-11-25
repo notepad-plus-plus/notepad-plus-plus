@@ -15,18 +15,28 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-#include "Notepad_plus.h"
-#include "ShortcutMapper.h"
-#include "EncodingMapper.h"
 #include "localization.h"
-#include "fileBrowser.h"
+
+#include <windows.h>
+
+#include <cstring>
+#include <cwchar>
+#include <memory>
+#include <string>
+#include <vector>
+
+#include <tinyxml2.h>
+
+#include "Common.h"
+#include "Notepad_plus.h"
 #include "NppDarkMode.h"
+#include "Parameters.h"
+#include "Window.h"
+#include "menuCmdID.h"
+#include "resource.h"
 
-using namespace std;
 
-
-
-MenuPosition g_menuFolderPositions[] = {
+static constexpr MenuPosition g_menuFolderPositions[] = {
 //==============================================
 //	{L0,  L1, L2, id},
 //==============================================
@@ -112,7 +122,7 @@ MenuPosition g_menuFolderPositions[] = {
 	{ -1,  -1, -1, "" } // End of array
 };
 
-MenuPosition& getMenuPosition(const char* id)
+const MenuPosition& getMenuPosition(const char* id)
 {
 	int nbSubMenuPos = sizeof(g_menuFolderPositions) / sizeof(MenuPosition);
 
@@ -124,18 +134,18 @@ MenuPosition& getMenuPosition(const char* id)
 	return g_menuFolderPositions[nbSubMenuPos - 1];
 }
 
-void NativeLangSpeaker::init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEnglish)
+void NativeLangSpeaker::init(tinyxml2::XMLDocument* nativeLangDocRoot, bool loadIfEnglish)
 {
-	if (nativeLangDocRootA)
+	if (nativeLangDocRoot)
 	{
-		_nativeLangA =  nativeLangDocRootA->FirstChild("NotepadPlus");
-		if (_nativeLangA)
+		_nativeLang = nativeLangDocRoot->FirstChildElement("NotepadPlus");
+		if (_nativeLang)
 		{
-			_nativeLangA = _nativeLangA->FirstChild("Native-Langue");
-			if (_nativeLangA)
+			_nativeLang = _nativeLang->FirstChildElement("Native-Langue");
+			if (_nativeLang)
 			{
-				TiXmlElementA *element = _nativeLangA->ToElement();
-				const char *rtl = element->Attribute("RTL");
+				tinyxml2::XMLElement* element = _nativeLang->ToElement();
+				const char* rtl = element->Attribute("RTL");
 
 				if (rtl)
 				{
@@ -160,49 +170,40 @@ void NativeLangSpeaker::init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEngl
 
 
 				// get original file name (defined by Notpad++) from the attribute
-                _fileName = element->Attribute("filename");
+				_fileName = element->Attribute("filename");
 
 				if (!loadIfEnglish && _fileName && _stricmp("english.xml", _fileName) == 0)
-                {
-					_nativeLangA = NULL;
+				{
+					_nativeLang = nullptr;
 					return;
 				}
-				// get encoding
-				TiXmlDeclarationA *declaration =  _nativeLangA->GetDocument()->FirstChild()->ToDeclaration();
-				if (declaration)
-				{
-					const char * encodingStr = declaration->Encoding();
-					const EncodingMapper& em = EncodingMapper::getInstance();
-                    int enc = em.getEncodingFromString(encodingStr);
-                    _nativeLangEncoding = (enc != -1)?enc:CP_ACP;
-				}
-			}	
+			}
 		}
-    }
+	}
 }
 
-wstring NativeLangSpeaker::getSubMenuEntryName(const char *nodeName) const
+std::wstring NativeLangSpeaker::getSubMenuEntryName(const char* nodeName) const
 {
-	if (!_nativeLangA) return L"";
-	TiXmlNodeA *mainMenu = _nativeLangA->FirstChild("Menu");
+	if (!_nativeLang) return L"";
+	tinyxml2::XMLNode* mainMenu = _nativeLang->FirstChildElement("Menu");
 	if (!mainMenu) return L"";
-	mainMenu = mainMenu->FirstChild("Main");
+	mainMenu = mainMenu->FirstChildElement("Main");
 	if (!mainMenu) return L"";
-	TiXmlNodeA *entriesRoot = mainMenu->FirstChild("SubEntries");
+	tinyxml2::XMLNode* entriesRoot = mainMenu->FirstChildElement("SubEntries");
 	if (!entriesRoot) return L"";
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
-	for (TiXmlNodeA *childNode = entriesRoot->FirstChildElement("Item");
-		childNode ;
-		childNode = childNode->NextSibling("Item") )
+	for (tinyxml2::XMLNode* childNode = entriesRoot->FirstChildElement("Item");
+		childNode;
+		childNode = childNode->NextSiblingElement("Item"))
 	{
-		TiXmlElementA *element = childNode->ToElement();
+		tinyxml2::XMLElement* element = childNode->ToElement();
 
-		const char *idName = element->Attribute("subMenuId");
+		const char* idName = element->Attribute("subMenuId");
 		if (idName)
 		{
-			const char *name = element->Attribute("name");
+			const char* name = element->Attribute("name");
 			if (!strcmp(idName, nodeName))
 			{
 				return wmc.char2wchar(name, _nativeLangEncoding);
@@ -212,11 +213,11 @@ wstring NativeLangSpeaker::getSubMenuEntryName(const char *nodeName) const
 	return L"";
 }
 
-void purifyMenuString(string& s)
+static void purifyMenuString(std::string& s)
 {
 	// Remove & for CJK localization
 	size_t posAndCJK = s.find("(&", 0);
-	if (posAndCJK != string::npos)
+	if (posAndCJK != std::string::npos)
 	{
 		if (posAndCJK + 3 < s.length())
 		{
@@ -230,7 +231,7 @@ void purifyMenuString(string& s)
 	{
 		if (s[i] == '&')
 		{
-			if (i-1 >= 0 && s[i-1] == '&')
+			if (i - 1 >= 0 && s[static_cast<size_t>(i) - 1] == '&')
 			{
 				s.erase(i, 1);
 				i -= 1;
@@ -252,34 +253,33 @@ void purifyMenuString(string& s)
 
 }
 
-wstring NativeLangSpeaker::getNativeLangMenuString(int itemID, wstring inCaseOfFailureStr, bool removeMarkAnd) const
+std::wstring NativeLangSpeaker::getNativeLangMenuString(int itemID, std::wstring inCaseOfFailureStr, bool removeMarkAnd) const
 {
-	if (!_nativeLangA)
+	if (!_nativeLang)
 		return inCaseOfFailureStr;
 
-	TiXmlNodeA *node = _nativeLangA->FirstChild("Menu");
+	tinyxml2::XMLNode* node = _nativeLang->FirstChildElement("Menu");
 	if (!node) return inCaseOfFailureStr;
 
-	node = node->FirstChild("Main");
+	node = node->FirstChildElement("Main");
 	if (!node) return inCaseOfFailureStr;
 
-	node = node->FirstChild("Commands");
+	node = node->FirstChildElement("Commands");
 	if (!node) return inCaseOfFailureStr;
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
-	for (TiXmlNodeA *childNode = node->FirstChildElement("Item");
-		childNode ;
-		childNode = childNode->NextSibling("Item") )
+	for (tinyxml2::XMLNode* childNode = node->FirstChildElement("Item");
+		childNode;
+		childNode = childNode->NextSiblingElement("Item"))
 	{
-		TiXmlElementA *element = childNode->ToElement();
-		int id;
-		if (element->Attribute("id", &id) && (id == itemID))
+		tinyxml2::XMLElement* element = childNode->ToElement();
+		if (int id = element->IntAttribute("id", 0); (id == itemID))
 		{
-			const char *name = element->Attribute("name");
+			const char* name = element->Attribute("name");
 			if (name)
 			{
-				string nameStr = name;
+				std::string nameStr = name;
 
 				if (removeMarkAnd)
 				{
@@ -292,31 +292,30 @@ wstring NativeLangSpeaker::getNativeLangMenuString(int itemID, wstring inCaseOfF
 	return inCaseOfFailureStr;
 }
 
-wstring NativeLangSpeaker::getShortcutNameString(int itemID) const
+std::wstring NativeLangSpeaker::getShortcutNameString(int itemID) const
 {
-	if (!_nativeLangA)
+	if (!_nativeLang)
 		return L"";
 
-	TiXmlNodeA *node = _nativeLangA->FirstChild("Dialog");
+	tinyxml2::XMLNode* node = _nativeLang->FirstChildElement("Dialog");
 	if (!node) return L"";
 
-	node = node->FirstChild("ShortcutMapper");
+	node = node->FirstChildElement("ShortcutMapper");
 	if (!node) return L"";
 
-	node = node->FirstChild("MainCommandNames");
+	node = node->FirstChildElement("MainCommandNames");
 	if (!node) return L"";
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
-	for (TiXmlNodeA *childNode = node->FirstChildElement("Item");
-		childNode ;
-		childNode = childNode->NextSibling("Item") )
+	for (tinyxml2::XMLNode* childNode = node->FirstChildElement("Item");
+		childNode;
+		childNode = childNode->NextSiblingElement("Item"))
 	{
-		TiXmlElementA *element = childNode->ToElement();
-		int id;
-		if (element->Attribute("id", &id) && (id == itemID))
+		tinyxml2::XMLElement* element = childNode->ToElement();
+		if (int id = element->IntAttribute("id", 0); (id == itemID))
 		{
-			const char *name = element->Attribute("name");
+			const char* name = element->Attribute("name");
 			if (name)
 			{
 				return wmc.char2wchar(name, _nativeLangEncoding);
@@ -326,23 +325,23 @@ wstring NativeLangSpeaker::getShortcutNameString(int itemID) const
 	return L"";
 }
 
-wstring NativeLangSpeaker::getLocalizedStrFromID(const char *strID, const wstring& defaultString) const
+std::wstring NativeLangSpeaker::getLocalizedStrFromID(const char* strID, const std::wstring& defaultString) const
 {
-	if (!_nativeLangA)
+	if (!_nativeLang)
 		return defaultString;
 
 	if (!strID)
 		return defaultString;
 
-	TiXmlNodeA *node = _nativeLangA->FirstChild("MiscStrings");
+	tinyxml2::XMLNode* node = _nativeLang->FirstChildElement("MiscStrings");
 	if (!node) return defaultString;
 
-	node = node->FirstChild(strID);
+	node = node->FirstChildElement(strID);
 	if (!node) return defaultString;
 
-	TiXmlElementA *element = node->ToElement();
+	tinyxml2::XMLElement* element = node->ToElement();
 
-	const char *value = element->Attribute("value");
+	const char* value = element->Attribute("value");
 	if (!value) return defaultString;
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
@@ -357,7 +356,7 @@ void NativeLangSpeaker::getMainMenuEntryName(std::wstring& dest, HMENU hMenu, co
 	const auto iter = _shortcutMenuEntryNameMap.find(menuId);
 	if (iter == _shortcutMenuEntryNameMap.end())
 	{
-		MenuPosition& menuPos = getMenuPosition(menuId);
+		const MenuPosition& menuPos = getMenuPosition(menuId);
 		if (menuPos._x != -1 && menuPos._y == -1 && menuPos._z == -1)
 		{
 			wchar_t str[MAX_PATH];
@@ -389,69 +388,68 @@ void NativeLangSpeaker::getMainMenuEntryName(std::wstring& dest, HMENU hMenu, co
 
 void NativeLangSpeaker::changeMenuLang(HMENU menuHandle)
 {
-	if (nullptr == _nativeLangA)
+	if (nullptr == _nativeLang)
 		return;
 
-	TiXmlNodeA *mainMenu = _nativeLangA->FirstChild("Menu");
+	tinyxml2::XMLNode* mainMenu = _nativeLang->FirstChildElement("Menu");
 	if (nullptr == mainMenu)
 		return;
 
-	mainMenu = mainMenu->FirstChild("Main");
+	mainMenu = mainMenu->FirstChildElement("Main");
 	if (nullptr == mainMenu)
 		return;
 
-	TiXmlNodeA *entriesRoot = mainMenu->FirstChild("Entries");
+	tinyxml2::XMLNode* entriesRoot = mainMenu->FirstChildElement("Entries");
 	if (nullptr == entriesRoot)
 		return;
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
-	for (TiXmlNodeA *childNode = entriesRoot->FirstChildElement("Item");
-		childNode ;
-		childNode = childNode->NextSibling("Item") )
+	for (tinyxml2::XMLNode* childNode = entriesRoot->FirstChildElement("Item");
+		childNode;
+		childNode = childNode->NextSiblingElement("Item"))
 	{
-		TiXmlElementA *element = childNode->ToElement();
-		const char *menuIdStr = element->Attribute("menuId");
+		tinyxml2::XMLElement* element = childNode->ToElement();
+		const char* menuIdStr = element->Attribute("menuId");
 		if (menuIdStr)
 		{
-			MenuPosition & menuPos = getMenuPosition(menuIdStr);
+			const MenuPosition& menuPos = getMenuPosition(menuIdStr);
 			if (menuPos._x != -1)
 			{
-				const char *name = element->Attribute("name");
-				const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
+				const char* name = element->Attribute("name");
+				const wchar_t* nameW = wmc.char2wchar(name, _nativeLangEncoding);
 				::ModifyMenu(menuHandle, menuPos._x, MF_BYPOSITION, 0, nameW);
 			}
 		}
 	}
 
-	TiXmlNodeA *menuCommandsRoot = mainMenu->FirstChild("Commands");
-	for (TiXmlNodeA *childNode = menuCommandsRoot->FirstChildElement("Item");
-		childNode ;
-		childNode = childNode->NextSibling("Item") )
+	tinyxml2::XMLNode* menuCommandsRoot = mainMenu->FirstChildElement("Commands");
+	for (tinyxml2::XMLNode* childNode = menuCommandsRoot->FirstChildElement("Item");
+		childNode;
+		childNode = childNode->NextSiblingElement("Item"))
 	{
-		TiXmlElementA *element = childNode->ToElement();
-		int id;
-		element->Attribute("id", &id);
-		const char *name = element->Attribute("name");
+		tinyxml2::XMLElement* element = childNode->ToElement();
+		int id = element->IntAttribute("id", 0);
+		const char* name = element->Attribute("name");
 
-		const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
+		const wchar_t* nameW = wmc.char2wchar(name, _nativeLangEncoding);
 		::ModifyMenu(menuHandle, id, MF_BYCOMMAND, id, nameW);
 	}
 
-	TiXmlNodeA *subEntriesRoot = mainMenu->FirstChild("SubEntries");
+	tinyxml2::XMLNode* subEntriesRoot = mainMenu->FirstChildElement("SubEntries");
 
-	for (TiXmlNodeA *childNode = subEntriesRoot->FirstChildElement("Item");
-		childNode ;
-		childNode = childNode->NextSibling("Item") )
+	for (tinyxml2::XMLNode* childNode = subEntriesRoot->FirstChildElement("Item");
+		childNode;
+		childNode = childNode->NextSiblingElement("Item"))
 	{
-		TiXmlElementA* element = childNode->ToElement();
+		tinyxml2::XMLElement* element = childNode->ToElement();
 		const char* subMenuIdStr = element->Attribute("subMenuId");
 		const char* name = element->Attribute("name");
 
-		if (nullptr == subMenuIdStr or nullptr == name)
+		if (nullptr == subMenuIdStr || nullptr == name)
 			continue;
 
-		MenuPosition& menuPos = getMenuPosition(subMenuIdStr);
+		const MenuPosition& menuPos = getMenuPosition(subMenuIdStr);
 		int x = menuPos._x;
 		int y = menuPos._y;
 		int z = menuPos._z;
@@ -477,13 +475,13 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle)
 			pos = z;
 		}
 
-		const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
+		const wchar_t* nameW = wmc.char2wchar(name, _nativeLangEncoding);
 		::ModifyMenu(hMenu, pos, MF_BYPOSITION, 0, nameW);
 	}
 }
 
 
-static const int tabCmSubMenuEntryPos[] =
+static constexpr int tabCmSubMenuEntryPos[] =
 {
 //   +-------------- The submenu entry item position on the top level of tab context menu
 //   |
@@ -491,35 +489,34 @@ static const int tabCmSubMenuEntryPos[] =
 //   |       |
 //   |       |
 //   |       |
-     1,   // 0  Close Multiple Tabs
-     5,   // 1  Open into
-    14,   // 2  Copy to Clipboard
-    15,   // 3  Move Document
-    16,   // 4  Apply Color to Tab
+	 1,   // 0  Close Multiple Tabs
+	 5,   // 1  Open into
+	14,   // 2  Copy to Clipboard
+	15,   // 3  Move Document
+	16,   // 4  Apply Color to Tab
 };
 
 
 void NativeLangSpeaker::changeLangTabContextMenu(HMENU hCM) const
 {
-	if (_nativeLangA != nullptr)
+	if (_nativeLang != nullptr)
 	{
-		TiXmlNodeA *tabBarMenu = _nativeLangA->FirstChild("Menu");
+		tinyxml2::XMLNode* tabBarMenu = _nativeLang->FirstChildElement("Menu");
 		if (tabBarMenu)
 		{
-			tabBarMenu = tabBarMenu->FirstChild("TabBar");
+			tabBarMenu = tabBarMenu->FirstChildElement("TabBar");
 			if (tabBarMenu)
 			{
 				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-				int nbSubEntry = sizeof(tabCmSubMenuEntryPos)/sizeof(int);
+				int nbSubEntry = sizeof(tabCmSubMenuEntryPos) / sizeof(int);
 
-				for (TiXmlNodeA *childNode = tabBarMenu->FirstChildElement("Item");
-					childNode ;
-					childNode = childNode->NextSibling("Item") )
+				for (tinyxml2::XMLNode* childNode = tabBarMenu->FirstChildElement("Item");
+					childNode;
+					childNode = childNode->NextSiblingElement("Item"))
 				{
-					TiXmlElementA *element = childNode->ToElement();
-					int cmd;
-					const char *cmdStr = element->Attribute("CMDID", &cmd);
-					if (!cmdStr || (cmd < 0))
+					tinyxml2::XMLElement* element = childNode->ToElement();
+					int cmd = -1;
+					if (element->QueryIntAttribute("CMDID", &cmd) != tinyxml2::XML_SUCCESS || cmd < 0)
 						continue;
 
 					const char* pName = element->Attribute("name");
@@ -535,8 +532,9 @@ void NativeLangSpeaker::changeLangTabContextMenu(HMENU hCM) const
 					}
 					else // sub-menu entry id.
 					{
-						if (!NppParameters::getInstance().hasCustomTabContextMenu()) // The customized sub-menu entry cannot be translated.
-                                                                                     // User can use his/her native language as value of attribute "FolderName" in tabContextMenu.xml file.
+						// The customized sub-menu entry cannot be translated.
+						// User can use his/her native language as value of attribute "FolderName" in tabContextMenu.xml file.
+						if (!NppParameters::getInstance().hasCustomTabContextMenu())
 						{
 							int subEntryIndex = cmd;
 							int subEntrypos = tabCmSubMenuEntryPos[subEntryIndex];
@@ -549,27 +547,25 @@ void NativeLangSpeaker::changeLangTabContextMenu(HMENU hCM) const
 	}
 }
 
-void NativeLangSpeaker::getAlternativeNameFromTabContextMenu(wstring& output, int cmdID, bool isAlternative, const wstring& defaultValue) const
+void NativeLangSpeaker::getAlternativeNameFromTabContextMenu(std::wstring& output, int cmdID, bool isAlternative, const std::wstring& defaultValue) const
 {
-	if (_nativeLangA != nullptr)
+	if (_nativeLang != nullptr)
 	{
-		TiXmlNodeA* tabBarMenu = _nativeLangA->FirstChild("Menu");
+		tinyxml2::XMLNode* tabBarMenu = _nativeLang->FirstChildElement("Menu");
 		if (tabBarMenu)
 		{
-			tabBarMenu = tabBarMenu->FirstChild("TabBar");
+			tabBarMenu = tabBarMenu->FirstChildElement("TabBar");
 			if (tabBarMenu)
 			{
 				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
-				for (TiXmlNodeA* childNode = tabBarMenu->FirstChildElement("Item");
+				for (tinyxml2::XMLNode* childNode = tabBarMenu->FirstChildElement("Item");
 					childNode;
-					childNode = childNode->NextSibling("Item"))
+					childNode = childNode->NextSiblingElement("Item"))
 				{
-					TiXmlElementA* element = childNode->ToElement();
-					int cmd;
-					element->Attribute("CMDID", &cmd);
-
-					if (cmd == cmdID) // menu item CMD
+					tinyxml2::XMLElement* element = childNode->ToElement();
+					int cmd = -1;
+					if (element->QueryIntAttribute("CMDID", &cmd) == tinyxml2::XML_SUCCESS && cmd == cmdID)
 					{
 						const char* pName = element->Attribute(isAlternative ? "alternativeName" : "name");
 						if (pName)
@@ -590,71 +586,72 @@ void NativeLangSpeaker::changeLangTabDropContextMenu(HMENU hCM)
 	const int POS_GO2VIEW = 0;
 	const int POS_CLONE2VIEW = 1;
 
-	if (_nativeLangA)
+	if (_nativeLang)
 	{
-		const char *goToViewA = nullptr;
-		const char *cloneToViewA = nullptr;
+		const char* goToViewA = nullptr;
+		const char* cloneToViewA = nullptr;
 
-		TiXmlNodeA *tabBarMenu = _nativeLangA->FirstChild("Menu");
+		tinyxml2::XMLNode* tabBarMenu = _nativeLang->FirstChildElement("Menu");
 		if (tabBarMenu)
-			tabBarMenu = tabBarMenu->FirstChild("TabBar");
+			tabBarMenu = tabBarMenu->FirstChildElement("TabBar");
 
 		if (tabBarMenu)
 		{
-			for (TiXmlNodeA *childNode = tabBarMenu->FirstChildElement("Item");
-				childNode ;
-				childNode = childNode->NextSibling("Item") )
+			for (tinyxml2::XMLNode* childNode = tabBarMenu->FirstChildElement("Item");
+				childNode;
+				childNode = childNode->NextSiblingElement("Item"))
 			{
-				TiXmlElementA *element = childNode->ToElement();
-				int ordre;
-				element->Attribute("CMDID", &ordre);
-				if (ordre == IDM_VIEW_GOTO_ANOTHER_VIEW)
-					goToViewA = element->Attribute("name");
-				else if (ordre == IDM_VIEW_CLONE_TO_ANOTHER_VIEW)
-					cloneToViewA = element->Attribute("name");
+				tinyxml2::XMLElement* element = childNode->ToElement();
+				int cmd = -1;
+				if (element->QueryIntAttribute("CMDID", &cmd) == tinyxml2::XML_SUCCESS)
+				{
+					if (cmd == IDM_VIEW_GOTO_ANOTHER_VIEW)
+						goToViewA = element->Attribute("name");
+					else if (cmd == IDM_VIEW_CLONE_TO_ANOTHER_VIEW)
+						cloneToViewA = element->Attribute("name");
+				}
 			}
 		}
 
 		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 		if (goToViewA && goToViewA[0])
 		{
-			const wchar_t *goToViewG = wmc.char2wchar(goToViewA, _nativeLangEncoding);
+			const wchar_t* goToViewG = wmc.char2wchar(goToViewA, _nativeLangEncoding);
 			int cmdID = ::GetMenuItemID(hCM, POS_GO2VIEW);
-			::ModifyMenu(hCM, POS_GO2VIEW, MF_BYPOSITION|MF_STRING, cmdID, goToViewG);
+			::ModifyMenu(hCM, POS_GO2VIEW, MF_BYPOSITION | MF_STRING, cmdID, goToViewG);
 		}
 
 		if (cloneToViewA && cloneToViewA[0])
 		{
-			const wchar_t *cloneToViewG = wmc.char2wchar(cloneToViewA, _nativeLangEncoding);
+			const wchar_t* cloneToViewG = wmc.char2wchar(cloneToViewA, _nativeLangEncoding);
 			int cmdID = ::GetMenuItemID(hCM, POS_CLONE2VIEW);
-			::ModifyMenu(hCM, POS_CLONE2VIEW, MF_BYPOSITION|MF_STRING, cmdID, cloneToViewG);
+			::ModifyMenu(hCM, POS_CLONE2VIEW, MF_BYPOSITION | MF_STRING, cmdID, cloneToViewG);
 		}
 	}
 }
 
 void NativeLangSpeaker::changeLangTrayIconContexMenu(HMENU hCM)
 {
-	if (!_nativeLangA) return;
+	if (!_nativeLang) return;
 
-	TiXmlNodeA *tryIconMenu = _nativeLangA->FirstChild("Menu");
+	tinyxml2::XMLNode* tryIconMenu = _nativeLang->FirstChildElement("Menu");
 	if (!tryIconMenu) return;
 
-	tryIconMenu = tryIconMenu->FirstChild("TrayIcon");
+	tryIconMenu = tryIconMenu->FirstChildElement("TrayIcon");
 	if (!tryIconMenu) return;
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
-	for (TiXmlNodeA *childNode = tryIconMenu->FirstChildElement("Item");
-		childNode ;
-		childNode = childNode->NextSibling("Item") )
+	for (tinyxml2::XMLNode* childNode = tryIconMenu->FirstChildElement("Item");
+		childNode;
+		childNode = childNode->NextSiblingElement("Item"))
 	{
-		TiXmlElementA *element = childNode->ToElement();
-		int id;
-		const char *sentinel = element->Attribute("id", &id);
-		const char *name = element->Attribute("name");
-		if (sentinel && (name && name[0]))
+		tinyxml2::XMLElement* element = childNode->ToElement();
+		int id = -1;
+		const char* name = element->Attribute("name");
+		if (element->QueryIntAttribute("id", &id) == tinyxml2::XML_SUCCESS && (name && name[0]))
 		{
-			const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
+			const wchar_t* nameW = wmc.char2wchar(name, _nativeLangEncoding);
 			::ModifyMenu(hCM, id, MF_BYCOMMAND, id, nameW);
 		}
 	}
@@ -662,61 +659,59 @@ void NativeLangSpeaker::changeLangTrayIconContexMenu(HMENU hCM)
 
 void NativeLangSpeaker::changeConfigLang(HWND hDlg)
 {
-	if (nullptr == _nativeLangA)
+	if (nullptr == _nativeLang)
 		return;
 
-	TiXmlNodeA *styleConfDlgNode = _nativeLangA->FirstChild("Dialog");
+	tinyxml2::XMLNode* styleConfDlgNode = _nativeLang->FirstChildElement("Dialog");
 	if (!styleConfDlgNode)
 		return;
 
-	styleConfDlgNode = styleConfDlgNode->FirstChild("StyleConfig");
+	styleConfDlgNode = styleConfDlgNode->FirstChildElement("StyleConfig");
 	if (!styleConfDlgNode) return;
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
 	// Set Title
-	const char *titre = (styleConfDlgNode->ToElement())->Attribute("title");
+	const char* titre = (styleConfDlgNode->ToElement())->Attribute("title");
 
 	if ((titre && titre[0]) && hDlg)
 	{
-		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
+		const wchar_t* nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		::SetWindowText(hDlg, nameW);
 	}
-	for (TiXmlNodeA *childNode = styleConfDlgNode->FirstChildElement("Item");
-		childNode ;
-		childNode = childNode->NextSibling("Item") )
+	for (tinyxml2::XMLNode* childNode = styleConfDlgNode->FirstChildElement("Item");
+		childNode;
+		childNode = childNode->NextSiblingElement("Item"))
 	{
-		TiXmlElementA *element = childNode->ToElement();
-		int id;
-		const char *sentinel = element->Attribute("id", &id);
-		const char *name = element->Attribute("name");
-		if (sentinel && (name && name[0]))
+		tinyxml2::XMLElement* element = childNode->ToElement();
+		int id = -1;
+		const char* name = element->Attribute("name");
+		if (element->QueryIntAttribute("id", &id) == tinyxml2::XML_SUCCESS && (name && name[0]))
 		{
 			HWND hItem = ::GetDlgItem(hDlg, id);
 			if (hItem)
 			{
-				const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
+				const wchar_t* nameW = wmc.char2wchar(name, _nativeLangEncoding);
 				::SetWindowText(hItem, nameW);
 				resizeCheckboxRadioBtn(hItem);
 			}
 		}
 	}
-	styleConfDlgNode = styleConfDlgNode->FirstChild("SubDialog");
-	
-	for (TiXmlNodeA *childNode = styleConfDlgNode->FirstChildElement("Item");
-		childNode ;
-		childNode = childNode->NextSibling("Item") )
+	styleConfDlgNode = styleConfDlgNode->FirstChildElement("SubDialog");
+
+	for (tinyxml2::XMLNode* childNode = styleConfDlgNode->FirstChildElement("Item");
+		childNode;
+		childNode = childNode->NextSiblingElement("Item"))
 	{
-		TiXmlElementA *element = childNode->ToElement();
-		int id;
-		const char *sentinel = element->Attribute("id", &id);
-		const char *name = element->Attribute("name");
-		if (sentinel && (name && name[0]))
+		tinyxml2::XMLElement* element = childNode->ToElement();
+		int id = -1;
+		const char* name = element->Attribute("name");
+		if (element->QueryIntAttribute("id", &id) == tinyxml2::XML_SUCCESS && (name && name[0]))
 		{
 			HWND hItem = ::GetDlgItem(hDlg, id);
 			if (hItem)
 			{
-				const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
+				const wchar_t* nameW = wmc.char2wchar(name, _nativeLangEncoding);
 				::SetWindowText(hItem, nameW);
 				resizeCheckboxRadioBtn(hItem);
 			}
@@ -725,13 +720,13 @@ void NativeLangSpeaker::changeConfigLang(HWND hDlg)
 }
 
 
-void NativeLangSpeaker::changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText)
+void NativeLangSpeaker::changeStyleCtrlsLang(HWND hDlg, int* idArray, const char** translatedText) const
 {
 	const int iColorStyle = 0;
 	const int iUnderline = 8;
 
 	HWND hItem;
-	for (int i = iColorStyle ; i < (iUnderline + 1) ; ++i)
+	for (int i = iColorStyle; i < (iUnderline + 1); ++i)
 	{
 		if (translatedText[i] && translatedText[i][0])
 		{
@@ -739,7 +734,7 @@ void NativeLangSpeaker::changeStyleCtrlsLang(HWND hDlg, int *idArray, const char
 			if (hItem)
 			{
 				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-				const wchar_t *nameW = wmc.char2wchar(translatedText[i], _nativeLangEncoding);
+				const wchar_t* nameW = wmc.char2wchar(translatedText[i], _nativeLangEncoding);
 				::SetWindowText(hItem, nameW);
 			}
 		}
@@ -748,39 +743,38 @@ void NativeLangSpeaker::changeStyleCtrlsLang(HWND hDlg, int *idArray, const char
 
 void NativeLangSpeaker::changeUserDefineLangPopupDlg(HWND hDlg)
 {
-	if (!_nativeLangA) return;
+	if (!_nativeLang) return;
 
-	TiXmlNodeA *userDefineDlgNode = _nativeLangA->FirstChild("Dialog");
-	if (!userDefineDlgNode) return;	
-	
-	userDefineDlgNode = userDefineDlgNode->FirstChild("UserDefine");
+	tinyxml2::XMLNode* userDefineDlgNode = _nativeLang->FirstChildElement("Dialog");
+	if (!userDefineDlgNode) return;
+
+	userDefineDlgNode = userDefineDlgNode->FirstChildElement("UserDefine");
 	if (!userDefineDlgNode) return;
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
-	TiXmlNodeA *stylerDialogNode = userDefineDlgNode->FirstChild("StylerDialog");
+	tinyxml2::XMLNode* stylerDialogNode = userDefineDlgNode->FirstChildElement("StylerDialog");
 	if (!stylerDialogNode) return;
 
-	const char *titre = (stylerDialogNode->ToElement())->Attribute("title");
-	if (titre &&titre[0])
+	const char* titre = (stylerDialogNode->ToElement())->Attribute("title");
+	if (titre && titre[0])
 	{
-		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
+		const wchar_t* nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		::SetWindowText(hDlg, nameW);
 	}
-	for (TiXmlNodeA *childNode = stylerDialogNode->FirstChildElement("Item");
-		childNode ;
-		childNode = childNode->NextSibling("Item") )
+	for (tinyxml2::XMLNode* childNode = stylerDialogNode->FirstChildElement("Item");
+		childNode;
+		childNode = childNode->NextSiblingElement("Item"))
 	{
-		TiXmlElementA *element = childNode->ToElement();
-		int id;
-		const char *sentinel = element->Attribute("id", &id);
-		const char *name = element->Attribute("name");
-		if (sentinel && (name && name[0]))
+		tinyxml2::XMLElement* element = childNode->ToElement();
+		int id = -1;
+		const char* name = element->Attribute("name");
+		if (element->QueryIntAttribute("id", &id) == tinyxml2::XML_SUCCESS && (name && name[0]))
 		{
 			HWND hItem = ::GetDlgItem(hDlg, id);
 			if (hItem)
 			{
-				const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
+				const wchar_t* nameW = wmc.char2wchar(name, _nativeLangEncoding);
 				::SetWindowText(hItem, nameW);
 				resizeCheckboxRadioBtn(hItem);
 			}
@@ -788,14 +782,14 @@ void NativeLangSpeaker::changeUserDefineLangPopupDlg(HWND hDlg)
 	}
 }
 
-void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
+void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog* userDefineDlg)
 {
-	if (!_nativeLangA) return;
+	if (!_nativeLang) return;
 
-	TiXmlNodeA *userDefineDlgNode = _nativeLangA->FirstChild("Dialog");
-	if (!userDefineDlgNode) return;	
-	
-	userDefineDlgNode = userDefineDlgNode->FirstChild("UserDefine");
+	tinyxml2::XMLNode* userDefineDlgNode = _nativeLang->FirstChildElement("Dialog");
+	if (!userDefineDlgNode) return;
+
+	userDefineDlgNode = userDefineDlgNode->FirstChildElement("UserDefine");
 	if (!userDefineDlgNode) return;
 
 	HWND hDlg = userDefineDlg->getHSelf();
@@ -803,23 +797,21 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
 	// Set Title
-	const char *titre = (userDefineDlgNode->ToElement())->Attribute("title");
+	const char* titre = (userDefineDlgNode->ToElement())->Attribute("title");
 	if (titre && titre[0])
 	{
-		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
+		const wchar_t* nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		::SetWindowText(hDlg, nameW);
 	}
 
-	for (TiXmlNodeA *childNode = userDefineDlgNode->FirstChildElement("Item");
-		childNode ;
-		childNode = childNode->NextSibling("Item") )
+	for (tinyxml2::XMLNode* childNode = userDefineDlgNode->FirstChildElement("Item");
+		childNode;
+		childNode = childNode->NextSiblingElement("Item"))
 	{
-		TiXmlElementA *element = childNode->ToElement();
-		int id;
-		const char *sentinel = element->Attribute("id", &id);
-		const char *name = element->Attribute("name");
-		
-		if (sentinel && (name && name[0]))
+		tinyxml2::XMLElement* element = childNode->ToElement();
+		int id = -1;
+		const char* name = element->Attribute("name");
+		if (element->QueryIntAttribute("id", &id) == tinyxml2::XML_SUCCESS && (name && name[0]))
 		{
 			if (id > 30)
 			{
@@ -828,12 +820,12 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
 				{
 					if (id == IDC_DOCK_BUTTON && userDefineDlg->isDocked())
 					{
-						wstring undockStr = getAttrNameByIdStr(L"Undock", userDefineDlgNode, std::to_string(IDC_UNDOCK_BUTTON).c_str());
+						std::wstring undockStr = getAttrNameByIdStr(L"Undock", userDefineDlgNode, std::to_string(IDC_UNDOCK_BUTTON).c_str());
 						::SetWindowText(hItem, undockStr.c_str());
 					}
 					else
 					{
-						const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
+						const wchar_t* nameW = wmc.char2wchar(name, _nativeLangEncoding);
 						::SetWindowText(hItem, nameW);
 						resizeCheckboxRadioBtn(hItem);
 					}
@@ -848,35 +840,34 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
 	hDlgArrary[2] = userDefineDlg->getCommentHandle();
 	hDlgArrary[3] = userDefineDlg->getSymbolHandle();
 
-	const char nodeNameArray[nbDlg][16] = {"Folder", "Keywords", "Comment", "Operator"};
+	const char nodeNameArray[nbDlg][16] = { "Folder", "Keywords", "Comment", "Operator" };
 
-	for (int i = 0 ; i < nbDlg ; ++i)
+	for (int i = 0; i < nbDlg; ++i)
 	{
-		TiXmlNodeA *node = userDefineDlgNode->FirstChild(nodeNameArray[i]);
-		
-		if (node) 
+		tinyxml2::XMLNode* node = userDefineDlgNode->FirstChildElement(nodeNameArray[i]);
+
+		if (node)
 		{
 			// Set Title
 			titre = (node->ToElement())->Attribute("title");
-			if (titre &&titre[0])
+			if (titre && titre[0])
 			{
-				const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
+				const wchar_t* nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 				userDefineDlg->setTabName(i, nameW);
 			}
-			for (TiXmlNodeA *childNode = node->FirstChildElement("Item");
-				childNode ;
-				childNode = childNode->NextSibling("Item") )
+			for (tinyxml2::XMLNode* childNode = node->FirstChildElement("Item");
+				childNode;
+				childNode = childNode->NextSiblingElement("Item"))
 			{
-				TiXmlElementA *element = childNode->ToElement();
-				int id;
-				const char *sentinel = element->Attribute("id", &id);
-				const char *name = element->Attribute("name");
-				if (sentinel && (name && name[0]))
+				tinyxml2::XMLElement* element = childNode->ToElement();
+				int id = -1;
+				const char* name = element->Attribute("name");
+				if (element->QueryIntAttribute("id", &id) == tinyxml2::XML_SUCCESS && (name && name[0]))
 				{
 					HWND hItem = ::GetDlgItem(hDlgArrary[i], id);
 					if (hItem)
 					{
-						const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
+						const wchar_t* nameW = wmc.char2wchar(name, _nativeLangEncoding);
 						::SetWindowText(hItem, nameW);
 						resizeCheckboxRadioBtn(hItem);
 					}
@@ -888,52 +879,52 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
 	userDefineDlg->redraw();
 }
 
-void NativeLangSpeaker::changeFindReplaceDlgLang(FindReplaceDlg & findReplaceDlg)
+void NativeLangSpeaker::changeFindReplaceDlgLang(FindReplaceDlg& findReplaceDlg)
 {
-	if (_nativeLangA)
+	if (_nativeLang)
 	{
-		TiXmlNodeA *dlgNode = _nativeLangA->FirstChild("Dialog");
+		tinyxml2::XMLNode* dlgNode = _nativeLang->FirstChildElement("Dialog");
 		if (dlgNode)
 		{
 			NppParameters& nppParam = NppParameters::getInstance();
 			dlgNode = searchDlgNode(dlgNode, "Find");
 			if (dlgNode)
 			{
-				const char *titre1 = (dlgNode->ToElement())->Attribute("titleFind");
-				const char *titre2 = (dlgNode->ToElement())->Attribute("titleReplace");
-				const char *titre3 = (dlgNode->ToElement())->Attribute("titleFindInFiles");
-				const char *titre4 = (dlgNode->ToElement())->Attribute("titleFindInProjects");
-				const char *titre5 = (dlgNode->ToElement())->Attribute("titleMark");
+				const char* titre1 = (dlgNode->ToElement())->Attribute("titleFind");
+				const char* titre2 = (dlgNode->ToElement())->Attribute("titleReplace");
+				const char* titre3 = (dlgNode->ToElement())->Attribute("titleFindInFiles");
+				const char* titre4 = (dlgNode->ToElement())->Attribute("titleFindInProjects");
+				const char* titre5 = (dlgNode->ToElement())->Attribute("titleMark");
 
 				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
 				if (titre1 && titre1[0])
 				{
-					basic_string<wchar_t> nameW = wmc.char2wchar(titre1, _nativeLangEncoding);
+					std::wstring nameW = wmc.char2wchar(titre1, _nativeLangEncoding);
 					nppParam.getFindDlgTabTitles()._find = nameW;
 					findReplaceDlg.changeTabName(FIND_DLG, nppParam.getFindDlgTabTitles()._find.c_str());
 				}
-				if (titre2  && titre2[0])
+				if (titre2 && titre2[0])
 				{
-					basic_string<wchar_t> nameW = wmc.char2wchar(titre2, _nativeLangEncoding);
+					std::wstring nameW = wmc.char2wchar(titre2, _nativeLangEncoding);
 					nppParam.getFindDlgTabTitles()._replace = nameW;
 					findReplaceDlg.changeTabName(REPLACE_DLG, nppParam.getFindDlgTabTitles()._replace.c_str());
 				}
 				if (titre3 && titre3[0])
 				{
-					basic_string<wchar_t> nameW = wmc.char2wchar(titre3, _nativeLangEncoding);
+					std::wstring nameW = wmc.char2wchar(titre3, _nativeLangEncoding);
 					nppParam.getFindDlgTabTitles()._findInFiles = nameW;
 					findReplaceDlg.changeTabName(FINDINFILES_DLG, nppParam.getFindDlgTabTitles()._findInFiles.c_str());
 				}
 				if (titre4 && titre4[0])
 				{
-					basic_string<wchar_t> nameW = wmc.char2wchar(titre4, _nativeLangEncoding);
+					std::wstring nameW = wmc.char2wchar(titre4, _nativeLangEncoding);
 					nppParam.getFindDlgTabTitles()._findInProjects = nameW;
 					findReplaceDlg.changeTabName(FINDINPROJECTS_DLG, nppParam.getFindDlgTabTitles()._findInProjects.c_str());
 				}
 				if (titre5 && titre5[0])
 				{
-					basic_string<wchar_t> nameW = wmc.char2wchar(titre5, _nativeLangEncoding);
+					std::wstring nameW = wmc.char2wchar(titre5, _nativeLangEncoding);
 					nppParam.getFindDlgTabTitles()._mark = nameW;
 					findReplaceDlg.changeTabName(MARK_DLG, nppParam.getFindDlgTabTitles()._mark.c_str());
 				}
@@ -943,11 +934,11 @@ void NativeLangSpeaker::changeFindReplaceDlgLang(FindReplaceDlg & findReplaceDlg
 	changeDlgLang(findReplaceDlg.getHSelf(), "Find");
 }
 
-void NativeLangSpeaker::changePluginsAdminDlgLang(PluginsAdminDlg & pluginsAdminDlg)
+void NativeLangSpeaker::changePluginsAdminDlgLang(PluginsAdminDlg& pluginsAdminDlg)
 {
-	if (_nativeLangA)
+	if (_nativeLang)
 	{
-		TiXmlNodeA *dlgNode = _nativeLangA->FirstChild("Dialog");
+		tinyxml2::XMLNode* dlgNode = _nativeLang->FirstChildElement("Dialog");
 		if (dlgNode)
 		{
 			dlgNode = searchDlgNode(dlgNode, "PluginsAdminDlg");
@@ -955,51 +946,51 @@ void NativeLangSpeaker::changePluginsAdminDlgLang(PluginsAdminDlg & pluginsAdmin
 			{
 				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
-				TiXmlNodeA *ColumnPluginNode = dlgNode->FirstChild("ColumnPlugin");
+				tinyxml2::XMLNode* ColumnPluginNode = dlgNode->FirstChildElement("ColumnPlugin");
 				if (ColumnPluginNode)
 				{
-					const char *name = (ColumnPluginNode->ToElement())->Attribute("name");
+					const char* name = (ColumnPluginNode->ToElement())->Attribute("name");
 					if (name && name[0])
 					{
-						basic_string<wchar_t> nameW = wmc.char2wchar(name, _nativeLangEncoding);
+						std::wstring nameW = wmc.char2wchar(name, _nativeLangEncoding);
 						pluginsAdminDlg.changeColumnName(COLUMN_PLUGIN, nameW.c_str());
 					}
 				}
 
-				TiXmlNodeA *ColumnVersionNode = dlgNode->FirstChild("ColumnVersion");
+				tinyxml2::XMLNode* ColumnVersionNode = dlgNode->FirstChildElement("ColumnVersion");
 				if (ColumnVersionNode)
 				{
-					const char *name = (ColumnVersionNode->ToElement())->Attribute("name");
+					const char* name = (ColumnVersionNode->ToElement())->Attribute("name");
 					if (name && name[0])
 					{
-						basic_string<wchar_t> nameW = wmc.char2wchar(name, _nativeLangEncoding);
+						std::wstring nameW = wmc.char2wchar(name, _nativeLangEncoding);
 						pluginsAdminDlg.changeColumnName(COLUMN_VERSION, nameW.c_str());
 					}
 				}
 
-				const char *titre1 = (dlgNode->ToElement())->Attribute("titleAvailable");
-				const char *titre2 = (dlgNode->ToElement())->Attribute("titleUpdates");
-				const char *titre3 = (dlgNode->ToElement())->Attribute("titleInstalled");
-				const char *titre4 = (dlgNode->ToElement())->Attribute("titleIncompatible");
+				const char* titre1 = (dlgNode->ToElement())->Attribute("titleAvailable");
+				const char* titre2 = (dlgNode->ToElement())->Attribute("titleUpdates");
+				const char* titre3 = (dlgNode->ToElement())->Attribute("titleInstalled");
+				const char* titre4 = (dlgNode->ToElement())->Attribute("titleIncompatible");
 
 				if (titre1 && titre1[0])
 				{
-					basic_string<wchar_t> nameW = wmc.char2wchar(titre1, _nativeLangEncoding);
+					std::wstring nameW = wmc.char2wchar(titre1, _nativeLangEncoding);
 					pluginsAdminDlg.changeTabName(AVAILABLE_LIST, nameW.c_str());
 				}
-				if (titre2  && titre2[0])
+				if (titre2 && titre2[0])
 				{
-					basic_string<wchar_t> nameW = wmc.char2wchar(titre2, _nativeLangEncoding);
+					std::wstring nameW = wmc.char2wchar(titre2, _nativeLangEncoding);
 					pluginsAdminDlg.changeTabName(UPDATES_LIST, nameW.c_str());
 				}
 				if (titre3 && titre3[0])
 				{
-					basic_string<wchar_t> nameW = wmc.char2wchar(titre3, _nativeLangEncoding);
+					std::wstring nameW = wmc.char2wchar(titre3, _nativeLangEncoding);
 					pluginsAdminDlg.changeTabName(INSTALLED_LIST, nameW.c_str());
 				}
 				if (titre4 && titre4[0])
 				{
-					basic_string<wchar_t> nameW = wmc.char2wchar(titre4, _nativeLangEncoding);
+					std::wstring nameW = wmc.char2wchar(titre4, _nativeLangEncoding);
 					pluginsAdminDlg.changeTabName(INCOMPATIBLE_LIST, nameW.c_str());
 				}
 			}
@@ -1191,34 +1182,35 @@ void NativeLangSpeaker::changePreferenceDlgLang(PreferenceDlg & preference)
 
 void NativeLangSpeaker::changeShortcutLang()
 {
-	if (!_nativeLangA) return;
+	if (!_nativeLang) return;
 
 	NppParameters& nppParam = NppParameters::getInstance();
-	vector<CommandShortcut> & mainshortcuts = nppParam.getUserShortcuts();
-	vector<ScintillaKeyMap> & scinshortcuts = nppParam.getScintillaKeyList();
+	std::vector<CommandShortcut>& mainshortcuts = nppParam.getUserShortcuts();
+	std::vector<ScintillaKeyMap>& scinshortcuts = nppParam.getScintillaKeyList();
 
-	TiXmlNodeA *shortcuts = _nativeLangA->FirstChild("Shortcuts");
+	tinyxml2::XMLNode* shortcuts = _nativeLang->FirstChildElement("Shortcuts");
 	if (!shortcuts) return;
 
-	shortcuts = shortcuts->FirstChild("Main");
+	shortcuts = shortcuts->FirstChildElement("Main");
 	if (!shortcuts) return;
 
-	TiXmlNodeA *entriesRoot = shortcuts->FirstChild("Entries");
+	tinyxml2::XMLNode* entriesRoot = shortcuts->FirstChildElement("Entries");
 	if (!entriesRoot) return;
 
-	for (TiXmlNodeA *childNode = entriesRoot->FirstChildElement("Item");
-		childNode ;
-		childNode = childNode->NextSibling("Item") )
+	for (tinyxml2::XMLNode* childNode = entriesRoot->FirstChildElement("Item");
+		childNode;
+		childNode = childNode->NextSiblingElement("Item"))
 	{
-		TiXmlElementA *element = childNode->ToElement();
-		int index, id;
-		if (element->Attribute("index", &index) && element->Attribute("id", &id))
+		tinyxml2::XMLElement* element = childNode->ToElement();
+		int index = -1;
+		int id = -1;
+		if (element->QueryIntAttribute("index", &index) == tinyxml2::XML_SUCCESS && element->QueryIntAttribute("id", &id) == tinyxml2::XML_SUCCESS)
 		{
 			if (index > -1 && static_cast<size_t>(index) < mainshortcuts.size()) //valid index only
 			{
-				const char *name = element->Attribute("name");
-				CommandShortcut & csc = mainshortcuts[index];
-				if (csc.getID() == (unsigned long)id) 
+				const char* name = element->Attribute("name");
+				CommandShortcut& csc = mainshortcuts[index];
+				if (csc.getID() == (unsigned long)id)
 				{
 					csc.setName(name);
 				}
@@ -1227,27 +1219,27 @@ void NativeLangSpeaker::changeShortcutLang()
 	}
 
 	//Scintilla
-	shortcuts = _nativeLangA->FirstChild("Shortcuts");
+	shortcuts = _nativeLang->FirstChildElement("Shortcuts");
 	if (!shortcuts) return;
 
-	shortcuts = shortcuts->FirstChild("Scintilla");
+	shortcuts = shortcuts->FirstChildElement("Scintilla");
 	if (!shortcuts) return;
 
-	entriesRoot = shortcuts->FirstChild("Entries");
+	entriesRoot = shortcuts->FirstChildElement("Entries");
 	if (!entriesRoot) return;
 
-	for (TiXmlNodeA *childNode = entriesRoot->FirstChildElement("Item");
-		childNode ;
-		childNode = childNode->NextSibling("Item") )
+	for (tinyxml2::XMLNode* childNode = entriesRoot->FirstChildElement("Item");
+		childNode;
+		childNode = childNode->NextSiblingElement("Item"))
 	{
-		TiXmlElementA *element = childNode->ToElement();
-		int index;
-		if (element->Attribute("index", &index))
+		tinyxml2::XMLElement* element = childNode->ToElement();
+		int index = -1;
+		if (element->QueryIntAttribute("index", &index) == tinyxml2::XML_SUCCESS)
 		{
 			if (index > -1 && static_cast<size_t>(index) < scinshortcuts.size()) //valid index only
 			{
-				const char *name = element->Attribute("name");
-				ScintillaKeyMap & skm = scinshortcuts[index];
+				const char* name = element->Attribute("name");
+				ScintillaKeyMap& skm = scinshortcuts[index];
 				skm.setName(name);
 			}
 		}
@@ -1255,20 +1247,20 @@ void NativeLangSpeaker::changeShortcutLang()
 
 }
 
-wstring NativeLangSpeaker::getShortcutMapperLangStr(const char *nodeName, const wchar_t *defaultStr) const
+std::wstring NativeLangSpeaker::getShortcutMapperLangStr(const char* nodeName, const wchar_t* defaultStr) const
 {
-	if (!_nativeLangA) return defaultStr;
+	if (!_nativeLang) return defaultStr;
 
-	TiXmlNodeA *targetNode = _nativeLangA->FirstChild("Dialog");
+	tinyxml2::XMLNode* targetNode = _nativeLang->FirstChildElement("Dialog");
 	if (!targetNode) return defaultStr;
 
-	targetNode = targetNode->FirstChild("ShortcutMapper");
+	targetNode = targetNode->FirstChildElement("ShortcutMapper");
 	if (!targetNode) return defaultStr;
 
-	targetNode = targetNode->FirstChild(nodeName);
+	targetNode = targetNode->FirstChildElement(nodeName);
 	if (!targetNode) return defaultStr;
 
-	const char *name = (targetNode->ToElement())->Attribute("name");
+	const char* name = (targetNode->ToElement())->Attribute("name");
 	if (name && name[0])
 	{
 		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
@@ -1279,50 +1271,49 @@ wstring NativeLangSpeaker::getShortcutMapperLangStr(const char *nodeName, const 
 }
 
 
-TiXmlNodeA * NativeLangSpeaker::searchDlgNode(TiXmlNodeA *node, const char *dlgTagName)
+tinyxml2::XMLNode* NativeLangSpeaker::searchDlgNode(tinyxml2::XMLNode* node, const char* dlgTagName)
 {
-	TiXmlNodeA *dlgNode = node->FirstChild(dlgTagName);
+	tinyxml2::XMLNode* dlgNode = node->FirstChildElement(dlgTagName);
 	if (dlgNode) return dlgNode;
-	for (TiXmlNodeA *childNode = node->FirstChildElement();
-		childNode ;
-		childNode = childNode->NextSibling() )
+	for (tinyxml2::XMLNode* childNode = node->FirstChildElement();
+		childNode;
+		childNode = childNode->NextSibling())
 	{
 		dlgNode = searchDlgNode(childNode, dlgTagName);
 		if (dlgNode) return dlgNode;
 	}
-	return NULL;
+	return nullptr;
 }
 
-bool NativeLangSpeaker::getDoSaveOrNotStrings(wstring& title, wstring& msg)
+bool NativeLangSpeaker::getDoSaveOrNotStrings(std::wstring& title, std::wstring& msg)
 {
-	if (!_nativeLangA) return false;
+	if (!_nativeLang) return false;
 
-	TiXmlNodeA *dlgNode = _nativeLangA->FirstChild("Dialog");
+	tinyxml2::XMLNode* dlgNode = _nativeLang->FirstChildElement("Dialog");
 	if (!dlgNode) return false;
 
 	dlgNode = searchDlgNode(dlgNode, "DoSaveOrNot");
 	if (!dlgNode) return false;
 
-	const char *title2set = (dlgNode->ToElement())->Attribute("title");
+	const char* title2set = (dlgNode->ToElement())->Attribute("title");
 	if (!title2set || !title2set[0]) return false;
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-	const wchar_t *titleW = wmc.char2wchar(title2set, _nativeLangEncoding);
+	const wchar_t* titleW = wmc.char2wchar(title2set, _nativeLangEncoding);
 	title = titleW;
 
-	for (TiXmlNodeA *childNode = dlgNode->FirstChildElement("Item");
+	for (tinyxml2::XMLNode* childNode = dlgNode->FirstChildElement("Item");
 		childNode;
-		childNode = childNode->NextSibling("Item"))
+		childNode = childNode->NextSiblingElement("Item"))
 	{
-		TiXmlElementA *element = childNode->ToElement();
-		int id;
-		const char *sentinel = element->Attribute("id", &id);
-		const char *name = element->Attribute("name");
-		if (sentinel && (name && name[0]))
+		tinyxml2::XMLElement* element = childNode->ToElement();
+		int id = -1;
+		const char* name = element->Attribute("name");
+		if (element->QueryIntAttribute("id", &id) == tinyxml2::XML_SUCCESS && (name && name[0]))
 		{
-			if (id == 1761)
+			if (id == IDC_DOSAVEORNOTTEXT)
 			{
-				const wchar_t *msgW = wmc.char2wchar(name, _nativeLangEncoding);
+				const wchar_t* msgW = wmc.char2wchar(name, _nativeLangEncoding);
 				msg = msgW;
 
 				return true;
@@ -1332,14 +1323,14 @@ bool NativeLangSpeaker::getDoSaveOrNotStrings(wstring& title, wstring& msg)
 	return false;
 }
 
-bool NativeLangSpeaker::changeDlgLang(HWND hDlg, const char *dlgTagName, char *title, size_t titleMaxSize)
+bool NativeLangSpeaker::changeDlgLang(HWND hDlg, const char* dlgTagName, char* title, size_t titleMaxSize)
 {
 	if (title)
 		title[0] = '\0';
 
-	if (!_nativeLangA) return false;
+	if (!_nativeLang) return false;
 
-	TiXmlNodeA *dlgNode = _nativeLangA->FirstChild("Dialog");
+	tinyxml2::XMLNode* dlgNode = _nativeLang->FirstChildElement("Dialog");
 	if (!dlgNode) return false;
 
 	dlgNode = searchDlgNode(dlgNode, dlgTagName);
@@ -1348,10 +1339,10 @@ bool NativeLangSpeaker::changeDlgLang(HWND hDlg, const char *dlgTagName, char *t
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
 	// Set Title
-	const char *title2set = (dlgNode->ToElement())->Attribute("title");
+	const char* title2set = (dlgNode->ToElement())->Attribute("title");
 	if ((title2set && title2set[0]) && hDlg)
 	{
-		const wchar_t *nameW = wmc.char2wchar(title2set, _nativeLangEncoding);
+		const wchar_t* nameW = wmc.char2wchar(title2set, _nativeLangEncoding);
 		::SetWindowText(hDlg, nameW);
 
 		if (title && titleMaxSize)
@@ -1359,20 +1350,19 @@ bool NativeLangSpeaker::changeDlgLang(HWND hDlg, const char *dlgTagName, char *t
 	}
 
 	// Set the text of child control
-	for (TiXmlNodeA *childNode = dlgNode->FirstChildElement("Item");
-		childNode ;
-		childNode = childNode->NextSibling("Item") )
+	for (tinyxml2::XMLNode* childNode = dlgNode->FirstChildElement("Item");
+		childNode;
+		childNode = childNode->NextSiblingElement("Item"))
 	{
-		TiXmlElementA *element = childNode->ToElement();
-		int id;
-		const char *sentinel = element->Attribute("id", &id);
-		const char *name = element->Attribute("name");
-		if (sentinel && (name && name[0]))
+		tinyxml2::XMLElement* element = childNode->ToElement();
+		int id = -1;
+		const char* name = element->Attribute("name");
+		if (element->QueryIntAttribute("id", &id) == tinyxml2::XML_SUCCESS && (name && name[0]))
 		{
 			HWND hItem = ::GetDlgItem(hDlg, id);
 			if (hItem)
 			{
-				const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
+				const wchar_t* nameW = wmc.char2wchar(name, _nativeLangEncoding);
 				::SetWindowText(hItem, nameW);
 				resizeCheckboxRadioBtn(hItem);
 			}
@@ -1380,24 +1370,24 @@ bool NativeLangSpeaker::changeDlgLang(HWND hDlg, const char *dlgTagName, char *t
 	}
 
 	// Set the text of child control
-	for (TiXmlNodeA *childNode = dlgNode->FirstChildElement("ComboBox");
+	for (tinyxml2::XMLNode* childNode = dlgNode->FirstChildElement("ComboBox");
 		childNode;
-		childNode = childNode->NextSibling("ComboBox"))
+		childNode = childNode->NextSiblingElement("ComboBox"))
 	{
-		std::vector<wstring> comboElms;
-		TiXmlElementA *element = childNode->ToElement();
-		int id;
-		element->Attribute("id", &id);
+		std::vector<std::wstring> comboElms;
+		tinyxml2::XMLElement* element = childNode->ToElement();
+		int id = -1;
+		element->QueryIntAttribute("id", &id);
 		HWND hCombo = ::GetDlgItem(hDlg, id);
 		if (!hCombo) return false;
 
-		for (TiXmlNodeA *gChildNode = childNode->FirstChildElement("Element");
+		for (tinyxml2::XMLNode* gChildNode = childNode->FirstChildElement("Element");
 			gChildNode;
-			gChildNode = gChildNode->NextSibling("Element"))
+			gChildNode = gChildNode->NextSiblingElement("Element"))
 		{
-			TiXmlElementA *comBoelement = gChildNode->ToElement();
-			const char *name = comBoelement->Attribute("name");
-			const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
+			tinyxml2::XMLElement* comBoelement = gChildNode->ToElement();
+			const char* name = comBoelement->Attribute("name");
+			const wchar_t* nameW = wmc.char2wchar(name, _nativeLangEncoding);
 			comboElms.push_back(nameW);
 		}
 
@@ -1423,14 +1413,14 @@ bool NativeLangSpeaker::changeDlgLang(HWND hDlg, const char *dlgTagName, char *t
 	return true;
 }
 
-bool NativeLangSpeaker::getMsgBoxLang(const char *msgBoxTagName, wstring & title, wstring & message)
+bool NativeLangSpeaker::getMsgBoxLang(const char* msgBoxTagName, std::wstring& title, std::wstring& message)
 {
 	title = L"";
 	message = L"";
 
-	if (!_nativeLangA) return false;
+	if (!_nativeLang) return false;
 
-	TiXmlNodeA *msgBoxNode = _nativeLangA->FirstChild("MessageBox");
+	tinyxml2::XMLNode* msgBoxNode = _nativeLang->FirstChildElement("MessageBox");
 	if (!msgBoxNode) return false;
 
 	msgBoxNode = searchDlgNode(msgBoxNode, msgBoxTagName);
@@ -1439,8 +1429,8 @@ bool NativeLangSpeaker::getMsgBoxLang(const char *msgBoxTagName, wstring & title
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
 	// Set Title
-	const char *titre = (msgBoxNode->ToElement())->Attribute("title");
-	const char *msg = (msgBoxNode->ToElement())->Attribute("message");
+	const char* titre = (msgBoxNode->ToElement())->Attribute("title");
+	const char* msg = (msgBoxNode->ToElement())->Attribute("message");
 	if ((titre && titre[0]) && (msg && msg[0]))
 	{
 		title = wmc.char2wchar(titre, _nativeLangEncoding);
@@ -1450,32 +1440,30 @@ bool NativeLangSpeaker::getMsgBoxLang(const char *msgBoxTagName, wstring & title
 	return false;
 }
 
-wstring NativeLangSpeaker::getDlgLangMenuStr(const char* firstLevelNodeName, const char* secondLevelNodeName, int cmdID, const wchar_t* defaultStr) const
+std::wstring NativeLangSpeaker::getDlgLangMenuStr(const char* firstLevelNodeName, const char* secondLevelNodeName, int cmdID, const wchar_t* defaultStr) const
 {
-	if (!_nativeLangA) return defaultStr;
+	if (!_nativeLang) return defaultStr;
 
-	TiXmlNodeA *targetNode = _nativeLangA->FirstChild(firstLevelNodeName);
+	tinyxml2::XMLNode* targetNode = _nativeLang->FirstChildElement(firstLevelNodeName);
 	if (!targetNode) return defaultStr;
 
 	if (secondLevelNodeName && secondLevelNodeName[0])
 	{
-		targetNode = targetNode->FirstChild(secondLevelNodeName);
+		targetNode = targetNode->FirstChildElement(secondLevelNodeName);
 		if (!targetNode) return defaultStr;
 	}
-	
-	targetNode = targetNode->FirstChild("Menu");
+
+	targetNode = targetNode->FirstChildElement("Menu");
 	if (!targetNode) return defaultStr;
 
-	const char *name = NULL;
-	for (TiXmlNodeA *childNode = targetNode->FirstChildElement("Item");
+	const char* name = nullptr;
+	for (tinyxml2::XMLNode* childNode = targetNode->FirstChildElement("Item");
 		childNode;
-		childNode = childNode->NextSibling("Item"))
+		childNode = childNode->NextSiblingElement("Item"))
 	{
-		TiXmlElementA *element = childNode->ToElement();
-		int id;
-		const char *idStr = element->Attribute("id", &id);
-
-		if (idStr && id == cmdID)
+		tinyxml2::XMLElement* element = childNode->ToElement();
+		int id = -1;
+		if (element->QueryIntAttribute("id", &id) == tinyxml2::XML_SUCCESS && id == cmdID)
 		{
 			name = element->Attribute("name");
 			break;
@@ -1492,8 +1480,8 @@ wstring NativeLangSpeaker::getDlgLangMenuStr(const char* firstLevelNodeName, con
 
 std::wstring NativeLangSpeaker::getCmdLangStr(std::vector<const char*> nodeNames, int cmdID, const wchar_t* defaultStr) const
 {
-	if (!_nativeLangA) return defaultStr;
-	TiXmlNodeA* targetNode = _nativeLangA->FirstChild(nodeNames.at(0));
+	if (!_nativeLang) return defaultStr;
+	tinyxml2::XMLNode* targetNode = _nativeLang->FirstChildElement(nodeNames.at(0));
 	if (targetNode == nullptr)
 		return defaultStr;
 
@@ -1502,7 +1490,7 @@ std::wstring NativeLangSpeaker::getCmdLangStr(std::vector<const char*> nodeNames
 
 	for (auto end = nodeNames.end(); it != end; ++it)
 	{
-		targetNode = targetNode->FirstChild(*it);
+		targetNode = targetNode->FirstChildElement(*it);
 		if (targetNode == nullptr)
 			return defaultStr;
 	}
@@ -1511,15 +1499,13 @@ std::wstring NativeLangSpeaker::getCmdLangStr(std::vector<const char*> nodeNames
 		return defaultStr;
 
 	const char* name = nullptr;
-	for (TiXmlNodeA* childNode = targetNode->FirstChildElement("Item");
+	for (tinyxml2::XMLNode* childNode = targetNode->FirstChildElement("Item");
 		childNode;
-		childNode = childNode->NextSibling("Item"))
+		childNode = childNode->NextSiblingElement("Item"))
 	{
-		TiXmlElementA* element = childNode->ToElement();
-		int id = 0;
-		const char* idStr = element->Attribute("id", &id);
-
-		if (idStr && id == cmdID)
+		tinyxml2::XMLElement* element = childNode->ToElement();
+		int id = -1;
+		if (element->QueryIntAttribute("id", &id) == tinyxml2::XML_SUCCESS && id == cmdID)
 		{
 			name = element->Attribute("name");
 			break;
@@ -1534,29 +1520,27 @@ std::wstring NativeLangSpeaker::getCmdLangStr(std::vector<const char*> nodeNames
 	return defaultStr;
 }
 
-std::wstring NativeLangSpeaker::getProjectPanelLangMenuStr(const char * nodeName, int cmdID, const wchar_t *defaultStr) const
+std::wstring NativeLangSpeaker::getProjectPanelLangMenuStr(const char* nodeName, int cmdID, const wchar_t* defaultStr) const
 {
-	if (!_nativeLangA) return defaultStr;
+	if (!_nativeLang) return defaultStr;
 
-	TiXmlNodeA *targetNode = _nativeLangA->FirstChild("ProjectManager");
+	tinyxml2::XMLNode* targetNode = _nativeLang->FirstChildElement("ProjectManager");
 	if (!targetNode) return defaultStr;
 
-	targetNode = targetNode->FirstChild("Menus");
+	targetNode = targetNode->FirstChildElement("Menus");
 	if (!targetNode) return defaultStr;
 
-	targetNode = targetNode->FirstChild(nodeName);
+	targetNode = targetNode->FirstChildElement(nodeName);
 	if (!targetNode) return defaultStr;
 
-	const char *name = NULL;
-	for (TiXmlNodeA *childNode = targetNode->FirstChildElement("Item");
-		childNode ;
-		childNode = childNode->NextSibling("Item") )
+	const char* name = nullptr;
+	for (tinyxml2::XMLNode* childNode = targetNode->FirstChildElement("Item");
+		childNode;
+		childNode = childNode->NextSiblingElement("Item"))
 	{
-		TiXmlElementA *element = childNode->ToElement();
-		int id;
-		const char *idStr = element->Attribute("id", &id);
-
-		if (idStr && id == cmdID)
+		tinyxml2::XMLElement* element = childNode->ToElement();
+		int id = -1;
+		if (element->QueryIntAttribute("id", &id) == tinyxml2::XML_SUCCESS && id == cmdID)
 		{
 			name = element->Attribute("name");
 			break;
@@ -1571,18 +1555,18 @@ std::wstring NativeLangSpeaker::getProjectPanelLangMenuStr(const char * nodeName
 	return defaultStr;
 }
 
-wstring NativeLangSpeaker::getAttrNameStr(const wchar_t *defaultStr, const char *nodeL1Name, const char *nodeL2Name, const char *nodeL3Name) const
+std::wstring NativeLangSpeaker::getAttrNameStr(const wchar_t* defaultStr, const char* nodeL1Name, const char* nodeL2Name, const char* nodeL3Name) const
 {
-	if (!_nativeLangA) return defaultStr;
+	if (!_nativeLang) return defaultStr;
 
-	TiXmlNodeA *targetNode = _nativeLangA->FirstChild(nodeL1Name);
+	tinyxml2::XMLNode* targetNode = _nativeLang->FirstChildElement(nodeL1Name);
 	if (!targetNode) return defaultStr;
 	if (nodeL2Name)
-		targetNode = targetNode->FirstChild(nodeL2Name);
+		targetNode = targetNode->FirstChildElement(nodeL2Name);
 
 	if (!targetNode) return defaultStr;
 
-	const char *name = (targetNode->ToElement())->Attribute(nodeL3Name);
+	const char* name = (targetNode->ToElement())->Attribute(nodeL3Name);
 	if (name && name[0])
 	{
 		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
@@ -1591,19 +1575,19 @@ wstring NativeLangSpeaker::getAttrNameStr(const wchar_t *defaultStr, const char 
 	return defaultStr;
 }
 
-wstring NativeLangSpeaker::getAttrNameByIdStr(const wchar_t *defaultStr, TiXmlNodeA *targetNode, const char *nodeL1Value, const char *nodeL1Name, const char *nodeL2Name) const
+std::wstring NativeLangSpeaker::getAttrNameByIdStr(const wchar_t* defaultStr, tinyxml2::XMLNode* targetNode, const char* nodeL1Value, const char* nodeL1Name, const char* nodeL2Name) const
 {
 	if (!targetNode) return defaultStr;
 
-	for (TiXmlNodeA *childNode = targetNode->FirstChildElement("Item");
+	for (tinyxml2::XMLNode* childNode = targetNode->FirstChildElement("Item");
 		childNode;
-		childNode = childNode->NextSibling("Item"))
+		childNode = childNode->NextSiblingElement("Item"))
 	{
-		TiXmlElementA *element = childNode->ToElement();
-		const char *id = element->Attribute(nodeL1Name);
+		tinyxml2::XMLElement* element = childNode->ToElement();
+		const char* id = element->Attribute(nodeL1Name);
 		if (id && id[0] && !strcmp(id, nodeL1Value))
 		{
-			const char *name = element->Attribute(nodeL2Name);
+			const char* name = element->Attribute(nodeL2Name);
 			if (name && name[0])
 			{
 				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
@@ -1614,12 +1598,13 @@ wstring NativeLangSpeaker::getAttrNameByIdStr(const wchar_t *defaultStr, TiXmlNo
 	return defaultStr;
 }
 
-int NativeLangSpeaker::messageBox(const char *msgBoxTagName, HWND hWnd, const wchar_t *defaultMessage, const wchar_t *defaultTitle, int msgBoxType, int intInfo, const wchar_t *strInfo)
+int NativeLangSpeaker::messageBox(const char* msgBoxTagName, HWND hWnd, const wchar_t* defaultMessage, const wchar_t* defaultTitle, int msgBoxType, int intInfo, const wchar_t* strInfo)
 {
 	if ((NppParameters::getInstance()).isEndSessionCritical())
 		return IDCANCEL; // simulate Esc-key or Cancel-button as there should not be any big delay / code-flow block
 
-	wstring msg, title;
+	std::wstring msg;
+	std::wstring title;
 	if (!getMsgBoxLang(msgBoxTagName, title, msg))
 	{
 		title = defaultTitle;

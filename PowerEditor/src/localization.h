@@ -17,10 +17,13 @@
 
 #pragma once
 
-#include <map>
-#include "Common.h"
-#include "tinyxmlA.h"
+#include <windows.h>
 
+#include <map>
+#include <string>
+#include <vector>
+
+#include <tinyxml2.h>
 
 class FindReplaceDlg;
 class PreferenceDlg;
@@ -39,12 +42,12 @@ public:
 
 class NativeLangSpeaker {
 public:
-	void init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEnglish = false);
+	void init(tinyxml2::XMLDocument* nativeLangDocRoot, bool loadIfEnglish = false);
 	void changeConfigLang(HWND hDlg);
 	void changeLangTabContextMenu(HMENU hCM) const;
 	void getAlternativeNameFromTabContextMenu(std::wstring& output, int cmdID, bool isAlternative, const std::wstring& defaultValue) const;
-	TiXmlNodeA * searchDlgNode(TiXmlNodeA *node, const char *dlgTagName);
-	bool changeDlgLang(HWND hDlg, const char *dlgTagName, char *title = NULL, size_t titleMaxSize = 0);
+	tinyxml2::XMLNode* searchDlgNode(tinyxml2::XMLNode* node, const char *dlgTagName);
+	bool changeDlgLang(HWND hDlg, const char* dlgTagName, char* title = nullptr, size_t titleMaxSize = 0);
 	void changeLangTabDropContextMenu(HMENU hCM);
 	void changeLangTrayIconContexMenu(HMENU hCM);
 	std::wstring getSubMenuEntryName(const char *nodeName) const;
@@ -53,12 +56,12 @@ public:
 
 	void changeMenuLang(HMENU menuHandle);
 	void changeShortcutLang();
-	void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
+	void changeStyleCtrlsLang(HWND hDlg, int* idArray, const char** translatedText) const;
 	void changeUserDefineLang(UserDefineDialog *userDefineDlg);
 	void changeUserDefineLangPopupDlg(HWND hDlg);
-	void changeFindReplaceDlgLang(FindReplaceDlg & findReplaceDlg);
-	void changePreferenceDlgLang(PreferenceDlg & preference);
-	void changePluginsAdminDlgLang(PluginsAdminDlg & pluginsAdminDlg);
+	void changeFindReplaceDlgLang(FindReplaceDlg& findReplaceDlg);
+	void changePreferenceDlgLang(PreferenceDlg& preference);
+	void changePluginsAdminDlgLang(PluginsAdminDlg& pluginsAdminDlg);
 
 	bool getDoSaveOrNotStrings(std::wstring& title, std::wstring& msg);
 
@@ -70,12 +73,12 @@ public:
 		return _isEditZoneRTL;
 	}
 
-	const char * getFileName() const {
+	const char* getFileName() const {
 		return _fileName;
 	}
 
-	const TiXmlNodeA * getNativeLangA() {
-		return _nativeLangA;
+	const tinyxml2::XMLNode* getNativeLang() {
+		return _nativeLang;
 	}
 
 	int getLangEncoding() const {
@@ -88,7 +91,7 @@ public:
 	std::wstring getDlgLangMenuStr(const char* firstLevelNodeName, const char* secondLevelNodeName, int cmdID, const wchar_t *defaultStr) const;
 	std::wstring getCmdLangStr(std::vector<const char*> nodeNames, int cmdID, const wchar_t* defaultStr) const;
 	std::wstring getAttrNameStr(const wchar_t *defaultStr, const char *nodeL1Name, const char *nodeL2Name, const char *nodeL3Name = "name") const;
-	std::wstring getAttrNameByIdStr(const wchar_t *defaultStr, TiXmlNodeA *targetNode, const char *nodeL1Value, const char *nodeL1Name = "id", const char *nodeL2Name = "name") const;
+	std::wstring getAttrNameByIdStr(const wchar_t *defaultStr, tinyxml2::XMLNode* targetNode, const char *nodeL1Value, const char *nodeL1Name = "id", const char *nodeL2Name = "name") const;
 	std::wstring getLocalizedStrFromID(const char *strID, const std::wstring& defaultString) const;
 	void getMainMenuEntryName(std::wstring& dest, HMENU hMenu, const char* menuIdStr, const wchar_t* defaultDest);
 
@@ -98,16 +101,14 @@ public:
 
 	int messageBox(const char *msgBoxTagName, HWND hWnd, const wchar_t *message, const wchar_t *title, int msgBoxType, int intInfo = 0, const wchar_t *strInfo = NULL);
 private:
-	TiXmlNodeA *_nativeLangA = nullptr;
-	int _nativeLangEncoding = CP_ACP;
+	tinyxml2::XMLNode* _nativeLang = nullptr;
+	static constexpr int _nativeLangEncoding = CP_UTF8; // tinyxml2 uses only UTF8
 	bool _isRTL = false; // for Notepad++ GUI
-	bool _isEditZoneRTL = false; // for Scitilla
-	const char *_fileName = nullptr;
+	bool _isEditZoneRTL = false; // for Scintilla
+	const char* _fileName = nullptr;
 	std::map<std::string, std::wstring> _shortcutMenuEntryNameMap;
 
 	static void resizeCheckboxRadioBtn(HWND hWnd);
 };
 
-
-MenuPosition & getMenuPosition(const char *id);
-
+const MenuPosition& getMenuPosition(const char* id);

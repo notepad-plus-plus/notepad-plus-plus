@@ -28,6 +28,7 @@ SET(projIncludDir	../../scintilla/include/
 					./MISC/SysMsg/
 					./WinControls/StatusBar/
 					./WinControls/StaticDialog/RunDlg/
+					./tinyxml2/
 					./TinyXml/
 					./WinControls/ColourPicker/
 					./Win32Explr/
@@ -172,6 +173,7 @@ SET(src_files
 			./WinControls/TabBar/TabBar.cpp
 			./WinControls/TaskList/TaskList.cpp
 			./WinControls/TaskList/TaskListDlg.cpp
+			./tinyxml2/tinyxml2.cpp
 			./TinyXml/tinystr.cpp
 			./TinyXml/tinyXmlA/tinystrA.cpp
 			./TinyXml/tinyxml.cpp
@@ -334,6 +336,7 @@ SET(include_files
 			./WinControls/TaskList/TaskList.h
 			./WinControls/TaskList/TaskListDlg.h
 			./WinControls/TaskList/TaskListDlg_rc.h
+			./tinyxml2/tinyxml2.h
 			./TinyXml/tinystr.h
 			./TinyXml/tinyXmlA/tinystrA.h
 			./TinyXml/tinyxml.h

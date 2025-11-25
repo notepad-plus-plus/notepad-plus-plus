@@ -14,10 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include <ctime>
+
+#include "Parameters.h"
+
+#include <windows.h>
 
 #include <shlobj.h>
-#include "Parameters.h"
+
+#include <ctime>
+
+#include <tinyxml2.h>
+
 #include "ScintillaEditView.h"
 #include "keys.h"
 #include "localization.h"
@@ -1109,15 +1116,16 @@ bool NppParameters::reloadLang()
 			return false;
 	}
 
-	delete _pXmlNativeLangDocA;
+	delete _pXmlNativeLangDoc;
 
-	_pXmlNativeLangDocA = new TiXmlDocumentA();
-
-	bool loadOkay = _pXmlNativeLangDocA->LoadUnicodeFilePath(nativeLangPath.c_str());
+	_pXmlNativeLangDoc = new tinyxml2::XMLDocument();
+	const std::string pathString = wstring2string(nativeLangPath, CP_UTF8);
+	tinyxml2::XMLError eResult = _pXmlNativeLangDoc->LoadFile(pathString.c_str());
+	const bool loadOkay = (eResult == tinyxml2::XML_SUCCESS);
 	if (!loadOkay)
 	{
-		delete _pXmlNativeLangDocA;
-		_pXmlNativeLangDocA = nullptr;
+		delete _pXmlNativeLangDoc;
+		_pXmlNativeLangDoc = nullptr;
 		return false;
 	}
 	return loadOkay;
@@ -1490,14 +1498,14 @@ bool NppParameters::load()
 		}
 	}
 
-
-	_pXmlNativeLangDocA = new TiXmlDocumentA();
-
-	loadOkay = _pXmlNativeLangDocA->LoadUnicodeFilePath(nativeLangPath.c_str());
+	_pXmlNativeLangDoc = new tinyxml2::XMLDocument();
+	const std::string pathString = wstring2string(nativeLangPath, CP_UTF8);
+	tinyxml2::XMLError eResult = _pXmlNativeLangDoc->LoadFile(pathString.c_str());
+	loadOkay = (eResult == tinyxml2::XML_SUCCESS);
 	if (!loadOkay)
 	{
-		delete _pXmlNativeLangDocA;
-		_pXmlNativeLangDocA = nullptr;
+		delete _pXmlNativeLangDoc;
+		_pXmlNativeLangDoc = nullptr;
 		isAllLoaded = false;
 	}
 
@@ -1726,7 +1734,7 @@ void NppParameters::destroyInstance()
 		delete l._udlXmlDoc;
 	}
 
-	delete _pXmlNativeLangDocA;
+	delete _pXmlNativeLangDoc;
 	delete _pXmlToolButtonsConfDoc;
 	delete _pXmlShortcutDocA;
 	delete _pXmlContextMenuDocA;
@@ -3951,9 +3959,10 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring & 
 	// nativeLang.xml
 	std::wstring cloudNativeLangPath = cloudSettingsPath;
 	pathAppend(cloudNativeLangPath, L"nativeLang.xml");
-	if (!doesFileExist(cloudNativeLangPath.c_str()) && _pXmlNativeLangDocA)
+	if (!doesFileExist(cloudNativeLangPath.c_str()) && _pXmlNativeLangDoc != nullptr)
 	{
-		isOK = _pXmlNativeLangDocA->SaveUnicodeFilePath(cloudNativeLangPath.c_str());
+		std::string pathString = wstring2string(cloudNativeLangPath, CP_UTF8);
+		bool isOK = (_pXmlNativeLangDoc->SaveFile(pathString.c_str()) == tinyxml2::XML_SUCCESS);
 		if (!isOK)
 			return false;
 	}

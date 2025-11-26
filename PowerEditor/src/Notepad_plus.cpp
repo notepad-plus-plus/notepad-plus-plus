@@ -21,8 +21,7 @@
 
 #include <ctime>
 
-#include <tinyxml2.h>
-
+#include "NppXml.h"
 #include "Notepad_plus_Window.h"
 #include "CustomFileDialog.h"
 #include "Printer.h"
@@ -140,8 +139,8 @@ Notepad_plus::Notepad_plus()
 	ZeroMemory(&_prevSelectedRange, sizeof(_prevSelectedRange));
 
 	NppParameters& nppParam = NppParameters::getInstance();
-	tinyxml2::XMLDocument* nativeLangDocRoot = nppParam.getNativeLang();
-    _nativeLangSpeaker.init(nativeLangDocRoot);
+	NppXml::Document nativeLangDocRoot = nppParam.getNativeLang();
+	_nativeLangSpeaker.init(nativeLangDocRoot);
 
 	LocalizationSwitcher & localizationSwitcher = nppParam.getLocalizationSwitcher();
     const char *fn = _nativeLangSpeaker.getFileName();
@@ -7161,7 +7160,7 @@ bool Notepad_plus::reloadLang()
 		return false;
 	}
 
-	tinyxml2::XMLDocument* nativeLangDocRoot = nppParam.getNativeLang();
+	NppXml::Document nativeLangDocRoot = nppParam.getNativeLang();
 	if (nativeLangDocRoot == nullptr)
 	{
 		return false;

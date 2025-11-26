@@ -23,8 +23,7 @@
 
 #include <ctime>
 
-#include <tinyxml2.h>
-
+#include "NppXml.h"
 #include "ScintillaEditView.h"
 #include "keys.h"
 #include "localization.h"
@@ -1118,10 +1117,8 @@ bool NppParameters::reloadLang()
 
 	delete _pXmlNativeLangDoc;
 
-	_pXmlNativeLangDoc = new tinyxml2::XMLDocument();
-	const std::string pathString = wstring2string(nativeLangPath, CP_UTF8);
-	tinyxml2::XMLError eResult = _pXmlNativeLangDoc->LoadFile(pathString.c_str());
-	const bool loadOkay = (eResult == tinyxml2::XML_SUCCESS);
+	_pXmlNativeLangDoc = new NppXml::NewDocument();
+	const bool loadOkay = NppXml::loadFile(_pXmlNativeLangDoc, wstring2string(nativeLangPath, CP_UTF8).c_str());
 	if (!loadOkay)
 	{
 		delete _pXmlNativeLangDoc;
@@ -1498,10 +1495,8 @@ bool NppParameters::load()
 		}
 	}
 
-	_pXmlNativeLangDoc = new tinyxml2::XMLDocument();
-	const std::string pathString = wstring2string(nativeLangPath, CP_UTF8);
-	tinyxml2::XMLError eResult = _pXmlNativeLangDoc->LoadFile(pathString.c_str());
-	loadOkay = (eResult == tinyxml2::XML_SUCCESS);
+	_pXmlNativeLangDoc = new NppXml::NewDocument();
+	loadOkay = NppXml::loadFile(_pXmlNativeLangDoc, wstring2string(nativeLangPath, CP_UTF8).c_str());
 	if (!loadOkay)
 	{
 		delete _pXmlNativeLangDoc;
@@ -3961,8 +3956,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring & 
 	pathAppend(cloudNativeLangPath, L"nativeLang.xml");
 	if (!doesFileExist(cloudNativeLangPath.c_str()) && _pXmlNativeLangDoc != nullptr)
 	{
-		std::string pathString = wstring2string(cloudNativeLangPath, CP_UTF8);
-		bool isOK = (_pXmlNativeLangDoc->SaveFile(pathString.c_str()) == tinyxml2::XML_SUCCESS);
+		const bool isOK = NppXml::saveFile(_pXmlNativeLangDoc, wstring2string(cloudNativeLangPath, CP_UTF8).c_str());
 		if (!isOK)
 			return false;
 	}

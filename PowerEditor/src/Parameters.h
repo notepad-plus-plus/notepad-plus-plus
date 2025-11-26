@@ -25,10 +25,11 @@
 #include <ILexer.h>
 #include <Lexilla.h>
 #include <Scintilla.h>
-#include <tinyxml2.h>
 
 #include <tinyxml.h>
 #include <tinyxmlA.h>
+
+#include "NppXml.h"
 
 #include "ToolBar.h"
 #include "UserDefineLangReference.h"
@@ -1700,7 +1701,7 @@ public:
 
 	int addExternalLangToEnd(ExternalLangContainer * externalLang);
 
-	tinyxml2::XMLDocument* getNativeLang() const { return _pXmlNativeLangDoc; }
+	NppXml::Document getNativeLang() const { return _pXmlNativeLangDoc; }
 
 	TiXmlDocument* getCustomizedToolButtons() const { return _pXmlToolButtonsConfDoc; }
 
@@ -1970,7 +1971,7 @@ private:
 
 	TiXmlDocumentA *_pXmlShortcutDocA = nullptr; // shortcuts.xml
 
-	tinyxml2::XMLDocument* _pXmlNativeLangDoc = nullptr; // nativeLang.xml
+	NppXml::Document _pXmlNativeLangDoc = nullptr; // nativeLang.xml
 	TiXmlDocumentA *_pXmlContextMenuDocA = nullptr; // contextMenu.xml
 	TiXmlDocumentA *_pXmlTabContextMenuDocA = nullptr; // tabContextMenu.xml
 

@@ -15,6 +15,8 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+#include "UserDefineDialog.h"
+
 #include <windows.h>
 
 #include <commctrl.h>
@@ -24,10 +26,9 @@
 #include <string>
 
 #include <SciLexer.h>
-#include <tinyxml2.h>
 
+#include "NppXml.h"
 #include "localization.h"
-#include "UserDefineDialog.h"
 #include "ScintillaEditView.h"
 #include "Parameters.h"
 #include "resource.h"
@@ -929,12 +930,12 @@ void UserDefineDialog::changeStyle()
 {
     _status = !_status;
     NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-    tinyxml2::XMLElement* targetNode = nullptr;
+    NppXml::Element targetNode{};
     if (pNativeSpeaker->getNativeLang())
     {
-        targetNode = const_cast<tinyxml2::XMLElement*>(pNativeSpeaker->getNativeLang()->FirstChildElement("Dialog"));
+        targetNode = NppXml::firstChildElement(pNativeSpeaker->getNativeLang(), "Dialog");
         if (targetNode)
-            targetNode = targetNode->FirstChildElement("UserDefine");
+            targetNode = NppXml::firstChildElement(targetNode, "UserDefine");
     }
     wstring dockButtonLabel;
     wstring defauleLabel;

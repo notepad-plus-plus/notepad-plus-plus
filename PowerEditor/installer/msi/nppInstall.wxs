@@ -13,6 +13,7 @@
 	<Icon Id="Icon.ico" SourceFile="..\images\npp_inst.ico"/>
 	<Property Id="ARPPRODUCTICON" Value="Icon.ico" />
 	
+	<Property Id="REBOOT" Value="Suppress" />
 	<!--
 	Installation directory structure
 	-->
@@ -790,7 +791,10 @@
         <ComponentGroupRef Id="ShortcutComponentGroup" />
 		<ComponentGroupRef Id="ContextMenuComponentGroup" />
 		
-		<ComponentGroupRef Id="AutoUpdatorComponentGroup" />
+		<Feature Id="AutoUpdaterFeature" Title="Auto Updater" Level="1">
+			<ComponentGroupRef Id="AutoUpdatorComponentGroup" />
+			<Level Value="0" Condition="NOUPDATER" />
+		</Feature>
 		
 		<ComponentGroupRef Id="PluginAdminComponentGroup" />
 		<ComponentGroupRef Id="PluginMimeToolsComponentGroup" />

@@ -23,7 +23,7 @@
 #include <string>
 #include <vector>
 
-#include <tinyxml2.h>
+#include "NppXml.h"
 
 class FindReplaceDlg;
 class PreferenceDlg;
@@ -42,23 +42,23 @@ public:
 
 class NativeLangSpeaker {
 public:
-	void init(tinyxml2::XMLDocument* nativeLangDocRoot, bool loadIfEnglish = false);
-	void changeConfigLang(HWND hDlg);
+	void init(NppXml::Document nativeLangDocRoot, bool loadIfEnglish = false);
+	void changeConfigLang(HWND hDlg) const;
 	void changeLangTabContextMenu(HMENU hCM) const;
 	void getAlternativeNameFromTabContextMenu(std::wstring& output, int cmdID, bool isAlternative, const std::wstring& defaultValue) const;
-	tinyxml2::XMLNode* searchDlgNode(tinyxml2::XMLNode* node, const char *dlgTagName);
+	NppXml::Node searchDlgNode(NppXml::Node node, const char *dlgTagName);
 	bool changeDlgLang(HWND hDlg, const char* dlgTagName, char* title = nullptr, size_t titleMaxSize = 0);
-	void changeLangTabDropContextMenu(HMENU hCM);
-	void changeLangTrayIconContexMenu(HMENU hCM);
+	void changeLangTabDropContextMenu(HMENU hCM) const;
+	void changeLangTrayIconContexMenu(HMENU hCM) const;
 	std::wstring getSubMenuEntryName(const char *nodeName) const;
 	std::wstring getNativeLangMenuString(int itemID, std::wstring inCaseOfFailureStr = L"", bool removeMarkAnd = false) const;
 	std::wstring getShortcutNameString(int itemID) const;
 
-	void changeMenuLang(HMENU menuHandle);
-	void changeShortcutLang();
+	void changeMenuLang(HMENU menuHandle) const;
+	void changeShortcutLang() const;
 	void changeStyleCtrlsLang(HWND hDlg, int* idArray, const char** translatedText) const;
-	void changeUserDefineLang(UserDefineDialog *userDefineDlg);
-	void changeUserDefineLangPopupDlg(HWND hDlg);
+	void changeUserDefineLang(UserDefineDialog *userDefineDlg) const;
+	void changeUserDefineLangPopupDlg(HWND hDlg) const;
 	void changeFindReplaceDlgLang(FindReplaceDlg& findReplaceDlg);
 	void changePreferenceDlgLang(PreferenceDlg& preference);
 	void changePluginsAdminDlgLang(PluginsAdminDlg& pluginsAdminDlg);
@@ -77,7 +77,7 @@ public:
 		return _fileName;
 	}
 
-	const tinyxml2::XMLNode* getNativeLang() {
+	const NppXml::Node& getNativeLang() const {
 		return _nativeLang;
 	}
 
@@ -85,23 +85,23 @@ public:
 		return _nativeLangEncoding;
 	}
 
-	bool getMsgBoxLang(const char *msgBoxTagName, std::wstring & title, std::wstring & message);
+	bool getMsgBoxLang(const char *msgBoxTagName, std::wstring& title, std::wstring& message);
 	std::wstring getShortcutMapperLangStr(const char *nodeName, const wchar_t *defaultStr) const;
-	std::wstring getProjectPanelLangMenuStr(const char * nodeName, int cmdID, const wchar_t *defaultStr) const;
+	std::wstring getProjectPanelLangMenuStr(const char* nodeName, int cmdID, const wchar_t* defaultStr) const;
 	std::wstring getDlgLangMenuStr(const char* firstLevelNodeName, const char* secondLevelNodeName, int cmdID, const wchar_t *defaultStr) const;
 	std::wstring getCmdLangStr(std::vector<const char*> nodeNames, int cmdID, const wchar_t* defaultStr) const;
-	std::wstring getAttrNameStr(const wchar_t *defaultStr, const char *nodeL1Name, const char *nodeL2Name, const char *nodeL3Name = "name") const;
-	std::wstring getAttrNameByIdStr(const wchar_t *defaultStr, tinyxml2::XMLNode* targetNode, const char *nodeL1Value, const char *nodeL1Name = "id", const char *nodeL2Name = "name") const;
-	std::wstring getLocalizedStrFromID(const char *strID, const std::wstring& defaultString) const;
+	std::wstring getAttrNameStr(const wchar_t *defaultStr, const char* nodeL1Name, const char* nodeL2Name, const char *nodeL3Name = "name") const;
+	std::wstring getAttrNameByIdStr(const wchar_t* defaultStr, NppXml::Node targetNode, const char* nodeL1Value, const char *nodeL1Name = "id", const char* nodeL2Name = "name") const;
+	std::wstring getLocalizedStrFromID(const char* strID, const std::wstring& defaultString) const;
 	void getMainMenuEntryName(std::wstring& dest, HMENU hMenu, const char* menuIdStr, const wchar_t* defaultDest);
 
 	void resetShortcutMenuNameMap() {
 		_shortcutMenuEntryNameMap.clear();
 	}
 
-	int messageBox(const char *msgBoxTagName, HWND hWnd, const wchar_t *message, const wchar_t *title, int msgBoxType, int intInfo = 0, const wchar_t *strInfo = NULL);
+	int messageBox(const char* msgBoxTagName, HWND hWnd, const wchar_t *message, const wchar_t* title, int msgBoxType, int intInfo = 0, const wchar_t* strInfo = nullptr);
 private:
-	tinyxml2::XMLNode* _nativeLang = nullptr;
+	NppXml::Node _nativeLang{};
 	static constexpr int _nativeLangEncoding = CP_UTF8; // tinyxml2 uses only UTF8
 	bool _isRTL = false; // for Notepad++ GUI
 	bool _isEditZoneRTL = false; // for Scintilla

@@ -243,7 +243,6 @@
     <ClInclude Include="..\src\DarkMode\DarkMode.h" />
     <ClInclude Include="..\src\DarkMode\IatHook.h" />
     <ClInclude Include="..\src\DarkMode\UAHMenuBar.h" />
-    <ClInclude Include="..\src\dpiManager.h" />
     <ClInclude Include="..\src\dpiManagerV2.h" />
     <ClInclude Include="..\src\keys.h" />
     <ClInclude Include="..\src\localizationString.h" />

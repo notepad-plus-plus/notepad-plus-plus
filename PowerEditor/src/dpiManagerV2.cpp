@@ -213,11 +213,6 @@ LOGFONT DPIManagerV2::getDefaultGUIFontForDpi(UINT dpi, FontType type)
 				break;
 			}
 		}
-
-		if (_fnSystemParametersInfoForDpi == DummySystemParametersInfoForDpi)
-		{
-			lf.lfHeight = scaleFont(lf.lfHeight, dpi);
-		}
 	}
 	else // should not happen, fallback
 	{

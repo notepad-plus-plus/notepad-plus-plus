@@ -140,6 +140,8 @@ Translation note:
 					<Item id="42081" name="Sort Lines Lex. Descending Ignoring Case"/>
 					<Item id="42100" name="Sort Lines In Locale Order Ascending"/>
 					<Item id="42101" name="Sort Lines In Locale Order Descending"/>
+					<Item id="42104" name="Sort Lines As Length Ascending"/>
+					<Item id="42105" name="Sort Lines As Length Descending"/>
 					<Item id="42061" name="Sort Lines As Integers Ascending"/>
 					<Item id="42062" name="Sort Lines As Integers Descending"/>
 					<Item id="42063" name="Sort Lines As Decimals (Comma) Ascending"/>

@@ -1573,12 +1573,12 @@ bool NppParameters::load()
 		::CopyFile(srcContextMenuPath.c_str(), _contextMenuPath.c_str(), TRUE);
 	}
 
-	_pXmlContextMenuDocA = new TiXmlDocumentA();
-	loadOkay = _pXmlContextMenuDocA->LoadUnicodeFilePath(_contextMenuPath.c_str());
+	_pXmlContextMenuDoc = new NppXml::NewDocument();
+	loadOkay = NppXml::loadFile(_pXmlContextMenuDoc, wstring2string(_contextMenuPath, CP_UTF8).c_str());
 	if (!loadOkay)
 	{
-		delete _pXmlContextMenuDocA;
-		_pXmlContextMenuDocA = nullptr;
+		delete _pXmlContextMenuDoc;
+		_pXmlContextMenuDoc = nullptr;
 		isAllLoaded = false;
 	}
 
@@ -1588,12 +1588,12 @@ bool NppParameters::load()
 	_tabContextMenuPath = _userPath;
 	pathAppend(_tabContextMenuPath, L"tabContextMenu.xml");
 
-	_pXmlTabContextMenuDocA = new TiXmlDocumentA();
-	loadOkay = _pXmlTabContextMenuDocA->LoadUnicodeFilePath(_tabContextMenuPath.c_str());
+	_pXmlTabContextMenuDoc = new NppXml::NewDocument();
+	loadOkay = NppXml::loadFile(_pXmlTabContextMenuDoc, wstring2string(_tabContextMenuPath, CP_UTF8).c_str());
 	if (!loadOkay)
 	{
-		delete _pXmlTabContextMenuDocA;
-		_pXmlTabContextMenuDocA = nullptr;
+		delete _pXmlTabContextMenuDoc;
+		_pXmlTabContextMenuDoc = nullptr;
 	}
 
 	//----------------------------//
@@ -1732,8 +1732,8 @@ void NppParameters::destroyInstance()
 	delete _pXmlNativeLangDoc;
 	delete _pXmlToolButtonsConfDoc;
 	delete _pXmlShortcutDocA;
-	delete _pXmlContextMenuDocA;
-	delete _pXmlTabContextMenuDocA;
+	delete _pXmlContextMenuDoc;
+	delete _pXmlTabContextMenuDoc;
 	delete 	getInstancePointer();
 }
 
@@ -2771,56 +2771,53 @@ int NppParameters::getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, const 
 
 bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHandle, HMENU pluginsMenu, bool isEditCM)
 {
-	TiXmlDocumentA* pXmlContextMenuDocA = isEditCM ? _pXmlContextMenuDocA : _pXmlTabContextMenuDocA;
+	NppXml::Document pXmlContextMenuDoc = isEditCM ? _pXmlContextMenuDoc : _pXmlTabContextMenuDoc;
 	std::string cmName = isEditCM ? "ScintillaContextMenu" : "TabContextMenu";
 
-	if (!pXmlContextMenuDocA)
+	if (!pXmlContextMenuDoc)
 		return false;
-	TiXmlNodeA *root = pXmlContextMenuDocA->FirstChild("NotepadPlus");
+	NppXml::Node root = NppXml::firstChildElement(pXmlContextMenuDoc, "NotepadPlus");
 	if (!root)
 		return false;
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
-	TiXmlNodeA *contextMenuRoot = root->FirstChildElement(cmName.c_str());
+	NppXml::Node contextMenuRoot = NppXml::firstChildElement(root, cmName.c_str());
 	if (contextMenuRoot)
 	{
 		std::vector<MenuItemUnit>& contextMenuItems = isEditCM ? _contextMenuItems : _tabContextMenuItems;
 
-		for (TiXmlNodeA *childNode = contextMenuRoot->FirstChildElement("Item");
-			childNode ;
-			childNode = childNode->NextSibling("Item") )
+		for (NppXml::Node childNode = NppXml::firstChildElement(contextMenuRoot, "Item");
+			childNode;
+			childNode = NppXml::nextSiblingElement(childNode, "Item"))
 		{
-			const char *folderNameDefaultA = (childNode->ToElement())->Attribute("FolderName");
-			const char *folderNameTranslateID_A = (childNode->ToElement())->Attribute("TranslateID");
-			const char *displayAsA = (childNode->ToElement())->Attribute("ItemNameAs");
+			const auto element = NppXml::toElement(childNode);
 
-			std::wstring folderName;
-			std::wstring displayAs;
-			folderName = folderNameDefaultA ? wmc.char2wchar(folderNameDefaultA, SC_CP_UTF8) : L"";
-			displayAs = displayAsA ? wmc.char2wchar(displayAsA, SC_CP_UTF8) : L"";
+			const char* folderNameDefaultA = NppXml::attribute(element, "FolderName");
+			const char* folderNameTranslateID_A = NppXml::attribute(element, "TranslateID");
+			const char* displayAsA = NppXml::attribute(element, "ItemNameAs");
+
+			std::wstring folderName = folderNameDefaultA ? wmc.char2wchar(folderNameDefaultA, SC_CP_UTF8) : L"";
+			std::wstring displayAs = displayAsA ? wmc.char2wchar(displayAsA, SC_CP_UTF8) : L"";
 
 			if (folderNameTranslateID_A)
 			{
 				folderName = pNativeSpeaker->getLocalizedStrFromID(folderNameTranslateID_A, folderName);
 			}
 
-			int id;
-			const char *idStr = (childNode->ToElement())->Attribute("id", &id);
-			if (idStr)
+			const int id = NppXml::intAttribute(element, "id", -1);
+			if (id == 0) // separator
 			{
 				contextMenuItems.push_back(MenuItemUnit(id, displayAs.c_str(), folderName.c_str()));
 			}
 			else
 			{
-				const char *menuEntryNameA = (childNode->ToElement())->Attribute("MenuEntryName");
-				const char *menuItemNameA = (childNode->ToElement())->Attribute("MenuItemName");
+				const char* menuEntryNameA = NppXml::attribute(element, "MenuEntryName");
+				const char* menuItemNameA = NppXml::attribute(element, "MenuItemName");
 
-				std::wstring menuEntryName;
-				std::wstring menuItemName;
-				menuEntryName = menuEntryNameA?wmc.char2wchar(menuEntryNameA, SC_CP_UTF8):L"";
-				menuItemName = menuItemNameA?wmc.char2wchar(menuItemNameA, SC_CP_UTF8):L"";
+				std::wstring menuEntryName = menuEntryNameA ? wmc.char2wchar(menuEntryNameA, SC_CP_UTF8) : L"";
+				std::wstring menuItemName = menuItemNameA ? wmc.char2wchar(menuItemNameA, SC_CP_UTF8) : L"";
 
 				if (!menuEntryName.empty() && !menuItemName.empty())
 				{
@@ -2830,18 +2827,16 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHandle, HMENU plugin
 				}
 				else
 				{
-					const char *pluginNameA = (childNode->ToElement())->Attribute("PluginEntryName");
-					const char *pluginCmdNameA = (childNode->ToElement())->Attribute("PluginCommandItemName");
+					const char* pluginNameA = NppXml::attribute(element, "PluginEntryName");
+					const char* pluginCmdNameA = NppXml::attribute(element, "PluginCommandItemName");
 
-					std::wstring pluginName;
-					std::wstring pluginCmdName;
-					pluginName = pluginNameA ? wmc.char2wchar(pluginNameA, SC_CP_UTF8) : L"";
-					pluginCmdName = pluginCmdNameA ? wmc.char2wchar(pluginCmdNameA, SC_CP_UTF8) : L"";
+					std::wstring pluginName = pluginNameA ? wmc.char2wchar(pluginNameA, SC_CP_UTF8) : L"";
+					std::wstring pluginCmdName = pluginCmdNameA ? wmc.char2wchar(pluginCmdNameA, SC_CP_UTF8) : L"";
 
 					// if plugin menu exists, also the value of PluginEntryName and PluginCommandItemName are valid
 					if (pluginsMenu && !pluginName.empty() && !pluginCmdName.empty())
 					{
-						int pluginCmdId = getPluginCmdIdFromMenuEntryItemName(pluginsMenu, pluginName, pluginCmdName);
+						const int pluginCmdId = getPluginCmdIdFromMenuEntryItemName(pluginsMenu, pluginName, pluginCmdName);
 						if (pluginCmdId != -1)
 							contextMenuItems.push_back(MenuItemUnit(pluginCmdId, displayAs.c_str(), folderName.c_str()));
 					}
@@ -3944,9 +3939,9 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring & 
 	// contextMenu.xml
 	std::wstring cloudContextMenuPath = cloudSettingsPath;
 	pathAppend(cloudContextMenuPath, L"contextMenu.xml");
-	if (!doesFileExist(cloudContextMenuPath.c_str()) && _pXmlContextMenuDocA)
+	if (!doesFileExist(cloudContextMenuPath.c_str()) && _pXmlContextMenuDoc)
 	{
-		isOK = _pXmlContextMenuDocA->SaveUnicodeFilePath(cloudContextMenuPath.c_str());
+		isOK = NppXml::saveFile(_pXmlContextMenuDoc, wstring2string(cloudContextMenuPath, CP_UTF8).c_str());
 		if (!isOK)
 			return false;
 	}
@@ -3956,7 +3951,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring & 
 	pathAppend(cloudNativeLangPath, L"nativeLang.xml");
 	if (!doesFileExist(cloudNativeLangPath.c_str()) && _pXmlNativeLangDoc != nullptr)
 	{
-		const bool isOK = NppXml::saveFile(_pXmlNativeLangDoc, wstring2string(cloudNativeLangPath, CP_UTF8).c_str());
+		isOK = NppXml::saveFile(_pXmlNativeLangDoc, wstring2string(cloudNativeLangPath, CP_UTF8).c_str());
 		if (!isOK)
 			return false;
 	}

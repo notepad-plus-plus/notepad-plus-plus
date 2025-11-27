@@ -1972,8 +1972,8 @@ private:
 	TiXmlDocumentA *_pXmlShortcutDocA = nullptr; // shortcuts.xml
 
 	NppXml::Document _pXmlNativeLangDoc = nullptr; // nativeLang.xml
-	TiXmlDocumentA *_pXmlContextMenuDocA = nullptr; // contextMenu.xml
-	TiXmlDocumentA *_pXmlTabContextMenuDocA = nullptr; // tabContextMenu.xml
+	NppXml::Document _pXmlContextMenuDoc = nullptr; // contextMenu.xml
+	NppXml::Document _pXmlTabContextMenuDoc = nullptr; // tabContextMenu.xml
 
 	std::vector<TiXmlDocument *> _pXmlExternalLexerDoc; // External lexer plugins' XMLs
 

@@ -1,811 +1,120 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
-  <Package
-      Name="Notepad++"
-      Manufacturer="Notepad++ team"
-      Version="8.8.8"
-      UpgradeCode="{CDB13460-04DF-4708-A7FD-4CB4A0684605}">
 
-	<Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+	<Package	Name="Notepad++"
+				Manufacturer="Notepad++ team"
+				Version="8.8.8"
+				UpgradeCode="{CDB13460-04DF-4708-A7FD-4CB4A0684605}">
 
-	<!--
-	Icon for "Add/Remove Programs"
-	-->
-	<Icon Id="Icon.ico" SourceFile="..\images\npp_inst.ico"/>
-	<Property Id="ARPPRODUCTICON" Value="Icon.ico" />
-	
-	<Property Id="REBOOT" Value="Suppress" />
-	<!--
-	Installation directory structure
-	-->
-    <StandardDirectory Id="ProgramFiles64Folder">
-      <Directory Id="INSTALLFOLDER" Name="Notepad++">
-		<Directory Id="ContextMenuFolder" Name="contextMenu" />
-		<Directory Id="UpdaterFolder" Name="updater" />
-		<Directory Id="AutoCompletionFolder" Name="autoCompletion" />
-		<Directory Id="PluginsFolder" Name="plugins" >
-		  <Directory Id="PluginConfFolder" Name="config" />
-		  <Directory Id="PluginMimeToolsFolder" Name="mimeTools" />
-		  <Directory Id="PluginNppConverterFolder" Name="NppConverter" />
-		  <Directory Id="PluginNppExportFolder" Name="NppExport" />
-		</Directory>
-		<Directory Id="FunctionListFolder" Name="functionList" />
-		<Directory Id="ThemesFolder" Name="themes" />
-		<Directory Id="LocalizationFolder" Name="localization" />
-	  </Directory>
-    </StandardDirectory>
-	
-	<StandardDirectory Id="ProgramMenuFolder">
-      <Directory Id="ApplicationProgramsFolder" Name="Notepad++" />
-    </StandardDirectory>
+		<Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
 
-	<!--
-	Core files
-	-->
-    <ComponentGroup Id="CoreComponentGroup" Directory="INSTALLFOLDER">
-      <Component Id="npp_exe">
-        <File Source="..\..\bin64\notepad++.exe" KeyPath="yes" />
-      </Component>
-      <Component Id="stylers_xml">
-        <File Source="..\..\src\stylers.model.xml" KeyPath="yes" />
-      </Component>
-      <Component Id="langs_xml">
-        <File Source="..\..\src\langs.model.xml" KeyPath="yes" />
-      </Component>
-      <Component Id="change_log">
-        <File Source="..\..\bin\change.log" />
-      </Component>
-      <Component Id="contextMenu_xml">
-        <File Source="..\..\src\contextMenu.xml" />
-      </Component>
-      <Component Id="shortcuts_xml">
-        <File Source="..\..\src\shortcuts.xml" />
-      </Component>
-      <Component Id="LICENSE">
-        <File Source="..\..\..\LICENSE" />
-      </Component>
-      <Component Id="readme_txt">
-        <File Source="..\..\bin\readme.txt" />
-      </Component>
-    </ComponentGroup>
-	
-	<!--
-	Shortcut on Desktop
-	-->
-	<ComponentGroup Id="ShortcutComponentGroup" Directory="ApplicationProgramsFolder">
-      <Component Id="cmp_NppShortcut" Guid="{9DF5F816-BF4F-496B-9095-E1E8C01B89CE}"> 
-        <Shortcut
-          Id="startmenuShortcut"
-          Name="Notepad++"
-		  Target="[INSTALLFOLDER]notepad++.exe"
-          WorkingDirectory="INSTALLFOLDER" />
-        
-        <RegistryValue Root="HKCU" Key="Software\Notepad++" Name="StartMenuShortcut" Type="integer" Value="1"  KeyPath="yes"/>
-        <RemoveFolder Id="RemoveApplicationProgramsFolder" On="uninstall" />
-	  </Component>
-    </ComponentGroup>
-
-	<!--
-	Context Menu
-	-->
-	<ComponentGroup Id="ContextMenuComponentGroup" Directory="ContextMenuFolder">
-	  <Component Id="cmp_NppShellDll" Guid="{D6083500-DFD2-445D-B4FF-49EDF80A6A84}">
-		<File Source="..\..\bin64\NppShell.x64.dll" Name="NppShell.dll" KeyPath="yes" />
-	  </Component>
-	  <Component Id="cmp_NppShellMsix" Guid="{EB6E5606-60D1-4C69-8C9B-C0B12A19C6CE}">
-		<File Source="..\..\bin64\NppShell.msix" KeyPath="yes" />
-	  </Component>
-	</ComponentGroup>
-	
-	<!--
-	WinGUp
-	-->
-    <ComponentGroup Id="AutoUpdatorComponentGroup" Directory="UpdaterFolder">
-      <Component Id="gup_exe">
-        <File Source="..\..\bin64\updater\GUP.exe" KeyPath="yes" />
-      </Component>
-      <Component Id="libcurl_dll">
-        <File Source="..\..\bin64\updater\libcurl.dll" KeyPath="yes" />
-      </Component>
-      <Component Id="updater_ico">
-        <File Source="..\..\bin64\updater\updater.ico" KeyPath="yes" />
-      </Component>
-      <Component Id="gup_xml">
-        <File Source="..\..\bin64\updater\gup.xml" KeyPath="yes" />
-      </Component>
-      <Component Id="gup_LICENSE">
-        <File Source="..\..\bin64\updater\LICENSE" KeyPath="yes" />
-      </Component>
-      <Component Id="gup_README_md">
-        <File Source="..\..\bin64\updater\README.md" KeyPath="yes" />
-      </Component>
-    </ComponentGroup>
-
-	<!--
-	Plugin Admin
-	-->
-    <ComponentGroup Id="PluginAdminComponentGroup" Directory="PluginConfFolder">
-      <Component Id="PluginList">
-        <File Source="..\..\bin64\plugins\config\nppPluginList.dll" KeyPath="yes" />
-      </Component>
-    </ComponentGroup>
-	  
-	<!--
-	Plugin MimeTools
-	-->
-    <ComponentGroup Id="PluginMimeToolsComponentGroup" Directory="PluginMimeToolsFolder">
-      <Component Id="PluginMimeTools">
-        <File Source="..\..\bin64\plugins\mimeTools\mimeTools.dll" KeyPath="yes" />
-      </Component>
-    </ComponentGroup>
-		  
-	<!--
-	Plugin NppConverter
-	-->
-    <ComponentGroup Id="PluginNppConverterComponentGroup" Directory="PluginNppConverterFolder">
-      <Component Id="PluginNppConverter">
-        <File Source="..\..\bin64\plugins\NppConverter\NppConverter.dll" KeyPath="yes" />
-      </Component>
-    </ComponentGroup>
-	
-	<!--
-	Plugin NppExport
-	-->
-    <ComponentGroup Id="PluginNppExportComponentGroup" Directory="PluginNppExportFolder">
-      <Component Id="PluginNppExport">
-        <File Source="..\..\bin64\plugins\NppExport\NppExport.dll" KeyPath="yes" />
-      </Component>
-    </ComponentGroup>
-
-	<!--
-	AutoCompletion
-	-->
-    <ComponentGroup Id="AutoCompletionComponentGroup" Directory="AutoCompletionFolder">
-      <Component Id="actionscript_APIs">
-        <File Source="..\..\installer\APIs\actionscript.xml" />
-      </Component>
-      <Component Id="autoit_APIs">
-        <File Source="..\..\installer\APIs\autoit.xml" />
-      </Component>
-      <Component Id="c_APIs">
-        <File Source="..\..\installer\APIs\c.xml" />
-      </Component>
-      <Component Id="cpp_APIs">
-        <File Source="..\..\installer\APIs\cpp.xml" />
-      </Component>
-      <Component Id="java_APIs">
-        <File Source="..\..\installer\APIs\java.xml" />
-      </Component>
-      <Component Id="cs_APIs">
-        <File Source="..\..\installer\APIs\cs.xml" />
-      </Component>
-      <Component Id="html_APIs">
-        <File Source="..\..\installer\APIs\html.xml" />
-      </Component>
-      <Component Id="rc_APIs">
-        <File Source="..\..\installer\APIs\rc.xml" />
-      </Component>
-      <Component Id="sql_APIs">
-        <File Source="..\..\installer\APIs\sql.xml" />
-      </Component>
-      <Component Id="php_APIs">
-        <File Source="..\..\installer\APIs\php.xml" />
-      </Component>
-      <Component Id="css_APIs">
-        <File Source="..\..\installer\APIs\css.xml" />
-      </Component>
-      <Component Id="vb_APIs">
-        <File Source="..\..\installer\APIs\vb.xml" />
-      </Component>
-      <Component Id="perl_APIs">
-        <File Source="..\..\installer\APIs\perl.xml" />
-      </Component>
-      <Component Id="javascript_APIs">
-        <File Source="..\..\installer\APIs\javascript.xml" />
-      </Component>
-      <Component Id="python_APIs">
-        <File Source="..\..\installer\APIs\python.xml" />
-      </Component>
-      <Component Id="lisp_APIs">
-        <File Source="..\..\installer\APIs\lisp.xml" />
-      </Component>
-      <Component Id="vhdl_APIs">
-        <File Source="..\..\installer\APIs\vhdl.xml" />
-      </Component>
-      <Component Id="tex_APIs">
-        <File Source="..\..\installer\APIs\tex.xml" />
-      </Component>
-      <Component Id="xml_APIs">
-        <File Source="..\..\installer\APIs\xml.xml" />
-      </Component>
-      <Component Id="nsis_APIs">
-        <File Source="..\..\installer\APIs\nsis.xml" />
-      </Component>
-      <Component Id="cmake_APIs">
-        <File Source="..\..\installer\APIs\cmake.xml" />
-      </Component>
-      <Component Id="batch_APIs">
-        <File Source="..\..\installer\APIs\batch.xml" />
-      </Component>
-      <Component Id="coffee_APIs">
-        <File Source="..\..\installer\APIs\coffee.xml" />
-      </Component>
-      <Component Id="baanc_APIs">
-        <File Source="..\..\installer\APIs\baanc.xml" />
-      </Component>
-      <Component Id="lua_APIs">
-        <File Source="..\..\installer\APIs\lua.xml" />
-      </Component>
-      <Component Id="cobol_APIs">
-        <File Source="..\..\installer\APIs\cobol.xml" />
-      </Component>
-      <Component Id="typescript_APIs">
-        <File Source="..\..\installer\APIs\typescript.xml" />
-      </Component>
-      <Component Id="powershell_APIs">
-        <File Source="..\..\installer\APIs\powershell.xml" />
-      </Component>
-      <Component Id="gdscript_APIs">
-        <File Source="..\..\installer\APIs\gdscript.xml" />
-      </Component>
-      <Component Id="go_APIs">
-        <File Source="..\..\installer\APIs\go.xml" />
-      </Component>
-      <Component Id="raku_APIs">
-        <File Source="..\..\installer\APIs\raku.xml" />
-      </Component>
-      <Component Id="sas_APIs">
-        <File Source="..\..\installer\APIs\sas.xml" />
-      </Component>
-      <Component Id="rust_APIs">
-        <File Source="..\..\installer\APIs\rust.xml" />
-      </Component>
-    </ComponentGroup>
-	
+		<!--
+		Icon for "Add/Remove Programs"
+		-->
+		<Icon Id="Icon.ico" SourceFile="..\images\npp_inst.ico"/>
+		<Property Id="ARPPRODUCTICON" Value="Icon.ico" />
 		
-	<!--
-	FunctionList
-	-->
-    <ComponentGroup Id="FunctionListComponentGroup" Directory="FunctionListFolder">
-      <Component Id="pascal_FL">
-        <File Source="..\..\installer\functionList\pascal.xml" />
-      </Component>		  
-      <Component Id="ada_FL">
-        <File Source="..\..\installer\functionList\ada.xml" />
-      </Component>	  
-      <Component Id="asm_FL">
-        <File Source="..\..\installer\functionList\asm.xml" />
-      </Component>
-      <Component Id="bash_FL">
-        <File Source="..\..\installer\functionList\bash.xml" />
-      </Component>
-      <Component Id="autoit_FL">
-        <File Source="..\..\installer\functionList\autoit.xml" />
-      </Component>
-      <Component Id="c_FL">
-        <File Source="..\..\installer\functionList\c.xml" />
-      </Component>
-      <Component Id="cpp_FL">
-        <File Source="..\..\installer\functionList\cpp.xml" />
-      </Component>
-      <Component Id="java_FL">
-        <File Source="..\..\installer\functionList\java.xml" />
-      </Component>
-      <Component Id="cs_FL">
-        <File Source="..\..\installer\functionList\cs.xml" />
-      </Component>
-      <Component Id="sql_FL">
-        <File Source="..\..\installer\functionList\sql.xml" />
-      </Component>
-      <Component Id="php_FL">
-        <File Source="..\..\installer\functionList\php.xml" />
-      </Component>
-      <Component Id="css_FL">
-        <File Source="..\..\installer\functionList\css.xml" />
-      </Component>
-      <Component Id="vb_FL">
-        <File Source="..\..\installer\functionList\vb.xml" />
-      </Component>
-      <Component Id="perl_FL">
-        <File Source="..\..\installer\functionList\perl.xml" />
-      </Component>
-      <Component Id="javascript_FL">
-        <File Source="..\..\installer\functionList\javascript.js.xml" />
-      </Component>
-      <Component Id="python_FL">
-        <File Source="..\..\installer\functionList\python.xml" />
-      </Component>
-      <Component Id="vhdl_FL">
-        <File Source="..\..\installer\functionList\vhdl.xml" />
-      </Component>
-      <Component Id="haskell_FL">
-        <File Source="..\..\installer\functionList\haskell.xml" />
-      </Component>
-      <Component Id="tex_FL">
-        <File Source="..\..\installer\functionList\tex.xml" />
-      </Component>
-      <Component Id="latex_FL">
-        <File Source="..\..\installer\functionList\latex.xml" />
-      </Component>
-      <Component Id="xml_FL">
-        <File Source="..\..\installer\functionList\xml.xml" />
-      </Component>
-      <Component Id="nsis_FL">
-        <File Source="..\..\installer\functionList\nsis.xml" />
-      </Component>
-      <Component Id="batch_FL">
-        <File Source="..\..\installer\functionList\batch.xml" />
-      </Component>
-      <Component Id="fortran_FL">
-        <File Source="..\..\installer\functionList\fortran.xml" />
-      </Component>
-      <Component Id="fortran77_FL">
-        <File Source="..\..\installer\functionList\fortran77.xml" />
-      </Component>
-      <Component Id="baanc_FL">
-        <File Source="..\..\installer\functionList\baanc.xml" />
-      </Component>
-      <Component Id="ruby_FL">
-        <File Source="..\..\installer\functionList\ruby.xml" />
-      </Component>
-      <Component Id="inno_FL">
-        <File Source="..\..\installer\functionList\inno.xml" />
-      </Component>
-      <Component Id="ini_FL">
-        <File Source="..\..\installer\functionList\ini.xml" />
-      </Component>
-      <Component Id="lua_FL">
-        <File Source="..\..\installer\functionList\lua.xml" />
-      </Component>
-      <Component Id="cobol_FL">
-        <File Source="..\..\installer\functionList\cobol.xml" />
-      </Component>
-      <Component Id="cobolFree_FL">
-        <File Source="..\..\installer\functionList\cobol-free.xml" />
-      </Component>
-      <Component Id="typescript_FL">
-        <File Source="..\..\installer\functionList\typescript.xml" />
-      </Component>
-      <Component Id="powershell_FL">
-        <File Source="..\..\installer\functionList\powershell.xml" />
-      </Component>
-      <Component Id="gdscript_FL">
-        <File Source="..\..\installer\functionList\gdscript.xml" />
-      </Component>
-      <Component Id="raku_FL">
-        <File Source="..\..\installer\functionList\raku.xml" />
-      </Component>
-      <Component Id="hollywood_FL">
-        <File Source="..\..\installer\functionList\hollywood.xml" />
-      </Component>
-      <Component Id="sas_FL">
-        <File Source="..\..\installer\functionList\sas.xml" />
-      </Component>
-      <Component Id="toml_FL">
-        <File Source="..\..\installer\functionList\toml.xml" />
-      </Component>
-      <Component Id="rust_FL">
-        <File Source="..\..\installer\functionList\rust.xml" />
-      </Component>
-      <Component Id="universe_basic_FL">
-        <File Source="..\..\installer\functionList\universe_basic.xml" />
-      </Component>
-      <Component Id="nppexec_FL">
-        <File Source="..\..\installer\functionList\nppexec.xml" />
-      </Component>
-      <Component Id="krl_FL">
-        <File Source="..\..\installer\functionList\krl.xml" />
-      </Component>
-      <Component Id="sinumerik_FL">
-        <File Source="..\..\installer\functionList\sinumerik.xml" />
-      </Component>
-      <Component Id="overrideMap_FL">
-        <File Source="..\..\installer\functionList\overrideMap.xml" />
-      </Component>
-    </ComponentGroup>
-			
-	<!--
-	Themes
-	-->
-    <ComponentGroup Id="ThemesComponentGroup" Directory="ThemesFolder">
-      <Component Id="DarkModeDefault_THEME">
-        <File Source="..\..\installer\themes\DarkModeDefault.xml" />
-      </Component>
-      <Component Id="BlackBoard_THEME">
-        <File Source="..\..\installer\themes\Black board.xml" />
-      </Component>
-      <Component Id="Choco_THEME">
-        <File Source="..\..\installer\themes\Choco.xml" />
-      </Component>
-      <Component Id="HelloKitty_THEME">
-        <File Source="..\..\installer\themes\Hello Kitty.xml" />
-      </Component>
-      <Component Id="MonoIndustrial_THEME">
-        <File Source="..\..\installer\themes\Mono Industrial.xml" />
-      </Component>
-      <Component Id="Monokai_THEME">
-        <File Source="..\..\installer\themes\Monokai.xml" />
-      </Component>
-      <Component Id="obsidian_THEME">
-        <File Source="..\..\installer\themes\obsidian.xml" />
-      </Component>
-      <Component Id="PlasticCodeWrap_THEME">
-        <File Source="..\..\installer\themes\Plastic Code Wrap.xml" />
-      </Component>
-      <Component Id="RubyBlue_THEME">
-        <File Source="..\..\installer\themes\Ruby Blue.xml" />
-      </Component>
-      <Component Id="Twilight_THEME">
-        <File Source="..\..\installer\themes\Twilight.xml" />
-      </Component>
-      <Component Id="VibrantInk_THEME">
-        <File Source="..\..\installer\themes\Vibrant Ink.xml" />
-      </Component>
-      <Component Id="DeepBlack_THEME">
-        <File Source="..\..\installer\themes\Deep Black.xml" />
-      </Component>
-      <Component Id="vimDarkBlue_THEME">
-        <File Source="..\..\installer\themes\vim Dark Blue.xml" />
-      </Component>
-      <Component Id="Bespin_THEME">
-        <File Source="..\..\installer\themes\Bespin.xml" />
-      </Component>
-      <Component Id="Zenburn_THEME">
-        <File Source="..\..\installer\themes\Zenburn.xml" />
-      </Component>
-      <Component Id="Solarized_THEME">
-        <File Source="..\..\installer\themes\Solarized.xml" />
-      </Component>
-      <Component Id="SolarizedLight_THEME">
-        <File Source="..\..\installer\themes\Solarized-light.xml" />
-      </Component>
-      <Component Id="HotFudgeSundae_THEME">
-        <File Source="..\..\installer\themes\HotFudgeSundae.xml" />
-      </Component>
-      <Component Id="khaki_THEME">
-        <File Source="..\..\installer\themes\khaki.xml" />
-      </Component>
-      <Component Id="MossyLawn_THEME">
-        <File Source="..\..\installer\themes\MossyLawn.xml" />
-      </Component>
-      <Component Id="Navajo_THEME">
-        <File Source="..\..\installer\themes\Navajo.xml" />
-      </Component>
-      <Component Id="DansLeRuSHDark_THEME">
-        <File Source="..\..\installer\themes\DansLeRuSH-Dark.xml" />
-      </Component>
-    </ComponentGroup>
-				
-	<!--
-	Localization
-	-->
-    <ComponentGroup Id="LocalizationComponentGroup" Directory="LocalizationFolder">
-		<Component Id="abkhazian_LANG">
-			<File Source="..\..\installer\nativeLang\abkhazian.xml" />
-		</Component>
-		<Component Id="afrikaans_LANG">
-			<File Source="..\..\installer\nativeLang\afrikaans.xml" />
-		</Component>
-		<Component Id="albanian_LANG">
-			<File Source="..\..\installer\nativeLang\albanian.xml" />
-		</Component>
-		<Component Id="arabic_LANG">
-			<File Source="..\..\installer\nativeLang\arabic.xml" />
-		</Component>
-		<Component Id="aragonese_LANG">
-			<File Source="..\..\installer\nativeLang\aragonese.xml" />
-		</Component>
-		<Component Id="aranese_LANG">
-			<File Source="..\..\installer\nativeLang\aranese.xml" />
-		</Component>
-		<Component Id="azerbaijani_LANG">
-			<File Source="..\..\installer\nativeLang\azerbaijani.xml" />
-		</Component>
-		<Component Id="basque_LANG">
-			<File Source="..\..\installer\nativeLang\basque.xml" />
-		</Component>
-		<Component Id="belarusian_LANG">
-			<File Source="..\..\installer\nativeLang\belarusian.xml" />
-		</Component>
-		<Component Id="bengali_LANG">
-			<File Source="..\..\installer\nativeLang\bengali.xml" />
-		</Component>
-		<Component Id="bosnian_LANG">
-			<File Source="..\..\installer\nativeLang\bosnian.xml" />
-		</Component>
-		<Component Id="brazilian_portuguese_LANG">
-			<File Source="..\..\installer\nativeLang\brazilian_portuguese.xml" />
-		</Component>
-		<Component Id="breton_LANG">
-			<File Source="..\..\installer\nativeLang\breton.xml" />
-		</Component>
-		<Component Id="bulgarian_LANG">
-			<File Source="..\..\installer\nativeLang\bulgarian.xml" />
-		</Component>
-		<Component Id="catalan_LANG">
-			<File Source="..\..\installer\nativeLang\catalan.xml" />
-		</Component>
-		<Component Id="chineseSimplified_LANG">
-			<File Source="..\..\installer\nativeLang\chineseSimplified.xml" />
-		</Component>
-		<Component Id="corsican_LANG">
-			<File Source="..\..\installer\nativeLang\corsican.xml" />
-		</Component>
-		<Component Id="croatian_LANG">
-			<File Source="..\..\installer\nativeLang\croatian.xml" />
-		</Component>
-		<Component Id="czech_LANG">
-			<File Source="..\..\installer\nativeLang\czech.xml" />
-		</Component>
-		<Component Id="danish_LANG">
-			<File Source="..\..\installer\nativeLang\danish.xml" />
-		</Component>
-		<Component Id="dutch_LANG">
-			<File Source="..\..\installer\nativeLang\dutch.xml" />
-		</Component>
-		<Component Id="english_LANG">
-			<File Source="..\..\installer\nativeLang\english.xml" />
-		</Component>
-		<Component Id="english_customizable_LANG">
-			<File Source="..\..\installer\nativeLang\english_customizable.xml" />
-		</Component>
-		<Component Id="esperanto_LANG">
-			<File Source="..\..\installer\nativeLang\esperanto.xml" />
-		</Component>
-		<Component Id="estonian_LANG">
-			<File Source="..\..\installer\nativeLang\estonian.xml" />
-		</Component>
-		<Component Id="extremaduran_LANG">
-			<File Source="..\..\installer\nativeLang\extremaduran.xml" />
-		</Component>
-		<Component Id="farsi_LANG">
-			<File Source="..\..\installer\nativeLang\farsi.xml" />
-		</Component>
-		<Component Id="finnish_LANG">
-			<File Source="..\..\installer\nativeLang\finnish.xml" />
-		</Component>
-		<Component Id="french_LANG">
-			<File Source="..\..\installer\nativeLang\french.xml" />
-		</Component>
-		<Component Id="friulian_LANG">
-			<File Source="..\..\installer\nativeLang\friulian.xml" />
-		</Component>
-		<Component Id="galician_LANG">
-			<File Source="..\..\installer\nativeLang\galician.xml" />
-		</Component>
-		<Component Id="georgian_LANG">
-			<File Source="..\..\installer\nativeLang\georgian.xml" />
-		</Component>
-		<Component Id="german_LANG">
-			<File Source="..\..\installer\nativeLang\german.xml" />
-		</Component>
-		<Component Id="greek_LANG">
-			<File Source="..\..\installer\nativeLang\greek.xml" />
-		</Component>
-		<Component Id="gujarati_LANG">
-			<File Source="..\..\installer\nativeLang\gujarati.xml" />
-		</Component>
-		<Component Id="hebrew_LANG">
-			<File Source="..\..\installer\nativeLang\hebrew.xml" />
-		</Component>
-		<Component Id="hindi_LANG">
-			<File Source="..\..\installer\nativeLang\hindi.xml" />
-		</Component>
-		<Component Id="hongKongCantonese_LANG">
-			<File Source="..\..\installer\nativeLang\hongKongCantonese.xml" />
-		</Component>
-		<Component Id="hungarian_LANG">
-			<File Source="..\..\installer\nativeLang\hungarian.xml" />
-		</Component>
-		<Component Id="indonesian_LANG">
-			<File Source="..\..\installer\nativeLang\indonesian.xml" />
-		</Component>
-		<Component Id="irish_LANG">
-			<File Source="..\..\installer\nativeLang\irish.xml" />
-		</Component>
-		<Component Id="italian_LANG">
-			<File Source="..\..\installer\nativeLang\italian.xml" />
-		</Component>
-		<Component Id="japanese_LANG">
-			<File Source="..\..\installer\nativeLang\japanese.xml" />
-		</Component>
-		<Component Id="kabyle_LANG">
-			<File Source="..\..\installer\nativeLang\kabyle.xml" />
-		</Component>
-		<Component Id="kannada_LANG">
-			<File Source="..\..\installer\nativeLang\kannada.xml" />
-		</Component>
-		<Component Id="kazakh_LANG">
-			<File Source="..\..\installer\nativeLang\kazakh.xml" />
-		</Component>
-		<Component Id="korean_LANG">
-			<File Source="..\..\installer\nativeLang\korean.xml" />
-		</Component>
-		<Component Id="kurdish_LANG">
-			<File Source="..\..\installer\nativeLang\kurdish.xml" />
-		</Component>
-		<Component Id="kyrgyz_LANG">
-			<File Source="..\..\installer\nativeLang\kyrgyz.xml" />
-		</Component>
-		<Component Id="latvian_LANG">
-			<File Source="..\..\installer\nativeLang\latvian.xml" />
-		</Component>
-		<Component Id="ligurian_LANG">
-			<File Source="..\..\installer\nativeLang\ligurian.xml" />
-		</Component>
-		<Component Id="lithuanian_LANG">
-			<File Source="..\..\installer\nativeLang\lithuanian.xml" />
-		</Component>
-		<Component Id="luxembourgish_LANG">
-			<File Source="..\..\installer\nativeLang\luxembourgish.xml" />
-		</Component>
-		<Component Id="macedonian_LANG">
-			<File Source="..\..\installer\nativeLang\macedonian.xml" />
-		</Component>
-		<Component Id="malay_LANG">
-			<File Source="..\..\installer\nativeLang\malay.xml" />
-		</Component>
-		<Component Id="marathi_LANG">
-			<File Source="..\..\installer\nativeLang\marathi.xml" />
-		</Component>
-		<Component Id="mongolian_LANG">
-			<File Source="..\..\installer\nativeLang\mongolian.xml" />
-		</Component>
-		<Component Id="nepali_LANG">
-			<File Source="..\..\installer\nativeLang\nepali.xml" />
-		</Component>
-		<Component Id="norwegian_LANG">
-			<File Source="..\..\installer\nativeLang\norwegian.xml" />
-		</Component>
-		<Component Id="nynorsk_LANG">
-			<File Source="..\..\installer\nativeLang\nynorsk.xml" />
-		</Component>
-		<Component Id="occitan_LANG">
-			<File Source="..\..\installer\nativeLang\occitan.xml" />
-		</Component>
-		<Component Id="piglatin_LANG">
-			<File Source="..\..\installer\nativeLang\piglatin.xml" />
-		</Component>
-		<Component Id="polish_LANG">
-			<File Source="..\..\installer\nativeLang\polish.xml" />
-		</Component>
-		<Component Id="portuguese_LANG">
-			<File Source="..\..\installer\nativeLang\portuguese.xml" />
-		</Component>
-		<Component Id="punjabi_LANG">
-			<File Source="..\..\installer\nativeLang\punjabi.xml" />
-		</Component>
-		<Component Id="romanian_LANG">
-			<File Source="..\..\installer\nativeLang\romanian.xml" />
-		</Component>
-		<Component Id="russian_LANG">
-			<File Source="..\..\installer\nativeLang\russian.xml" />
-		</Component>
-		<Component Id="samogitian_LANG">
-			<File Source="..\..\installer\nativeLang\samogitian.xml" />
-		</Component>
-		<Component Id="sardinian_LANG">
-			<File Source="..\..\installer\nativeLang\sardinian.xml" />
-		</Component>
-		<Component Id="serbian_LANG">
-			<File Source="..\..\installer\nativeLang\serbian.xml" />
-		</Component>
-		<Component Id="serbianCyrillic_LANG">
-			<File Source="..\..\installer\nativeLang\serbianCyrillic.xml" />
-		</Component>
-		<Component Id="sinhala_LANG">
-			<File Source="..\..\installer\nativeLang\sinhala.xml" />
-		</Component>
-		<Component Id="slovak_LANG">
-			<File Source="..\..\installer\nativeLang\slovak.xml" />
-		</Component>
-		<Component Id="slovenian_LANG">
-			<File Source="..\..\installer\nativeLang\slovenian.xml" />
-		</Component>
-		<Component Id="spanish_LANG">
-			<File Source="..\..\installer\nativeLang\spanish.xml" />
-		</Component>
-		<Component Id="spanish_ar_LANG">
-			<File Source="..\..\installer\nativeLang\spanish_ar.xml" />
-		</Component>
-		<Component Id="swedish_LANG">
-			<File Source="..\..\installer\nativeLang\swedish.xml" />
-		</Component>
-		<Component Id="tagalog_LANG">
-			<File Source="..\..\installer\nativeLang\tagalog.xml" />
-		</Component>
-		<Component Id="taiwaneseMandarin_LANG">
-			<File Source="..\..\installer\nativeLang\taiwaneseMandarin.xml" />
-		</Component>
-		<Component Id="tajikCyrillic_LANG">
-			<File Source="..\..\installer\nativeLang\tajikCyrillic.xml" />
-		</Component>
-		<Component Id="tamil_LANG">
-			<File Source="..\..\installer\nativeLang\tamil.xml" />
-		</Component>
-		<Component Id="tatar_LANG">
-			<File Source="..\..\installer\nativeLang\tatar.xml" />
-		</Component>
-		<Component Id="telugu_LANG">
-			<File Source="..\..\installer\nativeLang\telugu.xml" />
-		</Component>
-		<Component Id="thai_LANG">
-			<File Source="..\..\installer\nativeLang\thai.xml" />
-		</Component>
-		<Component Id="turkish_LANG">
-			<File Source="..\..\installer\nativeLang\turkish.xml" />
-		</Component>
-		<Component Id="ukrainian_LANG">
-			<File Source="..\..\installer\nativeLang\ukrainian.xml" />
-		</Component>
-		<Component Id="urdu_LANG">
-			<File Source="..\..\installer\nativeLang\urdu.xml" />
-		</Component>
-		<Component Id="uyghur_LANG">
-			<File Source="..\..\installer\nativeLang\uyghur.xml" />
-		</Component>
-		<Component Id="uzbek_LANG">
-			<File Source="..\..\installer\nativeLang\uzbek.xml" />
-		</Component>
-		<Component Id="uzbekCyrillic_LANG">
-			<File Source="..\..\installer\nativeLang\uzbekCyrillic.xml" />
-		</Component>
-		<Component Id="venetian_LANG">
-			<File Source="..\..\installer\nativeLang\venetian.xml" />
-		</Component>
-		<Component Id="vietnamese_LANG">
-			<File Source="..\..\installer\nativeLang\vietnamese.xml" />
-		</Component>
-		<Component Id="welsh_LANG">
-			<File Source="..\..\installer\nativeLang\welsh.xml" />
-		</Component>
-		<Component Id="zulu_LANG">
-			<File Source="..\..\installer\nativeLang\zulu.xml" />
-		</Component>
-    </ComponentGroup>
+		<!--
+		No reboot after the installation by default
+		-->
+		<Property Id="REBOOT" Value="Suppress" />
 
-	  
-	<CustomAction Id="RegisterNppShell" 
-				  Directory="System64Folder" 
-				  ExeCommand='"[System64Folder]regsvr32.exe" /s "[ContextMenuFolder]NppShell.dll"'
-				  Execute="deferred"
-				  Impersonate="no"
-				  Return="check" />
+		<!--
+		Installation directory structure
+		-->
+		<StandardDirectory Id="ProgramFiles64Folder">
+			<Directory Id="INSTALLFOLDER" Name="Notepad++">
+				<Directory Id="ContextMenuFolder" Name="contextMenu" />
+				<Directory Id="UpdaterFolder" Name="updater" />
+				<Directory Id="AutoCompletionFolder" Name="autoCompletion" />
 
-	<CustomAction Id="UnregisterNppShell" 
-				  Directory="System64Folder" 
-				  ExeCommand='"[System64Folder]regsvr32.exe" /s /u "[ContextMenuFolder]NppShell.dll"'
-				  Execute="deferred"
-				  Impersonate="no"
-				  Return="ignore" />
+				<Directory Id="PluginsFolder" Name="plugins" >
+					<Directory Id="PluginConfFolder" Name="config" />
+					<Directory Id="PluginMimeToolsFolder" Name="mimeTools" />
+					<Directory Id="PluginNppConverterFolder" Name="NppConverter" />
+					<Directory Id="PluginNppExportFolder" Name="NppExport" />
+				</Directory>
+
+				<Directory Id="FunctionListFolder" Name="functionList" />
+				<Directory Id="ThemesFolder" Name="themes" />
+				<Directory Id="LocalizationFolder" Name="localization" />
+			</Directory>
+		</StandardDirectory>
+
+		<StandardDirectory Id="ProgramMenuFolder">
+			<Directory Id="ApplicationProgramsFolder" Name="Notepad++" />
+		</StandardDirectory>
 
 	
-	<InstallExecuteSequence>
-	  <Custom Action="RegisterNppShell" After="InstallFiles" Condition="NOT Installed" />
-	  <Custom Action="UnregisterNppShell" Before="RemoveFiles" Condition="REMOVE~=&quot;ALL&quot;"/>
-	</InstallExecuteSequence>
+		<!--
+		Shortcut on Desktop
+		-->
+		<ComponentGroup Id="ShortcutComponentGroup" Directory="ApplicationProgramsFolder">
+			<Component Id="cmp_NppShortcut" Guid="{9DF5F816-BF4F-496B-9095-E1E8C01B89CE}"> 
+			<Shortcut	Id="startmenuShortcut"
+						Name="Notepad++"
+						Target="[INSTALLFOLDER]notepad++.exe"
+						WorkingDirectory="INSTALLFOLDER" />
 
+			<RegistryValue Root="HKCU" Key="Software\Notepad++" Name="StartMenuShortcut" Type="integer" Value="1"  KeyPath="yes"/>
+			<RemoveFolder Id="RemoveApplicationProgramsFolder" On="uninstall" />
+			</Component>
+		</ComponentGroup>
+
+		<!--
+		Context Menu
+		-->
+		<ComponentGroup Id="ContextMenuComponentGroup" Directory="ContextMenuFolder">
+			<Component Id="cmp_NppShellDll" Guid="{D6083500-DFD2-445D-B4FF-49EDF80A6A84}">
+				<File Source="..\..\bin64\NppShell.x64.dll" Name="NppShell.dll" KeyPath="yes" />
+			</Component>
+			<Component Id="cmp_NppShellMsix" Guid="{EB6E5606-60D1-4C69-8C9B-C0B12A19C6CE}">
+				<File Source="..\..\bin64\NppShell.msix" KeyPath="yes" />
+			</Component>
+		</ComponentGroup>
 	
-	<Feature Id="MainApplication" Title="Notepad++ Files" Level="1">
-        <ComponentGroupRef Id="CoreComponentGroup" />
-		
-        <ComponentGroupRef Id="ShortcutComponentGroup" />
-		<ComponentGroupRef Id="ContextMenuComponentGroup" />
-		
-		<Feature Id="AutoUpdaterFeature" Title="Auto Updater" Level="1">
-			<ComponentGroupRef Id="AutoUpdatorComponentGroup" />
-			<Level Value="0" Condition="NOUPDATER" />
+
+		<CustomAction	Id="RegisterNppShell" 
+						Directory="System64Folder" 
+						ExeCommand='"[System64Folder]regsvr32.exe" /s "[ContextMenuFolder]NppShell.dll"'
+						Execute="deferred"
+						Impersonate="no"
+						Return="check" />
+
+		<CustomAction	Id="UnregisterNppShell" 
+						Directory="System64Folder" 
+						ExeCommand='"[System64Folder]regsvr32.exe" /s /u "[ContextMenuFolder]NppShell.dll"'
+						Execute="deferred"
+						Impersonate="no"
+						Return="ignore" />
+
+		<InstallExecuteSequence>
+			<Custom Action="RegisterNppShell" After="InstallFiles" Condition="NOT Installed" />
+			<Custom Action="UnregisterNppShell" Before="RemoveFiles" Condition="REMOVE~=&quot;ALL&quot;"/>
+		</InstallExecuteSequence>
+
+
+
+		<Feature Id="MainApplication" Title="Notepad++ Files" Level="1">
+			<ComponentGroupRef Id="CoreComponentGroup" />
+
+			<ComponentGroupRef Id="ShortcutComponentGroup" />
+			<ComponentGroupRef Id="ContextMenuComponentGroup" />
+
+			<Feature Id="AutoUpdaterFeature" Title="Auto Updater" Level="1">
+				<ComponentGroupRef Id="AutoUpdatorComponentGroup" />
+				<Level Value="0" Condition="NOUPDATER" />
+			</Feature>
+
+			<ComponentGroupRef Id="PluginAdminComponentGroup" />
+			<ComponentGroupRef Id="PluginMimeToolsComponentGroup" />
+			<ComponentGroupRef Id="PluginNppConverterComponentGroup" />
+			<ComponentGroupRef Id="PluginNppExportComponentGroup" />
+
+			<ComponentGroupRef Id="AutoCompletionComponentGroup" />
+			<ComponentGroupRef Id="FunctionListComponentGroup" />
+			<ComponentGroupRef Id="ThemesComponentGroup" />
+			<ComponentGroupRef Id="LocalizationComponentGroup" />
 		</Feature>
-		
-		<ComponentGroupRef Id="PluginAdminComponentGroup" />
-		<ComponentGroupRef Id="PluginMimeToolsComponentGroup" />
-		<ComponentGroupRef Id="PluginNppConverterComponentGroup" />
-		<ComponentGroupRef Id="PluginNppExportComponentGroup" />
-		
-		<ComponentGroupRef Id="AutoCompletionComponentGroup" />
-		<ComponentGroupRef Id="FunctionListComponentGroup" />
-		<ComponentGroupRef Id="ThemesComponentGroup" />
-		<ComponentGroupRef Id="LocalizationComponentGroup" />
-    </Feature>
-	
-  </Package>
+
+	</Package>
 </Wix>

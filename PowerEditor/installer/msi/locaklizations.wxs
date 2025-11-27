@@ -1,0 +1,291 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+	<Fragment>
+		<!--
+		Localization
+		-->
+		<ComponentGroup Id="LocalizationComponentGroup" Directory="LocalizationFolder">
+			<Component Id="abkhazian_LANG">
+				<File Source="..\..\installer\nativeLang\abkhazian.xml" />
+			</Component>
+			<Component Id="afrikaans_LANG">
+				<File Source="..\..\installer\nativeLang\afrikaans.xml" />
+			</Component>
+			<Component Id="albanian_LANG">
+				<File Source="..\..\installer\nativeLang\albanian.xml" />
+			</Component>
+			<Component Id="arabic_LANG">
+				<File Source="..\..\installer\nativeLang\arabic.xml" />
+			</Component>
+			<Component Id="aragonese_LANG">
+				<File Source="..\..\installer\nativeLang\aragonese.xml" />
+			</Component>
+			<Component Id="aranese_LANG">
+				<File Source="..\..\installer\nativeLang\aranese.xml" />
+			</Component>
+			<Component Id="azerbaijani_LANG">
+				<File Source="..\..\installer\nativeLang\azerbaijani.xml" />
+			</Component>
+			<Component Id="basque_LANG">
+				<File Source="..\..\installer\nativeLang\basque.xml" />
+			</Component>
+			<Component Id="belarusian_LANG">
+				<File Source="..\..\installer\nativeLang\belarusian.xml" />
+			</Component>
+			<Component Id="bengali_LANG">
+				<File Source="..\..\installer\nativeLang\bengali.xml" />
+			</Component>
+			<Component Id="bosnian_LANG">
+				<File Source="..\..\installer\nativeLang\bosnian.xml" />
+			</Component>
+			<Component Id="brazilian_portuguese_LANG">
+				<File Source="..\..\installer\nativeLang\brazilian_portuguese.xml" />
+			</Component>
+			<Component Id="breton_LANG">
+				<File Source="..\..\installer\nativeLang\breton.xml" />
+			</Component>
+			<Component Id="bulgarian_LANG">
+				<File Source="..\..\installer\nativeLang\bulgarian.xml" />
+			</Component>
+			<Component Id="catalan_LANG">
+				<File Source="..\..\installer\nativeLang\catalan.xml" />
+			</Component>
+			<Component Id="chineseSimplified_LANG">
+				<File Source="..\..\installer\nativeLang\chineseSimplified.xml" />
+			</Component>
+			<Component Id="corsican_LANG">
+				<File Source="..\..\installer\nativeLang\corsican.xml" />
+			</Component>
+			<Component Id="croatian_LANG">
+				<File Source="..\..\installer\nativeLang\croatian.xml" />
+			</Component>
+			<Component Id="czech_LANG">
+				<File Source="..\..\installer\nativeLang\czech.xml" />
+			</Component>
+			<Component Id="danish_LANG">
+				<File Source="..\..\installer\nativeLang\danish.xml" />
+			</Component>
+			<Component Id="dutch_LANG">
+				<File Source="..\..\installer\nativeLang\dutch.xml" />
+			</Component>
+			<Component Id="english_LANG">
+				<File Source="..\..\installer\nativeLang\english.xml" />
+			</Component>
+			<Component Id="english_customizable_LANG">
+				<File Source="..\..\installer\nativeLang\english_customizable.xml" />
+			</Component>
+			<Component Id="esperanto_LANG">
+				<File Source="..\..\installer\nativeLang\esperanto.xml" />
+			</Component>
+			<Component Id="estonian_LANG">
+				<File Source="..\..\installer\nativeLang\estonian.xml" />
+			</Component>
+			<Component Id="extremaduran_LANG">
+				<File Source="..\..\installer\nativeLang\extremaduran.xml" />
+			</Component>
+			<Component Id="farsi_LANG">
+				<File Source="..\..\installer\nativeLang\farsi.xml" />
+			</Component>
+			<Component Id="finnish_LANG">
+				<File Source="..\..\installer\nativeLang\finnish.xml" />
+			</Component>
+			<Component Id="french_LANG">
+				<File Source="..\..\installer\nativeLang\french.xml" />
+			</Component>
+			<Component Id="friulian_LANG">
+				<File Source="..\..\installer\nativeLang\friulian.xml" />
+			</Component>
+			<Component Id="galician_LANG">
+				<File Source="..\..\installer\nativeLang\galician.xml" />
+			</Component>
+			<Component Id="georgian_LANG">
+				<File Source="..\..\installer\nativeLang\georgian.xml" />
+			</Component>
+			<Component Id="german_LANG">
+				<File Source="..\..\installer\nativeLang\german.xml" />
+			</Component>
+			<Component Id="greek_LANG">
+				<File Source="..\..\installer\nativeLang\greek.xml" />
+			</Component>
+			<Component Id="gujarati_LANG">
+				<File Source="..\..\installer\nativeLang\gujarati.xml" />
+			</Component>
+			<Component Id="hebrew_LANG">
+				<File Source="..\..\installer\nativeLang\hebrew.xml" />
+			</Component>
+			<Component Id="hindi_LANG">
+				<File Source="..\..\installer\nativeLang\hindi.xml" />
+			</Component>
+			<Component Id="hongKongCantonese_LANG">
+				<File Source="..\..\installer\nativeLang\hongKongCantonese.xml" />
+			</Component>
+			<Component Id="hungarian_LANG">
+				<File Source="..\..\installer\nativeLang\hungarian.xml" />
+			</Component>
+			<Component Id="indonesian_LANG">
+				<File Source="..\..\installer\nativeLang\indonesian.xml" />
+			</Component>
+			<Component Id="irish_LANG">
+				<File Source="..\..\installer\nativeLang\irish.xml" />
+			</Component>
+			<Component Id="italian_LANG">
+				<File Source="..\..\installer\nativeLang\italian.xml" />
+			</Component>
+			<Component Id="japanese_LANG">
+				<File Source="..\..\installer\nativeLang\japanese.xml" />
+			</Component>
+			<Component Id="kabyle_LANG">
+				<File Source="..\..\installer\nativeLang\kabyle.xml" />
+			</Component>
+			<Component Id="kannada_LANG">
+				<File Source="..\..\installer\nativeLang\kannada.xml" />
+			</Component>
+			<Component Id="kazakh_LANG">
+				<File Source="..\..\installer\nativeLang\kazakh.xml" />
+			</Component>
+			<Component Id="korean_LANG">
+				<File Source="..\..\installer\nativeLang\korean.xml" />
+			</Component>
+			<Component Id="kurdish_LANG">
+				<File Source="..\..\installer\nativeLang\kurdish.xml" />
+			</Component>
+			<Component Id="kyrgyz_LANG">
+				<File Source="..\..\installer\nativeLang\kyrgyz.xml" />
+			</Component>
+			<Component Id="latvian_LANG">
+				<File Source="..\..\installer\nativeLang\latvian.xml" />
+			</Component>
+			<Component Id="ligurian_LANG">
+				<File Source="..\..\installer\nativeLang\ligurian.xml" />
+			</Component>
+			<Component Id="lithuanian_LANG">
+				<File Source="..\..\installer\nativeLang\lithuanian.xml" />
+			</Component>
+			<Component Id="luxembourgish_LANG">
+				<File Source="..\..\installer\nativeLang\luxembourgish.xml" />
+			</Component>
+			<Component Id="macedonian_LANG">
+				<File Source="..\..\installer\nativeLang\macedonian.xml" />
+			</Component>
+			<Component Id="malay_LANG">
+				<File Source="..\..\installer\nativeLang\malay.xml" />
+			</Component>
+			<Component Id="marathi_LANG">
+				<File Source="..\..\installer\nativeLang\marathi.xml" />
+			</Component>
+			<Component Id="mongolian_LANG">
+				<File Source="..\..\installer\nativeLang\mongolian.xml" />
+			</Component>
+			<Component Id="nepali_LANG">
+				<File Source="..\..\installer\nativeLang\nepali.xml" />
+			</Component>
+			<Component Id="norwegian_LANG">
+				<File Source="..\..\installer\nativeLang\norwegian.xml" />
+			</Component>
+			<Component Id="nynorsk_LANG">
+				<File Source="..\..\installer\nativeLang\nynorsk.xml" />
+			</Component>
+			<Component Id="occitan_LANG">
+				<File Source="..\..\installer\nativeLang\occitan.xml" />
+			</Component>
+			<Component Id="piglatin_LANG">
+				<File Source="..\..\installer\nativeLang\piglatin.xml" />
+			</Component>
+			<Component Id="polish_LANG">
+				<File Source="..\..\installer\nativeLang\polish.xml" />
+			</Component>
+			<Component Id="portuguese_LANG">
+				<File Source="..\..\installer\nativeLang\portuguese.xml" />
+			</Component>
+			<Component Id="punjabi_LANG">
+				<File Source="..\..\installer\nativeLang\punjabi.xml" />
+			</Component>
+			<Component Id="romanian_LANG">
+				<File Source="..\..\installer\nativeLang\romanian.xml" />
+			</Component>
+			<Component Id="russian_LANG">
+				<File Source="..\..\installer\nativeLang\russian.xml" />
+			</Component>
+			<Component Id="samogitian_LANG">
+				<File Source="..\..\installer\nativeLang\samogitian.xml" />
+			</Component>
+			<Component Id="sardinian_LANG">
+				<File Source="..\..\installer\nativeLang\sardinian.xml" />
+			</Component>
+			<Component Id="serbian_LANG">
+				<File Source="..\..\installer\nativeLang\serbian.xml" />
+			</Component>
+			<Component Id="serbianCyrillic_LANG">
+				<File Source="..\..\installer\nativeLang\serbianCyrillic.xml" />
+			</Component>
+			<Component Id="sinhala_LANG">
+				<File Source="..\..\installer\nativeLang\sinhala.xml" />
+			</Component>
+			<Component Id="slovak_LANG">
+				<File Source="..\..\installer\nativeLang\slovak.xml" />
+			</Component>
+			<Component Id="slovenian_LANG">
+				<File Source="..\..\installer\nativeLang\slovenian.xml" />
+			</Component>
+			<Component Id="spanish_LANG">
+				<File Source="..\..\installer\nativeLang\spanish.xml" />
+			</Component>
+			<Component Id="spanish_ar_LANG">
+				<File Source="..\..\installer\nativeLang\spanish_ar.xml" />
+			</Component>
+			<Component Id="swedish_LANG">
+				<File Source="..\..\installer\nativeLang\swedish.xml" />
+			</Component>
+			<Component Id="tagalog_LANG">
+				<File Source="..\..\installer\nativeLang\tagalog.xml" />
+			</Component>
+			<Component Id="taiwaneseMandarin_LANG">
+				<File Source="..\..\installer\nativeLang\taiwaneseMandarin.xml" />
+			</Component>
+			<Component Id="tajikCyrillic_LANG">
+				<File Source="..\..\installer\nativeLang\tajikCyrillic.xml" />
+			</Component>
+			<Component Id="tamil_LANG">
+				<File Source="..\..\installer\nativeLang\tamil.xml" />
+			</Component>
+			<Component Id="tatar_LANG">
+				<File Source="..\..\installer\nativeLang\tatar.xml" />
+			</Component>
+			<Component Id="telugu_LANG">
+				<File Source="..\..\installer\nativeLang\telugu.xml" />
+			</Component>
+			<Component Id="thai_LANG">
+				<File Source="..\..\installer\nativeLang\thai.xml" />
+			</Component>
+			<Component Id="turkish_LANG">
+				<File Source="..\..\installer\nativeLang\turkish.xml" />
+			</Component>
+			<Component Id="ukrainian_LANG">
+				<File Source="..\..\installer\nativeLang\ukrainian.xml" />
+			</Component>
+			<Component Id="urdu_LANG">
+				<File Source="..\..\installer\nativeLang\urdu.xml" />
+			</Component>
+			<Component Id="uyghur_LANG">
+				<File Source="..\..\installer\nativeLang\uyghur.xml" />
+			</Component>
+			<Component Id="uzbek_LANG">
+				<File Source="..\..\installer\nativeLang\uzbek.xml" />
+			</Component>
+			<Component Id="uzbekCyrillic_LANG">
+				<File Source="..\..\installer\nativeLang\uzbekCyrillic.xml" />
+			</Component>
+			<Component Id="venetian_LANG">
+				<File Source="..\..\installer\nativeLang\venetian.xml" />
+			</Component>
+			<Component Id="vietnamese_LANG">
+				<File Source="..\..\installer\nativeLang\vietnamese.xml" />
+			</Component>
+			<Component Id="welsh_LANG">
+				<File Source="..\..\installer\nativeLang\welsh.xml" />
+			</Component>
+			<Component Id="zulu_LANG">
+				<File Source="..\..\installer\nativeLang\zulu.xml" />
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>

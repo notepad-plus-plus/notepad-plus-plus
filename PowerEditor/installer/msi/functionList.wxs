@@ -1,0 +1,144 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+	<Fragment>
+		<!--
+		FunctionList
+		-->
+		<ComponentGroup Id="FunctionListComponentGroup" Directory="FunctionListFolder">
+			<Component Id="pascal_FL">
+				<File Source="..\..\installer\functionList\pascal.xml" />
+			</Component>
+			<Component Id="ada_FL">
+				<File Source="..\..\installer\functionList\ada.xml" />
+			</Component>	  
+			<Component Id="asm_FL">
+				<File Source="..\..\installer\functionList\asm.xml" />
+			</Component>
+			<Component Id="bash_FL">
+				<File Source="..\..\installer\functionList\bash.xml" />
+			</Component>
+			<Component Id="autoit_FL">
+				<File Source="..\..\installer\functionList\autoit.xml" />
+			</Component>
+			<Component Id="c_FL">
+				<File Source="..\..\installer\functionList\c.xml" />
+			</Component>
+			<Component Id="cpp_FL">
+				<File Source="..\..\installer\functionList\cpp.xml" />
+			</Component>
+			<Component Id="java_FL">
+				<File Source="..\..\installer\functionList\java.xml" />
+			</Component>
+			<Component Id="cs_FL">
+				<File Source="..\..\installer\functionList\cs.xml" />
+			</Component>
+			<Component Id="sql_FL">
+				<File Source="..\..\installer\functionList\sql.xml" />
+			</Component>
+			<Component Id="php_FL">
+				<File Source="..\..\installer\functionList\php.xml" />
+			</Component>
+			<Component Id="css_FL">
+				<File Source="..\..\installer\functionList\css.xml" />
+			</Component>
+			<Component Id="vb_FL">
+				<File Source="..\..\installer\functionList\vb.xml" />
+			</Component>
+			<Component Id="perl_FL">
+				<File Source="..\..\installer\functionList\perl.xml" />
+			</Component>
+			<Component Id="javascript_FL">
+				<File Source="..\..\installer\functionList\javascript.js.xml" />
+			</Component>
+			<Component Id="python_FL">
+				<File Source="..\..\installer\functionList\python.xml" />
+			</Component>
+			<Component Id="vhdl_FL">
+				<File Source="..\..\installer\functionList\vhdl.xml" />
+			</Component>
+			<Component Id="haskell_FL">
+				<File Source="..\..\installer\functionList\haskell.xml" />
+			</Component>
+			<Component Id="tex_FL">
+				<File Source="..\..\installer\functionList\tex.xml" />
+			</Component>
+			<Component Id="latex_FL">
+				<File Source="..\..\installer\functionList\latex.xml" />
+			</Component>
+			<Component Id="xml_FL">
+				<File Source="..\..\installer\functionList\xml.xml" />
+			</Component>
+			<Component Id="nsis_FL">
+				<File Source="..\..\installer\functionList\nsis.xml" />
+			</Component>
+			<Component Id="batch_FL">
+				<File Source="..\..\installer\functionList\batch.xml" />
+			</Component>
+			<Component Id="fortran_FL">
+				<File Source="..\..\installer\functionList\fortran.xml" />
+			</Component>
+			<Component Id="fortran77_FL">
+				<File Source="..\..\installer\functionList\fortran77.xml" />
+			</Component>
+			<Component Id="baanc_FL">
+				<File Source="..\..\installer\functionList\baanc.xml" />
+			</Component>
+			<Component Id="ruby_FL">
+				<File Source="..\..\installer\functionList\ruby.xml" />
+			</Component>
+			<Component Id="inno_FL">
+				<File Source="..\..\installer\functionList\inno.xml" />
+			</Component>
+			<Component Id="ini_FL">
+				<File Source="..\..\installer\functionList\ini.xml" />
+			</Component>
+			<Component Id="lua_FL">
+				<File Source="..\..\installer\functionList\lua.xml" />
+			</Component>
+			<Component Id="cobol_FL">
+				<File Source="..\..\installer\functionList\cobol.xml" />
+			</Component>
+			<Component Id="cobolFree_FL">
+				<File Source="..\..\installer\functionList\cobol-free.xml" />
+			</Component>
+			<Component Id="typescript_FL">
+				<File Source="..\..\installer\functionList\typescript.xml" />
+			</Component>
+			<Component Id="powershell_FL">
+				<File Source="..\..\installer\functionList\powershell.xml" />
+			</Component>
+			<Component Id="gdscript_FL">
+				<File Source="..\..\installer\functionList\gdscript.xml" />
+			</Component>
+			<Component Id="raku_FL">
+				<File Source="..\..\installer\functionList\raku.xml" />
+			</Component>
+			<Component Id="hollywood_FL">
+				<File Source="..\..\installer\functionList\hollywood.xml" />
+			</Component>
+			<Component Id="sas_FL">
+				<File Source="..\..\installer\functionList\sas.xml" />
+			</Component>
+			<Component Id="toml_FL">
+				<File Source="..\..\installer\functionList\toml.xml" />
+			</Component>
+			<Component Id="rust_FL">
+				<File Source="..\..\installer\functionList\rust.xml" />
+			</Component>
+			<Component Id="universe_basic_FL">
+				<File Source="..\..\installer\functionList\universe_basic.xml" />
+			</Component>
+			<Component Id="nppexec_FL">
+				<File Source="..\..\installer\functionList\nppexec.xml" />
+			</Component>
+			<Component Id="krl_FL">
+				<File Source="..\..\installer\functionList\krl.xml" />
+			</Component>
+			<Component Id="sinumerik_FL">
+				<File Source="..\..\installer\functionList\sinumerik.xml" />
+			</Component>
+			<Component Id="overrideMap_FL">
+				<File Source="..\..\installer\functionList\overrideMap.xml" />
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>

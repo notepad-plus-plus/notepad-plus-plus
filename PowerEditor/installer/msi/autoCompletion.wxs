@@ -1,0 +1,108 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+	<Fragment>
+	<!--
+	AutoCompletion
+	-->
+	<ComponentGroup Id="AutoCompletionComponentGroup" Directory="AutoCompletionFolder">
+		<Component Id="actionscript_APIs">
+			<File Source="..\..\installer\APIs\actionscript.xml" />
+		</Component>
+		<Component Id="autoit_APIs">
+			<File Source="..\..\installer\APIs\autoit.xml" />
+		</Component>
+		<Component Id="c_APIs">
+			<File Source="..\..\installer\APIs\c.xml" />
+		</Component>
+		<Component Id="cpp_APIs">
+			<File Source="..\..\installer\APIs\cpp.xml" />
+		</Component>
+		<Component Id="java_APIs">
+			<File Source="..\..\installer\APIs\java.xml" />
+		</Component>
+		<Component Id="cs_APIs">
+			<File Source="..\..\installer\APIs\cs.xml" />
+		</Component>
+		<Component Id="html_APIs">
+			<File Source="..\..\installer\APIs\html.xml" />
+		</Component>
+		<Component Id="rc_APIs">
+			<File Source="..\..\installer\APIs\rc.xml" />
+		</Component>
+		<Component Id="sql_APIs">
+			<File Source="..\..\installer\APIs\sql.xml" />
+		</Component>
+		<Component Id="php_APIs">
+			<File Source="..\..\installer\APIs\php.xml" />
+		</Component>
+		<Component Id="css_APIs">
+			<File Source="..\..\installer\APIs\css.xml" />
+		</Component>
+		<Component Id="vb_APIs">
+			<File Source="..\..\installer\APIs\vb.xml" />
+		</Component>
+		<Component Id="perl_APIs">
+			<File Source="..\..\installer\APIs\perl.xml" />
+		</Component>
+		<Component Id="javascript_APIs">
+			<File Source="..\..\installer\APIs\javascript.xml" />
+		</Component>
+		<Component Id="python_APIs">
+			<File Source="..\..\installer\APIs\python.xml" />
+		</Component>
+		<Component Id="lisp_APIs">
+			<File Source="..\..\installer\APIs\lisp.xml" />
+		</Component>
+		<Component Id="vhdl_APIs">
+			<File Source="..\..\installer\APIs\vhdl.xml" />
+		</Component>
+		<Component Id="tex_APIs">
+			<File Source="..\..\installer\APIs\tex.xml" />
+		</Component>
+		<Component Id="xml_APIs">
+			<File Source="..\..\installer\APIs\xml.xml" />
+		</Component>
+		<Component Id="nsis_APIs">
+			<File Source="..\..\installer\APIs\nsis.xml" />
+		</Component>
+		<Component Id="cmake_APIs">
+			<File Source="..\..\installer\APIs\cmake.xml" />
+		</Component>
+		<Component Id="batch_APIs">
+			<File Source="..\..\installer\APIs\batch.xml" />
+		</Component>
+		<Component Id="coffee_APIs">
+			<File Source="..\..\installer\APIs\coffee.xml" />
+		</Component>
+		<Component Id="baanc_APIs">
+			<File Source="..\..\installer\APIs\baanc.xml" />
+		</Component>
+		<Component Id="lua_APIs">
+			<File Source="..\..\installer\APIs\lua.xml" />
+		</Component>
+		<Component Id="cobol_APIs">
+			<File Source="..\..\installer\APIs\cobol.xml" />
+		</Component>
+		<Component Id="typescript_APIs">
+			<File Source="..\..\installer\APIs\typescript.xml" />
+		</Component>
+		<Component Id="powershell_APIs">
+			<File Source="..\..\installer\APIs\powershell.xml" />
+		</Component>
+		<Component Id="gdscript_APIs">
+			<File Source="..\..\installer\APIs\gdscript.xml" />
+		</Component>
+		<Component Id="go_APIs">
+			<File Source="..\..\installer\APIs\go.xml" />
+		</Component>
+		<Component Id="raku_APIs">
+			<File Source="..\..\installer\APIs\raku.xml" />
+		</Component>
+		<Component Id="sas_APIs">
+			<File Source="..\..\installer\APIs\sas.xml" />
+		</Component>
+		<Component Id="rust_APIs">
+			<File Source="..\..\installer\APIs\rust.xml" />
+		</Component>
+	</ComponentGroup>
+	</Fragment>
+</Wix>

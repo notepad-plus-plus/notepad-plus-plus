@@ -1,0 +1,33 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+	<Fragment>
+		<!--
+		Core files
+		-->
+		<ComponentGroup Id="CoreComponentGroup" Directory="INSTALLFOLDER">
+			<Component Id="npp_exe">
+				<File Source="..\..\bin64\notepad++.exe" KeyPath="yes" />
+			</Component>
+			<Component Id="stylers_xml">
+				<File Source="..\..\src\stylers.model.xml" KeyPath="yes" />
+			</Component>
+			<Component Id="langs_xml">
+				<File Source="..\..\src\langs.model.xml" KeyPath="yes" />
+			</Component>
+			<Component Id="change_log">
+				<File Source="..\..\bin\change.log" />
+			</Component>
+			<Component Id="contextMenu_xml">
+				<File Source="..\..\src\contextMenu.xml" />
+			</Component>
+			<Component Id="shortcuts_xml">
+				<File Source="..\..\src\shortcuts.xml" />
+			</Component>
+			<Component Id="LICENSE">
+				<File Source="..\..\..\LICENSE" />
+			</Component>
+			<Component Id="readme_txt">
+				<File Source="..\..\bin\readme.txt" />
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>

@@ -1,0 +1,27 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+	<Fragment>
+		<!--
+		WinGUp
+		-->
+		<ComponentGroup Id="AutoUpdatorComponentGroup" Directory="UpdaterFolder">
+			<Component Id="gup_exe">
+				<File Source="..\..\bin64\updater\GUP.exe" KeyPath="yes" />
+			</Component>
+			<Component Id="libcurl_dll">
+				<File Source="..\..\bin64\updater\libcurl.dll" KeyPath="yes" />
+			</Component>
+			<Component Id="updater_ico">
+				<File Source="..\..\bin64\updater\updater.ico" KeyPath="yes" />
+			</Component>
+			<Component Id="gup_xml">
+				<File Source="..\..\bin64\updater\gup.xml" KeyPath="yes" />
+			</Component>
+			<Component Id="gup_LICENSE">
+				<File Source="..\..\bin64\updater\LICENSE" KeyPath="yes" />
+			</Component>
+			<Component Id="gup_README_md">
+				<File Source="..\..\bin64\updater\README.md" KeyPath="yes" />
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>

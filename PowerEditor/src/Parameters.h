@@ -27,7 +27,6 @@
 #include <Scintilla.h>
 
 #include <tinyxml.h>
-#include <tinyxmlA.h>
 
 #include "NppXml.h"
 
@@ -1969,7 +1968,7 @@ private:
 	std::vector<UdlXmlFileState> _pXmlUserLangsDoc; // userDefineLang customized XMLs
 	TiXmlDocument * _pXmlToolButtonsConfDoc = nullptr; // toolbarButtonsConf.xml
 
-	TiXmlDocumentA *_pXmlShortcutDocA = nullptr; // shortcuts.xml
+	NppXml::Document _pXmlShortcutDoc = nullptr; // shortcuts.xml
 
 	NppXml::Document _pXmlNativeLangDoc = nullptr; // nativeLang.xml
 	NppXml::Document _pXmlContextMenuDoc = nullptr; // contextMenu.xml
@@ -2181,23 +2180,23 @@ private:
 	void feedUserStyles(TiXmlNode *node);
 	void feedUserKeywordList(TiXmlNode *node);
 	void feedUserSettings(TiXmlNode *node);
-	void feedShortcut(TiXmlNodeA *node);
-	void feedMacros(TiXmlNodeA *node);
-	void feedUserCmds(TiXmlNodeA *node);
-	void feedPluginCustomizedCmds(TiXmlNodeA *node);
-	void feedScintKeys(TiXmlNodeA *node);
+	void feedShortcut(NppXml::Node node);
+	void feedMacros(NppXml::Node node);
+	void feedUserCmds(NppXml::Node node);
+	void feedPluginCustomizedCmds(NppXml::Node node);
+	void feedScintKeys(NppXml::Node node);
 
-	void getActions(TiXmlNodeA *node, Macro & macro);
-	bool getShortcuts(TiXmlNodeA *node, Shortcut & sc, std::string* folderName = nullptr);
-	bool getInternalCommandShortcuts(TiXmlNodeA* node, CommandShortcut& cs, std::string* folderName = nullptr);
+	void getActions(NppXml::Node node, Macro & macro);
+	bool getShortcuts(NppXml::Node node, Shortcut & sc, std::string* folderName = nullptr);
+	bool getInternalCommandShortcuts(NppXml::Node node, CommandShortcut& cs, std::string* folderName = nullptr);
 
 	void writeStyle2Element(const Style & style2Write, Style & style2Sync, TiXmlElement *element);
 	void insertUserLang2Tree(TiXmlNode *node, UserLangContainer *userLang);
-	void insertCmd(TiXmlNodeA *cmdRoot, const CommandShortcut & cmd);
-	void insertMacro(TiXmlNodeA *macrosRoot, const MacroShortcut & macro, const std::string& folderName);
-	void insertUserCmd(TiXmlNodeA *userCmdRoot, const UserCommand & userCmd, const std::string& folderName);
-	void insertScintKey(TiXmlNodeA *scintKeyRoot, const ScintillaKeyMap & scintKeyMap);
-	void insertPluginCmd(TiXmlNodeA *pluginCmdRoot, const PluginCmdShortcut & pluginCmd);
+	void insertCmd(NppXml::Node cmdRoot, const CommandShortcut& cmd);
+	void insertMacro(NppXml::Node macrosRoot, const MacroShortcut& macro, const std::string& folderName);
+	void insertUserCmd(NppXml::Node userCmdRoot, const UserCommand& userCmd, const std::string& folderName);
+	void insertScintKey(NppXml::Node scintKeyRoot, const ScintillaKeyMap& scintKeyMap);
+	void insertPluginCmd(NppXml::Node pluginCmdRoot, const PluginCmdShortcut& pluginCmd);
 	TiXmlElement * insertGUIConfigBoolNode(TiXmlNode *r2w, const wchar_t *name, bool bVal);
 	void insertDockingParamNode(TiXmlNode *GUIRoot);
 	void writeExcludedLangList(TiXmlElement *element);

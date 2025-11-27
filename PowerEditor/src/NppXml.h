@@ -52,15 +52,57 @@ namespace NppXml
 		return node->NextSiblingElement(name);
 	}
 
+	[[nodiscard]] inline Node firstChild(const Node& node) {
+		return node->FirstChild();
+	}
+
 	[[nodiscard]] inline Node nextSibling(const Node& node) {
 		return node->NextSibling();
+	}
+
+	[[nodiscard]] inline const char* value(const Node& node) {
+		return node->Value();
 	}
 
 	[[nodiscard]] inline const char* attribute(const Element& elem, const char* name) {
 		return elem->Attribute(name);
 	}
 
-	[[nodiscard]] inline int intAttribute(Element elem, const char* name, int defaultValue = 0) {
+	[[nodiscard]] inline int intAttribute(const Element& elem, const char* name, int defaultValue = 0) {
 		return elem->IntAttribute(name, defaultValue);
+	}
+
+	inline void setAttribute(Element& elem, const char* name, const char* value) {
+		elem->SetAttribute(name, value);
+	}
+
+	inline void setAttribute(Element& elem, const char* name, int value) {
+		elem->SetAttribute(name, value);
+	}
+
+	inline Node createNewDeclaration(Document& doc) {
+		return doc->LinkEndChild(doc->NewDeclaration(nullptr));
+	}
+
+	inline Element createChildElement(Document& doc, const char* name) {
+		Element elem = doc->GetDocument()->NewElement(name);
+		doc->InsertEndChild(elem);
+		return elem;
+	}
+
+	inline Element createChildElement(Node parent, const char* name) {
+		Element elem = parent->GetDocument()->NewElement(name);
+		parent->InsertEndChild(elem);
+		return elem;
+	}
+
+	inline Node createChildText(Node parent, const char* text) {
+		Node node = parent->GetDocument()->NewText(text);
+		parent->InsertEndChild(node);
+		return node;
+	}
+
+	inline void deleteChild(Node& parent, Node child) {
+		parent->DeleteChild(child);
 	}
 }

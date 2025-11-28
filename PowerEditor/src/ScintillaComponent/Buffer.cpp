@@ -1976,6 +1976,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 		size_t lenConvert = 0;	//just in case conversion results in 0, but file not empty
 		bool isFirstTime = true;
 		int incompleteMultibyteChar = 0;
+		bool hasBOM = false;
 
 		do
 		{
@@ -1988,9 +1989,8 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 
 			if (lenFile == 0) break;
 
-			bool hasBOM = false;
-            if (isFirstTime)
-            {
+			if (isFirstTime)
+			{
 				NppParameters& nppParamInst = NppParameters::getInstance();
 				const NppGUI& nppGui = nppParamInst.getNppGUI();
 
@@ -2023,8 +2023,8 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 					fileFormat._language = detectLanguageFromTextBeginning((unsigned char *)data, lenFile);
 				}
 
-                isFirstTime = false;
-            }
+				isFirstTime = false;
+			}
 
 
 			if (fileFormat._encoding != -1)

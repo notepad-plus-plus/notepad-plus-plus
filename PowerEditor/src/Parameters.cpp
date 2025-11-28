@@ -2833,6 +2833,10 @@ void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
 	boolStr = (findHistoryRoot->ToElement())->Attribute(L"purge");
 	if (boolStr)
 		_findHistory._isPurge = (lstrcmp(L"yes", boolStr) == 0);
+
+	boolStr = (findHistoryRoot->ToElement())->Attribute(L"ignoreOpenedBuffers");
+	if (boolStr)
+		_findHistory._ignoreOpenedBuffers = (lstrcmp(L"yes", boolStr) == 0);
 }
 
 void NppParameters::feedShortcut(TiXmlNodeA *node)
@@ -8016,6 +8020,8 @@ bool NppParameters::writeFindHistory()
 
 	(findHistoryRoot->ToElement())->SetAttribute(L"bookmarkLine", _findHistory._isBookmarkLine ? L"yes" : L"no");
 	(findHistoryRoot->ToElement())->SetAttribute(L"purge", _findHistory._isPurge ? L"yes" : L"no");
+
+	(findHistoryRoot->ToElement())->SetAttribute(L"ignoreOpenedBuffers", _findHistory._ignoreOpenedBuffers ? L"yes" : L"no");
 
 	TiXmlElement hist_element{L""};
 

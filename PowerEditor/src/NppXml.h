@@ -19,6 +19,7 @@
 
 #include <tinyxml2.h>
 
+#include <cstdio>
 
 // Simple wrapper for TinyXML2
 namespace NppXml
@@ -28,12 +29,28 @@ namespace NppXml
 	using Element = tinyxml2::XMLElement*;
 	using Node = tinyxml2::XMLNode*;
 
-	[[nodiscard]] inline bool loadFile(Document doc, const char* filename) {
-		return doc->LoadFile(filename) == tinyxml2::XML_SUCCESS;
+	[[nodiscard]] inline bool loadFile(Document& doc, const wchar_t* filename) {
+		FILE* file = nullptr;
+		::_wfopen_s(&file, filename, L"rb");
+		bool result = false;
+		if (file != nullptr)
+		{
+			result = doc->LoadFile(file) == tinyxml2::XML_SUCCESS;
+			std::fclose(file);
+		}
+		return result;
 	}
 
-	[[nodiscard]] inline bool saveFile(Document doc, const char* filename) {
-		return doc->SaveFile(filename) == tinyxml2::XML_SUCCESS;
+	[[nodiscard]] inline bool saveFile(Document& doc, const wchar_t* filename) {
+		FILE* file = nullptr;
+		::_wfopen_s(&file, filename, L"w");
+		bool result = false;
+		if (file != nullptr)
+		{
+			result = doc->SaveFile(file) == tinyxml2::XML_SUCCESS;
+			std::fclose(file);
+		}
+		return result;
 	}
 
 	[[nodiscard]] inline Element firstChildElement(const Document& doc, const char* name = nullptr) {

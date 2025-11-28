@@ -2186,8 +2186,8 @@ private:
 	void feedPluginCustomizedCmds(NppXml::Node node);
 	void feedScintKeys(NppXml::Node node);
 
-	void getActions(NppXml::Node node, Macro & macro);
-	bool getShortcuts(NppXml::Node node, Shortcut & sc, std::string* folderName = nullptr);
+	void getActions(NppXml::Node node, Macro& macro);
+	bool getShortcuts(NppXml::Node node, Shortcut& sc, std::string* folderName = nullptr);
 	bool getInternalCommandShortcuts(NppXml::Node node, CommandShortcut& cs, std::string* folderName = nullptr);
 
 	void writeStyle2Element(const Style & style2Write, Style & style2Sync, TiXmlElement *element);

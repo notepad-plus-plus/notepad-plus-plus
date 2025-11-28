@@ -2061,7 +2061,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 					UniMode uniMode = unicodeConvertor->getEncoding();
 
 					if (hasBOM || // uniUTF8, uni16BE, uni16LE
-						uniMode == uni16BE_NoBOM || uniMode == uni16LE_NoBOM || uniMode == uniUTF8_NoBOM || uniMode == uni7Bit || uniMode == uniUTF8)
+						uniMode == uni16BE_NoBOM || uniMode == uni16LE_NoBOM || uniMode == uniUTF8_NoBOM || uniMode == uni7Bit)
 					{
 						if (uniMode == uni7Bit)
 							fileFormat._encoding = nppParamInst.currentSystemCodepage();

@@ -40,6 +40,10 @@ distribution.
 #  define __has_cpp_attribute(x) 0
 #endif
 
+#ifdef _MSC_VER
+#pragma warning(disable : 26457) // (void) should not be used to ignore return values, use 'std::ignore =' instead (es.48), enhancement to original source
+#endif
+
 #if defined(_MSC_VER) && (__cplusplus < 201703L) // check if c++ standard supports [[fallthrough]] to avoid C26819, enhancement to original source
 #   define TIXML_FALLTHROUGH (void(0))
 #elif (__cplusplus >= 201703L && __has_cpp_attribute(fallthrough))

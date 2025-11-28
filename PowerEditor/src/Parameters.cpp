@@ -1116,7 +1116,7 @@ bool NppParameters::reloadLang()
 	delete _pXmlNativeLangDoc;
 
 	_pXmlNativeLangDoc = new NppXml::NewDocument();
-	const bool loadOkay = NppXml::loadFile(_pXmlNativeLangDoc, wstring2string(nativeLangPath, CP_UTF8).c_str());
+	const bool loadOkay = NppXml::loadFile(_pXmlNativeLangDoc, nativeLangPath.c_str());
 	if (!loadOkay)
 	{
 		delete _pXmlNativeLangDoc;
@@ -1489,7 +1489,7 @@ bool NppParameters::load()
 	}
 
 	_pXmlNativeLangDoc = new NppXml::NewDocument();
-	loadOkay = NppXml::loadFile(_pXmlNativeLangDoc, wstring2string(nativeLangPath, CP_UTF8).c_str());
+	loadOkay = NppXml::loadFile(_pXmlNativeLangDoc, nativeLangPath.c_str());
 	if (!loadOkay)
 	{
 		delete _pXmlNativeLangDoc;
@@ -1534,7 +1534,7 @@ bool NppParameters::load()
 	}
 
 	_pXmlShortcutDoc = new NppXml::NewDocument();
-	loadOkay = NppXml::loadFile(_pXmlShortcutDoc, wstring2string(_shortcutsPath, CP_UTF8).c_str());
+	loadOkay = NppXml::loadFile(_pXmlShortcutDoc, _shortcutsPath.c_str());
 	if (!loadOkay)
 	{
 		delete _pXmlShortcutDoc;
@@ -1567,7 +1567,7 @@ bool NppParameters::load()
 	}
 
 	_pXmlContextMenuDoc = new NppXml::NewDocument();
-	loadOkay = NppXml::loadFile(_pXmlContextMenuDoc, wstring2string(_contextMenuPath, CP_UTF8).c_str());
+	loadOkay = NppXml::loadFile(_pXmlContextMenuDoc, _contextMenuPath.c_str());
 	if (!loadOkay)
 	{
 		delete _pXmlContextMenuDoc;
@@ -1582,7 +1582,7 @@ bool NppParameters::load()
 	pathAppend(_tabContextMenuPath, L"tabContextMenu.xml");
 
 	_pXmlTabContextMenuDoc = new NppXml::NewDocument();
-	loadOkay = NppXml::loadFile(_pXmlTabContextMenuDoc, wstring2string(_tabContextMenuPath, CP_UTF8).c_str());
+	loadOkay = NppXml::loadFile(_pXmlTabContextMenuDoc, _tabContextMenuPath.c_str());
 	if (!loadOkay)
 	{
 		delete _pXmlTabContextMenuDoc;
@@ -3361,7 +3361,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring & 
 	pathAppend(cloudShortcutsPath, SHORTCUTSXML_FILENAME);
 	if (!doesFileExist(cloudShortcutsPath.c_str()) && _pXmlShortcutDoc)
 	{
-		isOK = NppXml::saveFile(_pXmlShortcutDoc, wstring2string(cloudShortcutsPath, CP_UTF8).c_str());
+		isOK = NppXml::saveFile(_pXmlShortcutDoc, cloudShortcutsPath.c_str());
 		if (!isOK)
 			return false;
 	}
@@ -3371,7 +3371,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring & 
 	pathAppend(cloudContextMenuPath, L"contextMenu.xml");
 	if (!doesFileExist(cloudContextMenuPath.c_str()) && _pXmlContextMenuDoc)
 	{
-		isOK = NppXml::saveFile(_pXmlContextMenuDoc, wstring2string(cloudContextMenuPath, CP_UTF8).c_str());
+		isOK = NppXml::saveFile(_pXmlContextMenuDoc, cloudContextMenuPath.c_str());
 		if (!isOK)
 			return false;
 	}
@@ -3381,7 +3381,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring & 
 	pathAppend(cloudNativeLangPath, L"nativeLang.xml");
 	if (!doesFileExist(cloudNativeLangPath.c_str()) && _pXmlNativeLangDoc != nullptr)
 	{
-		isOK = NppXml::saveFile(_pXmlNativeLangDoc, wstring2string(cloudNativeLangPath, CP_UTF8).c_str());
+		isOK = NppXml::saveFile(_pXmlNativeLangDoc, cloudNativeLangPath.c_str());
 		if (!isOK)
 			return false;
 	}
@@ -3894,7 +3894,7 @@ void NppParameters::writeShortcuts()
 	{
 		insertScintKey(scitillaKeyRoot, _scintillaKeyCommands[_scintillaModifiedKeyIndices[i]]);
 	}
-	static_cast<void>(NppXml::saveFile(_pXmlShortcutDoc, wstring2string(_shortcutsPath, CP_UTF8).c_str()));
+	static_cast<void>(NppXml::saveFile(_pXmlShortcutDoc, _shortcutsPath.c_str()));
 }
 
 

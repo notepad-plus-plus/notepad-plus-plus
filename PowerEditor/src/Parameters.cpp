@@ -1238,10 +1238,14 @@ bool NppParameters::load()
 	if (_isCloud)
 	{
 		// Read cloud choice
-		std::string cloudChoiceStr = getFileContent(cloudChoicePath.c_str());
-		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-		std::wstring cloudChoiceStrW = wmc.char2wchar(cloudChoiceStr.c_str(), SC_CP_UTF8);
-
+		std::wstring cloudChoiceStrW = L"";
+		bool bLoadingFailed = false;
+		std::string cloudChoiceStr = getFileContent(cloudChoicePath.c_str(), &bLoadingFailed);
+		if (!bLoadingFailed)
+		{
+			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+			cloudChoiceStrW = wmc.char2wchar(cloudChoiceStr.c_str(), SC_CP_UTF8);
+		}
 		if (!cloudChoiceStrW.empty() && doesDirectoryExist(cloudChoiceStrW.c_str()))
 		{
 			_userPath = cloudChoiceStrW;

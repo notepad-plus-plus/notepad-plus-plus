@@ -102,6 +102,8 @@ public:
 
 protected:
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
+
+	HFONT hCmdLineEditFont = nullptr;
 };
 
 class DoSaveOrNotBox : public StaticDialog

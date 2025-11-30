@@ -148,7 +148,10 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 							}
 							else
 							{
-								std::string content = getFileContent(it.c_str());
+								bool bLoadingFailed = false;
+								std::string content = getFileContent(it.c_str(), &bLoadingFailed);
+								if (bLoadingFailed)
+									return FALSE;
 
 								uint8_t hash[HASH_MAX_LENGTH]{};
 								wchar_t hashStr[HASH_STR_MAX_LENGTH]{};

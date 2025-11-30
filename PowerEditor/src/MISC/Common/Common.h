@@ -56,7 +56,7 @@ std::string wstring2string(const std::wstring & rwString, UINT codepage);
 bool isInList(const wchar_t *token, const wchar_t *list);
 std::wstring BuildMenuFileName(int filenameLen, unsigned int pos, const std::wstring &filename, bool ordinalNumber = true);
 
-std::string getFileContent(const wchar_t *file2read);
+std::string getFileContent(const wchar_t* file2read, bool* pbFailed = nullptr);
 std::wstring relativeFilePathToFullFilePath(const wchar_t *relativeFilePath);
 void writeFileContent(const wchar_t *file2write, const char *content2write);
 bool matchInList(const wchar_t *fileName, const std::vector<std::wstring> & patterns);

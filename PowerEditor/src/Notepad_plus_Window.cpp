@@ -376,24 +376,28 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 		{
 			if (doesFileExist(cmdLineParams->_easterEggName.c_str()))
 			{
-				std::string content = getFileContent(cmdLineParams->_easterEggName.c_str());
-				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-				_userQuote = wmc.char2wchar(content.c_str(), SC_CP_UTF8);
-				if (!_userQuote.empty())
+				bool bLoadingFailed = false;
+				std::string content = getFileContent(cmdLineParams->_easterEggName.c_str(), &bLoadingFailed);
+				if (!bLoadingFailed)
 				{
-					_quoteParams.reset();
-					_quoteParams._quote = _userQuote.c_str();
-					_quoteParams._quoter = L"Anonymous #999";
-					_quoteParams._shouldBeTrolling = false;
-					_quoteParams._lang = cmdLineParams->_langType;
-					if (cmdLineParams->_ghostTypingSpeed == 1)
-						_quoteParams._speed = QuoteParams::slow;
-					else if (cmdLineParams->_ghostTypingSpeed == 2)
-						_quoteParams._speed = QuoteParams::rapid;
-					else if (cmdLineParams->_ghostTypingSpeed == 3)
-						_quoteParams._speed = QuoteParams::speedOfLight;
+					WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+					_userQuote = wmc.char2wchar(content.c_str(), SC_CP_UTF8);
+					if (!_userQuote.empty())
+					{
+						_quoteParams.reset();
+						_quoteParams._quote = _userQuote.c_str();
+						_quoteParams._quoter = L"Anonymous #999";
+						_quoteParams._shouldBeTrolling = false;
+						_quoteParams._lang = cmdLineParams->_langType;
+						if (cmdLineParams->_ghostTypingSpeed == 1)
+							_quoteParams._speed = QuoteParams::slow;
+						else if (cmdLineParams->_ghostTypingSpeed == 2)
+							_quoteParams._speed = QuoteParams::rapid;
+						else if (cmdLineParams->_ghostTypingSpeed == 3)
+							_quoteParams._speed = QuoteParams::speedOfLight;
 
-					_notepad_plus_plus_core.showQuote(&_quoteParams);
+						_notepad_plus_plus_core.showQuote(&_quoteParams);
+					}
 				}
 			}
 		}

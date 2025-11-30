@@ -72,7 +72,11 @@ bool SecurityGuard::checkSha256(const std::wstring& filePath, NppModule module2c
 		return true;
 	*/
 
-	std::string content = getFileContent(filePath.c_str());
+	bool bLoadingFailed = false;
+	std::string content = getFileContent(filePath.c_str(), &bLoadingFailed);
+	if (bLoadingFailed)
+		return false;
+
 	uint8_t sha2hash[32];
 	calc_sha_256(sha2hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());
 

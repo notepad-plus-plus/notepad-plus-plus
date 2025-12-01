@@ -260,7 +260,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_SEARCH_DELETEUNMARKEDLINES,               false, false, false, nullptr },
 	{ VK_NULL,    IDM_SEARCH_INVERSEMARKS,                      false, false, false, nullptr },
 	{ VK_NULL,    IDM_SEARCH_FINDCHARINRANGE,                   false, false, false, nullptr },
-				 
+
 	{ VK_NULL,    IDM_VIEW_ALWAYSONTOP,                         false, false, false, nullptr },
 	{ VK_F11,     IDM_VIEW_FULLSCREENTOGGLE,                    false, false, false, nullptr },
 	{ VK_F12,     IDM_VIEW_POSTIT,                              false, false, false, nullptr },
@@ -669,7 +669,7 @@ void cutString(const wchar_t* str2cut, vector<std::wstring>& patternVect)
 			if (pBegin != pEnd)
 				patternVect.emplace_back(pBegin, pEnd);
 			pBegin = pEnd + 1;
-		
+
 		}
 		++pEnd;
 	}
@@ -1357,7 +1357,7 @@ bool NppParameters::load()
 
 	_pXmlUserDoc = new TiXmlDocument(configPath);
 	loadOkay = _pXmlUserDoc->LoadFile();
-	
+
 	if (!loadOkay)
 	{
 		TiXmlDeclaration* decl = new TiXmlDeclaration(L"1.0", L"UTF-8", L"");
@@ -1605,7 +1605,7 @@ bool NppParameters::load()
 		{
 			loadOkay = getSessionFromXmlTree(pXmlSessionDoc, _session);
 		}
-		
+
 		if (!loadOkay)
 		{
 			wstring sessionInCaseOfCorruption_bak = _sessionPath;
@@ -1714,7 +1714,7 @@ void NppParameters::destroyInstance()
 	delete _pXmlDoc;
 	delete _pXmlUserDoc;
 	delete _pXmlUserStylerDoc;
-	
+
 	//delete _pXmlUserLangDoc; will be deleted in the vector
 	for (const auto& l : _pXmlUserLangsDoc)
 	{
@@ -1950,9 +1950,9 @@ bool NppParameters::getUserStylersFromXmlTree()
 void NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 {
 	// Determine conf-specific information first
-	std::wstring modelXmlFilename = L"";
+	std::wstring modelXmlFilename;
 	TiXmlDocument* pXmlDocument = nullptr;
-	std::wstring mainElementName = L"";
+	std::wstring mainElementName;
 	switch (whichConf)
 	{
 		case ConfXml::lang:
@@ -2002,7 +2002,7 @@ void NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 	std::string md5digest_model = md5.digestFile(sModelPath.c_str());
 	std::wstring wsDigest = string2wstring(md5digest_model, CP_UTF8);
 
-	std::string sUserText{};
+	std::string sUserText;
 	pXmlDocument->Print(sUserText);
 	std::string md5digest_user_text_before = md5.digestString(sUserText.c_str());
 
@@ -2021,7 +2021,7 @@ void NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 	peRootUser->SetAttribute(L"modelMD5", wsDigest.c_str());
 
 	// get the main internal <Languages> element from both user and model
-	
+
 	TiXmlElement* mainElemUser = rootUser->FirstChildElement(mainElementName);
 	TiXmlElement* mainElemModel = rootModel->FirstChildElement(mainElementName);
 	if (!mainElemUser || !mainElemModel)
@@ -2071,8 +2071,6 @@ void NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 
 void NppParameters::updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* mainElemModel)
 {
-	// pryrt TODO: replicate the core of updateKeyWordsFromModelXml to here
-
 	// map each of the user-file's languages -> element-pointer, to keep track of the languages already in the user-file
 	std::map<std::wstring, TiXmlElement*> mapUserLanguages{};
 	for (TiXmlElement* langFromUser = mainElemUser->FirstChildElement(L"Language");
@@ -2228,8 +2226,6 @@ void NppParameters::updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* main
 
 void NppParameters::updateStylesXml(TiXmlElement* rootUser, TiXmlElement* rootModel, TiXmlElement* mainElemUser, TiXmlElement* mainElemModel)
 {
-	// pryrt TODO: replicate the core of updateUserStylersFromModelXml to here
-
 	// map UserStyler's lexer name -> element-pointer
 	std::map<std::wstring, TiXmlElement*> mapUserLexers{};
 	for (TiXmlElement* lexerFromUser = mainElemUser->FirstChildElement(L"LexerType");
@@ -2755,7 +2751,7 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session& s
 {
 	if (!pSessionDoc)
 		return false;
-	
+
 	TiXmlNode *root = pSessionDoc->FirstChild(L"NotepadPlus");
 	if (!root)
 		return false;
@@ -2861,7 +2857,7 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session& s
 					const wchar_t *encStr = (childNode->ToElement())->Attribute(L"encoding", &encoding);
 
 					const wchar_t *pBackupFilePath = (childNode->ToElement())->Attribute(L"backupFilePath");
-					std::wstring currentBackupFilePath = NppParameters::getInstance().getUserPath() + L"\\backup\\"; 
+					std::wstring currentBackupFilePath = NppParameters::getInstance().getUserPath() + L"\\backup\\";
 					if (pBackupFilePath)
 					{
 						std::wstring backupFilePath = pBackupFilePath;
@@ -3510,7 +3506,7 @@ bool NppParameters::getInternalCommandShortcuts(TiXmlNodeA *node, CommandShortcu
 		if (cs.getNth() != nth)
 			return false;
 	}
-		
+
 	if (folderName)
 	{
 		const char* fn = (node->ToElement())->Attribute("FolderName");
@@ -3868,7 +3864,7 @@ void NppParameters::writeDefaultUDL()
 	bool deleteAll = true;
 	for (std::pair<bool, bool> udlState : deleteState)
 	{
-		if (!udlState.first && udlState.second) // if not marked to be delete udl is (&&) in default shared container (ie. "userDefineLang.xml" file) 
+		if (!udlState.first && udlState.second) // if not marked to be delete udl is (&&) in default shared container (ie. "userDefineLang.xml" file)
 		{
 			deleteAll = false; // let's keep "userDefineLang.xml" file
 			break;
@@ -4043,7 +4039,7 @@ void NppParameters::writeSession(const Session & session, const wchar_t *fileNam
 	//
 	removeReadOnlyFlagFromFileAttributes(sessionPathName);
 
-	// 
+	//
 	// Backup session file before overriting it
 	//
 	wchar_t backupPathName[MAX_PATH]{};
@@ -4052,7 +4048,7 @@ void NppParameters::writeSession(const Session & session, const wchar_t *fileNam
 	{
 		_tcscpy(backupPathName, sessionPathName);
 		_tcscat(backupPathName, SESSION_BACKUP_EXT);
-		
+
 		// Make sure backup file is not read-only, if it exists
 		removeReadOnlyFlagFromFileAttributes(backupPathName);
 		doesBackupCopyExist = CopyFile(sessionPathName, backupPathName, FALSE);
@@ -4124,7 +4120,7 @@ void NppParameters::writeSession(const Session & session, const wchar_t *fileNam
 				if (viewSessionFiles[i]._isUntitledTabRenamed)
 					(fileNameNode->ToElement())->SetAttribute(L"untitleTabRenamed", L"yes");
 
-				// docMap 
+				// docMap
 				(fileNameNode->ToElement())->SetAttribute(L"mapFirstVisibleDisplayLine", _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._firstVisibleDisplayLine), szInt64, 10));
 				(fileNameNode->ToElement())->SetAttribute(L"mapFirstVisibleDocLine", _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._firstVisibleDocLine), szInt64, 10));
 				(fileNameNode->ToElement())->SetAttribute(L"mapLastVisibleDocLine", _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._lastVisibleDocLine), szInt64, 10));
@@ -4206,7 +4202,7 @@ void NppParameters::writeSession(const Session & session, const wchar_t *fileNam
 	}
 	/*
 	 * Keep session backup file in case of corrupted session file
-	 * 
+	 *
 	else
 	{
 		if (backupPathName[0]) // session backup file not useful, delete it
@@ -4253,7 +4249,7 @@ void NppParameters::writeShortcuts()
 
 			// Warn User about the current shortcut will be changed and it has been backup. If users' the shortcuts.xml has been corrupted
 			// due to recoded macro under v8.5.2 (or previous versions) being modified by v8.5.3 (or later versions),
-			// user can always go back to Notepad++ v8.5.2 and use the backup of shortcuts.xml 
+			// user can always go back to Notepad++ v8.5.2 and use the backup of shortcuts.xml
 			_pNativeLangSpeaker->messageBox("MacroAndRunCmdlWarning",
 				nullptr,
 				L"Your Macro and Run commands saved in Notepad++ v.8.5.2 (or older) may not be compatible with the current version of Notepad++.\nPlease test those commands and, if needed, re-edit them.\n\nAlternatively, you can downgrade to Notepad++ v8.5.2 and restore your previous data.\nNotepad++ will backup your old \"shortcuts.xml\" and save it as \"shortcuts.xml.v8.5.2.backup\".\nRenaming \"shortcuts.xml.v8.5.2.backup\" -> \"shortcuts.xml\", your commands should be restored and work properly.",
@@ -5611,7 +5607,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				}
 			}
 		}
-		else if (lstrcmp(nm, L"MaintainIndent") == 0 || 
+		else if (lstrcmp(nm, L"MaintainIndent") == 0 ||
 			lstrcmp(nm, L"MaitainIndent") == 0) // typo - kept for the compatibility reason
 		{
 			TiXmlNode *n = childNode->FirstChild();
@@ -6407,7 +6403,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				if (val)
 				{
 					// for backward compatibility with older configs
-					_nppGUI._autoUpdateOpt._doAutoUpdate = (!lstrcmp(val, L"yes")) ? 
+					_nppGUI._autoUpdateOpt._doAutoUpdate = (!lstrcmp(val, L"yes")) ?
 						NppGUI::AutoUpdateMode::autoupdate_disabled : NppGUI::AutoUpdateMode::autoupdate_on_startup;
 				}
 
@@ -6602,7 +6598,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 
 			//This is an option from previous versions of notepad++.  It is handled for compatibility with older settings.
 			const wchar_t* optStopFillingFindField = element->Attribute(L"stopFillingFindField");
-			if (optStopFillingFindField) 
+			if (optStopFillingFindField)
 			{
 				_nppGUI._fillFindFieldWithSelected = (lstrcmp(optStopFillingFindField, L"no") == 0);
 				_nppGUI._fillFindFieldSelectCaret = _nppGUI._fillFindFieldWithSelected;
@@ -6661,7 +6657,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			const wchar_t * optName = element->Attribute(L"fileSwitcherWithoutExtColumn");
 			if (optName)
 				_nppGUI._fileSwitcherWithoutExtColumn = (lstrcmp(optName, L"yes") == 0);
-			
+
 			int i = 0;
 			if (element->Attribute(L"fileSwitcherExtWidth", &i))
 				_nppGUI._fileSwitcherExtWidth = i;
@@ -7493,7 +7489,7 @@ void NppParameters::duplicateDockingManager(TiXmlNode* dockMngNode, TiXmlElement
 	if (!dockMngNode || !dockMngElmt2Clone) return;
 
 	TiXmlElement *dockMngElmt = dockMngNode->ToElement();
-	
+
 	int i;
 	if (dockMngElmt->Attribute(L"leftWidth", &i))
 		dockMngElmt2Clone->SetAttribute(L"leftWidth", i);
@@ -7529,10 +7525,10 @@ void NppParameters::duplicateDockingManager(TiXmlNode* dockMngNode, TiXmlElement
 
 			floatElement->Attribute(L"y", &y);
 			FWNode.SetAttribute(L"y", y);
-			
+
 			floatElement->Attribute(L"width", &w);
 			FWNode.SetAttribute(L"width", w);
-			
+
 			floatElement->Attribute(L"height", &h);
 			FWNode.SetAttribute(L"height", h);
 
@@ -7639,7 +7635,7 @@ bool NppParameters::writeScintillaParams()
 										(_svp._folderStyle == FOLDER_STYLE_NONE) ? L"none" : L"box";
 
 	(scintNode->ToElement())->SetAttribute(L"folderMarkStyle", pFolderStyleStr);
-	
+
 	(scintNode->ToElement())->SetAttribute(L"isChangeHistoryEnabled", _svp._isChangeHistoryEnabled4NextSession); // no -> 0 (disable), yes -> 1 (margin), yes ->2 (indicator), yes-> 3 (margin + indicator)
 
 	const wchar_t *pWrapMethodStr = (_svp._lineWrapMethod == LINEWRAP_ALIGNED) ? L"aligned" :
@@ -7925,7 +7921,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		element->SetAttribute(L"autoUpdateMode", _nppGUI._autoUpdateOpt._doAutoUpdate);
 	}
 
-	// <GUIConfig name="Auto-detection">yes</GUIConfig>	
+	// <GUIConfig name="Auto-detection">yes</GUIConfig>
 	{
 		const wchar_t *pStr = L"no";
 
@@ -8014,7 +8010,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 	{
 		insertGUIConfigBoolNode(newGUIRoot, L"DetectEncoding", _nppGUI._detectEncoding);
 	}
-	
+
 	// <GUIConfig name = "SaveAllConfirm">yes< / GUIConfig>
 	{
 		insertGUIConfigBoolNode(newGUIRoot, L"SaveAllConfirm", _nppGUI._saveAllConfirm);
@@ -8876,22 +8872,22 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 
 		case L_HOLLYWOOD:
 			id = IDM_LANG_HOLLYWOOD; break;
-			
+
 		case L_GOLANG:
 			id = IDM_LANG_GOLANG; break;
-			
+
 		case L_RAKU:
 			id = IDM_LANG_RAKU; break;
 
 		case L_TOML:
 			id = IDM_LANG_TOML; break;
-			
+
 		case L_SAS:
 			id = IDM_LANG_SAS; break;
-			
+
 		case L_ERRORLIST:
 			id = IDM_LANG_ERRORLIST; break;
-			
+
 		case L_SEARCHRESULT :
 			id = -1;	break;
 

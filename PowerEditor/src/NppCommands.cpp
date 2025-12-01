@@ -3652,11 +3652,28 @@ void Notepad_plus::command(int id)
 							param += L" -parm64";
 						}
 
-						param += L" -i";
+						param += L" -infoUrl=";
 						param += INFO_URL;
 
-						param += L" -d";
+						param += L" -forceDomain=";
 						param += FORCED_DOWNLOAD_DOMAIN;
+
+						// Verify the code signing certificate and signature of the downloaded installer
+						SecurityGuard sgd;
+						param += L" -chkCertSig=yes";
+
+						param += L" -chkCertRevoc";
+						param += L" -chkCertTrustChain";
+
+						param += L" -chkCertName=";
+						param += sgd.signer_display_name();
+
+						param += L" -chkCertSubject=\"";
+						param += stringReplace(sgd.signer_subject(), L"\"", L"&QUOT;");
+						param += L"\"";
+
+						param += L" -chkCertAuthorityKeyId=";
+						param += sgd.authority_key_id();
 					}
 					Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
 

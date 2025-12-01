@@ -399,11 +399,28 @@ bool launchUpdater(const std::wstring& updaterFullPath, const std::wstring& upda
 		updaterParams += L" -parm64";
 	}
 
-	updaterParams += L" -i";
+	updaterParams += L" -infoUrl=";
 	updaterParams += INFO_URL;
 
-	updaterParams += L" -d";
+	updaterParams += L" -forceDomain=";
 	updaterParams += FORCED_DOWNLOAD_DOMAIN;
+
+	// Verify the code signing certificate and signature of the downloaded installer
+	SecurityGuard sgd;
+	updaterParams += L" -chkCertSig=yes";
+
+	updaterParams += L" -chkCertRevoc";
+	updaterParams += L" -chkCertTrustChain";
+
+	updaterParams += L" -chkCertName=";
+	updaterParams += sgd.signer_display_name();
+
+	updaterParams += L" -chkCertSubject=\"";
+	updaterParams += stringReplace(sgd.signer_subject(), L"\"", L"&QUOT;");
+	updaterParams += L"\"";
+
+	updaterParams += L" -chkCertAuthorityKeyId=";
+	updaterParams += sgd.authority_key_id();
 
 	Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
 	updater.run();

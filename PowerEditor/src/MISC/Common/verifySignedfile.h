@@ -55,7 +55,14 @@ class SecurityGuard final
 {
 public:
 	SecurityGuard();
+
 	bool checkModule(const std::wstring& filePath, NppModule module2check);
+
+	std::wstring signer_display_name() { return _signer_display_name; }
+	std::wstring signer_subject() { return _signer_subject; }
+	std::wstring signer_key_id() { return _signer_key_id; }
+	std::wstring authority_key_id() { return _authority_key_id; }
+
 
 private:
 	// SHA256
@@ -69,10 +76,11 @@ private:
 	std::wstring _signer_display_name = L"Notepad++";
 	std::wstring _signer_subject = L"C=FR, S=Ile-de-France, L=Saint Cloud, O=\"Notepad++\", CN=\"Notepad++\", E=don.h@free.fr";
 	std::wstring _signer_key_id = L"7B4D26B77F8269B987AC3E8EBC3899E1A4176DFA"; //=> Should be UPPERCASE
+	std::wstring _authority_key_id = L"8BDE0FA542DB39D347AF06A83AC9D09D421D1366"; //=> Should be UPPERCASE
 
 	bool _doCheckRevocation = false;
 	bool _doCheckChainOfTrust = false;
 
-	bool verifySignedLibrary(const std::wstring& filepath);
+	bool verifySignedBinary(const std::wstring& filepath);
 };
 

@@ -49,7 +49,7 @@ bool SecurityGuard::checkModule([[maybe_unused]] const std::wstring& filePath, [
 {
 #ifndef _DEBUG
 	if (_securityMode == sm_certif)
-		return verifySignedLibrary(filePath);
+		return verifySignedBinary(filePath);
 	else if (_securityMode == sm_sha256)
 		return checkSha256(filePath, module2check);
 	else
@@ -105,7 +105,7 @@ bool SecurityGuard::checkSha256(const std::wstring& filePath, NppModule module2c
 // Debug use
 bool doLogCertifError = false;
 
-bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
+bool SecurityGuard::verifySignedBinary(const std::wstring& filepath)
 {
 	wstring display_name;
 	wstring key_id_hex;

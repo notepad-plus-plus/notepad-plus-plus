@@ -5,7 +5,7 @@ Updated to :
 - little fixes
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.8.5">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.8.8">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -182,6 +182,8 @@ Updated to :
 					<Item id="42081" name="Сорт. по убыванию алфавита игнор. Регистр"/>
 					<Item id="42100" name="Сорт. по возрастанию в Локальном порядке"/>
 					<Item id="42101" name="Сорт. по убыванию в Локальном порядке"/>
+					<Item id="42104" name="Сорт. по возрастанию длины строк"/>
+					<Item id="42105" name="Сорт. по убыванию длины строк"/>
 					<Item id="42061" name="Сорт. по возрастанию целых чисел"/>
 					<Item id="42062" name="Сорт. по убыванию целых чисел"/>
 					<Item id="42063" name="Сорт. по возрастанию десятичных чисел  (Запятая)"/>

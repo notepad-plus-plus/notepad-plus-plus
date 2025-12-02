@@ -52,24 +52,27 @@ wstring commafyInt(size_t n)
 
 std::string getFileContent(const wchar_t* file2read, bool* pbFailed)
 {
-	if (pbFailed) *pbFailed = false; // reset
+	if (pbFailed)
+		*pbFailed = false; // reset
 
 	if (!doesFileExist(file2read))
 	{
-		if (pbFailed) *pbFailed = true;
+		if (pbFailed)
+			*pbFailed = true;
 		return "";
 	}
 
 	FILE* fp = _wfopen(file2read, L"rb");
 	if (!fp)
 	{
-		if (pbFailed) *pbFailed = true;
+		if (pbFailed)
+			*pbFailed = true;
 		return "";
 	}
 	
 	static constexpr size_t blockSize = 1024 * 4; // 4K is optimal chunk for memory, cache, disk or network
 	char data[blockSize];
-	std::string wholeFileContent = "";
+	std::string wholeFileContent;
 	size_t lenFile = 0;
 	try
 	{
@@ -82,14 +85,16 @@ std::string getFileContent(const wchar_t* file2read, bool* pbFailed)
 	}
 	catch ([[maybe_unused]] const std::bad_alloc& ex)
 	{
-		if (pbFailed) *pbFailed = true;
+		if (pbFailed)
+			*pbFailed = true;
 		std::string().swap(wholeFileContent); // to immediately release all the allocated memory
 		::MessageBoxW(NULL, L"std::bad_alloc exception caught!\n\nProbably not enough contiguous memory to complete the operation.",
 			L"Notepad++ - getFileContent", MB_OK | MB_ICONWARNING | MB_APPLMODAL);
 	}
 	catch (...)
 	{
-		if (pbFailed) *pbFailed = true;
+		if (pbFailed)
+			*pbFailed = true;
 		std::string().swap(wholeFileContent); // to immediately release all the allocated memory
 	}
 

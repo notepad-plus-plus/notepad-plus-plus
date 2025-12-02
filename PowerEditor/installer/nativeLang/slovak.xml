@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.8.7">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.8.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -138,6 +138,8 @@
 					<Item id="42081" name="Usporiadať riadky zostupne (nerozlišovať veľkosť písma)"/>
 					<Item id="42100" name="Usporiadať riadky vzostupne podľa abecedy"/>
 					<Item id="42101" name="Usporiadať riadky zostupne podľa abecedy"/>
+					<Item id="42104" name="Usporiadať riadky vzostupne podľa dĺžky"/>
+					<Item id="42105" name="Usporiadať riadky zostupne podľa dĺžky"/>
 					<Item id="42061" name="Usporiadať riadky ako celé čísla vzostupne"/>
 					<Item id="42062" name="Usporiadať riadky ako celé čísla zostupne"/>
 					<Item id="42063" name="Usporiadať riadky ako desatinné čísla (s čiarkou) vzostupne"/>

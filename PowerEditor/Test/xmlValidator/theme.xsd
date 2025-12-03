@@ -97,6 +97,7 @@
           </xs:unique>
         </xs:element>
       </xs:sequence>
+      <xs:attribute name="modelDate" type="xs:integer" use="optional"/>
     </xs:complexType>
   </xs:element>
 </xs:schema>

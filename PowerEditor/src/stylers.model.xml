@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<NotepadPlus>
+<NotepadPlus modelDate="20251203">
     <LexerStyles>
         <LexerType name="actionscript" desc="ActionScript" ext="">
             <WordsStyle name="DEFAULT" styleID="11" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />

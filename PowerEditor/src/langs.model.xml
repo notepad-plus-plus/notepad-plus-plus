@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<NotepadPlus>
+<NotepadPlus modelDate="20251203">
    <!-- The keywords of the supported languages, don't touch them! -->
    <!-- For languages like C/C++ substyle1..8 entries, you may enter your own keywords in those entries,
         to have them show up in the "Default keywords" list shown in the Style Configurator -->

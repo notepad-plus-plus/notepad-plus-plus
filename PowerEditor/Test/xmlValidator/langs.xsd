@@ -2,7 +2,6 @@
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="NotepadPlus">
     <xs:complexType>
-      <xs:attribute name="modelDate" type="xs:integer" use="optional"/>
       <xs:sequence>
         <xs:element name="Languages">
           <xs:complexType>
@@ -55,6 +54,7 @@
           </xs:complexType>
         </xs:element>
       </xs:sequence>
+      <xs:attribute name="modelDate" type="xs:integer" use="optional"/>
     </xs:complexType>
   </xs:element>
 </xs:schema>

@@ -139,6 +139,8 @@ Translation note:
 					<Item id="42081" name="Ordenar linhas por ordem lexicográfica descendente (ignorar maiúsculas/minúsculas)"/>
 					<Item id="42100" name="Ordenar linhas por ordem local (ascendente)"/>
 					<Item id="42101" name="Ordenar linhas por ordem local (descendente)"/>
+					<Item id="42104" name="Ordenar linhas por comprimento ascendente"/>
+					<Item id="42105" name="Ordenar linhas por comprimento descendente"/>
 					<Item id="42061" name="Ordenar linhas por ordem numérica inteira ascendente"/>
 					<Item id="42062" name="Ordenar linhas por ordem numérica inteira descendente"/>
 					<Item id="42063" name="Ordenar linhas por ordem decimal (vírgula) ascendente"/>
@@ -182,7 +184,7 @@ Translation note:
 					<Item id="42045" name="Remover espaços em branco e fins de linha para espaços"/>
 					<Item id="42046" name="TAB para Espaço"/>
 					<Item id="42054" name="Espaço para TAB (Tudo)"/>
-					<Item id="42053" name="Espaço para TAB (Leading)"/>
+					<Item id="42053" name="Espaço para TAB (No início)"/>
 					<Item id="42038" name="Colar conteúdo HTML"/>
 					<Item id="42039" name="Colar conteúdo RTF"/>
 					<Item id="42048" name="Copiar conteúdo binário"/>
@@ -250,20 +252,20 @@ Translation note:
 					<Item id="43035" name="3.º Estilo"/>
 					<Item id="43036" name="4.º Estilo"/>
 					<Item id="43037" name="5.º Estilo"/>
-					<Item id="43038" name="Estilo da pesquisa"/>
+					<Item id="43038" name="Estilo de marcação"/>
 					<Item id="43039" name="1.º Estilo"/>
 					<Item id="43040" name="2.º Estilo"/>
 					<Item id="43041" name="3.º Estilo"/>
 					<Item id="43042" name="4.º Estilo"/>
 					<Item id="43043" name="5.º Estilo"/>
-					<Item id="43044" name="Estilo da pesquisa"/>
+					<Item id="43044" name="Estilo de marcação"/>
 					<Item id="43055" name="1.º Estilo"/>
 					<Item id="43056" name="2.º Estilo"/>
 					<Item id="43057" name="3.º Estilo"/>
 					<Item id="43058" name="4.º Estilo"/>
 					<Item id="43059" name="5.º Estilo"/>
 					<Item id="43060" name="Todos os estilos"/>
-					<Item id="43061" name="Estilo da pesquisa (marcado)"/>
+					<Item id="43061" name="Estilo de marcação"/>
 					<Item id="43062" name="Usar 1.º Estilo"/>
 					<Item id="43063" name="Usar 2.º Estilo"/>
 					<Item id="43064" name="Usar 3.º Estilo"/>
@@ -673,97 +675,97 @@ Translation note:
 				<DeleteContextMenu name="Eliminar"/>
 				<ClearContextMenu name="Limpar"/>
 				<MainCommandNames>
-					<Item id="41019" name="Abrir a pasta de conteúdo no Explorador"/>
-					<Item id="41020" name="Abrir a pasta de conteúdo na Linha de comandos"/>
-					<Item id="41021" name="Restaurar ficheiro fechado recentemente"/>
-					<Item id="45001" name="Converter EOL para Windows (CR LF)"/>
-					<Item id="45002" name="Converter EOL para Unix (LF)"/>
-					<Item id="45003" name="Converter EOL para Macintosh (CR)"/>
-					<Item id="43022" name="Marcar tudo utilizando o 1.º Estilo"/>
-					<Item id="43024" name="Marcar tudo utilizando o 2.º Estilo"/>
-					<Item id="43026" name="Marcar tudo utilizando o 3.º Estilo"/>
-					<Item id="43028" name="Marcar tudo utilizando o 4.º Estilo"/>
-					<Item id="43030" name="Marcar tudo utilizando o 5.º Estilo"/>
-					<Item id="43062" name="Marcar um utilizando o 1.º Estilo"/>
-					<Item id="43063" name="Marcar um utilizando o 2.º Estilo"/>
-					<Item id="43064" name="Marcar um utilizando o 3.º Estilo"/>
-					<Item id="43065" name="Marcar um utilizando o 4.º Estilo"/>
-					<Item id="43066" name="Marcar um utilizando o 5.º Estilo"/>
-					<Item id="43023" name="Limpar marcações utilizando o 1.º Estilo"/>
-					<Item id="43025" name="Limpar marcações utilizando o 2.º Estilo"/>
-					<Item id="43027" name="Limpar marcações utilizando o 3.º Estilo"/>
-					<Item id="43029" name="Limpar marcações utilizando o 4.º Estilo"/>
-					<Item id="43031" name="Limpar marcações utilizando o 5.º Estilo"/>
-					<Item id="43032" name="Limpar marcações utilizando qualquer estilo"/>
-					<Item id="43033" name="Marca anterior utilizando o 1.º Estilo"/>
-					<Item id="43034" name="Marca anterior utilizando o 2.º Estilo"/>
-					<Item id="43035" name="Marca anterior utilizando o 3.º Estilo"/>
-					<Item id="43036" name="Marca anterior utilizando o 4.º Estilo"/>
-					<Item id="43037" name="Marca anterior utilizando o 5.º Estilo"/>
-					<Item id="43038" name="Marca anterior criada com marcação"/>
-					<Item id="43039" name="Marca seguinte utilizando o 1.º Estilo"/>
-					<Item id="43040" name="Marca seguinte utilizando o 2.º Estilo"/>
-					<Item id="43041" name="Marca seguinte utilizando o 3.º Estilo"/>
-					<Item id="43042" name="Marca seguinte utilizando o 4.º Estilo"/>
-					<Item id="43043" name="Marca seguinte utilizando o 5.º Estilo"/>
-					<Item id="43044" name="Marca seguinte criada com marcação"/>
-					<Item id="43055" name="Copiar texto estilizado - 1.º Estilo"/>
-					<Item id="43056" name="Copiar texto estilizado - 2.º Estilo"/>
-					<Item id="43057" name="Copiar texto estilizado - 3.º Estilo"/>
-					<Item id="43058" name="Copiar texto estilizado - 4.º Estilo"/>
-					<Item id="43059" name="Copiar texto estilizado - 5.º Estilo"/>
-					<Item id="43060" name="Copiar texto estilizado - todos os estilos"/>
-					<Item id="43061" name="Copiar texto estilizado - localizar estilo (marcado)"/>
-					<Item id="44100" name="Ver ficheiro atual no Firefox"/>
-					<Item id="44101" name="Ver ficheiro atual no Chrome"/>
-					<Item id="44103" name="Ver ficheiro atual no IE"/>
-					<Item id="44102" name="Ver ficheiro atual no Edge"/>
-					<Item id="50003" name="Mudar para documento anterior"/>
-					<Item id="50004" name="Mudar para documento seguinte"/>
-					<Item id="44051" name="Recolher nível 1"/>
-					<Item id="44052" name="Recolher nível 2"/>
-					<Item id="44053" name="Recolher nível 3"/>
-					<Item id="44054" name="Recolher nível 4"/>
-					<Item id="44055" name="Recolher nível 5"/>
-					<Item id="44056" name="Recolher nível 6"/>
-					<Item id="44057" name="Recolher nível 7"/>
-					<Item id="44058" name="Recolher nível 8"/>
-					<Item id="44061" name="Expandir nível 1"/>
-					<Item id="44062" name="Expandir nível 2"/>
-					<Item id="44063" name="Expandir nível 3"/>
-					<Item id="44064" name="Expandir nível 4"/>
-					<Item id="44065" name="Expandir nível 5"/>
-					<Item id="44066" name="Expandir nível 6"/>
-					<Item id="44067" name="Expandir nível 7"/>
-					<Item id="44068" name="Expandir nível 8"/>
-					<Item id="44081" name="Alternar Painel do projeto 1"/>
-					<Item id="44082" name="Alternar Painel do projeto 2"/>
-					<Item id="44083" name="Alternar Painel do projeto 3"/>
-					<Item id="44085" name="Alternar pasta como área de trabalho"/>
-					<Item id="44080" name="Alternar mapa do documento"/>
-					<Item id="44070" name="Alternar lista de documentos"/>
-					<Item id="44084" name="Alternar lista de funções"/>
-					<Item id="50005" name="Alternar gravação de macro"/>
-					<Item id="44104" name="Mudar painel do projeto 1"/>
-					<Item id="44105" name="Mudar painel do projeto 2"/>
-					<Item id="44106" name="Mudar painel do projeto 3"/>
-					<Item id="44107" name="Mudar pasta como área de trabalho"/>
-					<Item id="44109" name="Mudar para lista de documentos"/>
-					<Item id="44108" name="Mudar lista de funções"/>
-					<Item id="44110" name="Remover a cor do separador"/>
-					<Item id="44111" name="Aplicar a cor do separador 1"/>
-					<Item id="44112" name="Aplicar a cor do separador 2"/>
-					<Item id="44113" name="Aplicar a cor do separador 3"/>
-					<Item id="44114" name="Aplicar a cor do separador 4"/>
-					<Item id="44115" name="Aplicar a cor do separador 5"/>
-					<Item id="11002" name="Ordenar por nome de A a Z"/>
-					<Item id="11003" name="Ordenar por nome de Z a A"/>
-					<Item id="11004" name="Ordenar por caminho de A a Z"/>
-					<Item id="11005" name="Ordenar por caminho de Z a A"/>
-					<Item id="11006" name="Ordenar por tipo de A a Z"/>
-					<Item id="11007" name="Ordenar por tipo de Z a A"/>
-					<Item id="11008" name="Ordenar por tamanho de menor a maior"/>
-					<Item id="11009" name="Ordenar por tamanho de maior a menor"/>
+				    <Item id="41019" name="Abrir a pasta de conteúdo no Explorador"/>
+				    <Item id="41020" name="Abrir a pasta de conteúdo na Linha de comandos"/>
+				    <Item id="41021" name="Restaurar ficheiro fechado recentemente"/>
+				    <Item id="45001" name="Converter EOL para Windows (CR LF)"/>
+				    <Item id="45002" name="Converter EOL para Unix (LF)"/>
+				    <Item id="45003" name="Converter EOL para Macintosh (CR)"/>
+				    <Item id="43022" name="Marcar tudo utilizando o 1.º Estilo"/>
+				    <Item id="43024" name="Marcar tudo utilizando o 2.º Estilo"/>
+				    <Item id="43026" name="Marcar tudo utilizando o 3.º Estilo"/>
+				    <Item id="43028" name="Marcar tudo utilizando o 4.º Estilo"/>
+				    <Item id="43030" name="Marcar tudo utilizando o 5.º Estilo"/>
+				    <Item id="43062" name="Marcar um utilizando o 1.º Estilo"/>
+				    <Item id="43063" name="Marcar um utilizando o 2.º Estilo"/>
+				    <Item id="43064" name="Marcar um utilizando o 3.º Estilo"/>
+				    <Item id="43065" name="Marcar um utilizando o 4.º Estilo"/>
+				    <Item id="43066" name="Marcar um utilizando o 5.º Estilo"/>
+				    <Item id="43023" name="Limpar marcações utilizando o 1.º Estilo"/>
+				    <Item id="43025" name="Limpar marcações utilizando o 2.º Estilo"/>
+				    <Item id="43027" name="Limpar marcações utilizando o 3.º Estilo"/>
+				    <Item id="43029" name="Limpar marcações utilizando o 4.º Estilo"/>
+				    <Item id="43031" name="Limpar marcações utilizando o 5.º Estilo"/>
+				    <Item id="43032" name="Limpar marcações utilizando qualquer estilo"/>
+				    <Item id="43033" name="Marca anterior utilizando o 1.º Estilo"/>
+				    <Item id="43034" name="Marca anterior utilizando o 2.º Estilo"/>
+				    <Item id="43035" name="Marca anterior utilizando o 3.º Estilo"/>
+				    <Item id="43036" name="Marca anterior utilizando o 4.º Estilo"/>
+				    <Item id="43037" name="Marca anterior utilizando o 5.º Estilo"/>
+				    <Item id="43038" name="Marca anterior do estilo de marcação"/>
+				    <Item id="43039" name="Marca seguinte utilizando o 1.º Estilo"/>
+				    <Item id="43040" name="Marca seguinte utilizando o 2.º Estilo"/>
+				    <Item id="43041" name="Marca seguinte utilizando o 3.º Estilo"/>
+				    <Item id="43042" name="Marca seguinte utilizando o 4.º Estilo"/>
+				    <Item id="43043" name="Marca seguinte utilizando o 5.º Estilo"/>
+				    <Item id="43044" name="Marca seguinte do estilo de marcação"/>
+				    <Item id="43055" name="Copiar texto estilizado - 1.º Estilo"/>
+				    <Item id="43056" name="Copiar texto estilizado - 2.º Estilo"/>
+				    <Item id="43057" name="Copiar texto estilizado - 3.º Estilo"/>
+				    <Item id="43058" name="Copiar texto estilizado - 4.º Estilo"/>
+				    <Item id="43059" name="Copiar texto estilizado - 5.º Estilo"/>
+				    <Item id="43060" name="Copiar texto estilizado - todos os estilos"/>
+				    <Item id="43061" name="Copiar texto estilizado - estilo de marcação"/>
+				    <Item id="44100" name="Ver ficheiro atual no Firefox"/>
+				    <Item id="44101" name="Ver ficheiro atual no Chrome"/>
+				    <Item id="44103" name="Ver ficheiro atual no IE"/>
+				    <Item id="44102" name="Ver ficheiro atual no Edge"/>
+				    <Item id="50003" name="Mudar para o documento anterior"/>
+				    <Item id="50004" name="Mudar para o documento seguinte"/>
+				    <Item id="44051" name="Recolher nível 1"/>
+				    <Item id="44052" name="Recolher nível 2"/>
+				    <Item id="44053" name="Recolher nível 3"/>
+				    <Item id="44054" name="Recolher nível 4"/>
+				    <Item id="44055" name="Recolher nível 5"/>
+				    <Item id="44056" name="Recolher nível 6"/>
+				    <Item id="44057" name="Recolher nível 7"/>
+				    <Item id="44058" name="Recolher nível 8"/>
+				    <Item id="44061" name="Expandir nível 1"/>
+				    <Item id="44062" name="Expandir nível 2"/>
+				    <Item id="44063" name="Expandir nível 3"/>
+				    <Item id="44064" name="Expandir nível 4"/>
+				    <Item id="44065" name="Expandir nível 5"/>
+				    <Item id="44066" name="Expandir nível 6"/>
+				    <Item id="44067" name="Expandir nível 7"/>
+				    <Item id="44068" name="Expandir nível 8"/>
+				    <Item id="44081" name="Alternar Painel do projeto 1"/>
+				    <Item id="44082" name="Alternar Painel do projeto 2"/>
+				    <Item id="44083" name="Alternar Painel do projeto 3"/>
+				    <Item id="44085" name="Alternar 'Pasta como área de trabalho'"/>
+				    <Item id="44080" name="Alternar mapa do documento"/>
+				    <Item id="44070" name="Alternar lista de documentos"/>
+				    <Item id="44084" name="Alternar lista de funções"/>
+				    <Item id="50005" name="Alternar gravação de macro"/>
+				    <Item id="44104" name="Mudar para o Painel do projeto 1"/>
+				    <Item id="44105" name="Mudar para o Painel do projeto 2"/>
+				    <Item id="44106" name="Mudar para o Painel do projeto 3"/>
+				    <Item id="44107" name="Mudar para 'Pasta como área de trabalho'"/>
+				    <Item id="44109" name="Mudar para a lista de documentos"/>
+				    <Item id="44108" name="Mudar para a lista de funções"/>
+				    <Item id="44110" name="Remover a cor do separador"/>
+				    <Item id="44111" name="Aplicar a cor do separador 1"/>
+				    <Item id="44112" name="Aplicar a cor do separador 2"/>
+				    <Item id="44113" name="Aplicar a cor do separador 3"/>
+				    <Item id="44114" name="Aplicar a cor do separador 4"/>
+				    <Item id="44115" name="Aplicar a cor do separador 5"/>
+				    <Item id="11002" name="Ordenar por nome de A a Z"/>
+				    <Item id="11003" name="Ordenar por nome de Z a A"/>
+				    <Item id="11004" name="Ordenar por caminho de A a Z"/>
+				    <Item id="11005" name="Ordenar por caminho de Z a A"/>
+				    <Item id="11006" name="Ordenar por tipo de A a Z"/>
+				    <Item id="11007" name="Ordenar por tipo de Z a A"/>
+				    <Item id="11008" name="Ordenar por comprimento de menor a maior"/>
+				    <Item id="11009" name="Ordenar por comprimento de maior a menor"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Atalho">
@@ -830,18 +832,18 @@ Translation note:
 					<Item id="21102" name="Estilizar"/>
 					<Item id="21103" name="Ajuda online para linguagens definidas pelo utilizador"/>
 					<Item id="21105" name="Documentação:"/>
-					<Item id="21106" name="Dobrar compacto (também dobrar linhas sem dados)"/>
-					<Item id="21220" name="Dobrar no código estilo 1:"/>
+					<Item id="21106" name="Recolher compacto (também recolher linhas sem dados)"/>
+					<Item id="21220" name="Recolher no código estilo 1:"/>
 					<Item id="21224" name="Abrir:"/>
 					<Item id="21225" name="Meio:"/>
 					<Item id="21226" name="Fechar:"/>
 					<Item id="21227" name="Estilizar"/>
-					<Item id="21320" name="Dobrar no código estilo 2 (necessário separadores):"/>
+					<Item id="21320" name="Recolher no código estilo 2 (necessário separadores):"/>
 					<Item id="21324" name="Abrir:"/>
 					<Item id="21325" name="Meio:"/>
 					<Item id="21326" name="Fechar:"/>
 					<Item id="21327" name="Estilizar"/>
-					<Item id="21420" name="Dobrar em estilo comentário:"/>
+					<Item id="21420" name="Recolher em estilo comentário:"/>
 					<Item id="21424" name="Abrir:"/>
 					<Item id="21425" name="Meio:"/>
 					<Item id="21426" name="Fechar:"/>
@@ -878,7 +880,7 @@ Translation note:
 					<Item id="23004" name="Permitir em qualquer parte"/>
 					<Item id="23005" name="Forçar no início da linha"/>
 					<Item id="23006" name="Permitir espaço em branco precedente"/>
-					<Item id="23001" name="Permitir dobrar os comentários"/>
+					<Item id="23001" name="Permitir recolher os comentários"/>
 					<Item id="23326" name="Estilizar"/>
 					<Item id="23323" name="Abrir"/>
 					<Item id="23324" name="Caráter de continuação"/>
@@ -1009,7 +1011,7 @@ Translation note:
 					<Item id="6219" name="Cintilação:"/>
 					<Item id="6221" name="R"/><!-- Rápida -->
 					<Item id="6222" name="L"/><!-- Lenta -->
-					<Item id="6246" name="Tornar os comandos de dobrar/desdobrar do nível atual comutáveis"/>
+					<Item id="6246" name="Tornar os comandos de recolher/expandir do nível atual comutáveis"/>
 					<Item id="6227" name="Ajustar linha"/>
 					<Item id="6228" name="Predefinição"/>
 					<Item id="6229" name="Alinhada"/>
@@ -1276,7 +1278,7 @@ Translation note:
 					<Item id="6151" name="Definições de múltiplas instâncias *"/>
 					<Item id="6152" name="Abrir sessão numa nova instância (e guardar sessão automaticamente ao sair)"/>
 					<Item id="6153" name="Sempre no modo de múltiplas instâncias"/>
-					<Item id="6154" name="Predefinição (instância única) ()"/>
+					<Item id="6154" name="Predefinição (instância única)"/>
 					<Item id="6155" name="* Deve reiniciar o Notepad++ depois de modificar estas definições"/>
 					<Item id="6171" name="Personalizar inserção de Data e Hora"/>
 					<Item id="6175" name="Inverter ordem predefinida de data e hora (formatos curto e longo)"/>
@@ -1399,8 +1401,8 @@ Translation note:
 				<Item id="7004" name="Ordenar separ."/>
 			</Window>
 			<ColumnEditor title="Editor de coluna">
-				<Item id="2023" name="&amp;Texto a inserir "/>
-				<Item id="2033" name="&amp;Número a inserir "/>
+				<Item id="2023" name="&amp;Texto a inserir"/>
+				<Item id="2033" name="&amp;Número a inserir"/>
 				<Item id="2030" name="Número &amp;inicial:"/>
 				<Item id="2031" name="&amp;Aumentar em:"/>
 				<Item id="2038" name="Iní&amp;cio da linha:"/>
@@ -1934,7 +1936,7 @@ Hugo Carvalho <hugokarvalho@hotmail.com>
 Filipe Mota <blackspirits@gmail.com>
 27/03/2023 (version 8.5, 8.6, 8.7, 8.8)
 
-Last modified: 22 November 2025 by Filipe Mota (BlackSpirits)
+Last modified: 04 December 2025 by Filipe Mota (BlackSpirits)
 
 TRADUÇÃO DE ACORDO COM O NOVO ACORDO ORTOGRÁFICO
 POR FAVOR, NÃO ALTERE A ORDEM, POIS ISSO TORNA MAIS DIFÍCIL A COMPARAÇÃO ENTRE OS FICHEIROS PT E EN

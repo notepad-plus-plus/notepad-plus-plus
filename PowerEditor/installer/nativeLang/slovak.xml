@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.8.9">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.8.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->

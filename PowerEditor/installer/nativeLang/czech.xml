@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.8.8  10/Nov/2025  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.8.9  4/Dec/2025  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.8.7">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.8.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -215,6 +215,8 @@
 					<Item id="42099" name="Přeskočit aktuální &amp;&amp; přejít na další vícenásobný výběr"/>
 					<Item id="42100" name="Setřídit řádky s přihlédnutím k národnímu prostředí vzestupně"/>
 					<Item id="42101" name="Setřídit řádky s přihlédnutím k národnímu prostředí sestupně"/>
+					<Item id="42104" name="Setřídit řádky podle délky vzestupně"/>
+					<Item id="42105" name="Setřídit řádky podle délky sestupně"/>
 					<Item id="42102" name="&amp;Nastavit všechny karty dokumentů na 'Pouze pro čtení'"/>
 					<Item id="42103" name="&amp;Zrušit u všech karet dokumentů nastavení na 'Pouze pro čtení'"/>
 					<Item id="43001" name="&amp;Najít..."/>

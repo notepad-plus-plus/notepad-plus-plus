@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.7"><!-- Datum: 14.11.2025, basiert auf english.xml 8.8.7 vom 03.11.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.7"><!-- Datum: 04.12.2025, basiert auf english.xml 8.8.7 vom 02.12.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -149,6 +149,8 @@ Translation note:
 					<Item id="42081" name="Zeilen alph. absteigend sortieren, Schreibung ignorieren"/>
 					<Item id="42100" name="Zeilen in lokaler Reihenfolge aufsteigend sortieren"/>
 					<Item id="42101" name="Zeilen in lokaler Reihenfolge absteigend sortieren"/>
+					<Item id="42104" name="Zeilen der Länge nach aufsteigend sortieren"/>
+					<Item id="42105" name="Zeilen der Länge nach absteigend sortieren"/>
 					<Item id="42061" name="Zeilen als Ganzzahlen aufsteigend sortieren"/>
 					<Item id="42062" name="Zeilen als Ganzzahlen absteigend sortieren"/>
 					<Item id="42063" name="Zeilen als Dezimalzahlen (Komma) aufsteigend sortieren"/>

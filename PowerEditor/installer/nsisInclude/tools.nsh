@@ -49,14 +49,14 @@ FunctionEnd
 !macro CheckIfRunning un
 	Function ${un}CheckIfRunning
 		Check:
-		System::Call 'kernel32::OpenMutex(i 0x100000, b 0, t "nppInstance") i .R0'
+		System::Call 'kernel32::OpenMutex(i 0x100000, b 0, t "Global\nppInstanceGlb") i .R0'
 		
 		IntCmp $R0 0 NotRunning
 			StrCpy $runningNppDetected "true"
 			System::Call 'kernel32::CloseHandle(i $R0)'
 			MessageBox MB_RETRYCANCEL|MB_DEFBUTTON1|MB_ICONSTOP "Cannot continue the installation: Notepad++ is running.\
 			          $\n$\n\
-                      Please close Notepad++, then click ''Retry''." IDRETRY Retry IDCANCEL Cancel
+                      First, please make sure that all the Notepad++ instances are closed (this also applies to other possible logged in user sessions), and then click the ''Retry''." IDRETRY Retry IDCANCEL Cancel
 			Retry:
 				Goto Check
 			

@@ -140,6 +140,8 @@
 					<Item id="42081" name="Sorok rendezése &amp;fordított betűrendben, kis- és nagybetűtől függetlenül"/>
 					<Item id="42100" name="Sorok rendezése ter&amp;ületi beállítások szerint"/>
 					<Item id="42101" name="Sorok rendezése ter&amp;ületi beállítások szerinti fordított sorrendben"/>
+					<Item id="42104" name="Sorok rendezése &amp;hosszúság szerint növekvően"/>
+					<Item id="42105" name="Sorok rendezése &amp;hosszúság szerint csökkenően"/>
 					<Item id="42061" name="Sorok rendezése e&amp;gész számok szerint növekvően"/>
 					<Item id="42062" name="Sorok rendezése egés&amp;z számok szerint csökkenően"/>
 					<Item id="42063" name="Sorok rendezése &amp;tizedes számok szerint növekvően (tizedesvessző alapján)"/>

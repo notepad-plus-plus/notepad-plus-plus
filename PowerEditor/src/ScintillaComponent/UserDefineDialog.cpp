@@ -15,17 +15,25 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-#include "localization.h"
 #include "UserDefineDialog.h"
-#include "ScintillaEditView.h"
-//#include "Parameters.h"
-//#include "resource.h"
-#include "Notepad_plus_msgs.h"
-#include "CustomFileDialog.h"
-//#include "Common.h"
+
+#include <windows.h>
 
 #include <commctrl.h>
 
+#include <algorithm>
+#include <list>
+#include <string>
+
+#include <SciLexer.h>
+
+#include "NppXml.h"
+#include "localization.h"
+#include "ScintillaEditView.h"
+#include "Parameters.h"
+#include "resource.h"
+#include "Notepad_plus_msgs.h"
+#include "CustomFileDialog.h"
 #include "NppConstants.h"
 
 using namespace std;
@@ -922,12 +930,12 @@ void UserDefineDialog::changeStyle()
 {
     _status = !_status;
     NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-    TiXmlNodeA *targetNode = nullptr;
-    if (pNativeSpeaker->getNativeLangA())
+    NppXml::Element targetNode{};
+    if (pNativeSpeaker->getNativeLang())
     {
-        targetNode = (pNativeSpeaker->getNativeLangA())->FirstChildElement("Dialog");
+        targetNode = NppXml::firstChildElement(pNativeSpeaker->getNativeLang(), "Dialog");
         if (targetNode)
-            targetNode = targetNode->FirstChildElement("UserDefine");
+            targetNode = NppXml::firstChildElement(targetNode, "UserDefine");
     }
     wstring dockButtonLabel;
     wstring defauleLabel;

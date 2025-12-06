@@ -5,7 +5,7 @@
 		- Radoš Milićev (https://github.com/rammba)
 -->
 <NotepadPlus>
-	<Native-Langue name="Srpski" filename="serbian.xml"  version="8.8.5">
+	<Native-Langue name="Srpski" filename="serbian.xml"  version="8.8.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -140,6 +140,8 @@
 					<Item id="42081" name="Poređaj leks. opadajuće bez obzira na veličinu slova"/>
 					<Item id="42100" name="Poređaj linije rastuće po lokalnom jeziku"/>
 					<Item id="42101" name="Poređaj linije opadajuće po lokalnom jeziku"/>
+					<Item id="42104" name="Poređaj linije rastuće po dužini"/>
+					<Item id="42105" name="Poređaj linije opadajuće po dužini"/>
 					<Item id="42061" name="Poređaj linije kao cele brojeve rastuće"/>
 					<Item id="42062" name="Poređaj linije kao cele brojeve opadajuće"/>
 					<Item id="42063" name="Poređaj linije kao dec. brojeve (zarez) rastuće"/>
@@ -1001,6 +1003,7 @@
 					<Item id="6128" name="Obrni ikonice"/>
 					<Item id="6125" name="Ponašanje"/>
 					<Item id="6126" name="Izgled i osećaj"/>
+					<Item id="6136" name="Maks. dužina imena tab-a:"/>
 				</Tabbar>
 
 				<Scintillas title="Uređivanje 1">
@@ -1903,6 +1906,7 @@ Ako izabereš napredni mod, a ne izmeniš datoteke u pomenutim jezicima, uvlače
 			<max-len-on-search-tip value="Vaš unos premašuje dozvoljeno ograničenje i može biti skraćen, a i neće biti sačuvan za narednu sesiju."/>
 			<max-len-on-save-tip value="Vaš unos je veoma dugačak i možda neće biti sačuvan za narednu sesiju."/>
 			<goto-setting-tip value="Pronađi podešavanje ovde"/>
+			<tabbar-tabcompactlabellen-tip value="Ograničava vidljivu dužinu imena tab-ova. Pritisnite Enter da primenite. Dozvoljen unos: 1-257 karaktera (0 onemogućava skraćenje)."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

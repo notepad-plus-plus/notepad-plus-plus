@@ -2095,7 +2095,7 @@ void NppParameters::updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* main
 		langFromModel = langFromModel->NextSiblingElement(L"Language"))
 	{
 		std::wstring modelLanguageName = langFromModel->Attribute(L"name");
-		if (!modelLanguageName.length())
+		if (modelLanguageName.empty())
 			continue;
 
 		// see if language already exists in UserLanguages
@@ -2120,7 +2120,7 @@ void NppParameters::updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* main
 				keywordsFromModel = keywordsFromModel->NextSiblingElement(L"Keywords"))
 			{
 				std::wstring modelKeywordsName = keywordsFromModel->Attribute(L"name");
-				if (!modelKeywordsName.length())
+				if (modelKeywordsName.empty())
 					continue;
 
 				// does this Keywords element exist in User already?
@@ -2148,55 +2148,64 @@ void NppParameters::updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* main
 					int nWordsAdded = 0;
 					TiXmlNode* pChildModel = keywordsFromModel->FirstChild();
 					std::wstring wsTextModel = pChildModel ? pChildModel->Value() : L"";
-					if (!wsTextModel.empty())
+					if (!pChild && pChildModel)
 					{
-						std::wstring wsToken;
-						std::wistringstream wstrm(wsTextModel);
-						while (wstrm >> wsToken)
-						{
-							if (!mapUserWords.contains(wsToken))
-							{
-								vwsUserWords.push_back(wsToken);
-								mapUserWords[wsToken] = true;
-								++nWordsAdded;
-							}
-						}
+						TiXmlNode* p_clone = pChildModel->Clone();
+						mapUserKeywords[modelKeywordsName]->LinkEndChild(p_clone);
 					}
-
-					// if there were any words added to the list, need to update the element contents
-					if (nWordsAdded)
+					else
 					{
-						// sort the words in standard case-sensitive alphabetical order
-						std::sort(vwsUserWords.begin(), vwsUserWords.end());
 
-						// convert that list into space-separated string, with at most 8000 characters per line
-						size_t lineLength = 0, maxLineLength = 8000;
-						bool first = true;
-						std::wstring wsOutputWords(L"");
-						for (auto wsWord : vwsUserWords)
+						if (!wsTextModel.empty())
 						{
-							if (!first)
+							std::wstring wsToken;
+							std::wistringstream wstrm(wsTextModel);
+							while (wstrm >> wsToken)
 							{
-								// space between words
-								wsOutputWords += L" ";
-								lineLength += 1;
+								if (!mapUserWords.contains(wsToken))
+								{
+									vwsUserWords.push_back(wsToken);
+									mapUserWords[wsToken] = true;
+									++nWordsAdded;
+								}
 							}
-							first = false;
-
-							if (lineLength + wsWord.length() >= maxLineLength)
-							{
-								// start next line
-								lineLength = 0;
-								wsOutputWords += L"\n                ";
-							}
-
-							// add this word to the output string
-							wsOutputWords += wsWord;
-							lineLength += wsWord.length();
 						}
 
-						// and update the XML's value
-						pChild->SetValue(wsOutputWords);
+						// if there were any words added to the list, need to update the element contents
+						if (nWordsAdded)
+						{
+							// sort the words in standard case-sensitive alphabetical order
+							std::sort(vwsUserWords.begin(), vwsUserWords.end());
+
+							// convert that list into space-separated string, with at most 8000 characters per line
+							size_t lineLength = 0, maxLineLength = 8000;
+							bool first = true;
+							std::wstring wsOutputWords(L"");
+							for (auto wsWord : vwsUserWords)
+							{
+								if (!first)
+								{
+									// space between words
+									wsOutputWords += L" ";
+									lineLength += 1;
+								}
+								first = false;
+
+								if (lineLength + wsWord.length() >= maxLineLength)
+								{
+									// start next line
+									lineLength = 0;
+									wsOutputWords += L"\n                ";
+								}
+
+								// add this word to the output string
+								wsOutputWords += wsWord;
+								lineLength += wsWord.length();
+							}
+
+							// and update the XML's value
+							pChild->SetValue(wsOutputWords);
+						}
 					}
 				}
 				else
@@ -2250,7 +2259,7 @@ void NppParameters::updateStylesXml(TiXmlElement* rootUser, TiXmlElement* rootMo
 		lexerFromModel = lexerFromModel->NextSiblingElement(L"LexerType"))
 	{
 		std::wstring modelLexerName = lexerFromModel->Attribute(L"name");
-		if (!modelLexerName.length())
+		if (modelLexerName.empty())
 			continue;
 
 		// see if lexer already exists in UserStyles
@@ -2275,7 +2284,7 @@ void NppParameters::updateStylesXml(TiXmlElement* rootUser, TiXmlElement* rootMo
 				wordsStyleFromModel = wordsStyleFromModel->NextSiblingElement(L"WordsStyle"))
 			{
 				std::wstring modelWordsStyleID = wordsStyleFromModel->Attribute(L"styleID");
-				if (!modelWordsStyleID.length())
+				if (modelWordsStyleID.empty())
 					continue;
 
 				// does it exist in User already?
@@ -2327,7 +2336,7 @@ void NppParameters::updateStylesXml(TiXmlElement* rootUser, TiXmlElement* rootMo
 	{
 		// use StyleID for the map's key, or if styleID not found or if "0" then use the widget's name (lowercase) instead
 		std::wstring widgetKey = widgetFromUser->Attribute(L"styleID");
-		if (!widgetKey.length() || widgetKey == L"0" || (decStrVal(widgetKey.c_str()) > 256) || (decStrVal(widgetKey.c_str()) < 0))
+		if (widgetKey.empty() || widgetKey == L"0" || (decStrVal(widgetKey.c_str()) > 256) || (decStrVal(widgetKey.c_str()) < 0))
 			widgetKey = widgetFromUser->Attribute(L"name");
 
 		// add widget to map using the key
@@ -2345,9 +2354,9 @@ void NppParameters::updateStylesXml(TiXmlElement* rootUser, TiXmlElement* rootMo
 	{
 		// extract the key
 		std::wstring widgetKey = widgetFromModel->Attribute(L"styleID");
-		if (!widgetKey.length() || widgetKey == L"0" || (decStrVal(widgetKey.c_str()) > 256) || (decStrVal(widgetKey.c_str()) < 0))
+		if (widgetKey.empty() || widgetKey == L"0" || (decStrVal(widgetKey.c_str()) > 256) || (decStrVal(widgetKey.c_str()) < 0))
 			widgetKey = widgetFromModel->Attribute(L"name");
-		if (!widgetKey.length())
+		if (widgetKey.empty())
 			continue;
 
 		// see if WidgetStyle already exists in UserStyles

@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="简体中文" filename="chineseSimplified.xml" version="8.8.6">
+	<Native-Langue name="简体中文" filename="chineseSimplified.xml" version="8.8.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1001,6 +1001,7 @@ Translation note:
 					<Item id="6128" name="使用替代图标"/>
 					<Item id="6125" name="行为"/>
 					<Item id="6126" name="外观和体验"/>
+					<Item id="6136" name="标签最大长度："/>
 				</Tabbar>
 
 				<Scintillas title="编辑1">
@@ -1585,6 +1586,8 @@ Notepad++ 会在所有安装结束后重新启动。
 或者，您可以降级到 Notepad++ v8.5.2 并恢复您之前的数据。
 Notepad++ 会备份您旧的 “shortcuts.xml” 文件，并将其保存为 “shortcuts.xml.v8.5.2.backup”。
 将 “shortcuts.xml.v8.5.2.backup” 重命名为 “shortcuts.xml”，您的命令应该就能恢复并正常工作。"/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<FullReadOnlySavingForbidden title="保存失败" message="无法保存文件。
+由于启用了Notepad++完全只读模式，导致文件无法保存。"/>
 			<NotEnoughRoom4Saving title="保存失败" message="保存文件失败。
 磁盘空间不足，无法保存文件。您的文件未保存。"/>
 			<FileInaccessibleUserSession title="文件无法访问" message="您手动保存的会话 “$STR_REPLACE$” 中的某些文件无法访问。它们可以作为占位符，以空的、只读文档的形式打开。
@@ -1873,6 +1876,7 @@ U+FEFF: 零宽无间断空格
 			<npcCustomColor-tip value="前往“语言样式配置器”，可以修改所选空白和非打印字符的默认自定义颜色 (&quot;Non-printing characters custom color&quot;)。"/>
 			<npcIncludeCcUniEol-tip value="将非打印字符外观设置应用于 C0、C1 控制字符和 Unicode 行尾符(下一行、行分隔符和段落分隔符)。"/>
 			<searchingInSelThresh-tip value="在编辑区域中选定字符的数量，当“查找”对话框激活时，自动勾选“选取范围内”复选框。最大值为 1024。将值设置为 0 可禁用自动勾选。"/>
+			<searchingFillFindWhat-tip value="当触发 Ctrl-F 时，编辑区域中可自动填充“查找内容”字段的最大字符数。该最大值为 $INT REPLACE$，即系统限制的“查找内容”字段最大容量。"/>
 			<verticalEdge-tip value="如果想要添加列标记，可以在下面以十进制数字指示其列位置。使用空格分隔不同数字来定义多个列标记。"/>
 			<fileSaveAsCopySaveButton-tip value="按住 Shift 键同时点击保存，可以在保存后打开文件的副本。"/>
 			<autoIndentBasic-tip value="确保当前行(即按回车键创建的新行)的缩进与上一行的缩进一致。"/>
@@ -1896,6 +1900,13 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 			<statusbar-Sel value="选中: "/>
 			<statusbar-Sel-number value="选区"/>
 			<toolbar-accent-tip value="此选项使您的工具栏图标跟随 Windows 系统强调色。强调色是 Windows 中的按钮、边框和“开始”菜单磁贴中使用的突出显示颜色。要更改它，请前往 设置 &gt; 个性化 &gt; 颜色，然后选择您喜欢的主题色。"/>
+			<len-limit-exceeded-tip value="超出长度限制：您的输入可能超出允许的长度，可能已被截断，且不会保存至下次会话。"/>
+			<max-len-on-search-tip value="您的输入可能超出允许的限制，可能已被截断，且不会保存至下次会话。"/>
+			<max-len-on-save-tip value="您输入的内容过长，可能无法保存至下次会话。"/>
+			<goto-setting-tip value="在此处找到您的设置"/>
+			<tabbar-tabcompactlabellen-tip value="限制过长标签名的可见长度。输入以应用指定值。范围：1-257个字符（0表示禁用截断）。"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
+
+

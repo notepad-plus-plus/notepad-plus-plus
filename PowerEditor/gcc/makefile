@@ -187,6 +187,13 @@ ifeq "$(filter-out 0,$(VERBOSE))" ""
 AT := @
 endif
 
+# detect src dir ("cd PowerEditor/gcc && make" vs "make -f PowerEditor/gcc/makefile")
+ifneq ("$(wildcard ./PowerEditor/src)","")
+    PREBUILD_CD = ./PowerEditor/src
+else
+    PREBUILD_CD = $(SRC_DIRECTORY)
+endif
+
 # detect the current operating system
 ifeq "$(WIN_DIR)" ""
 # not a Windows system
@@ -195,7 +202,7 @@ CPDIR := cp -r
 RMDIR := rm -rf
 CP := cp
 RM := rm -f
-PREBUILD_EVENT_CMD := cmd //C "cd PowerEditor/src && NppLibsVersionH-generator.bat"
+PREBUILD_EVENT_CMD := cmd //C "cd $(PREBUILD_CD) && NppLibsVersionH-generator.bat"
 normalize-path = $1
 else ifneq "$(wildcard $(dir $(SHELL))ls.exe)" ""
 # a Windows system with a proper shell
@@ -207,7 +214,7 @@ CPDIR := $(SHELL_DIRECTORY)cp.exe -r
 RMDIR := $(SHELL_DIRECTORY)rm.exe -rf
 CP := $(SHELL_DIRECTORY)cp.exe
 RM := $(SHELL_DIRECTORY)rm.exe -f
-PREBUILD_EVENT_CMD := cmd //C "cd PowerEditor/src && NppLibsVersionH-generator.bat"
+PREBUILD_EVENT_CMD := cmd //C "cd $(PREBUILD_CD) && NppLibsVersionH-generator.bat"
 normalize-path = $1
 else
 # a standard Windows system
@@ -216,7 +223,7 @@ CPDIR := xcopy /q /e /i /y
 RMDIR := rmdir /q /s
 CP := copy /y
 RM := del /q
-PREBUILD_EVENT_CMD := cd ..\src && NppLibsVersionH-generator.bat
+PREBUILD_EVENT_CMD := cd $(PREBUILD_CD) && NppLibsVersionH-generator.bat
 normalize-path = $(subst /,\,$1)
 endif
 

@@ -2129,8 +2129,8 @@ void NppParameters::updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* main
 					// if Keywords element in user langs.xml, need to check to see if any words are missing from its contents
 
 					// start by extracting the list of words in the user version of this Keywords element
-					TiXmlNode* pChild = mapUserKeywords[modelKeywordsName]->FirstChild();
-					std::wstring wsText = pChild ? pChild->Value() : L"";
+					TiXmlNode* pKwsValue = mapUserKeywords[modelKeywordsName]->FirstChild();
+					std::wstring wsText = pKwsValue ? pKwsValue->Value() : L"";
 					std::vector<std::wstring> vwsUserWords{};
 					std::map<std::wstring, bool> mapUserWords{};
 					if (!wsText.empty())
@@ -2146,12 +2146,15 @@ void NppParameters::updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* main
 
 					// then go through each word in the model, and add it to the list if it's not already there
 					int nWordsAdded = 0;
-					TiXmlNode* pChildModel = keywordsFromModel->FirstChild();
-					std::wstring wsTextModel = pChildModel ? pChildModel->Value() : L"";
-					if (!pChild && pChildModel)
+					TiXmlNode* pKwsValueModel = keywordsFromModel->FirstChild();
+					std::wstring wsTextModel = pKwsValueModel ? pKwsValueModel->Value() : L"";
+					if (!pKwsValue)
 					{
-						TiXmlNode* p_clone = pChildModel->Clone();
-						mapUserKeywords[modelKeywordsName]->LinkEndChild(p_clone);
+						if (pKwsValueModel)
+						{
+							TiXmlNode* p_clone = pKwsValueModel->Clone();
+							mapUserKeywords[modelKeywordsName]->LinkEndChild(p_clone);
+						}
 					}
 					else
 					{
@@ -2165,7 +2168,6 @@ void NppParameters::updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* main
 								if (!mapUserWords.contains(wsToken))
 								{
 									vwsUserWords.push_back(wsToken);
-									mapUserWords[wsToken] = true;
 									++nWordsAdded;
 								}
 							}
@@ -2204,7 +2206,7 @@ void NppParameters::updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* main
 							}
 
 							// and update the XML's value
-							pChild->SetValue(wsOutputWords);
+							pKwsValue->SetValue(wsOutputWords);
 						}
 					}
 				}

@@ -85,6 +85,7 @@ IDI_FIND_ICON                   ICON      "icons/light/toolbar/regular/find_off.
 IDI_REPLACE_ICON                ICON      "icons/light/toolbar/regular/findrep_off.ico"
 IDI_ZOOMIN_ICON                 ICON      "icons/light/toolbar/regular/zoomIn_off.ico"
 IDI_ZOOMOUT_ICON                ICON      "icons/light/toolbar/regular/zoomOut_off.ico"
+IDI_ZOOMRESTORE_ICON            ICON      "icons/light/toolbar/regular/zoomRestore_off.ico"
 IDI_VIEW_UD_DLG_ICON            ICON      "icons/light/toolbar/regular/udl_off.ico"
 IDI_PRINT_ICON                  ICON      "icons/light/toolbar/regular/print_off.ico"
 IDI_STARTRECORD_ICON            ICON      "icons/light/toolbar/regular/startrecord_off.ico"

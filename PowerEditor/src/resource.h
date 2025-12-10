@@ -120,6 +120,11 @@
 #define IDI_REPLACE_ICON_DM               263
 #define IDI_ZOOMIN_ICON_DM                264
 #define IDI_ZOOMOUT_ICON_DM               265
+#define IDI_ZOOMRESTORE_ICON        	99991
+#define IDI_ZOOMRESTORE_ICON_DM     	99992
+#define IDI_ZOOMRESTORE_ICON2       	99993
+#define IDI_ZOOMRESTORE_ICON_DM2    	99994
+#define IDR_ZOOMRESTORE             	 7005
 #define IDI_VIEW_UD_DLG_ICON_DM           266
 #define IDI_PRINT_ICON_DM                 267
 #define IDI_STARTRECORD_ICON_DM           268

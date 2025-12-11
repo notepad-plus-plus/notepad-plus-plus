@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+  <functionList>
+    <!-- functionList parser for Makefile format (langID="10") -->
+    <parser displayName="Makefile" id="makefile" commentExpr="(?m-s:[#].*$)">
+      <function mainExpr="^[\w\$\(\)\-\/\.]+:">
+        <functionName>
+          <nameExpr expr="[\w\$\(\)\-\/\.]+"/>
+        </functionName>
+      </function>
+    </parser>
+  </functionList>
+</NotepadPlus>

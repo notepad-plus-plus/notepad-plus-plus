@@ -2145,6 +2145,13 @@ private:
 	void updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf);
 	void updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* mainElemModel);
 	void updateStylesXml(TiXmlElement* rootUser, TiXmlElement* rootModel, TiXmlElement* mainElemUser, TiXmlElement* mainElemModel);
+	void addDefaultStyles(TiXmlNode* node);
+	int addStyleDefaultColors(TiXmlNode* globalStyleRoot,
+		const std::wstring& name,
+		const std::wstring& fgColor = L"",
+		const std::wstring& bgColor = L"",
+		const std::wstring& fromStyle = L"",
+		const std::wstring& styleID = L"0");
 
 	bool getShortcutsFromXmlTree();
 

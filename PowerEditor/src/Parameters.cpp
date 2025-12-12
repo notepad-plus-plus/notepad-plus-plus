@@ -1947,9 +1947,12 @@ int NppParameters::addExternalLangToEnd(ExternalLangContainer * externalLang)
 bool NppParameters::getUserStylersFromXmlTree()
 {
 	TiXmlNode *root = _pXmlUserStylerDoc->FirstChild(L"NotepadPlus");
-	if (!root) return false;
-	updateFromModelXml(root, ConfXml::styles);		// updateUserStylersFromModelXml(root);
-	return feedStylerArray(root);
+	if (!root)
+		return false;
+
+	addDefaultStyles(root);	// make sure that GlobalStyles > WidgetStyles has certain elements, allowing defaults to be populated based on other existing WidgetStyles if needed
+	updateFromModelXml(root, ConfXml::styles);	// look for any WidgetStyles or LexerType>WordsStyles that are missing in the current XML and populate from Model if needed
+	return feedStylerArray(root);	// transfer the XML data structure into Notepad++'s internal data structure
 }
 
 void NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
@@ -2244,6 +2247,113 @@ void NppParameters::updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* main
 
 void NppParameters::updateStylesXml(TiXmlElement* rootUser, TiXmlElement* rootModel, TiXmlElement* mainElemUser, TiXmlElement* mainElemModel)
 {
+	std::wstring defaultFgColor, defaultBgColor;
+
+	auto endsWith = [](std::wstring const& fullString, std::wstring const& suffix) -> bool
+	{
+		if (fullString.length() >= suffix.length())
+		{
+			// Compare the last 'suffix.length()' characters of 'fullString' with 'suffix'
+			return fullString.compare(fullString.length() - suffix.length(), suffix.length(), suffix) == 0;
+		}
+		else
+		{
+			return false;
+		}
+	};
+	bool useDefaultColors = !endsWith(rootUser->GetDocument()->Value(), L"stylers.xml");	// use the Colors from "Default Style", except when it's stylers.xml
+
+	// Start with GlobalStyles
+	//		(even though it comes later in the actual XML file, need to be able to extract the defaultFgColor and defaultBgColor before doing the individual lexers)
+	TiXmlNode* gsUser = rootUser->FirstChildElement(L"GlobalStyles");
+	TiXmlNode* gsModel = rootModel->FirstChildElement(L"GlobalStyles");
+	if (!gsUser || !gsModel)
+		return;
+
+	// map UserStyler's widget styleID||name -> node-pointer
+	std::map<std::wstring, TiXmlElement*> mapUserWidgets{};
+	for (TiXmlElement* widgetFromUser = gsUser->FirstChildElement(L"WidgetStyle");
+		widgetFromUser;
+		widgetFromUser = widgetFromUser->NextSiblingElement(L"WidgetStyle"))
+	{
+		// use StyleID for the map's key, or if styleID not found or if "0" then use the widget's name (lowercase) instead
+		std::wstring widgetKey = widgetFromUser->Attribute(L"styleID");
+		if (widgetKey.empty() || widgetKey == L"0" || (decStrVal(widgetKey.c_str()) > 256) || (decStrVal(widgetKey.c_str()) < 0))
+			widgetKey = widgetFromUser->Attribute(L"name");
+
+		// add widget to map using the key
+		if (widgetKey.length())
+		{
+			mapUserWidgets[widgetKey] = widgetFromUser;
+
+			// save the colors from <WidgetStyle name="Default Style" styleID="32" ...>
+			if (widgetKey == L"32")
+			{
+				defaultFgColor = widgetFromUser->Attribute(L"fgColor");
+				defaultBgColor = widgetFromUser->Attribute(L"bgColor");
+			}
+		}
+	}
+
+	// for each WidgetStyle in the model,
+	for (TiXmlElement* widgetFromModel = gsModel->FirstChildElement(L"WidgetStyle");
+		widgetFromModel;
+		widgetFromModel = widgetFromModel->NextSiblingElement(L"WidgetStyle"))
+	{
+		// extract the key
+		std::wstring widgetKey = widgetFromModel->Attribute(L"styleID");
+		if (widgetKey.empty() || widgetKey == L"0" || (decStrVal(widgetKey.c_str()) > 256) || (decStrVal(widgetKey.c_str()) < 0))
+			widgetKey = widgetFromModel->Attribute(L"name");
+		if (widgetKey.empty())
+			continue;
+
+		// see if WidgetStyle already exists in UserStyles
+		if (mapUserWidgets.contains(widgetKey))
+		{
+			// if so, see if I need to update individual attributes
+			for (TiXmlAttribute* attrModel = widgetFromModel->FirstAttribute();
+				attrModel != nullptr;
+				attrModel = attrModel->Next())
+			{
+				// if attribute not in user, need to add it (but leave it alone if it's there but an empty string, because then it's intentionally set blank)
+				const wchar_t* pwcUserValue = mapUserWidgets[widgetKey]->Attribute(attrModel->Name());
+				if (!pwcUserValue)
+				{
+					std::wstring attrName = attrModel->Name();
+					mapUserWidgets[widgetKey]->SetAttribute(attrName, attrModel->Value());
+
+					if (useDefaultColors)
+					{
+						// override the value from the model file with the default value, for fgColor and bgColor only
+						if (attrName == L"fgColor")
+							mapUserWidgets[widgetKey]->SetAttribute(attrModel->Name(), defaultFgColor);
+						else if (attrName == L"bgColor")
+							mapUserWidgets[widgetKey]->SetAttribute(attrModel->Name(), defaultBgColor);
+					}
+				}
+			}
+		}
+		else
+		{
+			// otherwise, need to duplicate/clone from model to userStyles
+			TiXmlNode* p_clone = widgetFromModel->Clone();
+
+			// if using the default colors, need to override fgColor and bgColor
+			if (useDefaultColors)
+			{
+				TiXmlElement* p_cloneElement = p_clone->ToElement();
+				if (p_cloneElement->Attribute(L"fgColor"))
+					p_cloneElement->SetAttribute(L"fgColor", defaultFgColor);
+				if (p_cloneElement->Attribute(L"bgColor"))
+					p_cloneElement->SetAttribute(L"bgColor", defaultBgColor);
+			}
+
+			// now that XML element is cloned properly, add it to the GlobalStyles content
+			gsUser->LinkEndChild(p_clone);
+		}
+	}
+
+
 	// map UserStyler's lexer name -> element-pointer
 	std::map<std::wstring, TiXmlElement*> mapUserLexers{};
 	for (TiXmlElement* lexerFromUser = mainElemUser->FirstChildElement(L"LexerType");
@@ -2305,13 +2415,39 @@ void NppParameters::updateStylesXml(TiXmlElement* rootUser, TiXmlElement* rootMo
 						// if attribute not in user, need to add it (but leave it alone if it's there but an empty string, because then it's intentionally set blank)
 						const wchar_t* pwcUserValue = elementFromUser->Attribute(attrModel->Name());
 						if (!pwcUserValue)
-							elementFromUser->SetAttribute(attrModel->Name(), attrModel->Value());
+						{
+							std::wstring attrName = attrModel->Name();
+							elementFromUser->SetAttribute(attrName, attrModel->Value());
+
+							if (useDefaultColors)
+							{
+								// override the value from the model file with the default value, for fgColor and bgColor only
+								if (attrName == L"fgColor")
+									elementFromUser->SetAttribute(attrName, defaultFgColor);
+								else if (attrName == L"bgColor")
+									elementFromUser->SetAttribute(attrName, defaultBgColor);
+							}
+						}
+
 					}
 				}
 				else
 				{
 					// if doesn't exist, need to clone it from model to the right parent lexer in the user list
 					TiXmlNode* p_clone = wordsStyleFromModel->Clone();
+
+
+					// if using the default colors, need to override fgColor and bgColor
+					if (useDefaultColors)
+					{
+						TiXmlElement* p_cloneElement = p_clone->ToElement();
+						if (p_cloneElement->Attribute(L"fgColor"))
+							p_cloneElement->SetAttribute(L"fgColor", defaultFgColor);
+						if (p_cloneElement->Attribute(L"bgColor"))
+							p_cloneElement->SetAttribute(L"bgColor", defaultBgColor);
+					}
+
+					// now that XML element is cloned properly, add it to the current lexer
 					mapUserLexers[modelLexerName]->LinkEndChild(p_clone);
 				}
 			}
@@ -2320,67 +2456,24 @@ void NppParameters::updateStylesXml(TiXmlElement* rootUser, TiXmlElement* rootMo
 		{
 			// otherwise, if Lexer doesn't exist in the userStyles, need to duplicate/clone from model to userStyles
 			TiXmlNode* p_clone = lexerFromModel->Clone();
-			mainElemUser->LinkEndChild(p_clone);
-		}
-	}
 
-	// now move on to GlobalStyles
-	TiXmlNode* gsUser = rootUser->FirstChildElement(L"GlobalStyles");
-	TiXmlNode* gsModel = rootModel->FirstChildElement(L"GlobalStyles");
-	if (!gsUser || !gsModel)
-		return;
-
-	// map UserStyler's widget styleID||name -> node-pointer
-	std::map<std::wstring, TiXmlElement*> mapUserWidgets{};
-	for (TiXmlElement* widgetFromUser = gsUser->FirstChildElement(L"WidgetStyle");
-		widgetFromUser;
-		widgetFromUser = widgetFromUser->NextSiblingElement(L"WidgetStyle"))
-	{
-		// use StyleID for the map's key, or if styleID not found or if "0" then use the widget's name (lowercase) instead
-		std::wstring widgetKey = widgetFromUser->Attribute(L"styleID");
-		if (widgetKey.empty() || widgetKey == L"0" || (decStrVal(widgetKey.c_str()) > 256) || (decStrVal(widgetKey.c_str()) < 0))
-			widgetKey = widgetFromUser->Attribute(L"name");
-
-		// add widget to map using the key
-		if (widgetKey.length())
-		{
-			widgetKey = stringToLower(widgetKey);
-			mapUserWidgets[widgetKey] = widgetFromUser;
-		}
-	}
-
-	// for each WidgetStyle in the model,
-	for (TiXmlElement* widgetFromModel = gsModel->FirstChildElement(L"WidgetStyle");
-		widgetFromModel;
-		widgetFromModel = widgetFromModel->NextSiblingElement(L"WidgetStyle"))
-	{
-		// extract the key
-		std::wstring widgetKey = widgetFromModel->Attribute(L"styleID");
-		if (widgetKey.empty() || widgetKey == L"0" || (decStrVal(widgetKey.c_str()) > 256) || (decStrVal(widgetKey.c_str()) < 0))
-			widgetKey = widgetFromModel->Attribute(L"name");
-		if (widgetKey.empty())
-			continue;
-
-		// see if WidgetStyle already exists in UserStyles
-		widgetKey = stringToLower(widgetKey);
-		if (mapUserWidgets.contains(widgetKey))
-		{
-			// if so, see if I need to update individual attributes
-			for (TiXmlAttribute* attrModel = widgetFromModel->FirstAttribute();
-				attrModel != nullptr;
-				attrModel = attrModel->Next())
+			if (useDefaultColors)
 			{
-				// if attribute not in user, need to add it (but leave it alone if it's there but an empty string, because then it's intentionally set blank)
-				const wchar_t* pwcUserValue = mapUserWidgets[widgetKey]->Attribute(attrModel->Name());
-				if (!pwcUserValue)
-					mapUserWidgets[widgetKey]->SetAttribute(attrModel->Name(), attrModel->Value());
+				// iterate through all WordsStyle in the clone, and override fg and bg colors as needed
+				for (TiXmlElement* wordsStyleFromClone = p_clone->FirstChildElement(L"WordsStyle");
+					wordsStyleFromClone;
+					wordsStyleFromClone = wordsStyleFromClone->NextSiblingElement(L"WordsStyle"))
+				{
+					if (wordsStyleFromClone->Attribute(L"fgColor"))
+						wordsStyleFromClone->SetAttribute(L"fgColor", defaultFgColor);
+					if (wordsStyleFromClone->Attribute(L"bgColor"))
+						wordsStyleFromClone->SetAttribute(L"bgColor", defaultBgColor);
+				}
 			}
-		}
-		else
-		{
-			// otherwise, need to duplicate/clone from model to userStyles
-			TiXmlNode* p_clone = widgetFromModel->Clone();
-			gsUser->LinkEndChild(p_clone);
+
+			// now that XML element is cloned properly with correct defaults, add it to LexerStyles
+			mainElemUser->LinkEndChild(p_clone);
+
 		}
 	}
 
@@ -4559,6 +4652,11 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 		 childNode = childNode->NextSibling(L"WidgetStyle") )
 	{
 		TiXmlElement *element = childNode->ToElement();
+
+		const wchar_t* name = element->Attribute(L"name");
+		if (name && _widgetStyleArray.findByName(name))
+			continue;
+
 		const wchar_t *styleIDStr = element->Attribute(L"styleID");
 
 		int styleID = -1;
@@ -4568,87 +4666,130 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 		}
 	}
 
-	constexpr auto rgbhex = [](COLORREF bbggrr) -> int {
+	return true;
+}
+
+
+int NppParameters::addStyleDefaultColors(
+	TiXmlNode* globalStyleRoot,
+	const std::wstring& name,
+	const std::wstring& fgColor,
+	const std::wstring& bgColor,
+	const std::wstring& fromStyle,
+	const std::wstring& styleID
+)
+{
+	constexpr auto rgbhex = [](COLORREF bbggrr) -> int
+	{
 		return
 			((bbggrr & 0xFF0000) >> 16) |
 			((bbggrr & 0x00FF00)) |
 			((bbggrr & 0x0000FF) << 16);
 	};
 
-	auto addStyle = [&](const std::wstring& name,
-		const std::wstring& fgColor = L"",
-		const std::wstring& bgColor = L"",
-		const std::wstring& fromStyle = L"",
-		const std::wstring& styleID = L"0") -> int
+	int result = 0;
+	const Style* pStyle = _widgetStyleArray.findByName(name);
+	if (!pStyle)
+	{
+		TiXmlNode* newStyle = globalStyleRoot->InsertEndChild(TiXmlElement(L"WidgetStyle"));
+		newStyle->ToElement()->SetAttribute(L"name", name);
+		newStyle->ToElement()->SetAttribute(L"styleID", styleID);
+
+		const Style* pStyleFrom = fromStyle.empty() ? nullptr : _widgetStyleArray.findByName(fromStyle);
+		if (pStyleFrom)
 		{
-			int result = 0;
-			const Style* pStyle = _widgetStyleArray.findByName(name);
-			if (pStyle == nullptr)
+			constexpr size_t bufSize = 7;
+			if (!fgColor.empty())
 			{
-				TiXmlNode* newStyle = globalStyleRoot->InsertEndChild(TiXmlElement(L"WidgetStyle"));
-				newStyle->ToElement()->SetAttribute(L"name", name);
-				newStyle->ToElement()->SetAttribute(L"styleID", styleID);
-
-				const Style* pStyleFrom = fromStyle.empty() ? nullptr : _widgetStyleArray.findByName(fromStyle);
-				if (pStyleFrom != nullptr)
-				{
-					constexpr size_t bufSize = 7;
-					if (!fgColor.empty())
-					{
-						wchar_t strColor[bufSize] = { '\0' };
-						swprintf(strColor, bufSize, L"%6X", rgbhex(pStyleFrom->_fgColor));
-						newStyle->ToElement()->SetAttribute(L"fgColor", strColor);
-					}
-
-					if (!bgColor.empty())
-					{
-						wchar_t strColor[bufSize] = { '\0' };
-						swprintf(strColor, bufSize, L"%6X", rgbhex(pStyleFrom->_bgColor));
-						newStyle->ToElement()->SetAttribute(L"bgColor", strColor);
-					}
-
-					result = 2;
-				}
-				else
-				{
-					if (!fgColor.empty())
-					{
-						newStyle->ToElement()->SetAttribute(L"fgColor", fgColor);
-					}
-
-					if (!bgColor.empty())
-					{
-						newStyle->ToElement()->SetAttribute(L"bgColor", bgColor);
-					}
-
-					result = 1;
-				}
-
-
-				if (!fgColor.empty() || !bgColor.empty())
-				{
-					_widgetStyleArray.addStyler(0, newStyle);
-					return result;
-				}
-				return -1;
+				wchar_t strColor[bufSize] = { '\0' };
+				swprintf(strColor, bufSize, L"%6X", rgbhex(pStyleFrom->_fgColor));
+				newStyle->ToElement()->SetAttribute(L"fgColor", strColor);
 			}
-			return result;
-		};
 
+			if (!bgColor.empty())
+			{
+				wchar_t strColor[bufSize] = { '\0' };
+				swprintf(strColor, bufSize, L"%6X", rgbhex(pStyleFrom->_bgColor));
+				newStyle->ToElement()->SetAttribute(L"bgColor", strColor);
+			}
+
+			result = 2;
+		}
+		else
+		{
+			if (!fgColor.empty())
+			{
+				newStyle->ToElement()->SetAttribute(L"fgColor", fgColor);
+			}
+
+			if (!bgColor.empty())
+			{
+				newStyle->ToElement()->SetAttribute(L"bgColor", bgColor);
+			}
+
+			result = 1;
+		}
+
+
+		if (!fgColor.empty() || !bgColor.empty())
+		{
+			_widgetStyleArray.addStyler(0, newStyle);
+			return result;
+		}
+		return -1;
+	}
+	return result;
+}
+
+void NppParameters::addDefaultStyles(TiXmlNode* node)
+{
 	// check void ScintillaEditView::performGlobalStyles() for default colors
 
-	addStyle(L"Multi-selected text color", L"", L"C0C0C0", L"Selected text colour"); // liteGrey
-	addStyle(L"Multi-edit carets color", L"404040", L"", L"Caret colour"); // darkGrey
+	TiXmlNode* globalStyleRoot = node->FirstChildElement(L"GlobalStyles");
+	if (!globalStyleRoot) return;
 
-	addStyle(L"Change History modified", L"FF8000", L"FF8000");
-	addStyle(L"Change History revert modified", L"A0C000", L"A0C000");
-	addStyle(L"Change History revert origin", L"40A0BF", L"40A0BF");
-	addStyle(L"Change History saved", L"00A000", L"00A000");
+	for (TiXmlNode* childNode = globalStyleRoot->FirstChildElement(L"WidgetStyle");
+		childNode;
+		childNode = childNode->NextSibling(L"WidgetStyle"))
+	{
+		TiXmlElement* element = childNode->ToElement();
+		const wchar_t* styleIDStr = element->Attribute(L"styleID");
 
-	addStyle(L"EOL custom color", L"DADADA");
-	addStyle(g_npcStyleName, L"DADADA", L"", L"White space symbol");
+		int styleID = -1;
+		if ((styleID = decStrVal(styleIDStr)) != -1)
+		{
+			_widgetStyleArray.addStyler(styleID, childNode);
+		}
+	}
 
-	return true;
+	addStyleDefaultColors(globalStyleRoot, L"Multi-selected text color", L"", L"C0C0C0", L"Selected text colour"); // liteGrey
+	addStyleDefaultColors(globalStyleRoot, L"Multi-edit carets color", L"404040", L"", L"Caret colour"); // darkGrey
+
+	addStyleDefaultColors(globalStyleRoot, L"Bookmark margin", L"", L"C0C0C0", L"Line number margin");
+	addStyleDefaultColors(globalStyleRoot, L"Change History margin", L"", L"C0C0C0", L"Line number margin");
+
+	addStyleDefaultColors(globalStyleRoot, L"Change History modified", L"FF8000", L"FF8000");
+	addStyleDefaultColors(globalStyleRoot, L"Change History revert modified", L"A0C000", L"A0C000");
+	addStyleDefaultColors(globalStyleRoot, L"Change History revert origin", L"40A0BF", L"40A0BF");
+	addStyleDefaultColors(globalStyleRoot, L"Change History saved", L"00A000", L"00A000");
+
+	addStyleDefaultColors(globalStyleRoot, L"Find status: Not found", L"FF0000", L"");
+	addStyleDefaultColors(globalStyleRoot, L"Find status: Message", L"0000FF", L"");
+	addStyleDefaultColors(globalStyleRoot, L"Find status: Search end reached", L"008000", L"");
+
+	addStyleDefaultColors(globalStyleRoot, L"Tab color 1", L"", L"F3F0CB");
+	addStyleDefaultColors(globalStyleRoot, L"Tab color 2", L"", L"DBF3CB");
+	addStyleDefaultColors(globalStyleRoot, L"Tab color 3", L"", L"CBDBF3");
+	addStyleDefaultColors(globalStyleRoot, L"Tab color 4", L"", L"F3DBCB");
+	addStyleDefaultColors(globalStyleRoot, L"Tab color 5", L"", L"F3CBEE");
+	addStyleDefaultColors(globalStyleRoot, L"Tab color dark mode 1", L"", L"807848");
+	addStyleDefaultColors(globalStyleRoot, L"Tab color dark mode 2", L"", L"568048");
+	addStyleDefaultColors(globalStyleRoot, L"Tab color dark mode 3", L"", L"507094");
+	addStyleDefaultColors(globalStyleRoot, L"Tab color dark mode 4", L"", L"804849");
+	addStyleDefaultColors(globalStyleRoot, L"Tab color dark mode 5", L"", L"754880");
+
+	addStyleDefaultColors(globalStyleRoot, L"EOL custom color", L"DADADA");
+	addStyleDefaultColors(globalStyleRoot, g_npcStyleName, L"DADADA", L"", L"White space symbol");
 }
 
 void LexerStylerArray::addLexerStyler(const wchar_t* lexerName, const wchar_t* lexerDesc, const wchar_t* lexerUserExt, TiXmlNode* lexerNode)

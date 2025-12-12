@@ -13,7 +13,7 @@ Additionnal information about Corsican localization:
 2. History of Corsican translation for Notepad++:
 
 	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8), Apr. 20th (v8.8),
-			  June 26th (v8.8.1+), July 24th (v8.8.3+), Sep. 30th (v8.8.5+)
+			  June 26th (v8.8.1+), July 24th (v8.8.3+), Sep. 30th (v8.8.5+), Dec. 12th (v8.8.9+)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
 			  June 13th (v8.6.9), Sept. 8th (v8.7), Oct. 21st (v8.7.1), Nov. 20th (v8.7.2), Nov. 29th (v8.7.3)
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
@@ -36,7 +36,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.8.5">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.8.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -171,6 +171,8 @@ Additionnal information about Corsican localization:
 					<Item id="42081" name="Ordinà e linee da manera less. discendente è rispittendu MAIU/minu"/>
 					<Item id="42100" name="Ordinà e linee da manera linguistica crescente"/>
 					<Item id="42101" name="Ordinà e linee da manera linguistica discendente"/>
+					<Item id="42104" name="Ordinà e linee da a lunghezza crescente"/>
+					<Item id="42105" name="Ordinà e linee da a lunghezza discendente"/>
 					<Item id="42061" name="Ordinà e linee cum’è numeri interi crescente"/>
 					<Item id="42062" name="Ordinà e linee cum’è numeri interi discendente"/>
 					<Item id="42063" name="Ordinà e linee cum’è numeri decimali (virgula) crescente"/>
@@ -1031,6 +1033,7 @@ Additionnal information about Corsican localization:
 					<Item id="6128" name="Icone alternative"/>
 					<Item id="6125" name="Cumpurtamentu"/>
 					<Item id="6126" name="Aspettu"/>
+					<Item id="6136" name="Lungh. massima di nome d’unghjetta :"/>
 				</Tabbar>
 
 				<Scintillas title="Mudificazione 1">
@@ -1064,7 +1067,7 @@ Additionnal information about Corsican localization:
 					<Item id="6523" name="Attivà a selezzione di culonna versu a mudificazione multiple"/>
 					<Item id="6247" name="Fine di linea (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Predefinitu"/>
-					<Item id="6249" name="Testu in chjaru"/>
+					<Item id="6249" name="Testu ordinariu"/>
 					<Item id="6250" name="Culore persunalizatu"/>
 					<Item id="6252" name="Caratteri nonstampevule"/>
 					<Item id="6260" name="Apparenza"/>
@@ -1928,6 +1931,7 @@ S’è vo selezziunate u modu espertu ma ùn mudificate micca i schedarii in i l
 			<max-len-on-search-tip value="A vostra stampittera pò eccede u limitu permessu è pò esse stata truncata, dunque ùn serà micca arregistrata per a prossima sessione."/>
 			<max-len-on-save-tip value="A longhezza di a vostra stampittera hè longa longa è puderia ùn esse arregistrata per a prossima sessione."/>
 			<goto-setting-tip value="Mudificà u parametru quì"/>
+			<tabbar-tabcompactlabellen-tip value="Limiteghja a lunghezza visibule di i nomi longhi d’unghjetta. Stampittà per appiecà u valore datu. Intervallu di valori : 1-257 caratteri (0 disattiveghja a truncatura)."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

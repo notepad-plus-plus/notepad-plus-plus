@@ -2004,7 +2004,7 @@ void NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 	std::wstring ws_modelModifTimestamp = std::to_wstring(modifyTime);
 
 	// if both strings exist, do the string comparison, and don't bother reading the model unless the user attribute appears out-of-date
-	if (!ws_user_modelModifTimestamp.empty() and !ws_modelModifTimestamp.empty())
+	if (!ws_user_modelModifTimestamp.empty())
 	{
 		if (ws_user_modelModifTimestamp >= ws_modelModifTimestamp)
 			return;

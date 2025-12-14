@@ -1981,14 +1981,39 @@ void NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 		}
 	}
 
-	// Get the XML document
+	// Need the element version of the user root node throughout
+	TiXmlElement* peRootUser = rootUser->ToElement();
+
+	// Need the name of the XML model document
 	std::wstring modelXmlPath(_nppPath);
 	pathAppend(modelXmlPath, modelXmlFilename);
-	TiXmlDocument* pXmlModel = new TiXmlDocument(modelXmlPath);
-	std::string sModelPath = wstring2string(modelXmlPath, CP_ACP);
 
+	// compare the *.model.xml's filesystem "modified" timestamp to the value stored in the user file modelModifTimestamp attribute
+	const wchar_t* wc_user_modelModifTimestamp = peRootUser->Attribute(L"modelModifTimestamp");
+	std::wstring ws_user_modelModifTimestamp = wc_user_modelModifTimestamp ? wc_user_modelModifTimestamp : L"";
+
+	// read the actual timestamp from the model file; if there's a problem reading the attributes, just exit out (don't need to warn the user, since the main XML has already been loaded)
+	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	if (!::GetFileAttributesExW(modelXmlPath.c_str(), GetFileExInfoStandard, &attributes))
+		return;
+
+	LARGE_INTEGER modify{};
+	modify.LowPart = attributes.ftLastWriteTime.dwLowDateTime;
+	modify.HighPart = attributes.ftLastWriteTime.dwHighDateTime;
+	auto modifyTime = modify.QuadPart;
+	std::wstring ws_modelModifTimestamp = std::to_wstring(modifyTime);
+
+	// if both strings exist, do the string comparison, and don't bother reading the model unless the user attribute appears out-of-date
+	if (!ws_user_modelModifTimestamp.empty() and !ws_modelModifTimestamp.empty())
+	{
+		if (ws_user_modelModifTimestamp >= ws_modelModifTimestamp)
+			return;
+	}
+
+	// At this point, need to parse the model file
 	// if there's a problem loading the model XML, just exit out (don't need to warn the user, since the main XML has already been loaded
-	//	the same logic will be used for any other errors while trying to do this XML merge
+	//	the same logic will be used for any other errors while trying to do this XML merge)
+	TiXmlDocument* pXmlModel = new TiXmlDocument(modelXmlPath);
 	if (!pXmlModel->LoadFile())
 	{
 		delete pXmlModel;
@@ -2004,7 +2029,6 @@ void NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 
 	// compare the *.model.xml's modelDate to that of the active XML
 	const wchar_t* wc_model_modelDate = rootModel->Attribute(L"modelDate");
-	TiXmlElement* peRootUser = rootUser->ToElement();
 	const wchar_t* wc_user_modelDate = peRootUser->Attribute(L"modelDate");
 
 	// if both attributes exist, compare the integers to decide to exit if integer(user) >= integer(model),
@@ -2028,6 +2052,10 @@ void NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 	// update (or add) the modelDate stored in the active XML (unless it's missing)
 	if (wc_model_modelDate)
 		peRootUser->SetAttribute(L"modelDate", wc_model_modelDate);
+
+	// update (or add) the modelModifTimestamp stored in the active XML
+	if (!ws_modelModifTimestamp.empty())
+		peRootUser->SetAttribute(L"modelModifTimestamp", ws_modelModifTimestamp);
 
 	// get the main internal <Languages> element from both user and model
 	TiXmlElement* mainElemUser = rootUser->FirstChildElement(mainElementName);

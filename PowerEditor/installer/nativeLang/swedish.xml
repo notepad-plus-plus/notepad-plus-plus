@@ -140,6 +140,8 @@ Translation note:
 					<Item id="42081" name="Sortera rader lexikografiskt fallande, ignorera skiftläge"/>
 					<Item id="42100" name="Sortera rader enligt nationella inställningar stigande"/>
 					<Item id="42101" name="Sortera rader enligt nationella inställningar fallande"/>
+					<Item id="42104" name="Sortera rader efter längd stigande"/>
+					<Item id="42105" name="Sortera rader efter längd fallande"/>
 					<Item id="42061" name="Sortera rader som heltal stigande"/>
 					<Item id="42062" name="Sortera rader som heltal fallande"/>
 					<Item id="42063" name="Sortera rader som decimaltal (komma) stigande"/>

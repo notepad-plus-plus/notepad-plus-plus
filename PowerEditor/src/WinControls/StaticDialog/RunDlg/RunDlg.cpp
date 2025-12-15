@@ -182,12 +182,12 @@ void expandNppEnvironmentStrs(const wchar_t *strSrc, wchar_t *stringDest, size_t
 	stringDest[j] = '\0';
 }
 
-HINSTANCE Command::run(HWND hWnd, bool bFolderExplore)
+HINSTANCE Command::run(HWND hWnd)
 {
-	return run(hWnd, L".", bFolderExplore);
+	return run(hWnd, L".");
 }
 
-HINSTANCE Command::run(HWND hWnd, const wchar_t* cwd, bool bFolderExplore)
+HINSTANCE Command::run(HWND hWnd, const wchar_t* cwd)
 {
 	constexpr int argsIntermediateLen = MAX_PATH * 2;
 	constexpr int args2ExecLen = CURRENTWORD_MAXLENGTH + MAX_PATH * 2;
@@ -217,20 +217,8 @@ HINSTANCE Command::run(HWND hWnd, const wchar_t* cwd, bool bFolderExplore)
 
 	wchar_t cwd2Exec[MAX_PATH]{};
 	expandNppEnvironmentStrs(cwd, cwd2Exec, MAX_PATH, hWnd);
-
-	HINSTANCE res = 0;
-	if (bFolderExplore)
-	{
-		// faster and less resource demanding way to open a folder in Explorer
-		// (otherwise with the "open" verb below and "Explorer" cmd2Exec, we will get separate
-		// "explorer.exe /factory,{75dff2b7-6936-4c06-a8bb-676a7b00b24b} -Embedding" processes,
-		// launched by the service host process as parent by "svchost.exe -k DcomLaunch -p")
-		res = ::ShellExecuteW(hWnd, L"explore", args2Exec, NULL, NULL, SW_SHOWNORMAL);
-	}
-	else
-	{
-		res = ::ShellExecuteW(hWnd, L"open", cmd2Exec, args2Exec, cwd2Exec, SW_SHOW);
-	}
+	
+	HINSTANCE res = ::ShellExecute(hWnd, L"open", cmd2Exec, args2Exec, cwd2Exec, SW_SHOW);
 
 	// As per MSDN (https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153(v=vs.85).aspx)
 	// If the function succeeds, it returns a value greater than 32.

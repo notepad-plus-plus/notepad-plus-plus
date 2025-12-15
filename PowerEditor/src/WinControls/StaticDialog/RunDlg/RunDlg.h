@@ -41,8 +41,8 @@ public :
 	Command() = default;
 	explicit Command(const wchar_t* cmd) : _cmdLine(cmd) {}
 	explicit Command(const std::wstring& cmd) : _cmdLine(cmd) {}
-	HINSTANCE run(HWND hWnd, bool bFolderExplore = false);
-	HINSTANCE run(HWND hWnd, const wchar_t* cwd, bool bFolderExplore = false);
+	HINSTANCE run(HWND hWnd);
+	HINSTANCE run(HWND hWnd, const wchar_t* cwd);
 
 protected :
 	std::wstring _cmdLine;

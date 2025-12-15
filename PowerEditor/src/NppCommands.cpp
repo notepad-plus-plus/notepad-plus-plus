@@ -3676,11 +3676,14 @@ void Notepad_plus::command(int id)
 						param += sgd.signer_display_name();
 
 						param += L" -chkCertSubject=\"";
-						param += stringReplace(sgd.signer_subject(), L"\"", L"&QUOT;");
+						param += stringReplace(sgd.signer_subject(), L"\"", L"{QUOTE}");
 						param += L"\"";
 
 						param += L" -chkCertAuthorityKeyId=";
 						param += sgd.authority_key_id();
+
+						param += L" -errLogPath=";
+						param += L"\"%LOCALAPPDATA%\\Notepad++\\log\\securityError.log\"";
 					}
 					Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
 

@@ -2251,11 +2251,13 @@ void NppParameters::updateStylesXml(TiXmlElement* rootUser, TiXmlElement* rootMo
 
 	auto endsWith = [](std::wstring const& fullString, std::wstring const& suffix) -> bool
 	{
-		if (fullString.length() >= suffix.length()) {
+		if (fullString.length() >= suffix.length())
+		{
 			// Compare the last 'suffix.length()' characters of 'fullString' with 'suffix'
-			return (0 == fullString.compare(fullString.length() - suffix.length(), suffix.length(), suffix));
+			return fullString.compare(fullString.length() - suffix.length(), suffix.length(), suffix) == 0;
 		}
-		else {
+		else
+		{
 			return false;
 		}
 	};
@@ -2282,7 +2284,6 @@ void NppParameters::updateStylesXml(TiXmlElement* rootUser, TiXmlElement* rootMo
 		// add widget to map using the key
 		if (widgetKey.length())
 		{
-			widgetKey = stringToLower(widgetKey);
 			mapUserWidgets[widgetKey] = widgetFromUser;
 
 			// save the colors from <WidgetStyle name="Default Style" styleID="32" ...>
@@ -2307,7 +2308,6 @@ void NppParameters::updateStylesXml(TiXmlElement* rootUser, TiXmlElement* rootMo
 			continue;
 
 		// see if WidgetStyle already exists in UserStyles
-		widgetKey = stringToLower(widgetKey);
 		if (mapUserWidgets.contains(widgetKey))
 		{
 			// if so, see if I need to update individual attributes
@@ -4654,7 +4654,7 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 		TiXmlElement *element = childNode->ToElement();
 
 		const wchar_t* name = element->Attribute(L"name");
-		if(name != nullptr 	&& _widgetStyleArray.findByName(name) != nullptr)
+		if (name && _widgetStyleArray.findByName(name))
 			continue;
 
 		const wchar_t *styleIDStr = element->Attribute(L"styleID");
@@ -4689,14 +4689,14 @@ int NppParameters::addStyleDefaultColors(
 
 	int result = 0;
 	const Style* pStyle = _widgetStyleArray.findByName(name);
-	if (pStyle == nullptr)
+	if (!pStyle)
 	{
 		TiXmlNode* newStyle = globalStyleRoot->InsertEndChild(TiXmlElement(L"WidgetStyle"));
 		newStyle->ToElement()->SetAttribute(L"name", name);
 		newStyle->ToElement()->SetAttribute(L"styleID", styleID);
 
 		const Style* pStyleFrom = fromStyle.empty() ? nullptr : _widgetStyleArray.findByName(fromStyle);
-		if (pStyleFrom != nullptr)
+		if (pStyleFrom)
 		{
 			constexpr size_t bufSize = 7;
 			if (!fgColor.empty())

@@ -1864,7 +1864,7 @@ Credits:
         <WidgetStyle name="Fold active" styleID="0" fgColor="2E3436"></WidgetStyle>
         <WidgetStyle name="Fold margin" styleID="0" fgColor="2E3436" bgColor="6A5448"></WidgetStyle>
         <WidgetStyle name="White space symbol" styleID="0" fgColor="FCAF3E"></WidgetStyle>
-        <WidgetStyle name="Smart HighLighting" styleID="29" bgColor="FF0080"></WidgetStyle>
+        <WidgetStyle name="Smart Highlighting" styleID="29" bgColor="FF0080"></WidgetStyle>
         <WidgetStyle name="Find Mark Style" styleID="31" bgColor="EDD400"></WidgetStyle>
         <WidgetStyle name="Find status: Not found" styleID="0" fgColor="FF0000"></WidgetStyle>
         <WidgetStyle name="Find status: Message" styleID="0" fgColor="0000FF"></WidgetStyle>

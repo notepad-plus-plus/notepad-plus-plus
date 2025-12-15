@@ -1809,7 +1809,7 @@ License:             GPL2
         <WidgetStyle name="Fold active" styleID="0" fgColor="7F9F7F"></WidgetStyle>
         <WidgetStyle name="Fold margin" styleID="0" fgColor="181818" bgColor="101010"></WidgetStyle>
         <WidgetStyle name="White space symbol" styleID="0" fgColor="5F5F5F"></WidgetStyle>
-        <WidgetStyle name="Smart HighLighting" styleID="29" bgColor="358A35"></WidgetStyle>
+        <WidgetStyle name="Smart Highlighting" styleID="29" bgColor="358A35"></WidgetStyle>
         <WidgetStyle name="Find Mark Style" styleID="31" bgColor="FF0080"></WidgetStyle>
         <WidgetStyle name="Find status: Not found" styleID="0" fgColor="FF0000"></WidgetStyle>
         <WidgetStyle name="Find status: Message" styleID="0" fgColor="0000FF"></WidgetStyle>

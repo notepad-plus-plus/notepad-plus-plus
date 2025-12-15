@@ -82,7 +82,7 @@ public:
 		// getSortKey() so many times.
 		if (isSortingSpecificColumns())
 		{
-			std::stable_sort(lines.begin(), lines.end(), [this](std::wstring a, std::wstring b)
+			std::stable_sort(lines.begin(), lines.end(), [this](const std::wstring& a, const std::wstring& b)
 			{
 				if (isDescending())
 				{
@@ -97,7 +97,7 @@ public:
 		}
 		else
 		{
-			std::sort(lines.begin(), lines.end(), [this](std::wstring a, std::wstring b)
+			std::sort(lines.begin(), lines.end(), [this](const std::wstring& a, const std::wstring& b)
 			{
 				if (isDescending())
 				{
@@ -124,7 +124,7 @@ public:
 		// getSortKey() so many times.
 		if (isSortingSpecificColumns())
 		{
-			std::stable_sort(lines.begin(), lines.end(), [this](std::wstring a, std::wstring b)
+			std::stable_sort(lines.begin(), lines.end(), [this](const std::wstring& a, const std::wstring& b)
 				{
 					if (isDescending())
 					{
@@ -138,7 +138,7 @@ public:
 		}
 		else
 		{
-			std::sort(lines.begin(), lines.end(), [this](std::wstring a, std::wstring b)
+			std::sort(lines.begin(), lines.end(), [this](const std::wstring& a, const std::wstring& b)
 				{
 					if (isDescending())
 					{

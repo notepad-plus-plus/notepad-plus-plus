@@ -822,35 +822,35 @@ void Notepad_plus::command(int id)
 			std::unique_ptr<ISorter> pSorter;
 			if (id == IDM_EDIT_SORTLINES_LEXICOGRAPHIC_DESCENDING || id == IDM_EDIT_SORTLINES_LEXICOGRAPHIC_ASCENDING)
 			{
-				pSorter = std::unique_ptr<ISorter>(new LexicographicSorter(isDescending, fromColumn, toColumn));
+				pSorter = std::make_unique<LexicographicSorter>(isDescending, fromColumn, toColumn);
 			}
 			else if (id == IDM_EDIT_SORTLINES_LEXICO_CASE_INSENS_DESCENDING || id == IDM_EDIT_SORTLINES_LEXICO_CASE_INSENS_ASCENDING)
 			{
-				pSorter = std::unique_ptr<ISorter>(new LexicographicCaseInsensitiveSorter(isDescending, fromColumn, toColumn));
+				pSorter = std::make_unique<LexicographicCaseInsensitiveSorter>(isDescending, fromColumn, toColumn);
 			}
 			else if (id == IDM_EDIT_SORTLINES_INTEGER_DESCENDING || id == IDM_EDIT_SORTLINES_INTEGER_ASCENDING)
 			{
-				pSorter = std::unique_ptr<ISorter>(new IntegerSorter(isDescending, fromColumn, toColumn));
+				pSorter = std::make_unique<IntegerSorter>(isDescending, fromColumn, toColumn);
 			}
 			else if (id == IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING || id == IDM_EDIT_SORTLINES_DECIMALCOMMA_ASCENDING)
 			{
-				pSorter = std::unique_ptr<ISorter>(new DecimalCommaSorter(isDescending, fromColumn, toColumn));
+				pSorter = std::make_unique<DecimalCommaSorter>(isDescending, fromColumn, toColumn);
 			}
 			else if (id == IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING || id == IDM_EDIT_SORTLINES_DECIMALDOT_ASCENDING)
 			{
-				pSorter = std::unique_ptr<ISorter>(new DecimalDotSorter(isDescending, fromColumn, toColumn));
+				pSorter = std::make_unique<DecimalDotSorter>(isDescending, fromColumn, toColumn);
 			}
 			else if (id == IDM_EDIT_SORTLINES_LENGTH_ASCENDING || id == IDM_EDIT_SORTLINES_LENGTH_DESCENDING)
 			{
-				pSorter = std::unique_ptr<ISorter>(new LineLengthSorter(isDescending, fromColumn, toColumn));
+				pSorter = std::make_unique<LineLengthSorter>(isDescending, fromColumn, toColumn);
 			}
 			else if (id == IDM_EDIT_SORTLINES_REVERSE_ORDER)
 			{
-				pSorter = std::unique_ptr<ISorter>(new ReverseSorter(isDescending, fromColumn, toColumn));
+				pSorter = std::make_unique<ReverseSorter>(isDescending, fromColumn, toColumn);
 			}
 			else
 			{
-				pSorter = std::unique_ptr<ISorter>(new RandomSorter(isDescending, fromColumn, toColumn));
+				pSorter = std::make_unique<RandomSorter>(isDescending, fromColumn, toColumn);
 			}
 			try
 			{

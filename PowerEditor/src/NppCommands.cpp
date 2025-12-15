@@ -20,6 +20,8 @@
 #include <string>
 #include <vector>
 #include <shlwapi.h>
+#include <shlobj.h>
+#include <filesystem>
 #include "Notepad_plus_Window.h"
 #include "EncodingMapper.h"
 #include "ShortcutMapper.h"
@@ -138,10 +140,32 @@ void Notepad_plus::command(int id)
 
 		case IDM_FILE_OPEN_FOLDER:
 		{
-			Command cmd(L"explorer /select,\"$(FULL_CURRENT_PATH)\"");
-			cmd.run(_pPublicInterface->getHSelf());
+			HRESULT hr = HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
+
+			ScopedCOMInit com;
+			if (com.isInitialized())
+			{
+				ITEMIDLIST* pidl = nullptr;
+				hr = ::SHParseDisplayName(_pEditView->getCurrentBuffer()->getFullPathName(), nullptr, &pidl, 0, nullptr);
+				if (SUCCEEDED(hr))
+				{
+					hr = ::SHOpenFolderAndSelectItems(pidl, 0, nullptr, 0);
+					::CoTaskMemFree(pidl);
+				}
+			}
+
+			if (hr == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND))
+			{
+				// fallback (but without selecting the current file)
+				// - either the COM cannot be used or the above shell APIs mysteriously fail on some systems
+				//   with the "file not found" even though the file is there
+				// - do not use this fallback for any other possible error (like E_INVALIDARG, etc.)
+				::ShellExecuteW(_pPublicInterface->getHSelf(), L"explore",
+					std::filesystem::path(_pEditView->getCurrentBuffer()->getFullPathName()).parent_path().c_str(), nullptr, nullptr, SW_SHOWNORMAL);
+			}
+
+			break;
 		}
-		break;
 
 		case IDM_FILE_OPEN_CMD:
 		{

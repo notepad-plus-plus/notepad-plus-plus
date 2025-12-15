@@ -315,3 +315,35 @@ private:
 };
 
 DWORD invokeNppUacOp(const std::wstring& strCmdLineParams);
+
+class ScopedCOMInit final // never use this in DllMain
+{
+public:
+	ScopedCOMInit() {
+		HRESULT hr = ::CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED); // attempt STA init 1st (older CoInitialize(NULL))
+		if (hr == RPC_E_CHANGED_MODE) {
+			hr = ::CoInitializeEx(nullptr, COINIT_MULTITHREADED); // STA init failed, switch to MTA
+		}
+		if (SUCCEEDED(hr)) {
+			// S_OK or S_FALSE, both needs subsequent CoUninitialize()
+			_bInitialized = true;
+		}
+	}
+
+	~ScopedCOMInit() {
+		if (_bInitialized) {
+			_bInitialized = false;
+			::CoUninitialize();
+		}
+	}
+
+	bool isInitialized() {
+		return _bInitialized;
+	}
+
+private:
+	bool _bInitialized = false;
+
+	ScopedCOMInit(const ScopedCOMInit&) = delete;
+	ScopedCOMInit& operator=(const ScopedCOMInit&) = delete;
+};

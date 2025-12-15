@@ -3681,6 +3681,9 @@ void Notepad_plus::command(int id)
 
 						param += L" -chkCertAuthorityKeyId=";
 						param += sgd.authority_key_id();
+
+						param += L" -errLogPath=";
+						param += L"{QUOTE}%LOCALAPPDATA%\\Notepad++\\log\\securityError.log{QUOTE}";
 					}
 					Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
 

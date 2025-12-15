@@ -3676,7 +3676,7 @@ void Notepad_plus::command(int id)
 						param += sgd.signer_display_name();
 
 						param += L" -chkCertSubject=\"";
-						param += stringReplace(sgd.signer_subject(), L"\"", L"&QUOT;");
+						param += stringReplace(sgd.signer_subject(), L"\"", L"{QUOTE}");
 						param += L"\"";
 
 						param += L" -chkCertAuthorityKeyId=";

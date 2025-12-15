@@ -423,7 +423,7 @@ bool launchUpdater(const std::wstring& updaterFullPath, const std::wstring& upda
 	updaterParams += sgd.authority_key_id();
 
 	updaterParams += L" -errLogPath=";
-	updaterParams += L"{QUOTE}%LOCALAPPDATA%\\Notepad++\\log\\securityError.log{QUOTE}";
+	updaterParams += L"\"%LOCALAPPDATA%\\Notepad++\\log\\securityError.log\"";
 
 	Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
 	updater.run();

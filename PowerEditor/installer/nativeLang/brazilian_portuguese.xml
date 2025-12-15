@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 02 Dec 2025 for 8.8.8+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 15 Dec 2025 for 8.8.9+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.8.8">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.8.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -140,8 +140,8 @@ Translation note:
 					<Item id="42081" name="Classificar em ordem decrescente - ignorando maiúsculas/minúsculas"/>
 					<Item id="42100" name="Classificar linhas em ordem ascendente local"/>
 					<Item id="42101" name="Classificar linhas em ordem descendente local"/>
-					<Item id="42104" name="Classificar Linhas em Ordem Ascendente Tamanho"/>
-					<Item id="42105" name="Classificar Linhas em Ordem Descendente Tamanho"/>
+					<Item id="42104" name="Classificar Linhas por Ordem Ascendente Tamanho"/>
+					<Item id="42105" name="Classificar Linhas por Ordem Descendente Tamanho"/>
 					<Item id="42061" name="Classificar como números inteiros - ordem crescente"/>
 					<Item id="42062" name="Classificar como números inteiros - ordem decrescente"/>
 					<Item id="42063" name="Classificar como números decimais (vírgula) - ordem crescente"/>

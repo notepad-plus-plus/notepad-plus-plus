@@ -2036,7 +2036,7 @@ bool NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 		return false;
 
 	int v_user = 0;
-	const wchar_t* wc_user_modelDate = peRootUser->Attribute(L"modelDate", &v_user);
+	peRootUser->Attribute(L"modelDate", &v_user);
 
 	// v_user is 0 when "modelDate" is absent.
 	if (v_user >= v_model)

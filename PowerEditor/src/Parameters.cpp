@@ -2031,28 +2031,27 @@ bool NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 	// compare the *.model.xml's modelDate to that of the active XML
 	int v_model = 0;
 	const wchar_t* wc_model_modelDate = rootModel->Attribute(L"modelDate", &v_model);
+
+	if (!wc_model_modelDate) // in case modelDate is absent in *.model.xml, no update will happen
+		return false;
+
 	int v_user = 0;
 	const wchar_t* wc_user_modelDate = peRootUser->Attribute(L"modelDate", &v_user);
 
-	// if both attributes exist, compare the integers to decide to exit if integer(user) >= integer(model),
-	//	because then the user file is at least as new as the model, and doesn't need to be updated;
-	//	if they don't both exist, need to do the update, because there aren't any dates to compare
-	if (wc_model_modelDate && wc_user_modelDate)
+	// v_user is 0 when "modelDate" is absent.
+	if (v_user >= v_model)
 	{
-		if (v_user >= v_model)
-		{
-			delete pXmlModel;
-			return false;
-		}
+		delete pXmlModel;
+		return false;
 	}
+
 
 	// get the current version of the text of the user file (used later to see if user file needs to be saved because of changes)
 	std::string sUserTextBefore;
 	pXmlDocument->Print(sUserTextBefore);
 
-	// update (or add) the modelDate stored in the active XML (unless it's missing)
-	if (wc_model_modelDate)
-		peRootUser->SetAttribute(L"modelDate", wc_model_modelDate);
+	// update (or add) the modelDate stored in the active XML
+	peRootUser->SetAttribute(L"modelDate", wc_model_modelDate);
 
 	// update (or add) the modelModifTimestamp stored in the active XML
 	peRootUser->SetAttribute(L"modelModifTimestamp", std::to_wstring(modifyTime));

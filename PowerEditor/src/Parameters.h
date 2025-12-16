@@ -2142,7 +2142,7 @@ private:
 	std::pair<unsigned char, unsigned char> addUserDefineLangsFromXmlTree(TiXmlDocument *tixmldoc);
 
 	enum ConfXml { lang, styles };
-	void updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf);
+	bool updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf);
 	void updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* mainElemModel);
 	void updateStylesXml(TiXmlElement* rootUser, TiXmlElement* rootModel, TiXmlElement* mainElemUser, TiXmlElement* mainElemModel);
 	void addDefaultStyles(TiXmlNode* node);

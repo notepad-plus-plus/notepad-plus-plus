@@ -35,7 +35,7 @@
 #include "resource.h"
 
 
-static constexpr MenuPosition g_menuFolderPositions[] = {
+static constexpr MenuPosition g_menuFolderPositions[]{
 //==============================================
 //	{L0,  L1, L2, id},
 //==============================================
@@ -121,7 +121,7 @@ static constexpr MenuPosition g_menuFolderPositions[] = {
 	{ -1,  -1, -1, "" } // End of array
 };
 
-const MenuPosition& getMenuPosition(const char* id)
+const MenuPosition& MenuPosition::getMenuPosition(const char* id)
 {
 	int nbSubMenuPos = sizeof(g_menuFolderPositions) / sizeof(MenuPosition);
 
@@ -348,7 +348,7 @@ void NativeLangSpeaker::getMainMenuEntryName(std::wstring& dest, HMENU hMenu, co
 	const auto iter = _shortcutMenuEntryNameMap.find(menuId);
 	if (iter == _shortcutMenuEntryNameMap.end())
 	{
-		const MenuPosition& menuPos = getMenuPosition(menuId);
+		const MenuPosition& menuPos = MenuPosition::getMenuPosition(menuId);
 		if (menuPos._x != -1 && menuPos._y == -1 && menuPos._z == -1)
 		{
 			wchar_t str[MAX_PATH]{};
@@ -405,7 +405,7 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle) const
 		const char* menuIdStr = NppXml::attribute(element, "menuId");
 		if (menuIdStr)
 		{
-			const MenuPosition& menuPos = getMenuPosition(menuIdStr);
+			const MenuPosition& menuPos = MenuPosition::getMenuPosition(menuIdStr);
 			if (menuPos._x != -1)
 			{
 				const char* name = NppXml::attribute(element, "name");
@@ -441,7 +441,7 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle) const
 		if (nullptr == subMenuIdStr || nullptr == name)
 			continue;
 
-		const MenuPosition& menuPos = getMenuPosition(subMenuIdStr);
+		const MenuPosition& menuPos = MenuPosition::getMenuPosition(subMenuIdStr);
 		int x = menuPos._x;
 		int y = menuPos._y;
 		int z = menuPos._z;
@@ -473,8 +473,7 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle) const
 }
 
 
-static constexpr int tabCmSubMenuEntryPos[] =
-{
+static constexpr int tabCmSubMenuEntryPos[]{
 //   +-------------- The submenu entry item position on the top level of tab context menu
 //   |
 //   |       +------- Index order (CMDID: Context Menu submenu entry ID): in <TabBar> of english.xml - the number and the order of this array should be synchronized with <TabBar>
@@ -707,7 +706,7 @@ void NativeLangSpeaker::changeConfigLang(HWND hDlg) const
 }
 
 
-void NativeLangSpeaker::changeStyleCtrlsLang(HWND hDlg, int* idArray, const char** translatedText) const
+void NativeLangSpeaker::changeStyleCtrlsLang(HWND hDlg, int* idArray, const char** translatedText)
 {
 	static constexpr int iColorStyle = 0;
 	static constexpr int iUnderline = 8;
@@ -1194,7 +1193,7 @@ void NativeLangSpeaker::changeShortcutLang() const
 		const int id = NppXml::intAttribute(element, "id", -1);
 		if (index > 0 && id > 0)
 		{
-			if (index > -1 && static_cast<size_t>(index) < mainshortcuts.size()) //valid index only
+			if (static_cast<size_t>(index) < mainshortcuts.size()) //valid index only
 			{
 				const char* name = NppXml::attribute(element, "name");
 				CommandShortcut& csc = mainshortcuts[index];
@@ -1558,7 +1557,7 @@ std::wstring NativeLangSpeaker::getAttrNameStr(const wchar_t* defaultStr, const 
 	return defaultStr;
 }
 
-std::wstring NativeLangSpeaker::getAttrNameByIdStr(const wchar_t* defaultStr, NppXml::Node targetNode, const char* nodeL1Value, const char* nodeL1Name, const char* nodeL2Name) const
+std::wstring NativeLangSpeaker::getAttrNameByIdStr(const wchar_t* defaultStr, NppXml::Node targetNode, const char* nodeL1Value, const char* nodeL1Name, const char* nodeL2Name)
 {
 	if (!targetNode) return defaultStr;
 
@@ -1583,7 +1582,7 @@ std::wstring NativeLangSpeaker::getAttrNameByIdStr(const wchar_t* defaultStr, Np
 
 int NativeLangSpeaker::messageBox(const char* msgBoxTagName, HWND hWnd, const wchar_t* defaultMessage, const wchar_t* defaultTitle, int msgBoxType, int intInfo, const wchar_t* strInfo)
 {
-	if ((NppParameters::getInstance()).isEndSessionCritical())
+	if (NppParameters::getInstance().isEndSessionCritical())
 		return IDCANCEL; // simulate Esc-key or Cancel-button as there should not be any big delay / code-flow block
 
 	std::wstring msg;

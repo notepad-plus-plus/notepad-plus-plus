@@ -15,7 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-
+#include "localization.h"
 #include "Notepad_plus_Window.h"
 #include "functionListPanel.h"
 #include "xmlMatchedTagsHighlighter.h"
@@ -178,7 +178,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{
 				POINT p;
 				::GetCursorPos(&p);
-				const MenuPosition& menuPos = getMenuPosition("search-bookmark");
+				const MenuPosition& menuPos = MenuPosition::getMenuPosition("search-bookmark");
 				HMENU hSearchMenu = ::GetSubMenu(_mainMenuHandle, menuPos._x);
 				if (hSearchMenu)
 				{
@@ -923,7 +923,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				{
 					POINT p;
 					::GetCursorPos(&p);
-					const MenuPosition& menuPos = getMenuPosition("edit-eolConversion");
+					const MenuPosition& menuPos = MenuPosition::getMenuPosition("edit-eolConversion");
 					HMENU hEditMenu = ::GetSubMenu(_mainMenuHandle, menuPos._x);
 					if (!hEditMenu)
 						return TRUE;
@@ -966,7 +966,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				}
 				else if (lpnm->dwItemSpec == DWORD(STATUSBAR_EOF_FORMAT))
 				{
-					const MenuPosition& menuPos = getMenuPosition("edit-eolConversion");
+					const MenuPosition& menuPos = MenuPosition::getMenuPosition("edit-eolConversion");
 					HMENU hEditMenu = ::GetSubMenu(_mainMenuHandle, menuPos._x);
 					if (!hEditMenu)
 						return TRUE;

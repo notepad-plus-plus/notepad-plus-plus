@@ -9191,7 +9191,7 @@ BOOL Notepad_plus::notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId)
 	::SendMessage(lpnmtb->hdr.hwndFrom, TB_GETRECT, static_cast<WPARAM>(lpnmtb->iItem), reinterpret_cast<LPARAM>(&rcItem));
 	::MapWindowPoints(lpnmtb->hdr.hwndFrom, HWND_DESKTOP, reinterpret_cast<LPPOINT>(&rcItem), 2);
 
-	const MenuPosition& menuPos = getMenuPosition(menuPosId);
+	const MenuPosition& menuPos = MenuPosition::getMenuPosition(menuPosId);
 	HMENU hSubMenuView = ::GetSubMenu(_mainMenuHandle, menuPos._x);
 	if (hSubMenuView != nullptr)
 	{

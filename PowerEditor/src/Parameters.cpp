@@ -2067,11 +2067,6 @@ bool NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 		return handleErrorThenExit();
 	}
 
-
-	// get the current version of the text of the user file (used later to see if user file needs to be saved because of changes)
-	std::string sUserTextBefore;
-	pXmlDocument->Print(sUserTextBefore);
-
 	// update (or add) the modelDate stored in the active XML
 	peRootUser->SetAttribute(L"modelDate", wc_model_modelDate);
 
@@ -2088,33 +2083,14 @@ bool NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 		case ConfXml::lang:
 		{
 			updateLangXml(mainElemUser, mainElemModel);
+			pXmlDocument->SaveFile();
 			break;
 		}
 		case ConfXml::styles:
 		{
 			updateStylesXml(peRootUser, rootModel, mainElemUser, mainElemModel);
+			writeStyles(_lexerStylerVect, _widgetStyleArray);
 			break;
-		}
-	}
-
-	// check the user-langs document for changes
-	std::string sUserTextAfter;
-	pXmlDocument->Print(sUserTextAfter);
-
-	if (sUserTextBefore != sUserTextAfter)
-	{
-		switch (whichConf)
-		{
-			case ConfXml::lang:
-			{
-				pXmlDocument->SaveFile();
-				break;
-			}
-			case ConfXml::styles:
-			{
-				writeStyles(_lexerStylerVect, _widgetStyleArray);
-				break;
-			}
 		}
 	}
 

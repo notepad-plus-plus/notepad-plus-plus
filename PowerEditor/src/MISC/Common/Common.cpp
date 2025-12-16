@@ -2266,3 +2266,19 @@ DWORD invokeNppUacOp(const std::wstring& strCmdLineParams)
 
 	return dwError;
 }
+
+bool fileTimeToYMD(const FILETIME& ft, int& yyyymmdd)
+{
+	SYSTEMTIME stUtc;
+	SYSTEMTIME stLocal;
+
+	if (!FileTimeToSystemTime(&ft, &stUtc))
+		return false;
+
+	if (!SystemTimeToTzSpecificLocalTime(NULL, &stUtc, &stLocal))
+		return false;
+
+	yyyymmdd = (stLocal.wYear * 10000) + (stLocal.wMonth * 100) + stLocal.wDay;
+
+	return true;
+}

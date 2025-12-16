@@ -262,6 +262,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 						if (initialNumber == -1)
 						{
 							whichFlashRed = sendValidationErrorMessage(IDC_COL_INITNUM_EDIT, colEditParam._formatChoice, str);
+							(*_ppEditView)->execute(SCI_ENDUNDOACTION);
 							return TRUE;
 						}
 
@@ -270,6 +271,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 						if (increaseNumber == -1)
 						{
 							whichFlashRed = sendValidationErrorMessage(IDC_COL_INCREASENUM_EDIT, colEditParam._formatChoice, str);
+							(*_ppEditView)->execute(SCI_ENDUNDOACTION);
 							return TRUE;
 						}
 
@@ -278,6 +280,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 						if (repeat == -1)
 						{
 							whichFlashRed = sendValidationErrorMessage(IDC_COL_REPEATNUM_EDIT, colEditParam._formatChoice, str);
+							(*_ppEditView)->execute(SCI_ENDUNDOACTION);
 							return TRUE;
 						}
 

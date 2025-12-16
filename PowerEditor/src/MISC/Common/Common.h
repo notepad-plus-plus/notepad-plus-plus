@@ -315,3 +315,4 @@ private:
 };
 
 DWORD invokeNppUacOp(const std::wstring& strCmdLineParams);
+bool fileTimeToYMD(const FILETIME& ft, int& yyyymmdd);

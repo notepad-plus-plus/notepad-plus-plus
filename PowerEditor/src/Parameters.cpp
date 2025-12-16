@@ -1955,7 +1955,8 @@ bool NppParameters::getUserStylersFromXmlTree()
 	return feedStylerArray(root);	// transfer the XML data structure into Notepad++'s internal data structure
 }
 
-void NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
+
+bool NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 {
 	// Determine conf-specific information first
 	std::wstring modelXmlFilename;
@@ -1980,7 +1981,7 @@ void NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 		default:
 		{
 			// if it's an unknown config file, return immediately, as there's nothing to do
-			return;
+			return false;
 		}
 	}
 
@@ -1991,103 +1992,34 @@ void NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 	std::wstring modelXmlPath(_nppPath);
 	pathAppend(modelXmlPath, modelXmlFilename);
 
-	// compare the *.model.xml's filesystem "modified" timestamp to the value stored in the user file modelModifTimestamp attribute
-	const wchar_t* wc_user_modelModifTimestamp = peRootUser->Attribute(L"modelModifTimestamp");
-	std::wstring ws_user_modelModifTimestamp = wc_user_modelModifTimestamp ? wc_user_modelModifTimestamp : L"";
+	// compare the *.model.xml's filesystem "modified" timestamp (date only) to the value stored in the user file modelFileLastModifiedDate attribute
+	int userModelLastModifDate = 0;
+	peRootUser->Attribute(L"modelFileLastModifiedDate", &userModelLastModifDate);
 
 	// read the actual timestamp from the model file; if there's a problem reading the attributes, just exit out (don't need to warn the user, since the main XML has already been loaded)
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
 	if (!::GetFileAttributesExW(modelXmlPath.c_str(), GetFileExInfoStandard, &attributes))
-		return;
+		return false;
 
-	LARGE_INTEGER modify{};
-	modify.LowPart = attributes.ftLastWriteTime.dwLowDateTime;
-	modify.HighPart = attributes.ftLastWriteTime.dwHighDateTime;
-	auto modifyTime = modify.QuadPart;
-	std::wstring ws_modelModifTimestamp = std::to_wstring(modifyTime);
+	int modifiedDate = 0;
+	if (!fileTimeToYMD(attributes.ftLastWriteTime, modifiedDate))
+		return false;
 
-	// if both strings exist, do the string comparison, and don't bother reading the model unless the user attribute appears out-of-date
-	if (!ws_user_modelModifTimestamp.empty())
-	{
-		if (ws_user_modelModifTimestamp >= ws_modelModifTimestamp)
-			return;
-	}
+	// if modifiedDate is not later than user stored model timestamp, no need to check more.
+	// Note: in case of absence of attribute "modelModifDate", userModelModifTimestamp will be 0
+	if (userModelLastModifDate >= modifiedDate)
+		return false;
+
+	// update immediately the modelModifDate stored in the active XML
+	peRootUser->SetAttribute(L"modelFileLastModifiedDate", std::to_wstring(modifiedDate));
 
 	// At this point, need to parse the model file
 	// if there's a problem loading the model XML, just exit out (don't need to warn the user, since the main XML has already been loaded
 	//	the same logic will be used for any other errors while trying to do this XML merge)
 	TiXmlDocument* pXmlModel = new TiXmlDocument(modelXmlPath);
-	if (!pXmlModel->LoadFile())
-	{
-		delete pXmlModel;
-		return;
-	}
 
-	TiXmlElement* rootModel = pXmlModel->FirstChildElement(L"NotepadPlus");
-	if (!rootModel)
-	{
-		delete pXmlModel;
-		return;
-	}
 
-	// compare the *.model.xml's modelDate to that of the active XML
-	const wchar_t* wc_model_modelDate = rootModel->Attribute(L"modelDate");
-	const wchar_t* wc_user_modelDate = peRootUser->Attribute(L"modelDate");
-
-	// if both attributes exist, compare the integers to decide to exit if integer(user) >= integer(model),
-	//	because then the user file is at least as new as the model, and doesn't need to be updated;
-	//	if they don't both exist, need to do the update, because there aren't any dates to compare
-	if (wc_model_modelDate && wc_user_modelDate)
-	{
-		int v_model = decStrVal(wc_model_modelDate);
-		int v_user = decStrVal(wc_user_modelDate);
-		if (v_user >= v_model)
-		{
-			delete pXmlModel;
-			return;
-		}
-	}
-
-	// get the current version of the text of the user file (used later to see if user file needs to be saved because of changes)
-	std::string sUserTextBefore;
-	pXmlDocument->Print(sUserTextBefore);
-
-	// update (or add) the modelDate stored in the active XML (unless it's missing)
-	if (wc_model_modelDate)
-		peRootUser->SetAttribute(L"modelDate", wc_model_modelDate);
-
-	// update (or add) the modelModifTimestamp stored in the active XML
-	if (!ws_modelModifTimestamp.empty())
-		peRootUser->SetAttribute(L"modelModifTimestamp", ws_modelModifTimestamp);
-
-	// get the main internal <Languages> element from both user and model
-	TiXmlElement* mainElemUser = rootUser->FirstChildElement(mainElementName);
-	TiXmlElement* mainElemModel = rootModel->FirstChildElement(mainElementName);
-	if (!mainElemUser || !mainElemModel)
-	{
-		delete pXmlModel;
-		return;
-	}
-
-	switch (whichConf)
-	{
-		case ConfXml::lang:
-		{
-			updateLangXml(mainElemUser, mainElemModel);
-			break;
-		}
-		case ConfXml::styles:
-		{
-			updateStylesXml(peRootUser, rootModel, mainElemUser, mainElemModel);
-			break;
-		}
-	}
-
-	// check the user-langs document for changes
-	std::string sUserTextAfter;
-	pXmlDocument->Print(sUserTextAfter);
-	if (sUserTextBefore != sUserTextAfter)
-	{
+	auto handleErrorThenExit = [&]() {
 		switch (whichConf)
 		{
 			case ConfXml::lang:
@@ -2101,10 +2033,69 @@ void NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 				break;
 			}
 		}
+
+		delete pXmlModel;
+		return false;
+	};
+
+	if (!pXmlModel->LoadFile())
+	{
+		return handleErrorThenExit();
+	}
+
+	TiXmlElement* rootModel = pXmlModel->FirstChildElement(L"NotepadPlus");
+	if (!rootModel)
+	{
+		return handleErrorThenExit();
+	}
+
+	// compare the *.model.xml's modelDate to that of the active XML
+	int v_model = 0;
+	const wchar_t* wc_model_modelDate = rootModel->Attribute(L"modelDate", &v_model);
+
+	if (!wc_model_modelDate) // in case modelDate is absent in *.model.xml, no update will happen
+	{
+		return handleErrorThenExit();
+	}
+
+	int v_user = 0;
+	peRootUser->Attribute(L"modelDate", &v_user);
+
+	// v_user is 0 when "modelDate" is absent.
+	if (v_user >= v_model)
+	{
+		return handleErrorThenExit();
+	}
+
+	// update (or add) the modelDate stored in the active XML
+	peRootUser->SetAttribute(L"modelDate", wc_model_modelDate);
+
+	// get the main internal <Languages> element from both user and model
+	TiXmlElement* mainElemUser = rootUser->FirstChildElement(mainElementName);
+	TiXmlElement* mainElemModel = rootModel->FirstChildElement(mainElementName);
+	if (!mainElemUser || !mainElemModel)
+	{
+		return handleErrorThenExit();
+	}
+
+	switch (whichConf)
+	{
+		case ConfXml::lang:
+		{
+			updateLangXml(mainElemUser, mainElemModel);
+			pXmlDocument->SaveFile();
+			break;
+		}
+		case ConfXml::styles:
+		{
+			updateStylesXml(peRootUser, rootModel, mainElemUser, mainElemModel);
+			writeStyles(_lexerStylerVect, _widgetStyleArray);
+			break;
+		}
 	}
 
 	delete pXmlModel;
-	return;
+	return true;
 }
 
 void NppParameters::updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* mainElemModel)

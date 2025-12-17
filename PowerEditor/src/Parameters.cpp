@@ -1992,26 +1992,26 @@ bool NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 	std::wstring modelXmlPath(_nppPath);
 	pathAppend(modelXmlPath, modelXmlFilename);
 
-	// compare the *.model.xml's filesystem "modified" timestamp (date only) to the value stored in the user file modelLastModifDate attribute
-	int userModelModifDate = 0;
-	peRootUser->Attribute(L"modelLastModifDate", &userModelModifDate);
+	// compare the *.model.xml's filesystem "modified" timestamp (date only) to the value stored in the user file modelFileLastModifiedDate attribute
+	int userModelLastModifDate = 0;
+	peRootUser->Attribute(L"modelFileLastModifiedDate", &userModelLastModifDate);
 
 	// read the actual timestamp from the model file; if there's a problem reading the attributes, just exit out (don't need to warn the user, since the main XML has already been loaded)
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
 	if (!::GetFileAttributesExW(modelXmlPath.c_str(), GetFileExInfoStandard, &attributes))
 		return false;
 
-	int modifyTime = 0;
-	if (!fileTimeToYMD(attributes.ftLastWriteTime, modifyTime))
+	int modifiedDate = 0;
+	if (!fileTimeToYMD(attributes.ftLastWriteTime, modifiedDate))
 		return false;
 
-	// if modifytime is not later than user stored model timestamp, no need to check more.
+	// if modifiedDate is not later than user stored model timestamp, no need to check more.
 	// Note: in case of absence of attribute "modelModifDate", userModelModifTimestamp will be 0
-	if (userModelModifDate >= modifyTime)
+	if (userModelLastModifDate >= modifiedDate)
 		return false;
 
 	// update immediately the modelModifDate stored in the active XML
-	peRootUser->SetAttribute(L"modelLastModifDate", std::to_wstring(modifyTime));
+	peRootUser->SetAttribute(L"modelFileLastModifiedDate", std::to_wstring(modifiedDate));
 
 	// At this point, need to parse the model file
 	// if there's a problem loading the model XML, just exit out (don't need to warn the user, since the main XML has already been loaded

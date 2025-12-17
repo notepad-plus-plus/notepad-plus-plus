@@ -743,15 +743,15 @@ LRESULT CALLBACK ScintillaEditView::ScintillaProc(
 							}
 						}
 
+						pScint->execute(SCI_BEGINUNDOACTION);
+
 						// Let Scintilla do its job, if any
 						if (nbCaseForScint > 0)
-							break;
+							::DefSubclassProc(hWnd, uMsg, wParam, lParam);
 
 						// then do our job, if it's not column mode
 						if (!isColumnSelection)
 						{
-							pScint->execute(SCI_BEGINUNDOACTION);
-
 							for (const auto& i : edgeOfEol)
 							{
 								// because the current caret modification will change the other caret positions,
@@ -763,9 +763,9 @@ LRESULT CALLBACK ScintillaEditView::ScintillaProc(
 								pScint->execute(SCI_SETSELECTIONNSTART, i._selIndex, posStart);
 								pScint->execute(SCI_SETSELECTIONNEND, i._selIndex, posStart);
 							}
-
-							pScint->execute(SCI_ENDUNDOACTION);
 						}
+
+						pScint->execute(SCI_ENDUNDOACTION);
 
 						return 0;
 					}

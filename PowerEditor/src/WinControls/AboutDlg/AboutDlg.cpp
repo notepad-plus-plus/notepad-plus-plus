@@ -19,6 +19,7 @@
 #include "AboutDlg.h"
 #include "Parameters.h"
 #include "localization.h"
+#include "json.hpp"
 #if defined __has_include
 #if __has_include ("NppLibsVersion.h")
 #include "NppLibsVersion.h"
@@ -286,6 +287,16 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			// Boost Regex version
 			_debugInfoStr += L"Boost Regex included: ";
 			_debugInfoStr += wmc.char2wchar(NPP_BOOST_REGEX_VERSION, CP_ACP);
+			_debugInfoStr += L"\r\n";
+
+			// TinyXML-2 version
+			_debugInfoStr += L"TinyXML-2 included: ";
+			_debugInfoStr += to_wstring(TINYXML2_MAJOR_VERSION) + L"." + to_wstring(TINYXML2_MINOR_VERSION) + L"." + to_wstring(TINYXML2_PATCH_VERSION);
+			_debugInfoStr += L"\r\n";
+
+			// JSON version
+			_debugInfoStr += L"nlohmann JSON included: ";
+			_debugInfoStr += to_wstring(NLOHMANN_JSON_VERSION_MAJOR) + L"." + to_wstring(NLOHMANN_JSON_VERSION_MINOR) + L"." + to_wstring(NLOHMANN_JSON_VERSION_PATCH);
 			_debugInfoStr += L"\r\n";
 
 			// Binary path

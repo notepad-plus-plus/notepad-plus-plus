@@ -480,11 +480,11 @@ static constexpr int tabCmSubMenuEntryPos[]{
 //   |       |
 //   |       |
 //   |       |
-	 1,   // 0  Close Multiple Tabs
-	 5,   // 1  Open into
-	14,   // 2  Copy to Clipboard
-	15,   // 3  Move Document
-	16,   // 4  Apply Color to Tab
+     1,   // 0  Close Multiple Tabs
+     5,   // 1  Open into
+    14,   // 2  Copy to Clipboard
+    15,   // 3  Move Document
+    16,   // 4  Apply Color to Tab
 };
 
 

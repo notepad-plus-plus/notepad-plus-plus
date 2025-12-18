@@ -238,6 +238,11 @@ SectionGroup "Function List Files" functionListComponent
 		File ".\functionList\sas.xml"
 	${MementoSectionEnd}
 
+	${MementoSection} "makefile" MAKEFILE_FL
+		SetOutPath "$INSTDIR\functionList"
+		File ".\functionList\makefile.xml"
+	${MementoSectionEnd}
+
 	SetOverwrite off
 	${MementoSection} "Override Map" OverrideMap_FL
 		SetOutPath "$INSTDIR\functionList"
@@ -426,6 +431,10 @@ SectionGroup un.functionListComponent
 
 	Section un.SAS_FL
 		Delete "$INSTDIR\functionList\sas.xml"
+	SectionEnd
+
+	Section un.MAKEFILE_FL
+		Delete "$INSTDIR\functionList\makefile.xml"
 	SectionEnd
 
 SectionGroupEnd

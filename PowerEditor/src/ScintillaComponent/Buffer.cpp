@@ -2148,10 +2148,11 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 		const NewDocDefaultSettings & ndds = (nppParam.getNppGUI()).getNewDocDefaultSettings(); // for ndds._format
 		fileFormat._eolFormat = ndds._format;
 
-		//for empty files, if the default for new files is UTF8, and "Apply to opened ANSI files" is set, apply it
+		// for empty files, if the default for new files is UTF8, and "Apply to opened ANSI files" is set, apply it
+		// if the system code page is UTF-8, empty files without a forced encoding must be UTF8
 		if ((fileSize == 0) && (fileFormat._encoding < 1))
 		{
-			if (ndds._unicodeMode == uniUTF8_NoBOM && ndds._openAnsiAsUtf8)
+			if ((ndds._unicodeMode == uniUTF8_NoBOM && ndds._openAnsiAsUtf8) || NppParameters::getInstance().isCurrentSystemCodepageUTF8())
 				fileFormat._encoding = SC_CP_UTF8;
 		}
 	}

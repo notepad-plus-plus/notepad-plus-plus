@@ -2800,6 +2800,10 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHandle, HMENU plugin
 			const int id = NppXml::intAttribute(element, "id", -1);
 			if (id == 0) // separator
 			{
+				contextMenuItems.push_back(MenuItemUnit(id, L"", L""));
+			}
+			else if (id > 0)
+			{
 				contextMenuItems.push_back(MenuItemUnit(id, displayAs.c_str(), folderName.c_str()));
 			}
 			else

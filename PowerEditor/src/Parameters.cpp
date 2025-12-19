@@ -2254,6 +2254,29 @@ void NppParameters::updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* main
 				const wchar_t* pwcUserValue = thisLanguageFromUser->Attribute(attrModel->Name());
 				if (!pwcUserValue)
 					thisLanguageFromUser->SetAttribute(attrModel->Name(), attrModel->Value());
+				else if (std::wstring(L"ext") == attrModel->Name())
+				{
+					// Get both user and model values for the ext attribute
+					std::wstring wsExtValues = std::wstring(pwcUserValue) + L" " + attrModel->Value();
+					std::wstring wsExtUpdated;
+					std::map<std::wstring, bool> isExtDone{};
+					if (!wsExtValues.empty())
+					{
+						std::wstring wsToken;
+						std::wistringstream wstrm(wsExtValues);
+						while (wstrm >> wsToken)
+						{
+							if (!isExtDone.contains(wsToken))
+							{
+								if (!wsExtUpdated.empty())
+									wsExtUpdated += L" ";
+								wsExtUpdated += wsToken;
+								isExtDone[wsToken] = true;
+							}
+						}
+						thisLanguageFromUser->SetAttribute(attrModel->Name(), wsExtUpdated);
+					}
+				}
 			}
 		}
 		else

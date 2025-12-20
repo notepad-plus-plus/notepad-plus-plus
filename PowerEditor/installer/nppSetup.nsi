@@ -97,6 +97,12 @@ page Custom ExtraOptions
 !define MUI_PAGE_CUSTOMFUNCTION_SHOW "un.CheckIfRunning"
 !insertmacro MUI_UNPAGE_INSTFILES
 
+Var diffArchDir2Remove
+Var noUpdater
+Var closeRunningNpp
+Var runNppAfterSilentInstall
+Var relaunchNppAfterSilentInstall
+
 
 !include "nsisInclude\langs4Installer.nsh"
 
@@ -115,11 +121,6 @@ SectionEnd
 InstType "Minimalist"
 
 
-Var diffArchDir2Remove
-Var noUpdater
-Var closeRunningNpp
-Var runNppAfterSilentInstall
-Var relaunchNppAfterSilentInstall
 
 !ifdef ARCH64 || ARCHARM64
 ; this is needed for the 64-bit InstallDirRegKey patch

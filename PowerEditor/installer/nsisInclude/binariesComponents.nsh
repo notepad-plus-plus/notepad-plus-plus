@@ -67,32 +67,37 @@ SectionGroup "Plugins" Plugins
 SectionGroupEnd
 
 ${MementoSection} "Auto-Updater" AutoUpdater
-	SetOverwrite on
-	SetOutPath "$INSTDIR\updater"
+	${If} $noUpdater == "true"
+		Delete $INSTDIR\updater\*.*
+	${Else}
+		SetOverwrite on
+		SetOutPath "$INSTDIR\updater"
 !ifdef ARCH64
-	File "..\bin64\updater\GUP.exe"
-	File "..\bin64\updater\libcurl.dll"
-	File "..\bin64\updater\gup.xml"
-	File "..\bin64\updater\LICENSE"
-	File "..\bin64\updater\README.md"
-	File "..\bin64\updater\updater.ico"
+		File "..\bin64\updater\GUP.exe"
+		File "..\bin64\updater\libcurl.dll"
+		File "..\bin64\updater\gup.xml"
+		File "..\bin64\updater\LICENSE"
+		File "..\bin64\updater\README.md"
+		File "..\bin64\updater\updater.ico"
 !else ifdef ARCHARM64
-	File "..\binarm64\updater\GUP.exe"
-	File "..\binarm64\updater\libcurl.dll"
-	File "..\binarm64\updater\gup.xml"
-	File "..\binarm64\updater\LICENSE"
-	File "..\binarm64\updater\README.md"
-	File "..\binarm64\updater\updater.ico"
+		File "..\binarm64\updater\GUP.exe"
+		File "..\binarm64\updater\libcurl.dll"
+		File "..\binarm64\updater\gup.xml"
+		File "..\binarm64\updater\LICENSE"
+		File "..\binarm64\updater\README.md"
+		File "..\binarm64\updater\updater.ico"
 !else
-	File "..\bin\updater\GUP.exe"
-	File "..\bin\updater\libcurl.dll"
-	File "..\bin\updater\gup.xml"
-	File "..\bin\updater\LICENSE"
-	File "..\bin\updater\README.md"
-	File "..\bin\updater\updater.ico"
+		File "..\bin\updater\GUP.exe"
+		File "..\bin\updater\libcurl.dll"
+		File "..\bin\updater\gup.xml"
+		File "..\bin\updater\LICENSE"
+		File "..\bin\updater\README.md"
+		File "..\bin\updater\updater.ico"
 !endif
-	SetOutPath "$PLUGINSDIR\gupLocalization"
-	File "..\bin\updater\translations\"
+		SetOutPath "$PLUGINSDIR\gupLocalization"
+		File "..\bin\updater\translations\"
+	${EndIf}
+	
 ${MementoSectionEnd}
 
 ${MementoSection} "Plugins Admin" PluginsAdmin

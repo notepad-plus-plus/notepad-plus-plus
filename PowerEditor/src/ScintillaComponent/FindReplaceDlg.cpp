@@ -1632,6 +1632,9 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 			 wstring dirFromActiveDocTip = pNativeSpeaker->getLocalizedStrFromID("find-in-files-dir-from-active-doc-tip", L"Fill directory field based on active document");
 			 _dirFromActiveDocTip = CreateToolTip(IDD_FINDINFILES_SETDIRFROMDOC_BUTTON, _hSelf, _hInst, const_cast<PTSTR>(dirFromActiveDocTip.c_str()), _isRTL);
+			
+			 wstring magnifierTip = pNativeSpeaker->getLocalizedStrFromID("find-dialog-search-button-tip", L"Search");
+			 _magnifierTip = CreateToolTip(IDC_FINDINFILES_LAUNCH, _hSelf, _hInst, const_cast<PTSTR>(magnifierTip.c_str()), _isRTL);
 
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDC_FINDPREV), L"▲");
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDC_FINDNEXT), L"▼ Find Next");
@@ -6946,3 +6949,4 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 
 	return ::DefWindowProc(hwnd, umsg, wparam, lparam);
 }
+

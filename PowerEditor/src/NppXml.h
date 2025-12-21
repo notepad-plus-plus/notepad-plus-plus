@@ -51,6 +51,10 @@ namespace NppXml
 		return doc->load_file(filename, pugi::parse_cdata | pugi::parse_escapes | pugi::parse_eol);
 	}
 
+	[[nodiscard]] inline bool saveFileProject(Document doc, const wchar_t* filename) {
+		return doc->save_file(filename, "    ", pugi::format_indent | pugi::format_no_declaration | pugi::format_save_file_text);
+	}
+
 	[[nodiscard]] inline Element firstChildElement(const Document& doc, const char* name = nullptr) {
 		Node root = doc->root();
 		return name ? root.find_child([name](const Element& child) {
@@ -82,6 +86,10 @@ namespace NppXml
 
 	[[nodiscard]] inline Node nextSibling(const Node& node) {
 		return node.next_sibling();
+	}
+
+	[[nodiscard]] inline const char* name(const Node& node) {
+		return node.name();
 	}
 
 	[[nodiscard]] inline const char* value(const Node& node) {

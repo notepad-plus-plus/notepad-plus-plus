@@ -17,11 +17,12 @@
 
 #pragma once
 
-#include <vector>
 #include <windows.h>
+
 #include <commctrl.h>
 
-#define	IDI_SEPARATOR_ICON -1
+#include <vector>
+#include <utility>
 
 class IconList
 {
@@ -56,7 +57,7 @@ private :
 };
 
 struct ToolBarButtonUnit
-{	
+{
 	int _cmdID;
 
 	int _defaultIcon;
@@ -83,23 +84,29 @@ struct DynamicCmdIcoBmp {
 
 typedef std::vector<ToolBarButtonUnit> ToolBarIconIDs;
 
-// Light Mode list
-const int HLIST_DEFAULT = 0;
-const int HLIST_DISABLE = 1;
-const int HLIST_DEFAULT2 = 2;
-const int HLIST_DISABLE2 = 3;
-// Dark Mode list
-const int HLIST_DEFAULT_DM = 4;
-const int HLIST_DISABLE_DM = 5;
-const int HLIST_DEFAULT_DM2 = 6;
-const int HLIST_DISABLE_DM2 = 7;
+enum ToolbarIconList
+{
+	// Light Mode list
+
+	HLIST_DEFAULT,
+	HLIST_DISABLE,
+	HLIST_DEFAULT2,
+	HLIST_DISABLE2,
+
+	// Dark Mode list
+
+	HLIST_DEFAULT_DM,
+	HLIST_DISABLE_DM,
+	HLIST_DEFAULT_DM2,
+	HLIST_DISABLE_DM2
+};
 
 class ToolBarIcons
 {
 public:
 	ToolBarIcons() = default;
 
-	void init(ToolBarButtonUnit *buttonUnitArray, int arraySize, const std::vector<DynamicCmdIcoBmp>& cmds2add);
+	void init(const ToolBarButtonUnit* buttonUnitArray, int arraySize, const std::vector<DynamicCmdIcoBmp>& cmds2add);
 	void create(HINSTANCE hInst, int iconSize);
 	void destroy();
 

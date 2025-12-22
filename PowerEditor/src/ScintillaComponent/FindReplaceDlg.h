@@ -432,8 +432,6 @@ protected :
 	// Window procedure for the finder
 	static LRESULT CALLBACK FinderProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 
-	void combo2ExtendedMode(int comboID);
-
 private:
 	SIZE _szMinDialog{};
 	SIZE _szBorder{};

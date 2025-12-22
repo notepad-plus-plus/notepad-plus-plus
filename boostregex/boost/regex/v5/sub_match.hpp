@@ -19,9 +19,14 @@
 #ifndef BOOST_REGEX_V5_SUB_MATCH_HPP
 #define BOOST_REGEX_V5_SUB_MATCH_HPP
 
+#ifndef BOOST_REGEX_AS_MODULE
+#include <iterator>
+#include <utility>
+#endif
+
 namespace boost{
 
-template <class BidiIterator>
+BOOST_REGEX_MODULE_EXPORT template <class BidiIterator>
 struct sub_match : public std::pair<BidiIterator, BidiIterator>
 {
    typedef typename std::iterator_traits<BidiIterator>::value_type       value_type;
@@ -145,167 +150,167 @@ public:
    BidiIterator end()const { return this->second; }
 };
 
-typedef sub_match<const char*> csub_match;
-typedef sub_match<std::string::const_iterator> ssub_match;
+BOOST_REGEX_MODULE_EXPORT typedef sub_match<const char*> csub_match;
+BOOST_REGEX_MODULE_EXPORT typedef sub_match<std::string::const_iterator> ssub_match;
 #ifndef BOOST_NO_WREGEX
-typedef sub_match<const wchar_t*> wcsub_match;
-typedef sub_match<std::wstring::const_iterator> wssub_match;
+BOOST_REGEX_MODULE_EXPORT typedef sub_match<const wchar_t*> wcsub_match;
+BOOST_REGEX_MODULE_EXPORT typedef sub_match<std::wstring::const_iterator> wssub_match;
 #endif
 
 // comparison to std::basic_string<> part 1:
-template <class RandomAccessIterator, class traits, class Allocator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator, class traits, class Allocator>
 inline bool operator == (const std::basic_string<typename std::iterator_traits<RandomAccessIterator>::value_type, traits, Allocator>& s,
                   const sub_match<RandomAccessIterator>& m)
 { return s.compare(m.str()) == 0; }
-template <class RandomAccessIterator, class traits, class Allocator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator, class traits, class Allocator>
 inline bool operator != (const std::basic_string<typename std::iterator_traits<RandomAccessIterator>::value_type, traits, Allocator>& s,
                   const sub_match<RandomAccessIterator>& m)
 { return s.compare(m.str()) != 0; }
-template <class RandomAccessIterator, class traits, class Allocator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator, class traits, class Allocator>
 inline bool operator < (const std::basic_string<typename std::iterator_traits<RandomAccessIterator>::value_type, traits, Allocator>& s,
                  const sub_match<RandomAccessIterator>& m)
 { return s.compare(m.str()) < 0; }
-template <class RandomAccessIterator, class traits, class Allocator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator, class traits, class Allocator>
 inline bool operator <= (const std::basic_string<typename std::iterator_traits<RandomAccessIterator>::value_type, traits, Allocator>& s,
                   const sub_match<RandomAccessIterator>& m)
 { return s.compare(m.str()) <= 0; }
-template <class RandomAccessIterator, class traits, class Allocator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator, class traits, class Allocator>
 inline bool operator >= (const std::basic_string<typename std::iterator_traits<RandomAccessIterator>::value_type, traits, Allocator>& s,
                   const sub_match<RandomAccessIterator>& m)
 { return s.compare(m.str()) >= 0; }
-template <class RandomAccessIterator, class traits, class Allocator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator, class traits, class Allocator>
 inline bool operator > (const std::basic_string<typename std::iterator_traits<RandomAccessIterator>::value_type, traits, Allocator>& s,
                  const sub_match<RandomAccessIterator>& m)
 { return s.compare(m.str()) > 0; }
 // comparison to std::basic_string<> part 2:
-template <class RandomAccessIterator, class traits, class Allocator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator, class traits, class Allocator>
 inline bool operator == (const sub_match<RandomAccessIterator>& m,
                   const std::basic_string<typename std::iterator_traits<RandomAccessIterator>::value_type, traits, Allocator>& s)
 { return m.str().compare(s) == 0; }
-template <class RandomAccessIterator, class traits, class Allocator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator, class traits, class Allocator>
 inline bool operator != (const sub_match<RandomAccessIterator>& m,
                   const std::basic_string<typename std::iterator_traits<RandomAccessIterator>::value_type, traits, Allocator>& s)
 { return m.str().compare(s) != 0; }
-template <class RandomAccessIterator, class traits, class Allocator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator, class traits, class Allocator>
 inline bool operator < (const sub_match<RandomAccessIterator>& m,
                   const std::basic_string<typename std::iterator_traits<RandomAccessIterator>::value_type, traits, Allocator>& s)
 { return m.str().compare(s) < 0; }
-template <class RandomAccessIterator, class traits, class Allocator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator, class traits, class Allocator>
 inline bool operator > (const sub_match<RandomAccessIterator>& m,
                   const std::basic_string<typename std::iterator_traits<RandomAccessIterator>::value_type, traits, Allocator>& s)
 { return m.str().compare(s) > 0; }
-template <class RandomAccessIterator, class traits, class Allocator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator, class traits, class Allocator>
 inline bool operator <= (const sub_match<RandomAccessIterator>& m,
                   const std::basic_string<typename std::iterator_traits<RandomAccessIterator>::value_type, traits, Allocator>& s)
 { return m.str().compare(s) <= 0; }
-template <class RandomAccessIterator, class traits, class Allocator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator, class traits, class Allocator>
 inline bool operator >= (const sub_match<RandomAccessIterator>& m,
                   const std::basic_string<typename std::iterator_traits<RandomAccessIterator>::value_type, traits, Allocator>& s)
 { return m.str().compare(s) >= 0; }
 // comparison to const charT* part 1:
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator == (const sub_match<RandomAccessIterator>& m,
                   typename std::iterator_traits<RandomAccessIterator>::value_type const* s)
 { return m.str().compare(s) == 0; }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator != (const sub_match<RandomAccessIterator>& m,
                   typename std::iterator_traits<RandomAccessIterator>::value_type const* s)
 { return m.str().compare(s) != 0; }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator > (const sub_match<RandomAccessIterator>& m,
                   typename std::iterator_traits<RandomAccessIterator>::value_type const* s)
 { return m.str().compare(s) > 0; }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator < (const sub_match<RandomAccessIterator>& m,
                   typename std::iterator_traits<RandomAccessIterator>::value_type const* s)
 { return m.str().compare(s) < 0; }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator >= (const sub_match<RandomAccessIterator>& m,
                   typename std::iterator_traits<RandomAccessIterator>::value_type const* s)
 { return m.str().compare(s) >= 0; }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator <= (const sub_match<RandomAccessIterator>& m,
                   typename std::iterator_traits<RandomAccessIterator>::value_type const* s)
 { return m.str().compare(s) <= 0; }
 // comparison to const charT* part 2:
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator == (typename std::iterator_traits<RandomAccessIterator>::value_type const* s,
                   const sub_match<RandomAccessIterator>& m)
 { return m.str().compare(s) == 0; }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator != (typename std::iterator_traits<RandomAccessIterator>::value_type const* s,
                   const sub_match<RandomAccessIterator>& m)
 { return m.str().compare(s) != 0; }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator < (typename std::iterator_traits<RandomAccessIterator>::value_type const* s,
                   const sub_match<RandomAccessIterator>& m)
 { return m.str().compare(s) > 0; }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator > (typename std::iterator_traits<RandomAccessIterator>::value_type const* s,
                   const sub_match<RandomAccessIterator>& m)
 { return m.str().compare(s) < 0; }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator <= (typename std::iterator_traits<RandomAccessIterator>::value_type const* s,
                   const sub_match<RandomAccessIterator>& m)
 { return m.str().compare(s) >= 0; }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator >= (typename std::iterator_traits<RandomAccessIterator>::value_type const* s,
                   const sub_match<RandomAccessIterator>& m)
 { return m.str().compare(s) <= 0; }
 
 // comparison to const charT& part 1:
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator == (const sub_match<RandomAccessIterator>& m,
                   typename std::iterator_traits<RandomAccessIterator>::value_type const& s)
 { return m.str().compare(0, m.length(), &s, 1) == 0; }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator != (const sub_match<RandomAccessIterator>& m,
                   typename std::iterator_traits<RandomAccessIterator>::value_type const& s)
 { return m.str().compare(0, m.length(), &s, 1) != 0; }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator > (const sub_match<RandomAccessIterator>& m,
                   typename std::iterator_traits<RandomAccessIterator>::value_type const& s)
 { return m.str().compare(0, m.length(), &s, 1) > 0; }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator < (const sub_match<RandomAccessIterator>& m,
                   typename std::iterator_traits<RandomAccessIterator>::value_type const& s)
 { return m.str().compare(0, m.length(), &s, 1) < 0; }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator >= (const sub_match<RandomAccessIterator>& m,
                   typename std::iterator_traits<RandomAccessIterator>::value_type const& s)
 { return m.str().compare(0, m.length(), &s, 1) >= 0; }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator <= (const sub_match<RandomAccessIterator>& m,
                   typename std::iterator_traits<RandomAccessIterator>::value_type const& s)
 { return m.str().compare(0, m.length(), &s, 1) <= 0; }
 // comparison to const charT* part 2:
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator == (typename std::iterator_traits<RandomAccessIterator>::value_type const& s,
                   const sub_match<RandomAccessIterator>& m)
 { return m.str().compare(0, m.length(), &s, 1) == 0; }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator != (typename std::iterator_traits<RandomAccessIterator>::value_type const& s,
                   const sub_match<RandomAccessIterator>& m)
 { return m.str().compare(0, m.length(), &s, 1) != 0; }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator < (typename std::iterator_traits<RandomAccessIterator>::value_type const& s,
                   const sub_match<RandomAccessIterator>& m)
 { return m.str().compare(0, m.length(), &s, 1) > 0; }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator > (typename std::iterator_traits<RandomAccessIterator>::value_type const& s,
                   const sub_match<RandomAccessIterator>& m)
 { return m.str().compare(0, m.length(), &s, 1) < 0; }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator <= (typename std::iterator_traits<RandomAccessIterator>::value_type const& s,
                   const sub_match<RandomAccessIterator>& m)
 { return m.str().compare(0, m.length(), &s, 1) >= 0; }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline bool operator >= (typename std::iterator_traits<RandomAccessIterator>::value_type const& s,
                   const sub_match<RandomAccessIterator>& m)
 { return m.str().compare(0, m.length(), &s, 1) <= 0; }
 
 // addition operators:
-template <class RandomAccessIterator, class traits, class Allocator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator, class traits, class Allocator>
 inline std::basic_string<typename std::iterator_traits<RandomAccessIterator>::value_type, traits, Allocator> 
 operator + (const std::basic_string<typename std::iterator_traits<RandomAccessIterator>::value_type, traits, Allocator>& s,
                   const sub_match<RandomAccessIterator>& m)
@@ -314,7 +319,7 @@ operator + (const std::basic_string<typename std::iterator_traits<RandomAccessIt
    result.reserve(s.size() + m.length() + 1);
    return result.append(s).append(m.first, m.second);
 }
-template <class RandomAccessIterator, class traits, class Allocator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator, class traits, class Allocator>
 inline std::basic_string<typename std::iterator_traits<RandomAccessIterator>::value_type, traits, Allocator> 
 operator + (const sub_match<RandomAccessIterator>& m,
             const std::basic_string<typename std::iterator_traits<RandomAccessIterator>::value_type, traits, Allocator>& s)
@@ -323,7 +328,7 @@ operator + (const sub_match<RandomAccessIterator>& m,
    result.reserve(s.size() + m.length() + 1);
    return result.append(m.first, m.second).append(s);
 }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline std::basic_string<typename std::iterator_traits<RandomAccessIterator>::value_type> 
 operator + (typename std::iterator_traits<RandomAccessIterator>::value_type const* s,
                   const sub_match<RandomAccessIterator>& m)
@@ -332,7 +337,7 @@ operator + (typename std::iterator_traits<RandomAccessIterator>::value_type cons
    result.reserve(std::char_traits<typename std::iterator_traits<RandomAccessIterator>::value_type>::length(s) + m.length() + 1);
    return result.append(s).append(m.first, m.second);
 }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline std::basic_string<typename std::iterator_traits<RandomAccessIterator>::value_type> 
 operator + (const sub_match<RandomAccessIterator>& m,
             typename std::iterator_traits<RandomAccessIterator>::value_type const * s)
@@ -341,7 +346,7 @@ operator + (const sub_match<RandomAccessIterator>& m,
    result.reserve(std::char_traits<typename std::iterator_traits<RandomAccessIterator>::value_type>::length(s) + m.length() + 1);
    return result.append(m.first, m.second).append(s);
 }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline std::basic_string<typename std::iterator_traits<RandomAccessIterator>::value_type> 
 operator + (typename std::iterator_traits<RandomAccessIterator>::value_type const& s,
                   const sub_match<RandomAccessIterator>& m)
@@ -350,7 +355,7 @@ operator + (typename std::iterator_traits<RandomAccessIterator>::value_type cons
    result.reserve(m.length() + 2);
    return result.append(1, s).append(m.first, m.second);
 }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline std::basic_string<typename std::iterator_traits<RandomAccessIterator>::value_type> 
 operator + (const sub_match<RandomAccessIterator>& m,
             typename std::iterator_traits<RandomAccessIterator>::value_type const& s)
@@ -359,7 +364,7 @@ operator + (const sub_match<RandomAccessIterator>& m,
    result.reserve(m.length() + 2);
    return result.append(m.first, m.second).append(1, s);
 }
-template <class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class RandomAccessIterator>
 inline std::basic_string<typename std::iterator_traits<RandomAccessIterator>::value_type> 
 operator + (const sub_match<RandomAccessIterator>& m1,
             const sub_match<RandomAccessIterator>& m2)
@@ -368,7 +373,7 @@ operator + (const sub_match<RandomAccessIterator>& m1,
    result.reserve(m1.length() + m2.length() + 1);
    return result.append(m1.first, m1.second).append(m2.first, m2.second);
 }
-template <class charT, class traits, class RandomAccessIterator>
+BOOST_REGEX_MODULE_EXPORT template <class charT, class traits, class RandomAccessIterator>
 std::basic_ostream<charT, traits>&
    operator << (std::basic_ostream<charT, traits>& os,
                 const sub_match<RandomAccessIterator>& s)

@@ -19,8 +19,10 @@
 #ifndef BOOST_REGEX_V5_MATCH_FLAGS
 #define BOOST_REGEX_V5_MATCH_FLAGS
 
+#ifndef BOOST_REGEX_AS_MODULE
 #ifdef __cplusplus
 #  include <cstdint>
+#endif
 #endif
 
 #ifdef __cplusplus
@@ -35,7 +37,7 @@ namespace boost{
 #endif
 #endif
 
-typedef enum _match_flags
+BOOST_REGEX_MODULE_EXPORT typedef enum _match_flags
 {
    match_default = 0,
    match_not_bol = 1,                                /* first is not start of line */
@@ -89,22 +91,22 @@ typedef enum _match_flags
 
 } match_flags;
 
-typedef match_flags match_flag_type;
+BOOST_REGEX_MODULE_EXPORT typedef match_flags match_flag_type;
 
 #ifdef __cplusplus
-inline match_flags operator&(match_flags m1, match_flags m2)
+BOOST_REGEX_MODULE_EXPORT inline match_flags operator&(match_flags m1, match_flags m2)
 { return static_cast<match_flags>(static_cast<std::int32_t>(m1) & static_cast<std::int32_t>(m2)); }
-inline match_flags operator|(match_flags m1, match_flags m2)
+BOOST_REGEX_MODULE_EXPORT inline match_flags operator|(match_flags m1, match_flags m2)
 { return static_cast<match_flags>(static_cast<std::int32_t>(m1) | static_cast<std::int32_t>(m2)); }
-inline match_flags operator^(match_flags m1, match_flags m2)
+BOOST_REGEX_MODULE_EXPORT inline match_flags operator^(match_flags m1, match_flags m2)
 { return static_cast<match_flags>(static_cast<std::int32_t>(m1) ^ static_cast<std::int32_t>(m2)); }
-inline match_flags operator~(match_flags m1)
-{ return static_cast<match_flags>(~static_cast<std::int32_t>(m1)); }
-inline match_flags& operator&=(match_flags& m1, match_flags m2)
+BOOST_REGEX_MODULE_EXPORT inline match_flags operator~(match_flags m1)
+{ return static_cast<match_flags>(~static_cast<std::int32_t>(m1) & static_cast<std::int32_t>(match_not_any)); }
+BOOST_REGEX_MODULE_EXPORT inline match_flags& operator&=(match_flags& m1, match_flags m2)
 { m1 = m1&m2; return m1; }
-inline match_flags& operator|=(match_flags& m1, match_flags m2)
+BOOST_REGEX_MODULE_EXPORT inline match_flags& operator|=(match_flags& m1, match_flags m2)
 { m1 = m1|m2; return m1; }
-inline match_flags& operator^=(match_flags& m1, match_flags m2)
+BOOST_REGEX_MODULE_EXPORT inline match_flags& operator^=(match_flags& m1, match_flags m2)
 { m1 = m1^m2; return m1; }
 #endif
 
@@ -113,36 +115,36 @@ inline match_flags& operator^=(match_flags& m1, match_flags m2)
 /*
  * import names into boost for backwards compatibility:
  */
-using regex_constants::match_flag_type;
-using regex_constants::match_default;
-using regex_constants::match_not_bol;
-using regex_constants::match_not_eol;
-using regex_constants::match_not_bob;
-using regex_constants::match_not_eob;
-using regex_constants::match_not_bow;
-using regex_constants::match_not_eow;
-using regex_constants::match_not_dot_newline;
-using regex_constants::match_not_dot_null;
-using regex_constants::match_prev_avail;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::match_flag_type;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::match_default;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::match_not_bol;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::match_not_eol;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::match_not_bob;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::match_not_eob;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::match_not_bow;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::match_not_eow;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::match_not_dot_newline;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::match_not_dot_null;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::match_prev_avail;
 /* using regex_constants::match_init; */
-using regex_constants::match_any;
-using regex_constants::match_not_null;
-using regex_constants::match_continuous;
-using regex_constants::match_partial;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::match_any;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::match_not_null;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::match_continuous;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::match_partial;
 /*using regex_constants::match_stop; */
-using regex_constants::match_all;
-using regex_constants::match_perl;
-using regex_constants::match_posix;
-using regex_constants::match_nosubs;
-using regex_constants::match_extra;
-using regex_constants::match_single_line;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::match_all;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::match_perl;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::match_posix;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::match_nosubs;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::match_extra;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::match_single_line;
 /*using regex_constants::match_max; */
-using regex_constants::format_all;
-using regex_constants::format_sed;
-using regex_constants::format_perl;
-using regex_constants::format_default;
-using regex_constants::format_no_copy;
-using regex_constants::format_first_only;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::format_all;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::format_sed;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::format_perl;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::format_default;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::format_no_copy;
+BOOST_REGEX_MODULE_EXPORT using regex_constants::format_first_only;
 /*using regex_constants::format_is_if;*/
 
 #ifdef BOOST_REGEX_MSVC

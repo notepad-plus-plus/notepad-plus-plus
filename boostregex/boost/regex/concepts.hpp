@@ -24,7 +24,7 @@
 #include <boost/type_traits/is_enum.hpp>
 #include <boost/type_traits/is_base_and_derived.hpp>
 #include <boost/static_assert.hpp>
-#ifndef BOOST_TEST_TR1_REGEX
+#if !defined(BOOST_TEST_TR1_REGEX) && !defined(BOOST_REGEX_TEST_MODULE)
 #include <boost/regex.hpp>
 #endif
 #include <bitset>
@@ -35,6 +35,16 @@
 #define RW_NS boost
 #else
 #define RW_NS std
+#endif
+
+
+  //
+  // alter this to std::tr1, to test a std implementation:
+  //
+#ifndef BOOST_TEST_TR1_REGEX
+namespace global_regex_namespace = ::boost;
+#else
+namespace global_regex_namespace = ::std::tr1;
 #endif
 
 namespace boost{
@@ -76,13 +86,10 @@ inline long hash_value(char_architype val)
 //
 } // namespace boost
 namespace std{
-   template<> struct char_traits<boost::char_architype>
-   {
-      // The intent is that this template is not instantiated,
-      // but this typedef gives us a chance of compilation in
-      // case it is:
-      typedef boost::char_architype char_type;
-   };
+   //
+   // We should never use this, if we do it should be an error:
+   //
+   template<> struct char_traits<boost::char_architype>;
 }
 //
 // Allocator architype:
@@ -126,6 +133,9 @@ template <class T>
 bool operator == (const allocator_architype<T>&, const allocator_architype<T>&) {return true; }
 template <class T>
 bool operator != (const allocator_architype<T>&, const allocator_architype<T>&) { return false; }
+
+template <class T>
+void consume_type() {}
 
 namespace boost{
 //
@@ -177,15 +187,6 @@ private:
    regex_traits_architype(const regex_traits_architype&){}
    regex_traits_architype& operator=(const regex_traits_architype&){ return *this; }
 };
-
-//
-// alter this to std::tr1, to test a std implementation:
-//
-#ifndef BOOST_TEST_TR1_REGEX
-namespace global_regex_namespace = ::boost;
-#else
-namespace global_regex_namespace = ::std::tr1;
-#endif
 
 template <class Bitmask>
 struct BitmaskConcept
@@ -273,7 +274,7 @@ template <class Regex>
 struct regex_traits_computer;
 
 template <class charT, class traits>
-struct regex_traits_computer< global_regex_namespace::basic_regex<charT, traits> >
+struct regex_traits_computer< ::boost::basic_regex<charT, traits> >
 {
    typedef traits type;
 };
@@ -371,6 +372,8 @@ struct BaseRegexConcept
       e1 = except.code();
 
       typedef typename Regex::value_type regex_value_type;
+      regex_value_type val{};
+      ignore_unused_variable_warning(val);
       function_requires< RegexTraitsConcept<global_regex_namespace::regex_traits<char> > >();
       function_requires< BaseRegexConcept<global_regex_namespace::basic_regex<char> > >();
    }
@@ -406,6 +409,10 @@ struct BaseRegexConcept
       ignore_unused_variable_warning(e4);
       Regex e5(in1, in2, m_flags);
       ignore_unused_variable_warning(e5);
+
+      // equals:
+      e1 == e2;
+      e1 != e2;
 
       // assign etc:
       Regex e;
@@ -446,15 +453,25 @@ struct BaseRegexConcept
       // match_results tests - some typedefs are not used, however these
       // guarante that they exist (some compilers may warn on non-usage)
       typedef typename match_results_type::value_type mr_value_type;
+      consume_type<mr_value_type>();
       typedef typename match_results_type::const_reference mr_const_reference;
+      consume_type<mr_const_reference>();
       typedef typename match_results_type::reference mr_reference;
+      consume_type<mr_reference>();
       typedef typename match_results_type::const_iterator mr_const_iterator;
+      consume_type<mr_const_iterator>();
       typedef typename match_results_type::iterator mr_iterator;
+      consume_type<mr_iterator>();
       typedef typename match_results_type::difference_type mr_difference_type;
+      consume_type<mr_difference_type>();
       typedef typename match_results_type::size_type mr_size_type;
+      consume_type<mr_size_type>();
       typedef typename match_results_type::allocator_type mr_allocator_type;
+      consume_type<mr_allocator_type>();
       typedef typename match_results_type::char_type mr_char_type;
+      consume_type<mr_char_type>();
       typedef typename match_results_type::string_type mr_string_type;
+      consume_type<mr_string_type>();
 
       match_results_type m1;
       mr_allocator_type at;

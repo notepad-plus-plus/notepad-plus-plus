@@ -627,6 +627,9 @@ std::pair<intptr_t, intptr_t> Finder::gotoFoundLine(size_t nOccurrence)
 		return  emptyResult;
 	}
 
+	if (static_cast<size_t>(lno) >= _pMainFoundInfos->size())
+		return std::pair<intptr_t, intptr_t>(0, 0);
+
 	const FoundInfo& fInfo = *(_pMainFoundInfos->begin() + lno);
 	const SearchResultMarkingLine& markingLine = *(_pMainMarkings->begin() + lno);
 
@@ -2320,7 +2323,6 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					{
 						setStatusbarMessage(L"", FSNoMessage);
 						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-						combo2ExtendedMode(IDFINDWHAT);
 						_options._str2Search = getTextFromCombo(hFindCombo);
 						updateCombo(IDFINDWHAT);
 
@@ -2336,7 +2338,6 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				{
 					setStatusbarMessage(L"", FSNoMessage);
 					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-					combo2ExtendedMode(IDFINDWHAT);
 					_options._str2Search = getTextFromCombo(hFindCombo);
 					updateCombo(IDFINDWHAT);
 
@@ -2359,7 +2360,6 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					_options._filters = filters;
 
 					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-					combo2ExtendedMode(IDFINDWHAT);
 					_options._str2Search = getTextFromCombo(hFindCombo);
 					updateCombo(IDFINDWHAT);
 
@@ -5253,55 +5253,6 @@ void FindReplaceDlg::enableMarkFunc()
 	hideOrShowCtrl4reduceOrNormalMode(_currentStatus);
 }
 
-void FindReplaceDlg::combo2ExtendedMode(int comboID)
-{
-	HWND hFindCombo = ::GetDlgItem(_hSelf, comboID);
-	if (!hFindCombo) return;
-
-	wstring str2transform = getTextFromCombo(hFindCombo);
-
-	// Count the number of character '\n' and '\r'
-	size_t nbEOL = 0;
-	size_t str2transformLen = lstrlen(str2transform.c_str());
-	for (size_t i = 0 ; i < str2transformLen ; ++i)
-	{
-		if (str2transform[i] == '\r' || str2transform[i] == '\n')
-			++nbEOL;
-	}
-
-	if (nbEOL)
-	{
-		wchar_t * newBuffer = new wchar_t[str2transformLen + nbEOL*2 + 1];
-		int j = 0;
-		for (size_t i = 0 ; i < str2transformLen ; ++i)
-		{
-			if (str2transform[i] == '\r')
-			{
-				newBuffer[j++] = '\\';
-				newBuffer[j++] = 'r';
-			}
-			else if (str2transform[i] == '\n')
-			{
-				newBuffer[j++] = '\\';
-				newBuffer[j++] = 'n';
-			}
-			else
-			{
-				newBuffer[j++] = str2transform[i];
-			}
-		}
-		newBuffer[j++] = '\0';
-		setSearchText(newBuffer);
-
-		_options._searchType = FindExtended;
-		::SendDlgItemMessage(_hSelf, IDNORMAL, BM_SETCHECK, FALSE, 0);
-		::SendDlgItemMessage(_hSelf, IDEXTENDED, BM_SETCHECK, TRUE, 0);
-		::SendDlgItemMessage(_hSelf, IDREGEXP, BM_SETCHECK, FALSE, 0);
-
-		delete [] newBuffer;
-	}
-}
-
 void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
 	//printStr(L"OK"));
@@ -5530,10 +5481,14 @@ wstring Finder::getHitsString(int count) const
 
 void Finder::addSearchLine(const wchar_t *searchName)
 {
+	wstring oneLineSearchName = searchName;
+	oneLineSearchName.erase(std::remove(oneLineSearchName.begin(), oneLineSearchName.end(), L'\r'), oneLineSearchName.end());
+	oneLineSearchName.erase(std::remove(oneLineSearchName.begin(), oneLineSearchName.end(), L'\n'), oneLineSearchName.end());
+
 	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 	wstring str = pNativeSpeaker->getLocalizedStrFromID("find-result-title", L"Search");
 	str += L" \"";
-	str += searchName;
+	str += oneLineSearchName;
 	str += L"\" \r\n";
 
 	setFinderReadOnly(false);

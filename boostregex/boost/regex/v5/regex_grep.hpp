@@ -19,6 +19,10 @@
 #ifndef BOOST_REGEX_V5_REGEX_GREP_HPP
 #define BOOST_REGEX_V5_REGEX_GREP_HPP
 
+#include <boost/regex/v5/basic_regex.hpp>
+#include <boost/regex/v5/match_flags.hpp>
+#include <boost/regex/v5/match_results.hpp>
+#include <boost/regex/v5/perl_matcher.hpp>
 
 namespace boost{
 
@@ -26,7 +30,7 @@ namespace boost{
 // regex_grep:
 // find all non-overlapping matches within the sequence first last:
 //
-template <class Predicate, class BidiIterator, class charT, class traits>
+BOOST_REGEX_MODULE_EXPORT template <class Predicate, class BidiIterator, class charT, class traits>
 inline unsigned int regex_grep(Predicate foo, 
                                BidiIterator first, 
                                BidiIterator last, 
@@ -41,7 +45,7 @@ inline unsigned int regex_grep(Predicate foo,
    match_results<BidiIterator> m;
    BOOST_REGEX_DETAIL_NS::perl_matcher<BidiIterator, match_allocator_type, traits> matcher(first, last, m, e, flags, first);
    unsigned int count = 0;
-   while(matcher.find())
+   while(BOOST_REGEX_DETAIL_NS::factory_find(matcher))
    {
       ++count;
       if(0 == foo(m))
@@ -56,7 +60,7 @@ inline unsigned int regex_grep(Predicate foo,
          // a non-NULL one at the same position:
          match_results<BidiIterator, match_allocator_type> m2(m);
          matcher.setf(match_not_null | match_continuous);
-         if(matcher.find())
+         if(BOOST_REGEX_DETAIL_NS::factory_find(matcher))
          {
             ++count;
             if(0 == foo(m))
@@ -76,7 +80,7 @@ inline unsigned int regex_grep(Predicate foo,
 //
 // regex_grep convenience interfaces:
 //
-template <class Predicate, class charT, class traits>
+BOOST_REGEX_MODULE_EXPORT template <class Predicate, class charT, class traits>
 inline unsigned int regex_grep(Predicate foo, const charT* str, 
                         const basic_regex<charT, traits>& e, 
                         match_flag_type flags = match_default)
@@ -84,7 +88,7 @@ inline unsigned int regex_grep(Predicate foo, const charT* str,
    return regex_grep(foo, str, str + traits::length(str), e, flags);
 }
 
-template <class Predicate, class ST, class SA, class charT, class traits>
+BOOST_REGEX_MODULE_EXPORT template <class Predicate, class ST, class SA, class charT, class traits>
 inline unsigned int regex_grep(Predicate foo, const std::basic_string<charT, ST, SA>& s, 
                  const basic_regex<charT, traits>& e, 
                  match_flag_type flags = match_default)

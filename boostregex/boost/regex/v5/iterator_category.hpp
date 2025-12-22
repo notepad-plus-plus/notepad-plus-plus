@@ -21,8 +21,10 @@
 #ifndef BOOST_REGEX_ITERATOR_CATEGORY_HPP
 #define BOOST_REGEX_ITERATOR_CATEGORY_HPP
 
+#ifndef BOOST_REGEX_AS_MODULE
 #include <iterator>
 #include <type_traits>
+#endif
 
 namespace boost{
 namespace detail{

@@ -1463,8 +1463,15 @@ void ScintillaEditView::setJsLexer()
 
 void ScintillaEditView::setTclLexer()
 {
-	const char *tclInstrs;
-    const char *tclTypes;
+	const char *kw_TCL_KW;
+	const char *kw_TK_KW;
+	const char *kw_TK_CMD;
+	const char *kw_iTCL_KW;
+	const char *kw_EXPAND;
+	const char *kw_USER1;
+	const char *kw_USER2;
+	const char *kw_USER3;
+	const char *kw_USER4;
 
 
 	setLexerFromLangID(L_TCL);
@@ -1472,24 +1479,88 @@ void ScintillaEditView::setTclLexer()
 	const wchar_t *pKwArray[NB_LIST] = {NULL};
 	makeStyle(L_TCL, pKwArray);
 
-	basic_string<char> keywordListInstruction("");
-	basic_string<char> keywordListType("");
+	basic_string<char> keywordList_TCL_KW("");
+	basic_string<char> keywordList_TK_KW("");
+	basic_string<char> keywordList_TK_CMD("");
+	basic_string<char> keywordList_iTCL_KW("");
+	basic_string<char> keywordList_EXPAND("");
+	basic_string<char> keywordList_USER1("");
+	basic_string<char> keywordList_USER2("");
+	basic_string<char> keywordList_USER3("");
+	basic_string<char> keywordList_USER4("");
+
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
 		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
-		keywordListInstruction = wstring2string(kwlW, CP_ACP);
+		keywordList_TCL_KW = wstring2string(kwlW, CP_ACP);
 	}
-	tclInstrs = concatToBuildKeywordList(keywordListInstruction, L_TCL, LANG_INDEX_INSTR);
+	kw_TCL_KW = concatToBuildKeywordList(keywordList_TCL_KW, L_TCL, LANG_INDEX_INSTR);
+
+	if (pKwArray[LANG_INDEX_INSTR2])
+	{
+		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR2];
+		keywordList_TK_KW = wstring2string(kwlW, CP_ACP);
+	}
+	kw_TK_KW = concatToBuildKeywordList(keywordList_TK_KW, L_TCL, LANG_INDEX_INSTR2);
 
 	if (pKwArray[LANG_INDEX_TYPE])
 	{
 		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE];
-		keywordListType = wstring2string(kwlW, CP_ACP);
+		keywordList_iTCL_KW = wstring2string(kwlW, CP_ACP);
 	}
-	tclTypes = concatToBuildKeywordList(keywordListType, L_TCL, LANG_INDEX_TYPE);
+	kw_iTCL_KW = concatToBuildKeywordList(keywordList_iTCL_KW, L_TCL, LANG_INDEX_TYPE);
 
-	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(tclInstrs));
-	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(tclTypes));
+	if (pKwArray[LANG_INDEX_TYPE2])
+	{
+		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE2];
+		keywordList_TK_CMD = wstring2string(kwlW, CP_ACP);
+	}
+	kw_TK_CMD = concatToBuildKeywordList(keywordList_TK_CMD, L_TCL, LANG_INDEX_TYPE2);
+
+	if (pKwArray[LANG_INDEX_TYPE3])
+	{
+		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE3];
+		keywordList_EXPAND = wstring2string(kwlW, CP_ACP);
+	}
+	kw_EXPAND = concatToBuildKeywordList(keywordList_EXPAND, L_TCL, LANG_INDEX_TYPE3);
+
+	if (pKwArray[LANG_INDEX_TYPE4])
+	{
+		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE4];
+		keywordList_USER1 = wstring2string(kwlW, CP_ACP);
+	}
+	kw_USER1 = concatToBuildKeywordList(keywordList_USER1, L_TCL, LANG_INDEX_TYPE4);
+
+	if (pKwArray[LANG_INDEX_TYPE5])
+	{
+		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE5];
+		keywordList_USER2= wstring2string(kwlW, CP_ACP);
+	}
+	kw_USER2 = concatToBuildKeywordList(keywordList_USER2, L_TCL, LANG_INDEX_TYPE5);
+
+	if (pKwArray[LANG_INDEX_TYPE6])
+	{
+		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE6];
+		keywordList_USER3 = wstring2string(kwlW, CP_ACP);
+	}
+	kw_USER3 = concatToBuildKeywordList(keywordList_USER3, L_TCL, LANG_INDEX_TYPE6);
+
+	if (pKwArray[LANG_INDEX_TYPE7])
+	{
+		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE7];
+		keywordList_USER4 = wstring2string(kwlW, CP_ACP);
+	}
+	kw_USER4 = concatToBuildKeywordList(keywordList_USER4, L_TCL, LANG_INDEX_TYPE7);
+
+	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(kw_TCL_KW));
+	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(kw_iTCL_KW));
+	execute(SCI_SETKEYWORDS, 2, reinterpret_cast<LPARAM>(kw_TK_KW));
+	execute(SCI_SETKEYWORDS, 3, reinterpret_cast<LPARAM>(kw_TK_CMD));
+	execute(SCI_SETKEYWORDS, 4, reinterpret_cast<LPARAM>(kw_EXPAND));
+	execute(SCI_SETKEYWORDS, 5, reinterpret_cast<LPARAM>(kw_USER1));
+	execute(SCI_SETKEYWORDS, 6, reinterpret_cast<LPARAM>(kw_USER2));
+	execute(SCI_SETKEYWORDS, 7, reinterpret_cast<LPARAM>(kw_USER3));
+	execute(SCI_SETKEYWORDS, 8, reinterpret_cast<LPARAM>(kw_USER4));
 }
 
 void ScintillaEditView::setObjCLexer(LangType langType)

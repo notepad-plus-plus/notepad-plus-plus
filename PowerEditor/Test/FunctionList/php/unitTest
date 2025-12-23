@@ -122,4 +122,9 @@ class NotificationListener
     }
 }
 
+readonly class ValueObject
+{
+    public function __construct(public string $value) {}
+}
+
 NotificationListener::main();

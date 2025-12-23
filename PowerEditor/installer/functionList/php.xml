@@ -73,6 +73,7 @@
 						^\h*                                                # optional leading white-space at start-of-line
 						(?:
 							(?:(?-i:abstract|final)\s+)?                    # optional class entry type
+							(?:(?-i:readonly)\s+)?                          # optional readonly modifier
 							(?-i:class)\s+
 							\K                                              # discard text matched so far
 							(?&amp;VALID_ID)                                # identifier used as class name

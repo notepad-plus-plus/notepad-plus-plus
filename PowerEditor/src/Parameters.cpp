@@ -6581,7 +6581,7 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 // wrapSymbolShow="hide" Wrap="no" borderEdge="yes" isEdgeBgMode="no" edgeMultiColumnPos="" zoom="0" zoom2="0" whiteSpaceShow="hide"
 // eolShow="hide" eolMode="1" npcShow="hide" npcMode="1" npcCustomColor="no" npcIncludeCcUniEOL="no" npcNoInputC0="yes" ccShow="yes"
 // borderWidth="2" smoothFont="no" paddingLeft="0" paddingRight="0" distractionFreeDivPart="4" lineCopyCutWithoutSelection="yes"
-// multiSelection="yes" columnSel2MultiEdit="yes" />
+// enableDragDrop="yes" multiSelection="yes" columnSel2MultiEdit="yes" />
 void NppParameters::feedScintillaParam(const NppXml::Element& element)
 {
 	// Line Number Margin
@@ -6776,6 +6776,7 @@ void NppParameters::feedScintillaParam(const NppXml::Element& element)
 	_svp._distractionFreeDivPart = getRangeClampAttribute<unsigned char>(element, "distractionFreeDivPart", 3U, 9U, _svp._distractionFreeDivPart);
 
 	_svp._lineCopyCutWithoutSelection = getBoolAttribute(element, "lineCopyCutWithoutSelection", _svp._lineCopyCutWithoutSelection);
+	_svp._enableDragDrop = getBoolAttribute(element, "enableDragDrop", _svp._enableDragDrop);
 	_svp._multiSelection = getBoolAttribute(element, "multiSelection", _svp._multiSelection);
 	_svp._columnSel2MultiEdit = getBoolAttribute(element, "columnSel2MultiEdit", _svp._columnSel2MultiEdit);
 }
@@ -7043,6 +7044,7 @@ bool NppParameters::writeScintillaParams()
 	NppXml::setAttribute(scintNode, "paddingRight", _svp._paddingRight);
 	NppXml::setAttribute(scintNode, "distractionFreeDivPart", _svp._distractionFreeDivPart);
 	setBoolAttribute(scintNode, "lineCopyCutWithoutSelection", _svp._lineCopyCutWithoutSelection);
+	setBoolAttribute(scintNode, "enableDragDrop", _svp._enableDragDrop);
 
 	setBoolAttribute(scintNode, "multiSelection", _svp._multiSelection);
 	const bool canEnableColumnSel2MultiEdit = _svp._multiSelection && _svp._columnSel2MultiEdit;

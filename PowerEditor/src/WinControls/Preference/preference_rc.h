@@ -136,6 +136,7 @@
 #define IDC_DISTRACTIONFREE_STATIC                     6212
 #define IDC_CHECK_EDGEBGMODE                           6213
 #define IDC_CHECK_LINECUTCOPYWITHOUTSELECTION          6214
+#define IDC_CHECK_ENABLEDRAGDROP                       6266
 #define IDC_CHECK_SMOOTHFONT                           6215
 
 #define IDC_CARETSETTING_STATIC                        6216

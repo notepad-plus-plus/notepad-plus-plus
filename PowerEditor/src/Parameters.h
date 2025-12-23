@@ -937,6 +937,7 @@ struct ScintillaViewParams
 	}
 
 	bool _lineCopyCutWithoutSelection = true;
+	bool _enableDragDrop = true;
 
 	bool _multiSelection = true;      // if _multiSelection is false
 	bool _columnSel2MultiEdit = true; // _columnSel2MultiEdit must be false

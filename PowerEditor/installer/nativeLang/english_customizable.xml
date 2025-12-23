@@ -1024,6 +1024,7 @@ Translation note:
 					<Item id="6239" name="Keep selection when right-click outside of selection"/>
 					<Item id="6245" name="Enable virtual space"/>
 					<Item id="6214" name="Enable Copy/Cut Line without selection"/>
+					<Item id="6266" name="Disable selected text drag-and-drop"/>
 					<Item id="6225" name="Apply custom color to selected text foreground"/>
 					<Item id="6651" name="Current Line Indicator"/>
 					<Item id="6652" name="None"/>

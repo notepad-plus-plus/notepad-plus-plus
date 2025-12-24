@@ -4174,9 +4174,9 @@ void NppParameters::insertScintKey(NppXml::Node scintKeyRoot, const ScintillaKey
 }
 
 
-void NppParameters::writeSession(const Session & session, const wchar_t *fileName)
+void NppParameters::writeSession(const Session& session, const wchar_t* fileName)
 {
-	const wchar_t *sessionPathName = fileName ? fileName : _sessionPath.c_str();
+	const wchar_t* sessionPathName = fileName ? fileName : _sessionPath.c_str();
 
 	//
 	// Make sure session file is not read-only
@@ -4198,7 +4198,7 @@ void NppParameters::writeSession(const Session & session, const wchar_t *fileNam
 		doesBackupCopyExist = CopyFile(sessionPathName, backupPathName, FALSE);
 		if (!doesBackupCopyExist && !isEndSessionCritical())
 		{
-			wstring errTitle = L"Session file backup error: ";
+			std::wstring errTitle = L"Session file backup error: ";
 			errTitle += GetLastErrorAsString(0);
 			::MessageBox(nullptr, sessionPathName, errTitle.c_str(), MB_OK);
 		}
@@ -4207,87 +4207,81 @@ void NppParameters::writeSession(const Session & session, const wchar_t *fileNam
 	//
 	// Prepare for writing
 	//
-	TiXmlDocument* pXmlSessionDoc = new TiXmlDocument(sessionPathName);
-	TiXmlDeclaration* decl = new TiXmlDeclaration(L"1.0", L"UTF-8", L"");
-	pXmlSessionDoc->LinkEndChild(decl);
-	TiXmlNode *root = pXmlSessionDoc->InsertEndChild(TiXmlElement(L"NotepadPlus"));
+	NppXml::Document pXmlSessionDoc = new NppXml::NewDocument();
+	NppXml::createNewDeclaration(pXmlSessionDoc);
+	NppXml::Node root = NppXml::createChildElement(pXmlSessionDoc, "NotepadPlus");
 
 	if (root)
 	{
-		TiXmlNode *sessionNode = root->InsertEndChild(TiXmlElement(L"Session"));
-		(sessionNode->ToElement())->SetAttribute(L"activeView", static_cast<int32_t>(session._activeView));
+		NppXml::Element sessionNode = NppXml::createChildElement(root, "Session");
+		NppXml::setUInt64Attribute(sessionNode, "activeView", session._activeView);
 
 		struct ViewElem {
-			TiXmlNode *viewNode;
-			vector<sessionFileInfo> *viewFiles;
+			NppXml::Element viewNode;
+			const std::vector<sessionFileInfo>* viewFiles;
 			size_t activeIndex;
 		};
-		const int nbElem = 2;
-		ViewElem viewElems[nbElem];
-		viewElems[0].viewNode = sessionNode->InsertEndChild(TiXmlElement(L"mainView"));
-		viewElems[1].viewNode = sessionNode->InsertEndChild(TiXmlElement(L"subView"));
-		viewElems[0].viewFiles = (vector<sessionFileInfo> *)(&(session._mainViewFiles));
-		viewElems[1].viewFiles = (vector<sessionFileInfo> *)(&(session._subViewFiles));
-		viewElems[0].activeIndex = session._activeMainIndex;
-		viewElems[1].activeIndex = session._activeSubIndex;
+		static constexpr int nbElem = 2;
+		ViewElem viewElems[nbElem]{
+			ViewElem{.viewNode = NppXml::createChildElement(sessionNode, "mainView"), .viewFiles = &session._mainViewFiles, .activeIndex = session._activeMainIndex},
+			ViewElem{.viewNode = NppXml::createChildElement(sessionNode, "subView"), .viewFiles = &session._subViewFiles, .activeIndex = session._activeSubIndex}
+		};
 
 		for (size_t k = 0; k < nbElem ; ++k)
 		{
-			(viewElems[k].viewNode->ToElement())->SetAttribute(L"activeIndex", static_cast<int32_t>(viewElems[k].activeIndex));
-			vector<sessionFileInfo> & viewSessionFiles = *(viewElems[k].viewFiles);
+			NppXml::setUInt64Attribute(viewElems[k].viewNode, "activeIndex", viewElems[k].activeIndex);
+			const std::vector<sessionFileInfo>& viewSessionFiles = *(viewElems[k].viewFiles);
 
 			for (size_t i = 0, len = viewElems[k].viewFiles->size(); i < len ; ++i)
 			{
-				TiXmlNode *fileNameNode = viewElems[k].viewNode->InsertEndChild(TiXmlElement(L"File"));
+				NppXml::Element fileNameNode = NppXml::createChildElement(viewElems[k].viewNode, "File");
 
-				wchar_t szInt64[64];
-
-				(fileNameNode->ToElement())->SetAttribute(L"firstVisibleLine", _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._firstVisibleLine), szInt64, 10));
-				(fileNameNode->ToElement())->SetAttribute(L"xOffset", _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._xOffset), szInt64, 10));
-				(fileNameNode->ToElement())->SetAttribute(L"scrollWidth", _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._scrollWidth), szInt64, 10));
-				(fileNameNode->ToElement())->SetAttribute(L"startPos", _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._startPos), szInt64, 10));
-				(fileNameNode->ToElement())->SetAttribute(L"endPos", _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._endPos), szInt64, 10));
-				(fileNameNode->ToElement())->SetAttribute(L"selMode", _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._selMode), szInt64, 10));
-				(fileNameNode->ToElement())->SetAttribute(L"offset", _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._offset), szInt64, 10));
-				(fileNameNode->ToElement())->SetAttribute(L"wrapCount", _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._wrapCount), szInt64, 10));
-				(fileNameNode->ToElement())->SetAttribute(L"lang", viewSessionFiles[i]._langName.c_str());
-				(fileNameNode->ToElement())->SetAttribute(L"encoding", viewSessionFiles[i]._encoding);
-				(fileNameNode->ToElement())->SetAttribute(L"userReadOnly", (viewSessionFiles[i]._isUserReadOnly && !viewSessionFiles[i]._isMonitoring) ? L"yes" : L"no");
-				(fileNameNode->ToElement())->SetAttribute(L"filename", viewSessionFiles[i]._fileName.c_str());
-				(fileNameNode->ToElement())->SetAttribute(L"backupFilePath", viewSessionFiles[i]._backupFilePath.c_str());
-				(fileNameNode->ToElement())->SetAttribute(L"originalFileLastModifTimestamp", static_cast<int32_t>(viewSessionFiles[i]._originalFileLastModifTimestamp.dwLowDateTime));
-				(fileNameNode->ToElement())->SetAttribute(L"originalFileLastModifTimestampHigh", static_cast<int32_t>(viewSessionFiles[i]._originalFileLastModifTimestamp.dwHighDateTime));
-				(fileNameNode->ToElement())->SetAttribute(L"tabColourId", static_cast<int32_t>(viewSessionFiles[i]._individualTabColour));
-				(fileNameNode->ToElement())->SetAttribute(L"RTL", viewSessionFiles[i]._isRTL ? L"yes" : L"no");
-				(fileNameNode->ToElement())->SetAttribute(L"tabPinned", viewSessionFiles[i]._isPinned ? L"yes" : L"no");
+				NppXml::setInt64Attribute(fileNameNode, "firstVisibleLine", viewSessionFiles[i]._firstVisibleLine);
+				NppXml::setInt64Attribute(fileNameNode, "xOffset", viewSessionFiles[i]._xOffset);
+				NppXml::setInt64Attribute(fileNameNode, "scrollWidth", viewSessionFiles[i]._scrollWidth);
+				NppXml::setInt64Attribute(fileNameNode, "startPos", viewSessionFiles[i]._startPos);
+				NppXml::setInt64Attribute(fileNameNode, "endPos", viewSessionFiles[i]._endPos);
+				NppXml::setInt64Attribute(fileNameNode, "selMode", viewSessionFiles[i]._selMode);
+				NppXml::setInt64Attribute(fileNameNode, "offset", viewSessionFiles[i]._offset);
+				NppXml::setInt64Attribute(fileNameNode, "wrapCount", viewSessionFiles[i]._wrapCount);
+				NppXml::setAttribute(fileNameNode, "lang", wstring2string(viewSessionFiles[i]._langName, CP_UTF8).c_str());
+				NppXml::setAttribute(fileNameNode, "encoding", viewSessionFiles[i]._encoding);
+				NppXml::setAttribute(fileNameNode, "userReadOnly", (viewSessionFiles[i]._isUserReadOnly && !viewSessionFiles[i]._isMonitoring) ? "yes" : "no");
+				NppXml::setAttribute(fileNameNode, "filename", wstring2string(viewSessionFiles[i]._fileName, CP_UTF8).c_str());
+				NppXml::setAttribute(fileNameNode, "backupFilePath", wstring2string(viewSessionFiles[i]._backupFilePath, CP_UTF8).c_str());
+				NppXml::setAttribute(fileNameNode, "originalFileLastModifTimestamp", viewSessionFiles[i]._originalFileLastModifTimestamp.dwLowDateTime);
+				NppXml::setAttribute(fileNameNode, "originalFileLastModifTimestampHigh", viewSessionFiles[i]._originalFileLastModifTimestamp.dwHighDateTime);
+				NppXml::setAttribute(fileNameNode, "tabColourId", viewSessionFiles[i]._individualTabColour);
+				NppXml::setAttribute(fileNameNode, "RTL", viewSessionFiles[i]._isRTL ? "yes" : "no");
+				NppXml::setAttribute(fileNameNode, "tabPinned", viewSessionFiles[i]._isPinned ? "yes" : "no");
 				// Save this info only when it's an untitled entry
 				if (viewSessionFiles[i]._isUntitledTabRenamed)
-					(fileNameNode->ToElement())->SetAttribute(L"untitleTabRenamed", L"yes");
+					NppXml::setAttribute(fileNameNode, "untitleTabRenamed", "yes");
 
 				// docMap
-				(fileNameNode->ToElement())->SetAttribute(L"mapFirstVisibleDisplayLine", _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._firstVisibleDisplayLine), szInt64, 10));
-				(fileNameNode->ToElement())->SetAttribute(L"mapFirstVisibleDocLine", _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._firstVisibleDocLine), szInt64, 10));
-				(fileNameNode->ToElement())->SetAttribute(L"mapLastVisibleDocLine", _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._lastVisibleDocLine), szInt64, 10));
-				(fileNameNode->ToElement())->SetAttribute(L"mapNbLine", _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._nbLine), szInt64, 10));
-				(fileNameNode->ToElement())->SetAttribute(L"mapHigherPos", _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._higherPos), szInt64, 10));
-				(fileNameNode->ToElement())->SetAttribute(L"mapWidth", _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._width), szInt64, 10));
-				(fileNameNode->ToElement())->SetAttribute(L"mapHeight", _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._height), szInt64, 10));
-				(fileNameNode->ToElement())->SetAttribute(L"mapKByteInDoc", _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._KByteInDoc), szInt64, 10));
-				(fileNameNode->ToElement())->SetAttribute(L"mapWrapIndentMode", _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._wrapIndentMode), szInt64, 10));
-				fileNameNode->ToElement()->SetAttribute(L"mapIsWrap", viewSessionFiles[i]._mapPos._isWrap ? L"yes" : L"no");
+				NppXml::setInt64Attribute(fileNameNode,"mapFirstVisibleDisplayLine", viewSessionFiles[i]._mapPos._firstVisibleDisplayLine);
+				NppXml::setInt64Attribute(fileNameNode,"mapFirstVisibleDocLine", viewSessionFiles[i]._mapPos._firstVisibleDocLine);
+				NppXml::setInt64Attribute(fileNameNode,"mapLastVisibleDocLine", viewSessionFiles[i]._mapPos._lastVisibleDocLine);
+				NppXml::setInt64Attribute(fileNameNode,"mapNbLine", viewSessionFiles[i]._mapPos._nbLine);
+				NppXml::setInt64Attribute(fileNameNode,"mapHigherPos", viewSessionFiles[i]._mapPos._higherPos);
+				NppXml::setInt64Attribute(fileNameNode,"mapWidth", viewSessionFiles[i]._mapPos._width);
+				NppXml::setInt64Attribute(fileNameNode,"mapHeight", viewSessionFiles[i]._mapPos._height);
+				NppXml::setInt64Attribute(fileNameNode,"mapKByteInDoc", viewSessionFiles[i]._mapPos._KByteInDoc);
+				NppXml::setInt64Attribute(fileNameNode,"mapWrapIndentMode", viewSessionFiles[i]._mapPos._wrapIndentMode);
+				NppXml::setAttribute(fileNameNode, "mapIsWrap", viewSessionFiles[i]._mapPos._isWrap ? "yes" : "no");
 
 				for (size_t j = 0, len = viewSessionFiles[i]._marks.size() ; j < len ; ++j)
 				{
 					size_t markLine = viewSessionFiles[i]._marks[j];
-					TiXmlNode *markNode = fileNameNode->InsertEndChild(TiXmlElement(L"Mark"));
-					markNode->ToElement()->SetAttribute(L"line", _ui64tot(static_cast<ULONGLONG>(markLine), szInt64, 10));
+					NppXml::Element markNode = NppXml::createChildElement(fileNameNode, "Mark");
+					NppXml::setUInt64Attribute(markNode, "line", markLine);
 				}
 
 				for (size_t j = 0, len = viewSessionFiles[i]._foldStates.size() ; j < len ; ++j)
 				{
 					size_t foldLine = viewSessionFiles[i]._foldStates[j];
-					TiXmlNode *foldNode = fileNameNode->InsertEndChild(TiXmlElement(L"Fold"));
-					foldNode->ToElement()->SetAttribute(L"line", _ui64tot(static_cast<ULONGLONG>(foldLine), szInt64, 10));
+					NppXml::Element foldNode = NppXml::createChildElement(fileNameNode, "Fold");
+					NppXml::setUInt64Attribute(foldNode, "line", foldLine);
 				}
 			}
 		}
@@ -4295,12 +4289,12 @@ void NppParameters::writeSession(const Session & session, const wchar_t *fileNam
 		if (session._includeFileBrowser)
 		{
 			// Node structure and naming corresponds to config.xml
-			TiXmlNode* fileBrowserRootNode = sessionNode->InsertEndChild(TiXmlElement(L"FileBrowser"));
-			fileBrowserRootNode->ToElement()->SetAttribute(L"latestSelectedItem", session._fileBrowserSelectedItem.c_str());
+			NppXml::Element fileBrowserRootNode = NppXml::createChildElement(sessionNode, "FileBrowser");
+			NppXml::setAttribute(fileBrowserRootNode, "latestSelectedItem", wstring2string(session._fileBrowserSelectedItem, CP_UTF8).c_str());
 			for (const auto& fbRoot : session._fileBrowserRoots)
 			{
-				TiXmlNode *fileNameNode = fileBrowserRootNode->InsertEndChild(TiXmlElement(L"root"));
-				(fileNameNode->ToElement())->SetAttribute(L"foldername", fbRoot.c_str());
+				NppXml::Element fileNameNode = NppXml::createChildElement(fileBrowserRootNode, "root");
+				NppXml::setAttribute(fileNameNode,"foldername", wstring2string(fbRoot, CP_UTF8).c_str());
 			}
 		}
 	}
@@ -4308,7 +4302,7 @@ void NppParameters::writeSession(const Session & session, const wchar_t *fileNam
 	//
 	// Write the session file
 	//
-	bool sessionSaveOK = pXmlSessionDoc->SaveFile();
+	bool sessionSaveOK = NppXml::saveFile(pXmlSessionDoc, sessionPathName);
 
 	//
 	// Double checking: prevent written session file corrupted while writting
@@ -4339,7 +4333,7 @@ void NppParameters::writeSession(const Session & session, const wchar_t *fileNam
 			if (!isEndSessionCritical())
 				::MessageBox(nullptr, backupPathName, L"Saving session error - restoring from the backup:", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
 
-			wstring sessionPathNameFail2Load = sessionPathName;
+			std::wstring sessionPathNameFail2Load = sessionPathName;
 			sessionPathNameFail2Load += L".fail2Load";
 			ReplaceFile(sessionPathName, backupPathName, sessionPathNameFail2Load.c_str(), REPLACEFILE_IGNORE_MERGE_ERRORS | REPLACEFILE_IGNORE_ACL_ERRORS, 0, 0);
 		}

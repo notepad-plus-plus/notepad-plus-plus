@@ -6381,11 +6381,11 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includeUntitled
 			}
 
 			const wchar_t* langName = languageName.c_str();
-			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getUserReadOnly(), buf->isPinned(), buf->isUntitledTabRenamed(), buf->getPosition(editView), buf->getBackupFileName().c_str(), buf->getLastModifiedFileTimestamp(), buf->getMapPosition());
+			sessionFileInfo sfi(buf->getPosition(editView), buf->getMapPosition(),
+				buf->getFullPathName(), langName, buf->getBackupFileName().c_str(), buf->getLastModifiedFileTimestamp(),
+				buf->getEncoding(), docTab[k]->getIndividualTabColourId(static_cast<int>(i)), buf->getUserReadOnly(), buf->isRTL(), buf->isPinned(), buf->isUntitledTabRenamed());
 
 			sfi._isMonitoring = buf->isMonitoringOn();
-			sfi._individualTabColour = docTab[k]->getIndividualTabColourId(static_cast<int>(i));
-			sfi._isRTL = buf->isRTL();
 
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
 

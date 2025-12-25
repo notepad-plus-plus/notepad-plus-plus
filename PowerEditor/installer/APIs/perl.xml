@@ -131,7 +131,7 @@
 		<KeyWord name="Tr" />
 		<KeyWord name="UNITCHECK" />
 		<KeyWord name="UNIVERSAL" />
-		<KeyWord name="__CLASS__" func="yes"><Overload retVal="" descr="he name of the class of the invoking instance"><Param name="" /></Overload></KeyWord>
+		<KeyWord name="__CLASS__" func="yes"><Overload retVal="" descr="the name of the class of the invoking instance"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="__DATA__" />
 		<KeyWord name="__END__" />
 		<KeyWord name="__FILE__" func="yes"><Overload retVal="" descr="the name of the current source file"><Param name="" /></Overload></KeyWord>
@@ -545,3 +545,4 @@
 		<KeyWord name="y" func="yes"><Overload retVal="" descr="transliterate a string (alternate form for tr//)"><Param name="" /></Overload></KeyWord>
 	</AutoComplete>
 </NotepadPlus>
+

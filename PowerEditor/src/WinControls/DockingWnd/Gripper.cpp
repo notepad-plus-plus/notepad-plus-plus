@@ -32,6 +32,7 @@ using namespace std;
 
 
 BOOL Gripper::_isRegistered	= FALSE;
+bool Gripper::_isOverlayClassRegistered = false;
 
 static HWND		hWndServer		= NULL;
 static HHOOK	hookMouse		= NULL;
@@ -481,53 +482,118 @@ void Gripper::doTabReordering(POINT pt)
 	::UpdateWindow(_hParent);
 }
 
-// Changed behaviour (jg): Now this function handles erasing of drag-rectangles and drawing of
-// new ones within one drawing step to the desktop. This is against flickering, but also it is
-// necessary for the Vista Aero style - because in this case the control is given so much to
-// the graphics driver, that accesses (especially read accesses) to the desktop window become
-// too expensive to access it more than absolutely necessary. Besides, usage of the function
-// ::LockWindowUpdate() was added, because with often redrawn windows in the background we had
-// inconsistencies while erasing our drag-rectangle (because it could already have been erased
-// on some places).
+// ============================================================================
+// Overlay window for drag rectangle rendering (tk)
 //
-// Parameter pPt==NULL says that only erasing is wanted and the drag-rectangle is no more needed,
-// thatswhy this also leads to a call of ::LockWindowUpdate(NULL) to enable drawing by others again.
-// The previously drawn rectangle is memoried within _rectPrev (and _bPtOldValid says if it already
-// is valid - did not change this members name because didn't want change too much at once).
+// Uses a layered window spanning the entire virtual screen with color-key
+// transparency (magenta). The drag rectangle is drawn to a memory DC and
+// blitted to the overlay - only the rectangle frame is visible.
 //
-// I was too lazy to always draw four rectangles for the four edges of the drag-rectangle - it seems
-// that drawing an outer rectangle first and then erasing the inner stuff by drawing a second,
-// smaller rectangle inside seems to be not slower - wich comes not unawaited, because it is mostly
-// hardware-driven and each single draw has its own fixed costs.
+// Coordinates: Screen coordinates are translated to overlay-local by
+// subtracting the virtual screen origin (SM_XVIRTUALSCREEN, SM_YVIRTUALSCREEN).
+// ============================================================================
+
+static constexpr COLORREF clrMagenta = RGB(255, 0, 255);
+
+LRESULT CALLBACK Gripper::overlayWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+	return ::DefWindowProc(hwnd, msg, wParam, lParam);
+}
+
+bool Gripper::createOverlayWindow()
+{
+	if (_hOverlayWnd)
+		return true;
+
+	if (!_isOverlayClassRegistered)
+	{
+		WNDCLASSEX wc = {};
+		wc.cbSize = sizeof(wc);
+		wc.lpfnWndProc = overlayWndProc;
+		wc.hInstance = _hInst;
+		wc.lpszClassName = L"NppGripperOverlay";
+
+		if (!::RegisterClassEx(&wc))
+			return false;
+
+		_isOverlayClassRegistered = true;
+	}
+
+	_xVirtScreen = ::GetSystemMetrics(SM_XVIRTUALSCREEN);
+	_yVirtScreen = ::GetSystemMetrics(SM_YVIRTUALSCREEN);
+	_overlayWidth = ::GetSystemMetrics(SM_CXVIRTUALSCREEN);
+	_overlayHeight = ::GetSystemMetrics(SM_CYVIRTUALSCREEN);
+
+	_hOverlayWnd = ::CreateWindowEx(
+		WS_EX_LAYERED | WS_EX_TOPMOST | WS_EX_TOOLWINDOW | WS_EX_TRANSPARENT,
+		L"NppGripperOverlay",
+		L"",
+		WS_POPUP,
+		_xVirtScreen, _yVirtScreen, _overlayWidth, _overlayHeight,
+		nullptr, nullptr, _hInst, nullptr
+	);
+
+	if (!_hOverlayWnd)
+		return false;
+
+	::SetLayeredWindowAttributes(_hOverlayWnd, clrMagenta, 0, LWA_COLORKEY);
+
+	HDC hdcScreen = ::GetDC(nullptr);
+	_hdcOverlayMem = ::CreateCompatibleDC(hdcScreen);
+	_hBitmapOverlay = ::CreateCompatibleBitmap(hdcScreen, _overlayWidth, _overlayHeight);
+	_hOldBitmap = static_cast<HBITMAP>(::SelectObject(_hdcOverlayMem, _hBitmapOverlay));
+	::ReleaseDC(nullptr, hdcScreen);
+
+	// Fill with transparent color
+	HBRUSH hBrushTransparent = ::CreateSolidBrush(clrMagenta);
+	RECT rcFill = { 0, 0, _overlayWidth, _overlayHeight };
+	::FillRect(_hdcOverlayMem, &rcFill, hBrushTransparent);
+	::DeleteObject(hBrushTransparent);
+
+	_hdcOverlay = ::GetDC(_hOverlayWnd);
+
+	::ShowWindow(_hOverlayWnd, SW_SHOWNOACTIVATE);
+	::BitBlt(_hdcOverlay, 0, 0, _overlayWidth, _overlayHeight, _hdcOverlayMem, 0, 0, SRCCOPY);
+
+	return true;
+}
+
+void Gripper::destroyOverlayWindow()
+{
+	if (_hdcOverlay && _hOverlayWnd)
+	{
+		::ReleaseDC(_hOverlayWnd, _hdcOverlay);
+		_hdcOverlay = nullptr;
+	}
+	if (_hdcOverlayMem)
+	{
+		if (_hOldBitmap)
+			::SelectObject(_hdcOverlayMem, _hOldBitmap);
+		::DeleteDC(_hdcOverlayMem);
+		_hdcOverlayMem = nullptr;
+		_hOldBitmap = nullptr;
+	}
+	if (_hBitmapOverlay)
+	{
+		::DeleteObject(_hBitmapOverlay);
+		_hBitmapOverlay = nullptr;
+	}
+	if (_hOverlayWnd)
+	{
+		::DestroyWindow(_hOverlayWnd);
+		_hOverlayWnd = nullptr;
+	}
+}
+
+// Draw drag rectangle using layered overlay window
 //
-// For further solutions I think we should leave this classic way of dragging and better use
-// alpha-blending and always move the whole content of the toolbars - so we could leave the
-// ::LockWindowUpdate() behind us.
-//
-// Besides, while debugging into the dragging process please let the ::LockWindowUpdate() out,
-// by #undef the USE_LOCKWINDOWUPDATE in gripper.h, because it works for your debugging window
-// as well, of course. Or just try by this #define what difference it makes.
+// Uses overlay window approach to fix clipping issues on multi-monitor setups
+// where the virtual screen has negative coordinates (Issue #16805).
 //
 void Gripper::drawRectangle(const POINT* pPt)
 {
-	HBRUSH hbrushOrig= NULL;
-	HBITMAP hbmOrig  = NULL;
-	RECT   rc	 = {};
-	RECT   rcNew	 = {};
-	RECT   rcOld	 = _rcPrev;
-
-	// Get a screen device context with backstage redrawing disabled - to have a consistently
-	// and stable drawn rectangle while floating - keep in mind, that we must ensure, that
-	// finally ::LockWindowUpdate(NULL) will be called, to enable drawing for others again.
-	if (!_hdc)
-	{
-		HWND hWnd = ::GetDesktopWindow();
-		#if defined (USE_LOCKWINDOWUPDATE)
-		_hdc = ::GetDCEx(hWnd, NULL, ::LockWindowUpdate(hWnd) ? DCX_WINDOW|DCX_CACHE|DCX_LOCKWINDOWUPDATE : DCX_WINDOW|DCX_CACHE);
-		#else
-		_hdc = ::GetDCEx(hWnd, NULL, DCX_WINDOW|DCX_CACHE);
-		#endif
-	}
+	RECT   rcNew = {};
+	RECT   rcOld = _rcPrev;
 
 	// Create a brush with the appropriate bitmap pattern to draw our drag rectangle
 	if (!_hbm)
@@ -537,92 +603,108 @@ void Gripper::drawRectangle(const POINT* pPt)
 
 	if (pPt != NULL)
 	{
-		// Determine whether to draw a solid drag rectangle or checkered
-		// ???(jg) solid or checked ??? - must have been an old comment, I didn't
-		// find here this difference, but at least it's a question of drag-rects size
-		//
+		// getMovingRect() returns rect where right/bottom = width/height (not coordinates)
 		getMovingRect(*pPt, &rcNew);
-		_rcPrev= rcNew;		// save the new drawn rcNew
-
-		// note that from here for handling purposes the right and bottom values of the rects
-		// contain width and height - its handsome, but i find it dangerous, but didn't want to
-		// change that already this time.
+		_rcPrev = rcNew;
 
 		if (_bPtOldValid)
 		{
-			// okay, there already a drag-rect has been drawn - and its position
-			// had been saved within the rectangle _rectPrev, wich already had been
-			// copied into rcOld in the beginning, and a new drag position
-			// is available, too.
-			// If now rcOld and rcNew are the same, just stop further handling to not
-			// draw the same drag-rectangle twice (this really happens, it should be
-			// better avoided anywhere earlier)
-			//
-			if (rcOld.left==rcNew.left && rcOld.right==rcNew.right && rcOld.top== rcNew.top && rcOld.bottom==rcNew.bottom)
+			if (rcOld.left == rcNew.left && rcOld.right == rcNew.right &&
+			    rcOld.top == rcNew.top && rcOld.bottom == rcNew.bottom)
 				return;
-
-			rc.left   = std::min<LONG>(rcOld.left, rcNew.left);
-			rc.top    = std::min<LONG>(rcOld.top,  rcNew.top);
-			rc.right  = std::max<LONG>(rcOld.left + rcOld.right,  rcNew.left + rcNew.right);
-			rc.bottom = std::max<LONG>(rcOld.top  + rcOld.bottom, rcNew.top  + rcNew.bottom);
-			rc.right -= rc.left;
-			rc.bottom-= rc.top;
 		}
-		else	rc = rcNew;	// only new rect will be drawn
 	}
-	else	rc = rcOld;	// only old rect will be drawn - to erase it
 
-	// now rc contains the rectangle wich encloses all needed, new and/or previous rectangle
-	// because in the following we drive within a memory device context wich is limited to rc,
-	// we have to localize rcNew and rcOld within rc...
-	//
-	rcOld.left = rcOld.left - rc.left;
-	rcOld.top = rcOld.top  - rc.top;
-	rcNew.left = rcNew.left - rc.left;
-	rcNew.top = rcNew.top  - rc.top;
+	// Create overlay window on first draw
+	if (!_hOverlayWnd)
+	{
+		if (!createOverlayWindow())
+			return;
+	}
 
-	HDC hdcMem = ::CreateCompatibleDC(_hdc);
-	HBITMAP hBm = ::CreateCompatibleBitmap(_hdc, rc.right, rc.bottom);
-	hbrushOrig = (HBRUSH)::SelectObject(hdcMem, hBm);
+	// Save absolute coordinates before any modifications
+	RECT rcOldAbsolute = rcOld;
+	RECT rcNewAbsolute = rcNew;
 
-	::SetBrushOrgEx(hdcMem, rc.left%8, rc.top%8, 0);
-	hbmOrig = (HBITMAP)::SelectObject(hdcMem, _hbrush);
+	// Calculate overlay-local coordinates
+	LONG newOverlayX = rcNewAbsolute.left - _xVirtScreen;
+	LONG newOverlayY = rcNewAbsolute.top - _yVirtScreen;
+	LONG newWidth = rcNewAbsolute.right;
+	LONG newHeight = rcNewAbsolute.bottom;
 
-	::BitBlt(hdcMem, 0, 0, rc.right, rc.bottom, _hdc, rc.left, rc.top, SRCCOPY);
+	// Erase old rectangle
 	if (_bPtOldValid)
-	{	// erase the old drag-rectangle
-		::PatBlt(hdcMem, rcOld.left  , rcOld.top  , rcOld.right  , rcOld.bottom  , PATINVERT);
-		::PatBlt(hdcMem, rcOld.left+3, rcOld.top+3, rcOld.right-6, rcOld.bottom-6, PATINVERT);
+	{
+		HBRUSH hBrushTransparent = ::CreateSolidBrush(clrMagenta);
+		LONG oldOverlayX = rcOldAbsolute.left - _xVirtScreen;
+		LONG oldOverlayY = rcOldAbsolute.top - _yVirtScreen;
+		LONG oldWidth = rcOldAbsolute.right;
+		LONG oldHeight = rcOldAbsolute.bottom;
+		RECT rcClear = { oldOverlayX, oldOverlayY, oldOverlayX + oldWidth, oldOverlayY + oldHeight };
+		::FillRect(_hdcOverlayMem, &rcClear, hBrushTransparent);
+		::DeleteObject(hBrushTransparent);
 	}
 
+	// Draw new rectangle
 	if (pPt != NULL)
-	{	// draw the new drag-rectangle
-		::PatBlt(hdcMem, rcNew.left  , rcNew.top  , rcNew.right  , rcNew.bottom  , PATINVERT);
-		::PatBlt(hdcMem, rcNew.left+3, rcNew.top+3, rcNew.right-6, rcNew.bottom-6, PATINVERT);
-	}
-	::BitBlt(_hdc, rc.left, rc.top, rc.right, rc.bottom, hdcMem, 0, 0, SRCCOPY);
+	{
+		HBRUSH hBrushTransparent = ::CreateSolidBrush(clrMagenta);
+		RECT rcFrame = { newOverlayX, newOverlayY, newOverlayX + newWidth, newOverlayY + newHeight };
+		::FillRect(_hdcOverlayMem, &rcFrame, hBrushTransparent);
+		::DeleteObject(hBrushTransparent);
 
-	SelectObject(hdcMem, hbrushOrig);
-	SelectObject(hdcMem, hbmOrig);
-	DeleteObject(hBm);
-	DeleteDC(hdcMem);
+		HBRUSH hBrushGray = ::CreateSolidBrush(RGB(128, 128, 128));
+		RECT rcTop = { newOverlayX, newOverlayY, newOverlayX + newWidth, newOverlayY + 3 };
+		::FillRect(_hdcOverlayMem, &rcTop, hBrushGray);
+		RECT rcBottom = { newOverlayX, newOverlayY + newHeight - 3, newOverlayX + newWidth, newOverlayY + newHeight };
+		::FillRect(_hdcOverlayMem, &rcBottom, hBrushGray);
+		RECT rcLeft = { newOverlayX, newOverlayY, newOverlayX + 3, newOverlayY + newHeight };
+		::FillRect(_hdcOverlayMem, &rcLeft, hBrushGray);
+		RECT rcRight = { newOverlayX + newWidth - 3, newOverlayY, newOverlayX + newWidth, newOverlayY + newHeight };
+		::FillRect(_hdcOverlayMem, &rcRight, hBrushGray);
+		::DeleteObject(hBrushGray);
+
+		HBRUSH hOldBrush = static_cast<HBRUSH>(::SelectObject(_hdcOverlayMem, _hbrush));
+		::SetBrushOrgEx(_hdcOverlayMem, rcNewAbsolute.left % 8, rcNewAbsolute.top % 8, nullptr);
+		::PatBlt(_hdcOverlayMem, newOverlayX, newOverlayY, newWidth, 3, PATINVERT);
+		::PatBlt(_hdcOverlayMem, newOverlayX, newOverlayY + newHeight - 3, newWidth, 3, PATINVERT);
+		::PatBlt(_hdcOverlayMem, newOverlayX, newOverlayY, 3, newHeight, PATINVERT);
+		::PatBlt(_hdcOverlayMem, newOverlayX + newWidth - 3, newOverlayY, 3, newHeight, PATINVERT);
+		::SelectObject(_hdcOverlayMem, hOldBrush);
+	}
+
+	// Copy to overlay window (only changed region for performance)
+	LONG copyMinX = newOverlayX;
+	LONG copyMinY = newOverlayY;
+	LONG copyMaxX = newOverlayX + newWidth;
+	LONG copyMaxY = newOverlayY + newHeight;
+
+	if (_bPtOldValid)
+	{
+		LONG oldOverlayX = rcOldAbsolute.left - _xVirtScreen;
+		LONG oldOverlayY = rcOldAbsolute.top - _yVirtScreen;
+		LONG oldWidth = rcOldAbsolute.right;
+		LONG oldHeight = rcOldAbsolute.bottom;
+
+		if (oldOverlayX < copyMinX) copyMinX = oldOverlayX;
+		if (oldOverlayY < copyMinY) copyMinY = oldOverlayY;
+		if (oldOverlayX + oldWidth > copyMaxX) copyMaxX = oldOverlayX + oldWidth;
+		if (oldOverlayY + oldHeight > copyMaxY) copyMaxY = oldOverlayY + oldHeight;
+	}
+
+	::BitBlt(_hdcOverlay, copyMinX, copyMinY, copyMaxX - copyMinX, copyMaxY - copyMinY,
+		_hdcOverlayMem, copyMinX, copyMinY, SRCCOPY);
 
 	if (pPt == NULL)
 	{
-		#if defined(USE_LOCKWINDOWUPDATE)
-		::LockWindowUpdate(NULL);
-		#endif
+		destroyOverlayWindow();
 		_bPtOldValid = FALSE;
-		if (_hdc)
-		{
-			::ReleaseDC(0, _hdc);
-			_hdc = NULL;
-		}
 	}
 	else
+	{
 		_bPtOldValid = TRUE;
+	}
 }
-
 
 void Gripper::getMousePoints(const POINT& pt, POINT& ptPrev)
 {
@@ -842,4 +924,3 @@ void Gripper::initTabInformation()
 	_tcItem.cchTextMax	= 64;
 	::SendMessage(_hTabSource, TCM_GETITEM, _iItem, reinterpret_cast<LPARAM>(&_tcItem));
 }
-

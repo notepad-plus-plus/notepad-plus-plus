@@ -419,8 +419,8 @@ bool launchUpdater(const std::wstring& updaterFullPath, const std::wstring& upda
 	updaterParams += stringReplace(sgd.signer_subject(), L"\"", L"{QUOTE}");
 	updaterParams += L"\"";
 
-	updaterParams += L" -chkCertAuthorityKeyId=";
-	updaterParams += sgd.authority_key_id();
+	updaterParams += L" -chkCertKeyId=";
+	updaterParams += sgd.signer_key_id();
 
 	updaterParams += L" -errLogPath=";
 	updaterParams += L"\"%LOCALAPPDATA%\\Notepad++\\log\\securityError.log\"";

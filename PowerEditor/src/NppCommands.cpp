@@ -3688,8 +3688,8 @@ void Notepad_plus::command(int id)
 						param += stringReplace(sgd.signer_subject(), L"\"", L"{QUOTE}");
 						param += L"\"";
 
-						param += L" -chkCertAuthorityKeyId=";
-						param += sgd.authority_key_id();
+						param += L" -chkCertKeyId=";
+						param += sgd.signer_key_id();
 
 						param += L" -errLogPath=";
 						param += L"\"%LOCALAPPDATA%\\Notepad++\\log\\securityError.log\"";

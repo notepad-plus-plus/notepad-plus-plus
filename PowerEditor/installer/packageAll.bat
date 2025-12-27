@@ -23,8 +23,6 @@ REM commands to sign
 
 set signtoolWin11="C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64\signtool.exe"
 
-set Sign_by_NppRootCert=%signtoolWin11% sign /fd SHA512 /tr http://timestamp.acs.microsoft.com /td sha512 /a /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/
-
 set Sign_by_GlobalSignCert=%signtoolWin11% sign /n "NOTEPAD++" /tr http://timestamp.globalsign.com/tsa/r6advanced1 /td SHA256 /fd SHA256
 
 set DOUBLE_SIGNING=/as
@@ -45,14 +43,10 @@ REM Note that Publisher in Packaging/AppxManifest.xml‎ should match with the S
 REM https://learn.microsoft.com/en-us/windows/msix/package/signing-known-issues
 set nppShellBinaries=..\bin\NppShell.x86.dll  ..\bin64\NppShell.msix  ..\bin64\NppShell.x64.dll ..\binarm64\NppShell.msix ..\binarm64\NppShell.arm64.dll
 
-%Sign_by_NppRootCert% %nppBinaries% %componentsBinaries% %pluginBinaries%
+
+%Sign_by_GlobalSignCert% %nppBinaries% %componentsBinaries% %pluginBinaries% %nppShellBinaries%
 If ErrorLevel 1 goto End
 
-%Sign_by_GlobalSignCert% %DOUBLE_SIGNING% %nppBinaries% %componentsBinaries% %pluginBinaries%
-If ErrorLevel 1 goto End
-
-%Sign_by_GlobalSignCert% %nppShellBinaries%
-If ErrorLevel 1 goto End
 
 
 :NoSign
@@ -528,13 +522,7 @@ If ErrorLevel 1 goto End
 
 if %SIGN% == 0 goto NoSignInstaller
 
-%Sign_by_NppRootCert% !nppInstallerVar! !nppInstallerVar64! !nppInstallerVarArm64!
-If ErrorLevel 1 goto End
-
-%Sign_by_GlobalSignCert% %DOUBLE_SIGNING% !nppInstallerVar! !nppInstallerVar64! !nppInstallerVarArm64!
-If ErrorLevel 1 goto End
-
-%Sign_by_GlobalSignCert% /d "Notepad++ x64 MSI" !nppInstallerVarMsi64!
+%Sign_by_GlobalSignCert% !nppInstallerVar! !nppInstallerVar64! !nppInstallerVarArm64! !nppInstallerVarMsi64!
 If ErrorLevel 1 goto End
 
 :NoSignInstaller

@@ -97,27 +97,6 @@ namespace // anonymous
 		return name.find_last_of('.') != wstring::npos;
 	}
 
-	void expandEnv(wstring& s)
-	{
-		wchar_t buffer[MAX_PATH] = { '\0' };
-		// This returns the resulting string length or 0 in case of error.
-		DWORD ret = ExpandEnvironmentStrings(s.c_str(), buffer, static_cast<DWORD>(std::size(buffer)));
-		if (ret != 0)
-		{
-			if (ret == static_cast<DWORD>(lstrlen(buffer) + 1))
-			{
-				s = buffer;
-			}
-			else
-			{
-				// Buffer was too small, try with a bigger buffer of the required size.
-				std::vector<wchar_t> buffer2(ret, 0);
-				ret = ExpandEnvironmentStrings(s.c_str(), buffer2.data(), static_cast<DWORD>(buffer2.size()));
-				assert(ret == static_cast<DWORD>(lstrlen(buffer2.data()) + 1));
-				s = buffer2.data();
-			}
-		}
-	}
 
 	wstring getFilename(IShellItem* psi)
 	{

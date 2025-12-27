@@ -316,6 +316,7 @@ private:
 
 DWORD invokeNppUacOp(const std::wstring& strCmdLineParams);
 bool fileTimeToYMD(const FILETIME& ft, int& yyyymmdd);
+void expandEnv(std::wstring& path2Expand);
 
 class ScopedCOMInit final // never use this in DllMain
 {

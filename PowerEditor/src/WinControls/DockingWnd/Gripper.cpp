@@ -32,7 +32,7 @@ using namespace std;
 
 
 BOOL Gripper::_isRegistered	= FALSE;
-BOOL Gripper::_isOverlayClassRegistered = FALSE;
+bool Gripper::_isOverlayClassRegistered = false;
 
 static HWND		hWndServer		= NULL;
 static HHOOK	hookMouse		= NULL;
@@ -493,6 +493,8 @@ void Gripper::doTabReordering(POINT pt)
 // subtracting the virtual screen origin (SM_XVIRTUALSCREEN, SM_YVIRTUALSCREEN).
 // ============================================================================
 
+static constexpr COLORREF clrMagenta = RGB(255, 0, 255);
+
 LRESULT CALLBACK Gripper::overlayWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	return ::DefWindowProc(hwnd, msg, wParam, lParam);
@@ -514,7 +516,7 @@ bool Gripper::createOverlayWindow()
 		if (!::RegisterClassEx(&wc))
 			return false;
 
-		_isOverlayClassRegistered = TRUE;
+		_isOverlayClassRegistered = true;
 	}
 
 	_xVirtScreen = ::GetSystemMetrics(SM_XVIRTUALSCREEN);
@@ -528,24 +530,23 @@ bool Gripper::createOverlayWindow()
 		L"",
 		WS_POPUP,
 		_xVirtScreen, _yVirtScreen, _overlayWidth, _overlayHeight,
-		NULL, NULL, _hInst, NULL
+		nullptr, nullptr, _hInst, nullptr
 	);
 
 	if (!_hOverlayWnd)
 		return false;
 
-	// RGB(255,0,255) = Magenta, standard transparency color
-	::SetLayeredWindowAttributes(_hOverlayWnd, RGB(255, 0, 255), 0, LWA_COLORKEY);
+	::SetLayeredWindowAttributes(_hOverlayWnd, clrMagenta, 0, LWA_COLORKEY);
 
-	HDC hdcScreen = ::GetDC(NULL);
+	HDC hdcScreen = ::GetDC(nullptr);
 	_hdcOverlayMem = ::CreateCompatibleDC(hdcScreen);
 	_hBitmapOverlay = ::CreateCompatibleBitmap(hdcScreen, _overlayWidth, _overlayHeight);
-	_hOldBitmap = (HBITMAP)::SelectObject(_hdcOverlayMem, _hBitmapOverlay);
-	::ReleaseDC(NULL, hdcScreen);
+	_hOldBitmap = static_cast<HBITMAP>(::SelectObject(_hdcOverlayMem, _hBitmapOverlay));
+	::ReleaseDC(nullptr, hdcScreen);
 
 	// Fill with transparent color
-	HBRUSH hBrushTransparent = ::CreateSolidBrush(RGB(255, 0, 255));
-	RECT rcFill = {0, 0, _overlayWidth, _overlayHeight};
+	HBRUSH hBrushTransparent = ::CreateSolidBrush(clrMagenta);
+	RECT rcFill = { 0, 0, _overlayWidth, _overlayHeight };
 	::FillRect(_hdcOverlayMem, &rcFill, hBrushTransparent);
 	::DeleteObject(hBrushTransparent);
 
@@ -634,12 +635,12 @@ void Gripper::drawRectangle(const POINT* pPt)
 	// Erase old rectangle
 	if (_bPtOldValid)
 	{
-		HBRUSH hBrushTransparent = ::CreateSolidBrush(RGB(255, 0, 255));
+		HBRUSH hBrushTransparent = ::CreateSolidBrush(clrMagenta);
 		LONG oldOverlayX = rcOldAbsolute.left - _xVirtScreen;
 		LONG oldOverlayY = rcOldAbsolute.top - _yVirtScreen;
 		LONG oldWidth = rcOldAbsolute.right;
 		LONG oldHeight = rcOldAbsolute.bottom;
-		RECT rcClear = {oldOverlayX, oldOverlayY, oldOverlayX + oldWidth, oldOverlayY + oldHeight};
+		RECT rcClear = { oldOverlayX, oldOverlayY, oldOverlayX + oldWidth, oldOverlayY + oldHeight };
 		::FillRect(_hdcOverlayMem, &rcClear, hBrushTransparent);
 		::DeleteObject(hBrushTransparent);
 	}
@@ -647,24 +648,24 @@ void Gripper::drawRectangle(const POINT* pPt)
 	// Draw new rectangle
 	if (pPt != NULL)
 	{
-		HBRUSH hBrushTransparent = ::CreateSolidBrush(RGB(255, 0, 255));
-		RECT rcFrame = {newOverlayX, newOverlayY, newOverlayX + newWidth, newOverlayY + newHeight};
+		HBRUSH hBrushTransparent = ::CreateSolidBrush(clrMagenta);
+		RECT rcFrame = { newOverlayX, newOverlayY, newOverlayX + newWidth, newOverlayY + newHeight };
 		::FillRect(_hdcOverlayMem, &rcFrame, hBrushTransparent);
 		::DeleteObject(hBrushTransparent);
 
 		HBRUSH hBrushGray = ::CreateSolidBrush(RGB(128, 128, 128));
-		RECT rcTop = {newOverlayX, newOverlayY, newOverlayX + newWidth, newOverlayY + 3};
+		RECT rcTop = { newOverlayX, newOverlayY, newOverlayX + newWidth, newOverlayY + 3 };
 		::FillRect(_hdcOverlayMem, &rcTop, hBrushGray);
-		RECT rcBottom = {newOverlayX, newOverlayY + newHeight - 3, newOverlayX + newWidth, newOverlayY + newHeight};
+		RECT rcBottom = { newOverlayX, newOverlayY + newHeight - 3, newOverlayX + newWidth, newOverlayY + newHeight };
 		::FillRect(_hdcOverlayMem, &rcBottom, hBrushGray);
-		RECT rcLeft = {newOverlayX, newOverlayY, newOverlayX + 3, newOverlayY + newHeight};
+		RECT rcLeft = { newOverlayX, newOverlayY, newOverlayX + 3, newOverlayY + newHeight };
 		::FillRect(_hdcOverlayMem, &rcLeft, hBrushGray);
-		RECT rcRight = {newOverlayX + newWidth - 3, newOverlayY, newOverlayX + newWidth, newOverlayY + newHeight};
+		RECT rcRight = { newOverlayX + newWidth - 3, newOverlayY, newOverlayX + newWidth, newOverlayY + newHeight };
 		::FillRect(_hdcOverlayMem, &rcRight, hBrushGray);
 		::DeleteObject(hBrushGray);
 
-		HBRUSH hOldBrush = (HBRUSH)::SelectObject(_hdcOverlayMem, _hbrush);
-		::SetBrushOrgEx(_hdcOverlayMem, rcNewAbsolute.left % 8, rcNewAbsolute.top % 8, NULL);
+		HBRUSH hOldBrush = static_cast<HBRUSH>(::SelectObject(_hdcOverlayMem, _hbrush));
+		::SetBrushOrgEx(_hdcOverlayMem, rcNewAbsolute.left % 8, rcNewAbsolute.top % 8, nullptr);
 		::PatBlt(_hdcOverlayMem, newOverlayX, newOverlayY, newWidth, 3, PATINVERT);
 		::PatBlt(_hdcOverlayMem, newOverlayX, newOverlayY + newHeight - 3, newWidth, 3, PATINVERT);
 		::PatBlt(_hdcOverlayMem, newOverlayX, newOverlayY, 3, newHeight, PATINVERT);
@@ -923,4 +924,3 @@ void Gripper::initTabInformation()
 	_tcItem.cchTextMax	= 64;
 	::SendMessage(_hTabSource, TCM_GETITEM, _iItem, reinterpret_cast<LPARAM>(&_tcItem));
 }
-

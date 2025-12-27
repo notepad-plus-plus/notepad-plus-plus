@@ -3128,9 +3128,39 @@ bool isUrlSchemeDelimiter(wchar_t const c) // characters allowed immedeately bef
 			 ||  (c == '_'));
 }
 
+// Checks URL character if it is a part of text or a special symbol
+// If the character is a part of regular text:
+// - True is returned
+// - Regular text is a fundamental alphanumeric which is regularly a part of the common text of the URL, and not a part of queries, http requests etc
+// If the character is a whitespace, unicode equivalent of whitespace, or a special character used in URL queries (for example http queries, requests)
+// - False is returned
 bool isUrlTextChar(wchar_t const c)
 {
 	if (c <= ' ') return false;
+
+	// Checks for unicode whitespace equivalents (ex: whitespace in different languages, mathematical or other contexts)
+	switch (c)
+	{
+		case L'\u0020':		// space
+		case L'\u00A0':		// non breaking space
+		case L'\u2002':		// en space
+		case L'\u2003':		// em space
+		case L'\u3000':		// ideographic space (east asian languages)
+		case L'\u2004':		// three-per-em
+		case L'\u2005':		// four-per-em
+		case L'\u2006':		// six-per-em
+		case L'\u2007':		// figure space
+		case L'\u2008':		// punctuation space
+		case L'\u2009':		// thin space
+		case L'\u200A':		// hair space
+		case L'\u200B':		// zero width space
+		case L'\u202F':		// narrow non breaking space
+		case L'\u205F':		// medium mathematical space
+		case L'\uFEFF':		// zero width non breaking space (byte order mark)
+			return false;		
+	}
+	
+	// Checks for special characters
 	switch (c)
 	{
 		case '"':
@@ -3143,6 +3173,7 @@ bool isUrlTextChar(wchar_t const c)
 		case '\u007F':
 			return false;
 	}
+	
 	return true;
 }
 

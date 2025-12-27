@@ -1,24 +1,19 @@
-Notepad++ v8.8.9 security enhancement, new features, regression fixes & bug-fixes:
+Notepad++ v8.9 security enhancement, new improvements, regression fixes & bug-fixes:
 
- 1. Security Enhancement: verify certificate & signature on downloaded update installer.
- 2. Fix corrupted file loading on Windows system using the full UTF-8 code page.
- 3. Fix crashing when hashing SHA-256 for large files.
- 4. Fix "Select & Find Next" command not working regression.
- 5. MSI improvement: Add NOUPDATER option & suppress REBOOT.
- 6. Fix Perl Function List causes Notepad++ to freeze on tab switch regression.
- 7. Fix context menu truncated regression on localization change.
- 8. Add ability to update users' langs.xml & stylers.xml from model XML files.
- 9. Update to Scintilla 5.5.8 & Lexilla 5.4.6.
-10. Add feature to sort lines in a document by length.
-11. Undo & redo enhancement: restore vertical scroll position after undo & redo.
-12. Fix mouse wheel horizontal scrolling amount not respecting Windows setting.
-13. Fix document map regression with keyboard input.
-14. Fix wrong system font scaling on Windows 7.
-15. Update to nlohman json 3.11.3.
+0. Remove Notepad++ self-singed certificate signature, use only the certificate issued by GlobalSign.
+1. Log security errors automatically while auto-updating in "%LOCALAPPDATA%\Notepad++\log\securityError.log".
+2. Fix jarring color regression in dark mode (introduced in v8.8.9).
+3. Fix "/noUpdater" installer option not working if updater was previously installed.
+4. Fix column mode edit undo regression (introduced in v8.8.9).
+5. Fix issue where an empty file opened without encoding under a UTF-8 system codepage.
+6. Add makefile function list parser.
+7. Improve performance & add missing file ext. from langs.model.xml to langs.xml.
+8. Improve "Open containing folder in Explorer" command to avoid creating Explorer process.
+9. Allow refresh mouse scroll amount according to OS settings changes.
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.8.9/
+https://notepad-plus-plus.org/downloads/v8.9/
 
 
 Included plugins:
@@ -30,4 +25,4 @@ Included plugins:
 
 Updater (Installer only):
 
-* WinGUp (for Notepad++) v5.3.8
+* WinGUp (for Notepad++) v5.3.9

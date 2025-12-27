@@ -63,7 +63,7 @@ SectionGroup "Function List Files" functionListComponent
 		File ".\functionList\php.xml"
 	${MementoSectionEnd}
 
-	${MementoSection} "COBOL section free" COBOL-section-free
+	${MementoSection} "COBOL section free" COBOL-section-free_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\cobol-free.xml"
 	${MementoSectionEnd}

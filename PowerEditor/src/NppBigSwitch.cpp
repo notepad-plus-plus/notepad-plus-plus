@@ -1553,10 +1553,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					m = ms[indexMacro].getMacro();
 				}
 
-				_pEditView->execute(SCI_BEGINUNDOACTION);
+				// to be able to roll back all the possible macro-steps changes at once, no matter how many times
+				// the current macro will be played, we need to establish HERE the list of the macro playback affected docs
+				// intended for the ending undo actions later and also close HERE all the opened undo actions of the docs
+				// (we do not use here an explicit begin undo action call, the macroPlayback() func handles all the needed undo action openings)
+				std::vector<Document> docs4EndUA;
+
 				for (;;)
 				{
-					macroPlayback(m);
+					macroPlayback(m, &docs4EndUA);
 					++counter;
 					if ( times >= 0 )
 					{
@@ -1596,7 +1601,26 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 						}
 					}
 				}
-				_pEditView->execute(SCI_ENDUNDOACTION);
+
+				// handle all the affected docs undo actions closing
+				Document invisSciDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER); // store the view's original doc
+				while (!docs4EndUA.empty())
+				{
+					Document doc = docs4EndUA.back();
+					if (MainFileManager.getBufferFromDocument(doc) == BUFFER_INVALID)
+					{
+						// affected doc no longer exists (a macro step closed its associated Notepad++ tab/buffer),
+						// the ending undo action is not needed (until Notepad++ supports tab/buffer closing undo)
+					}
+					else
+					{
+						// complete the open undo action for existing doc object
+						_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, doc);
+						_invisibleEditView.execute(SCI_ENDUNDOACTION);
+					}
+					docs4EndUA.pop_back();
+				}
+				_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, invisSciDoc); // restore
 			}
 			break;
 		}

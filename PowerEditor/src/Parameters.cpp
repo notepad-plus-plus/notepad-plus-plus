@@ -20,17 +20,42 @@
 #include <windows.h>
 
 #include <shlobj.h>
+#include <shlwapi.h>
 
+#include <algorithm>
+#include <cassert>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <ctime>
+#include <cwchar>
+#include <exception>
+#include <map>
+#include <sstream>
+#include <stdexcept>
+#include <string>
+#include <utility>
+#include <vector>
 
+#include <SciLexer.h>
+#include <Scintilla.h>
+
+#include "Common.h"
+#include "ContextMenu.h"
+#include "Notepad_plus_Window.h"
+#include "NppConstants.h"
+#include "NppDarkMode.h"
 #include "NppXml.h"
 #include "ScintillaEditView.h"
+#include "TabBar.h"
+#include "UserDefineDialog.h"
+#include "WordStyleDlg.h"
 #include "keys.h"
 #include "localization.h"
 #include "localizationString.h"
-#include "UserDefineDialog.h"
-#include "Notepad_plus_Window.h"
-#include "NppConstants.h"
+#include "menuCmdID.h"
+#include "resource.h"
+#include "shortcut.h"
 
 #ifdef _MSC_VER
 #pragma warning(disable : 4996) // for GetVersionEx()
@@ -58,7 +83,7 @@ struct WinMenuKeyDefinition // more or less matches accelerator table definition
 **
 ** values can be 0 for vKey, which means its unused
 */
-static const WinMenuKeyDefinition winKeyDefs[] =
+static constexpr WinMenuKeyDefinition winKeyDefs[]
 {
 	// V_KEY,    COMMAND_ID,                                    Ctrl,  Alt,   Shift, cmdName
 	// -------------------------------------------------------------------------------------
@@ -488,9 +513,9 @@ struct ScintillaKeyDefinition
 **
 ** values can be 0 for vKey, which means its unused
 */
-static const ScintillaKeyDefinition scintKeyDefs[] =
+static constexpr ScintillaKeyDefinition scintKeyDefs[]
 {
-    //Scintilla command name,             SCINTILLA_CMD_ID,            Ctrl,  Alt,   Shift, V_KEY,       NOTEPAD++_CMD_ID
+	//Scintilla command name,             SCINTILLA_CMD_ID,            Ctrl,  Alt,   Shift, V_KEY,       NOTEPAD++_CMD_ID
 	// -------------------------------------------------------------------------------------------------------------------
 	//
 	//{L"SCI_CUT",                     SCI_CUT,                     true,  false, false, VK_X,        IDM_EDIT_CUT},
@@ -825,7 +850,7 @@ bool DynamicMenu::clearMenu() const
 	int nbTopItem = getTopLevelItemNumber();
 	for (int i = nbTopItem + 1; i >= 0 ; --i)
 	{
-		::DeleteMenu(_hMenu, static_cast<int32_t>(_posBase) + i, MF_BYPOSITION);
+		::DeleteMenu(_hMenu, _posBase + i, MF_BYPOSITION);
 	}
 
 	return true;
@@ -859,7 +884,7 @@ bool DynamicMenu::createMenu() const
 				hParentFolder = ::CreateMenu();
 				j = 0;
 
-				::InsertMenu(_hMenu, static_cast<UINT>(_posBase + i), MF_BYPOSITION | MF_POPUP, (UINT_PTR)hParentFolder, currentParentFolderStr.c_str());
+				::InsertMenu(_hMenu, static_cast<UINT>(_posBase + i), MF_BYPOSITION | MF_POPUP, reinterpret_cast<UINT_PTR>(hParentFolder), currentParentFolderStr.c_str());
 			}
 		}
 
@@ -880,7 +905,7 @@ bool DynamicMenu::createMenu() const
 		}
 		else if (item._cmdID == 0 && !lastIsSep)
 		{
-			::InsertMenu(_hMenu, static_cast<int32_t>(_posBase + i), flag, item._cmdID, item._itemName.c_str());
+			::InsertMenu(_hMenu, static_cast<UINT>(_posBase + i), flag, item._cmdID, item._itemName.c_str());
 			lastIsSep = true;
 		}
 		else // last item is separator and current item is separator
@@ -891,7 +916,7 @@ bool DynamicMenu::createMenu() const
 
 	if (nb > 0)
 	{
-		::InsertMenu(_hMenu, static_cast<int32_t>(_posBase + i), MF_BYPOSITION | MF_SEPARATOR, 0, nullptr);
+		::InsertMenu(_hMenu, static_cast<UINT>(_posBase + i), MF_BYPOSITION | MF_SEPARATOR, 0, nullptr);
 		::InsertMenu(_hMenu, static_cast<UINT>(_posBase + i + 2), MF_BYCOMMAND, _lastCmd, _lastCmdLabel.c_str());
 	}
 
@@ -2821,11 +2846,7 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHandle, HMENU plugin
 			}
 
 			const int id = NppXml::intAttribute(element, "id", -1);
-			if (id == 0) // separator
-			{
-				contextMenuItems.push_back(MenuItemUnit(id, L"", L""));
-			}
-			else if (id > 0)
+			if (id >= 0)
 			{
 				contextMenuItems.push_back(MenuItemUnit(id, displayAs.c_str(), folderName.c_str()));
 			}
@@ -3461,7 +3482,7 @@ void NppParameters::feedMacros(NppXml::Node node)
 		{
 			Macro macro;
 			getActions(childNode, macro);
-			int cmdID = ID_MACRO + static_cast<int32_t>(_macros.size());
+			const auto cmdID = ID_MACRO + static_cast<int>(_macros.size());
 			_macros.push_back(MacroShortcut(sc, macro, cmdID));
 			_macroMenuItems.push_back(MenuItemUnit(cmdID, string2wstring(sc.getName(), CP_UTF8), string2wstring(fdnm, CP_UTF8)));
 		}
@@ -3469,7 +3490,7 @@ void NppParameters::feedMacros(NppXml::Node node)
 }
 
 
-void NppParameters::getActions(NppXml::Node node, Macro & macro)
+void NppParameters::getActions(NppXml::Node node, Macro& macro)
 {
 	for (NppXml::Node childNode = NppXml::firstChildElement(node, "Action");
 		childNode;
@@ -3512,7 +3533,7 @@ void NppParameters::feedUserCmds(NppXml::Node node)
 				const char* cmdStr = NppXml::value(aNode);
 				if (cmdStr)
 				{
-					int cmdID = ID_USER_CMD + static_cast<int32_t>(_userCommands.size());
+					const auto cmdID = ID_USER_CMD + static_cast<int>(_userCommands.size());
 					_userCommands.push_back(UserCommand(sc, cmdStr, cmdID));
 					_runMenuItems.push_back(MenuItemUnit(cmdID, string2wstring(sc.getName(), CP_UTF8), string2wstring(fdnm, CP_UTF8)));
 				}
@@ -3544,8 +3565,8 @@ void NppParameters::feedPluginCustomizedCmds(NppXml::Node node)
 		size_t len = _pluginCommands.size();
 		for (size_t i = 0; i < len; ++i)
 		{
-			PluginCmdShortcut & pscOrig = _pluginCommands[i];
-			if (!strnicmp(pscOrig.getModuleName(), moduleName, strlen(moduleName)) && pscOrig.getInternalID() == internalID)
+			PluginCmdShortcut& pscOrig = _pluginCommands[i];
+			if (!::_strnicmp(pscOrig.getModuleName(), moduleName, std::strlen(moduleName)) && pscOrig.getInternalID() == internalID)
 			{
 				//Found matching command
 				getShortcuts(childNode, _pluginCommands[i]);
@@ -3577,7 +3598,7 @@ void NppParameters::feedScintKeys(NppXml::Node node)
 
 		//Find the corresponding scintillacommand and alter it, put the index in the list
 		size_t len = _scintillaKeyCommands.size();
-		for (int32_t i = 0; i < static_cast<int32_t>(len); ++i)
+		for (int i = 0; i < static_cast<int>(len); ++i)
 		{
 			ScintillaKeyMap & skmOrig = _scintillaKeyCommands[i];
 			if (skmOrig.getScintillaKeyID() == (unsigned long)scintKey && skmOrig.getMenuCmdID() == menuID)
@@ -4822,20 +4843,20 @@ void NppParameters::addDefaultStyles(TiXmlNode* node)
 	addStyleDefaultColors(globalStyleRoot, L"Change History revert origin", L"40A0BF", L"40A0BF");
 	addStyleDefaultColors(globalStyleRoot, L"Change History saved", L"00A000", L"00A000");
 
-	addStyleDefaultColors(globalStyleRoot, L"Find status: Not found", L"FF0000", L"");
-	addStyleDefaultColors(globalStyleRoot, L"Find status: Message", L"0000FF", L"");
-	addStyleDefaultColors(globalStyleRoot, L"Find status: Search end reached", L"008000", L"");
+	addStyleDefaultColors(globalStyleRoot, FINDDLG_STAUSNOTFOUND_COLOR, L"FF0000", L"");
+	addStyleDefaultColors(globalStyleRoot, FINDDLG_STAUSMESSAGE_COLOR, L"0000FF", L"");
+	addStyleDefaultColors(globalStyleRoot, FINDDLG_STAUSREACHED_COLOR, L"008000", L"");
 
-	addStyleDefaultColors(globalStyleRoot, L"Tab color 1", L"", L"F3F0CB");
-	addStyleDefaultColors(globalStyleRoot, L"Tab color 2", L"", L"DBF3CB");
-	addStyleDefaultColors(globalStyleRoot, L"Tab color 3", L"", L"CBDBF3");
-	addStyleDefaultColors(globalStyleRoot, L"Tab color 4", L"", L"F3DBCB");
-	addStyleDefaultColors(globalStyleRoot, L"Tab color 5", L"", L"F3CBEE");
-	addStyleDefaultColors(globalStyleRoot, L"Tab color dark mode 1", L"", L"807848");
-	addStyleDefaultColors(globalStyleRoot, L"Tab color dark mode 2", L"", L"568048");
-	addStyleDefaultColors(globalStyleRoot, L"Tab color dark mode 3", L"", L"507094");
-	addStyleDefaultColors(globalStyleRoot, L"Tab color dark mode 4", L"", L"804849");
-	addStyleDefaultColors(globalStyleRoot, L"Tab color dark mode 5", L"", L"754880");
+	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_1, L"", L"F3F0CB");
+	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_2, L"", L"DBF3CB");
+	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_3, L"", L"CBDBF3");
+	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_4, L"", L"F3DBCB");
+	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_5, L"", L"F3CBEE");
+	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_DM_1, L"", L"807848");
+	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_DM_2, L"", L"568048");
+	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_DM_3, L"", L"507094");
+	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_DM_4, L"", L"804849");
+	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_DM_5, L"", L"754880");
 
 	addStyleDefaultColors(globalStyleRoot, L"EOL custom color", L"DADADA");
 	addStyleDefaultColors(globalStyleRoot, g_npcStyleName, L"DADADA", L"", L"White space symbol");

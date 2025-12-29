@@ -52,6 +52,10 @@ std::mutex command_mutex;
 void Notepad_plus::macroPlayback(Macro macro)
 {
 	_playingBackMacro = true;
+
+	Document curSciDoc = _pEditView->getCurrentBuffer()->getDocument();
+	Document prevSciDoc = curSciDoc;
+
 	_pEditView->execute(SCI_BEGINUNDOACTION);
 
 	for (Macro::iterator step = macro.begin(); step != macro.end(); ++step)
@@ -60,9 +64,33 @@ void Notepad_plus::macroPlayback(Macro macro)
 			step->PlayBack(_pPublicInterface, _pEditView);
 		else
 			_findReplaceDlg.execSavedCommand(step->_message, step->_lParameter, string2wstring(step->_sParameter, CP_UTF8));
+
+		curSciDoc = _pEditView->getCurrentBuffer()->getDocument();
+		if (curSciDoc != prevSciDoc)
+		{
+			// last macro step changed what is the current active Scintilla Document object - we need to handle the undo actions!
+			// (Scintilla undo actions are bound to a Document, not to a View)
+			// - either the previous Document object still exists (the macro step switched to another Notepad++ tab or view with
+			//   a non-cloned doc), in that case we need to end up the previous doc undo action and begin a new one for the current doc
+			// - or it no longer exists (the macro step closed its associated Notepad++ tab), then we do not need that ending undo action
+			//   (Notepad++ currently do not allow undo for closed tabs), just the new begin one for the current doc
+
+			if (MainFileManager.getBufferFromDocument(prevSciDoc) != BUFFER_INVALID)
+			{
+				Document invisSciDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
+				_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, prevSciDoc);
+				_invisibleEditView.execute(SCI_ENDUNDOACTION); // complete undo action of the previous doc
+				_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, invisSciDoc);
+			}
+
+			_pEditView->execute(SCI_BEGINUNDOACTION); // new undo action for the currently active doc
+
+			prevSciDoc = curSciDoc; // store
+		}
 	}
 
 	_pEditView->execute(SCI_ENDUNDOACTION);
+
 	_playingBackMacro = false;
 }
 

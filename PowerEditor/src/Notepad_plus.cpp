@@ -1245,6 +1245,8 @@ bool Notepad_plus::replaceInOpenedFiles()
 	int nbTotal = 0;
 	const bool isEntireDoc = true;
 	bool hasInvalidRegExpr = false;
+	bool hasInvalidCharsInRegExpr = false;
+	bool hasInvalidCharsInReplaceText = false;
 
 	if (_mainWindowStatus & WindowMainActive)
 	{
@@ -1267,6 +1269,16 @@ bool Notepad_plus::replaceInOpenedFiles()
 				hasInvalidRegExpr = true;
 				break;
 			}
+			else if (nb == FIND_INVALID_CHARS_IN_REGULAR_EXPRESSION)
+			{
+				hasInvalidCharsInRegExpr = true;
+				break;
+			}
+			else if (nb == FIND_INVALID_CHARS_IN_REPLACE_TEXT)
+			{
+				hasInvalidCharsInReplaceText = true;
+				break;
+			}
 			else
 			{
 				nbTotal += nb;
@@ -1274,7 +1286,7 @@ bool Notepad_plus::replaceInOpenedFiles()
 		}
 	}
 
-	if (!hasInvalidRegExpr && (_mainWindowStatus & WindowSubActive))
+	if (!hasInvalidRegExpr && !hasInvalidCharsInRegExpr && !hasInvalidCharsInReplaceText && (_mainWindowStatus & WindowSubActive))
 	{
 		for (size_t i = 0, len = _subDocTab.nbItem(); i < len; ++i)
 		{
@@ -1303,6 +1315,16 @@ bool Notepad_plus::replaceInOpenedFiles()
 				hasInvalidRegExpr = true;
 				break;
 			}
+			else if (nb == FIND_INVALID_CHARS_IN_REGULAR_EXPRESSION)
+			{
+				hasInvalidCharsInRegExpr = true;
+				break;
+			}
+			else if (nb == FIND_INVALID_CHARS_IN_REPLACE_TEXT)
+			{
+				hasInvalidCharsInReplaceText = true;
+				break;
+			}
 			else
 			{
 				nbTotal += nb;
@@ -1318,6 +1340,14 @@ bool Notepad_plus::replaceInOpenedFiles()
 	if (hasInvalidRegExpr)
 	{
 		_findReplaceDlg.setStatusbarMessageWithRegExprErr(&_invisibleEditView);
+	}
+	else if (hasInvalidCharsInRegExpr)
+	{
+		_findReplaceDlg.setStatusbarMessageWithInvalidCharsRegExprErr();
+	}
+	else if (hasInvalidCharsInReplaceText)
+	{
+		_findReplaceDlg.setStatusbarMessageWithInvalidCharsInReplaceTextErr();
 	}
 	else
 	{
@@ -1947,6 +1977,8 @@ bool Notepad_plus::replaceInFilelist(std::vector<wstring> & fileNames)
 	}
 
 	bool hasInvalidRegExpr = false;
+	bool hasInvalidCharsInRegExpr = false;
+	bool hasInvalidCharsInReplaceText = false;
 
 	for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
 	{
@@ -1977,7 +2009,17 @@ bool Notepad_plus::replaceInFilelist(std::vector<wstring> & fileNames)
 			if (nbReplaced == FIND_INVALID_REGULAR_EXPRESSION)
 			{
 				hasInvalidRegExpr = true;
-				break;;
+				break;
+			}
+			else if (nbReplaced == FIND_INVALID_CHARS_IN_REGULAR_EXPRESSION)
+			{
+				hasInvalidCharsInRegExpr = true;
+				break;
+			}
+			else if (nbReplaced == FIND_INVALID_CHARS_IN_REPLACE_TEXT)
+			{
+				hasInvalidCharsInReplaceText = true;
+				break;
 			}
 			else
 			{
@@ -2018,10 +2060,14 @@ bool Notepad_plus::replaceInFilelist(std::vector<wstring> & fileNames)
 		result = stringReplace(result, L"$INT_REPLACE$", std::to_wstring(nbTotal));
 	}
 
-	if (!hasInvalidRegExpr)
-		_findReplaceDlg.setStatusbarMessage(result, FSMessage);
-	else
+	if (hasInvalidRegExpr)
 		_findReplaceDlg.setStatusbarMessageWithRegExprErr(&_invisibleEditView);
+	else if (hasInvalidCharsInRegExpr)
+		_findReplaceDlg.setStatusbarMessageWithInvalidCharsRegExprErr();
+	else if (hasInvalidCharsInReplaceText)
+		_findReplaceDlg.setStatusbarMessageWithInvalidCharsInReplaceTextErr();
+	else
+		_findReplaceDlg.setStatusbarMessage(result, FSMessage);
 
 	return true;
 }
@@ -2075,7 +2121,7 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 			findInFolderInfo->_pFileName = fileNames.at(i).c_str();
 			
 			int nb = _findReplaceDlg.processAll(ProcessFindInFinder, &(findInFolderInfo->_findOption), true, findInFolderInfo);
-			if (nb == FIND_INVALID_REGULAR_EXPRESSION)
+			if (nb == FIND_INVALID_REGULAR_EXPRESSION || nb == FIND_INVALID_CHARS_IN_REGULAR_EXPRESSION)
 			{
 				break;
 			}
@@ -2153,6 +2199,7 @@ bool Notepad_plus::findInFilelist(std::vector<wstring> & fileNames)
 
 	const bool isEntireDoc = true;
 	bool hasInvalidRegExpr = false;
+	bool hasInvalidCharsInRegExpr = false;
 
 	for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
 	{
@@ -2181,6 +2228,11 @@ bool Notepad_plus::findInFilelist(std::vector<wstring> & fileNames)
 			if (nb == FIND_INVALID_REGULAR_EXPRESSION)
 			{
 				hasInvalidRegExpr = true;
+				break;
+			}
+			else if (nb == FIND_INVALID_CHARS_IN_REGULAR_EXPRESSION)
+			{
+				hasInvalidCharsInRegExpr = true;
 				break;
 			}
 
@@ -2214,6 +2266,11 @@ bool Notepad_plus::findInFilelist(std::vector<wstring> & fileNames)
 		_findReplaceDlg.setStatusbarMessageWithRegExprErr(&_invisibleEditView);
 		return false;
 	}
+	else if (hasInvalidCharsInRegExpr)
+	{
+		_findReplaceDlg.setStatusbarMessageWithInvalidCharsRegExprErr();
+		return false;
+	}
 
 	if (nbTotal > 0)
 	{
@@ -2240,6 +2297,7 @@ bool Notepad_plus::findInOpenedFiles()
 
 	const bool isEntireDoc = true;
 	bool hasInvalidRegExpr = false;
+	bool hasInvalidCharsInRegExpr = false;
 
 	_findReplaceDlg.beginNewFilesSearch();
 
@@ -2261,6 +2319,11 @@ bool Notepad_plus::findInOpenedFiles()
 				hasInvalidRegExpr = true;
 				break;
 			}
+			else if (nb == FIND_INVALID_CHARS_IN_REGULAR_EXPRESSION)
+			{
+				hasInvalidCharsInRegExpr = true;
+				break;
+			}
 			else
 			{
 				nbTotal += nb;
@@ -2270,7 +2333,7 @@ bool Notepad_plus::findInOpenedFiles()
 
 	size_t nbUniqueBuffers = _mainDocTab.nbItem();
 
-	if (!hasInvalidRegExpr && (_mainWindowStatus & WindowSubActive))
+	if (!hasInvalidRegExpr && !hasInvalidCharsInRegExpr && (_mainWindowStatus & WindowSubActive))
 	{
 		for (size_t i = 0, len2 = _subDocTab.nbItem(); i < len2 ; ++i)
 		{
@@ -2292,6 +2355,11 @@ bool Notepad_plus::findInOpenedFiles()
 				hasInvalidRegExpr = true;
 				break;
 			}
+			else if (nb == FIND_INVALID_CHARS_IN_REGULAR_EXPRESSION)
+			{
+				hasInvalidCharsInRegExpr = true;
+				break;
+			}
 			else
 			{
 				nbTotal += nb;
@@ -2311,6 +2379,11 @@ bool Notepad_plus::findInOpenedFiles()
 	if (hasInvalidRegExpr)
 	{
 		_findReplaceDlg.setStatusbarMessageWithRegExprErr(&_invisibleEditView);
+		return false;
+	}
+	else if (hasInvalidCharsInRegExpr)
+	{
+		_findReplaceDlg.setStatusbarMessageWithInvalidCharsRegExprErr();
 		return false;
 	}
 
@@ -2363,11 +2436,16 @@ bool Notepad_plus::findInCurrentFile(bool isEntireDoc)
 	FindersInfo findersInfo;
 	findersInfo._pFileName = pBuf->getFullPathName();
 	bool hasInvalidRegExpr = false;
+	bool hasInvalidCharsInRegExpr = false;
 
 	int nb = _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
 	if (nb == FIND_INVALID_REGULAR_EXPRESSION)
 	{
 		hasInvalidRegExpr = true;
+	}
+	else if (nb == FIND_INVALID_CHARS_IN_REGULAR_EXPRESSION)
+	{
+		hasInvalidCharsInRegExpr = true;
 	}
 	else
 	{
@@ -2384,6 +2462,11 @@ bool Notepad_plus::findInCurrentFile(bool isEntireDoc)
 	if (hasInvalidRegExpr)
 	{
 		_findReplaceDlg.setStatusbarMessageWithRegExprErr(&_invisibleEditView);
+		return false;
+	}
+	else if (hasInvalidCharsInRegExpr)
+	{
+		_findReplaceDlg.setStatusbarMessageWithInvalidCharsRegExprErr();
 		return false;
 	}
 

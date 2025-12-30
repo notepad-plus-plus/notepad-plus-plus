@@ -2531,6 +2531,14 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						{
 							setStatusbarMessageWithRegExprErr(*_ppEditView);
 						}
+						else if (nbReplaced == FIND_INVALID_CHARS_IN_REGULAR_EXPRESSION)
+						{
+							setStatusbarMessageWithInvalidCharsRegExprErr();
+						}
+						else if (nbReplaced == FIND_INVALID_CHARS_IN_REPLACE_TEXT)
+						{
+							setStatusbarMessageWithInvalidCharsInReplaceTextErr();
+						}
 						else
 						{
 							wstring result;
@@ -2575,6 +2583,10 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						if (nbCounted == FIND_INVALID_REGULAR_EXPRESSION)
 						{
 							setStatusbarMessageWithRegExprErr(*_ppEditView);
+						}
+						else if (nbCounted == FIND_INVALID_CHARS_IN_REGULAR_EXPRESSION)
+						{
+							setStatusbarMessageWithInvalidCharsRegExprErr();
 						}
 						else
 						{
@@ -2628,6 +2640,10 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						if (nbMarked == FIND_INVALID_REGULAR_EXPRESSION)
 						{
 							setStatusbarMessageWithRegExprErr(*_ppEditView);
+						}
+						else if (nbMarked == FIND_INVALID_CHARS_IN_REGULAR_EXPRESSION)
+						{
+							setStatusbarMessageWithInvalidCharsRegExprErr();
 						}
 						else
 						{
@@ -2927,6 +2943,52 @@ bool FindReplaceDlg::processFindNext(const wchar_t *txt2find, const FindOption *
 		return false;
 
 	const FindOption *pOptions = options?options:_env;
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+
+	// If txt2find contains non-ANSI characters and document type is ANSI, search cannot match
+	if ((*_ppEditView)->execute(SCI_GETCODEPAGE) == CP_ACP)
+	{
+		if (convertibleToAnsi(txt2find))
+		{
+			if (oFindStatus)
+				*oFindStatus = FSNotFound;
+
+			// Show warning for regex (could work in theory, but we disallow it to prevent unexpected behavior)
+			if (pOptions->_searchType == FindRegex)
+			{
+				setStatusbarMessageWithInvalidCharsRegExprErr();
+			}
+			else if (pOptions->_incrementalType == NotIncremental) //incremental search doesn't trigger messages
+			{
+				wstring warningMsg = pNativeSpeaker->getLocalizedStrFromID("find-status-cannot-find", L"Find: Can't find the text \"$STR_REPLACE$\"");
+				wstring newTxt2find = stringReplace(txt2find, L"&", L"&&");
+
+				if (newTxt2find.length() > 32) // truncate the search string to display, if the search string is too long
+				{
+					newTxt2find.erase(28);
+					newTxt2find += L"...";
+				}
+
+				warningMsg = stringReplace(warningMsg, L"$STR_REPLACE$", newTxt2find);
+
+				warningMsg += L" ";
+				warningMsg += getScopeInfoForStatusBar(&_options);
+
+				setStatusbarMessage(warningMsg, FSNotFound);
+
+				// if the dialog is not shown, pass the focus to his parent(ie. Notepad++)
+				if (!::IsWindowVisible(_hSelf))
+				{
+					(*_ppEditView)->grabFocus();
+				}
+				else
+				{
+					::SetFocus(::GetDlgItem(_hSelf, IDFINDWHAT));
+				}
+			}
+			return false;
+		}
+	}
 
 	(*_ppEditView)->execute(SCI_CALLTIPCANCEL);
 
@@ -3009,8 +3071,6 @@ bool FindReplaceDlg::processFindNext(const wchar_t *txt2find, const FindOption *
 	}
 
 	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
-
-	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
 	posFind = (*_ppEditView)->searchInTarget(pText, stringSizeFind, startPosition, endPosition);
 	if (posFind == -1) //no match found in target, check if a new target should be used
@@ -3122,9 +3182,10 @@ bool FindReplaceDlg::processReplace(const wchar_t *txt2find, const wchar_t *txt2
 	if (!txt2find || !txt2find[0] || !txt2replace)
 		return false;
 
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+
 	if ((*_ppEditView)->getCurrentBuffer()->isReadOnly())
 	{
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 		wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-readonly", L"Replace: Cannot replace text. The current document is read only.");
 		setStatusbarMessage(msg, FSNotFound);
 		return false;
@@ -3133,11 +3194,38 @@ bool FindReplaceDlg::processReplace(const wchar_t *txt2find, const wchar_t *txt2
 	FindOption replaceOptions = options ? *options : *_env;
 	replaceOptions._incrementalType = FirstIncremental;
 
+	if ((*_ppEditView)->execute(SCI_GETCODEPAGE) == CP_ACP)
+	{
+		// If txt2find contains non-ANSI characters and document type is ANSI, search cannot match
+		if (convertibleToAnsi(txt2find))
+		{
+			// Show warning for regex (could work in theory, but we disallow it to prevent unexpected behavior)
+			if (replaceOptions._searchType == FindRegex)
+			{
+				setStatusbarMessageWithInvalidCharsRegExprErr();
+			}
+			else
+			{
+				wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-not-found", L"Replace: no occurrence was found");
+
+				msg += L" ";
+				msg += getScopeInfoForStatusBar(&_options);
+
+				setStatusbarMessage(msg, FSNotFound);
+			}
+			return false;
+		}
+		// If text2replace contains non-ANSI characters and document type is ANSI, the replace text cannot be used
+		else if (convertibleToAnsi(txt2replace))
+		{
+			setStatusbarMessageWithInvalidCharsInReplaceTextErr();
+			return false;
+		}
+	}
+
 	Sci_CharacterRangeFull currentSelection = (*_ppEditView)->getSelection();
 	FindStatus status;
 	moreMatches = processFindNext(txt2find, &replaceOptions, &status, FINDNEXTTYPE_FINDNEXTFORREPLACE);
-
-	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
 	if (moreMatches)
 	{
@@ -3255,24 +3343,43 @@ int FindReplaceDlg::markAllInc(const FindOption *opt)
 
 int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool isEntire, const FindersInfo *pFindersInfo, int colourStyleID)
 {
+	NppParameters& nppParam = NppParameters::getInstance();
+	NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+
 	if (op == ProcessReplaceAll && (*_ppEditView)->getCurrentBuffer()->isReadOnly())
 	{
-		NppParameters& nppParam = NppParameters::getInstance();
-		NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 		wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replaceall-readonly", L"Replace All: Cannot replace text. The current document is read only.");
 		setStatusbarMessage(msg, FSNotFound);
 		return 0;
+	}
+
+	const FindOption* pOptions = opt ? opt : _env;
+	const wchar_t* txt2find = pOptions->_str2Search.c_str();
+	const wchar_t* txt2replace = pOptions->_str4Replace.c_str();
+
+	// If txt2find contains non-ANSI characters and document type is ANSI, search cannot match
+	if ((*_ppEditView)->execute(SCI_GETCODEPAGE) == CP_ACP)
+	{
+		if (convertibleToAnsi(txt2find))
+		{
+			// Abort and show warning for regex (could work in theory, but we disallow it to prevent unexpected behavior)
+			if (opt->_searchType == FindRegex)
+			{
+				return FIND_INVALID_CHARS_IN_REGULAR_EXPRESSION;
+			}
+			return 0;
+		}
+		// If text2replace contains non-ANSI characters and document type is ANSI, the replace text cannot be used
+		else if (op == ProcessReplaceAll && convertibleToAnsi(txt2replace))
+		{
+			return FIND_INVALID_CHARS_IN_REPLACE_TEXT;
+		}
 	}
 
 	// Turn OFF all the notification of modification (SCN_MODIFIED) for the sake of performance
 	LRESULT notifFlag = (*_ppEditView)->execute(SCI_GETMODEVENTMASK);
 	(*_ppEditView)->execute(SCI_SETMODEVENTMASK, 0);
 
-
-
-	const FindOption *pOptions = opt?opt:_env;
-	const wchar_t *txt2find = pOptions->_str2Search.c_str();
-	const wchar_t *txt2replace = pOptions->_str4Replace.c_str();
 
 	Sci_CharacterRangeFull cr = (*_ppEditView)->getSelection();
 	size_t docLength = (*_ppEditView)->execute(SCI_GETLENGTH);
@@ -4367,6 +4474,22 @@ void FindReplaceDlg::setStatusbarMessageWithRegExprErr(ScintillaEditView* pEditV
 	setStatusbarMessage(result, FSNotFound, string2wstring(s, CP_UTF8));
 }
 
+void FindReplaceDlg::setStatusbarMessageWithInvalidCharsRegExprErr()
+{
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-invalid-chars-regex",
+		L"Find: The regular expression contains non-ANSI characters, but the document is encoded in ANSI.");
+	setStatusbarMessage(msg, FSNotFound);
+}
+
+void FindReplaceDlg::setStatusbarMessageWithInvalidCharsInReplaceTextErr()
+{
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-invalid-replace-chars",
+		L"Replace: The replace text contains non-ANSI characters, but the document is encoded in ANSI.");
+	setStatusbarMessage(msg, FSNotFound);
+}
+
 wstring FindReplaceDlg::getScopeInfoForStatusBar(FindOption const *pFindOpt) const
 {
 	wstring scope;
@@ -4566,6 +4689,14 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const wstring& s
 						{	
 							setStatusbarMessageWithRegExprErr(*_ppEditView);
 						}
+						else if (nbReplaced == FIND_INVALID_CHARS_IN_REGULAR_EXPRESSION)
+						{
+							setStatusbarMessageWithInvalidCharsRegExprErr();
+						}
+						else if (nbReplaced == FIND_INVALID_CHARS_IN_REPLACE_TEXT)
+						{
+							setStatusbarMessageWithInvalidCharsInReplaceTextErr();
+						}
 						else
 						{
 							wstring result;
@@ -4596,6 +4727,10 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const wstring& s
 						if (nbCounted == FIND_INVALID_REGULAR_EXPRESSION)
 						{
 							setStatusbarMessageWithRegExprErr(*_ppEditView);
+						}
+						else if (nbCounted == FIND_INVALID_CHARS_IN_REGULAR_EXPRESSION)
+						{
+							setStatusbarMessageWithInvalidCharsRegExprErr();
 						}
 						else
 						{
@@ -4628,6 +4763,10 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const wstring& s
 						if (nbMarked == FIND_INVALID_REGULAR_EXPRESSION)
 						{
 							setStatusbarMessageWithRegExprErr(*_ppEditView);
+						}
+						else if (nbMarked == FIND_INVALID_CHARS_IN_REGULAR_EXPRESSION)
+						{
+							setStatusbarMessageWithInvalidCharsRegExprErr();
 						}
 						else
 						{
@@ -5463,6 +5602,13 @@ bool FindReplaceDlg::replaceInOpenDocsConfirmCheck()
 	}
 
 	return confirmed;
+}
+
+bool FindReplaceDlg::convertibleToAnsi(const wchar_t* text)
+{
+	BOOL convertible = FALSE;
+	WideCharToMultiByte(CP_ACP, WC_NO_BEST_FIT_CHARS, text, -1, nullptr, 0, nullptr, &convertible);
+	return convertible;
 }
 
 // Expand selection (if needed) and set the selected text in Find What field.

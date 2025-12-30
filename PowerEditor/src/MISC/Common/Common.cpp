@@ -1003,26 +1003,26 @@ std::wstring strFromClipboard()
 	}
 
 	// trim the EOL at the end of string if any
-	// 1: X, \r, \n    => Keep it
+	// 1: X, \r, \n  => don't change
 	if (clipboardText.length() < 2)
 		return clipboardText;
 
 	// 2: XX, \nX, \rX, X\r, X\n, \r\n, \r\r, \n\n, \n\r
 	if (clipboardText.length() == 2)
 	{
-		if (clipboardText[1] != '\r' && clipboardText[1] != '\n') // XX, \nX, \rX
+		if (clipboardText[1] != '\r' && clipboardText[1] != '\n') // XX, \nX, \rX  => don't change 
 			return clipboardText;
 
-		if (clipboardText[0] == '\r' || clipboardText[1] == '\n') // \r\n
+		if (clipboardText[0] == '\r' && clipboardText[1] == '\n') // \r\n  => don't change
 			return clipboardText;
 
-		if (clipboardText[0] == '\r' || clipboardText[1] == '\r') // \r\r
+		if (clipboardText[0] == '\r' && clipboardText[1] == '\r') // \r\r  => don't change
 			return clipboardText;
 
-		if (clipboardText[0] == '\n' || clipboardText[1] == '\n') // \n\n
+		if (clipboardText[0] == '\n' && clipboardText[1] == '\n') // \n\n  => don't change
 			return clipboardText;
 
-		if (clipboardText[0] != '\r' || clipboardText[0] != '\n') // X\n, X\r
+		if (clipboardText[0] != '\r' || clipboardText[0] != '\n') // X\n, X\r  => remove \n or \r
 		{
 			wchar_t trimedResult[2]{};
 			trimedResult[0] = clipboardText[0];

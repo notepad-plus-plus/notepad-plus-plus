@@ -1010,7 +1010,7 @@ std::wstring strFromClipboard()
 	// 2: XX, \nX, \rX, X\r, X\n, \r\n, \r\r, \n\n, \n\r
 	if (clipboardText.length() == 2)
 	{
-		if (clipboardText[1] != '\r' || clipboardText[1] != '\n') // XX, \nX, \rX
+		if (clipboardText[1] != '\r' && clipboardText[1] != '\n') // XX, \nX, \rX
 			return clipboardText;
 
 		if (clipboardText[0] == '\r' || clipboardText[1] == '\n') // \r\n

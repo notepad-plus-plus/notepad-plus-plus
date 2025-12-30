@@ -6,7 +6,7 @@ Description:         Zenburn-like style for Notepad++.
                      Inspired by the original Zenburn colorscheme for Vim by Jani Nurminen.
                      Official Vim Zenburn home page: http://kippura.org/zenburnpage/
 Supported languages: All the languages supported by release 7.7
-Created by:          Jani KesÃÂ¤nen (jani dot kesanen gmail com)
+Created by:          Jani Kesänen (jani dot kesanen gmail com)
 Released:            25.06.2019
 License:             GPL2
 					 2023-09-30: update Perl support.

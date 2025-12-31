@@ -1022,7 +1022,7 @@ std::wstring strFromClipboard()
 		if (clipboardText[0] == '\n' && clipboardText[1] == '\n') // \n\n  => don't change
 			return clipboardText;
 
-		if (clipboardText[0] != '\r' || clipboardText[0] != '\n') // X\n, X\r  => remove \n or \r
+		if (clipboardText[0] != '\r' && clipboardText[0] != '\n') // X\n, X\r  => remove \n or \r
 		{
 			wchar_t trimedResult[2]{};
 			trimedResult[0] = clipboardText[0];

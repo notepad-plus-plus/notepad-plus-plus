@@ -14,19 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 #pragma once
 
-#include "NppConstants.h"
-#include <vector>
-#include <string>
-#include <sstream>
 #include <windows.h>
+
 #include <commctrl.h>
-#include <iso646.h>
-#include <cstdint>
-#include <unordered_set>
-#include <algorithm>
 #include <tchar.h>
+
+#include <algorithm>
+#include <cstdint>
+#include <locale>
+#include <sstream>
+#include <string>
+#include <unordered_set>
+#include <vector>
+
+#include "NppConstants.h"
 
 #if defined(_MSC_VER)
 #pragma deprecated(PathFileExists)  // Use doesFileExist, doesDirectoryExist or doesPathExist (for file or directory) instead.
@@ -51,9 +55,9 @@ std::vector<std::wstring> tokenizeString(const std::wstring & tokenString, const
 void ClientRectToScreenRect(HWND hWnd, RECT* rect);
 void ScreenRectToClientRect(HWND hWnd, RECT* rect);
 
-std::wstring string2wstring(const std::string & rString, UINT codepage);
-std::string wstring2string(const std::wstring & rwString, UINT codepage);
-bool isInList(const wchar_t *token, const wchar_t *list);
+std::wstring string2wstring(const std::string& rString, UINT codepage = CP_UTF8);
+std::string wstring2string(const std::wstring& rwString, UINT codepage = CP_UTF8);
+bool isInList(const wchar_t* token, const wchar_t* list);
 std::wstring BuildMenuFileName(int filenameLen, unsigned int pos, const std::wstring &filename, bool ordinalNumber = true);
 
 std::string getFileContent(const wchar_t* file2read, bool* pbFailed = nullptr);
@@ -71,11 +75,11 @@ public:
 		return instance;
 	}
 
-	const wchar_t* char2wchar(const char* mbStr, size_t codepage, int lenMbcs = -1, int* pLenOut = NULL, int* pBytesNotProcessed = NULL);
-	const wchar_t* char2wchar(const char* mbcs2Convert, size_t codepage, intptr_t* mstart, intptr_t* mend, int len = 0);
+	const wchar_t* char2wchar(const char* mbcs2Convert, size_t codepage, int lenMbcs = -1, int* pLenWc = nullptr, int* pBytesNotProcessed = NULL);
+	const wchar_t* char2wchar(const char* mbcs2Convert, size_t codepage, intptr_t* mstart, intptr_t* mend, int mbcsLen = 0);
 	size_t getSizeW() const { return _wideCharStr.size(); }
-	const char* wchar2char(const wchar_t* wcStr, size_t codepage, int lenIn = -1, int* pLenOut = NULL);
-	const char* wchar2char(const wchar_t* wcStr, size_t codepage, intptr_t* mstart, intptr_t* mend, int lenIn = 0, int* lenOut = nullptr);
+	const char* wchar2char(const wchar_t* wcharStr2Convert, size_t codepage, int lenWc = -1, int* pLenMbcs = nullptr);
+	const char* wchar2char(const wchar_t* wcharStr2Convert, size_t codepage, intptr_t* mstart, intptr_t* mend, int wcharLenIn = 0, int* lenOut = nullptr);
 	size_t getSizeA() const { return _multiByteStr.size(); }
 
 	const char* encode(UINT fromCodepage, UINT toCodepage, const char* txt2Encode, int lenIn = -1, int* pLenOut = NULL, int* pBytesNotProcessed = NULL) {
@@ -127,7 +131,7 @@ protected:
 		operator const T* () const { return _str; }
 
 	protected:
-		static const int initSize = 1024;
+		static constexpr int initSize = 1024;
 		size_t _allocLen = 0;
 		size_t _dataLen = 0;
 		T* _str = nullptr;
@@ -159,11 +163,11 @@ std::wstring GetLastErrorAsString(DWORD errorCode = 0);
 std::wstring intToString(int val);
 std::wstring uintToString(unsigned int val);
 
-HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText, bool isRTL);
-HWND CreateToolTipRect(int toolID, HWND hWnd, HINSTANCE hInst, const PTSTR pszText, const RECT rc);
+HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PWSTR pszText, bool isRTL);
+HWND CreateToolTipRect(int toolID, HWND hWnd, HINSTANCE hInst, const PWSTR pszText, const RECT rc);
 
 bool isCertificateValidated(const std::wstring & fullFilePath, const std::wstring & subjectName2check);
-bool isAssoCommandExisting(LPCTSTR FullPathName);
+bool isAssoCommandExisting(LPCWSTR FullPathName);
 
 bool deleteFileOrFolder(const std::wstring& f2delete);
 
@@ -217,10 +221,11 @@ public:
 	explicit Version(const std::wstring& versionStr);
 
 	void setVersionFrom(const std::wstring& filePath);
-	std::wstring toString();
+	std::wstring toString() const;
 	static bool isNumber(const std::wstring& s) {
+		static const auto& loc = std::locale::classic();
 		return !s.empty() &&
-			find_if(s.begin(), s.end(), [](wchar_t c) { return !iswdigit(c); }) == s.end();
+			find_if(s.begin(), s.end(), [](auto c) { return !std::isdigit(c, loc); }) == s.end();
 	}
 
 	int compareTo(const Version& v2c) const;
@@ -339,7 +344,7 @@ public:
 		}
 	}
 
-	bool isInitialized() {
+	bool isInitialized() const {
 		return _bInitialized;
 	}
 

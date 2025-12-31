@@ -51,6 +51,22 @@ OK	u "http://github.com/notepad-plus-plus/notepad-plus-plus" u
 OK	u "https://github.com /notepad-plus-plus/notepad-plus-plus" u
 OK	u "https://github.com/notepad plus plus/notepad-plus-plus" u
 OK	u (https://github.com/notepad-plus-plus/notepad-plus-plus) u
+OK	u "https://www.youtube.com/@markiplier https://www.github.com/divyam27-1" u
+OK	u "https://www.youtube.com/@markiplier　https://www.github.com/divyam27-1" u
+OK	u "https://www.youtube.com/@markiplier https://www.github.com/divyam27-1" u
+OK	u "https://www.youtube.com/@markiplier https://www.github.com/divyam27-1" u
+OK	u "https://www.youtube.com/@markiplier https://www.github.com/divyam27-1" u
+OK	u "https://www.youtube.com/@markiplier https://www.github.com/divyam27-1" u
+OK	u "https://www.youtube.com/@markiplier https://www.github.com/divyam27-1" u
+OK	u "https://www.youtube.com/@markiplier https://www.github.com/divyam27-1" u
+OK	u "https://www.youtube.com/@markiplier https://www.github.com/divyam27-1" u
+OK	u "https://www.youtube.com/@markiplier https://www.github.com/divyam27-1" u
+OK	u "https://www.youtube.com/@markiplier https://www.github.com/divyam27-1" u
+OK	u "https://www.youtube.com/@markiplier https://www.github.com/divyam27-1" u
+OK	u "https://www.youtube.com/@markiplier https://www.github.com/divyam27-1" u
+OK	u "https://www.youtube.com/@markiplier https://www.github.com/divyam27-1" u
+OK	u "https://www.youtube.com/@markiplier https://www.github.com/divyam27-1" u
+OK	u https://www.github.com/　https://www.google.com/ /abc/　/xyz/ u
 OK	u [https://github.com/notepad-plus-plus/notepad-plus-plus] u
 OK	u https://github.com/notepad-plus-plus/notepad-plus-plus; u
 OK	u https://github.com/notepad-plus-plus/notepad-plus-plus? u

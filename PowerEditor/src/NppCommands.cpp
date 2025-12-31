@@ -58,6 +58,9 @@ void Notepad_plus::macroPlayback(Macro macro)
 
 	_pEditView->execute(SCI_BEGINUNDOACTION);
 
+	std::vector<Document> docs4EndUA;
+	docs4EndUA.push_back(curSciDoc); // store for possible ending undo action later
+
 	for (Macro::iterator step = macro.begin(); step != macro.end(); ++step)
 	{
 		if (step->isScintillaMacro())
@@ -68,28 +71,38 @@ void Notepad_plus::macroPlayback(Macro macro)
 		curSciDoc = _pEditView->getCurrentBuffer()->getDocument();
 		if (curSciDoc != prevSciDoc)
 		{
-			// last macro step changed what is the current active Scintilla Document object - we need to handle the undo actions!
-			// (Scintilla undo actions are bound to a Document, not to a View)
-			// - either the previous Document object still exists (the macro step switched to another Notepad++ tab or view with
-			//   a non-cloned doc), in that case we need to end up the previous doc undo action and begin a new one for the current doc
-			// - or it no longer exists (the macro step closed its associated Notepad++ tab), then we do not need that ending undo action
-			//   (Notepad++ currently do not allow undo for closed tabs), just the new begin one for the current doc
+			// last macro step caused changing of the currently active Scintilla Document object
+			// (for which the undo actions are bound)
 
-			if (MainFileManager.getBufferFromDocument(prevSciDoc) != BUFFER_INVALID)
+			if (std::find(docs4EndUA.begin(), docs4EndUA.end(), curSciDoc) == docs4EndUA.end())
 			{
-				Document invisSciDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
-				_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, prevSciDoc);
-				_invisibleEditView.execute(SCI_ENDUNDOACTION); // complete undo action of the previous doc
-				_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, invisSciDoc);
+				// not in the list of the macro affected docs so far
+				_pEditView->execute(SCI_BEGINUNDOACTION); // the macro step touched another doc, open another undo action
+				docs4EndUA.push_back(curSciDoc); // store for possible ending undo action later
 			}
 
-			_pEditView->execute(SCI_BEGINUNDOACTION); // new undo action for the currently active doc
-
-			prevSciDoc = curSciDoc; // store
+			prevSciDoc = curSciDoc; // remember the change
 		}
 	}
 
-	_pEditView->execute(SCI_ENDUNDOACTION);
+	Document invisSciDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER); // store the view original doc
+	while (!docs4EndUA.empty())
+	{
+		Document doc = docs4EndUA.back();
+		if (MainFileManager.getBufferFromDocument(doc) == BUFFER_INVALID)
+		{
+			// affected doc no longer exists (a macro step closed its associated Notepad++ tab/buffer),
+			// the ending undo action is not needed (until Notepad++ supports tab/buffer closing undo)
+		}
+		else
+		{
+			// complete the open undo action for existing doc object
+			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, doc);
+			_invisibleEditView.execute(SCI_ENDUNDOACTION);
+		}
+		docs4EndUA.pop_back();
+	}
+	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, invisSciDoc); // restore
 
 	_playingBackMacro = false;
 }

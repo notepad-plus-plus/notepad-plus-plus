@@ -342,7 +342,6 @@ SET(include_files
 			./uchardet/uchardet.h
 			./WinControls/AboutDlg/URLCtrl.h
 			./ScintillaComponent/UserDefineDialog.h
-			./ScintillaComponent/UserDefineLangReference.h
 			./ScintillaComponent/UserDefineResource.h
 			./Utf8_16.h
 			./WinControls/VerticalFileSwitcher/VerticalFileSwitcher.h

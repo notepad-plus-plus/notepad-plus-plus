@@ -9,7 +9,7 @@
 			</Component>
 			<Component Id="ada_FL">
 				<File Source="..\..\installer\functionList\ada.xml" />
-			</Component>	  
+			</Component>
 			<Component Id="asm_FL">
 				<File Source="..\..\installer\functionList\asm.xml" />
 			</Component>
@@ -141,6 +141,9 @@
 			</Component>
 			<Component Id="nim_FL">
 				<File Source="..\..\installer\functionList\nim.xml" />
+			</Component>
+			<Component Id="d_FL">
+				<File Source="..\..\installer\functionList\d.xml" />
 			</Component>
 			<Component Id="overrideMap_FL">
 				<File Source="..\..\installer\functionList\overrideMap.xml" />

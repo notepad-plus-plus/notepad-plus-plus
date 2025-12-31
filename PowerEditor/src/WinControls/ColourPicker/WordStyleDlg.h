@@ -17,29 +17,26 @@
 
 #pragma once
 
+#include <windows.h>
+
+#include <memory>
+#include <string>
+#include <utility>
+
 #include "ColourPicker.h"
 #include "URLCtrl.h"
 #include "Parameters.h"
-
+#include "StaticDialog.h"
+#include "resource.h"
 
 #define WM_UPDATESCINTILLAS      (WORDSTYLE_USER + 1) // WM_UPDATESCINTILLAS (BOOL doChangePanel, 0)
 #define WM_UPDATEMAINMENUBITMAPS (WORDSTYLE_USER + 2)
-
-// The following parameters are for apply() method which will re-initialize the followings GUI with modified styler:
-// 2 Scintilla edit zones, Search result (displayed by Sintilla), Notepad++ GUI & components concerning theme
-#define NO_VISUAL_CHANGE            0x00  // No need to apply visual effect - User ext.
-#define GENERAL_CHANGE              0x01  // For Sintilla zones & Notepad++ GUI (Tabbar, Find dialog, etc...)
-#define THEME_CHANGE                0x02  // For the components concerning theme, for example the background color of dockable panels 
-#define COLOR_CHANGE_4_MENU         0x04  // For the color items displayed on the menu
 
 const wchar_t FINDDLG_STAUSNOTFOUND_COLOR[64] = L"Find status: Not found";
 const wchar_t FINDDLG_STAUSMESSAGE_COLOR[64] = L"Find status: Message";
 const wchar_t FINDDLG_STAUSREACHED_COLOR[64] = L"Find status: Search end reached";
 
 enum fontStyleType {BOLD_STATUS, ITALIC_STATUS, UNDERLINE_STATUS};
-
-const bool C_FOREGROUND = false;
-const bool C_BACKGROUND = true;
 
 class WordStyleDlg : public StaticDialog
 {
@@ -55,16 +52,16 @@ public :
 	void destroy() override;
 	void prepare2Cancel();
 	void redraw(bool forceUpdate = false) const override;
-	void restoreGlobalOverrideValues();
-	void addLastThemeEntry();
+	void restoreGlobalOverrideValues() const;
+	void addLastThemeEntry() const;
 	bool selectThemeByName(const wchar_t* themeName);
 	void syncWithSelFgSingleColorCtrl();
 	bool goToSection(const wchar_t* sectionNames); // sectionNames is formed as following: "Language name:Style name"
 	                                               // ex: "Global Styles:EOL custom color" will set Language on "Global Styles", then set Style on "EOL custom color" if both are found.
 
 private :
-    ColourPicker *_pFgColour = nullptr;
-    ColourPicker *_pBgColour = nullptr;
+	std::unique_ptr<ColourPicker> _pFgColour = nullptr;
+	std::unique_ptr<ColourPicker> _pBgColour = nullptr;
 
     int _currentLexerIndex = 0;
 	int _currentThemeIndex = 0;
@@ -106,7 +103,7 @@ private :
 
 	Style& getCurrentStyler();
 
-	bool getStyleName(wchar_t *styleName, const size_t styleNameLen) const;
+	bool getStyleName(std::wstring& styleName, const size_t styleNameLenLimit = 128) const;
 
 	int whichTabColourIndex() const;
 	int whichIndividualTabColourId();
@@ -124,7 +121,7 @@ private :
 	void switchToTheme();
 	void updateThemeName(const std::wstring& themeName);
 	void loadLangListFromNppParam();
-	void enableFontStyle(bool isEnable);
+	void enableFontStyle(bool isEnable) const;
 	long notifyDataModified();
 	void setStyleListFromLexer(int index);
     void setVisualFromStyleList();

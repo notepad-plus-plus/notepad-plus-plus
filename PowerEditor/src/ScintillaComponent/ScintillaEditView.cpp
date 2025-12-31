@@ -1125,7 +1125,7 @@ void ScintillaEditView::setUserLexer(const wchar_t *userLangName)
 	int setKeywordsCounter = 0;
 	setLexerFromLangID(L_USER);
 
-	UserLangContainer * userLangContainer = userLangName? NppParameters::getInstance().getULCFromName(userLangName):_userDefineDlg._pCurrentUserLang;
+	UserLangContainer* userLangContainer = userLangName ? NppParameters::getInstance().getULCFromName(userLangName) : _userDefineDlg._pCurrentUserLang.get();
 
 	if (!userLangContainer)
 		return;

@@ -5260,18 +5260,18 @@ void FindReplaceDlg::combo2ExtendedMode(int comboID)
 
 	wstring str2transform = getTextFromCombo(hFindCombo);
 
-	// Count the number of character '\n' and '\r'
-	size_t nbEOL = 0;
+	// Count the number of characters '\n', '\r', and '\\'
+	size_t nbAdditChars = 0;
 	size_t str2transformLen = lstrlen(str2transform.c_str());
 	for (size_t i = 0 ; i < str2transformLen ; ++i)
 	{
-		if (str2transform[i] == '\r' || str2transform[i] == '\n')
-			++nbEOL;
+		if (str2transform[i] == '\r' || str2transform[i] == '\n' || str2transform[i] == '\\')
+			++nbAdditChars;
 	}
 
-	if (nbEOL)
+	if (nbAdditChars)
 	{
-		wchar_t * newBuffer = new wchar_t[str2transformLen + nbEOL*2 + 1];
+		wchar_t * newBuffer = new wchar_t[str2transformLen + nbAdditChars*2 + 1];
 		int j = 0;
 		for (size_t i = 0 ; i < str2transformLen ; ++i)
 		{
@@ -5284,6 +5284,11 @@ void FindReplaceDlg::combo2ExtendedMode(int comboID)
 			{
 				newBuffer[j++] = '\\';
 				newBuffer[j++] = 'n';
+			}
+			else if (str2transform[i] == '\\')
+			{
+				newBuffer[j++] = '\\';
+				newBuffer[j++] = '\\';
 			}
 			else
 			{

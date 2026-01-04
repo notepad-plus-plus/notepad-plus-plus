@@ -1566,7 +1566,7 @@ bool NppParameters::load()
 	}
 
 	_pXmlShortcutDoc = new NppXml::NewDocument();
-	loadOkay = NppXml::loadFile(_pXmlShortcutDoc, _shortcutsPath.c_str());
+	loadOkay = NppXml::loadFileShorcut(_pXmlShortcutDoc, _shortcutsPath.c_str());
 	if (!loadOkay)
 	{
 		delete _pXmlShortcutDoc;

@@ -3508,9 +3508,24 @@ void NppParameters::getActions(NppXml::Node node, Macro& macro)
 		const char *sParam = NppXml::attribute(element, "sParam");
 		if (!sParam)
 			sParam = "";
-		recordedMacroStep step(msg, wParam, lParam, sParam, type);
-		if (step.isValid())
-			macro.push_back(step);
+
+		if (msg == SCI_REPLACESEL
+			&& std::strlen(sParam) == 2
+			&& sParam[0] == '\r'
+			&& sParam[1] == '\n'
+			&& !macro.empty()
+			&& macro.back()._message == SCI_REPLACESEL
+			&& macro.back()._sParameter == "\r")
+		{
+			macro.pop_back();
+			macro.push_back(recordedMacroStep(SCI_NEWLINE, 0, 0, nullptr, 0));
+		}
+		else
+		{
+			recordedMacroStep step(msg, wParam, lParam, sParam, type);
+			if (step.isValid())
+				macro.push_back(step);
+		}
 	}
 }
 

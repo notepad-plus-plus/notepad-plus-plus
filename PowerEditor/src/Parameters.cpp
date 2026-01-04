@@ -1566,7 +1566,7 @@ bool NppParameters::load()
 	}
 
 	_pXmlShortcutDoc = new NppXml::NewDocument();
-	loadOkay = NppXml::loadFile(_pXmlShortcutDoc, _shortcutsPath.c_str());
+	loadOkay = NppXml::loadFileShortcut(_pXmlShortcutDoc, _shortcutsPath.c_str());
 	if (!loadOkay)
 	{
 		delete _pXmlShortcutDoc;
@@ -3508,9 +3508,69 @@ void NppParameters::getActions(NppXml::Node node, Macro& macro)
 		const char *sParam = NppXml::attribute(element, "sParam");
 		if (!sParam)
 			sParam = "";
-		recordedMacroStep step(msg, wParam, lParam, sParam, type);
-		if (step.isValid())
-			macro.push_back(step);
+
+		// Normalize end-of-line (EOL) characters for macro steps to address issues with old saved macros
+		// potentially having inconsistent EOL formats due to TinyXML1 and the native API.
+		//
+		// The logic replaces macro steps that use SCI_REPLACESEL with a single EOL with step using SCI_NEWLINE.
+		// Special handling is implemented for previous step that used CR (carriage return) EOL.
+		// If the current step has CRLF or LF, the previous step with CR is removed
+		// to avoid generating consecutive double newlines.
+
+		const bool isPrevMacroCR =
+			!macro.empty()
+			&& macro.back()._message == SCI_REPLACESEL
+			&& macro.back()._sParameter == "\r";
+
+		const bool isCR = std::strcmp(sParam, "\r") == 0;
+
+		if (msg == SCI_REPLACESEL
+			&& sParam[0] != '\0'
+			&& isCR
+			|| std::strcmp(sParam, "\r\n") == 0
+			|| std::strcmp(sParam, "\n") == 0)
+		{
+			if (isPrevMacroCR)
+			{
+				if (isCR)
+				{
+					macro.back() = recordedMacroStep(SCI_NEWLINE, 0, 0, nullptr, 0);
+				}
+				else
+				{
+					// Remove the last macro step to prevent double newlines.
+					macro.pop_back();
+				}
+			}
+
+			if (isCR)
+			{
+				// Insert the original macro step with SCI_REPLACESEL and CR for later checking.
+				// See check for `isPrevMacroCR`.
+				macro.push_back(recordedMacroStep(msg, wParam, lParam, sParam, type));
+			}
+			else
+			{
+				macro.push_back(recordedMacroStep(SCI_NEWLINE, 0, 0, nullptr, 0));
+			}
+		}
+		else
+		{
+			if (isPrevMacroCR)
+			{
+				macro.back() = recordedMacroStep(SCI_NEWLINE, 0, 0, nullptr, 0);
+			}
+
+			macro.push_back(recordedMacroStep(msg, wParam, lParam, sParam, type));
+		}
+	}
+
+	// Ensure the last macro step is correctly recorded as SCI_NEWLINE if it had an original CR.
+	if (!macro.empty()
+		&& macro.back()._message == SCI_REPLACESEL
+		&& macro.back()._sParameter == "\r")
+	{
+		macro.back() = recordedMacroStep(SCI_NEWLINE, 0, 0, nullptr, 0);
 	}
 }
 
@@ -3965,7 +4025,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring & 
 	pathAppend(cloudShortcutsPath, SHORTCUTSXML_FILENAME);
 	if (!doesFileExist(cloudShortcutsPath.c_str()) && _pXmlShortcutDoc)
 	{
-		isOK = NppXml::saveFile(_pXmlShortcutDoc, cloudShortcutsPath.c_str());
+		isOK = NppXml::saveFileShortcut(_pXmlShortcutDoc, cloudShortcutsPath.c_str());
 		if (!isOK)
 			return false;
 	}
@@ -4498,7 +4558,7 @@ void NppParameters::writeShortcuts()
 	{
 		insertScintKey(scitillaKeyRoot, _scintillaKeyCommands[_scintillaModifiedKeyIndices[i]]);
 	}
-	static_cast<void>(NppXml::saveFile(_pXmlShortcutDoc, _shortcutsPath.c_str()));
+	static_cast<void>(NppXml::saveFileShortcut(_pXmlShortcutDoc, _shortcutsPath.c_str()));
 }
 
 

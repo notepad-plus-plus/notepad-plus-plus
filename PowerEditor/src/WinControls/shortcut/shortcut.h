@@ -293,12 +293,9 @@ struct recordedMacroStep {
 	explicit recordedMacroStep(int iCommandID): _wParameter(iCommandID) {}
 
 	recordedMacroStep(int iMessage, uptr_t wParam, uptr_t lParam, const char* sParam, int type)
-		: _message(iMessage), _wParameter(wParam), _lParameter(lParam), _sParameter((sParam != nullptr) ? sParam : ""), _macroType(MacroTypeIndex(type))
+		: _message(iMessage), _wParameter(wParam), _lParameter(lParam), _sParameter((sParam != nullptr) ? sParam : ""), _macroType(static_cast<MacroTypeIndex>(type))
 	{}
 
-	bool isValid() const {
-		return true;
-	}
 	bool isScintillaMacro() const { return _macroType <= mtMenuCommand; }
 	bool isMacroable() const;
 

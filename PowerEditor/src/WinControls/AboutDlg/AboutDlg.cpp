@@ -289,10 +289,17 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_debugInfoStr += wmc.char2wchar(NPP_BOOST_REGEX_VERSION, CP_ACP);
 			_debugInfoStr += L"\r\n";
 
+#if defined(USE_TINYXML2)
 			// TinyXML-2 version
 			_debugInfoStr += L"TinyXML-2 included: ";
 			_debugInfoStr += to_wstring(TINYXML2_MAJOR_VERSION) + L"." + to_wstring(TINYXML2_MINOR_VERSION) + L"." + to_wstring(TINYXML2_PATCH_VERSION);
 			_debugInfoStr += L"\r\n";
+#elif defined(PUGIXML_VERSION)
+			// pugixml version
+			_debugInfoStr += L"pugixml included: ";
+			_debugInfoStr += std::to_wstring(PUGIXML_VERSION / 1000) + L"." + std::to_wstring((PUGIXML_VERSION % 1000) / 10);
+			_debugInfoStr += L"\r\n";
+#endif
 
 			// JSON version
 			_debugInfoStr += L"nlohmann JSON included: ";

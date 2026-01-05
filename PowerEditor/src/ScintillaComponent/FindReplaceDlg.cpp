@@ -1564,6 +1564,13 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			return TRUE;
 		}
 
+
+		case NPPM_INTERNAL_INVISIBLECHARSINFINDWHAT:
+		{
+			setStatusMessageWithInvisibleCharsWarning();
+			return TRUE;
+		}
+
 		case WM_INITDIALOG :
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
@@ -1657,7 +1664,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_DRAWITEM:
 		{
-			drawItem(reinterpret_cast<DRAWITEMSTRUCT*>(lParam));
+			drawStatusBarItem(reinterpret_cast<DRAWITEMSTRUCT*>(lParam));
 			return TRUE;
 		}
 
@@ -2035,8 +2042,21 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 								_maxLenOnSearchTip.hide();
 							}
 						}
+
+						// Remove status bar warning if it's present
+						removeStatusMessageWithInvisibleCharsWarning();
 					}
-					else if (HIWORD(wParam) == CBN_KILLFOCUS || HIWORD(wParam) == CBN_SELCHANGE)
+					else if (HIWORD(wParam) == CBN_SELCHANGE)
+					{
+						if (_maxLenOnSearchTip.isValid())
+						{
+							_maxLenOnSearchTip.hide();
+						}
+
+						// Remove status bar warning if it's present
+						removeStatusMessageWithInvisibleCharsWarning();
+					}
+					else if (HIWORD(wParam) == CBN_KILLFOCUS)
 					{
 						if (_maxLenOnSearchTip.isValid())
 						{
@@ -4367,6 +4387,21 @@ void FindReplaceDlg::setStatusbarMessageWithRegExprErr(ScintillaEditView* pEditV
 	setStatusbarMessage(result, FSNotFound, string2wstring(s, CP_UTF8));
 }
 
+void FindReplaceDlg::setStatusMessageWithInvisibleCharsWarning()
+{
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	std::wstring findWhatWarning = pNativeSpeaker->getLocalizedStrFromID("find-status-invisible-chars-findWhat", L"Invisible characters in pasted Find what content");
+	std::wstring findWhatWarningTip = pNativeSpeaker->getLocalizedStrFromID("find-status-invisible-chars-findWhat-tip", L"There are invisible characters in \"Find what\" field that were pasted from the clipboard. These characters are usually end-of-line markers.");
+	
+	setStatusbarMessage(findWhatWarning, FSWarning, findWhatWarningTip);
+}
+
+void FindReplaceDlg::removeStatusMessageWithInvisibleCharsWarning()
+{
+	if (_statusbarFindStatus == FSWarning)
+		setStatusbarMessage(L"", FSMessage, L"");
+}
+
 wstring FindReplaceDlg::getScopeInfoForStatusBar(FindOption const *pFindOpt) const
 {
 	wstring scope;
@@ -4913,6 +4948,24 @@ LRESULT CALLBACK FindReplaceDlg::FinderProc(
 	return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
 }
 
+bool containInvisibleChar(wstring text)
+{
+	for (auto i : text)
+	{
+		switch (i)
+		{
+			case '\n':
+			case '\r':
+				return true;
+
+
+			
+		}
+	}
+
+	return false;
+}
+
 LRESULT CALLBACK FindReplaceDlg::ComboEditProc(
 	HWND hWnd,
 	UINT uMsg,
@@ -5047,6 +5100,11 @@ LRESULT CALLBACK FindReplaceDlg::ComboEditProc(
 					if (!clipboardText.empty())
 					{
 						::SendMessage(hWnd, EM_REPLACESEL, TRUE, reinterpret_cast<LPARAM>(clipboardText.c_str()));
+						bool clipboardTextContainInvisibleChars = containInvisibleChar(clipboardText);
+						if (clipboardTextContainInvisibleChars)
+						{
+							::SendMessage(hParent, NPPM_INTERNAL_INVISIBLECHARSINFINDWHAT, 0, 0);
+						}
 					}
 				}
 				return 0;
@@ -5253,7 +5311,7 @@ void FindReplaceDlg::enableMarkFunc()
 	hideOrShowCtrl4reduceOrNormalMode(_currentStatus);
 }
 
-void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
+void FindReplaceDlg::drawStatusBarItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
 	//printStr(L"OK"));
 	COLORREF fgColor = black; // black by default
@@ -5271,6 +5329,10 @@ void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	else if (_statusbarFindStatus == FSTopReached || _statusbarFindStatus == FSEndReached)
 	{
 		fgColor = nppParamInst.getFindDlgStatusMsgColor(2);
+	}
+	else if (_statusbarFindStatus == FSWarning)
+	{
+		fgColor = nppParamInst.getFindDlgStatusMsgColor(3);
 	}
 	else if (_statusbarFindStatus == FSNoMessage)
 	{
@@ -5294,6 +5356,11 @@ void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		else if (_statusbarFindStatus == FSTopReached || _statusbarFindStatus == FSEndReached)
 		{
 			HLSColour hls(nppParamInst.getFindDlgStatusMsgColor(2));
+			fgColor = hls.toRGB4DarkMod();
+		}
+		else if (_statusbarFindStatus == FSWarning)
+		{
+			HLSColour hls(nppParamInst.getFindDlgStatusMsgColor(3));
 			fgColor = hls.toRGB4DarkMod();
 		}
 	}

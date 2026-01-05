@@ -293,6 +293,9 @@ namespace pugi
 	// Use single quotes ' instead of double quotes " for enclosing attribute values. This flag is off by default.
 	const unsigned int format_attribute_single_quote = 0x200;
 
+	// Output characters belonging to range [0; 32) in hexadecimal format instead of decimal - Notepad++ modification
+	const unsigned int format_control_chars_in_hexadecimal = 0x10000;
+
 	// The default set of formatting flags.
 	// Nodes are indented depending on their depth in DOM tree, a default declaration is output if document has none.
 	const unsigned int format_default = format_indent;

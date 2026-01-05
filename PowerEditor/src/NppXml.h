@@ -53,7 +53,7 @@ namespace NppXml
 		return result;
 	}
 
-	[[nodiscard]] inline bool loadFileShorcut(Document doc, const wchar_t* filename) {
+	[[nodiscard]] inline bool loadFileShortcut(Document doc, const wchar_t* filename) {
 		return loadFile(doc, filename);
 	}
 
@@ -150,8 +150,12 @@ namespace NppXml
 		return doc->save_file(filename, "    ", pugi::format_indent | pugi::format_save_file_text);
 	}
 
-	[[nodiscard]] inline bool loadFileShorcut(Document doc, const wchar_t* filename) {
+	[[nodiscard]] inline bool loadFileShortcut(Document doc, const wchar_t* filename) {
 		return doc->load_file(filename, pugi::parse_cdata | pugi::parse_escapes);
+	}
+
+	[[nodiscard]] inline bool saveFileShortcut(Document doc, const wchar_t* filename) {
+		return doc->save_file(filename, "    ", pugi::format_indent | pugi::format_save_file_text | pugi::format_control_chars_in_hexadecimal);
 	}
 
 	[[nodiscard]] inline Element firstChildElement(const Document& doc, const char* name = nullptr) {

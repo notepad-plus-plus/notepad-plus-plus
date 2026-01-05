@@ -473,6 +473,27 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_MACRORECORD:
 		{
+			if (notification->message == SCI_REPLACESEL)
+			{
+				const auto* ch = reinterpret_cast<char*>(notification->lParam);
+				if (ch != nullptr
+					&& ch[0] != '\0' // is not ""
+					&& ch[1] == '\0' // is length == 1
+					&& (ch[0] == '\n' || ch[0] == '\r')) // is EOL
+				{
+					if (_pEditView->getCurrentBuffer()->getEolFormat() == EolType::windows
+						&& ch[0] == '\n'
+						&& !_macro.empty()
+						&& _macro.back()._message == SCI_NEWLINE)
+					{
+						_macro.pop_back();
+					}
+
+					_macro.push_back(recordedMacroStep(SCI_NEWLINE, 0, 0, nullptr, 0));
+					break;
+				}
+			}
+
 			_macro.push_back(
 				recordedMacroStep(
 					notification->message,

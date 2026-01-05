@@ -1566,7 +1566,7 @@ bool NppParameters::load()
 	}
 
 	_pXmlShortcutDoc = new NppXml::NewDocument();
-	loadOkay = NppXml::loadFileShorcut(_pXmlShortcutDoc, _shortcutsPath.c_str());
+	loadOkay = NppXml::loadFileShortcut(_pXmlShortcutDoc, _shortcutsPath.c_str());
 	if (!loadOkay)
 	{
 		delete _pXmlShortcutDoc;
@@ -3509,23 +3509,56 @@ void NppParameters::getActions(NppXml::Node node, Macro& macro)
 		if (!sParam)
 			sParam = "";
 
-		if (msg == SCI_REPLACESEL
-			&& std::strlen(sParam) == 2
-			&& sParam[0] == '\r'
-			&& sParam[1] == '\n'
-			&& !macro.empty()
+		const bool isPrevMacroCR =
+			!macro.empty()
 			&& macro.back()._message == SCI_REPLACESEL
-			&& macro.back()._sParameter == "\r")
+			&& macro.back()._sParameter == "\r";
+
+		const bool isCR = std::strcmp(sParam, "\r") == 0;
+
+		if (msg == SCI_REPLACESEL
+			&& sParam[0] != '\0'
+			&& isCR
+			|| std::strcmp(sParam, "\r\n") == 0
+			|| std::strcmp(sParam, "\n") == 0)
 		{
-			macro.pop_back();
-			macro.push_back(recordedMacroStep(SCI_NEWLINE, 0, 0, nullptr, 0));
+			if (isPrevMacroCR)
+			{
+				if (isCR)
+				{
+					macro.back() = recordedMacroStep(SCI_NEWLINE, 0, 0, nullptr, 0);
+				}
+				else
+				{
+					macro.pop_back();
+				}
+			}
+
+			if (isCR)
+			{
+				macro.push_back(recordedMacroStep(msg, wParam, lParam, sParam, type));
+			}
+			else
+			{
+				macro.push_back(recordedMacroStep(SCI_NEWLINE, 0, 0, nullptr, 0));
+			}
 		}
 		else
 		{
-			recordedMacroStep step(msg, wParam, lParam, sParam, type);
-			if (step.isValid())
-				macro.push_back(step);
+			if (isPrevMacroCR)
+			{
+				macro.back() = recordedMacroStep(SCI_NEWLINE, 0, 0, nullptr, 0);
+			}
+
+			macro.push_back(recordedMacroStep(msg, wParam, lParam, sParam, type));
 		}
+	}
+
+	if (!macro.empty()
+		&& macro.back()._message == SCI_REPLACESEL
+		&& macro.back()._sParameter == "\r")
+	{
+		macro.back() = recordedMacroStep(SCI_NEWLINE, 0, 0, nullptr, 0);
 	}
 }
 
@@ -3980,7 +4013,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring & 
 	pathAppend(cloudShortcutsPath, SHORTCUTSXML_FILENAME);
 	if (!doesFileExist(cloudShortcutsPath.c_str()) && _pXmlShortcutDoc)
 	{
-		isOK = NppXml::saveFile(_pXmlShortcutDoc, cloudShortcutsPath.c_str());
+		isOK = NppXml::saveFileShortcut(_pXmlShortcutDoc, cloudShortcutsPath.c_str());
 		if (!isOK)
 			return false;
 	}
@@ -4513,7 +4546,7 @@ void NppParameters::writeShortcuts()
 	{
 		insertScintKey(scitillaKeyRoot, _scintillaKeyCommands[_scintillaModifiedKeyIndices[i]]);
 	}
-	static_cast<void>(NppXml::saveFile(_pXmlShortcutDoc, _shortcutsPath.c_str()));
+	static_cast<void>(NppXml::saveFileShortcut(_pXmlShortcutDoc, _shortcutsPath.c_str()));
 }
 
 

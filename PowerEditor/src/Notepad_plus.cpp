@@ -2571,6 +2571,9 @@ void Notepad_plus::checkClipboard()
 	enableCommand(IDM_EDIT_SENTENCECASE_BLEND, hasSelection, MENU);
 	enableCommand(IDM_EDIT_INVERTCASE, hasSelection, MENU);
 	enableCommand(IDM_EDIT_RANDOMCASE, hasSelection, MENU);
+	Buffer* curBuf = _pEditView->getCurrentBuffer();
+	bool canRedact = !curBuf->getFileReadOnly() && !curBuf->getUserReadOnly() && hasSelection;
+	enableCommand(IDM_EDIT_REDACT_SELECTION, canRedact, MENU);
 }
 
 void Notepad_plus::checkDocState()

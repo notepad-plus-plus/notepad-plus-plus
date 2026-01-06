@@ -24,6 +24,7 @@
 #include "documentMap.h"
 #include "Common.h"
 #include <stack>
+#include "shortcut.h"
 
 using namespace std;
 
@@ -473,6 +474,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_MACRORECORD:
 		{
+			// Normalize EOL by replacing SCI_REPLACESEL
+			// with lParam representing string of one char with '\n' or '\r'
+			// with SCI_NEWLINE which is document context aware and will insert correct EOL.
 			if (notification->message == SCI_REPLACESEL)
 			{
 				const auto* ch = reinterpret_cast<char*>(notification->lParam);
@@ -481,6 +485,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					&& ch[1] == '\0' // is length == 1
 					&& (ch[0] == '\n' || ch[0] == '\r')) // is EOL
 				{
+					// Current detected EOL is LF and document has CRLF,
+					// previous detected SCI_REPLACESEL with CR was already replaced by SCI_NEWLINE.
+					// To avoid double newlines, the previous macro is removed.
 					if (_pEditView->getCurrentBuffer()->getEolFormat() == EolType::windows
 						&& ch[0] == '\n'
 						&& !_macro.empty()

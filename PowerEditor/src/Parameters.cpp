@@ -9841,7 +9841,7 @@ void NppParameters::setFindDlgStatusMsgIndexColor(COLORREF colour2Set, int colou
 
 COLORREF NppParameters::getFindDlgStatusMsgColor(int colourIndex)
 {
-	if (colourIndex < 0 || colourIndex >= findDlgStatusMessageColor.size()) return black;
+	if (colourIndex < 0 || colourIndex >= static_cast<int>(findDlgStatusMessageColor.size())) return black;
 
 	return findDlgStatusMessageColor[colourIndex];
 }

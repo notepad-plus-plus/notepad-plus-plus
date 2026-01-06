@@ -484,6 +484,19 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	nppParam.initFindDlgStatusMsgCustomColors();
 	setupColorSampleBitmapsOnMainMenuItems();
 
+	// Redaction Menu Item
+	HMENU hEditMenu = ::GetSubMenu(_mainMenuHandle, 1);
+	UINT uInsertAtIndex = 15;
+	::InsertMenu(
+		hEditMenu,
+		uInsertAtIndex,
+		MF_BYPOSITION | MF_STRING,
+		IDM_EDIT_REDACT_SELECTION,
+		// \u2588 = █
+		// \u25CF = ●
+		TEXT("&Redact Selection \u2588 (Shift: \u25CF)")
+	);
+
 	// Macro Menu
 	HMENU hMacroMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_MACRO);
 	size_t const macroPosBase = 6;
@@ -2569,6 +2582,9 @@ void Notepad_plus::checkClipboard()
 	enableCommand(IDM_EDIT_SENTENCECASE_BLEND, hasSelection, MENU);
 	enableCommand(IDM_EDIT_INVERTCASE, hasSelection, MENU);
 	enableCommand(IDM_EDIT_RANDOMCASE, hasSelection, MENU);
+	// Redact Selection only for normal selection mode (not box selection) and file not read-only
+	bool isValidSelection = hasSelection && (_pEditView->execute(SCI_GETSELECTIONMODE) == SC_SEL_STREAM);
+	enableCommand(IDM_EDIT_REDACT_SELECTION, isValidSelection && !_pEditView->execute(SCI_GETREADONLY), MENU);
 }
 
 void Notepad_plus::checkDocState()

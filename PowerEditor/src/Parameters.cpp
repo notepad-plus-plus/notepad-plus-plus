@@ -3509,13 +3509,13 @@ void NppParameters::getActions(NppXml::Node node, Macro& macro)
 		if (!sParam)
 			sParam = "";
 
-		// Normalize end-of-line (EOL) characters for macros to address issues with old saved macros
+		// Normalize end-of-line (EOL) characters for macro steps to address issues with old saved macros
 		// potentially having inconsistent EOL formats due to TinyXML1 and the native API.
 		//
-		// The logic replaces macros using SCI_REPLACESEL with a single EOL with macro using SCI_NEWLINE.
-		// Special handling is implemented for previous macros that used CR (carriage return) EOL.
-		// If the current macro has CRLF or LF, the previous macro command with CR is removed
-		// to avoid generating consecutive newlines.
+		// The logic replaces macro steps that use SCI_REPLACESEL with a single EOL with step using SCI_NEWLINE.
+		// Special handling is implemented for previous step that used CR (carriage return) EOL.
+		// If the current step has CRLF or LF, the previous step with CR is removed
+		// to avoid generating consecutive double newlines.
 
 		const bool isPrevMacroCR =
 			!macro.empty()
@@ -3538,14 +3538,14 @@ void NppParameters::getActions(NppXml::Node node, Macro& macro)
 				}
 				else
 				{
-					// Remove the last macro command to prevent double newlines.
+					// Remove the last macro step to prevent double newlines.
 					macro.pop_back();
 				}
 			}
 
 			if (isCR)
 			{
-				// Insert the original macro with SCI_REPLACESEL and CR for later checking.
+				// Insert the original macro step with SCI_REPLACESEL and CR for later checking.
 				// See check for `isPrevMacroCR`.
 				macro.push_back(recordedMacroStep(msg, wParam, lParam, sParam, type));
 			}
@@ -3565,7 +3565,7 @@ void NppParameters::getActions(NppXml::Node node, Macro& macro)
 		}
 	}
 
-	// Ensure the last macro is correctly recorded as SCI_NEWLINE if it had an original CR.
+	// Ensure the last macro step is correctly recorded as SCI_NEWLINE if it had an original CR.
 	if (!macro.empty()
 		&& macro.back()._message == SCI_REPLACESEL
 		&& macro.back()._sParameter == "\r")

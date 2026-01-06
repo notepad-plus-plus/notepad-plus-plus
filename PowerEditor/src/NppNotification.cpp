@@ -474,9 +474,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_MACRORECORD:
 		{
-			// Normalize EOL by replacing SCI_REPLACESEL
+			// Normalize EOL by replacing macro step using SCI_REPLACESEL
 			// with lParam representing string of one char with '\n' or '\r'
-			// with SCI_NEWLINE which is document context aware and will insert correct EOL.
+			// with step using SCI_NEWLINE which is document context aware and will insert correct EOL.
 			if (notification->message == SCI_REPLACESEL)
 			{
 				const auto* ch = reinterpret_cast<char*>(notification->lParam);
@@ -486,8 +486,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					&& (ch[0] == '\n' || ch[0] == '\r')) // is EOL
 				{
 					// Current detected EOL is LF and document has CRLF,
-					// previous detected SCI_REPLACESEL with CR was already replaced by SCI_NEWLINE.
-					// To avoid double newlines, the previous macro is removed.
+					// previous detected step using SCI_REPLACESEL with CR was already replaced by SCI_NEWLINE.
+					// To avoid double newlines, the previous macro step is removed.
 					if (_pEditView->getCurrentBuffer()->getEolFormat() == EolType::windows
 						&& ch[0] == '\n'
 						&& !_macro.empty()

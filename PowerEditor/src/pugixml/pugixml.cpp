@@ -4034,7 +4034,7 @@ PUGI_IMPL_NS_BEGIN
 
 					if (!(flags & format_skip_control_chars))
 					{
-						if (!(flags & format_control_chars_in_hexadecimal))
+						if (!(flags & format_control_chars_in_hexadecimal)) // Notepad++ modification
 							writer.write('&', '#', static_cast<char_t>((ch / 10) + '0'), static_cast<char_t>((ch % 10) + '0'), ';');
 						else
 							writer.write('&', '#', 'x', static_cast<char_t>((ch >> 4) >= 10 ? (ch >> 4) - 10 + 'A' : (ch >> 4) + '0'), static_cast<char_t>((ch & 0x0F) >= 10 ? (ch & 0x0F) - 10 + 'A' : (ch & 0x0F) + '0'), ';');

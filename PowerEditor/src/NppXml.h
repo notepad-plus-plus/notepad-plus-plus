@@ -85,8 +85,16 @@ namespace NppXml
 		return node->Value();
 	}
 
+	[[nodiscard]] inline const char* attribute(const Node& node, const char* name) {
+		return node->ToElement()->Attribute(name);
+	}
+
 	[[nodiscard]] inline const char* attribute(const Element& elem, const char* name) {
 		return elem->Attribute(name);
+	}
+
+	[[nodiscard]] inline int intAttribute(const Node& node, const char* name, int defaultValue = 0) {
+		return node->ToElement()->IntAttribute(name, defaultValue);
 	}
 
 	[[nodiscard]] inline int intAttribute(const Element& elem, const char* name, int defaultValue = 0) {

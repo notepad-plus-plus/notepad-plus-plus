@@ -14,22 +14,44 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include <windowsx.h>
 
 #include "ProjectPanel.h"
-#include "resource.h"
-//#include "tinyxml.h"
-#include "CustomFileDialog.h"
-#include "localization.h"
-#include "Parameters.h"
 
-#define INDEX_CLEAN_ROOT     0
-#define INDEX_DIRTY_ROOT     1
-#define INDEX_PROJECT        2
-#define INDEX_OPEN_NODE	     3
-#define INDEX_CLOSED_NODE    4
-#define INDEX_LEAF           5
-#define INDEX_LEAF_INVALID   6
+#include <windows.h>
+
+#include <shlwapi.h>
+#include <windowsx.h>
+
+#include <wchar.h>
+
+#include <cstring>
+#include <string>
+#include <vector>
+
+#include "Common.h"
+#include "CustomFileDialog.h"
+#include "DockingDlgInterface.h"
+#include "Notepad_plus_msgs.h"
+#include "NppDarkMode.h"
+#include "NppXml.h"
+#include "Parameters.h"
+#include "ProjectPanel_rc.h"
+#include "StaticDialog.h"
+#include "dockingResource.h"
+#include "localization.h"
+#include "menuCmdID.h"
+#include "resource.h"
+
+enum TvIndex : int
+{
+	INDEX_CLEAN_ROOT,
+	INDEX_DIRTY_ROOT,
+	INDEX_PROJECT,
+	INDEX_OPEN_NODE,
+	INDEX_CLOSED_NODE,
+	INDEX_LEAF,
+	INDEX_LEAF_INVALID,
+};
 
 using namespace std;
 
@@ -65,13 +87,13 @@ intptr_t CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			tbButtons[0].iBitmap = I_IMAGENONE;
 			tbButtons[0].fsState = TBSTATE_ENABLED;
 			tbButtons[0].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
-			tbButtons[0].iString = (intptr_t)workspace_entry.c_str();
+			tbButtons[0].iString = reinterpret_cast<intptr_t>(workspace_entry.c_str());
 
 			tbButtons[1].idCommand = IDB_EDIT_BTN;
 			tbButtons[1].iBitmap = I_IMAGENONE;
 			tbButtons[1].fsState = TBSTATE_ENABLED;
 			tbButtons[1].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
-			tbButtons[1].iString = (intptr_t)edit_entry.c_str();
+			tbButtons[1].iString = reinterpret_cast<intptr_t>(edit_entry.c_str());
 
 			SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
 			SendMessage(_hToolbarMenu, TB_ADDBUTTONS, sizeof(tbButtons) / sizeof(TBBUTTON), reinterpret_cast<LPARAM>(&tbButtons));
@@ -138,7 +160,7 @@ intptr_t CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 		case WM_NOTIFY:
 		{
-			notified((LPNMHDR)lParam);
+			notified(reinterpret_cast<LPNMHDR>(lParam));
 		}
 		return TRUE;
 
@@ -274,7 +296,7 @@ void ProjectPanel::initMenus()
 	_hProjectMenu = ::CreatePopupMenu();
 	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MOVEUP, edit_moveup.c_str());
 	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MOVEDOWN, edit_movedown.c_str());
-	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, UINT(-1), 0);
+	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_RENAME, edit_rename.c_str());
 	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWFOLDER, edit_addfolder.c_str());
 	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_ADDFILES, edit_addfiles.c_str());
@@ -292,7 +314,7 @@ void ProjectPanel::initMenus()
 	_hFolderMenu = ::CreatePopupMenu();
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MOVEUP,        edit_moveup.c_str());
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MOVEDOWN,      edit_movedown.c_str());
-	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, UINT(-1), 0);
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_RENAME,        edit_rename.c_str());
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWFOLDER,     edit_addfolder.c_str());
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_ADDFILES,      edit_addfiles.c_str());
@@ -308,13 +330,13 @@ void ProjectPanel::initMenus()
 	_hFileMenu = ::CreatePopupMenu();
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MOVEUP, edit_moveup.c_str());
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MOVEDOWN, edit_movedown.c_str());
-	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, UINT(-1), 0);
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_RENAME, edit_rename.c_str());
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_DELETEFILE, edit_remove.c_str());
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MODIFYFILEPATH, edit_modifyfile.c_str());
 }
 
-void ProjectPanel::destroyMenus() 
+void ProjectPanel::destroyMenus() const 
 {
 	::DestroyMenu(_hWorkSpaceMenu);
 	::DestroyMenu(_hProjectMenu);
@@ -322,7 +344,7 @@ void ProjectPanel::destroyMenus()
 	::DestroyMenu(_hFileMenu);
 }
 
-bool ProjectPanel::openWorkSpace(const wchar_t *projectFileName, bool force)
+bool ProjectPanel::openWorkSpace(const wchar_t* projectFileName, bool force)
 {
 	if (!projectFileName)
 		return false;
@@ -336,15 +358,15 @@ bool ProjectPanel::openWorkSpace(const wchar_t *projectFileName, bool force)
 			return true;
 	}
 
-	TiXmlDocument *pXmlDocProject = new TiXmlDocument(projectFileName);
-	bool loadOkay = pXmlDocProject->LoadFile();
+	NppXml::Document pXmlDocProject = new NppXml::NewDocument();
+	const bool loadOkay = NppXml::loadFile(pXmlDocProject, projectFileName);
 	if (!loadOkay)
 	{
 		delete pXmlDocProject;
 		return false;
 	}
 
-	TiXmlNode *root = pXmlDocProject->FirstChild(L"NotepadPlus");
+	NppXml::Node root = NppXml::firstChildElement(pXmlDocProject, "NotepadPlus");
 	if (!root) 
 	{
 		delete pXmlDocProject;
@@ -352,7 +374,7 @@ bool ProjectPanel::openWorkSpace(const wchar_t *projectFileName, bool force)
 	}
 
 
-	TiXmlNode *childNode = root->FirstChildElement(L"Project");
+	NppXml::Node childNode = NppXml::firstChildElement(root, "Project");
 	if (!childNode) 
 	{
 		delete pXmlDocProject;
@@ -371,9 +393,13 @@ bool ProjectPanel::openWorkSpace(const wchar_t *projectFileName, bool force)
 	wchar_t * fileName = PathFindFileName(projectFileName);
 	HTREEITEM rootItem = _treeView.addItem(fileName, TVI_ROOT, INDEX_CLEAN_ROOT);
 
-	for ( ; childNode ; childNode = childNode->NextSibling(L"Project"))
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+	for (;
+		childNode;
+		childNode = NppXml::nextSiblingElement(childNode, "Project"))
 	{
-		HTREEITEM projectItem = _treeView.addItem((childNode->ToElement())->Attribute(L"name"), rootItem, INDEX_PROJECT);
+		const char* itemName = NppXml::attribute(childNode, "name");
+		HTREEITEM projectItem = _treeView.addItem(wmc.char2wchar(itemName, CP_UTF8), rootItem, INDEX_PROJECT);
 		buildTreeFrom(childNode, projectItem);
 	}
 	setWorkSpaceDirty(false);
@@ -408,12 +434,12 @@ bool ProjectPanel::saveWorkSpace()
 	} 
 }
 
-bool ProjectPanel::writeWorkSpace(const wchar_t *projectFileName, bool doUpdateGUI)
+bool ProjectPanel::writeWorkSpace(const wchar_t* projectFileName, bool doUpdateGUI)
 {
 	//write <NotepadPlus>: use the default file name if new file name is not given
-	const wchar_t * fn2write = projectFileName?projectFileName:_workSpaceFilePath.c_str();
-	TiXmlDocument projDoc(fn2write);
-	TiXmlNode *root = projDoc.InsertEndChild(TiXmlElement(L"NotepadPlus"));
+	const wchar_t* fn2write = projectFileName ? projectFileName : _workSpaceFilePath.c_str();
+	NppXml::Document projDoc = new NppXml::NewDocument();
+	NppXml::Node root = NppXml::createChildElement(projDoc, "NotepadPlus");
 
 	wchar_t textBuffer[MAX_PATH] = { '\0' };
 	TVITEM tvItem{};
@@ -424,25 +450,28 @@ bool ProjectPanel::writeWorkSpace(const wchar_t *projectFileName, bool doUpdateG
 	//for each project, write <Project>
 	HTREEITEM tvRoot = _treeView.getRoot();
 	if (!tvRoot)
+	{
+		delete projDoc;
 		return false;
+	}
 
 	for (HTREEITEM tvProj = _treeView.getChildFrom(tvRoot);
-		tvProj != NULL;
+		tvProj != nullptr;
 		tvProj = _treeView.getNextSibling(tvProj))
 	{
 		tvItem.hItem = tvProj;
 		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 		//printStr(tvItem.pszText);
 
-		TiXmlNode *projRoot = root->InsertEndChild(TiXmlElement(L"Project"));
-		projRoot->ToElement()->SetAttribute(L"name", tvItem.pszText);
+		NppXml::Element projRoot = NppXml::createChildElement(root, "Project");
+		NppXml::setAttribute(projRoot, "name", wstring2string(tvItem.pszText, CP_UTF8).c_str());
 		buildProjectXml(projRoot, tvProj, fn2write);
 	}
 
-	if (!projDoc.SaveFile())
+	if (!NppXml::saveFile(projDoc, fn2write))
 	{
-		const wchar_t * title = _workSpaceFilePath.length() > 0 ? PathFindFileName (_workSpaceFilePath.c_str()) : _panelTitle.c_str();
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		const wchar_t* title = _workSpaceFilePath.length() > 0 ? PathFindFileName (_workSpaceFilePath.c_str()) : _panelTitle.c_str();
+		NativeLangSpeaker *pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 		pNativeSpeaker->messageBox("ProjectPanelSaveError",
 		_hSelf,
 		L"An error occurred while writing your workspace file.\nYour workspace has not been saved.",
@@ -450,6 +479,7 @@ bool ProjectPanel::writeWorkSpace(const wchar_t *projectFileName, bool doUpdateG
 		MB_OK | MB_ICONERROR,
 		0,
 		title);
+		delete projDoc;
 		return false;
 	}
 	wchar_t * fileName = PathFindFileName(fn2write);
@@ -457,10 +487,11 @@ bool ProjectPanel::writeWorkSpace(const wchar_t *projectFileName, bool doUpdateG
 	{
 		_treeView.renameItem(tvRoot, fileName);
 	}
+	delete projDoc;
 	return true;
 }
 
-void ProjectPanel::buildProjectXml(TiXmlNode *node, HTREEITEM hItem, const wchar_t* fn2write)
+void ProjectPanel::buildProjectXml(NppXml::Node root, HTREEITEM hItem, const wchar_t* fn2write)
 {
 	wchar_t textBuffer[MAX_PATH] = { '\0' };
 	TVITEM tvItem{};
@@ -469,22 +500,22 @@ void ProjectPanel::buildProjectXml(TiXmlNode *node, HTREEITEM hItem, const wchar
 	tvItem.cchTextMax = MAX_PATH;
 
 	for (HTREEITEM hItemNode = _treeView.getChildFrom(hItem);
-		hItemNode != NULL;
+		hItemNode != nullptr;
 		hItemNode = _treeView.getNextSibling(hItemNode))
 	{
 		tvItem.hItem = hItemNode;
 		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 		if (tvItem.lParam)
 		{
-			const wstring *fn = reinterpret_cast<const wstring *>(tvItem.lParam);
-			wstring newFn = getRelativePath(*fn, fn2write);
-			TiXmlNode *fileLeaf = node->InsertEndChild(TiXmlElement(L"File"));
-			fileLeaf->ToElement()->SetAttribute(L"name", newFn.c_str());
+			const auto* fn = reinterpret_cast<std::wstring*>(tvItem.lParam);
+			std::string newFn = wstring2string(getRelativePath(*fn, fn2write), CP_UTF8);
+			NppXml::Element fileLeaf = NppXml::createChildElement(root, "File");
+			NppXml::setAttribute(fileLeaf, "name", newFn.c_str());
 		}
 		else
 		{
-			TiXmlNode *folderNode = node->InsertEndChild(TiXmlElement(L"Folder"));
-			folderNode->ToElement()->SetAttribute(L"name", tvItem.pszText);
+			NppXml::Element folderNode = NppXml::createChildElement(root, "Folder");
+			NppXml::setAttribute(folderNode, "name", wstring2string(tvItem.pszText, CP_UTF8).c_str());
 			buildProjectXml(folderNode, hItemNode, fn2write);
 		}
 	}
@@ -502,7 +533,7 @@ bool ProjectPanel::enumWorkSpaceFiles(HTREEITEM tvFrom, const std::vector<wstrin
 	if (!tvRoot) return false;
 
 	for (HTREEITEM tvProj = _treeView.getChildFrom(tvRoot);
-		tvProj != NULL;
+		tvProj != nullptr;
 		tvProj = _treeView.getNextSibling(tvProj))
 	{
 		tvItem.hItem = tvProj;
@@ -511,8 +542,8 @@ bool ProjectPanel::enumWorkSpaceFiles(HTREEITEM tvFrom, const std::vector<wstrin
 		{
 			if (matchInList(tvItem.pszText, patterns))
 			{
-				wstring *fn = (wstring *)tvItem.lParam;
-				fileNames.push_back (*fn);
+				auto* fn = reinterpret_cast<std::wstring*>(tvItem.lParam);
+				fileNames.push_back(*fn);
 			}
 		}
 		else
@@ -523,7 +554,7 @@ bool ProjectPanel::enumWorkSpaceFiles(HTREEITEM tvFrom, const std::vector<wstrin
 	return true;
 }
 
-wstring ProjectPanel::getRelativePath(const wstring & filePath, const wchar_t *workSpaceFileName)
+wstring ProjectPanel::getRelativePath(const wstring& filePath, const wchar_t *workSpaceFileName)
 {
 	wchar_t wsfn[MAX_PATH] = { '\0' };
 	wcscpy_s(wsfn, workSpaceFileName);
@@ -538,31 +569,34 @@ wstring ProjectPanel::getRelativePath(const wstring & filePath, const wchar_t *w
 	return relativeFile;
 }
 
-bool ProjectPanel::buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem)
+bool ProjectPanel::buildTreeFrom(NppXml::Node projectRoot, HTREEITEM hParentItem)
 {
-	for (TiXmlNode *childNode = projectRoot->FirstChildElement();
-		childNode ;
-		childNode = childNode->NextSibling())
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+
+	for (NppXml::Node childNode = NppXml::firstChildElement(projectRoot);
+		childNode;
+		childNode = NppXml::nextSibling(childNode))
 	{
-		const wchar_t *v = childNode->Value();
-		if (lstrcmp(L"Folder", v) == 0)
+		const char* v = NppXml::value(childNode);
+		if (std::strcmp(v, "Folder") == 0)
 		{
-			HTREEITEM addedItem = _treeView.addItem((childNode->ToElement())->Attribute(L"name"), hParentItem, INDEX_CLOSED_NODE);
-			if (!childNode->NoChildren())
+			const char* itemName = NppXml::attribute(childNode, "name");
+			HTREEITEM addedItem = _treeView.addItem(wmc.char2wchar(itemName, CP_UTF8), hParentItem, INDEX_CLOSED_NODE);
+			if (NppXml::firstChild(childNode))
 			{
 				bool isOK = buildTreeFrom(childNode, addedItem);
 				if (!isOK)
 					return false;
 			}
 		}
-		else if (lstrcmp(L"File", v) == 0)
+		else if (std::strcmp(v, "File") == 0)
 		{
-			const wchar_t *strValue = (childNode->ToElement())->Attribute(L"name");
-			wstring fullPath = getAbsoluteFilePath(strValue);
-			wchar_t *strValueLabel = ::PathFindFileName(strValue);
+			const wchar_t* strValue = wmc.char2wchar(NppXml::attribute(childNode, "name"), CP_UTF8);
+			std::wstring fullPath = getAbsoluteFilePath(strValue);
+			const wchar_t* strValueLabel = ::PathFindFileNameW(strValue);
 			int iImage = doesFileExist(fullPath.c_str()) ? INDEX_LEAF : INDEX_LEAF_INVALID;
 
-			wstring* fullPathStr = new wstring(fullPath);
+			std::wstring* fullPathStr = new std::wstring(fullPath);
 			fullPathStrs.push_back(fullPathStr);
 			LPARAM lParamFullPathStr = reinterpret_cast<LPARAM>(fullPathStr);
 
@@ -592,7 +626,7 @@ void ProjectPanel::openSelectFile()
 	::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
 	NodeType nType = getNodeType(tvItem.hItem);
-	wstring *fn = (wstring *)tvItem.lParam;
+	auto* fn = reinterpret_cast<std::wstring*>(tvItem.lParam);
 	if (nType == nodeType_file && fn)
 	{
 		tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
@@ -641,22 +675,22 @@ void ProjectPanel::notified(LPNMHDR notification)
 	
 			case TVN_ENDLABELEDIT:
 			{
-				LPNMTVDISPINFO tvnotif = (LPNMTVDISPINFO)notification;
+				auto* tvnotif = reinterpret_cast<LPNMTVDISPINFOW>(notification);
 				if (!tvnotif->item.pszText)
 					return;
 				if (getNodeType(tvnotif->item.hItem) == nodeType_root)
 					return;
 
 				// Processing for only File case
-				if (tvnotif->item.lParam) 
+				if (tvnotif->item.lParam)
 				{
 					// Get the old label
 					tvItem.hItem = _treeView.getSelection();
 					::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
-					size_t len = lstrlen(tvItem.pszText);
+					size_t len = std::wcslen(tvItem.pszText);
 
 					// Find the position of old label in File path
-					wstring *filePath = (wstring *)tvnotif->item.lParam;
+					auto* filePath = reinterpret_cast<std::wstring*>(tvnotif->item.lParam);
 					size_t found = filePath->rfind(tvItem.pszText);
 
 					// If found the old label, replace it with the modified one
@@ -686,8 +720,8 @@ void ProjectPanel::notified(LPNMHDR notification)
 
 			case TVN_GETINFOTIP:
 			{
-				LPNMTVGETINFOTIP lpGetInfoTip = (LPNMTVGETINFOTIP)notification;
-				wstring *str = NULL ;
+				auto* lpGetInfoTip = reinterpret_cast<LPNMTVGETINFOTIPW>(notification);
+				std::wstring* str = nullptr;
 
 				if (_treeView.getRoot() == lpGetInfoTip->hItem)
 				{
@@ -695,18 +729,18 @@ void ProjectPanel::notified(LPNMHDR notification)
 				}
 				else
 				{
-					str = (wstring *)lpGetInfoTip->lParam;
+					str = reinterpret_cast<std::wstring*>(lpGetInfoTip->lParam);
 					if (!str)
 						return;
 				}
-				lpGetInfoTip->pszText = (LPTSTR)str->c_str();
-				lpGetInfoTip->cchTextMax = static_cast<int32_t>(str->size());
+				lpGetInfoTip->pszText = str->data();
+				lpGetInfoTip->cchTextMax = static_cast<int>(str->size());
 			}
 			break;
 
 			case TVN_KEYDOWN:
 			{
-				LPNMTVKEYDOWN ptvkd = (LPNMTVKEYDOWN)notification;
+				auto* ptvkd = reinterpret_cast<LPNMTVKEYDOWN>(notification);
 				
 				if (ptvkd->wVKey == VK_DELETE)
 				{
@@ -748,7 +782,7 @@ void ProjectPanel::notified(LPNMHDR notification)
 
 			case TVN_ITEMEXPANDED:
 			{
-				LPNMTREEVIEW nmtv = (LPNMTREEVIEW)notification;
+				auto* nmtv = reinterpret_cast<LPNMTREEVIEWW>(notification);
 				tvItem.hItem = nmtv->itemNew.hItem;
 				tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
 
@@ -768,7 +802,7 @@ void ProjectPanel::notified(LPNMHDR notification)
 
 			case TVN_BEGINDRAG:
 			{
-				_treeView.beginDrag((LPNMTREEVIEW)notification);
+				_treeView.beginDrag(reinterpret_cast<LPNMTREEVIEWW>(notification));
 			}
 			break;
 		}
@@ -868,7 +902,7 @@ HMENU ProjectPanel::getMenuHandler(HTREEITEM selectedItem)
 	return hMenu;
 }
 
-POINT ProjectPanel::getMenuDisplayPoint(int iButton)
+POINT ProjectPanel::getMenuDisplayPoint(int iButton) const
 {
 	POINT p{};
 	RECT btnRect{};
@@ -1118,7 +1152,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 		case IDM_PROJECT_FINDINPROJECTSWS:
 		{
-			::SendMessage(_hParent, NPPM_INTERNAL_FINDINPROJECTS, (WPARAM) 1 << _panelID, 0);
+			::SendMessage(_hParent, NPPM_INTERNAL_FINDINPROJECTS, static_cast<WPARAM>(1) << _panelID, 0);
 		}
 		break;
 
@@ -1126,7 +1160,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		{
 			HTREEITEM parent = _treeView.getParent(hTreeItem);
 
-			if (_treeView.getChildFrom(hTreeItem) != NULL)
+			if (_treeView.getChildFrom(hTreeItem) != nullptr)
 			{
 				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 				int res = pNativeSpeaker->messageBox("ProjectPanelRemoveFolderFromProject",
@@ -1186,11 +1220,11 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 			if (!tvItem.lParam)
 				return;
-			wstring * fn = (wstring *)tvItem.lParam;
+			auto* fn = reinterpret_cast<std::wstring*>(tvItem.lParam);
 
 			if (fileRelocalizerDlg.doDialog(fn->c_str()) == 0)
 			{
-				wstring newValue = fileRelocalizerDlg.getFullFilePath();
+				std::wstring newValue = fileRelocalizerDlg.getFullFilePath();
 				if (*fn == newValue)
 					return;
 
@@ -1351,9 +1385,9 @@ void ProjectPanel::addFilesFromDirectory(HTREEITEM hTreeItem)
 	}
 }
 
-intptr_t CALLBACK FileRelocalizerDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK FileRelocalizerDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-	switch (Message)
+	switch (message)
 	{
 		case WM_INITDIALOG:
 		{

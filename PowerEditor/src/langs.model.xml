@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<NotepadPlus modelDate="20251224">
+<NotepadPlus modelDate="20260111">
    <!-- The keywords of the supported languages, don't touch them! -->
    <!-- For languages like C/C++ substyle1..8 entries, you may enter your own keywords in those entries,
         to have them show up in the "Default keywords" list shown in the Style Configurator -->
@@ -366,7 +366,7 @@
             <Keywords name="type1">@ Text_Segment Data_Segment Pool_Segment Stack_Segment StdErr StdIn StdOut Fopen Fclose Fread Fwrite Fgets Fputs Fgetws Fputws Ftell Fseek TextRead TextWrite BinaryRead BinaryWrite BinaryReadWrite</Keywords>
         </Language>
         <Language name="nim" ext="nim" commentLine="#" commentStart="" commentEnd="">
-            <Keywords name="instre1">addr and as asm block break case cast const continue converter discard div elif else end enum except exception finally for from generic if implies import in include is isnot iterator lambda macro method mod nil not notin object of or out proc ptr raise ref return shl shr template try tuple type var when where while with without xor yield</Keywords>
+            <Keywords name="instre1">addr and as asm bind block break case cast concept const continue converter defer discard distinct div do elif else end enum except export finally for from func if import in include interface is isnot iterator let macro method mixin mod nil not notin object of or out proc ptr raise ref return shl shr static template try tuple type using var when while xor yield</Keywords>
         </Language>
         <Language name="nncrontab" ext="tab spf" commentLine="\" commentStart="" commentEnd="">
             <Keywords name="instre1">AGAIN ALLOT AND Action BEGIN CASE COMPARE CONSTANT CREATE DO Days ELSE ENDCASE ENDOF EVAL-SUBST EVALUATE FALSE Hours I IF LEAVE LOOP Minutes Months NOT OF OFF ON OR PAD REPEAT Rule SET THEN TRUE Time UNTIL VALUE VARIABLE WHILE WeekDays Years</Keywords>
@@ -637,3 +637,4 @@
         </Language>
     </Languages>
 </NotepadPlus>
+

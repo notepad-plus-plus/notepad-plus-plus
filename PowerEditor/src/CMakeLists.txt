@@ -29,7 +29,6 @@ SET(projIncludDir	../../scintilla/include/
 					./WinControls/StatusBar/
 					./WinControls/StaticDialog/RunDlg/
 					./pugixml/
-					./tinyxml2/
 					./TinyXml/
 					./WinControls/ColourPicker/
 					./Win32Explr/
@@ -174,7 +173,6 @@ SET(src_files
 			./WinControls/TaskList/TaskList.cpp
 			./WinControls/TaskList/TaskListDlg.cpp
 			./pugixml/pugixml.cpp
-			./tinyxml2/tinyxml2.cpp
 			./TinyXml/tinystr.cpp
 			./TinyXml/tinyxml.cpp
 			./TinyXml/tinyxmlerror.cpp
@@ -336,7 +334,6 @@ SET(include_files
 			./WinControls/TaskList/TaskListDlg_rc.h
 			./pugixml/pugiconfig.hpp
 			./pugixml/pugixml.hpp
-			./tinyxml2/tinyxml2.h
 			./TinyXml/tinystr.h
 			./TinyXml/tinyxml.h
 			./WinControls/ToolBar/ToolBar.h

@@ -17,204 +17,9 @@
 
 #pragma once
 
-#include <cstdint>
-
-#if defined(USE_TINYXML2)
-
-#include <tinyxml2.h>
-
-#include <cstdio>
-
-// Simple wrapper for TinyXML2
-namespace NppXml
-{
-	using NewDocument = tinyxml2::XMLDocument;
-	using Document = tinyxml2::XMLDocument*;
-	using Element = tinyxml2::XMLElement*;
-	using Node = tinyxml2::XMLNode*;
-	using Attribute = const tinyxml2::XMLAttribute*;
-
-	[[nodiscard]] inline bool loadFile(Document& doc, const wchar_t* filename) {
-		FILE* file = nullptr;
-		bool result = false;
-		if (::_wfopen_s(&file, filename, L"rb") == 0 && file != nullptr)
-		{
-			result = doc->LoadFile(file) == tinyxml2::XML_SUCCESS;
-			std::fclose(file);
-		}
-		return result;
-	}
-
-	[[nodiscard]] inline bool saveFile(Document& doc, const wchar_t* filename) {
-		FILE* file = nullptr;
-		bool result = false;
-		if (::_wfopen_s(&file, filename, L"w") == 0 && file != nullptr)
-		{
-			result = doc->SaveFile(file) == tinyxml2::XML_SUCCESS;
-			std::fclose(file);
-		}
-		return result;
-	}
-
-	[[nodiscard]] inline bool loadFileShortcut(Document doc, const wchar_t* filename) {
-		return loadFile(doc, filename);
-	}
-
-	[[nodiscard]] inline bool saveFileShortcut(Document doc, const wchar_t* filename) {
-		return saveFile(doc, filename);
-	}
-
-	[[nodiscard]] inline Element firstChildElement(const Document& doc, const char* name = nullptr) {
-		return doc->FirstChildElement(name);
-	}
-
-	[[nodiscard]] inline Element firstChildElement(const Node& node, const char* name = nullptr) {
-		return node->FirstChildElement(name);
-	}
-
-	[[nodiscard]] inline Element toElement(const Node& node) {
-		return node->ToElement();
-	}
-
-	[[nodiscard]] inline Element nextSiblingElement(const Node& node, const char* name = nullptr) {
-		return node->NextSiblingElement(name);
-	}
-
-	[[nodiscard]] inline Node firstChild(const Node& node) {
-		return node->FirstChild();
-	}
-
-	[[nodiscard]] inline Node lastChild(const Node& node) {
-		return node->LastChild();
-	}
-
-	[[nodiscard]] inline Node nextSibling(const Node& node) {
-		return node->NextSibling();
-	}
-
-	[[nodiscard]] inline const char* value(const Node& node) {
-		return node->Value();
-	}
-
-	inline void setValue(Node& node, const char* value) {
-		node->SetValue(value);
-	}
-
-	[[nodiscard]] inline const char* attribute(const Node& node, const char* name) {
-		return node->ToElement()->Attribute(name);
-	}
-
-	[[nodiscard]] inline const char* attribute(const Element& elem, const char* name) {
-		return elem->Attribute(name);
-	}
-
-	[[nodiscard]] inline int intAttribute(const Node& node, const char* name, int defaultValue = 0) {
-		return node->ToElement()->IntAttribute(name, defaultValue);
-	}
-
-	[[nodiscard]] inline int intAttribute(const Element& elem, const char* name, int defaultValue = 0) {
-		return elem->IntAttribute(name, defaultValue);
-	}
-
-	[[nodiscard]] inline int64_t int64Attribute(const Node& node, const char* name, int64_t defaultValue = 0) {
-		return node->ToElement()->Int64Attribute(name, defaultValue);
-	}
-
-	[[nodiscard]] inline int64_t int64Attribute(const Element& elem, const char* name, int64_t defaultValue = 0) {
-		return elem->Int64Attribute(name, defaultValue);
-	}
-
-	[[nodiscard]] inline uint64_t uint64Attribute(const Node& node, const char* name, uint64_t defaultValue = 0) {
-		return node->ToElement()->Unsigned64Attribute(name, defaultValue);
-	}
-
-	[[nodiscard]] inline uint64_t uint64Attribute(const Element& elem, const char* name, uint64_t defaultValue = 0) {
-		return elem->Unsigned64Attribute(name, defaultValue);
-	}
-
-	inline void setAttribute(Element& elem, const char* name, const char* value) {
-		elem->SetAttribute(name, value);
-	}
-
-	inline void setAttribute(Element& elem, const char* name, int value) {
-		elem->SetAttribute(name, value);
-	}
-
-	inline void setInt64Attribute(Element& elem, const char* name, int64_t value) {
-		elem->SetAttribute(name, value);
-	}
-
-	inline void setUInt64Attribute(Element& elem, const char* name, uint64_t value) {
-		elem->SetAttribute(name, value);
-	}
-
-	inline Node createNewDeclaration(Document& doc) {
-		return doc->LinkEndChild(doc->NewDeclaration(nullptr));
-	}
-
-	inline Element createChildElement(Document& doc, const char* name) {
-		Element elem = doc->GetDocument()->NewElement(name);
-		doc->InsertEndChild(elem);
-		return elem;
-	}
-
-	inline Element createChildElement(Node parent, const char* name) {
-		Element elem = parent->GetDocument()->NewElement(name);
-		parent->InsertEndChild(elem);
-		return elem;
-	}
-
-	[[nodiscard]] inline Node clone(Element& toClone, Document& toAllocate) {
-		return toClone->DeepClone(toAllocate);
-	}
-
-	[[nodiscard]] inline Node clone(Element& toClone, Node& toAllocate) {
-		return toClone->DeepClone(toAllocate->GetDocument());
-	}
-
-	[[nodiscard]] inline Node clone(Element& toClone, Element& toAllocate) {
-		return toClone->DeepClone(toAllocate->GetDocument());
-	}
-
-	inline Node insertEndChild(Node parent, Node child) {
-		return parent->InsertEndChild(child);
-	}
-
-	inline Node createChildText(Node parent, const char* text) {
-		Node node = parent->GetDocument()->NewText(text);
-		parent->InsertEndChild(node);
-		return node;
-	}
-
-	inline void deleteChild(Document& doc, Node child) {
-		doc->DeleteChild(child);
-	}
-
-	inline void deleteChild(Node& parent, Node child) {
-		parent->DeleteChild(child);
-	}
-
-	[[nodiscard]] inline Attribute firstAttribute(Element& elem) {
-		return elem->FirstAttribute();
-	}
-
-	[[nodiscard]] inline Attribute next(Attribute& attr) {
-		return attr->Next();
-	}
-
-	[[nodiscard]] inline const char* name(Attribute& attr) {
-		return attr->Name();
-	}
-
-	[[nodiscard]] inline const char* value(Attribute& attr) {
-		return attr->Value();
-	}
-}
-
-#else
-
 #include <pugixml.hpp>
 
+#include <cstdint>
 #include <cstring>
 
 // Simple wrapper for PugiXML
@@ -349,11 +154,11 @@ namespace NppXml
 		return parent.append_child(name);
 	}
 
-	[[nodiscard]] inline Node clone(Element& toClone, Document& toAllocate) {
+	[[nodiscard]] inline Node clone(const Element& toClone, Document& toAllocate) {
 		return toAllocate->append_copy(toClone);
 	}
 
-	[[nodiscard]] inline Node clone(Element& toClone, Element& toAllocate) {
+	[[nodiscard]] inline Node clone(const Element& toClone, Element& toAllocate) {
 		return toAllocate.append_copy(toClone);
 	}
 
@@ -375,7 +180,7 @@ namespace NppXml
 		parent.remove_child(child);
 	}
 
-	[[nodiscard]] inline Attribute firstAttribute(Element& elem) {
+	[[nodiscard]] inline Attribute firstAttribute(const Element& elem) {
 		return elem.first_attribute();
 	}
 
@@ -391,5 +196,3 @@ namespace NppXml
 		return attr.value();
 	}
 }
-
-#endif

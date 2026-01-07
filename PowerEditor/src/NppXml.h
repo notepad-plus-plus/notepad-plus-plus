@@ -22,6 +22,7 @@
 #include <tinyxml2.h>
 
 #include <cstdio>
+#include <cstdint>
 
 // Simple wrapper for TinyXML2
 namespace NppXml
@@ -85,12 +86,36 @@ namespace NppXml
 		return node->Value();
 	}
 
+	[[nodiscard]] inline const char* attribute(const Node& node, const char* name) {
+		return node->ToElement()->Attribute(name);
+	}
+
 	[[nodiscard]] inline const char* attribute(const Element& elem, const char* name) {
 		return elem->Attribute(name);
 	}
 
+	[[nodiscard]] inline int intAttribute(const Node& node, const char* name, int defaultValue = 0) {
+		return node->ToElement()->IntAttribute(name, defaultValue);
+	}
+
 	[[nodiscard]] inline int intAttribute(const Element& elem, const char* name, int defaultValue = 0) {
 		return elem->IntAttribute(name, defaultValue);
+	}
+
+	[[nodiscard]] inline int64_t int64Attribute(const Node& node, const char* name, int64_t defaultValue = 0) {
+		return node->ToElement()->Int64Attribute(name, defaultValue);
+	}
+
+	[[nodiscard]] inline int64_t int64Attribute(const Element& elem, const char* name, int64_t defaultValue = 0) {
+		return elem->Int64Attribute(name, defaultValue);
+	}
+
+	[[nodiscard]] inline uint64_t uint64Attribute(const Node& node, const char* name, uint64_t defaultValue = 0) {
+		return node->ToElement()->Unsigned64Attribute(name, defaultValue);
+	}
+
+	[[nodiscard]] inline uint64_t uint64Attribute(const Element& elem, const char* name, uint64_t defaultValue = 0) {
+		return elem->Unsigned64Attribute(name, defaultValue);
 	}
 
 	inline void setAttribute(Element& elem, const char* name, const char* value) {
@@ -98,6 +123,14 @@ namespace NppXml
 	}
 
 	inline void setAttribute(Element& elem, const char* name, int value) {
+		elem->SetAttribute(name, value);
+	}
+
+	inline void setInt64Attribute(Element& elem, const char* name, int64_t value) {
+		elem->SetAttribute(name, value);
+	}
+
+	inline void setUInt64Attribute(Element& elem, const char* name, uint64_t value) {
 		elem->SetAttribute(name, value);
 	}
 

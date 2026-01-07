@@ -16,28 +16,40 @@
 
 #pragma once
 
+#include <windows.h>
+
 #include <shlwapi.h>
 
+#include <algorithm>
 #include <array>
 #include <cassert>
+#include <cstdint>
+#include <cwchar>
+#include <locale>
 #include <map>
+#include <stdexcept>
+#include <string>
+#include <utility>
+#include <vector>
 
 #include <ILexer.h>
 #include <Lexilla.h>
+#include <SciLexer.h>
 #include <Scintilla.h>
 
 #include <tinyxml.h>
 
 #include "NppXml.h"
 
+#include "ContextMenu.h"
+#include "DockingCont.h"
+#include "Notepad_plus_msgs.h"
+#include "NppConstants.h"
+#include "NppDarkMode.h"
 #include "ToolBar.h"
 #include "UserDefineLangReference.h"
 #include "colors.h"
 #include "shortcut.h"
-#include "ContextMenu.h"
-#include "NppDarkMode.h"
-#include "DockingCont.h"
-#include "NppConstants.h"
 
 #ifdef _WIN64
 
@@ -203,7 +215,7 @@ struct Position
 struct MapPosition
 {
 private:
-	intptr_t _maxPeekLenInKB = 512; // 512 KB
+	static constexpr intptr_t _maxPeekLenInKB = 512; // 512 KB
 public:
 	intptr_t _firstVisibleDisplayLine = -1;
 
@@ -220,36 +232,38 @@ public:
 	bool _isWrap = false;
 	bool isValid() const { return (_firstVisibleDisplayLine != -1); }
 	bool canScroll() const { return (_KByteInDoc < _maxPeekLenInKB); } // _nbCharInDoc < _maxPeekLen : Don't scroll the document for the performance issue
+
+	static constexpr intptr_t getMaxPeekLenInKB() { return _maxPeekLenInKB; }
 };
 
 
 struct sessionFileInfo : public Position
 {
-	sessionFileInfo(const wchar_t* fn, const wchar_t *ln, int encoding, bool userReadOnly,bool isPinned, bool isUntitleTabRenamed, const Position& pos, const wchar_t *backupFilePath, FILETIME originalFileLastModifTimestamp, const MapPosition & mapPos) :
-		Position(pos), _encoding(encoding), _isUserReadOnly(userReadOnly), _isPinned(isPinned), _isUntitledTabRenamed(isUntitleTabRenamed), _originalFileLastModifTimestamp(originalFileLastModifTimestamp), _mapPos(mapPos)
-	{
-		if (fn) _fileName = fn;
-		if (ln)	_langName = ln;
-		if (backupFilePath) _backupFilePath = backupFilePath;
-	}
+	sessionFileInfo(const Position& pos, const MapPosition& mapPos,
+		const wchar_t* fn, const wchar_t* ln, const wchar_t* backupFilePath, FILETIME originalFileLastModifTimestamp,
+		int encoding, int tabColourId, bool userReadOnly, bool isRTL, bool isPinned, bool isUntitleTabRenamed) noexcept
+		: Position(pos), _mapPos(mapPos),
+		_fileName(fn ? fn : L""), _langName(ln ? ln : L""), _backupFilePath(backupFilePath ? backupFilePath : L""), _originalFileLastModifTimestamp(originalFileLastModifTimestamp),
+		_encoding(encoding), _individualTabColour(tabColourId), _isUserReadOnly(userReadOnly), _isRTL(isRTL), _isPinned(isPinned), _isUntitledTabRenamed(isUntitleTabRenamed)
+	{}
 
-	sessionFileInfo(const std::wstring& fn) : _fileName(fn) {}
+	explicit sessionFileInfo(const wchar_t* fn) noexcept : _fileName(fn ? fn : L"") {}
+	explicit sessionFileInfo(const std::wstring& fn) noexcept : _fileName(fn) {}
 
+	MapPosition _mapPos;
 	std::wstring _fileName;
 	std::wstring _langName;
+	std::wstring _backupFilePath;
+	FILETIME _originalFileLastModifTimestamp{};
 	std::vector<size_t> _marks;
 	std::vector<size_t> _foldStates;
 	int	_encoding = -1;
+	int _individualTabColour = -1;
 	bool _isUserReadOnly = false;
 	bool _isMonitoring = false;
-	int _individualTabColour = -1;
 	bool _isRTL = false;
 	bool _isPinned = false;
 	bool _isUntitledTabRenamed = false;
-	std::wstring _backupFilePath;
-	FILETIME _originalFileLastModifTimestamp {};
-
-	MapPosition _mapPos;
 };
 
 
@@ -386,7 +400,7 @@ struct PluginDlgDockingInfo final
 
 	bool operator == (const PluginDlgDockingInfo& rhs) const
 	{
-		return _internalID == rhs._internalID and _name == rhs._name;
+		return _internalID == rhs._internalID && _name == rhs._name;
 	}
 };
 
@@ -635,9 +649,10 @@ struct LangMenuItem final
 
 	bool operator<(const LangMenuItem& rhs) const
 	{
-		std::wstring lhs_lang(this->_langName.length(), ' '), rhs_lang(rhs._langName.length(), ' ');
-		std::transform(this->_langName.begin(), this->_langName.end(), lhs_lang.begin(), towlower);
-		std::transform(rhs._langName.begin(), rhs._langName.end(), rhs_lang.begin(), towlower);
+		static const auto& loc = std::locale::classic();
+		std::wstring lhs_lang(this->_langName.length(), L' '), rhs_lang(rhs._langName.length(), L' ');
+		std::transform(this->_langName.begin(), this->_langName.end(), lhs_lang.begin(), [](auto c) { return std::tolower(c, loc); });
+		std::transform(rhs._langName.begin(), rhs._langName.end(), rhs_lang.begin(), [](auto c) { return std::tolower(c, loc); });
 		return lhs_lang < rhs_lang;
 	}
 };
@@ -1216,9 +1231,9 @@ public:
 			this->_foldCompact = ulc._foldCompact;
 			for (Style & st : this->_styles)
 			{
-				if (st._bgColor == COLORREF(-1))
+				if (st._bgColor == static_cast<COLORREF>(-1))
 					st._bgColor = white;
-				if (st._fgColor == COLORREF(-1))
+				if (st._fgColor == static_cast<COLORREF>(-1))
 					st._fgColor = black;
 			}
 
@@ -1574,7 +1589,7 @@ public:
 	}
 
 	Lang * getLangFromIndex(size_t i) const {
-		return (i < size_t(_nbLang)) ? _langList[i] : nullptr;
+		return (i < static_cast<size_t>(_nbLang)) ? _langList[i] : nullptr;
 	}
 
 	int getNbLang() const { return _nbLang; }
@@ -1675,7 +1690,7 @@ public:
 	void writeNonDefaultUDL();
 	void writeNeed2SaveUDL();
 	void writeShortcuts();
-	void writeSession(const Session & session, const wchar_t *fileName = NULL);
+	void writeSession(const Session& session, const wchar_t* fileName = nullptr);
 	bool writeFindHistory();
 
 	bool isExistingUserLangName(const wchar_t *newName) const
@@ -1900,7 +1915,7 @@ public:
 	void setCloudChoice(const wchar_t *pathChoice);
 	void removeCloudChoice();
 	bool isCloudPathChanged() const;
-	int archType() const { return ARCH_TYPE; }
+	static int archType() { return ARCH_TYPE; }
 	COLORREF getCurrentDefaultBgColor() const {
 		return _currentDefaultBgColor;
 	}
@@ -2163,7 +2178,7 @@ private:
 	bool getUserCmdsFromXmlTree();
 	bool getPluginCmdsFromXmlTree();
 	bool getScintKeysFromXmlTree();
-	bool getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session& session);
+	bool getSessionFromXmlTree(NppXml::Document pSessionDoc, Session& session);
 
 	void feedGUIParameters(TiXmlNode *node);
 	void feedKeyWordsParameters(TiXmlNode *node);

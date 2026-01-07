@@ -164,13 +164,15 @@ struct Entity {
     char value;
 };
 
-static const int NUM_ENTITIES = 5;
+static const int NUM_ENTITIES = 7; // Notepad++ modification to save escaped EOL
 static const Entity entities[NUM_ENTITIES] = {
     { "quot", 4,	DOUBLE_QUOTE },
     { "amp", 3,		'&'  },
     { "apos", 4,	SINGLE_QUOTE },
     { "lt",	2, 		'<'	 },
-    { "gt",	2,		'>'	 }
+    { "gt",	2,		'>'	 },
+    { "#xA", 3,		LF	 },
+    { "#xD", 3,		CR	 }
 };
 
 

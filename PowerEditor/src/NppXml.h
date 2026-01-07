@@ -17,6 +17,8 @@
 
 #pragma once
 
+#include <cstdint>
+
 #if defined(USE_TINYXML2)
 
 #include <tinyxml2.h>
@@ -30,6 +32,7 @@ namespace NppXml
 	using Document = tinyxml2::XMLDocument*;
 	using Element = tinyxml2::XMLElement*;
 	using Node = tinyxml2::XMLNode*;
+	using Attribute = const tinyxml2::XMLAttribute*;
 
 	[[nodiscard]] inline bool loadFile(Document& doc, const wchar_t* filename) {
 		FILE* file = nullptr;
@@ -57,6 +60,10 @@ namespace NppXml
 		return loadFile(doc, filename);
 	}
 
+	[[nodiscard]] inline bool saveFileShortcut(Document doc, const wchar_t* filename) {
+		return saveFile(doc, filename);
+	}
+
 	[[nodiscard]] inline Element firstChildElement(const Document& doc, const char* name = nullptr) {
 		return doc->FirstChildElement(name);
 	}
@@ -77,6 +84,10 @@ namespace NppXml
 		return node->FirstChild();
 	}
 
+	[[nodiscard]] inline Node lastChild(const Node& node) {
+		return node->LastChild();
+	}
+
 	[[nodiscard]] inline Node nextSibling(const Node& node) {
 		return node->NextSibling();
 	}
@@ -85,12 +96,40 @@ namespace NppXml
 		return node->Value();
 	}
 
+	inline void setValue(Node& node, const char* value) {
+		node->SetValue(value);
+	}
+
+	[[nodiscard]] inline const char* attribute(const Node& node, const char* name) {
+		return node->ToElement()->Attribute(name);
+	}
+
 	[[nodiscard]] inline const char* attribute(const Element& elem, const char* name) {
 		return elem->Attribute(name);
 	}
 
+	[[nodiscard]] inline int intAttribute(const Node& node, const char* name, int defaultValue = 0) {
+		return node->ToElement()->IntAttribute(name, defaultValue);
+	}
+
 	[[nodiscard]] inline int intAttribute(const Element& elem, const char* name, int defaultValue = 0) {
 		return elem->IntAttribute(name, defaultValue);
+	}
+
+	[[nodiscard]] inline int64_t int64Attribute(const Node& node, const char* name, int64_t defaultValue = 0) {
+		return node->ToElement()->Int64Attribute(name, defaultValue);
+	}
+
+	[[nodiscard]] inline int64_t int64Attribute(const Element& elem, const char* name, int64_t defaultValue = 0) {
+		return elem->Int64Attribute(name, defaultValue);
+	}
+
+	[[nodiscard]] inline uint64_t uint64Attribute(const Node& node, const char* name, uint64_t defaultValue = 0) {
+		return node->ToElement()->Unsigned64Attribute(name, defaultValue);
+	}
+
+	[[nodiscard]] inline uint64_t uint64Attribute(const Element& elem, const char* name, uint64_t defaultValue = 0) {
+		return elem->Unsigned64Attribute(name, defaultValue);
 	}
 
 	inline void setAttribute(Element& elem, const char* name, const char* value) {
@@ -98,6 +137,14 @@ namespace NppXml
 	}
 
 	inline void setAttribute(Element& elem, const char* name, int value) {
+		elem->SetAttribute(name, value);
+	}
+
+	inline void setInt64Attribute(Element& elem, const char* name, int64_t value) {
+		elem->SetAttribute(name, value);
+	}
+
+	inline void setUInt64Attribute(Element& elem, const char* name, uint64_t value) {
 		elem->SetAttribute(name, value);
 	}
 
@@ -117,14 +164,50 @@ namespace NppXml
 		return elem;
 	}
 
+	[[nodiscard]] inline Node clone(Element& toClone, Document& toAllocate) {
+		return toClone->DeepClone(toAllocate);
+	}
+
+	[[nodiscard]] inline Node clone(Element& toClone, Node& toAllocate) {
+		return toClone->DeepClone(toAllocate->GetDocument());
+	}
+
+	[[nodiscard]] inline Node clone(Element& toClone, Element& toAllocate) {
+		return toClone->DeepClone(toAllocate->GetDocument());
+	}
+
+	inline Node insertEndChild(Node parent, Node child) {
+		return parent->InsertEndChild(child);
+	}
+
 	inline Node createChildText(Node parent, const char* text) {
 		Node node = parent->GetDocument()->NewText(text);
 		parent->InsertEndChild(node);
 		return node;
 	}
 
+	inline void deleteChild(Document& doc, Node child) {
+		doc->DeleteChild(child);
+	}
+
 	inline void deleteChild(Node& parent, Node child) {
 		parent->DeleteChild(child);
+	}
+
+	[[nodiscard]] inline Attribute firstAttribute(Element& elem) {
+		return elem->FirstAttribute();
+	}
+
+	[[nodiscard]] inline Attribute next(Attribute& attr) {
+		return attr->Next();
+	}
+
+	[[nodiscard]] inline const char* name(Attribute& attr) {
+		return attr->Name();
+	}
+
+	[[nodiscard]] inline const char* value(Attribute& attr) {
+		return attr->Value();
 	}
 }
 
@@ -141,6 +224,7 @@ namespace NppXml
 	using Document = pugi::xml_document*;
 	using Element = pugi::xml_node;
 	using Node = pugi::xml_node;
+	using Attribute = const pugi::xml_attribute;
 
 	[[nodiscard]] inline bool loadFile(Document doc, const wchar_t* filename) {
 		return doc->load_file(filename);
@@ -176,11 +260,15 @@ namespace NppXml
 	}
 
 	[[nodiscard]] inline Element nextSiblingElement(const Node& node, const char* name = nullptr) {
-		return node.next_sibling(name);
+		return name ? node.next_sibling(name) : node.next_sibling();
 	}
 
 	[[nodiscard]] inline Node firstChild(const Node& node) {
 		return node.first_child();
+	}
+
+	[[nodiscard]] inline Node lastChild(const Node& node) {
+		return node.last_child();
 	}
 
 	[[nodiscard]] inline Node nextSibling(const Node& node) {
@@ -191,20 +279,60 @@ namespace NppXml
 		return node.value();
 	}
 
+	inline void setValue(Node& node, const char* value) {
+		node.set_value(value);
+	}
+
 	[[nodiscard]] inline const char* attribute(const Element& elem, const char* name) {
 		return elem.attribute(name).value();
 	}
 
-	[[nodiscard]] inline int intAttribute(Element elem, const char* name, int defaultValue = 0) {
+	[[nodiscard]] inline int intAttribute(const Element& elem, const char* name, int defaultValue = 0) {
 		return elem.attribute(name).as_int(defaultValue);
 	}
 
+	[[nodiscard]] inline int64_t int64Attribute(const Element& elem, const char* name, int64_t defaultValue = 0) {
+		return elem.attribute(name).as_llong(defaultValue);
+	}
+
+	[[nodiscard]] inline uint64_t uint64Attribute(const Element& elem, const char* name, uint64_t defaultValue = 0) {
+		return elem.attribute(name).as_ullong(defaultValue);
+	}
+
 	inline void setAttribute(Element& elem, const char* name, const char* value) {
-		elem.append_attribute(name) = value;
+		auto attr = elem.attribute(name);
+		if (!attr)
+		{
+			attr = elem.append_attribute(name);
+		}
+		attr.set_value(value);
 	}
 
 	inline void setAttribute(Element& elem, const char* name, int value) {
-		elem.append_attribute(name) = value;
+		auto attr = elem.attribute(name);
+		if (!attr)
+		{
+			attr = elem.append_attribute(name);
+		}
+		attr.set_value(value);
+	}
+
+	inline void setInt64Attribute(Element& elem, const char* name, int64_t value) {
+		auto attr = elem.attribute(name);
+		if (!attr)
+		{
+			attr = elem.append_attribute(name);
+		}
+		attr.set_value(value);
+	}
+
+	inline void setUInt64Attribute(Element& elem, const char* name, uint64_t value) {
+		auto attr = elem.attribute(name);
+		if (!attr)
+		{
+			attr = elem.append_attribute(name);
+		}
+		attr.set_value(value);
 	}
 
 	inline void createNewDeclaration(Document& doc) {
@@ -221,14 +349,46 @@ namespace NppXml
 		return parent.append_child(name);
 	}
 
+	[[nodiscard]] inline Node clone(Element& toClone, Document& toAllocate) {
+		return toAllocate->append_copy(toClone);
+	}
+
+	[[nodiscard]] inline Node clone(Element& toClone, Element& toAllocate) {
+		return toAllocate.append_copy(toClone);
+	}
+
+	inline Node insertEndChild(Node parent, Node child) {
+		return parent.append_copy(child);
+	}
+
 	inline Node createChildText(Node parent, const char* text) {
 		Node child = parent.append_child(pugi::node_pcdata);
 		child.set_value(text);
 		return child;
 	}
 
+	inline void deleteChild(Document& doc, Node child) {
+		doc->remove_child(child);
+	}
+
 	inline void deleteChild(Node& parent, Node child) {
 		parent.remove_child(child);
+	}
+
+	[[nodiscard]] inline Attribute firstAttribute(Element& elem) {
+		return elem.first_attribute();
+	}
+
+	[[nodiscard]] inline Attribute next(Attribute& attr) {
+		return attr.next_attribute();
+	}
+
+	[[nodiscard]] inline const char* name(Attribute& attr) {
+		return attr.name();
+	}
+
+	[[nodiscard]] inline const char* value(Attribute& attr) {
+		return attr.value();
 	}
 }
 

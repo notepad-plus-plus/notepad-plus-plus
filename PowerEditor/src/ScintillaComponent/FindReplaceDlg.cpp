@@ -4390,8 +4390,8 @@ void FindReplaceDlg::setStatusbarMessageWithRegExprErr(ScintillaEditView* pEditV
 void FindReplaceDlg::setStatusMessageWithInvisibleCharsWarning()
 {
 	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-	std::wstring findWhatWarning = pNativeSpeaker->getLocalizedStrFromID("find-status-invisible-chars-findWhat", L"Invisible characters in pasted Find what content");
-	std::wstring findWhatWarningTip = pNativeSpeaker->getLocalizedStrFromID("find-status-invisible-chars-findWhat-tip", L"There are invisible characters in \"Find what\" field that were pasted from the clipboard. These characters are usually end-of-line markers.");
+	std::wstring findWhatWarning = pNativeSpeaker->getLocalizedStrFromID("find-status-invisible-chars-findWhat", L"Invisible characters in pasted \"Find what\" or \"Replace with\" content");
+	std::wstring findWhatWarningTip = pNativeSpeaker->getLocalizedStrFromID("find-status-invisible-chars-findWhat-tip", L"Warning: Invisible characters in search (or replace) field.\nThe text pasted into this field includes invisible line-ending characters. If you proceed without deleting them, they will be included in the search (or replace) text.");
 	
 	setStatusbarMessage(findWhatWarning, FSWarning, findWhatWarningTip);
 }

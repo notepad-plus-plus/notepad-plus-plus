@@ -1778,6 +1778,8 @@ Find in all files but exclude all folders log or logs recursively:
 			<find-status-scope-all value="in entire file"/>
 			<find-status-scope-backward value="from start-of-file to caret"/>
 			<find-status-scope-forward value="from caret to end-of-file"/>
+			<find-status-invalid-chars-regex value="Find: The regular expression contains non-ANSI characters, but the document is encoded in ANSI."/>
+			<find-status-replace-invalid-replace-chars value="Replace: The replace text contains non-ANSI characters, but the document is encoded in ANSI."/>
 			<finder-find-in-finder value="Find in these search results..."/>
 			<finder-close-this value="Close these search results"/>
 			<finder-collapse-all value="Fold all"/>

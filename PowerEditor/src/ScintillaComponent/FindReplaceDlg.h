@@ -28,6 +28,8 @@
 #define FIND_INHIDDENDIR 2
 
 #define FIND_INVALID_REGULAR_EXPRESSION -2
+#define FIND_INVALID_CHARS_IN_REGULAR_EXPRESSION -4
+#define FIND_INVALID_CHARS_IN_REPLACE_TEXT -5
 
 #define FINDREPLACE_MAXLENGTH2SAVE 2048  // the maximum length of the string (decrease 1 for '\0') to save in the config.xml file
 
@@ -414,6 +416,8 @@ public :
 	void clearMarks(const FindOption& opt);
 	void setStatusbarMessage(const std::wstring & msg, FindStatus status, const std::wstring& tooltipMsg = L"");
 	void setStatusbarMessageWithRegExprErr(ScintillaEditView* pEditView);
+	void setStatusbarMessageWithInvalidCharsRegExprErr();
+	void setStatusbarMessageWithInvalidCharsInReplaceTextErr();
 	std::wstring getScopeInfoForStatusBar(FindOption const *pFindOpt) const;
 	Finder * createFinder();
 	bool removeFinder(Finder *finder2remove);
@@ -527,6 +531,8 @@ private:
 	bool replaceInFilesConfirmCheck(const std::wstring& directory, const std::wstring& fileTypes);
 	bool replaceInProjectsConfirmCheck();
 	bool replaceInOpenDocsConfirmCheck();
+
+	bool convertibleToAnsi(const wchar_t* text);
 
 	ContextMenu _swapPopupMenu;
 	enum SwapButtonStatus {swap, down, up} _swapButtonStatus = swap;

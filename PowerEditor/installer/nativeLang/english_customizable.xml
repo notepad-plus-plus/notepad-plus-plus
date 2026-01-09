@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english_customizable.xml" version="8.8.7">
+	<Native-Langue name="English" filename="english_customizable.xml" version="8.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1778,6 +1778,9 @@ Find in all files but exclude all folders log or logs recursively:
 			<find-status-scope-all value="in entire file"/>
 			<find-status-scope-backward value="from start-of-file to caret"/>
 			<find-status-scope-forward value="from caret to end-of-file"/>
+			<find-status-invisible-chars-findWhat value="Invisible characters in pasted &quot;Find what&quot; or &quot;Replace with&quot; content"/>
+			<find-status-invisible-chars-findWhat-tip value="Warning: Invisible characters in search (or replace) field.
+The text pasted into this field includes invisible (maybe line-ending) characters. If you proceed without deleting them, they will be included in the search (or replace) text."/>
 			<finder-find-in-finder value="Find in these search results..."/>
 			<finder-close-this value="Close these search results"/>
 			<finder-collapse-all value="Fold all"/>

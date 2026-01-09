@@ -204,7 +204,7 @@ private:
 };
 
 
-enum FindStatus { FSFound, FSNotFound, FSTopReached, FSEndReached, FSMessage, FSNoMessage};
+enum FindStatus { FSFound, FSNotFound, FSTopReached, FSEndReached, FSMessage, FSNoMessage, FSWarning };
 
 enum FindNextType {
 	FINDNEXTTYPE_FINDNEXT,
@@ -414,6 +414,8 @@ public :
 	void clearMarks(const FindOption& opt);
 	void setStatusbarMessage(const std::wstring & msg, FindStatus status, const std::wstring& tooltipMsg = L"");
 	void setStatusbarMessageWithRegExprErr(ScintillaEditView* pEditView);
+	void setStatusMessageWithInvisibleCharsWarning();
+	void removeStatusMessageWithInvisibleCharsWarning();
 	std::wstring getScopeInfoForStatusBar(FindOption const *pFindOpt) const;
 	Finder * createFinder();
 	bool removeFinder(Finder *finder2remove);
@@ -523,7 +525,7 @@ private:
 	static const int FR_OP_GLOBAL = 8;
 	static const int FR_OP_FIP = 16;
 	void saveInMacro(size_t cmd, int cmdType);
-	void drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
+	void drawStatusBarItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
 	bool replaceInFilesConfirmCheck(const std::wstring& directory, const std::wstring& fileTypes);
 	bool replaceInProjectsConfirmCheck();
 	bool replaceInOpenDocsConfirmCheck();

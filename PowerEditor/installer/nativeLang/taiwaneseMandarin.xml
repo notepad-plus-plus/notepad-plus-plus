@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.8.7">
+	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1625,6 +1625,9 @@
 			<find-status-scope-all value="在整個檔案中"/>
 			<find-status-scope-backward value="從文件開始到游標位置"/>
 			<find-status-scope-forward value="從游標位置到文件結尾"/>
+			<find-status-invisible-chars-findWhat value="貼上的「尋找內容」或「取代為」內容中包含隱藏字元"/>
+			<find-status-invisible-chars-findWhat-tip value="警告：搜尋（或取代）欄位中包含隱藏字元。
+貼上至此欄位的文字包含不可見字元（可能是換行字元）。若您繼續而不刪除它們，這些字元將會被包含在搜尋（或取代）文字中。"/>
 			<finder-find-in-finder value="在此搜尋結果中尋找..."/>
 			<finder-close-this value="關閉這個搜尋結果"/>
 			<finder-collapse-all value="層數全部收折"/>

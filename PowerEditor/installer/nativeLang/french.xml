@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Français" filename="french.xml" version="8.8.7">
+	<Native-Langue name="Français" filename="french.xml" version="8.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1766,6 +1766,9 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
 			<find-status-scope-all value="dans le fichier"/>
 			<find-status-scope-backward value="du début du fichier au curseur"/>
 			<find-status-scope-forward value="du curseur à la fin du fichier"/>
+			<find-status-invisible-chars-findWhat value="Caractères invisibles dans le contenu collé de « Rechercher » ou « Remplacer par »"/>
+			<find-status-invisible-chars-findWhat-tip value="Avertissement : Caractères invisibles dans le champ de recherche (ou de remplacement).
+Le texte collé dans ce champ contient des caractères invisibles (peut-être des fins de ligne). Si vous continuez sans les supprimer, ils seront inclus dans le texte de recherche (ou de remplacement)."/>
 			<finder-find-in-finder value="Rechercher dans les résultats..."/>
 			<finder-close-this value="Fermer le dialogue des résultats"/>
 			<finder-collapse-all value="Replier tout"/>

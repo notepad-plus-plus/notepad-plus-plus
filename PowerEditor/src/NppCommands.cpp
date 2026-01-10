@@ -612,6 +612,35 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_EDIT_REDACT_SELECTION:
+		{
+			// Checking if modifire key (Shift) is pressed
+			bool useBullet = (GetKeyState(VK_SHIFT) & 0x8000) != 0;
+
+			int start = static_cast<int>(_pEditView->execute(SCI_GETSELECTIONSTART));
+			int end = static_cast<int>(_pEditView->execute(SCI_GETSELECTIONEND));
+			int charCount = static_cast<int>(_pEditView->execute(SCI_COUNTCHARACTERS, start, end));
+
+			if (charCount > 0)
+			{
+				// Defining the characters to use
+				std::string fullBlock = "\xE2\x96\x88"; // █ (Block)
+				std::string bullet = "\xE2\x97\x8F"; // ● (Bullet)
+
+				// Choosing the character to use
+				std::string charToUse = useBullet ? bullet : fullBlock;
+
+				std::string mask = "";
+				for (int i = 0; i < charCount; i++)
+				{
+					mask += charToUse;
+				}
+
+				_pEditView->execute(SCI_REPLACESEL, 0, (LPARAM)mask.c_str());
+			}
+			break;
+		}
+
 		case IDM_EDIT_OPENINFOLDER:
 		case IDM_EDIT_OPENASFILE:
 		{

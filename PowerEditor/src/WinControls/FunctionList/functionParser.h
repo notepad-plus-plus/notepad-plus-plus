@@ -17,6 +17,7 @@
 
 #pragma once
 
+#include <memory>
 #include <string>
 #include <utility>
 #include <vector>
@@ -101,18 +102,14 @@ class FunctionMixParser : public FunctionZoneParser
 {
 public:
 	FunctionMixParser(const wchar_t* id, const wchar_t* displayName, const std::wstring& commentExpr, const std::wstring& rangeExpr, const std::wstring& openSymbole, const std::wstring& closeSymbole,
-		const std::vector<std::wstring>& classNameExprArray, const std::wstring& functionExpr, const std::vector<std::wstring>& functionNameExprArray, FunctionUnitParser* funcUnitPaser) noexcept
-		: FunctionZoneParser(id, displayName, commentExpr, rangeExpr, openSymbole, closeSymbole, classNameExprArray, functionExpr, functionNameExprArray), _funcUnitPaser(funcUnitPaser)
+		const std::vector<std::wstring>& classNameExprArray, const std::wstring& functionExpr, const std::vector<std::wstring>& functionNameExprArray, std::unique_ptr<FunctionUnitParser> funcUnitPaser) noexcept
+		: FunctionZoneParser(id, displayName, commentExpr, rangeExpr, openSymbole, closeSymbole, classNameExprArray, functionExpr, functionNameExprArray), _funcUnitPaser(std::move(funcUnitPaser))
 	{}
-
-	~FunctionMixParser() override {
-		delete _funcUnitPaser;
-	}
 
 	void parse(std::vector<foundInfo>& foundInfos, size_t begin, size_t end, ScintillaEditView** ppEditView, const std::string& classStructName = "") override;
 
 private:
-	FunctionUnitParser* _funcUnitPaser = nullptr;
+	std::unique_ptr<FunctionUnitParser> _funcUnitPaser = nullptr;
 };
 
 
@@ -143,20 +140,17 @@ inline constexpr int nbMaxUserDefined = 25;
 struct ParserInfo
 {
 	std::wstring _id; // xml parser rule file name - if empty, then we use default name. Mandatory if _userDefinedLangName is not empty
-	FunctionParser* _parser = nullptr;
+	std::unique_ptr<FunctionParser> _parser = nullptr;
 	std::wstring _userDefinedLangName;
 
 	ParserInfo() {}
 	explicit ParserInfo(const std::wstring& id) noexcept : _id(id) {}
 	explicit ParserInfo(const std::wstring& id, const std::wstring& userDefinedLangName) noexcept : _id(id), _userDefinedLangName(userDefinedLangName) {}
-	~ParserInfo() { if (_parser) delete _parser; }
 };
 
 class FunctionParsersManager final
 {
 public:
-	~FunctionParsersManager();
-
 	bool init(const std::wstring& xmlDirPath, const std::wstring& xmlInstalledPath, ScintillaEditView** ppEditView);
 	bool parse(std::vector<foundInfo>& foundInfos, const AssociationInfo& assoInfo);
 	
@@ -166,7 +160,7 @@ private:
 	std::wstring _xmlDirPath; // The 1st place to load function list files. Usually it's "%APPDATA%\Notepad++\functionList\"
 	std::wstring _xmlDirInstalledPath; // Where Notepad++ is installed. The 2nd place to load function list files. Usually it's "%PROGRAMFILES%\Notepad++\functionList\" 
 
-	ParserInfo* _parsers[L_EXTERNAL + nbMaxUserDefined] = { nullptr };
+	std::unique_ptr<ParserInfo> _parsers[L_EXTERNAL + nbMaxUserDefined] = { nullptr };
 	int _currentUDIndex = L_EXTERNAL;
 
 	bool getOverrideMapFromXmlTree(const std::wstring& xmlDirPath);

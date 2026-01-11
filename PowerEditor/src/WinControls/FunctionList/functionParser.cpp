@@ -19,6 +19,7 @@
 
 #include <windows.h>
 
+#include <memory>
 #include <string>
 #include <utility>
 #include <vector>
@@ -30,15 +31,6 @@
 #include "Notepad_plus_msgs.h"
 #include "NppXml.h"
 #include "ScintillaEditView.h"
-
-FunctionParsersManager::~FunctionParsersManager()
-{
-	for (size_t i = 0, len = L_EXTERNAL + nbMaxUserDefined; i < len; ++i)
-	{
-		if (_parsers[i] != nullptr)
-			delete _parsers[i];
-	}
-}
 
 bool FunctionParsersManager::init(const std::wstring& xmlDirPath, const std::wstring& xmlInstalledPath, ScintillaEditView** ppEditView)
 {
@@ -238,21 +230,21 @@ bool FunctionParsersManager::loadFuncListFromXmlTree(const std::wstring& xmlDirP
 		std::vector<std::wstring> classNameExprArray2;
 		std::vector<std::wstring> functionNameExprArray2;
 		getUnitPaserParameters(functionParser, mainExpr2, functionNameExprArray2, classNameExprArray2);
-		FunctionUnitParser *funcUnitPaser = new FunctionUnitParser(id, displayName, commentExpr, mainExpr2, functionNameExprArray2, classNameExprArray2);
+		auto funcUnitPaser = std::make_unique<FunctionUnitParser>(id, displayName, commentExpr, mainExpr2, functionNameExprArray2, classNameExprArray2);
 
-		_parsers[index]->_parser = new FunctionMixParser(id, displayName, commentExpr, mainExpr, openSymbole, closeSymbole, classNameExprArray, functionExpr, functionNameExprArray, funcUnitPaser);
+		_parsers[index]->_parser = std::make_unique<FunctionMixParser>(id, displayName, commentExpr, mainExpr, openSymbole, closeSymbole, classNameExprArray, functionExpr, functionNameExprArray, std::move(funcUnitPaser));
 	}
 	else if (classRangeParser)
 	{
 		std::wstring mainExpr, openSymbole, closeSymbole, functionExpr;
 		getZonePaserParameters(classRangeParser, mainExpr, openSymbole, closeSymbole, classNameExprArray, functionExpr, functionNameExprArray);
-		_parsers[index]->_parser = new FunctionZoneParser(id, displayName, commentExpr, mainExpr, openSymbole, closeSymbole, classNameExprArray, functionExpr, functionNameExprArray);
+		_parsers[index]->_parser = std::make_unique<FunctionZoneParser>(id, displayName, commentExpr, mainExpr, openSymbole, closeSymbole, classNameExprArray, functionExpr, functionNameExprArray);
 	}
 	else if (functionParser)
 	{
 		std::wstring mainExpr;
 		getUnitPaserParameters(functionParser, mainExpr, functionNameExprArray, classNameExprArray);
-		_parsers[index]->_parser = new FunctionUnitParser(id, displayName, commentExpr, mainExpr, functionNameExprArray, classNameExprArray);
+		_parsers[index]->_parser = std::make_unique<FunctionUnitParser>(id, displayName, commentExpr, mainExpr, functionNameExprArray, classNameExprArray);
 	}
 
 	return true;
@@ -294,7 +286,7 @@ bool FunctionParsersManager::getOverrideMapFromXmlTree(const std::wstring& xmlDi
 
 			if (langIDStr && langIDStr[0])
 			{
-				_parsers[langID] = new ParserInfo(id);
+				_parsers[langID] = std::make_unique<ParserInfo>(id);
 			}
 			else if (userDefinedLangName && userDefinedLangName[0])
 			{
@@ -302,7 +294,7 @@ bool FunctionParsersManager::getOverrideMapFromXmlTree(const std::wstring& xmlDi
 
 				if (_currentUDIndex < L_EXTERNAL + nbMaxUserDefined)
 				{
-					_parsers[_currentUDIndex] = new ParserInfo(id, userDefinedLangName);
+					_parsers[_currentUDIndex] = std::make_unique<ParserInfo>(id, userDefinedLangName);
 				}
 			}
 		}
@@ -337,22 +329,22 @@ FunctionParser* FunctionParsersManager::getParser(const AssociationInfo& assoInf
 			if (_parsers[assoInfo._langID] != nullptr)
 			{
 				if (_parsers[assoInfo._langID]->_parser != nullptr)
-					return _parsers[assoInfo._langID]->_parser;
+					return _parsers[assoInfo._langID]->_parser.get();
 
 				// load it
 				if (loadFuncListFromXmlTree(_xmlDirPath, static_cast<LangType>(assoInfo._langID), _parsers[assoInfo._langID]->_id))
-					return _parsers[assoInfo._langID]->_parser;
+					return _parsers[assoInfo._langID]->_parser.get();
 				else if (_xmlDirPath != _xmlDirInstalledPath && !_xmlDirInstalledPath.empty() && loadFuncListFromXmlTree(_xmlDirInstalledPath, static_cast<LangType>(assoInfo._langID), _parsers[assoInfo._langID]->_id))
-					return _parsers[assoInfo._langID]->_parser;
+					return _parsers[assoInfo._langID]->_parser.get();
 			}
 			else
 			{
-				_parsers[assoInfo._langID] = new ParserInfo;
+				_parsers[assoInfo._langID] = std::make_unique<ParserInfo>();
 				// load it
 				if (loadFuncListFromXmlTree(_xmlDirPath, static_cast<LangType>(assoInfo._langID), _parsers[assoInfo._langID]->_id))
-					return _parsers[assoInfo._langID]->_parser;
+					return _parsers[assoInfo._langID]->_parser.get();
 				else if (_xmlDirPath != _xmlDirInstalledPath && !_xmlDirInstalledPath.empty() && loadFuncListFromXmlTree(_xmlDirInstalledPath, static_cast<LangType>(assoInfo._langID), _parsers[assoInfo._langID]->_id))
-					return _parsers[assoInfo._langID]->_parser;
+					return _parsers[assoInfo._langID]->_parser.get();
 
 				return nullptr;
 			}
@@ -370,14 +362,14 @@ FunctionParser* FunctionParsersManager::getParser(const AssociationInfo& assoInf
 				{
 					if (_parsers[i]->_parser)
 					{
-						return _parsers[i]->_parser;
+						return _parsers[i]->_parser.get();
 					}
 
 					// load it
 					if (loadFuncListFromXmlTree(_xmlDirPath, static_cast<LangType>(assoInfo._langID), _parsers[i]->_id, i))
-						return _parsers[i]->_parser;
+						return _parsers[i]->_parser.get();
 					if (_xmlDirPath != _xmlDirInstalledPath && !_xmlDirInstalledPath.empty() && loadFuncListFromXmlTree(_xmlDirInstalledPath, static_cast<LangType>(assoInfo._langID), _parsers[i]->_id, i))
-						return _parsers[i]->_parser;
+						return _parsers[i]->_parser.get();
 					break;
 				}
 			}

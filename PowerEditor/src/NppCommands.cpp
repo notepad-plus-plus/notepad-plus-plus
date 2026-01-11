@@ -49,20 +49,76 @@ using namespace std;
 
 std::mutex command_mutex;
 
-void Notepad_plus::macroPlayback(Macro macro)
+void Notepad_plus::macroPlayback(Macro macro, std::vector<Document>* pDocs4EndUAIn)
 {
 	_playingBackMacro = true;
-	_pEditView->execute(SCI_BEGINUNDOACTION);
 
+	std::vector<Document>* pDocs4EndUA = nullptr;
+	if (pDocs4EndUAIn)
+	{
+		// continue with the passed param doc list
+		pDocs4EndUA = pDocs4EndUAIn;
+	}
+	else
+	{
+		// use local doc list
+		pDocs4EndUA = new std::vector<Document>;
+		if (!pDocs4EndUA)
+			return;
+	}
+
+	Document prevSciDoc = 0;
 	for (Macro::iterator step = macro.begin(); step != macro.end(); ++step)
 	{
+		Document curSciDoc = _pEditView->getCurrentBuffer()->getDocument();
+		if (curSciDoc != prevSciDoc)
+		{
+			// macro step is going to work with different Scintilla Document object
+			// (for which the undo actions are bound)
+
+			if (std::find(pDocs4EndUA->begin(), pDocs4EndUA->end(), curSciDoc) == pDocs4EndUA->end())
+			{
+				// not in the list of the macro affected docs so far
+				_pEditView->execute(SCI_BEGINUNDOACTION); // the macro step will touch another doc, open another undo action
+				pDocs4EndUA->push_back(curSciDoc); // store for possible ending undo action later
+			}
+
+			prevSciDoc = curSciDoc; // remember the doc switch
+		}
+
 		if (step->isScintillaMacro())
 			step->PlayBack(_pPublicInterface, _pEditView);
 		else
 			_findReplaceDlg.execSavedCommand(step->_message, step->_lParameter, string2wstring(step->_sParameter, CP_UTF8));
 	}
 
-	_pEditView->execute(SCI_ENDUNDOACTION);
+	if (!pDocs4EndUAIn)
+	{
+		// handle all the affected docs undo actions closing (for local-only doc list)
+
+		Document invisSciDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER); // store the view's original doc
+		while (!pDocs4EndUA->empty())
+		{
+			Document doc = pDocs4EndUA->back();
+			if (MainFileManager.getBufferFromDocument(doc) == BUFFER_INVALID)
+			{
+				// affected doc no longer exists (a macro step closed its associated Notepad++ tab/buffer),
+				// the ending undo action is not needed (until Notepad++ supports tab/buffer closing undo)
+			}
+			else
+			{
+				// complete the open undo action for existing doc object
+				_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, doc);
+				_invisibleEditView.execute(SCI_ENDUNDOACTION);
+			}
+			pDocs4EndUA->pop_back();
+		}
+		_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, invisSciDoc); // restore
+
+		delete pDocs4EndUA;
+		pDocs4EndUA = nullptr;
+	}
+
 	_playingBackMacro = false;
 }
 

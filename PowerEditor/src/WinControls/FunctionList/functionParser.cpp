@@ -255,38 +255,36 @@ bool FunctionParsersManager::getOverrideMapFromXmlTree(const std::wstring& xmlDi
 	std::wstring funcListRulePath = xmlDirPath;
 	funcListRulePath += L"\\overrideMap.xml";
 	
-	TiXmlDocument xmlFuncListDoc;
-	bool loadOK = xmlFuncListDoc.LoadFile(funcListRulePath);
+	NppXml::NewDocument xmlFuncListDoc{};
+	const bool loadOK = NppXml::loadFile(&xmlFuncListDoc, funcListRulePath.c_str());
 
 	if (!loadOK)
 		return false;
 	
-	TiXmlElement* root = xmlFuncListDoc.FirstChildElement(L"NotepadPlus");
+	NppXml::Element root = NppXml::firstChildElement(&xmlFuncListDoc, "NotepadPlus");
 	if (!root) 
 		return false;
 
-	root = root->FirstChildElement(L"functionList");
+	root = NppXml::firstChildElement(root, "functionList");
 	if (!root) 
 		return false;
 
-	TiXmlElement* associationMapRoot = root->FirstChildElement(L"associationMap");
+	NppXml::Element associationMapRoot = NppXml::firstChildElement(root, "associationMap");
 	if (associationMapRoot) 
 	{
-		for (TiXmlElement* childNode = associationMapRoot->FirstChildElement(L"association");
+		for (NppXml::Element childNode = NppXml::firstChildElement(associationMapRoot,"association");
 			childNode;
-			childNode = childNode->NextSiblingElement(L"association"))
+			childNode = NppXml::nextSiblingElement(childNode, "association"))
 		{
-			int langID = -1;
-			const wchar_t* langIDStr = childNode->Attribute(L"langID", &langID);
-			const wchar_t* id = childNode->Attribute(L"id");
-			const wchar_t* userDefinedLangName = childNode->Attribute(L"userDefinedLangName");
-
-			if (!(id && id[0]))
+			const char* id = NppXml::attribute(childNode, "id");
+			if (!id || !id[0])
 				continue;
 
-			if (langIDStr && langIDStr[0])
+			const int langID = NppXml::intAttribute(childNode, "langID", -1);
+			const char* userDefinedLangName = NppXml::attribute(childNode, "userDefinedLangName");
+			if (langID >= 0)
 			{
-				_parsers[langID] = std::make_unique<ParserInfo>(id);
+				_parsers[langID] = std::make_unique<ParserInfo>(string2wstring(id));
 			}
 			else if (userDefinedLangName && userDefinedLangName[0])
 			{
@@ -294,7 +292,7 @@ bool FunctionParsersManager::getOverrideMapFromXmlTree(const std::wstring& xmlDi
 
 				if (_currentUDIndex < L_EXTERNAL + nbMaxUserDefined)
 				{
-					_parsers[_currentUDIndex] = std::make_unique<ParserInfo>(id, userDefinedLangName);
+					_parsers[_currentUDIndex] = std::make_unique<ParserInfo>(string2wstring(id), string2wstring(userDefinedLangName));
 				}
 			}
 		}

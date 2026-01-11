@@ -14,34 +14,45 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 #pragma once
 
+#include <windows.h>
+
+#include <locale>
+#include <memory>
+#include <string>
+#include <vector>
+
+#include <Scintilla.h>
+
+#include "NppXml.h"
 #include "ScintillaEditView.h"
 
-typedef std::vector<const wchar_t *> stringVec;
+using stringVec = std::vector<const char*>;
 
 class FunctionCallTip {
-	 friend class AutoCompletion;
+	friend class AutoCompletion;
 public:
 	explicit FunctionCallTip(ScintillaEditView* pEditView) : _pEditView(pEditView) {}
 	~FunctionCallTip() {/* cleanup(); */}
-	void setLanguageXML(TiXmlElement * pXmlKeyword);	//set calltip keyword node
+	void setLanguageXML(NppXml::Element xmlKeyword); //set calltip keyword node
 	bool updateCalltip(int ch, bool needShown = false);	//Ch is character typed, or 0 if another event occurred. NeedShown is true if calltip should be attempted to displayed. Return true if calltip was made visible
 	void showNextOverload();							//show next overloaded parameters
 	void showPrevOverload();							//show prev overloaded parameters
-	bool isVisible() { return _pEditView?_pEditView->execute(SCI_CALLTIPACTIVE) == TRUE:false; }	//true if calltip visible
+	bool isVisible() const { return _pEditView ? _pEditView->execute(SCI_CALLTIPACTIVE) == TRUE : false; } //true if calltip visible
 	void close();					//Close calltip if visible
 
 private:
-	ScintillaEditView * _pEditView = nullptr;	//Scintilla to display calltip in
-	TiXmlElement * _pXmlKeyword = nullptr;	//current keyword node (first one)
+	ScintillaEditView* _pEditView = nullptr;	//Scintilla to display calltip in
+	NppXml::Element _xmlKeyword{}; //current keyword node (first one)
 
 	intptr_t _curPos = 0;					//cursor position
 	intptr_t _startPos = 0;					//display start position
 
-	TiXmlElement * _curFunction = nullptr;	//current function element
+	NppXml::Element _curFunction{}; //current function element
 	//cache some XML values n stuff
-	wchar_t * _funcName = nullptr;				//name of function
+	std::unique_ptr<char[]> _funcName = nullptr; //name of function
 	stringVec _retVals;				//vector of overload return values/types
 	std::vector<stringVec> _overloads;	//vector of overload params (=vector)
 	stringVec _descriptions;		//vecotr of function descriptions
@@ -49,11 +60,11 @@ private:
 	size_t _currentOverload = 0;			//current chosen overload
 	size_t _currentParam = 0;				//current highlighted param
 
-	wchar_t _start = '(';
-	wchar_t _stop = ')';
-	wchar_t _param = ',';
-	wchar_t _terminal = ';';
-    std::wstring _additionalWordChar = L"";
+	char _start = '(';
+	char _stop = ')';
+	char _param = ',';
+	char _terminal = ';';
+	std::string _additionalWordChar;
 	bool _ignoreCase = true;
 	bool _selfActivated = false;
 
@@ -62,15 +73,11 @@ private:
 	void showCalltip();				//display calltip based on current variables
 	void reset();					//reset all vars in case function is invalidated
 	void cleanup();					//delete any leftovers
-    bool isBasicWordChar(wchar_t ch) const {
-        return ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9') || ch == '_');
-    }
-    bool isAdditionalWordChar(wchar_t ch) const {
-        const wchar_t *addChars = _additionalWordChar.c_str();
-        size_t len = _additionalWordChar.length();
-        for (size_t i = 0 ; i < len ; ++i)
-            if (ch == addChars[i])
-                return true;
-        return false;
-    }
+	static bool isBasicWordChar(unsigned char ch) {
+		static const auto& loc = std::locale::classic();
+		return std::isalnum(ch, loc) || ch == '_';
+	}
+	bool isAdditionalWordChar(char ch) const {
+		return _additionalWordChar.find(ch) != std::string::npos;
+	}
 };

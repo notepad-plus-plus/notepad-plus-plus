@@ -17,9 +17,18 @@
 
 #pragma once
 
+#include <windows.h>
 
-#include "Scintilla.h"
-#include "SciLexer.h"
+#include <sstream>
+#include <string>
+#include <string_view>
+#include <vector>
+#include <utility>
+
+#include <SciLexer.h>
+#include <Sci_Position.h>
+#include <Scintilla.h>
+
 #include "Buffer.h"
 #include "colors.h"
 #include "UserDefineDialog.h"
@@ -270,6 +279,7 @@ public:
 
 
 	void getText(char *dest, size_t start, size_t end) const;
+	void getGenericText(char* dest, size_t destlen, size_t start, size_t end) const;
 	void getGenericText(wchar_t *dest, size_t destlen, size_t start, size_t end) const;
 	void getGenericText(wchar_t* dest, size_t destlen, size_t start, size_t end, intptr_t* mstart, intptr_t* mend, intptr_t* outLen = nullptr) const;
 	std::wstring getGenericTextAsString(size_t start, size_t end) const;
@@ -287,15 +297,18 @@ public:
 	std::wstring getSelectedTextToWChar(bool expand = true, Sci_Position* selCharNumber = nullptr);
     char * getWordOnCaretPos(char * txt, size_t size);
 
+	intptr_t searchInTarget(const std::string_view& text2Find, size_t fromPos, size_t toPos) const;
 	intptr_t searchInTarget(const wchar_t * Text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const;
 	void appendGenericText(const wchar_t * text2Append) const;
 	void addGenericText(const wchar_t * text2Append) const;
 	void addGenericText(const wchar_t * text2Append, intptr_t* mstart, intptr_t* mend) const;
+	intptr_t replaceTarget(const std::string& str2replace, intptr_t fromTargetPos = -1, intptr_t toTargetPos = -1) const;
 	intptr_t replaceTarget(const wchar_t * str2replace, intptr_t fromTargetPos = -1, intptr_t toTargetPos = -1) const;
 	intptr_t replaceTargetRegExMode(const wchar_t * re, intptr_t fromTargetPos = -1, intptr_t toTargetPos = -1) const;
-	void showAutoCompletion(size_t lenEntered, const wchar_t * list);
-	void showCallTip(size_t startPos, const wchar_t * def);
+	void showAutoCompletion(size_t lenEntered, const std::string& list) const;
+	void showCallTip(size_t startPos, const std::string& def) const;
 	std::wstring getLine(size_t lineNumber) const;
+	void getLine(size_t lineNumber, char* line, size_t lineBufferLen) const;
 	void getLine(size_t lineNumber, wchar_t * line, size_t lineBufferLen) const;
 	void addText(size_t length, const char *buf);
 
@@ -322,11 +335,20 @@ public:
 		return crange;
 	}
 
-	void getWordToCurrentPos(wchar_t * str, intptr_t strLen) const {
+	void getWordToCurrentPos(char* str, intptr_t strLen) const {
+		const auto caretPos = execute(SCI_GETCURRENTPOS);
+		const auto startPos = execute(SCI_WORDSTARTPOSITION, caretPos, true);
+
+		str[0] = '\0';
+		if ((caretPos - startPos) < strLen)
+			getGenericText(str, strLen, startPos, caretPos);
+	}
+
+	void getWordToCurrentPos(wchar_t* str, intptr_t strLen) const {
 		auto caretPos = execute(SCI_GETCURRENTPOS);
 		auto startPos = execute(SCI_WORDSTARTPOSITION, caretPos, true);
 
-		str[0] = '\0';
+		str[0] = L'\0';
 		if ((caretPos - startPos) < strLen)
 			getGenericText(str, strLen, startPos, caretPos);
 	}

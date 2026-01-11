@@ -14,26 +14,35 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include <memory>
-#include <cinttypes>
-#include <windowsx.h>
+
 #include "ScintillaEditView.h"
-#include "Parameters.h"
-#include "localization.h"
-#include "Sorters.h"
-#include "ILexer.h"
-#include "Lexilla.h"
 
 #include <windows.h>
 
 #include <commctrl.h>
+#include <windowsx.h>
 
+#include <algorithm>
 #include <array>
+#include <cinttypes>
+#include <cstring>
+#include <cwchar>
+#include <memory>
 #include <string>
+#include <string_view>
 #include <vector>
 
+#include <ILexer.h>
+#include <Lexilla.h>
+#include <SciLexer.h>
+#include <Sci_Position.h>
+#include <Scintilla.h>
+
 #include "NppConstants.h"
+#include "Parameters.h"
+#include "Sorters.h"
 #include "dpiManagerV2.h"
+#include "localization.h"
 #include "rgba_icons.h"
 
 using namespace std;
@@ -2904,7 +2913,14 @@ wstring ScintillaEditView::getGenericTextAsString(size_t start, size_t end) cons
 	return text;
 }
 
-void ScintillaEditView::getGenericText(wchar_t *dest, size_t destlen, size_t start, size_t end) const
+void ScintillaEditView::getGenericText(char* dest, size_t destlen, size_t start, size_t end) const
+{
+	auto buffer = std::make_unique<char[]>(end - start + 1);
+	getText(buffer.get(), start, end);
+	::strncpy_s(dest, destlen, buffer.get(), _TRUNCATE);
+}
+
+void ScintillaEditView::getGenericText(wchar_t* dest, size_t destlen, size_t start, size_t end) const
 {
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	char *destA = new char[end - start + 1];
@@ -3054,7 +3070,13 @@ wstring ScintillaEditView::getSelectedTextToWChar(bool expand, Sci_Position* sel
 	return txtW;
 }
 
-intptr_t ScintillaEditView::searchInTarget(const wchar_t * text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const
+intptr_t ScintillaEditView::searchInTarget(const std::string_view& text2Find, size_t fromPos, size_t toPos) const
+{
+	execute(SCI_SETTARGETRANGE, fromPos, toPos);
+	return execute(SCI_SEARCHINTARGET, text2Find.length(), reinterpret_cast<LPARAM>(text2Find.data()));
+}
+
+intptr_t ScintillaEditView::searchInTarget(const wchar_t* text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const
 {
 	execute(SCI_SETTARGETRANGE, fromPos, toPos);
 
@@ -3062,7 +3084,7 @@ intptr_t ScintillaEditView::searchInTarget(const wchar_t * text2Find, size_t len
 	size_t cp = execute(SCI_GETCODEPAGE);
 	const char *text2FindA = wmc.wchar2char(text2Find, cp);
 	size_t text2FindALen = strlen(text2FindA);
-   	size_t len = (lenOfText2Find > text2FindALen) ? lenOfText2Find : text2FindALen;
+	size_t len = (lenOfText2Find > text2FindALen) ? lenOfText2Find : text2FindALen;
 	return execute(SCI_SEARCHINTARGET, len, reinterpret_cast<LPARAM>(text2FindA));
 }
 
@@ -3090,6 +3112,16 @@ void ScintillaEditView::addGenericText(const wchar_t * text2Append, intptr_t* ms
 	execute(SCI_ADDTEXT, strlen(text2AppendA), reinterpret_cast<LPARAM>(text2AppendA));
 }
 
+intptr_t ScintillaEditView::replaceTarget(const std::string& str2replace, intptr_t fromTargetPos, intptr_t toTargetPos) const
+{
+	if (fromTargetPos != -1 || toTargetPos != -1)
+	{
+		execute(SCI_SETTARGETRANGE, fromTargetPos, toTargetPos);
+	}
+
+	return execute(SCI_REPLACETARGET, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(str2replace.c_str()));
+}
+
 intptr_t ScintillaEditView::replaceTarget(const wchar_t * str2replace, intptr_t fromTargetPos, intptr_t toTargetPos) const
 {
 	if (fromTargetPos != -1 || toTargetPos != -1)
@@ -3114,21 +3146,15 @@ intptr_t ScintillaEditView::replaceTargetRegExMode(const wchar_t * re, intptr_t 
 	return execute(SCI_REPLACETARGETRE, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(reA));
 }
 
-void ScintillaEditView::showAutoCompletion(size_t lenEntered, const wchar_t* list)
+void ScintillaEditView::showAutoCompletion(size_t lenEntered, const std::string& list) const
 {
-	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-	size_t cp = execute(SCI_GETCODEPAGE);
-	const char *listA = wmc.wchar2char(list, cp);
-	execute(SCI_AUTOCSHOW, lenEntered, reinterpret_cast<LPARAM>(listA));
+	execute(SCI_AUTOCSHOW, lenEntered, reinterpret_cast<LPARAM>(list.c_str()));
 	NppDarkMode::setDarkAutoCompletion();
 }
 
-void ScintillaEditView::showCallTip(size_t startPos, const wchar_t * def)
+void ScintillaEditView::showCallTip(size_t startPos, const std::string& def) const
 {
-	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-	size_t cp = execute(SCI_GETCODEPAGE);
-	const char *defA = wmc.wchar2char(def, cp);
-	execute(SCI_CALLTIPSHOW, startPos, reinterpret_cast<LPARAM>(defA));
+	execute(SCI_CALLTIPSHOW, startPos, reinterpret_cast<LPARAM>(def.c_str()));
 }
 
 wstring ScintillaEditView::getLine(size_t lineNumber) const
@@ -3157,6 +3183,16 @@ void ScintillaEditView::getLine(size_t lineNumber, wchar_t * line, size_t lineBu
 	const wchar_t *lineW = wmc.char2wchar(lineA, cp);
 	lstrcpyn(line, lineW, static_cast<int>(lineBufferLen));
 	delete [] lineA;
+}
+
+void ScintillaEditView::getLine(size_t lineNumber, char* line, size_t lineBufferLen) const
+{
+	// make sure the buffer length is enough to get the whole line
+	const size_t lineLen = execute(SCI_LINELENGTH, lineNumber);
+	if (lineLen >= lineBufferLen)
+		return;
+
+	execute(SCI_GETLINE, lineNumber, reinterpret_cast<LPARAM>(line));
 }
 
 void ScintillaEditView::addText(size_t length, const char *buf)

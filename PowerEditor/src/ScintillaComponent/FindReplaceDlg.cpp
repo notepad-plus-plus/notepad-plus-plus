@@ -3114,9 +3114,8 @@ bool FindReplaceDlg::processFindNext(const wchar_t *txt2find, const FindOption *
 	// Show a calltip for a zero length match
 	if (start == end)
 	{
-		wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-regex-zero-length-match", L"zero length match");
-		msg = L"^ " + msg;
-		(*_ppEditView)->showCallTip(start, msg.c_str());
+		const std::string msg = "^ " + pNativeSpeaker->getLocalizedStrFromID("find-regex-zero-length-match", "zero length match");
+		(*_ppEditView)->showCallTip(start, msg);
 	}
 	if (static_cast<MacroStatus>(::SendMessage(_hParent, NPPM_GETCURRENTMACROSTATUS,0,0)) == MacroStatus::RecordInProgress)
 		(*_ppEditView)->execute(SCI_STARTRECORD);

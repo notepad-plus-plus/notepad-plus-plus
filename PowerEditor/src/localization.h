@@ -102,6 +102,7 @@ public:
 	std::wstring getCmdLangStr(std::vector<const char*> nodeNames, int cmdID, const wchar_t* defaultStr) const;
 	std::wstring getAttrNameStr(const wchar_t* defaultStr, const char* nodeL1Name, const char* nodeL2Name, const char* nodeL3Name = "name") const;
 	static std::wstring getAttrNameByIdStr(const wchar_t* defaultStr, NppXml::Node targetNode, const char* nodeL1Value, const char* nodeL1Name = "id", const char* nodeL2Name = "name");
+	std::string getLocalizedStrFromID(const char* strID, const std::string& defaultString) const;
 	std::wstring getLocalizedStrFromID(const char* strID, const std::wstring& defaultString) const;
 	void getMainMenuEntryName(std::wstring& dest, HMENU hMenu, const char* menuId, const wchar_t* defaultDest);
 
@@ -112,7 +113,7 @@ public:
 	int messageBox(const char* msgBoxTagName, HWND hWnd, const wchar_t* defaultMessage, const wchar_t* defaultTitle, int msgBoxType, int intInfo = 0, const wchar_t* strInfo = nullptr);
 private:
 	NppXml::Node _nativeLang{};
-	static constexpr int _nativeLangEncoding = CP_UTF8; // tinyxml2 uses only UTF8
+	static constexpr int _nativeLangEncoding = CP_UTF8; // all Notepad++ xml files should be UTF8
 	bool _isRTL = false; // for Notepad++ GUI
 	bool _isEditZoneRTL = false; // for Scintilla
 	const char* _fileName = nullptr;

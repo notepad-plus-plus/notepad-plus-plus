@@ -317,7 +317,7 @@ std::wstring NativeLangSpeaker::getShortcutNameString(int itemID) const
 	return L"";
 }
 
-std::wstring NativeLangSpeaker::getLocalizedStrFromID(const char* strID, const std::wstring& defaultString) const
+std::string NativeLangSpeaker::getLocalizedStrFromID(const char* strID, const std::string& defaultString) const
 {
 	if (!_nativeLang)
 		return defaultString;
@@ -336,8 +336,13 @@ std::wstring NativeLangSpeaker::getLocalizedStrFromID(const char* strID, const s
 	const char* value = NppXml::attribute(element, "value");
 	if (!value) return defaultString;
 
-	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-	return wmc.char2wchar(value, _nativeLangEncoding);
+	return value;
+}
+
+std::wstring NativeLangSpeaker::getLocalizedStrFromID(const char* strID, const std::wstring& defaultString) const
+{
+	const std::string defaultStringA = wstring2string(defaultString, _nativeLangEncoding);
+	return string2wstring(NativeLangSpeaker::getLocalizedStrFromID(strID, defaultStringA), _nativeLangEncoding);
 }
 
 

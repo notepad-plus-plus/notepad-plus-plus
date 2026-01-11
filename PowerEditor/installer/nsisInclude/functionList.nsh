@@ -243,6 +243,11 @@ SectionGroup "Function List Files" functionListComponent
 		File ".\functionList\makefile.xml"
 	${MementoSectionEnd}
 
+	${MementoSection} "Nim" NIM_FL
+		SetOutPath "$INSTDIR\functionList"
+		File ".\functionList\nim.xml"
+	${MementoSectionEnd}
+
 	SetOverwrite off
 	${MementoSection} "Override Map" OverrideMap_FL
 		SetOutPath "$INSTDIR\functionList"
@@ -435,6 +440,10 @@ SectionGroup un.functionListComponent
 
 	Section un.MAKEFILE_FL
 		Delete "$INSTDIR\functionList\makefile.xml"
+	SectionEnd
+
+	Section un.NIM_FL
+		Delete "$INSTDIR\functionList\nim.xml"
 	SectionEnd
 
 SectionGroupEnd

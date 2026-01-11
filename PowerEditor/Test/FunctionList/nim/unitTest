@@ -1,0 +1,39 @@
+proc bar() = discard
+
+proc foo1 =
+  bar()
+
+proc foo2 = bar()
+
+proc foo3(a: int) = bar()
+
+proc foo4: int = 42
+
+proc foo5(a: int): bool = (a==42)
+
+proc foo5(a: string): string = a
+
+proc foo6(a: int,
+          b: int): bool = (a == b)
+
+proc foo7(a = 5): int = a
+
+proc foo8(a = (1,2)) = bar()
+
+proc foo9*[T](a: T): bool = false
+
+proc `=foo10`(a: int) = bar()
+
+proc foo11 {.used.} = bar()
+
+func foo12 = discard
+
+method foo13(a: RootObj)  {.base.} = discard
+
+iterator foo14: int = discard
+
+macro foo15 = discard
+
+template foo16 = discard
+
+converter foo17(a: int): int = discard

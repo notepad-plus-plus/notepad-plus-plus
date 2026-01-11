@@ -17,19 +17,20 @@
 
 #pragma once
 
-#include "Common.h"
-#include "Window.h"
-#include "Notepad_plus_msgs.h"
+#include <windows.h>
+
+#include <memory>
+#include <string>
+#include <vector>
+
 #include "ImageListSet.h"
+#include "Notepad_plus_msgs.h"
+#include "NppXml.h"
+#include "Window.h"
 #include "dpiManagerV2.h"
 
 #define REBAR_BAR_TOOLBAR		0
 #define REBAR_BAR_SEARCH		1
-
-#define REBAR_BAR_EXTERNAL		10
-#ifndef _WIN32_IE
-#define _WIN32_IE	0x0600
-#endif //_WIN32_IE
 
 enum toolBarStatusType {TB_SMALL, TB_LARGE, TB_SMALL2, TB_LARGE2, TB_STANDARD};
 
@@ -50,8 +51,6 @@ struct ToolbarPluginButtonsConf
 };
 
 class ReBar;
-class TiXmlDocument;
-class TiXmlNode;
 
 class ToolBar : public Window
 {
@@ -59,10 +58,10 @@ public :
 	ToolBar() = default;
 	~ToolBar() override = default;
 
-    void initTheme(TiXmlDocument* toolIconsDocRoot);
-    void initHideButtonsConf(TiXmlDocument* toolButtonsDocRoot, ToolBarButtonUnit* buttonUnitArray, int arraySize);
+	void initTheme(NppXml::Document toolIconsDocRoot);
+	void initHideButtonsConf(NppXml::Document toolButtonsDocRoot, const ToolBarButtonUnit* buttonUnitArray, int arraySize);
 
-	virtual bool init(HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBarButtonUnit* buttonUnitArray, int arraySize);
+	virtual bool init(HINSTANCE hInst, HWND hPere, toolBarStatusType type, const ToolBarButtonUnit* buttonUnitArray, int arraySize);
 
 	void destroy() override;
 	void enable(int cmdID, bool doEnable) const {
@@ -112,7 +111,7 @@ public :
 	void resizeIconsDpi(UINT dpi);
 
 private :
-	TBBUTTON *_pTBB = nullptr;
+	std::unique_ptr<TBBUTTON[]> _pTBB = nullptr;
 	ToolBarIcons _toolBarIcons;
 	toolBarStatusType _state = TB_SMALL;
 	std::vector<DynamicCmdIcoBmp> _vDynBtnReg;
@@ -122,13 +121,15 @@ private :
 	size_t _nbCurrentButtons = 0;
 	ReBar * _pRebar = nullptr;
 	REBARBANDINFO _rbBand = {};
-    std::vector<iconLocator> _customIconVect;
-	bool* _toolbarStdButtonsConfArray = nullptr;
+	std::vector<iconLocator> _customIconVect;
+	std::unique_ptr<bool[]> _toolbarStdButtonsConfArray = nullptr;
 	ToolbarPluginButtonsConf _toolbarPluginButtonsConf;
 
-    TiXmlNode* _toolIcons = nullptr;
+	NppXml::Element _toolIcons{};
 
 	DPIManagerV2 _dpiManager;
+
+	using Window::init;
 
 	void setDefaultImageList() {
 		::SendMessage(_hSelf, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDefaultLst()));

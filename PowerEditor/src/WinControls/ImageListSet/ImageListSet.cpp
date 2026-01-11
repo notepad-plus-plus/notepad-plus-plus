@@ -15,19 +15,28 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-#include <stdexcept>
-#include <memory>
 #include "ImageListSet.h"
-#include "Parameters.h"
-#include "NppDarkMode.h"
-#include "dpiManagerV2.h"
 
-void IconList::init(HINSTANCE hInst, int iconSize) 
+#include "windows.h"
+
+#include <cstdlib>
+#include <memory>
+#include <stdexcept>
+#include <string>
+#include <utility>
+#include <vector>
+
+#include "NppDarkMode.h"
+#include "Parameters.h"
+#include "dpiManagerV2.h"
+#include "resource.h"
+
+void IconList::init(HINSTANCE hInst, int iconSize)
 {
 	InitCommonControls();
 	_hInst = hInst;
 	_iconSize = iconSize;
-	const int nbMore = 45;
+	static constexpr int nbMore = 45;
 	_hImglst = ImageList_Create(iconSize, iconSize, ILC_COLOR32 | ILC_MASK, 0, nbMore);
 	if (!_hImglst)
 		throw std::runtime_error("IconList::create : ImageList_Create() function returns null");
@@ -149,13 +158,13 @@ bool IconList::changeFluentIconColor(HICON* phIcon, const std::vector<std::pair<
 	bmi.bmiHeader.biCompression = BI_RGB;
 
 	pixels = std::make_unique<RGBQUAD[]>(static_cast<size_t>(bm.bmWidth) * bm.bmHeight);
-	if (!pixels || !::GetDIBits(hdcBitmap, ii.hbmColor, 0, bm.bmHeight, pixels.get(), &bmi, DIB_RGB_COLORS))
+	if (!::GetDIBits(hdcBitmap, ii.hbmColor, 0, bm.bmHeight, pixels.get(), &bmi, DIB_RGB_COLORS))
 	{
 		cleanup();
 		return false;
 	}
 
-	for (int i = 0; i < bm.bmWidth * bm.bmHeight; i++)
+	for (int i = 0; i < bm.bmWidth * bm.bmHeight; ++i)
 	{
 		if (pixels[i].rgbReserved != 0) // Modify non-transparent pixels
 		{
@@ -306,12 +315,12 @@ bool IconList::changeFluentIconColor(HICON* phIcon) const
 	return IconList::changeFluentIconColor(phIcon, colorMappings);
 }
 
-void ToolBarIcons::init(ToolBarButtonUnit *buttonUnitArray, int arraySize, const std::vector<DynamicCmdIcoBmp>& moreCmds)
+void ToolBarIcons::init(const ToolBarButtonUnit* buttonUnitArray, int arraySize, const std::vector<DynamicCmdIcoBmp>& cmds2add)
 {
 	for (int i = 0 ; i < arraySize ; ++i)
 		_tbiis.push_back(buttonUnitArray[i]);
 
-	_moreCmds = moreCmds;
+	_moreCmds = cmds2add;
 }
 
 void ToolBarIcons::reInit(int size)
@@ -379,33 +388,27 @@ void ToolBarIcons::reInit(int size)
 			}
 			else
 			{
-				BITMAPINFOHEADER bi = {};
+				BITMAPINFO bi{};
+				bi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+				bi.bmiHeader.biWidth = bmp.bmWidth;
+				bi.bmiHeader.biHeight = bmp.bmHeight;
+				bi.bmiHeader.biPlanes = 1;
+				bi.bmiHeader.biBitCount = 32;
+				bi.bmiHeader.biCompression = BI_RGB;
 
-				bi.biSize = sizeof(BITMAPINFOHEADER);
-				bi.biWidth = bmp.bmWidth;
-				bi.biHeight = bmp.bmHeight;
-				bi.biPlanes = 1;
-				bi.biBitCount = 32;
-				bi.biCompression = BI_RGB;
-				bi.biSizeImage = 0;
-				bi.biXPelsPerMeter = 0;
-				bi.biYPelsPerMeter = 0;
-				bi.biClrUsed = 0;
-				bi.biClrImportant = 0;
+				const DWORD dwLineSize = ((bmp.bmWidth * bi.bmiHeader.biBitCount + 31) / 32) * 4;
+				const DWORD dwBmpSize = dwLineSize * bmp.bmHeight;
 
-				DWORD dwLineSize = ((bmp.bmWidth * bi.biBitCount + 31) / 32) * 4;
-				DWORD dwBmpSize = dwLineSize * bmp.bmHeight;
+				std::unique_ptr<BYTE[]> dibits = std::make_unique<BYTE[]>(dwBmpSize);
 
-				std::unique_ptr<BYTE[]> dibits(new BYTE[dwBmpSize]);
+				::GetDIBits(dcScreen, iconinfoSrc.hbmColor, 0, bi.bmiHeader.biHeight, dibits.get(), &bi, DIB_RGB_COLORS);
 
-				GetDIBits(dcScreen, iconinfoSrc.hbmColor, 0, bi.biHeight, dibits.get(), (BITMAPINFO*)&bi, DIB_RGB_COLORS);
-
-				for (int scanLine = 0; scanLine < bi.biHeight; ++scanLine)
+				for (int scanLine = 0; scanLine < bi.bmiHeader.biHeight; ++scanLine)
 				{
 					BYTE* rawLine = dibits.get() + (dwLineSize * scanLine);
-					RGBQUAD* pLine = (RGBQUAD*)rawLine;
+					auto* pLine = reinterpret_cast<RGBQUAD*>(rawLine);
 
-					for (int pixel = 0; pixel < bi.biWidth; ++pixel)
+					for (int pixel = 0; pixel < bi.bmiHeader.biWidth; ++pixel)
 					{
 						RGBQUAD rgba = pLine[pixel];
 
@@ -422,7 +425,7 @@ void ToolBarIcons::reInit(int size)
 
 				HBITMAP hBmpNew = ::CreateCompatibleBitmap(dcScreen, bmp.bmWidth, bmp.bmHeight);
 
-				SetDIBits(dcScreen, hBmpNew, 0, bi.biHeight, dibits.get(), (BITMAPINFO*)&bi, DIB_RGB_COLORS);
+				::SetDIBits(dcScreen, hBmpNew, 0, bi.bmiHeader.biHeight, dibits.get(), &bi, DIB_RGB_COLORS);
 
 				::ReleaseDC(NULL, dcScreen);
 

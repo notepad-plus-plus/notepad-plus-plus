@@ -26,9 +26,6 @@
 class DockingCont;
 class DockingManager;
 
-// For the following #define see the comments at drawRectangle() definition. (jg)
-#define USE_LOCKWINDOWUPDATE
-
 
 // Used by getRectAndStyle() to draw the drag rectangle
 static const WORD DotPattern[] = 
@@ -55,14 +52,8 @@ public:
 	void startGrip(DockingCont* pCont, DockingManager* pDockMgr);
 
 	~Gripper() {
-		if (_hdc) {
-			// usually this should already have been done by a call to drawRectangle(),
-			// here just for cases where usual handling was interrupted (jg)
-			#ifdef USE_LOCKWINDOWUPDATE
-			::LockWindowUpdate(NULL);
-			#endif
-			::ReleaseDC(0, _hdc);
-		}
+		// Clean up overlay window if still present (e.g. interrupted drag)
+		destroyOverlayWindow();
 
 		if (_hbm) {
 			::DeleteObject(_hbm);
@@ -112,6 +103,11 @@ protected :
 	}
 
 private:
+	// Overlay window for multi-monitor drag rectangle (Issue #16805)
+	bool createOverlayWindow();
+	void destroyOverlayWindow();
+	static LRESULT CALLBACK overlayWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
 	// Handle
 	HINSTANCE _hInst = nullptr;
 	HWND _hParent = nullptr;
@@ -140,12 +136,23 @@ private:
 	RECT _rcItem{};
 	TCITEM _tcItem{};
 
-	HDC _hdc = nullptr;
 	HBITMAP _hbm = nullptr;
 	HBRUSH _hbrush = nullptr;
 
+	// Overlay window for multi-monitor support (Issue #16805)
+	HWND _hOverlayWnd = nullptr;
+	HDC _hdcOverlay = nullptr;
+	HDC _hdcOverlayMem = nullptr;
+	HBITMAP _hBitmapOverlay = nullptr;
+	HBITMAP _hOldBitmap = nullptr;
+	int _overlayWidth = 0;
+	int _overlayHeight = 0;
+	int _xVirtScreen = 0;
+	int _yVirtScreen = 0;
+
 	// is class registered
 	static BOOL _isRegistered;
+	static bool _isOverlayClassRegistered;
 
 	// get layout direction
 	bool _isRTL = false;

@@ -183,6 +183,11 @@ SectionGroup "Auto-completion Files" autoCompletionComponent
 		File ".\APIs\rust.xml"
 	${MementoSectionEnd}
 
+	${MementoSection} "D" D
+		SetOutPath "$INSTDIR\autoCompletion"
+		File ".\APIs\d.xml"
+	${MementoSectionEnd}
+
 SectionGroupEnd
 
 
@@ -318,6 +323,10 @@ SectionGroup un.autoCompletionComponent
 	
 	Section un.Rust
 		Delete "$INSTDIR\autoCompletion\rust.xml"
+	SectionEnd
+
+	Section un.D
+		Delete "$INSTDIR\autoCompletion\d.xml"
 	SectionEnd
 
 SectionGroupEnd

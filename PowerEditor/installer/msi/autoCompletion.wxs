@@ -103,6 +103,9 @@
 		<Component Id="rust_APIs">
 			<File Source="..\..\installer\APIs\rust.xml" />
 		</Component>
+		<Component Id="d_APIs">
+			<File Source="..\..\installer\APIs\d.xml" />
+		</Component>
 	</ComponentGroup>
 	</Fragment>
 </Wix>

@@ -442,7 +442,7 @@ SectionGroup un.functionListComponent
 		Delete "$INSTDIR\functionList\makefile.xml"
 	SectionEnd
 
-	Section un.MAKEFILE_FL
+	Section un.NIM_FL
 		Delete "$INSTDIR\functionList\nim.xml"
 	SectionEnd
 

@@ -301,12 +301,12 @@ bool FunctionListPanel::serialize(const wstring & outputFilename)
 
 	for (const auto & info : _foundFuncInfos)
 	{
-		std::string leafName = wmc.wchar2char(info._data.c_str(), CP_ACP);
+		std::string leafName = info._data.c_str();
 
 		if (!info._data2.empty()) // node
 		{
 			bool isFound = false;
-			std::string nodeName = wmc.wchar2char(info._data2.c_str(), CP_ACP);
+			std::string nodeName = info._data2.c_str();
 
 			for (auto & i : j[nodesLabel])
 			{
@@ -390,7 +390,7 @@ void FunctionListPanel::reload()
 
 	for (size_t i = 0, len = _foundFuncInfos.size(); i < len; ++i)
 	{
-		addEntry(_foundFuncInfos[i]._data2.c_str(), _foundFuncInfos[i]._data.c_str(), _foundFuncInfos[i]._pos);
+		addEntry(string2wstring(_foundFuncInfos[i]._data2).c_str(), string2wstring(_foundFuncInfos[i]._data).c_str(), _foundFuncInfos[i]._pos);
 	}
 
 	HTREEITEM root = _treeView.getRoot();

@@ -26,8 +26,6 @@
 #include "NppXml.h"
 
 class ScintillaEditView;
-class TiXmlDocument;
-class TiXmlElement;
 
 struct foundInfo final
 {
@@ -41,7 +39,7 @@ class FunctionParser
 {
 friend class FunctionParsersManager;
 public:
-	FunctionParser(const wchar_t* id, const wchar_t* displayName, const std::wstring& commentExpr, const std::wstring& functionExpr, const std::vector<std::wstring>& functionNameExprArray, const std::vector<std::wstring>& classNameExprArray) noexcept
+	FunctionParser(const char* id, const char* displayName, const std::string& commentExpr, const std::string& functionExpr, const std::vector<std::string>& functionNameExprArray, const std::vector<std::string>& classNameExprArray) noexcept
 		: _id(id), _displayName(displayName), _commentExpr(commentExpr), _functionExpr(functionExpr), _functionNameExprArray(functionNameExprArray), _classNameExprArray(classNameExprArray)
 	{}
 
@@ -51,15 +49,15 @@ public:
 	virtual ~FunctionParser() = default;
 
 protected:
-	std::wstring _id;
-	std::wstring _displayName;
-	std::wstring _commentExpr;
-	std::wstring _functionExpr;
-	std::vector<std::wstring> _functionNameExprArray;
-	std::vector<std::wstring> _classNameExprArray;
+	std::string _id;
+	std::string _displayName;
+	std::string _commentExpr;
+	std::string _functionExpr;
+	std::vector<std::string> _functionNameExprArray;
+	std::vector<std::string> _classNameExprArray;
 	void getCommentZones(std::vector<std::pair<size_t, size_t>>& commentZone, size_t begin, size_t end, ScintillaEditView** ppEditView);
 	void getInvertZones(std::vector<std::pair<size_t, size_t>>& destZones, const std::vector<std::pair<size_t, size_t>>& sourceZones, size_t begin, size_t end);
-	static std::string parseSubLevel(size_t begin, size_t end, std::vector<std::wstring> dataToSearch, intptr_t& foundPos, ScintillaEditView** ppEditView);
+	static std::string parseSubLevel(size_t begin, size_t end, std::vector<std::string> dataToSearch, intptr_t& foundPos, ScintillaEditView** ppEditView);
 };
 
 
@@ -67,8 +65,8 @@ class FunctionZoneParser : public FunctionParser
 {
 public:
 	FunctionZoneParser() = delete;
-	FunctionZoneParser(const wchar_t* id, const wchar_t* displayName, const std::wstring& commentExpr, const std::wstring& rangeExpr, const std::wstring& openSymbole, const std::wstring& closeSymbole,
-		const std::vector<std::wstring>& classNameExprArray, const std::wstring& functionExpr, const std::vector<std::wstring>& functionNameExprArray) noexcept
+	FunctionZoneParser(const char* id, const char* displayName, const std::string& commentExpr, const std::string& rangeExpr, const std::string& openSymbole, const std::string& closeSymbole,
+		const std::vector<std::string>& classNameExprArray, const std::string& functionExpr, const std::vector<std::string>& functionNameExprArray) noexcept
 		: FunctionParser(id, displayName, commentExpr, functionExpr, functionNameExprArray, classNameExprArray), _rangeExpr(rangeExpr), _openSymbole(openSymbole), _closeSymbole(closeSymbole)
 	{}
 
@@ -78,20 +76,20 @@ protected:
 	void classParse(std::vector<foundInfo>& foundInfos, std::vector<std::pair<size_t, size_t>>& scannedZones, const std::vector<std::pair<size_t, size_t>>& commentZones, size_t begin, size_t end, ScintillaEditView** ppEditView, const std::string& classStructName = "");
 
 private:
-	std::wstring _rangeExpr;
-	std::wstring _openSymbole;
-	std::wstring _closeSymbole;
+	std::string _rangeExpr;
+	std::string _openSymbole;
+	std::string _closeSymbole;
 
-	static size_t getBodyClosePos(size_t begin, const wchar_t* bodyOpenSymbol, const wchar_t* bodyCloseSymbol, const std::vector<std::pair<size_t, size_t>>& commentZones, ScintillaEditView** ppEditView);
+	static size_t getBodyClosePos(size_t begin, const char* bodyOpenSymbol, const char* bodyCloseSymbol, const std::vector<std::pair<size_t, size_t>>& commentZones, ScintillaEditView** ppEditView);
 };
 
 
 class FunctionUnitParser : public FunctionParser
 {
 public:
-	FunctionUnitParser(const wchar_t* id, const wchar_t* displayName, const std::wstring& commentExpr,
-		const std::wstring& mainExpr, const std::vector<std::wstring>& functionNameExprArray,
-		const std::vector<std::wstring>& classNameExprArray) noexcept
+	FunctionUnitParser(const char* id, const char* displayName, const std::string& commentExpr,
+		const std::string& mainExpr, const std::vector<std::string>& functionNameExprArray,
+		const std::vector<std::string>& classNameExprArray) noexcept
 		: FunctionParser(id, displayName, commentExpr, mainExpr, functionNameExprArray, classNameExprArray)
 	{}
 
@@ -101,8 +99,8 @@ public:
 class FunctionMixParser : public FunctionZoneParser
 {
 public:
-	FunctionMixParser(const wchar_t* id, const wchar_t* displayName, const std::wstring& commentExpr, const std::wstring& rangeExpr, const std::wstring& openSymbole, const std::wstring& closeSymbole,
-		const std::vector<std::wstring>& classNameExprArray, const std::wstring& functionExpr, const std::vector<std::wstring>& functionNameExprArray, std::unique_ptr<FunctionUnitParser> funcUnitPaser) noexcept
+	FunctionMixParser(const char* id, const char* displayName, const std::string& commentExpr, const std::string& rangeExpr, const std::string& openSymbole, const std::string& closeSymbole,
+		const std::vector<std::string>& classNameExprArray, const std::string& functionExpr, const std::vector<std::string>& functionNameExprArray, std::unique_ptr<FunctionUnitParser> funcUnitPaser) noexcept
 		: FunctionZoneParser(id, displayName, commentExpr, rangeExpr, openSymbole, closeSymbole, classNameExprArray, functionExpr, functionNameExprArray), _funcUnitPaser(std::move(funcUnitPaser))
 	{}
 
@@ -165,7 +163,7 @@ private:
 
 	bool getOverrideMapFromXmlTree(const std::wstring& xmlDirPath);
 	bool loadFuncListFromXmlTree(const std::wstring& xmlDirPath, LangType lType, const std::wstring& overrideId, int udlIndex = -1);
-	static bool getZonePaserParameters(TiXmlElement* classRangeParser, std::wstring& mainExprStr, std::wstring& openSymboleStr, std::wstring& closeSymboleStr, std::vector<std::wstring>& classNameExprArray, std::wstring& functionExprStr, std::vector<std::wstring>& functionNameExprArray);
-	static bool getUnitPaserParameters(TiXmlElement* functionParser, std::wstring& mainExprStr, std::vector<std::wstring>& functionNameExprArray, std::vector<std::wstring>& classNameExprArray);
+	static bool getZonePaserParameters(const NppXml::Element& classRangeParser, std::string& mainExprStr, std::string& openSymboleStr, std::string& closeSymboleStr, std::vector<std::string>& classNameExprArray, std::string& functionExprStr, std::vector<std::string>& functionNameExprArray);
+	static bool getUnitPaserParameters(const NppXml::Element& functionParser, std::string& mainExprStr, std::vector<std::string>& functionNameExprArray, std::vector<std::string>& classNameExprArray);
 	FunctionParser* getParser(const AssociationInfo& assoInfo);
 };

@@ -270,6 +270,7 @@ public:
 
 
 	void getText(char *dest, size_t start, size_t end) const;
+	void getGenericText(char* dest, size_t destlen, size_t start, size_t end) const;
 	void getGenericText(wchar_t *dest, size_t destlen, size_t start, size_t end) const;
 	void getGenericText(wchar_t* dest, size_t destlen, size_t start, size_t end, intptr_t* mstart, intptr_t* mend, intptr_t* outLen = nullptr) const;
 	std::wstring getGenericTextAsString(size_t start, size_t end) const;
@@ -287,6 +288,7 @@ public:
 	std::wstring getSelectedTextToWChar(bool expand = true, Sci_Position* selCharNumber = nullptr);
     char * getWordOnCaretPos(char * txt, size_t size);
 
+	intptr_t searchInTarget(const std::string_view& text2Find, size_t fromPos, size_t toPos) const;
 	intptr_t searchInTarget(const wchar_t * Text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const;
 	void appendGenericText(const wchar_t * text2Append) const;
 	void addGenericText(const wchar_t * text2Append) const;

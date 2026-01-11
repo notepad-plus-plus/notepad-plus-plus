@@ -2904,6 +2904,13 @@ wstring ScintillaEditView::getGenericTextAsString(size_t start, size_t end) cons
 	return text;
 }
 
+void ScintillaEditView::getGenericText(char* dest, size_t destlen, size_t start, size_t end) const
+{
+	auto buffer = std::make_unique<char[]>(end - start + 1);
+	getText(buffer.get(), start, end);
+	::strncpy_s(dest, destlen, buffer.get(), _TRUNCATE);
+}
+
 void ScintillaEditView::getGenericText(wchar_t *dest, size_t destlen, size_t start, size_t end) const
 {
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
@@ -3052,6 +3059,12 @@ wstring ScintillaEditView::getSelectedTextToWChar(bool expand, Sci_Position* sel
 	delete [] txtA;
 
 	return txtW;
+}
+
+intptr_t ScintillaEditView::searchInTarget(const std::string_view& text2Find, size_t fromPos, size_t toPos) const
+{
+	execute(SCI_SETTARGETRANGE, fromPos, toPos);
+	return execute(SCI_SEARCHINTARGET, text2Find.length(), reinterpret_cast<LPARAM>(text2Find.data()));
 }
 
 intptr_t ScintillaEditView::searchInTarget(const wchar_t * text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const

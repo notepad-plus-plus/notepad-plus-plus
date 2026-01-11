@@ -47,6 +47,10 @@ namespace NppXml
 		return doc->save_file(filename, "    ", pugi::format_indent | pugi::format_save_file_text | pugi::format_control_chars_in_hexadecimal);
 	}
 
+	[[nodiscard]] inline bool loadFileFunctionParser(Document doc, const wchar_t* filename) {
+		return doc->load_file(filename, pugi::parse_cdata | pugi::parse_escapes | pugi::parse_eol);
+	}
+
 	[[nodiscard]] inline Element firstChildElement(const Document& doc, const char* name = nullptr) {
 		Node root = doc->root();
 		return name ? root.find_child([name](const Element& child) {

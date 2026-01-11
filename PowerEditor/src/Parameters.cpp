@@ -61,6 +61,14 @@
 #pragma warning(disable : 4996) // for GetVersionEx()
 #endif
 
+static constexpr const wchar_t localConfFile[] = L"doLocalConf.xml";
+static constexpr const wchar_t notepadStyleFile[] = L"asNotepad.xml";
+
+static constexpr int NB_MAX_FINDHISTORY_FIND = 30;
+static constexpr int NB_MAX_FINDHISTORY_REPLACE = 30;
+static constexpr int NB_MAX_FINDHISTORY_PATH = 30;
+static constexpr int NB_MAX_FINDHISTORY_FILTER = 20;
+
 using namespace std;
 
 namespace // anonymous namespace
@@ -631,7 +639,7 @@ static constexpr ScintillaKeyDefinition scintKeyDefs[]
 
 #define SESSION_BACKUP_EXT L".inCaseOfCorruption.bak"
 
-typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
+using PGNSI = void (WINAPI*)(LPSYSTEM_INFO);
 
 int strVal(const wchar_t *str, int base)
 {
@@ -933,16 +941,16 @@ winVer NppParameters::getWindowsVersion()
 	ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
 
 	osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
-	BOOL bOsVersionInfoEx = GetVersionEx ((OSVERSIONINFO *)&osvi);
+	const BOOL bOsVersionInfoEx = ::GetVersionExW(reinterpret_cast<OSVERSIONINFO*>(&osvi));
 	if (!bOsVersionInfoEx)
 	{
 		osvi.dwOSVersionInfoSize = sizeof (OSVERSIONINFO);
-		if (! GetVersionEx ( (OSVERSIONINFO *) &osvi) )
+		if (!::GetVersionExW(reinterpret_cast<OSVERSIONINFO*>(&osvi)))
 			return WV_UNKNOWN;
 	}
 
-	pGNSI = (PGNSI) GetProcAddress(GetModuleHandle(L"kernel32.dll"), "GetNativeSystemInfo");
-	if (pGNSI != NULL)
+	pGNSI = reinterpret_cast<PGNSI>(::GetProcAddress(GetModuleHandle(L"kernel32.dll"), "GetNativeSystemInfo"));
+	if (pGNSI != nullptr)
 		pGNSI(&si);
 	else
 		GetSystemInfo(&si);
@@ -1894,13 +1902,13 @@ void NppParameters::setCurLineHilitingColour(COLORREF colour2Set)
 
 static int CALLBACK EnumFontFamExProc(const LOGFONT* lpelfe, const TEXTMETRIC*, DWORD, LPARAM lParam)
 {
-	std::vector<std::wstring>& strVect = *(std::vector<std::wstring> *)lParam;
-	const int32_t vectSize = static_cast<int32_t>(strVect.size());
-	const wchar_t* lfFaceName = ((ENUMLOGFONTEX*)lpelfe)->elfLogFont.lfFaceName;
+	auto& strVect = *reinterpret_cast<std::vector<std::wstring>*>(lParam);
+	const auto vectSize = static_cast<int>(strVect.size());
+	const wchar_t* lfFaceName = (reinterpret_cast<const ENUMLOGFONTEX*>(lpelfe))->elfLogFont.lfFaceName;
 
 	//Search through all the fonts, EnumFontFamiliesEx never states anything about order
 	//Start at the end though, that's the most likely place to find a duplicate
-	for (int i = vectSize - 1 ; i >= 0 ; i--)
+	for (int i = vectSize - 1; i >= 0; --i)
 	{
 		if (lstrcmp(strVect[i].c_str(), lfFaceName) == 0)
 			return 1;	//we already have seen this typeface, ignore it
@@ -3526,9 +3534,9 @@ void NppParameters::getActions(NppXml::Node node, Macro& macro)
 
 		if (msg == SCI_REPLACESEL
 			&& sParam[0] != '\0'
-			&& isCR
-			|| std::strcmp(sParam, "\r\n") == 0
-			|| std::strcmp(sParam, "\n") == 0)
+			&& (isCR
+				|| std::strcmp(sParam, "\r\n") == 0
+				|| std::strcmp(sParam, "\n") == 0))
 		{
 			if (isPrevMacroCR)
 			{
@@ -3661,7 +3669,7 @@ void NppParameters::feedScintKeys(NppXml::Node node)
 		for (int i = 0; i < static_cast<int>(len); ++i)
 		{
 			ScintillaKeyMap & skmOrig = _scintillaKeyCommands[i];
-			if (skmOrig.getScintillaKeyID() == (unsigned long)scintKey && skmOrig.getMenuCmdID() == menuID)
+			if (skmOrig.getScintillaKeyID() == static_cast<unsigned long>(scintKey) && skmOrig.getMenuCmdID() == menuID)
 			{
 				//Found matching command
 				_scintillaKeyCommands[i].clearDups();

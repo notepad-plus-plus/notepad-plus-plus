@@ -24,6 +24,7 @@
 
 #include <ILexer.h>
 #include <Lexilla.h>
+#include <SciLexer.h>
 #include <Scintilla.h>
 
 #include <tinyxml.h>
@@ -31,7 +32,6 @@
 #include "NppXml.h"
 
 #include "ToolBar.h"
-#include "UserDefineLangReference.h"
 #include "colors.h"
 #include "shortcut.h"
 #include "ContextMenu.h"
@@ -56,46 +56,6 @@
 
 class NativeLangSpeaker;
 
-const bool POS_VERTICAL = true;
-const bool POS_HORIZONTAL = false;
-
-const int UDD_SHOW   = 1; // 0000 0001
-const int UDD_DOCKED = 2; // 0000 0010
-
-// 0 : 0000 0000 hide & undocked
-// 1 : 0000 0001 show & undocked
-// 2 : 0000 0010 hide & docked
-// 3 : 0000 0011 show & docked
-
-const int TAB_DRAWTOPBAR            =    1;    // 0000 0000 0000 0001
-const int TAB_DRAWINACTIVETAB       =    2;    // 0000 0000 0000 0010
-const int TAB_DRAGNDROP             =    4;    // 0000 0000 0000 0100
-const int TAB_REDUCE                =    8;    // 0000 0000 0000 1000
-const int TAB_CLOSEBUTTON           =   16;    // 0000 0000 0001 0000
-const int TAB_DBCLK2CLOSE           =   32;    // 0000 0000 0010 0000
-const int TAB_VERTICAL              =   64;    // 0000 0000 0100 0000
-const int TAB_MULTILINE             =  128;    // 0000 0000 1000 0000
-const int TAB_HIDE                  =  256;    // 0000 0001 0000 0000
-const int TAB_QUITONEMPTY           =  512;    // 0000 0010 0000 0000
-const int TAB_ALTICONS              = 1024;    // 0000 0100 0000 0000
-const int TAB_PINBUTTON             = 2048;    // 0000 1000 0000 0000
-const int TAB_INACTIVETABSHOWBUTTON = 4096;    // 0001 0000 0000 0000
-const int TAB_SHOWONLYPINNEDBUTTON  = 8192;    // 0010 0000 0000 0000
-
-const bool activeText = true;
-const bool activeNumeric = false;
-
-enum class EolType: std::uint8_t
-{
-	windows,
-	macos,
-	unix,
-
-	// special values
-	unknown, // cannot be the first value for legacy code
-	osdefault = windows,
-};
-
 /*!
 ** \brief Convert an int into a FormatType
 ** \param value An arbitrary int
@@ -103,79 +63,9 @@ enum class EolType: std::uint8_t
 */
 EolType convertIntToFormatType(int value, EolType defvalue = EolType::osdefault);
 
-
-enum UniMode {
-	uni8Bit       = 0,  // ANSI
-	uniUTF8       = 1,  // UTF-8 with BOM
-	uni16BE       = 2,  // UTF-16 Big Endian with BOM
-	uni16LE       = 3,  // UTF-16 Little Endian with BOM
-	uniUTF8_NoBOM = 4,  // UTF-8 without BOM
-	uni7Bit       = 5,  // 0 - 127 ASCII
-	uni16BE_NoBOM = 6,  // UTF-16 Big Endian without BOM
-	uni16LE_NoBOM = 7,  // UTF-16 Little Endian without BOM
-	uniEnd
-};
-
-enum ChangeDetect { cdDisabled = 0x0, cdEnabledOld = 0x01, cdEnabledNew = 0x02, cdAutoUpdate = 0x04, cdGo2end = 0x08 };
-enum BackupFeature {bak_none = 0, bak_simple = 1, bak_verbose = 2};
-enum OpenSaveDirSetting {dir_followCurrent = 0, dir_last = 1, dir_userDef = 2};
-enum MultiInstSetting {monoInst = 0, multiInstOnSession = 1, multiInst = 2};
-enum writeTechnologyEngine { defaultTechnology = 0, directWriteTechnology = 1, directWriteRetainTechnology = 2,
-	directWriteDcTechnology = 3, directWriteDX11Technology = 4, directWriteTechnologyUnavailable = 5 };
-enum urlMode {urlDisable = 0, urlNoUnderLineFg, urlUnderLineFg, urlNoUnderLineBg, urlUnderLineBg,
-              urlMin = urlDisable,
-              urlMax = urlUnderLineBg};
-
-enum AutoIndentMode { autoIndent_none = 0, autoIndent_advanced = 1, autoIndent_basic = 2 };
-enum SysTrayAction { sta_none = 0, sta_minimize = 1, sta_close = 2, sta_minimize_close = 3 };
-
-const int LANG_INDEX_INSTR = 0;
-const int LANG_INDEX_INSTR2 = 1;
-const int LANG_INDEX_TYPE = 2;
-const int LANG_INDEX_TYPE2 = 3;
-const int LANG_INDEX_TYPE3 = 4;
-const int LANG_INDEX_TYPE4 = 5;
-const int LANG_INDEX_TYPE5 = 6;
-const int LANG_INDEX_TYPE6 = 7;
-const int LANG_INDEX_TYPE7 = 8;
-const int LANG_INDEX_SUBSTYLE1 = 9;
-const int LANG_INDEX_SUBSTYLE2 = 10;
-const int LANG_INDEX_SUBSTYLE3 = 11;
-const int LANG_INDEX_SUBSTYLE4 = 12;
-const int LANG_INDEX_SUBSTYLE5 = 13;
-const int LANG_INDEX_SUBSTYLE6 = 14;
-const int LANG_INDEX_SUBSTYLE7 = 15;
-const int LANG_INDEX_SUBSTYLE8 = 16;
-
-const int COPYDATA_PARAMS = 0;
-//const int COPYDATA_FILENAMESA = 1; // obsolete, no more useful
-const int COPYDATA_FILENAMESW = 2;
-const int COPYDATA_FULL_CMDLINE = 3;
-
 #define PURE_LC_NONE	0
 #define PURE_LC_BOL	 1
 #define PURE_LC_WSP	 2
-
-#define DECSEP_DOT	  0
-#define DECSEP_COMMA	1
-#define DECSEP_BOTH	 2
-
-
-#define DROPBOX_AVAILABLE 1
-#define ONEDRIVE_AVAILABLE 2
-#define GOOGLEDRIVE_AVAILABLE 4
-
-#define NPP_STYLING_FILESIZE_LIMIT_DEFAULT (200 * 1024 * 1024) // 200MB+ file won't be styled
-
-#define FINDREPLACE_MAXLENGTH 16384      // the maximum length of the string (decrease 1 for '\0') to search in the editor
-
-const int FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT = 1024;
-const int FILL_FINDWHAT_THRESHOLD_DEFAULT = 1024;
-
-const wchar_t fontSizeStrs[][3] = {L"", L"5", L"6", L"7", L"8", L"9", L"10", L"11", L"12", L"14", L"16", L"18", L"20", L"22", L"24", L"26", L"28"};
-
-const wchar_t localConfFile[] = L"doLocalConf.xml";
-const wchar_t notepadStyleFile[] = L"asNotepad.xml";
 
 // issue xml/log file name
 const wchar_t nppLogNetworkDriveIssue[] = L"nppLogNetworkDriveIssue";
@@ -354,7 +244,9 @@ struct CmdLineParamsDTO
 	}
 };
 
-#define FWI_PANEL_WH_DEFAULT 100
+inline constexpr int FWI_PANEL_WH_DEFAULT = 100;
+inline constexpr int DMD_PANEL_WH_DEFAULT = 200;
+
 struct FloatingWindowInfo
 {
 	int _cont = 0;
@@ -399,8 +291,6 @@ struct ContainerTabInfo final
 	ContainerTabInfo(int cont, int activeTab) : _cont(cont), _activeTab(activeTab) {}
 };
 
-
-#define DMD_PANEL_WH_DEFAULT 200
 struct DockingManagerData final
 {
 	int _leftWidth = DMD_PANEL_WH_DEFAULT;
@@ -432,21 +322,6 @@ struct DockingManagerData final
 		return false;
 	}
 };
-
-
-
-const int FONTSTYLE_NONE = 0;
-const int FONTSTYLE_BOLD = 1;
-const int FONTSTYLE_ITALIC = 2;
-const int FONTSTYLE_UNDERLINE = 4;
-
-const int STYLE_NOT_USED = -1;
-
-const int COLORSTYLE_FOREGROUND = 0x01;
-const int COLORSTYLE_BACKGROUND = 0x02;
-const int COLORSTYLE_ALL = COLORSTYLE_FOREGROUND|COLORSTYLE_BACKGROUND;
-
-
 
 struct Style final
 {
@@ -775,26 +650,6 @@ public:
 	bool _doDoubleQuotes = false;
 };
 
-constexpr COLORREF g_cDefaultMainDark = RGB(0xDE, 0xDE, 0xDE);
-constexpr COLORREF g_cDefaultSecondaryDark = RGB(0x4C, 0xC2, 0xFF);
-constexpr COLORREF g_cDefaultMainLight = RGB(0x21, 0x21, 0x21);
-constexpr COLORREF g_cDefaultSecondaryLight = RGB(0x00, 0x78, 0xD4);
-
-enum class FluentColor
-{
-	defaultColor =  0,
-	red =           1,
-	green =         2,
-	blue =          3,
-	purple =        4,
-	cyan =          5,
-	olive =         6,
-	yellow =        7,
-	accent =        8,
-	custom =        9,
-	maxValue =     10
-};
-
 struct TbIconInfo
 {
 	toolBarStatusType _tbIconSet = TB_STANDARD;
@@ -1088,29 +943,6 @@ struct ScintillaViewParams
 	bool _columnSel2MultiEdit = true; // _columnSel2MultiEdit must be false
 };
 
-const int NB_LIST = 20;
-const int NB_MAX_LRF_FILE = 30;
-const int NB_MAX_USER_LANG = 30;
-const int NB_MAX_EXTERNAL_LANG = 30;
-const int NB_MAX_IMPORTED_UDL = 50;
-
-constexpr int NB_DEFAULT_LRF_CUSTOMLENGTH = 100;
-constexpr int NB_MAX_LRF_CUSTOMLENGTH = MAX_PATH - 1;
-
-inline constexpr int NB_MAX_TAB_COMPACT_LABEL_LEN = MAX_PATH - 3; // -3 for the possible ending ellipsis (...)
-
-const int NB_MAX_FINDHISTORY_FIND	= 30;
-const int NB_MAX_FINDHISTORY_REPLACE = 30;
-const int NB_MAX_FINDHISTORY_PATH	= 30;
-const int NB_MAX_FINDHISTORY_FILTER  = 20;
-
-
-const int MASK_ReplaceBySpc = 0x80;
-const int MASK_TabSize = 0x7F;
-
-
-
-
 struct Lang final
 {
 	LangType _langID = L_TEXT;
@@ -1155,6 +987,8 @@ struct Lang final
 
 	void setTabInfo(int tabInfo, bool isBackspaceUnindent)
 	{
+		static constexpr int MASK_ReplaceBySpc = 0x80;
+		static constexpr int MASK_TabSize = 0x7F;
 		if (tabInfo != -1 && tabInfo & MASK_TabSize)
 		{
 			_isTabReplacedBySpace = (tabInfo & MASK_ReplaceBySpc) != 0;
@@ -1191,7 +1025,7 @@ struct Lang final
 class UserLangContainer final
 {
 public:
-	UserLangContainer() :_name(L"new user define"), _ext(L""), _udlVersion(L"") {
+	UserLangContainer() :_name(L"new user define"), _ext(L""), _isDarkModeTheme(false), _udlVersion(L"") {
 		for (int i = 0; i < SCE_USER_KWLIST_TOTAL; ++i) *_keywordLists[i] = '\0';
 	}
 
@@ -1264,10 +1098,6 @@ private:
 	friend class UserDefineDialog;
 	friend class StylerDlg;
 };
-
-#define MAX_EXTERNAL_LEXER_NAME_LEN 128
-
-
 
 class ExternalLangContainer final
 {
@@ -1487,10 +1317,7 @@ struct UdlXmlFileState final {
 		: _udlXmlDoc(doc), _isDirty(isDirty), _isInDefaultSharedContainer(isInDefaultSharedContainer), _indexRange(range) {}
 };
 
-const int NB_LANG = 100;
-
-const int RECENTFILES_SHOWFULLPATH = -1;
-const int RECENTFILES_SHOWONLYFILENAME = 0;
+inline constexpr int NB_LANG = 100;
 
 class DynamicMenu final
 {

@@ -359,7 +359,6 @@
     <ClInclude Include="..\src\WinControls\TrayIcon\trayIconControler.h" />
     <ClInclude Include="..\src\WinControls\AboutDlg\URLCtrl.h" />
     <ClInclude Include="..\src\ScintillaComponent\UserDefineDialog.h" />
-    <ClInclude Include="..\src\ScintillaComponent\UserDefineLangReference.h" />
     <ClInclude Include="..\src\ScintillaComponent\UserDefineResource.h" />
     <ClInclude Include="..\src\Utf8_16.h" />
     <ClInclude Include="..\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcher.h" />

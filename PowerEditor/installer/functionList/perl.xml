@@ -16,6 +16,7 @@
 			... make sure to rename the id\s*=\s*"perl_function" near the beginning with "perl_syntax" to match
 			...
 			... 2025-11-26: Improve the regex to not include as much pointless backtracking
+			... 2026-01-12: Add the class/method syntax in addition to package/sub
 			-->
 
 			<parser
@@ -31,7 +32,7 @@
 							(?m)                                                # ^ and $ match at line-breaks
 							(?'PACKAGE_HEADER'
 								^                                               # NO leading white-space at start-of-line
-								(?-i:package\b)
+								(?-i:(?:package|class)\b)
 							)
 							(?s:.*?)                                            # whatever,
 							(?=                                                 # ...up till
@@ -55,7 +56,7 @@
 						mainExpr="(?x)                                          # free-spacing (see `RegEx - Pattern Modifiers`)
 								(?m)
 								^\h*
-								sub
+								(?:sub|method)
 								\s+
 								(?:\w++\:\:)*                                   # optional prefix::package::names::
 								\w+
@@ -66,7 +67,7 @@
 					>
 						<functionName>
 							<funcNameExpr expr="(?x)                            # free-spacing (see `RegEx - Pattern Modifiers`)
-									(sub\s+)?
+									((?:sub|method)\s+)?
 									\K                                          # discard text matched so far
 									(?:\w++\:\:)*                               # optional prefix::package::names::
 									\w+                                         # move the \K to just before this line if you don't want prefix::package shown in the functionList Panel
@@ -79,7 +80,7 @@
 					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
 							(?m)
 							^\h*
-							sub
+							(?:sub|method)
 							\s+
 							(?:\w++\:\:)*                                       # optional prefix::package::names::
 							\w+                                                 # add \K before the \w+ if you don't want prefix::package:: shown in the functionList Panel
@@ -90,7 +91,7 @@
 				>
 					<functionName>
 						<nameExpr expr="(?x)                                    # free-spacing (see `RegEx - Pattern Modifiers`)
-								(?:sub\s+)?
+								(?:(?:sub|method)\s+)?
 								\K                                              # discard text matched so far
 								(?:\w++\:\:)*                                   # optional prefix::package::names::
 								\w+
@@ -98,7 +99,7 @@
 						/>
 					</functionName>
 					<className>
-						<nameExpr expr="sub\s+\K\w+(::\w+)*(?=::\w)"/>
+						<nameExpr expr="(?:sub|method)\s+\K\w+(::\w+)*(?=::\w)"/>
 					</className>
 				</function>
 			</parser>

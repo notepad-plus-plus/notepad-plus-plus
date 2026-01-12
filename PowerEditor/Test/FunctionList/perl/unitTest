@@ -319,3 +319,30 @@ package NameSpace::Block {
 
 package NameSpace::Semicolon;
 sub afterSemi { return 0 }
+
+class NewClassSyntax {
+    method inBlock { return 1 }
+    method inBlockProto($) { return $_[0] }
+    method inBlockAttrib :prototype($) { return $_[0] }
+}
+
+class BLOCK {
+	method Block1 {my $a=42}
+}
+
+class VERSION_BLOCK 1.9 {
+	method Block2 {my $a=42}
+}
+
+class VERSION_ATTR_BLOCK 2.5 :isa(Example::Base) {
+	method Block3 {my $a=42}
+}
+
+class STMT;
+	method Block4 {my $a=42};
+
+class VERSION_STMT 2.9;
+	method Block5 {my $a=42};
+
+class VERSION_ATTR_STMT 3.5 :isa(Example::Base);
+	method Block6 {my $a=42};

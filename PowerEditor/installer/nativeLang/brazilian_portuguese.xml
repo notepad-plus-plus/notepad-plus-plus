@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 15 Dec 2025 for 8.8.9+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 11 Jan 2026 for 8.9+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.8.9">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1778,6 +1778,9 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
 			<find-status-scope-all value="no arquivo inteiro"/>
 			<find-status-scope-backward value="do começo do arquivo ao cursor"/>
 			<find-status-scope-forward value="do cursor ao fim do arquivo"/>
+			<find-status-invisible-chars-findWhat value="Caracteres invisíveis colados nos campos &quot;Localizar&quot; ou &quot;Substituir por&quot;"/>
+			<find-status-invisible-chars-findWhat-tip value="Aviso: Caracteres invisíveis no campo localizar (ou substituir por). 
+O texto colado neste campo inclui caracteres invisíveis (talvez caracter de final de linha). Se você continuar sem apagá-los, eles serão incluídos no texto de busca (ou substituição)."/>
 			<finder-find-in-finder value="Localizar nos resultados encontrados..."/>
 			<finder-close-this value="Fechar estes resultados de pesquisa"/>
 			<finder-collapse-all value="Recolher tudo"/>

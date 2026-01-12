@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.8.7">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1778,6 +1778,9 @@ OKボタンを押すと検索ダイアログが開きます。
 			<find-status-scope-all value="（ファイル全体）"/>
 			<find-status-scope-backward value="（ファイル先頭から カーソル位置まで）"/>
 			<find-status-scope-forward value="（カーソル位置から ファイル末尾まで）"/>
+			<find-status-invisible-chars-findWhat value="「検索文字列」や「置換文字列」に貼り付けられたテキストに、不可視文字が含まれています"/>
+			<find-status-invisible-chars-findWhat-tip value="注意：検索／置換文字列に不可視文字があります。
+貼り付けられたテキストに不可視文字（改行文字など）が含まれています。削除しない場合、これらの文字も検索／置換文字列として扱われます。"/>
 			<finder-find-in-finder value="この検索結果から検索..."/>
 			<finder-close-this value="この検索結果を閉じる"/>
 			<finder-collapse-all value="すべて畳む"/>

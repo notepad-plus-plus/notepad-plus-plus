@@ -18,7 +18,15 @@
 #pragma once
 
 #include "FunctionCallTip.h"
-#include "tinyxml.h"
+
+#include <windows.h>
+
+#include <string>
+#include <vector>
+
+#include "Notepad_plus_msgs.h"
+#include "NppXml.h"
+#include "Parameters.h"
 
 class ScintillaEditView;
 
@@ -39,7 +47,7 @@ public:
 
 private:
 	std::vector<MatchedCharInserted> _insertedMatchedChars;
-	ScintillaEditView * _pEditView = nullptr;
+	ScintillaEditView* _pEditView = nullptr;
 };
 
 class AutoCompletion {
@@ -79,7 +87,7 @@ public:
 	void insertMatchedChars(int character, const MatchedPairConf & matchedPairConf);
 	void update(int character);
 	void callTipClick(size_t direction);
-	void getCloseTag(char *closeTag, size_t closeTagLen, size_t caretPos, bool isHTML);
+	void getCloseTag(char* closeTag, size_t closeTagLen, size_t caretPos, bool isHTML) const;
 
 	static void setColour(COLORREF colour2Set, AutocompleteColorIndex i);
 	static void drawAutocomplete(const ScintillaEditView* pEditView);
@@ -95,10 +103,10 @@ protected:
 
 private:
 	bool _funcCompletionActive = false;
-	ScintillaEditView * _pEditView = nullptr;
+	ScintillaEditView* _pEditView = nullptr;
 	LangType _curLang = L_TEXT;
-	TiXmlDocument *_pXmlFile = nullptr;
-	TiXmlElement *_pXmlKeyword = nullptr;
+	NppXml::Document _pXmlFile = nullptr;
+	NppXml::Element _xmlKeyword{};
 	bool _isFxImageRegistered = false;
 	bool _isFxImageRegisteredDark = false;
 
@@ -106,14 +114,14 @@ private:
 
 	bool _ignoreCase = true;
 
-	std::vector<std::wstring> _keyWordArray;
-	std::wstring _keyWords;
+	std::vector<std::string> _keyWordArray;
+	std::string _keyWords;
 	size_t _keyWordMaxLen = 0;
 
 	FunctionCallTip _funcCalltip;
 
-	const wchar_t * getApiFileName();
-	void getWordArray(std::vector<std::wstring> & wordArray, const wchar_t *beginChars, const wchar_t *excludeChars);
+	const wchar_t* getApiFileName();
+	void getWordArray(std::vector<std::string>& wordArray, const char* beginChars, const char* excludeChars) const;
 
 	// Type of autocomplete function
 	enum AutocompleteType {

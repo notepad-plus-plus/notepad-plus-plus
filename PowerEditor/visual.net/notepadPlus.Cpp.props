@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="Configuration">
-    <ExternalIncludePath>..\..\lexilla\include;..\..\scintilla\include;..\src\pugixml;..\src\tinyxml2;..\src\tinyxml;..\src\uchardet;..\src\json;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>..\..\lexilla\include;..\..\scintilla\include;..\src\pugixml;..\src\tinyxml;..\src\uchardet;..\src\json;$(ExternalIncludePath)</ExternalIncludePath>
     <LinkIncremental>false</LinkIncremental>
     <EnableCppCoreCheck>true</EnableCppCoreCheck>
     <CodeAnalysisRuleSet>notepadPlus.ruleset</CodeAnalysisRuleSet>

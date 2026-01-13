@@ -13,10 +13,16 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
 #pragma once
-#include "resource.h"
+
+#include <windows.h>
+
+#include <cstdint>
+
 #include "Window.h"
-#include "Common.h"
+#include "resource.h"
 
 
 #define SV_HORIZONTAL		0x00000001
@@ -32,9 +38,6 @@
 #define WM_DOPOPUPMENU			(SPLITTER_USER + 3)
 #define WM_RESIZE_CONTAINER		(SPLITTER_USER + 4)
 
-const int HIEGHT_MINIMAL = 15;
-
-
 enum class Arrow { left, up, right, down };
 
 enum class WH { height, width };
@@ -43,18 +46,14 @@ enum class ZONE_TYPE { bottomRight, topLeft };
 
 enum class SplitterMode: std::uint8_t
 {
-    DYNAMIC, LEFT_FIX, RIGHT_FIX
+	DYNAMIC, LEFT_FIX, RIGHT_FIX
 };
-
-
-
-
 
 class Splitter : public Window
 {
 public:
 	Splitter() = default;
-	virtual ~Splitter() = default;
+	~Splitter() override = default;
 
 	void destroy() override;
 
@@ -84,6 +83,8 @@ private:
 	RECT _clickZone2TL = {};
 	RECT _clickZone2BR = {};
 
+	using Window::init;
+
 	static LRESULT CALLBACK staticWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	LRESULT CALLBACK spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lParam);
 
@@ -98,17 +99,17 @@ private:
 	bool isInLeftTopZone(const POINT& p) const
 	{
 		return ((p.x >= _clickZone2TL.left)
-			and (p.x <= _clickZone2TL.left + _clickZone2TL.right)
-			and (p.y >= _clickZone2TL.top)
-			and (p.y <= _clickZone2TL.top + _clickZone2TL.bottom));
+			&& (p.x <= _clickZone2TL.left + _clickZone2TL.right)
+			&& (p.y >= _clickZone2TL.top)
+			&& (p.y <= _clickZone2TL.top + _clickZone2TL.bottom));
 	}
 
 	bool isInRightBottomZone(const POINT& p) const
 	{
 		return ((p.x >= _clickZone2BR.left)
-			and (p.x <= _clickZone2BR.left + _clickZone2BR.right)
-			and (p.y >= _clickZone2BR.top)
-			and (p.y <= _clickZone2BR.top + _clickZone2BR.bottom));
+			&& (p.x <= _clickZone2BR.left + _clickZone2BR.right)
+			&& (p.y >= _clickZone2BR.top)
+			&& (p.y <= _clickZone2BR.top + _clickZone2BR.bottom));
 	}
 
 	int getSplitterFixPosX() const

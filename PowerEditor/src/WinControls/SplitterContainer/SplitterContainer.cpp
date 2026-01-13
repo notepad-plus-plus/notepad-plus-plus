@@ -13,19 +13,30 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
-#include <iostream>
-#include <stdexcept>
-#include <windows.h>
+
+
 #include "SplitterContainer.h"
-#include "Parameters.h"
-#include "localization.h"
+
+#include <windows.h>
+
 #include <cassert>
+#include <cstdint>
+#include <stdexcept>
+#include <string>
+
+#include "Parameters.h"
+#include "Splitter.h"
+#include "Window.h"
+#include "localization.h"
+#include "resource.h"
 
 
+static constexpr auto SPC_CLASS_NAME = L"splitterContainer";
+
+static constexpr int ROTATION_LEFT = 2000;
+static constexpr int ROTATION_RIGHT = 2001;
 
 bool SplitterContainer::_isRegistered = false;
-
-
 
 void SplitterContainer::create(Window *pWin0, Window *pWin1, int splitterSize, SplitterMode mode, int ratio, bool isVertical)
 {
@@ -147,12 +158,11 @@ void SplitterContainer::rotateTo(DIRECTION direction)
 
 LRESULT CALLBACK SplitterContainer::staticWinProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	SplitterContainer *pSplitterContainer = NULL;
 	switch (message)
 	{
 		case WM_NCCREATE:
 		{
-			pSplitterContainer = static_cast<SplitterContainer *>(reinterpret_cast<LPCREATESTRUCT>(lParam)->lpCreateParams);
+			auto* pSplitterContainer = static_cast<SplitterContainer*>(reinterpret_cast<LPCREATESTRUCT>(lParam)->lpCreateParams);
 			pSplitterContainer->_hSelf = hwnd;
 			::SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pSplitterContainer));
 			return TRUE;
@@ -160,7 +170,7 @@ LRESULT CALLBACK SplitterContainer::staticWinProc(HWND hwnd, UINT message, WPARA
 
 		default:
 		{
-			pSplitterContainer = (SplitterContainer *)::GetWindowLongPtr(hwnd, GWLP_USERDATA);
+			auto* pSplitterContainer = reinterpret_cast<SplitterContainer*>(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
 			if (!pSplitterContainer)
 				return ::DefWindowProc(hwnd, message, wParam, lParam);
 			return pSplitterContainer->runProc(message, wParam, lParam);
@@ -176,7 +186,7 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 		case WM_CREATE:
 		{
 			_splitter.init(_hInst, _hSelf, _splitterSize, _ratio, _dwSplitterStyle);
-			return TRUE;
+			return 0;
 		}
 
 		case WM_COMMAND:
@@ -186,22 +196,23 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 				case ROTATION_LEFT:
 				{
 					rotateTo(DIRECTION::LEFT);
-					break;
+					return 0;
 				}
 				case ROTATION_RIGHT:
 				{
 					rotateTo(DIRECTION::RIGHT);
-					break;
+					return 0;
 				}
 			}
-			return TRUE;
+			break;
 		}
 
 		case WM_RESIZE_CONTAINER:
 		{
-			RECT rc0, rc1;
+			RECT rc0{};
 			getClientRect(rc0);
 
+			RECT rc1{};
 			rc1.top = rc0.top += _y;
 			rc1.bottom = rc0.bottom;
 			rc1.left = rc0.left += _x;
@@ -236,9 +247,9 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 		case WM_DOPOPUPMENU:
 		{
-			if ((_splitterMode != SplitterMode::LEFT_FIX) && (_splitterMode != SplitterMode::RIGHT_FIX) )
+			if ((_splitterMode != SplitterMode::LEFT_FIX) && (_splitterMode != SplitterMode::RIGHT_FIX))
 			{
-				POINT p;
+				POINT p{};
 				::GetCursorPos(&p);
 
 				if (!_hPopupMenu)
@@ -305,22 +316,23 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 		case WM_LBUTTONDBLCLK:
 		{
-			POINT pt;
+			POINT pt{};
 			::GetCursorPos(&pt);
 			::ScreenToClient(_splitter.getHSelf(), &pt);
 
 			HWND parent = ::GetParent(getHSelf());
 
-			Window* targetWindow = (isVertical())
+			const Window* targetWindow = (isVertical())
 				? (pt.x < 0 ? _pWin0 : _pWin1)
 				: (pt.y < 0 ? _pWin0 : _pWin1);
 
 			::SendMessage(parent, NPPM_INTERNAL_SWITCHVIEWFROMHWND, 0, reinterpret_cast<LPARAM>(targetWindow->getHSelf()));
 			::SendMessage(parent, WM_LBUTTONDBLCLK, wParam, lParam);
-			return TRUE;
+			return 0;
 		}
 
 		default:
-			return ::DefWindowProc(_hSelf, message, wParam, lParam);
+			break;
 	}
+	return ::DefWindowProc(_hSelf, message, wParam, lParam);
 }

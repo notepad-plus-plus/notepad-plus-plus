@@ -1702,7 +1702,7 @@ public:
 
 	NppXml::Document getNativeLang() const { return _pXmlNativeLangDoc; }
 
-	TiXmlDocument* getCustomizedToolButtons() const { return _pXmlToolButtonsConfDoc; }
+	NppXml::Document getCustomizedToolButtons() const { return _pXmlToolButtonsConfDoc; }
 
 	bool isTransparentAvailable() const {
 		return (_winVersion >= WV_VISTA);
@@ -1966,7 +1966,7 @@ private:
 	TiXmlDocument *_pXmlUserStylerDoc = nullptr; // stylers.xml
 	TiXmlDocument *_pXmlUserLangDoc = nullptr; // userDefineLang.xml
 	std::vector<UdlXmlFileState> _pXmlUserLangsDoc; // userDefineLang customized XMLs
-	TiXmlDocument * _pXmlToolButtonsConfDoc = nullptr; // toolbarButtonsConf.xml
+	NppXml::Document _pXmlToolButtonsConfDoc = nullptr; // toolbarButtonsConf.xml
 
 	NppXml::Document _pXmlShortcutDoc = nullptr; // shortcuts.xml
 

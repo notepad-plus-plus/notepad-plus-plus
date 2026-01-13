@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 03.12.2025 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 13.01.2026 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \========================================================================== -->
 <NotepadPlus>
@@ -1708,6 +1708,9 @@
 			<find-status-scope-all value="в целият файл"/>
 			<find-status-scope-backward value="от началото на файла до курсора"/>
 			<find-status-scope-forward value="от курсора до края на файла"/>
+			<find-status-invisible-chars-findWhat value="Невидими символи в поставеното съдържание &quot;Търсене на&quot; или &quot;Замяна с&quot; content"/>
+			<find-status-invisible-chars-findWhat-tip value="Предупреждение: Невидими символи в полето за търсене (или замяна).
+Текстът, поставен в това поле, съдържа невидими символи (вероятно за край на ред). Ако продължите, без да ги изтриете, те ще бъдат включени в текста за търсене (или замяна)."/>
 			<finder-find-in-finder value="Търсене в намерените резултати..."/>
 			<finder-close-this value="Затваряне на това търсене"/>
 			<finder-collapse-all value="Свиване на всички"/>

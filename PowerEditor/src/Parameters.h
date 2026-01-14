@@ -1517,7 +1517,7 @@ public:
 	void writeNonDefaultUDL();
 	void writeNeed2SaveUDL();
 	void writeShortcuts();
-	void writeSession(const Session & session, const wchar_t *fileName = NULL);
+	void writeSession(const Session& session, const wchar_t* fileName = nullptr);
 	bool writeFindHistory();
 
 	bool isExistingUserLangName(const wchar_t *newName) const

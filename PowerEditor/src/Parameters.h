@@ -122,20 +122,20 @@ public:
 	bool _isWrap = false;
 	bool isValid() const { return (_firstVisibleDisplayLine != -1); }
 	bool canScroll() const { return (_KByteInDoc < _maxPeekLenInKB); } // _nbCharInDoc < _maxPeekLen : Don't scroll the document for the performance issue
+	static constexpr intptr_t getMaxPeekLenInKB() { return _maxPeekLenInKB; }
 };
 
 
 struct sessionFileInfo : public Position
 {
-	sessionFileInfo(const wchar_t* fn, const wchar_t *ln, int encoding, bool userReadOnly,bool isPinned, bool isUntitleTabRenamed, const Position& pos, const wchar_t *backupFilePath, FILETIME originalFileLastModifTimestamp, const MapPosition & mapPos) :
-		Position(pos), _encoding(encoding), _isUserReadOnly(userReadOnly), _isPinned(isPinned), _isUntitledTabRenamed(isUntitleTabRenamed), _originalFileLastModifTimestamp(originalFileLastModifTimestamp), _mapPos(mapPos)
-	{
-		if (fn) _fileName = fn;
-		if (ln)	_langName = ln;
-		if (backupFilePath) _backupFilePath = backupFilePath;
-	}
+	sessionFileInfo(const wchar_t* fn, const wchar_t* ln, int encoding, bool userReadOnly, bool isPinned, bool isUntitleTabRenamed, const Position& pos, const wchar_t* backupFilePath, FILETIME originalFileLastModifTimestamp, const MapPosition& mapPos) noexcept
+		: Position(pos), _fileName(fn ? fn : L""), _langName(ln ? ln : L"")
+		, _encoding(encoding), _isUserReadOnly(userReadOnly), _isPinned(isPinned)
+		, _isUntitledTabRenamed(isUntitleTabRenamed), _backupFilePath(backupFilePath ? backupFilePath : L"")
+		, _originalFileLastModifTimestamp(originalFileLastModifTimestamp), _mapPos(mapPos)
+	{}
 
-	sessionFileInfo(const std::wstring& fn) : _fileName(fn) {}
+	explicit sessionFileInfo(const std::wstring& fn) noexcept : _fileName(fn) {}
 
 	std::wstring _fileName;
 	std::wstring _langName;
@@ -2005,7 +2005,7 @@ private:
 	bool getUserCmdsFromXmlTree();
 	bool getPluginCmdsFromXmlTree();
 	bool getScintKeysFromXmlTree();
-	bool getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session& session);
+	static bool getSessionFromXmlTree(const NppXml::Document& pSessionDoc, Session& session);
 
 	void feedGUIParameters(TiXmlNode *node);
 	void feedKeyWordsParameters(TiXmlNode *node);

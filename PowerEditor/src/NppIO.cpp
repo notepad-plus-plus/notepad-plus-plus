@@ -2882,7 +2882,7 @@ const wchar_t * Notepad_plus::fileSaveSession(size_t nbFile, wchar_t ** fileName
 			for (size_t i = 0 ; i < nbFile ; ++i)
 			{
 				if (doesFileExist(fileNames[i]))
-					currentSession._mainViewFiles.push_back(wstring(fileNames[i]));
+					currentSession._mainViewFiles.push_back(sessionFileInfo(fileNames[i]));
 			}
 		}
 		else

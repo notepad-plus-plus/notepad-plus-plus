@@ -484,19 +484,6 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	nppParam.initFindDlgStatusMsgCustomColors();
 	setupColorSampleBitmapsOnMainMenuItems();
 
-	// Redaction Menu Item
-	HMENU hEditMenu = ::GetSubMenu(_mainMenuHandle, 1);
-	UINT uInsertAtIndex = 15;
-	::InsertMenu(
-		hEditMenu,
-		uInsertAtIndex,
-		MF_BYPOSITION | MF_STRING,
-		IDM_EDIT_REDACT_SELECTION,
-		// \u2588 = █
-		// \u25CF = ●
-		TEXT("&Redact Selection \u2588 (Shift: \u25CF)")
-	);
-
 	// Macro Menu
 	HMENU hMacroMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_MACRO);
 	size_t const macroPosBase = 6;
@@ -2626,6 +2613,13 @@ void Notepad_plus::checkDocState()
 	bool isUserReadOnly = curBuf->getUserReadOnly();
 	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_TOGGLEREADONLY, MF_BYCOMMAND | (isUserReadOnly ? MF_CHECKED : MF_UNCHECKED));
 	
+	long start = static_cast<long>(_pEditView->execute(SCI_GETSELECTIONSTART));
+	long end = static_cast<long>(_pEditView->execute(SCI_GETSELECTIONEND));
+	bool hasSelection = (start != end);
+	bool canRedact = !isSysReadOnly && !isUserReadOnly && hasSelection;
+
+	enableCommand(IDM_EDIT_REDACT_SELECTION, canRedact, MENU);
+
 
 	enableCommand(IDM_FILE_DELETE, isFileExisting, MENU);
 	enableCommand(IDM_FILE_OPEN_CMD, isFileExisting, MENU);

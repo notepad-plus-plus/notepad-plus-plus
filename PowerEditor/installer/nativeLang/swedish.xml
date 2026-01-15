@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.8.7">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1778,6 +1778,9 @@ Sök i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot; 
 			<find-status-scope-all value="i hela filen"/>
 			<find-status-scope-backward value="från början av filen till textmarkören"/>
 			<find-status-scope-forward value="från textmarkören till slutet av filen"/>
+			<find-status-invisible-chars-findWhat value="Innehåll med osynliga tecken klistrades in i &quot;Sök efter&quot; eller &quot;Ersätt med&quot;"/>
+			<find-status-invisible-chars-findWhat-tip value="Varning: Osynliga tecken i sökfältet (eller ersättningsfältet).
+Texten som klistrades in i detta fält innehåller osynliga tecken (kanske radslut). De kommer att följa med i söktexten (eller ersättningstexten) om du fortsätter utan att radera dem."/>
 			<finder-find-in-finder value="Sök i detta sökresultat..."/>
 			<finder-close-this value="Stäng denna sökning"/>
 			<finder-collapse-all value="Minimera alla"/>

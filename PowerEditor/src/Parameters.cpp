@@ -2452,6 +2452,64 @@ void NppParameters::updateStylesXml(TiXmlElement* rootUser, TiXmlElement* rootMo
 		if (modelLexerName.empty())
 			continue;
 
+		bool flag = false;
+		if (modelLexerName == L"javascript" || modelLexerName == L"javascript.js")
+			flag = true;
+
+		// map styleID numbers: index will be the target dot-js ID, intermediate index is fgColor/bgColor, stored value will be the source embedded-javascript color string
+		std::map <std::wstring, std::map<std::wstring, std::wstring>> mapColorsEmbeddedToDotJs;
+		if ((modelLexerName == L"javascript.js") && mapUserLexers.contains(L"javascript"))
+		{
+			TiXmlElement* srcEmbeddedLexer = mapUserLexers[L"javascript"];
+
+			// iterate through each embedded WordsStyle element
+			for (TiXmlElement* embeddedWordsStyle = srcEmbeddedLexer->FirstChildElement(L"WordsStyle");
+				embeddedWordsStyle;
+				embeddedWordsStyle = embeddedWordsStyle->NextSiblingElement(L"WordsStyle"))
+			{
+				const wchar_t* embeddedID = embeddedWordsStyle->Attribute(L"styleID");
+				const wchar_t* embeddedFG = embeddedWordsStyle->Attribute(L"fgColor");
+				const wchar_t* embeddedBG = embeddedWordsStyle->Attribute(L"bgColor");
+				if (embeddedID)
+				{
+					auto do_embedded_to_dot_js_map = [](std::map <std::wstring, std::map<std::wstring, std::wstring>>&colorid_map, std::wstring dotjs_id, std::wstring emb_id_desired, const wchar_t* embID, const wchar_t* embFG, const wchar_t* embBG) {
+						if (emb_id_desired == embID)
+						{
+							if (embFG)
+								colorid_map[dotjs_id][L"fgColor"] = embFG;
+							if (embBG)
+								colorid_map[dotjs_id][L"bgColor"] = embBG;
+						}
+					};
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"11", L"41", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::DEFAULT from EMBEDDED::DEFAULT
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"4", L"45", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::NUMBER from EMBEDDED::NUMBER
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"16", L"46", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::TYPE_WORD<type1> from EMBEDDED::WORD
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"5", L"47", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::INSTRUCTION_WORD <instre1> from EMBEDDED::KEYWORD <instre1>
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"19", L"47", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::WINDOW_INSTRUCTION <instre2> also from EMBEDDED::KEYWORD <instre1> (there isn't 1:1 mapping, so multiple .js styles inherit from from same embedded style)
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"6", L"48", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::STRING from EMBEDDED::DOUBLE STRING
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"20", L"48", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::STRING_RAW also from EMBEDDED::DOUBLE STRING
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"7", L"49", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::CHARACTER from EMBEDDED::SINGLE STRING
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"10", L"50", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::OPERATOR from EMBEDDED::SYMBOLS
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"14", L"52", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::REGEX from EMBEDDED::REGEX
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"1", L"42", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::COMMENT from EMBEDDED::COMMENT
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"2", L"43", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::COMMENT LINE from EMBEDDED::COMMENT LINE
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"3", L"44", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::COMMENT DOC from EMBEDDED::COMMENT DOC
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"15", L"44", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::COMMENT LINE DOC also from EMBEDDED::COMMENT DOC
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"17", L"44", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::COMMENT LINE DOC also from EMBEDDED::COMMENT DOC
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"18", L"44", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::COMMENT DOC KEYWORD also from EMBEDDED::COMMENT DOC
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"19", L"44", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::COMMENT DOC KEYWORD ERROR also from EMBEDDED::COMMENT DOC
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"128", L"200", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::USER* from EMBEDDED::USER*
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"129", L"201", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::USER* from EMBEDDED::USER*
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"130", L"202", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::USER* from EMBEDDED::USER*
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"131", L"203", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::USER* from EMBEDDED::USER*
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"132", L"204", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::USER* from EMBEDDED::USER*
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"133", L"205", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::USER* from EMBEDDED::USER*
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"134", L"206", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::USER* from EMBEDDED::USER*
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"135", L"207", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::USER* from EMBEDDED::USER*
+				}
+			}
+		}
+
 		// see if lexer already exists in UserStyles
 		if (mapUserLexers.contains(modelLexerName))
 		{
@@ -2499,11 +2557,23 @@ void NppParameters::updateStylesXml(TiXmlElement* rootUser, TiXmlElement* rootMo
 
 							if (useDefaultColors)
 							{
+								std::wstring newFg = defaultFgColor;
+								std::wstring newBg = defaultBgColor;
+								std::wstring dest_id = elementFromUser->Attribute(L"styleID");
+								if (!dest_id.empty() && mapColorsEmbeddedToDotJs.contains(dest_id))
+								{
+									//std::wstring src_id = mapColorsEmbeddedToDotJs[dest_id];
+									if (attrName == L"fgColor" && mapColorsEmbeddedToDotJs[dest_id].contains(attrName))
+										newFg =  mapColorsEmbeddedToDotJs[dest_id][attrName];
+									if (attrName == L"bgColor" && mapColorsEmbeddedToDotJs[dest_id].contains(attrName))
+										newBg = mapColorsEmbeddedToDotJs[dest_id][attrName];
+								}
+
 								// override the value from the model file with the default value, for fgColor and bgColor only
 								if (attrName == L"fgColor")
-									elementFromUser->SetAttribute(attrName, defaultFgColor);
+									elementFromUser->SetAttribute(attrName, newFg);
 								else if (attrName == L"bgColor")
-									elementFromUser->SetAttribute(attrName, defaultBgColor);
+									elementFromUser->SetAttribute(attrName, newBg);
 							}
 						}
 
@@ -2511,18 +2581,29 @@ void NppParameters::updateStylesXml(TiXmlElement* rootUser, TiXmlElement* rootMo
 				}
 				else
 				{
-					// if doesn't exist, need to clone it from model to the right parent lexer in the user list
+					// if WordsStyle doesn't exist, need to clone it from model to the right parent lexer in the user list
 					TiXmlNode* p_clone = wordsStyleFromModel->Clone();
-
 
 					// if using the default colors, need to override fgColor and bgColor
 					if (useDefaultColors)
 					{
 						TiXmlElement* p_cloneElement = p_clone->ToElement();
+
+						std::wstring newFg = defaultFgColor;
+						std::wstring newBg = defaultBgColor;
+						std::wstring dest_id = p_cloneElement->Attribute(L"styleID");
+						if (!dest_id.empty() && mapColorsEmbeddedToDotJs.contains(dest_id))
+						{
+							if (p_cloneElement->Attribute(L"fgColor") && mapColorsEmbeddedToDotJs[dest_id].contains(L"fgColor"))
+								newFg = mapColorsEmbeddedToDotJs[dest_id][L"fgColor"];
+							if (p_cloneElement->Attribute(L"bgColor") && mapColorsEmbeddedToDotJs[dest_id].contains(L"bgColor"))
+								newBg = mapColorsEmbeddedToDotJs[dest_id][L"bgColor"];
+						}
+
 						if (p_cloneElement->Attribute(L"fgColor"))
-							p_cloneElement->SetAttribute(L"fgColor", defaultFgColor);
+							p_cloneElement->SetAttribute(L"fgColor", newFg);
 						if (p_cloneElement->Attribute(L"bgColor"))
-							p_cloneElement->SetAttribute(L"bgColor", defaultBgColor);
+							p_cloneElement->SetAttribute(L"bgColor", newBg);
 					}
 
 					// now that XML element is cloned properly, add it to the current lexer
@@ -2537,15 +2618,27 @@ void NppParameters::updateStylesXml(TiXmlElement* rootUser, TiXmlElement* rootMo
 
 			if (useDefaultColors)
 			{
+				std::wstring newFg = defaultFgColor;
+				std::wstring newBg = defaultBgColor;
+
 				// iterate through all WordsStyle in the clone, and override fg and bg colors as needed
 				for (TiXmlElement* wordsStyleFromClone = p_clone->FirstChildElement(L"WordsStyle");
 					wordsStyleFromClone;
 					wordsStyleFromClone = wordsStyleFromClone->NextSiblingElement(L"WordsStyle"))
 				{
+					std::wstring dest_id = wordsStyleFromClone->Attribute(L"styleID");
+					if (!dest_id.empty() && mapColorsEmbeddedToDotJs.contains(dest_id))
+					{
+						if (wordsStyleFromClone->Attribute(L"fgColor") && mapColorsEmbeddedToDotJs[dest_id].contains(L"fgColor"))
+							newFg = mapColorsEmbeddedToDotJs[dest_id][L"fgColor"];
+						if (wordsStyleFromClone->Attribute(L"bgColor") && mapColorsEmbeddedToDotJs[dest_id].contains(L"bgColor"))
+							newBg = mapColorsEmbeddedToDotJs[dest_id][L"bgColor"];
+					}
+
 					if (wordsStyleFromClone->Attribute(L"fgColor"))
-						wordsStyleFromClone->SetAttribute(L"fgColor", defaultFgColor);
+						wordsStyleFromClone->SetAttribute(L"fgColor", newFg);
 					if (wordsStyleFromClone->Attribute(L"bgColor"))
-						wordsStyleFromClone->SetAttribute(L"bgColor", defaultBgColor);
+						wordsStyleFromClone->SetAttribute(L"bgColor", newBg);
 				}
 			}
 

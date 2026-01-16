@@ -29,10 +29,10 @@ namespace NppXml
 	using Document = pugi::xml_document*;
 	using Element = pugi::xml_node;
 	using Node = pugi::xml_node;
-	using Attribute = const pugi::xml_attribute;
+	using Attribute = pugi::xml_attribute;
 
 	[[nodiscard]] inline bool loadFile(Document doc, const wchar_t* filename) {
-		return doc->load_file(filename);
+		return doc->load_file(filename, pugi::parse_default | pugi::parse_comments | pugi::parse_declaration);
 	}
 
 	[[nodiscard]] inline bool saveFile(Document doc, const wchar_t* filename) {
@@ -40,7 +40,7 @@ namespace NppXml
 	}
 
 	[[nodiscard]] inline bool loadFileShortcut(Document doc, const wchar_t* filename) {
-		return doc->load_file(filename, pugi::parse_cdata | pugi::parse_escapes);
+		return doc->load_file(filename, pugi::parse_cdata | pugi::parse_escapes | pugi::parse_declaration);
 	}
 
 	[[nodiscard]] inline bool saveFileShortcut(Document doc, const wchar_t* filename) {
@@ -100,8 +100,8 @@ namespace NppXml
 		node.set_value(value);
 	}
 
-	[[nodiscard]] inline const char* attribute(const Element& elem, const char* name) {
-		return elem.attribute(name).value();
+	[[nodiscard]] inline const char* attribute(const Element& elem, const char* name, const char* defaultValue = nullptr) {
+		return elem.attribute(name).as_string(defaultValue);
 	}
 
 	[[nodiscard]] inline int intAttribute(const Element& elem, const char* name, int defaultValue = 0) {
@@ -162,23 +162,15 @@ namespace NppXml
 		return doc->append_child(name);
 	}
 
-	inline Element createChildElement(Node parent, const char* name) {
+	inline Element createChildElement(Node& parent, const char* name) {
 		return parent.append_child(name);
 	}
 
-	[[nodiscard]] inline Node clone(const Element& toClone, Document& toAllocate) {
-		return toAllocate->append_copy(toClone);
-	}
-
-	[[nodiscard]] inline Node clone(const Element& toClone, Element& toAllocate) {
-		return toAllocate.append_copy(toClone);
-	}
-
-	inline Node insertEndChild(Node parent, Node child) {
+	inline Node insertEndChild(Node& parent, Node child) {
 		return parent.append_copy(child);
 	}
 
-	inline Node createChildText(Node parent, const char* text) {
+	inline Node createChildText(Node& parent, const char* text) {
 		Node child = parent.append_child(pugi::node_pcdata);
 		child.set_value(text);
 		return child;
@@ -196,15 +188,15 @@ namespace NppXml
 		return elem.first_attribute();
 	}
 
-	[[nodiscard]] inline Attribute next(Attribute& attr) {
+	[[nodiscard]] inline Attribute next(const Attribute& attr) {
 		return attr.next_attribute();
 	}
 
-	[[nodiscard]] inline const char* name(Attribute& attr) {
+	[[nodiscard]] inline const char* name(const Attribute& attr) {
 		return attr.name();
 	}
 
-	[[nodiscard]] inline const char* value(Attribute& attr) {
+	[[nodiscard]] inline const char* value(const Attribute& attr) {
 		return attr.value();
 	}
 }

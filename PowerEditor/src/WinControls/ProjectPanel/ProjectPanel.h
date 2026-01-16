@@ -130,7 +130,7 @@ protected:
 
 	bool writeWorkSpace(const wchar_t* projectFileName = nullptr, bool doUpdateGUI = true);
 	std::wstring getRelativePath(const std::wstring& filePath, const wchar_t* workSpaceFileName);
-	void buildProjectXml(const NppXml::Node& root, HTREEITEM hItem, const wchar_t* fn2write);
+	void buildProjectXml(NppXml::Node& root, HTREEITEM hItem, const wchar_t* fn2write);
 	NodeType getNodeType(HTREEITEM hItem);
 	void setWorkSpaceDirty(bool isDirty);
 	void popupMenuCmd(int cmdID);

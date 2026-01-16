@@ -466,7 +466,7 @@ bool ProjectPanel::writeWorkSpace(const wchar_t* projectFileName, bool doUpdateG
 	return true;
 }
 
-void ProjectPanel::buildProjectXml(const NppXml::Node& root, HTREEITEM hItem, const wchar_t* fn2write)
+void ProjectPanel::buildProjectXml(NppXml::Node& root, HTREEITEM hItem, const wchar_t* fn2write)
 {
 	wchar_t textBuffer[MAX_PATH] = { '\0' };
 	TVITEM tvItem{};

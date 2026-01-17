@@ -40,10 +40,55 @@ namespace NppXml
 	}
 
 	[[nodiscard]] inline bool loadFileShortcut(Document doc, const wchar_t* filename) {
-		return doc->load_file(filename, pugi::parse_cdata | pugi::parse_escapes | pugi::parse_declaration);
+		return doc->load_file(filename, pugi::parse_cdata | pugi::parse_escapes | pugi::parse_comments | pugi::parse_declaration);
 	}
 
 	[[nodiscard]] inline bool saveFileShortcut(Document doc, const wchar_t* filename) {
+		// Without pugi::parse_eol comments are not eol normalized when loaded.
+		// To avoid issue with CRLF converting to CRCRLF on save, comments are normalized on save
+		// to have LF eol.
+		struct eol_norm_walker : pugi::xml_tree_walker
+		{
+			bool for_each(pugi::xml_node& node) override
+			{
+				auto normalizeEOL = [](const pugi::string_t& text)
+				{
+					pugi::string_t normalized;
+					const size_t len = text.length();
+
+					for (size_t i = 0; i < len; ++i)
+					{
+						if (text[i] == PUGIXML_TEXT('\r'))
+						{
+							if (i + 1 < len && text[i + 1] == PUGIXML_TEXT('\n'))
+							{
+								normalized += PUGIXML_TEXT('\n');
+								++i;
+							}
+							else
+							{
+								normalized += PUGIXML_TEXT('\n');
+							}
+						}
+						else
+						{
+							normalized += text[i];
+						}
+					}
+					return normalized;
+				};
+
+				if (node.type() == pugi::node_comment)
+				{
+					const pugi::string_t normalizedText = normalizeEOL(node.value());
+					node.set_value(normalizedText.c_str());
+				}
+				return true;
+			}
+		};
+
+		eol_norm_walker walker;
+		doc->traverse(walker);
 		return doc->save_file(filename, "    ", pugi::format_indent | pugi::format_save_file_text | pugi::format_control_chars_in_hexadecimal);
 	}
 
@@ -57,14 +102,14 @@ namespace NppXml
 
 	[[nodiscard]] inline Element firstChildElement(const Document& doc, const char* name = nullptr) {
 		Node root = doc->root();
-		return name ? root.find_child([name](const Element& child) {
-			return std::strcmp(child.name(), name) == 0;
+		return name ? root.find_child([&name](const Element& child) {
+			return (child.type() == pugi::node_element) && (std::strcmp(child.name(), name) == 0);
 		}) : root.first_child();
 	}
 
 	[[nodiscard]] inline Element firstChildElement(const Node& node, const char* name = nullptr) {
-		return name ? node.find_child([name](const Element& child) {
-			return std::strcmp(child.name(), name) == 0;
+		return name ? node.find_child([&name](const Element& child) {
+			return (child.type() == pugi::node_element) && (std::strcmp(child.name(), name) == 0);
 		}) : node.first_child();
 	}
 

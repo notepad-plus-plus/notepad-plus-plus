@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.7"><!-- Datum: 04.12.2025, basiert auf english.xml 8.8.7 vom 02.12.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9"><!-- Datum: 17.01.2026, basiert auf english.xml 8.9 vom 09.01.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -50,7 +50,7 @@ Translation note:
 					<Item subMenuId="edit-onSelection" name="Mit Auswahl"/>
 					<Item subMenuId="edit-multiSelectALL" name="Mehrfachauswahl ALLE"/>
 					<Item subMenuId="edit-multiSelectNext" name="Mehrfachauswahl Nächstes"/>
-					<Item subMenuId="edit-readonlyInNotepad++" name="Nur Lesen in Notepad++"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Schreibschutz in Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="Änderungs-Historie"/>
 					<Item subMenuId="search-markAll" name="&amp;Alle Treffer hervorheben"/>
 					<Item subMenuId="search-markOne" name="Di&amp;esen Treffer hervorheben"/>
@@ -147,10 +147,10 @@ Translation note:
 					<Item id="42060" name="Zeilen alphabetisch a&amp;bsteigend sortieren"/>
 					<Item id="42080" name="Zeilen alph. aufsteigend sortieren, Schreibung ignorieren"/>
 					<Item id="42081" name="Zeilen alph. absteigend sortieren, Schreibung ignorieren"/>
-					<Item id="42100" name="Zeilen in lokaler Reihenfolge aufsteigend sortieren"/>
-					<Item id="42101" name="Zeilen in lokaler Reihenfolge absteigend sortieren"/>
-					<Item id="42104" name="Zeilen der Länge nach aufsteigend sortieren"/>
-					<Item id="42105" name="Zeilen der Länge nach absteigend sortieren"/>
+					<Item id="42100" name="Zeilen nach Gebietsschema aufsteigend sortieren"/>
+					<Item id="42101" name="Zeilen nach Gebietsschema absteigend sortieren"/>
+					<Item id="42104" name="Zeilen nach Länge aufsteigend sortieren"/>
+					<Item id="42105" name="Zeilen nach Länge absteigend sortieren"/>
 					<Item id="42061" name="Zeilen als Ganzzahlen aufsteigend sortieren"/>
 					<Item id="42062" name="Zeilen als Ganzzahlen absteigend sortieren"/>
 					<Item id="42063" name="Zeilen als Dezimalzahlen (Komma) aufsteigend sortieren"/>
@@ -208,9 +208,9 @@ Translation note:
 					<Item id="42025" name="Aufgenommenes Makro s&amp;peichern …"/>
 					<Item id="42026" name="Schreib&amp;richtung von rechts nach links"/>
 					<Item id="42027" name="Schreibrichtung von lin&amp;ks nach rechts"/>
-					<Item id="42028" name="Schreibsch&amp;utz im aktuellen Dokument"/>
+					<Item id="42028" name="Schreibsch&amp;utz für aktuelles Dokument"/>
 					<Item id="42102" name="Schreibschutz für alle Dokumente"/>
-					<Item id="42103" name="Hebe Schreibschutz für alle Dokumente auf"/>
+					<Item id="42103" name="Entferne Schreibschutz für alle Dokumente"/>
 					<Item id="42029" name="Vollständigen Datei&amp;pfad kopieren"/>
 					<Item id="42030" name="Nur Datei&amp;namen kopieren"/>
 					<Item id="42031" name="Nur &amp;Verzeichnispfad kopieren"/>
@@ -430,8 +430,8 @@ Translation note:
 					<Item id="11007" name="Typ Z bis A"/>
 					<Item id="11008" name="Inhaltslänge aufsteigend"/>
 					<Item id="11009" name="Inhaltslänge absteigend"/>
-					<Item id="11010" name="Änderungszeit aufsteigend"/>
-					<Item id="11011" name="Änderungszeit absteigend"/>
+					<Item id="11010" name="Letzte Änderung aufsteigend"/>
+					<Item id="11011" name="Letzte Änderung absteigend"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -980,16 +980,16 @@ Translation note:
 					<Item id="6130" name="Ausgefüllte Fluent UI: groß"/>
 					<Item id="6105" name="Standard-Symbole: klein"/>
 					<Item id="6011" name="Farben"/>
-					<Item id="6012" name="Alle"/>
+					<Item id="6012" name="Vollständig"/>
 					<Item id="6013" name="Teilweise"/>
 					<Item id="6014" name="Farbwahl"/>
 					<Item id="6015" name="Standard"/>
 					<Item id="6016" name="Rot"/>
 					<Item id="6017" name="Grün"/>
 					<Item id="6018" name="Blau"/>
-					<Item id="6019" name="Lila"/>
-					<Item id="6020" name="Türkis"/>
-					<Item id="6021" name="Olivgrün"/>
+					<Item id="6019" name="Violett"/>
+					<Item id="6020" name="Cyan"/>
+					<Item id="6021" name="Oliv"/>
 					<Item id="6022" name="Gelb"/>
 					<Item id="6023" name="System-Akzent"/>
 					<Item id="6024" name="Benutzerdefiniert"/>
@@ -1000,7 +1000,7 @@ Translation note:
 					<Item id="6108" name="Tabs nicht mit der Maus verschiebbar"/>
 					<Item id="6109" name="Farbe inaktiver Tabs ändern"/>
 					<Item id="6110" name="Aktiven Tab farbig hervorheben"/>
-					<Item id="6111" name="Tasten auf inaktiven Tabs anzeigen"/>
+					<Item id="6111" name="Schaltfläche auf inaktiven Tabs anzeigen"/>
 					<Item id="6112" name="Schließen-Kreuz anzeigen"/>
 					<Item id="6113" name="Tabs per Doppelklick schließen"/>
 					<Item id="6115" name="Pin-Tab-Funktion aktivieren (anheften/loslösen)"/>
@@ -1012,7 +1012,7 @@ Translation note:
 					<Item id="6128" name="Alternative Symbole"/>
 					<Item id="6125" name="Verhalten"/>
 					<Item id="6126" name="Aussehen &amp;&amp; Wirkung (Look &amp;&amp; feel)"/>
-					<Item id="6136" name="Max. Länge für Tab-Namen:"/>
+					<Item id="6136" name="Max. Länge von Tab-Namen:"/>
 				</Tabbar>
 
 				<Scintillas title="Bearbeiten 1">
@@ -1231,7 +1231,7 @@ Translation note:
 					<Item id="6909" name="Das Wort unter dem Cursor verwenden wenn nichts gewählt ist"/>
 					<Item id="6910" name="Mindestgröße für die automatische Aktivierung von 'In Auswahl'"/>
 					<Item id="6913" name="Suche im Dateiverzeichnisfeld basierend auf dem aktiven Dokument ausfüllen"/>
-					<Item id="6916" name=": Max. Zeichen für automatisches Ausfüllen des Suchfelds aus der Auswahl"/>
+					<Item id="6916" name=": Max. Zeichen für automatisches Ausfüllen des Suchfelds mit der Auswahl"/>
 				</Searching>
 
 				<RecentFilesHistory title="Zuletzt geöffn. Dateien">
@@ -1597,10 +1597,10 @@ Bitte die Kommandos daher testen und falls nötig editieren.
 Alternativ dazu kann auch auf die ältere Version Notepad++ v8.5.2 gewechselt und dort die aktuellen Daten gesichert werden.
 Notepad++ wird ein Backup der alten &quot;shortcuts.xml&quot; machen und die Datei als &quot;shortcuts.xml.v8.5.2.backup&quot; speichern.
 Beim darauf folgenden Umbenennen der &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; sollten die Kommandos wiederhergestellt sein und wieder funktionieren."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
-			<FullReadOnlySavingForbidden title="Speichern fehlgeschlagen" message="Kann Datei nicht speichern.
-Der Schreibschutz von Notepad++ verhindert das Speichern dieser Datei."/>
-			<NotEnoughRoom4Saving title="Speichern fehlgeschlagen" message="Konnte Datei nicht speichern.
-Es ist nicht genug Speicherplatz vorhanden, daher wurde die Datei nicht gespeichert."/>
+			<FullReadOnlySavingForbidden title="Speichern fehlgeschlagen" message="Datei kann nicht gespeichert werden.
+Der Schreibschutz von Notepad++ verhindert das Speichern der Datei."/>
+			<NotEnoughRoom4Saving title="Speichern fehlgeschlagen" message="Datei kann nicht gespeichert werden.
+Es ist nicht genügend Speicherplatz auf der Festplatte vorhanden, um die Datei zu speichern. Die Datei wurde nicht gespeichert."/>
 			<FileInaccessibleUserSession title="Datei nicht zugänglich" message="Einige Dateien der manuell gespeicherten Sitzung &quot;$STR_REPLACE$&quot; sind nicht zugänglich. Sie können aber als leere Datei und schreibgeschützt als Platzhalter geöffnet werden.
 
 Sollen diese Datei-Platzhalter erstellt werden?
@@ -1621,7 +1621,7 @@ Falls die Regex-Rückwärtssuche dennoch benötigt wird, kann deren Aktivierung 
 			<FindAutoChangeOfInSelectionWarning title="Suchwarnung" message="Der Status des Kontrollkästchens 'In Auswahl' wurde automatisch geändert.
 Bitte die Suchbedingungen überprüfen, bevor die Aktion ausgeführt wird."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Neustart von Notepad++ erforderlich" message="Notepad++ muss zur Anzeige der Tastenkürzel neu gestartet werden."/>
-			<NoAdminRight2ChangeReadOnlyFileAttribute title="Das Ändern des schreibgeschützten Attributs der Datei ist fehlgeschlagen" message="Bitte Notepad++ als Administrator ausführen, um Dateiattribute zu ändern."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Ändern des Schreibschutz-Attributs der Datei fehlgeschlagen" message="Bitte Notepad++ als Administrator ausführen, um Dateiattribute zu ändern."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>
@@ -1638,7 +1638,7 @@ Bitte die Suchbedingungen überprüfen, bevor die Aktion ausgeführt wird."/> <!
 			<ColumnPath name="Pfad"/>
 			<ColumnType name="Typ"/>
 			<ColumnSize name="Größe"/>
-			<ColumnDateTime name="Änderungszeit"/>
+			<ColumnDateTime name="Letzte Änderung"/>
 			<NbDocsTotal name="Gesamtzahl Dokumente:"/>
 			<MenuCopyName name="Name(n) kopieren"/>
 			<MenuCopyPath name="Pfadname(n) kopieren"/>
@@ -1787,6 +1787,9 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<find-status-scope-all value="in dieser Datei"/>
 			<find-status-scope-backward value="vom Dateianfang bis zum Cursor"/>
 			<find-status-scope-forward value="vom Cursor bis zum Dateiende"/>
+			<find-status-invisible-chars-findWhat value="Unsichtbare Zeichen im eingefügten &quot;Suchen nach&quot;- oder &quot;Ersetzen durch&quot;-Inhalt"/>
+			<find-status-invisible-chars-findWhat-tip value="Warnung: Unsichtbare Zeichen im Suchen- oder Ersetzen-Feld.
+Der in diese Felder eingefügte Text enthält unsichtbare Zeichen (möglicherweise Zeilenumbrüche). Falls fortgefahren wird, ohne sie zu löschen, werden sie in den Suchen- oder Ersetzen-Text einbezogen."/>
 			<finder-find-in-finder value="In diesen Suchergebnissen finden …"/>
 			<finder-close-this value="Diese Suche schließen"/>
 			<finder-collapse-all value="Alles einklappen"/>
@@ -1886,8 +1889,8 @@ Ein Klick auf &quot;?&quot; öffnet die Webseite des Benutzerhandbuchs."/>
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Im Stil-Konfigurator kann die Standardfarbe für die speziellen Leerzeichen und die nicht druckbaren Zeichen angepasst werden (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Einstellungen für das Erscheinungsbild von nicht druckbaren Zeichen auf die Steuerzeichen C0, C1 und Unicode EOL (nächste Zeile, Zeilen- und Absatztrenner) anwenden."/>
-			<searchingInSelThresh-tip value="Minimale Anzahl der ausgewählten Zeichen in der Bearbeitungszone, um das Kontrollkästchen 'In Auswahl' automatisch zu aktivieren, wenn der Suchdialog aktiviert wird. Der Maximalwert ist $INT_REPLACE$, der Wert 0 deaktiviert die automatische Überprüfung."/>
-			<searchingFillFindWhat-tip value="Maximale Anzahl der ausgewählten Zeichen in der Bearbeitungszone, um das Kontrollkästchen 'In Auswahl' automatisch zu aktivieren, wenn der Suchdialog aktiviert wird. Der Maximalwert ist $INT_REPLACE$, das ist die Maximalgröße vom 'Suchen nach:'-Feld, limitiert durch das System."/>
+			<searchingInSelThresh-tip value="Minimale Anzahl an ausgewählten Zeichen in der Bearbeitungszone, um das Kontrollkästchen 'In Auswahl' automatisch anzuhaken, wenn der Suchdialog aktiviert wird. Der Maximalwert ist $INT_REPLACE$, der Wert 0 deaktiviert die automatische Überprüfung."/>
+			<searchingFillFindWhat-tip value="Maximale Anzahl an ausgewählten Zeichen in der Bearbeitungszone, um das Kontrollkästchen 'In Auswahl' automatisch anzuhaken, wenn der Suchdialog aktiviert wird. Der Maximalwert ist $INT_REPLACE$, was der Maximalgröße des 'Suchen nach'-Feldes entspricht, limitiert durch das System."/>
 			<verticalEdge-tip value="Eine Spaltenmarkierung kann hinzugefügt werden, indem ihre Position mit einer Dezimalzahl angeben wird. Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Zahlen durch Leerzeichen getrennt werden."/>
 			<fileSaveAsCopySaveButton-tip value="Drücke die Shift-Taste während des Speicherns um die Kopie nach dem Speichern zu öffnen."/>
 			<autoIndentBasic-tip value="Stelle sicher, dass die Einrückung in der aktuellen Zeile (z.B. erstellt durch das Drücken der ENTER-Taste) mit der Einrückung in der vorigen Zeile übereinstimmt."/>
@@ -1910,12 +1913,12 @@ Wenn diese 'Intelligente Einrückung' gewählt wird, aber keine Dateien in den o
 			<statusbar-Pos value="Pos: "/>
 			<statusbar-Sel value="Gew: "/>
 			<statusbar-Sel-number value="Gew"/>
-			<toolbar-accent-tip value="Mit dieser Option werden die Symbolleistensymbole der Akzentfarbe des Windows-Systems angepasst. Die Akzentfarbe ist die Farbe, mit der Schaltflächen, Rahmen und Startmenükacheln in Windows hervorgehoben werden. Um sie zu ändern, gehen Sie zu Einstellungen &gt; Personalisierung &gt; Farben und wählen Sie dann Ihre bevorzugte Akzentfarbe."/>
-			<len-limit-exceeded-tip value="Zeichen-Limit überschritten: Ihre Eingabe überschreitet ev. die zulässige Grenze und wurde möglicherweise gekürzt, und wird auch für die nächste Sitzung nicht gespeichert."/>
-			<max-len-on-search-tip value="Ihre Eingabe überschreitet ev. die zulässige Grenze und wurde möglicherweise gekürzt, und wird auch für die nächste Sitzung nicht gespeichert."/>
-			<max-len-on-save-tip value="Ihre Eingabe ist sehr lang und wird möglicherweise nicht für Ihre nächste Sitzung gespeichert."/>
-			<goto-setting-tip value="Finden Sie hier Ihre Einstellungen"/>
-			<tabbar-tabcompactlabellen-tip value="Kürzt die sichtbare Länge der Tab-Namen. 'Enter'-Taste drücken um den Eingabewert zu übernehmen. Mögliche Eingabe: 1-257 Zeichen (0 deaktiviert das Kürzen der Tab-Namen)."/>
+			<toolbar-accent-tip value="Mit dieser Option werden die Symbolleistensymbole der Akzentfarbe des Windows-Systems angepasst. Die Akzentfarbe ist die Farbe, mit der Schaltflächen, Rahmen und Startmenükacheln in Windows hervorgehoben werden. Um sie zu ändern, gehe zu Einstellungen &gt; Personalisierung &gt; Farben und wähle die bevorzugte Akzentfarbe."/>
+			<len-limit-exceeded-tip value="Zeichen-Limit überschritten: Die Eingabe überschreitet evtl. das zulässige Limit und wurde möglicherweise gekürzt, und sie wird nicht für die nächste Sitzung gespeichert."/>
+			<max-len-on-search-tip value="Die Eingabe überschreitet evtl. das zulässige Limit und wurde möglicherweise gekürzt, und sie wird nicht für die nächste Sitzung gespeichert."/>
+			<max-len-on-save-tip value="Die Eingabe ist sehr lang und wird möglicherweise nicht für die nächste Sitzung gespeichert."/>
+			<goto-setting-tip value="Gehe zu den Einstellungen"/>
+			<tabbar-tabcompactlabellen-tip value="Beschränkt die sichtbare Länge von Tab-Namen. Enter-Taste drücken, um den Eingabewert anzuwenden. Wertebereich: 1-257 Zeichen (0 deaktiviert das Kürzen)."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

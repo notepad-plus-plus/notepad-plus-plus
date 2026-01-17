@@ -2452,10 +2452,6 @@ void NppParameters::updateStylesXml(TiXmlElement* rootUser, TiXmlElement* rootMo
 		if (modelLexerName.empty())
 			continue;
 
-		bool flag = false;
-		if (modelLexerName == L"javascript" || modelLexerName == L"javascript.js")
-			flag = true;
-
 		// map styleID numbers: index will be the target dot-js ID, intermediate index is fgColor/bgColor, stored value will be the source embedded-javascript color string
 		std::map <std::wstring, std::map<std::wstring, std::wstring>> mapColorsEmbeddedToDotJs;
 		if ((modelLexerName == L"javascript.js") && mapUserLexers.contains(L"javascript"))

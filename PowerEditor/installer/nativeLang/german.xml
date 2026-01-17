@@ -430,8 +430,8 @@ Translation note:
 					<Item id="11007" name="Typ Z bis A"/>
 					<Item id="11008" name="Inhaltslänge aufsteigend"/>
 					<Item id="11009" name="Inhaltslänge absteigend"/>
-					<Item id="11010" name="Änderungszeit aufsteigend"/>
-					<Item id="11011" name="Änderungszeit absteigend"/>
+					<Item id="11010" name="Letzte Änderung aufsteigend"/>
+					<Item id="11011" name="Letzte Änderung absteigend"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -1231,7 +1231,7 @@ Translation note:
 					<Item id="6909" name="Das Wort unter dem Cursor verwenden wenn nichts gewählt ist"/>
 					<Item id="6910" name="Mindestgröße für die automatische Aktivierung von 'In Auswahl'"/>
 					<Item id="6913" name="Suche im Dateiverzeichnisfeld basierend auf dem aktiven Dokument ausfüllen"/>
-					<Item id="6916" name=": Max. Zeichen für automatisches Ausfüllen des Suchfelds aus der Auswahl"/>
+					<Item id="6916" name=": Max. Zeichen für automatisches Ausfüllen des Suchfelds mit der Auswahl"/>
 				</Searching>
 
 				<RecentFilesHistory title="Zuletzt geöffn. Dateien">
@@ -1621,7 +1621,7 @@ Falls die Regex-Rückwärtssuche dennoch benötigt wird, kann deren Aktivierung 
 			<FindAutoChangeOfInSelectionWarning title="Suchwarnung" message="Der Status des Kontrollkästchens 'In Auswahl' wurde automatisch geändert.
 Bitte die Suchbedingungen überprüfen, bevor die Aktion ausgeführt wird."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Neustart von Notepad++ erforderlich" message="Notepad++ muss zur Anzeige der Tastenkürzel neu gestartet werden."/>
-			<NoAdminRight2ChangeReadOnlyFileAttribute title="Das Ändern des schreibgeschützten Attributs der Datei ist fehlgeschlagen" message="Bitte Notepad++ als Administrator ausführen, um Dateiattribute zu ändern."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Ändern des Schreibschutz-Attributs der Datei fehlgeschlagen" message="Bitte Notepad++ als Administrator ausführen, um Dateiattribute zu ändern."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>
@@ -1889,8 +1889,8 @@ Ein Klick auf &quot;?&quot; öffnet die Webseite des Benutzerhandbuchs."/>
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Im Stil-Konfigurator kann die Standardfarbe für die speziellen Leerzeichen und die nicht druckbaren Zeichen angepasst werden (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Einstellungen für das Erscheinungsbild von nicht druckbaren Zeichen auf die Steuerzeichen C0, C1 und Unicode EOL (nächste Zeile, Zeilen- und Absatztrenner) anwenden."/>
-			<searchingInSelThresh-tip value="Minimale Anzahl der ausgewählten Zeichen in der Bearbeitungszone, um das Kontrollkästchen 'In Auswahl' automatisch zu aktivieren, wenn der Suchdialog aktiviert wird. Der Maximalwert ist $INT_REPLACE$, der Wert 0 deaktiviert die automatische Überprüfung."/>
-			<searchingFillFindWhat-tip value="Maximale Anzahl der ausgewählten Zeichen in der Bearbeitungszone, um das Kontrollkästchen 'In Auswahl' automatisch zu aktivieren, wenn der Suchdialog aktiviert wird. Der Maximalwert ist $INT_REPLACE$, das ist die Maximalgröße vom 'Suchen nach:'-Feld, limitiert durch das System."/>
+			<searchingInSelThresh-tip value="Minimale Anzahl an ausgewählten Zeichen in der Bearbeitungszone, um das Kontrollkästchen 'In Auswahl' automatisch anzuhaken, wenn der Suchdialog aktiviert wird. Der Maximalwert ist $INT_REPLACE$, der Wert 0 deaktiviert die automatische Überprüfung."/>
+			<searchingFillFindWhat-tip value="Maximale Anzahl an ausgewählten Zeichen in der Bearbeitungszone, um das Kontrollkästchen 'In Auswahl' automatisch anzuhaken, wenn der Suchdialog aktiviert wird. Der Maximalwert ist $INT_REPLACE$, was der Maximalgröße des 'Suchen nach'-Feldes entspricht, limitiert durch das System."/>
 			<verticalEdge-tip value="Eine Spaltenmarkierung kann hinzugefügt werden, indem ihre Position mit einer Dezimalzahl angeben wird. Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Zahlen durch Leerzeichen getrennt werden."/>
 			<fileSaveAsCopySaveButton-tip value="Drücke die Shift-Taste während des Speicherns um die Kopie nach dem Speichern zu öffnen."/>
 			<autoIndentBasic-tip value="Stelle sicher, dass die Einrückung in der aktuellen Zeile (z.B. erstellt durch das Drücken der ENTER-Taste) mit der Einrückung in der vorigen Zeile übereinstimmt."/>
@@ -1913,11 +1913,11 @@ Wenn diese 'Intelligente Einrückung' gewählt wird, aber keine Dateien in den o
 			<statusbar-Pos value="Pos: "/>
 			<statusbar-Sel value="Gew: "/>
 			<statusbar-Sel-number value="Gew"/>
-			<toolbar-accent-tip value="Mit dieser Option werden die Symbolleistensymbole der Akzentfarbe des Windows-Systems angepasst. Die Akzentfarbe ist die Farbe, mit der Schaltflächen, Rahmen und Startmenükacheln in Windows hervorgehoben werden. Um sie zu ändern, gehen Sie zu Einstellungen &gt; Personalisierung &gt; Farben und wählen Sie dann Ihre bevorzugte Akzentfarbe."/>
-			<len-limit-exceeded-tip value="Zeichen-Limit überschritten: Ihre Eingabe überschreitet ev. die zulässige Grenze und wurde möglicherweise gekürzt, und wird auch für die nächste Sitzung nicht gespeichert."/>
-			<max-len-on-search-tip value="Ihre Eingabe überschreitet ev. die zulässige Grenze und wurde möglicherweise gekürzt, und wird auch für die nächste Sitzung nicht gespeichert."/>
-			<max-len-on-save-tip value="Ihre Eingabe ist sehr lang und wird möglicherweise nicht für Ihre nächste Sitzung gespeichert."/>
-			<goto-setting-tip value="Finden Sie hier Ihre Einstellungen"/>
+			<toolbar-accent-tip value="Mit dieser Option werden die Symbolleistensymbole der Akzentfarbe des Windows-Systems angepasst. Die Akzentfarbe ist die Farbe, mit der Schaltflächen, Rahmen und Startmenükacheln in Windows hervorgehoben werden. Um sie zu ändern, gehe zu Einstellungen &gt; Personalisierung &gt; Farben und wähle die bevorzugte Akzentfarbe."/>
+			<len-limit-exceeded-tip value="Zeichen-Limit überschritten: Die Eingabe überschreitet evtl. das zulässige Limit und wurde möglicherweise gekürzt, und sie wird nicht für die nächste Sitzung gespeichert."/>
+			<max-len-on-search-tip value="Die Eingabe überschreitet evtl. das zulässige Limit und wurde möglicherweise gekürzt, und sie wird nicht für die nächste Sitzung gespeichert."/>
+			<max-len-on-save-tip value="Die Eingabe ist sehr lang und wird möglicherweise nicht für die nächste Sitzung gespeichert."/>
+			<goto-setting-tip value="Gehe zu den Einstellungen"/>
 			<tabbar-tabcompactlabellen-tip value="Beschränkt die sichtbare Länge von Tab-Namen. Enter-Taste drücken, um den Eingabewert anzuwenden. Wertebereich: 1-257 Zeichen (0 deaktiviert das Kürzen)."/>
 		</MiscStrings>
 	</Native-Langue>

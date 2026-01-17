@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.7"><!-- Datum: 04.12.2025, basiert auf english.xml 8.8.7 vom 02.12.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9"><!-- Datum: 17.01.2026, basiert auf english.xml 8.9 vom 09.01.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1012,7 +1012,7 @@ Translation note:
 					<Item id="6128" name="Alternative Symbole"/>
 					<Item id="6125" name="Verhalten"/>
 					<Item id="6126" name="Aussehen &amp;&amp; Wirkung (Look &amp;&amp; feel)"/>
-					<Item id="6136" name="Max. Länge für Tab-Namen:"/>
+					<Item id="6136" name="Max. Länge von Tab-Namen:"/>
 				</Tabbar>
 
 				<Scintillas title="Bearbeiten 1">
@@ -1787,6 +1787,9 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<find-status-scope-all value="in dieser Datei"/>
 			<find-status-scope-backward value="vom Dateianfang bis zum Cursor"/>
 			<find-status-scope-forward value="vom Cursor bis zum Dateiende"/>
+			<find-status-invisible-chars-findWhat value="Unsichtbare Zeichen im eingefügten &quot;Suchen nach&quot;- oder &quot;Ersetzen durch&quot;-Inhalt"/>
+			<find-status-invisible-chars-findWhat-tip value="Warnung: Unsichtbare Zeichen im Suchen- oder Ersetzen-Feld.
+Der in diese Felder eingefügte Text enthält unsichtbare Zeichen (möglicherweise Zeilenumbrüche). Falls fortgefahren wird, ohne sie zu löschen, werden sie in den Suchen- oder Ersetzen-Text einbezogen."/>
 			<finder-find-in-finder value="In diesen Suchergebnissen finden …"/>
 			<finder-close-this value="Diese Suche schließen"/>
 			<finder-collapse-all value="Alles einklappen"/>
@@ -1915,7 +1918,7 @@ Wenn diese 'Intelligente Einrückung' gewählt wird, aber keine Dateien in den o
 			<max-len-on-search-tip value="Ihre Eingabe überschreitet ev. die zulässige Grenze und wurde möglicherweise gekürzt, und wird auch für die nächste Sitzung nicht gespeichert."/>
 			<max-len-on-save-tip value="Ihre Eingabe ist sehr lang und wird möglicherweise nicht für Ihre nächste Sitzung gespeichert."/>
 			<goto-setting-tip value="Finden Sie hier Ihre Einstellungen"/>
-			<tabbar-tabcompactlabellen-tip value="Kürzt die sichtbare Länge der Tab-Namen. 'Enter'-Taste drücken um den Eingabewert zu übernehmen. Mögliche Eingabe: 1-257 Zeichen (0 deaktiviert das Kürzen der Tab-Namen)."/>
+			<tabbar-tabcompactlabellen-tip value="Beschränkt die sichtbare Länge von Tab-Namen. Enter-Taste drücken, um den Eingabewert anzuwenden. Wertebereich: 1-257 Zeichen (0 deaktiviert das Kürzen)."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

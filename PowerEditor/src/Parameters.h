@@ -2007,31 +2007,31 @@ private:
 	void feedUserStyles(TiXmlNode *node);
 	void feedUserKeywordList(TiXmlNode *node);
 	void feedUserSettings(TiXmlNode *node);
-	void feedShortcut(NppXml::Node node);
-	void feedMacros(NppXml::Node node);
-	void feedUserCmds(NppXml::Node node);
-	void feedPluginCustomizedCmds(NppXml::Node node);
-	void feedScintKeys(NppXml::Node node);
+	void feedShortcut(const NppXml::Element& element);
+	void feedMacros(const NppXml::Element& element);
+	void feedUserCmds(const NppXml::Element& element);
+	void feedPluginCustomizedCmds(const NppXml::Element& element);
+	void feedScintKeys(const NppXml::Element& element);
 
-	void getActions(NppXml::Node node, Macro& macro);
-	bool getShortcuts(NppXml::Node node, Shortcut& sc, std::string* folderName = nullptr);
-	bool getInternalCommandShortcuts(NppXml::Node node, CommandShortcut& cs, std::string* folderName = nullptr);
+	static void getActions(const NppXml::Element& element, Macro& macro);
+	static bool getShortcuts(const NppXml::Element& element, Shortcut& sc, std::string* folderName = nullptr);
+	static bool getInternalCommandShortcuts(const NppXml::Element& element, CommandShortcut& cs, std::string* folderName = nullptr);
 
 	void writeStyle2Element(const Style & style2Write, Style & style2Sync, TiXmlElement *element);
 	void insertUserLang2Tree(TiXmlNode *node, UserLangContainer *userLang);
-	void insertCmd(NppXml::Node cmdRoot, const CommandShortcut& cmd);
-	void insertMacro(NppXml::Node macrosRoot, const MacroShortcut& macro, const std::string& folderName);
-	void insertUserCmd(NppXml::Node userCmdRoot, const UserCommand& userCmd, const std::string& folderName);
-	void insertScintKey(NppXml::Node scintKeyRoot, const ScintillaKeyMap& scintKeyMap);
-	void insertPluginCmd(NppXml::Node pluginCmdRoot, const PluginCmdShortcut& pluginCmd);
+	static void insertCmd(NppXml::Element& cmdRoot, const CommandShortcut& cmd);
+	static void insertMacro(NppXml::Element& macrosRoot, const MacroShortcut& macro, const std::string& folderName);
+	static void insertUserCmd(NppXml::Element& userCmdRoot, const UserCommand& userCmd, const std::string& folderName);
+	static void insertScintKey(NppXml::Element& scintKeyRoot, const ScintillaKeyMap& scintKeyMap);
+	static void insertPluginCmd(NppXml::Element& pluginCmdRoot, const PluginCmdShortcut& pluginCmd);
 	TiXmlElement * insertGUIConfigBoolNode(TiXmlNode *r2w, const wchar_t *name, bool bVal);
 	void insertDockingParamNode(TiXmlNode *GUIRoot);
 	void writeExcludedLangList(TiXmlElement *element);
 	void writePrintSetting(TiXmlElement *element);
 	void initMenuKeys();		//initialise menu keys and scintilla keys. Other keys are initialized on their own
 	void initScintillaKeys();	//these functions have to be called first before any modifications are loaded
-	int getCmdIdFromMenuEntryItemName(HMENU mainMenuHandle, const std::wstring& menuEntryName, const std::wstring& menuItemName); // return -1 if not found
-	int getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, const std::wstring& pluginName, const std::wstring& pluginCmdName); // return -1 if not found
+	static int getCmdIdFromMenuEntryItemName(HMENU mainMenuHandle, const std::wstring& menuEntryName, const std::wstring& menuItemName); // return -1 if not found
+	static int getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, const std::wstring& pluginName, const std::wstring& pluginCmdName); // return -1 if not found
 	winVer getWindowsVersion();
 	unsigned long _sintillaModEventMask = SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT | SC_PERFORMED_UNDO | SC_PERFORMED_REDO | SC_MOD_CHANGEINDICATOR;
 };

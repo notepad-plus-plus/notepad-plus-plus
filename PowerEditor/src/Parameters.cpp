@@ -694,6 +694,18 @@ int getKwClassFromName(const wchar_t *str)
 
 } // anonymous namespace
 
+static bool getBoolAttribute(const NppXml::Element& elem, const char* name)
+{
+	const char* str = NppXml::attribute(elem, name);
+	if (str)
+		return std::strcmp(str, "yes") == 0;
+	return false;
+}
+
+static void setBoolAttribute(NppXml::Element& elem, const char* name, bool isYes)
+{
+	NppXml::setAttribute(elem, name, isYes ? "yes" : "no");
+}
 
 void cutString(const wchar_t* str2cut, vector<std::wstring>& patternVect)
 {
@@ -2705,7 +2717,7 @@ bool NppParameters::getShortcutsFromXmlTree()
 	if (!_pXmlShortcutDoc)
 		return false;
 
-	NppXml::Node root = NppXml::firstChildElement(_pXmlShortcutDoc, "NotepadPlus");
+	NppXml::Element root = NppXml::firstChildElement(_pXmlShortcutDoc, "NotepadPlus");
 	if (!root)
 		return false;
 
@@ -2719,7 +2731,7 @@ bool NppParameters::getMacrosFromXmlTree()
 	if (!_pXmlShortcutDoc)
 		return false;
 
-	NppXml::Node root = NppXml::firstChildElement(_pXmlShortcutDoc, "NotepadPlus");
+	NppXml::Element root = NppXml::firstChildElement(_pXmlShortcutDoc, "NotepadPlus");
 	if (!root)
 		return false;
 
@@ -2733,7 +2745,7 @@ bool NppParameters::getUserCmdsFromXmlTree()
 	if (!_pXmlShortcutDoc)
 		return false;
 
-	NppXml::Node root = NppXml::firstChildElement(_pXmlShortcutDoc, "NotepadPlus");
+	NppXml::Element root = NppXml::firstChildElement(_pXmlShortcutDoc, "NotepadPlus");
 	if (!root)
 		return false;
 
@@ -2747,7 +2759,7 @@ bool NppParameters::getPluginCmdsFromXmlTree()
 	if (!_pXmlShortcutDoc)
 		return false;
 
-	NppXml::Node root = NppXml::firstChildElement(_pXmlShortcutDoc, "NotepadPlus");
+	NppXml::Element root = NppXml::firstChildElement(_pXmlShortcutDoc, "NotepadPlus");
 	if (!root)
 		return false;
 
@@ -2761,7 +2773,7 @@ bool NppParameters::getScintKeysFromXmlTree()
 	if (!_pXmlShortcutDoc)
 		return false;
 
-	NppXml::Node root = NppXml::firstChildElement(_pXmlShortcutDoc, "NotepadPlus");
+	NppXml::Element root = NppXml::firstChildElement(_pXmlShortcutDoc, "NotepadPlus");
 	if (!root)
 		return false;
 
@@ -2777,7 +2789,7 @@ void NppParameters::initMenuKeys()
 	for (int i = 0; i < nbCommands; ++i)
 	{
 		wkd = winKeyDefs[i];
-		Shortcut sc((wkd.specialName ? wstring2string(wkd.specialName, CP_UTF8).c_str() : ""), wkd.isCtrl, wkd.isAlt, wkd.isShift, static_cast<unsigned char>(wkd.vKey));
+		Shortcut sc((wkd.specialName ? wstring2string(wkd.specialName).c_str() : ""), wkd.isCtrl, wkd.isAlt, wkd.isShift, static_cast<unsigned char>(wkd.vKey));
 		_shortcuts.push_back( CommandShortcut(sc, wkd.functionId, previousFuncID == wkd.functionId) );
 		previousFuncID = wkd.functionId;
 	}
@@ -2805,7 +2817,7 @@ void NppParameters::initScintillaKeys()
 		}
 		else
 		{
-			Shortcut s = Shortcut(wstring2string(skd.name, CP_UTF8).c_str(), skd.isCtrl, skd.isAlt, skd.isShift, static_cast<unsigned char>(skd.vKey));
+			Shortcut s = Shortcut(wstring2string(skd.name).c_str(), skd.isCtrl, skd.isAlt, skd.isShift, static_cast<unsigned char>(skd.vKey));
 			ScintillaKeyMap sm = ScintillaKeyMap(s, skd.functionId, skd.redirFunctionId);
 			_scintillaKeyCommands.push_back(sm);
 			++prevIndex;
@@ -2912,27 +2924,25 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHandle, HMENU plugin
 
 	if (!pXmlContextMenuDoc)
 		return false;
-	NppXml::Node root = NppXml::firstChildElement(pXmlContextMenuDoc, "NotepadPlus");
+	NppXml::Element root = NppXml::firstChildElement(pXmlContextMenuDoc, "NotepadPlus");
 	if (!root)
 		return false;
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
-	NppXml::Node contextMenuRoot = NppXml::firstChildElement(root, cmName.c_str());
+	NppXml::Element contextMenuRoot = NppXml::firstChildElement(root, cmName.c_str());
 	if (contextMenuRoot)
 	{
 		std::vector<MenuItemUnit>& contextMenuItems = isEditCM ? _contextMenuItems : _tabContextMenuItems;
 
-		for (NppXml::Node childNode = NppXml::firstChildElement(contextMenuRoot, "Item");
+		for (NppXml::Element childNode = NppXml::firstChildElement(contextMenuRoot, "Item");
 			childNode;
 			childNode = NppXml::nextSiblingElement(childNode, "Item"))
 		{
-			const auto& element = NppXml::toElement(childNode);
-
-			const char* folderNameDefaultA = NppXml::attribute(element, "FolderName");
-			const char* folderNameTranslateID_A = NppXml::attribute(element, "TranslateID");
-			const char* displayAsA = NppXml::attribute(element, "ItemNameAs");
+			const char* folderNameDefaultA = NppXml::attribute(childNode, "FolderName");
+			const char* folderNameTranslateID_A = NppXml::attribute(childNode, "TranslateID");
+			const char* displayAsA = NppXml::attribute(childNode, "ItemNameAs");
 
 			std::wstring folderName = folderNameDefaultA ? wmc.char2wchar(folderNameDefaultA, SC_CP_UTF8) : L"";
 			std::wstring displayAs = displayAsA ? wmc.char2wchar(displayAsA, SC_CP_UTF8) : L"";
@@ -2942,15 +2952,15 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHandle, HMENU plugin
 				folderName = pNativeSpeaker->getLocalizedStrFromID(folderNameTranslateID_A, folderName);
 			}
 
-			const int id = NppXml::intAttribute(element, "id", -1);
+			const int id = NppXml::intAttribute(childNode, "id", -1);
 			if (id >= 0)
 			{
 				contextMenuItems.push_back(MenuItemUnit(id, displayAs.c_str(), folderName.c_str()));
 			}
 			else
 			{
-				const char* menuEntryNameA = NppXml::attribute(element, "MenuEntryName");
-				const char* menuItemNameA = NppXml::attribute(element, "MenuItemName");
+				const char* menuEntryNameA = NppXml::attribute(childNode, "MenuEntryName");
+				const char* menuItemNameA = NppXml::attribute(childNode, "MenuItemName");
 
 				std::wstring menuEntryName = menuEntryNameA ? wmc.char2wchar(menuEntryNameA, SC_CP_UTF8) : L"";
 				std::wstring menuItemName = menuItemNameA ? wmc.char2wchar(menuItemNameA, SC_CP_UTF8) : L"";
@@ -2963,8 +2973,8 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHandle, HMENU plugin
 				}
 				else
 				{
-					const char* pluginNameA = NppXml::attribute(element, "PluginEntryName");
-					const char* pluginCmdNameA = NppXml::attribute(element, "PluginCommandItemName");
+					const char* pluginNameA = NppXml::attribute(childNode, "PluginEntryName");
+					const char* pluginCmdNameA = NppXml::attribute(childNode, "PluginCommandItemName");
 
 					std::wstring pluginName = pluginNameA ? wmc.char2wchar(pluginNameA, SC_CP_UTF8) : L"";
 					std::wstring pluginCmdName = pluginCmdNameA ? wmc.char2wchar(pluginCmdNameA, SC_CP_UTF8) : L"";
@@ -3534,17 +3544,16 @@ void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
 		_findHistory._isPurge = (lstrcmp(L"yes", boolStr) == 0);
 }
 
-void NppParameters::feedShortcut(NppXml::Node node)
+void NppParameters::feedShortcut(const NppXml::Element& element)
 {
-	NppXml::Node shortcutsRoot = NppXml::firstChildElement(node, "InternalCommands");
+	NppXml::Element shortcutsRoot = NppXml::firstChildElement(element, "InternalCommands");
 	if (!shortcutsRoot) return;
 
-	for (NppXml::Node childNode = NppXml::firstChildElement(shortcutsRoot, "Shortcut");
+	for (NppXml::Element childNode = NppXml::firstChildElement(shortcutsRoot, "Shortcut");
 		childNode;
 		childNode = NppXml::nextSiblingElement(childNode, "Shortcut"))
 	{
-		const auto& element = NppXml::toElement(childNode);
-		const int id = NppXml::intAttribute(element, "id", -1);
+		const int id = NppXml::intAttribute(childNode, "id", -1);
 		if (id > 0)
 		{
 			//find the commandid that matches this Shortcut sc and alter it, push back its index in the modified list, if not present
@@ -3564,12 +3573,12 @@ void NppParameters::feedShortcut(NppXml::Node node)
 	}
 }
 
-void NppParameters::feedMacros(NppXml::Node node)
+void NppParameters::feedMacros(const NppXml::Element& element)
 {
-	NppXml::Node macrosRoot = NppXml::firstChildElement(node, "Macros");
+	NppXml::Element macrosRoot = NppXml::firstChildElement(element, "Macros");
 	if (!macrosRoot) return;
 
-	for (NppXml::Node childNode = NppXml::firstChildElement(macrosRoot, "Macro");
+	for (NppXml::Element childNode = NppXml::firstChildElement(macrosRoot, "Macro");
 		childNode;
 		childNode = NppXml::nextSiblingElement(childNode, "Macro"))
 	{
@@ -3581,30 +3590,27 @@ void NppParameters::feedMacros(NppXml::Node node)
 			getActions(childNode, macro);
 			const auto cmdID = ID_MACRO + static_cast<int>(_macros.size());
 			_macros.push_back(MacroShortcut(sc, macro, cmdID));
-			_macroMenuItems.push_back(MenuItemUnit(cmdID, string2wstring(sc.getName(), CP_UTF8), string2wstring(fdnm, CP_UTF8)));
+			_macroMenuItems.push_back(MenuItemUnit(cmdID, string2wstring(sc.getName()), string2wstring(fdnm)));
 		}
 	}
 }
 
 
-void NppParameters::getActions(NppXml::Node node, Macro& macro)
+void NppParameters::getActions(const NppXml::Element& element, Macro& macro)
 {
-	for (NppXml::Node childNode = NppXml::firstChildElement(node, "Action");
+	for (NppXml::Element childNode = NppXml::firstChildElement(element, "Action");
 		childNode;
 		childNode = NppXml::nextSiblingElement(childNode, "Action") )
 	{
-		const auto& element = NppXml::toElement(childNode);
-		const int type = NppXml::intAttribute(element, "type", 4);
+		const int type = NppXml::intAttribute(childNode, "type", 4);
 		if (type > 3)
 			continue;
 
-		const int msg = NppXml::intAttribute(element, "message", 0);
-		const int wParam = NppXml::intAttribute(element, "wParam", 0);
-		const int lParam = NppXml::intAttribute(element, "lParam", 0);
+		const int msg = NppXml::intAttribute(childNode, "message", 0);
+		const int wParam = NppXml::intAttribute(childNode, "wParam", 0);
+		const int lParam = NppXml::intAttribute(childNode, "lParam", 0);
 
-		const char *sParam = NppXml::attribute(element, "sParam");
-		if (!sParam)
-			sParam = "";
+		const char* sParam = NppXml::attribute(childNode, "sParam", "");
 
 		// Normalize end-of-line (EOL) characters for macro steps to address issues with old saved macros
 		// potentially having inconsistent EOL formats due to TinyXML1 and the native API.
@@ -3671,12 +3677,12 @@ void NppParameters::getActions(NppXml::Node node, Macro& macro)
 	}
 }
 
-void NppParameters::feedUserCmds(NppXml::Node node)
+void NppParameters::feedUserCmds(const NppXml::Element& element)
 {
-	NppXml::Node userCmdsRoot = NppXml::firstChildElement(node, "UserDefinedCommands");
+	NppXml::Element userCmdsRoot = NppXml::firstChildElement(element, "UserDefinedCommands");
 	if (!userCmdsRoot) return;
 
-	for (NppXml::Node childNode = NppXml::firstChildElement(userCmdsRoot, "Command");
+	for (NppXml::Element childNode = NppXml::firstChildElement(userCmdsRoot, "Command");
 		childNode;
 		childNode = NppXml::nextSiblingElement(childNode, "Command"))
 	{
@@ -3684,7 +3690,7 @@ void NppParameters::feedUserCmds(NppXml::Node node)
 		string fdnm;
 		if (getShortcuts(childNode, sc, &fdnm))
 		{
-			NppXml::Node aNode = NppXml::firstChild(childNode);
+			NppXml::Node aNode = NppXml::firstChild(childNode); // text node
 			if (aNode)
 			{
 				const char* cmdStr = NppXml::value(aNode);
@@ -3692,29 +3698,27 @@ void NppParameters::feedUserCmds(NppXml::Node node)
 				{
 					const auto cmdID = ID_USER_CMD + static_cast<int>(_userCommands.size());
 					_userCommands.push_back(UserCommand(sc, cmdStr, cmdID));
-					_runMenuItems.push_back(MenuItemUnit(cmdID, string2wstring(sc.getName(), CP_UTF8), string2wstring(fdnm, CP_UTF8)));
+					_runMenuItems.push_back(MenuItemUnit(cmdID, string2wstring(sc.getName()), string2wstring(fdnm)));
 				}
 			}
 		}
 	}
 }
 
-void NppParameters::feedPluginCustomizedCmds(NppXml::Node node)
+void NppParameters::feedPluginCustomizedCmds(const NppXml::Element& element)
 {
-	NppXml::Node pluginCustomizedCmdsRoot = NppXml::firstChildElement(node, "PluginCommands");
+	NppXml::Element pluginCustomizedCmdsRoot = NppXml::firstChildElement(element, "PluginCommands");
 	if (!pluginCustomizedCmdsRoot) return;
 
-	for (NppXml::Node childNode = NppXml::firstChildElement(pluginCustomizedCmdsRoot, "PluginCommand");
+	for (NppXml::Element childNode = NppXml::firstChildElement(pluginCustomizedCmdsRoot, "PluginCommand");
 		childNode;
 		childNode = NppXml::nextSiblingElement(childNode, "PluginCommand"))
 	{
-		const auto& element = NppXml::toElement(childNode);
-
-		const char *moduleName = NppXml::attribute(element, "moduleName");
+		const char *moduleName = NppXml::attribute(childNode, "moduleName");
 		if (!moduleName)
 			continue;
 
-		const int internalID = NppXml::intAttribute(element, "internalID", -1);
+		const int internalID = NppXml::intAttribute(childNode, "internalID", -1);
 		if (internalID == -1)
 			continue;
 
@@ -3734,22 +3738,20 @@ void NppParameters::feedPluginCustomizedCmds(NppXml::Node node)
 	}
 }
 
-void NppParameters::feedScintKeys(NppXml::Node node)
+void NppParameters::feedScintKeys(const NppXml::Element& element)
 {
-	NppXml::Node scintKeysRoot = NppXml::firstChildElement(node, "ScintillaKeys");
+	NppXml::Element scintKeysRoot = NppXml::firstChildElement(element, "ScintillaKeys");
 	if (!scintKeysRoot) return;
 
-	for (NppXml::Node childNode = NppXml::firstChildElement(scintKeysRoot, "ScintKey");
+	for (NppXml::Element childNode = NppXml::firstChildElement(scintKeysRoot, "ScintKey");
 		childNode;
 		childNode = NppXml::nextSiblingElement(childNode, "ScintKey"))
 	{
-		const auto& element = NppXml::toElement(childNode);
-
-		const int scintKey = NppXml::intAttribute(element, "ScintID", -1);
+		const int scintKey = NppXml::intAttribute(childNode, "ScintID", -1);
 		if (scintKey == -1)
 			continue;
 
-		const int menuID = NppXml::intAttribute(element, "menuCmdID", -1);
+		const int menuID = NppXml::intAttribute(childNode, "menuCmdID", -1);
 		if (menuID == -1)
 			continue;
 
@@ -3766,27 +3768,26 @@ void NppParameters::feedScintKeys(NppXml::Node node)
 				_scintillaKeyCommands[i].setKeyComboByIndex(0, _scintillaKeyCommands[i].getKeyCombo());
 				addScintillaModifiedIndex(i);
 				KeyCombo kc;
-				for (NppXml::Node nextNode = NppXml::firstChildElement(childNode, "NextKey");
+				for (NppXml::Element nextNode = NppXml::firstChildElement(childNode, "NextKey");
 					nextNode;
 					nextNode = NppXml::nextSiblingElement(nextNode, "NextKey"))
 				{
-					const auto nextElement = NppXml::toElement(nextNode);
-					const char *str = NppXml::attribute(nextElement, "Ctrl");
+					const char *str = NppXml::attribute(nextNode, "Ctrl");
 					if (!str)
 						continue;
 					kc._isCtrl = (strcmp("yes", str) == 0);
 
-					str = NppXml::attribute(nextElement, "Alt");
+					str = NppXml::attribute(nextNode, "Alt");
 					if (!str)
 						continue;
 					kc._isAlt = (strcmp("yes", str) == 0);
 
-					str = NppXml::attribute(nextElement, "Shift");
+					str = NppXml::attribute(nextNode, "Shift");
 					if (!str)
 						continue;
 					kc._isShift = (strcmp("yes", str) == 0);
 
-					const int key = NppXml::intAttribute(nextElement, "Key", -1);
+					const int key = NppXml::intAttribute(nextNode, "Key", -1);
 					if (key == -1)
 						continue;
 					kc._key = static_cast<unsigned char>(key);
@@ -3798,30 +3799,15 @@ void NppParameters::feedScintKeys(NppXml::Node node)
 	}
 }
 
-bool NppParameters::getInternalCommandShortcuts(NppXml::Node node, CommandShortcut& cs, string* folderName)
+bool NppParameters::getInternalCommandShortcuts(const NppXml::Element& element, CommandShortcut& cs, std::string* folderName)
 {
-	if (!node) return false;
+	if (!element) return false;
 
-	const auto& element = NppXml::toElement(node);
+	const char* name = NppXml::attribute(element, "name", "");
 
-	const char* name = NppXml::attribute(element, "name");
-	if (!name)
-		name = "";
-
-	bool isCtrl = false;
-	const char* isCtrlStr = NppXml::attribute(element, "Ctrl");
-	if (isCtrlStr)
-		isCtrl = (strcmp("yes", isCtrlStr) == 0);
-
-	bool isAlt = false;
-	const char* isAltStr = NppXml::attribute(element, "Alt");
-	if (isAltStr)
-		isAlt = (strcmp("yes", isAltStr) == 0);
-
-	bool isShift = false;
-	const char* isShiftStr = NppXml::attribute(element, "Shift");
-	if (isShiftStr)
-		isShift = (strcmp("yes", isShiftStr) == 0);
+	const bool isCtrl = getBoolAttribute(element, "Ctrl");
+	const bool isAlt = getBoolAttribute(element, "Alt");
+	const bool isShift = getBoolAttribute(element, "Shift");
 
 	const int key = NppXml::intAttribute(element, "Key", -1);
 	if (key == -1)
@@ -3836,38 +3822,22 @@ bool NppParameters::getInternalCommandShortcuts(NppXml::Node node, CommandShortc
 
 	if (folderName)
 	{
-		const char* fn = NppXml::attribute(element, "FolderName");
-		*folderName = fn ? fn : "";
+		*folderName = NppXml::attribute(element, "FolderName", "");
 	}
 
 	cs = Shortcut(name, isCtrl, isAlt, isShift, static_cast<unsigned char>(key));
 	return true;
 }
 
-bool NppParameters::getShortcuts(NppXml::Node node, Shortcut & sc, string* folderName)
+bool NppParameters::getShortcuts(const NppXml::Element& element, Shortcut& sc, std::string* folderName)
 {
-	if (!node) return false;
+	if (!element) return false;
 
-	const auto& element = NppXml::toElement(node);
+	const char* name = NppXml::attribute(element, "name", "");
 
-	const char* name = NppXml::attribute(element, "name");
-	if (!name)
-		name = "";
-
-	bool isCtrl = false;
-	const char* isCtrlStr = NppXml::attribute(element, "Ctrl");
-	if (isCtrlStr)
-		isCtrl = (strcmp("yes", isCtrlStr) == 0);
-
-	bool isAlt = false;
-	const char* isAltStr = NppXml::attribute(element, "Alt");
-	if (isAltStr)
-		isAlt = (strcmp("yes", isAltStr) == 0);
-
-	bool isShift = false;
-	const char* isShiftStr = NppXml::attribute(element, "Shift");
-	if (isShiftStr)
-		isShift = (strcmp("yes", isShiftStr) == 0);
+	const bool isCtrl = getBoolAttribute(element, "Ctrl");
+	const bool isAlt = getBoolAttribute(element, "Alt");
+	const bool isShift = getBoolAttribute(element, "Shift");
 
 	const int key = NppXml::intAttribute(element, "Key", -1);
 	if (key == -1)
@@ -3876,8 +3846,7 @@ bool NppParameters::getShortcuts(NppXml::Node node, Shortcut & sc, string* folde
 
 	if (folderName)
 	{
-		const char* fn = NppXml::attribute(element, "FolderName");
-		*folderName = fn ? fn : "";
+		*folderName = NppXml::attribute(element, "FolderName", "");
 	}
 
 	sc = Shortcut(name, isCtrl, isAlt, isShift, static_cast<unsigned char>(key));
@@ -4257,30 +4226,30 @@ void NppParameters::writeNeed2SaveUDL()
 }
 
 
-void NppParameters::insertCmd(NppXml::Node shortcutsRoot, const CommandShortcut& cmd)
+void NppParameters::insertCmd(NppXml::Element& cmdRoot, const CommandShortcut& cmd)
 {
 	const KeyCombo& key = cmd.getKeyCombo();
-	NppXml::Element sc = NppXml::createChildElement(shortcutsRoot, "Shortcut");
+	NppXml::Element sc = NppXml::createChildElement(cmdRoot, "Shortcut");
 
 	NppXml::setAttribute(sc, "id", cmd.getID());
-	NppXml::setAttribute(sc, "Ctrl", key._isCtrl ? "yes" : "no");
-	NppXml::setAttribute(sc, "Alt", key._isAlt ? "yes" : "no");
-	NppXml::setAttribute(sc, "Shift", key._isShift ? "yes" : "no");
+	setBoolAttribute(sc, "Ctrl", key._isCtrl);
+	setBoolAttribute(sc, "Alt", key._isAlt);
+	setBoolAttribute(sc, "Shift", key._isShift);
 	NppXml::setAttribute(sc, "Key", key._key);
 	if (cmd.getNth() != 0)
 		NppXml::setAttribute(sc, "nth", cmd.getNth());
 }
 
 
-void NppParameters::insertMacro(NppXml::Node macrosRoot, const MacroShortcut& macro, const string& folderName)
+void NppParameters::insertMacro(NppXml::Element& macrosRoot, const MacroShortcut& macro, const string& folderName)
 {
 	const KeyCombo& key = macro.getKeyCombo();
 	NppXml::Element macroRoot = NppXml::createChildElement(macrosRoot, "Macro");
 
 	NppXml::setAttribute(macroRoot, "name", macro.getMenuName());
-	NppXml::setAttribute(macroRoot, "Ctrl", key._isCtrl ? "yes" : "no");
-	NppXml::setAttribute(macroRoot, "Alt", key._isAlt ? "yes" : "no");
-	NppXml::setAttribute(macroRoot, "Shift", key._isShift ? "yes" : "no");
+	setBoolAttribute(macroRoot, "Ctrl", key._isCtrl);
+	setBoolAttribute(macroRoot, "Alt", key._isAlt);
+	setBoolAttribute(macroRoot, "Shift", key._isShift);
 	NppXml::setAttribute(macroRoot, "Key", key._key);
 	if (!folderName.empty())
 	{
@@ -4301,15 +4270,15 @@ void NppParameters::insertMacro(NppXml::Node macrosRoot, const MacroShortcut& ma
 }
 
 
-void NppParameters::insertUserCmd(NppXml::Node userCmdRoot, const UserCommand& userCmd, const std::string& folderName)
+void NppParameters::insertUserCmd(NppXml::Element& userCmdRoot, const UserCommand& userCmd, const std::string& folderName)
 {
 	const KeyCombo& key = userCmd.getKeyCombo();
 	NppXml::Element cmdRoot = NppXml::createChildElement(userCmdRoot, "Command");
 
 	NppXml::setAttribute(cmdRoot, "name", userCmd.getMenuName());
-	NppXml::setAttribute(cmdRoot, "Ctrl", key._isCtrl ? "yes" : "no");
-	NppXml::setAttribute(cmdRoot, "Alt", key._isAlt ? "yes" : "no");
-	NppXml::setAttribute(cmdRoot, "Shift", key._isShift ? "yes" : "no");
+	setBoolAttribute(cmdRoot, "Ctrl", key._isCtrl);
+	setBoolAttribute(cmdRoot, "Alt", key._isAlt);
+	setBoolAttribute(cmdRoot, "Shift", key._isShift);
 	NppXml::setAttribute(cmdRoot, "Key", key._key);
 
 	NppXml::createChildText(cmdRoot, userCmd._cmd.c_str());
@@ -4320,21 +4289,21 @@ void NppParameters::insertUserCmd(NppXml::Node userCmdRoot, const UserCommand& u
 }
 
 
-void NppParameters::insertPluginCmd(NppXml::Node pluginCmdRoot, const PluginCmdShortcut& pluginCmd)
+void NppParameters::insertPluginCmd(NppXml::Element& pluginCmdRoot, const PluginCmdShortcut& pluginCmd)
 {
 	const KeyCombo& key = pluginCmd.getKeyCombo();
 	NppXml::Element pluginCmdNode = NppXml::createChildElement(pluginCmdRoot, "PluginCommand");
 
 	NppXml::setAttribute(pluginCmdNode, "moduleName", pluginCmd.getModuleName());
 	NppXml::setAttribute(pluginCmdNode, "internalID", pluginCmd.getInternalID());
-	NppXml::setAttribute(pluginCmdNode, "Ctrl", key._isCtrl ? "yes" : "no");
-	NppXml::setAttribute(pluginCmdNode, "Alt", key._isAlt ? "yes" : "no");
-	NppXml::setAttribute(pluginCmdNode, "Shift", key._isShift ? "yes" : "no");
+	setBoolAttribute(pluginCmdNode, "Ctrl", key._isCtrl);
+	setBoolAttribute(pluginCmdNode, "Alt", key._isAlt);
+	setBoolAttribute(pluginCmdNode, "Shift", key._isShift);
 	NppXml::setAttribute(pluginCmdNode, "Key", key._key);
 }
 
 
-void NppParameters::insertScintKey(NppXml::Node scintKeyRoot, const ScintillaKeyMap& scintKeyMap)
+void NppParameters::insertScintKey(NppXml::Element& scintKeyRoot, const ScintillaKeyMap& scintKeyMap)
 {
 	NppXml::Element keyRoot = NppXml::createChildElement(scintKeyRoot, "ScintKey");
 
@@ -4343,9 +4312,9 @@ void NppParameters::insertScintKey(NppXml::Node scintKeyRoot, const ScintillaKey
 
 	//Add main shortcut
 	KeyCombo key = scintKeyMap.getKeyComboByIndex(0);
-	NppXml::setAttribute(keyRoot, "Ctrl", key._isCtrl ? "yes" : "no");
-	NppXml::setAttribute(keyRoot, "Alt", key._isAlt ? "yes" : "no");
-	NppXml::setAttribute(keyRoot, "Shift", key._isShift ? "yes" : "no");
+	setBoolAttribute(keyRoot, "Ctrl", key._isCtrl);
+	setBoolAttribute(keyRoot, "Alt", key._isAlt);
+	setBoolAttribute(keyRoot, "Shift", key._isShift);
 	NppXml::setAttribute(keyRoot, "Key", key._key);
 
 	//Add additional shortcuts
@@ -4357,9 +4326,9 @@ void NppParameters::insertScintKey(NppXml::Node scintKeyRoot, const ScintillaKey
 			key = scintKeyMap.getKeyComboByIndex(i);
 			NppXml::Element keyNext = NppXml::createChildElement(keyRoot, "NextKey");
 
-			NppXml::setAttribute(keyNext, "Ctrl", key._isCtrl ? "yes" : "no");
-			NppXml::setAttribute(keyNext, "Alt", key._isAlt ? "yes" : "no");
-			NppXml::setAttribute(keyNext, "Shift", key._isShift ? "yes" : "no");
+			setBoolAttribute(keyNext, "Ctrl", key._isCtrl);
+			setBoolAttribute(keyNext, "Alt", key._isAlt);
+			setBoolAttribute(keyNext, "Shift", key._isShift);
 			NppXml::setAttribute(keyNext, "Key", key._key);
 		}
 	}
@@ -4593,7 +4562,7 @@ void NppParameters::writeShortcuts()
 		}
 	}
 
-	NppXml::Node root = NppXml::firstChildElement(_pXmlShortcutDoc, "NotepadPlus");
+	NppXml::Element root = NppXml::firstChildElement(_pXmlShortcutDoc, "NotepadPlus");
 	if (!root)
 	{
 		root = NppXml::createChildElement(_pXmlShortcutDoc, "NotepadPlus");
@@ -4612,7 +4581,7 @@ void NppParameters::writeShortcuts()
 		insertCmd(cmdRoot, csc);
 	}
 
-	NppXml::Node macrosRoot = NppXml::firstChildElement(root, "Macros");
+	NppXml::Element macrosRoot = NppXml::firstChildElement(root, "Macros");
 	if (macrosRoot)
 		NppXml::deleteChild(root, macrosRoot);
 
@@ -4623,7 +4592,7 @@ void NppParameters::writeShortcuts()
 		insertMacro(macrosRoot, _macros[i], wstring2string(_macroMenuItems.getItemFromIndex(i)._parentFolderName, CP_UTF8));
 	}
 
-	NppXml::Node userCmdRoot = NppXml::firstChildElement(root, "UserDefinedCommands");
+	NppXml::Element userCmdRoot = NppXml::firstChildElement(root, "UserDefinedCommands");
 	if (userCmdRoot)
 		NppXml::deleteChild(root, userCmdRoot);
 
@@ -4634,7 +4603,7 @@ void NppParameters::writeShortcuts()
 		insertUserCmd(userCmdRoot, _userCommands[i], wstring2string(_runMenuItems.getItemFromIndex(i)._parentFolderName, CP_UTF8));
 	}
 
-	NppXml::Node pluginCmdRoot = NppXml::firstChildElement(root, "PluginCommands");
+	NppXml::Element pluginCmdRoot = NppXml::firstChildElement(root, "PluginCommands");
 	if (pluginCmdRoot)
 		NppXml::deleteChild(root, pluginCmdRoot);
 
@@ -4645,7 +4614,7 @@ void NppParameters::writeShortcuts()
 		insertPluginCmd(pluginCmdRoot, _pluginCommands[_pluginCustomizedCmds[i]]);
 	}
 
-	NppXml::Node scitillaKeyRoot = NppXml::firstChildElement(root, "ScintillaKeys");
+	NppXml::Element scitillaKeyRoot = NppXml::firstChildElement(root, "ScintillaKeys");
 	if (scitillaKeyRoot)
 		NppXml::deleteChild(root, scitillaKeyRoot);
 
@@ -9625,55 +9594,28 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 
 void NppParameters::addUserModifiedIndex(size_t index)
 {
-	size_t len = _customizedShortcuts.size();
-	bool found = false;
-	for (size_t i = 0; i < len; ++i)
+	if (!std::any_of(_customizedShortcuts.begin(), _customizedShortcuts.end(),
+		[&index](size_t userCmdIdx) { return userCmdIdx == index; }))
 	{
-		if (_customizedShortcuts[i] == index)
-		{
-			found = true;
-			break;
-		}
-	}
-	if (!found)
-	{
-		_customizedShortcuts.push_back(index);
+		_customizedShortcuts.push_back(index); // Add index if not found
 	}
 }
 
 void NppParameters::addPluginModifiedIndex(size_t index)
 {
-	size_t len = _pluginCustomizedCmds.size();
-	bool found = false;
-	for (size_t i = 0; i < len; ++i)
+	if (!std::any_of(_pluginCustomizedCmds.begin(), _pluginCustomizedCmds.end(),
+		[&index](size_t pluginCmdIdx) { return pluginCmdIdx == index; }))
 	{
-		if (_pluginCustomizedCmds[i] == index)
-		{
-			found = true;
-			break;
-		}
-	}
-	if (!found)
-	{
-		_pluginCustomizedCmds.push_back(index);
+		_pluginCustomizedCmds.push_back(index); // Add index if not found
 	}
 }
 
 void NppParameters::addScintillaModifiedIndex(int index)
 {
-	size_t len = _scintillaModifiedKeyIndices.size();
-	bool found = false;
-	for (size_t i = 0; i < len; ++i)
+	if (!std::any_of(_scintillaModifiedKeyIndices.begin(), _scintillaModifiedKeyIndices.end(),
+		[&index](int scintCmdIdx) { return scintCmdIdx == index; }))
 	{
-		if (_scintillaModifiedKeyIndices[i] == index)
-		{
-			found = true;
-			break;
-		}
-	}
-	if (!found)
-	{
-		_scintillaModifiedKeyIndices.push_back(index);
+		_scintillaModifiedKeyIndices.push_back(index); // Add index if not found
 	}
 }
 

@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Galego" filename="galician.xml" version="8.8.5">
+	<Native-Langue name="Galego" filename="galician.xml" version="8.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -41,7 +41,7 @@ Translation note:
 					<Item subMenuId="edit-onSelection" name="Selecció&amp;n"/>
 					<Item subMenuId="edit-multiSelectALL" name="Multiselección total"/>
 					<Item subMenuId="edit-multiSelectNext" name="Seguinte multiselección"/>
-					<Item subMenuId="edit-readonlyInNotepad++" name="Atributo só lectura en Notepad++"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Atributo de só lectura en Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="Historial de cambios"/>
 					<Item subMenuId="search-markAll" name="Resaltar tódalas coincidencias &amp;buscadas"/>
 					<Item subMenuId="search-markOne" name="Resaltar unha coinci&amp;dencia"/>
@@ -140,6 +140,8 @@ Translation note:
 					<Item id="42081" name="Ordenar liñas en descendente ignorando maiúsculas e minúsculas"/>
 					<Item id="42100" name="Ordenar liñas en orden ascendente"/>
 					<Item id="42101" name="Ordenar liñas en orden descendente"/>
+					<Item id="42104" name="Orden de liñas por lonxitude ascendente"/>
+					<Item id="42105" name="Orden de liñas por lonxitude descendente"/>
 					<Item id="42061" name="Orden de liñas numérico ascendente"/>
 					<Item id="42062" name="Orden de liñas numérico descendente"/>
 					<Item id="42063" name="Ordenar liñas como decimais (coma) ascendente"/>
@@ -157,7 +159,7 @@ Translation note:
 					<Item id="42071" name="Inv&amp;ertir maiúsculas e MINÚSCULAS"/>
 					<Item id="42072" name="mAiúsculas e mInÚscuLAs &amp;ALeatoriO"/>
 					<Item id="42073" name="Abrir arquivo"/>
-					<Item id="42074" name="Abrir carpeta contedora no explorador de arquivos"/>
+					<Item id="42074" name="Abrir carpeta contedora no Explorador de arquivos"/>
 					<Item id="42075" name="Buscar en Internet"/>
 					<Item id="42076" name="Cambiar motor de busca..."/>
 					<Item id="42090" name="Ignorar maiúsculas e minúsculas &amp;&amp; Palabra completa"/>
@@ -298,8 +300,8 @@ Translation note:
 					<Item id="44031" name="Expandir nivel actual"/>
 					<Item id="44049" name="Resumo..."/>
 					<Item id="44080" name="Mapa do documento"/>
-					<Item id="44070" name="Lista dos documentos"/>
-					<Item id="44084" name="Lista de funcións"/>
+					<Item id="44070" name="Listaxe dos documentos"/>
+					<Item id="44084" name="Listaxe de funcións"/>
 					<Item id="44085" name="Carpeta como área de traballo"/>
 					<Item id="44086" name="Pestana 1"/>
 					<Item id="44087" name="Pestana 2"/>
@@ -406,7 +408,7 @@ Translation note:
 					<Item id="50006" name="Finalización da ruta"/>
 					<Item id="44042" name="Ocultar liñas"/>
 					<Item id="42040" name="Abrir tódolos arquivos recentes"/>
-					<Item id="42041" name="Baleirar lista de arquivos recentes"/>
+					<Item id="42041" name="Baleirar listaxe de arquivos recentes"/>
 					<Item id="48016" name="Modificar ou borrar accesos directos de macros..."/>
 					<Item id="48017" name="Modificar ou borrar accesos directos de comandos..."/>
 
@@ -426,19 +428,19 @@ Translation note:
 			<TabBar>
 				<Item CMDID="41003" name="Pechar"/>
 				<Item CMDID="0" name="Pechar múltiples pestanas"/>
-				<Item CMDID="41005" name="Pechar todo MENOS esto"/>
+				<Item CMDID="41005" name="Pechar todo MENOS isto"/>
 				<Item CMDID="41026" name="Pechar todo excepto os documentos fixados"/>
 				<Item CMDID="41009" name="Pechar todo á esquerda"/>
 				<Item CMDID="41018" name="Pechar todo á dereita"/>
-				<Item CMDID="41024" name="Pechar todo sin cambios"/>
+				<Item CMDID="41024" name="Pechar todo sen cambios"/>
 				<Item CMDID="44048" name="Fixar pestana" alternativeName="Liberar pestana"/>
 				<Item CMDID="41006" name="Gardar"/>
 				<Item CMDID="41008" name="Gardar como..."/>
 				<Item CMDID="1" name="Abrir en"/>
-				<Item CMDID="41019" name="Abrir carpeta contedora no explorador"/>
+				<Item CMDID="41019" name="Abrir carpeta contedora no Explorador"/>
 				<Item CMDID="41020" name="Abrir carpeta contedora en CMD"/>
 				<Item CMDID="41025" name="Abrir carpeta contedora como espazo de traballo"/>
-				<Item CMDID="41023" name="Abrir no visor predeterminado"/>
+				<Item CMDID="41023" name="Abrir no visualizador predeterminado"/>
 				<Item CMDID="41017" name="Renomear..."/>
 				<Item CMDID="41016" name="Mover á Papeleira de reciclaxe"/>
 				<Item CMDID="41014" name="Recargar"/>
@@ -613,7 +615,7 @@ Translation note:
 				<Item id="5504" name="&amp;Actualizar"/>
 				<Item id="5505" name="B&amp;orrar"/>
 				<Item id="5508" name="&amp;Seguinte"/>
-				<Item id="5509" name="Versión da lista de complementos:"/>
+				<Item id="5509" name="Versión da listaxe de complementos:"/>
 				<Item id="5511" name="Repositorio lista de complementos"/>
 				<Item id="2" name="Pechar"/>
 			</PluginsAdminDlg>
@@ -674,7 +676,7 @@ Translation note:
 				<DeleteContextMenu name="Eliminar"/>
 				<ClearContextMenu name="Borrar"/>
 				<MainCommandNames>
-					<Item id="41019" name="Abrir carpeta contedora no explorador de arquivos"/>
+					<Item id="41019" name="Abrir carpeta contedora no Explorador de arquivos"/>
 					<Item id="41020" name="Abrir carpeta contedora no Símbolo do sistema"/>
 					<Item id="41021" name="Restaurar arquivo pechado recentemente"/>
 					<Item id="45001" name="Conversión EOL a Windows (CR LF)"/>
@@ -742,15 +744,15 @@ Translation note:
 					<Item id="44083" name="Alternar panel de proxecto 3"/>
 					<Item id="44085" name="Alternar carpeta como espazo de traballo"/>
 					<Item id="44080" name="Alternar mapa de documentos"/>
-					<Item id="44070" name="Alternar lista de documentos"/>
-					<Item id="44084" name="Alternar lista de funcións"/>
+					<Item id="44070" name="Alternar listaxe de documentos"/>
+					<Item id="44084" name="Alternar listaxe de funcións"/>
 					<Item id="50005" name="Alternar gravación de macros"/>
 					<Item id="44104" name="Cambiar ao panel de proxecto 1"/>
 					<Item id="44105" name="Cambiar ao panel de proxecto 2"/>
 					<Item id="44106" name="Cambiar ao panel de proxecto 3"/>
 					<Item id="44107" name="Cambiar á carpeta como espazo de traballo"/>
-					<Item id="44109" name="Cambiar á lista de documentos"/>
-					<Item id="44108" name="Cambiar á lista de funcións"/>
+					<Item id="44109" name="Cambiar á listaxe de documentos"/>
+					<Item id="44108" name="Cambiar á listaxe de funcións"/>
 					<Item id="44110" name="Eliminar a cor da pestana"/>
 					<Item id="44111" name="Aplicar cor 1 á pestana"/>
 					<Item id="44112" name="Aplicar cor 2 á pestana"/>
@@ -963,8 +965,8 @@ Translation note:
 
 				<Toolbar title="Barra de ferramentas">
 					<Item id="6102" name="Ocultar"/>
-					<Item id="6103" name="Iconas pequenas sin recheo"/>
-					<Item id="6104" name="Iconas grandes sin recheo"/>
+					<Item id="6103" name="Iconas pequenas sen recheo"/>
+					<Item id="6104" name="Iconas grandes sen recheo"/>
 					<Item id="6129" name="Iconas pequenas con recheo"/>
 					<Item id="6130" name="Iconas grandes con recheo"/>
 					<Item id="6105" name="Iconas pequenas predeterminadas"/>
@@ -1001,6 +1003,7 @@ Translation note:
 					<Item id="6128" name="Iconas alternativas"/>
 					<Item id="6125" name="Comportamento"/>
 					<Item id="6126" name="Aspecto &amp;&amp; Estilo"/>
+					<Item id="6136" name="Lonxitude máxima da etiqueta da pestana:"/>
 				</Tabbar>
 
 				<Scintillas title="Edición 1">
@@ -1019,7 +1022,7 @@ Translation note:
 					<Item id="6236" name="Permitir desprazamento despois da última liña"/>
 					<Item id="6239" name="Manter a selección se preme o botón dereito fóra da selección"/>
 					<Item id="6245" name="Habilitar espazo virtual"/>
-					<Item id="6214" name="Permitir copiar/cortar liña sin selección"/>
+					<Item id="6214" name="Permitir copiar/cortar liña sen selección"/>
 					<Item id="6225" name="Aplicar a cor personalizada ao primeiro plano do texto seleccionado"/>
 					<Item id="6651" name="Indicador de liña actual"/>
 					<Item id="6652" name="Ningún"/>
@@ -1034,7 +1037,7 @@ Translation note:
 					<Item id="6523" name="Habilitar a selección de columnas para a edición múltiple"/>
 					<Item id="6247" name="EOL (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Predeterminado"/>
-					<Item id="6249" name="Texto sin formato"/>
+					<Item id="6249" name="Texto sen formato"/>
 					<Item id="6250" name="Cor personalizada"/>
 					<Item id="6252" name="Caracteres non imprimibles"/>
 					<Item id="6260" name="Aparencia"/>
@@ -1057,7 +1060,7 @@ Translation note:
 					<Item id="7108" name="Ton cian"/>
 					<Item id="7109" name="Ton oliva"/>
 					<Item id="7115" name="Ton personalizado"/>
-					<Item id="7116" name="Fondo da interfaz"/>
+					<Item id="7116" name="Fondo da interface"/>
 					<Item id="7117" name="Pestanas de opcións"/>
 					<Item id="7118" name="Control do fondo"/>
 					<Item id="7119" name="Diálogo de fondo"/>
@@ -1074,7 +1077,7 @@ Translation note:
 				</DarkMode>
 
 				<MarginsBorderEdge title="Marxe, bordo e liñas">
-					<Item id="6201" name="Estilo de marxen"/>
+					<Item id="6201" name="Estilo do marxe"/>
 					<Item id="6202" name="Simple"/>
 					<Item id="6203" name="Frechas"/>
 					<Item id="6204" name="Círculos"/>
@@ -1086,7 +1089,7 @@ Translation note:
 					<Item id="6293" name="Ancho fixo"/>
 					<Item id="6207" name="Mostrar marcador"/>
 					<Item id="6295" name="Historial de cambios"/>
-					<Item id="6223" name="Mostralos na marxen"/>
+					<Item id="6223" name="Mostralos na marxe"/>
 					<Item id="6296" name="Mostralos no texto"/>
 					<Item id="6211" name="Configuración do bordo vertical"/>
 					<Item id="6213" name="Resaltar fondo de liñas"/>
@@ -1137,18 +1140,18 @@ Translation note:
 					<Item id="6335" name="Tratar barra invertida como carácter de escape para SQL"/>
 				</Language>
 
-				<Indentation title="Sangrías">
+				<Indentation title="Tabulacións">
 					<Item id="7161" name="Automática"/>
 					<Item id="7162" name="Ningunha"/>
 					<Item id="7163" name="Básica"/>
 					<Item id="7164" name="Avanzada"/>
-					<Item id="6301" name="Configuración de sangrías"/>
+					<Item id="6301" name="Configuración da tabulación"/>
 					<Item id="6302" name="Espazos"/>
 					<Item id="6303" name="Tamaño:"/>
-					<Item id="6310" name="Sangría como:"/>
+					<Item id="6310" name="Tabulación como:"/>
 					<Item id="6311" name="Tabulacións"/>
 					<Item id="6510" name="Usar valor por defecto"/>
-					<Item id="6512" name="Borrar sangrías e non espazos coa tecla de retroceso."/>
+					<Item id="6512" name="Borrar tabulacións en vez de espazos coa tecla de retroceso."/>
 				</Indentation>
 
 				<Highlighting title="Resaltado">
@@ -1218,7 +1221,7 @@ Translation note:
 					<Item id="6909" name="Seleccionar a palabra baixo o cursor se non hai nada seleccionado"/>
 					<Item id="6910" name="Tamaño para a comprobación automática en &quot;Selección&quot;"/>
 					<Item id="6913" name="Completar o campo de busca na ruta dos arquivos en función do documento activo"/>
-					<Item id="6916" name=": Número máximo de caracteres para encher automáticamente o campo de busca a partir da selección"/>
+					<Item id="6916" name=": Número máximo de caracteres para encher automaticamente o campo de busca a partir da selección"/>
 				</Searching>
 
 				<RecentFilesHistory title="Arquivos recentes">
@@ -1260,7 +1263,7 @@ Translation note:
 					<Item id="6824" name="Ignorar números"/>
 					<Item id="6811" name="Desde"/>
 					<Item id="6813" name="º carácter"/>
-					<Item id="6872" name="Reducir a lista de autocompletado"/>
+					<Item id="6872" name="Reducir a listaxe de autocompletado"/>
 					<Item id="6815" name="Suxerencias para os parámetros da función"/>
 					<Item id="6851" name="Inserción/Peche automático"/>
 					<Item id="6857" name="Peche de html/xml"/>
@@ -1276,19 +1279,19 @@ Translation note:
 					<Item id="6152" name="Abrir sesión nunha nova instancia de Notepad++ **"/>
 					<Item id="6153" name="Usar sempre en modo de múltiples instancias"/>
 					<Item id="6154" name="Instancia única por defecto"/>
-					<Item id="6155" name="* Se modifica estes axustes ten que reiniciar Notepad++&#xA;** e gardar a sesión automáticamente ao saír"/>
+					<Item id="6155" name="* Se modifica estes axustes ten que reiniciar Notepad++&#xA;** e gardar a sesión automaticamente ao saír"/>
 					<Item id="6171" name="Personalizar &quot;Inserir data e hora&quot;"/>
 					<Item id="6175" name="Orden inverso de data e hora predeterminada (formatos curto &amp;&amp; longo)"/>
 					<Item id="6172" name="Formato personalizado:"/>
 					<Item id="6181" name="Estado do panel e [-nosesión] *"/>
 					<Item id="6182" name="Recordar o estado do panel (se está aberto) en outras instancias (modo múltiples instancias) ou cando use o comando [-nosession]"/>
 					<Item id="6183" name="Historial do portapapeis"/>
-					<Item id="6184" name="Lista de documentos"/>
+					<Item id="6184" name="Listaxe de documentos"/>
 					<Item id="6185" name="Panel de caracteres"/>
 					<Item id="6186" name="Carpeta como espazo de traballo"/>
 					<Item id="6187" name="Paneis de proxectos"/>
 					<Item id="6188" name="Mapa do documento"/>
-					<Item id="6189" name="Lista de funcións"/>
+					<Item id="6189" name="Listaxe de funcións"/>
 					<Item id="6190" name="Paneis de complementos"/>
 				</MultiInstance>
 
@@ -1305,7 +1308,7 @@ Translation note:
 
 				<Performance title="Rendemento">
 					<Item id="7141" name="Restriccións para arquivos de gran tamaño"/>
-					<Item id="7143" name="Activar restriccións para arquivos grandes (sin resaltado de sintaxe)"/>
+					<Item id="7143" name="Activar restriccións para arquivos grandes (sen resaltado de sintaxe)"/>
 					<Item id="7144" name="Defina o tamaño de arquivo grande:"/>
 					<Item id="7146" name="MB (1 - 2046)"/>
 					<Item id="7147" name="Permitir a coincidencia de corchetes"/>
@@ -1490,10 +1493,10 @@ Debe habilitar &quot;Abrir tódolos arquivos da carpeta&quot; en vez de iniciar 
 Hai 3 formas de cambiar ao modo de selección de columnas:
 
 1- Co teclado e o rato:
-Manter pulsado Alt mentras arrastra co botón esquerdo do rato.
+Manter premido Alt mentres arrastra co botón esquerdo do rato.
  
 2- Só co teclado:
-Manter pulsado Alt+Maiúsculas e usar as teclas de frechas.
+Manter premido Alt+Maiúsculas e usar as teclas de frechas.
 
 3- Co teclado ou co rato:
 Marque co cursor a posición desexada do inicio do bloque de columnas e use a opción &quot;Selección de inicio/fin no modo columna&quot;.
@@ -1522,9 +1525,9 @@ Este arquivo foi modificado por outro programa.
 			<DocTooDirtyToMonitor title="Problema de monitorización" message="O documento non está limpo. Garde as modificacións antes de monitorealo."/>
 			<DocNoExistToMonitor title="Problema de monitorización" message="O arquivo debe existir para ser monitoreado."/>
 			<FileTooBigToOpen title="Problema de tamaño de arquivo" message="O arquivo é demasiado grande para abrilo con Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
-			<FileLoadingException title="Código de excepción: $STR_REPLACE$" message="Houbo un erro ao cargar o arquivo!"/>
+			<FileLoadingException title="Código de excepción: $STR_REPLACE$" message="¡Houbo un erro ao cargar o arquivo!"/>
 			<WantToOpenHugeFile title="Advertencia de apertura dun arquivo de gran tamaño" message="Abrir un arquivo de máis de 2 GB pode levar varios minutos.
-Desexa abrilo?"/>
+¿Desexa abrilo?"/>
 			<CreateNewFileOrNot title="Crear un arquivo novo" message="&quot;$STR_REPLACE$&quot; non existe. ¿Desexa crealo?"/>
 			<CreateNewFileError title="Crear un arquivo novo" message="Non se pode crear o arquivo &quot;$STR_REPLACE$&quot;."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<OpenFileError title="Erro" message="Non se pode abrir o arquivo &quot;$STR_REPLACE$&quot;."/>
@@ -1574,7 +1577,7 @@ Notepad++ reiniciarase despois de que rematen todas.
 ¿Continuar?"/>
 			<NeedToRestartToLoadPlugins title="É necesario reiniciar Notepad++" message="Debe reiniciar Notepad++ para cargar os complementos que instalou."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
 			<ChangeHistoryEnabledWarning title="É necesario reiniciar Notepad++" message="Ten que reiniciar Notepad++ para activar o historial de cambios."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
-			<WindowsSessionExit title="Notepad++ - Saír da sesión de Windows" message="Está a punto de rematar a sesión de Windows, pero hai algúns datos sin gardar. ¿Desexa saír agora de Notepad++?"/>
+			<WindowsSessionExit title="Notepad++ - Saír da sesión de Windows" message="Está a punto de rematar a sesión de Windows, pero hai algúns datos sen gardar. ¿Desexa saír agora de Notepad++?"/>
 			<LanguageMenuCompactWarning title="Menú compacto de linguaxes" message="Esta opción cambiarase no seguinte inicio."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="¡Os cambios non gardados serán descartados!
 ¿Quere gardar os cambios antes de cambiar de tema?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
@@ -1587,25 +1590,25 @@ Cambie o nome de &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.x
 			<FullReadOnlySavingForbidden title="Erro ao gardar" message="Non se pode gardar o arquivo.
 O modo de só lectura total de Notepad++ impediu que se gardara o arquivo."/>
 			<NotEnoughRoom4Saving title="Erro ao gardar" message="Non se  pode gardar o arquivo.
-Parece que non hai espazo suficiente no disco e non é posible gardalo."/>
+Parece que non hai espazo dabondo no disco e non é posible gardalo."/>
 			<FileInaccessibleUserSession title="Arquivo inaccesible" message="Algúns arquivos da súa sesión gardada manualmente &quot;$STR_REPLACE$&quot; están inaccesibles. Pódense abrir como documentos baleiros e de só lectura como marcadores de posición.
 
-¿Quere crear esos marcadores de posición?
+¿Quere crear eses marcadores de posición?
 
 NOTA: Se elixe non crear os marcadores de posición ou cerrarlos máis tarde, a súa sesión gardada manualmente NON se modificará ao saír."/>
 			<FileInaccessibleDefaultSessionXml title="Arquivo inaccesible" message="Algúns arquivos da súa sesión anterior están inaccesibles. Pódense abrir como documentos baleiros e de só lectura como marcadores de posición.
 
-¿Quere crear esos marcadores de posición?
+¿Quere crear eses marcadores de posición?
 
 NOTA: ¡Se elixe non crear os marcadores de posición ou cerrarlos máis tarde, a súa sesión SERÁ MODIFICADA AO SAÍR! Suxerímoslle que faga unha copia de seguridade do seu &quot;session.xml&quot; agora."/>
 			<RTLvsDirectWrite title="Non se pode executar RTL" message="RTL non é compatible co modo DirectWrite. Desactíveo en Configuración -> Preferencias -> Varios e reinicie Notepad++."/>
-			<FileMemoryAllocationFailed title="Excepción: fallo na asignación de memoria para os arquivos" message="É posible que non haxa memoria suficiente dispoñible para os arquivos que quere abrir con Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FileMemoryAllocationFailed title="Excepción: fallo na asignación de memoria para os arquivos" message="É posible que non haxa memoria dabondo dispoñible para os arquivos que quere abrir con Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 			<FindRegexBackwardDisabled title="Busca regex cara atrás desactivada" message="Por defecto, a busca regex cara atrás está desactivada debido aos resultados potencialmente inesperados. Para realizar unha busca cara atrás, abra o cadro de diálogo Buscar e seleccione o modo de busca normal ou ampliado en lugar da expresión regular.
-Pulse o botón Aceptar para abrir o cadro de diálogo Buscar ou fixar o foco nel.
+Prema o botón Aceptar para abrir o cadro de diálogo Buscar ou fixar o foco nel.
 			
 Se necesita a función de busca regex cara atrás, consulte o manual do usuario para obter instruccións sobre como activala."/>
 			<PrintError title="0" message="Non se pode iniciar a impresión do documento."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
-			<FindAutoChangeOfInSelectionWarning title="Advertencia da busca" message="O estado do recadro &quot;Na selección&quot; modificouse automáticamente.
+			<FindAutoChangeOfInSelectionWarning title="Advertencia da busca" message="O estado do recadro &quot;Na selección&quot; modificouse automaticamente.
 Por favor, comprobe a condición da busca antes de realizar a acción."/><!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="É necesario reiniciar Notepad++" message="Debe reiniciar Notepad++ para mostrar os accesos directos da dereita no menú."/>
 			<NoAdminRight2ChangeReadOnlyFileAttribute title="Non se pode cambiar o atributo de só lectura do arquivo" message="Reinicie Notepad++ como administrador para poder cambialo."/>
@@ -1614,7 +1617,7 @@ Por favor, comprobe a condición da busca antes de realizar a acción."/><!-- Ho
 			<PanelTitle name="Historial do portapapeis"/>
 		</ClipboardHistory>
 		<DocList>
-			<PanelTitle name="Lista de documentos"/>
+			<PanelTitle name="Listaxe de documentos"/>
 			<ColumnName name="Nome"/>
 			<ColumnExt name="Ext."/>
 			<ColumnPath name="Ruta"/>
@@ -1643,7 +1646,7 @@ Por favor, comprobe a condición da busca antes de realizar a acción."/><!-- Ho
 			<PanelTitle name="Mapa do documento"/>
 		</DocumentMap>
 		<FunctionList>
-			<PanelTitle name="Lista de funcións"/>
+			<PanelTitle name="Listaxe de funcións"/>
 			<SortTip name="Ordenar"/>
 			<ReloadTip name="Recargar"/>
 			<PreferencesTip name="Preferencias"/>
@@ -1774,6 +1777,9 @@ Buscar en tódolos arquivos pero excluir tódalas carpetas de rexistro ou rexist
 			<find-status-scope-all value="en todo o arquivo."/>
 			<find-status-scope-backward value="desde o inicio do arquivo até o cursor."/>
 			<find-status-scope-forward value="desde o cursor até a final do arquivo."/>
+			<find-status-invisible-chars-findWhat value="Caracteres non visibles no contido pegado en &quot;Buscar&quot; ou &quot;Substituir con&quot;."/>
+			<find-status-invisible-chars-findWhat-tip value="Aviso: Caracteres non visibles no campo de busca (ou substitución).
+O texto pegado neste campo inclúe caracteres non visibles (quizais de fin de liña). Se continúa sen eliminalos, incluiranse no texto de busca (ou substitución)."/>
 			<finder-find-in-finder value="Buscar nestes resultados..."/>
 			<finder-close-this value="Pechar o buscador"/>
 			<finder-collapse-all value="Contraer todo"/>
@@ -1856,16 +1862,16 @@ Para ver a lista completa de espazos en branco e caracteres non imprimibles sele
 
 Faga clic neste botón para abrir o sitio web do manual do usuario."/>
 			<npcAbbreviation-tip value="Abreviatura: nome
-NBSP: espazo sin salto de liña
+NBSP: espazo sen salto de liña
 ZWSP: espazo de ancho cero
-ZWNBSP: espazo sin salto de liña de ancho cero
+ZWNBSP: espazo sen salto de liña de ancho cero
 
 Para ver a lista completa, consulte o manual do usuario.
 Faga clic no botón dereito &quot;?&quot; para abrir o sitio web do manual do usuario."/>
 			<npcCodepoint-tip value="Punto de código: nome
-U+00A0: espazo sin salto de liña
+U+00A0: espazo sen salto de liña
 U+200B: espazo de ancho cero
-U+FEFF: espazo sin salto de liña de ancho cero
+U+FEFF: espazo sen salto de liña de ancho cero
 
 Para ver a lista completa, consulte o manual do usuario.
 Faga clic no botón dereito &quot;?&quot; para abrir o sitio web do manual do usuario."/>
@@ -1873,15 +1879,15 @@ Faga clic no botón dereito &quot;?&quot; para abrir o sitio web do manual do us
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Vaia a &quot;Configurador de estilos&quot; para cambiar a cor personalizada por defecto dos espazos en branco e caracteres non imprimibles seleccionados. (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Aplicar axustes de aparencia de caracteres non imprimibles aos caracteres de control C0, C1 e Unicode EOL (liña seguinte, separador de liña e separador de párrafo)."/>
-			<searchingInSelThresh-tip value="Número mínimo de caracteres seleccionados na zona de edición para marcar automáticamente o recadro &quot;Na selección&quot; cando se activa o cadro de diálogo Buscar. O valor máximo é $INT_REPLACE$. Estableza o valor en 0 para desactivar o marcado automático."/>
-			<searchingFillFindWhat-tip value="Número máximo de caracteres seleccionados na zona de edición para encher automáticamente o campo &quot;Buscar&quot; cando se pulsa Ctrl+F. o valor máximo é $INT_REPLACE$, que é o tamaño máximo do campo &quot;Buscar&quot;, limitado polo sistema."/>
+			<searchingInSelThresh-tip value="Número mínimo de caracteres seleccionados na zona de edición para marcar automaticamente o recadro &quot;Na selección&quot; cando activa o cadro de diálogo Buscar. O valor máximo é $INT_REPLACE$. Estableza o valor en 0 para desactivar o marcado automático."/>
+			<searchingFillFindWhat-tip value="Número máximo de caracteres seleccionados na zona de edición para encher automaticamente o campo &quot;Buscar&quot; cando preme Ctrl+F. O valor máximo é $INT_REPLACE$, que é o tamaño máximo do campo &quot;Buscar&quot;, limitado polo sistema."/>
 			<verticalEdge-tip value="Engada o marcador de columna indicando a súa posición cun número decimal. Pode definir varios marcadores de columna utilizando espazos en branco para separar os diferentes números."/>
-			<fileSaveAsCopySaveButton-tip value="Manteña pulsada a tecla Maiús mentras pulsa Gardar para abrir a copia despois de gardala."/>
-			<autoIndentBasic-tip value="Asegúrese de que a sangría da liña actual (é dicir, a nova liña creada ao pulsar a tecla ENTER) coincide coa sangría da liña anterior."/>
-			<autoIndentAdvanced-tip value="Habilitar a sangría intelixente para linguaxes &quot;C-like&quot; e Python. As linguaxes &quot;C-like&quot; inclúen:
+			<fileSaveAsCopySaveButton-tip value="Manteña premida a tecla Maiús mentres preme Gardar para abrir a copia despois de gardala."/>
+			<autoIndentBasic-tip value="Asegúrese de que a tabulación da liña actual (é dicir, a nova liña creada ao premer a tecla ENTER) coincide coa tabulación da liña anterior."/>
+			<autoIndentAdvanced-tip value="Habilitar a tabulación intelixente para linguaxes &quot;C-like&quot; e Python. As linguaxes &quot;C-like&quot; inclúen:
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell e JSON.
 
-Se selecciona o modo avanzado pero non edita arquivos nas linguaxes mencionadas, a sangría permanecerá no modo básico."/>
+Se selecciona o modo avanzado pero non edita arquivos nas linguaxes mencionadas, a tabulación permanecerá no modo básico."/>
 
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Activando &quot;Global override&quot; aquí, anulará esa opción en tódolos estilos de linguaxe. É posible que desexe usar a configuración &quot;Default Style&quot;."/>
@@ -1898,10 +1904,11 @@ Se selecciona o modo avanzado pero non edita arquivos nas linguaxes mencionadas,
 			<statusbar-Sel value="Sel.: "/>
 			<statusbar-Sel-number value="Sel."/>
 			<toolbar-accent-tip value="Esta opción fai que as iconas da barra de ferramentas sigan a cor de resaltado do sistema Windows. A cor de resaltado é a cor destacada que se utiliza nos botóns, bordos e mosaicos do menú Inicio de Windows. Para cambialo, vaia a Configuración > Personalización > Cores e seleccione a cor de resaltado que desexe."/>
-			<len-limit-exceeded-tip value="Superouse o límite de lonxitude: é posible que a entrada superara o límite permitido e se truncase, polo que non se gardará para a seguinte sesión."/>
+			<len-limit-exceeded-tip value="Superouse o límite de lonxitude: é posible que a entrada superara o límite permitido e fora truncada, polo que non se gardará para a seguinte sesión."/>
 			<max-len-on-search-tip value="É posible que a entrada superara o límite permitido e se truncase, polo que non se gardará para a seguinte sesión."/>
-			<max-len-on-save-tip value="A lonxitude dea entrada é moi larga e é posible que non se garde para a seguinte sesión."/>
+			<max-len-on-save-tip value="A lonxitude da entrada é moi larga e é posible que non se garde para a seguinte sesión."/>
 			<goto-setting-tip value="Encontre aquí a súa configuración"/>
+			<tabbar-tabcompactlabellen-tip value="Limita a lonxitude visible dos nomes largos nas pestanas. Introduza o valor desexado para aplicalo. Rango de valores: 1 a 257 caracteres (0 desactiva o truncado)."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

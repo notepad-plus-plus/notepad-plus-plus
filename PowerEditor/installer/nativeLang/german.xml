@@ -147,10 +147,10 @@ Translation note:
 					<Item id="42060" name="Zeilen alphabetisch a&amp;bsteigend sortieren"/>
 					<Item id="42080" name="Zeilen alph. aufsteigend sortieren, Schreibung ignorieren"/>
 					<Item id="42081" name="Zeilen alph. absteigend sortieren, Schreibung ignorieren"/>
-					<Item id="42100" name="Zeilen in lokaler Reihenfolge aufsteigend sortieren"/>
-					<Item id="42101" name="Zeilen in lokaler Reihenfolge absteigend sortieren"/>
-					<Item id="42104" name="Zeilen der Länge nach aufsteigend sortieren"/>
-					<Item id="42105" name="Zeilen der Länge nach absteigend sortieren"/>
+					<Item id="42100" name="Zeilen nach Gebietsschema aufsteigend sortieren"/>
+					<Item id="42101" name="Zeilen nach Gebietsschema absteigend sortieren"/>
+					<Item id="42104" name="Zeilen nach Länge aufsteigend sortieren"/>
+					<Item id="42105" name="Zeilen nach Länge absteigend sortieren"/>
 					<Item id="42061" name="Zeilen als Ganzzahlen aufsteigend sortieren"/>
 					<Item id="42062" name="Zeilen als Ganzzahlen absteigend sortieren"/>
 					<Item id="42063" name="Zeilen als Dezimalzahlen (Komma) aufsteigend sortieren"/>
@@ -980,16 +980,16 @@ Translation note:
 					<Item id="6130" name="Ausgefüllte Fluent UI: groß"/>
 					<Item id="6105" name="Standard-Symbole: klein"/>
 					<Item id="6011" name="Farben"/>
-					<Item id="6012" name="Alle"/>
+					<Item id="6012" name="Vollständig"/>
 					<Item id="6013" name="Teilweise"/>
 					<Item id="6014" name="Farbwahl"/>
 					<Item id="6015" name="Standard"/>
 					<Item id="6016" name="Rot"/>
 					<Item id="6017" name="Grün"/>
 					<Item id="6018" name="Blau"/>
-					<Item id="6019" name="Lila"/>
-					<Item id="6020" name="Türkis"/>
-					<Item id="6021" name="Olivgrün"/>
+					<Item id="6019" name="Violett"/>
+					<Item id="6020" name="Cyan"/>
+					<Item id="6021" name="Oliv"/>
 					<Item id="6022" name="Gelb"/>
 					<Item id="6023" name="System-Akzent"/>
 					<Item id="6024" name="Benutzerdefiniert"/>
@@ -1000,7 +1000,7 @@ Translation note:
 					<Item id="6108" name="Tabs nicht mit der Maus verschiebbar"/>
 					<Item id="6109" name="Farbe inaktiver Tabs ändern"/>
 					<Item id="6110" name="Aktiven Tab farbig hervorheben"/>
-					<Item id="6111" name="Tasten auf inaktiven Tabs anzeigen"/>
+					<Item id="6111" name="Schaltfläche auf inaktiven Tabs anzeigen"/>
 					<Item id="6112" name="Schließen-Kreuz anzeigen"/>
 					<Item id="6113" name="Tabs per Doppelklick schließen"/>
 					<Item id="6115" name="Pin-Tab-Funktion aktivieren (anheften/loslösen)"/>

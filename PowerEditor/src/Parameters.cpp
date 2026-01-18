@@ -1163,7 +1163,7 @@ bool NppParameters::reloadLang()
 	delete _pXmlNativeLangDoc;
 
 	_pXmlNativeLangDoc = new NppXml::NewDocument();
-	const bool loadOkay = NppXml::loadFile(_pXmlNativeLangDoc, nativeLangPath.c_str());
+	const bool loadOkay = NppXml::loadFileNativeLang(_pXmlNativeLangDoc, nativeLangPath.c_str());
 	if (!loadOkay)
 	{
 		delete _pXmlNativeLangDoc;
@@ -1541,7 +1541,7 @@ bool NppParameters::load()
 	}
 
 	_pXmlNativeLangDoc = new NppXml::NewDocument();
-	loadOkay = NppXml::loadFile(_pXmlNativeLangDoc, nativeLangPath.c_str());
+	loadOkay = NppXml::loadFileNativeLang(_pXmlNativeLangDoc, nativeLangPath.c_str());
 	if (!loadOkay)
 	{
 		delete _pXmlNativeLangDoc;

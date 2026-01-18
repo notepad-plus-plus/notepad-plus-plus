@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.8.9  4/Dec/2025  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.9  18/Jan/2026  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.8.8">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1781,6 +1781,10 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 			<find-status-scope-all value="v celém souboru"/>
 			<find-status-scope-backward value="od začátku souboru až ke kurzoru"/>
 			<find-status-scope-forward value="od kurzoru až do konce souboru"/>
+			<find-status-invisible-chars-findWhat value="Do políčka &quot;Najít&quot; nebo &quot;Nahradit&quot; byl vložen obsah s neviditelnými znaky."/>
+			<find-status-invisible-chars-findWhat-tip value="Upozornění: Neviditelné znaky v políčku pro vyhledávání (nebo nahrazování).
+
+Text vložený do políčka(ček) obsahuje implicitně neviditelné znaky (pravděpodobně znaky konců řádek - EOL). Pokud je neodstraníte, vyhledávání (nebo nahrazování) bude pokračovat i s nimi."/>
 			<finder-find-in-finder value="Nalézt v těchto výsledcích hledání..."/>
 			<finder-close-this value="Zavřít tyto vyhledané výsledky"/>
 			<finder-collapse-all value="Sbalit vše"/>

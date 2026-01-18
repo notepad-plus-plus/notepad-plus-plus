@@ -1246,7 +1246,7 @@ const wchar_t* AutoCompletion::getApiFileName()
 	if (_curLang >= L_EXTERNAL && _curLang < NppParameters::getInstance().L_END)
 	{
 		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-		return wmc.char2wchar(NppParameters::getInstance().getELCFromIndex(_curLang - L_EXTERNAL)._name.c_str(), CP_ACP);
+		return wmc.char2wchar(NppParameters::getInstance().getELCFromIndex(_curLang - L_EXTERNAL)->_name.c_str(), CP_UTF8);
 	}
 
 	if (_curLang > L_EXTERNAL)

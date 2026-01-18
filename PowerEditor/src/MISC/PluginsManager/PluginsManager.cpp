@@ -206,14 +206,14 @@ int PluginsManager::loadPluginFromPath(const wchar_t *pluginFilePath)
 
 			int numLexers = GetLexerCount();
 
-			ExternalLangContainer* containers[30]{};
+			std::unique_ptr<ExternalLangContainer> containers[30]{};
 
 			for (int x = 0; x < numLexers; ++x)
 			{
 				GetLexerName(x, lexName, MAX_EXTERNAL_LEXER_NAME_LEN);
 				if (!nppParams.isExistingExternalLangName(lexName) && nppParams.ExternalLangHasRoom())
 				{
-					containers[x] = new ExternalLangContainer;
+					containers[x] = std::make_unique<ExternalLangContainer>();
 					containers[x]->_name = lexName;
 					containers[x]->fnCL = CreateLexer;
 					//containers[x]->fnGLPN = GetLibraryPropertyNames;
@@ -256,7 +256,7 @@ int PluginsManager::loadPluginFromPath(const wchar_t *pluginFilePath)
 			for (int x = 0; x < numLexers; ++x) // postpone adding in case the xml is missing/corrupt
 			{
 				if (containers[x] != nullptr)
-					nppParams.addExternalLangToEnd(containers[x]);
+					nppParams.addExternalLangToEnd(std::move(containers[x]));
 			}
 
 			nppParams.getExternalLexerFromXmlTree(pXmlDoc);

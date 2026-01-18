@@ -922,8 +922,8 @@ void UserDefineDialog::reloadLangCombo()
 	::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"User Defined Language"));
     for (int i = 0, nb = nppParam.getNbUserLang(); i < nb ; ++i)
     {
-        UserLangContainer & userLangContainer = nppParam.getULCFromIndex(i);
-		::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(userLangContainer.getName()));
+		const UserLangContainer* userLangContainer = nppParam.getULCFromIndex(i);
+		::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(userLangContainer->getName()));
     }
 }
 
@@ -977,7 +977,7 @@ void UserDefineDialog::changeStyle()
 
 void UserDefineDialog::enableLangAndControlsBy(size_t index)
 {
-	_pUserLang = (index == 0) ? _pCurrentUserLang.get() : &((NppParameters::getInstance()).getULCFromIndex(index - 1));
+	_pUserLang = (index == 0) ? _pCurrentUserLang.get() : (NppParameters::getInstance().getULCFromIndex(index - 1));
     if (index != 0)
         ::SetWindowText(::GetDlgItem(_hSelf, IDC_EXT_EDIT), _pUserLang->_ext.c_str());
 
@@ -1325,8 +1325,8 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
                             ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_SETCURSEL, i, 0);
 
                             //rename current language name in userLangArray
-                            UserLangContainer & userLangContainer = nppParam.getULCFromIndex(i-1);
-                            userLangContainer._name = newName;
+							UserLangContainer* userLangContainer = nppParam.getULCFromIndex(i - 1);
+							userLangContainer->_name = newName;
 
                             //rename current language name in langMenu
                             HWND hNpp = ::GetParent(_hSelf);
@@ -1377,7 +1377,7 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
                                 return TRUE;
 
                             //add current language in userLangArray at the end as a new lang
-                            UserLangContainer & userLang = (wParam == IDC_SAVEAS_BUTTON)?nppParam.getULCFromIndex(i-1):*_pCurrentUserLang;
+							const UserLangContainer* userLang = (wParam == IDC_SAVEAS_BUTTON) ? nppParam.getULCFromIndex(i - 1) : _pCurrentUserLang.get();
                             int newIndex = nppParam.addUserLangToEnd(userLang, newName);
 
                             //add new language name in combobox

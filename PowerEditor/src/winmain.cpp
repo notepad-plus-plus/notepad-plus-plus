@@ -320,6 +320,7 @@ const wchar_t FLAG_FULL_READONLY_SAVING_FORBIDDEN[] = L"-fullReadOnlySavingForbi
 const wchar_t FLAG_NOSESSION[] = L"-nosession";
 const wchar_t FLAG_NOTABBAR[] = L"-notabbar";
 const wchar_t FLAG_SYSTRAY[] = L"-systemtray";
+const wchar_t FLAG_CLOSEINSTANCES[] = L"-closeinstances";
 const wchar_t FLAG_LOADINGTIME[] = L"-loadingTime";
 const wchar_t FLAG_HELP[] = L"--help";
 const wchar_t FLAG_ALWAYS_ON_TOP[] = L"-alwaysOnTop";
@@ -536,6 +537,23 @@ DWORD nppUacCreateEmptyFile(const wchar_t* wszNewEmptyFilePath)
 
 std::chrono::steady_clock::time_point g_nppStartTimePoint{};
 
+static std::vector<HWND> g_notepadWindows;
+static const wchar_t* g_targetClass = nullptr;
+
+BOOL CALLBACK EnumNotepadWindows(HWND hwnd, LPARAM lParam)
+{
+	lParam = 0;
+	wchar_t className[256];
+	if (::GetClassName(hwnd, className, sizeof(className) / sizeof(wchar_t)))
+	{
+		if (wcscmp(className, g_targetClass) == 0)
+		{
+			g_notepadWindows.push_back(hwnd);
+		}
+	}
+	return TRUE; // Continue enumeration
+}
+
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance*/, _In_ PWSTR pCmdLine, _In_ int /*nShowCmd*/)
 {
@@ -590,6 +608,39 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	ParamVector params;
 	parseCommandLine(pCmdLine, params);
 
+	// Close allinstances if -closeinstance flag passed
+	if (isInList(FLAG_CLOSEINSTANCES, params) || true)
+	{
+		g_notepadWindows.clear();
+		g_targetClass = Notepad_plus_Window::getClassName();
+
+		// Enumerate all windows with the target class name
+		::EnumWindows(EnumNotepadWindows, 0);
+
+		// Send WM_CLOSE to each found window
+		for (HWND hwnd : g_notepadWindows)
+		{
+			if (::IsWindow(hwnd))
+			{
+				// Check if it's actually a Notepad++ instance by verifying title or other characteristics
+				wchar_t windowTitle[1024];
+				int len = ::GetWindowText(hwnd, windowTitle, sizeof(windowTitle) / sizeof(wchar_t));
+
+				// TODO: verify it's a real Notepad++ window checking executable name matches current or other means.
+				if (len > 0) 
+				{
+					::PostMessage(hwnd, WM_CLOSE, 0, 0);
+					
+					DWORD startTime = ::GetTickCount();
+					const DWORD TIMEOUT = 3000; 
+
+					while (::IsWindow(hwnd) && (::GetTickCount() - startTime) < TIMEOUT) { ::Sleep(50);	}
+				}
+			}
+		}
+		return 0;
+	}
+
 
 	// Convert commandline to notepad-compatible format, if applicable
 	// For treating "-notepadStyleCmdline" "/P" and "-z"
@@ -612,7 +663,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	cmdLineParams._isFullReadOnly = isInList(FLAG_FULL_READONLY, params);
 	cmdLineParams._isFullReadOnlySavingForbidden = isInList(FLAG_FULL_READONLY_SAVING_FORBIDDEN, params);
 	cmdLineParams._isNoSession = isInList(FLAG_NOSESSION, params);
-	cmdLineParams._isPreLaunch = isInList(FLAG_SYSTRAY, params);
+	cmdLineParams._isPreLaunch = isInList(FLAG_SYSTRAY, params);		
 	cmdLineParams._alwaysOnTop = isInList(FLAG_ALWAYS_ON_TOP, params);
 	cmdLineParams._showLoadingTime = isInList(FLAG_LOADINGTIME, params);
 	cmdLineParams._isSessionFile = isInList(FLAG_OPENSESSIONFILE, params);

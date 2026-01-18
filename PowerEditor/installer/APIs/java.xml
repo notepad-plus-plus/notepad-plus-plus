@@ -4511,7 +4511,8 @@
 		<KeyWord name="SystemException" />
 		<KeyWord name="SystemFlavorMap" />
 		<KeyWord name="SystemIDResolver" />
-		<KeyWord name="SystemTray" />
+    <KeyWord name="SystemTray" />
+		<KeyWord name="CloseInstances" />    
 		<KeyWord name="TabableView" />
 		<KeyWord name="TabbedPaneUI" />
 		<KeyWord name="TabExpander" />

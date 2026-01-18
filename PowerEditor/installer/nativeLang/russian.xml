@@ -2,10 +2,9 @@
 <!-- Russian translation for Notepad++
 Updated to :
 - added new lines
-- little fixes
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.8.8">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.9">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -1772,6 +1771,9 @@ Notepad++ сделает резервную копию вашего старог
 			<find-status-scope-all value="во всем файле"/>
 			<find-status-scope-backward value="от начала файла до знак вставки"/>
 			<find-status-scope-forward value="от знак вставки до конца файла"/>
+			<find-status-invisible-chars-findWhat value="В поле &quot;Найти&quot; или &quot;Замена&quot; вставлен текст содержащий невидимые символы."/>
+			<find-status-invisible-chars-findWhat-tip value="Внимание: В поле поиска (или замены) присутствуют невидимые символы.
+Вставленный в это поле текст содержит невидимые символы (возможно, символы конца строки). Если вы продолжите, не удаляя их, они будут включены в текст для поиска (или замены)."/>
 			<finder-find-in-finder value="Поиск в найденном..."/>
 			<finder-close-this value="Закрыть эту вкладку поиска"/>
 			<finder-purge-for-every-search value="Очистка при каждом поиске"/>

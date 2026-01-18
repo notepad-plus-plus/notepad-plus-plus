@@ -524,11 +524,11 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	for (int i = 0; i < nppParam.getNbExternalLang(); ++i)
 	{
 		HMENU subMenu = hLangMenu;
-		ExternalLangContainer & externalLangContainer = nppParam.getELCFromIndex(i);
+		const ExternalLangContainer* externalLangContainer = nppParam.getELCFromIndex(i);
 
 		int nbItem = ::GetMenuItemCount(subMenu);
 		wchar_t buffer[MAX_EXTERNAL_LEXER_NAME_LEN]{L'\0'};
-		const wchar_t* lexerNameW = wmc.char2wchar(externalLangContainer._name.c_str(), CP_ACP);
+		const wchar_t* lexerNameW = wmc.char2wchar(externalLangContainer->_name.c_str(), CP_ACP);
 
 		// Find the first separator which is between IDM_LANG_TEXT and languages
 		int x = 0;
@@ -591,8 +591,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	for (int i = 0, len = nppParam.getNbUserLang(); i < len; ++i)
 	{
-		UserLangContainer & userLangContainer = nppParam.getULCFromIndex(i);
-		::InsertMenu(hLangMenu, udlpos + i, MF_BYPOSITION, IDM_LANG_USER + i + 1, userLangContainer.getName());
+		const UserLangContainer* userLangContainer = nppParam.getULCFromIndex(i);
+		::InsertMenu(hLangMenu, udlpos + i, MF_BYPOSITION, IDM_LANG_USER + i + 1, userLangContainer->getName());
 	}
 
 	//Add recent files
@@ -2805,10 +2805,8 @@ wstring Notepad_plus::getLangDesc(LangType langType, bool getName)
 
 	if ((langType >= L_EXTERNAL) && (langType < nppParams.L_END))
 	{
-		ExternalLangContainer & elc = nppParams.getELCFromIndex(langType - L_EXTERNAL);
-		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-		const wchar_t* lexerNameW = wmc.char2wchar(elc._name.c_str(), CP_ACP);
-		return wstring(lexerNameW);
+		const ExternalLangContainer* elc = nppParams.getELCFromIndex(langType - L_EXTERNAL);
+		return string2wstring(elc->_name);
 	}
 
 	if (langType < L_TEXT || langType > L_EXTERNAL)
@@ -3650,7 +3648,7 @@ void Notepad_plus::maintainIndentation(wchar_t ch)
 	if (type >= L_EXTERNAL)
 	{
 		NppParameters& nppParam = NppParameters::getInstance();
-		autoIndentMode = nppParam.getELCFromIndex(type - L_EXTERNAL)._autoIndentMode;
+		autoIndentMode = nppParam.getELCFromIndex(type - L_EXTERNAL)->_autoIndentMode;
 		if (autoIndentMode == ExternalLexerAutoIndentMode::Custom)
 			return;
 	}
@@ -6990,7 +6988,7 @@ void Notepad_plus::setFindReplaceFolderFilter(const wchar_t *dir, const wchar_t 
 		if (lt == L_USER)
 		{
 			Buffer * buf = _pEditView->getCurrentBuffer();
-			UserLangContainer * userLangContainer = nppParam.getULCFromName(buf->getUserDefineLangName());
+			const UserLangContainer* userLangContainer = nppParam.getULCFromName(buf->getUserDefineLangName());
 			if (userLangContainer)
 				ext = userLangContainer->getExtention();
 		}

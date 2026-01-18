@@ -30,7 +30,9 @@
 #include <ctime>
 #include <cwchar>
 #include <exception>
+#include <locale>
 #include <map>
+#include <memory>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -714,9 +716,11 @@ void cutString(const wchar_t* str2cut, vector<std::wstring>& patternVect)
 	const wchar_t *pBegin = str2cut;
 	const wchar_t *pEnd = pBegin;
 
+	static const auto& loc = std::locale::classic();
+
 	while (*pEnd != '\0')
 	{
-		if (_istspace(*pEnd))
+		if (std::isspace(*pEnd, loc))
 		{
 			if (pBegin != pEnd)
 				patternVect.emplace_back(pBegin, pEnd);
@@ -923,7 +927,7 @@ bool DynamicMenu::createMenu() const
 			::InsertMenu(_hMenu, static_cast<UINT>(_posBase + i), flag, item._cmdID, item._itemName.c_str());
 			lastIsSep = false;
 		}
-		else if (item._cmdID == 0 && !lastIsSep)
+		else if (!lastIsSep)
 		{
 			::InsertMenu(_hMenu, static_cast<UINT>(_posBase + i), flag, item._cmdID, item._itemName.c_str());
 			lastIsSep = true;
@@ -1088,13 +1092,6 @@ NppParameters::NppParameters()
 
 NppParameters::~NppParameters()
 {
-	for (int i = 0 ; i < _nbLang ; ++i)
-		delete _langList[i];
-	for (int i = 0 ; i < _nbRecentFile ; ++i)
-		delete _LRFileList[i];
-	for (int i = 0 ; i < _nbUserLang ; ++i)
-		delete _userLangArray[i];
-
 	for (std::vector<TiXmlDocument *>::iterator it = _pXmlExternalLexerDoc.begin(), end = _pXmlExternalLexerDoc.end(); it != end; ++it )
 		delete (*it);
 
@@ -1880,12 +1877,12 @@ int NppParameters::getExternalLangIndexFromName(const wchar_t* externalLangName)
 }
 
 
-UserLangContainer* NppParameters::getULCFromName(const wchar_t *userLangName)
+const UserLangContainer* NppParameters::getULCFromName(const wchar_t* userLangName) const
 {
 	for (int i = 0 ; i < _nbUserLang ; ++i)
 	{
 		if (lstrcmp(userLangName, _userLangArray[i]->_name.c_str()) == 0)
-			return _userLangArray[i];
+			return _userLangArray[i].get();
 	}
 
 	//qui doit etre jamais passer
@@ -1983,12 +1980,12 @@ void NppParameters::getExternalLexerFromXmlTree(TiXmlDocument* externalLexerDoc)
 }
 
 
-int NppParameters::addExternalLangToEnd(ExternalLangContainer * externalLang)
+int NppParameters::addExternalLangToEnd(std::unique_ptr<ExternalLangContainer> externalLang)
 {
-	_externalLangArray[_nbExternalLang] = externalLang;
+	_externalLangArray[_nbExternalLang] = std::move(externalLang);
 	++_nbExternalLang;
 	++L_END;
-	return _nbExternalLang-1;
+	return _nbExternalLang - 1;
 }
 
 
@@ -2250,10 +2247,11 @@ void NppParameters::updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* main
 							std::sort(vwsUserWords.begin(), vwsUserWords.end());
 
 							// convert that list into space-separated string, with at most 8000 characters per line
-							size_t lineLength = 0, maxLineLength = 8000;
+							size_t lineLength = 0;
+							static constexpr size_t maxLineLength = 8000;
 							bool first = true;
-							std::wstring wsOutputWords(L"");
-							for (auto wsWord : vwsUserWords)
+							std::wstring wsOutputWords;
+							for (const auto& wsWord : vwsUserWords)
 							{
 								if (!first)
 								{
@@ -3270,7 +3268,7 @@ void NppParameters::feedFileListParameters(TiXmlNode *node)
 		const wchar_t *filePath = (childNode->ToElement())->Attribute(L"filename");
 		if (filePath)
 		{
-			_LRFileList[_nbRecentFile] = new std::wstring(filePath);
+			_LRFileList[_nbRecentFile] = std::make_unique<std::wstring>(filePath);
 			++_nbRecentFile;
 		}
 	}
@@ -3881,7 +3879,7 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 		}
 
 		try {
-			_userLangArray[_nbUserLang] = new UserLangContainer(name, ext, isDarkModeTheme, udlVersion ? udlVersion : L"");
+			_userLangArray[_nbUserLang] = std::make_unique<UserLangContainer>(name, ext, isDarkModeTheme, udlVersion ? udlVersion : L"");
 
 			++_nbUserLang;
 
@@ -3914,7 +3912,7 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 		}
 		catch (const std::exception&)
 		{
-			delete _userLangArray[--_nbUserLang];
+			_userLangArray[--_nbUserLang].reset();
 		}
 	}
 	int iEnd = _nbUserLang;
@@ -3953,7 +3951,7 @@ bool NppParameters::exportUDLToFile(size_t langIndex2export, const std::wstring&
 	TiXmlDocument *pNewXmlUserLangDoc = new TiXmlDocument(fileName2save);
 	TiXmlNode *newRoot2export = pNewXmlUserLangDoc->InsertEndChild(TiXmlElement(L"NotepadPlus"));
 
-	insertUserLang2Tree(newRoot2export, _userLangArray[langIndex2export]);
+	insertUserLang2Tree(newRoot2export, _userLangArray[langIndex2export].get());
 	bool result = pNewXmlUserLangDoc->SaveFile();
 
 	delete pNewXmlUserLangDoc;
@@ -4153,7 +4151,7 @@ void NppParameters::writeDefaultUDL()
 
 			for (int i = udl._indexRange.first; i < udl._indexRange.second; ++i)
 			{
-				insertUserLang2Tree(root, _userLangArray[i]);
+				insertUserLang2Tree(root, _userLangArray[i].get());
 			}
 		}
 	}
@@ -4211,7 +4209,7 @@ void NppParameters::writeNonDefaultUDL()
 
 				for (int i = udl._indexRange.first; i < udl._indexRange.second; ++i)
 				{
-					insertUserLang2Tree(root, _userLangArray[i]);
+					insertUserLang2Tree(root, _userLangArray[i].get());
 				}
 				udl._udlXmlDoc->SaveFile();
 			}
@@ -4351,8 +4349,8 @@ void NppParameters::writeSession(const Session & session, const wchar_t *fileNam
 	BOOL doesBackupCopyExist = FALSE;
 	if (doesFileExist(sessionPathName))
 	{
-		_tcscpy(backupPathName, sessionPathName);
-		_tcscat(backupPathName, SESSION_BACKUP_EXT);
+		std::wcscpy(backupPathName, sessionPathName);
+		std::wcscat(backupPathName, SESSION_BACKUP_EXT);
 
 		// Make sure backup file is not read-only, if it exists
 		removeReadOnlyFlagFromFileAttributes(backupPathName);
@@ -4628,13 +4626,12 @@ void NppParameters::writeShortcuts()
 }
 
 
-int NppParameters::addUserLangToEnd(const UserLangContainer & userLang, const wchar_t *newName)
+int NppParameters::addUserLangToEnd(const UserLangContainer* userLang, const wchar_t *newName)
 {
 	if (isExistingUserLangName(newName))
 		return -1;
 	unsigned char iBegin = _nbUserLang;
-	_userLangArray[_nbUserLang] = new UserLangContainer();
-	*(_userLangArray[_nbUserLang]) = userLang;
+	_userLangArray[_nbUserLang] = std::make_unique<UserLangContainer>(*userLang);
 	_userLangArray[_nbUserLang]->_name = newName;
 	++_nbUserLang;
 	unsigned char iEnd = _nbUserLang;
@@ -4650,13 +4647,13 @@ int NppParameters::addUserLangToEnd(const UserLangContainer & userLang, const wc
 
 void NppParameters::removeUserLang(size_t index)
 {
-	if (static_cast<int32_t>(index) >= _nbUserLang)
+	if (index >= _nbUserLang)
 		return;
-	delete _userLangArray[index];
+	_userLangArray[index].reset();
 
-	for (int32_t i = static_cast<int32_t>(index); i < (_nbUserLang - 1); ++i)
-		_userLangArray[i] = _userLangArray[i+1];
-	_nbUserLang--;
+	for (size_t i = index; i < (size_t{ _nbUserLang } - 1); ++i)
+		_userLangArray[i] = std::move(_userLangArray[i + 1]);
+	--_nbUserLang;
 
 	removeIndexFromXmlUdls(index);
 }
@@ -5526,7 +5523,7 @@ void NppParameters::feedKeyWordsParameters(TiXmlNode* node)
 			const wchar_t* name = element->Attribute(L"name");
 			if (name)
 			{
-				_langList[_nbLang] = new Lang(getLangIDFromStr(name), name);
+				_langList[_nbLang] = std::make_unique<Lang>(getLangIDFromStr(name), name);
 				_langList[_nbLang]->setDefaultExtList(element->Attribute(L"ext"));
 				_langList[_nbLang]->setCommentLineSymbol(element->Attribute(L"commentLine"));
 				_langList[_nbLang]->setCommentStart(element->Attribute(L"commentStart"));
@@ -5556,10 +5553,6 @@ void NppParameters::feedKeyWordsParameters(TiXmlNode* node)
 			}
 		}
 	}
-}
-
-extern "C" {
-typedef DWORD (WINAPI * EESFUNC) (LPCTSTR, LPTSTR, DWORD);
 }
 
 void NppParameters::feedGUIParameters(TiXmlNode *node)
@@ -9001,9 +8994,9 @@ TiXmlElement * NppParameters::insertGUIConfigBoolNode(TiXmlNode *r2w, const wcha
 	return GUIConfigElement;
 }
 
-int RGB2int(COLORREF color)
+static int RGB2int(COLORREF color)
 {
-	return (((((DWORD)color) & 0x0000FF) << 16) | ((((DWORD)color) & 0x00FF00)) | ((((DWORD)color) & 0xFF0000) >> 16));
+	return (((color & 0x0000FF) << 16) | ((color & 0x00FF00)) | ((color & 0xFF0000) >> 16));
 }
 
 int NppParameters::langTypeToCommandID(LangType lt) const
@@ -9495,7 +9488,7 @@ void NppParameters::writeStyle2Element(const Style & style2Write, Style & style2
 
 }
 
-void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *userLang)
+void NppParameters::insertUserLang2Tree(TiXmlNode* node, const UserLangContainer* userLang)
 {
 	TiXmlElement *rootElement = (node->InsertEndChild(TiXmlElement(L"UserLang")))->ToElement();
 
@@ -9749,7 +9742,7 @@ Date::Date(const wchar_t *dateStr)
 // if the value of nbDaysFromNow is 0 then the date will be now
 Date::Date(int nbDaysFromNow)
 {
-	const time_t oneDay = (60 * 60 * 24);
+	static constexpr time_t oneDay = (60 * 60 * 24);
 
 	time_t rawtime;
 	const tm* timeinfo;

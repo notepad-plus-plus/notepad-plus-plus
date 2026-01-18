@@ -1125,7 +1125,7 @@ void ScintillaEditView::setUserLexer(const wchar_t *userLangName)
 	int setKeywordsCounter = 0;
 	setLexerFromLangID(L_USER);
 
-	UserLangContainer* userLangContainer = userLangName ? NppParameters::getInstance().getULCFromName(userLangName) : _userDefineDlg._pCurrentUserLang.get();
+	const UserLangContainer* userLangContainer = userLangName ? NppParameters::getInstance().getULCFromName(userLangName) : _userDefineDlg._pCurrentUserLang.get();
 
 	if (!userLangContainer)
 		return;
@@ -1253,18 +1253,18 @@ void ScintillaEditView::setExternalLexer(LangType typeDoc)
 {
 	int id = typeDoc - L_EXTERNAL;
 
-	ExternalLangContainer& externalLexer = NppParameters::getInstance().getELCFromIndex(id);
-	if (!externalLexer.fnCL)
+	const ExternalLangContainer* externalLexer = NppParameters::getInstance().getELCFromIndex(id);
+	if (!externalLexer->fnCL)
 		return;
-	ILexer5* iLex5 = externalLexer.fnCL(externalLexer._name.c_str());
+	ILexer5* iLex5 = externalLexer->fnCL(externalLexer->_name.c_str());
 	if (!iLex5)
 		return;
 	execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(iLex5));
 
-	::SendMessage(_hParent, NPPM_INTERNAL_EXTERNALLEXERBUFFER, 0, (LPARAM)getCurrentBufferID());
+	::SendMessage(_hParent, NPPM_INTERNAL_EXTERNALLEXERBUFFER, 0, reinterpret_cast<LPARAM>(getCurrentBufferID()));
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-	const wchar_t* lexerNameW = wmc.char2wchar(externalLexer._name.c_str(), CP_ACP);
+	const wchar_t* lexerNameW = wmc.char2wchar(externalLexer->_name.c_str(), CP_UTF8);
 	LexerStyler *pStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(lexerNameW);
 	if (pStyler)
 	{

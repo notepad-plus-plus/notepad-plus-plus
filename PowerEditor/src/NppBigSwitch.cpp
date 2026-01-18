@@ -3577,7 +3577,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (index < 0)
 				return FALSE;
 
-			*(reinterpret_cast<ExternalLexerAutoIndentMode*>(lParam)) = nppParam.getELCFromIndex(index)._autoIndentMode;
+			*(reinterpret_cast<ExternalLexerAutoIndentMode*>(lParam)) = nppParam.getELCFromIndex(index)->_autoIndentMode;
 			return TRUE;
 		}
 
@@ -3587,7 +3587,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (index < 0)
 				return FALSE;
 
-			nppParam.getELCFromIndex(index)._autoIndentMode = static_cast<ExternalLexerAutoIndentMode>(lParam);
+			nppParam.getELCFromIndex(index)->_autoIndentMode = static_cast<ExternalLexerAutoIndentMode>(lParam);
 			return TRUE;
 		}
 

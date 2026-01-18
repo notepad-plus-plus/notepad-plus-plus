@@ -1061,17 +1061,16 @@ int Notepad_plus::setFileOpenSaveDlgFilters(CustomFileDialog & fDlg, bool showAl
 		l = (NppParameters::getInstance()).getLangFromIndex(i++);
 	}
 	
-	LangType lt = (LangType)langType;
+	const auto lt = static_cast<LangType>(langType);
 	wstring fileUdlString(getLangDesc(lt, true));
 
-	for (size_t u=0; u<(size_t)nppParam.getNbUserLang(); u++)
+	for (size_t u = 0; u < static_cast<size_t>(nppParam.getNbUserLang()); ++u)
 	{
-		UserLangContainer& ulc = nppParam.getULCFromIndex(u);
-		const wchar_t *extList = ulc.getExtention();
-		const wchar_t *lName = ulc.getName();
+		const UserLangContainer* ulc = nppParam.getULCFromIndex(u);
+		const wchar_t* extList = ulc->getExtention();
+		const wchar_t* lName = ulc->getName();
 
-		wstring list(L"");
-		list += extList;
+		std::wstring list = extList;
 
 		wstring stringFilters = exts2Filters(list, showAllExt ? -1 : 40);
 		const wchar_t *filters = stringFilters.c_str();

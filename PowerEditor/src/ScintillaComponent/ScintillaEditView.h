@@ -283,6 +283,7 @@ public:
 	void getGenericText(wchar_t *dest, size_t destlen, size_t start, size_t end) const;
 	void getGenericText(wchar_t* dest, size_t destlen, size_t start, size_t end, intptr_t* mstart, intptr_t* mend, intptr_t* outLen = nullptr) const;
 	std::wstring getGenericTextAsString(size_t start, size_t end) const;
+	void insertGenericTextFrom(size_t position, const char* text2insert) const;
 	void insertGenericTextFrom(size_t position, const wchar_t *text2insert) const;
 	void replaceSelWith(const char * replaceText);
 

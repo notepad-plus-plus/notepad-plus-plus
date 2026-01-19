@@ -962,45 +962,29 @@ struct Lang final
 {
 	LangType _langID = L_TEXT;
 	std::wstring _langName;
-	const wchar_t* _defaultExtList = nullptr;
-	const wchar_t* _langKeyWordList[NB_LIST];
-	const wchar_t* _pCommentLineSymbol = nullptr;
-	const wchar_t* _pCommentStart = nullptr;
-	const wchar_t* _pCommentEnd = nullptr;
+	std::wstring _defaultExtList;
+	std::wstring _langKeyWordList[NB_LIST];
+	std::string _pCommentLineSymbol;
+	std::string _pCommentStart;
+	std::string _pCommentEnd;
 
-	bool _isTabReplacedBySpace = false;
 	int _tabSize = -1;
+	bool _isTabReplacedBySpace = false;
 	bool _isBackspaceUnindent = false;
 
-	Lang()
-	{
-		for (int i = 0 ; i < NB_LIST ; _langKeyWordList[i] = NULL, ++i);
-	}
+	Lang() noexcept = default;
 
-	Lang(LangType langID, const wchar_t *name) : _langID(langID), _langName(name ? name : L"")
+	Lang(LangType langID, const wchar_t* name, const wchar_t* extLst, const char* commentLine, const char* commentStart, const char* commentEnd, int tabInfo, bool isBackspaceUnindent) noexcept
+		: _langID(langID), _langName(name), _defaultExtList(extLst)
+		, _pCommentLineSymbol(commentLine), _pCommentStart(commentStart), _pCommentEnd(commentEnd)
+		, _isBackspaceUnindent(isBackspaceUnindent)
 	{
-		for (int i = 0 ; i < NB_LIST ; _langKeyWordList[i] = NULL, ++i);
+		setTabInfo(tabInfo);
 	}
 
 	~Lang() = default;
 
-	void setDefaultExtList(const wchar_t *extLst){
-		_defaultExtList = extLst;
-	}
-
-	void setCommentLineSymbol(const wchar_t *commentLine){
-		_pCommentLineSymbol = commentLine;
-	}
-
-	void setCommentStart(const wchar_t *commentStart){
-		_pCommentStart = commentStart;
-	}
-
-	void setCommentEnd(const wchar_t *commentEnd){
-		_pCommentEnd = commentEnd;
-	}
-
-	void setTabInfo(int tabInfo, bool isBackspaceUnindent)
+	void setTabInfo(int tabInfo)
 	{
 		static constexpr int MASK_ReplaceBySpc = 0x80;
 		static constexpr int MASK_TabSize = 0x7F;
@@ -1009,20 +993,18 @@ struct Lang final
 			_isTabReplacedBySpace = (tabInfo & MASK_ReplaceBySpc) != 0;
 			_tabSize = tabInfo & MASK_TabSize;
 		}
-
-		_isBackspaceUnindent = isBackspaceUnindent;
 	}
 
-	const wchar_t * getDefaultExtList() const {
-		return _defaultExtList;
+	const wchar_t* getDefaultExtList() const {
+		return _defaultExtList.c_str();
 	}
 
-	void setWords(const wchar_t *words, int index) {
+	void setWords(const wchar_t* words, int index) {
 		_langKeyWordList[index] = words;
 	}
 
-	const wchar_t * getWords(int index) const {
-		return _langKeyWordList[index];
+	const wchar_t* getWords(int index) const {
+		return _langKeyWordList[index].c_str();
 	}
 
 	LangType getLangID() const { return _langID; }
@@ -1423,22 +1405,22 @@ public:
 
 	LangType getLangFromExt(const wchar_t *ext);
 
-	const wchar_t * getLangExtFromName(const wchar_t *langName) const
+	const wchar_t* getLangExtFromName(const wchar_t* langName) const
 	{
 		for (int i = 0 ; i < _nbLang ; ++i)
 		{
 			if (_langList[i]->_langName == langName)
-				return _langList[i]->_defaultExtList;
+				return _langList[i]->getDefaultExtList();
 		}
 		return nullptr;
 	}
 
-	const wchar_t * getLangExtFromLangType(LangType langType) const
+	const wchar_t* getLangExtFromLangType(LangType langType) const
 	{
 		for (int i = 0 ; i < _nbLang ; ++i)
 		{
 			if (_langList[i]->_langID == langType)
-				return _langList[i]->_defaultExtList;
+				return _langList[i]->getDefaultExtList();
 		}
 		return nullptr;
 	}

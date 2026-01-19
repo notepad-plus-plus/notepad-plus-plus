@@ -2113,7 +2113,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 					nfoStyle._colorStyle = pDefStyle->_colorStyle;
 				}
 			}
-			setSpecialStyle(nfoStyle);
+			setStyle(nfoStyle);
 			execute(SCI_STYLECLEARALL);
 
 			Buffer* buf = MainFileManager.getBufferByID(_currentBufferID);

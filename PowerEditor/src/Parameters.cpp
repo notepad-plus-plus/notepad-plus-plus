@@ -45,11 +45,13 @@
 #include "Common.h"
 #include "ContextMenu.h"
 #include "Notepad_plus_Window.h"
+#include "Notepad_plus_msgs.h"
 #include "NppConstants.h"
 #include "NppDarkMode.h"
 #include "NppXml.h"
 #include "ScintillaEditView.h"
 #include "TabBar.h"
+#include "ToolBar.h"
 #include "UserDefineDialog.h"
 #include "WordStyleDlg.h"
 #include "keys.h"
@@ -3799,7 +3801,7 @@ void NppParameters::feedScintKeys(const NppXml::Element& element)
 
 bool NppParameters::getInternalCommandShortcuts(const NppXml::Element& element, CommandShortcut& cs, std::string* folderName)
 {
-	if (!element) return false;
+	assert(element && "Element in NppParameters::getInternalCommandShortcuts is null node.");
 
 	const char* name = NppXml::attribute(element, "name", "");
 
@@ -3829,7 +3831,7 @@ bool NppParameters::getInternalCommandShortcuts(const NppXml::Element& element, 
 
 bool NppParameters::getShortcuts(const NppXml::Element& element, Shortcut& sc, std::string* folderName)
 {
-	if (!element) return false;
+	assert(element && "Element in NppParameters::getShortcuts is null node.");
 
 	const char* name = NppXml::attribute(element, "name", "");
 
@@ -3978,7 +3980,7 @@ LangType NppParameters::getLangFromExt(const wchar_t *ext)
 		Lang *l = getLangFromIndex(i--);
 		const wchar_t *defList = l->getDefaultExtList();
 
-		if (defList && isInList(ext, defList))
+		if (defList[0] && isInList(ext, defList))
 			return l->getLangID();
 	}
 	return L_TEXT;
@@ -5523,16 +5525,23 @@ void NppParameters::feedKeyWordsParameters(TiXmlNode* node)
 			const wchar_t* name = element->Attribute(L"name");
 			if (name)
 			{
-				_langList[_nbLang] = std::make_unique<Lang>(getLangIDFromStr(name), name);
-				_langList[_nbLang]->setDefaultExtList(element->Attribute(L"ext"));
-				_langList[_nbLang]->setCommentLineSymbol(element->Attribute(L"commentLine"));
-				_langList[_nbLang]->setCommentStart(element->Attribute(L"commentStart"));
-				_langList[_nbLang]->setCommentEnd(element->Attribute(L"commentEnd"));
+				const wchar_t* ext = element->Attribute(L"ext");
 
-				int tabSettings;
+				const wchar_t* commentLine = element->Attribute(L"commentLine");
+				const wchar_t* commentStart = element->Attribute(L"commentStart");
+				const wchar_t* commentEnd = element->Attribute(L"commentEnd");
+
+				const std::string cmtLine = commentLine ? wstring2string(commentLine) : "";
+				const std::string cmtStart = commentStart ? wstring2string(commentStart) : "";
+				const std::string cmtEnd = commentEnd ? wstring2string(commentEnd) : "";
+
+				int tabSettings = -1;
 				const wchar_t* tsVal = element->Attribute(L"tabSettings", &tabSettings);
 				const wchar_t* buVal = element->Attribute(L"backspaceUnindent");
-				_langList[_nbLang]->setTabInfo(tsVal ? tabSettings : -1, buVal && !lstrcmp(buVal, L"yes"));
+
+				_langList[_nbLang] = std::make_unique<Lang>(getLangIDFromStr(name), name, ext ? ext : L"",
+					cmtLine.c_str(), cmtStart.c_str(), cmtEnd.c_str(),
+					tsVal ? tabSettings : -1, buVal && (std::wcscmp(buVal, L"yes") == 0));
 
 				for (TiXmlNode* kwNode = langNode->FirstChildElement(L"Keywords");
 					kwNode;
@@ -6332,7 +6341,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 						newFormat = EolType::unix;
 						break;
 					default:
-						assert(false and "invalid buffer format - fallback to default");
+						assert(false && "invalid buffer format - fallback to default");
 				}
 				_nppGUI._newDocDefaultSettings._format = newFormat;
 			}

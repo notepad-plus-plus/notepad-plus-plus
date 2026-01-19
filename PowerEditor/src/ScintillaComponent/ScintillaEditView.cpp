@@ -2960,6 +2960,11 @@ void ScintillaEditView::getGenericText(wchar_t* dest, size_t destlen, size_t sta
 	delete[] destA;
 }
 
+void ScintillaEditView::insertGenericTextFrom(size_t position, const char* text2insert) const
+{
+	execute(SCI_INSERTTEXT, position, reinterpret_cast<LPARAM>(text2insert));
+}
+
 void ScintillaEditView::insertGenericTextFrom(size_t position, const wchar_t *text2insert) const
 {
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();

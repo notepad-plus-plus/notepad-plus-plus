@@ -58,6 +58,7 @@
 #include "menuCmdID.h"
 #include "resource.h"
 #include "shortcut.h"
+#include "verifySignedfile.h"
 
 #ifdef _MSC_VER
 #pragma warning(disable : 4996) // for GetVersionEx()
@@ -9941,10 +9942,55 @@ COLORREF NppParameters::getFindDlgStatusMsgColor(int colourIndex)
 LanguageNameInfo NppParameters::getLangNameInfoFromNameID(const wstring& langNameID)
 {
 	LanguageNameInfo res;
-	for (LanguageNameInfo lnf : ScintillaEditView::_langNameInfoArray)
+	for (const LanguageNameInfo& lnf : ScintillaEditView::_langNameInfoArray)
 	{
 		if (lnf._langName == langNameID)
 			return lnf;
 	}
 	return res;
+}
+
+void  NppParameters::buildGupParams(std::wstring& params) const
+{
+	params = L"-v";
+	params += VERSION_INTERNAL_VALUE;
+	int archType = NppParameters::getInstance().archType();
+	if (archType == IMAGE_FILE_MACHINE_AMD64)
+	{
+		params += L" -px64";
+	}
+	else if (archType == IMAGE_FILE_MACHINE_ARM64)
+	{
+		params += L" -parm64";
+	}
+
+	params += L" -infoUrl=";
+	params += INFO_URL;
+
+	params += L" -forceDomain=";
+	params += FORCED_DOWNLOAD_DOMAIN;
+
+	SecurityGuard sgd;
+
+	//
+	// Verify integrity & authenticiy of the downloaded installer
+	//
+
+	params += L" -chkCertSig=yes";
+
+	params += L" -chkCertRevoc";
+	params += L" -chkCertTrustChain";
+
+	params += L" -chkCertName=";
+	params += sgd.signer_display_name();
+
+	params += L" -chkCertSubject=\"";
+	params += stringReplace(sgd.signer_subject(), L"\"", L"{QUOTE}");
+	params += L"\"";
+
+	params += L" -chkCertKeyId=";
+	params += sgd.signer_key_id();
+
+	params += L" -errLogPath=";
+	params += L"\"%LOCALAPPDATA%\\Notepad++\\log\\securityError.log\"";
 }

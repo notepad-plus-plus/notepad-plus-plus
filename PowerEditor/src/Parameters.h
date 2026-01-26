@@ -1790,6 +1790,8 @@ public:
 	}
 	UINT getNbTabCompactLabelLen() const { return _nppGUI._tabCompactLabelLen; }
 
+	void buildGupParams(std::wstring& params) const;
+
 private:
 	NppParameters();
 	~NppParameters();

@@ -387,43 +387,8 @@ bool launchUpdater(const std::wstring& updaterFullPath, const std::wstring& upda
 	if (today < nppGui._autoUpdateOpt._nextUpdateDate)
 		return false;
 
-	std::wstring updaterParams = L"-v";
-	updaterParams += VERSION_INTERNAL_VALUE;
-
-	if (nppParameters.archType() == IMAGE_FILE_MACHINE_AMD64)
-	{
-		updaterParams += L" -px64";
-	}
-	else if (nppParameters.archType() == IMAGE_FILE_MACHINE_ARM64)
-	{
-		updaterParams += L" -parm64";
-	}
-
-	updaterParams += L" -infoUrl=";
-	updaterParams += INFO_URL;
-
-	updaterParams += L" -forceDomain=";
-	updaterParams += FORCED_DOWNLOAD_DOMAIN;
-
-	// Verify the code signing certificate and signature of the downloaded installer
-	SecurityGuard sgd;
-	updaterParams += L" -chkCertSig=yes";
-
-	updaterParams += L" -chkCertRevoc";
-	updaterParams += L" -chkCertTrustChain";
-
-	updaterParams += L" -chkCertName=";
-	updaterParams += sgd.signer_display_name();
-
-	updaterParams += L" -chkCertSubject=\"";
-	updaterParams += stringReplace(sgd.signer_subject(), L"\"", L"{QUOTE}");
-	updaterParams += L"\"";
-
-	updaterParams += L" -chkCertKeyId=";
-	updaterParams += sgd.signer_key_id();
-
-	updaterParams += L" -errLogPath=";
-	updaterParams += L"\"%LOCALAPPDATA%\\Notepad++\\log\\securityError.log\"";
+	std::wstring updaterParams;
+	nppParameters.buildGupParams(updaterParams);
 
 	Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
 	updater.run();

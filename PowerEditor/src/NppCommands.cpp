@@ -3664,7 +3664,8 @@ void Notepad_plus::command(int id)
 		case IDM_CONFUPDATERPROXY :
 		{
 			// wingup doesn't work with the obsolete security layer (API) under xp since downloads are secured with SSL on notepad_plus_plus.org
-			winVer ver = NppParameters::getInstance().getWinVersion();
+			const NppParameters& nppParams = NppParameters::getInstance();
+			winVer ver = nppParams.getWinVersion();
 			if (ver <= WV_XP)
 			{
 				long res = _nativeLangSpeaker.messageBox("XpUpdaterProblem",
@@ -3680,7 +3681,7 @@ void Notepad_plus::command(int id)
 			}
 			else
 			{
-				wstring updaterDir = (NppParameters::getInstance()).getNppPath();
+				wstring updaterDir = nppParams.getNppPath();
 				pathAppend(updaterDir, L"updater");
 
 				wstring updaterFullPath = updaterDir;
@@ -3711,44 +3712,10 @@ void Notepad_plus::command(int id)
 						param = L"-options";
 					}
 					else
-					{
-						param = L"-verbose -v";
-						param += VERSION_INTERNAL_VALUE;
-						int archType = NppParameters::getInstance().archType();
-						if (archType == IMAGE_FILE_MACHINE_AMD64)
-						{
-							param += L" -px64";
-						}
-						else if (archType == IMAGE_FILE_MACHINE_ARM64)
-						{
-							param += L" -parm64";
-						}
+					{	
+						nppParams.buildGupParams(param);
 
-						param += L" -infoUrl=";
-						param += INFO_URL;
-
-						param += L" -forceDomain=";
-						param += FORCED_DOWNLOAD_DOMAIN;
-
-						// Verify the code signing certificate and signature of the downloaded installer
-						SecurityGuard sgd;
-						param += L" -chkCertSig=yes";
-
-						param += L" -chkCertRevoc";
-						param += L" -chkCertTrustChain";
-
-						param += L" -chkCertName=";
-						param += sgd.signer_display_name();
-
-						param += L" -chkCertSubject=\"";
-						param += stringReplace(sgd.signer_subject(), L"\"", L"{QUOTE}");
-						param += L"\"";
-
-						param += L" -chkCertKeyId=";
-						param += sgd.signer_key_id();
-
-						param += L" -errLogPath=";
-						param += L"\"%LOCALAPPDATA%\\Notepad++\\log\\securityError.log\"";
+						param += L" -verbose";
 					}
 					Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
 

@@ -21,7 +21,7 @@ if %SIGN% == 0 goto NoSign
 
 REM commands to sign
 
-set signtoolWin11="C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64\signtool.exe"
+set signtoolWin11="C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\signtool.exe"
 
 set Sign_by_GlobalSignCert=%signtoolWin11% sign /n "NOTEPAD++" /tr http://timestamp.globalsign.com/tsa/r6advanced1 /td SHA256 /fd SHA256
 

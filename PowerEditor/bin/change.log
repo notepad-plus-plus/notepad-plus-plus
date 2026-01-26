@@ -1,19 +1,24 @@
-Notepad++ v8.9 security enhancement, new improvements, regression fixes & bug-fixes:
+Notepad++ v8.9.1 regression fixes, bug-fixes & new improvements:
 
-0. Remove Notepad++ self-singed certificate signature, use only the certificate issued by GlobalSign.
-1. Log security errors automatically while auto-updating in "%LOCALAPPDATA%\Notepad++\log\securityError.log".
-2. Fix jarring color regression in dark mode (introduced in v8.8.9).
-3. Fix "/noUpdater" installer option not working if updater was previously installed.
-4. Fix column mode edit undo regression (introduced in v8.8.9).
-5. Fix issue where an empty file opened without encoding under a UTF-8 system codepage.
-6. Add makefile function list parser.
-7. Improve performance & add missing file ext. from langs.model.xml to langs.xml.
-8. Improve "Open containing folder in Explorer" command to avoid creating Explorer process.
-9. Allow refresh mouse scroll amount according to OS settings changes.
+ 1. Fix EOL duplication regression when playing back old recorded macros.
+ 2. Remedy search failure for pasted text containing trailing invisible EOL character.
+ 3. Fix customized context menu regression where separator (id="0") escapes FolderName submenu.
+ 4. Fix issue where a single undo reverted multiple changes after macro execution.
+ 5. Fix visual glitch when dragging dockable dialogs on a 2nd monitor.
+ 6. Fix inconsistent automatic search mode switching (RegEx to Extended) in Find dialog.
+ 7. Fix incorrect URL parsing caused by Unicode special spaces.
+ 8. Update to Boost 1.90.0.
+ 9. Improve update themes feature: fix JavaScript.js edge case.
+10. Update javascript.js to better match javascript (embedded) in all themes.
+11. Function List: enhance for Perl & PHP; add for Nim.
+12. Fix comments and highlighting in TCL.
+13. Update perl keywords and autocomplete for 5.42.
+14. Improvement: display Find dialog status message with invisible characters warning.
+
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.9/
+https://notepad-plus-plus.org/downloads/v8.9.1/
 
 
 Included plugins:

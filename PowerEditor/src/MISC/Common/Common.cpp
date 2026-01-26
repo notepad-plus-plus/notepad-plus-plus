@@ -144,10 +144,19 @@ wstring relativeFilePathToFullFilePath(const wchar_t *relativeFilePath)
 	BOOL isRelative = ::PathIsRelative(relativeFilePath);
 
 	if (isRelative)
-	{
-		wchar_t fullFileName[MAX_PATH];
-		::GetFullPathName(relativeFilePath, MAX_PATH, fullFileName, NULL);
-		fullFilePathName += fullFileName;
+	{		
+		// First call to get the required buffer size
+		DWORD requiredSize = ::GetFullPathName(relativeFilePath, 0, NULL, NULL);
+		if (requiredSize > 0)
+		{
+			// Second call with dynamically allocated buffer of exact size needed
+			std::vector<wchar_t> fullFileName(requiredSize);
+			DWORD len = ::GetFullPathName(relativeFilePath, requiredSize, fullFileName.data(), NULL);
+			if (len > 0)
+			{
+				fullFilePathName = fullFileName.data();
+			}
+		}
 	}
 	else
 	{
@@ -158,6 +167,33 @@ wstring relativeFilePathToFullFilePath(const wchar_t *relativeFilePath)
 		}
 
 		fullFilePathName += relativeFilePath;
+	}
+
+	if (fullFilePathName.size() >= MAX_PATH - 1)
+	{
+		// Attempt to reduce long pathname by getting its short path form
+		std::vector<wchar_t> shortPath(MAX_PATH);
+		if (fullFilePathName.compare(0, 2, L"\\\\") == 0)
+		{
+			fullFilePathName.insert(2, L"?\\UNC\\");
+		}
+		else
+		{
+			fullFilePathName.insert(0, L"\\\\?\\");
+		}
+		DWORD len = ::GetShortPathName(fullFilePathName.c_str(), shortPath.data(), MAX_PATH);
+		if (len > 0 && len < MAX_PATH)
+		{
+			fullFilePathName = shortPath.data();
+		}
+		// else keep fullFilePathName as is, will fail later if path is too long
+		if (fullFilePathName.compare(0, 4, L"\\\\?\\") == 0)
+		{
+			if (fullFilePathName.compare(4, 4, L"UNC\\") == 0)
+				fullFilePathName.erase(2, 6);
+			else
+				fullFilePathName.erase(0, 4);
+		}
 	}
 
 	return fullFilePathName;

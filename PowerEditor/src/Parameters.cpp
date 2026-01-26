@@ -9930,6 +9930,15 @@ void NppParameters::buildGupParams(std::wstring& params)
 	SecurityGuard sgd;
 
 	//
+	// Verify integrity & authenticiy of server-returned XML (XMLDsig) 
+	//
+
+	params += L" -chkCert4InfoXML";
+
+	params += L" -chkCertKeyId4XML=";
+	params += sgd.signer_key_id();
+
+	//
 	// Verify integrity & authenticiy of the downloaded installer
 	//
 

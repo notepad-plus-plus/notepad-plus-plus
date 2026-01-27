@@ -17,9 +17,13 @@
 
 #pragma once
 
+#include <windows.h>
+
+#include <string>
+#include <vector>
+
 #include "TabBar.h"
 #include "Window.h"
-#include "Common.h"
 
 struct DlgInfo
 {
@@ -30,7 +34,7 @@ struct DlgInfo
 	DlgInfo(Window *dlg, const wchar_t *name, const wchar_t *internalName = L""): _dlg(dlg), _name(name), _internalName(internalName) {}
 };
 
-typedef std::vector<DlgInfo> WindowVector;
+using WindowVector = std::vector<DlgInfo>;
 
 
 class ControlsTab final : public TabBar
@@ -51,7 +55,7 @@ public :
 
 	void clickedUpdate()
 	{
-		int indexClicked = int(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
+		const auto indexClicked = static_cast<int>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 		activateWindowAt(indexClicked);
 	}
 	void renameTab(size_t index, const wchar_t *newName);
@@ -60,4 +64,6 @@ public :
 private:
 	WindowVector *_pWinVector = nullptr;
     int _current = 0;
+
+	using TabBar::init;
 };

@@ -43,7 +43,7 @@ void IconList::init(HINSTANCE hInst, int iconSize)
 }
 
 
-void IconList::create(int iconSize, HINSTANCE hInst, int* iconIDArray, int iconIDArraySize)
+void IconList::create(int iconSize, HINSTANCE hInst, const int* iconIDArray, int iconIDArraySize)
 {
 	init(hInst, iconSize);
 	_pIconIDArray = iconIDArray;

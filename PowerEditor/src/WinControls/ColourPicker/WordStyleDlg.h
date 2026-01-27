@@ -32,10 +32,6 @@
 #define WM_UPDATESCINTILLAS      (WORDSTYLE_USER + 1) // WM_UPDATESCINTILLAS (BOOL doChangePanel, 0)
 #define WM_UPDATEMAINMENUBITMAPS (WORDSTYLE_USER + 2)
 
-const wchar_t FINDDLG_STAUSNOTFOUND_COLOR[64] = L"Find status: Not found";
-const wchar_t FINDDLG_STAUSMESSAGE_COLOR[64] = L"Find status: Message";
-const wchar_t FINDDLG_STAUSREACHED_COLOR[64] = L"Find status: Search end reached";
-
 enum fontStyleType {BOLD_STATUS, ITALIC_STATUS, UNDERLINE_STATUS};
 
 class WordStyleDlg : public StaticDialog

@@ -14,16 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 #pragma once
 
-#include "TabBar.h"
-#include "Buffer.h"
+#include <windows.h>
 
-const int SAVED_IMG_INDEX = 0;
-const int UNSAVED_IMG_INDEX = 1;
-const int REDONLY_IMG_INDEX = 2;
-const int REDONLYSYS_IMG_INDEX = 3;
-const int MONITORING_IMG_INDEX = 4;
+#include <vector>
+
+#include "Buffer.h"
+#include "ImageListSet.h"
+#include "NppConstants.h"
+#include "ScintillaEditView.h"
+#include "TabBar.h"
+#include "Window.h"
 
 
 class DocTabView : public TabBarPlus
@@ -96,4 +99,7 @@ private :
 
 	std::vector<IconList *> _pIconListVector;
 	int _iconListIndexChoice = -1;
+
+	using Window::init;
+	using TabBar::init;
 };

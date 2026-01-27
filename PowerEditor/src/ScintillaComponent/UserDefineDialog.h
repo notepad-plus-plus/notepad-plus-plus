@@ -35,13 +35,9 @@
 #include "Window.h"
 
 class ScintillaEditView;
-class UserLangContainer;
-struct Style;
-#define WL_LEN_MAX 1024
-#define BOLD_MASK     1
-#define ITALIC_MASK   2
-const bool DOCK = true;
-const bool UNDOCK = false;
+
+inline constexpr bool DOCK = true;
+inline constexpr bool UNDOCK = false;
 
 class GlobalMappers
 {
@@ -257,7 +253,7 @@ protected :
     static UserLangContainer *_pUserLang;
     static ScintillaEditView *_pScintilla;
     intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
-    bool setPropertyByCheck(HWND hwnd, WPARAM id, bool & bool2set);
+	static bool setPropertyByCheck(HWND hwnd, WPARAM id, bool& bool2set);
     virtual void setKeywords2List(int ctrlID) = 0;
 };
 
@@ -270,7 +266,7 @@ protected :
     intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
     void setKeywords2List(int ctrlID) override;
 private :
-    void retrieve(wchar_t *dest, const wchar_t *toRetrieve, wchar_t *prefix) const;
+	static void retrieve(wchar_t* dest, const wchar_t* toRetrieve, const wchar_t* prefix);
     URLCtrl _pageLink;
 };
 
@@ -293,7 +289,7 @@ protected :
     intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
     void setKeywords2List(int id) override;
 private :
-    void retrieve(wchar_t *dest, const wchar_t *toRetrieve, const wchar_t *prefix) const;
+	static void retrieve(wchar_t* dest, const wchar_t* toRetrieve, const wchar_t* prefix);
 };
 
 class SymbolsStyleDialog : public SharedParametersDialog
@@ -305,7 +301,7 @@ protected :
     intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
     void setKeywords2List(int id) override;
 private :
-    void retrieve(wchar_t *dest, const wchar_t *toRetrieve, wchar_t *prefix) const;
+	static void retrieve(wchar_t* dest, const wchar_t* toRetrieve, const wchar_t* prefix);
 };
 
 class UserDefineDialog : public SharedParametersDialog
@@ -321,7 +317,7 @@ public :
             _pScintilla = pSev;
         }
     }
-    void setScintilla(ScintillaEditView *pScinView) {
+	static void setScintilla(ScintillaEditView* pScinView) {
         _pScintilla = pScinView;
     }
 
@@ -470,5 +466,5 @@ private:
 
 	using Window::init;
 
-    void move2CtrlRight(HWND hwndDlg, int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight);
+	static void move2CtrlRight(HWND hwndDlg, int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight);
 };

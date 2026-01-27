@@ -394,21 +394,17 @@ struct StyleArray
 	}
 
 	Style* findByID(int id) {
-		for (size_t i = 0; i < _styleVect.size(); ++i)
-		{
-			if (_styleVect[i]._styleID == id)
-				return &(_styleVect[i]);
-		}
-		return nullptr;
+		auto it = std::find_if(_styleVect.begin(), _styleVect.end(),
+			[&id](const Style& s) { return s._styleID == id; });
+
+		return (it != _styleVect.end()) ? &(*it) : nullptr;
 	}
 
 	Style* findByName(const std::wstring& name) {
-		for (size_t i = 0; i < _styleVect.size(); ++i)
-		{
-			if (_styleVect[i]._styleDesc == name)
-				return &(_styleVect[i]);
-		}
-		return nullptr;
+		auto it = std::find_if(_styleVect.begin(), _styleVect.end(),
+			[&name](const Style& s) { return s._styleDesc == name; });
+
+		return (it != _styleVect.end()) ? &(*it) : nullptr;
 	}
 
 protected:
@@ -458,11 +454,11 @@ private :
 
 struct SortLexersInAlphabeticalOrder {
 	bool operator() (const LexerStyler& l, const LexerStyler& r) const {
-		if (!lstrcmp(l.getLexerDesc(), L"Search result"))
+		if (std::wcscmp(l.getLexerDesc(), L"Search result") == 0)
 			return false;
-		if (!lstrcmp(r.getLexerDesc(), L"Search result"))
+		if (std::wcscmp(r.getLexerDesc(), L"Search result") == 0)
 			return true;
-		return lstrcmp(l.getLexerDesc(), r.getLexerDesc()) < 0;
+		return std::wcscmp(l.getLexerDesc(), r.getLexerDesc()) < 0;
 	}
 };
 
@@ -480,14 +476,12 @@ struct LexerStylerArray
 	const wchar_t * getLexerNameFromIndex(size_t index) const { return _lexerStylerVect[index].getLexerName(); }
 	const wchar_t * getLexerDescFromIndex(size_t index) const { return _lexerStylerVect[index].getLexerDesc(); }
 
-	LexerStyler * getLexerStylerByName(const wchar_t *lexerName) {
+	LexerStyler* getLexerStylerByName(const wchar_t* lexerName) {
 		if (!lexerName) return nullptr;
-		for (size_t i = 0 ; i < _lexerStylerVect.size() ; ++i)
-		{
-			if (!lstrcmp(_lexerStylerVect[i].getLexerName(), lexerName))
-				return &(_lexerStylerVect[i]);
-		}
-		return nullptr;
+		auto it = std::find_if(_lexerStylerVect.begin(), _lexerStylerVect.end(),
+			[&lexerName](const LexerStyler& ls) { return std::wcscmp(ls.getLexerName(), lexerName) == 0; });
+
+		return (it != _lexerStylerVect.end()) ? &(*it) : nullptr;
 	}
 
 	void addLexerStyler(const wchar_t *lexerName, const wchar_t *lexerDesc, const wchar_t *lexerUserExt, TiXmlNode *lexerNode);
@@ -1022,14 +1016,10 @@ struct Lang final
 class UserLangContainer final
 {
 public:
-	UserLangContainer() :_name(L"new user define"), _ext(L""), _isDarkModeTheme(false), _udlVersion(L"") {
-		for (int i = 0; i < SCE_USER_KWLIST_TOTAL; ++i) *_keywordLists[i] = '\0';
-	}
+	UserLangContainer() noexcept :_name(L"new user define"), _ext(L""), _isDarkModeTheme(false), _udlVersion(L"") {}
 
-	UserLangContainer(const wchar_t *name, const wchar_t *ext, bool isDarkModeTheme, const wchar_t *udlVer):
-		_name(name), _ext(ext), _isDarkModeTheme(isDarkModeTheme), _udlVersion(udlVer) {
-		for (int i = 0; i < SCE_USER_KWLIST_TOTAL; ++i) *_keywordLists[i] = '\0';
-	}
+	explicit UserLangContainer(const wchar_t* name, const wchar_t* ext, bool isDarkModeTheme, const wchar_t* udlVer) noexcept
+		: _name(name), _ext(ext), _isDarkModeTheme(isDarkModeTheme), _udlVersion(udlVer) {}
 
 	UserLangContainer & operator = (const UserLangContainer & ulc)
 	{
@@ -1054,7 +1044,7 @@ public:
 			}
 
 			for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; ++i)
-				wcscpy_s(this->_keywordLists[i], ulc._keywordLists[i]);
+				this->_keywordLists[i] = ulc._keywordLists[i];
 
 			for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; ++i)
 				_isPrefix[i] = ulc._isPrefix[i];
@@ -1070,17 +1060,17 @@ private:
 	StyleArray _styles;
 	std::wstring _name;
 	std::wstring _ext;
-	bool _isDarkModeTheme = false;
 	std::wstring _udlVersion;
 
-	wchar_t _keywordLists[SCE_USER_KWLIST_TOTAL][max_char];
-	bool _isPrefix[SCE_USER_TOTAL_KEYWORD_GROUPS] = {false};
+	std::wstring _keywordLists[SCE_USER_KWLIST_TOTAL];
+	bool _isPrefix[SCE_USER_TOTAL_KEYWORD_GROUPS] = { false };
 
-	bool _isCaseIgnored = false;
-	bool _allowFoldOfComments = false;
 	int  _forcePureLC = PURE_LC_NONE;
 	int _decimalSeparator = DECSEP_DOT;
+	bool _isCaseIgnored = false;
+	bool _allowFoldOfComments = false;
 	bool _foldCompact = false;
+	bool _isDarkModeTheme = false;
 
 	// nakama zone
 	friend class Notepad_plus;
@@ -1201,7 +1191,7 @@ public:
 			_fileName = fn;
 	}
 
-	std::string getFileName() const
+	const std::string& getFileName() const
 	{
 		return _fileName;
 	}
@@ -1226,7 +1216,7 @@ public:
 		_themeList.push_back(std::pair<std::wstring, std::wstring>(_defaultThemeLabel, xmlFullPath));
 	}
 
-	std::wstring getThemeFromXmlFileName(const wchar_t *fn) const;
+	std::wstring getThemeFromXmlFileName(const wchar_t* xmlFullPath) const;
 
 	std::wstring getXmlFilePathFromThemeName(const wchar_t *themeName) const {
 		if (!themeName || themeName[0])
@@ -1255,9 +1245,9 @@ public:
 	}
 
 	void setThemeDirPath(const std::wstring& themeDirPath) { _themeDirPath = themeDirPath; }
-	std::wstring getThemeDirPath() const { return _themeDirPath; }
+	const std::wstring& getThemeDirPath() const { return _themeDirPath; }
 
-	std::wstring getDefaultThemeLabel() const { return _defaultThemeLabel; }
+	const std::wstring& getDefaultThemeLabel() const { return _defaultThemeLabel; }
 
 	std::wstring getSavePathFrom(const std::wstring& path) const {
 		const auto iter = _themeStylerSavePath.find(path);
@@ -1291,7 +1281,7 @@ struct HLSColour
 
 	HLSColour() = default;
 	HLSColour(WORD hue, WORD lightness, WORD saturation): _hue(hue), _lightness(lightness), _saturation(saturation) {}
-	HLSColour(COLORREF rgb) { ColorRGBToHLS(rgb, &_hue, &_lightness, &_saturation); }
+	explicit HLSColour(COLORREF rgb) noexcept { ::ColorRGBToHLS(rgb, &_hue, &_lightness, &_saturation); }
 
 	void loadFromRGB(COLORREF rgb) { ColorRGBToHLS(rgb, &_hue, &_lightness, &_saturation); }
 	COLORREF toRGB() const { return ColorHLSToRGB(_hue, _lightness, _saturation); }
@@ -1369,7 +1359,7 @@ public:
 	bool reloadLang();
 	bool reloadStylers(const wchar_t *stylePath = nullptr);
 	void destroyInstance();
-	std::wstring getSettingsFolder();
+	std::wstring getSettingsFolder() const;
 
 	bool _isTaskListRBUTTONUP_Active = false;
 	int L_END;
@@ -1458,7 +1448,7 @@ public:
 
 	bool writeProjectPanelsSettings() const;
 	bool writeColumnEditorSettings() const;
-	bool writeFileBrowserSettings(const std::vector<std::wstring> & rootPath, const std::wstring & latestSelectedItemPath) const;
+	bool writeFileBrowserSettings(const std::vector<std::wstring>& rootPaths, const std::wstring& latestSelectedItemPath) const;
 
 	TiXmlNode* getChildElementByAttribute(TiXmlNode *pere, const wchar_t *childName, const wchar_t *attributeName, const wchar_t *attributeVal) const;
 
@@ -1515,7 +1505,7 @@ public:
 		return false;
 	}
 
-	const wchar_t * getUserDefinedLangNameFromExt(wchar_t *ext, wchar_t *fullName) const;
+	const wchar_t* getUserDefinedLangNameFromExt(const wchar_t* ext, const wchar_t* fullName) const;
 
 	int addUserLangToEnd(const UserLangContainer* userLang, const wchar_t *newName);
 	void removeUserLang(size_t index);
@@ -1534,9 +1524,9 @@ public:
 
 	// 0 <= percent < 256
 	// if (percent == 255) then opacq
-	void SetTransparent(HWND hwnd, int percent);
+	static void SetTransparent(HWND hwnd, int percent);
 
-	void removeTransparent(HWND hwnd);
+	static void removeTransparent(HWND hwnd);
 
 	void setCmdlineParam(const CmdLineParamsDTO & cmdLineParams)
 	{
@@ -1623,7 +1613,7 @@ public:
 		_loadedSessionFullFilePath = loadedSessionFilePath;
 	}
 
-	std::wstring getLoadedSessionFilePath() {
+	const std::wstring& getLoadedSessionFilePath() const {
 		return _loadedSessionFullFilePath;
 	}
 
@@ -1679,14 +1669,9 @@ public:
 	}
 
 	std::vector<std::wstring>& getBlackList() { return _blacklist; }
-	bool isInBlackList(const wchar_t* fn) const
-	{
-		for (const auto& element: _blacklist)
-		{
-			if (element == fn)
-				return true;
-		}
-		return false;
+	bool isInBlackList(const wchar_t* fn) const {
+		return std::any_of(_blacklist.begin(), _blacklist.end(),
+			[&fn](const auto& element) { return element == fn; });
 	}
 
 	bool importUDLFromFile(const std::wstring& sourceFile);
@@ -1708,21 +1693,17 @@ public:
 
 	void saveConfig_xml();
 
-	std::wstring getUserPath() const {
+	const std::wstring& getUserPath() const {
 		return _userPath;
 	}
 
-	std::wstring getUserDefineLangFolderPath() const {
+	const std::wstring& getUserDefineLangFolderPath() const {
 		return _userDefineLangsFolderPath;
 	}
 
-	std::wstring getUserDefineLangPath() const {
-		return _userDefineLangPath;
-	}
-
 	bool writeSettingsFilesOnCloudForThe1stTime(const std::wstring & cloudSettingsPath);
-	void setCloudChoice(const wchar_t *pathChoice);
-	void removeCloudChoice();
+	void setCloudChoice(const wchar_t* pathChoice) const;
+	void removeCloudChoice() const;
 	bool isCloudPathChanged() const;
 	static int archType() { return ARCH_TYPE; }
 	COLORREF getCurrentDefaultBgColor() const {
@@ -2016,7 +1997,7 @@ private:
 	static bool getShortcuts(const NppXml::Element& element, Shortcut& sc, std::string* folderName = nullptr);
 	static bool getInternalCommandShortcuts(const NppXml::Element& element, CommandShortcut& cs, std::string* folderName = nullptr);
 
-	void writeStyle2Element(const Style & style2Write, Style & style2Sync, TiXmlElement *element);
+	static void writeStyle2Element(const Style& style2Write, Style& style2Sync, TiXmlElement* element);
 	static void insertUserLang2Tree(TiXmlNode* node, const UserLangContainer* userLang);
 	static void insertCmd(NppXml::Element& cmdRoot, const CommandShortcut& cmd);
 	static void insertMacro(NppXml::Element& macrosRoot, const MacroShortcut& macro, const std::string& folderName);

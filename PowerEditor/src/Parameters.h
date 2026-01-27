@@ -79,15 +79,8 @@ EolType convertIntToFormatType(int value, EolType defvalue = EolType::osdefault)
 #define PURE_LC_BOL	 1
 #define PURE_LC_WSP	 2
 
-// issue xml/log file name
-const wchar_t nppLogNetworkDriveIssue[] = L"nppLogNetworkDriveIssue";
-const wchar_t nppLogNulContentCorruptionIssue[] = L"nppLogNulContentCorruptionIssue";
-
 void cutString(const wchar_t *str2cut, std::vector<std::wstring> & patternVect);
 void cutStringBy(const wchar_t *str2cut, std::vector<std::wstring> & patternVect, char byChar, bool allowEmptyStr);
-
-// style names
-const wchar_t g_npcStyleName[] = L"Non-printing characters custom color";
 
 struct Position
 {

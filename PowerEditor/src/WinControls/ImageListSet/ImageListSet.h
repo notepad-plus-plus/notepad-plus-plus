@@ -29,7 +29,7 @@ class IconList
 public :
 	IconList() = default;
 	void init(HINSTANCE hInst, int iconSize);
-	void create(int iconSize, HINSTANCE hInst, int *iconIDArray, int iconIDArraySize);
+	void create(int iconSize, HINSTANCE hInst, const int* iconIDArray, int iconIDArraySize);
 
 	void destroy() {
 		ImageList_Destroy(_hImglst);
@@ -48,7 +48,7 @@ public :
 private :
 	HIMAGELIST _hImglst = nullptr;
 	HINSTANCE _hInst = nullptr;
-	int *_pIconIDArray = nullptr;
+	const int* _pIconIDArray = nullptr;
 	int _iconIDArraySize = 0;
 	int _iconSize = 0;
 

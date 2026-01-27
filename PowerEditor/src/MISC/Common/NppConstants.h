@@ -346,6 +346,9 @@ inline constexpr int MAX_EXTERNAL_LEXER_NAME_LEN = 128;
 inline constexpr int RECENTFILES_SHOWFULLPATH = -1;
 inline constexpr int RECENTFILES_SHOWONLYFILENAME = 0;
 
+inline constexpr const wchar_t nppLogNetworkDriveIssue[] = L"nppLogNetworkDriveIssue"; // issue xml/log file name
+inline constexpr const wchar_t nppLogNulContentCorruptionIssue[] = L"nppLogNulContentCorruptionIssue"; // issue xml/log file name
+
 // Parameters
 
 // UserDefineLangReference
@@ -355,3 +358,46 @@ inline constexpr int extsLenMax = 256;
 inline constexpr int max_char = 1024 * 30;
 
 // UserDefineLangReference
+
+// TabBar
+
+inline constexpr int g_TabIconSize = 16;
+inline constexpr int g_TabHeight = 22;
+inline constexpr int g_TabHeightLarge = 25;
+inline constexpr int g_TabWidth = 45;
+inline constexpr int g_TabWidthButton = 60;
+inline constexpr int g_TabCloseBtnSize = 11;
+inline constexpr int g_TabPinBtnSize = 11;
+inline constexpr int g_TabCloseBtnSize_DM = 16;
+inline constexpr int g_TabPinBtnSize_DM = 16;
+
+// TabBar
+
+// Style names
+
+inline constexpr const wchar_t TABBAR_ACTIVEFOCUSEDINDCATOR[] = L"Active tab focused indicator";
+inline constexpr const wchar_t TABBAR_ACTIVEUNFOCUSEDINDCATOR[] = L"Active tab unfocused indicator";
+inline constexpr const wchar_t TABBAR_ACTIVETEXT[] = L"Active tab text";
+inline constexpr const wchar_t TABBAR_INACTIVETEXT[] = L"Inactive tabs";
+
+inline constexpr const wchar_t TABBAR_INDIVIDUALCOLOR_1[] = L"Tab color 1";
+inline constexpr const wchar_t TABBAR_INDIVIDUALCOLOR_2[] = L"Tab color 2";
+inline constexpr const wchar_t TABBAR_INDIVIDUALCOLOR_3[] = L"Tab color 3";
+inline constexpr const wchar_t TABBAR_INDIVIDUALCOLOR_4[] = L"Tab color 4";
+inline constexpr const wchar_t TABBAR_INDIVIDUALCOLOR_5[] = L"Tab color 5";
+
+inline constexpr const wchar_t TABBAR_INDIVIDUALCOLOR_DM_1[] = L"Tab color dark mode 1";
+inline constexpr const wchar_t TABBAR_INDIVIDUALCOLOR_DM_2[] = L"Tab color dark mode 2";
+inline constexpr const wchar_t TABBAR_INDIVIDUALCOLOR_DM_3[] = L"Tab color dark mode 3";
+inline constexpr const wchar_t TABBAR_INDIVIDUALCOLOR_DM_4[] = L"Tab color dark mode 4";
+inline constexpr const wchar_t TABBAR_INDIVIDUALCOLOR_DM_5[] = L"Tab color dark mode 5";
+
+inline constexpr const wchar_t VIEWZONE_DOCUMENTMAP[] = L"Document map";
+
+inline constexpr const wchar_t FINDDLG_STAUSNOTFOUND_COLOR[] = L"Find status: Not found";
+inline constexpr const wchar_t FINDDLG_STAUSMESSAGE_COLOR[] = L"Find status: Message";
+inline constexpr const wchar_t FINDDLG_STAUSREACHED_COLOR[] = L"Find status: Search end reached";
+
+inline constexpr const wchar_t g_npcStyleName[] = L"Non-printing characters custom color";
+
+// Style names

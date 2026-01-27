@@ -17,12 +17,10 @@
 
 #pragma once
 
-#ifndef _WIN32_IE
-#define _WIN32_IE	0x0600
-#endif //_WIN32_IE
-
 #include <windows.h>
+
 #include <commctrl.h>
+
 #include "Window.h"
 #include "dpiManagerV2.h"
 
@@ -37,34 +35,7 @@
 
 #define WM_TABSETSTYLE	(WM_APP + 0x024)
 
-const int nbCtrlMax = 10;
-
-const wchar_t TABBAR_ACTIVEFOCUSEDINDCATOR[64] = L"Active tab focused indicator";
-const wchar_t TABBAR_ACTIVEUNFOCUSEDINDCATOR[64] = L"Active tab unfocused indicator";
-const wchar_t TABBAR_ACTIVETEXT[64] = L"Active tab text";
-const wchar_t TABBAR_INACTIVETEXT[64] = L"Inactive tabs";
-
-const wchar_t TABBAR_INDIVIDUALCOLOR_1[64] = L"Tab color 1";
-const wchar_t TABBAR_INDIVIDUALCOLOR_2[64] = L"Tab color 2";
-const wchar_t TABBAR_INDIVIDUALCOLOR_3[64] = L"Tab color 3";
-const wchar_t TABBAR_INDIVIDUALCOLOR_4[64] = L"Tab color 4";
-const wchar_t TABBAR_INDIVIDUALCOLOR_5[64] = L"Tab color 5";
-
-const wchar_t TABBAR_INDIVIDUALCOLOR_DM_1[64] = L"Tab color dark mode 1";
-const wchar_t TABBAR_INDIVIDUALCOLOR_DM_2[64] = L"Tab color dark mode 2";
-const wchar_t TABBAR_INDIVIDUALCOLOR_DM_3[64] = L"Tab color dark mode 3";
-const wchar_t TABBAR_INDIVIDUALCOLOR_DM_4[64] = L"Tab color dark mode 4";
-const wchar_t TABBAR_INDIVIDUALCOLOR_DM_5[64] = L"Tab color dark mode 5";
-
-constexpr int g_TabIconSize = 16;
-constexpr int g_TabHeight = 22;
-constexpr int g_TabHeightLarge = 25;
-constexpr int g_TabWidth = 45;
-constexpr int g_TabWidthButton = 60;
-constexpr int g_TabCloseBtnSize = 11;
-constexpr int g_TabPinBtnSize = 11;
-constexpr int g_TabCloseBtnSize_DM = 16;
-constexpr int g_TabPinBtnSize_DM = 16;
+inline constexpr int nbCtrlMax = 10;
 
 struct TBHDR
 {
@@ -80,7 +51,7 @@ public:
 	TabBar() = default;
 	~TabBar() override = default;
 	void destroy() override;
-	virtual void init(HINSTANCE hInst, HWND parent, bool isVertical = false, bool isMultiLine = false);
+	virtual void init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMultiLine);
 	void reSizeTo(RECT& rc2Adjust) override;
 	int insertAtEnd(const wchar_t *subTabName);
 	void activateAt(int index) const;
@@ -132,8 +103,10 @@ protected:
 	DPIManagerV2 _dpiManager;
 
 	long getRowCount() const {
-		return long(::SendMessage(_hSelf, TCM_GETROWCOUNT, 0, 0));
+		return static_cast<long>(::SendMessage(_hSelf, TCM_GETROWCOUNT, 0, 0));
 	}
+
+	using Window::init;
 };
 
 
@@ -288,4 +261,7 @@ protected:
 
 	void notify(int notifyCode, int tabIndex);
 	void trackMouseEvent(DWORD event2check);
+
+	using Window::init;
+	using TabBar::init;
 };

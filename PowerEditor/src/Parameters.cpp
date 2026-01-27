@@ -1187,7 +1187,7 @@ std::wstring NppParameters::getSpecialFolderLocation(int folderKind)
 }
 
 
-std::wstring NppParameters::getSettingsFolder()
+std::wstring NppParameters::getSettingsFolder() const
 {
 	if (_isLocal)
 		return _nppPath;
@@ -1829,7 +1829,7 @@ bool NppParameters::isExistingExternalLangName(const char* newName) const
 }
 
 
-const wchar_t* NppParameters::getUserDefinedLangNameFromExt(wchar_t *ext, wchar_t *fullName) const
+const wchar_t* NppParameters::getUserDefinedLangNameFromExt(const wchar_t* ext, const wchar_t* fullName) const
 {
 	if ((!ext) || (!ext[0]))
 		return nullptr;
@@ -1844,7 +1844,7 @@ const wchar_t* NppParameters::getUserDefinedLangNameFromExt(wchar_t *ext, wchar_
 		// Force to use dark mode UDL in dark mode or to use  light mode UDL in light mode
 		for (size_t j = 0, len = extVect.size(); j < len; ++j)
 		{
-			if (!_wcsicmp(extVect[j].c_str(), ext) || (wcschr(fullName, '.') && !_wcsicmp(extVect[j].c_str(), fullName)))
+			if (!::_wcsicmp(extVect[j].c_str(), ext) || (std::wcschr(fullName, L'.') && !::_wcsicmp(extVect[j].c_str(), fullName)))
 			{
 				// preserve ext matched UDL
 				iMatched = i;
@@ -1869,10 +1869,9 @@ const wchar_t* NppParameters::getUserDefinedLangNameFromExt(wchar_t *ext, wchar_
 
 int NppParameters::getExternalLangIndexFromName(const wchar_t* externalLangName) const
 {
-	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	for (int i = 0 ; i < _nbExternalLang ; ++i)
 	{
-		if (!lstrcmp(externalLangName, wmc.char2wchar(_externalLangArray[i]->_name.c_str(), CP_ACP)))
+		if (externalLangName == string2wstring(_externalLangArray[i]->_name))
 			return i;
 	}
 	return -1;
@@ -1883,7 +1882,7 @@ const UserLangContainer* NppParameters::getULCFromName(const wchar_t* userLangNa
 {
 	for (int i = 0 ; i < _nbUserLang ; ++i)
 	{
-		if (lstrcmp(userLangName, _userLangArray[i]->_name.c_str()) == 0)
+		if (userLangName == _userLangArray[i]->_name)
 			return _userLangArray[i].get();
 	}
 
@@ -1894,9 +1893,9 @@ const UserLangContainer* NppParameters::getULCFromName(const wchar_t* userLangNa
 
 COLORREF NppParameters::getCurLineHilitingColour()
 {
-	const Style * pStyle = _widgetStyleArray.findByName(L"Current line background colour");
+	const Style* pStyle = _widgetStyleArray.findByName(L"Current line background colour");
 	if (!pStyle)
-		return COLORREF(-1);
+		return static_cast<COLORREF>(-1);
 	return pStyle->_bgColor;
 }
 
@@ -1921,7 +1920,7 @@ static int CALLBACK EnumFontFamExProc(const LOGFONT* lpelfe, const TEXTMETRIC*, 
 	//Start at the end though, that's the most likely place to find a duplicate
 	for (int i = vectSize - 1; i >= 0; --i)
 	{
-		if (lstrcmp(strVect[i].c_str(), lfFaceName) == 0)
+		if (strVect[i] == lfFaceName)
 			return 1;	//we already have seen this typeface, ignore it
 	}
 
@@ -2480,7 +2479,7 @@ void NppParameters::updateStylesXml(TiXmlElement* rootUser, TiXmlElement* rootMo
 				const wchar_t* embeddedBG = embeddedWordsStyle->Attribute(L"bgColor");
 				if (embeddedID)
 				{
-					auto do_embedded_to_dot_js_map = [](std::map <std::wstring, std::map<std::wstring, std::wstring>>&colorid_map, std::wstring dotjs_id, std::wstring emb_id_desired, const wchar_t* embID, const wchar_t* embFG, const wchar_t* embBG) {
+					auto do_embedded_to_dot_js_map = [](std::map<std::wstring, std::map<std::wstring, std::wstring>>& colorid_map, const std::wstring& dotjs_id, const std::wstring& emb_id_desired, const wchar_t* embID, const wchar_t* embFG, const wchar_t* embBG) {
 						if (emb_id_desired == embID)
 						{
 							if (embFG)
@@ -3831,7 +3830,7 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 		}
 
 		try {
-			_userLangArray[_nbUserLang] = std::make_unique<UserLangContainer>(name, ext, isDarkModeTheme, udlVersion ? udlVersion : L"");
+			_userLangArray[_nbUserLang] = std::make_unique<UserLangContainer>(name, ext, udlVersion ? udlVersion : L"", isDarkModeTheme);
 
 			++_nbUserLang;
 
@@ -3897,7 +3896,7 @@ bool NppParameters::exportUDLToFile(size_t langIndex2export, const std::wstring&
 	if (langIndex2export >= NB_MAX_USER_LANG)
 		return false;
 
-	if (static_cast<int32_t>(langIndex2export) >= _nbUserLang)
+	if (langIndex2export >= _nbUserLang)
 		return false;
 
 	TiXmlDocument *pNewXmlUserLangDoc = new TiXmlDocument(fileName2save);
@@ -3936,7 +3935,7 @@ LangType NppParameters::getLangFromExt(const wchar_t *ext)
 	return L_TEXT;
 }
 
-void NppParameters::setCloudChoice(const wchar_t *pathChoice)
+void NppParameters::setCloudChoice(const wchar_t* pathChoice) const
 {
 	std::wstring cloudChoicePath = getSettingsFolder();
 	cloudChoicePath += L"\\cloud\\";
@@ -3953,7 +3952,7 @@ void NppParameters::setCloudChoice(const wchar_t *pathChoice)
 	writeFileContent(cloudChoicePath.c_str(), cloudPathA.c_str());
 }
 
-void NppParameters::removeCloudChoice()
+void NppParameters::removeCloudChoice() const
 {
 	std::wstring cloudChoicePath = getSettingsFolder();
 
@@ -3973,7 +3972,7 @@ bool NppParameters::isCloudPathChanged() const
 		wchar_t c = _initialCloudChoice.at(_initialCloudChoice.size()-1);
 		if (c == '\\' || c == '/')
 		{
-			if (_initialCloudChoice.find(_nppGUI._cloudPath) == 0)
+			if (_initialCloudChoice.starts_with(_nppGUI._cloudPath))
 				return false;
 		}
 	}
@@ -3982,7 +3981,7 @@ bool NppParameters::isCloudPathChanged() const
 		wchar_t c = _nppGUI._cloudPath.at(_nppGUI._cloudPath.size() - 1);
 		if (c == '\\' || c == '/')
 		{
-			if (_nppGUI._cloudPath.find(_initialCloudChoice) == 0)
+			if (_nppGUI._cloudPath.starts_with(_initialCloudChoice))
 				return false;
 		}
 	}
@@ -4680,7 +4679,7 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 				temp += L" 08";	if (kwl[5] != '0') temp += kwl[5];
 
 				temp += L" 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23";
-				wcscpy_s(_userLangArray[_nbUserLang - 1]->_keywordLists[SCE_USER_KWLIST_DELIMITERS], temp.c_str());
+				_userLangArray[_nbUserLang - 1]->_keywordLists[SCE_USER_KWLIST_DELIMITERS] = temp;
 			}
 			else if (!lstrcmp(keywordsName, L"Comment"))
 			{
@@ -4691,19 +4690,19 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 				size_t pos = 0;
 
 				pos = temp.find(L" 0");
-				while (pos != string::npos)
+				while (pos != std::string::npos)
 				{
 					temp.replace(pos, 2, L" 00");
 					pos = temp.find(L" 0", pos+1);
 				}
 				pos = temp.find(L" 1");
-				while (pos != string::npos)
+				while (pos != std::string::npos)
 				{
 					temp.replace(pos, 2, L" 03");
 					pos = temp.find(L" 1");
 				}
 				pos = temp.find(L" 2");
-				while (pos != string::npos)
+				while (pos != std::string::npos)
 				{
 					temp.replace(pos, 2, L" 04");
 					pos = temp.find(L" 2");
@@ -4713,7 +4712,7 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 				if (temp[0] == ' ')
 					temp.erase(0, 1);
 
-				wcscpy_s(_userLangArray[_nbUserLang - 1]->_keywordLists[SCE_USER_KWLIST_COMMENTS], temp.c_str());
+				_userLangArray[_nbUserLang - 1]->_keywordLists[SCE_USER_KWLIST_COMMENTS] = temp;
 			}
 			else
 			{
@@ -4723,11 +4722,11 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 					int id = globalMappper().keywordIdMapper[keywordsName];
 					if (wcslen(kwl) < max_char)
 					{
-						wcscpy_s(_userLangArray[_nbUserLang - 1]->_keywordLists[id], kwl);
+						_userLangArray[_nbUserLang - 1]->_keywordLists[id] = kwl;
 					}
 					else
 					{
-						wcscpy_s(_userLangArray[_nbUserLang - 1]->_keywordLists[id], L"imported string too long, needs to be < max_char(30720)");
+						_userLangArray[_nbUserLang - 1]->_keywordLists[id] = L"imported string too long, needs to be < max_char(30720)";
 					}
 				}
 			}
@@ -5144,7 +5143,7 @@ bool NppParameters::writeProjectPanelsSettings() const
 	TiXmlElement projPanelRootNode{L"ProjectPanels"};
 
 	// Add 3 Project Panel parameters
-	for (int32_t i = 0 ; i < 3 ; ++i)
+	for (int i = 0; i < 3; ++i)
 	{
 		TiXmlElement projPanelNode{L"ProjectPanel"};
 		(projPanelNode.ToElement())->SetAttribute(L"id", i);
@@ -5240,23 +5239,23 @@ TiXmlNode * NppParameters::getChildElementByAttribute(TiXmlNode *pere, const wch
 // 2 restes : L_H, L_USER
 LangType NppParameters::getLangIDFromStr(const wchar_t *langName)
 {
-	int lang = static_cast<int32_t>(L_TEXT);
-	for (; lang < L_EXTERNAL; ++lang)
+	int lang = static_cast<int>(L_TEXT);
+	for (; lang < static_cast<int>(L_EXTERNAL); ++lang)
 	{
-		const wchar_t * name = ScintillaEditView::_langNameInfoArray[lang]._langName;
-		if (!lstrcmp(name, langName)) //found lang?
+		const wchar_t* name = ScintillaEditView::_langNameInfoArray[lang]._langName;
+		if (std::wcscmp(name, langName) == 0) //found lang?
 		{
-			return (LangType)lang;
+			return static_cast<LangType>(lang);
 		}
 	}
 
 	//Cannot find language, check if its an external one
 
-	LangType l = (LangType)lang;
+	auto l = static_cast<LangType>(lang);
 	if (l == L_EXTERNAL) //try find external lexer
 	{
 		int id = NppParameters::getInstance().getExternalLangIndexFromName(langName);
-		if (id != -1) return (LangType)(id + L_EXTERNAL);
+		if (id != -1) return static_cast<LangType>(id + static_cast<int>(L_EXTERNAL));
 	}
 
 	return L_TEXT;
@@ -8147,7 +8146,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		pStr = (_nppGUI._tabStatus & TAB_ALTICONS) ? L"1" : L"0";
 		GUIConfigElement->SetAttribute(L"iconSetNumber", pStr);
 
-		GUIConfigElement->SetAttribute(L"tabCompactLabelLen", static_cast<int32_t>(_nppGUI._tabCompactLabelLen));
+		GUIConfigElement->SetAttribute(L"tabCompactLabelLen", static_cast<int>(_nppGUI._tabCompactLabelLen));
 	}
 
 	// <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>
@@ -8321,7 +8320,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
 		GUIConfigElement->SetAttribute(L"name", L"NewDocDefaultSettings");
-		GUIConfigElement->SetAttribute(L"format", static_cast<int32_t>(_nppGUI._newDocDefaultSettings._format));
+		GUIConfigElement->SetAttribute(L"format", static_cast<int>(_nppGUI._newDocDefaultSettings._format));
 		GUIConfigElement->SetAttribute(L"encoding", _nppGUI._newDocDefaultSettings._unicodeMode);
 		GUIConfigElement->SetAttribute(L"lang", _nppGUI._newDocDefaultSettings._lang);
 		GUIConfigElement->SetAttribute(L"codepage", _nppGUI._newDocDefaultSettings._codepage);
@@ -8354,7 +8353,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(L"dir", _nppGUI._backupDir.c_str());
 
 		GUIConfigElement->SetAttribute(L"isSnapshotMode", _nppGUI._isSnapshotMode ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"snapshotBackupTiming", static_cast<int32_t>(_nppGUI._snapshotBackupTiming));
+		GUIConfigElement->SetAttribute(L"snapshotBackupTiming", static_cast<int>(_nppGUI._snapshotBackupTiming));
 	}
 
 	// <GUIConfig name = "TaskList">yes< / GUIConfig>
@@ -8400,7 +8399,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
 		GUIConfigElement->SetAttribute(L"name", L"auto-completion");
 		GUIConfigElement->SetAttribute(L"autoCAction", _nppGUI._autocStatus);
-		GUIConfigElement->SetAttribute(L"triggerFromNbChar", static_cast<int32_t>(_nppGUI._autocFromLen));
+		GUIConfigElement->SetAttribute(L"triggerFromNbChar", static_cast<int>(_nppGUI._autocFromLen));
 
 		const wchar_t * pStr = _nppGUI._autocIgnoreNumbers ? L"yes" : L"no";
 		GUIConfigElement->SetAttribute(L"autoCIgnoreNumbers", pStr);
@@ -9893,13 +9892,12 @@ COLORREF NppParameters::getFindDlgStatusMsgColor(int colourIndex)
 
 LanguageNameInfo NppParameters::getLangNameInfoFromNameID(const wstring& langNameID)
 {
-	LanguageNameInfo res;
-	for (const LanguageNameInfo& lnf : ScintillaEditView::_langNameInfoArray)
+	for (const auto& lnf : ScintillaEditView::_langNameInfoArray)
 	{
 		if (lnf._langName == langNameID)
 			return lnf;
 	}
-	return res;
+	return LanguageNameInfo{};
 }
 
 void  NppParameters::buildGupParams(std::wstring& params) const

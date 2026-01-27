@@ -1160,7 +1160,7 @@ void ScintillaEditView::setUserLexer(const wchar_t *userLangName)
 	for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; ++i)
 	{
 		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-		const char * keyWords_char = wmc.wchar2char(userLangContainer->_keywordLists[i], codepage);
+		const char* keyWords_char = wmc.wchar2char(userLangContainer->_keywordLists[i].c_str(), codepage);
 
 		if (globalMappper().setLexerMapper.find(i) != globalMappper().setLexerMapper.end())
 		{

@@ -462,67 +462,63 @@ If ErrorLevel 1 goto End
 "C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.portable.arm64.7z .\zipped.package.releaseArm64\*
 If ErrorLevel 1 goto End
 
+rem set var locally in this batch file
+setlocal 
+
+:: Get npp.6.9.Installer.exe in %nppInstallerVar%
+for %%f in (npp.*.Installer.exe) do set "nppInstallerVar=%%f"
+
+rem get the version string "6.9" in %VERSION%
+set "VERSION=%nppInstallerVar:npp.=%"
+rem replace "npp." with nothing in "npp.6.9.Installer.exe" - now VERSION is "6.9.Installer.exe"
+
+rem echo %VERSION%
+
+set "VERSION=%VERSION:.Installer.exe=%"
+rem replace ".Installer.exe" with nothing in "6.9.Installer.exe" - now VERSION is "6.9"
+
+rem echo %VERSION%
+
 cd .\msi\
-dotnet build -c release -p:OutputPath=..\build\
+dotnet build -c release -p:OutputPath=..\build\ -p:DefineConstants=Version=%VERSION%
 If ErrorLevel 1 goto End
 
 cd ..\build\
 
-rem set var locally in this batch file
-setlocal enableDelayedExpansion 
 
-for %%a in (npp.*.Installer.exe) do (
-  rem echo a = %%a
-  set nppInstallerVar=%%a
-  set nppInstallerVar64=!nppInstallerVar:Installer.exe=Installer.x64.exe!
-  set nppInstallerVarArm64=!nppInstallerVar:Installer.exe=Installer.arm64.exe!
+ren npp.portable.zip npp.%VERSION%.portable.zip
+If ErrorLevel 1 goto End
 
-  rem nppInstallerVar should be the version for example: 6.9
-  rem we put npp.6.9. + (portable.zip instead of Installer.exe) into var zipvar
-  set zipvar=!nppInstallerVar:Installer.exe=portable.zip!
+ren npp.portable.x64.zip npp.%VERSION%.portable.x64.zip
+If ErrorLevel 1 goto End
 
-  set zipvar64=!nppInstallerVar:Installer.exe=portable.x64.zip!
-  set zipvarArm64=!nppInstallerVar:Installer.exe=portable.arm64.zip!
-  set 7zvar=!nppInstallerVar:Installer.exe=portable.7z!
-  set 7zvar64=!nppInstallerVar:Installer.exe=portable.x64.7z!
-  set 7zvarArm64=!nppInstallerVar:Installer.exe=portable.arm64.7z!
-  set 7zvarMin=!nppInstallerVar:Installer.exe=portable.minimalist.7z!
-  set 7zvarMin64=!nppInstallerVar:Installer.exe=portable.minimalist.x64.7z!
-  set 7zvarMinArm64=!nppInstallerVar:Installer.exe=portable.minimalist.arm64.7z!
-  
-  set nppInstallerVarMsi64=!nppInstallerVar:Installer.exe=Installer.x64.msi!
-)
+ren npp.portable.arm64.zip npp.%VERSION%.portable.arm64.zip
+If ErrorLevel 1 goto End
 
-rem echo zipvar=!zipvar!
-rem echo zipvar64=!zipvar64!
-rem echo 7zvar=!7zvar!
-rem echo 7zvar64=!7zvar64!
-rem echo 7zvarMin=!7zvarMin!
-rem echo 7zvarMin64=!7zvarMin64!
-ren npp.portable.zip !zipvar!
+ren npp.portable.7z npp.%VERSION%.portable.7z
 If ErrorLevel 1 goto End
-ren npp.portable.x64.zip !zipvar64!
+
+ren npp.portable.x64.7z npp.%VERSION%.portable.x64.7z
 If ErrorLevel 1 goto End
-ren npp.portable.arm64.zip !zipvarArm64!
+
+ren npp.portable.arm64.7z npp.%VERSION%.portable.arm64.7z
 If ErrorLevel 1 goto End
-ren npp.portable.7z !7zvar!
+
+ren npp.portable.minimalist.7z npp.%VERSION%.portable.minimalist.7z
 If ErrorLevel 1 goto End
-ren npp.portable.x64.7z !7zvar64!
+
+ren npp.portable.minimalist.x64.7z npp.%VERSION%.portable.minimalist.x64.7z
 If ErrorLevel 1 goto End
-ren npp.portable.arm64.7z !7zvarArm64!
+
+ren npp.portable.minimalist.arm64.7z npp.%VERSION%.portable.minimalist.arm64.7z
 If ErrorLevel 1 goto End
-ren npp.portable.minimalist.7z !7zvarMin!
-If ErrorLevel 1 goto End
-ren npp.portable.minimalist.x64.7z !7zvarMin64!
-If ErrorLevel 1 goto End
-ren npp.portable.minimalist.arm64.7z !7zvarMinArm64!
-If ErrorLevel 1 goto End
-ren npp.Installer.x64.msi !nppInstallerVarMsi64!
+
+ren npp.Installer.x64.msi npp.%VERSION%.Installer.x64.msi
 If ErrorLevel 1 goto End
 
 if %SIGN% == 0 goto NoSignInstaller
 
-%Sign_by_GlobalSignCert% !nppInstallerVar! !nppInstallerVar64! !nppInstallerVarArm64! !nppInstallerVarMsi64!
+%Sign_by_GlobalSignCert% %nppInstallerVar% npp.%VERSION%.Installer.x64.exe npp.%VERSION%.Installer.arm64.exe npp.%VERSION%.Installer.x64.msi
 If ErrorLevel 1 goto End
 
 :NoSignInstaller

@@ -2,7 +2,7 @@
 
 	<Package	Name="Notepad++"
 				Manufacturer="Notepad++ team"
-				Version="8.9.1"
+				Version="$(var.Version)"
 				UpgradeCode="{CDB13460-04DF-4708-A7FD-4CB4A0684605}">
 
 		<Media Id="1" Cabinet="product.cab" EmbedCab="yes" />

@@ -370,8 +370,8 @@ struct GlobalOverride final
 
 struct StyleArray
 {
-	const auto begin() const { return _styleVect.begin(); }
-	const auto end() const { return _styleVect.end(); }
+	auto begin() const { return _styleVect.begin(); }
+	auto end() const { return _styleVect.end(); }
 	auto begin() { return _styleVect.begin(); }
 	auto end() { return _styleVect.end(); }
 	void clear() { _styleVect.clear(); }
@@ -420,7 +420,9 @@ protected:
 struct LexerStyler : public StyleArray
 {
 public:
-	LexerStyler & operator=(const LexerStyler & ls)
+	LexerStyler() noexcept = default;
+	LexerStyler(const LexerStyler& ls) noexcept = default;
+	LexerStyler& operator=(const LexerStyler& ls)
 	{
 		if (this != &ls)
 		{

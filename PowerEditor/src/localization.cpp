@@ -290,7 +290,7 @@ std::wstring NativeLangSpeaker::getShortcutNameString(int itemID) const
 	if (!_nativeLang)
 		return L"";
 
-	NppXml::Node node = NppXml::firstChildElement(_nativeLang, "Dialog");
+	NppXml::Element node = NppXml::firstChildElement(_nativeLang, "Dialog");
 	if (!node) return L"";
 
 	node = NppXml::firstChildElement(node, "ShortcutMapper");
@@ -299,14 +299,13 @@ std::wstring NativeLangSpeaker::getShortcutNameString(int itemID) const
 	node = NppXml::firstChildElement(node, "MainCommandNames");
 	if (!node) return L"";
 
-	for (NppXml::Node childNode = NppXml::firstChildElement(node, "Item");
+	for (NppXml::Element childNode = NppXml::firstChildElement(node, "Item");
 		childNode;
 		childNode = NppXml::nextSiblingElement(childNode, "Item"))
 	{
-		NppXml::Element element = NppXml::toElement(childNode);
-		if (int id = NppXml::intAttribute(element, "id", 0); (id == itemID))
+		if (NppXml::intAttribute(childNode, "id", 0) == itemID)
 		{
-			const char* name = NppXml::attribute(element, "name");
+			const char* name = NppXml::attribute(childNode, "name");
 			if (name)
 			{
 				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();

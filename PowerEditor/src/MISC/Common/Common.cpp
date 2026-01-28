@@ -833,7 +833,7 @@ std::wstring stringToUpper(std::wstring strToConvert)
 {
 	static const auto loc = std::locale("");
 	std::transform(strToConvert.begin(), strToConvert.end(), strToConvert.begin(),
-		[](wchar_t ch) { return std::toupper(ch, loc); });
+		[](auto ch) { return std::toupper(ch, loc); });
 	return strToConvert;
 }
 
@@ -841,7 +841,7 @@ std::wstring stringToLower(std::wstring strToConvert)
 {
 	static const auto loc = std::locale("");
 	std::transform(strToConvert.begin(), strToConvert.end(), strToConvert.begin(),
-		[](wchar_t ch) { return std::tolower(ch, loc); });
+		[](auto ch) { return std::tolower(ch, loc); });
 	return strToConvert;
 }
 
@@ -1754,7 +1754,7 @@ bool isUnsupportedFileName(const wstring& fileName)
 				// upperize because the std::find is case sensitive unlike the Windows OS filesystem
 				static const auto& loc = std::locale::classic();
 				std::transform(fileNameOnly.begin(), fileNameOnly.end(), fileNameOnly.begin(),
-					[](wchar_t ch) { return std::toupper(ch, loc); });
+					[](auto ch) { return std::toupper(ch, loc); });
 
 				const std::vector<std::wstring> reservedWin32NamespaceDeviceList {
 				L"CON", L"PRN", L"AUX", L"NUL",
@@ -2111,11 +2111,12 @@ bool doesPathExist(const wchar_t* path, DWORD milliSec2wait, bool* isTimeoutReac
 	return (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES);
 }
 
-
-#if defined(__GNUC__)
-#define LAMBDA_STDCALL __attribute__((__stdcall__))
+#if defined(__GNUC__) && __GNUC__ > 8
+#define WINAPI_LAMBDA_RETURN(return_t) -> return_t WINAPI
+#elif defined(__GNUC__)
+#define WINAPI_LAMBDA_RETURN(return_t) WINAPI -> return_t
 #else
-#define LAMBDA_STDCALL 
+#define WINAPI_LAMBDA_RETURN(return_t) -> return_t
 #endif
 
 // check if the window rectangle intersects with any currently active monitor's working area
@@ -2129,7 +2130,7 @@ bool isWindowVisibleOnAnyMonitor(const RECT& rectWndIn)
 	};
 
 	// callback func to check for intersection with each existing monitor
-	auto callback = []([[maybe_unused]] HMONITOR hMon, [[maybe_unused]] HDC hdc, LPRECT lprcMon, LPARAM lpInOut) -> BOOL LAMBDA_STDCALL
+	auto callback = []([[maybe_unused]] HMONITOR hMon, [[maybe_unused]] HDC hdc, LPRECT lprcMon, LPARAM lpInOut) WINAPI_LAMBDA_RETURN(BOOL)
 	{
 		Param4InOut* paramInOut = reinterpret_cast<Param4InOut*>(lpInOut);
 		RECT rectIntersection{};

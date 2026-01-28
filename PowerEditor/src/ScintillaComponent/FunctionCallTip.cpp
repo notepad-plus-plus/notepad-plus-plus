@@ -55,8 +55,8 @@ static int testNameNoCase(const char* name1, const char* name2, int len = -1)
 
 	for (int i = 0; i < len; ++i)
 	{
-		const unsigned char char1 = name1[i];
-		const unsigned char char2 = name2[i];
+		const char char1 = name1[i];
+		const char char2 = name2[i];
 
 		if (char1 == '\0' || char2 == '\0') // null terminator check
 			return char1 - char2;

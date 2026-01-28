@@ -3097,7 +3097,7 @@ void Notepad_plus::setUniModeText()
 		int cmdID = em.getIndexFromEncoding(encoding);
 		if (cmdID == -1)
 		{
-			assert(!"Encoding problem. Encoding is not added in encoding_table?");
+			assert(false && "Encoding problem. Encoding is not added in encoding_table?");
 			return;
 		}
 		cmdID += IDM_FORMAT_ENCODE;

@@ -17,6 +17,11 @@
 
 #pragma once
 
+#include <windows.h>
+
+#include <string>
+#include <vector>
+
 #include "DockingDlgInterface.h"
 #include "TreeView.h"
 #include "fileBrowser_rc.h"
@@ -35,8 +40,6 @@
 
 #define FOLDERASWORKSPACE_NODE "FolderAsWorkspace"
 
-
-class TiXmlNode;
 class FileBrowser;
 class FolderInfo;
 
@@ -48,12 +51,12 @@ friend class FolderInfo;
 public:
 	FileInfo() = delete; // constructor by default is forbidden
 	FileInfo(const std::wstring& name, FolderInfo* parent) : _name(name), _parent(parent) {}
-	std::wstring getName() const { return _name; }
+	const std::wstring& getName() const { return _name; }
 	void setName(const std::wstring& name) { _name = name; }
 
 private:
 	std::wstring _name;
-	FolderInfo *_parent = nullptr;
+	[[maybe_unused]] FolderInfo* _parent = nullptr;
 };
 
 
@@ -66,9 +69,9 @@ public:
 	FolderInfo() = delete; // constructor by default is forbidden
 	FolderInfo(const std::wstring& name, FolderInfo* parent) : _name(name), _parent(parent) {}
 	void setRootPath(const std::wstring& rootPath) { _rootPath = rootPath; }
-	std::wstring getRootPath() const { return _rootPath; }
+	const std::wstring& getRootPath() const { return _rootPath; }
 	void setName(const std::wstring& name) { _name = name; }
-	std::wstring getName() const { return _name; }
+	const std::wstring& getName() const { return _name; }
 	void addFile(const std::wstring& fn) { _files.push_back(FileInfo(fn, this)); }
 	void addSubFolder(FolderInfo subDirectoryStructure) { _subFolders.push_back(subDirectoryStructure); }
 
@@ -102,7 +105,7 @@ private:
 	FileBrowser* _pFileBrowser = nullptr;
 	HANDLE _watchThreadHandle = nullptr;
 	HANDLE _EventHandle = nullptr;
-	static DWORD WINAPI watching(void *param);
+	static DWORD WINAPI watching(void* params);
 
 	static void processChange(DWORD dwAction, std::vector<std::wstring> filesToChange, FolderUpdater* thisFolderUpdater);
 };

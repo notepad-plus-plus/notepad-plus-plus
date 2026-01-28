@@ -336,9 +336,34 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        build_compiler: [gcc]
-        build_configuration: [Release, Debug]
-        build_platform: [x86_64, i686]
+        include:
+          - msys: MINGW32
+            env: i686
+            arch: i686
+            configuration: Release
+            compiler: gcc
+          - msys: MINGW32
+            env: i686
+            arch: i686
+            configuration: Debug
+            compiler: gcc
+          - msys: MINGW64
+            env: x86_64
+            arch: x86_64
+            configuration: Release
+            compiler: gcc
+          - msys: MINGW64
+            env: x86_64
+            arch: x86_64
+            configuration: Debug
+            compiler: gcc
+          - msys: CLANG64
+            env: clang-x86_64
+            arch: x86_64
+            configuration: Release
+            compiler: clang
+
+    name: ${{ matrix.msys }} - ${{ matrix.configuration }}
 
     steps:
     - name: Checkout repo
@@ -352,38 +377,31 @@ jobs:
            $newContent = $content -replace 'TEXT\(\"Notepad\+\+ v.*\"\)', 'TEXT("Notepad++ GH_BUILD")'
            $newContent | Set-Content -Path 'resource.h'
 
-    - name: Make n++ exe / gcc
-      if: matrix.build_compiler == 'gcc'
+    - name: Install and update MSYS2 tools
+      uses: msys2/setup-msys2@v2
+      with:
+        msystem: ${{ matrix.msys }}
+        install: mingw-w64-${{ matrix.env }}-${{ matrix.compiler }} mingw-w64-${{ matrix.env }}-make
+        update: true
+        release: false
+
+    - name: Make n++ exe
       working-directory: .\
       run: |
-        Write-host "${{ matrix.build_platform }}"
-        Write-host "${{ matrix.build_configuration }}"
+        Write-host "${{ matrix.msys }}"
+        Write-host "${{ matrix.configuration }}"
+        $Env:MSYSTEM = '${{ matrix.msys }}'
         $Env:Path = 'C:\msys64\usr\bin' + [IO.Path]::PathSeparator + $Env:Path
-        if ( $${{ matrix.build_platform == 'i686'}} ) {$Env:MSYSTEM = 'MINGW32'}
-        if ( $${{ matrix.build_platform == 'i686'}} ) {$Env:Path = 'C:\msys64\mingw32\bin' + [IO.Path]::PathSeparator + $Env:Path}
-        if ( $${{ matrix.build_platform == 'x86_64'}} ) {$Env:MSYSTEM = 'MINGW64'}
-        if ( $${{ matrix.build_platform == 'x86_64'}} ) {$Env:Path = 'C:\msys64\mingw64\bin' + [IO.Path]::PathSeparator + $Env:Path}
-        if ( $${{ matrix.build_configuration == 'Debug'}} ) {$Env:DEBUG = '1'}
-        bash -lc "pacman --noconfirm -Syuu"
-        bash -lc "pacman --noconfirm -Syuu"
-        if ( $${{ matrix.build_platform == 'i686'}} ) {bash -lc "pacman --noconfirm -S mingw-w64-i686-gcc mingw-w64-i686-make"}
-        if ( $${{ matrix.build_platform == 'x86_64'}} ) {bash -lc "pacman --noconfirm -S mingw-w64-x86_64-gcc mingw-w64-x86_64-make"}
+        $Env:Path = 'C:\msys64\' + '${{ matrix.msys }}'.ToLower() + '\bin' + [IO.Path]::PathSeparator + $Env:Path
+        if ( $${{ matrix.configuration == 'Debug'}} ) {$Env:DEBUG = '1'}
         Write-Output "Tools version:"
-        Write-Output (((gcc --version) | select-object -first 1) + " " + (gcc -dumpmachine))
+        Write-Output (((${{ matrix.compiler }} --version) | select-object -first 1) + " " + (${{ matrix.compiler }} -dumpmachine))
         Write-Output (mingw32-make --version) | select-object -first 1
         Write-Output (sh --version) | select-object -first 1
         mingw32-make -f PowerEditor\gcc\makefile
 
-    - name: Archive artifacts for ${{ matrix.build_platform}} / Release
-      if: matrix.build_configuration == 'Release'
+    - name: Archive artifacts for ${{ matrix.msys }} / ${{ matrix.configuration }}
       uses: actions/upload-artifact@v6
       with:
-          name: Notepad++.${{ matrix.build_compiler}}.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
-          path: bin.${{ matrix.build_compiler}}.${{ matrix.build_platform}}\notepad++.exe
-
-    - name: Archive artifacts for ${{ matrix.build_platform}} / Debug
-      if: matrix.build_configuration == 'Debug'
-      uses: actions/upload-artifact@v6
-      with:
-          name: Notepad++.${{ matrix.build_compiler}}.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
-          path: bin.${{ matrix.build_compiler}}.${{ matrix.build_platform}}-debug\notepad++.exe
+        name: Notepad++.${{ matrix.compiler }}.${{ matrix.arch }}.${{ matrix.configuration }}
+        path: bin.${{ matrix.compiler }}.${{ matrix.arch }}${{ matrix.configuration == 'Debug' && '-debug' || '' }}\notepad++.exe

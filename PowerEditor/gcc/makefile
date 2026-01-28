@@ -125,7 +125,7 @@ TARGET_CPU := $(firstword $(subst -, ,$(shell $(CXX) -dumpmachine)))
 ifeq "$(TARGET_CPU)" ""
 $(error TARGET_CPU detection failed)
 endif
-ifneq "$(filter-out x86_64 i686,$(TARGET_CPU))" ""
+ifneq "$(filter-out x86_64 i686 aarch64,$(TARGET_CPU))" ""
 $(error $(TARGET_CPU) build is unsupported)
 endif
 ifeq "$(TARGET_CPU)" "i686"

@@ -73,7 +73,7 @@ private:
 	void showCalltip();				//display calltip based on current variables
 	void reset();					//reset all vars in case function is invalidated
 	void cleanup();					//delete any leftovers
-	static bool isBasicWordChar(unsigned char ch) {
+	static bool isBasicWordChar(char ch) {
 		static const auto& loc = std::locale::classic();
 		return std::isalnum(ch, loc) || ch == '_';
 	}

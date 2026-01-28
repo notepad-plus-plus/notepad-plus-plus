@@ -281,7 +281,7 @@ static bool isAllDigits(const std::string& str)
 {
 	static const auto& loc = std::locale::classic();
 	return std::all_of(str.begin(), str.end(),
-		[](unsigned char c) { return std::isdigit(c, loc); });
+		[](auto c) { return std::isdigit(c, loc); });
 }
 
 static void sortInsensitive(std::vector<std::string>& wordArray)
@@ -295,7 +295,7 @@ static void sortInsensitive(std::vector<std::string>& wordArray)
 			return lexicographical_compare(
 				a.begin(), a.end(),
 				b.begin(), b.end(),
-				[](const unsigned char &ch1, const unsigned char &ch2)
+				[](const auto &ch1, const auto &ch2)
 				{
 					return std::toupper(ch1, loc) < std::toupper(ch2, loc);
 				}

@@ -14,17 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include <stdexcept>
-#include <windows.h>
-#include <commctrl.h>
+
 #include "StatusBar.h"
+
+#include <windows.h>
+
+#include <uxtheme.h>
+#include <vsstyle.h>
+
 #include <algorithm>
 #include <cassert>
-#include "Parameters.h"
-#include "NppDarkMode.h"
-#include <uxtheme.h>
-#include <vssym32.h>
+#include <cstdlib>
+#include <stdexcept>
+#include <string>
+
 #include "DoubleBuffer/DoubleBuffer.h"
+#include "NppConstants.h"
+#include "NppDarkMode.h"
+#include "Window.h"
+#include "dpiManagerV2.h"
 
 //#define IDC_STATUSBAR 789
 
@@ -53,7 +61,7 @@ struct StatusBarSubclassInfo
 	HFONT _hFont = nullptr;
 
 	StatusBarSubclassInfo() = default;
-	StatusBarSubclassInfo(const HFONT& hFont)
+	explicit StatusBarSubclassInfo(const HFONT& hFont) noexcept
 		: _hFont(hFont) {}
 
 	~StatusBarSubclassInfo()
@@ -133,7 +141,7 @@ static LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, L
 				int between = 0;
 			} borders{};
 
-			SendMessage(hWnd, SB_GETBORDERS, 0, (LPARAM)&borders);
+			::SendMessage(hWnd, SB_GETBORDERS, 0, reinterpret_cast<LPARAM>(&borders));
 
 			const auto style = ::GetWindowLongPtr(hWnd, GWL_STYLE);
 			bool isSizeGrip = style & SBARS_SIZEGRIP;
@@ -147,7 +155,7 @@ static LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, L
 			for (int i = 0; i < nParts; ++i)
 			{
 				RECT rcPart{};
-				SendMessage(hWnd, SB_GETRECT, i, (LPARAM)&rcPart);
+				::SendMessage(hWnd, SB_GETRECT, i, reinterpret_cast<LPARAM>(&rcPart));
 				if (!::RectVisible(hdc, &rcPart))
 				{
 					continue;
@@ -166,8 +174,8 @@ static LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, L
 
 				DWORD cchText = 0;
 				cchText = LOWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, i, 0));
-				str.resize(cchText + 1); // technically the std::wstring might not have an internal null character at the end of the buffer, so add one
-				LRESULT lr = SendMessage(hWnd, SB_GETTEXT, i, (LPARAM)&str[0]);
+				str.resize(size_t{ cchText } + 1); // technically the std::wstring might not have an internal null character at the end of the buffer, so add one
+				LRESULT lr = ::SendMessage(hWnd, SB_GETTEXT, i, reinterpret_cast<LPARAM>(str.data()));
 				str.resize(cchText); // remove the extra NULL character
 				bool ownerDraw = false;
 				if (cchText == 0 && (lr & ~(SBT_NOBORDERS | SBT_POPOUT | SBT_RTLREADING)) != 0)
@@ -314,7 +322,7 @@ void StatusBar::destroy()
 }
 
 
-void StatusBar::reSizeTo(const RECT& rc)
+void StatusBar::reSizeTo(RECT& rc)
 {
 	::MoveWindow(_hSelf, rc.left, rc.top, rc.right, rc.bottom, TRUE);
 	adjustParts(rc.right);

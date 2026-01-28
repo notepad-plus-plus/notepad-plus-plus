@@ -16,30 +16,52 @@
 
 
 #include "fileBrowser.h"
-#include "resource.h"
-#include "tinyxml.h"
-#include "localization.h"
+
+#include <windows.h>
+
+#include <shlwapi.h>
+#include <windowsx.h>
+
+#include <algorithm>
+#include <cstdlib>
+#include <cwchar>
+#include <string>
+#include <vector>
+
+#include "Common.h"
+#include "DockingDlgInterface.h"
+#include "Notepad_plus_msgs.h"
+#include "NppDarkMode.h"
 #include "Parameters.h"
-#include "RunDlg.h"
 #include "ReadDirectoryChanges.h"
+#include "RunDlg.h"
+#include "dockingResource.h"
+#include "dpiManagerV2.h"
+#include "fileBrowser_rc.h"
+#include "localization.h"
 #include "menuCmdID.h"
-
-#define INDEX_OPEN_ROOT      0
-#define INDEX_CLOSE_ROOT     1
-#define INDEX_OPEN_NODE	     2
-#define INDEX_CLOSE_NODE     3
-#define INDEX_LEAF           4
+#include "resource.h"
 
 
-#define GET_X_LPARAM(lp) static_cast<short>(LOWORD(lp))
-#define GET_Y_LPARAM(lp) static_cast<short>(HIWORD(lp))
+enum ItemIdx
+{
+	INDEX_OPEN_ROOT,
+	INDEX_CLOSE_ROOT,
+	INDEX_OPEN_NODE,
+	INDEX_CLOSE_NODE,
+	INDEX_LEAF
+};
 
 #define FB_ADDFILE (WM_USER + 1024)
 #define FB_RMFILE  (WM_USER + 1025)
 #define FB_RNFILE  (WM_USER + 1026)
-#define FB_CMD_AIMFILE 1
-#define FB_CMD_FOLDALL 2
-#define FB_CMD_EXPANDALL 3
+
+enum FBCmd
+{
+	FB_CMD_AIMFILE,
+	FB_CMD_FOLDALL,
+	FB_CMD_EXPANDALL
+};
 
 
 FileBrowser::~FileBrowser()
@@ -65,7 +87,7 @@ FileBrowser::~FileBrowser()
 	_iconListVector.clear();
 }
 
-vector<wstring> split(const wstring & string2split, wchar_t sep)
+static std::vector<std::wstring> split(const std::wstring& string2split, wchar_t sep)
 {
 	vector<wstring> splitedStrings;
 	size_t len = string2split.length();
@@ -81,7 +103,7 @@ vector<wstring> split(const wstring & string2split, wchar_t sep)
 	return splitedStrings;
 }
 
-bool isRelatedRootFolder(const wstring & relatedRoot, const wstring & subFolder)
+static bool isRelatedRootFolder(const std::wstring& relatedRoot, const std::wstring& subFolder)
 {
 	if (relatedRoot.empty())
 		return false;
@@ -337,7 +359,7 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 		case FB_RNFILE:
 		{
-			const std::vector<wstring> file2Change = *(std::vector<wstring> *)lParam;
+			const auto& file2Change = *reinterpret_cast<std::vector<std::wstring>*>(lParam);
 			wstring separator = L"\\\\";
 
 			size_t sepPos = file2Change[0].find(separator);
@@ -620,7 +642,7 @@ void FileBrowser::notified(LPNMHDR notification)
 				BrowserNodeType nType = getNodeType(lpGetInfoTip->hItem);
 				if (nType == browserNodeType_root)
 				{
-					tipStr = *((wstring *)lpGetInfoTip->lParam);
+					tipStr = *(reinterpret_cast<std::wstring*>(lpGetInfoTip->lParam));
 				}
 				else if (nType == browserNodeType_file)
 				{
@@ -795,7 +817,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		{
 			if (!selectedNode) return;
 
-			const wstring* rootPath = (wstring *)_treeView.getItemParam(selectedNode);
+			const auto* rootPath = reinterpret_cast<std::wstring*>(_treeView.getItemParam(selectedNode));
 			if (_treeView.getParent(selectedNode) != nullptr || rootPath == nullptr)
 				return;
 
@@ -1147,7 +1169,7 @@ wstring FileBrowser::getSelectedItemPath() const
 
 std::vector<FileBrowser::FilesToChange> FileBrowser::getFilesFromParam(LPARAM lParam) const
 {
-	const std::vector<wstring> filesToChange = *(std::vector<wstring>*)lParam;
+	const auto& filesToChange = *(reinterpret_cast<std::vector<std::wstring>*>(lParam));
 	const wstring separator = L"\\\\";
 	const size_t separatorLength = separator.length();
 
@@ -1487,7 +1509,7 @@ bool FolderInfo::addToStructure(wstring & fullpath, std::vector<wstring> linarPa
 				if (linarPathArray[0] == file.getName())
 					return false; // Maybe already added?
 			}
-			_files.push_back(FileInfo(linarPathArray[0], this));
+			_files.push_back(FileInfo(linarPathArray[0]));
 			return true;
 		}	
 	}
@@ -1599,29 +1621,9 @@ void FolderUpdater::stopWatcher()
 	::CloseHandle(_EventHandle);
 }
 
-LPCWSTR explainAction(DWORD dwAction)
-{
-	switch (dwAction)
-	{
-	case FILE_ACTION_ADDED:
-		return L"Added";
-	case FILE_ACTION_REMOVED:
-		return L"Deleted";
-	case FILE_ACTION_MODIFIED:
-		return L"Modified";
-	case FILE_ACTION_RENAMED_OLD_NAME:
-		return L"Renamed From";
-	case FILE_ACTION_RENAMED_NEW_NAME:
-		return L"Renamed ";
-	default:
-		return L"BAD DATA";
-	}
-}
-
-
 DWORD WINAPI FolderUpdater::watching(void *params)
 {
-	FolderUpdater *thisFolderUpdater = (FolderUpdater *)params;
+	auto* thisFolderUpdater = static_cast<FolderUpdater*>(params);
 
 	wstring dir2Watch = (thisFolderUpdater->_rootFolder)._rootPath;
 	if (dir2Watch[dir2Watch.length() - 1] != '\\')

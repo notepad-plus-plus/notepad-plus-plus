@@ -4871,7 +4871,7 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 		enableReplaceFunc(whichType == REPLACE_DLG);
 
 	::SetFocus(toShow ? ::GetDlgItem(_hSelf, IDFINDWHAT) : (*_ppEditView)->getHSelf());
-	display(toShow, true);
+	StaticDialog::displayEnhanced(toShow);
 }
 
 LRESULT CALLBACK FindReplaceDlg::FinderProc(
@@ -4942,9 +4942,9 @@ LRESULT CALLBACK FindReplaceDlg::FinderProc(
 	return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
 }
 
-bool isUnexpectedInvisible(wchar_t ch)
+static bool isUnexpectedInvisible(wchar_t ch)
 {
-	if (ch >= 0x0000 && ch <= 0x001F) // includ EOL
+	if (ch <= 0x001F) // includ EOL
 	{
 		return (ch != L'\t'); // Tab is not considered as unexpected "invisible" characters 
 	}
@@ -4986,7 +4986,7 @@ bool isUnexpectedInvisible(wchar_t ch)
 	}
 }
 
-bool containsInvisibleChar(const std::wstring& text)
+static bool containsInvisibleChar(const std::wstring& text)
 {
 	for (wchar_t ch : text)
 	{

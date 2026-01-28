@@ -14,12 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
-#include "dpiManagerV2.h"
-#include "Notepad_plus_msgs.h"
-#include "Window.h"
 
-typedef HRESULT (WINAPI * ETDTProc) (HWND, DWORD);
+#pragma once
+
+#include <windows.h>
+
+#include "Window.h"
+#include "dpiManagerV2.h"
 
 enum class PosAlign { left, right, top, bottom };
 
@@ -66,9 +67,10 @@ public :
 	void goToCenter(UINT swpFlags = SWP_SHOWWINDOW);
 	bool moveForDpiChange();
 
-	void display(bool toShow = true, bool enhancedPositioningCheckWhenShowing = false) const;
+	void display(bool toShow = true) const override;
+	void displayEnhanced(bool toShow) const;
 
-	RECT getViewablePositionRect(RECT testRc) const;
+	RECT getViewablePositionRect(RECT testPositionRc) const;
 
 	POINT getTopPoint(HWND hwnd, bool isLeft = true) const;
 

@@ -79,28 +79,34 @@ CXXFLAGS += -Og \
             -Wextra-semi \
             -Wformat=2 \
             -Wmisleading-indentation \
-            -Wunused \
-            -Wno-cast-function-type \
-            -Wno-overloaded-virtual
+            -Wunused
 CPP_DEFINE += DEBUG
 endif
 
 ifeq ($(CXX),clang++)
-  CXXFLAGS += -Wimplicit-fallthrough \
+  CXXFLAGS += -Wpedantic \
+              -Wall \
+              -Wextra \
+              -Wimplicit-fallthrough \
               -Wno-c++98-compat \
               -Wno-c++98-compat-pedantic \
-              -Wno-reserved-id-macro \
-              -Wno-pragma-pack \
-              -Wno-unknown-pragmas \
-              -Wno-unused-command-line-argument \
-              -Wno-overloaded-virtual \
-              -Wno-sign-conversion \
               -Wno-c99-extensions \
+              -Wno-cast-align \
               -Wno-deprecated-declarations \
               -Wno-nested-anon-types \
-              -Wno-cast-align
-else ifeq ($(BUILD_TYPE),release)
-  CXXFLAGS += -Wno-alloc-size-larger-than
+              -Wno-overloaded-virtual \
+              -Wno-padded \
+              -Wno-pragma-pack \
+              -Wno-reserved-id-macro \
+              -Wno-reserved-identifier \
+              -Wno-sign-conversion \
+              -Wno-switch-default \
+              -Wno-unsafe-buffer-usage \
+              -Wno-unsafe-buffer-usage-in-libc-call \
+              -Wno-unused-command-line-argument
+else
+  CXXFLAGS += -Wno-cast-function-type \
+              -Wno-overloaded-virtual
 endif
 
 ifneq "$(filter-out 0,$(CLANGANALYZE))" ""

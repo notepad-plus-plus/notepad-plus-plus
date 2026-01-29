@@ -74,7 +74,7 @@ void CWinMgr::SetWindowPositions(HWND hWnd)
 	int nWindows = CountWindows();
 	if (m_map && hWnd && nWindows>0) {
 		HDWP hdwp = ::BeginDeferWindowPos(nWindows);
-		int count=0;
+		[[maybe_unused]] int count = 0;
 		for (WINRECT* wrc=m_map; !wrc->IsEnd(); ++wrc) {
 			if (wrc->IsWindow()) {
 				assert(count < nWindows);
@@ -87,7 +87,9 @@ void CWinMgr::SetWindowPositions(HWND hWnd)
 						rc.left,rc.top,RectWidth(rc),RectHeight(rc),
 						SWP_NOZORDER);
 					InvalidateRect(hwndChild,NULL,TRUE); // repaint
+#ifndef NDEBUG
 					++count;
+#endif
 				}
 			} else {
 				// not a window: still need to repaint background

@@ -50,15 +50,13 @@ friend class FolderInfo;
 
 public:
 	FileInfo() = delete; // constructor by default is forbidden
-	FileInfo(const std::wstring& name, FolderInfo* parent) : _name(name), _parent(parent) {}
+	explicit FileInfo(const std::wstring& name) noexcept : _name(name) {}
 	const std::wstring& getName() const { return _name; }
 	void setName(const std::wstring& name) { _name = name; }
 
 private:
 	std::wstring _name;
-	[[maybe_unused]] FolderInfo* _parent = nullptr;
 };
-
 
 class FolderInfo final
 {
@@ -72,7 +70,7 @@ public:
 	const std::wstring& getRootPath() const { return _rootPath; }
 	void setName(const std::wstring& name) { _name = name; }
 	const std::wstring& getName() const { return _name; }
-	void addFile(const std::wstring& fn) { _files.push_back(FileInfo(fn, this)); }
+	void addFile(const std::wstring& fn) { _files.push_back(FileInfo(fn)); }
 	void addSubFolder(FolderInfo subDirectoryStructure) { _subFolders.push_back(subDirectoryStructure); }
 
 	bool addToStructure(std::wstring & fullpath, std::vector<std::wstring> linarPathArray);

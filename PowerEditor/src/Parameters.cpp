@@ -3830,7 +3830,7 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 		}
 
 		try {
-			_userLangArray[_nbUserLang] = std::make_unique<UserLangContainer>(name, ext, isDarkModeTheme, udlVersion ? udlVersion : L"");
+			_userLangArray[_nbUserLang] = std::make_unique<UserLangContainer>(name, ext, udlVersion ? udlVersion : L"", isDarkModeTheme);
 
 			++_nbUserLang;
 

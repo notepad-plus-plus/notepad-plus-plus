@@ -1016,25 +1016,56 @@ struct Lang final
 class UserLangContainer final
 {
 public:
-	UserLangContainer() noexcept :_name(L"new user define"), _ext(L""), _isDarkModeTheme(false), _udlVersion(L"") {}
+	UserLangContainer() noexcept :_name(L"new user define"), _ext(L""), _udlVersion(L""), _isDarkModeTheme(false) {}
 
-	explicit UserLangContainer(const wchar_t* name, const wchar_t* ext, bool isDarkModeTheme, const wchar_t* udlVer) noexcept
-		: _name(name), _ext(ext), _isDarkModeTheme(isDarkModeTheme), _udlVersion(udlVer) {}
+	explicit UserLangContainer(const wchar_t* name, const wchar_t* ext, const wchar_t* udlVer, bool isDarkModeTheme) noexcept
+		: _name(name), _ext(ext), _udlVersion(udlVer), _isDarkModeTheme(isDarkModeTheme) {}
+
+	UserLangContainer(const UserLangContainer& ulc) noexcept
+		: _styles(ulc._styles),
+		_name(ulc._name),
+		_ext(ulc._ext),
+		_udlVersion(ulc._udlVersion),
+		_forcePureLC(ulc._forcePureLC),
+		_decimalSeparator(ulc._decimalSeparator),
+		_isCaseIgnored(ulc._isCaseIgnored),
+		_allowFoldOfComments(ulc._allowFoldOfComments),	
+		_foldCompact(ulc._foldCompact),
+		_isDarkModeTheme(ulc._isDarkModeTheme)
+	{
+		for (Style& st : _styles)
+		{
+			if (st._bgColor == static_cast<COLORREF>(-1))
+				st._bgColor = white;
+			if (st._fgColor == static_cast<COLORREF>(-1))
+				st._fgColor = black;
+		}
+
+		for (int i = 0; i < SCE_USER_KWLIST_TOTAL; ++i)
+		{
+			_keywordLists[i] = ulc._keywordLists[i];
+		}
+
+		for (int i = 0; i < SCE_USER_TOTAL_KEYWORD_GROUPS; ++i)
+		{
+			_isPrefix[i] = ulc._isPrefix[i];
+		}
+	}
 
 	UserLangContainer & operator = (const UserLangContainer & ulc)
 	{
 		if (this != &ulc)
 		{
+			this->_styles = ulc._styles;
 			this->_name = ulc._name;
 			this->_ext = ulc._ext;
-			this->_isDarkModeTheme = ulc._isDarkModeTheme;
 			this->_udlVersion = ulc._udlVersion;
-			this->_isCaseIgnored = ulc._isCaseIgnored;
-			this->_styles = ulc._styles;
-			this->_allowFoldOfComments = ulc._allowFoldOfComments;
 			this->_forcePureLC = ulc._forcePureLC;
 			this->_decimalSeparator = ulc._decimalSeparator;
+			this->_isCaseIgnored = ulc._isCaseIgnored;
+			this->_allowFoldOfComments = ulc._allowFoldOfComments;
 			this->_foldCompact = ulc._foldCompact;
+			this->_isDarkModeTheme = ulc._isDarkModeTheme;
 			for (Style & st : this->_styles)
 			{
 				if (st._bgColor == static_cast<COLORREF>(-1))

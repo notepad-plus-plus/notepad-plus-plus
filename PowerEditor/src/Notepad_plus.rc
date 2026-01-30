@@ -526,6 +526,7 @@ BEGIN
             MENUITEM "&iNVERT cASE",             IDM_EDIT_INVERTCASE
             MENUITEM "&ranDOm CasE",             IDM_EDIT_RANDOMCASE
         END
+		MENUITEM "Redact Selection",            IDM_EDIT_REDACT_SELECTION
         POPUP "&Line Operations"
         BEGIN
             MENUITEM "Duplicate Current Line",                           IDM_EDIT_DUP_LINE

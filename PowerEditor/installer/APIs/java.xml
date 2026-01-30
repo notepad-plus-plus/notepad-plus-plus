@@ -1,12 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-
-<!--
-@author: Enjoyop2 -
-	https://github.com/Enjoyop
-	https://github.com/Enjoyop2
-@version: JDK 25.0.2
--->
-
 <NotepadPlus>
 	<AutoComplete>
 		<Environment ignoreCase="no" startFunc="(" stopFunc=")" paramSeparator="," terminal=";" />
@@ -2715,6 +2707,512 @@
 		<KeyWord name="MatchResult" />
 		<KeyWord name="Matcher" />
 		<KeyWord name="Math" />
+		<KeyWord name="Math.E" />
+		<KeyWord name="Math.PI" />
+		<KeyWord name="Math.TAU" />
+		<KeyWord name="Math.abs" func="yes">
+			<Overload retVal="double" descr="Returns the absolute value of a double value.">
+				<Param name="double a" />
+			</Overload>
+			<Overload retVal="float" descr="Returns the absolute value of a float value.">
+				<Param name="float a" />
+			</Overload>
+			<Overload retVal="int" descr="Returns the absolute value of an int value.">
+				<Param name="int a" />
+			</Overload>
+			<Overload retVal="long" descr="Returns the absolute value of a long value.">
+				<Param name="long a" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.absExact" func="yes">
+			<Overload retVal="int" descr="Returns the mathematical absolute value of an int value if it is exactly representable as an int, throwing ArithmeticException if the result overflows the positive int range.">
+				<Param name="int a" />
+			</Overload>
+			<Overload retVal="long" descr="Returns the mathematical absolute value of an long value if it is exactly representable as an long, throwing ArithmeticException if the result overflows the positive long range.">
+				<Param name="long a" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.acos" func="yes">
+			<Overload retVal="double" descr="Returns the arc cosine of a value; the returned angle is in the range 0.0 through pi.">
+				<Param name="double a" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.addExact" func="yes">
+			<Overload retVal="int" descr="Returns the sum of its arguments, throwing an exception if the result overflows an int.">
+				<Param name="int x" />
+				<Param name="int y" />
+			</Overload>
+			<Overload retVal="long" descr="Returns the sum of its arguments, throwing an exception if the result overflows a long.">
+				<Param name="long x" />
+				<Param name="long y" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.asin" func="yes">
+			<Overload retVal="double" descr="Returns the arc sine of a value; the returned angle is in the range −pi/2 through pi/2.">
+				<Param name="double a" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.atan" func="yes">
+			<Overload retVal="double" descr="Returns the arc tangent of a value; the returned angle is in the range −pi/2 through pi/2.">
+				<Param name="double a" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.atan2" func="yes">
+			<Overload retVal="double" descr="Returns the angle theta from the conversion of rectangular coordinates (x, y) to polar coordinates (r, theta).">
+				<Param name="double y" />
+				<Param name="double x" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.cbrt" func="yes">
+			<Overload retVal="double" descr="Returns the cube root of a double value.">
+				<Param name="double a" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.ceil" func="yes">
+			<Overload retVal="double" descr="Returns the smallest (closest to negative infinity) double value that is greater than or equal to the argument and is equal to a mathematical integer.">
+				<Param name="double a" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.ceilDiv" func="yes">
+			<Overload retVal="int" descr="Returns the smallest (closest to negative infinity) int value that is greater than or equal to the algebraic quotient.">
+				<Param name="int x" />
+				<Param name="int y" />
+			</Overload>
+			<Overload retVal="long" descr="Returns the smallest (closest to negative infinity) long value that is greater than or equal to the algebraic quotient.">
+				<Param name="long x" />
+				<Param name="int y" />
+			</Overload>
+			<Overload retVal="long" descr="Returns the smallest (closest to negative infinity) long value that is greater than or equal to the algebraic quotient.">
+				<Param name="long x" />
+				<Param name="long y" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.ceilDivExact" func="yes">
+			<Overload retVal="int" descr="Returns the smallest (closest to negative infinity) int value that is greater than or equal to the algebraic quotient.">
+				<Param name="int x" />
+				<Param name="int y" />
+			</Overload>
+			<Overload retVal="long" descr="Returns the smallest (closest to negative infinity) long value that is greater than or equal to the algebraic quotient.">
+				<Param name="long x" />
+				<Param name="long y" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.ceilMod" func="yes">
+			<Overload retVal="int" descr="Returns the ceiling modulus of the int arguments.">
+				<Param name="int x" />
+				<Param name="int y" />
+			</Overload>
+			<Overload retVal="int" descr="Returns the ceiling modulus of the long and int arguments.">
+				<Param name="long x" />
+				<Param name="int y" />
+			</Overload>
+			<Overload retVal="long" descr="Returns the ceiling modulus of the long arguments.">
+				<Param name="long x" />
+				<Param name="long y" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.clamp" func="yes">
+			<Overload retVal="double" descr="Clamps the value to fit between min and max.">
+				<Param name="double value" />
+				<Param name="double min" />
+				<Param name="double max" />
+			</Overload>
+			<Overload retVal="float" descr="Clamps the value to fit between min and max.">
+				<Param name="float value" />
+				<Param name="float min" />
+				<Param name="float max" />
+			</Overload>
+			<Overload retVal="int" descr="Clamps the value to fit between min and max.">
+				<Param name="long value" />
+				<Param name="int min" />
+				<Param name="int max" />
+			</Overload>
+			<Overload retVal="long" descr="Clamps the value to fit between min and max.">
+				<Param name="long value" />
+				<Param name="long min" />
+				<Param name="long max" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.copySign" func="yes">
+			<Overload retVal="double" descr="Returns the first floating-point argument with the sign of the second floating-point argument.">
+				<Param name="double magnitude" />
+				<Param name="double sign" />
+			</Overload>
+			<Overload retVal="float" descr="Returns the first floating-point argument with the sign of the second floating-point argument.">
+				<Param name="float magnitude" />
+				<Param name="float sign" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.cos" func="yes">
+			<Overload retVal="double" descr="Returns the trigonometric cosine of an angle.">
+				<Param name="double a" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.cosh" func="yes">
+			<Overload retVal="double" descr="Returns the hyperbolic cosine of a double value.">
+				<Param name="double x" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.decrementExact" func="yes">
+			<Overload retVal="int" descr="Returns the argument decremented by one, throwing an exception if the result overflows an int.">
+				<Param name="int a" />
+			</Overload>
+			<Overload retVal="long" descr="Returns the argument decremented by one, throwing an exception if the result overflows a long.">
+				<Param name="long a" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.divideExact" func="yes">
+			<Overload retVal="int" descr="Returns the quotient of the arguments, throwing an exception if the result overflows an int.">
+				<Param name="int x" />
+				<Param name="int y" />
+			</Overload>
+			<Overload retVal="long" descr="Returns the quotient of the arguments, throwing an exception if the result overflows a long.">
+				<Param name="long x" />
+				<Param name="long y" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.exp" func="yes">
+			<Overload retVal="double" descr="Returns Euler's number e raised to the power of a double value.">
+				<Param name="double a" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.expm1" func="yes">
+			<Overload retVal="double" descr="Returns ex −1.">
+				<Param name="double x" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.floor" func="yes">
+			<Overload retVal="double" descr="Returns the largest (closest to positive infinity) double value that is less than or equal to the argument and is equal to a mathematical integer.">
+				<Param name="double a" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.floorDiv" func="yes">
+			<Overload retVal="int" descr="Returns the largest (closest to positive infinity) int value that is less than or equal to the algebraic quotient.">
+				<Param name="int x" />
+				<Param name="int y" />
+			</Overload>
+			<Overload retVal="long" descr="Returns the largest (closest to positive infinity) long value that is less than or equal to the algebraic quotient.">
+				<Param name="long x" />
+				<Param name="int y" />
+			</Overload>
+			<Overload retVal="long" descr="Returns the largest (closest to positive infinity) long value that is less than or equal to the algebraic quotient.">
+				<Param name="long x" />
+				<Param name="long y" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.floorDivExact" func="yes">
+			<Overload retVal="int" descr="Returns the largest (closest to positive infinity) int value that is less than or equal to the algebraic quotient.">
+				<Param name="int x" />
+				<Param name="int y" />
+			</Overload>
+			<Overload retVal="long" descr="Returns the largest (closest to positive infinity) long value that is less than or equal to the algebraic quotient.">
+				<Param name="long x" />
+				<Param name="long y" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.floorMod" func="yes">
+			<Overload retVal="int" descr="Returns the floor modulus of the int arguments.">
+				<Param name="int x" />
+				<Param name="int y" />
+			</Overload>
+			<Overload retVal="int" descr="Returns the floor modulus of the long and int arguments.">
+				<Param name="long x" />
+				<Param name="int y" />
+			</Overload>
+			<Overload retVal="long" descr="Returns the floor modulus of the long arguments.">
+				<Param name="long x" />
+				<Param name="long y" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.fma" func="yes">
+			<Overload retVal="double" descr="Returns the fused multiply add of the three arguments; that is, returns the exact product of the first two arguments summed with the third argument and then rounded once to the nearest double.">
+				<Param name="double a" />
+				<Param name="double b" />
+				<Param name="double c" />
+			</Overload>
+			<Overload retVal="float" descr="Returns the fused multiply add of the three arguments; that is, returns the exact product of the first two arguments summed with the third argument and then rounded once to the nearest float.">
+				<Param name="float a" />
+				<Param name="float b" />
+				<Param name="float c" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.getExponent" func="yes">
+			<Overload retVal="int" descr="Returns the unbiased exponent used in the representation of a double.">
+				<Param name="double d" />
+			</Overload>
+			<Overload retVal="int" descr="Returns the unbiased exponent used in the representation of a float.">
+				<Param name="float f" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.hypot" func="yes">
+			<Overload retVal="double" descr="Returns sqrt(x2 +y2) without intermediate overflow or underflow.">
+				<Param name="double x" />
+				<Param name="double y" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.IEEEremainder" func="yes">
+			<Overload retVal="double" descr="Computes the remainder operation on two arguments as prescribed by the IEEE 754 standard.">
+				<Param name="double f1" />
+				<Param name="double f2" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.incrementExact" func="yes">
+			<Overload retVal="int" descr="Returns the argument incremented by one, throwing an exception if the result overflows an int.">
+				<Param name="int a" />
+			</Overload>
+			<Overload retVal="long" descr="Returns the argument incremented by one, throwing an exception if the result overflows a long.">
+				<Param name="long a" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.log" func="yes">
+			<Overload retVal="double" descr="Returns the natural logarithm (base e) of a double value.">
+				<Param name="double a" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.log10" func="yes">
+			<Overload retVal="double" descr="Returns the base 10 logarithm of a double value.">
+				<Param name="double a" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.log1p" func="yes">
+			<Overload retVal="double" descr="Returns the natural logarithm of the sum of the argument and 1.">
+				<Param name="double x" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.max" func="yes">
+			<Overload retVal="double" descr="Returns the greater of two double values.">
+				<Param name="double a" />
+				<Param name="double b" />
+			</Overload>
+			<Overload retVal="float" descr="Returns the greater of two float values.">
+				<Param name="float a" />
+				<Param name="float b" />
+			</Overload>
+			<Overload retVal="int" descr="Returns the greater of two int values.">
+				<Param name="int a" />
+				<Param name="int b" />
+			</Overload>
+			<Overload retVal="long" descr="Returns the greater of two long values.">
+				<Param name="long a" />
+				<Param name="long b" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.min" func="yes">
+			<Overload retVal="double" descr="Returns the smaller of two double values.">
+				<Param name="double a" />
+				<Param name="double b" />
+			</Overload>
+			<Overload retVal="float" descr="Returns the smaller of two float values.">
+				<Param name="float a" />
+				<Param name="float b" />
+			</Overload>
+			<Overload retVal="int" descr="Returns the smaller of two int values.">
+				<Param name="int a" />
+				<Param name="int b" />
+			</Overload>
+			<Overload retVal="long" descr="Returns the smaller of two long values.">
+				<Param name="long a" />
+				<Param name="long b" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.multiplyExact" func="yes">
+			<Overload retVal="int" descr="Returns the product of the arguments, throwing an exception if the result overflows an int.">
+				<Param name="int x" />
+				<Param name="int y" />
+			</Overload>
+			<Overload retVal="long" descr="Returns the product of the arguments, throwing an exception if the result overflows a long.">
+				<Param name="long x" />
+				<Param name="int y" />
+			</Overload>
+			<Overload retVal="long" descr="Returns the product of the arguments, throwing an exception if the result overflows a long.">
+				<Param name="long x" />
+				<Param name="long y" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.multiplyFull" func="yes">
+			<Overload retVal="long" descr="Returns the exact mathematical product of the arguments.">
+				<Param name="int x" />
+				<Param name="int y" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.multiplyHigh" func="yes">
+			<Overload retVal="long" descr="Returns as a long the most significant 64 bits of the 128-bit product of two 64-bit factors.">
+				<Param name="long x" />
+				<Param name="long y" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.negateExact" func="yes">
+			<Overload retVal="int" descr="Returns the negation of the argument, throwing an exception if the result overflows an int.">
+				<Param name="int a" />
+			</Overload>
+			<Overload retVal="long" descr="Returns the negation of the argument, throwing an exception if the result overflows a long.">
+				<Param name="long a" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.nextAfter" func="yes">
+			<Overload retVal="double" descr="Returns the floating-point number adjacent to the first argument in the direction of the second argument.">
+				<Param name="double start" />
+				<Param name="double direction" />
+			</Overload>
+			<Overload retVal="float" descr="Returns the floating-point number adjacent to the first argument in the direction of the second argument.">
+				<Param name="float start" />
+				<Param name="double direction" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.nextDown" func="yes">
+			<Overload retVal="double" descr="Returns the floating-point value adjacent to d in the direction of negative infinity.">
+				<Param name="double d" />
+			</Overload>
+			<Overload retVal="float" descr="Returns the floating-point value adjacent to f in the direction of negative infinity.">
+				<Param name="float f" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.nextUp" func="yes">
+			<Overload retVal="double" descr="Returns the floating-point value adjacent to d in the direction of positive infinity.">
+				<Param name="double d" />
+			</Overload>
+			<Overload retVal="float" descr="Returns the floating-point value adjacent to f in the direction of positive infinity.">
+				<Param name="float f" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.pow" func="yes">
+			<Overload retVal="double" descr="Returns the value of the first argument raised to the power of the second argument.">
+				<Param name="double a" />
+				<Param name="double b" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.powExact" func="yes">
+			<Overload retVal="int" descr="Returns x raised to the power of n, throwing an exception if the result overflows an int.">
+				<Param name="int x" />
+				<Param name="int n" />
+			</Overload>
+			<Overload retVal="long" descr="Returns x raised to the power of n, throwing an exception if the result overflows a long.">
+				<Param name="long x" />
+				<Param name="int n" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.random" func="yes">
+			<Overload retVal="double" descr="Returns a double value with a positive sign, greater than or equal to 0.0 and less than 1.0." />
+		</KeyWord>
+		<KeyWord name="Math.rint" func="yes">
+			<Overload retVal="double" descr="Returns the double value that is closest in value to the argument and is equal to a mathematical integer.">
+				<Param name="double a" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.round" func="yes">
+			<Overload retVal="long" descr="Returns the closest long to the argument, with ties rounding to positive infinity.">
+				<Param name="double a" />
+			</Overload>
+			<Overload retVal="int" descr="Returns the closest int to the argument, with ties rounding to positive infinity.">
+				<Param name="float a" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.scalb" func="yes">
+			<Overload retVal="double" descr="Returns d × 2scaleFactor rounded as if performed by a single correctly rounded floating-point multiply.">
+				<Param name="double d" />
+				<Param name="int scaleFactor" />
+			</Overload>
+			<Overload retVal="float" descr="Returns f × 2scaleFactor rounded as if performed by a single correctly rounded floating-point multiply.">
+				<Param name="float f" />
+				<Param name="int scaleFactor" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.signum" func="yes">
+			<Overload retVal="double" descr="Returns the signum function of the argument; zero if the argument is zero, 1.0 if the argument is greater than zero, -1.0 if the argument is less than zero.">
+				<Param name="double d" />
+			</Overload>
+			<Overload retVal="float" descr="Returns the signum function of the argument; zero if the argument is zero, 1.0f if the argument is greater than zero, -1.0f if the argument is less than zero.">
+				<Param name="float f" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.sin" func="yes">
+			<Overload retVal="double" descr="Returns the trigonometric sine of an angle.">
+				<Param name="double a" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.sinh" func="yes">
+			<Overload retVal="double" descr="Returns the hyperbolic sine of a double value.">
+				<Param name="double x" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.sqrt" func="yes">
+			<Overload retVal="double" descr="Returns the correctly rounded positive square root of a double value.">
+				<Param name="double a" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.subtractExact" func="yes">
+			<Overload retVal="int" descr="Returns the difference of the arguments, throwing an exception if the result overflows an int.">
+				<Param name="int x" />
+				<Param name="int y" />
+			</Overload>
+			<Overload retVal="long" descr="Returns the difference of the arguments, throwing an exception if the result overflows a long.">
+				<Param name="long x" />
+				<Param name="long y" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.tan" func="yes">
+			<Overload retVal="double" descr="Returns the trigonometric tangent of an angle.">
+				<Param name="double a" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.tanh" func="yes">
+			<Overload retVal="double" descr="Returns the hyperbolic tangent of a double value.">
+				<Param name="double x" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.toDegrees" func="yes">
+			<Overload retVal="double" descr="Converts an angle measured in radians to an approximately equivalent angle measured in degrees.">
+				<Param name="double angrad" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.toIntExact" func="yes">
+			<Overload retVal="int" descr="Returns the value of the long argument, throwing an exception if the value overflows an int.">
+				<Param name="long value" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.toRadians" func="yes">
+			<Overload retVal="double" descr="Converts an angle measured in degrees to an approximately equivalent angle measured in radians.">
+				<Param name="double angdeg" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.ulp" func="yes">
+			<Overload retVal="double" descr="Returns the size of an ulp of the argument.">
+				<Param name="double d" />
+			</Overload>
+			<Overload retVal="float" descr="Returns the size of an ulp of the argument.">
+				<Param name="float f" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.unsignedMultiplyExact" func="yes">
+			<Overload retVal="int" descr="Returns the product of the unsigned arguments, throwing an exception if the result overflows an unsigned int.">
+				<Param name="int x" />
+				<Param name="int y" />
+			</Overload>
+			<Overload retVal="long" descr="Returns the product of the unsigned arguments, throwing an exception if the result overflows an unsigned long.">
+				<Param name="long x" />
+				<Param name="int y" />
+			</Overload>
+			<Overload retVal="long" descr="Returns the product of the unsigned arguments, throwing an exception if the result overflows an unsigned long.">
+				<Param name="long x" />
+				<Param name="long y" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.unsignedMultiplyHigh" func="yes">
+			<Overload retVal="long" descr="Returns as a long the most significant 64 bits of the unsigned 128-bit product of two unsigned 64-bit factors.">
+				<Param name="long x" />
+				<Param name="long y" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Math.unsignedPowExact" func="yes">
+			<Overload retVal="int" descr="Returns unsigned x raised to the power of n, throwing an exception if the result overflows an unsigned int.">
+				<Param name="int x" />
+				<Param name="int n" />
+			</Overload>
+			<Overload retVal="long" descr="Returns unsigned x raised to the power of n, throwing an exception if the result overflows an unsigned long.">
+				<Param name="long x" />
+				<Param name="int n" />
+			</Overload>
+		</KeyWord>
 		<KeyWord name="MathContext" />
 		<KeyWord name="MatteBorder" />
 		<KeyWord name="Media" />

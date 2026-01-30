@@ -1699,12 +1699,6 @@ public:
 		return _themeSwitcher;
 	}
 
-	std::vector<std::wstring>& getBlackList() { return _blacklist; }
-	bool isInBlackList(const wchar_t* fn) const {
-		return std::any_of(_blacklist.begin(), _blacklist.end(),
-			[&fn](const auto& element) { return element == fn; });
-	}
-
 	bool importUDLFromFile(const std::wstring& sourceFile);
 	bool exportUDLToFile(size_t langIndex2export, const std::wstring& fileName2save);
 	NativeLangSpeaker* getNativeLangSpeaker() {
@@ -1847,7 +1841,6 @@ private:
 	StyleArray _widgetStyleArray;
 
 	std::vector<std::wstring> _fontlist;
-	std::vector<std::wstring> _blacklist;
 
 	bool _isLocal = false;
 	bool _isx64 = false; // by default 32-bit

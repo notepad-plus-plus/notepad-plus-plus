@@ -107,11 +107,11 @@ int PluginsManager::loadPluginFromPath(const wchar_t *pluginFilePath)
 	try
 	{
 		pi->_moduleName = pluginFileName;
-		int archType = nppParams.archType();
-		if (getBinaryArchitectureType(pluginFilePath) != archType)
+		static constexpr int binArchType = NppParameters::archType();
+		if (getBinaryArchitectureType(pluginFilePath) != binArchType)
 		{
 			const wchar_t* archErrMsg = L"Cannot load plugin.";
-			switch (archType)
+			switch (binArchType)
 			{
 				case IMAGE_FILE_MACHINE_ARM64:
 					archErrMsg = L"Cannot load ARM64 plugin.";
@@ -260,7 +260,7 @@ int PluginsManager::loadPluginFromPath(const wchar_t *pluginFilePath)
 			}
 
 			nppParams.getExternalLexerFromXmlTree(pXmlDoc);
-			nppParams.getExternalLexerDoc()->push_back(pXmlDoc);
+			nppParams.getExternalLexerDoc()->emplace_back(pXmlDoc, xmlPath.wstring());
 
 
 			//const char *pDllName = wmc.wchar2char(pluginFilePath, CP_ACP);

@@ -79,8 +79,8 @@ EolType convertIntToFormatType(int value, EolType defvalue = EolType::osdefault)
 #define PURE_LC_BOL	 1
 #define PURE_LC_WSP	 2
 
-void cutString(const wchar_t *str2cut, std::vector<std::wstring> & patternVect);
-void cutStringBy(const wchar_t *str2cut, std::vector<std::wstring> & patternVect, char byChar, bool allowEmptyStr);
+void cutString(const wchar_t* str2cut, std::vector<std::wstring>& patternVect);
+void cutStringBy(const wchar_t* str2cut, std::vector<std::wstring>& patternVect, wchar_t byChar, bool allowEmptyStr);
 
 struct Position
 {
@@ -583,7 +583,7 @@ public:
 	// The constructor which makes the date of number of days from now
 	// nbDaysFromNow could be negative if user want to make a date in the past
 	// if the value of nbDaysFromNow is 0 then the date will be now
-	Date(int nbDaysFromNow);
+	explicit Date(int nbDaysFromNow) noexcept;
 
 	void now();
 
@@ -1194,7 +1194,7 @@ public:
 	};
 
 	bool addLanguageFromXml(const std::wstring& xmlFullPath);
-	std::wstring getLangFromXmlFileName(const wchar_t *fn) const;
+	static std::wstring getLangFromXmlFileName(const wchar_t* fn);
 
 	std::wstring getXmlFilePathFromLangName(const wchar_t *langName) const;
 	bool switchToLang(const wchar_t *lang2switch) const;
@@ -1242,7 +1242,7 @@ public:
 		_themeList.push_back(std::pair<std::wstring, std::wstring>(_defaultThemeLabel, xmlFullPath));
 	}
 
-	std::wstring getThemeFromXmlFileName(const wchar_t* xmlFullPath) const;
+	static std::wstring getThemeFromXmlFileName(const wchar_t* xmlFullPath);
 
 	std::wstring getXmlFilePathFromThemeName(const wchar_t *themeName) const {
 		if (!themeName || themeName[0])
@@ -1322,12 +1322,13 @@ struct HLSColour
 
 struct UdlXmlFileState final {
 	TiXmlDocument* _udlXmlDoc = nullptr;
+	std::wstring _path;
 	bool _isDirty = false;
 	bool _isInDefaultSharedContainer = false; // contained in "userDefineLang.xml" file
 	std::pair<unsigned char, unsigned char> _indexRange;
 
-	UdlXmlFileState(TiXmlDocument* doc, bool isDirty, bool isInDefaultSharedContainer, std::pair<unsigned char, unsigned char> range)
-		: _udlXmlDoc(doc), _isDirty(isDirty), _isInDefaultSharedContainer(isInDefaultSharedContainer), _indexRange(range) {}
+	UdlXmlFileState(TiXmlDocument* doc, const std::wstring& path, bool isDirty, bool isInDefaultSharedContainer, std::pair<unsigned char, unsigned char> range)
+		: _udlXmlDoc(doc), _path(path), _isDirty(isDirty), _isInDefaultSharedContainer(isInDefaultSharedContainer), _indexRange(range) {}
 };
 
 inline constexpr int NB_LANG = 100;
@@ -1341,6 +1342,9 @@ public:
 	int getTopLevelItemNumber() const;
 	void push_back(const MenuItemUnit& m) {
 		_menuItems.push_back(m);
+	}
+	void emplace_back(unsigned long cmdID, const std::wstring& itemName, const std::wstring& parentFolderName) {
+		_menuItems.emplace_back(cmdID, itemName, parentFolderName);
 	}
 
 	MenuItemUnit& getItemFromIndex(size_t i) {
@@ -1372,6 +1376,13 @@ private:
 		static NppParameters* instance = new NppParameters;
 		return instance;
 	}
+
+	// XML Document with its path
+	struct XmlDocPath final
+	{
+		TiXmlDocument* _doc;
+		std::wstring _path;
+	};
 
 public:
 	static NppParameters& getInstance() {
@@ -1509,13 +1520,13 @@ public:
 	bool ExternalLangHasRoom() const { return _nbExternalLang < NB_MAX_EXTERNAL_LANG; }
 
 	void getExternalLexerFromXmlTree(TiXmlDocument* externalLexerDoc);
-	std::vector<TiXmlDocument*>* getExternalLexerDoc() { return &_pXmlExternalLexerDoc; }
+	std::vector<XmlDocPath>* getExternalLexerDoc() { return &_pXmlExternalLexerDoc; }
 
 	void writeDefaultUDL();
 	void writeNonDefaultUDL();
 	void writeNeed2SaveUDL();
 	void writeShortcuts();
-	void writeSession(const Session& session, const wchar_t* fileName = nullptr);
+	void writeSession(const Session& session, const wchar_t* fileName = nullptr) const;
 	bool writeFindHistory();
 
 	bool isExistingUserLangName(const wchar_t *newName) const
@@ -1725,7 +1736,7 @@ public:
 	void setCloudChoice(const wchar_t* pathChoice) const;
 	void removeCloudChoice() const;
 	bool isCloudPathChanged() const;
-	static int archType() { return ARCH_TYPE; }
+	static constexpr int archType() { return ARCH_TYPE; }
 	COLORREF getCurrentDefaultBgColor() const {
 		return _currentDefaultBgColor;
 	}
@@ -1759,7 +1770,7 @@ public:
 	void setUdlXmlDirtyFromIndex(size_t i);
 	void setUdlXmlDirtyFromXmlDoc(const TiXmlDocument* xmlDoc);
 	void removeIndexFromXmlUdls(size_t i);
-	bool isStylerDocLoaded() const { return _pXmlUserStylerDoc != nullptr; }
+	bool isStylerDocLoaded() const { return _pXmlUserStylerDoc._doc != nullptr; }
 
 	ColumnEditorParam _columnEditParam;
 	unsigned long getScintillaModEventMask() const { return _sintillaModEventMask; }
@@ -1773,7 +1784,7 @@ public:
 	}
 	UINT getNbTabCompactLabelLen() const { return _nppGUI._tabCompactLabelLen; }
 
-	void buildGupParams(std::wstring& params) const;
+	static void buildGupParams(std::wstring& params);
 
 private:
 	NppParameters();
@@ -1788,10 +1799,10 @@ private:
 	NppParameters& operator=(NppParameters&&) = delete;
 
 
-	TiXmlDocument *_pXmlDoc = nullptr; // langs.xml
+	XmlDocPath _pXmlDoc{}; // langs.xml
 	TiXmlDocument *_pXmlUserDoc = nullptr; // config.xml
-	TiXmlDocument *_pXmlUserStylerDoc = nullptr; // stylers.xml
-	TiXmlDocument *_pXmlUserLangDoc = nullptr; // userDefineLang.xml
+	XmlDocPath _pXmlUserStylerDoc{}; // stylers.xml
+	XmlDocPath _pXmlUserLangDoc{}; // userDefineLang.xml
 	std::vector<UdlXmlFileState> _pXmlUserLangsDoc; // userDefineLang customized XMLs
 	NppXml::Document _pXmlToolButtonsConfDoc = nullptr; // toolbarButtonsConf.xml
 
@@ -1801,7 +1812,7 @@ private:
 	NppXml::Document _pXmlContextMenuDoc = nullptr; // contextMenu.xml
 	NppXml::Document _pXmlTabContextMenuDoc = nullptr; // tabContextMenu.xml
 
-	std::vector<TiXmlDocument *> _pXmlExternalLexerDoc; // External lexer plugins' XMLs
+	std::vector<XmlDocPath> _pXmlExternalLexerDoc; // External lexer plugins' XMLs
 
 	NppGUI _nppGUI;
 	ScintillaViewParams _svp;
@@ -1974,7 +1985,7 @@ private:
 	enum ConfXml { lang, styles };
 	bool updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf);
 	void updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* mainElemModel);
-	void updateStylesXml(TiXmlElement* rootUser, TiXmlElement* rootModel, TiXmlElement* mainElemUser, TiXmlElement* mainElemModel);
+	void updateStylesXml(TiXmlElement* rootUser, const std::wstring& userDocPath, TiXmlElement* rootModel, TiXmlElement* mainElemUser, TiXmlElement* mainElemModel);
 	void addDefaultStyles(TiXmlNode* node);
 	int addStyleDefaultColors(TiXmlNode* globalStyleRoot,
 		const std::wstring& name,

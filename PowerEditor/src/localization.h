@@ -56,7 +56,7 @@ public:
 	void changeConfigLang(HWND hDlg) const;
 	void changeLangTabContextMenu(HMENU hCM) const;
 	void getAlternativeNameFromTabContextMenu(std::wstring& output, int cmdID, bool isAlternative, const std::wstring& defaultValue) const;
-	static NppXml::Node searchDlgNode(NppXml::Node node, const char* dlgTagName);
+	static NppXml::Element searchDlgNode(NppXml::Element node, const char* dlgTagName);
 	bool changeDlgLang(HWND hDlg, const char* dlgTagName, char* title = nullptr, size_t titleMaxSize = 0);
 	void changeLangTabDropContextMenu(HMENU hCM) const;
 	void changeLangTrayIconContexMenu(HMENU hCM) const;

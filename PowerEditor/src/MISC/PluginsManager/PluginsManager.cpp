@@ -277,7 +277,7 @@ int PluginsManager::loadPluginFromPath(const wchar_t *pluginFilePath)
 		pluginExceptionAlert(pluginFileName, e);
 		return -1;
 	}
-	catch (wstring& s)
+	catch (wstring s)
 	{
 		if (pi && pi->_hLib)
 		{

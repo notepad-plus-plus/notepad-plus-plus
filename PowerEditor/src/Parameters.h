@@ -370,7 +370,7 @@ struct StyleArray
 		return _styleVect[index];
 	}
 
-	void addStyler(int styleID, TiXmlNode *styleNode);
+	void addStyler(int styleID, const NppXml::Element& styleNode);
 
 	void addStyler(int styleID, const std::wstring& styleName) {
 		_styleVect.emplace_back();
@@ -474,7 +474,7 @@ struct LexerStylerArray
 		return (it != _lexerStylerVect.end()) ? &(*it) : nullptr;
 	}
 
-	void addLexerStyler(const wchar_t *lexerName, const wchar_t *lexerDesc, const wchar_t *lexerUserExt, TiXmlNode *lexerNode);
+	void addLexerStyler(const char* lexerName, const char* lexerDesc, const char* lexerUserExt, const NppXml::Element& lexerNode);
 
 	void sort() {
 		std::sort(_lexerStylerVect.begin(), _lexerStylerVect.end(), SortLexersInAlphabeticalOrder());
@@ -1007,9 +1007,9 @@ struct Lang final
 class UserLangContainer final
 {
 public:
-	UserLangContainer() noexcept :_name(L"new user define"), _ext(L""), _udlVersion(L""), _isDarkModeTheme(false) {}
+	UserLangContainer() noexcept :_name(L"new user define"), _ext(L""), _udlVersion(""), _isDarkModeTheme(false) {}
 
-	explicit UserLangContainer(const wchar_t* name, const wchar_t* ext, const wchar_t* udlVer, bool isDarkModeTheme) noexcept
+	explicit UserLangContainer(const wchar_t* name, const wchar_t* ext, const char* udlVer, bool isDarkModeTheme) noexcept
 		: _name(name), _ext(ext), _udlVersion(udlVer), _isDarkModeTheme(isDarkModeTheme) {}
 
 	UserLangContainer(const UserLangContainer& ulc) noexcept
@@ -1076,13 +1076,13 @@ public:
 
 	const wchar_t* getName() const { return _name.c_str(); }
 	const wchar_t* getExtention() const { return _ext.c_str(); }
-	const wchar_t* getUdlVersion() const { return _udlVersion.c_str(); }
+	const char* getUdlVersion() const { return _udlVersion.c_str(); }
 
 private:
 	StyleArray _styles;
 	std::wstring _name;
 	std::wstring _ext;
-	std::wstring _udlVersion;
+	std::string _udlVersion;
 
 	std::wstring _keywordLists[SCE_USER_KWLIST_TOTAL];
 	bool _isPrefix[SCE_USER_TOTAL_KEYWORD_GROUPS] = { false };
@@ -1317,13 +1317,13 @@ struct HLSColour
 };
 
 struct UdlXmlFileState final {
-	TiXmlDocument* _udlXmlDoc = nullptr;
+	NppXml::Document _udlXmlDoc = nullptr;
 	std::wstring _path;
 	bool _isDirty = false;
 	bool _isInDefaultSharedContainer = false; // contained in "userDefineLang.xml" file
 	std::pair<unsigned char, unsigned char> _indexRange;
 
-	UdlXmlFileState(TiXmlDocument* doc, const std::wstring& path, bool isDirty, bool isInDefaultSharedContainer, std::pair<unsigned char, unsigned char> range)
+	UdlXmlFileState(NppXml::Document doc, const std::wstring& path, bool isDirty, bool isInDefaultSharedContainer, std::pair<unsigned char, unsigned char> range) noexcept
 		: _udlXmlDoc(doc), _path(path), _isDirty(isDirty), _isInDefaultSharedContainer(isInDefaultSharedContainer), _indexRange(range) {}
 };
 
@@ -1376,7 +1376,7 @@ private:
 	// XML Document with its path
 	struct XmlDocPath final
 	{
-		TiXmlDocument* _doc;
+		NppXml::Document _doc;
 		std::wstring _path;
 	};
 
@@ -1515,7 +1515,7 @@ public:
 
 	bool ExternalLangHasRoom() const { return _nbExternalLang < NB_MAX_EXTERNAL_LANG; }
 
-	void getExternalLexerFromXmlTree(TiXmlDocument* externalLexerDoc);
+	void getExternalLexerFromXmlTree(NppXml::Document externalLexerDoc);
 	std::vector<XmlDocPath>* getExternalLexerDoc() { return &_pXmlExternalLexerDoc; }
 
 	void writeDefaultUDL();
@@ -1525,14 +1525,14 @@ public:
 	void writeSession(const Session& session, const wchar_t* fileName = nullptr) const;
 	bool writeFindHistory();
 
-	bool isExistingUserLangName(const wchar_t *newName) const
+	bool isExistingUserLangName(const wchar_t* newName) const
 	{
 		if ((!newName) || (!newName[0]))
 			return true;
 
 		for (int i = 0 ; i < _nbUserLang ; ++i)
 		{
-			if (!lstrcmp(_userLangArray[i]->_name.c_str(), newName))
+			if (newName == _userLangArray[i]->_name)
 				return true;
 		}
 		return false;
@@ -1764,7 +1764,7 @@ public:
 	std::wstring static getSpecialFolderLocation(int folderKind);
 
 	void setUdlXmlDirtyFromIndex(size_t i);
-	void setUdlXmlDirtyFromXmlDoc(const TiXmlDocument* xmlDoc);
+	void setUdlXmlDirtyFromXmlDoc(const NppXml::Document& xmlDoc);
 	void removeIndexFromXmlUdls(size_t i);
 	bool isStylerDocLoaded() const { return _pXmlUserStylerDoc._doc != nullptr; }
 
@@ -1976,19 +1976,19 @@ private:
 	void getLangKeywordsFromXmlTree();
 	bool getUserParametersFromXmlTree();
 	bool getUserStylersFromXmlTree();
-	std::pair<unsigned char, unsigned char> addUserDefineLangsFromXmlTree(TiXmlDocument *tixmldoc);
+	std::pair<unsigned char, unsigned char> addUserDefineLangsFromXmlTree(NppXml::Document xmldoc);
 
 	enum class ConfXml { lang, styles };
-	bool updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf);
-	void updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* mainElemModel);
-	void updateStylesXml(TiXmlElement* rootUser, const std::wstring& userDocPath, TiXmlElement* rootModel, TiXmlElement* mainElemUser, TiXmlElement* mainElemModel);
-	void addDefaultStyles(TiXmlNode* node);
-	int addStyleDefaultColors(TiXmlNode* globalStyleRoot,
+	bool updateFromModelXml(NppXml::Element& rootUser, ConfXml whichConf);
+	static void updateLangXml(NppXml::Element& mainElemUser, const NppXml::Element& mainElemModel);
+	static void updateStylesXml(const NppXml::Element& rootUser, const std::wstring& userDocPath, const NppXml::Element& rootModel, NppXml::Element& mainElemUser, const NppXml::Element& mainElemModel);
+	void addDefaultStyles(const NppXml::Element& element);
+	int addStyleDefaultColors(NppXml::Element& globalStyleRoot,
 		const std::wstring& name,
-		const std::wstring& fgColor = L"",
-		const std::wstring& bgColor = L"",
+		const std::string& fgColor = "",
+		const std::string& bgColor = "",
 		const std::wstring& fromStyle = L"",
-		const std::wstring& styleID = L"0");
+		const std::string& styleID = "0");
 
 	bool getShortcutsFromXmlTree();
 
@@ -1999,7 +1999,7 @@ private:
 	static bool getSessionFromXmlTree(const NppXml::Document& pSessionDoc, Session& session);
 
 	void feedGUIParameters(TiXmlNode *node);
-	void feedKeyWordsParameters(TiXmlNode *node);
+	void feedKeyWordsParameters(const NppXml::Element& element);
 	void feedFileListParameters(TiXmlNode *node);
 	void feedScintillaParam(TiXmlNode *node);
 	void feedDockingManager(TiXmlNode *node);
@@ -2008,11 +2008,11 @@ private:
 	void feedProjectPanelsParameters(TiXmlNode *node);
 	void feedFileBrowserParameters(TiXmlNode *node);
 	void feedColumnEditorParameters(TiXmlNode *node);
-	bool feedStylerArray(TiXmlNode *node);
-	std::pair<unsigned char, unsigned char> feedUserLang(TiXmlNode *node);
-	void feedUserStyles(TiXmlNode *node);
-	void feedUserKeywordList(TiXmlNode *node);
-	void feedUserSettings(TiXmlNode *node);
+	bool feedStylerArray(const NppXml::Element& element);
+	std::pair<unsigned char, unsigned char> feedUserLang(const NppXml::Element& element);
+	void feedUserStyles(const NppXml::Element& element);
+	void feedUserKeywordList(const NppXml::Element& element);
+	void feedUserSettings(const NppXml::Element& settingsRoot);
 	void feedShortcut(const NppXml::Element& element);
 	void feedMacros(const NppXml::Element& element);
 	void feedUserCmds(const NppXml::Element& element);
@@ -2023,8 +2023,8 @@ private:
 	static bool getShortcuts(const NppXml::Element& element, Shortcut& sc, std::string* folderName = nullptr);
 	static bool getInternalCommandShortcuts(const NppXml::Element& element, CommandShortcut& cs, std::string* folderName = nullptr);
 
-	static void writeStyle2Element(const Style& style2Write, Style& style2Sync, TiXmlElement* element);
-	static void insertUserLang2Tree(TiXmlNode* node, const UserLangContainer* userLang);
+	static void writeStyle2Element(const Style& style2Write, Style& style2Sync, NppXml::Element& element);
+	static void insertUserLang2Tree(NppXml::Element& node, const UserLangContainer* userLang);
 	static void insertCmd(NppXml::Element& cmdRoot, const CommandShortcut& cmd);
 	static void insertMacro(NppXml::Element& macrosRoot, const MacroShortcut& macro, const std::string& folderName);
 	static void insertUserCmd(NppXml::Element& userCmdRoot, const UserCommand& userCmd, const std::string& folderName);

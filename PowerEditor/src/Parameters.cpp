@@ -1630,7 +1630,7 @@ bool NppParameters::load()
 	}
 
 	_pXmlContextMenuDoc = new NppXml::NewDocument();
-	loadOkay = NppXml::loadFile(_pXmlContextMenuDoc, _contextMenuPath.c_str());
+	loadOkay = NppXml::loadFileContextMenu(_pXmlContextMenuDoc, _contextMenuPath.c_str());
 	if (!loadOkay)
 	{
 		delete _pXmlContextMenuDoc;
@@ -1645,7 +1645,7 @@ bool NppParameters::load()
 	pathAppend(_tabContextMenuPath, L"tabContextMenu.xml");
 
 	_pXmlTabContextMenuDoc = new NppXml::NewDocument();
-	loadOkay = NppXml::loadFile(_pXmlTabContextMenuDoc, _tabContextMenuPath.c_str());
+	loadOkay = NppXml::loadFileContextMenu(_pXmlTabContextMenuDoc, _tabContextMenuPath.c_str());
 	if (!loadOkay)
 	{
 		delete _pXmlTabContextMenuDoc;

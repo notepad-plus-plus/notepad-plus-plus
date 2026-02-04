@@ -647,49 +647,43 @@ static constexpr ScintillaKeyDefinition scintKeyDefs[]
 
 using PGNSI = void (WINAPI*)(LPSYSTEM_INFO);
 
-int strVal(const wchar_t *str, int base)
+static int strVal(const char* str, int base)
 {
 	if (!str) return -1;
 	if (!str[0]) return 0;
 
-	wchar_t *finStr;
-	int result = wcstol(str, &finStr, base);
+	char* finStr;
+	const int result = std::strtol(str, &finStr, base);
 	if (*finStr != '\0')
 		return -1;
 	return result;
 }
 
-
-int decStrVal(const wchar_t *str)
-{
-	return strVal(str, 10);
-}
-
-int hexStrVal(const wchar_t *str)
+static int hexStrVal(const char* str)
 {
 	return strVal(str, 16);
 }
 
-int getKwClassFromName(const wchar_t *str)
+static int getKwClassFromName(const char* str)
 {
 	if(!str) return -1;
-	if (!lstrcmp(L"instre1", str)) return LANG_INDEX_INSTR;
-	if (!lstrcmp(L"instre2", str)) return LANG_INDEX_INSTR2;
-	if (!lstrcmp(L"type1", str)) return LANG_INDEX_TYPE;
-	if (!lstrcmp(L"type2", str)) return LANG_INDEX_TYPE2;
-	if (!lstrcmp(L"type3", str)) return LANG_INDEX_TYPE3;
-	if (!lstrcmp(L"type4", str)) return LANG_INDEX_TYPE4;
-	if (!lstrcmp(L"type5", str)) return LANG_INDEX_TYPE5;
-	if (!lstrcmp(L"type6", str)) return LANG_INDEX_TYPE6;
-	if (!lstrcmp(L"type7", str)) return LANG_INDEX_TYPE7;
-	if (!lstrcmp(L"substyle1", str)) return LANG_INDEX_SUBSTYLE1;
-	if (!lstrcmp(L"substyle2", str)) return LANG_INDEX_SUBSTYLE2;
-	if (!lstrcmp(L"substyle3", str)) return LANG_INDEX_SUBSTYLE3;
-	if (!lstrcmp(L"substyle4", str)) return LANG_INDEX_SUBSTYLE4;
-	if (!lstrcmp(L"substyle5", str)) return LANG_INDEX_SUBSTYLE5;
-	if (!lstrcmp(L"substyle6", str)) return LANG_INDEX_SUBSTYLE6;
-	if (!lstrcmp(L"substyle7", str)) return LANG_INDEX_SUBSTYLE7;
-	if (!lstrcmp(L"substyle8", str)) return LANG_INDEX_SUBSTYLE8;
+	if (std::strcmp(str, "instre1") == 0) return LANG_INDEX_INSTR;
+	if (std::strcmp(str, "instre2") == 0) return LANG_INDEX_INSTR2;
+	if (std::strcmp(str, "type1") == 0) return LANG_INDEX_TYPE;
+	if (std::strcmp(str, "type2") == 0) return LANG_INDEX_TYPE2;
+	if (std::strcmp(str, "type3") == 0) return LANG_INDEX_TYPE3;
+	if (std::strcmp(str, "type4") == 0) return LANG_INDEX_TYPE4;
+	if (std::strcmp(str, "type5") == 0) return LANG_INDEX_TYPE5;
+	if (std::strcmp(str, "type6") == 0) return LANG_INDEX_TYPE6;
+	if (std::strcmp(str, "type7") == 0) return LANG_INDEX_TYPE7;
+	if (std::strcmp(str, "substyle1") == 0) return LANG_INDEX_SUBSTYLE1;
+	if (std::strcmp(str, "substyle2") == 0) return LANG_INDEX_SUBSTYLE2;
+	if (std::strcmp(str, "substyle3") == 0) return LANG_INDEX_SUBSTYLE3;
+	if (std::strcmp(str, "substyle4") == 0) return LANG_INDEX_SUBSTYLE4;
+	if (std::strcmp(str, "substyle5") == 0) return LANG_INDEX_SUBSTYLE5;
+	if (std::strcmp(str, "substyle6") == 0) return LANG_INDEX_SUBSTYLE6;
+	if (std::strcmp(str, "substyle7") == 0) return LANG_INDEX_SUBSTYLE7;
+	if (std::strcmp(str, "substyle8") == 0) return LANG_INDEX_SUBSTYLE8;
 
 	if ((str[1] == '\0') && (str[0] >= '0') && (str[0] <= '8')) // up to KEYWORDSET_MAX
 		return str[0] - '0';
@@ -1193,9 +1187,9 @@ bool NppParameters::reloadStylers(const wchar_t* stylePath)
 	delete _pXmlUserStylerDoc._doc;
 
 	_pXmlUserStylerDoc._path = stylePath ? stylePath : _stylerPath.c_str();
-	_pXmlUserStylerDoc._doc = new TiXmlDocument(_pXmlUserStylerDoc._path);
+	_pXmlUserStylerDoc._doc = new NppXml::NewDocument();
 
-	bool loadOkay = _pXmlUserStylerDoc._doc->LoadFile();
+	const bool loadOkay = NppXml::loadFile(_pXmlUserStylerDoc._doc, _pXmlUserStylerDoc._path.c_str());
 	if (!loadOkay)
 	{
 		if (!_pNativeLangSpeaker)
@@ -1224,8 +1218,8 @@ bool NppParameters::reloadStylers(const wchar_t* stylePath)
 	//  Reload plugin styles.
 	for (size_t i = 0; i < getExternalLexerDoc()->size(); ++i)
 	{
-		TiXmlDocument* externalLexerDoc = getExternalLexerDoc()->at(i)._doc;
-		TiXmlNode* root = externalLexerDoc->FirstChild(L"NotepadPlus");
+		NppXml::Document externalLexerDoc = getExternalLexerDoc()->at(i)._doc;
+		NppXml::Element root = NppXml::firstChildElement(externalLexerDoc, "NotepadPlus");
 		if (root)
 			feedStylerArray(root);
 	}
@@ -1458,10 +1452,9 @@ bool NppParameters::load()
 	}
 
 	_pXmlDoc._path = langs_xml_path;
-	_pXmlDoc._doc = new TiXmlDocument(_pXmlDoc._path.c_str());
+	_pXmlDoc._doc = new NppXml::NewDocument();
 
-
-	bool loadOkay = _pXmlDoc._doc->LoadFile();
+	bool loadOkay = NppXml::loadFile(_pXmlDoc._doc, _pXmlDoc._path.c_str());
 	if (!loadOkay)
 	{
 		if (_pNativeLangSpeaker)
@@ -1528,9 +1521,9 @@ bool NppParameters::load()
 		_nppGUI._themeName.assign(_stylerPath);
 
 	_pXmlUserStylerDoc._path = _nppGUI._themeName;
-	_pXmlUserStylerDoc._doc = new TiXmlDocument(_nppGUI._themeName.c_str());
+	_pXmlUserStylerDoc._doc = new NppXml::NewDocument();
 
-	loadOkay = _pXmlUserStylerDoc._doc->LoadFile();
+	loadOkay = NppXml::loadFile(_pXmlUserStylerDoc._doc, _pXmlUserStylerDoc._path.c_str());
 	if (!loadOkay)
 	{
 		if (_pNativeLangSpeaker)
@@ -1569,8 +1562,8 @@ bool NppParameters::load()
 	getFilesInFolder(udlFiles, L"*.xml", _userDefineLangsFolderPath);
 
 	_pXmlUserLangDoc._path = _userDefineLangPath;
-	_pXmlUserLangDoc._doc = new TiXmlDocument(_userDefineLangPath);
-	loadOkay = _pXmlUserLangDoc._doc->LoadFile();
+	_pXmlUserLangDoc._doc = new NppXml::NewDocument();
+	loadOkay = NppXml::loadFile(_pXmlUserLangDoc._doc, _userDefineLangPath.c_str());
 	if (!loadOkay)
 	{
 		delete _pXmlUserLangDoc._doc;
@@ -1586,8 +1579,8 @@ bool NppParameters::load()
 
 	for (const auto& i : udlFiles)
 	{
-		TiXmlDocument* udlDoc = new TiXmlDocument(i);
-		loadOkay = udlDoc->LoadFile();
+		NppXml::Document udlDoc = new NppXml::NewDocument();
+		loadOkay = NppXml::loadFile(udlDoc, i.c_str());
 		if (!loadOkay)
 		{
 			delete udlDoc;
@@ -2063,18 +2056,16 @@ bool NppParameters::isInFontList(const std::wstring& fontName2Search) const
 
 void NppParameters::getLangKeywordsFromXmlTree()
 {
-	TiXmlNode* root = _pXmlDoc._doc->FirstChild(L"NotepadPlus");
-
+	NppXml::Element root = NppXml::firstChildElement(_pXmlDoc._doc, "NotepadPlus");
 	if (!root) return;
 	updateFromModelXml(root, ConfXml::lang);	// updateKeyWordsFromModelXml(root);
 	feedKeyWordsParameters(root);
 }
 
-
-void NppParameters::getExternalLexerFromXmlTree(TiXmlDocument* externalLexerDoc)
+void NppParameters::getExternalLexerFromXmlTree(NppXml::Document externalLexerDoc)
 {
-	TiXmlNode *root = externalLexerDoc->FirstChild(L"NotepadPlus");
-		if (!root) return;
+	NppXml::Element root = NppXml::firstChildElement(externalLexerDoc, "NotepadPlus");
+	if (!root) return;
 	feedKeyWordsParameters(root);
 	feedStylerArray(root);
 }
@@ -2091,7 +2082,7 @@ int NppParameters::addExternalLangToEnd(std::unique_ptr<ExternalLangContainer> e
 
 bool NppParameters::getUserStylersFromXmlTree()
 {
-	TiXmlNode* root = _pXmlUserStylerDoc._doc->FirstChild(L"NotepadPlus");
+	NppXml::Element root = NppXml::firstChildElement(_pXmlUserStylerDoc._doc, "NotepadPlus");
 	if (!root)
 		return false;
 
@@ -2101,12 +2092,12 @@ bool NppParameters::getUserStylersFromXmlTree()
 }
 
 
-bool NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
+bool NppParameters::updateFromModelXml(NppXml::Element& rootUser, ConfXml whichConf)
 {
 	// Determine conf-specific information first
 	std::wstring modelXmlFilename;
-	TiXmlDocument* pXmlDocument = nullptr;
-	std::wstring mainElementName;
+	NppXml::Document pXmlDocument = nullptr;
+	std::string mainElementName;
 	std::wstring docPath;
 	switch (whichConf)
 	{
@@ -2115,7 +2106,7 @@ bool NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 			modelXmlFilename = L"langs.model.xml";
 			pXmlDocument = _pXmlDoc._doc;
 			docPath = _pXmlDoc._path;
-			mainElementName = L"Languages";
+			mainElementName = "Languages";
 			break;
 		}
 		case ConfXml::styles:
@@ -2123,7 +2114,7 @@ bool NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 			modelXmlFilename = L"stylers.model.xml";
 			pXmlDocument = _pXmlUserStylerDoc._doc;
 			docPath = _pXmlUserStylerDoc._path;
-			mainElementName = L"LexerStyles";
+			mainElementName = "LexerStyles";
 			break;
 		}
 		default:
@@ -2133,16 +2124,12 @@ bool NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 		}
 	}
 
-	// Need the element version of the user root node throughout
-	TiXmlElement* peRootUser = rootUser->ToElement();
-
 	// Need the name of the XML model document
 	std::wstring modelXmlPath(_nppPath);
 	pathAppend(modelXmlPath, modelXmlFilename);
 
 	// compare the *.model.xml's filesystem "modified" timestamp (date only) to the value stored in the user file modelFileLastModifiedDate attribute
-	int userModelLastModifDate = 0;
-	peRootUser->Attribute(L"modelFileLastModifiedDate", &userModelLastModifDate);
+	const int userModelLastModifDate = NppXml::intAttribute(rootUser, "modelFileLastModifiedDate", 0);
 
 	// read the actual timestamp from the model file; if there's a problem reading the attributes, just exit out (don't need to warn the user, since the main XML has already been loaded)
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
@@ -2159,20 +2146,19 @@ bool NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 		return false;
 
 	// update immediately the modelModifDate stored in the active XML
-	peRootUser->SetAttribute(L"modelFileLastModifiedDate", std::to_wstring(modifiedDate));
+	NppXml::setAttribute(rootUser, "modelFileLastModifiedDate", modifiedDate);
 
 	// At this point, need to parse the model file
 	// if there's a problem loading the model XML, just exit out (don't need to warn the user, since the main XML has already been loaded
-	//	the same logic will be used for any other errors while trying to do this XML merge)
-	TiXmlDocument* pXmlModel = new TiXmlDocument(modelXmlPath);
-
+	// the same logic will be used for any other errors while trying to do this XML merge)
+	NppXml::Document pXmlModel = new NppXml::NewDocument();
 
 	auto handleErrorThenExit = [&]() {
 		switch (whichConf)
 		{
 			case ConfXml::lang:
 			{
-				pXmlDocument->SaveFile();
+				static_cast<void>(NppXml::saveFile(pXmlDocument, docPath.c_str()));
 				break;
 			}
 			case ConfXml::styles:
@@ -2186,28 +2172,26 @@ bool NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 		return false;
 	};
 
-	if (!pXmlModel->LoadFile())
+	if (!NppXml::loadFile(pXmlModel, modelXmlPath.c_str()))
 	{
 		return handleErrorThenExit();
 	}
 
-	TiXmlElement* rootModel = pXmlModel->FirstChildElement(L"NotepadPlus");
+	NppXml::Element rootModel = NppXml::firstChildElement(pXmlModel, "NotepadPlus");
 	if (!rootModel)
 	{
 		return handleErrorThenExit();
 	}
 
 	// compare the *.model.xml's modelDate to that of the active XML
-	int v_model = 0;
-	const wchar_t* wc_model_modelDate = rootModel->Attribute(L"modelDate", &v_model);
+	const int v_model = NppXml::intAttribute(rootModel, "modelDate", 0);
 
-	if (!wc_model_modelDate) // in case modelDate is absent in *.model.xml, no update will happen
+	if (v_model == 0) // in case modelDate is absent in *.model.xml, no update will happen
 	{
 		return handleErrorThenExit();
 	}
 
-	int v_user = 0;
-	peRootUser->Attribute(L"modelDate", &v_user);
+	const int v_user = NppXml::intAttribute(rootUser, "modelDate", 0);
 
 	// v_user is 0 when "modelDate" is absent.
 	if (v_user >= v_model)
@@ -2216,11 +2200,11 @@ bool NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 	}
 
 	// update (or add) the modelDate stored in the active XML
-	peRootUser->SetAttribute(L"modelDate", wc_model_modelDate);
+	NppXml::setAttribute(rootUser, "modelDate", v_model);
 
 	// get the main internal <Languages> element from both user and model
-	TiXmlElement* mainElemUser = rootUser->FirstChildElement(mainElementName);
-	TiXmlElement* mainElemModel = rootModel->FirstChildElement(mainElementName);
+	NppXml::Element mainElemUser = NppXml::firstChildElement(rootUser, mainElementName.c_str());
+	NppXml::Element mainElemModel = NppXml::firstChildElement(rootModel, mainElementName.c_str());
 	if (!mainElemUser || !mainElemModel)
 	{
 		return handleErrorThenExit();
@@ -2231,12 +2215,12 @@ bool NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 		case ConfXml::lang:
 		{
 			updateLangXml(mainElemUser, mainElemModel);
-			pXmlDocument->SaveFile();
+			static_cast<void>(NppXml::saveFile(pXmlDocument, docPath.c_str()));
 			break;
 		}
 		case ConfXml::styles:
 		{
-			updateStylesXml(peRootUser, docPath, rootModel, mainElemUser, mainElemModel);
+			updateStylesXml(rootUser, docPath, rootModel, mainElemUser, mainElemModel);
 			writeStyles(_lexerStylerVect, _widgetStyleArray);
 			break;
 		}
@@ -2246,25 +2230,25 @@ bool NppParameters::updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf)
 	return true;
 }
 
-void NppParameters::updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* mainElemModel)
+void NppParameters::updateLangXml(NppXml::Element& mainElemUser, const NppXml::Element& mainElemModel)
 {
 	// map each of the user-file's languages -> element-pointer, to keep track of the languages already in the user-file
-	std::map<std::wstring, TiXmlElement*> mapUserLanguages{};
-	for (TiXmlElement* langFromUser = mainElemUser->FirstChildElement(L"Language");
+	std::map<std::string, NppXml::Element> mapUserLanguages{};
+	for (NppXml::Element langFromUser = NppXml::firstChildElement(mainElemUser, "Language");
 		langFromUser;
-		langFromUser = langFromUser->NextSiblingElement(L"Language"))
+		langFromUser = NppXml::nextSiblingElement(langFromUser, "Language"))
 	{
-		const wchar_t* languageName = langFromUser->Attribute(L"name");
+		const char* languageName = NppXml::attribute(langFromUser, "name");
 		if (languageName)
 			mapUserLanguages[languageName] = langFromUser;
 	}
 
 	// for each language in the Model,
-	for (TiXmlElement* langFromModel = mainElemModel->FirstChildElement(L"Language");
+	for (NppXml::Element langFromModel = NppXml::firstChildElement(mainElemModel, "Language");
 		langFromModel;
-		langFromModel = langFromModel->NextSiblingElement(L"Language"))
+		langFromModel = NppXml::nextSiblingElement(langFromModel, "Language"))
 	{
-		std::wstring modelLanguageName = langFromModel->Attribute(L"name");
+		std::string modelLanguageName = NppXml::attribute(langFromModel, "name", "");
 		if (modelLanguageName.empty())
 			continue;
 
@@ -2274,22 +2258,23 @@ void NppParameters::updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* main
 			// if so, see if I need to update individual entries
 
 			// first, enumerate each keywords name -> element pointer, so I know what's already there
-			std::map<std::wstring, TiXmlElement*> mapUserKeywords{};
-			for (TiXmlElement* keywordsFromUser = mapUserLanguages[modelLanguageName]->FirstChildElement(L"Keywords");
+			std::map<std::string, NppXml::Element> mapUserKeywords{};
+			for (NppXml::Element keywordsFromUser = NppXml::firstChildElement(mapUserLanguages[modelLanguageName], "Keywords");
 				keywordsFromUser;
-				keywordsFromUser = keywordsFromUser->NextSiblingElement(L"Keywords"))
+				keywordsFromUser = NppXml::nextSiblingElement(keywordsFromUser, "Keywords"))
 			{
-				const wchar_t* keywordsName = keywordsFromUser->Attribute(L"name");
+				const char* keywordsName = NppXml::attribute(keywordsFromUser, "name");
 				if (keywordsName)
 					mapUserKeywords[keywordsName] = keywordsFromUser;
 			}
 
 			// then, for each Keywords entry in the model, check to see if it already exists in the user list
-			for (TiXmlElement* keywordsFromModel = langFromModel->FirstChildElement(L"Keywords");
+			for (NppXml::Element keywordsFromModel = NppXml::firstChildElement(langFromModel, "Keywords");
 				keywordsFromModel;
-				keywordsFromModel = keywordsFromModel->NextSiblingElement(L"Keywords"))
+				keywordsFromModel = NppXml::nextSiblingElement(keywordsFromModel, "Keywords"))
 			{
-				std::wstring modelKeywordsName = keywordsFromModel->Attribute(L"name");
+				const char* modelKwName = NppXml::attribute(keywordsFromModel, "name");
+				std::string modelKeywordsName = modelKwName ? modelKwName : "";
 				if (modelKeywordsName.empty())
 					continue;
 
@@ -2299,45 +2284,43 @@ void NppParameters::updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* main
 					// if Keywords element in user langs.xml, need to check to see if any words are missing from its contents
 
 					// start by extracting the list of words in the user version of this Keywords element
-					TiXmlNode* pKwsValue = mapUserKeywords[modelKeywordsName]->FirstChild();
-					std::wstring wsText = pKwsValue ? pKwsValue->Value() : L"";
-					std::vector<std::wstring> vwsUserWords{};
-					std::map<std::wstring, bool> mapUserWords{};
-					if (!wsText.empty())
+					NppXml::Node pKwsValue = NppXml::firstChild(mapUserKeywords[modelKeywordsName]);
+					std::string sText = pKwsValue ? NppXml::value(pKwsValue) : "";
+					std::vector<std::string> vsUserWords{};
+					std::map<std::string, bool> mapUserWords{};
+					if (!sText.empty())
 					{
-						std::wstring wsToken;
-						std::wistringstream wstrm(wsText);
-						while (wstrm >> wsToken)
+						std::string sToken;
+						std::istringstream strm(sText);
+						while (strm >> sToken)
 						{
-							vwsUserWords.push_back(wsToken);
-							mapUserWords[wsToken] = true;
+							vsUserWords.push_back(sToken);
+							mapUserWords[sToken] = true;
 						}
 					}
 
 					// then go through each word in the model, and add it to the list if it's not already there
 					int nWordsAdded = 0;
-					TiXmlNode* pKwsValueModel = keywordsFromModel->FirstChild();
-					std::wstring wsTextModel = pKwsValueModel ? pKwsValueModel->Value() : L"";
+					NppXml::Node pKwsValueModel = NppXml::firstChild(keywordsFromModel);
+					std::string sTextModel = pKwsValueModel ? NppXml::value(pKwsValueModel) : "";
 					if (!pKwsValue)
 					{
 						if (pKwsValueModel)
 						{
-							TiXmlNode* p_clone = pKwsValueModel->Clone();
-							mapUserKeywords[modelKeywordsName]->LinkEndChild(p_clone);
+							NppXml::insertEndChild(mapUserKeywords[modelKeywordsName], pKwsValueModel);
 						}
 					}
 					else
 					{
-
-						if (!wsTextModel.empty())
+						if (!sTextModel.empty())
 						{
-							std::wstring wsToken;
-							std::wistringstream wstrm(wsTextModel);
-							while (wstrm >> wsToken)
+							std::string sToken;
+							std::istringstream strm(sTextModel);
+							while (strm >> sToken)
 							{
-								if (!mapUserWords.contains(wsToken))
+								if (!mapUserWords.contains(sToken))
 								{
-									vwsUserWords.push_back(wsToken);
+									vsUserWords.push_back(sToken);
 									++nWordsAdded;
 								}
 							}
@@ -2347,95 +2330,94 @@ void NppParameters::updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* main
 						if (nWordsAdded)
 						{
 							// sort the words in standard case-sensitive alphabetical order
-							std::sort(vwsUserWords.begin(), vwsUserWords.end());
+							std::sort(vsUserWords.begin(), vsUserWords.end());
 
 							// convert that list into space-separated string, with at most 8000 characters per line
 							size_t lineLength = 0;
 							static constexpr size_t maxLineLength = 8000;
 							bool first = true;
-							std::wstring wsOutputWords;
-							for (const auto& wsWord : vwsUserWords)
+							std::string sOutputWords;
+							for (const auto& sWord : vsUserWords)
 							{
 								if (!first)
 								{
 									// space between words
-									wsOutputWords += L" ";
+									sOutputWords += " ";
 									lineLength += 1;
 								}
 								first = false;
 
-								if (lineLength + wsWord.length() >= maxLineLength)
+								if (lineLength + sWord.length() >= maxLineLength)
 								{
 									// start next line
 									lineLength = 0;
-									wsOutputWords += L"\n                ";
+									sOutputWords += "\n                ";
 								}
 
 								// add this word to the output string
-								wsOutputWords += wsWord;
-								lineLength += wsWord.length();
+								sOutputWords += sWord;
+								lineLength += sWord.length();
 							}
 
 							// and update the XML's value
-							pKwsValue->SetValue(wsOutputWords);
+							NppXml::setValue(pKwsValue, sOutputWords.c_str());
 						}
 					}
 				}
 				else
 				{
 					// if this Keywords element doesn't exist in user list, need to clone it from model to the right parent language in the user list
-					TiXmlNode* p_clone = keywordsFromModel->Clone();
-					mapUserLanguages[modelLanguageName]->LinkEndChild(p_clone);
+					NppXml::insertEndChild(mapUserLanguages[modelLanguageName], keywordsFromModel);
 				}
 			}
 
 			// Also, since <Language name="..." ...> can have other attributes, need to check to make sure that
-			//		the user langs copy of language isn't missing any of the attributes from the model
-			TiXmlElement* thisLanguageFromUser = mapUserLanguages[modelLanguageName];
-			for (TiXmlAttribute* attrModel = langFromModel->FirstAttribute();
+			// the user langs copy of language isn't missing any of the attributes from the model
+			NppXml::Element thisLanguageFromUser = mapUserLanguages[modelLanguageName];
+			for (NppXml::Attribute attrModel = NppXml::firstAttribute(langFromModel);
 				attrModel;
-				attrModel = attrModel->Next())
+				attrModel = NppXml::next(attrModel))
 			{
 				// if attribute not in user, need to add it (but leave it alone if the user-langs has it, but is just an empty string, because that's intentionally blank)
-				const wchar_t* pwcUserValue = thisLanguageFromUser->Attribute(attrModel->Name());
-				if (!pwcUserValue)
-					thisLanguageFromUser->SetAttribute(attrModel->Name(), attrModel->Value());
-				else if (std::wstring(L"ext") == attrModel->Name())
+				const char* attrName = NppXml::name(attrModel);
+				const char* pcUserValue = NppXml::attribute(thisLanguageFromUser, attrName);
+				if (!pcUserValue)
+					NppXml::setAttribute(thisLanguageFromUser, attrName, NppXml::value(attrModel));
+				else if (std::strcmp(attrName, "ext"))
 				{
 					// Get both user and model values for the ext attribute
-					std::wstring wsExtValues = std::wstring(pwcUserValue) + L" " + attrModel->Value();
-					std::wstring wsExtUpdated;
-					std::map<std::wstring, bool> isExtDone{};
-					std::wstring wsToken;
-					std::wistringstream wstrm(wsExtValues);
-					while (wstrm >> wsToken)
+					std::string sExtValues = std::string(pcUserValue) + " " + NppXml::value(attrModel);
+					std::string sExtUpdated;
+					std::map<std::string, bool> isExtDone{};
+					std::string sToken;
+					std::istringstream strm(sExtValues);
+					while (strm >> sToken)
 					{
-						if (!isExtDone.contains(wsToken))
+						if (!isExtDone.contains(sToken))
 						{
-							if (!wsExtUpdated.empty())
-								wsExtUpdated += L" ";
-							wsExtUpdated += wsToken;
-							isExtDone[wsToken] = true;
+							if (!sExtUpdated.empty())
+								sExtUpdated += " ";
+							sExtUpdated += sToken;
+							isExtDone[sToken] = true;
 						}
 					}
-					thisLanguageFromUser->SetAttribute(attrModel->Name(), wsExtUpdated);
+					NppXml::setAttribute(thisLanguageFromUser, attrName, sExtUpdated.c_str());
 				}
 			}
 		}
 		else
 		{
 			// otherwise, since Language doesn't exist in User Languages, need to duplicate/clone from model to user-langs structure
-			TiXmlNode* p_clone = langFromModel->Clone();
-			mainElemUser->LinkEndChild(p_clone);
+			NppXml::insertEndChild(mainElemUser, langFromModel);
 		}
 	}
 
 	return;
 }
 
-void NppParameters::updateStylesXml(TiXmlElement* rootUser, const std::wstring& userDocPath, TiXmlElement* rootModel, TiXmlElement* mainElemUser, TiXmlElement* mainElemModel)
+void NppParameters::updateStylesXml(const NppXml::Element& rootUser, const std::wstring& userDocPath, const NppXml::Element& rootModel, NppXml::Element& mainElemUser, const NppXml::Element& mainElemModel)
 {
-	std::wstring defaultFgColor, defaultBgColor;
+	std::string defaultFgColor, defaultBgColor;
 
 	auto endsWith = [](std::wstring const& fullString, std::wstring const& suffix) -> bool
 	{
@@ -2453,21 +2435,24 @@ void NppParameters::updateStylesXml(TiXmlElement* rootUser, const std::wstring& 
 
 	// Start with GlobalStyles
 	//		(even though it comes later in the actual XML file, need to be able to extract the defaultFgColor and defaultBgColor before doing the individual lexers)
-	TiXmlNode* gsUser = rootUser->FirstChildElement(L"GlobalStyles");
-	TiXmlNode* gsModel = rootModel->FirstChildElement(L"GlobalStyles");
+	NppXml::Element gsUser = NppXml::firstChildElement(rootUser, "GlobalStyles");
+	NppXml::Element gsModel = NppXml::firstChildElement(rootModel, "GlobalStyles");
 	if (!gsUser || !gsModel)
 		return;
 
 	// map UserStyler's widget styleID||name -> node-pointer
-	std::map<std::wstring, TiXmlElement*> mapUserWidgets{};
-	for (TiXmlElement* widgetFromUser = gsUser->FirstChildElement(L"WidgetStyle");
+	std::map<std::string, NppXml::Element> mapUserWidgets{};
+	for (NppXml::Element widgetFromUser = NppXml::firstChildElement(gsUser, "WidgetStyle");
 		widgetFromUser;
-		widgetFromUser = widgetFromUser->NextSiblingElement(L"WidgetStyle"))
+		widgetFromUser = NppXml::nextSiblingElement(widgetFromUser, "WidgetStyle"))
 	{
 		// use StyleID for the map's key, or if styleID not found or if "0" then use the widget's name (lowercase) instead
-		std::wstring widgetKey = widgetFromUser->Attribute(L"styleID");
-		if (widgetKey.empty() || widgetKey == L"0" || (decStrVal(widgetKey.c_str()) > 256) || (decStrVal(widgetKey.c_str()) < 0))
-			widgetKey = widgetFromUser->Attribute(L"name");
+		const int styleID = NppXml::intAttribute(widgetFromUser, "styleID", 0);
+		std::string widgetKey;
+		if (styleID > 0 && styleID <= 256)
+			widgetKey = std::to_string(styleID);
+		else
+			widgetKey = NppXml::attribute(widgetFromUser, "name");
 
 		// add widget to map using the key
 		if (!widgetKey.empty())
@@ -2475,23 +2460,27 @@ void NppParameters::updateStylesXml(TiXmlElement* rootUser, const std::wstring& 
 			mapUserWidgets[widgetKey] = widgetFromUser;
 
 			// save the colors from <WidgetStyle name="Default Style" styleID="32" ...>
-			if (widgetKey == L"32")
+			if (widgetKey == "32")
 			{
-				defaultFgColor = widgetFromUser->Attribute(L"fgColor");
-				defaultBgColor = widgetFromUser->Attribute(L"bgColor");
+				defaultFgColor = NppXml::attribute(widgetFromUser, "fgColor");
+				defaultBgColor = NppXml::attribute(widgetFromUser, "bgColor");
 			}
 		}
 	}
 
 	// for each WidgetStyle in the model,
-	for (TiXmlElement* widgetFromModel = gsModel->FirstChildElement(L"WidgetStyle");
+	for (NppXml::Element widgetFromModel = NppXml::firstChildElement(gsModel, "WidgetStyle");
 		widgetFromModel;
-		widgetFromModel = widgetFromModel->NextSiblingElement(L"WidgetStyle"))
+		widgetFromModel = NppXml::nextSiblingElement(widgetFromModel, "WidgetStyle"))
 	{
 		// extract the key
-		std::wstring widgetKey = widgetFromModel->Attribute(L"styleID");
-		if (widgetKey.empty() || widgetKey == L"0" || (decStrVal(widgetKey.c_str()) > 256) || (decStrVal(widgetKey.c_str()) < 0))
-			widgetKey = widgetFromModel->Attribute(L"name");
+		const int styleID = NppXml::intAttribute(widgetFromModel, "styleID", 0);
+		std::string widgetKey;
+		if (styleID > 0 && styleID <= 256)
+			widgetKey = std::to_string(styleID);
+		else if (const char* name = NppXml::attribute(widgetFromModel, "name"); name)
+			widgetKey = name;
+
 		if (widgetKey.empty())
 			continue;
 
@@ -2499,24 +2488,24 @@ void NppParameters::updateStylesXml(TiXmlElement* rootUser, const std::wstring& 
 		if (mapUserWidgets.contains(widgetKey))
 		{
 			// if so, see if I need to update individual attributes
-			for (TiXmlAttribute* attrModel = widgetFromModel->FirstAttribute();
-				attrModel != nullptr;
-				attrModel = attrModel->Next())
+			for (NppXml::Attribute attrModel = NppXml::firstAttribute(widgetFromModel);
+				attrModel;
+				attrModel = NppXml::next(attrModel))
 			{
 				// if attribute not in user, need to add it (but leave it alone if it's there but an empty string, because then it's intentionally set blank)
-				const wchar_t* pwcUserValue = mapUserWidgets[widgetKey]->Attribute(attrModel->Name());
-				if (!pwcUserValue)
+				const char* attrName = NppXml::name(attrModel);
+				const char* pcUserValue = NppXml::attribute(mapUserWidgets[widgetKey], attrName);
+				if (!pcUserValue)
 				{
-					std::wstring attrName = attrModel->Name();
-					mapUserWidgets[widgetKey]->SetAttribute(attrName, attrModel->Value());
+					NppXml::setAttribute(mapUserWidgets[widgetKey], attrName, NppXml::value(attrModel));
 
 					if (useDefaultColors)
 					{
 						// override the value from the model file with the default value, for fgColor and bgColor only
-						if (attrName == L"fgColor")
-							mapUserWidgets[widgetKey]->SetAttribute(attrModel->Name(), defaultFgColor);
-						else if (attrName == L"bgColor")
-							mapUserWidgets[widgetKey]->SetAttribute(attrModel->Name(), defaultBgColor);
+						if (std::strcmp(attrName, "fgColor") == 0)
+							NppXml::setAttribute(mapUserWidgets[widgetKey], attrName, defaultFgColor.c_str());
+						else if (std::strcmp(attrName, "bgColor") == 0)
+							NppXml::setAttribute(mapUserWidgets[widgetKey], attrName, defaultBgColor.c_str());
 					}
 				}
 			}
@@ -2524,94 +2513,91 @@ void NppParameters::updateStylesXml(TiXmlElement* rootUser, const std::wstring& 
 		else
 		{
 			// otherwise, need to duplicate/clone from model to userStyles
-			TiXmlNode* p_clone = widgetFromModel->Clone();
+			NppXml::Element p_cloneElement = NppXml::insertEndChild(gsUser, widgetFromModel);
 
 			// if using the default colors, need to override fgColor and bgColor
 			if (useDefaultColors)
 			{
-				TiXmlElement* p_cloneElement = p_clone->ToElement();
-				if (p_cloneElement->Attribute(L"fgColor"))
-					p_cloneElement->SetAttribute(L"fgColor", defaultFgColor);
-				if (p_cloneElement->Attribute(L"bgColor"))
-					p_cloneElement->SetAttribute(L"bgColor", defaultBgColor);
+				if (NppXml::attribute(p_cloneElement, "fgColor"))
+					NppXml::setAttribute(p_cloneElement, "fgColor", defaultFgColor.c_str());
+				if (NppXml::attribute(p_cloneElement, "bgColor"))
+					NppXml::setAttribute(p_cloneElement, "bgColor", defaultBgColor.c_str());
 			}
-
-			// now that XML element is cloned properly, add it to the GlobalStyles content
-			gsUser->LinkEndChild(p_clone);
 		}
 	}
 
 
 	// map UserStyler's lexer name -> element-pointer
-	std::map<std::wstring, TiXmlElement*> mapUserLexers{};
-	for (TiXmlElement* lexerFromUser = mainElemUser->FirstChildElement(L"LexerType");
+	std::map<std::string, NppXml::Element> mapUserLexers{};
+	for (NppXml::Element lexerFromUser = NppXml::firstChildElement(mainElemUser, "LexerType");
 		lexerFromUser;
-		lexerFromUser = lexerFromUser->NextSiblingElement(L"LexerType"))
+		lexerFromUser = NppXml::nextSiblingElement(lexerFromUser, "LexerType"))
 	{
-		const wchar_t* lexerName = lexerFromUser->Attribute(L"name");
+		const char* lexerName = NppXml::attribute(lexerFromUser, "name");
 		if (lexerName)
 			mapUserLexers[lexerName] = lexerFromUser;
 	}
 
 	// For each lexer in the model,
-	for (TiXmlElement* lexerFromModel = mainElemModel->FirstChildElement(L"LexerType");
+	for (NppXml::Element lexerFromModel = NppXml::firstChildElement(mainElemModel, "LexerType");
 		lexerFromModel;
-		lexerFromModel = lexerFromModel->NextSiblingElement(L"LexerType"))
+		lexerFromModel = NppXml::nextSiblingElement(lexerFromModel, "LexerType"))
 	{
-		std::wstring modelLexerName = lexerFromModel->Attribute(L"name");
-		if (modelLexerName.empty())
+		const char* modelLexerName = NppXml::attribute(lexerFromModel, "name");
+		
+		if (!modelLexerName)
 			continue;
 
 		// map styleID numbers: index will be the target dot-js ID, intermediate index is fgColor/bgColor, stored value will be the source embedded-javascript color string
-		std::map <std::wstring, std::map<std::wstring, std::wstring>> mapColorsEmbeddedToDotJs;
-		if ((modelLexerName == L"javascript.js") && mapUserLexers.contains(L"javascript"))
+		std::map <std::string, std::map<std::string, std::string>> mapColorsEmbeddedToDotJs;
+		if (std::strcmp(modelLexerName, "javascript.js") == 0 && mapUserLexers.contains("javascript"))
 		{
-			TiXmlElement* srcEmbeddedLexer = mapUserLexers[L"javascript"];
+			NppXml::Element srcEmbeddedLexer = mapUserLexers["javascript"];
 
 			// iterate through each embedded WordsStyle element
-			for (TiXmlElement* embeddedWordsStyle = srcEmbeddedLexer->FirstChildElement(L"WordsStyle");
+			for (NppXml::Element embeddedWordsStyle = NppXml::firstChildElement(srcEmbeddedLexer, "WordsStyle");
 				embeddedWordsStyle;
-				embeddedWordsStyle = embeddedWordsStyle->NextSiblingElement(L"WordsStyle"))
+				embeddedWordsStyle = NppXml::nextSiblingElement(embeddedWordsStyle, "WordsStyle"))
 			{
-				const wchar_t* embeddedID = embeddedWordsStyle->Attribute(L"styleID");
-				const wchar_t* embeddedFG = embeddedWordsStyle->Attribute(L"fgColor");
-				const wchar_t* embeddedBG = embeddedWordsStyle->Attribute(L"bgColor");
+				const char* embeddedID = NppXml::attribute(embeddedWordsStyle, "styleID");
+				const char* embeddedFG = NppXml::attribute(embeddedWordsStyle, "fgColor");
+				const char* embeddedBG = NppXml::attribute(embeddedWordsStyle, "bgColor");
 				if (embeddedID)
 				{
-					auto do_embedded_to_dot_js_map = [](std::map<std::wstring, std::map<std::wstring, std::wstring>>& colorid_map, const std::wstring& dotjs_id, const std::wstring& emb_id_desired, const wchar_t* embID, const wchar_t* embFG, const wchar_t* embBG) {
+					auto do_embedded_to_dot_js_map = [](std::map <std::string, std::map<std::string, std::string>>&colorid_map, const std::string& dotjs_id, const std::string& emb_id_desired, const char* embID, const char* embFG, const char* embBG) {
 						if (emb_id_desired == embID)
 						{
 							if (embFG)
-								colorid_map[dotjs_id][L"fgColor"] = embFG;
+								colorid_map[dotjs_id]["fgColor"] = embFG;
 							if (embBG)
-								colorid_map[dotjs_id][L"bgColor"] = embBG;
+								colorid_map[dotjs_id]["bgColor"] = embBG;
 						}
 					};
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"11", L"41", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::DEFAULT from EMBEDDED::DEFAULT
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"4", L"45", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::NUMBER from EMBEDDED::NUMBER
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"16", L"46", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::TYPE_WORD<type1> from EMBEDDED::WORD
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"5", L"47", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::INSTRUCTION_WORD <instre1> from EMBEDDED::KEYWORD <instre1>
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"19", L"47", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::WINDOW_INSTRUCTION <instre2> also from EMBEDDED::KEYWORD <instre1> (there isn't 1:1 mapping, so multiple .js styles inherit from from same embedded style)
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"6", L"48", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::STRING from EMBEDDED::DOUBLE STRING
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"20", L"48", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::STRING_RAW also from EMBEDDED::DOUBLE STRING
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"7", L"49", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::CHARACTER from EMBEDDED::SINGLE STRING
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"10", L"50", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::OPERATOR from EMBEDDED::SYMBOLS
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"14", L"52", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::REGEX from EMBEDDED::REGEX
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"1", L"42", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::COMMENT from EMBEDDED::COMMENT
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"2", L"43", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::COMMENT LINE from EMBEDDED::COMMENT LINE
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"3", L"44", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::COMMENT DOC from EMBEDDED::COMMENT DOC
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"15", L"44", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::COMMENT LINE DOC also from EMBEDDED::COMMENT DOC
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"17", L"44", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::COMMENT LINE DOC also from EMBEDDED::COMMENT DOC
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"18", L"44", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::COMMENT DOC KEYWORD also from EMBEDDED::COMMENT DOC
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"19", L"44", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::COMMENT DOC KEYWORD ERROR also from EMBEDDED::COMMENT DOC
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"128", L"200", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::USER* from EMBEDDED::USER*
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"129", L"201", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::USER* from EMBEDDED::USER*
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"130", L"202", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::USER* from EMBEDDED::USER*
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"131", L"203", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::USER* from EMBEDDED::USER*
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"132", L"204", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::USER* from EMBEDDED::USER*
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"133", L"205", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::USER* from EMBEDDED::USER*
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"134", L"206", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::USER* from EMBEDDED::USER*
-					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, L"135", L"207", embeddedID, embeddedFG, embeddedBG);	// get DOTJS::USER* from EMBEDDED::USER*
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "11", "41", embeddedID, embeddedFG, embeddedBG);    // get DOTJS::DEFAULT from EMBEDDED::DEFAULT
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "4", "45", embeddedID, embeddedFG, embeddedBG);     // get DOTJS::NUMBER from EMBEDDED::NUMBER
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "16", "46", embeddedID, embeddedFG, embeddedBG);    // get DOTJS::TYPE_WORD<type1> from EMBEDDED::WORD
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "5", "47", embeddedID, embeddedFG, embeddedBG);     // get DOTJS::INSTRUCTION_WORD <instre1> from EMBEDDED::KEYWORD <instre1>
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "19", "47", embeddedID, embeddedFG, embeddedBG);    // get DOTJS::WINDOW_INSTRUCTION <instre2> also from EMBEDDED::KEYWORD <instre1> (there isn't 1:1 mapping, so multiple .js styles inherit from from same embedded style)
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "6", "48", embeddedID, embeddedFG, embeddedBG);     // get DOTJS::STRING from EMBEDDED::DOUBLE STRING
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "20", "48", embeddedID, embeddedFG, embeddedBG);    // get DOTJS::STRING_RAW also from EMBEDDED::DOUBLE STRING
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "7", "49", embeddedID, embeddedFG, embeddedBG);     // get DOTJS::CHARACTER from EMBEDDED::SINGLE STRING
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "10", "50", embeddedID, embeddedFG, embeddedBG);    // get DOTJS::OPERATOR from EMBEDDED::SYMBOLS
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "14", "52", embeddedID, embeddedFG, embeddedBG);    // get DOTJS::REGEX from EMBEDDED::REGEX
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "1", "42", embeddedID, embeddedFG, embeddedBG);     // get DOTJS::COMMENT from EMBEDDED::COMMENT
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "2", "43", embeddedID, embeddedFG, embeddedBG);     // get DOTJS::COMMENT LINE from EMBEDDED::COMMENT LINE
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "3", "44", embeddedID, embeddedFG, embeddedBG);     // get DOTJS::COMMENT DOC from EMBEDDED::COMMENT DOC
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "15", "44", embeddedID, embeddedFG, embeddedBG);    // get DOTJS::COMMENT LINE DOC also from EMBEDDED::COMMENT DOC
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "17", "44", embeddedID, embeddedFG, embeddedBG);    // get DOTJS::COMMENT LINE DOC also from EMBEDDED::COMMENT DOC
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "18", "44", embeddedID, embeddedFG, embeddedBG);    // get DOTJS::COMMENT DOC KEYWORD also from EMBEDDED::COMMENT DOC
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "19", "44", embeddedID, embeddedFG, embeddedBG);    // get DOTJS::COMMENT DOC KEYWORD ERROR also from EMBEDDED::COMMENT DOC
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "128", "200", embeddedID, embeddedFG, embeddedBG);  // get DOTJS::USER* from EMBEDDED::USER*
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "129", "201", embeddedID, embeddedFG, embeddedBG);  // get DOTJS::USER* from EMBEDDED::USER*
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "130", "202", embeddedID, embeddedFG, embeddedBG);  // get DOTJS::USER* from EMBEDDED::USER*
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "131", "203", embeddedID, embeddedFG, embeddedBG);  // get DOTJS::USER* from EMBEDDED::USER*
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "132", "204", embeddedID, embeddedFG, embeddedBG);  // get DOTJS::USER* from EMBEDDED::USER*
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "133", "205", embeddedID, embeddedFG, embeddedBG);  // get DOTJS::USER* from EMBEDDED::USER*
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "134", "206", embeddedID, embeddedFG, embeddedBG);  // get DOTJS::USER* from EMBEDDED::USER*
+					do_embedded_to_dot_js_map(mapColorsEmbeddedToDotJs, "135", "207", embeddedID, embeddedFG, embeddedBG);  // get DOTJS::USER* from EMBEDDED::USER*
 				}
 			}
 		}
@@ -2622,22 +2608,22 @@ void NppParameters::updateStylesXml(TiXmlElement* rootUser, const std::wstring& 
 			// if so, see if I need to update individual entries
 
 			// first, enumerate each words-style ID -> element-pointer, so I know what's already there
-			std::map<std::wstring, TiXmlElement*> mapUserWordsStyles{};
-			for (TiXmlElement* wordsStyleFromUser = mapUserLexers[modelLexerName]->FirstChildElement(L"WordsStyle");
+			std::map<std::string, NppXml::Element> mapUserWordsStyles{};
+			for (NppXml::Element wordsStyleFromUser = NppXml::firstChildElement(mapUserLexers[modelLexerName], "WordsStyle");
 				wordsStyleFromUser;
-				wordsStyleFromUser = wordsStyleFromUser->NextSiblingElement(L"WordsStyle"))
+				wordsStyleFromUser = NppXml::nextSiblingElement(wordsStyleFromUser, "WordsStyle"))
 			{
-				const wchar_t* wordsStyleID = wordsStyleFromUser->Attribute(L"styleID");
+				const char* wordsStyleID = NppXml::attribute(wordsStyleFromUser, "styleID");
 				if (wordsStyleID)
 					mapUserWordsStyles[wordsStyleID] = wordsStyleFromUser;
 			}
 
 			// then, for each words-style in the Model, check to see if it already exists in the user list
-			for (TiXmlElement* wordsStyleFromModel = lexerFromModel->FirstChildElement(L"WordsStyle");
+			for (NppXml::Element wordsStyleFromModel = NppXml::firstChildElement(lexerFromModel, "WordsStyle");
 				wordsStyleFromModel;
-				wordsStyleFromModel = wordsStyleFromModel->NextSiblingElement(L"WordsStyle"))
+				wordsStyleFromModel = NppXml::nextSiblingElement(wordsStyleFromModel, "WordsStyle"))
 			{
-				std::wstring modelWordsStyleID = wordsStyleFromModel->Attribute(L"styleID");
+				std::string modelWordsStyleID = NppXml::attribute(wordsStyleFromModel, "styleID", "");
 				if (modelWordsStyleID.empty())
 					continue;
 
@@ -2647,110 +2633,100 @@ void NppParameters::updateStylesXml(TiXmlElement* rootUser, const std::wstring& 
 					// if already exists, check for missing attributes
 
 					// need the element from user, to be able to check its attributes against the model's attributes
-					TiXmlElement* elementFromUser = mapUserWordsStyles[modelWordsStyleID];
+					NppXml::Element elementFromUser = mapUserWordsStyles[modelWordsStyleID];
 
 					// loop through each attribute in the model's element
-					for (TiXmlAttribute* attrModel = wordsStyleFromModel->FirstAttribute();
-						attrModel != nullptr;
-						attrModel = attrModel->Next())
+					for (NppXml::Attribute attrModel = NppXml::firstAttribute(wordsStyleFromModel);
+						attrModel;
+						attrModel = NppXml::next(attrModel))
 					{
 						// if attribute not in user, need to add it (but leave it alone if it's there but an empty string, because then it's intentionally set blank)
-						const wchar_t* pwcUserValue = elementFromUser->Attribute(attrModel->Name());
-						if (!pwcUserValue)
+						const char* attrName = NppXml::name(attrModel);
+						const char* pcUserValue = NppXml::attribute(elementFromUser, attrName);
+						if (!pcUserValue)
 						{
-							std::wstring attrName = attrModel->Name();
-							elementFromUser->SetAttribute(attrName, attrModel->Value());
+							NppXml::setAttribute(elementFromUser, attrName, NppXml::value(attrModel));
 
 							if (useDefaultColors)
 							{
-								std::wstring newFg = defaultFgColor;
-								std::wstring newBg = defaultBgColor;
-								std::wstring dest_id = elementFromUser->Attribute(L"styleID");
+								std::string newFg = defaultFgColor;
+								std::string newBg = defaultBgColor;
+								std::string dest_id = NppXml::attribute(elementFromUser, "styleID", "");
 								if (!dest_id.empty() && mapColorsEmbeddedToDotJs.contains(dest_id))
 								{
-									//std::wstring src_id = mapColorsEmbeddedToDotJs[dest_id];
-									if (attrName == L"fgColor" && mapColorsEmbeddedToDotJs[dest_id].contains(attrName))
+									//std::string src_id = mapColorsEmbeddedToDotJs[dest_id];
+									if (std::strcmp(attrName, "fgColor") == 0 && mapColorsEmbeddedToDotJs[dest_id].contains(attrName))
 										newFg =  mapColorsEmbeddedToDotJs[dest_id][attrName];
-									if (attrName == L"bgColor" && mapColorsEmbeddedToDotJs[dest_id].contains(attrName))
+									if (std::strcmp(attrName, "bgColor") == 0 && mapColorsEmbeddedToDotJs[dest_id].contains(attrName))
 										newBg = mapColorsEmbeddedToDotJs[dest_id][attrName];
 								}
 
 								// override the value from the model file with the default value, for fgColor and bgColor only
-								if (attrName == L"fgColor")
-									elementFromUser->SetAttribute(attrName, newFg);
-								else if (attrName == L"bgColor")
-									elementFromUser->SetAttribute(attrName, newBg);
+								if (std::strcmp(attrName, "fgColor") == 0)
+									NppXml::setAttribute(elementFromUser, attrName, newFg.c_str());
+								else if (std::strcmp(attrName, "bgColor") == 0)
+									NppXml::setAttribute(elementFromUser, attrName, newBg.c_str());
 							}
 						}
-
 					}
 				}
 				else
 				{
 					// if WordsStyle doesn't exist, need to clone it from model to the right parent lexer in the user list
-					TiXmlNode* p_clone = wordsStyleFromModel->Clone();
+					NppXml::Element p_cloneElement = NppXml::insertEndChild(mapUserLexers[modelLexerName], wordsStyleFromModel);
 
 					// if using the default colors, need to override fgColor and bgColor
 					if (useDefaultColors)
 					{
-						TiXmlElement* p_cloneElement = p_clone->ToElement();
-
-						std::wstring newFg = defaultFgColor;
-						std::wstring newBg = defaultBgColor;
-						std::wstring dest_id = p_cloneElement->Attribute(L"styleID");
+						std::string newFg = defaultFgColor;
+						std::string newBg = defaultBgColor;
+						std::string dest_id = NppXml::attribute(p_cloneElement, "styleID", "");
 						if (!dest_id.empty() && mapColorsEmbeddedToDotJs.contains(dest_id))
 						{
-							if (p_cloneElement->Attribute(L"fgColor") && mapColorsEmbeddedToDotJs[dest_id].contains(L"fgColor"))
-								newFg = mapColorsEmbeddedToDotJs[dest_id][L"fgColor"];
-							if (p_cloneElement->Attribute(L"bgColor") && mapColorsEmbeddedToDotJs[dest_id].contains(L"bgColor"))
-								newBg = mapColorsEmbeddedToDotJs[dest_id][L"bgColor"];
+							if (NppXml::attribute(p_cloneElement, "fgColor") && mapColorsEmbeddedToDotJs[dest_id].contains("fgColor"))
+								newFg = mapColorsEmbeddedToDotJs[dest_id]["fgColor"];
+							if (NppXml::attribute(p_cloneElement, "bgColor") && mapColorsEmbeddedToDotJs[dest_id].contains("bgColor"))
+								newBg = mapColorsEmbeddedToDotJs[dest_id]["bgColor"];
 						}
 
-						if (p_cloneElement->Attribute(L"fgColor"))
-							p_cloneElement->SetAttribute(L"fgColor", newFg);
-						if (p_cloneElement->Attribute(L"bgColor"))
-							p_cloneElement->SetAttribute(L"bgColor", newBg);
+						if (NppXml::attribute(p_cloneElement, "fgColor"))
+							NppXml::setAttribute(p_cloneElement, "fgColor", newFg.c_str());
+						if (NppXml::attribute(p_cloneElement, "bgColor"))
+							NppXml::setAttribute(p_cloneElement, "bgColor", newBg.c_str());
 					}
-
-					// now that XML element is cloned properly, add it to the current lexer
-					mapUserLexers[modelLexerName]->LinkEndChild(p_clone);
 				}
 			}
 		}
 		else
 		{
 			// otherwise, if Lexer doesn't exist in the userStyles, need to duplicate/clone from model to userStyles
-			TiXmlNode* p_clone = lexerFromModel->Clone();
+			NppXml::Node p_clone = NppXml::insertEndChild(mainElemUser, lexerFromModel);
 
 			if (useDefaultColors)
 			{
-				std::wstring newFg = defaultFgColor;
-				std::wstring newBg = defaultBgColor;
+				std::string newFg = defaultFgColor;
+				std::string newBg = defaultBgColor;
 
 				// iterate through all WordsStyle in the clone, and override fg and bg colors as needed
-				for (TiXmlElement* wordsStyleFromClone = p_clone->FirstChildElement(L"WordsStyle");
+				for (NppXml::Element wordsStyleFromClone = NppXml::firstChildElement(p_clone, "WordsStyle");
 					wordsStyleFromClone;
-					wordsStyleFromClone = wordsStyleFromClone->NextSiblingElement(L"WordsStyle"))
+					wordsStyleFromClone = NppXml::nextSiblingElement(wordsStyleFromClone, "WordsStyle"))
 				{
-					std::wstring dest_id = wordsStyleFromClone->Attribute(L"styleID");
+					std::string dest_id = NppXml::attribute(wordsStyleFromClone, "styleID", "");;
 					if (!dest_id.empty() && mapColorsEmbeddedToDotJs.contains(dest_id))
 					{
-						if (wordsStyleFromClone->Attribute(L"fgColor") && mapColorsEmbeddedToDotJs[dest_id].contains(L"fgColor"))
-							newFg = mapColorsEmbeddedToDotJs[dest_id][L"fgColor"];
-						if (wordsStyleFromClone->Attribute(L"bgColor") && mapColorsEmbeddedToDotJs[dest_id].contains(L"bgColor"))
-							newBg = mapColorsEmbeddedToDotJs[dest_id][L"bgColor"];
+						if (NppXml::attribute(wordsStyleFromClone, "fgColor") && mapColorsEmbeddedToDotJs[dest_id].contains("fgColor"))
+							newFg = mapColorsEmbeddedToDotJs[dest_id]["fgColor"];
+						if (NppXml::attribute(wordsStyleFromClone, "bgColor") && mapColorsEmbeddedToDotJs[dest_id].contains("bgColor"))
+							newBg = mapColorsEmbeddedToDotJs[dest_id]["bgColor"];
 					}
 
-					if (wordsStyleFromClone->Attribute(L"fgColor"))
-						wordsStyleFromClone->SetAttribute(L"fgColor", newFg);
-					if (wordsStyleFromClone->Attribute(L"bgColor"))
-						wordsStyleFromClone->SetAttribute(L"bgColor", newBg);
+					if (NppXml::attribute(wordsStyleFromClone, "fgColor"))
+						NppXml::setAttribute(wordsStyleFromClone, "fgColor", newFg.c_str());
+					if (NppXml::attribute(wordsStyleFromClone, "bgColor"))
+						NppXml::setAttribute(wordsStyleFromClone, "bgColor", newBg.c_str());
 				}
 			}
-
-			// now that XML element is cloned properly with correct defaults, add it to LexerStyles
-			mainElemUser->LinkEndChild(p_clone);
-
 		}
 	}
 
@@ -2796,12 +2772,12 @@ bool NppParameters::getUserParametersFromXmlTree()
 }
 
 
-std::pair<unsigned char, unsigned char> NppParameters::addUserDefineLangsFromXmlTree(TiXmlDocument *tixmldoc)
+std::pair<unsigned char, unsigned char> NppParameters::addUserDefineLangsFromXmlTree(NppXml::Document xmldoc)
 {
-	if (!tixmldoc)
+	if (!xmldoc)
 		return std::make_pair(static_cast<unsigned char>(0), static_cast<unsigned char>(0));
 
-	TiXmlNode *root = tixmldoc->FirstChild(L"NotepadPlus");
+	NppXml::Element root = NppXml::firstChildElement(xmldoc, "NotepadPlus");
 	if (!root)
 		return std::make_pair(static_cast<unsigned char>(0), static_cast<unsigned char>(0));
 
@@ -3896,50 +3872,44 @@ bool NppParameters::getShortcuts(const NppXml::Element& element, Shortcut& sc, s
 }
 
 
-std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *node)
+std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(const NppXml::Element& element)
 {
-	int iBegin = _nbUserLang;
+	const int iBegin = _nbUserLang;
 
-	for (TiXmlNode *childNode = node->FirstChildElement(L"UserLang");
+	for (NppXml::Element childNode = NppXml::firstChildElement(element, "UserLang");
 		childNode && (_nbUserLang < NB_MAX_USER_LANG);
-		childNode = childNode->NextSibling(L"UserLang") )
+		childNode = NppXml::nextSiblingElement(childNode, "UserLang"))
 	{
-		const wchar_t* name = (childNode->ToElement())->Attribute(L"name");
-		const wchar_t* ext = (childNode->ToElement())->Attribute(L"ext");
-		const wchar_t* darkModeTheme = (childNode->ToElement())->Attribute(L"darkModeTheme");
-		const wchar_t* udlVersion = (childNode->ToElement())->Attribute(L"udlVersion");
+		std::wstring name = string2wstring(NppXml::attribute(childNode, "name", ""));
+		std::wstring ext = string2wstring(NppXml::attribute(childNode, "ext", ""));
+		std::string udlVersion = NppXml::attribute(childNode, "udlVersion", "");
 
-		if (!name || !name[0] || !ext)
+		if (name.empty() || ext.empty())
 		{
 			// UserLang name is missing, just ignore this entry
 			continue;
 		}
 
-		bool isDarkModeTheme = false;
-
-		if (darkModeTheme && darkModeTheme[0])
-		{
-			isDarkModeTheme = (lstrcmp(L"yes", darkModeTheme) == 0);
-		}
+		const bool isDarkModeTheme = getBoolAttribute(childNode, "darkModeTheme");
 
 		try {
-			_userLangArray[_nbUserLang] = std::make_unique<UserLangContainer>(name, ext, udlVersion ? udlVersion : L"", isDarkModeTheme);
+			_userLangArray[_nbUserLang] = std::make_unique<UserLangContainer>(name.c_str(), ext.c_str(), udlVersion.c_str(), isDarkModeTheme);
 
 			++_nbUserLang;
 
-			TiXmlNode *settingsRoot = childNode->FirstChildElement(L"Settings");
+			NppXml::Element settingsRoot = NppXml::firstChildElement(childNode, "Settings");
 			if (!settingsRoot)
 				throw std::runtime_error("NppParameters::feedUserLang : Settings node is missing");
 
 			feedUserSettings(settingsRoot);
 
-			TiXmlNode *keywordListsRoot = childNode->FirstChildElement(L"KeywordLists");
+			NppXml::Element keywordListsRoot = NppXml::firstChildElement(childNode, "KeywordLists");
 			if (!keywordListsRoot)
 				throw std::runtime_error("NppParameters::feedUserLang : KeywordLists node is missing");
 
 			feedUserKeywordList(keywordListsRoot);
 
-			TiXmlNode *stylesRoot = childNode->FirstChildElement(L"Styles");
+			NppXml::Element stylesRoot = NppXml::firstChildElement(childNode, "Styles");
 			if (!stylesRoot)
 				throw std::runtime_error("NppParameters::feedUserLang : Styles node is missing");
 
@@ -3959,15 +3929,15 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 			_userLangArray[--_nbUserLang].reset();
 		}
 	}
-	int iEnd = _nbUserLang;
+	const int iEnd = _nbUserLang;
 	return pair<unsigned char, unsigned char>(static_cast<unsigned char>(iBegin), static_cast<unsigned char>(iEnd));
 }
 
 bool NppParameters::importUDLFromFile(const std::wstring& sourceFile)
 {
-	TiXmlDocument *pXmlUserLangDoc = new TiXmlDocument(sourceFile);
+	NppXml::Document pXmlUserLangDoc = new NppXml::NewDocument();
 
-	bool loadOkay = pXmlUserLangDoc->LoadFile();
+	bool loadOkay = NppXml::loadFile(pXmlUserLangDoc, sourceFile.c_str());
 	if (loadOkay)
 	{
 		auto r = addUserDefineLangsFromXmlTree(pXmlUserLangDoc);
@@ -3992,11 +3962,11 @@ bool NppParameters::exportUDLToFile(size_t langIndex2export, const std::wstring&
 	if (langIndex2export >= _nbUserLang)
 		return false;
 
-	TiXmlDocument *pNewXmlUserLangDoc = new TiXmlDocument(fileName2save);
-	TiXmlNode *newRoot2export = pNewXmlUserLangDoc->InsertEndChild(TiXmlElement(L"NotepadPlus"));
+	NppXml::Document pNewXmlUserLangDoc = new NppXml::NewDocument();
+	NppXml::Element newRoot2export = NppXml::createChildElement(pNewXmlUserLangDoc, "NotepadPlus");
 
 	insertUserLang2Tree(newRoot2export, _userLangArray[langIndex2export].get());
-	bool result = pNewXmlUserLangDoc->SaveFile();
+	const bool result = NppXml::saveFile(pNewXmlUserLangDoc, fileName2save.c_str());
 
 	delete pNewXmlUserLangDoc;
 	return result;
@@ -4103,7 +4073,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring& c
 	pathAppend(cloudStylersPath, L"stylers.xml");
 	if (!doesFileExist(cloudStylersPath.c_str()) && _pXmlUserStylerDoc._doc)
 	{
-		isOK = _pXmlUserStylerDoc._doc->SaveFile(cloudStylersPath.c_str());
+		isOK = NppXml::saveFile(_pXmlUserStylerDoc._doc, cloudStylersPath.c_str());
 		if (!isOK)
 			return false;
 	}
@@ -4111,9 +4081,9 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring& c
 	// langs.xml
 	std::wstring cloudLangsPath = cloudSettingsPath;
 	pathAppend(cloudLangsPath, L"langs.xml");
-	if (!doesFileExist(cloudLangsPath.c_str()) && _pXmlUserDoc)
+	if (!doesFileExist(cloudLangsPath.c_str()) && _pXmlDoc._doc)
 	{
-		isOK = _pXmlDoc._doc->SaveFile(cloudLangsPath.c_str());
+		isOK = NppXml::saveFile(_pXmlDoc._doc, cloudLangsPath.c_str());
 		if (!isOK)
 			return false;
 	}
@@ -4123,7 +4093,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring& c
 	pathAppend(cloudUserLangsPath, L"userDefineLang.xml");
 	if (!doesFileExist(cloudUserLangsPath.c_str()) && _pXmlUserLangDoc._doc)
 	{
-		isOK = _pXmlUserLangDoc._doc->SaveFile(cloudUserLangsPath.c_str());
+		isOK = NppXml::saveFile(_pXmlUserLangDoc._doc, cloudUserLangsPath.c_str());
 		if (!isOK)
 			return false;
 	}
@@ -4163,7 +4133,6 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring& c
 
 /*
 Default UDL + Created + Imported
-
 */
 void NppParameters::writeDefaultUDL()
 {
@@ -4173,25 +4142,24 @@ void NppParameters::writeDefaultUDL()
 	{
 		if (!_pXmlUserLangDoc._doc)
 		{
-			_pXmlUserLangDoc._doc = new TiXmlDocument(_userDefineLangPath);
-			TiXmlDeclaration* decl = new TiXmlDeclaration(L"1.0", L"UTF-8", L"");
-			_pXmlUserLangDoc._doc->LinkEndChild(decl);
-			_pXmlUserLangDoc._doc->InsertEndChild(TiXmlElement(L"NotepadPlus"));
+			_pXmlUserLangDoc._doc = new NppXml::NewDocument();
+			NppXml::createNewDeclaration(_pXmlUserLangDoc._doc);
+			NppXml::createChildElement(_pXmlUserLangDoc._doc, "NotepadPlus");
 		}
 
 		bool toDelete = (udl._indexRange.second - udl._indexRange.first) == 0;
 		deleteState.emplace_back(toDelete, udl._isInDefaultSharedContainer);
 		if ((!udl._udlXmlDoc || udl._udlXmlDoc == _pXmlUserLangDoc._doc) && udl._isDirty && !toDelete) // new created or/and imported UDL plus _pXmlUserLangDoc (if exist)
 		{
-			TiXmlNode *root = _pXmlUserLangDoc._doc->FirstChild(L"NotepadPlus");
+			NppXml::Element root = NppXml::firstChildElement(_pXmlUserLangDoc._doc, "NotepadPlus");
 			if (root && !firstCleanDone)
 			{
-				_pXmlUserLangDoc._doc->RemoveChild(root);
-				_pXmlUserLangDoc._doc->InsertEndChild(TiXmlElement(L"NotepadPlus"));
+				NppXml::deleteChild(_pXmlUserLangDoc._doc, root);
+				NppXml::createChildElement(_pXmlUserLangDoc._doc, "NotepadPlus");
 				firstCleanDone = true;
 			}
 
-			root = _pXmlUserLangDoc._doc->FirstChild(L"NotepadPlus");
+			root = NppXml::firstChildElement(_pXmlUserLangDoc._doc, "NotepadPlus");
 
 			for (int i = udl._indexRange.first; i < udl._indexRange.second; ++i)
 			{
@@ -4212,7 +4180,7 @@ void NppParameters::writeDefaultUDL()
 
 	if (firstCleanDone) // at least one udl is for saving, the udl to be deleted are ignored
 	{
-		_pXmlUserLangDoc._doc->SaveFile();
+		static_cast<void>(NppXml::saveFile(_pXmlUserLangDoc._doc, _userDefineLangPath.c_str()));
 	}
 	else if (deleteAll)
 	{
@@ -4233,29 +4201,29 @@ void NppParameters::writeNonDefaultUDL()
 			if (udl._indexRange.second == udl._indexRange.first) // no more udl for this xmldoc container
 			{
 				// no need to save, delete file
-				const wchar_t* docFilePath = udl._udlXmlDoc->Value();
-				if (docFilePath && doesFileExist(docFilePath))
+				const std::wstring& docFilePath = udl._path;
+				if (!docFilePath.empty() && doesFileExist(docFilePath.c_str()))
 				{
-					::DeleteFile(docFilePath);
+					::DeleteFile(docFilePath.c_str());
 				}
 			}
 			else
 			{
-				TiXmlNode *root = udl._udlXmlDoc->FirstChild(L"NotepadPlus");
+				NppXml::Element root = NppXml::firstChildElement(udl._udlXmlDoc, "NotepadPlus");
 				if (root)
 				{
-					udl._udlXmlDoc->RemoveChild(root);
+					NppXml::deleteChild(udl._udlXmlDoc, root);
 				}
 
-				udl._udlXmlDoc->InsertEndChild(TiXmlElement(L"NotepadPlus"));
+				NppXml::createChildElement(udl._udlXmlDoc, "NotepadPlus");
 
-				root = udl._udlXmlDoc->FirstChild(L"NotepadPlus");
+				root = NppXml::firstChildElement(udl._udlXmlDoc, "NotepadPlus");
 
 				for (int i = udl._indexRange.first; i < udl._indexRange.second; ++i)
 				{
 					insertUserLang2Tree(root, _userLangArray[i].get());
 				}
-				udl._udlXmlDoc->SaveFile();
+				static_cast<void>(NppXml::saveFile(udl._udlXmlDoc, udl._path.c_str()));
 			}
 		}
 	}
@@ -4697,125 +4665,113 @@ void NppParameters::removeUserLang(size_t index)
 }
 
 
-void NppParameters::feedUserSettings(TiXmlNode *settingsRoot)
+void NppParameters::feedUserSettings(const NppXml::Element& settingsRoot)
 {
-	const wchar_t *boolStr;
-	TiXmlNode *globalSettingNode = settingsRoot->FirstChildElement(L"Global");
+	NppXml::Element globalSettingNode = NppXml::firstChildElement(settingsRoot, "Global");
 	if (globalSettingNode)
 	{
-		boolStr = (globalSettingNode->ToElement())->Attribute(L"caseIgnored");
-		if (boolStr)
-			_userLangArray[_nbUserLang - 1]->_isCaseIgnored = (lstrcmp(L"yes", boolStr) == 0);
+		_userLangArray[_nbUserLang - 1]->_isCaseIgnored = getBoolAttribute(globalSettingNode, "caseIgnored");
+		_userLangArray[_nbUserLang - 1]->_allowFoldOfComments = getBoolAttribute(globalSettingNode, "allowFoldOfComments");
 
-		boolStr = (globalSettingNode->ToElement())->Attribute(L"allowFoldOfComments");
-		if (boolStr)
-			_userLangArray[_nbUserLang - 1]->_allowFoldOfComments = (lstrcmp(L"yes", boolStr) == 0);
+		_userLangArray[_nbUserLang - 1]->_forcePureLC = NppXml::intAttribute(globalSettingNode, "forcePureLC", 0);
+		_userLangArray[_nbUserLang - 1]->_decimalSeparator = NppXml::intAttribute(globalSettingNode, "decimalSeparator", 0);
 
-		(globalSettingNode->ToElement())->Attribute(L"forcePureLC", &_userLangArray[_nbUserLang - 1]->_forcePureLC);
-		(globalSettingNode->ToElement())->Attribute(L"decimalSeparator", &_userLangArray[_nbUserLang - 1]->_decimalSeparator);
-
-		boolStr = (globalSettingNode->ToElement())->Attribute(L"foldCompact");
-		if (boolStr)
-			_userLangArray[_nbUserLang - 1]->_foldCompact = (lstrcmp(L"yes", boolStr) == 0);
+		_userLangArray[_nbUserLang - 1]->_foldCompact = getBoolAttribute(globalSettingNode, "foldCompact");
 	}
 
-	TiXmlNode *prefixNode = settingsRoot->FirstChildElement(L"Prefix");
+	NppXml::Element prefixNode = NppXml::firstChildElement(settingsRoot, "Prefix");
 	if (prefixNode)
 	{
-		const wchar_t *udlVersion = _userLangArray[_nbUserLang - 1]->_udlVersion.c_str();
-		if (!lstrcmp(udlVersion, L"2.1") || !lstrcmp(udlVersion, L"2.0"))
+		const char* udlVersion = _userLangArray[_nbUserLang - 1]->getUdlVersion();
+		if (std::strcmp(udlVersion, "2.1") == 0 || std::strcmp(udlVersion, "2.0") == 0)
 		{
 			for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; ++i)
 			{
-				boolStr = (prefixNode->ToElement())->Attribute(globalMappper().keywordNameMapper[i+SCE_USER_KWLIST_KEYWORDS1]);
-				if (boolStr)
-					_userLangArray[_nbUserLang - 1]->_isPrefix[i] = (lstrcmp(L"yes", boolStr) == 0);
+				_userLangArray[_nbUserLang - 1]->_isPrefix[i] = getBoolAttribute(prefixNode, wstring2string(globalMappper().keywordNameMapper[i + SCE_USER_KWLIST_KEYWORDS1]).c_str());
 			}
 		}
 		else	// support for old style (pre 2.0)
 		{
-			wchar_t names[SCE_USER_TOTAL_KEYWORD_GROUPS][7] = {L"words1", L"words2", L"words3", L"words4"};
+			static constexpr const char names[SCE_USER_TOTAL_KEYWORD_GROUPS][7] = { "words1", "words2", "words3", "words4" };
 			for (int i = 0 ; i < 4 ; ++i)
 			{
-				boolStr = (prefixNode->ToElement())->Attribute(names[i]);
-				if (boolStr)
-					_userLangArray[_nbUserLang - 1]->_isPrefix[i] = (lstrcmp(L"yes", boolStr) == 0);
+				_userLangArray[_nbUserLang - 1]->_isPrefix[i] = getBoolAttribute(prefixNode, names[i]);
 			}
 		}
 	}
 }
 
 
-void NppParameters::feedUserKeywordList(TiXmlNode *node)
+void NppParameters::feedUserKeywordList(const NppXml::Element& element)
 {
-	const wchar_t * udlVersion = _userLangArray[_nbUserLang - 1]->_udlVersion.c_str();
+	const char* udlVersion = _userLangArray[_nbUserLang - 1]->getUdlVersion();
 
-	for (TiXmlNode *childNode = node->FirstChildElement(L"Keywords");
-		childNode ;
-		childNode = childNode->NextSibling(L"Keywords"))
+	for (NppXml::Element childNode = NppXml::firstChildElement(element, "Keywords");
+		childNode;
+		childNode = NppXml::nextSiblingElement(childNode, "Keywords"))
 	{
-		const wchar_t * keywordsName = (childNode->ToElement())->Attribute(L"name");
-		TiXmlNode *valueNode = childNode->FirstChild();
+		const char* keywordsName = NppXml::attribute(childNode, "name", "");
+		NppXml::Node valueNode = NppXml::firstChild(childNode);
 		if (valueNode)
 		{
-			const wchar_t *kwl = nullptr;
-			if (!lstrcmp(udlVersion, L"") && !lstrcmp(keywordsName, L"Delimiters"))	// support for old style (pre 2.0)
+			const char* kwl = nullptr;
+			if (!udlVersion[0] && std::strcmp(keywordsName, "Delimiters") == 0) // support for old style (pre 2.0)
 			{
-				basic_string<wchar_t> temp;
-				kwl = valueNode->Value();
+				std::string temp;
+				kwl = NppXml::value(valueNode);
 
-				temp += L"00";	 if (kwl[0] != '0') temp += kwl[0];	 temp += L" 01";
-				temp += L" 02";	if (kwl[3] != '0') temp += kwl[3];
-				temp += L" 03";	if (kwl[1] != '0') temp += kwl[1];	 temp += L" 04";
-				temp += L" 05";	if (kwl[4] != '0') temp += kwl[4];
-				temp += L" 06";	if (kwl[2] != '0') temp += kwl[2];	 temp += L" 07";
-				temp += L" 08";	if (kwl[5] != '0') temp += kwl[5];
+				temp += "00";  if (kwl[0] != '0') temp += kwl[0]; temp += " 01";
+				temp += " 02"; if (kwl[3] != '0') temp += kwl[3];
+				temp += " 03"; if (kwl[1] != '0') temp += kwl[1]; temp += " 04";
+				temp += " 05"; if (kwl[4] != '0') temp += kwl[4];
+				temp += " 06"; if (kwl[2] != '0') temp += kwl[2]; temp += " 07";
+				temp += " 08"; if (kwl[5] != '0') temp += kwl[5];
 
-				temp += L" 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23";
-				_userLangArray[_nbUserLang - 1]->_keywordLists[SCE_USER_KWLIST_DELIMITERS] = temp;
+				temp += " 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23";
+				_userLangArray[_nbUserLang - 1]->_keywordLists[SCE_USER_KWLIST_DELIMITERS] = string2wstring(temp);
 			}
-			else if (!lstrcmp(keywordsName, L"Comment"))
+			else if (std::strcmp(keywordsName, "Comment") == 0)
 			{
-				kwl = valueNode->Value();
-				basic_string<wchar_t> temp{L" "};
+				kwl = NppXml::value(valueNode);
+				std::string temp{" "};
 
 				temp += kwl;
 				size_t pos = 0;
 
-				pos = temp.find(L" 0");
+				pos = temp.find(" 0");
 				while (pos != std::string::npos)
 				{
-					temp.replace(pos, 2, L" 00");
-					pos = temp.find(L" 0", pos+1);
+					temp.replace(pos, 2, " 00");
+					pos = temp.find(" 0", pos + 1);
 				}
-				pos = temp.find(L" 1");
+				pos = temp.find(" 1");
 				while (pos != std::string::npos)
 				{
-					temp.replace(pos, 2, L" 03");
-					pos = temp.find(L" 1");
+					temp.replace(pos, 2, " 03");
+					pos = temp.find(" 1");
 				}
-				pos = temp.find(L" 2");
+				pos = temp.find(" 2");
 				while (pos != std::string::npos)
 				{
-					temp.replace(pos, 2, L" 04");
-					pos = temp.find(L" 2");
+					temp.replace(pos, 2, " 04");
+					pos = temp.find(" 2");
 				}
 
-				temp += L" 01 02";
+				temp += " 01 02";
 				if (temp[0] == ' ')
 					temp.erase(0, 1);
-
-				_userLangArray[_nbUserLang - 1]->_keywordLists[SCE_USER_KWLIST_COMMENTS] = temp;
+				_userLangArray[_nbUserLang - 1]->_keywordLists[SCE_USER_KWLIST_COMMENTS] = string2wstring(temp);
 			}
 			else
 			{
-				kwl = valueNode->Value();
-				if (globalMappper().keywordIdMapper.find(keywordsName) != globalMappper().keywordIdMapper.end())
+				kwl = NppXml::value(valueNode);
+				const std::wstring kwName = string2wstring(keywordsName);
+				if (globalMappper().keywordIdMapper.find(kwName) != globalMappper().keywordIdMapper.end())
 				{
-					int id = globalMappper().keywordIdMapper[keywordsName];
-					if (wcslen(kwl) < max_char)
+					int id = globalMappper().keywordIdMapper[kwName];
+					if (std::strlen(kwl) < max_char)
 					{
-						_userLangArray[_nbUserLang - 1]->_keywordLists[id] = kwl;
+						_userLangArray[_nbUserLang - 1]->_keywordLists[id] = string2wstring(kwl);
 					}
 					else
 					{
@@ -4827,14 +4783,14 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 	}
 }
 
-void NppParameters::feedUserStyles(TiXmlNode *node)
+void NppParameters::feedUserStyles(const NppXml::Element& element)
 {
-	for (TiXmlNode *childNode = node->FirstChildElement(L"WordsStyle");
-		childNode ;
-		childNode = childNode->NextSibling(L"WordsStyle"))
+	for (NppXml::Element childNode = NppXml::firstChildElement(element, "WordsStyle");
+		childNode;
+		childNode = NppXml::nextSiblingElement(childNode, "WordsStyle"))
 	{
-		const wchar_t *styleName = (childNode->ToElement())->Attribute(L"name");
-		if (styleName)
+		const std::wstring styleName = string2wstring(NppXml::attribute(childNode, "name", ""));
+		if (!styleName.empty())
 		{
 			if (globalMappper().styleIdMapper.find(styleName) != globalMappper().styleIdMapper.end())
 			{
@@ -4845,27 +4801,25 @@ void NppParameters::feedUserStyles(TiXmlNode *node)
 	}
 }
 
-bool NppParameters::feedStylerArray(TiXmlNode *node)
+bool NppParameters::feedStylerArray(const NppXml::Element& element)
 {
-	TiXmlNode *styleRoot = node->FirstChildElement(L"LexerStyles");
+	NppXml::Element styleRoot = NppXml::firstChildElement(element, "LexerStyles");
 	if (!styleRoot) return false;
 
 	// For each lexer
-	for (TiXmlNode *childNode = styleRoot->FirstChildElement(L"LexerType");
-		 childNode ;
-		 childNode = childNode->NextSibling(L"LexerType") )
+	for (NppXml::Element childNode = NppXml::firstChildElement(styleRoot, "LexerType");
+		childNode;
+		childNode = NppXml::nextSiblingElement(childNode, "LexerType") )
 	{
-		TiXmlElement *element = childNode->ToElement();
-		const wchar_t *lexerName = element->Attribute(L"name");
-		const wchar_t *lexerDesc = element->Attribute(L"desc");
-		const wchar_t *lexerUserExt = element->Attribute(L"ext");
-		const wchar_t *lexerExcluded = element->Attribute(L"excluded");
+		const char* lexerName = NppXml::attribute(childNode, "name");
+		const char* lexerDesc = NppXml::attribute(childNode, "desc");
+		const char* lexerUserExt = NppXml::attribute(childNode, "ext");
 		if (lexerName)
 		{
 			_lexerStylerVect.addLexerStyler(lexerName, lexerDesc, lexerUserExt, childNode);
-			if (lexerExcluded != NULL && (lstrcmp(lexerExcluded, L"yes") == 0))
+			if (getBoolAttribute(childNode, "excluded"))
 			{
-				int index = getExternalLangIndexFromName(lexerName);
+				int index = getExternalLangIndexFromName(string2wstring(lexerName).c_str());
 				if (index != -1)
 					_nppGUI._excludedLangList.emplace_back(static_cast<LangType>(index + L_EXTERNAL));
 			}
@@ -4875,23 +4829,19 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 	_lexerStylerVect.sort();
 
 	// The global styles for all lexers
-	TiXmlNode *globalStyleRoot = node->FirstChildElement(L"GlobalStyles");
+	NppXml::Element globalStyleRoot = NppXml::firstChildElement(element, "GlobalStyles");
 	if (!globalStyleRoot) return false;
 
-	for (TiXmlNode *childNode = globalStyleRoot->FirstChildElement(L"WidgetStyle");
-		 childNode ;
-		 childNode = childNode->NextSibling(L"WidgetStyle") )
+	for (NppXml::Element childNode = NppXml::firstChildElement(globalStyleRoot, "WidgetStyle");
+		childNode;
+		childNode = NppXml::nextSiblingElement(childNode, "WidgetStyle") )
 	{
-		TiXmlElement *element = childNode->ToElement();
-
-		const wchar_t* name = element->Attribute(L"name");
-		if (name && _widgetStyleArray.findByName(name))
+		const char* name = NppXml::attribute(childNode, "name");
+		if (name && _widgetStyleArray.findByName(string2wstring(name)))
 			continue;
 
-		const wchar_t *styleIDStr = element->Attribute(L"styleID");
-
-		int styleID = -1;
-		if ((styleID = decStrVal(styleIDStr)) != -1)
+		const int styleID = NppXml::intAttribute(childNode, "styleID", -1);
+		if (styleID != -1)
 		{
 			_widgetStyleArray.addStyler(styleID, childNode);
 		}
@@ -4902,12 +4852,12 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 
 
 int NppParameters::addStyleDefaultColors(
-	TiXmlNode* globalStyleRoot,
+	NppXml::Element& globalStyleRoot,
 	const std::wstring& name,
-	const std::wstring& fgColor,
-	const std::wstring& bgColor,
+	const std::string& fgColor,
+	const std::string& bgColor,
 	const std::wstring& fromStyle,
-	const std::wstring& styleID
+	const std::string& styleID
 )
 {
 	constexpr auto rgbhex = [](COLORREF bbggrr) -> int
@@ -4922,26 +4872,26 @@ int NppParameters::addStyleDefaultColors(
 	const Style* pStyle = _widgetStyleArray.findByName(name);
 	if (!pStyle)
 	{
-		TiXmlNode* newStyle = globalStyleRoot->InsertEndChild(TiXmlElement(L"WidgetStyle"));
-		newStyle->ToElement()->SetAttribute(L"name", name);
-		newStyle->ToElement()->SetAttribute(L"styleID", styleID);
+		NppXml::Element newStyle = NppXml::createChildElement(globalStyleRoot, "WidgetStyle");
+		NppXml::setAttribute(newStyle, "name", wstring2string(name).c_str());
+		NppXml::setAttribute(newStyle, "styleID", styleID.c_str());
 
 		const Style* pStyleFrom = fromStyle.empty() ? nullptr : _widgetStyleArray.findByName(fromStyle);
 		if (pStyleFrom)
 		{
-			constexpr size_t bufSize = 7;
+			static constexpr size_t bufSize = 7;
 			if (!fgColor.empty())
 			{
-				wchar_t strColor[bufSize] = { '\0' };
-				swprintf(strColor, bufSize, L"%6X", rgbhex(pStyleFrom->_fgColor));
-				newStyle->ToElement()->SetAttribute(L"fgColor", strColor);
+				char strColor[bufSize] = { '\0' };
+				std::snprintf(strColor, bufSize, "%6X", rgbhex(pStyleFrom->_fgColor));
+				NppXml::setAttribute(newStyle, "fgColor", strColor);
 			}
 
 			if (!bgColor.empty())
 			{
-				wchar_t strColor[bufSize] = { '\0' };
-				swprintf(strColor, bufSize, L"%6X", rgbhex(pStyleFrom->_bgColor));
-				newStyle->ToElement()->SetAttribute(L"bgColor", strColor);
+				char strColor[bufSize] = { '\0' };
+				std::snprintf(strColor, bufSize, "%6X", rgbhex(pStyleFrom->_bgColor));
+				NppXml::setAttribute(newStyle, "bgColor", strColor);
 			}
 
 			result = 2;
@@ -4950,12 +4900,12 @@ int NppParameters::addStyleDefaultColors(
 		{
 			if (!fgColor.empty())
 			{
-				newStyle->ToElement()->SetAttribute(L"fgColor", fgColor);
+				NppXml::setAttribute(newStyle, "fgColor", fgColor.c_str());
 			}
 
 			if (!bgColor.empty())
 			{
-				newStyle->ToElement()->SetAttribute(L"bgColor", bgColor);
+				NppXml::setAttribute(newStyle, "bgColor", bgColor.c_str());
 			}
 
 			result = 1;
@@ -4972,87 +4922,81 @@ int NppParameters::addStyleDefaultColors(
 	return result;
 }
 
-void NppParameters::addDefaultStyles(TiXmlNode* node)
+void NppParameters::addDefaultStyles(const NppXml::Element& element)
 {
 	// check void ScintillaEditView::performGlobalStyles() for default colors
 
-	TiXmlNode* globalStyleRoot = node->FirstChildElement(L"GlobalStyles");
+	NppXml::Element globalStyleRoot = NppXml::firstChildElement(element, "GlobalStyles");
 	if (!globalStyleRoot) return;
 
-	for (TiXmlNode* childNode = globalStyleRoot->FirstChildElement(L"WidgetStyle");
+	for (NppXml::Element childNode = NppXml::firstChildElement(globalStyleRoot, "WidgetStyle");
 		childNode;
-		childNode = childNode->NextSibling(L"WidgetStyle"))
+		childNode = NppXml::nextSiblingElement(childNode, "WidgetStyle"))
 	{
-		TiXmlElement* element = childNode->ToElement();
-		const wchar_t* styleIDStr = element->Attribute(L"styleID");
-
-		int styleID = -1;
-		if ((styleID = decStrVal(styleIDStr)) != -1)
+		const int styleID = NppXml::intAttribute(childNode, "styleID", -1);
+		if (styleID != -1)
 		{
 			_widgetStyleArray.addStyler(styleID, childNode);
 		}
 	}
 
-	addStyleDefaultColors(globalStyleRoot, L"Multi-selected text color", L"", L"C0C0C0", L"Selected text colour"); // liteGrey
-	addStyleDefaultColors(globalStyleRoot, L"Multi-edit carets color", L"404040", L"", L"Caret colour"); // darkGrey
+	addStyleDefaultColors(globalStyleRoot, L"Multi-selected text color", "", "C0C0C0", L"Selected text colour"); // liteGrey
+	addStyleDefaultColors(globalStyleRoot, L"Multi-edit carets color", "404040", "", L"Caret colour"); // darkGrey
 
-	addStyleDefaultColors(globalStyleRoot, L"Bookmark margin", L"", L"C0C0C0", L"Line number margin");
-	addStyleDefaultColors(globalStyleRoot, L"Change History margin", L"", L"C0C0C0", L"Line number margin");
+	addStyleDefaultColors(globalStyleRoot, L"Bookmark margin", "", "C0C0C0", L"Line number margin");
+	addStyleDefaultColors(globalStyleRoot, L"Change History margin", "", "C0C0C0", L"Line number margin");
 
-	addStyleDefaultColors(globalStyleRoot, L"Change History modified", L"FF8000", L"FF8000");
-	addStyleDefaultColors(globalStyleRoot, L"Change History revert modified", L"A0C000", L"A0C000");
-	addStyleDefaultColors(globalStyleRoot, L"Change History revert origin", L"40A0BF", L"40A0BF");
-	addStyleDefaultColors(globalStyleRoot, L"Change History saved", L"00A000", L"00A000");
+	addStyleDefaultColors(globalStyleRoot, L"Change History modified", "FF8000", "FF8000");
+	addStyleDefaultColors(globalStyleRoot, L"Change History revert modified", "A0C000", "A0C000");
+	addStyleDefaultColors(globalStyleRoot, L"Change History revert origin", "40A0BF", "40A0BF");
+	addStyleDefaultColors(globalStyleRoot, L"Change History saved", "00A000", "00A000");
 
-	addStyleDefaultColors(globalStyleRoot, FINDDLG_STAUSNOTFOUND_COLOR, L"FF0000", L"");
-	addStyleDefaultColors(globalStyleRoot, FINDDLG_STAUSMESSAGE_COLOR, L"0000FF", L"");
-	addStyleDefaultColors(globalStyleRoot, FINDDLG_STAUSREACHED_COLOR, L"008000", L"");
+	addStyleDefaultColors(globalStyleRoot, FINDDLG_STAUSNOTFOUND_COLOR, "FF0000", "");
+	addStyleDefaultColors(globalStyleRoot, FINDDLG_STAUSMESSAGE_COLOR, "0000FF", "");
+	addStyleDefaultColors(globalStyleRoot, FINDDLG_STAUSREACHED_COLOR, "008000", "");
 
-	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_1, L"", L"F3F0CB");
-	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_2, L"", L"DBF3CB");
-	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_3, L"", L"CBDBF3");
-	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_4, L"", L"F3DBCB");
-	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_5, L"", L"F3CBEE");
-	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_DM_1, L"", L"807848");
-	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_DM_2, L"", L"568048");
-	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_DM_3, L"", L"507094");
-	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_DM_4, L"", L"804849");
-	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_DM_5, L"", L"754880");
+	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_1, "", "F3F0CB");
+	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_2, "", "DBF3CB");
+	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_3, "", "CBDBF3");
+	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_4, "", "F3DBCB");
+	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_5, "", "F3CBEE");
+	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_DM_1, "", "807848");
+	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_DM_2, "", "568048");
+	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_DM_3, "", "507094");
+	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_DM_4, "", "804849");
+	addStyleDefaultColors(globalStyleRoot, TABBAR_INDIVIDUALCOLOR_DM_5, "", "754880");
 
-	addStyleDefaultColors(globalStyleRoot, L"EOL custom color", L"DADADA");
-	addStyleDefaultColors(globalStyleRoot, g_npcStyleName, L"DADADA", L"", L"White space symbol");
+	addStyleDefaultColors(globalStyleRoot, L"EOL custom color", "DADADA");
+	addStyleDefaultColors(globalStyleRoot, g_npcStyleName, "DADADA", "", L"White space symbol");
 }
 
-void LexerStylerArray::addLexerStyler(const wchar_t* lexerName, const wchar_t* lexerDesc, const wchar_t* lexerUserExt, TiXmlNode* lexerNode)
+void LexerStylerArray::addLexerStyler(const char* lexerName, const char* lexerDesc, const char* lexerUserExt, const NppXml::Element& lexerNode)
 {
 	_lexerStylerVect.emplace_back();
 	LexerStyler& ls = _lexerStylerVect.back();
-	ls.setLexerName(lexerName);
+
+	if (lexerName)
+		ls.setLexerName(string2wstring(lexerName).c_str());
+
 	if (lexerDesc)
-		ls.setLexerDesc(lexerDesc);
+		ls.setLexerDesc(string2wstring(lexerDesc).c_str());
 
 	if (lexerUserExt)
-		ls.setLexerUserExt(lexerUserExt);
+		ls.setLexerUserExt(string2wstring(lexerUserExt).c_str());
 
-	for (TiXmlNode* childNode = lexerNode->FirstChildElement(L"WordsStyle");
+	for (NppXml::Element childNode = NppXml::firstChildElement(lexerNode, "WordsStyle");
 		childNode;
-		childNode = childNode->NextSibling(L"WordsStyle"))
+		childNode = NppXml::nextSiblingElement(childNode, "WordsStyle"))
 	{
-		TiXmlElement* element = childNode->ToElement();
-		const wchar_t* styleIDStr = element->Attribute(L"styleID");
-
-		if (styleIDStr)
+		const int styleID = NppXml::intAttribute(childNode, "styleID", -1);
+		if (styleID != -1)
 		{
-			int styleID = -1;
-			if ((styleID = decStrVal(styleIDStr)) != -1)
-			{
-				ls.addStyler(styleID, childNode);
-			}
+			ls.addStyler(styleID, childNode);
 		}
 	}
 }
 
-void StyleArray::addStyler(int styleID, TiXmlNode* styleNode)
+void StyleArray::addStyler(int styleID, const NppXml::Element& styleNode)
 {
 	bool isUser = styleID >> 16 == L_USER;
 	if (isUser)
@@ -5068,75 +5012,55 @@ void StyleArray::addStyler(int styleID, TiXmlNode* styleNode)
 
 	if (styleNode)
 	{
-		TiXmlElement* element = styleNode->ToElement();
-
 		// For _fgColor & _bgColor :
 		// RGB() | (result & 0xFF000000): it's for the case of -1 (0xFFFFFFFF) returned by "hexStrVal(str)"
-		const wchar_t* str = element->Attribute(L"name");
+		const char* str = NppXml::attribute(styleNode, "name");
 		if (str)
 		{
 			if (isUser)
 				s._styleDesc = globalMappper().styleNameMapper[styleID];
 			else
-				s._styleDesc = str;
+				s._styleDesc = string2wstring(str);
 		}
 
-		str = element->Attribute(L"fgColor");
+		str = NppXml::attribute(styleNode, "fgColor");
 		if (str)
 		{
 			unsigned long result = hexStrVal(str);
 			s._fgColor = (RGB((result >> 16) & 0xFF, (result >> 8) & 0xFF, result & 0xFF)) | (result & 0xFF000000);
-
 		}
 
-		str = element->Attribute(L"bgColor");
+		str = NppXml::attribute(styleNode, "bgColor");
 		if (str)
 		{
 			unsigned long result = hexStrVal(str);
 			s._bgColor = (RGB((result >> 16) & 0xFF, (result >> 8) & 0xFF, result & 0xFF)) | (result & 0xFF000000);
 		}
 
-		str = element->Attribute(L"colorStyle");
-		if (str)
-		{
-			s._colorStyle = decStrVal(str);
-		}
+		s._colorStyle = NppXml::intAttribute(styleNode, "colorStyle", COLORSTYLE_ALL);
 
-		str = element->Attribute(L"fontName");
+		str = NppXml::attribute(styleNode, "fontName");
 		if (str)
 		{
-			s._fontName = str;
+			s._fontName = string2wstring(str);
 			s._isFontEnabled = true;
 		}
 
-		str = element->Attribute(L"fontStyle");
-		if (str)
-		{
-			s._fontStyle = decStrVal(str);
-		}
+		s._fontStyle = NppXml::intAttribute(styleNode, "fontStyle", STYLE_NOT_USED);
+		s._fontSize = NppXml::intAttribute(styleNode, "fontSize", STYLE_NOT_USED);
 
-		str = element->Attribute(L"fontSize");
-		if (str)
-		{
-			s._fontSize = decStrVal(str);
-		}
-		str = element->Attribute(L"nesting");
+		s._nesting = NppXml::intAttribute(styleNode, "nesting", static_cast<int>(FontStyle::FONTSTYLE_NONE));
 
-		if (str)
-		{
-			s._nesting = decStrVal(str);
-		}
-
-		str = element->Attribute(L"keywordClass");
+		str = NppXml::attribute(styleNode, "keywordClass");
 		if (str)
 		{
 			s._keywordClass = getKwClassFromName(str);
 		}
 
-		TiXmlNode* v = styleNode->FirstChild();
+		NppXml::Node v = NppXml::firstChild(styleNode);
 		if (v)
 		{
-			s._keywords = v->Value();
+			s._keywords = string2wstring(NppXml::value(v));
 		}
 	}
 }
@@ -5588,54 +5512,54 @@ std::wstring NppParameters::getLocPathFromStr(const std::wstring & localizationC
 }
 
 
-void NppParameters::feedKeyWordsParameters(TiXmlNode* node)
+void NppParameters::feedKeyWordsParameters(const NppXml::Element& element)
 {
-	TiXmlNode* langRoot = node->FirstChildElement(L"Languages");
+	NppXml::Element langRoot = NppXml::firstChildElement(element, "Languages");
 	if (!langRoot)
 		return;
 
-	for (TiXmlNode* langNode = langRoot->FirstChildElement(L"Language");
+	for (NppXml::Element langNode = NppXml::firstChildElement(langRoot, "Language");
 		langNode;
-		langNode = langNode->NextSibling(L"Language"))
+		langNode = NppXml::nextSiblingElement(langNode, "Language"))
 	{
 		if (_nbLang < NB_LANG)
 		{
-			TiXmlElement* element = langNode->ToElement();
-			const wchar_t* name = element->Attribute(L"name");
+			const char* name = NppXml::attribute(langNode, "name");
 			if (name)
 			{
-				const wchar_t* ext = element->Attribute(L"ext");
+				const std::wstring wsName = string2wstring(name);
+				const std::wstring wsExt = string2wstring(NppXml::attribute(langNode, "ext", ""));
 
-				const wchar_t* commentLine = element->Attribute(L"commentLine");
-				const wchar_t* commentStart = element->Attribute(L"commentStart");
-				const wchar_t* commentEnd = element->Attribute(L"commentEnd");
+				const int tabSettings = NppXml::intAttribute(langNode, "tabSettings", -1);
+				const bool isBackspaceUnindent = getBoolAttribute(langNode, "backspaceUnindent");
 
-				const std::string cmtLine = commentLine ? wstring2string(commentLine) : "";
-				const std::string cmtStart = commentStart ? wstring2string(commentStart) : "";
-				const std::string cmtEnd = commentEnd ? wstring2string(commentEnd) : "";
+				_langList[_nbLang] = std::make_unique<Lang>(
+					getLangIDFromStr(wsName.c_str()),
+					wsName.c_str(),
+					wsExt.c_str(),
+					NppXml::attribute(langNode, "commentLine", ""),
+					NppXml::attribute(langNode, "commentStart", ""),
+					NppXml::attribute(langNode, "commentEnd", ""),
+					tabSettings,
+					isBackspaceUnindent);
 
-				int tabSettings = -1;
-				const wchar_t* tsVal = element->Attribute(L"tabSettings", &tabSettings);
-				const wchar_t* buVal = element->Attribute(L"backspaceUnindent");
-
-				_langList[_nbLang] = std::make_unique<Lang>(getLangIDFromStr(name), name, ext ? ext : L"",
-					cmtLine.c_str(), cmtStart.c_str(), cmtEnd.c_str(),
-					tsVal ? tabSettings : -1, buVal && (std::wcscmp(buVal, L"yes") == 0));
-
-				for (TiXmlNode* kwNode = langNode->FirstChildElement(L"Keywords");
+				for (NppXml::Element kwNode = NppXml::firstChildElement(langNode, "Keywords");
 					kwNode;
-					kwNode = kwNode->NextSibling(L"Keywords"))
+					kwNode = NppXml::nextSiblingElement(kwNode, "Keywords"))
 				{
-					const wchar_t* indexName = (kwNode->ToElement())->Attribute(L"name");
-					TiXmlNode* kwVal = kwNode->FirstChild();
-					const wchar_t* keyWords = L"";
-					if ((indexName) && (kwVal))
-						keyWords = kwVal->Value();
+					const char* indexName = NppXml::attribute(kwNode, "name");
+					NppXml::Node kwVal = NppXml::firstChild(kwNode);
+					std::string keyWords;
+					if (indexName && kwVal)
+						keyWords = NppXml::value(kwVal);
 
-					int i = getKwClassFromName(indexName);
+					const int i = getKwClassFromName(indexName);
 
-					if (i >= 0 && i <= KEYWORDSET_MAX)
-						_langList[_nbLang]->setWords(keyWords, i);
+					if (!keyWords.empty() && i >= 0 && i <= KEYWORDSET_MAX)
+					{
+						const std::wstring kws = string2wstring(keyWords);
+						_langList[_nbLang]->setWords(kws.c_str(), i);
+					}
 				}
 				++_nbLang;
 			}
@@ -9466,139 +9390,137 @@ std::wstring NppParameters::getWinVerBitStr() const
 	}
 }
 
-std::wstring NppParameters::writeStyles(LexerStylerArray & lexersStylers, StyleArray & globalStylers)
+std::wstring NppParameters::writeStyles(LexerStylerArray& lexersStylers, StyleArray& globalStylers)
 {
-	TiXmlNode* lexersRoot = (_pXmlUserStylerDoc._doc->FirstChild(L"NotepadPlus"))->FirstChildElement(L"LexerStyles");
-	for (TiXmlNode *childNode = lexersRoot->FirstChildElement(L"LexerType");
-		childNode ;
-		childNode = childNode->NextSibling(L"LexerType"))
+	NppXml::Element root = NppXml::firstChildElement(_pXmlUserStylerDoc._doc, "NotepadPlus");
+	NppXml::Element lexersRoot = NppXml::firstChildElement(root, "LexerStyles");
+	for (NppXml::Element childNode = NppXml::firstChildElement(lexersRoot, "LexerType");
+		childNode;
+		childNode = NppXml::nextSiblingElement(childNode, "LexerType"))
 	{
-		TiXmlElement *element = childNode->ToElement();
-		const wchar_t *nm = element->Attribute(L"name");
+		const std::wstring nm = string2wstring(NppXml::attribute(childNode, "name", ""));
+		if (nm.empty())
+			continue;
 
-		LexerStyler *pLs = _lexerStylerVect.getLexerStylerByName(nm);
-		LexerStyler *pLs2 = lexersStylers.getLexerStylerByName(nm);
+		LexerStyler* pLs = _lexerStylerVect.getLexerStylerByName(nm.c_str());
+		LexerStyler* pLs2 = lexersStylers.getLexerStylerByName(nm.c_str());
 
 		if (pLs)
 		{
-			const wchar_t *extStr = pLs->getLexerUserExt();
-			element->SetAttribute(L"ext", extStr);
-			for (TiXmlNode *grChildNode = childNode->FirstChildElement(L"WordsStyle");
-					grChildNode ;
-					grChildNode = grChildNode->NextSibling(L"WordsStyle"))
+			NppXml::setAttribute(childNode, "ext", wstring2string(pLs->getLexerUserExt()).c_str());
+
+			for (NppXml::Element grChildNode = NppXml::firstChildElement(childNode, "WordsStyle");
+				grChildNode;
+				grChildNode = NppXml::nextSiblingElement(grChildNode, "WordsStyle"))
 			{
-				TiXmlElement *grElement = grChildNode->ToElement();
-				const wchar_t *styleName = grElement->Attribute(L"name");
-				const Style * pStyle = pLs->findByName(styleName);
-				Style * pStyle2Sync = pLs2 ? pLs2->findByName(styleName) : nullptr;
+				const std::wstring styleName = string2wstring(NppXml::attribute(grChildNode, "name", ""));
+				const Style* pStyle = pLs->findByName(styleName);
+				Style* pStyle2Sync = pLs2 ? pLs2->findByName(styleName) : nullptr;
 				if (pStyle && pStyle2Sync)
 				{
-					writeStyle2Element(*pStyle, *pStyle2Sync, grElement);
+					writeStyle2Element(*pStyle, *pStyle2Sync, grChildNode);
 				}
 			}
 		}
 	}
 
-	for (size_t x = 0; x < _pXmlExternalLexerDoc.size(); ++x)
+	for (auto& extLexDoc : _pXmlExternalLexerDoc)
 	{
-		TiXmlNode* lexersRoot2 = (_pXmlExternalLexerDoc[x]._doc->FirstChild(L"NotepadPlus"))->FirstChildElement(L"LexerStyles");
-		for (TiXmlNode* childNode = lexersRoot2->FirstChildElement(L"LexerType");
-			childNode ;
-			childNode = childNode->NextSibling(L"LexerType"))
+		NppXml::Element root2 = NppXml::firstChildElement(extLexDoc._doc, "NotepadPlus");
+		NppXml::Element lexersRoot2 = NppXml::firstChildElement(root2, "LexerStyles");
+		for (NppXml::Element childNode = NppXml::firstChildElement(lexersRoot2, "LexerType");
+			childNode;
+			childNode = NppXml::nextSiblingElement(childNode, "LexerType"))
 		{
-			TiXmlElement *element = childNode->ToElement();
-			const wchar_t *nm = element->Attribute(L"name");
+			const std::wstring nm = string2wstring(NppXml::attribute(childNode, "name", ""));
+			if (nm.empty())
+				continue;
 
-			LexerStyler *pLs = _lexerStylerVect.getLexerStylerByName(nm);
-			LexerStyler *pLs2 = lexersStylers.getLexerStylerByName(nm);
+			LexerStyler* pLs = _lexerStylerVect.getLexerStylerByName(nm.c_str());
+			LexerStyler* pLs2 = lexersStylers.getLexerStylerByName(nm.c_str());
 
 			if (pLs)
 			{
-				const wchar_t *extStr = pLs->getLexerUserExt();
-				element->SetAttribute(L"ext", extStr);
+				NppXml::setAttribute(childNode, "ext", wstring2string(pLs->getLexerUserExt()).c_str());
 
-				for (TiXmlNode *grChildNode = childNode->FirstChildElement(L"WordsStyle");
-						grChildNode ;
-						grChildNode = grChildNode->NextSibling(L"WordsStyle"))
+				for (NppXml::Element grChildNode = NppXml::firstChildElement(childNode, "WordsStyle");
+					grChildNode;
+					grChildNode = NppXml::nextSiblingElement(grChildNode, "WordsStyle"))
 				{
-					TiXmlElement *grElement = grChildNode->ToElement();
-					const wchar_t *styleName = grElement->Attribute(L"name");
-					const Style * pStyle = pLs->findByName(styleName);
-					Style * pStyle2Sync = pLs2 ? pLs2->findByName(styleName) : nullptr;
+					const std::wstring styleName = string2wstring(NppXml::attribute(grChildNode, "name", ""));
+					const Style* pStyle = pLs->findByName(styleName);
+					Style* pStyle2Sync = pLs2 ? pLs2->findByName(styleName) : nullptr;
 					if (pStyle && pStyle2Sync)
 					{
-						writeStyle2Element(*pStyle, *pStyle2Sync, grElement);
+						writeStyle2Element(*pStyle, *pStyle2Sync, grChildNode);
 					}
 				}
 			}
 		}
-		_pXmlExternalLexerDoc[x]._doc->SaveFile();
+		static_cast<void>(NppXml::saveFile(extLexDoc._doc, extLexDoc._path.c_str()));
 	}
 
-	TiXmlNode* globalStylesRoot = (_pXmlUserStylerDoc._doc->FirstChild(L"NotepadPlus"))->FirstChildElement(L"GlobalStyles");
+	NppXml::Element globalStylesRoot = NppXml::firstChildElement(root, "GlobalStyles");
 
-	for (TiXmlNode *childNode = globalStylesRoot->FirstChildElement(L"WidgetStyle");
-		childNode ;
-		childNode = childNode->NextSibling(L"WidgetStyle"))
+	for (NppXml::Element childNode = NppXml::firstChildElement(globalStylesRoot, "WidgetStyle");
+		childNode;
+		childNode = NppXml::nextSiblingElement(childNode, "WidgetStyle"))
 	{
-		TiXmlElement *pElement = childNode->ToElement();
-		const wchar_t *styleName = pElement->Attribute(L"name");
-		const Style * pStyle = _widgetStyleArray.findByName(styleName);
-		Style * pStyle2Sync = globalStylers.findByName(styleName);
+		const std::wstring styleName = string2wstring(NppXml::attribute(childNode, "name", ""));
+		const Style* pStyle = _widgetStyleArray.findByName(styleName);
+		Style* pStyle2Sync = globalStylers.findByName(styleName);
 		if (pStyle && pStyle2Sync)
 		{
-			writeStyle2Element(*pStyle, *pStyle2Sync, pElement);
+			writeStyle2Element(*pStyle, *pStyle2Sync, childNode);
 		}
 	}
 
-	bool isSaved = _pXmlUserStylerDoc._doc->SaveFile();
+	const bool isSaved = NppXml::saveFile(_pXmlUserStylerDoc._doc, _pXmlUserStylerDoc._path.c_str());
 	if (!isSaved)
 	{
-		auto savePath = _themeSwitcher.getSavePathFrom(_pXmlUserStylerDoc._doc->Value());
+		auto savePath = _themeSwitcher.getSavePathFrom(_pXmlUserStylerDoc._path);
 		if (!savePath.empty())
 		{
-			_pXmlUserStylerDoc._doc->SaveFile(savePath.c_str());
+			static_cast<void>(NppXml::saveFile(_pXmlUserStylerDoc._doc, savePath.c_str()));
 			return savePath;
 		}
 	}
 	return L"";
 }
 
-
 bool NppParameters::insertTabInfo(const wchar_t* langName, int tabInfo, bool backspaceUnindent)
 {
 	if (!_pXmlDoc._doc) return false;
-	TiXmlNode* langRoot = (_pXmlDoc._doc->FirstChild(L"NotepadPlus"))->FirstChildElement(L"Languages");
-	for (TiXmlNode *childNode = langRoot->FirstChildElement(L"Language");
-		childNode ;
-		childNode = childNode->NextSibling(L"Language"))
+	const std::string sLangName = wstring2string(langName);
+	NppXml::Element root = NppXml::firstChildElement(_pXmlDoc._doc, "NotepadPlus");
+	NppXml::Element langRoot = NppXml::firstChildElement(root, "Languages");
+	for (NppXml::Element childNode = NppXml::firstChildElement(langRoot, "Language");
+		childNode;
+		childNode = NppXml::nextSiblingElement(childNode, "Language"))
 	{
-		TiXmlElement *element = childNode->ToElement();
-		const wchar_t *nm = element->Attribute(L"name");
-		if (nm && lstrcmp(langName, nm) == 0)
+		const char* nm = NppXml::attribute(childNode, "name");
+		if (nm && std::strcmp(sLangName.c_str(), nm) == 0)
 		{
-			childNode->ToElement()->SetAttribute(L"tabSettings", tabInfo);
-			childNode->ToElement()->SetAttribute(L"backspaceUnindent", backspaceUnindent ? L"yes" : L"no");
-			_pXmlDoc._doc->SaveFile();
-			return true;
+			NppXml::setAttribute(childNode, "tabSettings", tabInfo);
+			setBoolAttribute(childNode, "backspaceUnindent", backspaceUnindent);
+			return NppXml::saveFile(_pXmlDoc._doc, _pXmlDoc._path.c_str());
 		}
 	}
 
-	for (size_t x = 0; x < _pXmlExternalLexerDoc.size(); ++x)
+	for (auto& extLexDoc : _pXmlExternalLexerDoc)
 	{
-		TiXmlNode* langRoot = (_pXmlExternalLexerDoc[x]._doc->FirstChild(L"NotepadPlus"))->FirstChildElement(L"Languages");
-		for (TiXmlNode* childNode = langRoot->FirstChildElement(L"Language");
+		NppXml::Element root2 = NppXml::firstChildElement(extLexDoc._doc, "NotepadPlus");
+		NppXml::Element langRoot2 = NppXml::firstChildElement(root2, "Languages");
+		for (NppXml::Element childNode = NppXml::firstChildElement(langRoot2, "Language");
 			childNode;
-			childNode = childNode->NextSibling(L"Language"))
+			childNode = NppXml::nextSiblingElement(childNode, "Language"))
 		{
-			TiXmlElement* element = childNode->ToElement();
-			const wchar_t* nm = element->Attribute(L"name");
-			if (nm && lstrcmp(langName, nm) == 0)
+			const char* nm = NppXml::attribute(childNode, "name");
+			if (nm && std::strcmp(sLangName.c_str(), nm) == 0)
 			{
-				childNode->ToElement()->SetAttribute(L"tabSettings", tabInfo);
-				childNode->ToElement()->SetAttribute(L"backspaceUnindent", backspaceUnindent ? L"yes" : L"no");
-				_pXmlExternalLexerDoc[x]._doc->SaveFile();
-				return true;
+				NppXml::setAttribute(childNode, "tabSettings", tabInfo);
+				setBoolAttribute(childNode, "backspaceUnindent", backspaceUnindent);
+				return NppXml::saveFile(extLexDoc._doc, extLexDoc._path.c_str());
 			}
 		}
 	}
@@ -9606,156 +9528,157 @@ bool NppParameters::insertTabInfo(const wchar_t* langName, int tabInfo, bool bac
 	return false;
 }
 
-void NppParameters::writeStyle2Element(const Style & style2Write, Style & style2Sync, TiXmlElement *element)
+void NppParameters::writeStyle2Element(const Style& style2Write, Style& style2Sync, NppXml::Element& element)
 {
+	static constexpr size_t bufSize = 7;
 	if (HIBYTE(HIWORD(style2Write._fgColor)) != 0xFF)
 	{
-		int rgbVal = RGB2int(style2Write._fgColor);
-		wchar_t fgStr[7];
-		wsprintf(fgStr, L"%.6X", rgbVal);
-		element->SetAttribute(L"fgColor", fgStr);
+		const int rgbVal = RGB2int(style2Write._fgColor);
+		char fgStr[bufSize]{};
+		std::snprintf(fgStr, bufSize, "%.6X", rgbVal);
+		NppXml::setAttribute(element, "fgColor", fgStr);
 	}
 
 	if (HIBYTE(HIWORD(style2Write._bgColor)) != 0xFF)
 	{
-		int rgbVal = RGB2int(style2Write._bgColor);
-		wchar_t bgStr[7];
-		wsprintf(bgStr, L"%.6X", rgbVal);
-		element->SetAttribute(L"bgColor", bgStr);
+		const int rgbVal = RGB2int(style2Write._bgColor);
+		char bgStr[bufSize]{};
+		std::snprintf(bgStr, bufSize, "%.6X", rgbVal);
+		NppXml::setAttribute(element, "bgColor", bgStr);
 	}
 
 	if (style2Write._colorStyle != COLORSTYLE_ALL)
 	{
-		element->SetAttribute(L"colorStyle", style2Write._colorStyle);
+		NppXml::setAttribute(element, "colorStyle", style2Write._colorStyle);
 	}
 
 	if (!style2Write._fontName.empty())
 	{
-		const wchar_t * oldFontName = element->Attribute(L"fontName");
-		if (oldFontName && oldFontName != style2Write._fontName)
+		const char* oldFontName = NppXml::attribute(element, "fontName");
+		const std::string fontName = wstring2string(style2Write._fontName);
+		if (oldFontName && oldFontName != fontName)
 		{
-			element->SetAttribute(L"fontName", style2Write._fontName);
+			NppXml::setAttribute(element, "fontName", fontName.c_str());
 			style2Sync._fontName = style2Write._fontName;
 		}
 	}
 
 	if (style2Write._fontSize != STYLE_NOT_USED)
 	{
-		if (!style2Write._fontSize)
-			element->SetAttribute(L"fontSize", L"");
+		if (style2Write._fontSize == 0)
+			NppXml::setAttribute(element, "fontSize", "");
 		else
-			element->SetAttribute(L"fontSize", style2Write._fontSize);
+			NppXml::setAttribute(element, "fontSize", style2Write._fontSize);
 	}
 
 	if (style2Write._fontStyle != STYLE_NOT_USED)
 	{
-		element->SetAttribute(L"fontStyle", style2Write._fontStyle);
+		NppXml::setAttribute(element, "fontStyle", style2Write._fontStyle);
 	}
 
+	NppXml::Node teteDeNoeud = NppXml::lastChild(element);
 
-	TiXmlNode *teteDeNoeud = element->LastChild();
+	const std::string kws = wstring2string(style2Write._keywords);
 
 	if (teteDeNoeud)
-		teteDeNoeud->SetValue(style2Write._keywords.c_str());
+		NppXml::setValue(teteDeNoeud, kws.c_str());
 	else
-		element->InsertEndChild(TiXmlText(style2Write._keywords.c_str()));
+		NppXml::createChildText(element, kws.c_str());
 
 }
 
-void NppParameters::insertUserLang2Tree(TiXmlNode* node, const UserLangContainer* userLang)
+void NppParameters::insertUserLang2Tree(NppXml::Element& node, const UserLangContainer* userLang)
 {
-	TiXmlElement *rootElement = (node->InsertEndChild(TiXmlElement(L"UserLang")))->ToElement();
+	NppXml::Element rootElement = NppXml::createChildElement(node, "UserLang");
 
-	wchar_t temp[32];
-	std::wstring udlVersion;
-	udlVersion += _itow(SCE_UDL_VERSION_MAJOR, temp, 10);
-	udlVersion += L".";
-	udlVersion += _itow(SCE_UDL_VERSION_MINOR, temp, 10);
+	static const std::string udlVersion = std::to_string(SCE_UDL_VERSION_MAJOR) + "." + std::to_string(SCE_UDL_VERSION_MINOR);
 
-	rootElement->SetAttribute(L"name", userLang->_name);
-	rootElement->SetAttribute(L"ext", userLang->_ext);
-	if (userLang->_isDarkModeTheme)
-		rootElement->SetAttribute(L"darkModeTheme", L"yes");
-	rootElement->SetAttribute(L"udlVersion", udlVersion.c_str());
+	NppXml::setAttribute(rootElement, "name", wstring2string(userLang->_name).c_str());
+	NppXml::setAttribute(rootElement, "ext", wstring2string(userLang->_ext).c_str());
+	if (userLang->_isDarkModeTheme) // set only if it's dark theme
+		NppXml::setAttribute(rootElement, "darkModeTheme", "yes");
+	NppXml::setAttribute(rootElement, "udlVersion", udlVersion.c_str());
 
-	TiXmlElement *settingsElement = (rootElement->InsertEndChild(TiXmlElement(L"Settings")))->ToElement();
+	NppXml::Element settingsElement = NppXml::createChildElement(rootElement,"Settings");
 	{
-		TiXmlElement *globalElement = (settingsElement->InsertEndChild(TiXmlElement(L"Global")))->ToElement();
-		globalElement->SetAttribute(L"caseIgnored",			userLang->_isCaseIgnored ? L"yes" : L"no");
-		globalElement->SetAttribute(L"allowFoldOfComments",	userLang->_allowFoldOfComments ? L"yes" : L"no");
-		globalElement->SetAttribute(L"foldCompact",			userLang->_foldCompact ? L"yes" : L"no");
-		globalElement->SetAttribute(L"forcePureLC",			userLang->_forcePureLC);
-		globalElement->SetAttribute(L"decimalSeparator",	   userLang->_decimalSeparator);
+		NppXml::Element globalElement = NppXml::createChildElement(settingsElement, "Global");
+		setBoolAttribute(globalElement, "caseIgnored", userLang->_isCaseIgnored);
+		setBoolAttribute(globalElement, "allowFoldOfComments", userLang->_allowFoldOfComments);
+		setBoolAttribute(globalElement, "foldCompact", userLang->_foldCompact);
+		NppXml::setAttribute(globalElement, "forcePureLC", userLang->_forcePureLC);
+		NppXml::setAttribute(globalElement, "decimalSeparator", userLang->_decimalSeparator);
 
-		TiXmlElement *prefixElement = (settingsElement->InsertEndChild(TiXmlElement(L"Prefix")))->ToElement();
+		NppXml::Element prefixElement = NppXml::createChildElement(settingsElement, "Prefix");
 		for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; ++i)
-			prefixElement->SetAttribute(globalMappper().keywordNameMapper[i+SCE_USER_KWLIST_KEYWORDS1], userLang->_isPrefix[i]?L"yes" : L"no");
+			setBoolAttribute(prefixElement, wstring2string(globalMappper().keywordNameMapper[i + SCE_USER_KWLIST_KEYWORDS1]).c_str(), userLang->_isPrefix[i]);
 	}
 
-	TiXmlElement *kwlElement = (rootElement->InsertEndChild(TiXmlElement(L"KeywordLists")))->ToElement();
+	NppXml::Element kwlElement = NppXml::createChildElement(rootElement, "KeywordLists");
 
 	for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; ++i)
 	{
-		TiXmlElement *kwElement = (kwlElement->InsertEndChild(TiXmlElement(L"Keywords")))->ToElement();
-		kwElement->SetAttribute(L"name", globalMappper().keywordNameMapper[i]);
-		kwElement->InsertEndChild(TiXmlText(userLang->_keywordLists[i]));
+		NppXml::Element kwElement = NppXml::createChildElement(kwlElement, "Keywords");
+		NppXml::setAttribute(kwElement, "name", wstring2string(globalMappper().keywordNameMapper[i]).c_str());
+		const std::string kws = wstring2string(userLang->_keywordLists[i]);
+		NppXml::createChildText(kwElement, kws.c_str());
 	}
 
-	TiXmlElement *styleRootElement = (rootElement->InsertEndChild(TiXmlElement(L"Styles")))->ToElement();
+	NppXml::Element styleRootElement = NppXml::createChildElement(rootElement, "Styles");
 
 	for (const Style & style2Write : userLang->_styles)
 	{
-		TiXmlElement *styleElement = (styleRootElement->InsertEndChild(TiXmlElement(L"WordsStyle")))->ToElement();
+		NppXml::Element styleElement = NppXml::createChildElement(styleRootElement, "WordsStyle");
 
 		if (style2Write._styleID == -1)
 			continue;
 
-		styleElement->SetAttribute(L"name", style2Write._styleDesc);
-
+		NppXml::setAttribute(styleElement, "name", wstring2string(style2Write._styleDesc).c_str());
+		static constexpr size_t bufSize = 7;
 		//if (HIBYTE(HIWORD(style2Write._fgColor)) != 0xFF)
 		{
-			int rgbVal = RGB2int(style2Write._fgColor);
-			wchar_t fgStr[7];
-			wsprintf(fgStr, L"%.6X", rgbVal);
-			styleElement->SetAttribute(L"fgColor", fgStr);
+			const int rgbVal = RGB2int(style2Write._fgColor);
+			char fgStr[bufSize]{};
+			std::snprintf(fgStr, bufSize, "%.6X", rgbVal);
+			NppXml::setAttribute(styleElement, "fgColor", fgStr);
 		}
 
 		//if (HIBYTE(HIWORD(style2Write._bgColor)) != 0xFF)
 		{
-			int rgbVal = RGB2int(style2Write._bgColor);
-			wchar_t bgStr[7];
-			wsprintf(bgStr, L"%.6X", rgbVal);
-			styleElement->SetAttribute(L"bgColor", bgStr);
+			const int rgbVal = RGB2int(style2Write._bgColor);
+			char bgStr[bufSize]{};
+			std::snprintf(bgStr, bufSize, "%.6X", rgbVal);
+			NppXml::setAttribute(styleElement, "bgColor", bgStr);
 		}
 
 		if (style2Write._colorStyle != COLORSTYLE_ALL)
 		{
-			styleElement->SetAttribute(L"colorStyle", style2Write._colorStyle);
+			NppXml::setAttribute(styleElement, "colorStyle", style2Write._colorStyle);
 		}
 
 		if (!style2Write._fontName.empty())
 		{
-			styleElement->SetAttribute(L"fontName", style2Write._fontName);
+			const std::string fontName = wstring2string(style2Write._fontName);
+			NppXml::setAttribute(styleElement, "fontName", fontName.c_str());
 		}
 
 		if (style2Write._fontStyle == STYLE_NOT_USED)
 		{
-			styleElement->SetAttribute(L"fontStyle", L"0");
+			NppXml::setAttribute(styleElement, "fontStyle", "0");
 		}
 		else
 		{
-			styleElement->SetAttribute(L"fontStyle", style2Write._fontStyle);
+			NppXml::setAttribute(styleElement, "fontStyle", style2Write._fontStyle);
 		}
 
 		if (style2Write._fontSize != STYLE_NOT_USED)
 		{
-			if (!style2Write._fontSize)
-				styleElement->SetAttribute(L"fontSize", L"");
+			if (style2Write._fontSize == 0)
+				NppXml::setAttribute(styleElement, "fontSize", "");
 			else
-				styleElement->SetAttribute(L"fontSize", style2Write._fontSize);
+				NppXml::setAttribute(styleElement, "fontSize", style2Write._fontSize);
 		}
 
-		styleElement->SetAttribute(L"nesting", style2Write._nesting);
+		NppXml::setAttribute(styleElement, "nesting", style2Write._nesting);
 	}
 }
 
@@ -9871,7 +9794,7 @@ void NppParameters::removeIndexFromXmlUdls(size_t i)
 	}
 }
 
-void NppParameters::setUdlXmlDirtyFromXmlDoc(const TiXmlDocument* xmlDoc)
+void NppParameters::setUdlXmlDirtyFromXmlDoc(const NppXml::Document& xmlDoc)
 {
 	for (auto& uxfs : _pXmlUserLangsDoc)
 	{

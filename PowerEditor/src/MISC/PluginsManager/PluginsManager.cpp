@@ -244,9 +244,9 @@ int PluginsManager::loadPluginFromPath(const wchar_t *pluginFilePath)
 				}
 			}
 
-			TiXmlDocument *pXmlDoc = new TiXmlDocument();
+			NppXml::Document pXmlDoc = new NppXml::NewDocument();
 
-			if (!pXmlDoc->LoadFile(xmlPath.wstring()))
+			if (!NppXml::loadFile(pXmlDoc, xmlPath.c_str()))
 			{
 				delete pXmlDoc;
 				pXmlDoc = nullptr;

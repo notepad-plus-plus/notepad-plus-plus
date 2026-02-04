@@ -43,6 +43,10 @@ namespace NppXml
 		return doc->load_file(filename, pugi::parse_cdata | pugi::parse_escapes | pugi::parse_eol | pugi::parse_comments | pugi::parse_declaration);
 	}
 
+	[[nodiscard]] inline bool loadFileContextMenu(Document doc, const wchar_t* filename) {
+		return doc->load_file(filename, pugi::parse_cdata | pugi::parse_escapes | pugi::parse_eol);
+	}
+
 	[[nodiscard]] inline bool loadFileShortcut(Document doc, const wchar_t* filename) {
 		return doc->load_file(filename, pugi::parse_cdata | pugi::parse_escapes | pugi::parse_comments | pugi::parse_declaration);
 	}

@@ -1611,7 +1611,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			// Change ComboBox height to accomodate High-DPI settings.
 			// ComboBoxes are scaled using the font used in them, however this results in weird optics
 			// on scaling > 200% (192 DPI). Using this method we accomodate these scalings way better
-			// than the OS does with the current dpiAware.manifest...
+			// than the OS does with the current dpiAware manifest...
 
 			LOGFONT lf{};
 			::GetObject(hFont, sizeof(lf), &lf);

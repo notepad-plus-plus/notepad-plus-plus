@@ -614,9 +614,6 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_REDACT_SELECTION:
 		{
-			if (_pEditView->execute(SCI_SELECTIONISRECTANGLE))
-				break;
-
 			_pEditView->execute(SCI_BEGINUNDOACTION);
 
 			const int selCount = static_cast<int>(_pEditView->execute(SCI_GETSELECTIONS));
@@ -626,7 +623,8 @@ void Notepad_plus::command(int id)
 			const bool isUnicode = (codePage == SC_CP_UTF8);
 
 			std::string charToUse;
-			if (isUnicode) {
+			if (isUnicode)
+			{
 				charToUse = useBullet ? "\xE2\x97\x8F" : "\xE2\x96\x88"; // ● or █ (UTF-8)
 			}
 			else {

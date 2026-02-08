@@ -2569,9 +2569,9 @@ void Notepad_plus::checkClipboard()
 	enableCommand(IDM_EDIT_SENTENCECASE_BLEND, hasSelection, MENU);
 	enableCommand(IDM_EDIT_INVERTCASE, hasSelection, MENU);
 	enableCommand(IDM_EDIT_RANDOMCASE, hasSelection, MENU);
-	// Redact Selection only for normal selection mode (not box selection) and file not read-only
-	bool isValidSelection = hasSelection && (_pEditView->execute(SCI_GETSELECTIONMODE) == SC_SEL_STREAM);
-	enableCommand(IDM_EDIT_REDACT_SELECTION, isValidSelection && !_pEditView->execute(SCI_GETREADONLY), MENU);
+	Buffer* curBuf = _pEditView->getCurrentBuffer();
+	bool canRedact = !curBuf->getFileReadOnly() && !curBuf->getUserReadOnly() && hasSelection;
+	enableCommand(IDM_EDIT_REDACT_SELECTION, canRedact, MENU);
 }
 
 void Notepad_plus::checkDocState()
@@ -2613,13 +2613,6 @@ void Notepad_plus::checkDocState()
 	bool isUserReadOnly = curBuf->getUserReadOnly();
 	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_TOGGLEREADONLY, MF_BYCOMMAND | (isUserReadOnly ? MF_CHECKED : MF_UNCHECKED));
 	
-	long start = static_cast<long>(_pEditView->execute(SCI_GETSELECTIONSTART));
-	long end = static_cast<long>(_pEditView->execute(SCI_GETSELECTIONEND));
-	bool hasSelection = (start != end);
-	bool canRedact = !isSysReadOnly && !isUserReadOnly && hasSelection;
-
-	enableCommand(IDM_EDIT_REDACT_SELECTION, canRedact, MENU);
-
 
 	enableCommand(IDM_FILE_DELETE, isFileExisting, MENU);
 	enableCommand(IDM_FILE_OPEN_CMD, isFileExisting, MENU);

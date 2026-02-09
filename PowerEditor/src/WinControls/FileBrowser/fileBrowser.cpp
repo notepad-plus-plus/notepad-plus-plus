@@ -842,12 +842,23 @@ void FileBrowser::popupMenuCmd(int cmdID)
 			wstring path = getNodePath(selectedNode);
 			if (doesPathExist(path.c_str()))
 			{
-				wchar_t cmdStr[1024] = {};
+				wchar_t explorerPath[MAX_PATH] {};
+				if (!::GetWindowsDirectoryW(explorerPath, MAX_PATH))
+					return;
+
+				PathAppend(explorerPath, L"explorer.exe");
+
+				if (!doesFileExist(explorerPath))
+					return;
+
+				std::wstring explorerCmd = explorerPath;
+				
 				if (getNodeType(selectedNode) == browserNodeType_file)
-					wsprintf(cmdStr, L"explorer /select,\"%s\"", path.c_str());
+					explorerCmd += L" /select,\"" + path + L"\"";
 				else
-					wsprintf(cmdStr, L"explorer \"%s\"", path.c_str());
-				Command cmd(cmdStr);
+					explorerCmd += L" \"" + path + L"\"";
+
+				Command cmd(explorerCmd);
 				cmd.run(nullptr);
 			}
 		}

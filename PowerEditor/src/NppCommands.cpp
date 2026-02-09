@@ -727,7 +727,13 @@ void Notepad_plus::command(int id)
 			wchar_t cmd2Exec[CURRENTWORD_MAXLENGTH] = { '\0' };
 			if (id == IDM_EDIT_OPENINFOLDER)
 			{
-				wcscpy_s(cmd2Exec, L"explorer");
+				if (!::GetWindowsDirectoryW(cmd2Exec, MAX_PATH))
+					return;
+
+				PathAppend(cmd2Exec, L"explorer.exe");
+
+				if (!doesFileExist(cmd2Exec))
+					return;
 			}
 			else
 			{
@@ -2438,23 +2444,23 @@ void Notepad_plus::command(int id)
 			auto currentBuf = _pEditView->getCurrentBuffer();
 			if (!currentBuf->isUntitled())
 			{
-				wstring appName;
+				wstring appPathsEntryName;
 
 				if (id == IDM_VIEW_IN_FIREFOX)
 				{
-					appName = L"firefox.exe";
+					appPathsEntryName = L"firefox.exe";
 				}
 				else if (id == IDM_VIEW_IN_CHROME)
 				{
-					appName = L"chrome.exe";
+					appPathsEntryName = L"chrome.exe";
 				}
 				else if (id == IDM_VIEW_IN_EDGE)
 				{
-					appName = L"msedge.exe";
+					appPathsEntryName = L"msedge.exe";
 				}
 				else // if (id == IDM_VIEW_IN_IE)
 				{
-					appName = L"IEXPLORE.EXE";
+					appPathsEntryName = L"IEXPLORE.EXE";
 				}
 
 				wchar_t valData[MAX_PATH] = {'\0'};
@@ -2462,7 +2468,7 @@ void Notepad_plus::command(int id)
 				DWORD valType = 0;
 				HKEY hKey2Check = nullptr;
 				wstring appEntry = L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\";
-				appEntry += appName;
+				appEntry += appPathsEntryName;
 				::RegOpenKeyEx(HKEY_LOCAL_MACHINE, appEntry.c_str(), 0, KEY_READ, &hKey2Check);
 				::RegQueryValueEx(hKey2Check, L"", nullptr, &valType, reinterpret_cast<LPBYTE>(valData), &valDataLen);
 

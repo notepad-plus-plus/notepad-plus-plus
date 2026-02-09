@@ -4113,7 +4113,7 @@ ColumnModeInfos ScintillaEditView::getColumnModeSelectInfo()
 	return columnModeInfos;
 }
 
-void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, const wchar_t *str)
+void ScintillaEditView::columnReplace(ColumnModeInfos& cmi, const char* str) const
 {
 	intptr_t totalDiff = 0;
 	for (size_t i = 0, len = cmi.size(); i < len ; ++i)
@@ -4121,7 +4121,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, const wchar_t *str)
 		if (cmi[i].isValid())
 		{
 			intptr_t len2beReplace = cmi[i]._selRpos - cmi[i]._selLpos;
-			intptr_t diff = std::wcslen(str) - len2beReplace;
+			const intptr_t diff = std::strlen(str) - len2beReplace;
 
 			cmi[i]._selLpos += totalDiff;
 			cmi[i]._selRpos += totalDiff;
@@ -4139,14 +4139,11 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, const wchar_t *str)
 
 			execute(SCI_SETTARGETRANGE, cmi[i]._selLpos, cmi[i]._selRpos);
 
-			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-			size_t cp = execute(SCI_GETCODEPAGE);
-			const char *strA = wmc.wchar2char(str, cp);
-			execute(SCI_REPLACETARGET, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(strA));
+			execute(SCI_REPLACETARGET, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(str));
 
 			if (hasVirtualSpc)
 			{
-				totalDiff += cmi[i]._nbVirtualAnchorSpc + std::wcslen(str);
+				totalDiff += cmi[i]._nbVirtualAnchorSpc + std::strlen(str);
 
 				// Now there's no more virtual space
 				cmi[i]._nbVirtualAnchorSpc = 0;
@@ -4161,7 +4158,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, const wchar_t *str)
 	}
 }
 
-void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, size_t initial, size_t incr, size_t repeat, UCHAR format, ColumnEditorParam::leadingChoice lead)
+void ScintillaEditView::columnReplace(ColumnModeInfos& cmi, size_t initial, size_t incr, size_t repeat, NumBase format, ColumnEditorParam::leadingChoice lead) const
 {
 	assert(repeat > 0);
 
@@ -4178,6 +4175,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, size_t initial, siz
 	//Defined in ScintillaEditView.h :
 	//const UCHAR MASK_FORMAT = 0x03;
 
+	using enum NumBase;
 	bool useUppercase = false;
 	int base = 10;
 	if (format == BASE_16)
@@ -4192,7 +4190,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, size_t initial, siz
 		useUppercase = true;
 	}
 
-	const int stringSize = 512;
+	static constexpr int stringSize = 512;
 	char str[stringSize];
 
 	// Compute the numbers to be placed at each column.

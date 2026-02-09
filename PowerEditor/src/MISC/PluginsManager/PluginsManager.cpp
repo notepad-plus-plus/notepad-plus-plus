@@ -277,17 +277,18 @@ int PluginsManager::loadPluginFromPath(const wchar_t *pluginFilePath)
 		pluginExceptionAlert(pluginFileName, e);
 		return -1;
 	}
-	catch (wstring& s)
+	catch (const std::wstring& s)
 	{
 		if (pi && pi->_hLib)
 		{
 			::FreeLibrary(pi->_hLib);
 		}
 
-		s += L"\n\n";
-		s += pluginFileName;
-		s += USERMSG;
-		if (::MessageBox(_nppData._nppHandle, s.c_str(), pluginFilePath, MB_YESNO) == IDYES)
+		std::wstring msg = s;
+		msg += L"\n\n";
+		msg += pluginFileName;
+		msg += USERMSG;
+		if (::MessageBox(_nppData._nppHandle, msg.c_str(), pluginFilePath, MB_YESNO) == IDYES)
 		{
 
 			::DeleteFile(pluginFilePath);

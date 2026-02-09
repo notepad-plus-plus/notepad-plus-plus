@@ -627,7 +627,8 @@ void Notepad_plus::command(int id)
 			{
 				charToUse = useBullet ? "\xE2\x97\x8F" : "\xE2\x96\x88"; // ● or █ (UTF-8)
 			}
-			else {
+			else
+			{
 				charToUse = useBullet ? "." : "#";
 			}
 

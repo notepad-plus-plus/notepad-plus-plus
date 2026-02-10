@@ -343,10 +343,19 @@ LRESULT CALLBACK Splitter::spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lPara
 					}
 				}
 
-				::SendMessage(_hParent, WM_RESIZE_CONTAINER, _rect.left, _rect.top);
-				::MoveWindow(_hSelf, _rect.left, _rect.top, _rect.right, _rect.bottom, FALSE);
-				redraw();
+				static long lastRedrawTime = 0;
+				const long currTime = ::GetTickCount();
+
+				if (currTime - lastRedrawTime > 5)
+				{
+					::SendMessage(_hParent, WM_RESIZE_CONTAINER, _rect.left, _rect.top);	
+					::MoveWindow(_hSelf, _rect.left, _rect.top, _rect.right, _rect.bottom, FALSE);
+					redraw();
+					
+					lastRedrawTime = currTime;
+				}
 			}
+
 			return 0;
 		}
 

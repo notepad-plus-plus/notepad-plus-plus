@@ -678,15 +678,12 @@ void Notepad_plus::command(int id)
 			const int codePage = static_cast<int>(_pEditView->execute(SCI_GETCODEPAGE));
 			const bool isUnicode = (codePage == SC_CP_UTF8);
 
-			std::string charToUse;
+			std::string maskSymbol;
 			if (isUnicode)
-			{
-				charToUse = useBullet ? "\xE2\x97\x8F" : "\xE2\x96\x88"; // ● or █ (UTF-8)
-			}
+				maskSymbol = useBullet ? "\xE2\x97\x8F" : "\xE2\x96\x88"; // ● or █ (UTF-8)
 			else
-			{
-				charToUse = useBullet ? "." : "#";
-			}
+				maskSymbol = useBullet ? "." : "#";
+
 
 			for (int i = 0; i < selCount; ++i)
 			{
@@ -696,13 +693,22 @@ void Notepad_plus::command(int id)
 
 				if (charCount > 0)
 				{
-					std::string mask = "";
+
+					std::string maskStr;
+
+					std::vector<std::pair<int, int>> segments2replace;
 					for (int j = 0; j < charCount; ++j)
-						mask += charToUse;
+					{
+						char aChar = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, start + j));
+						
+						if (aChar == '\r' || aChar == '\n')
+							maskStr += aChar;
+						else
+							maskStr += maskSymbol;
+					}
 
 					_pEditView->execute(SCI_SETTARGETRANGE, start, end);
-
-					_pEditView->execute(SCI_REPLACETARGET, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(mask.c_str()));
+					_pEditView->execute(SCI_REPLACETARGET, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(maskStr.c_str()));
 				}
 			}
 

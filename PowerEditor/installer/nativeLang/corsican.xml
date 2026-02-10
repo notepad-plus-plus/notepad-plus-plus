@@ -12,6 +12,7 @@ Additionnal information about Corsican localization:
 
 2. History of Corsican translation for Notepad++:
 
+	- Updated in 2026 by Patriccollu di Santa Maria è Sichè: Feb. 10th (v8.9.1+)
 	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8), Apr. 20th (v8.8),
 			  June 26th (v8.8.1+), July 24th (v8.8.3+), Sep. 30th (v8.8.5+), Dec. 12th (v8.8.9+)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
@@ -36,7 +37,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.8.9">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.9.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -191,6 +192,7 @@ Additionnal information about Corsican localization:
 					<Item id="42072" name="À l’A&amp;zarDU"/>
 					<Item id="42073" name="Apre u schedariu"/>
 					<Item id="42074" name="Apre cù l’espluratore u cartulare cuntenendu u schedariu"/>
+					<Item id="42106" name="Anonimizà a selezzione da █ (Maiusc : ●)"/>
 					<Item id="42075" name="Circà nant’à Internet"/>
 					<Item id="42076" name="Cambià u mutore di ricerca…"/>
 					<Item id="42090" name="Ignurà a cassa è a parolla sana"/>
@@ -1811,6 +1813,9 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
 			<find-status-scope-all value="in u schedariu sanu"/>
 			<find-status-scope-backward value="da u principiu di schedariu à u cursore"/>
 			<find-status-scope-forward value="da u cursore à a fine di schedariu"/>
+			<find-status-invisible-chars-findWhat value="Caratteri invisibile in u cuntenutu incullatu di « Cosa à circà » o « Rimpiazzà cù »"/>
+			<find-status-invisible-chars-findWhat-tip value="Avertimentu : Caratteri invisibile in u campu di ricerca (o di rimpiazzamentu).
+U testu incullatu in stu campu cuntene caratteri invisibile (forse fine di linea). S’è vo cuntinuate senza squassalli, seranu inchjusi in u testu di ricerca (o di rimpiazzamentu)."/>
 			<finder-find-in-finder value="Circà in sti risultati di ricerca…"/>
 			<finder-close-this value="Chjode sti risultati di ricerca"/>
 			<finder-collapse-all value="Tuttu ripiegà"/>

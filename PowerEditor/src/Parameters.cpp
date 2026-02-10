@@ -9889,7 +9889,7 @@ Date::Date(const char* dateStr)
 	assert(dateStr);
 	const size_t D = std::strlen(dateStr);
 
-	if (8 == D)
+	if (8==D)
 	{
 		const std::string ds(dateStr);
 		const std::string yyyy(ds, 0, 4);

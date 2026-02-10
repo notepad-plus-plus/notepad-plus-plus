@@ -158,6 +158,7 @@
 					<Item id="42072" name="NÁhoDná"/>
 					<Item id="42073" name="Otvoriť súbor"/>
 					<Item id="42074" name="Otvoriť priečinok súboru v Prieskumníkovi"/>
+					<Item id="42106" name="Redigovať výber █ (Shift: ●)"/>
 					<Item id="42075" name="Hľadať na Internete"/>
 					<Item id="42076" name="Zmeniť vyhľadávač…"/>
 					<Item id="42090" name="Nerozlišovať veľkosť písmen a celé slovo"/>
@@ -432,7 +433,7 @@
 				<Item CMDID="44048" name="Pripnúť kartu" alternativeName="Odopnúť kartu"/>
 				<Item CMDID="41006" name="Uložiť"/>
 				<Item CMDID="41008" name="Uložiť ako…"/>
-				<Item CMDID="1" name="Otvoriť do"/>
+				<Item CMDID="1" name="Otvoriť v"/>
 				<Item CMDID="41019" name="Otvoriť priečinok súboru v Prieskumníkovi"/>
 				<Item CMDID="41020" name="Otvoriť priečinok súboru v Príkazovom riadku"/>
 				<Item CMDID="41025" name="Otvoriť priečinok súboru ako pracovný priestor"/>

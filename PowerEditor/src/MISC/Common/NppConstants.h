@@ -113,7 +113,7 @@ enum TextCase : unsigned char
 	RANDOMCASE
 };
 
-enum NumBase : unsigned char
+enum class NumBase : unsigned char
 {
 	BASE_10,
 	BASE_16,

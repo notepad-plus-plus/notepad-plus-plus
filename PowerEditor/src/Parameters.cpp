@@ -23,6 +23,7 @@
 #include <shlwapi.h>
 
 #include <algorithm>
+#include <array>
 #include <cassert>
 #include <cstdio>
 #include <cstdlib>
@@ -696,20 +697,103 @@ int getKwClassFromName(const wchar_t *str)
 	return -1;
 }
 
-
 } // anonymous namespace
 
-static bool getBoolAttribute(const NppXml::Element& elem, const char* name)
+enum class XmlAttrResult
+{
+	failed = -1,
+	isFalse,
+	isTrue
+};
+
+static constexpr std::array<const char*, 2> STR_BOOL_YESNO{ { "yes", "no" } };
+static constexpr std::array<const char*, 2> STR_BOOL_SHOWHIDE{ { "show", "hide" } };
+
+[[nodiscard]] static bool getBoolAttribute(const NppXml::Element& elem, const char* name, bool defaultVal = false, const std::array<const char*, 2>& strs2cmp = STR_BOOL_YESNO)
 {
 	const char* str = NppXml::attribute(elem, name);
 	if (str)
-		return std::strcmp(str, "yes") == 0;
-	return false;
+	{
+		if (std::strcmp(str, strs2cmp[0]) == 0)
+			return true;
+		if (std::strcmp(str, strs2cmp[1]) == 0)
+			return false;
+	}
+	return defaultVal;
 }
 
-static void setBoolAttribute(NppXml::Element& elem, const char* name, bool isYes)
+[[nodiscard]] [[maybe_unused]] static XmlAttrResult getResultAttribute(const NppXml::Element& elem, const char* name, const std::array<const char*, 2>& strs2cmp = STR_BOOL_YESNO)
 {
-	NppXml::setAttribute(elem, name, isYes ? "yes" : "no");
+	const char* str = NppXml::attribute(elem, name);
+	if (str)
+	{
+		if (std::strcmp(str, strs2cmp[0]) == 0)
+			return XmlAttrResult::isTrue;
+		if (std::strcmp(str, strs2cmp[1]) == 0)
+			return XmlAttrResult::isFalse;
+	}
+	return XmlAttrResult::failed;
+}
+
+template <typename T>
+[[nodiscard]] static T getRangeClampAttribute(const NppXml::Element& elem, const char* name, T minVal, T maxVal, T defaultVal)
+{
+	const int val = NppXml::intAttribute(elem, name, static_cast<int>(defaultVal));
+	if (val != static_cast<int>(defaultVal))
+	{
+		return static_cast<T>(std::max<int>(static_cast<int>(minVal), std::min<int>(val, static_cast<int>(maxVal))));
+	}
+	return defaultVal;
+}
+
+template <typename T>
+[[nodiscard]] static T getRangeDefaultAttribute(const NppXml::Element& elem, const char* name, T minVal, T maxVal, T defaultVal)
+{
+	const int val = NppXml::intAttribute(elem, name, static_cast<int>(defaultVal));
+	if (val < static_cast<int>(minVal))
+		return defaultVal;
+	if (val > static_cast<int>(maxVal))
+		return defaultVal;
+	return static_cast<T>(val);
+}
+
+static void setBoolAttribute(NppXml::Element& elem, const char* name, bool isTrue, const std::array<const char*, 2>& strs2set = STR_BOOL_YESNO)
+{
+	NppXml::setAttribute(elem, name, isTrue ? strs2set[0] : strs2set[1]);
+}
+
+[[nodiscard]] [[maybe_unused]] static bool getBoolChildTextNode(const NppXml::Element& elemParent, bool defaultVal = false, const std::array<const char*, 2>& strs2cmp = STR_BOOL_YESNO)
+{
+	NppXml::Node n = NppXml::firstChild(elemParent);
+	if (n)
+	{
+		const char* val = NppXml::value(n);
+		if (val)
+		{
+			if (std::strcmp(val, strs2cmp[0]) == 0)
+				return true;
+			if (std::strcmp(val, strs2cmp[1]) == 0)
+				return false;
+		}
+	}
+	return defaultVal;
+}
+
+[[nodiscard]] [[maybe_unused]] static XmlAttrResult getResultChildTextNode(const NppXml::Element& elemParent, const std::array<const char*, 2>& strs2cmp = STR_BOOL_YESNO)
+{
+	NppXml::Node n = NppXml::firstChild(elemParent);
+	if (n)
+	{
+		const char* val = NppXml::value(n);
+		if (val)
+		{
+			if (std::strcmp(val, strs2cmp[0]) == 0)
+				return XmlAttrResult::isTrue;
+			if (std::strcmp(val, strs2cmp[1]) == 0)
+				return XmlAttrResult::isFalse;
+		}
+	}
+	return XmlAttrResult::failed;
 }
 
 void cutString(const wchar_t* str2cut, std::vector<std::wstring>& patternVect)
@@ -1798,7 +1882,7 @@ void NppParameters::destroyInstance()
 }
 
 
-void NppParameters::saveConfig_xml()
+void NppParameters::saveConfig_xml() const
 {
 	if (_pXmlUserDoc)
 		_pXmlUserDoc->SaveFile();
@@ -3318,6 +3402,7 @@ void NppParameters::feedColumnEditorParameters(TiXmlNode *node)
 	strVal = (childNode->ToElement())->Attribute(L"formatChoice");
 	if (strVal)
 	{
+		using enum NumBase;
 		if (lstrcmp(strVal, L"hex") == 0)
 			_columnEditParam._formatChoice = BASE_16;
 		else if (lstrcmp(strVal, L"hexuc") == 0)
@@ -3333,14 +3418,15 @@ void NppParameters::feedColumnEditorParameters(TiXmlNode *node)
 	strVal = (childNode->ToElement())->Attribute(L"leadingChoice");
 	if (strVal)
 	{
-		_columnEditParam._leadingChoice = ColumnEditorParam::noneLeading;
+		using enum ColumnEditorParam::leadingChoice;
+		_columnEditParam._leadingChoice = noneLeading;
 		if (lstrcmp(strVal, L"zeros") == 0)
 		{
-			_columnEditParam._leadingChoice = ColumnEditorParam::zeroLeading;
+			_columnEditParam._leadingChoice = zeroLeading;
 		}
 		else if (lstrcmp(strVal, L"spaces") == 0)
 		{
-			_columnEditParam._leadingChoice = ColumnEditorParam::spaceLeading;
+			_columnEditParam._leadingChoice = spaceLeading;
 		}
 	}
 }
@@ -3995,7 +4081,7 @@ bool NppParameters::isCloudPathChanged() const
 	return true;
 }
 
-bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring & cloudSettingsPath)
+bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring& cloudSettingsPath) const
 {
 	bool isOK = false;
 
@@ -5055,7 +5141,7 @@ void StyleArray::addStyler(int styleID, TiXmlNode* styleNode)
 	}
 }
 
-bool NppParameters::writeRecentFileHistorySettings(int nbMaxFile) const
+bool NppParameters::writeRecentFileHistorySettings(int nbMaxFile)
 {
 	if (!_pXmlUserDoc) return false;
 
@@ -5077,7 +5163,7 @@ bool NppParameters::writeRecentFileHistorySettings(int nbMaxFile) const
 	return true;
 }
 
-bool NppParameters::writeColumnEditorSettings() const
+bool NppParameters::writeColumnEditorSettings()
 {
 	if (!_pXmlUserDoc) return false;
 
@@ -5106,21 +5192,64 @@ bool NppParameters::writeColumnEditorSettings() const
 	(numberNode.ToElement())->SetAttribute(L"initial", _columnEditParam._initialNum);
 	(numberNode.ToElement())->SetAttribute(L"increase", _columnEditParam._increaseNum);
 	(numberNode.ToElement())->SetAttribute(L"repeat", _columnEditParam._repeatNum);
-	wstring format = L"dec";
-	if (_columnEditParam._formatChoice == BASE_16)
-		format = L"hex";
-	else if (_columnEditParam._formatChoice == BASE_16_UPPERCASE)
-		format = L"hexuc";
-	else if (_columnEditParam._formatChoice == BASE_08)
-		format = L"oct";
-	else if (_columnEditParam._formatChoice == BASE_02)
-		format = L"bin";
+	std::wstring format = L"dec";
+	switch (_columnEditParam._formatChoice)
+	{
+		using enum NumBase;
+		case BASE_10:
+		{
+			format = L"dec";
+			break;
+		}
+
+		case BASE_16:
+		{
+			format = L"hex";
+			break;
+		}
+
+		case BASE_08:
+		{
+			format = L"oct";
+			break;
+		}
+
+		case BASE_02:
+		{
+			format = L"bin";
+			break;
+		}
+
+		case BASE_16_UPPERCASE:
+		{
+			format = L"hexuc";
+			break;
+		}
+	}
 	(numberNode.ToElement())->SetAttribute(L"formatChoice", format);
-	wstring leading = L"none";
-	if (_columnEditParam._leadingChoice == ColumnEditorParam::zeroLeading)
-		leading = L"zeros";
-	else if (_columnEditParam._leadingChoice == ColumnEditorParam::spaceLeading)
-		leading = L"spaces";
+
+	std::wstring leading;
+	switch (_columnEditParam._leadingChoice)
+	{
+		using enum ColumnEditorParam::leadingChoice;
+		case noneLeading:
+		{
+			leading = L"none";
+			break;
+		}
+
+		case zeroLeading:
+		{
+			leading = L"zeros";
+			break;
+		}
+
+		case spaceLeading:
+		{
+			leading = L"spaces";
+			break;
+		}
+	}
 	(numberNode.ToElement())->SetAttribute(L"leadingChoice", leading);
 	(columnEditorRootNode.ToElement())->InsertEndChild(numberNode);
 
@@ -5129,7 +5258,7 @@ bool NppParameters::writeColumnEditorSettings() const
 	return true;
 }
 
-bool NppParameters::writeProjectPanelsSettings() const
+bool NppParameters::writeProjectPanelsSettings()
 {
 	if (!_pXmlUserDoc) return false;
 
@@ -5164,7 +5293,7 @@ bool NppParameters::writeProjectPanelsSettings() const
 	return true;
 }
 
-bool NppParameters::writeFileBrowserSettings(const vector<std::wstring> & rootPaths, const std::wstring & latestSelectedItemPath) const
+bool NppParameters::writeFileBrowserSettings(const std::vector<std::wstring>& rootPaths, const std::wstring& latestSelectedItemPath)
 {
 	if (!_pXmlUserDoc) return false;
 
@@ -5583,6 +5712,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				val = n->Value();
 				if (val)
 				{
+					using enum toolBarStatusType;
 					auto& tbIconSet = _nppGUI._tbIconInfo._tbIconSet;
 					if (!lstrcmp(val, L"small"))
 						tbIconSet = TB_SMALL;
@@ -6278,20 +6408,33 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			int i;
 			if (element->Attribute(L"format", &i))
 			{
-				EolType newFormat = EolType::osdefault;
+				using enum EolType;
+				EolType newFormat = osdefault;
 				switch (i)
 				{
-					case static_cast<LPARAM>(EolType::windows) :
-						newFormat = EolType::windows;
+					case static_cast<int>(windows):
+					{
+						newFormat = windows;
 						break;
-					case static_cast<LPARAM>(EolType::macos) :
-						newFormat = EolType::macos;
+					}
+
+					case static_cast<int>(macos):
+					{
+						newFormat = macos;
 						break;
-					case static_cast<LPARAM>(EolType::unix) :
-						newFormat = EolType::unix;
+					}
+
+					case static_cast<int>(unix):
+					{
+						newFormat = unix;
 						break;
+					}
+
 					default:
+					{
 						assert(false && "invalid buffer format - fallback to default");
+						break;
+					}
 				}
 				_nppGUI._newDocDefaultSettings._format = newFormat;
 			}
@@ -6364,7 +6507,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			for (int i = 0 ; i < 8 ; ++i)
 			{
 				if (mask & g0)
-					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+					_nppGUI._excludedLangList.emplace_back(static_cast<LangType>(i));
 				mask <<= 1;
 			}
 
@@ -6372,7 +6515,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			for (int i = 8 ; i < 16 ; ++i)
 			{
 				if (mask & g1)
-					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+					_nppGUI._excludedLangList.emplace_back(static_cast<LangType>(i));
 				mask <<= 1;
 			}
 
@@ -6380,7 +6523,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			for (int i = 16 ; i < 24 ; ++i)
 			{
 				if (mask & g2)
-					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+					_nppGUI._excludedLangList.emplace_back(static_cast<LangType>(i));
 				mask <<= 1;
 			}
 
@@ -6388,7 +6531,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			for (int i = 24 ; i < 32 ; ++i)
 			{
 				if (mask & g3)
-					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+					_nppGUI._excludedLangList.emplace_back(static_cast<LangType>(i));
 				mask <<= 1;
 			}
 
@@ -6396,7 +6539,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			for (int i = 32 ; i < 40 ; ++i)
 			{
 				if (mask & g4)
-					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+					_nppGUI._excludedLangList.emplace_back(static_cast<LangType>(i));
 				mask <<= 1;
 			}
 
@@ -6404,7 +6547,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			for (int i = 40 ; i < 48 ; ++i)
 			{
 				if (mask & g5)
-					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+					_nppGUI._excludedLangList.emplace_back(static_cast<LangType>(i));
 				mask <<= 1;
 			}
 
@@ -6412,7 +6555,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			for (int i = 48 ; i < 56 ; ++i)
 			{
 				if (mask & g6)
-					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+					_nppGUI._excludedLangList.emplace_back(static_cast<LangType>(i));
 				mask <<= 1;
 			}
 
@@ -6420,7 +6563,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			for (int i = 56 ; i < 64 ; ++i)
 			{
 				if (mask & g7)
-					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+					_nppGUI._excludedLangList.emplace_back(static_cast<LangType>(i));
 				mask <<= 1;
 			}
 
@@ -6428,7 +6571,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			for (int i = 64; i < 72; ++i)
 			{
 				if (mask & g8)
-					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+					_nppGUI._excludedLangList.emplace_back(static_cast<LangType>(i));
 				mask <<= 1;
 			}
 
@@ -6436,7 +6579,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			for (int i = 72; i < 80; ++i)
 			{
 				if (mask & g9)
-					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+					_nppGUI._excludedLangList.emplace_back(static_cast<LangType>(i));
 				mask <<= 1;
 			}
 
@@ -6444,7 +6587,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			for (int i = 80; i < 88; ++i)
 			{
 				if (mask & g10)
-					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+					_nppGUI._excludedLangList.emplace_back(static_cast<LangType>(i));
 				mask <<= 1;
 			}
 
@@ -6452,7 +6595,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			for (int i = 88; i < 96; ++i)
 			{
 				if (mask & g11)
-					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+					_nppGUI._excludedLangList.emplace_back(static_cast<LangType>(i));
 				mask <<= 1;
 			}
 
@@ -6460,7 +6603,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			for (int i = 96; i < 104; ++i)
 			{
 				if (mask & g12)
-					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+					_nppGUI._excludedLangList.emplace_back(static_cast<LangType>(i));
 				mask <<= 1;
 			}
 
@@ -6721,7 +6864,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 
 				val = element->Attribute(L"nextUpdateDate");
 				if (val)
-					_nppGUI._autoUpdateOpt._nextUpdateDate = Date(val);
+					_nppGUI._autoUpdateOpt._nextUpdateDate = Date(wstring2string(val).c_str());
 
 				val = element->Attribute(L"autoUpdateMode", &i);
 				if (val)
@@ -7270,28 +7413,43 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 			chState = 1;
 
 		_svp._isChangeHistoryEnabled4NextSession = static_cast<changeHistoryState>(chState);
-		switch (chState)
+		switch (_svp._isChangeHistoryEnabled4NextSession)
 		{
-			case changeHistoryState::disable:
+			case disable:
+			{
 				_svp._isChangeHistoryMarginEnabled = false;
 				_svp._isChangeHistoryIndicatorEnabled = false;
 				break;
-			case changeHistoryState::margin:
+			}
+
+			case margin:
+			{
 				_svp._isChangeHistoryMarginEnabled = true;
 				_svp._isChangeHistoryIndicatorEnabled = false;
 				break;
-			case changeHistoryState::indicator:
+			}
+
+			case indicator:
+			{
 				_svp._isChangeHistoryMarginEnabled = false;
 				_svp._isChangeHistoryIndicatorEnabled = true;
 				break;
-			case changeHistoryState::marginIndicator:
+			}
+
+			case marginIndicator:
+			{
 				_svp._isChangeHistoryMarginEnabled = true;
 				_svp._isChangeHistoryIndicatorEnabled = true;
 				break;
+			}
+
 			default:
-			_svp._isChangeHistoryMarginEnabled = true;
-			_svp._isChangeHistoryIndicatorEnabled = false;
-			_svp._isChangeHistoryEnabled4NextSession = changeHistoryState::marginIndicator;
+			{
+				_svp._isChangeHistoryMarginEnabled = true;
+				_svp._isChangeHistoryIndicatorEnabled = false;
+				_svp._isChangeHistoryEnabled4NextSession = marginIndicator;
+				break;
+			}
 		}
 	}
 
@@ -7309,6 +7467,7 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 	nm = element->Attribute(L"folderMarkStyle");
 	if (nm)
 	{
+		using enum folderStyle;
 		if (!lstrcmp(nm, L"box"))
 			_svp._folderStyle = FOLDER_STYLE_BOX;
 		else if (!lstrcmp(nm, L"circle"))
@@ -7325,6 +7484,7 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 	nm = element->Attribute(L"lineWrapMethod");
 	if (nm)
 	{
+		using enum lineWrapMethod;
 		if (!lstrcmp(nm, L"default"))
 			_svp._lineWrapMethod = LINEWRAP_DEFAULT;
 		else if (!lstrcmp(nm, L"aligned"))
@@ -7337,6 +7497,7 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 	nm = element->Attribute(L"currentLineHilitingShow");
 	if (nm)
 	{
+		using enum lineHiliteMode;
 		if (!lstrcmp(nm, L"show"))
 			_svp._currentLineHiliteMode = LINEHILITE_HILITE;
 		else
@@ -7347,6 +7508,7 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 		const wchar_t* currentLineModeStr = element->Attribute(L"currentLineIndicator");
 		if (currentLineModeStr && currentLineModeStr[0])
 		{
+			using enum lineHiliteMode;
 			if (lstrcmp(currentLineModeStr, L"1") == 0)
 				_svp._currentLineHiliteMode = LINEHILITE_HILITE;
 			else if (lstrcmp(currentLineModeStr, L"2") == 0)
@@ -7936,17 +8098,69 @@ bool NppParameters::writeScintillaParams()
 	(scintNode->ToElement())->SetAttribute(L"lineNumberDynamicWidth", _svp._lineNumberMarginDynamicWidth ? L"yes" : L"no");
 	(scintNode->ToElement())->SetAttribute(L"bookMarkMargin", _svp._bookMarkMarginShow ? L"show" : L"hide");
 	(scintNode->ToElement())->SetAttribute(L"indentGuideLine", _svp._indentGuideLineShow ? L"show" : L"hide");
-	const wchar_t *pFolderStyleStr = (_svp._folderStyle == FOLDER_STYLE_SIMPLE) ? L"simple" :
-									(_svp._folderStyle == FOLDER_STYLE_ARROW) ? L"arrow" :
-										(_svp._folderStyle == FOLDER_STYLE_CIRCLE) ? L"circle" :
-										(_svp._folderStyle == FOLDER_STYLE_NONE) ? L"none" : L"box";
+	
+	const wchar_t* pFolderStyleStr = nullptr;
+	switch (_svp._folderStyle)
+	{
+		using enum folderStyle;
+		case FOLDER_TYPE:
+		case FOLDER_STYLE_BOX:
+		{
+			pFolderStyleStr = L"box";
+			break;
+		}
+
+		case FOLDER_STYLE_SIMPLE:
+		{
+			pFolderStyleStr = L"simple";
+			break;
+		}
+
+		case FOLDER_STYLE_ARROW:
+		{
+			pFolderStyleStr = L"arrow";
+			break;
+		}
+
+		case FOLDER_STYLE_CIRCLE:
+		{
+			pFolderStyleStr = L"circle";
+			break;
+		}
+
+		case FOLDER_STYLE_NONE:
+		{
+			pFolderStyleStr = L"none";
+			break;
+		}
+	}
 
 	(scintNode->ToElement())->SetAttribute(L"folderMarkStyle", pFolderStyleStr);
 
 	(scintNode->ToElement())->SetAttribute(L"isChangeHistoryEnabled", _svp._isChangeHistoryEnabled4NextSession); // no -> 0 (disable), yes -> 1 (margin), yes ->2 (indicator), yes-> 3 (margin + indicator)
 
-	const wchar_t *pWrapMethodStr = (_svp._lineWrapMethod == LINEWRAP_ALIGNED) ? L"aligned" :
-								(_svp._lineWrapMethod == LINEWRAP_INDENT) ? L"indent" : L"default";
+	const wchar_t* pWrapMethodStr = nullptr;
+	switch (_svp._lineWrapMethod)
+	{
+		using enum lineWrapMethod;
+		case LINEWRAP_DEFAULT:
+		{
+			pWrapMethodStr = L"default";
+			break;
+		}
+
+		case LINEWRAP_ALIGNED:
+		{
+			pWrapMethodStr = L"aligned";
+			break;
+		}
+
+		case LINEWRAP_INDENT:
+		{
+			pWrapMethodStr = L"indent";
+			break;
+		}
+	}
 
 	(scintNode->ToElement())->SetAttribute(L"lineWrapMethod", pWrapMethodStr);
 
@@ -8057,6 +8271,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 		switch (nppGUITbInfo._tbIconSet)
 		{
+			using enum toolBarStatusType;
 			case TB_SMALL:
 			{
 				pStr = L"small";
@@ -8222,7 +8437,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 	// <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20161022">no</GUIConfig>
 	{
-		TiXmlElement *element = insertGUIConfigBoolNode(newGUIRoot, L"noUpdate", !(_nppGUI._autoUpdateOpt._doAutoUpdate != NppGUI::autoupdate_disabled));
+		TiXmlElement *element = insertGUIConfigBoolNode(newGUIRoot, L"noUpdate", _nppGUI._autoUpdateOpt._doAutoUpdate == NppGUI::AutoUpdateMode::autoupdate_disabled);
 		element->SetAttribute(L"intervalDays", _nppGUI._autoUpdateOpt._intervalDays);
 		element->SetAttribute(L"nextUpdateDate", _nppGUI._autoUpdateOpt._nextUpdateDate.toString().c_str());
 		element->SetAttribute(L"autoUpdateMode", _nppGUI._autoUpdateOpt._doAutoUpdate);
@@ -9668,22 +9883,22 @@ void NppParameters::setUdlXmlDirtyFromXmlDoc(const TiXmlDocument* xmlDoc)
 	}
 }
 
-Date::Date(const wchar_t *dateStr)
+Date::Date(const char* dateStr)
 {
 	// timeStr should be Notepad++ date format : YYYYMMDD
 	assert(dateStr);
-	const size_t D = std::wcslen(dateStr);
+	const size_t D = std::strlen(dateStr);
 
-	if ( 8==D )
+	if (8==D)
 	{
-		std::wstring ds(dateStr);
-		std::wstring yyyy(ds, 0, 4);
-		std::wstring mm(ds, 4, 2);
-		std::wstring dd(ds, 6, 2);
+		const std::string ds(dateStr);
+		const std::string yyyy(ds, 0, 4);
+		const std::string mm(ds, 4, 2);
+		const std::string dd(ds, 6, 2);
 
-		int y = _wtoi(yyyy.c_str());
-		int m = _wtoi(mm.c_str());
-		int d = _wtoi(dd.c_str());
+		const int y = std::stoi(yyyy);
+		const int m = std::stoi(mm);
+		const int d = std::stoi(dd);
 
 		if ((y > 0 && y <= 9999) && (m > 0 && m <= 12) && (d > 0 && d <= 31))
 		{
@@ -9738,14 +9953,26 @@ EolType convertIntToFormatType(int value, EolType defvalue)
 {
 	switch (value)
 	{
-		case static_cast<LPARAM>(EolType::windows) :
-			return EolType::windows;
-		case static_cast<LPARAM>(EolType::macos) :
-				return EolType::macos;
-		case static_cast<LPARAM>(EolType::unix) :
-			return EolType::unix;
+		using enum EolType;
+		case static_cast<int>(windows):
+		{
+			return windows;
+		}
+
+		case static_cast<int>(macos):
+		{
+			return macos;
+		}
+
+		case static_cast<int>(unix):
+		{
+			return unix;
+		}
+
 		default:
+		{
 			return defvalue;
+		}
 	}
 }
 

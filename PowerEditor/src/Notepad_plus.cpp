@@ -943,7 +943,7 @@ bool Notepad_plus::saveGUIParams()
 
 bool Notepad_plus::saveColumnEditorParams()
 {
-	const NppParameters& nppParams = NppParameters::getInstance();
+	NppParameters& nppParams = NppParameters::getInstance();
 	return nppParams.writeColumnEditorSettings();
 }
 

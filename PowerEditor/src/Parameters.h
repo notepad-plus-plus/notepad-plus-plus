@@ -24,6 +24,7 @@
 #include <algorithm>
 #include <array>
 #include <cassert>
+#include <cstdio>
 #include <cstdint>
 #include <cwchar>
 #include <locale>
@@ -257,16 +258,10 @@ struct FloatingWindowInfo
 	int _cont = 0;
 	RECT _pos = { 0, 0, FWI_PANEL_WH_DEFAULT, FWI_PANEL_WH_DEFAULT };
 
-	FloatingWindowInfo(int cont, int x, int y, int w, int h)
-		: _cont(cont)
-	{
-		_pos.left	= x;
-		_pos.top	= y;
-		_pos.right	= w;
-		_pos.bottom = h;
-	}
+	explicit FloatingWindowInfo(int cont, int x, int y, int w, int h) noexcept
+		: _cont(cont), _pos(x, y, w, h)
+	{}
 };
-
 
 struct PluginDlgDockingInfo final
 {
@@ -578,7 +573,7 @@ public:
 			   !(month == 11 && day > 30));
 	}
 
-	explicit Date(const wchar_t *dateStr);
+	explicit Date(const char* dateStr);
 
 	// The constructor which makes the date of number of days from now
 	// nbDaysFromNow could be negative if user want to make a date in the past
@@ -589,8 +584,9 @@ public:
 
 	std::wstring toString() const // Return Notepad++ date format : YYYYMMDD
 	{
-		wchar_t dateStr[16];
-		wsprintfW(dateStr, L"%04lu%02lu%02lu", _year, _month, _day);
+		static constexpr size_t bufSize = 16;
+		wchar_t dateStr[bufSize]{};
+		std::swprintf(dateStr, bufSize, L"%04lu%02lu%02lu", _year, _month, _day);
 		return dateStr;
 	}
 
@@ -656,7 +652,7 @@ public:
 
 struct TbIconInfo
 {
-	toolBarStatusType _tbIconSet = TB_STANDARD;
+	toolBarStatusType _tbIconSet = toolBarStatusType::TB_STANDARD;
 
 	// fluent icon color
 	FluentColor _tbColor = FluentColor::defaultColor;
@@ -678,8 +674,8 @@ struct AdvOptDefaults final
 
 struct AdvancedOptions final
 {
-	AdvOptDefaults _darkDefaults{ L"DarkModeDefault.xml", {TB_SMALL, FluentColor::defaultColor, 0, false}, 2, false };
-	AdvOptDefaults _lightDefaults{ L"", { TB_STANDARD, FluentColor::defaultColor, 0, false }, 0, true };
+	AdvOptDefaults _darkDefaults{ L"DarkModeDefault.xml", { toolBarStatusType::TB_SMALL, FluentColor::defaultColor, 0, false }, 2, false };
+	AdvOptDefaults _lightDefaults{ L"", { toolBarStatusType::TB_STANDARD, FluentColor::defaultColor, 0, false }, 0, true };
 
 	bool _enableWindowsMode = false;
 };
@@ -688,7 +684,7 @@ struct DarkModeConf final
 {
 	bool _isEnabled = false;
 	bool _isEnabledPlugin = true;
-	NppDarkMode::ColorTone _colorTone = NppDarkMode::blackTone;
+	NppDarkMode::ColorTone _colorTone = NppDarkMode::ColorTone::blackTone;
 	NppDarkMode::Colors _customColors = NppDarkMode::getDarkModeDefaultColors();
 	AdvancedOptions _advOptions{};
 };
@@ -711,7 +707,7 @@ struct LargeFileRestriction final
 
 struct NppGUI final
 {
-	TbIconInfo _tbIconInfo{ TB_STANDARD, FluentColor::defaultColor, 0, false };
+	TbIconInfo _tbIconInfo{ toolBarStatusType::TB_STANDARD, FluentColor::defaultColor, 0, false };
 	bool _toolbarShow = true;
 	bool _statusBarShow = true;
 	bool _menuBarShow = true;
@@ -891,8 +887,8 @@ struct ScintillaViewParams
 	bool _isChangeHistoryIndicatorEnabled = false;
 	changeHistoryState _isChangeHistoryEnabled4NextSession = changeHistoryState::margin; // no -> 0 (disable), yes -> 1 (margin), yes ->2 (indicator), yes-> 3 (margin + indicator)
 
-	folderStyle  _folderStyle = FOLDER_STYLE_BOX; //"simple", "arrow", "circle", "box" and "none"
-	lineWrapMethod _lineWrapMethod = LINEWRAP_ALIGNED;
+	folderStyle _folderStyle = folderStyle::FOLDER_STYLE_BOX; //"simple", "arrow", "circle", "box" and "none"
+	lineWrapMethod _lineWrapMethod = lineWrapMethod::LINEWRAP_ALIGNED;
 	bool _foldMarginShow = true;
 	bool _indentGuideLineShow = true;
 	lineHiliteMode _currentLineHiliteMode = LINEHILITE_HILITE;
@@ -1170,7 +1166,7 @@ struct FindHistory final
 
 struct ColumnEditorParam final
 {
-	enum leadingChoice : UCHAR { noneLeading, zeroLeading, spaceLeading };
+	enum class leadingChoice : UCHAR { noneLeading, zeroLeading, spaceLeading };
 
 	bool _mainChoice = activeNumeric;
 
@@ -1480,12 +1476,12 @@ public:
 		return _svp;
 	}
 
-	bool writeRecentFileHistorySettings(int nbMaxFile = -1) const;
+	bool writeRecentFileHistorySettings(int nbMaxFile = -1);
 	bool writeHistory(const wchar_t *fullpath);
 
-	bool writeProjectPanelsSettings() const;
-	bool writeColumnEditorSettings() const;
-	bool writeFileBrowserSettings(const std::vector<std::wstring>& rootPaths, const std::wstring& latestSelectedItemPath) const;
+	bool writeProjectPanelsSettings();
+	bool writeColumnEditorSettings();
+	bool writeFileBrowserSettings(const std::vector<std::wstring>& rootPaths, const std::wstring& latestSelectedItemPath);
 
 	TiXmlNode* getChildElementByAttribute(TiXmlNode *pere, const wchar_t *childName, const wchar_t *attributeName, const wchar_t *attributeVal) const;
 
@@ -1722,7 +1718,7 @@ public:
 		return _isCloud;
 	}
 
-	void saveConfig_xml();
+	void saveConfig_xml() const;
 
 	const std::wstring& getUserPath() const {
 		return _userPath;
@@ -1732,7 +1728,7 @@ public:
 		return _userDefineLangsFolderPath;
 	}
 
-	bool writeSettingsFilesOnCloudForThe1stTime(const std::wstring & cloudSettingsPath);
+	bool writeSettingsFilesOnCloudForThe1stTime(const std::wstring& cloudSettingsPath) const;
 	void setCloudChoice(const wchar_t* pathChoice) const;
 	void removeCloudChoice() const;
 	bool isCloudPathChanged() const;
@@ -1982,7 +1978,7 @@ private:
 	bool getUserStylersFromXmlTree();
 	std::pair<unsigned char, unsigned char> addUserDefineLangsFromXmlTree(TiXmlDocument *tixmldoc);
 
-	enum ConfXml { lang, styles };
+	enum class ConfXml { lang, styles };
 	bool updateFromModelXml(TiXmlNode* rootUser, ConfXml whichConf);
 	void updateLangXml(TiXmlElement* mainElemUser, TiXmlElement* mainElemModel);
 	void updateStylesXml(TiXmlElement* rootUser, const std::wstring& userDocPath, TiXmlElement* rootModel, TiXmlElement* mainElemUser, TiXmlElement* mainElemModel);

@@ -343,8 +343,8 @@ LRESULT CALLBACK Splitter::spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lPara
 					}
 				}
 
-				static long lastRedrawTime = 0;
-				const long currTime = ::GetTickCount();
+				static u_long lastRedrawTime = 0;
+				const u_long currTime = ::GetTickCount();
 
 				if (currTime - lastRedrawTime > 5)
 				{
@@ -788,3 +788,4 @@ void Splitter::adjustZoneToDraw(RECT& rc2def, ZONE_TYPE whichZone)
 	rc2def.right = x1;
 	rc2def.bottom = y1;
 }
+

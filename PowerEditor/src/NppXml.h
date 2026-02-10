@@ -35,7 +35,7 @@ namespace NppXml
 		return doc->load_file(filename, pugi::parse_default | pugi::parse_comments | pugi::parse_declaration);
 	}
 
-	[[nodiscard]] inline bool saveFile(Document doc, const wchar_t* filename) {
+	[[nodiscard]] inline bool saveFile(const Document doc, const wchar_t* filename) {
 		return doc->save_file(filename, "    ", pugi::format_indent | pugi::format_save_file_text);
 	}
 
@@ -51,7 +51,7 @@ namespace NppXml
 		return doc->load_file(filename, pugi::parse_cdata | pugi::parse_escapes | pugi::parse_comments | pugi::parse_declaration);
 	}
 
-	[[nodiscard]] inline bool saveFileShortcut(Document doc, const wchar_t* filename) {
+	[[nodiscard]] inline bool saveFileShortcut(const Document doc, const wchar_t* filename) {
 		// Without pugi::parse_eol comments are not eol normalized when loaded.
 		// To avoid issue with CRLF converting to CRCRLF on save, comments are normalized on save
 		// to have LF eol.
@@ -104,7 +104,7 @@ namespace NppXml
 		return doc->load_file(filename, pugi::parse_cdata | pugi::parse_escapes | pugi::parse_eol);
 	}
 
-	[[nodiscard]] inline bool saveFileProject(Document doc, const wchar_t* filename) {
+	[[nodiscard]] inline bool saveFileProject(const Document doc, const wchar_t* filename) {
 		return doc->save_file(filename, "    ", pugi::format_indent | pugi::format_no_declaration | pugi::format_save_file_text);
 	}
 
@@ -219,7 +219,7 @@ namespace NppXml
 		return parent.append_child(name);
 	}
 
-	inline Node insertEndChild(Node& parent, Node child) {
+	inline Node insertEndChild(Node& parent, const Node& child) {
 		return parent.append_copy(child);
 	}
 
@@ -229,12 +229,16 @@ namespace NppXml
 		return child;
 	}
 
-	inline void deleteChild(Document& doc, Node child) {
+	inline void deleteChild(Document& doc, const Node& child) {
 		doc->remove_child(child);
 	}
 
-	inline void deleteChild(Node& parent, Node child) {
+	inline void deleteChild(Node& parent, const Node& child) {
 		parent.remove_child(child);
+	}
+
+	inline void clear(Node& parent) {
+		parent.remove_children();
 	}
 
 	[[nodiscard]] inline Attribute firstAttribute(const Element& elem) {

@@ -4454,6 +4454,7 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_CLEARREADONLYFORALLDOCS:
 			case IDM_EDIT_SORTLINES_LENGTH_ASCENDING:
 			case IDM_EDIT_SORTLINES_LENGTH_DESCENDING:
+			case IDM_EDIT_REDACT_SELECTION:
 				_macro.push_back(recordedMacroStep(id));
 				break;
 

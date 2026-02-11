@@ -160,6 +160,7 @@
 					<Item id="42072" name="&amp;VÉleTlenszERŰ"/>
 					<Item id="42073" name="&amp;Fájl megnyitása"/>
 					<Item id="42074" name="&amp;Tartalmazó mappa megnyitása"/>
+					<Item id="42106" name="K&amp;ijelölés kitakarása: █ (Shift: ●)"/>
 					<Item id="42075" name="&amp;Keresés az interneten"/>
 					<Item id="42076" name="K&amp;eresőmotor módosítása…"/>
 					<Item id="42090" name="&amp;Figyelmen kívül hagyva a kis- és nagybetűket, ill. a teljes szóegyezést"/>
@@ -274,7 +275,7 @@
 					<Item id="43066" name="&amp;5. stílussal"/>
 					<Item id="43067" name="&amp;Ugrás a követező módosításhoz"/>
 					<Item id="43068" name="U&amp;grás az előző módosításhoz"/>
-					<Item id="43069" name="&amp;Módosítás előzmények törlése"/>
+					<Item id="43069" name="&amp;Módosítási előzmények törlése"/>
 					<Item id="43045" name="&amp;A keresési eredmények ablaka"/>
 					<Item id="43046" name="&amp;A keresési eredmények következő találata"/>
 					<Item id="43047" name="&amp;A keresési eredmények előző találata"/>
@@ -1750,8 +1751,8 @@ Keresés minden fájlban – kivéve rekurzívan a log vagy logs mappákat:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Mappa kiválasztása kereséshez"/><!-- HowToReproduce: Search > Find in Files > [...] -->
 			<find-in-files-dir-from-active-doc-tip value="A „Mappa” mező kitöltése az aktív dokumentum alapján"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
-			<find-status-top-reached value="Keresés: a dokumentum elejének elérése után megtaláltuk alulról az első előfordulást"/>
-			<find-status-end-reached value="Keresés: a dokumentum végének elérése után megtaláltuk felülről az első előfordulást"/>
+			<find-status-top-reached value="Keresés: elértük a dokumentum elejét, majd megtaláltuk az első előfordulást alulról"/>
+			<find-status-end-reached value="Keresés: elértük a dokumentum végét, majd megtaláltuk az első előfordulást felülről"/>
 			<find-status-replaceinfiles-1-replaced value="Csere fájlokban: 1 csere elvégezve"/>
 			<find-status-replaceinfiles-nb-replaced value="Csere fájlokban: $INT_REPLACE$ csere elvégezve"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Csere a megnyitott fájlokban: 1 csere elvégezve"/>

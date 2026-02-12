@@ -142,6 +142,7 @@
     <ClCompile Include="..\src\EncodingMapper.cpp" />
     <ClCompile Include="..\src\WinControls\FindCharsInRange\FindCharsInRange.cpp" />
     <ClCompile Include="..\src\ScintillaComponent\FindReplaceDlg.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\ResultsExporter.cpp" />
     <ClCompile Include="..\src\ScintillaComponent\FunctionCallTip.cpp" />
     <ClCompile Include="..\src\WinControls\FunctionList\functionListPanel.cpp" />
     <ClCompile Include="..\src\WinControls\FunctionList\functionParser.cpp" />
@@ -303,6 +304,7 @@
     <ClInclude Include="..\src\MISC\FileNameStringSplitter.h" />
     <ClInclude Include="..\src\WinControls\FindCharsInRange\FindCharsInRange.h" />
     <ClInclude Include="..\src\ScintillaComponent\FindReplaceDlg.h" />
+    <ClInclude Include="..\src\ScintillaComponent\ResultsExporter.h" />
     <ClInclude Include="..\src\ScintillaComponent\FunctionCallTip.h" />
     <ClInclude Include="..\src\WinControls\FunctionList\functionListPanel.h" />
     <ClInclude Include="..\src\WinControls\FunctionList\functionListPanel_rc.h" />

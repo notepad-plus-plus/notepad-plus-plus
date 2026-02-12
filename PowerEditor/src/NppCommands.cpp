@@ -699,7 +699,9 @@ void Notepad_plus::command(int id)
 					std::vector<std::pair<int, int>> segments2replace;
 					for (int j = 0; j < charCount; ++j)
 					{
-						char aChar = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, start + j));
+						// Get byte position of the jth character, starting from "start"
+						auto bytePos = _pEditView->execute(SCI_POSITIONRELATIVE, start, j);
+						char aChar = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, bytePos));
 						
 						if (aChar == '\r' || aChar == '\n')
 							maskStr += aChar;

@@ -5,7 +5,7 @@
 		- Radoš Milićev (https://github.com/rammba)
 -->
 <NotepadPlus>
-	<Native-Langue name="Srpski" filename="serbian.xml"  version="8.8.8">
+	<Native-Langue name="Srpski" filename="serbian.xml"  version="8.9.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -160,6 +160,7 @@
 					<Item id="42072" name="&amp;nASUMičnA VElIČina"/>
 					<Item id="42073" name="Otvori datoteku"/>
 					<Item id="42074" name="Otvori trenutni folder u explorer-u"/>
+					<Item id="42106" name="Cenzuriši (Redact) odabir █ (Shift: ●)"/>
 					<Item id="42075" name="Pretraži na internetu"/>
 					<Item id="42076" name="Promeni pretraživač..."/>
 					<Item id="42090" name="Nebitna veličina slova i cele reči"/>
@@ -1778,6 +1779,9 @@ Pronađi u svim datotekama, ali isključi sve foldere log ili logs rekurzivno:
 			<find-status-scope-all value="u celoj datoteci"/>
 			<find-status-scope-backward value="od starta datoteke to pokazivača"/>
 			<find-status-scope-forward value="od pokazivača do kraja datoteke"/>
+			<find-status-invisible-chars-findWhat value="Nevidljivi karakteri u sadržaju nalepljenom na &quot;Pronađi&quot; ili &quot;Zameni sa&quot;"/>
+			<find-status-invisible-chars-findWhat-tip value="Upozorenje: Nevidljivi karakteri u poljima za pretragu (ili zamenu).
+Tekst nalepljen u ovo polje sadrži nevidljive karaktere (možda kraj linije). Ako nastavite, ti karakteri će biti sadržani u pretrazi (ili tekstu za zamenu)."/>
 			<finder-find-in-finder value="Pronađi u ovim rezultatima pretrage..."/>
 			<finder-close-this value="Zatvori ove rezultate pretrage"/>
 			<finder-collapse-all value="Sklopi sve"/>

@@ -1,9 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 @author      Geoffray Warnants - http://www.geoffray.be
 @contributor Krzysztof "Krzysiu" Blachnicki - https://github.com/Krzysiu
 @version     1.36.20260214
 -->
-<?xml version="1.0" encoding="UTF-8"?>
 <NotepadPlus>
     <AutoComplete>
         <KeyWord name="abs" func="yes">
@@ -14335,3 +14335,4 @@
         </KeyWord>
     </AutoComplete>
 </NotepadPlus>
+

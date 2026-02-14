@@ -52,9 +52,6 @@
       <AdditionalLibraryDirectories>..\..\scintilla\bin;$(IntDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/DEPENDENTLOADFLAG:0x800 %(AdditionalOptions)</AdditionalOptions>
     </Link>
-    <Manifest>
-      <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
-    </Manifest>
     <PreBuildEvent>
       <Command>call "..\..\PowerEditor\src\NppLibsVersionH-generator.bat"</Command>
     </PreBuildEvent>
@@ -124,7 +121,6 @@ copy "..\src\stylers.model.xml" "$(OutDir)stylers.model.xml"
 copy "..\src\shortcuts.xml" "$(OutDir)shortcuts.xml"
 copy "..\src\contextMenu.xml" "$(OutDir)contextMenu.xml"
 "mt.exe" -nologo -manifest "..\src\notepad++.exe.manifest" -outputresource:"$(OutDir)notepad++.exe"
-"mt.exe" -updateresource:"$(OutDir)notepad++.exe";#1 -manifest "..\src\dpiAware.manifest"
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -132,7 +128,6 @@ copy "..\src\contextMenu.xml" "$(OutDir)contextMenu.xml"
     <PostBuildEvent>
       <Command>
 "mt.exe" -nologo -manifest "..\src\notepad++.exe.manifest" -outputresource:"$(OutDir)notepad++.exe"
-"mt.exe" -updateresource:"$(OutDir)notepad++.exe";#1 -manifest "..\src\dpiAware.manifest"
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

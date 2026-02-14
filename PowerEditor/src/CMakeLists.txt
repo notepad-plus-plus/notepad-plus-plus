@@ -193,7 +193,6 @@ SET(src_files
 			./WinControls/WindowsDlg/WinRect.cpp
 			./WinControls/ColourPicker/WordStyleDlg.cpp
 			./ScintillaComponent/xmlMatchedTagsHighlighter.cpp
-			./dpiAware.manifest
 			./notepad++.exe.manifest
 )
 

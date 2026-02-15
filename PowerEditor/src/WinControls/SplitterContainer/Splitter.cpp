@@ -343,10 +343,19 @@ LRESULT CALLBACK Splitter::spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lPara
 					}
 				}
 
-				::SendMessage(_hParent, WM_RESIZE_CONTAINER, _rect.left, _rect.top);
-				::MoveWindow(_hSelf, _rect.left, _rect.top, _rect.right, _rect.bottom, FALSE);
-				redraw();
+				static u_long lastRedrawTime = 0;
+				const u_long currTime = ::GetTickCount();
+
+				if (currTime - lastRedrawTime > 5)
+				{
+					::SendMessage(_hParent, WM_RESIZE_CONTAINER, _rect.left, _rect.top);	
+					::MoveWindow(_hSelf, _rect.left, _rect.top, _rect.right, _rect.bottom, FALSE);
+					redraw();
+					
+					lastRedrawTime = currTime;
+				}
 			}
+
 			return 0;
 		}
 
@@ -779,3 +788,4 @@ void Splitter::adjustZoneToDraw(RECT& rc2def, ZONE_TYPE whichZone)
 	rc2def.right = x1;
 	rc2def.bottom = y1;
 }
+

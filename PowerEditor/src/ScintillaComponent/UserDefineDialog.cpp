@@ -235,8 +235,13 @@ void FolderStyleDialog::setKeywords2List(int ctrlID)
         case IDC_FOLDER_IN_COMMENT_OPEN_EDIT :   
         case IDC_FOLDER_IN_COMMENT_MIDDLE_EDIT : 
         case IDC_FOLDER_IN_COMMENT_CLOSE_EDIT :  
-			::GetDlgItemText(_hSelf, ctrlID, _pUserLang->_keywordLists[globalMappper().dialogMapper[ctrlID]].data(), max_char);
-            break;
+		{
+			auto& kw = _pUserLang->_keywordLists[globalMappper().dialogMapper[ctrlID]];
+			if (kw.length() != max_char)
+				kw.resize(max_char);
+			::GetDlgItemText(_hSelf, ctrlID, kw.data(), max_char);
+			break;
+		}
     }
 }
 
@@ -399,7 +404,13 @@ void KeyWordsStyleDialog::setKeywords2List(int id)
         case IDC_KEYWORD6_EDIT :
         case IDC_KEYWORD7_EDIT :
         case IDC_KEYWORD8_EDIT :
-			::GetDlgItemText(_hSelf, id, _pUserLang->_keywordLists[globalMappper().dialogMapper[id]].data(), max_char);
+		{
+			auto& kw = _pUserLang->_keywordLists[globalMappper().dialogMapper[id]];
+			if (kw.length() != max_char)
+				kw.resize(max_char);
+			::GetDlgItemText(_hSelf, id, kw.data(), max_char);
+			break;
+		}
     }
 }
 
@@ -521,10 +532,13 @@ void CommentStyleDialog::setKeywords2List(int id)
         case IDC_NUMBER_SUFFIX1_EDIT :
         case IDC_NUMBER_SUFFIX2_EDIT :
         case IDC_NUMBER_RANGE_EDIT :  
-        {
-			::GetDlgItemText(_hSelf, id, _pUserLang->_keywordLists[globalMappper().dialogMapper[id]].data(), max_char);
-            break;
-        }
+		{
+			auto& kw = _pUserLang->_keywordLists[globalMappper().dialogMapper[id]];
+			if (kw.length() != max_char)
+				kw.resize(max_char);
+			::GetDlgItemText(_hSelf, id, kw.data(), max_char);
+			break;
+		}
 
         case IDC_COMMENT_OPEN_EDIT :
         case IDC_COMMENT_CLOSE_EDIT :
@@ -797,12 +811,23 @@ void SymbolsStyleDialog::setKeywords2List(int id)
 {
     switch (id)
     {
-        case IDC_OPERATOR1_EDIT :
-			::GetDlgItemText(_hSelf, id, _pUserLang->_keywordLists[SCE_USER_KWLIST_OPERATORS1].data(), max_char);
-            break;
-        case IDC_OPERATOR2_EDIT :
-			::GetDlgItemText(_hSelf, id, _pUserLang->_keywordLists[SCE_USER_KWLIST_OPERATORS2].data(), max_char);
-            break;
+		case IDC_OPERATOR1_EDIT:
+		{
+			auto& kw = _pUserLang->_keywordLists[SCE_USER_KWLIST_OPERATORS1];
+			if (kw.length() != max_char)
+				kw.resize(max_char);
+			::GetDlgItemText(_hSelf, id, kw.data(), max_char);
+			break;
+		}
+
+		case IDC_OPERATOR2_EDIT:
+		{
+			auto& kw = _pUserLang->_keywordLists[SCE_USER_KWLIST_OPERATORS2];
+			if (kw.length() != max_char)
+				kw.resize(max_char);
+			::GetDlgItemText(_hSelf, id, kw.data(), max_char);
+			break;
+		}
 
         case IDC_DELIMITER1_BOUNDARYOPEN_EDIT :
         case IDC_DELIMITER1_ESCAPE_EDIT :

@@ -7,9 +7,6 @@
 			<Component Id="gup_exe">
 				<File Source="..\..\bin64\updater\GUP.exe" KeyPath="yes" />
 			</Component>
-			<Component Id="libcurl_dll">
-				<File Source="..\..\bin64\updater\libcurl.dll" KeyPath="yes" />
-			</Component>
 			<Component Id="updater_ico">
 				<File Source="..\..\bin64\updater\updater.ico" KeyPath="yes" />
 			</Component>

@@ -31,7 +31,7 @@ REM files to be signed
 
 set nppBinaries=..\bin\notepad++.exe ..\bin64\notepad++.exe ..\binarm64\notepad++.exe
 
-set componentsBinaries=..\bin\plugins\Config\nppPluginList.dll ..\bin64\plugins\Config\nppPluginList.dll ..\binarm64\plugins\Config\nppPluginList.dll ..\bin\updater\GUP.exe ..\bin64\updater\GUP.exe ..\binarm64\updater\GUP.exe ..\bin\updater\libcurl.dll ..\bin64\updater\libcurl.dll ..\binarm64\updater\libcurl.dll
+set componentsBinaries=..\bin\plugins\Config\nppPluginList.dll ..\bin64\plugins\Config\nppPluginList.dll ..\binarm64\plugins\Config\nppPluginList.dll ..\bin\updater\GUP.exe ..\bin64\updater\GUP.exe ..\binarm64\updater\GUP.exe
 
 set pluginBinaries=..\bin\plugins\NppExport\NppExport.dll ..\bin64\plugins\NppExport\NppExport.dll ..\binarm64\plugins\NppExport\NppExport.dll ..\bin\plugins\mimeTools\mimeTools.dll ..\bin64\plugins\mimeTools\mimeTools.dll ..\binarm64\plugins\mimeTools\mimeTools.dll ..\bin\plugins\NppConverter\NppConverter.dll ..\bin64\plugins\NppConverter\NppConverter.dll ..\binarm64\plugins\NppConverter\NppConverter.dll
 
@@ -379,8 +379,6 @@ copy /Y ..\bin\plugins\Config\nppPluginList.dll .\zipped.package.release\plugins
 If ErrorLevel 1 goto End
 copy /Y ..\bin\updater\GUP.exe .\zipped.package.release\updater\
 If ErrorLevel 1 goto End
-copy /Y ..\bin\updater\libcurl.dll .\zipped.package.release\updater\
-If ErrorLevel 1 goto End
 copy /Y ..\bin\updater\gup.xml .\zipped.package.release\updater\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\updater\LICENSE .\zipped.package.release\updater\
@@ -397,8 +395,6 @@ copy /Y ..\bin64\plugins\Config\nppPluginList.dll .\zipped.package.release64\plu
 If ErrorLevel 1 goto End
 copy /Y ..\bin64\updater\GUP.exe .\zipped.package.release64\updater\
 If ErrorLevel 1 goto End
-copy /Y ..\bin64\updater\libcurl.dll .\zipped.package.release64\updater\
-If ErrorLevel 1 goto End
 copy /Y ..\bin64\updater\gup.xml .\zipped.package.release64\updater\
 If ErrorLevel 1 goto End
 copy /Y ..\bin64\updater\LICENSE .\zipped.package.release64\updater\
@@ -414,8 +410,6 @@ If ErrorLevel 1 goto End
 copy /Y ..\binarm64\plugins\Config\nppPluginList.dll .\zipped.package.releaseArm64\plugins\Config\
 If ErrorLevel 1 goto End
 copy /Y ..\binarm64\updater\GUP.exe .\zipped.package.releaseArm64\updater\
-If ErrorLevel 1 goto End
-copy /Y ..\binarm64\updater\libcurl.dll .\zipped.package.releaseArm64\updater\
 If ErrorLevel 1 goto End
 copy /Y ..\binarm64\updater\gup.xml .\zipped.package.releaseArm64\updater\
 If ErrorLevel 1 goto End
@@ -465,8 +459,11 @@ If ErrorLevel 1 goto End
 rem set var locally in this batch file
 setlocal 
 
+cd build
+
 :: Get npp.6.9.Installer.exe in %nppInstallerVar%
 for %%f in (npp.*.Installer.exe) do set "nppInstallerVar=%%f"
+
 
 rem get the version string "6.9" in %VERSION%
 set "VERSION=%nppInstallerVar:npp.=%"
@@ -479,7 +476,7 @@ rem replace ".Installer.exe" with nothing in "6.9.Installer.exe" - now VERSION i
 
 rem echo %VERSION%
 
-cd .\msi\
+cd ..\msi\
 dotnet build -c release -p:OutputPath=..\build\ -p:DefineConstants=Version=%VERSION%
 If ErrorLevel 1 goto End
 
@@ -525,6 +522,6 @@ If ErrorLevel 1 goto End
 
 endlocal
 
-cd ..
+REM PACKACKAGES BUILT SUCCESSFUL!
 
 :End

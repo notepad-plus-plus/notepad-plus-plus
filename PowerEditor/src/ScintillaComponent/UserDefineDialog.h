@@ -248,8 +248,9 @@ friend class StylerDlg;
 public:
     SharedParametersDialog() = default;
     virtual void updateDlg() = 0;
-protected :
+protected:
     //Shared data
+	static std::wstring _kwlBuffer;
     static UserLangContainer *_pUserLang;
     static ScintillaEditView *_pScintilla;
     intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;

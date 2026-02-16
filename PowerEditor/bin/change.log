@@ -1,3 +1,13 @@
+Notepad++ v8.9.2 regression fixes, bug-fixes & new improvements:
+
+ 1. Security enhancement: Make updater check interity & authenticity of server-returned XML (XMLDsig).
+ 2. Security enhancement: Fix untrusted search path vulnerability (CVE-2026-25926) by launching explorer.exe.
+ 3. Security enhancement: Make auto-updater (WinGUp) even more secured (Remove dll dependency & unscured options).
+ 4. Fix a plugin installation crash due to incorrect processing catch.
+ 5. Add redact selection feature - Default: █, Modifier (Shift + Click): ●.
+ 6. Fix context menu shortcut localization not aligning to the right regression.
+
+
 Notepad++ v8.9.1 regression fixes, bug-fixes & new improvements:
 
  1. Fix EOL duplication regression when playing back old recorded macros.
@@ -18,7 +28,7 @@ Notepad++ v8.9.1 regression fixes, bug-fixes & new improvements:
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.9.1/
+https://notepad-plus-plus.org/downloads/v8.9.2/
 
 
 Included plugins:
@@ -30,4 +40,4 @@ Included plugins:
 
 Updater (Installer only):
 
-* WinGUp (for Notepad++) v5.3.9
+* WinGUp (for Notepad++) v5.4

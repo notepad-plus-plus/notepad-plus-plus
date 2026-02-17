@@ -236,10 +236,10 @@ void FolderStyleDialog::setKeywords2List(int ctrlID)
         case IDC_FOLDER_IN_COMMENT_MIDDLE_EDIT : 
         case IDC_FOLDER_IN_COMMENT_CLOSE_EDIT :  
 		{
-			auto& kw = _pUserLang->_keywordLists[globalMappper().dialogMapper[ctrlID]];
-			if (kw.length() != max_char)
-				kw.resize(max_char);
-			::GetDlgItemText(_hSelf, ctrlID, kw.data(), max_char);
+			auto buffer = std::make_unique<wchar_t[]>(max_char);
+			const size_t len = ::GetDlgItemText(_hSelf, ctrlID, buffer.get(), max_char);
+			if (len > 0)
+				_pUserLang->_keywordLists[globalMappper().dialogMapper[ctrlID]] = buffer.get();
 			break;
 		}
     }
@@ -405,10 +405,10 @@ void KeyWordsStyleDialog::setKeywords2List(int id)
         case IDC_KEYWORD7_EDIT :
         case IDC_KEYWORD8_EDIT :
 		{
-			auto& kw = _pUserLang->_keywordLists[globalMappper().dialogMapper[id]];
-			if (kw.length() != max_char)
-				kw.resize(max_char);
-			::GetDlgItemText(_hSelf, id, kw.data(), max_char);
+			auto buffer = std::make_unique<wchar_t[]>(max_char);
+			const size_t len = ::GetDlgItemText(_hSelf, id, buffer.get(), max_char);
+			if (len > 0)
+				_pUserLang->_keywordLists[globalMappper().dialogMapper[id]] = buffer.get();
 			break;
 		}
     }
@@ -533,10 +533,10 @@ void CommentStyleDialog::setKeywords2List(int id)
         case IDC_NUMBER_SUFFIX2_EDIT :
         case IDC_NUMBER_RANGE_EDIT :  
 		{
-			auto& kw = _pUserLang->_keywordLists[globalMappper().dialogMapper[id]];
-			if (kw.length() != max_char)
-				kw.resize(max_char);
-			::GetDlgItemText(_hSelf, id, kw.data(), max_char);
+			auto buffer = std::make_unique<wchar_t[]>(max_char);
+			const size_t len = ::GetDlgItemText(_hSelf, id, buffer.get(), max_char);
+			if (len > 0)
+				_pUserLang->_keywordLists[globalMappper().dialogMapper[id]] = buffer.get();
 			break;
 		}
 
@@ -813,19 +813,19 @@ void SymbolsStyleDialog::setKeywords2List(int id)
     {
 		case IDC_OPERATOR1_EDIT:
 		{
-			auto& kw = _pUserLang->_keywordLists[SCE_USER_KWLIST_OPERATORS1];
-			if (kw.length() != max_char)
-				kw.resize(max_char);
-			::GetDlgItemText(_hSelf, id, kw.data(), max_char);
+			auto buffer = std::make_unique<wchar_t[]>(max_char);
+			const size_t len = ::GetDlgItemText(_hSelf, id, buffer.get(), max_char);
+			if (len > 0)
+				_pUserLang->_keywordLists[SCE_USER_KWLIST_OPERATORS1] = buffer.get();
 			break;
 		}
 
 		case IDC_OPERATOR2_EDIT:
 		{
-			auto& kw = _pUserLang->_keywordLists[SCE_USER_KWLIST_OPERATORS2];
-			if (kw.length() != max_char)
-				kw.resize(max_char);
-			::GetDlgItemText(_hSelf, id, kw.data(), max_char);
+			auto buffer = std::make_unique<wchar_t[]>(max_char);
+			const size_t len = ::GetDlgItemText(_hSelf, id, buffer.get(), max_char);
+			if (len > 0)
+				_pUserLang->_keywordLists[SCE_USER_KWLIST_OPERATORS2] = buffer.get();
 			break;
 		}
 

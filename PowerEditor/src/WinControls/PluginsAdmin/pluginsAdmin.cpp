@@ -60,6 +60,17 @@
 using namespace std;
 using nlohmann::json;
 
+namespace
+{
+	// UI policy: hide "Available" and "Updates" tabs in Plugins Admin.
+	// Keeping the code paths allows easy re-enable later if needed.
+	constexpr bool kShowAvailableTab = false;
+	constexpr bool kShowUpdatesTab = false;
+
+	constexpr int kTabIndexInstalled = 0;
+	constexpr int kTabIndexIncompatible = 1;
+}
+
 
 std::wstring PluginUpdateInfo::describe() const
 {
@@ -160,8 +171,13 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent, WORD 
 	const wchar_t *installed = L"Installed";
 	const wchar_t *incompatible = L"Incompatible";
 
-	_tab.insertAtEnd(available);
-	_tab.insertAtEnd(updates);
+	// Original behavior (kept for reference):
+	// _tab.insertAtEnd(available);
+	// _tab.insertAtEnd(updates);
+	if (kShowAvailableTab)
+		_tab.insertAtEnd(available);
+	if (kShowUpdatesTab)
+		_tab.insertAtEnd(updates);
 	_tab.insertAtEnd(installed);
 	_tab.insertAtEnd(incompatible);
 
@@ -216,7 +232,8 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent, WORD 
 	initListView(_installedList);
 	initListView(_incompatibleList);
 
-	switchDialog(0);
+	// With Available/Updates hidden, tab 0 is "Installed".
+	switchDialog(kTabIndexInstalled);
 
 	NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 	NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
@@ -409,10 +426,22 @@ bool PluginsAdminDlg::removePlugins()
 
 void PluginsAdminDlg::changeTabName(LIST_TYPE index, wchar_t* name2change)
 {
+	// Map legacy LIST_TYPE indexes (used by localization) to the actual tab indexes.
+	// When Available/Updates are hidden, only Installed/Incompatible exist.
+	int tabIndex = -1;
+	switch (index)
+	{
+		case INSTALLED_LIST:     tabIndex = kTabIndexInstalled; break;
+		case INCOMPATIBLE_LIST: tabIndex = kTabIndexIncompatible; break;
+		default:
+			// Available/Updates are intentionally hidden.
+			return;
+	}
+
 	TCITEM tie{};
 	tie.mask = TCIF_TEXT;
 	tie.pszText = name2change;
-	TabCtrl_SetItem(_tab.getHSelf(), index, &tie);
+	TabCtrl_SetItem(_tab.getHSelf(), tabIndex, &tie);
 
 	wchar_t label[MAX_PATH]{};
 	_tab.getCurrentTitle(label, MAX_PATH);
@@ -1018,19 +1047,13 @@ bool PluginsAdminDlg::searchInPlugins(bool isNextMode) const
 	const PluginViewList* inWhichList = nullptr;
 	switch (inWhichTab)
 	{
-	case 3:
-		inWhichList = &_incompatibleList;
-		break;
-	case 2:
-		inWhichList = &_installedList;
-		break;
-	case 1:
-		inWhichList = &_updateList;
-		break;
-	case 0:
-	default:
-		inWhichList = &_availableList;
-		break;
+		case kTabIndexIncompatible:
+			inWhichList = &_incompatibleList;
+			break;
+		case kTabIndexInstalled:
+		default:
+			inWhichList = &_installedList;
+			break;
 	}
 
 
@@ -1052,33 +1075,8 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 	bool showAvailable, showUpdate, showInstalled, showIncompatibile;
 	switch (indexToSwitch)
 	{
-		case 0: // available plugins
-		{
-			showAvailable = true;
-			showUpdate = false;
-			showInstalled = false;
-			showIncompatibile = false;
-
-			long infoIndex = _availableList.getSelectedIndex();
-			if (infoIndex != -1 && infoIndex < static_cast<long>(_availableList.nbItem()))
-				desc = _availableList.getPluginInfoFromUiIndex(infoIndex)->describe();
-		}
-		break;
-
-		case 1: // to be updated plugins
-		{
-			showAvailable = false;
-			showUpdate = true;
-			showInstalled = false;
-			showIncompatibile = false;
-			
-			long infoIndex = _updateList.getSelectedIndex();
-			if (infoIndex != -1 && infoIndex < static_cast<long>(_updateList.nbItem()))
-				desc = _updateList.getPluginInfoFromUiIndex(infoIndex)->describe();
-		}
-		break;
-
-		case 2: // installed plugin
+		// With Available/Updates tabs hidden, index 0 is "Installed" and index 1 is "Incompatible".
+		case kTabIndexInstalled: // installed plugin
 		{
 			showAvailable = false;
 			showUpdate = false;
@@ -1091,7 +1089,7 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 		}
 		break;
 
-		case 3: // incompatible plugins
+		case kTabIndexIncompatible: // incompatible plugins
 		{
 			showAvailable = false;
 			showUpdate = false;

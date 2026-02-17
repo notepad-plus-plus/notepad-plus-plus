@@ -667,7 +667,7 @@ bool WordStyleDlg::getStyleName(std::wstring& styleName, const size_t styleNameL
 		return false;
 
 	auto buffer = std::wstring(static_cast<size_t>(lbTextLen), L'\0');
-	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, reinterpret_cast<LPARAM>(buffer.data()));
+	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, reinterpret_cast<LPARAM>(buffer.c_str()));
 
 	styleName = buffer;
 	return true;

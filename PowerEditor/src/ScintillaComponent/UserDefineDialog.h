@@ -28,7 +28,6 @@
 
 #include "ColourPicker.h"
 #include "ControlsTab.h"
-#include "NppConstants.h"
 #include "Parameters.h"
 #include "StaticDialog.h"
 #include "URLCtrl.h"
@@ -250,8 +249,8 @@ public:
     SharedParametersDialog() = default;
     virtual void updateDlg() = 0;
 protected:
-	std::wstring _kwlBuffer = std::wstring(max_char, L'\0');
     //Shared data
+	static std::wstring _kwlBuffer;
     static UserLangContainer *_pUserLang;
     static ScintillaEditView *_pScintilla;
     intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;

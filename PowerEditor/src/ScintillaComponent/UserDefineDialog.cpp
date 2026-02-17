@@ -50,6 +50,7 @@ using namespace std;
 
 UserLangContainer * SharedParametersDialog::_pUserLang = NULL;
 ScintillaEditView * SharedParametersDialog::_pScintilla = NULL;
+std::wstring SharedParametersDialog::_kwlBuffer = std::wstring(max_char, L'\0');
 
 GlobalMappers & globalMappper()
 {

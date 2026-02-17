@@ -28,6 +28,7 @@
 
 #include "ColourPicker.h"
 #include "ControlsTab.h"
+#include "NppConstants.h"
 #include "Parameters.h"
 #include "StaticDialog.h"
 #include "URLCtrl.h"
@@ -248,7 +249,8 @@ friend class StylerDlg;
 public:
     SharedParametersDialog() = default;
     virtual void updateDlg() = 0;
-protected :
+protected:
+	std::wstring _kwlBuffer = std::wstring(max_char, L'\0');
     //Shared data
     static UserLangContainer *_pUserLang;
     static ScintillaEditView *_pScintilla;

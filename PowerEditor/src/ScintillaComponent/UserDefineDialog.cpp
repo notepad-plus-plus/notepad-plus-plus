@@ -236,10 +236,8 @@ void FolderStyleDialog::setKeywords2List(int ctrlID)
         case IDC_FOLDER_IN_COMMENT_MIDDLE_EDIT : 
         case IDC_FOLDER_IN_COMMENT_CLOSE_EDIT :  
 		{
-			auto buffer = std::make_unique<wchar_t[]>(max_char);
-			const size_t len = ::GetDlgItemText(_hSelf, ctrlID, buffer.get(), max_char);
-			if (len > 0)
-				_pUserLang->_keywordLists[globalMappper().dialogMapper[ctrlID]] = buffer.get();
+			const size_t len = ::GetDlgItemText(_hSelf, ctrlID, _kwlBuffer.data(), max_char);
+			_pUserLang->_keywordLists[globalMappper().dialogMapper[ctrlID]] = (len > 0) ? _kwlBuffer.c_str() : L"";
 			break;
 		}
     }
@@ -405,10 +403,8 @@ void KeyWordsStyleDialog::setKeywords2List(int id)
         case IDC_KEYWORD7_EDIT :
         case IDC_KEYWORD8_EDIT :
 		{
-			auto buffer = std::make_unique<wchar_t[]>(max_char);
-			const size_t len = ::GetDlgItemText(_hSelf, id, buffer.get(), max_char);
-			if (len > 0)
-				_pUserLang->_keywordLists[globalMappper().dialogMapper[id]] = buffer.get();
+			const size_t len = ::GetDlgItemText(_hSelf, id, _kwlBuffer.data(), max_char);
+			_pUserLang->_keywordLists[globalMappper().dialogMapper[id]] = (len > 0) ? _kwlBuffer.c_str() : L"";
 			break;
 		}
     }
@@ -533,10 +529,8 @@ void CommentStyleDialog::setKeywords2List(int id)
         case IDC_NUMBER_SUFFIX2_EDIT :
         case IDC_NUMBER_RANGE_EDIT :  
 		{
-			auto buffer = std::make_unique<wchar_t[]>(max_char);
-			const size_t len = ::GetDlgItemText(_hSelf, id, buffer.get(), max_char);
-			if (len > 0)
-				_pUserLang->_keywordLists[globalMappper().dialogMapper[id]] = buffer.get();
+			const size_t len = ::GetDlgItemText(_hSelf, id, _kwlBuffer.data(), max_char);
+			_pUserLang->_keywordLists[globalMappper().dialogMapper[id]] = (len > 0) ? _kwlBuffer.c_str() : L"";
 			break;
 		}
 
@@ -551,10 +545,7 @@ void CommentStyleDialog::setKeywords2List(int id)
     }
     if (index != -1)
     {
-		auto newList = std::make_unique<wchar_t[]>(max_char);
-        newList[0] = '\0';
-		auto buffer = std::make_unique<wchar_t[]>(max_char);
-        buffer[0] = '\0';
+		auto newList = std::wstring(max_char, L'\0');
 
 		static constexpr int list[]{
             IDC_COMMENTLINE_OPEN_EDIT,
@@ -568,11 +559,11 @@ void CommentStyleDialog::setKeywords2List(int id)
         for (int i = 0; static_cast<size_t>(i) < sizeof(list) / sizeof(int); ++i)
         {
             _itow(i, intBuffer + 1, 10);
-			::GetDlgItemText(_hSelf, list[i], buffer.get(), max_char);
-			convertTo(newList.get(), buffer.get(), intBuffer);
+			::GetDlgItemText(_hSelf, list[i], _kwlBuffer.data(), max_char);
+			convertTo(newList.data(), _kwlBuffer.c_str(), intBuffer);
         }
 
-		_pUserLang->_keywordLists[index] = newList.get();
+		_pUserLang->_keywordLists[index] = newList.c_str();
     }
 }
 
@@ -614,9 +605,6 @@ void CommentStyleDialog::retrieve(wchar_t* dest, const wchar_t* toRetrieve, cons
 
 void CommentStyleDialog::updateDlg()
 {
-	auto buffer = std::make_unique<wchar_t[]>(max_char);
-    buffer[0] = '\0';
-
 	static constexpr int list[]{
         IDC_COMMENTLINE_OPEN_EDIT,
         IDC_COMMENTLINE_CONTINUE_EDIT,
@@ -629,8 +617,8 @@ void CommentStyleDialog::updateDlg()
     for (int i = 0; static_cast<size_t>(i) < sizeof(list) / sizeof(int); ++i)
     {
         _itow(i, intBuffer + 1, 10);
-		retrieve(buffer.get(), _pUserLang->_keywordLists[SCE_USER_KWLIST_COMMENTS].c_str(), intBuffer);
-        ::SendDlgItemMessage(_hSelf, list[i], WM_SETTEXT, 0, reinterpret_cast<LPARAM>(buffer.get()));
+		retrieve(_kwlBuffer.data(), _pUserLang->_keywordLists[SCE_USER_KWLIST_COMMENTS].c_str(), intBuffer);
+		::SendDlgItemMessage(_hSelf, list[i], WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_kwlBuffer.c_str()));
     }
 
     ::SendDlgItemMessage(_hSelf, IDC_FOLDING_OF_COMMENTS,   BM_SETCHECK, _pUserLang->_allowFoldOfComments,    0);
@@ -654,8 +642,6 @@ void CommentStyleDialog::updateDlg()
 
 void SymbolsStyleDialog::updateDlg()
 {
-	auto buffer = std::make_unique<wchar_t[]>(max_char);
-    buffer[0] = '\0';
 	static constexpr int list[]{
         IDC_DELIMITER1_BOUNDARYOPEN_EDIT,
         IDC_DELIMITER1_ESCAPE_EDIT,
@@ -691,8 +677,8 @@ void SymbolsStyleDialog::updateDlg()
         else
             _itow(i, intBuffer, 10);
 
-		retrieve(buffer.get(), _pUserLang->_keywordLists[SCE_USER_KWLIST_DELIMITERS].c_str(), intBuffer);
-        ::SendDlgItemMessage(_hSelf, list[i], WM_SETTEXT, 0, reinterpret_cast<LPARAM>(buffer.get()));
+		retrieve(_kwlBuffer.data(), _pUserLang->_keywordLists[SCE_USER_KWLIST_DELIMITERS].c_str(), intBuffer);
+		::SendDlgItemMessage(_hSelf, list[i], WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_kwlBuffer.c_str()));
     }
 
 	::SendDlgItemMessage(_hSelf, IDC_OPERATOR1_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_pUserLang->_keywordLists[SCE_USER_KWLIST_OPERATORS1].c_str()));
@@ -813,19 +799,15 @@ void SymbolsStyleDialog::setKeywords2List(int id)
     {
 		case IDC_OPERATOR1_EDIT:
 		{
-			auto buffer = std::make_unique<wchar_t[]>(max_char);
-			const size_t len = ::GetDlgItemText(_hSelf, id, buffer.get(), max_char);
-			if (len > 0)
-				_pUserLang->_keywordLists[SCE_USER_KWLIST_OPERATORS1] = buffer.get();
+			const size_t len = ::GetDlgItemText(_hSelf, id, _kwlBuffer.data(), max_char);
+			_pUserLang->_keywordLists[SCE_USER_KWLIST_OPERATORS1] = (len > 0) ? _kwlBuffer.c_str() : L"";
 			break;
 		}
 
 		case IDC_OPERATOR2_EDIT:
 		{
-			auto buffer = std::make_unique<wchar_t[]>(max_char);
-			const size_t len = ::GetDlgItemText(_hSelf, id, buffer.get(), max_char);
-			if (len > 0)
-				_pUserLang->_keywordLists[SCE_USER_KWLIST_OPERATORS2] = buffer.get();
+			const size_t len = ::GetDlgItemText(_hSelf, id, _kwlBuffer.data(), max_char);
+			_pUserLang->_keywordLists[SCE_USER_KWLIST_OPERATORS2] = (len > 0) ? _kwlBuffer.c_str() : L"";
 			break;
 		}
 
@@ -854,13 +836,10 @@ void SymbolsStyleDialog::setKeywords2List(int id)
         case IDC_DELIMITER8_ESCAPE_EDIT :
         case IDC_DELIMITER8_BOUNDARYCLOSE_EDIT :
         {
-			auto newList = std::make_unique<wchar_t[]>(max_char);
-            newList[0] = '\0';
-			auto buffer = std::make_unique<wchar_t[]>(max_char);
-            buffer[0] = '\0';
+			auto newList = std::wstring(max_char, L'\0');
             wchar_t intBuffer[10] = {'0', 0};
 
-            const int list[] = {
+			static constexpr int list[]{
                 IDC_DELIMITER1_BOUNDARYOPEN_EDIT,
                 IDC_DELIMITER1_ESCAPE_EDIT,
                 IDC_DELIMITER1_BOUNDARYCLOSE_EDIT,
@@ -895,11 +874,11 @@ void SymbolsStyleDialog::setKeywords2List(int id)
                     _itow(i, intBuffer, 10);
 
                 int dd = list[i];
-				::GetDlgItemText(_hSelf, dd, buffer.get(), max_char);
-				convertTo(newList.get(), buffer.get(), intBuffer);
+				::GetDlgItemText(_hSelf, dd, _kwlBuffer.data(), max_char);
+				convertTo(newList.data(), _kwlBuffer.c_str(), intBuffer);
             }
 
-			_pUserLang->_keywordLists[SCE_USER_KWLIST_DELIMITERS] = newList.get();
+			_pUserLang->_keywordLists[SCE_USER_KWLIST_DELIMITERS] = newList.c_str();
             break;
         }
         default :
@@ -1313,7 +1292,7 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
                     case IDC_RENAME_BUTTON :
                     {
                         auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
-						const size_t langNameLen = 256;
+						static constexpr size_t langNameLen = 256;
 						wchar_t langName[langNameLen + 1] = { '\0' };
 						auto cbTextLen = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXTLEN, i, 0);
 						if (static_cast<size_t>(cbTextLen) > langNameLen)

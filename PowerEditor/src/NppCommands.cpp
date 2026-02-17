@@ -49,6 +49,13 @@ using namespace std;
 
 std::mutex command_mutex;
 
+namespace
+{
+	// Must match the hard-disable in `winmain.cpp`.
+	// Keeping this as a compile-time constant makes the updater commands a guaranteed no-op.
+	constexpr bool kNppUpdaterEnabled = false;
+}
+
 void Notepad_plus::macroPlayback(Macro macro, std::vector<Document>* pDocs4EndUAIn)
 {
 	_playingBackMacro = true;
@@ -3719,6 +3726,13 @@ void Notepad_plus::command(int id)
 		case IDM_UPDATE_NPP :
 		case IDM_CONFUPDATERPROXY :
 		{
+			if (!kNppUpdaterEnabled)
+			{
+				// Original behavior (kept for reference):
+				// (There used to be no guard here, so the updater could run.)
+				break;
+			}
+
 			// wingup doesn't work with the obsolete security layer (API) under xp since downloads are secured with SSL on notepad_plus_plus.org
 			const NppParameters& nppParams = NppParameters::getInstance();
 			winVer ver = nppParams.getWinVersion();

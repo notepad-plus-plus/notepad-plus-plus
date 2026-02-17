@@ -29,6 +29,13 @@ typedef std::vector<std::wstring> ParamVector;
 namespace
 {
 
+// Hard-disable Notepad++'s built-in updater integration (gup.exe).
+// This ensures:
+// - No "Update Notepad++" / "Set Updater Proxy..." menu items (they are removed when _doesExistUpdater == false)
+// - No update checks on startup
+// - No update checks on exit
+constexpr bool kNppUpdaterEnabled = false;
+
 
 void allowPrivilegeMessages(const Notepad_plus_Window& notepad_plus_plus, winVer winVer)
 {
@@ -379,6 +386,9 @@ void stripIgnoredParams(ParamVector & params)
 
 bool launchUpdater(const std::wstring& updaterFullPath, const std::wstring& updaterDir)
 {
+	if (!kNppUpdaterEnabled)
+		return false;
+
 	NppParameters& nppParameters = NppParameters::getInstance();
 	NppGUI& nppGui = nppParameters.getNppGUI();
 
@@ -779,17 +789,34 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 
 	std::wstring updaterFullPath = updaterDir + L"gup.exe";
 
-	bool isUpExist = nppGui._doesExistUpdater = doesFileExist(updaterFullPath.c_str());
+	// We intentionally always report that the updater doesn't exist, so the UI never exposes updater actions.
+	// Original code (kept for reference):
+	// bool isUpExist = nppGui._doesExistUpdater = doesFileExist(updaterFullPath.c_str());
+	bool isUpExist = false;
+	nppGui._doesExistUpdater = false;
 
 	// wingup doesn't work with the obsolete security layer (API) under xp since downloads are secured with SSL on notepad-plus-plus.org
 	winVer ver = nppParameters.getWinVersion();
 	bool isGtXP = ver > WV_XP;
 
 	SecurityGuard securityGuard;
-	bool isSignatureOK = securityGuard.checkModule(updaterFullPath, nm_gup);
-
-	if (TheFirstOne && isUpExist && isGtXP && isSignatureOK && doUpdateNpp && !updateAtExit)
+	bool isSignatureOK = false;
+	// Original code (kept for reference):
+	// bool isSignatureOK = securityGuard.checkModule(updaterFullPath, nm_gup);
+	if (kNppUpdaterEnabled)
 	{
+		// When enabled, restore original behavior.
+		isUpExist = nppGui._doesExistUpdater = doesFileExist(updaterFullPath.c_str());
+		isSignatureOK = securityGuard.checkModule(updaterFullPath, nm_gup);
+	}
+
+	if (kNppUpdaterEnabled && TheFirstOne && isUpExist && isGtXP && isSignatureOK && doUpdateNpp && !updateAtExit)
+	{
+		// Original code (kept for reference):
+		// if (TheFirstOne && isUpExist && isGtXP && isSignatureOK && doUpdateNpp && !updateAtExit)
+		// {
+		//     launchUpdater(updaterFullPath, updaterDir);
+		// }
 		launchUpdater(updaterFullPath, updaterDir);
 	}
 
@@ -861,8 +888,17 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 
 	doUpdateNpp = nppGui._autoUpdateOpt._doAutoUpdate != NppGUI::autoupdate_disabled; // refresh, maybe user activated these opts in Preferences
 	updateAtExit = nppGui._autoUpdateOpt._doAutoUpdate == NppGUI::autoupdate_on_exit; // refresh
-	if (!isException && !nppParameters.isEndSessionCritical() && TheFirstOne && isUpExist && isGtXP && isSignatureOK && doUpdateNpp && updateAtExit)
+	if (kNppUpdaterEnabled && !isException && !nppParameters.isEndSessionCritical() && TheFirstOne && isUpExist && isGtXP && isSignatureOK && doUpdateNpp && updateAtExit)
 	{
+		// Original code (kept for reference):
+		// if (!isException && !nppParameters.isEndSessionCritical() && TheFirstOne && isUpExist && isGtXP && isSignatureOK && doUpdateNpp && updateAtExit)
+		// {
+		//     if (launchUpdater(updaterFullPath, updaterDir))
+		//     {
+		//         nppParameters.createXmlTreeFromGUIParams();
+		//         nppParameters.saveConfig_xml();
+		//     }
+		// }
 		if (launchUpdater(updaterFullPath, updaterDir))
 		{
 			// for updating the nextUpdateDate in the already saved config.xml

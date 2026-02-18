@@ -183,10 +183,6 @@
     <ClCompile Include="..\src\WinControls\TaskList\TaskList.cpp" />
     <ClCompile Include="..\src\WinControls\TaskList\TaskListDlg.cpp" />
     <ClCompile Include="..\src\pugixml\pugixml.cpp" />
-    <ClCompile Include="..\src\TinyXml\tinystr.cpp" />
-    <ClCompile Include="..\src\TinyXml\tinyxml.cpp" />
-    <ClCompile Include="..\src\TinyXml\tinyxmlerror.cpp" />
-    <ClCompile Include="..\src\TinyXml\tinyxmlparser.cpp" />
     <ClCompile Include="..\src\WinControls\ToolBar\ToolBar.cpp" />
     <ClCompile Include="..\src\WinControls\ToolTip\ToolTip.cpp" />
     <ClCompile Include="..\src\WinControls\TrayIcon\trayIconControler.cpp" />
@@ -352,8 +348,6 @@
     <ClInclude Include="..\src\WinControls\TaskList\TaskListDlg_rc.h" />
     <ClInclude Include="..\src\pugixml\pugiconfig.hpp" />
     <ClInclude Include="..\src\pugixml\pugixml.hpp" />
-    <ClInclude Include="..\src\TinyXml\tinystr.h" />
-    <ClInclude Include="..\src\TinyXml\tinyxml.h" />
     <ClInclude Include="..\src\WinControls\ToolBar\ToolBar.h" />
     <ClInclude Include="..\src\WinControls\ToolTip\ToolTip.h" />
     <ClInclude Include="..\src\WinControls\TrayIcon\trayIconControler.h" />

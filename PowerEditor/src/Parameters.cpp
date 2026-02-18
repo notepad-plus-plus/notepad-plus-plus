@@ -25,6 +25,7 @@
 #include <algorithm>
 #include <array>
 #include <cassert>
+#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -51,10 +52,8 @@
 #include "NppDarkMode.h"
 #include "NppXml.h"
 #include "ScintillaEditView.h"
-#include "TabBar.h"
 #include "ToolBar.h"
 #include "UserDefineDialog.h"
-#include "WordStyleDlg.h"
 #include "keys.h"
 #include "localization.h"
 #include "localizationString.h"
@@ -74,8 +73,6 @@ static constexpr int NB_MAX_FINDHISTORY_FIND = 30;
 static constexpr int NB_MAX_FINDHISTORY_REPLACE = 30;
 static constexpr int NB_MAX_FINDHISTORY_PATH = 30;
 static constexpr int NB_MAX_FINDHISTORY_FILTER = 20;
-
-using namespace std;
 
 namespace // anonymous namespace
 {
@@ -866,7 +863,7 @@ std::wstring LocalizationSwitcher::getXmlFilePathFromLangName(const wchar_t *lan
 bool LocalizationSwitcher::addLanguageFromXml(const std::wstring& xmlFullPath)
 {
 	const wchar_t * fn = ::PathFindFileNameW(xmlFullPath.c_str());
-	wstring foundLang = getLangFromXmlFileName(fn);
+	const std::wstring foundLang = getLangFromXmlFileName(fn);
 	if (!foundLang.empty())
 	{
 		_localizationList.emplace_back(foundLang, xmlFullPath);
@@ -878,7 +875,7 @@ bool LocalizationSwitcher::addLanguageFromXml(const std::wstring& xmlFullPath)
 
 bool LocalizationSwitcher::switchToLang(const wchar_t *lang2switch) const
 {
-	wstring langPath = getXmlFilePathFromLangName(lang2switch);
+	const std::wstring langPath = getXmlFilePathFromLangName(lang2switch);
 	if (langPath.empty())
 		return false;
 
@@ -1655,7 +1652,7 @@ bool NppParameters::load()
 	//------------------------------//
 	// shortcuts.xml : for per-user //
 	//------------------------------//
-	wstring v852NoNeedShortcutsBackup;
+	std::wstring v852NoNeedShortcutsBackup;
 	_shortcutsPath = v852NoNeedShortcutsBackup = _userPath;
 	pathAppend(_shortcutsPath, SHORTCUTSXML_FILENAME);
 	pathAppend(v852NoNeedShortcutsBackup, NONEEDSHORTCUTSXMLBACKUP_FILENAME);
@@ -2907,7 +2904,7 @@ int NppParameters::getCmdIdFromMenuEntryItemName(HMENU mainMenuHandle, const std
 		::GetMenuString(mainMenuHandle, i, menuEntryString, menuItemStrLenMax, MF_BYPOSITION);
 		if (_wcsicmp(menuEntryName.c_str(), purgeMenuItemString(menuEntryString).c_str()) == 0)
 		{
-			vector< pair<HMENU, int> > parentMenuPos;
+			std::vector<std::pair<HMENU, int>> parentMenuPos;
 			HMENU topMenu = ::GetSubMenu(mainMenuHandle, i);
 			int maxTopMenuPos = ::GetMenuItemCount(topMenu);
 			HMENU currMenu = topMenu;
@@ -3601,7 +3598,7 @@ void NppParameters::feedMacros(const NppXml::Element& element)
 		childNode = NppXml::nextSiblingElement(childNode, "Macro"))
 	{
 		Shortcut sc;
-		string fdnm;
+		std::string fdnm;
 		if (getShortcuts(childNode, sc, &fdnm))
 		{
 			Macro macro;
@@ -3705,7 +3702,7 @@ void NppParameters::feedUserCmds(const NppXml::Element& element)
 		childNode = NppXml::nextSiblingElement(childNode, "Command"))
 	{
 		Shortcut sc;
-		string fdnm;
+		std::string fdnm;
 		if (getShortcuts(childNode, sc, &fdnm))
 		{
 			NppXml::Node aNode = NppXml::firstChild(childNode); // text node
@@ -3930,7 +3927,7 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(const NppXml
 		}
 	}
 	const int iEnd = _nbUserLang;
-	return pair<unsigned char, unsigned char>(static_cast<unsigned char>(iBegin), static_cast<unsigned char>(iEnd));
+	return std::pair<unsigned char, unsigned char>(static_cast<unsigned char>(iBegin), static_cast<unsigned char>(iEnd));
 }
 
 bool NppParameters::importUDLFromFile(const std::wstring& sourceFile)
@@ -4251,7 +4248,7 @@ void NppParameters::insertCmd(NppXml::Element& cmdRoot, const CommandShortcut& c
 }
 
 
-void NppParameters::insertMacro(NppXml::Element& macrosRoot, const MacroShortcut& macro, const string& folderName)
+void NppParameters::insertMacro(NppXml::Element& macrosRoot, const MacroShortcut& macro, const std::string& folderName)
 {
 	const KeyCombo& key = macro.getKeyCombo();
 	NppXml::Element macroRoot = NppXml::createChildElement(macrosRoot, "Macro");
@@ -4504,7 +4501,7 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 			if (!isEndSessionCritical())
 				::MessageBox(nullptr, backupPathName, L"Saving session error - restoring from the backup:", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
 
-			wstring sessionPathNameFail2Load = sessionPathName;
+			std::wstring sessionPathNameFail2Load = sessionPathName;
 			sessionPathNameFail2Load += L".fail2Load";
 			ReplaceFile(sessionPathName, backupPathName, sessionPathNameFail2Load.c_str(), REPLACEFILE_IGNORE_MERGE_ERRORS | REPLACEFILE_IGNORE_ACL_ERRORS, 0, 0);
 		}
@@ -4551,7 +4548,7 @@ void NppParameters::writeShortcuts()
 
 			// backup shortcuts file "shortcuts.xml" to "shortcuts.xml.v8.5.2.backup"
 			// if the backup file already exists, it will not be overwritten.
-			wstring v852ShortcutsBackupPath = _shortcutsPath;
+			std::wstring v852ShortcutsBackupPath = _shortcutsPath;
 			v852ShortcutsBackupPath += L".v8.5.2.backup";
 			::CopyFile(_shortcutsPath.c_str(), v852ShortcutsBackupPath.c_str(), TRUE);
 
@@ -6742,7 +6739,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					close = closeVal;
 
 				if (open != -1 && close != -1)
-					_nppGUI._matchedPairConf._matchedPairs.push_back(pair<char, char>(char(open), char(close)));
+					_nppGUI._matchedPairConf._matchedPairs.push_back(std::pair<char, char>(char(open), char(close)));
 			}
 		}
 
@@ -10047,7 +10044,7 @@ COLORREF NppParameters::getFindDlgStatusMsgColor(int colourIndex)
 	return findDlgStatusMessageColor[colourIndex];
 }
 
-LanguageNameInfo NppParameters::getLangNameInfoFromNameID(const wstring& langNameID)
+LanguageNameInfo NppParameters::getLangNameInfoFromNameID(const std::wstring& langNameID)
 {
 	for (const auto& lnf : ScintillaEditView::_langNameInfoArray)
 	{

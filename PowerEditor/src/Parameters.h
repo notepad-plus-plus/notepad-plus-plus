@@ -1020,7 +1020,7 @@ public:
 		_forcePureLC(ulc._forcePureLC),
 		_decimalSeparator(ulc._decimalSeparator),
 		_isCaseIgnored(ulc._isCaseIgnored),
-		_allowFoldOfComments(ulc._allowFoldOfComments),	
+		_allowFoldOfComments(ulc._allowFoldOfComments),
 		_foldCompact(ulc._foldCompact),
 		_isDarkModeTheme(ulc._isDarkModeTheme)
 	{

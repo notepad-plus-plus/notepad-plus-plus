@@ -1486,13 +1486,13 @@ bool NppParameters::load()
 	if (!doesFileExist(configPath.c_str()))
 		::CopyFile(srcConfigPath.c_str(), configPath.c_str(), FALSE);
 
-	_pXmlUserDoc = new TiXmlDocument(configPath);
-	loadOkay = _pXmlUserDoc->LoadFile();
+	_xmlUserDoc._path = configPath;
+	_xmlUserDoc._doc = new NppXml::NewDocument();
+	loadOkay = NppXml::loadFile(_xmlUserDoc._doc, _xmlUserDoc._path.c_str());
 
 	if (!loadOkay)
 	{
-		TiXmlDeclaration* decl = new TiXmlDeclaration(L"1.0", L"UTF-8", L"");
-		_pXmlUserDoc->LinkEndChild(decl);
+		NppXml::createNewDeclaration(_xmlUserDoc._doc);
 	}
 	else
 	{
@@ -1853,7 +1853,7 @@ bool NppParameters::load()
 void NppParameters::destroyInstance()
 {
 	delete _pXmlDoc._doc;
-	delete _pXmlUserDoc;
+	delete _xmlUserDoc._doc;
 	delete _pXmlUserStylerDoc._doc;
 
 	//delete _pXmlUserLangDoc; will be deleted in the vector
@@ -1873,8 +1873,8 @@ void NppParameters::destroyInstance()
 
 void NppParameters::saveConfig_xml() const
 {
-	if (_pXmlUserDoc)
-		_pXmlUserDoc->SaveFile();
+	if (_xmlUserDoc._doc)
+		static_cast<void>(NppXml::saveFile(_xmlUserDoc._doc, _xmlUserDoc._path.c_str()));
 }
 
 
@@ -2731,28 +2731,10 @@ void NppParameters::updateStylesXml(const NppXml::Element& rootUser, const std::
 
 bool NppParameters::getUserParametersFromXmlTree()
 {
-	if (!_pXmlUserDoc)
+	if (!_xmlUserDoc._doc)
 		return false;
 
-	TiXmlNode* rootTinyXML = _pXmlUserDoc->FirstChild(L"NotepadPlus");
-	if (!rootTinyXML)
-		return false;
-
-	// Erase the History root
-	TiXmlNode* node = rootTinyXML->FirstChildElement(L"History");
-	rootTinyXML->RemoveChild(node);
-
-	// Add a new empty History root
-	TiXmlElement HistoryNode(L"History");
-	rootTinyXML->InsertEndChild(HistoryNode);
-
-	XmlDocPath xmlUserDoc{};
-	xmlUserDoc._doc = new NppXml::NewDocument();
-	xmlUserDoc._path = _pXmlUserDoc->Value();
-	if (!NppXml::loadFile(xmlUserDoc._doc, xmlUserDoc._path.c_str()))
-		return false;
-
-	NppXml::Element root = NppXml::firstChildElement(xmlUserDoc._doc, "NotepadPlus");
+	NppXml::Element root = NppXml::firstChildElement(_xmlUserDoc._doc, "NotepadPlus");
 	if (!root)
 		return false;
 
@@ -2780,8 +2762,6 @@ bool NppParameters::getUserParametersFromXmlTree()
 
 	//Get Column editor parameters
 	feedColumnEditorParameters(root);
-
-	delete xmlUserDoc._doc;
 
 	return true;
 }
@@ -4026,9 +4006,9 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring& c
 	// config.xml
 	std::wstring cloudConfigPath = cloudSettingsPath;
 	pathAppend(cloudConfigPath, L"config.xml");
-	if (!doesFileExist(cloudConfigPath.c_str()) && _pXmlUserDoc)
+	if (!doesFileExist(cloudConfigPath.c_str()) && _xmlUserDoc._doc)
 	{
-		isOK = _pXmlUserDoc->SaveFile(cloudConfigPath.c_str());
+		isOK = NppXml::saveFile(_xmlUserDoc._doc, cloudConfigPath.c_str());
 		if (!isOK)
 			return false;
 	}
@@ -5031,233 +5011,217 @@ void StyleArray::addStyler(int styleID, const NppXml::Element& styleNode)
 
 bool NppParameters::writeRecentFileHistorySettings(int nbMaxFile)
 {
-	if (!_pXmlUserDoc) return false;
+	if (!_xmlUserDoc._doc) return false;
 
-	TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild(L"NotepadPlus");
+	NppXml::Element nppRoot = NppXml::firstChildElement(_xmlUserDoc._doc, "NotepadPlus");
 	if (!nppRoot)
 	{
-		nppRoot = _pXmlUserDoc->InsertEndChild(TiXmlElement(L"NotepadPlus"));
+		nppRoot = NppXml::createChildElement(_xmlUserDoc._doc, "NotepadPlus");
 	}
 
-	TiXmlNode *historyNode = nppRoot->FirstChildElement(L"History");
+	NppXml::Element historyNode = NppXml::firstChildElement(nppRoot, "History");
 	if (!historyNode)
 	{
-		historyNode = nppRoot->InsertEndChild(TiXmlElement(L"History"));
+		historyNode = NppXml::createChildElement(nppRoot, "History");
 	}
 
-	(historyNode->ToElement())->SetAttribute(L"nbMaxFile", nbMaxFile!=-1?nbMaxFile:_nbMaxRecentFile);
-	(historyNode->ToElement())->SetAttribute(L"inSubMenu", _putRecentFileInSubMenu ? L"yes" : L"no");
-	(historyNode->ToElement())->SetAttribute(L"customLength", _recentFileCustomLength);
+	NppXml::setAttribute(historyNode, "nbMaxFile", nbMaxFile != -1 ? nbMaxFile : _nbMaxRecentFile);
+	setBoolAttribute(historyNode, "inSubMenu", _putRecentFileInSubMenu);
+	NppXml::setAttribute(historyNode, "customLength", _recentFileCustomLength);
 	return true;
 }
 
 bool NppParameters::writeColumnEditorSettings()
 {
-	if (!_pXmlUserDoc) return false;
+	if (!_xmlUserDoc._doc) return false;
 
-	TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild(L"NotepadPlus");
+	NppXml::Element nppRoot = NppXml::firstChildElement(_xmlUserDoc._doc, "NotepadPlus");
 	if (!nppRoot)
 	{
-		nppRoot = _pXmlUserDoc->InsertEndChild(TiXmlElement(L"NotepadPlus"));
+		nppRoot = NppXml::createChildElement(_xmlUserDoc._doc, "NotepadPlus");
 	}
 
-	TiXmlNode *oldColumnEditorNode = nppRoot->FirstChildElement(L"ColumnEditor");
+	NppXml::Element oldColumnEditorNode = NppXml::firstChildElement(nppRoot, "ColumnEditor");
 	if (oldColumnEditorNode)
 	{
 		// Erase the Project Panel root
-		nppRoot->RemoveChild(oldColumnEditorNode);
+		NppXml::deleteChild(nppRoot, oldColumnEditorNode);
 	}
 
 	// Create the new ColumnEditor root
-	TiXmlElement columnEditorRootNode{L"ColumnEditor"};
-	(columnEditorRootNode.ToElement())->SetAttribute(L"choice", _columnEditParam._mainChoice == activeNumeric ? L"number" : L"text");
+	NppXml::Element columnEditorRootNode = NppXml::createChildElement(nppRoot, "ColumnEditor");
+	NppXml::setAttribute(columnEditorRootNode, "choice", _columnEditParam._mainChoice == activeNumeric ? "number" : "text");
 
-	TiXmlElement textNode{ L"text" };
-	(textNode.ToElement())->SetAttribute(L"content", _columnEditParam._insertedTextContent.c_str());
-	(columnEditorRootNode.ToElement())->InsertEndChild(textNode);
+	NppXml::Element textNode = NppXml::createChildElement(columnEditorRootNode, "text");
+	NppXml::setAttribute(textNode, "content", wstring2string(_columnEditParam._insertedTextContent).c_str());
 
-	TiXmlElement numberNode{ L"number" };
-	(numberNode.ToElement())->SetAttribute(L"initial", _columnEditParam._initialNum);
-	(numberNode.ToElement())->SetAttribute(L"increase", _columnEditParam._increaseNum);
-	(numberNode.ToElement())->SetAttribute(L"repeat", _columnEditParam._repeatNum);
-	std::wstring format = L"dec";
+	NppXml::Element numberNode = NppXml::createChildElement(columnEditorRootNode, "number");
+	NppXml::setAttribute(numberNode, "initial", _columnEditParam._initialNum);
+	NppXml::setAttribute(numberNode, "increase", _columnEditParam._increaseNum);
+	NppXml::setAttribute(numberNode, "repeat", _columnEditParam._repeatNum);
+
+	std::string format;
 	switch (_columnEditParam._formatChoice)
 	{
 		using enum NumBase;
 		case BASE_10:
 		{
-			format = L"dec";
+			format = "dec";
 			break;
 		}
 
 		case BASE_16:
 		{
-			format = L"hex";
+			format = "hex";
 			break;
 		}
 
 		case BASE_08:
 		{
-			format = L"oct";
+			format = "oct";
 			break;
 		}
 
 		case BASE_02:
 		{
-			format = L"bin";
+			format = "bin";
 			break;
 		}
 
 		case BASE_16_UPPERCASE:
 		{
-			format = L"hexuc";
+			format = "hexuc";
 			break;
 		}
 	}
-	(numberNode.ToElement())->SetAttribute(L"formatChoice", format);
+	NppXml::setAttribute(numberNode, "formatChoice", format.c_str());
 
-	std::wstring leading;
+	std::string leading;
 	switch (_columnEditParam._leadingChoice)
 	{
 		using enum ColumnEditorParam::leadingChoice;
 		case noneLeading:
 		{
-			leading = L"none";
+			leading = "none";
 			break;
 		}
 
 		case zeroLeading:
 		{
-			leading = L"zeros";
+			leading = "zeros";
 			break;
 		}
 
 		case spaceLeading:
 		{
-			leading = L"spaces";
+			leading = "spaces";
 			break;
 		}
 	}
-	(numberNode.ToElement())->SetAttribute(L"leadingChoice", leading);
-	(columnEditorRootNode.ToElement())->InsertEndChild(numberNode);
+	NppXml::setAttribute(numberNode, "leadingChoice", leading.c_str());
 
-	// (Re)Insert the Project Panel root
-	(nppRoot->ToElement())->InsertEndChild(columnEditorRootNode);
 	return true;
 }
 
 bool NppParameters::writeProjectPanelsSettings()
 {
-	if (!_pXmlUserDoc) return false;
+	if (!_xmlUserDoc._doc) return false;
 
-	TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild(L"NotepadPlus");
+	NppXml::Element nppRoot = NppXml::firstChildElement(_xmlUserDoc._doc, "NotepadPlus");
 	if (!nppRoot)
 	{
-		nppRoot = _pXmlUserDoc->InsertEndChild(TiXmlElement(L"NotepadPlus"));
+		nppRoot = NppXml::createChildElement(_xmlUserDoc._doc, "NotepadPlus");
 	}
 
-	TiXmlNode *oldProjPanelRootNode = nppRoot->FirstChildElement(L"ProjectPanels");
+	NppXml::Element oldProjPanelRootNode = NppXml::firstChildElement(nppRoot, "ProjectPanels");
 	if (oldProjPanelRootNode)
 	{
 		// Erase the Project Panel root
-		nppRoot->RemoveChild(oldProjPanelRootNode);
+		NppXml::deleteChild(nppRoot, oldProjPanelRootNode);
 	}
 
 	// Create the Project Panel root
-	TiXmlElement projPanelRootNode{L"ProjectPanels"};
+	NppXml::Element projPanelRootNode = NppXml::createChildElement(nppRoot, "ProjectPanels");
 
 	// Add 3 Project Panel parameters
 	for (int i = 0; i < 3; ++i)
 	{
-		TiXmlElement projPanelNode{L"ProjectPanel"};
-		(projPanelNode.ToElement())->SetAttribute(L"id", i);
-		(projPanelNode.ToElement())->SetAttribute(L"workSpaceFile", _workSpaceFilePaths[i]);
-
-		(projPanelRootNode.ToElement())->InsertEndChild(projPanelNode);
+		NppXml::Element projPanelNode = NppXml::createChildElement(projPanelRootNode, "ProjectPanel");
+		NppXml::setAttribute(projPanelNode, "id", i);
+		NppXml::setAttribute(projPanelNode, "workSpaceFile", wstring2string(_workSpaceFilePaths[i]).c_str());
 	}
 
-	// (Re)Insert the Project Panel root
-	(nppRoot->ToElement())->InsertEndChild(projPanelRootNode);
 	return true;
 }
 
 bool NppParameters::writeFileBrowserSettings(const std::vector<std::wstring>& rootPaths, const std::wstring& latestSelectedItemPath)
 {
-	if (!_pXmlUserDoc) return false;
+	if (!_xmlUserDoc._doc) return false;
 
-	TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild(L"NotepadPlus");
+	NppXml::Element nppRoot = NppXml::firstChildElement(_xmlUserDoc._doc, "NotepadPlus");
 	if (!nppRoot)
 	{
-		nppRoot = _pXmlUserDoc->InsertEndChild(TiXmlElement(L"NotepadPlus"));
+		nppRoot = NppXml::createChildElement(_xmlUserDoc._doc, "NotepadPlus");
 	}
 
-	TiXmlNode *oldFileBrowserRootNode = nppRoot->FirstChildElement(L"FileBrowser");
+	NppXml::Element oldFileBrowserRootNode = NppXml::firstChildElement(nppRoot, "FileBrowser");
 	if (oldFileBrowserRootNode)
 	{
-		// Erase the file broser root
-		nppRoot->RemoveChild(oldFileBrowserRootNode);
+		// Erase the file browser root
+		NppXml::deleteChild(nppRoot, oldFileBrowserRootNode);
 	}
 
 	// Create the file browser root
-	TiXmlElement fileBrowserRootNode{ L"FileBrowser" };
+	NppXml::Element fileBrowserRootNode = NppXml::createChildElement(nppRoot, "FileBrowser");
 
-	if (rootPaths.size() != 0)
+	if (!rootPaths.empty())
 	{
-		fileBrowserRootNode.SetAttribute(L"latestSelectedItem", latestSelectedItemPath.c_str());
+		NppXml::setAttribute(fileBrowserRootNode, "latestSelectedItem", wstring2string(latestSelectedItemPath).c_str());
 
 		// add roots
-		size_t len = rootPaths.size();
-		for (size_t i = 0; i < len; ++i)
+		for (const auto& rootPath : rootPaths)
 		{
-			TiXmlElement fbRootNode{ L"root" };
-			(fbRootNode.ToElement())->SetAttribute(L"foldername", rootPaths[i].c_str());
-
-			(fileBrowserRootNode.ToElement())->InsertEndChild(fbRootNode);
+			NppXml::Element fbRootNode = NppXml::createChildElement(fileBrowserRootNode, "root");
+			NppXml::setAttribute(fbRootNode, "foldername", wstring2string(rootPath).c_str());
 		}
 	}
 
-	// (Re)Insert the file browser root
-	(nppRoot->ToElement())->InsertEndChild(fileBrowserRootNode);
 	return true;
 }
 
-bool NppParameters::writeHistory(const wchar_t *fullpath)
+bool NppParameters::writeHistory(const wchar_t* fullpath)
 {
-	TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild(L"NotepadPlus");
+	NppXml::Element nppRoot = NppXml::firstChildElement(_xmlUserDoc._doc, "NotepadPlus");
 	if (!nppRoot)
 	{
-		nppRoot = _pXmlUserDoc->InsertEndChild(TiXmlElement(L"NotepadPlus"));
+		nppRoot = NppXml::createChildElement(_xmlUserDoc._doc, "NotepadPlus");
 	}
 
-	TiXmlNode *historyNode = nppRoot->FirstChildElement(L"History");
+	NppXml::Element historyNode = NppXml::firstChildElement(nppRoot, "History");
 	if (!historyNode)
 	{
-		historyNode = nppRoot->InsertEndChild(TiXmlElement(L"History"));
+		historyNode = NppXml::createChildElement(nppRoot, "History");
 	}
 
-	TiXmlElement recentFileNode(L"File");
-	(recentFileNode.ToElement())->SetAttribute(L"filename", fullpath);
+	NppXml::Element recentFileNode = NppXml::createChildElement(historyNode, "File");
+	NppXml::setAttribute(recentFileNode, "filename", wstring2string(fullpath).c_str());
 
-	(historyNode->ToElement())->InsertEndChild(recentFileNode);
 	return true;
 }
 
-TiXmlNode * NppParameters::getChildElementByAttribute(TiXmlNode *pere, const wchar_t *childName,\
-			const wchar_t *attributeName, const wchar_t *attributeVal) const
+NppXml::Element NppParameters::getChildElementByAttribute(const NppXml::Element& element, const char* childName,
+	const char* attributeName, const char* attributeVal)
 {
-	for (TiXmlNode *childNode = pere->FirstChildElement(childName);
-		childNode ;
-		childNode = childNode->NextSibling(childName))
+	for (NppXml::Element childNode = NppXml::firstChildElement(element, childName);
+		childNode;
+		childNode = NppXml::nextSiblingElement(childNode, childName))
 	{
-		TiXmlElement *element = childNode->ToElement();
-		const wchar_t *val = element->Attribute(attributeName);
-		if (val)
+		if (std::strcmp(NppXml::attribute(childNode, attributeName, ""), attributeVal) == 0)
 		{
-			if (!lstrcmp(val, attributeVal))
-				return childNode;
+			return childNode;
 		}
 	}
-	return NULL;
+	return NppXml::Element{};
 }
 
 // 2 restes : L_H, L_USER
@@ -6009,7 +5973,7 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 
 			_nppGUI._findWindowLessMode = getBoolAttribute(childNode, "isLessModeOn");
 		}
-		// <GUIConfig name="FinderConfig" wrappedLines="no" purgeBeforeEverySearch="no" showOnlyOneEntryPerFoundLine="yes" />
+		// <GUIConfig name="FinderConfig" wrappedLines="no" purgeBeforeEverySearch="no" showOnlyOneEntryPerFoundLine="yes" FiF_ignoreunsavedChangesInOpenedFiles="no" />
 		else if (std::strcmp(nm, "FinderConfig") == 0)
 		{
 			_nppGUI._finderLinesAreCurrentlyWrapped = getBoolAttribute(childNode, "wrappedLines");
@@ -6977,286 +6941,167 @@ void NppParameters::feedDockingManager(const NppXml::Element& element)
 	}
 }
 
-void NppParameters::duplicateDockingManager(TiXmlNode* dockMngNode, TiXmlElement* dockMngElmt2Clone)
-{
-	if (!dockMngNode || !dockMngElmt2Clone) return;
-
-	TiXmlElement *dockMngElmt = dockMngNode->ToElement();
-
-	int i;
-	if (dockMngElmt->Attribute(L"leftWidth", &i))
-		dockMngElmt2Clone->SetAttribute(L"leftWidth", i);
-
-	if (dockMngElmt->Attribute(L"rightWidth", &i))
-		dockMngElmt2Clone->SetAttribute(L"rightWidth", i);
-
-	if (dockMngElmt->Attribute(L"topHeight", &i))
-		dockMngElmt2Clone->SetAttribute(L"topHeight", i);
-
-	if (dockMngElmt->Attribute(L"bottomHeight", &i))
-		dockMngElmt2Clone->SetAttribute(L"bottomHeight", i);
-
-
-	for (TiXmlNode *childNode = dockMngNode->FirstChildElement(L"FloatingWindow");
-		childNode;
-		childNode = childNode->NextSibling(L"FloatingWindow"))
-	{
-		TiXmlElement *floatElement = childNode->ToElement();
-		int cont;
-		if (floatElement->Attribute(L"cont", &cont))
-		{
-			TiXmlElement FWNode(L"FloatingWindow");
-			FWNode.SetAttribute(L"cont", cont);
-
-			int x = 0;
-			int y = 0;
-			int w = 100;
-			int h = 100;
-
-			floatElement->Attribute(L"x", &x);
-			FWNode.SetAttribute(L"x", x);
-
-			floatElement->Attribute(L"y", &y);
-			FWNode.SetAttribute(L"y", y);
-
-			floatElement->Attribute(L"width", &w);
-			FWNode.SetAttribute(L"width", w);
-
-			floatElement->Attribute(L"height", &h);
-			FWNode.SetAttribute(L"height", h);
-
-			dockMngElmt2Clone->InsertEndChild(FWNode);
-		}
-	}
-
-	for (TiXmlNode *childNode = dockMngNode->FirstChildElement(L"PluginDlg");
-		childNode;
-		childNode = childNode->NextSibling(L"PluginDlg"))
-	{
-		TiXmlElement *dlgElement = childNode->ToElement();
-		const wchar_t *name = dlgElement->Attribute(L"pluginName");
-		TiXmlElement PDNode(L"PluginDlg");
-
-		int id;
-		const wchar_t *idStr = dlgElement->Attribute(L"id", &id);
-		if (name && idStr)
-		{
-			int curr = 0; // on left
-			int prev = 0; // on left
-
-			dlgElement->Attribute(L"curr", &curr);
-			dlgElement->Attribute(L"prev", &prev);
-
-			bool isVisible = false;
-			const wchar_t *val = dlgElement->Attribute(L"isVisible");
-			if (val)
-			{
-				isVisible = (lstrcmp(val, L"yes") == 0);
-			}
-
-			PDNode.SetAttribute(L"pluginName", name);
-			PDNode.SetAttribute(L"id", idStr);
-			PDNode.SetAttribute(L"curr", curr);
-			PDNode.SetAttribute(L"prev", prev);
-			PDNode.SetAttribute(L"isVisible", isVisible ? L"yes" : L"no");
-
-			dockMngElmt2Clone->InsertEndChild(PDNode);
-		}
-	}
-
-	for (TiXmlNode *childNode = dockMngNode->FirstChildElement(L"ActiveTabs");
-		childNode;
-		childNode = childNode->NextSibling(L"ActiveTabs"))
-	{
-		TiXmlElement *dlgElement = childNode->ToElement();
-		TiXmlElement CTNode(L"ActiveTabs");
-		int cont;
-		if (dlgElement->Attribute(L"cont", &cont))
-		{
-			int activeTab = 0;
-			dlgElement->Attribute(L"activeTab", &activeTab);
-
-			CTNode.SetAttribute(L"cont", cont);
-			CTNode.SetAttribute(L"activeTab", activeTab);
-
-			dockMngElmt2Clone->InsertEndChild(CTNode);
-		}
-	}
-}
-
 bool NppParameters::writeScintillaParams()
 {
-	if (!_pXmlUserDoc) return false;
+	if (!_xmlUserDoc._doc) return false;
 
-	const wchar_t *pViewName = L"ScintillaPrimaryView";
-	TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild(L"NotepadPlus");
+	const char* pViewName = "ScintillaPrimaryView";
+	NppXml::Element nppRoot = NppXml::firstChildElement(_xmlUserDoc._doc, "NotepadPlus");
 	if (!nppRoot)
 	{
-		nppRoot = _pXmlUserDoc->InsertEndChild(TiXmlElement(L"NotepadPlus"));
+		nppRoot = NppXml::createChildElement(_xmlUserDoc._doc, "NotepadPlus");
 	}
 
-	TiXmlNode *configsRoot = nppRoot->FirstChildElement(L"GUIConfigs");
+	NppXml::Element configsRoot = NppXml::firstChildElement(nppRoot, "GUIConfigs");
 	if (!configsRoot)
 	{
-		configsRoot = nppRoot->InsertEndChild(TiXmlElement(L"GUIConfigs"));
+		configsRoot = NppXml::createChildElement(nppRoot, "GUIConfigs");
 	}
 
-	TiXmlNode *scintNode = getChildElementByAttribute(configsRoot, L"GUIConfig", L"name", pViewName);
+	NppXml::Element scintNode = getChildElementByAttribute(configsRoot, "GUIConfig", "name", pViewName);
 	if (!scintNode)
 	{
-		scintNode = configsRoot->InsertEndChild(TiXmlElement(L"GUIConfig"));
-		(scintNode->ToElement())->SetAttribute(L"name", pViewName);
+		scintNode = NppXml::createChildElement(configsRoot, "GUIConfig");
+		NppXml::setAttribute(scintNode, "name", pViewName);
 	}
 
-	auto setYesNoBoolAttribute = [&scintNode](const wchar_t* name, bool value) -> void {
-		const wchar_t* pStr = value ? L"yes" : L"no";
-		(scintNode->ToElement())->SetAttribute(name, pStr);
-	};
+	setBoolAttribute(scintNode, "lineNumberMargin", _svp._lineNumberMarginShow, STR_BOOL_SHOWHIDE);
+	setBoolAttribute(scintNode, "lineNumberDynamicWidth", _svp._lineNumberMarginDynamicWidth);
+	setBoolAttribute(scintNode, "bookMarkMargin", _svp._bookMarkMarginShow, STR_BOOL_SHOWHIDE);
+	setBoolAttribute(scintNode, "indentGuideLine", _svp._indentGuideLineShow, STR_BOOL_SHOWHIDE);
 
-	auto setShowHideBoolAttribute = [&scintNode](const wchar_t* name, bool value) -> void {
-		const wchar_t* pStr = value ? L"show" : L"hide";
-		(scintNode->ToElement())->SetAttribute(name, pStr);
-	};
-
-	(scintNode->ToElement())->SetAttribute(L"lineNumberMargin", _svp._lineNumberMarginShow ? L"show" : L"hide");
-	(scintNode->ToElement())->SetAttribute(L"lineNumberDynamicWidth", _svp._lineNumberMarginDynamicWidth ? L"yes" : L"no");
-	(scintNode->ToElement())->SetAttribute(L"bookMarkMargin", _svp._bookMarkMarginShow ? L"show" : L"hide");
-	(scintNode->ToElement())->SetAttribute(L"indentGuideLine", _svp._indentGuideLineShow ? L"show" : L"hide");
-	
-	const wchar_t* pFolderStyleStr = nullptr;
+	const char* pFolderStyleStr = nullptr;
 	switch (_svp._folderStyle)
 	{
 		using enum folderStyle;
 		case FOLDER_TYPE:
 		case FOLDER_STYLE_BOX:
 		{
-			pFolderStyleStr = L"box";
+			pFolderStyleStr = "box";
 			break;
 		}
 
 		case FOLDER_STYLE_SIMPLE:
 		{
-			pFolderStyleStr = L"simple";
+			pFolderStyleStr = "simple";
 			break;
 		}
 
 		case FOLDER_STYLE_ARROW:
 		{
-			pFolderStyleStr = L"arrow";
+			pFolderStyleStr = "arrow";
 			break;
 		}
 
 		case FOLDER_STYLE_CIRCLE:
 		{
-			pFolderStyleStr = L"circle";
+			pFolderStyleStr = "circle";
 			break;
 		}
 
 		case FOLDER_STYLE_NONE:
 		{
-			pFolderStyleStr = L"none";
+			pFolderStyleStr = "none";
 			break;
 		}
 	}
 
-	(scintNode->ToElement())->SetAttribute(L"folderMarkStyle", pFolderStyleStr);
+	NppXml::setAttribute(scintNode, "folderMarkStyle", pFolderStyleStr);
+	NppXml::setAttribute(scintNode, "isChangeHistoryEnabled", _svp._isChangeHistoryEnabled4NextSession); // no -> 0 (disable), yes -> 1 (margin), yes -> 2 (indicator), yes-> 3 (margin + indicator)
 
-	(scintNode->ToElement())->SetAttribute(L"isChangeHistoryEnabled", _svp._isChangeHistoryEnabled4NextSession); // no -> 0 (disable), yes -> 1 (margin), yes ->2 (indicator), yes-> 3 (margin + indicator)
-
-	const wchar_t* pWrapMethodStr = nullptr;
+	const char* pWrapMethodStr = nullptr;
 	switch (_svp._lineWrapMethod)
 	{
 		using enum lineWrapMethod;
 		case LINEWRAP_DEFAULT:
 		{
-			pWrapMethodStr = L"default";
+			pWrapMethodStr = "default";
 			break;
 		}
 
 		case LINEWRAP_ALIGNED:
 		{
-			pWrapMethodStr = L"aligned";
+			pWrapMethodStr = "aligned";
 			break;
 		}
 
 		case LINEWRAP_INDENT:
 		{
-			pWrapMethodStr = L"indent";
+			pWrapMethodStr = "indent";
 			break;
 		}
 	}
 
-	(scintNode->ToElement())->SetAttribute(L"lineWrapMethod", pWrapMethodStr);
+	NppXml::setAttribute(scintNode, "lineWrapMethod", pWrapMethodStr);
 
-	(scintNode->ToElement())->SetAttribute(L"currentLineIndicator", _svp._currentLineHiliteMode);
-	(scintNode->ToElement())->SetAttribute(L"currentLineFrameWidth", _svp._currentLineFrameWidth);
+	NppXml::setAttribute(scintNode, "currentLineIndicator", _svp._currentLineHiliteMode);
+	NppXml::setAttribute(scintNode, "currentLineFrameWidth", _svp._currentLineFrameWidth);
 
-	(scintNode->ToElement())->SetAttribute(L"virtualSpace", _svp._virtualSpace ? L"yes" : L"no");
-	(scintNode->ToElement())->SetAttribute(L"scrollBeyondLastLine", _svp._scrollBeyondLastLine ? L"yes" : L"no");
-	(scintNode->ToElement())->SetAttribute(L"rightClickKeepsSelection", _svp._rightClickKeepsSelection ? L"yes" : L"no");
-	(scintNode->ToElement())->SetAttribute(L"selectedTextForegroundSingleColor", _svp._selectedTextForegroundSingleColor ? L"yes" : L"no");
-	(scintNode->ToElement())->SetAttribute(L"disableAdvancedScrolling", _svp._disableAdvancedScrolling ? L"yes" : L"no");
-	(scintNode->ToElement())->SetAttribute(L"wrapSymbolShow", _svp._wrapSymbolShow ? L"show" : L"hide");
-	(scintNode->ToElement())->SetAttribute(L"Wrap", _svp._doWrap ? L"yes" : L"no");
-	(scintNode->ToElement())->SetAttribute(L"borderEdge", _svp._showBorderEdge ? L"yes" : L"no");
+	setBoolAttribute(scintNode, "virtualSpace", _svp._virtualSpace);
+	setBoolAttribute(scintNode, "scrollBeyondLastLine", _svp._scrollBeyondLastLine);
+	setBoolAttribute(scintNode, "rightClickKeepsSelection", _svp._rightClickKeepsSelection);
+	setBoolAttribute(scintNode, "selectedTextForegroundSingleColor", _svp._selectedTextForegroundSingleColor);
+	setBoolAttribute(scintNode, "disableAdvancedScrolling", _svp._disableAdvancedScrolling);
+	setBoolAttribute(scintNode, "wrapSymbolShow", _svp._wrapSymbolShow, STR_BOOL_SHOWHIDE);
+	setBoolAttribute(scintNode, "Wrap", _svp._doWrap);
+	setBoolAttribute(scintNode, "borderEdge", _svp._showBorderEdge);
 
-	std::wstring edgeColumnPosStr;
-	for (auto i : _svp._edgeMultiColumnPos)
+	std::string edgeColumnPosStr;
+	for (const auto& i : _svp._edgeMultiColumnPos)
 	{
-		std::string s = std::to_string(i);
-		edgeColumnPosStr += std::wstring(s.begin(), s.end());
-		edgeColumnPosStr += L" ";
+		edgeColumnPosStr += std::to_string(i);
+		edgeColumnPosStr += " ";
 	}
-	(scintNode->ToElement())->SetAttribute(L"isEdgeBgMode", _svp._isEdgeBgMode ? L"yes" : L"no");
-	(scintNode->ToElement())->SetAttribute(L"edgeMultiColumnPos", edgeColumnPosStr);
-	(scintNode->ToElement())->SetAttribute(L"zoom", static_cast<int>(_svp._zoom));
-	(scintNode->ToElement())->SetAttribute(L"zoom2", static_cast<int>(_svp._zoom2));
-	(scintNode->ToElement())->SetAttribute(L"whiteSpaceShow", _svp._whiteSpaceShow ? L"show" : L"hide");
-	(scintNode->ToElement())->SetAttribute(L"eolShow", _svp._eolShow ? L"show" : L"hide");
-	(scintNode->ToElement())->SetAttribute(L"eolMode", _svp._eolMode);
-	setShowHideBoolAttribute(L"npcShow", _svp._npcShow);
-	(scintNode->ToElement())->SetAttribute(L"npcMode", static_cast<int>(_svp._npcMode));
-	setYesNoBoolAttribute(L"npcCustomColor", _svp._npcCustomColor);
-	setYesNoBoolAttribute(L"npcIncludeCcUniEOL", _svp._npcIncludeCcUniEol);
-	setYesNoBoolAttribute(L"npcNoInputC0", _svp._npcNoInputC0);
-	setYesNoBoolAttribute(L"ccShow", _svp._ccUniEolShow);
-	(scintNode->ToElement())->SetAttribute(L"borderWidth", _svp._borderWidth);
-	(scintNode->ToElement())->SetAttribute(L"smoothFont", _svp._doSmoothFont ? L"yes" : L"no");
-	(scintNode->ToElement())->SetAttribute(L"paddingLeft", _svp._paddingLeft);
-	(scintNode->ToElement())->SetAttribute(L"paddingRight", _svp._paddingRight);
-	(scintNode->ToElement())->SetAttribute(L"distractionFreeDivPart", _svp._distractionFreeDivPart);
-	(scintNode->ToElement())->SetAttribute(L"lineCopyCutWithoutSelection", _svp._lineCopyCutWithoutSelection ? L"yes" : L"no");
+	setBoolAttribute(scintNode, "isEdgeBgMode", _svp._isEdgeBgMode);
+	NppXml::setAttribute(scintNode, "edgeMultiColumnPos", edgeColumnPosStr.c_str());
+	NppXml::setInt64Attribute(scintNode, "zoom", _svp._zoom);
+	NppXml::setInt64Attribute(scintNode, "zoom2", _svp._zoom2);
+	setBoolAttribute(scintNode, "whiteSpaceShow", _svp._whiteSpaceShow, STR_BOOL_SHOWHIDE);
+	setBoolAttribute(scintNode, "eolShow", _svp._eolShow, STR_BOOL_SHOWHIDE);
+	NppXml::setAttribute(scintNode, "eolMode", _svp._eolMode);
+	setBoolAttribute(scintNode, "npcShow", _svp._npcShow, STR_BOOL_SHOWHIDE);
+	NppXml::setAttribute(scintNode, "npcMode", _svp._npcMode);
+	setBoolAttribute(scintNode, "npcCustomColor", _svp._npcCustomColor);
+	setBoolAttribute(scintNode, "npcIncludeCcUniEOL", _svp._npcIncludeCcUniEol);
+	setBoolAttribute(scintNode, "npcNoInputC0", _svp._npcNoInputC0);
+	setBoolAttribute(scintNode, "ccShow", _svp._ccUniEolShow);
+	NppXml::setAttribute(scintNode, "borderWidth", _svp._borderWidth);
+	setBoolAttribute(scintNode, "smoothFont", _svp._doSmoothFont);
+	NppXml::setAttribute(scintNode, "paddingLeft", _svp._paddingLeft);
+	NppXml::setAttribute(scintNode, "paddingRight", _svp._paddingRight);
+	NppXml::setAttribute(scintNode, "distractionFreeDivPart", _svp._distractionFreeDivPart);
+	setBoolAttribute(scintNode, "lineCopyCutWithoutSelection", _svp._lineCopyCutWithoutSelection);
 
-	(scintNode->ToElement())->SetAttribute(L"multiSelection", _svp._multiSelection ? L"yes" : L"no");
-	bool canEnableColumnSel2MultiEdit = _svp._multiSelection && _svp._columnSel2MultiEdit;
-	(scintNode->ToElement())->SetAttribute(L"columnSel2MultiEdit", canEnableColumnSel2MultiEdit ? L"yes" : L"no");
+	setBoolAttribute(scintNode, "multiSelection", _svp._multiSelection);
+	const bool canEnableColumnSel2MultiEdit = _svp._multiSelection && _svp._columnSel2MultiEdit;
+	setBoolAttribute(scintNode, "columnSel2MultiEdit", canEnableColumnSel2MultiEdit);
 
 	return true;
 }
 
 void NppParameters::createXmlTreeFromGUIParams()
 {
-	TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild(L"NotepadPlus");
+	NppXml::Element nppRoot = NppXml::firstChildElement(_xmlUserDoc._doc, "NotepadPlus");
 	if (!nppRoot)
 	{
-		nppRoot = _pXmlUserDoc->InsertEndChild(TiXmlElement(L"NotepadPlus"));
+		nppRoot = NppXml::createChildElement(_xmlUserDoc._doc, "NotepadPlus");
 	}
 
-	TiXmlNode *oldGUIRoot = nppRoot->FirstChildElement(L"GUIConfigs");
-	TiXmlElement* dockMngNodeDup = nullptr;
-	TiXmlNode* dockMngNodeOriginal = nullptr;
+	NppXml::Element oldGUIRoot = NppXml::firstChildElement(nppRoot, "GUIConfigs");
+	NppXml::Document tempDoc = nullptr;
+	NppXml::Element dockMngNodeDup;
+	NppXml::Element dockMngNodeOriginal;
 	if (oldGUIRoot && _nppGUI._isCmdlineNosessionActivated)
 	{
-		for (TiXmlNode *childNode = oldGUIRoot->FirstChildElement(L"GUIConfig");
+		for (NppXml::Element childNode = NppXml::firstChildElement(oldGUIRoot, "GUIConfig");
 			childNode;
-			childNode = childNode->NextSibling(L"GUIConfig"))
+			childNode = NppXml::nextSiblingElement(childNode, "GUIConfig"))
 		{
-			TiXmlElement* element = childNode->ToElement();
-			const wchar_t* nm = element->Attribute(L"name");
-			if (nullptr == nm)
+			const char* nm = NppXml::attribute(childNode, "name");
+			if (!nm)
 				continue;
 
-			if (!lstrcmp(nm, L"DockingManager"))
+			if (std::strcmp(nm, "DockingManager") == 0)
 			{
 				dockMngNodeOriginal = childNode;
 				break;
@@ -7266,668 +7111,603 @@ void NppParameters::createXmlTreeFromGUIParams()
 		// Copy DockingParamNode
 		if (dockMngNodeOriginal)
 		{
-			dockMngNodeDup = new TiXmlElement(L"GUIConfig");
-			dockMngNodeDup->SetAttribute(L"name", L"DockingManager");
-
-			duplicateDockingManager(dockMngNodeOriginal, dockMngNodeDup);
+			tempDoc = new NppXml::NewDocument;
+			NppXml::Element tempElem = NppXml::createChildElement(tempDoc, "GUIConfigs");
+			dockMngNodeDup = NppXml::insertEndChild(tempElem, dockMngNodeOriginal);
 		}
 	}
 
-	// Remove the old root nod if it exist
+	// Remove the old root node if it exist
 	if (oldGUIRoot)
 	{
-		nppRoot->RemoveChild(oldGUIRoot);
+		NppXml::deleteChild(nppRoot, oldGUIRoot);
 	}
 
-	TiXmlNode *newGUIRoot = nppRoot->InsertEndChild(TiXmlElement(L"GUIConfigs"));
+	NppXml::Element newGUIRoot = NppXml::createChildElement(nppRoot, "GUIConfigs");
 
 	// <GUIConfig name="ToolBar" visible="yes">standard</GUIConfig>
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		auto& nppGUITbInfo = _nppGUI._tbIconInfo;
-		GUIConfigElement->SetAttribute(L"name", L"ToolBar");
-		const wchar_t* pStr = (_nppGUI._toolbarShow) ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"visible", pStr);
-		GUIConfigElement->SetAttribute(L"fluentColor", static_cast<int>(nppGUITbInfo._tbColor));
-		GUIConfigElement->SetAttribute(L"fluentCustomColor", nppGUITbInfo._tbCustomColor);
-		pStr = (nppGUITbInfo._tbUseMono) ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"fluentMono", pStr);
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		const auto& nppGUITbInfo = _nppGUI._tbIconInfo;
+		NppXml::setAttribute(GUIConfigElement, "name", "ToolBar");
+		setBoolAttribute(GUIConfigElement, "visible", _nppGUI._toolbarShow);
+		NppXml::setAttribute(GUIConfigElement, "fluentColor", static_cast<int>(nppGUITbInfo._tbColor));
+		NppXml::setAttribute(GUIConfigElement, "fluentCustomColor", static_cast<int>(nppGUITbInfo._tbCustomColor));
+		setBoolAttribute(GUIConfigElement, "fluentMono", nppGUITbInfo._tbUseMono);
 
+		const char* pStr = nullptr;
 		switch (nppGUITbInfo._tbIconSet)
 		{
 			using enum toolBarStatusType;
 			case TB_SMALL:
 			{
-				pStr = L"small";
+				pStr = "small";
 				break;
 			}
 
 			case TB_LARGE:
 			{
-				pStr = L"large";
+				pStr = "large";
 				break;
 			}
 
 			case TB_SMALL2:
 			{
-				pStr = L"small2";
+				pStr = "small2";
 				break;
 			}
 
 			case TB_LARGE2:
 			{
-				pStr = L"large2";
+				pStr = "large2";
 				break;
 			}
 
 			case TB_STANDARD:
-			default:
 			{
-				pStr = L"standard";
+				pStr = "standard";
 				break;
 			}
 		}
-		GUIConfigElement->InsertEndChild(TiXmlText(pStr));
+		NppXml::createChildText(GUIConfigElement, pStr);
 	}
 
 	// <GUIConfig name="StatusBar">show</GUIConfig>
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"StatusBar");
-		const wchar_t *pStr = _nppGUI._statusBarShow ? L"show" : L"hide";
-		GUIConfigElement->InsertEndChild(TiXmlText(pStr));
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "StatusBar");
+		NppXml::createChildText(GUIConfigElement, _nppGUI._statusBarShow ? "show" : "hide");
 	}
 
 	// <GUIConfig name="TabBar" dragAndDrop="yes" drawTopBar="yes" drawInactiveTab="yes" reduce="yes" closeButton="yes" pinButton="yes" showOnlyPinnedButton="no" buttonsOninactiveTabs="no" doubleClick2Close="no" vertical="no" multiLine="no" hide="no" quitOnEmpty="no" iconSetNumber="0" />
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"TabBar");
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "TabBar");
 
-		const wchar_t *pStr = (_nppGUI._tabStatus & TAB_DRAGNDROP) ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"dragAndDrop", pStr);
+		setBoolAttribute(GUIConfigElement, "dragAndDrop", (_nppGUI._tabStatus & TAB_DRAGNDROP) != 0);
+		setBoolAttribute(GUIConfigElement, "drawTopBar", (_nppGUI._tabStatus & TAB_DRAWTOPBAR) != 0);
+		setBoolAttribute(GUIConfigElement, "drawInactiveTab", (_nppGUI._tabStatus & TAB_DRAWINACTIVETAB) != 0);
+		setBoolAttribute(GUIConfigElement, "reduce", (_nppGUI._tabStatus & TAB_REDUCE) != 0);
+		setBoolAttribute(GUIConfigElement, "closeButton", (_nppGUI._tabStatus & TAB_CLOSEBUTTON) != 0);
+		setBoolAttribute(GUIConfigElement, "pinButton", (_nppGUI._tabStatus & TAB_PINBUTTON) != 0);
+		setBoolAttribute(GUIConfigElement, "showOnlyPinnedButton", (_nppGUI._tabStatus & TAB_SHOWONLYPINNEDBUTTON) != 0);
+		setBoolAttribute(GUIConfigElement, "buttonsOninactiveTabs", (_nppGUI._tabStatus & TAB_INACTIVETABSHOWBUTTON) != 0);
+		setBoolAttribute(GUIConfigElement, "doubleClick2Close", (_nppGUI._tabStatus & TAB_DBCLK2CLOSE) != 0);
+		setBoolAttribute(GUIConfigElement, "vertical", (_nppGUI._tabStatus & TAB_VERTICAL) != 0);
+		setBoolAttribute(GUIConfigElement, "multiLine", (_nppGUI._tabStatus & TAB_MULTILINE) != 0);
+		setBoolAttribute(GUIConfigElement, "hide", (_nppGUI._tabStatus & TAB_HIDE) != 0 && !_nppGUI._forceTabbarVisible);
+		setBoolAttribute(GUIConfigElement, "quitOnEmpty", (_nppGUI._tabStatus & TAB_QUITONEMPTY) != 0);
 
-		pStr = (_nppGUI._tabStatus & TAB_DRAWTOPBAR) ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"drawTopBar", pStr);
-
-		pStr = (_nppGUI._tabStatus & TAB_DRAWINACTIVETAB) ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"drawInactiveTab", pStr);
-
-		pStr = (_nppGUI._tabStatus & TAB_REDUCE) ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"reduce", pStr);
-
-		pStr = (_nppGUI._tabStatus & TAB_CLOSEBUTTON) ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"closeButton", pStr);
-
-		pStr = (_nppGUI._tabStatus & TAB_PINBUTTON) ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"pinButton", pStr);
-
-		pStr = (_nppGUI._tabStatus & TAB_SHOWONLYPINNEDBUTTON) ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"showOnlyPinnedButton", pStr);
-
-		pStr = (_nppGUI._tabStatus & TAB_INACTIVETABSHOWBUTTON) ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"buttonsOninactiveTabs", pStr);
-
-		pStr = (_nppGUI._tabStatus & TAB_DBCLK2CLOSE) ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"doubleClick2Close", pStr);
-
-		pStr = (_nppGUI._tabStatus & TAB_VERTICAL) ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"vertical", pStr);
-
-		pStr = (_nppGUI._tabStatus & TAB_MULTILINE) ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"multiLine", pStr);
-
-		if (_nppGUI._forceTabbarVisible)
+		const auto iconSetNumber = [this]()
 		{
-			pStr = L"no";
-		}
-		else
-		{
-			pStr = (_nppGUI._tabStatus & TAB_HIDE) ? L"yes" : L"no";
-		}
-		GUIConfigElement->SetAttribute(L"hide", pStr);
+			if ((_nppGUI._tabStatus & TAB_ALTICONS) != 0)
+			{
+				return 1;
+			}
+			if (_nppGUI._darkmode._isEnabled)
+			{
+				return _nppGUI._darkmode._advOptions._darkDefaults._tabIconSet;
+			}
+			return _nppGUI._darkmode._advOptions._lightDefaults._tabIconSet;
+		}();
 
-		pStr = (_nppGUI._tabStatus & TAB_QUITONEMPTY) ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"quitOnEmpty", pStr);
-
-		pStr = (_nppGUI._tabStatus & TAB_ALTICONS) ? L"1" : L"0";
-		GUIConfigElement->SetAttribute(L"iconSetNumber", pStr);
-
-		GUIConfigElement->SetAttribute(L"tabCompactLabelLen", static_cast<int>(_nppGUI._tabCompactLabelLen));
+		NppXml::setAttribute(GUIConfigElement, "iconSetNumber", iconSetNumber);
+		NppXml::setAttribute(GUIConfigElement, "tabCompactLabelLen", static_cast<int>(_nppGUI._tabCompactLabelLen));
 	}
 
 	// <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"ScintillaViewsSplitter");
-		const wchar_t *pStr = _nppGUI._splitterPos == POS_VERTICAL ? L"vertical" : L"horizontal";
-		GUIConfigElement->InsertEndChild(TiXmlText(pStr));
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "ScintillaViewsSplitter");
+		NppXml::createChildText(GUIConfigElement, _nppGUI._splitterPos ? "vertical" : "horizontal"); // POS_VERTICAL == true
 	}
 
 	// <GUIConfig name="UserDefineDlg" position="undocked">hide</GUIConfig>
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"UserDefineDlg");
-		const wchar_t *pStr = (_nppGUI._userDefineDlgStatus & UDD_DOCKED) ? L"docked" : L"undocked";
-		GUIConfigElement->SetAttribute(L"position", pStr);
-		pStr = (_nppGUI._userDefineDlgStatus & UDD_SHOW) ? L"show" : L"hide";
-		GUIConfigElement->InsertEndChild(TiXmlText(pStr));
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "UserDefineDlg");
+		NppXml::setAttribute(GUIConfigElement, "position", (_nppGUI._userDefineDlgStatus & UDD_DOCKED) != 0 ? "docked" : "undocked");
+		NppXml::createChildText(GUIConfigElement, (_nppGUI._userDefineDlgStatus & UDD_SHOW) != 0 ? "show" : "hide");
 	}
 
 	// <GUIConfig name = "TabSetting" size = "4" replaceBySpace = "no" backspaceUnindent = "no" / >
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"TabSetting");
-		const wchar_t *pStr = _nppGUI._tabReplacedBySpace ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"replaceBySpace", pStr);
-		GUIConfigElement->SetAttribute(L"size", _nppGUI._tabSize);
-		pStr = _nppGUI._backspaceUnindent ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"backspaceUnindent", pStr);
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "TabSetting");
+		setBoolAttribute(GUIConfigElement, "replaceBySpace", _nppGUI._tabReplacedBySpace);
+		NppXml::setAttribute(GUIConfigElement, "size", _nppGUI._tabSize);
+		setBoolAttribute(GUIConfigElement, "backspaceUnindent", _nppGUI._backspaceUnindent);
 	}
 
 	// <GUIConfig name = "AppPosition" x = "3900" y = "446" width = "2160" height = "1380" isMaximized = "no" / >
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"AppPosition");
-		GUIConfigElement->SetAttribute(L"x", _nppGUI._appPos.left);
-		GUIConfigElement->SetAttribute(L"y", _nppGUI._appPos.top);
-		GUIConfigElement->SetAttribute(L"width", _nppGUI._appPos.right);
-		GUIConfigElement->SetAttribute(L"height", _nppGUI._appPos.bottom);
-		GUIConfigElement->SetAttribute(L"isMaximized", _nppGUI._isMaximized ? L"yes" : L"no");
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "AppPosition");
+		NppXml::setAttribute(GUIConfigElement, "x", _nppGUI._appPos.left);
+		NppXml::setAttribute(GUIConfigElement, "y", _nppGUI._appPos.top);
+		NppXml::setAttribute(GUIConfigElement, "width", _nppGUI._appPos.right);
+		NppXml::setAttribute(GUIConfigElement, "height", _nppGUI._appPos.bottom);
+		setBoolAttribute(GUIConfigElement, "isMaximized", _nppGUI._isMaximized);
 	}
 
 	// <GUIConfig name="FindWindowPosition" left="134" top="320" right="723" bottom="684" />
 	{
-		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"FindWindowPosition");
-		GUIConfigElement->SetAttribute(L"left", _nppGUI._findWindowPos.left);
-		GUIConfigElement->SetAttribute(L"top", _nppGUI._findWindowPos.top);
-		GUIConfigElement->SetAttribute(L"right", _nppGUI._findWindowPos.right);
-		GUIConfigElement->SetAttribute(L"bottom", _nppGUI._findWindowPos.bottom);
-		GUIConfigElement->SetAttribute(L"isLessModeOn", _nppGUI._findWindowLessMode ? L"yes" : L"no");
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "FindWindowPosition");
+		NppXml::setAttribute(GUIConfigElement, "left", _nppGUI._findWindowPos.left);
+		NppXml::setAttribute(GUIConfigElement, "top", _nppGUI._findWindowPos.top);
+		NppXml::setAttribute(GUIConfigElement, "right", _nppGUI._findWindowPos.right);
+		NppXml::setAttribute(GUIConfigElement, "bottom", _nppGUI._findWindowPos.bottom);
+		setBoolAttribute(GUIConfigElement, "isLessModeOn", _nppGUI._findWindowLessMode);
 	}
 
-	// <GUIConfig name="FinderConfig" wrappedLines="no" purgeBeforeEverySearch="no" showOnlyOneEntryPerFoundLine="yes"/>
+	// <GUIConfig name="FinderConfig" wrappedLines="no" purgeBeforeEverySearch="no" showOnlyOneEntryPerFoundLine="yes" FiF_ignoreunsavedChangesInOpenedFiles="no" />
 	{
-		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"FinderConfig");
-		const wchar_t* pStr = _nppGUI._finderLinesAreCurrentlyWrapped ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"wrappedLines", pStr);
-		pStr = _nppGUI._finderPurgeBeforeEverySearch ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"purgeBeforeEverySearch", pStr);
-		pStr = _nppGUI._finderShowOnlyOneEntryPerFoundLine ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"showOnlyOneEntryPerFoundLine", pStr);
-		pStr = _nppGUI._fif_ignoreunsavedChangesInOpenedFiles ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"FiF_ignoreunsavedChangesInOpenedFiles", pStr);
-
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "FinderConfig");
+		setBoolAttribute(GUIConfigElement, "wrappedLines", _nppGUI._finderLinesAreCurrentlyWrapped);
+		setBoolAttribute(GUIConfigElement, "purgeBeforeEverySearch", _nppGUI._finderPurgeBeforeEverySearch);
+		setBoolAttribute(GUIConfigElement, "showOnlyOneEntryPerFoundLine", _nppGUI._finderShowOnlyOneEntryPerFoundLine);
+		setBoolAttribute(GUIConfigElement, "FiF_ignoreunsavedChangesInOpenedFiles", _nppGUI._fif_ignoreunsavedChangesInOpenedFiles);
 	}
 
 	// <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20161022">no</GUIConfig>
 	{
-		TiXmlElement *element = insertGUIConfigBoolNode(newGUIRoot, L"noUpdate", _nppGUI._autoUpdateOpt._doAutoUpdate == NppGUI::AutoUpdateMode::autoupdate_disabled);
-		element->SetAttribute(L"intervalDays", _nppGUI._autoUpdateOpt._intervalDays);
-		element->SetAttribute(L"nextUpdateDate", _nppGUI._autoUpdateOpt._nextUpdateDate.toString().c_str());
-		element->SetAttribute(L"autoUpdateMode", _nppGUI._autoUpdateOpt._doAutoUpdate);
+		NppXml::Element GUIConfigElement = insertGUIConfigBoolNode(newGUIRoot, "noUpdate", _nppGUI._autoUpdateOpt._doAutoUpdate == NppGUI::AutoUpdateMode::autoupdate_disabled);
+		NppXml::setAttribute(GUIConfigElement, "intervalDays", _nppGUI._autoUpdateOpt._intervalDays);
+		NppXml::setAttribute(GUIConfigElement, "nextUpdateDate", _nppGUI._autoUpdateOpt._nextUpdateDate.toString().c_str());
+		NppXml::setAttribute(GUIConfigElement, "triggerFromNbChar", _nppGUI._autoUpdateOpt._doAutoUpdate);
 	}
 
 	// <GUIConfig name="Auto-detection">yes</GUIConfig>
 	{
-		const wchar_t *pStr = L"no";
+		const char* pStr = nullptr;
 
 		if (_nppGUI._fileAutoDetection & cdEnabledOld)
 		{
-			pStr = L"yesOld";
-
 			if ((_nppGUI._fileAutoDetection & cdAutoUpdate) && (_nppGUI._fileAutoDetection & cdGo2end))
 			{
-				pStr = L"autoUpdate2EndOld";
+				pStr = "autoUpdate2EndOld";
 			}
 			else if (_nppGUI._fileAutoDetection & cdAutoUpdate)
 			{
-				pStr = L"autoOld";
+				pStr = "autoOld";
 			}
 			else if (_nppGUI._fileAutoDetection & cdGo2end)
 			{
-				pStr = L"Update2EndOld";
+				pStr = "Update2EndOld";
+			}
+			else
+			{
+				pStr = "yesOld";
 			}
 		}
 		else if (_nppGUI._fileAutoDetection & cdEnabledNew)
 		{
-			pStr = L"yes";
-
 			if ((_nppGUI._fileAutoDetection & cdAutoUpdate) && (_nppGUI._fileAutoDetection & cdGo2end))
 			{
-				pStr = L"autoUpdate2End";
+				pStr = "autoUpdate2End";
 			}
 			else if (_nppGUI._fileAutoDetection & cdAutoUpdate)
 			{
-				pStr = L"auto";
+				pStr = "auto";
 			}
 			else if (_nppGUI._fileAutoDetection & cdGo2end)
 			{
-				pStr = L"Update2End";
+				pStr = "Update2End";
+			}
+			else
+			{
+				pStr = "yes";
 			}
 		}
+		else
+		{
+			pStr = "no";
+		}
 
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"Auto-detection");
-		GUIConfigElement->InsertEndChild(TiXmlText(pStr));
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "Auto-detection");
+		NppXml::createChildText(GUIConfigElement, pStr);
 	}
 
 	// <GUIConfig name="CheckHistoryFiles">no</GUIConfig>
 	{
-		insertGUIConfigBoolNode(newGUIRoot, L"CheckHistoryFiles", _nppGUI._checkHistoryFiles);
+		insertGUIConfigBoolNode(newGUIRoot, "CheckHistoryFiles", _nppGUI._checkHistoryFiles);
 	}
 
 	// <GUIConfig name="TrayIcon">0</GUIConfig>
 	{
-		wchar_t szStr[12] { '\0' };
-		_itow(_nppGUI._isMinimizedToTray, szStr, 10);
-		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"TrayIcon");
-		GUIConfigElement->InsertEndChild(TiXmlText(szStr));
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "TrayIcon");
+		NppXml::createChildText(GUIConfigElement, std::to_string(_nppGUI._isMinimizedToTray).c_str());
 	}
 
 	// <GUIConfig name="MaintainIndent">yes</GUIConfig>
 	{
 		//insertGUIConfigBoolNode(newGUIRoot, L"MaintainIndent", _nppGUI._maintainIndent);
-		wchar_t szStr[12] = L"0";
-		_itow(_nppGUI._maintainIndent, szStr, 10);
-		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"MaintainIndent");
-		GUIConfigElement->InsertEndChild(TiXmlText(szStr));
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "MaintainIndent");
+		NppXml::createChildText(GUIConfigElement, std::to_string(_nppGUI._maintainIndent).c_str());
 	}
 
 	// <GUIConfig name = "TagsMatchHighLight" TagAttrHighLight = "yes" HighLightNonHtmlZone = "no">yes< / GUIConfig>
 	{
-		TiXmlElement * ele = insertGUIConfigBoolNode(newGUIRoot, L"TagsMatchHighLight", _nppGUI._enableTagsMatchHilite);
-		ele->SetAttribute(L"TagAttrHighLight", _nppGUI._enableTagAttrsHilite ? L"yes" : L"no");
-		ele->SetAttribute(L"HighLightNonHtmlZone", _nppGUI._enableHiliteNonHTMLZone ? L"yes" : L"no");
+		NppXml::Element GUIConfigElement = insertGUIConfigBoolNode(newGUIRoot, "TagsMatchHighLight", _nppGUI._enableTagsMatchHilite);
+		setBoolAttribute(GUIConfigElement, "TagAttrHighLight", _nppGUI._enableTagAttrsHilite);
+		setBoolAttribute(GUIConfigElement, "HighLightNonHtmlZone", _nppGUI._enableHiliteNonHTMLZone);
 	}
 
 	// <GUIConfig name = "RememberLastSession">yes< / GUIConfig>
 	{
-		insertGUIConfigBoolNode(newGUIRoot, L"RememberLastSession", _nppGUI._rememberLastSession);
+		insertGUIConfigBoolNode(newGUIRoot, "RememberLastSession", _nppGUI._rememberLastSession);
 	}
 
 	// <GUIConfig name = "RememberLastSession">yes< / GUIConfig>
 	{
-		insertGUIConfigBoolNode(newGUIRoot, L"KeepSessionAbsentFileEntries", _nppGUI._keepSessionAbsentFileEntries);
+		insertGUIConfigBoolNode(newGUIRoot, "KeepSessionAbsentFileEntries", _nppGUI._keepSessionAbsentFileEntries);
 	}
 
 	// <GUIConfig name = "DetectEncoding">yes< / GUIConfig>
 	{
-		insertGUIConfigBoolNode(newGUIRoot, L"DetectEncoding", _nppGUI._detectEncoding);
+		insertGUIConfigBoolNode(newGUIRoot, "DetectEncoding", _nppGUI._detectEncoding);
 	}
 
 	// <GUIConfig name = "SaveAllConfirm">yes< / GUIConfig>
 	{
-		insertGUIConfigBoolNode(newGUIRoot, L"SaveAllConfirm", _nppGUI._saveAllConfirm);
+		insertGUIConfigBoolNode(newGUIRoot, "SaveAllConfirm", _nppGUI._saveAllConfirm);
 	}
 
 	// <GUIConfig name = "NewDocDefaultSettings" format = "0" encoding = "0" lang = "3" codepage = "-1" openAnsiAsUTF8 = "no" useContentAsTabName = "no" / >
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"NewDocDefaultSettings");
-		GUIConfigElement->SetAttribute(L"format", static_cast<int>(_nppGUI._newDocDefaultSettings._format));
-		GUIConfigElement->SetAttribute(L"encoding", _nppGUI._newDocDefaultSettings._unicodeMode);
-		GUIConfigElement->SetAttribute(L"lang", _nppGUI._newDocDefaultSettings._lang);
-		GUIConfigElement->SetAttribute(L"codepage", _nppGUI._newDocDefaultSettings._codepage);
-		GUIConfigElement->SetAttribute(L"openAnsiAsUTF8", _nppGUI._newDocDefaultSettings._openAnsiAsUtf8 ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"addNewDocumentOnStartup", _nppGUI._newDocDefaultSettings._addNewDocumentOnStartup ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"useContentAsTabName", _nppGUI._newDocDefaultSettings._useContentAsTabName ? L"yes" : L"no");
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "NewDocDefaultSettings");
+		NppXml::setAttribute(GUIConfigElement, "format", static_cast<int>(_nppGUI._newDocDefaultSettings._format));
+		NppXml::setAttribute(GUIConfigElement, "encoding", _nppGUI._newDocDefaultSettings._unicodeMode);
+		NppXml::setAttribute(GUIConfigElement, "lang", _nppGUI._newDocDefaultSettings._lang);
+		NppXml::setAttribute(GUIConfigElement, "codepage", _nppGUI._newDocDefaultSettings._codepage);
+		setBoolAttribute(GUIConfigElement, "openAnsiAsUTF8", _nppGUI._newDocDefaultSettings._openAnsiAsUtf8);
+		setBoolAttribute(GUIConfigElement, "addNewDocumentOnStartup", _nppGUI._newDocDefaultSettings._addNewDocumentOnStartup);
+		setBoolAttribute(GUIConfigElement, "useContentAsTabName", _nppGUI._newDocDefaultSettings._useContentAsTabName);
 	}
 
 	// <GUIConfig name = "langsExcluded" gr0 = "0" gr1 = "0" gr2 = "0" gr3 = "0" gr4 = "0" gr5 = "0" gr6 = "0" gr7 = "0" langMenuCompact = "yes" / >
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"langsExcluded");
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "langsExcluded");
 		writeExcludedLangList(GUIConfigElement);
-		GUIConfigElement->SetAttribute(L"langMenuCompact", _nppGUI._isLangMenuCompact ? L"yes" : L"no");
+		setBoolAttribute(GUIConfigElement, "langMenuCompact", _nppGUI._isLangMenuCompact);
 	}
 
 	// <GUIConfig name="Print" lineNumber="no" printOption="0" headerLeft="$(FULL_CURRENT_PATH)" headerMiddle="" headerRight="$(LONG_DATE) $(TIME)" headerFontName="IBMPC" headerFontStyle="1" headerFontSize="8" footerLeft="" footerMiddle="-$(CURRENT_PRINTING_PAGE)-" footerRight="" footerFontName="" footerFontStyle="0" footerFontSize="9" margeLeft="0" margeTop="0" margeRight="0" margeBottom="0" />
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"Print");
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "Print");
 		writePrintSetting(GUIConfigElement);
 	}
 
 	// <GUIConfig name="Backup" action="0" useCustumDir="no" dir="" isSnapshotMode="yes" snapshotBackupTiming="7000" />
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"Backup");
-		GUIConfigElement->SetAttribute(L"action", _nppGUI._backup);
-		GUIConfigElement->SetAttribute(L"useCustumDir", _nppGUI._useDir ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"dir", _nppGUI._backupDir.c_str());
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "Backup");
+		NppXml::setAttribute(GUIConfigElement, "action", _nppGUI._backup);
+		setBoolAttribute(GUIConfigElement, "useCustumDir", _nppGUI._useDir);
+		NppXml::setAttribute(GUIConfigElement, "dir", wstring2string(_nppGUI._backupDir).c_str());
 
-		GUIConfigElement->SetAttribute(L"isSnapshotMode", _nppGUI._isSnapshotMode ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"snapshotBackupTiming", static_cast<int>(_nppGUI._snapshotBackupTiming));
+		setBoolAttribute(GUIConfigElement, "isSnapshotMode", _nppGUI._isSnapshotMode);
+		NppXml::setUInt64Attribute(GUIConfigElement, "snapshotBackupTiming", _nppGUI._snapshotBackupTiming);
 	}
 
 	// <GUIConfig name = "TaskList">yes< / GUIConfig>
 	{
-		insertGUIConfigBoolNode(newGUIRoot, L"TaskList", _nppGUI._doTaskList);
+		insertGUIConfigBoolNode(newGUIRoot, "TaskList", _nppGUI._doTaskList);
 	}
 
 	// <GUIConfig name = "MRU">yes< / GUIConfig>
 	{
-		insertGUIConfigBoolNode(newGUIRoot, L"MRU", _nppGUI._styleMRU);
+		insertGUIConfigBoolNode(newGUIRoot, "MRU", _nppGUI._styleMRU);
 	}
 
 	// <GUIConfig name="URL">2</GUIConfig>
 	{
-		wchar_t szStr [12] = L"0";
-		_itow(_nppGUI._styleURL, szStr, 10);
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"URL");
-		GUIConfigElement->InsertEndChild(TiXmlText(szStr));
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "URL");
+		NppXml::createChildText(GUIConfigElement, std::to_string(_nppGUI._styleURL).c_str());
 	}
 
 	// <GUIConfig name="uriCustomizedSchemes">svn://</GUIConfig>
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"uriCustomizedSchemes");
-		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._uriSchemes.c_str()));
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "uriCustomizedSchemes");
+		NppXml::createChildText(GUIConfigElement, wstring2string(_nppGUI._uriSchemes).c_str());
 	}
 	// <GUIConfig name = "globalOverride" fg = "no" bg = "no" font = "no" fontSize = "no" bold = "no" italic = "no" underline = "no" / >
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"globalOverride");
-		GUIConfigElement->SetAttribute(L"fg", _nppGUI._globalOverride.enableFg ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"bg", _nppGUI._globalOverride.enableBg ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"font", _nppGUI._globalOverride.enableFont ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"fontSize", _nppGUI._globalOverride.enableFontSize ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"bold", _nppGUI._globalOverride.enableBold ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"italic", _nppGUI._globalOverride.enableItalic ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"underline", _nppGUI._globalOverride.enableUnderLine ? L"yes" : L"no");
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "globalOverride");
+		setBoolAttribute(GUIConfigElement, "fg", _nppGUI._globalOverride.enableFg);
+		setBoolAttribute(GUIConfigElement, "bg", _nppGUI._globalOverride.enableBg);
+		setBoolAttribute(GUIConfigElement, "font", _nppGUI._globalOverride.enableFont);
+		setBoolAttribute(GUIConfigElement, "fontSize", _nppGUI._globalOverride.enableFontSize);
+		setBoolAttribute(GUIConfigElement, "bold", _nppGUI._globalOverride.enableBold);
+		setBoolAttribute(GUIConfigElement, "italic", _nppGUI._globalOverride.enableItalic);
+		setBoolAttribute(GUIConfigElement, "underline", _nppGUI._globalOverride.enableUnderLine);
 	}
 
 	// <GUIConfig name = "auto-completion" autoCAction = "3" triggerFromNbChar = "1" funcParams = "yes" autoCIgnoreNumbers = "yes" / >
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"auto-completion");
-		GUIConfigElement->SetAttribute(L"autoCAction", _nppGUI._autocStatus);
-		GUIConfigElement->SetAttribute(L"triggerFromNbChar", static_cast<int>(_nppGUI._autocFromLen));
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "auto-completion");
+		NppXml::setAttribute(GUIConfigElement, "autoCAction", _nppGUI._autocStatus);
+		NppXml::setAttribute(GUIConfigElement, "triggerFromNbChar", static_cast<int>(_nppGUI._autocFromLen));
 
-		const wchar_t * pStr = _nppGUI._autocIgnoreNumbers ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"autoCIgnoreNumbers", pStr);
-
-		pStr = _nppGUI._autocInsertSelectedUseENTER ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"insertSelectedItemUseENTER", pStr);
-
-		pStr = _nppGUI._autocInsertSelectedUseTAB ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"insertSelectedItemUseTAB", pStr);
-
-		pStr = _nppGUI._autocBrief ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"autoCBrief", pStr);
-
-		pStr = _nppGUI._funcParams ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"funcParams", pStr);
+		setBoolAttribute(GUIConfigElement, "autoCIgnoreNumbers", _nppGUI._autocIgnoreNumbers);
+		setBoolAttribute(GUIConfigElement, "insertSelectedItemUseENTER", _nppGUI._autocInsertSelectedUseENTER);
+		setBoolAttribute(GUIConfigElement, "insertSelectedItemUseTAB", _nppGUI._autocInsertSelectedUseTAB);
+		setBoolAttribute(GUIConfigElement, "autoCBrief", _nppGUI._autocBrief);
+		setBoolAttribute(GUIConfigElement, "funcParams", _nppGUI._funcParams);
 	}
 
 	// <GUIConfig name = "auto-insert" parentheses = "yes" brackets = "yes" curlyBrackets = "yes" quotes = "no" doubleQuotes = "yes" htmlXmlTag = "yes" / >
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"auto-insert");
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "auto-insert");
 
-		GUIConfigElement->SetAttribute(L"parentheses", _nppGUI._matchedPairConf._doParentheses ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"brackets", _nppGUI._matchedPairConf._doBrackets ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"curlyBrackets", _nppGUI._matchedPairConf._doCurlyBrackets ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"quotes", _nppGUI._matchedPairConf._doQuotes ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"doubleQuotes", _nppGUI._matchedPairConf._doDoubleQuotes ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"htmlXmlTag", _nppGUI._matchedPairConf._doHtmlXmlTag ? L"yes" : L"no");
+		setBoolAttribute(GUIConfigElement, "parentheses", _nppGUI._matchedPairConf._doParentheses);
+		setBoolAttribute(GUIConfigElement, "brackets", _nppGUI._matchedPairConf._doBrackets);
+		setBoolAttribute(GUIConfigElement, "curlyBrackets", _nppGUI._matchedPairConf._doCurlyBrackets);
+		setBoolAttribute(GUIConfigElement, "quotes", _nppGUI._matchedPairConf._doQuotes);
+		setBoolAttribute(GUIConfigElement, "doubleQuotes", _nppGUI._matchedPairConf._doDoubleQuotes);
+		setBoolAttribute(GUIConfigElement, "htmlXmlTag", _nppGUI._matchedPairConf._doHtmlXmlTag);
 
-		TiXmlElement hist_element{ L"" };
-		hist_element.SetValue(L"UserDefinePair");
-		for (size_t i = 0, nb = _nppGUI._matchedPairConf._matchedPairs.size(); i < nb; ++i)
+		for (auto const& pair : _nppGUI._matchedPairConf._matchedPairs)
 		{
-			int open = _nppGUI._matchedPairConf._matchedPairs[i].first;
-			int close = _nppGUI._matchedPairConf._matchedPairs[i].second;
+			NppXml::Element hist_element = NppXml::createChildElement(GUIConfigElement, "UserDefinePair");
 
-			(hist_element.ToElement())->SetAttribute(L"open", open);
-			(hist_element.ToElement())->SetAttribute(L"close", close);
-			GUIConfigElement->InsertEndChild(hist_element);
+			NppXml::setAttribute(hist_element, "open", pair.first);
+			NppXml::setAttribute(hist_element, "close", pair.second);
 		}
 	}
 
 	// <GUIConfig name = "sessionExt">< / GUIConfig>
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"sessionExt");
-		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._definedSessionExt.c_str()));
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "sessionExt");
+		NppXml::createChildText(GUIConfigElement, wstring2string(_nppGUI._definedSessionExt).c_str());
 	}
 
 	// <GUIConfig name="workspaceExt"></GUIConfig>
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"workspaceExt");
-		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._definedWorkspaceExt.c_str()));
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "workspaceExt");
+		NppXml::createChildText(GUIConfigElement, wstring2string(_nppGUI._definedWorkspaceExt).c_str());
 	}
 
 	// <GUIConfig name="MenuBar">show</GUIConfig>
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"MenuBar");
-		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._menuBarShow ? L"show" : L"hide"));
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "MenuBar");
+		NppXml::createChildText(GUIConfigElement, _nppGUI._menuBarShow ? "show" : "hide");
 	}
 
 	// <GUIConfig name="Caret" width="1" blinkRate="250" />
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"Caret");
-		GUIConfigElement->SetAttribute(L"width", _nppGUI._caretWidth);
-		GUIConfigElement->SetAttribute(L"blinkRate", _nppGUI._caretBlinkRate);
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "Caret");
+		NppXml::setAttribute(GUIConfigElement, "width", _nppGUI._caretWidth);
+		NppXml::setAttribute(GUIConfigElement, "blinkRate", _nppGUI._caretBlinkRate);
 	}
 
 	// <GUIConfig name="openSaveDir" value="0" defaultDirPath="" />
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"openSaveDir");
-		GUIConfigElement->SetAttribute(L"value", _nppGUI._openSaveDir);
-		GUIConfigElement->SetAttribute(L"defaultDirPath", _nppGUI._defaultDir);
-		GUIConfigElement->SetAttribute(L"lastUsedDirPath", _nppGUI._lastUsedDir);
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "openSaveDir");
+		NppXml::setAttribute(GUIConfigElement, "value", _nppGUI._openSaveDir);
+		NppXml::setAttribute(GUIConfigElement, "defaultDirPath", wstring2string(_nppGUI._defaultDir).c_str());
+		NppXml::setAttribute(GUIConfigElement, "lastUsedDirPath", wstring2string(_nppGUI._lastUsedDir).c_str());
 	}
 
 	// <GUIConfig name="titleBar" short="no" />
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"titleBar");
-		const wchar_t *pStr = (_nppGUI._shortTitlebar) ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"short", pStr);
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "titleBar");
+		setBoolAttribute(GUIConfigElement, "short", _nppGUI._shortTitlebar);
 	}
 
 	// <GUIConfig name="insertDateTime" path="C:\sources\notepad-plus-plus\PowerEditor\visual.net\..\bin\stylers.xml" />
 	{
-		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"insertDateTime");
-		GUIConfigElement->SetAttribute(L"customizedFormat", _nppGUI._dateTimeFormat.c_str());
-		const wchar_t* pStr = (_nppGUI._dateTimeReverseDefaultOrder) ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"reverseDefaultOrder", pStr);
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "insertDateTime");
+		NppXml::setAttribute(GUIConfigElement, "customizedFormat", wstring2string(_nppGUI._dateTimeFormat).c_str());
+		setBoolAttribute(GUIConfigElement, "reverseDefaultOrder", _nppGUI._dateTimeReverseDefaultOrder);
 	}
 
 	// <GUIConfig name="wordCharList" useDefault="yes" charsAdded=".$%"  />
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"wordCharList");
-		GUIConfigElement->SetAttribute(L"useDefault", _nppGUI._isWordCharDefault ? L"yes" : L"no");
-		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-		const wchar_t* charsAddStr = wmc.char2wchar(_nppGUI._customWordChars.c_str(), SC_CP_UTF8);
-		GUIConfigElement->SetAttribute(L"charsAdded", charsAddStr);
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "wordCharList");
+		setBoolAttribute(GUIConfigElement, "useDefault", _nppGUI._isWordCharDefault);
+		NppXml::setAttribute(GUIConfigElement, "charsAdded", _nppGUI._customWordChars.c_str());
 	}
 
 	// <GUIConfig name="delimiterSelection" leftmostDelimiter="40" rightmostDelimiter="41" delimiterSelectionOnEntireDocument="no" />
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"delimiterSelection");
-		GUIConfigElement->SetAttribute(L"leftmostDelimiter", _nppGUI._leftmostDelimiter);
-		GUIConfigElement->SetAttribute(L"rightmostDelimiter", _nppGUI._rightmostDelimiter);
-		GUIConfigElement->SetAttribute(L"delimiterSelectionOnEntireDocument", _nppGUI._delimiterSelectionOnEntireDocument ? L"yes" : L"no");
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "delimiterSelection");
+		NppXml::setAttribute(GUIConfigElement, "leftmostDelimiter", _nppGUI._leftmostDelimiter);
+		NppXml::setAttribute(GUIConfigElement, "rightmostDelimiter", _nppGUI._rightmostDelimiter);
+		setBoolAttribute(GUIConfigElement, "delimiterSelectionOnEntireDocument", _nppGUI._delimiterSelectionOnEntireDocument);
 	}
 
 	// <GUIConfig name="largeFileRestriction" fileSizeMB="200" isEnabled="yes" allowAutoCompletion="no" allowBraceMatch="no" deactivateWordWrap="yes" allowClickableLink="no" suppress2GBWarning="no" />
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"largeFileRestriction");
-		GUIConfigElement->SetAttribute(L"fileSizeMB", static_cast<int>((_nppGUI._largeFileRestriction._largeFileSizeDefInByte / 1024) / 1024));
-		GUIConfigElement->SetAttribute(L"isEnabled", _nppGUI._largeFileRestriction._isEnabled ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"allowAutoCompletion", _nppGUI._largeFileRestriction._allowAutoCompletion ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"allowBraceMatch", _nppGUI._largeFileRestriction._allowBraceMatch ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"allowSmartHilite", _nppGUI._largeFileRestriction._allowSmartHilite ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"allowClickableLink", _nppGUI._largeFileRestriction._allowClickableLink ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"deactivateWordWrap", _nppGUI._largeFileRestriction._deactivateWordWrap ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"suppress2GBWarning", _nppGUI._largeFileRestriction._suppress2GBWarning ? L"yes" : L"no");
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "largeFileRestriction");
+		NppXml::setInt64Attribute(GUIConfigElement, "fileSizeMB", (_nppGUI._largeFileRestriction._largeFileSizeDefInByte / 1024) / 1024);
+		setBoolAttribute(GUIConfigElement, "isEnabled", _nppGUI._largeFileRestriction._isEnabled);
+		setBoolAttribute(GUIConfigElement, "allowAutoCompletion", _nppGUI._largeFileRestriction._allowAutoCompletion);
+		setBoolAttribute(GUIConfigElement, "allowBraceMatch", _nppGUI._largeFileRestriction._allowBraceMatch);
+		setBoolAttribute(GUIConfigElement, "allowSmartHilite", _nppGUI._largeFileRestriction._allowSmartHilite);
+		setBoolAttribute(GUIConfigElement, "allowClickableLink", _nppGUI._largeFileRestriction._allowClickableLink);
+		setBoolAttribute(GUIConfigElement, "deactivateWordWrap", _nppGUI._largeFileRestriction._deactivateWordWrap);
+		setBoolAttribute(GUIConfigElement, "suppress2GBWarning", _nppGUI._largeFileRestriction._suppress2GBWarning);
 	}
 
 	// <GUIConfig name="multiInst" setting="0" />
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"multiInst");
-		GUIConfigElement->SetAttribute(L"setting", _nppGUI._multiInstSetting);
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "multiInst");
+		NppXml::setAttribute(GUIConfigElement, "setting", _nppGUI._multiInstSetting);
 
-		auto setYesNoBoolAttribute = [&GUIConfigElement](const wchar_t* name, bool value) -> void {
-			const wchar_t* pStr = value ? L"yes" : L"no";
-			GUIConfigElement->SetAttribute(name, pStr);
-		};
-
-		setYesNoBoolAttribute(L"clipboardHistory", _nppGUI._clipboardHistoryPanelKeepState);
-		setYesNoBoolAttribute(L"documentList", _nppGUI._docListKeepState);
-		setYesNoBoolAttribute(L"characterPanel", _nppGUI._charPanelKeepState);
-		setYesNoBoolAttribute(L"folderAsWorkspace", _nppGUI._fileBrowserKeepState);
-		setYesNoBoolAttribute(L"projectPanels", _nppGUI._projectPanelKeepState);
-		setYesNoBoolAttribute(L"documentMap", _nppGUI._docMapKeepState);
-		setYesNoBoolAttribute(L"fuctionList", _nppGUI._funcListKeepState);
-		setYesNoBoolAttribute(L"pluginPanels", _nppGUI._pluginPanelKeepState);
+		setBoolAttribute(GUIConfigElement, "clipboardHistory", _nppGUI._clipboardHistoryPanelKeepState);
+		setBoolAttribute(GUIConfigElement, "documentList", _nppGUI._docListKeepState);
+		setBoolAttribute(GUIConfigElement, "characterPanel", _nppGUI._charPanelKeepState);
+		setBoolAttribute(GUIConfigElement, "folderAsWorkspace", _nppGUI._fileBrowserKeepState);
+		setBoolAttribute(GUIConfigElement, "projectPanels", _nppGUI._projectPanelKeepState);
+		setBoolAttribute(GUIConfigElement, "documentMap", _nppGUI._docMapKeepState);
+		setBoolAttribute(GUIConfigElement, "fuctionList", _nppGUI._funcListKeepState);
+		setBoolAttribute(GUIConfigElement, "pluginPanels", _nppGUI._pluginPanelKeepState);
 	}
 
 	// <GUIConfig name="MISC" fileSwitcherWithoutExtColumn="no" backSlashIsEscapeCharacterForSql="yes" isFolderDroppedOpenFiles="no" saveDlgExtFilterToAllTypes="no" />
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"MISC");
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "MISC");
 
-		auto setYesNoBoolAttribute = [&GUIConfigElement](const wchar_t* name, bool value) -> void {
-			const wchar_t* pStr = value ? L"yes" : L"no";
-			GUIConfigElement->SetAttribute(name, pStr);
-		};
-
-		GUIConfigElement->SetAttribute(L"fileSwitcherWithoutExtColumn", _nppGUI._fileSwitcherWithoutExtColumn ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"fileSwitcherExtWidth", _nppGUI._fileSwitcherExtWidth);
-		GUIConfigElement->SetAttribute(L"fileSwitcherWithoutPathColumn", _nppGUI._fileSwitcherWithoutPathColumn ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"fileSwitcherPathWidth", _nppGUI._fileSwitcherPathWidth);
-		setYesNoBoolAttribute(L"fileSwitcherNoGroups", _nppGUI._fileSwitcherDisableListViewGroups);
-		GUIConfigElement->SetAttribute(L"backSlashIsEscapeCharacterForSql", _nppGUI._backSlashIsEscapeCharacterForSql ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"writeTechnologyEngine", _nppGUI._writeTechnologyEngine);
-		GUIConfigElement->SetAttribute(L"isFolderDroppedOpenFiles", _nppGUI._isFolderDroppedOpenFiles ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"docPeekOnTab", _nppGUI._isDocPeekOnTab ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"docPeekOnMap", _nppGUI._isDocPeekOnMap ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"sortFunctionList", _nppGUI._shouldSortFunctionList ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"saveDlgExtFilterToAllTypes", _nppGUI._setSaveDlgExtFiltToAllTypes ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"muteSounds", _nppGUI._muteSounds ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"enableFoldCmdToggable", _nppGUI._enableFoldCmdToggable ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"hideMenuRightShortcuts", _nppGUI._hideMenuRightShortcuts ? L"yes" : L"no");
+		setBoolAttribute(GUIConfigElement, "fileSwitcherWithoutExtColumn", _nppGUI._fileSwitcherWithoutExtColumn);
+		NppXml::setAttribute(GUIConfigElement, "fileSwitcherExtWidth", _nppGUI._fileSwitcherExtWidth);
+		setBoolAttribute(GUIConfigElement, "fileSwitcherWithoutPathColumn", _nppGUI._fileSwitcherWithoutPathColumn);
+		NppXml::setAttribute(GUIConfigElement, "fileSwitcherPathWidth", _nppGUI._fileSwitcherPathWidth);
+		setBoolAttribute(GUIConfigElement, "fileSwitcherNoGroups", _nppGUI._fileSwitcherDisableListViewGroups);
+		setBoolAttribute(GUIConfigElement, "backSlashIsEscapeCharacterForSql", _nppGUI._backSlashIsEscapeCharacterForSql);
+		NppXml::setAttribute(GUIConfigElement, "writeTechnologyEngine", _nppGUI._writeTechnologyEngine);
+		setBoolAttribute(GUIConfigElement, "isFolderDroppedOpenFiles", _nppGUI._isFolderDroppedOpenFiles);
+		setBoolAttribute(GUIConfigElement, "docPeekOnTab", _nppGUI._isDocPeekOnTab);
+		setBoolAttribute(GUIConfigElement, "docPeekOnMap", _nppGUI._isDocPeekOnMap);
+		setBoolAttribute(GUIConfigElement, "sortFunctionList", _nppGUI._shouldSortFunctionList);
+		setBoolAttribute(GUIConfigElement, "saveDlgExtFilterToAllTypes", _nppGUI._setSaveDlgExtFiltToAllTypes);
+		setBoolAttribute(GUIConfigElement, "muteSounds", _nppGUI._muteSounds);
+		setBoolAttribute(GUIConfigElement, "enableFoldCmdToggable", _nppGUI._enableFoldCmdToggable);
+		setBoolAttribute(GUIConfigElement, "hideMenuRightShortcuts", _nppGUI._hideMenuRightShortcuts);
 	}
 
 	// <GUIConfig name="Searching" "monospacedFontFindDlg"="no" stopFillingFindField="no" findDlgAlwaysVisible="no" confirmReplaceOpenDocs="yes" confirmMacroReplaceOpenDocs="yes" confirmReplaceInFiles="yes" confirmMacroReplaceInFiles="yes" replaceStopsWithoutFindingNext="no" inSelectionAutocheckThreshold="1024" />
 	{
-		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"Searching");
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "Searching");
 
-		GUIConfigElement->SetAttribute(L"monospacedFontFindDlg", _nppGUI._monospacedFontFindDlg ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"fillFindFieldWithSelected", _nppGUI._fillFindFieldWithSelected ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"fillFindFieldSelectCaret", _nppGUI._fillFindFieldSelectCaret ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"findDlgAlwaysVisible", _nppGUI._findDlgAlwaysVisible ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"confirmReplaceInAllOpenDocs", _nppGUI._confirmReplaceInAllOpenDocs ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"replaceStopsWithoutFindingNext", _nppGUI._replaceStopsWithoutFindingNext ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"inSelectionAutocheckThreshold", _nppGUI._inSelectionAutocheckThreshold);
-		GUIConfigElement->SetAttribute(L"fillFindWhatThreshold", _nppGUI._fillFindWhatThreshold);
-		GUIConfigElement->SetAttribute(L"fillDirFieldFromActiveDoc", _nppGUI._fillDirFieldFromActiveDoc ? L"yes" : L"no");
+		setBoolAttribute(GUIConfigElement, "monospacedFontFindDlg", _nppGUI._monospacedFontFindDlg);
+		setBoolAttribute(GUIConfigElement, "fillFindFieldWithSelected", _nppGUI._fillFindFieldWithSelected);
+		setBoolAttribute(GUIConfigElement, "fillFindFieldSelectCaret", _nppGUI._fillFindFieldSelectCaret);
+		setBoolAttribute(GUIConfigElement, "findDlgAlwaysVisible", _nppGUI._findDlgAlwaysVisible);
+		setBoolAttribute(GUIConfigElement, "confirmReplaceInAllOpenDocs", _nppGUI._confirmReplaceInAllOpenDocs);
+		setBoolAttribute(GUIConfigElement, "replaceStopsWithoutFindingNext", _nppGUI._replaceStopsWithoutFindingNext);
+		NppXml::setAttribute(GUIConfigElement, "inSelectionAutocheckThreshold", _nppGUI._inSelectionAutocheckThreshold);
+		NppXml::setAttribute(GUIConfigElement, "fillFindWhatThreshold", _nppGUI._fillFindWhatThreshold);
+		setBoolAttribute(GUIConfigElement, "fillDirFieldFromActiveDoc", _nppGUI._fillDirFieldFromActiveDoc);
 	}
 
 	// <GUIConfig name="searchEngine" searchEngineChoice="2" searchEngineCustom="" />
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"searchEngine");
-		GUIConfigElement->SetAttribute(L"searchEngineChoice", _nppGUI._searchEngineChoice);
-		GUIConfigElement->SetAttribute(L"searchEngineCustom", _nppGUI._searchEngineCustom);
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "searchEngine");
+		NppXml::setAttribute(GUIConfigElement, "searchEngineChoice", _nppGUI._searchEngineChoice);
+		NppXml::setAttribute(GUIConfigElement, "searchEngineCustom", wstring2string(_nppGUI._searchEngineCustom).c_str());
 	}
 
 	// <GUIConfig name="MarkAll" matchCase="no" wholeWordOnly="yes" </GUIConfig>
 	{
-		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"MarkAll");
-		GUIConfigElement->SetAttribute(L"matchCase", _nppGUI._markAllCaseSensitive ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"wholeWordOnly", _nppGUI._markAllWordOnly ? L"yes" : L"no");
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "MarkAll");
+		setBoolAttribute(GUIConfigElement, "matchCase", _nppGUI._markAllCaseSensitive);
+		setBoolAttribute(GUIConfigElement, "wholeWordOnly", _nppGUI._markAllWordOnly);
 	}
 
 	// <GUIConfig name="SmartHighLight" matchCase="no" wholeWordOnly="yes" useFindSettings="no" onAnotherView="no">yes</GUIConfig>
 	{
-		TiXmlElement *GUIConfigElement = insertGUIConfigBoolNode(newGUIRoot, L"SmartHighLight", _nppGUI._enableSmartHilite);
-		GUIConfigElement->SetAttribute(L"matchCase", _nppGUI._smartHiliteCaseSensitive ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"wholeWordOnly", _nppGUI._smartHiliteWordOnly ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"useFindSettings", _nppGUI._smartHiliteUseFindSettings ? L"yes" : L"no");
-		GUIConfigElement->SetAttribute(L"onAnotherView", _nppGUI._smartHiliteOnAnotherView ? L"yes" : L"no");
+		NppXml::Element GUIConfigElement = insertGUIConfigBoolNode(newGUIRoot, "SmartHighLight", _nppGUI._enableSmartHilite);
+		setBoolAttribute(GUIConfigElement, "matchCase", _nppGUI._smartHiliteCaseSensitive);
+		setBoolAttribute(GUIConfigElement, "wholeWordOnly", _nppGUI._smartHiliteWordOnly);
+		setBoolAttribute(GUIConfigElement, "useFindSettings", _nppGUI._smartHiliteUseFindSettings);
+		setBoolAttribute(GUIConfigElement, "onAnotherView", _nppGUI._smartHiliteOnAnotherView);
 	}
 
 	// <GUIConfig name="commandLineInterpreter">powershell</GUIConfig>
 	if (_nppGUI._commandLineInterpreter.compare(CMD_INTERPRETER))
 	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"commandLineInterpreter");
-		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._commandLineInterpreter.c_str()));
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "commandLineInterpreter");
+		NppXml::createChildText(GUIConfigElement, wstring2string(_nppGUI._commandLineInterpreter).c_str());
 	}
 
 	// <GUIConfig name="DarkMode" enable="no" colorTone="0" />
 	{
-		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-		GUIConfigElement->SetAttribute(L"name", L"DarkMode");
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "DarkMode");
 
 		NppDarkMode::setAdvancedOptions();
 
-		auto setYesNoBoolAttribute = [&GUIConfigElement](const wchar_t* name, bool value) {
-			const wchar_t* pStr = value ? L"yes" : L"no";
-			GUIConfigElement->SetAttribute(name, pStr);
-		};
+		setBoolAttribute(GUIConfigElement, "enable", _nppGUI._darkmode._isEnabled);
+		NppXml::setAttribute(GUIConfigElement, "colorTone", _nppGUI._darkmode._colorTone);
 
-		setYesNoBoolAttribute(L"enable", _nppGUI._darkmode._isEnabled);
-		GUIConfigElement->SetAttribute(L"colorTone", _nppGUI._darkmode._colorTone);
-
-		GUIConfigElement->SetAttribute(L"customColorTop", _nppGUI._darkmode._customColors.pureBackground);
-		GUIConfigElement->SetAttribute(L"customColorMenuHotTrack", _nppGUI._darkmode._customColors.hotBackground);
-		GUIConfigElement->SetAttribute(L"customColorActive", _nppGUI._darkmode._customColors.softerBackground);
-		GUIConfigElement->SetAttribute(L"customColorMain", _nppGUI._darkmode._customColors.background);
-		GUIConfigElement->SetAttribute(L"customColorError", _nppGUI._darkmode._customColors.errorBackground);
-		GUIConfigElement->SetAttribute(L"customColorText", _nppGUI._darkmode._customColors.text);
-		GUIConfigElement->SetAttribute(L"customColorDarkText", _nppGUI._darkmode._customColors.darkerText);
-		GUIConfigElement->SetAttribute(L"customColorDisabledText", _nppGUI._darkmode._customColors.disabledText);
-		GUIConfigElement->SetAttribute(L"customColorLinkText", _nppGUI._darkmode._customColors.linkText);
-		GUIConfigElement->SetAttribute(L"customColorEdge", _nppGUI._darkmode._customColors.edge);
-		GUIConfigElement->SetAttribute(L"customColorHotEdge", _nppGUI._darkmode._customColors.hotEdge);
-		GUIConfigElement->SetAttribute(L"customColorDisabledEdge", _nppGUI._darkmode._customColors.disabledEdge);
+		NppXml::setAttribute(GUIConfigElement, "customColorTop", _nppGUI._darkmode._customColors.pureBackground);
+		NppXml::setAttribute(GUIConfigElement, "customColorMenuHotTrack", _nppGUI._darkmode._customColors.hotBackground);
+		NppXml::setAttribute(GUIConfigElement, "customColorActive", _nppGUI._darkmode._customColors.softerBackground);
+		NppXml::setAttribute(GUIConfigElement, "customColorMain", _nppGUI._darkmode._customColors.background);
+		NppXml::setAttribute(GUIConfigElement, "customColorError", _nppGUI._darkmode._customColors.errorBackground);
+		NppXml::setAttribute(GUIConfigElement, "customColorText", _nppGUI._darkmode._customColors.text);
+		NppXml::setAttribute(GUIConfigElement, "customColorDarkText", _nppGUI._darkmode._customColors.darkerText);
+		NppXml::setAttribute(GUIConfigElement, "customColorDisabledText", _nppGUI._darkmode._customColors.disabledText);
+		NppXml::setAttribute(GUIConfigElement, "customColorLinkText", _nppGUI._darkmode._customColors.linkText);
+		NppXml::setAttribute(GUIConfigElement, "customColorEdge", _nppGUI._darkmode._customColors.edge);
+		NppXml::setAttribute(GUIConfigElement, "customColorHotEdge", _nppGUI._darkmode._customColors.hotEdge);
+		NppXml::setAttribute(GUIConfigElement, "customColorDisabledEdge", _nppGUI._darkmode._customColors.disabledEdge);
 
 		// advanced options section
 		const auto& advOpt = _nppGUI._darkmode._advOptions;
-		setYesNoBoolAttribute(L"enableWindowsMode", advOpt._enableWindowsMode);
+		setBoolAttribute(GUIConfigElement, "enableWindowsMode", advOpt._enableWindowsMode);
 
 		const auto& darkDefaults = advOpt._darkDefaults;
-		auto& darkThemeName = darkDefaults._xmlFileName;
-		auto& darkTbInfo = darkDefaults._tbIconInfo;
-		GUIConfigElement->SetAttribute(L"darkThemeName", darkThemeName.c_str());
-		GUIConfigElement->SetAttribute(L"darkToolBarIconSet", darkTbInfo._tbIconSet);
-		GUIConfigElement->SetAttribute(L"darkTbFluentColor", static_cast<int>(darkTbInfo._tbColor));
-		GUIConfigElement->SetAttribute(L"darkTbFluentCustomColor", darkTbInfo._tbCustomColor);
-		setYesNoBoolAttribute(L"darkTbFluentMono", darkTbInfo._tbUseMono);
-		GUIConfigElement->SetAttribute(L"darkTabIconSet", darkDefaults._tabIconSet);
-		setYesNoBoolAttribute(L"darkTabUseTheme", darkDefaults._tabUseTheme);
+		const auto& darkThemeName = darkDefaults._xmlFileName;
+		const auto& darkTbInfo = darkDefaults._tbIconInfo;
+		NppXml::setAttribute(GUIConfigElement, "darkThemeName", wstring2string(darkThemeName).c_str());
+		NppXml::setAttribute(GUIConfigElement, "darkToolBarIconSet", darkTbInfo._tbIconSet);
+		NppXml::setAttribute(GUIConfigElement, "darkTbFluentColor", static_cast<int>(darkTbInfo._tbColor));
+		NppXml::setAttribute(GUIConfigElement, "darkTbFluentCustomColor", darkTbInfo._tbCustomColor);
+		setBoolAttribute(GUIConfigElement, "darkTbFluentMono", darkTbInfo._tbUseMono);
+		NppXml::setAttribute(GUIConfigElement, "darkTabIconSet", darkDefaults._tabIconSet);
+		setBoolAttribute(GUIConfigElement, "darkTabUseTheme", darkDefaults._tabUseTheme);
 
 		const auto& lightDefaults = advOpt._lightDefaults;
 		const auto& lightThemeName = lightDefaults._xmlFileName;
 		const auto& lightTbInfo = lightDefaults._tbIconInfo;
-		GUIConfigElement->SetAttribute(L"lightThemeName", lightThemeName.c_str());
-		GUIConfigElement->SetAttribute(L"lightToolBarIconSet", lightTbInfo._tbIconSet);
-		GUIConfigElement->SetAttribute(L"lightTbFluentColor", static_cast<int>(lightTbInfo._tbColor));
-		GUIConfigElement->SetAttribute(L"lightTbFluentCustomColor", lightTbInfo._tbCustomColor);
-		setYesNoBoolAttribute(L"lightTbFluentMono", lightTbInfo._tbUseMono);
-		GUIConfigElement->SetAttribute(L"lightTabIconSet", lightDefaults._tabIconSet);
-		setYesNoBoolAttribute(L"lightTabUseTheme", lightDefaults._tabUseTheme);
+		NppXml::setAttribute(GUIConfigElement, "lightThemeName", wstring2string(lightThemeName).c_str());
+		NppXml::setAttribute(GUIConfigElement, "lightToolBarIconSet", lightTbInfo._tbIconSet);
+		NppXml::setAttribute(GUIConfigElement, "lightTbFluentColor", static_cast<int>(lightTbInfo._tbColor));
+		NppXml::setAttribute(GUIConfigElement, "lightTbFluentCustomColor", lightTbInfo._tbCustomColor);
+		setBoolAttribute(GUIConfigElement, "lightTbFluentMono", lightTbInfo._tbUseMono);
+		NppXml::setAttribute(GUIConfigElement, "lightTabIconSet", lightDefaults._tabIconSet);
+		setBoolAttribute(GUIConfigElement, "lightTabUseTheme", lightDefaults._tabUseTheme);
 	}
 
 	// <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" lineWrapMethod="aligned" currentLineHilitingShow="show" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="no" borderEdge="yes" edge="no" edgeNbColumn="80" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" borderWidth="2" smoothFont="no" />
@@ -7937,8 +7717,8 @@ void NppParameters::createXmlTreeFromGUIParams()
 	// ...
 	if (_nppGUI._isCmdlineNosessionActivated && dockMngNodeDup)
 	{
-		newGUIRoot->InsertEndChild(*dockMngNodeDup);
-		delete dockMngNodeDup;
+		NppXml::insertEndChild(newGUIRoot, dockMngNodeDup);
+		delete tempDoc;
 	}
 	else
 	{
@@ -7948,157 +7728,148 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 bool NppParameters::writeFindHistory()
 {
-	if (!_pXmlUserDoc) return false;
+	if (!_xmlUserDoc._doc) return false;
 
-	TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild(L"NotepadPlus");
+	NppXml::Element nppRoot = NppXml::firstChildElement(_xmlUserDoc._doc, "NotepadPlus");
 	if (!nppRoot)
 	{
-		nppRoot = _pXmlUserDoc->InsertEndChild(TiXmlElement(L"NotepadPlus"));
+		nppRoot = NppXml::createChildElement(_xmlUserDoc._doc, "NotepadPlus");
 	}
 
-	TiXmlNode *findHistoryRoot = nppRoot->FirstChildElement(L"FindHistory");
+	NppXml::Element findHistoryRoot = NppXml::firstChildElement(nppRoot, "FindHistory");
 	if (!findHistoryRoot)
 	{
-		TiXmlElement element(L"FindHistory");
-		findHistoryRoot = nppRoot->InsertEndChild(element);
+		findHistoryRoot = NppXml::createChildElement(nppRoot, "FindHistory");
 	}
-	findHistoryRoot->Clear();
-
-	(findHistoryRoot->ToElement())->SetAttribute(L"nbMaxFindHistoryPath",	_findHistory._nbMaxFindHistoryPath);
-	(findHistoryRoot->ToElement())->SetAttribute(L"nbMaxFindHistoryFilter",  _findHistory._nbMaxFindHistoryFilter);
-	(findHistoryRoot->ToElement())->SetAttribute(L"nbMaxFindHistoryFind",	_findHistory._nbMaxFindHistoryFind);
-	(findHistoryRoot->ToElement())->SetAttribute(L"nbMaxFindHistoryReplace", _findHistory._nbMaxFindHistoryReplace);
-
-	(findHistoryRoot->ToElement())->SetAttribute(L"matchWord",				_findHistory._isMatchWord ? L"yes" : L"no");
-	(findHistoryRoot->ToElement())->SetAttribute(L"matchCase",				_findHistory._isMatchCase ? L"yes" : L"no");
-	(findHistoryRoot->ToElement())->SetAttribute(L"wrap",					_findHistory._isWrap?L"yes" : L"no");
-	(findHistoryRoot->ToElement())->SetAttribute(L"directionDown",			_findHistory._isDirectionDown ? L"yes" : L"no");
-
-	(findHistoryRoot->ToElement())->SetAttribute(L"fifRecuisive",			_findHistory._isFifRecursive ? L"yes" : L"no");
-	(findHistoryRoot->ToElement())->SetAttribute(L"fifInHiddenFolder",		_findHistory._isFifInHiddenFolder ? L"yes" : L"no");
-	(findHistoryRoot->ToElement())->SetAttribute(L"fifProjectPanel1",	    	_findHistory._isFifProjectPanel_1 ? L"yes" : L"no");
-	(findHistoryRoot->ToElement())->SetAttribute(L"fifProjectPanel2",	      	_findHistory._isFifProjectPanel_2 ? L"yes" : L"no");
-	(findHistoryRoot->ToElement())->SetAttribute(L"fifProjectPanel3",	       	_findHistory._isFifProjectPanel_3 ? L"yes" : L"no");
-	(findHistoryRoot->ToElement())->SetAttribute(L"fifFilterFollowsDoc",	_findHistory._isFilterFollowDoc ? L"yes" : L"no");
-
-	(findHistoryRoot->ToElement())->SetAttribute(L"searchMode", _findHistory._searchMode);
-	(findHistoryRoot->ToElement())->SetAttribute(L"transparencyMode", _findHistory._transparencyMode);
-	(findHistoryRoot->ToElement())->SetAttribute(L"transparency", _findHistory._transparency);
-	(findHistoryRoot->ToElement())->SetAttribute(L"dotMatchesNewline",		_findHistory._dotMatchesNewline ? L"yes" : L"no");
-	(findHistoryRoot->ToElement())->SetAttribute(L"isSearch2ButtonsMode",		_findHistory._isSearch2ButtonsMode ? L"yes" : L"no");
-	(findHistoryRoot->ToElement())->SetAttribute(L"regexBackward4PowerUser",		_findHistory._regexBackward4PowerUser ? L"yes" : L"no");
-
-	(findHistoryRoot->ToElement())->SetAttribute(L"bookmarkLine", _findHistory._isBookmarkLine ? L"yes" : L"no");
-	(findHistoryRoot->ToElement())->SetAttribute(L"purge", _findHistory._isPurge ? L"yes" : L"no");
-
-	TiXmlElement hist_element{L""};
-
-	hist_element.SetValue(L"Path");
-	for (size_t i = 0, len = _findHistory._findHistoryPaths.size(); i < len; ++i)
+	else
 	{
-		(hist_element.ToElement())->SetAttribute(L"name", _findHistory._findHistoryPaths[i].c_str());
-		findHistoryRoot->InsertEndChild(hist_element);
+		NppXml::clear(findHistoryRoot);
 	}
 
-	hist_element.SetValue(L"Filter");
-	for (size_t i = 0, len = _findHistory._findHistoryFilters.size(); i < len; ++i)
+	NppXml::setAttribute(findHistoryRoot, "nbMaxFindHistoryPath", _findHistory._nbMaxFindHistoryPath);
+	NppXml::setAttribute(findHistoryRoot, "nbMaxFindHistoryFilter", _findHistory._nbMaxFindHistoryFilter);
+	NppXml::setAttribute(findHistoryRoot, "nbMaxFindHistoryFind", _findHistory._nbMaxFindHistoryFind);
+	NppXml::setAttribute(findHistoryRoot, "nbMaxFindHistoryReplace", _findHistory._nbMaxFindHistoryReplace);
+
+	setBoolAttribute(findHistoryRoot, "matchWord", _findHistory._isMatchWord);
+	setBoolAttribute(findHistoryRoot, "matchCase", _findHistory._isMatchCase);
+	setBoolAttribute(findHistoryRoot, "wrap", _findHistory._isWrap);
+	setBoolAttribute(findHistoryRoot, "directionDown", _findHistory._isDirectionDown);
+
+	setBoolAttribute(findHistoryRoot, "fifRecuisive", _findHistory._isFifRecursive);
+	setBoolAttribute(findHistoryRoot, "fifInHiddenFolder", _findHistory._isFifInHiddenFolder);
+	setBoolAttribute(findHistoryRoot, "fifProjectPanel1", _findHistory._isFifProjectPanel_1);
+	setBoolAttribute(findHistoryRoot, "fifProjectPanel2", _findHistory._isFifProjectPanel_2);
+	setBoolAttribute(findHistoryRoot, "fifProjectPanel3", _findHistory._isFifProjectPanel_3);
+	setBoolAttribute(findHistoryRoot, "fifFilterFollowsDoc", _findHistory._isFilterFollowDoc);
+
+	NppXml::setAttribute(findHistoryRoot, "searchMode", _findHistory._searchMode);
+	NppXml::setAttribute(findHistoryRoot, "transparencyMode", _findHistory._transparencyMode);
+	NppXml::setAttribute(findHistoryRoot, "transparency", _findHistory._transparency);
+	setBoolAttribute(findHistoryRoot, "dotMatchesNewline", _findHistory._dotMatchesNewline);
+	setBoolAttribute(findHistoryRoot, "isSearch2ButtonsMode", _findHistory._isSearch2ButtonsMode);
+	setBoolAttribute(findHistoryRoot, "regexBackward4PowerUser", _findHistory._regexBackward4PowerUser);
+
+	setBoolAttribute(findHistoryRoot, "bookmarkLine", _findHistory._isBookmarkLine);
+	setBoolAttribute(findHistoryRoot, "purge", _findHistory._isPurge);
+
+	for (const auto& path : _findHistory._findHistoryPaths)
 	{
-		(hist_element.ToElement())->SetAttribute(L"name", _findHistory._findHistoryFilters[i].c_str());
-		findHistoryRoot->InsertEndChild(hist_element);
+		NppXml::Element pathElement = NppXml::createChildElement(findHistoryRoot, "Path");
+		NppXml::setAttribute(pathElement, "name", wstring2string(path).c_str());
 	}
 
-	hist_element.SetValue(L"Find");
-	for (size_t i = 0, len = _findHistory._findHistoryFinds.size(); i < len; ++i)
+	for (const auto& filter : _findHistory._findHistoryFilters)
 	{
-		(hist_element.ToElement())->SetAttribute(L"name", _findHistory._findHistoryFinds[i].c_str());
-		findHistoryRoot->InsertEndChild(hist_element);
+		NppXml::Element filterElement = NppXml::createChildElement(findHistoryRoot, "Filter");
+		NppXml::setAttribute(filterElement, "name", wstring2string(filter).c_str());
 	}
 
-	hist_element.SetValue(L"Replace");
-	for (size_t i = 0, len = _findHistory._findHistoryReplaces.size(); i < len; ++i)
+	for (const auto& find : _findHistory._findHistoryFinds)
 	{
-		(hist_element.ToElement())->SetAttribute(L"name", _findHistory._findHistoryReplaces[i].c_str());
-		findHistoryRoot->InsertEndChild(hist_element);
+		NppXml::Element findElement = NppXml::createChildElement(findHistoryRoot, "Find");
+		NppXml::setAttribute(findElement, "name", wstring2string(find).c_str());
+	}
+
+	for (const auto& replace : _findHistory._findHistoryReplaces)
+	{
+		NppXml::Element replaceElement = NppXml::createChildElement(findHistoryRoot, "Replace");
+		NppXml::setAttribute(replaceElement, "name", wstring2string(replace).c_str());
 	}
 
 	return true;
 }
 
-void NppParameters::insertDockingParamNode(TiXmlNode *GUIRoot)
+void NppParameters::insertDockingParamNode(NppXml::Element& GUIRoot) const
 {
-	TiXmlElement DMNode(L"GUIConfig");
-	DMNode.SetAttribute(L"name", L"DockingManager");
-	DMNode.SetAttribute(L"leftWidth", _nppGUI._dockingData._leftWidth);
-	DMNode.SetAttribute(L"rightWidth", _nppGUI._dockingData._rightWidth);
-	DMNode.SetAttribute(L"topHeight", _nppGUI._dockingData._topHeight);
-	DMNode.SetAttribute(L"bottomHeight", _nppGUI._dockingData._bottomHeight);
+	NppXml::Element DMNode = NppXml::createChildElement(GUIRoot, "GUIConfig");
 
-	for (size_t i = 0, len = _nppGUI._dockingData._floatingWindowInfo.size(); i < len ; ++i)
+	NppXml::setAttribute(DMNode, "name", "DockingManager");
+	NppXml::setAttribute(DMNode, "leftWidth", _nppGUI._dockingData._leftWidth);
+	NppXml::setAttribute(DMNode, "rightWidth", _nppGUI._dockingData._rightWidth);
+	NppXml::setAttribute(DMNode, "topHeight", _nppGUI._dockingData._topHeight);
+	NppXml::setAttribute(DMNode, "bottomHeight", _nppGUI._dockingData._bottomHeight);
+
+	for (const auto& fwi : _nppGUI._dockingData._floatingWindowInfo)
 	{
-		FloatingWindowInfo & fwi = _nppGUI._dockingData._floatingWindowInfo[i];
-		TiXmlElement FWNode(L"FloatingWindow");
-		FWNode.SetAttribute(L"cont", fwi._cont);
-		FWNode.SetAttribute(L"x", fwi._pos.left);
-		FWNode.SetAttribute(L"y", fwi._pos.top);
-		FWNode.SetAttribute(L"width", fwi._pos.right);
-		FWNode.SetAttribute(L"height", fwi._pos.bottom);
+		NppXml::Element FWNode = NppXml::createChildElement(DMNode, "FloatingWindow");
 
-		DMNode.InsertEndChild(FWNode);
+		NppXml::setAttribute(FWNode, "cont", fwi._cont);
+		NppXml::setAttribute(FWNode, "x", fwi._pos.left);
+		NppXml::setAttribute(FWNode, "y", fwi._pos.top);
+		NppXml::setAttribute(FWNode, "width", fwi._pos.right);
+		NppXml::setAttribute(FWNode, "height", fwi._pos.bottom);
 	}
 
-	for (size_t i = 0, len = _nppGUI._dockingData._pluginDockInfo.size() ; i < len ; ++i)
+	for (const auto& pdi : _nppGUI._dockingData._pluginDockInfo)
 	{
-		PluginDlgDockingInfo & pdi = _nppGUI._dockingData._pluginDockInfo[i];
-		TiXmlElement PDNode(L"PluginDlg");
-		PDNode.SetAttribute(L"pluginName", pdi._name);
-		PDNode.SetAttribute(L"id", pdi._internalID);
-		PDNode.SetAttribute(L"curr", pdi._currContainer);
-		PDNode.SetAttribute(L"prev", pdi._prevContainer);
-		PDNode.SetAttribute(L"isVisible", pdi._isVisible ? L"yes" : L"no");
+		NppXml::Element PDNode = NppXml::createChildElement(DMNode, "PluginDlg");
 
-		DMNode.InsertEndChild(PDNode);
+		NppXml::setAttribute(PDNode, "pluginName", wstring2string(pdi._name).c_str());
+		NppXml::setAttribute(PDNode, "id", pdi._internalID);
+		NppXml::setAttribute(PDNode, "curr", pdi._currContainer);
+		NppXml::setAttribute(PDNode, "prev", pdi._prevContainer);
+		setBoolAttribute(PDNode, "isVisible", pdi._isVisible);
 	}
 
-	for (size_t i = 0, len = _nppGUI._dockingData._containerTabInfo.size(); i < len ; ++i)
+	for (const auto& cti : _nppGUI._dockingData._containerTabInfo)
 	{
-		ContainerTabInfo & cti = _nppGUI._dockingData._containerTabInfo[i];
-		TiXmlElement CTNode(L"ActiveTabs");
-		CTNode.SetAttribute(L"cont", cti._cont);
-		CTNode.SetAttribute(L"activeTab", cti._activeTab);
-		DMNode.InsertEndChild(CTNode);
-	}
+		NppXml::Element CTNode = NppXml::createChildElement(DMNode, "ActiveTabs");
 
-	GUIRoot->InsertEndChild(DMNode);
+		NppXml::setAttribute(CTNode, "cont", cti._cont);
+		NppXml::setAttribute(CTNode, "activeTab", cti._activeTab);
+	}
 }
 
-void NppParameters::writePrintSetting(TiXmlElement *element)
+void NppParameters::writePrintSetting(NppXml::Element& element) const
 {
-	const wchar_t *pStr = _nppGUI._printSettings._printLineNumber ? L"yes" : L"no";
-	element->SetAttribute(L"lineNumber", pStr);
+	const auto& prSet = _nppGUI._printSettings;
 
-	element->SetAttribute(L"printOption", _nppGUI._printSettings._printOption);
+	setBoolAttribute(element, "lineNumber", prSet._printLineNumber);
 
-	element->SetAttribute(L"headerLeft", _nppGUI._printSettings._headerLeft.c_str());
-	element->SetAttribute(L"headerMiddle", _nppGUI._printSettings._headerMiddle.c_str());
-	element->SetAttribute(L"headerRight", _nppGUI._printSettings._headerRight.c_str());
-	element->SetAttribute(L"footerLeft", _nppGUI._printSettings._footerLeft.c_str());
-	element->SetAttribute(L"footerMiddle", _nppGUI._printSettings._footerMiddle.c_str());
-	element->SetAttribute(L"footerRight", _nppGUI._printSettings._footerRight.c_str());
+	NppXml::setAttribute(element, "printOption", prSet._printOption);
 
-	element->SetAttribute(L"headerFontName", _nppGUI._printSettings._headerFontName.c_str());
-	element->SetAttribute(L"headerFontStyle", _nppGUI._printSettings._headerFontStyle);
-	element->SetAttribute(L"headerFontSize", _nppGUI._printSettings._headerFontSize);
-	element->SetAttribute(L"footerFontName", _nppGUI._printSettings._footerFontName.c_str());
-	element->SetAttribute(L"footerFontStyle", _nppGUI._printSettings._footerFontStyle);
-	element->SetAttribute(L"footerFontSize", _nppGUI._printSettings._footerFontSize);
+	NppXml::setAttribute(element, "headerLeft", wstring2string(prSet._headerLeft).c_str());
+	NppXml::setAttribute(element, "headerMiddle", wstring2string(prSet._headerMiddle).c_str());
+	NppXml::setAttribute(element, "headerRight", wstring2string(prSet._headerRight).c_str());
+	NppXml::setAttribute(element, "footerLeft", wstring2string(prSet._footerLeft).c_str());
+	NppXml::setAttribute(element, "footerMiddle", wstring2string(prSet._footerMiddle).c_str());
+	NppXml::setAttribute(element, "footerRight", wstring2string(prSet._footerRight).c_str());
 
-	element->SetAttribute(L"margeLeft", _nppGUI._printSettings._marge.left);
-	element->SetAttribute(L"margeRight", _nppGUI._printSettings._marge.right);
-	element->SetAttribute(L"margeTop", _nppGUI._printSettings._marge.top);
-	element->SetAttribute(L"margeBottom", _nppGUI._printSettings._marge.bottom);
+	NppXml::setAttribute(element, "headerFontName", wstring2string(prSet._headerFontName).c_str());
+	NppXml::setAttribute(element, "headerFontStyle", prSet._headerFontStyle);
+	NppXml::setAttribute(element, "headerFontSize", prSet._headerFontSize);
+	NppXml::setAttribute(element, "footerFontName", wstring2string(prSet._footerFontName).c_str());
+	NppXml::setAttribute(element, "footerFontStyle", prSet._footerFontStyle);
+	NppXml::setAttribute(element, "footerFontSize", prSet._footerFontSize);
+
+	NppXml::setAttribute(element, "margeLeft", prSet._marge.left);
+	NppXml::setAttribute(element, "margeRight", prSet._marge.right);
+	NppXml::setAttribute(element, "margeTop", prSet._marge.top);
+	NppXml::setAttribute(element, "margeBottom", prSet._marge.bottom);
 }
 
-void NppParameters::writeExcludedLangList(TiXmlElement *element)
+void NppParameters::writeExcludedLangList(NppXml::Element& element) const
 {
 	int g0 = 0; // up to 8
 	int g1 = 0; // up to 16
@@ -8110,46 +7881,45 @@ void NppParameters::writeExcludedLangList(TiXmlElement *element)
 	int g7 = 0; // up to 64
 	int g8 = 0; // up to 72
 	int g9 = 0; // up to 80
-	int g10= 0; // up to 88
-	int g11= 0; // up to 96
-	int g12= 0; // up to 104
+	int g10 = 0; // up to 88
+	int g11 = 0; // up to 96
+	int g12 = 0; // up to 104
 
-	const int groupNbMember = 8;
+	static constexpr int groupNbMember = 8;
 
-	for (size_t i = 0, len = _nppGUI._excludedLangList.size(); i < len ; ++i)
+	for (const auto& exclLang : _nppGUI._excludedLangList)
 	{
-		LangType langType = _nppGUI._excludedLangList[i]._langType;
+		const LangType langType = exclLang._langType;
 		if (langType >= L_EXTERNAL && langType < L_END)
 			continue;
 
-		int nGrp = langType / groupNbMember;
-		int nMask = 1 << langType % groupNbMember;
-
+		const int nGrp = langType / groupNbMember;
+		const int nMask = 1 << langType % groupNbMember;
 
 		switch (nGrp)
 		{
-			case 0 :
+			case 0:
 				g0 |= nMask;
 				break;
-			case 1 :
+			case 1:
 				g1 |= nMask;
 				break;
-			case 2 :
+			case 2:
 				g2 |= nMask;
 				break;
-			case 3 :
+			case 3:
 				g3 |= nMask;
 				break;
-			case 4 :
+			case 4:
 				g4 |= nMask;
 				break;
-			case 5 :
+			case 5:
 				g5 |= nMask;
 				break;
-			case 6 :
+			case 6:
 				g6 |= nMask;
 				break;
-			case 7 :
+			case 7:
 				g7 |= nMask;
 				break;
 			case 8:
@@ -8170,27 +7940,26 @@ void NppParameters::writeExcludedLangList(TiXmlElement *element)
 		}
 	}
 
-	element->SetAttribute(L"gr0", g0);
-	element->SetAttribute(L"gr1", g1);
-	element->SetAttribute(L"gr2", g2);
-	element->SetAttribute(L"gr3", g3);
-	element->SetAttribute(L"gr4", g4);
-	element->SetAttribute(L"gr5", g5);
-	element->SetAttribute(L"gr6", g6);
-	element->SetAttribute(L"gr7", g7);
-	element->SetAttribute(L"gr8", g8);
-	element->SetAttribute(L"gr9", g9);
-	element->SetAttribute(L"gr10", g10);
-	element->SetAttribute(L"gr11", g11);
-	element->SetAttribute(L"gr12", g12);
+	NppXml::setAttribute(element, "gr0", g0);
+	NppXml::setAttribute(element, "gr1", g1);
+	NppXml::setAttribute(element, "gr2", g2);
+	NppXml::setAttribute(element, "gr3", g3);
+	NppXml::setAttribute(element, "gr4", g4);
+	NppXml::setAttribute(element, "gr5", g5);
+	NppXml::setAttribute(element, "gr6", g6);
+	NppXml::setAttribute(element, "gr7", g7);
+	NppXml::setAttribute(element, "gr8", g8);
+	NppXml::setAttribute(element, "gr9", g9);
+	NppXml::setAttribute(element, "gr10", g10);
+	NppXml::setAttribute(element, "gr11", g11);
+	NppXml::setAttribute(element, "gr12", g12);
 }
 
-TiXmlElement * NppParameters::insertGUIConfigBoolNode(TiXmlNode *r2w, const wchar_t *name, bool bVal)
+NppXml::Element NppParameters::insertGUIConfigBoolNode(NppXml::Element& r2w, const char* name, bool bVal)
 {
-	const wchar_t *pStr = bVal ? L"yes" : L"no";
-	TiXmlElement *GUIConfigElement = (r2w->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
-	GUIConfigElement->SetAttribute(L"name", name);
-	GUIConfigElement->InsertEndChild(TiXmlText(pStr));
+	NppXml::Element GUIConfigElement = NppXml::createChildElement(r2w, "GUIConfig");
+	NppXml::setAttribute(GUIConfigElement, "name", name);
+	NppXml::createChildText(GUIConfigElement, bVal ? "yes" : "no");
 	return GUIConfigElement;
 }
 

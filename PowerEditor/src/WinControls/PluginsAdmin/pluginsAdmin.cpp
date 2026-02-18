@@ -676,7 +676,7 @@ bool PluginsAdminDlg::initFromJson()
 
 	json j;
 
-#ifdef DEBUG // if not debug, then it's release
+#ifndef NDEBUG // if not debug, then it's release
 	
 	// load from nppPluginList.json instead of nppPluginList.dll
 #ifdef __MINGW32__

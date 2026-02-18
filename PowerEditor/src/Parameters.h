@@ -40,8 +40,6 @@
 #include <SciLexer.h>
 #include <Scintilla.h>
 
-#include <tinyxml.h>
-
 #include "ContextMenu.h"
 #include "DockingCont.h"
 #include "Notepad_plus_msgs.h"
@@ -582,11 +580,11 @@ public:
 
 	void now();
 
-	std::wstring toString() const // Return Notepad++ date format : YYYYMMDD
+	std::string toString() const // Return Notepad++ date format : YYYYMMDD
 	{
 		static constexpr size_t bufSize = 16;
-		wchar_t dateStr[bufSize]{};
-		std::swprintf(dateStr, bufSize, L"%04lu%02lu%02lu", _year, _month, _day);
+		char dateStr[bufSize]{};
+		std::snprintf(dateStr, bufSize, "%04lu%02lu%02lu", _year, _month, _day);
 		return dateStr;
 	}
 
@@ -1148,9 +1146,9 @@ struct FindHistory final
 
 	bool _isFifRecursive = true;
 	bool _isFifInHiddenFolder = false;
-    bool _isFifProjectPanel_1 = false;
-    bool _isFifProjectPanel_2 = false;
-    bool _isFifProjectPanel_3 = false;
+	bool _isFifProjectPanel_1 = false;
+	bool _isFifProjectPanel_2 = false;
+	bool _isFifProjectPanel_3 = false;
 
 	searchMode _searchMode = normal;
 	transparencyMode _transparencyMode = onLosingFocus;
@@ -1484,7 +1482,7 @@ public:
 	bool writeColumnEditorSettings();
 	bool writeFileBrowserSettings(const std::vector<std::wstring>& rootPaths, const std::wstring& latestSelectedItemPath);
 
-	TiXmlNode* getChildElementByAttribute(TiXmlNode *pere, const wchar_t *childName, const wchar_t *attributeName, const wchar_t *attributeVal) const;
+	static NppXml::Element getChildElementByAttribute(const NppXml::Element& element, const char* childName, const char* attributeName, const char* attributeVal);
 
 	bool writeScintillaParams();
 	void createXmlTreeFromGUIParams();
@@ -1797,7 +1795,7 @@ private:
 
 
 	XmlDocPath _pXmlDoc{}; // langs.xml
-	TiXmlDocument *_pXmlUserDoc = nullptr; // config.xml
+	XmlDocPath _xmlUserDoc{}; // config.xml
 	XmlDocPath _pXmlUserStylerDoc{}; // stylers.xml
 	XmlDocPath _pXmlUserLangDoc{}; // userDefineLang.xml
 	std::vector<UdlXmlFileState> _pXmlUserLangsDoc; // userDefineLang customized XMLs
@@ -2004,7 +2002,6 @@ private:
 	void feedFileListParameters(const NppXml::Element& element);
 	void feedScintillaParam(const NppXml::Element& element);
 	void feedDockingManager(const NppXml::Element& element);
-	void duplicateDockingManager(TiXmlNode *dockMngNode, TiXmlElement* dockMngElmt2Clone);
 	void feedFindHistoryParameters(const NppXml::Element& element);
 	void feedProjectPanelsParameters(const NppXml::Element& element);
 	void feedFileBrowserParameters(const NppXml::Element& element);
@@ -2031,10 +2028,10 @@ private:
 	static void insertUserCmd(NppXml::Element& userCmdRoot, const UserCommand& userCmd, const std::string& folderName);
 	static void insertScintKey(NppXml::Element& scintKeyRoot, const ScintillaKeyMap& scintKeyMap);
 	static void insertPluginCmd(NppXml::Element& pluginCmdRoot, const PluginCmdShortcut& pluginCmd);
-	TiXmlElement * insertGUIConfigBoolNode(TiXmlNode *r2w, const wchar_t *name, bool bVal);
-	void insertDockingParamNode(TiXmlNode *GUIRoot);
-	void writeExcludedLangList(TiXmlElement *element);
-	void writePrintSetting(TiXmlElement *element);
+	static NppXml::Element insertGUIConfigBoolNode(NppXml::Element& r2w, const char* name, bool bVal);
+	void insertDockingParamNode(NppXml::Element& GUIRoot) const;
+	void writeExcludedLangList(NppXml::Element& element) const;
+	void writePrintSetting(NppXml::Element& element) const;
 	void initMenuKeys();		//initialise menu keys and scintilla keys. Other keys are initialized on their own
 	void initScintillaKeys();	//these functions have to be called first before any modifications are loaded
 	static int getCmdIdFromMenuEntryItemName(HMENU mainMenuHandle, const std::wstring& menuEntryName, const std::wstring& menuItemName); // return -1 if not found

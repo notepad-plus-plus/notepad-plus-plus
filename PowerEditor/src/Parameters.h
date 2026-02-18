@@ -1020,7 +1020,7 @@ public:
 		_forcePureLC(ulc._forcePureLC),
 		_decimalSeparator(ulc._decimalSeparator),
 		_isCaseIgnored(ulc._isCaseIgnored),
-		_allowFoldOfComments(ulc._allowFoldOfComments),	
+		_allowFoldOfComments(ulc._allowFoldOfComments),
 		_foldCompact(ulc._foldCompact),
 		_isDarkModeTheme(ulc._isDarkModeTheme)
 	{
@@ -2000,14 +2000,14 @@ private:
 
 	void feedGUIParameters(TiXmlNode *node);
 	void feedKeyWordsParameters(const NppXml::Element& element);
-	void feedFileListParameters(TiXmlNode *node);
+	void feedFileListParameters(const NppXml::Element& element);
 	void feedScintillaParam(TiXmlNode *node);
 	void feedDockingManager(TiXmlNode *node);
 	void duplicateDockingManager(TiXmlNode *dockMngNode, TiXmlElement* dockMngElmt2Clone);
-	void feedFindHistoryParameters(TiXmlNode *node);
-	void feedProjectPanelsParameters(TiXmlNode *node);
-	void feedFileBrowserParameters(TiXmlNode *node);
-	void feedColumnEditorParameters(TiXmlNode *node);
+	void feedFindHistoryParameters(const NppXml::Element& element);
+	void feedProjectPanelsParameters(const NppXml::Element& element);
+	void feedFileBrowserParameters(const NppXml::Element& element);
+	void feedColumnEditorParameters(const NppXml::Element& element);
 	bool feedStylerArray(const NppXml::Element& element);
 	std::pair<unsigned char, unsigned char> feedUserLang(const NppXml::Element& element);
 	void feedUserStyles(const NppXml::Element& element);

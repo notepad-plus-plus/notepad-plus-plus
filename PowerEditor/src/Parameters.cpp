@@ -51,10 +51,8 @@
 #include "NppDarkMode.h"
 #include "NppXml.h"
 #include "ScintillaEditView.h"
-#include "TabBar.h"
 #include "ToolBar.h"
 #include "UserDefineDialog.h"
-#include "WordStyleDlg.h"
 #include "keys.h"
 #include "localization.h"
 #include "localizationString.h"
@@ -74,8 +72,6 @@ static constexpr int NB_MAX_FINDHISTORY_FIND = 30;
 static constexpr int NB_MAX_FINDHISTORY_REPLACE = 30;
 static constexpr int NB_MAX_FINDHISTORY_PATH = 30;
 static constexpr int NB_MAX_FINDHISTORY_FILTER = 20;
-
-using namespace std;
 
 namespace // anonymous namespace
 {
@@ -866,7 +862,7 @@ std::wstring LocalizationSwitcher::getXmlFilePathFromLangName(const wchar_t *lan
 bool LocalizationSwitcher::addLanguageFromXml(const std::wstring& xmlFullPath)
 {
 	const wchar_t * fn = ::PathFindFileNameW(xmlFullPath.c_str());
-	wstring foundLang = getLangFromXmlFileName(fn);
+	const std::wstring foundLang = getLangFromXmlFileName(fn);
 	if (!foundLang.empty())
 	{
 		_localizationList.emplace_back(foundLang, xmlFullPath);
@@ -878,7 +874,7 @@ bool LocalizationSwitcher::addLanguageFromXml(const std::wstring& xmlFullPath)
 
 bool LocalizationSwitcher::switchToLang(const wchar_t *lang2switch) const
 {
-	wstring langPath = getXmlFilePathFromLangName(lang2switch);
+	const std::wstring langPath = getXmlFilePathFromLangName(lang2switch);
 	if (langPath.empty())
 		return false;
 
@@ -1655,7 +1651,7 @@ bool NppParameters::load()
 	//------------------------------//
 	// shortcuts.xml : for per-user //
 	//------------------------------//
-	wstring v852NoNeedShortcutsBackup;
+	std::wstring v852NoNeedShortcutsBackup;
 	_shortcutsPath = v852NoNeedShortcutsBackup = _userPath;
 	pathAppend(_shortcutsPath, SHORTCUTSXML_FILENAME);
 	pathAppend(v852NoNeedShortcutsBackup, NONEEDSHORTCUTSXMLBACKUP_FILENAME);
@@ -2738,23 +2734,32 @@ bool NppParameters::getUserParametersFromXmlTree()
 	if (!_pXmlUserDoc)
 		return false;
 
-	TiXmlNode *root = _pXmlUserDoc->FirstChild(L"NotepadPlus");
-	if (!root)
+	TiXmlNode* rootTinyXML = _pXmlUserDoc->FirstChild(L"NotepadPlus");
+	if (!rootTinyXML)
 		return false;
 
 	// Get GUI parameters
-	feedGUIParameters(root);
+	feedGUIParameters(rootTinyXML);
+
+	XmlDocPath xmlUserDoc{};
+	xmlUserDoc._doc = new NppXml::NewDocument();
+	xmlUserDoc._path = _pXmlUserDoc->Value();
+	if (!NppXml::loadFile(xmlUserDoc._doc, xmlUserDoc._path.c_str()))
+		return false;
+
+	NppXml::Element root = NppXml::firstChildElement(xmlUserDoc._doc, "NotepadPlus");
+	if (!root)
+		return false;
 
 	// Get History parameters
 	feedFileListParameters(root);
 
 	// Erase the History root
-	TiXmlNode *node = root->FirstChildElement(L"History");
-	root->RemoveChild(node);
+	TiXmlNode* node = rootTinyXML->FirstChildElement(L"History");
+	rootTinyXML->RemoveChild(node);
 
 	// Add a new empty History root
-	TiXmlElement HistoryNode(L"History");
-	root->InsertEndChild(HistoryNode);
+	NppXml::createChildElement(root, "History");
 
 	//Get Find history parameters
 	feedFindHistoryParameters(root);
@@ -2767,6 +2772,8 @@ bool NppParameters::getUserParametersFromXmlTree()
 
 	//Get Column editor parameters
 	feedColumnEditorParameters(root);
+
+	delete xmlUserDoc._doc;
 
 	return true;
 }
@@ -2907,7 +2914,7 @@ int NppParameters::getCmdIdFromMenuEntryItemName(HMENU mainMenuHandle, const std
 		::GetMenuString(mainMenuHandle, i, menuEntryString, menuItemStrLenMax, MF_BYPOSITION);
 		if (_wcsicmp(menuEntryName.c_str(), purgeMenuItemString(menuEntryString).c_str()) == 0)
 		{
-			vector< pair<HMENU, int> > parentMenuPos;
+			std::vector<std::pair<HMENU, int>> parentMenuPos;
 			HMENU topMenu = ::GetSubMenu(mainMenuHandle, i);
 			int maxTopMenuPos = ::GetMenuItemCount(topMenu);
 			HMENU currMenu = topMenu;
@@ -3237,7 +3244,7 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 	if (fileBrowserRoot)
 	{
 		const char* selectedItemPath = NppXml::attribute(fileBrowserRoot, "latestSelectedItem");
-		if (selectedItemPath)
+		if (selectedItemPath && selectedItemPath[0])
 		{
 			session._fileBrowserSelectedItem = string2wstring(selectedItemPath);
 		}
@@ -3247,9 +3254,9 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 			childNode = NppXml::nextSiblingElement(childNode, "root"))
 		{
 			const char* fileName = NppXml::attribute(childNode, "foldername");
-			if (fileName)
+			if (fileName && fileName[0])
 			{
-				session._fileBrowserRoots.emplace_back(string2wstring(fileName));
+				session._fileBrowserRoots.push_back(string2wstring(fileName));
 			}
 		}
 	}
@@ -3257,34 +3264,27 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 	return true;
 }
 
-void NppParameters::feedFileListParameters(TiXmlNode *node)
+void NppParameters::feedFileListParameters(const NppXml::Element& element)
 {
-	TiXmlNode *historyRoot = node->FirstChildElement(L"History");
+	NppXml::Element historyRoot = NppXml::firstChildElement(element, "History");
 	if (!historyRoot) return;
 
 	// nbMaxFile value
-	int nbMaxFile = _nbMaxRecentFile;
-	const wchar_t *strVal = (historyRoot->ToElement())->Attribute(L"nbMaxFile", &nbMaxFile);
-	if (strVal && (nbMaxFile >= 0) && (nbMaxFile <= NB_MAX_LRF_FILE))
-		_nbMaxRecentFile = nbMaxFile;
+	_nbMaxRecentFile = getRangeClampAttribute<UINT>(historyRoot, "nbMaxFile", 0, static_cast<UINT>(NB_MAX_LRF_FILE), _nbMaxRecentFile);
 
 	// customLen value
-	int customLen = RECENTFILES_SHOWFULLPATH;
-	strVal = (historyRoot->ToElement())->Attribute(L"customLength", &customLen);
-	if (strVal)
-		_recentFileCustomLength = std::min<int>(customLen, NB_MAX_LRF_CUSTOMLENGTH);
+	const int customLen = NppXml::intAttribute(historyRoot, "customLength", RECENTFILES_SHOWFULLPATH);
+	_recentFileCustomLength = std::min<int>(customLen, NB_MAX_LRF_CUSTOMLENGTH);
 
 	// inSubMenu value
-	strVal = (historyRoot->ToElement())->Attribute(L"inSubMenu");
-	if (strVal)
-		_putRecentFileInSubMenu = (lstrcmp(strVal, L"yes") == 0);
+	_putRecentFileInSubMenu = getBoolAttribute(historyRoot, "inSubMenu");
 
-	for (TiXmlNode *childNode = historyRoot->FirstChildElement(L"File");
+	for (NppXml::Element childNode = NppXml::firstChildElement(historyRoot, "File");
 		childNode && (_nbRecentFile < NB_MAX_LRF_FILE);
-		childNode = childNode->NextSibling(L"File") )
+		childNode = NppXml::nextSiblingElement(childNode, "File"))
 	{
-		const wchar_t *filePath = (childNode->ToElement())->Attribute(L"filename");
-		if (filePath)
+		const std::wstring filePath = string2wstring(NppXml::attribute(childNode, "filename", ""));
+		if (!filePath.empty())
 		{
 			_LRFileList[_nbRecentFile] = std::make_unique<std::wstring>(filePath);
 			++_nbRecentFile;
@@ -3292,274 +3292,231 @@ void NppParameters::feedFileListParameters(TiXmlNode *node)
 	}
 }
 
-void NppParameters::feedFileBrowserParameters(TiXmlNode *node)
+void NppParameters::feedFileBrowserParameters(const NppXml::Element& element)
 {
-	TiXmlNode *fileBrowserRoot = node->FirstChildElement(L"FileBrowser");
+	NppXml::Element fileBrowserRoot = NppXml::firstChildElement(element, "FileBrowser");
 	if (!fileBrowserRoot) return;
 
-	const wchar_t *selectedItemPath = (fileBrowserRoot->ToElement())->Attribute(L"latestSelectedItem");
-	if (selectedItemPath)
+	const char* selectedItemPath = NppXml::attribute(fileBrowserRoot, "latestSelectedItem");
+	if (selectedItemPath && selectedItemPath[0])
 	{
-		_fileBrowserSelectedItemPath = selectedItemPath;
+		_fileBrowserSelectedItemPath = string2wstring(selectedItemPath);
 	}
 
-	for (TiXmlNode *childNode = fileBrowserRoot->FirstChildElement(L"root");
+	for (NppXml::Element childNode = NppXml::firstChildElement(fileBrowserRoot, "root");
 		childNode;
-		childNode = childNode->NextSibling(L"root") )
+		childNode = NppXml::nextSiblingElement(childNode, "root"))
 	{
-		const wchar_t *filePath = (childNode->ToElement())->Attribute(L"foldername");
-		if (filePath)
+		const char* filePath = NppXml::attribute(childNode, "foldername");
+		if (filePath && filePath[0])
 		{
-			_fileBrowserRoot.push_back(filePath);
+			_fileBrowserRoot.push_back(string2wstring(filePath));
 		}
 	}
 }
 
-void NppParameters::feedProjectPanelsParameters(TiXmlNode *node)
+void NppParameters::feedProjectPanelsParameters(const NppXml::Element& element)
 {
-	TiXmlNode *projPanelRoot = node->FirstChildElement(L"ProjectPanels");
+	NppXml::Element projPanelRoot = NppXml::firstChildElement(element, "ProjectPanels");
 	if (!projPanelRoot) return;
 
-	for (TiXmlNode *childNode = projPanelRoot->FirstChildElement(L"ProjectPanel");
+	for (NppXml::Element childNode = NppXml::firstChildElement(projPanelRoot, "ProjectPanel");
 		childNode;
-		childNode = childNode->NextSibling(L"ProjectPanel") )
+		childNode = NppXml::nextSiblingElement(childNode, "ProjectPanel"))
 	{
-		int index = 0;
-		const wchar_t *idStr = (childNode->ToElement())->Attribute(L"id", &index);
-		if (idStr && (index >= 0 && index <= 2))
+		const int index = NppXml::intAttribute(childNode, "id", 0);
+		if (index >= 0 && index <= 2)
 		{
-			const wchar_t *filePath = (childNode->ToElement())->Attribute(L"workSpaceFile");
-			if (filePath)
+			const char* filePath = NppXml::attribute(childNode, "workSpaceFile");
+			if (filePath && filePath[0])
 			{
-				_workSpaceFilePaths[index] = filePath;
+				_workSpaceFilePaths[index] = string2wstring(filePath);
 			}
 		}
 	}
 }
 
-void NppParameters::feedColumnEditorParameters(TiXmlNode *node)
+void NppParameters::feedColumnEditorParameters(const NppXml::Element& element)
 {
-	TiXmlNode * columnEditorRoot = node->FirstChildElement(L"ColumnEditor");
+	NppXml::Element  columnEditorRoot = NppXml::firstChildElement(element, "ColumnEditor");
 	if (!columnEditorRoot) return;
 
-	const wchar_t* strVal = (columnEditorRoot->ToElement())->Attribute(L"choice");
+	const char* strVal = NppXml::attribute(columnEditorRoot, "choice");
 	if (strVal)
 	{
-		if (lstrcmp(strVal, L"text") == 0)
+		if (std::strcmp(strVal, "text") == 0)
 			_columnEditParam._mainChoice = activeText;
 		else
 			_columnEditParam._mainChoice = activeNumeric;
 	}
-	TiXmlNode *childNode = columnEditorRoot->FirstChildElement(L"text");
+	NppXml::Element childNode = NppXml::firstChildElement(columnEditorRoot, "text");
 	if (!childNode) return;
 
-	const wchar_t* content = (childNode->ToElement())->Attribute(L"content");
-	if (content)
+	const char* content = NppXml::attribute(childNode, "content");
+	if (content && content[0])
 	{
-		_columnEditParam._insertedTextContent = content;
+		_columnEditParam._insertedTextContent = string2wstring(content);
 	}
 
-	childNode = columnEditorRoot->FirstChildElement(L"number");
+	childNode = NppXml::firstChildElement(columnEditorRoot, "number");
 	if (!childNode) return;
 
-	int val;
-	strVal = (childNode->ToElement())->Attribute(L"initial", &val);
-	if (strVal)
+	int val = NppXml::intAttribute(childNode, "initial", -1);
+	if (val > -1)
 		_columnEditParam._initialNum = val;
 
-	strVal = (childNode->ToElement())->Attribute(L"increase", &val);
-	if (strVal)
+	val = NppXml::intAttribute(childNode, "increase", -1);
+	if (val > -1)
 		_columnEditParam._increaseNum = val;
 
-	strVal = (childNode->ToElement())->Attribute(L"repeat", &val);
-	if (strVal)
+	val = NppXml::intAttribute(childNode, "repeat", -1);
+	if (val > -1)
 		_columnEditParam._repeatNum = val;
 
-	strVal = (childNode->ToElement())->Attribute(L"formatChoice");
+	strVal = NppXml::attribute(childNode, "formatChoice");
 	if (strVal)
 	{
 		using enum NumBase;
-		if (lstrcmp(strVal, L"hex") == 0)
+		if (std::strcmp(strVal, "hex") == 0)
 			_columnEditParam._formatChoice = BASE_16;
-		else if (lstrcmp(strVal, L"hexuc") == 0)
+		else if (std::strcmp(strVal, "hexuc") == 0)
 			_columnEditParam._formatChoice = BASE_16_UPPERCASE;
-		else if (lstrcmp(strVal, L"oct") == 0)
+		else if (std::strcmp(strVal, "oct") == 0)
 			_columnEditParam._formatChoice = BASE_08;
-		else if (lstrcmp(strVal, L"bin") == 0)
+		else if (std::strcmp(strVal, "bin") == 0)
 			_columnEditParam._formatChoice = BASE_02;
 		else // "dec"
 			_columnEditParam._formatChoice = BASE_10;
 	}
 
-	strVal = (childNode->ToElement())->Attribute(L"leadingChoice");
+	strVal = NppXml::attribute(childNode, "leadingChoice");
 	if (strVal)
 	{
 		using enum ColumnEditorParam::leadingChoice;
-		_columnEditParam._leadingChoice = noneLeading;
-		if (lstrcmp(strVal, L"zeros") == 0)
+		if (std::strcmp(strVal, "zeros") == 0)
 		{
 			_columnEditParam._leadingChoice = zeroLeading;
 		}
-		else if (lstrcmp(strVal, L"spaces") == 0)
+		else if (std::strcmp(strVal, "spaces") == 0)
 		{
 			_columnEditParam._leadingChoice = spaceLeading;
+		}
+		else // "none"
+		{
+			_columnEditParam._leadingChoice = noneLeading;
 		}
 	}
 }
 
-void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
+void NppParameters::feedFindHistoryParameters(const NppXml::Element& element)
 {
-	TiXmlNode *findHistoryRoot = node->FirstChildElement(L"FindHistory");
+	NppXml::Element findHistoryRoot = NppXml::firstChildElement(element, "FindHistory");
 	if (!findHistoryRoot) return;
 
-	(findHistoryRoot->ToElement())->Attribute(L"nbMaxFindHistoryPath", &_findHistory._nbMaxFindHistoryPath);
+	_findHistory._nbMaxFindHistoryPath = NppXml::intAttribute(findHistoryRoot, "nbMaxFindHistoryPath", _findHistory._nbMaxFindHistoryPath);
 	if (_findHistory._nbMaxFindHistoryPath > NB_MAX_FINDHISTORY_PATH)
 	{
 		_findHistory._nbMaxFindHistoryPath = NB_MAX_FINDHISTORY_PATH;
 	}
 	if ((_findHistory._nbMaxFindHistoryPath > 0) && (_findHistory._nbMaxFindHistoryPath <= NB_MAX_FINDHISTORY_PATH))
 	{
-		for (TiXmlNode *childNode = findHistoryRoot->FirstChildElement(L"Path");
+		for (NppXml::Element childNode = NppXml::firstChildElement(findHistoryRoot, "Path");
 			childNode && (_findHistory._findHistoryPaths.size() < NB_MAX_FINDHISTORY_PATH);
-			childNode = childNode->NextSibling(L"Path") )
+			childNode = NppXml::nextSiblingElement(childNode, "Path"))
 		{
-			const wchar_t *filePath = (childNode->ToElement())->Attribute(L"name");
+			const char* filePath = NppXml::attribute(childNode, "name");
 			if (filePath)
 			{
-				_findHistory._findHistoryPaths.push_back(std::wstring(filePath));
+				_findHistory._findHistoryPaths.push_back(string2wstring(filePath));
 			}
 		}
 	}
 
-	(findHistoryRoot->ToElement())->Attribute(L"nbMaxFindHistoryFilter", &_findHistory._nbMaxFindHistoryFilter);
+	_findHistory._nbMaxFindHistoryFilter = NppXml::intAttribute(findHistoryRoot, "nbMaxFindHistoryFilter", _findHistory._nbMaxFindHistoryFilter);
 	if (_findHistory._nbMaxFindHistoryFilter > NB_MAX_FINDHISTORY_FILTER)
 	{
 		_findHistory._nbMaxFindHistoryFilter = NB_MAX_FINDHISTORY_FILTER;
 	}
 	if ((_findHistory._nbMaxFindHistoryFilter > 0) && (_findHistory._nbMaxFindHistoryFilter <= NB_MAX_FINDHISTORY_FILTER))
 	{
-		for (TiXmlNode *childNode = findHistoryRoot->FirstChildElement(L"Filter");
+		for (NppXml::Element childNode = NppXml::firstChildElement(findHistoryRoot, "Filter");
 			childNode && (_findHistory._findHistoryFilters.size() < NB_MAX_FINDHISTORY_FILTER);
-			childNode = childNode->NextSibling(L"Filter"))
+			childNode = NppXml::nextSiblingElement(childNode, "Filter"))
 		{
-			const wchar_t *fileFilter = (childNode->ToElement())->Attribute(L"name");
+			const char* fileFilter = NppXml::attribute(childNode, "name");
 			if (fileFilter)
 			{
-				_findHistory._findHistoryFilters.push_back(std::wstring(fileFilter));
+				_findHistory._findHistoryFilters.push_back(string2wstring(fileFilter));
 			}
 		}
 	}
 
-	(findHistoryRoot->ToElement())->Attribute(L"nbMaxFindHistoryFind", &_findHistory._nbMaxFindHistoryFind);
+	_findHistory._nbMaxFindHistoryFind = NppXml::intAttribute(findHistoryRoot, "nbMaxFindHistoryFind", _findHistory._nbMaxFindHistoryFind);
 	if (_findHistory._nbMaxFindHistoryFind > NB_MAX_FINDHISTORY_FIND)
 	{
 		_findHistory._nbMaxFindHistoryFind = NB_MAX_FINDHISTORY_FIND;
 	}
 	if ((_findHistory._nbMaxFindHistoryFind > 0) && (_findHistory._nbMaxFindHistoryFind <= NB_MAX_FINDHISTORY_FIND))
 	{
-		for (TiXmlNode *childNode = findHistoryRoot->FirstChildElement(L"Find");
+		for (NppXml::Element childNode = NppXml::firstChildElement(findHistoryRoot, "Find");
 			childNode && (_findHistory._findHistoryFinds.size() < NB_MAX_FINDHISTORY_FIND);
-			childNode = childNode->NextSibling(L"Find"))
+			childNode = NppXml::nextSiblingElement(childNode, "Find"))
 		{
-			const wchar_t *fileFind = (childNode->ToElement())->Attribute(L"name");
+			const char* fileFind = NppXml::attribute(childNode, "name");
 			if (fileFind)
 			{
-				_findHistory._findHistoryFinds.push_back(std::wstring(fileFind));
+				_findHistory._findHistoryFinds.push_back(string2wstring(fileFind));
 			}
 		}
 	}
 
-	(findHistoryRoot->ToElement())->Attribute(L"nbMaxFindHistoryReplace", &_findHistory._nbMaxFindHistoryReplace);
+	_findHistory._nbMaxFindHistoryReplace = NppXml::intAttribute(findHistoryRoot, "nbMaxFindHistoryReplace", _findHistory._nbMaxFindHistoryReplace);
 	if (_findHistory._nbMaxFindHistoryReplace > NB_MAX_FINDHISTORY_REPLACE)
 	{
 		_findHistory._nbMaxFindHistoryReplace = NB_MAX_FINDHISTORY_REPLACE;
 	}
 	if ((_findHistory._nbMaxFindHistoryReplace > 0) && (_findHistory._nbMaxFindHistoryReplace <= NB_MAX_FINDHISTORY_REPLACE))
 	{
-		for (TiXmlNode *childNode = findHistoryRoot->FirstChildElement(L"Replace");
+		for (NppXml::Element childNode = NppXml::firstChildElement(findHistoryRoot, "Replace");
 			childNode && (_findHistory._findHistoryReplaces.size() < NB_MAX_FINDHISTORY_REPLACE);
-			childNode = childNode->NextSibling(L"Replace"))
+			childNode = NppXml::nextSiblingElement(childNode, "Replace"))
 		{
-			const wchar_t *fileReplace = (childNode->ToElement())->Attribute(L"name");
+			const char* fileReplace = NppXml::attribute(childNode, "name");
 			if (fileReplace)
 			{
-				_findHistory._findHistoryReplaces.push_back(std::wstring(fileReplace));
+				_findHistory._findHistoryReplaces.push_back(string2wstring(fileReplace));
 			}
 		}
 	}
 
-	const wchar_t *boolStr = (findHistoryRoot->ToElement())->Attribute(L"matchWord");
-	if (boolStr)
-		_findHistory._isMatchWord = (lstrcmp(L"yes", boolStr) == 0);
+	_findHistory._isMatchWord = getBoolAttribute(findHistoryRoot, "matchWord");
+	_findHistory._isMatchCase = getBoolAttribute(findHistoryRoot, "matchCase");
+	_findHistory._isWrap = getBoolAttribute(findHistoryRoot, "wrap", _findHistory._isWrap);
+	_findHistory._isDirectionDown = getBoolAttribute(findHistoryRoot, "directionDown", _findHistory._isDirectionDown);
+	_findHistory._isFifRecursive = getBoolAttribute(findHistoryRoot, "fifRecuisive", _findHistory._isFifRecursive);
+	_findHistory._isFifInHiddenFolder = getBoolAttribute(findHistoryRoot, "fifInHiddenFolder");
+	_findHistory._isFifProjectPanel_1 = getBoolAttribute(findHistoryRoot, "fifProjectPanel1");
+	_findHistory._isFifProjectPanel_2 = getBoolAttribute(findHistoryRoot, "fifProjectPanel2");
+	_findHistory._isFifProjectPanel_3 = getBoolAttribute(findHistoryRoot, "fifProjectPanel3");
+	_findHistory._isFilterFollowDoc = getBoolAttribute(findHistoryRoot, "fifFilterFollowsDoc");
 
-	boolStr = (findHistoryRoot->ToElement())->Attribute(L"matchCase");
-	if (boolStr)
-		_findHistory._isMatchCase = (lstrcmp(L"yes", boolStr) == 0);
+	{
+		using enum FindHistory::searchMode;
+		_findHistory._searchMode = getRangeDefaultAttribute(findHistoryRoot, "searchMode", normal, regExpr, _findHistory._searchMode);
+	}
 
-	boolStr = (findHistoryRoot->ToElement())->Attribute(L"wrap");
-	if (boolStr)
-		_findHistory._isWrap = (lstrcmp(L"yes", boolStr) == 0);
+	{
+		using enum FindHistory::transparencyMode;
+		_findHistory._transparencyMode = getRangeDefaultAttribute(findHistoryRoot, "transparencyMode", none, persistent, _findHistory._transparencyMode);
+	}
 
-	boolStr = (findHistoryRoot->ToElement())->Attribute(L"directionDown");
-	if (boolStr)
-		_findHistory._isDirectionDown = (lstrcmp(L"yes", boolStr) == 0);
+	_findHistory._transparency = getRangeDefaultAttribute(findHistoryRoot, "transparency", 1, 200, _findHistory._transparency);
 
-	boolStr = (findHistoryRoot->ToElement())->Attribute(L"fifRecuisive");
-	if (boolStr)
-		_findHistory._isFifRecursive = (lstrcmp(L"yes", boolStr) == 0);
-
-	boolStr = (findHistoryRoot->ToElement())->Attribute(L"fifInHiddenFolder");
-	if (boolStr)
-		_findHistory._isFifInHiddenFolder = (lstrcmp(L"yes", boolStr) == 0);
-
-	boolStr = (findHistoryRoot->ToElement())->Attribute(L"fifProjectPanel1");
-	if (boolStr)
-		_findHistory._isFifProjectPanel_1 = (lstrcmp(L"yes", boolStr) == 0);
-
-	boolStr = (findHistoryRoot->ToElement())->Attribute(L"fifProjectPanel2");
-	if (boolStr)
-		_findHistory._isFifProjectPanel_2 = (lstrcmp(L"yes", boolStr) == 0);
-
-	boolStr = (findHistoryRoot->ToElement())->Attribute(L"fifProjectPanel3");
-	if (boolStr)
-		_findHistory._isFifProjectPanel_3 = (lstrcmp(L"yes", boolStr) == 0);
-
-	boolStr = (findHistoryRoot->ToElement())->Attribute(L"fifFilterFollowsDoc");
-	if (boolStr)
-		_findHistory._isFilterFollowDoc = (lstrcmp(L"yes", boolStr) == 0);
-
-	int mode = 0;
-	boolStr = (findHistoryRoot->ToElement())->Attribute(L"searchMode", &mode);
-	if (boolStr)
-		_findHistory._searchMode = (FindHistory::searchMode)mode;
-
-	boolStr = (findHistoryRoot->ToElement())->Attribute(L"transparencyMode", &mode);
-	if (boolStr)
-		_findHistory._transparencyMode = (FindHistory::transparencyMode)mode;
-
-	(findHistoryRoot->ToElement())->Attribute(L"transparency", &_findHistory._transparency);
-	if (_findHistory._transparency <= 0 || _findHistory._transparency > 200)
-		_findHistory._transparency = 150;
-
-	boolStr = (findHistoryRoot->ToElement())->Attribute(L"dotMatchesNewline");
-	if (boolStr)
-		_findHistory._dotMatchesNewline = (lstrcmp(L"yes", boolStr) == 0);
-
-	boolStr = (findHistoryRoot->ToElement())->Attribute(L"isSearch2ButtonsMode");
-	if (boolStr)
-		_findHistory._isSearch2ButtonsMode = (lstrcmp(L"yes", boolStr) == 0);
-
-	boolStr = (findHistoryRoot->ToElement())->Attribute(L"regexBackward4PowerUser");
-	if (boolStr)
-		_findHistory._regexBackward4PowerUser = (lstrcmp(L"yes", boolStr) == 0);
-
-	boolStr = (findHistoryRoot->ToElement())->Attribute(L"bookmarkLine");
-	if (boolStr)
-		_findHistory._isBookmarkLine = (lstrcmp(L"yes", boolStr) == 0);
-
-	boolStr = (findHistoryRoot->ToElement())->Attribute(L"purge");
-	if (boolStr)
-		_findHistory._isPurge = (lstrcmp(L"yes", boolStr) == 0);
+	_findHistory._dotMatchesNewline = getBoolAttribute(findHistoryRoot, "dotMatchesNewline");
+	_findHistory._isSearch2ButtonsMode = getBoolAttribute(findHistoryRoot, "isSearch2ButtonsMode");
+	_findHistory._regexBackward4PowerUser = getBoolAttribute(findHistoryRoot, "regexBackward4PowerUser");
+	_findHistory._isBookmarkLine = getBoolAttribute(findHistoryRoot, "bookmarkLine");
+	_findHistory._isPurge = getBoolAttribute(findHistoryRoot, "purge");
 }
 
 void NppParameters::feedShortcut(const NppXml::Element& element)
@@ -3601,7 +3558,7 @@ void NppParameters::feedMacros(const NppXml::Element& element)
 		childNode = NppXml::nextSiblingElement(childNode, "Macro"))
 	{
 		Shortcut sc;
-		string fdnm;
+		std::string fdnm;
 		if (getShortcuts(childNode, sc, &fdnm))
 		{
 			Macro macro;
@@ -3705,7 +3662,7 @@ void NppParameters::feedUserCmds(const NppXml::Element& element)
 		childNode = NppXml::nextSiblingElement(childNode, "Command"))
 	{
 		Shortcut sc;
-		string fdnm;
+		std::string fdnm;
 		if (getShortcuts(childNode, sc, &fdnm))
 		{
 			NppXml::Node aNode = NppXml::firstChild(childNode); // text node
@@ -3930,7 +3887,7 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(const NppXml
 		}
 	}
 	const int iEnd = _nbUserLang;
-	return pair<unsigned char, unsigned char>(static_cast<unsigned char>(iBegin), static_cast<unsigned char>(iEnd));
+	return std::pair<unsigned char, unsigned char>(static_cast<unsigned char>(iBegin), static_cast<unsigned char>(iEnd));
 }
 
 bool NppParameters::importUDLFromFile(const std::wstring& sourceFile)
@@ -4251,7 +4208,7 @@ void NppParameters::insertCmd(NppXml::Element& cmdRoot, const CommandShortcut& c
 }
 
 
-void NppParameters::insertMacro(NppXml::Element& macrosRoot, const MacroShortcut& macro, const string& folderName)
+void NppParameters::insertMacro(NppXml::Element& macrosRoot, const MacroShortcut& macro, const std::string& folderName)
 {
 	const KeyCombo& key = macro.getKeyCombo();
 	NppXml::Element macroRoot = NppXml::createChildElement(macrosRoot, "Macro");
@@ -4504,7 +4461,7 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 			if (!isEndSessionCritical())
 				::MessageBox(nullptr, backupPathName, L"Saving session error - restoring from the backup:", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
 
-			wstring sessionPathNameFail2Load = sessionPathName;
+			std::wstring sessionPathNameFail2Load = sessionPathName;
 			sessionPathNameFail2Load += L".fail2Load";
 			ReplaceFile(sessionPathName, backupPathName, sessionPathNameFail2Load.c_str(), REPLACEFILE_IGNORE_MERGE_ERRORS | REPLACEFILE_IGNORE_ACL_ERRORS, 0, 0);
 		}
@@ -4551,7 +4508,7 @@ void NppParameters::writeShortcuts()
 
 			// backup shortcuts file "shortcuts.xml" to "shortcuts.xml.v8.5.2.backup"
 			// if the backup file already exists, it will not be overwritten.
-			wstring v852ShortcutsBackupPath = _shortcutsPath;
+			std::wstring v852ShortcutsBackupPath = _shortcutsPath;
 			v852ShortcutsBackupPath += L".v8.5.2.backup";
 			::CopyFile(_shortcutsPath.c_str(), v852ShortcutsBackupPath.c_str(), TRUE);
 
@@ -6742,7 +6699,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					close = closeVal;
 
 				if (open != -1 && close != -1)
-					_nppGUI._matchedPairConf._matchedPairs.push_back(pair<char, char>(char(open), char(close)));
+					_nppGUI._matchedPairConf._matchedPairs.push_back(std::pair<char, char>(char(open), char(close)));
 			}
 		}
 
@@ -10047,7 +10004,7 @@ COLORREF NppParameters::getFindDlgStatusMsgColor(int colourIndex)
 	return findDlgStatusMessageColor[colourIndex];
 }
 
-LanguageNameInfo NppParameters::getLangNameInfoFromNameID(const wstring& langNameID)
+LanguageNameInfo NppParameters::getLangNameInfoFromNameID(const std::wstring& langNameID)
 {
 	for (const auto& lnf : ScintillaEditView::_langNameInfoArray)
 	{

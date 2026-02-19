@@ -340,7 +340,7 @@ struct Style final
 	int _nesting = FONTSTYLE_NONE;
 
 	int _keywordClass = STYLE_NOT_USED;
-	std::wstring _keywords;
+	std::string _keywords;
 };
 
 

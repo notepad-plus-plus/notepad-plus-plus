@@ -21,7 +21,6 @@
 
 #include <shlwapi.h>
 
-#include <algorithm>
 #include <cstdlib>
 #include <cwchar>
 #include <memory>
@@ -870,10 +869,9 @@ void WordStyleDlg::updateUserKeywords()
 	//wchar_t kw[NB_MAX];
 	auto len = ::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_GETTEXTLENGTH, 0, 0);
 	len += 1;
-	auto kw = std::make_unique<wchar_t[]>(len);
-	std::fill_n(kw.get(), len, L'\0');
-	::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_GETTEXT, len, reinterpret_cast<LPARAM>(kw.get()));
-	style._keywords = kw.get();
+	auto kw = std::wstring(len, L'\0');
+	::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_GETTEXT, len, reinterpret_cast<LPARAM>(kw.data()));
+	style._keywords = wstring2string(kw);
 }
 
 void WordStyleDlg::updateFontName()
@@ -1341,8 +1339,8 @@ void WordStyleDlg::setVisualFromStyleList()
 			kws = "";
 		::SendDlgItemMessage(_hSelf, IDC_DEF_KEYWORDS_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(string2wstring(kws).c_str()));
 
-		const wchar_t *ckwStr = style._keywords.c_str();
-		::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(ckwStr));
+		const std::wstring ckwStr = string2wstring(style._keywords);
+		::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(ckwStr.c_str()));
 	}
 
 	int showOption = shouldBeDisplayed?SW_SHOW:SW_HIDE;

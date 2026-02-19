@@ -24,10 +24,16 @@
 
 #include <algorithm>
 #include <array>
+#include <cassert>
+#include <cctype>
 #include <cinttypes>
+#include <cstdint>
+#include <cstdio>
+#include <cstdlib>
 #include <cstring>
 #include <cwchar>
 #include <memory>
+#include <stdexcept>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -38,11 +44,17 @@
 #include <Sci_Position.h>
 #include <Scintilla.h>
 
+#include "Buffer.h"
+#include "Common.h"
 #include "NppConstants.h"
+#include "NppDarkMode.h"
 #include "Parameters.h"
 #include "Sorters.h"
+#include "UserDefineDialog.h"
+#include "Window.h"
 #include "dpiManagerV2.h"
 #include "localization.h"
+#include "resource.h"
 #include "rgba_icons.h"
 
 using namespace std;
@@ -60,7 +72,7 @@ const int ScintillaEditView::_SC_MARGE_SYMBOL = 1;
 const int ScintillaEditView::_SC_MARGE_CHANGEHISTORY = 2;
 const int ScintillaEditView::_SC_MARGE_FOLDER = 3;
 
-string ScintillaEditView::_defaultCharList = "";
+std::string ScintillaEditView::_defaultCharList = "";
 
 /*
 SC_MARKNUM_*     | Arrow               Plus/minus           Circle tree                 Box tree
@@ -327,7 +339,7 @@ size_t getNbDigits(size_t aNum, size_t base)
 	return nbDigits;
 }
 
-bool isCharSingleQuote(__inout wchar_t const c)
+static bool isCharSingleQuote(__inout wchar_t const c)
 {
     if (c == L'\'' || c == L'\u2019' || c == L'\u2018') return true;
     else return false;
@@ -846,7 +858,7 @@ LRESULT CALLBACK ScintillaEditView::ScintillaProc(
 
 #define DEFAULT_FONT_NAME "Courier New"
 
-void ScintillaEditView::setSpecialStyle(const Style & styleToSet)
+void ScintillaEditView::setSpecialStyle(const Style& styleToSet) const
 {
 	int styleID = styleToSet._styleID;
 	if ( styleToSet._colorStyle & COLORSTYLE_FOREGROUND )
@@ -879,9 +891,9 @@ void ScintillaEditView::setSpecialStyle(const Style & styleToSet)
 		execute(SCI_STYLESETSIZE, styleID, styleToSet._fontSize);
 }
 
-void ScintillaEditView::setStyle(Style styleToSet)
+void ScintillaEditView::setStyle(Style styleToSet) const
 {
-	GlobalOverride & go = NppParameters::getInstance().getGlobalOverrideStyle();
+	const GlobalOverride& go = NppParameters::getInstance().getGlobalOverrideStyle();
 
 	if (go.isEnable())
 	{
@@ -954,22 +966,17 @@ void ScintillaEditView::setStyle(Style styleToSet)
 }
 
 
-void ScintillaEditView::setXmlLexer(LangType type)
+void ScintillaEditView::setXmlLexer(LangType type) const
 {
 	if (type == L_XML)
 	{
-		const wchar_t *pKwArray[NB_LIST] = {NULL};
+		const char* pKwArray[NB_LIST]{};
 		
 		setLexerFromLangID(L_XML);
 		makeStyle(type, pKwArray);
 
 		// DOCTYPE command keywords
-		basic_string<char> keywordList("");
-		if (pKwArray[LANG_INDEX_INSTR])
-		{
-			basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
-			keywordList = wstring2string(kwlW, CP_ACP);
-		}
+		std::string keywordList = pKwArray[LANG_INDEX_INSTR] ? pKwArray[LANG_INDEX_INSTR] : "";
 
 		execute(SCI_SETKEYWORDS, 5, reinterpret_cast<LPARAM>(concatToBuildKeywordList(keywordList, L_XML, LANG_INDEX_INSTR)));
 
@@ -995,28 +1002,18 @@ void ScintillaEditView::setXmlLexer(LangType type)
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.hypertext.comment"), reinterpret_cast<LPARAM>("1"));
 }
 
-void ScintillaEditView::setHTMLLexer()
+void ScintillaEditView::setHTMLLexer() const
 {
-	const wchar_t *pKwArray[NB_LIST]{};
+	const char* pKwArray[NB_LIST]{};
 	makeStyle(L_HTML, pKwArray);
 
 	// Tag keywords
-	std::string keywordList;
-	if (pKwArray[LANG_INDEX_INSTR])
-	{
-		std::wstring kwlW = pKwArray[LANG_INDEX_INSTR];
-		keywordList = wstring2string(kwlW, CP_ACP);
-	}
+	std::string keywordList = pKwArray[LANG_INDEX_INSTR] ? pKwArray[LANG_INDEX_INSTR] : "";
 
 	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(concatToBuildKeywordList(keywordList, L_HTML, LANG_INDEX_INSTR)));
 
 	// DOCTYPE command keywords
-	std::string keywordList2;
-	if (pKwArray[LANG_INDEX_INSTR2])
-	{
-		std::wstring kwlW = pKwArray[LANG_INDEX_INSTR2];
-		keywordList2 = wstring2string(kwlW, CP_ACP);
-	}
+	std::string keywordList2 = pKwArray[LANG_INDEX_INSTR2] ? pKwArray[LANG_INDEX_INSTR2] : "";
 
 	execute(SCI_SETKEYWORDS, 5, reinterpret_cast<LPARAM>(concatToBuildKeywordList(keywordList2, L_HTML, LANG_INDEX_INSTR2)));
 
@@ -1025,17 +1022,12 @@ void ScintillaEditView::setHTMLLexer()
 	populateSubStyleKeywords(L_HTML, SCE_H_ATTRIBUTE, 4, LANG_INDEX_SUBSTYLE5, pKwArray);
 }
 
-void ScintillaEditView::setEmbeddedJSLexer()
+void ScintillaEditView::setEmbeddedJSLexer() const
 {
-	const wchar_t *pKwArray[NB_LIST] = {NULL};
+	const char* pKwArray[NB_LIST]{};
 	makeStyle(L_JS_EMBEDDED, pKwArray);
 
-	basic_string<char> keywordList("");
-	if (pKwArray[LANG_INDEX_INSTR])
-	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
-		keywordList = wstring2string(kwlW, CP_ACP);
-	}
+	std::string keywordList = pKwArray[LANG_INDEX_INSTR] ? pKwArray[LANG_INDEX_INSTR] : "";
 
 	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(concatToBuildKeywordList(keywordList, L_JS_EMBEDDED, LANG_INDEX_INSTR)));
 	populateSubStyleKeywords(L_JS_EMBEDDED, SCE_HJ_WORD, 8, LANG_INDEX_SUBSTYLE1, pKwArray);
@@ -1046,27 +1038,16 @@ void ScintillaEditView::setEmbeddedJSLexer()
 	execute(SCI_STYLESETEOLFILLED, SCE_HJA_TEMPLATELITERAL, true);
 }
 
-void ScintillaEditView::setJsonLexer(bool isJson5)
+void ScintillaEditView::setJsonLexer(bool isJson5) const
 {
 	setLexerFromLangID(isJson5 ? L_JSON5 : L_JSON);
 
-	const wchar_t *pKwArray[NB_LIST] = {NULL};
+	const char* pKwArray[NB_LIST]{};
 
 	makeStyle(L_JSON, pKwArray);
 
-	string keywordList;
-	string keywordList2;
-	if (pKwArray[LANG_INDEX_INSTR])
-	{
-		wstring kwlW = pKwArray[LANG_INDEX_INSTR];
-		keywordList = wstring2string(kwlW, CP_ACP);
-	}
-
-	if (pKwArray[LANG_INDEX_INSTR2])
-	{
-		wstring kwlW = pKwArray[LANG_INDEX_INSTR2];
-		keywordList2 = wstring2string(kwlW, CP_ACP);
-	}
+	std::string keywordList = pKwArray[LANG_INDEX_INSTR] ? pKwArray[LANG_INDEX_INSTR] : "";
+	std::string keywordList2 = pKwArray[LANG_INDEX_INSTR2] ? pKwArray[LANG_INDEX_INSTR2] : "";
 
 	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(concatToBuildKeywordList(keywordList, L_JSON, LANG_INDEX_INSTR)));
 	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(concatToBuildKeywordList(keywordList2, L_JSON, LANG_INDEX_INSTR2)));
@@ -1080,17 +1061,12 @@ void ScintillaEditView::setJsonLexer(bool isJson5)
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.json.allow.comments"), reinterpret_cast<LPARAM>("1"));
 }
 
-void ScintillaEditView::setEmbeddedPhpLexer()
+void ScintillaEditView::setEmbeddedPhpLexer() const
 {
-	const wchar_t *pKwArray[NB_LIST] = {NULL};
+	const char* pKwArray[NB_LIST]{};
 	makeStyle(L_PHP, pKwArray);
 
-	basic_string<char> keywordList("");
-	if (pKwArray[LANG_INDEX_INSTR])
-	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
-		keywordList = wstring2string(kwlW, CP_ACP);
-	}
+	std::string keywordList = pKwArray[LANG_INDEX_INSTR] ? pKwArray[LANG_INDEX_INSTR] : "";
 
 	execute(SCI_SETKEYWORDS, 4, reinterpret_cast<LPARAM>(concatToBuildKeywordList(keywordList, L_PHP, LANG_INDEX_INSTR)));
 	populateSubStyleKeywords(L_PHP, SCE_HPHP_WORD, 8, LANG_INDEX_SUBSTYLE1, pKwArray);
@@ -1099,17 +1075,12 @@ void ScintillaEditView::setEmbeddedPhpLexer()
 	execute(SCI_STYLESETEOLFILLED, SCE_HPHP_COMMENT, true);
 }
 
-void ScintillaEditView::setEmbeddedAspLexer()
+void ScintillaEditView::setEmbeddedAspLexer() const
 {
-	const wchar_t *pKwArray[NB_LIST] = {NULL};
+	const char* pKwArray[NB_LIST]{};
 	makeStyle(L_ASP, pKwArray);
 
-	basic_string<char> keywordList("");
-	if (pKwArray[LANG_INDEX_INSTR])
-	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
-		keywordList = wstring2string(kwlW, CP_ACP);
-	}
+	std::string keywordList = pKwArray[LANG_INDEX_INSTR] ? pKwArray[LANG_INDEX_INSTR] : "";
 
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("asp.default.language"), reinterpret_cast<LPARAM>("2"));
 
@@ -1120,7 +1091,7 @@ void ScintillaEditView::setEmbeddedAspLexer()
     execute(SCI_STYLESETEOLFILLED, SCE_HBA_DEFAULT, true);
 }
 
-void ScintillaEditView::setUserLexer(const wchar_t *userLangName)
+void ScintillaEditView::setUserLexer(const wchar_t* userLangName) const
 {
 	int setKeywordsCounter = 0;
 	setLexerFromLangID(L_USER);
@@ -1248,7 +1219,7 @@ void ScintillaEditView::setUserLexer(const wchar_t *userLangName)
 	}
 }
 
-void ScintillaEditView::setExternalLexer(LangType typeDoc)
+void ScintillaEditView::setExternalLexer(LangType typeDoc) const
 {
 	int id = typeDoc - L_EXTERNAL;
 
@@ -1264,7 +1235,7 @@ void ScintillaEditView::setExternalLexer(LangType typeDoc)
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	const wchar_t* lexerNameW = wmc.char2wchar(externalLexer->_name.c_str(), CP_UTF8);
-	LexerStyler *pStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(lexerNameW);
+	const LexerStyler* pStyler = NppParameters::getInstance().getLStylerArray().getLexerStylerByName(lexerNameW);
 	if (pStyler)
 	{
 		for (const Style & style : *pStyler)
@@ -1273,21 +1244,15 @@ void ScintillaEditView::setExternalLexer(LangType typeDoc)
 
 			if (style._keywordClass >= 0 && style._keywordClass <= KEYWORDSET_MAX)
 			{
-				basic_string<char> keywordList("");
-				if (!style._keywords.empty())
-				{
-					keywordList = wstring2string(style._keywords, CP_ACP);
-				}
+				std::string keywordList = style._keywords;
 				execute(SCI_SETKEYWORDS, style._keywordClass, reinterpret_cast<LPARAM>(concatToBuildKeywordList(keywordList, typeDoc, style._keywordClass)));
 			}
 		}
 	}
 }
 
-void ScintillaEditView::setCppLexer(LangType langType)
+void ScintillaEditView::setCppLexer(LangType langType) const
 {
-	const char* doxygenKeyWords = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
-
 	setLexerFromLangID(L_CPP);
 
 	if (langType == L_GOLANG)
@@ -1297,37 +1262,22 @@ void ScintillaEditView::setCppLexer(LangType langType)
 
 	if (langType != L_RC)
 	{
+		const char* doxygenKeyWords = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
 		if (doxygenKeyWords)
 		{
 			execute(SCI_SETKEYWORDS, 2, reinterpret_cast<LPARAM>(doxygenKeyWords));
 		}
 	}
 
-	const wchar_t *pKwArray[NB_LIST] = {NULL};
+	const char* pKwArray[NB_LIST]{};
 	makeStyle(langType, pKwArray);
 
-	basic_string<char> keywordListInstruction("");
-	basic_string<char> keywordListType("");
-	basic_string<char> keywordListGlobalclass("");
-	if (pKwArray[LANG_INDEX_INSTR])
-	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
-		keywordListInstruction = wstring2string(kwlW, CP_ACP);
-	}
+	std::string keywordListInstruction = pKwArray[LANG_INDEX_INSTR] ? pKwArray[LANG_INDEX_INSTR] : "";
+	std::string keywordListType = pKwArray[LANG_INDEX_TYPE] ? pKwArray[LANG_INDEX_TYPE] : "";
+	std::string keywordListGlobalclass = pKwArray[LANG_INDEX_INSTR2] ? pKwArray[LANG_INDEX_INSTR2] : "";
+
 	const char* cppInstrs = concatToBuildKeywordList(keywordListInstruction, langType, LANG_INDEX_INSTR);
-
-	if (pKwArray[LANG_INDEX_TYPE])
-	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE];
-		keywordListType = wstring2string(kwlW, CP_ACP);
-	}
 	const char* cppTypes = concatToBuildKeywordList(keywordListType, langType, LANG_INDEX_TYPE);
-
-	if (pKwArray[LANG_INDEX_INSTR2])
-	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR2];
-		keywordListGlobalclass = wstring2string(kwlW, CP_ACP);
-	}
 	const char* cppGlobalclass = concatToBuildKeywordList(keywordListGlobalclass, langType, LANG_INDEX_INSTR2);
 
 	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(cppInstrs));
@@ -1348,12 +1298,12 @@ void ScintillaEditView::setCppLexer(LangType langType)
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.cpp.track.preprocessor"), reinterpret_cast<LPARAM>("0"));
 }
 
-void ScintillaEditView::setJsLexer()
+void ScintillaEditView::setJsLexer() const
 {
 	const char* doxygenKeyWords = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
 
 	setLexerFromLangID(L_JAVASCRIPT);
-	const wchar_t *pKwArray[NB_LIST] = {NULL};
+	const char* pKwArray[NB_LIST]{};
 	makeStyle(L_JAVASCRIPT, pKwArray);
 
 	if (doxygenKeyWords)
@@ -1362,7 +1312,7 @@ void ScintillaEditView::setJsLexer()
 	}
 
 	const wchar_t *newLexerName = ScintillaEditView::_langNameInfoArray[L_JAVASCRIPT]._langName;
-	LexerStyler *pNewStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(newLexerName);
+	const LexerStyler* pNewStyler = NppParameters::getInstance().getLStylerArray().getLexerStylerByName(newLexerName);
 	if (pNewStyler) // New js styler is available, so we can use it do more modern styling
 	{
 		for (const Style & style : *pNewStyler)
@@ -1370,29 +1320,12 @@ void ScintillaEditView::setJsLexer()
 			setStyle(style);
 		}
 
-		basic_string<char> keywordListInstruction("");
-		basic_string<char> keywordListType("");
-		basic_string<char> keywordListInstruction2("");
+		std::string keywordListInstruction = pKwArray[LANG_INDEX_INSTR] ? pKwArray[LANG_INDEX_INSTR] : "";
+		std::string keywordListType = pKwArray[LANG_INDEX_TYPE] ? pKwArray[LANG_INDEX_TYPE] : "";
+		std::string keywordListInstruction2 = pKwArray[LANG_INDEX_INSTR2] ? pKwArray[LANG_INDEX_INSTR2] : "";
 
-		if (pKwArray[LANG_INDEX_INSTR])
-		{
-			basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
-			keywordListInstruction = wstring2string(kwlW, CP_ACP);
-		}
 		const char *jsInstrs = concatToBuildKeywordList(keywordListInstruction, L_JAVASCRIPT, LANG_INDEX_INSTR);
-
-		if (pKwArray[LANG_INDEX_TYPE])
-		{
-			basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE];
-			keywordListType = wstring2string(kwlW, CP_ACP);
-		}
 		const char *jsTypes = concatToBuildKeywordList(keywordListType, L_JAVASCRIPT, LANG_INDEX_TYPE);
-
-		if (pKwArray[LANG_INDEX_INSTR2])
-		{
-			basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR2];
-			keywordListInstruction2 = wstring2string(kwlW, CP_ACP);
-		}
 		const char *jsInstrs2 = concatToBuildKeywordList(keywordListInstruction2, L_JAVASCRIPT, LANG_INDEX_INSTR2);
 
 		execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(jsInstrs));
@@ -1405,7 +1338,7 @@ void ScintillaEditView::setJsLexer()
 	else // New js styler is not available, we use the old styling for the sake of retro-compatibility
 	{
 		const wchar_t *lexerName = ScintillaEditView::_langNameInfoArray[L_JS_EMBEDDED]._langName;
-		LexerStyler *pOldStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(lexerName);
+		const LexerStyler* pOldStyler = NppParameters::getInstance().getLStylerArray().getLexerStylerByName(lexerName);
 
 		if (pOldStyler)
 		{
@@ -1438,12 +1371,8 @@ void ScintillaEditView::setJsLexer()
 
 		makeStyle(L_JS_EMBEDDED, pKwArray);
 
-		basic_string<char> keywordListInstruction("");
-		if (pKwArray[LANG_INDEX_INSTR])
-		{
-			basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
-			keywordListInstruction = wstring2string(kwlW, CP_ACP);
-		}
+		std::string keywordListInstruction = pKwArray[LANG_INDEX_INSTR] ? pKwArray[LANG_INDEX_INSTR] : "";
+
 		const char *jsEmbeddedInstrs = concatToBuildKeywordList(keywordListInstruction, L_JS_EMBEDDED, LANG_INDEX_INSTR);
 		execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(jsEmbeddedInstrs));
 	}
@@ -1462,7 +1391,7 @@ void ScintillaEditView::setJsLexer()
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.cpp.backquoted.strings"), reinterpret_cast<LPARAM>("2"));
 }
 
-void ScintillaEditView::setTclLexer()
+void ScintillaEditView::setTclLexer() const
 {
 	const char *kw_TCL_KW;
 	const char *kw_TK_KW;
@@ -1477,80 +1406,27 @@ void ScintillaEditView::setTclLexer()
 
 	setLexerFromLangID(L_TCL);
 
-	const wchar_t *pKwArray[NB_LIST] = {NULL};
+	const char* pKwArray[NB_LIST]{};
 	makeStyle(L_TCL, pKwArray);
 
-	basic_string<char> keywordList_TCL_KW("");
-	basic_string<char> keywordList_TK_KW("");
-	basic_string<char> keywordList_TK_CMD("");
-	basic_string<char> keywordList_iTCL_KW("");
-	basic_string<char> keywordList_EXPAND("");
-	basic_string<char> keywordList_USER1("");
-	basic_string<char> keywordList_USER2("");
-	basic_string<char> keywordList_USER3("");
-	basic_string<char> keywordList_USER4("");
+	std::string keywordList_TCL_KW = pKwArray[LANG_INDEX_INSTR] ? pKwArray[LANG_INDEX_INSTR] : "";
+	std::string keywordList_TK_KW = pKwArray[LANG_INDEX_INSTR2] ? pKwArray[LANG_INDEX_INSTR2] : "";
+	std::string keywordList_iTCL_KW = pKwArray[LANG_INDEX_TYPE] ? pKwArray[LANG_INDEX_TYPE] : "";
+	std::string keywordList_TK_CMD = pKwArray[LANG_INDEX_TYPE2] ? pKwArray[LANG_INDEX_TYPE2] : "";
+	std::string keywordList_EXPAND = pKwArray[LANG_INDEX_TYPE3] ? pKwArray[LANG_INDEX_TYPE3] : "";
+	std::string keywordList_USER1 = pKwArray[LANG_INDEX_TYPE4] ? pKwArray[LANG_INDEX_TYPE4] : "";
+	std::string keywordList_USER2 = pKwArray[LANG_INDEX_TYPE5] ? pKwArray[LANG_INDEX_TYPE5] : "";
+	std::string keywordList_USER3 = pKwArray[LANG_INDEX_TYPE6] ? pKwArray[LANG_INDEX_TYPE6] : "";
+	std::string keywordList_USER4 = pKwArray[LANG_INDEX_TYPE7] ? pKwArray[LANG_INDEX_TYPE7] : "";
 
-	if (pKwArray[LANG_INDEX_INSTR])
-	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
-		keywordList_TCL_KW = wstring2string(kwlW, CP_ACP);
-	}
 	kw_TCL_KW = concatToBuildKeywordList(keywordList_TCL_KW, L_TCL, LANG_INDEX_INSTR);
-
-	if (pKwArray[LANG_INDEX_INSTR2])
-	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR2];
-		keywordList_TK_KW = wstring2string(kwlW, CP_ACP);
-	}
 	kw_TK_KW = concatToBuildKeywordList(keywordList_TK_KW, L_TCL, LANG_INDEX_INSTR2);
-
-	if (pKwArray[LANG_INDEX_TYPE])
-	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE];
-		keywordList_iTCL_KW = wstring2string(kwlW, CP_ACP);
-	}
 	kw_iTCL_KW = concatToBuildKeywordList(keywordList_iTCL_KW, L_TCL, LANG_INDEX_TYPE);
-
-	if (pKwArray[LANG_INDEX_TYPE2])
-	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE2];
-		keywordList_TK_CMD = wstring2string(kwlW, CP_ACP);
-	}
 	kw_TK_CMD = concatToBuildKeywordList(keywordList_TK_CMD, L_TCL, LANG_INDEX_TYPE2);
-
-	if (pKwArray[LANG_INDEX_TYPE3])
-	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE3];
-		keywordList_EXPAND = wstring2string(kwlW, CP_ACP);
-	}
 	kw_EXPAND = concatToBuildKeywordList(keywordList_EXPAND, L_TCL, LANG_INDEX_TYPE3);
-
-	if (pKwArray[LANG_INDEX_TYPE4])
-	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE4];
-		keywordList_USER1 = wstring2string(kwlW, CP_ACP);
-	}
 	kw_USER1 = concatToBuildKeywordList(keywordList_USER1, L_TCL, LANG_INDEX_TYPE4);
-
-	if (pKwArray[LANG_INDEX_TYPE5])
-	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE5];
-		keywordList_USER2= wstring2string(kwlW, CP_ACP);
-	}
 	kw_USER2 = concatToBuildKeywordList(keywordList_USER2, L_TCL, LANG_INDEX_TYPE5);
-
-	if (pKwArray[LANG_INDEX_TYPE6])
-	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE6];
-		keywordList_USER3 = wstring2string(kwlW, CP_ACP);
-	}
 	kw_USER3 = concatToBuildKeywordList(keywordList_USER3, L_TCL, LANG_INDEX_TYPE6);
-
-	if (pKwArray[LANG_INDEX_TYPE7])
-	{
-		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE7];
-		keywordList_USER4 = wstring2string(kwlW, CP_ACP);
-	}
 	kw_USER4 = concatToBuildKeywordList(keywordList_USER4, L_TCL, LANG_INDEX_TYPE7);
 
 	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(kw_TCL_KW));
@@ -1564,41 +1440,24 @@ void ScintillaEditView::setTclLexer()
 	execute(SCI_SETKEYWORDS, 8, reinterpret_cast<LPARAM>(kw_USER4));
 }
 
-void ScintillaEditView::setObjCLexer(LangType langType)
+void ScintillaEditView::setObjCLexer(LangType langType) const
 {
 	setLexerFromLangID(L_OBJC);
 
-	const wchar_t *pKwArray[NB_LIST] = {NULL};
+	const char* pKwArray[NB_LIST]{};
 
 	makeStyle(langType, pKwArray);
 
-	basic_string<char> objcInstr1Kwl("");
-	if (pKwArray[LANG_INDEX_INSTR])
-	{
-		objcInstr1Kwl = wstring2string(pKwArray[LANG_INDEX_INSTR], CP_ACP);
-	}
+	std::string objcInstr1Kwl = pKwArray[LANG_INDEX_INSTR] ? pKwArray[LANG_INDEX_INSTR] : "";
 	const char *objcInstrs = concatToBuildKeywordList(objcInstr1Kwl, langType, LANG_INDEX_INSTR);
 
-	basic_string<char> objcInstr2Kwl("");
-	if (pKwArray[LANG_INDEX_INSTR2])
-	{
-		objcInstr2Kwl = wstring2string(pKwArray[LANG_INDEX_INSTR2], CP_ACP);
-	}
+	std::string objcInstr2Kwl = pKwArray[LANG_INDEX_INSTR2] ? pKwArray[LANG_INDEX_INSTR2] : "";
 	const char *objCDirective = concatToBuildKeywordList(objcInstr2Kwl, langType, LANG_INDEX_INSTR2);
 
-	basic_string<char> objcTypeKwl("");
-	if (pKwArray[LANG_INDEX_TYPE])
-	{
-		objcTypeKwl = wstring2string(pKwArray[LANG_INDEX_TYPE], CP_ACP);
-	}
+	std::string objcTypeKwl = pKwArray[LANG_INDEX_TYPE] ? pKwArray[LANG_INDEX_TYPE] : "";
 	const char *objcTypes = concatToBuildKeywordList(objcTypeKwl, langType, LANG_INDEX_TYPE);
 
-
-	basic_string<char> objcType2Kwl("");
-	if (pKwArray[LANG_INDEX_TYPE2])
-	{
-		objcType2Kwl = wstring2string(pKwArray[LANG_INDEX_TYPE2], CP_ACP);
-	}
+	std::string objcType2Kwl = pKwArray[LANG_INDEX_TYPE2] ? pKwArray[LANG_INDEX_TYPE2] : "";
 	const char *objCQualifier = concatToBuildKeywordList(objcType2Kwl, langType, LANG_INDEX_TYPE2);
 
 	const char* doxygenKeyWords = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
@@ -1617,7 +1476,7 @@ void ScintillaEditView::setObjCLexer(LangType langType)
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
 }
 
-void ScintillaEditView::setTypeScriptLexer()
+void ScintillaEditView::setTypeScriptLexer() const
 {
 	const char* doxygenKeyWords = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
 	setLexerFromLangID(L_TYPESCRIPT);
@@ -1627,23 +1486,13 @@ void ScintillaEditView::setTypeScriptLexer()
 		execute(SCI_SETKEYWORDS, 2, reinterpret_cast<LPARAM>(doxygenKeyWords));
 	}
 
-	const wchar_t *pKwArray[NB_LIST] = {NULL};
+	const char* pKwArray[NB_LIST]{};
 	makeStyle(L_TYPESCRIPT, pKwArray);
 
-	auto getKeywordList = [&pKwArray](const int i) 
-	{
-		if (pKwArray[i])
-		{
-			basic_string<wchar_t> kwlW = pKwArray[i];
-			return wstring2string(kwlW, CP_ACP);
-		}
-		return basic_string<char>("");
-	};
-
-	std::string keywordListInstruction = getKeywordList(LANG_INDEX_INSTR);
+	std::string keywordListInstruction = pKwArray[LANG_INDEX_INSTR] ? pKwArray[LANG_INDEX_INSTR] : "";
 	const char* tsInstructions = concatToBuildKeywordList(keywordListInstruction, L_TYPESCRIPT, LANG_INDEX_INSTR);
 
-	string keywordListType = getKeywordList(LANG_INDEX_TYPE);
+	std::string keywordListType = pKwArray[LANG_INDEX_TYPE] ? pKwArray[LANG_INDEX_TYPE] : "";
 	const char* tsTypes = concatToBuildKeywordList(keywordListType, L_TYPESCRIPT, LANG_INDEX_TYPE);
 
 	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(tsInstructions));
@@ -1662,16 +1511,14 @@ void ScintillaEditView::setTypeScriptLexer()
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.cpp.backquoted.strings"), reinterpret_cast<LPARAM>("1"));
 }
 
-void ScintillaEditView::setKeywords(LangType langType, const char *keywords, int index)
+void ScintillaEditView::setKeywords(LangType langType, const char* keywords, int index) const
 {
-	std::basic_string<char> wordList;
-	wordList = (keywords)?keywords:"";
+	std::string wordList = (keywords) ? keywords : "";
 	execute(SCI_SETKEYWORDS, index, reinterpret_cast<LPARAM>(concatToBuildKeywordList(wordList, langType, index)));
 }
 
-void ScintillaEditView::populateSubStyleKeywords(LangType langType, int baseStyleID, int numSubStyles, int firstLangIndex, const wchar_t **pKwArray)
+void ScintillaEditView::populateSubStyleKeywords(LangType langType, int baseStyleID, int numSubStyles, int firstLangIndex, const char** pKwArray) const
 {
-	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	int firstID = execute(SCI_ALLOCATESUBSTYLES, baseStyleID, numSubStyles) & 0xFF;
 
 	if(pKwArray && (firstID>=0))
@@ -1680,74 +1527,63 @@ void ScintillaEditView::populateSubStyleKeywords(LangType langType, int baseStyl
 		{
 			int ss = firstLangIndex + i;
 			int styleID = firstID + i;
-			basic_string<char> userWords = pKwArray[ss] ? wmc.wchar2char(pKwArray[ss], CP_ACP) : "";
+			std::string userWords = pKwArray[ss] ? pKwArray[ss] : "";
 			execute(SCI_SETIDENTIFIERS, styleID, reinterpret_cast<LPARAM>(concatToBuildKeywordList(userWords, langType, ss)));
 		}
 	}
 }
 
-void ScintillaEditView::setLexer(LangType langType, int whichList, int baseStyleID, int numSubStyles)
+void ScintillaEditView::setLexer(LangType langType, int whichList, int baseStyleID, int numSubStyles) const
 {
 	setLexerFromLangID(langType);
 
-	const wchar_t *pKwArray[NB_LIST] = {NULL};
+	const char* pKwArray[NB_LIST]{};
 
 	makeStyle(langType, pKwArray);
 
-	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-
 	if (whichList & LIST_0)
 	{
-		const char * keyWords_char = wmc.wchar2char(pKwArray[LANG_INDEX_INSTR], CP_ACP);
-		setKeywords(langType, keyWords_char, LANG_INDEX_INSTR);
+		setKeywords(langType, pKwArray[LANG_INDEX_INSTR], LANG_INDEX_INSTR);
 	}
 
 	if (whichList & LIST_1)
 	{
-		const char * keyWords_char = wmc.wchar2char(pKwArray[LANG_INDEX_INSTR2], CP_ACP);
-		setKeywords(langType, keyWords_char, LANG_INDEX_INSTR2);
+		setKeywords(langType, pKwArray[LANG_INDEX_INSTR2], LANG_INDEX_INSTR2);
 	}
 
 	if (whichList & LIST_2)
 	{
-		const char * keyWords_char = wmc.wchar2char(pKwArray[LANG_INDEX_TYPE], CP_ACP);
-		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE);
+		setKeywords(langType, pKwArray[LANG_INDEX_TYPE], LANG_INDEX_TYPE);
 	}
 
 	if (whichList & LIST_3)
 	{
-		const char * keyWords_char = wmc.wchar2char(pKwArray[LANG_INDEX_TYPE2], CP_ACP);
-		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE2);
+		setKeywords(langType, pKwArray[LANG_INDEX_TYPE2], LANG_INDEX_TYPE2);
 	}
 
 	if (whichList & LIST_4)
 	{
-		const char * keyWords_char = wmc.wchar2char(pKwArray[LANG_INDEX_TYPE3], CP_ACP);
-		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE3);
+		setKeywords(langType, pKwArray[LANG_INDEX_TYPE3], LANG_INDEX_TYPE3);
 	}
 
 	if (whichList & LIST_5)
 	{
-		const char * keyWords_char = wmc.wchar2char(pKwArray[LANG_INDEX_TYPE4], CP_ACP);
-		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE4);
+		setKeywords(langType, pKwArray[LANG_INDEX_TYPE4], LANG_INDEX_TYPE4);
 	}
 
 	if (whichList & LIST_6)
 	{
-		const char * keyWords_char = wmc.wchar2char(pKwArray[LANG_INDEX_TYPE5], CP_ACP);
-		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE5);
+		setKeywords(langType, pKwArray[LANG_INDEX_TYPE5], LANG_INDEX_TYPE5);
 	}
 
 	if (whichList & LIST_7)
 	{
-		const char * keyWords_char = wmc.wchar2char(pKwArray[LANG_INDEX_TYPE6], CP_ACP);
-		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE6);
+		setKeywords(langType, pKwArray[LANG_INDEX_TYPE6], LANG_INDEX_TYPE6);
 	}
 
 	if (whichList & LIST_8)
 	{
-		const char * keyWords_char = wmc.wchar2char(pKwArray[LANG_INDEX_TYPE7], CP_ACP);
-		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE7);
+		setKeywords(langType, pKwArray[LANG_INDEX_TYPE7], LANG_INDEX_TYPE7);
 	}
 	
 	if (baseStyleID != STYLE_NOT_USED)
@@ -1760,10 +1596,10 @@ void ScintillaEditView::setLexer(LangType langType, int whichList, int baseStyle
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.comment"), reinterpret_cast<LPARAM>("1"));
 }
 
-void ScintillaEditView::makeStyle(LangType language, const wchar_t **keywordArray)
+void ScintillaEditView::makeStyle(LangType langType, const char** keywordArray) const
 {
-	const wchar_t * lexerName = ScintillaEditView::_langNameInfoArray[language]._langName;
-	LexerStyler *pStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(lexerName);
+	const wchar_t * lexerName = ScintillaEditView::_langNameInfoArray[langType]._langName;
+	const LexerStyler* pStyler = NppParameters::getInstance().getLStylerArray().getLexerStylerByName(lexerName);
 	if (pStyler)
 	{
 		for (const Style & style : *pStyler)
@@ -1778,12 +1614,12 @@ void ScintillaEditView::makeStyle(LangType language, const wchar_t **keywordArra
 	}
 }
 
-void ScintillaEditView::restoreDefaultWordChars()
+void ScintillaEditView::restoreDefaultWordChars() const
 {
 	execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(_defaultCharList.c_str()));
 }
 
-void ScintillaEditView::addCustomWordChars()
+void ScintillaEditView::addCustomWordChars() const
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	const NppGUI & nppGUI = nppParam.getNppGUI();
@@ -1819,7 +1655,7 @@ void ScintillaEditView::addCustomWordChars()
 	}
 }
 
-void ScintillaEditView::setWordChars()
+void ScintillaEditView::setWordChars() const
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	const NppGUI & nppGUI = nppParam.getNppGUI();
@@ -1829,7 +1665,7 @@ void ScintillaEditView::setWordChars()
 		addCustomWordChars();
 }
 
-void ScintillaEditView::setCRLF(long color)
+void ScintillaEditView::setCRLF(long color) const
 {
 	NppParameters& nppParams = NppParameters::getInstance();
 	const ScintillaViewParams& svp = nppParams.getSVP();
@@ -1877,7 +1713,7 @@ void ScintillaEditView::setCRLF(long color)
 	redraw();
 }
 
-void ScintillaEditView::setNpcAndCcUniEOL(long color)
+void ScintillaEditView::setNpcAndCcUniEOL(long color) const
 {
 	NppParameters& nppParams = NppParameters::getInstance();
 	const ScintillaViewParams& svp = nppParams.getSVP();
@@ -2493,7 +2329,7 @@ void ScintillaEditView::styleChange()
 	restyleBuffer();
 }
 
-bool ScintillaEditView::setLexerFromLangID(int langID) // Internal lexer only
+bool ScintillaEditView::setLexerFromLangID(int langID) const // Internal lexer only
 {
 	if (langID >= L_EXTERNAL)
 		return false;
@@ -2550,7 +2386,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	restoreHiddenLines();
 	setCRLF();
 
-	NppParameters& nppParam = NppParameters::getInstance();
+	const NppParameters& nppParam = NppParameters::getInstance();
 	const ScintillaViewParams& svp = nppParam.getSVP();
 
 	int enabledCHFlag = SC_CHANGE_HISTORY_DISABLED;
@@ -2569,7 +2405,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	if (isTextDirectionRTL() != buffer->isRTL())
 		changeTextDirection(buffer->isRTL());
 
-    return;	//all done
+	return;	//all done
 }
 
 void ScintillaEditView::getCurrentFoldStates(std::vector<size_t> & lineStateVector)
@@ -3764,7 +3600,7 @@ void ScintillaEditView::updateLineNumberWidth()
 }
 
 
-const char * ScintillaEditView::concatToBuildKeywordList(std::basic_string<char> & kwl, LangType langType, int keywordIndex)
+const char* ScintillaEditView::concatToBuildKeywordList(std::string& kwl, LangType langType, int keywordIndex)
 {
 	kwl += " ";
 	const char* defKwl_generic = NppParameters::getInstance().getWordList(langType, keywordIndex);
@@ -3876,7 +3712,7 @@ intptr_t ScintillaEditView::caseConvertRange(intptr_t start, intptr_t end, TextC
 	return (start + mbLen) - end;
 }
 
-void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const int & nbChars, const TextCase & caseToConvert) const
+void ScintillaEditView::changeCase(__inout wchar_t* const strWToConvert, const int& nbChars, const TextCase& caseToConvert)
 {
 	if (strWToConvert == nullptr || nbChars == 0)
 		return;
@@ -4445,7 +4281,7 @@ Show:
 			Set last start to lastchild
 */
 	
-void ScintillaEditView::hideMarkedLines(size_t searchStart, bool toEndOfDoc)
+void ScintillaEditView::hideMarkedLines(size_t searchStart, bool toEndOfDoc) const
 {
 	size_t maxLines = execute(SCI_GETLINECOUNT);
 
@@ -4477,7 +4313,7 @@ void ScintillaEditView::hideMarkedLines(size_t searchStart, bool toEndOfDoc)
 	}
 }
 	
-void ScintillaEditView::showHiddenLines(size_t searchStart, bool toEndOfDoc, bool doDelete)
+void ScintillaEditView::showHiddenLines(size_t searchStart, bool toEndOfDoc, bool doDelete) const
 {
 	size_t maxLines = execute(SCI_GETLINECOUNT);
 

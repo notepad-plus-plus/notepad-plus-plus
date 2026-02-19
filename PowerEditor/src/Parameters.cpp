@@ -5016,7 +5016,7 @@ void StyleArray::addStyler(int styleID, const NppXml::Element& styleNode)
 		NppXml::Node v = NppXml::firstChild(styleNode);
 		if (v)
 		{
-			s._keywords = string2wstring(NppXml::value(v));
+			s._keywords = NppXml::value(v);
 		}
 	}
 }
@@ -9533,7 +9533,7 @@ void NppParameters::writeStyle2Element(const Style& style2Write, Style& style2Sy
 
 	NppXml::Node teteDeNoeud = NppXml::lastChild(element);
 
-	const std::string kws = wstring2string(style2Write._keywords);
+	const std::string& kws = style2Write._keywords;
 
 	if (teteDeNoeud)
 		NppXml::setValue(teteDeNoeud, kws.c_str());

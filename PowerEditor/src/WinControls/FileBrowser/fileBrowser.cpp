@@ -21,12 +21,14 @@
 
 #include <shlwapi.h>
 #include <windowsx.h>
+#include <shlobj.h>
 
 #include <algorithm>
 #include <cstdlib>
 #include <cwchar>
 #include <string>
 #include <vector>
+#include <filesystem>
 
 #include "Common.h"
 #include "DockingDlgInterface.h"
@@ -838,28 +840,36 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		case IDM_FILEBROWSER_EXPLORERHERE:
 		{
 			if (!selectedNode) return;
-
-			wstring path = getNodePath(selectedNode);
-			if (doesPathExist(path.c_str()))
+			
+			wstring selPath = getNodePath(selectedNode);
+			if (doesPathExist(selPath.c_str()))
 			{
-				wchar_t explorerPath[MAX_PATH] {};
-				if (!::GetWindowsDirectoryW(explorerPath, MAX_PATH))
-					return;
+				namespace fs = std::filesystem;
+				bool isFolder = fs::is_directory(selPath);
 
-				PathAppend(explorerPath, L"explorer.exe");
-
-				if (!doesFileExist(explorerPath))
-					return;
-
-				std::wstring explorerCmd = explorerPath;
+				HRESULT hr = HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
 				
-				if (getNodeType(selectedNode) == browserNodeType_file)
-					explorerCmd += L" /select,\"" + path + L"\"";
+				if (isFolder)
+				{
+					::ShellExecuteW(getHSelf(), L"explore", selPath.c_str(), nullptr, nullptr, SW_SHOWNORMAL);
+				}
 				else
-					explorerCmd += L" \"" + path + L"\"";
+				{
+					ScopedCOMInit com;
+					if (com.isInitialized())
+					{
+						ITEMIDLIST* pidl = nullptr;
+						hr = ::SHParseDisplayName(selPath.c_str(), nullptr, &pidl, 0, nullptr);
+						if (SUCCEEDED(hr))
+						{
+							hr = ::SHOpenFolderAndSelectItems(pidl, 0, nullptr, 0);
+							::CoTaskMemFree(pidl);
+						}
+					}
 
-				Command cmd(explorerCmd);
-				cmd.run(nullptr);
+					if (hr == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND))
+						::ShellExecuteW(getHSelf(), L"explore", fs::path(selPath).parent_path().c_str(), nullptr, nullptr, SW_SHOWNORMAL);
+				}
 			}
 		}
 		break;

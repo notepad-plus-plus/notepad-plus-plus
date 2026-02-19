@@ -121,10 +121,6 @@ namespace NppXml
 		}) : node.first_child();
 	}
 
-	[[nodiscard]] inline Element toElement(const Node& node) {
-		return node;
-	}
-
 	[[nodiscard]] inline Element nextSiblingElement(const Node& node, const char* name = nullptr) {
 		return name ? node.next_sibling(name) : node.next_sibling();
 	}

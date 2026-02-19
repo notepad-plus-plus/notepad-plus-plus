@@ -948,7 +948,7 @@ struct Lang final
 	LangType _langID = L_TEXT;
 	std::wstring _langName;
 	std::wstring _defaultExtList;
-	std::wstring _langKeyWordList[NB_LIST];
+	std::string _langKeyWordList[NB_LIST];
 	std::string _pCommentLineSymbol;
 	std::string _pCommentStart;
 	std::string _pCommentEnd;
@@ -984,11 +984,11 @@ struct Lang final
 		return _defaultExtList.c_str();
 	}
 
-	void setWords(const wchar_t* words, int index) {
+	void setWords(const char* words, int index) {
 		_langKeyWordList[index] = words;
 	}
 
-	const wchar_t* getWords(int index) const {
+	const char* getWords(int index) const {
 		return _langKeyWordList[index].c_str();
 	}
 
@@ -1401,7 +1401,7 @@ public:
 		return _nppGUI;
 	}
 
-	const wchar_t * getWordList(LangType langID, int typeIndex) const
+	const char* getWordList(LangType langID, int typeIndex) const
 	{
 		const Lang* pLang = getLangFromID(langID);
 		if (!pLang) return nullptr;

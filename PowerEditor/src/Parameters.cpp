@@ -25,7 +25,6 @@
 #include <algorithm>
 #include <array>
 #include <cassert>
-#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -2742,13 +2741,13 @@ bool NppParameters::getUserParametersFromXmlTree()
 	// Get GUI parameters
 	feedGUIParameters(rootTinyXML);
 
-	XmlDocPath pXmlUserDoc{};
-	pXmlUserDoc._doc = new NppXml::NewDocument();
-	pXmlUserDoc._path = _pXmlUserDoc->Value();
-	if (!NppXml::loadFile(pXmlUserDoc._doc, pXmlUserDoc._path.c_str()))
+	XmlDocPath xmlUserDoc{};
+	xmlUserDoc._doc = new NppXml::NewDocument();
+	xmlUserDoc._path = _pXmlUserDoc->Value();
+	if (!NppXml::loadFile(xmlUserDoc._doc, xmlUserDoc._path.c_str()))
 		return false;
 
-	NppXml::Element root = NppXml::firstChildElement(pXmlUserDoc._doc, "NotepadPlus");
+	NppXml::Element root = NppXml::firstChildElement(xmlUserDoc._doc, "NotepadPlus");
 	if (!root)
 		return false;
 
@@ -2758,9 +2757,6 @@ bool NppParameters::getUserParametersFromXmlTree()
 	// Erase the History root
 	TiXmlNode* node = rootTinyXML->FirstChildElement(L"History");
 	rootTinyXML->RemoveChild(node);
-
-	NppXml::Element histRoot = NppXml::firstChildElement(root, "History");
-	NppXml::deleteChild(root, histRoot);
 
 	// Add a new empty History root
 	NppXml::createChildElement(root, "History");
@@ -2777,7 +2773,7 @@ bool NppParameters::getUserParametersFromXmlTree()
 	//Get Column editor parameters
 	feedColumnEditorParameters(root);
 
-	delete pXmlUserDoc._doc;
+	delete xmlUserDoc._doc;
 
 	return true;
 }

@@ -1117,7 +1117,7 @@ bool AutoCompletion::setLanguage(LangType language)
 	_pXmlFile = new NppXml::NewDocument();
 	_funcCompletionActive = NppXml::loadFile(_pXmlFile, path);
 
-	NppXml::Node autoNode{};
+	NppXml::Element autoNode{};
 	if (_funcCompletionActive)
 	{
 		_funcCompletionActive = false; //safety

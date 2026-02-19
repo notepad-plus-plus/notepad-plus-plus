@@ -417,7 +417,7 @@ bool ProjectPanel::writeWorkSpace(const wchar_t* projectFileName, bool doUpdateG
 	//write <NotepadPlus>: use the default file name if new file name is not given
 	const wchar_t* fn2write = projectFileName ? projectFileName : _workSpaceFilePath.c_str();
 	NppXml::NewDocument projDoc{};
-	NppXml::Node root = NppXml::createChildElement(projDoc, "NotepadPlus");
+	NppXml::Element root = NppXml::createChildElement(projDoc, "NotepadPlus");
 
 	wchar_t textBuffer[MAX_PATH] = { '\0' };
 	TVITEM tvItem{};
@@ -466,7 +466,7 @@ bool ProjectPanel::writeWorkSpace(const wchar_t* projectFileName, bool doUpdateG
 	return true;
 }
 
-void ProjectPanel::buildProjectXml(NppXml::Node& root, HTREEITEM hItem, const wchar_t* fn2write)
+void ProjectPanel::buildProjectXml(NppXml::Element& root, HTREEITEM hItem, const wchar_t* fn2write)
 {
 	wchar_t textBuffer[MAX_PATH] = { '\0' };
 	TVITEM tvItem{};
@@ -544,9 +544,9 @@ wstring ProjectPanel::getRelativePath(const wstring& filePath, const wchar_t *wo
 	return relativeFile;
 }
 
-bool ProjectPanel::buildTreeFrom(const NppXml::Node& projectRoot, HTREEITEM hParentItem)
+bool ProjectPanel::buildTreeFrom(const NppXml::Element& projectRoot, HTREEITEM hParentItem)
 {
-	for (NppXml::Node childNode = NppXml::firstChildElement(projectRoot);
+	for (NppXml::Element childNode = NppXml::firstChildElement(projectRoot);
 		childNode;
 		childNode = NppXml::nextSibling(childNode))
 	{

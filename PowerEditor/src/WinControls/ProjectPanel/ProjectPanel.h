@@ -130,13 +130,13 @@ protected:
 
 	bool writeWorkSpace(const wchar_t* projectFileName = nullptr, bool doUpdateGUI = true);
 	std::wstring getRelativePath(const std::wstring& filePath, const wchar_t* workSpaceFileName);
-	void buildProjectXml(NppXml::Node& root, HTREEITEM hItem, const wchar_t* fn2write);
+	void buildProjectXml(NppXml::Element& root, HTREEITEM hItem, const wchar_t* fn2write);
 	NodeType getNodeType(HTREEITEM hItem);
 	void setWorkSpaceDirty(bool isDirty);
 	void popupMenuCmd(int cmdID);
 	POINT getMenuDisplayPoint(int iButton) const;
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
-	bool buildTreeFrom(const NppXml::Node& projectRoot, HTREEITEM hParentItem);
+	bool buildTreeFrom(const NppXml::Element& projectRoot, HTREEITEM hParentItem);
 	void notified(LPNMHDR notification);
 	void showContextMenu(int x, int y);
 	void showContextMenuFromMenuKey(HTREEITEM selectedItem, int x, int y);

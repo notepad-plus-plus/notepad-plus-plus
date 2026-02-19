@@ -5557,8 +5557,7 @@ void NppParameters::feedKeyWordsParameters(const NppXml::Element& element)
 
 					if (!keyWords.empty() && i >= 0 && i <= KEYWORDSET_MAX)
 					{
-						const std::wstring kws = string2wstring(keyWords);
-						_langList[_nbLang]->setWords(kws.c_str(), i);
+						_langList[_nbLang]->setWords(keyWords.c_str(), i);
 					}
 				}
 				++_nbLang;

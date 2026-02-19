@@ -1287,12 +1287,9 @@ void ScintillaEditView::setExternalLexer(LangType typeDoc)
 
 void ScintillaEditView::setCppLexer(LangType langType)
 {
-    const char *cppInstrs;
-    const char *cppTypes;
-    const char *cppGlobalclass;
-    const wchar_t *doxygenKeyWords  = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
+	const char* doxygenKeyWords = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
 
-    setLexerFromLangID(L_CPP);
+	setLexerFromLangID(L_CPP);
 
 	if (langType == L_GOLANG)
 	{
@@ -1300,14 +1297,12 @@ void ScintillaEditView::setCppLexer(LangType langType)
 	}
 
 	if (langType != L_RC)
-    {
-        if (doxygenKeyWords)
+	{
+		if (doxygenKeyWords)
 		{
-			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-			const char * doxygenKeyWords_char = wmc.wchar2char(doxygenKeyWords, CP_ACP);
-			execute(SCI_SETKEYWORDS, 2, reinterpret_cast<LPARAM>(doxygenKeyWords_char));
+			execute(SCI_SETKEYWORDS, 2, reinterpret_cast<LPARAM>(doxygenKeyWords));
 		}
-    }
+	}
 
 	const wchar_t *pKwArray[NB_LIST] = {NULL};
 	makeStyle(langType, pKwArray);
@@ -1320,21 +1315,21 @@ void ScintillaEditView::setCppLexer(LangType langType)
 		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
 		keywordListInstruction = wstring2string(kwlW, CP_ACP);
 	}
-	cppInstrs = concatToBuildKeywordList(keywordListInstruction, langType, LANG_INDEX_INSTR);
+	const char* cppInstrs = concatToBuildKeywordList(keywordListInstruction, langType, LANG_INDEX_INSTR);
 
 	if (pKwArray[LANG_INDEX_TYPE])
 	{
 		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE];
 		keywordListType = wstring2string(kwlW, CP_ACP);
 	}
-	cppTypes = concatToBuildKeywordList(keywordListType, langType, LANG_INDEX_TYPE);
+	const char* cppTypes = concatToBuildKeywordList(keywordListType, langType, LANG_INDEX_TYPE);
 
 	if (pKwArray[LANG_INDEX_INSTR2])
 	{
 		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR2];
 		keywordListGlobalclass = wstring2string(kwlW, CP_ACP);
 	}
-	cppGlobalclass = concatToBuildKeywordList(keywordListGlobalclass, langType, LANG_INDEX_INSTR2);
+	const char* cppGlobalclass = concatToBuildKeywordList(keywordListGlobalclass, langType, LANG_INDEX_INSTR2);
 
 	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(cppInstrs));
 	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(cppTypes));
@@ -1356,7 +1351,7 @@ void ScintillaEditView::setCppLexer(LangType langType)
 
 void ScintillaEditView::setJsLexer()
 {
-	const wchar_t *doxygenKeyWords = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
+	const char* doxygenKeyWords = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
 
 	setLexerFromLangID(L_JAVASCRIPT);
 	const wchar_t *pKwArray[NB_LIST] = {NULL};
@@ -1364,9 +1359,7 @@ void ScintillaEditView::setJsLexer()
 
 	if (doxygenKeyWords)
 	{
-		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-		const char * doxygenKeyWords_char = wmc.wchar2char(doxygenKeyWords, CP_ACP);
-		execute(SCI_SETKEYWORDS, 2, reinterpret_cast<LPARAM>(doxygenKeyWords_char));
+		execute(SCI_SETKEYWORDS, 2, reinterpret_cast<LPARAM>(doxygenKeyWords));
 	}
 
 	const wchar_t *newLexerName = ScintillaEditView::_langNameInfoArray[L_JAVASCRIPT]._langName;
@@ -1609,15 +1602,7 @@ void ScintillaEditView::setObjCLexer(LangType langType)
 	}
 	const char *objCQualifier = concatToBuildKeywordList(objcType2Kwl, langType, LANG_INDEX_TYPE2);
 
-
-
-	basic_string<char> doxygenKeyWordsString("");
-	const wchar_t *doxygenKeyWordsW = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
-	if (doxygenKeyWordsW)
-	{
-		doxygenKeyWordsString = wstring2string(doxygenKeyWordsW, CP_ACP);
-	}
-	const char *doxygenKeyWords = doxygenKeyWordsString.c_str();
+	const char* doxygenKeyWords = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
 
 	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(objcInstrs));
     execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(objcTypes));
@@ -1635,14 +1620,12 @@ void ScintillaEditView::setObjCLexer(LangType langType)
 
 void ScintillaEditView::setTypeScriptLexer()
 {
-	const wchar_t* doxygenKeyWords = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
+	const char* doxygenKeyWords = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
 	setLexerFromLangID(L_TYPESCRIPT);
 
 	if (doxygenKeyWords)
 	{
-		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-		const char* doxygenKeyWords_char = wmc.wchar2char(doxygenKeyWords, CP_ACP);
-		execute(SCI_SETKEYWORDS, 2, reinterpret_cast<LPARAM>(doxygenKeyWords_char));
+		execute(SCI_SETKEYWORDS, 2, reinterpret_cast<LPARAM>(doxygenKeyWords));
 	}
 
 	const wchar_t *pKwArray[NB_LIST] = {NULL};
@@ -3785,13 +3768,8 @@ void ScintillaEditView::updateLineNumberWidth()
 const char * ScintillaEditView::concatToBuildKeywordList(std::basic_string<char> & kwl, LangType langType, int keywordIndex)
 {
 	kwl += " ";
-	const wchar_t* defKwl_generic = NppParameters::getInstance().getWordList(langType, keywordIndex);
-	if (defKwl_generic)
-	{
-		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-		const char* defKwl = wmc.wchar2char(defKwl_generic, CP_ACP);
-		kwl += defKwl ? defKwl : "";
-	}
+	const char* defKwl_generic = NppParameters::getInstance().getWordList(langType, keywordIndex);
+	kwl += defKwl_generic ? defKwl_generic : "";
 
 	return kwl.c_str();
 }

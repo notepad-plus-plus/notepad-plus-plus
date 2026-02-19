@@ -115,7 +115,7 @@ private :
 	void updateFontSize();
 	void updateUserKeywords();
 	void switchToTheme();
-	void updateThemeName(const std::wstring& themeName);
+	static void updateThemeName(const std::wstring& themeName);
 	void loadLangListFromNppParam();
 	void enableFontStyle(bool isEnable) const;
 	long notifyDataModified();

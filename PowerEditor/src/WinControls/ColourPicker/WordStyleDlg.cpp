@@ -23,7 +23,6 @@
 
 #include <algorithm>
 #include <cstdlib>
-#include <cstring>
 #include <cwchar>
 #include <memory>
 #include <string>
@@ -203,7 +202,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
 			if (isStaticText)
 			{
-				Style& style = getCurrentStyler();
+				const Style& style = getCurrentStyler();
 				bool isTextEnabled = false;
 
 				if (dlgCtrlID == IDC_FG_STATIC)
@@ -267,7 +266,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			if (reinterpret_cast<HWND>(lParam) == ::GetDlgItem(_hSelf, IDC_SC_PERCENTAGE_SLIDER))
 			{
 				const auto percent = static_cast<int>(::SendDlgItemMessage(_hSelf, IDC_SC_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0));
-				(NppParameters::getInstance()).SetTransparent(_hSelf, percent);
+				NppParameters::SetTransparent(_hSelf, percent);
 			}
 			return TRUE;
 		}
@@ -422,10 +421,10 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 						if (isChecked)
 						{
 							const auto percent = static_cast<int>(::SendDlgItemMessage(_hSelf, IDC_SC_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0));
-							(NppParameters::getInstance()).SetTransparent(_hSelf, percent);
+							NppParameters::SetTransparent(_hSelf, percent);
 						}
 						else
-							(NppParameters::getInstance()).removeTransparent(_hSelf);
+							NppParameters::removeTransparent(_hSelf);
 
 						::EnableWindow(::GetDlgItem(_hSelf, IDC_SC_PERCENTAGE_SLIDER), isChecked);
 						return TRUE;
@@ -1031,7 +1030,7 @@ void WordStyleDlg::setStyleListFromLexer(int index)
 		wchar_t currentExt[NB_MAX]{};
 		::SendDlgItemMessage(_hSelf, IDC_USER_EXT_EDIT, WM_GETTEXT, NB_MAX, reinterpret_cast<LPARAM>(currentExt));
 
-		if (userExt && lstrcmp(currentExt, userExt) != 0)
+		if (std::wcscmp(currentExt, userExt) != 0)
 		{
 			::SendDlgItemMessage(_hSelf, IDC_USER_EXT_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(userExt));
 		}
@@ -1045,7 +1044,7 @@ void WordStyleDlg::setStyleListFromLexer(int index)
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_USER_EXT_STATIC), index?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_PLUSSYMBOL2_STATIC), index?SW_SHOW:SW_HIDE);
 
-	StyleArray& lexerStyler = index ? _lsArray.getLexerFromIndex(static_cast<size_t>(index) - 1) : _globalStyles;
+	const StyleArray& lexerStyler = index ? _lsArray.getLexerFromIndex(static_cast<size_t>(index) - 1) : _globalStyles;
 
 	for (const auto& style : lexerStyler)
 	{
@@ -1337,10 +1336,10 @@ void WordStyleDlg::setVisualFromStyleList()
 			lexerNameStr += L" is not defined in NppParameters::getLangIDFromStr()";
 				printStr(lexerNameStr.c_str());
 		}
-		const wchar_t *kws = nppParams.getWordList(lType, style._keywordClass);
+		const char* kws = nppParams.getWordList(lType, style._keywordClass);
 		if (!kws)
-			kws = L"";
-		::SendDlgItemMessage(_hSelf, IDC_DEF_KEYWORDS_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(kws));
+			kws = "";
+		::SendDlgItemMessage(_hSelf, IDC_DEF_KEYWORDS_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(string2wstring(kws).c_str()));
 
 		const wchar_t *ckwStr = style._keywords.c_str();
 		::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(ckwStr));

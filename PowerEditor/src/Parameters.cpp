@@ -3841,7 +3841,7 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(const NppXml
 		std::wstring ext = string2wstring(NppXml::attribute(childNode, "ext", ""));
 		std::string udlVersion = NppXml::attribute(childNode, "udlVersion", "");
 
-		if (name.empty() || ext.empty())
+		if (name.empty())
 		{
 			// UserLang name is missing, just ignore this entry
 			continue;
@@ -3877,7 +3877,7 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(const NppXml
 			{
 				const Style * pStyle = _userLangArray[_nbUserLang - 1]->_styles.findByID(i);
 				if (!pStyle)
-					_userLangArray[_nbUserLang - 1]->_styles.addStyler(i, globalMappper().styleNameMapper[i]);
+					_userLangArray[_nbUserLang - 1]->_styles.addStyler(i, string2wstring(globalMappper().styleNameMapper[i]).c_str());
 			}
 
 		}
@@ -4644,7 +4644,7 @@ void NppParameters::feedUserSettings(const NppXml::Element& settingsRoot)
 		{
 			for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; ++i)
 			{
-				_userLangArray[_nbUserLang - 1]->_isPrefix[i] = getBoolAttribute(prefixNode, wstring2string(globalMappper().keywordNameMapper[i + SCE_USER_KWLIST_KEYWORDS1]).c_str());
+				_userLangArray[_nbUserLang - 1]->_isPrefix[i] = getBoolAttribute(prefixNode, globalMappper().keywordNameMapper[i + SCE_USER_KWLIST_KEYWORDS1].c_str());
 			}
 		}
 		else	// support for old style (pre 2.0)
@@ -4685,7 +4685,7 @@ void NppParameters::feedUserKeywordList(const NppXml::Element& element)
 				temp += " 08"; if (kwl[5] != '0') temp += kwl[5];
 
 				temp += " 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23";
-				_userLangArray[_nbUserLang - 1]->_keywordLists[SCE_USER_KWLIST_DELIMITERS] = string2wstring(temp);
+				_userLangArray[_nbUserLang - 1]->_keywordLists[SCE_USER_KWLIST_DELIMITERS] = temp;
 			}
 			else if (std::strcmp(keywordsName, "Comment") == 0)
 			{
@@ -4717,22 +4717,21 @@ void NppParameters::feedUserKeywordList(const NppXml::Element& element)
 				temp += " 01 02";
 				if (temp[0] == ' ')
 					temp.erase(0, 1);
-				_userLangArray[_nbUserLang - 1]->_keywordLists[SCE_USER_KWLIST_COMMENTS] = string2wstring(temp);
+				_userLangArray[_nbUserLang - 1]->_keywordLists[SCE_USER_KWLIST_COMMENTS] = temp;
 			}
 			else
 			{
 				kwl = NppXml::value(valueNode);
-				const std::wstring kwName = string2wstring(keywordsName);
-				if (globalMappper().keywordIdMapper.find(kwName) != globalMappper().keywordIdMapper.end())
+				if (globalMappper().keywordIdMapper.find(keywordsName) != globalMappper().keywordIdMapper.end())
 				{
-					int id = globalMappper().keywordIdMapper[kwName];
+					int id = globalMappper().keywordIdMapper[keywordsName];
 					if (std::strlen(kwl) < max_char)
 					{
-						_userLangArray[_nbUserLang - 1]->_keywordLists[id] = string2wstring(kwl);
+						_userLangArray[_nbUserLang - 1]->_keywordLists[id] = kwl;
 					}
 					else
 					{
-						_userLangArray[_nbUserLang - 1]->_keywordLists[id] = L"imported string too long, needs to be < max_char(30720)";
+						_userLangArray[_nbUserLang - 1]->_keywordLists[id] = "imported string too long, needs to be < max_char(30720)";
 					}
 				}
 			}
@@ -4746,7 +4745,7 @@ void NppParameters::feedUserStyles(const NppXml::Element& element)
 		childNode;
 		childNode = NppXml::nextSiblingElement(childNode, "WordsStyle"))
 	{
-		const std::wstring styleName = string2wstring(NppXml::attribute(childNode, "name", ""));
+		const std::string styleName = NppXml::attribute(childNode, "name", "");
 		if (!styleName.empty())
 		{
 			if (globalMappper().styleIdMapper.find(styleName) != globalMappper().styleIdMapper.end())
@@ -4975,7 +4974,7 @@ void StyleArray::addStyler(int styleID, const NppXml::Element& styleNode)
 		if (str)
 		{
 			if (isUser)
-				s._styleDesc = globalMappper().styleNameMapper[styleID];
+				s._styleDesc = string2wstring(globalMappper().styleNameMapper[styleID]);
 			else
 				s._styleDesc = string2wstring(str);
 		}
@@ -9566,7 +9565,7 @@ void NppParameters::insertUserLang2Tree(NppXml::Element& node, const UserLangCon
 
 		NppXml::Element prefixElement = NppXml::createChildElement(settingsElement, "Prefix");
 		for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; ++i)
-			setBoolAttribute(prefixElement, wstring2string(globalMappper().keywordNameMapper[i + SCE_USER_KWLIST_KEYWORDS1]).c_str(), userLang->_isPrefix[i]);
+			setBoolAttribute(prefixElement, globalMappper().keywordNameMapper[i + SCE_USER_KWLIST_KEYWORDS1].c_str(), userLang->_isPrefix[i]);
 	}
 
 	NppXml::Element kwlElement = NppXml::createChildElement(rootElement, "KeywordLists");
@@ -9574,9 +9573,8 @@ void NppParameters::insertUserLang2Tree(NppXml::Element& node, const UserLangCon
 	for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; ++i)
 	{
 		NppXml::Element kwElement = NppXml::createChildElement(kwlElement, "Keywords");
-		NppXml::setAttribute(kwElement, "name", wstring2string(globalMappper().keywordNameMapper[i]).c_str());
-		const std::string kws = wstring2string(userLang->_keywordLists[i]);
-		NppXml::createChildText(kwElement, kws.c_str());
+		NppXml::setAttribute(kwElement, "name", globalMappper().keywordNameMapper[i].c_str());
+		NppXml::createChildText(kwElement, userLang->_keywordLists[i].c_str());
 	}
 
 	NppXml::Element styleRootElement = NppXml::createChildElement(rootElement, "Styles");

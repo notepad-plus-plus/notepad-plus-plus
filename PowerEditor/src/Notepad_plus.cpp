@@ -5353,7 +5353,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 		if (!userLangContainer)
 			return false;
 
-		const std::string kws = wstring2string(userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
+		const std::string& kws = userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS];
 
 		symbol = extractSymbol('0', '0', kws.c_str());
 		commentLineSymbol = symbol.c_str();
@@ -5653,7 +5653,7 @@ bool Notepad_plus::doStreamComment()
 		if (!userLangContainer)
 			return false;
 
-		const std::string kws = wstring2string(userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
+		const std::string& kws = userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS];
 
 		// BlockToStreamComment: Next two lines needed to decide, if block-comment can be called below!
 		symbol = extractSymbol('0', '0', kws.c_str());
@@ -8782,7 +8782,7 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 		if (!userLangContainer)
 			return false;
 
-		const std::string kws = wstring2string(userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
+		const std::string& kws = userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS];
 
 		symbol = extractSymbol('0', '0', kws.c_str());
 		commentLineSymbol = symbol.c_str();

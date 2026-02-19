@@ -41,203 +41,203 @@ inline constexpr bool UNDOCK = false;
 
 class GlobalMappers
 {
-    public:
+public:
 
-		std::unordered_map<std::wstring, int> keywordIdMapper;
-		std::unordered_map<int, std::wstring> keywordNameMapper;
+	std::unordered_map<std::string, int> keywordIdMapper;
+	std::unordered_map<int, std::string> keywordNameMapper;
 
-		std::unordered_map<std::wstring, int> styleIdMapper;
-		std::unordered_map<int, std::wstring> styleNameMapper;
+	std::unordered_map<std::string, int> styleIdMapper;
+	std::unordered_map<int, std::string> styleNameMapper;
 
-		std::unordered_map<std::wstring, int> temp;
-		std::unordered_map<std::wstring, int>::iterator iter;
+	std::unordered_map<std::string, int> temp;
+	std::unordered_map<std::string, int>::iterator iter;
 
-		std::unordered_map<int, int> nestingMapper;
-		std::unordered_map<int, int> dialogMapper;
-		std::unordered_map<int, std::string> setLexerMapper;
+	std::unordered_map<int, int> nestingMapper;
+	std::unordered_map<int, int> dialogMapper;
+	std::unordered_map<int, std::string> setLexerMapper;
 
-        // only default constructor is needed
-        GlobalMappers()
-        {
-            // pre 2.0
-            temp[L"Operators"]                     = SCE_USER_KWLIST_OPERATORS1;
-            temp[L"Folder+"]                       = SCE_USER_KWLIST_FOLDERS_IN_CODE1_OPEN;
-            temp[L"Folder-"]                       = SCE_USER_KWLIST_FOLDERS_IN_CODE1_CLOSE;
-            temp[L"Words1"]                        = SCE_USER_KWLIST_KEYWORDS1;
-            temp[L"Words2"]                        = SCE_USER_KWLIST_KEYWORDS2;
-            temp[L"Words3"]                        = SCE_USER_KWLIST_KEYWORDS3;
-            temp[L"Words4"]                        = SCE_USER_KWLIST_KEYWORDS4;
+	// only default constructor is needed
+	GlobalMappers()
+	{
+		// pre 2.0
+		temp["Operators"]                     = SCE_USER_KWLIST_OPERATORS1;
+		temp["Folder+"]                       = SCE_USER_KWLIST_FOLDERS_IN_CODE1_OPEN;
+		temp["Folder-"]                       = SCE_USER_KWLIST_FOLDERS_IN_CODE1_CLOSE;
+		temp["Words1"]                        = SCE_USER_KWLIST_KEYWORDS1;
+		temp["Words2"]                        = SCE_USER_KWLIST_KEYWORDS2;
+		temp["Words3"]                        = SCE_USER_KWLIST_KEYWORDS3;
+		temp["Words4"]                        = SCE_USER_KWLIST_KEYWORDS4;
 
-            // in case of duplicate entries, newer string should overwrite old one !
-            for (iter = temp.begin(); iter != temp.end(); ++iter)
-                keywordNameMapper[iter->second] = iter->first;
-            keywordIdMapper.insert(temp.begin(), temp.end());
-            temp.clear();
+		// in case of duplicate entries, newer string should overwrite old one !
+		for (iter = temp.begin(); iter != temp.end(); ++iter)
+			keywordNameMapper[iter->second] = iter->first;
+		keywordIdMapper.insert(temp.begin(), temp.end());
+		temp.clear();
 
-            // 2.0
-            temp[L"Comments"]                      = SCE_USER_KWLIST_COMMENTS;
-            temp[L"Numbers, additional"]           = SCE_USER_KWLIST_NUMBER_RANGE;
-            temp[L"Numbers, prefixes"]             = SCE_USER_KWLIST_NUMBER_PREFIX2;
-            temp[L"Numbers, extras with prefixes"] = SCE_USER_KWLIST_NUMBER_EXTRAS2;
-            temp[L"Numbers, suffixes"]             = SCE_USER_KWLIST_NUMBER_SUFFIX2;
-            temp[L"Operators1"]                    = SCE_USER_KWLIST_OPERATORS1;
-            temp[L"Operators2"]                    = SCE_USER_KWLIST_OPERATORS2;
-            temp[L"Folders in code1, open"]        = SCE_USER_KWLIST_FOLDERS_IN_CODE1_OPEN;
-            temp[L"Folders in code1, middle"]      = SCE_USER_KWLIST_FOLDERS_IN_CODE1_MIDDLE;
-            temp[L"Folders in code1, close"]       = SCE_USER_KWLIST_FOLDERS_IN_CODE1_CLOSE;
-            temp[L"Folders in code2, open"]        = SCE_USER_KWLIST_FOLDERS_IN_CODE2_OPEN;
-            temp[L"Folders in code2, middle"]      = SCE_USER_KWLIST_FOLDERS_IN_CODE2_MIDDLE;
-            temp[L"Folders in code2, close"]       = SCE_USER_KWLIST_FOLDERS_IN_CODE2_CLOSE;
-            temp[L"Folders in comment, open"]      = SCE_USER_KWLIST_FOLDERS_IN_COMMENT_OPEN;
-            temp[L"Folders in comment, middle"]    = SCE_USER_KWLIST_FOLDERS_IN_COMMENT_MIDDLE;
-            temp[L"Folders in comment, close"]     = SCE_USER_KWLIST_FOLDERS_IN_COMMENT_CLOSE;
-            temp[L"Keywords1"]                     = SCE_USER_KWLIST_KEYWORDS1;
-            temp[L"Keywords2"]                     = SCE_USER_KWLIST_KEYWORDS2;
-            temp[L"Keywords3"]                     = SCE_USER_KWLIST_KEYWORDS3;
-            temp[L"Keywords4"]                     = SCE_USER_KWLIST_KEYWORDS4;
-            temp[L"Keywords5"]                     = SCE_USER_KWLIST_KEYWORDS5;
-            temp[L"Keywords6"]                     = SCE_USER_KWLIST_KEYWORDS6;
-            temp[L"Keywords7"]                     = SCE_USER_KWLIST_KEYWORDS7;
-            temp[L"Keywords8"]                     = SCE_USER_KWLIST_KEYWORDS8;
-            temp[L"Delimiters"]                    = SCE_USER_KWLIST_DELIMITERS;
+		// 2.0
+		temp["Comments"]                      = SCE_USER_KWLIST_COMMENTS;
+		temp["Numbers, additional"]           = SCE_USER_KWLIST_NUMBER_RANGE;
+		temp["Numbers, prefixes"]             = SCE_USER_KWLIST_NUMBER_PREFIX2;
+		temp["Numbers, extras with prefixes"] = SCE_USER_KWLIST_NUMBER_EXTRAS2;
+		temp["Numbers, suffixes"]             = SCE_USER_KWLIST_NUMBER_SUFFIX2;
+		temp["Operators1"]                    = SCE_USER_KWLIST_OPERATORS1;
+		temp["Operators2"]                    = SCE_USER_KWLIST_OPERATORS2;
+		temp["Folders in code1, open"]        = SCE_USER_KWLIST_FOLDERS_IN_CODE1_OPEN;
+		temp["Folders in code1, middle"]      = SCE_USER_KWLIST_FOLDERS_IN_CODE1_MIDDLE;
+		temp["Folders in code1, close"]       = SCE_USER_KWLIST_FOLDERS_IN_CODE1_CLOSE;
+		temp["Folders in code2, open"]        = SCE_USER_KWLIST_FOLDERS_IN_CODE2_OPEN;
+		temp["Folders in code2, middle"]      = SCE_USER_KWLIST_FOLDERS_IN_CODE2_MIDDLE;
+		temp["Folders in code2, close"]       = SCE_USER_KWLIST_FOLDERS_IN_CODE2_CLOSE;
+		temp["Folders in comment, open"]      = SCE_USER_KWLIST_FOLDERS_IN_COMMENT_OPEN;
+		temp["Folders in comment, middle"]    = SCE_USER_KWLIST_FOLDERS_IN_COMMENT_MIDDLE;
+		temp["Folders in comment, close"]     = SCE_USER_KWLIST_FOLDERS_IN_COMMENT_CLOSE;
+		temp["Keywords1"]                     = SCE_USER_KWLIST_KEYWORDS1;
+		temp["Keywords2"]                     = SCE_USER_KWLIST_KEYWORDS2;
+		temp["Keywords3"]                     = SCE_USER_KWLIST_KEYWORDS3;
+		temp["Keywords4"]                     = SCE_USER_KWLIST_KEYWORDS4;
+		temp["Keywords5"]                     = SCE_USER_KWLIST_KEYWORDS5;
+		temp["Keywords6"]                     = SCE_USER_KWLIST_KEYWORDS6;
+		temp["Keywords7"]                     = SCE_USER_KWLIST_KEYWORDS7;
+		temp["Keywords8"]                     = SCE_USER_KWLIST_KEYWORDS8;
+		temp["Delimiters"]                    = SCE_USER_KWLIST_DELIMITERS;
 
-            // in case of duplicate entries, newer string should overwrite old one !
-            for (iter = temp.begin(); iter != temp.end(); ++iter)
-                keywordNameMapper[iter->second] = iter->first;
-            keywordIdMapper.insert(temp.begin(), temp.end());
-            temp.clear();
+		// in case of duplicate entries, newer string should overwrite old one !
+		for (iter = temp.begin(); iter != temp.end(); ++iter)
+			keywordNameMapper[iter->second] = iter->first;
+		keywordIdMapper.insert(temp.begin(), temp.end());
+		temp.clear();
 
-            // 2.1
-            temp[L"Numbers, prefix1"]              = SCE_USER_KWLIST_NUMBER_PREFIX1;
-            temp[L"Numbers, prefix2"]              = SCE_USER_KWLIST_NUMBER_PREFIX2;
-            temp[L"Numbers, extras1"]              = SCE_USER_KWLIST_NUMBER_EXTRAS1;
-            temp[L"Numbers, extras2"]              = SCE_USER_KWLIST_NUMBER_EXTRAS2;
-            temp[L"Numbers, suffix1"]              = SCE_USER_KWLIST_NUMBER_SUFFIX1;
-            temp[L"Numbers, suffix2"]              = SCE_USER_KWLIST_NUMBER_SUFFIX2;
-            temp[L"Numbers, range"]                = SCE_USER_KWLIST_NUMBER_RANGE;
+		// 2.1
+		temp["Numbers, prefix1"]              = SCE_USER_KWLIST_NUMBER_PREFIX1;
+		temp["Numbers, prefix2"]              = SCE_USER_KWLIST_NUMBER_PREFIX2;
+		temp["Numbers, extras1"]              = SCE_USER_KWLIST_NUMBER_EXTRAS1;
+		temp["Numbers, extras2"]              = SCE_USER_KWLIST_NUMBER_EXTRAS2;
+		temp["Numbers, suffix1"]              = SCE_USER_KWLIST_NUMBER_SUFFIX1;
+		temp["Numbers, suffix2"]              = SCE_USER_KWLIST_NUMBER_SUFFIX2;
+		temp["Numbers, range"]                = SCE_USER_KWLIST_NUMBER_RANGE;
 
-            // in case of duplicate entries, newer string should overwrite old one !
-            for (iter = temp.begin(); iter != temp.end(); ++iter)
-                keywordNameMapper[iter->second] = iter->first;
-            keywordIdMapper.insert(temp.begin(), temp.end());
-            temp.clear();
+		// in case of duplicate entries, newer string should overwrite old one !
+		for (iter = temp.begin(); iter != temp.end(); ++iter)
+			keywordNameMapper[iter->second] = iter->first;
+		keywordIdMapper.insert(temp.begin(), temp.end());
+		temp.clear();
 
-	        // pre 2.0
-	        temp[L"FOLDEROPEN"]           = SCE_USER_STYLE_FOLDER_IN_CODE1;
-	        temp[L"FOLDERCLOSE"]          = SCE_USER_STYLE_FOLDER_IN_CODE1;
-	        temp[L"KEYWORD1"]             = SCE_USER_STYLE_KEYWORD1;
-	        temp[L"KEYWORD2"]             = SCE_USER_STYLE_KEYWORD2;
-	        temp[L"KEYWORD3"]             = SCE_USER_STYLE_KEYWORD3;
-	        temp[L"KEYWORD4"]             = SCE_USER_STYLE_KEYWORD4;
-	        temp[L"COMMENT"]              = SCE_USER_STYLE_COMMENT;
-	        temp[L"COMMENT LINE"]         = SCE_USER_STYLE_COMMENTLINE;
-	        temp[L"NUMBER"]               = SCE_USER_STYLE_NUMBER;
-	        temp[L"OPERATOR"]             = SCE_USER_STYLE_OPERATOR;
-	        temp[L"DELIMINER1"]           = SCE_USER_STYLE_DELIMITER1;
-	        temp[L"DELIMINER2"]           = SCE_USER_STYLE_DELIMITER2;
-	        temp[L"DELIMINER3"]           = SCE_USER_STYLE_DELIMITER3;
+		// pre 2.0
+		temp["FOLDEROPEN"]           = SCE_USER_STYLE_FOLDER_IN_CODE1;
+		temp["FOLDERCLOSE"]          = SCE_USER_STYLE_FOLDER_IN_CODE1;
+		temp["KEYWORD1"]             = SCE_USER_STYLE_KEYWORD1;
+		temp["KEYWORD2"]             = SCE_USER_STYLE_KEYWORD2;
+		temp["KEYWORD3"]             = SCE_USER_STYLE_KEYWORD3;
+		temp["KEYWORD4"]             = SCE_USER_STYLE_KEYWORD4;
+		temp["COMMENT"]              = SCE_USER_STYLE_COMMENT;
+		temp["COMMENT LINE"]         = SCE_USER_STYLE_COMMENTLINE;
+		temp["NUMBER"]               = SCE_USER_STYLE_NUMBER;
+		temp["OPERATOR"]             = SCE_USER_STYLE_OPERATOR;
+		temp["DELIMINER1"]           = SCE_USER_STYLE_DELIMITER1;
+		temp["DELIMINER2"]           = SCE_USER_STYLE_DELIMITER2;
+		temp["DELIMINER3"]           = SCE_USER_STYLE_DELIMITER3;
+
+		// in case of duplicate entries, newer string should overwrite old one !
+		for (iter = temp.begin(); iter != temp.end(); ++iter)
+			styleNameMapper[iter->second] = iter->first;
+		styleIdMapper.insert(temp.begin(), temp.end());
+		temp.clear();
+
+		// post 2.0
+		temp["DEFAULT"]              = SCE_USER_STYLE_DEFAULT;
+		temp["COMMENTS"]             = SCE_USER_STYLE_COMMENT;
+		temp["LINE COMMENTS"]        = SCE_USER_STYLE_COMMENTLINE;
+		temp["NUMBERS"]              = SCE_USER_STYLE_NUMBER;
+		temp["KEYWORDS1"]            = SCE_USER_STYLE_KEYWORD1;
+		temp["KEYWORDS2"]            = SCE_USER_STYLE_KEYWORD2;
+		temp["KEYWORDS3"]            = SCE_USER_STYLE_KEYWORD3;
+		temp["KEYWORDS4"]            = SCE_USER_STYLE_KEYWORD4;
+		temp["KEYWORDS5"]            = SCE_USER_STYLE_KEYWORD5;
+		temp["KEYWORDS6"]            = SCE_USER_STYLE_KEYWORD6;
+		temp["KEYWORDS7"]            = SCE_USER_STYLE_KEYWORD7;
+		temp["KEYWORDS8"]            = SCE_USER_STYLE_KEYWORD8;
+		temp["OPERATORS"]            = SCE_USER_STYLE_OPERATOR;
+		temp["FOLDER IN CODE1"]      = SCE_USER_STYLE_FOLDER_IN_CODE1;
+		temp["FOLDER IN CODE2"]      = SCE_USER_STYLE_FOLDER_IN_CODE2;
+		temp["FOLDER IN COMMENT"]    = SCE_USER_STYLE_FOLDER_IN_COMMENT;
+		temp["DELIMITERS1"]          = SCE_USER_STYLE_DELIMITER1;
+		temp["DELIMITERS2"]          = SCE_USER_STYLE_DELIMITER2;
+		temp["DELIMITERS3"]          = SCE_USER_STYLE_DELIMITER3;
+		temp["DELIMITERS4"]          = SCE_USER_STYLE_DELIMITER4;
+		temp["DELIMITERS5"]          = SCE_USER_STYLE_DELIMITER5;
+		temp["DELIMITERS6"]          = SCE_USER_STYLE_DELIMITER6;
+		temp["DELIMITERS7"]          = SCE_USER_STYLE_DELIMITER7;
+		temp["DELIMITERS8"]          = SCE_USER_STYLE_DELIMITER8;
 	
-	        // in case of duplicate entries, newer string should overwrite old one !
-	        for (iter = temp.begin(); iter != temp.end(); ++iter)
-		        styleNameMapper[iter->second] = iter->first;
-	        styleIdMapper.insert(temp.begin(), temp.end());
-	        temp.clear();
-			
-	        // post 2.0
-	        temp[L"DEFAULT"]              = SCE_USER_STYLE_DEFAULT;
-	        temp[L"COMMENTS"]             = SCE_USER_STYLE_COMMENT;
-	        temp[L"LINE COMMENTS"]        = SCE_USER_STYLE_COMMENTLINE;
-	        temp[L"NUMBERS"]              = SCE_USER_STYLE_NUMBER;
-	        temp[L"KEYWORDS1"]            = SCE_USER_STYLE_KEYWORD1;
-	        temp[L"KEYWORDS2"]            = SCE_USER_STYLE_KEYWORD2;
-	        temp[L"KEYWORDS3"]            = SCE_USER_STYLE_KEYWORD3;
-	        temp[L"KEYWORDS4"]            = SCE_USER_STYLE_KEYWORD4;
-	        temp[L"KEYWORDS5"]            = SCE_USER_STYLE_KEYWORD5;
-	        temp[L"KEYWORDS6"]            = SCE_USER_STYLE_KEYWORD6;
-	        temp[L"KEYWORDS7"]            = SCE_USER_STYLE_KEYWORD7;
-	        temp[L"KEYWORDS8"]            = SCE_USER_STYLE_KEYWORD8;
-	        temp[L"OPERATORS"]            = SCE_USER_STYLE_OPERATOR;
-	        temp[L"FOLDER IN CODE1"]      = SCE_USER_STYLE_FOLDER_IN_CODE1;
-	        temp[L"FOLDER IN CODE2"]      = SCE_USER_STYLE_FOLDER_IN_CODE2;
-	        temp[L"FOLDER IN COMMENT"]    = SCE_USER_STYLE_FOLDER_IN_COMMENT;
-	        temp[L"DELIMITERS1"]          = SCE_USER_STYLE_DELIMITER1;
-	        temp[L"DELIMITERS2"]          = SCE_USER_STYLE_DELIMITER2;
-	        temp[L"DELIMITERS3"]          = SCE_USER_STYLE_DELIMITER3;
-	        temp[L"DELIMITERS4"]          = SCE_USER_STYLE_DELIMITER4;
-	        temp[L"DELIMITERS5"]          = SCE_USER_STYLE_DELIMITER5;
-	        temp[L"DELIMITERS6"]          = SCE_USER_STYLE_DELIMITER6;
-	        temp[L"DELIMITERS7"]          = SCE_USER_STYLE_DELIMITER7;
-	        temp[L"DELIMITERS8"]          = SCE_USER_STYLE_DELIMITER8;
-	
-	        // in case of duplicate entries, newer string should overwrite old one !
-	        for (iter = temp.begin(); iter != temp.end(); ++iter)
-		        styleNameMapper[iter->second] = iter->first;
-	        styleIdMapper.insert(temp.begin(), temp.end());
-	        temp.clear();
+		// in case of duplicate entries, newer string should overwrite old one !
+		for (iter = temp.begin(); iter != temp.end(); ++iter)
+			styleNameMapper[iter->second] = iter->first;
+		styleIdMapper.insert(temp.begin(), temp.end());
+		temp.clear();
 
-            nestingMapper[IDC_STYLER_CHECK_NESTING_DELIMITER1]      = SCE_USER_MASK_NESTING_DELIMITER1;
-            nestingMapper[IDC_STYLER_CHECK_NESTING_DELIMITER2]      = SCE_USER_MASK_NESTING_DELIMITER2;
-            nestingMapper[IDC_STYLER_CHECK_NESTING_DELIMITER3]      = SCE_USER_MASK_NESTING_DELIMITER3;
-            nestingMapper[IDC_STYLER_CHECK_NESTING_DELIMITER4]      = SCE_USER_MASK_NESTING_DELIMITER4;
-            nestingMapper[IDC_STYLER_CHECK_NESTING_DELIMITER5]      = SCE_USER_MASK_NESTING_DELIMITER5;
-            nestingMapper[IDC_STYLER_CHECK_NESTING_DELIMITER6]      = SCE_USER_MASK_NESTING_DELIMITER6;
-            nestingMapper[IDC_STYLER_CHECK_NESTING_DELIMITER7]      = SCE_USER_MASK_NESTING_DELIMITER7;
-            nestingMapper[IDC_STYLER_CHECK_NESTING_DELIMITER8]      = SCE_USER_MASK_NESTING_DELIMITER8;
-            nestingMapper[IDC_STYLER_CHECK_NESTING_COMMENT]         = SCE_USER_MASK_NESTING_COMMENT;
-            nestingMapper[IDC_STYLER_CHECK_NESTING_COMMENT_LINE]    = SCE_USER_MASK_NESTING_COMMENT_LINE;
-            nestingMapper[IDC_STYLER_CHECK_NESTING_KEYWORD1]        = SCE_USER_MASK_NESTING_KEYWORD1;
-            nestingMapper[IDC_STYLER_CHECK_NESTING_KEYWORD2]        = SCE_USER_MASK_NESTING_KEYWORD2;
-            nestingMapper[IDC_STYLER_CHECK_NESTING_KEYWORD3]        = SCE_USER_MASK_NESTING_KEYWORD3;
-            nestingMapper[IDC_STYLER_CHECK_NESTING_KEYWORD4]        = SCE_USER_MASK_NESTING_KEYWORD4;
-            nestingMapper[IDC_STYLER_CHECK_NESTING_KEYWORD5]        = SCE_USER_MASK_NESTING_KEYWORD5;
-            nestingMapper[IDC_STYLER_CHECK_NESTING_KEYWORD6]        = SCE_USER_MASK_NESTING_KEYWORD6;
-            nestingMapper[IDC_STYLER_CHECK_NESTING_KEYWORD7]        = SCE_USER_MASK_NESTING_KEYWORD7;
-            nestingMapper[IDC_STYLER_CHECK_NESTING_KEYWORD8]        = SCE_USER_MASK_NESTING_KEYWORD8;
-            nestingMapper[IDC_STYLER_CHECK_NESTING_OPERATORS1]      = SCE_USER_MASK_NESTING_OPERATORS1;
-            nestingMapper[IDC_STYLER_CHECK_NESTING_OPERATORS2]      = SCE_USER_MASK_NESTING_OPERATORS2;
-            nestingMapper[IDC_STYLER_CHECK_NESTING_NUMBERS]         = SCE_USER_MASK_NESTING_NUMBERS;
+		nestingMapper[IDC_STYLER_CHECK_NESTING_DELIMITER1]      = SCE_USER_MASK_NESTING_DELIMITER1;
+		nestingMapper[IDC_STYLER_CHECK_NESTING_DELIMITER2]      = SCE_USER_MASK_NESTING_DELIMITER2;
+		nestingMapper[IDC_STYLER_CHECK_NESTING_DELIMITER3]      = SCE_USER_MASK_NESTING_DELIMITER3;
+		nestingMapper[IDC_STYLER_CHECK_NESTING_DELIMITER4]      = SCE_USER_MASK_NESTING_DELIMITER4;
+		nestingMapper[IDC_STYLER_CHECK_NESTING_DELIMITER5]      = SCE_USER_MASK_NESTING_DELIMITER5;
+		nestingMapper[IDC_STYLER_CHECK_NESTING_DELIMITER6]      = SCE_USER_MASK_NESTING_DELIMITER6;
+		nestingMapper[IDC_STYLER_CHECK_NESTING_DELIMITER7]      = SCE_USER_MASK_NESTING_DELIMITER7;
+		nestingMapper[IDC_STYLER_CHECK_NESTING_DELIMITER8]      = SCE_USER_MASK_NESTING_DELIMITER8;
+		nestingMapper[IDC_STYLER_CHECK_NESTING_COMMENT]         = SCE_USER_MASK_NESTING_COMMENT;
+		nestingMapper[IDC_STYLER_CHECK_NESTING_COMMENT_LINE]    = SCE_USER_MASK_NESTING_COMMENT_LINE;
+		nestingMapper[IDC_STYLER_CHECK_NESTING_KEYWORD1]        = SCE_USER_MASK_NESTING_KEYWORD1;
+		nestingMapper[IDC_STYLER_CHECK_NESTING_KEYWORD2]        = SCE_USER_MASK_NESTING_KEYWORD2;
+		nestingMapper[IDC_STYLER_CHECK_NESTING_KEYWORD3]        = SCE_USER_MASK_NESTING_KEYWORD3;
+		nestingMapper[IDC_STYLER_CHECK_NESTING_KEYWORD4]        = SCE_USER_MASK_NESTING_KEYWORD4;
+		nestingMapper[IDC_STYLER_CHECK_NESTING_KEYWORD5]        = SCE_USER_MASK_NESTING_KEYWORD5;
+		nestingMapper[IDC_STYLER_CHECK_NESTING_KEYWORD6]        = SCE_USER_MASK_NESTING_KEYWORD6;
+		nestingMapper[IDC_STYLER_CHECK_NESTING_KEYWORD7]        = SCE_USER_MASK_NESTING_KEYWORD7;
+		nestingMapper[IDC_STYLER_CHECK_NESTING_KEYWORD8]        = SCE_USER_MASK_NESTING_KEYWORD8;
+		nestingMapper[IDC_STYLER_CHECK_NESTING_OPERATORS1]      = SCE_USER_MASK_NESTING_OPERATORS1;
+		nestingMapper[IDC_STYLER_CHECK_NESTING_OPERATORS2]      = SCE_USER_MASK_NESTING_OPERATORS2;
+		nestingMapper[IDC_STYLER_CHECK_NESTING_NUMBERS]         = SCE_USER_MASK_NESTING_NUMBERS;
 
-            dialogMapper[IDC_NUMBER_PREFIX1_EDIT]           = SCE_USER_KWLIST_NUMBER_PREFIX1;
-            dialogMapper[IDC_NUMBER_PREFIX2_EDIT]           = SCE_USER_KWLIST_NUMBER_PREFIX2;
-            dialogMapper[IDC_NUMBER_EXTRAS1_EDIT]           = SCE_USER_KWLIST_NUMBER_EXTRAS1;
-            dialogMapper[IDC_NUMBER_EXTRAS2_EDIT]           = SCE_USER_KWLIST_NUMBER_EXTRAS2;
-            dialogMapper[IDC_NUMBER_SUFFIX1_EDIT]           = SCE_USER_KWLIST_NUMBER_SUFFIX1;
-            dialogMapper[IDC_NUMBER_SUFFIX2_EDIT]           = SCE_USER_KWLIST_NUMBER_SUFFIX2;
-            dialogMapper[IDC_NUMBER_RANGE_EDIT]             = SCE_USER_KWLIST_NUMBER_RANGE;
+		dialogMapper[IDC_NUMBER_PREFIX1_EDIT]           = SCE_USER_KWLIST_NUMBER_PREFIX1;
+		dialogMapper[IDC_NUMBER_PREFIX2_EDIT]           = SCE_USER_KWLIST_NUMBER_PREFIX2;
+		dialogMapper[IDC_NUMBER_EXTRAS1_EDIT]           = SCE_USER_KWLIST_NUMBER_EXTRAS1;
+		dialogMapper[IDC_NUMBER_EXTRAS2_EDIT]           = SCE_USER_KWLIST_NUMBER_EXTRAS2;
+		dialogMapper[IDC_NUMBER_SUFFIX1_EDIT]           = SCE_USER_KWLIST_NUMBER_SUFFIX1;
+		dialogMapper[IDC_NUMBER_SUFFIX2_EDIT]           = SCE_USER_KWLIST_NUMBER_SUFFIX2;
+		dialogMapper[IDC_NUMBER_RANGE_EDIT]             = SCE_USER_KWLIST_NUMBER_RANGE;
 
-            dialogMapper[IDC_FOLDER_IN_CODE1_OPEN_EDIT]  	= SCE_USER_KWLIST_FOLDERS_IN_CODE1_OPEN;    
-            dialogMapper[IDC_FOLDER_IN_CODE1_MIDDLE_EDIT]  	= SCE_USER_KWLIST_FOLDERS_IN_CODE1_MIDDLE;  
-            dialogMapper[IDC_FOLDER_IN_CODE1_CLOSE_EDIT]  	= SCE_USER_KWLIST_FOLDERS_IN_CODE1_CLOSE;   
-            dialogMapper[IDC_FOLDER_IN_CODE2_OPEN_EDIT]  	= SCE_USER_KWLIST_FOLDERS_IN_CODE2_OPEN;    
-            dialogMapper[IDC_FOLDER_IN_CODE2_MIDDLE_EDIT]  	= SCE_USER_KWLIST_FOLDERS_IN_CODE2_MIDDLE;  
-            dialogMapper[IDC_FOLDER_IN_CODE2_CLOSE_EDIT]  	= SCE_USER_KWLIST_FOLDERS_IN_CODE2_CLOSE;   
-            dialogMapper[IDC_FOLDER_IN_COMMENT_OPEN_EDIT]  	= SCE_USER_KWLIST_FOLDERS_IN_COMMENT_OPEN;  
-            dialogMapper[IDC_FOLDER_IN_COMMENT_MIDDLE_EDIT] = SCE_USER_KWLIST_FOLDERS_IN_COMMENT_MIDDLE;
-            dialogMapper[IDC_FOLDER_IN_COMMENT_CLOSE_EDIT]  = SCE_USER_KWLIST_FOLDERS_IN_COMMENT_CLOSE;
+		dialogMapper[IDC_FOLDER_IN_CODE1_OPEN_EDIT]     = SCE_USER_KWLIST_FOLDERS_IN_CODE1_OPEN;    
+		dialogMapper[IDC_FOLDER_IN_CODE1_MIDDLE_EDIT]   = SCE_USER_KWLIST_FOLDERS_IN_CODE1_MIDDLE;  
+		dialogMapper[IDC_FOLDER_IN_CODE1_CLOSE_EDIT]    = SCE_USER_KWLIST_FOLDERS_IN_CODE1_CLOSE;   
+		dialogMapper[IDC_FOLDER_IN_CODE2_OPEN_EDIT]     = SCE_USER_KWLIST_FOLDERS_IN_CODE2_OPEN;    
+		dialogMapper[IDC_FOLDER_IN_CODE2_MIDDLE_EDIT]   = SCE_USER_KWLIST_FOLDERS_IN_CODE2_MIDDLE;  
+		dialogMapper[IDC_FOLDER_IN_CODE2_CLOSE_EDIT]    = SCE_USER_KWLIST_FOLDERS_IN_CODE2_CLOSE;   
+		dialogMapper[IDC_FOLDER_IN_COMMENT_OPEN_EDIT]   = SCE_USER_KWLIST_FOLDERS_IN_COMMENT_OPEN;  
+		dialogMapper[IDC_FOLDER_IN_COMMENT_MIDDLE_EDIT] = SCE_USER_KWLIST_FOLDERS_IN_COMMENT_MIDDLE;
+		dialogMapper[IDC_FOLDER_IN_COMMENT_CLOSE_EDIT]  = SCE_USER_KWLIST_FOLDERS_IN_COMMENT_CLOSE;
 
-            dialogMapper[IDC_KEYWORD1_EDIT]                 = SCE_USER_KWLIST_KEYWORDS1;
-            dialogMapper[IDC_KEYWORD2_EDIT]                 = SCE_USER_KWLIST_KEYWORDS2;
-            dialogMapper[IDC_KEYWORD3_EDIT]                 = SCE_USER_KWLIST_KEYWORDS3;
-            dialogMapper[IDC_KEYWORD4_EDIT]                 = SCE_USER_KWLIST_KEYWORDS4;
-            dialogMapper[IDC_KEYWORD5_EDIT]                 = SCE_USER_KWLIST_KEYWORDS5;
-            dialogMapper[IDC_KEYWORD6_EDIT]                 = SCE_USER_KWLIST_KEYWORDS6;
-            dialogMapper[IDC_KEYWORD7_EDIT]                 = SCE_USER_KWLIST_KEYWORDS7;
-            dialogMapper[IDC_KEYWORD8_EDIT]                 = SCE_USER_KWLIST_KEYWORDS8;
+		dialogMapper[IDC_KEYWORD1_EDIT]                 = SCE_USER_KWLIST_KEYWORDS1;
+		dialogMapper[IDC_KEYWORD2_EDIT]                 = SCE_USER_KWLIST_KEYWORDS2;
+		dialogMapper[IDC_KEYWORD3_EDIT]                 = SCE_USER_KWLIST_KEYWORDS3;
+		dialogMapper[IDC_KEYWORD4_EDIT]                 = SCE_USER_KWLIST_KEYWORDS4;
+		dialogMapper[IDC_KEYWORD5_EDIT]                 = SCE_USER_KWLIST_KEYWORDS5;
+		dialogMapper[IDC_KEYWORD6_EDIT]                 = SCE_USER_KWLIST_KEYWORDS6;
+		dialogMapper[IDC_KEYWORD7_EDIT]                 = SCE_USER_KWLIST_KEYWORDS7;
+		dialogMapper[IDC_KEYWORD8_EDIT]                 = SCE_USER_KWLIST_KEYWORDS8;
 
-            setLexerMapper[SCE_USER_KWLIST_COMMENTS] 				= "userDefine.comments";
-            setLexerMapper[SCE_USER_KWLIST_DELIMITERS] 				= "userDefine.delimiters";
-            setLexerMapper[SCE_USER_KWLIST_OPERATORS1] 				= "userDefine.operators1";
-            setLexerMapper[SCE_USER_KWLIST_NUMBER_PREFIX1] 			= "userDefine.numberPrefix1";
-            setLexerMapper[SCE_USER_KWLIST_NUMBER_PREFIX2] 			= "userDefine.numberPrefix2";
-            setLexerMapper[SCE_USER_KWLIST_NUMBER_EXTRAS1] 			= "userDefine.numberExtras1";
-            setLexerMapper[SCE_USER_KWLIST_NUMBER_EXTRAS2] 			= "userDefine.numberExtras2";
-            setLexerMapper[SCE_USER_KWLIST_NUMBER_SUFFIX1] 			= "userDefine.numberSuffix1";
-            setLexerMapper[SCE_USER_KWLIST_NUMBER_SUFFIX2] 			= "userDefine.numberSuffix2";
-            setLexerMapper[SCE_USER_KWLIST_NUMBER_RANGE] 			= "userDefine.numberRange";
-            setLexerMapper[SCE_USER_KWLIST_FOLDERS_IN_CODE1_OPEN] 	= "userDefine.foldersInCode1Open";
-            setLexerMapper[SCE_USER_KWLIST_FOLDERS_IN_CODE1_MIDDLE] = "userDefine.foldersInCode1Middle";
-            setLexerMapper[SCE_USER_KWLIST_FOLDERS_IN_CODE1_CLOSE] 	= "userDefine.foldersInCode1Close";
-        }
+		setLexerMapper[SCE_USER_KWLIST_COMMENTS]                = "userDefine.comments";
+		setLexerMapper[SCE_USER_KWLIST_DELIMITERS]              = "userDefine.delimiters";
+		setLexerMapper[SCE_USER_KWLIST_OPERATORS1]              = "userDefine.operators1";
+		setLexerMapper[SCE_USER_KWLIST_NUMBER_PREFIX1]          = "userDefine.numberPrefix1";
+		setLexerMapper[SCE_USER_KWLIST_NUMBER_PREFIX2]          = "userDefine.numberPrefix2";
+		setLexerMapper[SCE_USER_KWLIST_NUMBER_EXTRAS1]          = "userDefine.numberExtras1";
+		setLexerMapper[SCE_USER_KWLIST_NUMBER_EXTRAS2]          = "userDefine.numberExtras2";
+		setLexerMapper[SCE_USER_KWLIST_NUMBER_SUFFIX1]          = "userDefine.numberSuffix1";
+		setLexerMapper[SCE_USER_KWLIST_NUMBER_SUFFIX2]          = "userDefine.numberSuffix2";
+		setLexerMapper[SCE_USER_KWLIST_NUMBER_RANGE]            = "userDefine.numberRange";
+		setLexerMapper[SCE_USER_KWLIST_FOLDERS_IN_CODE1_OPEN]   = "userDefine.foldersInCode1Open";
+		setLexerMapper[SCE_USER_KWLIST_FOLDERS_IN_CODE1_MIDDLE] = "userDefine.foldersInCode1Middle";
+		setLexerMapper[SCE_USER_KWLIST_FOLDERS_IN_CODE1_CLOSE]  = "userDefine.foldersInCode1Close";
+	}
 };
 
 GlobalMappers & globalMappper();

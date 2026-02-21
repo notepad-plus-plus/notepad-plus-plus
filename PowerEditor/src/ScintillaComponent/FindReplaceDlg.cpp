@@ -15,7 +15,10 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+#include <shlwapi.h>
+#include <shlobj.h>
 #include "FindReplaceDlg.h"
+#include "ResultsExporter.h"
 #include "ScintillaEditView.h"
 #include "Notepad_plus_msgs.h"
 #include "localization.h"
@@ -545,7 +548,7 @@ void FindReplaceDlg::updateCombo(int comboID)
 	addText2Combo(getTextFromCombo(hCombo).c_str(), hCombo);
 }
 
-FoundInfo Finder::EmptyFoundInfo(0, 0, 0, L"");
+FoundInfo Finder::EmptyFoundInfo(0, 0, 0, L"", L"");
 SearchResultMarkingLine Finder::EmptySearchResultMarking;
 
 bool Finder::notify(SCNotification *notification)
@@ -3529,8 +3532,10 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				// use the static buffer
 				wchar_t lineBuf[SC_SEARCHRESULT_LINEBUFFERMAXLENGTH]{};
 
+				bool isTruncated = false;
 				if (nbChar > SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 3)
 				{
+					isTruncated = true;  // Mark as truncated for export
 					lend = lstart + SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 4;
 					nbChar = SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 4;
 				}
@@ -3545,7 +3550,9 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 
 				SearchResultMarkingLine srml;
 				srml._segmentPostions.push_back(std::pair<intptr_t, intptr_t>(start_mark, end_mark));
-				text2AddUtf8->append(_pFinder->foundLine(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srml, lineBuf, nbChar, totalLineNumber));
+				// Pass line content to FoundInfo so export feature can access unsaved files
+			std::wstring lineContentStr(lineBuf, nbChar - 2);  // exclude \r\n
+			text2AddUtf8->append(_pFinder->foundLine(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName, lineContentStr.c_str()), srml, lineBuf, nbChar, totalLineNumber));
 
 				if (text2AddUtf8->length() > FINDTEMPSTRING_MAXSIZE)
 				{
@@ -3573,8 +3580,10 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				// use the static buffer
 				wchar_t lineBuf[SC_SEARCHRESULT_LINEBUFFERMAXLENGTH]{};
 
+				bool isTruncated = false;
 				if (nbChar > SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 3)
 				{
+					isTruncated = true;  // Mark as truncated for export
 					lend = lstart + SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 4;
 					nbChar = SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 4;
 				}
@@ -3598,7 +3607,9 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 						pFindersInfo->_pDestFinder->addFileNameTitle(pFileName);
 						findAllFileNameAdded = true;
 					}
-					text2AddUtf8->append(pFindersInfo->_pDestFinder->foundLine(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srml, lineBuf, nbChar, totalLineNumber));
+					// Pass line content to FoundInfo so export feature can access unsaved files
+				std::wstring lineContentStr(lineBuf, nbChar - 2);  // exclude \r\n
+				text2AddUtf8->append(pFindersInfo->_pDestFinder->foundLine(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName, lineContentStr.c_str()), srml, lineBuf, nbChar, totalLineNumber));
 
 					if (text2AddUtf8->length() > FINDTEMPSTRING_MAXSIZE)
 					{
@@ -5921,6 +5932,432 @@ void Finder::copy()
 	}
 }
 
+struct ExportDialogState
+{
+	ExportFormat format = ExportFormat::CSV;
+	char delimiter = ',';
+	bool csvIncludeHeaders = true;
+	bool jsonPrettyPrint = true;
+	bool jsonIncludeMetadata = true;
+	PlainTextStyle textStyle = PlainTextStyle::Readable;
+	wstring lastSearchQuery;
+};
+
+// Persists user's dialog selections across dialog close/reopen cycles
+static ExportDialogState g_exportDialogState;
+// Allows dialog callback to access Finder instance and its search results
+static Finder* g_pFinderForExportDialog = nullptr;
+
+// Updates the filename extension in the export dialog when user selects a different format.
+// Strips existing extension and appends the correct one (.csv, .json, .txt) based on format.
+static void updateExportFilenameExtension(HWND hwndDlg, ExportFormat format)
+{
+	wchar_t currentFilename[MAX_PATH] = L"";
+	::GetDlgItemText(hwndDlg, IDC_EXPORT_FILENAME_EDIT, currentFilename, MAX_PATH);
+
+	// Find the last dot to locate file extension
+	wstring filename(currentFilename);
+	size_t lastDot = filename.find_last_of(L'.');
+
+	// Remove existing extension if found
+	if (lastDot != wstring::npos)
+		filename = filename.substr(0, lastDot);
+
+	// Append correct extension based on format selection
+	switch (format)
+	{
+		case ExportFormat::CSV:
+			filename += L".csv";
+			break;
+		case ExportFormat::JSON:
+			filename += L".json";
+			break;
+		case ExportFormat::PlainText:
+			filename += L".txt";
+			break;
+	}
+
+	// Update the filename edit control with new extension
+	::SetDlgItemText(hwndDlg, IDC_EXPORT_FILENAME_EDIT, filename.c_str());
+}
+
+INT_PTR CALLBACK exportResultsDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	switch (uMsg)
+	{
+		case WM_INITDIALOG:
+		{
+			g_pFinderForExportDialog = reinterpret_cast<Finder*>(lParam);
+			if (!g_pFinderForExportDialog) return FALSE;
+
+			// Default filename based on search query for user convenience
+			wstring defaultFilename = g_exportDialogState.lastSearchQuery;
+			if (defaultFilename.empty()) defaultFilename = L"search_results";
+			defaultFilename += L"_results.csv";
+
+			::SetDlgItemText(hwndDlg, IDC_EXPORT_FILENAME_EDIT, defaultFilename.c_str());
+
+			// Set default location to Documents folder
+			wchar_t docPath[MAX_PATH] = L"";
+			if (SUCCEEDED(SHGetFolderPath(nullptr, CSIDL_MYDOCUMENTS, nullptr, SHGFP_TYPE_CURRENT, docPath)))
+			{
+				::SetDlgItemText(hwndDlg, IDC_EXPORT_PATH_EDIT, docPath);
+			}
+
+			// Populate CSV delimiter options for user flexibility
+			HWND hCSVDelimiterCombo = ::GetDlgItem(hwndDlg, IDC_CSV_DELIMITER_COMBO);
+			::SendMessage(hCSVDelimiterCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Comma (,)"));
+			::SendMessage(hCSVDelimiterCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Semicolon (;)"));
+			::SendMessage(hCSVDelimiterCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Tab (\\t)"));
+			::SendMessage(hCSVDelimiterCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Pipe (|)"));
+			::SendMessage(hCSVDelimiterCombo, CB_SETCURSEL, 0, 0);
+
+			// Populate PlainText style options
+			HWND hStyleCombo = ::GetDlgItem(hwndDlg, IDC_PLAINTEXT_STYLE_COMBO);
+			::SendMessage(hStyleCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Readable"));
+			::SendMessage(hStyleCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Compact"));
+			::SendMessage(hStyleCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Full Details"));
+			::SendMessage(hStyleCombo, CB_SETCURSEL, 0, 0);
+
+			// Set default checkboxes for common export options
+			::CheckDlgButton(hwndDlg, IDC_CSV_HEADERS_CHECK, BST_CHECKED);
+			::CheckDlgButton(hwndDlg, IDC_JSON_PRETTYPRINT_CHECK, BST_CHECKED);
+			::CheckDlgButton(hwndDlg, IDC_JSON_METADATA_CHECK, BST_CHECKED);
+
+			// Initialize to CSV format and hide format-specific controls
+			::CheckDlgButton(hwndDlg, IDC_EXPORT_FORMAT_CSV, BST_CHECKED);
+			::ShowWindow(::GetDlgItem(hwndDlg, IDC_JSON_PRETTYPRINT_CHECK), SW_HIDE);
+			::ShowWindow(::GetDlgItem(hwndDlg, IDC_JSON_METADATA_CHECK), SW_HIDE);
+			::ShowWindow(::GetDlgItem(hwndDlg, IDC_PLAINTEXT_STYLE_COMBO), SW_HIDE);
+			::ShowWindow(::GetDlgItem(hwndDlg, IDC_PLAINTEXT_STYLE_LABEL), SW_HIDE);
+
+			// Trigger initial preview generation
+			::SendMessage(hwndDlg, WM_COMMAND, MAKEWPARAM(IDC_EXPORT_FORMAT_CSV, BN_CLICKED), reinterpret_cast<LPARAM>(::GetDlgItem(hwndDlg, IDC_EXPORT_FORMAT_CSV)));
+
+			return TRUE;
+		}
+
+		case WM_COMMAND:
+		{
+			int wID = LOWORD(wParam);
+			int wNotifyCode = HIWORD(wParam);
+
+			// Format selection radio buttons - show/hide format-specific options
+			if (wID == IDC_EXPORT_FORMAT_CSV || wID == IDC_EXPORT_FORMAT_JSON || wID == IDC_EXPORT_FORMAT_PLAINTEXT)
+			{
+				// Show/hide controls based on selected format
+				::ShowWindow(::GetDlgItem(hwndDlg, IDC_CSV_HEADERS_CHECK), wID == IDC_EXPORT_FORMAT_CSV ? SW_SHOW : SW_HIDE);
+				::ShowWindow(::GetDlgItem(hwndDlg, IDC_CSV_DELIMITER_COMBO), wID == IDC_EXPORT_FORMAT_CSV ? SW_SHOW : SW_HIDE);
+				::ShowWindow(::GetDlgItem(hwndDlg, IDC_CSV_DELIMITER_LABEL), wID == IDC_EXPORT_FORMAT_CSV ? SW_SHOW : SW_HIDE);
+				::ShowWindow(::GetDlgItem(hwndDlg, IDC_JSON_PRETTYPRINT_CHECK), wID == IDC_EXPORT_FORMAT_JSON ? SW_SHOW : SW_HIDE);
+				::ShowWindow(::GetDlgItem(hwndDlg, IDC_JSON_METADATA_CHECK), wID == IDC_EXPORT_FORMAT_JSON ? SW_SHOW : SW_HIDE);
+				::ShowWindow(::GetDlgItem(hwndDlg, IDC_PLAINTEXT_STYLE_COMBO), wID == IDC_EXPORT_FORMAT_PLAINTEXT ? SW_SHOW : SW_HIDE);
+				::ShowWindow(::GetDlgItem(hwndDlg, IDC_PLAINTEXT_STYLE_LABEL), wID == IDC_EXPORT_FORMAT_PLAINTEXT ? SW_SHOW : SW_HIDE);
+
+				// Update format state
+				if (wID == IDC_EXPORT_FORMAT_CSV)
+					g_exportDialogState.format = ExportFormat::CSV;
+				else if (wID == IDC_EXPORT_FORMAT_JSON)
+					g_exportDialogState.format = ExportFormat::JSON;
+				else
+					g_exportDialogState.format = ExportFormat::PlainText;
+
+				// Update filename extension to match selected format
+				updateExportFilenameExtension(hwndDlg, g_exportDialogState.format);
+
+				// Regenerate preview with new format
+				::SendMessage(hwndDlg, WM_COMMAND, MAKEWPARAM(IDC_EXPORTRESULTS_BUTTON, BN_DOUBLECLICKED), 0);
+				return TRUE;
+			}
+
+			// CSV header option checkbox
+			if (wID == IDC_CSV_HEADERS_CHECK && wNotifyCode == BN_CLICKED)
+			{
+				g_exportDialogState.csvIncludeHeaders = ::IsDlgButtonChecked(hwndDlg, IDC_CSV_HEADERS_CHECK) == BST_CHECKED;
+				::SendMessage(hwndDlg, WM_COMMAND, MAKEWPARAM(IDC_EXPORTRESULTS_BUTTON, BN_DOUBLECLICKED), 0);
+				return TRUE;
+			}
+
+			// CSV delimiter selection - update state and refresh preview
+			if (wID == IDC_CSV_DELIMITER_COMBO && wNotifyCode == CBN_SELCHANGE)
+			{
+				LRESULT sel = ::SendMessage(::GetDlgItem(hwndDlg, IDC_CSV_DELIMITER_COMBO), CB_GETCURSEL, 0, 0);
+				if (sel == 0) g_exportDialogState.delimiter = ',';
+				else if (sel == 1) g_exportDialogState.delimiter = ';';
+				else if (sel == 2) g_exportDialogState.delimiter = '\t';
+				else if (sel == 3) g_exportDialogState.delimiter = '|';
+				::SendMessage(hwndDlg, WM_COMMAND, MAKEWPARAM(IDC_EXPORTRESULTS_BUTTON, BN_DOUBLECLICKED), 0);
+				return TRUE;
+			}
+
+			// JSON pretty-print option checkbox
+			if (wID == IDC_JSON_PRETTYPRINT_CHECK && wNotifyCode == BN_CLICKED)
+			{
+				g_exportDialogState.jsonPrettyPrint = ::IsDlgButtonChecked(hwndDlg, IDC_JSON_PRETTYPRINT_CHECK) == BST_CHECKED;
+				::SendMessage(hwndDlg, WM_COMMAND, MAKEWPARAM(IDC_EXPORTRESULTS_BUTTON, BN_DOUBLECLICKED), 0);
+				return TRUE;
+			}
+
+			// JSON metadata option checkbox
+			if (wID == IDC_JSON_METADATA_CHECK && wNotifyCode == BN_CLICKED)
+			{
+				g_exportDialogState.jsonIncludeMetadata = ::IsDlgButtonChecked(hwndDlg, IDC_JSON_METADATA_CHECK) == BST_CHECKED;
+				::SendMessage(hwndDlg, WM_COMMAND, MAKEWPARAM(IDC_EXPORTRESULTS_BUTTON, BN_DOUBLECLICKED), 0);
+				return TRUE;
+			}
+
+			// PlainText style selection - update state and refresh preview
+			if (wID == IDC_PLAINTEXT_STYLE_COMBO && wNotifyCode == CBN_SELCHANGE)
+			{
+				LRESULT sel = ::SendMessage(::GetDlgItem(hwndDlg, IDC_PLAINTEXT_STYLE_COMBO), CB_GETCURSEL, 0, 0);
+				if (sel == 0) g_exportDialogState.textStyle = PlainTextStyle::Readable;
+				else if (sel == 1) g_exportDialogState.textStyle = PlainTextStyle::Compact;
+				else if (sel == 2) g_exportDialogState.textStyle = PlainTextStyle::FullDetails;
+				::SendMessage(hwndDlg, WM_COMMAND, MAKEWPARAM(IDC_EXPORTRESULTS_BUTTON, BN_DOUBLECLICKED), 0);
+				return TRUE;
+			}
+
+			// Browse button - open Save-As dialog to select file location
+			if (wID == IDC_EXPORT_BROWSE_BUTTON && wNotifyCode == BN_CLICKED)
+			{
+				wchar_t szFile[MAX_PATH] = L"";
+				wchar_t szDir[MAX_PATH] = L"";
+				::GetDlgItemText(hwndDlg, IDC_EXPORT_PATH_EDIT, szDir, MAX_PATH);
+				::GetDlgItemText(hwndDlg, IDC_EXPORT_FILENAME_EDIT, szFile, MAX_PATH);
+
+				OPENFILENAME ofn = { 0 };
+				ofn.lStructSize = sizeof(ofn);
+				ofn.hwndOwner = hwndDlg;
+				ofn.lpstrFile = szFile;
+				ofn.nMaxFile = MAX_PATH;
+				ofn.lpstrInitialDir = szDir;
+				ofn.lpstrFilter = L"CSV Files (*.csv)\0*.csv\0JSON Files (*.json)\0*.json\0Text Files (*.txt)\0*.txt\0All Files (*.*)\0*.*\0";
+				ofn.nFilterIndex = 1;
+				ofn.Flags = OFN_OVERWRITEPROMPT;
+
+				if (::GetSaveFileName(&ofn))
+				{
+					wchar_t szPath[MAX_PATH] = L"";
+					wchar_t szFileName[MAX_PATH] = L"";
+					wchar_t szDrive[_MAX_DRIVE] = L"";
+					wchar_t szDir2[_MAX_DIR] = L"";
+
+					_wsplitpath_s(szFile, szDrive, _MAX_DRIVE, szDir2, _MAX_DIR, nullptr, 0, nullptr, 0);
+					wcscpy_s(szPath, MAX_PATH, szDrive);
+					wcscat_s(szPath, MAX_PATH, szDir2);
+
+					wchar_t szFileName2[_MAX_FNAME] = L"";
+					wchar_t szExt[_MAX_EXT] = L"";
+					_wsplitpath_s(szFile, nullptr, 0, nullptr, 0, szFileName2, _MAX_FNAME, szExt, _MAX_EXT);
+					wcscpy_s(szFileName, MAX_PATH, szFileName2);
+					wcscat_s(szFileName, MAX_PATH, szExt);
+
+					::SetDlgItemText(hwndDlg, IDC_EXPORT_PATH_EDIT, szPath);
+					::SetDlgItemText(hwndDlg, IDC_EXPORT_FILENAME_EDIT, szFileName);
+
+					// Detect format from extension and update radio button (case-insensitive)
+					if (_wcsicmp(szExt, L".csv") == 0)
+					{
+						::CheckDlgButton(hwndDlg, IDC_EXPORT_FORMAT_CSV, BST_CHECKED);
+						::CheckDlgButton(hwndDlg, IDC_EXPORT_FORMAT_JSON, BST_UNCHECKED);
+						::CheckDlgButton(hwndDlg, IDC_EXPORT_FORMAT_PLAINTEXT, BST_UNCHECKED);
+						g_exportDialogState.format = ExportFormat::CSV;
+					}
+					else if (_wcsicmp(szExt, L".json") == 0)
+					{
+						::CheckDlgButton(hwndDlg, IDC_EXPORT_FORMAT_CSV, BST_UNCHECKED);
+						::CheckDlgButton(hwndDlg, IDC_EXPORT_FORMAT_JSON, BST_CHECKED);
+						::CheckDlgButton(hwndDlg, IDC_EXPORT_FORMAT_PLAINTEXT, BST_UNCHECKED);
+						g_exportDialogState.format = ExportFormat::JSON;
+					}
+					else if (_wcsicmp(szExt, L".txt") == 0)
+					{
+						::CheckDlgButton(hwndDlg, IDC_EXPORT_FORMAT_CSV, BST_UNCHECKED);
+						::CheckDlgButton(hwndDlg, IDC_EXPORT_FORMAT_JSON, BST_UNCHECKED);
+						::CheckDlgButton(hwndDlg, IDC_EXPORT_FORMAT_PLAINTEXT, BST_CHECKED);
+						g_exportDialogState.format = ExportFormat::PlainText;
+					}
+				}
+				return TRUE;
+			}
+
+			// Path or filename changed - regenerate preview
+			if ((wID == IDC_EXPORT_FILENAME_EDIT || wID == IDC_EXPORT_PATH_EDIT) && wNotifyCode == EN_CHANGE)
+			{
+				::SendMessage(hwndDlg, WM_COMMAND, MAKEWPARAM(IDC_EXPORTRESULTS_BUTTON, BN_DOUBLECLICKED), 0);
+				return TRUE;
+			}
+
+			// Export button BN_DOUBLECLICKED - generate preview (not final export)
+			if (wID == IDC_EXPORTRESULTS_BUTTON && wNotifyCode == BN_DOUBLECLICKED)
+			{
+				wchar_t szPath[MAX_PATH] = L"";
+				wchar_t szFile[MAX_PATH] = L"";
+				::GetDlgItemText(hwndDlg, IDC_EXPORT_PATH_EDIT, szPath, MAX_PATH);
+				::GetDlgItemText(hwndDlg, IDC_EXPORT_FILENAME_EDIT, szFile, MAX_PATH);
+
+				if (wcslen(szFile) == 0)
+				{
+					::SetDlgItemText(hwndDlg, IDC_EXPORT_PREVIEW_EDIT, L"Error: Please enter a filename.");
+					return TRUE;
+				}
+
+				wchar_t szFullPath[MAX_PATH] = L"";
+				wcscpy_s(szFullPath, MAX_PATH, szPath);
+				wcscat_s(szFullPath, MAX_PATH, L"\\");
+				wcscat_s(szFullPath, MAX_PATH, szFile);
+
+				wchar_t szExt[_MAX_EXT] = L"";
+				_wsplitpath_s(szFile, nullptr, 0, nullptr, 0, nullptr, 0, szExt, _MAX_EXT);
+				if (wcslen(szExt) == 0)
+				{
+					if (g_exportDialogState.format == ExportFormat::CSV)
+						wcscat_s(szFullPath, MAX_PATH, L".csv");
+					else if (g_exportDialogState.format == ExportFormat::JSON)
+						wcscat_s(szFullPath, MAX_PATH, L".json");
+					else
+						wcscat_s(szFullPath, MAX_PATH, L".txt");
+				}
+
+				ExportOptions opts;
+				opts.format = g_exportDialogState.format;
+				opts.outputPath = szFullPath;
+				opts.csvOpts.delimiter = g_exportDialogState.delimiter;
+				opts.csvOpts.includeHeaders = g_exportDialogState.csvIncludeHeaders;
+				opts.jsonOpts.prettyPrint = g_exportDialogState.jsonPrettyPrint;
+				opts.jsonOpts.includeMetadata = g_exportDialogState.jsonIncludeMetadata;
+				opts.plainTextOpts.style = g_exportDialogState.textStyle;
+
+				if (g_pFinderForExportDialog && !g_pFinderForExportDialog->_pMainFoundInfos->empty())
+				{
+					ResultsExporter exporter(*g_pFinderForExportDialog->_pMainFoundInfos,
+						g_pFinderForExportDialog->_lastSearchQuery,
+						g_pFinderForExportDialog->_lastSearchScope);
+					wstring errorMsg;
+					std::string previewContent;
+
+					// Use generateContent() for preview - NO file I/O, NO safety checks
+					if (exporter.generateContent(opts, previewContent, errorMsg))
+					{
+						// Convert UTF-8 preview content to wide string for display
+						// Replace LF with CRLF for Windows edit control display - preserves pretty-print formatting
+						std::string displayContent = previewContent;
+						size_t pos = 0;
+						while ((pos = displayContent.find('\n', pos)) != std::string::npos) {
+							// Only add \r if not already present (avoid \r\r\n)
+							if (pos == 0 || displayContent[pos - 1] != '\r') {
+								displayContent.insert(pos, "\r");
+								pos += 2;
+							} else {
+								pos += 1;
+							}
+						}
+
+						std::wstring wPreviewContent(displayContent.begin(), displayContent.end());
+						::SetDlgItemText(hwndDlg, IDC_EXPORT_PREVIEW_EDIT, wPreviewContent.c_str());
+					}
+					else
+					{
+						// Show generation error (e.g., "No results to export")
+						::SetDlgItemText(hwndDlg, IDC_EXPORT_PREVIEW_EDIT, (L"Error: " + errorMsg).c_str());
+					}
+				}
+				return TRUE;
+			}
+
+			// Export button BN_CLICKED - perform actual export and close dialog on success
+			if (wID == IDC_EXPORTRESULTS_BUTTON && wNotifyCode == BN_CLICKED)
+			{
+				wchar_t szPath[MAX_PATH] = L"";
+				wchar_t szFile[MAX_PATH] = L"";
+				::GetDlgItemText(hwndDlg, IDC_EXPORT_PATH_EDIT, szPath, MAX_PATH);
+				::GetDlgItemText(hwndDlg, IDC_EXPORT_FILENAME_EDIT, szFile, MAX_PATH);
+
+				if (wcslen(szFile) == 0)
+				{
+					::MessageBox(hwndDlg, L"Please enter a filename.", L"Export Error", MB_ICONERROR);
+					return TRUE;
+				}
+
+				wchar_t szFullPath[MAX_PATH] = L"";
+				wcscpy_s(szFullPath, MAX_PATH, szPath);
+				wcscat_s(szFullPath, MAX_PATH, L"\\");
+				wcscat_s(szFullPath, MAX_PATH, szFile);
+
+				wchar_t szExt[_MAX_EXT] = L"";
+				_wsplitpath_s(szFile, nullptr, 0, nullptr, 0, nullptr, 0, szExt, _MAX_EXT);
+				if (wcslen(szExt) == 0)
+				{
+					if (g_exportDialogState.format == ExportFormat::CSV)
+						wcscat_s(szFullPath, MAX_PATH, L".csv");
+					else if (g_exportDialogState.format == ExportFormat::JSON)
+						wcscat_s(szFullPath, MAX_PATH, L".json");
+					else
+						wcscat_s(szFullPath, MAX_PATH, L".txt");
+				}
+
+				ExportOptions opts;
+				opts.format = g_exportDialogState.format;
+				opts.outputPath = szFullPath;
+				opts.csvOpts.delimiter = g_exportDialogState.delimiter;
+				opts.csvOpts.includeHeaders = g_exportDialogState.csvIncludeHeaders;
+				opts.jsonOpts.prettyPrint = g_exportDialogState.jsonPrettyPrint;
+				opts.jsonOpts.includeMetadata = g_exportDialogState.jsonIncludeMetadata;
+				opts.plainTextOpts.style = g_exportDialogState.textStyle;
+
+				if (g_pFinderForExportDialog && !g_pFinderForExportDialog->_pMainFoundInfos->empty())
+				{
+					ResultsExporter exporter(*g_pFinderForExportDialog->_pMainFoundInfos,
+						g_pFinderForExportDialog->_lastSearchQuery,
+						g_pFinderForExportDialog->_lastSearchScope);
+					wstring errorMsg;
+
+					if (exporter.exportResults(opts, errorMsg))
+					{
+						::MessageBox(hwndDlg, (L"Export successful!\r\nFile saved to: " + wstring(szFullPath)).c_str(), L"Export Complete", MB_ICONINFORMATION);
+						::EndDialog(hwndDlg, IDOK);
+					}
+					else
+					{
+						::MessageBox(hwndDlg, (L"Export failed: " + errorMsg).c_str(), L"Export Error", MB_ICONERROR);
+					}
+				}
+				return TRUE;
+			}
+
+			if (wID == IDCANCEL)
+			{
+				::EndDialog(hwndDlg, IDCANCEL);
+				return TRUE;
+			}
+
+			return FALSE;
+		}
+
+		case WM_DESTROY:
+		{
+			g_pFinderForExportDialog = nullptr;
+			return TRUE;
+		}
+
+		default:
+			return FALSE;
+	}
+}
+
+void Finder::exportResults()
+{
+	if (_pMainFoundInfos->empty())
+	{
+		::MessageBox(_hSelf, L"No search results to export.", L"Export", MB_ICONINFORMATION);
+		return;
+	}
+
+	g_exportDialogState.lastSearchQuery = _lastSearchQuery;
+
+	::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_EXPORT_RESULTS_DLG), _hSelf, exportResultsDlgProc, reinterpret_cast<LPARAM>(this));
+}
+
 void Finder::beginNewFilesSearch()
 {
 	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
@@ -5943,6 +6380,12 @@ void Finder::beginNewFilesSearch()
 
 void Finder::finishFilesSearch(int count, int searchedCount, bool searchedEntireNotSelection, const FindOption* pFindOpt)
 {
+	if (pFindOpt)
+	{
+		_lastSearchQuery = pFindOpt->_str2Search;
+		_lastSearchScope = pFindOpt->_directory;
+	}
+
 	std::vector<FoundInfo>* _pOldFoundInfos;
 	std::vector<SearchResultMarkingLine>* _pOldMarkings;
 	_pOldFoundInfos = _pMainFoundInfos == &_foundInfos1 ? &_foundInfos2 : &_foundInfos1;
@@ -6124,6 +6567,12 @@ intptr_t CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 					return TRUE;
 				}
 
+			case NPPM_INTERNAL_SCINTILLAFINDEREXPORT:
+			{
+				exportResults();
+				return TRUE;
+			}
+
 				case NPPM_INTERNAL_SCINTILLAFINDERWRAP:
 				{
 					wrapLongLinesToggle();
@@ -6167,6 +6616,7 @@ intptr_t CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 				wstring clearAll = pNativeSpeaker->getLocalizedStrFromID("finder-clear-all", L"Clear all");
 				wstring purgeForEverySearch = pNativeSpeaker->getLocalizedStrFromID("finder-purge-for-every-search", L"Purge for every search");
 				wstring openSelectedPath = pNativeSpeaker->getLocalizedStrFromID("finder-open-selected-paths", L"Open Selected Pathname(s)");
+        wstring exportResults = pNativeSpeaker->getLocalizedStrFromID("finder-export-results", L"Export Search Results...");
 				wstring wrapLongLines = pNativeSpeaker->getLocalizedStrFromID("finder-wrap-long-lines", L"Word wrap long lines");
 
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_FINDINFINDERDLG, findInFinder));
@@ -6182,11 +6632,9 @@ intptr_t CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERSELECTALL, selectAll));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERCLEARALL, clearAll));
 				tmp.push_back(MenuItemUnit(0, L"Separator"));
-				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDEROPENALL, openSelectedPath));
-				// configuration items go at the bottom:
-				tmp.push_back(MenuItemUnit(0, L"Separator"));
-				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERWRAP, wrapLongLines));
-				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDERPURGE, purgeForEverySearch));
+				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDEROPENALL, openAll));
+		    tmp.push_back(MenuItemUnit(0, L"Separator"));
+		    tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINDEREXPORT, exportResults));
 
 				scintillaContextmenu.create(_hSelf, tmp);
 

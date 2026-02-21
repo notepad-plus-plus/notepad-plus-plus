@@ -3841,7 +3841,7 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(const NppXml
 		std::wstring ext = string2wstring(NppXml::attribute(childNode, "ext", ""));
 		std::string udlVersion = NppXml::attribute(childNode, "udlVersion", "");
 
-		if (name.empty() || ext.empty())
+		if (name.empty())
 		{
 			// UserLang name is missing, just ignore this entry
 			continue;
@@ -3877,7 +3877,7 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(const NppXml
 			{
 				const Style * pStyle = _userLangArray[_nbUserLang - 1]->_styles.findByID(i);
 				if (!pStyle)
-					_userLangArray[_nbUserLang - 1]->_styles.addStyler(i, string2wstring(globalMappper().styleNameMapper[i]));
+					_userLangArray[_nbUserLang - 1]->_styles.addStyler(i, string2wstring(globalMappper().styleNameMapper[i]).c_str());
 			}
 
 		}

@@ -76,7 +76,7 @@ public:
 
 		// 2.0
 		temp["Comments"]                      = SCE_USER_KWLIST_COMMENTS;
-		temp["Numbers, additiona"]            = SCE_USER_KWLIST_NUMBER_RANGE;
+		temp["Numbers, additional"]           = SCE_USER_KWLIST_NUMBER_RANGE;
 		temp["Numbers, prefixes"]             = SCE_USER_KWLIST_NUMBER_PREFIX2;
 		temp["Numbers, extras with prefixes"] = SCE_USER_KWLIST_NUMBER_EXTRAS2;
 		temp["Numbers, suffixes"]             = SCE_USER_KWLIST_NUMBER_SUFFIX2;

@@ -5644,21 +5644,22 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 
 			if (!isFailed)
 			{
-				const XmlAttrResult val = getResultAttribute(childNode, "iconSetNumber", { "1", "0" });
-				switch (val)
+				const int iconSetNumber = NppXml::intAttribute(childNode, "iconSetNumber", -1);
+				switch (iconSetNumber)
 				{
-					case isTrue:
+					case 0: // light icons
+					case 2: // dark icons
+					{
+						break;
+					}
+
+					case 1:
 					{
 						_nppGUI._tabStatus |= TAB_ALTICONS;
 						break;
 					}
 
-					case isFalse:
-					{
-						break;
-					}
-
-					case failed:
+					default:
 					{
 						isFailed = true;
 						break;
@@ -6576,6 +6577,8 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 			auto& darkThemeName = darkDefaults._xmlFileName;
 			auto& darkTbInfo = darkDefaults._tbIconInfo;
 			darkThemeName = string2wstring(NppXml::attribute(childNode, "darkThemeName", "DarkModeDefault.xml"));
+			if (darkThemeName.empty())
+				darkThemeName = L"DarkModeDefault.xml";
 			darkTbInfo._tbIconSet = getRangeDefaultAttribute(childNode, "darkToolBarIconSet", TB_SMALL, TB_STANDARD, darkTbInfo._tbIconSet);
 			darkTbInfo._tbColor = getRangeDefaultAttribute(childNode, "darkTbFluentColor", defaultColor, custom, darkTbInfo._tbColor);
 			darkTbInfo._tbCustomColor = NppXml::intAttribute(childNode, "darkTbFluentCustomColor", darkTbInfo._tbCustomColor);
@@ -6591,7 +6594,7 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 			lightTbInfo._tbColor = getRangeDefaultAttribute(childNode, "lightTbFluentColor", defaultColor, custom, lightTbInfo._tbColor);
 			lightTbInfo._tbCustomColor = NppXml::intAttribute(childNode, "lightTbFluentCustomColor", lightTbInfo._tbCustomColor);
 			lightTbInfo._tbUseMono = getBoolAttribute(childNode, "lightTbFluentMono");
-			lightDefaults._tabIconSet = getRangeDefaultAttribute(childNode, "darkTabIconSet", 0, 2, lightDefaults._tabIconSet);
+			lightDefaults._tabIconSet = getRangeDefaultAttribute(childNode, "lightTabIconSet", 0, 2, lightDefaults._tabIconSet);
 			lightDefaults._tabUseTheme = getBoolAttribute(childNode, "lightTabUseTheme", lightDefaults._tabUseTheme);
 
 			// Windows mode is handled later in Notepad_plus_Window::init from Notepad_plus_Window.cpp

@@ -162,11 +162,11 @@
 					<Item id="42075" name="Hľadať na Internete"/>
 					<Item id="42076" name="Zmeniť vyhľadávač…"/>
 					<Item id="42090" name="Nerozlišovať veľkosť písmen a celé slovo"/>
-					<Item id="42091" name="Iba rovanká veľkosť písmen"/>
+					<Item id="42091" name="Iba rovnaká veľkosť písmen"/>
 					<Item id="42092" name="Iba celé slová"/>
 					<Item id="42093" name="Rovnaká veľkosť písmen a celé slovo"/>
 					<Item id="42094" name="Nerozlišovať veľkosť písmen a celé slovo"/>
-					<Item id="42095" name="Iba rovanká veľkosť písmen"/>
+					<Item id="42095" name="Iba rovnaká veľkosť písmen"/>
 					<Item id="42096" name="Iba celé slová"/>
 					<Item id="42097" name="Rovnaká veľkosť písmen a celé slovo"/>
 					<Item id="42098" name="Vrátiť naposledy pridaný viacnásobný výber"/>
@@ -716,7 +716,7 @@
 					<Item id="44100" name="Zobraziť aktuálny súbor vo Firefoxe"/>
 					<Item id="44101" name="Zobraziť aktuálny súbor v Chrome"/>
 					<Item id="44103" name="Zobraziť aktuálny súbor v IE"/>
-					<Item id="44102" name="Zobraziť aktuálny súbor v Edgei"/>
+					<Item id="44102" name="Zobraziť aktuálny súbor v Edge"/>
 					<Item id="50003" name="Prepnúť na predchádzajúci dokument"/>
 					<Item id="50004" name="Prepnúť na nasledujúci dokument"/>
 					<Item id="44051" name="Zbaliť úroveň 1"/>

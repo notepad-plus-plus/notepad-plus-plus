@@ -2155,13 +2155,16 @@ bool Notepad_plus::findInFilelist(std::vector<wstring> & fileNames)
 
 	const bool isEntireDoc = true;
 	bool hasInvalidRegExpr = false;
+	bool ignoreOpenedBuffers = true;
 
 	for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
 	{
 		if (progress.isCancelled()) break;
 
 		bool closeBuf = false;
-		BufferID id = MainFileManager.getBufferFromName(fileNames.at(i).c_str());
+
+		BufferID id = ignoreOpenedBuffers ? BUFFER_INVALID : MainFileManager.getBufferFromName(fileNames.at(i).c_str());
+
 		if (id == BUFFER_INVALID)
 		{
 			id = MainFileManager.loadFile(fileNames.at(i).c_str());

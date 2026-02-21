@@ -6015,6 +6015,7 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 			_nppGUI._finderLinesAreCurrentlyWrapped = getBoolAttribute(childNode, "wrappedLines");
 			_nppGUI._finderPurgeBeforeEverySearch = getBoolAttribute(childNode, "purgeBeforeEverySearch");
 			_nppGUI._finderShowOnlyOneEntryPerFoundLine = getBoolAttribute(childNode, "showOnlyOneEntryPerFoundLine", _nppGUI._finderShowOnlyOneEntryPerFoundLine);
+			_nppGUI._fif_ignoreunsavedChangesInOpenedFiles = getBoolAttribute(childNode, "FiF_ignoreunsavedChangesInOpenedFiles", _nppGUI._fif_ignoreunsavedChangesInOpenedFiles);
 		}
 		// <GUIConfig name="NewDocDefaultSettings" format="0" encoding="4" lang="0" codepage="-1" openAnsiAsUTF8="yes"
 		// addNewDocumentOnStartup="no" useContentAsTabName="no" />
@@ -7456,6 +7457,8 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(L"purgeBeforeEverySearch", pStr);
 		pStr = _nppGUI._finderShowOnlyOneEntryPerFoundLine ? L"yes" : L"no";
 		GUIConfigElement->SetAttribute(L"showOnlyOneEntryPerFoundLine", pStr);
+		pStr = _nppGUI._fif_ignoreunsavedChangesInOpenedFiles ? L"yes" : L"no";
+		GUIConfigElement->SetAttribute(L"FiF_ignoreunsavedChangesInOpenedFiles", pStr);
 
 	}
 

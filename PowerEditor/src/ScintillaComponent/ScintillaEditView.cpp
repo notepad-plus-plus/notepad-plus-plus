@@ -1101,20 +1101,6 @@ void ScintillaEditView::setUserLexer(const wchar_t* userLangName) const
 	if (!userLangContainer)
 		return;
 
-	UINT codepage = CP_ACP;
-	UniMode unicodeMode = _currentBuffer->getUnicodeMode();
-	int encoding = _currentBuffer->getEncoding();
-	if (encoding == -1)
-	{
-		if (unicodeMode == uniUTF8 || unicodeMode == uniUTF8_NoBOM)
-			codepage = CP_UTF8;
-	}
-	else
-	{
-		codepage = CP_OEMCP;	// system OEM code page might not match user selection for character set,
-								// but this is the best match WideCharToMultiByte offers
-	}
-
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("userDefine.isCaseIgnored"),		  reinterpret_cast<LPARAM>(userLangContainer->_isCaseIgnored ? "1":"0"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("userDefine.allowFoldOfComments"),  reinterpret_cast<LPARAM>(userLangContainer->_allowFoldOfComments ? "1":"0"));

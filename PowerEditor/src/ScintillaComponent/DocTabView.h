@@ -48,7 +48,7 @@ public:
 
 	void addBuffer(BufferID buffer);
 	void closeBuffer(BufferID buffer);
-	void bufferUpdated(Buffer * buffer, int mask);
+	void bufferUpdated(const Buffer* buffer, int mask);
 
 	bool activateBuffer(BufferID buffer);
 
@@ -64,7 +64,7 @@ public:
 
 	void resizeIconsDpi() {
 		UINT newSize = dpiManager().scale(g_TabIconSize);
-		for (const auto& i : _pIconListVector)
+		for (const IconList* const& i : _pIconListVector)
 		{
 			ImageList_SetIconSize(i->getHandle(), newSize, newSize);
 		}
@@ -81,7 +81,7 @@ public:
 		return _pView;
 	}
 
-	void setIndividualTabColour(BufferID bufferId, int colorId);
+	static void setIndividualTabColour(BufferID bufferId, int colorId);
 	int getIndividualTabColourId(int tabIndex) override;
 	
 	HIMAGELIST getImgLst(UINT index) {

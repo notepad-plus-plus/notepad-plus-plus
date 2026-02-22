@@ -6640,7 +6640,7 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 }
 
 // <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" lineNumberDynamicWidth="yes" bookMarkMargin="show" indentGuideLine="show"
-// folderMarkStyle="box" isChangeHistoryEnabled="0" lineWrapMethod="aligned" currentLineIndicator="1" currentLineFrameWidth="1"
+// folderMarkStyle="box" isChangeHistoryEnabled="1" lineWrapMethod="aligned" currentLineIndicator="1" currentLineFrameWidth="1"
 // virtualSpace="no" scrollBeyondLastLine="yes" rightClickKeepsSelection="no" selectedTextForegroundSingleColor="no" disableAdvancedScrolling="no"
 // wrapSymbolShow="hide" Wrap="no" borderEdge="yes" isEdgeBgMode="no" edgeMultiColumnPos="" zoom="0" zoom2="0" whiteSpaceShow="hide"
 // eolShow="hide" eolMode="1" npcShow="hide" npcMode="1" npcCustomColor="no" npcIncludeCcUniEOL="no" npcNoInputC0="yes" ccShow="yes"
@@ -6657,18 +6657,17 @@ void NppParameters::feedScintillaParam(const NppXml::Element& element)
 
 	// Change History Margin
 	{
-		int chState = 0;
+		using enum changeHistoryState;
 		if (const char* nm = NppXml::attribute(element, "isChangeHistoryEnabled");
 			nm && std::strcmp(nm, "yes") == 0) // for the retro-compatibility
 		{
-			chState = 1;
+			_svp._isChangeHistoryEnabled4NextSession = margin;
 		}
 		else
 		{
-			chState = NppXml::intAttribute(element, "isChangeHistoryEnabled", 0);
+			_svp._isChangeHistoryEnabled4NextSession = getRangeDefaultAttribute(element, "isChangeHistoryEnabled", disable, marginIndicator, _svp._isChangeHistoryEnabled4NextSession);
 		}
 
-		_svp._isChangeHistoryEnabled4NextSession = static_cast<changeHistoryState>(chState);
 		switch (_svp._isChangeHistoryEnabled4NextSession)
 		{
 			case disable:
@@ -6699,11 +6698,11 @@ void NppParameters::feedScintillaParam(const NppXml::Element& element)
 				break;
 			}
 
-			default:
+			default: // should not happen
 			{
 				_svp._isChangeHistoryMarginEnabled = true;
 				_svp._isChangeHistoryIndicatorEnabled = false;
-				_svp._isChangeHistoryEnabled4NextSession = marginIndicator;
+				_svp._isChangeHistoryEnabled4NextSession = margin;
 				break;
 			}
 		}

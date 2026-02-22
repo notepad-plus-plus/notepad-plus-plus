@@ -59,7 +59,7 @@
 					<Item subMenuId="encoding-characterSets" name="Znaková sada"/>
 					<Item subMenuId="encoding-arabic" name="Arabčina"/>
 					<Item subMenuId="encoding-baltic" name="Pobaltské jazyky"/>
-					<Item subMenuId="encoding-celtic" name="Keltština"/>
+					<Item subMenuId="encoding-celtic" name="Keltčina"/>
 					<Item subMenuId="encoding-cyrillic" name="Cyrilika"/>
 					<Item subMenuId="encoding-centralEuropean" name="Stredoeurópske jazyky"/>
 					<Item subMenuId="encoding-chinese" name="Čínština"/>

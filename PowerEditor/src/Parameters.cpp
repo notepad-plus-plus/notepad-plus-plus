@@ -712,7 +712,7 @@ static constexpr std::array<const char*, 2> STR_BOOL_SHOWHIDE{ { "show", "hide" 
 	return defaultVal;
 }
 
-[[nodiscard]] [[maybe_unused]] static XmlAttrResult getResultAttribute(const NppXml::Element& elem, const char* name, const std::array<const char*, 2>& strs2cmp = STR_BOOL_YESNO)
+[[nodiscard]] static XmlAttrResult getResultAttribute(const NppXml::Element& elem, const char* name, const std::array<const char*, 2>& strs2cmp = STR_BOOL_YESNO)
 {
 	const char* str = NppXml::attribute(elem, name);
 	if (str)
@@ -752,7 +752,7 @@ static void setBoolAttribute(NppXml::Element& elem, const char* name, bool isTru
 	NppXml::setAttribute(elem, name, isTrue ? strs2set[0] : strs2set[1]);
 }
 
-[[nodiscard]] [[maybe_unused]] static bool getBoolChildTextNode(const NppXml::Element& elemParent, bool defaultVal = false, const std::array<const char*, 2>& strs2cmp = STR_BOOL_YESNO)
+[[nodiscard]] static bool getBoolChildTextNode(const NppXml::Element& elemParent, bool defaultVal = false, const std::array<const char*, 2>& strs2cmp = STR_BOOL_YESNO)
 {
 	NppXml::Node n = NppXml::firstChild(elemParent);
 	if (n)
@@ -769,7 +769,7 @@ static void setBoolAttribute(NppXml::Element& elem, const char* name, bool isTru
 	return defaultVal;
 }
 
-[[nodiscard]] [[maybe_unused]] static XmlAttrResult getResultChildTextNode(const NppXml::Element& elemParent, const std::array<const char*, 2>& strs2cmp = STR_BOOL_YESNO)
+[[nodiscard]] static XmlAttrResult getResultChildTextNode(const NppXml::Element& elemParent, const std::array<const char*, 2>& strs2cmp = STR_BOOL_YESNO)
 {
 	NppXml::Node n = NppXml::firstChild(elemParent);
 	if (n)
@@ -2738,8 +2738,13 @@ bool NppParameters::getUserParametersFromXmlTree()
 	if (!rootTinyXML)
 		return false;
 
-	// Get GUI parameters
-	feedGUIParameters(rootTinyXML);
+	// Erase the History root
+	TiXmlNode* node = rootTinyXML->FirstChildElement(L"History");
+	rootTinyXML->RemoveChild(node);
+
+	// Add a new empty History root
+	TiXmlElement HistoryNode(L"History");
+	rootTinyXML->InsertEndChild(HistoryNode);
 
 	XmlDocPath xmlUserDoc{};
 	xmlUserDoc._doc = new NppXml::NewDocument();
@@ -2751,12 +2756,15 @@ bool NppParameters::getUserParametersFromXmlTree()
 	if (!root)
 		return false;
 
+	// Get GUI parameters
+	feedGUIParameters(root);
+
 	// Get History parameters
 	feedFileListParameters(root);
 
 	// Erase the History root
-	TiXmlNode* node = rootTinyXML->FirstChildElement(L"History");
-	rootTinyXML->RemoveChild(node);
+	NppXml::Element histRoot = NppXml::firstChildElement(root, "History");
+	NppXml::deleteChild(root, histRoot);
 
 	// Add a new empty History root
 	NppXml::createChildElement(root, "History");
@@ -5016,7 +5024,7 @@ void StyleArray::addStyler(int styleID, const NppXml::Element& styleNode)
 		NppXml::Node v = NppXml::firstChild(styleNode);
 		if (v)
 		{
-			s._keywords = string2wstring(NppXml::value(v));
+			s._keywords = NppXml::value(v);
 		}
 	}
 }
@@ -5522,696 +5530,442 @@ void NppParameters::feedKeyWordsParameters(const NppXml::Element& element)
 	}
 }
 
-void NppParameters::feedGUIParameters(TiXmlNode *node)
+void NppParameters::feedGUIParameters(const NppXml::Element& element)
 {
-	TiXmlNode *GUIRoot = node->FirstChildElement(L"GUIConfigs");
-	if (nullptr == GUIRoot)
+	NppXml::Element GUIRoot = NppXml::firstChildElement(element, "GUIConfigs");
+	if (!GUIRoot)
 		return;
 
-	for (TiXmlNode *childNode = GUIRoot->FirstChildElement(L"GUIConfig");
-		childNode ;
-		childNode = childNode->NextSibling(L"GUIConfig") )
+	for (NppXml::Element childNode = NppXml::firstChildElement(GUIRoot, "GUIConfig");
+		childNode;
+		childNode = NppXml::nextSiblingElement(childNode, "GUIConfig"))
 	{
-		TiXmlElement* element = childNode->ToElement();
-		const wchar_t* nm = element->Attribute(L"name");
-		if (nullptr == nm)
+		const char* nm = NppXml::attribute(childNode, "name");
+		if (!nm)
 			continue;
 
-		auto parseYesNoBoolAttribute = [&element](const wchar_t* name, bool defaultValue = false) -> bool {
-			const wchar_t* val = element->Attribute(name);
-			if (val != nullptr)
-			{
-				if (!lstrcmp(val, L"yes"))
-					return true;
-				else if (!lstrcmp(val, L"no"))
-					return false;
-			}
-			return defaultValue;
-		};
-
-		if (!lstrcmp(nm, L"ToolBar"))
+		// <GUIConfig name="ToolBar" visible="yes" fluentColor="0" fluentCustomColor="0" fluentMono="no">standard</GUIConfig>
+		if (std::strcmp(nm, "ToolBar") == 0)
 		{
-			const wchar_t* val = element->Attribute(L"visible");
-			if (val)
+			_nppGUI._toolbarShow = getBoolAttribute(childNode, "visible", _nppGUI._toolbarShow);
+
 			{
-				if (!lstrcmp(val, L"no"))
-					_nppGUI._toolbarShow = false;
-				else// if (!lstrcmp(val, L"yes"))
-					_nppGUI._toolbarShow = true;
+				using enum FluentColor;
+				_nppGUI._tbIconInfo._tbColor = getRangeDefaultAttribute(childNode, "fluentColor", defaultColor, custom, _nppGUI._tbIconInfo._tbColor);
 			}
 
-			int i = 0;
-			val = element->Attribute(L"fluentColor", &i);
-			if (val)
-			{
-				auto& tbColor = _nppGUI._tbIconInfo._tbColor;
-				tbColor = static_cast<FluentColor>(i);
-			}
+			_nppGUI._tbIconInfo._tbCustomColor = NppXml::intAttribute(childNode, "fluentCustomColor", _nppGUI._tbIconInfo._tbCustomColor);
 
-			val = element->Attribute(L"fluentCustomColor", &i);
-			if (val)
-			{
-				auto& tbColor = _nppGUI._tbIconInfo._tbCustomColor;
-				tbColor = i;
-			}
+			_nppGUI._tbIconInfo._tbUseMono = getBoolAttribute(childNode, "fluentMono", _nppGUI._tbIconInfo._tbUseMono);
 
-			val = element->Attribute(L"fluentMono");
-			if (val)
-			{
-				auto& tbMono = _nppGUI._tbIconInfo._tbUseMono;
-				if (!lstrcmp(val, L"no"))
-					tbMono = false;
-				else// if (!lstrcmp(val, L"yes"))
-					tbMono = true;
-			}
-
-			TiXmlNode *n = childNode->FirstChild();
+			NppXml::Node n = NppXml::firstChild(childNode);
 			if (n)
 			{
-				val = n->Value();
+				const char* val = NppXml::value(n);
 				if (val)
 				{
 					using enum toolBarStatusType;
 					auto& tbIconSet = _nppGUI._tbIconInfo._tbIconSet;
-					if (!lstrcmp(val, L"small"))
+					if (std::strcmp(val, "small") == 0)
 						tbIconSet = TB_SMALL;
-					else if (!lstrcmp(val, L"large"))
+					else if (std::strcmp(val, "large") == 0)
 						tbIconSet = TB_LARGE;
-					else if (!lstrcmp(val, L"small2"))
+					else if (std::strcmp(val, "small2") == 0)
 						tbIconSet = TB_SMALL2;
-					else if (!lstrcmp(val, L"large2"))
+					else if (std::strcmp(val, "large2") == 0)
 						tbIconSet = TB_LARGE2;
-					else //if (!lstrcmp(val, L"standard"))
+					else //if (std::strcmp(val, "standard") == 0)
 						tbIconSet = TB_STANDARD;
 				}
 
 			}
 		}
-		else if (!lstrcmp(nm, L"StatusBar"))
+		// <GUIConfig name="StatusBar">show</GUIConfig>
+		else if (std::strcmp(nm, "StatusBar") == 0)
 		{
-			TiXmlNode *n = childNode->FirstChild();
-			if (n)
-			{
-				const wchar_t* val = n->Value();
-				if (val)
-				{
-					if (!lstrcmp(val, L"hide"))
-						_nppGUI._statusBarShow = false;
-					else if (!lstrcmp(val, L"show"))
-						_nppGUI._statusBarShow = true;
-				}
-			}
+			_nppGUI._statusBarShow = getBoolChildTextNode(childNode, _nppGUI._statusBarShow, STR_BOOL_SHOWHIDE);
 		}
-		else if (!lstrcmp(nm, L"MenuBar"))
+		// <GUIConfig name="MenuBar">show</GUIConfig>
+		else if (std::strcmp(nm, "MenuBar") == 0)
 		{
-			TiXmlNode *n = childNode->FirstChild();
-			if (n)
-			{
-				const wchar_t* val = n->Value();
-				if (val)
-				{
-					if (!lstrcmp(val, L"hide"))
-						_nppGUI._menuBarShow = false;
-					else if (!lstrcmp(val, L"show"))
-						_nppGUI._menuBarShow = true;
-				}
-			}
+			_nppGUI._menuBarShow = getBoolChildTextNode(childNode, _nppGUI._menuBarShow, STR_BOOL_SHOWHIDE);
 		}
-		else if (!lstrcmp(nm, L"TabBar"))
+		// <GUIConfig name="TabBar" dragAndDrop="yes" drawTopBar="yes" drawInactiveTab="yes" reduce="yes" closeButton="yes"
+		// pinButton="yes" showOnlyPinnedButton="no" buttonsOninactiveTabs="no" doubleClick2Close="no"
+		// vertical="no" multiLine="no" hide="no" quitOnEmpty="no" iconSetNumber="0" tabCompactLabelLen="0" />
+		else if (std::strcmp(nm, "TabBar") == 0)
 		{
 			bool isFailed = false;
-			int oldValue = _nppGUI._tabStatus;
+			const int oldValue = _nppGUI._tabStatus;
 			_nppGUI._tabStatus = 0;
 
-			const wchar_t* val = element->Attribute(L"dragAndDrop");
-			if (val)
-			{
-				if (!lstrcmp(val, L"yes"))
-					_nppGUI._tabStatus |= TAB_DRAGNDROP;
-				else if (!lstrcmp(val, L"no"))
-					_nppGUI._tabStatus |= 0;
-				else
-					isFailed = true;
-			}
+			using enum XmlAttrResult;
 
-			val = element->Attribute(L"drawTopBar");
-			if (val)
+			auto setTabStatus = [&childNode, &isFailed, this](const char* name, int flag)
 			{
-				if (!lstrcmp(val, L"yes"))
-					_nppGUI._tabStatus |= TAB_DRAWTOPBAR;
-				else if (!lstrcmp(val, L"no"))
-					_nppGUI._tabStatus |= 0;
-				else
-					isFailed = true;
-			}
+				if (isFailed)
+					return;
 
-			val = element->Attribute(L"drawInactiveTab");
-			if (val)
-			{
-				if (!lstrcmp(val, L"yes"))
-					_nppGUI._tabStatus |= TAB_DRAWINACTIVETAB;
-				else if (!lstrcmp(val, L"no"))
-					_nppGUI._tabStatus |= 0;
-				else
-					isFailed = true;
-			}
+				const XmlAttrResult val = getResultAttribute(childNode, name);
+				switch (val)
+				{
+					case isTrue:
+					{
+						_nppGUI._tabStatus |= flag;
+						break;
+					}
 
-			val = element->Attribute(L"reduce");
-			if (val)
-			{
-				if (!lstrcmp(val, L"yes"))
-					_nppGUI._tabStatus |= TAB_REDUCE;
-				else if (!lstrcmp(val, L"no"))
-					_nppGUI._tabStatus |= 0;
-				else
-					isFailed = true;
-			}
+					case isFalse:
+					{
+						break;
+					}
 
-			val = element->Attribute(L"closeButton");
-			if (val)
-			{
-				if (!lstrcmp(val, L"yes"))
-					_nppGUI._tabStatus |= TAB_CLOSEBUTTON;
-				else if (!lstrcmp(val, L"no"))
-					_nppGUI._tabStatus |= 0;
-				else
-					isFailed = true;
-			}
+					case failed:
+					{
+						isFailed = true;
+						break;
+					}
+				}
+			};
 
-			val = element->Attribute(L"pinButton");
-			if (val)
-			{
-				if (!lstrcmp(val, L"yes"))
-					_nppGUI._tabStatus |= TAB_PINBUTTON;
-				else if (!lstrcmp(val, L"no"))
-					_nppGUI._tabStatus |= 0;
-				else
-					isFailed = true;
-			}
-			else
-			{
-				_nppGUI._tabStatus |= TAB_PINBUTTON;
-			}
+			setTabStatus("dragAndDrop", TAB_DRAGNDROP);
+			setTabStatus("drawTopBar", TAB_DRAWTOPBAR);
+			setTabStatus("drawInactiveTab", TAB_DRAWINACTIVETAB);
+			setTabStatus("reduce", TAB_REDUCE);
+			setTabStatus("closeButton", TAB_CLOSEBUTTON);
+			setTabStatus("pinButton", TAB_PINBUTTON);
+			setTabStatus("buttonsOninactiveTabs", TAB_INACTIVETABSHOWBUTTON);
+			setTabStatus("showOnlyPinnedButton", TAB_SHOWONLYPINNEDBUTTON);
+			setTabStatus("doubleClick2Close", TAB_DBCLK2CLOSE);
+			setTabStatus("vertical", TAB_VERTICAL);
+			setTabStatus("multiLine", TAB_MULTILINE);
+			setTabStatus("hide", TAB_HIDE);
+			setTabStatus("quitOnEmpty", TAB_QUITONEMPTY);
 
-			val = element->Attribute(L"showOnlyPinnedButton");
-			if (val)
+			if (!isFailed)
 			{
-				if (!lstrcmp(val, L"yes"))
-					_nppGUI._tabStatus |= TAB_SHOWONLYPINNEDBUTTON;
-				else if (!lstrcmp(val, L"no"))
-					_nppGUI._tabStatus |= 0;
-				else
-					isFailed = true;
-			}
+				const int iconSetNumber = NppXml::intAttribute(childNode, "iconSetNumber", -1);
+				switch (iconSetNumber)
+				{
+					case 0: // light icons
+					case 2: // dark icons
+					{
+						break;
+					}
 
-			val = element->Attribute(L"buttonsOninactiveTabs");
-			if (val)
-			{
-				if (!lstrcmp(val, L"yes"))
-					_nppGUI._tabStatus |= TAB_INACTIVETABSHOWBUTTON;
-				else if (!lstrcmp(val, L"no"))
-					_nppGUI._tabStatus |= 0;
-				else
-					isFailed = true;
-			}
+					case 1:
+					{
+						_nppGUI._tabStatus |= TAB_ALTICONS;
+						break;
+					}
 
-			val = element->Attribute(L"doubleClick2Close");
-			if (val)
-			{
-				if (!lstrcmp(val, L"yes"))
-					_nppGUI._tabStatus |= TAB_DBCLK2CLOSE;
-				else if (!lstrcmp(val, L"no"))
-					_nppGUI._tabStatus |= 0;
-				else
-					isFailed = true;
-			}
-			val = element->Attribute(L"vertical");
-			if (val)
-			{
-				if (!lstrcmp(val, L"yes"))
-					_nppGUI._tabStatus |= TAB_VERTICAL;
-				else if (!lstrcmp(val, L"no"))
-					_nppGUI._tabStatus |= 0;
-				else
-					isFailed = true;
-			}
-
-			val = element->Attribute(L"multiLine");
-			if (val)
-			{
-				if (!lstrcmp(val, L"yes"))
-					_nppGUI._tabStatus |= TAB_MULTILINE;
-				else if (!lstrcmp(val, L"no"))
-					_nppGUI._tabStatus |= 0;
-				else
-					isFailed = true;
-			}
-
-			val = element->Attribute(L"hide");
-			if (val)
-			{
-				if (!lstrcmp(val, L"yes"))
-					_nppGUI._tabStatus |= TAB_HIDE;
-				else if (!lstrcmp(val, L"no"))
-					_nppGUI._tabStatus |= 0;
-				else
-					isFailed = true;
-			}
-
-			val = element->Attribute(L"quitOnEmpty");
-			if (val)
-			{
-				if (!lstrcmp(val, L"yes"))
-					_nppGUI._tabStatus |= TAB_QUITONEMPTY;
-				else if (!lstrcmp(val, L"no"))
-					_nppGUI._tabStatus |= 0;
-				else
-					isFailed = true;
-			}
-
-			val = element->Attribute(L"iconSetNumber");
-			if (val)
-			{
-				if (!lstrcmp(val, L"1"))
-					_nppGUI._tabStatus |= TAB_ALTICONS;
-				else if (!lstrcmp(val, L"0"))
-					_nppGUI._tabStatus |= 0;
-				else
-					isFailed = true;
+					default:
+					{
+						isFailed = true;
+						break;
+					}
+				}
 			}
 
 			if (isFailed)
 				_nppGUI._tabStatus = oldValue;
 
-			int tabCompactLabelLen = 0;
-			if (element->Attribute(L"tabCompactLabelLen", &tabCompactLabelLen))
-			{
-				if (tabCompactLabelLen < 0)
-					_nppGUI._tabCompactLabelLen = 0;
-				else if (tabCompactLabelLen > NB_MAX_TAB_COMPACT_LABEL_LEN)
-					_nppGUI._tabCompactLabelLen = NB_MAX_TAB_COMPACT_LABEL_LEN;
-				else
-					_nppGUI._tabCompactLabelLen = tabCompactLabelLen;
-			}
+			_nppGUI._tabCompactLabelLen = getRangeClampAttribute<UINT>(childNode, "tabCompactLabelLen", 0U, static_cast<UINT>(NB_MAX_TAB_COMPACT_LABEL_LEN), _nppGUI._tabCompactLabelLen);
 		}
-		else if (!lstrcmp(nm, L"Auto-detection"))
+		// <GUIConfig name="Auto-detection">yes</GUIConfig>
+		else if (std::strcmp(nm, "Auto-detection") == 0)
 		{
-			TiXmlNode *n = childNode->FirstChild();
+			NppXml::Node n = NppXml::firstChild(childNode);
 			if (n)
 			{
-				const wchar_t* val = n->Value();
+				const char* val = NppXml::value(n);
 				if (val)
 				{
-					if (!lstrcmp(val, L"yesOld"))
+					if (std::strcmp(val, "yesOld") == 0)
 						_nppGUI._fileAutoDetection = cdEnabledOld;
-					else if (!lstrcmp(val, L"autoOld"))
+					else if (std::strcmp(val, "autoOld") == 0)
 						_nppGUI._fileAutoDetection = (cdEnabledOld | cdAutoUpdate);
-					else if (!lstrcmp(val, L"Update2EndOld"))
+					else if (std::strcmp(val, "Update2EndOld") == 0)
 						_nppGUI._fileAutoDetection = (cdEnabledOld | cdGo2end);
-					else if (!lstrcmp(val, L"autoUpdate2EndOld"))
+					else if (std::strcmp(val, "autoUpdate2EndOld") == 0)
 						_nppGUI._fileAutoDetection = (cdEnabledOld | cdAutoUpdate | cdGo2end);
-					else if (!lstrcmp(val, L"yes"))
+					else if (std::strcmp(val, "yes") == 0)
 						_nppGUI._fileAutoDetection = cdEnabledNew;
-					else if (!lstrcmp(val, L"auto"))
+					else if (std::strcmp(val, "auto") == 0)
 						_nppGUI._fileAutoDetection = (cdEnabledNew | cdAutoUpdate);
-					else if (!lstrcmp(val, L"Update2End"))
+					else if (std::strcmp(val, "Update2End") == 0)
 						_nppGUI._fileAutoDetection = (cdEnabledNew | cdGo2end);
-					else if (!lstrcmp(val, L"autoUpdate2End"))
+					else if (std::strcmp(val, "autoUpdate2End") == 0)
 						_nppGUI._fileAutoDetection = (cdEnabledNew | cdAutoUpdate | cdGo2end);
-					else //(!lstrcmp(val, L"no"))
+					else //(std::strcmp(val, "no") == 0)
 						_nppGUI._fileAutoDetection = cdDisabled;
 				}
 			}
 		}
-
-		else if (!lstrcmp(nm, L"TrayIcon"))
+		// <GUIConfig name="TrayIcon">0</GUIConfig>
+		else if (std::strcmp(nm, "TrayIcon") == 0)
 		{
-			TiXmlNode *n = childNode->FirstChild();
+			NppXml::Node n = NppXml::firstChild(childNode);
 			if (n)
 			{
-				const wchar_t* val = n->Value();
+				const char* val = NppXml::value(n);
 				if (val)
 				{
-					if (lstrcmp(val, L"no") == 0 || lstrcmp(val, L"0") == 0)
+					if (std::strcmp(val, "no") == 0 || std::strcmp(val, "0") == 0)
 						_nppGUI._isMinimizedToTray = sta_none;
-					else if (lstrcmp(val, L"yes") == 0|| lstrcmp(val, L"1") == 0)
+					else if (std::strcmp(val, "yes") == 0 || std::strcmp(val, "1") == 0)
 						_nppGUI._isMinimizedToTray = sta_minimize;
-					else if (lstrcmp(val, L"2") == 0)
+					else if (std::strcmp(val, "2") == 0)
 						_nppGUI._isMinimizedToTray = sta_close;
-					else if (lstrcmp(val, L"3") == 0)
+					else if (std::strcmp(val, "3") == 0)
 						_nppGUI._isMinimizedToTray = sta_minimize_close;
-				}
-			}
-		}
-		else if (!lstrcmp(nm, L"RememberLastSession"))
-		{
-			TiXmlNode *n = childNode->FirstChild();
-			if (n)
-			{
-				const wchar_t* val = n->Value();
-				if (val)
-				{
-					if (lstrcmp(val, L"yes") == 0)
-						_nppGUI._rememberLastSession = true;
 					else
-						_nppGUI._rememberLastSession = false;
+						_nppGUI._isMinimizedToTray = sta_none;
 				}
 			}
 		}
-		else if (!lstrcmp(nm, L"KeepSessionAbsentFileEntries"))
+		// <GUIConfig name="RememberLastSession">yes</GUIConfig>
+		else if (std::strcmp(nm, "RememberLastSession") == 0)
 		{
-			TiXmlNode *n = childNode->FirstChild();
-			if (n)
-			{
-				const wchar_t* val = n->Value();
-				if (val)
-				{
-					if (lstrcmp(val, L"yes") == 0)
-						_nppGUI._keepSessionAbsentFileEntries = true;
-					else
-						_nppGUI._keepSessionAbsentFileEntries = false;
-				}
-			}
+			_nppGUI._rememberLastSession = getBoolChildTextNode(childNode, _nppGUI._rememberLastSession);
 		}
-		else if (!lstrcmp(nm, L"DetectEncoding"))
+		// <GUIConfig name="KeepSessionAbsentFileEntries">no</GUIConfig>
+		else if (std::strcmp(nm, "KeepSessionAbsentFileEntries") == 0)
 		{
-			TiXmlNode *n = childNode->FirstChild();
-			if (n)
-			{
-				const wchar_t* val = n->Value();
-				if (val)
-				{
-					if (lstrcmp(val, L"yes") == 0)
-						_nppGUI._detectEncoding = true;
-					else
-						_nppGUI._detectEncoding = false;
-				}
-			}
+			_nppGUI._keepSessionAbsentFileEntries = getBoolChildTextNode(childNode);
 		}
-		else if (!lstrcmp(nm, L"SaveAllConfirm"))
+		// <GUIConfig name="DetectEncoding">yes</GUIConfig>
+		else if (std::strcmp(nm, "DetectEncoding") == 0)
 		{
-			TiXmlNode *n = childNode->FirstChild();
-			if (n)
-			{
-				const wchar_t* val = n->Value();
-				if (val)
-				{
-					if (lstrcmp(val, L"yes") == 0)
-						_nppGUI._saveAllConfirm = true;
-					else
-						_nppGUI._saveAllConfirm = false;
-				}
-			}
+			_nppGUI._detectEncoding = getBoolChildTextNode(childNode, _nppGUI._detectEncoding);
 		}
-		else if (lstrcmp(nm, L"MaintainIndent") == 0 ||
-			lstrcmp(nm, L"MaitainIndent") == 0) // typo - kept for the compatibility reason
+		// <GUIConfig name="SaveAllConfirm">yes</GUIConfig>
+		else if (std::strcmp(nm, "SaveAllConfirm") == 0)
 		{
-			TiXmlNode *n = childNode->FirstChild();
+			_nppGUI._saveAllConfirm = getBoolChildTextNode(childNode, _nppGUI._saveAllConfirm);
+		}
+		// <GUIConfig name="MaintainIndent">1</GUIConfig>
+		else if (std::strcmp(nm, "MaintainIndent") == 0 ||
+			std::strcmp(nm, "MaitainIndent") == 0) // typo - kept for the compatibility reason
+		{
+			NppXml::Node n = NppXml::firstChild(childNode);
 			if (n)
 			{
-				const wchar_t* val = n->Value();
+				const char* val = NppXml::value(n);
 				if (val)
 				{
 					// the retro-compatibility with the old values
-					if (lstrcmp(val, L"yes") == 0)
+					if (std::strcmp(val, "yes") == 0)
 						_nppGUI._maintainIndent = autoIndent_advanced;
-					else if (lstrcmp(val, L"no") == 0)
+					else if (std::strcmp(val, "no") == 0)
 						_nppGUI._maintainIndent = autoIndent_none;
 
 					// the treatment of the new values
-					else if (lstrcmp(val, L"0") == 0)
+					else if (std::strcmp(val, "0") == 0)
 						_nppGUI._maintainIndent = autoIndent_none;
-					else if (lstrcmp(val, L"1") == 0)
+					else if (std::strcmp(val, "1") == 0)
 						_nppGUI._maintainIndent = autoIndent_advanced;
-					else if (lstrcmp(val, L"2") == 0)
+					else if (std::strcmp(val, "2") == 0)
 						_nppGUI._maintainIndent = autoIndent_basic;
 					else // other values will be ignored - use the default value
 						_nppGUI._maintainIndent = autoIndent_advanced;
 				}
 			}
 		}
-		// <GUIConfig name="MarkAll" matchCase="yes" wholeWordOnly="yes" </GUIConfig>
-		else if (!lstrcmp(nm, L"MarkAll"))
+		// <GUIConfig name="MarkAll" matchCase="no" wholeWordOnly="yes" />
+		else if (std::strcmp(nm, "MarkAll") == 0)
 		{
-			const wchar_t* val = element->Attribute(L"matchCase");
-			if (val)
-			{
-				if (lstrcmp(val, L"yes") == 0)
-					_nppGUI._markAllCaseSensitive = true;
-				else if (!lstrcmp(val, L"no"))
-					_nppGUI._markAllCaseSensitive = false;
-			}
-
-			val = element->Attribute(L"wholeWordOnly");
-			if (val)
-			{
-				if (lstrcmp(val, L"yes") == 0)
-					_nppGUI._markAllWordOnly = true;
-				else if (!lstrcmp(val, L"no"))
-					_nppGUI._markAllWordOnly = false;
-			}
+			_nppGUI._markAllCaseSensitive = getBoolAttribute(childNode, "matchCase");
+			_nppGUI._markAllWordOnly = getBoolAttribute(childNode, "wholeWordOnly", _nppGUI._markAllWordOnly);
 		}
-		// <GUIConfig name="SmartHighLight" matchCase="yes" wholeWordOnly="yes" useFindSettings="no">yes</GUIConfig>
-		else if (!lstrcmp(nm, L"SmartHighLight"))
+		// <GUIConfig name="SmartHighLight" matchCase="no" wholeWordOnly="yes" useFindSettings="no" onAnotherView="no">yes</GUIConfig>
+		else if (std::strcmp(nm, "SmartHighLight") == 0)
 		{
-			TiXmlNode *n = childNode->FirstChild();
+			NppXml::Node n = NppXml::firstChild(childNode);
 			if (n)
 			{
-				const wchar_t* val = n->Value();
-				if (val)
-				{
-					if (lstrcmp(val, L"yes") == 0)
-						_nppGUI._enableSmartHilite = true;
-					else
-						_nppGUI._enableSmartHilite = false;
-				}
+				_nppGUI._enableSmartHilite = getBoolChildTextNode(childNode, _nppGUI._enableSmartHilite);
 
-				val = element->Attribute(L"matchCase");
+				_nppGUI._smartHiliteCaseSensitive = getBoolAttribute(childNode, "matchCase");
+				_nppGUI._smartHiliteWordOnly = getBoolAttribute(childNode, "wholeWordOnly", _nppGUI._smartHiliteWordOnly);
+				_nppGUI._smartHiliteUseFindSettings = getBoolAttribute(childNode, "useFindSettings");
+				_nppGUI._smartHiliteOnAnotherView = getBoolAttribute(childNode, "onAnotherView");
+			}
+		}
+		// <GUIConfig name="TagsMatchHighLight" TagAttrHighLight="yes" HighLightNonHtmlZone="no">yes</GUIConfig>
+		else if (std::strcmp(nm, "TagsMatchHighLight") == 0)
+		{
+			NppXml::Node n = NppXml::firstChild(childNode);
+			if (n)
+			{
+				_nppGUI._enableTagsMatchHilite = getBoolChildTextNode(childNode, _nppGUI._enableTagsMatchHilite);
+				_nppGUI._enableTagAttrsHilite = getBoolAttribute(childNode, "TagAttrHighLight", _nppGUI._enableTagAttrsHilite);
+				_nppGUI._enableHiliteNonHTMLZone = getBoolAttribute(childNode, "HighLightNonHtmlZone");
+			}
+		}
+		// <GUIConfig name="TaskList">yes</GUIConfig>
+		else if (std::strcmp(nm, "TaskList") == 0)
+		{
+			_nppGUI._doTaskList = getBoolChildTextNode(childNode, _nppGUI._doTaskList);
+		}
+		// <GUIConfig name="MRU">yes</GUIConfig>
+		else if (std::strcmp(nm, "MRU") == 0)
+		{
+			_nppGUI._styleMRU = getBoolChildTextNode(childNode, _nppGUI._styleMRU);
+		}
+		// <GUIConfig name="URL">2</GUIConfig>
+		else if (std::strcmp(nm, "URL") == 0)
+		{
+			NppXml::Node n = NppXml::firstChild(childNode);
+			if (n)
+			{
+				const char* val = NppXml::value(n);
 				if (val)
 				{
-					if (lstrcmp(val, L"yes") == 0)
-						_nppGUI._smartHiliteCaseSensitive = true;
-					else if (!lstrcmp(val, L"no"))
-						_nppGUI._smartHiliteCaseSensitive = false;
-				}
-
-				val = element->Attribute(L"wholeWordOnly");
-				if (val)
-				{
-					if (lstrcmp(val, L"yes") == 0)
-						_nppGUI._smartHiliteWordOnly = true;
-					else if (!lstrcmp(val, L"no"))
-						_nppGUI._smartHiliteWordOnly = false;
-				}
-
-				val = element->Attribute(L"useFindSettings");
-				if (val)
-				{
-					if (lstrcmp(val, L"yes") == 0)
-						_nppGUI._smartHiliteUseFindSettings = true;
-					else if (!lstrcmp(val, L"no"))
-						_nppGUI._smartHiliteUseFindSettings = false;
-				}
-
-				val = element->Attribute(L"onAnotherView");
-				if (val)
-				{
-					if (lstrcmp(val, L"yes") == 0)
-						_nppGUI._smartHiliteOnAnotherView = true;
-					else if (!lstrcmp(val, L"no"))
-						_nppGUI._smartHiliteOnAnotherView = false;
+					using enum urlMode;
+					try
+					{
+						const int i = std::stoi(val);
+						if ((i >= static_cast<int>(urlMin)) && (i <= static_cast<int>(urlMax)))
+							_nppGUI._styleURL = static_cast<urlMode>(i);
+					}
+					catch (const std::invalid_argument&)
+					{
+						_nppGUI._styleURL = urlUnderLineFg;
+					}
+					catch (const std::out_of_range&)
+					{
+						_nppGUI._styleURL = urlUnderLineFg;
+					}
 				}
 			}
 		}
-
-		else if (!lstrcmp(nm, L"TagsMatchHighLight"))
+		// <GUIConfig name="uriCustomizedSchemes">svn:// cvs:// git:// imap:// irc:// irc6:// ircs:// ldap:// ldaps:// news: telnet://
+		// gopher:// ssh:// sftp:// smb:// skype: snmp:// spotify: steam:// sms: slack:// chrome:// bitcoin:</GUIConfig>
+		else if (std::strcmp(nm, "uriCustomizedSchemes") == 0)
 		{
-			TiXmlNode *n = childNode->FirstChild();
+			NppXml::Node n = NppXml::firstChild(childNode);
 			if (n)
 			{
-				const wchar_t* val = n->Value();
+				const char* val = NppXml::value(n);
+				if (val)
+					_nppGUI._uriSchemes = string2wstring(val);
+			}
+		}
+		// <GUIConfig name="CheckHistoryFiles">no</GUIConfig>
+		else if (std::strcmp(nm, "CheckHistoryFiles") == 0)
+		{
+			_nppGUI._checkHistoryFiles = getBoolChildTextNode(childNode);
+		}
+		// <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>
+		else if (std::strcmp(nm, "ScintillaViewsSplitter") == 0)
+		{
+			NppXml::Node n = NppXml::firstChild(childNode);
+			if (n)
+			{
+				const char* val = NppXml::value(n);
 				if (val)
 				{
-					_nppGUI._enableTagsMatchHilite = !lstrcmp(val, L"yes");
-					const wchar_t *tahl = element->Attribute(L"TagAttrHighLight");
-					if (tahl)
-						_nppGUI._enableTagAttrsHilite = !lstrcmp(tahl, L"yes");
-
-					tahl = element->Attribute(L"HighLightNonHtmlZone");
-					if (tahl)
-						_nppGUI._enableHiliteNonHTMLZone = !lstrcmp(tahl, L"yes");
-				}
-			}
-		}
-
-		else if (!lstrcmp(nm, L"TaskList"))
-		{
-			TiXmlNode *n = childNode->FirstChild();
-			if (n)
-			{
-				const wchar_t* val = n->Value();
-				if (val)
-				{
-					_nppGUI._doTaskList = (!lstrcmp(val, L"yes"))?true:false;
-				}
-			}
-		}
-
-		else if (!lstrcmp(nm, L"MRU"))
-		{
-			TiXmlNode *n = childNode->FirstChild();
-			if (n)
-			{
-				const wchar_t* val = n->Value();
-				if (val)
-					_nppGUI._styleMRU = (!lstrcmp(val, L"yes"));
-			}
-		}
-
-		else if (!lstrcmp(nm, L"URL"))
-		{
-			TiXmlNode *n = childNode->FirstChild();
-			if (n)
-			{
-				const wchar_t* val = n->Value();
-				if (val)
-				{
-					int const i = _wtoi (val);
-					if ((i >= urlMin) && (i <= urlMax))
-						_nppGUI._styleURL = urlMode(i);
-				}
-			}
-		}
-
-		else if (!lstrcmp(nm, L"uriCustomizedSchemes"))
-		{
-			TiXmlNode *n = childNode->FirstChild();
-			if (n)
-			{
-				const wchar_t* val = n->Value();
-				if (val)
-				_nppGUI._uriSchemes = val;
-			}
-		}
-
-		else if (!lstrcmp(nm, L"CheckHistoryFiles"))
-		{
-			TiXmlNode *n = childNode->FirstChild();
-			if (n)
-			{
-				const wchar_t* val = n->Value();
-				if (val)
-				{
-					if (!lstrcmp(val, L"no"))
-						_nppGUI._checkHistoryFiles = false;
-					else if (!lstrcmp(val, L"yes"))
-						_nppGUI._checkHistoryFiles = true;
-				}
-			}
-		}
-
-		else if (!lstrcmp(nm, L"ScintillaViewsSplitter"))
-		{
-			TiXmlNode *n = childNode->FirstChild();
-			if (n)
-			{
-				const wchar_t* val = n->Value();
-				if (val)
-				{
-					if (!lstrcmp(val, L"vertical"))
+					if (std::strcmp(val, "vertical") == 0)
 						_nppGUI._splitterPos = POS_VERTICAL;
-					else if (!lstrcmp(val, L"horizontal"))
+					else if (std::strcmp(val, "horizontal") == 0)
 						_nppGUI._splitterPos = POS_HORIZONTAL;
 				}
 			}
 		}
-
-		else if (!lstrcmp(nm, L"UserDefineDlg"))
+		// <GUIConfig name="UserDefineDlg" position="undocked">hide</GUIConfig>
+		else if (std::strcmp(nm, "UserDefineDlg") == 0)
 		{
 			bool isFailed = false;
-			int oldValue = _nppGUI._userDefineDlgStatus;
+			const int oldValue = _nppGUI._userDefineDlgStatus;
 
-			TiXmlNode *n = childNode->FirstChild();
-			if (n)
+			using enum XmlAttrResult;
+			XmlAttrResult val = getResultChildTextNode(childNode, STR_BOOL_SHOWHIDE);
+			switch (val)
 			{
-				const wchar_t* val = n->Value();
-				if (val)
+				case isTrue:
 				{
-					if (!lstrcmp(val, L"hide"))
-						_nppGUI._userDefineDlgStatus = 0;
-					else if (!lstrcmp(val, L"show"))
-						_nppGUI._userDefineDlgStatus = UDD_SHOW;
-					else
-						isFailed = true;
+					_nppGUI._userDefineDlgStatus = UDD_SHOW;
+					break;
+				}
+
+				case isFalse:
+				{
+					_nppGUI._userDefineDlgStatus = 0;
+					break;
+				}
+
+				case failed:
+				{
+					isFailed = true;
+					break;
 				}
 			}
 
-			const wchar_t* val = element->Attribute(L"position");
-			if (val)
+			if (!isFailed)
 			{
-				if (!lstrcmp(val, L"docked"))
-					_nppGUI._userDefineDlgStatus |= UDD_DOCKED;
-				else if (!lstrcmp(val, L"undocked"))
-					_nppGUI._userDefineDlgStatus |= 0;
-				else
-					isFailed = true;
+				val = getResultAttribute(childNode, "position", { "docked", "undocked" });
+				switch (val)
+				{
+					case isTrue:
+					{
+						_nppGUI._userDefineDlgStatus |= UDD_DOCKED;
+						break;
+					}
+
+					case isFalse:
+					{
+						break;
+					}
+
+					case failed:
+					{
+						isFailed = true;
+						break;
+					}
+				}
 			}
+
 			if (isFailed)
 				_nppGUI._userDefineDlgStatus = oldValue;
 		}
-
-		else if (!lstrcmp(nm, L"TabSetting"))
+		// <GUIConfig name="TabSetting" replaceBySpace="no" size="4" backspaceUnindent="no" />
+		else if (std::strcmp(nm, "TabSetting") == 0)
 		{
-			int i;
-			const wchar_t* val = element->Attribute(L"size", &i);
-			if (val)
-				_nppGUI._tabSize = i;
-
+			_nppGUI._tabSize = NppXml::intAttribute(childNode, "size", _nppGUI._tabSize);
 			if ((_nppGUI._tabSize == -1) || (_nppGUI._tabSize == 0))
 				_nppGUI._tabSize = 4;
 
-			val = element->Attribute(L"replaceBySpace");
-			if (val)
-				_nppGUI._tabReplacedBySpace = (!lstrcmp(val, L"yes"));
-
-			val = element->Attribute(L"backspaceUnindent");
-			if (val)
-				_nppGUI._backspaceUnindent = (!lstrcmp(val, L"yes"));
+			_nppGUI._tabReplacedBySpace = getBoolAttribute(childNode, "replaceBySpace");
+			_nppGUI._backspaceUnindent = getBoolAttribute(childNode, "backspaceUnindent");
 		}
-
-		else if (!lstrcmp(nm, L"Caret"))
+		// <GUIConfig name="Caret" width="1" blinkRate="600" />
+		else if (std::strcmp(nm, "Caret") == 0)
 		{
-			int i;
-			const wchar_t* val = element->Attribute(L"width", &i);
-			if (val)
-				_nppGUI._caretWidth = i;
-
-			val = element->Attribute(L"blinkRate", &i);
-			if (val)
-				_nppGUI._caretBlinkRate = i;
+			_nppGUI._caretWidth = NppXml::intAttribute(childNode, "width", _nppGUI._caretWidth);
+			_nppGUI._caretBlinkRate = NppXml::intAttribute(childNode, "blinkRate", _nppGUI._caretBlinkRate);
 		}
-
-		else if (!lstrcmp(nm, L"AppPosition"))
+		// <GUIConfig name="AppPosition" x="0" y="0" width="1100" height="700" isMaximized="no" />
+		else if (std::strcmp(nm, "AppPosition") == 0)
 		{
 			RECT oldRect = _nppGUI._appPos;
 			bool fuckUp = true;
-			int i;
 
-			if (element->Attribute(L"x", &i))
+			if (const char* val = NppXml::attribute(childNode, "x"); val)
 			{
-				_nppGUI._appPos.left = i;
+				_nppGUI._appPos.left = std::stoi(val);
 
-				if (element->Attribute(L"y", &i))
+				if (val = NppXml::attribute(childNode, "y"); val)
 				{
-					_nppGUI._appPos.top = i;
+					_nppGUI._appPos.top = std::stoi(val);
 
-					if (element->Attribute(L"width", &i))
+					if (val = NppXml::attribute(childNode, "width"); val)
 					{
-						_nppGUI._appPos.right = i;
+						_nppGUI._appPos.right = std::stoi(val);
 
-						if (element->Attribute(L"height", &i))
+						if (val = NppXml::attribute(childNode, "height"); val)
 						{
-							_nppGUI._appPos.bottom = i;
+							_nppGUI._appPos.bottom = std::stoi(val);
 							fuckUp = false;
 						}
 					}
@@ -6220,32 +5974,29 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (fuckUp)
 				_nppGUI._appPos = oldRect;
 
-			const wchar_t* val = element->Attribute(L"isMaximized");
-			if (val)
-				_nppGUI._isMaximized = (lstrcmp(val, L"yes") == 0);
+			_nppGUI._isMaximized = getBoolAttribute(childNode, "isMaximized");
 		}
-
-		else if (!lstrcmp(nm, L"FindWindowPosition"))
+		// <GUIConfig name="FindWindowPosition" left="0" top="0" right="0" bottom="0" isLessModeOn="no" />
+		else if (std::strcmp(nm, "FindWindowPosition") == 0)
 		{
 			RECT oldRect = _nppGUI._findWindowPos;
 			bool incomplete = true;
-			int i;
 
-			if (element->Attribute(L"left", &i))
+			if (const char* val = NppXml::attribute(childNode, "left"); val)
 			{
-				_nppGUI._findWindowPos.left = i;
+				_nppGUI._findWindowPos.left = std::stoi(val);
 
-				if (element->Attribute(L"top", &i))
+				if (val = NppXml::attribute(childNode, "top"); val)
 				{
-					_nppGUI._findWindowPos.top = i;
+					_nppGUI._findWindowPos.top = std::stoi(val);
 
-					if (element->Attribute(L"right", &i))
+					if (val = NppXml::attribute(childNode, "right"); val)
 					{
-						_nppGUI._findWindowPos.right = i;
+						_nppGUI._findWindowPos.right = std::stoi(val);
 
-						if (element->Attribute(L"bottom", &i))
+						if (val = NppXml::attribute(childNode, "bottom"); val)
 						{
-							_nppGUI._findWindowPos.bottom = i;
+							_nppGUI._findWindowPos.bottom = std::stoi(val);
 							incomplete = false;
 						}
 					}
@@ -6256,44 +6007,23 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				_nppGUI._findWindowPos = oldRect;
 			}
 
-			const wchar_t* val = element->Attribute(L"isLessModeOn");
-			if (val)
-				_nppGUI._findWindowLessMode = (lstrcmp(val, L"yes") == 0);
+			_nppGUI._findWindowLessMode = getBoolAttribute(childNode, "isLessModeOn");
 		}
-
-		else if (!lstrcmp(nm, L"FinderConfig"))
+		// <GUIConfig name="FinderConfig" wrappedLines="no" purgeBeforeEverySearch="no" showOnlyOneEntryPerFoundLine="yes" />
+		else if (std::strcmp(nm, "FinderConfig") == 0)
 		{
-			const wchar_t* val = element->Attribute(L"wrappedLines");
-			if (val)
-			{
-				_nppGUI._finderLinesAreCurrentlyWrapped = (!lstrcmp(val, L"yes"));
-			}
-
-			val = element->Attribute(L"purgeBeforeEverySearch");
-			if (val)
-			{
-				_nppGUI._finderPurgeBeforeEverySearch = (!lstrcmp(val, L"yes"));
-			}
-
-			val = element->Attribute(L"showOnlyOneEntryPerFoundLine");
-			if (val)
-			{
-				_nppGUI._finderShowOnlyOneEntryPerFoundLine = (!lstrcmp(val, L"yes"));
-			}
-
-			val = element->Attribute(L"FiF_ignoreunsavedChangesInOpenedFiles");
-			if (val)
-			{
-				_nppGUI._fif_ignoreunsavedChangesInOpenedFiles = (!lstrcmp(val, L"yes"));
-			}
+			_nppGUI._finderLinesAreCurrentlyWrapped = getBoolAttribute(childNode, "wrappedLines");
+			_nppGUI._finderPurgeBeforeEverySearch = getBoolAttribute(childNode, "purgeBeforeEverySearch");
+			_nppGUI._finderShowOnlyOneEntryPerFoundLine = getBoolAttribute(childNode, "showOnlyOneEntryPerFoundLine", _nppGUI._finderShowOnlyOneEntryPerFoundLine);
+      _nppGUI._fif_ignoreunsavedChangesInOpenedFiles = getBoolAttribute(childNode, "FiF_ignoreunsavedChangesInOpenedFiles", _nppGUI._fif_ignoreunsavedChangesInOpenedFiles);
 		}
-
-		else if (!lstrcmp(nm, L"NewDocDefaultSettings"))
+		// <GUIConfig name="NewDocDefaultSettings" format="0" encoding="4" lang="0" codepage="-1" openAnsiAsUTF8="yes"
+		// addNewDocumentOnStartup="no" useContentAsTabName="no" />
+		else if (std::strcmp(nm, "NewDocDefaultSettings") == 0)
 		{
-			int i;
-			if (element->Attribute(L"format", &i))
 			{
 				using enum EolType;
+				const int i = NppXml::intAttribute(childNode, "format", static_cast<int>(osdefault));
 				EolType newFormat = osdefault;
 				switch (i)
 				{
@@ -6324,8 +6054,9 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				_nppGUI._newDocDefaultSettings._format = newFormat;
 			}
 
-			if (element->Attribute(L"encoding", &i))
 			{
+				using enum UniMode;
+				int i = NppXml::intAttribute(childNode, "encoding", static_cast<int>(uniUTF8_NoBOM));
 				if (isCurrentSystemCodepageUTF8() // "Beta: Use Unicode UTF-8 for worldwide language support" option is checked in Windows
 					&& static_cast<UniMode>(i) == uni8Bit) // Notepad++ default new document setting is ANSI
 				{
@@ -6335,61 +6066,53 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				_nppGUI._newDocDefaultSettings._unicodeMode = static_cast<UniMode>(i);
 			}
 
-			if (element->Attribute(L"lang", &i))
-				_nppGUI._newDocDefaultSettings._lang = (LangType)i;
+			{
+				using enum LangType;
+				_nppGUI._newDocDefaultSettings._lang = static_cast<LangType>(NppXml::intAttribute(childNode, "lang", static_cast<int>(L_TEXT)));
+				_nppGUI._newDocDefaultSettings._codepage = NppXml::intAttribute(childNode, "codepage", _nppGUI._newDocDefaultSettings._codepage);
+			}
 
-			if (element->Attribute(L"codepage", &i))
-				_nppGUI._newDocDefaultSettings._codepage = (LangType)i;
-
-			const wchar_t* val = element->Attribute(L"openAnsiAsUTF8");
-			if (val)
-				_nppGUI._newDocDefaultSettings._openAnsiAsUtf8 = isCurrentSystemCodepageUTF8() ? false : (lstrcmp(val, L"yes") == 0);
-
-			val = element->Attribute(L"addNewDocumentOnStartup");
-			if (val)
-				_nppGUI._newDocDefaultSettings._addNewDocumentOnStartup = (lstrcmp(val, L"yes") == 0);
-
-			val = element->Attribute(L"useContentAsTabName");
-			if (val)
-				_nppGUI._newDocDefaultSettings._useContentAsTabName = (lstrcmp(val, L"yes") == 0);
+			const bool isOpenAnsiAsUTF8 = !isCurrentSystemCodepageUTF8()
+				&& getBoolAttribute(childNode, "openAnsiAsUTF8", _nppGUI._newDocDefaultSettings._openAnsiAsUtf8);
+			_nppGUI._newDocDefaultSettings._openAnsiAsUtf8 = isOpenAnsiAsUTF8;
+			_nppGUI._newDocDefaultSettings._addNewDocumentOnStartup = getBoolAttribute(childNode, "addNewDocumentOnStartup");
+			_nppGUI._newDocDefaultSettings._useContentAsTabName = getBoolAttribute(childNode, "useContentAsTabName");
 		}
-
-		else if (!lstrcmp(nm, L"langsExcluded"))
+		// <GUIConfig name="langsExcluded" gr0="0" gr1="0" gr2="0" gr3="0" gr4="0" gr5="0" gr6="0" gr7="0" gr8="0" gr9="0" gr10="0" gr11="0" gr12="0"
+		// langMenuCompact="yes" />
+		else if (std::strcmp(nm, "langsExcluded") == 0)
 		{
-			int g[13] {}; // Make all elements of array to hold g0 to g12 to zero
-			const wchar_t* attributeNames[] = {
-				L"gr0", L"gr1", L"gr2", L"gr3", L"gr4", L"gr5", L"gr6",
-				L"gr7", L"gr8", L"gr9", L"gr10", L"gr11", L"gr12"
+			int g[13]{}; // Make all elements of array to hold g0 to g12 to zero
+			static constexpr const char* attributeNames[]{
+				"gr0", "gr1", "gr2", "gr3", "gr4", "gr5", "gr6",
+				"gr7", "gr8", "gr9", "gr10", "gr11", "gr12"
 			};
 
 			for (int j = 0; j < 13; ++j)
 			{
-				int i;
-				if (element->Attribute(attributeNames[j], &i))
+				const int i = NppXml::intAttribute(childNode, attributeNames[j], -1);
+				if (i != -1 && i <= 255)
 				{
-					if (i <= 255)
-					{
-						g[j] = i;
-					}
+					g[j] = i;
 				}
 			}
 
-			int g0  = g[0];  // up to 8
-			int g1  = g[1];  // up to 16
-			int g2  = g[2];  // up to 24
-			int g3  = g[3];  // up to 32
-			int g4  = g[4];  // up to 40
-			int g5  = g[5];  // up to 48
-			int g6  = g[6];  // up to 56
-			int g7  = g[7];  // up to 64
-			int g8  = g[8];  // up to 72
-			int g9  = g[9];  // up to 80
+			int g0 = g[0];  // up to 8
+			int g1 = g[1];  // up to 16
+			int g2 = g[2];  // up to 24
+			int g3 = g[3];  // up to 32
+			int g4 = g[4];  // up to 40
+			int g5 = g[5];  // up to 48
+			int g6 = g[6];  // up to 56
+			int g7 = g[7];  // up to 64
+			int g8 = g[8];  // up to 72
+			int g9 = g[9];  // up to 80
 			int g10 = g[10]; // up to 88
 			int g11 = g[11]; // up to 96
 			int g12 = g[12]; // up to 104
 
 			UCHAR mask = 1;
-			for (int i = 0 ; i < 8 ; ++i)
+			for (int i = 0; i < 8; ++i)
 			{
 				if (mask & g0)
 					_nppGUI._excludedLangList.emplace_back(static_cast<LangType>(i));
@@ -6397,7 +6120,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 
 			mask = 1;
-			for (int i = 8 ; i < 16 ; ++i)
+			for (int i = 8; i < 16; ++i)
 			{
 				if (mask & g1)
 					_nppGUI._excludedLangList.emplace_back(static_cast<LangType>(i));
@@ -6405,7 +6128,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 
 			mask = 1;
-			for (int i = 16 ; i < 24 ; ++i)
+			for (int i = 16; i < 24; ++i)
 			{
 				if (mask & g2)
 					_nppGUI._excludedLangList.emplace_back(static_cast<LangType>(i));
@@ -6413,7 +6136,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 
 			mask = 1;
-			for (int i = 24 ; i < 32 ; ++i)
+			for (int i = 24; i < 32; ++i)
 			{
 				if (mask & g3)
 					_nppGUI._excludedLangList.emplace_back(static_cast<LangType>(i));
@@ -6421,7 +6144,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 
 			mask = 1;
-			for (int i = 32 ; i < 40 ; ++i)
+			for (int i = 32; i < 40; ++i)
 			{
 				if (mask & g4)
 					_nppGUI._excludedLangList.emplace_back(static_cast<LangType>(i));
@@ -6429,7 +6152,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 
 			mask = 1;
-			for (int i = 40 ; i < 48 ; ++i)
+			for (int i = 40; i < 48; ++i)
 			{
 				if (mask & g5)
 					_nppGUI._excludedLangList.emplace_back(static_cast<LangType>(i));
@@ -6437,7 +6160,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 
 			mask = 1;
-			for (int i = 48 ; i < 56 ; ++i)
+			for (int i = 48; i < 56; ++i)
 			{
 				if (mask & g6)
 					_nppGUI._excludedLangList.emplace_back(static_cast<LangType>(i));
@@ -6445,7 +6168,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 
 			mask = 1;
-			for (int i = 56 ; i < 64 ; ++i)
+			for (int i = 56; i < 64; ++i)
 			{
 				if (mask & g7)
 					_nppGUI._excludedLangList.emplace_back(static_cast<LangType>(i));
@@ -6492,703 +6215,388 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				mask <<= 1;
 			}
 
-			const wchar_t* val = element->Attribute(L"langMenuCompact");
-			if (val)
-				_nppGUI._isLangMenuCompact = (!lstrcmp(val, L"yes"));
+			_nppGUI._isLangMenuCompact = getBoolAttribute(childNode, "langMenuCompact", _nppGUI._isLangMenuCompact);
 		}
-
-		else if (!lstrcmp(nm, L"Print"))
+		// <GUIConfig name="Print" lineNumber="yes" printOption="3" headerLeft="" headerMiddle="" headerRight="" footerLeft=""
+		// footerMiddle="" footerRight="" headerFontName="" headerFontStyle="0" headerFontSize="0" footerFontName="" footerFontStyle="0"
+		// footerFontSize="0" margeLeft="0" margeRight="0" margeTop="0" margeBottom="0" />
+		else if (std::strcmp(nm, "Print") == 0)
 		{
-			const wchar_t* val = element->Attribute(L"lineNumber");
-			if (val)
-				_nppGUI._printSettings._printLineNumber = (!lstrcmp(val, L"yes"));
+			_nppGUI._printSettings._printLineNumber = getBoolAttribute(childNode, "lineNumber", _nppGUI._printSettings._printLineNumber);
 
-			int i;
-			if (element->Attribute(L"printOption", &i))
-				_nppGUI._printSettings._printOption = i;
+			_nppGUI._printSettings._printOption = getRangeDefaultAttribute<int>(childNode, "printOption", SC_PRINT_NORMAL, SC_PRINT_COLOURONWHITE, _nppGUI._printSettings._printOption);
 
-			val = element->Attribute(L"headerLeft");
-			if (val)
-				_nppGUI._printSettings._headerLeft = val;
+			_nppGUI._printSettings._headerLeft = string2wstring(NppXml::attribute(childNode, "headerLeft", ""));
+			_nppGUI._printSettings._headerMiddle = string2wstring(NppXml::attribute(childNode, "headerMiddle", ""));
+			_nppGUI._printSettings._headerRight = string2wstring(NppXml::attribute(childNode, "headerRight", ""));
 
-			val = element->Attribute(L"headerMiddle");
-			if (val)
-				_nppGUI._printSettings._headerMiddle = val;
+			_nppGUI._printSettings._footerLeft = string2wstring(NppXml::attribute(childNode, "footerLeft", ""));
+			_nppGUI._printSettings._footerMiddle = string2wstring(NppXml::attribute(childNode, "footerMiddle", ""));
+			_nppGUI._printSettings._footerRight = string2wstring(NppXml::attribute(childNode, "footerRight", ""));
 
-			val = element->Attribute(L"headerRight");
-			if (val)
-				_nppGUI._printSettings._headerRight = val;
+			_nppGUI._printSettings._headerFontName = string2wstring(NppXml::attribute(childNode, "headerFontName", ""));
+			_nppGUI._printSettings._footerFontName = string2wstring(NppXml::attribute(childNode, "footerFontName", ""));
 
+			_nppGUI._printSettings._headerFontStyle = NppXml::intAttribute(childNode, "headerFontStyle", 0);
+			_nppGUI._printSettings._footerFontStyle = NppXml::intAttribute(childNode, "footerFontStyle", 0);
+			_nppGUI._printSettings._headerFontSize = NppXml::intAttribute(childNode, "headerFontSize", 0);
+			_nppGUI._printSettings._footerFontSize = NppXml::intAttribute(childNode, "footerFontSize", 0);
 
-			val = element->Attribute(L"footerLeft");
-			if (val)
-				_nppGUI._printSettings._footerLeft = val;
-
-			val = element->Attribute(L"footerMiddle");
-			if (val)
-				_nppGUI._printSettings._footerMiddle = val;
-
-			val = element->Attribute(L"footerRight");
-			if (val)
-				_nppGUI._printSettings._footerRight = val;
-
-
-			val = element->Attribute(L"headerFontName");
-			if (val)
-				_nppGUI._printSettings._headerFontName = val;
-
-			val = element->Attribute(L"footerFontName");
-			if (val)
-				_nppGUI._printSettings._footerFontName = val;
-
-			if (element->Attribute(L"headerFontStyle", &i))
-				_nppGUI._printSettings._headerFontStyle = i;
-
-			if (element->Attribute(L"footerFontStyle", &i))
-				_nppGUI._printSettings._footerFontStyle = i;
-
-			if (element->Attribute(L"headerFontSize", &i))
-				_nppGUI._printSettings._headerFontSize = i;
-
-			if (element->Attribute(L"footerFontSize", &i))
-				_nppGUI._printSettings._footerFontSize = i;
-
-
-			if (element->Attribute(L"margeLeft", &i))
-				_nppGUI._printSettings._marge.left = i;
-
-			if (element->Attribute(L"margeTop", &i))
-				_nppGUI._printSettings._marge.top = i;
-
-			if (element->Attribute(L"margeRight", &i))
-				_nppGUI._printSettings._marge.right = i;
-
-			if (element->Attribute(L"margeBottom", &i))
-				_nppGUI._printSettings._marge.bottom = i;
+			_nppGUI._printSettings._marge.left = NppXml::intAttribute(childNode, "margeLeft", 0);
+			_nppGUI._printSettings._marge.top = NppXml::intAttribute(childNode, "margeTop", 0);
+			_nppGUI._printSettings._marge.right = NppXml::intAttribute(childNode, "margeRight", 0);
+			_nppGUI._printSettings._marge.bottom = NppXml::intAttribute(childNode, "margeBottom", 0);
 		}
-
-		else if (!lstrcmp(nm, L"ScintillaPrimaryView"))
+		
+		else if (std::strcmp(nm, "ScintillaPrimaryView") == 0)
 		{
-			feedScintillaParam(element);
+			feedScintillaParam(childNode);
 		}
-
-		else if (!lstrcmp(nm, L"Backup"))
+		// <GUIConfig name="Backup" action="0" useCustumDir="no" dir="" isSnapshotMode="yes" snapshotBackupTiming="7000" />
+		else if (std::strcmp(nm, "Backup") == 0)
 		{
-			int i;
-			if (element->Attribute(L"action", &i))
-				_nppGUI._backup = (BackupFeature)i;
-
-			const wchar_t *bDir = element->Attribute(L"useCustumDir");
-			if (bDir)
 			{
-				_nppGUI._useDir = (lstrcmp(bDir, L"yes") == 0);
+				using enum BackupFeature;
+				_nppGUI._backup = getRangeDefaultAttribute(childNode, "action", bak_none, bak_verbose, _nppGUI._backup);
 			}
-			const wchar_t *pDir = element->Attribute(L"dir");
-			if (pDir)
-				_nppGUI._backupDir = pDir;
 
-			const wchar_t *isSnapshotModeStr = element->Attribute(L"isSnapshotMode");
-			if (isSnapshotModeStr && !lstrcmp(isSnapshotModeStr, L"no"))
-				_nppGUI._isSnapshotMode = false;
+			_nppGUI._useDir = getBoolAttribute(childNode, "useCustumDir");
+			_nppGUI._backupDir = string2wstring(NppXml::attribute(childNode, "dir", ""));
 
-			int timing;
-			if (element->Attribute(L"snapshotBackupTiming", &timing))
-				_nppGUI._snapshotBackupTiming = timing;
+			_nppGUI._isSnapshotMode = getBoolAttribute(childNode, "isSnapshotMode", _nppGUI._isSnapshotMode);
+			_nppGUI._snapshotBackupTiming = static_cast<size_t>(NppXml::uint64Attribute(childNode, "snapshotBackupTiming", _nppGUI._snapshotBackupTiming));
 
 		}
-		else if (!lstrcmp(nm, L"DockingManager"))
+		
+		else if (std::strcmp(nm, "DockingManager") == 0)
 		{
-			feedDockingManager(element);
+			feedDockingManager(childNode);
 		}
-
-		else if (!lstrcmp(nm, L"globalOverride"))
+		// <GUIConfig name="globalOverride" fg="no" bg="no" font="no" fontSize="no" bold="no" italic="no" underline="no" />
+		else if (std::strcmp(nm, "globalOverride") == 0)
 		{
-			const wchar_t *bDir = element->Attribute(L"fg");
-			if (bDir)
-				_nppGUI._globalOverride.enableFg = (lstrcmp(bDir, L"yes") == 0);
-
-			bDir = element->Attribute(L"bg");
-			if (bDir)
-				_nppGUI._globalOverride.enableBg = (lstrcmp(bDir, L"yes") == 0);
-
-			bDir = element->Attribute(L"font");
-			if (bDir)
-				_nppGUI._globalOverride.enableFont = (lstrcmp(bDir, L"yes") == 0);
-
-			bDir = element->Attribute(L"fontSize");
-			if (bDir)
-				_nppGUI._globalOverride.enableFontSize = (lstrcmp(bDir, L"yes") == 0);
-
-			bDir = element->Attribute(L"bold");
-			if (bDir)
-				_nppGUI._globalOverride.enableBold = (lstrcmp(bDir, L"yes") == 0);
-
-			bDir = element->Attribute(L"italic");
-			if (bDir)
-				_nppGUI._globalOverride.enableItalic = (lstrcmp(bDir, L"yes") == 0);
-
-			bDir = element->Attribute(L"underline");
-			if (bDir)
-				_nppGUI._globalOverride.enableUnderLine = (lstrcmp(bDir, L"yes") == 0);
+			_nppGUI._globalOverride.enableFg = getBoolAttribute(childNode, "fg");
+			_nppGUI._globalOverride.enableBg = getBoolAttribute(childNode, "bg");
+			_nppGUI._globalOverride.enableFont = getBoolAttribute(childNode, "font");
+			_nppGUI._globalOverride.enableFontSize = getBoolAttribute(childNode, "fontSize");
+			_nppGUI._globalOverride.enableBold = getBoolAttribute(childNode, "bold");
+			_nppGUI._globalOverride.enableItalic = getBoolAttribute(childNode, "italic");
+			_nppGUI._globalOverride.enableUnderLine = getBoolAttribute(childNode, "underline");
 		}
-		else if (!lstrcmp(nm, L"auto-completion"))
+		// <GUIConfig name="auto-completion" autoCAction="3" triggerFromNbChar="1" autoCIgnoreNumbers="yes" insertSelectedItemUseENTER="yes"
+		// insertSelectedItemUseTAB="yes" autoCBrief="no" funcParams="yes" />
+		else if (std::strcmp(nm, "auto-completion") == 0)
 		{
-			int i;
-			if (element->Attribute(L"autoCAction", &i))
-				_nppGUI._autocStatus = static_cast<NppGUI::AutocStatus>(i);
-
-			if (element->Attribute(L"triggerFromNbChar", &i))
-				_nppGUI._autocFromLen = i;
-
-			const wchar_t * optName = element->Attribute(L"autoCIgnoreNumbers");
-			if (optName)
-				_nppGUI._autocIgnoreNumbers = (lstrcmp(optName, L"yes") == 0);
-
-			optName = element->Attribute(L"insertSelectedItemUseENTER");
-			if (optName)
-				_nppGUI._autocInsertSelectedUseENTER = (lstrcmp(optName, L"yes") == 0);
-
-			optName = element->Attribute(L"insertSelectedItemUseTAB");
-			if (optName)
-				_nppGUI._autocInsertSelectedUseTAB = (lstrcmp(optName, L"yes") == 0);
-
-			optName = element->Attribute(L"autoCBrief");
-			if (optName)
-				_nppGUI._autocBrief = (lstrcmp(optName, L"yes") == 0);
-
-			optName = element->Attribute(L"funcParams");
-			if (optName)
-				_nppGUI._funcParams = (lstrcmp(optName, L"yes") == 0);
-		}
-		else if (!lstrcmp(nm, L"auto-insert"))
-		{
-			const wchar_t * optName = element->Attribute(L"htmlXmlTag");
-			if (optName)
-				_nppGUI._matchedPairConf._doHtmlXmlTag = (lstrcmp(optName, L"yes") == 0);
-
-			optName = element->Attribute(L"parentheses");
-			if (optName)
-				_nppGUI._matchedPairConf._doParentheses = (lstrcmp(optName, L"yes") == 0);
-
-			optName = element->Attribute(L"brackets");
-			if (optName)
-				_nppGUI._matchedPairConf._doBrackets = (lstrcmp(optName, L"yes") == 0);
-
-			optName = element->Attribute(L"curlyBrackets");
-			if (optName)
-				_nppGUI._matchedPairConf._doCurlyBrackets = (lstrcmp(optName, L"yes") == 0);
-
-			optName = element->Attribute(L"quotes");
-			if (optName)
-				_nppGUI._matchedPairConf._doQuotes = (lstrcmp(optName, L"yes") == 0);
-
-			optName = element->Attribute(L"doubleQuotes");
-			if (optName)
-				_nppGUI._matchedPairConf._doDoubleQuotes = (lstrcmp(optName, L"yes") == 0);
-
-			for (TiXmlNode *subChildNode = childNode->FirstChildElement(L"UserDefinePair");
-				 subChildNode;
-				 subChildNode = subChildNode->NextSibling(L"UserDefinePair") )
 			{
-				int open = -1;
-				int openVal = 0;
-				const wchar_t *openValStr = (subChildNode->ToElement())->Attribute(L"open", &openVal);
-				if (openValStr && (openVal >= 0 && openVal < 128))
-					open = openVal;
+				using enum NppGUI::AutocStatus;
+				_nppGUI._autocStatus = getRangeDefaultAttribute(childNode, "action", autoc_none, autoc_both, _nppGUI._autocStatus);
+			}
 
-				int close = -1;
-				int closeVal = 0;
-				const wchar_t *closeValStr = (subChildNode->ToElement())->Attribute(L"close", &closeVal);
-				if (closeValStr && (closeVal >= 0 && closeVal <= 128))
-					close = closeVal;
+			// from preferenceDlg.cpp
+			// static constexpr int AUTOCOMPLETEFROMCHAR_SMALLEST = 1;
+			// static constexpr int AUTOCOMPLETEFROMCHAR_LARGEST = 9;
+			_nppGUI._autocFromLen = getRangeClampAttribute<UINT>(childNode, "triggerFromNbChar", 1U, 9U, _nppGUI._autocFromLen);
+
+			_nppGUI._autocIgnoreNumbers = getBoolAttribute(childNode, "autoCIgnoreNumbers", _nppGUI._autocIgnoreNumbers);
+			_nppGUI._autocInsertSelectedUseENTER = getBoolAttribute(childNode, "insertSelectedItemUseENTER", _nppGUI._autocInsertSelectedUseENTER);
+			_nppGUI._autocInsertSelectedUseTAB = getBoolAttribute(childNode, "insertSelectedItemUseTAB", _nppGUI._autocInsertSelectedUseTAB);
+			_nppGUI._autocBrief = getBoolAttribute(childNode, "autoCBrief");
+			_nppGUI._funcParams = getBoolAttribute(childNode, "funcParams", _nppGUI._funcParams);
+		}
+		// <GUIConfig name="auto-insert" parentheses="no" brackets="no" curlyBrackets="no" quotes="no" doubleQuotes="no" htmlXmlTag="no" />
+		else if (std::strcmp(nm, "auto-insert") == 0)
+		{
+			_nppGUI._matchedPairConf._doHtmlXmlTag = getBoolAttribute(childNode, "htmlXmlTag");
+			_nppGUI._matchedPairConf._doParentheses = getBoolAttribute(childNode, "parentheses");
+			_nppGUI._matchedPairConf._doBrackets = getBoolAttribute(childNode, "brackets");
+			_nppGUI._matchedPairConf._doCurlyBrackets = getBoolAttribute(childNode, "curlyBrackets");
+			_nppGUI._matchedPairConf._doQuotes = getBoolAttribute(childNode, "quotes");
+			_nppGUI._matchedPairConf._doDoubleQuotes = getBoolAttribute(childNode, "doubleQuotes");
+
+			for (NppXml::Element subChildNode = NppXml::firstChildElement(childNode, "UserDefinePair");
+				subChildNode;
+				subChildNode = NppXml::nextSiblingElement(subChildNode, "UserDefinePair"))
+			{
+				const int open = getRangeDefaultAttribute(subChildNode, "open", 0, 127, -1);
+				const int close = getRangeDefaultAttribute(subChildNode, "close", 0, 127, -1);
 
 				if (open != -1 && close != -1)
-					_nppGUI._matchedPairConf._matchedPairs.push_back(std::pair<char, char>(char(open), char(close)));
+					_nppGUI._matchedPairConf._matchedPairs.emplace_back(static_cast<char>(open), static_cast<char>(close));
 			}
 		}
-
-		else if (!lstrcmp(nm, L"sessionExt"))
+		// <GUIConfig name="sessionExt"></GUIConfig>
+		else if (std::strcmp(nm, "sessionExt") == 0)
 		{
-			TiXmlNode *n = childNode->FirstChild();
+			NppXml::Node n = NppXml::firstChild(childNode);
 			if (n)
 			{
-				const wchar_t* val = n->Value();
+				const char* val = NppXml::value(n);
 				if (val)
-					_nppGUI._definedSessionExt = val;
+					_nppGUI._definedSessionExt = string2wstring(val);
 			}
 		}
-
-		else if (!lstrcmp(nm, L"workspaceExt"))
+		// <GUIConfig name="workspaceExt"></GUIConfig>
+		else if (std::strcmp(nm, "workspaceExt") == 0)
 		{
-			TiXmlNode *n = childNode->FirstChild();
+			NppXml::Node n = NppXml::firstChild(childNode);
 			if (n)
 			{
-				const wchar_t* val = n->Value();
+				const char* val = NppXml::value(n);
 				if (val)
-					_nppGUI._definedWorkspaceExt = val;
+					_nppGUI._definedWorkspaceExt = string2wstring(val);
 			}
 		}
-
-		else if (!lstrcmp(nm, L"noUpdate"))
+		// <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20080426" autoUpdateMode="1">no</GUIConfig>
+		else if (std::strcmp(nm, "noUpdate") == 0)
 		{
-			TiXmlNode *n = childNode->FirstChild();
+			NppXml::Node n = NppXml::firstChild(childNode);
 			if (n)
 			{
-				const wchar_t* val = n->Value();
+				using enum NppGUI::AutoUpdateMode;
+				const char* val = NppXml::value(n);
 				if (val)
 				{
 					// for backward compatibility with older configs
-					_nppGUI._autoUpdateOpt._doAutoUpdate = (!lstrcmp(val, L"yes")) ?
-						NppGUI::AutoUpdateMode::autoupdate_disabled : NppGUI::AutoUpdateMode::autoupdate_on_startup;
+					_nppGUI._autoUpdateOpt._doAutoUpdate = (std::strcmp(val, "yes") == 0) ? autoupdate_disabled : autoupdate_on_startup;
 				}
 
-				int i;
-				val = element->Attribute(L"intervalDays", &i);
-				if (val)
-					_nppGUI._autoUpdateOpt._intervalDays = i;
+				_nppGUI._autoUpdateOpt._intervalDays = NppXml::intAttribute(childNode, "intervalDays", _nppGUI._autoUpdateOpt._intervalDays);
 
-				val = element->Attribute(L"nextUpdateDate");
-				if (val)
-					_nppGUI._autoUpdateOpt._nextUpdateDate = Date(wstring2string(val).c_str());
+				const char* attrVal = NppXml::attribute(childNode, "nextUpdateDate");
+				if (attrVal)
+					_nppGUI._autoUpdateOpt._nextUpdateDate = Date(attrVal);
 
-				val = element->Attribute(L"autoUpdateMode", &i);
-				if (val)
-					_nppGUI._autoUpdateOpt._doAutoUpdate = static_cast<NppGUI::AutoUpdateMode>(i); // newer config, so overwrite
+				const int iVal = NppXml::intAttribute(childNode, "autoUpdateMode", -1);
+				if (iVal != -1)
+					_nppGUI._autoUpdateOpt._doAutoUpdate = static_cast<NppGUI::AutoUpdateMode>(
+						std::max(static_cast<int>(autoupdate_disabled), std::min(iVal, static_cast<int>(autoupdate_on_exit)))); // newer config, so overwrite
 			}
 		}
-
-		else if (!lstrcmp(nm, L"openSaveDir"))
+		// <GUIConfig name="openSaveDir" value="0" defaultDirPath="" lastUsedDirPath="" />
+		else if (std::strcmp(nm, "openSaveDir") == 0)
 		{
-			const wchar_t * value = element->Attribute(L"value");
-			if (value && value[0])
-			{
-				if (lstrcmp(value, L"1") == 0)
-					_nppGUI._openSaveDir = dir_last;
-				else if (lstrcmp(value, L"2") == 0)
-					_nppGUI._openSaveDir = dir_userDef;
-				else
-					_nppGUI._openSaveDir = dir_followCurrent;
-			}
+			using enum OpenSaveDirSetting;
+			_nppGUI._openSaveDir = getRangeDefaultAttribute(childNode, "value", dir_followCurrent, dir_userDef, _nppGUI._openSaveDir);
 
-			const wchar_t * path = element->Attribute(L"defaultDirPath");
-			if (path && path[0])
+			const std::wstring path = string2wstring(NppXml::attribute(childNode, "defaultDirPath", ""));
+			if (!path.empty())
 			{
-				lstrcpyn(_nppGUI._defaultDir, path, MAX_PATH);
+				std::wcsncpy(_nppGUI._defaultDir, path.c_str(), MAX_PATH);
 				::ExpandEnvironmentStrings(_nppGUI._defaultDir, _nppGUI._defaultDirExp, MAX_PATH);
 			}
 
-			path = element->Attribute(L"lastUsedDirPath");
-			if (path && path[0])
+			const std::wstring lastPath = string2wstring(NppXml::attribute(childNode, "lastUsedDirPath", ""));
+			if (!lastPath.empty())
 			{
-				lstrcpyn(_nppGUI._lastUsedDir, path, MAX_PATH);
-			}
- 		}
-
-		else if (!lstrcmp(nm, L"titleBar"))
-		{
-			const wchar_t * value = element->Attribute(L"short");
-			_nppGUI._shortTitlebar = false;	//default state
-			if (value && value[0])
-			{
-				if (lstrcmp(value, L"yes") == 0)
-					_nppGUI._shortTitlebar = true;
-				else if (lstrcmp(value, L"no") == 0)
-					_nppGUI._shortTitlebar = false;
+				std::wcsncpy(_nppGUI._lastUsedDir, lastPath.c_str(), MAX_PATH);
 			}
 		}
-
-		else if (!lstrcmp(nm, L"insertDateTime"))
+		// <GUIConfig name="titleBar" short="no" />
+		else if (std::strcmp(nm, "titleBar") == 0)
 		{
-			const wchar_t* customFormat = element->Attribute(L"customizedFormat");
-			if (customFormat != NULL && customFormat[0])
-				_nppGUI._dateTimeFormat = customFormat;
-
-			const wchar_t* value = element->Attribute(L"reverseDefaultOrder");
-			if (value && value[0])
-			{
-				if (lstrcmp(value, L"yes") == 0)
-					_nppGUI._dateTimeReverseDefaultOrder = true;
-				else if (lstrcmp(value, L"no") == 0)
-					_nppGUI._dateTimeReverseDefaultOrder = false;
-			}
+			_nppGUI._shortTitlebar = getBoolAttribute(childNode, "short");
 		}
-
-		else if (!lstrcmp(nm, L"wordCharList"))
+		// <GUIConfig name="insertDateTime" customizedFormat="yyyy-MM-dd HH:mm:ss" reverseDefaultOrder="no" />
+		else if (std::strcmp(nm, "insertDateTime") == 0)
 		{
-			const wchar_t * value = element->Attribute(L"useDefault");
-			if (value && value[0])
-			{
-				if (lstrcmp(value, L"yes") == 0)
-					_nppGUI._isWordCharDefault = true;
-				else if (lstrcmp(value, L"no") == 0)
-					_nppGUI._isWordCharDefault = false;
-			}
-
-			const wchar_t *charsAddedW = element->Attribute(L"charsAdded");
-			if (charsAddedW)
-			{
-				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-				_nppGUI._customWordChars = wmc.wchar2char(charsAddedW, SC_CP_UTF8);
-			}
+			_nppGUI._dateTimeFormat = string2wstring(NppXml::attribute(childNode, "customizedFormat", ""));
+			_nppGUI._dateTimeReverseDefaultOrder = getBoolAttribute(childNode, "reverseDefaultOrder");
 		}
-		else if (!lstrcmp(nm, L"delimiterSelection"))
+		// <GUIConfig name="wordCharList" useDefault="yes" charsAdded="" />
+		else if (std::strcmp(nm, "wordCharList") == 0)
 		{
-			int leftmost = 0;
-			element->Attribute(L"leftmostDelimiter", &leftmost);
-			if (leftmost > 0 && leftmost < 256)
+			_nppGUI._isWordCharDefault = getBoolAttribute(childNode, "useDefault", _nppGUI._isWordCharDefault);
+			_nppGUI._customWordChars = NppXml::attribute(childNode, "charsAdded", "");
+		}
+		// <GUIConfig name="delimiterSelection" leftmostDelimiter="40" rightmostDelimiter="41" delimiterSelectionOnEntireDocument="no" />
+		else if (std::strcmp(nm, "delimiterSelection") == 0)
+		{
+			const int leftmost = getRangeDefaultAttribute(childNode, "leftmostDelimiter", 1, 255, -1);
+			if (leftmost != -1)
 				_nppGUI._leftmostDelimiter = static_cast<char>(leftmost);
 
-			int rightmost = 0;
-			element->Attribute(L"rightmostDelimiter", &rightmost);
-			if (rightmost > 0 && rightmost < 256)
+			const int rightmost = getRangeDefaultAttribute(childNode, "rightmostDelimiter", 1, 255, -1);
+			if (rightmost != -1)
 				_nppGUI._rightmostDelimiter = static_cast<char>(rightmost);
 
-			const wchar_t *delimiterSelectionOnEntireDocument = element->Attribute(L"delimiterSelectionOnEntireDocument");
-			if (delimiterSelectionOnEntireDocument != NULL && !lstrcmp(delimiterSelectionOnEntireDocument, L"yes"))
-				_nppGUI._delimiterSelectionOnEntireDocument = true;
-			else
-				_nppGUI._delimiterSelectionOnEntireDocument = false;
+			_nppGUI._delimiterSelectionOnEntireDocument = getBoolAttribute(childNode, "delimiterSelectionOnEntireDocument");
 		}
-		else if (!lstrcmp(nm, L"largeFileRestriction"))
+		// <GUIConfig name="largeFileRestriction" fileSizeMB="200" isEnabled="yes" allowAutoCompletion="no" allowBraceMatch="no" allowSmartHilite="no"
+		// allowClickableLink="no" deactivateWordWrap="yes" suppress2GBWarning="no" />
+		else if (std::strcmp(nm, "largeFileRestriction") == 0)
 		{
-			int fileSizeLimit4StylingMB = 0;
-			element->Attribute(L"fileSizeMB", &fileSizeLimit4StylingMB);
-			if (fileSizeLimit4StylingMB > 0 && fileSizeLimit4StylingMB <= 4096)
-				_nppGUI._largeFileRestriction._largeFileSizeDefInByte = (static_cast<int64_t>(fileSizeLimit4StylingMB) * 1024 * 1024);
+			const auto fileSizeLimit4StylingMB = getRangeDefaultAttribute(childNode, "fileSizeMB", 1LL, 4096LL, -1LL);
+			if (fileSizeLimit4StylingMB != -1LL)
+				_nppGUI._largeFileRestriction._largeFileSizeDefInByte = (fileSizeLimit4StylingMB * 1024 * 1024);
 
-			const wchar_t* boolVal = element->Attribute(L"isEnabled");
-			if (boolVal != NULL && !lstrcmp(boolVal, L"no"))
-				_nppGUI._largeFileRestriction._isEnabled = false;
-			else
-				_nppGUI._largeFileRestriction._isEnabled = true;
-
-			boolVal = element->Attribute(L"allowAutoCompletion");
-			if (boolVal != NULL && !lstrcmp(boolVal, L"yes"))
-				_nppGUI._largeFileRestriction._allowAutoCompletion = true;
-			else
-				_nppGUI._largeFileRestriction._allowAutoCompletion = false;
-
-			boolVal = element->Attribute(L"allowBraceMatch");
-			if (boolVal != NULL && !lstrcmp(boolVal, L"yes"))
-				_nppGUI._largeFileRestriction._allowBraceMatch = true;
-			else
-				_nppGUI._largeFileRestriction._allowBraceMatch = false;
-
-			boolVal = element->Attribute(L"allowSmartHilite");
-			if (boolVal != NULL && !lstrcmp(boolVal, L"yes"))
-				_nppGUI._largeFileRestriction._allowSmartHilite = true;
-			else
-				_nppGUI._largeFileRestriction._allowSmartHilite = false;
-
-			boolVal = element->Attribute(L"allowClickableLink");
-			if (boolVal != NULL && !lstrcmp(boolVal, L"yes"))
-				_nppGUI._largeFileRestriction._allowClickableLink = true;
-			else
-				_nppGUI._largeFileRestriction._allowClickableLink = false;
-
-			boolVal = element->Attribute(L"deactivateWordWrap");
-			if (boolVal != NULL && !lstrcmp(boolVal, L"no"))
-				_nppGUI._largeFileRestriction._deactivateWordWrap = false;
-			else
-				_nppGUI._largeFileRestriction._deactivateWordWrap = true;
-
-			boolVal = element->Attribute(L"suppress2GBWarning");
-			if (boolVal != NULL && !lstrcmp(boolVal, L"yes"))
-				_nppGUI._largeFileRestriction._suppress2GBWarning = true;
-			else
-				_nppGUI._largeFileRestriction._suppress2GBWarning = false;
+			_nppGUI._largeFileRestriction._isEnabled = getBoolAttribute(childNode, "isEnabled", _nppGUI._largeFileRestriction._isEnabled);
+			_nppGUI._largeFileRestriction._allowAutoCompletion = getBoolAttribute(childNode, "allowAutoCompletion");
+			_nppGUI._largeFileRestriction._allowBraceMatch = getBoolAttribute(childNode, "allowBraceMatch");
+			_nppGUI._largeFileRestriction._allowSmartHilite = getBoolAttribute(childNode, "allowSmartHilite");
+			_nppGUI._largeFileRestriction._allowClickableLink = getBoolAttribute(childNode, "allowClickableLink");
+			_nppGUI._largeFileRestriction._deactivateWordWrap = getBoolAttribute(childNode, "deactivateWordWrap", _nppGUI._largeFileRestriction._deactivateWordWrap);
+			_nppGUI._largeFileRestriction._suppress2GBWarning = getBoolAttribute(childNode, "suppress2GBWarning");
 		}
-		else if (!lstrcmp(nm, L"multiInst"))
+		// <GUIConfig name="multiInst" setting="0" clipboardHistory="no" documentList="no" characterPanel="no" folderAsWorkspace="no" projectPanels="no"
+		// documentMap="no" fuctionList="no" pluginPanels="no" />
+		else if (std::strcmp(nm, "multiInst") == 0)
 		{
-			int val = 0;
-			element->Attribute(L"setting", &val);
-			if (val < 0 || val > 2)
-				val = 0;
-			_nppGUI._multiInstSetting = (MultiInstSetting)val;
+			using enum MultiInstSetting;
+			_nppGUI._multiInstSetting = getRangeDefaultAttribute(childNode, "setting", monoInst, multiInst, _nppGUI._multiInstSetting);
 
-			_nppGUI._clipboardHistoryPanelKeepState = parseYesNoBoolAttribute(L"clipboardHistory");
-			_nppGUI._docListKeepState = parseYesNoBoolAttribute(L"documentList");
-			_nppGUI._charPanelKeepState = parseYesNoBoolAttribute(L"characterPanel");
-			_nppGUI._fileBrowserKeepState = parseYesNoBoolAttribute(L"folderAsWorkspace");
-			_nppGUI._projectPanelKeepState = parseYesNoBoolAttribute(L"projectPanels");
-			_nppGUI._docMapKeepState = parseYesNoBoolAttribute(L"documentMap");
-			_nppGUI._funcListKeepState = parseYesNoBoolAttribute(L"fuctionList");
-			_nppGUI._pluginPanelKeepState = parseYesNoBoolAttribute(L"pluginPanels");
+			_nppGUI._clipboardHistoryPanelKeepState = getBoolAttribute(childNode, "clipboardHistory");
+			_nppGUI._docListKeepState = getBoolAttribute(childNode, "documentList");
+			_nppGUI._charPanelKeepState = getBoolAttribute(childNode, "characterPanel");
+			_nppGUI._fileBrowserKeepState = getBoolAttribute(childNode, "folderAsWorkspace");
+			_nppGUI._projectPanelKeepState = getBoolAttribute(childNode, "projectPanels");
+			_nppGUI._docMapKeepState = getBoolAttribute(childNode, "documentMap");
+			_nppGUI._funcListKeepState = getBoolAttribute(childNode, "fuctionList");
+			_nppGUI._pluginPanelKeepState = getBoolAttribute(childNode, "pluginPanels");
 		}
-		else if (!lstrcmp(nm, L"searchEngine"))
+		// <GUIConfig name="searchEngine" searchEngineChoice="2" searchEngineCustom="" />
+		else if (std::strcmp(nm, "searchEngine") == 0)
 		{
-			int i;
-			if (element->Attribute(L"searchEngineChoice", &i))
-				_nppGUI._searchEngineChoice = static_cast<NppGUI::SearchEngineChoice>(i);
+			using enum NppGUI::SearchEngineChoice;
+			_nppGUI._searchEngineChoice = getRangeDefaultAttribute(childNode, "searchEngineChoice", se_custom, se_stackoverflow, _nppGUI._searchEngineChoice);
 
-			const wchar_t * searchEngineCustom = element->Attribute(L"searchEngineCustom");
+			const char* searchEngineCustom = NppXml::attribute(childNode, "searchEngineCustom");
 			if (searchEngineCustom && searchEngineCustom[0])
-				_nppGUI._searchEngineCustom = searchEngineCustom;
+				_nppGUI._searchEngineCustom = string2wstring(searchEngineCustom);
 		}
-		else if (!lstrcmp(nm, L"Searching"))
+		// <GUIConfig name="Searching" monospacedFontFindDlg="no" fillFindFieldWithSelected="yes" fillFindFieldSelectCaret="yes"
+		// findDlgAlwaysVisible="no" confirmReplaceInAllOpenDocs="yes" replaceStopsWithoutFindingNext="no" inSelectionAutocheckThreshold="1024"
+		// fillFindWhatThreshold="1024" fillDirFieldFromActiveDoc="no" />
+		else if (std::strcmp(nm, "Searching") == 0)
 		{
-			const wchar_t* optNameMonoFont = element->Attribute(L"monospacedFontFindDlg");
-			if (optNameMonoFont)
-				_nppGUI._monospacedFontFindDlg = (lstrcmp(optNameMonoFont, L"yes") == 0);
+			_nppGUI._monospacedFontFindDlg = getBoolAttribute(childNode, "monospacedFontFindDlg");
 
-			//This is an option from previous versions of notepad++.  It is handled for compatibility with older settings.
-			const wchar_t* optStopFillingFindField = element->Attribute(L"stopFillingFindField");
+			//This is an option from previous versions of notepad++. It is handled for compatibility with older settings.
+			const char* optStopFillingFindField = NppXml::attribute(childNode, "stopFillingFindField");
 			if (optStopFillingFindField)
 			{
-				_nppGUI._fillFindFieldWithSelected = (lstrcmp(optStopFillingFindField, L"no") == 0);
+				_nppGUI._fillFindFieldWithSelected = (std::strcmp(optStopFillingFindField, "no") == 0);
 				_nppGUI._fillFindFieldSelectCaret = _nppGUI._fillFindFieldWithSelected;
 			}
 
-			const wchar_t* optFillFindFieldWithSelected = element->Attribute(L"fillFindFieldWithSelected");
-			if (optFillFindFieldWithSelected)
-				_nppGUI._fillFindFieldWithSelected = (lstrcmp(optFillFindFieldWithSelected, L"yes") == 0);
+			_nppGUI._fillFindFieldWithSelected = getBoolAttribute(childNode, "fillFindFieldWithSelected", _nppGUI._fillFindFieldWithSelected);
+			_nppGUI._fillFindFieldSelectCaret = getBoolAttribute(childNode, "fillFindFieldSelectCaret", _nppGUI._fillFindFieldSelectCaret);
+			_nppGUI._findDlgAlwaysVisible = getBoolAttribute(childNode, "findDlgAlwaysVisible");
+			_nppGUI._confirmReplaceInAllOpenDocs = getBoolAttribute(childNode, "confirmReplaceInAllOpenDocs", _nppGUI._confirmReplaceInAllOpenDocs);
+			_nppGUI._replaceStopsWithoutFindingNext = getBoolAttribute(childNode, "replaceStopsWithoutFindingNext");
 
-			const wchar_t* optFillFindFieldSelectCaret = element->Attribute(L"fillFindFieldSelectCaret");
-			if (optFillFindFieldSelectCaret)
-				_nppGUI._fillFindFieldSelectCaret = (lstrcmp(optFillFindFieldSelectCaret, L"yes") == 0);
+			_nppGUI._inSelectionAutocheckThreshold = getRangeDefaultAttribute(childNode, "inSelectionAutocheckThreshold", 0, FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT, _nppGUI._inSelectionAutocheckThreshold);
+			_nppGUI._fillFindWhatThreshold = getRangeDefaultAttribute(childNode, "fillFindWhatThreshold", 1, FINDREPLACE_MAXLENGTH - 1, _nppGUI._fillFindWhatThreshold);
 
-			const wchar_t* optFindDlgAlwaysVisible = element->Attribute(L"findDlgAlwaysVisible");
-			if (optFindDlgAlwaysVisible)
-				_nppGUI._findDlgAlwaysVisible = (lstrcmp(optFindDlgAlwaysVisible, L"yes") == 0);
-
-			const wchar_t* optConfirmReplaceOpenDocs = element->Attribute(L"confirmReplaceInAllOpenDocs");
-			if (optConfirmReplaceOpenDocs)
-				_nppGUI._confirmReplaceInAllOpenDocs = (lstrcmp(optConfirmReplaceOpenDocs, L"yes") == 0);
-
-			const wchar_t* optReplaceStopsWithoutFindingNext = element->Attribute(L"replaceStopsWithoutFindingNext");
-			if (optReplaceStopsWithoutFindingNext)
-				_nppGUI._replaceStopsWithoutFindingNext = (lstrcmp(optReplaceStopsWithoutFindingNext, L"yes") == 0);
-
-			int inSelThresh;
-			if (element->Attribute(L"inSelectionAutocheckThreshold", &inSelThresh) &&
-				(inSelThresh >= 0 && inSelThresh <= FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT))
-			{
-				_nppGUI._inSelectionAutocheckThreshold = inSelThresh;
-			}
-			else
-			{
-				_nppGUI._inSelectionAutocheckThreshold = FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT;
-			}
-
-			int fillFindWhatThresh;
-			if (element->Attribute(L"fillFindWhatThreshold", &fillFindWhatThresh) &&
-				(fillFindWhatThresh >= 1 && fillFindWhatThresh <= FINDREPLACE_MAXLENGTH - 1))
-			{
-				_nppGUI._fillFindWhatThreshold = fillFindWhatThresh;
-			}
-			else
-			{
-				_nppGUI._fillFindWhatThreshold = FILL_FINDWHAT_THRESHOLD_DEFAULT;
-			}
-
-			const wchar_t* optFillDirFieldFromActiveDoc = element->Attribute(L"fillDirFieldFromActiveDoc");
-			if (optFillDirFieldFromActiveDoc)
-			{
-				_nppGUI._fillDirFieldFromActiveDoc = (lstrcmp(optFillDirFieldFromActiveDoc, L"yes") == 0);
-			}
+			_nppGUI._fillDirFieldFromActiveDoc = getBoolAttribute(childNode, "fillDirFieldFromActiveDoc");
 		}
-		else if (!lstrcmp(nm, L"MISC"))
+		// <GUIConfig name="MISC" fileSwitcherWithoutExtColumn="no" fileSwitcherExtWidth="50" fileSwitcherWithoutPathColumn="no" fileSwitcherPathWidth="50"
+		// fileSwitcherNoGroups="no" backSlashIsEscapeCharacterForSql="yes" writeTechnologyEngine="1" isFolderDroppedOpenFiles="no" docPeekOnTab="no"
+		// docPeekOnMap="no" sortFunctionList="no" saveDlgExtFilterToAllTypes="no" muteSounds="no" enableFoldCmdToggable="no" hideMenuRightShortcuts="no" />
+		else if (std::strcmp(nm, "MISC") == 0)
 		{
-			const wchar_t * optName = element->Attribute(L"fileSwitcherWithoutExtColumn");
-			if (optName)
-				_nppGUI._fileSwitcherWithoutExtColumn = (lstrcmp(optName, L"yes") == 0);
+			_nppGUI._fileSwitcherWithoutExtColumn = getBoolAttribute(childNode, "fileSwitcherWithoutExtColumn");
+			_nppGUI._fileSwitcherExtWidth = NppXml::intAttribute(childNode, "fileSwitcherExtWidth", _nppGUI._fileSwitcherExtWidth);
 
-			int i = 0;
-			if (element->Attribute(L"fileSwitcherExtWidth", &i))
-				_nppGUI._fileSwitcherExtWidth = i;
+			_nppGUI._fileSwitcherWithoutPathColumn = getBoolAttribute(childNode, "fileSwitcherWithoutPathColumn");
+			_nppGUI._fileSwitcherPathWidth = NppXml::intAttribute(childNode, "fileSwitcherPathWidth", _nppGUI._fileSwitcherPathWidth);
 
-			const wchar_t * optNamePath = element->Attribute(L"fileSwitcherWithoutPathColumn");
-			if (optNamePath)
-				_nppGUI._fileSwitcherWithoutPathColumn = (lstrcmp(optNamePath, L"yes") == 0);
+			_nppGUI._fileSwitcherDisableListViewGroups = getBoolAttribute(childNode, "fileSwitcherNoGroups");
 
-			if (element->Attribute(L"fileSwitcherPathWidth", &i))
-				_nppGUI._fileSwitcherPathWidth = i;
+			_nppGUI._backSlashIsEscapeCharacterForSql = getBoolAttribute(childNode, "backSlashIsEscapeCharacterForSql", _nppGUI._backSlashIsEscapeCharacterForSql);
 
-			_nppGUI._fileSwitcherDisableListViewGroups = parseYesNoBoolAttribute(L"fileSwitcherNoGroups");
-
-			const wchar_t * optNameBackSlashEscape = element->Attribute(L"backSlashIsEscapeCharacterForSql");
-			if (optNameBackSlashEscape && !lstrcmp(optNameBackSlashEscape, L"no"))
-				_nppGUI._backSlashIsEscapeCharacterForSql = false;
-
-			const wchar_t * optNameWriteTechnologyEngine = element->Attribute(L"writeTechnologyEngine");
-			if (optNameWriteTechnologyEngine)
 			{
-				if (lstrcmp(optNameWriteTechnologyEngine, L"0") == 0)
-					_nppGUI._writeTechnologyEngine = defaultTechnology;
-				else if (lstrcmp(optNameWriteTechnologyEngine, L"1") == 0)
-					_nppGUI._writeTechnologyEngine = directWriteTechnology;
-				else if (lstrcmp(optNameWriteTechnologyEngine, L"2") == 0)
-					_nppGUI._writeTechnologyEngine = directWriteRetainTechnology;
-				else if (lstrcmp(optNameWriteTechnologyEngine, L"3") == 0)
-					_nppGUI._writeTechnologyEngine = directWriteDcTechnology;
-				else if (lstrcmp(optNameWriteTechnologyEngine, L"4") == 0)
-					_nppGUI._writeTechnologyEngine = directWriteDX11Technology;
-				else if (lstrcmp(optNameWriteTechnologyEngine, L"5") == 0)
-					_nppGUI._writeTechnologyEngine = directWriteTechnologyUnavailable;
-				//else
-					// retain default value preset
+				using enum writeTechnologyEngine;
+				_nppGUI._writeTechnologyEngine = getRangeDefaultAttribute(childNode, "writeTechnologyEngine", defaultTechnology, directWriteTechnologyUnavailable, _nppGUI._writeTechnologyEngine);
 			}
 
-			const wchar_t * optNameFolderDroppedOpenFiles = element->Attribute(L"isFolderDroppedOpenFiles");
-			if (optNameFolderDroppedOpenFiles)
-				_nppGUI._isFolderDroppedOpenFiles = (lstrcmp(optNameFolderDroppedOpenFiles, L"yes") == 0);
-
-			const wchar_t * optDocPeekOnTab = element->Attribute(L"docPeekOnTab");
-			if (optDocPeekOnTab)
-				_nppGUI._isDocPeekOnTab = (lstrcmp(optDocPeekOnTab, L"yes") == 0);
-
-			const wchar_t * optDocPeekOnMap = element->Attribute(L"docPeekOnMap");
-			if (optDocPeekOnMap)
-				_nppGUI._isDocPeekOnMap = (lstrcmp(optDocPeekOnMap, L"yes") == 0);
-
-			const wchar_t* optSortFunctionList = element->Attribute(L"sortFunctionList");
-			if (optSortFunctionList)
-				_nppGUI._shouldSortFunctionList = (lstrcmp(optSortFunctionList, L"yes") == 0);
-
-			const wchar_t* saveDlgExtFilterToAllTypes = element->Attribute(L"saveDlgExtFilterToAllTypes");
-			if (saveDlgExtFilterToAllTypes)
-				_nppGUI._setSaveDlgExtFiltToAllTypes = (lstrcmp(saveDlgExtFilterToAllTypes, L"yes") == 0);
-
-			const wchar_t * optMuteSounds = element->Attribute(L"muteSounds");
-			if (optMuteSounds)
-				_nppGUI._muteSounds = lstrcmp(optMuteSounds, L"yes") == 0;
-
-			const wchar_t * optEnableFoldCmdToggable = element->Attribute(L"enableFoldCmdToggable");
-			if (optEnableFoldCmdToggable)
-				_nppGUI._enableFoldCmdToggable = lstrcmp(optEnableFoldCmdToggable, L"yes") == 0;
-
-			const wchar_t * hideMenuRightShortcuts = element->Attribute(L"hideMenuRightShortcuts");
-			if (hideMenuRightShortcuts)
-				_nppGUI._hideMenuRightShortcuts = lstrcmp(hideMenuRightShortcuts, L"yes") == 0;
+			_nppGUI._isFolderDroppedOpenFiles = getBoolAttribute(childNode, "isFolderDroppedOpenFiles");
+			_nppGUI._isDocPeekOnTab = getBoolAttribute(childNode, "docPeekOnTab");
+			_nppGUI._isDocPeekOnMap = getBoolAttribute(childNode, "docPeekOnMap");
+			_nppGUI._shouldSortFunctionList = getBoolAttribute(childNode, "sortFunctionList");
+			_nppGUI._setSaveDlgExtFiltToAllTypes = getBoolAttribute(childNode, "saveDlgExtFilterToAllTypes");
+			_nppGUI._muteSounds = getBoolAttribute(childNode, "muteSounds");
+			_nppGUI._enableFoldCmdToggable = getBoolAttribute(childNode, "enableFoldCmdToggable");
+			_nppGUI._hideMenuRightShortcuts = getBoolAttribute(childNode, "hideMenuRightShortcuts");
 		}
-		else if (!lstrcmp(nm, L"commandLineInterpreter"))
+		// <GUIConfig name="commandLineInterpreter"></GUIConfig>
+		else if (std::strcmp(nm, "commandLineInterpreter") == 0)
 		{
-			TiXmlNode *cmdLineInterpreterNode = childNode->FirstChild();
+			NppXml::Node cmdLineInterpreterNode = NppXml::firstChild(childNode);
 			if (cmdLineInterpreterNode)
 			{
-				const wchar_t *cli = cmdLineInterpreterNode->Value();
+				const char* cli = NppXml::value(cmdLineInterpreterNode);
 				if (cli && cli[0])
-					_nppGUI._commandLineInterpreter.assign(cli);
+					_nppGUI._commandLineInterpreter = string2wstring(cli);
 			}
 		}
-		else if (!lstrcmp(nm, L"DarkMode"))
+		// <GUIConfig name="DarkMode" enable="no" colorTone="0" customColorTop="2105376" customColorMenuHotTrack="4539717" customColorActive="3684408"
+		// customColorMain="2105376" customColorError="176" customColorText="14737632" customColorDarkText="12632256" customColorDisabledText="8421504"
+		// customColorLinkText="65535" customColorEdge="6579300" customColorHotEdge="10197915" customColorDisabledEdge="4737096" enableWindowsMode="no"
+		// darkThemeName="DarkModeDefault.xml" darkToolBarIconSet="0" darkTbFluentColor="0" darkTbFluentCustomColor="0" darkTbFluentMono="no" darkTabIconSet="2"
+		// darkTabUseTheme="no" lightThemeName="" lightToolBarIconSet="4" lightTbFluentColor="0" lightTbFluentCustomColor="33024" lightTbFluentMono="no"
+		// lightTabIconSet="0" lightTabUseTheme="yes" />
+		else if (std::strcmp(nm, "DarkMode") == 0)
 		{
-			_nppGUI._darkmode._isEnabled = parseYesNoBoolAttribute(L"enable");
+			_nppGUI._darkmode._isEnabled = getBoolAttribute(childNode, "enable");
 
-			//_nppGUI._darkmode._isEnabledPlugin = parseYesNoBoolAttribute(L"enablePlugin", true));
+			using enum NppDarkMode::ColorTone;
+			const int clrTone = NppXml::intAttribute(childNode, "colorTone", 0);
+			if (clrTone == static_cast<int>(customizedTone)
+				|| (clrTone >= static_cast<int>(blackTone)
+					&& clrTone <= static_cast<int>(oliveTone)))
+			{
+				_nppGUI._darkmode._colorTone = static_cast<NppDarkMode::ColorTone>(clrTone);
+			}
+			else
+			{
+				_nppGUI._darkmode._colorTone = blackTone;
+			}
+			_nppGUI._darkmode._customColors.pureBackground = NppXml::intAttribute(childNode, "customColorTop", 0x202020);
+			_nppGUI._darkmode._customColors.hotBackground = NppXml::intAttribute(childNode, "customColorMenuHotTrack", 0x454545);
+			_nppGUI._darkmode._customColors.softerBackground = NppXml::intAttribute(childNode, "customColorActive", 0x383838);
+			_nppGUI._darkmode._customColors.background = NppXml::intAttribute(childNode, "customColorMain", 0x202020);
+			_nppGUI._darkmode._customColors.errorBackground = NppXml::intAttribute(childNode, "customColorError", 0x0000B0);
 
-			int i;
-			const wchar_t* val;
-			val = element->Attribute(L"colorTone", &i);
-			if (val)
-				_nppGUI._darkmode._colorTone = static_cast<NppDarkMode::ColorTone>(i);
+			_nppGUI._darkmode._customColors.text = NppXml::intAttribute(childNode, "customColorText", 0xE0E0E0);
+			_nppGUI._darkmode._customColors.darkerText = NppXml::intAttribute(childNode, "customColorDarkText", 0xC0C0C0);
+			_nppGUI._darkmode._customColors.disabledText = NppXml::intAttribute(childNode, "customColorDisabledText", 0x808080);
+			_nppGUI._darkmode._customColors.linkText = NppXml::intAttribute(childNode, "customColorLinkText", 0x00FFFF);
 
-
-			val = element->Attribute(L"customColorTop", &i);
-			if (val)
-				_nppGUI._darkmode._customColors.pureBackground = i;
-
-			val = element->Attribute(L"customColorMenuHotTrack", &i);
-			if (val)
-				_nppGUI._darkmode._customColors.hotBackground = i;
-
-			val = element->Attribute(L"customColorActive", &i);
-			if (val)
-				_nppGUI._darkmode._customColors.softerBackground = i;
-
-			val = element->Attribute(L"customColorMain", &i);
-			if (val)
-				_nppGUI._darkmode._customColors.background = i;
-
-			val = element->Attribute(L"customColorError", &i);
-			if (val)
-				_nppGUI._darkmode._customColors.errorBackground = i;
-
-			val = element->Attribute(L"customColorText", &i);
-			if (val)
-				_nppGUI._darkmode._customColors.text = i;
-
-			val = element->Attribute(L"customColorDarkText", &i);
-			if (val)
-				_nppGUI._darkmode._customColors.darkerText = i;
-
-			val = element->Attribute(L"customColorDisabledText", &i);
-			if (val)
-				_nppGUI._darkmode._customColors.disabledText = i;
-
-			val = element->Attribute(L"customColorLinkText", &i);
-			if (val)
-				_nppGUI._darkmode._customColors.linkText = i;
-
-			val = element->Attribute(L"customColorEdge", &i);
-			if (val)
-				_nppGUI._darkmode._customColors.edge = i;
-
-			val = element->Attribute(L"customColorHotEdge", &i);
-			if (val)
-				_nppGUI._darkmode._customColors.hotEdge = i;
-
-			val = element->Attribute(L"customColorDisabledEdge", &i);
-			if (val)
-				_nppGUI._darkmode._customColors.disabledEdge = i;
+			_nppGUI._darkmode._customColors.edge = NppXml::intAttribute(childNode, "customColorEdge", 0x646464);
+			_nppGUI._darkmode._customColors.hotEdge = NppXml::intAttribute(childNode, "customColorHotEdge", 0x9B9B9B);
+			_nppGUI._darkmode._customColors.disabledEdge = NppXml::intAttribute(childNode, "customColorDisabledEdge", 0x484848);
 
 			// advanced options section
-			auto parseStringAttribute = [&element](const wchar_t* name, const wchar_t* defaultName = L"") -> const wchar_t* {
-				const wchar_t* val = element->Attribute(name);
-				if (val != nullptr && val[0])
-				{
-					return element->Attribute(name);
-				}
-				return defaultName;
-			};
 
-			auto parseMinMaxAttribute = [&element](const wchar_t* name, int defaultValue = -1, int maxValue = 2, int minValue = 0) -> int {
-				int val;
-				const wchar_t* valStr = element->Attribute(name, &val);
-				if (valStr != nullptr && (val >= minValue && val <= maxValue))
-				{
-					return val;
-				}
-				return defaultValue;
-			};
-
-			auto parseIntAttribute = [&element](const wchar_t* name, int defaultValue = -1) -> int {
-				int val;
-				const wchar_t* valStr = element->Attribute(name, &val);
-				if (valStr != nullptr)
-				{
-					return val;
-				}
-				return defaultValue;
-			};
+			using enum toolBarStatusType;
+			using enum FluentColor;
 
 			auto& windowsMode = _nppGUI._darkmode._advOptions._enableWindowsMode;
-			windowsMode = parseYesNoBoolAttribute(L"enableWindowsMode");
-
-			constexpr int fluentColorMaxValue = static_cast<int>(FluentColor::maxValue) - 1;
-			constexpr int tbStdIcoSet = static_cast<int>(TB_STANDARD);
+			windowsMode = getBoolAttribute(childNode, "enableWindowsMode");
 
 			auto& darkDefaults = _nppGUI._darkmode._advOptions._darkDefaults;
 			auto& darkThemeName = darkDefaults._xmlFileName;
 			auto& darkTbInfo = darkDefaults._tbIconInfo;
-			darkThemeName = parseStringAttribute(L"darkThemeName", L"DarkModeDefault.xml");
-			darkTbInfo._tbIconSet = static_cast<toolBarStatusType>(parseMinMaxAttribute(L"darkToolBarIconSet", static_cast<int>(TB_SMALL), tbStdIcoSet));
-			darkTbInfo._tbColor = static_cast<FluentColor>(parseMinMaxAttribute(L"darkTbFluentColor", 0, fluentColorMaxValue));
-			darkTbInfo._tbCustomColor = parseIntAttribute(L"darkTbFluentCustomColor", 0);
-			darkTbInfo._tbUseMono = parseYesNoBoolAttribute(L"darkTbFluentMono");
-			darkDefaults._tabIconSet = parseMinMaxAttribute(L"darkTabIconSet", 2);
-			darkDefaults._tabUseTheme = parseYesNoBoolAttribute(L"darkTabUseTheme");
+			darkThemeName = string2wstring(NppXml::attribute(childNode, "darkThemeName", "DarkModeDefault.xml"));
+			if (darkThemeName.empty())
+				darkThemeName = L"DarkModeDefault.xml";
+			darkTbInfo._tbIconSet = getRangeDefaultAttribute(childNode, "darkToolBarIconSet", TB_SMALL, TB_STANDARD, darkTbInfo._tbIconSet);
+			darkTbInfo._tbColor = getRangeDefaultAttribute(childNode, "darkTbFluentColor", defaultColor, custom, darkTbInfo._tbColor);
+			darkTbInfo._tbCustomColor = NppXml::intAttribute(childNode, "darkTbFluentCustomColor", darkTbInfo._tbCustomColor);
+			darkTbInfo._tbUseMono = getBoolAttribute(childNode, "darkTbFluentMono");
+			darkDefaults._tabIconSet = getRangeDefaultAttribute(childNode, "darkTabIconSet", 0, 2, darkDefaults._tabIconSet);
+			darkDefaults._tabUseTheme = getBoolAttribute(childNode, "darkTabUseTheme");
 
 			auto& lightDefaults = _nppGUI._darkmode._advOptions._lightDefaults;
 			auto& lightThemeName = lightDefaults._xmlFileName;
 			auto& lightTbInfo = lightDefaults._tbIconInfo;
-			lightThemeName = parseStringAttribute(L"lightThemeName");
-			lightTbInfo._tbIconSet = static_cast<toolBarStatusType>(parseMinMaxAttribute(L"lightToolBarIconSet", tbStdIcoSet, tbStdIcoSet));
-			lightTbInfo._tbColor = static_cast<FluentColor>(parseMinMaxAttribute(L"lightTbFluentColor", 0, fluentColorMaxValue));
-			lightTbInfo._tbCustomColor = parseIntAttribute(L"lightTbFluentCustomColor", 0);
-			lightTbInfo._tbUseMono = parseYesNoBoolAttribute(L"lightTbFluentMono");
-			lightDefaults._tabIconSet = parseMinMaxAttribute(L"lightTabIconSet", 0);
-			lightDefaults._tabUseTheme = parseYesNoBoolAttribute(L"lightTabUseTheme", true);
+			lightThemeName = string2wstring(NppXml::attribute(childNode, "lightThemeName", ""));
+			lightTbInfo._tbIconSet = getRangeDefaultAttribute(childNode, "lightToolBarIconSet", TB_SMALL, TB_STANDARD, lightTbInfo._tbIconSet);
+			lightTbInfo._tbColor = getRangeDefaultAttribute(childNode, "lightTbFluentColor", defaultColor, custom, lightTbInfo._tbColor);
+			lightTbInfo._tbCustomColor = NppXml::intAttribute(childNode, "lightTbFluentCustomColor", lightTbInfo._tbCustomColor);
+			lightTbInfo._tbUseMono = getBoolAttribute(childNode, "lightTbFluentMono");
+			lightDefaults._tabIconSet = getRangeDefaultAttribute(childNode, "lightTabIconSet", 0, 2, lightDefaults._tabIconSet);
+			lightDefaults._tabUseTheme = getBoolAttribute(childNode, "lightTabUseTheme", lightDefaults._tabUseTheme);
 
 			// Windows mode is handled later in Notepad_plus_Window::init from Notepad_plus_Window.cpp
 			if (!windowsMode)
@@ -7197,7 +6605,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				std::wstring xmlFileName = _nppGUI._darkmode._isEnabled ? darkThemeName : lightThemeName;
 				const bool isLocalOnly = _isLocal && !_isCloud;
 
-				if (!xmlFileName.empty() && lstrcmp(xmlFileName.c_str(), L"stylers.xml") != 0)
+				if (!xmlFileName.empty() && std::wcscmp(xmlFileName.c_str(), L"stylers.xml") != 0)
 				{
 					themePath = isLocalOnly ? _nppPath : _userPath;
 					pathAppend(themePath, L"themes\\");
@@ -7231,71 +6639,34 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 	}
 }
 
-void NppParameters::feedScintillaParam(TiXmlNode *node)
+// <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" lineNumberDynamicWidth="yes" bookMarkMargin="show" indentGuideLine="show"
+// folderMarkStyle="box" isChangeHistoryEnabled="0" lineWrapMethod="aligned" currentLineIndicator="1" currentLineFrameWidth="1"
+// virtualSpace="no" scrollBeyondLastLine="yes" rightClickKeepsSelection="no" selectedTextForegroundSingleColor="no" disableAdvancedScrolling="no"
+// wrapSymbolShow="hide" Wrap="no" borderEdge="yes" isEdgeBgMode="no" edgeMultiColumnPos="" zoom="0" zoom2="0" whiteSpaceShow="hide"
+// eolShow="hide" eolMode="1" npcShow="hide" npcMode="1" npcCustomColor="no" npcIncludeCcUniEOL="no" npcNoInputC0="yes" ccShow="yes"
+// borderWidth="2" smoothFont="no" paddingLeft="0" paddingRight="0" distractionFreeDivPart="4" lineCopyCutWithoutSelection="yes"
+// multiSelection="yes" columnSel2MultiEdit="yes" />
+void NppParameters::feedScintillaParam(const NppXml::Element& element)
 {
-	TiXmlElement* element = node->ToElement();
-
-	auto parseYesNoBoolAttribute = [&element](const wchar_t* name, bool defaultValue = false) -> bool {
-		const wchar_t* nm = element->Attribute(name);
-		if (nm)
-		{
-			if (!lstrcmp(nm, L"yes"))
-				return true;
-			else if (!lstrcmp(nm, L"no"))
-				return false;
-		}
-		return defaultValue;
-	};
-
-	auto parseShowHideBoolAttribute = [&element](const wchar_t* name, bool defaultValue = false) -> bool {
-		const wchar_t* nm = element->Attribute(name);
-		if (nm)
-		{
-			if (!lstrcmp(nm, L"show"))
-				return true;
-			else if (!lstrcmp(nm, L"hide"))
-				return false;
-		}
-		return defaultValue;
-	};
-
 	// Line Number Margin
-	const wchar_t *nm = element->Attribute(L"lineNumberMargin");
-	if (nm)
-	{
-		if (!lstrcmp(nm, L"show"))
-			_svp._lineNumberMarginShow = true;
-		else if (!lstrcmp(nm, L"hide"))
-			_svp._lineNumberMarginShow = false;
-	}
-
+	_svp._lineNumberMarginShow = getBoolAttribute(element, "lineNumberMargin", _svp._lineNumberMarginShow, STR_BOOL_SHOWHIDE);
 	// Line Number Margin dynamic width
-	nm = element->Attribute(L"lineNumberDynamicWidth");
-	if (nm)
-	{
-		if (!lstrcmp(nm, L"yes"))
-			_svp._lineNumberMarginDynamicWidth = true;
-		else if (!lstrcmp(nm, L"no"))
-			_svp._lineNumberMarginDynamicWidth = false;
-	}
-
+	_svp._lineNumberMarginDynamicWidth = getBoolAttribute(element, "lineNumberDynamicWidth", _svp._lineNumberMarginDynamicWidth);
 	// Bookmark Margin
-	nm = element->Attribute(L"bookMarkMargin");
-	if (nm)
-	{
-		if (!lstrcmp(nm, L"show"))
-			_svp._bookMarkMarginShow = true;
-		else if (!lstrcmp(nm, L"hide"))
-			_svp._bookMarkMarginShow = false;
-	}
+	_svp._bookMarkMarginShow = getBoolAttribute(element, "bookMarkMargin", _svp._bookMarkMarginShow, STR_BOOL_SHOWHIDE);
 
 	// Change History Margin
-	int chState = 0;
-	nm = element->Attribute(L"isChangeHistoryEnabled", &chState);
-	if (nm)
 	{
-		if (!lstrcmp(nm, L"yes")) // for the retro-compatibility
+		int chState = 0;
+		if (const char* nm = NppXml::attribute(element, "isChangeHistoryEnabled");
+			nm && std::strcmp(nm, "yes") == 0) // for the retro-compatibility
+		{
 			chState = 1;
+		}
+		else
+		{
+			chState = NppXml::intAttribute(element, "isChangeHistoryEnabled", 0);
+		}
 
 		_svp._isChangeHistoryEnabled4NextSession = static_cast<changeHistoryState>(chState);
 		switch (_svp._isChangeHistoryEnabled4NextSession)
@@ -7339,310 +6710,149 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 	}
 
 	// Indent GuideLine
-	nm = element->Attribute(L"indentGuideLine");
-	if (nm)
-	{
-		if (!lstrcmp(nm, L"show"))
-			_svp._indentGuideLineShow = true;
-		else if (!lstrcmp(nm, L"hide"))
-			_svp._indentGuideLineShow= false;
-	}
+	_svp._indentGuideLineShow = getBoolAttribute(element, "indentGuideLine", _svp._indentGuideLineShow, STR_BOOL_SHOWHIDE);
 
 	// Folder Mark Style
-	nm = element->Attribute(L"folderMarkStyle");
+	const char* nm = NppXml::attribute(element, "folderMarkStyle");
 	if (nm)
 	{
 		using enum folderStyle;
-		if (!lstrcmp(nm, L"box"))
+		if (std::strcmp(nm, "box") == 0)
 			_svp._folderStyle = FOLDER_STYLE_BOX;
-		else if (!lstrcmp(nm, L"circle"))
+		else if (std::strcmp(nm, "circle") == 0)
 			_svp._folderStyle = FOLDER_STYLE_CIRCLE;
-		else if (!lstrcmp(nm, L"arrow"))
+		else if (std::strcmp(nm, "arrow") == 0)
 			_svp._folderStyle = FOLDER_STYLE_ARROW;
-		else if (!lstrcmp(nm, L"simple"))
+		else if (std::strcmp(nm, "simple") == 0)
 			_svp._folderStyle = FOLDER_STYLE_SIMPLE;
-		else if (!lstrcmp(nm, L"none"))
+		else if (std::strcmp(nm, "none") == 0)
 			_svp._folderStyle = FOLDER_STYLE_NONE;
+		else
+			_svp._folderStyle = FOLDER_STYLE_BOX;
 	}
 
 	// Line Wrap method
-	nm = element->Attribute(L"lineWrapMethod");
+	nm = NppXml::attribute(element, "lineWrapMethod");
 	if (nm)
 	{
 		using enum lineWrapMethod;
-		if (!lstrcmp(nm, L"default"))
+		if (std::strcmp(nm, "default") == 0)
 			_svp._lineWrapMethod = LINEWRAP_DEFAULT;
-		else if (!lstrcmp(nm, L"aligned"))
+		else if (std::strcmp(nm, "aligned") == 0)
 			_svp._lineWrapMethod = LINEWRAP_ALIGNED;
-		else if (!lstrcmp(nm, L"indent"))
+		else if (std::strcmp(nm, "indent") == 0)
 			_svp._lineWrapMethod = LINEWRAP_INDENT;
+		else
+			_svp._lineWrapMethod = LINEWRAP_ALIGNED;
 	}
 
 	// Current Line Highlighting State
-	nm = element->Attribute(L"currentLineHilitingShow");
-	if (nm)
 	{
+		nm = NppXml::attribute(element, "currentLineHilitingShow");
 		using enum lineHiliteMode;
-		if (!lstrcmp(nm, L"show"))
-			_svp._currentLineHiliteMode = LINEHILITE_HILITE;
-		else
-			_svp._currentLineHiliteMode = LINEHILITE_NONE;
-	}
-	else
-	{
-		const wchar_t* currentLineModeStr = element->Attribute(L"currentLineIndicator");
-		if (currentLineModeStr && currentLineModeStr[0])
+		if (nm)
 		{
-			using enum lineHiliteMode;
-			if (lstrcmp(currentLineModeStr, L"1") == 0)
+			if (std::strcmp(nm, "show") == 0)
 				_svp._currentLineHiliteMode = LINEHILITE_HILITE;
-			else if (lstrcmp(currentLineModeStr, L"2") == 0)
-				_svp._currentLineHiliteMode = LINEHILITE_FRAME;
 			else
 				_svp._currentLineHiliteMode = LINEHILITE_NONE;
+		}
+		else
+		{
+			_svp._currentLineHiliteMode = getRangeDefaultAttribute(element, "currentLineIndicator", LINEHILITE_NONE, LINEHILITE_FRAME, _svp._currentLineHiliteMode);
 		}
 	}
 
 	// Current Line Frame Width
-	nm = element->Attribute(L"currentLineFrameWidth");
-	if (nm)
 	{
-		unsigned char frameWidth{ 1 };
-		try
-		{
-			frameWidth = static_cast<unsigned char>(std::stoi(nm));
-		}
-		catch (...)
-		{
-			// do nothing. frameWidth is already set to '1'.
-		}
-		_svp._currentLineFrameWidth = (frameWidth < 1) ? 1 : (frameWidth > 6) ? 6 : frameWidth;
+		_svp._currentLineFrameWidth = getRangeClampAttribute<unsigned char>(element, "currentLineFrameWidth", 1U, 6U, _svp._currentLineFrameWidth);
 	}
 
 	// Virtual Space
-	nm = element->Attribute(L"virtualSpace");
-	if (nm)
-	{
-		if (!lstrcmp(nm, L"yes"))
-			_svp._virtualSpace = true;
-		else if (!lstrcmp(nm, L"no"))
-			_svp._virtualSpace = false;
-	}
+	_svp._virtualSpace = getBoolAttribute(element, "virtualSpace");
 
 	// Scrolling Beyond Last Line State
-	nm = element->Attribute(L"scrollBeyondLastLine");
-	if (nm)
-	{
-		if (!lstrcmp(nm, L"yes"))
-			_svp._scrollBeyondLastLine = true;
-		else if (!lstrcmp(nm, L"no"))
-			_svp._scrollBeyondLastLine = false;
-	}
+	_svp._scrollBeyondLastLine = getBoolAttribute(element, "scrollBeyondLastLine", _svp._scrollBeyondLastLine);
 
 	// Do not change selection or caret position when right-clicking with mouse
-	nm = element->Attribute(L"rightClickKeepsSelection");
-	if (nm)
-	{
-		if (!lstrcmp(nm, L"yes"))
-			_svp._rightClickKeepsSelection = true;
-		else if (!lstrcmp(nm, L"no"))
-			_svp._rightClickKeepsSelection = false;
-	}
+	_svp._rightClickKeepsSelection = getBoolAttribute(element, "rightClickKeepsSelection");
 
 	// Make selected text foreground single color
-	nm = element->Attribute(L"selectedTextForegroundSingleColor");
-	if (nm)
-	{
-		if (!lstrcmp(nm, L"yes"))
-			_svp._selectedTextForegroundSingleColor = true;
-		else if (!lstrcmp(nm, L"no"))
-			_svp._selectedTextForegroundSingleColor = false;
-	}
+	_svp._selectedTextForegroundSingleColor = getBoolAttribute(element, "selectedTextForegroundSingleColor");
 
 	// Disable Advanced Scrolling
-	nm = element->Attribute(L"disableAdvancedScrolling");
-	if (nm)
-	{
-		if (!lstrcmp(nm, L"yes"))
-			_svp._disableAdvancedScrolling = true;
-		else if (!lstrcmp(nm, L"no"))
-			_svp._disableAdvancedScrolling = false;
-	}
+	_svp._disableAdvancedScrolling = getBoolAttribute(element, "disableAdvancedScrolling");
 
 	// Current wrap symbol visibility State
-	nm = element->Attribute(L"wrapSymbolShow");
-	if (nm)
-	{
-		if (!lstrcmp(nm, L"show"))
-			_svp._wrapSymbolShow = true;
-		else if (!lstrcmp(nm, L"hide"))
-			_svp._wrapSymbolShow = false;
-	}
+	_svp._wrapSymbolShow = getBoolAttribute(element, "wrapSymbolShow", _svp._wrapSymbolShow, STR_BOOL_SHOWHIDE);
 
 	// Do Wrap
-	nm = element->Attribute(L"Wrap");
-	if (nm)
-	{
-		if (!lstrcmp(nm, L"yes"))
-			_svp._doWrap = true;
-		else if (!lstrcmp(nm, L"no"))
-			_svp._doWrap = false;
-	}
+	_svp._doWrap = getBoolAttribute(element, "Wrap");
 
 	// Do Edge
-	nm = element->Attribute(L"isEdgeBgMode");
-	if (nm)
-	{
-		if (!lstrcmp(nm, L"yes"))
-			_svp._isEdgeBgMode = true;
-		else if (!lstrcmp(nm, L"no"))
-			_svp._isEdgeBgMode = false;
-	}
+	_svp._isEdgeBgMode = getBoolAttribute(element, "isEdgeBgMode");
 
 	// Do Scintilla border edge
-	nm = element->Attribute(L"borderEdge");
+	_svp._showBorderEdge = getBoolAttribute(element, "borderEdge", _svp._showBorderEdge);
+
+	nm = NppXml::attribute(element, "edgeMultiColumnPos");
 	if (nm)
 	{
-		if (!lstrcmp(nm, L"yes"))
-			_svp._showBorderEdge = true;
-		else if (!lstrcmp(nm, L"no"))
-			_svp._showBorderEdge = false;
+		str2numberVector(string2wstring(nm), _svp._edgeMultiColumnPos);
 	}
 
-	nm = element->Attribute(L"edgeMultiColumnPos");
-	if (nm)
-	{
-		str2numberVector(nm, _svp._edgeMultiColumnPos);
-	}
-
-	int val;
-	nm = element->Attribute(L"zoom", &val);
-	if (nm)
-	{
-		_svp._zoom = val;
-	}
-
-	nm = element->Attribute(L"zoom2", &val);
-	if (nm)
-	{
-		_svp._zoom2 = val;
-	}
+	_svp._zoom = static_cast<intptr_t>(NppXml::int64Attribute(element, "zoom", _svp._zoom));
+	_svp._zoom2 = static_cast<intptr_t>(NppXml::int64Attribute(element, "zoom2", _svp._zoom2));
 
 	// White Space visibility State
-	nm = element->Attribute(L"whiteSpaceShow");
-	if (nm)
-	{
-		if (!lstrcmp(nm, L"show"))
-			_svp._whiteSpaceShow = true;
-		else if (!lstrcmp(nm, L"hide"))
-			_svp._whiteSpaceShow = false;
-	}
+	_svp._whiteSpaceShow = getBoolAttribute(element, "whiteSpaceShow", _svp._whiteSpaceShow, STR_BOOL_SHOWHIDE);
 
 	// EOL visibility State
-	nm = element->Attribute(L"eolShow");
-	if (nm)
-	{
-		if (!lstrcmp(nm, L"show"))
-			_svp._eolShow = true;
-		else if (!lstrcmp(nm, L"hide"))
-			_svp._eolShow = false;
-	}
+	_svp._eolShow = getBoolAttribute(element, "eolShow", _svp._eolShow, STR_BOOL_SHOWHIDE);
 
-	nm = element->Attribute(L"eolMode", &val);
-	if (nm)
 	{
-		if (val >= 0 && val <= 3)
-			_svp._eolMode = static_cast<ScintillaViewParams::crlfMode>(val);
+		using enum ScintillaViewParams::crlfMode;
+		_svp._eolMode = getRangeDefaultAttribute(element, "currentLineFrameWidth", plainText, roundedRectangleTextCustomColor, _svp._eolMode);
 	}
 
 	// Unicode control and ws characters visibility state
-	_svp._npcShow = parseShowHideBoolAttribute(L"npcShow", true);
+	_svp._npcShow = getBoolAttribute(element, "npcShow", _svp._npcShow, STR_BOOL_SHOWHIDE);
 
-	nm = element->Attribute(L"npcMode", &val);
-	if (nm)
 	{
-		if (val >= 1 && val <= 2)
-			_svp._npcMode = static_cast<ScintillaViewParams::npcMode>(val);
+		using enum ScintillaViewParams::npcMode;
+		_svp._npcMode = getRangeDefaultAttribute(element, "npcMode", identity, codepoint, _svp._npcMode);
 	}
 
-	_svp._npcCustomColor = parseYesNoBoolAttribute(L"npcCustomColor");
-	_svp._npcIncludeCcUniEol = parseYesNoBoolAttribute(L"npcIncludeCcUniEOL");
-	_svp._npcNoInputC0 = parseYesNoBoolAttribute(L"npcNoInputC0", true);
+	_svp._npcCustomColor = getBoolAttribute(element, "npcCustomColor");
+	_svp._npcIncludeCcUniEol = getBoolAttribute(element, "npcIncludeCcUniEOL");
+	_svp._npcNoInputC0 = getBoolAttribute(element, "npcNoInputC0", _svp._npcNoInputC0);
 
 	// C0, C1 control and Unicode EOL visibility state
-	_svp._ccUniEolShow = parseYesNoBoolAttribute(L"ccShow", true);
+	_svp._ccUniEolShow = getBoolAttribute(element, "ccShow", _svp._ccUniEolShow);
 
-	nm = element->Attribute(L"borderWidth", &val);
-	if (nm)
-	{
-		if (val >= 0 && val <= 30)
-			_svp._borderWidth = val;
-	}
+	_svp._borderWidth = getRangeClampAttribute(element, "borderWidth", 0, 30, _svp._borderWidth);
 
 	// Do antialiased font
-	nm = element->Attribute(L"smoothFont");
-	if (nm)
-	{
-		if (!lstrcmp(nm, L"yes"))
-			_svp._doSmoothFont = true;
-		else if (!lstrcmp(nm, L"no"))
-			_svp._doSmoothFont = false;
-	}
+	_svp._doSmoothFont = getBoolAttribute(element, "smoothFont");
 
-	nm = element->Attribute(L"paddingLeft", &val);
-	if (nm)
-	{
-		if (val >= 0 && val <= 30)
-			_svp._paddingLeft = static_cast<unsigned char>(val);
-	}
+	_svp._paddingLeft = getRangeClampAttribute<unsigned char>(element, "paddingLeft", 0U, 30U, _svp._paddingLeft);
+	_svp._paddingRight = getRangeClampAttribute<unsigned char>(element, "paddingRight", 0U, 30U, _svp._paddingRight);
 
-	nm = element->Attribute(L"paddingRight", &val);
-	if (nm)
-	{
-		if (val >= 0 && val <= 30)
-			_svp._paddingRight = static_cast<unsigned char>(val);
-	}
+	_svp._distractionFreeDivPart = getRangeClampAttribute<unsigned char>(element, "distractionFreeDivPart", 3U, 9U, _svp._distractionFreeDivPart);
 
-	nm = element->Attribute(L"distractionFreeDivPart", &val);
-	if (nm)
-	{
-		if (val >= 3 && val <= 9)
-			_svp._distractionFreeDivPart = static_cast<unsigned char>(val);
-	}
-
-	nm = element->Attribute(L"lineCopyCutWithoutSelection");
-	if (nm)
-	{
-		if (!lstrcmp(nm, L"yes"))
-			_svp._lineCopyCutWithoutSelection = true;
-		else if (!lstrcmp(nm, L"no"))
-			_svp._lineCopyCutWithoutSelection = false;
-	}
-
-	nm = element->Attribute(L"multiSelection");
-	if (nm)
-	{
-		if (!lstrcmp(nm, L"yes"))
-			_svp._multiSelection = true;
-		else if (!lstrcmp(nm, L"no"))
-			_svp._multiSelection = false;
-	}
-
-	nm = element->Attribute(L"columnSel2MultiEdit");
-	if (nm)
-	{
-		if (!lstrcmp(nm, L"yes") && _svp._multiSelection)
-			_svp._columnSel2MultiEdit = true;
-		else if (!lstrcmp(nm, L"no"))
-			_svp._columnSel2MultiEdit = false;
-	}
+	_svp._lineCopyCutWithoutSelection = getBoolAttribute(element, "lineCopyCutWithoutSelection", _svp._lineCopyCutWithoutSelection);
+	_svp._multiSelection = getBoolAttribute(element, "multiSelection", _svp._multiSelection);
+	_svp._columnSel2MultiEdit = getBoolAttribute(element, "columnSel2MultiEdit", _svp._columnSel2MultiEdit);
 }
 
-
-void NppParameters::feedDockingManager(TiXmlNode *node)
+//<GUIConfig name="DockingManager" leftWidth="200" rightWidth="200" topHeight="200" bottomHeight="200">
+//    <ActiveTabs cont="0" activeTab="-1" />
+//    <ActiveTabs cont="1" activeTab="-1" />
+//    <ActiveTabs cont="2" activeTab="-1" />
+//    <ActiveTabs cont="3" activeTab="-1" />
+//</GUIConfig>
+void NppParameters::feedDockingManager(const NppXml::Element& element)
 {
-	TiXmlElement *element = node->ToElement();
-
 	SIZE maxMonitorSize{ ::GetSystemMetrics(SM_CXSCREEN), ::GetSystemMetrics(SM_CYSCREEN) }; // use primary monitor as the default
 	SIZE nppSize = maxMonitorSize;
 	HWND hwndNpp = ::FindWindow(Notepad_plus_Window::getClassName(), NULL);
@@ -7690,98 +6900,41 @@ void NppParameters::feedDockingManager(TiXmlNode *node)
 		}
 	}
 
-	int i;
-	if (element->Attribute(L"leftWidth", &i))
+	auto setPanelSize = [&element, &nppSize, this](int& size2set, const char* attrName)
 	{
-		if (i > _nppGUI._dockingData._minDockedPanelVisibility)
+		const int panelSize = NppXml::intAttribute(element, attrName, DMD_PANEL_WH_DEFAULT);
+		if (panelSize > _nppGUI._dockingData._minDockedPanelVisibility)
 		{
-			if  (i < (nppSize.cx - _nppGUI._dockingData._minDockedPanelVisibility))
-				_nppGUI._dockingData._leftWidth = i;
+			if (panelSize < (nppSize.cx - _nppGUI._dockingData._minDockedPanelVisibility))
+				size2set = panelSize;
 			else
-				_nppGUI._dockingData._leftWidth = nppSize.cx - _nppGUI._dockingData._minDockedPanelVisibility; // invalid, reset
+				size2set = nppSize.cx - _nppGUI._dockingData._minDockedPanelVisibility; // invalid, reset
 		}
 		else
 		{
 			// invalid, reset
-			_nppGUI._dockingData._leftWidth = _nppGUI._dockingData._minDockedPanelVisibility;
+			size2set = _nppGUI._dockingData._minDockedPanelVisibility;
 		}
-	}
-	if (element->Attribute(L"rightWidth", &i))
-	{
-		if (i > _nppGUI._dockingData._minDockedPanelVisibility)
-		{
-			if (i < (nppSize.cx - _nppGUI._dockingData._minDockedPanelVisibility))
-				_nppGUI._dockingData._rightWidth = i;
-			else
-				_nppGUI._dockingData._rightWidth = nppSize.cx - _nppGUI._dockingData._minDockedPanelVisibility; // invalid, reset
-		}
-		else
-		{
-			// invalid, reset
-			_nppGUI._dockingData._rightWidth = _nppGUI._dockingData._minDockedPanelVisibility;
-		}
-	}
-	if (element->Attribute(L"topHeight", &i))
-	{
-		if (i > _nppGUI._dockingData._minDockedPanelVisibility)
-		{
-			if (i < (nppSize.cy - _nppGUI._dockingData._minDockedPanelVisibility))
-				_nppGUI._dockingData._topHeight = i;
-			else
-				_nppGUI._dockingData._topHeight = nppSize.cy - _nppGUI._dockingData._minDockedPanelVisibility;  // invalid, reset
-		}
-		else
-		{
-			// invalid, reset
-			_nppGUI._dockingData._topHeight = _nppGUI._dockingData._minDockedPanelVisibility;
-		}
-	}
-	if (element->Attribute(L"bottomHeight", &i))
-	{
-		if (i > _nppGUI._dockingData._minDockedPanelVisibility)
-		{
-			if (i < (nppSize.cy - _nppGUI._dockingData._minDockedPanelVisibility))
-				_nppGUI._dockingData._bottomHeight = i;
-			else
-				_nppGUI._dockingData._bottomHeight = nppSize.cy - _nppGUI._dockingData._minDockedPanelVisibility; // invalid, reset
-		}
-		else
-		{
-			// invalid, reset
-			_nppGUI._dockingData._bottomHeight = _nppGUI._dockingData._minDockedPanelVisibility;
-		}
-	}
+	};
 
-	for (TiXmlNode *childNode = node->FirstChildElement(L"FloatingWindow");
-		childNode ;
-		childNode = childNode->NextSibling(L"FloatingWindow") )
+	setPanelSize(_nppGUI._dockingData._leftWidth, "leftWidth");
+	setPanelSize(_nppGUI._dockingData._rightWidth, "rightWidth");
+	setPanelSize(_nppGUI._dockingData._topHeight, "topHeight");
+	setPanelSize(_nppGUI._dockingData._bottomHeight, "bottomHeight");
+
+	for (NppXml::Element childNode = NppXml::firstChildElement(element, "FloatingWindow");
+		childNode;
+		childNode = NppXml::nextSiblingElement(childNode, "FloatingWindow"))
 	{
-		TiXmlElement *floatElement = childNode->ToElement();
-		int cont;
-		if (floatElement->Attribute(L"cont", &cont))
+		const int cont = NppXml::intAttribute(childNode, "cont", -1);
+		if (cont > -1)
 		{
-			int x = 0;
-			int y = 0;
-			int w = FWI_PANEL_WH_DEFAULT;
-			int h = FWI_PANEL_WH_DEFAULT;
+			int x = NppXml::intAttribute(childNode, "x", 0);
+			int y = NppXml::intAttribute(childNode, "y", 0);
+			int w = NppXml::intAttribute(childNode, "width", FWI_PANEL_WH_DEFAULT);
+			int h = NppXml::intAttribute(childNode, "height", FWI_PANEL_WH_DEFAULT);
 
-			bool bInputDataOk = false;
-			if (floatElement->Attribute(L"x", &x))
-			{
-				if (floatElement->Attribute(L"y", &y))
-				{
-					if (floatElement->Attribute(L"width", &w))
-					{
-						if (floatElement->Attribute(L"height", &h))
-						{
-							RECT rect{ x,y,w,h };
-							bInputDataOk = isWindowVisibleOnAnyMonitor(rect);
-						}
-					}
-				}
-			}
-
-			if (!bInputDataOk)
+			if (!isWindowVisibleOnAnyMonitor(RECT{ x,y,w,h }))
 			{
 				// reset to adjusted factory defaults
 				// (and the panel will automatically be on the current primary monitor due to the x,y == 0,0)
@@ -7791,49 +6944,36 @@ void NppParameters::feedDockingManager(TiXmlNode *node)
 				h = _nppGUI._dockingData._minFloatingPanelSize.cy + FWI_PANEL_WH_DEFAULT;
 			}
 
-			_nppGUI._dockingData._floatingWindowInfo.push_back(FloatingWindowInfo(cont, x, y, w, h));
+			_nppGUI._dockingData._floatingWindowInfo.emplace_back(cont, x, y, w, h);
 		}
 	}
 
-	for (TiXmlNode *childNode = node->FirstChildElement(L"PluginDlg");
-		childNode ;
-		childNode = childNode->NextSibling(L"PluginDlg") )
+	for (NppXml::Element childNode = NppXml::firstChildElement(element, "PluginDlg");
+		childNode;
+		childNode = NppXml::nextSiblingElement(childNode, "PluginDlg"))
 	{
-		TiXmlElement *dlgElement = childNode->ToElement();
-		const wchar_t *name = dlgElement->Attribute(L"pluginName");
+		const char* name = NppXml::attribute(childNode, "pluginName");
 
-		int id;
-		const wchar_t *idStr = dlgElement->Attribute(L"id", &id);
-		if (name && idStr)
+		const int id = NppXml::intAttribute(childNode, "id", -1);
+		if (name && id > -1)
 		{
-			int current = 0; // on left
-			int prev = 0; // on left
+			const int current = NppXml::intAttribute(childNode, "curr", 0); // on left
+			const int prev = NppXml::intAttribute(childNode, "prev", 0);; // on left
+			const bool isVisible = getBoolAttribute(childNode, "isVisible");
 
-			dlgElement->Attribute(L"curr", &current);
-			dlgElement->Attribute(L"prev", &prev);
-			bool isVisible = false;
-			const wchar_t *val = dlgElement->Attribute(L"isVisible");
-			if (val)
-			{
-				isVisible = (lstrcmp(val, L"yes") == 0);
-			}
-
-			_nppGUI._dockingData._pluginDockInfo.push_back(PluginDlgDockingInfo(name, id, current, prev, isVisible));
+			_nppGUI._dockingData._pluginDockInfo.emplace_back(string2wstring(name).c_str(), id, current, prev, isVisible);
 		}
 	}
 
-	for (TiXmlNode *childNode = node->FirstChildElement(L"ActiveTabs");
-		childNode ;
-		childNode = childNode->NextSibling(L"ActiveTabs") )
+	for (NppXml::Element childNode = NppXml::firstChildElement(element, "ActiveTabs");
+		childNode;
+		childNode = NppXml::nextSiblingElement(childNode, "ActiveTabs"))
 	{
-		TiXmlElement *dlgElement = childNode->ToElement();
-
-		int cont;
-		if (dlgElement->Attribute(L"cont", &cont))
+		const int cont = NppXml::intAttribute(childNode, "cont", -1);
+		if (cont > -1)
 		{
-			int activeTab = 0;
-			dlgElement->Attribute(L"activeTab", &activeTab);
-			_nppGUI._dockingData._containerTabInfo.push_back(ContainerTabInfo(cont, activeTab));
+			const int activeTab = NppXml::intAttribute(childNode, "activeTab", 0);
+			_nppGUI._dockingData._containerTabInfo.emplace_back(cont, activeTab);
 		}
 	}
 }
@@ -9541,7 +8681,7 @@ void NppParameters::writeStyle2Element(const Style& style2Write, Style& style2Sy
 
 	NppXml::Node teteDeNoeud = NppXml::lastChild(element);
 
-	const std::string kws = wstring2string(style2Write._keywords);
+	const std::string& kws = style2Write._keywords;
 
 	if (teteDeNoeud)
 		NppXml::setValue(teteDeNoeud, kws.c_str());

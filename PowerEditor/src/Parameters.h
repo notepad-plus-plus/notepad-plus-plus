@@ -340,7 +340,7 @@ struct Style final
 	int _nesting = FONTSTYLE_NONE;
 
 	int _keywordClass = STYLE_NOT_USED;
-	std::wstring _keywords;
+	std::string _keywords;
 };
 
 
@@ -1999,11 +1999,11 @@ private:
 	bool getScintKeysFromXmlTree();
 	static bool getSessionFromXmlTree(const NppXml::Document& pSessionDoc, Session& session);
 
-	void feedGUIParameters(TiXmlNode *node);
+	void feedGUIParameters(const NppXml::Element& element);
 	void feedKeyWordsParameters(const NppXml::Element& element);
 	void feedFileListParameters(const NppXml::Element& element);
-	void feedScintillaParam(TiXmlNode *node);
-	void feedDockingManager(TiXmlNode *node);
+	void feedScintillaParam(const NppXml::Element& element);
+	void feedDockingManager(const NppXml::Element& element);
 	void duplicateDockingManager(TiXmlNode *dockMngNode, TiXmlElement* dockMngElmt2Clone);
 	void feedFindHistoryParameters(const NppXml::Element& element);
 	void feedProjectPanelsParameters(const NppXml::Element& element);

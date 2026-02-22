@@ -17,6 +17,8 @@
 
 #include "DocTabView.h"
 
+#include <windows.h>
+
 #include <cwchar>
 
 #include "Buffer.h"
@@ -24,7 +26,6 @@
 #include "Parameters.h"
 #include "ScintillaEditView.h"
 #include "TabBar.h"
-#include "Windows.h"
 #include "resource.h"
 
 enum ImgIdx
@@ -76,7 +77,7 @@ void DocTabView::addBuffer(BufferID buffer)
 		return;
 	if (getIndexByBuffer(buffer) != -1)	//no duplicates
 		return;
-	Buffer * buf = MainFileManager.getBufferByID(buffer);
+	const Buffer* buf = MainFileManager.getBufferByID(buffer);
 	TCITEM tie{};
 	tie.mask = TCIF_TEXT | TCIF_IMAGE | TCIF_PARAM;
 
@@ -95,7 +96,7 @@ void DocTabView::addBuffer(BufferID buffer)
 void DocTabView::closeBuffer(BufferID buffer)
 {
 	int indexToClose = getIndexByBuffer(buffer);
-	deletItemAt((size_t)indexToClose);
+	deletItemAt(static_cast<size_t>(indexToClose));
 	::SendMessage(_hParent, WM_SIZE, 0, 0);
 }
 
@@ -176,7 +177,7 @@ BufferID DocTabView::getBufferByIndex(size_t index)
 }
 
 
-void DocTabView::bufferUpdated(Buffer * buffer, int mask)
+void DocTabView::bufferUpdated(const Buffer* buffer, int mask)
 {
 	int index = getIndexByBuffer(buffer->getID());
 	if (index == -1)
@@ -263,7 +264,7 @@ void DocTabView::reSizeTo(RECT & rc)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	int borderWidth = nppParam.getSVP()._borderWidth;
-	NppGUI& nppGUI = nppParam.getNppGUI();
+	const NppGUI& nppGUI = nppParam.getNppGUI();
 	if (nppGUI._tabStatus & TAB_HIDE)
 	{
 		RECT rcTmp = rc;
@@ -281,4 +282,3 @@ void DocTabView::reSizeTo(RECT & rc)
 	}
 	SendMessage(_hParent, NPPM_INTERNAL_UPDATECLICKABLELINKS, reinterpret_cast<WPARAM>(_pView), 0);
 }
-

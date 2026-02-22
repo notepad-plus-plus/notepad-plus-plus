@@ -865,12 +865,11 @@ void WordStyleDlg::updateExtension()
 void WordStyleDlg::updateUserKeywords()
 {
 	Style & style = getCurrentStyler();
-	//const int NB_MAX = 2048;
-	//wchar_t kw[NB_MAX];
-	auto len = ::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_GETTEXTLENGTH, 0, 0);
-	len += 1;
-	auto kw = std::wstring(len, L'\0');
-	::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_GETTEXT, len, reinterpret_cast<LPARAM>(kw.data()));
+	
+	const auto len = static_cast<size_t>(::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_GETTEXTLENGTH, 0, 0));
+	auto kw = std::wstring(len + 1, L'\0');
+	::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_GETTEXT, static_cast<WPARAM>(kw.length()), reinterpret_cast<LPARAM>(kw.data()));
+	kw.resize(len);
 	style._keywords = wstring2string(kw);
 }
 

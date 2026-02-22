@@ -2155,7 +2155,9 @@ bool Notepad_plus::findInFilelist(std::vector<wstring> & fileNames)
 
 	const bool isEntireDoc = true;
 	bool hasInvalidRegExpr = false;
-	bool ignoreOpenedBuffers = true;
+
+	NppParameters& nppParam = NppParameters::getInstance();
+	const NppGUI& nppGui = nppParam.getNppGUI();
 
 	for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
 	{
@@ -2163,7 +2165,7 @@ bool Notepad_plus::findInFilelist(std::vector<wstring> & fileNames)
 
 		bool closeBuf = false;
 
-		BufferID id = ignoreOpenedBuffers ? BUFFER_INVALID : MainFileManager.getBufferFromName(fileNames.at(i).c_str());
+		BufferID id = nppGui._fif_ignoreunsavedChangesInOpenedFiles ? BUFFER_INVALID : MainFileManager.getBufferFromName(fileNames.at(i).c_str());
 
 		if (id == BUFFER_INVALID)
 		{
@@ -2220,14 +2222,9 @@ bool Notepad_plus::findInFilelist(std::vector<wstring> & fileNames)
 		return false;
 	}
 
-	if (nbTotal > 0)
+	if (nbTotal > 0 && !nppGui._findDlgAlwaysVisible)
 	{
-		NppParameters& nppParam = NppParameters::getInstance();
-		const NppGUI& nppGui = nppParam.getNppGUI();
-		if (!nppGui._findDlgAlwaysVisible)
-		{
-			_findReplaceDlg.display(false);
-		}
+		_findReplaceDlg.display(false);
 	}
 
 	return true;
@@ -2488,7 +2485,7 @@ int Notepad_plus::doReloadOrNot(const wchar_t *fn, bool dirty)
 			_pPublicInterface->getHSelf(),
 			L"\"$STR_REPLACE$\"\r\rThis file has been modified by another program.\rDo you want to reload it and lose the changes made in Notepad++?",
 			L"Reload",
-			MB_YESNO | MB_APPLMODAL | MB_ICONEXCLAMATION,
+			MB_YESNO | MB_DEFBUTTON2 | MB_APPLMODAL | MB_ICONEXCLAMATION,
 			0, // not used
 			fn);
 	else

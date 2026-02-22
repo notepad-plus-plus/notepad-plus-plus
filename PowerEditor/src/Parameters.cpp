@@ -6280,6 +6280,12 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			{
 				_nppGUI._finderShowOnlyOneEntryPerFoundLine = (!lstrcmp(val, L"yes"));
 			}
+
+			val = element->Attribute(L"FiF_ignoreunsavedChangesInOpenedFiles");
+			if (val)
+			{
+				_nppGUI._fif_ignoreunsavedChangesInOpenedFiles = (!lstrcmp(val, L"yes"));
+			}
 		}
 
 		else if (!lstrcmp(nm, L"NewDocDefaultSettings"))
@@ -8311,6 +8317,8 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(L"purgeBeforeEverySearch", pStr);
 		pStr = _nppGUI._finderShowOnlyOneEntryPerFoundLine ? L"yes" : L"no";
 		GUIConfigElement->SetAttribute(L"showOnlyOneEntryPerFoundLine", pStr);
+		pStr = _nppGUI._fif_ignoreunsavedChangesInOpenedFiles ? L"yes" : L"no";
+		GUIConfigElement->SetAttribute(L"FiF_ignoreunsavedChangesInOpenedFiles", pStr);
 
 	}
 

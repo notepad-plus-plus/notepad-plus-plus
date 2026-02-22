@@ -1943,8 +1943,7 @@ bool Notepad_plus::replaceInFilelist(std::vector<wstring> & fileNames)
 		if (filesCount >= 200)
 			filesPerPercent = filesCount / 100;
 		
-		wstring msg = _nativeLangSpeaker.getLocalizedStrFromID(
-			"replace-in-files-progress-title", L"Replace In Files progress...");
+		wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("replace-in-files-progress-title", L"Replace In Files progress...");
 		progress.open(_findReplaceDlg.getHSelf(), msg.c_str());
 	}
 

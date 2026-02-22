@@ -6811,7 +6811,7 @@ void NppParameters::feedScintillaParam(const NppXml::Element& element)
 
 	{
 		using enum ScintillaViewParams::crlfMode;
-		_svp._eolMode = getRangeDefaultAttribute(element, "currentLineFrameWidth", plainText, roundedRectangleTextCustomColor, _svp._eolMode);
+		_svp._eolMode = getRangeDefaultAttribute(element, "eolMode", plainText, roundedRectangleTextCustomColor, _svp._eolMode);
 	}
 
 	// Unicode control and ws characters visibility state

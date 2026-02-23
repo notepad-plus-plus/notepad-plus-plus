@@ -1948,6 +1948,7 @@ bool Notepad_plus::replaceInFilelist(std::vector<wstring> & fileNames)
 	}
 
 	bool hasInvalidRegExpr = false;
+	NppGUI& nppGUI = (NppParameters::getInstance()).getNppGUI();
 
 	for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
 	{
@@ -1955,7 +1956,8 @@ bool Notepad_plus::replaceInFilelist(std::vector<wstring> & fileNames)
 
 		bool closeBuf = false;
 
-		BufferID id = MainFileManager.getBufferFromName(fileNames.at(i).c_str());
+		BufferID id = nppGUI._fif_ignoreunsavedChangesInOpenedFiles ? BUFFER_INVALID : MainFileManager.getBufferFromName(fileNames.at(i).c_str());
+
 		if (id == BUFFER_INVALID)
 		{
 			id = MainFileManager.loadFile(fileNames.at(i).c_str());
@@ -2049,8 +2051,7 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 		if (filesCount >= 200)
 			filesPerPercent = filesCount / 100;
 		
-		wstring msg = _nativeLangSpeaker.getLocalizedStrFromID(
-			"find-in-files-progress-title", L"Find In Files progress...");
+		wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("find-in-files-progress-title", L"Find In Files progress...");
 		progress.open(_findReplaceDlg.getHSelf(), msg.c_str());
 	}
 
@@ -2147,8 +2148,7 @@ bool Notepad_plus::findInFilelist(std::vector<wstring> & fileNames)
 		if (filesCount >= 200)
 			filesPerPercent = filesCount / 100;
 
-		wstring msg = _nativeLangSpeaker.getLocalizedStrFromID(
-			"find-in-files-progress-title", L"Find In Files progress...");
+		wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("find-in-files-progress-title", L"Find In Files progress...");
 		progress.open(_findReplaceDlg.getHSelf(), msg.c_str());
 	}
 

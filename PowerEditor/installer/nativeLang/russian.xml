@@ -4,7 +4,7 @@ Updated to :
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.9">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.9.2">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -226,7 +226,7 @@ Updated to :
 
 					<Item id="42073" name="Открыть Файл"/>
 					<Item id="42074" name="Открыть папку Файла"/>
-					<Item id="42106" name="Редакт. Выделенное █ (Shift: ●)"/>
+					<Item id="42106" name="Заменить Выделенное на █ (Shift: ●)"/>
 					<Item id="42075" name="Поиск в Интернете"/>
 					<Item id="42076" name="Сменить поисковую систему..."/>
 
@@ -1240,6 +1240,7 @@ Updated to :
 					<Item id="6910" name="Миним. размер для автоматич. установки 'В выделенном'"/>
 					<Item id="6913" name="Заполнять поле поиска в Папке на основе текущего документа"/>
 					<Item id="6916" name=": Макс. кол-во символов из Выделенного для Авто-заполнения поля Поиска"/>
+					<Item id="6917" name="Найти в файлах: Игнорировать несохраненные изменения в открытых файлах"/>
 				</Searching>
 				<RecentFilesHistory title="История Открытия">
 					<Item id="6304" name="История Последних Закрытых Файлов"/>

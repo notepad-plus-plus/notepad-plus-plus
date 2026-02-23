@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.9">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.9.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1219,6 +1219,7 @@
 					<Item id="6910" name="Minimálna dĺžka na automatické začiarknutie &quot;Vo výbere&quot;:"/>
 					<Item id="6913" name="Vyplniť pole Priečinok v Hľadať v súboroch z aktívneho dokumentu"/>
 					<Item id="6916" name=": Maximálny počet znakov na automatické vloženie do poľa Hľadať"/>
+					<Item id="6917" name="Hľadať v súboroch: Ignorovať neuložené zmeny v otvorených súboroch"/>
 				</Searching>
 
 				<RecentFilesHistory title="História súborov">

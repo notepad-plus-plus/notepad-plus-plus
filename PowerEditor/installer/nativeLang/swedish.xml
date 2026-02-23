@@ -1224,6 +1224,7 @@ Translation note:
 					<Item id="6910" name="Minimal storlek för att markera &quot;I markering&quot; automatiskt"/>
 					<Item id="6913" name="Fyll mappfältet i &quot;Sök i filer&quot; med aktivt dokument"/>
 					<Item id="6916" name=": Max antal tecken för att automatiskt fylla i sökfältet med markerad text"/>
+					<Item id="6917" name="Sök i filer: Ignorera osparade ändringar i öppnade filer"/>
 				</Searching>
 
 				<RecentFilesHistory title="Senast öppnade filer">

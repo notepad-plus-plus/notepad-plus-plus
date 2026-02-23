@@ -1075,7 +1075,7 @@ BEGIN
         MENUITEM "SQL",                     IDM_LANG_SQL
         MENUITEM "Swift",                  IDM_LANG_SWIFT
         MENUITEM "S-Record",                IDM_LANG_SREC
-        MENUITEM "TCL",                     IDM_LANG_TCL
+        MENUITEM "Tcl",                     IDM_LANG_TCL
         MENUITEM "Tektronix extended HEX",  IDM_LANG_TEHEX
         MENUITEM "TeX",                     IDM_LANG_TEX
         MENUITEM "TOML",                    IDM_LANG_TOML
@@ -1230,7 +1230,7 @@ BEGIN
     END
     POPUP "T"
     BEGIN
-        MENUITEM "TCL",                   IDM_LANG_TCL
+        MENUITEM "Tcl",                   IDM_LANG_TCL
         MENUITEM "Tektronix extended HEX",IDM_LANG_TEHEX
         MENUITEM "TeX",                   IDM_LANG_TEX
         MENUITEM "TOML",                  IDM_LANG_TOML
@@ -1485,3 +1485,4 @@ FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     PUSHBUTTON      "+",IDC_RESTORE_BUTTON,0,0,12,10
 END
+

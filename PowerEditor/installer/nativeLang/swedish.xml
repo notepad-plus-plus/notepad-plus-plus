@@ -50,11 +50,11 @@ Translation note:
 					<Item subMenuId="search-jumpDown" name="Ho&amp;ppa nedåt"/>
 					<Item subMenuId="search-copyStyledText" name="Kopiera stilsatt te&amp;xt"/>
 					<Item subMenuId="search-bookmark" name="&amp;Bokmärken"/>
-					<Item subMenuId="view-currentFileIn" name="Visa aktuell fil i"/>
-					<Item subMenuId="view-showSymbol" name="Visa symbol"/>
-					<Item subMenuId="view-zoom" name="Zooma"/>
-					<Item subMenuId="view-moveCloneDocument" name="Flytta/klona aktuellt dokument"/>
-					<Item subMenuId="view-tab" name="Flik"/>
+					<Item subMenuId="view-currentFileIn" name="&amp;Visa aktuell fil i"/>
+					<Item subMenuId="view-showSymbol" name="V&amp;isa symbol"/>
+					<Item subMenuId="view-zoom" name="&amp;Zooma"/>
+					<Item subMenuId="view-moveCloneDocument" name="&amp;Flytta/klona aktuellt dokument"/>
+					<Item subMenuId="view-tab" name="F&amp;lik"/>
 					<Item subMenuId="view-collapseLevel" name="Minimera nivå"/>
 					<Item subMenuId="view-uncollapseLevel" name="Expandera nivå"/>
 					<Item subMenuId="view-project" name="Projekt"/>
@@ -90,7 +90,7 @@ Translation note:
 					<Item id="41002" name="&amp;Öppna"/>
 					<Item id="41019" name="Utforskaren"/>
 					<Item id="41020" name="Kommandotolken"/>
-					<Item id="41025" name="Mapp som arbetsyta"/>
+					<Item id="41025" name="Mapp som arbets&amp;yta"/>
 					<Item id="41003" name="S&amp;täng"/>
 					<Item id="41004" name="Stän&amp;g alla"/>
 					<Item id="41005" name="Stäng alla FÖRUTOM aktuellt dokument"/>
@@ -160,7 +160,6 @@ Translation note:
 					<Item id="42072" name="&amp;sLUmpmäSSiGt SkifTLÄge"/>
 					<Item id="42073" name="Öppna fil"/>
 					<Item id="42074" name="Öppna innehållande mapp i utforskaren"/>
-					<Item id="42106" name="Maskera markering █ (Shift: ●)"/>
 					<Item id="42075" name="Sök på internet"/>
 					<Item id="42076" name="Ändra sökmotor..."/>
 					<Item id="42090" name="Ignorera skiftläge och hela ord"/>
@@ -198,8 +197,8 @@ Translation note:
 					<Item id="42051" name="Te&amp;ckenpanel"/>
 					<Item id="42052" name="Urklipps&amp;historik"/>
 					<Item id="42025" name="&amp;Spara inspelat makro..."/>
-					<Item id="42026" name="Textriktning, höger till vänster"/>
-					<Item id="42027" name="Textriktning, vänster till höger"/>
+					<Item id="42026" name="&amp;Textriktning, höger till vänster"/>
+					<Item id="42027" name="T&amp;extriktning, vänster till höger"/>
 					<Item id="42028" name="Aktivera skrivskydd för aktuellt dokument"/>
 					<Item id="42102" name="Aktivera skrivskydd för alla dokument"/>
 					<Item id="42103" name="Inaktivera skrivskydd för alla dokument"/>
@@ -286,12 +285,12 @@ Translation note:
 					<Item id="43502" name="Stäng andra"/>
 					<Item id="43503" name="Kopiera markerade namn"/>
 					<Item id="43504" name="Kopiera markerade sökvägar"/>
-					<Item id="44009" name="Kantlöst fönsterläge"/>
+					<Item id="44009" name="&amp;Kantlöst fönsterläge"/>
 					<Item id="44010" name="Minimera alla"/>
-					<Item id="44011" name="Distraktionsfritt läge"/>
+					<Item id="44011" name="&amp;Distraktionsfritt läge"/>
 					<Item id="44019" name="Visa alla tecken"/>
 					<Item id="44020" name="Visa hjälplinjer för indrag"/>
-					<Item id="44022" name="Radbrytning"/>
+					<Item id="44022" name="&amp;Radbrytning"/>
 					<Item id="44023" name="Zooma &amp;in (Ctrl + mushjul upp)"/>
 					<Item id="44024" name="Zooma &amp;ut (Ctrl + mushjul ned)"/>
 					<Item id="44025" name="Visa blanksteg och tabb"/>
@@ -299,10 +298,10 @@ Translation note:
 					<Item id="44029" name="Expandera alla"/>
 					<Item id="44030" name="Minimera aktuell nivå"/>
 					<Item id="44031" name="Expandera aktuell nivå"/>
-					<Item id="44049" name="Sammanfattning..."/>
-					<Item id="44080" name="Dokumentvy"/>
-					<Item id="44070" name="Dokumentlista"/>
-					<Item id="44084" name="Funktionslista"/>
+					<Item id="44049" name="&amp;Sammanfattning..."/>
+					<Item id="44080" name="D&amp;okumentvy"/>
+					<Item id="44070" name="Dok&amp;umentlista"/>
+					<Item id="44084" name="Fu&amp;nktionslista"/>
 					<Item id="44085" name="Mapp som arbetsyta"/>
 					<Item id="44086" name="Flik nr. 1"/>
 					<Item id="44087" name="Flik nr. 2"/>
@@ -317,7 +316,7 @@ Translation note:
 					<Item id="44117" name="Sista fliken"/>
 					<Item id="44095" name="Nästa flik"/>
 					<Item id="44096" name="Föregående flik"/>
-					<Item id="44097" name="Övervakning (tail -f)"/>
+					<Item id="44097" name="&amp;Övervakning (tail -f)"/>
 					<Item id="44098" name="Flytta flik framåt"/>
 					<Item id="44099" name="Flytta flik bakåt"/>
 					<Item id="44110" name="Ta bort färg"/>
@@ -328,16 +327,16 @@ Translation note:
 					<Item id="44115" name="Tillämpa färg 5"/>
 					<Item id="44130" name="Visa icke utskrivbara tecken"/>
 					<Item id="44131" name="Visa kontrolltecken och Unicode-radslut"/>
-					<Item id="44032" name="Helskärmsläge"/>
-					<Item id="44033" name="Återställ zoom"/>
-					<Item id="44034" name="Alltid överst"/>
-					<Item id="44035" name="Synkronisera vertikal rullning"/>
-					<Item id="44036" name="Synkronisera horisontell rullning"/>
+					<Item id="44032" name="&amp;Helskärmsläge"/>
+					<Item id="44033" name="Åte&amp;rställ zoom"/>
+					<Item id="44034" name="&amp;Alltid överst"/>
+					<Item id="44035" name="S&amp;ynkronisera vertikal rullning"/>
+					<Item id="44036" name="Synkronisera horisontell rullnin&amp;g"/>
 					<Item id="44041" name="Visa radbrytningssymbol"/>
-					<Item id="44072" name="Fokus på nästa vy"/>
-					<Item id="44081" name="Projektpanel nr. 1"/>
-					<Item id="44082" name="Projektpanel nr. 2"/>
-					<Item id="44083" name="Projektpanel nr. 3"/>
+					<Item id="44072" name="Fokus &amp;på nästa vy"/>
+					<Item id="44081" name="Projektpanel nr. &amp;1"/>
+					<Item id="44082" name="Projektpanel nr. &amp;2"/>
+					<Item id="44083" name="Projektpanel nr. &amp;3"/>
 					<Item id="45001" name="Windows (CR LF)"/>
 					<Item id="45002" name="Unix (LF)"/>
 					<Item id="45003" name="Macintosh (CR)"/>
@@ -357,10 +356,10 @@ Translation note:
 					<Item id="45057" name="OEM 865: Nordiska"/>
 					<Item id="45053" name="OEM 860: Portugisiska"/>
 					<Item id="45056" name="OEM 863: Franska"/>
-					<Item id="10001" name="Flytta till annan vy"/>
-					<Item id="10002" name="Klona till annan vy"/>
-					<Item id="10003" name="Flytta till ny instans"/>
-					<Item id="10004" name="Öppna i ny instans"/>
+					<Item id="10001" name="&amp;Flytta till annan vy"/>
+					<Item id="10002" name="&amp;Klona till annan vy"/>
+					<Item id="10003" name="Fl&amp;ytta till ny instans"/>
+					<Item id="10004" name="&amp;Öppna i ny instans"/>
 					<Item id="10005" name="Flytta till början"/>
 					<Item id="10006" name="Flytta till slutet"/>
 					<Item id="46001" name="Stilkonfigurering..."/>
@@ -407,7 +406,7 @@ Translation note:
 					<Item id="50011" name="Nästa funktionsparameterhjälp"/>
 					<Item id="50005" name="Växla makroinspelning"/>
 					<Item id="50006" name="Sökvägskomplettering"/>
-					<Item id="44042" name="Dölj rader"/>
+					<Item id="44042" name="Döl&amp;j rader"/>
 					<Item id="42040" name="Öppna alla senast använda filer"/>
 					<Item id="42041" name="Töm listan med senast använda filer"/>
 					<Item id="48016" name="Ändra kortkommando/Radera makro..."/>
@@ -718,10 +717,10 @@ Translation note:
 					<Item id="43059" name="Kopiera stilsatt text med stil nr. 5"/>
 					<Item id="43060" name="Kopiera stilsatt text med alla stilar"/>
 					<Item id="43061" name="Kopiera stilsatt text med sök markeringsstil"/>
-					<Item id="44100" name="Visa aktuell fil i Firefox"/>
-					<Item id="44101" name="Visa aktuell fil i Chrome"/>
-					<Item id="44103" name="Visa aktuell fil i IE"/>
-					<Item id="44102" name="Visa aktuell fil i Edge"/>
+					<Item id="44100" name="Visa aktuell fil i &amp;Firefox"/>
+					<Item id="44101" name="Visa aktuell fil i &amp;Chrome"/>
+					<Item id="44103" name="Visa aktuell fil i &amp;IE"/>
+					<Item id="44102" name="Visa aktuell fil i &amp;Edge"/>
 					<Item id="50003" name="Byt till föregående dokument"/>
 					<Item id="50004" name="Byt till nästa dokument"/>
 					<Item id="44051" name="Minimera nivå 1"/>
@@ -1291,7 +1290,7 @@ Translation note:
 					<Item id="6184" name="Dokumentlista"/>
 					<Item id="6185" name="Teckenpanel"/>
 					<Item id="6186" name="Mapp som arbetsyta"/>
-					<Item id="6187" name="Projektpaneler"/>
+					<Item id="6187" name="Pro&amp;jektpaneler"/>
 					<Item id="6188" name="Dokumentkarta"/>
 					<Item id="6189" name="Funktionslista"/>
 					<Item id="6190" name="Insticksprogrampanel"/>

@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.9">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.9.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -48,7 +48,7 @@
 					<Item subMenuId="search-jumpDown" name="Skok na&amp;dol"/>
 					<Item subMenuId="search-copyStyledText" name="Kopírovať štylizovaný te&amp;xt"/>
 					<Item subMenuId="search-bookmark" name="Zálo&amp;žka"/>
-					<Item subMenuId="view-currentFileIn" name="Zobraziť aktuálny súbor v"/>
+					<Item subMenuId="view-currentFileIn" name="Zobraziť aktuálny súbor v prehliadači"/>
 					<Item subMenuId="view-showSymbol" name="Zobraziť znak"/>
 					<Item subMenuId="view-zoom" name="Lupa"/>
 					<Item subMenuId="view-moveCloneDocument" name="Presunúť/Klonovať aktuálny dokument"/>
@@ -59,7 +59,7 @@
 					<Item subMenuId="encoding-characterSets" name="Znaková sada"/>
 					<Item subMenuId="encoding-arabic" name="Arabčina"/>
 					<Item subMenuId="encoding-baltic" name="Pobaltské jazyky"/>
-					<Item subMenuId="encoding-celtic" name="Keltština"/>
+					<Item subMenuId="encoding-celtic" name="Keltčina"/>
 					<Item subMenuId="encoding-cyrillic" name="Cyrilika"/>
 					<Item subMenuId="encoding-centralEuropean" name="Stredoeurópske jazyky"/>
 					<Item subMenuId="encoding-chinese" name="Čínština"/>
@@ -162,11 +162,11 @@
 					<Item id="42075" name="Hľadať na Internete"/>
 					<Item id="42076" name="Zmeniť vyhľadávač…"/>
 					<Item id="42090" name="Nerozlišovať veľkosť písmen a celé slovo"/>
-					<Item id="42091" name="Iba rovanká veľkosť písmen"/>
+					<Item id="42091" name="Iba rovnaká veľkosť písmen"/>
 					<Item id="42092" name="Iba celé slová"/>
 					<Item id="42093" name="Rovnaká veľkosť písmen a celé slovo"/>
 					<Item id="42094" name="Nerozlišovať veľkosť písmen a celé slovo"/>
-					<Item id="42095" name="Iba rovanká veľkosť písmen"/>
+					<Item id="42095" name="Iba rovnaká veľkosť písmen"/>
 					<Item id="42096" name="Iba celé slová"/>
 					<Item id="42097" name="Rovnaká veľkosť písmen a celé slovo"/>
 					<Item id="42098" name="Vrátiť naposledy pridaný viacnásobný výber"/>
@@ -713,10 +713,10 @@
 					<Item id="43059" name="Kopírovať štylizovaný text 5. štýlu"/>
 					<Item id="43060" name="Kopírovať štylizovaný text Všetkých štýlov"/>
 					<Item id="43061" name="Kopírovať štylizovaný text Hľadať štýl označenia"/>
-					<Item id="44100" name="Zobraziť aktuálny súbor vo Firefoxe"/>
-					<Item id="44101" name="Zobraziť aktuálny súbor v Chrome"/>
-					<Item id="44103" name="Zobraziť aktuálny súbor v IE"/>
-					<Item id="44102" name="Zobraziť aktuálny súbor v Edgei"/>
+					<Item id="44100" name="Zobraziť aktuálny súbor v prehliadači Firefox"/>
+					<Item id="44101" name="Zobraziť aktuálny súbor v prehliadači Chrome"/>
+					<Item id="44103" name="Zobraziť aktuálny súbor v prehliadači IE"/>
+					<Item id="44102" name="Zobraziť aktuálny súbor v prehliadači Edge"/>
 					<Item id="50003" name="Prepnúť na predchádzajúci dokument"/>
 					<Item id="50004" name="Prepnúť na nasledujúci dokument"/>
 					<Item id="44051" name="Zbaliť úroveň 1"/>
@@ -1019,6 +1019,7 @@
 					<Item id="6239" name="Ponechať označenie pri kliknutí pravým tlačidlom mimo označenia"/>
 					<Item id="6245" name="Povoliť virtuálny priestor"/>
 					<Item id="6214" name="Povoliť Kopírovať/Vystrihnúť riadok bez označenia"/>
+					<Item id="6266" name="Zakázať presúvanie vybraného textu"/>
 					<Item id="6225" name="Použiť na vybraný text vlastnú farbu popredia"/>
 					<Item id="6651" name="Indikátor aktuálneho riadku"/>
 					<Item id="6652" name="Žiadny"/>
@@ -1219,6 +1220,7 @@
 					<Item id="6910" name="Minimálna dĺžka na automatické začiarknutie &quot;Vo výbere&quot;:"/>
 					<Item id="6913" name="Vyplniť pole Priečinok v Hľadať v súboroch z aktívneho dokumentu"/>
 					<Item id="6916" name=": Maximálny počet znakov na automatické vloženie do poľa Hľadať"/>
+					<Item id="6917" name="Hľadať v súboroch: Uprednostniť obsah súboru na disku pred otvorenými vyrovnávacími pamäťami"/>
 				</Searching>
 
 				<RecentFilesHistory title="História súborov">
@@ -1263,7 +1265,7 @@
 					<Item id="6872" name="Automaticky skracovať zoznam"/>
 					<Item id="6815" name="Pomôcka pre parametre funkcií"/>
 					<Item id="6851" name="Automatické vkladanie"/>
-					<Item id="6857" name="konc. html/xml značky"/>
+					<Item id="6857" name="koncové html/xml značky"/>
 					<Item id="6858" name="Začiatok"/>
 					<Item id="6859" name="Koniec"/>
 					<Item id="6860" name="Párové znaky 1:"/>
@@ -1363,7 +1365,7 @@
 						<Element name="Povoliť pri ukončení Notepad++"/>
 					</ComboBox>
 					<Item id="6308" name="oblasti oznámení"/>
-					<Item id="6363" name="režim renderovania"/>
+					<Item id="6363" name="režim vykresľovania"/>
 					<Item id="6365" name="Automatická aktualizácia:"/>
 					<Item id="6312" name="Automatické zisťovanie stavu súboru"/>
 					<Item id="6313" name="Tichá aktualizácia"/>
@@ -1580,12 +1582,6 @@ Pokračovať?"/>
 			<LanguageMenuCompactWarning title="Kompaktná jazyková ponuka" message="Táto možnosť sa zmení pri ďalšom spustení."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Neuložené zmeny budú odstránené!
 Chcete uložiť zmeny pred prepnutím motívu?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Kompatibilita makier a príkazov cez ponuku Spustiť" message="Vaše makrá a príkazy cez ponuku Spustiť uložené v Notepad++ v.8.5.2 (alebo staršej) nemusia byť kompatibilné s aktuálnou verziou programu Notepad++.
-Otestujte tieto príkazy a v prípade potreby ich znovu upravte.
-
-Prípadne môžete vykonať prechod na verziu Notepad++ v8.5.2 a obnoviť svoje predchádzajúce údaje.
-Notepad++ zálohuje váš starý súbor &quot;shortcuts.xml&quot; a uloží ho ako &quot;shortcuts.xml.v8.5.2.backup&quot;.
-Premenovaním &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; by sa vaše príkazy mali obnoviť a fungovať správne."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<NotEnoughRoom4Saving title="Uloženie zlyhalo" message="Nepodarilo sa uložiť súbor.
 Zdá sa, že na disku nie je dostatok miesta na uloženie súboru. Súbor sa neuložil."/>
 			<FileInaccessibleUserSession title="Nedostupný súbor" message="Niektoré súbory z manuálne uloženej relácie &quot;$STR_REPLACE$&quot; sú nedostupné. Môžete ich otvoriť ako prázdne dokumenty a len na čítanie ako zástupné karty.

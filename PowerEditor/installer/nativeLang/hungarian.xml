@@ -1224,6 +1224,7 @@
 					<Item id="6910" name="„&amp;A kijelölésben” automatikus bejelölése ettől:"/>
 					<Item id="6913" name="A „Keresés &amp;fájlokban” fül alatti „Mappa” mező kitöltése az aktív dokumentum alapján"/>
 					<Item id="6916" name=": a ki&amp;jelölt karakterek legnagyobb száma a „Keresendő” mező auto. kitöltéséhez"/>
+					<Item id="6917" name="„Kere&amp;sés fájlokban”: a megnyitott fájlok nem mentett módosításainak figyelmen kívül hagyása"/>
 				</Searching>
 
 				<RecentFilesHistory title="Fájlelőzmények">

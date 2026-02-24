@@ -19,6 +19,10 @@
 #include <windows.h>
 #include "FindReplaceDlg_rc.h"
 
+#ifndef IDC_STATIC
+#define IDC_STATIC -1
+#endif
+
 IDD_FIND_REPLACE_DLG DIALOGEX 0, 0, 411, 197
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
 EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
@@ -141,4 +145,51 @@ BEGIN
 
     PUSHBUTTON      "Find All",IDOK,268,9,90,14,WS_GROUP
     PUSHBUTTON      "Close",IDCANCEL,268,27,90,14
+END
+
+IDD_EXPORT_RESULTS_DLG DIALOGEX 0, 0, 500, 350
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
+CAPTION "Export Search Results"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    GROUPBOX        "Export Format", IDC_STATIC, 7, 7, 486, 60
+    CONTROL         "CSV (Comma-Separated Values)", IDC_EXPORT_FORMAT_CSV, "Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP, 15, 20, 150, 10
+    CONTROL         "JSON (JavaScript Object Notation)", IDC_EXPORT_FORMAT_JSON, "Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP, 15, 35, 200, 10
+    CONTROL         "Plain Text", IDC_EXPORT_FORMAT_PLAINTEXT, "Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP, 15, 50, 80, 10
+
+    GROUPBOX        "Format Options", IDC_STATIC, 7, 72, 486, 120
+    CONTROL         "Include Headers", IDC_CSV_HEADERS_CHECK, "Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP, 15, 85, 100, 10
+    LTEXT           "Delimiter:", IDC_CSV_DELIMITER_LABEL, 15, 102, 40, 8
+    COMBOBOX        IDC_CSV_DELIMITER_COMBO, 60, 100, 100, 60,
+                    CBS_DROPDOWN | WS_TABSTOP
+
+    CONTROL         "Pretty Print (JSON)", IDC_JSON_PRETTYPRINT_CHECK, "Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP, 15, 85, 100, 10
+    CONTROL         "Include Metadata", IDC_JSON_METADATA_CHECK, "Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP, 15, 100, 100, 10
+
+    LTEXT           "Style:", IDC_PLAINTEXT_STYLE_LABEL, 15, 85, 30, 8
+    COMBOBOX        IDC_PLAINTEXT_STYLE_COMBO, 60, 83, 150, 60,
+                    CBS_DROPDOWN | WS_TABSTOP
+
+    GROUPBOX        "Save Location", IDC_STATIC, 7, 198, 486, 60
+    LTEXT           "File name:", IDC_STATIC, 15, 212, 50, 8
+    EDITTEXT        IDC_EXPORT_FILENAME_EDIT, 65, 210, 350, 12,
+                    ES_AUTOHSCROLL
+    LTEXT           "Path:", IDC_STATIC, 15, 230, 50, 8
+    EDITTEXT        IDC_EXPORT_PATH_EDIT, 65, 228, 350, 12,
+                    ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "Browse...", IDC_EXPORT_BROWSE_BUTTON, 420, 228, 60, 14
+
+    GROUPBOX        "Preview", IDC_STATIC, 7, 265, 486, 60
+    EDITTEXT        IDC_EXPORT_PREVIEW_EDIT, 15, 280, 470, 35,
+                    ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | WS_VSCROLL
+
+    PUSHBUTTON      "Export", IDC_EXPORTRESULTS_BUTTON, 330, 330, 80, 14
+    PUSHBUTTON      "Cancel", IDCANCEL, 415, 330, 78, 14
 END

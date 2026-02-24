@@ -1216,7 +1216,7 @@ Translation note:
 					<Item id="6910" name="Taille minimale pour l’auto-coche de « Dans la sélection » :"/>
 					<Item id="6913" name="Remplir le champ de &quot;Dossier&quot; de &quot;Recherche dans les fichiers&quot; avec chemin du fichier actif"/>
 					<Item id="6916" name=" : Nombre max. de caractères sélectionnés à copier dans le champ de recherche"/>
-					<Item id="6917" name="Recherche dans les fichiers : ignorer les modifications non enregistrées dans les fichiers ouverts"/>
+					<Item id="6917" name="Recherche dans les fichiers : préférer le contenu sur disque aux fichiers ouverts"/>
 				</Searching>
 
 				<RecentFilesHistory title="Fichiers récents">

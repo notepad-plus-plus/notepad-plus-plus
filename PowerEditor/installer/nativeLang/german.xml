@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9"><!-- Datum: 11.02.2026, basiert auf english.xml 8.9 vom 09.02.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9"><!-- Datum: 10.03.2026, basiert auf english.xml 8.9 vom 10.03.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1033,6 +1033,7 @@ Translation note:
 					<Item id="6239" name="Auswahl bei Rechtsklick außerhalb der Auswahl beibehalten"/>
 					<Item id="6245" name="Virtuellen Raum aktivieren"/>
 					<Item id="6214" name="Zeile Kopieren/Ausschneiden ohne Auswahl aktivieren"/>
+					<Item id="6266" name="Ausgewählten Text nicht per Drag &amp;&amp; Drop verschieben"/>
 					<Item id="6225" name="Benutzerdefinierte Farbe auf den gewählten Text im Vordergrund anwenden"/>
 					<Item id="6651" name="Anzeige der aktuellen Zeile"/>
 					<Item id="6652" name="Keine"/>
@@ -1233,6 +1234,7 @@ Translation note:
 					<Item id="6910" name="Mindestgröße für die automatische Aktivierung von 'In Auswahl'"/>
 					<Item id="6913" name="Suche im Dateiverzeichnisfeld basierend auf dem aktiven Dokument ausfüllen"/>
 					<Item id="6916" name=": Max. Zeichen für automatisches Ausfüllen des Suchfelds mit der Auswahl"/>
+					<Item id="6917" name="In Dateien suchen: Dateiinhalte auf Festplatte gegenüber offenen Puffern bevorzugen"/>
 				</Searching>
 
 				<RecentFilesHistory title="Zuletzt geöffn. Dateien">
@@ -1592,12 +1594,6 @@ Fortsetzen?"/>
 			<LanguageMenuCompactWarning title="Verschachteltes Sprachmenü" message="Diese Änderung wird erst nach dem nächsten Start aktiv."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Änderungen wurden nicht gespeichert.
 Möchten Sie die Änderungen speichern, bevor Sie das Thema wechseln?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Kompatibiltät der Makros und Ausführungs-Kommandos" message="Die in Notepad++ gespeicherten Makros und Ausführungs-Kommandos v.8.5.2 (oder älter) könnten ev. mit der aktuellen Version von Notepad++ nicht kompatibel sein.
-Bitte die Kommandos daher testen und falls nötig editieren.
-
-Alternativ dazu kann auch auf die ältere Version Notepad++ v8.5.2 gewechselt und dort die aktuellen Daten gesichert werden.
-Notepad++ wird ein Backup der alten &quot;shortcuts.xml&quot; machen und die Datei als &quot;shortcuts.xml.v8.5.2.backup&quot; speichern.
-Beim darauf folgenden Umbenennen der &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; sollten die Kommandos wiederhergestellt sein und wieder funktionieren."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<FullReadOnlySavingForbidden title="Speichern fehlgeschlagen" message="Datei kann nicht gespeichert werden.
 Der Schreibschutz von Notepad++ verhindert das Speichern der Datei."/>
 			<NotEnoughRoom4Saving title="Speichern fehlgeschlagen" message="Datei kann nicht gespeichert werden.

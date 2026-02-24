@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9"><!-- Datum: 11.02.2026, basiert auf english.xml 8.9 vom 09.02.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9"><!-- Datum: 24.02.2026, basiert auf english.xml 8.9 vom 24.02.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1233,6 +1233,7 @@ Translation note:
 					<Item id="6910" name="Mindestgröße für die automatische Aktivierung von 'In Auswahl'"/>
 					<Item id="6913" name="Suche im Dateiverzeichnisfeld basierend auf dem aktiven Dokument ausfüllen"/>
 					<Item id="6916" name=": Max. Zeichen für automatisches Ausfüllen des Suchfelds mit der Auswahl"/>
+					<Item id="6917" name="In Dateien suchen: Dateiinhalte auf Festplatte gegenüber offenen Puffern bevorzugen"/>
 				</Searching>
 
 				<RecentFilesHistory title="Zuletzt geöffn. Dateien">

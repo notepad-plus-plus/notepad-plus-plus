@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 09 Feb 2026 for 8.9.1+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 09 Mar 2026 for 8.9.2+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.9.1">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.9.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1024,6 +1024,7 @@ Translation note:
 					<Item id="6239" name="Manter a seleção ao clicar com o botão direito fora da seleção"/>
 					<Item id="6245" name="Habilitar espaço virtual"/>
 					<Item id="6214" name="Habilitar Copiar/Recortar Linha sem seleção"/>
+					<Item id="6266" name="Desabilitar arrastar e soltar de texto selecionado"/>
 					<Item id="6225" name="Aplicar cor customizada em texto selecionado"/>
 					<Item id="6651" name="Indicador de linha atual"/>
 					<Item id="6652" name="Nenhum"/>
@@ -1224,6 +1225,7 @@ Translation note:
 					<Item id="6910" name="Tamanho Mínimo para Auto-Selecionar Opção &quot;Na seleção&quot;"/>
 					<Item id="6913" name="Preencher o campo 'Pasta' de 'Localizar nos arquivos' Baseado no Documento Ativo"/>
 					<Item id="6916" name=": Máx Caracteres para Auto-Preenchimento de Campo de Busca da Seleção"/>
+					<Item id="6917" name="Localizar em Arquivos: Preferir conteúdo gravado ao invés de alterações não salvas"/>
 				</Searching>
 
 				<RecentFilesHistory title="Histórico de arquivos recentes">
@@ -1583,12 +1585,6 @@ Deseja continuar?"/>
 			<LanguageMenuCompactWarning title="Menu Compacto de Linguagem" message="Esta opção será alterada na próxima vez que o programa for aberto."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Alterações não salvas estão prestes a serem perdidas!
 Deseja salvar suas alterações antes de alterar os temas?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Compatibilidade de comandos Macro e Executar" message="Seus comandos Macro e Executar salvos no Notepad++ v.8.5.2 (ou anteriores) podem não ser compatíveis com a versão atual do Notepad++.
-Por favor, teste estes comandos e, se necessário, altere-os.
-
-Como alternativa, você pode voltar à versão v8.5.2 do Notepad++ e restaurar os dados anteriores.
-O Notepad++ irá efetuar backup do seu arquivo &quot;shortcuts.xml&quot; anterior e salvá-lo como &quot;shortcuts.xml.v8.5.2.backup&quot;.
-Ao renomear &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, seus comandos devem ser restaurados e devem funcionar a contento."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<FullReadOnlySavingForbidden title="Erro ao Salvar" message="Não foi possível salvar o arquivo.
 O modo proibição de salvar em apenas-leitura total do Notepad++ impediu que o arquivo fosse salvo."/>
 			<NotEnoughRoom4Saving title="Erro ao salvar" message="Não foi possível salvar o arquivo.

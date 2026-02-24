@@ -1029,6 +1029,7 @@ Translation note:
 					<Item id="6239" name="選択範囲外を右クリックしたときに選択を解除しない"/>
 					<Item id="6245" name="仮想空白を有効にする"/>
 					<Item id="6214" name="選択範囲がないときは行全体をコピー/切り取りする"/>
+					<Item id="6266" name="ドラッグ&amp;&amp;ドロップでの選択文字列の移動を無効にする"/>
 					<Item id="6225" name="選択文字列の文字色にカスタム色を利用する"/>
 					<Item id="6651" name="現在行の強調表示"/>
 					<Item id="6652" name="なし"/>
@@ -1228,6 +1229,7 @@ Translation note:
 					<Item id="6910" name="この文字数以上を選択時に「選択内のみ」を自動でオン"/>
 					<Item id="6913" name="「複数ファイル内検索」にて、現在の文書のディレクトリを初期値にする"/>
 					<Item id="6916" name=": 自動入力を行う最大の文字数"/>
+					<Item id="6917" name="複数ファイル内を検索：メモリ上のバッファーからではなく、ディスク上のファイルから検索する"/>
 				</Searching>
 
 
@@ -1585,12 +1587,6 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 			<LanguageMenuCompactWarning title="言語メニューをまとめる" message="この設定は次回の起動時に反映されます"/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="テーマへの変更が保存されていません。
 テーマを切り替える前に、変更を保存しますか？"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="「マクロ」「実行」の互換性について" message="Notepad++ 8.5.2 以前で作成された「マクロ」「実行」の各項目は、このバージョンの Notepad++ とは互換性がない場合があります。
-各項目をテストしていただき、適宜修正をお願いします。
-
-代案として、Notepad++ 8.5.2 に戻し、以前のデータを復元することもできます。
-以前の「shortcuts.xml」は「shortcuts.xml.v8.5.2.backup」としてバックアップされています。
-復元されるときは、「shortcuts.xml.v8.5.2.backup」を「shortcuts.xml」にリネームしてください。"/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<FullReadOnlySavingForbidden title="保存に失敗しました" message="ファイルを保存できません。
 Notepad++ が強制読み取り専用モードのため、ファイルの保存を行いませんでした。"/>
 			<NotEnoughRoom4Saving title="保存に失敗しました" message="保存に失敗しました。

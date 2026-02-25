@@ -893,6 +893,8 @@ public:
 	void ReleaseLineCharacterIndex(Scintilla::LineCharacterIndexType lineCharacterIndex);
 	Line LineFromIndexPosition(Position pos, Scintilla::LineCharacterIndexType lineCharacterIndex);
 	Position IndexPositionFromLine(Line line, Scintilla::LineCharacterIndexType lineCharacterIndex);
+	bool DragDropEnabled();
+	void SetDragDropEnabled(bool dragDropEnabled);
 	void StartRecord();
 	void StopRecord();
 	int Lexer();

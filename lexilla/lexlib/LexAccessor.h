@@ -181,31 +181,30 @@ public:
 	}
 	void ColourTo(Sci_PositionU pos, int chAttr) {
 		// Only perform styling if non empty range
-		if (pos != startSeg - 1) {
-			assert(pos >= startSeg);
-			if (pos < startSeg) {
-				return;
-			}
-
-			if (validLen + (pos - startSeg + 1) >= bufferSize)
+		pos += 1; // pos could be -1
+		assert(pos >= startSeg && pos <= static_cast<Sci_PositionU>(Length()));
+		if (pos > startSeg) {
+			const Sci_PositionU len = pos - startSeg;
+			if (validLen + len >= bufferSize) {
 				Flush();
+			}
+			assert((startPosStyling + validLen + len) <= static_cast<Sci_PositionU>(Length()));
 			const unsigned char attr = chAttr & 0xffU;
-			if (validLen + (pos - startSeg + 1) >= bufferSize) {
-				// Too big for buffer so send directly
-				pAccess->SetStyleFor(pos - startSeg + 1, attr);
-			} else {
-				for (Sci_PositionU i = startSeg; i <= pos; i++) {
-					assert((startPosStyling + validLen) < Length());
+			startSeg += len;
+			if (validLen + len < bufferSize) {
+				for (Sci_PositionU i = 0; i < len; i++) {
 					styleBuf[validLen++] = attr;
 				}
+			} else {
+				// Too big for buffer so send directly
+				pAccess->SetStyleFor(len, attr);
 			}
 		}
-		startSeg = pos+1;
 	}
 	void SetLevel(Sci_Position line, int level) {
 		pAccess->SetLevel(line, level);
 	}
-	// Avoids some overhead when level same as before 
+	// Avoids some overhead when level same as before
 	void SetLevelIfDifferent(Sci_Position line, int level);
 	void IndicatorFill(Sci_Position start, Sci_Position end, int indicator, int value) {
 		pAccess->DecorationSetCurrentIndicator(indicator);

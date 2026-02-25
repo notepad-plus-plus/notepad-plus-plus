@@ -1,0 +1,19 @@
+{12}// @ used in the non-annotation sense
+{2}display{0} {3}"test"{0} @ {7}field{6}.{0}
+
+{12}// source annotation examples
+{13}@sourceannotation{0}
+{13}@source-annotation{6}(){0}
+{13}@source_annotation{6}({7}prop{0} {6}={0} {3}"abc"{6}){0}
+{13}@source#$%annotation{6}({7}prop{0} {6}={0} {3}"abc"{6},{0} {7}prop2{0} {6}={0} {1}123{6}){0}
+
+{12}// typed source annotation examples
+{14}@@sourceannotation{0}
+{14}@@source-annotation{6}(){0}
+{14}@@source_annotation{6}({7}prop{0} {6}={0} {3}"abc"{6}){0}
+{14}@@source#$%annotation{6}({7}prop{0} {6}={0} {3}"abc"{6},{0} {7}prop2{0} {6}={0} {1}123{6}){0}
+
+{12}// poorly formed annotations
+{14}@@{13}@ThreeAtSigns{0} {12}// first two @ signs are typed, next is not typed
+{13}@name{6}[{7}containsbadcharacter{0} {12}// annotation style stops at bad character
+{14}@@name{6}[{7}containsbadcharacter{0} {12}// typed annotation style stops at bad character

@@ -17,6 +17,9 @@ PlatQt.obj : error LNK2019: unresolved external symbol "class Scintilla::PRectan
 
 NMAKE : fatal error U1077: '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\bin\HostX64\x64\link.EXE"' : return code '0x460'
 
+Delphi diagnostic is similar so also uses style 3
+See https://sourceforge.net/p/scintilla/feature-requests/175/
+packerunitPas.pas(22) Error: Unknown directive: 'functixon'
 
 Command 4
 >pwd
@@ -113,3 +116,7 @@ Escape Sequence Colour 40
 
 Escape Sequence Colour 41
 [31mColour 1 is 41
+
+
+Check short reset after colour
+[31m41[m0

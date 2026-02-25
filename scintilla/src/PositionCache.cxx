@@ -318,6 +318,10 @@ int LineLayout::EndLineStyle() const noexcept {
 	return styles[std::max(numCharsBeforeEOL - 1, 0)];
 }
 
+int LineLayout::LastStyle() const noexcept {
+	return styles[numCharsInLine];
+}
+
 void LineLayout::WrapLine(const Document *pdoc, Sci::Position posLineStart, Wrap wrapState, XYPOSITION wrapWidth) {
 	// Document wants document positions but simpler to work in line positions
 	// so take care of adding and subtracting line start in a lambda.
@@ -996,14 +1000,13 @@ public:
 };
 
 class PositionCache : public IPositionCache {
-	static constexpr size_t defaultCacheSize = 0x400;
-	std::vector<PositionCacheEntry> pces{ defaultCacheSize };
+	std::vector<PositionCacheEntry> pces{ positionCacheDefaultSize };
 	std::mutex mutex;
 	uint16_t clock = 1;
 	bool allClear = true;
 public:
 	PositionCache();
-	// Deleted so LineAnnotation objects can not be copied.
+	// Deleted so PositionCache objects can not be copied.
 	PositionCache(const PositionCache &) = delete;
 	PositionCache(PositionCache &&) = delete;
 	void operator=(const PositionCache &) = delete;

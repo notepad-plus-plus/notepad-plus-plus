@@ -591,9 +591,58 @@
       </tr><tr>
 	<td>Ahmet Sait</td>
 	<td>Sven Ritter</td>
+	<td>Stefan Löffler</td>
+	<td>Nathaniel Braun</td>
     </tr>
     </table>
     <h2 id="Releases">Releases</h2>
+    <h3>
+       <a href="https://www.scintilla.org/scintilla560.zip">Release 5.6.0</a>
+    </h3>
+    <ul>
+	<li>
+	Released 25 February 2026.
+	</li>
+	<li>
+	Fix crash when window is too narrow to show any text.
+	</li>
+    </ul>
+    <h3>
+       <a href="https://www.scintilla.org/scintilla559.zip">Release 5.5.9</a>
+    </h3>
+    <ul>
+	<li>
+	Released 25 February 2026.
+	</li>
+	<li>
+	Add option to disable drag/drop editing.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/184/">Feature #184</a>.
+	</li>
+	<li>
+	Allow Euro '&euro;' in code page 936 for 0x80.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1575/">Feature #1575</a>.
+	</li>
+	<li>
+	Fix SCI_SETSELECTIONNSTART and SCI_SETSELECTIONNEND to behave more sensibly.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2488/">Bug #2488</a>.
+	</li>
+	<li>
+	Fix lexing after undo at end of document.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2491/">Bug #2491</a>.
+	</li>
+	<li>
+	When a line end is not selected, change the colour of the rectangle that indicates the line end is selected
+	to white space background instead of previous character's background except for EOL filled style.
+	</li>
+	<li>
+	On Qt, add const to ScintillaDocument and ScintillaEdit methods.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2494/">Bug #2494</a>.
+	</li>
+	<li>
+	On Qt, prevent crash when using ScintillaDocument object.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2495/">Bug #2495</a>.
+	</li>
+    </ul>
     <h3>
        <a href="https://www.scintilla.org/scintilla558.zip">Release 5.5.8</a>
     </h3>

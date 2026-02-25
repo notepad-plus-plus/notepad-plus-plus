@@ -199,6 +199,8 @@
 					<Item id="42026" name="Smer textu sprava doľava"/>
 					<Item id="42027" name="Smer textu zľava doprava"/>
 					<Item id="42028" name="Iba na čítanie v Notepad++"/>
+					<Item id="42102" name="Iba na čítanie pre všetky dokumenty"/>
+					<Item id="42103" name="Odstraniť iba na čítanie pre všetky dokumenty"/>
 					<Item id="42029" name="Skopírovať cestu k aktuálnemu súboru"/>
 					<Item id="42030" name="Skopírovať názov aktuálneho súboru"/>
 					<Item id="42031" name="Skopírovať cestu k aktuálnemu priečinku"/>

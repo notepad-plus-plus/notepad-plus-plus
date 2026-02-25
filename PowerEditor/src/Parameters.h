@@ -780,6 +780,7 @@ struct NppGUI final
 	bool _muteSounds = false;
 	bool _enableFoldCmdToggable = false;
 	bool _hideMenuRightShortcuts = false;
+	bool _loneAltPressFocusesMenu = true;
 	writeTechnologyEngine _writeTechnologyEngine = directWriteTechnology;
 	bool _isWordCharDefault = true;
 	std::string _customWordChars;

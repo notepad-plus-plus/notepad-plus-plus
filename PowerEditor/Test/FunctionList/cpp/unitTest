@@ -3874,6 +3874,12 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		}
 		else if (!lstrcmp(nm, TEXT("MenuBar")))
 		{
+			const TCHAR* val = element->Attribute(TEXT("focusByLoneAltPress"));
+			if (val)
+			{
+				_nppGUI._loneAltPressFocusesMenu = (lstrcmp(val, TEXT("yes")) == 0);
+			}
+
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 			{
@@ -5563,10 +5569,11 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._definedWorkspaceExt.c_str()));
 	}
 
-	// <GUIConfig name="MenuBar">show</GUIConfig>
+	// <GUIConfig name="MenuBar" focusByLoneAltPress="yes">show</GUIConfig>
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("MenuBar"));
+		GUIConfigElement->SetAttribute(TEXT("focusByLoneAltPress"), _nppGUI._loneAltPressFocusesMenu ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._menuBarShow ? TEXT("show") : TEXT("hide")));
 	}
 

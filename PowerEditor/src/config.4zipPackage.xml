@@ -28,7 +28,7 @@
         <GUIConfig name="auto-insert" parentheses="no" brackets="no" curlyBrackets="no" quotes="no" doubleQuotes="no" htmlXmlTag="no" />
         <GUIConfig name="sessionExt"></GUIConfig>
         <GUIConfig name="workspaceExt"></GUIConfig>
-        <GUIConfig name="MenuBar">show</GUIConfig>
+        <GUIConfig name="MenuBar" focusByLoneAltPress="yes">show</GUIConfig>
         <GUIConfig name="Caret" width="1" blinkRate="600" />
         <GUIConfig name="ScintillaGlobalSettings" enableMultiSelection="no" />
         <GUIConfig name="openSaveDir" value="0" defaultDirPath="" />

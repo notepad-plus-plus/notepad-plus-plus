@@ -774,10 +774,12 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			bool showStatus = nppGUI._statusBarShow;
 			bool showMenu = nppGUI._menuBarShow;
 			bool hideRightShortcutsFromMenu = nppGUI._hideMenuRightShortcuts;
+			bool loneAltPressFocusesMenu = nppGUI._loneAltPressFocusesMenu;
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIDESTATUSBAR, BM_SETCHECK, !showStatus, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIDEMENUBAR, BM_SETCHECK, !showMenu, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIDERIGHTSHORTCUTSOFMENUBAR, BM_SETCHECK, hideRightShortcutsFromMenu, 0);
+			::SendDlgItemMessage(_hSelf, IDC_LONE_ALT_PRESS_FOCUSES_MENU, BM_SETCHECK, loneAltPressFocusesMenu, 0);
 
 			LocalizationSwitcher & localizationSwitcher = nppParam.getLocalizationSwitcher();
 
@@ -863,6 +865,12 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 						isFirstShow = false;
 					}
+				}
+				return TRUE;
+
+				case IDC_LONE_ALT_PRESS_FOCUSES_MENU:
+				{
+					nppGUI._loneAltPressFocusesMenu = isCheckedOrNot(IDC_LONE_ALT_PRESS_FOCUSES_MENU);
 				}
 				return TRUE;
 

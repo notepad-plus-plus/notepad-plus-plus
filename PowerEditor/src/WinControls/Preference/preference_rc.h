@@ -84,6 +84,8 @@
 #define IDC_EDIT_TABCOMPACTLABELLEN                    6137
 #define IDC_TABCOMPACTLABELLEN_TIP_STATIC              6138
 
+#define IDC_LONE_ALT_PRESS_FOCUSES_MENU                6139
+
 #define IDD_PREFERENCE_SUB_MULTIINSTANCE               6150
 #define IDC_MULTIINST_GB_STATIC                        6151
 #define IDC_SESSIONININST_RADIO                        6152

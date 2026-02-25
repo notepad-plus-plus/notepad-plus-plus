@@ -2976,9 +2976,20 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				return TRUE;
 			}
 
-			if ((wParam & 0xFFF0) == SC_KEYMENU && lParam == VK_SPACE) // typing Alt-Space to have the system menu of application icon in the title bar
+			if ((wParam & 0xFFF0) == SC_KEYMENU)
 			{
-				_sysMenuEntering = true;
+				const NppGUI & nppGUI = nppParam.getNppGUI();
+
+				// If Alt+Space is pressed, open the window context menu (containing Alt+F4 option)
+				if (lParam == VK_SPACE)
+				{
+					_sysMenuEntering = true;
+				}
+				// If lParam is 0, it's a lone Alt press
+				else if (lParam == 0 && !nppGUI._loneAltPressFocusesMenu)
+				{
+					return TRUE;
+				}
 			}
 			else if ((wParam & 0xFFF0) == SC_MOUSEMENU) // clicking the application icon in the title bar to have the system menu
 			{

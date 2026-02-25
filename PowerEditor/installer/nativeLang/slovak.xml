@@ -206,7 +206,7 @@
 					<Item id="42031" name="Skopírovať cestu k aktuálnemu priečinku"/>
 					<Item id="42087" name="Všetky názvy súborov"/>
 					<Item id="42088" name="Všetky cesty súborov"/>
-					<Item id="42032" name="Spustiť makro viacnásobne…"/>
+					<Item id="42032" name="Spustiť makro &amp;viacnásobne…"/>
 					<Item id="42033" name="Atribút Iba na čítanie vo Windowse"/>
 					<Item id="42035" name="Zakomentovať riadok"/>
 					<Item id="42036" name="Odkomentovať riadok"/>
@@ -451,9 +451,9 @@
 				<Item CMDID="42030" name="Skopírovať názov súboru"/>
 				<Item CMDID="42031" name="Skopírovať cestu k aktuálnemu priečinku"/>
 				<Item CMDID="3" name="Presunúť dokument"/>
-				<Item CMDID="10001" name="Presunúť do druhého zobrazenia"/>
 				<Item CMDID="10005" name="Presunúť na začiatok"/>
 				<Item CMDID="10006" name="Presunúť na koniec"/>
+				<Item CMDID="10001" name="Presunúť do druhého zobrazenia"/>
 				<Item CMDID="10002" name="Klonovať do druhého zobrazenia"/>
 				<Item CMDID="10003" name="Presunúť do novej inštancie"/>
 				<Item CMDID="10004" name="Otvoriť v novej inštancii"/>
@@ -1003,7 +1003,7 @@
 					<Item id="6126" name="Vzhľad a správanie"/>
 					<Item id="6136" name="Max. dĺžka popisu karty:"/>
 				</Tabbar>
-				
+
 				<Scintillas title="Úprava 1">
 					<Item id="6216" name="Nastavenie kurzora"/>
 					<Item id="6217" name="Šírka:"/>
@@ -1045,7 +1045,7 @@
 					<Item id="6258" name="Použiť nastavenia vzhľadu na C0, C1 a Unicode EOL"/>
 					<Item id="6259" name="Zabrániť vloženiu riadiaceho znaku (kód C0) do dokumentu"/>
 				</Scintillas2>
-				
+
 				<DarkMode title="Tmavý režim">
 					<Item id="7131" name="Svetlý režim"/>
 					<Item id="7132" name="Tmavý režim"/>
@@ -1385,8 +1385,8 @@
 				</MISC>
 			</Preference>
 			<MultiMacro title="Spustiť makro viacnásobne">
-				<Item id="1" name="Spustiť"/>
-				<Item id="2" name="Zrušiť"/>
+				<Item id="1" name="&amp;Spustiť"/>
+				<Item id="2" name="&amp;Zrušiť"/>
 				<Item id="8006" name="Spustiť makro"/>
 				<Item id="8001" name="Spustiť"/>
 				<Item id="8005" name="krát"/>
@@ -1456,9 +1456,9 @@ Toto dialógové okno môžete neskôr znovu aktivovať v Predvoľbách."/>
 			</DebugInfo>
 		</Dialog>
 		<MessageBox>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
 			<ContextMenuXmlEditWarning title="Úprava kontextovej ponuky" message="Úpravou súboru contextMenu.xml zmeníte kontextovú ponuku programu.
-Bude potrebné reštartovať Notepad++, aby sa zmeny v súbore  prejavili."/>
+Bude potrebné reštartovať Notepad++, aby sa zmeny po úprave súboru contextMenu.xml prejavili"/>
 			<SaveCurrentModifWarning title="Uložiť zmeny" message="Mali by ste uložiť aktuálne zmeny.
 Uložené zmeny nie je možné vrátiť.
 
@@ -1887,7 +1887,7 @@ Kliknutím na tlačidlo &quot;?&quot; vpravo otvoríte webovú stránku s použ�
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell a JSON.
 Ak vyberiete pokročilý režim, ale neupravujete súbory vo vyššie uvedených jazykoch, odsadenie zostane v základnom režime."/>
 
-			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
+			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Ak tu povolíte &quot;Global override&quot;, tento parameter sa prepíše vo všetkých štýloch pre všetky programovacie jazyky. Pravdepodobne chcete namiesto toho použiť nastavenie &quot;Default Style&quot;"/>
 			<scintillaRenderingTechnology-tip value="Môže zlepšiť vykresľovanie špeciálnych znakov alebo vyriešiť niektoré grafické problémy, na uplatnenie zmien musíte reštartovať Notepad++."/>
 			
@@ -1902,8 +1902,6 @@ Ak vyberiete pokročilý režim, ale neupravujete súbory vo vyššie uvedených
 			<statusbar-Sel value="Ozn: "/>
 			<statusbar-Sel-number value="Ozn"/>
 			<toolbar-accent-tip value="Táto možnosť spôsobí, že ikony na paneli s nástrojmi budú mať farbu motívu Windowsu. Farba motívu je farba zvýraznenia používaná v tlačidlách, okrajoch a dlaždiciach ponuky Štart vo Windowse. Ak ju chcete zmeniť, prejdite do Nastavenia &gt; Prispôsobenie &gt; Farby, potom vyberte preferovanú farbu."/>
-			<max-len-on-search-tip value="Povolená dĺžka pre hľadať/nahradiť text je len $INT_REPLACE$ znakov - váš vstup môže byť orezaný, a neuloží sa pre ďalšiu reláciu."/>
-			<max-len-on-save-tip value="Toto vyhľadávanie (> $INT_REPLACE$ znakov) sa neuloží pre ďalšiu reláciu."/>
 			<len-limit-exceeded-tip value="Prekročená dĺžka: Váš vstup prekročil povolený limit a môže byť orezaný a nebude uložený do ďalšej relácie."/>
 			<max-len-on-search-tip value="Váš vstup prekročil povolený limit a môže byť orezaný a nebude uložený do ďalšej relácie."/>
 			<max-len-on-save-tip value="Váš vstup je príliš dlhý a nemusí sa uložiť do ďalšej relácie."/>

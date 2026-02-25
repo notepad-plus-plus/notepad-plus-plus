@@ -1156,13 +1156,20 @@ wstring GetLastErrorAsString(DWORD errorCode)
 		return errorMsg; //No error message has been recorded
 
 	LPWSTR messageBuffer = nullptr;
-	FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+	DWORD returnValue = FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
 		nullptr, errorCode, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), reinterpret_cast<LPWSTR>(&messageBuffer), 0, nullptr);
 
-	errorMsg += messageBuffer;
-
-	//Free the buffer.
-	LocalFree(messageBuffer);
+	if (returnValue == 0)
+    {
+		errorMsg += L"(Error code: ";
+		errorMsg += std::to_wstring(errorCode);
+		errorMsg += L")\r\n";
+    }
+	else
+    {
+		errorMsg += messageBuffer;
+		LocalFree(messageBuffer);
+    }
 
 	return errorMsg;
 }

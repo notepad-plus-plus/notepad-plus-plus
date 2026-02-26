@@ -544,7 +544,7 @@
 				<Item id="2007" name="&amp;Riadok"/>
 				<Item id="2008" name="&amp;Pozícia"/>
 				<Item id="1" name="Prejsť"/>
-				<Item id="2" name="Zrušiť"/>
+				<Item id="2" name="Nikam nejdem"/>
 				<Item id="2004" name="Aktuálny riadok/pozícia:"/>
 				<Item id="2005" name="Prejsť na riadok/pozíciu:"/>
 				<Item id="2006" name="Posledný riadok/pozícia:"/>
@@ -1264,7 +1264,7 @@
 					<Item id="6872" name="Automaticky skracovať zoznam"/>
 					<Item id="6815" name="Pomôcka pre parametre funkcií"/>
 					<Item id="6851" name="Automatické vkladanie"/>
-					<Item id="6857" name="konc. html/xml značky"/>
+					<Item id="6857" name="koncové html/xml značky"/>
 					<Item id="6858" name="Začiatok"/>
 					<Item id="6859" name="Koniec"/>
 					<Item id="6860" name="Párové znaky 1:"/>

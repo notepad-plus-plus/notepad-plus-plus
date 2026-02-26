@@ -50,6 +50,21 @@
 
 using namespace std;
 
+
+static const std::locale systemLocale = []()
+{
+	try
+	{
+		return std::locale("");
+	}
+	catch(const std::runtime_error&)
+	{
+		// On Linux, std::locale("") reads from env variables and fails if the operating system doesn't have the locale the env variables are suggesting
+		return std::locale::classic();
+	}
+}();
+
+
 void printInt(int int2print)
 {
 	wchar_t str[32];
@@ -65,9 +80,8 @@ void printStr(const wchar_t *str2print)
 
 wstring commafyInt(size_t n)
 {
-	static const auto loc = std::locale("");
 	std::wstringstream ss;
-	ss.imbue(loc);
+	ss.imbue(systemLocale);
 	ss << n;
 	return ss.str();
 }
@@ -831,17 +845,15 @@ COLORREF getCtrlBgColor(HWND hWnd)
 
 std::wstring stringToUpper(std::wstring strToConvert)
 {
-	static const auto loc = std::locale("");
 	std::transform(strToConvert.begin(), strToConvert.end(), strToConvert.begin(),
-		[](auto ch) { return std::toupper(ch, loc); });
+		[](auto ch) { return std::toupper(ch, systemLocale); });
 	return strToConvert;
 }
 
 std::wstring stringToLower(std::wstring strToConvert)
 {
-	static const auto loc = std::locale("");
 	std::transform(strToConvert.begin(), strToConvert.end(), strToConvert.begin(),
-		[](auto ch) { return std::tolower(ch, loc); });
+		[](auto ch) { return std::tolower(ch, systemLocale); });
 	return strToConvert;
 }
 

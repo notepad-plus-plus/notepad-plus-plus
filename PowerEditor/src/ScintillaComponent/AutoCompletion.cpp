@@ -272,6 +272,19 @@ static constexpr const char* xpmboxDark[]{
 
 static constexpr size_t tagMaxLen = 256;
 
+static const std::locale systemLocale = []()
+{
+	try
+	{
+		return std::locale("");
+	}
+	catch(const std::runtime_error&)
+	{
+		// On Linux, std::locale("") reads from env variables and fails if the operating system doesn't have the locale the env variables are suggesting
+		return std::locale::classic();
+	}
+}();
+
 static bool isInList(const std::string& word, const std::vector<std::string>& wordArray)
 {
 	return std::find(wordArray.begin(), wordArray.end(), word) != wordArray.end();
@@ -286,7 +299,6 @@ static bool isAllDigits(const std::string& str)
 
 static void sortInsensitive(std::vector<std::string>& wordArray)
 {
-	static const auto loc = std::locale("");
 	std::sort(
 		wordArray.begin(),
 		wordArray.end(),
@@ -297,7 +309,7 @@ static void sortInsensitive(std::vector<std::string>& wordArray)
 				b.begin(), b.end(),
 				[](const auto &ch1, const auto &ch2)
 				{
-					return std::toupper(ch1, loc) < std::toupper(ch2, loc);
+					return std::toupper(ch1, systemLocale) < std::toupper(ch2, systemLocale);
 				}
 			);
 		}
@@ -550,8 +562,7 @@ static std::wstring removeTrailingSlash(const std::wstring& path)
 
 static bool isAllowedBeforeDriveLetter(wchar_t c)
 {
-	static const auto loc = std::locale("");
-	return c == L'\'' || c == L'"' || c == L'(' || std::isspace(c, loc);
+	return c == L'\'' || c == L'"' || c == L'(' || std::isspace(c, systemLocale);
 }
 
 static bool getRawPath(const std::wstring& input, std::wstring &rawPath_out)
@@ -560,13 +571,12 @@ static bool getRawPath(const std::wstring& input, std::wstring &rawPath_out)
 	// Algorithm: look for a colon. The colon must be preceded by an alphabetic character.
 	// The alphabetic character must, in turn, be preceded by nothing, or by whitespace, or by
 	// a quotation mark.
-	static const auto loc = std::locale("");
 	size_t lastOccurrence = input.rfind(L":");
 	if (lastOccurrence == std::string::npos) // No match.
 		return false;
 	else if (lastOccurrence == 0)
 		return false;
-	else if (!std::isalpha(input[lastOccurrence - 1], loc))
+	else if (!std::isalpha(input[lastOccurrence - 1], systemLocale))
 		return false;
 	else if (lastOccurrence >= 2 && !isAllowedBeforeDriveLetter(input[lastOccurrence - 2]))
 		return false;

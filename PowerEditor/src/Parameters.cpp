@@ -5585,9 +5585,10 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 		{
 			_nppGUI._statusBarShow = getBoolChildTextNode(childNode, _nppGUI._statusBarShow, STR_BOOL_SHOWHIDE);
 		}
-		// <GUIConfig name="MenuBar">show</GUIConfig>
+		// <GUIConfig name="MenuBar" focusByLoneAltPress="yes">show</GUIConfig>
 		else if (std::strcmp(nm, "MenuBar") == 0)
 		{
+			_nppGUI._loneAltPressFocusesMenu = getBoolAttribute(childNode, "focusByLoneAltPress", _nppGUI._loneAltPressFocusesMenu);
 			_nppGUI._menuBarShow = getBoolChildTextNode(childNode, _nppGUI._menuBarShow, STR_BOOL_SHOWHIDE);
 		}
 		// <GUIConfig name="TabBar" dragAndDrop="yes" drawTopBar="yes" drawInactiveTab="yes" reduce="yes" closeButton="yes"
@@ -7704,10 +7705,11 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._definedWorkspaceExt.c_str()));
 	}
 
-	// <GUIConfig name="MenuBar">show</GUIConfig>
+	// <GUIConfig name="MenuBar" focusByLoneAltPress="yes">show</GUIConfig>
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
 		GUIConfigElement->SetAttribute(L"name", L"MenuBar");
+		GUIConfigElement->SetAttribute(L"focusByLoneAltPress", _nppGUI._loneAltPressFocusesMenu ? L"yes" : L"no");
 		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._menuBarShow ? L"show" : L"hide"));
 	}
 

@@ -2986,7 +2986,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					_sysMenuEntering = true;
 				}
 				// If lParam is 0, it's a lone Alt press
-				else if (lParam == 0 && !nppGUI._loneAltPressFocusesMenu)
+				else if (lParam == 0 && !nppGUI._loneAltPressFocusesMenu && nppGUI._menuBarShow)
 				{
 					return TRUE;
 				}

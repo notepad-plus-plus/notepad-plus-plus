@@ -687,6 +687,11 @@ static int getKwClassFromName(const char* str)
 	return -1;
 }
 
+static constexpr DWORD RGBHEX(COLORREF color)
+{
+	return (((color & 0x0000FF) << 16) | ((color & 0x00FF00)) | ((color & 0xFF0000) >> 16));
+}
+
 } // anonymous namespace
 
 enum class XmlAttrResult
@@ -2708,7 +2713,7 @@ void NppParameters::updateStylesXml(const NppXml::Element& rootUser, const std::
 					wordsStyleFromClone;
 					wordsStyleFromClone = NppXml::nextSiblingElement(wordsStyleFromClone, "WordsStyle"))
 				{
-					std::string dest_id = NppXml::attribute(wordsStyleFromClone, "styleID", "");;
+					std::string dest_id = NppXml::attribute(wordsStyleFromClone, "styleID", "");
 					if (!dest_id.empty() && mapColorsEmbeddedToDotJs.contains(dest_id))
 					{
 						if (NppXml::attribute(wordsStyleFromClone, "fgColor") && mapColorsEmbeddedToDotJs[dest_id].contains("fgColor"))
@@ -4804,14 +4809,6 @@ int NppParameters::addStyleDefaultColors(
 	const std::string& styleID
 )
 {
-	constexpr auto rgbhex = [](COLORREF bbggrr) -> int
-	{
-		return
-			((bbggrr & 0xFF0000) >> 16) |
-			((bbggrr & 0x00FF00)) |
-			((bbggrr & 0x0000FF) << 16);
-	};
-
 	int result = 0;
 	const Style* pStyle = _widgetStyleArray.findByName(name);
 	if (!pStyle)
@@ -4827,14 +4824,14 @@ int NppParameters::addStyleDefaultColors(
 			if (!fgColor.empty())
 			{
 				char strColor[bufSize] = { '\0' };
-				std::snprintf(strColor, bufSize, "%6X", rgbhex(pStyleFrom->_fgColor));
+				std::snprintf(strColor, bufSize, "%.6lX", RGBHEX(pStyleFrom->_fgColor));
 				NppXml::setAttribute(newStyle, "fgColor", strColor);
 			}
 
 			if (!bgColor.empty())
 			{
 				char strColor[bufSize] = { '\0' };
-				std::snprintf(strColor, bufSize, "%6X", rgbhex(pStyleFrom->_bgColor));
+				std::snprintf(strColor, bufSize, "%.6lX", RGBHEX(pStyleFrom->_bgColor));
 				NppXml::setAttribute(newStyle, "bgColor", strColor);
 			}
 
@@ -6808,12 +6805,12 @@ void NppParameters::feedScintillaParam(const NppXml::Element& element)
 	_svp._columnSel2MultiEdit = getBoolAttribute(element, "columnSel2MultiEdit", _svp._columnSel2MultiEdit);
 }
 
-//<GUIConfig name="DockingManager" leftWidth="200" rightWidth="200" topHeight="200" bottomHeight="200">
-//    <ActiveTabs cont="0" activeTab="-1" />
-//    <ActiveTabs cont="1" activeTab="-1" />
-//    <ActiveTabs cont="2" activeTab="-1" />
-//    <ActiveTabs cont="3" activeTab="-1" />
-//</GUIConfig>
+// <GUIConfig name="DockingManager" leftWidth="200" rightWidth="200" topHeight="200" bottomHeight="200">
+//     <ActiveTabs cont="0" activeTab="-1" />
+//     <ActiveTabs cont="1" activeTab="-1" />
+//     <ActiveTabs cont="2" activeTab="-1" />
+//     <ActiveTabs cont="3" activeTab="-1" />
+// </GUIConfig>
 void NppParameters::feedDockingManager(const NppXml::Element& element)
 {
 	SIZE maxMonitorSize{ ::GetSystemMetrics(SM_CXSCREEN), ::GetSystemMetrics(SM_CYSCREEN) }; // use primary monitor as the default
@@ -6921,7 +6918,7 @@ void NppParameters::feedDockingManager(const NppXml::Element& element)
 		if (name && id > -1)
 		{
 			const int current = NppXml::intAttribute(childNode, "curr", 0); // on left
-			const int prev = NppXml::intAttribute(childNode, "prev", 0);; // on left
+			const int prev = NppXml::intAttribute(childNode, "prev", 0); // on left
 			const bool isVisible = getBoolAttribute(childNode, "isVisible");
 
 			_nppGUI._dockingData._pluginDockInfo.emplace_back(string2wstring(name).c_str(), id, current, prev, isVisible);
@@ -7963,11 +7960,6 @@ NppXml::Element NppParameters::insertGUIConfigBoolNode(NppXml::Element& r2w, con
 	return GUIConfigElement;
 }
 
-static int RGB2int(COLORREF color)
-{
-	return (((color & 0x0000FF) << 16) | ((color & 0x00FF00)) | ((color & 0xFF0000) >> 16));
-}
-
 int NppParameters::langTypeToCommandID(LangType lt) const
 {
 	int id;
@@ -8404,17 +8396,17 @@ void NppParameters::writeStyle2Element(const Style& style2Write, Style& style2Sy
 	static constexpr size_t bufSize = 7;
 	if (HIBYTE(HIWORD(style2Write._fgColor)) != 0xFF)
 	{
-		const int rgbVal = RGB2int(style2Write._fgColor);
+		const DWORD rgbVal = RGBHEX(style2Write._fgColor);
 		char fgStr[bufSize]{};
-		std::snprintf(fgStr, bufSize, "%.6X", rgbVal);
+		std::snprintf(fgStr, bufSize, "%.6lX", rgbVal);
 		NppXml::setAttribute(element, "fgColor", fgStr);
 	}
 
 	if (HIBYTE(HIWORD(style2Write._bgColor)) != 0xFF)
 	{
-		const int rgbVal = RGB2int(style2Write._bgColor);
+		const DWORD rgbVal = RGBHEX(style2Write._bgColor);
 		char bgStr[bufSize]{};
-		std::snprintf(bgStr, bufSize, "%.6X", rgbVal);
+		std::snprintf(bgStr, bufSize, "%.6lX", rgbVal);
 		NppXml::setAttribute(element, "bgColor", bgStr);
 	}
 
@@ -8506,17 +8498,17 @@ void NppParameters::insertUserLang2Tree(NppXml::Element& node, const UserLangCon
 		static constexpr size_t bufSize = 7;
 		//if (HIBYTE(HIWORD(style2Write._fgColor)) != 0xFF)
 		{
-			const int rgbVal = RGB2int(style2Write._fgColor);
+			const DWORD rgbVal = RGBHEX(style2Write._fgColor);
 			char fgStr[bufSize]{};
-			std::snprintf(fgStr, bufSize, "%.6X", rgbVal);
+			std::snprintf(fgStr, bufSize, "%.6lX", rgbVal);
 			NppXml::setAttribute(styleElement, "fgColor", fgStr);
 		}
 
 		//if (HIBYTE(HIWORD(style2Write._bgColor)) != 0xFF)
 		{
-			const int rgbVal = RGB2int(style2Write._bgColor);
+			const DWORD rgbVal = RGBHEX(style2Write._bgColor);
 			char bgStr[bufSize]{};
-			std::snprintf(bgStr, bufSize, "%.6X", rgbVal);
+			std::snprintf(bgStr, bufSize, "%.6lX", rgbVal);
 			NppXml::setAttribute(styleElement, "bgColor", bgStr);
 		}
 

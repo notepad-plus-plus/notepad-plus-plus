@@ -878,22 +878,22 @@ void NativeLangSpeaker::changeFindReplaceDlgLang(FindReplaceDlg& findReplaceDlg)
 				}
 				if (titre2 && titre2[0])
 				{
-					nppParam.getFindDlgTabTitles()._replace = string2wstring(titre2, _nativeLangEncoding);;
+					nppParam.getFindDlgTabTitles()._replace = string2wstring(titre2, _nativeLangEncoding);
 					findReplaceDlg.changeTabName(REPLACE_DLG, nppParam.getFindDlgTabTitles()._replace.c_str());
 				}
 				if (titre3 && titre3[0])
 				{
-					nppParam.getFindDlgTabTitles()._findInFiles = string2wstring(titre3, _nativeLangEncoding);;
+					nppParam.getFindDlgTabTitles()._findInFiles = string2wstring(titre3, _nativeLangEncoding);
 					findReplaceDlg.changeTabName(FINDINFILES_DLG, nppParam.getFindDlgTabTitles()._findInFiles.c_str());
 				}
 				if (titre4 && titre4[0])
 				{
-					nppParam.getFindDlgTabTitles()._findInProjects = string2wstring(titre4, _nativeLangEncoding);;
+					nppParam.getFindDlgTabTitles()._findInProjects = string2wstring(titre4, _nativeLangEncoding);
 					findReplaceDlg.changeTabName(FINDINPROJECTS_DLG, nppParam.getFindDlgTabTitles()._findInProjects.c_str());
 				}
 				if (titre5 && titre5[0])
 				{
-					nppParam.getFindDlgTabTitles()._mark = string2wstring(titre5, _nativeLangEncoding);;
+					nppParam.getFindDlgTabTitles()._mark = string2wstring(titre5, _nativeLangEncoding);
 					findReplaceDlg.changeTabName(MARK_DLG, nppParam.getFindDlgTabTitles()._mark.c_str());
 				}
 			}

@@ -1221,7 +1221,7 @@
 					<Item id="6910" name="Minimálna dĺžka na automatické začiarknutie &quot;Vo výbere&quot;:"/>
 					<Item id="6913" name="Vyplniť pole Priečinok v Hľadať v súboroch z aktívneho dokumentu"/>
 					<Item id="6916" name=": Maximálny počet znakov na automatické vloženie do poľa Hľadať"/>
-					<Item id="6917" name="Hľadať v súboroch: Ignorovať neuložené zmeny v otvorených súboroch"/>
+					<Item id="6917" name="Hľadať v súboroch: Uprednostniť obsah súboru na disku pred otvorenými vyrovnávacími pamäťami"/>
 				</Searching>
 
 				<RecentFilesHistory title="História súborov">

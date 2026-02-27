@@ -713,10 +713,10 @@
 					<Item id="43059" name="Kopírovať štylizovaný text 5. štýlu"/>
 					<Item id="43060" name="Kopírovať štylizovaný text Všetkých štýlov"/>
 					<Item id="43061" name="Kopírovať štylizovaný text Hľadať štýl označenia"/>
-					<Item id="44100" name="Zobraziť aktuálny súbor vo Firefoxe"/>
-					<Item id="44101" name="Zobraziť aktuálny súbor v Chrome"/>
-					<Item id="44103" name="Zobraziť aktuálny súbor v IE"/>
-					<Item id="44102" name="Zobraziť aktuálny súbor v Edgei"/>
+					<Item id="44100" name="Zobraziť aktuálny súbor v prehliadači Firefox"/>
+					<Item id="44101" name="Zobraziť aktuálny súbor v prehliadači Chrome"/>
+					<Item id="44103" name="Zobraziť aktuálny súbor v prehliadači IE"/>
+					<Item id="44102" name="Zobraziť aktuálny súbor v prehliadači Edge"/>
 					<Item id="50003" name="Prepnúť na predchádzajúci dokument"/>
 					<Item id="50004" name="Prepnúť na nasledujúci dokument"/>
 					<Item id="44051" name="Zbaliť úroveň 1"/>

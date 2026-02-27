@@ -544,7 +544,7 @@
 				<Item id="2007" name="&amp;Riadok"/>
 				<Item id="2008" name="&amp;Pozícia"/>
 				<Item id="1" name="Prejsť"/>
-				<Item id="2" name="Nikam nejdem"/>
+				<Item id="2" name="Zrušiť"/>
 				<Item id="2004" name="Aktuálny riadok/pozícia:"/>
 				<Item id="2005" name="Prejsť na riadok/pozíciu:"/>
 				<Item id="2006" name="Posledný riadok/pozícia:"/>

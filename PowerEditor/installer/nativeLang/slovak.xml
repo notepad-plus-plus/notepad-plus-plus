@@ -1459,7 +1459,7 @@ Toto dialógové okno môžete neskôr znovu aktivovať v Predvoľbách."/>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
 			<ContextMenuXmlEditWarning title="Úprava kontextovej ponuky" message="Úpravou súboru contextMenu.xml zmeníte kontextovú ponuku programu.
-Bude potrebné reštartovať Notepad++, aby sa zmeny po úprave súboru contextMenu.xml prejavili"/>
+Bude potrebné reštartovať Notepad++, aby sa zmeny po úprave súboru contextMenu.xml prejavili."/>
 			<SaveCurrentModifWarning title="Uložiť zmeny" message="Mali by ste uložiť aktuálne zmeny.
 Uložené zmeny nie je možné vrátiť.
 

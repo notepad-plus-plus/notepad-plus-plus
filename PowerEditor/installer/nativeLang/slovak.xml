@@ -48,7 +48,7 @@
 					<Item subMenuId="search-jumpDown" name="Skok na&amp;dol"/>
 					<Item subMenuId="search-copyStyledText" name="Kopírovať štylizovaný te&amp;xt"/>
 					<Item subMenuId="search-bookmark" name="Zálo&amp;žka"/>
-					<Item subMenuId="view-currentFileIn" name="Zobraziť aktuálny súbor v"/>
+<Item subMenuId="view-currentFileIn" name="Zobraziť aktuálny súbor v prehliadači"/>
 					<Item subMenuId="view-showSymbol" name="Zobraziť znak"/>
 					<Item subMenuId="view-zoom" name="Lupa"/>
 					<Item subMenuId="view-moveCloneDocument" name="Presunúť/Klonovať aktuálny dokument"/>

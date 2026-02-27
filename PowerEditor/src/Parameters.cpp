@@ -5553,7 +5553,7 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 		}
 		// <GUIConfig name="TabBar" dragAndDrop="yes" drawTopBar="yes" drawInactiveTab="yes" reduce="yes" closeButton="yes"
 		// pinButton="yes" showOnlyPinnedButton="no" buttonsOninactiveTabs="no" doubleClick2Close="no"
-		// vertical="no" multiLine="no" hide="no" quitOnEmpty="no" iconSetNumber="0" tabCompactLabelLen="0" />
+		// vertical="no" multiLine="no" hide="no" quitOnEmpty="no" tabCompactLabelLen="0" />
 		else if (std::strcmp(nm, "TabBar") == 0)
 		{
 			bool isFailed = false;
@@ -5602,31 +5602,6 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 			setTabStatus("multiLine", TAB_MULTILINE);
 			setTabStatus("hide", TAB_HIDE);
 			setTabStatus("quitOnEmpty", TAB_QUITONEMPTY);
-
-			if (!isFailed)
-			{
-				const int iconSetNumber = NppXml::intAttribute(childNode, "iconSetNumber", -1);
-				switch (iconSetNumber)
-				{
-					case 0: // light icons
-					case 2: // dark icons
-					{
-						break;
-					}
-
-					case 1:
-					{
-						_nppGUI._tabStatus |= TAB_ALTICONS;
-						break;
-					}
-
-					default:
-					{
-						isFailed = true;
-						break;
-					}
-				}
-			}
 
 			if (isFailed)
 				_nppGUI._tabStatus = oldValue;
@@ -7176,7 +7151,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		NppXml::createChildText(GUIConfigElement, _nppGUI._statusBarShow ? "show" : "hide");
 	}
 
-	// <GUIConfig name="TabBar" dragAndDrop="yes" drawTopBar="yes" drawInactiveTab="yes" reduce="yes" closeButton="yes" pinButton="yes" showOnlyPinnedButton="no" buttonsOninactiveTabs="no" doubleClick2Close="no" vertical="no" multiLine="no" hide="no" quitOnEmpty="no" iconSetNumber="0" />
+	// <GUIConfig name="TabBar" dragAndDrop="yes" drawTopBar="yes" drawInactiveTab="yes" reduce="yes" closeButton="yes" pinButton="yes" showOnlyPinnedButton="no" buttonsOninactiveTabs="no" doubleClick2Close="no" vertical="no" multiLine="no" hide="no" quitOnEmpty="no" />
 	{
 		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
 		NppXml::setAttribute(GUIConfigElement, "name", "TabBar");
@@ -7195,20 +7170,6 @@ void NppParameters::createXmlTreeFromGUIParams()
 		setBoolAttribute(GUIConfigElement, "hide", (_nppGUI._tabStatus & TAB_HIDE) != 0 && !_nppGUI._forceTabbarVisible);
 		setBoolAttribute(GUIConfigElement, "quitOnEmpty", (_nppGUI._tabStatus & TAB_QUITONEMPTY) != 0);
 
-		const auto iconSetNumber = [this]()
-		{
-			if ((_nppGUI._tabStatus & TAB_ALTICONS) != 0)
-			{
-				return 1;
-			}
-			if (_nppGUI._darkmode._isEnabled)
-			{
-				return _nppGUI._darkmode._advOptions._darkDefaults._tabIconSet;
-			}
-			return _nppGUI._darkmode._advOptions._lightDefaults._tabIconSet;
-		}();
-
-		NppXml::setAttribute(GUIConfigElement, "iconSetNumber", iconSetNumber);
 		NppXml::setAttribute(GUIConfigElement, "tabCompactLabelLen", static_cast<int>(_nppGUI._tabCompactLabelLen));
 	}
 
@@ -7268,12 +7229,12 @@ void NppParameters::createXmlTreeFromGUIParams()
 		setBoolAttribute(GUIConfigElement, "FiF_ignoreunsavedChangesInOpenedFiles", _nppGUI._fif_ignoreunsavedChangesInOpenedFiles);
 	}
 
-	// <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20161022">no</GUIConfig>
+	// <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20161022" autoUpdateMode="1">no</GUIConfig>
 	{
 		NppXml::Element GUIConfigElement = insertGUIConfigBoolNode(newGUIRoot, "noUpdate", _nppGUI._autoUpdateOpt._doAutoUpdate == NppGUI::AutoUpdateMode::autoupdate_disabled);
 		NppXml::setAttribute(GUIConfigElement, "intervalDays", _nppGUI._autoUpdateOpt._intervalDays);
 		NppXml::setAttribute(GUIConfigElement, "nextUpdateDate", _nppGUI._autoUpdateOpt._nextUpdateDate.toString().c_str());
-		NppXml::setAttribute(GUIConfigElement, "triggerFromNbChar", _nppGUI._autoUpdateOpt._doAutoUpdate);
+		NppXml::setAttribute(GUIConfigElement, "autoUpdateMode", _nppGUI._autoUpdateOpt._doAutoUpdate);
 	}
 
 	// <GUIConfig name="Auto-detection">yes</GUIConfig>

@@ -6225,7 +6225,7 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 		{
 			{
 				using enum NppGUI::AutocStatus;
-				_nppGUI._autocStatus = getRangeDefaultAttribute(childNode, "action", autoc_none, autoc_both, _nppGUI._autocStatus);
+				_nppGUI._autocStatus = getRangeDefaultAttribute(childNode, "autoCAction", autoc_none, autoc_both, _nppGUI._autocStatus);
 			}
 
 			// from preferenceDlg.cpp

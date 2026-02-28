@@ -8299,16 +8299,14 @@ std::wstring NppParameters::writeStyles(LexerStylerArray& lexersStylers, StyleAr
 		}
 	}
 
-	const bool isSaved = NppXml::saveFile(_pXmlUserStylerDoc._doc, _pXmlUserStylerDoc._path.c_str());
-	if (!isSaved)
+	const auto savePath = _themeSwitcher.getSavePathFrom(_pXmlUserStylerDoc._path);
+	if (!savePath.empty())
 	{
-		auto savePath = _themeSwitcher.getSavePathFrom(_pXmlUserStylerDoc._path);
-		if (!savePath.empty())
-		{
-			static_cast<void>(NppXml::saveFile(_pXmlUserStylerDoc._doc, savePath.c_str()));
-			return savePath;
-		}
+		static_cast<void>(NppXml::saveFile(_pXmlUserStylerDoc._doc, savePath.c_str()));
+		return savePath;
 	}
+
+	static_cast<void>(NppXml::saveFile(_pXmlUserStylerDoc._doc, _pXmlUserStylerDoc._path.c_str()));
 	return L"";
 }
 

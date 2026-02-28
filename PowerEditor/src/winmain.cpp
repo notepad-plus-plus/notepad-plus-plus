@@ -496,6 +496,72 @@ DWORD nppUacCreateEmptyFile(const wchar_t* wszNewEmptyFilePath)
 	return ERROR_SUCCESS;
 }
 
+// create (or obtain handle to existing) system-wide Notepad++ mutex
+#include <sddl.h> // Security Descriptor Definition Language
+#ifdef _MSC_VER
+#pragma warning(disable : 4996) // for GetVersion
+#endif
+bool secureGlobalNppMutex()
+{
+	// we cannot use NULL here for the following CreateMutex lpMutexAttributes 1st param, otherwise we will get
+	// ERROR_ACCESS_DENIED for any consequent Create/OpenMutex calls later if the mutex has been previously created in a thread
+	// that is impersonating a different user (or service), example:
+	// https://web.archive.org/web/20151215210112/http://blogs.msdn.com/b/winsdk/archive/2009/11/10/access-denied-on-a-mutex.aspx
+
+	// obtaining medium integrity level security descriptor by the help of SDDL, here:
+	// - D: means DACL (Discretionary Access Control List), S: means SACL (System ACL)
+	// - the general format of an ACE (Access Control Entry) string: (type;flags;rights;object-guid;inherit-object-guid;sid)
+	// - more details in:
+	//   https://learn.microsoft.com/en-us/windows/win32/secauthz/ace-strings
+	//   https://learn.microsoft.com/en-us/windows/win32/secauthz/security-descriptor-string-format
+
+	LPCWSTR pwszStringSecDesc;
+	if ((LOBYTE(LOWORD(::GetVersion()))) >= 6)
+		pwszStringSecDesc = L"D:(A;;GA;;;WD)(A;;GA;;;AN)S:(ML;;NW;;;ME)"; // WinVista+
+	else
+		pwszStringSecDesc = L"D:(A;;GA;;;WD)(A;;GA;;;AN)"; // WinXP-
+
+	PSECURITY_DESCRIPTOR pSecDesc = nullptr;
+	if (!::ConvertStringSecurityDescriptorToSecurityDescriptorW(pwszStringSecDesc, SDDL_REVISION_1, &pSecDesc, NULL))
+	{
+#ifdef _DEBUG
+		std::string msg = "Notepad++::secureGlobalNppMutex() - ConvertStringSecurityDescriptorToSecurityDescriptor failed with error-code: " \
+			+ std::to_string(::GetLastError());
+		::OutputDebugStringA(msg.c_str());
+#endif // _DEBUG
+		return false;
+	}
+
+	SECURITY_ATTRIBUTES SecAttr{};
+	SecAttr.nLength = sizeof(SECURITY_ATTRIBUTES);
+	SecAttr.lpSecurityDescriptor = pSecDesc;
+	SecAttr.bInheritHandle = FALSE;
+
+	bool bRet = false;
+	::SetLastError(NO_ERROR);
+	if (::CreateMutexW(&SecAttr, FALSE, L"Global\\nppInstanceGlb") == NULL)
+	{
+#ifdef _DEBUG
+		std::string msg = "Notepad++::secureGlobalNppMutex() - CreateMutex failed with error-code: " + std::to_string(::GetLastError());
+		::OutputDebugStringA(msg.c_str());
+#endif // _DEBUG
+	}
+	else
+	{
+		// all ok
+		// Note: We let the system automatically close for us the obtained outstanding mutex handle when the Notepad++ process ends.
+		bRet = true;
+	}
+
+	if (pSecDesc)
+		::LocalFree(pSecDesc);
+
+	return bRet;
+}
+#ifdef _MSC_VER
+#pragma warning(default : 4996)
+#endif
+
 } // namespace
 
 
@@ -505,7 +571,37 @@ std::chrono::steady_clock::time_point g_nppStartTimePoint{};
 int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance*/, _In_ PWSTR pCmdLine, _In_ int /*nShowCmd*/)
 {
 	g_nppStartTimePoint = std::chrono::steady_clock::now();
-	
+
+	// DEBUG: TEMP: (will be removed in the final PR version) //////////////////////////
+	/*
+	HANDLE hNppGlobalMtx = ::OpenMutexW(SYNCHRONIZE, FALSE, L"Global\\nppInstanceGlb");
+	if (hNppGlobalMtx)
+	{
+		::CloseHandle(hNppGlobalMtx);
+		::MessageBoxW(NULL, L"DEBUG: Global OpenMutex succeeded, we are not alone...", L"Notepad++ wWinMain", MB_OK | MB_APPLMODAL);
+	}
+	else
+	{
+		DWORD dwError = ::GetLastError();
+		if (dwError == ERROR_FILE_NOT_FOUND)
+		{
+			::MessageBoxW(NULL, L"DEBUG: Global OpenMutex did not find a handle, it means we should be alone...", L"Notepad++ wWinMain", MB_OK | MB_APPLMODAL);
+		}
+		else
+		{
+			std::wstring msg = L"DEBUG: Global OpenMutex failed with error-code: " + std::to_wstring(dwError);
+			::MessageBoxW(NULL, msg.c_str(), L"Notepad++ wWinMain", MB_OK | MB_APPLMODAL | MB_ICONERROR);
+		}
+	}
+	*/
+	///////////////////////////////////////////////////////////////////////////////////
+
+	// try to create (or obtain handle to) Notepad++ instance mutex in the system Global-namespace
+	// - it will not be used further in the Notepad++ app in any way, only from external processes like from the Notepad++ installers
+	// - so a (malicious or unaware) other logged in user cannot misuse this by creating the same global mutex before us
+	//   and prevent starting or influence behavior of the Notepad++ app
+	secureGlobalNppMutex();
+
 	// Notepad++ UAC OPS /////////////////////////////////////////////////////////////////////////////////////////////
 	if ((lstrlenW(pCmdLine) > 0) && (__argc >= 2)) // safe (if pCmdLine is NULL, lstrlen returns 0)
 	{

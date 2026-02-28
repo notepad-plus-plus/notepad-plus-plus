@@ -224,14 +224,14 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 	fileNames.clear();
 	ThemeSwitcher & themeSwitcher = nppParams.getThemeSwitcher();
 
-	//  Get themes from both npp install themes dir and app data themes dir with the per user
+	//  Get themes from both npp install themes dir and user data themes dir (AppData, settingsDir, or cloud) with the per user
 	//  overriding default themes of the same name.
 
-	wstring appDataThemeDir = nppParams.isCloud() ? nppParams.getUserPath() : nppParams.getAppDataNppDir();
-	if (!appDataThemeDir.empty())
+	wstring userDataThemeDir = nppParams.getUserPath(); // getUserPath will always pick the right settingsDir/Cloud/AppData location
+	if (!userDataThemeDir.empty())
 	{
-		pathAppend(appDataThemeDir, L"themes\\");
-		_notepad_plus_plus_core.getMatchedFileNames(appDataThemeDir.c_str(), 0, patterns, fileNames, false, false);
+		pathAppend(userDataThemeDir, L"themes\\");
+		_notepad_plus_plus_core.getMatchedFileNames(userDataThemeDir.c_str(), 0, patterns, fileNames, false, false);
 		for (size_t i = 0, len = fileNames.size() ; i < len ; ++i)
 		{
 			themeSwitcher.addThemeFromXml(fileNames[i]);
@@ -254,18 +254,18 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 		{
 			themeSwitcher.addThemeFromXml(fileNames[i]);
 			
-			if (!appDataThemeDir.empty())
+			if (!userDataThemeDir.empty())
 			{
-				wstring appDataThemePath = appDataThemeDir;
+				wstring userDataThemePath = userDataThemeDir;
 
-				if (!doesDirectoryExist(appDataThemePath.c_str()))
+				if (!doesDirectoryExist(userDataThemePath.c_str()))
 				{
-					::CreateDirectory(appDataThemePath.c_str(), NULL);
+					::CreateDirectory(userDataThemePath.c_str(), NULL);
 				}
 
 				wchar_t* fn = PathFindFileName(fileNames[i].c_str());
-				pathAppend(appDataThemePath, fn);
-				themeSwitcher.addThemeStylerSavePath(fileNames[i], appDataThemePath);
+				pathAppend(userDataThemePath, fn);
+				themeSwitcher.addThemeStylerSavePath(fileNames[i], userDataThemePath);
 			}
 		}
 	}

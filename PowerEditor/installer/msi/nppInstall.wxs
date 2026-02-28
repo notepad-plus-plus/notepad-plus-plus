@@ -32,6 +32,7 @@
 					<Directory Id="PluginMimeToolsFolder" Name="mimeTools" />
 					<Directory Id="PluginNppConverterFolder" Name="NppConverter" />
 					<Directory Id="PluginNppExportFolder" Name="NppExport" />
+					<Directory Id="PluginNppConsoleFolder" Name="NppConsole" />
 				</Directory>
 
 				<Directory Id="FunctionListFolder" Name="functionList" />
@@ -109,6 +110,7 @@
 			<ComponentGroupRef Id="PluginMimeToolsComponentGroup" />
 			<ComponentGroupRef Id="PluginNppConverterComponentGroup" />
 			<ComponentGroupRef Id="PluginNppExportComponentGroup" />
+			<ComponentGroupRef Id="PluginNppConsoleComponentGroup" />
 
 			<ComponentGroupRef Id="AutoCompletionComponentGroup" />
 			<ComponentGroupRef Id="FunctionListComponentGroup" />

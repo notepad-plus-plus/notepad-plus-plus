@@ -11,6 +11,7 @@ There are three components which are built from one visual studio solution:
 - `notepad++.exe`: (contains `libSciLexer.lib`)
 - `libScintilla.lib` : static library based on [Scintilla](https://www.scintilla.org/)
 - `libLexilla.lib` : static library based on [Lexilla](https://www.scintilla.org/Lexilla.html)
+- `NppConsole.dll` : default plugin binary copied to `bin*/plugins/NppConsole/`
 
 Notepad++ is always built **with** Boost regex PCRE support instead of default c++11 regex ECMAScript used by plain Scintilla.
 

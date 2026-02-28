@@ -33,7 +33,7 @@ set nppBinaries=..\bin\notepad++.exe ..\bin64\notepad++.exe ..\binarm64\notepad+
 
 set componentsBinaries=..\bin\plugins\Config\nppPluginList.dll ..\bin64\plugins\Config\nppPluginList.dll ..\binarm64\plugins\Config\nppPluginList.dll ..\bin\updater\GUP.exe ..\bin64\updater\GUP.exe ..\binarm64\updater\GUP.exe
 
-set pluginBinaries=..\bin\plugins\NppExport\NppExport.dll ..\bin64\plugins\NppExport\NppExport.dll ..\binarm64\plugins\NppExport\NppExport.dll ..\bin\plugins\mimeTools\mimeTools.dll ..\bin64\plugins\mimeTools\mimeTools.dll ..\binarm64\plugins\mimeTools\mimeTools.dll ..\bin\plugins\NppConverter\NppConverter.dll ..\bin64\plugins\NppConverter\NppConverter.dll ..\binarm64\plugins\NppConverter\NppConverter.dll
+set pluginBinaries=..\bin\plugins\NppExport\NppExport.dll ..\bin64\plugins\NppExport\NppExport.dll ..\binarm64\plugins\NppExport\NppExport.dll ..\bin\plugins\mimeTools\mimeTools.dll ..\bin64\plugins\mimeTools\mimeTools.dll ..\binarm64\plugins\mimeTools\mimeTools.dll ..\bin\plugins\NppConverter\NppConverter.dll ..\bin64\plugins\NppConverter\NppConverter.dll ..\binarm64\plugins\NppConverter\NppConverter.dll ..\bin\plugins\NppConsole\NppConsole.dll ..\bin64\plugins\NppConsole\NppConsole.dll ..\binarm64\plugins\NppConsole\NppConsole.dll
 
 
 REM macro is used to sign NppShell.dll & NppShell.msix with hash algorithm SHA256, due to signtool.exe bug:
@@ -176,6 +176,7 @@ mkdir .\zipped.package.release\plugins
 mkdir .\zipped.package.release\plugins\NppExport
 mkdir .\zipped.package.release\plugins\mimeTools
 mkdir .\zipped.package.release\plugins\NppConverter
+mkdir .\zipped.package.release\plugins\NppConsole
 mkdir .\zipped.package.release\plugins\Config
 mkdir .\zipped.package.release\plugins\doc
 
@@ -195,6 +196,7 @@ mkdir .\zipped.package.release64\plugins
 mkdir .\zipped.package.release64\plugins\NppExport
 mkdir .\zipped.package.release64\plugins\mimeTools
 mkdir .\zipped.package.release64\plugins\NppConverter
+mkdir .\zipped.package.release64\plugins\NppConsole
 mkdir .\zipped.package.release64\plugins\Config
 mkdir .\zipped.package.release64\plugins\doc
 
@@ -214,6 +216,7 @@ mkdir .\zipped.package.releaseArm64\plugins
 mkdir .\zipped.package.releaseArm64\plugins\NppExport
 mkdir .\zipped.package.releaseArm64\plugins\mimeTools
 mkdir .\zipped.package.releaseArm64\plugins\NppConverter
+mkdir .\zipped.package.releaseArm64\plugins\NppConsole
 mkdir .\zipped.package.releaseArm64\plugins\Config
 mkdir .\zipped.package.releaseArm64\plugins\doc
 
@@ -307,6 +310,8 @@ copy /Y "..\bin\plugins\mimeTools\mimeTools.dll" .\zipped.package.release\plugin
 If ErrorLevel 1 goto End
 copy /Y "..\bin\plugins\NppConverter\NppConverter.dll" .\zipped.package.release\plugins\NppConverter\
 If ErrorLevel 1 goto End
+copy /Y "..\bin\plugins\NppConsole\NppConsole.dll" .\zipped.package.release\plugins\NppConsole\
+If ErrorLevel 1 goto End
 
 rem Plugins: Copy needed files into Notepad++ 64-bit package folders
 copy /Y "..\bin64\plugins\NppExport\NppExport.dll" .\zipped.package.release64\plugins\NppExport\
@@ -315,6 +320,8 @@ copy /Y "..\bin64\plugins\mimeTools\mimeTools.dll" .\zipped.package.release64\pl
 If ErrorLevel 1 goto End
 copy /Y "..\bin64\plugins\NppConverter\NppConverter.dll" .\zipped.package.release64\plugins\NppConverter\
 If ErrorLevel 1 goto End
+copy /Y "..\bin64\plugins\NppConsole\NppConsole.dll" .\zipped.package.release64\plugins\NppConsole\
+If ErrorLevel 1 goto End
 
 rem Plugins: Copy needed files into Notepad++ 64-bit package folders
 copy /Y "..\binarm64\plugins\NppExport\NppExport.dll" .\zipped.package.releaseArm64\plugins\NppExport\
@@ -322,6 +329,8 @@ If ErrorLevel 1 goto End
 copy /Y "..\binarm64\plugins\mimeTools\mimeTools.dll" .\zipped.package.releaseArm64\plugins\mimeTools\
 If ErrorLevel 1 goto End
 copy /Y "..\binarm64\plugins\NppConverter\NppConverter.dll" .\zipped.package.releaseArm64\plugins\NppConverter\
+If ErrorLevel 1 goto End
+copy /Y "..\binarm64\plugins\NppConsole\NppConsole.dll" .\zipped.package.releaseArm64\plugins\NppConsole\
 If ErrorLevel 1 goto End
 
 

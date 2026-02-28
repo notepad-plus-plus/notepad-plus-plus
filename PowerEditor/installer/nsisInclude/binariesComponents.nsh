@@ -64,6 +64,21 @@ SectionGroup "Plugins" Plugins
 !endif
 	${MementoSectionEnd}
 
+	${MementoSection} "Console" Console
+		Delete "$INSTDIR\plugins\NppConsole.dll"
+		Delete "$INSTDIR\plugins\NppConsole\NppConsole.dll"
+		Delete "$PLUGIN_INST_PATH\NppConsole\NppConsole.dll"
+
+		SetOutPath "$PLUGIN_INST_PATH\NppConsole"
+!ifdef ARCH64
+		File "..\bin64\plugins\NppConsole\NppConsole.dll"
+!else ifdef ARCHARM64
+		File "..\binarm64\plugins\NppConsole\NppConsole.dll"
+!else
+		File "..\bin\plugins\NppConsole\NppConsole.dll"
+!endif
+	${MementoSectionEnd}
+
 SectionGroupEnd
 
 ${MementoSection} "Auto-Updater" AutoUpdater
@@ -134,6 +149,14 @@ SectionGroup un.Plugins
 		RMDir "$INSTDIR\plugins\mimeTools"
 		Delete "$PLUGIN_INST_PATH\mimeTools\mimeTools.dll"
 		RMDir "$PLUGIN_INST_PATH\mimeTools"
+	SectionEnd
+
+	Section un.Console
+		Delete "$INSTDIR\plugins\NppConsole.dll"
+		Delete "$INSTDIR\plugins\NppConsole\NppConsole.dll"
+		RMDir "$INSTDIR\plugins\NppConsole"
+		Delete "$PLUGIN_INST_PATH\NppConsole\NppConsole.dll"
+		RMDir "$PLUGIN_INST_PATH\NppConsole"
 	SectionEnd
 
  	Section un.DSpellCheck

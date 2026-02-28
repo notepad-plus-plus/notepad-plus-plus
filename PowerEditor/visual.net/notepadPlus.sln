@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lexilla", "..\..\lexilla\sr
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Scintilla", "..\..\scintilla\win32\Scintilla.vcxproj", "{19CCA8B8-46B9-4609-B7CE-198DA19F07BD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NppConsole", "..\plugins\NppConsole\NppConsole.vcxproj", "{AAEC59E5-048D-4081-A243-6BCE0859D520}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM64 = Debug|ARM64
@@ -59,6 +61,18 @@ Global
 		{19CCA8B8-46B9-4609-B7CE-198DA19F07BD}.Release|Win32.Build.0 = Release|Win32
 		{19CCA8B8-46B9-4609-B7CE-198DA19F07BD}.Release|x64.ActiveCfg = Release|x64
 		{19CCA8B8-46B9-4609-B7CE-198DA19F07BD}.Release|x64.Build.0 = Release|x64
+		{AAEC59E5-048D-4081-A243-6BCE0859D520}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{AAEC59E5-048D-4081-A243-6BCE0859D520}.Debug|ARM64.Build.0 = Debug|ARM64
+		{AAEC59E5-048D-4081-A243-6BCE0859D520}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AAEC59E5-048D-4081-A243-6BCE0859D520}.Debug|Win32.Build.0 = Debug|Win32
+		{AAEC59E5-048D-4081-A243-6BCE0859D520}.Debug|x64.ActiveCfg = Debug|x64
+		{AAEC59E5-048D-4081-A243-6BCE0859D520}.Debug|x64.Build.0 = Debug|x64
+		{AAEC59E5-048D-4081-A243-6BCE0859D520}.Release|ARM64.ActiveCfg = Release|ARM64
+		{AAEC59E5-048D-4081-A243-6BCE0859D520}.Release|ARM64.Build.0 = Release|ARM64
+		{AAEC59E5-048D-4081-A243-6BCE0859D520}.Release|Win32.ActiveCfg = Release|Win32
+		{AAEC59E5-048D-4081-A243-6BCE0859D520}.Release|Win32.Build.0 = Release|Win32
+		{AAEC59E5-048D-4081-A243-6BCE0859D520}.Release|x64.ActiveCfg = Release|x64
+		{AAEC59E5-048D-4081-A243-6BCE0859D520}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

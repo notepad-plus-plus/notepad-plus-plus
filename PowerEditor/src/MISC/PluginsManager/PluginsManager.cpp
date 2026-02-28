@@ -320,10 +320,11 @@ bool PluginsManager::loadPlugins(const wchar_t* dir, const PluginViewList* plugi
 		return false;
 
 	vector<wstring> dllNames;
+	dllNames.reserve(32);
 
 	NppParameters& nppParams = NppParameters::getInstance();
 	wstring nppPath = nppParams.getNppPath();
-	
+
 	wstring pluginsFolder;
 	if (dir && dir[0])
 	{
@@ -336,177 +337,105 @@ bool PluginsManager::loadPlugins(const wchar_t* dir, const PluginViewList* plugi
 	}
 	wstring pluginsFolderFilter = pluginsFolder;
 	pathAppend(pluginsFolderFilter, L"*.*");
-	
-	WIN32_FIND_DATA foundData;
+	WIN32_FIND_DATA foundData{};
 	HANDLE hFindFolder = ::FindFirstFile(pluginsFolderFilter.c_str(), &foundData);
-	HANDLE hFindDll = INVALID_HANDLE_VALUE;
 
-	// Get Notepad++ current version
-	wchar_t nppFullPathName[MAX_PATH];
-	GetModuleFileName(NULL, nppFullPathName, MAX_PATH);
 	Version nppVer;
-	nppVer.setVersionFrom(nppFullPathName);
-
-	// get plugin folder
-	if (hFindFolder != INVALID_HANDLE_VALUE && (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+	const bool shouldCheckCompatibility = pluginUpdateInfoList != nullptr;
+	if (shouldCheckCompatibility)
 	{
-		const wchar_t* incompatibleWarning = L"%s's version %s is not compatible to this version of Notepad++ (v%s).\r\nAs a result the plugin cannot be loaded.";
-		const wchar_t* incompatibleWarningWithSolution = L"%s's version %s is not compatible to this version of Notepad++ (v%s).\r\nAs a result the plugin cannot be loaded.\r\n\r\nGo to Updates section and update your plugin to %s for solving the compatibility issue.";
-
-		wstring foundFileName = foundData.cFileName;
-		if (foundFileName != L"." && foundFileName != L".." && _wcsicmp(foundFileName.c_str(), L"Config") != 0)
-		{
-			wstring pluginsFullPathFilter = pluginsFolder;
-			pathAppend(pluginsFullPathFilter, foundFileName);
-			wstring  dllName = foundFileName;
-			dllName += L".dll";
-			pathAppend(pluginsFullPathFilter, dllName);
-
-			// get plugin
-			hFindDll = ::FindFirstFile(pluginsFullPathFilter.c_str(), &foundData);
-			if (hFindDll != INVALID_HANDLE_VALUE && !(foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
-			{
-				// - foundFileName: folder-name
-				// _ pluginsFullPathFilter: version
-				// 
-				// Find plugin update info of current plugin and check if it's compatible to Notepad++ current versions
-				bool isCompatible = true;
-
-				if (pluginUpdateInfoList)
-				{
-					int index = 0;
-					PluginUpdateInfo* pui = pluginUpdateInfoList->findPluginInfoFromFolderName(foundFileName, index);
-					if (pui)
-					{
-						// Find plugin version
-						Version v;
-						v.setVersionFrom(pluginsFullPathFilter);
-						if (v == pui->_version)
-						{
-							// Find compatible Notepad++ versions
-							isCompatible = nppVer.isCompatibleTo(pui->_nppCompatibleVersions.first, pui->_nppCompatibleVersions.second);
-
-							if (!isCompatible && pluginIncompatibleList)
-							{
-								PluginUpdateInfo* incompatiblePlg = new PluginUpdateInfo(*pui);
-								incompatiblePlg->_version = v;
-								wchar_t msg[1024];
-								wsprintf(msg, incompatibleWarning, incompatiblePlg->_displayName.c_str(), v.toString().c_str(), nppVer.toString().c_str());
-								incompatiblePlg->_description = msg;
-								pluginIncompatibleList->pushBack(incompatiblePlg);
-							}
-						}
-						else if (v < pui->_version && // If dll version is older, and _oldVersionCompatibility is valid (not empty), we search in "_oldVersionCompatibility"
-							!(pui->_oldVersionCompatibility.first.first.empty() && pui->_oldVersionCompatibility.first.second.empty()) && // first version interval is valid
-							!(pui->_oldVersionCompatibility.first.second.empty() && pui->_oldVersionCompatibility.second.second.empty())) // second version interval is valid
-						{
-							if (v.isCompatibleTo(pui->_oldVersionCompatibility.first.first, pui->_oldVersionCompatibility.first.second)) // dll older version found
-							{
-								isCompatible = nppVer.isCompatibleTo(pui->_oldVersionCompatibility.second.first, pui->_oldVersionCompatibility.second.second);
-
-								if (!isCompatible && pluginIncompatibleList)
-								{
-									PluginUpdateInfo* incompatiblePlg = new PluginUpdateInfo(*pui);
-									incompatiblePlg->_version = v;
-									wchar_t msg[1024];
-									wsprintf(msg, incompatibleWarningWithSolution, incompatiblePlg->_displayName.c_str(), v.toString().c_str(), nppVer.toString().c_str(), pui->_version.toString().c_str());
-									incompatiblePlg->_description = msg;
-									pluginIncompatibleList->pushBack(incompatiblePlg);
-								}
-							}
-						}
-					}
-				}
-				
-				if (isCompatible)
-					dllNames.push_back(pluginsFullPathFilter);
-			}
-		}
-		// get plugin folder
-		while (::FindNextFile(hFindFolder, &foundData))
-		{
-			wstring foundFileName2 = foundData.cFileName;
-			if (foundFileName2 != L"." && foundFileName2 != L".." && _wcsicmp(foundFileName2.c_str(), L"Config") != 0)
-			{
-				wstring pluginsFullPathFilter2 = pluginsFolder;
-				pathAppend(pluginsFullPathFilter2, foundFileName2);
-				wstring  dllName2 = foundFileName2;
-				dllName2 += L".dll";
-				pathAppend(pluginsFullPathFilter2, dllName2);
-
-				// get plugin
-				if (hFindDll && (hFindDll != INVALID_HANDLE_VALUE))
-				{
-					::FindClose(hFindDll);
-				}
-				hFindDll = ::FindFirstFile(pluginsFullPathFilter2.c_str(), &foundData);
-				if (hFindDll != INVALID_HANDLE_VALUE && !(foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
-				{
-					// - foundFileName2: folder-name
-					// _ pluginsFullPathFilter2: version
-					// 
-					// Find plugin update info of current plugin and check if it's compatible to Notepad++ current versions
-					bool isCompatible2 = true;
-
-					if (pluginUpdateInfoList)
-					{
-						int index2 = 0;
-						PluginUpdateInfo* pui2 = pluginUpdateInfoList->findPluginInfoFromFolderName(foundFileName2, index2);
-						if (pui2)
-						{
-							// Find plugin version
-							Version v2;
-							v2.setVersionFrom(pluginsFullPathFilter2);
-							if (v2 == pui2->_version)
-							{
-								// Find compatible Notepad++ versions
-								isCompatible2 = nppVer.isCompatibleTo(pui2->_nppCompatibleVersions.first, pui2->_nppCompatibleVersions.second);
-
-								if (!isCompatible2 && pluginIncompatibleList)
-								{
-									PluginUpdateInfo* incompatiblePlg = new PluginUpdateInfo(*pui2);
-									incompatiblePlg->_version = v2;
-									wchar_t msg[1024];
-									wsprintf(msg, incompatibleWarning, incompatiblePlg->_displayName.c_str(), v2.toString().c_str(), nppVer.toString().c_str());
-									incompatiblePlg->_description = msg;
-									pluginIncompatibleList->pushBack(incompatiblePlg);
-								}
-							}
-							else if (v2 < pui2->_version && // If dll version is older, and _oldVersionCompatibility is valid (not empty), we search in "_oldVersionCompatibility"
-								!(pui2->_oldVersionCompatibility.first.first.empty() && pui2->_oldVersionCompatibility.first.second.empty()) && // first version interval is valid
-								!(pui2->_oldVersionCompatibility.first.second.empty() && pui2->_oldVersionCompatibility.second.second.empty())) // second version interval is valid
-							{
-								if (v2.isCompatibleTo(pui2->_oldVersionCompatibility.first.first, pui2->_oldVersionCompatibility.first.second)) // dll older version found
-								{
-									isCompatible2 = nppVer.isCompatibleTo(pui2->_oldVersionCompatibility.second.first, pui2->_oldVersionCompatibility.second.second);
-
-									if (!isCompatible2 && pluginIncompatibleList)
-									{
-										PluginUpdateInfo* incompatiblePlg = new PluginUpdateInfo(*pui2);
-										incompatiblePlg->_version = v2;
-										wchar_t msg[1024];
-										wsprintf(msg, incompatibleWarningWithSolution, incompatiblePlg->_displayName.c_str(), v2.toString().c_str(), nppVer.toString().c_str(), pui2->_version.toString().c_str());
-										incompatiblePlg->_description = msg;
-										pluginIncompatibleList->pushBack(incompatiblePlg);
-									}
-								}
-							}
-						}
-					}
-
-					if (isCompatible2)
-						dllNames.push_back(pluginsFullPathFilter2);
-				}
-			}
-		}
-
+		// Build current Notepad++ version only if compatibility filtering is requested.
+		wchar_t nppFullPathName[MAX_PATH]{};
+		GetModuleFileName(nullptr, nppFullPathName, MAX_PATH);
+		nppVer.setVersionFrom(nppFullPathName);
 	}
 
-	if (hFindFolder && (hFindFolder != INVALID_HANDLE_VALUE))
-		::FindClose(hFindFolder);
+	const wchar_t* incompatibleWarning = L"%s's version %s is not compatible to this version of Notepad++ (v%s).\r\nAs a result the plugin cannot be loaded.";
+	const wchar_t* incompatibleWarningWithSolution = L"%s's version %s is not compatible to this version of Notepad++ (v%s).\r\nAs a result the plugin cannot be loaded.\r\n\r\nGo to Updates section and update your plugin to %s for solving the compatibility issue.";
 
-	if (hFindDll && (hFindDll != INVALID_HANDLE_VALUE))
-		::FindClose(hFindDll);
+	const auto isPluginCompatible = [&](const wstring& pluginFolderName, const wstring& pluginDllPath) -> bool
+	{
+		if (!shouldCheckCompatibility)
+			return true;
+
+		int index = 0;
+		PluginUpdateInfo* pui = pluginUpdateInfoList->findPluginInfoFromFolderName(pluginFolderName, index);
+		if (!pui)
+			return true;
+
+		Version pluginVersion;
+		pluginVersion.setVersionFrom(pluginDllPath);
+		if (pluginVersion == pui->_version)
+		{
+			const bool isCompatible = nppVer.isCompatibleTo(pui->_nppCompatibleVersions.first, pui->_nppCompatibleVersions.second);
+			if (!isCompatible && pluginIncompatibleList)
+			{
+				auto* incompatiblePlg = new PluginUpdateInfo(*pui);
+				incompatiblePlg->_version = pluginVersion;
+				wchar_t msg[1024]{};
+				wsprintf(msg, incompatibleWarning, incompatiblePlg->_displayName.c_str(), pluginVersion.toString().c_str(), nppVer.toString().c_str());
+				incompatiblePlg->_description = msg;
+				pluginIncompatibleList->pushBack(incompatiblePlg);
+			}
+			return isCompatible;
+		}
+
+		if (pluginVersion < pui->_version && // If dll version is older, and _oldVersionCompatibility is valid (not empty), we search in "_oldVersionCompatibility"
+			!(pui->_oldVersionCompatibility.first.first.empty() && pui->_oldVersionCompatibility.first.second.empty()) && // first version interval is valid
+			!(pui->_oldVersionCompatibility.first.second.empty() && pui->_oldVersionCompatibility.second.second.empty())) // second version interval is valid
+		{
+			if (pluginVersion.isCompatibleTo(pui->_oldVersionCompatibility.first.first, pui->_oldVersionCompatibility.first.second)) // dll older version found
+			{
+				const bool isCompatible = nppVer.isCompatibleTo(pui->_oldVersionCompatibility.second.first, pui->_oldVersionCompatibility.second.second);
+				if (!isCompatible && pluginIncompatibleList)
+				{
+					auto* incompatiblePlg = new PluginUpdateInfo(*pui);
+					incompatiblePlg->_version = pluginVersion;
+					wchar_t msg[1024]{};
+					wsprintf(msg, incompatibleWarningWithSolution, incompatiblePlg->_displayName.c_str(), pluginVersion.toString().c_str(), nppVer.toString().c_str(), pui->_version.toString().c_str());
+					incompatiblePlg->_description = msg;
+					pluginIncompatibleList->pushBack(incompatiblePlg);
+				}
+				return isCompatible;
+			}
+		}
+
+		return true;
+	};
+
+	if (hFindFolder != INVALID_HANDLE_VALUE)
+	{
+		do
+		{
+			if (!(foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+				continue;
+
+			wstring folderName = foundData.cFileName;
+			if (folderName == L"." || folderName == L".." || _wcsicmp(folderName.c_str(), L"Config") == 0)
+				continue;
+
+			wstring pluginDllPath = pluginsFolder;
+			pathAppend(pluginDllPath, folderName);
+			wstring dllName = folderName;
+			dllName += L".dll";
+			pathAppend(pluginDllPath, dllName);
+
+			WIN32_FIND_DATA dllData{};
+			HANDLE hFindDll = ::FindFirstFile(pluginDllPath.c_str(), &dllData);
+			if (hFindDll == INVALID_HANDLE_VALUE)
+				continue;
+
+			::FindClose(hFindDll);
+			if (dllData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+				continue;
+
+			if (isPluginCompatible(folderName, pluginDllPath))
+				dllNames.push_back(pluginDllPath);
+		}
+		while (::FindNextFile(hFindFolder, &foundData));
+
+		::FindClose(hFindFolder);
+	}
 
 	for (size_t i = 0, len = dllNames.size(); i < len; ++i)
 	{

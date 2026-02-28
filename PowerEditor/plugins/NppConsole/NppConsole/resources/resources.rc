@@ -1,0 +1,102 @@
+/*
+This file is part of Notepad++ console plugin.
+Copyright ©2011 Mykhajlo Pobojnyj <mpoboyny@web.de>
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+// resources.rc
+
+#include <windows.h>
+#include "../include/resources.hxx"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+1 VERSIONINFO
+ FILEVERSION VER_MAJOR,VER_MINOR,VER_RELEASE,VER_BUILD
+ PRODUCTVERSION VER_MAJOR,VER_MINOR,VER_RELEASE,VER_BUILD
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "000004b0"
+        BEGIN
+            VALUE "CompanyName", "Free software"
+            VALUE "FileDescription", "Notepad++ console plugin."
+            VALUE "FileVersion", VER_STRING
+            VALUE "InternalName", "NppConsole"
+            VALUE "LegalCopyright", "(C)2012 Mykhajlo Pobojnyj"
+            VALUE "OriginalFilename", "NppConsole.dll"
+            VALUE "ProductName", "Notepad++ console plugin."
+            VALUE "ProductVersion", VER_STRING
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0, 1200
+    END
+END
+
+// Application manifest.
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "NppConsole.manifest"
+
+// Application icon.
+IDI_APPICON             ICON                    "NppConsole.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// About Dialog
+//
+
+IDD_DIALOG_ABOUT DIALOG DISCARDABLE  0, 0, 315, 170
+STYLE DS_FIXEDSYS | DS_SETFOREGROUND | DS_CENTER | DS_CENTERMOUSE | WS_CAPTION | WS_SYSMENU
+CAPTION "NppConsole Settings"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    DEFPUSHBUTTON   "&OK",IDOK,205,150,50,14
+    CONTROL         "",IDC_EDIT_ABOUT,"Edit",WS_CHILDWINDOW|WS_VISIBLE|ES_READONLY|ES_AUTOHSCROLL|ES_MULTILINE,6,4,302,67,WS_EX_CLIENTEDGE
+    LTEXT           "Commad to r&un: ",IDC_STATIC,8,79,54,8
+    CONTROL         "",IDC_CBO_COMMAND,"ComboBox",WS_VISIBLE|WS_TABSTOP|CBS_DROPDOWNLIST,75,77,233,12
+    LTEXT           "&Line number pattern after file name: ",IDC_STATIC,8,95,117,8
+    EDITTEXT        IDC_EDIT_LINE,136,93,172,12,ES_AUTOHSCROLL
+    GROUPBOX        "Ctrl+C handling",IDC_STATIC,6,112,302,34
+    CONTROL         "&Ignore",IDC_RADIO_IGN,"Button",BS_AUTORADIOBUTTON | WS_GROUP,16,126,39,10
+    CONTROL         "&Restart console",IDC_RADIO_RESTR,"Button",BS_AUTORADIOBUTTON,85,126,69,10
+    CONTROL         "&Process normally",IDC_RADIO_PROCESS,"Button",BS_AUTORADIOBUTTON,184,126,79,10
+    CONTROL         "Panel Raise (or &Toggle)",IDC_STATIC,"Static",WS_CHILDWINDOW|WS_VISIBLE|WS_GROUP,109,150,85,8
+    CONTROL         "",IDC_CHK_PANELTOGGLE,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|BS_AUTOCHECKBOX,95,150,10,9
+    PUSHBUTTON      "&Cancel",IDCANCEL,258,150,50,14
+    CONTROL         "Version",IDC_STATIC,"Static",WS_VISIBLE|WS_DISABLED|WS_GROUP,8,150,30,11
+    CONTROL         "<a></a>",IDC_STC_VER,"SysLink",WS_VISIBLE|WS_TABSTOP|LWS_TRANSPARENT,40,150,45,11
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_TLB_IMG             BITMAP                  "NppConsole.bmp"

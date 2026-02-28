@@ -31,4 +31,15 @@
 			</Component>
 		</ComponentGroup>
 	</Fragment>
+
+	<Fragment>
+		<!--
+		Plugin NppConsole
+		-->
+		<ComponentGroup Id="PluginNppConsoleComponentGroup" Directory="PluginNppConsoleFolder">
+			<Component Id="PluginNppConsole">
+				<File Source="..\..\bin64\plugins\NppConsole\NppConsole.dll" KeyPath="yes" />
+			</Component>
+		</ComponentGroup>
+	</Fragment>
 </Wix>

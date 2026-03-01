@@ -489,7 +489,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			_findReplaceDlg.setSearchTextWithSettings();
 
 			if (isFirstTime)
-				_nativeLangSpeaker.changeDlgLang(_findReplaceDlg.getHSelf(), "Find");
+				_nativeLangSpeaker.changeFindReplaceDlgLang(_findReplaceDlg);
 
 			_findReplaceDlg.launchFindInProjectsDlg();
 			_findReplaceDlg.setProjectCheckmarks(NULL, (int) wParam);
@@ -4424,3 +4424,4 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 	_pluginsManager.relayNppMessages(message, wParam, lParam);
 	return result;
 }
+

@@ -2558,6 +2558,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_ENABLEDRAGDROP:
+		{
+			_mainEditView.execute(SCI_SETDRAGDROPENABLED, nppParam.getSVP()._enableDragDrop);
+			_subEditView.execute(SCI_SETDRAGDROPENABLED, nppParam.getSVP()._enableDragDrop);
+			return TRUE;
+		}
+
 		case WM_QUERYENDSESSION:
 		{
 			// app should return TRUE or FALSE immediately upon receiving this message,

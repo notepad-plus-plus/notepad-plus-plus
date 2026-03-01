@@ -137,9 +137,10 @@ BEGIN
     CONTROL         "Make current level folding/unfolding commands toggleable",IDC_CHECK_FOLDINGTOGGLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,43,270,10
     CONTROL         "Keep selection when right-click outside of selection",IDC_CHECK_RIGHTCLICKKEEPSSELECTION,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,58,270,10
     CONTROL         "Enable Copy/Cut Line without selection",IDC_CHECK_LINECUTCOPYWITHOUTSELECTION,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,73,270,10
-    CONTROL         "Apply custom color to selected text foreground",IDC_CHECK_SELECTEDTEXTSINGLECOLOR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,88,270,10
-    CONTROL         "Enable scrolling beyond last line",IDC_CHECK_SCROLLBEYONDLASTLINE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,103,270,10
-    CONTROL         "Disable advanced scrolling feature due to touchpad issue",IDC_CHECK_DISABLEADVANCEDSCROLL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,118,270,10
+    CONTROL         "Enable drag-and-drop",IDC_CHECK_ENABLEDRAGDROP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,88,270,10
+    CONTROL         "Apply custom color to selected text foreground",IDC_CHECK_SELECTEDTEXTSINGLECOLOR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,103,270,10
+    CONTROL         "Enable scrolling beyond last line",IDC_CHECK_SCROLLBEYONDLASTLINE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,118,270,10
+    CONTROL         "Disable advanced scrolling feature due to touchpad issue",IDC_CHECK_DISABLEADVANCEDSCROLL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,133,270,10
 END
 
 IDD_PREFERENCE_SUB_EDITING2 DIALOGEX 115, 10, 460, 205

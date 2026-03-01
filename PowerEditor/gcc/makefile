@@ -47,7 +47,7 @@ else
   COMPILER_SUFFIX := gcc.
 endif
 
-CXXFLAGS := -include $(GCC_DIRECTORY)/gcc-fixes.h -std=c++20
+CXXFLAGS := -include $(GCC_DIRECTORY)/gcc-fixes.h -std=c++20 -Wpedantic -Wall -Wextra -Wconversion
 RC := $(CROSS_COMPILE)windres
 RCFLAGS := --codepage=65001
 CPP_PATH := $(SCINTILLA_DIRECTORY)/include $(LEXILLA_DIRECTORY)/include
@@ -71,42 +71,46 @@ BUILD_TYPE := debug
 BUILD_SUFFIX := -debug
 CXXFLAGS += -Og \
             -g \
-            -Wpedantic \
-            -Wall \
-            -Wextra \
             -Wcast-align \
-            -Wconversion \
             -Wextra-semi \
             -Wformat=2 \
             -Wmisleading-indentation \
             -Wunused
-CPP_DEFINE += DEBUG
+CPP_DEFINE += DEBUG _DEBUG
 endif
 
 ifeq ($(CXX),clang++)
-  CXXFLAGS += -Wpedantic \
-              -Wall \
-              -Wextra \
+  CXXFLAGS += -Wextra-semi \
+              -Wformat=2 \
               -Wimplicit-fallthrough \
+              -Wmisleading-indentation \
+              -Wunused \
               -Wno-c++98-compat \
               -Wno-c++98-compat-pedantic \
               -Wno-c99-extensions \
               -Wno-cast-align \
+              -Wno-cast-function-type-strict \
+              -Wno-covered-switch-default \
               -Wno-deprecated-declarations \
+              -Wno-exit-time-destructors \
+              -Wno-global-constructors \
               -Wno-nested-anon-types \
               -Wno-overloaded-virtual \
               -Wno-padded \
               -Wno-pragma-pack \
               -Wno-reserved-id-macro \
               -Wno-reserved-identifier \
+              -Wno-nrvo \
               -Wno-sign-conversion \
               -Wno-switch-default \
               -Wno-unsafe-buffer-usage \
               -Wno-unsafe-buffer-usage-in-libc-call \
-              -Wno-unused-command-line-argument
+              -Wno-unused-command-line-argument \
+              -Wno-weak-vtables
 else
   CXXFLAGS += -Wno-cast-function-type \
-              -Wno-overloaded-virtual
+              -Wno-overloaded-virtual \
+              -Wno-system-headers
 endif
 
 ifneq "$(filter-out 0,$(CLANGANALYZE))" ""
@@ -248,6 +252,23 @@ CXX_TARGETS := $(patsubst %.cpp,$(BUILD_DIRECTORY)/%.o,$(sort $(filter %.cpp,$(G
 vpath %.rc $(GCC_DIRECTORY) $(SRC_DIRECTORY)
 RC_TARGETS := $(patsubst %.rc,$(BUILD_DIRECTORY)/%.res,$(sort $(filter %.rc,$(GCC_SUBTREE) $(SRC_SUBTREE))))
 
+# for 3rd-party cpp files use only basic warning flags, for headers supress warnings
+THIRD_DIRS := $(SRC_DIRECTORY)/json \
+              $(SRC_DIRECTORY)/pugixml \
+              $(SRC_DIRECTORY)/uchardet \
+              $(SRC_DIRECTORY)/MISC/crc16 \
+              $(SRC_DIRECTORY)/MISC/md5 \
+              $(SRC_DIRECTORY)/MISC/sha1 \
+              $(SRC_DIRECTORY)/MISC/sha2 \
+              $(SRC_DIRECTORY)/MISC/sha512 \
+              $(SCINTILLA_DIRECTORY)/include \
+              $(LEXILLA_DIRECTORY)/include
+
+THIRD_ISYSTEM := $(addprefix -isystem ,$(THIRD_DIRS))
+CXXFLAGS += $(THIRD_ISYSTEM)
+
+thirdparty_flags = $(if $(filter $(foreach d,$(THIRD_DIRS),$(d)/%),$(1)), -w -Wpedantic -Wall -Wextra,)
+
 #
 # actions
 #
@@ -292,7 +313,7 @@ binary: $(TARGET_BINARY) data
 
 $(CXX_TARGETS): $(BUILD_DIRECTORY)/%.o: %.cpp | $(BUILD_DIRECTORY)
 	@echo + compiling $<
-	$(AT)$(CXX) $(CXXFLAGS) $(addprefix -I,$(CPP_PATH)) $(addprefix -D,$(CPP_DEFINE)) -MMD -c -o $@ $<
+	$(AT)$(CXX) $(CXXFLAGS) $(call thirdparty_flags,$<) $(addprefix -I,$(CPP_PATH)) $(addprefix -D,$(CPP_DEFINE)) -MMD -c -o $@ $<
 
 $(RC_TARGETS): $(BUILD_DIRECTORY)/%.res: %.rc | $(BUILD_DIRECTORY)
 	@echo + compiling $<

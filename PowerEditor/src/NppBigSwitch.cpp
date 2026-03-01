@@ -802,7 +802,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					}
 					else
 					{
-#ifdef DEBUG 
+#if !defined(NDEBUG)  
 						printStr(L"sizeof(CmdLineParams) != cmdLineParamsSize\rCmdLineParams is formed by an instance of another version,\rwhereas your CmdLineParams has been modified in this instance.");
 #endif
 					}

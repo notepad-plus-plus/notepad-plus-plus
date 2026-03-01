@@ -269,7 +269,7 @@ PluginsAdminDlg::PluginsAdminDlg()
 	// get plugin-list path
 	_pluginListFullPath = nppParameters.getPluginConfDir();
 
-#ifdef DEBUG // if not debug, then it's release
+#if !defined(NDEBUG)  // if not debug, then it's release
 	// load from nppPluginList.json instead of nppPluginList.dll
 	pathAppend(_pluginListFullPath, L"nppPluginList.json");
 #else //RELEASE
@@ -616,7 +616,7 @@ static bool loadFromJson(std::vector<PluginUpdateInfo*>& pl, std::wstring& verSt
 
 			pl.push_back(pi);
 		}
-#ifdef DEBUG
+#if !defined(NDEBUG) 
 		catch (const wstring& exceptionStr)
 		{
 			::MessageBox(NULL, exceptionStr.c_str(), L"Exception caught in: PluginsAdmin loadFromJson()", MB_ICONERROR);
@@ -631,7 +631,7 @@ static bool loadFromJson(std::vector<PluginUpdateInfo*>& pl, std::wstring& verSt
 #endif
 		catch (...) // If one of mandatory properties is missing or with the incorrect format, an exception is thrown then this plugin will be ignored
 		{
-#ifdef DEBUG
+#if !defined(NDEBUG) 
 			::MessageBoxA(NULL, "An unknown exception is just caught", "Unknown Exception", MB_OK);
 #endif
 			continue; 
@@ -676,7 +676,7 @@ bool PluginsAdminDlg::initFromJson()
 
 	json j;
 
-#ifndef NDEBUG // if not debug, then it's release
+#if !defined(NDEBUG) // if not debug, then it's release
 	
 	// load from nppPluginList.json instead of nppPluginList.dll
 #ifdef __MINGW32__

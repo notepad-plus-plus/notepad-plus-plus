@@ -1813,7 +1813,7 @@ Version::Version(const wstring& versionStr)
 			++i;
 		}
 	}
-#ifdef DEBUG
+#if !defined(NDEBUG) 
 	catch (const std::wstring& s)
 	{
 		_major = 0;
@@ -1830,7 +1830,7 @@ Version::Version(const wstring& versionStr)
 		_minor = 0;
 		_patch = 0;
 		_build = 0;
-#ifdef DEBUG
+#if !defined(NDEBUG) 
 		throw std::wstring(L"Unknown exception from \"Version::Version(const wstring& versionStr)\"");
 #endif
 	}

@@ -557,7 +557,7 @@ void Utf8_Iter::set(const ubyte* pBuf, size_t nLen, UniMode eEncoding)
 
 bool Utf8_Iter::get(utf16* c)
 {
-#ifdef _DEBUG
+#if !defined(NDEBUG)
 	assert(m_out1st != m_outLst);
 #endif
 	if (m_out1st == m_outLst) return false;

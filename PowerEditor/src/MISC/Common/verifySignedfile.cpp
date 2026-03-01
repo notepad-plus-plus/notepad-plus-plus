@@ -47,7 +47,7 @@ SecurityGuard::SecurityGuard()
 
 bool SecurityGuard::checkModule([[maybe_unused]] const std::wstring& filePath, [[maybe_unused]] NppModule module2check)
 {
-#ifndef _DEBUG
+#ifdef NDEBUG
 	if (_securityMode == sm_certif)
 		return verifySignedBinary(filePath);
 	else if (_securityMode == sm_sha256)

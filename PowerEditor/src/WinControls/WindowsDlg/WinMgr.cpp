@@ -87,7 +87,7 @@ void CWinMgr::SetWindowPositions(HWND hWnd)
 						rc.left,rc.top,RectWidth(rc),RectHeight(rc),
 						SWP_NOZORDER);
 					InvalidateRect(hwndChild,NULL,TRUE); // repaint
-#ifndef NDEBUG
+#if !defined(NDEBUG)
 					++count;
 #endif
 				}

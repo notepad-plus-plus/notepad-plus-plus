@@ -681,9 +681,6 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	updateCommandShortcuts();
 
-	//Translate non-menu shortcuts
-	_nativeLangSpeaker.changeShortcutLang();
-
 	//Update plugin shortcuts, all plugin commands should be available now
 	nppParam.reloadPluginCmds();
 

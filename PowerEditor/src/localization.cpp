@@ -1147,67 +1147,6 @@ void NativeLangSpeaker::changePreferenceDlgLang(PreferenceDlg& preference) const
 	preference.setListSelection(currentSel);
 }
 
-void NativeLangSpeaker::changeShortcutLang() const
-{
-	if (!_nativeLang) return;
-
-	NppParameters& nppParam = NppParameters::getInstance();
-	std::vector<CommandShortcut>& mainshortcuts = nppParam.getUserShortcuts();
-	std::vector<ScintillaKeyMap>& scinshortcuts = nppParam.getScintillaKeyList();
-
-	NppXml::Element shortcuts = NppXml::firstChildElement(_nativeLang, "Shortcuts");
-	if (!shortcuts) return;
-
-	shortcuts = NppXml::firstChildElement(shortcuts, "Main");
-	if (!shortcuts) return;
-
-	NppXml::Element entriesRoot = NppXml::firstChildElement(shortcuts, "Entries");
-	if (!entriesRoot) return;
-
-	for (NppXml::Element childNode = NppXml::firstChildElement(entriesRoot, "Item");
-		childNode;
-		childNode = NppXml::nextSiblingElement(childNode, "Item"))
-	{
-		const int index = NppXml::intAttribute(childNode, "index", -1);
-		const int id = NppXml::intAttribute(childNode, "id", -1);
-		if (index >= 0 && id > 0)
-		{
-			if (static_cast<size_t>(index) < mainshortcuts.size()) //valid index only
-			{
-				const char* name = NppXml::attribute(childNode, "name");
-				CommandShortcut& csc = mainshortcuts[index];
-				if (csc.getID() == static_cast<unsigned long>(id))
-				{
-					csc.setName(name);
-				}
-			}
-		}
-	}
-
-	//Scintilla
-	shortcuts = NppXml::firstChildElement(_nativeLang, "Shortcuts");
-	if (!shortcuts) return;
-
-	shortcuts = NppXml::firstChildElement(shortcuts, "Scintilla");
-	if (!shortcuts) return;
-
-	entriesRoot = NppXml::firstChildElement(shortcuts, "Entries");
-	if (!entriesRoot) return;
-
-	for (NppXml::Element childNode = NppXml::firstChildElement(entriesRoot, "Item");
-		childNode;
-		childNode = NppXml::nextSiblingElement(childNode, "Item"))
-	{
-		const int index = NppXml::intAttribute(childNode, "index", -2);
-		if (index > -1 && static_cast<size_t>(index) < scinshortcuts.size()) //valid index only
-		{
-			const char* name = NppXml::attribute(childNode, "name");
-			ScintillaKeyMap& skm = scinshortcuts[index];
-			skm.setName(name);
-		}
-	}
-}
-
 std::wstring NativeLangSpeaker::getShortcutMapperLangStr(const char* nodeName, const wchar_t* defaultStr) const
 {
 	if (!_nativeLang) return defaultStr;

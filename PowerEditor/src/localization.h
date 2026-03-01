@@ -65,7 +65,6 @@ public:
 	std::wstring getShortcutNameString(int itemID) const;
 
 	void changeMenuLang(HMENU menuHandle) const;
-	void changeShortcutLang() const;
 	static void changeStyleCtrlsLang(HWND hDlg, int* idArray, const char** translatedText);
 	void changeUserDefineLang(UserDefineDialog* userDefineDlg) const;
 	void changeUserDefineLangPopupDlg(HWND hDlg) const;

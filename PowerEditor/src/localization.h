@@ -70,7 +70,7 @@ public:
 	void changeUserDefineLang(UserDefineDialog* userDefineDlg) const;
 	void changeUserDefineLangPopupDlg(HWND hDlg) const;
 	void changeFindReplaceDlgLang(FindReplaceDlg& findReplaceDlg);
-	void changePreferenceDlgLang(PreferenceDlg& preference);
+	void changePreferenceDlgLang(PreferenceDlg& preference) const;
 	void changePluginsAdminDlgLang(PluginsAdminDlg& pluginsAdminDlg);
 
 	bool getDoSaveOrNotStrings(std::wstring& title, std::wstring& msg) const;
@@ -110,7 +110,7 @@ public:
 		_shortcutMenuEntryNameMap.clear();
 	}
 
-	int messageBox(const char* msgBoxTagName, HWND hWnd, const wchar_t* defaultMessage, const wchar_t* defaultTitle, int msgBoxType, int intInfo = 0, const wchar_t* strInfo = nullptr);
+	int messageBox(const char* msgBoxTagName, HWND hWnd, const wchar_t* defaultMessage, const wchar_t* defaultTitle, int msgBoxType, int intInfo = 0, const wchar_t* strInfo = nullptr) const;
 private:
 	NppXml::Element _nativeLang{};
 	static constexpr int _nativeLangEncoding = CP_UTF8; // all Notepad++ xml files should be UTF8

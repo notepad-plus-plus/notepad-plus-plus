@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 09 Feb 2026 for 8.9.1+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 24 Feb 2026 for 8.9.2+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.9.1">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.9.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1224,6 +1224,7 @@ Translation note:
 					<Item id="6910" name="Tamanho Mínimo para Auto-Selecionar Opção &quot;Na seleção&quot;"/>
 					<Item id="6913" name="Preencher o campo 'Pasta' de 'Localizar nos arquivos' Baseado no Documento Ativo"/>
 					<Item id="6916" name=": Máx Caracteres para Auto-Preenchimento de Campo de Busca da Seleção"/>
+					<Item id="6917" name="Localizar em Arquivos: Preferir conteúdo gravado ao invés de alterações não salvas"/>
 				</Searching>
 
 				<RecentFilesHistory title="Histórico de arquivos recentes">

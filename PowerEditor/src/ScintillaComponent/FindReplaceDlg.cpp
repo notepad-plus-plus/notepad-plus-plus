@@ -4746,13 +4746,13 @@ void FindReplaceDlg::setFindInFilesDirFilter(const wchar_t *dir, const wchar_t *
 {
 	if (dir)
 	{
-		_options._directory = dir;
+		_env->_directory = dir;
 		::SetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, dir);
 	}
 
 	if (filters)
 	{
-		_options._filters = filters;
+		_env->_filters = filters;
 		::SetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters);
 	}
 }

@@ -50,11 +50,11 @@ Translation note:
 					<Item subMenuId="search-jumpDown" name="Jump &amp;Down"/>
 					<Item subMenuId="search-copyStyledText" name="&amp;Copy Styled Text"/>
 					<Item subMenuId="search-bookmark" name="&amp;Bookmark"/>
-					<Item subMenuId="view-currentFileIn" name="View Current File in"/>
-					<Item subMenuId="view-showSymbol" name="Show Symbol"/>
-					<Item subMenuId="view-zoom" name="Zoom"/>
-					<Item subMenuId="view-moveCloneDocument" name="Move/Clone Current Document"/>
-					<Item subMenuId="view-tab" name="Tab"/>
+					<Item subMenuId="view-currentFileIn" name="&amp;View Current File in"/>
+					<Item subMenuId="view-showSymbol" name="Show S&amp;ymbol"/>
+					<Item subMenuId="view-zoom" name="&amp;Zoom"/>
+					<Item subMenuId="view-moveCloneDocument" name="&amp;Move/Clone Current Document"/>
+					<Item subMenuId="view-tab" name="Ta&amp;b"/>
 					<Item subMenuId="view-collapseLevel" name="Fold Level"/>
 					<Item subMenuId="view-uncollapseLevel" name="Unfold Level"/>
 					<Item subMenuId="view-project" name="Project"/>
@@ -90,7 +90,7 @@ Translation note:
 					<Item id="41002" name="&amp;Open..."/>
 					<Item id="41019" name="Explorer"/>
 					<Item id="41020" name="cmd"/>
-					<Item id="41025" name="Folder as Workspace"/>
+					<Item id="41025" name="Folder as Wor&amp;kspace"/>
 					<Item id="41003" name="&amp;Close"/>
 					<Item id="41004" name="Clos&amp;e All"/>
 					<Item id="41005" name="Close All BUT Current Document"/>
@@ -198,8 +198,8 @@ Translation note:
 					<Item id="42051" name="Character &amp;Panel"/>
 					<Item id="42052" name="Clipboard &amp;History"/>
 					<Item id="42025" name="&amp;Save Currently Recorded Macro..."/>
-					<Item id="42026" name="Text Direction RTL"/>
-					<Item id="42027" name="Text Direction LTR"/>
+					<Item id="42026" name="T&amp;ext Direction RTL"/>
+					<Item id="42027" name="Te&amp;xt Direction LTR"/>
 					<Item id="42028" name="Read-Only on Current Document"/>
 					<Item id="42102" name="Read-Only for All Documents"/>
 					<Item id="42103" name="Clear Read-Only for All Documents"/>
@@ -286,12 +286,12 @@ Translation note:
 					<Item id="43502" name="Close Others"/>
 					<Item id="43503" name="Copy Selected Names"/>
 					<Item id="43504" name="Copy Selected Pathnames"/>
-					<Item id="44009" name="Post-It"/>
+					<Item id="44009" name="&amp;Post-It"/>
 					<Item id="44010" name="Fold All"/>
-					<Item id="44011" name="Distraction Free Mode"/>
+					<Item id="44011" name="D&amp;istraction Free Mode"/>
 					<Item id="44019" name="Show All Characters"/>
 					<Item id="44020" name="Show Indent Guide"/>
-					<Item id="44022" name="Word wrap"/>
+					<Item id="44022" name="&amp;Word wrap"/>
 					<Item id="44023" name="Zoom &amp;In (Ctrl+Mouse Wheel Up)"/>
 					<Item id="44024" name="Zoom &amp;Out (Ctrl+Mouse Wheel Down)"/>
 					<Item id="44025" name="Show Space and Tab"/>
@@ -299,10 +299,10 @@ Translation note:
 					<Item id="44029" name="Unfold All"/>
 					<Item id="44030" name="Fold Current Level"/>
 					<Item id="44031" name="Unfold Current Level"/>
-					<Item id="44049" name="Summary..."/>
-					<Item id="44080" name="Document Map"/>
-					<Item id="44070" name="Document List"/>
-					<Item id="44084" name="Function List"/>
+					<Item id="44049" name="&amp;Summary..."/>
+					<Item id="44080" name="&amp;Document Map"/>
+					<Item id="44070" name="D&amp;ocument List"/>
+					<Item id="44084" name="Function &amp;List"/>
 					<Item id="44085" name="Folder as Workspace"/>
 					<Item id="44086" name="1st Tab"/>
 					<Item id="44087" name="2nd Tab"/>
@@ -317,7 +317,7 @@ Translation note:
 					<Item id="44117" name="Last Tab"/>
 					<Item id="44095" name="Next Tab"/>
 					<Item id="44096" name="Previous Tab"/>
-					<Item id="44097" name="Monitoring (tail -f)"/>
+					<Item id="44097" name="Monito&amp;ring (tail -f)"/>
 					<Item id="44098" name="Move Tab Forward"/>
 					<Item id="44099" name="Move Tab Backward"/>
 					<Item id="44110" name="Remove Color"/>
@@ -328,16 +328,16 @@ Translation note:
 					<Item id="44115" name="Apply Color 5"/>
 					<Item id="44130" name="Show Non-Printing Characters"/>
 					<Item id="44131" name="Show Control Characters &amp;&amp; Unicode EOL"/>
-					<Item id="44032" name="Toggle Full Screen Mode"/>
-					<Item id="44033" name="Restore Default Zoom"/>
-					<Item id="44034" name="Always on Top"/>
-					<Item id="44035" name="Synchronise Vertical Scrolling"/>
-					<Item id="44036" name="Synchronise Horizontal Scrolling"/>
+					<Item id="44032" name="To&amp;ggle Full Screen Mode"/>
+					<Item id="44033" name="&amp;Restore Default Zoom"/>
+					<Item id="44034" name="Always on &amp;Top"/>
+					<Item id="44035" name="Sy&amp;nchronise Vertical Scrolling"/>
+					<Item id="44036" name="Syn&amp;chronise Horizontal Scrolling"/>
 					<Item id="44041" name="Show Wrap Symbol"/>
-					<Item id="44072" name="Focus on Another View"/>
-					<Item id="44081" name="Project Panel 1"/>
-					<Item id="44082" name="Project Panel 2"/>
-					<Item id="44083" name="Project Panel 3"/>
+					<Item id="44072" name="Focus on &amp;Another View"/>
+					<Item id="44081" name="Project Panel &amp;1"/>
+					<Item id="44082" name="Project Panel &amp;2"/>
+					<Item id="44083" name="Project Panel &amp;3"/>
 					<Item id="45001" name="Windows (CR LF)"/>
 					<Item id="45002" name="Unix (LF)"/>
 					<Item id="45003" name="Macintosh (CR)"/>
@@ -357,10 +357,10 @@ Translation note:
 					<Item id="45057" name="OEM 865: Nordic"/>
 					<Item id="45053" name="OEM 860: Portuguese"/>
 					<Item id="45056" name="OEM 863: French"/>
-					<Item id="10001" name="Move to Other View"/>
-					<Item id="10002" name="Clone to Other View"/>
-					<Item id="10003" name="Move to New Instance"/>
-					<Item id="10004" name="Open in New Instance"/>
+					<Item id="10001" name="&amp;Move to Other View"/>
+					<Item id="10002" name="&amp;Clone to Other View"/>
+					<Item id="10003" name="Mo&amp;ve to New Instance"/>
+					<Item id="10004" name="&amp;Open in New Instance"/>
 					<Item id="10005" name="Move to Start"/>
 					<Item id="10006" name="Move to End"/>
 					<Item id="46001" name="Style Configurator..."/>
@@ -407,7 +407,7 @@ Translation note:
 					<Item id="50011" name="Function Parameters Next Hint"/>
 					<Item id="50005" name="Toggle macro record"/>
 					<Item id="50006" name="Path Completion"/>
-					<Item id="44042" name="Hide Lines"/>
+					<Item id="44042" name="&amp;Hide Lines"/>
 					<Item id="42040" name="Open All Recent Files"/>
 					<Item id="42041" name="Empty Recent Files List"/>
 					<Item id="48016" name="Modify Shortcut/Delete Macro..."/>
@@ -718,10 +718,10 @@ Translation note:
 					<Item id="43059" name="Copy Styled Text of 5th Style"/>
 					<Item id="43060" name="Copy Styled Text of All Styles"/>
 					<Item id="43061" name="Copy Styled Text of Find Mark style"/>
-					<Item id="44100" name="View current file in Firefox"/>
-					<Item id="44101" name="View current file in Chrome"/>
-					<Item id="44103" name="View current file in IE"/>
-					<Item id="44102" name="View current file in Edge"/>
+					<Item id="44100" name="View current file in &amp;Firefox"/>
+					<Item id="44101" name="View current file in &amp;Chrome"/>
+					<Item id="44103" name="View current file in &amp;IE"/>
+					<Item id="44102" name="View current file in &amp;Edge"/>
 					<Item id="50003" name="Switch to previous document"/>
 					<Item id="50004" name="Switch to next document"/>
 					<Item id="44051" name="Fold Level 1"/>
@@ -1292,7 +1292,7 @@ Translation note:
 					<Item id="6184" name="Document List"/>
 					<Item id="6185" name="Character Panel"/>
 					<Item id="6186" name="Folder as Workspace"/>
-					<Item id="6187" name="Project Panels"/>
+					<Item id="6187" name="Pro&amp;ject Panels"/>
 					<Item id="6188" name="Document Map"/>
 					<Item id="6189" name="Function List"/>
 					<Item id="6190" name="Plugin Panels"/>

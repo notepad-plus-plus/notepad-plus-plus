@@ -233,7 +233,7 @@ CPDIR := xcopy /q /e /i /y
 RMDIR := rmdir /q /s
 CP := copy /y
 RM := del /q
-PREBUILD_EVENT_CMD := cd ..\src && NppLibsVersionH-generator.bat
+PREBUILD_EVENT_CMD := "$(MAKEFILE_ABS_DIR)\..\src\NppLibsVersionH-generator.bat"
 normalize-path = $(subst /,\,$1)
 endif
 

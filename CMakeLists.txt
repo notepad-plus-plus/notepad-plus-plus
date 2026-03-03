@@ -7,6 +7,13 @@ project(NotepadPlusPlus
     LANGUAGES CXX C OBJCXX
 )
 
+option(NPP_BUILD_BOOSTREGEX "Build bundled boostregex static library" ON)
+if(APPLE)
+    # Current macOS port path does not link boostregex yet.
+    # Keep it optional so core app build is not blocked.
+    set(NPP_BUILD_BOOSTREGEX OFF CACHE BOOL "Build bundled boostregex static library" FORCE)
+endif()
+
 # Require C++17
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -26,6 +33,7 @@ if(APPLE)
     find_library(FOUNDATION_FRAMEWORK Foundation REQUIRED)
     find_library(APPKIT_FRAMEWORK AppKit REQUIRED)
     find_library(CORE_SERVICES_FRAMEWORK CoreServices REQUIRED)
+    find_library(QUARTZCORE_FRAMEWORK QuartzCore REQUIRED)
 endif()
 
 # Platform detection
@@ -72,7 +80,9 @@ endif()
 # Subdirectories
 add_subdirectory(scintilla)
 add_subdirectory(lexilla)
-add_subdirectory(boostregex)
+if(NPP_BUILD_BOOSTREGEX)
+    add_subdirectory(boostregex)
+endif()
 add_subdirectory(PowerEditor)
 
 # Installation rules for macOS app bundle

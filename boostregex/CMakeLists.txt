@@ -13,6 +13,7 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/boost
     ${CMAKE_SOURCE_DIR}/scintilla/include
+    ${CMAKE_SOURCE_DIR}/scintilla/src
 )
 
 # Create static library
@@ -32,6 +33,7 @@ endif()
 target_include_directories(boostregex PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/boost
+    ${CMAKE_SOURCE_DIR}/scintilla/src
 )
 
 # Installation

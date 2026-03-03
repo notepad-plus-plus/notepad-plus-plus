@@ -16,11 +16,18 @@ if [[ "$OSTYPE" != "darwin"* ]]; then
     exit 1
 fi
 
-# Check for CMake
-if ! command -v cmake &> /dev/null; then
-    echo "❌ Error: CMake not found"
-    echo "Install with: brew install cmake"
-    exit 1
+# Check for CMake (PATH first, then common local fallback from python-cmake package)
+CMAKE_BIN="$(command -v cmake 2>/dev/null || true)"
+if [ -z "$CMAKE_BIN" ]; then
+    FALLBACK_CMAKE="$HOME/Library/Python/3.9/lib/python/site-packages/cmake/data/bin/cmake"
+    if [ -x "$FALLBACK_CMAKE" ]; then
+        CMAKE_BIN="$FALLBACK_CMAKE"
+        echo "ℹ️  Using fallback CMake: $CMAKE_BIN"
+    else
+        echo "❌ Error: CMake not found"
+        echo "Install with: brew install cmake"
+        exit 1
+    fi
 fi
 
 # Get script directory
@@ -50,22 +57,29 @@ cd "$BUILD_DIR"
 # Configure with CMake
 echo ""
 echo "⚙️  Configuring with CMake..."
-cmake .. \
-    -G Xcode \
+GENERATOR="Xcode"
+if ! "$CMAKE_BIN" .. \
+    -G "$GENERATOR" \
     -DCMAKE_BUILD_TYPE="$BUILD_TYPE" \
     -DCMAKE_OSX_ARCHITECTURES="$ARCHITECTURE" \
-    -DCMAKE_OSX_DEPLOYMENT_TARGET="11.0"
-
-if [ $? -ne 0 ]; then
-    echo ""
-    echo "❌ CMake configuration failed"
-    exit 1
+    -DCMAKE_OSX_DEPLOYMENT_TARGET="11.0"; then
+    echo "⚠️  Xcode generator failed, retrying with Unix Makefiles..."
+    GENERATOR="Unix Makefiles"
+    "$CMAKE_BIN" .. \
+        -G "$GENERATOR" \
+        -DCMAKE_BUILD_TYPE="$BUILD_TYPE" \
+        -DCMAKE_OSX_ARCHITECTURES="$ARCHITECTURE" \
+        -DCMAKE_OSX_DEPLOYMENT_TARGET="11.0"
 fi
 
 # Build
 echo ""
 echo "🔨 Building..."
-cmake --build . --config "$BUILD_TYPE" -j $(sysctl -n hw.ncpu)
+if [ "$GENERATOR" = "Xcode" ]; then
+    "$CMAKE_BIN" --build . --config "$BUILD_TYPE" -j $(sysctl -n hw.ncpu)
+else
+    "$CMAKE_BIN" --build . -j $(sysctl -n hw.ncpu)
+fi
 
 if [ $? -ne 0 ]; then
     echo ""
@@ -82,6 +96,9 @@ echo ""
 
 # Find the app bundle
 APP_PATH="bin/$BUILD_TYPE/notepadpp.app"
+if [ ! -d "$APP_PATH" ]; then
+    APP_PATH="bin/notepadpp.app"
+fi
 
 if [ -d "$APP_PATH" ]; then
     echo "📦 App bundle created: $APP_PATH"

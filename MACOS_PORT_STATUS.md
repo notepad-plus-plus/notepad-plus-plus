@@ -22,18 +22,23 @@
 - NotepadPlusWindowController (main window & text editing)
 - **🎉 First working macOS build!**
 
+✅ **Phase 4A: Basic Scintilla Integration**
+- `NotepadPlusWindowController` migrated to `ScintillaView`
+- Scintilla and Lexilla are linked in macOS build path
+- `notepadpp.app` builds successfully on arm64
+
 ## What Needs to Be Done Next
 
-### Phase 4: Scintilla Integration & Advanced UI (NEXT)
+### Phase 4B: Syntax Highlighting & Editor Signals (NEXT)
 
 Now that we have a working app, integrate advanced features:
 
-1. **Replace NSTextView with Scintilla**
-   - Use Scintilla's Cocoa view
-   - Enable syntax highlighting
-   - Add language detection
+1. **Syntax highlighting**
+   - Initialize lexer pipeline
+   - Add language detection by file extension
+   - Apply a default theme/style map
 
-2. **Tab Support**
+2. **Tab support**
    - Multiple document tabs
    - Tab switching
    - Tab management
@@ -46,15 +51,14 @@ Now that we have a working app, integrate advanced features:
 
 ## Current Build Status
 
-✅ **BUILDS AND RUNS!**
+✅ **BUILDS (Phase 4A complete)**
 
-The app now compiles and launches as a functional macOS text editor.
+The app compiles as a functional macOS text editor with Scintilla integration.
 
-To build and run:
+To build and run (current local build path):
 ```bash
-./build_macos.sh
-cd build
-open bin/Debug/notepadpp.app
+make -C build -j$(sysctl -n hw.ncpu)
+open build/bin/notepadpp.app
 ```
 
 Or manually:
@@ -70,11 +74,12 @@ open bin/Debug/notepadpp.app
 - **Phase 1 (Build System)**: ✅ Complete
 - **Phase 2 (Platform Layer)**: ✅ Complete (core functionality)
 - **Phase 3 (Entry Point)**: ✅ Complete - **App runs!**
-- **Phase 4 (UI Framework)**: 8-12 weeks
+- **Phase 4A (Scintilla Integration)**: ✅ Complete
+- **Phase 4B/4C (UI Framework)**: 8-12 weeks
 - **Remaining Phases**: 12-20 weeks
 
 **Total**: 6-9 months for full port
-**Current Progress**: ~20% complete
+**Current Progress**: ~30% complete
 
 ## Key Files Created
 
@@ -128,14 +133,14 @@ open bin/Debug/notepadpp.app
    - Run and verify all features work
    - Test on different macOS versions
 
-2. **Integrate Scintilla** (Phase 4)
-   - Replace NSTextView with Scintilla view
-   - Enable syntax highlighting
-   - Add language detection
+2. **Implement syntax highlighting** (Phase 4B)
+   - Load/configure lexers
+   - Detect language from file extension
+   - Add Scintilla notification delegate for modified tracking
 
 3. **Add Tab Support**
    - Multiple document tabs
    - Tab switching shortcuts
    - Tab management
 
-See `PHASE3_COMPLETE.md` for testing checklist and next steps.
+See `PHASE4A_COMPLETE.md` for completion details and Phase 4B handoff.

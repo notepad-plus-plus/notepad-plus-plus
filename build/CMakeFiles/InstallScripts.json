@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/cmake_install.cmake",
+		"/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/scintilla/cmake_install.cmake",
+		"/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/lexilla/cmake_install.cmake",
+		"/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/PowerEditor/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

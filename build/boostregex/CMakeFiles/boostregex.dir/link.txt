@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../lib/libboostregex.a CMakeFiles/boostregex.dir/BoostRegExSearch.cxx.o CMakeFiles/boostregex.dir/UTF8DocumentIterator.cxx.o
+/usr/bin/ranlib ../lib/libboostregex.a

@@ -23,6 +23,9 @@
     // macOS platform types
     #include <cstdint>
     #include <cstddef>
+    #ifdef __OBJC__
+        #include <objc/objc.h>
+    #endif
     
     // Window and instance handles
     typedef void* HWND;
@@ -49,7 +52,9 @@
     typedef unsigned char BYTE;
     typedef unsigned short WORD;
     typedef unsigned char UCHAR;
+    #ifndef __OBJC__
     typedef int BOOL;
+    #endif
     typedef long long LONGLONG;
     typedef unsigned long long ULONGLONG;
     
@@ -72,6 +77,7 @@
     typedef const wchar_t* LPCWSTR;
     typedef wchar_t* PWSTR;
     typedef const wchar_t* PCWSTR;
+    typedef void* PVOID;
     typedef void* LPVOID;
     typedef const void* LPCVOID;
     

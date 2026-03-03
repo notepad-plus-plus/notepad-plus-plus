@@ -62,62 +62,54 @@ cmake --build . --config Debug
 ### 4. Run the Application
 ```bash
 # After building, the app bundle will be in:
-# build/bin/Release/notepadpp.app (Release build)
-# build/bin/Debug/notepadpp.app (Debug build)
+# build/bin/notepadpp.app (Unix Makefiles/Ninja generators)
+# build/bin/{Debug|Release}/notepadpp.app (Xcode generator)
 
 # Run the app
-open bin/Release/notepadpp.app
+open bin/notepadpp.app
 ```
 
 ## Current Status
 
 ⚠️ **IMPORTANT: This is a work in progress!**
 
-### ✅ Completed (Phase 1)
-- [x] CMake build system for macOS
-- [x] Scintilla library configuration (Cocoa platform)
-- [x] Lexilla library configuration
-- [x] BoostRegex library configuration
-- [x] Info.plist for macOS app bundle
-- [x] ARM64 architecture support
+### ✅ Completed
+- [x] Phase 1: CMake build system for macOS
+- [x] Phase 2: Platform abstraction layer (baseline)
+- [x] Phase 3: macOS entry point and native app shell
+- [x] Phase 4A: Basic Scintilla integration (editor view replacement)
 
-### 🚧 In Progress
-- [ ] Platform abstraction layer
-- [ ] macOS entry point (main_mac.mm)
-- [ ] Cocoa UI implementation
+### 🚧 In Progress (Next)
+- [ ] Phase 4B: Syntax highlighting and lexer wiring
+  - Language detection by extension
+  - Theme/color configuration
+  - Scintilla notification delegate and modified tracking
 
 ### ❌ Not Yet Implemented
-- [ ] Window management (NSWindow/NSView)
-- [ ] Menu bar (NSMenu)
-- [ ] Dialogs (Find/Replace, Preferences, etc.)
-- [ ] File operations (POSIX/FSEvents)
-- [ ] Settings persistence (NSUserDefaults)
+- [ ] Phase 4C: Advanced editor features (folding, status bar, preferences)
+- [ ] Multi-document tab model
+- [ ] Find/Replace advanced UI parity
 - [ ] Plugin system (dylib loading)
-- [ ] macOS-specific features (Dock, Services, etc.)
+
+## Build Verification (Phase 4A)
+
+Latest local verification completed with `make -C build`:
+- `scintilla`, `lexilla`, and `notepadpp` targets build successfully
+- App bundle produced at `build/bin/notepadpp.app`
+- Binary architecture:
+  - `Mach-O 64-bit executable arm64`
 
 ## Known Issues
 
-1. **Build will fail** - The current CMakeLists.txt references source files that don't exist yet (main_mac.mm, platform abstraction layer, etc.)
-2. **Scintilla Cocoa sources** - Need to verify Scintilla's Cocoa implementation exists and is compatible
-3. **Windows dependencies** - Many source files still use Windows-specific APIs and won't compile on macOS
+1. **Manual GUI validation pending**: command-line build is green, but interactive checks still need to be run from the app UI.
+2. **Deprecated API warnings**: some C++ conversion and AppKit APIs emit warnings but do not block build.
+3. **BoostRegex disabled for macOS path**: currently optional and not linked by the app target.
 
 ## Next Steps
 
-To make this buildable, the following files need to be created:
-
-1. **Platform Abstraction Layer**
-   - `PowerEditor/src/platform/PlatformTypes.h`
-   - `PowerEditor/src/platform/WindowManager_mac.mm`
-   - `PowerEditor/src/platform/FileSystem_mac.mm`
-
-2. **macOS Entry Point**
-   - `PowerEditor/src/main_mac.mm` (replace winmain.cpp)
-
-3. **Cocoa UI Components**
-   - `PowerEditor/src/cocoa/NotepadPlusWindow.mm`
-   - `PowerEditor/src/cocoa/AppDelegate.mm`
-
-See `implementation_plan.md` for the complete roadmap.
+1. Start `Phase 4B` (syntax highlighting pipeline).
+2. Execute the full GUI checklist and capture outcomes in a test report.
+3. Keep docs in sync (`MACOS_PORT_STATUS.md`, phase completion files).
 
 ## Development Workflow
 
@@ -138,7 +130,7 @@ echo $?  # Should be 0 if successful
 ### Checking Binary Architecture
 ```bash
 # Verify the binary is built for correct architecture
-file bin/Release/notepadpp.app/Contents/MacOS/notepadpp
+file bin/notepadpp.app/Contents/MacOS/notepadpp
 
 # Expected output for ARM64:
 # Mach-O 64-bit executable arm64
@@ -150,13 +142,9 @@ file bin/Release/notepadpp.app/Contents/MacOS/notepadpp
 - Ensure Xcode Command Line Tools are installed: `xcode-select --install`
 - Verify CMake version: `cmake --version` (should be 3.20+)
 
-### Build Fails with Missing Headers
-- This is expected - source files need to be created/ported
-- Follow the implementation plan phases in order
-
-### Scintilla Cocoa Sources Not Found
-- Check if `scintilla/cocoa/` directory exists
-- May need to update Scintilla to a version with macOS support
+### Link Errors From Scintilla Symbols
+- Ensure `scintilla/CMakeLists.txt` includes `ChangeHistory.cxx`, `UndoHistory.cxx`, and `Geometry.cxx`
+- Ensure `QuartzCore` is linked on macOS
 
 ## Contributing
 

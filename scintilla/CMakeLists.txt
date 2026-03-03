@@ -13,6 +13,7 @@ set(SCINTILLA_SOURCES
     src/CharacterType.cxx
     src/CharClassify.cxx
     src/ContractionState.cxx
+    src/ChangeHistory.cxx
     src/DBCS.cxx
     src/Decoration.cxx
     src/Document.cxx
@@ -22,6 +23,7 @@ set(SCINTILLA_SOURCES
     src/Indicator.cxx
     src/KeyMap.cxx
     src/LineMarker.cxx
+    src/Geometry.cxx
     src/MarginView.cxx
     src/PerLine.cxx
     src/PositionCache.cxx
@@ -32,6 +34,7 @@ set(SCINTILLA_SOURCES
     src/Style.cxx
     src/UniConversion.cxx
     src/UniqueString.cxx
+    src/UndoHistory.cxx
     src/ViewStyle.cxx
     src/XPM.cxx
 )
@@ -71,10 +74,11 @@ add_library(scintilla STATIC
 
 # Platform-specific settings
 if(APPLE)
-    target_link_libraries(scintilla
+    target_link_libraries(scintilla PUBLIC
         ${COCOA_FRAMEWORK}
         ${FOUNDATION_FRAMEWORK}
         ${APPKIT_FRAMEWORK}
+        ${QUARTZCORE_FRAMEWORK}
     )
     
     # Enable ARC (Automatic Reference Counting) for Objective-C++

@@ -1,4 +1,6 @@
-# Phase 4A: Basic Scintilla Integration - In Progress
+# Phase 4A: Basic Scintilla Integration - Archived
+
+> Superseded by `PHASE4A_COMPLETE.md`.
 
 ## Summary
 

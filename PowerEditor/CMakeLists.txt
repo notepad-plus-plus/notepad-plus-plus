@@ -101,7 +101,7 @@ if(APPLE)
         MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Info.plist
         MACOSX_BUNDLE_BUNDLE_NAME "Notepad++"
         MACOSX_BUNDLE_GUI_IDENTIFIER "org.notepad-plus-plus.notepad-plus-plus"
-        MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION}
+        MACOSX_BUNDLE_SHORT_VERSION_STRING ${NotepadPlusPlus_VERSION}
     )
     
 elseif(WIN32)

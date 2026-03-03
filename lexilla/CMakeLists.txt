@@ -12,6 +12,13 @@ file(GLOB LEXER_SOURCES
     "lexers/Lex*.cxx"
 )
 
+# LexUser depends on Win32 headers and cannot compile on macOS/Linux.
+if(NOT WIN32)
+    list(REMOVE_ITEM LEXER_SOURCES
+        ${CMAKE_CURRENT_SOURCE_DIR}/lexers/LexUser.cxx
+    )
+endif()
+
 # LexLib sources
 file(GLOB LEXLIB_SOURCES
     "lexlib/*.cxx"

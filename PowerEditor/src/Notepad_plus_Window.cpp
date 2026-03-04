@@ -207,19 +207,19 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 	if(cmdLineParams->isPointValid() && NppDarkMode::isEnabled())
 		setStartupBgColor(NppDarkMode::getDlgBackgroundColor()); //draw dark background when opening Npp through cmd with position data
 
-	std::vector<wstring> fileNames;
-	std::vector<wstring> patterns;
+	std::vector<std::wstring> fileNames;
+	std::vector<std::wstring> patterns;
 	patterns.push_back(L"*.xml");
 
-	wstring nppDir = nppParams.getNppPath();
+	std::wstring nppDir = nppParams.getNppPath();
 
 	LocalizationSwitcher & localizationSwitcher = nppParams.getLocalizationSwitcher();
 	std::wstring localizationDir = nppDir;
 	pathAppend(localizationDir, L"localization\\");
 
 	_notepad_plus_plus_core.getMatchedFileNames(localizationDir.c_str(), 0, patterns, fileNames, false, false);
-	for (size_t i = 0, len = fileNames.size(); i < len; ++i)
-		localizationSwitcher.addLanguageFromXml(fileNames[i]);
+	for (const auto& fileName : fileNames)
+		localizationSwitcher.addLanguageFromXml(fileName);
 
 	fileNames.clear();
 	ThemeSwitcher & themeSwitcher = nppParams.getThemeSwitcher();
@@ -227,53 +227,54 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 	//  Get themes from both npp install themes dir and user data themes dir (AppData, settingsDir, or cloud) with the per user
 	//  overriding default themes of the same name.
 
-	wstring userDataThemeDir = nppParams.getUserPath(); // getUserPath will always pick the right settingsDir/Cloud/AppData location
-	if (!userDataThemeDir.empty())
+	std::wstring userDataThemeDir = nppParams.getUserPath(); // getUserPath will always pick the right settingsDir/Cloud/AppData location
+	if (!userDataThemeDir.empty() && userDataThemeDir != nppDir)	
 	{
+		// append files from userDataThemeDir, unless it matches nppDir (which means the themes are already in the internal structure)
 		pathAppend(userDataThemeDir, L"themes\\");
 		_notepad_plus_plus_core.getMatchedFileNames(userDataThemeDir.c_str(), 0, patterns, fileNames, false, false);
-		for (size_t i = 0, len = fileNames.size() ; i < len ; ++i)
+		for (const auto& fileName: fileNames)
 		{
-			themeSwitcher.addThemeFromXml(fileNames[i]);
+			themeSwitcher.addThemeFromXml(fileName);
 		}
 	}
 
 	fileNames.clear();
 
-	wstring nppThemeDir = nppDir; // <- should use the pointer to avoid the constructor of copy
+	std::wstring nppThemeDir = nppDir; // <- should use the pointer to avoid the constructor of copy
 	pathAppend(nppThemeDir, L"themes\\");
 
 	// Set theme directory to their installation directory
 	themeSwitcher.setThemeDirPath(nppThemeDir);
 
 	_notepad_plus_plus_core.getMatchedFileNames(nppThemeDir.c_str(), 0, patterns, fileNames, false, false);
-	for (size_t i = 0, len = fileNames.size(); i < len ; ++i)
+	for (const auto& fileName : fileNames)
 	{
-		wstring themeName( themeSwitcher.getThemeFromXmlFileName(fileNames[i].c_str()) );
+		std::wstring themeName( themeSwitcher.getThemeFromXmlFileName(fileName.c_str()) );
 		if (!themeSwitcher.themeNameExists(themeName.c_str()))
 		{
-			themeSwitcher.addThemeFromXml(fileNames[i]);
+			themeSwitcher.addThemeFromXml(fileName);
 			
-			if (!userDataThemeDir.empty())
+			if (!userDataThemeDir.empty() && userDataThemeDir != nppDir)
 			{
-				wstring userDataThemePath = userDataThemeDir;
+				std::wstring userDataThemePath = userDataThemeDir;
 
 				if (!doesDirectoryExist(userDataThemePath.c_str()))
 				{
 					::CreateDirectory(userDataThemePath.c_str(), NULL);
 				}
 
-				wchar_t* fn = PathFindFileName(fileNames[i].c_str());
+				wchar_t* fn = PathFindFileName(fileName.c_str());
 				pathAppend(userDataThemePath, fn);
-				themeSwitcher.addThemeStylerSavePath(fileNames[i], userDataThemePath);
+				themeSwitcher.addThemeStylerSavePath(fileName, userDataThemePath);
 			}
 		}
 	}
 
 	if (NppDarkMode::isWindowsModeEnabled())
 	{
-		wstring themePath;
-		wstring xmlFileName = NppDarkMode::getThemeName();
+		std::wstring themePath;
+		std::wstring xmlFileName = NppDarkMode::getThemeName();
 		if (!xmlFileName.empty())
 		{
 			if (!nppParams.isLocal() || nppParams.isCloud())
@@ -308,7 +309,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 		::SendMessage(_hSelf, WM_COMMAND, _notepad_plus_plus_core._internalFuncIDs[i], 0);
 
 	std::chrono::steady_clock::duration cmdlineParamsLoadingTime{};
-	std::vector<wstring> fns;
+	std::vector<std::wstring> fns;
 	if (cmdLine)
 	{
 		std::chrono::steady_clock::time_point cmdlineParamsLoadingStartTP = std::chrono::steady_clock::now();
@@ -320,7 +321,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 	// To avoid dockable panel toggle problem.
 	if (cmdLineParams->_openFoldersAsWorkspace)
 	{
-		wstring emptyStr;
+		std::wstring emptyStr;
 		_notepad_plus_plus_core.launchFileBrowser(fns, emptyStr, true);
 	}
 	::SendMessage(_hSelf, WM_ACTIVATE, WA_ACTIVE, 0);

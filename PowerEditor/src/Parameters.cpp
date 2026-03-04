@@ -8299,7 +8299,7 @@ std::wstring NppParameters::writeStyles(LexerStylerArray& lexersStylers, StyleAr
 		}
 	}
 
-	auto savePath = _themeSwitcher.getSavePathFrom(_pXmlUserStylerDoc._path);
+	const auto savePath = _themeSwitcher.getSavePathFrom(_pXmlUserStylerDoc._path);
 	if (!savePath.empty())
 	{
 		static_cast<void>(NppXml::saveFile(_pXmlUserStylerDoc._doc, savePath.c_str()));

@@ -8305,10 +8305,8 @@ std::wstring NppParameters::writeStyles(LexerStylerArray& lexersStylers, StyleAr
 		static_cast<void>(NppXml::saveFile(_pXmlUserStylerDoc._doc, savePath.c_str()));
 		return savePath;
 	}
-	else
-	{
-		static_cast<void>(NppXml::saveFile(_pXmlUserStylerDoc._doc, _pXmlUserStylerDoc._path.c_str()));
-	}
+
+	static_cast<void>(NppXml::saveFile(_pXmlUserStylerDoc._doc, _pXmlUserStylerDoc._path.c_str()));
 	return L"";
 }
 

@@ -201,7 +201,7 @@ namespace NppXml
 		attr.set_value(value);
 	}
 
-	inline void setUInt32Attribute(Element& elem, const char* name, unsigned long value) {
+	inline void setULongAttribute(Element& elem, const char* name, unsigned long value) {
 		auto attr = elem.attribute(name);
 		if (!attr)
 		{

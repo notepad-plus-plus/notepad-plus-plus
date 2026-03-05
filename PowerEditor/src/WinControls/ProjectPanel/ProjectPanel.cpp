@@ -439,7 +439,7 @@ bool ProjectPanel::writeWorkSpace(const wchar_t* projectFileName, bool doUpdateG
 		//printStr(tvItem.pszText);
 
 		NppXml::Element projRoot = NppXml::createChildElement(root, "Project");
-		NppXml::setAttribute(projRoot, "name", wstring2string(tvItem.pszText).c_str());
+		NppXml::setAttribute(projRoot, "name", wstring2string(tvItem.pszText));
 		buildProjectXml(projRoot, tvProj, fn2write);
 	}
 
@@ -485,12 +485,12 @@ void ProjectPanel::buildProjectXml(NppXml::Element& root, HTREEITEM hItem, const
 			const auto* const fn = reinterpret_cast<std::wstring*>(tvItem.lParam);
 			std::string newFn = wstring2string(getRelativePath(*fn, fn2write));
 			NppXml::Element fileLeaf = NppXml::createChildElement(root, "File");
-			NppXml::setAttribute(fileLeaf, "name", newFn.c_str());
+			NppXml::setAttribute(fileLeaf, "name", newFn);
 		}
 		else
 		{
 			NppXml::Element folderNode = NppXml::createChildElement(root, "Folder");
-			NppXml::setAttribute(folderNode, "name", wstring2string(tvItem.pszText).c_str());
+			NppXml::setAttribute(folderNode, "name", wstring2string(tvItem.pszText));
 			buildProjectXml(folderNode, hItemNode, fn2write);
 		}
 	}

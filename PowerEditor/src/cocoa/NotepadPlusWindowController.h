@@ -15,13 +15,14 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #import <Cocoa/Cocoa.h>
+#import "ScintillaView.h"
 
 // Forward declaration
 @class ScintillaView;
 
 // Window controller for the main Notepad++ window
 // This manages the main editing window and its components
-@interface NotepadPlusWindowController : NSWindowController <NSWindowDelegate>
+@interface NotepadPlusWindowController : NSWindowController <NSWindowDelegate, ScintillaNotificationProtocol>
 
 // Window components
 @property (strong, nonatomic) ScintillaView* textView;
@@ -31,6 +32,7 @@
 // Current document
 @property (strong, nonatomic) NSString* currentFilePath;
 @property (assign, nonatomic) BOOL isDocumentModified;
+@property (strong, nonatomic) NSString* currentLanguageName;
 
 // Initialization
 - (instancetype)init;

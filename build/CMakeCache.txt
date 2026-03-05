@@ -315,6 +315,9 @@ Scintilla_IS_TOP_LEVEL:STATIC=OFF
 //Value Computed by CMake
 Scintilla_SOURCE_DIR:STATIC=/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/scintilla
 
+//Path to a library.
+UNIFORM_TYPE_IDENTIFIERS_FRAMEWORK:FILEPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework
+
 
 ########################
 # INTERNAL cache entries

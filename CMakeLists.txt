@@ -34,6 +34,7 @@ if(APPLE)
     find_library(APPKIT_FRAMEWORK AppKit REQUIRED)
     find_library(CORE_SERVICES_FRAMEWORK CoreServices REQUIRED)
     find_library(QUARTZCORE_FRAMEWORK QuartzCore REQUIRED)
+    find_library(UNIFORM_TYPE_IDENTIFIERS_FRAMEWORK UniformTypeIdentifiers)
 endif()
 
 # Platform detection

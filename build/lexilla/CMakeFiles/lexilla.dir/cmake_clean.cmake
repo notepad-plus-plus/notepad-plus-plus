@@ -239,6 +239,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/lexilla.dir/lexers/LexTroff.cxx.o.d"
   "CMakeFiles/lexilla.dir/lexers/LexTxt2tags.cxx.o"
   "CMakeFiles/lexilla.dir/lexers/LexTxt2tags.cxx.o.d"
+  "CMakeFiles/lexilla.dir/lexers/LexUser.cxx.o"
+  "CMakeFiles/lexilla.dir/lexers/LexUser.cxx.o.d"
   "CMakeFiles/lexilla.dir/lexers/LexVB.cxx.o"
   "CMakeFiles/lexilla.dir/lexers/LexVB.cxx.o.d"
   "CMakeFiles/lexilla.dir/lexers/LexVHDL.cxx.o"

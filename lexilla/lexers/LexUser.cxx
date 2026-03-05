@@ -21,7 +21,20 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include <map>
 #include <vector>
 #include <assert.h>
+#include <cstdio>
+#ifdef _WIN32
 #include <windows.h>
+#else
+#include "platform/PlatformTypes.h"
+static inline char *_itoa(int value, char *buffer, int radix) {
+    if (radix == 10) {
+        std::snprintf(buffer, 32, "%d", value);
+    } else {
+        std::snprintf(buffer, 32, "%x", value);
+    }
+    return buffer;
+}
+#endif
 
 #include "ILexer.h"
 #include "LexAccessor.h"

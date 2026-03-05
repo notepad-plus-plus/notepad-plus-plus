@@ -49,6 +49,20 @@ Now that we have a working app, integrate advanced features:
    - Status bar
    - Line numbers
 
+**Current 4B progress:**
+- Scintilla delegate notifications wired (`SCN_MODIFIED`, `SCN_SAVEPOINT*`)
+- Extension-based lexer assignment added via `SCI_SETILEXER`
+- JS/TS now mapped through the cpp lexer path with dedicated keyword sets
+- Basic C++/Python keyword sets and recolorization path in place
+- Extensionless/shebang inference added (CMakeLists/Makefile/shell/python scripts)
+- Minimal lexer color palettes added for common languages
+- Current-language label added in window title
+- Runtime smoke checklist added in `PHASE4B_IN_PROGRESS.md`
+- Validation run log and report template scripts added:
+  - `PHASE4B_VALIDATION_LOG.md`
+  - `scripts/phase4b_smoke.sh`
+  - `scripts/phase4b_smoke_report.sh`
+
 ## Current Build Status
 
 ✅ **BUILDS (Phase 4A complete)**

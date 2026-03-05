@@ -1452,6 +1452,7 @@ PowerEditor/CMakeFiles/notepadpp.dir/src/cocoa/NotepadPlusWindowController.mm.o:
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreData.framework/Headers/NSLightweightMigrationStage.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreData.framework/Headers/NSManagedObjectModelReference.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreData.framework/Headers/NSCoreDataCoreSpotlightDelegate.h \
+  /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/scintilla/cocoa/ScintillaView.h \
   /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/scintilla/include/Scintilla.h \
   /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/scintilla/include/Sci_Position.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector \
@@ -1911,5 +1912,14 @@ PowerEditor/CMakeFiles/notepadpp.dir/src/cocoa/NotepadPlusWindowController.mm.o:
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/nl_types.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_nl_item.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cstdarg \
-  /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/scintilla/cocoa/ScintillaView.h \
-  /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/scintilla/cocoa/InfoBarCommunicator.h
+  /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/scintilla/cocoa/InfoBarCommunicator.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UniformTypeIdentifiers.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UTDefines.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UTTagClass.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UTType.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UTCoreTypes.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UTAdditions.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/NSItemProvider+UTType.h \
+  /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/scintilla/include/ILexer.h \
+  /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/include/SciLexer.h \
+  /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/include/Lexilla.h

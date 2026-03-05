@@ -127,6 +127,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexTeX.cxx" "lexilla/CMakeFiles/lexilla.dir/lexers/LexTeX.cxx.o" "gcc" "lexilla/CMakeFiles/lexilla.dir/lexers/LexTeX.cxx.o.d"
   "/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexTroff.cxx" "lexilla/CMakeFiles/lexilla.dir/lexers/LexTroff.cxx.o" "gcc" "lexilla/CMakeFiles/lexilla.dir/lexers/LexTroff.cxx.o.d"
   "/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexTxt2tags.cxx" "lexilla/CMakeFiles/lexilla.dir/lexers/LexTxt2tags.cxx.o" "gcc" "lexilla/CMakeFiles/lexilla.dir/lexers/LexTxt2tags.cxx.o.d"
+  "/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexUser.cxx" "lexilla/CMakeFiles/lexilla.dir/lexers/LexUser.cxx.o" "gcc" "lexilla/CMakeFiles/lexilla.dir/lexers/LexUser.cxx.o.d"
   "/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexVB.cxx" "lexilla/CMakeFiles/lexilla.dir/lexers/LexVB.cxx.o" "gcc" "lexilla/CMakeFiles/lexilla.dir/lexers/LexVB.cxx.o.d"
   "/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexVHDL.cxx" "lexilla/CMakeFiles/lexilla.dir/lexers/LexVHDL.cxx.o" "gcc" "lexilla/CMakeFiles/lexilla.dir/lexers/LexVHDL.cxx.o.d"
   "/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexVerilog.cxx" "lexilla/CMakeFiles/lexilla.dir/lexers/LexVerilog.cxx.o" "gcc" "lexilla/CMakeFiles/lexilla.dir/lexers/LexVerilog.cxx.o.d"

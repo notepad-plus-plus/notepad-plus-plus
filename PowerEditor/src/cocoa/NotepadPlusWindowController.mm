@@ -15,8 +15,21 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #import "NotepadPlusWindowController.h"
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 #import "Scintilla.h"
 #import "ScintillaView.h"
+#include "ILexer.h"
+#import "SciLexer.h"
+#include "Lexilla.h"
+
+@interface NotepadPlusWindowController ()
+- (void)applySyntaxHighlightingForPath:(NSString *)filePath;
+- (NSString *)normalizedExtensionForPath:(NSString *)filePath content:(NSString *)content;
+- (NSString *)lexerNameForFileExtension:(NSString *)extension;
+- (NSString *)displayLanguageNameForLexerName:(NSString *)lexerName extension:(NSString *)ext;
+- (void)applyLexerPaletteForLexerName:(NSString *)lexerName fileExtension:(NSString *)ext;
+- (void)applyDefaultTheme;
+@end
 
 @implementation NotepadPlusWindowController
 
@@ -106,6 +119,8 @@
 
   // Set tab width
   [self.textView setGeneralProperty:SCI_SETTABWIDTH parameter:4 value:0];
+  [self.textView setGeneralProperty:SCI_SETINDENT parameter:4 value:0];
+  [self.textView setGeneralProperty:SCI_SETUSETABS parameter:0 value:0];
 
   // Enable caret line highlighting
   [self.textView setGeneralProperty:SCI_SETCARETLINEVISIBLE
@@ -118,11 +133,13 @@
                             value:[NSColor selectedTextBackgroundColor]];
 
   // Set up notification for text changes
-  // ScintillaView uses delegate pattern instead of NSNotificationCenter
-  // We'll handle this through Scintilla notifications later
+  self.textView.delegate = self;
 
   // Add ScintillaView to window
   [self.window.contentView addSubview:self.textView];
+
+  // Default to plain text lexer on new/untitled documents.
+  [self applySyntaxHighlightingForPath:nil];
 }
 
 - (void)setupToolbar {
@@ -146,6 +163,10 @@
     title = [self.currentFilePath lastPathComponent];
   } else {
     title = @"Untitled";
+  }
+
+  if (self.currentLanguageName.length > 0) {
+    title = [NSString stringWithFormat:@"%@ [%@]", title, self.currentLanguageName];
   }
 
   if (self.isDocumentModified) {
@@ -183,8 +204,10 @@
 
   // Clear the text view
   self.textView.string = @"";
+  [self.textView setGeneralProperty:SCI_SETSAVEPOINT parameter:0 value:0];
   self.currentFilePath = nil;
   self.isDocumentModified = NO;
+  [self applySyntaxHighlightingForPath:nil];
   [self updateWindowTitle];
 }
 
@@ -229,6 +252,8 @@
   }
 
   self.textView.string = content;
+  [self applySyntaxHighlightingForPath:filePath];
+  [self.textView setGeneralProperty:SCI_SETSAVEPOINT parameter:0 value:0];
   self.currentFilePath = filePath;
   self.isDocumentModified = NO;
   [self updateWindowTitle];
@@ -248,8 +273,27 @@
   NSLog(@"Save document as");
 
   NSSavePanel *savePanel = [NSSavePanel savePanel];
-  savePanel.allowedFileTypes =
-      @[ @"txt", @"cpp", @"h", @"py", @"js", @"html", @"css" ];
+  if (@available(macOS 12.0, *)) {
+    NSMutableArray<UTType *> *types = [NSMutableArray array];
+    NSArray<NSString *> *extensions = @[
+      @"txt", @"c", @"cpp", @"h", @"hpp", @"m", @"mm", @"py", @"js", @"ts",
+      @"html", @"xml", @"css", @"json", @"md", @"sh", @"sql", @"rs", @"toml",
+      @"yaml", @"yml"
+    ];
+    for (NSString *ext in extensions) {
+      UTType *type = [UTType typeWithFilenameExtension:ext];
+      if (type != nil) {
+        [types addObject:type];
+      }
+    }
+    savePanel.allowedContentTypes = types;
+  } else {
+    savePanel.allowedFileTypes = @[
+      @"txt", @"c", @"cpp", @"h", @"hpp", @"m", @"mm", @"py", @"js", @"ts",
+      @"html", @"xml", @"css", @"json", @"md", @"sh", @"sql", @"rs", @"toml",
+      @"yaml", @"yml"
+    ];
+  }
   savePanel.allowsOtherFileTypes = YES;
 
   if (self.currentFilePath) {
@@ -290,6 +334,8 @@
   }
 
   self.currentFilePath = filePath;
+  [self applySyntaxHighlightingForPath:filePath];
+  [self.textView setGeneralProperty:SCI_SETSAVEPOINT parameter:0 value:0];
   self.isDocumentModified = NO;
   [self updateWindowTitle];
 
@@ -299,13 +345,319 @@
 #pragma mark - Text Change Notification
 
 - (void)textDidChange:(NSNotification *)notification {
-  // Note: ScintillaView uses delegate pattern for notifications
-  // We'll implement proper Scintilla notification handling in Phase 4B
-  // For now, we'll track changes through save operations
+#pragma unused(notification)
   if (!self.isDocumentModified) {
     self.isDocumentModified = YES;
     [self updateWindowTitle];
   }
+}
+
+- (void)notification:(SCNotification *)notification {
+  switch (notification->nmhdr.code) {
+  case SCN_SAVEPOINTREACHED:
+    self.isDocumentModified = NO;
+    [self updateWindowTitle];
+    break;
+  case SCN_SAVEPOINTLEFT:
+    self.isDocumentModified = YES;
+    [self updateWindowTitle];
+    break;
+  case SCN_MODIFIED:
+    if (notification->modificationType & (SC_MOD_INSERTTEXT | SC_MOD_DELETETEXT)) {
+      self.isDocumentModified = YES;
+      [self updateWindowTitle];
+    }
+    break;
+  default:
+    break;
+  }
+}
+
+#pragma mark - Syntax Highlighting
+
+- (NSString *)normalizedExtensionForPath:(NSString *)filePath content:(NSString *)content {
+  NSString *ext = filePath.pathExtension.lowercaseString ?: @"";
+  if (ext.length > 0) {
+    return ext;
+  }
+
+  NSString *name = filePath.lastPathComponent.lowercaseString ?: @"";
+  if ([name isEqualToString:@"cmakelists.txt"]) {
+    return @"cmake";
+  }
+  if ([name isEqualToString:@"makefile"] || [name isEqualToString:@"gnumakefile"]) {
+    return @"mk";
+  }
+  if ([name hasPrefix:@".bash"] || [name isEqualToString:@".profile"] ||
+      [name isEqualToString:@".zshrc"]) {
+    return @"sh";
+  }
+
+  if ([content hasPrefix:@"#!"]) {
+    NSRange lineBreak = [content rangeOfString:@"\n"];
+    NSString *shebang = (lineBreak.location == NSNotFound)
+                            ? content
+                            : [content substringToIndex:lineBreak.location];
+    NSString *lower = shebang.lowercaseString;
+    if ([lower containsString:@"python"]) {
+      return @"py";
+    }
+    if ([lower containsString:@"bash"] || [lower containsString:@"zsh"] ||
+        [lower containsString:@"sh"]) {
+      return @"sh";
+    }
+    if ([lower containsString:@"node"]) {
+      return @"js";
+    }
+  }
+
+  return @"";
+}
+
+- (NSString *)lexerNameForFileExtension:(NSString *)extension {
+  if (extension.length == 0) {
+    return @"null";
+  }
+
+  NSString *ext = extension.lowercaseString;
+  if ([ext isEqualToString:@"m"] || [ext isEqualToString:@"mm"]) {
+    return @"objc";
+  }
+  if ([ext isEqualToString:@"c"] || [ext isEqualToString:@"cc"] ||
+      [ext isEqualToString:@"cpp"] || [ext isEqualToString:@"cxx"] ||
+      [ext isEqualToString:@"h"] || [ext isEqualToString:@"hpp"] ||
+      [ext isEqualToString:@"hh"]) {
+    return @"cpp";
+  }
+  if ([ext isEqualToString:@"py"] || [ext isEqualToString:@"pyw"]) {
+    return @"python";
+  }
+  // Lexilla does not provide a standalone "javascript"/"typescript" lexer
+  // module in this tree. Use cpp lexer with JS/TS keyword sets.
+  if ([ext isEqualToString:@"js"] || [ext isEqualToString:@"jsx"] ||
+      [ext isEqualToString:@"ts"] || [ext isEqualToString:@"tsx"]) {
+    return @"cpp";
+  }
+  if ([ext isEqualToString:@"html"] || [ext isEqualToString:@"htm"] ||
+      [ext isEqualToString:@"xhtml"] || [ext isEqualToString:@"php"]) {
+    return @"hypertext";
+  }
+  if ([ext isEqualToString:@"xml"] || [ext isEqualToString:@"xsd"] ||
+      [ext isEqualToString:@"xsl"] || [ext isEqualToString:@"svg"]) {
+    return @"xml";
+  }
+  if ([ext isEqualToString:@"css"]) {
+    return @"css";
+  }
+  if ([ext isEqualToString:@"cmake"]) {
+    return @"cmake";
+  }
+  if ([ext isEqualToString:@"mk"]) {
+    return @"makefile";
+  }
+  if ([ext isEqualToString:@"yml"] || [ext isEqualToString:@"yaml"]) {
+    return @"yaml";
+  }
+  if ([ext isEqualToString:@"toml"]) {
+    return @"toml";
+  }
+  if ([ext isEqualToString:@"json"]) {
+    return @"json";
+  }
+  if ([ext isEqualToString:@"sql"]) {
+    return @"sql";
+  }
+  if ([ext isEqualToString:@"md"] || [ext isEqualToString:@"markdown"]) {
+    return @"markdown";
+  }
+  if ([ext isEqualToString:@"sh"] || [ext isEqualToString:@"bash"] ||
+      [ext isEqualToString:@"zsh"]) {
+    return @"bash";
+  }
+  if ([ext isEqualToString:@"rs"]) {
+    return @"rust";
+  }
+  return @"null";
+}
+
+- (void)applyDefaultTheme {
+  // Re-apply base styling so lexer-specific styles inherit sane defaults.
+  [self.textView setStringProperty:SCI_STYLESETFONT parameter:STYLE_DEFAULT value:@"Menlo"];
+  [self.textView setGeneralProperty:SCI_STYLESETSIZE parameter:STYLE_DEFAULT value:12];
+  [self.textView setColorProperty:SCI_STYLESETFORE parameter:STYLE_DEFAULT value:[NSColor textColor]];
+  [self.textView setColorProperty:SCI_STYLESETBACK parameter:STYLE_DEFAULT value:[NSColor textBackgroundColor]];
+  [self.textView setGeneralProperty:SCI_STYLECLEARALL parameter:0 value:0];
+
+  [self.textView setColorProperty:SCI_STYLESETFORE parameter:STYLE_LINENUMBER value:[NSColor secondaryLabelColor]];
+  [self.textView setColorProperty:SCI_STYLESETBACK parameter:STYLE_LINENUMBER value:[NSColor controlBackgroundColor]];
+}
+
+- (NSString *)displayLanguageNameForLexerName:(NSString *)lexerName extension:(NSString *)ext {
+  if ([lexerName isEqualToString:@"objc"]) return @"Objective-C";
+  if ([lexerName isEqualToString:@"cpp"]) {
+    if ([ext isEqualToString:@"js"] || [ext isEqualToString:@"jsx"]) return @"JavaScript";
+    if ([ext isEqualToString:@"ts"] || [ext isEqualToString:@"tsx"]) return @"TypeScript";
+    return @"C/C++";
+  }
+  if ([lexerName isEqualToString:@"python"]) return @"Python";
+  if ([lexerName isEqualToString:@"rust"]) return @"Rust";
+  if ([lexerName isEqualToString:@"bash"]) return @"Shell";
+  if ([lexerName isEqualToString:@"sql"]) return @"SQL";
+  if ([lexerName isEqualToString:@"json"]) return @"JSON";
+  if ([lexerName isEqualToString:@"markdown"]) return @"Markdown";
+  if ([lexerName isEqualToString:@"hypertext"]) return @"HTML";
+  if ([lexerName isEqualToString:@"xml"]) return @"XML";
+  if ([lexerName isEqualToString:@"css"]) return @"CSS";
+  if ([lexerName isEqualToString:@"yaml"]) return @"YAML";
+  if ([lexerName isEqualToString:@"toml"]) return @"TOML";
+  if ([lexerName isEqualToString:@"cmake"]) return @"CMake";
+  if ([lexerName isEqualToString:@"makefile"]) return @"Makefile";
+  return @"Plain Text";
+}
+
+- (void)applyLexerPaletteForLexerName:(NSString *)lexerName fileExtension:(NSString *)ext {
+  if ([lexerName isEqualToString:@"cpp"] || [lexerName isEqualToString:@"objc"]) {
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_C_COMMENT fromHTML:@"#5A8F58"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_C_COMMENTLINE fromHTML:@"#5A8F58"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_C_COMMENTDOC fromHTML:@"#5A8F58"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_C_WORD fromHTML:@"#1F5FBF"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_C_WORD2 fromHTML:@"#7A3E9D"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_C_STRING fromHTML:@"#B2561A"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_C_CHARACTER fromHTML:@"#B2561A"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_C_NUMBER fromHTML:@"#7A3E9D"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_C_PREPROCESSOR fromHTML:@"#A03E8A"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_C_OPERATOR fromHTML:@"#3A3F45"];
+  } else if ([lexerName isEqualToString:@"python"]) {
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_P_COMMENTLINE fromHTML:@"#5A8F58"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_P_COMMENTBLOCK fromHTML:@"#5A8F58"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_P_WORD fromHTML:@"#1F5FBF"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_P_WORD2 fromHTML:@"#7A3E9D"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_P_STRING fromHTML:@"#B2561A"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_P_CHARACTER fromHTML:@"#B2561A"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_P_NUMBER fromHTML:@"#7A3E9D"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_P_DECORATOR fromHTML:@"#A03E8A"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_P_OPERATOR fromHTML:@"#3A3F45"];
+  } else if ([lexerName isEqualToString:@"sql"]) {
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_SQL_COMMENT fromHTML:@"#5A8F58"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_SQL_COMMENTLINE fromHTML:@"#5A8F58"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_SQL_WORD fromHTML:@"#1F5FBF"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_SQL_WORD2 fromHTML:@"#7A3E9D"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_SQL_STRING fromHTML:@"#B2561A"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_SQL_CHARACTER fromHTML:@"#B2561A"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_SQL_NUMBER fromHTML:@"#7A3E9D"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_SQL_OPERATOR fromHTML:@"#3A3F45"];
+  } else if ([lexerName isEqualToString:@"bash"]) {
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_SH_COMMENTLINE fromHTML:@"#5A8F58"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_SH_WORD fromHTML:@"#1F5FBF"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_SH_STRING fromHTML:@"#B2561A"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_SH_CHARACTER fromHTML:@"#B2561A"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_SH_NUMBER fromHTML:@"#7A3E9D"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_SH_OPERATOR fromHTML:@"#3A3F45"];
+  } else if ([lexerName isEqualToString:@"json"]) {
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_JSON_PROPERTYNAME fromHTML:@"#186E86"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_JSON_STRING fromHTML:@"#B2561A"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_JSON_NUMBER fromHTML:@"#7A3E9D"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_JSON_KEYWORD fromHTML:@"#1F5FBF"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_JSON_LINECOMMENT fromHTML:@"#5A8F58"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_JSON_BLOCKCOMMENT fromHTML:@"#5A8F58"];
+  } else if ([lexerName isEqualToString:@"markdown"]) {
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_MARKDOWN_HEADER1 fromHTML:@"#1F5FBF"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_MARKDOWN_HEADER2 fromHTML:@"#1F5FBF"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_MARKDOWN_HEADER3 fromHTML:@"#1F5FBF"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_MARKDOWN_STRONG1 fromHTML:@"#B2561A"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_MARKDOWN_STRONG2 fromHTML:@"#B2561A"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_MARKDOWN_CODE fromHTML:@"#7A3E9D"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_MARKDOWN_CODE2 fromHTML:@"#7A3E9D"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_MARKDOWN_LINK fromHTML:@"#186E86"];
+  } else if ([lexerName isEqualToString:@"hypertext"] || [lexerName isEqualToString:@"xml"]) {
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_H_TAG fromHTML:@"#1F5FBF"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_H_TAGEND fromHTML:@"#1F5FBF"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_H_ATTRIBUTE fromHTML:@"#7A3E9D"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_H_DOUBLESTRING fromHTML:@"#B2561A"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_H_SINGLESTRING fromHTML:@"#B2561A"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_H_COMMENT fromHTML:@"#5A8F58"];
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_H_NUMBER fromHTML:@"#7A3E9D"];
+  }
+
+  if ([lexerName isEqualToString:@"cpp"] &&
+      ([ext isEqualToString:@"js"] || [ext isEqualToString:@"jsx"] ||
+       [ext isEqualToString:@"ts"] || [ext isEqualToString:@"tsx"])) {
+    // Differentiate JS/TS files sharing cpp lexer.
+    [self.textView setColorProperty:SCI_STYLESETFORE parameter:SCE_C_WORD fromHTML:@"#0E7490"];
+  }
+}
+
+- (void)applySyntaxHighlightingForPath:(NSString *)filePath {
+  NSString *ext = [self normalizedExtensionForPath:filePath content:self.textView.string];
+  NSString *lexerName = @"null";
+  if (ext.length > 0) {
+    lexerName = [self lexerNameForFileExtension:ext];
+  }
+  self.currentLanguageName = [self displayLanguageNameForLexerName:lexerName extension:ext];
+  NSLog(@"[NPP][Lexer] %@ -> %@", ext.length ? ext : @"(none)", lexerName);
+  Scintilla::ILexer5 *lexer = CreateLexer(lexerName.UTF8String);
+  [self.textView message:SCI_SETILEXER wParam:0 lParam:reinterpret_cast<sptr_t>(lexer)];
+
+  // Basic keyword sets for lexers that benefit immediately.
+  if ([lexerName isEqualToString:@"cpp"] &&
+      !([ext isEqualToString:@"js"] || [ext isEqualToString:@"jsx"] ||
+        [ext isEqualToString:@"ts"] || [ext isEqualToString:@"tsx"])) {
+    const char *cppKeywords =
+        "alignas alignof and and_eq asm auto bitand bitor bool break case catch "
+        "char class const constexpr consteval constinit continue decltype default "
+        "delete do double dynamic_cast else enum explicit export extern false float "
+        "for friend goto if inline int long mutable namespace new noexcept not "
+        "nullptr operator or private protected public register reinterpret_cast "
+        "return short signed sizeof static static_assert struct switch template this "
+        "thread_local throw true try typedef typeid typename union unsigned using "
+        "virtual void volatile wchar_t while xor";
+    [self.textView setReferenceProperty:SCI_SETKEYWORDS parameter:0 value:cppKeywords];
+  } else if ([lexerName isEqualToString:@"cpp"] &&
+             ([ext isEqualToString:@"js"] || [ext isEqualToString:@"jsx"])) {
+    const char *jsKeywords =
+        "await break case catch class const continue debugger default delete do else "
+        "export extends finally for function if import in instanceof let new return "
+        "super switch this throw try typeof var void while with yield async true false null";
+    [self.textView setReferenceProperty:SCI_SETKEYWORDS parameter:0 value:jsKeywords];
+  } else if ([lexerName isEqualToString:@"cpp"] &&
+             ([ext isEqualToString:@"ts"] || [ext isEqualToString:@"tsx"])) {
+    const char *tsKeywords =
+        "abstract any as asserts async await bigint boolean break case catch class "
+        "const constructor continue debugger declare default delete do else enum export "
+        "extends false finally for from function get if implements import in infer "
+        "instanceof interface is keyof let module namespace never new null number object "
+        "of out override private protected public readonly return set static string super "
+        "switch symbol this throw true try type typeof undefined unique unknown var void "
+        "while with yield";
+    [self.textView setReferenceProperty:SCI_SETKEYWORDS parameter:0 value:tsKeywords];
+  } else if ([lexerName isEqualToString:@"python"]) {
+    const char *pyKeywords =
+        "and as assert async await break class continue def del elif else except "
+        "False finally for from global if import in is lambda None nonlocal not or "
+        "pass raise return True try while with yield";
+    [self.textView setReferenceProperty:SCI_SETKEYWORDS parameter:0 value:pyKeywords];
+  } else if ([lexerName isEqualToString:@"rust"]) {
+    const char *rustKeywords =
+        "as async await break const continue crate dyn else enum extern false fn for if "
+        "impl in let loop match mod move mut pub ref return self Self static struct super "
+        "trait true type unsafe use where while";
+    [self.textView setReferenceProperty:SCI_SETKEYWORDS parameter:0 value:rustKeywords];
+  } else if ([lexerName isEqualToString:@"bash"]) {
+    const char *bashKeywords =
+        "if then elif else fi case esac for while until do done function in select time "
+        "coproc readonly local declare typeset export unset return break continue";
+    [self.textView setReferenceProperty:SCI_SETKEYWORDS parameter:0 value:bashKeywords];
+  } else if ([lexerName isEqualToString:@"sql"]) {
+    const char *sqlKeywords =
+        "select from where insert update delete create alter drop table view index join "
+        "left right inner outer on group by order having distinct union all into values "
+        "primary key foreign not null default check constraint";
+    [self.textView setReferenceProperty:SCI_SETKEYWORDS parameter:0 value:sqlKeywords];
+  }
+
+  [self applyDefaultTheme];
+  [self applyLexerPaletteForLexerName:lexerName fileExtension:ext];
+  [self.textView setGeneralProperty:SCI_COLOURISE parameter:0 value:-1];
 }
 
 #pragma mark - Window Delegate
@@ -334,12 +686,7 @@
 }
 
 - (void)windowWillClose:(NSNotification *)notification {
-  // Cleanup
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)dealloc {
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
+  #pragma unused(notification)
 }
 
 @end

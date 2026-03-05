@@ -1920,10 +1920,24 @@ lexilla/CMakeFiles/lexilla.dir/lexers/LexTxt2tags.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/lexilla.dir/lexers/LexTxt2tags.cxx.s"
 	cd /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/lexilla && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexTxt2tags.cxx -o CMakeFiles/lexilla.dir/lexers/LexTxt2tags.cxx.s
 
+lexilla/CMakeFiles/lexilla.dir/lexers/LexUser.cxx.o: lexilla/CMakeFiles/lexilla.dir/flags.make
+lexilla/CMakeFiles/lexilla.dir/lexers/LexUser.cxx.o: /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexUser.cxx
+lexilla/CMakeFiles/lexilla.dir/lexers/LexUser.cxx.o: lexilla/CMakeFiles/lexilla.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_133) "Building CXX object lexilla/CMakeFiles/lexilla.dir/lexers/LexUser.cxx.o"
+	cd /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/lexilla && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT lexilla/CMakeFiles/lexilla.dir/lexers/LexUser.cxx.o -MF CMakeFiles/lexilla.dir/lexers/LexUser.cxx.o.d -o CMakeFiles/lexilla.dir/lexers/LexUser.cxx.o -c /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexUser.cxx
+
+lexilla/CMakeFiles/lexilla.dir/lexers/LexUser.cxx.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/lexilla.dir/lexers/LexUser.cxx.i"
+	cd /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/lexilla && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexUser.cxx > CMakeFiles/lexilla.dir/lexers/LexUser.cxx.i
+
+lexilla/CMakeFiles/lexilla.dir/lexers/LexUser.cxx.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/lexilla.dir/lexers/LexUser.cxx.s"
+	cd /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/lexilla && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexUser.cxx -o CMakeFiles/lexilla.dir/lexers/LexUser.cxx.s
+
 lexilla/CMakeFiles/lexilla.dir/lexers/LexVB.cxx.o: lexilla/CMakeFiles/lexilla.dir/flags.make
 lexilla/CMakeFiles/lexilla.dir/lexers/LexVB.cxx.o: /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexVB.cxx
 lexilla/CMakeFiles/lexilla.dir/lexers/LexVB.cxx.o: lexilla/CMakeFiles/lexilla.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_133) "Building CXX object lexilla/CMakeFiles/lexilla.dir/lexers/LexVB.cxx.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_134) "Building CXX object lexilla/CMakeFiles/lexilla.dir/lexers/LexVB.cxx.o"
 	cd /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/lexilla && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT lexilla/CMakeFiles/lexilla.dir/lexers/LexVB.cxx.o -MF CMakeFiles/lexilla.dir/lexers/LexVB.cxx.o.d -o CMakeFiles/lexilla.dir/lexers/LexVB.cxx.o -c /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexVB.cxx
 
 lexilla/CMakeFiles/lexilla.dir/lexers/LexVB.cxx.i: cmake_force
@@ -1937,7 +1951,7 @@ lexilla/CMakeFiles/lexilla.dir/lexers/LexVB.cxx.s: cmake_force
 lexilla/CMakeFiles/lexilla.dir/lexers/LexVHDL.cxx.o: lexilla/CMakeFiles/lexilla.dir/flags.make
 lexilla/CMakeFiles/lexilla.dir/lexers/LexVHDL.cxx.o: /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexVHDL.cxx
 lexilla/CMakeFiles/lexilla.dir/lexers/LexVHDL.cxx.o: lexilla/CMakeFiles/lexilla.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_134) "Building CXX object lexilla/CMakeFiles/lexilla.dir/lexers/LexVHDL.cxx.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_135) "Building CXX object lexilla/CMakeFiles/lexilla.dir/lexers/LexVHDL.cxx.o"
 	cd /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/lexilla && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT lexilla/CMakeFiles/lexilla.dir/lexers/LexVHDL.cxx.o -MF CMakeFiles/lexilla.dir/lexers/LexVHDL.cxx.o.d -o CMakeFiles/lexilla.dir/lexers/LexVHDL.cxx.o -c /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexVHDL.cxx
 
 lexilla/CMakeFiles/lexilla.dir/lexers/LexVHDL.cxx.i: cmake_force
@@ -1951,7 +1965,7 @@ lexilla/CMakeFiles/lexilla.dir/lexers/LexVHDL.cxx.s: cmake_force
 lexilla/CMakeFiles/lexilla.dir/lexers/LexVerilog.cxx.o: lexilla/CMakeFiles/lexilla.dir/flags.make
 lexilla/CMakeFiles/lexilla.dir/lexers/LexVerilog.cxx.o: /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexVerilog.cxx
 lexilla/CMakeFiles/lexilla.dir/lexers/LexVerilog.cxx.o: lexilla/CMakeFiles/lexilla.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_135) "Building CXX object lexilla/CMakeFiles/lexilla.dir/lexers/LexVerilog.cxx.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_136) "Building CXX object lexilla/CMakeFiles/lexilla.dir/lexers/LexVerilog.cxx.o"
 	cd /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/lexilla && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT lexilla/CMakeFiles/lexilla.dir/lexers/LexVerilog.cxx.o -MF CMakeFiles/lexilla.dir/lexers/LexVerilog.cxx.o.d -o CMakeFiles/lexilla.dir/lexers/LexVerilog.cxx.o -c /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexVerilog.cxx
 
 lexilla/CMakeFiles/lexilla.dir/lexers/LexVerilog.cxx.i: cmake_force
@@ -1965,7 +1979,7 @@ lexilla/CMakeFiles/lexilla.dir/lexers/LexVerilog.cxx.s: cmake_force
 lexilla/CMakeFiles/lexilla.dir/lexers/LexVisualProlog.cxx.o: lexilla/CMakeFiles/lexilla.dir/flags.make
 lexilla/CMakeFiles/lexilla.dir/lexers/LexVisualProlog.cxx.o: /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexVisualProlog.cxx
 lexilla/CMakeFiles/lexilla.dir/lexers/LexVisualProlog.cxx.o: lexilla/CMakeFiles/lexilla.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_136) "Building CXX object lexilla/CMakeFiles/lexilla.dir/lexers/LexVisualProlog.cxx.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_137) "Building CXX object lexilla/CMakeFiles/lexilla.dir/lexers/LexVisualProlog.cxx.o"
 	cd /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/lexilla && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT lexilla/CMakeFiles/lexilla.dir/lexers/LexVisualProlog.cxx.o -MF CMakeFiles/lexilla.dir/lexers/LexVisualProlog.cxx.o.d -o CMakeFiles/lexilla.dir/lexers/LexVisualProlog.cxx.o -c /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexVisualProlog.cxx
 
 lexilla/CMakeFiles/lexilla.dir/lexers/LexVisualProlog.cxx.i: cmake_force
@@ -1979,7 +1993,7 @@ lexilla/CMakeFiles/lexilla.dir/lexers/LexVisualProlog.cxx.s: cmake_force
 lexilla/CMakeFiles/lexilla.dir/lexers/LexX12.cxx.o: lexilla/CMakeFiles/lexilla.dir/flags.make
 lexilla/CMakeFiles/lexilla.dir/lexers/LexX12.cxx.o: /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexX12.cxx
 lexilla/CMakeFiles/lexilla.dir/lexers/LexX12.cxx.o: lexilla/CMakeFiles/lexilla.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_137) "Building CXX object lexilla/CMakeFiles/lexilla.dir/lexers/LexX12.cxx.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_138) "Building CXX object lexilla/CMakeFiles/lexilla.dir/lexers/LexX12.cxx.o"
 	cd /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/lexilla && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT lexilla/CMakeFiles/lexilla.dir/lexers/LexX12.cxx.o -MF CMakeFiles/lexilla.dir/lexers/LexX12.cxx.o.d -o CMakeFiles/lexilla.dir/lexers/LexX12.cxx.o -c /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexX12.cxx
 
 lexilla/CMakeFiles/lexilla.dir/lexers/LexX12.cxx.i: cmake_force
@@ -1993,7 +2007,7 @@ lexilla/CMakeFiles/lexilla.dir/lexers/LexX12.cxx.s: cmake_force
 lexilla/CMakeFiles/lexilla.dir/lexers/LexYAML.cxx.o: lexilla/CMakeFiles/lexilla.dir/flags.make
 lexilla/CMakeFiles/lexilla.dir/lexers/LexYAML.cxx.o: /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexYAML.cxx
 lexilla/CMakeFiles/lexilla.dir/lexers/LexYAML.cxx.o: lexilla/CMakeFiles/lexilla.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_138) "Building CXX object lexilla/CMakeFiles/lexilla.dir/lexers/LexYAML.cxx.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_139) "Building CXX object lexilla/CMakeFiles/lexilla.dir/lexers/LexYAML.cxx.o"
 	cd /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/lexilla && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT lexilla/CMakeFiles/lexilla.dir/lexers/LexYAML.cxx.o -MF CMakeFiles/lexilla.dir/lexers/LexYAML.cxx.o.d -o CMakeFiles/lexilla.dir/lexers/LexYAML.cxx.o -c /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexYAML.cxx
 
 lexilla/CMakeFiles/lexilla.dir/lexers/LexYAML.cxx.i: cmake_force
@@ -2007,7 +2021,7 @@ lexilla/CMakeFiles/lexilla.dir/lexers/LexYAML.cxx.s: cmake_force
 lexilla/CMakeFiles/lexilla.dir/lexers/LexZig.cxx.o: lexilla/CMakeFiles/lexilla.dir/flags.make
 lexilla/CMakeFiles/lexilla.dir/lexers/LexZig.cxx.o: /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexZig.cxx
 lexilla/CMakeFiles/lexilla.dir/lexers/LexZig.cxx.o: lexilla/CMakeFiles/lexilla.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_139) "Building CXX object lexilla/CMakeFiles/lexilla.dir/lexers/LexZig.cxx.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_140) "Building CXX object lexilla/CMakeFiles/lexilla.dir/lexers/LexZig.cxx.o"
 	cd /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/lexilla && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT lexilla/CMakeFiles/lexilla.dir/lexers/LexZig.cxx.o -MF CMakeFiles/lexilla.dir/lexers/LexZig.cxx.o.d -o CMakeFiles/lexilla.dir/lexers/LexZig.cxx.o -c /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/lexilla/lexers/LexZig.cxx
 
 lexilla/CMakeFiles/lexilla.dir/lexers/LexZig.cxx.i: cmake_force
@@ -2152,6 +2166,7 @@ lexilla_OBJECTS = \
 "CMakeFiles/lexilla.dir/lexers/LexTeX.cxx.o" \
 "CMakeFiles/lexilla.dir/lexers/LexTroff.cxx.o" \
 "CMakeFiles/lexilla.dir/lexers/LexTxt2tags.cxx.o" \
+"CMakeFiles/lexilla.dir/lexers/LexUser.cxx.o" \
 "CMakeFiles/lexilla.dir/lexers/LexVB.cxx.o" \
 "CMakeFiles/lexilla.dir/lexers/LexVHDL.cxx.o" \
 "CMakeFiles/lexilla.dir/lexers/LexVerilog.cxx.o" \
@@ -2295,6 +2310,7 @@ lib/liblexilla.a: lexilla/CMakeFiles/lexilla.dir/lexers/LexTOML.cxx.o
 lib/liblexilla.a: lexilla/CMakeFiles/lexilla.dir/lexers/LexTeX.cxx.o
 lib/liblexilla.a: lexilla/CMakeFiles/lexilla.dir/lexers/LexTroff.cxx.o
 lib/liblexilla.a: lexilla/CMakeFiles/lexilla.dir/lexers/LexTxt2tags.cxx.o
+lib/liblexilla.a: lexilla/CMakeFiles/lexilla.dir/lexers/LexUser.cxx.o
 lib/liblexilla.a: lexilla/CMakeFiles/lexilla.dir/lexers/LexVB.cxx.o
 lib/liblexilla.a: lexilla/CMakeFiles/lexilla.dir/lexers/LexVHDL.cxx.o
 lib/liblexilla.a: lexilla/CMakeFiles/lexilla.dir/lexers/LexVerilog.cxx.o
@@ -2304,7 +2320,7 @@ lib/liblexilla.a: lexilla/CMakeFiles/lexilla.dir/lexers/LexYAML.cxx.o
 lib/liblexilla.a: lexilla/CMakeFiles/lexilla.dir/lexers/LexZig.cxx.o
 lib/liblexilla.a: lexilla/CMakeFiles/lexilla.dir/build.make
 lib/liblexilla.a: lexilla/CMakeFiles/lexilla.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_140) "Linking CXX static library ../lib/liblexilla.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_141) "Linking CXX static library ../lib/liblexilla.a"
 	cd /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/lexilla && $(CMAKE_COMMAND) -P CMakeFiles/lexilla.dir/cmake_clean_target.cmake
 	cd /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build/lexilla && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/lexilla.dir/link.txt --verbose=$(VERBOSE)
 

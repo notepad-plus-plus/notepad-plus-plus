@@ -95,6 +95,9 @@ if(APPLE)
         ${APPKIT_FRAMEWORK}
         ${CORE_SERVICES_FRAMEWORK}
     )
+    if(UNIFORM_TYPE_IDENTIFIERS_FRAMEWORK)
+        target_link_libraries(notepadpp ${UNIFORM_TYPE_IDENTIFIERS_FRAMEWORK})
+    endif()
     
     # Set bundle properties
     set_target_properties(notepadpp PROPERTIES

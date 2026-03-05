@@ -3031,6 +3031,30 @@ lexers/LexTxt2tags.cxx.s:
 	cd /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build && $(MAKE) $(MAKESILENT) -f lexilla/CMakeFiles/lexilla.dir/build.make lexilla/CMakeFiles/lexilla.dir/lexers/LexTxt2tags.cxx.s
 .PHONY : lexers/LexTxt2tags.cxx.s
 
+lexers/LexUser.o: lexers/LexUser.cxx.o
+.PHONY : lexers/LexUser.o
+
+# target to build an object file
+lexers/LexUser.cxx.o:
+	cd /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build && $(MAKE) $(MAKESILENT) -f lexilla/CMakeFiles/lexilla.dir/build.make lexilla/CMakeFiles/lexilla.dir/lexers/LexUser.cxx.o
+.PHONY : lexers/LexUser.cxx.o
+
+lexers/LexUser.i: lexers/LexUser.cxx.i
+.PHONY : lexers/LexUser.i
+
+# target to preprocess a source file
+lexers/LexUser.cxx.i:
+	cd /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build && $(MAKE) $(MAKESILENT) -f lexilla/CMakeFiles/lexilla.dir/build.make lexilla/CMakeFiles/lexilla.dir/lexers/LexUser.cxx.i
+.PHONY : lexers/LexUser.cxx.i
+
+lexers/LexUser.s: lexers/LexUser.cxx.s
+.PHONY : lexers/LexUser.s
+
+# target to generate assembly for a file
+lexers/LexUser.cxx.s:
+	cd /Users/samsin/Documents/Antigravity_Folder/notepad-plus-plus_macos/build && $(MAKE) $(MAKESILENT) -f lexilla/CMakeFiles/lexilla.dir/build.make lexilla/CMakeFiles/lexilla.dir/lexers/LexUser.cxx.s
+.PHONY : lexers/LexUser.cxx.s
+
 lexers/LexVB.o: lexers/LexVB.cxx.o
 .PHONY : lexers/LexVB.o
 
@@ -3881,6 +3905,9 @@ help:
 	@echo "... lexers/LexTxt2tags.o"
 	@echo "... lexers/LexTxt2tags.i"
 	@echo "... lexers/LexTxt2tags.s"
+	@echo "... lexers/LexUser.o"
+	@echo "... lexers/LexUser.i"
+	@echo "... lexers/LexUser.s"
 	@echo "... lexers/LexVB.o"
 	@echo "... lexers/LexVB.i"
 	@echo "... lexers/LexVB.s"

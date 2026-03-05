@@ -17,6 +17,7 @@
 #import "AppDelegate.h"
 #import "NotepadPlusWindowController.h"
 #import <Foundation/Foundation.h>
+#include <stdlib.h>
 
 @implementation AppDelegate
 
@@ -39,6 +40,19 @@
     
     // Set up the application menu
     [self setupApplicationMenu];
+
+    // Optional non-interactive self-test mode for CI/automation.
+    const char *selfTestEnv = getenv("NPP_SELFTEST");
+    if (selfTestEnv && strcmp(selfTestEnv, "1") == 0) {
+        const char *selfTestFile = getenv("NPP_SELFTEST_FILE");
+        NSString *filePath = selfTestFile ? [NSString stringWithUTF8String:selfTestFile] : @"";
+        BOOL ok = [self.mainWindowController runSelfTestWithFilePath:filePath];
+        NSLog(@"[NPP][SelfTest] EXIT=%d", ok ? 0 : 1);
+        fflush(stdout);
+        fflush(stderr);
+        exit(ok ? 0 : 1);
+        return;
+    }
     
     NSLog(@"Notepad++ main window created and shown");
 }

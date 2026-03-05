@@ -18,6 +18,7 @@
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 #import "Scintilla.h"
 #import "ScintillaView.h"
+#include <stdlib.h>
 #include "ILexer.h"
 #import "SciLexer.h"
 #include "Lexilla.h"
@@ -29,6 +30,9 @@
 - (NSString *)displayLanguageNameForLexerName:(NSString *)lexerName extension:(NSString *)ext;
 - (void)applyLexerPaletteForLexerName:(NSString *)lexerName fileExtension:(NSString *)ext;
 - (void)applyDefaultTheme;
+- (void)updateStatusBar;
+- (void)updateCursorStatus;
+- (void)applyReadOnlyModeForPath:(NSString *)filePath;
 @end
 
 @implementation NotepadPlusWindowController
@@ -50,9 +54,12 @@
   if (self) {
     _currentFilePath = nil;
     _isDocumentModified = NO;
+    _currentLanguageName = @"Plain Text";
+    _currentLexerName = @"null";
 
     [self setupWindow];
     [self setupTextView];
+    [self setupStatusBar];
     [self setupToolbar];
     [self updateWindowTitle];
   }
@@ -82,8 +89,11 @@
 }
 
 - (void)setupTextView {
+  static const CGFloat kStatusBarHeight = 24.0;
   // Create ScintillaView - it manages its own scroll view
   NSRect contentFrame = [[self.window contentView] bounds];
+  contentFrame.origin.y = kStatusBarHeight;
+  contentFrame.size.height -= kStatusBarHeight;
 
   self.textView = [[ScintillaView alloc] initWithFrame:contentFrame];
   self.textView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
@@ -142,6 +152,91 @@
   [self applySyntaxHighlightingForPath:nil];
 }
 
+- (void)setupStatusBar {
+  static const CGFloat kStatusBarHeight = 24.0;
+  NSRect contentBounds = [[self.window contentView] bounds];
+  NSRect statusFrame = NSMakeRect(0, 0, contentBounds.size.width, kStatusBarHeight);
+
+  self.statusBarView = [[NSView alloc] initWithFrame:statusFrame];
+  self.statusBarView.autoresizingMask = NSViewWidthSizable | NSViewMaxYMargin;
+  self.statusBarView.wantsLayer = YES;
+  self.statusBarView.layer.backgroundColor = [NSColor controlBackgroundColor].CGColor;
+
+  self.languageLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(10, 4, 220, 16)];
+  self.languageLabel.bezeled = NO;
+  self.languageLabel.drawsBackground = NO;
+  self.languageLabel.editable = NO;
+  self.languageLabel.selectable = NO;
+  self.languageLabel.font = [NSFont systemFontOfSize:11 weight:NSFontWeightRegular];
+  self.languageLabel.textColor = [NSColor secondaryLabelColor];
+
+  self.modifiedLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(240, 4, 120, 16)];
+  self.modifiedLabel.bezeled = NO;
+  self.modifiedLabel.drawsBackground = NO;
+  self.modifiedLabel.editable = NO;
+  self.modifiedLabel.selectable = NO;
+  self.modifiedLabel.font = [NSFont systemFontOfSize:11 weight:NSFontWeightRegular];
+  self.modifiedLabel.textColor = [NSColor secondaryLabelColor];
+
+  self.encodingLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(370, 4, 90, 16)];
+  self.encodingLabel.bezeled = NO;
+  self.encodingLabel.drawsBackground = NO;
+  self.encodingLabel.editable = NO;
+  self.encodingLabel.selectable = NO;
+  self.encodingLabel.font = [NSFont systemFontOfSize:11 weight:NSFontWeightRegular];
+  self.encodingLabel.textColor = [NSColor secondaryLabelColor];
+
+  self.eolLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(470, 4, 90, 16)];
+  self.eolLabel.bezeled = NO;
+  self.eolLabel.drawsBackground = NO;
+  self.eolLabel.editable = NO;
+  self.eolLabel.selectable = NO;
+  self.eolLabel.font = [NSFont systemFontOfSize:11 weight:NSFontWeightRegular];
+  self.eolLabel.textColor = [NSColor secondaryLabelColor];
+
+  self.readOnlyLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(570, 4, 120, 16)];
+  self.readOnlyLabel.bezeled = NO;
+  self.readOnlyLabel.drawsBackground = NO;
+  self.readOnlyLabel.editable = NO;
+  self.readOnlyLabel.selectable = NO;
+  self.readOnlyLabel.font = [NSFont systemFontOfSize:11 weight:NSFontWeightRegular];
+  self.readOnlyLabel.textColor = [NSColor secondaryLabelColor];
+
+  CGFloat rightWidth = 120;
+  self.selectionLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(contentBounds.size.width - rightWidth - 140, 4, 120, 16)];
+  self.selectionLabel.autoresizingMask = NSViewMinXMargin;
+  self.selectionLabel.alignment = NSTextAlignmentRight;
+  self.selectionLabel.bezeled = NO;
+  self.selectionLabel.drawsBackground = NO;
+  self.selectionLabel.editable = NO;
+  self.selectionLabel.selectable = NO;
+  self.selectionLabel.font = [NSFont systemFontOfSize:11 weight:NSFontWeightRegular];
+  self.selectionLabel.textColor = [NSColor secondaryLabelColor];
+  self.selectionLabel.stringValue = @"Sel: 0 | Carets: 1";
+
+  self.cursorLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(contentBounds.size.width - rightWidth - 10, 4, rightWidth, 16)];
+  self.cursorLabel.autoresizingMask = NSViewMinXMargin;
+  self.cursorLabel.alignment = NSTextAlignmentRight;
+  self.cursorLabel.bezeled = NO;
+  self.cursorLabel.drawsBackground = NO;
+  self.cursorLabel.editable = NO;
+  self.cursorLabel.selectable = NO;
+  self.cursorLabel.font = [NSFont systemFontOfSize:11 weight:NSFontWeightRegular];
+  self.cursorLabel.textColor = [NSColor secondaryLabelColor];
+  self.cursorLabel.stringValue = @"Ln -, Col -";
+
+  [self.statusBarView addSubview:self.languageLabel];
+  [self.statusBarView addSubview:self.modifiedLabel];
+  [self.statusBarView addSubview:self.encodingLabel];
+  [self.statusBarView addSubview:self.eolLabel];
+  [self.statusBarView addSubview:self.readOnlyLabel];
+  [self.statusBarView addSubview:self.selectionLabel];
+  [self.statusBarView addSubview:self.cursorLabel];
+  [self.window.contentView addSubview:self.statusBarView];
+
+  [self updateStatusBar];
+}
+
 - (void)setupToolbar {
   // Create toolbar
   NSToolbar *toolbar =
@@ -176,6 +271,56 @@
   self.window.title = title;
   self.window.representedURL =
       self.currentFilePath ? [NSURL fileURLWithPath:self.currentFilePath] : nil;
+  [self updateStatusBar];
+}
+
+- (void)updateStatusBar {
+  self.languageLabel.stringValue = [NSString stringWithFormat:@"Language: %@", self.currentLanguageName ?: @"Plain Text"];
+  self.modifiedLabel.stringValue = self.isDocumentModified ? @"State: Edited" : @"State: Saved";
+  self.encodingLabel.stringValue = @"Encoding: UTF-8";
+
+  long eolMode = [self.textView getGeneralProperty:SCI_GETEOLMODE];
+  NSString *eol = @"LF";
+  if (eolMode == SC_EOL_CRLF) {
+    eol = @"CRLF";
+  } else if (eolMode == SC_EOL_CR) {
+    eol = @"CR";
+  }
+  self.eolLabel.stringValue = [NSString stringWithFormat:@"EOL: %@", eol];
+  long isReadOnly = [self.textView getGeneralProperty:SCI_GETREADONLY];
+  self.readOnlyLabel.stringValue = isReadOnly ? @"ReadOnly: On" : @"ReadOnly: Off";
+  [self updateCursorStatus];
+}
+
+- (void)applyReadOnlyModeForPath:(NSString *)filePath {
+  BOOL readOnly = NO;
+  if (filePath.length > 0) {
+    readOnly = ![[NSFileManager defaultManager] isWritableFileAtPath:filePath];
+  }
+  [self.textView setGeneralProperty:SCI_SETREADONLY parameter:(readOnly ? 1 : 0) value:0];
+}
+
+- (void)updateCursorStatus {
+  if (!self.textView) {
+    self.cursorLabel.stringValue = @"Ln -, Col -";
+    return;
+  }
+
+  sptr_t pos = [self.textView message:SCI_GETCURRENTPOS wParam:0 lParam:0];
+  sptr_t line = [self.textView message:SCI_LINEFROMPOSITION wParam:pos lParam:0];
+  sptr_t col = [self.textView message:SCI_GETCOLUMN wParam:pos lParam:0];
+  sptr_t selStart = [self.textView message:SCI_GETSELECTIONSTART wParam:0 lParam:0];
+  sptr_t selEnd = [self.textView message:SCI_GETSELECTIONEND wParam:0 lParam:0];
+  sptr_t carets = [self.textView message:SCI_GETSELECTIONS wParam:0 lParam:0];
+  long long selLen = llabs((long long)selEnd - (long long)selStart);
+  if (carets < 1) {
+    carets = 1;
+  }
+  self.selectionLabel.stringValue = [NSString stringWithFormat:@"Sel: %lld | Carets: %ld",
+                                                               selLen, (long)carets];
+  self.cursorLabel.stringValue = [NSString stringWithFormat:@"Ln %ld, Col %ld",
+                                                             (long)(line + 1),
+                                                             (long)(col + 1)];
 }
 
 #pragma mark - Document Operations
@@ -207,6 +352,7 @@
   [self.textView setGeneralProperty:SCI_SETSAVEPOINT parameter:0 value:0];
   self.currentFilePath = nil;
   self.isDocumentModified = NO;
+  [self applyReadOnlyModeForPath:nil];
   [self applySyntaxHighlightingForPath:nil];
   [self updateWindowTitle];
 }
@@ -256,6 +402,7 @@
   [self.textView setGeneralProperty:SCI_SETSAVEPOINT parameter:0 value:0];
   self.currentFilePath = filePath;
   self.isDocumentModified = NO;
+  [self applyReadOnlyModeForPath:filePath];
   [self updateWindowTitle];
 }
 
@@ -337,6 +484,7 @@
   [self applySyntaxHighlightingForPath:filePath];
   [self.textView setGeneralProperty:SCI_SETSAVEPOINT parameter:0 value:0];
   self.isDocumentModified = NO;
+  [self applyReadOnlyModeForPath:filePath];
   [self updateWindowTitle];
 
   NSLog(@"File saved successfully: %@", filePath);
@@ -355,18 +503,24 @@
 - (void)notification:(SCNotification *)notification {
   switch (notification->nmhdr.code) {
   case SCN_SAVEPOINTREACHED:
+    NSLog(@"[NPP][State] Savepoint reached");
     self.isDocumentModified = NO;
     [self updateWindowTitle];
     break;
   case SCN_SAVEPOINTLEFT:
+    NSLog(@"[NPP][State] Savepoint left");
     self.isDocumentModified = YES;
     [self updateWindowTitle];
     break;
   case SCN_MODIFIED:
     if (notification->modificationType & (SC_MOD_INSERTTEXT | SC_MOD_DELETETEXT)) {
+      NSLog(@"[NPP][State] Modified event type=%d", notification->modificationType);
       self.isDocumentModified = YES;
       [self updateWindowTitle];
     }
+    break;
+  case SCN_UPDATEUI:
+    [self updateCursorStatus];
     break;
   default:
     break;
@@ -594,6 +748,7 @@
     lexerName = [self lexerNameForFileExtension:ext];
   }
   self.currentLanguageName = [self displayLanguageNameForLexerName:lexerName extension:ext];
+  self.currentLexerName = lexerName;
   NSLog(@"[NPP][Lexer] %@ -> %@", ext.length ? ext : @"(none)", lexerName);
   Scintilla::ILexer5 *lexer = CreateLexer(lexerName.UTF8String);
   [self.textView message:SCI_SETILEXER wParam:0 lParam:reinterpret_cast<sptr_t>(lexer)];
@@ -658,6 +813,41 @@
   [self applyDefaultTheme];
   [self applyLexerPaletteForLexerName:lexerName fileExtension:ext];
   [self.textView setGeneralProperty:SCI_COLOURISE parameter:0 value:-1];
+  [self updateStatusBar];
+}
+
+#pragma mark - Self Test
+
+- (BOOL)runSelfTestWithFilePath:(NSString *)filePath {
+  NSLog(@"[NPP][SelfTest] START file=%@", filePath ?: @"(nil)");
+  if (filePath.length == 0) {
+    NSLog(@"[NPP][SelfTest] FAIL reason=missing_file_path");
+    return NO;
+  }
+
+  [self openFile:filePath];
+  if (!self.currentFilePath || ![[self.currentFilePath stringByStandardizingPath] isEqualToString:[filePath stringByStandardizingPath]]) {
+    NSLog(@"[NPP][SelfTest] FAIL reason=open_failed");
+    return NO;
+  }
+
+  NSLog(@"[NPP][SelfTest] LEXER=%@", self.currentLexerName ?: @"null");
+  [self.textView setGeneralProperty:SCI_SETREADONLY parameter:0 value:0];
+  long modifyBefore = [self.textView getGeneralProperty:SCI_GETMODIFY];
+  NSLog(@"[NPP][SelfTest] MODIFY_BEFORE=%ld", modifyBefore);
+
+  const char *probe = "npp-selftest\n";
+  [self.textView message:SCI_INSERTTEXT wParam:0 lParam:reinterpret_cast<sptr_t>(probe)];
+  long modifyAfterInsert = [self.textView getGeneralProperty:SCI_GETMODIFY];
+  NSLog(@"[NPP][SelfTest] MODIFY_AFTER_INSERT=%ld", modifyAfterInsert);
+
+  [self.textView setGeneralProperty:SCI_SETSAVEPOINT parameter:0 value:0];
+  long modifyAfterSavepoint = [self.textView getGeneralProperty:SCI_GETMODIFY];
+  NSLog(@"[NPP][SelfTest] MODIFY_AFTER_SAVEPOINT=%ld", modifyAfterSavepoint);
+
+  BOOL passed = (modifyBefore == 0 && modifyAfterInsert == 1 && modifyAfterSavepoint == 0);
+  NSLog(@"[NPP][SelfTest] %@", passed ? @"PASS" : @"FAIL");
+  return passed;
 }
 
 #pragma mark - Window Delegate

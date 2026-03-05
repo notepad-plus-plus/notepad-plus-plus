@@ -28,11 +28,20 @@
 @property (strong, nonatomic) ScintillaView* textView;
 @property (strong, nonatomic) NSScrollView* scrollView;
 @property (strong, nonatomic) NSToolbar* toolbar;
+@property (strong, nonatomic) NSView* statusBarView;
+@property (strong, nonatomic) NSTextField* languageLabel;
+@property (strong, nonatomic) NSTextField* modifiedLabel;
+@property (strong, nonatomic) NSTextField* encodingLabel;
+@property (strong, nonatomic) NSTextField* eolLabel;
+@property (strong, nonatomic) NSTextField* readOnlyLabel;
+@property (strong, nonatomic) NSTextField* selectionLabel;
+@property (strong, nonatomic) NSTextField* cursorLabel;
 
 // Current document
 @property (strong, nonatomic) NSString* currentFilePath;
 @property (assign, nonatomic) BOOL isDocumentModified;
 @property (strong, nonatomic) NSString* currentLanguageName;
+@property (strong, nonatomic) NSString* currentLexerName;
 
 // Initialization
 - (instancetype)init;
@@ -48,6 +57,10 @@
 - (void)setupWindow;
 - (void)setupToolbar;
 - (void)setupTextView;
+- (void)setupStatusBar;
 - (void)updateWindowTitle;
+
+// Validation / automation
+- (BOOL)runSelfTestWithFilePath:(NSString*)filePath;
 
 @end

@@ -2,9 +2,9 @@
 
 ## Summary
 
-Phase 4B has started.
+Phase 4B is in final validation/sign-off.
 
-This update adds the first working slice of lexer integration and edit-state notifications for the macOS Scintilla path.
+The implementation now includes lexer routing, edited/savepoint state tracking, repeatable self-test automation without Accessibility permissions, and report generation.
 
 ## Implemented
 
@@ -83,12 +83,16 @@ Result:
 - App bundle: `build/bin/notepadpp.app`
 - Binary arch: `arm64`
 
-## Remaining Phase 4B Work
+## Exit Criteria (4B)
 
-1. Expand language detection and keyword/theme sets.
-2. Validate runtime highlighting on real files across languages.
-3. Improve notifications for all content-changing actions.
-4. Add regression checks for modified-state edge cases.
+Phase 4B is complete only when both are true:
+
+1. Automated checks pass:
+   - lexer routing pass for all smoke samples
+   - self-test edited/savepoint transition pass (`0 -> 1 -> 0`) for all smoke samples
+   - self-test process exit code pass (`0` success / non-zero failure)
+   - report contains `FINAL_RESULT=PASS`
+2. Manual visual checklist is fully marked pass.
 
 ## Runtime Smoke Checklist (4B)
 
@@ -120,3 +124,12 @@ Validation run history:
 - [ ] Edit each file and verify title changes to `— Edited`.
 - [ ] Save file and verify `— Edited` indicator clears.
 - [ ] Use undo/redo and verify modified indicator stays in sync with savepoint state.
+
+Run fully automated validation (build + self-test report):
+
+```bash
+./scripts/phase4b_auto_validate.sh
+```
+
+Latest automated result:
+- `build/reports/phase4b_auto_validate_20260305_211330.md` -> `FINAL_RESULT=PASS`

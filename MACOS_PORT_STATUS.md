@@ -29,7 +29,7 @@
 
 ## What Needs to Be Done Next
 
-### Phase 4B: Syntax Highlighting & Editor Signals (NEXT)
+### Phase 4B: Syntax Highlighting & Editor Signals (In Final Validation)
 
 Now that we have a working app, integrate advanced features:
 
@@ -58,10 +58,23 @@ Now that we have a working app, integrate advanced features:
 - Minimal lexer color palettes added for common languages
 - Current-language label added in window title
 - Runtime smoke checklist added in `PHASE4B_IN_PROGRESS.md`
-- Validation run log and report template scripts added:
+- Validation run log and report scripts added:
   - `PHASE4B_VALIDATION_LOG.md`
   - `scripts/phase4b_smoke.sh`
   - `scripts/phase4b_smoke_report.sh`
+  - `scripts/phase4b_auto_validate.sh` (self-test mode, no Accessibility dependency)
+
+### Phase 4C: Foundation Started
+
+- Status bar shell added to main window layout.
+- Status fields wired:
+  - language label
+  - modified state (`Edited` / `Saved`)
+  - cursor position (`Ln <line>, Col <col>`)
+  - selection length + caret count (`Sel: <n> | Carets: <m>`)
+  - encoding (`UTF-8`) + line ending mode (`LF` / `CRLF` / `CR`)
+  - read-only state (`ReadOnly: On` / `ReadOnly: Off`)
+- Current behavior is read-only (no advanced controls yet).
 
 ## Current Build Status
 

@@ -65,9 +65,8 @@ void printStr(const wchar_t *str2print)
 
 wstring commafyInt(size_t n)
 {
-	static const auto loc = std::locale("");
 	std::wstringstream ss;
-	ss.imbue(loc);
+	ss.imbue(getSysLocale());
 	ss << n;
 	return ss.str();
 }
@@ -831,17 +830,15 @@ COLORREF getCtrlBgColor(HWND hWnd)
 
 std::wstring stringToUpper(std::wstring strToConvert)
 {
-	static const auto loc = std::locale("");
 	std::transform(strToConvert.begin(), strToConvert.end(), strToConvert.begin(),
-		[](auto ch) { return std::toupper(ch, loc); });
+		[](auto ch) { return std::toupper(ch, getSysLocale()); });
 	return strToConvert;
 }
 
 std::wstring stringToLower(std::wstring strToConvert)
 {
-	static const auto loc = std::locale("");
 	std::transform(strToConvert.begin(), strToConvert.end(), strToConvert.begin(),
-		[](auto ch) { return std::tolower(ch, loc); });
+		[](auto ch) { return std::tolower(ch, getSysLocale()); });
 	return strToConvert;
 }
 
@@ -956,6 +953,21 @@ double stodLocale(const wstring& str, [[maybe_unused]] _locale_t loc, size_t* id
 	return ans;
 }
 
+const std::locale& getSysLocale()
+{
+	static const auto systemLocale = []()
+	{
+		try
+		{
+			return std::locale("");
+		}
+		catch (const std::runtime_error&)
+		{
+			return std::locale::classic();
+		}
+	}();
+	return systemLocale;
+}
 
 bool str2Clipboard(const wstring &str2cpy, HWND hwnd)
 {

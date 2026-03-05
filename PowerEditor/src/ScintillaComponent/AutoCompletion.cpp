@@ -287,7 +287,6 @@ static bool isAllDigits(const std::string& str)
 
 static void sortInsensitive(std::vector<std::string>& wordArray)
 {
-	static const auto loc = std::locale("");
 	std::sort(
 		wordArray.begin(),
 		wordArray.end(),
@@ -298,7 +297,7 @@ static void sortInsensitive(std::vector<std::string>& wordArray)
 				b.begin(), b.end(),
 				[](const auto &ch1, const auto &ch2)
 				{
-					return std::toupper(ch1, loc) < std::toupper(ch2, loc);
+					return std::toupper(ch1, getSysLocale()) < std::toupper(ch2, getSysLocale());
 				}
 			);
 		}
@@ -551,8 +550,7 @@ static std::wstring removeTrailingSlash(const std::wstring& path)
 
 static bool isAllowedBeforeDriveLetter(wchar_t c)
 {
-	static const auto loc = std::locale("");
-	return c == L'\'' || c == L'"' || c == L'(' || std::isspace(c, loc);
+	return c == L'\'' || c == L'"' || c == L'(' || std::isspace(c, getSysLocale());
 }
 
 static bool getRawPath(const std::wstring& input, std::wstring &rawPath_out)
@@ -561,13 +559,12 @@ static bool getRawPath(const std::wstring& input, std::wstring &rawPath_out)
 	// Algorithm: look for a colon. The colon must be preceded by an alphabetic character.
 	// The alphabetic character must, in turn, be preceded by nothing, or by whitespace, or by
 	// a quotation mark.
-	static const auto loc = std::locale("");
 	size_t lastOccurrence = input.rfind(L":");
 	if (lastOccurrence == std::string::npos) // No match.
 		return false;
 	else if (lastOccurrence == 0)
 		return false;
-	else if (!std::isalpha(input[lastOccurrence - 1], loc))
+	else if (!std::isalpha(input[lastOccurrence - 1], getSysLocale()))
 		return false;
 	else if (lastOccurrence >= 2 && !isAllowedBeforeDriveLetter(input[lastOccurrence - 2]))
 		return false;

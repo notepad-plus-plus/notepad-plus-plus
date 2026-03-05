@@ -23,14 +23,11 @@
 #include <tchar.h>
 
 #include <algorithm>
-#include <cstdint>
 #include <locale>
 #include <sstream>
 #include <string>
 #include <unordered_set>
 #include <vector>
-
-#include "NppConstants.h"
 
 #if defined(_MSC_VER)
 #pragma deprecated(PathFileExists)  // Use doesFileExist, doesDirectoryExist or doesPathExist (for file or directory) instead.
@@ -152,6 +149,8 @@ bool str2numberVector(std::wstring str2convert, std::vector<size_t>& numVect);
 void stringJoin(const std::vector<std::wstring>& strings, const std::wstring& separator, std::wstring& joinedString);
 std::wstring stringTakeWhileAdmissable(const std::wstring& input, const std::wstring& admissable);
 double stodLocale(const std::wstring& str, _locale_t loc, size_t* idx = NULL);
+
+const std::locale& getSysLocale();
 
 bool str2Clipboard(const std::wstring &str2cpy, HWND hwnd);
 std::wstring strFromClipboard();

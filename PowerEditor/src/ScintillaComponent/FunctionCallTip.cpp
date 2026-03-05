@@ -25,6 +25,7 @@
 
 #include <Scintilla.h>
 
+#include "Common.h"
 #include "NppXml.h"
 
 struct Token {
@@ -47,7 +48,6 @@ struct FunctionValues {
 //0 if equal, <0 of before, >0 if after (name1 that is)
 static int testNameNoCase(const char* name1, const char* name2, int len = -1)
 {
-	static const auto loc = std::locale("");
 	if (len == -1)
 	{
 		len = 1024; //magic value, but it probably fails way before it reaches this
@@ -65,7 +65,7 @@ static int testNameNoCase(const char* name1, const char* name2, int len = -1)
 			continue;
 
 		// compare ignoring case
-		if (std::tolower(char1, loc) != std::tolower(char2, loc))
+		if (std::tolower(char1, getSysLocale()) != std::tolower(char2, getSysLocale()))
 		{
 			return char1 - char2;
 		}

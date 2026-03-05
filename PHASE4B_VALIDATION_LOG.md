@@ -126,3 +126,15 @@ Automated status:
   - `build/reports/phase4b_auto_validate_20260305_212509.md`
 - Automated result:
   - `FINAL_RESULT=PASS`
+
+## 2026-03-05 21:30:31 AEST (4C Indent Status Pass)
+
+- Added indent status indicator:
+  - `Indent: Tabs/<n>` or `Indent: Spaces/<n>`
+- Rebuilt and validated:
+  - `make -C build -j$(sysctl -n hw.ncpu)` passed
+  - `./scripts/phase4b_auto_validate.sh` passed
+- Generated report:
+  - `build/reports/phase4b_auto_validate_20260305_213031.md`
+- Automated result:
+  - `FINAL_RESULT=PASS`

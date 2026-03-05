@@ -13,6 +13,7 @@ This file records the initial Phase 4C status bar foundation delivered on 2026-0
   - line ending mode (`LF` / `CRLF` / `CR`)
   - read-only state (`ReadOnly: On` / `ReadOnly: Off`)
   - selection length + caret count (`Sel: <n> | Carets: <m>`)
+  - indent mode (`Indent: Tabs/<n>` or `Indent: Spaces/<n>`)
 - Wired live updates from editor notifications (`SCN_UPDATEUI`) for cursor display.
 - Reused existing language resolution and modified-state tracking from Phase 4B.
 - Wired Scintilla read-only mode from file writability on open/save/new paths.
@@ -29,10 +30,10 @@ This file records the initial Phase 4C status bar foundation delivered on 2026-0
   - `make -C build -j$(sysctl -n hw.ncpu)`
 - Regression guard:
   - `./scripts/phase4b_auto_validate.sh`
-  - latest known report: `build/reports/phase4b_auto_validate_20260305_212316.md` (`FINAL_RESULT=PASS`)
+  - latest known report: `build/reports/phase4b_auto_validate_20260305_213031.md` (`FINAL_RESULT=PASS`)
 
 ## Next 4C Steps
 
 1. Add tab-aware status updates when multi-document support lands.
 2. Add command/status affordances for future find/replace and navigation.
-3. Add richer document metadata (indent mode, tab size, language override source).
+3. Add richer document metadata (language override source, file format details).

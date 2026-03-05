@@ -203,6 +203,17 @@
   self.readOnlyLabel.textColor = [NSColor secondaryLabelColor];
 
   CGFloat rightWidth = 120;
+  self.indentLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(contentBounds.size.width - rightWidth - 270, 4, 120, 16)];
+  self.indentLabel.autoresizingMask = NSViewMinXMargin;
+  self.indentLabel.alignment = NSTextAlignmentRight;
+  self.indentLabel.bezeled = NO;
+  self.indentLabel.drawsBackground = NO;
+  self.indentLabel.editable = NO;
+  self.indentLabel.selectable = NO;
+  self.indentLabel.font = [NSFont systemFontOfSize:11 weight:NSFontWeightRegular];
+  self.indentLabel.textColor = [NSColor secondaryLabelColor];
+  self.indentLabel.stringValue = @"Indent: Spaces/4";
+
   self.selectionLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(contentBounds.size.width - rightWidth - 140, 4, 120, 16)];
   self.selectionLabel.autoresizingMask = NSViewMinXMargin;
   self.selectionLabel.alignment = NSTextAlignmentRight;
@@ -230,6 +241,7 @@
   [self.statusBarView addSubview:self.encodingLabel];
   [self.statusBarView addSubview:self.eolLabel];
   [self.statusBarView addSubview:self.readOnlyLabel];
+  [self.statusBarView addSubview:self.indentLabel];
   [self.statusBarView addSubview:self.selectionLabel];
   [self.statusBarView addSubview:self.cursorLabel];
   [self.window.contentView addSubview:self.statusBarView];
@@ -287,6 +299,13 @@
     eol = @"CR";
   }
   self.eolLabel.stringValue = [NSString stringWithFormat:@"EOL: %@", eol];
+
+  long useTabs = [self.textView getGeneralProperty:SCI_GETUSETABS];
+  long tabWidth = [self.textView getGeneralProperty:SCI_GETTABWIDTH];
+  self.indentLabel.stringValue = [NSString stringWithFormat:@"Indent: %@/%ld",
+                                                            useTabs ? @"Tabs" : @"Spaces",
+                                                            tabWidth];
+
   long isReadOnly = [self.textView getGeneralProperty:SCI_GETREADONLY];
   self.readOnlyLabel.stringValue = isReadOnly ? @"ReadOnly: On" : @"ReadOnly: Off";
   [self updateCursorStatus];

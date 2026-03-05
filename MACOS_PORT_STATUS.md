@@ -72,6 +72,7 @@ Now that we have a working app, integrate advanced features:
   - modified state (`Edited` / `Saved`)
   - cursor position (`Ln <line>, Col <col>`)
   - selection length + caret count (`Sel: <n> | Carets: <m>`)
+  - indent mode (`Indent: Tabs/<n>` or `Indent: Spaces/<n>`)
   - encoding (`UTF-8`) + line ending mode (`LF` / `CRLF` / `CR`)
   - read-only state (`ReadOnly: On` / `ReadOnly: Off`)
 - Current behavior is read-only (no advanced controls yet).

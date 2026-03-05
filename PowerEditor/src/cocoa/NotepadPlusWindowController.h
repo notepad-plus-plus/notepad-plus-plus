@@ -34,6 +34,7 @@
 @property (strong, nonatomic) NSTextField* encodingLabel;
 @property (strong, nonatomic) NSTextField* eolLabel;
 @property (strong, nonatomic) NSTextField* readOnlyLabel;
+@property (strong, nonatomic) NSTextField* indentLabel;
 @property (strong, nonatomic) NSTextField* selectionLabel;
 @property (strong, nonatomic) NSTextField* cursorLabel;
 

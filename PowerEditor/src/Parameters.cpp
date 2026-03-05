@@ -2361,7 +2361,7 @@ void NppParameters::updateLangXml(NppXml::Element& mainElemUser, const NppXml::E
 							}
 
 							// and update the XML's value
-							NppXml::setValue(pKwsValue, sOutputWords.c_str());
+							NppXml::setValue(pKwsValue, sOutputWords);
 						}
 					}
 				}
@@ -2402,7 +2402,7 @@ void NppParameters::updateLangXml(NppXml::Element& mainElemUser, const NppXml::E
 							isExtDone[sToken] = true;
 						}
 					}
-					NppXml::setAttribute(thisLanguageFromUser, attrName, sExtUpdated.c_str());
+					NppXml::setAttribute(thisLanguageFromUser, attrName, sExtUpdated);
 				}
 			}
 		}
@@ -2504,9 +2504,9 @@ void NppParameters::updateStylesXml(const NppXml::Element& rootUser, const std::
 					{
 						// override the value from the model file with the default value, for fgColor and bgColor only
 						if (std::strcmp(attrName, "fgColor") == 0)
-							NppXml::setAttribute(mapUserWidgets[widgetKey], attrName, defaultFgColor.c_str());
+							NppXml::setAttribute(mapUserWidgets[widgetKey], attrName, defaultFgColor);
 						else if (std::strcmp(attrName, "bgColor") == 0)
-							NppXml::setAttribute(mapUserWidgets[widgetKey], attrName, defaultBgColor.c_str());
+							NppXml::setAttribute(mapUserWidgets[widgetKey], attrName, defaultBgColor);
 					}
 				}
 			}
@@ -2520,9 +2520,9 @@ void NppParameters::updateStylesXml(const NppXml::Element& rootUser, const std::
 			if (useDefaultColors)
 			{
 				if (NppXml::attribute(p_cloneElement, "fgColor"))
-					NppXml::setAttribute(p_cloneElement, "fgColor", defaultFgColor.c_str());
+					NppXml::setAttribute(p_cloneElement, "fgColor", defaultFgColor);
 				if (NppXml::attribute(p_cloneElement, "bgColor"))
-					NppXml::setAttribute(p_cloneElement, "bgColor", defaultBgColor.c_str());
+					NppXml::setAttribute(p_cloneElement, "bgColor", defaultBgColor);
 			}
 		}
 	}
@@ -2664,9 +2664,9 @@ void NppParameters::updateStylesXml(const NppXml::Element& rootUser, const std::
 
 								// override the value from the model file with the default value, for fgColor and bgColor only
 								if (std::strcmp(attrName, "fgColor") == 0)
-									NppXml::setAttribute(elementFromUser, attrName, newFg.c_str());
+									NppXml::setAttribute(elementFromUser, attrName, newFg);
 								else if (std::strcmp(attrName, "bgColor") == 0)
-									NppXml::setAttribute(elementFromUser, attrName, newBg.c_str());
+									NppXml::setAttribute(elementFromUser, attrName, newBg);
 							}
 						}
 					}
@@ -2691,9 +2691,9 @@ void NppParameters::updateStylesXml(const NppXml::Element& rootUser, const std::
 						}
 
 						if (NppXml::attribute(p_cloneElement, "fgColor"))
-							NppXml::setAttribute(p_cloneElement, "fgColor", newFg.c_str());
+							NppXml::setAttribute(p_cloneElement, "fgColor", newFg);
 						if (NppXml::attribute(p_cloneElement, "bgColor"))
-							NppXml::setAttribute(p_cloneElement, "bgColor", newBg.c_str());
+							NppXml::setAttribute(p_cloneElement, "bgColor", newBg);
 					}
 				}
 			}
@@ -2723,9 +2723,9 @@ void NppParameters::updateStylesXml(const NppXml::Element& rootUser, const std::
 					}
 
 					if (NppXml::attribute(wordsStyleFromClone, "fgColor"))
-						NppXml::setAttribute(wordsStyleFromClone, "fgColor", newFg.c_str());
+						NppXml::setAttribute(wordsStyleFromClone, "fgColor", newFg);
 					if (NppXml::attribute(wordsStyleFromClone, "bgColor"))
-						NppXml::setAttribute(wordsStyleFromClone, "bgColor", newBg.c_str());
+						NppXml::setAttribute(wordsStyleFromClone, "bgColor", newBg);
 				}
 			}
 		}
@@ -4213,7 +4213,7 @@ void NppParameters::insertMacro(NppXml::Element& macrosRoot, const MacroShortcut
 	NppXml::setAttribute(macroRoot, "Key", key._key);
 	if (!folderName.empty())
 	{
-		NppXml::setAttribute(macroRoot, "FolderName", folderName.c_str());
+		NppXml::setAttribute(macroRoot, "FolderName", folderName);
 	}
 
 	for (size_t i = 0, len = macro._macro.size(); i < len; ++i)
@@ -4223,9 +4223,9 @@ void NppParameters::insertMacro(NppXml::Element& macrosRoot, const MacroShortcut
 
 		NppXml::setAttribute(actionNode, "type", action._macroType);
 		NppXml::setAttribute(actionNode, "message", action._message);
-		NppXml::setAttribute(actionNode, "wParam", static_cast<int>(action._wParameter));
-		NppXml::setAttribute(actionNode, "lParam", static_cast<int>(action._lParameter));
-		NppXml::setAttribute(actionNode, "sParam", action._sParameter.c_str());
+		NppXml::setAttribute(actionNode, "wParam", action._wParameter);
+		NppXml::setAttribute(actionNode, "lParam", action._lParameter);
+		NppXml::setAttribute(actionNode, "sParam", action._sParameter);
 	}
 }
 
@@ -4241,10 +4241,10 @@ void NppParameters::insertUserCmd(NppXml::Element& userCmdRoot, const UserComman
 	setBoolAttribute(cmdRoot, "Shift", key._isShift);
 	NppXml::setAttribute(cmdRoot, "Key", key._key);
 
-	NppXml::createChildText(cmdRoot, userCmd._cmd.c_str());
+	NppXml::createChildText(cmdRoot, userCmd._cmd);
 	if (!folderName.empty())
 	{
-		NppXml::setAttribute(cmdRoot, "FolderName", folderName.c_str());
+		NppXml::setAttribute(cmdRoot, "FolderName", folderName);
 	}
 }
 
@@ -4335,7 +4335,7 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 	if (root)
 	{
 		NppXml::Element sessionNode = NppXml::createChildElement(root, "Session");
-		NppXml::setUInt64Attribute(sessionNode, "activeView", session._activeView);
+		NppXml::setAttribute(sessionNode, "activeView", session._activeView);
 
 		struct ViewElem {
 			NppXml::Element viewNode;
@@ -4351,26 +4351,26 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 
 		for (size_t k = 0; k < nbElem ; ++k)
 		{
-			NppXml::setUInt64Attribute(viewElems[k].viewNode, "activeIndex", viewElems[k].activeIndex);
+			NppXml::setAttribute(viewElems[k].viewNode, "activeIndex", viewElems[k].activeIndex);
 			const std::vector<sessionFileInfo>& viewSessionFiles = *(viewElems[k].viewFiles);
 
 			for (const auto& vsFile : viewSessionFiles)
 			{
 				NppXml::Element fileNameNode = NppXml::createChildElement(viewElems[k].viewNode, "File");
 
-				NppXml::setInt64Attribute(fileNameNode, "firstVisibleLine", vsFile._firstVisibleLine);
-				NppXml::setInt64Attribute(fileNameNode, "xOffset", vsFile._xOffset);
-				NppXml::setInt64Attribute(fileNameNode, "scrollWidth", vsFile._scrollWidth);
-				NppXml::setInt64Attribute(fileNameNode, "startPos", vsFile._startPos);
-				NppXml::setInt64Attribute(fileNameNode, "endPos", vsFile._endPos);
-				NppXml::setInt64Attribute(fileNameNode, "selMode", vsFile._selMode);
-				NppXml::setInt64Attribute(fileNameNode, "offset", vsFile._offset);
-				NppXml::setInt64Attribute(fileNameNode, "wrapCount", vsFile._wrapCount);
-				NppXml::setAttribute(fileNameNode, "lang", wstring2string(vsFile._langName).c_str());
+				NppXml::setAttribute(fileNameNode, "firstVisibleLine", vsFile._firstVisibleLine);
+				NppXml::setAttribute(fileNameNode, "xOffset", vsFile._xOffset);
+				NppXml::setAttribute(fileNameNode, "scrollWidth", vsFile._scrollWidth);
+				NppXml::setAttribute(fileNameNode, "startPos", vsFile._startPos);
+				NppXml::setAttribute(fileNameNode, "endPos", vsFile._endPos);
+				NppXml::setAttribute(fileNameNode, "selMode", vsFile._selMode);
+				NppXml::setAttribute(fileNameNode, "offset", vsFile._offset);
+				NppXml::setAttribute(fileNameNode, "wrapCount", vsFile._wrapCount);
+				NppXml::setAttribute(fileNameNode, "lang", wstring2string(vsFile._langName));
 				NppXml::setAttribute(fileNameNode, "encoding", vsFile._encoding);
 				setBoolAttribute(fileNameNode, "userReadOnly", (vsFile._isUserReadOnly && !vsFile._isMonitoring));
-				NppXml::setAttribute(fileNameNode, "filename", wstring2string(vsFile._fileName).c_str());
-				NppXml::setAttribute(fileNameNode, "backupFilePath", wstring2string(vsFile._backupFilePath).c_str());
+				NppXml::setAttribute(fileNameNode, "filename", wstring2string(vsFile._fileName));
+				NppXml::setAttribute(fileNameNode, "backupFilePath", wstring2string(vsFile._backupFilePath));
 				NppXml::setAttribute(fileNameNode, "originalFileLastModifTimestamp", vsFile._originalFileLastModifTimestamp.dwLowDateTime);
 				NppXml::setAttribute(fileNameNode, "originalFileLastModifTimestampHigh", vsFile._originalFileLastModifTimestamp.dwHighDateTime);
 				NppXml::setAttribute(fileNameNode, "tabColourId", vsFile._individualTabColour);
@@ -4382,27 +4382,27 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 					NppXml::setAttribute(fileNameNode, "untitleTabRenamed", "yes");
 
 				// docMap
-				NppXml::setInt64Attribute(fileNameNode, "mapFirstVisibleDisplayLine", vsFile._mapPos._firstVisibleDisplayLine);
-				NppXml::setInt64Attribute(fileNameNode, "mapFirstVisibleDocLine", vsFile._mapPos._firstVisibleDocLine);
-				NppXml::setInt64Attribute(fileNameNode, "mapLastVisibleDocLine", vsFile._mapPos._lastVisibleDocLine);
-				NppXml::setInt64Attribute(fileNameNode, "mapNbLine", vsFile._mapPos._nbLine);
-				NppXml::setInt64Attribute(fileNameNode, "mapHigherPos", vsFile._mapPos._higherPos);
-				NppXml::setInt64Attribute(fileNameNode, "mapWidth", vsFile._mapPos._width);
-				NppXml::setInt64Attribute(fileNameNode, "mapHeight", vsFile._mapPos._height);
-				NppXml::setInt64Attribute(fileNameNode, "mapKByteInDoc", vsFile._mapPos._KByteInDoc);
-				NppXml::setInt64Attribute(fileNameNode, "mapWrapIndentMode", vsFile._mapPos._wrapIndentMode);
+				NppXml::setAttribute(fileNameNode, "mapFirstVisibleDisplayLine", vsFile._mapPos._firstVisibleDisplayLine);
+				NppXml::setAttribute(fileNameNode, "mapFirstVisibleDocLine", vsFile._mapPos._firstVisibleDocLine);
+				NppXml::setAttribute(fileNameNode, "mapLastVisibleDocLine", vsFile._mapPos._lastVisibleDocLine);
+				NppXml::setAttribute(fileNameNode, "mapNbLine", vsFile._mapPos._nbLine);
+				NppXml::setAttribute(fileNameNode, "mapHigherPos", vsFile._mapPos._higherPos);
+				NppXml::setAttribute(fileNameNode, "mapWidth", vsFile._mapPos._width);
+				NppXml::setAttribute(fileNameNode, "mapHeight", vsFile._mapPos._height);
+				NppXml::setAttribute(fileNameNode, "mapKByteInDoc", vsFile._mapPos._KByteInDoc);
+				NppXml::setAttribute(fileNameNode, "mapWrapIndentMode", vsFile._mapPos._wrapIndentMode);
 				setBoolAttribute(fileNameNode, "mapIsWrap", vsFile._mapPos._isWrap);
 
 				for (const auto& markLine : vsFile._marks)
 				{
 					NppXml::Element markNode = NppXml::createChildElement(fileNameNode, "Mark");
-					NppXml::setUInt64Attribute(markNode, "line", markLine);
+					NppXml::setAttribute(markNode, "line", markLine);
 				}
 
 				for (const auto& foldLine : vsFile._foldStates)
 				{
 					NppXml::Element foldNode = NppXml::createChildElement(fileNameNode, "Fold");
-					NppXml::setUInt64Attribute(foldNode, "line", foldLine);
+					NppXml::setAttribute(foldNode, "line", foldLine);
 				}
 			}
 		}
@@ -4411,11 +4411,11 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 		{
 			// Node structure and naming corresponds to config.xml
 			NppXml::Element fileBrowserRootNode = NppXml::createChildElement(sessionNode, "FileBrowser");
-			NppXml::setAttribute(fileBrowserRootNode, "latestSelectedItem", wstring2string(session._fileBrowserSelectedItem).c_str());
+			NppXml::setAttribute(fileBrowserRootNode, "latestSelectedItem", wstring2string(session._fileBrowserSelectedItem));
 			for (const auto& fbRoot : session._fileBrowserRoots)
 			{
 				NppXml::Element fileNameNode = NppXml::createChildElement(fileBrowserRootNode, "root");
-				NppXml::setAttribute(fileNameNode, "foldername", wstring2string(fbRoot).c_str());
+				NppXml::setAttribute(fileNameNode, "foldername", wstring2string(fbRoot));
 			}
 		}
 	}
@@ -4814,8 +4814,8 @@ int NppParameters::addStyleDefaultColors(
 	if (!pStyle)
 	{
 		NppXml::Element newStyle = NppXml::createChildElement(globalStyleRoot, "WidgetStyle");
-		NppXml::setAttribute(newStyle, "name", wstring2string(name).c_str());
-		NppXml::setAttribute(newStyle, "styleID", styleID.c_str());
+		NppXml::setAttribute(newStyle, "name", wstring2string(name));
+		NppXml::setAttribute(newStyle, "styleID", styleID);
 
 		const Style* pStyleFrom = fromStyle.empty() ? nullptr : _widgetStyleArray.findByName(fromStyle);
 		if (pStyleFrom)
@@ -4841,12 +4841,12 @@ int NppParameters::addStyleDefaultColors(
 		{
 			if (!fgColor.empty())
 			{
-				NppXml::setAttribute(newStyle, "fgColor", fgColor.c_str());
+				NppXml::setAttribute(newStyle, "fgColor", fgColor);
 			}
 
 			if (!bgColor.empty())
 			{
-				NppXml::setAttribute(newStyle, "bgColor", bgColor.c_str());
+				NppXml::setAttribute(newStyle, "bgColor", bgColor);
 			}
 
 			result = 1;
@@ -5050,7 +5050,7 @@ bool NppParameters::writeColumnEditorSettings()
 	NppXml::setAttribute(columnEditorRootNode, "choice", _columnEditParam._mainChoice == activeNumeric ? "number" : "text");
 
 	NppXml::Element textNode = NppXml::createChildElement(columnEditorRootNode, "text");
-	NppXml::setAttribute(textNode, "content", wstring2string(_columnEditParam._insertedTextContent).c_str());
+	NppXml::setAttribute(textNode, "content", wstring2string(_columnEditParam._insertedTextContent));
 
 	NppXml::Element numberNode = NppXml::createChildElement(columnEditorRootNode, "number");
 	NppXml::setAttribute(numberNode, "initial", _columnEditParam._initialNum);
@@ -5091,7 +5091,7 @@ bool NppParameters::writeColumnEditorSettings()
 			break;
 		}
 	}
-	NppXml::setAttribute(numberNode, "formatChoice", format.c_str());
+	NppXml::setAttribute(numberNode, "formatChoice", format);
 
 	std::string leading;
 	switch (_columnEditParam._leadingChoice)
@@ -5115,7 +5115,7 @@ bool NppParameters::writeColumnEditorSettings()
 			break;
 		}
 	}
-	NppXml::setAttribute(numberNode, "leadingChoice", leading.c_str());
+	NppXml::setAttribute(numberNode, "leadingChoice", leading);
 
 	return true;
 }
@@ -5145,7 +5145,7 @@ bool NppParameters::writeProjectPanelsSettings()
 	{
 		NppXml::Element projPanelNode = NppXml::createChildElement(projPanelRootNode, "ProjectPanel");
 		NppXml::setAttribute(projPanelNode, "id", i);
-		NppXml::setAttribute(projPanelNode, "workSpaceFile", wstring2string(_workSpaceFilePaths[i]).c_str());
+		NppXml::setAttribute(projPanelNode, "workSpaceFile", wstring2string(_workSpaceFilePaths[i]));
 	}
 
 	return true;
@@ -5173,13 +5173,13 @@ bool NppParameters::writeFileBrowserSettings(const std::vector<std::wstring>& ro
 
 	if (!rootPaths.empty())
 	{
-		NppXml::setAttribute(fileBrowserRootNode, "latestSelectedItem", wstring2string(latestSelectedItemPath).c_str());
+		NppXml::setAttribute(fileBrowserRootNode, "latestSelectedItem", wstring2string(latestSelectedItemPath));
 
 		// add roots
 		for (const auto& rootPath : rootPaths)
 		{
 			NppXml::Element fbRootNode = NppXml::createChildElement(fileBrowserRootNode, "root");
-			NppXml::setAttribute(fbRootNode, "foldername", wstring2string(rootPath).c_str());
+			NppXml::setAttribute(fbRootNode, "foldername", wstring2string(rootPath));
 		}
 	}
 
@@ -5201,7 +5201,7 @@ bool NppParameters::writeHistory(const wchar_t* fullpath)
 	}
 
 	NppXml::Element recentFileNode = NppXml::createChildElement(historyNode, "File");
-	NppXml::setAttribute(recentFileNode, "filename", wstring2string(fullpath).c_str());
+	NppXml::setAttribute(recentFileNode, "filename", wstring2string(fullpath));
 
 	return true;
 }
@@ -7025,9 +7025,9 @@ bool NppParameters::writeScintillaParams()
 		edgeColumnPosStr += " ";
 	}
 	setBoolAttribute(scintNode, "isEdgeBgMode", _svp._isEdgeBgMode);
-	NppXml::setAttribute(scintNode, "edgeMultiColumnPos", edgeColumnPosStr.c_str());
-	NppXml::setInt64Attribute(scintNode, "zoom", _svp._zoom);
-	NppXml::setInt64Attribute(scintNode, "zoom2", _svp._zoom2);
+	NppXml::setAttribute(scintNode, "edgeMultiColumnPos", edgeColumnPosStr);
+	NppXml::setAttribute(scintNode, "zoom", _svp._zoom);
+	NppXml::setAttribute(scintNode, "zoom2", _svp._zoom2);
 	setBoolAttribute(scintNode, "whiteSpaceShow", _svp._whiteSpaceShow, STR_BOOL_SHOWHIDE);
 	setBoolAttribute(scintNode, "eolShow", _svp._eolShow, STR_BOOL_SHOWHIDE);
 	NppXml::setAttribute(scintNode, "eolMode", _svp._eolMode);
@@ -7104,7 +7104,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		NppXml::setAttribute(GUIConfigElement, "name", "ToolBar");
 		setBoolAttribute(GUIConfigElement, "visible", _nppGUI._toolbarShow);
 		NppXml::setAttribute(GUIConfigElement, "fluentColor", static_cast<int>(nppGUITbInfo._tbColor));
-		NppXml::setAttribute(GUIConfigElement, "fluentCustomColor", static_cast<int>(nppGUITbInfo._tbCustomColor));
+		NppXml::setAttribute(GUIConfigElement, "fluentCustomColor", nppGUITbInfo._tbCustomColor);
 		setBoolAttribute(GUIConfigElement, "fluentMono", nppGUITbInfo._tbUseMono);
 
 		const char* pStr = nullptr;
@@ -7170,7 +7170,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		setBoolAttribute(GUIConfigElement, "hide", (_nppGUI._tabStatus & TAB_HIDE) != 0 && !_nppGUI._forceTabbarVisible);
 		setBoolAttribute(GUIConfigElement, "quitOnEmpty", (_nppGUI._tabStatus & TAB_QUITONEMPTY) != 0);
 
-		NppXml::setAttribute(GUIConfigElement, "tabCompactLabelLen", static_cast<int>(_nppGUI._tabCompactLabelLen));
+		NppXml::setAttribute(GUIConfigElement, "tabCompactLabelLen", _nppGUI._tabCompactLabelLen);
 	}
 
 	// <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>
@@ -7233,7 +7233,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 	{
 		NppXml::Element GUIConfigElement = insertGUIConfigBoolNode(newGUIRoot, "noUpdate", _nppGUI._autoUpdateOpt._doAutoUpdate == NppGUI::AutoUpdateMode::autoupdate_disabled);
 		NppXml::setAttribute(GUIConfigElement, "intervalDays", _nppGUI._autoUpdateOpt._intervalDays);
-		NppXml::setAttribute(GUIConfigElement, "nextUpdateDate", _nppGUI._autoUpdateOpt._nextUpdateDate.toString().c_str());
+		NppXml::setAttribute(GUIConfigElement, "nextUpdateDate", _nppGUI._autoUpdateOpt._nextUpdateDate.toString());
 		NppXml::setAttribute(GUIConfigElement, "autoUpdateMode", _nppGUI._autoUpdateOpt._doAutoUpdate);
 	}
 
@@ -7298,7 +7298,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 	{
 		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
 		NppXml::setAttribute(GUIConfigElement, "name", "TrayIcon");
-		NppXml::createChildText(GUIConfigElement, std::to_string(_nppGUI._isMinimizedToTray).c_str());
+		NppXml::createChildText(GUIConfigElement, std::to_string(_nppGUI._isMinimizedToTray));
 	}
 
 	// <GUIConfig name="MaintainIndent">yes</GUIConfig>
@@ -7306,7 +7306,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		//insertGUIConfigBoolNode(newGUIRoot, L"MaintainIndent", _nppGUI._maintainIndent);
 		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
 		NppXml::setAttribute(GUIConfigElement, "name", "MaintainIndent");
-		NppXml::createChildText(GUIConfigElement, std::to_string(_nppGUI._maintainIndent).c_str());
+		NppXml::createChildText(GUIConfigElement, std::to_string(_nppGUI._maintainIndent));
 	}
 
 	// <GUIConfig name = "TagsMatchHighLight" TagAttrHighLight = "yes" HighLightNonHtmlZone = "no">yes< / GUIConfig>
@@ -7370,10 +7370,10 @@ void NppParameters::createXmlTreeFromGUIParams()
 		NppXml::setAttribute(GUIConfigElement, "name", "Backup");
 		NppXml::setAttribute(GUIConfigElement, "action", _nppGUI._backup);
 		setBoolAttribute(GUIConfigElement, "useCustumDir", _nppGUI._useDir);
-		NppXml::setAttribute(GUIConfigElement, "dir", wstring2string(_nppGUI._backupDir).c_str());
+		NppXml::setAttribute(GUIConfigElement, "dir", wstring2string(_nppGUI._backupDir));
 
 		setBoolAttribute(GUIConfigElement, "isSnapshotMode", _nppGUI._isSnapshotMode);
-		NppXml::setUInt64Attribute(GUIConfigElement, "snapshotBackupTiming", _nppGUI._snapshotBackupTiming);
+		NppXml::setAttribute(GUIConfigElement, "snapshotBackupTiming", _nppGUI._snapshotBackupTiming);
 	}
 
 	// <GUIConfig name = "TaskList">yes< / GUIConfig>
@@ -7390,14 +7390,14 @@ void NppParameters::createXmlTreeFromGUIParams()
 	{
 		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
 		NppXml::setAttribute(GUIConfigElement, "name", "URL");
-		NppXml::createChildText(GUIConfigElement, std::to_string(_nppGUI._styleURL).c_str());
+		NppXml::createChildText(GUIConfigElement, std::to_string(_nppGUI._styleURL));
 	}
 
 	// <GUIConfig name="uriCustomizedSchemes">svn://</GUIConfig>
 	{
 		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
 		NppXml::setAttribute(GUIConfigElement, "name", "uriCustomizedSchemes");
-		NppXml::createChildText(GUIConfigElement, wstring2string(_nppGUI._uriSchemes).c_str());
+		NppXml::createChildText(GUIConfigElement, wstring2string(_nppGUI._uriSchemes));
 	}
 	// <GUIConfig name = "globalOverride" fg = "no" bg = "no" font = "no" fontSize = "no" bold = "no" italic = "no" underline = "no" / >
 	{
@@ -7417,7 +7417,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
 		NppXml::setAttribute(GUIConfigElement, "name", "auto-completion");
 		NppXml::setAttribute(GUIConfigElement, "autoCAction", _nppGUI._autocStatus);
-		NppXml::setAttribute(GUIConfigElement, "triggerFromNbChar", static_cast<int>(_nppGUI._autocFromLen));
+		NppXml::setAttribute(GUIConfigElement, "triggerFromNbChar", _nppGUI._autocFromLen);
 
 		setBoolAttribute(GUIConfigElement, "autoCIgnoreNumbers", _nppGUI._autocIgnoreNumbers);
 		setBoolAttribute(GUIConfigElement, "insertSelectedItemUseENTER", _nppGUI._autocInsertSelectedUseENTER);
@@ -7451,14 +7451,14 @@ void NppParameters::createXmlTreeFromGUIParams()
 	{
 		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
 		NppXml::setAttribute(GUIConfigElement, "name", "sessionExt");
-		NppXml::createChildText(GUIConfigElement, wstring2string(_nppGUI._definedSessionExt).c_str());
+		NppXml::createChildText(GUIConfigElement, wstring2string(_nppGUI._definedSessionExt));
 	}
 
 	// <GUIConfig name="workspaceExt"></GUIConfig>
 	{
 		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
 		NppXml::setAttribute(GUIConfigElement, "name", "workspaceExt");
-		NppXml::createChildText(GUIConfigElement, wstring2string(_nppGUI._definedWorkspaceExt).c_str());
+		NppXml::createChildText(GUIConfigElement, wstring2string(_nppGUI._definedWorkspaceExt));
 	}
 
 	// <GUIConfig name="MenuBar">show</GUIConfig>
@@ -7481,8 +7481,8 @@ void NppParameters::createXmlTreeFromGUIParams()
 		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
 		NppXml::setAttribute(GUIConfigElement, "name", "openSaveDir");
 		NppXml::setAttribute(GUIConfigElement, "value", _nppGUI._openSaveDir);
-		NppXml::setAttribute(GUIConfigElement, "defaultDirPath", wstring2string(_nppGUI._defaultDir).c_str());
-		NppXml::setAttribute(GUIConfigElement, "lastUsedDirPath", wstring2string(_nppGUI._lastUsedDir).c_str());
+		NppXml::setAttribute(GUIConfigElement, "defaultDirPath", wstring2string(_nppGUI._defaultDir));
+		NppXml::setAttribute(GUIConfigElement, "lastUsedDirPath", wstring2string(_nppGUI._lastUsedDir));
 	}
 
 	// <GUIConfig name="titleBar" short="no" />
@@ -7496,7 +7496,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 	{
 		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
 		NppXml::setAttribute(GUIConfigElement, "name", "insertDateTime");
-		NppXml::setAttribute(GUIConfigElement, "customizedFormat", wstring2string(_nppGUI._dateTimeFormat).c_str());
+		NppXml::setAttribute(GUIConfigElement, "customizedFormat", wstring2string(_nppGUI._dateTimeFormat));
 		setBoolAttribute(GUIConfigElement, "reverseDefaultOrder", _nppGUI._dateTimeReverseDefaultOrder);
 	}
 
@@ -7505,7 +7505,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
 		NppXml::setAttribute(GUIConfigElement, "name", "wordCharList");
 		setBoolAttribute(GUIConfigElement, "useDefault", _nppGUI._isWordCharDefault);
-		NppXml::setAttribute(GUIConfigElement, "charsAdded", _nppGUI._customWordChars.c_str());
+		NppXml::setAttribute(GUIConfigElement, "charsAdded", _nppGUI._customWordChars);
 	}
 
 	// <GUIConfig name="delimiterSelection" leftmostDelimiter="40" rightmostDelimiter="41" delimiterSelectionOnEntireDocument="no" />
@@ -7521,7 +7521,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 	{
 		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
 		NppXml::setAttribute(GUIConfigElement, "name", "largeFileRestriction");
-		NppXml::setInt64Attribute(GUIConfigElement, "fileSizeMB", (_nppGUI._largeFileRestriction._largeFileSizeDefInByte / 1024) / 1024);
+		NppXml::setAttribute(GUIConfigElement, "fileSizeMB", (_nppGUI._largeFileRestriction._largeFileSizeDefInByte / 1024) / 1024);
 		setBoolAttribute(GUIConfigElement, "isEnabled", _nppGUI._largeFileRestriction._isEnabled);
 		setBoolAttribute(GUIConfigElement, "allowAutoCompletion", _nppGUI._largeFileRestriction._allowAutoCompletion);
 		setBoolAttribute(GUIConfigElement, "allowBraceMatch", _nppGUI._largeFileRestriction._allowBraceMatch);
@@ -7590,7 +7590,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
 		NppXml::setAttribute(GUIConfigElement, "name", "searchEngine");
 		NppXml::setAttribute(GUIConfigElement, "searchEngineChoice", _nppGUI._searchEngineChoice);
-		NppXml::setAttribute(GUIConfigElement, "searchEngineCustom", wstring2string(_nppGUI._searchEngineCustom).c_str());
+		NppXml::setAttribute(GUIConfigElement, "searchEngineCustom", wstring2string(_nppGUI._searchEngineCustom));
 	}
 
 	// <GUIConfig name="MarkAll" matchCase="no" wholeWordOnly="yes" </GUIConfig>
@@ -7615,7 +7615,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 	{
 		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
 		NppXml::setAttribute(GUIConfigElement, "name", "commandLineInterpreter");
-		NppXml::createChildText(GUIConfigElement, wstring2string(_nppGUI._commandLineInterpreter).c_str());
+		NppXml::createChildText(GUIConfigElement, wstring2string(_nppGUI._commandLineInterpreter));
 	}
 
 	// <GUIConfig name="DarkMode" enable="no" colorTone="0" />
@@ -7648,7 +7648,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		const auto& darkDefaults = advOpt._darkDefaults;
 		const auto& darkThemeName = darkDefaults._xmlFileName;
 		const auto& darkTbInfo = darkDefaults._tbIconInfo;
-		NppXml::setAttribute(GUIConfigElement, "darkThemeName", wstring2string(darkThemeName).c_str());
+		NppXml::setAttribute(GUIConfigElement, "darkThemeName", wstring2string(darkThemeName));
 		NppXml::setAttribute(GUIConfigElement, "darkToolBarIconSet", darkTbInfo._tbIconSet);
 		NppXml::setAttribute(GUIConfigElement, "darkTbFluentColor", static_cast<int>(darkTbInfo._tbColor));
 		NppXml::setAttribute(GUIConfigElement, "darkTbFluentCustomColor", darkTbInfo._tbCustomColor);
@@ -7659,7 +7659,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		const auto& lightDefaults = advOpt._lightDefaults;
 		const auto& lightThemeName = lightDefaults._xmlFileName;
 		const auto& lightTbInfo = lightDefaults._tbIconInfo;
-		NppXml::setAttribute(GUIConfigElement, "lightThemeName", wstring2string(lightThemeName).c_str());
+		NppXml::setAttribute(GUIConfigElement, "lightThemeName", wstring2string(lightThemeName));
 		NppXml::setAttribute(GUIConfigElement, "lightToolBarIconSet", lightTbInfo._tbIconSet);
 		NppXml::setAttribute(GUIConfigElement, "lightTbFluentColor", static_cast<int>(lightTbInfo._tbColor));
 		NppXml::setAttribute(GUIConfigElement, "lightTbFluentCustomColor", lightTbInfo._tbCustomColor);
@@ -7734,25 +7734,25 @@ bool NppParameters::writeFindHistory()
 	for (const auto& path : _findHistory._findHistoryPaths)
 	{
 		NppXml::Element pathElement = NppXml::createChildElement(findHistoryRoot, "Path");
-		NppXml::setAttribute(pathElement, "name", wstring2string(path).c_str());
+		NppXml::setAttribute(pathElement, "name", wstring2string(path));
 	}
 
 	for (const auto& filter : _findHistory._findHistoryFilters)
 	{
 		NppXml::Element filterElement = NppXml::createChildElement(findHistoryRoot, "Filter");
-		NppXml::setAttribute(filterElement, "name", wstring2string(filter).c_str());
+		NppXml::setAttribute(filterElement, "name", wstring2string(filter));
 	}
 
 	for (const auto& find : _findHistory._findHistoryFinds)
 	{
 		NppXml::Element findElement = NppXml::createChildElement(findHistoryRoot, "Find");
-		NppXml::setAttribute(findElement, "name", wstring2string(find).c_str());
+		NppXml::setAttribute(findElement, "name", wstring2string(find));
 	}
 
 	for (const auto& replace : _findHistory._findHistoryReplaces)
 	{
 		NppXml::Element replaceElement = NppXml::createChildElement(findHistoryRoot, "Replace");
-		NppXml::setAttribute(replaceElement, "name", wstring2string(replace).c_str());
+		NppXml::setAttribute(replaceElement, "name", wstring2string(replace));
 	}
 
 	return true;
@@ -7783,7 +7783,7 @@ void NppParameters::insertDockingParamNode(NppXml::Element& GUIRoot) const
 	{
 		NppXml::Element PDNode = NppXml::createChildElement(DMNode, "PluginDlg");
 
-		NppXml::setAttribute(PDNode, "pluginName", wstring2string(pdi._name).c_str());
+		NppXml::setAttribute(PDNode, "pluginName", wstring2string(pdi._name));
 		NppXml::setAttribute(PDNode, "id", pdi._internalID);
 		NppXml::setAttribute(PDNode, "curr", pdi._currContainer);
 		NppXml::setAttribute(PDNode, "prev", pdi._prevContainer);
@@ -7807,17 +7807,17 @@ void NppParameters::writePrintSetting(NppXml::Element& element) const
 
 	NppXml::setAttribute(element, "printOption", prSet._printOption);
 
-	NppXml::setAttribute(element, "headerLeft", wstring2string(prSet._headerLeft).c_str());
-	NppXml::setAttribute(element, "headerMiddle", wstring2string(prSet._headerMiddle).c_str());
-	NppXml::setAttribute(element, "headerRight", wstring2string(prSet._headerRight).c_str());
-	NppXml::setAttribute(element, "footerLeft", wstring2string(prSet._footerLeft).c_str());
-	NppXml::setAttribute(element, "footerMiddle", wstring2string(prSet._footerMiddle).c_str());
-	NppXml::setAttribute(element, "footerRight", wstring2string(prSet._footerRight).c_str());
+	NppXml::setAttribute(element, "headerLeft", wstring2string(prSet._headerLeft));
+	NppXml::setAttribute(element, "headerMiddle", wstring2string(prSet._headerMiddle));
+	NppXml::setAttribute(element, "headerRight", wstring2string(prSet._headerRight));
+	NppXml::setAttribute(element, "footerLeft", wstring2string(prSet._footerLeft));
+	NppXml::setAttribute(element, "footerMiddle", wstring2string(prSet._footerMiddle));
+	NppXml::setAttribute(element, "footerRight", wstring2string(prSet._footerRight));
 
-	NppXml::setAttribute(element, "headerFontName", wstring2string(prSet._headerFontName).c_str());
+	NppXml::setAttribute(element, "headerFontName", wstring2string(prSet._headerFontName));
 	NppXml::setAttribute(element, "headerFontStyle", prSet._headerFontStyle);
 	NppXml::setAttribute(element, "headerFontSize", prSet._headerFontSize);
-	NppXml::setAttribute(element, "footerFontName", wstring2string(prSet._footerFontName).c_str());
+	NppXml::setAttribute(element, "footerFontName", wstring2string(prSet._footerFontName));
 	NppXml::setAttribute(element, "footerFontStyle", prSet._footerFontStyle);
 	NppXml::setAttribute(element, "footerFontSize", prSet._footerFontSize);
 
@@ -8231,7 +8231,7 @@ std::wstring NppParameters::writeStyles(LexerStylerArray& lexersStylers, StyleAr
 
 		if (pLs)
 		{
-			NppXml::setAttribute(childNode, "ext", wstring2string(pLs->getLexerUserExt()).c_str());
+			NppXml::setAttribute(childNode, "ext", wstring2string(pLs->getLexerUserExt()));
 
 			for (NppXml::Element grChildNode = NppXml::firstChildElement(childNode, "WordsStyle");
 				grChildNode;
@@ -8265,7 +8265,7 @@ std::wstring NppParameters::writeStyles(LexerStylerArray& lexersStylers, StyleAr
 
 			if (pLs)
 			{
-				NppXml::setAttribute(childNode, "ext", wstring2string(pLs->getLexerUserExt()).c_str());
+				NppXml::setAttribute(childNode, "ext", wstring2string(pLs->getLexerUserExt()));
 
 				for (NppXml::Element grChildNode = NppXml::firstChildElement(childNode, "WordsStyle");
 					grChildNode;
@@ -8380,7 +8380,7 @@ void NppParameters::writeStyle2Element(const Style& style2Write, Style& style2Sy
 		const std::string fontName = wstring2string(style2Write._fontName);
 		if (oldFontName && oldFontName != fontName)
 		{
-			NppXml::setAttribute(element, "fontName", fontName.c_str());
+			NppXml::setAttribute(element, "fontName", fontName);
 			style2Sync._fontName = style2Write._fontName;
 		}
 	}
@@ -8403,9 +8403,9 @@ void NppParameters::writeStyle2Element(const Style& style2Write, Style& style2Sy
 	const std::string& kws = style2Write._keywords;
 
 	if (teteDeNoeud)
-		NppXml::setValue(teteDeNoeud, kws.c_str());
+		NppXml::setValue(teteDeNoeud, kws);
 	else
-		NppXml::createChildText(element, kws.c_str());
+		NppXml::createChildText(element, kws);
 
 }
 
@@ -8415,11 +8415,11 @@ void NppParameters::insertUserLang2Tree(NppXml::Element& node, const UserLangCon
 
 	static const std::string udlVersion = std::to_string(SCE_UDL_VERSION_MAJOR) + "." + std::to_string(SCE_UDL_VERSION_MINOR);
 
-	NppXml::setAttribute(rootElement, "name", wstring2string(userLang->_name).c_str());
-	NppXml::setAttribute(rootElement, "ext", wstring2string(userLang->_ext).c_str());
+	NppXml::setAttribute(rootElement, "name", wstring2string(userLang->_name));
+	NppXml::setAttribute(rootElement, "ext", wstring2string(userLang->_ext));
 	if (userLang->_isDarkModeTheme) // set only if it's dark theme
 		NppXml::setAttribute(rootElement, "darkModeTheme", "yes");
-	NppXml::setAttribute(rootElement, "udlVersion", udlVersion.c_str());
+	NppXml::setAttribute(rootElement, "udlVersion", udlVersion);
 
 	NppXml::Element settingsElement = NppXml::createChildElement(rootElement,"Settings");
 	{
@@ -8440,7 +8440,7 @@ void NppParameters::insertUserLang2Tree(NppXml::Element& node, const UserLangCon
 	for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; ++i)
 	{
 		NppXml::Element kwElement = NppXml::createChildElement(kwlElement, "Keywords");
-		NppXml::setAttribute(kwElement, "name", globalMappper().keywordNameMapper[i].c_str());
+		NppXml::setAttribute(kwElement, "name", globalMappper().keywordNameMapper[i]);
 		NppXml::createChildText(kwElement, userLang->_keywordLists[i].c_str());
 	}
 
@@ -8453,7 +8453,7 @@ void NppParameters::insertUserLang2Tree(NppXml::Element& node, const UserLangCon
 		if (style2Write._styleID == -1)
 			continue;
 
-		NppXml::setAttribute(styleElement, "name", wstring2string(style2Write._styleDesc).c_str());
+		NppXml::setAttribute(styleElement, "name", wstring2string(style2Write._styleDesc));
 		static constexpr size_t bufSize = 7;
 		//if (HIBYTE(HIWORD(style2Write._fgColor)) != 0xFF)
 		{
@@ -8479,7 +8479,7 @@ void NppParameters::insertUserLang2Tree(NppXml::Element& node, const UserLangCon
 		if (!style2Write._fontName.empty())
 		{
 			const std::string fontName = wstring2string(style2Write._fontName);
-			NppXml::setAttribute(styleElement, "fontName", fontName.c_str());
+			NppXml::setAttribute(styleElement, "fontName", fontName);
 		}
 
 		if (style2Write._fontStyle == STYLE_NOT_USED)

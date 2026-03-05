@@ -4371,8 +4371,8 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 				setBoolAttribute(fileNameNode, "userReadOnly", (vsFile._isUserReadOnly && !vsFile._isMonitoring));
 				NppXml::setAttribute(fileNameNode, "filename", wstring2string(vsFile._fileName).c_str());
 				NppXml::setAttribute(fileNameNode, "backupFilePath", wstring2string(vsFile._backupFilePath).c_str());
-				NppXml::setInt64Attribute(fileNameNode, "originalFileLastModifTimestamp", vsFile._originalFileLastModifTimestamp.dwLowDateTime);
-				NppXml::setInt64Attribute(fileNameNode, "originalFileLastModifTimestampHigh", vsFile._originalFileLastModifTimestamp.dwHighDateTime);
+				NppXml::setUInt32Attribute(fileNameNode, "originalFileLastModifTimestamp", vsFile._originalFileLastModifTimestamp.dwLowDateTime);
+				NppXml::setUInt32Attribute(fileNameNode, "originalFileLastModifTimestampHigh", vsFile._originalFileLastModifTimestamp.dwHighDateTime);
 				NppXml::setAttribute(fileNameNode, "tabColourId", vsFile._individualTabColour);
 				setBoolAttribute(fileNameNode, "RTL", vsFile._isRTL);
 				setBoolAttribute(fileNameNode, "tabPinned", vsFile._isPinned);

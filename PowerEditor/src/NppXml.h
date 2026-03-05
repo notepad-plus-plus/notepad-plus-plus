@@ -201,6 +201,15 @@ namespace NppXml
 		attr.set_value(value);
 	}
 
+	inline void setUInt32Attribute(Element& elem, const char* name, unsigned long value) {
+		auto attr = elem.attribute(name);
+		if (!attr)
+		{
+			attr = elem.append_attribute(name);
+		}
+		attr.set_value(value);
+	}
+
 	inline void createNewDeclaration(Document& doc) {
 		auto decl = doc->prepend_child(pugi::node_declaration);
 		decl.append_attribute("version") = "1.0";

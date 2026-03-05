@@ -76,6 +76,31 @@ cat > "${SAMPLES_DIR}/sample.md" <<'MD'
 `code` and **bold**.
 MD
 
+cat > "${SAMPLES_DIR}/script_python" <<'PYSH'
+#!/usr/bin/env python3
+print("hello from shebang")
+PYSH
+
+cat > "${SAMPLES_DIR}/CMakeLists.txt" <<'CMAKE'
+cmake_minimum_required(VERSION 3.16)
+project(Phase4BSmoke LANGUAGES CXX)
+add_executable(smoke main.cpp)
+CMAKE
+
+cat > "${SAMPLES_DIR}/Makefile" <<'MK'
+all:
+	@echo "smoke"
+MK
+
+cat > "${SAMPLES_DIR}/plain_text_note" <<'TXT'
+just plain text
+without extension or shebang
+TXT
+
+printf 'line one\r\nline two\r\n' > "${SAMPLES_DIR}/sample_crlf.txt"
+
+printf 'utf16 sample text\nsecond line\n' | iconv -f UTF-8 -t UTF-16 > "${SAMPLES_DIR}/sample_utf16.txt"
+
 echo "Prepared smoke files in: ${SAMPLES_DIR}"
 
 if [[ "${PREPARE_ONLY}" == "--prepare-only" ]]; then

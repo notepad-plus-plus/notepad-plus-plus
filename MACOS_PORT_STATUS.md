@@ -68,12 +68,13 @@ Now that we have a working app, integrate advanced features:
 
 - Status bar shell added to main window layout.
 - Status fields wired:
-  - language label
+  - language label + detection source (`extension` / `filename` / `shebang` / `default`)
   - modified state (`Edited` / `Saved`)
   - cursor position (`Ln <line>, Col <col>`)
   - selection length + caret count (`Sel: <n> | Carets: <m>`)
+  - document metrics (`Lines: <n> Len: <n>`)
   - indent mode (`Indent: Tabs/<n>` or `Indent: Spaces/<n>`)
-  - encoding (`UTF-8`) + line ending mode (`LF` / `CRLF` / `CR`)
+  - encoding (decoded file encoding) + line ending mode (detected from file content)
   - read-only state (`ReadOnly: On` / `ReadOnly: Off`)
 - Current behavior is read-only (no advanced controls yet).
 

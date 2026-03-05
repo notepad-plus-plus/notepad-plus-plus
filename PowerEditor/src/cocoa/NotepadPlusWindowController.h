@@ -35,6 +35,7 @@
 @property (strong, nonatomic) NSTextField* eolLabel;
 @property (strong, nonatomic) NSTextField* readOnlyLabel;
 @property (strong, nonatomic) NSTextField* indentLabel;
+@property (strong, nonatomic) NSTextField* metricsLabel;
 @property (strong, nonatomic) NSTextField* selectionLabel;
 @property (strong, nonatomic) NSTextField* cursorLabel;
 
@@ -43,6 +44,8 @@
 @property (assign, nonatomic) BOOL isDocumentModified;
 @property (strong, nonatomic) NSString* currentLanguageName;
 @property (strong, nonatomic) NSString* currentLexerName;
+@property (strong, nonatomic) NSString* currentLanguageSource;
+@property (strong, nonatomic) NSString* currentEncodingName;
 
 // Initialization
 - (instancetype)init;

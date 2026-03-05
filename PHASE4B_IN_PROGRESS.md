@@ -89,6 +89,10 @@ Phase 4B is complete only when both are true:
 
 1. Automated checks pass:
    - lexer routing pass for all smoke samples
+   - lexer routing includes extensionless filename/shebang inference cases
+   - language-source routing pass (`extension` / `filename` / `shebang` / `default`) including plain extensionless text fallback
+   - EOL routing pass from status metadata (LF + CRLF coverage)
+   - encoding routing pass from status metadata (UTF-8 + UTF-16 coverage)
    - self-test edited/savepoint transition pass (`0 -> 1 -> 0`) for all smoke samples
    - self-test process exit code pass (`0` success / non-zero failure)
    - report contains `FINAL_RESULT=PASS`

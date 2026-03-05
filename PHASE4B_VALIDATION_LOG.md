@@ -138,3 +138,122 @@ Automated status:
   - `build/reports/phase4b_auto_validate_20260305_213031.md`
 - Automated result:
   - `FINAL_RESULT=PASS`
+
+## 2026-03-05 21:51:16 AEST (4C Metrics Status Pass)
+
+- Added document metrics status indicator:
+  - `Lines: <n> Len: <n>`
+- Rebuilt and validated:
+  - `make -C build -j$(sysctl -n hw.ncpu)` passed
+  - `./scripts/phase4b_auto_validate.sh` passed
+- Generated report:
+  - `build/reports/phase4b_auto_validate_20260305_215116.md`
+- Automated result:
+  - `FINAL_RESULT=PASS`
+
+## 2026-03-05 21:52:10 AEST (4C Language-Source Metadata Pass)
+
+- Added language detection source metadata to status bar language field:
+  - `extension` / `filename` / `shebang` / `default`
+- Rebuilt and validated:
+  - `make -C build -j$(sysctl -n hw.ncpu)` passed
+  - `./scripts/phase4b_auto_validate.sh` passed
+- Generated report:
+  - `build/reports/phase4b_auto_validate_20260305_215210.md`
+- Automated result:
+  - `FINAL_RESULT=PASS`
+
+## 2026-03-05 21:53:07 AEST (Expanded Inference Matrix - Failure Found)
+
+- Expanded automated sample set to include:
+  - `script_python` (shebang inference)
+  - `CMakeLists.txt` (filename inference)
+  - `Makefile` (filename inference)
+- Rebuilt and validated:
+  - `make -C build -j$(sysctl -n hw.ncpu)` passed
+  - `./scripts/phase4b_auto_validate.sh` completed with failure
+- Generated report:
+  - `build/reports/phase4b_auto_validate_20260305_215303.md`
+- Result:
+  - `FINAL_RESULT=FAIL`
+  - root cause: `CMakeLists.txt` was detected as extension `txt` before filename-special-case mapping.
+
+## 2026-03-05 21:53:30 AEST (Expanded Inference Matrix - Fixed)
+
+- Fixed normalization order to prioritize filename-special cases before generic extension extraction.
+- Rebuilt and re-ran:
+  - `make -C build -j$(sysctl -n hw.ncpu)` passed
+  - `./scripts/phase4b_auto_validate.sh` passed
+- Generated report:
+  - `build/reports/phase4b_auto_validate_20260305_215330.md`
+- Automated result:
+  - `FINAL_RESULT=PASS`
+
+## 2026-03-05 21:54:38 AEST (Source-Routing Gate Added)
+
+- Extended self-test log contract:
+  - `[NPP][SelfTest] LANG_SOURCE=<extension|filename|shebang|default>`
+- Extended validator matrix with source routing columns:
+  - `Expected Source`
+  - `Actual Source`
+  - `Source Routing`
+- Rebuilt and validated:
+  - `make -C build -j$(sysctl -n hw.ncpu)` passed
+  - `./scripts/phase4b_auto_validate.sh` passed
+- Generated report:
+  - `build/reports/phase4b_auto_validate_20260305_215433.md`
+- Automated result:
+  - `FINAL_RESULT=PASS`
+
+## 2026-03-05 21:55:24 AEST (Default-Route Coverage Added)
+
+- Added extensionless plain-text sample (`plain_text_note`) to validate default route:
+  - expected lexer: `null`
+  - expected source: `default`
+- Rebuilt and validated:
+  - `make -C build -j$(sysctl -n hw.ncpu)` passed
+  - `./scripts/phase4b_auto_validate.sh` passed
+- Generated report:
+  - `build/reports/phase4b_auto_validate_20260305_215524.md`
+- Automated result:
+  - `FINAL_RESULT=PASS`
+
+## 2026-03-05 21:57:23 AEST (4C File-Format Metadata Pass)
+
+- Added dynamic file-format metadata behavior:
+  - status encoding now reflects decoded file encoding on open
+  - status EOL now reflects line-ending mode detected from opened content
+- Rebuilt and validated:
+  - `make -C build -j$(sysctl -n hw.ncpu)` passed
+  - `./scripts/phase4b_auto_validate.sh` passed
+- Generated report:
+  - `build/reports/phase4b_auto_validate_20260305_215723.md`
+- Automated result:
+  - `FINAL_RESULT=PASS`
+
+## 2026-03-05 21:59:00 AEST (Status Snapshot + EOL Gate Pass)
+
+- Extended self-test report matrix with status snapshot metadata:
+  - `encoding:<...>;eol:<...>;readonly:<...>`
+- Added CRLF sample (`sample_crlf.txt`) and enforced EOL routing in automated gate:
+  - expected vs actual EOL now checked per sample.
+- Rebuilt and validated:
+  - `make -C build -j$(sysctl -n hw.ncpu)` passed
+  - `./scripts/phase4b_auto_validate.sh` passed
+- Generated report:
+  - `build/reports/phase4b_auto_validate_20260305_215952.md`
+- Automated result:
+  - `FINAL_RESULT=PASS`
+
+## 2026-03-05 22:01:14 AEST (Encoding Gate Added)
+
+- Added UTF-16 sample (`sample_utf16.txt`) to automated matrix.
+- Added encoding routing checks from self-test status snapshot:
+  - expected vs actual encoding now gated per sample.
+- Rebuilt and validated:
+  - `make -C build -j$(sysctl -n hw.ncpu)` passed
+  - `./scripts/phase4b_auto_validate.sh` passed
+- Generated report:
+  - `build/reports/phase4b_auto_validate_20260305_220114.md`
+- Automated result:
+  - `FINAL_RESULT=PASS`

@@ -33,6 +33,8 @@
 - (void)updateStatusBar;
 - (void)updateCursorStatus;
 - (void)applyReadOnlyModeForPath:(NSString *)filePath;
+- (NSString *)displayNameForEncoding:(NSStringEncoding)encoding;
+- (long)detectedEOLModeForContent:(NSString *)content;
 @end
 
 @implementation NotepadPlusWindowController
@@ -56,6 +58,8 @@
     _isDocumentModified = NO;
     _currentLanguageName = @"Plain Text";
     _currentLexerName = @"null";
+    _currentLanguageSource = @"default";
+    _currentEncodingName = @"UTF-8";
 
     [self setupWindow];
     [self setupTextView];
@@ -203,6 +207,17 @@
   self.readOnlyLabel.textColor = [NSColor secondaryLabelColor];
 
   CGFloat rightWidth = 120;
+  self.metricsLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(contentBounds.size.width - rightWidth - 400, 4, 120, 16)];
+  self.metricsLabel.autoresizingMask = NSViewMinXMargin;
+  self.metricsLabel.alignment = NSTextAlignmentRight;
+  self.metricsLabel.bezeled = NO;
+  self.metricsLabel.drawsBackground = NO;
+  self.metricsLabel.editable = NO;
+  self.metricsLabel.selectable = NO;
+  self.metricsLabel.font = [NSFont systemFontOfSize:11 weight:NSFontWeightRegular];
+  self.metricsLabel.textColor = [NSColor secondaryLabelColor];
+  self.metricsLabel.stringValue = @"Lines: 1 Len: 0";
+
   self.indentLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(contentBounds.size.width - rightWidth - 270, 4, 120, 16)];
   self.indentLabel.autoresizingMask = NSViewMinXMargin;
   self.indentLabel.alignment = NSTextAlignmentRight;
@@ -241,6 +256,7 @@
   [self.statusBarView addSubview:self.encodingLabel];
   [self.statusBarView addSubview:self.eolLabel];
   [self.statusBarView addSubview:self.readOnlyLabel];
+  [self.statusBarView addSubview:self.metricsLabel];
   [self.statusBarView addSubview:self.indentLabel];
   [self.statusBarView addSubview:self.selectionLabel];
   [self.statusBarView addSubview:self.cursorLabel];
@@ -287,9 +303,12 @@
 }
 
 - (void)updateStatusBar {
-  self.languageLabel.stringValue = [NSString stringWithFormat:@"Language: %@", self.currentLanguageName ?: @"Plain Text"];
+  self.languageLabel.stringValue = [NSString stringWithFormat:@"Language: %@ (%@)",
+                                                              self.currentLanguageName ?: @"Plain Text",
+                                                              self.currentLanguageSource ?: @"default"];
   self.modifiedLabel.stringValue = self.isDocumentModified ? @"State: Edited" : @"State: Saved";
-  self.encodingLabel.stringValue = @"Encoding: UTF-8";
+  self.encodingLabel.stringValue = [NSString stringWithFormat:@"Encoding: %@",
+                                                              self.currentEncodingName ?: @"UTF-8"];
 
   long eolMode = [self.textView getGeneralProperty:SCI_GETEOLMODE];
   NSString *eol = @"LF";
@@ -319,6 +338,30 @@
   [self.textView setGeneralProperty:SCI_SETREADONLY parameter:(readOnly ? 1 : 0) value:0];
 }
 
+- (NSString *)displayNameForEncoding:(NSStringEncoding)encoding {
+  if (encoding == NSUTF8StringEncoding) return @"UTF-8";
+  if (encoding == NSUTF16StringEncoding) return @"UTF-16";
+  if (encoding == NSUTF16LittleEndianStringEncoding) return @"UTF-16LE";
+  if (encoding == NSUTF16BigEndianStringEncoding) return @"UTF-16BE";
+  if (encoding == NSUTF32StringEncoding) return @"UTF-32";
+  if (encoding == NSMacOSRomanStringEncoding) return @"MacRoman";
+  if (encoding == NSISOLatin1StringEncoding) return @"ISO-8859-1";
+  return [NSString localizedNameOfStringEncoding:encoding] ?: @"Unknown";
+}
+
+- (long)detectedEOLModeForContent:(NSString *)content {
+  if (content.length == 0) {
+    return SC_EOL_LF;
+  }
+  if ([content rangeOfString:@"\r\n"].location != NSNotFound) {
+    return SC_EOL_CRLF;
+  }
+  if ([content rangeOfString:@"\r"].location != NSNotFound) {
+    return SC_EOL_CR;
+  }
+  return SC_EOL_LF;
+}
+
 - (void)updateCursorStatus {
   if (!self.textView) {
     self.cursorLabel.stringValue = @"Ln -, Col -";
@@ -331,10 +374,15 @@
   sptr_t selStart = [self.textView message:SCI_GETSELECTIONSTART wParam:0 lParam:0];
   sptr_t selEnd = [self.textView message:SCI_GETSELECTIONEND wParam:0 lParam:0];
   sptr_t carets = [self.textView message:SCI_GETSELECTIONS wParam:0 lParam:0];
+  sptr_t lineCount = [self.textView message:SCI_GETLINECOUNT wParam:0 lParam:0];
+  sptr_t length = [self.textView message:SCI_GETLENGTH wParam:0 lParam:0];
   long long selLen = llabs((long long)selEnd - (long long)selStart);
   if (carets < 1) {
     carets = 1;
   }
+  self.metricsLabel.stringValue = [NSString stringWithFormat:@"Lines: %ld Len: %ld",
+                                                              (long)lineCount,
+                                                              (long)length];
   self.selectionLabel.stringValue = [NSString stringWithFormat:@"Sel: %lld | Carets: %ld",
                                                                selLen, (long)carets];
   self.cursorLabel.stringValue = [NSString stringWithFormat:@"Ln %ld, Col %ld",
@@ -368,9 +416,11 @@
 
   // Clear the text view
   self.textView.string = @"";
+  [self.textView setGeneralProperty:SCI_SETEOLMODE parameter:SC_EOL_LF value:0];
   [self.textView setGeneralProperty:SCI_SETSAVEPOINT parameter:0 value:0];
   self.currentFilePath = nil;
   self.isDocumentModified = NO;
+  self.currentEncodingName = @"UTF-8";
   [self applyReadOnlyModeForPath:nil];
   [self applySyntaxHighlightingForPath:nil];
   [self updateWindowTitle];
@@ -399,9 +449,10 @@
   NSLog(@"Opening file: %@", filePath);
 
   NSError *error = nil;
+  NSStringEncoding usedEncoding = NSUTF8StringEncoding;
   NSString *content = [NSString stringWithContentsOfFile:filePath
-                                                encoding:NSUTF8StringEncoding
-                                                   error:&error];
+                                             usedEncoding:&usedEncoding
+                                                    error:&error];
 
   if (error) {
     NSLog(@"Error opening file: %@", error.localizedDescription);
@@ -417,10 +468,14 @@
   }
 
   self.textView.string = content;
+  [self.textView setGeneralProperty:SCI_SETEOLMODE
+                          parameter:[self detectedEOLModeForContent:content]
+                              value:0];
   [self applySyntaxHighlightingForPath:filePath];
   [self.textView setGeneralProperty:SCI_SETSAVEPOINT parameter:0 value:0];
   self.currentFilePath = filePath;
   self.isDocumentModified = NO;
+  self.currentEncodingName = [self displayNameForEncoding:usedEncoding];
   [self applyReadOnlyModeForPath:filePath];
   [self updateWindowTitle];
 }
@@ -500,6 +555,7 @@
   }
 
   self.currentFilePath = filePath;
+  self.currentEncodingName = @"UTF-8";
   [self applySyntaxHighlightingForPath:filePath];
   [self.textView setGeneralProperty:SCI_SETSAVEPOINT parameter:0 value:0];
   self.isDocumentModified = NO;
@@ -549,20 +605,25 @@
 #pragma mark - Syntax Highlighting
 
 - (NSString *)normalizedExtensionForPath:(NSString *)filePath content:(NSString *)content {
-  NSString *ext = filePath.pathExtension.lowercaseString ?: @"";
-  if (ext.length > 0) {
-    return ext;
-  }
-
   NSString *name = filePath.lastPathComponent.lowercaseString ?: @"";
   if ([name isEqualToString:@"cmakelists.txt"]) {
+    self.currentLanguageSource = @"filename";
     return @"cmake";
   }
   if ([name isEqualToString:@"makefile"] || [name isEqualToString:@"gnumakefile"]) {
+    self.currentLanguageSource = @"filename";
     return @"mk";
   }
+
+  NSString *ext = filePath.pathExtension.lowercaseString ?: @"";
+  if (ext.length > 0) {
+    self.currentLanguageSource = @"extension";
+    return ext;
+  }
+
   if ([name hasPrefix:@".bash"] || [name isEqualToString:@".profile"] ||
       [name isEqualToString:@".zshrc"]) {
+    self.currentLanguageSource = @"filename";
     return @"sh";
   }
 
@@ -573,17 +634,21 @@
                             : [content substringToIndex:lineBreak.location];
     NSString *lower = shebang.lowercaseString;
     if ([lower containsString:@"python"]) {
+      self.currentLanguageSource = @"shebang";
       return @"py";
     }
     if ([lower containsString:@"bash"] || [lower containsString:@"zsh"] ||
         [lower containsString:@"sh"]) {
+      self.currentLanguageSource = @"shebang";
       return @"sh";
     }
     if ([lower containsString:@"node"]) {
+      self.currentLanguageSource = @"shebang";
       return @"js";
     }
   }
 
+  self.currentLanguageSource = @"default";
   return @"";
 }
 
@@ -851,6 +916,17 @@
   }
 
   NSLog(@"[NPP][SelfTest] LEXER=%@", self.currentLexerName ?: @"null");
+  NSLog(@"[NPP][SelfTest] LANG_SOURCE=%@", self.currentLanguageSource ?: @"default");
+  long eolMode = [self.textView getGeneralProperty:SCI_GETEOLMODE];
+  NSString *eol = @"LF";
+  if (eolMode == SC_EOL_CRLF) {
+    eol = @"CRLF";
+  } else if (eolMode == SC_EOL_CR) {
+    eol = @"CR";
+  }
+  long isReadOnly = [self.textView getGeneralProperty:SCI_GETREADONLY];
+  NSLog(@"[NPP][SelfTest] STATUS=encoding:%@;eol:%@;readonly:%ld",
+        self.currentEncodingName ?: @"UTF-8", eol, isReadOnly);
   [self.textView setGeneralProperty:SCI_SETREADONLY parameter:0 value:0];
   long modifyBefore = [self.textView getGeneralProperty:SCI_GETMODIFY];
   NSLog(@"[NPP][SelfTest] MODIFY_BEFORE=%ld", modifyBefore);

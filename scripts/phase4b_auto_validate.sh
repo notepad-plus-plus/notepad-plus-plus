@@ -25,7 +25,7 @@ if [[ ! -x "${BINARY}" ]]; then
   exit 1
 fi
 
-FILES="sample.cpp sample.py sample.js sample.ts sample.html sample.xml sample.sql sample.sh sample.rs sample.toml sample.yaml sample.md"
+FILES="sample.cpp sample.py sample.js sample.ts sample.html sample.xml sample.sql sample.sh sample.rs sample.toml sample.yaml sample.md script_python CMakeLists.txt Makefile plain_text_note sample_crlf.txt sample_utf16.txt"
 overall="PASS"
 
 expected_lexer_for_sample() {
@@ -42,7 +42,39 @@ expected_lexer_for_sample() {
     sample.toml) echo "toml" ;;
     sample.yaml) echo "yaml" ;;
     sample.md) echo "markdown" ;;
+    script_python) echo "python" ;;
+    CMakeLists.txt) echo "cmake" ;;
+    Makefile) echo "makefile" ;;
+    plain_text_note) echo "null" ;;
+    sample_crlf.txt) echo "null" ;;
+    sample_utf16.txt) echo "null" ;;
     *) echo "null" ;;
+  esac
+}
+
+expected_source_for_sample() {
+  case "$1" in
+    script_python) echo "shebang" ;;
+    CMakeLists.txt) echo "filename" ;;
+    Makefile) echo "filename" ;;
+    plain_text_note) echo "default" ;;
+    sample_crlf.txt) echo "extension" ;;
+    sample_utf16.txt) echo "extension" ;;
+    *) echo "extension" ;;
+  esac
+}
+
+expected_eol_for_sample() {
+  case "$1" in
+    sample_crlf.txt) echo "CRLF" ;;
+    *) echo "LF" ;;
+  esac
+}
+
+expected_encoding_for_sample() {
+  case "$1" in
+    sample_utf16.txt) echo "UTF-16" ;;
+    *) echo "UTF-8" ;;
   esac
 }
 
@@ -52,15 +84,23 @@ extract_value() {
   grep -F "[NPP][SelfTest] ${key}=" "${file}" | tail -n 1 | sed -E "s/.*${key}=//"
 }
 
+extract_status_snapshot() {
+  local file="$1"
+  grep -F "[NPP][SelfTest] STATUS=" "${file}" | tail -n 1 | sed -E 's/.*STATUS=//'
+}
+
 : > "${RESULTS_TSV}"
 
 for sample in ${FILES}; do
   sample_path="${SAMPLES_DIR}/${sample}"
   run_log="${TMP_DIR}/${sample}.log"
   expected_lexer="$(expected_lexer_for_sample "${sample}")"
+  expected_source="$(expected_source_for_sample "${sample}")"
+  expected_eol="$(expected_eol_for_sample "${sample}")"
+  expected_encoding="$(expected_encoding_for_sample "${sample}")"
 
   if [[ ! -f "${sample_path}" ]]; then
-    echo "${sample}|${expected_lexer}|(missing file)|FAIL|FAIL|FAIL|FAIL|FAIL" >> "${RESULTS_TSV}"
+    echo "${sample}|${expected_lexer}|${expected_source}|${expected_eol}|${expected_encoding}|(missing file)|unknown|unknown|unknown|unknown|FAIL|FAIL|FAIL|FAIL|FAIL|FAIL|FAIL" >> "${RESULTS_TSV}"
     overall="FAIL"
     continue
   fi
@@ -71,6 +111,8 @@ for sample in ${FILES}; do
   set -e
 
   lexer="$(extract_value "LEXER" "${run_log}" || true)"
+  lang_source="$(extract_value "LANG_SOURCE" "${run_log}" || true)"
+  status_snapshot="$(extract_status_snapshot "${run_log}" || true)"
   modify_before="$(extract_value "MODIFY_BEFORE" "${run_log}" || true)"
   modify_after_insert="$(extract_value "MODIFY_AFTER_INSERT" "${run_log}" || true)"
   modify_after_savepoint="$(extract_value "MODIFY_AFTER_SAVEPOINT" "${run_log}" || true)"
@@ -78,11 +120,43 @@ for sample in ${FILES}; do
   if [[ -z "${lexer}" ]]; then
     lexer="unknown"
   fi
+  if [[ -z "${lang_source}" ]]; then
+    lang_source="unknown"
+  fi
+  if [[ -z "${status_snapshot}" ]]; then
+    status_snapshot="unknown"
+  fi
+  actual_eol="$(printf '%s' "${status_snapshot}" | sed -n -E 's/.*eol:([^;]+).*/\1/p')"
+  actual_encoding="$(printf '%s' "${status_snapshot}" | sed -n -E 's/.*encoding:([^;]+).*/\1/p')"
+  if [[ -z "${actual_eol}" ]]; then
+    actual_eol="unknown"
+  fi
+  if [[ -z "${actual_encoding}" ]]; then
+    actual_encoding="unknown"
+  fi
 
   if [[ "${lexer}" == "${expected_lexer}" ]]; then
     lexer_status="PASS"
   else
     lexer_status="FAIL"
+  fi
+
+  if [[ "${lang_source}" == "${expected_source}" ]]; then
+    source_status="PASS"
+  else
+    source_status="FAIL"
+  fi
+
+  if [[ "${actual_eol}" == "${expected_eol}" ]]; then
+    eol_status="PASS"
+  else
+    eol_status="FAIL"
+  fi
+
+  if [[ "${actual_encoding}" == "${expected_encoding}" ]]; then
+    encoding_status="PASS"
+  else
+    encoding_status="FAIL"
   fi
 
   if [[ "${modify_before}" == "0" && "${modify_after_insert}" == "1" && "${modify_after_savepoint}" == "0" ]]; then
@@ -103,14 +177,14 @@ for sample in ${FILES}; do
     exit_status="FAIL"
   fi
 
-  if [[ "${lexer_status}" == "PASS" && "${modify_status}" == "PASS" && "${selftest_tag}" == "PASS" && "${exit_status}" == "PASS" ]]; then
+  if [[ "${lexer_status}" == "PASS" && "${source_status}" == "PASS" && "${eol_status}" == "PASS" && "${encoding_status}" == "PASS" && "${modify_status}" == "PASS" && "${selftest_tag}" == "PASS" && "${exit_status}" == "PASS" ]]; then
     result="PASS"
   else
     result="FAIL"
     overall="FAIL"
   fi
 
-  echo "${sample}|${expected_lexer}|${lexer}|${lexer_status}|${modify_status}|${selftest_tag}|${exit_status}|${result}" >> "${RESULTS_TSV}"
+  echo "${sample}|${expected_lexer}|${expected_source}|${expected_eol}|${expected_encoding}|${lexer}|${lang_source}|${actual_eol}|${actual_encoding}|${status_snapshot}|${lexer_status}|${source_status}|${eol_status}|${encoding_status}|${modify_status}|${selftest_tag}|${exit_status}|${result}" >> "${RESULTS_TSV}"
 done
 
 {
@@ -121,12 +195,12 @@ done
   printf -- "- Report: %s\n\n" "${REPORT_PATH}"
 
   printf "## Machine Summary (PASS/FAIL Matrix)\n\n"
-  printf "| Sample | Expected Lexer | Actual Lexer | Lexer Routing | 0->1->0 Transition | SelfTest Tag | Exit Code | Result |\n"
-  printf "| --- | --- | --- | --- | --- | --- | --- | --- |\n"
+  printf "| Sample | Expected Lexer | Expected Source | Expected EOL | Expected Encoding | Actual Lexer | Actual Source | Actual EOL | Actual Encoding | Status Snapshot | Lexer Routing | Source Routing | EOL Routing | Encoding Routing | 0->1->0 Transition | SelfTest Tag | Exit Code | Result |\n"
+  printf "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n"
 
-  while IFS='|' read -r sample expected actual lexer_status modify_status selftest_tag exit_status result; do
-    printf "| %s | %s | %s | %s | %s | %s | %s | %s |\n" \
-      "${sample}" "${expected}" "${actual}" "${lexer_status}" "${modify_status}" "${selftest_tag}" "${exit_status}" "${result}"
+  while IFS='|' read -r sample expected_lexer expected_source expected_eol expected_encoding actual_lexer actual_source actual_eol actual_encoding status_snapshot lexer_status source_status eol_status encoding_status modify_status selftest_tag exit_status result; do
+    printf "| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |\n" \
+      "${sample}" "${expected_lexer}" "${expected_source}" "${expected_eol}" "${expected_encoding}" "${actual_lexer}" "${actual_source}" "${actual_eol}" "${actual_encoding}" "${status_snapshot}" "${lexer_status}" "${source_status}" "${eol_status}" "${encoding_status}" "${modify_status}" "${selftest_tag}" "${exit_status}" "${result}"
   done < "${RESULTS_TSV}"
 
   printf "\nFINAL_RESULT=%s\n\n" "${overall}"

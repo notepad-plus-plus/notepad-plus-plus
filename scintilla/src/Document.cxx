@@ -3141,7 +3141,9 @@ public:
 	const Document *doc;
 	Sci::Position position;
 
-	explicit ByteIterator(const Document *doc_=nullptr, Sci::Position position_=0) noexcept :
+	ByteIterator() noexcept :
+		ByteIterator(nullptr) {}
+	explicit ByteIterator(const Document *doc_, Sci::Position position_=0) noexcept :
 		doc(doc_), position(position_) {
 	}
 	char operator*() const noexcept {
@@ -3206,7 +3208,9 @@ public:
 	using pointer = wchar_t*;
 	using reference = wchar_t&;
 
-	explicit UTF8Iterator(const Document *doc_=nullptr, Sci::Position position_=0) noexcept :
+	UTF8Iterator() noexcept :
+		UTF8Iterator(nullptr) {}
+	explicit UTF8Iterator(const Document *doc_, Sci::Position position_=0) noexcept :
 		doc(doc_), position(position_) {
 		if (doc) {
 			ReadCharacter();

@@ -891,6 +891,7 @@ void Notepad_plus::killAllChildren()
 	_mainEditView.destroy();
     _subEditView.destroy();
 	_invisibleEditView.destroy();
+	_fileEditView.destroy();
 
     _subSplitter.destroy();
     _statusBar.destroy();

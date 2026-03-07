@@ -260,9 +260,12 @@ public:
 	}
 
 	void destroy() override {
-		::DestroyWindow(_hSelf);
-		_hSelf = nullptr;
-		_pScintillaFunc = nullptr;
+		if (_hSelf)
+		{
+			::DestroyWindow(_hSelf);
+			_hSelf = nullptr;
+			_pScintillaFunc = nullptr;
+		}
 	}
 
 	void init(HINSTANCE hInst, HWND hPere) override;

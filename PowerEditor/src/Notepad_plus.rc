@@ -744,21 +744,21 @@ BEGIN
 
     POPUP "&View"
     BEGIN
-        MENUITEM "Always on Top",              IDM_VIEW_ALWAYSONTOP
-        MENUITEM "Toggle Full Screen Mode",    IDM_VIEW_FULLSCREENTOGGLE
-        MENUITEM "Post-It",                    IDM_VIEW_POSTIT
-        MENUITEM "Distraction Free Mode",      IDM_VIEW_DISTRACTIONFREE
+        MENUITEM "Always on &Top",              IDM_VIEW_ALWAYSONTOP
+        MENUITEM "To&ggle Full Screen Mode",    IDM_VIEW_FULLSCREENTOGGLE
+        MENUITEM "&Post-It",                    IDM_VIEW_POSTIT
+        MENUITEM "D&istraction Free Mode",      IDM_VIEW_DISTRACTIONFREE
 
         MENUITEM SEPARATOR
-        POPUP "View Current File in"
+        POPUP "&View Current File in"
         BEGIN
-            MENUITEM "Firefox", IDM_VIEW_IN_FIREFOX
-            MENUITEM "Chrome", IDM_VIEW_IN_CHROME
-            MENUITEM "Edge", IDM_VIEW_IN_EDGE
-            MENUITEM "IE", IDM_VIEW_IN_IE
+            MENUITEM "&Firefox", 				IDM_VIEW_IN_FIREFOX
+            MENUITEM "&Chrome", 				IDM_VIEW_IN_CHROME
+            MENUITEM "&Edge", 					IDM_VIEW_IN_EDGE
+            MENUITEM "&IE", 					IDM_VIEW_IN_IE
         END
         MENUITEM SEPARATOR
-        POPUP "Show Symbol"
+        POPUP "Show S&ymbol"
         BEGIN
             MENUITEM "Show Space and Tab",                     IDM_VIEW_TAB_SPACE
             MENUITEM "Show End of Line",                       IDM_VIEW_EOL
@@ -769,21 +769,21 @@ BEGIN
             MENUITEM "Show Indent Guide",                      IDM_VIEW_INDENT_GUIDE
             MENUITEM "Show Wrap Symbol",                       IDM_VIEW_WRAP_SYMBOL
         END
-        POPUP "Zoom"
+        POPUP "&Zoom"
         BEGIN
             MENUITEM "Zoom &In (Ctrl+Mouse Wheel Up)",       IDM_VIEW_ZOOMIN
             MENUITEM "Zoom &Out (Ctrl+Mouse Wheel Down)",    IDM_VIEW_ZOOMOUT
-            MENUITEM "Restore Default Zoom",                 IDM_VIEW_ZOOMRESTORE
+            MENUITEM "&Restore Default Zoom",                IDM_VIEW_ZOOMRESTORE
         END
-        POPUP "Move/Clone Current Document"
+        POPUP "&Move/Clone Current Document"
         BEGIN
-            MENUITEM "Move to Other View",      IDM_VIEW_GOTO_ANOTHER_VIEW
-            MENUITEM "Clone to Other View",     IDM_VIEW_CLONE_TO_ANOTHER_VIEW
-            MENUITEM "Move to New Instance",    IDM_VIEW_GOTO_NEW_INSTANCE
-            MENUITEM "Open in New Instance",    IDM_VIEW_LOAD_IN_NEW_INSTANCE
+            MENUITEM "&Move to Other View",      IDM_VIEW_GOTO_ANOTHER_VIEW
+            MENUITEM "&Clone to Other View",     IDM_VIEW_CLONE_TO_ANOTHER_VIEW
+            MENUITEM "Mo&ve to New Instance",    IDM_VIEW_GOTO_NEW_INSTANCE
+            MENUITEM "&Open in New Instance",    IDM_VIEW_LOAD_IN_NEW_INSTANCE
         END
 
-        POPUP "Tab"
+        POPUP "Ta&b"
         BEGIN
             MENUITEM "1st Tab",                 IDM_VIEW_TAB1
             MENUITEM "2nd Tab",                 IDM_VIEW_TAB2
@@ -812,9 +812,9 @@ BEGIN
             MENUITEM "Apply Color 5",           IDM_VIEW_TAB_COLOUR_5
             MENUITEM "Remove Color",            IDM_VIEW_TAB_COLOUR_NONE
         END
-        MENUITEM "Word wrap",                   IDM_VIEW_WRAP
-        MENUITEM "Focus on Another View",         IDM_VIEW_SWITCHTO_OTHER_VIEW
-        MENUITEM "Hide Lines",                  IDM_VIEW_HIDELINES
+        MENUITEM "&Word wrap",                  IDM_VIEW_WRAP
+        MENUITEM "Focus on &Another View",      IDM_VIEW_SWITCHTO_OTHER_VIEW
+        MENUITEM "&Hide Lines",                 IDM_VIEW_HIDELINES
         MENUITEM SEPARATOR
         MENUITEM "Fold All",                    IDM_VIEW_FOLDALL
         MENUITEM "Unfold All",                  IDM_VIEW_UNFOLDALL
@@ -844,26 +844,26 @@ BEGIN
         END
 
         MENUITEM SEPARATOR
-            MENUITEM "Summary...",  IDM_VIEW_SUMMARY
+            MENUITEM "&Summary...",  IDM_VIEW_SUMMARY
         MENUITEM SEPARATOR
-            POPUP "Project Panels"
+            POPUP "Pro&ject Panels"
             BEGIN
-                MENUITEM "Project Panel 1",          IDM_VIEW_PROJECT_PANEL_1
-                MENUITEM "Project Panel 2",          IDM_VIEW_PROJECT_PANEL_2
-                MENUITEM "Project Panel 3",          IDM_VIEW_PROJECT_PANEL_3
+                MENUITEM "Project Panel &1",          IDM_VIEW_PROJECT_PANEL_1
+                MENUITEM "Project Panel &2",          IDM_VIEW_PROJECT_PANEL_2
+                MENUITEM "Project Panel &3",          IDM_VIEW_PROJECT_PANEL_3
             END
-        MENUITEM "Folder as Workspace",   IDM_VIEW_FILEBROWSER
-        MENUITEM "Document Map",          IDM_VIEW_DOC_MAP
-        MENUITEM "Document List",         IDM_VIEW_DOCLIST
-        MENUITEM "Function List",         IDM_VIEW_FUNC_LIST
+        MENUITEM "Folder as Wor&kspace",   	IDM_VIEW_FILEBROWSER
+        MENUITEM "&Document Map",          	IDM_VIEW_DOC_MAP
+        MENUITEM "D&ocument List",         	IDM_VIEW_DOCLIST
+        MENUITEM "Function &List",         	IDM_VIEW_FUNC_LIST
         MENUITEM SEPARATOR
-        MENUITEM "Synchronize Vertical Scrolling",      IDM_VIEW_SYNSCROLLV
-        MENUITEM "Synchronize Horizontal Scrolling",    IDM_VIEW_SYNSCROLLH
+        MENUITEM "Sy&nchronize Vertical Scrolling",      IDM_VIEW_SYNSCROLLV
+        MENUITEM "Syn&chronize Horizontal Scrolling",    IDM_VIEW_SYNSCROLLH
         MENUITEM SEPARATOR
-        MENUITEM "Text Direction RTL",                  IDM_EDIT_RTL
-        MENUITEM "Text Direction LTR",                  IDM_EDIT_LTR
+        MENUITEM "T&ext Direction RTL",                  IDM_EDIT_RTL
+        MENUITEM "Te&xt Direction LTR",                  IDM_EDIT_LTR
         MENUITEM SEPARATOR
-        MENUITEM "Monitoring (tail -f)",    IDM_VIEW_MONITORING
+        MENUITEM "Monito&ring (tail -f)",  	IDM_VIEW_MONITORING
     END
 
     POPUP "E&ncoding"
@@ -891,7 +891,7 @@ BEGIN
             END
             POPUP "Celtic"
             BEGIN
-                MENUITEM "ISO 8859-14",               IDM_FORMAT_ISO_8859_14
+                MENUITEM "ISO 8859-14",         IDM_FORMAT_ISO_8859_14
             END
             POPUP "Cyrillic"
             BEGIN
@@ -913,7 +913,7 @@ BEGIN
             POPUP "Chinese"
             BEGIN
                 MENUITEM "Big5 (Traditional)",  IDM_FORMAT_BIG5
-                MENUITEM "GB2312 (Simplified)",     IDM_FORMAT_GB2312
+                MENUITEM "GB2312 (Simplified)", IDM_FORMAT_GB2312
             END
 
             POPUP "Eastern European"

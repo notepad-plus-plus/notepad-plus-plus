@@ -1019,6 +1019,7 @@
 					<Item id="6239" name="Ponechať označenie pri kliknutí pravým tlačidlom mimo označenia"/>
 					<Item id="6245" name="Povoliť virtuálny priestor"/>
 					<Item id="6214" name="Povoliť Kopírovať/Vystrihnúť riadok bez označenia"/>
+					<Item id="6266" name="Zakázať presúvanie vybraného textu"/>
 					<Item id="6225" name="Použiť na vybraný text vlastnú farbu popredia"/>
 					<Item id="6651" name="Indikátor aktuálneho riadku"/>
 					<Item id="6652" name="Žiadny"/>

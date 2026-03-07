@@ -28,9 +28,8 @@ BIN_DIRECTORY := ../bin
 INSTALLER_DIRECTORY := ../installer
 
 TARGET_BINARY := notepad++.exe
-SRC_DATA := contextMenu.xml langs.model.xml shortcuts.xml stylers.model.xml tabContextMenu_example.xml toolbarButtonsConf_example.xml
 BIN_DATA := change.log doLocalConf.xml nppLogNulContentCorruptionIssue.xml readme.txt userDefineLangs/
-INSTALLER_DATA := autoCompletion/ functionList/ localization/ themes/
+INSTALLER_DATA := autoCompletion/ defaultConfig/ functionList/ localization/ themes/
 
 SCINTILLA_DIRECTORY := ../../scintilla
 SCINTILLA_TARGET := libscintilla.a
@@ -156,7 +155,6 @@ TARGET_DIRECTORY := bin.$(COMPILER_SUFFIX)$(TARGET_CPU)$(BUILD_SUFFIX)
 BUILD_DIRECTORY := $(TARGET_DIRECTORY).build
 
 TARGET_BINARY := $(TARGET_DIRECTORY)/$(TARGET_BINARY)
-SRC_DATA := $(addprefix $(TARGET_DIRECTORY)/,$(SRC_DATA))
 BIN_DATA := $(addprefix $(TARGET_DIRECTORY)/,$(BIN_DATA))
 INSTALLER_DATA := $(addprefix $(TARGET_DIRECTORY)/,$(INSTALLER_DATA))
 
@@ -336,14 +334,7 @@ $(TARGET_BINARY): $(CXX_TARGETS) $(RC_TARGETS) $(SCINTILLA_TARGET) $(LEXILLA_TAR
 	@echo + linking $@
 	$(AT)$(LD) $(LDFLAGS) $(filter-out %.a,$^) $(addprefix -L,$(LD_PATH)) $(addprefix -l,$(LD_LINK)) -static -o $@
 
-data: $(patsubst %/,%,$(SRC_DATA) $(BIN_DATA) $(INSTALLER_DATA))
-
-$(patsubst %/,%,$(filter %/,$(SRC_DATA))): $(TARGET_DIRECTORY)/%: $(SRC_DIRECTORY)/% | $(TARGET_DIRECTORY)
-	@echo + copying $@
-	$(AT)$(CPDIR) $(call normalize-path,$< $@)
-$(filter-out %/,$(SRC_DATA)): $(TARGET_DIRECTORY)/%: $(SRC_DIRECTORY)/% | $(TARGET_DIRECTORY)
-	@echo + copying $@
-	$(AT)$(CP) $(call normalize-path,$< $@)
+data: $(patsubst %/,%, $(BIN_DATA) $(INSTALLER_DATA))
 
 $(patsubst %/,%,$(filter %/,$(BIN_DATA))): $(TARGET_DIRECTORY)/%: $(BIN_DIRECTORY)/% | $(TARGET_DIRECTORY)
 	@echo + copying $@
@@ -356,6 +347,7 @@ $(TARGET_DIRECTORY)/autoCompletion: $(INSTALLER_DIRECTORY)/APIs
 $(TARGET_DIRECTORY)/functionList: $(INSTALLER_DIRECTORY)/functionList
 $(TARGET_DIRECTORY)/localization: $(INSTALLER_DIRECTORY)/nativeLang
 $(TARGET_DIRECTORY)/themes: $(INSTALLER_DIRECTORY)/themes
+$(TARGET_DIRECTORY)/defaultConfig: $(INSTALLER_DIRECTORY)/defaultConfig
 $(patsubst %/,%,$(filter %/,$(INSTALLER_DATA))): | $(TARGET_DIRECTORY)
 	@echo + copying $@
 	$(AT)$(CPDIR) $(call normalize-path,$< $@)

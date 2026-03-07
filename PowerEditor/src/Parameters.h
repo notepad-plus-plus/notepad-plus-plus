@@ -1388,6 +1388,8 @@ public:
 	static LangType getLangIDFromStr(const wchar_t *langName);
 	static std::wstring getLocPathFromStr(const std::wstring & localizationCode);
 
+	int getXmlConfigPath(std::wstring& cfgPath, const wchar_t* cfgName, bool copyModel = true) const;
+
 	bool load();
 	bool reloadLang();
 	bool reloadStylers(const wchar_t *stylePath = nullptr);

@@ -641,6 +641,8 @@ static constexpr ScintillaKeyDefinition scintKeyDefs[]
 
 #define SESSION_BACKUP_EXT L".inCaseOfCorruption.bak"
 
+static constexpr const wchar_t* DEFAULT_CFG_DIR = L"defaultConfig\\"; // folder with model and example config files
+
 using PGNSI = void (WINAPI*)(LPSYSTEM_INFO);
 
 static int strVal(const char* str, int base)
@@ -1282,6 +1284,41 @@ std::wstring NppParameters::getSettingsFolder() const
 	return settingsFolderPath;
 }
 
+int NppParameters::getXmlConfigPath(std::wstring& cfgPath, const wchar_t* cfgName, bool copyModel) const
+{
+	enum result
+	{
+		failed = -1,
+		exist,
+		useModel,
+	};
+
+	const std::wstring baseName = cfgName;
+
+	std::wstring configPath(_userPath);
+	pathAppend(configPath, baseName + L".xml");
+	cfgPath = configPath;
+
+	if (doesFileExist(configPath.c_str()))
+	{
+		return exist;
+	}
+
+	if (copyModel)
+	{
+		std::wstring modelPath(_nppPath);
+		pathAppend(modelPath, DEFAULT_CFG_DIR);
+		pathAppend(modelPath, baseName + L".model.xml");
+
+		if (doesFileExist(modelPath.c_str()))
+		{
+			::CopyFile(modelPath.c_str(), configPath.c_str(), FALSE);
+			return useModel;
+		}
+	}
+
+	return failed;
+}
 
 bool NppParameters::load()
 {
@@ -1414,14 +1451,10 @@ bool NppParameters::load()
 	//--------------------------//
 	// langs.xml : for per-user //
 	//--------------------------//
-	std::wstring langs_xml_path(_userPath);
-	pathAppend(langs_xml_path, L"langs.xml");
-
-	std::wstring modelLangsPath(_nppPath);
-	pathAppend(modelLangsPath, L"langs.model.xml");
+	std::wstring langs_xml_path;
 
 	BOOL doRecover = FALSE;
-	if (doesFileExist(langs_xml_path.c_str()))
+	if (getXmlConfigPath(langs_xml_path, L"langs", false) == 0)
 	{
 		WIN32_FILE_ATTRIBUTE_DATA attributes{};
 		attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
@@ -1449,7 +1482,11 @@ bool NppParameters::load()
 
 	if (doRecover)
 	{
-		::CopyFile(modelLangsPath.c_str(), langs_xml_path.c_str(), FALSE);
+		std::wstring modelLangsPath = _nppPath;
+		pathAppend(modelLangsPath, DEFAULT_CFG_DIR);
+		pathAppend(modelLangsPath, L"langs.model.xml");
+		if (doesFileExist(modelLangsPath.c_str()))
+			::CopyFile(modelLangsPath.c_str(), langs_xml_path.c_str(), FALSE);
 	}
 
 	_pXmlDoc._path = langs_xml_path;
@@ -1482,16 +1519,27 @@ bool NppParameters::load()
 	//---------------------------//
 	// config.xml : for per-user //
 	//---------------------------//
-	std::wstring configPath(_userPath);
-	pathAppend(configPath, L"config.xml");
+	if (getXmlConfigPath(_xmlUserDoc._path, L"config", false) != 0)
+	{
+		std::wstring userModelConfigPath(_nppPath);
+		pathAppend(userModelConfigPath, L"config.model.xml");
+		if (doesFileExist(userModelConfigPath.c_str()))
+		{
+			::CopyFile(userModelConfigPath.c_str(), _xmlUserDoc._path.c_str(), FALSE);
+		}
+		else
+		{
+			std::wstring modelPath(_nppPath);
+			pathAppend(modelPath, DEFAULT_CFG_DIR);
+			pathAppend(modelPath, L"config.model.xml");
 
-	std::wstring srcConfigPath(_nppPath);
-	pathAppend(srcConfigPath, L"config.model.xml");
+			if (doesFileExist(modelPath.c_str()))
+			{
+				::CopyFile(modelPath.c_str(), _xmlUserDoc._path.c_str(), FALSE);
+			}
+		}
+	}
 
-	if (!doesFileExist(configPath.c_str()))
-		::CopyFile(srcConfigPath.c_str(), configPath.c_str(), FALSE);
-
-	_xmlUserDoc._path = configPath;
 	_xmlUserDoc._doc = new NppXml::NewDocument();
 	loadOkay = NppXml::loadFile(_xmlUserDoc._doc, _xmlUserDoc._path.c_str());
 
@@ -1508,16 +1556,8 @@ bool NppParameters::load()
 	// stylers.xml : for per-user //
 	//----------------------------//
 
-	_stylerPath = _userPath;
-	pathAppend(_stylerPath, L"stylers.xml");
-
-	if (!doesFileExist(_stylerPath.c_str()))
-	{
-		std::wstring srcStylersPath(_nppPath);
-		pathAppend(srcStylersPath, L"stylers.model.xml");
-		::CopyFile(srcStylersPath.c_str(), _stylerPath.c_str(), TRUE);
-	}
-
+	getXmlConfigPath(_stylerPath, L"stylers");
+	
 	if (_nppGUI._themeName.empty() || (!doesFileExist(_nppGUI._themeName.c_str())))
 		_nppGUI._themeName.assign(_stylerPath);
 
@@ -1656,18 +1696,10 @@ bool NppParameters::load()
 	//------------------------------//
 	// shortcuts.xml : for per-user //
 	//------------------------------//
-	std::wstring v852NoNeedShortcutsBackup;
-	_shortcutsPath = v852NoNeedShortcutsBackup = _userPath;
-	pathAppend(_shortcutsPath, SHORTCUTSXML_FILENAME);
-	pathAppend(v852NoNeedShortcutsBackup, NONEEDSHORTCUTSXMLBACKUP_FILENAME);
-
-	if (!doesFileExist(_shortcutsPath.c_str()))
+	if (getXmlConfigPath(_shortcutsPath, L"shortcuts") != 0)
 	{
-		std::wstring srcShortcutsPath(_nppPath);
-		pathAppend(srcShortcutsPath, SHORTCUTSXML_FILENAME);
-
-		::CopyFile(srcShortcutsPath.c_str(), _shortcutsPath.c_str(), TRUE);
-
+		std::wstring v852NoNeedShortcutsBackup = _userPath;
+		pathAppend(v852NoNeedShortcutsBackup, NONEEDSHORTCUTSXMLBACKUP_FILENAME);
 		// Create empty file v852NoNeedShortcutsBackup.xml for not giving warning, neither doing backup, in future use.
 		HANDLE hFile = ::CreateFile(v852NoNeedShortcutsBackup.c_str(), GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 		::FlushFileBuffers(hFile);
@@ -1696,16 +1728,7 @@ bool NppParameters::load()
 	//---------------------------------//
 	// contextMenu.xml : for per-user //
 	//---------------------------------//
-	_contextMenuPath = _userPath;
-	pathAppend(_contextMenuPath, L"contextMenu.xml");
-
-	if (!doesFileExist(_contextMenuPath.c_str()))
-	{
-		std::wstring srcContextMenuPath(_nppPath);
-		pathAppend(srcContextMenuPath, L"contextMenu.xml");
-
-		::CopyFile(srcContextMenuPath.c_str(), _contextMenuPath.c_str(), TRUE);
-	}
+	getXmlConfigPath(_contextMenuPath, L"contextMenu");
 
 	_pXmlContextMenuDoc = new NppXml::NewDocument();
 	loadOkay = NppXml::loadFileContextMenu(_pXmlContextMenuDoc, _contextMenuPath.c_str());
@@ -2096,7 +2119,7 @@ bool NppParameters::getUserStylersFromXmlTree()
 bool NppParameters::updateFromModelXml(NppXml::Element& rootUser, ConfXml whichConf)
 {
 	// Determine conf-specific information first
-	std::wstring modelXmlFilename;
+	std::wstring modelXmlFilename = DEFAULT_CFG_DIR;
 	NppXml::Document pXmlDocument = nullptr;
 	std::string mainElementName;
 	std::wstring docPath;
@@ -2104,7 +2127,7 @@ bool NppParameters::updateFromModelXml(NppXml::Element& rootUser, ConfXml whichC
 	{
 		case ConfXml::lang:
 		{
-			modelXmlFilename = L"langs.model.xml";
+			modelXmlFilename += L"langs.model.xml";
 			pXmlDocument = _pXmlDoc._doc;
 			docPath = _pXmlDoc._path;
 			mainElementName = "Languages";
@@ -2112,7 +2135,7 @@ bool NppParameters::updateFromModelXml(NppXml::Element& rootUser, ConfXml whichC
 		}
 		case ConfXml::styles:
 		{
-			modelXmlFilename = L"stylers.model.xml";
+			modelXmlFilename += L"stylers.model.xml";
 			pXmlDocument = _pXmlUserStylerDoc._doc;
 			docPath = _pXmlUserStylerDoc._path;
 			mainElementName = "LexerStyles";

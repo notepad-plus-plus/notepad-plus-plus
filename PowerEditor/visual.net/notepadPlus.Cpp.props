@@ -106,20 +106,16 @@
     </Link>
     <PostBuildEvent>
       <Command>
-copy "..\src\langs.model.xml" "$(OutDir)langs.model.xml"
-copy "..\src\stylers.model.xml" "$(OutDir)stylers.model.xml"
-copy "..\src\shortcuts.xml" "$(OutDir)shortcuts.xml"
-copy "..\src\contextMenu.xml" "$(OutDir)contextMenu.xml"
+robocopy "..\installer\defaultConfig" "$(OutDir)defaultConfig" /NFL /NDL /NJH
+  if %ERRORLEVEL% LSS 8 set ERRORLEVEL=0
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(PlatformToolset)|$(Configuration)'=='ClangCL|Release'">
     <PostBuildEvent>
       <Command>
-copy "..\src\langs.model.xml" "$(OutDir)langs.model.xml"
-copy "..\src\stylers.model.xml" "$(OutDir)stylers.model.xml"
-copy "..\src\shortcuts.xml" "$(OutDir)shortcuts.xml"
-copy "..\src\contextMenu.xml" "$(OutDir)contextMenu.xml"
+robocopy "..\installer\defaultConfig" "$(OutDir)defaultConfig" /NFL /NDL /NJH
+  if %ERRORLEVEL% LSS 8 set ERRORLEVEL=0
 "mt.exe" -nologo -manifest "..\src\notepad++.exe.manifest" -outputresource:"$(OutDir)notepad++.exe"
       </Command>
     </PostBuildEvent>

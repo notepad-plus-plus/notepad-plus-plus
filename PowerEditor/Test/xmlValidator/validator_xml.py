@@ -142,9 +142,9 @@ def parse_xml_files_from_themes_dir():
 
 def parse_xml_files_from_src_dir():
 
-    for file in os.listdir("PowerEditor/src"):
+    for file in os.listdir("PowerEditor/installer/defaultConfig"):
         if file.endswith(".xml"):
-            #print(os.path.join("PowerEditor/src", file))
+            #print(os.path.join("PowerEditor/installer/defaultConfig", file))
             xsd_filename = None
             if file.endswith("stylers.model.xml"):
                 xsd_filename = os.path.join("PowerEditor", "Test", "xmlValidator", "theme.xsd")
@@ -154,13 +154,13 @@ def parse_xml_files_from_src_dir():
                 xsd_filename = os.path.join("PowerEditor", "Test", "xmlValidator", "toolbarButtons.xsd")
             elif file.endswith("tabContextMenu_example.xml"):
                 xsd_filename = os.path.join("PowerEditor", "Test", "xmlValidator", "tabContext.xsd")
-            elif file.endswith("contextMenu.xml"):
+            elif file.endswith("contextMenu.model.xml"):
                 xsd_filename = os.path.join("PowerEditor", "Test", "xmlValidator", "contextMenu.xsd")
-            elif file.endswith("shortcuts.xml"):
+            elif file.endswith("shortcuts.model.xml"):
                 xsd_filename = os.path.join("PowerEditor", "Test", "xmlValidator", "shortcuts.xsd")
-            elif file.endswith("config.4zipPackage.xml"):
+            elif file.endswith("config.model.xml"):
                 xsd_filename = os.path.join("PowerEditor", "Test", "xmlValidator", "config.xsd")
-            parse_xml_file(os.path.join("PowerEditor/src", file), xsd_filename)
+            parse_xml_file(os.path.join("PowerEditor/installer/defaultConfig", file), xsd_filename)
 
 print('Start syntax check and validation for XML files.')
 parse_xml_files_from_APIs_dir()

@@ -1,0 +1,1731 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<NotepadPlus>
+	<AutoComplete language="SQL">
+		<Environment ignoreCase="yes" startFunc="(" stopFunc=")" paramSeparator="," terminal=";" />
+		<KeyWord name="ABS" func="yes">
+			<Overload retVal="NUMBER" descr="returns the absolute value of n">
+			<Param name="NUMBER n" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ACCESS" />
+		<KeyWord name="ACCOUNT" />
+		<KeyWord name="ACOS" func="yes">
+			<Overload retVal="NUMBER" descr="returns the arc cosine of n">
+			<Param name="NUMBER n" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ACTIVATE" />
+		<KeyWord name="ADD" />
+		<KeyWord name="ADD_MONTHS" func="yes">
+			<Overload retVal="DATE" descr="returns inputdate plus months">
+			<Param name="DATE inputdate" />
+			<Param name="NUMBER months" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ADMIN" />
+		<KeyWord name="ADVISE" />
+		<KeyWord name="AFTER" />
+		<KeyWord name="ALLOCATE" />
+		<KeyWord name="ALL_ROWS" />
+		<KeyWord name="ALTER" />
+		<KeyWord name="ANALYZE" />
+		<KeyWord name="AND" />
+		<KeyWord name="ANY" />
+		<KeyWord name="ANYDATA" />
+		<KeyWord name="ANYDATASET" />
+		<KeyWord name="ANYTYPE" />
+		<KeyWord name="ARCHIVELOG" />
+		<KeyWord name="ARRAY" />
+		<KeyWord name="AS" />
+		<KeyWord name="ASC" />
+		<KeyWord name="ASCII" func="yes">
+			<Overload retVal="NUMBER" descr="returns the ASCII code of the first character of str (depends on database character set)">
+			<Param name="CHAR str" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ASCIISTR" func="yes">
+			<Overload retVal="CHAR" descr="converts a string str in any character set to the database character set">
+			<Param name="CHAR str" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ASIN" func="yes">
+			<Overload retVal="NUMBER" descr="returns the arc sine of n">
+			<Param name="NUMBER n" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AT" func="yes" />
+		<KeyWord name="ATAN" >
+			<Overload retVal="NUMBER" descr="returns the arc tangent of n">
+			<Param name="NUMBER n" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ATAN2" func="yes">
+			<Overload retVal="NUMBER" descr="returns the arc tangent of n and m">
+			<Param name="NUMBER n" />
+			<Param name="NUMBER m" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AUDIT" />
+		<KeyWord name="AUTHENTICATED" />
+		<KeyWord name="AUTHID" />
+		<KeyWord name="AUTHORIZATION" />
+		<KeyWord name="AUTOEXTEND" />
+		<KeyWord name="AUTOMATIC" />
+		<KeyWord name="AVG" func="yes">
+			<Overload retVal="NUMBER" descr="returns average value of expr">
+			<Param name="SQLEXPR expr" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="BACKUP" />
+		<KeyWord name="BECOME" />
+		<KeyWord name="BEFORE" />
+		<KeyWord name="BEGIN" />
+		<KeyWord name="BETWEEN" />
+		<KeyWord name="BFILE" />
+		<KeyWord name="BFILENAME" func="yes">
+			<Overload retVal="BFILE" descr="returns a BFILE locator that is associated with a physical LOB binary file on the server's file system.">
+			<Param name="CHAR directory (must exist in data dictionary)" />
+			<Param name="CHAR filename" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="BINARY_INTEGER" />
+		<KeyWord name="BIN_TO_NUM" func="yes">
+			<Overload retVal="NUMBER" descr="converts a bit vector b to its equivalent number">
+			<Param name="BIT b (...)" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="BITAND" func="yes">
+			<Overload retVal="(UNDEFINED)" descr="computes a bitwise AND operation on 2 arguments">
+			<Param name="NUMBER a" />
+			<Param name="NUMBER b" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="BITMAP" />
+		<KeyWord name="BLOBLOCK" />
+		<KeyWord name="BODY" />
+		<KeyWord name="BOOLEAN" />
+		<KeyWord name="BULK" />
+		<KeyWord name="BY" />
+		<KeyWord name="CACHE_INSTANCES" />
+		<KeyWord name="CANCEL" />
+		<KeyWord name="CASCADE" />
+		<KeyWord name="CASE" />
+		<KeyWord name="CAST" func="yes">
+			<Overload retVal="(UNDEFINED)" descr="converts one built-in datatype or collection-typed value into another" />
+		</KeyWord>
+		<KeyWord name="CEIL" func="yes">
+			<Overload retVal="NUMBER" descr="returns smallest integer greater than or equal to n">
+			<Param name="NUMBER n" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="CFILE" />
+		<KeyWord name="CHAINED" />
+		<KeyWord name="CHANGE" />
+		<KeyWord name="CHAR" />
+		<KeyWord name="CHARACTER" />
+		<KeyWord name="CHARTOROWID" func="yes">
+			<Overload retVal="ROWID" descr="converts str from CHAR datatype to ROWID">
+			<Param name="CHAR str" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="CHAR_BASE" />
+		<KeyWord name="CHAR_CS" />
+		<KeyWord name="CHECK" />
+		<KeyWord name="CHECKPOINT" />
+		<KeyWord name="CHOOSE" />
+		<KeyWord name="CHR" func="yes">
+			<Overload retVal="CHAR" descr="returns the character corresponding to b (using database character set)">
+			<Param name="NUMBER b" />
+			</Overload>
+			<Overload retVal="CHAR" descr="returns the character corresponding to b (using national character set)">
+			<Param name="NUMBER b USING NCHAR_CS" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="CHUNK" />
+		<KeyWord name="CLEAR" />
+		<KeyWord name="CLOB" />
+		<KeyWord name="CLONE" />
+		<KeyWord name="CLOSE" />
+		<KeyWord name="CLOSE_CACHED_OPEN_CURSORS" />
+		<KeyWord name="CLUSTER" />
+		<KeyWord name="COALESCE" func="yes">
+			<Overload retVal="SQLEXPR" descr="returns the first non-null expr in the expression list">
+			<Param name="SQLEXPR expr (...)" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="COLLECT" />
+		<KeyWord name="COLUMNS" />
+		<KeyWord name="COMMENT" />
+		<KeyWord name="COMMIT" />
+		<KeyWord name="COMMITTED" />
+		<KeyWord name="COMMIT_CM" />
+		<KeyWord name="COMPATIBILITY" />
+		<KeyWord name="COMPILE" />
+		<KeyWord name="COMPLETE" />
+		<KeyWord name="COMPOSE" func="yes">
+			<Overload retVal="CHAR" descr="converts a string to a Unicode string">
+			<Param name="CHAR str" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="COMPOSITE_LIMIT" />
+		<KeyWord name="COMPRESS" />
+		<KeyWord name="COMPUTE" />
+		<KeyWord name="CONCAT" func="yes">
+			<Overload retVal="CHAR" descr="returns str1 concatenated with str2">
+			<Param name="CHAR str1" />
+			<Param name="CHAR str2" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="CONNECT" />
+		<KeyWord name="CONNECT_TIME" />
+		<KeyWord name="CONSTANT" />
+		<KeyWord name="CONSTRAINTS" />
+		<KeyWord name="CONTENTS" />
+		<KeyWord name="CONTINUE" />
+		<KeyWord name="CONTROLFILE" />
+		<KeyWord name="CONVERT" func="yes">
+			<Overload retVal="CHAR" descr="converts a character string from one character set to another">
+			<Param name="CHAR str" />
+			<Param name="CHAR dest_char_set" />
+			</Overload>
+			<Overload retVal="CHAR" descr="converts a character string from one character set to another">
+			<Param name="CHAR str" />
+			<Param name="CHAR dest_char_set" />
+			<Param name="CHAR source_char_set" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="CORR" func="yes">
+			<Overload retVal="NUMBER" descr="returns the coefficient of correlation of a set of number pairs">
+			<Param name="NUMBER a" />
+			<Param name="NUMBER b" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="COS" func="yes">
+			<Overload retVal="NUMBER" descr="returns the cosine of n">
+			<Param name="NUMBER n" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="COSH" func="yes">
+			<Overload retVal="NUMBER" descr="returns the hyperbolic cosine of n">
+			<Param name="NUMBER n" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="COST" />
+		<KeyWord name="COUNT" func="yes">
+			<Overload retVal="NUMBER" descr="returns the number of rows in the query">
+			<Param name="*" />
+			</Overload>
+			<Overload retVal="NUMBER" descr="returns the number of rows in the query">
+			<Param name="[DISTINCT|ALL] SQLEXPR expr" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="COVAR_POP" func="yes">
+			<Overload retVal="NUMBER" descr="returns the population covariance of a set of number pairs">
+			<Param name="NUMBER a" />
+			<Param name="NUMBER b" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="COVAR_SAMP" func="yes">
+			<Overload retVal="NUMBER" descr="returns the covariance of a set of number pairs">
+			<Param name="NUMBER a" />
+			<Param name="NUMBER b" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="CPU_PER_CALL" />
+		<KeyWord name="CPU_PER_SESSION" />
+		<KeyWord name="CREATE" />
+		<KeyWord name="CUBE" />
+		<KeyWord name="CURRENT" />
+		<KeyWord name="CURRENT_DATE" func="yes">
+			<Overload retVal="DATE" descr="returns the current date in the session time zone" />
+		</KeyWord>
+		<KeyWord name="CURRENT_SCHEMA" />
+		<KeyWord name="CURRENT_TIME" func="yes">
+			<Overload retVal="TIMESTAMP" descr="returns the current date and time in the session time zone" />
+			<Overload retVal="TIMESTAMP" descr="returns the current date and time in the session time zone">
+			<Param name="NUMBER precision" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="CURRENT_TIMESTAMP" func="yes">
+			<Overload retVal="TIMESTAMP" descr="returns the current date and time in the session time zone" />
+			<Overload retVal="TIMESTAMP" descr="returns the current date and time in the session time zone">
+			<Param name="NUMBER precision" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="CURRENT_USER" />
+		<KeyWord name="CURRVAL" />
+		<KeyWord name="CURSOR" />
+		<KeyWord name="CYCLE" />
+		<KeyWord name="DANGLING" />
+		<KeyWord name="DATABASE" />
+		<KeyWord name="DATAFILES" />
+		<KeyWord name="DATAOBJNO" />
+		<KeyWord name="DATE" />
+		<KeyWord name="DAY" />
+		<KeyWord name="DBA" />
+		<KeyWord name="DBHIGH" />
+		<KeyWord name="DBLOW" />
+		<KeyWord name="DBMAC" />
+		<KeyWord name="DBTIMEZONE" func="yes">
+			<Overload retVal="CHAR" descr="returns the value of the database time zone" />
+		</KeyWord>
+		<KeyWord name="DBURITYPE" />
+		<KeyWord name="DEALLOCATE" />
+		<KeyWord name="DEBUG" />
+		<KeyWord name="DECIMAL" />
+		<KeyWord name="DECLARE" />
+		<KeyWord name="DECODE" func="yes">
+			<Overload retVal="(UNDEFINED)" descr="compares expr to each search value one by one">
+			<Param name="SQLEXPR expr" />
+			<Param name="SQLEXPR search" />
+			<Param name="SQLEXPR result (...)" />
+			</Overload>
+			<Overload retVal="(UNDEFINED)" descr="compares expr to each search value one by one">
+			<Param name="SQLEXPR expr" />
+			<Param name="SQLEXPR search" />
+			<Param name="SQLEXPR result (...)" />
+			<Param name="SQLEXPR default" />
+			</Overload>			
+		</KeyWord>
+		<KeyWord name="DEFAULT" />
+		<KeyWord name="DEFERRABLE" />
+		<KeyWord name="DEFERREDEGREE" />
+		<KeyWord name="DELETE" />
+		<KeyWord name="DENSE_RANK" func="yes">
+			<Overload retVal="NUMBER" descr="computes the rank of a row in an ordered group of rows (analytic)" />
+			<Overload retVal="NUMBER" descr="computes the rank of a row in an ordered group of rows (agregate)">
+			<Param name="SQLEXPR expr (...)" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DEREF" func="yes">
+			<Overload retVal="CHAR" descr="returns the object reference of argument expr">
+			<Param name="SQLEXPR expr" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DESC" />
+		<KeyWord name="DIRECTORY" />
+		<KeyWord name="DISABLE" />
+		<KeyWord name="DISCONNECT" />
+		<KeyWord name="DISMOUNT" />
+		<KeyWord name="DISTINCT" />
+		<KeyWord name="DISTRIBUTEDML" />
+		<KeyWord name="DOUBLE" />
+		<KeyWord name="DROP" />
+		<KeyWord name="DUMP" func="yes">
+			<Overload retVal="CHAR" descr="returns a VARCHAR2 value containing the datatype code, length in bytes, and internal representation of expr">
+			<Param name="SQLEXPR expr" />
+			</Overload>
+			<Overload retVal="CHAR" descr="returns a VARCHAR2 value containing the datatype code, length in bytes, and internal representation of expr">
+			<Param name="SQLEXPR expr" />
+			<Param name="NUMBER return_fmt (8|10|16|17)" />
+			</Overload>
+			<Overload retVal="CHAR" descr="returns a VARCHAR2 value containing the datatype code, length in bytes, and internal representation of expr">
+			<Param name="SQLEXPR expr" />
+			<Param name="NUMBER return_fmt (8|10|16|17)" />
+			<Param name="NUMBER start_position" />
+			</Overload>
+			<Overload retVal="CHAR" descr="returns a VARCHAR2 value containing the datatype code, length in bytes, and internal representation of expr">
+			<Param name="SQLEXPR expr" />
+			<Param name="NUMBER return_fmt (8|10|16|17)" />
+			<Param name="NUMBER start_position" />
+			<Param name="NUMBER length" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="EACH" />
+		<KeyWord name="ELSE" />
+		<KeyWord name="ELSIF" />
+		<KeyWord name="EMPTY_BLOB" func="yes">
+			<Overload retVal="LOB" descr="return an empty LOB locator that can be used to initialize a LOB variable" />
+		</KeyWord>
+		<KeyWord name="EMPTY_CLOB" func="yes">
+			<Overload retVal="LOB" descr="return an empty LOB locator that can be used to initialize a LOB variable" />
+		</KeyWord>
+		<KeyWord name="ENABLEND" />
+		<KeyWord name="ENFORCENTRY" />
+		<KeyWord name="ESCAPEXCEPT" />
+		<KeyWord name="EXCEPTION" />
+		<KeyWord name="EXCEPTIONS" />
+		<KeyWord name="EXCHANGEXCLUDING" />
+		<KeyWord name="EXCLUSIVE" />
+		<KeyWord name="EXECUTE" />
+		<KeyWord name="EXISTS" />
+		<KeyWord name="EXISTSNODE" func="yes">
+			<Overload retVal="XMLType" descr="determines whether traversal of the document using the path results in any nodes">
+			<Param name="XMLType_instance" />
+			<Param name="CHAR XPath_string" />
+			</Overload>
+			<Overload retVal="XMLType" descr="determines whether traversal of the document using the path results in any nodes">
+			<Param name="XMLType_instance" />
+			<Param name="CHAR XPath_string" />
+			<Param name="CHAR namespace_string" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="EXIT" />
+		<KeyWord name="EXP" func="yes">
+			<Overload retVal="NUMBER" descr="returns e raised to the nth power">
+			<Param name="NUMBER n" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="EXPIREXPLAIN" />
+		<KeyWord name="EXTENDS" />
+		<KeyWord name="EXTENTS" />
+		<KeyWord name="EXTERNALLY" />
+		<KeyWord name="EXTRACT" func="yes">
+			<Overload retVal="NUMBER" descr="returns the value of a specified datetime field from a datetime or interval value expression">
+			<Param name="YEAR|MONTH|DAY|HOUR|MINUTE|SECOND|TIMEZONE_HOUR|TIMEZONE_MINUTE|TIMEZONE_REGION|TIMEZONE_ABBR FROM SQLEXPR expr" />
+			</Overload>
+			<Overload retVal="XMLType" descr="return xml fragment from an XML node">
+			<Param name="XMLType_instance" />
+			<Param name="CHAR XPath_string" />
+			</Overload>
+			<Overload retVal="XMLType" descr="return xml fragment from an XML node">
+			<Param name="XMLType_instance" />
+			<Param name="CHAR XPath_string" />
+			<Param name="CHAR namespace_string" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="EXTRACTVALUE" func="yes">
+			<Overload retVal="XMLType" descr="return scalar value from XML node">
+			<Param name="XMLType_instance" />
+			<Param name="CHAR XPath_string" />
+			</Overload>
+			<Overload retVal="XMLType" descr="return scalar value from XML node">
+			<Param name="XMLType_instance" />
+			<Param name="CHAR XPath_string" />
+			<Param name="CHAR namespace_string" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="FAILED_LOGIN_ATTEMPTS" />
+		<KeyWord name="FALSE" />
+		<KeyWord name="FAST" />
+		<KeyWord name="FETCH" />
+		<KeyWord name="FILE" />
+		<KeyWord name="FIRST" func="yes">
+			<Overload retVal="(UNDEFINED)" descr="return the first value from a set of values with a certain sort criteria" />
+		</KeyWord>
+		<KeyWord name="FIRST_ROWS" />
+		<KeyWord name="FIRST_VALUE" func="yes">
+			<Overload retVal="(UNDEFINED)" descr="returns the first value in an ordered set of values">
+			<Param name="SQLEXPR expr" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="FLAGGER" />
+		<KeyWord name="FLOAT" />
+		<KeyWord name="FLOB" />
+		<KeyWord name="FLOOR" func="yes">
+			<Overload retVal="NUMBER" descr="returns largest integer equal to or less than n">
+			<Param name="NUMBER n" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="FLUSH" />
+		<KeyWord name="FOR" />
+		<KeyWord name="FORALL" />
+		<KeyWord name="FORCE" />
+		<KeyWord name="FOREIGN" />
+		<KeyWord name="FREELISTS" />
+		<KeyWord name="FROM" />
+		<KeyWord name="FULL" />
+		<KeyWord name="FUNCTION" />
+		<KeyWord name="GETBND" />
+		<KeyWord name="GLB" />
+		<KeyWord name="GLOBALLY" />
+		<KeyWord name="GLOBAL_NAME" />
+		<KeyWord name="GOTO" />
+		<KeyWord name="GRANT" />
+		<KeyWord name="GREATEST" func="yes">
+			<Overload retVal="(UNDEFINED)" descr="returns the greatest of the list of exprs">
+			<Param name="SQLEXPR expr (...)" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GREATEST_LB" />
+		<KeyWord name="GROUP" />
+		<KeyWord name="GROUPING" func="yes">
+			<Overload retVal="NUMBER" descr="distinguishes superaggregate rows from regular grouped rows">
+			<Param name="SQLEXPR expr" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GROUPING_ID" func="yes">
+			<Overload retVal="NUMBER" descr="returns a number corresponding to the GROUPING bit vector associated with a row">
+			<Param name="SQLEXPR expr (...)" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GROUPS" />
+		<KeyWord name="GROUP_ID" func="yes">
+			<Overload retVal="NUMBER" descr="distinguishes duplicate groups resulting from a GROUP BY" />
+		</KeyWord>
+		<KeyWord name="HASHKEYS" />
+		<KeyWord name="HAVING" />
+		<KeyWord name="HEADER" />
+		<KeyWord name="HEAP" />
+		<KeyWord name="HEXTORAW" func="yes">
+			<Overload retVal="RAW" descr="converts str containing hexadecimal digits to a raw value">
+			<Param name="CHAR str" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="HOUR" />
+		<KeyWord name="HTTPURITYPE" />
+		<KeyWord name="IDENTIFIED" />
+		<KeyWord name="IDGENERATORS" />
+		<KeyWord name="IDLE_TIME" />
+		<KeyWord name="IF" />
+		<KeyWord name="IMMEDIATE" />
+		<KeyWord name="IN" />
+		<KeyWord name="INCLUDING" />
+		<KeyWord name="INCREMENT" />
+		<KeyWord name="INDEX" />
+		<KeyWord name="INDEXED" />
+		<KeyWord name="INDEXES" />
+		<KeyWord name="INDICATOR" />
+		<KeyWord name="IND_PARTITION" />
+		<KeyWord name="INITCAP" func="yes">
+			<Overload retVal="CHAR" descr="returns str, with the first letter of each word in uppercase">
+			<Param name="CHAR str" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="INITIALLY" />
+		<KeyWord name="INITRANS" />
+		<KeyWord name="INSERT" />
+		<KeyWord name="INSTANCES" />
+		<KeyWord name="INSTEAD" />
+		<KeyWord name="INSTR" func="yes">
+			<Overload retVal="NUMBER" descr="returns an integer indicating the position of substring in string">
+			<Param name="CHAR string" />
+			<Param name="CHAR substring" />
+			</Overload>
+			<Overload retVal="NUMBER" descr="returns an integer indicating the position of substring in string">
+			<Param name="CHAR string" />
+			<Param name="CHAR substring" />
+			<Param name="NUMBER startpos" />
+			</Overload>
+			<Overload retVal="NUMBER" descr="returns an integer indicating the position of substring in string">
+			<Param name="CHAR string" />
+			<Param name="CHAR substring" />
+			<Param name="NUMBER startpos" />
+			<Param name="NUMBER occurence" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="INSTRB" func="yes">
+			<Overload retVal="NUMBER" descr="returns an integer indicating the position of bytestring in string">
+			<Param name="CHAR string" />
+			<Param name="CHAR bytestring" />
+			</Overload>
+			<Overload retVal="NUMBER" descr="returns an integer indicating the position of bytestring in string">
+			<Param name="CHAR string" />
+			<Param name="CHAR bytestring" />
+			<Param name="NUMBER startpos" />
+			</Overload>
+			<Overload retVal="NUMBER" descr="returns an integer indicating the position of bytestring in string">
+			<Param name="CHAR string" />
+			<Param name="CHAR bytestring" />
+			<Param name="NUMBER startpos" />
+			<Param name="NUMBER occurence" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="INSTRC" func="yes">
+			<Overload retVal="NUMBER" descr="returns an integer indicating the position of utf-substring in string">
+			<Param name="CHAR string" />
+			<Param name="CHAR utf-substring" />
+			</Overload>
+			<Overload retVal="NUMBER" descr="returns an integer indicating the position of utf-substring in string">
+			<Param name="CHAR string" />
+			<Param name="CHAR utf-substring" />
+			<Param name="NUMBER startpos" />
+			</Overload>
+			<Overload retVal="NUMBER" descr="returns an integer indicating the position of utf-substring in string">
+			<Param name="CHAR string" />
+			<Param name="CHAR utf-substring" />
+			<Param name="NUMBER startpos" />
+			<Param name="NUMBER occurence" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="INTEGER" />
+		<KeyWord name="INTERFACE" />
+		<KeyWord name="INTERMEDIATE" />
+		<KeyWord name="INTERSECT" />
+		<KeyWord name="INTERVAL" />
+		<KeyWord name="INTO" />
+		<KeyWord name="IS" />
+		<KeyWord name="ISDANGLING" />
+		<KeyWord name="ISNOTDANGLING" />
+		<KeyWord name="ISNOTNULL" />
+		<KeyWord name="ISNULL" />
+		<KeyWord name="ISOLATION" />
+		<KeyWord name="ISOLATION_LEVEL" />
+		<KeyWord name="JAVA" />
+		<KeyWord name="KEEP" />
+		<KeyWord name="KEY" />
+		<KeyWord name="KILLABELAYER" />
+		<KeyWord name="LAG" func="yes">
+			<Overload retVal="(UNDEFINED)" descr="provides access to a row at a given physical offset prior to the current row">
+			<Param name="SQLEXPR value_expr" />
+			</Overload>
+			<Overload retVal="(UNDEFINED)" descr="provides access to a row at a given physical offset prior to the current row">
+			<Param name="SQLEXPR value_expr" />
+			<Param name="NUMBER offset" />
+			</Overload>
+			<Overload retVal="(UNDEFINED)" descr="provides access to a row at a given physical offset prior to the current row">
+			<Param name="SQLEXPR value_expr" />
+			<Param name="NUMBER offset" />
+			<Param name="SQLEXPR default" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="LAST" func="yes">
+			<Overload retVal="(UNDEFINED)" descr="return the last value from a set of values with a certain sort criteria" />
+		</KeyWord>
+		<KeyWord name="LAST_DAY" func="yes">
+			<Overload retVal="DATE" descr="returns the date of the last day of the month that contains date.">
+			<Param name="DATE date" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="LAST_VALUE" func="yes">
+			<Overload retVal="(UNDEFINED)" descr="returns the last value in an ordered set of values">
+			<Param name="SQLEXPR expr" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="LEAD" func="yes">
+			<Overload retVal="(UNDEFINED)" descr="provides access to a row at a given physical offset beyond that position">
+			<Param name="SQLEXPR value_expr" />
+			</Overload>
+			<Overload retVal="(UNDEFINED)" descr="provides access to a row at a given physical offset beyond that position">
+			<Param name="SQLEXPR value_expr" />
+			<Param name="NUMBER offset" />
+			</Overload>
+			<Overload retVal="(UNDEFINED)" descr="provides access to a row at a given physical offset beyond that position">
+			<Param name="SQLEXPR value_expr" />
+			<Param name="NUMBER offset" />
+			<Param name="SQLEXPR default" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="LEAST" func="yes">
+			<Overload retVal="NUMBER" descr="returns the least of the list of exprs.">
+			<Param name="SQLEXPR expr (...)" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="LEAST_UB" />
+		<KeyWord name="LENGTH" func="yes">
+			<Overload retVal="NUMBER" descr="return the length of str">
+			<Param name="CHAR str" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="LENGTHB" func="yes">
+			<Overload retVal="NUMBER" descr="return the length of bytestr">
+			<Param name="CHAR bytestr" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="LENGTHC" func="yes">
+			<Overload retVal="NUMBER" descr="return the length of unicodestr">
+			<Param name="CHAR unicodestr" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="LESS" />
+		<KeyWord name="LEVEL" />
+		<KeyWord name="LIBRARY" />
+		<KeyWord name="LIKE" />
+		<KeyWord name="LIMITED" />
+		<KeyWord name="LINK" />
+		<KeyWord name="LIST" />
+		<KeyWord name="LN" func="yes">
+			<Overload retVal="NUMBER" descr="returns the natural logarithm of n">
+			<Param name="NUMBER n" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="LOB" />
+		<KeyWord name="LOCALOCK" />
+		<KeyWord name="LOCALTIME" />
+		<KeyWord name="LOCALTIMESTAMP" func="yes">
+			<Overload retVal="TIMESTAMP" descr="returns the current date and time in the session time zone" />
+			<Overload retVal="TIMESTAMP" descr="returns the current date and time in the session time zone">
+			<Param name="NUMBER precision" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="LOCKED" />
+		<KeyWord name="LOG" func="yes">
+			<Overload retVal="NUMBER" descr="returns the logarithm, base m, of n">
+			<Param name="NUMBER m" />
+			<Param name="NUMBER n" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="LOGFILE" />
+		<KeyWord name="LOGGING" />
+		<KeyWord name="LOGICAL_READS_PER_CALLOGICAL_READS_PER_SESSION" />
+		<KeyWord name="LONG" />
+		<KeyWord name="LOOP" />
+		<KeyWord name="LOWER" func="yes">
+			<Overload retVal="CHAR" descr="returns str, with all letters lowercase.">
+			<Param name="CHAR str" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="LPAD" func="yes">
+			<Overload retVal="CHAR" descr="returns str, left-padded to length n with spaces">
+			<Param name="CHAR str" />
+			<Param name="NUMBER n" />
+			</Overload>
+			<Overload retVal="CHAR" descr="returns str, left-padded to length n with char">
+			<Param name="CHAR str" />
+			<Param name="NUMBER n" />
+			<Param name="CHAR char" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="LTRIM" func="yes">
+			<Overload retVal="CHAR" descr="removes spaces from the left of str">
+			<Param name="CHAR str" />
+			</Overload>
+			<Overload retVal="CHAR" descr="removes characters in set from the left of str">
+			<Param name="CHAR str" />
+			<Param name="CHAR set" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="LUB" />
+		<KeyWord name="MAKE_REF" func="yes">
+			<Overload retVal="REF" descr="creates a REF to a row of an object view or a row in an object table whose object identifier is primary key based">
+			<Param name="TABLE|VIEW" />
+			<Param name="NUMBER key (...)" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MANAGE" />
+		<KeyWord name="MASTER" />
+		<KeyWord name="MAX" func="yes">
+			<Overload retVal="(UNDEFINED)" descr="returns maximum value of expr">
+			<Param name="[DISTINCT|ALL] SQLEXPR expr" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MAXARCHLOGS" />
+		<KeyWord name="MAXDATAFILES" />
+		<KeyWord name="MAXEXTENTS" />
+		<KeyWord name="MAXINSTANCES" />
+		<KeyWord name="MAXLOGFILES" />
+		<KeyWord name="MAXLOGHISTORY" />
+		<KeyWord name="MAXLOGMEMBERS" />
+		<KeyWord name="MAXSIZE" />
+		<KeyWord name="MAXTRANS" />
+		<KeyWord name="MAXVALUE" />
+		<KeyWord name="MEMBER" />
+		<KeyWord name="MIN" func="yes">
+			<Overload retVal="(UNDEFINED)" descr="returns minimum value of expr">
+			<Param name="[DISTINCT|ALL] SQLEXPR expr" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MINEXTENTS" />
+		<KeyWord name="MINIMUMINUS" />
+		<KeyWord name="MINUTE" />
+		<KeyWord name="MINVALUE" />
+		<KeyWord name="MLSLABEL" />
+		<KeyWord name="MLS_LABEL_FORMAT" />
+		<KeyWord name="MOD" func="yes">
+			<Overload retVal="NUMBER" descr="returns the remainder of m divided by n">
+			<Param name="NUMBER m" />
+			<Param name="NUMBER n" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MODE" />
+		<KeyWord name="MODIFY" />
+		<KeyWord name="MONTH" />
+		<KeyWord name="MONTHS_BETWEEN" func="yes">
+			<Overload retVal="NUMBER" descr="returns number of months between dates date1 and date2">
+			<Param name="DATE date1" />
+			<Param name="DATE date2" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MOUNT" />
+		<KeyWord name="MOVE" />
+		<KeyWord name="MTS_DISPATCHERS" />
+		<KeyWord name="MULTISET" />
+		<KeyWord name="NATIONAL" />
+		<KeyWord name="NATURALNCHAR" />
+		<KeyWord name="NCHAR_CS" />
+		<KeyWord name="NCHR" func="yes">
+			<Overload retVal="CHAR" descr="returns the character having the binary equivalent to number in the national character set">
+			<Param name="NUMBER n" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="NCLOB" />
+		<KeyWord name="NEEDED" />
+		<KeyWord name="NESTED" />
+		<KeyWord name="NETWORK" />
+		<KeyWord name="NEW" />
+		<KeyWord name="NEW_TIME" func="yes">
+			<Overload retVal="DATE" descr="converts datetime from timezone zone1 to zone2">
+			<Param name="DATE datetime" />
+			<Param name="CHAR zone1" />
+			<Param name="CHAR zone2" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="NEXTVAL" />
+		<KeyWord name="NEXT_DAY" func="yes">
+			<Overload retVal="DATE" descr="returns the date on the weekday after date">
+			<Param name="DATE date" />
+			<Param name="CHAR weekday" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="NLSSORT" func="yes">
+			<Overload retVal="NUMBER" descr="returns the string of bytes used to sort str">
+			<Param name="CHAR str" />
+			<Param name="'NLS_SORT=BINARY|&lt;lang&gt;'" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="NLS_CHARSET_DECL_LEN" func="yes">
+			<Overload retVal="NUMBER" descr="returns the declaration width (in number of characters) of an NCHAR column">
+			<Param name="NUMBER byte_count" />
+			<Param name="NUMBER char_set_id" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="NLS_CHARSET_ID" func="yes">
+			<Overload retVal="NUMBER" descr="returns the character set ID number corresponding to char_set_name">
+			<Param name="CHAR char_set_name" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="NLS_CHARSET_NAME" func="yes">
+			<Overload retVal="CHAR" descr="returns the name of the character set corresponding to char_set_id">
+			<Param name="NUMBER char_set_id" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="NLS_INITCAP" func="yes">
+			<Overload retVal="CHAR" descr="returns str, with the first letter of each word in uppercase, all other letters in lowercase">
+			<Param name="CHAR str" />
+			</Overload>
+			<Overload retVal="CHAR" descr="returns str, with the first letter of each word in uppercase, all other letters in lowercase">
+			<Param name="CHAR str" />
+			<Param name="'NLS_SORT=BINARY|&lt;lang&gt;'" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="NLS_LOWER" func="yes">
+			<Overload retVal="CHAR" descr="returns str, with all letters lowercase">
+			<Param name="CHAR str" />
+			</Overload>
+			<Overload retVal="CHAR" descr="returns str, with all letters lowercase">
+			<Param name="CHAR str" />
+			<Param name="'NLS_SORT=BINARY|&lt;lang&gt;'" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="NLS_UPPER" func="yes">
+			<Overload retVal="CHAR" descr="returns str, with all letters uppercase">
+			<Param name="CHAR str" />
+			</Overload>
+			<Overload retVal="CHAR" descr="returns str, with all letters uppercase">
+			<Param name="CHAR str" />
+			<Param name="'NLS_SORT=BINARY|&lt;lang&gt;'" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="NOARCHIVELOG" />
+		<KeyWord name="NOAUDIT" />
+		<KeyWord name="NOCACHE" />
+		<KeyWord name="NOCOMPRESS" />
+		<KeyWord name="NOCOPY" />
+		<KeyWord name="NOCYCLE" />
+		<KeyWord name="NOFORCE" />
+		<KeyWord name="NOLOGGING" />
+		<KeyWord name="NOMAXVALUE" />
+		<KeyWord name="NOMINVALUE" />
+		<KeyWord name="NONE" />
+		<KeyWord name="NOORDER" />
+		<KeyWord name="NOOVERRIDE" />
+		<KeyWord name="NOPARALLEL" />
+		<KeyWord name="NOREVERSE" />
+		<KeyWord name="NORMAL" />
+		<KeyWord name="NOSORT" />
+		<KeyWord name="NOT" />
+		<KeyWord name="NOTHING" />
+		<KeyWord name="NOT_LIKE" />
+		<KeyWord name="NOWAIT" />
+		<KeyWord name="NTILE" func="yes">
+			<Overload retVal="NUMBER" descr="divides an ordered dataset into buckets and returns the bucket number for the row">
+			<Param name="NUMBER buckets" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="NULL" />
+		<KeyWord name="NULLFN" />
+		<KeyWord name="NULLIF" func="yes">
+			<Overload retVal="(UNDEFINED)" descr="returns null if expr1==expr2 otherwise returns expr1">
+			<Param name="SQLEXPR expr1" />
+			<Param name="SQLEXPR expr2" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="NUMBER" />
+		<KeyWord name="NUMBER_BASE" />
+		<KeyWord name="NUMERIC" />
+		<KeyWord name="NUMTODSINTERVAL" func="yes">
+			<Overload retVal="INTERVAL DAY TO SECOND" descr="converts n to an INTERVAL DAY TO SECOND literal">
+			<Param name="NUMBER n" />
+			<Param name="'DAY|HOUR|MINUTE|SECOND'" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="NUMTOYMINTERVAL" func="yes">
+			<Overload retVal="INTERVAL YEAR TO MONTH" descr="converts number n to an INTERVAL YEAR TO MONTH">
+			<Param name="NUMBER n" />
+			<Param name="'YEAR|MONTH'" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="NVARCHAR2" />
+		<KeyWord name="NVL" func="yes">
+			<Overload retVal="(UNDEFINED)" descr="returns expr2 if expr1 is null, otherwise returns expr1">
+			<Param name="SQLEXPR expr1" />
+			<Param name="SQLEXPR expr2" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="NVL2" func="yes">
+			<Overload retVal="(UNDEFINED)" descr="returns expr2 if expr1 is NOT null, otherwise returns expr3">
+			<Param name="SQLEXPR expr1" />
+			<Param name="SQLEXPR expr2" />
+			<Param name="SQLEXPR expr3" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="OBJECT" />
+		<KeyWord name="OBJNO_REUSE" />
+		<KeyWord name="OCIROWID" />
+		<KeyWord name="OF" />
+		<KeyWord name="OFFLINE" />
+		<KeyWord name="OIDINDEX" />
+		<KeyWord name="OLD" />
+		<KeyWord name="ON" />
+		<KeyWord name="ONLINE" />
+		<KeyWord name="ONLY" />
+		<KeyWord name="OPAQUE" />
+		<KeyWord name="OPCODE" />
+		<KeyWord name="OPEN" />
+		<KeyWord name="OPERATOR" />
+		<KeyWord name="OPTIMAL" />
+		<KeyWord name="OPTIMIZER_GOAL" />
+		<KeyWord name="OPTION" />
+		<KeyWord name="OR" />
+		<KeyWord name="ORDAUDIO" />
+		<KeyWord name="ORDDOC" />
+		<KeyWord name="ORDER" />
+		<KeyWord name="ORDIMAGE" />
+		<KeyWord name="ORDIMAGESIGNATURE" />
+		<KeyWord name="ORDSYS" />
+		<KeyWord name="ORDVIDEO" />
+		<KeyWord name="ORGANIZATION" />
+		<KeyWord name="OSLABEL" />
+		<KeyWord name="OTHERS" />
+		<KeyWord name="OUT" />
+		<KeyWord name="OVERFLOWN" />
+		<KeyWord name="PACKAGE" />
+		<KeyWord name="PARALLEL" />
+		<KeyWord name="PARTITION" />
+		<KeyWord name="PASSWORD_GRACE_TIME" />
+		<KeyWord name="PASSWORD_LIFE_TIME" />
+		<KeyWord name="PASSWORD_LOCK_TIME" />
+		<KeyWord name="PASSWORD_REUSE_MAX" />
+		<KeyWord name="PASSWORD_REUSE_TIME" />
+		<KeyWord name="PASSWORD_VERIFY_FUNCTION" />
+		<KeyWord name="PCTFREE" />
+		<KeyWord name="PCTINCREASE" />
+		<KeyWord name="PCTTHRESHOLD" />
+		<KeyWord name="PCTUSED" />
+		<KeyWord name="PCTVERSION" />
+		<KeyWord name="PERCENT" />
+		<KeyWord name="PERMANENT" />
+		<KeyWord name="PLAN" />
+		<KeyWord name="PLSQL_DEBUG" />
+		<KeyWord name="PLS_INTEGER" />
+		<KeyWord name="POSITIVEN" />
+		<KeyWord name="POST_TRANSACTION" />
+		<KeyWord name="POWER" func="yes">
+			<Overload retVal="NUMBER" descr="returns m raised to the nth power">
+			<Param name="NUMBER m" />
+			<Param name="NUMBER n" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="PRAGMA" />
+		<KeyWord name="PRECISION" />
+		<KeyWord name="PRESERVE" />
+		<KeyWord name="PRIMARY" />
+		<KeyWord name="PRIOR" />
+		<KeyWord name="PRIVATE" />
+		<KeyWord name="PRIVATE_SGA" />
+		<KeyWord name="PRIVILEGES" />
+		<KeyWord name="PROCEDURE" />
+		<KeyWord name="PROFILE" />
+		<KeyWord name="PUBLIC" />
+		<KeyWord name="PURGE" />
+		<KeyWord name="QUEUE" />
+		<KeyWord name="QUOTA" />
+		<KeyWord name="RAISE" />
+		<KeyWord name="RAISE_APPLICATION_ERROR" />
+		<KeyWord name="RANGE" />
+		<KeyWord name="RANK" func="yes">
+			<Overload retVal="NUMBER" descr="calculates the rank of a value in a group of values">
+			<Param name="SQLEXPR expr (...)" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RATIO_TO_REPORT" func="yes">
+			<Overload retVal="NUMBER" descr="computes the ratio of a value to the sum of a set of values">
+			<Param name="SQLEXPR expr" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RAW" />
+		<KeyWord name="RAWTOHEX" func="yes">
+			<Overload retVal="CHAR" descr="converts raw to an NVARCHAR2 character value containing its hexadecimal equivalent">
+			<Param name="RAW raw" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RBA" />
+		<KeyWord name="READUP" />
+		<KeyWord name="REAL" />
+		<KeyWord name="REBUILD" />
+		<KeyWord name="RECORD" />
+		<KeyWord name="RECOVERABLE" />
+		<KeyWord name="RECOVERY" />
+		<KeyWord name="REF" func="yes">
+			<Overload retVal="REF" descr="returns a REF value for the object instance bound to table_alias">
+			<Param name="table_alias" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="REFERENCES" />
+		<KeyWord name="REFERENCING" />
+		<KeyWord name="REFRESH" />
+		<KeyWord name="REFTOHEX" func="yes">
+			<Overload retVal="CHAR" descr="converts ref to a character value containing its hexadecimal equivalent">
+			<Param name="REF ref" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="REGR_AVGX" func="yes">
+			<Overload retVal="NUMBER" descr="evaluates the average of the independent variable (expr2) of the regression line">
+			<Param name="SQLEXPR expr1" />
+			<Param name="SQLEXPR expr2" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="REGR_AVGY" func="yes">
+			<Overload retVal="NUMBER" descr="evaluates the average of the independent variable (expr1) of the regression line">
+			<Param name="SQLEXPR expr1" />
+			<Param name="SQLEXPR expr2" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="REGR_COUNT" func="yes">
+			<Overload retVal="NUMBER" descr="returns an integer that is the number of non-null number pairs used to fit the regression line">
+			<Param name="SQLEXPR expr1" />
+			<Param name="SQLEXPR expr2" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="REGR_INTERCEPT" func="yes">
+			<Overload retVal="NUMBER" descr="returns the y-intercept of the regression line">
+			<Param name="SQLEXPR expr1" />
+			<Param name="SQLEXPR expr2" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="REGR_R2" func="yes">
+			<Overload retVal="NUMBER" descr="returns the coefficient of determination">
+			<Param name="SQLEXPR expr1" />
+			<Param name="SQLEXPR expr2" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="REGR_SLOPE" func="yes">
+			<Overload retVal="NUMBER" descr="returns the slope of the line">
+			<Param name="SQLEXPR expr1" />
+			<Param name="SQLEXPR expr2" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="REGR_SXX" func="yes">
+			<Overload retVal="NUMBER" descr="equiv: REGR_COUNT(expr1, expr2) * VAR_POP(expr2)">
+			<Param name="SQLEXPR expr1" />
+			<Param name="SQLEXPR expr2" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="REGR_SXY" func="yes">
+			<Overload retVal="NUMBER" descr="equiv: REGR_COUNT(expr1, expr2) * COVAR_POP(expr1, expr2)">
+			<Param name="SQLEXPR expr1" />
+			<Param name="SQLEXPR expr2" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="REGR_SYY" func="yes">
+			<Overload retVal="NUMBER" descr="equiv: REGR_COUNT(expr1, expr2) * VAR_POP(expr1)">
+			<Param name="SQLEXPR expr1" />
+			<Param name="SQLEXPR expr2" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RELEASE" />
+		<KeyWord name="REM" />
+		<KeyWord name="RENAME" />
+		<KeyWord name="REPLACE" func="yes">
+			<Overload retVal="CHAR" descr="returns inputstring with every occurrence of search_string removed">
+			<Param name="CHAR inputstring" />
+			<Param name="CHAR search_string" />
+			</Overload>
+			<Overload retVal="CHAR" descr="returns inputstring with every occurrence of search_string replaced with replacement_string">
+			<Param name="CHAR inputstring" />
+			<Param name="CHAR search_string" />
+			<Param name="CHAR replacement_string" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RESETLOGS" />
+		<KeyWord name="RESIZE" />
+		<KeyWord name="RESOURCE" />
+		<KeyWord name="RESTRICTED" />
+		<KeyWord name="RETURN" />
+		<KeyWord name="RETURNING" />
+		<KeyWord name="REUSE" />
+		<KeyWord name="REVERSE" />
+		<KeyWord name="REVOKE" />
+		<KeyWord name="ROLES" />
+		<KeyWord name="ROLLBACK" />
+		<KeyWord name="ROLLBACK_NR" />
+		<KeyWord name="ROLLBACK_SV" />
+		<KeyWord name="ROLLUP" />
+		<KeyWord name="ROUND" func="yes">
+			<Overload retVal="NUMBER" descr="returns n rounded to 0 places right of the decimal point">
+			<Param name="NUMBER n" />
+			</Overload>
+			<Overload retVal="NUMBER" descr="returns n rounded to p places right of the decimal point">
+			<Param name="NUMBER n" />
+			<Param name="NUMBER p" />
+			</Overload>
+			<Overload retVal="DATE" descr="returns date rounded to the nearest day">
+			<Param name="DATE date" />
+			</Overload>
+			<Overload retVal="DATE" descr="returns date rounded to the unit specified by the format model fmt">
+			<Param name="DATE date" />
+			<Param name="CHAR fmt" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ROW" />
+		<KeyWord name="ROWID" />
+		<KeyWord name="ROWIDTOCHAR" func="yes">
+			<Overload retVal="CHAR" descr="converts a ROWID value r to VARCHAR2 datatype">
+			<Param name="ROWID r" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ROWIDTONCHAR" func="yes">
+			<Overload retVal="CHAR" descr="converts a ROWID value r to NVARCHAR2 datatype">
+			<Param name="ROWID r" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ROWLABEL" />
+		<KeyWord name="ROWNUM" />
+		<KeyWord name="ROWS" />
+		<KeyWord name="ROWTYPE" />
+		<KeyWord name="ROW_NUMBER" func="yes">
+			<Overload retVal="NUMBER" descr="assigns a unique number to each row to which it is applied" />
+		</KeyWord>
+		<KeyWord name="RPAD" func="yes">
+			<Overload retVal="CHAR" descr="returns str, right-padded to length n with spaces">
+			<Param name="CHAR str" />
+			<Param name="NUMBER n" />
+			</Overload>
+			<Overload retVal="CHAR" descr="returns str, right-padded to length n with char">
+			<Param name="CHAR str" />
+			<Param name="NUMBER n" />
+			<Param name="CHAR char" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RTRIM" func="yes">
+			<Overload retVal="CHAR" descr="returns str, with all the rightmost spaces removed">
+			<Param name="CHAR str" />
+			</Overload>
+			<Overload retVal="CHAR" descr="returns str, with all the rightmost characters that appear in set removed">
+			<Param name="CHAR str" />
+			<Param name="CHAR set" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RULE" />
+		<KeyWord name="SAMPLE" />
+		<KeyWord name="SAVEPOINT" />
+		<KeyWord name="SB4" />
+		<KeyWord name="SCAN_INSTANCESCHEMA" />
+		<KeyWord name="SCN" />
+		<KeyWord name="SCOPE" />
+		<KeyWord name="SD_ALL" />
+		<KeyWord name="SD_INHIBIT" />
+		<KeyWord name="SD_SHOW" />
+		<KeyWord name="SECOND" />
+		<KeyWord name="SEGMENT" />
+		<KeyWord name="SEG_BLOCK" />
+		<KeyWord name="SEG_FILE" />
+		<KeyWord name="SELECT" />
+		<KeyWord name="SEPARATE" />
+		<KeyWord name="SEQUENCE" />
+		<KeyWord name="SERIALIZABLE" />
+		<KeyWord name="SESSIONS_PER_USER" />
+		<KeyWord name="SESSIONTIMEZONE" />
+		<KeyWord name="SESSION_CACHED_CURSORSET" />
+		<KeyWord name="SETBND" />
+		<KeyWord name="SET_TRANSACTION_USE" />
+		<KeyWord name="SHARE" />
+		<KeyWord name="SHARED_POOL" />
+		<KeyWord name="SHRINK" />
+		<KeyWord name="SIGN" func="yes">
+			<Overload retVal="NUMBER" descr="if n is negative, returns -1, if postiive, returns 1, otherwise returns 0">
+			<Param name="NUMBER n" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SIN" func="yes">
+			<Overload retVal="NUMBER" descr="returns the hyperbolic sine of n">
+			<Param name="NUMBER n" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SINH" />
+		<KeyWord name="SIZE" />
+		<KeyWord name="SKIP_UNUSABLE_INDEXESMALLINT" />
+		<KeyWord name="SNAPSHOT" />
+		<KeyWord name="SOME" />
+		<KeyWord name="SORT" />
+		<KeyWord name="SOUNDEX" func="yes">
+			<Overload retVal="CHAR" descr="returns a phonetic representation of str, allowing comparison of words that sound alike in English">
+			<Param name="CHAR str" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SPACE" />
+		<KeyWord name="SPECIFICATION" />
+		<KeyWord name="SPLIT" />
+		<KeyWord name="SQLCODE" />
+		<KeyWord name="SQLERRM" />
+		<KeyWord name="SQL_TRACE" />
+		<KeyWord name="SQRT" func="yes">
+			<Overload retVal="NUMBER" descr="returns the square root of n">
+			<Param name="NUMBER n" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="STANDBY" />
+		<KeyWord name="START" />
+		<KeyWord name="STATEMENT_ID" />
+		<KeyWord name="STATISTICSTDDEV" />
+		<KeyWord name="STDDEV" func="yes">
+			<Overload retVal="NUMBER" descr="returns sample standard deviation of expr, a set of numbers">
+			<Param name="[DISTINCT|ALL] SQLEXPR expr" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="STDDEV_POP" func="yes">
+			<Overload retVal="NUMBER" descr="computes population standard deviation of expr and returns the square root of the population variance.">
+			<Param name="SQLEXPR expr" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="STDDEV_SAMP" func="yes">
+			<Overload retVal="NUMBER" descr="computes cumulative standard deviation of expr and returns the square root of the sample variance.">
+			<Param name="SQLEXPR expr" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="STOP" />
+		<KeyWord name="STORAGE" />
+		<KeyWord name="STORE" />
+		<KeyWord name="STRUCTURE" />
+		<KeyWord name="SUBSTR" func="yes">
+			<Overload retVal="CHAR" descr="functions return a portion of str, beginning at position, to the end of str">
+			<Param name="CHAR str" />
+			<Param name="NUMBER position" />
+			</Overload>
+			<Overload retVal="CHAR" descr="functions return a portion of str, beginning at position, with a length of substring_length">
+			<Param name="CHAR str" />
+			<Param name="NUMBER position" />
+			<Param name="NUMBER substring_length" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SUBSTRB" func="yes">
+			<Overload retVal="CHAR" descr="functions return a portion of str, beginning at byte_position, to the end of str">
+			<Param name="CHAR str" />
+			<Param name="NUMBER byte_position" />
+			</Overload>
+			<Overload retVal="CHAR" descr="functions return a portion of str, beginning at byte_position, with a length of substring_bytes">
+			<Param name="CHAR str" />
+			<Param name="NUMBER byte_position" />
+			<Param name="NUMBER substring_bytes" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SUBSTRC" func="yes">
+			<Overload retVal="CHAR" descr="functions return a portion of str, beginning at position, to the end of str using Unicode">
+			<Param name="CHAR str" />
+			<Param name="NUMBER position" />
+			</Overload>
+			<Overload retVal="CHAR" descr="functions return a portion of str, beginning at position, with a length of substring_length using Unicode">
+			<Param name="CHAR str" />
+			<Param name="NUMBER position" />
+			<Param name="NUMBER substring_length" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SUBTYPE" />
+		<KeyWord name="SUCCESSFUL" />
+		<KeyWord name="SUM" func="yes">
+			<Overload retVal="NUMBER" descr="returns the sum of values of expr.">
+			<Param name="[DISTINCT|ALL] SQLEXPR expr" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SWITCH" />
+		<KeyWord name="SYNONYM" />
+		<KeyWord name="SYS$DSINTERVALSUBTRACT" />
+		<KeyWord name="SYS$EXTRACT_FROM" />
+		<KeyWord name="SYS$LOB_REPLICATION" />
+		<KeyWord name="SYS$STANDARD_CHR" />
+		<KeyWord name="SYS$STANDARD_TRANSLATE" />
+		<KeyWord name="SYS$STANDARD_TRIM" />
+		<KeyWord name="SYS$YMINTERVALSUBTRACT" />
+		<KeyWord name="SYSDATE" />
+		<KeyWord name="SYSDBA" />
+		<KeyWord name="SYSOPER" />
+		<KeyWord name="SYSTEM" />
+		<KeyWord name="SYSTIMESTAMP" />
+		<KeyWord name="SYS_AT_TIME_ZONE" />
+		<KeyWord name="SYS_CONNECT_BY_PATH" func="yes">
+			<Overload retVal="CHAR" descr="returns the path of a column value from root to node, with column values separated by char">
+			<Param name="column" />
+			<Param name="CHAR char" />
+			</Overload>
+		</KeyWord>		
+		<KeyWord name="SYS_CONTEXT" func="yes">
+			<Overload retVal="CHAR" descr="returns the value of parameter associated with the context namespace, max string length 256 bytes">
+			<Param name="CHAR namespace" />
+			<Param name="CHAR parameter" />
+			</Overload>
+			<Overload retVal="CHAR" descr="returns the value of parameter associated with the context namespace, to a max string length of length">
+			<Param name="CHAR namespace" />
+			<Param name="CHAR parameter" />
+			<Param name="NUMBER length" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SYS_DBURIGEN" func="yes">
+			<Overload retVal="DBURITYPE" descr="generates a URL of datatype DBURIType to a particular column or row object.">
+			<Param name="column|attribute [ROWID rowid] (...)" />
+			</Overload>
+			<Overload retVal="DBURITYPE" descr="generates a URL of datatype DBURIType to a particular column or row object (Text only).">
+			<Param name="column|attribute [ROWID rowid] (...)" />
+			<Param name="'Text()'" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SYS_EXTRACT_UTC" func="yes">
+			<Overload retVal="DATE" descr="extracts the UTC (Coordinated Universal Time) from a datetime with time zone displacement">
+			<Param name="DATE datetime_with_timezone" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SYS_GUID" func="yes">
+			<Overload retVal="RAW" descr="returns a globally unique identifier (RAW value) made up of 16 bytes" />
+		</KeyWord>
+		<KeyWord name="SYS_TYPEID" func="yes">
+			<Overload retVal="NUMBER" descr="returns the typeid of the most specific type of the operand">
+			<Param name="object_type_value" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SYS_XML_AGG" func="yes">
+			<Overload retVal="XMLType" descr="aggregates all of the XML documents or fragments represented by expr and produces a single XML document">
+			<Param name="SQLEXPR expr [XMLFormat fmt]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SYS_XML_GEN" func="yes">
+			<Overload retVal="XMLType" descr="takes expr (a row and column) and returns an instance of type XMLType containing an XML document">
+			<Param name="SQLEXPR expr [XMLFormat fmt]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SYS_LITERALTODATE" />
+		<KeyWord name="SYS_LITERALTODSINTERVAL" />
+		<KeyWord name="SYS_LITERALTOTIME" />
+		<KeyWord name="SYS_LITERALTOTIMESTAMP" />
+		<KeyWord name="SYS_LITERALTOTZTIME" />
+		<KeyWord name="SYS_LITERALTOTZTIMESTAMP" />
+		<KeyWord name="SYS_LITERALTOYMINTERVAL" />
+		<KeyWord name="SYS_OP_ENFORCE_NOT_NULL$" />
+		<KeyWord name="SYS_OP_NTCIMG$" />
+		<KeyWord name="SYS_OVER_IID" />
+		<KeyWord name="SYS_OVER_IIT" />
+		<KeyWord name="SYS_OVER__DD" />
+		<KeyWord name="SYS_OVER__DI" />
+		<KeyWord name="SYS_OVER__ID" />
+		<KeyWord name="SYS_OVER__IT" />
+		<KeyWord name="SYS_OVER__TI" />
+		<KeyWord name="SYS_OVER__TT" />
+		<KeyWord name="TABLE" />
+		<KeyWord name="TABLESPACE" />
+		<KeyWord name="TABLESPACE_NO" />
+		<KeyWord name="TABNO" />
+		<KeyWord name="TAN" func="yes">
+			<Overload retVal="NUMBER" descr="returns the tangent of n (an angle expressed in radians)">
+			<Param name="NUMBER n" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TANH" func="yes">
+			<Overload retVal="NUMBER" descr="returns the hyperbolic tangent of n">
+			<Param name="NUMBER n" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TEMPORARY" />
+		<KeyWord name="THAN" />
+		<KeyWord name="THEN" />
+		<KeyWord name="THREAD" />
+		<KeyWord name="TIME" />
+		<KeyWord name="TIMESTAMP" />
+		<KeyWord name="TIMEZONE_ABBR" />
+		<KeyWord name="TIMEZONE_HOUR" />
+		<KeyWord name="TIMEZONE_MINUTE" />
+		<KeyWord name="TIMEZONE_REGION" />
+		<KeyWord name="TO" />
+		<KeyWord name="TOPLEVEL" />
+		<KeyWord name="TO_CHAR" func="yes">
+			<Overload retVal="CHAR" descr="converts str to the database character set">
+			<Param name="CHAR str" />
+			</Overload>
+			<Overload retVal="CHAR" descr="converts date to VARCHAR2 with a default format">
+			<Param name="DATE date" />
+			</Overload>
+			<Overload retVal="CHAR" descr="converts date to VARCHAR2 with the format fmt">
+			<Param name="DATE date" />
+			<Param name="CHAR fmt" />
+			</Overload>
+			<Overload retVal="CHAR" descr="converts date to VARCHAR2 with the format fmt">
+			<Param name="DATE date" />
+			<Param name="CHAR fmt" />
+			<Param name="'NLS_DATE_LANGUAGE=&lt;lang&gt;'" />
+			</Overload>
+			<Overload retVal="CHAR" descr="converts n to VARCHAR2 with a default format">
+			<Param name="NUMBER n" />
+			</Overload>
+			<Overload retVal="CHAR" descr="converts n to VARCHAR2 with the format fmt">
+			<Param name="NUMBER n" />
+			<Param name="CHAR fmt" />
+			</Overload>
+			<Overload retVal="CHAR" descr="converts n to VARCHAR2 with the format fmt">
+			<Param name="NUMBER n" />
+			<Param name="CHAR fmt" />
+			<Param name="'NLS_NUMERIC_CHARACTERS=''dg'' NLS_CURRENCY=''text'' NLS_ISO_CURRENCY=territory '" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TO_CLOB" func="yes">
+			<Overload retVal="CLOB" descr="converts NCLOB values in LOB_column to CLOB values">
+			<Param name="lob_column" />
+			</Overload>
+			<Overload retVal="CLOB" descr="converts NCLOB values in str to CLOB values">
+			<Param name="CHAR str" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TO_DATE" func="yes">
+			<Overload retVal="DATE" descr="converts date with a default format in str, to type DATE">
+			<Param name="CHAR str" />
+			</Overload>
+			<Overload retVal="DATE" descr="converts date with the format fmt in str, to type DATE">
+			<Param name="CHAR str" />
+			<Param name="CHAR fmt" />
+			</Overload>
+			<Overload retVal="DATE" descr="converts date with the format fmt in str, to type DATE">
+			<Param name="CHAR str" />
+			<Param name="CHAR fmt" />
+			<Param name="'NLS_DATE_LANGUAGE=&lt;lang&gt;'" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TO_DB_TZ" />
+		<KeyWord name="TO_DSINTERVAL" func="yes">
+			<Overload retVal="INTERVAL DAY TO SECOND" descr="converts str to an INTERVAL DAY TO SECOND type">
+			<Param name="CHAR str" />
+			</Overload>
+			<Overload retVal="INTERVAL DAY TO SECOND" descr="converts str to an INTERVAL DAY TO SECOND type">
+			<Param name="CHAR str" />
+			<Param name="'NLS_NUMERIC_CHARACTERS=''dg'' '" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TO_LABEL" />
+		<KeyWord name="TO_LOB" func="yes">
+			<Overload retVal="LOB" descr="converts LONG or LONG RAW values in the column long_column to LOB values">
+			<Param name="long_column" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TO_LOCAL_TZ" />
+		<KeyWord name="TO_MULTI_BYTE" func="yes">
+			<Overload retVal="CHAR" descr="returns str with all of its single-byte characters converted to their corresponding multibyte characters.">
+			<Param name="CHAR str" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TO_NCHAR" func="yes">
+			<Overload retVal="CHAR" descr="converts str to the database character set">
+			<Param name="CHAR str" />
+			</Overload>
+			<Overload retVal="CHAR" descr="converts date to NVARCHAR2 with a default format">
+			<Param name="DATE date" />
+			</Overload>
+			<Overload retVal="CHAR" descr="converts date to NVARCHAR2 with the format fmt">
+			<Param name="DATE date" />
+			<Param name="CHAR fmt" />
+			</Overload>
+			<Overload retVal="CHAR" descr="converts date to NVARCHAR2 with the format fmt">
+			<Param name="DATE date" />
+			<Param name="CHAR fmt" />
+			<Param name="'NLS_DATE_LANGUAGE=&lt;lang&gt;'" />
+			</Overload>
+			<Overload retVal="CHAR" descr="converts n to NVARCHAR2 with a default format">
+			<Param name="NUMBER n" />
+			</Overload>
+			<Overload retVal="CHAR" descr="converts n to NVARCHAR2 with the format fmt">
+			<Param name="NUMBER n" />
+			<Param name="CHAR fmt" />
+			</Overload>
+			<Overload retVal="CHAR" descr="converts n to NVARCHAR2 with the format fmt">
+			<Param name="NUMBER n" />
+			<Param name="CHAR fmt" />
+			<Param name="'NLS_NUMERIC_CHARACTERS=''dg'' NLS_CURRENCY=''text'' NLS_ISO_CURRENCY=territory '" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TO_NCLOB" func="yes">
+			<Overload retVal="NCLOB" descr="converts CLOB values in LOB_column to NCLOB values">
+			<Param name="lob_column" />
+			</Overload>
+			<Overload retVal="NCLOB" descr="converts CLOB values in str to NCLOB values">
+			<Param name="CHAR str" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TO_NUMBER" func="yes">
+			<Overload retVal="NUMBER" descr="converts str to NUMBER with a default format">
+			<Param name="CHAR str" />
+			</Overload>
+			<Overload retVal="NUMBER" descr="converts str to NUMBER with the format fmt">
+			<Param name="CHAR str" />
+			<Param name="CHAR fmt" />
+			</Overload>
+			<Overload retVal="NUMBER" descr="converts str to NUMBER with the format fmt">
+			<Param name="CHAR str" />
+			<Param name="CHAR fmt" />
+			<Param name="'NLS_NUMERIC_CHARACTERS=''dg'' NLS_CURRENCY=''text'' NLS_ISO_CURRENCY=territory '" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TO_SINGLE_BYTE" func="yes">
+			<Overload retVal="CHAR" descr="returns str with all of its multibyte characters converted to their corresponding single-byte characters">
+			<Param name="CHAR str" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TO_TIME" />
+		<KeyWord name="TO_TIMESTAMP" func="yes">
+		<Overload retVal="TIMESTAMP" descr="converts str to TIMESTAMP with a default format">
+			<Param name="CHAR str" />
+			</Overload>
+			<Overload retVal="TIMESTAMP" descr="converts str to TIMESTAMP with the format fmt">
+			<Param name="CHAR str" />
+			<Param name="CHAR fmt" />
+			</Overload>
+			<Overload retVal="TIMESTAMP" descr="converts str to TIMESTAMP with the format fmt">
+			<Param name="CHAR str" />
+			<Param name="CHAR fmt" />
+			<Param name="'NLS_DATE_LANGUAGE=&lt;lang&gt;'" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TO_TIMESTAMP_TZ" func="yes">
+		<Overload retVal="TIMESTAMP WITH TIME ZONE" descr="converts str to TIMESTAMP WITH TIME ZONE with a default format">
+			<Param name="CHAR str" />
+			</Overload>
+			<Overload retVal="TIMESTAMP WITH TIME ZONE" descr="converts str to TIMESTAMP WITH TIME ZONE with the format fmt">
+			<Param name="CHAR str" />
+			<Param name="CHAR fmt" />
+			</Overload>
+			<Overload retVal="TIMESTAMP WITH TIME ZONE" descr="converts str to TIMESTAMP WITH TIME ZONE with the format fmt">
+			<Param name="CHAR str" />
+			<Param name="CHAR fmt" />
+			<Param name="'NLS_DATE_LANGUAGE=&lt;lang&gt;'" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TO_TIME_TZ" />
+		<KeyWord name="TO_YMINTERVAL" func="yes">
+			<Overload retVal="INTERVAL YEAR TO MONTH" descr="converts str to INTERVAL YEAR TO MONTH">
+			<Param name="CHAR str" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TRACE" />
+		<KeyWord name="TRACING" />
+		<KeyWord name="TRANSACTION" />
+		<KeyWord name="TRANSITIONAL" />
+		<KeyWord name="TRANSLATE" func="yes">
+			<Overload retVal="CHAR" descr="returns str with each character in from_set changed to the corresponding character in to_set">
+			<Param name="CHAR str" />
+			<Param name="CHAR from_set" />
+			<Param name="CHAR to_set" />
+			</Overload>
+			<Overload retVal="CHAR" descr="returns str converted to the database character set|national character set">
+			<Param name="CHAR str USING CHAR_CS|NCHAR_CS" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TREAT" func="yes">
+			<Overload retVal="(UNDEFINED)" descr="changes the declared type of an expression">
+			<Param name="SQLEXPR expr AS [REF ref] [schema,] type" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TRIGGER" />
+		<KeyWord name="TRIGGERS" />
+		<KeyWord name="TRIM" func="yes">
+			<Overload retVal="CHAR" descr="trim leading AND trailing spaces from str">
+			<Param name="CHAR str" />
+			</Overload>
+			<Overload retVal="CHAR" descr="trim leading AND trailing characters in trim_set from str">
+			<Param name="CHAR trim_set FROM CHAR str" />
+			</Overload>
+			<Overload retVal="CHAR" descr="trim leading and/or trailing spaces from str">
+			<Param name="[LEADING|TRAILING|BOTH] FROM CHAR str" />
+			</Overload>
+			<Overload retVal="CHAR" descr="trim leading and/or trailing characters in trim_set from str">
+			<Param name="[LEADING|TRAILING|BOTH] CHAR trim_set FROM CHAR str" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TRUE" />
+		<KeyWord name="TRUNC" func="yes">
+			<Overload retVal="NUMBER" descr="returns n truncated to 0 decimal places">
+			<Param name="NUMBER n" />
+			</Overload>
+			<Overload retVal="NUMBER" descr="returns n truncated to m decimal places">
+			<Param name="NUMBER n" />
+			<Param name="NUMBER m" />
+			</Overload>
+			<Overload retVal="DATE" descr="returns date truncated to the nearest day">
+			<Param name="DATE date" />
+			</Overload>
+			<Overload retVal="DATE" descr="returns date truncated according to format model fmt">
+			<Param name="DATE date" />
+			<Param name="CHAR fmt" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TRUNCATE" />
+		<KeyWord name="TX" />
+		<KeyWord name="TYPE" />
+		<KeyWord name="TZ_OFFSET" func="yes">
+			<Overload retVal="CHAR" descr="returns the time zone offset corresponding to the value entered based on the date the statement is executed">
+			<Param name="CHAR time_zone_name" />
+			</Overload>
+			<Overload retVal="CHAR" descr="returns the time zone offset corresponding to the value entered based on the date the statement is executed">
+			<Param name="'+|- hh:mi'" />
+			</Overload>
+			<Overload retVal="CHAR" descr="returns the time zone offset corresponding to the value entered based on the date the statement is executed">
+			<Param name="SESSIONTIMEZONE" />
+			</Overload>
+			<Overload retVal="CHAR" descr="returns the time zone offset corresponding to the value entered based on the date the statement is executed">
+			<Param name="DBTIMEZONE" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="UB2" />
+		<KeyWord name="UBA" />
+		<KeyWord name="UID" />
+		<KeyWord name="UNARCHIVED" />
+		<KeyWord name="UNDO" />
+		<KeyWord name="UNION" />
+		<KeyWord name="UNIQUE" />
+		<KeyWord name="UNISTR" func="yes">
+			<Overload retVal="NUMBER" descr="converts str to the national character set">
+			<Param name="CHAR str" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="UNLIMITED" />
+		<KeyWord name="UNLOCK" />
+		<KeyWord name="UNRECOVERABLE" />
+		<KeyWord name="UNTIL" />
+		<KeyWord name="UNUSABLE" />
+		<KeyWord name="UNUSED" />
+		<KeyWord name="UPDATABLE" />
+		<KeyWord name="UPDATE" />
+		<KeyWord name="UPDATEXML" func="yes">
+			<Overload retVal="XMLType" descr="returns an XMLType instance with the updated value">
+			<Param name="XML Type_Instance" />
+			<Param name="CHAR XPath_string" />
+			<Param name="SQLEXPR expr" />
+			</Overload>
+			<Overload retVal="XMLType" descr="returns an XMLType instance with the updated value">
+			<Param name="XML Type_Instance" />
+			<Param name="CHAR XPath_string" />
+			<Param name="SQLEXPR expr" />
+			<Param name="CHAR namespace_string" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="UPPER" func="yes">
+			<Overload retVal="CHAR" descr="returns str, with all letters uppercase">
+			<Param name="CHAR str" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="UROWID" />
+		<KeyWord name="USAGE" />
+		<KeyWord name="USE" />
+		<KeyWord name="USER" />
+		<KeyWord name="USERENV" func="yes">
+			<Overload retVal="CHAR" descr="returns information about the current session">
+			<Param name="CLIENT_INFO|ENTRYID|ISDBA|LANG|LANGUAGE|SESSIONID|TERMINAL'" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="USING" />
+		<KeyWord name="VALIDATE" />
+		<KeyWord name="VALIDATION" />
+		<KeyWord name="VALUE" func="yes">
+			<Overload retVal="(UNDEFINED)" descr="takes table_alias and returns object instances stored in the object table">
+			<Param name="table_alias" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="VALUES" />
+		<KeyWord name="VARCHAR" />
+		<KeyWord name="VARCHAR2" />
+		<KeyWord name="VARIANCE" func="yes">
+			<Overload retVal="NUMBER" descr="returns variance of expr">
+			<Param name="[DISTINCT|ALL] SQLEXPR expr" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="VARPOP" func="yes">
+			<Overload retVal="NUMBER" descr="returns the population variance of a set of numbers after discarding the nulls in this set">
+			<Param name="SQLEXPR expr" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="VARRAY" />
+		<KeyWord name="VARSAMP" func="yes">
+			<Overload retVal="NUMBER" descr="returns the sample variance of a set of numbers after discarding the nulls in this set">
+			<Param name="SQLEXPR expr" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="VARYING" />
+		<KeyWord name="VIEW" />
+		<KeyWord name="VSIZE" func="yes">
+			<Overload retVal="NUMBER" descr="returns the number of bytes in the internal representation of expr">
+			<Param name="SQLEXPR expr" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="WHEN" />
+		<KeyWord name="WHENEVER" />
+		<KeyWord name="WHERE" />
+		<KeyWord name="WHILE" />
+		<KeyWord name="WIDTH_BUCKET" func="yes">
+			<Overload retVal="NUMBER" descr="creates a set of num_buckets equalwidth buckets between min_value and max_value and returns the bucket expr falls into">
+			<Param name="SQLEXPR expr" />
+			<Param name="NUMBER min_value" />
+			<Param name="NUMBER max_value" />
+			<Param name="NUMBER num_buckets" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="WITH" />
+		<KeyWord name="WITHOUT" />
+		<KeyWord name="WORK" />
+		<KeyWord name="WRITE" />
+		<KeyWord name="WRITEDOWN" />
+		<KeyWord name="WRITEUP" />
+		<KeyWord name="XDBURITYPE" />
+		<KeyWord name="XID" />
+		<KeyWord name="XMLAGG" func="yes">
+			<Overload retVal="XML Document" descr="takes a collection of XML fragments and returns an aggregated XML document">
+			<Param name="XML Type_instance [order_by_clause]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="XMLCOLLATVAL" func="yes">
+			<Overload retVal="XML Document" descr="creates an XML fragment and then expands the resulting XML so that each XML fragment has the name 'column' with the attribute 'name'">
+			<Param name="SQLEXPR value_expr [AS column_alias]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="XMLCONCAT" func="yes">
+			<Overload retVal="XML Document" descr="concatenates the series of elements for each row, and returns the concatenated series.">
+			<Param name="XML Type_instance" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="XMLELEMENT" func="yes">
+			<Overload retVal="XMLType" descr="produce an XML document with a nested structure as an instance of XMLType">
+			<Param name="[NAME] identifier" />
+			<Param name="XML_attibutes_clause" />
+			<Param name="SQLEXPR value_expr" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="XMLFOREST" func="yes">
+			<Overload retVal="XML Document" descr="returns an XML fragment that is the concatenation of each value_expr converted to XML">
+			<Param name="SQLEXPR value_expr [AS column_alias]" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="XMLSEQUENCE" func="yes">
+			<Overload retVal="VARRAY of XMLType" descr="returns a varray of the top-level nodes in the XMLType">
+			<Param name="XML Type_instance" />
+			</Overload>
+			<Overload retVal="XMLSequence" descr="returns as an XMLSequence type an XML document for each row of the cursor">
+			<Param name="sys_refcursor_instance" />
+			</Overload>
+			<Overload retVal="XMLSequence" descr="returns as an XMLSequence type an XML document for each row of the cursor">
+			<Param name="sys_refcursor_instance" />
+			<Param name="CHAR fmt" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="XMLTRANSFORM" func="yes">
+			<Overload retVal="XMLType" descr="applies the style sheet to the instance and returns an XMLType">
+			<Param name="XML Type_instance" />
+			<Param name="XML Type_instance (style sheet)" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="XMLTYPE" />
+		<KeyWord name="XOR" />
+		<KeyWord name="YEAR" />
+		<KeyWord name="ZONE" />
+	</AutoComplete>
+</NotepadPlus>

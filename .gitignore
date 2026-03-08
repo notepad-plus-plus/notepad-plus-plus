@@ -71,7 +71,9 @@ PowerEditor/bin/nativeLang.xml
 PowerEditor/bin/session.xml
 PowerEditor/bin/functionList.xml
 PowerEditor/bin/shortcuts.xml
+PowerEditor/bin/NppShell.msix
 PowerEditor/bin/backup/
+PowerEditor/bin/autoCompletion/
 PowerEditor/bin/localization/
 PowerEditor/bin/plugins/
 PowerEditor/bin/updater/

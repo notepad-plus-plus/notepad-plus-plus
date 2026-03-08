@@ -372,8 +372,6 @@ copy /Y ".\themes\*.xml" .\zipped.package.releaseArm64\themes\
 If ErrorLevel 1 goto End
 
 rem Plugins Admin
-rem for disabling auto-updater
-copy /Y ..\src\config.4zipPackage.xml .\zipped.package.release\config.xml
 If ErrorLevel 1 goto End
 copy /Y ..\bin\plugins\Config\nppPluginList.dll .\zipped.package.release\plugins\Config\
 If ErrorLevel 1 goto End
@@ -388,8 +386,7 @@ If ErrorLevel 1 goto End
 copy /Y ..\bin\updater\updater.ico .\zipped.package.release\updater\
 If ErrorLevel 1 goto End
 
-rem For disabling auto-updater
-copy /Y ..\src\config.4zipPackage.xml .\zipped.package.release64\config.xml
+
 If ErrorLevel 1 goto End
 copy /Y ..\bin64\plugins\Config\nppPluginList.dll .\zipped.package.release64\plugins\Config\
 If ErrorLevel 1 goto End
@@ -404,8 +401,7 @@ If ErrorLevel 1 goto End
 copy /Y ..\bin64\updater\updater.ico .\zipped.package.release64\updater\
 If ErrorLevel 1 goto End
 
-rem For disabling auto-updater
-copy /Y ..\src\config.4zipPackage.xml .\zipped.package.releaseArm64\config.xml
+
 If ErrorLevel 1 goto End
 copy /Y ..\binarm64\plugins\Config\nppPluginList.dll .\zipped.package.releaseArm64\plugins\Config\
 If ErrorLevel 1 goto End

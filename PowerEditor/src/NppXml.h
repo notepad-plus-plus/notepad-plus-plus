@@ -255,4 +255,20 @@ namespace NppXml
 	[[nodiscard]] inline const char* value(const Attribute& attr) {
 		return attr.value();
 	}
+
+#ifdef __APPLE__
+	// On macOS, fs::path::c_str() returns const char* — provide overloads
+	[[nodiscard]] inline bool loadFile(Document doc, const char* filename) {
+		return doc->load_file(filename, pugi::parse_default | pugi::parse_comments | pugi::parse_declaration);
+	}
+	[[nodiscard]] inline bool saveFile(const Document doc, const char* filename) {
+		return doc->save_file(filename, "    ", pugi::format_indent | pugi::format_save_file_text);
+	}
+	[[nodiscard]] inline bool loadFileNativeLang(Document doc, const char* filename) {
+		return doc->load_file(filename, pugi::parse_cdata | pugi::parse_escapes | pugi::parse_eol | pugi::parse_comments | pugi::parse_declaration);
+	}
+	[[nodiscard]] inline bool loadFileContextMenu(Document doc, const char* filename) {
+		return doc->load_file(filename, pugi::parse_cdata | pugi::parse_escapes | pugi::parse_eol);
+	}
+#endif
 }

@@ -19,6 +19,7 @@
 
 #include <windows.h>
 
+#include <filesystem>
 #include <memory>
 #include <string>
 #include <vector>
@@ -42,6 +43,10 @@ struct iconLocator {
 
 	iconLocator(size_t iList, size_t iIcon, const std::wstring& iconLoc)
 		: _listIndex(iList), _iconIndex(iIcon), _iconLocation(iconLoc) {}
+#ifdef __APPLE__
+	iconLocator(size_t iList, size_t iIcon, const std::filesystem::path& iconPath)
+		: _listIndex(iList), _iconIndex(iIcon), _iconLocation(iconPath.wstring()) {}
+#endif
 };
 
 struct ToolbarPluginButtonsConf

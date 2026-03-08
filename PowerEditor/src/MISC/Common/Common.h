@@ -277,6 +277,22 @@ BOOL getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBUT
 bool doesFileExist(const wchar_t* filePath, DWORD milliSec2wait = 0, bool* isTimeoutReached = nullptr);
 bool doesDirectoryExist(const wchar_t* dirPath, DWORD milliSec2wait = 0, bool* isTimeoutReached = nullptr);
 bool doesPathExist(const wchar_t* path, DWORD milliSec2wait = 0, bool* isTimeoutReached = nullptr);
+#ifdef __APPLE__
+// On macOS, fs::path::c_str() returns const char* (not wchar_t*). Provide char* overloads.
+#include <sys/stat.h>
+inline bool doesFileExist(const char* filePath, DWORD = 0, bool* = nullptr) {
+	struct stat st;
+	return (stat(filePath, &st) == 0) && !S_ISDIR(st.st_mode);
+}
+inline bool doesDirectoryExist(const char* dirPath, DWORD = 0, bool* = nullptr) {
+	struct stat st;
+	return (stat(dirPath, &st) == 0) && S_ISDIR(st.st_mode);
+}
+inline bool doesPathExist(const char* path, DWORD = 0, bool* = nullptr) {
+	struct stat st;
+	return stat(path, &st) == 0;
+}
+#endif
 
 
 // check if the window rectangle intersects with any currently active monitor's working area

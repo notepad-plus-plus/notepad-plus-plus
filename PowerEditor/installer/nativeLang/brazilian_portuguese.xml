@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 24 Feb 2026 for 8.9.2+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 07 Mar 2026 for 8.9.2+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -1024,6 +1024,7 @@ Translation note:
 					<Item id="6239" name="Manter a seleção ao clicar com o botão direito fora da seleção"/>
 					<Item id="6245" name="Habilitar espaço virtual"/>
 					<Item id="6214" name="Habilitar Copiar/Recortar Linha sem seleção"/>
+					<Item id="6266" name="Desabilitar arrastar e soltar de texto selecionado"/>
 					<Item id="6225" name="Aplicar cor customizada em texto selecionado"/>
 					<Item id="6651" name="Indicador de linha atual"/>
 					<Item id="6652" name="Nenhum"/>

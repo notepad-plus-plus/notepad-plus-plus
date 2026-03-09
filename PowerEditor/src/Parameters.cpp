@@ -1602,7 +1602,7 @@ bool NppParameters::load()
 	//----------------------------------------------//
 	// nativeLang.xml : for per-user				//
 	// In case of absence of user's nativeLang.xml, //
-	// We'll look in the Notepad++ Dir.			 //
+	// We'll look in the Notepad++ Dir.			    //
 	//----------------------------------------------//
 
 	std::wstring nativeLangPath;
@@ -1807,23 +1807,6 @@ bool NppParameters::load()
 		filePath2 = _userPath;
 		pathAppend(filePath2, issueFileName);
 		_doNppLogNetworkDriveIssue = doesFileExist(filePath2.c_str());
-	}
-
-	//-------------------------------------------------------------//
-	// nppLogNulContentCorruptionIssue.xml                         //
-	// This empty xml file is optional - user adds this empty file //
-	// It's for debugging use only                                 //
-	//-------------------------------------------------------------//
-	filePath = _nppPath;
-	issueFileName = nppLogNulContentCorruptionIssue;
-	issueFileName += L".xml";
-	pathAppend(filePath, issueFileName);
-	_doNppLogNulContentCorruptionIssue = doesFileExist(filePath.c_str());
-	if (!_doNppLogNulContentCorruptionIssue)
-	{
-		filePath2 = _userPath;
-		pathAppend(filePath2, issueFileName);
-		_doNppLogNulContentCorruptionIssue = doesFileExist(filePath2.c_str());
 	}
 
 	//-------------------------------------------------------------//

@@ -1574,12 +1574,6 @@ Continuer ?"/>
 			<LanguageMenuCompactWarning title="Menu compact des langages" message="Cette option sera appliquée au prochain lancement."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Les modifications non-enregistrées vont être perdues !
 Voulez-vous enregistrer vos modifications avant de changer de thème ?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Compatibilité des commandes Macro et Exécuter" message="Vos commandes Macro et Exécuter enregistrées dans Notepad++ v.8.5.2 (ou antérieur) peuvent ne pas être compatibles avec la version courante de Notepad++.
-Veuillez tester ces commandes et, si besoin, ré-éditer celles-ci.
-
-Autrement, vous pouvez revenir vers Notepad++ v8.5.2 et restaurer les données précédentes.
-Notepad++ va sauvegarder votre ancien « shortcuts.xml » et l’enregistrer sous « shortcuts.xml.v8.5.2.backup ».
-En renommant « shortcuts.xml.v8.5.2.backup » -&gt; « shortcuts.xml », vos commandes devraient être proprement restaurées."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<NotEnoughRoom4Saving title="Échec de l’enregistrement" message="Échec de l’enregistrement du fichier.
 Il semblerait qu’il n’y a pas assez d’espace sur le disque. Votre fichier n’est pas enregistré."/>
 			<FileInaccessibleUserSession title="Fichier inaccessible" message="Certains fichiers de votre session sauvegardée manuellement « $STR_REPLACE$ » sont inaccessibles. Ils peuvent être ouverts comme des documents vides et en lecture seule en tant qu’espaces réservés.

@@ -1932,7 +1932,6 @@ private:
 	bool _isRegForOSAppRestartDisabled = false;
 
 	bool _doNppLogNetworkDriveIssue = false;
-	bool _doNppLogNulContentCorruptionIssue = false;
 
 	bool _isEndSessionStarted = false;
 	bool _isEndSessionCritical = false;
@@ -1953,7 +1952,6 @@ public:
 	void setElevationRequired(bool val2set) { _isElevationRequired = val2set; }
 
 	bool doNppLogNetworkDriveIssue() const { return _doNppLogNetworkDriveIssue; }
-	bool doNppLogNulContentCorruptionIssue() const { return _doNppLogNulContentCorruptionIssue; }
 	void endSessionStart() { _isEndSessionStarted = true; }
 	bool isEndSessionStarted() const { return _isEndSessionStarted; }
 	void makeEndSessionCritical() { _isEndSessionCritical = true; }

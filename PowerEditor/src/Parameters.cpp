@@ -636,7 +636,6 @@ static constexpr ScintillaKeyDefinition scintKeyDefs[]
 	{L"SCI_ROTATESELECTION",         SCI_ROTATESELECTION,         false, false, false, 0,           0}
 };
 
-#define NONEEDSHORTCUTSXMLBACKUP_FILENAME L"v852NoNeedShortcutsBackup.xml"
 #define SHORTCUTSXML_FILENAME L"shortcuts.xml"
 
 #define SESSION_BACKUP_EXT L".inCaseOfCorruption.bak"
@@ -1603,7 +1602,7 @@ bool NppParameters::load()
 	//----------------------------------------------//
 	// nativeLang.xml : for per-user				//
 	// In case of absence of user's nativeLang.xml, //
-	// We'll look in the Notepad++ Dir.			 //
+	// We'll look in the Notepad++ Dir.			    //
 	//----------------------------------------------//
 
 	std::wstring nativeLangPath;
@@ -1656,10 +1655,8 @@ bool NppParameters::load()
 	//------------------------------//
 	// shortcuts.xml : for per-user //
 	//------------------------------//
-	std::wstring v852NoNeedShortcutsBackup;
-	_shortcutsPath = v852NoNeedShortcutsBackup = _userPath;
+	_shortcutsPath = _userPath;
 	pathAppend(_shortcutsPath, SHORTCUTSXML_FILENAME);
-	pathAppend(v852NoNeedShortcutsBackup, NONEEDSHORTCUTSXMLBACKUP_FILENAME);
 
 	if (!doesFileExist(_shortcutsPath.c_str()))
 	{
@@ -1667,11 +1664,6 @@ bool NppParameters::load()
 		pathAppend(srcShortcutsPath, SHORTCUTSXML_FILENAME);
 
 		::CopyFile(srcShortcutsPath.c_str(), _shortcutsPath.c_str(), TRUE);
-
-		// Create empty file v852NoNeedShortcutsBackup.xml for not giving warning, neither doing backup, in future use.
-		HANDLE hFile = ::CreateFile(v852NoNeedShortcutsBackup.c_str(), GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-		::FlushFileBuffers(hFile);
-		::CloseHandle(hFile);
 	}
 
 	_pXmlShortcutDoc = new NppXml::NewDocument();
@@ -1815,23 +1807,6 @@ bool NppParameters::load()
 		filePath2 = _userPath;
 		pathAppend(filePath2, issueFileName);
 		_doNppLogNetworkDriveIssue = doesFileExist(filePath2.c_str());
-	}
-
-	//-------------------------------------------------------------//
-	// nppLogNulContentCorruptionIssue.xml                         //
-	// This empty xml file is optional - user adds this empty file //
-	// It's for debugging use only                                 //
-	//-------------------------------------------------------------//
-	filePath = _nppPath;
-	issueFileName = nppLogNulContentCorruptionIssue;
-	issueFileName += L".xml";
-	pathAppend(filePath, issueFileName);
-	_doNppLogNulContentCorruptionIssue = doesFileExist(filePath.c_str());
-	if (!_doNppLogNulContentCorruptionIssue)
-	{
-		filePath2 = _userPath;
-		pathAppend(filePath2, issueFileName);
-		_doNppLogNulContentCorruptionIssue = doesFileExist(filePath2.c_str());
 	}
 
 	//-------------------------------------------------------------//
@@ -4484,36 +4459,6 @@ void NppParameters::writeShortcuts()
 		//do the treatment
 		_pXmlShortcutDoc = new NppXml::NewDocument();
 		NppXml::createNewDeclaration(_pXmlShortcutDoc);
-	}
-	else
-	{
-		wchar_t v852NoNeedShortcutsBackup[MAX_PATH]{};
-		::wcscpy_s(v852NoNeedShortcutsBackup, _shortcutsPath.c_str());
-		::PathRemoveFileSpec(v852NoNeedShortcutsBackup);
-		::PathAppend(v852NoNeedShortcutsBackup, NONEEDSHORTCUTSXMLBACKUP_FILENAME);
-
-		if (!doesFileExist(v852NoNeedShortcutsBackup))
-		{
-			// Create empty file v852NoNeedShortcutsBackup.xml for not giving warning, neither doing backup, in future use.
-			HANDLE hFile = ::CreateFile(v852NoNeedShortcutsBackup, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-			::FlushFileBuffers(hFile);
-			::CloseHandle(hFile);
-
-			// backup shortcuts file "shortcuts.xml" to "shortcuts.xml.v8.5.2.backup"
-			// if the backup file already exists, it will not be overwritten.
-			std::wstring v852ShortcutsBackupPath = _shortcutsPath;
-			v852ShortcutsBackupPath += L".v8.5.2.backup";
-			::CopyFile(_shortcutsPath.c_str(), v852ShortcutsBackupPath.c_str(), TRUE);
-
-			// Warn User about the current shortcut will be changed and it has been backup. If users' the shortcuts.xml has been corrupted
-			// due to recoded macro under v8.5.2 (or previous versions) being modified by v8.5.3 (or later versions),
-			// user can always go back to Notepad++ v8.5.2 and use the backup of shortcuts.xml
-			_pNativeLangSpeaker->messageBox("MacroAndRunCmdlWarning",
-				nullptr,
-				L"Your Macro and Run commands saved in Notepad++ v.8.5.2 (or older) may not be compatible with the current version of Notepad++.\nPlease test those commands and, if needed, re-edit them.\n\nAlternatively, you can downgrade to Notepad++ v8.5.2 and restore your previous data.\nNotepad++ will backup your old \"shortcuts.xml\" and save it as \"shortcuts.xml.v8.5.2.backup\".\nRenaming \"shortcuts.xml.v8.5.2.backup\" -> \"shortcuts.xml\", your commands should be restored and work properly.",
-				L"Macro and Run Commands Compatibility",
-				MB_OK | MB_APPLMODAL | MB_ICONWARNING);
-		}
 	}
 
 	NppXml::Element root = NppXml::firstChildElement(_pXmlShortcutDoc, "NotepadPlus");

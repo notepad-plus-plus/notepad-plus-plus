@@ -347,7 +347,6 @@ inline constexpr int RECENTFILES_SHOWFULLPATH = -1;
 inline constexpr int RECENTFILES_SHOWONLYFILENAME = 0;
 
 inline constexpr const wchar_t nppLogNetworkDriveIssue[] = L"nppLogNetworkDriveIssue"; // issue xml/log file name
-inline constexpr const wchar_t nppLogNulContentCorruptionIssue[] = L"nppLogNulContentCorruptionIssue"; // issue xml/log file name
 
 // Parameters
 

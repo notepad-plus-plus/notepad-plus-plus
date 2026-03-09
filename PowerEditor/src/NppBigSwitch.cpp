@@ -74,13 +74,6 @@ bool SetOSAppRestart()
 	bool bUnregister = nppParam.isRegForOSAppRestartDisabled();
 
 	wstring nppIssueLog;
-	if (nppParam.doNppLogNulContentCorruptionIssue())
-	{
-		wstring issueFn = nppLogNulContentCorruptionIssue;
-		issueFn += L".log";
-		nppIssueLog = nppParam.getUserPath();
-		pathAppend(nppIssueLog, issueFn);
-	}
 
 	wchar_t wszCmdLine[RESTART_MAX_CMD_LINE] = { 0 };
 	DWORD cchCmdLine = _countof(wszCmdLine);
@@ -104,26 +97,6 @@ bool SetOSAppRestart()
 				{
 					bRet = true;
 				}
-				else
-				{
-					if (nppParam.doNppLogNulContentCorruptionIssue())
-					{
-						std::string msg = "ERROR: UnregisterApplicationRestart WINAPI failed! (HRESULT: ";
-						msg += std::format("{:#010x}", hr);
-						msg += ")";
-						writeLog(nppIssueLog.c_str(), msg.c_str());
-					}
-				}
-			}
-			else
-			{
-				if (nppParam.doNppLogNulContentCorruptionIssue())
-				{
-					std::string msg = "ERROR: GetApplicationRestartSettings WINAPI failed! (HRESULT: ";
-					msg += std::format("{:#010x}", hr);
-					msg += ")";
-					writeLog(nppIssueLog.c_str(), msg.c_str());
-				}
 			}
 		}
 	}
@@ -134,17 +107,7 @@ bool SetOSAppRestart()
 		if (hr == S_OK)
 			::UnregisterApplicationRestart(); // remove a previous registration 1st
 
-		if (nppParam.getCmdLineString().length() >= RESTART_MAX_CMD_LINE)
-		{
-			if (nppParam.doNppLogNulContentCorruptionIssue())
-			{
-				std::string msg = "WARNING: Skipping the RegisterApplicationRestart WINAPI call because of the cmdline length exceeds the RESTART_MAX_CMD_LINE! \n(current cmdline length: ";
-				msg += std::to_string(nppParam.getCmdLineString().length());
-				msg += " chars)";
-				writeLog(nppIssueLog.c_str(), msg.c_str());
-			}
-		}
-		else
+		if (nppParam.getCmdLineString().length() < RESTART_MAX_CMD_LINE)
 		{
 			// do not restart the process:
 			// RESTART_NO_CRASH  (1) ... for termination due to application crashes
@@ -155,16 +118,6 @@ bool SetOSAppRestart()
 			if (hr == S_OK)
 			{
 				bRet = true;
-			}
-			else
-			{
-				if (nppParam.doNppLogNulContentCorruptionIssue())
-				{
-					std::string msg = "ERROR: RegisterApplicationRestart WINAPI failed! (HRESULT: ";
-					msg += std::format("{:#010x}", hr);
-					msg += ")";
-					writeLog(nppIssueLog.c_str(), msg.c_str());
-				}
 			}
 		}
 	}
@@ -2588,32 +2541,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (isForcedShuttingDown)
 				nppParam.makeEndSessionCritical();
 
-			if (nppParam.doNppLogNulContentCorruptionIssue())
-			{
-				wstring issueFn = nppLogNulContentCorruptionIssue;
-				issueFn += L".log";
-				wstring nppIssueLog = nppParam.getUserPath();
-				pathAppend(nppIssueLog, issueFn);
-
-				string wmqesType = std::to_string(lParam);
-				if (lParam == 0)
-				{
-					wmqesType += " - ordinary system shutdown/restart";
-				}
-				else
-				{
-					// the lParam here is a bit mask, it can be one or more of the following values
-					if (lParam & ENDSESSION_CLOSEAPP)
-						wmqesType += " - ENDSESSION_CLOSEAPP";
-					if (lParam & ENDSESSION_CRITICAL)
-						wmqesType += " - ENDSESSION_CRITICAL";
-					if (lParam & ENDSESSION_LOGOFF)
-						wmqesType += " - ENDSESSION_LOGOFF";
-				}
-				string msg = "WM_QUERYENDSESSION (lParam: " + wmqesType + ") =====================================";
-				writeLog(nppIssueLog.c_str(), msg.c_str());
-			}
-
 			if (::IsWindowEnabled(hwnd))
 			{
 				if (MainFileManager.getNbDirtyBuffers() > 0)
@@ -2693,15 +2620,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				// re-test
 				if (::IsWindowEnabled(hwnd))
 					strLog += "  -> Main Notepad++ wnd has been successfully reenabled.";
-
-				if (nppParam.doNppLogNulContentCorruptionIssue())
-				{
-					wstring issueFn = nppLogNulContentCorruptionIssue;
-					issueFn += L".log";
-					wstring nppIssueLog = nppParam.getUserPath();
-					pathAppend(nppIssueLog, issueFn);
-					writeLog(nppIssueLog.c_str(), strLog.c_str());
-				}
 			}
 
 			// NOTE: This should be the last possible place to eventually register Notepad++ for the app-restart OS feature,
@@ -2714,38 +2632,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case WM_ENDSESSION:
 		{
 			// this message informs our app whether the session is really ending
-
-			if (nppParam.doNppLogNulContentCorruptionIssue())
-			{
-				wstring issueFn = nppLogNulContentCorruptionIssue;
-				issueFn += L".log";
-				wstring nppIssueLog = nppParam.getUserPath();
-				pathAppend(nppIssueLog, issueFn);
-
-				string wmesType = std::to_string(lParam);
-				if (lParam == 0)
-				{
-					wmesType += " - ordinary system shutdown/restart";
-				}
-				else
-				{
-					// the lParam here is a bit mask, it can be one or more of the following values
-					if (lParam & ENDSESSION_CLOSEAPP)
-						wmesType += " - ENDSESSION_CLOSEAPP";
-					if (lParam & ENDSESSION_CRITICAL)
-						wmesType += " - ENDSESSION_CRITICAL";
-					if (lParam & ENDSESSION_LOGOFF)
-						wmesType += " - ENDSESSION_LOGOFF";
-				}
-				string msg = "WM_ENDSESSION (wParam: ";
-				if (wParam)
-					msg += "TRUE, lParam: ";
-				else
-					msg += "FALSE, lParam: ";
-				msg += wmesType + ")";
-
-				writeLog(nppIssueLog.c_str(), msg.c_str());
-			}
 
 			if (wParam == FALSE)
 			{
@@ -2770,15 +2656,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_CLOSE:
 		{
-			if (nppParam.doNppLogNulContentCorruptionIssue() && nppParam.isEndSessionStarted() && (message == WM_CLOSE))
-			{
-				wstring issueFn = nppLogNulContentCorruptionIssue;
-				issueFn += L".log";
-				wstring nppIssueLog = nppParam.getUserPath();
-				pathAppend(nppIssueLog, issueFn);
-				writeLog(nppIssueLog.c_str(), "WM_CLOSE (isEndSessionStarted == true)");
-			}
-
 			if (_pPublicInterface->isPrelaunch())
 			{
 				SendMessage(hwnd, WM_SYSCOMMAND, SC_MINIMIZE, 0);
@@ -2934,15 +2811,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_DESTROY:
 		{
-			if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
-			{
-				wstring issueFn = nppLogNulContentCorruptionIssue;
-				issueFn += L".log";
-				wstring nppIssueLog = nppParam.getUserPath();
-				pathAppend(nppIssueLog, issueFn);
-				writeLog(nppIssueLog.c_str(), "WM_DESTROY (isEndSessionStarted == true)");
-			}
-
 			killAllChildren();
 			::PostQuitMessage(0);
 			_pPublicInterface->gNppHWND = NULL;

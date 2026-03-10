@@ -9,10 +9,10 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepadplusplus(at)rockytdr.33mail.com)
 
-Last modified on 2025-11-11 by xylographe.
+Last modified on 2026-03-10 by RockyTDR.
 -->
 <NotepadPlus>
-	<Native-Langue name="Nederlands" filename="dutch.xml" version="8.8.7">
+	<Native-Langue name="Nederlands" filename="dutch.xml" version="8.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -147,6 +147,8 @@ Last modified on 2025-11-11 by xylographe.
 					<Item id="42081" name="Regels lexicografisch aflopend hoofdletterongevoelig sorteren"/>
 					<Item id="42100" name="Regels op basis van lokale taalinstellingen oplopend sorteren"/>
 					<Item id="42101" name="Regels op basis van lokale taalinstellingen aflopend sorteren"/>
+					<Item id="42104" name="Regels oplopend op lengte sorteren"/>
+					<Item id="42105" name="Regels aflopend op lengte sorteren"/>
 					<Item id="42061" name="Regels als gehele getallen oplopend sorteren"/>
 					<Item id="42062" name="Regels als gehele getallen aflopend sorteren"/>
 					<Item id="42063" name="Regels als decimalen (komma) oplopend sorteren"/>
@@ -165,6 +167,7 @@ Last modified on 2025-11-11 by xylographe.
 					<Item id="42072" name="WilLeKEUriGe hOoFdlEtteRs"/>
 					<Item id="42073" name="Bestand openen"/>
 					<Item id="42074" name="Bevattende map openen in Windows Verkenner"/>
+					<Item id="42106" name="Selectie redigeren █ (Shift: ●)"/>
 					<Item id="42075" name="Zoeken op internet"/>
 					<Item id="42076" name="Zoekmachine wijzigen..."/>
 					<Item id="42090" name="Niet hoofdlettergevoelig en volledige woorden negeren"/>
@@ -1008,7 +1011,7 @@ Last modified on 2025-11-11 by xylographe.
 					<Item id="6128" name="Alternatieve pictogrammen"/>
 					<Item id="6125" name="Gedrag"/>
 					<Item id="6126" name="Gedrag en uiterlijk"/>
-					<Item id="6136" name="Max. tabbladnaamlengte:"/>
+					<Item id="6136" name="Max. lengte tabbladnaam:"/>
 				</Tabbar>
 
 				<Scintillas title="Bewerken 1">
@@ -1028,6 +1031,7 @@ Last modified on 2025-11-11 by xylographe.
 					<Item id="6239" name="Selectie behouden bij rechtsklikken buiten selectie"/>
 					<Item id="6245" name="Virtuele ruimte inschakelen"/>
 					<Item id="6214" name="Kopiëren/knippen van regel zonder te selecteren inschakelen"/>
+					<Item id="6266" name="Slepen en neerzetten voor geselecteerde tekst uitschakelen"/>
 					<Item id="6225" name="Aangepaste kleur toepassen op voorgrond van geselecteerde tekst"/>
 					<Item id="6651" name="Indicator voor huidige regel"/>
 					<Item id="6652" name="Geen"/>
@@ -1228,6 +1232,7 @@ Last modified on 2025-11-11 by xylographe.
 					<Item id="6910" name="Minimale grootte voor automatisch aanvinken &quot;In selectie&quot;:"/>
 					<Item id="6913" name="Mapveld voor zoeken in bestanden opvullen gebaseerd op actief document"/>
 					<Item id="6916" name=": Maximaal aantal tekens van selectie naar zoekveld"/>
+					<Item id="6917" name="Zoeken in bestanden: bestandsinhoud op schijf verkiezen boven geopende buffers"/>
 				</Searching>
 
 				<RecentFilesHistory title="Recente bestanden">
@@ -1587,12 +1592,6 @@ Doorgaan?"/>
 			<LanguageMenuCompactWarning title="Compact taalmenu" message="Deze optie zal bij de volgende start worden gewijzigd."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Niet opgeslagen wijzigingen worden weggegooid!
 Wilt u uw wijzigingen opslaan voordat u van thema wisselt?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Macro- en uitvoeren-opdrachtcompatibiliteit" message="Het is mogelijk dat uw macro- en uitvoeren-opdrachten opgeslagen in Notepad++ v.8.5.2 (of ouder) niet meer compatibel zijn met de huidige versie van Notepad++.
-Test deze opdrachten en bewerk ze indien nodig.
-
-Als alternatief kunt u downgraden naar Notepad++ v8.5.2 en uw vorige gegevens herstellen.
-Notepad++ zal een reservekopie maken van uw oude &quot;shortcuts.xml&quot; en het opslaan als &quot;shortcuts.xml.v8.5.2.backup&quot;.
-Door de naam te wijzigen van &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, zouden uw opdrachten hersteld moeten worden en goed moeten werken."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<FullReadOnlySavingForbidden title="Opslaan mislukt" message="Bestand opslaan is mislukt.
 De schrijfbeveiliging van Notepad++ verhindert het opslaan van dit bestand."/>
 			<NotEnoughRoom4Saving title="Opslaan mislukt" message="Bestand opslaan is mislukt.
@@ -1783,6 +1782,9 @@ Zoeken in alle bestanden maar alle log- of logs-mappen recursief uitsluiten:
 			<find-status-scope-all value="in volledig bestand"/>
 			<find-status-scope-backward value="vanaf begin van bestand tot cursor"/>
 			<find-status-scope-forward value="vanaf cursor naar einde van bestand"/>
+			<find-status-invisible-chars-findWhat value="Onzichtbare tekens in geplakte inhoud van &quot;Zoeken naar&quot; of &quot;Vervangen door&quot;"/>
+			<find-status-invisible-chars-findWhat-tip value="Waarschuwing: onzichtbare tekens in veld voor zoeken (of vervangen).
+De tekst die in dit veld is geplakt, bevat onzichtbare tekens (mogelijk regeleindes). Als u doorgaat zonder deze te verwijderen, worden ze opgenomen in de tekst voor zoeken (of vervangen)."/>
 			<finder-find-in-finder value="Zoeken in deze zoekresultaten..."/>
 			<finder-close-this value="Deze zoekresultaten sluiten"/>
 			<finder-collapse-all value="Alles samenvouwen"/>
@@ -1911,7 +1913,7 @@ Als u de geavanceerde modus selecteert maar geen bestanden in de bovengenoemde t
 			<max-len-on-search-tip value="Uw invoer is mogelijk te lang. Uw invoer kan afgekapt worden en zal niet opgeslagen worden voor de volgende sessie."/>
 			<max-len-on-save-tip value="Uw invoer is mogelijk te lang om opgeslagen te worden voor de volgende sessie."/>
 			<goto-setting-tip value="Zoek hier uw instelling"/>
-			<tabbar-tabcompactlabellen-tip value="Beperk de zichtbare lengte van tabbladnamen. Voer een waarde van 1 tot 257 tekens in of 0 om niet af te breken."/>
+			<tabbar-tabcompactlabellen-tip value="Beperkt de zichtbare lengte van lange tabbladnamen. Voer een waarde van 1 tot 257 tekens in of 0 om niet af te breken."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

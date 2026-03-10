@@ -1582,12 +1582,6 @@ Pokračovať?"/>
 			<LanguageMenuCompactWarning title="Kompaktná jazyková ponuka" message="Táto možnosť sa zmení pri ďalšom spustení."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Neuložené zmeny budú odstránené!
 Chcete uložiť zmeny pred prepnutím motívu?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Kompatibilita makier a príkazov cez ponuku Spustiť" message="Vaše makrá a príkazy cez ponuku Spustiť uložené v Notepad++ v.8.5.2 (alebo staršej) nemusia byť kompatibilné s aktuálnou verziou programu Notepad++.
-Otestujte tieto príkazy a v prípade potreby ich znovu upravte.
-
-Prípadne môžete vykonať prechod na verziu Notepad++ v8.5.2 a obnoviť svoje predchádzajúce údaje.
-Notepad++ zálohuje váš starý súbor &quot;shortcuts.xml&quot; a uloží ho ako &quot;shortcuts.xml.v8.5.2.backup&quot;.
-Premenovaním &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; by sa vaše príkazy mali obnoviť a fungovať správne."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<NotEnoughRoom4Saving title="Uloženie zlyhalo" message="Nepodarilo sa uložiť súbor.
 Zdá sa, že na disku nie je dostatok miesta na uloženie súboru. Súbor sa neuložil."/>
 			<FileInaccessibleUserSession title="Nedostupný súbor" message="Niektoré súbory z manuálne uloženej relácie &quot;$STR_REPLACE$&quot; sú nedostupné. Môžete ich otvoriť ako prázdne dokumenty a len na čítanie ako zástupné karty.

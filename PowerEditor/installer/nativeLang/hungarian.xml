@@ -1024,6 +1024,7 @@
 					<Item id="6239" name="Kijelölés &amp;megtartása a kijelölésen kívül jobb egérgombbal kattintva is"/>
 					<Item id="6245" name="S&amp;orvégi virtuális szóközök engedélyezése"/>
 					<Item id="6214" name="Ki&amp;jelölés nélküli sormásolás és -kivágás engedélyezése"/>
+					<Item id="6266" name="A kijel&amp;ölt szöveg „fogd és vidd” műveletének letiltása"/>
 					<Item id="6225" name="Eg&amp;yéni szín a kijelölt szöveg előteréhez"/>
 					<Item id="6651" name="Aktuálissor-jelölés"/>
 					<Item id="6652" name="&amp;Nincs"/>
@@ -1224,6 +1225,7 @@
 					<Item id="6910" name="„&amp;A kijelölésben” automatikus bejelölése ettől:"/>
 					<Item id="6913" name="A „Keresés &amp;fájlokban” fül alatti „Mappa” mező kitöltése az aktív dokumentum alapján"/>
 					<Item id="6916" name=": a ki&amp;jelölt karakterek legnagyobb száma a „Keresendő” mező auto. kitöltéséhez"/>
+					<Item id="6917" name="„Kere&amp;sés fájlokban”: a lemezen lévő fájlok előnyben részesítése a pufferelt tartalommal szemben"/>
 				</Searching>
 
 				<RecentFilesHistory title="Fájlelőzmények">
@@ -1583,12 +1585,6 @@ Szeretné folytatni?"/>
 			<LanguageMenuCompactWarning title="Kompakt „Nyelv” menü" message="Ez a beállítás a következő indításkor lép érvénybe"/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="A(z) „$STR_REPLACE$” stílus módosítása" message="A nem mentett módosítások el lesznek vetve!
 Szeretné menteni a módosításokat témaváltás előtt?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Kompatibilitás: „Makrók” és „Programok (Parancsok) futtatása”" message="Előfordulhat, hogy a Notepad++ 8.5.2-es (vagy régebbi) verziójával mentett, „Makrók” és „Programok (Parancsok) futtatása” alatti műveletek nem kompatibilisek a Notepad++ jelenlegi verziójával.
-Kérjük, tesztelje ezeket a parancsokat, és ha szükséges, szerkessze újra őket.
-
-Alternatív megoldásként visszaválthat Notepad++ v8.5.2-re, és visszaállíthatja a korábbi adatokat.
-A Notepad++ biztonsági másolatot készít a régi „shortcuts.xml” fájlról, és elmenti azt „shortcuts.xml.v8.5.2.backup” néven.
-Egy „shortcuts.xml.v8.5.2.backup” » „shortcuts.xml” átnevezéssel a parancsokat sikeresen vissza kell tudnia állítani, és azoknak megfelelően működniük kell."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<FullReadOnlySavingForbidden title="Sikertelen mentés" message="Nem menthető el a fájl.
 A Notepad++ az összes dokumentumot csak olvashatóként kezeli, ami megakadályozza a fájl mentését"/>
 			<NotEnoughRoom4Saving title="Sikertelen mentés" message="Nem sikerült menteni a fájlt.

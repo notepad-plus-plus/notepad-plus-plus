@@ -26,11 +26,13 @@ SRC_DIRECTORY := ../src
 SRC_EXCLUDE := $(SRC_DIRECTORY)/tools/%
 BIN_DIRECTORY := ../bin
 INSTALLER_DIRECTORY := ../installer
+XML4CONF_DIRECTORY := ../installer/xml4Config
 
 TARGET_BINARY := notepad++.exe
-SRC_DATA := contextMenu.xml langs.model.xml shortcuts.xml stylers.model.xml tabContextMenu_example.xml toolbarButtonsConf_example.xml
-BIN_DATA := change.log doLocalConf.xml nppLogNulContentCorruptionIssue.xml readme.txt userDefineLangs/
+SRC_DATA := langs.model.xml stylers.model.xml tabContextMenu_example.xml toolbarButtonsConf_example.xml
+BIN_DATA := change.log readme.txt userDefineLangs/
 INSTALLER_DATA := autoCompletion/ functionList/ localization/ themes/
+XML4CONF_DATA := doLocalConf.xml disableNppAutoUpdate.xml
 
 SCINTILLA_DIRECTORY := ../../scintilla
 SCINTILLA_TARGET := libscintilla.a
@@ -159,6 +161,7 @@ TARGET_BINARY := $(TARGET_DIRECTORY)/$(TARGET_BINARY)
 SRC_DATA := $(addprefix $(TARGET_DIRECTORY)/,$(SRC_DATA))
 BIN_DATA := $(addprefix $(TARGET_DIRECTORY)/,$(BIN_DATA))
 INSTALLER_DATA := $(addprefix $(TARGET_DIRECTORY)/,$(INSTALLER_DATA))
+XML4CONF_DATA := $(addprefix $(TARGET_DIRECTORY)/,$(XML4CONF_DATA))
 
 SCINTILLA_TARGET := $(BUILD_DIRECTORY)/$(SCINTILLA_TARGET)
 SCINTILLA_TARGET_PATH := ../../PowerEditor/gcc/$(SCINTILLA_TARGET)
@@ -181,6 +184,7 @@ ifneq "$(MAKEFILE_DIRECTORY)" "."
 MAKEFILE_PARENT := $(patsubst %/,%,$(dir $(MAKEFILE_DIRECTORY)))
 
 BIN_DIRECTORY := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(BIN_DIRECTORY))
+XML4CONF_DIRECTORY := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(XML4CONF_DIRECTORY))
 GCC_DIRECTORY := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(GCC_DIRECTORY))
 GCC_EXCLUDE := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(GCC_EXCLUDE))
 SRC_DIRECTORY := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(SRC_DIRECTORY))
@@ -336,12 +340,16 @@ $(TARGET_BINARY): $(CXX_TARGETS) $(RC_TARGETS) $(SCINTILLA_TARGET) $(LEXILLA_TAR
 	@echo + linking $@
 	$(AT)$(LD) $(LDFLAGS) $(filter-out %.a,$^) $(addprefix -L,$(LD_PATH)) $(addprefix -l,$(LD_LINK)) -static -o $@
 
-data: $(patsubst %/,%,$(SRC_DATA) $(BIN_DATA) $(INSTALLER_DATA))
+data: $(patsubst %/,%,$(SRC_DATA) $(BIN_DATA) $(XML4CONF_DATA) $(INSTALLER_DATA))
 
 $(patsubst %/,%,$(filter %/,$(SRC_DATA))): $(TARGET_DIRECTORY)/%: $(SRC_DIRECTORY)/% | $(TARGET_DIRECTORY)
 	@echo + copying $@
 	$(AT)$(CPDIR) $(call normalize-path,$< $@)
 $(filter-out %/,$(SRC_DATA)): $(TARGET_DIRECTORY)/%: $(SRC_DIRECTORY)/% | $(TARGET_DIRECTORY)
+	@echo + copying $@
+	$(AT)$(CP) $(call normalize-path,$< $@)
+
+$(XML4CONF_DATA): $(TARGET_DIRECTORY)/%: $(XML4CONF_DIRECTORY)/% | $(TARGET_DIRECTORY)
 	@echo + copying $@
 	$(AT)$(CP) $(call normalize-path,$< $@)
 

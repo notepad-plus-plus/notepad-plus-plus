@@ -1660,10 +1660,7 @@ bool NppParameters::load()
 
 	if (!doesFileExist(_shortcutsPath.c_str()))
 	{
-		std::wstring srcShortcutsPath(_nppPath);
-		pathAppend(srcShortcutsPath, SHORTCUTSXML_FILENAME);
-
-		::CopyFile(srcShortcutsPath.c_str(), _shortcutsPath.c_str(), TRUE);
+		generateXmlFromScratch(_shortcutsPath.c_str(), SHORTCUT_XML_CONTENT);
 	}
 
 	_pXmlShortcutDoc = new NppXml::NewDocument();
@@ -1685,18 +1682,15 @@ bool NppParameters::load()
 		getScintKeysFromXmlTree();
 	}
 
-	//---------------------------------//
+	//--------------------------------//
 	// contextMenu.xml : for per-user //
-	//---------------------------------//
+	//--------------------------------//
 	_contextMenuPath = _userPath;
 	pathAppend(_contextMenuPath, L"contextMenu.xml");
 
 	if (!doesFileExist(_contextMenuPath.c_str()))
 	{
-		std::wstring srcContextMenuPath(_nppPath);
-		pathAppend(srcContextMenuPath, L"contextMenu.xml");
-
-		::CopyFile(srcContextMenuPath.c_str(), _contextMenuPath.c_str(), TRUE);
+		generateXmlFromScratch(_contextMenuPath.c_str(), CONTEXTMENU_XML_CONTENT);
 	}
 
 	_pXmlContextMenuDoc = new NppXml::NewDocument();
@@ -1825,6 +1819,16 @@ bool NppParameters::load()
 		pathAppend(filePath, noRegForOSAppRestartTrigger);
 		_isRegForOSAppRestartDisabled = doesFileExist(filePath.c_str());
 	}
+
+	//-------------------------------------------------------------//
+	// disableNppAutoUpdate.xml                                    //
+	// This empty xml file is optional. If it exists, auto-update  //
+	// will be disabled, even though WinGUp is present.            //
+	//-------------------------------------------------------------//
+	filePath = _nppPath;
+	std::wstring disableNppAutoUpdateFileName = L"disableNppAutoUpdate.xml";
+	pathAppend(filePath, disableNppAutoUpdateFileName);
+	_isNppAutoUpdateDisabled = doesFileExist(filePath.c_str());
 
 	return isAllLoaded;
 }

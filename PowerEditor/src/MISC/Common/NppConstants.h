@@ -400,3 +400,140 @@ inline constexpr const wchar_t FINDDLG_STAUSREACHED_COLOR[] = L"Find status: Sea
 inline constexpr const wchar_t g_npcStyleName[] = L"Non-printing characters custom color";
 
 // Style names
+
+
+inline constexpr const char SHORTCUT_XML_CONTENT[] = "\
+<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n\
+<NotepadPlus>\r\n\
+	<InternalCommands />\r\n\
+\r\n\
+	<!--\r\n\
+	You can organize you Macro menu & Run menu by adding the attribute 'FolderName=\"My sub-menu name\"' to any Macro or Command node.\r\n\
+	This will place the corresponding node within a \"My sub-menu name\" sub-menu in the appropriate menu. Please consider the following examples:\r\n\
+	-->\r\n\
+	<Macros>\r\n\
+		<!--\r\n\
+		<Macro name=\"aa\" Ctrl=\"no\" Alt=\"no\" Shift=\"no\" Key=\"0\">\r\n\
+			<Action type=\"1\" message=\"2170\" wParam=\"0\" lParam=\"0\" sParam=\"A\" />\r\n\
+			<Action type=\"1\" message=\"2170\" wParam=\"0\" lParam=\"0\" sParam=\"A\" />\r\n\
+		</Macro>\r\n\
+		<Macro name=\"az\" Ctrl=\"no\" Alt=\"no\" Shift=\"no\" Key=\"0\" FolderName=\"words\">\r\n\
+			<Action type=\"1\" message=\"2170\" wParam=\"0\" lParam=\"0\" sParam=\"a\" />\r\n\
+			<Action type=\"1\" message=\"2170\" wParam=\"0\" lParam=\"0\" sParam=\"z\" />\r\n\
+		</Macro>\r\n\
+			<Macro name=\"qw\" Ctrl=\"no\" Alt=\"no\" Shift=\"no\" Key=\"0\" FolderName=\"words\">\r\n\
+			<Action type=\"1\" message=\"2170\" wParam=\"0\" lParam=\"0\" sParam=\"q\" />\r\n\
+			<Action type=\"1\" message=\"2170\" wParam=\"0\" lParam=\"0\" sParam=\"w\" />\r\n\
+		</Macro>\r\n\
+		<Macro name=\"BB\" Ctrl=\"no\" Alt=\"no\" Shift=\"no\" Key=\"0\">\r\n\
+			<Action type=\"1\" message=\"2170\" wParam=\"0\" lParam=\"0\" sParam=\"B\" />\r\n\
+			<Action type=\"1\" message=\"2170\" wParam=\"0\" lParam=\"0\" sParam=\"B\" />\r\n\
+		</Macro>\r\n\
+		<Macro name=\"Trim Trailing Space and Save\" Ctrl=\"no\" Alt=\"yes\" Shift=\"yes\" Key=\"83\" FolderName=\"func\">\r\n\
+			<Action type=\"2\" message=\"0\" wParam=\"42024\" lParam=\"0\" sParam=\"\" />\r\n\
+			<Action type=\"2\" message=\"0\" wParam=\"41006\" lParam=\"0\" sParam=\"\" />\r\n\
+		</Macro>\r\n\
+		-->\r\n\
+		<Macro name=\"Trim Trailing Space and Save\" Ctrl=\"no\" Alt=\"yes\" Shift=\"yes\" Key=\"83\">\r\n\
+			<Action type=\"2\" message=\"0\" wParam=\"42024\" lParam=\"0\" sParam=\"\" />\r\n\
+			<Action type=\"2\" message=\"0\" wParam=\"41006\" lParam=\"0\" sParam=\"\" />\r\n\
+		</Macro>\r\n\
+	</Macros>\r\n\
+	<UserDefinedCommands>\r\n\
+		<!--\r\n\
+		<Command name=\"Get PHP help\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"112\" FolderName=\"Help on Internet\">https://www.php.net/$(CURRENT_WORD)</Command>\r\n\
+		<Command name=\"Wikipedia Search\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"114\" FolderName=\"Help on Internet\">https://en.wikipedia.org/wiki/Special:Search?search=$(CURRENT_WORD)</Command>\r\n\
+		<Command name=\"Open selected file path in new instance\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"117\">$(NPP_FULL_FILE_PATH) $(CURRENT_WORD) -nosession -multiInst</Command>\r\n\
+		-->\r\n\
+		<Command name=\"Get PHP help\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"112\">https://www.php.net/$(CURRENT_WORD)</Command>\r\n\
+		<Command name=\"Wikipedia Search\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"114\">https://en.wikipedia.org/wiki/Special:Search?search=$(CURRENT_WORD)</Command>\r\n\
+		<Command name=\"Open selected file path in new instance\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"117\">$(NPP_FULL_FILE_PATH) $(CURRENT_WORD) -nosession -multiInst</Command>\r\n\
+	</UserDefinedCommands>\r\n\
+	<PluginCommands />\r\n\
+	<ScintillaKeys />\r\n\
+</NotepadPlus>\r\n\
+";
+
+
+
+inline constexpr const char CONTEXTMENU_XML_CONTENT[] = "\
+<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n\
+<!--\r\n\
+By modifying this file, you can customize your context menu popuped as right clicking on the edit zone.\r\n\
+It may be more convinient to access to your frequent used commands via context menu than via the top menu.\r\n\
+\r\n\
+Please check \"How to Customize the Context Menu\" on:\r\n\
+https://npp-user-manual.org/docs/config-files/#the-context-menu-contextmenu-xml\r\n\
+-->\r\n\
+<NotepadPlus>\r\n\
+	<ScintillaContextMenu>\r\n\
+		<!-- \r\n\
+		Use MenuEntryName and MenuItemName to localize your commands to add. \r\n\
+		The values should be in English but not in translated language.\r\n\
+		(You can set Notepad++ language back to English from Preferences dialog via menu \"Settings->Preferences...\")\r\n\
+		-->\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Cut\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Copy\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Paste\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Delete\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Select all\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Begin/End Select\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Begin/End Select in Column Mode\"/>\r\n\
+		\r\n\
+		<!-- id=\"0\" is the separator -->\r\n\
+		<Item id=\"0\"/>\r\n\
+		\r\n\
+		<!-- You can use command id to add the commands you want. \r\n\
+		Check english.xml to get commands id:\r\n\
+		https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/english.xml\r\n\
+		\r\n\
+		Use FolderName (optional) to create sub-menu. FolderName can be used in any type of item.\r\n\
+		FolderName value can be in any language.\r\n\
+		TranslateID is for translating FolderName's value. If you create your FolderName, don't add TranslateID.\r\n\
+		-->\r\n\
+		<Item FolderName=\"Style all occurrences of token\" TranslateID=\"contextMenu-styleAlloccurrencesOfToken\" id=\"43022\"/>\r\n\
+		<Item FolderName=\"Style all occurrences of token\" TranslateID=\"contextMenu-styleAlloccurrencesOfToken\" id=\"43024\"/>\r\n\
+		<Item FolderName=\"Style all occurrences of token\" TranslateID=\"contextMenu-styleAlloccurrencesOfToken\" id=\"43026\"/>\r\n\
+		<Item FolderName=\"Style all occurrences of token\" TranslateID=\"contextMenu-styleAlloccurrencesOfToken\" id=\"43028\"/>\r\n\
+		<Item FolderName=\"Style all occurrences of token\" TranslateID=\"contextMenu-styleAlloccurrencesOfToken\" id=\"43030\"/>\r\n\
+		\r\n\
+		<Item FolderName=\"Style one token\"  TranslateID=\"contextMenu-styleOneToken\" id=\"43062\"/>\r\n\
+		<Item FolderName=\"Style one token\"  TranslateID=\"contextMenu-styleOneToken\" id=\"43063\"/>\r\n\
+		<Item FolderName=\"Style one token\"  TranslateID=\"contextMenu-styleOneToken\" id=\"43064\"/>\r\n\
+		<Item FolderName=\"Style one token\"  TranslateID=\"contextMenu-styleOneToken\" id=\"43065\"/>\r\n\
+		<Item FolderName=\"Style one token\"  TranslateID=\"contextMenu-styleOneToken\" id=\"43066\"/>\r\n\
+		\r\n\
+		<Item FolderName=\"Clear style\"  TranslateID=\"contextMenu-clearStyle\" id=\"43023\"/>\r\n\
+		<Item FolderName=\"Clear style\"  TranslateID=\"contextMenu-clearStyle\" id=\"43025\"/>\r\n\
+		<Item FolderName=\"Clear style\"  TranslateID=\"contextMenu-clearStyle\" id=\"43027\"/>\r\n\
+		<Item FolderName=\"Clear style\"  TranslateID=\"contextMenu-clearStyle\" id=\"43029\"/>\r\n\
+		<Item FolderName=\"Clear style\"  TranslateID=\"contextMenu-clearStyle\" id=\"43031\"/>\r\n\
+		<Item FolderName=\"Clear style\"  TranslateID=\"contextMenu-clearStyle\" id=\"43032\"/>\r\n\
+		<Item id=\"0\"/>\r\n\
+		\r\n\
+		<!--\r\n\
+		To add plugin commands, you have to use PluginEntryName and PluginCommandItemName to localize the plugin commands\r\n\
+		-->\r\n\
+		<Item FolderName=\"Plugin commands\" TranslateID=\"contextMenu-PluginCommands\" PluginEntryName=\"MIME Tools\" PluginCommandItemName=\"Base64 Encode\" />\r\n\
+		<Item FolderName=\"Plugin commands\" TranslateID=\"contextMenu-PluginCommands\" PluginEntryName=\"MIME Tools\" PluginCommandItemName=\"Base64 Decode\" />\r\n\
+		\r\n\
+		<!--\r\n\
+		Use ItemNameAs (optional) to rename the menu item name in the context menu \r\n\
+		ItemNameAs can be used in any type of item. ItemNameAs value can be in any language.\r\n\
+		-->\r\n\
+		<Item FolderName=\"Plugin commands\"  TranslateID=\"contextMenu-PluginCommands\" PluginEntryName=\"NppExport\" PluginCommandItemName=\"Copy all formats to clipboard\" ItemNameAs=\"Copy Text with Syntax Highlighting\" />\r\n\
+		<Item id=\"0\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"UPPERCASE\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"lowercase\"/>\r\n\
+		<Item id=\"0\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Open File\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Search on Internet\"/>\r\n\
+		<Item id=\"0\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Toggle Single Line Comment\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Block Comment\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Block Uncomment\"/>\r\n\
+		<Item id=\"0\"/>\r\n\
+		<Item MenuEntryName=\"View\" MenuItemName=\"Hide lines\"/>\r\n\
+	</ScintillaContextMenu>\r\n\
+</NotepadPlus>\r\n\
+";

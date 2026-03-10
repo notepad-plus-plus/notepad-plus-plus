@@ -788,7 +788,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	SecurityGuard securityGuard;
 	bool isSignatureOK = securityGuard.checkModule(updaterFullPath, nm_gup);
 
-	if (TheFirstOne && isUpExist && isGtXP && isSignatureOK && doUpdateNpp && !updateAtExit)
+	if (TheFirstOne && isUpExist && isGtXP && isSignatureOK && doUpdateNpp && !updateAtExit && !nppParameters.isNppAutoUpdateDisabled())
 	{
 		launchUpdater(updaterFullPath, updaterDir);
 	}

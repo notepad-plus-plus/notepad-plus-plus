@@ -1930,8 +1930,8 @@ private:
 	bool _isAdminMode = false;
 
 	bool _isRegForOSAppRestartDisabled = false;
-
 	bool _doNppLogNetworkDriveIssue = false;
+	bool _isNppAutoUpdateDisabled = false;
 
 	bool _isEndSessionStarted = false;
 	bool _isEndSessionCritical = false;
@@ -1952,6 +1952,8 @@ public:
 	void setElevationRequired(bool val2set) { _isElevationRequired = val2set; }
 
 	bool doNppLogNetworkDriveIssue() const { return _doNppLogNetworkDriveIssue; }
+	bool isNppAutoUpdateDisabled() const { return _isNppAutoUpdateDisabled; }
+
 	void endSessionStart() { _isEndSessionStarted = true; }
 	bool isEndSessionStarted() const { return _isEndSessionStarted; }
 	void makeEndSessionCritical() { _isEndSessionCritical = true; }
@@ -1971,12 +1973,13 @@ public:
 	COLORREF getFindDlgStatusMsgColor(int colourIndex);
 
 private:
+	unsigned long _sintillaModEventMask = SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT | SC_PERFORMED_UNDO | SC_PERFORMED_REDO | SC_MOD_CHANGEINDICATOR;
+	enum class ConfXml { lang, styles };
+
+	std::pair<unsigned char, unsigned char> addUserDefineLangsFromXmlTree(NppXml::Document xmldoc);
 	void getLangKeywordsFromXmlTree();
 	bool getUserParametersFromXmlTree();
 	bool getUserStylersFromXmlTree();
-	std::pair<unsigned char, unsigned char> addUserDefineLangsFromXmlTree(NppXml::Document xmldoc);
-
-	enum class ConfXml { lang, styles };
 	bool updateFromModelXml(NppXml::Element& rootUser, ConfXml whichConf);
 	static void updateLangXml(NppXml::Element& mainElemUser, const NppXml::Element& mainElemModel);
 	static void updateStylesXml(const NppXml::Element& rootUser, const std::wstring& userDocPath, const NppXml::Element& rootModel, NppXml::Element& mainElemUser, const NppXml::Element& mainElemModel);
@@ -2036,5 +2039,8 @@ private:
 	static int getCmdIdFromMenuEntryItemName(HMENU mainMenuHandle, const std::wstring& menuEntryName, const std::wstring& menuItemName); // return -1 if not found
 	static int getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, const std::wstring& pluginName, const std::wstring& pluginCmdName); // return -1 if not found
 	winVer getWindowsVersion();
-	unsigned long _sintillaModEventMask = SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT | SC_PERFORMED_UNDO | SC_PERFORMED_REDO | SC_MOD_CHANGEINDICATOR;
+
+	static void generateXmlFromScratch(const wchar_t* filePathToWrite, const char* content2write) {
+		writeFileContent(filePathToWrite, content2write);
+	}
 };

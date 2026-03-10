@@ -508,7 +508,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	runMenuItems.attach(hRunMenu, runPosBase, IDM_SETTING_SHORTCUT_MAPPER_RUN, L"Modify Shortcut/Delete Command...");
 
 	// Updater menu item
-	if (!nppGUI._doesExistUpdater)
+	if (!nppGUI._doesExistUpdater || nppParam.isNppAutoUpdateDisabled())
 	{
 		::DeleteMenu(_mainMenuHandle, IDM_UPDATE_NPP, MF_BYCOMMAND);
 		::DeleteMenu(_mainMenuHandle, IDM_CONFUPDATERPROXY, MF_BYCOMMAND);

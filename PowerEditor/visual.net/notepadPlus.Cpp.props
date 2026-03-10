@@ -108,8 +108,6 @@
       <Command>
 copy "..\src\langs.model.xml" "$(OutDir)langs.model.xml"
 copy "..\src\stylers.model.xml" "$(OutDir)stylers.model.xml"
-copy "..\src\shortcuts.xml" "$(OutDir)shortcuts.xml"
-copy "..\src\contextMenu.xml" "$(OutDir)contextMenu.xml"
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -118,8 +116,6 @@ copy "..\src\contextMenu.xml" "$(OutDir)contextMenu.xml"
       <Command>
 copy "..\src\langs.model.xml" "$(OutDir)langs.model.xml"
 copy "..\src\stylers.model.xml" "$(OutDir)stylers.model.xml"
-copy "..\src\shortcuts.xml" "$(OutDir)shortcuts.xml"
-copy "..\src\contextMenu.xml" "$(OutDir)contextMenu.xml"
 "mt.exe" -nologo -manifest "..\src\notepad++.exe.manifest" -outputresource:"$(OutDir)notepad++.exe"
       </Command>
     </PostBuildEvent>

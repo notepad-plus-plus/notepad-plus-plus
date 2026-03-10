@@ -73,17 +73,11 @@ copy /Y ..\src\langs.model.xml .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ..\src\stylers.model.xml .\minimalist\
 If ErrorLevel 1 goto End
-copy /Y ..\src\contextMenu.xml .\minimalist\
-If ErrorLevel 1 goto End
 copy /Y ..\src\tabContextMenu_example.xml .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ..\src\toolbarButtonsConf_example.xml .\minimalist\
 If ErrorLevel 1 goto End
-copy /Y ..\src\shortcuts.xml .\minimalist\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\doLocalConf.xml .\minimalist\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\minimalist\
+copy /Y .\xml4Config\doLocalConf.xml .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\"notepad++.exe" .\minimalist\
 If ErrorLevel 1 goto End
@@ -108,17 +102,11 @@ copy /Y ..\src\langs.model.xml .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\stylers.model.xml .\minimalist64\
 If ErrorLevel 1 goto End
-copy /Y ..\src\contextMenu.xml .\minimalist64\
-If ErrorLevel 1 goto End
 copy /Y ..\src\tabContextMenu_example.xml .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\toolbarButtonsConf_example.xml .\minimalist64\
 If ErrorLevel 1 goto End
-copy /Y ..\src\shortcuts.xml .\minimalist64\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\doLocalConf.xml .\minimalist64\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\minimalist64\
+copy /Y .\xml4Config\doLocalConf.xml .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin64\"notepad++.exe" .\minimalist64\
 If ErrorLevel 1 goto End
@@ -143,17 +131,11 @@ copy /Y ..\src\langs.model.xml .\minimalistArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\stylers.model.xml .\minimalistArm64\
 If ErrorLevel 1 goto End
-copy /Y ..\src\contextMenu.xml .\minimalistArm64\
-If ErrorLevel 1 goto End
 copy /Y ..\src\tabContextMenu_example.xml .\minimalistArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\toolbarButtonsConf_example.xml .\minimalistArm64\
 If ErrorLevel 1 goto End
-copy /Y ..\src\shortcuts.xml .\minimalistArm64\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\doLocalConf.xml .\minimalistArm64\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\minimalistArm64\
+copy /Y .\xml4Config\doLocalConf.xml .\minimalistArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\binarm64\"notepad++.exe" .\minimalistArm64\
 If ErrorLevel 1 goto End
@@ -229,17 +211,11 @@ copy /Y ..\src\langs.model.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\src\stylers.model.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
-copy /Y ..\src\contextMenu.xml .\zipped.package.release\
-If ErrorLevel 1 goto End
 copy /Y ..\src\tabContextMenu_example.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\src\toolbarButtonsConf_example.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
-copy /Y ..\src\shortcuts.xml .\zipped.package.release\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\doLocalConf.xml .\zipped.package.release\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\zipped.package.release\
+copy /Y .\xml4Config\doLocalConf.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\"notepad++.exe" .\zipped.package.release\
 If ErrorLevel 1 goto End
@@ -257,17 +233,11 @@ copy /Y ..\src\langs.model.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\stylers.model.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
-copy /Y ..\src\contextMenu.xml .\zipped.package.release64\
-If ErrorLevel 1 goto End
 copy /Y ..\src\tabContextMenu_example.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\toolbarButtonsConf_example.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
-copy /Y ..\src\shortcuts.xml .\zipped.package.release64\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\doLocalConf.xml .\zipped.package.release64\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\zipped.package.release64\
+copy /Y .\xml4Config\doLocalConf.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin64\"notepad++.exe" .\zipped.package.release64\
 If ErrorLevel 1 goto End
@@ -284,17 +254,11 @@ copy /Y ..\src\langs.model.xml .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\stylers.model.xml .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End
-copy /Y ..\src\contextMenu.xml .\zipped.package.releaseArm64\
-If ErrorLevel 1 goto End
 copy /Y ..\src\tabContextMenu_example.xml .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\toolbarButtonsConf_example.xml .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End
-copy /Y ..\src\shortcuts.xml .\zipped.package.releaseArm64\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\doLocalConf.xml .\zipped.package.releaseArm64\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\zipped.package.releaseArm64\
+copy /Y .\xml4Config\doLocalConf.xml .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\binarm64\"notepad++.exe" .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End
@@ -371,7 +335,8 @@ If ErrorLevel 1 goto End
 copy /Y ".\themes\*.xml" .\zipped.package.releaseArm64\themes\
 If ErrorLevel 1 goto End
 
-rem Plugins Admin
+rem Use Plugins Admin but disable auto-update for x86 portable package
+copy /Y .\xml4Config\disableNppAutoUpdate.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\plugins\Config\nppPluginList.dll .\zipped.package.release\plugins\Config\
 If ErrorLevel 1 goto End
@@ -386,7 +351,8 @@ If ErrorLevel 1 goto End
 copy /Y ..\bin\updater\updater.ico .\zipped.package.release\updater\
 If ErrorLevel 1 goto End
 
-
+rem Use Plugins Admin but disable auto-update for x64 portable package
+copy /Y .\xml4Config\disableNppAutoUpdate.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin64\plugins\Config\nppPluginList.dll .\zipped.package.release64\plugins\Config\
 If ErrorLevel 1 goto End
@@ -401,7 +367,8 @@ If ErrorLevel 1 goto End
 copy /Y ..\bin64\updater\updater.ico .\zipped.package.release64\updater\
 If ErrorLevel 1 goto End
 
-
+rem Use Plugins Admin but disable auto-update for ARM64 portable package
+copy /Y .\xml4Config\disableNppAutoUpdate.xml .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\binarm64\plugins\Config\nppPluginList.dll .\zipped.package.releaseArm64\plugins\Config\
 If ErrorLevel 1 goto End

@@ -1020,7 +1020,7 @@ Additionnal information about Corsican localization:
 
 				<Tabbar title="Barra d’unghjette">
 					<Item id="6107" name="Riduce"/>
-					<Item id="6108" name="Bluccà (senza sguillà é depone)"/>
+					<Item id="6108" name="Bluccà (senza sguillà è depone)"/>
 					<Item id="6109" name="Cambià u culore di l’unghjette inattive"/>
 					<Item id="6110" name="Barra culurita nant’à l’unghjetta attiva"/>
 					<Item id="6111" name="Affissà i buttoni nant’à l’unghjette inattive"/>
@@ -1055,7 +1055,7 @@ Additionnal information about Corsican localization:
 					<Item id="6239" name="Cunservà a selezzione in casu di cliccu dirittu fora di a selezzione"/>
 					<Item id="6245" name="Attivà u spaziu virtuale"/>
 					<Item id="6214" name="Attivà a copia o a tagliatura di linea senza selezzione"/>
-					<Item id="6266" name="Disattivà u sguillà é depone di u testu selezziunatu"/>
+					<Item id="6266" name="Disattivà u sguillà è depone di u testu selezziunatu"/>
 					<Item id="6225" name="Appiecà u culore persunalizatu à u primu pianu di u testu selezziunatu"/>
 					<Item id="6651" name="Indicadore di linea currente"/>
 					<Item id="6652" name="Nisunu"/>

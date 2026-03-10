@@ -1484,6 +1484,12 @@ bool NppParameters::load()
 	std::wstring configPath(_userPath);
 	pathAppend(configPath, L"config.xml");
 
+	std::wstring srcConfigPath(_nppPath);
+	pathAppend(srcConfigPath, L"config.model.xml");
+
+	if (!doesFileExist(configPath.c_str()))
+		::CopyFile(srcConfigPath.c_str(), configPath.c_str(), FALSE);
+
 	_xmlUserDoc._path = configPath;
 	_xmlUserDoc._doc = new NppXml::NewDocument();
 	loadOkay = NppXml::loadFile(_xmlUserDoc._doc, _xmlUserDoc._path.c_str());

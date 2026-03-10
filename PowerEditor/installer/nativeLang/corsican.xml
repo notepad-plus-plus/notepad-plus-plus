@@ -1255,7 +1255,7 @@ Additionnal information about Corsican localization:
 					<Item id="6910" name="Dimensione minima per a verificazione autumatica di l’ozzione « In a selezzione »"/>
 					<Item id="6913" name="Riempie u campu Cartulare di « Circà in schedarii » cù u chjassu di u ducumentu attivu"/>
 					<Item id="6916" name=" : Numeru massimu di caratteri selezziunati à cupià in u campu di ricerca"/>
-					<Item id="6917" name="Circà in schedarii : Prefererisce u cuntenutu nant’à u discu piuttostu chè i schedarii aperti"/>
+					<Item id="6917" name="Circà in schedarii : Preferisce u cuntenutu nant’à u discu invece di i schedarii aperti"/>
 				</Searching>
 
 				<RecentFilesHistory title="Schedarii recenti">

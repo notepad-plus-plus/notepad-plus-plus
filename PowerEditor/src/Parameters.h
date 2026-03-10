@@ -1971,12 +1971,13 @@ public:
 	COLORREF getFindDlgStatusMsgColor(int colourIndex);
 
 private:
+	unsigned long _sintillaModEventMask = SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT | SC_PERFORMED_UNDO | SC_PERFORMED_REDO | SC_MOD_CHANGEINDICATOR;
+	enum class ConfXml { lang, styles };
+
+	std::pair<unsigned char, unsigned char> addUserDefineLangsFromXmlTree(NppXml::Document xmldoc);
 	void getLangKeywordsFromXmlTree();
 	bool getUserParametersFromXmlTree();
 	bool getUserStylersFromXmlTree();
-	std::pair<unsigned char, unsigned char> addUserDefineLangsFromXmlTree(NppXml::Document xmldoc);
-
-	enum class ConfXml { lang, styles };
 	bool updateFromModelXml(NppXml::Element& rootUser, ConfXml whichConf);
 	static void updateLangXml(NppXml::Element& mainElemUser, const NppXml::Element& mainElemModel);
 	static void updateStylesXml(const NppXml::Element& rootUser, const std::wstring& userDocPath, const NppXml::Element& rootModel, NppXml::Element& mainElemUser, const NppXml::Element& mainElemModel);
@@ -2036,5 +2037,8 @@ private:
 	static int getCmdIdFromMenuEntryItemName(HMENU mainMenuHandle, const std::wstring& menuEntryName, const std::wstring& menuItemName); // return -1 if not found
 	static int getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, const std::wstring& pluginName, const std::wstring& pluginCmdName); // return -1 if not found
 	winVer getWindowsVersion();
-	unsigned long _sintillaModEventMask = SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT | SC_PERFORMED_UNDO | SC_PERFORMED_REDO | SC_MOD_CHANGEINDICATOR;
+
+	static void generateXmlFromScratch(const wchar_t* filePathToWrite, const char* content2write) {
+		writeFileContent(filePathToWrite, content2write);
+	}
 };

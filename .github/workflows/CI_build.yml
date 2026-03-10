@@ -230,8 +230,6 @@ jobs:
            Copy-Item "PowerEditor\visual.net\Debug\Notepad++.exe" -Destination "PowerEditor\bin"
            Copy-Item "PowerEditor\src\langs.model.xml" -Destination "PowerEditor\bin"
            Copy-Item "PowerEditor\src\stylers.model.xml" -Destination "PowerEditor\bin"
-           Copy-Item "PowerEditor\src\shortcuts.xml" -Destination "PowerEditor\bin"
-           Copy-Item "PowerEditor\src\contextMenu.xml" -Destination "PowerEditor\bin"
            Copy-Item "PowerEditor\installer\functionList" -Destination "PowerEditor\bin" -Recurse
 
            Copy-Item "PowerEditor\installer\filesForTesting\regexGlobalTest.xml" -Destination "PowerEditor\bin\functionList"

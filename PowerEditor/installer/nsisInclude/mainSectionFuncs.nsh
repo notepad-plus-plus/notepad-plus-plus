@@ -87,10 +87,6 @@ Function copyCommonFiles
 	File "..\bin\langs.model.xml"
 	File "..\bin\stylers.model.xml"
 	
-	; For debug logs
-	File "..\bin\nppLogNulContentCorruptionIssue.xml"
-
-	
 	; Set Section Files and Shortcuts
 	SetOverwrite on
 	File "..\..\LICENSE"

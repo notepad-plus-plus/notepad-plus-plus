@@ -29,7 +29,7 @@ INSTALLER_DIRECTORY := ../installer
 
 TARGET_BINARY := notepad++.exe
 SRC_DATA := langs.model.xml stylers.model.xml tabContextMenu_example.xml toolbarButtonsConf_example.xml
-BIN_DATA := change.log readme.txt userDefineLangs/
+BIN_DATA := change.log ../installer/xml4Config/doLocalConf.xml readme.txt userDefineLangs/
 INSTALLER_DATA := autoCompletion/ functionList/ localization/ themes/
 
 SCINTILLA_DIRECTORY := ../../scintilla

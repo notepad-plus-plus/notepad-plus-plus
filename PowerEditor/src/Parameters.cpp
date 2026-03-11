@@ -1820,6 +1820,16 @@ bool NppParameters::load()
 		_isRegForOSAppRestartDisabled = doesFileExist(filePath.c_str());
 	}
 
+	//-------------------------------------------------------------//
+	// disableNppAutoUpdate.xml                                    //
+	// This empty xml file is optional. If it exists, auto-update  //
+	// will be disabled, even though WinGUp is present.            //
+	//-------------------------------------------------------------//
+	filePath = _nppPath;
+	std::wstring disableNppAutoUpdateFileName = L"disableNppAutoUpdate.xml";
+	pathAppend(filePath, disableNppAutoUpdateFileName);
+	_isNppAutoUpdateDisabled = doesFileExist(filePath.c_str());
+
 	return isAllLoaded;
 }
 

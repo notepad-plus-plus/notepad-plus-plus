@@ -47,7 +47,7 @@ initUpdatePath:
 
 	${If} $noUserDataChecked == ${BST_CHECKED}
 
-		File "..\bin\doLocalConf.xml"
+		File ".\xml4Config\doLocalConf.xml"
 		StrCpy $USER_PLUGIN_CONF_PATH "$ALLUSERS_PLUGIN_CONF_PATH"
 		CreateDirectory $PLUGIN_INST_PATH\config
 	${ELSE}

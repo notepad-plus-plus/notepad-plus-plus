@@ -48,11 +48,11 @@
 					<Item subMenuId="search-jumpDown" name="Skok na&amp;dol"/>
 					<Item subMenuId="search-copyStyledText" name="Kopírovať štylizovaný te&amp;xt"/>
 					<Item subMenuId="search-bookmark" name="Zálo&amp;žka"/>
-					<Item subMenuId="view-currentFileIn" name="Zobraziť aktuálny súbor v prehliadači"/>
-					<Item subMenuId="view-showSymbol" name="Zobraziť znak"/>
-					<Item subMenuId="view-zoom" name="Lupa"/>
-					<Item subMenuId="view-moveCloneDocument" name="Presunúť/Klonovať aktuálny dokument"/>
-					<Item subMenuId="view-tab" name="Karta dokumentu"/>
+					<Item subMenuId="view-currentFileIn" name="Zobraziť aktuálny súbor v prehlia&amp;dači"/>
+					<Item subMenuId="view-showSymbol" name="Zobrazi&amp;ť znak"/>
+					<Item subMenuId="view-zoom" name="&amp;Lupa"/>
+					<Item subMenuId="view-moveCloneDocument" name="Presunúť/Klonovať aktuálny d&amp;okument"/>
+					<Item subMenuId="view-tab" name="&amp;Karta dokumentu"/>
 					<Item subMenuId="view-collapseLevel" name="Zbaliť úroveň"/>
 					<Item subMenuId="view-uncollapseLevel" name="Rozbaliť úroveň"/>
 					<Item subMenuId="view-project" name="Projekt"/>
@@ -88,7 +88,7 @@
 					<Item id="41002" name="&amp;Otvoriť…"/>
 					<Item id="41019" name="v Prieskumníkovi"/>
 					<Item id="41020" name="v Príkazovom riadku"/>
-					<Item id="41025" name="Priečinok ako pracovný priestor"/>
+					<Item id="41025" name="Priečinok ako pra&amp;covný priestor"/>
 					<Item id="41003" name="Zavrieť"/>
 					<Item id="41004" name="Z&amp;avrieť všetky"/>
 					<Item id="41005" name="Zavrieť všetky OKREM aktuálnej"/>
@@ -196,15 +196,17 @@
 					<Item id="42051" name="Panel &amp;ASCII znakov"/>
 					<Item id="42052" name="&amp;História schránky"/>
 					<Item id="42025" name="Uložiť aktuálne zaznamenané ma&amp;kro…"/>
-					<Item id="42026" name="Smer textu sprava doľava"/>
-					<Item id="42027" name="Smer textu zľava doprava"/>
-					<Item id="42028" name="Iba na čítanie v Notepad++"/>
+					<Item id="42026" name="Smer textu sprava do&amp;ľava"/>
+					<Item id="42027" name="Smer te&amp;xtu zľava doprava"/>
+					<Item id="42028" name="Iba na čítanie pre aktuálny dokument"/>
+					<Item id="42102" name="Iba na čítanie pre všetky dokumenty"/>
+					<Item id="42103" name="Odstrániť 'Iba na čítanie' pre všetky dokumenty"/>
 					<Item id="42029" name="Skopírovať cestu k aktuálnemu súboru"/>
 					<Item id="42030" name="Skopírovať názov aktuálneho súboru"/>
 					<Item id="42031" name="Skopírovať cestu k aktuálnemu priečinku"/>
 					<Item id="42087" name="Všetky názvy súborov"/>
 					<Item id="42088" name="Všetky cesty súborov"/>
-					<Item id="42032" name="Spustiť makro viacnásobne…"/>
+					<Item id="42032" name="Spustiť makro &amp;viacnásobne…"/>
 					<Item id="42033" name="Atribút Iba na čítanie vo Windowse"/>
 					<Item id="42035" name="Zakomentovať riadok"/>
 					<Item id="42036" name="Odkomentovať riadok"/>
@@ -282,12 +284,12 @@
 					<Item id="43502" name="Zavrieť ostatné"/>
 					<Item id="43503" name="Skopírovať vybrané názvy"/>
 					<Item id="43504" name="Skopírovať vybrané názvy"/>
-					<Item id="44009" name="Pripnúť"/>
+					<Item id="44009" name="&amp;Pripnúť"/>
 					<Item id="44010" name="Zbaliť všetko"/>
-					<Item id="44011" name="Režim bez vyrušovania"/>
+					<Item id="44011" name="Režim bez v&amp;yrušovania"/>
 					<Item id="44019" name="Zobraziť všetky znaky"/>
 					<Item id="44020" name="Zobraziť pomocné čiary odsadenia"/>
-					<Item id="44022" name="Zalomiť riadky"/>
+					<Item id="44022" name="Z&amp;alomiť riadky"/>
 					<Item id="44023" name="&amp;Priblížiť  (Ctrl+Koliesko myši nahor)"/>
 					<Item id="44024" name="&amp;Oddialiť  (Ctrl+Koliesko myši nadol)"/>
 					<Item id="44025" name="Zobraziť medzery a tabulátory"/>
@@ -295,11 +297,11 @@
 					<Item id="44029" name="Rozbaliť všetko"/>
 					<Item id="44030" name="Zbaliť aktuálnu úroveň"/>
 					<Item id="44031" name="Rozbaliť aktuálnu úroveň"/>
-					<Item id="44049" name="Súhrnné informácie…"/>
-					<Item id="44080" name="Mapa dokumentu"/>
-					<Item id="44070" name="Zoznam dokumentov"/>
-					<Item id="44084" name="Zoznam funkcií"/>
-					<Item id="44085" name="&amp;Pracovný priestor"/>
+					<Item id="44049" name="Súhrnné inform&amp;ácie…"/>
+					<Item id="44080" name="&amp;Mapa dokumentu"/>
+					<Item id="44070" name="&amp;Zoznam dokumentov"/>
+					<Item id="44084" name="Zoznam funkci&amp;í"/>
+					<Item id="44085" name="Pracov&amp;ný priestor"/>
 					<Item id="44086" name="1. karta"/>
 					<Item id="44087" name="2. karta"/>
 					<Item id="44088" name="3. karta"/>
@@ -313,7 +315,7 @@
 					<Item id="44117" name="Posledná karta"/>
 					<Item id="44095" name="Nasledujúca karta"/>
 					<Item id="44096" name="Predchádzajúca karta"/>
-					<Item id="44097" name="Sledovanie zmien (tail -f)"/>
+					<Item id="44097" name="Sledovania zmien (tail -&amp;f)"/>
 					<Item id="44098" name="Presunúť kartu dopredu"/>
 					<Item id="44099" name="Presunúť kartu dozadu"/>
 					<Item id="44110" name="Odstrániť farbu"/>
@@ -324,16 +326,16 @@
 					<Item id="44115" name="Použiť farbu 5"/>
 					<Item id="44130" name="Zobraziť netlačiteľné znaky"/>
 					<Item id="44131" name="Zobraziť riadiace znaky a Unicode EOL"/>
-					<Item id="44032" name="Prepnúť zobrazenie na celú obrazovku"/>
-					<Item id="44033" name="Obnoviť predvolené priblíženie"/>
-					<Item id="44034" name="Vždy navrchu"/>
-					<Item id="44035" name="Synchronizovať vertikálny posun"/>
-					<Item id="44036" name="Synchronizovať horizontálny posun"/>
+					<Item id="44032" name="Prepnúť zobrazenie na &amp;celú obrazovku"/>
+					<Item id="44033" name="Obnoviť predvolené priblí&amp;ženie"/>
+					<Item id="44034" name="V&amp;ždy navrchu"/>
+					<Item id="44035" name="Synchronizovať &amp;vertikálny posun"/>
+					<Item id="44036" name="Synchronizovať &amp;horizontálny posun"/>
 					<Item id="44041" name="Zobraziť symboly zalomenia"/>
-					<Item id="44072" name="Prepnúť na ďalšie zobrazenie"/>
-					<Item id="44081" name="Panel projektu 1"/>
-					<Item id="44082" name="Panel projektu 2"/>
-					<Item id="44083" name="Panel projektu 3"/>
+					<Item id="44072" name="Pr&amp;epnúť na ďalšie zobrazenie"/>
+					<Item id="44081" name="Panel projektu &amp;1"/>
+					<Item id="44082" name="Panel projektu &amp;2"/>
+					<Item id="44083" name="Panel projektu &amp;3"/>
 					<Item id="45001" name="Windows (CR LF)"/>
 					<Item id="45002" name="Unix (LF)"/>
 					<Item id="45003" name="Macintosh (CR)"/>
@@ -353,10 +355,10 @@
 					<Item id="45057" name="OEM 865: Škandinávske"/>
 					<Item id="45053" name="OEM 860: Portugalčina"/>
 					<Item id="45056" name="OEM 863: Francúzština"/>
-					<Item id="10001" name="Presunúť do druhého zobrazenia"/>
-					<Item id="10002" name="Klonovať do druhého zobrazenia"/>
-					<Item id="10003" name="Presunúť do novej inštancie"/>
-					<Item id="10004" name="Otvoriť v novej inštancii"/>
+					<Item id="10001" name="&amp;Presunúť do druhého zobrazenia"/>
+					<Item id="10002" name="&amp;Klonovať do druhého zobrazenia"/>
+					<Item id="10003" name="Presunúť &amp;do novej inštancie"/>
+					<Item id="10004" name="&amp;Otvoriť v novej inštancii"/>
 					<Item id="10005" name="Presunúť na začiatok"/>
 					<Item id="10006" name="Presunúť na koniec"/>
 					<Item id="46001" name="Nastavenie štýlov…"/>
@@ -403,7 +405,7 @@
 					<Item id="50011" name="Nasledujúca pomôcka k parametrom funkcie"/>
 					<Item id="50005" name="Prepnúť nahrávanie makra"/>
 					<Item id="50006" name="Dokončovanie cesty"/>
-					<Item id="44042" name="Skryť riadky"/>
+					<Item id="44042" name="&amp;Skryť riadky"/>
 					<Item id="42040" name="Otvoriť všetky posledné súbory"/>
 					<Item id="42041" name="Vymazať zoznam posledných súborov"/>
 					<Item id="48016" name="Upraviť klávesovú skratku/Odstrániť makro…"/>
@@ -449,9 +451,9 @@
 				<Item CMDID="42030" name="Skopírovať názov súboru"/>
 				<Item CMDID="42031" name="Skopírovať cestu k aktuálnemu priečinku"/>
 				<Item CMDID="3" name="Presunúť dokument"/>
-				<Item CMDID="10001" name="Presunúť do druhého zobrazenia"/>
 				<Item CMDID="10005" name="Presunúť na začiatok"/>
 				<Item CMDID="10006" name="Presunúť na koniec"/>
+				<Item CMDID="10001" name="Presunúť do druhého zobrazenia"/>
 				<Item CMDID="10002" name="Klonovať do druhého zobrazenia"/>
 				<Item CMDID="10003" name="Presunúť do novej inštancie"/>
 				<Item CMDID="10004" name="Otvoriť v novej inštancii"/>
@@ -713,10 +715,10 @@
 					<Item id="43059" name="Kopírovať štylizovaný text 5. štýlu"/>
 					<Item id="43060" name="Kopírovať štylizovaný text Všetkých štýlov"/>
 					<Item id="43061" name="Kopírovať štylizovaný text Hľadať štýl označenia"/>
-					<Item id="44100" name="Zobraziť aktuálny súbor v prehliadači Firefox"/>
-					<Item id="44101" name="Zobraziť aktuálny súbor v prehliadači Chrome"/>
-					<Item id="44103" name="Zobraziť aktuálny súbor v prehliadači IE"/>
-					<Item id="44102" name="Zobraziť aktuálny súbor v prehliadači Edge"/>
+					<Item id="44100" name="Zobraziť aktuálny súbor v prehliadači &amp;Firefox"/>
+					<Item id="44101" name="Zobraziť aktuálny súbor v prehliadači &amp;Chrome"/>
+					<Item id="44103" name="Zobraziť aktuálny súbor v prehliadači &amp;IE"/>
+					<Item id="44102" name="Zobraziť aktuálny súbor v prehliadači &amp;Edge"/>
 					<Item id="50003" name="Prepnúť na predchádzajúci dokument"/>
 					<Item id="50004" name="Prepnúť na nasledujúci dokument"/>
 					<Item id="44051" name="Zbaliť úroveň 1"/>
@@ -1001,7 +1003,7 @@
 					<Item id="6126" name="Vzhľad a správanie"/>
 					<Item id="6136" name="Max. dĺžka popisu karty:"/>
 				</Tabbar>
-				
+
 				<Scintillas title="Úprava 1">
 					<Item id="6216" name="Nastavenie kurzora"/>
 					<Item id="6217" name="Šírka:"/>
@@ -1044,7 +1046,7 @@
 					<Item id="6258" name="Použiť nastavenia vzhľadu na C0, C1 a Unicode EOL"/>
 					<Item id="6259" name="Zabrániť vloženiu riadiaceho znaku (kód C0) do dokumentu"/>
 				</Scintillas2>
-				
+
 				<DarkMode title="Tmavý režim">
 					<Item id="7131" name="Svetlý režim"/>
 					<Item id="7132" name="Tmavý režim"/>
@@ -1257,8 +1259,8 @@
 					<Item id="6810" name="Dokončovanie slov"/>
 					<Item id="6816" name="Dokončovanie funkcií a slov"/>
 					<Item id="6869" name="Vložiť výber"/>
-					<Item id="6870" name="TAB"/>
-					<Item id="6871" name="ENTER"/>
+					<Item id="6870" name="TAB"/><!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+					<Item id="6871" name="ENTER"/><!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
 					<Item id="6824" name="Ignorovať čísla"/>
 					<Item id="6811" name="Od"/>
 					<Item id="6813" name="znaku"/>
@@ -1288,7 +1290,7 @@
 					<Item id="6184" name="Zoznam dokumentov"/>
 					<Item id="6185" name="Panel ASCII znakov"/>
 					<Item id="6186" name="Priečinok ako pracovný priestor"/>
-					<Item id="6187" name="Panely projektu"/>
+					<Item id="6187" name="Panely pro&amp;jektu"/>
 					<Item id="6188" name="Mapa dokumentu"/>
 					<Item id="6189" name="Zoznam funkcií"/>
 					<Item id="6190" name="Panely doplnku"/>
@@ -1385,8 +1387,8 @@
 				</MISC>
 			</Preference>
 			<MultiMacro title="Spustiť makro viacnásobne">
-				<Item id="1" name="Spustiť"/>
-				<Item id="2" name="Zrušiť"/>
+				<Item id="1" name="&amp;Spustiť"/>
+				<Item id="2" name="&amp;Zrušiť"/>
 				<Item id="8006" name="Spustiť makro"/>
 				<Item id="8001" name="Spustiť"/>
 				<Item id="8005" name="krát"/>
@@ -1456,35 +1458,35 @@ Toto dialógové okno môžete neskôr znovu aktivovať v Predvoľbách."/>
 			</DebugInfo>
 		</Dialog>
 		<MessageBox>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
 			<ContextMenuXmlEditWarning title="Úprava kontextovej ponuky" message="Úpravou súboru contextMenu.xml zmeníte kontextovú ponuku programu.
-Bude potrebné reštartovať Notepad++, aby sa zmeny v súbore  prejavili."/>
+Bude potrebné reštartovať Notepad++, aby sa zmeny po úprave súboru contextMenu.xml prejavili."/>
 			<SaveCurrentModifWarning title="Uložiť zmeny" message="Mali by ste uložiť aktuálne zmeny.
 Uložené zmeny nie je možné vrátiť.
 
-Pokračovať?"/>
+Pokračovať?"/><!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
 			<LoseUndoAbilityWarning title="Varovanie pred stratou možnosti vrátiť zmeny" message="Mali by ste uložiť aktuálne zmeny.
 Uložené zmeny nie je možné vrátiť.
 
 Pokračovať?"/>
-			<CannotMoveDoc title="Presunúť do novej inštancie programu Notepad++" message="Dokument bol zmenený. Uložte zmeny a skúste to znova."/>
+			<CannotMoveDoc title="Presunúť do novej inštancie programu Notepad++" message="Dokument bol zmenený. Uložte zmeny a skúste to znova."/><!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
 			<DocReloadWarning title="Obnoviť" message="Ste si istý, že chcete obnoviť aktuálny súbor a stratiť tak zmeny vykonané v programe Notepad++?"/>
 			<FileLockedWarning title="Uloženie zlyhalo" message="Skontrolujte, prosím, či súbor nie je otvorený v inom programe."/>
-			<FileAlreadyOpenedInNpp title="" message="Súbor je už otvorený v programe Notepad++."/>
-			<RenameTabTemporaryNameAlreadyInUse title="Premenovanie zlyhalo" message="Tento názov je už použitý pre inú kartu."/>
+			<FileAlreadyOpenedInNpp title="" message="Súbor je už otvorený v programe Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
+			<RenameTabTemporaryNameAlreadyInUse title="Premenovanie zlyhalo" message="Tento názov je už použitý pre inú kartu."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
 			<RenameTabTemporaryNameIsEmpty title="Premenovanie zlyhalo" message="Názov nemôže byť prázdny alebo nesmie obsahovať iba medzeru(-y) alebo tabulátor(-y)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
-			<DeleteFileFailed title="Odstrániť súbor" message="Odstránenie súboru zlyhalo."/>
+			<DeleteFileFailed title="Odstrániť súbor" message="Odstránenie súboru zlyhalo."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			
 			<NbFileToOpenImportantWarning title="Počet otváraných súborov je príliš veľký" message="Chystáte sa otvoriť $INT_REPLACE$ súborov.
-Naozaj ich chcete otvoriť?"/>
-			<SettingsOnCloudError title="Úložisko s nastaveniami programu" message="Zdá sa, že cesta k úložisku s nastaveniami je nastavená na jednotku určenú len na čítanie
+Naozaj ich chcete otvoriť?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
+			<SettingsOnCloudError title="Nastavenia v cloude" message="Zdá sa, že cesta ku cloudu s nastaveniami je nastavená na jednotku určenú len na čítanie
 alebo na priečinok bez oprávnenia na zápis.
-Uloženie vašich nastavení bude zrušené. Znovu, prosím, nastavte zodpovedajúcu hodnotu v ponuke &quot;Nastavenia -> Predvoľby… -> Úložisko&quot;."/>
-			<FilePathNotFoundWarning title="Otvoriť súbor" message="Súbor, ktorý sa pokúšate otvoriť, neexistuje."/>
-			<SessionFileInvalidError title="Reláciu nie je možné načítať" message="Súbor relácie je poškodený alebo neplatný."/>
+Uloženie vašich nastavení do cloudu bude zrušené. Znovu, prosím, nastavte zodpovedajúcu hodnotu v ponuke &quot;Nastavenia -> Predvoľby… -> Odkaz na cloud&quot;."/>
+			<FilePathNotFoundWarning title="Otvoriť súbor" message="Súbor, ktorý sa pokúšate otvoriť, neexistuje."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SessionFileInvalidError title="Reláciu nie je možné načítať" message="Súbor relácie je poškodený alebo neplatný."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Neplatná operácia" message="Preťahovať môžete buď len súbory, alebo len adresáre. Nie oboje súčasne, pretože máte aktivovaný režim otvárania priečinka ako pracovného priestoru.
 Aby táto operácia fungovala, musíte povoliť položku &quot;Pri pretiahnutí priečinka myšou otvoriť súbory v priečinku, nie panel prac. priestoru&quot; v ponuke &quot;Nastavenia -> Predvoľby… -> Predvolený priečinok&quot;."/>
-			<SortingError title="Chyba usporiadania" message="Nie je možné vykonať číselné usporiadanie kvôli riadku $INT_REPLACE$."/>
+			<SortingError title="Chyba usporiadania" message="Nie je možné vykonať číselné usporiadanie kvôli riadku $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SortLocaleMultiple title="Usporiadanie sa nevykonalo" message="Usporiadanie viacerých výberov nie je podporované."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
  			<SortLocaleUnknown title="Usporiadanie zlyhalo" message="Dôvod zlyhania sa nepodarilo zistiť."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
  			<SortLocaleExcept title="Usporiadanie zlyhalo" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
@@ -1502,7 +1504,7 @@ Existujú 3 spôsoby prepnutia do režimu výberu stĺpca:
     a vykonajte príkaz &quot;Začať/Ukončiť výber v stĺpcovom režime&quot;.
     Presuňte kurzor na požadovanú pozíciu konca bloku stĺpca, a potom
     znova vykonajte príkaz &quot;Začať/Ukončiť výber v stĺpcovom režime&quot;."/>
-			<BufferInvalidWarning title="Uloženie zlyhalo" message="Uloženie zlyhalo: Neplatná vyrovnávacia pamäť."/>
+			<BufferInvalidWarning title="Uloženie zlyhalo" message="Uloženie zlyhalo: Neplatná vyrovnávacia pamäť."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<DoCloseOrNot title="Ponechať neexistujúci súbor" message="Súbor &quot;$STR_REPLACE$&quot; už neexistuje.
 Ponechať tento súbor v editore?"/>
 			<DoDeleteOrNot title="Odstrániť súbor" message="Súbor &quot;$STR_REPLACE$&quot;
@@ -1521,28 +1523,28 @@ bol zmenený inou aplikáciou.
 Chcete ho obnoviť a prísť tak o zmeny vykonané v programe Notepad++?"/>
 			<PrehistoricSystemDetected title="Zistený príliš starý systém" message="Zdá sa, že používate príliš starý systém. Ospravedlňujeme sa, ale táto funkcia je podporovaná len na novších systémoch."/>
 			<XpUpdaterProblem title="Aktualizácia programu Notepad++" message="Aktualizácia programu Notepad++ nie je kompatibilná s Windows XP z dôvodu zastaralej bezpečnostnej vrstvy tohto systému.
-Prejsť na domovskú stránku programu Notepad++, odkiaľ si môžete stiahnuť najnovšiu verziu?"/>
+Prejsť na domovskú stránku programu Notepad++, odkiaľ si môžete stiahnuť najnovšiu verziu?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
 			<GUpProxyConfNeedAdminMode title="Nastavenia proxy" message="Pre nastavenie proxy, spustite, prosím, Notepad++ v režime správcu."/>
 			<DocTooDirtyToMonitor title="Problém so sledovaním zmien" message="Dokument bol pozmenený. Pred sledovaním zmien, uložte všetky zmeny v dokumente."/>
 			<DocNoExistToMonitor title="Problém so sledovaním zmien" message="Súbor musí najprv existovať, aby v ňom bolo možné sledovať zmeny."/>
-			<FileTooBigToOpen title="Problém s veľkosťou súboru" message="Súbor je príliš veľký, aby mohol byť otvorený v programe Notepad++."/>
+			<FileTooBigToOpen title="Problém s veľkosťou súboru" message="Súbor je príliš veľký, aby mohol byť otvorený v programe Notepad++."/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
 			<FileLoadingException title="Kód výnimky: $STR_REPLACE$" message="Pri načítavaní súboru došlo k chybe!"/>
 			<WantToOpenHugeFile title="Upozornenie na otvorenie príliš veľkého súboru" message="Otvorenie príliš veľkého súboru s veľkosťou viac ako 2 GB môže trvať niekoľko minút.
 Chcete ho otvoriť?"/>
 			<CreateNewFileOrNot title="Vytvoriť nový súbor" message="Súbor &quot;$STR_REPLACE$&quot; neexistuje. Chcete ho vytvoriť?"/>
-			<CreateNewFileError title="Vytvoriť nový súbor" message="Súbor &quot;$STR_REPLACE$&quot; nie je možné vytvoriť."/>
+			<CreateNewFileError title="Vytvoriť nový súbor" message="Súbor &quot;$STR_REPLACE$&quot; nie je možné vytvoriť."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<OpenFileError title="CHYBA" message="Súbor &quot;$STR_REPLACE$&quot; nie je možné otvoriť."/>
 			<OpenFileNoFolderError title="Súbor sa nedá otvoriť" message="&quot;$STR_REPLACE1$&quot; sa nedá otvoriť:
  		Priečinok &quot;$STR_REPLACE2$&quot; neexistuje."/>
 			<FileBackupFailed title="Zálohovanie súboru zlyhalo" message="Predchádzajúcu verziu súboru sa nepodarilo uložiť do priečinka záloh &quot;$STR_REPLACE$&quot;.
 
-Chcete aj napriek tomu uložiť aktuálny súbor?"/>
+Chcete aj napriek tomu uložiť aktuálny súbor?"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<LoadStylersFailed title="Načítanie súboru stylers.xml zlyhalo" message="Súbor &quot;$STR_REPLACE$&quot; sa nepodarilo načítať!"/>
 			<LoadLangsFailed title="Konfigurátor" message="Súbor langs.xml sa nepodarilo načítať!
-Chcete váš súbor langs.xml obnoviť?"/>
-			<LoadLangsFailedFinal title="Konfigurátor" message="Načítanie súboru langs.xml zlyhalo!"/>
+Chcete váš súbor langs.xml obnoviť?"/><!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
+			<LoadLangsFailedFinal title="Konfigurátor" message="Načítanie súboru langs.xml zlyhalo!"/><!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
 			<FolderAsWorspaceSubfolderExists title="Problém s pridaním priečinka do pracovného priestoru" message="Podpriečinok priečinka, ktorý chcete pridať už existuje.
-Predtým ako pridáte na panel priečinok &quot;$STR_REPLACE$&quot; odstráňte, prosím, jeho koreňový priečinok."/>
+Predtým ako pridáte na panel priečinok &quot;$STR_REPLACE$&quot; odstráňte, prosím, jeho koreňový priečinok."/><!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
 			<ProjectPanelChanged title="$STR_REPLACE$" message="Pracovný priestor bol zmenený. Chcete ho uložiť?"/>
 			<ProjectPanelSaveError title="$STR_REPLACE$" message="Pri zápise súboru pracovného priestoru došlo k chybe.
@@ -1571,13 +1573,13 @@ Zvoľte, prosím, iný."/>
 Chcete spustiť Notepad++ v režime správcu?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Uloženie zlyhalo" message="Súbor nie je možné uložiť, môže byť chránený.
 Chcete spustiť Notepad++ v režime správcu?"/>
-			<OpenInAdminModeFailed title="Otvorenie v režime správcu zlyhalo" message="Notepad++ nie je možné spustiť v režime správcu."/>
+			<OpenInAdminModeFailed title="Otvorenie v režime správcu zlyhalo" message="Notepad++ nie je možné spustiť v režime správcu."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
 			<ViewInBrowser title="Zobrazenie aktuálneho súboru v prehliadači" message="Aplikácia sa v systéme nenašla."/>
 			<ExitToUpdatePlugins title="Notepad++ sa chystá ukončiť" message="Ak kliknete na ÁNO, Notepad++ sa zavrie, aby mohol pokračovať v operáciách.
 Notepad++ sa reštartuje po ukončení všetkých operácií.
 Pokračovať?"/>
-			<NeedToRestartToLoadPlugins title="Notepad++ je potrebné znovu spustiť" message="Na načítanie nainštalovaných doplnkov je potrebné Notepad++ reštartovať."/>
-			<ChangeHistoryEnabledWarning title="Notepad++  je potrebné znovu spustiť" message="Ak chcete povoliť históriu zmien, musíte reštartovať Notepad++."/>
+			<NeedToRestartToLoadPlugins title="Notepad++ je potrebné znovu spustiť" message="Na načítanie nainštalovaných doplnkov je potrebné Notepad++ reštartovať."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+			<ChangeHistoryEnabledWarning title="Notepad++  je potrebné znovu spustiť" message="Ak chcete povoliť históriu zmien, musíte reštartovať Notepad++."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
 			<WindowsSessionExit title="Notepad++ - Ukončenie relácie Windowsu" message="Relácia systému Windows sa má ukončiť, ale niektoré údaje nemáte uložené. Chcete Notepad++ ukončiť teraz?"/>
 			<LanguageMenuCompactWarning title="Kompaktná jazyková ponuka" message="Táto možnosť sa zmení pri ďalšom spustení."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Neuložené zmeny budú odstránené!
@@ -1713,7 +1715,7 @@ Prosím, overte podmienku vyhľadávania pred vykonaním akcie."/> <!-- HowToRep
 		</ProjectManager>
 		<MiscStrings>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are a place holders, don't translate these place holders -->
-			<word-chars-list-tip value="Toto nastavenie vám umožní zahrnúť dodatočný znak medzi aktuálne znaky slova pri výbere dvojklikom alebo pri vyhľadávaní so zapnutou voľbou &quot;Hľadať iba celé slová&quot;."/>
+			<word-chars-list-tip value="Toto nastavenie vám umožní zahrnúť dodatočný znak medzi aktuálne znaky slova pri výbere dvojklikom alebo pri vyhľadávaní so zapnutou voľbou &quot;Hľadať iba celé slová&quot;."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
 			<eol-custom-color-tip value="Pre zmenu predvolenej vlastnej farby EOL prejdite do Nastavenia štýlov (&quot;EOL custom color&quot;)."/>
@@ -1721,12 +1723,12 @@ Prosím, overte podmienku vyhľadávania pred vykonaním akcie."/> <!-- HowToRep
 			<word-chars-list-warning-begin value="Pozor: V zozname znakov máte "/>
 			<word-chars-list-space-warning value="$INT_REPLACE$ medzeru(-y)"/>
 			<word-chars-list-tab-warning value="$INT_REPLACE$ tabulátor(-y)"/>
-			<word-chars-list-warning-end value="  vo vašom zozname znakov."/>
-			<backup-select-folder value="Vyberte priečinok na zálohovanie"/>
+			<word-chars-list-warning-end value="  vo vašom zozname znakov."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+			<backup-select-folder value="Vyberte priečinok na zálohovanie"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value="Neplatná cesta"/>
 			<cloud-restart-warning value="Aby sa zmeny prejavili, reštartujte, prosím, Notepad++."/>
-			<cloud-select-folder value="Vyberte priečinok na načítanie/uloženie nastavení programu Notepad++"/>
-			<default-open-save-select-folder value="Vyberte predvolený priečinok"/>
+			<cloud-select-folder value="Vyberte priečinok na načítanie/uloženie nastavení programu Notepad++"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+			<default-open-save-select-folder value="Vyberte predvolený priečinok"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Na vyhľadávanie v opačnom smere použite Shift+Enter"/>
 			<two-find-buttons-tip value="Režim dvoch tlačidiel"/>
 			<find-in-files-filter-tip value="Hľadať v cpp, cxx, h, hxx &amp;&amp; hpp:
@@ -1739,9 +1741,9 @@ Hľadá vo všetkých súboroch okrem priečinkov tests, bin &amp;&amp; bin64:
 *.* !\tests !\bin*
 
 Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs rekurzívne:
-*.* !+\log*"/>
-			<find-in-files-select-folder value="Vyberte priečinok, v ktorom chcete hľadať"/>
-			<find-in-files-dir-from-active-doc-tip value="Vyplniť pole Priečinok z aktívneho dokumentu"/>
+*.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+			<find-in-files-select-folder value="Vyberte priečinok, v ktorom chcete hľadať"/><!-- HowToReproduce: Search > Find in Files > [...] -->
+			<find-in-files-dir-from-active-doc-tip value="Vyplniť pole Priečinok z aktívneho dokumentu"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
 			<find-status-top-reached value="Hľadať: Dosiahnutý začiatok dokumentu, nájdený prvý výskyt zdola."/>
 			<find-status-end-reached value="Hľadať: Dosiahnutý koniec dokumentu, nájdený prvý výskyt zhora."/>
 			<find-status-replaceinfiles-1-replaced value="Nahradiť v súboroch: Bol nahradený 1 výskyt hľadaného výrazu."/>
@@ -1816,7 +1818,7 @@ Text vložený do tohto poľa obsahuje neviditeľné znaky (asi znaky konca riad
 			<replace-in-open-docs-confirm-title value="Naozaj?"/>
 			<replace-in-open-docs-confirm-message value="Naozaj chcete nahradiť všetky výskyty vo všetkých otvorených dokumentoch?"/>
 			<find-result-caption value="Výsledky vyhľadávania"/>
-			<find-result-title value="Hľadať"/>
+			<find-result-title value="Hľadať"/><!-- Must not begin with space or tab character -->
 			<find-result-title-info value="($INT_REPLACE1$ výskytov v $INT_REPLACE2$ súboroch z $INT_REPLACE3$ prehľadávaných)"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ výskytov v $INT_REPLACE2$ výberoch z $INT_REPLACE3$ nájdených)"/>
 			<find-result-title-info-options-searchmode-normal value="Normálne"/>
@@ -1826,7 +1828,7 @@ Text vložený do tohto poľa obsahuje neviditeľné znaky (asi znaky konca riad
 			<find-result-title-info-options-word value="Slovo"/>
 			<find-result-title-info-extra value=" - Režim filtrovania riadka: zobraziť iba filtrované výsledky"/>
 			<find-result-hits value="(Počet výskytov: $INT_REPLACE$)"/>
-			<find-result-line-prefix value="Riadok"/>
+			<find-result-line-prefix value="Riadok"/><!-- Must not begin with space or tab character -->
 			<find-regex-zero-length-match value="výskyt nulovej dĺžky"/>
 			<session-save-folder-as-workspace value="Uložiť priečinok ako pracovný priestor"/>
 			<tab-untitled-string value="nový "/>
@@ -1879,9 +1881,10 @@ Kliknutím na tlačidlo &quot;?&quot; vpravo otvoríte webovú stránku s použ�
 			<autoIndentBasic-tip value="Uistite sa, že odsadenie aktuálneho riadka (t. j. nového riadka vytvoreného stlačením klávesu ENTER) sa zhoduje s odsadením predchádzajúceho riadka."/>
 			<autoIndentAdvanced-tip value="Povoľte inteligentné odsadenie pre jazyky podobné jazyku C a Python. Medzi jazyky podobné jazyku C patria:
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell a JSON.
+
 Ak vyberiete pokročilý režim, ale neupravujete súbory vo vyššie uvedených jazykoch, odsadenie zostane v základnom režime."/>
 
-			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
+			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Ak tu povolíte &quot;Global override&quot;, tento parameter sa prepíše vo všetkých štýloch pre všetky programovacie jazyky. Pravdepodobne chcete namiesto toho použiť nastavenie &quot;Default Style&quot;"/>
 			<scintillaRenderingTechnology-tip value="Môže zlepšiť vykresľovanie špeciálnych znakov alebo vyriešiť niektoré grafické problémy, na uplatnenie zmien musíte reštartovať Notepad++."/>
 			
@@ -1896,11 +1899,9 @@ Ak vyberiete pokročilý režim, ale neupravujete súbory vo vyššie uvedených
 			<statusbar-Sel value="Ozn: "/>
 			<statusbar-Sel-number value="Ozn"/>
 			<toolbar-accent-tip value="Táto možnosť spôsobí, že ikony na paneli s nástrojmi budú mať farbu motívu Windowsu. Farba motívu je farba zvýraznenia používaná v tlačidlách, okrajoch a dlaždiciach ponuky Štart vo Windowse. Ak ju chcete zmeniť, prejdite do Nastavenia &gt; Prispôsobenie &gt; Farby, potom vyberte preferovanú farbu."/>
-			<max-len-on-search-tip value="Povolená dĺžka pre hľadať/nahradiť text je len $INT_REPLACE$ znakov - váš vstup môže byť orezaný, a neuloží sa pre ďalšiu reláciu."/>
-			<max-len-on-save-tip value="Toto vyhľadávanie (> $INT_REPLACE$ znakov) sa neuloží pre ďalšiu reláciu."/>
-			<len-limit-exceeded-tip value="Prekročená dĺžka: Váš vstup prekročil povolený limit a môže byť orezaný a nebude uložený do ďalšej relácie."/>
+			<len-limit-exceeded-tip value="Prekročená dĺžka: Váš vstup možno prekročil povolený limit a môže byť orezaný a nebude uložený do ďalšej relácie."/>
 			<max-len-on-search-tip value="Váš vstup prekročil povolený limit a môže byť orezaný a nebude uložený do ďalšej relácie."/>
-			<max-len-on-save-tip value="Váš vstup je príliš dlhý a nemusí sa uložiť do ďalšej relácie."/>
+			<max-len-on-save-tip value="Toto vyhľadávanie (> $INT_REPLACE$ znakov) sa neuloží pre ďalšiu reláciu."/>
 			<goto-setting-tip value="Nastavenia nájdete tu"/>
 			<tabbar-tabcompactlabellen-tip value="Obmedzuje viditeľnú dĺžku dlhých názvov kariet. Zadajte hodnotu, ktorú chcete použiť. Rozsah hodnôt: 1 – 257 znakov (hodnota 0 zakáže skracovanie)."/>
 		</MiscStrings>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 09 Mar 2026 for 8.9.2+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 13 Mar 2026 for 8.9.2+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -50,11 +50,11 @@ Translation note:
 					<Item subMenuId="search-jumpDown" name="Saltar abaixo"/>
 					<Item subMenuId="search-copyStyledText" name="Copiar texto estilizado"/>
 					<Item subMenuId="search-bookmark" name="Marcadores"/>
-					<Item subMenuId="view-currentFileIn" name="Visualizar arquivo atual no"/>
-					<Item subMenuId="view-showSymbol" name="Mostrar símbolo"/>
-					<Item subMenuId="view-zoom" name="Zoom"/>
-					<Item subMenuId="view-moveCloneDocument" name="Mover/Clonar documento atual"/>
-					<Item subMenuId="view-tab" name="Aba"/>
+					<Item subMenuId="view-currentFileIn" name="&amp;Visualizar arquivo atual no"/>
+					<Item subMenuId="view-showSymbol" name="Mostrar &amp;Símbolo"/>
+					<Item subMenuId="view-zoom" name="&amp;Zoom"/>
+					<Item subMenuId="view-moveCloneDocument" name="&amp;Mover/Clonar documento atual"/>
+					<Item subMenuId="view-tab" name="A&amp;ba"/>
 					<Item subMenuId="view-collapseLevel" name="Recolher o nível"/>
 					<Item subMenuId="view-uncollapseLevel" name="Expandir o nível"/>
 					<Item subMenuId="view-project" name="Projeto"/>

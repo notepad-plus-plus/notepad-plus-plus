@@ -14,20 +14,50 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include "json.hpp"
+
 #include "functionListPanel.h"
-#include "ScintillaEditView.h"
-#include "localization.h"
+
+#include <windows.h>
+
+#include <shlwapi.h>
+
+#include <cstdlib>
+#include <cwchar>
 #include <fstream>
+#include <string>
+#include <vector>
+
+#include <Scintilla.h>
+#include <json.hpp>
+
+#include "Buffer.h"
+#include "Common.h"
+#include "DockingDlgInterface.h"
+#include "Notepad_plus_msgs.h"
+#include "NppConstants.h"
+#include "NppDarkMode.h"
+#include "Parameters.h"
+#include "ScintillaEditView.h"
+#include "TreeView.h"
+#include "dockingResource.h"
+#include "dpiManagerV2.h"
+#include "functionListPanel_rc.h"
+#include "functionParser.h"
+#include "localization.h"
+#include "menuCmdID.h"
+#include "resource.h"
 
 using nlohmann::json;
 using namespace std;
 
-#define INDEX_ROOT        0
-#define INDEX_NODE        1
-#define INDEX_LEAF        2
+enum tvNodeIdx
+{
+	INDEX_ROOT,
+	INDEX_NODE,
+	INDEX_LEAF
+};
 
-#define FL_PREFERENCES_INITIALSORT_ID   1
+static constexpr UINT FL_PREFERENCES_INITIALSORT_ID = 1;
 
 FunctionListPanel::~FunctionListPanel()
 {
@@ -84,99 +114,6 @@ void FunctionListPanel::addEntry(const wchar_t *nodeName, const wchar_t *display
 void FunctionListPanel::removeAllEntries()
 {
 	_treeView.removeAllItems();
-}
-
-// bodyOpenSybe mbol & bodyCloseSymbol should be RE
-size_t FunctionListPanel::getBodyClosePos(size_t begin, const wchar_t *bodyOpenSymbol, const wchar_t *bodyCloseSymbol)
-{
-	size_t cntOpen = 1;
-
-	size_t docLen = (*_ppEditView)->getCurrentDocLen();
-
-	if (begin >= docLen)
-		return docLen;
-
-	wstring exprToSearch = L"(";
-	exprToSearch += bodyOpenSymbol;
-	exprToSearch += L"|";
-	exprToSearch += bodyCloseSymbol;
-	exprToSearch += L")";
-
-
-	int flags = SCFIND_REGEXP | SCFIND_POSIX;
-
-	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
-	intptr_t targetStart = (*_ppEditView)->searchInTarget(exprToSearch.c_str(), exprToSearch.length(), begin, docLen);
-	intptr_t targetEnd = 0;
-
-	do
-	{
-		if (targetStart >= 0) // found open or close symbol
-		{
-			targetEnd = (*_ppEditView)->execute(SCI_GETTARGETEND);
-
-			// Now we determine the symbol (open or close)
-			intptr_t tmpStart = (*_ppEditView)->searchInTarget(bodyOpenSymbol, lstrlen(bodyOpenSymbol), targetStart, targetEnd);
-			if (tmpStart >= 0) // open symbol found
-			{
-				++cntOpen;
-			}
-			else // if it's not open symbol, then it must be the close one
-			{
-				--cntOpen;
-			}
-		}
-		else // nothing found
-		{
-			cntOpen = 0; // get me out of here
-			targetEnd = begin;
-		}
-
-		targetStart = (*_ppEditView)->searchInTarget(exprToSearch.c_str(), exprToSearch.length(), targetEnd, docLen);
-
-	} while (cntOpen);
-
-	return targetEnd;
-}
-
-wstring FunctionListPanel::parseSubLevel(size_t begin, size_t end, std::vector< wstring > dataToSearch, intptr_t& foundPos)
-{
-	if (begin >= end)
-	{
-		foundPos = -1;
-		return L"";
-	}
-
-	if (!dataToSearch.size())
-		return L"";
-
-	int flags = SCFIND_REGEXP | SCFIND_POSIX;
-
-	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
-	const wchar_t *regExpr2search = dataToSearch[0].c_str();
-	intptr_t targetStart = (*_ppEditView)->searchInTarget(regExpr2search, lstrlen(regExpr2search), begin, end);
-
-	if (targetStart < 0)
-	{
-		foundPos = -1;
-		return L"";
-	}
-	intptr_t targetEnd = (*_ppEditView)->execute(SCI_GETTARGETEND);
-
-	if (dataToSearch.size() >= 2)
-	{
-		dataToSearch.erase(dataToSearch.begin());
-		return parseSubLevel(targetStart, targetEnd, dataToSearch, foundPos);
-	}
-	else // only one processed element, so we conclude the result
-	{
-		wchar_t foundStr[1024]{};
-
-		(*_ppEditView)->getGenericText(foundStr, 1024, targetStart, targetEnd);
-
-		foundPos = targetStart;
-		return foundStr;
-	}
 }
 
 void FunctionListPanel::addInStateArray(TreeStateNode tree2Update, const wchar_t *searchText, bool isSorted)
@@ -253,8 +190,8 @@ void FunctionListPanel::sortOrUnsort()
 
 int CALLBACK FunctionListPanel::categorySortFunc(LPARAM lParam1, LPARAM lParam2, LPARAM /*lParamSort*/)
 {
-	wstring* posString1 = reinterpret_cast<wstring*>(lParam1);
-	wstring* posString2 = reinterpret_cast<wstring*>(lParam2);
+	const auto* posString1 = reinterpret_cast<std::wstring*>(lParam1);
+	const auto* posString2 = reinterpret_cast<std::wstring*>(lParam2);
 	
 	size_t pos1 = _wtoi(posString1->c_str());
 	size_t pos2 = _wtoi(posString2->c_str());
@@ -264,7 +201,7 @@ int CALLBACK FunctionListPanel::categorySortFunc(LPARAM lParam1, LPARAM lParam2,
 		return -1;
 }
 
-bool FunctionListPanel::serialize(const wstring & outputFilename)
+bool FunctionListPanel::serialize(const std::wstring& outputFilename) const
 {
 	Buffer* currentBuf = (*_ppEditView)->getCurrentBuffer();
 	const wchar_t* fileNameLabel = currentBuf->getFileName();
@@ -301,18 +238,18 @@ bool FunctionListPanel::serialize(const wstring & outputFilename)
 
 	for (const auto & info : _foundFuncInfos)
 	{
-		std::string leafName = info._data.c_str();
+		const char* leafName = info._data.c_str();
 
 		if (!info._data2.empty()) // node
 		{
 			bool isFound = false;
-			std::string nodeName = info._data2.c_str();
+			const char* nodeName = info._data2.c_str();
 
 			for (auto & i : j[nodesLabel])
 			{
 				if (nodeName == std::string{ i[nameLabel] })
 				{
-					i[leavesLabel].push_back(leafName.c_str());
+					i[leavesLabel].push_back(leafName);
 					isFound = true;
 					break;
 				}
@@ -320,14 +257,14 @@ bool FunctionListPanel::serialize(const wstring & outputFilename)
 
 			if (!isFound)
 			{
-				json aNode = { { leavesLabel, json::array() },{ nameLabel, nodeName.c_str() } };
-				aNode[leavesLabel].push_back(leafName.c_str());
+				json aNode = { { leavesLabel, json::array() },{ nameLabel, nodeName } };
+				aNode[leavesLabel].push_back(leafName);
 				j[nodesLabel].push_back(aNode);
 			}
 		}
 		else // leaf
 		{
-			j[leavesLabel].push_back(leafName.c_str());
+			j[leavesLabel].push_back(leafName);
 		}
 	}
 
@@ -388,9 +325,11 @@ void FunctionListPanel::reload()
 		_treeView.addItem(fn, NULL, INDEX_ROOT, lParamInvalidPosStr);
 	}
 
-	for (size_t i = 0, len = _foundFuncInfos.size(); i < len; ++i)
+	const auto codePage = static_cast<UINT>((*_ppEditView)->execute(SCI_GETCODEPAGE));
+
+	for (const auto& foundFuncInfo : _foundFuncInfos)
 	{
-		addEntry(string2wstring(_foundFuncInfos[i]._data2).c_str(), string2wstring(_foundFuncInfos[i]._data).c_str(), _foundFuncInfos[i]._pos);
+		addEntry(string2wstring(foundFuncInfo._data2, codePage).c_str(), string2wstring(foundFuncInfo._data, codePage).c_str(), foundFuncInfo._pos);
 	}
 
 	HTREEITEM root = _treeView.getRoot();
@@ -453,7 +392,7 @@ void FunctionListPanel::showPreferencesMenu()
 	RECT rectToolbar{};
 	RECT rectPreferencesButton{};
 	::GetWindowRect(_hToolbarMenu, &rectToolbar);
-	::SendMessage(_hToolbarMenu, TB_GETRECT, IDC_PREFERENCEBUTTON_FUNCLIST, (LPARAM)&rectPreferencesButton);
+	::SendMessage(_hToolbarMenu, TB_GETRECT, IDC_PREFERENCEBUTTON_FUNCLIST, reinterpret_cast<LPARAM>(&rectPreferencesButton));
 
 	::TrackPopupMenu(_hPreferencesMenu,
 		NppParameters::getInstance().getNativeLangSpeaker()->isRTL() ? TPM_RIGHTALIGN | TPM_LAYOUTRTL : TPM_LEFTALIGN,
@@ -499,7 +438,7 @@ void FunctionListPanel::findMarkEntry(HTREEITEM htItem, LONG line)
 			tvItem.mask = TVIF_IMAGE | TVIF_PARAM;
 			::SendMessage(_treeViewSearchResult.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
-			wstring *posStr = reinterpret_cast<wstring *>(tvItem.lParam);
+			const auto* posStr = reinterpret_cast<std::wstring*>(tvItem.lParam);
 			if (posStr)
 			{
 				int pos = _wtoi(posStr->c_str());
@@ -580,7 +519,7 @@ bool FunctionListPanel::openSelection(const TreeView & treeView)
 		return false;
 	}
 
-	wstring *posStr = reinterpret_cast<wstring *>(tvItem.lParam);
+	const auto* posStr = reinterpret_cast<std::wstring*>(tvItem.lParam);
 	if (!posStr)
 		return false;
 
@@ -633,7 +572,7 @@ void FunctionListPanel::notified(LPNMHDR notification)
 
 			case TVN_KEYDOWN:
 			{
-				LPNMTVKEYDOWN ptvkd = (LPNMTVKEYDOWN)notification;
+				const auto ptvkd = reinterpret_cast<LPNMTVKEYDOWN>(notification);
 
 				if (ptvkd->wVKey == VK_RETURN)
 				{
@@ -756,7 +695,7 @@ static LRESULT CALLBACK funclstSearchEditProc(HWND hwnd, UINT message, WPARAM wP
 	return ::DefSubclassProc(hwnd, message, wParam, lParam);
 }
 
-bool FunctionListPanel::shouldSort()
+bool FunctionListPanel::shouldSort() const
 {
 	TBBUTTONINFO tbbuttonInfo{};
 	tbbuttonInfo.cbSize = sizeof(TBBUTTONINFO);
@@ -767,7 +706,7 @@ bool FunctionListPanel::shouldSort()
 	return (tbbuttonInfo.fsState & TBSTATE_CHECKED) != 0;
 }
 
-void FunctionListPanel::setSort(bool isEnabled)
+void FunctionListPanel::setSort(bool isEnabled) const
 {
 	TBBUTTONINFO tbbuttonInfo{};
 	tbbuttonInfo.cbSize = sizeof(TBBUTTONINFO);
@@ -856,9 +795,9 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 			::SetWindowSubclass(_hToolbarMenu, funclstToolbarProc, static_cast<UINT_PTR>(SubclassID::first), 0);
 
 			const int iconSizeDyn = _dpiManager.scale(16);
-			constexpr int nbIcons = 3;
-			int iconIDs[nbIcons] = { IDI_FUNCLIST_SORTBUTTON, IDI_FUNCLIST_RELOADBUTTON, IDI_FUNCLIST_PREFERENCEBUTTON };
-			int iconDarkModeIDs[nbIcons] = { IDI_FUNCLIST_SORTBUTTON_DM, IDI_FUNCLIST_RELOADBUTTON_DM, IDI_FUNCLIST_PREFERENCEBUTTON_DM };
+			static constexpr int nbIcons = 3;
+			static constexpr int iconIDs[nbIcons]{ IDI_FUNCLIST_SORTBUTTON, IDI_FUNCLIST_RELOADBUTTON, IDI_FUNCLIST_PREFERENCEBUTTON };
+			static constexpr int iconDarkModeIDs[nbIcons]{ IDI_FUNCLIST_SORTBUTTON_DM, IDI_FUNCLIST_RELOADBUTTON_DM, IDI_FUNCLIST_PREFERENCEBUTTON_DM };
 
 			// Create an image lists for the toolbar icons
 			HIMAGELIST hImageList = ImageList_Create(iconSizeDyn, iconSizeDyn, ILC_COLOR32 | ILC_MASK, nbIcons, 0);
@@ -1049,7 +988,7 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 
 		case WM_NOTIFY:
 		{
-			notified((LPNMHDR)lParam);
+			notified(reinterpret_cast<LPNMHDR>(lParam));
 		}
 		return TRUE;
 

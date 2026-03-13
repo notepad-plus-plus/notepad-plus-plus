@@ -14,12 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 #pragma once
 
+#include <windows.h>
+
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "DockingDlgInterface.h"
+#include "TreeView.h"
 #include "functionListPanel_rc.h"
 #include "functionParser.h"
-#include "TreeView.h"
 
 #define FL_PANELTITLE     L"Function List"
 #define FL_FUNCTIONLISTROOTNODE "FunctionList"
@@ -75,10 +82,6 @@ public:
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView);
 
-	void display(bool toShow = true) const override {
-		DockingDlgInterface::display(toShow);
-	}
-
 	void setBackgroundColor(COLORREF bgColour) override {
 		TreeView_SetBkColor(_treeView.getHSelf(), bgColour);
 		TreeView_SetBkColor(_treeViewSearchResult.getHSelf(), bgColour);
@@ -98,8 +101,8 @@ public:
 	void sortOrUnsort();
 	void reload();
 	void markEntry();
-	bool serialize(const std::wstring & outputFilename = L"");
-	void addEntry(const wchar_t *node, const wchar_t *displayText, size_t pos);
+	bool serialize(const std::wstring& outputFilename = L"") const;
+	void addEntry(const wchar_t* nodeName, const wchar_t* displayText, size_t pos);
 	void removeAllEntries();
 	void searchFuncAndSwitchView();
 
@@ -135,14 +138,14 @@ private:
 	std::vector< std::pair<int, int> > _skipZones;
 	std::vector<TreeParams> _treeParams;
 
-	std::wstring parseSubLevel(size_t begin, size_t end, std::vector< std::wstring > dataToSearch, intptr_t& foundPos);
-	size_t getBodyClosePos(size_t begin, const wchar_t *bodyOpenSymbol, const wchar_t *bodyCloseSymbol);
+	using DockingDlgInterface::init;
+
 	void notified(LPNMHDR notification);
 	void addInStateArray(TreeStateNode tree2Update, const wchar_t *searchText, bool isSorted);
 	TreeParams* getFromStateArray(const std::wstring& fullFilePath);
 	bool openSelection(const TreeView &treeView);
-	bool shouldSort();
-	void setSort(bool isEnabled);
+	bool shouldSort() const;
+	void setSort(bool isEnabled) const;
 	void findMarkEntry(HTREEITEM htItem, LONG line);
 	void initPreferencesMenu();
 	void showPreferencesMenu();

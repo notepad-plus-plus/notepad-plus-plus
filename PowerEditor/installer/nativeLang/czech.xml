@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.9.2  11/Feb/2026  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.9.3  13/Mar/2026  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.9.1">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.9.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1061,6 +1061,7 @@
 					<Item id="6239" name="Ponechat výběr, když kliknete pravým tlačítkem mimo výběr"/>
 					<Item id="6245" name="Povolit virtuální prostor"/>
 					<Item id="6246" name="Přepínací režim pro příkaz sbalování/rozbalování aktuální úrovně (Ctrl+Alt+F)"/>
+					<Item id="6266" name="Zakázat drag&amp;&amp;drop přetahování vybraného textu"/>
 					<Item id="6651" name="Indikátor aktuálního řádku"/>
 					<Item id="6652" name="Žádný"/>
 					<Item id="6653" name="Zvýrazněné pozadí"/>
@@ -1249,6 +1250,7 @@
 					<Item id="6910" name="Minimální délka pro automatické zaškrtávaní &quot;Ve vybraném&quot;:"/>
 					<Item id="6913" name="Předvyplnit políčko &quot;Adresář:&quot; v dialogu &quot;Najít v souborech&quot; podle aktivního dokumentu"/>
 					<Item id="6916" name=": Maximální počet znaků pro automatické vkládání z označeného do políčka &quot;Najít&quot;"/>
+					<Item id="6917" name="Najít v souborech: Upřednostňovat obsah souborů na disku před jejich otevřenými kopiemi v Notepadu++"/>
 				</Searching>
 				<RecentFilesHistory title="Historie posl. souborů">
 					<Item id="6304" name="Historie posledních souborů"/>
@@ -1330,7 +1332,7 @@
 					<Item id="6816" name="Dokončování funkcí i slov"/>
 					<Item id="6824" name="Ignorovat čísla"/>
 					<Item id="6851" name="Automatické vkládání"/>
-					<Item id="6857" name="html/xml uzavír. tag"/>
+					<Item id="6857" name="html/xml uzavírací tag"/>
 					<Item id="6858" name="Úvodní"/>
 					<Item id="6859" name="Koncový"/>
 					<Item id="6860" name="Párové znaky 1:"/>
@@ -1578,13 +1580,6 @@ Vaše pracovní plocha nebyla uložena."/><!-- HowToReproduce: this message prev
 			<LanguageMenuCompactWarning title="Kompaktní menu pro syntaxe" message="Ke změně dojde až při příštím spuštění."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Neuložené změny stylu budou zahozeny!
 Chcete své změny uložit před přepnutím stylu?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Kompatibilita maker a příkazů nabídky Spustit" message="Vaše makra a příkazy nabídky Spustit uložené Notepadem++ verze 8.5.2 (anebo starším) nemusí být kompatibilní s aktuální verzí Notepadu++.
-			
-Vyzkoušejte si je prosím v aktuální verzi Notepadu++ a v případě potřeby upravte a znovu uložte.
-
-Jako alternativu můžete využít přechod zpět na nižší verzi Notepadu++ (v8.5.2-) a obnovit svoje předchozí data ze zálohy, která bude vytvořena. Notepad++ nyní zazálohuje Váš stávající soubor &quot;shortcuts.xml&quot; a uloží ho jako &quot;shortcuts.xml.v8.5.2.backup&quot;.
-
-Přejmenováním &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; zpátky by se Vaše původní makra a příkazy měly obnovit a fungovat správně."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<FullReadOnlySavingForbidden title="Ukládání selhalo" message="Soubor nelze uložit.
 Režim Notepadu++ 'pouze pro čtení' zabránil uložení souboru."/>
 			<NotEnoughRoom4Saving title="Ukládání selhalo" message="Soubor se nepodařilo uložit.

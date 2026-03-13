@@ -86,99 +86,6 @@ void FunctionListPanel::removeAllEntries()
 	_treeView.removeAllItems();
 }
 
-// bodyOpenSybe mbol & bodyCloseSymbol should be RE
-size_t FunctionListPanel::getBodyClosePos(size_t begin, const wchar_t *bodyOpenSymbol, const wchar_t *bodyCloseSymbol)
-{
-	size_t cntOpen = 1;
-
-	size_t docLen = (*_ppEditView)->getCurrentDocLen();
-
-	if (begin >= docLen)
-		return docLen;
-
-	wstring exprToSearch = L"(";
-	exprToSearch += bodyOpenSymbol;
-	exprToSearch += L"|";
-	exprToSearch += bodyCloseSymbol;
-	exprToSearch += L")";
-
-
-	int flags = SCFIND_REGEXP | SCFIND_POSIX;
-
-	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
-	intptr_t targetStart = (*_ppEditView)->searchInTarget(exprToSearch.c_str(), exprToSearch.length(), begin, docLen);
-	intptr_t targetEnd = 0;
-
-	do
-	{
-		if (targetStart >= 0) // found open or close symbol
-		{
-			targetEnd = (*_ppEditView)->execute(SCI_GETTARGETEND);
-
-			// Now we determine the symbol (open or close)
-			intptr_t tmpStart = (*_ppEditView)->searchInTarget(bodyOpenSymbol, lstrlen(bodyOpenSymbol), targetStart, targetEnd);
-			if (tmpStart >= 0) // open symbol found
-			{
-				++cntOpen;
-			}
-			else // if it's not open symbol, then it must be the close one
-			{
-				--cntOpen;
-			}
-		}
-		else // nothing found
-		{
-			cntOpen = 0; // get me out of here
-			targetEnd = begin;
-		}
-
-		targetStart = (*_ppEditView)->searchInTarget(exprToSearch.c_str(), exprToSearch.length(), targetEnd, docLen);
-
-	} while (cntOpen);
-
-	return targetEnd;
-}
-
-wstring FunctionListPanel::parseSubLevel(size_t begin, size_t end, std::vector< wstring > dataToSearch, intptr_t& foundPos)
-{
-	if (begin >= end)
-	{
-		foundPos = -1;
-		return L"";
-	}
-
-	if (!dataToSearch.size())
-		return L"";
-
-	int flags = SCFIND_REGEXP | SCFIND_POSIX;
-
-	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
-	const wchar_t *regExpr2search = dataToSearch[0].c_str();
-	intptr_t targetStart = (*_ppEditView)->searchInTarget(regExpr2search, lstrlen(regExpr2search), begin, end);
-
-	if (targetStart < 0)
-	{
-		foundPos = -1;
-		return L"";
-	}
-	intptr_t targetEnd = (*_ppEditView)->execute(SCI_GETTARGETEND);
-
-	if (dataToSearch.size() >= 2)
-	{
-		dataToSearch.erase(dataToSearch.begin());
-		return parseSubLevel(targetStart, targetEnd, dataToSearch, foundPos);
-	}
-	else // only one processed element, so we conclude the result
-	{
-		wchar_t foundStr[1024]{};
-
-		(*_ppEditView)->getGenericText(foundStr, 1024, targetStart, targetEnd);
-
-		foundPos = targetStart;
-		return foundStr;
-	}
-}
-
 void FunctionListPanel::addInStateArray(TreeStateNode tree2Update, const wchar_t *searchText, bool isSorted)
 {
 	bool found = false;
@@ -388,9 +295,11 @@ void FunctionListPanel::reload()
 		_treeView.addItem(fn, NULL, INDEX_ROOT, lParamInvalidPosStr);
 	}
 
-	for (size_t i = 0, len = _foundFuncInfos.size(); i < len; ++i)
+	const auto codePage = static_cast<UINT>((*_ppEditView)->execute(SCI_GETCODEPAGE));
+
+	for (const auto& foundFuncInfo : _foundFuncInfos)
 	{
-		addEntry(string2wstring(_foundFuncInfos[i]._data2).c_str(), string2wstring(_foundFuncInfos[i]._data).c_str(), _foundFuncInfos[i]._pos);
+		addEntry(string2wstring(foundFuncInfo._data2, codePage).c_str(), string2wstring(foundFuncInfo._data, codePage).c_str(), foundFuncInfo._pos);
 	}
 
 	HTREEITEM root = _treeView.getRoot();
@@ -453,7 +362,7 @@ void FunctionListPanel::showPreferencesMenu()
 	RECT rectToolbar{};
 	RECT rectPreferencesButton{};
 	::GetWindowRect(_hToolbarMenu, &rectToolbar);
-	::SendMessage(_hToolbarMenu, TB_GETRECT, IDC_PREFERENCEBUTTON_FUNCLIST, (LPARAM)&rectPreferencesButton);
+	::SendMessage(_hToolbarMenu, TB_GETRECT, IDC_PREFERENCEBUTTON_FUNCLIST, reinterpret_cast<LPARAM>(&rectPreferencesButton));
 
 	::TrackPopupMenu(_hPreferencesMenu,
 		NppParameters::getInstance().getNativeLangSpeaker()->isRTL() ? TPM_RIGHTALIGN | TPM_LAYOUTRTL : TPM_LEFTALIGN,
@@ -633,7 +542,7 @@ void FunctionListPanel::notified(LPNMHDR notification)
 
 			case TVN_KEYDOWN:
 			{
-				LPNMTVKEYDOWN ptvkd = (LPNMTVKEYDOWN)notification;
+				const auto ptvkd = reinterpret_cast<LPNMTVKEYDOWN>(notification);
 
 				if (ptvkd->wVKey == VK_RETURN)
 				{
@@ -1049,7 +958,7 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 
 		case WM_NOTIFY:
 		{
-			notified((LPNMHDR)lParam);
+			notified(reinterpret_cast<LPNMHDR>(lParam));
 		}
 		return TRUE;
 

@@ -48,11 +48,11 @@
 					<Item subMenuId="search-jumpDown" name="Skok na&amp;dol"/>
 					<Item subMenuId="search-copyStyledText" name="Kopírovať štylizovaný te&amp;xt"/>
 					<Item subMenuId="search-bookmark" name="Zálo&amp;žka"/>
-					<Item subMenuId="view-currentFileIn" name="Zobraziť aktuálny súbor v prehliadači"/>
-					<Item subMenuId="view-showSymbol" name="Zobraziť znak"/>
-					<Item subMenuId="view-zoom" name="Lupa"/>
-					<Item subMenuId="view-moveCloneDocument" name="Presunúť/Klonovať aktuálny dokument"/>
-					<Item subMenuId="view-tab" name="Karta dokumentu"/>
+					<Item subMenuId="view-currentFileIn" name="Zobraziť aktuálny súbor v prehlia&amp;dači"/>
+					<Item subMenuId="view-showSymbol" name="Zobrazi&amp;ť znak"/>
+					<Item subMenuId="view-zoom" name="&amp;Lupa"/>
+					<Item subMenuId="view-moveCloneDocument" name="Presunúť/Klonovať aktuálny d&amp;okument"/>
+					<Item subMenuId="view-tab" name="&amp;Karta dokumentu"/>
 					<Item subMenuId="view-collapseLevel" name="Zbaliť úroveň"/>
 					<Item subMenuId="view-uncollapseLevel" name="Rozbaliť úroveň"/>
 					<Item subMenuId="view-project" name="Projekt"/>
@@ -88,7 +88,7 @@
 					<Item id="41002" name="&amp;Otvoriť…"/>
 					<Item id="41019" name="v Prieskumníkovi"/>
 					<Item id="41020" name="v Príkazovom riadku"/>
-					<Item id="41025" name="Priečinok ako pracovný priestor"/>
+					<Item id="41025" name="Priečinok ako pra&amp;covný priestor"/>
 					<Item id="41003" name="Zavrieť"/>
 					<Item id="41004" name="Z&amp;avrieť všetky"/>
 					<Item id="41005" name="Zavrieť všetky OKREM aktuálnej"/>
@@ -196,8 +196,8 @@
 					<Item id="42051" name="Panel &amp;ASCII znakov"/>
 					<Item id="42052" name="&amp;História schránky"/>
 					<Item id="42025" name="Uložiť aktuálne zaznamenané ma&amp;kro…"/>
-					<Item id="42026" name="Smer textu sprava doľava"/>
-					<Item id="42027" name="Smer textu zľava doprava"/>
+					<Item id="42026" name="Smer textu sprava do&amp;ľava"/>
+					<Item id="42027" name="Smer te&amp;xtu zľava doprava"/>
 					<Item id="42028" name="Iba na čítanie v Notepad++"/>
 					<Item id="42029" name="Skopírovať cestu k aktuálnemu súboru"/>
 					<Item id="42030" name="Skopírovať názov aktuálneho súboru"/>
@@ -282,12 +282,12 @@
 					<Item id="43502" name="Zavrieť ostatné"/>
 					<Item id="43503" name="Skopírovať vybrané názvy"/>
 					<Item id="43504" name="Skopírovať vybrané názvy"/>
-					<Item id="44009" name="Pripnúť"/>
+					<Item id="44009" name="&amp;Pripnúť"/>
 					<Item id="44010" name="Zbaliť všetko"/>
-					<Item id="44011" name="Režim bez vyrušovania"/>
+					<Item id="44011" name="Režim bez v&amp;yrušovania"/>
 					<Item id="44019" name="Zobraziť všetky znaky"/>
 					<Item id="44020" name="Zobraziť pomocné čiary odsadenia"/>
-					<Item id="44022" name="Zalomiť riadky"/>
+					<Item id="44022" name="Z&amp;alomiť riadky"/>
 					<Item id="44023" name="&amp;Priblížiť  (Ctrl+Koliesko myši nahor)"/>
 					<Item id="44024" name="&amp;Oddialiť  (Ctrl+Koliesko myši nadol)"/>
 					<Item id="44025" name="Zobraziť medzery a tabulátory"/>
@@ -295,11 +295,11 @@
 					<Item id="44029" name="Rozbaliť všetko"/>
 					<Item id="44030" name="Zbaliť aktuálnu úroveň"/>
 					<Item id="44031" name="Rozbaliť aktuálnu úroveň"/>
-					<Item id="44049" name="Súhrnné informácie…"/>
-					<Item id="44080" name="Mapa dokumentu"/>
-					<Item id="44070" name="Zoznam dokumentov"/>
-					<Item id="44084" name="Zoznam funkcií"/>
-					<Item id="44085" name="&amp;Pracovný priestor"/>
+					<Item id="44049" name="Súhrnné inform&amp;ácie…"/>
+					<Item id="44080" name="&amp;Mapa dokumentu"/>
+					<Item id="44070" name="&amp;Zoznam dokumentov"/>
+					<Item id="44084" name="Zoznam funkci&amp;í"/>
+					<Item id="44085" name="Pracov&amp;ný priestor"/>
 					<Item id="44086" name="1. karta"/>
 					<Item id="44087" name="2. karta"/>
 					<Item id="44088" name="3. karta"/>
@@ -313,7 +313,7 @@
 					<Item id="44117" name="Posledná karta"/>
 					<Item id="44095" name="Nasledujúca karta"/>
 					<Item id="44096" name="Predchádzajúca karta"/>
-					<Item id="44097" name="Sledovanie zmien (tail -f)"/>
+					<Item id="44097" name="Sledovania zmien (tail -&amp;f)"/>
 					<Item id="44098" name="Presunúť kartu dopredu"/>
 					<Item id="44099" name="Presunúť kartu dozadu"/>
 					<Item id="44110" name="Odstrániť farbu"/>
@@ -324,16 +324,16 @@
 					<Item id="44115" name="Použiť farbu 5"/>
 					<Item id="44130" name="Zobraziť netlačiteľné znaky"/>
 					<Item id="44131" name="Zobraziť riadiace znaky a Unicode EOL"/>
-					<Item id="44032" name="Prepnúť zobrazenie na celú obrazovku"/>
-					<Item id="44033" name="Obnoviť predvolené priblíženie"/>
-					<Item id="44034" name="Vždy navrchu"/>
-					<Item id="44035" name="Synchronizovať vertikálny posun"/>
-					<Item id="44036" name="Synchronizovať horizontálny posun"/>
+					<Item id="44032" name="Prepnúť zobrazenie na &amp;celú obrazovku"/>
+					<Item id="44033" name="Obnoviť predvolené priblí&amp;ženie"/>
+					<Item id="44034" name="V&amp;ždy navrchu"/>
+					<Item id="44035" name="Synchronizovať &amp;vertikálny posun"/>
+					<Item id="44036" name="Synchronizovať &amp;horizontálny posun"/>
 					<Item id="44041" name="Zobraziť symboly zalomenia"/>
-					<Item id="44072" name="Prepnúť na ďalšie zobrazenie"/>
-					<Item id="44081" name="Panel projektu 1"/>
-					<Item id="44082" name="Panel projektu 2"/>
-					<Item id="44083" name="Panel projektu 3"/>
+					<Item id="44072" name="Pr&epnúť na ďalšie zobrazenie"/>
+					<Item id="44081" name="Panel projektu &amp;1"/>
+					<Item id="44082" name="Panel projektu &amp;2"/>
+					<Item id="44083" name="Panel projektu &amp;3"/>
 					<Item id="45001" name="Windows (CR LF)"/>
 					<Item id="45002" name="Unix (LF)"/>
 					<Item id="45003" name="Macintosh (CR)"/>
@@ -353,10 +353,10 @@
 					<Item id="45057" name="OEM 865: Škandinávske"/>
 					<Item id="45053" name="OEM 860: Portugalčina"/>
 					<Item id="45056" name="OEM 863: Francúzština"/>
-					<Item id="10001" name="Presunúť do druhého zobrazenia"/>
-					<Item id="10002" name="Klonovať do druhého zobrazenia"/>
-					<Item id="10003" name="Presunúť do novej inštancie"/>
-					<Item id="10004" name="Otvoriť v novej inštancii"/>
+					<Item id="10001" name="&amp;Presunúť do druhého zobrazenia"/>
+					<Item id="10002" name="&amp;Klonovať do druhého zobrazenia"/>
+					<Item id="10003" name="Presunúť &amp;do novej inštancie"/>
+					<Item id="10004" name="&amp;Otvoriť v novej inštancii"/>
 					<Item id="10005" name="Presunúť na začiatok"/>
 					<Item id="10006" name="Presunúť na koniec"/>
 					<Item id="46001" name="Nastavenie štýlov…"/>
@@ -403,7 +403,7 @@
 					<Item id="50011" name="Nasledujúca pomôcka k parametrom funkcie"/>
 					<Item id="50005" name="Prepnúť nahrávanie makra"/>
 					<Item id="50006" name="Dokončovanie cesty"/>
-					<Item id="44042" name="Skryť riadky"/>
+					<Item id="44042" name="&amp;Skryť riadky"/>
 					<Item id="42040" name="Otvoriť všetky posledné súbory"/>
 					<Item id="42041" name="Vymazať zoznam posledných súborov"/>
 					<Item id="48016" name="Upraviť klávesovú skratku/Odstrániť makro…"/>
@@ -713,10 +713,10 @@
 					<Item id="43059" name="Kopírovať štylizovaný text 5. štýlu"/>
 					<Item id="43060" name="Kopírovať štylizovaný text Všetkých štýlov"/>
 					<Item id="43061" name="Kopírovať štylizovaný text Hľadať štýl označenia"/>
-					<Item id="44100" name="Zobraziť aktuálny súbor v prehliadači Firefox"/>
-					<Item id="44101" name="Zobraziť aktuálny súbor v prehliadači Chrome"/>
-					<Item id="44103" name="Zobraziť aktuálny súbor v prehliadači IE"/>
-					<Item id="44102" name="Zobraziť aktuálny súbor v prehliadači Edge"/>
+					<Item id="44100" name="Zobraziť aktuálny súbor v prehliadači &amp;Firefox"/>
+					<Item id="44101" name="Zobraziť aktuálny súbor v prehliadači &amp;Chrome"/>
+					<Item id="44103" name="Zobraziť aktuálny súbor v prehliadači &amp;IE"/>
+					<Item id="44102" name="Zobraziť aktuálny súbor v prehliadači &amp;Edge"/>
 					<Item id="50003" name="Prepnúť na predchádzajúci dokument"/>
 					<Item id="50004" name="Prepnúť na nasledujúci dokument"/>
 					<Item id="44051" name="Zbaliť úroveň 1"/>
@@ -1288,7 +1288,7 @@
 					<Item id="6184" name="Zoznam dokumentov"/>
 					<Item id="6185" name="Panel ASCII znakov"/>
 					<Item id="6186" name="Priečinok ako pracovný priestor"/>
-					<Item id="6187" name="Panely projektu"/>
+					<Item id="6187" name="Panely pro&amp;jektu"/>
 					<Item id="6188" name="Mapa dokumentu"/>
 					<Item id="6189" name="Zoznam funkcií"/>
 					<Item id="6190" name="Panely doplnku"/>

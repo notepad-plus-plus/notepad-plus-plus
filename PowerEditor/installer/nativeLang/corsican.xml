@@ -12,7 +12,7 @@ Additionnal information about Corsican localization:
 
 2. History of Corsican translation for Notepad++:
 
-	- Updated in 2026 by Patriccollu di Santa Maria è Sichè: Feb. 10th (v8.9.1+)
+	- Updated in 2026 by Patriccollu di Santa Maria è Sichè: Feb. 10th (v8.9.1+), Mar. 10th (v8.9.2+)
 	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8), Apr. 20th (v8.8),
 			  June 26th (v8.8.1+), July 24th (v8.8.3+), Sep. 30th (v8.8.5+), Dec. 12th (v8.8.9+)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
@@ -37,7 +37,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.9.1">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.9.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1020,7 +1020,7 @@ Additionnal information about Corsican localization:
 
 				<Tabbar title="Barra d’unghjette">
 					<Item id="6107" name="Riduce"/>
-					<Item id="6108" name="Bluccà (senza sguillà é depone)"/>
+					<Item id="6108" name="Bluccà (senza sguillà è depone)"/>
 					<Item id="6109" name="Cambià u culore di l’unghjette inattive"/>
 					<Item id="6110" name="Barra culurita nant’à l’unghjetta attiva"/>
 					<Item id="6111" name="Affissà i buttoni nant’à l’unghjette inattive"/>
@@ -1055,6 +1055,7 @@ Additionnal information about Corsican localization:
 					<Item id="6239" name="Cunservà a selezzione in casu di cliccu dirittu fora di a selezzione"/>
 					<Item id="6245" name="Attivà u spaziu virtuale"/>
 					<Item id="6214" name="Attivà a copia o a tagliatura di linea senza selezzione"/>
+					<Item id="6266" name="Disattivà u sguillà è depone di u testu selezziunatu"/>
 					<Item id="6225" name="Appiecà u culore persunalizatu à u primu pianu di u testu selezziunatu"/>
 					<Item id="6651" name="Indicadore di linea currente"/>
 					<Item id="6652" name="Nisunu"/>
@@ -1254,6 +1255,7 @@ Additionnal information about Corsican localization:
 					<Item id="6910" name="Dimensione minima per a verificazione autumatica di l’ozzione « In a selezzione »"/>
 					<Item id="6913" name="Riempie u campu Cartulare di « Circà in schedarii » cù u chjassu di u ducumentu attivu"/>
 					<Item id="6916" name=" : Numeru massimu di caratteri selezziunati à cupià in u campu di ricerca"/>
+					<Item id="6917" name="Circà in schedarii : Preferisce u cuntenutu nant’à u discu invece di i schedarii aperti"/>
 				</Searching>
 
 				<RecentFilesHistory title="Schedarii recenti">
@@ -1617,12 +1619,6 @@ Cuntinuà ?"/>
 			<LanguageMenuCompactWarning title="Cumpattà l’affissera di u listinu" message="St’ozzione serà cambiata à u prossimu lanciu."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="I cambiamenti micca arregistrati stanu per esse squassati !
 Vulete arregistrà i vostri cambiamenti nanzu di cambià di tema ?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Cumpatibilità di e cumande Prucedura è Lancià" message="E vostre cumande Prucedura è Lancià arregistrate cù Notepad++ v.8.5.2 (o più vechju) ponu ùn esse micca cumpatibile cù a versione attuale di Notepad++.
-Ci vole à pruvà ste cumande è, s’ella hè bisognu, à mudificalle.
-
-Un altra pussibilità hè di rivene à a versione Notepad++ v8.5.2 è risturà i vostri dati anteriore.
-Notepad++ hà da fà una salvaguardia di u vostru « shortcuts.xml » è arregistrallu cù u nome « shortcuts.xml.v8.5.2.backup ».
-Rinuminendu « shortcuts.xml.v8.5.2.backup » in « shortcuts.xml », e vostre cumande duverianu funziunà currettamente."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<FullReadOnlySavingForbidden title="Fiascu di l’arregistramentu" message="Ùn si pò arregistrà u schedariu.
 U modu d’arregistramentu tutale in lettura sola di Notepad++ hà impeditu d’arregistrà u schedariu."/>
 			<NotEnoughRoom4Saving title="Fiascu di l’arregistramentu" message="Fiascu à l’arregistramentu di u schedariu.
@@ -1932,9 +1928,9 @@ S’è vo selezziunate u modu espertu ma ùn mudificate micca i schedarii in i l
 			<statusbar-Sel value="Sel : "/>
 			<statusbar-Sel-number value="Sel"/>
 			<toolbar-accent-tip value="St’ozzione permette à l’icone di a vostra barra d’attrezzi d’aduttà u culore d’accentuazione di u sistema Windows. U culore d’accentuazione hè u culore di messa in evidenza impiegatu da Windows per i buttoni, i bordi è e musaiche di u listinu « Démarrer ». Per mudificallu, accidite à Parametri &gt; Persunalizà &gt; Culori, eppò selezziunate u vostru culore d’accentuazione preferitu."/>
-			<len-limit-exceeded-tip value="Limitu di longhezza trapassatu : a vostra stampittera pò eccede u limitu permessu è pò esse stata truncata, dunque ùn serà micca arregistrata per a prossima sessione."/>
+			<len-limit-exceeded-tip value="Limitu di lunghezza trapassatu : a vostra stampittera pò eccede u limitu permessu è pò esse stata truncata, dunque ùn serà micca arregistrata per a prossima sessione."/>
 			<max-len-on-search-tip value="A vostra stampittera pò eccede u limitu permessu è pò esse stata truncata, dunque ùn serà micca arregistrata per a prossima sessione."/>
-			<max-len-on-save-tip value="A longhezza di a vostra stampittera hè longa longa è puderia ùn esse arregistrata per a prossima sessione."/>
+			<max-len-on-save-tip value="A lunghezza di a vostra stampittera hè longa longa è puderia ùn esse arregistrata per a prossima sessione."/>
 			<goto-setting-tip value="Mudificà u parametru quì"/>
 			<tabbar-tabcompactlabellen-tip value="Limiteghja a lunghezza visibule di i nomi longhi d’unghjetta. Stampittà per appiecà u valore datu. Intervallu di valori : 1-257 caratteri (0 disattiveghja a truncatura)."/>
 		</MiscStrings>

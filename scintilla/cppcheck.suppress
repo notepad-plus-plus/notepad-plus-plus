@@ -47,6 +47,9 @@ constParameterPointer:scintilla/win32/ScintillaWin.cxx
 knownConditionTrueFalse:scintilla/src/Editor.cxx
 knownConditionTrueFalse:scintilla/src/EditView.cxx
 
+// This makes no sense
+CastIntegerToAddressAtReturn:scintilla\src\DBCS.cxx
+
 // G_DEFINE_TYPE is too complex to pass to cppcheck
 unknownMacro:scintilla/gtk/PlatGTK.cxx
 // G_END_DECLS

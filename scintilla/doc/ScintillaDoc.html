@@ -482,6 +482,8 @@
     *text)</a><br />
      <a class="message" href="#SCI_SETREADONLY">SCI_SETREADONLY(bool readOnly)</a><br />
      <a class="message" href="#SCI_GETREADONLY">SCI_GETREADONLY &rarr; bool</a><br />
+     <a class="message" href="#SCI_GETDRAGDROPENABLED">SCI_GETDRAGDROPENABLED &rarr; bool</a><br />
+     <a class="message" href="#SCI_SETDRAGDROPENABLED">SCI_SETDRAGDROPENABLED(bool dragDropEnabled)</a><br />
      <a class="message" href="#SCI_GETTEXTRANGE">SCI_GETTEXTRANGE(&lt;unused&gt;, Sci_TextRange *tr) &rarr; position</a><br />
      <a class="message" href="#SCI_GETTEXTRANGEFULL">SCI_GETTEXTRANGEFULL(&lt;unused&gt;, Sci_TextRangeFull *tr) &rarr; position</a><br />
      <a class="message" href="#SCI_ALLOCATE">SCI_ALLOCATE(position bytes)</a><br />
@@ -567,6 +569,10 @@
      These messages set and get the read-only flag for the document. If you mark a document as read
     only, attempts to modify the text cause the <a class="message"
     href="#SCN_MODIFYATTEMPTRO"><code>SCN_MODIFYATTEMPTRO</code></a> notification.</p>
+
+    <p><b id="SCI_GETDRAGDROPENABLED">SCI_GETDRAGDROPENABLED &rarr; bool</b><br />
+     <b id="SCI_SETDRAGDROPENABLED">SCI_SETDRAGDROPENABLED(bool dragDropEnabled)</b><br />
+     These messages get and set the flag controlling whether drag-and-drop is enabled or not.</p>
 
     <p>
     <b id="SCI_GETTEXTRANGE">SCI_GETTEXTRANGE(&lt;unused&gt;, <a class="jump" href="#Sci_TextRange">Sci_TextRange</a> *tr) &rarr; position</b><br />

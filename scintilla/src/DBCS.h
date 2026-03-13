@@ -37,13 +37,11 @@ constexpr uint16_t DBCSIndex(char ch1, char ch2) noexcept {
 }
 
 struct DBCSPair {
-	char chars[2];
+	char chars[2]{};
 };
 using FoldMap = std::array<DBCSPair, 0x8000>;
 
-bool DBCSHasFoldMap(int codePage);
-void DBCSSetFoldMap(int codePage, const FoldMap &foldMap);
-FoldMap *DBCSGetMutableFoldMap(int codePage);
+FoldMap *DBCSCreateFoldMap(int codePage);
 const FoldMap *DBCSGetFoldMap(int codePage);
 
 }

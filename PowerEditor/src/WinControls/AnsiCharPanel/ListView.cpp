@@ -15,13 +15,17 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+#include "ListView.h"
+
+#include <windows.h>
+
+#include <commctrl.h>
 
 #include <stdexcept>
-#include "ListView.h"
-#include "Parameters.h"
-#include "localization.h"
+#include <string>
+#include <vector>
 
-using namespace std;
+#include "Window.h"
 
 void ListView::init(HINSTANCE hInst, HWND parent)
 {
@@ -34,8 +38,8 @@ void ListView::init(HINSTANCE hInst, HWND parent)
 	InitCommonControlsEx(&icex);
 
 	// Create the list-view window in report view with label editing enabled.
-	int listViewStyles = LVS_REPORT | LVS_NOSORTHEADER\
-						| LVS_SINGLESEL | LVS_AUTOARRANGE\
+	static constexpr DWORD listViewStyles = LVS_REPORT | LVS_NOSORTHEADER
+						| LVS_SINGLESEL | LVS_AUTOARRANGE
 						| LVS_SHAREIMAGELISTS | LVS_SHOWSELALWAYS;
 
 	_hSelf = ::CreateWindow(WC_LISTVIEW,
@@ -58,16 +62,16 @@ void ListView::init(HINSTANCE hInst, HWND parent)
 	exStyle |= LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT | LVS_EX_DOUBLEBUFFER | _extraStyle;
 	ListView_SetExtendedListViewStyle(_hSelf, exStyle);
 
-	if (_columnInfos.size())
+	if (!_columnInfos.empty())
 	{
 		LVCOLUMN lvColumn{};
 		lvColumn.mask = LVCF_TEXT | LVCF_WIDTH;
 
 		short i = 0;
-		for (auto it = _columnInfos.begin(); it != _columnInfos.end(); ++it)
+		for (auto& colInfo : _columnInfos)
 		{
-			lvColumn.cx = static_cast<int>(it->_width);
-			lvColumn.pszText = const_cast<wchar_t *>(it->_label.c_str());
+			lvColumn.cx = static_cast<int>(colInfo._width);
+			lvColumn.pszText = colInfo._label.data();
 			ListView_InsertColumn(_hSelf, ++i, &lvColumn);  // index is not 0 based but 1 based
 		}
 	}
@@ -79,7 +83,7 @@ void ListView::destroy()
 	_hSelf = NULL;
 }
 
-void ListView::addLine(const vector<wstring> & values2Add, LPARAM lParam, int pos2insert)
+void ListView::addLine(const std::vector<std::wstring>& values2Add, LPARAM lParam, int pos2insert)
 {
 	if (!values2Add.size())
 		return;
@@ -106,18 +110,18 @@ void ListView::addLine(const vector<wstring> & values2Add, LPARAM lParam, int po
 	}
 }
 
-size_t ListView::findAlphabeticalOrderPos(const wstring& string2Cmp, SortDirection sortDir)
+size_t ListView::findAlphabeticalOrderPos(const std::wstring& string2Cmp, SortDirection sortDir)
 {
-	size_t nbItem = ListView_GetItemCount(_hSelf);
-	if (!nbItem)
+	const size_t itemCount = nbItem();
+	if (!itemCount)
 		return 0;
 
-	for (size_t i = 0; i < nbItem; ++i)
+	for (size_t i = 0; i < itemCount; ++i)
 	{
 		wchar_t str[MAX_PATH] = { '\0' };
 		ListView_GetItemText(_hSelf, i, 0, str, sizeof(str));
 
-		int res = lstrcmp(string2Cmp.c_str(), str);
+		const int res = string2Cmp.compare(str);
 
 		if (res < 0) // string2Cmp < str
 		{
@@ -134,7 +138,7 @@ size_t ListView::findAlphabeticalOrderPos(const wstring& string2Cmp, SortDirecti
 			}
 		}
 	}
-	return nbItem;
+	return itemCount;
 }
 
 
@@ -150,9 +154,9 @@ LPARAM ListView::getLParamFromIndex(int itemIndex) const
 
 std::vector<size_t> ListView::getCheckedIndexes() const
 {
-	vector<size_t> checkedIndexes;
-	size_t nbItem = ListView_GetItemCount(_hSelf);
-	for (size_t i = 0; i < nbItem; ++i)
+	std::vector<size_t> checkedIndexes;
+	const size_t itemCount = nbItem();
+	for (size_t i = 0; i < itemCount; ++i)
 	{
 		UINT st = ListView_GetItemState(_hSelf, i, LVIS_STATEIMAGEMASK);
 		if (st == INDEXTOSTATEIMAGEMASK(2)) // checked

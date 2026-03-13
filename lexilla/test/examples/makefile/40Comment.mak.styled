@@ -1,0 +1,17 @@
+{1}# Comment
+{0}
+{3}test{0} {4}={0} 5 {1}# Comment
+{0}
+{3}$(info $(test)){0} {1}# Comment
+{0}
+{5}clean{4}:{0} {1}# Comment
+{0}	echo # Not comment
+
+{1}# Quoting a #
+{3}HASH{0} {4}={0} \#
+
+{1}# Inside variable reference
+{3}OUT{0} {4}={0} {3}$(#SYM){0}
+
+{1}# Inside function call
+{3}X{0} {4}={0} {3}$(subst /,#,$1){0}

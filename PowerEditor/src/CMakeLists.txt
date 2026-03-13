@@ -29,7 +29,6 @@ SET(projIncludDir	../../scintilla/include/
 					./WinControls/StatusBar/
 					./WinControls/StaticDialog/RunDlg/
 					./pugixml/
-					./TinyXml/
 					./WinControls/ColourPicker/
 					./Win32Explr/
 					./MISC/RegExt/
@@ -173,10 +172,6 @@ SET(src_files
 			./WinControls/TaskList/TaskList.cpp
 			./WinControls/TaskList/TaskListDlg.cpp
 			./pugixml/pugixml.cpp
-			./TinyXml/tinystr.cpp
-			./TinyXml/tinyxml.cpp
-			./TinyXml/tinyxmlerror.cpp
-			./TinyXml/tinyxmlparser.cpp
 			./WinControls/ToolBar/ToolBar.cpp
 			./WinControls/ToolTip/ToolTip.cpp
 			./WinControls/TrayIcon/trayIconControler.cpp
@@ -333,8 +328,6 @@ SET(include_files
 			./WinControls/TaskList/TaskListDlg_rc.h
 			./pugixml/pugiconfig.hpp
 			./pugixml/pugixml.hpp
-			./TinyXml/tinystr.h
-			./TinyXml/tinyxml.h
 			./WinControls/ToolBar/ToolBar.h
 			./WinControls/ToolTip/ToolTip.h
 			./WinControls/TrayIcon/trayIconControler.h
@@ -393,13 +386,13 @@ IF (WIN32)
 if ( MSVC )
 	#do not use for mingw builds
 	SET(CMAKE_CXX_FLAGS "/EHa /MP /W4")
-	SET(defs -DUNICODE -D_UNICODE -D_WIN32_WINNT=_WIN32_WINNT_WIN7 -DNTDDI_VERSION=NTDDI_WIN7 -D_USE_64BIT_TIME_T -DTIXML_USE_STL -DNOMINMAX -DOEMRESOURCE -D_CRT_NONSTDC_NO_DEPRECATE -D_CRT_SECURE_NO_WARNINGS -D_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING )
+	SET(defs -DUNICODE -D_UNICODE -D_WIN32_WINNT=_WIN32_WINNT_WIN7 -DNTDDI_VERSION=NTDDI_WIN7 -D_USE_64BIT_TIME_T -DNOMINMAX -DOEMRESOURCE -D_CRT_NONSTDC_NO_DEPRECATE -D_CRT_SECURE_NO_WARNINGS -D_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING )
 	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
 	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
 else ( MSVC )
 	# For possible MinGW compilation
 	SET(CMAKE_CXX_FLAGS "-include../gcc/gcc-fixes.h -std=c++20 -fpermissive -municode")
-	SET(defs -DUNICODE -D_UNICODE -D_WIN32_WINNT=_WIN32_WINNT_WIN7 -DNTDDI_VERSION=NTDDI_WIN7 -D_USE_64BIT_TIME_T -DTIXML_USE_STL -DNOMINMAX -DOEMRESOURCE)
+	SET(defs -DUNICODE -D_UNICODE -D_WIN32_WINNT=_WIN32_WINNT_WIN7 -DNTDDI_VERSION=NTDDI_WIN7 -D_USE_64BIT_TIME_T -DNOMINMAX -DOEMRESOURCE)
 endif ( MSVC )
 ENDIF (WIN32)
 

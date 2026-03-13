@@ -508,7 +508,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	runMenuItems.attach(hRunMenu, runPosBase, IDM_SETTING_SHORTCUT_MAPPER_RUN, L"Modify Shortcut/Delete Command...");
 
 	// Updater menu item
-	if (!nppGUI._doesExistUpdater)
+	if (!nppGUI._doesExistUpdater || nppParam.isNppAutoUpdateDisabled())
 	{
 		::DeleteMenu(_mainMenuHandle, IDM_UPDATE_NPP, MF_BYCOMMAND);
 		::DeleteMenu(_mainMenuHandle, IDM_CONFUPDATERPROXY, MF_BYCOMMAND);
@@ -680,9 +680,6 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	}
 
 	updateCommandShortcuts();
-
-	//Translate non-menu shortcuts
-	_nativeLangSpeaker.changeShortcutLang();
 
 	//Update plugin shortcuts, all plugin commands should be available now
 	nppParam.reloadPluginCmds();
@@ -894,6 +891,7 @@ void Notepad_plus::killAllChildren()
 	_mainEditView.destroy();
     _subEditView.destroy();
 	_invisibleEditView.destroy();
+	_fileEditView.destroy();
 
     _subSplitter.destroy();
     _statusBar.destroy();

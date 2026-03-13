@@ -1736,6 +1736,7 @@ void EditingSubDlg::initScintParam()
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_SELECTEDTEXTSINGLECOLOR, BM_SETCHECK, svp._selectedTextForegroundSingleColor, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_DISABLEADVANCEDSCROLL, BM_SETCHECK, svp._disableAdvancedScrolling, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_LINECUTCOPYWITHOUTSELECTION, BM_SETCHECK, svp._lineCopyCutWithoutSelection, 0);
+	::SendDlgItemMessage(_hSelf, IDC_CHECK_DISABLESELECTEDTEXTDRAGDROP, BM_SETCHECK, svp._disableSelectedTextDragDrop, 0);
 }
 
 void EditingSubDlg::changeLineHiliteMode(bool enableSlider)
@@ -2003,6 +2004,14 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					bool isChecked = isCheckedOrNot(IDC_CHECK_LINECUTCOPYWITHOUTSELECTION);
 					svp._lineCopyCutWithoutSelection = isChecked;
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_LINECUTCOPYWITHOUTSELECTION, 0, 0);
+					return TRUE;
+				}
+
+				case IDC_CHECK_DISABLESELECTEDTEXTDRAGDROP:
+				{
+					bool isChecked = isCheckedOrNot(IDC_CHECK_DISABLESELECTEDTEXTDRAGDROP);
+					svp._disableSelectedTextDragDrop = isChecked;
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_DISABLESELECTEDTEXTDRAGDROP, 0, 0);
 					return TRUE;
 				}
 
@@ -3350,8 +3359,8 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			if ((nppGUI._autoUpdateOpt._doAutoUpdate < NppGUI::autoupdate_disabled) || (nppGUI._autoUpdateOpt._doAutoUpdate > NppGUI::autoupdate_on_exit))
 				nppGUI._autoUpdateOpt._doAutoUpdate = NppGUI::autoupdate_on_startup;
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_AUTOUPDATE, CB_SETCURSEL, nppGUI._autoUpdateOpt._doAutoUpdate, 0);
-			::ShowWindow(::GetDlgItem(_hSelf, IDC_AUTOUPDATE_STATIC), nppGUI._doesExistUpdater ? SW_SHOW : SW_HIDE);
-			::ShowWindow(::GetDlgItem(_hSelf, IDC_COMBO_AUTOUPDATE), nppGUI._doesExistUpdater ? SW_SHOW : SW_HIDE);
+			::ShowWindow(::GetDlgItem(_hSelf, IDC_AUTOUPDATE_STATIC), nppGUI._doesExistUpdater && !nppParam.isNppAutoUpdateDisabled() ? SW_SHOW : SW_HIDE);
+			::ShowWindow(::GetDlgItem(_hSelf, IDC_COMBO_AUTOUPDATE), nppGUI._doesExistUpdater && !nppParam.isNppAutoUpdateDisabled() ? SW_SHOW : SW_HIDE);
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCPEEKER, BM_SETCHECK, nppGUI._isDocPeekOnTab ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCPEEKONMAP, BM_SETCHECK, nppGUI._isDocPeekOnMap ? BST_CHECKED : BST_UNCHECKED, 0);

@@ -26,11 +26,13 @@ SRC_DIRECTORY := ../src
 SRC_EXCLUDE := $(SRC_DIRECTORY)/tools/%
 BIN_DIRECTORY := ../bin
 INSTALLER_DIRECTORY := ../installer
+XML4CONF_DIRECTORY := ../installer/xml4Config
 
 TARGET_BINARY := notepad++.exe
-SRC_DATA := contextMenu.xml langs.model.xml shortcuts.xml stylers.model.xml tabContextMenu_example.xml toolbarButtonsConf_example.xml
-BIN_DATA := change.log doLocalConf.xml nppLogNulContentCorruptionIssue.xml readme.txt userDefineLangs/
+SRC_DATA := langs.model.xml stylers.model.xml tabContextMenu_example.xml toolbarButtonsConf_example.xml
+BIN_DATA := change.log readme.txt userDefineLangs/
 INSTALLER_DATA := autoCompletion/ functionList/ localization/ themes/
+XML4CONF_DATA := doLocalConf.xml disableNppAutoUpdate.xml
 
 SCINTILLA_DIRECTORY := ../../scintilla
 SCINTILLA_TARGET := libscintilla.a
@@ -47,11 +49,11 @@ else
   COMPILER_SUFFIX := gcc.
 endif
 
-CXXFLAGS := -include $(GCC_DIRECTORY)/gcc-fixes.h -std=c++20
+CXXFLAGS := -include $(GCC_DIRECTORY)/gcc-fixes.h -std=c++20 -Wpedantic -Wall -Wextra -Wconversion
 RC := $(CROSS_COMPILE)windres
 RCFLAGS := --codepage=65001
 CPP_PATH := $(SCINTILLA_DIRECTORY)/include $(LEXILLA_DIRECTORY)/include
-CPP_DEFINE := UNICODE _UNICODE OEMRESOURCE NOMINMAX _WIN32_WINNT=_WIN32_WINNT_WIN7 NTDDI_VERSION=NTDDI_WIN7 TIXML_USE_STL
+CPP_DEFINE := UNICODE _UNICODE OEMRESOURCE NOMINMAX _WIN32_WINNT=_WIN32_WINNT_WIN7 NTDDI_VERSION=NTDDI_WIN7
 LD := $(CXX)
 LDFLAGS := -municode -mwindows
 LD_PATH :=
@@ -63,7 +65,7 @@ SUBMAKEFLAGS := -O --no-print-directory
 ifeq "$(filter-out 0,$(DEBUG))" ""
 BUILD_TYPE := release
 BUILD_SUFFIX :=
-CXXFLAGS += -O3 -Wconversion
+CXXFLAGS += -O3
 CPP_DEFINE += NDEBUG
 LDFLAGS += -s
 else
@@ -71,42 +73,46 @@ BUILD_TYPE := debug
 BUILD_SUFFIX := -debug
 CXXFLAGS += -Og \
             -g \
-            -Wpedantic \
-            -Wall \
-            -Wextra \
             -Wcast-align \
-            -Wconversion \
             -Wextra-semi \
             -Wformat=2 \
             -Wmisleading-indentation \
             -Wunused
-CPP_DEFINE += DEBUG
+CPP_DEFINE += DEBUG _DEBUG
 endif
 
 ifeq ($(CXX),clang++)
-  CXXFLAGS += -Wpedantic \
-              -Wall \
-              -Wextra \
+  CXXFLAGS += -Wextra-semi \
+              -Wformat=2 \
               -Wimplicit-fallthrough \
+              -Wmisleading-indentation \
+              -Wunused \
               -Wno-c++98-compat \
               -Wno-c++98-compat-pedantic \
               -Wno-c99-extensions \
               -Wno-cast-align \
+              -Wno-cast-function-type-strict \
+              -Wno-covered-switch-default \
               -Wno-deprecated-declarations \
+              -Wno-exit-time-destructors \
+              -Wno-global-constructors \
               -Wno-nested-anon-types \
               -Wno-overloaded-virtual \
               -Wno-padded \
               -Wno-pragma-pack \
               -Wno-reserved-id-macro \
               -Wno-reserved-identifier \
+              -Wno-nrvo \
               -Wno-sign-conversion \
               -Wno-switch-default \
               -Wno-unsafe-buffer-usage \
               -Wno-unsafe-buffer-usage-in-libc-call \
-              -Wno-unused-command-line-argument
+              -Wno-unused-command-line-argument \
+              -Wno-weak-vtables
 else
   CXXFLAGS += -Wno-cast-function-type \
-              -Wno-overloaded-virtual
+              -Wno-overloaded-virtual \
+              -Wno-system-headers
 endif
 
 ifneq "$(filter-out 0,$(CLANGANALYZE))" ""
@@ -155,6 +161,7 @@ TARGET_BINARY := $(TARGET_DIRECTORY)/$(TARGET_BINARY)
 SRC_DATA := $(addprefix $(TARGET_DIRECTORY)/,$(SRC_DATA))
 BIN_DATA := $(addprefix $(TARGET_DIRECTORY)/,$(BIN_DATA))
 INSTALLER_DATA := $(addprefix $(TARGET_DIRECTORY)/,$(INSTALLER_DATA))
+XML4CONF_DATA := $(addprefix $(TARGET_DIRECTORY)/,$(XML4CONF_DATA))
 
 SCINTILLA_TARGET := $(BUILD_DIRECTORY)/$(SCINTILLA_TARGET)
 SCINTILLA_TARGET_PATH := ../../PowerEditor/gcc/$(SCINTILLA_TARGET)
@@ -177,6 +184,7 @@ ifneq "$(MAKEFILE_DIRECTORY)" "."
 MAKEFILE_PARENT := $(patsubst %/,%,$(dir $(MAKEFILE_DIRECTORY)))
 
 BIN_DIRECTORY := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(BIN_DIRECTORY))
+XML4CONF_DIRECTORY := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(XML4CONF_DIRECTORY))
 GCC_DIRECTORY := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(GCC_DIRECTORY))
 GCC_EXCLUDE := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(GCC_EXCLUDE))
 SRC_DIRECTORY := $(patsubst ../%,$(MAKEFILE_PARENT)/%,$(SRC_DIRECTORY))
@@ -229,7 +237,7 @@ CPDIR := xcopy /q /e /i /y
 RMDIR := rmdir /q /s
 CP := copy /y
 RM := del /q
-PREBUILD_EVENT_CMD := cd ..\src && NppLibsVersionH-generator.bat
+PREBUILD_EVENT_CMD := "$(MAKEFILE_ABS_DIR)\..\src\NppLibsVersionH-generator.bat"
 normalize-path = $(subst /,\,$1)
 endif
 
@@ -247,6 +255,23 @@ CXX_TARGETS := $(patsubst %.cpp,$(BUILD_DIRECTORY)/%.o,$(sort $(filter %.cpp,$(G
 
 vpath %.rc $(GCC_DIRECTORY) $(SRC_DIRECTORY)
 RC_TARGETS := $(patsubst %.rc,$(BUILD_DIRECTORY)/%.res,$(sort $(filter %.rc,$(GCC_SUBTREE) $(SRC_SUBTREE))))
+
+# for 3rd-party cpp files use only basic warning flags, for headers supress warnings
+THIRD_DIRS := $(SRC_DIRECTORY)/json \
+              $(SRC_DIRECTORY)/pugixml \
+              $(SRC_DIRECTORY)/uchardet \
+              $(SRC_DIRECTORY)/MISC/crc16 \
+              $(SRC_DIRECTORY)/MISC/md5 \
+              $(SRC_DIRECTORY)/MISC/sha1 \
+              $(SRC_DIRECTORY)/MISC/sha2 \
+              $(SRC_DIRECTORY)/MISC/sha512 \
+              $(SCINTILLA_DIRECTORY)/include \
+              $(LEXILLA_DIRECTORY)/include
+
+THIRD_ISYSTEM := $(addprefix -isystem ,$(THIRD_DIRS))
+CXXFLAGS += $(THIRD_ISYSTEM)
+
+thirdparty_flags = $(if $(filter $(foreach d,$(THIRD_DIRS),$(d)/%),$(1)), -w -Wpedantic -Wall -Wextra,)
 
 #
 # actions
@@ -292,7 +317,7 @@ binary: $(TARGET_BINARY) data
 
 $(CXX_TARGETS): $(BUILD_DIRECTORY)/%.o: %.cpp | $(BUILD_DIRECTORY)
 	@echo + compiling $<
-	$(AT)$(CXX) $(CXXFLAGS) $(addprefix -I,$(CPP_PATH)) $(addprefix -D,$(CPP_DEFINE)) -MMD -c -o $@ $<
+	$(AT)$(CXX) $(CXXFLAGS) $(call thirdparty_flags,$<) $(addprefix -I,$(CPP_PATH)) $(addprefix -D,$(CPP_DEFINE)) -MMD -c -o $@ $<
 
 $(RC_TARGETS): $(BUILD_DIRECTORY)/%.res: %.rc | $(BUILD_DIRECTORY)
 	@echo + compiling $<
@@ -315,12 +340,16 @@ $(TARGET_BINARY): $(CXX_TARGETS) $(RC_TARGETS) $(SCINTILLA_TARGET) $(LEXILLA_TAR
 	@echo + linking $@
 	$(AT)$(LD) $(LDFLAGS) $(filter-out %.a,$^) $(addprefix -L,$(LD_PATH)) $(addprefix -l,$(LD_LINK)) -static -o $@
 
-data: $(patsubst %/,%,$(SRC_DATA) $(BIN_DATA) $(INSTALLER_DATA))
+data: $(patsubst %/,%,$(SRC_DATA) $(BIN_DATA) $(XML4CONF_DATA) $(INSTALLER_DATA))
 
 $(patsubst %/,%,$(filter %/,$(SRC_DATA))): $(TARGET_DIRECTORY)/%: $(SRC_DIRECTORY)/% | $(TARGET_DIRECTORY)
 	@echo + copying $@
 	$(AT)$(CPDIR) $(call normalize-path,$< $@)
 $(filter-out %/,$(SRC_DATA)): $(TARGET_DIRECTORY)/%: $(SRC_DIRECTORY)/% | $(TARGET_DIRECTORY)
+	@echo + copying $@
+	$(AT)$(CP) $(call normalize-path,$< $@)
+
+$(XML4CONF_DATA): $(TARGET_DIRECTORY)/%: $(XML4CONF_DIRECTORY)/% | $(TARGET_DIRECTORY)
 	@echo + copying $@
 	$(AT)$(CP) $(call normalize-path,$< $@)
 

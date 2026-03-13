@@ -17,10 +17,14 @@
 
 #pragma once
 
-#include "Window.h"
-#include "Common.h"
+#include <windows.h>
 
 #include <commctrl.h>
+
+#include <string>
+#include <vector>
+
+#include "Window.h"
 
 struct columnInfo {
 	size_t _width;
@@ -47,16 +51,16 @@ public:
 	void setColumnText(size_t i, std::wstring txt2Set) {
 		LVCOLUMN lvColumn{};
 		lvColumn.mask = LVCF_TEXT;
-		lvColumn.pszText = const_cast<wchar_t *>(txt2Set.c_str());
+		lvColumn.pszText = txt2Set.data();
 		ListView_SetColumn(_hSelf, i, &lvColumn);
 	}
 
 	// setStyleOption() should be called before init()
-	void setStyleOption(int32_t extraStyle) {
+	void setStyleOption(DWORD extraStyle) {
 		_extraStyle = extraStyle;
 	}
 
-	size_t findAlphabeticalOrderPos(const std::wstring& string2search, SortDirection sortDir);
+	size_t findAlphabeticalOrderPos(const std::wstring& string2Cmp, SortDirection sortDir);
 
 	void addLine(const std::vector<std::wstring> & values2Add, LPARAM lParam = 0, int pos2insert = -1);
 	
@@ -85,10 +89,10 @@ public:
 
 	std::vector<size_t> getCheckedIndexes() const;
 
-	void init(HINSTANCE hInst, HWND hwnd) override;
+	void init(HINSTANCE hInst, HWND parent) override;
 	void destroy() override;
 
 protected:
-	int32_t _extraStyle = 0;
+	DWORD _extraStyle = 0;
 	std::vector<columnInfo> _columnInfos;
 };

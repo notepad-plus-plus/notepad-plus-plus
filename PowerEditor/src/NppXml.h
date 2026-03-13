@@ -21,6 +21,7 @@
 
 #include <cstdint>
 #include <cstring>
+#include <concepts>
 
 // Simple wrapper for PugiXML
 namespace NppXml
@@ -145,8 +146,12 @@ namespace NppXml
 		return node.value();
 	}
 
-	inline void setValue(Node& node, const char* value) {
-		node.set_value(value);
+	inline bool setValue(Node& node, const char* value) {
+		return node.set_value(value);
+	}
+
+	inline bool setValue(Node& node, const pugi::string_t& value) {
+		return node.set_value(value);
 	}
 
 	[[nodiscard]] inline const char* attribute(const Element& elem, const char* name, const char* defaultValue = nullptr) {
@@ -157,6 +162,10 @@ namespace NppXml
 		return elem.attribute(name).as_int(defaultValue);
 	}
 
+	[[nodiscard]] inline unsigned int uintAttribute(const Element& elem, const char* name, unsigned int defaultValue = 0) {
+		return elem.attribute(name).as_uint(defaultValue);
+	}
+
 	[[nodiscard]] inline int64_t int64Attribute(const Element& elem, const char* name, int64_t defaultValue = 0) {
 		return elem.attribute(name).as_llong(defaultValue);
 	}
@@ -165,40 +174,28 @@ namespace NppXml
 		return elem.attribute(name).as_ullong(defaultValue);
 	}
 
-	inline void setAttribute(Element& elem, const char* name, const char* value) {
+	template <typename T>
+		requires (!std::same_as<T, pugi::string_t>)
+	inline bool setAttribute(Element& elem, const char* name, T value)
+	{
 		auto attr = elem.attribute(name);
 		if (!attr)
 		{
 			attr = elem.append_attribute(name);
 		}
-		attr.set_value(value);
+		return attr.set_value(value);
 	}
 
-	inline void setAttribute(Element& elem, const char* name, int value) {
+	template <typename T>
+		requires (std::same_as<T, pugi::string_t>)
+	inline bool setAttribute(Element& elem, const char* name, const T& value)
+	{
 		auto attr = elem.attribute(name);
 		if (!attr)
 		{
 			attr = elem.append_attribute(name);
 		}
-		attr.set_value(value);
-	}
-
-	inline void setInt64Attribute(Element& elem, const char* name, int64_t value) {
-		auto attr = elem.attribute(name);
-		if (!attr)
-		{
-			attr = elem.append_attribute(name);
-		}
-		attr.set_value(value);
-	}
-
-	inline void setUInt64Attribute(Element& elem, const char* name, uint64_t value) {
-		auto attr = elem.attribute(name);
-		if (!attr)
-		{
-			attr = elem.append_attribute(name);
-		}
-		attr.set_value(value);
+		return attr.set_value(value);
 	}
 
 	inline void createNewDeclaration(Document& doc) {
@@ -225,16 +222,22 @@ namespace NppXml
 		return child;
 	}
 
-	inline void deleteChild(Document& doc, const Node& child) {
-		doc->remove_child(child);
+	inline Node createChildText(Node& parent, const pugi::string_t& text) {
+		Node child = parent.append_child(pugi::node_pcdata);
+		child.set_value(text);
+		return child;
 	}
 
-	inline void deleteChild(Node& parent, const Node& child) {
-		parent.remove_child(child);
+	inline bool deleteChild(Document& doc, const Node& child) {
+		return doc->remove_child(child);
 	}
 
-	inline void clear(Node& parent) {
-		parent.remove_children();
+	inline bool deleteChild(Node& parent, const Node& child) {
+		return parent.remove_child(child);
+	}
+
+	inline bool clear(Node& parent) {
+		return parent.remove_children();
 	}
 
 	[[nodiscard]] inline Attribute firstAttribute(const Element& elem) {

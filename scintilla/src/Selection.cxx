@@ -182,6 +182,34 @@ SelectionSegment SelectionRange::Intersect(SelectionSegment check) const noexcep
 	};
 }
 
+void SelectionRange::StartSet(SelectionPosition sp) noexcept {
+	if (anchor <= caret) {
+		anchor = sp;
+		if (caret < anchor) {
+			caret = anchor;
+		}
+	} else {
+		caret = sp;
+		if (anchor < caret) {
+			anchor = caret;
+		}
+	}
+}
+
+void SelectionRange::EndSet(SelectionPosition sp) noexcept {
+	if (caret >= anchor) {
+		caret = sp;
+		if (anchor > caret) {
+			anchor = caret;
+		}
+	} else {
+		anchor = sp;
+		if (caret > anchor) {
+			caret = anchor;
+		}
+	}
+}
+
 void SelectionRange::Swap() noexcept {
 	std::swap(caret, anchor);
 }

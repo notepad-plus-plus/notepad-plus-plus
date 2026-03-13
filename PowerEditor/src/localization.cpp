@@ -625,9 +625,9 @@ void NativeLangSpeaker::changeLangTrayIconContexMenu(HMENU hCM) const
 		childNode;
 		childNode = NppXml::nextSiblingElement(childNode, "Item"))
 	{
-		const int id = NppXml::intAttribute(childNode, "id", -1);
+		const int id = NppXml::intAttribute(childNode, "id", -1); // id starts with <Item id="43101" name="Activate"/>
 		const char* name = NppXml::attribute(childNode, "name");
-		if (id > 0 && (name && name[0]))
+		if (id >= 0 && (name && name[0]))
 		{
 			const wchar_t* nameW = wmc.char2wchar(name, _nativeLangEncoding);
 			::ModifyMenu(hCM, id, MF_BYCOMMAND, id, nameW);
@@ -661,9 +661,9 @@ void NativeLangSpeaker::changeConfigLang(HWND hDlg) const
 		childNode;
 		childNode = NppXml::nextSiblingElement(childNode, "Item"))
 	{
-		const int id = NppXml::intAttribute(childNode, "id", -1);
+		const int id = NppXml::intAttribute(childNode, "id", -1); // id starts with <Item id="2" name="Cancel"/>
 		const char* name = NppXml::attribute(childNode, "name");
-		if (id > 0 && (name && name[0]))
+		if (id >= 0 && (name && name[0]))
 		{
 			HWND hItem = ::GetDlgItem(hDlg, id);
 			if (hItem)
@@ -680,9 +680,9 @@ void NativeLangSpeaker::changeConfigLang(HWND hDlg) const
 		childNode;
 		childNode = NppXml::nextSiblingElement(childNode, "Item"))
 	{
-		const int id = NppXml::intAttribute(childNode, "id", -1);
+		const int id = NppXml::intAttribute(childNode, "id", -1); // id starts with <Item id="2204" name="Bold"/>
 		const char* name = NppXml::attribute(childNode, "name");
-		if (id > 0 && (name && name[0]))
+		if (id >= 0 && (name && name[0]))
 		{
 			HWND hItem = ::GetDlgItem(hDlg, id);
 			if (hItem)
@@ -743,9 +743,9 @@ void NativeLangSpeaker::changeUserDefineLangPopupDlg(HWND hDlg) const
 		childNode;
 		childNode = NppXml::nextSiblingElement(childNode, "Item"))
 	{
-		const int id = NppXml::intAttribute(childNode, "id", -1);
+		const int id = NppXml::intAttribute(childNode, "id", -1); // id starts with <Item id="1" name="OK"/>
 		const char* name = NppXml::attribute(childNode, "name");
-		if (id > 0 && (name && name[0]))
+		if (id >= 0 && (name && name[0]))
 		{
 			HWND hItem = ::GetDlgItem(hDlg, id);
 			if (hItem)
@@ -784,26 +784,23 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog* userDefineDlg) co
 		childNode;
 		childNode = NppXml::nextSiblingElement(childNode, "Item"))
 	{
-		const int id = NppXml::intAttribute(childNode, "id", -1);
+		const int id = NppXml::intAttribute(childNode, "id", -1); // id starts with <Item id="20001" name="Dock"/>
 		const char* name = NppXml::attribute(childNode, "name");
-		if (id > 0 && (name && name[0]))
+		if (id > 30 && (name && name[0]))
 		{
-			if (id > 30)
+			HWND hItem = ::GetDlgItem(hDlg, id);
+			if (hItem)
 			{
-				HWND hItem = ::GetDlgItem(hDlg, id);
-				if (hItem)
+				if (id == IDC_DOCK_BUTTON && userDefineDlg->isDocked())
 				{
-					if (id == IDC_DOCK_BUTTON && userDefineDlg->isDocked())
-					{
-						std::wstring undockStr = getAttrNameByIdStr(L"Undock", userDefineDlgNode, std::to_string(IDC_UNDOCK_BUTTON).c_str());
-						::SetWindowText(hItem, undockStr.c_str());
-					}
-					else
-					{
-						const wchar_t* nameW = wmc.char2wchar(name, _nativeLangEncoding);
-						::SetWindowText(hItem, nameW);
-						resizeCheckboxRadioBtn(hItem);
-					}
+					std::wstring undockStr = getAttrNameByIdStr(L"Undock", userDefineDlgNode, std::to_string(IDC_UNDOCK_BUTTON).c_str());
+					::SetWindowText(hItem, undockStr.c_str());
+				}
+				else
+				{
+					const wchar_t* nameW = wmc.char2wchar(name, _nativeLangEncoding);
+					::SetWindowText(hItem, nameW);
+					resizeCheckboxRadioBtn(hItem);
 				}
 			}
 		}
@@ -834,9 +831,13 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog* userDefineDlg) co
 				childNode;
 				childNode = NppXml::nextSiblingElement(childNode, "Item"))
 			{
+				// "Folder" id starts with <Item id="21101" name="Default style"/>
+				// "Keywords" id starts with <Item id="22101" name="1st Group"/>
+				// "Comment" id starts with <Item id="23003" name="Line comment position"/>
+				// "Operator" id starts with <Item id="24101" name="Operators style"/>
 				const int id = NppXml::intAttribute(childNode, "id", -1);
 				const char* name = NppXml::attribute(childNode, "name");
-				if (id > 0 && (name && name[0]))
+				if (id >= 0 && (name && name[0]))
 				{
 					HWND hItem = ::GetDlgItem(hDlgArrary[i], id);
 					if (hItem)
@@ -878,22 +879,22 @@ void NativeLangSpeaker::changeFindReplaceDlgLang(FindReplaceDlg& findReplaceDlg)
 				}
 				if (titre2 && titre2[0])
 				{
-					nppParam.getFindDlgTabTitles()._replace = string2wstring(titre2, _nativeLangEncoding);;
+					nppParam.getFindDlgTabTitles()._replace = string2wstring(titre2, _nativeLangEncoding);
 					findReplaceDlg.changeTabName(REPLACE_DLG, nppParam.getFindDlgTabTitles()._replace.c_str());
 				}
 				if (titre3 && titre3[0])
 				{
-					nppParam.getFindDlgTabTitles()._findInFiles = string2wstring(titre3, _nativeLangEncoding);;
+					nppParam.getFindDlgTabTitles()._findInFiles = string2wstring(titre3, _nativeLangEncoding);
 					findReplaceDlg.changeTabName(FINDINFILES_DLG, nppParam.getFindDlgTabTitles()._findInFiles.c_str());
 				}
 				if (titre4 && titre4[0])
 				{
-					nppParam.getFindDlgTabTitles()._findInProjects = string2wstring(titre4, _nativeLangEncoding);;
+					nppParam.getFindDlgTabTitles()._findInProjects = string2wstring(titre4, _nativeLangEncoding);
 					findReplaceDlg.changeTabName(FINDINPROJECTS_DLG, nppParam.getFindDlgTabTitles()._findInProjects.c_str());
 				}
 				if (titre5 && titre5[0])
 				{
-					nppParam.getFindDlgTabTitles()._mark = string2wstring(titre5, _nativeLangEncoding);;
+					nppParam.getFindDlgTabTitles()._mark = string2wstring(titre5, _nativeLangEncoding);
 					findReplaceDlg.changeTabName(MARK_DLG, nppParam.getFindDlgTabTitles()._mark.c_str());
 				}
 			}
@@ -966,7 +967,7 @@ void NativeLangSpeaker::changePluginsAdminDlgLang(PluginsAdminDlg& pluginsAdminD
 	}
 }
 
-void NativeLangSpeaker::changePreferenceDlgLang(PreferenceDlg& preference)
+void NativeLangSpeaker::changePreferenceDlgLang(PreferenceDlg& preference) const
 {
 	auto currentSel = preference.getListSelectedIndex();
 	changeDlgLang(preference.getHSelf(), "Preference");
@@ -1146,67 +1147,6 @@ void NativeLangSpeaker::changePreferenceDlgLang(PreferenceDlg& preference)
 	preference.setListSelection(currentSel);
 }
 
-void NativeLangSpeaker::changeShortcutLang() const
-{
-	if (!_nativeLang) return;
-
-	NppParameters& nppParam = NppParameters::getInstance();
-	std::vector<CommandShortcut>& mainshortcuts = nppParam.getUserShortcuts();
-	std::vector<ScintillaKeyMap>& scinshortcuts = nppParam.getScintillaKeyList();
-
-	NppXml::Element shortcuts = NppXml::firstChildElement(_nativeLang, "Shortcuts");
-	if (!shortcuts) return;
-
-	shortcuts = NppXml::firstChildElement(shortcuts, "Main");
-	if (!shortcuts) return;
-
-	NppXml::Element entriesRoot = NppXml::firstChildElement(shortcuts, "Entries");
-	if (!entriesRoot) return;
-
-	for (NppXml::Element childNode = NppXml::firstChildElement(entriesRoot, "Item");
-		childNode;
-		childNode = NppXml::nextSiblingElement(childNode, "Item"))
-	{
-		const int index = NppXml::intAttribute(childNode, "index", -1);
-		const int id = NppXml::intAttribute(childNode, "id", -1);
-		if (index > 0 && id > 0)
-		{
-			if (static_cast<size_t>(index) < mainshortcuts.size()) //valid index only
-			{
-				const char* name = NppXml::attribute(childNode, "name");
-				CommandShortcut& csc = mainshortcuts[index];
-				if (csc.getID() == static_cast<unsigned long>(id))
-				{
-					csc.setName(name);
-				}
-			}
-		}
-	}
-
-	//Scintilla
-	shortcuts = NppXml::firstChildElement(_nativeLang, "Shortcuts");
-	if (!shortcuts) return;
-
-	shortcuts = NppXml::firstChildElement(shortcuts, "Scintilla");
-	if (!shortcuts) return;
-
-	entriesRoot = NppXml::firstChildElement(shortcuts, "Entries");
-	if (!entriesRoot) return;
-
-	for (NppXml::Element childNode = NppXml::firstChildElement(entriesRoot, "Item");
-		childNode;
-		childNode = NppXml::nextSiblingElement(childNode, "Item"))
-	{
-		const int index = NppXml::intAttribute(childNode, "index", -2);
-		if (index > -1 && static_cast<size_t>(index) < scinshortcuts.size()) //valid index only
-		{
-			const char* name = NppXml::attribute(childNode, "name");
-			ScintillaKeyMap& skm = scinshortcuts[index];
-			skm.setName(name);
-		}
-	}
-}
-
 std::wstring NativeLangSpeaker::getShortcutMapperLangStr(const char* nodeName, const wchar_t* defaultStr) const
 {
 	if (!_nativeLang) return defaultStr;
@@ -1265,9 +1205,9 @@ bool NativeLangSpeaker::getDoSaveOrNotStrings(std::wstring& title, std::wstring&
 		childNode;
 		childNode = NppXml::nextSiblingElement(childNode, "Item"))
 	{
-		const int id = NppXml::intAttribute(childNode, "id", -1);
+		const int id = NppXml::intAttribute(childNode, "id", -1); // id starts with <Item id="2" name="&amp;Cancel"/>
 		const char* name = NppXml::attribute(childNode, "name");
-		if (id > 0 && (name && name[0]))
+		if (id >= 0 && (name && name[0]))
 		{
 			if (id == IDC_DOSAVEORNOTTEXT)
 			{
@@ -1312,9 +1252,9 @@ bool NativeLangSpeaker::changeDlgLang(HWND hDlg, const char* dlgTagName, char* t
 		childNode;
 		childNode = NppXml::nextSiblingElement(childNode, "Item"))
 	{
-		const int id = NppXml::intAttribute(childNode, "id", -1);
+		const int id = NppXml::intAttribute(childNode, "id", -1); // id starts with <Item id="1" name="depends on dialog"/>
 		const char* name = NppXml::attribute(childNode, "name");
-		if (id > 0 && (name && name[0]))
+		if (id >= 0 && (name && name[0]))
 		{
 			HWND hItem = ::GetDlgItem(hDlg, id);
 			if (hItem)
@@ -1414,8 +1354,10 @@ std::wstring NativeLangSpeaker::getDlgLangMenuStr(const char* firstLevelNodeName
 		childNode;
 		childNode = NppXml::nextSiblingElement(childNode, "Item"))
 	{
+		// depends on which menu (Find smap button, FolderAsWorkspace menu)
+		// smallest id starts with <Item id="1726" name="⇅ Swap Find with Replace"/>
 		const int id = NppXml::intAttribute(childNode, "id", -1);
-		if (id > 0 && id == cmdID)
+		if (id >= 0 && id == cmdID)
 		{
 			name = NppXml::attribute(childNode, "name");
 			break;
@@ -1454,8 +1396,10 @@ std::wstring NativeLangSpeaker::getCmdLangStr(const std::vector<const char*>& no
 		childNode;
 		childNode = NppXml::nextSiblingElement(childNode, "Item"))
 	{
-		const int id = NppXml::intAttribute(childNode, "id", -1);
-		if (id > 0 && id == cmdID)
+		// used by dark mode custom color reset button
+		// id starts with <Item id="7102" name="Black"/>
+		const int id = NppXml::intAttribute(childNode, "id", -1); 
+		if (id >= 0 && id == cmdID)
 		{
 			name = NppXml::attribute(childNode, "name");
 			break;
@@ -1487,8 +1431,8 @@ std::wstring NativeLangSpeaker::getProjectPanelLangMenuStr(const char* nodeName,
 		childNode;
 		childNode = NppXml::nextSiblingElement(childNode, "Item"))
 	{
-		const int id = NppXml::intAttribute(childNode, "id", -1);
-		if (id > 0 && id == cmdID)
+		const int id = NppXml::intAttribute(childNode, "id", -1); // id starts with <Item id="0" name="Workspace"/>
+		if (id >= 0 && id == cmdID)
 		{
 			name = NppXml::attribute(childNode, "name");
 			break;
@@ -1542,7 +1486,7 @@ std::wstring NativeLangSpeaker::getAttrNameByIdStr(const wchar_t* defaultStr, Np
 	return defaultStr;
 }
 
-int NativeLangSpeaker::messageBox(const char* msgBoxTagName, HWND hWnd, const wchar_t* defaultMessage, const wchar_t* defaultTitle, int msgBoxType, int intInfo, const wchar_t* strInfo)
+int NativeLangSpeaker::messageBox(const char* msgBoxTagName, HWND hWnd, const wchar_t* defaultMessage, const wchar_t* defaultTitle, int msgBoxType, int intInfo, const wchar_t* strInfo) const
 {
 	if (NppParameters::getInstance().isEndSessionCritical())
 		return IDCANCEL; // simulate Esc-key or Cancel-button as there should not be any big delay / code-flow block

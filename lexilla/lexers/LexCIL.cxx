@@ -105,8 +105,8 @@ LexicalClass lexicalClasses[] = {
     6,  "SCE_CIL_STRING",      "literal string",       "Double quoted string",
     7,  "SCE_CIL_LABEL",       "label",                "Code label",
     8,  "SCE_CIL_OPERATOR",    "operator",             "Operators",
-    9,  "SCE_CIL_STRINGEOL",   "error literal string", "String is not closed",
-    10, "SCE_CIL_IDENTIFIER",  "identifier",           "Identifiers",
+    9, "SCE_CIL_IDENTIFIER",  "identifier",           "Identifiers",
+    10,  "SCE_CIL_STRINGEOL",   "error literal string", "String is not closed",
 };
 
 }

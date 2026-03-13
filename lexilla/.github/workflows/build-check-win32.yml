@@ -25,7 +25,7 @@ jobs:
           run: |
               pwd
               cd ..
-              curl -O https://www.scintilla.org/scintilla500.zip
+              curl --fail --location --show-error --retry 3 -O https://www.scintilla.org/scintilla500.zip
               ls
               7z x scintilla500.zip
               cd lexilla

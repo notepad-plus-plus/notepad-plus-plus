@@ -198,6 +198,96 @@ TEST_CASE("SelectionRange") {
 		REQUIRE(thin == single);
 	}
 
+	SECTION("StartEndSet") {
+		{
+			SelectionRange range;
+
+			range.StartSet(SelectionPosition(2));
+			range.EndSet(SelectionPosition(3));
+			REQUIRE(range.Start() == SelectionPosition(2));
+			REQUIRE(range.End() == SelectionPosition(3));
+			REQUIRE(range == SelectionRange(3, 2));
+
+			range.StartSet(SelectionPosition(1));
+			REQUIRE(range.Start() == SelectionPosition(1));
+			REQUIRE(range.End() == SelectionPosition(3));
+			REQUIRE(range == SelectionRange(3, 1));
+		}
+
+		{
+			// Outside after
+			SelectionRange range(2, 1);
+			range.StartSet(SelectionPosition(3));
+			REQUIRE(range.Start() == SelectionPosition(3));
+			REQUIRE(range.End() == SelectionPosition(3));
+			REQUIRE(range == SelectionRange(3, 3));
+		}
+
+		{
+			// Outside after
+			SelectionRange range(2, 1);
+			range.EndSet(SelectionPosition(3));
+			REQUIRE(range.Start() == SelectionPosition(1));
+			REQUIRE(range.End() == SelectionPosition(3));
+			REQUIRE(range == SelectionRange(3, 1));
+		}
+
+		{
+			// Outside before
+			SelectionRange range(2, 1);
+			range.StartSet(SelectionPosition(0));
+			REQUIRE(range.Start() == SelectionPosition(0));
+			REQUIRE(range.End() == SelectionPosition(2));
+			REQUIRE(range == SelectionRange(2, 0));
+		}
+
+		{
+			// Outside before
+			SelectionRange range(2, 1);
+			range.EndSet(SelectionPosition(0));
+			REQUIRE(range.Start() == SelectionPosition(0));
+			REQUIRE(range.End() == SelectionPosition(0));
+			REQUIRE(range == SelectionRange(0, 0));
+		}
+
+		{
+			// Inside
+			SelectionRange range(3, 1);
+			range.EndSet(SelectionPosition(2));
+			REQUIRE(range.Start() == SelectionPosition(1));
+			REQUIRE(range.End() == SelectionPosition(2));
+			REQUIRE(range == SelectionRange(2, 1));
+		}
+
+		{
+			// Inside
+			SelectionRange range(3, 1);
+			range.StartSet(SelectionPosition(2));
+			REQUIRE(range.Start() == SelectionPosition(2));
+			REQUIRE(range.End() == SelectionPosition(3));
+			REQUIRE(range == SelectionRange(3, 2));
+		}
+
+		{
+			// Empty then outside
+			SelectionRange range(2);
+			range.StartSet(SelectionPosition(9));
+			REQUIRE(range.Start() == SelectionPosition(9));
+			REQUIRE(range.End() == SelectionPosition(9));
+			REQUIRE(range == SelectionRange(9, 9));
+		}
+
+		{
+			// Empty then outside
+			SelectionRange range(2);
+			range.StartSet(SelectionPosition(0));
+			REQUIRE(range.Start() == SelectionPosition(0));
+			REQUIRE(range.End() == SelectionPosition(2));
+			REQUIRE(range == SelectionRange(2, 0));
+		}
+
+	}
+
 }
 
 TEST_CASE("Selection") {

@@ -331,6 +331,25 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_debugInfoStr += cloudPath.empty() ? L"OFF" : cloudPath;
 			_debugInfoStr += L"\r\n";
 
+			//  Auto-Update:
+			// 
+			//  WinGUp  | disableNppAutoUpdate.xml || Auto-Update status
+			//  ========================================================
+			//  present |         present          ||      OFF
+			//  --------------------------------------------------------
+			//  absent  |         present          ||      OFF
+			//  --------------------------------------------------------
+			//  present |         absent           ||      ON
+			//  --------------------------------------------------------
+			//  absent  |         absent           ||      OFF
+			//
+			_debugInfoStr += L"WinGUp: ";
+			_debugInfoStr += nppGui._doesExistUpdater ? L"present" : L"absent";
+			_debugInfoStr += L"\r\n";
+			_debugInfoStr += L"disableNppAutoUpdate.xml: ";
+			_debugInfoStr += nppParam.isNppAutoUpdateDisabled() ? L"present" : L"absent";
+			_debugInfoStr += L"\r\n";
+
 			// Periodic Backup
 			_debugInfoStr += L"Periodic Backup: ";
 			_debugInfoStr += nppGui.isSnapshotMode() ? L"ON" : L"OFF";

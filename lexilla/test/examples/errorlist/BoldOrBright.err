@@ -15,3 +15,6 @@ Escape Sequence 1;36m
 
 Escape Sequence 92m
 [96mColour 96 (Bright Cyan)[0m
+
+Escape Sequence 1m
+[1mBold[0m

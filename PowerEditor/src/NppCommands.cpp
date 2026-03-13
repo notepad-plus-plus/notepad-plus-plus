@@ -3744,7 +3744,7 @@ void Notepad_plus::command(int id)
 				pathAppend(updaterFullPath, L"gup.exe");
 
 
-#ifdef DEBUG // if not debug, then it's release
+#if !defined(NDEBUG)  // if not debug, then it's release
 				bool isCertifVerified = true;
 #else //RELEASE
 				// check the signature on updater

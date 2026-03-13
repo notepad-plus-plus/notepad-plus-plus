@@ -25,6 +25,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <cwchar>
+#include <limits>
 #include <locale>
 #include <string>
 #include <string_view>
@@ -286,7 +287,6 @@ static bool isAllDigits(const std::string& str)
 
 static void sortInsensitive(std::vector<std::string>& wordArray)
 {
-	static const auto loc = std::locale("");
 	std::sort(
 		wordArray.begin(),
 		wordArray.end(),
@@ -297,7 +297,7 @@ static void sortInsensitive(std::vector<std::string>& wordArray)
 				b.begin(), b.end(),
 				[](const auto &ch1, const auto &ch2)
 				{
-					return std::toupper(ch1, loc) < std::toupper(ch2, loc);
+					return std::toupper(ch1, getSysLocale()) < std::toupper(ch2, getSysLocale());
 				}
 			);
 		}
@@ -550,8 +550,7 @@ static std::wstring removeTrailingSlash(const std::wstring& path)
 
 static bool isAllowedBeforeDriveLetter(wchar_t c)
 {
-	static const auto loc = std::locale("");
-	return c == L'\'' || c == L'"' || c == L'(' || std::isspace(c, loc);
+	return c == L'\'' || c == L'"' || c == L'(' || std::isspace(c, getSysLocale());
 }
 
 static bool getRawPath(const std::wstring& input, std::wstring &rawPath_out)
@@ -560,13 +559,12 @@ static bool getRawPath(const std::wstring& input, std::wstring &rawPath_out)
 	// Algorithm: look for a colon. The colon must be preceded by an alphabetic character.
 	// The alphabetic character must, in turn, be preceded by nothing, or by whitespace, or by
 	// a quotation mark.
-	static const auto loc = std::locale("");
 	size_t lastOccurrence = input.rfind(L":");
 	if (lastOccurrence == std::string::npos) // No match.
 		return false;
 	else if (lastOccurrence == 0)
 		return false;
-	else if (!std::isalpha(input[lastOccurrence - 1], loc))
+	else if (!std::isalpha(input[lastOccurrence - 1], getSysLocale()))
 		return false;
 	else if (lastOccurrence >= 2 && !isAllowedBeforeDriveLetter(input[lastOccurrence - 2]))
 		return false;
@@ -857,10 +855,17 @@ intptr_t InsertedMatchedChars::search(char startChar, char endChar, size_t posTo
 
 void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & matchedPairConf)
 {
+	const size_t caretPos = _pEditView->execute(SCI_GETCURRENTPOS);
+
+	if (character > std::numeric_limits<char>::max())
+	{
+		if (!_insertedMatchedChars.isEmpty())
+			_insertedMatchedChars.removeInvalidElements(MatchedCharInserted('\0', caretPos - 1));
+		return;
+	}
+
 	const auto ch = static_cast<char>(character);
 
-	const std::vector<std::pair<char, char>>& matchedPairs = matchedPairConf._matchedPairs;
-	size_t caretPos = _pEditView->execute(SCI_GETCURRENTPOS);
 	const char* matchedChars = nullptr;
 
 	char charPrev = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, caretPos - 2));
@@ -873,17 +878,13 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 	bool isInSandwich = (charPrev == '(' && charNext == ')') || (charPrev == '[' && charNext == ']') || (charPrev == '{' && charNext == '}');
 
 	// User defined matched pairs should be checked firstly
-	for (size_t i = 0, len = matchedPairs.size(); i < len; ++i)
+	for (const auto& matchedPair : matchedPairConf._matchedPairs)
 	{
-		if (matchedPairs[i].first == ch)
+		if (matchedPair.first == ch && isCharNextBlank)
 		{
-			if (isCharNextBlank)
-			{
-				char userMatchedChar[2] = { '\0', '\0' };
-				userMatchedChar[0] = matchedPairs[i].second;
-				_pEditView->execute(SCI_INSERTTEXT, caretPos, reinterpret_cast<LPARAM>(userMatchedChar));
-				return;
-			}
+			const char userMatchedChar[2]{ matchedPair.second, '\0' };
+			_pEditView->execute(SCI_INSERTTEXT, caretPos, reinterpret_cast<LPARAM>(userMatchedChar));
+			return;
 		}
 	}
 

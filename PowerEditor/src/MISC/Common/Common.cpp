@@ -65,9 +65,8 @@ void printStr(const wchar_t *str2print)
 
 wstring commafyInt(size_t n)
 {
-	static const auto loc = std::locale("");
 	std::wstringstream ss;
-	ss.imbue(loc);
+	ss.imbue(getSysLocale());
 	ss << n;
 	return ss.str();
 }
@@ -831,17 +830,15 @@ COLORREF getCtrlBgColor(HWND hWnd)
 
 std::wstring stringToUpper(std::wstring strToConvert)
 {
-	static const auto loc = std::locale("");
 	std::transform(strToConvert.begin(), strToConvert.end(), strToConvert.begin(),
-		[](auto ch) { return std::toupper(ch, loc); });
+		[](auto ch) { return std::toupper(ch, getSysLocale()); });
 	return strToConvert;
 }
 
 std::wstring stringToLower(std::wstring strToConvert)
 {
-	static const auto loc = std::locale("");
 	std::transform(strToConvert.begin(), strToConvert.end(), strToConvert.begin(),
-		[](auto ch) { return std::tolower(ch, loc); });
+		[](auto ch) { return std::tolower(ch, getSysLocale()); });
 	return strToConvert;
 }
 
@@ -956,6 +953,21 @@ double stodLocale(const wstring& str, [[maybe_unused]] _locale_t loc, size_t* id
 	return ans;
 }
 
+const std::locale& getSysLocale()
+{
+	static const auto systemLocale = []()
+	{
+		try
+		{
+			return std::locale("");
+		}
+		catch (const std::runtime_error&)
+		{
+			return std::locale::classic();
+		}
+	}();
+	return systemLocale;
+}
 
 bool str2Clipboard(const wstring &str2cpy, HWND hwnd)
 {
@@ -1156,13 +1168,20 @@ wstring GetLastErrorAsString(DWORD errorCode)
 		return errorMsg; //No error message has been recorded
 
 	LPWSTR messageBuffer = nullptr;
-	FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+	DWORD isSuccessful = FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
 		nullptr, errorCode, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), reinterpret_cast<LPWSTR>(&messageBuffer), 0, nullptr);
 
-	errorMsg += messageBuffer;
-
-	//Free the buffer.
-	LocalFree(messageBuffer);
+	if (isSuccessful)
+	{
+		errorMsg += messageBuffer;
+		LocalFree(messageBuffer);
+	}
+	else
+	{
+		errorMsg += L"(Error code: ";
+		errorMsg += std::to_wstring(errorCode);
+		errorMsg += L")\r\n";
+	}
 
 	return errorMsg;
 }
@@ -1813,7 +1832,7 @@ Version::Version(const wstring& versionStr)
 			++i;
 		}
 	}
-#ifdef DEBUG
+#if !defined(NDEBUG) 
 	catch (const std::wstring& s)
 	{
 		_major = 0;
@@ -1830,7 +1849,7 @@ Version::Version(const wstring& versionStr)
 		_minor = 0;
 		_patch = 0;
 		_build = 0;
-#ifdef DEBUG
+#if !defined(NDEBUG) 
 		throw std::wstring(L"Unknown exception from \"Version::Version(const wstring& versionStr)\"");
 #endif
 	}

@@ -69,6 +69,9 @@ public:
 	constexpr Interval Offset(XYPOSITION offset) const noexcept {
 		return {left + offset, right + offset};
 	}
+	[[nodiscard]] static constexpr Interval FromLeftAndWidth(XYPOSITION left_, XYPOSITION width) {
+		return {left_, left_+width};
+	}
 };
 
 /**

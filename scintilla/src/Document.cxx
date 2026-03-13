@@ -864,8 +864,9 @@ Sci::Position Document::NextPosition(Sci::Position pos, int moveDir) const noexc
 	const int increment = (moveDir > 0) ? 1 : -1;
 	if (pos + increment <= 0)
 		return 0;
-	if (pos + increment >= cb.Length())
-		return cb.Length();
+	const Sci::Position length = LengthNoExcept();
+	if (pos + increment >= length)
+		return length;
 
 	if (dbcsCodePage) {
 		if (CpUtf8 == dbcsCodePage) {
@@ -904,9 +905,7 @@ Sci::Position Document::NextPosition(Sci::Position pos, int moveDir) const noexc
 		} else {
 			if (moveDir > 0) {
 				const int mbsize = IsDBCSDualByteAt(pos) ? 2 : 1;
-				pos += mbsize;
-				if (pos > cb.Length())
-					pos = cb.Length();
+				pos = std::min(pos + mbsize, length);
 			} else {
 				// How to Go Backward in a DBCS String
 				// https://msdn.microsoft.com/en-us/library/cc194792.aspx
@@ -1590,7 +1589,10 @@ Sci::Position Document::Undo() {
 				}
 				cb.PerformUndoStep();
 				if (action.at != ActionType::container) {
-					ModifiedAt(action.position);
+					if ((action.at == ActionType::insert) && (action.position >= LengthNoExcept()) && (action.position > 0))
+						ModifiedAt(action.position - 1);
+					else
+						ModifiedAt(action.position);
 					newPos = action.position;
 				}
 
@@ -1761,22 +1763,23 @@ Sci::Position Document::SetLineIndentation(Sci::Line line, Sci::Position indent)
 	}
 }
 
-Sci::Position Document::GetLineIndentPosition(Sci::Line line) const {
+Sci::Position Document::GetLineIndentPosition(Sci::Line line) const noexcept {
 	if (line < 0)
 		return 0;
-	Sci::Position pos = LineStart(line);
-	const Sci::Position length = Length();
+	Sci::Position pos = cb.LineStart(line);
+	const Sci::Position length = LengthNoExcept();
 	while ((pos < length) && IsSpaceOrTab(cb.CharAt(pos))) {
 		pos++;
 	}
 	return pos;
 }
 
-Sci::Position Document::GetColumn(Sci::Position pos) const {
+Sci::Position Document::GetColumn(Sci::Position pos) const noexcept {
 	Sci::Position column = 0;
 	const Sci::Line line = SciLineFromPosition(pos);
 	if ((line >= 0) && (line < LinesTotal())) {
-		for (Sci::Position i = LineStart(line); i < pos;) {
+		const Sci::Position length = LengthNoExcept();
+		for (Sci::Position i = cb.LineStart(line); i < pos;) {
 			const char ch = cb.CharAt(i);
 			if (ch == '\t') {
 				column = NextTab(column, tabInChars);
@@ -1785,7 +1788,7 @@ Sci::Position Document::GetColumn(Sci::Position pos) const {
 				return column;
 			} else if (ch == '\n') {
 				return column;
-			} else if (i >= Length()) {
+			} else if (i >= length) {
 				return column;
 			} else if (UTF8IsAscii(ch)) {
 				column++;
@@ -1826,11 +1829,12 @@ Sci::Position Document::CountUTF16(Sci::Position startPos, Sci::Position endPos)
 	return count;
 }
 
-Sci::Position Document::FindColumn(Sci::Line line, Sci::Position column) {
-	Sci::Position position = LineStart(line);
+Sci::Position Document::FindColumn(Sci::Line line, Sci::Position column) const noexcept {
+	Sci::Position position = cb.LineStart(line);
 	if ((line >= 0) && (line < LinesTotal())) {
+		const Sci::Position length = LengthNoExcept();
 		Sci::Position columnCurrent = 0;
-		while ((columnCurrent < column) && (position < Length())) {
+		while ((columnCurrent < column) && (position < length)) {
 			const char ch = cb.CharAt(position);
 			if (ch == '\t') {
 				columnCurrent = NextTab(columnCurrent, tabInChars);
@@ -1841,6 +1845,9 @@ Sci::Position Document::FindColumn(Sci::Line line, Sci::Position column) {
 				return position;
 			} else if (ch == '\n') {
 				return position;
+			} else if (UTF8IsAscii(ch)) {
+				columnCurrent++;
+				position++;
 			} else {
 				columnCurrent++;
 				position = NextPosition(position, 1);
@@ -1900,7 +1907,8 @@ std::string Document::TransformLineEnds(const char *s, size_t len, EndOfLine eol
 void Document::ConvertLineEnds(EndOfLine eolModeSet) {
 	UndoGroup ug(this);
 
-	for (Sci::Position pos = 0; pos < Length(); pos++) {
+	const Sci::Position length = Length();
+	for (Sci::Position pos = 0; pos < length; pos++) {
 		const char ch = cb.CharAt(pos);
 		if (ch == '\r') {
 			if (cb.CharAt(pos + 1) == '\n') {
@@ -2819,7 +2827,7 @@ void SCI_METHOD Document::DecorationFillRange(Sci_Position position, int value, 
 
 bool Document::AddWatcher(DocWatcher *watcher, void *userData) {
 	const WatcherWithUserData wwud(watcher, userData);
-	std::vector<WatcherWithUserData>::iterator it =
+	const std::vector<WatcherWithUserData>::iterator it =
 		std::find(watchers.begin(), watchers.end(), wwud);
 	if (it != watchers.end())
 		return false;
@@ -2831,7 +2839,7 @@ bool Document::RemoveWatcher(DocWatcher *watcher, void *userData) noexcept {
 	try {
 		// This can never fail as WatcherWithUserData constructor and == are noexcept
 		// but std::find is not noexcept.
-		std::vector<WatcherWithUserData>::iterator it =
+		const std::vector<WatcherWithUserData>::iterator it =
 			std::find(watchers.begin(), watchers.end(), WatcherWithUserData(watcher, userData));
 		if (it != watchers.end()) {
 			watchers.erase(it);

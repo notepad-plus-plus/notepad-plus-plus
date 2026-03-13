@@ -50,11 +50,11 @@ Translation note:
 					<Item subMenuId="search-jumpDown" name="次の色づけ/マークに移動(&amp;D)"/>
 					<Item subMenuId="search-copyStyledText" name="色づけ/マークした文字列をコピー(&amp;C)"/>
 					<Item subMenuId="search-bookmark" name="ブックマーク(&amp;B)"/>
-					<Item subMenuId="view-currentFileIn" name="ブラウザーで開く"/>
-					<Item subMenuId="view-showSymbol" name="制御文字の表示"/>
-					<Item subMenuId="view-zoom" name="ズーム"/>
-					<Item subMenuId="view-moveCloneDocument" name="文書を移動/複製"/>
-					<Item subMenuId="view-tab" name="タブ"/>
+					<Item subMenuId="view-currentFileIn" name="ブラウザーで開く(&amp;V)"/>
+					<Item subMenuId="view-showSymbol" name="制御文字の表示(&amp;Y)"/>
+					<Item subMenuId="view-zoom" name="ズーム(&amp;Z)"/>
+					<Item subMenuId="view-moveCloneDocument" name="文書を移動/複製(&amp;M)"/>
+					<Item subMenuId="view-tab" name="タブ(&amp;B)"/>
 					<Item subMenuId="view-collapseLevel" name="指定レベルで畳む"/>
 					<Item subMenuId="view-uncollapseLevel" name="指定レベルで展開"/>
 					<Item subMenuId="view-project" name="プロジェクト"/>
@@ -90,7 +90,7 @@ Translation note:
 					<Item id="41002" name="開く(&amp;O)..."/>
 					<Item id="41019" name="エクスプローラー"/>
 					<Item id="41020" name="コマンドプロンプト"/>
-					<Item id="41025" name="フォルダーをワークスペースとして開く"/>
+					<Item id="41025" name="フォルダーをワークスペースとして開く(&amp;K)"/>
 					<Item id="41003" name="閉じる(&amp;C)"/>
 					<Item id="41004" name="すべて閉じる(&amp;E)"/>
 					<Item id="41005" name="現在の文書以外を閉じる"/>
@@ -198,8 +198,8 @@ Translation note:
 					<Item id="42051" name="文字コード表(&amp;P)"/>
 					<Item id="42052" name="クリップボード履歴(&amp;H)"/>
 					<Item id="42025" name="記録したマクロを保存(&amp;S)..."/>
-					<Item id="42026" name="書字方向を右から左へ"/>
-					<Item id="42027" name="書字方向を左から右へ"/>
+					<Item id="42026" name="書字方向を右から左へ(&amp;E)"/>
+					<Item id="42027" name="書字方向を左から右へ(&amp;X)"/>
 					<Item id="42028" name="現在の文書を読み取り専用にする"/>
 					<Item id="42102" name="すべての文書を読み取り専用にする"/>
 					<Item id="42103" name="すべての文書の読み取り専用を解除する"/>
@@ -286,12 +286,12 @@ Translation note:
 					<Item id="43502" name="未選択の文書を閉じる"/>
 					<Item id="43503" name="選択した文書のファイル名をコピー"/>
 					<Item id="43504" name="選択した文書のフルパスをコピー"/>
-					<Item id="44009" name="テキスト領域以外を非表示"/>
+					<Item id="44009" name="テキスト領域以外を非表示(&amp;P)"/>
 					<Item id="44010" name="すべて畳む"/>
-					<Item id="44011" name="集中モード"/>
+					<Item id="44011" name="集中モード(&amp;I)"/>
 					<Item id="44019" name="制御文字をすべて表示"/>
 					<Item id="44020" name="インデントガイドを表示"/>
-					<Item id="44022" name="画面端で折り返す"/>
+					<Item id="44022" name="画面端で折り返す(&amp;W)"/>
 					<Item id="44023" name="拡大表示(Ctrl+マウスホイールを上へ)(&amp;I)"/>
 					<Item id="44024" name="縮小表示(Ctrl+マウスホイールを下へ)(&amp;O)"/>
 					<Item id="44025" name="半角スペースとタブを表示"/>
@@ -299,10 +299,10 @@ Translation note:
 					<Item id="44029" name="すべて展開する"/>
 					<Item id="44030" name="カーソル位置のレベルで畳む"/>
 					<Item id="44031" name="カーソル位置のレベルで展開"/>
-					<Item id="44049" name="概要..."/>
-					<Item id="44080" name="文書マップ"/>
-					<Item id="44070" name="文書一覧"/>
-					<Item id="44084" name="関数リスト"/>
+					<Item id="44049" name="概要(&amp;S)..."/>
+					<Item id="44080" name="文書マップ(&amp;D)"/>
+					<Item id="44070" name="文書一覧(&amp;O)"/>
+					<Item id="44084" name="関数リスト(&amp;L)"/>
 					<Item id="44085" name="ワークスペース フォルダー"/>
 					<Item id="44086" name="タブ1"/>
 					<Item id="44087" name="タブ2"/>
@@ -317,7 +317,7 @@ Translation note:
 					<Item id="44117" name="末尾のタブを表示"/>
 					<Item id="44095" name="次のタブを表示"/>
 					<Item id="44096" name="前のタブを表示"/>
-					<Item id="44097" name="ファイル監視(tail -f)"/>
+					<Item id="44097" name="ファイル監視(tail -f) (&amp;R)"/>
 					<Item id="44098" name="タブを後ろへ移動"/>
 					<Item id="44099" name="タブを前へ移動"/>
 					<Item id="44110" name="色を外す"/>
@@ -328,16 +328,16 @@ Translation note:
 					<Item id="44115" name="色5をつける"/>
 					<Item id="44130" name="非表示文字を表示"/>
 					<Item id="44131" name="制御文字とUnicode改行文字を表示"/>
-					<Item id="44032" name="全画面表示"/>
-					<Item id="44033" name="標準倍率に戻す"/>
-					<Item id="44034" name="常に手前に表示"/>
-					<Item id="44035" name="縦スクロールを同期"/>
-					<Item id="44036" name="横スクロールを同期"/>
+					<Item id="44032" name="全画面表示(&amp;G)"/>
+					<Item id="44033" name="標準倍率に戻す(&amp;R)"/>
+					<Item id="44034" name="常に手前に表示(&amp;T)"/>
+					<Item id="44035" name="縦スクロールを同期(&amp;N)"/>
+					<Item id="44036" name="横スクロールを同期(&amp;C)"/>
 					<Item id="44041" name="折り返し位置を表示"/>
-					<Item id="44072" name="別のビューへフォーカス移動"/>
-					<Item id="44081" name="プロジェクトパネル1"/>
-					<Item id="44082" name="プロジェクトパネル2"/>
-					<Item id="44083" name="プロジェクトパネル3"/>
+					<Item id="44072" name="別のビューへフォーカス移動(&amp;A)"/>
+					<Item id="44081" name="プロジェクトパネル1 (&amp;1)"/>
+					<Item id="44082" name="プロジェクトパネル2 (&amp;2)"/>
+					<Item id="44083" name="プロジェクトパネル3 (&amp;3)"/>
 					<Item id="45001" name="Windows (CR LF)"/>
 					<Item id="45002" name="Unix (LF)"/>
 					<Item id="45003" name="Macintosh (CR)"/>
@@ -357,10 +357,10 @@ Translation note:
 					<Item id="45057" name="OEM 865: ノルウェー語"/>
 					<Item id="45053" name="OEM 860: ポルトガル語"/>
 					<Item id="45056" name="OEM 863: フランス語"/>
-					<Item id="10001" name="別のビューへ移動"/>
-					<Item id="10002" name="別のビューへ複製"/>
-					<Item id="10003" name="新しいウィンドウへ移動"/>
-					<Item id="10004" name="新しいウィンドウで開く"/>
+					<Item id="10001" name="別のビューへ移動(&amp;M)"/>
+					<Item id="10002" name="別のビューへ複製(&amp;C)"/>
+					<Item id="10003" name="新しいウィンドウへ移動(&amp;V)"/>
+					<Item id="10004" name="新しいウィンドウで開く(&amp;O)"/>
 					<Item id="10005" name="タブを先頭へ移動"/>
 					<Item id="10006" name="タブを末尾へ移動"/>
 					<Item id="46033" name="アセンブリ"/>
@@ -411,7 +411,7 @@ Translation note:
 					<Item id="50011" name="次の関数パラメータのヒントへ"/>
 					<Item id="50005" name="マクロの記録を開始・停止"/>
 					<Item id="50006" name="パス補完"/>
-					<Item id="44042" name="行を隠す"/>
+					<Item id="44042" name="行を隠す(&amp;H)"/>
 					<Item id="42040" name="最近使用したファイルをすべて開く"/>
 					<Item id="42041" name="最近使用したファイルのリストをクリア"/>
 					<Item id="48016" name="ショートカットの変更/マクロの削除..."/>
@@ -723,10 +723,10 @@ Translation note:
 					<Item id="43059" name="スタイル5の文字列をコピー"/>
 					<Item id="43060" name="すべてのスタイルの文字列をコピー"/>
 					<Item id="43061" name="マークされた文字列をコピー"/>
-					<Item id="44100" name="Firefox で開く"/>
-					<Item id="44101" name="Chrome で開く"/>
-					<Item id="44103" name="IE で開く"/>
-					<Item id="44102" name="Edge で開く"/>
+					<Item id="44100" name="Firefox で開く(&amp;F)"/>
+					<Item id="44101" name="Chrome で開く(&amp;C)"/>
+					<Item id="44103" name="IE で開く(&amp;I)"/>
+					<Item id="44102" name="Edge で開く(&amp;E)"/>
 					<Item id="50003" name="前のドキュメントに切り替え"/>
 					<Item id="50004" name="次のドキュメントに切り替え"/>
 					<Item id="44051" name="レベル1で畳む"/>
@@ -1298,7 +1298,7 @@ Translation note:
 					<Item id="6184" name="文書一覧"/>
 					<Item id="6185" name="文字コード表"/>
 					<Item id="6186" name="ワークスペース フォルダー"/>
-					<Item id="6187" name="プロジェクトパネル"/>
+					<Item id="6187" name="プロジェクトパネル(&amp;J)"/>
 					<Item id="6188" name="文書マップ"/>
 					<Item id="6189" name="関数リスト"/>
 					<Item id="6190" name="プラグイン"/>

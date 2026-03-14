@@ -14,19 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
 #pragma once
 
-#include <windows.h>
-
-#include <string>
-#include <utility>
-#include <vector>
-
 #include "DockingDlgInterface.h"
-#include "TreeView.h"
 #include "functionListPanel_rc.h"
 #include "functionParser.h"
+#include "TreeView.h"
 
 #define FL_PANELTITLE     L"Function List"
 #define FL_FUNCTIONLISTROOTNODE "FunctionList"
@@ -101,7 +94,7 @@ public:
 	void sortOrUnsort();
 	void reload();
 	void markEntry();
-	bool serialize(const std::wstring& outputFilename = L"") const;
+	bool serialize(const std::wstring & outputFilename = L"");
 	void addEntry(const wchar_t* nodeName, const wchar_t* displayText, size_t pos);
 	void removeAllEntries();
 	void searchFuncAndSwitchView();
@@ -144,8 +137,8 @@ private:
 	void addInStateArray(TreeStateNode tree2Update, const wchar_t *searchText, bool isSorted);
 	TreeParams* getFromStateArray(const std::wstring& fullFilePath);
 	bool openSelection(const TreeView &treeView);
-	bool shouldSort() const;
-	void setSort(bool isEnabled) const;
+	bool shouldSort();
+	void setSort(bool isEnabled);
 	void findMarkEntry(HTREEITEM htItem, LONG line);
 	void initPreferencesMenu();
 	void showPreferencesMenu();

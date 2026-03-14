@@ -14,50 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
+#include "json.hpp"
 #include "functionListPanel.h"
-
-#include <windows.h>
-
-#include <shlwapi.h>
-
-#include <cstdlib>
-#include <cwchar>
-#include <fstream>
-#include <string>
-#include <vector>
-
-#include <Scintilla.h>
-#include <json.hpp>
-
-#include "Buffer.h"
-#include "Common.h"
-#include "DockingDlgInterface.h"
-#include "Notepad_plus_msgs.h"
-#include "NppConstants.h"
-#include "NppDarkMode.h"
-#include "Parameters.h"
 #include "ScintillaEditView.h"
-#include "TreeView.h"
-#include "dockingResource.h"
-#include "dpiManagerV2.h"
-#include "functionListPanel_rc.h"
-#include "functionParser.h"
 #include "localization.h"
-#include "menuCmdID.h"
-#include "resource.h"
+#include <fstream>
 
 using nlohmann::json;
 using namespace std;
 
-enum tvNodeIdx
-{
-	INDEX_ROOT,
-	INDEX_NODE,
-	INDEX_LEAF
-};
+#define INDEX_ROOT        0
+#define INDEX_NODE        1
+#define INDEX_LEAF        2
 
-static constexpr UINT FL_PREFERENCES_INITIALSORT_ID = 1;
+#define FL_PREFERENCES_INITIALSORT_ID   1
 
 FunctionListPanel::~FunctionListPanel()
 {
@@ -190,8 +160,8 @@ void FunctionListPanel::sortOrUnsort()
 
 int CALLBACK FunctionListPanel::categorySortFunc(LPARAM lParam1, LPARAM lParam2, LPARAM /*lParamSort*/)
 {
-	const auto* posString1 = reinterpret_cast<std::wstring*>(lParam1);
-	const auto* posString2 = reinterpret_cast<std::wstring*>(lParam2);
+	wstring* posString1 = reinterpret_cast<wstring*>(lParam1);
+	wstring* posString2 = reinterpret_cast<wstring*>(lParam2);
 	
 	size_t pos1 = _wtoi(posString1->c_str());
 	size_t pos2 = _wtoi(posString2->c_str());
@@ -201,7 +171,7 @@ int CALLBACK FunctionListPanel::categorySortFunc(LPARAM lParam1, LPARAM lParam2,
 		return -1;
 }
 
-bool FunctionListPanel::serialize(const std::wstring& outputFilename) const
+bool FunctionListPanel::serialize(const wstring & outputFilename)
 {
 	Buffer* currentBuf = (*_ppEditView)->getCurrentBuffer();
 	const wchar_t* fileNameLabel = currentBuf->getFileName();
@@ -238,18 +208,18 @@ bool FunctionListPanel::serialize(const std::wstring& outputFilename) const
 
 	for (const auto & info : _foundFuncInfos)
 	{
-		const char* leafName = info._data.c_str();
+		std::string leafName = info._data.c_str();
 
 		if (!info._data2.empty()) // node
 		{
 			bool isFound = false;
-			const char* nodeName = info._data2.c_str();
+			std::string nodeName = info._data2.c_str();
 
 			for (auto & i : j[nodesLabel])
 			{
 				if (nodeName == std::string{ i[nameLabel] })
 				{
-					i[leavesLabel].push_back(leafName);
+					i[leavesLabel].push_back(leafName.c_str());
 					isFound = true;
 					break;
 				}
@@ -257,14 +227,14 @@ bool FunctionListPanel::serialize(const std::wstring& outputFilename) const
 
 			if (!isFound)
 			{
-				json aNode = { { leavesLabel, json::array() },{ nameLabel, nodeName } };
-				aNode[leavesLabel].push_back(leafName);
+				json aNode = { { leavesLabel, json::array() },{ nameLabel, nodeName.c_str() } };
+				aNode[leavesLabel].push_back(leafName.c_str());
 				j[nodesLabel].push_back(aNode);
 			}
 		}
 		else // leaf
 		{
-			j[leavesLabel].push_back(leafName);
+			j[leavesLabel].push_back(leafName.c_str());
 		}
 	}
 
@@ -438,7 +408,7 @@ void FunctionListPanel::findMarkEntry(HTREEITEM htItem, LONG line)
 			tvItem.mask = TVIF_IMAGE | TVIF_PARAM;
 			::SendMessage(_treeViewSearchResult.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
-			const auto* posStr = reinterpret_cast<std::wstring*>(tvItem.lParam);
+			wstring *posStr = reinterpret_cast<wstring *>(tvItem.lParam);
 			if (posStr)
 			{
 				int pos = _wtoi(posStr->c_str());
@@ -519,7 +489,7 @@ bool FunctionListPanel::openSelection(const TreeView & treeView)
 		return false;
 	}
 
-	const auto* posStr = reinterpret_cast<std::wstring*>(tvItem.lParam);
+	wstring *posStr = reinterpret_cast<wstring *>(tvItem.lParam);
 	if (!posStr)
 		return false;
 
@@ -695,7 +665,7 @@ static LRESULT CALLBACK funclstSearchEditProc(HWND hwnd, UINT message, WPARAM wP
 	return ::DefSubclassProc(hwnd, message, wParam, lParam);
 }
 
-bool FunctionListPanel::shouldSort() const
+bool FunctionListPanel::shouldSort()
 {
 	TBBUTTONINFO tbbuttonInfo{};
 	tbbuttonInfo.cbSize = sizeof(TBBUTTONINFO);
@@ -706,7 +676,7 @@ bool FunctionListPanel::shouldSort() const
 	return (tbbuttonInfo.fsState & TBSTATE_CHECKED) != 0;
 }
 
-void FunctionListPanel::setSort(bool isEnabled) const
+void FunctionListPanel::setSort(bool isEnabled)
 {
 	TBBUTTONINFO tbbuttonInfo{};
 	tbbuttonInfo.cbSize = sizeof(TBBUTTONINFO);
@@ -795,9 +765,9 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 			::SetWindowSubclass(_hToolbarMenu, funclstToolbarProc, static_cast<UINT_PTR>(SubclassID::first), 0);
 
 			const int iconSizeDyn = _dpiManager.scale(16);
-			static constexpr int nbIcons = 3;
-			static constexpr int iconIDs[nbIcons]{ IDI_FUNCLIST_SORTBUTTON, IDI_FUNCLIST_RELOADBUTTON, IDI_FUNCLIST_PREFERENCEBUTTON };
-			static constexpr int iconDarkModeIDs[nbIcons]{ IDI_FUNCLIST_SORTBUTTON_DM, IDI_FUNCLIST_RELOADBUTTON_DM, IDI_FUNCLIST_PREFERENCEBUTTON_DM };
+			constexpr int nbIcons = 3;
+			int iconIDs[nbIcons] = { IDI_FUNCLIST_SORTBUTTON, IDI_FUNCLIST_RELOADBUTTON, IDI_FUNCLIST_PREFERENCEBUTTON };
+			int iconDarkModeIDs[nbIcons] = { IDI_FUNCLIST_SORTBUTTON_DM, IDI_FUNCLIST_RELOADBUTTON_DM, IDI_FUNCLIST_PREFERENCEBUTTON_DM };
 
 			// Create an image lists for the toolbar icons
 			HIMAGELIST hImageList = ImageList_Create(iconSizeDyn, iconSizeDyn, ILC_COLOR32 | ILC_MASK, nbIcons, 0);

@@ -45,7 +45,7 @@
 					<Item subMenuId="edit-onSelection" name="При маркиране"/>
 					<Item subMenuId="edit-multiSelectALL" name="Множествен избор на всички"/>
 					<Item subMenuId="edit-multiSelectNext" name="Множествен избор на следващи"/>
-					<Item subMenuId="edit-readonlyInNotepad++" name="Само за четене в Notepad++"/>
+					<Item subMenuId="edit-readonlyInnpminmin" name="Само за четене в npminmin"/>
 					<!-- Меню "Търсене" -->
 					<Item subMenuId="search-changeHistory" name="История на промените"/>
 					<Item subMenuId="search-markAll" name="Открояване на всички избрани"/>
@@ -422,7 +422,7 @@
 					<Item id="46016" name="Няма (обикновен текст)"/>
 					<Item id="46250" name="Дефиниране на синтаксис..."/>
 					<Item id="46300" name="Отваряне на папката със синтаксиси..."/>
-					<Item id="46301" name="Notepad++ колекция със синтаксиси"/>
+					<Item id="46301" name="npminmin колекция със синтаксиси"/>
 					<Item id="46180" name="Дефиниран от потребителя"/>
 					<!-- Меню "Настройки" -->
 					<Item id="48011" name="Предпочитания..."/>
@@ -478,14 +478,14 @@
 					<Item id="11011" name="Низходящ ред по време на последна промяна"/>
 					<!-- Меню "?" -->
 					<Item id="47010" name="Параметри на командния ред..."/>
-					<Item id="47001" name="Notepad++ домашна страница"/>
-					<Item id="47002" name="Notepad++ страница на проекта"/>
-					<Item id="47004" name="Notepad++ общност (Форум)"/>
-					<Item id="47003" name="Notepad++ онлайн ръководство"/>
-					<Item id="47006" name="Обновяване на Notepad++"/>
+					<Item id="47001" name="npminmin домашна страница"/>
+					<Item id="47002" name="npminmin страница на проекта"/>
+					<Item id="47004" name="npminmin общност (Форум)"/>
+					<Item id="47003" name="npminmin онлайн ръководство"/>
+					<Item id="47006" name="Обновяване на npminmin"/>
 					<Item id="47009" name="Задаване на прокси за обновяване..."/>
 					<Item id="47012" name="Инфо за отстраняване на грешки..."/>
-					<Item id="47000" name="Относно Notepad++"/>
+					<Item id="47000" name="Относно npminmin"/>
 					<!-- Контекстно меню -->
 					<!-- Списък с документи -->
 					<Item id="43501" name="Затваряне на избраните"/>
@@ -519,7 +519,7 @@
 				<Item CMDID="41016" name="Преместване в кошчето"/>
 				<Item CMDID="41014" name="Презареждане"/>
 				<Item CMDID="41010" name="Печат..."/>
-				<Item CMDID="42028" name="Само за четене в Notepad++"/>
+				<Item CMDID="42028" name="Само за четене в npminmin"/>
 				<Item CMDID="42033" name="Атрибут &quot;само за четене&quot; в Windows"/>
 				<Item CMDID="2" name="Копиране в системния буфер"/>
 				<!-- Подменю "Копиране в системния буфер" -->
@@ -1066,7 +1066,7 @@
 				<FileAssoc title="Файлови асоциации">
 					<Item id="4009" name="Поддържани"/>
 					<Item id="4010" name="Регистрирани"/>
-					<Item id="4008" name="За да използвате тази функция, рестартирайте Notepad++ с администраторски права"/>
+					<Item id="4008" name="За да използвате тази функция, рестартирайте npminmin с администраторски права"/>
 				</FileAssoc>
 				<!-- Синтаксис -->
 				<Language title="Синтаксис">
@@ -1154,7 +1154,7 @@
 					<Item id="6908" name="Попълване на полето за търсене с избрания текст"/>
 					<Item id="6916" name=": максимален брой символи за автоматично попълване на полето"/>
 					<Item id="6909" name="Избиране на думата под курсора, когато не е избрано нищо"/>
-					<Item id="6902" name="Равноширок шрифт в диалога за търсене (изисква се рестартиране на Notepad++)"/>
+					<Item id="6902" name="Равноширок шрифт в диалога за търсене (изисква се рестартиране на npminmin)"/>
 					<Item id="6903" name="Диалога за търсене остава отворен, след като резултатите бъдат изведени в прозореца"/>
 					<Item id="6904" name="Потвърждение при &quot;Замяна на всичко във всички отворени&quot; документи"/>
 					<Item id="6905" name="Без преместване към следващото повторение при замяна"/>
@@ -1206,7 +1206,7 @@
 					<Item id="6154" name="По подразбиране (един прозорец)"/>
 					<Item id="6153" name="Винаги в отделен прозорец"/>
 					<Item id="6152" name="Отваряне на сесия в нов прозорец (и автоматично запазване при изход)"/>
-					<Item id="6155" name="* Изисква се рестартиране на Notepad++"/>
+					<Item id="6155" name="* Изисква се рестартиране на npminmin"/>
 					<!-- Дата -->
 					<Item id="6171" name="Персонализиране на вмъкване на дата и час"/>
 					<Item id="6175" name="Обръщане реда на датата и часа (кратки и дълги формати)"/>
@@ -1299,8 +1299,8 @@
 					<Item id="6365" name="Авто-обновяване:"/>
 					<ComboBox id="6364">
 						<Element name="Изключено"/>
-						<Element name="При стартиране на Notepad++"/>
-						<Element name="При изход от Notepad++"/>
+						<Element name="При стартиране на npminmin"/>
+						<Element name="При изход от npminmin"/>
 					</ComboBox>
 					<Item id="6360" name="Изключване на всички звуци"/>
 					<Item id="6334" name="Автоматично определяне кодировката на знаците"/>
@@ -1848,8 +1848,8 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 2. Ако е отметнато глобалното деактивиране на &quot;На повече редове&quot; и отворите голям файл, &quot;На повече редове&quot; ще бъде изключено за всички файлове. Може да се включи отново чрез меню &quot;Изглед &gt; На повече редове&quot;."/>
 			<!-- "Облак и връзка" -->
 			<cloud-invalid-warning value="Невалиден път"/>
-			<cloud-restart-warning value="Изисква се рестартиране на Notepad++"/>
-			<cloud-select-folder value="Избор на папка, от/в която Notepad++ ще чете/пише настройките си"/>
+			<cloud-restart-warning value="Изисква се рестартиране на npminmin"/>
+			<cloud-select-folder value="Избор на папка, от/в която npminmin ще чете/пише настройките си"/>
 			<!-- Дясно щракане върху раздел - "Преименуване..." -->
 			<tabrename-title value="Преименуване на раздела"/>
 			<tabrename-newname value="Ново име:"/>
@@ -1873,7 +1873,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 			<tab-untitled-string value="нов "/>
 			<close-panel-tip value="Затваряне"/>
 			<fileSaveAsCopySaveButton-tip value="Задръжте клавиша Shift, докато натискате Запис, за да отворите копието след запазване."/>
-			<scintillaRenderingTechnology-tip value="Може да се подобри изобразяването на специални символи или да се решат някои графични проблеми. Изисква се рестартиране на Notepad++."/>
+			<scintillaRenderingTechnology-tip value="Може да се подобри изобразяването на специални символи или да се решат някои графични проблеми. Изисква се рестартиране на npminmin."/>
 			<goto-setting-tip value="Намерете настройките си тук"/>
 			<!-- Лента на състоянието -->
 			<statusbar-length-lines value="дълж.: $STR_REPLACE1$    редове: $STR_REPLACE2$"/>
@@ -1920,9 +1920,9 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 		<!-- Диалогови прозорци със съобщения -->
 		<MessageBox>
 			<!-- $INT_REPLACE$ и $STR_REPLACE$ са контейнери, не се превеждат -->
-			<ContextMenuXmlEditWarning title="Редактиране на контекстното меню" message="Редактирането на файла contextMenu.xml позволява да се промени контекстното меню на Notepad++
+			<ContextMenuXmlEditWarning title="Редактиране на контекстното меню" message="Редактирането на файла contextMenu.xml позволява да се промени контекстното меню на npminmin
 
-Изисква се рестартиране на Notepad++"/>
+Изисква се рестартиране на npminmin"/>
 			<SaveCurrentModifWarning title="Запис на текущите промени" message="Текущите промени трябва да бъдат записани.
 Записаните промени не могат да бъдат отменяни.
 
@@ -1931,10 +1931,10 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Записаните промени не могат да бъдат отменяни.
 
 Продължаване?"/>
-			<CannotMoveDoc title="Преместване в нов прозорец на Notepad++" message="Документът е променен, запишете го и опитайте отново"/>
-			<DocReloadWarning title="Презареждане" message="Сигурни ли сте, че искате текущият документ да бъде презареден и да се загубят направените с Notepad++ промени?"/>
+			<CannotMoveDoc title="Преместване в нов прозорец на npminmin" message="Документът е променен, запишете го и опитайте отново"/>
+			<DocReloadWarning title="Презареждане" message="Сигурни ли сте, че искате текущият документ да бъде презареден и да се загубят направените с npminmin промени?"/>
 			<FileLockedWarning title="Неуспешно записване" message="Проверете дали файлът не е отворен от друга програма"/>
-			<FileAlreadyOpenedInNpp title="" message="Файлът вече е отворен в Notepad++"/>
+			<FileAlreadyOpenedInNpp title="" message="Файлът вече е отворен в npminmin"/>
 			<RenameTabTemporaryNameAlreadyInUse title="Преименуването е неуспешно" message="Посоченото име вече се използва в друг раздел"/>
 			<RenameTabTemporaryNameIsEmpty title="Неуспешно преименуване" message="Името не може да бъде празно и не може да съдържа само интервали или табулации."/>
 			<DeleteFileFailed title="Изтриване на файл" message="Изтриването на файла е неуспешно"/>
@@ -1960,10 +1960,10 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 			<SortLocaleExcept title="Неуспешно подреждане" message="$STR_REPLACE$"/>
 			<BufferInvalidWarning title="Неуспешен запис" message="Не може да се запази: Невалиден буфер"/>
 			<OpenInAdminMode title="Неуспешен запис" message="Файлът може би е защитен и не може да се запази.
-Искате ли Notepad++ да бъде стартиран с администраторски права?"/>
-			<OpenInAdminModeFailed title="Неуспешно стартиране с администраторски права" message="Notepad++ не може да бъде стартиран с администраторски права"/>
+Искате ли npminmin да бъде стартиран с администраторски права?"/>
+			<OpenInAdminModeFailed title="Неуспешно стартиране с администраторски права" message="npminmin не може да бъде стартиран с администраторски права"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Неуспешен запис" message="Файлът може би е защитен и не може да се запази.
-Искате ли Notepad++ да бъде стартиран с администраторски права?"/>
+Искате ли npminmin да бъде стартиран с администраторски права?"/>
 			<DroppingFolderAsProjectModeWarning title="Невалидно действие" message="Тъй като сте в режим &quot;Директория като работно място&quot;, може да се влачат само файлове или папки, но не и двете.
 
 За да се разреши това действие, трябва да се включи опцията &quot;Отваряне на всички файлове от папката при влаченето ѝ в прозореца&quot; в секция &quot;Път по подразбиране&quot; на предпочитаните настройки."/>
@@ -1987,14 +1987,14 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 
 Файлът е променен от друга програма.
 
-Искате ли да бъде презареден и да се загубят направените в Notepad++ промени?"/>
+Искате ли да бъде презареден и да се загубят направените в npminmin промени?"/>
 			<PrehistoricSystemDetected title="Открита праисторическа система" message="Изглежда, че все още използвате праисторическа система. Тази функция работи само на модерна система, съжалявам."/>
-			<XpUpdaterProblem title="Notepad++ обновяване" message="Обновяването на Notepad++ е несъвместимо с Windows XP заради остарелият слой за сигурност.
+			<XpUpdaterProblem title="npminmin обновяване" message="Обновяването на npminmin е несъвместимо с Windows XP заради остарелият слой за сигурност.
 
-Искате ли страницата на Notepad++ да бъде посетена за да се изтегли последната версия?"/>
+Искате ли страницата на npminmin да бъде посетена за да се изтегли последната версия?"/>
 			<DocTooDirtyToMonitor title="Проблем с наблюдение" message="Документът е мръсен. Запишете промените преди да го наблюдавате."/>
 			<DocNoExistToMonitor title="Проблем с наблюдение" message="Файлът трябва да съществува за да бъде наблюдаван"/>
-			<FileTooBigToOpen title="Проблем с размер на файл" message="Файлът е твърде голям за да се отвори от Notepad++"/>
+			<FileTooBigToOpen title="Проблем с размер на файл" message="Файлът е твърде голям за да се отвори от npminmin"/>
 			<FileLoadingException title="Код за изключение: $STR_REPLACE$" message="Възникна грешка при зареждането на файла!"/>
 			<CreateNewFileOrNot title="Създаване на нов файл" message="&quot;$STR_REPLACE$&quot; не съществува.
 
@@ -2044,25 +2044,25 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 			<FindCharRangeValueError title="Проблем със стойност на обхвата" message="Трябва да въведете между 0 и 255."/>
 			<SCMapperDoDeleteOrNot title="Сигурни ли сте?" message="Сигурни ли сте, че искате този бърз клавиш да бъде изтрит?"/>
 			<ViewInBrowser title="Преглед на текущия файл в браузър" message="Програмата не може да бъде намерена във вашата система."/>
-			<ExitToUpdatePlugins title="Затваряне на Notepad++" message="Notepad++ ще се затвори за да продължи операциите.
+			<ExitToUpdatePlugins title="Затваряне на npminmin" message="npminmin ще се затвори за да продължи операциите.
 Програмата ще се рестартира след като всички операции бъдат завършени.
 
 Продължаване?"/>
-			<NeedToRestartToLoadPlugins title="Рестартиране на Notepad++" message="Notepad++ трябва да се рестартира за да заредят инсталираните добавки"/>
-			<GUpProxyConfNeedAdminMode title="Настройка на прокси" message="За настройка на прокси, рестартирайте Notepad++ с администраторски права"/>
+			<NeedToRestartToLoadPlugins title="Рестартиране на npminmin" message="npminmin трябва да се рестартира за да заредят инсталираните добавки"/>
+			<GUpProxyConfNeedAdminMode title="Настройка на прокси" message="За настройка на прокси, рестартирайте npminmin с администраторски права"/>
 			<WantToOpenHugeFile title="Отваряне на огромен файл" message="Отварянето на огромен файл с размер над 2GB може да отнеме няколко минути.
 			
 Искате ли да се отвори?"/>
-			<ChangeHistoryEnabledWarning title="Рестартиране на Notepad++" message="Notepad++ трябва да се рестартира за да се активира историята на промените"/>
-			<WindowsSessionExit title="Notepad++ – Излизане от сесията на Windows" message="Сесията на Windows ще бъде прекратена, но има незаписани данни. Искате ли да излезете от Notepad++ сега?"/>
+			<ChangeHistoryEnabledWarning title="Рестартиране на npminmin" message="npminmin трябва да се рестартира за да се активира историята на промените"/>
+			<WindowsSessionExit title="npminmin – Излизане от сесията на Windows" message="Сесията на Windows ще бъде прекратена, но има незаписани данни. Искате ли да излезете от npminmin сега?"/>
 			<LanguageMenuCompactWarning title="Компактно меню със синтаксиси" message="Тази опция ще бъде променена при следващото стартиране."/>
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Незапазените промени ще бъдат отхвърлени!
 Искате ли промените да бъдат запазени, преди да смените темата?"/>
-			<MacroAndRunCmdlWarning title="Съвместимост на макроси и команди за изпълнение" message="Вашите макроси и команди за изпълнение, записани в Notepad++ v.8.5.2 (или по-стара), може да не са съвместими с текущата версия на Notepad++.
+			<MacroAndRunCmdlWarning title="Съвместимост на макроси и команди за изпълнение" message="Вашите макроси и команди за изпълнение, записани в npminmin v.8.5.2 (или по-стара), може да не са съвместими с текущата версия на npminmin.
 Моля, тествайте тези команди и ако е необходимо ги редактирайте отново.
 
-Като алтернатива, можете да понижите версията си до Notepad++ v8.5.2 и да възстановите предишните си данни.
-Notepad++ ще направи резервно копие на стария файл &quot;shortcuts.xml&quot; и ще го запише като &quot;shortcuts.xml.v8.5.2.backup&quot;.
+Като алтернатива, можете да понижите версията си до npminmin v8.5.2 и да възстановите предишните си данни.
+npminmin ще направи резервно копие на стария файл &quot;shortcuts.xml&quot; и ще го запише като &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Преименувайки &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, вашите команди трябва да бъдат възстановени и да работят правилно."/>
 			<NotEnoughRoom4Saving title="Неуспешно запазване" message="Неуспешно запазване на файл.
 
@@ -2082,8 +2082,8 @@ Notepad++ ще направи резервно копие на стария фа
 
 ЗАБЕЛЕЖКА:
 Ако изберете да не създавате заместители или да ги затворите по-късно, сесията ЩЕ БЪДЕ МОДИФИЦИРАНА ПРИ ИЗХОД! Препоръчва се да направите резервно копие на &quot;session.xml&quot; сега."/>
-			<RTLvsDirectWrite title="Не може да се изпълни посока на текста отдясно наляво" message="Посоката на текста отдясно наляво не е съвместима с DirectWrite режима. Моля, изключете DirectWrite в раздел &quot;Разни&quot; от предпочитаните настройки и рестартирайте Notepad++."/>
-			<FileMemoryAllocationFailed title="Изключение: Неуспешно разпределение на паметта на файла" message="Вероятно няма достатъчно свободна съседна памет за файла, който се зарежда от Notepad++."/>
+			<RTLvsDirectWrite title="Не може да се изпълни посока на текста отдясно наляво" message="Посоката на текста отдясно наляво не е съвместима с DirectWrite режима. Моля, изключете DirectWrite в раздел &quot;Разни&quot; от предпочитаните настройки и рестартирайте npminmin."/>
+			<FileMemoryAllocationFailed title="Изключение: Неуспешно разпределение на паметта на файла" message="Вероятно няма достатъчно свободна съседна памет за файла, който се зарежда от npminmin."/>
 			<FindRegexBackwardDisabled title="Изключено обратно търсене с регулярен израз" message="По подразбиране търсенето в обратна посока с регулярен израз е изключено поради потенциални неочаквани резултати. За да извършите търсене в обратна посока, отворете диалоговия прозорец &quot;Търсене&quot; и изберете нормален или разширен режим вместо регулярен израз.
 Натиснете бутона OK, за да отворите диалоговия прозорец &quot;Търсене&quot; или да зададете фокус върху него.
 
@@ -2092,11 +2092,11 @@ Notepad++ ще направи резервно копие на стария фа
 			<FindAutoChangeOfInSelectionWarning title="Предупреждение при търсене" message="Състоянието на отметката &quot;В избраното&quot; е променено автоматично.
 
 Проверете условието за търсене, преди да извършите действието."/>
-			<Need2Restart2ShowMenuShortcuts title="Рестартиране на Notepad++" message="Notepad++ трябва да се рестартира, за да се появят бутоните от дясното меню."/>
-			<NoAdminRight2ChangeReadOnlyFileAttribute title="Неуспешна промяна на атрибута &quot;само за четене&quot;" message="Стартирайте Notepad++ с администраторски права, за да промените атрибутите на файла."/>
+			<Need2Restart2ShowMenuShortcuts title="Рестартиране на npminmin" message="npminmin трябва да се рестартира, за да се появят бутоните от дясното меню."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Неуспешна промяна на атрибута &quot;само за четене&quot;" message="Стартирайте npminmin с администраторски права, за да промените атрибутите на файла."/>
 			<FullReadOnlySavingForbidden title="Неуспешен запис" message="Файлът не може да бъде записан.
 
-Режимът на Notepad++ за пълна забрана на запис в режим &quot;само за четене&quot; предотврати записването на файла."/>
+Режимът на npminmin за пълна забрана на запис в режим &quot;само за четене&quot; предотврати записването на файла."/>
 		</MessageBox>
 	</Native-Langue>
 </NotepadPlus>

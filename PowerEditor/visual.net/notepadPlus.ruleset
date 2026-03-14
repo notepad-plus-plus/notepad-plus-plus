@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<RuleSet Name="Notepad++ C++ Rules" Description="Based on Microsoft Native Recommended Rules and C++ Core Check Rules." ToolsVersion="17.0">
+<RuleSet Name="npminmin C++ Rules" Description="Based on Microsoft Native Recommended Rules and C++ Core Check Rules." ToolsVersion="17.0">
   <Include Path="cppcorecheckrules.ruleset" Action="Default" />
   <Include Path="nativerecommendedrules.ruleset" Action="Default" />
   <Rules AnalyzerId="Microsoft.Analyzers.NativeCodeAnalysis" RuleNamespace="Microsoft.Rules.Native">

@@ -10,7 +10,7 @@
 	<functionList>
 		<!--
 		|   Based on:
-		|       https://notepad-plus-plus.org/community/topic/12972/trouble-with-defining-a-function-list-entry/7
+		|       https://github.com/ridermw/np-minus-minus/community/topic/12972/trouble-with-defining-a-function-list-entry/7
 		|
 		|   By convention, the style of comment is indicated by the file extension,
 		|   with ".hs"  indicating a "usual"  Haskell file

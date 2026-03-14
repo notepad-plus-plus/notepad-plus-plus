@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-Indonesian Translation for Notepad++
+Indonesian Translation for npminmin
 Authors: Nicedward(7.5.5); Sahid A.Z.(8.5)
 Last modified by Sahid A.Z. on 3/3/2023
 -->
@@ -335,17 +335,17 @@ Last modified by Sahid A.Z. on 3/3/2023
 					<Item id="46001" name="Konfigurator Gaya..."/>
 					<Item id="46250" name="Definisikan bahasa Anda..."/>
 					<Item id="46300" name="Buka folder Bahasa Definisi Pengguna..."/>
-					<Item id="46301" name="Koleksi Bahasa Definisi Pengguna Notepad++"/>
+					<Item id="46301" name="Koleksi Bahasa Definisi Pengguna npminmin"/>
 					<Item id="46180" name="Definisi Pengguna"/>
-					<Item id="47000" name="Ihwal Notepad++..."/>
+					<Item id="47000" name="Ihwal npminmin..."/>
 					<Item id="47010" name="Argumen Baris Perintah..."/>
-					<Item id="47001" name="Beranda Notepad++"/>
-					<Item id="47002" name="Laman Proyek Notepad++"/>
-					<Item id="47003" name="Manual Pengguna Daring Notepad++"/>
-					<Item id="47004" name="Komunitas (Forum) Notepad++"/>
+					<Item id="47001" name="Beranda npminmin"/>
+					<Item id="47002" name="Laman Proyek npminmin"/>
+					<Item id="47003" name="Manual Pengguna Daring npminmin"/>
+					<Item id="47004" name="Komunitas (Forum) npminmin"/>
 					<Item id="47012" name="Info Awakutu..."/>
 					<Item id="47005" name="Dapatkan Plugin Lain"/>
-					<Item id="47006" name="Perbarui Notepad++"/>
+					<Item id="47006" name="Perbarui npminmin"/>
 					<Item id="47009" name="Atur Proksi Pembaru..."/>
 					<Item id="48005" name="Impor plugin..."/>
 					<Item id="48006" name="Impor tema gaya..."/>
@@ -906,7 +906,7 @@ Last modified by Sahid A.Z. on 3/3/2023
 
 					<Item id="6131" name="Menu"/>
 					<Item id="6122" name="Sembunyikan bilah menu (ganti dengan Alt/F10)"/>
-					<Item id="6132" name="Sembunyikan pintasan kanan ＋ ▼ ✕ dari bilah menu (Perlu memulai ulang Notepad++)"/>
+					<Item id="6132" name="Sembunyikan pintasan kanan ＋ ▼ ✕ dari bilah menu (Perlu memulai ulang npminmin)"/>
 					<Item id="6123" name="Pelokalan"/>
 
 					<Item id="6128" name="Gilir ikon"/>
@@ -1019,7 +1019,7 @@ Anda dapat mendefinisikan beberapa penanda kolom dengan menggunakan spasi putih 
 				</DefaultDir>
 
 				<FileAssoc title="Asosiasi Berkas">
-					<Item id="4008" name="Silakan tutup dan mulai ulang Notepad++ dalam mode Administrator untuk menggunakan fitur ini."/>
+					<Item id="4008" name="Silakan tutup dan mulai ulang npminmin dalam mode Administrator untuk menggunakan fitur ini."/>
 					<Item id="4009" name="Ekstensi didukung:"/>
 					<Item id="4010" name="Ekstensi terdaftar:"/>
 				</FileAssoc>
@@ -1092,7 +1092,7 @@ Anda dapat mendefinisikan beberapa penanda kolom dengan menggunakan spasi putih 
 				</Print>
 
 				<Searching title="Pencarian">
-					<Item id="6902" name="Gunakan fon monospasi di dialog Temukan (Perlu memulai ulang Notepad++)"/>
+					<Item id="6902" name="Gunakan fon monospasi di dialog Temukan (Perlu memulai ulang npminmin)"/>
 					<Item id="6903" name="Dialog Temukan tetap terbuka setelah pencarian dengan keluaran jendela hasil"/>
 					<Item id="6904" name="Konfirmasi Ganti Semua dalam Semua Dokumen Yang Terbuka"/>
 					<Item id="6905" name="Ganti: Jangan berpindah ke temuan selanjutnya"/>
@@ -1227,7 +1227,7 @@ Anda dapat mendefinisikan beberapa penanda kolom dengan menggunakan spasi putih 
 					<Item id="6313" name="Perbarui diam-diam"/>
 					<Item id="6325" name="Gulir ke baris terakhir setelah diperbarui"/>
 					<Item id="6322" name="Ekst. berkas sesi:"/>
-					<Item id="6323" name="Aktifkan pembaru otomatis Notepad++"/>
+					<Item id="6323" name="Aktifkan pembaru otomatis npminmin"/>
 					<Item id="6324" name="Penukar Dokumen (Ctrl+TAB)"/>
 					<Item id="6331" name="Tampilkan nama berkas saja di bilah judul"/>
 					<Item id="6334" name="Otomatis deteksi pengodean karakter"/>
@@ -1304,8 +1304,8 @@ Anda dapat mengaktifkan kembali dialog ini di Preferensi nanti."/>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
-			<ContextMenuXmlEditWarning title="Mengedit Menu Konteks" message="Mengedit contextMenu.xml memungkinkan Anda untuk mengubah menu konteks munculan Notepad++.
-Anda harus memulai ulang Notepad++ untuk menerapkan perubahan."/>
+			<ContextMenuXmlEditWarning title="Mengedit Menu Konteks" message="Mengedit contextMenu.xml memungkinkan Anda untuk mengubah menu konteks munculan npminmin.
+Anda harus memulai ulang npminmin untuk menerapkan perubahan."/>
 			<SaveCurrentModifWarning title="Simpan Perubahan Ini" message="Anda harus menyimpan perubahan ini.
 Semua perubahan yang disimpan tidak dapat dibatalkan.
 
@@ -1314,15 +1314,15 @@ Lanjutkan?"/><!-- HowToReproduce: when you openned file is modified but unsaved 
 Semua perubahan yang disimpan tidak dapat dibatalkan.
 
 Lanjutkan?"/><!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
-			<CannotMoveDoc title="Pindah ke jendela baru Notepad++" message="Dokumen diubah, simpan dan coba lagi."/><!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
-			<DocReloadWarning title="Muat ulang" message="Apakah Anda yakin ingin memuat ulang berkas ini dan kehilangan perubahan yang dibuat di Notepad++?"/>
+			<CannotMoveDoc title="Pindah ke jendela baru npminmin" message="Dokumen diubah, simpan dan coba lagi."/><!-- HowToReproduce: From your npminmin drag & drop a clean (not dirty) file to outside of npminmin, another instance of npminmin will be created. Then from your first npminmin drag & drop an unsaved file to the new instance. -->
+			<DocReloadWarning title="Muat ulang" message="Apakah Anda yakin ingin memuat ulang berkas ini dan kehilangan perubahan yang dibuat di npminmin?"/>
 			<FileLockedWarning title="Gagal menyimpan" message="Silakan cek apakah berkas ini terbuka di program lain"/>
-			<FileAlreadyOpenedInNpp title="" message="Berkas sudah terbuka di Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
+			<FileAlreadyOpenedInNpp title="" message="Berkas sudah terbuka di npminmin."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
 			<RenameTabTemporaryNameAlreadyInUse title="Gagal mengganti nama" message="Nama ini sudah digunakan di tab lain."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
 			<DeleteFileFailed title="Hapus Berkas" message="Gagal menghapus berkas"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="Berkas yang akan dibuka terlalu banyak" message="$INT_REPLACE$ berkas akan dibuka.
-Apakah Anda yakin ingin membukanya?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
+Apakah Anda yakin ingin membukanya?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into npminmin. -->
 			<SettingsOnCloudError title="Pengaturan Awan" message="Tampaknya jalur lokasi awan diatur pada drive baca-saja
 atau folder yang memerlukan hak istimewa untuk akses menulis.
 Pengaturan awan Anda akan dibatalkan. Silakan reset nilai terkait via dialog Preferensi."/>
@@ -1359,14 +1359,14 @@ Apakah Anda ingin memuat ulangnya?"/>
 			<DoReloadOrNotAndLooseChange title="Muat ulang" message="&quot;$STR_REPLACE$&quot;
 
 Berkas ini telah diubah oleh program lain.
-Apakah Anda ingin memuat ulangnya dan kehilangan perubahan yang dibuat di Notepad++?"/>
+Apakah Anda ingin memuat ulangnya dan kehilangan perubahan yang dibuat di npminmin?"/>
 			<PrehistoricSystemDetected title="Sistem lama terdeteksi " message="Tampaknya Anda masih menggunakan sistem lama. Maaf, fitur ini hanya bekerja pada sistem modern."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
-			<XpUpdaterProblem title="Pembaru Notepad++" message="Pembaru tidak kompatibel dengan XP karena lapisan keamanan XP yang usang.
-Apakah Anda ingin pergi ke laman Notepad++ untuk mengunduh versi terbaru?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Pengaturan Proksi" message="Silakan mulai ulang Notepad++ dalam mode Admin untuk mengonfigurasi proksi"/>
+			<XpUpdaterProblem title="Pembaru npminmin" message="Pembaru tidak kompatibel dengan XP karena lapisan keamanan XP yang usang.
+Apakah Anda ingin pergi ke laman npminmin untuk mengunduh versi terbaru?"/><!-- HowToReproduce: Run menu "? -> Update npminmin" under Windows XP. -->
+			<GUpProxyConfNeedAdminMode title="Pengaturan Proksi" message="Silakan mulai ulang npminmin dalam mode Admin untuk mengonfigurasi proksi"/>
 			<DocTooDirtyToMonitor title="Masalah pemantauan" message="Dokumen ini kotor. Silakan simpan perubahan sebelum memantaunya."/>
 			<DocNoExistToMonitor title="Masalah pemantauan" message="Berkas ini seharusnya ada untuk dipantau."/>
-			<FileTooBigToOpen title="Masalah ukuran berkas" message="Berkas terlalu besar untuk dibuka oleh Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+			<FileTooBigToOpen title="Masalah ukuran berkas" message="Berkas terlalu besar untuk dibuka oleh npminmin"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
 			<FileLoadingException title="Kode eksepsi: $STR_REPLACE$" message="Kalau terjadi saat memuat berkas!"/>
 			<WantToOpenHugeFile title="Peringatan membuka berkas besar" message="Membuka berkas berukuran 2GB+ dapat memakan waktu beberapa menit.
 Apakah Anda ingin membukanya?"/>
@@ -1380,8 +1380,8 @@ Folder &quot;$STR_REPLACE2$&quot; tidak ada."/>
 Apakah Anda ingin tetap menyimpan berkas ini?"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<LoadStylersFailed title="Gagal memuat stylers.xml" message="Gagal memuat &quot;$STR_REPLACE$&quot;!"/>
 			<LoadLangsFailed title="Konfigurator" message="Gagal memuat langs.xml!
-Apakah Anda ingin memulihkan langs.xml Anda?"/><!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
-			<LoadLangsFailedFinal title="Konfigurator" message="Gagal memuat langs.xml"/><!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
+Apakah Anda ingin memulihkan langs.xml Anda?"/><!-- HowToReproduce: Close npminmin. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open npminmin. -->
+			<LoadLangsFailedFinal title="Konfigurator" message="Gagal memuat langs.xml"/><!-- HowToReproduce: Close npminmin. Use another editor to make "langs.xml" an invalid xml file then save it. Open npminmin. -->
 			<FolderAsWorspaceSubfolderExists title="Masalah menambahkan folder sebagai Ruang Kerja" message="Telah ada subfolder dari folder yang Anda ingin tambahkan.
 Silakan hapus akarnya dari panel sebelum menambahkan folder &quot;$STR_REPLACE$&quot;."/><!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
@@ -1404,17 +1404,17 @@ silakan gunakan nama lain."/>
 			<SCMapperDoDeleteOrNot title="Apakah Anda yakin?" message="Apakah Anda yakin ingin menghapus pintasan ini?"/>
 			<FindCharRangeValueError title="Masalah Rentang Nilai" message="Anda seharusnya mengetik antara 0 dan 255."/>
 			<OpenInAdminMode title="Gagal menyimpan" message="Berkas ini tidak dapat disimpan dan mungkin terproteksi.
-Apakah Anda ingin meluncurkan Notepad++ dalam mode Administrator?"/>
+Apakah Anda ingin meluncurkan npminmin dalam mode Administrator?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Gagal menyimpan" message="Berkas ini tidak dapat disimpan dan mungkin terproteksi.
-Apakah Anda ingin meluncurkan Notepad++ dalam mode Administrator?"/>
-			<OpenInAdminModeFailed title="Gagal membuka dalam mode Administrator." message="Notepad++ tidak dapat dibuka dalam mode Administrator."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
+Apakah Anda ingin meluncurkan npminmin dalam mode Administrator?"/>
+			<OpenInAdminModeFailed title="Gagal membuka dalam mode Administrator." message="npminmin tidak dapat dibuka dalam mode Administrator."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
 			<ViewInBrowser title="Lihat Berkas Ini di Peramban" message="Aplikasi tidak dapat ditemukan dalam sistem Anda"/>
-			<ExitToUpdatePlugins title="Notepad++ akan tertutup" message="Jika Anda mengeklik YA, Anda akan keluar dari Notepad++ untuk melanjutkan operasi ini.
-Notepad++ akan dimulai ulang setelah semua operasi dihentikan.
+			<ExitToUpdatePlugins title="npminmin akan tertutup" message="Jika Anda mengeklik YA, Anda akan keluar dari npminmin untuk melanjutkan operasi ini.
+npminmin akan dimulai ulang setelah semua operasi dihentikan.
 Lanjutkan?"/>
-			<NeedToRestartToLoadPlugins title="Notepad++ perlu dimulai ulang" message="Anda harus memulai ulang Notepad++ untuk memuat plugin yang Anda pasang."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
-			<ChangeHistoryEnabledWarning title="Notepad++ perlu dimulai ulang" message="Anda harus memulai ulang Notepad++ untuk mengaktifkan Riwayat Perubahan."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
-			<WindowsSessionExit title="Notepad++ - Keluar sesi Windows" message="Sesi Windows akan dihentikan, tetapi beberapa data Anda belum disimpan. Apakah Anda ingin keluar dari Notepad++ sekarang?"/>
+			<NeedToRestartToLoadPlugins title="npminmin perlu dimulai ulang" message="Anda harus memulai ulang npminmin untuk memuat plugin yang Anda pasang."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+			<ChangeHistoryEnabledWarning title="npminmin perlu dimulai ulang" message="Anda harus memulai ulang npminmin untuk mengaktifkan Riwayat Perubahan."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+			<WindowsSessionExit title="npminmin - Keluar sesi Windows" message="Sesi Windows akan dihentikan, tetapi beberapa data Anda belum disimpan. Apakah Anda ingin keluar dari npminmin sekarang?"/>
 			<LanguageMenuCompactWarning title="Menu Bahasa Ringkas" message="Opsi ini akan diubah pada peluncuran berikutnya."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Perubahan yang belum disimpan akan dibuang!
 Apakah Anda ingin menyimpan perubahan sebelum mengganti tema?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
@@ -1535,8 +1535,8 @@ Apakah Anda ingin menyimpan perubahan sebelum mengganti tema?"/><!-- HowToReprod
 			<word-chars-list-warning-end value=" dalam daftar karakter Anda."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
 			<backup-select-folder value="Pilih folder sebagai direktori cadangan"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value="Jalur tidak valid."/>
-			<cloud-restart-warning value="Silakan mulai ulang Notepad++ agar perubahan diterapkan."/>
-			<cloud-select-folder value="Pilih folder dari/ke tempat Notepad++ membaca/menulis pengaturannya"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+			<cloud-restart-warning value="Silakan mulai ulang npminmin agar perubahan diterapkan."/>
+			<cloud-select-folder value="Pilih folder dari/ke tempat npminmin membaca/menulis pengaturannya"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
 			<default-open-save-select-folder value="Pilih folder sebagai direktori baku"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Gunakan Shift+Enter untuk mencari dalam arah berlawanan"/>
 			<two-find-buttons-tip value="mode 2 tombol temukan"/>

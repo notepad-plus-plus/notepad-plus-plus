@@ -6,7 +6,7 @@
 <NotepadPlus>
 	<!--
 	If "RTL" attribute is present and its value is "yes", then user can add "editZoneRTL" attribute beside,
-	and set the value of the attribute in question to "no", so Notepad++ GUI will be RTL,
+	and set the value of the attribute in question to "no", so npminmin GUI will be RTL,
 	but Scintilla zone will be LTR by opening files (see the commented example).
 	Of course, user can set any direction they want afterward, and what they have set on document will be remembered across the sessions.
 	-->
@@ -225,13 +225,13 @@
 
 					<Item id="46001" name="ئۇسلوب تەڭشىكى..."/>
 					<Item id="46180" name="ئۆزى بېكىتىش"/>
-					<Item id="47000" name="ھەققىدە Notepad++..."/>
-					<Item id="47001" name=" توربېتى  Notepad++      "/>
-					<Item id="47002" name="ئىشتۈرى توربېتى  Notepad++      "/>
+					<Item id="47000" name="ھەققىدە npminmin..."/>
+					<Item id="47001" name=" توربېتى  npminmin      "/>
+					<Item id="47002" name="ئىشتۈرى توربېتى  npminmin      "/>
 					<Item id="47003" name="توردىكى ئوقۇشلۇق"/>
 					<Item id="47004" name="مۇنبەر"/>
 					<Item id="47005" name="  قېتىلما چۈشۈرۈش"/>
-					<Item id="47006" name="يېڭىلاش Notepad++"/>
+					<Item id="47006" name="يېڭىلاش npminmin"/>
 					<Item id="47008" name="توردىكى ياردەم"/>
 					<Item id="48005" name=" قېتىلما كىرگۈزۈش ..."/>
 					<Item id="48006" name=" تېما كىرگۈزۈش ..."/>
@@ -537,7 +537,7 @@
 					<Item id="6319" name="قوزغىتىش"/>
 					<Item id="6320" name="ئاستىغا سىزماسلىق"/>
 					<Item id="6322" name="سۆھبەت ھۈججىتى تىپ نامى :"/>
-					<Item id="6323" name=" يېڭىلاشنى قوزغىتىشNotepad++"/>
+					<Item id="6323" name=" يېڭىلاشنى قوزغىتىشnpminmin"/>
 					<Item id="6324" name="ھۈججەت ئالماشتۇرغۇچ (Ctrl+TAB)"/>
 					<Item id="6326" name=" ئەقلىي  يورۇتۇش "/>
 					<Item id="6329" name="ماس خەتكۈشلەرنى  يورۇتۇش "/>
@@ -598,14 +598,14 @@
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="تىزىملىك تەھرىرلەش" message=".نى قايتا ئاچسىڭىز ،  ئاسما تىزىملىك ئۆزگىرەيدۇNotepad++ ،نى ئۆزگەرتىپcontextMenu.xml"/>
-			<NppHelpAbsentWarning title="ھۈججەت مەۋجۇت ئەمەس" message="\rتوربېتىدىن چۈشۈرۈڭ  Notepad++  ،ھۈججەت مەۋجۇت ئەمەس."/>
+			<ContextMenuXmlEditWarning title="تىزىملىك تەھرىرلەش" message=".نى قايتا ئاچسىڭىز ،  ئاسما تىزىملىك ئۆزگىرەيدۇnpminmin ،نى ئۆزگەرتىپcontextMenu.xml"/>
+			<NppHelpAbsentWarning title="ھۈججەت مەۋجۇت ئەمەس" message="\rتوربېتىدىن چۈشۈرۈڭ  npminmin  ،ھۈججەت مەۋجۇت ئەمەس."/>
 			<SaveCurrentModifWarning title="ھازىرقى ئۆزگەرتىشنى ساقلاش" message="ئۆزگەرىتكەن ھۈججەتنى چوقۇم ساقلاڭ\rساقلىغاندىن كېيىن يېنىۋېلىش ئىشلىمەيدۇ.\rداۋاملاشتۇرامسىز?"/>
 			<LoseUndoAbilityWarning title="يېنىۋېلىش ئىقتىدارى ئىشلىمەيدۇ" message="ئۆزگەرىتكەن ھۈججەتنى چوقۇم ساقلاڭ\rساقلىغاندىن كېيىن يېنىۋېلىش ئىشلىمەيدۇ.\rداۋاملاشتۇرامسىز?"/>
-			<CannotMoveDoc title="  يېڭى كۆزنىكىگە يۆتكەش  Notepad++ " message="ھۈججەت ئۆزگەرتىلدى،ساقلىۋېلىپ ئاندىن سىناڭ"/>
+			<CannotMoveDoc title="  يېڭى كۆزنىكىگە يۆتكەش  npminmin " message="ھۈججەت ئۆزگەرتىلدى،ساقلىۋېلىپ ئاندىن سىناڭ"/>
 			<DocReloadWarning title="يۈكلەش" message="ھۆججەتنى ئۆزگەرتىشلىرىڭىز بىلەن كارىڭىز بولماي يۈكلىمەكچىمۇ؟"/>
 			<FileLockedWarning title="ساقلىيالمىدى" message="بۇ ھۈججەت باشقا پروگراممىلاردا ئېچىقلىقمۇ تەكشۈرۈپ بېقىڭ"/>
-			<FileAlreadyOpenedInNpp title="ھۈججەت ئېچىقلىق" message=" دە ئېچىقلىق  Notepad++بۇ ھۈججەت"/>
+			<FileAlreadyOpenedInNpp title="ھۈججەت ئېچىقلىق" message=" دە ئېچىقلىق  npminminبۇ ھۈججەت"/>
 			<DeleteFileFailed title="ھۈججەت ئۆچۈرۈش" message="ھۈججەت ئۆچۈرۈلمىدى"/>
 		</MessageBox>
 		<ProjectManager>

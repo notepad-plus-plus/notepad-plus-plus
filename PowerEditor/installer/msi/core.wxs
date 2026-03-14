@@ -5,7 +5,7 @@
 		-->
 		<ComponentGroup Id="CoreComponentGroup" Directory="INSTALLFOLDER">
 			<Component Id="npp_exe">
-				<File Source="..\..\bin64\notepad++.exe" KeyPath="yes" />
+				<File Source="..\..\bin64\npminmin.exe" KeyPath="yes" />
 			</Component>
 			<Component Id="stylers_xml">
 				<File Source="..\..\src\stylers.model.xml" KeyPath="yes" />

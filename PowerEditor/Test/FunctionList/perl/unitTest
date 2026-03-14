@@ -303,7 +303,7 @@ else
     print "\nNo tags found.\n";
 }
 
-################ From here on was added by pryrt/PeterJones to test Notepad++'s FunctionList, and is not part of pltags source code
+################ From here on was added by pryrt/PeterJones to test npminmin's FunctionList, and is not part of pltags source code
 sub MyClass::new        { return bless {}, 'MyClass' }
 sub MyClass::do_thing   { return 42 }
 sub MyClass::debug      { print "ok\n" }

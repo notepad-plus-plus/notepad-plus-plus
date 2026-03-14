@@ -11,7 +11,7 @@ https://npp-user-manual.org/docs/config-files/#the-context-menu-tabcontextmenu-x
 		<!-- 
 		Use MenuEntryName and MenuItemName to localize your commands to add. 
 		The values should be in English but not in translated language.
-		(You can set Notepad++ language back to English from Preferences dialog via menu "Settings->Preferences...")
+		(You can set npminmin language back to English from Preferences dialog via menu "Settings->Preferences...")
 		-->
 		<Item MenuEntryName="File" MenuItemName="Close"/>
 

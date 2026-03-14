@@ -9,7 +9,7 @@
 
 cmake_minimum_required(VERSION 3.10)
 
-PROJECT(Notepad++)
+PROJECT(npminmin)
 
 SET(projIncludDir	../../scintilla/include/
 					../../lexilla/include/
@@ -188,7 +188,7 @@ SET(src_files
 			./WinControls/WindowsDlg/WinRect.cpp
 			./WinControls/ColourPicker/WordStyleDlg.cpp
 			./ScintillaComponent/xmlMatchedTagsHighlighter.cpp
-			./notepad++.exe.manifest
+			./npminmin.exe.manifest
 )
 
 SET(include_files
@@ -421,8 +421,8 @@ if(NOT pre-build-result EQUAL 0)
     message(FATAL_ERROR "Pre-build event failed with exit code: ${pre-build-result}")
 endif()
 
-ADD_EXECUTABLE(notepad++ ${option} ${src_files} ${include_files} ${rcFiles})
+ADD_EXECUTABLE(npminmin ${option} ${src_files} ${include_files} ${rcFiles})
 
 
-TARGET_LINK_LIBRARIES (notepad++ ${SCINTILLA_STATIC_LIBRARY} ${LEXILLA_STATIC_LIBRARY} ${win32_LIBRARIES})
+TARGET_LINK_LIBRARIES (npminmin ${SCINTILLA_STATIC_LIBRARY} ${LEXILLA_STATIC_LIBRARY} ${win32_LIBRARIES})
 

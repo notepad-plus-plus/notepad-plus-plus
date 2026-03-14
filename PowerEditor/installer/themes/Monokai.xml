@@ -27,13 +27,13 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 Requirements:
     * This style is based on DejaVu fonts <http://dejavu.sourceforge.net/wiki/index.php/Main_Page>.
-    * Notepad++, of course.
+    * npminmin, of course.
 
 Installation:
-    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\Notepad++\
+    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\npminmin\
 
 About:
-    This styler has been built by Textmate theme to Notepad++ styler <http://framework.lojcomm.com.br/tmTheme2nppStyler/>
+    This styler has been built by Textmate theme to npminmin styler <http://framework.lojcomm.com.br/tmTheme2nppStyler/>
 
 Credits:
     Thanks for the original Textmate theme author.

@@ -61,7 +61,7 @@ jobs:
                 https://api.github.com/repos/$ref/actions/workflows/$yml/dispatches `
                 -d "{`"ref`": `"${{ github.ref_name }}`", `"inputs`": {}}"   
               # NOTE: if there is a problem with the curl call, there will be a message in the workflow output,
-              # but the workflow will not fail, so that the Notepad++ build will not fail; we do our best to notify,
+              # but the workflow will not fail, so that the npminmin build will not fail; we do our best to notify,
               # but we don't want a problem with another repo holding up a N++ fix.
             }
           } else {

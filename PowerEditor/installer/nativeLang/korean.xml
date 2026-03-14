@@ -360,17 +360,17 @@ Translation note:
 					<Item id="46016" name="없음 (일반 텍스트)"/>
 					<Item id="46250" name="언어 정의..."/>
 					<Item id="46300" name="사용자 정의 언어 폴더 열기..."/>
-					<Item id="46301" name="Notepad++ 사용자 정의 언어 모음집"/>
+					<Item id="46301" name="npminmin 사용자 정의 언어 모음집"/>
 					<Item id="46180" name="사용자 정의"/>
-					<Item id="47000" name="Notepad++ 정보"/>
+					<Item id="47000" name="npminmin 정보"/>
 					<Item id="47010" name="명령줄 옵션..."/>
-					<Item id="47001" name="Notepad++ 홈페이지"/>
-					<Item id="47002" name="Notepad++ 프로젝트 페이지"/>
+					<Item id="47001" name="npminmin 홈페이지"/>
+					<Item id="47002" name="npminmin 프로젝트 페이지"/>
 					<Item id="47003" name="온라인 설명서"/>
-					<Item id="47004" name="Notepad++ 커뮤니티 (포럼)"/>
+					<Item id="47004" name="npminmin 커뮤니티 (포럼)"/>
 					<Item id="47012" name="디버그 정보..."/>
 					<Item id="47005" name="플러그인 받기"/>
-					<Item id="47006" name="Notepad++ 업데이트 찾기"/>
+					<Item id="47006" name="npminmin 업데이트 찾기"/>
 					<Item id="47009" name="업데이트 프록시 설정..."/>
 					<Item id="48005" name="플러그인 가져오기..."/>
 					<Item id="48006" name="테마 가져오기..."/>
@@ -965,7 +965,7 @@ Translation note:
 
 					<Item id="6131" name="메뉴"/>
 					<Item id="6122" name="메뉴 숨기기 (Alt 또는 F10키로 전환)"/>
-					<Item id="6132" name="메뉴바에서 우측 단축기 ＋ ▼ ✕ 숨기기 (Notepad++ 재시작 필요)"/>
+					<Item id="6132" name="메뉴바에서 우측 단축기 ＋ ▼ ✕ 숨기기 (npminmin 재시작 필요)"/>
 
 					<Item id="6123" name="표시 언어"/>
 				</Global>
@@ -1089,7 +1089,7 @@ Translation note:
 				</DefaultDir>
 
 				<FileAssoc title="파일 연결">
-					<Item id="4008" name="이 기능을 사용하려면 Notepad++를 종료하고 관리자 모드로 다시 실행해 주세요"/>
+					<Item id="4008" name="이 기능을 사용하려면 npminmin를 종료하고 관리자 모드로 다시 실행해 주세요"/>
 					<Item id="4009" name="지원하는 확장자:"/>
 					<Item id="4010" name="등록된 확장자:"/>
 				</FileAssoc>
@@ -1174,7 +1174,7 @@ Translation note:
 				</Print>
 
 				<Searching title="찾기">
-					<Item id="6902" name="찾기 창에서 고정폭 글꼴 사용 (Notepad++ 재시작 필요)"/>
+					<Item id="6902" name="찾기 창에서 고정폭 글꼴 사용 (npminmin 재시작 필요)"/>
 					<Item id="6903" name="결과 창에 찾기 결과 표시 후에도 찾기 창 유지"/>
 					<Item id="6904" name="모든 열린 문서에서 바꾸기를 실행할 때 확인"/>
 					<Item id="6905" name="바꾸기: 다음 찾기 위치로 이동하지 않기"/>
@@ -1237,10 +1237,10 @@ Translation note:
 
 				<MultiInstance title="다중 실행 &amp; 날짜">
 					<Item id="6151" name="다중 실행 설정 *"/>
-					<Item id="6152" name="Notepad++의 새 인스턴스에서 세션 열기"/>
+					<Item id="6152" name="npminmin의 새 인스턴스에서 세션 열기"/>
 					<Item id="6153" name="항상 다중 실행 모드"/>
 					<Item id="6154" name="기본값 (단일 인스턴스)"/>
-					<Item id="6155" name="* 이 설정을 변경하면 Notepad++를 다시 시작해야 합니다."/>
+					<Item id="6155" name="* 이 설정을 변경하면 npminmin를 다시 시작해야 합니다."/>
 					<Item id="6171" name="날짜 시간 사용자 정의"/>
 					<Item id="6175" name="기본 날짜 시간 순서 뒤집기 (짧은 형식 &amp;&amp; 긴 형식)"/>
 					<Item id="6172" name="사용자 정의 형식:"/>
@@ -1312,7 +1312,7 @@ Translation note:
 					<Item id="6313" name="경고 없이 업데이트"/>
 					<Item id="6325" name="업데이트 후 마지막 줄로 이동"/>
 					<Item id="6322" name="세션 파일 확장자:"/>
-					<Item id="6323" name="Notepad++ 자동 업데이트 사용"/>
+					<Item id="6323" name="npminmin 자동 업데이트 사용"/>
 					<Item id="6324" name="문서 전환 (Ctrl+Tab)"/>
 					<Item id="6331" name="제목 표시줄에 파일 이름만 표시"/>
 					<Item id="6334" name="문자 인코딩 자동 감지"/>
@@ -1399,8 +1399,8 @@ Translation note:
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
-			<ContextMenuXmlEditWarning title="컨텍스트 메뉴 편집" message="contextMenu.xml 파일을 수정하면 Notepad++의 팝업 컨텍스트 메뉴를 바꿀 수 있습니다.
-변경사항을 적용하려면 Notepad++을 다시 시작해야 합니다."/>
+			<ContextMenuXmlEditWarning title="컨텍스트 메뉴 편집" message="contextMenu.xml 파일을 수정하면 npminmin의 팝업 컨텍스트 메뉴를 바꿀 수 있습니다.
+변경사항을 적용하려면 npminmin을 다시 시작해야 합니다."/>
 			<SaveCurrentModifWarning title="변경사항 저장" message="현재 변경된 사항을 저장해야 합니다.
 저장된 모든 변경사항은 되돌릴 수 없습니다.
 
@@ -1409,16 +1409,16 @@ Translation note:
 저장된 모든 변경사항은 되돌릴 수 없습니다.
 
 그래도 계속 하시겠습니까?"/><!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
-			<CannotMoveDoc title="새로운 Notepad++ 인스턴스로 이동" message="문서가 수정되었습니다. 저장 후 다시 시도해 주십시오."/><!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
+			<CannotMoveDoc title="새로운 npminmin 인스턴스로 이동" message="문서가 수정되었습니다. 저장 후 다시 시도해 주십시오."/><!-- HowToReproduce: From your npminmin drag & drop a clean (not dirty) file to outside of npminmin, another instance of npminmin will be created. Then from your first npminmin drag & drop an unsaved file to the new instance. -->
 			<DocReloadWarning title="다시 불러오기" message="변경 사항을 무시하고 현재 파일을 다시 불러오시겠습니까?"/>
 			<FileLockedWarning title="저장 실패" message="다른 프로그램에서 파일을 사용하는지 확인하십시오."/>
-			<FileAlreadyOpenedInNpp title="" message="이미 Notepad++에 열려 있는 파일입니다."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
+			<FileAlreadyOpenedInNpp title="" message="이미 npminmin에 열려 있는 파일입니다."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
 			<RenameTabTemporaryNameAlreadyInUse title="이름바꾸기 실패" message="이름이 이미 다른 탭에서 사용중입니다."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
 			<RenameTabTemporaryNameIsEmpry title="이름바꾸기 실패" message="빈 문자열이나 공백 문자(스페이스나 탭)만 있는 문자열은 사용할 수 없습니다."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="파일 삭제" message="파일을 삭제하지 못했습니다"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="열려는 파일이 너무 많습니다" message="$INT_REPLACE$개 파일을 열려고 합니다.
-이 파일을 모두 다 여시겠습니까?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
+이 파일을 모두 다 여시겠습니까?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into npminmin. -->
 			<SettingsOnCloudError title="클라우드 설정" message="클라우드 설정 경로가 읽기 전용 드라이브로 설정되어 있거나,
 쓰기에 대한 액세스 권한이 필요한 폴더인 것 같습니다.
 클라우드 설정은 취소될 것입니다. 기본 설정에서 일관된 값으로 재설정하십시오."/>
@@ -1455,14 +1455,14 @@ Translation note:
 			<DoReloadOrNotAndLooseChange title="다시 읽기" message="&quot;$STR_REPLACE$&quot;
 
 다른 프로그램에서 파일을 변경했습니다.
-파일을 다시 읽어, Notepad++의 변경 사항을 취소하시겠습니까?"/>
+파일을 다시 읽어, npminmin의 변경 사항을 취소하시겠습니까?"/>
 			<PrehistoricSystemDetected title="구시대의 유물 감지" message="오래된 장비를 사용하는 것 같습니다. 이 기능은 최신 장비에서만 동작합니다. 죄송합니다."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
-			<XpUpdaterProblem title="Notepad++ 업데이터" message="Nodepad++업데이터는 보안 문제로 인해 XP 에서 동작하지 않습니다.
-Nodepad++ 홈페이지에서 직접 다운로드 받으시겠습니까?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
+			<XpUpdaterProblem title="npminmin 업데이터" message="Nodepad++업데이터는 보안 문제로 인해 XP 에서 동작하지 않습니다.
+Nodepad++ 홈페이지에서 직접 다운로드 받으시겠습니까?"/><!-- HowToReproduce: Run menu "? -> Update npminmin" under Windows XP. -->
 			<GUpProxyConfNeedAdminMode title="프록시 설정" message="프록시 설정을 위해 관리자 모드로 재실행해 주세요."/>
 			<DocTooDirtyToMonitor title="모니터링 오류" message="이 문서는 저장되지 않았습니다. 모니터링을 하기 전에 변경 사항을 저장해 주세요."/>
 			<DocNoExistToMonitor title="모니터링 오류" message="모니터링을 위해서는 파일이 있어야 합니다."/>
-			<FileTooBigToOpen title="파일 크기 오류" message="Notepad++에서 열기에는 파일이 너무 큽니다."/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+			<FileTooBigToOpen title="파일 크기 오류" message="npminmin에서 열기에는 파일이 너무 큽니다."/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
 			<FileLoadingException title="예외 코드: $STR_REPLACE$" message="파일 읽기 도중에 에러가 발생했습니다!"/>
 			<WantToOpenHugeFile title="큰 파일 열기 경고" message="2GB보다 큰 파일 열기는 시간이 걸릴 수 있습니다.
 여시겠습니까?"/>
@@ -1476,8 +1476,8 @@ Nodepad++ 홈페이지에서 직접 다운로드 받으시겠습니까?"/><!-- H
 현재 파일을 저장하시겠습니까?"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<LoadStylersFailed title="stylers.xml 파일 열기 실패" message="&quot;$STR_REPLACE$&quot; 파일을 열 수 없습니다."/>
 			<LoadLangsFailed title="설정" message="langs.xml 파일을 열 수 없습니다!
-langs.xml 파일을 복구하시겠습니까?"/><!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
-			<LoadLangsFailedFinal title="설정" message="langs.xml 파일을 열 수 없습니다!"/><!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
+langs.xml 파일을 복구하시겠습니까?"/><!-- HowToReproduce: Close npminmin. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open npminmin. -->
+			<LoadLangsFailedFinal title="설정" message="langs.xml 파일을 열 수 없습니다!"/><!-- HowToReproduce: Close npminmin. Use another editor to make "langs.xml" an invalid xml file then save it. Open npminmin. -->
 			<FolderAsWorspaceSubfolderExists title="작업 영역 폴더 추가 오류" message="추가하려는 폴더의 하위 폴더가 존재합니다.
 &quot;$STR_REPLACE$&quot; 폴더를 추가하기 전에 영역에서 해당 폴더의 최상위 폴더를 삭제해 주세요."/><!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
@@ -1503,14 +1503,14 @@ langs.xml 파일을 복구하시겠습니까?"/><!-- HowToReproduce: Close Notep
 관리자 모드로 이 파일을 여시겠습니까?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="저장 실패" message="파일을 저장할 수 없습니다. 보호 중인 것 같습니다.
 관리자 모드로 이 파일을 여시겠습니까?"/>
-			<OpenInAdminModeFailed title="관리자 모드로 열기 실패" message="Notepad++ 을 관리자 모드로 열 수 없습니다."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
+			<OpenInAdminModeFailed title="관리자 모드로 열기 실패" message="npminmin 을 관리자 모드로 열 수 없습니다."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
 			<ViewInBrowser title="브라우저에서 파일 보기" message="시스템에서 프로그램을 찾을 수 없습니다."/>
-			<ExitToUpdatePlugins title="Notepad++ 종료 중" message="예를 누르면 작업을 계속하기 위해 Notepad++ 이 종료됩니다.
-모든 작업이 종료된 다음 Notepad++를 재시작합니다.
+			<ExitToUpdatePlugins title="npminmin 종료 중" message="예를 누르면 작업을 계속하기 위해 npminmin 이 종료됩니다.
+모든 작업이 종료된 다음 npminmin를 재시작합니다.
 계속하시겠습니까?"/>
-			<NeedToRestartToLoadPlugins title="Notepad++ 재시작이 필요합니다" message="설치한 플러그인을 사용하려면 Notepad++을 재시작해야 합니다."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
-			<ChangeHistoryEnabledWarning title="Notepad++ 재시작이 필요합니다" message="변경 이력 기능을 사용하려면 Notepad++을 재시작해야 합니다."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
-			<WindowsSessionExit title="Notepad++ - 윈도우 세션 종료" message="윈도우 세션이 종료되려고 합니다. 저장되지 않은 파일이 있습니다. Notepad++ 을 지금 종료하시겠습니까?"/>
+			<NeedToRestartToLoadPlugins title="npminmin 재시작이 필요합니다" message="설치한 플러그인을 사용하려면 npminmin을 재시작해야 합니다."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+			<ChangeHistoryEnabledWarning title="npminmin 재시작이 필요합니다" message="변경 이력 기능을 사용하려면 npminmin을 재시작해야 합니다."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+			<WindowsSessionExit title="npminmin - 윈도우 세션 종료" message="윈도우 세션이 종료되려고 합니다. 저장되지 않은 파일이 있습니다. npminmin 을 지금 종료하시겠습니까?"/>
 			<LanguageMenuCompactWarning title="언어 메뉴 간소화" message="이 설정은 다음 실행시에 변경됩니다"/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="저장되지 않은 변경 사항이 사라집니다!
 테마를 변경하기 전에 변경 사항을 저장하시겠습니까?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
@@ -1519,7 +1519,7 @@ langs.xml 파일을 복구하시겠습니까?"/><!-- HowToReproduce: Close Notep
 
 대신, v8.5.2 로 버전을 낮추고, 이전 자료를 복구할 수 있습니다.
 Nodepad++ 은 오래된 &quot;shortcuts.xml&quot;을 &quot;shortcuts.xml.v8.5.2.backup&quot;으로 백업할 것입니다.
-&quot;shortcuts.xml.v.8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; 같이 이름을 바꾸게 되면, 명령어가 저장되고 올바르게 동작할 것입니다."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+&quot;shortcuts.xml.v.8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; 같이 이름을 바꾸게 되면, 명령어가 저장되고 올바르게 동작할 것입니다."/><!-- HowToReproduce: Close npminmin, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch npminmin, delete or modify a shortcuts via Shortcut Mapper, close npminmin, then the message will show up -->
 			<NotEnoughRoom4Saving title="저장 실패" message="파일 저장에 실패했습니다.
 디스크에 공간이 충분하지 않은 것 같습니다. 파일을 저장하지 않았습니다."/>
 			<FileInaccessibleUserSession title="파일 접근불가" message="수동 저장한 &quot;$STR_REPLACE$&quot; 세션의 일부 파일에 접근할 수 없습니다. 표시 목적의 비어있는 읽기 전용 파일로 열 수 있습니다.
@@ -1532,8 +1532,8 @@ Nodepad++ 은 오래된 &quot;shortcuts.xml&quot;을 &quot;shortcuts.xml.v8.5.2.
 표시 목적의 빈 파일을 만드시겠습니까?
 
 주의: 파일을 만들지 않거나, 나중에 파일을 닫으면, 프로그램을 종료할 때 세션이 수정됩니다! &quot;session.xml&quot; 을 백업하세요."/>
-			<RTLvsDirectWrite title="오른쪽에서 왼쪽 쓰기 불가" message="오른쪽에서 왼쪽으로 쓰기는 직접쓰기 모드와 호환되지 않습니다. 설정의 기타 섹션에서 직접쓰기를 비활성화하고 Notepad++을 재시작해 주세요."/>
-			<FileMemoryAllocationFailed title="예외: 파일 메모리 할당 실패" message="Notepad++에서 파일을 읽어들일 수 있는 연속적인 빈 메모리 공간이 충분하지 않은 것 같습니다."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<RTLvsDirectWrite title="오른쪽에서 왼쪽 쓰기 불가" message="오른쪽에서 왼쪽으로 쓰기는 직접쓰기 모드와 호환되지 않습니다. 설정의 기타 섹션에서 직접쓰기를 비활성화하고 npminmin을 재시작해 주세요."/>
+			<FileMemoryAllocationFailed title="예외: 파일 메모리 할당 실패" message="npminmin에서 파일을 읽어들일 수 있는 연속적인 빈 메모리 공간이 충분하지 않은 것 같습니다."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 npminmin (it will depend on the PC memory configuration and the current system memory usage...). -->
 			<FindRegexBackwardDisabled title="표현식을 이용한 거꾸로 찾기 실패" message="기본적으로 표현식을 이용한 거꾸로 찾기는 예상치 못한 결과를 유발할 수 있어 비활성화되어 있습니다. 거꾸로 찾기를 하려면, 찾기 창을 열고 정규 표현식 대신 일반 혹은 확장 찾기 모드를 선택하세요.
 찾기 찾을 열거나 찾기 창을 앞으로 끌어오려면 확인 버튼을 누르세요.
 
@@ -1657,8 +1657,8 @@ Nodepad++ 은 오래된 &quot;shortcuts.xml&quot;을 &quot;shortcuts.xml.v8.5.2.
 			<word-chars-list-warning-end value="가 문자 목록에 존재합니다."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
 			<backup-select-folder value="백업 디렉토리로 사용할 폴더를 선택하십시오"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value="잘못된 경로입니다."/>
-			<cloud-restart-warning value="적용하려면 Notepad++를 다시 시작하십시오."/>
-			<cloud-select-folder value="Notepad++의 설정을 읽고 저장할 폴더를 선택하십시오"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+			<cloud-restart-warning value="적용하려면 npminmin를 다시 시작하십시오."/>
+			<cloud-select-folder value="npminmin의 설정을 읽고 저장할 폴더를 선택하십시오"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
 			<default-open-save-select-folder value="기본 디렉토리로 사용할 폴더를 선택하십시오"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="반대쪽으로 검색하려면 Shift+Enter를 사용하십시오."/>
 			<two-find-buttons-tip value="찾기 버튼을 2개로 분할"/>

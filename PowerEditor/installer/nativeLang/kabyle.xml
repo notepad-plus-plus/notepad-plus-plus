@@ -254,13 +254,13 @@
 					<Item id="46250" name="Sbadu tameslayt-ik/im..."/>
 					<Item id="46001" name="Swel aɣanib..."/>
 					<Item id="46180" name="User-Defined"/>
-					<Item id="47000" name="About Notepad++..."/>
-					<Item id="47001" name="Notepad++ Home"/>
-					<Item id="47002" name="Asebter n usenfaṛ Notepad++"/>
+					<Item id="47000" name="About npminmin..."/>
+					<Item id="47001" name="npminmin Home"/>
+					<Item id="47002" name="Asebter n usenfaṛ npminmin"/>
 					<Item id="47003" name="Online Documentation"/>
 					<Item id="47004" name="Forum"/>
 					<Item id="47005" name="Get More Plugins"/>
-					<Item id="47006" name="Lqem Notepad++"/>
+					<Item id="47006" name="Lqem npminmin"/>
 					<Item id="47008" name="Tallalt"/>
 					<Item id="47009" name="Set Updater Proxy..."/>
 					<Item id="48005" name="Import Plugin(s) ..."/>
@@ -729,10 +729,10 @@
 
 				<MultiInstance title="Multi-Instance">
 					<Item id="6151" name="Multi-instance settings"/>
-					<Item id="6152" name="Open session in a new instance of Notepad++"/>
+					<Item id="6152" name="Open session in a new instance of npminmin"/>
 					<Item id="6153" name="Always in multi-instance mode"/>
 					<Item id="6154" name="Default (mono-instance)"/>
-					<Item id="6155" name="* The modification of this setting needs to restart Notepad++"/>
+					<Item id="6155" name="* The modification of this setting needs to restart npminmin"/>
 				</MultiInstance>
 
 				<Delimiter title="Delimiter">
@@ -752,7 +752,7 @@
 					<Item id="6319" name="Enable"/>
 					<Item id="6320" name="No underline"/>
 					<Item id="6322" name="Session file ext.:"/>
-					<Item id="6323" name="Enable Notepad++ auto-updater"/>
+					<Item id="6323" name="Enable npminmin auto-updater"/>
 					<Item id="6324" name="Document Switcher (Ctrl+TAB)"/>
 					<Item id="6326" name="Enable smart highlighting"/>
 					<Item id="6329" name="Highlight Matching Tags"/>
@@ -802,14 +802,14 @@
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
-			<NppHelpAbsentWarning title="File does not exist" message="\rdoesn't exist. Please download it on Notepad++ site."/>
+			<ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your npminmin popup context menu.\rYou have to restart your npminmin to take effect after modifying contextMenu.xml."/>
+			<NppHelpAbsentWarning title="File does not exist" message="\rdoesn't exist. Please download it on npminmin site."/>
 			<SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
 			<LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
-			<CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
-			<DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
+			<CannotMoveDoc title="Move to new npminmin Instance" message="Document is modified, save it then try again."/>
+			<DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in npminmin?"/>
 			<FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
-			<FileAlreadyOpenedInNpp title="" message="The file is already opened in Notepad++."/>
+			<FileAlreadyOpenedInNpp title="" message="The file is already opened in npminmin."/>
 			<DeleteFileFailed title="Delete File" message="Delete File failed"/>
 
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->

@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -108,7 +108,7 @@ bool SecurityGuard::checkSha256(const std::wstring& filePath, NppModule module2c
 
 // Debug use
 bool doLogCertifError = false;
-const wstring errorLogPath = L"%LOCALAPPDATA%\\Notepad++\\log\\nppComponentCertErrors.log";
+const wstring errorLogPath = L"%LOCALAPPDATA%\\npminmin\\log\\nppComponentCertErrors.log";
 
 void writeCertVerifLog(const wchar_t* logFileName, const wchar_t* log2write)
 {

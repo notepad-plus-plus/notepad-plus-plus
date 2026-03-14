@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (C)2006 Jens Lorenz <jens.plugin.npp@gmx.de>
 
 // This program is free software: you can redistribute it and/or modify

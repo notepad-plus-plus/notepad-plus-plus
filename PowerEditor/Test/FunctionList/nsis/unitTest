@@ -1,4 +1,4 @@
-; This file is part of Notepad++ project
+; This file is part of npminmin project
 ; Copyright (C)2021 Don HO <don.h@free.fr>
 ;
 ; This program is free software: you can redistribute it and/or modify
@@ -23,7 +23,7 @@
 
 
 ; Define the application name
-!define APPNAME "Notepad++"
+!define APPNAME "npminmin"
 
 !define APPVERSION "6.9"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
@@ -177,7 +177,7 @@ FunctionEnd
 
 
 Function LaunchNpp
-  Exec '"$INSTDIR\notepad++.exe" "$INSTDIR\change.log" '
+  Exec '"$INSTDIR\npminmin.exe" "$INSTDIR\change.log" '
 FunctionEnd
 
 ; Modern interface settings
@@ -291,11 +291,11 @@ Function ExtraOptions
 		Abort
 	${EndIf}
 
-	${NSD_CreateCheckbox} 0 0 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in an USB device."
+	${NSD_CreateCheckbox} 0 0 100% 30u "Don't use %APPDATA%$\nEnable this option to make npminmin load/write the configuration files from/to its install directory. Check it if you use npminmin in an USB device."
 	Pop $NoUserDataCheckboxHandle
 	${NSD_OnClick} $NoUserDataCheckboxHandle OnChange_NoUserDataCheckBox
 	
-	${NSD_CreateCheckbox} 0 50 100% 30u "Allow plugins to be loaded from %APPDATA%\notepad++\plugins$\nIt could cause a security issue. Turn it on if you know what you are doing."
+	${NSD_CreateCheckbox} 0 50 100% 30u "Allow plugins to be loaded from %APPDATA%\npminmin\plugins$\nIt could cause a security issue. Turn it on if you know what you are doing."
 	Pop $PluginLoadFromUserDataCheckboxHandle
 	${NSD_OnClick} $PluginLoadFromUserDataCheckboxHandle OnChange_PluginLoadFromUserDataCheckBox
 	
@@ -344,15 +344,15 @@ Function .onInit
 	${GetWindowsVersion} $WinVer
 	
 	StrCmp $WinVer "95" 0 +3
-		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttps://notepad-plus-plus.org/release/5.9"
+		MessageBox MB_OK "This version of npminmin does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttps://notepad-plus-plus.org/release/5.9"
 		Abort
 		
 	StrCmp $WinVer "98" 0 +3
-		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttps://notepad-plus-plus.org/release/5.9"
+		MessageBox MB_OK "This version of npminmin does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttps://notepad-plus-plus.org/release/5.9"
 		Abort
 		
 	StrCmp $WinVer "ME" 0 +3
-		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttps://notepad-plus-plus.org/release/5.9"
+		MessageBox MB_OK "This version of npminmin does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttps://notepad-plus-plus.org/release/5.9"
 		Abort
 
   !insertmacro MUI_LANGDLL_DISPLAY
@@ -430,7 +430,7 @@ LangString langFileName ${LANG_ESTONIAN} "estonian.xml"
 
 Var UPDATE_PATH
 
-Section -"Notepad++" mainSection
+Section -"npminmin" mainSection
 
 	; Set Section properties
 	SetOverwrite on
@@ -446,7 +446,7 @@ Section -"Notepad++" mainSection
 	${ELSE}
 		IfFileExists $INSTDIR\doLocalConf.xml 0 +2
 		Delete $INSTDIR\doLocalConf.xml
-		StrCpy $UPDATE_PATH "$APPDATA\Notepad++"
+		StrCpy $UPDATE_PATH "$APPDATA\npminmin"
 		CreateDirectory $UPDATE_PATH\plugins\config
 	${EndIf}
 	
@@ -511,7 +511,7 @@ Section -"Notepad++" mainSection
 	File "..\..\LICENSE"
 	File "..\bin\SciLexer.dll"
 	File "..\bin\change.log"
-	File "..\bin\notepad++.exe"
+	File "..\bin\npminmin.exe"
 	File "..\bin\readme.txt"
 
 	; Localization
@@ -535,11 +535,11 @@ Section -"Notepad++" mainSection
 	CopyFiles "$TEMP\nppLocalization\$(langFileName)" "$INSTDIR\localization\$(langFileName)"
 
 	; remove all the npp shortcuts from current user
-	Delete "$DESKTOP\Notepad++.lnk"
-	Delete "$SMPROGRAMS\Notepad++\Notepad++.lnk"
-	Delete "$SMPROGRAMS\Notepad++\readme.lnk"
-	Delete "$SMPROGRAMS\Notepad++\Uninstall.lnk"
-	RMDir "$SMPROGRAMS\Notepad++"
+	Delete "$DESKTOP\npminmin.lnk"
+	Delete "$SMPROGRAMS\npminmin\npminmin.lnk"
+	Delete "$SMPROGRAMS\npminmin\readme.lnk"
+	Delete "$SMPROGRAMS\npminmin\Uninstall.lnk"
+	RMDir "$SMPROGRAMS\npminmin"
 
 	; remove unstable plugins
 	CreateDirectory "$INSTDIR\plugins\disabled"
@@ -690,10 +690,10 @@ Section -"Notepad++" mainSection
 	SetOutPath "$INSTDIR\"
 	
 	; add all the npp shortcuts for all user or current user
-	CreateDirectory "$SMPROGRAMS\Notepad++"
-	CreateShortCut "$SMPROGRAMS\Notepad++\Notepad++.lnk" "$INSTDIR\notepad++.exe"
+	CreateDirectory "$SMPROGRAMS\npminmin"
+	CreateShortCut "$SMPROGRAMS\npminmin\npminmin.lnk" "$INSTDIR\npminmin.exe"
 	${If} $createShortcutChecked == ${BST_CHECKED}
-		CreateShortCut "$DESKTOP\Notepad++.lnk" "$INSTDIR\notepad++.exe"
+		CreateShortCut "$DESKTOP\npminmin.lnk" "$INSTDIR\npminmin.exe"
 	${EndIf}
 	
 	SetShellVarContext current
@@ -702,10 +702,10 @@ Section -"Notepad++" mainSection
 		SetOutPath "$TEMP\"
 		File "..\misc\vistaIconTool\changeIcon.exe"
 		File "..\src\icons\npp.ico"
-		nsExec::ExecToStack '"$TEMP\changeIcon.exe" "$TEMP\npp.ico" "$INSTDIR\notepad++.exe" 100 1033'
+		nsExec::ExecToStack '"$TEMP\changeIcon.exe" "$TEMP\npp.ico" "$INSTDIR\npminmin.exe" 100 1033'
 	${EndIf}
 	
-	WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe" "" "$INSTDIR\notepad++.exe"
+	WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\npminmin.exe" "" "$INSTDIR\npminmin.exe"
 SectionEnd
 
 ${MementoSection} "Context Menu Entry" explorerContextMenu
@@ -1237,14 +1237,14 @@ ${MementoSectionDone}
   
   ;Assign language strings to sections
   !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
-    ;!insertmacro MUI_DESCRIPTION_TEXT ${makeLocal} 'Enable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in an USB device.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${explorerContextMenu} 'Explorer context menu entry for Notepad++ : Open whatever you want in Notepad++ from Windows Explorer.'
+    ;!insertmacro MUI_DESCRIPTION_TEXT ${makeLocal} 'Enable this option to make npminmin load/write the configuration files from/to its install directory. Check it if you use npminmin in an USB device.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${explorerContextMenu} 'Explorer context menu entry for npminmin : Open whatever you want in npminmin from Windows Explorer.'
     !insertmacro MUI_DESCRIPTION_TEXT ${autoCompletionComponent} 'Install the API files you need for the auto-completion feature (Ctrl+Space).'
-    !insertmacro MUI_DESCRIPTION_TEXT ${Plugins} 'You may need those plugins to extend the capacity of Notepad++.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${Plugins} 'You may need those plugins to extend the capacity of npminmin.'
     !insertmacro MUI_DESCRIPTION_TEXT ${Themes} 'The eye-candy to change visual effects. Use Theme selector to switch among them.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} 'Keep your Notepad++ update: Check this option to install an update module which searches Notepad++ update on Internet and install it for you.'
-    ;!insertmacro MUI_DESCRIPTION_TEXT ${UserManual} 'Here you can get all the secrets of Notepad++.'
-    ;!insertmacro MUI_DESCRIPTION_TEXT ${shortcutOnDesktop} 'Check this option to add Notepad++ shortcut on your desktop.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} 'Keep your npminmin update: Check this option to install an update module which searches npminmin update on Internet and install it for you.'
+    ;!insertmacro MUI_DESCRIPTION_TEXT ${UserManual} 'Here you can get all the secrets of npminmin.'
+    ;!insertmacro MUI_DESCRIPTION_TEXT ${shortcutOnDesktop} 'Check this option to add npminmin shortcut on your desktop.'
     ;!insertmacro MUI_DESCRIPTION_TEXT ${getOldIcon} "I won't blame you if you want to get the old icon back."
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
@@ -1254,13 +1254,13 @@ Section -FinishSection
 
 	WriteRegStr HKLM "Software\${APPNAME}" "" "$INSTDIR"
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayName" "${APPNAME}"
-	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "Publisher" "Notepad++ Team"
+	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "Publisher" "npminmin Team"
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "VersionMajor" "${VERSION_MAJOR}"
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "VersionMinor" "${VERSION_MINOR}"
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "MajorVersion" "${VERSION_MAJOR}"
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "MinorVersion" "${VERSION_MINOR}"
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "UninstallString" "$INSTDIR\uninstall.exe"
-	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayIcon" "$INSTDIR\notepad++.exe"
+	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayIcon" "$INSTDIR\npminmin.exe"
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayVersion" "${APPVERSION}"
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "URLInfoAbout" "${APPWEBSITE}"
 	WriteUninstaller "$INSTDIR\uninstall.exe"
@@ -1360,7 +1360,7 @@ SectionGroup un.Plugins
 	Section un.NPPTextFX
 		Delete "$INSTDIR\plugins\NPPTextFX.dll"
 		Delete "$INSTDIR\plugins\NPPTextFX.ini"
-		Delete "$APPDATA\Notepad++\NPPTextFX.ini"
+		Delete "$APPDATA\npminmin\NPPTextFX.ini"
 		Delete "$INSTDIR\plugins\doc\NPPTextFXdemo.TXT"
 		Delete "$INSTDIR\plugins\Config\tidy\AsciiToEBCDIC.bin"
 		Delete "$INSTDIR\plugins\Config\tidy\libTidy.dll"
@@ -1427,9 +1427,9 @@ SectionGroup un.Plugins
 	SectionEnd
 	Section un.ConvertExt
 		Delete "$INSTDIR\plugins\ConvertExt.dll"
-		Delete "$APPDATA\Notepad++\ConvertExt.ini"
-		Delete "$APPDATA\Notepad++\ConvertExt.enc"
-		Delete "$APPDATA\Notepad++\ConvertExt.lng"
+		Delete "$APPDATA\npminmin\ConvertExt.ini"
+		Delete "$APPDATA\npminmin\ConvertExt.enc"
+		Delete "$APPDATA\npminmin\ConvertExt.lng"
 		Delete "$INSTDIR\ConvertExt.ini"
 		Delete "$INSTDIR\ConvertExt.enc"
 		Delete "$INSTDIR\ConvertExt.lng"
@@ -1855,17 +1855,17 @@ Section un.explorerContextMenu
 SectionEnd
 
 Section un.UnregisterFileExt
-	; Remove references to "Notepad++_file"
+	; Remove references to "npminmin_file"
 	IntOp $1 0 + 0	; subkey index
 	StrCpy $2 ""	; subkey name
 Enum_HKCR_Loop:
 	EnumRegKey $2 HKCR "" $1
 	StrCmp $2 "" Enum_HKCR_Done
 	ReadRegStr $0 HKCR $2 ""	; Read the default value
-	${If} $0 == "Notepad++_file"
-		ReadRegStr $3 HKCR $2 "Notepad++_backup"
+	${If} $0 == "npminmin_file"
+		ReadRegStr $3 HKCR $2 "npminmin_backup"
 		; Recover (some of) the lost original file types
-		${If} $3 == "Notepad++_file"
+		${If} $3 == "npminmin_file"
 			${If} $2 == ".ini"
 				StrCpy $3 "inifile"
 			${ElseIf} $2 == ".inf"
@@ -1880,13 +1880,13 @@ Enum_HKCR_Loop:
 				StrCpy $3 "xmlfile"
 			${EndIf}
 		${EndIf}
-		${If} $3 == "Notepad++_file"
+		${If} $3 == "npminmin_file"
 			; File type recovering has failed. Just discard the current file extension
 			DeleteRegKey HKCR $2
 		${Else}
 			; Restore the original file type
 			WriteRegStr HKCR $2 "" $3
-			DeleteRegValue HKCR $2 "Notepad++_backup"
+			DeleteRegValue HKCR $2 "npminmin_backup"
 			IntOp $1 $1 + 1
 		${EndIf}
 	${Else}
@@ -1895,19 +1895,19 @@ Enum_HKCR_Loop:
 	Goto Enum_HKCR_Loop
 Enum_HKCR_Done:
 
-	; Remove references to "Notepad++_file" from "Open with..."
+	; Remove references to "npminmin_file" from "Open with..."
 	IntOp $1 0 + 0	; subkey index
 	StrCpy $2 ""	; subkey name
 Enum_FileExts_Loop:
 	EnumRegKey $2 HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts" $1
 	StrCmp $2 "" Enum_FileExts_Done
-	DeleteRegValue HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\$2\OpenWithProgids" "Notepad++_file"
+	DeleteRegValue HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\$2\OpenWithProgids" "npminmin_file"
 	IntOp $1 $1 + 1
 	Goto Enum_FileExts_Loop
 Enum_FileExts_Done:
 
-	; Remove "Notepad++_file" file type
-	DeleteRegKey HKCR "Notepad++_file"
+	; Remove "npminmin_file" file type
+	DeleteRegKey HKCR "npminmin_file"
 SectionEnd
 
 Section un.UserManual
@@ -1918,32 +1918,32 @@ Section Uninstall
 	;Remove from registry...
 	DeleteRegKey HKLM "${UNINSTALL_REG_KEY}"
 	DeleteRegKey HKLM "SOFTWARE\${APPNAME}"
-	DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe"
+	DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\npminmin.exe"
 
 	; Delete self
 	Delete "$INSTDIR\uninstall.exe"
 
 	; Delete Shortcuts
-	Delete "$SMPROGRAMS\Notepad++\Uninstall.lnk"
-	RMDir "$SMPROGRAMS\Notepad++"
+	Delete "$SMPROGRAMS\npminmin\Uninstall.lnk"
+	RMDir "$SMPROGRAMS\npminmin"
 	
 	UserInfo::GetAccountType
 	Pop $1
 	StrCmp $1 "Admin" 0 +2
 		SetShellVarContext all
 	
-	Delete "$DESKTOP\Notepad++.lnk"
-	Delete "$SMPROGRAMS\Notepad++\Notepad++.lnk"
-	Delete "$SMPROGRAMS\Notepad++\readme.lnk"
+	Delete "$DESKTOP\npminmin.lnk"
+	Delete "$SMPROGRAMS\npminmin\npminmin.lnk"
+	Delete "$SMPROGRAMS\npminmin\readme.lnk"
 	
 
-	; Clean up Notepad++
+	; Clean up npminmin
 	Delete "$INSTDIR\LINEDRAW.TTF"
 	Delete "$INSTDIR\SciLexer.dll"
 	Delete "$INSTDIR\change.log"
 	Delete "$INSTDIR\LICENSE"
 
-	Delete "$INSTDIR\notepad++.exe"
+	Delete "$INSTDIR\npminmin.exe"
 	Delete "$INSTDIR\readme.txt"
 	
 	Delete "$INSTDIR\config.xml"
@@ -1965,19 +1965,19 @@ Section Uninstall
 	Delete "$INSTDIR\SourceCodePro-BoldIt.ttf"
 	
 	SetShellVarContext current
-	Delete "$APPDATA\Notepad++\langs.xml"
-	Delete "$APPDATA\Notepad++\config.xml"
-	Delete "$APPDATA\Notepad++\stylers.xml"
-	Delete "$APPDATA\Notepad++\contextMenu.xml"
-	Delete "$APPDATA\Notepad++\shortcuts.xml"
-	Delete "$APPDATA\Notepad++\functionList.xml"
-	Delete "$APPDATA\Notepad++\nativeLang.xml"
-	Delete "$APPDATA\Notepad++\session.xml"
-	Delete "$APPDATA\Notepad++\insertExt.ini"
+	Delete "$APPDATA\npminmin\langs.xml"
+	Delete "$APPDATA\npminmin\config.xml"
+	Delete "$APPDATA\npminmin\stylers.xml"
+	Delete "$APPDATA\npminmin\contextMenu.xml"
+	Delete "$APPDATA\npminmin\shortcuts.xml"
+	Delete "$APPDATA\npminmin\functionList.xml"
+	Delete "$APPDATA\npminmin\nativeLang.xml"
+	Delete "$APPDATA\npminmin\session.xml"
+	Delete "$APPDATA\npminmin\insertExt.ini"
 	IfFileExists  "$INSTDIR\NppHelp.chm" 0 +2
 		Delete "$INSTDIR\NppHelp.chm"
 
-	RMDir "$APPDATA\Notepad++"
+	RMDir "$APPDATA\npminmin"
 	
 	StrCmp $1 "Admin" 0 +2
 		SetShellVarContext all
@@ -1989,8 +1989,8 @@ Section Uninstall
 	RMDir "$INSTDIR\themes\"
 	RMDir "$INSTDIR\localization\"
 	RMDir "$INSTDIR\"
-	RMDir "$SMPROGRAMS\Notepad++"
-	RMDir "$APPDATA\Notepad++"
+	RMDir "$SMPROGRAMS\npminmin"
+	RMDir "$APPDATA\npminmin"
 
 SectionEnd
 

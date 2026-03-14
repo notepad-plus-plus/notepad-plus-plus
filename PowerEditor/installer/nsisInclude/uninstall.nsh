@@ -1,4 +1,4 @@
-; This file is part of Notepad++ project
+; This file is part of npminmin project
 ; Copyright (C)2021 Don HO <don.h@free.fr>
 ;
 ; This program is free software: you can redistribute it and/or modify
@@ -20,9 +20,9 @@ Var keepUserData
 
 Function un.onInit
 
-!ifdef ARCH64 || ARCHARM64 ; x64 or ARM64 : installation of 64 bits Notepad++ & its 64 bits components
+!ifdef ARCH64 || ARCHARM64 ; x64 or ARM64 : installation of 64 bits npminmin & its 64 bits components
 	StrCpy $winSysDir "$WINDIR\System32"
-!else ; installation of 32 bits Notepad++ & its 32 bits components
+!else ; installation of 32 bits npminmin & its 32 bits components
 	StrCpy $winSysDir "$WINDIR\SysWOW64"
 !endif
 
@@ -81,17 +81,17 @@ Section un.explorerContextMenu
 SectionEnd
 
 Section un.UnregisterFileExt
-	; Remove references to "Notepad++_file"
+	; Remove references to "npminmin_file"
 	IntOp $1 0 + 0	; subkey index
 	StrCpy $2 ""	; subkey name
 Enum_HKCR_Loop:
 	EnumRegKey $2 HKCR "" $1
 	StrCmp $2 "" Enum_HKCR_Done
 	ReadRegStr $0 HKCR $2 ""	; Read the default value
-	${If} $0 == "Notepad++_file"
-		ReadRegStr $3 HKCR $2 "Notepad++_backup"
+	${If} $0 == "npminmin_file"
+		ReadRegStr $3 HKCR $2 "npminmin_backup"
 		; Recover (some of) the lost original file types
-		${If} $3 == "Notepad++_file"
+		${If} $3 == "npminmin_file"
 			${If} $2 == ".ini"
 				StrCpy $3 "inifile"
 			${ElseIf} $2 == ".inf"
@@ -106,13 +106,13 @@ Enum_HKCR_Loop:
 				StrCpy $3 "xmlfile"
 			${EndIf}
 		${EndIf}
-		${If} $3 == "Notepad++_file"
+		${If} $3 == "npminmin_file"
 			; File type recovering has failed. Just discard the current file extension
 			DeleteRegKey HKCR $2
 		${Else}
 			; Restore the original file type
 			WriteRegStr HKCR $2 "" $3
-			DeleteRegValue HKCR $2 "Notepad++_backup"
+			DeleteRegValue HKCR $2 "npminmin_backup"
 			IntOp $1 $1 + 1
 		${EndIf}
 	${Else}
@@ -121,19 +121,19 @@ Enum_HKCR_Loop:
 	Goto Enum_HKCR_Loop
 Enum_HKCR_Done:
 
-	; Remove references to "Notepad++_file" from "Open with..."
+	; Remove references to "npminmin_file" from "Open with..."
 	IntOp $1 0 + 0	; subkey index
 	StrCpy $2 ""	; subkey name
 Enum_FileExts_Loop:
 	EnumRegKey $2 HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts" $1
 	StrCmp $2 "" Enum_FileExts_Done
-	DeleteRegValue HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\$2\OpenWithProgids" "Notepad++_file"
+	DeleteRegValue HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\$2\OpenWithProgids" "npminmin_file"
 	IntOp $1 $1 + 1
 	Goto Enum_FileExts_Loop
 Enum_FileExts_Done:
 
-	; Remove "Notepad++_file" file type
-	DeleteRegKey HKCR "Notepad++_file"
+	; Remove "npminmin_file" file type
+	DeleteRegKey HKCR "npminmin_file"
 SectionEnd
 
 Section un.UserManual
@@ -161,7 +161,7 @@ FunctionEnd
 !endif
 	DeleteRegKey HKLM "${UNINSTALL_REG_KEY}"
 	DeleteRegKey HKLM "SOFTWARE\${APPNAME}"
-	;DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe"
+	;DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\npminmin.exe"
 !ifdef ARCH64
 	SetRegView 64
 !else ifdef ARCHARM64
@@ -173,18 +173,18 @@ FunctionEnd
 
 !macro uninstallDir dir2remove
 	; Delete Shortcuts
-	Delete "$SMPROGRAMS\Notepad++\Uninstall.lnk"
-	RMDir "$SMPROGRAMS\Notepad++"
+	Delete "$SMPROGRAMS\npminmin\Uninstall.lnk"
+	RMDir "$SMPROGRAMS\npminmin"
 	
 	UserInfo::GetAccountType
 	Pop $1
 	StrCmp $1 "Admin" 0 +2
 		SetShellVarContext all
 	
-	Delete "$DESKTOP\Notepad++.lnk"
-	Delete "$SMPROGRAMS\Notepad++.lnk"
-	Delete "$SMPROGRAMS\Notepad++\Notepad++.lnk"
-	Delete "$SMPROGRAMS\Notepad++\readme.lnk"
+	Delete "$DESKTOP\npminmin.lnk"
+	Delete "$SMPROGRAMS\npminmin.lnk"
+	Delete "$SMPROGRAMS\npminmin\npminmin.lnk"
+	Delete "$SMPROGRAMS\npminmin\readme.lnk"
 
 	RMDir /r "${dir2remove}"
 !macroend
@@ -201,7 +201,7 @@ Section Uninstall
 	;Remove from registry...
 	DeleteRegKey HKLM "${UNINSTALL_REG_KEY}"
 	DeleteRegKey HKLM "SOFTWARE\${APPNAME}"
-	DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe"
+	DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\npminmin.exe"
 
 	; Delete self
 	Delete "$INSTDIR\uninstall.exe"
@@ -215,18 +215,18 @@ Section Uninstall
 	StrCmp $1 "Admin" 0 +2
 		SetShellVarContext all ; make context for all user
 	
-	Delete "$DESKTOP\Notepad++.lnk"
-	Delete "$SMPROGRAMS\Notepad++.lnk"
-	Delete "$SMPROGRAMS\${APPNAME}\Notepad++.lnk"
+	Delete "$DESKTOP\npminmin.lnk"
+	Delete "$SMPROGRAMS\npminmin.lnk"
+	Delete "$SMPROGRAMS\${APPNAME}\npminmin.lnk"
 	Delete "$SMPROGRAMS\${APPNAME}\readme.lnk"
 	
 
-	; Clean up Notepad++
+	; Clean up npminmin
 	Delete "$INSTDIR\SciLexer.dll"
 	Delete "$INSTDIR\change.log"
 	Delete "$INSTDIR\LICENSE"
 
-	Delete "$INSTDIR\notepad++.exe"
+	Delete "$INSTDIR\npminmin.exe"
 	Delete "$INSTDIR\readme.txt"
 	
 	${If} $doLocalConf == "true"

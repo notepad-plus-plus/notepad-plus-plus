@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Russian translation for Notepad++
+<!-- Russian translation for npminmin
 Updated to :
 - added new lines
 -->
@@ -39,7 +39,7 @@ Updated to :
 					<Item subMenuId="edit-onSelection" name="Выделенное"/>
 					<Item subMenuId="edit-multiSelectALL" name="Мультивыбор Всех"/>
 					<Item subMenuId="edit-multiSelectNext" name="Мультивыбор Далее"/>
-					<Item subMenuId="edit-readonlyInNotepad++" name="Только чтение в Notepad++"/>
+					<Item subMenuId="edit-readonlyInnpminmin" name="Только чтение в npminmin"/>
 					<Item subMenuId="search-changeHistory" name="История Изменений"/>
 					<Item subMenuId="search-markAll" name="Пометить все совпадения"/>
 					<Item subMenuId="search-markOne" name="Пометить только одно"/>
@@ -406,7 +406,7 @@ Updated to :
 					<Item id="45057" name="OEM 865: Нордический"/>
 					<Item id="45053" name="OEM 860: Португальский"/>
 					<Item id="45056" name="OEM 863: Французский"/>
-					<Item id="46301" name="Коллекция польз. языков Notepad++"/>
+					<Item id="46301" name="Коллекция польз. языков npminmin"/>
 					<Item id="46180" name="Пользовательский"/>
 					<Item id="46250" name="Задать свой синтаксис..."/>
 					<Item id="46300" name="Открыть папку синтаксисов..."/>
@@ -461,11 +461,11 @@ Updated to :
 					<Item id="48014" name="Открыть папку плагинов..."/>
 
 					<Item id="47010" name="Параметры командной строки"/>
-					<Item id="47001" name="Сайт Notepad++"/>
-					<Item id="47002" name="Страница проекта Notepad++"/>
+					<Item id="47001" name="Сайт npminmin"/>
+					<Item id="47002" name="Страница проекта npminmin"/>
 					<Item id="47003" name="Руководство онлайн"/>
 					<Item id="47004" name="Форум"/>
-					<Item id="47006" name="Обновить Notepad++"/>
+					<Item id="47006" name="Обновить npminmin"/>
 					<Item id="47009" name="Задать прокси обновления..."/>
 					<Item id="47012" name="Отладочная информация"/>
 					<Item id="47000" name="О программе..."/>
@@ -521,7 +521,7 @@ Updated to :
 				<Item id="43103" name="Новый и Вставить"/>
 				<Item id="43104" name="Открыть..."/>
 				<Item id="43013" name="Найти в Файлах..."/>
-				<Item id="43105" name="Закрыть Notepad++"/>
+				<Item id="43105" name="Закрыть npminmin"/>
 			</TrayIcon>
 		</Menu>
 		<Dialog>
@@ -1182,10 +1182,10 @@ Updated to :
 					<Item id="6413" name="Директория Сохранения и Открытия Файла"/>
 					<Item id="6414" name="Директория текущего документа"/>
 					<Item id="6415" name="Запоминать последнюю используемую директорию"/>
-					<Item id="6431" name="Открывать все файлы папки при перетаскивании в окно Notepad++"/>
+					<Item id="6431" name="Открывать все файлы папки при перетаскивании в окно npminmin"/>
 				</DefaultDir>
 				<FileAssoc title="Ассоциация Файлов">
-					<Item id="4008" name="Пожалуйста, перезапустите Notepad++ в режиме Администратора, чтобы использовать эту функцию."/>
+					<Item id="4008" name="Пожалуйста, перезапустите npminmin в режиме Администратора, чтобы использовать эту функцию."/>
 					<Item id="4009" name="Поддерживаемые:"/>
 					<Item id="4010" name="Зарегистрированные:"/>
 				</FileAssoc>
@@ -1228,7 +1228,7 @@ Updated to :
 					<Item id="6728" name="Колонтитулы"/>
 				</Print>
 				<Searching title="Поиск">
-					<Item id="6902" name="Моноширинный шрифт в окне поиска (необходим перезапуск Notepad++)"/>
+					<Item id="6902" name="Моноширинный шрифт в окне поиска (необходим перезапуск npminmin)"/>
 					<Item id="6903" name="Оставлять окно Поиска открытым после окончания поиска"/>
 					<Item id="6904" name="Запрашивать подтверждение операции &quot;Заменить все во Всех Открытых Документах&quot;"/>
 					<Item id="6905" name="Замена: не переходить к следующему совпадению, только при повторном нажатии"/>
@@ -1308,8 +1308,8 @@ Updated to :
 					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Отключено"/>
-						<Element name="При запуске Notepad++"/>
-						<Element name="При закрытии Notepad++"/>
+						<Element name="При запуске npminmin"/>
+						<Element name="При закрытии npminmin"/>
 					</ComboBox>
 					<Item id="6308" name="в системный трей"/>
 					<Item id="6312" name="Отслеживание Изменений в Файлах"/>
@@ -1335,7 +1335,7 @@ Updated to :
 					<Item id="6152" name="Только сессии открываются в новом окне&#x0A; (автоматическое сохранение сессии при выходе)"/>
 					<Item id="6153" name="Каждый файл открывается в новом окне"/>
 					<Item id="6154" name="Все файлы открываются в одном окне"/>
-					<Item id="6155" name="* Изменения вступят в силу после перезапуска Notepad++"/>
+					<Item id="6155" name="* Изменения вступят в силу после перезапуска npminmin"/>
 					<Item id="6171" name="Настроить дату и время вставки"/>
 					<Item id="6175" name="Обратный порядок даты и времени (короткий и длинный формат)"/>
 					<Item id="6172" name="Польз. формат:"/>
@@ -1501,17 +1501,17 @@ Updated to :
 			</DebugInfo>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Редактирование contextMenu" message="Редактирование contextMenu.xml позволяет настроить свое всплывающее контекстное меню в Notepad++.&#x0A;Вы должны перезапустить Notepad++, чтобы изменения вступили в силу."/>
+			<ContextMenuXmlEditWarning title="Редактирование contextMenu" message="Редактирование contextMenu.xml позволяет настроить свое всплывающее контекстное меню в npminmin.&#x0A;Вы должны перезапустить npminmin, чтобы изменения вступили в силу."/>
 			<SaveCurrentModifWarning title="Сохранение Текущих Изменений" message="Вы должны сохранить текущие изменения.&#x0A;Все сохраненные изменения не смогут быть отменены.&#x0A;&#x0A;Продолжить?"/>
 			<LoseUndoAbilityWarning title="Потеря Возможности Отката" message="Вы должны сохранить текущие изменения.&#x0A;Все сохраненные изменения не смогут быть отменены.&#x0A;&#x0A;Продолжить?"/>
-			<CannotMoveDoc title="Переход к новому экземпляру Notepad++" message="Документ был изменен, сохраните его и повторите попытку."/>
+			<CannotMoveDoc title="Переход к новому экземпляру npminmin" message="Документ был изменен, сохраните его и повторите попытку."/>
 			<DocReloadWarning title="Перезагрузка" message="Все внесенные изменения будут потеряны!&#x0A;Продолжить?"/>
 			<FileLockedWarning title="Сохранение не удалось" message="Пожалуйста, проверьте открыт ли этот файл в другом приложении."/>
-			<FileAlreadyOpenedInNpp title="" message="Файл уже открыт в Notepad++."/>
+			<FileAlreadyOpenedInNpp title="" message="Файл уже открыт в npminmin."/>
 			<DeleteFileFailed title="Удаление Файла" message="Не удалось удалить файл"/>
 			<RenameTabTemporaryNameAlreadyInUse title="Не удалось переименовать" message="Указанное имя уже используется другой вкладкой."/>
 			<RenameTabTemporaryNameIsEmpty title="Не удалось переименовать" message="Имя не может быть пустым и не может содержать только пробелы или табуляции."/>
-			<GUpConfNeedAdminMode title="Настройки Прокси" message="Пожалуйста, перезапустите Notepad++ в режиме администратора для настройки прокси."/>
+			<GUpConfNeedAdminMode title="Настройки Прокси" message="Пожалуйста, перезапустите npminmin в режиме администратора для настройки прокси."/>
 			<NbFileToOpenImportantWarning title="Большое количество файлов" message="$INT_REPLACE$ файлов будут открыты.&#x0A;Вы уверены, что хотите их открыть?"/>
 			<SettingsOnCloudError title="Параметры Облака" message="Похоже, что путь облака указан на диск или папку, с пометкой &quot;Только Чтение&quot;.&#x0A;Вам необходимо открыть доступ или получить права на запись.&#x0A;Ваши параметры облака будут отменены. Пожалуйста, сбросьте значение в окне Настройки..."/>
 			<FilePathNotFoundWarning title="Открытие Файла" message="Файл, который вы пытаетесь открыть, не существует."/>
@@ -1541,12 +1541,12 @@ Updated to :
 			<DoDeleteOrNot title="Удаление файла" message="Файл &quot;$STR_REPLACE$&quot;&#x0A;будет закрыт и удалён в Корзину.&#x0A;Продолжить?"/>
 			<NoBackupDoSaveFile title="Сохранение..." message="Файл резервной копии не найден (удалён извне).&#x0A;Сохраните его, иначе ваши данные будут потеряны.&#x0A;Вы хотите сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
 			<DoReloadOrNot title="Обновление файла" message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Этот файл был изменен другой программой.&#x0A;Хотите его обновить?"/>
-			<DoReloadOrNotAndLooseChange title="Обновление файла" message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Этот файл был изменен другой программой.&#x0A;Хотите его обновить?&#x0A;Но вы потеряете все внесенные изменения в Notepad++"/>
+			<DoReloadOrNotAndLooseChange title="Обновление файла" message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Этот файл был изменен другой программой.&#x0A;Хотите его обновить?&#x0A;Но вы потеряете все внесенные изменения в npminmin"/>
 			<PrehistoricSystemDetected title="Обнаружена доисторическая система" message="Кажется, вы все еще используете доисторическую систему. Извините, но эта функция работает только на современных системах."/>
-			<XpUpdaterProblem title="Обновление Notepad++" message="Обновление Notepad++ не совместимо с XP из-за устаревшего уровня безопасности.&#x0A;Хотите перейти на страницу Notepad++, чтобы загрузить последнюю версию?"/>
+			<XpUpdaterProblem title="Обновление npminmin" message="Обновление npminmin не совместимо с XP из-за устаревшего уровня безопасности.&#x0A;Хотите перейти на страницу npminmin, чтобы загрузить последнюю версию?"/>
 			<DocTooDirtyToMonitor title="Проблема Мониторинга" message="Документ в работе. Сохраните внесённые изменения перед его мониторингом."/>
 			<DocNoExistToMonitor title="Проблема Мониторинга" message="Для мониторинга файл должен существовать."/>
-			<FileTooBigToOpen title="Проблема с размером файла" message="Файл слишком велик, чтобы открыть его в Notepad++"/>
+			<FileTooBigToOpen title="Проблема с размером файла" message="Файл слишком велик, чтобы открыть его в npminmin"/>
 			<FileLoadingException title="Код исключения: $STR_REPLACE$" message="При загрузке файла произошла ошибка!"/>
 			<WantToOpenHugeFile title="Открытие файла большого размера" message="Открытие файла размером 2ГБ и более, может занять несколько минут.&#x0A;Вы точно хотите его открыть?"/>
 			<CreateNewFileOrNot title="Создание нового файла" message="&quot;$STR_REPLACE$&quot; не существует. Создать его?"/>
@@ -1578,29 +1578,29 @@ Updated to :
  			<UDL_exportFails title="Польз. Синтаксис" message="Не удалось экспортировать."/>
 			<SCMapperDoDeleteOrNot title="Удаление команды" message="Вы точно хотите удалить эту команду из списка?"/>
 			<FindCharRangeValueError title="Проблема со значением диапазона" message="Вы должны ввести от 0 и до 255."/>
-			<OpenInAdminMode title="Ошибка сохранения" message="Файл не может быть сохранен и может быть защищён.&#x0A;Хотите запустить Notepad++ в режиме администратора?"/>
-			<OpenInAdminModeWithoutCloseCurrent title="Ошибка сохранения" message="Файл не может быть сохранен и может быть защищён.&#x0A;Хотите запустить Notepad++ в режиме администратора?"/>
-			<OpenInAdminModeFailed title="Не удалось открыть в режиме Администратора" message="Notepad++ не может быть открыто в режиме Администратора."/>
+			<OpenInAdminMode title="Ошибка сохранения" message="Файл не может быть сохранен и может быть защищён.&#x0A;Хотите запустить npminmin в режиме администратора?"/>
+			<OpenInAdminModeWithoutCloseCurrent title="Ошибка сохранения" message="Файл не может быть сохранен и может быть защищён.&#x0A;Хотите запустить npminmin в режиме администратора?"/>
+			<OpenInAdminModeFailed title="Не удалось открыть в режиме Администратора" message="npminmin не может быть открыто в режиме Администратора."/>
 			<ViewInBrowser title="Открыть текущий файл в Браузере" message="Приложение не найдено в вашей системе."/>
-			<ExitToUpdatePlugins title="Завершение работы Notepad++" message="Notepad++ завершит работу для продолжения операции.&#x0A;Программа будет перезапущена после завершения всех операций.&#x0A;Продолжить?"/>
-			<NeedToRestartToLoadPlugins title="Необходимо перезапустить Notepad++" message="Для установки загруженных плагинов, необходимо перезапустить Notepad++."/>
-			<ChangeHistoryEnabledWarning title="Необходимо перезапустить Notepad++" message="Для включения Истории Изменений, необходимо перезапустить Notepad++."/>
-			<WindowsSessionExit title="Notepad++ - Завершение работы Windows" message="Windows завершает свою работу и у вас есть несохраненные данные. Вы хотите выйти из Notepad++ сейчас?"/>
-			<LanguageMenuCompactWarning title="Компактное меню Синтаксисов" message="Этот параметр будет изменен при следующем запуске Notepad++."/>
+			<ExitToUpdatePlugins title="Завершение работы npminmin" message="npminmin завершит работу для продолжения операции.&#x0A;Программа будет перезапущена после завершения всех операций.&#x0A;Продолжить?"/>
+			<NeedToRestartToLoadPlugins title="Необходимо перезапустить npminmin" message="Для установки загруженных плагинов, необходимо перезапустить npminmin."/>
+			<ChangeHistoryEnabledWarning title="Необходимо перезапустить npminmin" message="Для включения Истории Изменений, необходимо перезапустить npminmin."/>
+			<WindowsSessionExit title="npminmin - Завершение работы Windows" message="Windows завершает свою работу и у вас есть несохраненные данные. Вы хотите выйти из npminmin сейчас?"/>
+			<LanguageMenuCompactWarning title="Компактное меню Синтаксисов" message="Этот параметр будет изменен при следующем запуске npminmin."/>
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Несохраненные изменения будут потеряны!&#x0A;Вы хотите сохранить изменения перед переключением тем?"/>
-			<MacroAndRunCmdlWarning title="Совместимость Макросов и Команд Запуска" message="Ваши сохранённые команды Макросов и Запуска в Notepad++ v.8.5.2 (и старше) могут быть несовместимы с текущей версией Notepad++.
+			<MacroAndRunCmdlWarning title="Совместимость Макросов и Команд Запуска" message="Ваши сохранённые команды Макросов и Запуска в npminmin v.8.5.2 (и старше) могут быть несовместимы с текущей версией npminmin.
 Пожалуйста, протестируйте эти команды и при необходимости отредактируйте их.
 
-Как альтернатива, вы можете перейти на Notepad++ v8.5.2 и восстановить свои предыдущие данные.
-Notepad++ сделает резервную копию вашего старого &quot;shortcuts.xml&quot; и сохранит его как &quot;shortcuts.xml.v8.5.2.backup&quot;.
+Как альтернатива, вы можете перейти на npminmin v8.5.2 и восстановить свои предыдущие данные.
+npminmin сделает резервную копию вашего старого &quot;shortcuts.xml&quot; и сохранит его как &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Переименование &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, ваши команды будут восстановлены и работать правильно."/>
 			<FullReadOnlySavingForbidden title="Сохранить не удалось" message="Невозможно сохранить файл.
-Запрет на сохранение в Notepad++, атрибут только для чтения привел к невозможности сохранения файла."/>
+Запрет на сохранение в npminmin, атрибут только для чтения привел к невозможности сохранения файла."/>
 			<NotEnoughRoom4Saving title="Не удалось сохранить" message="Не удалось сохранить файл.&#x0A;Кажется, на диске недостаточно места для сохранения файла. Ваш файл не сохранен."/>
 			<FileInaccessibleUserSession title="Файл недоступен" message="Некоторые файлы из сохраненной вручную сессии &quot;$STR_REPLACE$&quot; недоступны. Их можно открыть как пустые файлы, доступные только для чтения, в качестве заполнителей.&#x0A;&#x0A;Хотите создать эти заполнители?&#x0A;&#x0A;ПРИМЕЧАНИЕ: Если вы не будете создавать заполнители или закроете их позже, ваша сессия, сохраненная вручную, НЕ будет изменена при выходе."/>
 			<FileInaccessibleDefaultSessionXml title="Файл недоступен" message="Некоторые файлы из вашей прошлой сессии недоступны. Их можно открыть как пустые файлы, доступные только для чтения, в качестве заполнителей.&#x0A;&#x0A;Хотите создать эти заполнители?&#x0A;&#x0A;ПРИМЕЧАНИЕ: Если вы не будете создавать заполнители или закроете их позже, ваша сессия БУДЕТ ИЗМЕНЕНА ПРИ ВЫХОДЕ! Предлагаем вам сделать резервную копию вашего файла &quot;session.xml&quot; сейчас."/>
-			<RTLvsDirectWrite title="Не могу запустить RTL" message="RTL несовместим с режимом DirectWrite. Пожалуйста, отключите режим DirectWrite в разделе Разное в меню Настроек и перезапустите Notepad++."/>
-			<FileMemoryAllocationFailed title="Исключение: не удалось выделить память файла." message="Вероятно, недостаточно свободной памяти для файла, загружаемого Notepad++."/>
+			<RTLvsDirectWrite title="Не могу запустить RTL" message="RTL несовместим с режимом DirectWrite. Пожалуйста, отключите режим DirectWrite в разделе Разное в меню Настроек и перезапустите npminmin."/>
+			<FileMemoryAllocationFailed title="Исключение: не удалось выделить память файла." message="Вероятно, недостаточно свободной памяти для файла, загружаемого npminmin."/>
 			<FindRegexBackwardDisabled title="Обратный поиск регулярных выражений отключен" message="По умолчанию обратный поиск регулярных выражений отключен из-за неожиданных результатов. Чтобы выполнить обратный поиск, откройте диалоговое окно 'Найти' и выберите режим обычного или расширенного поиска вместо регулярного выражения.
 Нажмите кнопку ОК, чтобы открыть окно 'Найти' или сместить фокус на него.
 			
@@ -1608,8 +1608,8 @@ Notepad++ сделает резервную копию вашего старог
 			<PrintError title="0" message="Невозможно запустить печать документа."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 			<FindAutoChangeOfInSelectionWarning title="Предупреждение о поиске" message="Состояние флажка &quot;В выделенном&quot; было автоматически изменено.
 Пожалуйста, проверьте условие поиска перед выполнением действия."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
-			<Need2Restart2ShowMenuShortcuts title="Notepad++ необходимо перезапустить" message="Notepad++ необходимо перезапустить, чтобы отобразить нужные значки меню."/>
-			<NoAdminRight2ChangeReadOnlyFileAttribute title="Не удалось изменить атрибут файла 'только для чтения'" message="Чтобы изменять атрибут файлов, запустите Notepad++ от имени администратора."/>
+			<Need2Restart2ShowMenuShortcuts title="npminmin необходимо перезапустить" message="npminmin необходимо перезапустить, чтобы отобразить нужные значки меню."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Не удалось изменить атрибут файла 'только для чтения'" message="Чтобы изменять атрибут файлов, запустите npminmin от имени администратора."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="История Буфера"/>
@@ -1661,7 +1661,7 @@ Notepad++ сделает резервную копию вашего старог
 				<Item id="3512" name="Убрать всё"/>
 				<Item id="3513" name="Добавить папку"/>
 				<Item id="3514" name="Запустить системой"/>
-				<Item id="3515" name="Открыть в Notepad++"/>
+				<Item id="3515" name="Открыть в npminmin"/>
 				<Item id="3516" name="Копировать путь"/>
 				<Item id="3517" name="Найти в Файлах..."/>
 				<Item id="3518" name="Открыть папку объекта"/>
@@ -1726,8 +1726,8 @@ Notepad++ сделает резервную копию вашего старог
 			<eol-custom-color-tip value="Перейдите в меню Конфигуратор Стилей, чтобы задать свой цвет для индикатора конца строки (&quot;EOL custom color&quot;)."/>
 			<backup-select-folder value="Выберите папку в качестве директории резервного копирования"/>
 			<cloud-invalid-warning value="Недопустимый путь."/>
-			<cloud-restart-warning value="Перезапустите Notepad++, чтобы изменения вступили в силу."/>
-			<cloud-select-folder value="Выберите папку, которую Notepad++ будет использовать для чтения/записи своих настроек."/>
+			<cloud-restart-warning value="Перезапустите npminmin, чтобы изменения вступили в силу."/>
+			<cloud-select-folder value="Выберите папку, которую npminmin будет использовать для чтения/записи своих настроек."/>
 			<default-open-save-select-folder value="Выберите папку в качестве директории по умолчанию"/>
 			<shift-change-direction-tip value="Используйте Shift+Enter для поиска в обратном направлении."/>
 			<two-find-buttons-tip value="2 направления поиска"/>
@@ -1894,7 +1894,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 
 Если редактируемые файлы не на вышеупомянутых языках, тогда отступы будут производиться в 'Базовом' режиме."/>
 			<global-override-tip value="Использование &quot;Global override&quot; влияет на все стили языков без исключения, замещая их настройки своими.&#x0A;Возможно, вместо этого вам будет удобнее использовать настройки &quot;Default Style&quot;."/>
-			<scintillaRenderingTechnology-tip value="Может улучшить отображение специальных символов или решить некоторые проблемы с графикой. Перезапустите Notepad++, чтобы изменения вступили в силу."/>
+			<scintillaRenderingTechnology-tip value="Может улучшить отображение специальных символов или решить некоторые проблемы с графикой. Перезапустите npminmin, чтобы изменения вступили в силу."/>
 			<toolbar-accent-tip value="Эта опция позволяет значкам панели инструментов соответствовать системному оттенку элементов Windows. Цвет элементов — это цвет подсветки, используемый в кнопках, границах и плитках меню Пуск в Windows. Чтобы изменить его, перейдите в Параметры &gt; Персонализация &gt; Цвета, затем выберите предпочитаемый цвет элементов."/>
 			<len-limit-exceeded-tip value="Превышен лимит длины: Введенные вами данные превышают допустимый лимит и могут быть обрезаны и не будут сохранены для следующей сессии."/>
 			<max-len-on-search-tip value="Введенные вами данные превышают допустимый лимит и могут быть обрезаны и не будут сохранены для следующей сессии."/>

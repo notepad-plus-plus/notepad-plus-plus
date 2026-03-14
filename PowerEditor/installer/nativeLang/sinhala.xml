@@ -222,13 +222,13 @@
 					<Item id="10004" name="නව ප්‍රස්තාවක විවෘත කරන්න"/>
 					<Item id="46001" name="විලාස වින්‍යාසකය..."/>
 					<Item id="46180" name="පරිශීලක-අර්ථ දැක්වූ"/>
-					<Item id="47000" name="Notepad++ ගැන"/>
-					<Item id="47001" name="Notepad++ නිවස"/>
-					<Item id="47002" name="Notepad++ ව්‍යාපෘති පිටුව"/>
+					<Item id="47000" name="npminmin ගැන"/>
+					<Item id="47001" name="npminmin නිවස"/>
+					<Item id="47002" name="npminmin ව්‍යාපෘති පිටුව"/>
 					<Item id="47003" name="සබැඳි ප්‍රලේඛනය"/>
 					<Item id="47004" name="සංසදය"/>
 					<Item id="47005" name="තවත් පේනු මෘදුකාංග ලබා ගන්න"/>
-					<Item id="47006" name="Notepad++ යාවත්කාලීන කරන්න"/>
+					<Item id="47006" name="npminmin යාවත්කාලීන කරන්න"/>
 					<Item id="47008" name="අන්තර්ගත උදව්"/>
 					<Item id="48005" name="පේනු මෘදුකාංග ආයාතකරන්න..."/>
 					<Item id="48006" name="තේමා ආයාත කරන්න ..."/>
@@ -609,7 +609,7 @@
 					<Item id="6319" name="සක්‍රීයකරන්න"/>
 					<Item id="6320" name="යටි ඉරි එපා"/>
 					<Item id="6322" name="සැසි ගොනු දිගුව:"/>
-					<Item id="6323" name="Notepad++ ස්වයංක්‍රීය යාවත්කාලිකය සක්‍රීයකරන්න"/>
+					<Item id="6323" name="npminmin ස්වයංක්‍රීය යාවත්කාලිකය සක්‍රීයකරන්න"/>
 					<Item id="6324" name="ලේඛන මාරු කරන්න (Ctrl+TAB)"/>
 					<Item id="6326" name="සපන් උද්දීපනය පටන්ගන්න"/>
 					<Item id="6329" name="ගැලපෙන ඇමුණුම උද්දීපනය"/>
@@ -675,14 +675,14 @@
 		</Dialog>
 
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Editing contextMenu" message="contextMenu.xml සංස්කරණය කිරීමෙන්  Notepad++ හි උත්පතන ප්‍රකරණ මෙනුව විකරණය කල හැක. \rවිකරණය ක්‍රියාත්මක කිරීම සඳහා Notepad++ යළි අරඹන්න."/>
-			<NppHelpAbsentWarning title="File does not exist" message="\rනොපවතී. කරුණාකර Notepad++ අඩවියෙන් භාගත කරන්න."/>
+			<ContextMenuXmlEditWarning title="Editing contextMenu" message="contextMenu.xml සංස්කරණය කිරීමෙන්  npminmin හි උත්පතන ප්‍රකරණ මෙනුව විකරණය කල හැක. \rවිකරණය ක්‍රියාත්මක කිරීම සඳහා npminmin යළි අරඹන්න."/>
+			<NppHelpAbsentWarning title="File does not exist" message="\rනොපවතී. කරුණාකර npminmin අඩවියෙන් භාගත කරන්න."/>
 			<SaveCurrentModifWarning title="Save Current Modification" message="වත්මන් විකරණය සුරැකීම අත්‍යාවශ්‍යය වේ.\r සිදු කල සියලු විකරණයන් ප්‍රතිවර්ත කල නොහැක.\r\rඉදිරියට යාම ?"/>
 			<LoseUndoAbilityWarning title="Lose Undo Ability Waning" message="වත්මන් විකරණය සුරැකීම අත්‍යාවශ්‍යය වේ.සිදු කල සියලු විකරණයන් ප්‍රතිවර්ත කල නොහැ.r\rඉදිරියට යාම ??"/>
-			<CannotMoveDoc title="Move to new Notepad++ Instance" message="ලේඛනය විකරණය වී ඇත.ගොනුව සුරැකීමට ලක් කොට නැවත උත්සහා කරන්න."/>
-			<DocReloadWarning title="Reload" message="වත්මන් ගොනුව නැවත විවෘත කොට සිදු කල Notepad++ වෙනස් කිරීම් අහිමි කර ගැනීමට අවශ්‍යද?"/>
+			<CannotMoveDoc title="Move to new npminmin Instance" message="ලේඛනය විකරණය වී ඇත.ගොනුව සුරැකීමට ලක් කොට නැවත උත්සහා කරන්න."/>
+			<DocReloadWarning title="Reload" message="වත්මන් ගොනුව නැවත විවෘත කොට සිදු කල npminmin වෙනස් කිරීම් අහිමි කර ගැනීමට අවශ්‍යද?"/>
 			<FileLockedWarning title="Save failed" message="කරුණාකර මෙම ලේඛනය වෙනත් වැඩසටහනක් මගින් විවෘත කොට ඇත්දයි පරික්ෂා කොට බලන්න"/>
-			<FileAlreadyOpenedInNpp title="" message="මෙම ලේඛනය Notepad++ මගින් දැනටමත් විවෘත කොට පවතී."/>
+			<FileAlreadyOpenedInNpp title="" message="මෙම ලේඛනය npminmin මගින් දැනටමත් විවෘත කොට පවතී."/>
 			<DeleteFileFailed title="Delete File" message="ලේඛනය මැකීම අසාර්ථකයි"/>
 
 

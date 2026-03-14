@@ -282,12 +282,12 @@
 					<Item id="46180" name="Үземнең көйләүләрем"/>
 					<Item id="46250" name="Үземнең синтаксисны бирергә..."/>
 					<Item id="47000" name="Программа турында..."/>
-					<Item id="47001" name="Notepad++ -ның Өй бите"/>
-					<Item id="47002" name="Notepad++ проектының бите"/>
+					<Item id="47001" name="npminmin -ның Өй бите"/>
+					<Item id="47002" name="npminmin проектының бите"/>
 					<Item id="47003" name="Интернет документация"/>
 					<Item id="47004" name="Форум"/>
 					<Item id="47005" name="Тагын плагиннар..."/>
-					<Item id="47006" name="Notepad++ -ны яңартырга"/>
+					<Item id="47006" name="npminmin -ны яңартырга"/>
 					<Item id="47008" name="Белешмә"/>
 					<Item id="47009" name="Яңарту проксиларын бирергә..."/>
 					<Item id="47010" name="Команда Юлының параметрлары"/>
@@ -764,10 +764,10 @@
 				</MISC>
 				<MultiInstance title="Тәрәзәләр режимы">
 					<Item id="6151" name="Файллар ачылу режимы"/>
-					<Item id="6152" name="Сессияларны Notepad++ның яңа нөсхәсендә ачарга"/>
+					<Item id="6152" name="Сессияларны npminminның яңа нөсхәсендә ачарга"/>
 					<Item id="6153" name="Һәр файлны яңа тәрәзәдә ачарга"/>
 					<Item id="6154" name="Бөтенесе бер тәрәзәдә (гадәттәгечә)"/>
-					<Item id="6155" name="* Үзгәрешләр Notepad++ны яңабаштан җибәргәч эшләячәкләр"/>
+					<Item id="6155" name="* Үзгәрешләр npminminны яңабаштан җибәргәч эшләячәкләр"/>
 				</MultiInstance>
 				<Delimiter title="Аергыч">
 					<Item id="6251" name="Аергыч көйләүләре (Ctrl + 2 Тычкан чиртүе)"/>
@@ -784,7 +784,7 @@
 					<Item id="6265" name="OneDrive"/>
 					<Item id="6266" name="Google Drive"/>
 					<Item id="6267" name="Болытлы саклау өчен үз юлыңны күрсәтергә:"/>
-					<Item id="6261" name="Үзгәрешләр Notepad++ны яңабаштан җибәргәч эшләячәкләр."/>
+					<Item id="6261" name="Үзгәрешләр npminminны яңабаштан җибәргәч эшләячәкләр."/>
 				</Cloud>
 				<SearchEngine title="Эзләү Системасы">
 					<Item id="6271" name="Эзләү Системасы (&quot;Интернетта Эзләү&quot; командасы өчен)"/>
@@ -873,14 +873,14 @@
 			</FindCharsInRange>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="contextMenu -ны үзгәртү" message="contextMenu.xml -ны үзгәртү Notepad++ -та контекст менюларны көйләргә мөмкинлек бирә.&#x0A;Үзгәрешләр гамәлгә керсен өчен, Notepad++ -ны яңабаштан җибәрергә кирәк."/>
-			<NppHelpAbsentWarning title="Файл юк" message="&#x0A;юк. Аны Notepad++ сайтыннан йөкләвегез сорала."/>
+			<ContextMenuXmlEditWarning title="contextMenu -ны үзгәртү" message="contextMenu.xml -ны үзгәртү npminmin -та контекст менюларны көйләргә мөмкинлек бирә.&#x0A;Үзгәрешләр гамәлгә керсен өчен, npminmin -ны яңабаштан җибәрергә кирәк."/>
+			<NppHelpAbsentWarning title="Файл юк" message="&#x0A;юк. Аны npminmin сайтыннан йөкләвегез сорала."/>
 			<SaveCurrentModifWarning title="Хәзерге үзгәрешләрне саклау" message="Хәзерге үзгәрешләрне сакларга кирәк.&#x0A;Сакланган үзгәрешләр кире үзгәртелә алмаячаклар.&#x0A;&#x0A;Дәвам итәргәме?"/>
 			<LoseUndoAbilityWarning title="Кайтару мөмкинлеге югалды" message="Хәзерге үзгәрешләрне саклагыз.&#x0A;Бөтен сакланган үзгәрешләр кире үзгәртелә алмаячаклар.&#x0A;&#x0A;Дәвам итәргәме?"/>
-			<CannotMoveDoc title="Notepad++ -ның яңа нөсхәсенә күчү" message="Документ үзгәртелгән иде, аны саклагыз һәм яңадан башкарып карагыз."/>
+			<CannotMoveDoc title="npminmin -ның яңа нөсхәсенә күчү" message="Документ үзгәртелгән иде, аны саклагыз һәм яңадан башкарып карагыз."/>
 			<DocReloadWarning title="Яңабаштан җибәрү" message="Бөтен кертелгән үзгәрешләр югалачак!&#x0A;Дәвам итәргәме?"/>
 			<FileLockedWarning title="Саклап булмады" message="Бу файл башка кушымтада ачылмаганын тикшерүегез сорала."/>
-			<FileAlreadyOpenedInNpp title="" message="Файл инде Notepad++ -та ачылган."/>
+			<FileAlreadyOpenedInNpp title="" message="Файл инде npminmin -та ачылган."/>
 			<DeleteFileFailed title="Файлны бетерү" message="Файлны бетереп булмады"/>
 
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->

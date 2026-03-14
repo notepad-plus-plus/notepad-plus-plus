@@ -1,4 +1,4 @@
-; This file is part of Notepad++ project
+; This file is part of npminmin project
 ; Copyright (C)2021 Don HO <don.h@free.fr>
 ;
 ; This program is free software: you can redistribute it and/or modify
@@ -24,7 +24,7 @@ Function LaunchNpp
   ;		2. If previous npp is configured as "Always in multi-instance mode", then
   ;			a. Two npp instances will be opened which is not expected
   ;			b. Second instance may not support drag n drop if current user's integrity level is not as admin
-  Exec '"$WINDIR\explorer.exe" "$INSTDIR\notepad++.exe"'
+  Exec '"$WINDIR\explorer.exe" "$INSTDIR\npminmin.exe"'
 
   ; Max 5 seconds wait here to open change.log
   ; If npp is not available even after 5 seconds, exit without showing change.log
@@ -33,14 +33,14 @@ Function LaunchNpp
 	System::Call 'kernel32::OpenMutex(i 0x100000, b 0, t "nppInstance") i .R0'
 	IntCmp $R0 0 NotYetExecuted
 		System::Call 'kernel32::CloseHandle(i $R0)'
-		Exec '"$INSTDIR\notepad++.exe" "$INSTDIR\change.log" '
+		Exec '"$INSTDIR\npminmin.exe" "$INSTDIR\change.log" '
 		${Break}
 	NotYetExecuted:
 		Sleep 1000
   ${Next}
 FunctionEnd
 
-; Check if Notepad++ is running
+; Check if npminmin is running
 ; Created by Motaz Alnuweiri
 ; URL: http://nsis.sourceforge.net/Check_whether_your_application_is_running
 ;      http://nsis.sourceforge.net/Sharing_functions_between_Installer_and_Uninstaller
@@ -54,9 +54,9 @@ FunctionEnd
 		IntCmp $R0 0 NotRunning
 			StrCpy $runningNppDetected "true"
 			System::Call 'kernel32::CloseHandle(i $R0)'
-			MessageBox MB_RETRYCANCEL|MB_DEFBUTTON1|MB_ICONSTOP "Cannot continue the installation: Notepad++ is running.\
+			MessageBox MB_RETRYCANCEL|MB_DEFBUTTON1|MB_ICONSTOP "Cannot continue the installation: npminmin is running.\
 			          $\n$\n\
-                      Please close Notepad++, then click ''Retry''." IDRETRY Retry IDCANCEL Cancel
+                      Please close npminmin, then click ''Retry''." IDRETRY Retry IDCANCEL Cancel
 			Retry:
 				Goto Check
 			
@@ -106,7 +106,7 @@ Function ExtraOptions
 	${NSD_Check} $ShortcutCheckboxHandle
 	${NSD_OnClick} $ShortcutCheckboxHandle OnChange_ShortcutCheckBox
 
-	${NSD_CreateCheckbox} 0 80 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in a USB device."
+	${NSD_CreateCheckbox} 0 80 100% 30u "Don't use %APPDATA%$\nEnable this option to make npminmin load/write the configuration files from/to its install directory. Check it if you use npminmin in a USB device."
 	Pop $NoUserDataCheckboxHandle
 	IfFileExists $INSTDIR\doLocalConf.xml doLocalConfExists doLocalConfDoesNotExists
 	doLocalConfExists:
@@ -140,33 +140,33 @@ Function checkCompatibility
 	${GetWindowsVersion} $WinVer
 	
 	StrCmp $WinVer "95" 0 +3
-		MessageBox MB_OK|MB_ICONSTOP "Notepad++ does not support your OS. The installation will be aborted."
+		MessageBox MB_OK|MB_ICONSTOP "npminmin does not support your OS. The installation will be aborted."
 		Abort
 		
 	StrCmp $WinVer "98" 0 +3
-		MessageBox MB_OK|MB_ICONSTOP "Notepad++ does not support your OS. The installation will be aborted."
+		MessageBox MB_OK|MB_ICONSTOP "npminmin does not support your OS. The installation will be aborted."
 		Abort
 		
 	StrCmp $WinVer "ME" 0 +3
-		MessageBox MB_OK|MB_ICONSTOP "Notepad++ does not support your OS. The installation will be aborted."
+		MessageBox MB_OK|MB_ICONSTOP "npminmin does not support your OS. The installation will be aborted."
 		Abort
 		
 	StrCmp $WinVer "2000" 0 +3 ; Windows 2000
-		MessageBox MB_OK|MB_ICONSTOP "Notepad++ does not support your OS. The installation will be aborted."
+		MessageBox MB_OK|MB_ICONSTOP "npminmin does not support your OS. The installation will be aborted."
 		Abort
 		
 	StrCmp $WinVer "XP" 0 xp_endTest ; XP
-		MessageBox MB_YESNO|MB_ICONSTOP "This version of Notepad++ doesn't support Windows XP. The installation will be aborted.$\n$\nDo you want to go to Notepad++ download page for downloading the last version which supports XP (v7.9.2)?" IDYES xp_openDlPage IDNO xp_goQuit
+		MessageBox MB_YESNO|MB_ICONSTOP "This version of npminmin doesn't support Windows XP. The installation will be aborted.$\n$\nDo you want to go to npminmin download page for downloading the last version which supports XP (v7.9.2)?" IDYES xp_openDlPage IDNO xp_goQuit
 xp_openDlPage:
-		ExecShell "open" "https://notepad-plus-plus.org/downloads/v7.9.2/"
+		ExecShell "open" "https://github.com/ridermw/np-minus-minus/downloads/v7.9.2/"
 xp_goQuit:
 		Abort
 xp_endTest:
 		
 	StrCmp $WinVer "2003" 0 ws2003_endTest ; Windows Server 2003
-		MessageBox MB_YESNO|MB_ICONSTOP "This version of Notepad++ doesn't support Windows Server 2003. The installation will be aborted.$\n$\nDo you want to go to Notepad++ download page for downloading the last version which supports this OS?" IDYES ws2003_openDlPage IDNO ws2003_goQuit
+		MessageBox MB_YESNO|MB_ICONSTOP "This version of npminmin doesn't support Windows Server 2003. The installation will be aborted.$\n$\nDo you want to go to npminmin download page for downloading the last version which supports this OS?" IDYES ws2003_openDlPage IDNO ws2003_goQuit
 ws2003_openDlPage:
-		ExecShell "open" "https://notepad-plus-plus.org/downloads/v7.9.2/"
+		ExecShell "open" "https://github.com/ridermw/np-minus-minus/downloads/v7.9.2/"
 ws2003_goQuit:
 		Abort
 ws2003_endTest:
@@ -176,9 +176,9 @@ ws2003_endTest:
 		; OK
 	${Else}
 		; we cannot run ARM64 binaries on a x86/x64 CPU (the other way around is possible - x86 on ARM64 CPU)
-		MessageBox MB_YESNO|MB_ICONSTOP "This installer contains ARM64 version of Notepad++ incompatible with your computer processor running, so the installation will be aborted.$\n$\nDo you want to go to the Notepad++ site to download a compatible (x86/x64) installer instead?" IDYES arm64_openDlPage IDNO arm64_goQuit
+		MessageBox MB_YESNO|MB_ICONSTOP "This installer contains ARM64 version of npminmin incompatible with your computer processor running, so the installation will be aborted.$\n$\nDo you want to go to the npminmin site to download a compatible (x86/x64) installer instead?" IDYES arm64_openDlPage IDNO arm64_goQuit
 arm64_openDlPage:
-		ExecShell "open" "https://notepad-plus-plus.org/downloads/"
+		ExecShell "open" "https://github.com/ridermw/np-minus-minus/downloads/"
 arm64_goQuit:
 		Abort
 	${EndIf}
@@ -188,7 +188,7 @@ FunctionEnd
 
 
 Function writeInstallInfoInRegistry
-	WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe" "" "$INSTDIR\notepad++.exe"
+	WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\npminmin.exe" "" "$INSTDIR\npminmin.exe"
 	
 	WriteRegStr HKLM "Software\${APPNAME}" "" "$INSTDIR"
 	!ifdef ARCH64
@@ -198,12 +198,12 @@ Function writeInstallInfoInRegistry
 	!else
 		WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayName" "${APPNAME} (32-bit x86)"
 	!endif
-	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "Publisher" "Notepad++ Team"
+	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "Publisher" "npminmin Team"
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "MajorVersion" "${VERSION_MAJOR}"
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "MinorVersion" "${VERSION_MINOR}"
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "UninstallString" '"$INSTDIR\uninstall.exe"'
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "QuietUninstallString" '"$INSTDIR\uninstall.exe" /S'
-	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayIcon" "$INSTDIR\notepad++.exe"
+	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayIcon" "$INSTDIR\npminmin.exe"
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayVersion" "${APPVERSION}"
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "URLInfoAbout" "${APPWEBSITE}"
 	WriteRegDWORD HKLM "${UNINSTALL_REG_KEY}" "VersionMajor" ${VERSION_MAJOR}
@@ -220,7 +220,7 @@ Function writeInstallInfoInRegistry
 FunctionEnd
 
 
-!define RUNPROC_WND_CLASS "Notepad++"
+!define RUNPROC_WND_CLASS "npminmin"
 !define RUNPROC_WAIT_FOR_EXIT_MAX_MS 5000 ;  5 seconds max
 !define RUNPROC_SYNC_TERM 0x00100001 ; dwDesiredAccess ... PROCESS_TERMINATE | SYNCHRONIZE
 !include WinMessages.nsh

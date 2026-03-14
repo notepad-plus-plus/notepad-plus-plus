@@ -167,8 +167,8 @@
 
 					<Item id="46001" name="Услубларни белгилаш..."/>
 					<Item id="47000" name="Дастур ҳақида..."/>
-					<Item id="47001" name="Notepad++ дастури сайти"/>
-					<Item id="47002" name="Notepad++ лойиҳаси сайти"/>
+					<Item id="47001" name="npminmin дастури сайти"/>
+					<Item id="47002" name="npminmin лойиҳаси сайти"/>
 					<Item id="47003" name="Интернетда ёрдам"/>
 					<Item id="47004" name="Форум"/>
 					<Item id="47005" name="Кўпроқ қўшимчалар"/>
@@ -190,7 +190,7 @@
 					<Item id="46016" name="Оддий матн"/>
 					<Item id="46017" name="RC Resource файли"/>
 					<Item id="46180" name="Шахсий танловлар"/>
-					<Item id="47006" name="Notepad++ дастурини янгилаш"/>
+					<Item id="47006" name="npminmin дастурини янгилаш"/>
 					<Item id="47007" name="Вики ТТС"/>
 
 				</Commands>

@@ -4,7 +4,7 @@ setlocal
 cd /d %~dp0
 
 rem If this batch file is called from the Microsoft Visual Studio pre-build event,
-rem then the current dir for this bat-file is set to Notepad++ solution/project dir.
+rem then the current dir for this bat-file is set to npminmin solution/project dir.
 rem Because in this batch file we have to go two dir-levels higher (for finding the files
 rem from the external libraries) from both the solution/project dir and from the dir,
 rem where this batch file is located, we can run this batch file ok also manually

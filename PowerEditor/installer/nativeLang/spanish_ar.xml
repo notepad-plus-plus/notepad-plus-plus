@@ -248,13 +248,13 @@
 					<Item id="46001" name="Configurador de estilo..."/>
 					<Item id="46250" name="Lenguaje definido por el usuario..."/>
 					<Item id="46180" name="Definido por el usuario"/>
-					<Item id="47000" name="Acerca de Notepad++..."/>
-					<Item id="47001" name="Web de Notepad++"/>
-					<Item id="47002" name="Proyecto Notepad++ en Sourceforge"/>
+					<Item id="47000" name="Acerca de npminmin..."/>
+					<Item id="47001" name="Web de npminmin"/>
+					<Item id="47002" name="Proyecto npminmin en Sourceforge"/>
 					<Item id="47003" name="NpWiki++ (Ayuda en línea)"/>
 					<Item id="47004" name="Foro"/>
 					<Item id="47005" name="Descargar más complementos"/>
-					<Item id="47006" name="Actualizar Notepad++"/>
+					<Item id="47006" name="Actualizar npminmin"/>
 					<Item id="47008" name="Ayuda..."/>
 					<Item id="47009" name="Configurar el Proxy para actualizar..."/>
 					<Item id="48005" name="Importar complementos ..."/>
@@ -722,10 +722,10 @@
 
 				<MultiInstance title="Ventanas múltiples">
 					<Item id="6151" name="Configuración de ventanas múltiples"/>
-					<Item id="6152" name="Abrir sesión en una nueva ventana de Notepad++"/>
+					<Item id="6152" name="Abrir sesión en una nueva ventana de npminmin"/>
 					<Item id="6153" name="Siempre en modo ventanas múltiples"/>
 					<Item id="6154" name="Predeterminado (ventana única)"/>
-					<Item id="6155" name="* Luego de modificar esta configuración es necesario reiniciar Notepad++"/>
+					<Item id="6155" name="* Luego de modificar esta configuración es necesario reiniciar npminmin"/>
 				</MultiInstance>
 
 				<Delimiter title="Delimitador">
@@ -790,14 +790,14 @@
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Editar contextMenu" message="Editar contextMenu.xml le permite modificar el menú contextual emergente de Notepad++.\rTiene que reiniciar Notepad++ para que los cambios se apliquen después de modificar contextMenu.xml."/>
-			<NppHelpAbsentWarning title="El archivo no existe" message="\rno existe. Por favor, descarguelo en el sitio de Notepad++."/>
+			<ContextMenuXmlEditWarning title="Editar contextMenu" message="Editar contextMenu.xml le permite modificar el menú contextual emergente de npminmin.\rTiene que reiniciar npminmin para que los cambios se apliquen después de modificar contextMenu.xml."/>
+			<NppHelpAbsentWarning title="El archivo no existe" message="\rno existe. Por favor, descarguelo en el sitio de npminmin."/>
 			<SaveCurrentModifWarning title="Guardar las Modificaciones Actuales" message="Debe guardar las modificaciones actuales.\rTodas las modificaciones guardadas no se pueden deshacer.\r\r¿Continuar?"/>
 			<LoseUndoAbilityWarning title="Desactivar la opción de deshacer cambios" message="Desea guardar las modificaciones actuales.\rTodas las modificaciones no podrán deshacerse.\r\r¿Continuar?"/>
-			<CannotMoveDoc title="Mover a una ventana nueva de Notepad++" message="El documento se a modificado, guárdelo e inténtelo nuevamente."/>
-			<DocReloadWarning title="Releer" message="¿Está seguro de querer releer el archivo actual y perder los cambios hechos en Notepad++?"/>
+			<CannotMoveDoc title="Mover a una ventana nueva de npminmin" message="El documento se a modificado, guárdelo e inténtelo nuevamente."/>
+			<DocReloadWarning title="Releer" message="¿Está seguro de querer releer el archivo actual y perder los cambios hechos en npminmin?"/>
 			<FileLockedWarning title="Guardado fallido" message="Por favor compruebe que éste archivo no esté abierto con otro programa"/>
-			<FileAlreadyOpenedInNpp title="" message="El archivo ya está abierto en Notepad++."/>
+			<FileAlreadyOpenedInNpp title="" message="El archivo ya está abierto en npminmin."/>
 			<DeleteFileFailed title="Eliminar archivo" message="Eliminación de archivo fallida"/>
 
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->

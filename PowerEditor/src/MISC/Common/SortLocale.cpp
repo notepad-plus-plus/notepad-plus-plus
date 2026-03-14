@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (C)2025 Randall Joseph Fellmy <software@coises.com>
 
 // This program is free software: you can redistribute it and/or modify
@@ -123,7 +123,7 @@ SortLocale::Result SortLocale::sort(ScintillaEditView* sci, bool descending) con
 
 	// Extensive memory allocation which follows is enclosed in a try block, so failures can be intercepted.
 	// No changes are made to the Scintilla document within the try block; failure when changing the document
-	// should be caught by the ordinary Notepad++ error capture routines, since the document cannot be recovered.
+	// should be caught by the ordinary npminmin error capture routines, since the document cannot be recovered.
 	// First declare some variables which will be required after the try block is finished.
 
 	std::string sortedText;

@@ -2,7 +2,7 @@
 <!--//
 File Name:           Solarized.xml
 Style Name:          Solarized
-Description:         Solarized theme for Notepad++.
+Description:         Solarized theme for npminmin.
                      Based on Solarized by Ethan Schoonover
                      Official Solarized home page: http://ethanschoonover.com/solarized
 Commpliance:         Nearly complete (see README.txt for exceptions).
@@ -35,14 +35,14 @@ Requirements:
       Note 3/29/2012: I have replaced Inconsola-dz with Consolas, since Consolas is
       installed by default in recent versions of Windows.
 
-    * Notepad++, of course.
+    * npminmin, of course.
 
 Installation:
-    Copy this file to C:\Program Files (x86)\Notepad++\themes  OR
+    Copy this file to C:\Program Files (x86)\npminmin\themes  OR
     For WindowsXP:
-    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\Notepad++\themes
+    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\npminmin\themes
     For Windows Vista or 7:
-    Copy this file to C:\Users\%%USERNAME%%\AppData\Roaming\Notepad++\themes
+    Copy this file to C:\Users\%%USERNAME%%\AppData\Roaming\npminmin\themes
 
 //-->
 <NotepadPlus modelDate="20251214" modelFileLastModifiedDate="20251227">

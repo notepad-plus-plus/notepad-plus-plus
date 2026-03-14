@@ -1,5 +1,5 @@
-﻿// This file is part of Notepad++ project
-// Copyright (C) 2021 Notepad++ authors.
+﻿// This file is part of npminmin project
+// Copyright (C) 2021 npminmin authors.
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by

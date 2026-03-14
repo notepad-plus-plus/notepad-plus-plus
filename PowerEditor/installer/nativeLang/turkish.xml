@@ -196,7 +196,7 @@
 					<Item id="42025" name="&amp;Geçerli Makroyu Kaydet..."/>
 					<Item id="42026" name="Sağdan Sola Metin Yönü"/>
 					<Item id="42027" name="Soldan Sağa Metin Yönü"/>
-					<Item id="42028" name="Notepad++ Üzerinde Salt Okunur"/>
+					<Item id="42028" name="npminmin Üzerinde Salt Okunur"/>
 					<Item id="42029" name="Geçerli Dosyanın Yolunu Kopyala"/>
 					<Item id="42030" name="Geçerli Dosya Adını Kopyala"/>
 					<Item id="42031" name="Geçerli Dizin Yolunu Kopyala"/>
@@ -361,14 +361,14 @@
 					<Item id="46016" name="Hiçbiri (Normal Yazı)"/>
 					<Item id="46250" name="Dil &amp;Tanımla"/>
 					<Item id="46300" name="Kullanıcı Tanımlı Dil Klasörünü Aç..."/>
-					<Item id="46301" name="Notepad++ Kullanıcı Tanımlı Diller Koleksiyonu"/>
+					<Item id="46301" name="npminmin Kullanıcı Tanımlı Diller Koleksiyonu"/>
 					<Item id="46180" name="Tanımlı Dili &amp;Kullan"/>
-					<Item id="47000" name="Notepad++ &amp;Hakkında"/>
+					<Item id="47000" name="npminmin &amp;Hakkında"/>
 					<Item id="47010" name="Komut Satırı Değişkenleri…"/>
-					<Item id="47001" name="Notepad++ &amp;Ana Sayfası"/>
-					<Item id="47002" name="Notepad++ Proje Sayfası"/>
-					<Item id="47003" name="Notepad++ Çevrimiçi Kullanıcı Kılavuzu"/>
-					<Item id="47004" name="Notepad++ Topluluğu (Forum)"/>
+					<Item id="47001" name="npminmin &amp;Ana Sayfası"/>
+					<Item id="47002" name="npminmin Proje Sayfası"/>
+					<Item id="47003" name="npminmin Çevrimiçi Kullanıcı Kılavuzu"/>
+					<Item id="47004" name="npminmin Topluluğu (Forum)"/>
 					<Item id="47012" name="Derleme Bilgileri…"/>
 					<Item id="47005" name="Eklenti Merkezi"/>
 					<Item id="47006" name="&amp;Güncellemeleri Denetle"/>
@@ -438,7 +438,7 @@
 				<Item CMDID="41016" name="Çöp Kutusuna Taşı"/>
 				<Item CMDID="41014" name="Yeniden Yükle"/>
 				<Item CMDID="41010" name="Yazdır..."/>
-				<Item CMDID="42028" name="Notepad++ Üzerinde Salt Okunur"/>
+				<Item CMDID="42028" name="npminmin Üzerinde Salt Okunur"/>
 				<Item CMDID="42033" name="Windows Üzerinde Salt Okunur Özniteliği"/>
 				<Item CMDID="2" name="Panoya Kopyala"/>
 				<Item CMDID="42029" name="Tam Dosya Yolunu Kopyala"/>
@@ -1123,7 +1123,7 @@
 				</DefaultDir>
 
 				<FileAssoc title="Dosya İlişkilendirmeleri">
-					<Item id="4008" name="Bu özelliği kullanmak için, Notepad++'ı kapatıp yönetici olarak tekrar açın."/>
+					<Item id="4008" name="Bu özelliği kullanmak için, npminmin'ı kapatıp yönetici olarak tekrar açın."/>
 					<Item id="4009" name="Desteklenen uzantılar:"/>
 					<Item id="4010" name="Kaydedilen uzantılar:"/>
 				</FileAssoc>
@@ -1208,7 +1208,7 @@
 				</Print>
 				
 				<Searching title="Arama">
-					<Item id="6902" name="Bul penceresinde sabit genişlikli yazıtipi kullan (Notepad++ yeniden başlatılmalıdır)"/>
+					<Item id="6902" name="Bul penceresinde sabit genişlikli yazıtipi kullan (npminmin yeniden başlatılmalıdır)"/>
 					<Item id="6903" name="Bul penceresi, arama sonuçlar penceresine yönlendirdiğinde açık kalsın"/>
 					<Item id="6904" name="Tüm Açılmış Pencerelerde Tümünü Değiştirmeyi Onayla"/>
 					<Item id="6905" name="Değiştir: Sonraki eşleşmeye geçme"/>
@@ -1275,7 +1275,7 @@
 					<Item id="6152" name="Yeni bir örnekte oturum aç (ve kapanınca oturumu otomatik kaydet)"/>
 					<Item id="6153" name="Her zaman çoklu örnek modunda"/>
 					<Item id="6154" name="Varsayılan (tekli örnek)"/>
-					<Item id="6155" name="* Bu ayarın değiştirilmesi Notepad++'ın yeniden başlatılmasını gerektirir."/>
+					<Item id="6155" name="* Bu ayarın değiştirilmesi npminmin'ın yeniden başlatılmasını gerektirir."/>
 					<Item id="6171" name="Özel Tarih Zamanı Yerleştir"/>
 					<Item id="6175" name="Varsayılan tarih zaman sıralamasını ters çevir (kısa &amp;&amp; uzun format)"/>
 					<Item id="6172" name="Özel Format:"/>
@@ -1358,8 +1358,8 @@
 					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Etkisizleştir"/>
-						<Element name="Notepad++ başlangıcında etkinleştir"/>
-						<Element name="Notepad++ kapatışında etkinleştir"/>
+						<Element name="npminmin başlangıcında etkinleştir"/>
+						<Element name="npminmin kapatışında etkinleştir"/>
 					</ComboBox>
 					<Item id="6308" name="Görev Çubuğu"/>
 					<Item id="6363" name="Görselleştirme Modu"/>
@@ -1454,8 +1454,8 @@ Bu pencereyi Tercihler içinden tekrar aktif edebilirsiniz."/>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ ve $STR_REPLACE$ birer yer tutucudur, bu yer tutucuları çevirmeyin. -->
-			<ContextMenuXmlEditWarning title="contextMenu.xml Dosyasını Düzenle" message="contextMenu.xml dosyasını düzenleyerek Notepad++ sağ tık bağlam menüsü değiştirilebilir.
-Değişikliklerin etkin olması için Notepad++ yeniden başlatılmalıdır."/>
+			<ContextMenuXmlEditWarning title="contextMenu.xml Dosyasını Düzenle" message="contextMenu.xml dosyasını düzenleyerek npminmin sağ tık bağlam menüsü değiştirilebilir.
+Değişikliklerin etkin olması için npminmin yeniden başlatılmalıdır."/>
 			<SaveCurrentModifWarning title="Geçerli Düzenlemeyi Kaydet" message="Yaptığınız değişiklikleri kaydetmelisiniz. 
 Kaydedilen değişiklikler geri alınamaz. 
 
@@ -1464,10 +1464,10 @@ Devam etmek istiyor musunuz?"/>
 Kaydedilen değişiklikler geri alınamaz. 
 
 Devam etmek istiyor musunuz?"/>
-			<CannotMoveDoc title="Yeni Notepad++ Penceresine Taşı" message="Belge değiştirilmiş, kaydedip yeniden deneyin."/>
+			<CannotMoveDoc title="Yeni npminmin Penceresine Taşı" message="Belge değiştirilmiş, kaydedip yeniden deneyin."/>
 			<DocReloadWarning title="Yeniden Yükle" message="Geçerli dosyayı yeniden yüklerseniz yaptığınız değişiklikler kaybolacak. Devam etmek istiyor musunuz?"/>
 			<FileLockedWarning title="Kaydedilemedi" message="Dosyanın başka bir yazılım tarafından kullanılmadığından emin olun."/>
-			<FileAlreadyOpenedInNpp title="Dosya Aç" message="Dosya zaten Notepad++ içinde açık."/>
+			<FileAlreadyOpenedInNpp title="Dosya Aç" message="Dosya zaten npminmin içinde açık."/>
 			<RenameTabTemporaryNameAlreadyInUse title="Yeniden Adlandırma Başarısız" message="Belirtilen ad başka bir sekmede kullanımda."/>
 			<RenameTabTemporaryNameIsEmpty title="Yeniden Adlandırma Başarısız" message="Belirtilen isim boş olamaz, ya da sadece boşluklar veya atlamalar (TAB) içeremez."/><!--  NasılTekrarlanır: İsimsiz belge sekme yeniden adlandırın ve boş bir dizi ya da biraz boşluk girin. -->
 			<DeleteFileFailed title="Dosya Sil" message="Dosya silinemedi"/>
@@ -1484,7 +1484,7 @@ Bu işlemin çalışması için, klasör bırakmada, klasörü Çalışma alanı
 			<SortingError title="Sıralama Hatası" message="$INT_REPLACE$ satırındaki hatadan dolayı Numerik sıralanamadı."/>
 			<SortLocaleMultiple title="Sıralama Gerçekleşmedi" message="Çoklu seçin desteklenmiyor."/><!-- NasılTekrarlanır: Çoklu seçim yapın ve Düzen | Satır İşlemleri | Satırları Yerel Düzende Sırala'yı seçin. -->
 			<SortLocaleUnknown title="Sıralama Başarısız" message="Sıralamanın başarısız olma sebebi belirlenemiyor."/><!-- NasılTekrarlanır: Bu durum teoriktir; neyin buna neden olacağı bilinmiyor. -->
-			<SortLocaleExcept title="Sıralama Başarısız" message="$STR_REPLACE$"/><!-- NasılTekrarlanır: 32-bit Notepad++ içinde büyük bir dosya açın, mesela 500MB / 90bin satırlı ve Düzen | Satır İşlemleri | Satırları Yerel Düzende Sırala'yı seçin. -->
+			<SortLocaleExcept title="Sıralama Başarısız" message="$STR_REPLACE$"/><!-- NasılTekrarlanır: 32-bit npminmin içinde büyük bir dosya açın, mesela 500MB / 90bin satırlı ve Düzen | Satır İşlemleri | Satırları Yerel Düzende Sırala'yı seçin. -->
 			<ColumnModeTip title="Sütun Modu İpucu" message="
 Sütun seçme moduna geçmek için 3 yol var:
 
@@ -1511,14 +1511,14 @@ Bu dosya başka bir program tarafından değiştirildi.
 Tekrar yüklemek ister misiniz?"/>
 			<DoReloadOrNotAndLooseChange title="Tekrar Yükle" message="&quot;$STR_REPLACE$&quot;
 Bu dosya başka bir program tarafından değiştirildi.
-Tekrar yükleyerek Notepad++ içindeki değişiklerin kaybolmasını istiyor musunuz?"/>
+Tekrar yükleyerek npminmin içindeki değişiklerin kaybolmasını istiyor musunuz?"/>
 			<PrehistoricSystemDetected title="Antik Sistem Bulundu" message="Görünüşe göre, halen antik bir sistem kullanıyorsunuz. Bu özellik sadece modern bir sistemde kullanılabilir, üzgünüm."/>
-			<XpUpdaterProblem title="Notepad++ Güncelleyici" message="Notepad++ güncelleyici XP ile uyumlu değil, çünkü XP güvenlik yapısı oldukça eski.
-Notepad++ sayfasına giderek en son sürümü indirmek ister misiniz?"/>
-			<GUpProxyConfNeedAdminMode title="Vekil Sunucu Ayarları" message="Vekil sunucuyu ayarlamak için, lütfen Notepad++'ı yönetici olarak tekrar başlatın."/>
+			<XpUpdaterProblem title="npminmin Güncelleyici" message="npminmin güncelleyici XP ile uyumlu değil, çünkü XP güvenlik yapısı oldukça eski.
+npminmin sayfasına giderek en son sürümü indirmek ister misiniz?"/>
+			<GUpProxyConfNeedAdminMode title="Vekil Sunucu Ayarları" message="Vekil sunucuyu ayarlamak için, lütfen npminmin'ı yönetici olarak tekrar başlatın."/>
 			<DocTooDirtyToMonitor title="İzleme Sorunu" message="Belge kirli. İzlemeden önce lütfen değişikliği kaydedin."/>
 			<DocNoExistToMonitor title="İzleme Sorunu" message="İzlenmesi için dosyanın mevcut olması gerekir."/>
-			<FileTooBigToOpen title="Dosya Boyutu Sorunu" message="Dosya, Notepad++ tarafından açılamayacak kadar büyük."/>
+			<FileTooBigToOpen title="Dosya Boyutu Sorunu" message="Dosya, npminmin tarafından açılamayacak kadar büyük."/>
 			<FileLoadingException title="Exception code: $STR_REPLACE$" message="An error occurred while loading the file!"/>
 			<CreateNewFileOrNot title="Yeni Dosya Oluştur" message="&quot;$INT_REPLACE$&quot; mevcut değil. Oluşturulsun mu?."/>
 			<CreateNewFileError title="Yeni Dosya Oluştur" message="&quot;$INT_REPLACE$&quot; dosyası oluşturulamıyor."/>
@@ -1558,26 +1558,26 @@ lütfen yeni bir ad verin."/>
 			<SCMapperDoDeleteOrNot title="Emin misiniz?" message="Bu kısayolu silmek istediğinize emin misiniz?"/>
 			<FindCharRangeValueError title="Aralık Değeri Problemi" message="0 ile 255 arasında bir giriş yapmalısınız."/> <!-- NasılTekrarlanır: Ara menüsü, Aralıktaki karakterleri bul, Özel Aralık seçin, herhangi bir düzenle kutusunda 999 girin, ve Ara'ya basın. -->
 			<OpenInAdminMode title="Kayıt Başarısız" message="Dosya kaydedilemedi, korumalı olabilir.
-Notepad++ı Yönetici olarak başlatmak ister misiniz?"/>
+npminminı Yönetici olarak başlatmak ister misiniz?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Kayıt Başarısız" message="Dosya kaydedilemedi, korumalı olabilir.
-Notepad++ı Yönetici olarak başlatmak ister misiniz?"/>
-			<OpenInAdminModeFailed title="Yönetici Olarak Başlatma Başarısız" message="Notepad++ Yönetici olarak başlatılamaz."/>
+npminminı Yönetici olarak başlatmak ister misiniz?"/>
+			<OpenInAdminModeFailed title="Yönetici Olarak Başlatma Başarısız" message="npminmin Yönetici olarak başlatılamaz."/>
 			<ViewInBrowser title="Şimdiki Dosyayı Tarayıcıda GÖrüntüle" message="Sisteminizde uygulama bulunamadı."/>
-			<ExitToUpdatePlugins title="Notepad++ kapanmak üzere" message="Eğer EVET düğmesine basarsanız Notepad++ kapanacak ve işlemler devam edecek.
-Notepad++ tüm işlemler bitince yeniden başlatılacak.
+			<ExitToUpdatePlugins title="npminmin kapanmak üzere" message="Eğer EVET düğmesine basarsanız npminmin kapanacak ve işlemler devam edecek.
+npminmin tüm işlemler bitince yeniden başlatılacak.
 Devam edilsin mi?"/>
-			<NeedToRestartToLoadPlugins title="Notepad++ yeniden başlatılmalı" message="Kurduğunuz eklentilerin yüklenmesi için Notepad++ yeniden başlatılmalı."/>
-			<ChangeHistoryEnabledWarning title="Notepad++ yeniden başlatılmalı" message="Değişim Geçmişini etkinleştirmek için Notepad++'ı yeniden başlatılmanız gereklidir."/><!-- NasılTekrarlanır: Tercihler penceresindeki "Boşluk/Sınır/Köşe" sekmesinde bulunan "Değişim Geçmişini Göster" seçeneğindeki işareti kaldırın. -->
-			<WindowsSessionExit title="Notepad++ - Windows Oturum Sonlandırması" message="Windows oturumu sonlandırılmak üzere, fakat bazı kaydedilmemiş verileriniz var. Şimdi Notepad++'tan çıkmak istiyor musunuz?"/>
+			<NeedToRestartToLoadPlugins title="npminmin yeniden başlatılmalı" message="Kurduğunuz eklentilerin yüklenmesi için npminmin yeniden başlatılmalı."/>
+			<ChangeHistoryEnabledWarning title="npminmin yeniden başlatılmalı" message="Değişim Geçmişini etkinleştirmek için npminmin'ı yeniden başlatılmanız gereklidir."/><!-- NasılTekrarlanır: Tercihler penceresindeki "Boşluk/Sınır/Köşe" sekmesinde bulunan "Değişim Geçmişini Göster" seçeneğindeki işareti kaldırın. -->
+			<WindowsSessionExit title="npminmin - Windows Oturum Sonlandırması" message="Windows oturumu sonlandırılmak üzere, fakat bazı kaydedilmemiş verileriniz var. Şimdi npminmin'tan çıkmak istiyor musunuz?"/>
 			<LanguageMenuCompactWarning title="Kısaltılmış Dil Menüsü" message="Bu ayar, bir sonraki başlatmada değiştirilecektir."/><!-- NasılTekrarlanır: Tercihler -> Dil Menüsü altındaki "Dil Menüsünü Kısalt" ile değiştirebilirsiniz. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Kaydedilmemiş değişiklikler gözardı edilmek üzere!
 Temaları değiştirmeden önce, değişikleri kaydetmek ister misiniz?"/><!-- NasılTekrarlanır: Stil Yapılandırıcısı altında, kaydetmeden, temalar arasında geçiş yapın. -->
-			<MacroAndRunCmdlWarning title="Makro ve Komut Çalıştırma Uyumluluğu" message="Notepad++ v.8.5.2 (ya da daha eski) ile kaydettiğiniz Makro ve Çalıştır komutları, şimdiki Notepad++ sürümü ile uyumsuz olabilir.
+			<MacroAndRunCmdlWarning title="Makro ve Komut Çalıştırma Uyumluluğu" message="npminmin v.8.5.2 (ya da daha eski) ile kaydettiğiniz Makro ve Çalıştır komutları, şimdiki npminmin sürümü ile uyumsuz olabilir.
 Lütfen o komutları test edin ve eğer lazımsa, tekrar düzenleyin.
 
-Alternatif olarak, Notepad++ v8.5.2 sürümüne düşürebilir ve önceki verilerinizi geri alabilirsiniz.
-Notepad++, eski &quot;shortcuts.xml&quot; dosyasını yedekleyip &quot;shortcuts.xml.v8.5.2.backup&quot; olarak kaydedecektir.
-&quot;shortcuts.xml.v8.5.2.backup&quot; dosyasını -&gt; &quot;shortcuts.xml&quot; olarak yeniden adlandırarak, komutlarınız geri gelecek ve düzgün olarak çalışacaktır."/><!-- NasılTekrarlanır: Notepad++'i kapatın, shortcuts.xml.v8.5.2.backup & eğer varsa v852ShortcutsCompatibilityWarning.xml dosyalarını silin, Notepad++'ı yeniden başlatın, Kısayol Eşleyicisi ile bazı kısayolları silin veya düzenleyin, Notepad++'ı kapatın, mesaj görünecektir -->	
+Alternatif olarak, npminmin v8.5.2 sürümüne düşürebilir ve önceki verilerinizi geri alabilirsiniz.
+npminmin, eski &quot;shortcuts.xml&quot; dosyasını yedekleyip &quot;shortcuts.xml.v8.5.2.backup&quot; olarak kaydedecektir.
+&quot;shortcuts.xml.v8.5.2.backup&quot; dosyasını -&gt; &quot;shortcuts.xml&quot; olarak yeniden adlandırarak, komutlarınız geri gelecek ve düzgün olarak çalışacaktır."/><!-- NasılTekrarlanır: npminmin'i kapatın, shortcuts.xml.v8.5.2.backup & eğer varsa v852ShortcutsCompatibilityWarning.xml dosyalarını silin, npminmin'ı yeniden başlatın, Kısayol Eşleyicisi ile bazı kısayolları silin veya düzenleyin, npminmin'ı kapatın, mesaj görünecektir -->	
 			<NotEnoughRoom4Saving title="Kaydetme Başarısız" message="Dosya kaydetme başarısız.
 Görünüşe göre, diskinizde dosyayı kaydetmek için yeterli alan yok. Dosyanız kaydedilemedi."/>
 			<FileInaccessibleUserSession title="Dosyaya erişilemiyor" message="Elle kaydettiğiniz &quot;$STR_REPLACE$&quot; oturumunuzdaki bazı dosyalara erişilemiyor. Yer tutucular gibi boş ve salt-okunur belgeler şeklinde açılabilirler.
@@ -1590,8 +1590,8 @@ NOT: Yer tutucuları oluşturmayı seçmemeniz veya onları sonradan kapatmanız
 Bu yer tutucuları oluşturmak ister misiniz?
 
 NOT: Yer tutucuları oluşturmayı seçmemeniz veya onları sonradan kapatmanız durumunda, oturumunuz ÇIKIŞTA DÜZENLENMEYECEKTİR! &quot;session.xml&quot; dosyanızı şimdi yedeklemenizi öneririz."/>
-			<RTLvsDirectWrite title="SaSMY Çalıştırılamıyor" message="Sağdan Sola Metin Yönü, DirectWrite modu ile uyumsuz. Lütfen DirectWrite modunu Tercihler penceresi altındaki Çeşitli sekmesinden etkisizleştirin ve Notepad++'ı yeniden başlatın."/>
-			<FileMemoryAllocationFailed title="İstisna: Dosya hafızası ayırma başarısız" message="Muhtemelen Notepad++ tarafından yüklenen dosya için yeterli boş hafıza yok."/><!-- NasılTerkarlanır: x86 Notepad++ içinde birden fazla ve toplamda boyutu > ~700MB olan dosyalar açmaya çalışın (bilgisayarda bulunan fiziki bellek miktarına ve mevcut sistem hafıza kullanımına göre değişebilir...). -->
+			<RTLvsDirectWrite title="SaSMY Çalıştırılamıyor" message="Sağdan Sola Metin Yönü, DirectWrite modu ile uyumsuz. Lütfen DirectWrite modunu Tercihler penceresi altındaki Çeşitli sekmesinden etkisizleştirin ve npminmin'ı yeniden başlatın."/>
+			<FileMemoryAllocationFailed title="İstisna: Dosya hafızası ayırma başarısız" message="Muhtemelen npminmin tarafından yüklenen dosya için yeterli boş hafıza yok."/><!-- NasılTerkarlanır: x86 npminmin içinde birden fazla ve toplamda boyutu > ~700MB olan dosyalar açmaya çalışın (bilgisayarda bulunan fiziki bellek miktarına ve mevcut sistem hafıza kullanımına göre değişebilir...). -->
 			<FindRegexBackwardDisabled title="Düzenli ifade geriye doğru arama etkisizleştirildi" message="Varsayılan olarak, muhtemel beklenmeyen sonuçlar nedeniyle geriye doğru düzenli ifade arama etkisizdir. Geriye doğru arama yapmak için, Bul penceresini açın ve düzenli ifade yerine normal ya da genişletilmiş aramayı kullanın.
 Bul penceresini açmak için Tamam tuşuna basın veya ona odaklayın.
 			
@@ -1599,8 +1599,8 @@ Eğer geriye doğru düzenli ifade arama özelliğine ihtiyacınız varsa, kulla
 			<PrintError title="0" message="Yazıcı belgesi başlatılamıyor."/><!-- title="0" kullanarak Windows İS varsayılan "Hata" tercüme başlığını kullanabilirsiniz. -->
 			<FindAutoChangeOfInSelectionWarning title="Arama Uyarısı" message="&quot;Seçimde&quot; kutucuk değeri otomatik olarak değiştirildi.
 Bu eylemi gerçekleştirmeden önce lütfen arama durumunu doğrulayın."/> <!-- NasılTekrarlanır: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
-			<Need2Restart2ShowMenuShortcuts title="Notepad++ Yeniden Başlatılmalı" message="Doğru menü kısayollarının gösterimi için Notepad++ yeniden başlatılmalı."/>
-			<NoAdminRight2ChangeReadOnlyFileAttribute title="Dosyanın Salt Okunur Özniteliği Değişimi Başarısız" message="Dosya niteliklerinin değişmesi için lütfen Notepad++'ı yönetici olarak çalıştırın."/>
+			<Need2Restart2ShowMenuShortcuts title="npminmin Yeniden Başlatılmalı" message="Doğru menü kısayollarının gösterimi için npminmin yeniden başlatılmalı."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Dosyanın Salt Okunur Özniteliği Değişimi Başarısız" message="Dosya niteliklerinin değişmesi için lütfen npminmin'ı yönetici olarak çalıştırın."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Pano Geçmişi"/>
@@ -1719,8 +1719,8 @@ Bu eylemi gerçekleştirmeden önce lütfen arama durumunu doğrulayın."/> <!--
 			<word-chars-list-warning-end value="  karakter listenizde."/>
 			<backup-select-folder value="Yedekleme konumu için bir klasör seçin"/><!-- NasılTekrarlanır: Ayarlar > Tercihler > Yedekleme > [...] -->
 			<cloud-invalid-warning value="Geçersiz yol."/>
-			<cloud-restart-warning value="Etkin olması için Notepad++'yı tekrar başlat."/>
-			<cloud-select-folder value="Notepad++'ın ayarlarını yazıp okuyabileceği bir klasör seçin"/>
+			<cloud-restart-warning value="Etkin olması için npminmin'yı tekrar başlat."/>
+			<cloud-select-folder value="npminmin'ın ayarlarını yazıp okuyabileceği bir klasör seçin"/>
 			<default-open-save-select-folder value="Varsayılan dizin için bir klasör seçin"/><!-- NasılTekrarlanır: Ayarlar > Tercihler > Varsayılan Dizin > [...] -->
 			<shift-change-direction-tip value="Shift+Enter ile diğer yönde arama yapın."/>
 			<two-find-buttons-tip value="İkili Bulma Düğmesi Modu"/>
@@ -1873,7 +1873,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Eğer gelişmiş modu seçerseniz fakat belirtilen dilleri düzenlemezseniz, girinti basit modda kalacaktır."/>
 			<!-- "Global override" ve "Default Style" kelimelerini değiştirme -->
 			<global-override-tip value="Burada &quot;Global override&quot; etkinleştirmek tüm dil stillerindeki parametreyi değiştirecektir. Yapmak istediğiniz ise, muhtemelen ayarlardaki &quot;Default Style&quot; seçeneğini kullanmak"/>
-			<scintillaRenderingTechnology-tip value="Özel karakterlerin gösterimini iyileştirebilir veya bazı grafik sorunlarını çözebilir, değişimleri onaylamak için Notepad++'ı yeniden başlatın."/>
+			<scintillaRenderingTechnology-tip value="Özel karakterlerin gösterimini iyileştirebilir veya bazı grafik sorunlarını çözebilir, değişimleri onaylamak için npminmin'ı yeniden başlatın."/>
 
 			<!-- Durum çubuğundaki kısıtlı alandan dolayı, eğer 'length' & 'lines' çevirileri İngilizce kelimelerden çok daha uzunsa, çevirmek yerine lütfen onları İngilizce bırakın. -->
 			<statusbar-length-lines value="mesafe: $STR_REPLACE1$    strlr: $STR_REPLACE2$"/>

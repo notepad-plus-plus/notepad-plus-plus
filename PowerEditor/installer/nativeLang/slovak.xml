@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	Slovak localization for Notepad++
+	Slovak localization for npminmin
 -->
 <NotepadPlus>
 	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.9">
@@ -39,7 +39,7 @@
 					<Item subMenuId="edit-onSelection" name="V&amp;ybraný text"/>
 					<Item subMenuId="edit-multiSelectALL" name="Viacnásobný výber VŠETKO"/>
 					<Item subMenuId="edit-multiSelectNext" name="Viacnásobný výber Ďalší"/>
-					<Item subMenuId="edit-readonlyInNotepad++" name="Iba na čítanie v Notepad++"/>
+					<Item subMenuId="edit-readonlyInnpminmin" name="Iba na čítanie v npminmin"/>
 					<Item subMenuId="search-changeHistory" name="História zmien"/>
 					<Item subMenuId="search-markAll" name="Použiť štýl na vše&amp;tky tokeny"/>
 					<Item subMenuId="search-markOne" name="Použiť štýl na &amp;jeden token"/>
@@ -198,7 +198,7 @@
 					<Item id="42025" name="Uložiť aktuálne zaznamenané ma&amp;kro…"/>
 					<Item id="42026" name="Smer textu sprava doľava"/>
 					<Item id="42027" name="Smer textu zľava doprava"/>
-					<Item id="42028" name="Iba na čítanie v Notepad++"/>
+					<Item id="42028" name="Iba na čítanie v npminmin"/>
 					<Item id="42029" name="Skopírovať cestu k aktuálnemu súboru"/>
 					<Item id="42030" name="Skopírovať názov aktuálneho súboru"/>
 					<Item id="42031" name="Skopírovať cestu k aktuálnemu priečinku"/>
@@ -363,17 +363,17 @@
 					<Item id="46016" name="Žiadny (Obyčajný text)"/>
 					<Item id="46250" name="Definovať vlastný jazyk…"/>
 					<Item id="46300" name="Otvoriť priečinok Používateľom definovaný jazyk…"/>
-					<Item id="46301" name="Zbierka používateľom definovaných jazykov programu Notepad++"/>
+					<Item id="46301" name="Zbierka používateľom definovaných jazykov programu npminmin"/>
 					<Item id="46180" name="Definovaný používateľom"/>
 					<Item id="47000" name="O Notepade++…"/>
 					<Item id="47010" name="Parametre príkazového riadka…"/>
-					<Item id="47001" name="Domovská stránka Notepad++"/>
-					<Item id="47002" name="Stránka projektu Notepad++"/>
-					<Item id="47003" name="Notepad++ online používateľská príručka"/>
-					<Item id="47004" name="Notepad++ komunita (Fórum)"/>
+					<Item id="47001" name="Domovská stránka npminmin"/>
+					<Item id="47002" name="Stránka projektu npminmin"/>
+					<Item id="47003" name="npminmin online používateľská príručka"/>
+					<Item id="47004" name="npminmin komunita (Fórum)"/>
 					<Item id="47012" name="Informácie o ladení…"/>
 					<Item id="47005" name="Získať viac doplnkov"/>
-					<Item id="47006" name="Aktualizovať Notepad++"/>
+					<Item id="47006" name="Aktualizovať npminmin"/>
 					<Item id="47009" name="Nastaviť proxy server pre aktualizáciu…"/>
 					<Item id="48005" name="Importovať doplnky…"/>
 					<Item id="48006" name="Importovať motívy…"/>
@@ -442,7 +442,7 @@
 				<Item CMDID="41016" name="Presunúť do koša…"/>
 				<Item CMDID="41014" name="Obnoviť"/>
 				<Item CMDID="41010" name="Tlačiť…"/>
-				<Item CMDID="42028" name="Iba na čítanie v Notepad++"/>
+				<Item CMDID="42028" name="Iba na čítanie v npminmin"/>
 				<Item CMDID="42033" name="Atribút Iba na čítanie vo Windowse"/>
 				<Item CMDID="2" name="Kopírovať do schránky"/>
 				<Item CMDID="42029" name="Skopírovať celú cestu k súboru"/>
@@ -1123,7 +1123,7 @@
 				</DefaultDir>
 
 				<FileAssoc title="Asociácia súborov">
-					<Item id="4008" name="Ak chcete použiť túto funkciu, ukončite, prosím, Notepad++ a znova ho spustite v režime správcu."/>
+					<Item id="4008" name="Ak chcete použiť túto funkciu, ukončite, prosím, npminmin a znova ho spustite v režime správcu."/>
 					<Item id="4009" name="Podporované prípony:"/>
 					<Item id="4010" name="Registrované prípony:"/>
 				</FileAssoc>
@@ -1208,7 +1208,7 @@
 				</Print>
 
 				<Searching title="Vyhľadávanie">
-					<Item id="6902" name="Použiť neproporcionálne písmo v dialógovom okne Hľadať (Vyžaduje reštart Notepad++)"/>
+					<Item id="6902" name="Použiť neproporcionálne písmo v dialógovom okne Hľadať (Vyžaduje reštart npminmin)"/>
 					<Item id="6903" name="Dialógové okno Hľadať zostáva otvorené po vyhľadaní s výstupom do okna s výsledkami hľadania"/>
 					<Item id="6904" name="Potvrdiť Nahradiť všetko vo všetkých otvorených dokumentoch"/>
 					<Item id="6905" name="Nahradiť: Neprechádzať na nasledujúci výskyt"/>
@@ -1359,8 +1359,8 @@
 					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Zakázať"/>
-						<Element name="Povoliť pri spustení Notepad++"/>
-						<Element name="Povoliť pri ukončení Notepad++"/>
+						<Element name="Povoliť pri spustení npminmin"/>
+						<Element name="Povoliť pri ukončení npminmin"/>
 					</ComboBox>
 					<Item id="6308" name="oblasti oznámení"/>
 					<Item id="6363" name="režim renderovania"/>
@@ -1456,7 +1456,7 @@ Toto dialógové okno môžete neskôr znovu aktivovať v Predvoľbách."/>
 		<MessageBox>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<ContextMenuXmlEditWarning title="Úprava kontextovej ponuky" message="Úpravou súboru contextMenu.xml zmeníte kontextovú ponuku programu.
-Bude potrebné reštartovať Notepad++, aby sa zmeny v súbore  prejavili."/>
+Bude potrebné reštartovať npminmin, aby sa zmeny v súbore  prejavili."/>
 			<SaveCurrentModifWarning title="Uložiť zmeny" message="Mali by ste uložiť aktuálne zmeny.
 Uložené zmeny nie je možné vrátiť.
 
@@ -1465,10 +1465,10 @@ Pokračovať?"/>
 Uložené zmeny nie je možné vrátiť.
 
 Pokračovať?"/>
-			<CannotMoveDoc title="Presunúť do novej inštancie programu Notepad++" message="Dokument bol zmenený. Uložte zmeny a skúste to znova."/>
-			<DocReloadWarning title="Obnoviť" message="Ste si istý, že chcete obnoviť aktuálny súbor a stratiť tak zmeny vykonané v programe Notepad++?"/>
+			<CannotMoveDoc title="Presunúť do novej inštancie programu npminmin" message="Dokument bol zmenený. Uložte zmeny a skúste to znova."/>
+			<DocReloadWarning title="Obnoviť" message="Ste si istý, že chcete obnoviť aktuálny súbor a stratiť tak zmeny vykonané v programe npminmin?"/>
 			<FileLockedWarning title="Uloženie zlyhalo" message="Skontrolujte, prosím, či súbor nie je otvorený v inom programe."/>
-			<FileAlreadyOpenedInNpp title="" message="Súbor je už otvorený v programe Notepad++."/>
+			<FileAlreadyOpenedInNpp title="" message="Súbor je už otvorený v programe npminmin."/>
 			<RenameTabTemporaryNameAlreadyInUse title="Premenovanie zlyhalo" message="Tento názov je už použitý pre inú kartu."/>
 			<RenameTabTemporaryNameIsEmpty title="Premenovanie zlyhalo" message="Názov nemôže byť prázdny alebo nesmie obsahovať iba medzeru(-y) alebo tabulátor(-y)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Odstrániť súbor" message="Odstránenie súboru zlyhalo."/>
@@ -1485,7 +1485,7 @@ Aby táto operácia fungovala, musíte povoliť položku &quot;Pri pretiahnutí 
 			<SortingError title="Chyba usporiadania" message="Nie je možné vykonať číselné usporiadanie kvôli riadku $INT_REPLACE$."/>
 			<SortLocaleMultiple title="Usporiadanie sa nevykonalo" message="Usporiadanie viacerých výberov nie je podporované."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
  			<SortLocaleUnknown title="Usporiadanie zlyhalo" message="Dôvod zlyhania sa nepodarilo zistiť."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
- 			<SortLocaleExcept title="Usporiadanie zlyhalo" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+ 			<SortLocaleExcept title="Usporiadanie zlyhalo" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit npminmin and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Tip pre stĺpcový režim" message="
 Existujú 3 spôsoby prepnutia do režimu výberu stĺpca:
 
@@ -1516,14 +1516,14 @@ Chcete ho obnoviť?"/>
 			<DoReloadOrNotAndLooseChange title="Obnoviť" message="Súbor &quot;$STR_REPLACE$&quot;
 
 bol zmenený inou aplikáciou.
-Chcete ho obnoviť a prísť tak o zmeny vykonané v programe Notepad++?"/>
+Chcete ho obnoviť a prísť tak o zmeny vykonané v programe npminmin?"/>
 			<PrehistoricSystemDetected title="Zistený príliš starý systém" message="Zdá sa, že používate príliš starý systém. Ospravedlňujeme sa, ale táto funkcia je podporovaná len na novších systémoch."/>
-			<XpUpdaterProblem title="Aktualizácia programu Notepad++" message="Aktualizácia programu Notepad++ nie je kompatibilná s Windows XP z dôvodu zastaralej bezpečnostnej vrstvy tohto systému.
-Prejsť na domovskú stránku programu Notepad++, odkiaľ si môžete stiahnuť najnovšiu verziu?"/>
-			<GUpProxyConfNeedAdminMode title="Nastavenia proxy" message="Pre nastavenie proxy, spustite, prosím, Notepad++ v režime správcu."/>
+			<XpUpdaterProblem title="Aktualizácia programu npminmin" message="Aktualizácia programu npminmin nie je kompatibilná s Windows XP z dôvodu zastaralej bezpečnostnej vrstvy tohto systému.
+Prejsť na domovskú stránku programu npminmin, odkiaľ si môžete stiahnuť najnovšiu verziu?"/>
+			<GUpProxyConfNeedAdminMode title="Nastavenia proxy" message="Pre nastavenie proxy, spustite, prosím, npminmin v režime správcu."/>
 			<DocTooDirtyToMonitor title="Problém so sledovaním zmien" message="Dokument bol pozmenený. Pred sledovaním zmien, uložte všetky zmeny v dokumente."/>
 			<DocNoExistToMonitor title="Problém so sledovaním zmien" message="Súbor musí najprv existovať, aby v ňom bolo možné sledovať zmeny."/>
-			<FileTooBigToOpen title="Problém s veľkosťou súboru" message="Súbor je príliš veľký, aby mohol byť otvorený v programe Notepad++."/>
+			<FileTooBigToOpen title="Problém s veľkosťou súboru" message="Súbor je príliš veľký, aby mohol byť otvorený v programe npminmin."/>
 			<FileLoadingException title="Kód výnimky: $STR_REPLACE$" message="Pri načítavaní súboru došlo k chybe!"/>
 			<WantToOpenHugeFile title="Upozornenie na otvorenie príliš veľkého súboru" message="Otvorenie príliš veľkého súboru s veľkosťou viac ako 2 GB môže trvať niekoľko minút.
 Chcete ho otvoriť?"/>
@@ -1566,26 +1566,26 @@ Zvoľte, prosím, iný."/>
 			<SCMapperDoDeleteOrNot title="Ste si istý?" message="Naozaj chcete odstrániť túto klávesovú skratku?"/>
 			<FindCharRangeValueError title="Problém s rozsahom hodnoty" message="Zadajte hodnotu v rozsahu 0 až 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Uloženie zlyhalo" message="Súbor nie je možné uložiť, môže byť chránený.
-Chcete spustiť Notepad++ v režime správcu?"/>
+Chcete spustiť npminmin v režime správcu?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Uloženie zlyhalo" message="Súbor nie je možné uložiť, môže byť chránený.
-Chcete spustiť Notepad++ v režime správcu?"/>
-			<OpenInAdminModeFailed title="Otvorenie v režime správcu zlyhalo" message="Notepad++ nie je možné spustiť v režime správcu."/>
+Chcete spustiť npminmin v režime správcu?"/>
+			<OpenInAdminModeFailed title="Otvorenie v režime správcu zlyhalo" message="npminmin nie je možné spustiť v režime správcu."/>
 			<ViewInBrowser title="Zobrazenie aktuálneho súboru v prehliadači" message="Aplikácia sa v systéme nenašla."/>
-			<ExitToUpdatePlugins title="Notepad++ sa chystá ukončiť" message="Ak kliknete na ÁNO, Notepad++ sa zavrie, aby mohol pokračovať v operáciách.
-Notepad++ sa reštartuje po ukončení všetkých operácií.
+			<ExitToUpdatePlugins title="npminmin sa chystá ukončiť" message="Ak kliknete na ÁNO, npminmin sa zavrie, aby mohol pokračovať v operáciách.
+npminmin sa reštartuje po ukončení všetkých operácií.
 Pokračovať?"/>
-			<NeedToRestartToLoadPlugins title="Notepad++ je potrebné znovu spustiť" message="Na načítanie nainštalovaných doplnkov je potrebné Notepad++ reštartovať."/>
-			<ChangeHistoryEnabledWarning title="Notepad++  je potrebné znovu spustiť" message="Ak chcete povoliť históriu zmien, musíte reštartovať Notepad++."/>
-			<WindowsSessionExit title="Notepad++ - Ukončenie relácie Windowsu" message="Relácia systému Windows sa má ukončiť, ale niektoré údaje nemáte uložené. Chcete Notepad++ ukončiť teraz?"/>
+			<NeedToRestartToLoadPlugins title="npminmin je potrebné znovu spustiť" message="Na načítanie nainštalovaných doplnkov je potrebné npminmin reštartovať."/>
+			<ChangeHistoryEnabledWarning title="npminmin  je potrebné znovu spustiť" message="Ak chcete povoliť históriu zmien, musíte reštartovať npminmin."/>
+			<WindowsSessionExit title="npminmin - Ukončenie relácie Windowsu" message="Relácia systému Windows sa má ukončiť, ale niektoré údaje nemáte uložené. Chcete npminmin ukončiť teraz?"/>
 			<LanguageMenuCompactWarning title="Kompaktná jazyková ponuka" message="Táto možnosť sa zmení pri ďalšom spustení."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Neuložené zmeny budú odstránené!
 Chcete uložiť zmeny pred prepnutím motívu?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Kompatibilita makier a príkazov cez ponuku Spustiť" message="Vaše makrá a príkazy cez ponuku Spustiť uložené v Notepad++ v.8.5.2 (alebo staršej) nemusia byť kompatibilné s aktuálnou verziou programu Notepad++.
+			<MacroAndRunCmdlWarning title="Kompatibilita makier a príkazov cez ponuku Spustiť" message="Vaše makrá a príkazy cez ponuku Spustiť uložené v npminmin v.8.5.2 (alebo staršej) nemusia byť kompatibilné s aktuálnou verziou programu npminmin.
 Otestujte tieto príkazy a v prípade potreby ich znovu upravte.
 
-Prípadne môžete vykonať prechod na verziu Notepad++ v8.5.2 a obnoviť svoje predchádzajúce údaje.
-Notepad++ zálohuje váš starý súbor &quot;shortcuts.xml&quot; a uloží ho ako &quot;shortcuts.xml.v8.5.2.backup&quot;.
-Premenovaním &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; by sa vaše príkazy mali obnoviť a fungovať správne."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+Prípadne môžete vykonať prechod na verziu npminmin v8.5.2 a obnoviť svoje predchádzajúce údaje.
+npminmin zálohuje váš starý súbor &quot;shortcuts.xml&quot; a uloží ho ako &quot;shortcuts.xml.v8.5.2.backup&quot;.
+Premenovaním &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; by sa vaše príkazy mali obnoviť a fungovať správne."/><!-- HowToReproduce: Close npminmin, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch npminmin, delete or modify a shortcuts via Shortcut Mapper, close npminmin, then the message will show up -->
 			<NotEnoughRoom4Saving title="Uloženie zlyhalo" message="Nepodarilo sa uložiť súbor.
 Zdá sa, že na disku nie je dostatok miesta na uloženie súboru. Súbor sa neuložil."/>
 			<FileInaccessibleUserSession title="Nedostupný súbor" message="Niektoré súbory z manuálne uloženej relácie &quot;$STR_REPLACE$&quot; sú nedostupné. Môžete ich otvoriť ako prázdne dokumenty a len na čítanie ako zástupné karty.
@@ -1598,8 +1598,8 @@ POZNÁMKA: Ak sa rozhodnete nevytvárať zástupné karty alebo ich neskôr zatv
 Chcete vytvoriť tieto zástupné karty?
 
 POZNÁMKA: Ak sa rozhodnete nevytvárať zástupné karty alebo ich neskôr zavriete, vaša relácia sa pri ukončení UPRAVÍ! Odporúčame vám, aby ste si teraz zálohovali súbor &quot;session.xml&quot;."/>
-			<RTLvsDirectWrite title="Nie je možné prepnúť smer textu na sprava doľava (RTL)" message="RTL nie je kompatibilné s režimom DirectWrite. Prosím, zakážte režim DirectWrite v Nastavenia – Rôzne a reštartujte Notepad++."/>
-			<FileMemoryAllocationFailed title="Výnimka: Pridelenie pamäte súboru zlyhalo" message="Pravdepodobne nie je dostatok súvislej voľnej pamäte pre súbor načítavaný programom Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<RTLvsDirectWrite title="Nie je možné prepnúť smer textu na sprava doľava (RTL)" message="RTL nie je kompatibilné s režimom DirectWrite. Prosím, zakážte režim DirectWrite v Nastavenia – Rôzne a reštartujte npminmin."/>
+			<FileMemoryAllocationFailed title="Výnimka: Pridelenie pamäte súboru zlyhalo" message="Pravdepodobne nie je dostatok súvislej voľnej pamäte pre súbor načítavaný programom npminmin."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 npminmin (it will depend on the PC memory configuration and the current system memory usage...). -->
 			<FindRegexBackwardDisabled title="Vypnuté spätné vyhľadávanie pomocou regulárnych výrazov" message="Štandardne je spätné vyhľadávanie pomocou regulárnych výrazov vypnuté z dôvodu možných neočakávaných výsledkov. Ak chcete vykonať spätné vyhľadávanie, otvorte dialógové okno Hľadať a namiesto regulárneho výrazu vyberte normálny alebo rozšírený režim vyhľadávania.
 Stlačením tlačidla OK otvorte dialógové okno Hľadať alebo ho prepnite do popredia.
 			
@@ -1607,8 +1607,8 @@ Ak potrebujete funkciu spätného vyhľadávania pomocou regulárnych výrazov, 
 			<PrintError title="0" message="Nie je možné spustiť tlač dokumentu."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 			<FindAutoChangeOfInSelectionWarning title="Upozornenie na vyhľadávanie" message="Stav začiarkavacieho poľa &quot;Vo výbere&quot; sa automaticky zmení.
 Prosím, overte podmienku vyhľadávania pred vykonaním akcie."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
-			<Need2Restart2ShowMenuShortcuts title="Notepad++ je potrebné reštartovať" message="Notepad++ je potrebné reštartovať, aby sa zobrazili ovládacie prvky."/>
-			<NoAdminRight2ChangeReadOnlyFileAttribute title="Zmena atribútu súboru len na čítanie zlyhala" message="Na zmenu atribútu súboru spustite Notepad++ ako správca."/>
+			<Need2Restart2ShowMenuShortcuts title="npminmin je potrebné reštartovať" message="npminmin je potrebné reštartovať, aby sa zobrazili ovládacie prvky."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Zmena atribútu súboru len na čítanie zlyhala" message="Na zmenu atribútu súboru spustite npminmin ako správca."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="História schránky"/>
@@ -1728,8 +1728,8 @@ Prosím, overte podmienku vyhľadávania pred vykonaním akcie."/> <!-- HowToRep
 			<word-chars-list-warning-end value="  vo vašom zozname znakov."/>
 			<backup-select-folder value="Vyberte priečinok na zálohovanie"/>
 			<cloud-invalid-warning value="Neplatná cesta"/>
-			<cloud-restart-warning value="Aby sa zmeny prejavili, reštartujte, prosím, Notepad++."/>
-			<cloud-select-folder value="Vyberte priečinok na načítanie/uloženie nastavení programu Notepad++"/>
+			<cloud-restart-warning value="Aby sa zmeny prejavili, reštartujte, prosím, npminmin."/>
+			<cloud-select-folder value="Vyberte priečinok na načítanie/uloženie nastavení programu npminmin"/>
 			<default-open-save-select-folder value="Vyberte predvolený priečinok"/>
 			<shift-change-direction-tip value="Na vyhľadávanie v opačnom smere použite Shift+Enter"/>
 			<two-find-buttons-tip value="Režim dvoch tlačidiel"/>
@@ -1887,7 +1887,7 @@ Ak vyberiete pokročilý režim, ale neupravujete súbory vo vyššie uvedených
 
 			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
 			<global-override-tip value="Ak tu povolíte &quot;Global override&quot;, tento parameter sa prepíše vo všetkých štýloch pre všetky programovacie jazyky. Pravdepodobne chcete namiesto toho použiť nastavenie &quot;Default Style&quot;"/>
-			<scintillaRenderingTechnology-tip value="Môže zlepšiť vykresľovanie špeciálnych znakov alebo vyriešiť niektoré grafické problémy, na uplatnenie zmien musíte reštartovať Notepad++."/>
+			<scintillaRenderingTechnology-tip value="Môže zlepšiť vykresľovanie špeciálnych znakov alebo vyriešiť niektoré grafické problémy, na uplatnenie zmien musíte reštartovať npminmin."/>
 			
 			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
 			<statusbar-length-lines value="dĺžka: $STR_REPLACE1$    riadky: $STR_REPLACE2$"/>

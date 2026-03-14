@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -23,7 +23,7 @@ IDD_REGEXT_BOX DIALOGEX 115, 10, 460, 205
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | DS_CONTROL
 FONT 8, L"MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    LTEXT           "Please exit Notepad++ and relaunch Notepad++ in Administrator mode to use this feature.",IDC_ADMINMUSTBEONMSG_STATIC,20,0,300,16
+    LTEXT           "Please exit npminmin and relaunch npminmin in Administrator mode to use this feature.",IDC_ADMINMUSTBEONMSG_STATIC,20,0,300,16
     LTEXT           "Supported extensions:",IDC_SUPPORTEDEXTS_STATIC,70,18,80,8
     LISTBOX         IDC_REGEXT_LANG_LIST,70,30,100,125,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
     LISTBOX         IDC_REGEXT_LANGEXT_LIST,175,30,80,125,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP

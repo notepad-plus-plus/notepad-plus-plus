@@ -259,14 +259,14 @@ gan/by Aled Powell
 					<Item id="46001" name="Ffurfweddwr Arddull..."/>
 					<Item id="46250" name="Diffiniwch eich Iaith..."/>
 					<Item id="46180" name="Diffiniwyd gan y Defnyddiwr"/>
-					<Item id="47000" name="Ynghylch Notepad++..."/>
+					<Item id="47000" name="Ynghylch npminmin..."/>
 					<Item id="47010" name="Argiau Llinell Gorchymyn..."/>
-					<Item id="47001" name="Hafan Notepad++"/>
-					<Item id="47002" name="Tudalen Prosiect Notepad++"/>
+					<Item id="47001" name="Hafan npminmin"/>
+					<Item id="47002" name="Tudalen Prosiect npminmin"/>
 					<Item id="47003" name="Dogfennau Arlein"/>
 					<Item id="47004" name="Fforwm"/>
 					<Item id="47005" name="Cael Mwy o Ategolion"/>
-					<Item id="47006" name="Diweddaru Notepad++"/>
+					<Item id="47006" name="Diweddaru npminmin"/>
 					<Item id="47008" name="Cynnwys Cymorth"/>
 					<Item id="47009" name="Gosod Diweddarwr Procsi..."/>
 					<Item id="48005" name="Mewnforio Ategolun(-ion) ..."/>
@@ -739,10 +739,10 @@ gan/by Aled Powell
 
 				<MultiInstance title="Aml-ystyr">
 					<Item id="6151" name="Gosodiadau Aml-ystyr"/>
-					<Item id="6152" name="Agor sesiwn mewn ystyr newydd o Notepad++"/>
+					<Item id="6152" name="Agor sesiwn mewn ystyr newydd o npminmin"/>
 					<Item id="6153" name="Mewn modd aml-ystyr o hyd"/>
 					<Item id="6154" name="Rhagosodedig (ystyr sengl)"/>
-					<Item id="6155" name="* Rhaid ail-ddechrau Notepad++ i roi'r newid ar waith."/>
+					<Item id="6155" name="* Rhaid ail-ddechrau npminmin i roi'r newid ar waith."/>
 				</MultiInstance>
 
 				<Delimiter title="Amffinydd">
@@ -758,7 +758,7 @@ gan/by Aled Powell
 					<Item id="6264" name="Dropbox"/>
 					<Item id="6265" name="OneDrive"/>
 					<Item id="6266" name="Google Drive"/>
-					<!--Item id="6261" name="Cofiwch ail-ddechrau Notepad++ i roi newidiadau ar waith."/-->
+					<!--Item id="6261" name="Cofiwch ail-ddechrau npminmin i roi newidiadau ar waith."/-->
 				</Cloud>
 
 
@@ -770,7 +770,7 @@ gan/by Aled Powell
 					<Item id="6319" name="Galluogi"/>
 					<Item id="6320" name="Dim tanlinellu"/>
 					<Item id="6322" name="Estyniad ffeil sesiwn:"/>
-					<Item id="6323" name="Galluogi awto-diweddarwr Notepad++"/>
+					<Item id="6323" name="Galluogi awto-diweddarwr npminmin"/>
 					<Item id="6324" name="Newidydd Dogfennau (Ctrl+TAB)"/>
 					<Item id="6326" name="Galluogi lliwddangos clyfar"/>
 					<Item id="6329" name="Amlygu Tagiau Cydweddu"/>
@@ -817,14 +817,14 @@ gan/by Aled Powell
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Golygu contextMenu" message="Mae golygu contextMenu.xml yn eich gallugoi i addasu eich naidlen cyd-destun Notepad++.\rRhaid ail-ddechrau Notepad++ i newidiadau i contextMenu.xml ddod ar waith."/>
-			<NppHelpAbsentWarning title="Ffeil ddim yn bodoli" message="\rdim yn bodoli. Gallech ei lawrlwytho o wefan Notepad++."/>
+			<ContextMenuXmlEditWarning title="Golygu contextMenu" message="Mae golygu contextMenu.xml yn eich gallugoi i addasu eich naidlen cyd-destun npminmin.\rRhaid ail-ddechrau npminmin i newidiadau i contextMenu.xml ddod ar waith."/>
+			<NppHelpAbsentWarning title="Ffeil ddim yn bodoli" message="\rdim yn bodoli. Gallech ei lawrlwytho o wefan npminmin."/>
 			<SaveCurrentModifWarning title="Cadw Newidiadau Presennol" message="Dylech gadw'r newidiadau presennol.\rNid yw'n bosib dad-wneud newidiadau ar ôl eu cadw.\r\rParhau?"/>
 			<LoseUndoAbilityWarning title="Rhybydd Collli Gallu Dadwneud" message="Dylech gadw'r newidiadau presennol.\rNid yw'n bosib dad-wneud newidiadau ar ôl eu cadw.\r\rParhau?"/>
-			<CannotMoveDoc title="Symud i Ystyr Notepad++ Newydd" message="Mae'r Dogfen wedi ei addasu. Cadwch y ddogfen, yna ceisiwch eto."/>
-			<DocReloadWarning title="Ail-lwytho" message="Ydych yn sicr eich bod eisiau ail-agor y ffeil bresennol a cholli'r newidiadau gwnaed yn Notepad++?"/>
+			<CannotMoveDoc title="Symud i Ystyr npminmin Newydd" message="Mae'r Dogfen wedi ei addasu. Cadwch y ddogfen, yna ceisiwch eto."/>
+			<DocReloadWarning title="Ail-lwytho" message="Ydych yn sicr eich bod eisiau ail-agor y ffeil bresennol a cholli'r newidiadau gwnaed yn npminmin?"/>
 			<FileLockedWarning title="Methwyd Cadw" message="Gwiriwch nad yw'r ffeil ar agor mewn rhaglen arall."/>
-			<FileAlreadyOpenedInNpp title="" message="Mae'r ffeil eisoes ar agor yn Notepad++."/>
+			<FileAlreadyOpenedInNpp title="" message="Mae'r ffeil eisoes ar agor yn npminmin."/>
 			<DeleteFileFailed title="Dileu Ffeil" message="Methwyd dileu'r ffeil"/>
 
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->

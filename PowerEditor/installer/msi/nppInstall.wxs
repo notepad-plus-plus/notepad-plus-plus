@@ -1,120 +1,121 @@
-<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
-
-	<Package	Name="Notepad++"
-				Manufacturer="Notepad++ team"
-				Version="$(var.Version)"
-				UpgradeCode="{CDB13460-04DF-4708-A7FD-4CB4A0684605}">
-
-		<Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
-
-		<!--
-		Icon for "Add/Remove Programs"
-		-->
-		<Icon Id="Icon.ico" SourceFile="..\images\npp_inst.ico"/>
-		<Property Id="ARPPRODUCTICON" Value="Icon.ico" />
-		
-		<!--
-		No reboot after the installation by default
-		-->
-		<Property Id="REBOOT" Value="Suppress" />
-
-		<!--
-		Installation directory structure
-		-->
-		<StandardDirectory Id="ProgramFiles64Folder">
-			<Directory Id="INSTALLFOLDER" Name="Notepad++">
-				<Directory Id="ContextMenuFolder" Name="contextMenu" />
-				<Directory Id="UpdaterFolder" Name="updater" />
-				<Directory Id="AutoCompletionFolder" Name="autoCompletion" />
-
-				<Directory Id="PluginsFolder" Name="plugins" >
-					<Directory Id="PluginConfFolder" Name="config" />
-					<Directory Id="PluginMimeToolsFolder" Name="mimeTools" />
-					<Directory Id="PluginNppConverterFolder" Name="NppConverter" />
-					<Directory Id="PluginNppExportFolder" Name="NppExport" />
-				</Directory>
-
-				<Directory Id="FunctionListFolder" Name="functionList" />
-				<Directory Id="ThemesFolder" Name="themes" />
-				<Directory Id="LocalizationFolder" Name="localization" />
-			</Directory>
-		</StandardDirectory>
-
-		<StandardDirectory Id="ProgramMenuFolder">
-			<Directory Id="ApplicationProgramsFolder" Name="Notepad++" />
-		</StandardDirectory>
-
-	
-		<!--
-		Shortcut on Desktop
-		-->
-		<ComponentGroup Id="ShortcutComponentGroup" Directory="ApplicationProgramsFolder">
-			<Component Id="cmp_NppShortcut" Guid="{9DF5F816-BF4F-496B-9095-E1E8C01B89CE}"> 
-			<Shortcut	Id="startmenuShortcut"
-						Name="Notepad++"
-						Target="[INSTALLFOLDER]notepad++.exe"
-						WorkingDirectory="INSTALLFOLDER" />
-
-			<RegistryValue Root="HKCU" Key="Software\Notepad++" Name="StartMenuShortcut" Type="integer" Value="1"  KeyPath="yes"/>
-			<RemoveFolder Id="RemoveApplicationProgramsFolder" On="uninstall" />
-			</Component>
-		</ComponentGroup>
-
-		<!--
-		Context Menu
-		-->
-		<ComponentGroup Id="ContextMenuComponentGroup" Directory="ContextMenuFolder">
-			<Component Id="cmp_NppShellDll" Guid="{D6083500-DFD2-445D-B4FF-49EDF80A6A84}">
-				<File Source="..\..\bin64\NppShell.x64.dll" Name="NppShell.dll" KeyPath="yes" />
-			</Component>
-			<Component Id="cmp_NppShellMsix" Guid="{EB6E5606-60D1-4C69-8C9B-C0B12A19C6CE}">
-				<File Source="..\..\bin64\NppShell.msix" KeyPath="yes" />
-			</Component>
-		</ComponentGroup>
-	
-
-		<CustomAction	Id="RegisterNppShell" 
-						Directory="System64Folder" 
-						ExeCommand='"[System64Folder]regsvr32.exe" /s "[ContextMenuFolder]NppShell.dll"'
-						Execute="deferred"
-						Impersonate="no"
-						Return="check" />
-
-		<CustomAction	Id="UnregisterNppShell" 
-						Directory="System64Folder" 
-						ExeCommand='"[System64Folder]regsvr32.exe" /s /u "[ContextMenuFolder]NppShell.dll"'
-						Execute="deferred"
-						Impersonate="no"
-						Return="ignore" />
-
-		<InstallExecuteSequence>
-			<Custom Action="RegisterNppShell" After="InstallFiles" Condition="NOT Installed" />
-			<Custom Action="UnregisterNppShell" Before="RemoveFiles" Condition="REMOVE~=&quot;ALL&quot;"/>
-		</InstallExecuteSequence>
-
-
-
-		<Feature Id="MainApplication" Title="Notepad++ Files" Level="1">
-			<ComponentGroupRef Id="CoreComponentGroup" />
-
-			<ComponentGroupRef Id="ShortcutComponentGroup" />
-			<ComponentGroupRef Id="ContextMenuComponentGroup" />
-
-			<Feature Id="AutoUpdaterFeature" Title="Auto Updater" Level="1">
-				<ComponentGroupRef Id="AutoUpdatorComponentGroup" />
-				<Level Value="0" Condition="NOUPDATER" />
-			</Feature>
-
-			<ComponentGroupRef Id="PluginAdminComponentGroup" />
-			<ComponentGroupRef Id="PluginMimeToolsComponentGroup" />
-			<ComponentGroupRef Id="PluginNppConverterComponentGroup" />
-			<ComponentGroupRef Id="PluginNppExportComponentGroup" />
-
-			<ComponentGroupRef Id="AutoCompletionComponentGroup" />
-			<ComponentGroupRef Id="FunctionListComponentGroup" />
-			<ComponentGroupRef Id="ThemesComponentGroup" />
-			<ComponentGroupRef Id="LocalizationComponentGroup" />
-		</Feature>
-
-	</Package>
-</Wix>
+     1|<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+     2|
+     3|	<Package	Name="npminmin"
+     4|				Manufacturer="npminmin team"
+     5|				Version="$(var.Version)"
+     6|				UpgradeCode="{CDB13460-04DF-4708-A7FD-4CB4A0684605}">
+     7|
+     8|		<Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+     9|
+    10|		<!--
+    11|		Icon for "Add/Remove Programs"
+    12|		-->
+    13|		<Icon Id="Icon.ico" SourceFile="..\images\npp_inst.ico"/>
+    14|		<Property Id="ARPPRODUCTICON" Value="Icon.ico" />
+    15|		
+    16|		<!--
+    17|		No reboot after the installation by default
+    18|		-->
+    19|		<Property Id="REBOOT" Value="Suppress" />
+    20|
+    21|		<!--
+    22|		Installation directory structure
+    23|		-->
+    24|		<StandardDirectory Id="ProgramFiles64Folder">
+    25|			<Directory Id="INSTALLFOLDER" Name="npminmin">
+    26|				<Directory Id="ContextMenuFolder" Name="contextMenu" />
+    27|				<!-- UpdaterFolder removed -->
+    28|				<Directory Id="AutoCompletionFolder" Name="autoCompletion" />
+    29|
+    30|				<Directory Id="PluginsFolder" Name="plugins" >
+    31|					<Directory Id="PluginConfFolder" Name="config" />
+    32|					<Directory Id="PluginMimeToolsFolder" Name="mimeTools" />
+    33|					<Directory Id="PluginNppConverterFolder" Name="NppConverter" />
+    34|					<Directory Id="PluginNppExportFolder" Name="NppExport" />
+    35|				</Directory>
+    36|
+    37|				<Directory Id="FunctionListFolder" Name="functionList" />
+    38|				<Directory Id="ThemesFolder" Name="themes" />
+    39|				<Directory Id="LocalizationFolder" Name="localization" />
+    40|			</Directory>
+    41|		</StandardDirectory>
+    42|
+    43|		<StandardDirectory Id="ProgramMenuFolder">
+    44|			<Directory Id="ApplicationProgramsFolder" Name="npminmin" />
+    45|		</StandardDirectory>
+    46|
+    47|	
+    48|		<!--
+    49|		Shortcut on Desktop
+    50|		-->
+    51|		<ComponentGroup Id="ShortcutComponentGroup" Directory="ApplicationProgramsFolder">
+    52|			<Component Id="cmp_NppShortcut" Guid="{9DF5F816-BF4F-496B-9095-E1E8C01B89CE}"> 
+    53|			<Shortcut	Id="startmenuShortcut"
+    54|						Name="npminmin"
+    55|						Target="[INSTALLFOLDER]npminmin.exe"
+    56|						WorkingDirectory="INSTALLFOLDER" />
+    57|
+    58|			<RegistryValue Root="HKCU" Key="Software\npminmin" Name="StartMenuShortcut" Type="integer" Value="1"  KeyPath="yes"/>
+    59|			<RemoveFolder Id="RemoveApplicationProgramsFolder" On="uninstall" />
+    60|			</Component>
+    61|		</ComponentGroup>
+    62|
+    63|		<!--
+    64|		Context Menu
+    65|		-->
+    66|		<ComponentGroup Id="ContextMenuComponentGroup" Directory="ContextMenuFolder">
+    67|			<Component Id="cmp_NppShellDll" Guid="{D6083500-DFD2-445D-B4FF-49EDF80A6A84}">
+    68|				<File Source="..\..\bin64\NppShell.x64.dll" Name="NppShell.dll" KeyPath="yes" />
+    69|			</Component>
+    70|			<Component Id="cmp_NppShellMsix" Guid="{EB6E5606-60D1-4C69-8C9B-C0B12A19C6CE}">
+    71|				<File Source="..\..\bin64\NppShell.msix" KeyPath="yes" />
+    72|			</Component>
+    73|		</ComponentGroup>
+    74|	
+    75|
+    76|		<CustomAction	Id="RegisterNppShell" 
+    77|						Directory="System64Folder" 
+    78|						ExeCommand='"[System64Folder]regsvr32.exe" /s "[ContextMenuFolder]NppShell.dll"'
+    79|						Execute="deferred"
+    80|						Impersonate="no"
+    81|						Return="check" />
+    82|
+    83|		<CustomAction	Id="UnregisterNppShell" 
+    84|						Directory="System64Folder" 
+    85|						ExeCommand='"[System64Folder]regsvr32.exe" /s /u "[ContextMenuFolder]NppShell.dll"'
+    86|						Execute="deferred"
+    87|						Impersonate="no"
+    88|						Return="ignore" />
+    89|
+    90|		<InstallExecuteSequence>
+    91|			<Custom Action="RegisterNppShell" After="InstallFiles" Condition="NOT Installed" />
+    92|			<Custom Action="UnregisterNppShell" Before="RemoveFiles" Condition="REMOVE~=&quot;ALL&quot;"/>
+    93|		</InstallExecuteSequence>
+    94|
+    95|
+    96|
+    97|		<Feature Id="MainApplication" Title="npminmin Files" Level="1">
+    98|			<ComponentGroupRef Id="CoreComponentGroup" />
+    99|
+   100|			<ComponentGroupRef Id="ShortcutComponentGroup" />
+   101|			<ComponentGroupRef Id="ContextMenuComponentGroup" />
+   102|
+   103|			<Feature Id="AutoUpdaterFeature" Title="Auto Updater" Level="1">
+   104|				<!-- Auto-updater removed: npminmin ships without WinGup -->
+   105|				<Level Value="0" Condition="NOUPDATER" />
+   106|			</Feature>
+   107|
+   108|			<ComponentGroupRef Id="PluginAdminComponentGroup" />
+   109|			<ComponentGroupRef Id="PluginMimeToolsComponentGroup" />
+   110|			<ComponentGroupRef Id="PluginNppConverterComponentGroup" />
+   111|			<ComponentGroupRef Id="PluginNppExportComponentGroup" />
+   112|
+   113|			<ComponentGroupRef Id="AutoCompletionComponentGroup" />
+   114|			<ComponentGroupRef Id="FunctionListComponentGroup" />
+   115|			<ComponentGroupRef Id="ThemesComponentGroup" />
+   116|			<ComponentGroupRef Id="LocalizationComponentGroup" />
+   117|		</Feature>
+   118|
+   119|	</Package>
+   120|</Wix>
+   121|

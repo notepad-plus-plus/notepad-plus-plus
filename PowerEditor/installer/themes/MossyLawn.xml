@@ -2,7 +2,7 @@
 <!--//
 File Name:           MossyLawn.xml
 Style Name:          MossyLawn
-Description:         MossyLawn theme for Notepad++.
+Description:         MossyLawn theme for npminmin.
                      A "natural" theme for NP++
                      The hues are taken from photographs of mosses and grasses, with a few
                      hues from tree trunks, autumn leaves and flowers added for contrast.
@@ -30,11 +30,11 @@ License:             Feel free to modify this theme.
                      may, and should, omit such attribution.
 
 Installation:
-    Copy this file to C:\Program Files (x86)\Notepad++\themes  OR
+    Copy this file to C:\Program Files (x86)\npminmin\themes  OR
     For WindowsXP:
-    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\Notepad++\themes
+    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\npminmin\themes
     For Windows Vista or 7:
-    Copy this file to C:\Users\%%USERNAME%%\AppData\Roaming\Notepad++\themes
+    Copy this file to C:\Users\%%USERNAME%%\AppData\Roaming\npminmin\themes
 
 //-->
 <NotepadPlus modelDate="20251214" modelFileLastModifiedDate="20251227">

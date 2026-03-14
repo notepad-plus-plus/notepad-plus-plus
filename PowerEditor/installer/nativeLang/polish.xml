@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <!--
-	History of Polish translation for Notepad++:
+	History of Polish translation for npminmin:
 
 	- Updated by Patryk Skorupa (ppskorupa@outlook.com) to version 7.7.2 (29/07/2019)
 	- Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
@@ -207,7 +207,7 @@ Translation note:
 					<Item id="42025" name="&amp;Zapisz bieżące makro..."/>
 					<Item id="42026" name="Kierunek tekstu od prawej do lewej"/>
 					<Item id="42027" name="Kierunek tekstu od lewej do prawej"/>
-					<Item id="42028" name="Tylko do odczytu w Notepad++"/>
+					<Item id="42028" name="Tylko do odczytu w npminmin"/>
 					<Item id="42029" name="Kopiuj ścieżkę bieżącego pliku"/>
 					<Item id="42030" name="Kopiuj nazwę bieżącego pliku"/>
 					<Item id="42031" name="Kopiuj ścieżkę katalogu bieżącego pliku"/>
@@ -382,7 +382,7 @@ Translation note:
 					<Item id="47004" name="Forum społeczności"/>
 					<Item id="47012" name="Dane debugowania..."/>
 					<Item id="47005" name="Pobierz wtyczki"/>
-					<Item id="47006" name="Uaktualnij Notepad++"/>
+					<Item id="47006" name="Uaktualnij npminmin"/>
 					<Item id="47009" name="Ustaw proxy do aktualizacji..."/>
 					<Item id="48005" name="Importuj wtyczki..."/>
 					<Item id="48006" name="Importuj motywy..."/>
@@ -449,7 +449,7 @@ Translation note:
 				<Item CMDID="41016" name="Przenieś do kosza"/>
 				<Item CMDID="41014" name="Odśwież"/>
 				<Item CMDID="41010" name="Drukuj..."/>
-				<Item CMDID="42028" name="Tylko do odczytu w Notepad++"/>
+				<Item CMDID="42028" name="Tylko do odczytu w npminmin"/>
 				<Item CMDID="42033" name="Atrybut tylko do odczytu w Windows"/>
 				<Item CMDID="2" name="Kopiuj do schowka"/>
 				<Item CMDID="42029" name="Kopiuj ścieżkę pliku"/>
@@ -1003,7 +1003,7 @@ Translation note:
 					<Item id="6118" name="Ukryty"/>
 					<Item id="6119" name="Wieloliniowy"/>
 					<Item id="6120" name="Pionowy"/>
-					<Item id="6121" name="Zamknięcie ostatniej karty zamyka Notepad++"/>
+					<Item id="6121" name="Zamknięcie ostatniej karty zamyka npminmin"/>
 					<Item id="6128" name="Alternatywne ikony"/>
 					<Item id="6125" name="Zachowanie"/>
 					<Item id="6126" name="Wygląd"/>
@@ -1130,7 +1130,7 @@ Translation note:
 				</DefaultDir>
 
 				<FileAssoc title="Skojarzenia plików">
-					<Item id="4008" name="Zamknij Notepad++ i uruchom go ponownie jako administrator, aby użyć tej funkcji."/>
+					<Item id="4008" name="Zamknij npminmin i uruchom go ponownie jako administrator, aby użyć tej funkcji."/>
 					<Item id="4009" name="Wspierane rozszerzenia:"/>
 					<Item id="4010" name="Zarejestrowane rozszerzenia:"/>
 				</FileAssoc>
@@ -1215,7 +1215,7 @@ Translation note:
 				</Print>
 
 				<Searching title="Wyszukiwanie">
-					<Item id="6902" name="W oknie wyszukiwania użyj nieproporcjonalnego fontu (wymagany restart Notepad++)"/>
+					<Item id="6902" name="W oknie wyszukiwania użyj nieproporcjonalnego fontu (wymagany restart npminmin)"/>
 					<Item id="6903" name="Okno wyszukiwania pozostaje otwarte po przywołaniu okna z wynikami wyszukiwania"/>
 					<Item id="6904" name="Potwierdź operację „Zamień we wszystkich otwartych plikach”"/>
 					<Item id="6905" name="Po wykonaniu operacji „Zamień” nie przechodź do następnego wystąpienia"/>
@@ -1279,10 +1279,10 @@ Translation note:
 
 				<MultiInstance title="Wiele instancji i data"><!-- Wieloinstancyjność -->
 					<Item id="6151" name="Ustawienia wieloinstancyjności *"/>
-					<Item id="6152" name="Otwieraj sesje w nowych instancjach Notepad++ (i zapisuje je automatycznie przy wyjściu)"/>
+					<Item id="6152" name="Otwieraj sesje w nowych instancjach npminmin (i zapisuje je automatycznie przy wyjściu)"/>
 					<Item id="6153" name="Zawsze w trybie wieloinstancyjności"/>
 					<Item id="6154" name="Domyślne (jedna instancja)"/>
-					<Item id="6155" name="* Zmiana tego ustawienia wymaga ponownego uruchomienia Notepad++."/>
+					<Item id="6155" name="* Zmiana tego ustawienia wymaga ponownego uruchomienia npminmin."/>
 					<Item id="6171" name="Dostosuj wstawianą datę i czas"/>
 					<Item id="6175" name="Odwróć domyślną kolejność daty i czasu (krótki i długi format)"/>
 					<Item id="6172" name="Własny format:"/>
@@ -1365,8 +1365,8 @@ Translation note:
 					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Wyłączona"/>
-						<Element name="Włączona przy uruchamianiu Notepad++"/>
-						<Element name="Włączona przy zamykaniu Notepad++"/>
+						<Element name="Włączona przy uruchamianiu npminmin"/>
+						<Element name="Włączona przy zamykaniu npminmin"/>
 					</ComboBox>
 					<Item id="6308" name="zasobnika systemowego"/>
 					<Item id="6363" name="tryb renderowania"/>
@@ -1461,8 +1461,8 @@ W oknie ustawień możesz przywrócić to potwierdzenie w dowolnym momencie."/>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
-			<ContextMenuXmlEditWarning title="Edycja menu kontekstowego" message="Edycja pliku contextMenu.xml pozwala na zmianę menu kontekstowego dostępnego w Notepad++ pod prawym przyciskiem myszy.
-Żeby zmiany dokonane w pliku contextMenu.xml weszły w życie, konieczne jest ponowne uruchomienie Notepad++."/>
+			<ContextMenuXmlEditWarning title="Edycja menu kontekstowego" message="Edycja pliku contextMenu.xml pozwala na zmianę menu kontekstowego dostępnego w npminmin pod prawym przyciskiem myszy.
+Żeby zmiany dokonane w pliku contextMenu.xml weszły w życie, konieczne jest ponowne uruchomienie npminmin."/>
 			<SaveCurrentModifWarning title="Zapis bieżących zmian" message="Bieżące zmiany muszą zostać zapisane.
 Po zapisaniu nie będzie można ich wycofać.
 
@@ -1471,16 +1471,16 @@ Kontynuować?"/><!-- HowToReproduce: when you openned file is modified but unsav
 Po zapisaniu nie będzie można ich wycofać.
 
 Kontynuować?"/><!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
-			<CannotMoveDoc title="Przeniesienie do nowej instancji Notepad++" message="Dokument został zmodyfikowany. Zapisz go i spróbuj ponownie."/><!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
+			<CannotMoveDoc title="Przeniesienie do nowej instancji npminmin" message="Dokument został zmodyfikowany. Zapisz go i spróbuj ponownie."/><!-- HowToReproduce: From your npminmin drag & drop a clean (not dirty) file to outside of npminmin, another instance of npminmin will be created. Then from your first npminmin drag & drop an unsaved file to the new instance. -->
 			<DocReloadWarning title="Ponowne załadowanie" message="Czy na pewno chcesz ponownie załadować bieżący plik i stracić wszystkie dokonane w nim zmiany?"/>
 			<FileLockedWarning title="Nieudany zapis" message="Plik może być obecnie otwarty w innym programie."/>
-			<FileAlreadyOpenedInNpp title="" message="Plik jest już otwarty w Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
+			<FileAlreadyOpenedInNpp title="" message="Plik jest już otwarty w npminmin."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
 			<RenameTabTemporaryNameAlreadyInUse title="Nieudana zmiana nazwy" message="Podana nazwa jest już używana przez inną kartę."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
 			<RenameTabTemporaryNameIsEmpty title="Nieudana zmiana nazwy" message="Podana nazwa nie może być pusta ani nie może zawierać tylko spacji lub tabulatorów."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Usuwanie pliku" message="Nie udało się usunąć pliku."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="Otwarcie wielu plików" message="Liczba plików do otwarcia wynosi $INT_REPLACE$.
-Czy na pewno chcesz tyle otworzyć?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
+Czy na pewno chcesz tyle otworzyć?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into npminmin. -->
 			<SettingsOnCloudError title="Ustawienia chmury" message="Folder podany w ścieżce chmury dostępny jest tylko do odczytu
 lub potrzebuje specjalnych uprawnień do modyfikacji jego zawartości.
 Ustawienia chmury zostaną wycofane. Nową ścieżkę można podać w oknie ustawień."/>
@@ -1491,7 +1491,7 @@ Ustawienia chmury zostaną wycofane. Nową ścieżkę można podać w oknie usta
 			<SortingError title="Błąd sortowania" message="Nie można wykonać sortowania przez linię numer $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SortLocaleMultiple title="Nieobsługiwane sortowanie" message="Sortowanie regionalne dla wielu zaznaczeń nie jest obsługiwane."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<SortLocaleUnknown title="Błąd sortowania" message="Nie można ustalić przyczyny niepowodzenia sortowania regionalnego."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
-			<SortLocaleExcept title="Błąd sortowania" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleExcept title="Błąd sortowania" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit npminmin and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Wskazówka dla kolumnowego trybu zaznaczania" message="
 Istnieją 3 sposoby przejścia do kolumnowego trybu zaznaczania:
 
@@ -1520,14 +1520,14 @@ Przeładować go?"/>
 			<DoReloadOrNotAndLooseChange title="Przeładowywanie" message="Plik „$STR_REPLACE$”
 został zmodyfikowany przez inny program.
 
-Przeładować go i stracić wszystkie zmiany dokonane w Notepad++?"/>
+Przeładować go i stracić wszystkie zmiany dokonane w npminmin?"/>
 			<PrehistoricSystemDetected title="Antyczny system" message="Wykryto antyczny system operacyjny. Przepraszamy, ale ta funkcja działa jedynie na nowoczesnych systemach."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
-			<XpUpdaterProblem title="Samoaktualizacja Notepad++" message="Automatyczne aktualizowanie Notepad++ jest niemożliwe w systemie Windows XP ze względu na przestarzałe sposoby ochrony systemu.
-Uruchomić stronę internetową Notepad++ z najnowszą wersją programu?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Ustawienia serwera proxy" message="Uruchom Notepad++ jako administrator, aby skonfigurować ustawienia serwera proxy."/>
+			<XpUpdaterProblem title="Samoaktualizacja npminmin" message="Automatyczne aktualizowanie npminmin jest niemożliwe w systemie Windows XP ze względu na przestarzałe sposoby ochrony systemu.
+Uruchomić stronę internetową npminmin z najnowszą wersją programu?"/><!-- HowToReproduce: Run menu "? -> Update npminmin" under Windows XP. -->
+			<GUpProxyConfNeedAdminMode title="Ustawienia serwera proxy" message="Uruchom npminmin jako administrator, aby skonfigurować ustawienia serwera proxy."/>
 			<DocTooDirtyToMonitor title="Problem z monitorowaniem" message="Plik został naruszony. Musi zostać pierw zapisany, żeby mógł być monitorowany."/>
 			<DocNoExistToMonitor title="Problem z monitorowaniem" message="Plik musi istnieć na dysku, żeby być monitorowany."/>
-			<FileTooBigToOpen title="Problem z rozmiarem" message="Plik jest zbyt duży, żeby mógł być otwarty przez Notepad++."/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+			<FileTooBigToOpen title="Problem z rozmiarem" message="Plik jest zbyt duży, żeby mógł być otwarty przez npminmin."/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
 			<FileLoadingException title="Kod wyjątku: $STR_REPLACE$" message="Wystąpił błąd podczas ładowania pliku!"/>
 			<WantToOpenHugeFile title="Ostrzeżenie przy otwieraniu dużego pliku" message="Otwarcie pliku większego od 2 GB może zająć kilka minut.
 Na pewno chcesz kontynuować?"/>
@@ -1541,8 +1541,8 @@ Folder &quot;$STR_REPLACE2$&quot; Nie istnieje."/>
 Zapisać bieżący plik bez kopii?"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<LoadStylersFailed title="Błąd pliku stylers.xml" message="Nie udało się załadować pliku „$STR_REPLACE$”!"/>
 			<LoadLangsFailed title="Konfigurator" message="Nie udało się załadować pliku „langs.xml”!
-Odzyskać go?"/><!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
-			<LoadLangsFailedFinal title="Konfigurator" message="Nie udało się załadować pliku „langs.xml”!"/><!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
+Odzyskać go?"/><!-- HowToReproduce: Close npminmin. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open npminmin. -->
+			<LoadLangsFailedFinal title="Konfigurator" message="Nie udało się załadować pliku „langs.xml”!"/><!-- HowToReproduce: Close npminmin. Use another editor to make "langs.xml" an invalid xml file then save it. Open npminmin. -->
 			<FolderAsWorspaceSubfolderExists title="Problem z obszarem roboczym" message="Przed dodaniem folderu „$STR_REPLACE$”
 należy usunąć z niego podfolder."/><!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
@@ -1570,26 +1570,26 @@ Proszę wybrać inną."/>
 			<SCMapperDoDeleteOrNot title="Na pewno?" message="Czy na pewno chcesz usunąć ten skrót?"/>
 			<FindCharRangeValueError title="Błąd zakresu wartości" message="Wartość musi się mieścić w przedziale liczbowym między 0 i 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Błąd zapisywania" message="Nie udało się zapisać pliku, ponieważ ten może być chroniony.
-Czy chcesz uruchomić Notepad++ jako administrator?"/>
+Czy chcesz uruchomić npminmin jako administrator?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Błąd zapisywania" message="Nie udało się zapisać pliku, ponieważ ten może być chroniony.
-Czy chcesz uruchomić Notepad++ jako administrator?"/>
-			<OpenInAdminModeFailed title="Błąd uprawnień administratora" message="Nie udało się otworzyć Notepad++ jako administrator."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
+Czy chcesz uruchomić npminmin jako administrator?"/>
+			<OpenInAdminModeFailed title="Błąd uprawnień administratora" message="Nie udało się otworzyć npminmin jako administrator."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
 			<ViewInBrowser title="Przeglądanie pliku w przeglądarce" message="Nie udało się odnaleźć powiązanego programu w systemie."/>
-			<ExitToUpdatePlugins title="Notepad++ musi zostać zamknięty" message="Kliknięcie TAK zamknie Notepad++.
-Notepad++ uruchomi się ponownie, kiedy tylko wszystkie działania zostaną zakończone.
+			<ExitToUpdatePlugins title="npminmin musi zostać zamknięty" message="Kliknięcie TAK zamknie npminmin.
+npminmin uruchomi się ponownie, kiedy tylko wszystkie działania zostaną zakończone.
 Kontynuować?"/>
-			<NeedToRestartToLoadPlugins title="Ponowne uruchomienie Notepad++" message="Notepad++ musi zostać ponownie uruchomiony, aby zainstalowane wtyczki mogły działać."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
-			<ChangeHistoryEnabledWarning title="Notepad++ wymaga ponownego uruchomienia" message="Notepad++ musi zostać ponownie uruchomiony, aby historia zmian zaczęła działać."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
-			<WindowsSessionExit title="Notepad++ - wyjście z sesji systemu Windows" message="Sesja systemu Windows wkrótce zostanie zakończona, ale masz niezapisane dane. Czy chcesz teraz zamknąć Notepad++?"/>
-			<LanguageMenuCompactWarning title="Kompaktowe menu języków" message="Ta opcja zostanie zmieniona po ponownym uruchomieniu Notepad++."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+			<NeedToRestartToLoadPlugins title="Ponowne uruchomienie npminmin" message="npminmin musi zostać ponownie uruchomiony, aby zainstalowane wtyczki mogły działać."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+			<ChangeHistoryEnabledWarning title="npminmin wymaga ponownego uruchomienia" message="npminmin musi zostać ponownie uruchomiony, aby historia zmian zaczęła działać."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+			<WindowsSessionExit title="npminmin - wyjście z sesji systemu Windows" message="Sesja systemu Windows wkrótce zostanie zakończona, ale masz niezapisane dane. Czy chcesz teraz zamknąć npminmin?"/>
+			<LanguageMenuCompactWarning title="Kompaktowe menu języków" message="Ta opcja zostanie zmieniona po ponownym uruchomieniu npminmin."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Niezapisane zmiany zostaną utracone!
 Czy chcesz zapisać zmiany przed przełączeniem motywu?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Kompatybilność makr i poleceń uruchamiania" message="Twoje makra i polecenia uruchamiania zapisane w Notepad++ 8.5.2 (lub starszych) mogą nie być kompatybilne z bieżącą wersją programu.
+			<MacroAndRunCmdlWarning title="Kompatybilność makr i poleceń uruchamiania" message="Twoje makra i polecenia uruchamiania zapisane w npminmin 8.5.2 (lub starszych) mogą nie być kompatybilne z bieżącą wersją programu.
 Przetestuj te polecenia i w razie potrzeby edytuj je ponownie.
 
-Alternatywnie możesz powrócić do wersji Notepad++ 8.5.2 i przywrócić poprzednie dane.
-Notepad++ wykona kopię zapasową starego pliku „shortcuts.xml” i zapisze go jako „shortcuts.xml.v8.5.2.backup”.
-Po zmianie nazwy pliku z „shortcuts.xml.v8.5.2.backup” na „shortcuts.xml” twoje polecenia powinny zostać przywrócone i działać poprawnie."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+Alternatywnie możesz powrócić do wersji npminmin 8.5.2 i przywrócić poprzednie dane.
+npminmin wykona kopię zapasową starego pliku „shortcuts.xml” i zapisze go jako „shortcuts.xml.v8.5.2.backup”.
+Po zmianie nazwy pliku z „shortcuts.xml.v8.5.2.backup” na „shortcuts.xml” twoje polecenia powinny zostać przywrócone i działać poprawnie."/><!-- HowToReproduce: Close npminmin, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch npminmin, delete or modify a shortcuts via Shortcut Mapper, close npminmin, then the message will show up -->
 			<NotEnoughRoom4Saving title="Nieudany zapis" message="Nie udało się zapisać pliku.
 Wygląda na to, że na dysku nie ma wystarczającej ilości miejsca do zapisania pliku. Twój plik nie został zapisany."/>
 			<FileInaccessibleUserSession title="Plik niedostępny" message="Niektóre pliki z ręcznie zapisanej sesji &quot;$STR_REPLACE$&quot; są niedostępne. Można je otworzyć jako puste i tylko do odczytu dokumenty jako obiekty zastępcze.
@@ -1602,8 +1602,8 @@ UWAGI: Jeśli zdecydujesz się nie tworzyć obiektów zastępczych lub zamkniesz
 Czy chcesz utworzenia tych obiektów zastępczych?
 
 UWAGI: Jeśli zdecydujesz się nie tworzyć obiektów zastępczych lub zamkniesz je później, Twoja sesja ZOSTANIE ZMODYFIKOWANA PRZY WYJŚCIU! Sugerujemy utworzenie kopii zapasowej pliku „session.xml” w tym momencie."/>
-			<RTLvsDirectWrite title="Nie można uruchomić RTL" message="Kierunek tekstu od prawej do lewej (RTL) jest niekompatybilny z trybem DirectWrite. Proszę wyłączyć tryb DirectWrite w zakładce „Inne” w oknie ustawień i uruchomić ponownie Notepad++."/>
-			<FileMemoryAllocationFailed title="Wyjątek: alokacja pamięci pliku nie powiodła się" message="Prawdopodobnie nie ma wystarczającej ilości ciągłej wolnej pamięci dla pliku ładowanego przez Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<RTLvsDirectWrite title="Nie można uruchomić RTL" message="Kierunek tekstu od prawej do lewej (RTL) jest niekompatybilny z trybem DirectWrite. Proszę wyłączyć tryb DirectWrite w zakładce „Inne” w oknie ustawień i uruchomić ponownie npminmin."/>
+			<FileMemoryAllocationFailed title="Wyjątek: alokacja pamięci pliku nie powiodła się" message="Prawdopodobnie nie ma wystarczającej ilości ciągłej wolnej pamięci dla pliku ładowanego przez npminmin."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 npminmin (it will depend on the PC memory configuration and the current system memory usage...). -->
 			<FindRegexBackwardDisabled title="Wsteczne wyszukiwanie wyrażeń regularnych wyłączone" message="Domyślnie wsteczne wyszukiwanie wyrażeń regularnych jest wyłączone z powodu potencjalnie nieoczekiwanych wyników. Aby przeprowadzić wyszukiwanie wstecz, otwórz okno „Szukaj” i zamiast trybu szukania poprzez wyrażenia regularne wybierz tryb normalny lub rozszerzony.
 Naciśnij przycisk OK, aby otworzyć okno „Szukaj” lub ustawić na nim fokus.
 
@@ -1611,8 +1611,8 @@ Jeśli potrzebujesz funkcji wstecznego wyszukiwania wyrażeń regularnych to zap
 			<PrintError title="0" message="Nie można uruchomić drukarki dokumentu."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 			<FindAutoChangeOfInSelectionWarning title="Ostrzeżenie dotyczące wyszukiwania" message="Stan pola „W zaznaczeniu” został automatycznie zmodyfikowany.
 Przed wykonaniem czynności sprawdź warunki wyszukiwania."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
-			<Need2Restart2ShowMenuShortcuts title="Notepad++ wymaga ponownego uruchomienia" message="Notepad++ wymaga ponownego uruchomienia, aby wyświetlić przyciski ＋ ▼ ✕ widoczne z prawej strony paska menu."/>
-			<NoAdminRight2ChangeReadOnlyFileAttribute title="Nieudana zmiana atrybutu tylko do odczytu dla pliku" message="Aby zmienić atrybut tylko do odczytu dla pliku uruchom program Notepad++ jako administrator."/>
+			<Need2Restart2ShowMenuShortcuts title="npminmin wymaga ponownego uruchomienia" message="npminmin wymaga ponownego uruchomienia, aby wyświetlić przyciski ＋ ▼ ✕ widoczne z prawej strony paska menu."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Nieudana zmiana atrybutu tylko do odczytu dla pliku" message="Aby zmienić atrybut tylko do odczytu dla pliku uruchom program npminmin jako administrator."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historia schowka"/>
@@ -1729,11 +1729,11 @@ Przed wykonaniem czynności sprawdź warunki wyszukiwania."/> <!-- HowToReproduc
 			<word-chars-list-space-warning value="spacje ($INT_REPLACE$)"/>
 			<word-chars-list-tab-warning value="tabulatory ($INT_REPLACE$)"/>
 			<word-chars-list-warning-end value="."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
-			<backup-select-folder value="Wybierz folder, który Notepad++ ma wykorzystywać dla kopii zapasowej"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
+			<backup-select-folder value="Wybierz folder, który npminmin ma wykorzystywać dla kopii zapasowej"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value="Nieprawidłowa ścieżka."/>
-			<cloud-restart-warning value="Wymagane ponowne uruchomienie Notepad++."/>
-			<cloud-select-folder value="Wybierz folder, który Notepad++ ma wykorzystywać do zapisu i odczytu swoich ustawień"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
-			<default-open-save-select-folder value="Wybierz folder, który Notepad++ ma wykorzystywać jako domyślny"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
+			<cloud-restart-warning value="Wymagane ponowne uruchomienie npminmin."/>
+			<cloud-select-folder value="Wybierz folder, który npminmin ma wykorzystywać do zapisu i odczytu swoich ustawień"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+			<default-open-save-select-folder value="Wybierz folder, który npminmin ma wykorzystywać jako domyślny"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Shift+Enter pozwala wyszukiwać w drugą stronę."/>
 			<two-find-buttons-tip value="Tryb dwóch przycisków szukania"/>
 			<find-in-files-filter-tip value="Szukaj wśród plików cpp, cxx, h, hxx i hpp:
@@ -1747,7 +1747,7 @@ Szukaj wśród wszystkich plików z wyjątkiem folderów tests, bin i bin64:
 
 Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folderów log i logs:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
-			<find-in-files-select-folder value="Wybierz folder, który ma zostać przeszukany przez Notepad++"/><!-- HowToReproduce: Search > Find in Files > [...] -->
+			<find-in-files-select-folder value="Wybierz folder, który ma zostać przeszukany przez npminmin"/><!-- HowToReproduce: Search > Find in Files > [...] -->
 			<find-in-files-dir-from-active-doc-tip value="Wypełniaj pole „Ścieżka:” w oparciu o aktywny dokument"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
 			<find-status-top-reached value="Szukanie: Osiągnięto początek dokumentu, znaleziono 1. wystąpienie od dołu."/>
 			<find-status-end-reached value="Szukanie: Osiągnięto koniec dokumentu, znaleziono 1. wystąpienie od góry."/>
@@ -1887,7 +1887,7 @@ Jeśli wybierzesz tryb zaawansowany, ale nie edytujesz plików w wymienionych j�
 
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Włączenie opcji w „Global override” spowoduje nadpisanie tego parametru we wszystkich stylach językowych. Prawdopodobnie chcesz użyć ustawień „Default Style” zamiast tego."/>
-			<scintillaRenderingTechnology-tip value="Może poprawić renderowanie znaków specjalnych lub rozwiązać niektóre problemy graficzne. Aby zastosować zmiany, należy ponownie uruchomić program Notepad++."/>
+			<scintillaRenderingTechnology-tip value="Może poprawić renderowanie znaków specjalnych lub rozwiązać niektóre problemy graficzne. Aby zastosować zmiany, należy ponownie uruchomić program npminmin."/>
 
 			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
 			<statusbar-length-lines value="Długość: $STR_REPLACE1$    Linie: $STR_REPLACE2$"/>

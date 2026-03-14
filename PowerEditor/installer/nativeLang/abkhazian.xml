@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!--  Abkhazian translation for Notepad++
+<!--  Abkhazian translation for npminmin
 Updated to v8.2.1:
 - added new lines
 -->
@@ -359,7 +359,7 @@ Updated to v8.2.1:
 					<Item id="45057" name="OEM 865: Нордтәи"/>
 					<Item id="45053" name="OEM 860: Португалиатәи"/>
 					<Item id="45056" name="OEM 863: Франциатәи"/>
-					<Item id="46301" name="Notepad++ аҟны ихархәоу абызшәақәа реизга"/>
+					<Item id="46301" name="npminmin аҟны ихархәоу абызшәақәа реизга"/>
 					<Item id="46180" name="Ишәхатәу архиарақәа"/>
 					<Item id="46250" name="Иаԥҵатәуп шәхатә синтаксис..."/>
 					<Item id="46300" name="Иаарттәуп асинтаксисқәа рКакталог ..."/>
@@ -396,14 +396,14 @@ Updated to v8.2.1:
 					<Item id="48014" name="Иаарттәуп Аплагинқәа рКаталог..."/>
 
 					<Item id="47010" name="Акомандатә цәаҳәа апараметрқәа"/>
-					<Item id="47001" name="Notepad++ апроект асаит"/>
-					<Item id="47002" name="Notepad++ апроект адаҟьа"/>
+					<Item id="47001" name="npminmin апроект асаит"/>
+					<Item id="47002" name="npminmin апроект адаҟьа"/>
 					<Item id="47003" name="Адокументациа Онлаин"/>
-					<Item id="47004" name="Notepad++ Афорум"/>
-					<Item id="47006" name="Ирҿыцтәуп Notepad++"/>
+					<Item id="47004" name="npminmin Афорум"/>
+					<Item id="47006" name="Ирҿыцтәуп npminmin"/>
 					<Item id="47009" name="Иазалхтәуп арҿыцра апрокси..."/>
 					<Item id="47012" name="Арҽеира иазку аинформациа"/>
-					<Item id="47000" name="Notepad++ иазкны..."/>
+					<Item id="47000" name="npminmin иазкны..."/>
 					<Item id="42082" name="Икопиатәуп азхьарԥш"/>
 					<Item id="47005" name="Егьырҭ аплагинқәа..."/>
 					<Item id="50005" name="Амакрос аҭаҩра (астарт/аанкылара)"/>
@@ -968,10 +968,10 @@ Updated to v8.2.1:
 					<Item id="6413" name="Афаил Аиқәырхара/Аартра акаталог"/>
 					<Item id="6414" name="Уажәтәи адокумент акаталог"/>
 					<Item id="6415" name="Игәынкылатәуп аҵыхәтәантәи акаталог"/>
-					<Item id="6431" name="Иаартлатәуп афаилқәеи акаталог афаилқәа зегьы, Notepad++ аԥенџьыр ахь рықәырҳәазара аан"/>
+					<Item id="6431" name="Иаартлатәуп афаилқәеи акаталог афаилқәа зегьы, npminmin аԥенџьыр ахь рықәырҳәазара аан"/>
 				</DefaultDir>
 				<FileAssoc title="Афаилқәа Рассоциациа">
-					<Item id="4008" name="Ари афункциа ахархәаразы, Ҿыц идәықәышәҵа  Notepad++ Администратор ирежим ала."/>
+					<Item id="4008" name="Ари афункциа ахархәаразы, Ҿыц идәықәышәҵа  npminmin Администратор ирежим ала."/>
 					<Item id="4009" name="Иаднакылақәо:"/>
 					<Item id="4010" name="Арегистрациа зызу:"/>
 				</FileAssoc>
@@ -1006,7 +1006,7 @@ Updated to v8.2.1:
 				</Print>
 				<Searching title="Аԥшаара">
 					<Item id="6901" name="Аԥшаара аԥенџьыр аҭакыра харҭәаалатәӡам иалкаау ажәа ала"/>
-					<Item id="6902" name="Амоноҭбааратә шрифт Аԥшаара аԥенџьыр аҟны (иаҭахуп Notepad++ аиҭадәықәҵара)"/>
+					<Item id="6902" name="Амоноҭбааратә шрифт Аԥшаара аԥенџьыр аҟны (иаҭахуп npminmin аиҭадәықәҵара)"/>
 					<Item id="6903" name="Аԥшаарақәа рышьҭахь ишаарту иааныжьлатәуп Аԥшаара адиалог аԥенџьыр"/>
 					<Item id="6904" name="Ишьақәырӷәӷәатәуп аоперациа: Иалаԥсахтәуп Иаарту Адокументқәа Зегьы рҟны"/>
 					<Item id="6905" name="Алаԥсахра: ииаслатәӡам анаҩстәи аиқәшәарахь."/>
@@ -1058,7 +1058,7 @@ Updated to v8.2.1:
 					<Item id="6313" name="Ирҿыцлатәуп зҵаарада"/>
 					<Item id="6325" name="Арҿыцра ашьҭахь аҵыхәтәантәи ацәаҳәахьы"/>
 					<Item id="6322" name="Асессиа афаил ахкырбага:"/>
-					<Item id="6323" name="Иаҿактәуп Notepad++ автоматикала арҿыцра"/>
+					<Item id="6323" name="Иаҿактәуп npminmin автоматикала арҿыцра"/>
 					<Item id="6324" name="Адокументқәа Реиҭарсра (Ctrl+TAB)"/>
 					<Item id="6331" name="Ахы аҟны иаарԥшлатәуп афаил ахьӡ амацара"/>
 					<Item id="6114" name="Иаарԥшлатәуп асиа"/>
@@ -1076,7 +1076,7 @@ Updated to v8.2.1:
 					<Item id="6152" name="Асессиақәа рымацара роуп иаатуа аԥенџьыр ҿыц аҟны"/>
 					<Item id="6153" name="Фаилцԥхьаӡа аатуеит аԥенџьыр ҿыц аҟны"/>
 					<Item id="6154" name="Афаилқәа зегьы аатуеит ԥенџьырк аҟны (иԥсахымзар)"/>
-					<Item id="6155" name="* Арҭ аԥсахрақәа амч роуеит Notepad++ ҿыц аартра ашьҭахь"/>
+					<Item id="6155" name="* Арҭ аԥсахрақәа амч роуеит npminmin ҿыц аартра ашьҭахь"/>
 					<Item id="6171" name="Ирхиатәуп аҭаргылара арыцхәи аамҭеи"/>
 					<Item id="6175" name="Арыцхәи аамҭеи иаарҳәны реишьҭаргылара (икьаҿуи идууи аформатқәа)"/>
 					<Item id="6172" name="Ахархә. иформат:"/>
@@ -1207,13 +1207,13 @@ Updated to v8.2.1:
 			</DoSaveAll>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="contextMenu Аредакциазура" message="contextMenu.xml аԥсахра иалнаршоит ишәхатәу ицәырҵуа амениу архиара Notepad++ аконтексттә мениу аҟны.&#x0A;Ҿыц идәықәҵатәуп Notepad++, аԥсахрақәа амч роурц азы."/>
+			<ContextMenuXmlEditWarning title="contextMenu Аредакциазура" message="contextMenu.xml аԥсахра иалнаршоит ишәхатәу ицәырҵуа амениу архиара npminmin аконтексттә мениу аҟны.&#x0A;Ҿыц идәықәҵатәуп npminmin, аԥсахрақәа амч роурц азы."/>
 			<SaveCurrentModifWarning title="Уажәтәи Аԥсахрақәа Реиқәырхара" message="Шәара еиқәшәырхароуп уажәтәи аԥсахрақәа.&#x0A;Еиқәырхоу аԥсахрақәа зегьы раԥыхра ауам.&#x0A;&#x0A;Иацҵатәума?"/>
 			<LoseUndoAbilityWarning title="Шьҭахьҟа ахынҳәра Алшара Ацәыӡра" message="Шәара еиқәшәырхароуп уажәтәи аԥсахрақәа.&#x0A;Еиқәырхоу аԥсахрақәа зегьы раԥыхра ауам.&#x0A;&#x0A;Иацҵатәума?"/>
-			<CannotMoveDoc title="Notepad++ иҿыцу аекземплиар ахь аиасра" message="Адокумент ԥсахын, еиқәшәырха нас еиҭанашәыгӡа."/>
-			<DocReloadWarning title="Аиҭадәықәҵара" message="Notepad++ аҟны иҟаҵаз аԥсахрақәа зегьы ырӡхоит!&#x0A;Иацҵатәума?"/>
+			<CannotMoveDoc title="npminmin иҿыцу аекземплиар ахь аиасра" message="Адокумент ԥсахын, еиқәшәырха нас еиҭанашәыгӡа."/>
+			<DocReloadWarning title="Аиҭадәықәҵара" message="npminmin аҟны иҟаҵаз аԥсахрақәа зегьы ырӡхоит!&#x0A;Иацҵатәума?"/>
 			<FileLockedWarning title="Аиқәырхара амуӡеит" message="Игәашәҭ, ари афаил даҽа программак аҟны иаарту иаартыму."/>
-			<FileAlreadyOpenedInNpp title="" message="Афаил аартуп Notepad++ аҟны."/>
+			<FileAlreadyOpenedInNpp title="" message="Афаил аартуп npminmin аҟны."/>
 			<DeleteFileFailed title="Афаил Аныхра" message="Афаил аныхра амуӡеит"/>
 
 			<RenameTabTemporaryNameAlreadyInUse title="Иамуӡеит ахьӡ аԥсахра" message="Иарбоу ахьӡ ахархәара амоуп егьа агәылаҵа аҟны."/>
@@ -1230,12 +1230,12 @@ Updated to v8.2.1:
 			<DoDeleteOrNot title="Афаил Аныхра" message="Афаил &quot;$STR_REPLACE$&quot;&#x0A;аркны ианыххоит Аҵәахырҭахь.&#x0A;Иацҵатәума?"/>
 			<NoBackupDoSaveFile title="Аиқәырхара ..." message="Арезерв копиа афаил ԥшаам (ианыхуп дәныҟала).&#x0A;Еиқәшәырха иара, мамзар ишәхатәу адырқәа ыӡуеит.&#x0A;Еиқәырхатәума афаил &quot;$STR_REPLACE$&quot; ?"/>
 			<DoReloadOrNot title="Афаил арҿыцра" message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Ари афаил ԥсахын даҽа программак ала.&#x0A;Ишәҭахума иара шәырҿыцыр?"/>
-			<DoReloadOrNotAndLooseChange title="Афаил арҿыцра" message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Ари афаил ԥсахын даҽа программак ала.&#x0A;Ишәҭахума иара шәырҿыцыр?&#x0A;Аха усҟан шәара ишәцәыӡуеит Notepad++ аҟны иҟашәҵаз аԥсахрақәа зегьы."/>
+			<DoReloadOrNotAndLooseChange title="Афаил арҿыцра" message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Ари афаил ԥсахын даҽа программак ала.&#x0A;Ишәҭахума иара шәырҿыцыр?&#x0A;Аха усҟан шәара ишәцәыӡуеит npminmin аҟны иҟашәҵаз аԥсахрақәа зегьы."/>
 			<PrehistoricSystemDetected title="Иԥшаауп ижәытәӡатәиу асистема" message="Шәхы иашәырхәо асистема ажәхьеит. Ари афункциа ахархәара ахьауа иҿыцу асистемақәа рҟны ауп."/>
-			<XpUpdaterProblem title="Notepad++ Арҿыцра" message="Notepad++ Арҿыцра ауам XP аҟны, иажәыз ашәарҭадара аҩаӡара иахҟьаны.&#x0A;Ишәҭахума Notepad++ адаҟьа ахь аиасра, аҵыхәтәантәи аверсиа аҭагалара азы?"/>
+			<XpUpdaterProblem title="npminmin Арҿыцра" message="npminmin Арҿыцра ауам XP аҟны, иажәыз ашәарҭадара аҩаӡара иахҟьаны.&#x0A;Ишәҭахума npminmin адаҟьа ахь аиасра, аҵыхәтәантәи аверсиа аҭагалара азы?"/>
 			<DocTooDirtyToMonitor title="Амониторинг Апроблема" message="Адокумент аус адулара цоит. Еиқәшәырха иҟаҵоу аԥсахрақәа, иара амониторинг аԥхьа."/>
 			<DocNoExistToMonitor title="Амониторинг Апроблема" message="Амониторинг азы афаил ыҟазароуп."/>
-			<FileTooBigToOpen title="Афаил ашәагаа апроблема" message="Афаил дуцәоуп, Notepad++ аҟны аартра азы"/>
+			<FileTooBigToOpen title="Афаил ашәагаа апроблема" message="Афаил дуцәоуп, npminmin аҟны аартра азы"/>
 			<CreateNewFileOrNot title="Афаил ҿыц аԥҵара" message="&quot;$STR_REPLACE$&quot; ыҟаӡам. Иаԥҵатәума?"/>
 			<CreateNewFileError title="Афаил ҿыц аԥҵара" message="Иауам афаил &quot;$STR_REPLACE$&quot;аԥҵара."/>
 			<OpenFileError title="АГХА" message="Иауам афаил &quot;$STR_REPLACE$&quot;аартра."/>
@@ -1259,12 +1259,12 @@ Updated to v8.2.1:
 			<UDLRemoveCurrentLang title="Ахархәара змоу абызшәа аныхтәуп" message="Шәақәшаҳаҭума?"/>
 			<SCMapperDoDeleteOrNot title="Акоманда аныхра" message="Ишәҭахума ари акоманда асиа аныхра?"/>
 			<FindCharRangeValueError title="Адиапазон аҵакы апроблема" message="Шәара иҭажәгалароуп 0 инаркны 255 аҟынӡа."/>
-			<OpenInAdminMode title="Аиқәырхара Агха" message="Афаил аиқәырхара ауам, иҟалап ихьчазар.&#x0A;Ишәҭахума Notepad++ администратор ирежим ала адәықәҵара?"/>
-			<OpenInAdminModeWithoutCloseCurrent title="Аиқәырхара Агха" message="Афаил аиқәырхара ауам, иҟалап ихьчазар.&#x0A;Ишәҭахума Notepad++ администратор ирежим ала адәықәҵара?"/>
-			<OpenInAdminModeFailed title="Иамуӡеит аартра Администратор ирежим ала" message="Notepad++ аартра ауам Администратор ирежим ала."/>
+			<OpenInAdminMode title="Аиқәырхара Агха" message="Афаил аиқәырхара ауам, иҟалап ихьчазар.&#x0A;Ишәҭахума npminmin администратор ирежим ала адәықәҵара?"/>
+			<OpenInAdminModeWithoutCloseCurrent title="Аиқәырхара Агха" message="Афаил аиқәырхара ауам, иҟалап ихьчазар.&#x0A;Ишәҭахума npminmin администратор ирежим ала адәықәҵара?"/>
+			<OpenInAdminModeFailed title="Иамуӡеит аартра Администратор ирежим ала" message="npminmin аартра ауам Администратор ирежим ала."/>
 			<ViewInBrowser title="Иаарттәуп абри афаил Абраузер аҟны" message="Иаҭаху апрограмма шәсистемаҿ иԥшааӡам."/>
-			<ExitToUpdatePlugins title="Notepad++ аусура ахыркәшара" message="Аоперациа ацҵара азы Notepad++ аусура хнаркәшоит.&#x0A;Аоперациақәа зегьы рынагӡара ашьҭахь апрограмма ҿыц идәықәҵахоит.&#x0A;Иацҵатәума?"/>
-			<NeedToRestartToLoadPlugins title="Ихымԥадатәиуп Notepad++ аиҭадәықәҵара" message="Иҭагалоу аплагинқәа рықәыргыларазы ихымԥадатәиуп Notepad++ аиҭадәықәҵара."/>
+			<ExitToUpdatePlugins title="npminmin аусура ахыркәшара" message="Аоперациа ацҵара азы npminmin аусура хнаркәшоит.&#x0A;Аоперациақәа зегьы рынагӡара ашьҭахь апрограмма ҿыц идәықәҵахоит.&#x0A;Иацҵатәума?"/>
+			<NeedToRestartToLoadPlugins title="Ихымԥадатәиуп npminmin аиҭадәықәҵара" message="Иҭагалоу аплагинқәа рықәыргыларазы ихымԥадатәиуп npminmin аиҭадәықәҵара."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Абуфер Аҭоурых"/>
@@ -1311,7 +1311,7 @@ Updated to v8.2.1:
 				<Item id="3512" name="Иқәгатәуп зегьы"/>
 				<Item id="3513" name="Иацҵатәуп акаталог"/>
 				<Item id="3514" name="Асистема ала адәықәҵара"/>
-				<Item id="3515" name="Иаарттәуп Notepad++ аҟны"/>
+				<Item id="3515" name="Иаарттәуп npminmin аҟны"/>
 				<Item id="3516" name="Икопиатәуп амҩа"/>
 				<Item id="3517" name="Иԥшаатәуп Афаилқәа рҟны..."/>
 				<Item id="3518" name="Иаарттәуп аобиект акаталог"/>
@@ -1375,8 +1375,8 @@ Updated to v8.2.1:
 			<word-chars-list-warning-end value="  шәара шәсимволқәа рсиа аҟны."/>
 			<backup-select-folder value="Арезервтә копиазы иалышәх акаталог "/>
 			<cloud-invalid-warning value="Ииашам амҩа."/>
-			<cloud-restart-warning value="Ҿыц идәықәышәҵа  Notepad++, аԥсахрақәа амч роурц азы."/>
-			<cloud-select-folder value="Иалышәх акаталог, архиарақәа аԥхьара/аҭаҩра рзы Notepad++ ахы ианархәо."/>
+			<cloud-restart-warning value="Ҿыц идәықәышәҵа  npminmin, аԥсахрақәа амч роурц азы."/>
+			<cloud-select-folder value="Иалышәх акаталог, архиарақәа аԥхьара/аҭаҩра рзы npminmin ахы ианархәо."/>
 			<default-open-save-select-folder value="Иалышәх ихархәахоу акаталог"/>
 			<shift-change-direction-tip value="Шәхы иашәырхәа Shift+Enter шьҭахьҟатәи аԥшаара азы."/>
 			<two-find-buttons-tip value="Аԥшаара ахырхарҭақәа 2 арежим"/>

@@ -211,13 +211,13 @@
 
 					<Item id="46001" name="ตัวตั้งค่ารูปแบบ..."/>
 					<Item id="46180" name="ผู้ใช้กำหนดเอง"/>
-					<Item id="47000" name="เกี่ยวกับ Notepad++..."/>
-					<Item id="47001" name="หน้าโฮมของ Notepad++"/>
-					<Item id="47002" name="หน้าโปรเจคของ Notepad++"/>
+					<Item id="47000" name="เกี่ยวกับ npminmin..."/>
+					<Item id="47001" name="หน้าโฮมของ npminmin"/>
+					<Item id="47002" name="หน้าโปรเจคของ npminmin"/>
 					<Item id="47003" name="เอกสารการใช้งานออนไลน์"/>
 					<Item id="47004" name="กระดานข่าว"/>
 					<Item id="47005" name="หาปลั๊กอินเพิ่มเติม"/>
-					<Item id="47006" name="อัพเดท Notepad++"/>
+					<Item id="47006" name="อัพเดท npminmin"/>
 					<Item id="47008" name="หัวข้อตัวช่วยเหลือ"/>
 
 					<Item id="48005" name="นำเข้าปลั๊กอิน..."/>
@@ -528,7 +528,7 @@
 					<Item id="6319" name="เปิดใช้"/>
 					<Item id="6320" name="ไม่ต้องขีดเส้นใต้"/>
 					<Item id="6322" name="นามสกุลไฟล์เซสชั่น:"/>
-					<Item id="6323" name="เปิดการอัพเดท Notepad++ อัตโนมัติ"/>
+					<Item id="6323" name="เปิดการอัพเดท npminmin อัตโนมัติ"/>
 					<Item id="6324" name="สลับเอกสาร (Ctrl+TAB)"/>
 					<Item id="6326" name="เปิดใช้ไฮไลท์อัจฉริยะ"/>
 					<Item id="6329" name="ไฮไลท์แท็กที่เป็นคู่กัน"/>

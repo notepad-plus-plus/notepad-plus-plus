@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	::Hindi language file for Notepad++ ::
+	::Hindi language file for npminmin ::
 
 	** created By:- Rathin A. Dholakia **
 		Email- rathin2j@gmail.com
@@ -289,15 +289,15 @@
 					<Item id="46001" name="स्टाइल कॉन्फिगुरेटर..."/>
 					<Item id="46250" name="अपनी भाषा बनायें..."/>
 					<Item id="46180" name="उपयोगकर्ता निर्दीष्ट"/>
-					<Item id="47000" name="Notepad++ के बारे में"/>
+					<Item id="47000" name="npminmin के बारे में"/>
 					<Item id="47010" name="कमांड लाइन आर्ग्यूमेंट्स..."/>
-					<Item id="47001" name="Notepad++ होम"/>
-					<Item id="47002" name="Notepad++ प्रोजेक्ट पेज"/>
+					<Item id="47001" name="npminmin होम"/>
+					<Item id="47002" name="npminmin प्रोजेक्ट पेज"/>
 					<Item id="47003" name="ऑनलाइन डॉक्युमेंटेशन"/>
-					<Item id="47004" name="Notepad++ कम्युनिटी (फोरम)"/>
+					<Item id="47004" name="npminmin कम्युनिटी (फोरम)"/>
 					<Item id="47012" name="डिबग इन्फो (Debug Info)..."/>
 					<Item id="47005" name="और प्लग-इन पायें"/>
-					<Item id="47006" name="Notepad++ अपडेट करें"/>
+					<Item id="47006" name="npminmin अपडेट करें"/>
 					<Item id="47009" name="Set Updater Proxy..."/>
 					<Item id="48005" name="प्लग इन (Plugin) इम्पोर्ट करें..."/>
 					<Item id="48006" name="स्टाइल थीम (Theme) इम्पोर्ट करें..."/>
@@ -881,7 +881,7 @@
 
 				<MultiInstance title="मल्टी-इंस्टैंस">
 					<Item id="6151" name="मल्टी-इंस्टैंससेटिंग्स"/>
-					<Item id="6152" name="सेशन को Notepad++ के नए इंस्टैंस में खोलें"/>
+					<Item id="6152" name="सेशन को npminmin के नए इंस्टैंस में खोलें"/>
 					<Item id="6153" name="हमेशा मल्टी-इंस्टैंस मोड में"/>
 					<Item id="6154" name="डिफ़ॉल्ट (मोनो-इंस्टैंस)"/>
 					<Item id="6155" name="* इस सेटिंग के संशोधन के बाद Notepa++ को पुनः आरंभ करने की जरूरत है"/>
@@ -928,11 +928,11 @@
 					<Item id="6319" name="सक्रिय"/>
 					<Item id="6320" name="कोई अंडरलाइन नहीं"/>
 					<Item id="6322" name="सेशन फाईल ext.:"/>
-					<Item id="6323" name="Notepad++ स्वचालित-अपडेटर सक्रिय करें"/>
+					<Item id="6323" name="npminmin स्वचालित-अपडेटर सक्रिय करें"/>
 					<Item id="6324" name="डॉकयुमेंट स्वीचर (Ctrl+TAB)"/>
 					<Item id="6331" name="टाइटल बार मे सिर्फ फाईल का नाम दिखायें"/>
 					<Item id="6334" name="कैरेक्टर एन्डकोडिंग का स्वतः पता लगाएं"/>
-					<Item id="6314" name="फाइंड डायलॉग में मोनोस्पेस फ़ॉन्ट यूज करें (Notepad++ को रीस्टार्ट करना होगा)"/>
+					<Item id="6314" name="फाइंड डायलॉग में मोनोस्पेस फ़ॉन्ट यूज करें (npminmin को रीस्टार्ट करना होगा)"/>
 					<Item id="6337" name="वर्कस्पेस फाइल ext.:"/>
 					<Item id="6114" name="सक्रिय"/>
 					<Item id="6117" name="MRU बिहेवीयर सक्रिय करें"/>
@@ -994,14 +994,14 @@
 			</DoSaveOrNot>
 		</Dialog>
 		<MessageBox><!-- $INT_REPLACE$ is a place holder, don't translate it -->
-			<ContextMenuXmlEditWarning title="Context Menu एडिटिंग" message="ContextMenu.xml एडिट करके आप Notepad++ के पॉपअप कॉन्टेक्स्ट मेनू बदल सकतें हैं| ContextMenu.xml एडिट करने के बाद, बदलाव देखने के लिए Notepad++ को बंद करके पुनः खोलें|"/>
+			<ContextMenuXmlEditWarning title="Context Menu एडिटिंग" message="ContextMenu.xml एडिट करके आप npminmin के पॉपअप कॉन्टेक्स्ट मेनू बदल सकतें हैं| ContextMenu.xml एडिट करने के बाद, बदलाव देखने के लिए npminmin को बंद करके पुनः खोलें|"/>
 			<NppHelpAbsentWarning title="फाइल मौजूद नहीं है" message="\rमौजूद नहीं है| कृपया इसे Notepad ++ साइट से डाउनलोड करें।"/>
 			<SaveCurrentModifWarning title="वर्तमान बदलाव सेव करें" message="आपको वर्तमान संशोधन रक्षित करना चाहिए| सभी रक्षित संशोधन वापिस नहीं बदले जा सकते हैं|     जारी रखें?"/>
 			<LoseUndoAbilityWarning title="पूर्ववत करने की क्षमता के खोने की चेतावनी" message="आपको वर्तमान संशोधन रक्षित करना चाहिए| सभी रक्षित संशोधन वापिस नहीं बदले जा सकते हैं|    जारी रखें?"/>
-			<CannotMoveDoc title="नए Notepad++ इंस्टैंस में मूव करें" message="दस्तावेज़ संशोधित किया गया है, इसे सेव करें, उसके बाद फिर से प्रयास करें।"/>
-			<DocReloadWarning title="रीलोड (Reload)" message="क्या आप मौजूदा फाइल में Notepad++ में किए गए परिवर्तनों को भूल कर इसे फिर से लोड करना चाहते हैं?"/>
+			<CannotMoveDoc title="नए npminmin इंस्टैंस में मूव करें" message="दस्तावेज़ संशोधित किया गया है, इसे सेव करें, उसके बाद फिर से प्रयास करें।"/>
+			<DocReloadWarning title="रीलोड (Reload)" message="क्या आप मौजूदा फाइल में npminmin में किए गए परिवर्तनों को भूल कर इसे फिर से लोड करना चाहते हैं?"/>
 			<FileLockedWarning title="सेव फेल हुआ (Save failed)" message="जाँच करें कि क्या किसी अन्य कार्यक्रम ने इस फाइल को खोल रखा है!"/>
-			<FileAlreadyOpenedInNpp title="" message="यह फाइल पहले से ही Notepad++ में खुली हुयी है।"/>
+			<FileAlreadyOpenedInNpp title="" message="यह फाइल पहले से ही npminmin में खुली हुयी है।"/>
 			<DeleteFileFailed title="फाइल नष्ट करें" message="फाइल को नष्ट करना विफल रहा है।"/>
 
 			<NbFileToOpenImportantWarning title="खोलने के लिए फाइलों की राशि बहुत बड़ी है" message="$INT_REPLACE$ फाइलें खुलने ही वाली हैं।
@@ -1027,13 +1027,13 @@
 क्या आप इसे रीलोड करना चाहते हैं?"/>
 			<DoReloadOrNotAndLooseChange title="रीलोड" message="&quot;$STR_REPLACE$&quot;
 इस फाइल को दूसरे प्रोग्राम द्वारा बदला गया है।
-क्या आप Notepad++ में किये गए बदलावों को खो कर इसे पुनः लोड करना चाहते हैं?"/>
+क्या आप npminmin में किये गए बदलावों को खो कर इसे पुनः लोड करना चाहते हैं?"/>
 			<PrehistoricSystemDetected title="प्रागैतिहासिक सिस्टम डेटेक्टेड" message="ऐसा लगता है कि आप अभी भी प्रागैतिहासिक सिस्टम का उपयोग करते हैं। यह सुविधा केवल आधुनिक सिस्टम पर काम करती है, असुविधा के लिए खेद है।"/>
-			<XpUpdaterProblem title="Notepad++ अपडेटर" message="XP के अंतर्गत अप्रचलित सुरक्षा परत के कारण Notepad++ अपडेटर XP के मुताबिक नहीं है।
-क्या आप Notepad++ पेज से लेटेस्ट वर्जन डाउनलोड करना चाहते हैं?"/>
+			<XpUpdaterProblem title="npminmin अपडेटर" message="XP के अंतर्गत अप्रचलित सुरक्षा परत के कारण npminmin अपडेटर XP के मुताबिक नहीं है।
+क्या आप npminmin पेज से लेटेस्ट वर्जन डाउनलोड करना चाहते हैं?"/>
 			<DocTooDirtyToMonitor title="मॉनिटरिंग समस्या" message="दस्तावेज़ सेव नहीं है। मॉनिटर करने से पहले सेव करें।"/>
 			<DocNoExistToMonitor title="मॉनिटरिंग समस्या" message="मॉनिटरिंग के लिए फाइल मौज़ूद होनी चाहिए।"/>
-			<FileTooBigToOpen title="फाइल साइज प्रॉब्लम" message="फाइल बहुत बड़ी होने के कारण Notepad++ में नहीं खोली जा सकती है।"/>
+			<FileTooBigToOpen title="फाइल साइज प्रॉब्लम" message="फाइल बहुत बड़ी होने के कारण npminmin में नहीं खोली जा सकती है।"/>
 			<CreateNewFileOrNot title="नई फाइल बनाएं" message="फाइल &quot;$STR_REPLACE$&quot; मौजूद नहीं है, इसे बनायें?"/>
 			<CreateNewFileError title="नई फाइल बनाएं" message="फाइल नहीं बन सकी &quot;$STR_REPLACE$&quot;।"/>
 			<OpenFileError title="त्रुटि" message="फाइल नहीं खुल सकी &quot;$STR_REPLACE$&quot;।"/>
@@ -1069,10 +1069,10 @@
 क्या आप Notepad ++ को एडमिन मोड में लॉन्च करना चाहते हैं?"/>
 			<OpenInAdminModeFailed title="एडमिन मोड में खोलना विफल हुआ" message="Notepad ++ को एडमिन मोड में नहीं खोला जा सकता।"/>
 			<ViewInBrowser title="वर्तमान फाइल को ब्राउज़र में देखें" message="आपके सिस्टम में एप्लीकेशन नहीं मिली।"/>
-			<ExitToUpdatePlugins title="Notepad++ बंद होने वाला है" message="यदि आप YES पर क्लिक करते हैं, तो आप ऑपरेशन जारी रखने के लिए नोटपैड ++ बंद हो जायेगा।
+			<ExitToUpdatePlugins title="npminmin बंद होने वाला है" message="यदि आप YES पर क्लिक करते हैं, तो आप ऑपरेशन जारी रखने के लिए नोटपैड ++ बंद हो जायेगा।
 सभी कार्रवाई समाप्त होने के बाद नोटपैड ++ को फिर से शुरू किया जाएगा।
 चालू रखें ?"/>
-			<NeedToRestartToLoadPlugins title="रीस्टार्ट  Notepad++" message="आपके द्वारा इंस्टॉल किए गए प्लगिन्स को लोड करने के लिए आपको नोटपैड ++ को रीस्टार्ट करना होगा।"/>
+			<NeedToRestartToLoadPlugins title="रीस्टार्ट  npminmin" message="आपके द्वारा इंस्टॉल किए गए प्लगिन्स को लोड करने के लिए आपको नोटपैड ++ को रीस्टार्ट करना होगा।"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="क्लिपबोर्ड हिस्ट्री"/>
@@ -1173,8 +1173,8 @@
 			<word-chars-list-tab-warning value="$INT_REPLACE$ टैब(स)"/>
 			<word-chars-list-warning-end value="  आपके अक्षर सूची में।"/>
 			<cloud-invalid-warning value="इनवैलिड पाथ।"/>
-			<cloud-restart-warning value="प्रभावी करने के लिए Notepad++ पुनः प्रारंभ करें।"/>
-			<cloud-select-folder value="फोल्डर चुनें जहाँ से/को Notepad++ अपनी सेटिंग्स पढता/लिखता है।"/>
+			<cloud-restart-warning value="प्रभावी करने के लिए npminmin पुनः प्रारंभ करें।"/>
+			<cloud-select-folder value="फोल्डर चुनें जहाँ से/को npminmin अपनी सेटिंग्स पढता/लिखता है।"/>
 			<shift-change-direction-tip value="विपरीत दिशा में खोजने के लिए Shift+Enter का प्रयोग करें।"/>
 			<two-find-buttons-tip value="2 फाइंड बटन मोड"/>
 			<find-status-top-reached value="खोज: नीचे से 1st मिलान मिला। डॉक्यूमेंट की शुरुआत पर पहुँच चुकें हैं।"/>

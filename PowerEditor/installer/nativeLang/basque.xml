@@ -325,17 +325,17 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="46001" name="Estilo Konfiguratzailea..."/>
 					<Item id="46250" name="Zehaztu zure hizkuntza..."/>
 					<Item id="46300" name="Ireki Erabiltzaileak Zehaztutako Hizkuntza Karpeta..."/>
-					<Item id="46301" name="Notepad++ Erabiltzaileak Zehaztutako Hizkuntzen Bilduma"/>
+					<Item id="46301" name="npminmin Erabiltzaileak Zehaztutako Hizkuntzen Bilduma"/>
 					<Item id="46180" name="Erabiltzaileak Zehaztuta"/>
-					<Item id="47000" name="Notepad++ Buruz..."/>
+					<Item id="47000" name="npminmin Buruz..."/>
 					<Item id="47010" name="Komando Lerroko Argumentuak..."/>
-					<Item id="47001" name="Notepad++ Hasiera"/>
-					<Item id="47002" name="Notepad++ Proiektuaren Webgunea"/>
-					<Item id="47003" name="Notepad++ Onlineko Erabiltzaile-manuala"/>
-					<Item id="47004" name="Notepad++ Komunitatea (Foroa)"/>
+					<Item id="47001" name="npminmin Hasiera"/>
+					<Item id="47002" name="npminmin Proiektuaren Webgunea"/>
+					<Item id="47003" name="npminmin Onlineko Erabiltzaile-manuala"/>
+					<Item id="47004" name="npminmin Komunitatea (Foroa)"/>
 					<Item id="47012" name="Arazte-informazioa..."/>
 					<Item id="47005" name="Lortu Plugin Gehiago"/>
-					<Item id="47006" name="Eguneratu Notepad++"/>
+					<Item id="47006" name="Eguneratu npminmin"/>
 					<Item id="47009" name="Zehaztu Eguneratze-proxya..."/>
 					<Item id="48005" name="Inportatu Plugina(k) ..."/>
 					<Item id="48006" name="Inportatu Azala(k) ..."/>
@@ -956,7 +956,7 @@ Zutabe-markatzaile anitz zehaztu ditzakezu zenbakiak zuriuneen bidez banatuta."/
 				</DefaultDir>
 
 				<FileAssoc title="Fitxategi-loturak">
-					<Item id="4008" name="Funtzio hau erabiltzeko irten eta berriz ireki Notepad++ Kudeatzaile-moduan."/>
+					<Item id="4008" name="Funtzio hau erabiltzeko irten eta berriz ireki npminmin Kudeatzaile-moduan."/>
 					<Item id="4009" name="Onartutako Luzapenak:"/>
 					<Item id="4010" name="Erregistratutako Luzapenak:"/>
 				</FileAssoc>
@@ -1030,7 +1030,7 @@ Zutabe-markatzaile anitz zehaztu ditzakezu zenbakiak zuriuneen bidez banatuta."/
 
 				<Searching title="Bilatzea">
 					<Item id="6901" name="Ez bete Bilatu leihoaren bilatze-eremua aukeratutako hitzarekin"/>
-					<Item id="6902" name="Erabili espazio-bakarreko letra-mota Bilatu leihoan (Notepad++ berrabiaraztea behar du)"/>
+					<Item id="6902" name="Erabili espazio-bakarreko letra-mota Bilatu leihoan (npminmin berrabiaraztea behar du)"/>
 					<Item id="6903" name="Mantendu Bilatu leihoa irekita emaitzen leihoa ateratzen duen biaketaren ondoren"/>
 					<Item id="6904" name="Baieztatu Ordeztu Guztiak Dokumentu Guztietan"/>
 					<Item id="6905" name="Ordeztu: Ez mugitu hurrengo errepikapenera"/>
@@ -1087,10 +1087,10 @@ Zutabe-markatzaile anitz zehaztu ditzakezu zenbakiak zuriuneen bidez banatuta."/
 
 				<MultiInstance title="Instantzia Anitzak eta Data">
 					<Item id="6151" name="Instantzia Anitzen ezarpenak"/>
-					<Item id="6152" name="Ireki saioa Notepad++ instantzia berri batean"/>
+					<Item id="6152" name="Ireki saioa npminmin instantzia berri batean"/>
 					<Item id="6153" name="Beti instantzia-anitzen moduan"/>
 					<Item id="6154" name="Lehenetsitakoa (instantzia-bakarra)"/>
-					<Item id="6155" name="* Ezarpen honen aldaketak Notepad++ berrabiaraztea behar du"/>
+					<Item id="6155" name="* Ezarpen honen aldaketak npminmin berrabiaraztea behar du"/>
 					<Item id="6171" name="Pertsonalizatu txertatu Data Ordua"/>
 					<Item id="6175" name="Aldatu data eta orduaren orden lehenetsia (formatu laburra &amp;&amp; luzea)"/>
 					<Item id="6172" name="Formatu pertsonalizatua:"/>
@@ -1139,7 +1139,7 @@ Zutabe-markatzaile anitz zehaztu ditzakezu zenbakiak zuriuneen bidez banatuta."/
 					<Item id="6313" name="Eguneratu isiliean"/>
 					<Item id="6325" name="Korritu azken lerrora eguneratu ondoren"/>
 					<Item id="6322" name="Saioaren fitxategi-luzapena:"/>
-					<Item id="6323" name="Gaitu Notepad++ eguneratze automatikoa"/>
+					<Item id="6323" name="Gaitu npminmin eguneratze automatikoa"/>
 					<Item id="6324" name="Dokumentu Aldatzailea (Ctrl+TAB)"/>
 					<Item id="6331" name="Erakutsi soilik fitxategi-izena izenburu-barran"/>
 					<Item id="6334" name="Antzeman automatikoki karaktere-kodifikazioa"/>
@@ -1215,8 +1215,8 @@ Beranduago mezu hau Hobespenak ataletik berriz aktibatu dezakezu."/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</Dialog>
 		<MessageBox><!-- $INT_REPLACE$ is a place holder, don't translate it -->
-			<ContextMenuXmlEditWarning title="contextMenu editatzen" message="contextMenu.xml editatzeak Notepad++eko oharleihoen testuinguru-menua aldatzea ahalbidetzen dizu.
-Notepad++ berrabiarazi behar duzu contextMenu.xml aldatu ondorengo aldaketek eragina izateko."/>
+			<ContextMenuXmlEditWarning title="contextMenu editatzen" message="contextMenu.xml editatzeak npminmineko oharleihoen testuinguru-menua aldatzea ahalbidetzen dizu.
+npminmin berrabiarazi behar duzu contextMenu.xml aldatu ondorengo aldaketek eragina izateko."/>
 			<SaveCurrentModifWarning title="Gorde Oraingo Aldaketa" message="Oraingo aldaketa gorde beharko zenuke.
 Gordetako aldaketak ezin dira desegin.
 
@@ -1225,15 +1225,15 @@ Jarraitu?"/><!-- HowToReproduce: when you openned file is modified but unsaved y
 Gordetako aldaketak ezin dira desegin.
 
 Jarraitu?"/><!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
-			<CannotMoveDoc title="Mugitu Notepad++ Instantzia Berrira" message="Dokumentua aldatu da, gorde eta ondoren saiatu berriz ere."/><!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
-			<DocReloadWarning title="Berriz kargatu" message="Ziur zaude oraingo fitxategia berriz kargatu eta Notepad++en egindako aldaketak galdu nahi dituzula?"/>
+			<CannotMoveDoc title="Mugitu npminmin Instantzia Berrira" message="Dokumentua aldatu da, gorde eta ondoren saiatu berriz ere."/><!-- HowToReproduce: From your npminmin drag & drop a clean (not dirty) file to outside of npminmin, another instance of npminmin will be created. Then from your first npminmin drag & drop an unsaved file to the new instance. -->
+			<DocReloadWarning title="Berriz kargatu" message="Ziur zaude oraingo fitxategia berriz kargatu eta npminminen egindako aldaketak galdu nahi dituzula?"/>
 			<FileLockedWarning title="Gordetzeak huts egin du" message="Egiaztatu ezazu mesedez fitxategi hau ez dagoela irekita beste programa batean."/>
-			<FileAlreadyOpenedInNpp title="" message="Fitxategia dagoeneko Notepad++en irekita dago."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
+			<FileAlreadyOpenedInNpp title="" message="Fitxategia dagoeneko npminminen irekita dago."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
 			<RenameTabTemporaryNameAlreadyInUse title="Izena aldatzeak huts egin du" message="Zehaztutako izena dagoeneko beste fitxa batean erabiltzen ari da."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
 			<DeleteFileFailed title="Ezabatu fitxategia" message="Fitxategia ezabatzeak huts egin du"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="Ireki beharreko fitxategi-kopurua handiegia da" message="$INT_REPLACE$ fitxategi irekitzear zaude.
-Ziur zaude ireki nahi dituzula?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
+Ziur zaude ireki nahi dituzula?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into npminmin. -->
 			<SettingsOnCloudError title="Hodeiaren Ezarpenak" message="Badirudi hodeiaren ezarpenen bidea irakurtzeko soilik den gailu batera zehaztu dela,
 edota direktorioan idazteko sarbide-baimena behar dela.
 Zure hodeairen ezarpenak bertan behera utziko dira. Ezarpenak zentzuzko balioekin zehaztu itzazu Hobespenen leihotik."/>
@@ -1259,14 +1259,14 @@ Berriz kargatu nahi duzu?"/>
 			<DoReloadOrNotAndLooseChange title="Berriz kargatu" message="&quot;$STR_REPLACE$&quot;
 
 Fitxategi hau beste programa batek aldatu du.
-Berriz kargatu eta Notepad++en egindako aldaketak galdu nahi dituzu?"/>
+Berriz kargatu eta npminminen egindako aldaketak galdu nahi dituzu?"/>
 			<PrehistoricSystemDetected title="Aurrehistoriako sistema antzeman da" message="Aurrehistoriako sistema bat erabiltzen duzula dirudi. Sentitzen dugu baina funtzio honek sistema modernoetan baino ez du funtzionatzen."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
-			<XpUpdaterProblem title="Notepad++ Eguneratzailea" message="Notepad++ eguneratzailea ez da XP-ekin bateragarria XP barruko segurtasun-geruza zaharkitua dela-eta.
-Notepad++eko webgunera joan eta azken bertsioa jaitsi nahi duzu?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Proxy-aren Ezarpenak" message="Notepad++ kudeatzaile-moduan berrabiarazi ezazu proxy-a konfiguratzeko."/>
+			<XpUpdaterProblem title="npminmin Eguneratzailea" message="npminmin eguneratzailea ez da XP-ekin bateragarria XP barruko segurtasun-geruza zaharkitua dela-eta.
+npminmineko webgunera joan eta azken bertsioa jaitsi nahi duzu?"/><!-- HowToReproduce: Run menu "? -> Update npminmin" under Windows XP. -->
+			<GUpProxyConfNeedAdminMode title="Proxy-aren Ezarpenak" message="npminmin kudeatzaile-moduan berrabiarazi ezazu proxy-a konfiguratzeko."/>
 			<DocTooDirtyToMonitor title="Monitorizatze arazoa" message="Dokumentua zikin dago. Gorde ezazu mesedez egindako aldaketak monitorizatu aurretik."/>
 			<DocNoExistToMonitor title="Monitorizatze arazoa" message="Fitxategia existitu behar da monitorizatua izan dadin."/>
-			<FileTooBigToOpen title="Arazoa fitxategi-tamainarekin" message="Fitxategia handiegia da Notepad++en ireki ahal izateko"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+			<FileTooBigToOpen title="Arazoa fitxategi-tamainarekin" message="Fitxategia handiegia da npminminen ireki ahal izateko"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
 			<FileLoadingException title="Salbuespen-kodea: $STR_REPLACE$" message="Errorea gertatu da fitxategia kargatzerakoan!"/>
 			<WantToOpenHugeFile title="Fitxategi erraldoia irekitzen oharra" message="2GBtik gorako fitxategi erraldoia irekitzeak hainbat minutu eraman dezake.
 Ziur zaude ireki nahi duzula?"/>
@@ -1278,8 +1278,8 @@ Ziur zaude ireki nahi duzula?"/>
 Oraingo fitxategia gorde nahi duzu halere?"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<LoadStylersFailed title="stylers.xml kargatzeak huts egin du" message="&quot;$STR_REPLACE$&quot; kargatzeak huts egin du!"/>
 			<LoadLangsFailed title="Konfiguratzailea" message="langs.xml kargatzeak huts egin du!
-Zure langs.xml fitxategia berreskuratu nahi duzu?"/><!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
-			<LoadLangsFailedFinal title="Konfiguratzailea" message="langs.xml kargatzeak huts egin du!"/><!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
+Zure langs.xml fitxategia berreskuratu nahi duzu?"/><!-- HowToReproduce: Close npminmin. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open npminmin. -->
+			<LoadLangsFailedFinal title="Konfiguratzailea" message="langs.xml kargatzeak huts egin du!"/><!-- HowToReproduce: Close npminmin. Use another editor to make "langs.xml" an invalid xml file then save it. Open npminmin. -->
 			<FolderAsWorspaceSubfolderExists title="Arazoa direktorioa lan eremu gisa gehitzean" message="Gehitu nahi duzun karpetak azpikarpeta bat dauka.
 Kendu mesedez bere jatorria paneletik &quot;$STR_REPLACE$&quot; karpeta gehitu aurretik."/><!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
@@ -1302,15 +1302,15 @@ beste izen bat aukeratu, mesedez."/>
 			<SCMapperDoDeleteOrNot title="Ziur zaude?" message="Ziur zaude laster-tekla hau ezabatu nahi duzula?"/>
 			<FindCharRangeValueError title="Arazoa balio-tartearekin" message="0 eta 255 arteko balioak idatzi behar dituzu."/>
 			<OpenInAdminMode title="Gordetzeak huts egin du" message="Fitxategia ezin da gorde eta baliteke babestuta egotea.
-Notepad++ kudeatzaile moduan abiarazi nahi duzu?"/>
+npminmin kudeatzaile moduan abiarazi nahi duzu?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Gordetzeak huts egin du" message="Fitxategia ezin da gorde eta baliteke babestuta egotea.
-Notepad++ kudeatzaile moduan abiarazi nahi duzu?"/>
-			<OpenInAdminModeFailed title="Kudeatzaile moduan irekitzeak huts egin du" message="Ezin izan da Notepad++ kudeatzaile moduan ireki."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
+npminmin kudeatzaile moduan abiarazi nahi duzu?"/>
+			<OpenInAdminModeFailed title="Kudeatzaile moduan irekitzeak huts egin du" message="Ezin izan da npminmin kudeatzaile moduan ireki."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
 			<ViewInBrowser title="Ikusi Oraingo Fitxategia Nabigatzailean" message="Ezin da aplikazioa aurkitu zure sisteman."/>
-			<ExitToUpdatePlugins title="Notepad++ ixtera doa" message="BAI botoian klik eginez gero Notepad++-ek ekintza guztiak etengo ditu.
-Notepad++ berrabiaraziko da ekintza guztiak ixten direnean.
+			<ExitToUpdatePlugins title="npminmin ixtera doa" message="BAI botoian klik eginez gero npminmin-ek ekintza guztiak etengo ditu.
+npminmin berrabiaraziko da ekintza guztiak ixten direnean.
 Jarraitu?"/>
-			<NeedToRestartToLoadPlugins title="Notepad++ berrabiarazi behar da" message="Notepad++ berrabiarazi behar duzu instalatu dituzun pluginak kargatu daitezen."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+			<NeedToRestartToLoadPlugins title="npminmin berrabiarazi behar da" message="npminmin berrabiarazi behar duzu instalatu dituzun pluginak kargatu daitezen."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Arbelaren Historia"/>
@@ -1424,8 +1424,8 @@ Jarraitu?"/>
 			<word-chars-list-warning-end value="  zure karaktere zerrendan."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
 			<backup-select-folder value="Aukeratu karpeta bat segurtasun-kopien direktorio gisa"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value="Bide baliogabea."/>
-			<cloud-restart-warning value="Berrabiarazi ezazu mesedez Notepad++ aplikatzeko."/>
-			<cloud-select-folder value="Aukeratu karpeta bat Notepad++ek ezarpenak bertatik irakurri eta bertara idatzi ditzan"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+			<cloud-restart-warning value="Berrabiarazi ezazu mesedez npminmin aplikatzeko."/>
+			<cloud-select-folder value="Aukeratu karpeta bat npminminek ezarpenak bertatik irakurri eta bertara idatzi ditzan"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
 			<default-open-save-select-folder value="Aukeratu karpeta bat lehenetsitako gisa"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Erabili Shift+Enter kontrako norantzan bilatzeko"/>
 			<two-find-buttons-tip value="2 bilaketa-botoiko modua"/>

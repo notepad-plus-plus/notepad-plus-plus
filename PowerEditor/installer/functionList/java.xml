@@ -12,7 +12,7 @@
 
 		<!--
 		|   Based on:
-		|       https://notepad-plus-plus.org/community/topic/12691/function-list-with-java-problems
+		|       https://github.com/ridermw/np-minus-minus/community/topic/12691/function-list-with-java-problems
 		\-->
 		<parser
 			displayName="Java"

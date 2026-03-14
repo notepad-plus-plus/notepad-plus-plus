@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (C)2023 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify

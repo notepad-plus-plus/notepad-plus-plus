@@ -3,7 +3,7 @@
 
 * The column **OS** is the list of different MS Windows generations.
 * The column **last version can be run** is for the status of the latest release to be run under the OS. If the current (latest) version can be run under the specific OS, then the `current version`  will be indicated instead of version number.
-* The column **supported** contains the status of Notepad++ team supporting Notepad++ under the specific OS. It means if a bug is present under an OS no more supported but not under supported OS, then this issue won't be treated by the team.
+* The column **supported** contains the status of npminmin team supporting npminmin under the specific OS. It means if a bug is present under an OS no more supported but not under supported OS, then this issue won't be treated by the team.
 
 |           OS            | last version can be run  |      supported            |
 |-------------------------|--------------------------|---------------------------|
@@ -22,6 +22,6 @@
 | **Windows 10**          | current version          |          Yes              |
 | **Windows 11**          | current version          |          Yes              |
 
-\* The current version of Notepad++ built by GCC can be run under Vista & Server 2008
+\* The current version of npminmin built by GCC can be run under Vista & Server 2008
 
 *Note that the list is meant for the last SP of each version*

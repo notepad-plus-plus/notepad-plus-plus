@@ -228,13 +228,13 @@
 
 					<Item id="46001" name="Stilar..."/>
 					<Item id="46180" name="Brukardefinert"/>
-					<Item id="47000" name="Om Notepad++..."/>
-					<Item id="47001" name="Notepad++ heimeside"/>
-					<Item id="47002" name="Notepad++ prosjektheimeside"/>
+					<Item id="47000" name="Om npminmin..."/>
+					<Item id="47001" name="npminmin heimeside"/>
+					<Item id="47002" name="npminmin prosjektheimeside"/>
 					<Item id="47003" name="Hjelp på Internett"/>
 					<Item id="47004" name="Forum"/>
 					<Item id="47005" name="Finn fleire programtillegg"/>
-					<Item id="47006" name="Oppdater Notepad++"/>
+					<Item id="47006" name="Oppdater npminmin"/>
 					<Item id="47008" name="Innhald i hjelp"/>
 					<Item id="48005" name="Last inn programtillegg ..."/>
 					<Item id="48006" name="Last inn tema ..."/>
@@ -571,7 +571,7 @@
 					<Item id="6319" name="Bruk"/>
 					<Item id="6320" name="Inga understreking"/>
 					<Item id="6322" name="Filending for denne økta:"/>
-					<Item id="6323" name="Bruk automatisk oppdatering i Notepad++"/>
+					<Item id="6323" name="Bruk automatisk oppdatering i npminmin"/>
 					<Item id="6324" name="Bytt mellom dokument"/>
 					<Item id="6326" name="Bruk smart framheving"/>
 					<Item id="6329" name="Framhev taggar som høyrer saman"/>
@@ -632,14 +632,14 @@
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Rediger kontekstmeny" message="Du kan tilpasse sprettopp-menyen i Notepad++ ved å endre på fila contextMenu.xml. Du må starte Notepad++ på nytt før endringane trer i kraft."/>
-			<NppHelpAbsentWarning title="Fila finst ikkje" message="\rfinst ikkje. Du kan laste den ned frå heimesida til Notepad++."/>
+			<ContextMenuXmlEditWarning title="Rediger kontekstmeny" message="Du kan tilpasse sprettopp-menyen i npminmin ved å endre på fila contextMenu.xml. Du må starte npminmin på nytt før endringane trer i kraft."/>
+			<NppHelpAbsentWarning title="Fila finst ikkje" message="\rfinst ikkje. Du kan laste den ned frå heimesida til npminmin."/>
 			<SaveCurrentModifWarning title="Lagre gjeldande endringar" message="Du bør lagre gjeldande endring.\rAlle endringane du har gjort kan ikkje gjerast om.\r\rHald fram?"/>
 			<LoseUndoAbilityWarning title="Lose Undo Ability Waning" message="Du bør lagre gjeldande endring.\rAlle endringane du har gjort kan ikkje gjerast om.\r\rHald fram?"/>
-			<CannotMoveDoc title="Flytt til nytt Notepad++-vindauge" message="Du har endra dokumentet. Lagre det og prøv om att."/>
-			<DocReloadWarning title="Last inn på nytt" message="Er du heilt trygg på at du vil laste inn att den gjeldande fila og misse alle endringane du har gjort i Notepad++?"/>
+			<CannotMoveDoc title="Flytt til nytt npminmin-vindauge" message="Du har endra dokumentet. Lagre det og prøv om att."/>
+			<DocReloadWarning title="Last inn på nytt" message="Er du heilt trygg på at du vil laste inn att den gjeldande fila og misse alle endringane du har gjort i npminmin?"/>
 			<FileLockedWarning title="Klarte ikkje å lagre" message="Sjekk om denne fila er open i eit anna program"/>
-			<FileAlreadyOpenedInNpp title="" message="Denne fila er allereie open i Notepad++."/>
+			<FileAlreadyOpenedInNpp title="" message="Denne fila er allereie open i npminmin."/>
 			<DeleteFileFailed title="Slett fil" message="Klarte ikkje å slette fila"/>
 
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->

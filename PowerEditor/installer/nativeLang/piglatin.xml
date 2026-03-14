@@ -276,15 +276,15 @@
 					<Item id="46001" name="Ylestay Onfiguratorcay..."/>
 					<Item id="46250" name="Efineday youryay anguagelay..."/>
 					<Item id="46180" name="Useryay-Efinedday"/>
-					<Item id="47000" name="Aboutyay Notepad++"/>
+					<Item id="47000" name="Aboutyay npminmin"/>
 					<Item id="47010" name="Ommandcay Inelay Argumentsyay..."/>
-					<Item id="47001" name="Notepad++ Omehay"/>
-					<Item id="47002" name="Notepad++ Ojectpray Agepay"/>
+					<Item id="47001" name="npminmin Omehay"/>
+					<Item id="47002" name="npminmin Ojectpray Agepay"/>
 					<Item id="47003" name="Onlineyay Ocumentationday"/>
-					<Item id="47004" name="Notepad++ Ommunitycay (Orumfay)"/>
+					<Item id="47004" name="npminmin Ommunitycay (Orumfay)"/>
 					<Item id="47012" name="Ebugday Infoyay..."/>
 					<Item id="47005" name="Etgay Oremay Uginsplay"/>
-					<Item id="47006" name="Updateyay Notepad++"/>
+					<Item id="47006" name="Updateyay npminmin"/>
 					<Item id="47009" name="Etsay Updateryay Oxypray..."/>
 					<Item id="48005" name="Importyay ugin(s)play..."/>
 					<Item id="48006" name="Importyay ylestay eme(s)thay..."/>
@@ -860,10 +860,10 @@
 
 				<MultiInstance title="Multi-Instance">
 					<Item id="6151" name="Ultimay-instanceyay ettingssay"/>
-					<Item id="6152" name="Openyay essionsay inyay ayay ewnay instanceyay ofyay Notepad++"/>
+					<Item id="6152" name="Openyay essionsay inyay ayay ewnay instanceyay ofyay npminmin"/>
 					<Item id="6153" name="Alwaysyay inyay ultimay-instanceyay odemay"/>
 					<Item id="6154" name="Efaultday (onomay-instanceyay)"/>
-					<Item id="6155" name="* Ethay odificationmay ofyay isthay ettingsay eedsnay otay estartray Notepad++"/>
+					<Item id="6155" name="* Ethay odificationmay ofyay isthay ettingsay eedsnay otay estartray npminmin"/>
 				</MultiInstance>
 
 				<Delimiter title="Delimiter">
@@ -900,7 +900,7 @@
 					<Item id="6319" name="Enableyay"/>
 					<Item id="6320" name="Onay underlineyay"/>
 					<Item id="6322" name="Essionsay ilefay extyay:."/>
-					<Item id="6323" name="Enableyay Notepad++ autoyay-updateryay"/>
+					<Item id="6323" name="Enableyay npminmin autoyay-updateryay"/>
 					<Item id="6324" name="Ocumentday Itchersway (Abctrl+tay)"/>
 					<Item id="6331" name="Owshay onlyyay ilenamefay inyay itletay arbay"/>
 					<Item id="6334" name="Autodetectyay aracterchay encodingyay"/>
@@ -958,11 +958,11 @@
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
-			<ContextMenuXmlEditWarning title="Editingyay ontextMenucay" message="Editingyay contextMenuxml. allowsyay youyay otay odifymay youryay Notepad++ opuppay ontextcay enumay. Youyay avehay otay estartray youryay Notepad++ otay aketay effectyay afteryay odifyingmay contextMenuxml."/>
-			<NppHelpAbsentWarning title="Ilefay oesday otnay existyay" message=" oesn'tday existyay. Easeplay ownloadday ityay onyay Notepad++ itesay."/>
+			<ContextMenuXmlEditWarning title="Editingyay ontextMenucay" message="Editingyay contextMenuxml. allowsyay youyay otay odifymay youryay npminmin opuppay ontextcay enumay. Youyay avehay otay estartray youryay npminmin otay aketay effectyay afteryay odifyingmay contextMenuxml."/>
+			<NppHelpAbsentWarning title="Ilefay oesday otnay existyay" message=" oesn'tday existyay. Easeplay ownloadday ityay onyay npminmin itesay."/>
 			<SaveCurrentModifWarning title="Avesay Urrentcay Odificationmay" message="Youyay ouldshay avesay ethay urrentcay odificationmay. Allyay ethay avedsay odificationsmay ancay otnay ebay undoneyay.  Ontinuecay?"/>
 			<LoseUndoAbilityWarning title="Oselay Undoyay Abilityyay Arningway" message="Youyay ouldshay avesay ethay urrentcay odificationmay. Allyay ethay avedsay odificationsmay ancay otnay ebay undoneyay.  Ontinuecay?"/>
-			<CannotMoveDoc title="Ovemay otay ewnay Notepad++ Instanceyay" message="Ocumentday isyay odified,may avesay ityay enthay ytray againyay."/>
+			<CannotMoveDoc title="Ovemay otay ewnay npminmin Instanceyay" message="Ocumentday isyay odified,may avesay ityay enthay ytray againyay."/>
 			<DocReloadWarning title="Eloadray" message="Areyay youyay uresay youyay antway otay eloadray ethay urrentcay ilefay andyay oselay ethay angeschay ademay inyay Otepad++nay?"/>
 			<FileLockedWarning title="Avesay ailedfay" message="Easeplay eckchay etherwhay ifyay isthay ilefay isyay openedyay inyay anotheryay ogrampray"/>
 			<FileAlreadyOpenedInNpp title="" message="Ethay ilefay isyay alreadyyay openedyay inyay ethay Otepad++nay."/>
@@ -982,10 +982,10 @@
 			<DoReloadOrNot title="Eloadray" message="&quot;$STR_REPLACE$&quot;  Isthay ilefay ashay eenbay odifiedmay ybay anotheryay ogrampray. Oday youyay antway otay eloadray ityay?"/>
 			<DoReloadOrNotAndLooseChange title="Eloadray" message="&quot;$STR_REPLACE$&quot;  Isthay ilefay ashay eenbay odifiedmay ybay anotheryay ogrampray. Oday youyay antway otay eloadray ityay andyay oselay ethay angeschay ademay inyay Otepad++nay?"/>
 			<PrehistoricSystemDetected title="Ehistoricpray ystemsay etectedday" message="Ityay eemssay youyay illstay useyay ayay ehistoricpray ystemsay. Isthay eaturefay orksway onlyyay onyay ayay odernmay ystem,say orrysay."/>
-			<XpUpdaterProblem title="Notepad++ Updateryay" message="Notepad++ updateryay isyay otnay ompatiblecay ithway XP ueday otay ethay obsoleteyay ecuritysay ayerlay underyay XP. Oday youyay antway otay ogay otay Notepad++ agepay otay ownloadday ethay atestlay ersionvay?"/>
+			<XpUpdaterProblem title="npminmin Updateryay" message="npminmin updateryay isyay otnay ompatiblecay ithway XP ueday otay ethay obsoleteyay ecuritysay ayerlay underyay XP. Oday youyay antway otay ogay otay npminmin agepay otay ownloadday ethay atestlay ersionvay?"/>
 			<DocTooDirtyToMonitor title="Onitoringmay oblempray" message="Ethay ocumentday isyay irtyday. Easeplay avesay ethay odificationmay eforebay onitoringmay ityay."/>
 			<DocNoExistToMonitor title="Onitoringmay oblempray" message="Ethay ilefay ouldshay existyay otay ebay onitoredmay."/>
-			<FileTooBigToOpen title="Ilefay izesay oblempray" message="Ilefay isyay ootay igbay otay ebay openedyay ybay Notepad++"/>
+			<FileTooBigToOpen title="Ilefay izesay oblempray" message="Ilefay isyay ootay igbay otay ebay openedyay ybay npminmin"/>
 			<CreateNewFileOrNot title="Eatecray ewnay ilefay" message="&quot;$STR_REPLACE$&quot; oesn'tday existyay. Eatecray ityay?"/>
 			<CreateNewFileError title="Eatecray ewnay ilefay" message="Annotcay eatecray ethay ilefay &quot;$STR_REPLACE$&quot;."/>
 			<OpenFileError title="ERRORYAY" message="Ancay otnay openyay ilefay &quot;$STR_REPLACE$&quot;."/>
@@ -1007,9 +1007,9 @@
 			<UDLRemoveCurrentLang title="Emoveray ethay urrentcay anguagelay" message="Areyay youyay uresay?"/>
 			<SCMapperDoDeleteOrNot title="Areyay youyay uresay?" message="Areyay youyay uresay youyay antway otay eleteday isthay ortcutshay?"/>
 			<FindCharRangeValueError title="Angeray Aluevay oblempray" message="Youyay ouldshay ypetay etweenbay 0 andyay 255."/>
-			<OpenInAdminMode title="Avesay ailedfay" message="Ethay ilefay annotcay ebay avedsay andyay ityay aymay ebay otectedpray. Oday youyay antway otay aunchlay Notepad++ inyay Administratoryay odemay?"/>
-			<OpenInAdminModeWithoutCloseCurrent title="Avesay ailedfay" message="Ethay ilefay annotcay ebay avedsay andyay ityay aymay ebay otectedpray. Oday youyay antway otay aunchlay Notepad++ inyay Administratoryay odemay?"/>
-			<OpenInAdminModeFailed title="Openyay inyay Administratoryay odemay ailedfay" message="Notepad++ annotcay ebay openedyay inyay Administratoryay odemay."/>
+			<OpenInAdminMode title="Avesay ailedfay" message="Ethay ilefay annotcay ebay avedsay andyay ityay aymay ebay otectedpray. Oday youyay antway otay aunchlay npminmin inyay Administratoryay odemay?"/>
+			<OpenInAdminModeWithoutCloseCurrent title="Avesay ailedfay" message="Ethay ilefay annotcay ebay avedsay andyay ityay aymay ebay otectedpray. Oday youyay antway otay aunchlay npminmin inyay Administratoryay odemay?"/>
+			<OpenInAdminModeFailed title="Openyay inyay Administratoryay odemay ailedfay" message="npminmin annotcay ebay openedyay inyay Administratoryay odemay."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Ipboardclay Istoryhay"/>
@@ -1093,8 +1093,8 @@
 			<word-chars-list-tab-warning value="$INT_REPLACE$ Ab(s)tay"/>
 			<word-chars-list-warning-end value="  inyay youryay aracterchay istlay."/>
 			<cloud-invalid-warning value="Invalidyay athpay."/>
-			<cloud-restart-warning value="Easeplay estartray Notepad++ otay aketay effectyay."/>
-			<cloud-select-folder value="Electsay ayay olderfay omfray/otay erewhay Notepad++ eadsray/iteswray itsyay ettingssay"/>
+			<cloud-restart-warning value="Easeplay estartray npminmin otay aketay effectyay."/>
+			<cloud-select-folder value="Electsay ayay olderfay omfray/otay erewhay npminmin eadsray/iteswray itsyay ettingssay"/>
 			<shift-change-direction-tip value="Useyay Ift+entershay otay earchsay inyay ethay oppositeyay irectionday"/>
 			<two-find-buttons-tip value="2 indfay uttonsbay odemay"/>
 			<find-status-top-reached value="Indfay: Oundfay ethay 1st occurrenceyay omfray ethay ottombay. Ethay eginningbay ofyay ethay ocumentday ashay eenbay eachedray."/>

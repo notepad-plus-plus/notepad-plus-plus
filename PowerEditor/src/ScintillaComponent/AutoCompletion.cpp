@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -640,7 +640,7 @@ void AutoCompletion::showPathCompletion()
 		HANDLE hFind = ::FindFirstFile(searchString.c_str(), &data);
 		if (hFind != INVALID_HANDLE_VALUE)
 		{
-			// Maximum number of entries to show. Without this it appears to the user like Notepad++ hangs when autocompleting
+			// Maximum number of entries to show. Without this it appears to the user like npminmin hangs when autocompleting
 			// some really large directories (c:\windows\winxsys on my system for instance).
 			static constexpr unsigned int maxEntries = 2000;
 			unsigned int counter = 0;
@@ -888,7 +888,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 		}
 	}
 
-	// if there's no user defined matched pair found, continue to check notepad++'s one
+	// if there's no user defined matched pair found, continue to check npminmin's one
 
 	char closeTag[tagMaxLen]{};
 	switch (ch)

@@ -2,7 +2,7 @@
 <!--//
 File Name:           HotFudgeSundae.xml
 Style Name:          HotFudgeSundae
-Description:         HotFudgeSundae theme for Notepad++.
+Description:         HotFudgeSundae theme for npminmin.
                      Hues from photographs of hot fudge sundaes.
                      Hot fudge, some ice cream peeking out, drizzled with
                      caramel, nuts, and sprinkles with a cherry on top.
@@ -29,11 +29,11 @@ License:             Feel free to modify this theme.
                      may, and should, omit such attribution.
 
 Installation:
-    Copy this file to C:\Program Files (x86)\Notepad++\themes  OR
+    Copy this file to C:\Program Files (x86)\npminmin\themes  OR
     For WindowsXP:
-    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\Notepad++\themes
+    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\npminmin\themes
     For Windows Vista or 7:
-    Copy this file to C:\Users\%%USERNAME%%\AppData\Roaming\Notepad++\themes
+    Copy this file to C:\Users\%%USERNAME%%\AppData\Roaming\npminmin\themes
 
 //-->
 <NotepadPlus modelDate="20251214" modelFileLastModifiedDate="20251227">

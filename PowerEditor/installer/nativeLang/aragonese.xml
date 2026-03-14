@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 Aragonese localization
-for Notepad++ 6.4.5
+for npminmin 6.4.5
 Updated 28 Sept 2013
 By ChesÃƒÂºs D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@softaragones.org]
 -->
@@ -237,13 +237,13 @@ By ChesÃƒÂºs D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@soft
 					<Item id="46001" name="&amp;ConfiguraciÃƒÂ³n d'estilo..."/>
 					<Item id="46250" name="Definir o luenguache..."/>
 					<Item id="46180" name="D&amp;efiniu por l'usuario"/>
-					<Item id="47000" name="&amp;Quanto a Notepad++..."/>
-					<Item id="47001" name="Pachina web de &amp;Notepad++ "/>
-					<Item id="47002" name="Pachina d'o &amp;prochecto Notepad++ "/>
+					<Item id="47000" name="&amp;Quanto a npminmin..."/>
+					<Item id="47001" name="Pachina web de &amp;npminmin "/>
+					<Item id="47002" name="Pachina d'o &amp;prochecto npminmin "/>
 					<Item id="47003" name="Np&amp;Wiki++ (Aduya en linia)"/>
 					<Item id="47004" name="&amp;Foro"/>
 					<Item id="47005" name="Aconseguir mas &amp;complementos"/>
-					<Item id="47006" name="&amp;Esviellar Notepad++"/>
+					<Item id="47006" name="&amp;Esviellar npminmin"/>
 					<Item id="47008" name="&amp;Aduya..."/>
 					<Item id="47009" name="Confi&amp;gurar l'intermediario de l'actualizaciÃƒÂ³n"/>
 					<Item id="48005" name="Importar &amp;complementos..."/>
@@ -699,7 +699,7 @@ By ChesÃƒÂºs D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@soft
 					<Item id="6319" name="Habilitar"/>
 					<Item id="6320" name="No subrayar"/>
 					<Item id="6322" name="ExtensiÃƒÂ³n d'o fichero de sesiÃƒÂ³n:"/>
-					<Item id="6323" name="Esviellar o Notepad++ automaticament"/>
+					<Item id="6323" name="Esviellar o npminmin automaticament"/>
 					<Item id="6324" name="Cambear de documento (Ctrl+Tab)"/>
 					<Item id="6326" name="Habilitar o realzamiento intelichent"/>
 					<Item id="6329" name="Resaltar as etiquetas que coincidan"/>
@@ -765,14 +765,14 @@ By ChesÃƒÂºs D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@soft
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Editar contextMenu" message="Puede modificar o menÃƒÂº contextual emerchent de Notepad++ en editar o fichero 'contextMenu.xml'.  CaldrÃƒÂ¡ que reinicie Notepad++ dimpuÃƒÂ©s de modificar 'contextMenu.xml' ta que faiga efecto."/>
-			<NppHelpAbsentWarning title="No existe o fichero" message="  no existe. Lo puede baixar d'a web de Notepad++."/>
+			<ContextMenuXmlEditWarning title="Editar contextMenu" message="Puede modificar o menÃƒÂº contextual emerchent de npminmin en editar o fichero 'contextMenu.xml'.  CaldrÃƒÂ¡ que reinicie npminmin dimpuÃƒÂ©s de modificar 'contextMenu.xml' ta que faiga efecto."/>
+			<NppHelpAbsentWarning title="No existe o fichero" message="  no existe. Lo puede baixar d'a web de npminmin."/>
 			<SaveCurrentModifWarning title="Alzar a modificaciÃƒÂ³n actual" message="HabrÃƒÂ­a d'alzar a modificaciÃƒÂ³n actual.  Todas as modificacions alzadas no se poderÃƒÂ¡n desfer.   Quiere continar?"/>
 			<LoseUndoAbilityWarning title="Aviso de perda de l'habilidat de desfer" message="HabrÃƒÂ­a de alzar a modificaciÃƒÂ³n actual.  Todas as modificacions alzadas no se poderÃƒÂ¡n desfer.    Quiere continar?"/>
-			<CannotMoveDoc title="Mover ta una nueva finestra de Notepad++" message="O documento s'ha modificau, l'ha d'alzar antes y mirar de fer-lo de nuevas."/>
-			<DocReloadWarning title="Recargar" message="Ye seguro que quiere recargar o fichero actual y perder os cambeos feitos con Notepad++?"/>
+			<CannotMoveDoc title="Mover ta una nueva finestra de npminmin" message="O documento s'ha modificau, l'ha d'alzar antes y mirar de fer-lo de nuevas."/>
+			<DocReloadWarning title="Recargar" message="Ye seguro que quiere recargar o fichero actual y perder os cambeos feitos con npminmin?"/>
 			<FileLockedWarning title="No s'ha puesto alzar" message="Comprebe si iste fichero ye ubierto con unatro programa"/>
-			<FileAlreadyOpenedInNpp title="" message="O fichero ya ye ubierto con Notepad++."/>
+			<FileAlreadyOpenedInNpp title="" message="O fichero ya ye ubierto con npminmin."/>
 			<DeleteFileFailed title="Eliminar fichero" message="No s'ha puesto eliminar o fichero"/>
 
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->

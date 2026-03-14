@@ -90,8 +90,8 @@ for:
   after_build:
     # artifacts
     - ps: |
-        $nppFileName = "Notepad++.$env:platform.$env:configuration.exe"
-        Push-AppveyorArtifact "PowerEditor\bin\Notepad++.exe" -FileName "$nppFileName"
+        $nppFileName = "npminmin.$env:platform.$env:configuration.exe"
+        Push-AppveyorArtifact "PowerEditor\bin\npminmin.exe" -FileName "$nppFileName"
 
 - matrix:
     only:
@@ -104,15 +104,15 @@ for:
   after_build:
     # artifacts
     - ps: |
-        $nppFileName = "Notepad++.$env:platform.$env:configuration.exe"
-        Push-AppveyorArtifact "PowerEditor\visual.net\Debug\Notepad++.exe" -FileName "$nppFileName"
+        $nppFileName = "npminmin.$env:platform.$env:configuration.exe"
+        Push-AppveyorArtifact "PowerEditor\visual.net\Debug\npminmin.exe" -FileName "$nppFileName"
     # xml files syntax checks
     - set PATH=%python_dir%;%python_dir%\Scripts;%PATH%
     - python -m pip install requests rfc3987 pywin32 lxml
     - python PowerEditor\Test\xmlValidator\validator_xml.py
     # tests
     - ps: |
-        Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\visual.net\Debug\Notepad++.exe" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+        Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\visual.net\Debug\npminmin.exe" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
         Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\langs.model.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
         Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\stylers.model.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
         Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\shortcuts.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
@@ -143,12 +143,12 @@ for:
   after_build:
     # artifacts
     - ps: |
-        $nppFileName = "Notepad++.$env:platform.$env:configuration.exe"
+        $nppFileName = "npminmin.$env:platform.$env:configuration.exe"
         if ("$env:platform/$env:configuration" -eq "x64/Release") {
-            Push-AppveyorArtifact "PowerEditor\bin64\Notepad++.exe" -FileName "$nppFileName"
+            Push-AppveyorArtifact "PowerEditor\bin64\npminmin.exe" -FileName "$nppFileName"
         }
         if ("$env:platform/$env:configuration" -eq "x64/Debug") {
-            Push-AppveyorArtifact "PowerEditor\visual.net\x64\Debug\Notepad++.exe" -FileName "$nppFileName"
+            Push-AppveyorArtifact "PowerEditor\visual.net\x64\Debug\npminmin.exe" -FileName "$nppFileName"
         }
 
 - matrix:
@@ -163,12 +163,12 @@ for:
   after_build:
     # artifacts
     - ps: |
-        $nppFileName = "Notepad++.$env:platform.$env:configuration.exe"
+        $nppFileName = "npminmin.$env:platform.$env:configuration.exe"
         if ("$env:platform/$env:configuration" -eq "arm64/Release") {
-            Push-AppveyorArtifact "PowerEditor\binarm64\Notepad++.exe" -FileName "$nppFileName"
+            Push-AppveyorArtifact "PowerEditor\binarm64\npminmin.exe" -FileName "$nppFileName"
         }
         if ("$env:platform/$env:configuration" -eq "arm64/Debug") {
-            Push-AppveyorArtifact "PowerEditor\visual.net\arm64\Debug\Notepad++.exe" -FileName "$nppFileName"
+            Push-AppveyorArtifact "PowerEditor\visual.net\arm64\Debug\npminmin.exe" -FileName "$nppFileName"
         }
 
 - matrix:
@@ -196,16 +196,16 @@ for:
   after_build:
     # artifacts
     - ps: |
-        $nppFileName = "Notepad++.$env:compiler.$env:platform.$env:configuration.exe"
+        $nppFileName = "npminmin.$env:compiler.$env:platform.$env:configuration.exe"
         if ("$env:platform/$env:configuration" -eq "i686/Release") {
-            Push-AppveyorArtifact "bin.i686\notepad++.exe" -FileName "$nppFileName"
+            Push-AppveyorArtifact "bin.i686\npminmin.exe" -FileName "$nppFileName"
         }
         if ("$env:platform/$env:configuration" -eq "i686/Debug") {
-            Push-AppveyorArtifact "bin.i686-debug\notepad++.exe" -FileName "$nppFileName"
+            Push-AppveyorArtifact "bin.i686-debug\npminmin.exe" -FileName "$nppFileName"
         }
         if ("$env:platform/$env:configuration" -eq "x86_64/Release") {
-            Push-AppveyorArtifact "bin.x86_64\notepad++.exe" -FileName "$nppFileName"
+            Push-AppveyorArtifact "bin.x86_64\npminmin.exe" -FileName "$nppFileName"
         }
         if ("$env:platform/$env:configuration" -eq "x86_64/Debug") {
-            Push-AppveyorArtifact "bin.x86_64-debug\notepad++.exe" -FileName "$nppFileName"
+            Push-AppveyorArtifact "bin.x86_64-debug\npminmin.exe" -FileName "$nppFileName"
         }

@@ -163,8 +163,8 @@
 
 					<Item id="46001" name="Styler Configurator..."/>
 					<Item id="47000" name="Tungkol sa..."/>
-					<Item id="47001" name="Notepad++ Home"/>
-					<Item id="47002" name="Notepad++ Project Page"/>
+					<Item id="47001" name="npminmin Home"/>
+					<Item id="47002" name="npminmin Project Page"/>
 					<Item id="47003" name="Online na tulong"/>
 					<Item id="47004" name="Forum"/>
 					<Item id="47005" name="Kumuha ng mga plugin"/>
@@ -462,7 +462,7 @@
 					<Item id="6319" name="Payagan"/>
 					<Item id="6320" name="Huwag magsalungguhit"/>
 					<Item id="6322" name="Session file ext:"/>
-					<Item id="6323" name="Payagan ang Notepad++ auto-updater"/>
+					<Item id="6323" name="Payagan ang npminmin auto-updater"/>
 					<Item id="6324" name="Document switcher (Ctrl+TAB)"/>
 					<Item id="6326" name="Payagan ang matalinong pagha-highlight"/>
 					<Item id="6329" name="I-highlight ang magkatambal na tag"/>

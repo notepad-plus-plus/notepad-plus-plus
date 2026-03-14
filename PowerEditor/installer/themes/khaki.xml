@@ -2,7 +2,7 @@
 <!--//
 File Name:           khaki.xml
 Style Name:          khaki
-Description:         khaki theme for Notepad++.
+Description:         khaki theme for npminmin.
                      Based (moderately closely) on khaki.vim by Frank Baruch
                      http://www.vim.org/scripts/script.php?script_id=1987
 Supported languages: All the languages supported by release 6.7.4
@@ -27,11 +27,11 @@ License:             Feel free to modify this theme.
                      may, and should, omit such attribution.
 
 Installation:
-    Copy this file to C:\Program Files (x86)\Notepad++\themes  OR
+    Copy this file to C:\Program Files (x86)\npminmin\themes  OR
     For WindowsXP:
-    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\Notepad++\themes
+    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\npminmin\themes
     For Windows Vista or 7:
-    Copy this file to C:\Users\%%USERNAME%%\AppData\Roaming\Notepad++\themes
+    Copy this file to C:\Users\%%USERNAME%%\AppData\Roaming\npminmin\themes
 
 //-->
 <NotepadPlus modelDate="20251214" modelFileLastModifiedDate="20251227">

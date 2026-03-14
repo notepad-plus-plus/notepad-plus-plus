@@ -318,17 +318,17 @@
 					<Item id="46001" name="பாணி கட்டமைப்பான்.."/>
 					<Item id="46250" name="உம் மொழியை வரையருத்திடுங்கள்..."/>
 					<Item id="46300" name="பயனர்-வரையறுத்த மொழி கோப்புறையைத் திற..."/>
-					<Item id="46301" name="Notepad++ பயனர்-வரையறுத்த மொழி தொகுப்பு"/>
+					<Item id="46301" name="npminmin பயனர்-வரையறுத்த மொழி தொகுப்பு"/>
 					<Item id="46180" name="பயனர் வரையறுத்த"/>
-					<Item id="47000" name="Notepad++ ப்பை பற்றி "/>
+					<Item id="47000" name="npminmin ப்பை பற்றி "/>
 					<Item id="47010" name="Command Line Arguments..."/>
-					<Item id="47001" name="Notepad++ முகப்பு"/>
-					<Item id="47002" name="Notepad++ செயல்திட்ட பக்கம்"/>
-					<Item id="47003" name="Notepad++ வலைதள பயனர் கையேடு"/>
-					<Item id="47004" name="Notepad++ சமூகம் (வலையரங்கு)"/>
+					<Item id="47001" name="npminmin முகப்பு"/>
+					<Item id="47002" name="npminmin செயல்திட்ட பக்கம்"/>
+					<Item id="47003" name="npminmin வலைதள பயனர் கையேடு"/>
+					<Item id="47004" name="npminmin சமூகம் (வலையரங்கு)"/>
 					<Item id="47012" name="பிழைத்திருத்த தகவல்..."/>
 					<Item id="47005" name="அதிக செருகுநிரல்களைப் பெறு"/>
-					<Item id="47006" name="Notepad++ இற்றைபடுத்தல்"/>
+					<Item id="47006" name="npminmin இற்றைபடுத்தல்"/>
 					<Item id="48018" name="Popup ContextMenuஐ பதிப்பிக்க"/>
 					<Item id="47008" name="உதவி தொகுப்புகள்"/>
 					<Item id="48005" name="செருகுநிரல்(கள்) ஏற்று ..."/>
@@ -933,7 +933,7 @@
 				</DefaultDir>
 				
 				<FileAssoc title="கோப்புக் குழுமம்">
-					<Item id="4008" name="தயவுசெய்து Notepad++இலிருந்து விலகி நிர்வாகி முறையில் மீண்டும் இயக்கி இந்த  அம்சத்தை பயன்படுத்துங்கள்."/>
+					<Item id="4008" name="தயவுசெய்து npminminஇலிருந்து விலகி நிர்வாகி முறையில் மீண்டும் இயக்கி இந்த  அம்சத்தை பயன்படுத்துங்கள்."/>
 					<Item id="4009" name="உதவிபெறும் நீட்சிகள் :"/>
 					<Item id="4010" name="பதிவுபெற்ற நீட்சிகள் :"/>
 				</FileAssoc>
@@ -1009,7 +1009,7 @@
 				
 				<Searching title="தேடல்">
 					<Item id="6901" name="கண்டுபிடி-உரையாடலில் கண்டுபிடி fieldஐ தேர்ந்தெடுத்த சொல்லால் நிரப்பாதே"/>
-					<Item id="6902" name="கண்டுபிடி-உரையாடலில் Monospaced எழுத்துருவை பயன்படுத்து (Notepad++ஐ மறுதொடக்கம் செய்யவேண்டும்)"/>
+					<Item id="6902" name="கண்டுபிடி-உரையாடலில் Monospaced எழுத்துருவை பயன்படுத்து (npminminஐ மறுதொடக்கம் செய்யவேண்டும்)"/>
 					<Item id="6903" name="பயன்முடிவு-சாளரத்தில் வெளியீடு தரும் தேடலுக்கு பின் கண்டுபிடி-உரையாடல் திறந்தே இருக்கும்"/>
 					<Item id="6904" name="எல்லா திறந்த ஆவணங்களிலும் எல்லாவற்றிற்கும் பதிலாக இதுவாக மாற்றுவதை உறுதி செய்யுங்கள்"/>
 					<Item id="6905" name="இதற்கு பதிலாக இதனை குறிப்பிட்டதாக மாற்று: அடுத்த நிகழ்விக்கு நகராதே"/>
@@ -1067,7 +1067,7 @@
 					<Item id="6152" name="புது instanceஇல் அமர்வைத் திற (வெளியேறும்போது அமர்வை தானாக சேமி)"/>
 					<Item id="6153" name="எப்போதும் multi-instance முறையில்"/>
 					<Item id="6154" name="இயள்புநிலை (mono-instance)"/>
-					<Item id="6155" name="* இந்த அமைப்பை மாற்றினால் Notepad++ஐ மீண்டும் துவக்க வேண்டும்"/>
+					<Item id="6155" name="* இந்த அமைப்பை மாற்றினால் npminminஐ மீண்டும் துவக்க வேண்டும்"/>
 					<Item id="6171" name="உளீட்டை தனிப்பயனாக்குக தேதி நேரம்"/>
 					<Item id="6175" name="இயல்புநிலையை  தேதி நேரம் வரிடையை தலைகீழாக்கு (குறும் &amp;&amp; நெடும் வடிவங்கள்)"/>
 					<Item id="6172" name="தனிப்பயனாக்கப்பட்ட வகுப்பான்ிவம்:"/>
@@ -1112,7 +1112,7 @@
 					<Item id="6313" name="அமைதியாக இற்றைபடுத்து"/>
 					<Item id="6325" name="இற்றைப்படுத்தலிற்குப்பின் கடைசி வரிக்குச் செல்"/>
 					<Item id="6322" name="அமர்வு கோப்பு நீட்டிப்பு.:"/>
-					<Item id="6323" name="Notepad++ தானியங்கி-இற்றைப்படுத்துவானை செயல்படுத்து"/>
+					<Item id="6323" name="npminmin தானியங்கி-இற்றைப்படுத்துவானை செயல்படுத்து"/>
 					<Item id="6324" name="ஆவண மாற்றி (switcher) (Ctrl+TAB)"/>
 					<Item id="6331" name="உருப்படி தலைப்புப்பட்டை கோப்புகளை மட்டும் காட்டு"/>
 					<Item id="6334" name="எழுத்துக் குறியாக்கத்தை தானாக கண்டறி"/>
@@ -1184,15 +1184,15 @@
 			</DoSaveAll>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Editing contextMenu" message="contextMenu.xmlஐ தொகுப்பது உங்களை உங்கள் Notepad++ popup context பட்டியலை மாற்ற அனுமதிக்கும்.
-விளைவு தென்படுவதற்கு நீங்கள் உங்கள் Notepad++ஐ contextMenu.xmlஐ மாற்றியவுடன் மீண்டும் துவக்க வேண்டும்."/>
-			<NppHelpAbsentWarning title="File does not exist" message="\rஇங்கு இல்லை. Notepad++ தளத்திலிருந்து இறக்கம் செய்து கொள்ளுங்கள்."/>
+			<ContextMenuXmlEditWarning title="Editing contextMenu" message="contextMenu.xmlஐ தொகுப்பது உங்களை உங்கள் npminmin popup context பட்டியலை மாற்ற அனுமதிக்கும்.
+விளைவு தென்படுவதற்கு நீங்கள் உங்கள் npminminஐ contextMenu.xmlஐ மாற்றியவுடன் மீண்டும் துவக்க வேண்டும்."/>
+			<NppHelpAbsentWarning title="File does not exist" message="\rஇங்கு இல்லை. npminmin தளத்திலிருந்து இறக்கம் செய்து கொள்ளுங்கள்."/>
 			<SaveCurrentModifWarning title="Save Current Modification" message="நீங்கள் நடப்பு மாற்றங்களை சேமிக்கவேண்டும்.\rஅனைத்து சேமித்த மாற்றங்களும் திறும்ப பெற இயலாது.\r\rதொடரவா?"/>
 			<LoseUndoAbilityWarning title="Lose Undo Ability Waning" message="நீங்கள் நடப்பு மாற்றங்களை சேமிக்கவேண்டும்.\rஅனைத்து சேமித்த மாற்றங்களும் திறும்ப பெற இயலாது.\r\rதொடரவா?"/>
-			<CannotMoveDoc title="Move to new Notepad++ Instance" message="கோப்பு மாற்றப்பட்டுள்ளது. சேமி, பிறகு முயற்சி செய்"/>
+			<CannotMoveDoc title="Move to new npminmin Instance" message="கோப்பு மாற்றப்பட்டுள்ளது. சேமி, பிறகு முயற்சி செய்"/>
 			<DocReloadWarning title="Reload" message="உறுதியாக நடப்பு கோப்பை மறு ஏற்றம் செய்யவா? செய்த மாற்றங்களை இழப்பீர்கள்"/>
 			<FileLockedWarning title="Save failed" message="இந்த கோப்பு மற்றுமொரு நிரலில் திறக்கப்பட்டுள்ளதா எனச் சோதி"/>
-			<FileAlreadyOpenedInNpp title="" message="இந்த கோப்பு ஏற்கனவே Notepad++இல் திறக்கப்பட்டுள்ளது."/>
+			<FileAlreadyOpenedInNpp title="" message="இந்த கோப்பு ஏற்கனவே npminminஇல் திறக்கப்பட்டுள்ளது."/>
 			<DeleteFileFailed title="Delete File" message="கோப்பு நீக்கம் வெற்றியடையவில்லை"/>
 
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->

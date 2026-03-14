@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 8.8.3
+-    Traducerea în română pentru npminmin 8.8.3
 -    Ultima modificare a fost făcută 01 august 2025 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang -->
@@ -197,7 +197,7 @@
                     <Item id="42025" name="&amp;Salvează macrocomanda înregistrată în prezent..."/>
                     <Item id="42026" name="Text de la dreapta la stânga (RTL)"/>
                     <Item id="42027" name="Text de la stânga la dreapta (LTR)"/>
-                    <Item id="42028" name="&amp;Setează modul Doar în citire (modul Numai în citire) în Notepad++"/>
+                    <Item id="42028" name="&amp;Setează modul Doar în citire (modul Numai în citire) în npminmin"/>
                     <Item id="42029" name="Copiază calea actuală a fișierului"/>
                     <Item id="42030" name="Copiază numele actual al fișierului"/>
                     <Item id="42031" name="Copiază calea actuală a folderului"/>
@@ -362,17 +362,17 @@
 					<Item id="46016" name="Niciunul (Text normal)"/>
                     <Item id="46250" name="Definește limbajul..."/>
                     <Item id="46300" name="Deschide folderul de limbă definit de utilizator..."/>
- 				    <Item id="46301" name="Colecția de limbi Notepad++ definită de utilizator"/>
+ 				    <Item id="46301" name="Colecția de limbi npminmin definită de utilizator"/>
                     <Item id="46180" name="Definit de utilizator"/>
-                    <Item id="47000" name="Despre Notepad++"/>
+                    <Item id="47000" name="Despre npminmin"/>
                     <Item id="47010" name="Argumente pentru linia de comandă..."/>
-                    <Item id="47001" name="Pagina web a Notepad++"/>
-                    <Item id="47002" name="Pagina proiectului Notepad++"/>
+                    <Item id="47001" name="Pagina web a npminmin"/>
+                    <Item id="47002" name="Pagina proiectului npminmin"/>
                     <Item id="47003" name="Documentație online"/>
-                    <Item id="47004" name="Comunitatea Notepad++ (Forum)"/>
+                    <Item id="47004" name="Comunitatea npminmin (Forum)"/>
                     <Item id="47012" name="Informații de depanare"/>
                     <Item id="47005" name="Descarcă mai multe module (plugin-uri)"/>
-                    <Item id="47006" name="Actualizează Notepad++"/>
+                    <Item id="47006" name="Actualizează npminmin"/>
                     <Item id="47009" name="Setează proxy-ul pentru actualizare..."/>
                     <Item id="48005" name="Importă modulul/modulele (plugin-ul/plugin-urile) ..."/>
                     <Item id="48006" name="Importă tema (temele) de afișare..."/>
@@ -440,7 +440,7 @@
                     <Item CMDID="41016" name="Mută în Coșul de gunoi (Coșul de reciclare)"/>
 					<Item CMDID="41014" name="Reîncarcă"/>
 					<Item CMDID="41010" name="Tipărire..."/>
-                    <Item CMDID="42028" name="Modul doar în citire (Modul numai în citire) în Notepad++"/>
+                    <Item CMDID="42028" name="Modul doar în citire (Modul numai în citire) în npminmin"/>
 					<Item CMDID="42033" name="Atributul Doar în citire (Numai în citire) în Windows"/>
 					<Item CMDID="2" name="Copiază în clipboard"/>
 					<Item CMDID="42029" name="Copiază calea fișierului în clipboard"/>
@@ -1141,7 +1141,7 @@
                 </DefaultDir>
 
                 <FileAssoc title="Asociere a fișierelor">
-					<Item id="4008" name="Te rugăm să închizi Notepad++ și să repornești Notepad++ în modul Administrator pentru a folosi această funcție."/>
+					<Item id="4008" name="Te rugăm să închizi npminmin și să repornești npminmin în modul Administrator pentru a folosi această funcție."/>
                     <Item id="4009" name="Extensii asociate:"/>
                     <Item id="4010" name="Extensii înregistrate:"/>
                 </FileAssoc>
@@ -1231,7 +1231,7 @@
                 </Print>
 
                 <Searching title="Căutare">
-                    <Item id="6902" name="Se folosește scrisul monospațiat în caseta de dialog Căutare (necesită repornirea Notepad++)"/>
+                    <Item id="6902" name="Se folosește scrisul monospațiat în caseta de dialog Căutare (necesită repornirea npminmin)"/>
                     <Item id="6903" name="Dialogul de căutare rămâne deschis după căutarea care iese în fereastra cu rezultate"/>
                     <Item id="6904" name="Confirmă înlocuirea peste tot în toate documentele deschise"/>
                     <Item id="6905" name="Înlocuire: Nu trece la următoarea apariție"/>
@@ -1296,10 +1296,10 @@
 
                 <MultiInstance title="Instanțe multiple și dată">
                     <Item id="6151" name="Setări pentru instanțele multiple *"/>
-                    <Item id="6152" name="Deschide sesiunea în instanță nouă Notepad++ (și salvează automat sesiunea la ieșire)"/>
+                    <Item id="6152" name="Deschide sesiunea în instanță nouă npminmin (și salvează automat sesiunea la ieșire)"/>
                     <Item id="6153" name="Întotdeauna în mod instanță multiplă"/>
                     <Item id="6154" name="Implicit (instanță unică)"/>
-                    <Item id="6155" name="* Modificarea acestor setări necesită repornirea Notepad++"/>
+                    <Item id="6155" name="* Modificarea acestor setări necesită repornirea npminmin"/>
                     <Item id="6171" name="Personalizează inserările pentru dată și oră"/>
                     <Item id="6175" name="Inversează ordinea implicită a datei și a orei (pentru formatele scurte și lungi)"/>
                     <Item id="6172" name="Format personalizat:"/>
@@ -1382,8 +1382,8 @@
 					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Dezactivare"/>
-						<Element name="Activează la pornirea Notepad++"/>
-						<Element name="Activează la ieșirea din Notepad++"/>
+						<Element name="Activează la pornirea npminmin"/>
+						<Element name="Activează la ieșirea din npminmin"/>
 					</ComboBox>
 					<Item id="6308" name="bara de sistem"/>
 					<Item id="6363" name="modul de randare"/>
@@ -1480,9 +1480,9 @@ Poți reactiva această casetă de dialog mai târziu, în Preferințe."/>
 		</Dialog>
         <MessageBox> 
 		<!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <ContextMenuXmlEditWarning title="Editează meniul contextual" message="Editarea fișierului contextMenu.xml îți permite să modifici meniul contextual al Notepad++.
-Trebuie să repornești Notepad++ pentru a se aplica modificările efectuate în contextMenu.xml."/>
-            <NppHelpAbsentWarning title="Fișierul nu există" message="Fișierul nu există. Te rugăm să-l descărci de pe site-ul Notepad++."/>
+            <ContextMenuXmlEditWarning title="Editează meniul contextual" message="Editarea fișierului contextMenu.xml îți permite să modifici meniul contextual al npminmin.
+Trebuie să repornești npminmin pentru a se aplica modificările efectuate în contextMenu.xml."/>
+            <NppHelpAbsentWarning title="Fișierul nu există" message="Fișierul nu există. Te rugăm să-l descărci de pe site-ul npminmin."/>
             <SaveCurrentModifWarning title="Salvează modificarea curentă" message="Ar trebui să salvezi modificările curente.
 Toate modificările salvate nu vor putea fi refăcute.
 
@@ -1491,10 +1491,10 @@ Continui?"/>
 Toate modificările salvate nu vor putea fi refăcute.
 
 Continui?"/>
-            <CannotMoveDoc title="Mută în instanță nouă a Notepad++" message="Documentul este modificat, salvează-l și încearcă din nou."/>
-            <DocReloadWarning title="Reîncărcare" message="Ești sigur(ă) că dorești să reîncarci fișierul curent și să pierzi modificările efectuate în Notepad++?"/>
+            <CannotMoveDoc title="Mută în instanță nouă a npminmin" message="Documentul este modificat, salvează-l și încearcă din nou."/>
+            <DocReloadWarning title="Reîncărcare" message="Ești sigur(ă) că dorești să reîncarci fișierul curent și să pierzi modificările efectuate în npminmin?"/>
             <FileLockedWarning title="Salvare eșuată" message="Verifică dacă acest fișier nu este accesat și de un alt program."/>
-            <FileAlreadyOpenedInNpp title="Salvare eșuată" message="Fișierul este deja deschis în Notepad++."/>
+            <FileAlreadyOpenedInNpp title="Salvare eșuată" message="Fișierul este deja deschis în npminmin."/>
 			<RenameTabTemporaryNameAlreadyInUse title="Redenumire eșuată" message="Numele specificat este deja folosit într-o altă filă."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
 			<RenameTabTemporaryNameIsEmpty title="Redenumire eșuată" message="Numele specificat nu poate fi gol sau nu poate conține numai spațiu (spații) sau tabulator(i)/TAB(-uri)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
             <DeleteFileFailed title="Ștergerea fișierului" message="Ștergerea fișierului eșuată."/>
@@ -1511,7 +1511,7 @@ Pentru a putea efectua această operație, trebuie să activezi opțiunea „La 
             <SortingError title="Eroare de sortare" message="Nu se poate executa sortarea numerică datorită liniei $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SortLocaleMultiple title="Sortarea nu a fost efectuată" message="Sortarea selecțiilor multiple nu este acceptată."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
  			<SortLocaleUnknown title="Sortarea a eșuat" message="Motivul pentru care sortarea a eșuat nu poate fi determinat."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
- 			<SortLocaleExcept title="Sortarea a eșuat" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+ 			<SortLocaleExcept title="Sortarea a eșuat" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit npminmin and choose Edit | Line Operations | Sort Lines In Locale Order. -->
             <ColumnModeTip title="Pont mod coloană" message="
 Sunt trei moduri de a comuta în modul de selectare a coloanei:
 
@@ -1541,14 +1541,14 @@ Dorești să îl reîncarci?"/>
             <DoReloadOrNotAndLooseChange title="Reîncărcare" message="„$STR_REPLACE$”
 
 Acest fișier a fost modificat de un alt program.
-Dorești să-l reîncarci și să anulezi modificările efectuate în Notepad++?"/>
+Dorești să-l reîncarci și să anulezi modificările efectuate în npminmin?"/>
             <PrehistoricSystemDetected title="S-a detectat un sistem preistoric" message="Se pare că încă folosești un sistem foarte vechi. Această funcție se poate executa doar pe un sistem modern."/>
-            <XpUpdaterProblem title="Actualizator Notepad++" message="Actualizatorul Notepad++ nu este compatibil cu Windows XP datorită nivelelor de securitate depășite ale acestuia.
-Dorești să vizitezi pagina de descărcare a Notepad++ ca să descarci ultima versiune?"/>
-			<GUpProxyConfNeedAdminMode title="Setări proxy" message="Te rugăm să repornești Notepad++ în modul Admin pentru a configura setările proxy."/>
+            <XpUpdaterProblem title="Actualizator npminmin" message="Actualizatorul npminmin nu este compatibil cu Windows XP datorită nivelelor de securitate depășite ale acestuia.
+Dorești să vizitezi pagina de descărcare a npminmin ca să descarci ultima versiune?"/>
+			<GUpProxyConfNeedAdminMode title="Setări proxy" message="Te rugăm să repornești npminmin în modul Admin pentru a configura setările proxy."/>
 			<DocTooDirtyToMonitor title="Problemă de monitorizare" message="Documentul este necorespunzător. Salvează modificările înainte de a-l monitoriza."/>
             <DocNoExistToMonitor title="Problemă de monitorizare" message="Pentru a putea fi monitorizat fișierul trebuie să existe."/>
-            <FileTooBigToOpen title="Problemă cu dimensiunea fișierului" message="Fișierul este prea mare pentru a fi deschis cu Notepad++"/>
+            <FileTooBigToOpen title="Problemă cu dimensiunea fișierului" message="Fișierul este prea mare pentru a fi deschis cu npminmin"/>
 			<FileLoadingException title="Cod de excepție: $STR_REPLACE$" message="A apărut o eroare în timpul încărcării fișierului!"/>
 			<WantToOpenHugeFile title="Avertizare de deschidere a unui fișier uriaș" message="Dechiderea unui fișier uriaș de peste 2GB ar putea dura câteva minute.
 Vrei să îl deschizi?"/>
@@ -1592,26 +1592,26 @@ te rugăm să alegi altul."/>
             <SCMapperDoDeleteOrNot title="Ești sigur(ă)?" message="Ești sigur(ă) că dorești să elimini această combinație de taste?"/>
             <FindCharRangeValueError title="Problemă cu valoarea de interval" message="Ar trebui să introduci o valoare între 0 și 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
             <OpenInAdminMode title="Salvare eșuată" message="Fișierul nu poate fi salvat și s-ar putea să fie protejat.
-Vrei să lansezi Notepad++ în mod Administrator?"/>
+Vrei să lansezi npminmin în mod Administrator?"/>
             <OpenInAdminModeWithoutCloseCurrent title="Salvare eșuată" message="Fișierul nu poate fi salvat și s-ar putea să fie protejat.
-Vrei să lansezi Notepad++ în mod Administrator?"/>
-            <OpenInAdminModeFailed title="Deschiderea în Modul Administrator a eșuat" message="Notepad++ nu poate fi deschis în mod Administrator."/>        
+Vrei să lansezi npminmin în mod Administrator?"/>
+            <OpenInAdminModeFailed title="Deschiderea în Modul Administrator a eșuat" message="npminmin nu poate fi deschis în mod Administrator."/>        
             <ViewInBrowser title="Afişare fişier curent în navigator" message="Aplicaţia nu poate fi găsită în sistem."/>
-			<ExitToUpdatePlugins title="Urmează să ieși din Notepad++" message="Dacă apeși DA, o să ieși din Notepad++ pentru a continua operațiunile.
-Notepad++ va fi repornit după ce toate operațiunile vor fi terminate.
+			<ExitToUpdatePlugins title="Urmează să ieși din npminmin" message="Dacă apeși DA, o să ieși din npminmin pentru a continua operațiunile.
+npminmin va fi repornit după ce toate operațiunile vor fi terminate.
 Vrei să continui?"/>
-			<NeedToRestartToLoadPlugins title="Notepad++ trebuie să fie relansat" message="Trebuie să repornești Notepad++ pentru a încărcarca modulele (plugin-urile) instalate."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
-			<ChangeHistoryEnabledWarning title="Notepad++ trebuie să fie relansat" message="Trebuie să repornești Notepad++ pentru a activa Istoricul schimbărilor."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
-			<WindowsSessionExit title="Notepad++ - Ieșirea sesiunii Windows" message="Sesiunea Windows este pe cale de a se termina, dar ai anumite date nesavate. Vrei să ieși din Notepad++ acum?"/>
+			<NeedToRestartToLoadPlugins title="npminmin trebuie să fie relansat" message="Trebuie să repornești npminmin pentru a încărcarca modulele (plugin-urile) instalate."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+			<ChangeHistoryEnabledWarning title="npminmin trebuie să fie relansat" message="Trebuie să repornești npminmin pentru a activa Istoricul schimbărilor."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+			<WindowsSessionExit title="npminmin - Ieșirea sesiunii Windows" message="Sesiunea Windows este pe cale de a se termina, dar ai anumite date nesavate. Vrei să ieși din npminmin acum?"/>
 			<LanguageMenuCompactWarning title="Meniul de limbi compact" message="Această opțiune va fi schimbată la următoarea lansare."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Schimbările nesalvate urmează să fie anulate!
 Vrei să salvezi schimbările înainte de a schimba tema?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Compatibilitatea comenzilor Macro și Rulează" message="Comenzile tale Macro și Rulează salvate în Notepad++ v.8.5.2 (sau mai vechi) pot să nu fie compatibilie cu versiunea curentă de Notepad++.
+			<MacroAndRunCmdlWarning title="Compatibilitatea comenzilor Macro și Rulează" message="Comenzile tale Macro și Rulează salvate în npminmin v.8.5.2 (sau mai vechi) pot să nu fie compatibilie cu versiunea curentă de npminmin.
 Te rugăm să testezi comenzile și dacă e nevoie, să le reeditezi.
 
-Alternativ, poți să revii la Notepad++ v8.5.2 și poți restaura datele anterioare.
-Notepad++ îți va restaura vechiul „shortcuts.xml” și îl va salva ca „shortcuts.xml.v8.5.2.backup”.
-Redenumind „shortcuts.xml.v8.5.2.backup” -&gt; „shortcuts.xml”, comenzile tale ar trebui restaurate și să lucreze perfect."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+Alternativ, poți să revii la npminmin v8.5.2 și poți restaura datele anterioare.
+npminmin îți va restaura vechiul „shortcuts.xml” și îl va salva ca „shortcuts.xml.v8.5.2.backup”.
+Redenumind „shortcuts.xml.v8.5.2.backup” -&gt; „shortcuts.xml”, comenzile tale ar trebui restaurate și să lucreze perfect."/><!-- HowToReproduce: Close npminmin, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch npminmin, delete or modify a shortcuts via Shortcut Mapper, close npminmin, then the message will show up -->
 			<NbFileToOpenImportantWarning title="Numărul de fișiere ce urmează să fie deschise este prea mare" message="Fișierele $INT_REPLACE$ urmează să fie deschise.
 Ești sigur(ă) că vrei să le deschizi?"/>
 			<NotEnoughRoom4Saving title="Salvare eșuată" message="Nu s-a putut salva fișierul.
@@ -1626,8 +1626,8 @@ NOTĂ: Prin alegerea de a nu crea substituenți sau de a-i închide mai târziu,
 Dorești să creezi acei substituenți?
 
 NOTĂ: Prin alegerea de a nu crea substituenți sau de a-i închide mai târziu, sesiunea ta VA FI MODIFICATĂ LA IEȘIRE! Îți sugerăm să-ți faci acum o copie de rezervă a fișierului tău „sesiune.xml”."/>
-			<RTLvsDirectWrite title="Nu se poate rula RTL" message="RTL nu este compatibil cu modul DirectWrite. Te rugăm să dezactivezi modul DirectWrite din secțiunea DIVERSE a dialogului Preferințe, și să repornești Notepad++."/>
-			<FileMemoryAllocationFailed title="Excepție: Alocarea memoriei fișierelor a eșuat" message="Probabil că nu e suficientă memorie continuă pentru ca fișierul să fie încărcat de Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<RTLvsDirectWrite title="Nu se poate rula RTL" message="RTL nu este compatibil cu modul DirectWrite. Te rugăm să dezactivezi modul DirectWrite din secțiunea DIVERSE a dialogului Preferințe, și să repornești npminmin."/>
+			<FileMemoryAllocationFailed title="Excepție: Alocarea memoriei fișierelor a eșuat" message="Probabil că nu e suficientă memorie continuă pentru ca fișierul să fie încărcat de npminmin."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 npminmin (it will depend on the PC memory configuration and the current system memory usage...). -->
 			<FindRegexBackwardDisabled title="Căutarea inversă regex a fost dezactivată" message="În mod implicit, căutarea inversă regex este dezactivată din cauza unor rezultate potențial neașteptate. Pentru a efectua o căutare inversă, deschide căsuța de dialog Găsire și selectează modul de căutare fie normal, fie extins instead of regular expression.
 Apasă butonul OK pentru a deschide căsuța de dialog Găsire sau pentru a seta focalizarea pe ea.
 			
@@ -1635,8 +1635,8 @@ Dacă ai nevoie de funcția de căutare inversă regex, consultă manualul utili
 			<PrintError title="0" message="Nu se poate porni documentul imprimantei."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 			<FindAutoChangeOfInSelectionWarning title="Avertisment de căutare" message="Starea casetei de selectare &quot;În selecție&quot; a fost modificată automat.
 Te rugăm să verifici condiția de căutare înainte de a efectua acțiunea."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
-			<Need2Restart2ShowMenuShortcuts title="Notepad++ trebuie repornit" message="Notepad++ trebuie repornit ca să afișeze comenzile rapide (scurtăturile) din meniul din dreapta."/>
-			<NoAdminRight2ChangeReadOnlyFileAttribute title="Schimbarea atributului de tip Doar în citire (Numai în citire) a fișierului a eșuat" message="Te rugăm să rulezi Notepad++ ca administrator pentru schimbarea atributului."/>
+			<Need2Restart2ShowMenuShortcuts title="npminmin trebuie repornit" message="npminmin trebuie repornit ca să afișeze comenzile rapide (scurtăturile) din meniul din dreapta."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Schimbarea atributului de tip Doar în citire (Numai în citire) a fișierului a eșuat" message="Te rugăm să rulezi npminmin ca administrator pentru schimbarea atributului."/>
 		</MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Istoricul clipboard-ului"/>
@@ -1756,8 +1756,8 @@ Te rugăm să verifici condiția de căutare înainte de a efectua acțiunea."/>
             <word-chars-list-warning-end value="  în lista ta de caractere."/>
 			<backup-select-folder value="Selectează un folder (dosar) ca director pentru copii de rezervă"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
             <cloud-invalid-warning value="Cale nevalidă."/>
-            <cloud-restart-warning value="Repornește Notepad++ pentru a aplica modificările."/>
-            <cloud-select-folder value="Selectează folderul (dosarul) din/în care Notepad++ citește/scrie setările sale"/>
+            <cloud-restart-warning value="Repornește npminmin pentru a aplica modificările."/>
+            <cloud-select-folder value="Selectează folderul (dosarul) din/în care npminmin citește/scrie setările sale"/>
 			<default-open-save-select-folder value="Selectează un folder (dosar) ca director implicit"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
             <shift-change-direction-tip value="Folosește Shift+Enter pentru a căuta în direcția opusă"/>
             <two-find-buttons-tip value="Modul Găsește cu 2 butoane"/>
@@ -1921,7 +1921,7 @@ Dacă selectezi modul avansat, dar nu editezi fișiere în limbile menționate m
 			<!-- Don't translate "Global override" and "Default Style" -->
 			
 			<global-override-tip value="Activând aici &quot;Global override&quot; se va suprascrie acel parametru în toate stilurile de limbaj. Probabil că ceea ce vrei cu adevărat este să folosești în schimb, setările &quot;Default Style&quot;"/>
-			<scintillaRenderingTechnology-tip value="Poate îmbunătăți randarea caracterelor speciale sau poate rezolva unele probleme de grafică, repornește Notepad++ pentru aplicarea modificărilor."/>
+			<scintillaRenderingTechnology-tip value="Poate îmbunătăți randarea caracterelor speciale sau poate rezolva unele probleme de grafică, repornește npminmin pentru aplicarea modificărilor."/>
 
  			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
  			<statusbar-length-lines value="lung.: $STR_REPLACE1$    linii: $STR_REPLACE2$"/>

@@ -761,10 +761,10 @@
 
 				<MultiInstance title="Чанднамуна">
 					<Item id="6151" name="Танзимоти чанднамуна"/>
-					<Item id="6152" name="Боз кардани ҷаласа дар як намунаи нави Notepad++"/>
+					<Item id="6152" name="Боз кардани ҷаласа дар як намунаи нави npminmin"/>
 					<Item id="6153" name="Ҳамеша дар ҳолати чанднамунаӣ"/>
 					<Item id="6154" name="Пешфарз (якнамунаӣ)"/>
-					<Item id="6155" name="* Ислоҳи ин танзимот ба роҳандозии нави Notepad++ ниёз дорад"/>
+					<Item id="6155" name="* Ислоҳи ин танзимот ба роҳандозии нави npminmin ниёз дорад"/>
 				</MultiInstance>
 
 				<Delimiter title="Ҷудокунанда">
@@ -780,7 +780,7 @@
 					<Item id="6264" name="Dropbox"/>
 					<Item id="6265" name="OneDrive"/>
 					<Item id="6266" name="Google Drive"/>
-					<!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
+					<!--Item id="6261" name="Please restart npminmin to take effect."/-->
 				</Cloud>
 
 				<MISC title="Мутафриқа">
@@ -791,7 +791,7 @@
 					<Item id="6319" name="Фаъол кардан"/>
 					<Item id="6320" name="Бе зерхатдор"/>
 					<Item id="6322" name="Пасванди файли ҷаласа:"/>
-					<Item id="6323" name="Фаъол кардани Notepad++ auto-updater"/>
+					<Item id="6323" name="Фаъол кардани npminmin auto-updater"/>
 					<Item id="6324" name="Таъвизкунандаи санадҳо (Ctrl+TAB)"/>
 					<Item id="6326" name="Фаъол кардани барҷастагии ҳушманд (smart highlighting)"/>
 					<Item id="6329" name="Татбиқи барҷастаи тагҳо"/>
@@ -838,14 +838,14 @@
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Вироиши contextMenu" message="Вироиши contextMenu.xml ба Шумо имкон медиҳад менюи бофтории худро дар Notepad++ мутобиқи ниёзҳооятон танзим кунет\rШумо баъди танзимотро дар менюи бофтории contextMenu.xml барномаи Notepad++ғро аз нав роҳандози намоед."/>
-			<NppHelpAbsentWarning title="Файл вуҷуд надорад" message="\rвуҷуд надорад. Лутфан, онро аз сайти Notepad++ дарёфт намоед."/>
+			<ContextMenuXmlEditWarning title="Вироиши contextMenu" message="Вироиши contextMenu.xml ба Шумо имкон медиҳад менюи бофтории худро дар npminmin мутобиқи ниёзҳооятон танзим кунет\rШумо баъди танзимотро дар менюи бофтории contextMenu.xml барномаи npminminғро аз нав роҳандози намоед."/>
+			<NppHelpAbsentWarning title="Файл вуҷуд надорад" message="\rвуҷуд надорад. Лутфан, онро аз сайти npminmin дарёфт намоед."/>
 			<SaveCurrentModifWarning title="Захираи тағйироти феълӣ" message="Шумо бояд тағйироти феълиро захира намоед.\rҲама тағйироти захирашуда бекор шуда наметавонанд.\r\rИдома медиҳед?"/>
 			<LoseUndoAbilityWarning title="Аз даст додани имкони беасарсозӣ" message="Шумо бояд тағйироти феълиро захира намоед.\r.\r\rИдома медиҳед?"/>
-			<CannotMoveDoc title="Гузариш ба нусхаи нави Notepad++" message="Санад тағйир ёфтааст, онро захира намуда аз нав сайъ кунед."/>
+			<CannotMoveDoc title="Гузариш ба нусхаи нави npminmin" message="Санад тағйир ёфтааст, онро захира намуда аз нав сайъ кунед."/>
 			<DocReloadWarning title="Бозгирии муҷаддад" message="Оё мехоҳед файли феълиро бозгирии муҷаддад карда ва тағйироти эҷодшуда тавассути барномаро аз даст диҳед?"/>
 			<FileLockedWarning title="Мувафақ ба захира нашуд" message="Лутфан, боз будани ин файро дар барномаи дигар баррасӣ кунед"/>
-			<FileAlreadyOpenedInNpp title="" message="Файл аз қабл дар барномаи Notepad++ боз шудааст."/>
+			<FileAlreadyOpenedInNpp title="" message="Файл аз қабл дар барномаи npminmin боз шудааст."/>
 			<DeleteFileFailed title="Ҳазфи файл" message="Файл ҳазф нашуд"/>
 
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->

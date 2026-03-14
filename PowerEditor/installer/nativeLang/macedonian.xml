@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	Macedonian localization for Notepad++
+	Macedonian localization for npminmin
 	Last modified Wednesday, November 11th 2009 18:06 GMT by Kiril Sardjoski.
 	Please e-mail errors, suggestions etc. to kiril.sardjoski(at)gmail(dot)com.
 -->
@@ -167,9 +167,9 @@
 
 
 					<Item id="46001" name="Прилагодување на стилови..."/>
-					<Item id="47000" name="Околу Notepad++..."/>
-					<Item id="47001" name="Notepad++ Дома"/>
-					<Item id="47002" name="Страна на Notepad++ Проектот"/>
+					<Item id="47000" name="Околу npminmin..."/>
+					<Item id="47001" name="npminmin Дома"/>
+					<Item id="47002" name="Страна на npminmin Проектот"/>
 					<Item id="47003" name="NpWiki++ (Помош преку Интернет)"/>
 					<Item id="47004" name="Форум"/>
 					<Item id="47005" name="Набави повеќе Plugin-ови"/>

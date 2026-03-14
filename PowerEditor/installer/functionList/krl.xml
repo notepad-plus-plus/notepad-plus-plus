@@ -12,7 +12,7 @@
 		<!-- KRL - KUKA Robot Language                                         -->
 
 		<!--
-		|   https://notepad-plus-plus.org/community/topic/12264/function-list-for-new-language
+		|   https://github.com/ridermw/np-minus-minus/community/topic/12264/function-list-for-new-language
 		\-->
 		<parser
 			displayName="KRL"

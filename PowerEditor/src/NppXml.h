@@ -1,5 +1,5 @@
-// This file is part of Notepad++ project
-// Copyright (c) 2025 ozone10 and Notepad++ team
+// This file is part of npminmin project
+// Copyright (c) 2025 ozone10 and npminmin team
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by

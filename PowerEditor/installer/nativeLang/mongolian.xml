@@ -253,14 +253,14 @@
 					<Item id="46001" name="Загвар тохируулагч..."/>
 					<Item id="46250" name="Хэлээ сонгоно уу..."/>
 					<Item id="46180" name="Хэрэглэгчийн тохируулснаар"/>
-					<Item id="47000" name="Notepad++ -н тухай..."/>
+					<Item id="47000" name="npminmin -н тухай..."/>
 					<Item id="47010" name="Тушаалын мөрний өгөгдлүүд..."/>
-					<Item id="47001" name="Notepad++ -н веб хуудас"/>
-					<Item id="47002" name="Notepad++ Төслийн хуудас"/>
+					<Item id="47001" name="npminmin -н веб хуудас"/>
+					<Item id="47002" name="npminmin Төслийн хуудас"/>
 					<Item id="47003" name="Онлайн материалууд"/>
 					<Item id="47004" name="Хэлэлцүүлэг"/>
 					<Item id="47005" name="Нэмэлтүүд авах"/>
-					<Item id="47006" name="Notepad++ -г шинэчлэх"/>
+					<Item id="47006" name="npminmin -г шинэчлэх"/>
 					<Item id="47008" name="Тусламжын контентууд"/>
 					<Item id="47009" name="Шинэчлэгчийн проксийг тохируулах..."/>
 					<Item id="48005" name="Нэмэлт(үүд) импортлох..."/>
@@ -740,10 +740,10 @@
 
 				<MultiInstance title="Олон-шат">
 					<Item id="6151" name="Олон-шатны тохиргоо"/>
-					<Item id="6152" name="Notepad++ -г шинэ шатанд нээж байх"/>
+					<Item id="6152" name="npminmin -г шинэ шатанд нээж байх"/>
 					<Item id="6153" name="Үргэлж олон-шат ашиглах"/>
 					<Item id="6154" name="Анхны утга (Дан-шат)"/>
-					<Item id="6155" name="* Өөрчлөлт нь Notepad++ -г дахин ачууллуулснаар батлагдана"/>
+					<Item id="6155" name="* Өөрчлөлт нь npminmin -г дахин ачууллуулснаар батлагдана"/>
 				</MultiInstance>
 
 				<Seperator title="Зааглагч">
@@ -759,7 +759,7 @@
 					<Item id="6264" name="Dropbox"/>
 					<Item id="6265" name="OneDrive"/>
 					<Item id="6266" name="Google Drive"/>
-					<!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
+					<!--Item id="6261" name="Please restart npminmin to take effect."/-->
 				</Cloud>
 
 				<MISC title="Бусад">
@@ -770,7 +770,7 @@
 					<Item id="6319" name="Идэвхижүүлэх"/>
 					<Item id="6320" name="Доогуур зураасгүй"/>
 					<Item id="6322" name="Нээлттэй файлын өргөтгөл:"/>
-					<Item id="6323" name="Notepad++ авто-шинэчлэгчийг идэвхижүүлэх"/>
+					<Item id="6323" name="npminmin авто-шинэчлэгчийг идэвхижүүлэх"/>
 					<Item id="6324" name="Баримт хооронд шилжих (Ctrl+TAB)"/>
 					<Item id="6326" name="Ухаалаг идэвхижүүлэлтийг ашиглах"/>
 					<Item id="6329" name="Тохирч байгаа таг-уудыг идэвхижүүлэх"/>
@@ -817,14 +817,14 @@
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Хулганы баруун товч дараад гарч ирэх цэсийг тохируулах" message="contextMenu.xml-г засах нь Хулганы баруун товч дараад гарч ирэх цэсийг тохируулах боломжыг олгоно.\rҮүнийг өөрчилснийхөө дараа Notepad++ -г хаагаад дахин нээх шаардлагатай"/>
-			<NppHelpAbsentWarning title="Файл олдсонгүй" message="\rОлдсонгүй. Notepad++ -н сайтаас үүнийг дахин татаж авна уу."/>
+			<ContextMenuXmlEditWarning title="Хулганы баруун товч дараад гарч ирэх цэсийг тохируулах" message="contextMenu.xml-г засах нь Хулганы баруун товч дараад гарч ирэх цэсийг тохируулах боломжыг олгоно.\rҮүнийг өөрчилснийхөө дараа npminmin -г хаагаад дахин нээх шаардлагатай"/>
+			<NppHelpAbsentWarning title="Файл олдсонгүй" message="\rОлдсонгүй. npminmin -н сайтаас үүнийг дахин татаж авна уу."/>
 			<SaveCurrentModifWarning title="Одоо байгаа тохиргоог хадгалах" message="Хийсэн өөрчлөлтүүдээ хадгалах хэрэгтэй.\rГэхдээ зарим өөрчлөлтүүд хадгалагдах боломжгүй байна.\r\rҮргэлжлүүлэх үү?"/>
 			<LoseUndoAbilityWarning title="Буцаах үйлдлийг гүйцэтгэх боломжыг алдах талаар сануулга" message="Бүх өөрчлөлтүүдээ хадгалах хэрэгтэй.\rГэхдээ зарим өөрчлөлтүүд хадгалагдах боломжгүй байна.\r\rҮргэлжлүүлэх үү?"/>
-			<CannotMoveDoc title="Notepad++ -н шинэ цонхонд нээх" message="Бичиг баримт өөрчлөгдсөн байна. Тиймээс хадгалаад дахин оролдоно уу."/>
-			<DocReloadWarning title="Сэргээх" message="Notepad++ -р хийсэн өөрчлөлтүүдээ арилгаад анхны хэвэнд нь сэргээх гэж байгаадаа итгэлтэй байна уу?"/>
+			<CannotMoveDoc title="npminmin -н шинэ цонхонд нээх" message="Бичиг баримт өөрчлөгдсөн байна. Тиймээс хадгалаад дахин оролдоно уу."/>
+			<DocReloadWarning title="Сэргээх" message="npminmin -р хийсэн өөрчлөлтүүдээ арилгаад анхны хэвэнд нь сэргээх гэж байгаадаа итгэлтэй байна уу?"/>
 			<FileLockedWarning title="Хадгалах үйлдэл амжилтгүй боллоо" message="Энэ файл өөр програмаар нээгдсэн байгаа эсэхийг шалгана уу"/>
-			<FileAlreadyOpenedInNpp title="" message="Энэ файлыг Notepad++ -р хэдийнэ нээчихсэн байна."/>
+			<FileAlreadyOpenedInNpp title="" message="Энэ файлыг npminmin -р хэдийнэ нээчихсэн байна."/>
 			<DeleteFileFailed title="Файлыг устгах" message="Файлыг устгаж чадсангүй"/>
 
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->

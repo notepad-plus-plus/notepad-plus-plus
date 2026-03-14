@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -110,7 +110,7 @@ std::string getFileContent(const wchar_t* file2read, bool* pbFailed)
 			*pbFailed = true;
 		std::string().swap(wholeFileContent); // to immediately release all the allocated memory
 		::MessageBoxW(NULL, L"std::bad_alloc exception caught!\n\nProbably not enough contiguous memory to complete the operation.",
-			L"Notepad++ - getFileContent", MB_OK | MB_ICONWARNING | MB_APPLMODAL);
+			L"npminmin - getFileContent", MB_OK | MB_ICONWARNING | MB_APPLMODAL);
 	}
 	catch (...)
 	{
@@ -1426,7 +1426,7 @@ bool isAssoCommandExisting(LPCWSTR FullPathName)
 		hres = AssocQueryString(ASSOCF_VERIFY|ASSOCF_INIT_IGNOREUNKNOWN, ASSOCSTR_COMMAND, ext, NULL, buffer, &bufferLen);
 
 		isAssoCmdExist = (hres == S_OK)                  // check if association exist and no error
-			&& (wcsstr(buffer, L"notepad++.exe")) == NULL;   // check association with notepad++
+			&& (wcsstr(buffer, L"npminmin.exe")) == NULL;   // check association with npminmin
 
 	}
 	return isAssoCmdExist;
@@ -1666,7 +1666,7 @@ bool toggleReadOnlyFlagFromFileAttributes(const wchar_t* fileFullPath, bool& isC
 		if (::GetLastError() == ERROR_ACCESS_DENIED)
 		{
 			// try to set elevated
-			// (notepad++.exe #UAC-SETFILEATTRIBUTES# attrib_flags_number_str dest_file_path)
+			// (npminmin.exe #UAC-SETFILEATTRIBUTES# attrib_flags_number_str dest_file_path)
 			wstring strCmdLineParams = NPP_UAC_SETFILEATTRIBUTES_SIGN;
 			strCmdLineParams += L" \"" + to_wstring(dwFileAttribs) + L"\" \"";
 			strCmdLineParams += fileFullPath;
@@ -1710,13 +1710,13 @@ bool isUnsupportedFileName(const wstring& fileName)
 {
 	bool isUnsupported = true;
 
-	// until the Notepad++ (and its plugins) will not be prepared for filenames longer than the MAX_PATH,
+	// until the npminmin (and its plugins) will not be prepared for filenames longer than the MAX_PATH,
 	// we have to limit also the maximum supported length below
 	if ((fileName.size() > 0) && (fileName.size() < MAX_PATH))
 	{
-		// possible raw filenames can contain space(s) or dot(s) at its end (e.g. "\\?\C:\file."), but the Notepad++ advanced
+		// possible raw filenames can contain space(s) or dot(s) at its end (e.g. "\\?\C:\file."), but the npminmin advanced
 		// Open/SaveAs IFileOpenDialog/IFileSaveDialog COM-interface based dialogs currently do not handle this well
-		// (but e.g. direct Notepad++ Ctrl+S works ok even with these filenames)
+		// (but e.g. direct npminmin Ctrl+S works ok even with these filenames)
 		// 
 		// Exception for the standard filenames ending with the dot-char:
 		// - when someone tries to open e.g. the 'C:\file.', we will accept that as this is the way how to work with filenames
@@ -2161,7 +2161,7 @@ bool isWindowVisibleOnAnyMonitor(const RECT& rectWndIn)
 		return TRUE; // continue enumeration as no intersection yet
 	};
 
-	// get scaled Virtual Screen size (scaled coordinates are saved by the Notepad++ into config.xml)
+	// get scaled Virtual Screen size (scaled coordinates are saved by the npminmin into config.xml)
 	// - for unscaled, one has to 1st set the SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2) & then use GetSystemMetricsForDpi with 96
 	// - for getting the VS RECT, we cannot use here the SystemParametersInfo with SPI_GETWORKAREA!
 	//   (while the SPI_SETWORKAREA is working with the VS coordinates the SPI_GETWORKAREA not...)
@@ -2341,7 +2341,7 @@ DWORD invokeNppUacOp(const std::wstring& strCmdLineParams)
 	if (!::ShellExecuteExW(&sei))
 		return ::GetLastError();
 
-	// wait for the elevated Notepad++ process to finish
+	// wait for the elevated npminmin process to finish
 	DWORD dwError = NO_ERROR;
 	if (sei.hProcess) // beware - do not check here for the INVALID_HANDLE_VALUE (valid GetCurrentProcess() pseudohandle)
 	{

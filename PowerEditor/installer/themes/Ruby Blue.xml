@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-Notepad++ Custom stylers
+npminmin Custom stylers
 Style name: 		Port Ruby Blue
 File name: 			stylers.xml
 Created by:			tomsolo (aka tonoslo on sourceforge.net)
@@ -20,15 +20,15 @@ Requirements:
 	2. Use Cleartype, for nice smooth font on screen (optional).
 	3. Notepad 3.5 install :)
 
-Install: copy your installed Notepad++ directory root, overwrite old stylers.xml (backup old file first),
-or copy c:\Documents and Settings\**USERNAME**\Application Data\Notepad++\
+Install: copy your installed npminmin directory root, overwrite old stylers.xml (backup old file first),
+or copy c:\Documents and Settings\**USERNAME**\Application Data\npminmin\
 overwrite old stylers.xml (backup old file first)
 
 
 ENJOY!
 
 
-If u like, please donate Notepad++:
+If u like, please donate npminmin:
 http://sourceforge.net/donate/index.php?group_id=95717
 
 

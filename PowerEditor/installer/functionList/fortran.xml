@@ -10,8 +10,8 @@
 	<functionList>
 		<!--
 		|   Based on:
-		|       https://notepad-plus-plus.org/community/topic/11059/custom-functions-list-rules
-		|       https://notepad-plus-plus.org/community/topic/13553/functionlist-xml-regular-expressions-not-parsing-properly
+		|       https://github.com/ridermw/np-minus-minus/community/topic/11059/custom-functions-list-rules
+		|       https://github.com/ridermw/np-minus-minus/community/topic/13553/functionlist-xml-regular-expressions-not-parsing-properly
 		\-->
 		<parser
 			displayName="Fortran Free Form style - FORmula TRANslation"

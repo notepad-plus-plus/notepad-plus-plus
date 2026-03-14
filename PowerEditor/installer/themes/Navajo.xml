@@ -2,7 +2,7 @@
 <!--//
 File Name:           Navajo.xml
 Style Name:          Navajo
-Description:         Navajo theme for Notepad++.
+Description:         Navajo theme for npminmin.
                      Based on navajo.vim by R. Edward Ralston
                      Official Navajo home page: http://www.vim.org/scripts/script.php?script_id=190
 Supported languages: All the languages supported by release 6.7.4
@@ -27,11 +27,11 @@ License:             Feel free to modify this theme.
                      may, and should, omit such attribution.
 
 Installation:
-    Copy this file to C:\Program Files (x86)\Notepad++\themes  OR
+    Copy this file to C:\Program Files (x86)\npminmin\themes  OR
     For WindowsXP:
-    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\Notepad++\themes
+    Copy this file to C:\Documents and Settings\%%USERNAME%%\Application Data\npminmin\themes
     For Windows Vista or 7:
-    Copy this file to C:\Users\%%USERNAME%%\AppData\Roaming\Notepad++\themes
+    Copy this file to C:\Users\%%USERNAME%%\AppData\Roaming\npminmin\themes
 
 //-->
 <NotepadPlus modelDate="20251214" modelFileLastModifiedDate="20251227">

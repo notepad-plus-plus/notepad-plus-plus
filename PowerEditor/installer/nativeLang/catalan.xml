@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-Catalan translation for Notepad++
+Catalan translation for npminmin
 Updated 10.06.2020, v7.8.7
 By Hiro5 <groccat at gmail>
 -->
@@ -326,15 +326,15 @@ By Hiro5 <groccat at gmail>
 					<Item id="48017" name="&amp;Modifica tecla de drecera/Esborra ordre..."/>
 					<Item id="48015" name="Administració de complements..."/>
 					<Item id="47010" name="Ús en &amp;línia d'ordres..."/>
-					<Item id="47001" name="Web de &amp;Notepad++"/>
-					<Item id="47002" name="Pàgina del &amp;projecte Notepad++"/>
+					<Item id="47001" name="Web de &amp;npminmin"/>
+					<Item id="47002" name="Pàgina del &amp;projecte npminmin"/>
 					<Item id="47003" name="Documentació en línia"/>
-					<Item id="47004" name="&amp;Fòrum de Notepad++"/>
+					<Item id="47004" name="&amp;Fòrum de npminmin"/>
 					<Item id="47005" name="Aconsegueix més &amp;complements"/>
-					<Item id="47006" name="Ac&amp;tualitza Notepad++"/>
+					<Item id="47006" name="Ac&amp;tualitza npminmin"/>
 					<Item id="47009" name="Confi&amp;gura l'intermediari d'actualització"/>
 					<Item id="47012" name="Informació de depuració..."/>
-					<Item id="47000" name="&amp;Quant a Notepad++"/>
+					<Item id="47000" name="&amp;Quant a npminmin"/>
 				</Commands>
 			</Main>
 			<Splitter>
@@ -775,7 +775,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="6427" name="Camí amb límit de caràcters:"/>
 				</RecentFilesHistory>
 				<FileAssoc title="Associació de fitxers">
-					<Item id="4008" name="Tanqueu i reinicieu Notepad++ en mode Administrador per utilitzar aquesta característica."/>
+					<Item id="4008" name="Tanqueu i reinicieu npminmin en mode Administrador per utilitzar aquesta característica."/>
 					<Item id="4009" name="Extensions suportades:"/>
 					<Item id="4010" name="Ext. registrades:"/>
 				</FileAssoc>
@@ -866,10 +866,10 @@ By Hiro5 <groccat at gmail>
 				</AutoCompletion>
 				<MultiInstance title="Múltiples instàncies">
 					<Item id="6151" name="Opcions de múltiples instàncies"/>
-					<Item id="6152" name="Obre sessió en nova instància de Notepad++"/>
+					<Item id="6152" name="Obre sessió en nova instància de npminmin"/>
 					<Item id="6153" name="Sempre en mode de múltiples instàncies"/>
 					<Item id="6154" name="Per defecte (una instància)"/>
-					<Item id="6155" name="La modificació d'aquest paràmetre requereix reiniciar Notepad++"/>
+					<Item id="6155" name="La modificació d'aquest paràmetre requereix reiniciar npminmin"/>
 				</MultiInstance>
 				<Delimiter title="Delimitació">
 					<Item id="6161" name="Llista de caràcters de paraula"/>
@@ -898,9 +898,9 @@ By Hiro5 <groccat at gmail>
 					<Item id="6345" name="Previsualitza en la pestanya"/>
 					<Item id="6346" name="Previsualitza en el mapa del document"/>
 					<Item id="6334" name="Autodetecta codificació de caràcters"/>
-					<Item id="6314" name="Empra lletra monoespai al diàleg de cerca (demana reiniciar Notepad++)"/>
+					<Item id="6314" name="Empra lletra monoespai al diàleg de cerca (demana reiniciar npminmin)"/>
 					<Item id="6331" name="Mostra només el nom de fitxer a la barra de títol"/>
-					<Item id="6323" name="Actualitza Notepad++ automàticament"/>
+					<Item id="6323" name="Actualitza npminmin automàticament"/>
 					<Item id="6348" name="No omplis el camp del diàleg de cerca amb la paraula seleccionada"/>
 					<Item id="6318" name="Configuració dels enllaços clicables"/>
 					<Item id="6319" name="Habilita"/>
@@ -974,14 +974,14 @@ By Hiro5 <groccat at gmail>
 			</DoSaveOrNot>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Editant contextMenu" message="Podeu modificar el menú contextual emergent de Notepad++ editant el fitxer contextMenu.xml.&#xD;Reinicieu Notepad++ després de modificar contextMenu.xml perquè faci efecte."/>
-			<NppHelpAbsentWarning title="No existeix el fitxer" message="&#xD;no existeix. El podeu baixar de la web de Notepad++."/>
+			<ContextMenuXmlEditWarning title="Editant contextMenu" message="Podeu modificar el menú contextual emergent de npminmin editant el fitxer contextMenu.xml.&#xD;Reinicieu npminmin després de modificar contextMenu.xml perquè faci efecte."/>
+			<NppHelpAbsentWarning title="No existeix el fitxer" message="&#xD;no existeix. El podeu baixar de la web de npminmin."/>
 			<SaveCurrentModifWarning title="Desa la modificació actual" message="Hauríeu de desar la modificació actual.&#xD;Totes les modificacions desades no es podran desfer.&#xD;&#xD;Voleu continuar?"/>
 			<LoseUndoAbilityWarning title="Avís de pèrdua d'habilitat de desfer" message="Hauríeu de desar la modificació actual.&#xD;Totes les modificacions desades no es podran desfer.&#xD;&#xD;Voleu continuar?"/>
-			<CannotMoveDoc title="Mou a una nova finestra de Notepad++" message="El document s'ha modificat, l'heu de desar abans i tornar a intentar-ho."/>
-			<DocReloadWarning title="Recarrega" message="Segur que voleu recarregar el fitxer actual i perdre els canvis fets amb Notepad++?"/>
+			<CannotMoveDoc title="Mou a una nova finestra de npminmin" message="El document s'ha modificat, l'heu de desar abans i tornar a intentar-ho."/>
+			<DocReloadWarning title="Recarrega" message="Segur que voleu recarregar el fitxer actual i perdre els canvis fets amb npminmin?"/>
 			<FileLockedWarning title="No s'ha pogut desar" message="Comproveu si aquest fitxer està obert amb un altre programa"/>
-			<FileAlreadyOpenedInNpp title="" message="El fitxer ja està obert al Notepad++."/>
+			<FileAlreadyOpenedInNpp title="" message="El fitxer ja està obert al npminmin."/>
 			<DeleteFileFailed title="Esborra fitxer" message="No s'ha pogut esborrar el fitxer"/>
 			<NbFileToOpenImportantWarning title="Massa fitxers per obrir" message="Esteu a punt d'obrir $INT_REPLACE$ fitxers.&#xD;Segur que voleu obrir-los?"/>
 			<SettingsOnCloudError title="Opcions al núvol" message="Sembla que el directori indicat a les opcions del núvol es troba en una unitat de només lectura,&#xD;o en una carpeta que demana drets d'accés d'escriptura.&#xD;Els vostres paràmetres del núvol es cancel·laran. Reinicieu a un valor coherent a través del diàleg de Preferències."/>
@@ -995,13 +995,13 @@ By Hiro5 <groccat at gmail>
 			<DoDeleteOrNot title="Suprimeix fitxer" message="El fitxer &quot;$STR_REPLACE$&quot;&#xD;es mourà a la Paperera i aquest document es tancarà.&#xD;Voleu continuar?"/>
 			<NoBackupDoSaveFile title="Desa" message="El fitxer de la còpia de seguretat no es pot trobar (suprimit externament).&#xD;Desa-ho o perdreu les vostres dades.&#xD;Voleu desar el fitxer &quot;$STR_REPLACE$&quot; ?"/>
 			<DoReloadOrNot title="Recarrega" message="&quot;$STR_REPLACE$&quot;&#xD;&#xD;Aquest fitxer s'ha modificat amb un altre programa.&#xD;El voleu recarregar?"/>
-			<DoReloadOrNotAndLooseChange title="Recarrega" message="&quot;$STR_REPLACE$&quot;&#xD;&#xD;Aquest fitxer s'ha modificat amb un altre programa.&#xD;El voleu recarregar i perdre els canvis que s'han fet amb Notepad++?"/>
+			<DoReloadOrNotAndLooseChange title="Recarrega" message="&quot;$STR_REPLACE$&quot;&#xD;&#xD;Aquest fitxer s'ha modificat amb un altre programa.&#xD;El voleu recarregar i perdre els canvis que s'han fet amb npminmin?"/>
 			<PrehistoricSystemDetected title="Sistema prehistòric detectat" message="Sembla que encara utilitzeu un sistema prehistòric, lamentablement aquesta característica només funciona en un sistema més modern."/>
-			<XpUpdaterProblem title="Actualitzador de Notepad++" message="L'actualitzador de Notepad++ no és compatible amb XP per una capa de seguretat obsoleta sota XP.&#xD;Voleu anar a la web de Notepad++ per baixar l'última versió?"/>
-			<GUpProxyConfNeedAdminMode title="Opcions de proxy" message="Reinicieu Notepad++ en mode Admin. per configurar el proxy."/>
+			<XpUpdaterProblem title="Actualitzador de npminmin" message="L'actualitzador de npminmin no és compatible amb XP per una capa de seguretat obsoleta sota XP.&#xD;Voleu anar a la web de npminmin per baixar l'última versió?"/>
+			<GUpProxyConfNeedAdminMode title="Opcions de proxy" message="Reinicieu npminmin en mode Admin. per configurar el proxy."/>
 			<DocTooDirtyToMonitor title="Problema de monitoratge" message="El document està en brut. Deseu la modificació abans de monitorar-lo."/>
 			<DocNoExistToMonitor title="Problema de monitoratge" message="El fitxer hauria d'existir per monitorar-lo."/>
-			<FileTooBigToOpen title="Problema amb mida de fitxer" message="El fitxer és massa gran per obrir-lo amb Notepad++"/>
+			<FileTooBigToOpen title="Problema amb mida de fitxer" message="El fitxer és massa gran per obrir-lo amb npminmin"/>
 			<CreateNewFileOrNot title="Crea nou fitxer" message="&quot;$INT_REPLACE$&quot; no existeix. El voleu crear?."/>
 			<CreateNewFileError title="Crea nou fitxer" message="No es pot crear el fitxer &quot;$INT_REPLACE$&quot;."/>
 			<OpenFileError title="ERROR" message="No es pot obrir el fitxer &quot;$INT_REPLACE$&quot;."/>
@@ -1023,12 +1023,12 @@ By Hiro5 <groccat at gmail>
 			<UDLRemoveCurrentLang title="Esborra el llenguatge actual" message="Esteu segur?"/>
 			<SCMapperDoDeleteOrNot title="Supressió de drecera" message="Segur que voleu suprimir aquesta drecera?"/>
 			<FindCharRangeValueError title="Valor fora de rang" message="Hauríeu d'escriure un valor de 0 a 255."/>
-			<OpenInAdminMode title="Error en desar" message="El fitxer no es pot desar i pot estar protegit.&#xD;Voleu iniciar Notepad++ en mode d'administrador?"/>
-			<OpenInAdminModeWithoutCloseCurrent title="Error en desar" message="El fitxer no es pot desar i pot estar protegit.&#xD;Voleu iniciar Notepad++ en mode d'administrador?"/>
-			<OpenInAdminModeFailed title="Error en obrir en mode d'administrador" message="No es pot obrir Notepad++ en mode d'administrador."/>
+			<OpenInAdminMode title="Error en desar" message="El fitxer no es pot desar i pot estar protegit.&#xD;Voleu iniciar npminmin en mode d'administrador?"/>
+			<OpenInAdminModeWithoutCloseCurrent title="Error en desar" message="El fitxer no es pot desar i pot estar protegit.&#xD;Voleu iniciar npminmin en mode d'administrador?"/>
+			<OpenInAdminModeFailed title="Error en obrir en mode d'administrador" message="No es pot obrir npminmin en mode d'administrador."/>
 			<ViewInBrowser title="Mostra el fitxer actual al navegador" message="No s'ha trobat l'aplicació al vostre sistema."/>
-			<ExitToUpdatePlugins title="Notepad++ està a punt de tancar" message="Si feu clic a SÍ, sortiràs de Notepad++ per continuar les operacions.&#xD;Notepad++ es reiniciarà un cop hagin finalitzat totes les operacions.&#xD;Voleu continuar?"/>
-			<NeedToRestartToLoadPlugins title="Notepad++ demana reiniciar-se" message="S'ha de reiniciar Notepad++ per carregar els complements que heu instal·lat."/>
+			<ExitToUpdatePlugins title="npminmin està a punt de tancar" message="Si feu clic a SÍ, sortiràs de npminmin per continuar les operacions.&#xD;npminmin es reiniciarà un cop hagin finalitzat totes les operacions.&#xD;Voleu continuar?"/>
+			<NeedToRestartToLoadPlugins title="npminmin demana reiniciar-se" message="S'ha de reiniciar npminmin per carregar els complements que heu instal·lat."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historial del porta-retalls"/>
@@ -1132,8 +1132,8 @@ By Hiro5 <groccat at gmail>
 			<word-chars-list-tab-warning value="$INT_REPLACE$ tabulacions"/>
 			<word-chars-list-warning-end value=" en la llista de caràcters."/>
 			<cloud-invalid-warning value="El camí no és vàlid."/>
-			<cloud-restart-warning value="Reinicieu Notepad++ perquè faci efecte."/>
-			<cloud-select-folder value="Seleccioneu una carpeta des d'on Notepad++ llegirà/escriurà la seva configuració"/>
+			<cloud-restart-warning value="Reinicieu npminmin perquè faci efecte."/>
+			<cloud-select-folder value="Seleccioneu una carpeta des d'on npminmin llegirà/escriurà la seva configuració"/>
 			<shift-change-direction-tip value="Utilitza Maj.+Retorn per cercar en direcció contrària"/>
 			<two-find-buttons-tip value="Mode de cerca amb 2 botons"/>
 			<find-in-files-filter-tip value="Cerca als cpp, cxx, h, hxx &amp;&amp; hpp:&#xD;*.cpp *.cxx *.h *.hxx *.hpp&#xD;&#xD;Cerca a tots els fitxer excepte exe, obj &amp;&amp; log:&#xD;*.* !*.exe !*.obj !*.log"/>

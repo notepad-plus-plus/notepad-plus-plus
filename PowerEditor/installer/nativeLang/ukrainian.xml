@@ -196,7 +196,7 @@ Translation note:
 					<Item id="42025" name="Зберегти записаний макрос..."/>
 					<Item id="42026" name="Текст справа наліво"/>
 					<Item id="42027" name="Текст зліва направо"/>
-					<Item id="42028" name="Тільки для читання у Notepad++"/>
+					<Item id="42028" name="Тільки для читання у npminmin"/>
 					<Item id="42029" name="Копіювати шлях до поточного файлу"/>
 					<Item id="42030" name="Копіювати назву поточного файлу"/>
 					<Item id="42031" name="Копіювати шлях до поточної теки"/>
@@ -361,17 +361,17 @@ Translation note:
 					<Item id="46016" name="Немає (звичайний текст)"/>
 					<Item id="46250" name="Визначити мову..."/>
 					<Item id="46300" name="Відкрити користувацьку теку мови..."/>
-					<Item id="46301" name="Збірка мов Notepad++ визначених користувачем"/>
+					<Item id="46301" name="Збірка мов npminmin визначених користувачем"/>
 					<Item id="46180" name="Визначено користувачем"/>
-					<Item id="47000" name="Про Notepad++"/>
+					<Item id="47000" name="Про npminmin"/>
 					<Item id="47010" name="Аргументи командного рядка..."/>
-					<Item id="47001" name="Домівка Notepad++"/>
-					<Item id="47002" name="Сторінка проєкту Notepad++"/>
-					<Item id="47003" name="Посібник користувача Notepad++"/>
-					<Item id="47004" name="Спільнота (Форум) Notepad++"/>
+					<Item id="47001" name="Домівка npminmin"/>
+					<Item id="47002" name="Сторінка проєкту npminmin"/>
+					<Item id="47003" name="Посібник користувача npminmin"/>
+					<Item id="47004" name="Спільнота (Форум) npminmin"/>
 					<Item id="47012" name="Інформація про налагодження..."/>
 					<Item id="47005" name="Отримати більше плагінів"/>
-					<Item id="47006" name="Оновити Notepad++"/>
+					<Item id="47006" name="Оновити npminmin"/>
 					<Item id="47009" name="Встановити проксі-сервер для Updater..."/>
 					<Item id="48005" name="Імпортувати плагіни..."/>
 					<Item id="48006" name="Імпортувати теми стилів..."/>
@@ -438,7 +438,7 @@ Translation note:
 				<Item CMDID="41016" name="Перемістити до смітника"/>
 				<Item CMDID="41014" name="Перезавантажити"/>
 				<Item CMDID="41010" name="Друкувати..."/>
-				<Item CMDID="42028" name="Тільки для читання у Notepad++"/>
+				<Item CMDID="42028" name="Тільки для читання у npminmin"/>
 				<Item CMDID="42033" name="Атрибут тільки для читання у Windows"/>
 				<Item CMDID="2" name="Копіювати в буфер обміну"/>
 				<Item CMDID="42029" name="Копіювати повний шлях до файлу"/>
@@ -1119,7 +1119,7 @@ Translation note:
 				</DefaultDir>
 
 				<FileAssoc title="Асоціації файлів">
-					<Item id="4008" name="Щоб використовувати цю функцію, перезапустіть Notepad++ в режимі адміністратора."/>
+					<Item id="4008" name="Щоб використовувати цю функцію, перезапустіть npminmin в режимі адміністратора."/>
 					<Item id="4009" name="Підтримувані:"/>
 					<Item id="4010" name="Зареєстровані:"/>
 				</FileAssoc>
@@ -1204,7 +1204,7 @@ Translation note:
 				</Print>
 
 				<Searching title="Пошук">
-					<Item id="6902" name="Моноширинний шрифт у вікні Знайти (Необхідно перезапустити Notepad++)"/>
+					<Item id="6902" name="Моноширинний шрифт у вікні Знайти (Необхідно перезапустити npminmin)"/>
 					<Item id="6903" name="Вікно пошуку залишається відкритим після виведення результатів"/>
 					<Item id="6904" name="Підтвердити заміну всього в усіх відкритих документах"/>
 					<Item id="6905" name="Замінити: не переходити до наступного входження"/>
@@ -1272,7 +1272,7 @@ Translation note:
 					<Item id="6152" name="Відкрити сеанс у новому екземплярі (автоматично зберігати сеанс при виході)"/>
 					<Item id="6153" name="Завжди відкривати в новому вікні"/>
 					<Item id="6154" name="Все в одному вікні (типово)"/>
-					<Item id="6155" name="* Зміна цих налаштувань потребує перезапуску Notepad++"/>
+					<Item id="6155" name="* Зміна цих налаштувань потребує перезапуску npminmin"/>
 					<Item id="6171" name="Налаштувати вставлення дати й часу"/>
 					<Item id="6175" name="Зворотний порядок типової дати й часу (короткий і довгий формати)"/>
 					<Item id="6172" name="Власний формат:"/>
@@ -1354,8 +1354,8 @@ Translation note:
 					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Вимкнути"/>
-						<Element name="Вмикати під час запуску Notepad++"/>
-						<Element name="Вмикати під час виходу з Notepad++"/>
+						<Element name="Вмикати під час запуску npminmin"/>
+						<Element name="Вмикати під час виходу з npminmin"/>
 					</ComboBox>
 					<Item id="6308" name="системного лотка"/>
 					<Item id="6363" name="режим рендерингу"/>
@@ -1447,18 +1447,18 @@ Translation note:
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
-			<ContextMenuXmlEditWarning title="Зміна contextMenu" message="Редагування contextMenu.xml дає змогу змінювати контекстне меню Notepad++. Для застосування змін необхідно перезапустити Notepad++."/>
+			<ContextMenuXmlEditWarning title="Зміна contextMenu" message="Редагування contextMenu.xml дає змогу змінювати контекстне меню npminmin. Для застосування змін необхідно перезапустити npminmin."/>
 			<SaveCurrentModifWarning title="Зберегти поточну модифікацію" message="Вам слід зберегти поточні зміни. Всі збережені зміни неможливо скасувати. Продовжити?"/><!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
 			<LoseUndoAbilityWarning title="Попередження неможливості відміни" message="Вам слід зберегти поточні зміни. Всі збережені зміни неможливо скасувати. Продовжити?"/><!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
-			<CannotMoveDoc title="Перемістити в новий екземпляр Notepad++" message="Документ змінений. Збережіть його і спробуйте знову."/><!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
-			<DocReloadWarning title="Перезавантажити" message="Ви дійсно хочете перезавантажити поточний файл і втратити зміни, зроблені в Notepad++?"/>
+			<CannotMoveDoc title="Перемістити в новий екземпляр npminmin" message="Документ змінений. Збережіть його і спробуйте знову."/><!-- HowToReproduce: From your npminmin drag & drop a clean (not dirty) file to outside of npminmin, another instance of npminmin will be created. Then from your first npminmin drag & drop an unsaved file to the new instance. -->
+			<DocReloadWarning title="Перезавантажити" message="Ви дійсно хочете перезавантажити поточний файл і втратити зміни, зроблені в npminmin?"/>
 			<FileLockedWarning title="Збереження невдале" message="Перевірте, чи цей файл не відкритий в іншій програмі"/>
-			<FileAlreadyOpenedInNpp title="" message="Файл вже відкрито в Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
+			<FileAlreadyOpenedInNpp title="" message="Файл вже відкрито в npminmin."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
 			<RenameTabTemporaryNameAlreadyInUse title="Не вдалося перейменувати" message="Вказана назва вже використовується в іншій вкладці."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
 			<RenameTabTemporaryNameIsEmpty title="Не вдалося перейменувати" message="Зазначена назва не може бути порожньою, або містити лише символи пробілу чи TAB."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Видалити файл" message="Не вдалося видалити файл"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
-			<NbFileToOpenImportantWarning title="Надто велика кількість файлів для відкриття" message="$INT_REPLACE$ файлів невдовзі будуть відкриті. Ви дійсно хочете відкрити їх?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
+			<NbFileToOpenImportantWarning title="Надто велика кількість файлів для відкриття" message="$INT_REPLACE$ файлів невдовзі будуть відкриті. Ви дійсно хочете відкрити їх?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into npminmin. -->
 			<SettingsOnCloudError title="Налаштування хмарного сховища" message="Схоже, шлях налаштувань в хмарі встановлений на диск лише для читання, або в теку, яка потребує відповідних прав на запис. Ваші налаштування в хмарі будуть скасовані. Будь ласка, скиньте відповідні значення через діалог Налаштування."/>
 			<FilePathNotFoundWarning title="Відкриття файла" message="Файл, який ви намагаєтесь відкрити, не існує."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SessionFileInvalidError title="Не вдалося завантажити сеанс" message="Файл сеансу пошкоджений, або недійсний."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
@@ -1466,20 +1466,20 @@ Translation note:
 			<SortingError title="Помилка впорядкування" message="Не вдається виконати впорядкування за числами, через рядок $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SortLocaleMultiple title="Сортування не виконано" message="Сортування множинного вибору не підтримується."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<SortLocaleUnknown title="Збій сортування" message="Неможливо визначити причину збою сортування."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
-			<SortLocaleExcept title="Збій сортування" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleExcept title="Збій сортування" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit npminmin and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Порада для режиму стовпців" message=" Є 3 способи перемикання на режим вибору стовпців:  1. (Клавіатура й миша)  Утримуйте клавішу Alt та одночасно перетягуйте лівою кнопкою миші  2. (Лише клавіатура)  Утримуйте Alt+Shift та одночасно використовуйте клавіші стрілок  3. (Клавіатура або миша)       Розташуйте курсор на бажаний початок позиції початку блоку стовпця, потім виконайте команду &quot;Вибрати початок/кінець у режимі стовпців&quot;;       Перемістіть курсор у бажаний кінець позиції блоку стовпця, потім знову виконайте команду &quot;Вибрати початок/кінець у режимі стовпців&quot;"/>
 			<BufferInvalidWarning title="Не вдалося зберегти" message="Неможливо зберегти: Неправильний буфер."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<DoCloseOrNot title="Зберегти неіснуючий файл" message="Файл &quot;$STR_REPLACE$&quot; більше не існує. Залишити цей файл в редакторі?"/>
 			<DoDeleteOrNot title="Видалити файл" message="Файл &quot;$STR_REPLACE$&quot; буде переміщено до вашого смітника і цей документ буде закрито. Продовжити?"/>
 			<NoBackupDoSaveFile title="Зберегти" message="Не вдалося знайти ваш резервний файл (видалено ззовні). Збережіть його, інакше дані будуть втрачені Хочете зберегти файл &quot;$STR_REPLACE$&quot; ?"/>
 			<DoReloadOrNot title="Перезавантажити" message="&quot;$STR_REPLACE$&quot;  Цей файл був змінений іншою програмою. Хочете перезавантажити його?"/>
-			<DoReloadOrNotAndLooseChange title="Перезавантажити" message="&quot;$STR_REPLACE$&quot;  Цей файл був змінений іншою програмою. Хочете перезавантажити його і втратити всі зміни, зроблені в Notepad++?"/>
+			<DoReloadOrNotAndLooseChange title="Перезавантажити" message="&quot;$STR_REPLACE$&quot;  Цей файл був змінений іншою програмою. Хочете перезавантажити його і втратити всі зміни, зроблені в npminmin?"/>
 			<PrehistoricSystemDetected title="Виявлено застарілу систему" message="Схоже, ви все ще використовуєте застарілу систему. Шкода, але ця функція працює лише на сучасній системі."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
-			<XpUpdaterProblem title="Система оновлення Notepad++" message="Система оновлення Notepad++ несумісна з XP, у зв'язку із застарілою системою безпеки XP. Хочете перейти на веб-сторінку Notepad++ для завантаження найновішої версії?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Параметри проксі" message="Перезапустіть Notepad++ в режимі Адміністратора для налаштування проксі."/>
+			<XpUpdaterProblem title="Система оновлення npminmin" message="Система оновлення npminmin несумісна з XP, у зв'язку із застарілою системою безпеки XP. Хочете перейти на веб-сторінку npminmin для завантаження найновішої версії?"/><!-- HowToReproduce: Run menu "? -> Update npminmin" under Windows XP. -->
+			<GUpProxyConfNeedAdminMode title="Параметри проксі" message="Перезапустіть npminmin в режимі Адміністратора для налаштування проксі."/>
 			<DocTooDirtyToMonitor title="Проблема моніторингу" message="Документ змінено. Будь ласка, збережіть зміни перед його моніторингом."/>
 			<DocNoExistToMonitor title="Проблема моніторингу" message="Файл повинен існувати для його моніторингу."/>
-			<FileTooBigToOpen title="Проблема розміру файлу" message="Файл завеликий для відкриття в Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+			<FileTooBigToOpen title="Проблема розміру файлу" message="Файл завеликий для відкриття в npminmin"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
 			<FileLoadingException title="Код винятку: $STR_REPLACE$" message="Сталася помилка при завантаженні файлу!"/>
 			<WantToOpenHugeFile title="Попередження при відкритті великих файлів" message="Відкриття файлів розміром 2 ГБ та більше може тривати декілька хвилин. Хочете відкрити?"/>
 			<CreateNewFileOrNot title="Створити новий файл" message="&quot;$STR_REPLACE$&quot; не існує. Створити його?"/>
@@ -1488,8 +1488,8 @@ Translation note:
 			<OpenFileNoFolderError title="Не вдалося відкрити файл" message="Неможливо відкрити &quot;$STR_REPLACE1$&quot;: Тека &quot;$STR_REPLACE2$&quot; не існує."/>
 			<FileBackupFailed title="Збій резервного копіювання файлу" message="Попередня версія файлу може бути не збережена в каталозі для резервного копіювання &quot;$STR_REPLACE$&quot;. Ви все ще хочете зберегти поточний файл?"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<LoadStylersFailed title="Збій завантаження stylers.xml" message="Не вдалося завантажити &quot;$STR_REPLACE$&amp;quot!"/>
-			<LoadLangsFailed title="Конфігуратор" message="Збій завантаження langs.xml! Хочете відновити langs.xml?"/><!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
-			<LoadLangsFailedFinal title="Конфігуратор" message="Збій завантаження langs.xml!"/><!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
+			<LoadLangsFailed title="Конфігуратор" message="Збій завантаження langs.xml! Хочете відновити langs.xml?"/><!-- HowToReproduce: Close npminmin. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open npminmin. -->
+			<LoadLangsFailedFinal title="Конфігуратор" message="Збій завантаження langs.xml!"/><!-- HowToReproduce: Close npminmin. Use another editor to make "langs.xml" an invalid xml file then save it. Open npminmin. -->
 			<FolderAsWorspaceSubfolderExists title="Проблема з додаванням теки як робочої області" message="Підтека, яку ви хочете додати, вже існує. Вилучіть її корінь з панелі перш, ніж додавати теку &quot;$STR_REPLACE$&quot;."/><!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
 			<ProjectPanelChanged title="$STR_REPLACE$" message="Робочу область було змінено. Хочете зберегти її?"/>
@@ -1510,27 +1510,27 @@ Translation note:
 			<UDL_exportFails title="Користувацька мова" message="Збій експорту."/>
 			<SCMapperDoDeleteOrNot title="Ви впевнені?" message="Ви дійсно бажаєте видалити цю комбінацію клавіш?"/>
 			<FindCharRangeValueError title="Проблема з діапазоном значень" message="Необхідно ввести значення від 0 до 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
-			<OpenInAdminMode title="Не вдалося зберегти" message="Не вдається зберегти файл, він може бути захищеним. Хочете запустити Notepad++ в режимі адміністратора?"/>
-			<OpenInAdminModeWithoutCloseCurrent title="Не вдалося зберегти" message="Не вдається зберегти файл, він може бути захищеним. Хочете запустити Notepad++ в режимі адміністратора?"/>
-			<OpenInAdminModeFailed title="Не вдалося запустити в режимі адміністратора" message="Notepad++ не може бути відкритий в режимі адміністратора."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
+			<OpenInAdminMode title="Не вдалося зберегти" message="Не вдається зберегти файл, він може бути захищеним. Хочете запустити npminmin в режимі адміністратора?"/>
+			<OpenInAdminModeWithoutCloseCurrent title="Не вдалося зберегти" message="Не вдається зберегти файл, він може бути захищеним. Хочете запустити npminmin в режимі адміністратора?"/>
+			<OpenInAdminModeFailed title="Не вдалося запустити в режимі адміністратора" message="npminmin не може бути відкритий в режимі адміністратора."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
 			<ViewInBrowser title="Переглянути поточний файл у браузері" message="У вашій системі не вдалося знайти програму."/>
-			<ExitToUpdatePlugins title="Ви збираєтеся закрити Notepad++" message="Якщо ви оберете ТАК, ви вийдете з Notepad++ для продовження операцій. Notepad++ перезапуститься після завершення всіх операцій. Продовжити?"/>
-			<NeedToRestartToLoadPlugins title="Необхідно перезапустити Notepad++" message="Необхідно перезапустити Notepad++ для завантаження встановлених плагінів."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
-			<ChangeHistoryEnabledWarning title="Необхідно перезапустити Notepad++" message="Для увімкнення історії змін потрібно перезапустити Notepad++."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
-			<WindowsSessionExit title="Notepad++ - вихід із сеансу Windows" message="Сеанс Windows невдовзі буде завершено, але у вас є незбережені дані. Хочете вийти з Notepad++ зараз?"/>
+			<ExitToUpdatePlugins title="Ви збираєтеся закрити npminmin" message="Якщо ви оберете ТАК, ви вийдете з npminmin для продовження операцій. npminmin перезапуститься після завершення всіх операцій. Продовжити?"/>
+			<NeedToRestartToLoadPlugins title="Необхідно перезапустити npminmin" message="Необхідно перезапустити npminmin для завантаження встановлених плагінів."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+			<ChangeHistoryEnabledWarning title="Необхідно перезапустити npminmin" message="Для увімкнення історії змін потрібно перезапустити npminmin."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+			<WindowsSessionExit title="npminmin - вихід із сеансу Windows" message="Сеанс Windows невдовзі буде завершено, але у вас є незбережені дані. Хочете вийти з npminmin зараз?"/>
 			<LanguageMenuCompactWarning title="Компактне меню мови" message="Цей параметр буде змінено під час наступного запуску."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Незбережені зміни будуть скасовані! Ви хочете зберегти зміни перед зміною теми?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Сумісність макросів і команд виконання" message="Ваші макроси й команди виконання, збережені в Notepad++ v.8.5.2 (чи старіше), можуть бути несумісними з поточною версією Notepad++. Випробуйте ці команди та, за потреби, відредагуйте їх.  Або ж ви можете встановити старішу версію Notepad++ v8.5.2 та відновити свої попередні дані. Notepad++ збереже резервну копію вашого файлу &quot;shortcuts.xml&quot; з назвою &quot;shortcuts.xml.v8.5.2.backup&quot;. Перейменувавши файл &quot;shortcuts.xml.v8.5.2.backup&quot; на -&gt; &quot;shortcuts.xml&quot;, ваші команди мають відновитися і працювати правильно."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<MacroAndRunCmdlWarning title="Сумісність макросів і команд виконання" message="Ваші макроси й команди виконання, збережені в npminmin v.8.5.2 (чи старіше), можуть бути несумісними з поточною версією npminmin. Випробуйте ці команди та, за потреби, відредагуйте їх.  Або ж ви можете встановити старішу версію npminmin v8.5.2 та відновити свої попередні дані. npminmin збереже резервну копію вашого файлу &quot;shortcuts.xml&quot; з назвою &quot;shortcuts.xml.v8.5.2.backup&quot;. Перейменувавши файл &quot;shortcuts.xml.v8.5.2.backup&quot; на -&gt; &quot;shortcuts.xml&quot;, ваші команди мають відновитися і працювати правильно."/><!-- HowToReproduce: Close npminmin, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch npminmin, delete or modify a shortcuts via Shortcut Mapper, close npminmin, then the message will show up -->
 			<NotEnoughRoom4Saving title="Не вдалося зберегти" message="Не вдалося зберегти файл. Схоже, на диску недостатньо вільного місця."/>
 			<FileInaccessibleUserSession title="Файл недоступний" message="Деякі файли з вашого збереженого вручну сеансу &quot;$STR_REPLACE$&quot; недоступні. Їх можна відкрити як заповнювачі –  порожні та доступні лише для читання документи.  Бажаєте створити ці заповнювачі?  ПРИМІТКА: якщо ви вирішите не створювати заповнювачі або закрити їх згодом, ваш збережений вручну сеанс НЕ буде змінено при виході."/>
 			<FileInaccessibleDefaultSessionXml title="Файл недоступний" message="Деякі файли з вашого минулого сеансу недоступні. Їх можна відкрити як заповнювачі – порожні та доступні лише для читання документи.  Бажаєте створити ці заповнювачі?  ПРИМІТКА: якщо ви вирішите не створювати заповнювачі або закрити їх згодом, ваш сеанс БУДЕ ЗМІНЕНО ПРИ ВИХОДІ! Пропонуємо вам створити резервну копію &quot;session.xml&quot; зараз."/>
-			<RTLvsDirectWrite title="Неможливо запустити RTL" message="RTL не сумісний з режимом DirectWrite. Вимкніть режим DirectWrite в розділі &quot;РІЗНЕ&quot; діалогового вікна налаштувань і перезапустіть Notepad++."/>
-			<FileMemoryAllocationFailed title="Виняток: помилка розподілення пам'яті файлу" message="Ймовірно, не вистачає суміжної вільної пам'яті для файлу, що завантажується Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<RTLvsDirectWrite title="Неможливо запустити RTL" message="RTL не сумісний з режимом DirectWrite. Вимкніть режим DirectWrite в розділі &quot;РІЗНЕ&quot; діалогового вікна налаштувань і перезапустіть npminmin."/>
+			<FileMemoryAllocationFailed title="Виняток: помилка розподілення пам'яті файлу" message="Ймовірно, не вистачає суміжної вільної пам'яті для файлу, що завантажується npminmin."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 npminmin (it will depend on the PC memory configuration and the current system memory usage...). -->
 			<FindRegexBackwardDisabled title="Зворотний пошук регулярних виразів вимкнено" message="Типово зворотний пошук регулярних виразів вимкнено через потенційно несподівані результати. Щоб виконати зворотний пошук, відкрийте діалогове вікно Знайти та виберіть звичайний або розширений режим пошуку замість регулярного виразу. Натисніть кнопку OK, щоб відкрити діалогове вікно пошуку або встановити фокус на ньому.     Якщо вам потрібна функція пошуку зворотного регулярного виразу, зверніться до посібника користувача для отримання інструкцій щодо її ввімкнення."/>
 			<PrintError title="0" message="Не вдається запустити документ принтера."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 			<FindAutoChangeOfInSelectionWarning title="Застереження щодо пошуку" message="Стан прапорця &quot;У вибраному&quot; було автоматично змінено. Перевірте умову пошуку перед виконанням дії."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
-			<Need2Restart2ShowMenuShortcuts title="Необхідно перезапустити Notepad++" message="Notepad++ потрібно перезапустити, щоб показати відповідні ярлики меню праворуч."/>
-			<NoAdminRight2ChangeReadOnlyFileAttribute title="Не вдалося змінити атрибут файлу, доступного лише для читання" message="Запустіть Notepad++ від імені адміністратора, щоб змінити атрибути файлів."/>
+			<Need2Restart2ShowMenuShortcuts title="Необхідно перезапустити npminmin" message="npminmin потрібно перезапустити, щоб показати відповідні ярлики меню праворуч."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Не вдалося змінити атрибут файлу, доступного лише для читання" message="Запустіть npminmin від імені адміністратора, щоб змінити атрибути файлів."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Історія буфера"/>
@@ -1649,8 +1649,8 @@ Translation note:
 			<word-chars-list-warning-end value="  у вашому списку символів."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
 			<backup-select-folder value="Виберіть теку для резервного копіювання"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value="Неправильний шлях."/>
-			<cloud-restart-warning value="Перезапустіть Notepad++ для застосування змін."/>
-			<cloud-select-folder value="Виберіть теку, звідки/куди в Notepad++ читати/записувати свої параметри"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+			<cloud-restart-warning value="Перезапустіть npminmin для застосування змін."/>
+			<cloud-select-folder value="Виберіть теку, звідки/куди в npminmin читати/записувати свої параметри"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
 			<default-open-save-select-folder value="Виберіть типову теку"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Використовуйте Shift+Enter для пошуку у зворотному напрямку"/>
 			<two-find-buttons-tip value="2-кнопковий режим пошуку"/>
@@ -1769,7 +1769,7 @@ Translation note:
 
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Увімкнення &quot;Global override&quot; тут замінить цей параметр у всіх мовних стилях. Натомість ви, ймовірно, хочете використовувати &quot;Default Style&quot;"/>
-			<scintillaRenderingTechnology-tip value="Може покращити рендеринг спеціальних символів або усунути деякі графічні проблеми. Перезапустіть Notepad++, щоб застосувати зміни."/>
+			<scintillaRenderingTechnology-tip value="Може покращити рендеринг спеціальних символів або усунути деякі графічні проблеми. Перезапустіть npminmin, щоб застосувати зміни."/>
 
 			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
 			<statusbar-length-lines value="довжина: $STR_REPLACE1$    рядків: $STR_REPLACE2$"/>

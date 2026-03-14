@@ -34,7 +34,7 @@ How to conduct the URL detection test
 
 Since the URL detection only takes place in the visible part of
 the edit windows, the test can only be run from inside an opened
-Notepad++ with a visible edit window.
+npminmin with a visible edit window.
 
 Since the test script is written in Lua, a prerequisite to conduct
 the test is, that the Lua plugin is installed. The plugin can be found
@@ -42,14 +42,14 @@ at https://github.com/dail8859/LuaScript/releases.
 
 To conduct the test:
 
-1. Open the verifyUrlDetection.lua with Notepad++.
+1. Open the verifyUrlDetection.lua with npminmin.
 2. Display the Lua console window (Plugins --> LuaScript --> Show Console)
 3. Execute the opened script file (Plugins --> LuaScript --> Execute Current File)
 
 The test results will be displayed in the Lua console window.
 
 !!! Please be aware, that there should NO keyboard or mouse or whatever
-    input be applied to Notepad++ while this test is running.
+    input be applied to npminmin while this test is running.
 
 
 

@@ -2,7 +2,7 @@
 	<!--
 Author: Andi Rady Kurniawan
 Date: 12 October 2008
-Desc: Malay translation for Notepad++
+Desc: Malay translation for npminmin
 -->
 	<Native-Langue name="Bahasa Melayu" filename="malay.xml">
 
@@ -139,8 +139,8 @@ Desc: Malay translation for Notepad++
 					<Item id="10002" name="Klonkan ke Pandangan seterusnya"/>
 					<Item id="46001" name="Penatarajah Penggaya..."/>
 					<Item id="47000" name="Tentang..."/>
-					<Item id="47001" name="Halaman Notepad++"/>
-					<Item id="47002" name="Laman Projek Notepad++"/>
+					<Item id="47001" name="Halaman npminmin"/>
+					<Item id="47002" name="Laman Projek npminmin"/>
 					<Item id="47003" name="Bantuan atas talian"/>
 					<Item id="47004" name="Forum"/>
 					<Item id="47005" name="Dapatkan lebih plugin"/>
@@ -424,7 +424,7 @@ Desc: Malay translation for Notepad++
 					<Item id="6325" name="Gulung ke baris terakhir selepas kemaskini"/>
 					<Item id="6319" name="Bolehkan"/>
 					<Item id="6320" name="Jangan gariskan"/>
-					<Item id="6323" name="Bolehkan swa-kemaskini Notepad++"/>
+					<Item id="6323" name="Bolehkan swa-kemaskini npminmin"/>
 					<Item id="6324" name="Penukar Dokumen (Ctrl+TAB)"/>
 					<Item id="6326" name="Bolehkan penyerlahan pintar"/>
 					<Item id="6114" name="Bolehkan penukar dokumen (Ctrl+Tab)"/>

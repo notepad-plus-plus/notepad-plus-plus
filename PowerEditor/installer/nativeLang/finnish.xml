@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Finnish translation for Notepad++
+<!-- Finnish translation for npminmin
 Updated to v8.6 fixed version
 -->
 <NotepadPlus>
@@ -349,8 +349,8 @@ Updated to v8.6 fixed version
 					<Item id="46250" name="Määrittele..."/>
 					<Item id="46300" name="Omien kielien kansio..."/>
 					<Item id="47000" name="Tietoja ohjelmasta"/>
-					<Item id="47001" name="Notepad++ Kotisivu"/>
-					<Item id="47002" name="Notepad++ Projektisivu"/>
+					<Item id="47001" name="npminmin Kotisivu"/>
+					<Item id="47002" name="npminmin Projektisivu"/>
 					<Item id="47003" name="Dokumentaatio verkossa"/>
 					<Item id="47004" name="Keskustelupalsta"/>
 					<Item id="47005" name="Lataa liitännäisiä"/>
@@ -1200,7 +1200,7 @@ Updated to v8.6 fixed version
 					<Item id="6319" name="Käytä"/>
 					<Item id="6320" name="Ilman alleviivausta"/>
 					<Item id="6322" name="Istuntotiedoston pääte:"/>
-					<Item id="6323" name="Päivitä Notepad++ automaattisesti "/>
+					<Item id="6323" name="Päivitä npminmin automaattisesti "/>
 					<Item id="6324" name="Asiakirjan vaihtaja (Ctrl+TAB)"/>
 					<Item id="6325" name="Vieritä viimeiselle riville päivityksen jälkeen"/>
 					<Item id="6331" name="Näytä otsikkopalkissa vain tiedostonimi"/>
@@ -1270,14 +1270,14 @@ Updated to v8.6 fixed version
 
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Ponnahdusvalikon mukautus" message="Muokkaamalla tiedostoa 'contextMenu.xml' voit mukauttaa Notepad++:n ponnahdusvalikkoa. Tiedoston muokkauksen jälkeen ohjelma on uudelleenkäynnistettävä tehtyjen muutosten käyttöönottamiseksi."/>
-			<NppHelpAbsentWarning title="Tiedostoa ei löydy" message="Tiedostoa ei löydy, lataa se Notepad++:n kotisivustolta."/>
+			<ContextMenuXmlEditWarning title="Ponnahdusvalikon mukautus" message="Muokkaamalla tiedostoa 'contextMenu.xml' voit mukauttaa npminmin:n ponnahdusvalikkoa. Tiedoston muokkauksen jälkeen ohjelma on uudelleenkäynnistettävä tehtyjen muutosten käyttöönottamiseksi."/>
+			<NppHelpAbsentWarning title="Tiedostoa ei löydy" message="Tiedostoa ei löydy, lataa se npminmin:n kotisivustolta."/>
 			<SaveCurrentModifWarning title="Tallenna muutokset" message="Tehdyt muutokset pitää tallentaa. Tallennuksen jälkeen muutoksia ei voi peruuttaa. Jatketaanko?"/>
 			<LoseUndoAbilityWarning title="Varoitus muutosten peruuttaamattomuudesta" message="Tehdyt muutokset pitää tallentaa. Tallennuksen jälkeen muutoksia ei voi peruuttaa. Jatketaanko?"/>
-			<CannotMoveDoc title="Avaa uuteen Notepad++ -istuntoon" message="Tiedostoa on muokattu, tallenna se ja yritä sitten uudelleen."/>
+			<CannotMoveDoc title="Avaa uuteen npminmin -istuntoon" message="Tiedostoa on muokattu, tallenna se ja yritä sitten uudelleen."/>
 			<DocReloadWarning title="Uudelleenlataus" message="Avataanko tiedosto uudelleen hyläten edellisen avauksen jälkeiset muutokset?"/>
 			<FileLockedWarning title="Tallennus epäonnistui" message="Varmista, että muut sovellukset eivä käytä tätä tiedostoa"/>
-			<FileAlreadyOpenedInNpp title="" message="Tiedosto on jo avoimena sovelluksessa Notepad++."/>
+			<FileAlreadyOpenedInNpp title="" message="Tiedosto on jo avoimena sovelluksessa npminmin."/>
 			<DeleteFileFailed title="Tiedoston poisto" message="Tiedoston poisto epäonnistui"/>
 			<RenameTabTemporaryNameAlreadyInUse title="Uudelleennimeäminen epäonnistui" message="Määritetty nimi on jo toisen välilehden käytössä."/>
 			<GUpConfNeedAdminMode title="Välityspalvelimen asetukset" message="Välityspalvelimen määrittäminen edellyttää käynnistystä järjestelmänvalvojan oikeuksin"/>
@@ -1293,9 +1293,9 @@ Updated to v8.6 fixed version
 			<DoDeleteOrNot title="Poista tiedosto" message="Tiedosto &quot;$STR_REPLACE$&quot; siirretään roskakoriin ja tämä asiakirja suljetaan. Jatketaanko?"/>
 			<NoBackupDoSaveFile title="Tallenna" message="Varmuuskopiotiedostoa ei löydy (poistettu ulkopuolelta). Tallenna se, tai tietosi menetetään Tallennetaanko tiedosto &quot;$STR_REPLACE$&quot; ?"/>
 			<DoReloadOrNot title="Lataa uudelleen" message="&quot;$STR_REPLACE$&quot; Tiedostoa on muokattu toisessa sovelluksessa, avataanko uudelleen?"/>
-			<DoReloadOrNotAndLooseChange title="Lataa uudelleen" message="&quot;$STR_REPLACE$&quot; Tätä tiedostoa on muokattu toisella ohjelmalla. Haluatko ladata sen uudelleen ja hylätä Notepad++ tehdyt muutokset?"/>
+			<DoReloadOrNotAndLooseChange title="Lataa uudelleen" message="&quot;$STR_REPLACE$&quot; Tätä tiedostoa on muokattu toisella ohjelmalla. Haluatko ladata sen uudelleen ja hylätä npminmin tehdyt muutokset?"/>
 			<PrehistoricSystemDetected title="Vanhentunut järjestelmä havaittu" message="Käytät vanhentunutta järjestelmää. Haluttu ominaisuus toimii vain nykyaikaisessa järjestelmässä."/>
-			<XpUpdaterProblem title="Notepad++ päivitys" message="Sovelluksen päivitysmekanismi ei ole yhteensopiva XP:n kanssa vanhentuneen turvallisuustason vuoksi. Siirrytäänkö sovelluksen kotisivulle uusimman version lataamiseksi?"/>
+			<XpUpdaterProblem title="npminmin päivitys" message="Sovelluksen päivitysmekanismi ei ole yhteensopiva XP:n kanssa vanhentuneen turvallisuustason vuoksi. Siirrytäänkö sovelluksen kotisivulle uusimman version lataamiseksi?"/>
 			<DocTooDirtyToMonitor title="Seurantaongelma" message="Asiakirja on sekainen (?). Tallenna muutokset ennen seurantaa."/>
 			<DocNoExistToMonitor title="Seurantaongelma" message="Tiedoston pitää olla olemassa, jotta sitä voitaisiin seurata."/>
 			<FileTooBigToOpen title="Tiedostokoko-ongelma" message="Tiedosto on liian suuri avattavaksi tässä sovelluksessa"/>
@@ -1323,12 +1323,12 @@ Updated to v8.6 fixed version
 			<UDLRemoveCurrentLang title="Poista nykyinen kieli" message="Poistetaanko?"/>
 			<SCMapperDoDeleteOrNot title="Varmistus" message="Poistetaanko tämä pikakuvake?"/>
 			<FindCharRangeValueError title="Alueen arvo-ongelma" message="Sinun pitäisi kirjoittaa luku välillä 0-255."/>
-			<OpenInAdminMode title="Tallennus epäonnistui" message="Tiedostoa ei voi tallentaa, se on ehkä suojattu. Käynnistetäänkö Notepad++ järjestelmänvalvojana?"/>
-			<OpenInAdminModeWithoutCloseCurrent title="Tallennus epäonnistui" message="Tiedostoa ei voi tallentaa, se on ehkä suojattu. Käynnistetäänkö Notepad++ järjestelmänvalvojana?"/>
+			<OpenInAdminMode title="Tallennus epäonnistui" message="Tiedostoa ei voi tallentaa, se on ehkä suojattu. Käynnistetäänkö npminmin järjestelmänvalvojana?"/>
+			<OpenInAdminModeWithoutCloseCurrent title="Tallennus epäonnistui" message="Tiedostoa ei voi tallentaa, se on ehkä suojattu. Käynnistetäänkö npminmin järjestelmänvalvojana?"/>
 			<OpenInAdminModeFailed title="Käynnistäminen järjestelmänvalvojana epäonnistui" message="Sovellusta ei voi käynnistää järjestelmänvalvojana."/>
 			<ViewInBrowser title="Näytä nykyinen tiedosto selaimessa" message="Sovellusta ei löydy järjestelmästäsi."/>
-			<ExitToUpdatePlugins title="Notepad++ on sulkeutumassa" message="Jos vastaat Kyllä, Notepad++:n pysäytetään toimintojen jatkamiseksi. Notepad++ käynnistetään uudelleen, kun kaikki toiminnot ovat valmistuneet. Jatketaanko?"/>
-			<NeedToRestartToLoadPlugins title="Notepad++ on käynnistettävä uudelleen" message="Sovellus täytyy uudelleenkäynnistää asennettujen liitännäisten käyttöönottamiseksi."/>
+			<ExitToUpdatePlugins title="npminmin on sulkeutumassa" message="Jos vastaat Kyllä, npminmin:n pysäytetään toimintojen jatkamiseksi. npminmin käynnistetään uudelleen, kun kaikki toiminnot ovat valmistuneet. Jatketaanko?"/>
+			<NeedToRestartToLoadPlugins title="npminmin on käynnistettävä uudelleen" message="Sovellus täytyy uudelleenkäynnistää asennettujen liitännäisten käyttöönottamiseksi."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Leikepöydän historia"/>
@@ -1437,8 +1437,8 @@ Updated to v8.6 fixed version
 			<word-chars-list-tab-warning value="$INT_REPLACE$ TAB(t)"/>
 			<word-chars-list-warning-end value="  merkkiluettelossa."/>
 			<cloud-invalid-warning value="Virheellinen polku."/>
-			<cloud-restart-warning value="Käynnistä Notepad++ uudelleen, jotta vaikutus tulisi voimaan."/>
-			<cloud-select-folder value="Valitse kansio mistä/mihin Notepad++ lukee/kirjoittaa asetuksensa"/>
+			<cloud-restart-warning value="Käynnistä npminmin uudelleen, jotta vaikutus tulisi voimaan."/>
+			<cloud-select-folder value="Valitse kansio mistä/mihin npminmin lukee/kirjoittaa asetuksensa"/>
 			<shift-change-direction-tip value="Käytä Shift+Enteriä etsiäksesi vastakkaiseen suuntaan"/>
 			<two-find-buttons-tip value="2 etsi painikkeet-tila"/>
 			<find-in-files-filter-tip value="Etsi seuraavista cpp, cxx, h, hxx &amp;&amp; hpp: *.cpp *.cxx *.h *.hxx *.hpp  Etsi kaikista tiedostoista paitsi exe, obj &amp;&amp; log: *.* !*.exe !*.obj !*.log"/>

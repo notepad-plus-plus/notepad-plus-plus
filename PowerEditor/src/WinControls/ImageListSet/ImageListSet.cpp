@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -64,7 +64,7 @@ void IconList::addIcon(int iconID, int cx, int cy, int failIconID, bool isToolba
 		int userAnswer = 0;
 		if (!ignoreWarning)
 		{
-			userAnswer = ::MessageBoxA(NULL, "IconList::addIcon : LoadIcon() function return null.\nIgnore the error?\n\n\"Yes\": ignore the error and launch Notepad++\n\"No\": Quit Notepad++\n\"Cancel\": display all errors", std::to_string(iconID).c_str(), MB_YESNOCANCEL | MB_ICONWARNING);
+			userAnswer = ::MessageBoxA(NULL, "IconList::addIcon : LoadIcon() function return null.\nIgnore the error?\n\n\"Yes\": ignore the error and launch npminmin\n\"No\": Quit npminmin\n\"Cancel\": display all errors", std::to_string(iconID).c_str(), MB_YESNOCANCEL | MB_ICONWARNING);
 			ignoreWarning = userAnswer == IDYES;
 		}
 

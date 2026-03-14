@@ -286,13 +286,13 @@
 					<Item id="46250" name="Definís lo lengage..."/>
 					<Item id="46180" name="Definit per l'utilizaire"/>
 					
-					<Item id="47000" name="A prepaus de Notepad++..."/>
-					<Item id="47001" name="Pagina web de Notepad++"/>
-					<Item id="47002" name="Pagina del projècte Notepad++"/>
+					<Item id="47000" name="A prepaus de npminmin..."/>
+					<Item id="47001" name="Pagina web de npminmin"/>
+					<Item id="47002" name="Pagina del projècte npminmin"/>
 					<Item id="47003" name="Documentacion en linha"/>
-					<Item id="47004" name="Comunautat Notepad++ (Forum)"/>
+					<Item id="47004" name="Comunautat npminmin (Forum)"/>
 					<Item id="47005" name="Obténer mai d'ajustons"/>
-					<Item id="47006" name="Actualizar Notepad++"/>
+					<Item id="47006" name="Actualizar npminmin"/>
 					<Item id="47009" name="Configurar lo proxy d'actualizacion..."/>
 					<Item id="47010" name="Arguments en linha de comandas..."/>
 					<Item id="47012" name="Informacions de debug..."/>
@@ -852,10 +852,10 @@
 				
 				<MultiInstance title="Multi-instància">
 					<Item id="6151" name="Paramètres de multi-instància"/>
-					<Item id="6152" name="Dobrir la session dins una nòva instància de Notepad++"/>
+					<Item id="6152" name="Dobrir la session dins una nòva instància de npminmin"/>
 					<Item id="6153" name="Totjorn en mòde multi-instància"/>
 					<Item id="6154" name="Defaut (mono-instància)"/>
-					<Item id="6155" name="La modificacion d'aquel paramètre necessita de tornar lançar Notepad++"/>
+					<Item id="6155" name="La modificacion d'aquel paramètre necessita de tornar lançar npminmin"/>
 				</MultiInstance>
 				
 				<Delimiter title="Delimitador">
@@ -932,20 +932,20 @@
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox><!-- $INT_REPLACE$ is a place holder, don't translate it -->
-			<ContextMenuXmlEditWarning title="Modificacion de contextMenu.xml" message="Modificar contextMenu.xml vos permet de modificar lo menú contextual de Notepad++.
-Deuretz tornar lançar Notepad++ per que siá efectiu."/>
+			<ContextMenuXmlEditWarning title="Modificacion de contextMenu.xml" message="Modificar contextMenu.xml vos permet de modificar lo menú contextual de npminmin.
+Deuretz tornar lançar npminmin per que siá efectiu."/>
 			<NppHelpAbsentWarning title="Lo fichièr exista pas" message="
-			exista pas. Mercés de lo descargar sul site de Notepad++."/>
+			exista pas. Mercés de lo descargar sul site de npminmin."/>
 			<SaveCurrentModifWarning title="Salvar las modificacions" message="Deuriatz salvar la modificacion actuala.
 			Podètz desfar totas las modificacions salvadas.
 			Contunhar ?"/>
 			<LoseUndoAbilityWarning title="Avertiment : pèrda de possibilitat de desfar" message="Deuriatz salvar la modificacion actuala.
 			Las modificacions salvadas pòdon pas èsser desfachas.
 			Contunhar ?"/>
-			<CannotMoveDoc title="Desplaçar dins una nòva instància de Notepad++" message="Lo document es estat modificat, salvatz e tornatz ensajar."/>
-			<DocReloadWarning title="Tornar cargar" message="Sètz segur(a) de voler tornar cargar lo document actiu e pèrdre los cambiaments efectuats dins Notepad++ ?"/>
+			<CannotMoveDoc title="Desplaçar dins una nòva instància de npminmin" message="Lo document es estat modificat, salvatz e tornatz ensajar."/>
+			<DocReloadWarning title="Tornar cargar" message="Sètz segur(a) de voler tornar cargar lo document actiu e pèrdre los cambiaments efectuats dins npminmin ?"/>
 			<FileLockedWarning title="Salvar lo fichièr" message="Mercés de verificar s'aquel fichièr es dobèrt dins un autre programa"/>
-			<FileAlreadyOpenedInNpp title="" message="Aqueste fichièr es dejà dobèrt dins Notepad++."/>
+			<FileAlreadyOpenedInNpp title="" message="Aqueste fichièr es dejà dobèrt dins npminmin."/>
 			<DeleteFileFailed title="Suprimir lo fichièr" message="La supression del fichièr a pas capitat"/>
 
 			<NbFileToOpenImportantWarning title="I a tròp de fichièrs de dobrir" message="$INT_REPLACE$ fichièrs son a mand d'èsser dobèrts
@@ -974,13 +974,13 @@ Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 			Lo volètz tornar cargar ?"/>
 			<DoReloadOrNotAndLooseChange title="Tornar cargar" message="&quot;$STR_REPLACE$&quot;
 			Aquel fichièr a estat modificat per un autre programa.
-			Lo volètz tornar cargar e pèrdre los cambiaments efectuats dins Notepad++ ?"/>
+			Lo volètz tornar cargar e pèrdre los cambiaments efectuats dins npminmin ?"/>
 			<PrehistoricSystemDetected title="Sistèma preistoric detectat" message="Semblariá qu'utilizetz encara un sistèma preistoric. Aquela fonccionalitat marcha pas que sus un sistèma modèrne, excusatz."/>
-			<XpUpdaterProblem title="Actualizador Notepad++" message="L'actualizador Notepad++ es pas compatible amb XP a causa que lo jaç de seguretat jos XP es obsolèt.
-			Volètz anar a la pagina d'acuèlh de Notepad++ per descargar la darrièra version ?"/>
+			<XpUpdaterProblem title="Actualizador npminmin" message="L'actualizador npminmin es pas compatible amb XP a causa que lo jaç de seguretat jos XP es obsolèt.
+			Volètz anar a la pagina d'acuèlh de npminmin per descargar la darrièra version ?"/>
 			<DocTooDirtyToMonitor title="Problèma de susvelhança" message="Aqueste document a pas estat salvat. Mercés de salvar las modificacions abans de lo susvelhar."/>
 			<DocNoExistToMonitor title="Problèma de susvelhança" message="Lo fichièr deu existar per èsser susvelhat."/>
-			<FileTooBigToOpen title="Problèma de talha de fichièr" message="Lo fichièr es tròp voluminós per èsser dobèrt amb Notepad++"/>
+			<FileTooBigToOpen title="Problèma de talha de fichièr" message="Lo fichièr es tròp voluminós per èsser dobèrt amb npminmin"/>
 			<CreateNewFileOrNot title="Crear un fichièr novèl" message="&quot;$INT_REPLACE$&quot; exista pas. Lo volètz crear ?"/>
 			<CreateNewFileError title="Crear un fichièr novèl" message="Impossible de crear lo fichièr &quot;$INT_REPLACE$&quot;."/>
 			<OpenFileError title="ERROR" message="Impossible de dobrir lo fichièr &quot;$INT_REPLACE$&quot;."/>
@@ -1103,8 +1103,8 @@ Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 			<word-chars-list-tab-warning value="$INT_REPLACE$ tabulacion(s)"/>
 			<word-chars-list-warning-end value="  dins la vòstra tièra de caractèrs."/>
 			<cloud-invalid-warning value="Camin invalid."/>
-			<cloud-restart-warning value="Mercés de tornar lançar Notepad++ per que siá efectiu."/>
-			<cloud-select-folder value="Seleccionar un dorsièr d'ont Notepad++ escriu/legís sos paramètres"/>
+			<cloud-restart-warning value="Mercés de tornar lançar npminmin per que siá efectiu."/>
+			<cloud-select-folder value="Seleccionar un dorsièr d'ont npminmin escriu/legís sos paramètres"/>
 			<shift-change-direction-tip value="Utilizar Maj. + Entradaper cercar dins l'autre sens"/>
 			<two-find-buttons-tip value="2 mòdes de boton Cercar"/>
 

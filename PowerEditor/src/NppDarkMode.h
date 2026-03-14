@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (c) 2021 adzm / Adam D. Walling
 
 // This program is free software: you can redistribute it and/or modify

@@ -11,7 +11,7 @@
 		<!-- ======================================================== [ VHDL ] -->
 		<!--
 		|   Derived from :
-		|       https://community.notepad-plus-plus.org/topic/11554/function-list-for-vhdl
+		|       https://community.github.com/ridermw/np-minus-minus/topic/11554/function-list-for-vhdl
 		\-->
 		<parser
 			displayName="VHDL"

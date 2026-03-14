@@ -1,7 +1,7 @@
 //Adapted from http://www.codeproject.com/KB/debug/postmortemdebug_standalone1.aspx#_Reading_a_Minidump_with%20Visual%20Stud
 //Modified for use by Npp
 
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -21,7 +21,7 @@
 #include <shlwapi.h>
 #include "MiniDumper.h"
 
-LPCTSTR msgTitle = L"Notepad++ crash analysis";
+LPCTSTR msgTitle = L"npminmin crash analysis";
 
 MiniDumper::MiniDumper()
 {
@@ -46,7 +46,7 @@ bool MiniDumper::writeDump(EXCEPTION_POINTERS * pExceptionInfo)
 			wcscat_s(szDumpPath, L"\\NppDump.dmp");
 
 			// ask the user if they want to save a dump file
-			int msgret = ::MessageBox(NULL, L"Do you want to save a dump file?\r\nDoing so can aid in developing Notepad++.", msgTitle, MB_YESNO);
+			int msgret = ::MessageBox(NULL, L"Do you want to save a dump file?\r\nDoing so can aid in developing npminmin.", msgTitle, MB_YESNO);
 			if (msgret == IDYES)
 			{
 				// create the file

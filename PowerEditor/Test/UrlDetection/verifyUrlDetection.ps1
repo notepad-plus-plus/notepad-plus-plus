@@ -17,7 +17,7 @@ try {
 	Copy-Item -Path .\plugins -Destination $binDir -Recurse
 
 	"Testing ..."
-	Invoke-Expression ($binDir + "\notepad++.exe | Out-Null")
+	Invoke-Expression ($binDir + "\npminmin.exe | Out-Null")
 
 	if (Test-Path -Path $pluginsSaveDir -PathType Container)
 	{

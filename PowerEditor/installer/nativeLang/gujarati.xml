@@ -253,13 +253,13 @@
 					<Item id="46001" name="સ્ટાઈલ કોન્ફીગ્યુરેટર..."/>
 					<Item id="46250" name="તમારી ભાષા વ્યાખ્યાયિત કરો..."/>
 					<Item id="46180" name="વપરાશકર્તા વ્યાખ્યાયિત(User Defined)"/>
-					<Item id="47000" name="Notepad++ વિષે..."/>
-					<Item id="47001" name="Notepad++ હોમ"/>
-					<Item id="47002" name="Notepad++ પ્રોજેક્ટ પેજ"/>
+					<Item id="47000" name="npminmin વિષે..."/>
+					<Item id="47001" name="npminmin હોમ"/>
+					<Item id="47002" name="npminmin પ્રોજેક્ટ પેજ"/>
 					<Item id="47003" name="ઓનલાઈન ડોક્યુંમેન્ટેશન"/>
 					<Item id="47004" name="ફોરમ"/>
 					<Item id="47005" name="વધુ પ્લગીન્સ મેળવો"/>
-					<Item id="47006" name="અપડેટ Notepad++"/>
+					<Item id="47006" name="અપડેટ npminmin"/>
 					<Item id="47008" name="મદદ માટે ની વિગતો "/>
 					<Item id="47009" name="અપ્દેટર પ્રોક્ષી સેટ કરો..."/>
 					<Item id="48005" name="આયાત (ઈમ્પોર્ટ) પ્લગીન્સ ..."/>
@@ -734,10 +734,10 @@
 
 				<MultiInstance title="Multi-Instance">
 					<Item id="6151" name="મલ્ટી-ઇન્સ્તંસ સેટિંગ્સ"/>
-					<Item id="6152" name="સેશન ખોલો નવા Notepad++ ના ઇન્સ્તંસ માં "/>
+					<Item id="6152" name="સેશન ખોલો નવા npminmin ના ઇન્સ્તંસ માં "/>
 					<Item id="6153" name="હંમેશા મલ્ટી-ઇન્સ્તંસ મોડ માં"/>
 					<Item id="6154" name="ડીફોલ્ટ(મોનો-ઇન્સ્તંસ)"/>
-					<Item id="6155" name="* આ સેટિંગ બદલો તો Notepad++ ફરી ચાલુ કરવું પડશે"/>
+					<Item id="6155" name="* આ સેટિંગ બદલો તો npminmin ફરી ચાલુ કરવું પડશે"/>
 				</MultiInstance>
 
 				<Delimiter title="Delimiter">
@@ -755,7 +755,7 @@
 					<Item id="6319" name="સક્રિય કરો"/>
 					<Item id="6320" name="અન્ડરલાઈન નઈ"/>
 					<Item id="6322" name="સેશન ફાઈલ નું ઈએક્ષટી.(ext.):"/>
-					<Item id="6323" name="Notepad++ નું ઓટો-અપ્દેટર સક્રિય કરો"/>
+					<Item id="6323" name="npminmin નું ઓટો-અપ્દેટર સક્રિય કરો"/>
 					<Item id="6324" name="ડોક્યુમેન્ટ સ્વિચર(Ctrl+ટેબ)"/>
 					<Item id="6326" name="સ્માર્ટ હાઇલાઇતિન્ગ સક્રિય કરો"/>
 					<Item id="6329" name="બંધબેસતા ટેગ હાઈલાઈટ કરો"/>
@@ -801,14 +801,14 @@
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
-			<NppHelpAbsentWarning title="File does not exist" message="\rdoesn't exist. Please download it on Notepad++ site."/>
+			<ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your npminmin popup context menu.\rYou have to restart your npminmin to take effect after modifying contextMenu.xml."/>
+			<NppHelpAbsentWarning title="File does not exist" message="\rdoesn't exist. Please download it on npminmin site."/>
 			<SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.\rAll the saved modifications cannot be undone.\r\rContinue?"/>
 			<LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.\rAll the saved modifications cannot be undone.\r\rContinue?"/>
-			<CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
-			<DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
+			<CannotMoveDoc title="Move to new npminmin Instance" message="Document is modified, save it then try again."/>
+			<DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in npminmin?"/>
 			<FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
-			<FileAlreadyOpenedInNpp title="" message="The file is already opened in Notepad++."/>
+			<FileAlreadyOpenedInNpp title="" message="The file is already opened in npminmin."/>
 			<DeleteFileFailed title="Delete File" message="Delete File failed"/>
 
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->

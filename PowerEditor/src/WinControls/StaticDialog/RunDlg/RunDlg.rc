@@ -1,5 +1,5 @@
 /*
-This file is part of Notepad++ project
+This file is part of npminmin project
 Copyright (C)2021 Don HO <don.h@free.fr>
 
 This program is free software: you can redistribute it and/or modify
@@ -49,8 +49,8 @@ BEGIN
         MENUITEM "NAME_&PART\tFile name without extension",           IDM_RUN_DLG_VARMENU_START + 3
         MENUITEM "E&XT_PART\tFile extension (with .)",                IDM_RUN_DLG_VARMENU_START + 4
         MENUITEM "CURRENT_&WORD\tSelected word or word under caret",  IDM_RUN_DLG_VARMENU_START + 5
-        MENUITEM "NPP_&DIRECTORY\tnotepad++.exe directory",           IDM_RUN_DLG_VARMENU_START + 6
-        MENUITEM "NPP_F&ULL_FILE_PATH\tFull path of notepad++.exe",   IDM_RUN_DLG_VARMENU_START + 7
+        MENUITEM "NPP_&DIRECTORY\tnpminmin.exe directory",           IDM_RUN_DLG_VARMENU_START + 6
+        MENUITEM "NPP_F&ULL_FILE_PATH\tFull path of npminmin.exe",   IDM_RUN_DLG_VARMENU_START + 7
         MENUITEM "CURRENT_&LINE\tLine number of caret",               IDM_RUN_DLG_VARMENU_START + 8
         MENUITEM "CURRENT_&COLUMN\tColumn number of caret",           IDM_RUN_DLG_VARMENU_START + 9
         MENUITEM "CURRENT_LINE&STR\tCurrent line text",               IDM_RUN_DLG_VARMENU_START + 10

@@ -10,7 +10,7 @@
 <NotepadPlus>
 	<!--
 	If "RTL" attribute is present and its value is "yes", then user can add "editZoneRTL" attribute beside,
-	and set the value of the attribute in question to "no", so Notepad++ GUI will be RTL,
+	and set the value of the attribute in question to "no", so npminmin GUI will be RTL,
 	but Scintilla zone will be LTR by opening files (see the commented example).
 	Of course, user can set any direction they want afterward, and what they have set on document will be remembered across the sessions.
 	-->
@@ -296,15 +296,15 @@
 					<Item id="46001" name="مكون النمط..."/>
 					<Item id="46250" name="تعريف لغتك..."/>
 					<Item id="46180" name="معرف من قبل المستخدم"/>
-					<Item id="47000" name="عن Notepad++"/>
+					<Item id="47000" name="عن npminmin"/>
 					<Item id="47010" name="متغيرات سطر الأوامر..."/>
-					<Item id="47001" name="الصفحة الرئيسية Notepad++"/>
-					<Item id="47002" name="صفحة المشروع Notepad++"/>
+					<Item id="47001" name="الصفحة الرئيسية npminmin"/>
+					<Item id="47002" name="صفحة المشروع npminmin"/>
 					<Item id="47003" name="المستندات على الإنترنت"/>
-					<Item id="47004" name="مجتمع Notepad++ (المنتدى)"/>
+					<Item id="47004" name="مجتمع npminmin (المنتدى)"/>
 					<Item id="47012" name="معلومات تصحيح الأخطاء..."/>
 					<Item id="47005" name="الحصول على المزيد من الإضافات"/>
-					<Item id="47006" name="تحديث Notepad++"/>
+					<Item id="47006" name="تحديث npminmin"/>
 					<Item id="47009" name="تعيين Proxy للتحديث..."/>
 					<Item id="48005" name="استيراد الإضافات..."/>
 					<Item id="48006" name="استيراد نمط الموضوعات..."/>
@@ -885,10 +885,10 @@
 
 				<MultiInstance title="المثيل المتعدد">
 					<Item id="6151" name="إعدادات المثيل المتعدد"/>
-					<Item id="6152" name="فتح الجلسة في مثيل جديد من Notepad++"/>
+					<Item id="6152" name="فتح الجلسة في مثيل جديد من npminmin"/>
 					<Item id="6153" name="دائماً في وضع المثيل المتعدد"/>
 					<Item id="6154" name="الافتراضي (أحادي المثيل)"/>
-					<Item id="6155" name="* تعديل هذا الإعداد يحتاج إلى إعادة تشغيل Notepad++"/>
+					<Item id="6155" name="* تعديل هذا الإعداد يحتاج إلى إعادة تشغيل npminmin"/>
 				</MultiInstance>
 
 				<Delimiter title="المحدد">
@@ -931,7 +931,7 @@
 					<Item id="6319" name="تفعيل"/>
 					<Item id="6320" name="بدون تسطير"/>
 					<Item id="6322" name="امتداد ملف الجلسة:"/>
-					<Item id="6323" name="تفعيل تحديث Notepad++ بشكل تلقائي"/>
+					<Item id="6323" name="تفعيل تحديث npminmin بشكل تلقائي"/>
 					<Item id="6324" name="مبدل المستندات (Ctrl + TAB)"/>
 					<Item id="6331" name="إظهار اسم الملف فقط في شريط العنوان"/>
 					<Item id="6334" name="كشف ترميز الأحرف بشكل تلقائي"/>
@@ -996,14 +996,14 @@
 			</DoSaveOrNot>
 		</Dialog>
 		<MessageBox><!-- $INT_REPLACE$ is a place holder, don't translate it -->
-			<ContextMenuXmlEditWarning title="تحرير القائمة المنبثقة" message="إن تحرير contextMenu.xml يسمح لك بتعديل قائمة السياق المنبثقة لـ Notepad++.&#xA; يجب عليك إعادة تشغيل Notepad++ ليتم تطبيق التعديلات التي قمت بها على contextMenu.xml."/>
-			<NppHelpAbsentWarning title="الملف غير موجود" message="&#xA;غير موجود. الرجاء تنزيله من على موقع Notepad++."/>
+			<ContextMenuXmlEditWarning title="تحرير القائمة المنبثقة" message="إن تحرير contextMenu.xml يسمح لك بتعديل قائمة السياق المنبثقة لـ npminmin.&#xA; يجب عليك إعادة تشغيل npminmin ليتم تطبيق التعديلات التي قمت بها على contextMenu.xml."/>
+			<NppHelpAbsentWarning title="الملف غير موجود" message="&#xA;غير موجود. الرجاء تنزيله من على موقع npminmin."/>
 			<SaveCurrentModifWarning title="حفظ التعديلات الحالية" message="يجب عليك حفظ التعديلات الحالية.&#xA;كل التعديلات التي سوف يتم حفظها لا يمكن التراجع عنها.&#xA;متابعة؟"/>
 			<LoseUndoAbilityWarning title="تحذير من فقد القدرة على التراجع" message="يجب عليك حفظ التعديلات الحالية.&#xA;كل التعديلات التي سوف يتم حفظها لا يمكن التراجع عنها.&#xA;&#xA;متابعة؟"/>
-			<CannotMoveDoc title="نقل إلى مثيل Notepad++ جديد" message="المستند تم تعديله، قم بحفظه ثم حاول مرة آخرى."/>
-			<DocReloadWarning title="إعادة تحميل" message="هل تريد بالتأكيد إعادة تحميل الملف الحالي وفقد كل التعديلات التي عملها داخل Notepad++؟"/>
+			<CannotMoveDoc title="نقل إلى مثيل npminmin جديد" message="المستند تم تعديله، قم بحفظه ثم حاول مرة آخرى."/>
+			<DocReloadWarning title="إعادة تحميل" message="هل تريد بالتأكيد إعادة تحميل الملف الحالي وفقد كل التعديلات التي عملها داخل npminmin؟"/>
 			<FileLockedWarning title="فشل الحفظ" message="الرجاء التحقق من أن هذا الملف مفتوح في برنامج أخر"/>
-			<FileAlreadyOpenedInNpp title="" message="هذا الملف مفتوح بالفعل في Notepad++."/>
+			<FileAlreadyOpenedInNpp title="" message="هذا الملف مفتوح بالفعل في npminmin."/>
 			<DeleteFileFailed title="حذف الملف" message="فشل حذف الملف"/>
 
 			<NbFileToOpenImportantWarning title="عدد الملفات المطلوب فتحها كبير جداً" message="$INT_REPLACE$ ملفات سوف يتم فتحها.&#xA;هل أنت متأكد أنك تريد فتحها؟"/>
@@ -1018,12 +1018,12 @@
 			<DoDeleteOrNot title="حذف الملف" message="هذا الملف &quot;$STR_REPLACE$&quot;&#xA;سوف يتم نقله إلى سلة المهملات وسوف يتم إغلاق المستند الحالي.&#xA;متابعة؟"/>
 			<NoBackupDoSaveFile title="حفظ" message="لا يمكن العثور على ملف النسخ الاحتياطي الخاص بك (تم حذفه من الخارج).&#xA;قم بحفظه وإلا سيتم فقدان البيانات الخاصة بك&#xA;هل تريد حفظ الملف &quot;$STR_REPLACE$&quot;؟"/>
 			<DoReloadOrNot title="إعادة تحميل" message="&quot;$STR_REPLACE$&quot;&#xA;&#xA;تم تعديل هذا الملف بواسطة برنامج آخر.&#xA;هل تريد إعادة تحميله؟"/>
-			<DoReloadOrNotAndLooseChange title="إعادة تحميل" message="&quot;$STR_REPLACE$&quot;&#xA;&#xA;تم تعديل هذا الملف بواسطة برنامج آخر&#xA;هل تريد إعادة تحميله وفقدان التعديلات التي قمت بها في Notepad++؟"/>
+			<DoReloadOrNotAndLooseChange title="إعادة تحميل" message="&quot;$STR_REPLACE$&quot;&#xA;&#xA;تم تعديل هذا الملف بواسطة برنامج آخر&#xA;هل تريد إعادة تحميله وفقدان التعديلات التي قمت بها في npminmin؟"/>
 			<PrehistoricSystemDetected title="تم اكتشاف نظام ما قبل التاريخ" message="يبدو أنك لا تزال تستخدم نظام ما قبل التاريخ. هذه الميزة تعمل فقط على نظام حديث، آسف."/>
-			<XpUpdaterProblem title="محدث Notepad++" message="محدث Notepad++ غير متوافق مع XP بسبب طبقة أمان عفا عليها الزمن ضمن XP.&#xA;هل تريد أن تذهب إلى صفحة Notepad++ لتحميل أحدث إصدار؟"/>
+			<XpUpdaterProblem title="محدث npminmin" message="محدث npminmin غير متوافق مع XP بسبب طبقة أمان عفا عليها الزمن ضمن XP.&#xA;هل تريد أن تذهب إلى صفحة npminmin لتحميل أحدث إصدار؟"/>
 			<DocTooDirtyToMonitor title="مشكلة في المراقبة" message="الوثيقة متسخة. الرجاء حفظ التعديل قبل مراقبتها."/>
 			<DocNoExistToMonitor title="مشكلة في المراقبة" message="يجب أن يكون الملف موجوداً ليتم مراقبته."/>
-			<FileTooBigToOpen title="مشكلة في حجم الملف" message="الملف كبير جداً ليتم فتحه بواسطة Notepad++"/>
+			<FileTooBigToOpen title="مشكلة في حجم الملف" message="الملف كبير جداً ليتم فتحه بواسطة npminmin"/>
 			<CreateNewFileOrNot title="إنشاء ملف جديد" message="&quot;$STR_REPLACE$&quot; غير موجود. القيام بإنشائه؟"/>
 			<CreateNewFileError title="إنشاء ملف جديد" message="لا يمكن إنشاء الملف &quot;$STR_REPLACE$&quot;."/>
 			<OpenFileError title="خطأ" message="لا يمكن فتح الملف &quot;$STR_REPLACE$&quot;."/>
@@ -1046,12 +1046,12 @@
 			<UDLRemoveCurrentLang title="إزالة اللغة الحالية" message="هل أنت متأكد؟"/>
 			<SCMapperDoDeleteOrNot title="هل أنت متأكد؟" message="هل بالتأكيد تريد حذف هذا الاختصار؟"/>
 			<FindCharRangeValueError title="مشكلة في قيمة النطاق" message="يجب أن تكتب بين 0 و 255."/>
-			<OpenInAdminMode title="فشل الحفظ" message="لا يمكن حفظ الملف وقد يكون محمياً.&#xA;هل تريد تشغيل Notepad++ في وضع المسؤول؟"/>
-			<OpenInAdminModeWithoutCloseCurrent title="فشل الحفظ" message="لا يمكن حفظ الملف وقد يكون محمياً.&#xA;هل تريد تشغيل Notepad++ في وضع المسؤول؟"/>
-			<OpenInAdminModeFailed title="فشل الفتح في وضع المسؤول." message="لا يمكن فتح Notepad++ في وضع المسؤول."/>
+			<OpenInAdminMode title="فشل الحفظ" message="لا يمكن حفظ الملف وقد يكون محمياً.&#xA;هل تريد تشغيل npminmin في وضع المسؤول؟"/>
+			<OpenInAdminModeWithoutCloseCurrent title="فشل الحفظ" message="لا يمكن حفظ الملف وقد يكون محمياً.&#xA;هل تريد تشغيل npminmin في وضع المسؤول؟"/>
+			<OpenInAdminModeFailed title="فشل الفتح في وضع المسؤول." message="لا يمكن فتح npminmin في وضع المسؤول."/>
 			<ViewInBrowser title="عرض الملف الحالي في المتصفح" message="لا يمكن العثور على التطبيق في نظامك."/>
-			<ExitToUpdatePlugins title="Notepad++ على وشك الخروج" message="إذا قمت بالضغط على نعم، ستقوم بمغادرة Notepad ++ لمتابعة العمليات.&#xA;سيتم إعادة تشغيل Notepad ++ بعد إنهاء جميع العمليات.&#xA;متابعة؟"/>
-			<NeedToRestartToLoadPlugins title="Notepad++ يحتاج لإعادة تشغيل" message="يجب عليك إعادة تشغيل Notepad++ لتحميل الإضافات التي قمت بتثبيتها."/>
+			<ExitToUpdatePlugins title="npminmin على وشك الخروج" message="إذا قمت بالضغط على نعم، ستقوم بمغادرة Notepad ++ لمتابعة العمليات.&#xA;سيتم إعادة تشغيل Notepad ++ بعد إنهاء جميع العمليات.&#xA;متابعة؟"/>
+			<NeedToRestartToLoadPlugins title="npminmin يحتاج لإعادة تشغيل" message="يجب عليك إعادة تشغيل npminmin لتحميل الإضافات التي قمت بتثبيتها."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="سجل الذاكرة"/>
@@ -1152,8 +1152,8 @@
 			<word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
 			<word-chars-list-warning-end value="  في قائمة الأحرف الخاصة بك."/>
 			<cloud-invalid-warning value="مسار غير صالح."/>
-			<cloud-restart-warning value="الرجاء إعادة تشغيل Notepad++ لتطبيق التغييرات."/>
-			<cloud-select-folder value="حدد المجلد من/إلى حيث Notepad++ يقرأ/يكتب إعداداته"/>
+			<cloud-restart-warning value="الرجاء إعادة تشغيل npminmin لتطبيق التغييرات."/>
+			<cloud-select-folder value="حدد المجلد من/إلى حيث npminmin يقرأ/يكتب إعداداته"/>
 			<shift-change-direction-tip value="استخدم Shift + Enter للبحث في الاتجاه المعاكس."/>
 			<two-find-buttons-tip value="وضع 2 أزرار بحث"/>
 			<find-status-top-reached value="البحث: تم العثور على أول تكرار من أسفل. تم الوصل إلى بداية المستند."/>

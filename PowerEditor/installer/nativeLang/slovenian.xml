@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-        Slovenian localization for Notepad++ v8.6.5
+        Slovenian localization for npminmin v8.6.5
         Last modified 02. Apr 2024 by dr. Vinko Kastelic
 		
 -->
@@ -356,17 +356,17 @@
 					<Item id="46001" name="Nastavljanje sloga..."/>
 					<Item id="46250" name="Določite svoj jezik..."/>
 					<Item id="46300" name="Odpri mapo Uporabniško določen jezik..."/>
-					<Item id="46301" name="Notepad++ Zbirka uporabniško določenih jezikov"/>
+					<Item id="46301" name="npminmin Zbirka uporabniško določenih jezikov"/>
 					<Item id="46180" name="Uporabniško določeno"/>
-					<Item id="47000" name="Vizitka Notepad++"/>
+					<Item id="47000" name="Vizitka npminmin"/>
 					<Item id="47010" name="Argumenti ukazne vrstice..."/>
-					<Item id="47001" name="Domača stran Notepad++"/>
-					<Item id="47002" name="Stran projekta Notepad++"/>
-					<Item id="47003" name="Notepad++ Spletni uporabniški priročnik"/>
-					<Item id="47004" name="Notepad++ Skupnost (Forum)"/>
+					<Item id="47001" name="Domača stran npminmin"/>
+					<Item id="47002" name="Stran projekta npminmin"/>
+					<Item id="47003" name="npminmin Spletni uporabniški priročnik"/>
+					<Item id="47004" name="npminmin Skupnost (Forum)"/>
 					<Item id="47012" name="Info o razhroščevanju..."/>
 					<Item id="47005" name="Dodatni vtičniki"/>
-					<Item id="47006" name="Posodobi Notepad++"/>
+					<Item id="47006" name="Posodobi npminmin"/>
 					<Item id="47009" name="Nastavite Updater Proxy..."/>
 					<Item id="48005" name="Uvozi vtičnik(e)..."/>
 					<Item id="48006" name="Uvoz tem(e) sloga..."/>
@@ -961,7 +961,7 @@
 					
 					<Item id="6131" name="Meni"/>
 					<Item id="6122" name="Skrij menijsko vrstico (uporabite tipko Alt ali F10 za preklop)"/>
-					<Item id="6132" name="Skrij desne bližnjice ＋ ▼ ✕ v menijski vrstici (potrebno je znova zagnati Notepad++)"/>
+					<Item id="6132" name="Skrij desne bližnjice ＋ ▼ ✕ v menijski vrstici (potrebno je znova zagnati npminmin)"/>
 
 					<Item id="6123" name="Lokalizacija"/>
 				</Global>
@@ -1085,7 +1085,7 @@
 				</DefaultDir>
 				
 				<FileAssoc title="Povezave datotek">
-					<Item id="4008" name="Za uporabo te funkcije zapustite Notepad++ in znova zaženite Notepad++ v skrbniškem načinu."/>
+					<Item id="4008" name="Za uporabo te funkcije zapustite npminmin in znova zaženite npminmin v skrbniškem načinu."/>
 					<Item id="4009" name="Podprte pripone:"/>
 					<Item id="4010" name="Registrirane pripone:"/>
 				</FileAssoc>
@@ -1159,7 +1159,7 @@
 				</Print>
 				
 				<Searching title="Iskanje">
-					<Item id="6902" name="V pogovornem oknu za iskanje uporabite monospace pisave (zahteva ponovni zagon Notepad++)"/>
+					<Item id="6902" name="V pogovornem oknu za iskanje uporabite monospace pisave (zahteva ponovni zagon npminmin)"/>
 					<Item id="6903" name="Pogovorno okno za iskanje ostane odprto po iskanju, ki se prikaže v oknu z rezultati"/>
 					<Item id="6904" name="Potrdite Zamenjaj vse v vseh odprtih dokumentih"/>
 					<Item id="6905" name="Zamenjaj: Ne premakni se na naslednji pojav"/>
@@ -1225,7 +1225,7 @@
 					<Item id="6152" name="Odpri sejo v novem primerku (in samodejno shrani sejo ob izhodu)"/>
 					<Item id="6153" name="Vedno v načinu večpojavnosti"/>
 					<Item id="6154" name="Privzeto (enopojavnost)"/>
-					<Item id="6155" name="* Sprememba te nastavitve zahteva ponovni zagon Notepad++"/>
+					<Item id="6155" name="* Sprememba te nastavitve zahteva ponovni zagon npminmin"/>
 					<Item id="6171" name="Prilagodi datum in čas vstavitve"/>
 					<Item id="6175" name="Obrni privzeti vrstni red datuma in časa (kratki &amp;&amp; dolgi formati)"/>
 					<Item id="6172" name="Format po meri:"/>
@@ -1379,8 +1379,8 @@ To pogovorno okno lahko pozneje znova aktivirate v nastavitvah."/>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
-			<ContextMenuXmlEditWarning title="Urejanje Kontekstnega menija" message="Urejanje contextMenu.xml vam omogoča, da spremenite Notepad++ pojavni kontekstni meni.
-Za uveljavitev sprememb v contextMenu.xml morate znova zagnati Notepad++."/>
+			<ContextMenuXmlEditWarning title="Urejanje Kontekstnega menija" message="Urejanje contextMenu.xml vam omogoča, da spremenite npminmin pojavni kontekstni meni.
+Za uveljavitev sprememb v contextMenu.xml morate znova zagnati npminmin."/>
 			<SaveCurrentModifWarning title="Shrani trenutno spremembo" message="Morate shraniti trenutno spremembo.
 Vse shranjene spremembe ni mogoče razveljaviti.
 
@@ -1389,16 +1389,16 @@ Nadaljujem?"/><!-- HowToReproduce: when you openned file is modified but unsaved
 Vse shranjene spremembe ni mogoče razveljaviti.
 
 Nadaljujem?"/><!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
-			<CannotMoveDoc title="Premakni v novo Notepad++ pojavitev" message="Dokument je spremenjen.Shranite ga nato poskusite znova."/><!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
-			<DocReloadWarning title="Osveži" message="Ali ste prepričani, da želite znova naložiti trenutno datoteko in izgubiti spremembe v Notepad++?"/>
+			<CannotMoveDoc title="Premakni v novo npminmin pojavitev" message="Dokument je spremenjen.Shranite ga nato poskusite znova."/><!-- HowToReproduce: From your npminmin drag & drop a clean (not dirty) file to outside of npminmin, another instance of npminmin will be created. Then from your first npminmin drag & drop an unsaved file to the new instance. -->
+			<DocReloadWarning title="Osveži" message="Ali ste prepričani, da želite znova naložiti trenutno datoteko in izgubiti spremembe v npminmin?"/>
 			<FileLockedWarning title="Shranjevanje ni uspelo" message="Prosimo, preverite, ali je ta datoteka odprta v drugem programu"/>
-			<FileAlreadyOpenedInNpp title="" message="Datoteka je že odprta v Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
+			<FileAlreadyOpenedInNpp title="" message="Datoteka je že odprta v npminmin."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
 			<RenameTabTemporaryNameAlreadyInUse title="Preimenovanje ni uspelo" message="Navedeno ime je že uporabljeno za drugi zavihek."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
 			<RenameTabTemporaryNameIsEmpty title="Preimenovanje ni uspelo" message="Podano ime ne sme biti prazno ali ne sme vsebovati samo presledkov ali TAB(ov)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->			
 			<DeleteFileFailed title="Brisanje datoteke" message="Brisanje datoteke ni uspelo"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="Število datotek za odpiranje je preveliko" message="$INT_REPLACE$ datoteke so na tem, da se odprejo.
-Ali ste prepričani, da jih želite odpreti?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
+Ali ste prepričani, da jih želite odpreti?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into npminmin. -->
 			<SettingsOnCloudError title="Nastavitve v oblak" message="Zdi se, da je pot nastavitev v oblaku nastavljena samo na bralnje,
 ali na mapo ki zahteva posebno pooblastilo za pisanje.
 Vaše nastavitve za oblak bodo preklicane. Ponastavite skladno vrednosti preko pogovornega okna Nastavitve."/>
@@ -1435,14 +1435,14 @@ Jo želite znova naložiti?"/>
 			<DoReloadOrNotAndLooseChange title="Ponovno naloži" message="&quot;$STR_REPLACE$&quot;
 
 To datoteko je spremenil drug program.
-Ali jo želite znova naložiti in izgubiti spremembe v Notepad++?"/>
+Ali jo želite znova naložiti in izgubiti spremembe v npminmin?"/>
 			<PrehistoricSystemDetected title="Zaznan prazgodovinski sistem" message="Zdi se, da še vedno uporabljate prazgodovinski sistem. Ta funkcija deluje le na sodobnem sistemu, žal."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
-			<XpUpdaterProblem title="Notepad++ Updater" message="Notepad++ Updater ni združljiv s XP zaradi zastarelega varnostne plasti pod XP.
-Ali želite prenesti najnovejšo različico z Notepad++ strani?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Proxy nastavitve" message="Za nastavitev proxyja znova zaženite Notepad++ v skrbniškem načinu."/>
+			<XpUpdaterProblem title="npminmin Updater" message="npminmin Updater ni združljiv s XP zaradi zastarelega varnostne plasti pod XP.
+Ali želite prenesti najnovejšo različico z npminmin strani?"/><!-- HowToReproduce: Run menu "? -> Update npminmin" under Windows XP. -->
+			<GUpProxyConfNeedAdminMode title="Proxy nastavitve" message="Za nastavitev proxyja znova zaženite npminmin v skrbniškem načinu."/>
 			<DocTooDirtyToMonitor title="Težava spremljanja" message="Dokument je onesnažen. Pred spremljanjem shranite spremembo."/>
 			<DocNoExistToMonitor title="Težava spremljanja" message="Datoteka mora obstajati za spremljanje."/>
-			<FileTooBigToOpen title="Težava s velikostjo datoteke" message="Datoteka je prevelika za odpiranje v Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+			<FileTooBigToOpen title="Težava s velikostjo datoteke" message="Datoteka je prevelika za odpiranje v npminmin"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
 			<FileLoadingException title="Koda izjeme: $STR_REPLACE$" message="Pri nalaganju datoteke je prišlo do napake!"/>
 			<WantToOpenHugeFile title="Opozorilo pri odpiranju velike datoteke" message="Odpiranje velike datoteke velikosti 2 GB+ lahko traja nekaj minut.
 Ali jo želite odpreti?"/>
@@ -1456,8 +1456,8 @@ Mapa &quot;$STR_REPLACE2$&quot; ne obstaja."/>
 Želite shraniti trenutno datoteko?"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<LoadStylersFailed title="Nalaganje stylers.xml ni uspelo" message="Nalaganje &quot;$STR_REPLACE$&quot; ni uspelo!"/>
 			<LoadLangsFailed title="Konfigurator" message="Nalaganje langs.xml ni uspelo!
-Želite obnoviti svoj langs.xml?"/><!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
-			<LoadLangsFailedFinal title="Konfigurator" message="Nalaganje langs.xml ni uspelo!"/><!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
+Želite obnoviti svoj langs.xml?"/><!-- HowToReproduce: Close npminmin. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open npminmin. -->
+			<LoadLangsFailedFinal title="Konfigurator" message="Nalaganje langs.xml ni uspelo!"/><!-- HowToReproduce: Close npminmin. Use another editor to make "langs.xml" an invalid xml file then save it. Open npminmin. -->
 			<FolderAsWorspaceSubfolderExists title="Mapa kot problem dodajanja delovnega prostora" message="Podmapa mape, ki jo želite dodati, že obstaja.
 Odstranite ta koren iz panela, preden dodate mapo &quot;$STR_REPLACE$&quot;."/><!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
@@ -1480,26 +1480,26 @@ izberite katerokoli drugo."/>
 			<SCMapperDoDeleteOrNot title="Ste prepričani?" message="Ali ste prepričani, da želite izbrisati to bližnjico?"/>
 			<FindCharRangeValueError title="Težava z vrednostjo območja" message="Vnesite med 0 in 255."/>
 			<OpenInAdminMode title="Shranjevanje ni uspelo" message="Datoteke ni mogoče shraniti in je morda zaščititi.
-Želite zagnati Notepad++ v skrbniškem načinu?"/>
+Želite zagnati npminmin v skrbniškem načinu?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Shranjevanje ni uspelo" message="Datoteke ni mogoče shraniti in je morda zaščititi.
-Želite zagnati Notepad++ v skrbniškem načinu?"/>
-			<OpenInAdminModeFailed title="Odpiranje v skrbniškem načinu ni uspelo" message="Notepad++ ni mogoče odpreti v skrbniškem načinu."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
+Želite zagnati npminmin v skrbniškem načinu?"/>
+			<OpenInAdminModeFailed title="Odpiranje v skrbniškem načinu ni uspelo" message="npminmin ni mogoče odpreti v skrbniškem načinu."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
 			<ViewInBrowser title="Ogled trenutne datoteke v brskalniku" message="Aplikacije ni mogoče najti v vašem sistemu."/>
-			<ExitToUpdatePlugins title="Notepad++ se bo kmalu končal" message="Če kliknete DA, zapustite Notepad++ in nadaljujete z operacijami.
-Po zaključku vseh operacij se bo Notepad++ znova zagnal.
+			<ExitToUpdatePlugins title="npminmin se bo kmalu končal" message="Če kliknete DA, zapustite npminmin in nadaljujete z operacijami.
+Po zaključku vseh operacij se bo npminmin znova zagnal.
 Nadaljujem?"/>
-			<NeedToRestartToLoadPlugins title="Notepad++ je treba znova zagnati" message="Če želite naložiti vtičnike, morate znova zagnati Notepad++."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
-			<ChangeHistoryEnabledWarning title="Notepad++ je treba znova zagnati" message="Če želite omogočiti zgodovino sprememb, morate znova zagnati Notepad++."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
-			<WindowsSessionExit title="Notepad++ - izhod iz seje sistema Windows" message="Seja sistema Windows bo kmalu prekinjena, vendar pa imate še nekaj neshranjenih podatkov. Ali želite zapustiti Notepad++ zdaj?"/>
+			<NeedToRestartToLoadPlugins title="npminmin je treba znova zagnati" message="Če želite naložiti vtičnike, morate znova zagnati npminmin."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+			<ChangeHistoryEnabledWarning title="npminmin je treba znova zagnati" message="Če želite omogočiti zgodovino sprememb, morate znova zagnati npminmin."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+			<WindowsSessionExit title="npminmin - izhod iz seje sistema Windows" message="Seja sistema Windows bo kmalu prekinjena, vendar pa imate še nekaj neshranjenih podatkov. Ali želite zapustiti npminmin zdaj?"/>
 			<LanguageMenuCompactWarning title="Kompakten jezikovni meni" message="Ta možnost bo spremenjena ob naslednjem zagonu."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Neshranjene spremembe bodo kmalu zavržene!
 Ali želite shraniti spremembe, preden zamenjate temo?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Združljivost ukazov za makre in zagon" message="Vaši ukazi za makre in zagon, shranjeni v Notepad++ v.8.5.2 (ali starejši), morda niso združljivi s trenutno različico Notepad++.
+			<MacroAndRunCmdlWarning title="Združljivost ukazov za makre in zagon" message="Vaši ukazi za makre in zagon, shranjeni v npminmin v.8.5.2 (ali starejši), morda niso združljivi s trenutno različico npminmin.
 Preizkusite te ukaze in jih po potrebi ponovno uredite.
 
-Lahko pa preidete na Notepad++ v8.5.2 in obnovite prejšnje podatke.
-Notepad++ bo varnostno kopiral vaše stare &quot;shortcuts.xml&quot; in ga shranite kot &quot;shortcuts.xml.v8.5.2.backup&quot;.
-Preimenovanje &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, vaši ukazi morajo biti obnovljeni in pravilno delovati."/><!-- HowToReproduce: Zaprite Notepad++, odstranite shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml, če je prisoten, znova zaženite Notepad++, izbrišite ali spremenite bližnjice prek Shortcut Mapper, zaprite Notepad++, nato se prikaže sporočilo -->
+Lahko pa preidete na npminmin v8.5.2 in obnovite prejšnje podatke.
+npminmin bo varnostno kopiral vaše stare &quot;shortcuts.xml&quot; in ga shranite kot &quot;shortcuts.xml.v8.5.2.backup&quot;.
+Preimenovanje &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, vaši ukazi morajo biti obnovljeni in pravilno delovati."/><!-- HowToReproduce: Zaprite npminmin, odstranite shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml, če je prisoten, znova zaženite npminmin, izbrišite ali spremenite bližnjice prek Shortcut Mapper, zaprite npminmin, nato se prikaže sporočilo -->
 			<NotEnoughRoom4Saving title="Shranjevanje ni uspelo" message="Datoteke ni bilo mogoče shraniti.
 Zdi se, da na disku ni dovolj prostora za shranjevanje datoteke. Vaša datoteka ni shranjena."/>
 			<FileInaccessibleUserSession title="Datoteka nedostopna" message="Nekatere datoteke iz vaše ročno shranjene seje &quot;$STR_REPLACE$&quot; so nedostopne. Lahko jih odprete kot prazne in samo za branje dokumente kot ogradne oznake.
@@ -1512,8 +1512,8 @@ OPOMBA: Če se odločite, da ne ustvarite ograd ali jih zaprete pozneje, vaša r
 Ali želite ustvariti te nadomestne oznake?
 
 OPOMBA: če se odločite, da ne ustvarite ograd ali jih zaprete pozneje, BO vaša seja OB IZHODU SPREMENJENA! Predlagamo, da varnostno kopirate svoj &quot;session.xml&quot; zdaj."/>
-			<RTLvsDirectWrite title="Ni mogoče zagnati RTL" message="RTL ni združljiv z načinom DirectWrite. Onemogočite način DirectWrite v MISC. razdelku pogovornega okna Preferences in znova zaženite Notepad++."/>		
-			<FileMemoryAllocationFailed title="Izjema: dodelitev pomnilnika datoteki ni uspela" message="Verjetno ni dovolj neprekinjenega prostega pomnilnika za datoteko, ki jo nalaga Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<RTLvsDirectWrite title="Ni mogoče zagnati RTL" message="RTL ni združljiv z načinom DirectWrite. Onemogočite način DirectWrite v MISC. razdelku pogovornega okna Preferences in znova zaženite npminmin."/>		
+			<FileMemoryAllocationFailed title="Izjema: dodelitev pomnilnika datoteki ni uspela" message="Verjetno ni dovolj neprekinjenega prostega pomnilnika za datoteko, ki jo nalaga npminmin."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 npminmin (it will depend on the PC memory configuration and the current system memory usage...). -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zgodovina odložišča"/>
@@ -1632,8 +1632,8 @@ OPOMBA: če se odločite, da ne ustvarite ograd ali jih zaprete pozneje, BO vaš
 			<word-chars-list-warning-end value="  na seznamu znakov."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
 			<backup-select-folder value="Izberite mapo kot imenik varnostne kopije"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value="Neveljavna pot."/>
-			<cloud-restart-warning value="Za uveljavitev ponovno zaženite Notepad++."/>
-			<cloud-select-folder value="Izberite mapo od/do, kjer Notepad++ bere/zapisuje svoje nastavitve"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+			<cloud-restart-warning value="Za uveljavitev ponovno zaženite npminmin."/>
+			<cloud-select-folder value="Izberite mapo od/do, kjer npminmin bere/zapisuje svoje nastavitve"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
 			<default-open-save-select-folder value="Izberite mapo kot privzeti imenik"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Uporabite Shift + Enter za iskanje v nasprotni smeri"/>
 			<two-find-buttons-tip value="2 gumba za iskanje"/>

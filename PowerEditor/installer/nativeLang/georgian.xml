@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	Georgian localization for Notepad++ 6.2.3
+	Georgian localization for npminmin 6.2.3
 	Translated By UGLT.
 	Contact Us: info@uglt.org
 -->
@@ -218,13 +218,13 @@
 
 					<Item id="46001" name="სტილის კონფიგურაცია..."/>
 					<Item id="46180" name="მომხმარებლის მიერ განსაზღვრული"/>
-					<Item id="47000" name="Notepad++-ის შესახებ..."/>
-					<Item id="47001" name="Notepad++-ის ვებ-გვერდი"/>
-					<Item id="47002" name="Notepad++-ის პროექტის გვერდი"/>
+					<Item id="47000" name="npminmin-ის შესახებ..."/>
+					<Item id="47001" name="npminmin-ის ვებ-გვერდი"/>
+					<Item id="47002" name="npminmin-ის პროექტის გვერდი"/>
 					<Item id="47003" name="ინტერნეტ-დოკუმენტაცია"/>
 					<Item id="47004" name="ფორუმი"/>
 					<Item id="47005" name="სხვა დანამატების გადმოწერა"/>
-					<Item id="47006" name="Notepad++-ის განახლება"/>
+					<Item id="47006" name="npminmin-ის განახლება"/>
 					<Item id="47008" name="დახმარება"/>
 					<Item id="48005" name="დანამატის იმპორტი..."/>
 					<Item id="48006" name="გაფორმების იმპორტი..."/>
@@ -554,7 +554,7 @@
 					<Item id="6319" name="ჩართვა"/>
 					<Item id="6320" name="ხაზგასმის გარეშე"/>
 					<Item id="6322" name="სესიის ფაილის გაფ.:"/>
-					<Item id="6323" name="Notepad++-ის ავტ.განახლების ჩართვა"/>
+					<Item id="6323" name="npminmin-ის ავტ.განახლების ჩართვა"/>
 					<Item id="6324" name="დოკუმენტის გადამრთველი (Ctrl+TAB)"/>
 					<Item id="6326" name="საზრიანი გამოკვეთის ჩართვა"/>
 					<Item id="6329" name="ერთნაირი ტეგების გამოკვეთა"/>
@@ -615,14 +615,14 @@
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="კონტექსტური მენიუს შეცვლა" message="ფაილის contextMenu.xml შეცვლა საშუალებას მოგცემთ შეცვალოთ Notepad++-ის კონტექსტური მენიუს პუნქტები.\rcontextMenu.xml-ის შეცვლის შემდეგ გადატვირთეთ Notepad++."/>
-			<NppHelpAbsentWarning title="ფაილი არ არსებობს" message="\rარ არსებობს. გადმოწერეთ იგი Notepad++-ის ვებ-გვერდიდან."/>
+			<ContextMenuXmlEditWarning title="კონტექსტური მენიუს შეცვლა" message="ფაილის contextMenu.xml შეცვლა საშუალებას მოგცემთ შეცვალოთ npminmin-ის კონტექსტური მენიუს პუნქტები.\rcontextMenu.xml-ის შეცვლის შემდეგ გადატვირთეთ npminmin."/>
+			<NppHelpAbsentWarning title="ფაილი არ არსებობს" message="\rარ არსებობს. გადმოწერეთ იგი npminmin-ის ვებ-გვერდიდან."/>
 			<SaveCurrentModifWarning title="მიმდინარე ცვლილების შენახვა" message="შეინახეთ მიმდინარე ცვლილება.\rშენახული ცვლილების გაუქმება შეუძლებელია.\r\rგსურთ გაგრძელება?"/>
 			<LoseUndoAbilityWarning title="გაუქმების შესაძლებლობის დაკარგვა" message="შეინახეთ მიმდინარე ცვლილება.\rენახული ცვლილების გაუქმება შეუძლებელია.\r\rგსურთ გაგრძელება?"/>
-			<CannotMoveDoc title="Notepad++-ის ახალ ინსტანციაში გადატანა" message="დოკუმენტი შეიცვალა. შეინახეთ და სცადეთ ხელახლა."/>
-			<DocReloadWarning title="განახლება" message="ნამდვილად გსურთ, მიმდინარე ფაილის განახლება და Notepad++-ით მოხდენილი ყველა ცვლილების გაუქმება?"/>
+			<CannotMoveDoc title="npminmin-ის ახალ ინსტანციაში გადატანა" message="დოკუმენტი შეიცვალა. შეინახეთ და სცადეთ ხელახლა."/>
+			<DocReloadWarning title="განახლება" message="ნამდვილად გსურთ, მიმდინარე ფაილის განახლება და npminmin-ით მოხდენილი ყველა ცვლილების გაუქმება?"/>
 			<FileLockedWarning title="შენახვა არ მოხერხდა" message="დარწმუნდით, რომ ეს ფაილი არ არის გახსნილი სხვა პროგრამაში"/>
-			<FileAlreadyOpenedInNpp title="" message="ფაილი უკვე გახსნილია Notepad++-შო."/>
+			<FileAlreadyOpenedInNpp title="" message="ფაილი უკვე გახსნილია npminmin-შო."/>
 			<DeleteFileFailed title="ფაილის წაშლა" message="ფაილის წაშლა არ მოხერხდა"/>
 
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->

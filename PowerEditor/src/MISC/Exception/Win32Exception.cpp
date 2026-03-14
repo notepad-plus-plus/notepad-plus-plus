@@ -2,9 +2,9 @@
 //http://www.thunderguy.com/semicolon/2002/08/15/visual-c-exception-handling/3/
 //(Visual C++ exception handling)
 //By Bennett
-//Formatting Slightly modified for Notepad++
+//Formatting Slightly modified for npminmin
 
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify

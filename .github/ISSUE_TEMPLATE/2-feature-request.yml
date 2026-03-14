@@ -1,5 +1,5 @@
 name: Feature request
-description: Suggest an idea for Notepad++
+description: Suggest an idea for npminmin
 title: "[Feature request] <title>"
 #labels: ["feature"]
 #type: feature
@@ -27,9 +27,9 @@ body:
   attributes:
     label: Debug Information
     description: |
-      In your Notepad++, click on the "?" menu (found to the right of "Window" in the menu bar).
+      In your npminmin, click on the "?" menu (found to the right of "Window" in the menu bar).
       In the menu that drops down, choose "Debug Info...".
-      A dialog will open detailing specifics about your Notepad++ version, plugins, etc.
+      A dialog will open detailing specifics about your npminmin version, plugins, etc.
       CLICK ON THE BUTTON "Copy debug info into clipboard".
       Do a PASTE HERE
     render: shell
@@ -41,12 +41,12 @@ body:
     description: |
       Links? References? Anything that will give us more context about the feature you want!
 
-      Notepad++ relies on the Lexilla and Scintilla libraries.
+      npminmin relies on the Lexilla and Scintilla libraries.
       For more details, visit https://github.com/ScintillaOrg/lexilla and https://sourceforge.net/p/scintilla.
       If you have specific language feature requests, consider using the reference program SciTE to verify whether the desired feature is supported.
       You can download SciTE from here https://www.scintilla.org/SciTEDownload.html.
 
-      If you have any questions about Notepad++ usage, explore the community forum https://community.notepad-plus-plus.org/category/7/faq.
+      If you have any questions about npminmin usage, explore the community forum https://community.github.com/ridermw/np-minus-minus/category/7/faq.
 
       Tip: You can attach images by clicking this area to highlight it and then dragging files in.
   validations:

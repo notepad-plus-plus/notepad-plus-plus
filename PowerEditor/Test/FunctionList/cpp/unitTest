@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -52,7 +52,7 @@ struct ScintillaKeyDefinition
 	bool isAlt;
 	bool isShift;
 	int vKey;
-	int redirFunctionId;	//this gets set  when a function is being redirected through Notepad++ if Scintilla doesnt do it properly :)
+	int redirFunctionId;	//this gets set  when a function is being redirected through npminmin if Scintilla doesnt do it properly :)
 };
 
 
@@ -969,7 +969,7 @@ generic_string NppParameters::getSettingsFolder()
 	if (settingsFolderPath.empty())
 		return _nppPath;
 
-	PathAppend(settingsFolderPath, TEXT("Notepad++"));
+	PathAppend(settingsFolderPath, TEXT("npminmin"));
 	return settingsFolderPath;
 }
 
@@ -991,7 +991,7 @@ bool NppParameters::load()
 	_isLocal = (PathFileExists(localConfPath.c_str()) == TRUE);
 
 	// Under vista and windows 7, the usage of doLocalConf.xml is not allowed
-	// if Notepad++ is installed in "program files" directory, because of UAC
+	// if npminmin is installed in "program files" directory, because of UAC
 	if (_isLocal)
 	{
 		// We check if OS is Vista or greater version
@@ -1015,7 +1015,7 @@ bool NppParameters::load()
 	{
 		_userPath = getSpecialFolderLocation(CSIDL_APPDATA);
 
-		PathAppend(_userPath, TEXT("Notepad++"));
+		PathAppend(_userPath, TEXT("npminmin"));
 		_appdataNppDir = _userPath;
 
 		// Plugin System V1
@@ -1024,7 +1024,7 @@ bool NppParameters::load()
 
 		// Plugin System V2
 		_localAppdataNppDir = getSpecialFolderLocation(CSIDL_LOCAL_APPDATA);
-		PathAppend(_localAppdataNppDir, TEXT("Notepad++"));
+		PathAppend(_localAppdataNppDir, TEXT("npminmin"));
 		if (!PathFileExists(_localAppdataNppDir.c_str()))
 			::CreateDirectory(_localAppdataNppDir.c_str(), NULL);
 	}
@@ -1203,7 +1203,7 @@ bool NppParameters::load()
 	//----------------------------------------------//
 	// nativeLang.xml : for per user				//
 	// In case of absence of user's nativeLang.xml, //
-	// We'll look in the Notepad++ Dir.			 //
+	// We'll look in the npminmin Dir.			 //
 	//----------------------------------------------//
 
 	generic_string nativeLangPath;
@@ -6570,7 +6570,7 @@ void NppParameters::safeWow64EnableWow64FsRedirection(BOOL Wow64FsEnableRedirect
 
 Date::Date(const TCHAR *dateStr)
 {
-	// timeStr should be Notepad++ date format : YYYYMMDD
+	// timeStr should be npminmin date format : YYYYMMDD
 	assert(dateStr);
 	if (lstrlen(dateStr) == 8)
 	{

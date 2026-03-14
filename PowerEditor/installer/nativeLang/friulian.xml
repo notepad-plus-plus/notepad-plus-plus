@@ -211,12 +211,12 @@
 					<Item id="46001" name="Configurazion dai stîi..."/>
 					<Item id="46180" name="Definît dal utent"/>
 					<Item id="47000" name="Informazions su..."/>
-					<Item id="47001" name="Sît di Notepad++"/>
-					<Item id="47002" name="Pagjine dal progjet di Notepad++"/>
+					<Item id="47001" name="Sît di npminmin"/>
+					<Item id="47002" name="Pagjine dal progjet di npminmin"/>
 					<Item id="47003" name="Jutori in linee"/>
 					<Item id="47004" name="Forum"/>
 					<Item id="47005" name="Cjate altris plugins"/>
-					<Item id="47006" name="Inzorne Notepad++"/>
+					<Item id="47006" name="Inzorne npminmin"/>
 					<Item id="47008" name="Contignûts dal jutori"/>
 					<Item id="48005" name="Impuarte plugins..."/>
 					<Item id="48006" name="Impuarte temis..."/>
@@ -522,7 +522,7 @@
 					<Item id="6319" name="Ative"/>
 					<Item id="6320" name="No stâ piturâ une rie sot"/>
 					<Item id="6322" name="Est. files de session:"/>
-					<Item id="6323" name="Ative auto inzornament di Notepad++"/>
+					<Item id="6323" name="Ative auto inzornament di npminmin"/>
 					<Item id="6324" name="Cambi di document cun Ctrl+TAB"/>
 					<Item id="6326" name="Ative evidenziazion inteligjente"/>
 					<Item id="6329" name="Evidenzie i tags che a corispuindin"/>

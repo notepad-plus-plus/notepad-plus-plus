@@ -4,7 +4,7 @@ Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 
-Dutch localization for Notepad++
+Dutch localization for npminmin
 Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepadplusplus(at)rockytdr.33mail.com)
@@ -48,7 +48,7 @@ Last modified on 2025-11-11 by xylographe.
 					<Item subMenuId="edit-onSelection" name="&amp;Voor selectie"/>
 					<Item subMenuId="edit-multiSelectALL" name="ALLES multi-selecteren"/>
 					<Item subMenuId="edit-multiSelectNext" name="Volgende multi-selecteren"/>
-					<Item subMenuId="edit-readonlyInNotepad++" name="Alleen-lezen in Notepad++"/>
+					<Item subMenuId="edit-readonlyInnpminmin" name="Alleen-lezen in npminmin"/>
 					<Item subMenuId="search-changeHistory" name="Geschiedenis wijzigen"/>
 					<Item subMenuId="search-markAll" name="&amp;Alle overeenkomsten van token stileren"/>
 					<Item subMenuId="search-markOne" name="&amp;Eén token stileren"/>
@@ -371,17 +371,17 @@ Last modified on 2025-11-11 by xylographe.
 					<Item id="46016" name="Geen (normale tekst)"/>
 					<Item id="46250" name="Aangepaste syntaxismarkering ontwerpen..."/>
 					<Item id="46300" name="Map met aangepaste syntaxissen openen..."/>
-					<Item id="46301" name="Notepad++-collectie van aangepaste syntaxissen"/>
+					<Item id="46301" name="npminmin-collectie van aangepaste syntaxissen"/>
 					<Item id="46180" name="Aangepast"/>
-					<Item id="47000" name="Over Notepad++"/>
+					<Item id="47000" name="Over npminmin"/>
 					<Item id="47010" name="Opdrachtregel-argumenten..."/>
-					<Item id="47001" name="Notepad++ website"/>
-					<Item id="47002" name="Notepad++ projectpagina"/>
-					<Item id="47003" name="Notepad++ online gebruikershandleiding"/>
-					<Item id="47004" name="Notepad++ gemeenschap (forum)"/>
+					<Item id="47001" name="npminmin website"/>
+					<Item id="47002" name="npminmin projectpagina"/>
+					<Item id="47003" name="npminmin online gebruikershandleiding"/>
+					<Item id="47004" name="npminmin gemeenschap (forum)"/>
 					<Item id="47012" name="Foutopsporingsinformatie..."/>
 					<Item id="47005" name="Meer plugins zoeken"/>
-					<Item id="47006" name="Notepad++ bijwerken"/>
+					<Item id="47006" name="npminmin bijwerken"/>
 					<Item id="47009" name="Proxy instellen voor bijwerken..."/>
 					<Item id="48005" name="Plugins importeren..."/>
 					<Item id="48006" name="Stijlthema's importeren..."/>
@@ -450,7 +450,7 @@ Last modified on 2025-11-11 by xylographe.
 				<Item CMDID="41016" name="Naar prullenbak verplaatsen"/>
 				<Item CMDID="41014" name="Opnieuw laden"/>
 				<Item CMDID="41010" name="Afdrukken..."/>
-				<Item CMDID="42028" name="Alleen-lezen in Notepad++"/>
+				<Item CMDID="42028" name="Alleen-lezen in npminmin"/>
 				<Item CMDID="42033" name="Alleen-lezen kenmerk in Windows"/>
 				<Item CMDID="2" name="Naar klembord kopiëren"/>
 				<Item CMDID="42029" name="Volledig bestandspad kopiëren"/>
@@ -1132,7 +1132,7 @@ Last modified on 2025-11-11 by xylographe.
 				</DefaultDir>
 
 				<FileAssoc title="Bestandsassociaties">
-					<Item id="4008" name="Herstart Notepad++ in de beheerdersmodus om deze functie te kunnen gebruiken."/>
+					<Item id="4008" name="Herstart npminmin in de beheerdersmodus om deze functie te kunnen gebruiken."/>
 					<Item id="4009" name="Ondersteund:"/>
 					<Item id="4010" name="Geregistreerd:"/>
 				</FileAssoc>
@@ -1217,7 +1217,7 @@ Last modified on 2025-11-11 by xylographe.
 				</Print>
 
 				<Searching title="Zoeken">
-					<Item id="6902" name="Monospace-lettertype gebruiken in het zoekvenster (Notepad++ moet opnieuw worden opgestart)"/>
+					<Item id="6902" name="Monospace-lettertype gebruiken in het zoekvenster (npminmin moet opnieuw worden opgestart)"/>
 					<Item id="6903" name="Zoekvenster blijft open na zoekopdracht die naar het resultaatvenster uitvoert"/>
 					<Item id="6904" name="Alles vervangen in alle geopende documenten bevestigen"/>
 					<Item id="6905" name="Vervangen: niet naar de volgende overeenkomst gaan"/>
@@ -1285,7 +1285,7 @@ Last modified on 2025-11-11 by xylographe.
 					<Item id="6152" name="Sessie openen in een nieuwe instantie (en sessie automatisch opslaan bij afsluiten)"/>
 					<Item id="6153" name="Altijd in modus meerdere instanties"/>
 					<Item id="6154" name="Standaard (enkele instantie)"/>
-					<Item id="6155" name="* Wijziging van deze instelling vereist een herstart van Notepad++"/>
+					<Item id="6155" name="* Wijziging van deze instelling vereist een herstart van npminmin"/>
 					<Item id="6171" name="Datum/tijd invoegen aanpassen"/>
 					<Item id="6175" name="Standaardvolgorde datum/tijd omkeren (korte en lange formaten)"/>
 					<Item id="6172" name="Aangepast formaat:"/>
@@ -1368,8 +1368,8 @@ Last modified on 2025-11-11 by xylographe.
 					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Uitschakelen"/>
-						<Element name="Inschakelen bij opstarten van Notepad++"/>
-						<Element name="Inschakelen bij afsluiten van Notepad++"/>
+						<Element name="Inschakelen bij opstarten van npminmin"/>
+						<Element name="Inschakelen bij afsluiten van npminmin"/>
 					</ComboBox>
 					<Item id="6308" name="Naar systeemvak minimaliseren"/>
 					<Item id="6363" name="rendermodus"/>
@@ -1464,8 +1464,8 @@ U kunt dit dialoogvenster later terug inschakelen via voorkeuren."/>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
-			<ContextMenuXmlEditWarning title="Contextmenu wijzigen" message="Met het wijzigen van het contextmenu kunt u Notepad++ aan uw persoonlijke voorkeur aanpassen.
-Wijzigingen worden zichtbaar na het opnieuw starten van Notepad++."/>
+			<ContextMenuXmlEditWarning title="Contextmenu wijzigen" message="Met het wijzigen van het contextmenu kunt u npminmin aan uw persoonlijke voorkeur aanpassen.
+Wijzigingen worden zichtbaar na het opnieuw starten van npminmin."/>
 			<SaveCurrentModifWarning title="Huidige wijziging opslaan" message="U moet de huidige wijziging opslaan.
 Alle opgeslagen wijzigingen kunnen niet ongedaan worden gemaakt.
 
@@ -1474,16 +1474,16 @@ Doorgaan?"/><!-- HowToReproduce: when you openned file is modified but unsaved y
 Alle opgeslagen wijzigingen kunnen niet ongedaan worden gemaakt.
 
 Doorgaan?"/><!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
-			<CannotMoveDoc title="Verplaatsen naar nieuwe instantie van Notepad++" message="Document is gewijzigd. Sla het op en probeer het dan opnieuw."/><!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
-			<DocReloadWarning title="Opnieuw laden" message="Weet u zeker dat u het huidige bestand opnieuw wilt laden en de wijzigingen die u in Notepad++ hebt gemaakt wilt verliezen?"/>
+			<CannotMoveDoc title="Verplaatsen naar nieuwe instantie van npminmin" message="Document is gewijzigd. Sla het op en probeer het dan opnieuw."/><!-- HowToReproduce: From your npminmin drag & drop a clean (not dirty) file to outside of npminmin, another instance of npminmin will be created. Then from your first npminmin drag & drop an unsaved file to the new instance. -->
+			<DocReloadWarning title="Opnieuw laden" message="Weet u zeker dat u het huidige bestand opnieuw wilt laden en de wijzigingen die u in npminmin hebt gemaakt wilt verliezen?"/>
 			<FileLockedWarning title="Opslaan mislukt" message="Controleer of dit bestand in een ander programma is geopend"/>
-			<FileAlreadyOpenedInNpp title="" message="Het bestand is al geopend in Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
+			<FileAlreadyOpenedInNpp title="" message="Het bestand is al geopend in npminmin."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
 			<RenameTabTemporaryNameAlreadyInUse title="Naam wijzigen mislukt" message="De opgegeven naam is al in gebruik op een ander tabblad."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
 			<RenameTabTemporaryNameIsEmpty title="Naam wijzigen mislukt" message="De opgegeven naam mag niet leeg zijn of alleen spaties of tabs bevatten."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Bestand verwijderen" message="Verwijderen van bestand mislukt"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="Het aantal geopende bestanden is te groot" message="U staat op het punt om $INT_REPLACE$ bestanden te openen.
-Weet u zeker dat u ze wilt openen?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
+Weet u zeker dat u ze wilt openen?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into npminmin. -->
 			<SettingsOnCloudError title="Online instellingen" message="Het lijkt erop dat het pad van de online instellingen is ingesteld op een alleen-lezen-schijf,
 of op een map waarvoor privilege-rechten nodig zijn voor schrijftoegang.
 Uw online instellingen zullen geannuleerd worden. Stel een coherente waarde in via het voorkeurenvenster."/>
@@ -1494,7 +1494,7 @@ U moet &quot;vij neerzetten van een map alle bestanden openen in plaats van de m
 			<SortingError title="Sorteerfout" message="Kan numerieke sortering niet uitvoeren vanwege regel $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SortLocaleMultiple title="Sorteren niet uitgevoerd" message="Het sorteren van meerdere selecties wordt niet ondersteund."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<SortLocaleUnknown title="Sorteren mislukt" message="De reden waarom het sorteren mislukte, kan niet worden vastgesteld."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
-			<SortLocaleExcept title="Sorteren mislukt" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleExcept title="Sorteren mislukt" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit npminmin and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Tip voor kolommodus" message="
 Er zijn 3 manieren om over te schakelen naar de kolomselectie-modus:
 
@@ -1523,14 +1523,14 @@ Wilt u het opnieuw laden?"/>
 			<DoReloadOrNotAndLooseChange title="Opnieuw laden" message="&quot;$STR_REPLACE$&quot;
 
 Dit bestand is gewijzigd door een ander programma.
-Wilt u het opnieuw laden en de wijzigingen gemaakt in Notepad++ verliezen?"/>
+Wilt u het opnieuw laden en de wijzigingen gemaakt in npminmin verliezen?"/>
 			<PrehistoricSystemDetected title="Prehistorisch systeem gedetecteerd" message="Het lijkt erop dat u nog steeds een prehistorisch systeem gebruikt.Deze functie werkt alleen op een modern systeem, sorry."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
-			<XpUpdaterProblem title="Notepad++ updater" message="Notepad++ updater is niet compatibel met XP vanwege de verouderde beveiligingslaag onder XP.
-Wilt u naar de Notepad++-pagina gaan om de laatste versie te downloaden?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Proxy-instellingen" message="Start Notepad++ opnieuw in beheerdersmodus om de proxy te configureren."/>
+			<XpUpdaterProblem title="npminmin updater" message="npminmin updater is niet compatibel met XP vanwege de verouderde beveiligingslaag onder XP.
+Wilt u naar de npminmin-pagina gaan om de laatste versie te downloaden?"/><!-- HowToReproduce: Run menu "? -> Update npminmin" under Windows XP. -->
+			<GUpProxyConfNeedAdminMode title="Proxy-instellingen" message="Start npminmin opnieuw in beheerdersmodus om de proxy te configureren."/>
 			<DocTooDirtyToMonitor title="Monitoring-probleem" message="Het document is vervuild. Sla de wijziging op voordat u het monitort."/>
 			<DocNoExistToMonitor title="Monitoring-probleem" message="Het bestand moet bestaan om gemonitord te worden."/>
-			<FileTooBigToOpen title="Probleem met bestandsgrootte" message="Het bestand is te groot om te worden geopend met Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+			<FileTooBigToOpen title="Probleem met bestandsgrootte" message="Het bestand is te groot om te worden geopend met npminmin"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
 			<FileLoadingException title="Uitzonderingscode: $STR_REPLACE$" message="Er is een fout opgetreden bij het laden van het bestand!"/>
 			<WantToOpenHugeFile title="Waarschuwing bij openen van groot bestand" message="Het openen van een groot bestand van meer dan 2 GB kan enkele minuten duren.
 Wilt u het openen?"/>
@@ -1544,8 +1544,8 @@ Map &quot;$STR_REPLACE2$&quot; bestaat niet."/>
 Wilt u het huidige bestand toch opslaan?"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<LoadStylersFailed title="Laden van stylers.xml mislukt" message="Laden van &quot;$STR_REPLACE$&quot; mislukt!"/>
 			<LoadLangsFailed title="Configurator" message="Laden van langs.xml mislukt!
-Wilt u uw langs.xml herstellen?"/><!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
-			<LoadLangsFailedFinal title="Configurator" message="Laden van langs.xml mislukt!"/><!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
+Wilt u uw langs.xml herstellen?"/><!-- HowToReproduce: Close npminmin. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open npminmin. -->
+			<LoadLangsFailedFinal title="Configurator" message="Laden van langs.xml mislukt!"/><!-- HowToReproduce: Close npminmin. Use another editor to make "langs.xml" an invalid xml file then save it. Open npminmin. -->
 			<FolderAsWorspaceSubfolderExists title="Probleem met toevoegen van map bij map als werkruimte" message="Er bestaat een submap van de map die u wilt toevoegen.
 Verwijder zijn hoofdmap van het venster voordat u map &quot;$STR_REPLACE$&quot; toevoegt."/><!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
@@ -1573,28 +1573,28 @@ Geef een andere naam op."/>
 			<SCMapperDoDeleteOrNot title="Weet u het zeker?" message="Weet u zeker dat u deze snelkoppeling wilt verwijderen?"/>
 			<FindCharRangeValueError title="Probleem met bereik van waarde" message="U moet een waarde opgeven tussen 0 en 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Opslaan mislukt" message="Het bestand kan niet opgeslagen worden en kan beveiligd zijn.
-Wilt u Notepad++ starten in beheerdersmodus?"/>
+Wilt u npminmin starten in beheerdersmodus?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Opslaan mislukt" message="Het bestand kan niet opgeslagen worden en kan beveiligd zijn.
-Wilt u Notepad++ starten in beheerdersmodus?"/>
-			<OpenInAdminModeFailed title="Openen in beheerdersmodus mislukt" message="Notepad++ kan niet geopend worden in beheerdersmodus."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
+Wilt u npminmin starten in beheerdersmodus?"/>
+			<OpenInAdminModeFailed title="Openen in beheerdersmodus mislukt" message="npminmin kan niet geopend worden in beheerdersmodus."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
 			<ViewInBrowser title="Huidig bestand in browser weergeven" message="Toepassing kan niet op uw systeem worden teruggevonden."/>
-			<ExitToUpdatePlugins title="Notepad++ staat op het punt om af te sluiten" message="Als u op 'ja' klikt, zal u Notepad++ afsluiten om de acties verder te zetten.
-Notepad++ zal opnieuw starten nadat alle acties afgewerkt zijn.
+			<ExitToUpdatePlugins title="npminmin staat op het punt om af te sluiten" message="Als u op 'ja' klikt, zal u npminmin afsluiten om de acties verder te zetten.
+npminmin zal opnieuw starten nadat alle acties afgewerkt zijn.
 Doorgaan?"/>
-			<NeedToRestartToLoadPlugins title="Notepad++ moet opnieuw gestart worden" message="U moet Notepad++ opnieuw starten om de geïnstalleerde plug-ins te laden."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
-			<ChangeHistoryEnabledWarning title="Notepad++ moet opnieuw gestart worden" message="U moet Notepad++ opnieuw starten om geschiedenis van wijzigingen in te schakelen."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
-			<WindowsSessionExit title="Notepad++ - Windows-session afsluiten" message="De Windows sessie staat op het punt beëindigd te worden, maar u heeft nog wat niet-opgeslagen gegevens. Wilt u Notepad++ nu afsluiten?"/>
+			<NeedToRestartToLoadPlugins title="npminmin moet opnieuw gestart worden" message="U moet npminmin opnieuw starten om de geïnstalleerde plug-ins te laden."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+			<ChangeHistoryEnabledWarning title="npminmin moet opnieuw gestart worden" message="U moet npminmin opnieuw starten om geschiedenis van wijzigingen in te schakelen."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+			<WindowsSessionExit title="npminmin - Windows-session afsluiten" message="De Windows sessie staat op het punt beëindigd te worden, maar u heeft nog wat niet-opgeslagen gegevens. Wilt u npminmin nu afsluiten?"/>
 			<LanguageMenuCompactWarning title="Compact taalmenu" message="Deze optie zal bij de volgende start worden gewijzigd."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Niet opgeslagen wijzigingen worden weggegooid!
 Wilt u uw wijzigingen opslaan voordat u van thema wisselt?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Macro- en uitvoeren-opdrachtcompatibiliteit" message="Het is mogelijk dat uw macro- en uitvoeren-opdrachten opgeslagen in Notepad++ v.8.5.2 (of ouder) niet meer compatibel zijn met de huidige versie van Notepad++.
+			<MacroAndRunCmdlWarning title="Macro- en uitvoeren-opdrachtcompatibiliteit" message="Het is mogelijk dat uw macro- en uitvoeren-opdrachten opgeslagen in npminmin v.8.5.2 (of ouder) niet meer compatibel zijn met de huidige versie van npminmin.
 Test deze opdrachten en bewerk ze indien nodig.
 
-Als alternatief kunt u downgraden naar Notepad++ v8.5.2 en uw vorige gegevens herstellen.
-Notepad++ zal een reservekopie maken van uw oude &quot;shortcuts.xml&quot; en het opslaan als &quot;shortcuts.xml.v8.5.2.backup&quot;.
-Door de naam te wijzigen van &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, zouden uw opdrachten hersteld moeten worden en goed moeten werken."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+Als alternatief kunt u downgraden naar npminmin v8.5.2 en uw vorige gegevens herstellen.
+npminmin zal een reservekopie maken van uw oude &quot;shortcuts.xml&quot; en het opslaan als &quot;shortcuts.xml.v8.5.2.backup&quot;.
+Door de naam te wijzigen van &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, zouden uw opdrachten hersteld moeten worden en goed moeten werken."/><!-- HowToReproduce: Close npminmin, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch npminmin, delete or modify a shortcuts via Shortcut Mapper, close npminmin, then the message will show up -->
 			<FullReadOnlySavingForbidden title="Opslaan mislukt" message="Bestand opslaan is mislukt.
-De schrijfbeveiliging van Notepad++ verhindert het opslaan van dit bestand."/>
+De schrijfbeveiliging van npminmin verhindert het opslaan van dit bestand."/>
 			<NotEnoughRoom4Saving title="Opslaan mislukt" message="Bestand opslaan is mislukt.
 Er lijkt niet voldoende ruimte op de schijf te zijn om het bestand op te slaan. Uw bestand is niet opgeslagen."/>
 			<FileInaccessibleUserSession title="Bestand niet toegankelijk" message="Sommige bestanden van uw handmatig opgeslagen sessie &quot;$STR_REPLACE$&quot; zijn niet toegankelijk. Ze kunnen worden geopend als lege en alleen-lezen-documenten als plaatshouders.
@@ -1607,8 +1607,8 @@ Opmerking: als u ervoor kiest de plaatshouders niet aan te maken of ze later slu
 Wilt u deze plaatshouders aanmaken?
 
 Opmerking: als u ervoor kiest om de plaatshouders niet aan te maken of ze later te sluiten, zal uw sessie worden GEWIJZIGD BIJ HET AFSLUITEN! We raden u aan nu een back-up te maken van uw &quot;session.xml&quot;."/>
-			<RTLvsDirectWrite title="Kan tekstrichting rechts-links niet uitvoeren" message="Tekstrichting rechts-links is niet compatibel met de modus DirectWrite. Schakel de DirectWrite-modus uit in de overige-sectie van het voorkeurenvenster en start Notepad++ opnieuw."/>
-			<FileMemoryAllocationFailed title="Uitzondering: toewijzing van bestandsgeheugen mislukt" message="Er is vermoedelijk onvoldoende aaneensluitend vrij geheugen voor het bestand om geladen te worden door Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<RTLvsDirectWrite title="Kan tekstrichting rechts-links niet uitvoeren" message="Tekstrichting rechts-links is niet compatibel met de modus DirectWrite. Schakel de DirectWrite-modus uit in de overige-sectie van het voorkeurenvenster en start npminmin opnieuw."/>
+			<FileMemoryAllocationFailed title="Uitzondering: toewijzing van bestandsgeheugen mislukt" message="Er is vermoedelijk onvoldoende aaneensluitend vrij geheugen voor het bestand om geladen te worden door npminmin."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 npminmin (it will depend on the PC memory configuration and the current system memory usage...). -->
 			<FindRegexBackwardDisabled title="Regex achterwaarts zoeken uitgeschakeld" message="Achterwaarts regex zoeken is standaard uitgeschakeld omwille van potentieel onverwachte resultaten. Om een achterwaartse zoekopdracht uit te voeren, opent u het zoekvenster en selecteert u ofwel normale of uitgebreide zoekmodus in plaats van reguliere expressie.
 Druk op OK om het zoekvenster te openen en de focus erop te zetten.
 
@@ -1616,8 +1616,8 @@ Als u de functie voor achterwaarts regex-zoeken nodig hebt, raadpleegt u de gebr
 			<PrintError title="0" message="Kan printer-document niet starten."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 			<FindAutoChangeOfInSelectionWarning title="Zoeken-waarschuwing" message="De status van het vakje &quot;In selectie&quot; is automatisch gewijzigd.
 Verifieer de zoekvoorwaarden voordat u de handeling uitvoert."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
-			<Need2Restart2ShowMenuShortcuts title="Notepad++ moet opnieuw gestart worden" message="Notepad++ nmoet opnieuw gestart worden om snelkoppelingen in het rechter menu weer te geven."/>
-			<NoAdminRight2ChangeReadOnlyFileAttribute title="Wijzigen van alleen-lezen kenmerk van bestand is mislukt" message="Start Notepad++ in de beheerdersmodus om bestandskenmerken te wijzigen."/>
+			<Need2Restart2ShowMenuShortcuts title="npminmin moet opnieuw gestart worden" message="npminmin nmoet opnieuw gestart worden om snelkoppelingen in het rechter menu weer te geven."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Wijzigen van alleen-lezen kenmerk van bestand is mislukt" message="Start npminmin in de beheerdersmodus om bestandskenmerken te wijzigen."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Geschiedenis van klembord"/>
@@ -1737,8 +1737,8 @@ Verifieer de zoekvoorwaarden voordat u de handeling uitvoert."/> <!-- HowToRepro
 			<word-chars-list-warning-end value="  in de woordtekenlijst."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
 			<backup-select-folder value="Een map selecteren als back-upmap"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value="Ongeldig pad."/>
-			<cloud-restart-warning value="Start Notepad++ opnieuw op om de instellingen door te voeren."/>
-			<cloud-select-folder value="Een map selecteren waar Notepad++ instellingen leest en opslaat"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+			<cloud-restart-warning value="Start npminmin opnieuw op om de instellingen door te voeren."/>
+			<cloud-select-folder value="Een map selecteren waar npminmin instellingen leest en opslaat"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
 			<default-open-save-select-folder value="Een map selecteren als standaardmap"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Gebruik Shift + Enter om in omgekeerde richting te zoeken"/>
 			<two-find-buttons-tip value="modus met 2-zoekknoppen"/>
@@ -1894,7 +1894,7 @@ Als u de geavanceerde modus selecteert maar geen bestanden in de bovengenoemde t
 
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Als u hier &quot;Global override&quot; inschakelt, wordt die parameter in alle taalstijlen overschreven. Wat u waarschijnlijk echt wilt, is de &quot;Default Style&quot;-instellingen gebruiken"/>
-			<scintillaRenderingTechnology-tip value="Kan het rendere nvan speciale tekens verbeteren of sommige grafische problemen oplossen. Start Notepad++ opnieuw om de wijzigingen toe te passen."/>
+			<scintillaRenderingTechnology-tip value="Kan het rendere nvan speciale tekens verbeteren of sommige grafische problemen oplossen. Start npminmin opnieuw om de wijzigingen toe te passen."/>
 
 			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
 			<statusbar-length-lines value="lengte: $STR_REPLACE1$    regels: $STR_REPLACE2$"/>

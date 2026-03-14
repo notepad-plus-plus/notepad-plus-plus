@@ -6,13 +6,13 @@ This file allows you to:
 1. Hide any toolbar buttons you don't need.
 2. Change the appearance of (replace) any or all toolbar icons.
 
-To achieve one or both of above goals, you need to move and rename the "toolbarButtonsConf_example.xml" to "%APPDATA%\Notepad++\toolbarButtonsConf.xml" (or place it in the same folder as "notepad++.exe" if you're using the portable package).
-Edit the relevant sections, save your changes, then relaunch Notepad++ for the modifications to take effect. 
+To achieve one or both of above goals, you need to move and rename the "toolbarButtonsConf_example.xml" to "%APPDATA%\npminmin\toolbarButtonsConf.xml" (or place it in the same folder as "npminmin.exe" if you're using the portable package).
+Edit the relevant sections, save your changes, then relaunch npminmin for the modifications to take effect. 
 -->
 
 	<ToolbarButtons>
 <!--
-The "Standard" section allows your toolbar's standard buttons (those that come with Notepad++) to be hidden.
+The "Standard" section allows your toolbar's standard buttons (those that come with npminmin) to be hidden.
 
 Usage: Modify the "hideAll" or "hide" attributes of the items by settings their values to "yes" or "no".
 
@@ -85,7 +85,7 @@ The "ToolBarIcons" section (tag) is for customizing your toolbar icons, by using
 
 To override the current toolbar icons, you need 2 things: this file and your icons set.
 You can get a sample icons set here:
-https://notepad-plus-plus.org/assets/data/nppLegacyIconSet.zip
+https://github.com/ridermw/np-minus-minus/assets/data/nppLegacyIconSet.zip
 
 To customize your toolbar icons:
 
@@ -93,7 +93,7 @@ To customize your toolbar icons:
 2. Edit the "icoFolderName" attribute value of the "ToolBarIcons" tag in the "toolbarButtonsConf.xml" file. Specify the name of the icon set you want in the "icoFolderName" attribute. For example: <ToolBarIcons icoFolderName="myAwesomeIcons" />
 3. Navigate to the "toolbarIcons" folder and create a new folder named exactly as the icon set name you specified in the "icoFolderName" attribute.
 4. Place all your customized icons in the folder "[toolbarButtonsConf.xml's folder]\toolbarIcons\[folder created in step #3]\".
-5. Relaunch Notepad++ to see your icon set replace the default icons.
+5. Relaunch npminmin to see your icon set replace the default icons.
 
 Note: If the "icoFolderName" value is an empty string, the icons will be located in "[toolbarButtonsConf.xml's folder]\toolbarIcons\default\".
 

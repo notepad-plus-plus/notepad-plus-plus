@@ -1,0 +1,53 @@
+     1|<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+     2|<assembly xmlns="urn:schemas-microsoft-com:asm.v1"
+     3|                 manifestVersion="1.0">
+     4|<assemblyIdentity
+     5|    version="1.0.0.0"
+     6|    processorArchitecture="*"
+     7|    name="npminmin"
+     8|    type="win32"
+     9|/>
+    10|<description>npminmin</description>
+    11|<dependency>
+    12|    <dependentAssembly>
+    13|        <assemblyIdentity
+    14|            type="win32"
+    15|            name="Microsoft.Windows.Common-Controls"
+    16|            version="6.0.0.0"
+    17|            processorArchitecture="*"
+    18|            publicKeyToken="***"
+    19|            language="*"
+    20|        />
+    21|    </dependentAssembly>
+    22|</dependency>
+    23| <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1"> 
+    24|    <application> 
+    25|		<!-- Windows 10 --> 
+    26|        <supportedOS Id="{8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}"/>
+    27|        <!-- Windows 8.1 -->
+    28|        <supportedOS Id="{1f676c76-80e1-4239-95bb-83d0f6d0da78}"/>
+    29|        <!-- Windows 8 -->
+    30|        <supportedOS Id="{4a2f28e3-53b9-4441-ba9c-d69d4a4a6e38}"/>
+    31|        <!-- Windows 7 -->
+    32|        <supportedOS Id="{35138b9a-5d96-4fbd-8e2d-a2440225f93a}"/>
+    33|        <!-- Windows Vista -->
+    34|        <supportedOS Id="{e2011457-1546-43c5-a5fe-008deee3d3f0}"/> 
+    35|    </application> 
+    36|</compatibility>
+    37|<trustInfo xmlns="urn:schemas-microsoft-com:asm.v2">
+    38|    <security>
+    39|        <requestedPrivileges>
+    40|            <requestedExecutionLevel
+    41|                level="asInvoker"
+    42|                uiAccess="false"/>
+    43|        </requestedPrivileges>
+    44|    </security>
+    45|</trustInfo>
+    46|<application xmlns="urn:schemas-microsoft-com:asm.v3">
+    47|    <windowsSettings>
+    48|        <dpiAware xmlns="http://schemas.microsoft.com/SMI/2005/WindowsSettings">true</dpiAware>
+    49|        <dpiAwareness xmlns="http://schemas.microsoft.com/SMI/2016/WindowsSettings">system, unaware</dpiAwareness>
+    50|        <gdiScaling xmlns="http://schemas.microsoft.com/SMI/2017/WindowsSettings">false</gdiScaling>
+    51|    </windowsSettings>
+    52|</application>
+    53|</assembly>

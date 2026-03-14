@@ -271,14 +271,14 @@
 					<Item id="46001" name="Konfiguruesi i stilit..."/>
 					<Item id="46250" name="Përcakto gjuhën..."/>
 					<Item id="46180" name="Përcaktuar-përdoruesi"/>
-					<Item id="47000" name="Rreth Notepad++..."/>
+					<Item id="47000" name="Rreth npminmin..."/>
 					<Item id="47010" name="Argumentet e linjës së komandës..."/>
-					<Item id="47001" name="Notepad++ Hyrje"/>
-					<Item id="47002" name="Notepad++ Faqja e projektit"/>
+					<Item id="47001" name="npminmin Hyrje"/>
+					<Item id="47002" name="npminmin Faqja e projektit"/>
 					<Item id="47003" name="Dokumentacioni nëlinjë"/>
 					<Item id="47004" name="Forumi"/>
 					<Item id="47005" name="Merr më shumë shtojca"/>
-					<Item id="47006" name="Aktualizo Notepad++"/>
+					<Item id="47006" name="Aktualizo npminmin"/>
 					<Item id="47008" name="Ndihma e përmbajtjes"/>
 					<Item id="47009" name="Vendos proksi të aktualizuesit..."/>
 					<Item id="48005" name="Importo shtoja(t) ..."/>
@@ -768,10 +768,10 @@
                 
 				<MultiInstance title="Multi-instancë">
 					<Item id="6151" name="Rregullimet e Multi-instancës"/>
-					<Item id="6152" name="Hap seionin e një instance të re Notepad++"/>
+					<Item id="6152" name="Hap seionin e një instance të re npminmin"/>
 					<Item id="6153" name="Gjithmonë në mënyrën multi-instancë"/>
 					<Item id="6154" name="Standard (mono-instancë)"/>
-					<Item id="6155" name="* Modifikimi i këtij rregullimi ka nevojë për rifillimin e Notepad++"/>
+					<Item id="6155" name="* Modifikimi i këtij rregullimi ka nevojë për rifillimin e npminmin"/>
 				</MultiInstance>
                 
 				<Delimiter title="Delimiter">
@@ -787,7 +787,7 @@
 					<Item id="6264" name="Dropbox"/>
 					<Item id="6265" name="OneDrive"/>
 					<Item id="6266" name="Google Drive"/>
-					<!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
+					<!--Item id="6261" name="Please restart npminmin to take effect."/-->
 				</Cloud>
 
 				<MISC title="MISC.">
@@ -798,7 +798,7 @@
 					<Item id="6319" name="Aftëso"/>
 					<Item id="6320" name="Nuk ka nënvizim"/>
 					<Item id="6322" name="Fili i sesionit ekst.:"/>
-					<Item id="6323" name="Aftëso Notepad++ auto-aktualizo"/>
+					<Item id="6323" name="Aftëso npminmin auto-aktualizo"/>
 					<Item id="6324" name="Shkëmbyesi i dokumenteve (Ctrl+TAB)"/>
 					<Item id="6326" name="Aftëso theksimin e zgjuar"/>
 					<Item id="6329" name="Thekso etiketat që përkojnë"/>
@@ -845,14 +845,14 @@
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Korrigjimi i menysë së përmbajtjes" message="Korrigjimi i contextMenu.xml ju lejon të modifikoni menytë taf-paf (popup) të përmbajtjes së Notepad++.\rDuhet të rifilloni Notepad++, që të hyjë në efekt pas modifikimit të contextMenu.xml."/>
-			<NppHelpAbsentWarning title="Fili nuk ekziston" message="\rnuk ekziston. Ju lutem, shkarkoje nga faqja e Notepad++."/>
+			<ContextMenuXmlEditWarning title="Korrigjimi i menysë së përmbajtjes" message="Korrigjimi i contextMenu.xml ju lejon të modifikoni menytë taf-paf (popup) të përmbajtjes së npminmin.\rDuhet të rifilloni npminmin, që të hyjë në efekt pas modifikimit të contextMenu.xml."/>
+			<NppHelpAbsentWarning title="Fili nuk ekziston" message="\rnuk ekziston. Ju lutem, shkarkoje nga faqja e npminmin."/>
 			<SaveCurrentModifWarning title="Ruaj modifikimin aktual" message="Duhet të ruani modifikimet aktuale.\rTë gjitha modifikimet e ruajtura nuk mund të ribëhen.\r\rVazhdo?"/>
 			<LoseUndoAbilityWarning title="Humb paralajmërimin e aftësisë mosbëj" message="Duhet të ruani modifikimin aktual.\rTë gjitha modifikimet e ruajtura nuk mund të ribëhen.\r\rVazhdo?"/>
-			<CannotMoveDoc title="Lëviz për tek Instanca e re Notepad++" message="Dokumenti është modifikuar, ruaje atë pastaj provo përsëri."/>
-			<DocReloadWarning title="Ringarko" message="A jeni i sigurtë se doni të ringarkomi filin aktual dhe humbni ndryshimet e bëra në Notepad++?"/>
+			<CannotMoveDoc title="Lëviz për tek Instanca e re npminmin" message="Dokumenti është modifikuar, ruaje atë pastaj provo përsëri."/>
+			<DocReloadWarning title="Ringarko" message="A jeni i sigurtë se doni të ringarkomi filin aktual dhe humbni ndryshimet e bëra në npminmin?"/>
 			<FileLockedWarning title="Ruajtja dështoi" message="Ju lutem, kontrollo nëse ky fil është i hapur në ndonjë program tjetër"/>
-			<FileAlreadyOpenedInNpp title="" message="Fili është ndërkohë i hapur në Notepad++."/>
+			<FileAlreadyOpenedInNpp title="" message="Fili është ndërkohë i hapur në npminmin."/>
 			<DeleteFileFailed title="Fshij filin" message="Fshirja e filit dështoi"/>
             
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->

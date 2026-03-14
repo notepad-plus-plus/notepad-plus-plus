@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	Ligurian translation for Notepad++ 5.8.6
+	Ligurian translation for npminmin 5.8.6
 	Last modified Sat, February 26th, 2011 01:00 GMT by GENOVES.com.ar
 	Please e-mail errors, suggestions etc. to info(at)genoves.com.ar
 
@@ -217,12 +217,12 @@
 					<Item id="46019" name="Archivio MS INI"/>
 					<Item id="46180" name="Definio da l&apos;utente"/>
 					<Item id="47000" name="Informaçioin in sce..."/>
-					<Item id="47001" name="Pagina prinçipale Notepad++"/>
-					<Item id="47002" name="Pagina do progetto Notepad++"/>
+					<Item id="47001" name="Pagina prinçipale npminmin"/>
+					<Item id="47002" name="Pagina do progetto npminmin"/>
 					<Item id="47003" name="Agiutto in linea"/>
 					<Item id="47004" name="Forum"/>
 					<Item id="47005" name="Òtêgni atri conplementi"/>
-					<Item id="47006" name="Agiorna Notepad++"/>
+					<Item id="47006" name="Agiorna npminmin"/>
 					<Item id="47008" name="Goidda..."/>
 					<Item id="48005" name="Inpòrta conplementi..."/>
 					<Item id="48006" name="Inpòrta Tema/i ..."/>
@@ -520,7 +520,7 @@
 					<Item id="6319" name="Abilita"/>
 					<Item id="6320" name="No disegnâ sotolineatua"/>
 					<Item id="6322" name="Est. file de sescion:"/>
-					<Item id="6323" name="Agiorna outomaticamente Notepad++"/>
+					<Item id="6323" name="Agiorna outomaticamente npminmin"/>
 					<Item id="6324" name="Cangia documento (CTRL+TAB)"/>
 					<Item id="6325" name="Vanni a l&apos;urtima riga dòppo l&apos;agiornamento"/>
 					<Item id="6326" name="Evidensiaçion inteligente"/>

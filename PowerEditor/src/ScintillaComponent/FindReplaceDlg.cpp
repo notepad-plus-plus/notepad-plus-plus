@@ -1,4 +1,4 @@
-﻿// This file is part of Notepad++ project
+﻿// This file is part of npminmin project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -3081,7 +3081,7 @@ bool FindReplaceDlg::processFindNext(const wchar_t *txt2find, const FindOption *
 				}
 				setStatusbarMessage(warningMsg, FSNotFound, reasonMsg);
 
-				// if the dialog is not shown, pass the focus to his parent(ie. Notepad++)
+				// if the dialog is not shown, pass the focus to his parent(ie. npminmin)
 				if (!::IsWindowVisible(_hSelf))
 				{
 					(*_ppEditView)->grabFocus();
@@ -5812,7 +5812,7 @@ void Finder::copyPathnames()
 		if (!str2Clipboard(toClipboard, _hSelf))
 		{
 			assert(false);
-			::MessageBox(NULL, L"Error placing pathnames into clipboard.", L"Notepad++", MB_ICONINFORMATION);
+			::MessageBox(NULL, L"Error placing pathnames into clipboard.", L"npminmin", MB_ICONINFORMATION);
 		}
 	}
 }
@@ -5917,7 +5917,7 @@ void Finder::copy()
 	if (!str2Clipboard(toClipboard, _hSelf))
 	{
 		assert(false);
-		::MessageBox(nullptr, L"Error placing text in clipboard.", L"Notepad++", MB_ICONINFORMATION);
+		::MessageBox(nullptr, L"Error placing text in clipboard.", L"npminmin", MB_ICONINFORMATION);
 	}
 }
 
@@ -6938,7 +6938,7 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 				::FillRect(reinterpret_cast<HDC>(wparam), &rc, NppDarkMode::getDlgBackgroundBrush());
 				return TRUE;
 			}
-			// With "break;" here it will cause the visual regression: https://community.notepad-plus-plus.org/topic/26815/notepad-v8-8-release/4?_=1746285454720
+			// With "break;" here it will cause the visual regression: https://community.github.com/ridermw/np-minus-minus/topic/26815/notepad-v8-8-release/4?_=1746285454720
 			// Use "return TRUE;" instead.
 			return TRUE;
 		}

@@ -12,7 +12,7 @@
 
 		<!--
 		|   Based on:
-		|       https://notepad-plus-plus.org/community/topic/12742/functionlist-different-results-with-different-line-endings
+		|       https://github.com/ridermw/np-minus-minus/community/topic/12742/functionlist-different-results-with-different-line-endings
 		\-->
 		<parser
 			displayName="UniVerse BASIC"

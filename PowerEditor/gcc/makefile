@@ -1,4 +1,4 @@
-# This file is part of Notepad++ project
+# This file is part of npminmin project
 # Copyright (C)2021 Ivan U7n <jprofic@yandex.ru>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -27,7 +27,7 @@ SRC_EXCLUDE := $(SRC_DIRECTORY)/tools/%
 BIN_DIRECTORY := ../bin
 INSTALLER_DIRECTORY := ../installer
 
-TARGET_BINARY := notepad++.exe
+TARGET_BINARY := npminmin.exe
 SRC_DATA := contextMenu.xml langs.model.xml shortcuts.xml stylers.model.xml tabContextMenu_example.xml toolbarButtonsConf_example.xml
 BIN_DATA := change.log doLocalConf.xml nppLogNulContentCorruptionIssue.xml readme.txt userDefineLangs/
 INSTALLER_DATA := autoCompletion/ functionList/ localization/ themes/

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	Luxembourgish translation for Notepad++ 5.1.
+	Luxembourgish translation for npminmin 5.1.
 	Last modified 02 December 2008 by Steve Gengler.
 -->
 <NotepadPlus>
@@ -141,8 +141,8 @@
 					<Item id="46001" name="&amp;Stile ..."/>
 					<Item id="46180" name="Benotzerdefinéiert"/>
 					<Item id="47000" name="&amp;Info ..."/>
-					<Item id="47001" name="Notepad++ am &amp;Web"/>
-					<Item id="47002" name="Notepad++ bei &amp;Sourceforge"/>
+					<Item id="47001" name="npminmin am &amp;Web"/>
+					<Item id="47002" name="npminmin bei &amp;Sourceforge"/>
 					<Item id="47003" name="Online-&amp;Hëllef"/>
 					<Item id="47004" name="&amp;Forum"/>
 					<Item id="47005" name="&amp;Erweiderungen"/>

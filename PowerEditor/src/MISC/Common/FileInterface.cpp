@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (C)2021 Pavel Nedev (pg.nedev@gmail.com)
 
 // This program is free software: you can redistribute it and/or modify
@@ -125,10 +125,10 @@ void Win32_IO_File::close()
 						curFilePath = pathbuf;
 					}
 
-					std::wstring errMsg = L"Notepad++ has encountered a serious system problem while saving:\n\n";
+					std::wstring errMsg = L"npminmin has encountered a serious system problem while saving:\n\n";
 					errMsg += curFilePath;
 					errMsg += L"\n\nThat file, temporarily stored in the system cache, cannot be finally committed to the storage device selected! \
-This is probably a storage driver or hardware issue, beyond the control of the Notepad++. \
+This is probably a storage driver or hardware issue, beyond the control of the npminmin. \
 Please try using another storage and also check if your saved data is not corrupted.\n\nError Code reported: ";
 					errMsg += errNumberMsg;
 					::MessageBoxW(NULL, errMsg.c_str(), L"WARNING - filebuffer flushing fail!", MB_OK | MB_ICONWARNING | MB_SYSTEMMODAL);

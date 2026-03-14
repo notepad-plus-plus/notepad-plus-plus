@@ -1,6 +1,6 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Venetian translation for Notepad++
+    Venetian translation for npminmin
     Last modified Sun, Jul 28th, 2024.
     Translators: 2019-xxxx, Matteo Concato (Conky77)
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/insta ler/nativeLang
@@ -363,17 +363,17 @@ Translation note:
 					<Item id="46016" name="Nisun (Testo Normale)"/>
 					<Item id="46250" name="Definisi el to ƚenguagio..."/>
 					<Item id="46300" name="Vèrxi carteƚa ƚenguagi definìi da &apos;l utente..."/>
-					<Item id="46301" name="Personalixasion Ƚenguagio Notepad++"/>
+					<Item id="46301" name="Personalixasion Ƚenguagio npminmin"/>
 					<Item id="46180" name="Definìo da ƚ&apos;utente"/>
-					<Item id="47000" name="Informasion so Notepad++"/>
+					<Item id="47000" name="Informasion so npminmin"/>
 					<Item id="47010" name="Argomenti riga de comando..."/>
-					<Item id="47001" name="Sito web Notepad++"/>
-					<Item id="47002" name="Progeto Notepad++"/>
-					<Item id="47003" name="Documentasion Notepad++ online"/>
-					<Item id="47004" name="Community Notepad++ (Forum)"/>
+					<Item id="47001" name="Sito web npminmin"/>
+					<Item id="47002" name="Progeto npminmin"/>
+					<Item id="47003" name="Documentasion npminmin online"/>
+					<Item id="47004" name="Community npminmin (Forum)"/>
 					<Item id="47012" name="Informasion de debug..."/>
 					<Item id="47005" name="Otieni altri plugin"/>
-					<Item id="47006" name="Axorna Notepad++"/>
+					<Item id="47006" name="Axorna npminmin"/>
 					<Item id="47009" name="Inposta proxy axornamento..."/>
 					<Item id="48005" name="Inporta plugin..."/>
 					<Item id="48006" name="Inporta tema..."/>
@@ -968,7 +968,7 @@ Translation note:
 
 					<Item id="6131" name="Menu"/>
 					<Item id="6122" name="Scondi bara de i menu (Alt o F10 par mostrare)"/>
-					<Item id="6132" name="Scondi ＋ ▼ ✕ da ƚa bara dei menu (Richiede el reinvio de Notepad++)"/>
+					<Item id="6132" name="Scondi ＋ ▼ ✕ da ƚa bara dei menu (Richiede el reinvio de npminmin)"/>
 
 					<Item id="6123" name="Ƚengua"/>
 				</Global>
@@ -1092,7 +1092,7 @@ Translation note:
 				</DefaultDir>
 
 				<FileAssoc title="Asociasion file">
-					<Item id="4008" name="Sara su Notepad++ e invìa Notepad++ co priviƚegi de Aministradore par doparare sta funsionaƚità"/>
+					<Item id="4008" name="Sara su npminmin e invìa npminmin co priviƚegi de Aministradore par doparare sta funsionaƚità"/>
 					<Item id="4009" name="Estension suportà:"/>
 					<Item id="4010" name="Estension registrà:"/>
 				</FileAssoc>
@@ -1177,7 +1177,7 @@ Translation note:
 				</Print>
 
 				<Searching title="Riserca">
-					<Item id="6902" name="Dòpara caràtare a spasiatura fisa inte ƚa fenèstra de riserca (Te devi inviare de novo Notepad++)"/>
+					<Item id="6902" name="Dòpara caràtare a spasiatura fisa inte ƚa fenèstra de riserca (Te devi inviare de novo npminmin)"/>
 					<Item id="6903" name="Ƚasa vèrta ƚa fenèstra de dialogo dopo aver catà cuel output inte ƚa fenèstra de i rixultadi"/>
 					<Item id="6904" name="Conferma Sostituisi tuto cuanto en tuti i documenti vèrti"/>
 					<Item id="6905" name="Sostituisi: sensa spostamento a ƚa corispondensa sucesiva"/>
@@ -1243,7 +1243,7 @@ Translation note:
 					<Item id="6152" name="Vèrxi sesion en na nova istansa  (e salva otomaticamente ƚe sesioni a l&apos;usita)"/>
 					<Item id="6153" name="Senpre en modaƚità istansa multipla"/>
 					<Item id="6154" name="Predefinìo (istansa ùgnoƚa)"/>
-					<Item id="6155" name="* Ƚa modìfega de sta inpostasion ƚa ga bixogno de inviare de novo Notepad++"/>
+					<Item id="6155" name="* Ƚa modìfega de sta inpostasion ƚa ga bixogno de inviare de novo npminmin"/>
 					<Item id="6171" name="Inserimento Data e ora personalixà"/>
 					<Item id="6175" name="Inverti l&apos;ordinamento de date e ora predefinìe (formado longo &amp;&amp; curto)"/>
 					<Item id="6172" name="formadi personalixà:"/>
@@ -1315,7 +1315,7 @@ Translation note:
 					<Item id="6313" name="Axorna sensa notifica"/>
 					<Item id="6325" name="Và a ƚ&apos;ùltima riga dopo ƚ&apos;axornamento"/>
 					<Item id="6322" name="Est. file de sesion:"/>
-					<Item id="6323" name="Axorna otomàticamente Notepad++"/>
+					<Item id="6323" name="Axorna otomàticamente npminmin"/>
 					<Item id="6324" name="Sostituisi Documento (Ctrl+TAB)"/>
 					<Item id="6331" name="Visuaƚixa soƚo nòme file inte ƚa bara de&apos;l tìtoƚo"/>
 					<Item id="6334" name="Riƚeva otomàticamente codefega caràtari"/>
@@ -1402,8 +1402,8 @@ Te poi riativare de novo sto dialogo da Prefarense."/>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
-			<ContextMenuXmlEditWarning title="Modìfega menu contestuaƚe" message="Ƚa modìfega de&apos;l file contextMenu.xml parmete de modifegare el menu contestuaƚe de Notepad++.
-Bisogna inviare de novo Notepad++ parchè ƚe modìfeghe aportà a&apos;l file contextMenu.xml ƚe gàpia efeto."/>
+			<ContextMenuXmlEditWarning title="Modìfega menu contestuaƚe" message="Ƚa modìfega de&apos;l file contextMenu.xml parmete de modifegare el menu contestuaƚe de npminmin.
+Bisogna inviare de novo npminmin parchè ƚe modìfeghe aportà a&apos;l file contextMenu.xml ƚe gàpia efeto."/>
 			<SaveCurrentModifWarning title="Salva modìfeghe corenti" message="Te devi salvare ƚe modìfeghe corenti.
 Tute ƚe modìfeghe salvà no ƚe poƚe èsare ripristinà.
 
@@ -1412,16 +1412,16 @@ Continuare?"/><!-- HowToReproduce: when you openned file is modified but unsaved
 Tute ƚe modìfeghe salvà no ƚe poƚe èsare ripristinà.
 
 Continuare?"/><!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
-			<CannotMoveDoc title="Manda a na nova istansa de Notepad++" message="El documento el xe stà modifegà, salvarƚo vanti de continuare."/>
+			<CannotMoveDoc title="Manda a na nova istansa de npminmin" message="El documento el xe stà modifegà, salvarƚo vanti de continuare."/>
 			<DocReloadWarning title="Carga de novo" message="Sito sicuro de voƚer cargare de novo el file? Ogni modìfega aportà ƚa vegnarà persa."/>
 			<FileLockedWarning title="Salvatagio faƚìo" message="Verificare che el file no&apos;l sìpia vèrto co &apos;n altro programa."/>
-			<FileAlreadyOpenedInNpp title="" message="El file el xe xà vèrto en Notepad++."/>
+			<FileAlreadyOpenedInNpp title="" message="El file el xe xà vèrto en npminmin."/>
 			<RenameTabTemporaryNameAlreadyInUse title="Rinomena no andà a bon fine" message="El nòme indicà el xe xà doparà so nantra scheda."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
 			<RenameTabTemporaryNameIsEmpty title="Rinomena no andà a buon fine" message="El nòme inserìo no'l poƚe rimanere vodo, e no'l poƚe contegnere soltanto spasi o TAB."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Scanseƚasion file" message="Scanseƚasion de&apos;l file no andà a bon fine."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="El nùmaro de file da vèrxare el xe masa grando" message="Se xe drìo vèrxare $INT_REPLACE$ file.
-Sito sicuro de voƚerƚi vèrxare?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
+Sito sicuro de voƚerƚi vèrxare?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into npminmin. -->
 			<SettingsOnCloudError title="Inpostasion Cloud" message="Senbra che el percorso par ƚe inpostasion de&apos;l cloud el sìa inpostà so na carteƚa en soƚa ƚetura,
 o en na carteƚa riservada.
 Ƚe inpostasion inte&apos;l cloud ƚe vegnarà anulà. Reinposta on vaƚore coerente da ƚe inpostasion."/>
@@ -1458,14 +1458,14 @@ Vuto recargarƚo?"/>
 			<DoReloadOrNotAndLooseChange title="Recarga" message="&quot;$STR_REPLACE$&quot;
 
 Sto file el xe stà modifegà da &apos;n altro programa.
-Vuto recargarƚo e perdare tute ƚe modìfeghe aportà en Notepad++?"/>
+Vuto recargarƚo e perdare tute ƚe modìfeghe aportà en npminmin?"/>
 			<PrehistoricSystemDetected title="Catà on sistema preistorego" message="Senbra che te si drìo doparare on sistema preistorego. Sta funsionaƚità ƚa ga bisogno de on sistema pì moderno."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
-			<XpUpdaterProblem title="Axornamento Notepad++" message="Ƚ&apos;axornamento otomàtico de Notepad++ no&apos;l xe conpatibiƚe co XP par colpa de on sistema de parmesi obsoƚeto.
-Vuto &apos;ndare inte ƚa pàgina de Notepad++ par descargare ƚ&apos;axornamento manualmente?"/>
-			<GUpProxyConfNeedAdminMode title="Inpostasion proxy" message="Riƚancia Notepad++ co i priviƚegi de aministradore par configurare el proxy."/>
+			<XpUpdaterProblem title="Axornamento npminmin" message="Ƚ&apos;axornamento otomàtico de npminmin no&apos;l xe conpatibiƚe co XP par colpa de on sistema de parmesi obsoƚeto.
+Vuto &apos;ndare inte ƚa pàgina de npminmin par descargare ƚ&apos;axornamento manualmente?"/>
+			<GUpProxyConfNeedAdminMode title="Inpostasion proxy" message="Riƚancia npminmin co i priviƚegi de aministradore par configurare el proxy."/>
 			<DocTooDirtyToMonitor title="Problema monitoragio" message="El documento el xe sporco. Salva ƚe modìfeghe vanti de scomisiare el monitoragio."/>
 			<DocNoExistToMonitor title="Problema monitoragio" message="El file el deve existare par èsare monitorà."/>
-			<FileTooBigToOpen title="Problema dimension file" message="El file el xe masa grando par èsare vèrto co Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+			<FileTooBigToOpen title="Problema dimension file" message="El file el xe masa grando par èsare vèrto co npminmin"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
 			<FileLoadingException title="Codice de ecesion: $STR_REPLACE$" message="Se gà verifegà un erore durante el caricamento del file!"/>
 			<WantToOpenHugeFile title="Verxere file de grandi dimensioni" message="Verxere file superiori a 2GB+ i poderìa inpiegare svariati minuti.
 Vuoi proseguire?"/>
@@ -1503,26 +1503,26 @@ usane &apos;n altro."/>
 			<SCMapperDoDeleteOrNot title="Sito sicuro?" message="Sito sicuro de voƚer scanseƚare sta scorciatoia?"/>
 			<FindCharRangeValueError title="Problema inte&apos;l intervaƚo de vaƚori" message="Te devi inserire on vaƚore tra 0 e 255."/>
 			<OpenInAdminMode title="Salvatagio faƚìo" message="El file no&apos;l poƚe èsare salvà e el poderìa èsare proteto.
-Vuto inviare Notepad++ cofà aministradore?"/>
+Vuto inviare npminmin cofà aministradore?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Salvatagio faƚìo" message="El file no&apos;l poƚe èsare salvà e el poderìa èsare proteto.
-Vuto inviare Notepad++ cofà aministradore?"/>
-			<OpenInAdminModeFailed title="Vertaura cofà aministradore faƚìa" message="Notepad++ no&apos;l poƚe èsare vèrto cofà aministradore."/>
+Vuto inviare npminmin cofà aministradore?"/>
+			<OpenInAdminModeFailed title="Vertaura cofà aministradore faƚìa" message="npminmin no&apos;l poƚe èsare vèrto cofà aministradore."/>
 			<ViewInBrowser title="Visuaƚixa file corente inte&apos;l browser" message="Aplicasion no catà inte&apos;l sistema."/>
-			<ExitToUpdatePlugins title="Notepad++ el xe drio sararse su" message="Se te fe clic so &quot;Sì&quot;, te narè fora da Notepad++ par continuare ƚe operasion.
-Notepad++ el vegnarà invià de novo dòpo che ƚe operasion ƚe vegnarà conpletà.
+			<ExitToUpdatePlugins title="npminmin el xe drio sararse su" message="Se te fe clic so &quot;Sì&quot;, te narè fora da npminmin par continuare ƚe operasion.
+npminmin el vegnarà invià de novo dòpo che ƚe operasion ƚe vegnarà conpletà.
 Vuto continuare?"/>
-			<NeedToRestartToLoadPlugins title="Notepad++ el deve èsare invià de novo" message="Te devi inviare de novo Notepad++ par cargare i plugin che te ghè instaƚà."/>
-			<ChangeHistoryEnabledWarning title="Riavvio Notepad++" message="Par abilitare ƚa cronologia delle modifeghe, Notepad++ deve èsare riavviato."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
-			<WindowsSessionExit title="Notepad++ - Sarare ƚa sesion" message="La sesion Windows sta par èsare terminà, ma ghe xe dati no salvà. Nar fora da Notepad++"/>
+			<NeedToRestartToLoadPlugins title="npminmin el deve èsare invià de novo" message="Te devi inviare de novo npminmin par cargare i plugin che te ghè instaƚà."/>
+			<ChangeHistoryEnabledWarning title="Riavvio npminmin" message="Par abilitare ƚa cronologia delle modifeghe, npminmin deve èsare riavviato."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+			<WindowsSessionExit title="npminmin - Sarare ƚa sesion" message="La sesion Windows sta par èsare terminà, ma ghe xe dati no salvà. Nar fora da npminmin"/>
 			<LanguageMenuCompactWarning title="Menù Linguaggio Compato" message="L&apos;opsione ƚa sarà efetiva al reinvio."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Ƚe modifeghe non salvate ƚe vegnarà perse!
 Vuoi salvare ƚe modifeghe vanti de canbiare tema?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Compatibilità dei Comandi de Macro ed Esegui" message="I salvatagi dei comandi de Macro ed Exegui de Notepad++ v.8.5.2 (o sucesive) ƚe poderìa no èsare compatibili con ƚa version corente de Notepad++.
+			<MacroAndRunCmdlWarning title="Compatibilità dei Comandi de Macro ed Esegui" message="I salvatagi dei comandi de Macro ed Exegui de npminmin v.8.5.2 (o sucesive) ƚe poderìa no èsare compatibili con ƚa version corente de npminmin.
 Testa sti comandi e, se necesario, rimodificali.
 
-Alternativamente, xe posibile tornare a Notepad++ v8.5.2 e ripristinare i dati presedenti.
-Notepad++ salverà el vecio &quot;shortcuts.xml&quot; e salvarlo cofà &quot;shortcuts.xml.v8.5.2.backup&quot;.
-Rinominando &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, i comandi i sarà ripristinà e i funsionerà coretamente."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+Alternativamente, xe posibile tornare a npminmin v8.5.2 e ripristinare i dati presedenti.
+npminmin salverà el vecio &quot;shortcuts.xml&quot; e salvarlo cofà &quot;shortcuts.xml.v8.5.2.backup&quot;.
+Rinominando &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, i comandi i sarà ripristinà e i funsionerà coretamente."/><!-- HowToReproduce: Close npminmin, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch npminmin, delete or modify a shortcuts via Shortcut Mapper, close npminmin, then the message will show up -->
 			<NotEnoughRoom4Saving title="Salvatagio no nà a bon fine" message="El salvatagio del file non el xe nà a buon fine.
 Lo spasio so disco non xe suficiente par salvare el file. El file non el xe sta salvà."/>
 			<FileInaccessibleUserSession title="File no acesibiƚi" message="Alcuni file de ƚa sesion salvà non i xe pì acesibili. Xe posibile mantegnere i file vèrti in sola letura e vodi.
@@ -1535,8 +1535,8 @@ NOTA: Scegliendo de non mantegner el file verto o sarandolo sucesivamente, ƚa s
 si vuole mantegnere el file verto ?
 
 NOTA: Scegliendo de non mantegnere el file verto o sarandolo sucesivamente, ƚa sesion ƚa vegnarà MODIFEGÀ NANDO FORA! Se sugerise de efetuare adesso el backup de  &quot;session.xml&quot;."/>
-			<RTLvsDirectWrite title="Non xe posibile eseguire RTL" message="RTL non el xe compatibile con ƚa modaƚità DirectWrite. Dixabilita ƚa modaƚità DirectWrite in Preferense, sesion Varie, reivvia Notepad++, e prova de novo sto comando."/>
-			<FileMemoryAllocationFailed title="Ecesion: erore nell'Alocasion de ƚa memoria del File" message="Senbra non eserghe bastansa memoria contigua libera afinché el file el posa èsare caricà da Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<RTLvsDirectWrite title="Non xe posibile eseguire RTL" message="RTL non el xe compatibile con ƚa modaƚità DirectWrite. Dixabilita ƚa modaƚità DirectWrite in Preferense, sesion Varie, reivvia npminmin, e prova de novo sto comando."/>
+			<FileMemoryAllocationFailed title="Ecesion: erore nell'Alocasion de ƚa memoria del File" message="Senbra non eserghe bastansa memoria contigua libera afinché el file el posa èsare caricà da npminmin."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 npminmin (it will depend on the PC memory configuration and the current system memory usage...). -->
 			<FindRegexBackwardDisabled title="Disabilitata ƚa Ricerca a ritroso con espresion regoƚare" message="Par inpostasion predefinìa, ƚa riserca Espresion Regoƚare a ritroso ƚa xe disabilità a causa de risultadi potensialmente inprevisti. Par eseguire una ricerca all'indietro, vèrxere ƚa fenèstra de dialogo Cata e seƚesionare ƚa modaƚità de riserca normale o estexa ansiché l'espresion regoƚare.
 Strucare el boton Conferma par verxere o ativare ƚa fenèstra de dialogo Cata.
 
@@ -1660,8 +1660,8 @@ Nel caso fosse necesaria ƚa funsion de riserca Espresion regoƚare a ritroso, c
 			<word-chars-list-warning-end value=" inte ƚa to ƚista caràtari."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
 			<backup-select-folder value="Seƚesiona un percorso par ƚa carteƚa de Backup"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value="Percorso no vaƚido."/>
-			<cloud-restart-warning value="Invìa de novo Notepad++ par aplicare ƚe modìfeghe."/>
-			<cloud-select-folder value="Seƚesiona na carteƚa da indove Notepad++ pòsa ƚèxare o scrìvare ƚe proprie inpostasion"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+			<cloud-restart-warning value="Invìa de novo npminmin par aplicare ƚe modìfeghe."/>
+			<cloud-select-folder value="Seƚesiona na carteƚa da indove npminmin pòsa ƚèxare o scrìvare ƚe proprie inpostasion"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
 			<default-open-save-select-folder value="Seƚesiona un percorso par ƚa carteƚa de default"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Utiƚixa Shift+Invio par sercare inte ƚa diresion oposta"/>
 			<two-find-buttons-tip value="Modaƚità riserca a 2 botoni"/>

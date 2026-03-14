@@ -290,15 +290,15 @@
 					<Item id="46250" name="Define your language..."/>
 					<Item id="46300" name="Oscail User Defined Language folder..."/>
 					<Item id="46180" name="User-Defined"/>
-					<Item id="47000" name="Maidir le Notepad++"/>
+					<Item id="47000" name="Maidir le npminmin"/>
 					<Item id="47010" name="Command Line Arguments..."/>
-					<Item id="47001" name="Baile Notepad++"/>
-					<Item id="47002" name="Notepad++ Project Page"/>
+					<Item id="47001" name="Baile npminmin"/>
+					<Item id="47002" name="npminmin Project Page"/>
 					<Item id="47003" name="Online Documentation"/>
-					<Item id="47004" name="Notepad++ Community (Forum)"/>
+					<Item id="47004" name="npminmin Community (Forum)"/>
 					<Item id="47012" name="Debug Info..."/>
 					<Item id="47005" name="Get More Plugins"/>
-					<Item id="47006" name="Nuashonraigh Notepad++"/>
+					<Item id="47006" name="Nuashonraigh npminmin"/>
 					<Item id="47009" name="Set Updater Proxy..."/>
 					<Item id="48005" name="Import plugin(s)..."/>
 					<Item id="48006" name="Import style theme(s)..."/>
@@ -837,7 +837,7 @@ You can define several column markers by using white space to separate the diffe
 				</DefaultDir>
 
 				<FileAssoc title="File Association">
-					<Item id="4008" name="Please exit Notepad++ and relaunch Notepad++ in Administrator mode to use this feature."/>
+					<Item id="4008" name="Please exit npminmin and relaunch npminmin in Administrator mode to use this feature."/>
 					<Item id="4009" name="Supported extensions:"/>
 					<Item id="4010" name="Registered extensions:"/>
 				</FileAssoc>
@@ -898,7 +898,7 @@ You can define several column markers by using white space to separate the diffe
 
 				<Searching title="Cuardach">
 					<Item id="6901" name="Don't fill find field in Find dialog with selected word"/>
-					<Item id="6902" name="Use monospaced font in Find dialog (Need to restart Notepad++)"/>
+					<Item id="6902" name="Use monospaced font in Find dialog (Need to restart npminmin)"/>
 				</Searching>
 
 				<RecentFilesHistory title="Recent Files History">
@@ -949,10 +949,10 @@ You can define several column markers by using white space to separate the diffe
 
 				<MultiInstance title="Multi-Instance">
 					<Item id="6151" name="Multi-instance settings"/>
-					<Item id="6152" name="Oscail session in a new instance of Notepad++"/>
+					<Item id="6152" name="Oscail session in a new instance of npminmin"/>
 					<Item id="6153" name="Always in multi-instance mode"/>
 					<Item id="6154" name="Default (mono-instance)"/>
-					<Item id="6155" name="* The modification of this setting needs to restart Notepad++"/>
+					<Item id="6155" name="* The modification of this setting needs to restart npminmin"/>
 				</MultiInstance>
 
 				<Delimiter title="Delimiter">
@@ -996,7 +996,7 @@ You can define several column markers by using white space to separate the diffe
 					<Item id="6319" name="Cumasaigh"/>
 					<Item id="6320" name="No underline"/>
 					<Item id="6322" name="Session file ext.:"/>
-					<Item id="6323" name="Cumasaigh Notepad++ auto-updater"/>
+					<Item id="6323" name="Cumasaigh npminmin auto-updater"/>
 					<Item id="6324" name="Document Switcher (Ctrl+TAB)"/>
 					<Item id="6331" name="Show only filename in title bar"/>
 					<Item id="6334" name="Autodetect character encoding"/>
@@ -1061,20 +1061,20 @@ You can define several column markers by using white space to separate the diffe
 			</DoSaveOrNot>
 		</Dialog>
 		<MessageBox><!-- $INT_REPLACE$ is a place holder, don't translate it -->
-			<ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.
-You have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
+			<ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your npminmin popup context menu.
+You have to restart your npminmin to take effect after modifying contextMenu.xml."/>
 			<NppHelpAbsentWarning title="File does not exist" message="
-doesn't exist. Please download it on Notepad++ site."/>
+doesn't exist. Please download it on npminmin site."/>
 			<SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.
 All the saved modifications cannot be undone.
 Continue?"/>
 			<LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.
 All the saved modifications cannot be undone.
 Continue?"/>
-			<CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
-			<DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
+			<CannotMoveDoc title="Move to new npminmin Instance" message="Document is modified, save it then try again."/>
+			<DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in npminmin?"/>
 			<FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
-			<FileAlreadyOpenedInNpp title="" message="The file is already opened in Notepad++."/>
+			<FileAlreadyOpenedInNpp title="" message="The file is already opened in npminmin."/>
 			<DeleteFileFailed title="Delete File" message="Delete File failed"/>
 
 			<NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.
@@ -1102,14 +1102,14 @@ This file has been modified by another program.
 Do you want to reload it?"/>
 			<DoReloadOrNotAndLooseChange title="Reload" message="&quot;$STR_REPLACE$&quot;
 This file has been modified by another program.
-Do you want to reload it and lose the changes made in Notepad++?"/>
+Do you want to reload it and lose the changes made in npminmin?"/>
 			<PrehistoricSystemDetected title="Prehistoric system detected" message="It seems you still use a prehistoric system. This feature works only on a modern system, sorry."/>
-			<XpUpdaterProblem title="Notepad++ Updater" message="Notepad++ updater is not compatible with XP due to the obsolete security layer under XP.
-Do you want to go to Notepad++ page to download the latest version?"/>
-			<GUpProxyConfNeedAdminMode title="Proxy Settings" message="Please relaunch Notepad++ in Admin mode to configure proxy."/>
+			<XpUpdaterProblem title="npminmin Updater" message="npminmin updater is not compatible with XP due to the obsolete security layer under XP.
+Do you want to go to npminmin page to download the latest version?"/>
+			<GUpProxyConfNeedAdminMode title="Proxy Settings" message="Please relaunch npminmin in Admin mode to configure proxy."/>
 			<DocTooDirtyToMonitor title="Monitoring problem" message="The document is dirty. Please save the modification before monitoring it."/>
 			<DocNoExistToMonitor title="Monitoring problem" message="The file should exist to be monitored."/>
-			<FileTooBigToOpen title="File size problem" message="File is too big to be opened by Notepad++"/>
+			<FileTooBigToOpen title="File size problem" message="File is too big to be opened by npminmin"/>
 			<CreateNewFileOrNot title="Create new file" message="&quot;$STR_REPLACE$&quot; doesn't exist. Create it?"/>
 			<CreateNewFileError title="Create new file" message="Cannot create the file &quot;$STR_REPLACE$&quot;."/>
 			<OpenFileError title="ERROR" message="Cannot open file &quot;$STR_REPLACE$&quot;."/>
@@ -1140,15 +1140,15 @@ please give another one."/>
 			<SCMapperDoDeleteOrNot title="Are you sure?" message="Are you sure you want to delete this shortcut?"/>
 			<FindCharRangeValueError title="Range Value problem" message="You should type between 0 and 255."/>
 			<OpenInAdminMode title="Save failed" message="The file cannot be saved and it may be protected.
-Do you want to launch Notepad++ in Administrator mode?"/>
+Do you want to launch npminmin in Administrator mode?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Save failed" message="The file cannot be saved and it may be protected.
-Do you want to launch Notepad++ in Administrator mode?"/>
-			<OpenInAdminModeFailed title="Open in Administrator mode failed" message="Notepad++ cannot be opened in Administrator mode."/>
+Do you want to launch npminmin in Administrator mode?"/>
+			<OpenInAdminModeFailed title="Open in Administrator mode failed" message="npminmin cannot be opened in Administrator mode."/>
 			<ViewInBrowser title="View Current File in Browser" message="Application cannot be found in your system."/>
-			<ExitToUpdatePlugins title="Notepad++ is about to exit" message="If you click YES, you will quit Notepad++ to continue the operations.
-Notepad++ will be restarted after all the operations are terminated.
+			<ExitToUpdatePlugins title="npminmin is about to exit" message="If you click YES, you will quit npminmin to continue the operations.
+npminmin will be restarted after all the operations are terminated.
 Continue?"/>
-			<NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to load plugins you installed."/>
+			<NeedToRestartToLoadPlugins title="npminmin need to be relaunched" message="You have to restart npminmin to load plugins you installed."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Clipboard History"/>
@@ -1250,8 +1250,8 @@ Continue?"/>
 			<word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
 			<word-chars-list-warning-end value="  in your character list."/>
 			<cloud-invalid-warning value="Conair neamhbhailí."/>
-			<cloud-restart-warning value="Please restart Notepad++ to take effect."/>
-			<cloud-select-folder value="Select a folder from/to where Notepad++ reads/writes its settings"/>
+			<cloud-restart-warning value="Please restart npminmin to take effect."/>
+			<cloud-select-folder value="Select a folder from/to where npminmin reads/writes its settings"/>
 			<shift-change-direction-tip value="Use Shift+Enter to search in the opposite direction"/>
 			<two-find-buttons-tip value="2 find buttons mode"/>
 			<find-in-files-filter-tip value="Find in cpp, cxx, h, hxx &amp;&amp; hpp:

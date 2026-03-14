@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (C)2025 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -61,13 +61,13 @@ struct FuncItem
 
 typedef FuncItem * (__cdecl * PFUNCGETFUNCSARRAY)(int *);
 
-// You should implement (or define an empty function body) those functions which are called by Notepad++ plugin manager
+// You should implement (or define an empty function body) those functions which are called by npminmin plugin manager
 extern "C" __declspec(dllexport) void setInfo(NppData);
 extern "C" __declspec(dllexport) const wchar_t * getName();
 extern "C" __declspec(dllexport) FuncItem * getFuncsArray(int *);
 extern "C" __declspec(dllexport) void beNotified(SCNotification *);
 extern "C" __declspec(dllexport) LRESULT messageProc(UINT Message, WPARAM wParam, LPARAM lParam);
 
-// This API return always true now, since Notepad++ isn't compiled in ANSI mode anymore
+// This API return always true now, since npminmin isn't compiled in ANSI mode anymore
 extern "C" __declspec(dllexport) BOOL isUnicode();
 

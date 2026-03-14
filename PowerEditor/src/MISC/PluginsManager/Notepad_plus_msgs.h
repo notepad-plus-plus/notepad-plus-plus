@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (C)2025 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -95,7 +95,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 		#define MODELESSDIALOGREMOVE 1
 	// HWND NPPM_MODELESSDIALOG(int action, HWND hDlg)
 	// Register (or unregister) plugin's dialog handle.
-	// For each created dialog in your plugin, you should register it (and unregister while destroy it) to Notepad++ by using this message.
+	// For each created dialog in your plugin, you should register it (and unregister while destroy it) to npminmin by using this message.
 	// If this message is ignored, then your dialog won't react with the key stroke messages such as TAB, Ctrl-C or Ctrl-V key.
 	// For the good functioning of your plugin dialog, you're recommended to not ignore this message.
 	// wParam[in]: action is MODELESSDIALOGADD (for registering your hDlg) or MODELESSDIALOGREMOVE (for unregistering your hDlg)
@@ -131,7 +131,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_SAVECURRENTSESSION (NPPMSG + 16)
 	// wchar_t* NPPM_SAVECURRENTSESSION(0, wchar_t* sessionFileName)
-	// Saves the current opened files in Notepad++ as a group of files (session) as an xml file.
+	// Saves the current opened files in npminmin as a group of files (session) as an xml file.
 	// wParam: 0 (not used)
 	// lParam[in]: sessionFileName is the xml full path name
 	// Returns sessionFileName on success, NULL otherwise
@@ -153,14 +153,14 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_CREATESCINTILLAHANDLE (NPPMSG + 20)
 	// HWND NPPM_CREATESCINTILLAHANDLE(0, HWND hParent)
-	// A plugin can create a Scintilla for its usage by sending this message to Notepad++.
+	// A plugin can create a Scintilla for its usage by sending this message to npminmin.
 	// wParam: 0 (not used)
-	// lParam[in]: hParent - If set (non NULL), it will be the parent window of this created Scintilla handle, otherwise the parent window is Notepad++
+	// lParam[in]: hParent - If set (non NULL), it will be the parent window of this created Scintilla handle, otherwise the parent window is npminmin
 	// return the handle of created Scintilla handle
 
 	#define NPPM_DESTROYSCINTILLAHANDLE_DEPRECATED (NPPMSG + 21)
 	// BOOL NPPM_DESTROYSCINTILLAHANDLE_DEPRECATED(0, HWND hScintilla) - DEPRECATED: It is kept for the compatibility.
-	// Notepad++ will deallocate every created Scintilla control on exit, this message returns TRUE but does nothing.
+	// npminmin will deallocate every created Scintilla control on exit, this message returns TRUE but does nothing.
 	// wParam: 0 (not used)
 	// lParam[in]: hScintilla is Scintilla handle
 	// Return TRUE
@@ -201,7 +201,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Get menu handle (HMENU) of choice.
 	// wParam[in]: menuChoice could be main menu (NPPMAINMENU) or Plugin menu (NPPPLUGINMENU)
 	// lParam: 0 (not used)
-	// Return: menu handle (HMENU) of choice (plugin menu handle or Notepad++ main menu handle)
+	// Return: menu handle (HMENU) of choice (plugin menu handle or npminmin main menu handle)
 
 	#define NPPM_ENCODESCI (NPPMSG + 26)
 	// int NPPM_ENCODESCI(int inView, 0)
@@ -235,7 +235,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	#define NPPM_LAUNCHFINDINFILESDLG (NPPMSG + 29)
 	// BOOL NPPM_LAUNCHFINDINFILESDLG(wchar_t * dir2Search, wchar_t * filtre)
 	// Launch Find in Files dialog and set "Find in" directory and filters with the given arguments.
-	// wParam[in]: if dir2Search is not NULL, it will be set as working directory in which Notepad++ will search
+	// wParam[in]: if dir2Search is not NULL, it will be set as working directory in which npminmin will search
 	// lParam[in]: if filtre is not NULL, filtre string will be set into filter field
 	// Return TRUE
 
@@ -262,7 +262,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_DMMREGASDCKDLG (NPPMSG + 33)
 	// BOOL NPPM_DMMREGASDCKDLG(0, tTbData* pData)
-	// Pass the necessary dockingData to Notepad++ in order to make your dialog dockable.
+	// Pass the necessary dockingData to npminmin in order to make your dialog dockable.
 	// wParam: 0 (not used)
 	// lParam[in]: pData is the pointer of tTbData. Please check tTbData structure in "Docking.h"
 	//             Minimum information which needs to be filled out are hClient, pszName, dlgID, uMask and pszModuleName.
@@ -271,7 +271,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_LOADSESSION (NPPMSG + 34)
 	// BOOL NPPM_LOADSESSION(0, wchar_t* sessionFileName)
-	// Open all files of same session in Notepad++ via a xml format session file sessionFileName.
+	// Open all files of same session in npminmin via a xml format session file sessionFileName.
 	// wParam: 0 (not used)
 	// lParam[in]: sessionFileName is the full file path of session file to reload
 	// Return TRUE
@@ -380,14 +380,14 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// For example, plugin X can execute a command of plugin Y if plugin X knows the command ID and the file name of plugin Y.
 	// wParam[in]: destModuleName is the destination complete module file name (with the file extension ".dll")
 	// lParam[in]: info - See above "CommunicationInfo" structure
-	// The returned value is TRUE if Notepad++ found the plugin by its module name (destModuleName), and pass the info (communicationInfo) to the module.
+	// The returned value is TRUE if npminmin found the plugin by its module name (destModuleName), and pass the info (communicationInfo) to the module.
 	// The returned value is FALSE if no plugin with such name is found.
 
 	#define NPPM_MENUCOMMAND (NPPMSG + 48)
 	// BOOL NPPM_MENUCOMMAND(0, int cmdID)
-	// Run Notepad++ command with the given command ID.
+	// Run npminmin command with the given command ID.
 	// wParam: 0 (not used)
-	// lParam[in]: cmdID - See "menuCmdID.h" for all the Notepad++ menu command items
+	// lParam[in]: cmdID - See "menuCmdID.h" for all the npminmin menu command items
 	// Return TRUE
 
 	#define NPPM_TRIGGERTABBARCONTEXTMENU (NPPMSG + 49)
@@ -399,7 +399,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_GETNPPVERSION (NPPMSG + 50)
 	// int NPPM_GETNPPVERSION(BOOL ADD_ZERO_PADDING, 0)
-	// Get Notepad++ version.
+	// Get npminmin version.
 	// wParam[in]: ADD_ZERO_PADDING (see below)
 	// lParam: 0 (not used)
 	// return value:
@@ -592,7 +592,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	#define NPPM_DOOPEN (NPPMSG + 77)
 	// BOOL NPPM_DOOPEN(0, const wchar_t* fullPathName2Open)
 	// Open a file with given fullPathName2Open.
-	// If fullPathName2Open has been already opened in Notepad++, the it will be activated and becomes the current document.
+	// If fullPathName2Open has been already opened in npminmin, the it will be activated and becomes the current document.
 	// wParam: 0 (not used)
 	// lParam[in]: fullPathName2Open indicates the full file path name to be opened
 	// The return value is TRUE if the operation is successful, otherwise FALSE
@@ -606,7 +606,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
     #define NPPM_GETCURRENTNATIVELANGENCODING (NPPMSG + 79)
 	// int NPPM_GETCURRENTNATIVELANGENCODING(0, 0)
-	// Get the code page associated with the current localisation of Notepad++.
+	// Get the code page associated with the current localisation of npminmin.
 	// wParam: 0 (not used)
 	// lParam: 0 (not used)
 	// return value: the current native language encoding
@@ -633,11 +633,11 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//   BOOL isAllocatedSuccessful = ::SendMessage(nppData._nppHandle, NPPM_ALLOCATECMDID, 4, &idBegin);
 	//
 	// if isAllocatedSuccessful is TRUE, and value of idBegin is 46581
-	// then menu item ID 46581, 46582, 46583 and 46584 are preserved by Notepad++, and they are safe to be used by the plugin.
+	// then menu item ID 46581, 46582, 46583 and 46584 are preserved by npminmin, and they are safe to be used by the plugin.
 
 	#define NPPM_ALLOCATEMARKER  (NPPMSG + 82)
     // BOOL NPPM_ALLOCATEMARKER(int numberRequested, int* startNumber)
-	// Allocate a number of consecutive marker IDs to a plugin: if a plugin need to add a marker on Notepad++'s Scintilla marker margin,
+	// Allocate a number of consecutive marker IDs to a plugin: if a plugin need to add a marker on npminmin's Scintilla marker margin,
 	// it has to use this message to get marker number, in order to prevent from the conflict with the other plugins.
 	// wParam[in]: numberRequested is the number of ID you request for the reservation
 	// lParam[out]: startNumber will be set to the initial command ID if successful
@@ -649,7 +649,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//   BOOL isAllocatedSuccessful = ::SendMessage(nppData._nppHandle, NPPM_ALLOCATEMARKER, 3, &idBegin);
 	//
 	// if isAllocatedSuccessful is TRUE, and value of idBegin is 16
-	// then marker ID 16, 17 and 18 are preserved by Notepad++, and they are safe to be used by the plugin.
+	// then marker ID 16, 17 and 18 are preserved by npminmin, and they are safe to be used by the plugin.
 
 	#define NPPM_GETLANGUAGENAME  (NPPMSG + 83)
 	// int NPPM_GETLANGUAGENAME(LangType langType, wchar_t* langName)
@@ -689,7 +689,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_GETAPPDATAPLUGINSALLOWED    (NPPMSG + 87)
 	// BOOL NPPM_GETAPPDATAPLUGINSALLOWED(0, 0)
-	// Check to see if loading plugins from "%APPDATA%\..\Local\Notepad++\plugins" is allowed.
+	// Check to see if loading plugins from "%APPDATA%\..\Local\npminmin\plugins" is allowed.
 	// wParam: 0 (not used)
 	// lParam: 0 (not used)
 	// return value: TRUE if loading plugins from %APPDATA% is allowed, FALSE otherwise
@@ -699,7 +699,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Get the current used view.
 	// wParam: 0 (not used)
 	// lParam: 0 (not used)
-	// Return: current edit view of Notepad++. Only 2 possible values: 0 = Main, 1 = Secondary
+	// Return: current edit view of npminmin. Only 2 possible values: 0 = Main, 1 = Secondary
 
 	#define NPPM_DOCLISTDISABLEEXTCOLUMN    (NPPMSG + 89)
 	// BOOL NPPM_DOCLISTDISABLEEXTCOLUMN(0, BOOL disableOrNot)
@@ -745,14 +745,14 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_SAVEFILE (NPPMSG + 94)
 	// BOOL NPPM_SAVEFILE(0, const wchar_t *fileNameToSave)
-	// Save the file (opened in Notepad++) with the given full file name path.
+	// Save the file (opened in npminmin) with the given full file name path.
 	// wParam: 0 (not used)
 	// lParam[in]: fileNameToSave must be the full file path for the file to be saved.
 	// Return TRUE on success, FALSE on fileNameToSave is not found
 
 	#define NPPM_DISABLEAUTOUPDATE (NPPMSG + 95) // 2119 in decimal
 	// BOOL NPPM_DISABLEAUTOUPDATE(0, 0)
-	// Disable Notepad++ auto-update.
+	// Disable npminmin auto-update.
 	// wParam: 0 (not used)
 	// lParam: 0 (not used)
 	// Return TRUE
@@ -785,7 +785,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 		#define LINENUMWIDTH_CONSTANT    1
 	// BOOL NPPM_SETLINENUMBERWIDTHMODE(0, int widthMode)
 	// Set line number margin width in dynamic width mode (LINENUMWIDTH_DYNAMIC) or constant width mode (LINENUMWIDTH_CONSTANT)
-	// It may help some plugins to disable non-dynamic line number margins width to have a smoothly visual effect while vertical scrolling the content in Notepad++
+	// It may help some plugins to disable non-dynamic line number margins width to have a smoothly visual effect while vertical scrolling the content in npminmin
 	// wParam: 0 (not used)
 	// lParam[in]: widthMode should be LINENUMWIDTH_DYNAMIC or LINENUMWIDTH_CONSTANT
 	// return TRUE if calling is successful, otherwise return FALSE
@@ -815,8 +815,8 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Get ExternalLexerAutoIndentMode for an installed external programming language.
 	// wParam[in]: languageName is external language name to search
 	// lParam[out]: autoIndentMode could receive one of three following values
-	//              - Standard (0) means Notepad++ will keep the same TAB indentation between lines;
-	//              - C_Like (1) means Notepad++ will perform a C-Language style indentation for the selected external language;
+	//              - Standard (0) means npminmin will keep the same TAB indentation between lines;
+	//              - C_Like (1) means npminmin will perform a C-Language style indentation for the selected external language;
 	//              - Custom (2) means a Plugin will be controlling auto-indentation for the current language.
 	// returned values: TRUE for successful searches, otherwise FALSE.
 
@@ -825,14 +825,14 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Set ExternalLexerAutoIndentMode for an installed external programming language.
 	// wParam[in]: languageName is external language name to set
 	// lParam[in]: autoIndentMode could receive one of three following values
-	//             - Standard (0) means Notepad++ will keep the same TAB indentation between lines;
-	//             - C_Like (1) means Notepad++ will perform a C-Language style indentation for the selected external language;
+	//             - Standard (0) means npminmin will keep the same TAB indentation between lines;
+	//             - C_Like (1) means npminmin will perform a C-Language style indentation for the selected external language;
 	//             - Custom (2) means a Plugin will be controlling auto-indentation for the current language.
 	// return value: TRUE if function call was successful, otherwise FALSE.
 
 	#define NPPM_ISAUTOINDENTON  (NPPMSG + 105)
 	// BOOL NPPM_ISAUTOINDENTON(0, 0)
-	// Get the current use Auto-Indentation setting in Notepad++ Preferences.
+	// Get the current use Auto-Indentation setting in npminmin Preferences.
 	// wParam: 0 (not used)
 	// lParam: 0 (not used)
 	// Return TRUE if Auto-Indentation is on, FALSE otherwise
@@ -850,7 +850,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_ISDARKMODEENABLED (NPPMSG + 107)
 	// BOOL NPPM_ISDARKMODEENABLED(0, 0)
-	// Get Notepad++ Dark Mode status (ON or OFF).
+	// Get npminmin Dark Mode status (ON or OFF).
 	// wParam: 0 (not used)
 	// lParam: 0 (not used)
 	// Return TRUE if Dark Mode is enable, otherwise FALSE
@@ -961,7 +961,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//    BOOL isAllocatedSuccessful = ::SendMessage(nppData._nppHandle, NPPM_ALLOCATEINDICATOR, 1, &idBegin);
 	//
 	// if isAllocatedSuccessful is TRUE, and value of idBegin is 7
-	// then indicator ID 7 is preserved by Notepad++, and it is safe to be used by the plugin.
+	// then indicator ID 7 is preserved by npminmin, and it is safe to be used by the plugin.
 
 	#define NPPM_GETTABCOLORID (NPPMSG + 114)
 	// int NPPM_GETTABCOLORID(int view, int tabIndex)
@@ -992,10 +992,10 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	#define NPPM_ADDSCNMODIFIEDFLAGS (NPPMSG + 117)
 	// BOOL NPPM_ADDSCNMODIFIEDFLAGS(0, unsigned long scnModifiedFlags2Add)
 	// Add the necessary SCN_MODIFIED flags so that your plugin will receive the SCN_MODIFIED notification for these events, enabling your specific treatments.
-	// By default, Notepad++ only forwards SCN_MODIFIED with the following 5 flags/events:
+	// By default, npminmin only forwards SCN_MODIFIED with the following 5 flags/events:
 	// SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT | SC_PERFORMED_UNDO | SC_PERFORMED_REDO | SC_MOD_CHANGEINDICATOR to plugins.
-	// If your plugin needs to process other SCN_MODIFIED events, you should add the required flags by sending this message to Notepad++. You can send it immediately after receiving NPPN_READY,
-	// or only when your plugin needs to listen to specific events (to avoid penalizing Notepad++'s performance). Just ensure that the message is sent only once.
+	// If your plugin needs to process other SCN_MODIFIED events, you should add the required flags by sending this message to npminmin. You can send it immediately after receiving NPPN_READY,
+	// or only when your plugin needs to listen to specific events (to avoid penalizing npminmin's performance). Just ensure that the message is sent only once.
 	// wParam: 0 (not used)
 	// lParam[in]: scnModifiedFlags2Add - Scintilla SCN_MODIFIED flags to add. 
 	// Return TRUE
@@ -1019,7 +1019,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_GETTOOLBARICONSETCHOICE (NPPMSG + 118)
 	// BOOL NPPM_GETTOOLBARICONSETCHOICE(0, 0)
-	// Get Notepad++ toolbar icon set choice (Fluent UI: small, Fluent UI: large, Filled Fluent UI: small, Filled Fluent UI: large and Standard icons: small.
+	// Get npminmin toolbar icon set choice (Fluent UI: small, Fluent UI: large, Filled Fluent UI: small, Filled Fluent UI: large and Standard icons: small.
 	// wParam: 0 (not used)
 	// lParam: 0 (not used)
 	// Return toolbar icon set choice as an integer value. Here are 5 possible values:
@@ -1027,15 +1027,15 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_GETNPPSETTINGSDIRPATH (NPPMSG + 119)
 	// int NPPM_GETNPPSETTINGSDIRPATH(size_t strLen, wchar_t *settingsDirPath)
-	// Get path for the active Notepad++ settings: it will use -settingsDir path if that's defined; if not, it will use Cloud directory if that's defined;
+	// Get path for the active npminmin settings: it will use -settingsDir path if that's defined; if not, it will use Cloud directory if that's defined;
 	// if not, it will use the AppData settings directory, or finally the installation path. This allows plugins to have one interface to find out
-	// where the active Notepad++ settings are stored, whichever location they are currently set to.
+	// where the active npminmin settings are stored, whichever location they are currently set to.
 	// wParam[in]: strLen - size of allocated buffer "settingsDirPath"
 	// lParam[out]: settingsDirPath - Users should call it with settingsDirPath be NULL to get the required number of wchar_t (not including the terminating nul character),
 	//              allocate settingsDirPath buffer with the return value + 1, then call it again to get the path.
 	// Returns the number of wchar_t copied/to copy. If the return value is 0, then the "strLen" is not enough to copy the path, or the settings path could not be determined.
 	// 
-	// Note: This message is for the active Notepad++ configuration location.  If you are looking for the settings directory for plugins (...\Plugins\Config\),
+	// Note: This message is for the active npminmin configuration location.  If you are looking for the settings directory for plugins (...\Plugins\Config\),
 	// use NPPM_GETPLUGINSCONFIGDIR instead.
 
 // For RUNCOMMAND_USER
@@ -1090,7 +1090,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 // Notification code
 #define NPPN_FIRST 1000
-	#define NPPN_READY (NPPN_FIRST + 1) // To notify plugins that all the initialization for launching Notepad++ is complete.
+	#define NPPN_READY (NPPN_FIRST + 1) // To notify plugins that all the initialization for launching npminmin is complete.
 	//scnNotification->nmhdr.code = NPPN_READY;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = 0;
@@ -1130,7 +1130,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = BufferID;
 
-	#define NPPN_SHUTDOWN (NPPN_FIRST + 9) // To notify plugins that Notepad++ is about to be shutdowned.
+	#define NPPN_SHUTDOWN (NPPN_FIRST + 9) // To notify plugins that npminmin is about to be shutdowned.
 	//scnNotification->nmhdr.code = NPPN_SHUTDOWN;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = 0;
@@ -1253,10 +1253,10 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// 3. The symbol '=' must be used as delimiter between argument names and their values.
 	// 
 	// Example (via the command line):
-	// -pluginMessage="NppExecScriptPath=C:\Program Files\Notepad++\plugins\NppExec\init.py;NppExecArg2=arg2Value;mimeToolsSettings=disable;pluginYInfo=show"
+	// -pluginMessage="NppExecScriptPath=C:\Program Files\npminmin\plugins\NppExec\init.py;NppExecArg2=arg2Value;mimeToolsSettings=disable;pluginYInfo=show"
 	// 
 	// Interpretation:
-	// - Plugin "NppExec" processes: NppExecScriptPath=C:\Program Files\Notepad++\plugins\NppExec\init.py & NppExecArg2=arg2Value
+	// - Plugin "NppExec" processes: NppExecScriptPath=C:\Program Files\npminmin\plugins\NppExec\init.py & NppExecArg2=arg2Value
 	// - Plugin "mimeTools" processes: mimeToolsSettings=disable
 	// - Plugin "pluginY" processes: pluginYInfo=show
 
@@ -1266,9 +1266,9 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//scnNotification->nmhdr.idFrom = BufferID; //where pluginMessage is pointer of type wchar_t
 
 	#define NPPN_GLOBALMODIFIED (NPPN_FIRST + 30)  // To notify plugins that the current document is just modified by Replace All action.
-                                                   // For solving the performance issue (from v8.6.4), Notepad++ doesn't trigger SCN_MODIFIED during Replace All action anymore.
+                                                   // For solving the performance issue (from v8.6.4), npminmin doesn't trigger SCN_MODIFIED during Replace All action anymore.
                                                    // As a result, the plugins which monitor SCN_MODIFIED should also monitor NPPN_GLOBALMODIFIED.
-                                                   // This notification is implemented in Notepad++ v8.6.5.
+                                                   // This notification is implemented in npminmin v8.6.5.
 	//scnNotification->nmhdr.code = NPPN_GLOBALMODIFIED;
 	//scnNotification->nmhdr.hwndFrom = BufferID;
 	//scnNotification->nmhdr.idFrom = 0; // preserved for the future use, must be zero

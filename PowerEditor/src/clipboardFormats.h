@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -20,6 +20,6 @@
 
 #define CF_HTML			L"HTML Format"
 #define CF_RTF			L"Rich Text Format"
-#define CF_NPPTEXTLEN	L"Notepad++ Binary Length"
+#define CF_NPPTEXTLEN	L"npminmin Binary Length"
 
 #endif //CLIPBOARDFORMATS_H

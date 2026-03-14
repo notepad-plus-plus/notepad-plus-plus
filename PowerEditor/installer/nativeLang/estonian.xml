@@ -282,7 +282,7 @@ https://github.com/AndresTraks/
 					<Item id="46001" name="Stiilide seadistamine..."/>
 					<Item id="46250" name="Defineeri enda keel..."/>
 					<Item id="46180" name="Kasutaja määratud"/>
-					<Item id="47000" name="Teave Notepad++-i kohta..."/>
+					<Item id="47000" name="Teave npminmin-i kohta..."/>
 					<Item id="47010" name="Käsurea parameetrid..."/>
 					<Item id="47001" name="Veebisait"/>
 					<Item id="47002" name="Projekti leht"/>
@@ -290,7 +290,7 @@ https://github.com/AndresTraks/
 					<Item id="47004" name="Kogukond (foorum)"/>
 					<Item id="47012" name="Silumisinfo..."/>
 					<Item id="47005" name="Leia veel pluginaid"/>
-					<Item id="47006" name="Värskenda Notepad++-i"/>
+					<Item id="47006" name="Värskenda npminmin-i"/>
 					<Item id="47009" name="Seadista proksiserver värskendamiseks..."/>
 					<Item id="48005" name="Pluginate importimine..."/>
 					<Item id="48006" name="Kujunduste importimine..."/>
@@ -812,10 +812,10 @@ https://github.com/AndresTraks/
 
 				<MultiInstance title="Mitu protsessi">
 					<Item id="6151" name="Mitme protsessi sätted"/>
-					<Item id="6152" name="Ava sessioon uues Notepad++-i protsessis"/>
+					<Item id="6152" name="Ava sessioon uues npminmin-i protsessis"/>
 					<Item id="6153" name="Luba alati mitu protsessi"/>
 					<Item id="6154" name="Vaikeväärtus (üks protsess)"/>
-					<Item id="6155" name="* Selle sätte muutmine nõuab Notepad++-i taaskäivitamist"/>
+					<Item id="6155" name="* Selle sätte muutmine nõuab npminmin-i taaskäivitamist"/>
 				</MultiInstance>
 
 				<Delimiter title="Eraldaja">
@@ -854,7 +854,7 @@ https://github.com/AndresTraks/
 					<Item id="6319" name="Luba avamine"/>
 					<Item id="6320" name="Ära kriipsuta alla"/>
 					<Item id="6322" name="Sessiooni faili laiend:"/>
-					<Item id="6323" name="Luba Notepad++-i automaatne värskendamine"/>
+					<Item id="6323" name="Luba npminmin-i automaatne värskendamine"/>
 					<Item id="6324" name="Dokumentide vahel liikumine (Ctrl+Tabeldusklahv)"/>
 					<Item id="6331" name="Näita tiitliribal ainult failinime"/>
 					<Item id="6334" name="Tuvasta teksti kodeering automaatselt"/>
@@ -895,15 +895,15 @@ https://github.com/AndresTraks/
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Kontekstimenüü redigeerimine" message="Faili contextMenu.xml kaudu saab muuta Notepad++-i kontekstimenüü kirjeid.
-Pärast faili salvestamist tuleb muudatuste rakendamiseks Notepad++ uuesti käivitada."/>
-			<NppHelpAbsentWarning title="Faili pole olemas" message="\rei eksisteeri. Palun laadi see alla Notepad++-i veebisaidilt."/>
+			<ContextMenuXmlEditWarning title="Kontekstimenüü redigeerimine" message="Faili contextMenu.xml kaudu saab muuta npminmin-i kontekstimenüü kirjeid.
+Pärast faili salvestamist tuleb muudatuste rakendamiseks npminmin uuesti käivitada."/>
+			<NppHelpAbsentWarning title="Faili pole olemas" message="\rei eksisteeri. Palun laadi see alla npminmin-i veebisaidilt."/>
 			<SaveCurrentModifWarning title="Salvesta praegune muudatus" message="Praegune muudatus tuleks salvestada.\rKõiki salvestatud muudatusi ei saa tagasi võtta.\r\rKas soovid jätkata?"/>
 			<LoseUndoAbilityWarning title="Tagasi võtmise võimalus kaob" message="Praegune muudatus tuleks salvestada.\rKõiki salvestatud muudatusi ei saa tagasi võtta.\r\rKas soovid jätkata?"/>
-			<CannotMoveDoc title="Uude Notepad++-i protsessi liigutamine" message="Dokumenti on muudetud, salvesta see ja proovi uuesti."/>
+			<CannotMoveDoc title="Uude npminmin-i protsessi liigutamine" message="Dokumenti on muudetud, salvesta see ja proovi uuesti."/>
 			<DocReloadWarning title="Uuesti laadimine" message="Kas soovid kindlasti lahtioleva faili uuesti laadida? Tehtud muudatused ei jää alles."/>
 			<FileLockedWarning title="Salvestamine ebaõnnestus" message="Fail võib olla avatud mõnes muus programmis"/>
-			<FileAlreadyOpenedInNpp title="" message="Fail on juba Notepad++-is avatud."/>
+			<FileAlreadyOpenedInNpp title="" message="Fail on juba npminmin-is avatud."/>
 			<DeleteFileFailed title="Faili kustutamine" message="Faili kustutamine ebaõnnestus"/>
 
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
@@ -988,7 +988,7 @@ Pärast faili salvestamist tuleb muudatuste rakendamiseks Notepad++ uuesti käiv
 			<word-chars-list-tab-warning value="$INT_REPLACE$ tabeldusmärk(i)"/>
 			<word-chars-list-warning-end value=" tähemärkide loendis."/>
 			<cloud-invalid-warning value="Vigane rada."/>
-			<cloud-restart-warning value="Palun taaskäivita muudatuste rakendamiseks Notepad++."/>
+			<cloud-restart-warning value="Palun taaskäivita muudatuste rakendamiseks npminmin."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

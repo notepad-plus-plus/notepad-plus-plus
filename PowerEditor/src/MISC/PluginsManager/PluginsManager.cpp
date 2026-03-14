@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -49,7 +49,7 @@
 
 using namespace std;
 
-const wchar_t * USERMSG = L" is not compatible with the current version of Notepad++.\n\n\
+const wchar_t * USERMSG = L" is not compatible with the current version of npminmin.\n\n\
 Do you want to remove this plugin from the plugins directory to prevent this message from the next launch?";
 
 static WORD getBinaryArchitectureType(const wchar_t *filePath)
@@ -140,7 +140,7 @@ int PluginsManager::loadPluginFromPath(const wchar_t *pluginFilePath)
 
 		pi->_pFuncIsUnicode = reinterpret_cast<PFUNCISUNICODE>(::GetProcAddress(pi->_hLib, "isUnicode"));
 		if (!pi->_pFuncIsUnicode || !pi->_pFuncIsUnicode())
-			throw wstring(L"This ANSI plugin is not compatible with your Unicode Notepad++.");
+			throw wstring(L"This ANSI plugin is not compatible with your Unicode npminmin.");
 
 		pi->_pFuncSetInfo = reinterpret_cast<PFUNCSETINFO>(::GetProcAddress(pi->_hLib, "setInfo"));
 
@@ -341,7 +341,7 @@ bool PluginsManager::loadPlugins(const wchar_t* dir, const PluginViewList* plugi
 	HANDLE hFindFolder = ::FindFirstFile(pluginsFolderFilter.c_str(), &foundData);
 	HANDLE hFindDll = INVALID_HANDLE_VALUE;
 
-	// Get Notepad++ current version
+	// Get npminmin current version
 	wchar_t nppFullPathName[MAX_PATH];
 	GetModuleFileName(NULL, nppFullPathName, MAX_PATH);
 	Version nppVer;
@@ -350,8 +350,8 @@ bool PluginsManager::loadPlugins(const wchar_t* dir, const PluginViewList* plugi
 	// get plugin folder
 	if (hFindFolder != INVALID_HANDLE_VALUE && (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 	{
-		const wchar_t* incompatibleWarning = L"%s's version %s is not compatible to this version of Notepad++ (v%s).\r\nAs a result the plugin cannot be loaded.";
-		const wchar_t* incompatibleWarningWithSolution = L"%s's version %s is not compatible to this version of Notepad++ (v%s).\r\nAs a result the plugin cannot be loaded.\r\n\r\nGo to Updates section and update your plugin to %s for solving the compatibility issue.";
+		const wchar_t* incompatibleWarning = L"%s's version %s is not compatible to this version of npminmin (v%s).\r\nAs a result the plugin cannot be loaded.";
+		const wchar_t* incompatibleWarningWithSolution = L"%s's version %s is not compatible to this version of npminmin (v%s).\r\nAs a result the plugin cannot be loaded.\r\n\r\nGo to Updates section and update your plugin to %s for solving the compatibility issue.";
 
 		wstring foundFileName = foundData.cFileName;
 		if (foundFileName != L"." && foundFileName != L".." && _wcsicmp(foundFileName.c_str(), L"Config") != 0)
@@ -369,7 +369,7 @@ bool PluginsManager::loadPlugins(const wchar_t* dir, const PluginViewList* plugi
 				// - foundFileName: folder-name
 				// _ pluginsFullPathFilter: version
 				// 
-				// Find plugin update info of current plugin and check if it's compatible to Notepad++ current versions
+				// Find plugin update info of current plugin and check if it's compatible to npminmin current versions
 				bool isCompatible = true;
 
 				if (pluginUpdateInfoList)
@@ -383,7 +383,7 @@ bool PluginsManager::loadPlugins(const wchar_t* dir, const PluginViewList* plugi
 						v.setVersionFrom(pluginsFullPathFilter);
 						if (v == pui->_version)
 						{
-							// Find compatible Notepad++ versions
+							// Find compatible npminmin versions
 							isCompatible = nppVer.isCompatibleTo(pui->_nppCompatibleVersions.first, pui->_nppCompatibleVersions.second);
 
 							if (!isCompatible && pluginIncompatibleList)
@@ -445,7 +445,7 @@ bool PluginsManager::loadPlugins(const wchar_t* dir, const PluginViewList* plugi
 					// - foundFileName2: folder-name
 					// _ pluginsFullPathFilter2: version
 					// 
-					// Find plugin update info of current plugin and check if it's compatible to Notepad++ current versions
+					// Find plugin update info of current plugin and check if it's compatible to npminmin current versions
 					bool isCompatible2 = true;
 
 					if (pluginUpdateInfoList)
@@ -459,7 +459,7 @@ bool PluginsManager::loadPlugins(const wchar_t* dir, const PluginViewList* plugi
 							v2.setVersionFrom(pluginsFullPathFilter2);
 							if (v2 == pui2->_version)
 							{
-								// Find compatible Notepad++ versions
+								// Find compatible npminmin versions
 								isCompatible2 = nppVer.isCompatibleTo(pui2->_nppCompatibleVersions.first, pui2->_nppCompatibleVersions.second);
 
 								if (!isCompatible2 && pluginIncompatibleList)

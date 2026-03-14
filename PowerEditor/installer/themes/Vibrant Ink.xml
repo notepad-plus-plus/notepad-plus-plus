@@ -8,11 +8,11 @@ Featured language:	Php, Css, JavaScript, Html, XML, others?
 Note:				Feel free to modify this style and re-release it.  Any additions to languages or syntax to bring it closer to VibrantInk would be appreciated.
 					This style available under the terms of the GNU Free License.
 
-Install: copy your installed Notepad++ directory root, overwrite old stylers.xml (backup old file first),
-or copy %APPDATA%\Notepad++\
+Install: copy your installed npminmin directory root, overwrite old stylers.xml (backup old file first),
+or copy %APPDATA%\npminmin\
 overwrite old stylers.xml (backup old file first)
 
-Keep Notepad++ development active, donate!:
+Keep npminmin development active, donate!:
 http://sourceforge.net/donate/index.php?group_id=95717
 
 2007.11.16

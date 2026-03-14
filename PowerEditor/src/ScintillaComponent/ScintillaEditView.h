@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -82,7 +82,7 @@ inline constexpr int NB_FOLDER_STATE = 7;
 inline constexpr int MARK_BOOKMARK = 20;
 inline constexpr int MARK_HIDELINESBEGIN = 19;
 inline constexpr int MARK_HIDELINESEND = 18;
-// 20 - 18 reserved for Notepad++ internal used
+// 20 - 18 reserved for npminmin internal used
 // 17 - 0  are free to use for plugins
 
 size_t getNbDigits(size_t aNum, size_t base);

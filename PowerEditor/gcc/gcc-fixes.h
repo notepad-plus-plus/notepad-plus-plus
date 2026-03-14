@@ -1,4 +1,4 @@
-// this file contains fixes needed for Notepad++ to be built by GCC
+// this file contains fixes needed for npminmin to be built by GCC
 // the makefile automatically includes this file
 
 // __try and __except are unknown to GCC, so convert them to something eligible

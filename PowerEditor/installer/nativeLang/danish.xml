@@ -335,12 +335,12 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="46300" name="Sprogmappe..."/>
 					<Item id="46301" name="Sprogsamling på GitHub.com"/>
 					<Item id="46180" name="Brugerdefineret"/>
-					<Item id="47000" name="Om Notepad++"/>
+					<Item id="47000" name="Om npminmin"/>
 					<Item id="47010" name="Kommandolinieparametre..."/>
-					<Item id="47001" name="Notepad++ hjemmeside"/>
-					<Item id="47002" name="Notepad++ på GitHub"/>
+					<Item id="47001" name="npminmin hjemmeside"/>
+					<Item id="47002" name="npminmin på GitHub"/>
 					<Item id="47003" name="Online manual"/>
-					<Item id="47004" name="Notepad++ forum"/>
+					<Item id="47004" name="npminmin forum"/>
 					<Item id="47012" name="Fejlfindingsinfo..."/>
 					<Item id="47005" name="Hent flere plugins"/>
 					<Item id="47006" name="Søg efter opdatering..."/>
@@ -915,7 +915,7 @@ The comments are here for explanation, it's not necessary to translate them.
 
 					<Item id="6131" name="Menu"/>
 					<Item id="6122" name="Skjul menulinie (Alt eller F10 slår til/fra)"/>
-					<Item id="6132" name="Skjul ＋ ▼ ✕ fra menulinien (Notepad++ skal genstartes)"/>
+					<Item id="6132" name="Skjul ＋ ▼ ✕ fra menulinien (npminmin skal genstartes)"/>
 					<Item id="6123" name="Oversættelse"/>
 
 					<Item id="6128" name="Ekstra ikoner"/>
@@ -1028,7 +1028,7 @@ Brug mellemrum til at angive flere markører."/>
 				</DefaultDir>
 
 				<FileAssoc title="Filtilknytning">
-					<Item id="4008" name="Luk Notepad++ og start igen i som administrator for at bruge funktionen."/>
+					<Item id="4008" name="Luk npminmin og start igen i som administrator for at bruge funktionen."/>
 					<Item id="4009" name="Understøttede filtyper:"/>
 					<Item id="4010" name="Tilknyttede filtyper:"/>
 				</FileAssoc>
@@ -1101,7 +1101,7 @@ Brug mellemrum til at angive flere markører."/>
 				</Print>
 
 				<Searching title="Søgning">
-					<Item id="6902" name="Brug monospace skrift i &quot;Søg&quot; (genstart Notepad++)"/>
+					<Item id="6902" name="Brug monospace skrift i &quot;Søg&quot; (genstart npminmin)"/>
 					<Item id="6903" name="Hold &quot;Søg&quot; åben når resultatet vises i separat vindue"/>
 					<Item id="6904" name="Bekræft erstat alle i alle åbne dokumenter"/>
 					<Item id="6905" name="Erstat: Gå ikke til næste resultat"/>
@@ -1165,7 +1165,7 @@ Brug mellemrum til at angive flere markører."/>
 					<Item id="6152" name="Åbn session i ny instans (og gem automatisk ved lukning)"/>
 					<Item id="6153" name="Brug altid flere instanser"/>
 					<Item id="6154" name="Standard (en instans)"/>
-					<Item id="6155" name="* Ændres når Notepad++ genstartes"/>
+					<Item id="6155" name="* Ændres når npminmin genstartes"/>
 					<Item id="6171" name="Indsæt dato og tid"/>
 					<Item id="6175" name="Vend standardformat (kort og langt)"/>
 					<Item id="6172" name="Tilpasset:"/>
@@ -1318,8 +1318,8 @@ Du kan altid fortryde i &quot;Indstillinger => Diverse&quot;."/>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
-			<ContextMenuXmlEditWarning title="Redigér kontekstmenu" message="Tilpas højrekliksmenu i Notepad++ ved at redigere contextMenu.xml.
-Du skal genstarte Notepad++ for at anvende ændringerne."/>
+			<ContextMenuXmlEditWarning title="Redigér kontekstmenu" message="Tilpas højrekliksmenu i npminmin ved at redigere contextMenu.xml.
+Du skal genstarte npminmin for at anvende ændringerne."/>
 			<SaveCurrentModifWarning title="Gem aktuel ændring" message="Du bør gemme den aktuelle ændring.
 Alle gemte ændringer kan ikke fortrydes.
 
@@ -1328,10 +1328,10 @@ Fortsæt?"/><!-- HowToReproduce: when you openned file is modified but unsaved y
 
 
 Fortsæt?"/><!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
-			<CannotMoveDoc title="Flyt til ny instans af Notepad++" message="Dokument er ændret. Gem det og prøv igen."/>
-			<DocReloadWarning title="Genindlæs" message="Vil du genindlæse den aktuelle fil og miste de ændringer der er lavet i Notepad++?"/>
+			<CannotMoveDoc title="Flyt til ny instans af npminmin" message="Dokument er ændret. Gem det og prøv igen."/>
+			<DocReloadWarning title="Genindlæs" message="Vil du genindlæse den aktuelle fil og miste de ændringer der er lavet i npminmin?"/>
 			<FileLockedWarning title="Gem mislykkedes" message="Kontrollér om filen er åbnet i et andet program"/>
-			<FileAlreadyOpenedInNpp title="" message="Filen er allerede åbnet i Notepad++."/>
+			<FileAlreadyOpenedInNpp title="" message="Filen er allerede åbnet i npminmin."/>
 			<RenameTabTemporaryNameAlreadyInUse title="Omdøbning mislykkedes" message="Navnet bruges allerede i en anden fane."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
 			<DeleteFileFailed title="Slet fil" message="Sletning af filen mislykkedes"/>
 
@@ -1359,7 +1359,7 @@ Kolonnetilstand kan vælges på 3 måder:
       Klik &quot;Redigér => Start/slut kolonnemarkering&quot;"/>
 			<BufferInvalidWarning title="Gem mislykkedes" message="Kan ikke gemme: Bufferen er ugyldig."/>
 			<DoCloseOrNot title="Behold fil som ikke findes" message="Filen &quot;$STR_REPLACE$&quot; findes ikke mere.
-Vil du beholde den i Notepad++?"/>
+Vil du beholde den i npminmin?"/>
 			<DoDeleteOrNot title="Slet fil" message="Filen &quot;$STR_REPLACE$&quot;
 slettes og dokumentet lukkes.
 Fortsæt?"/>
@@ -1375,12 +1375,12 @@ Du vil genindlæse den?"/>
 Filen er ændret af et andet program.
 Vil du genindlæse og miste de ændringer du har lavet her?"/>
 			<PrehistoricSystemDetected title="Forældet styresystem" message="Windows er tilsyneladende forældet. Funktionen virker kun på nyere udgaver af styresystemet"/>
-			<XpUpdaterProblem title="Notepad++ opdatering" message="Windows XP understøtter ikke opdateringsfunktionen.
-Vil du hente den nyeste Notepad++ på hjemmesiden?"/>
-			<GUpProxyConfNeedAdminMode title="Proxyindstillinger" message="Genstart Notepad++ som administrator, for at indstille en proxy."/>
+			<XpUpdaterProblem title="npminmin opdatering" message="Windows XP understøtter ikke opdateringsfunktionen.
+Vil du hente den nyeste npminmin på hjemmesiden?"/>
+			<GUpProxyConfNeedAdminMode title="Proxyindstillinger" message="Genstart npminmin som administrator, for at indstille en proxy."/>
 			<DocTooDirtyToMonitor title="Overvågningsproblem" message="Dokumentet er beskidt. Gem ændringen inden det overvåges."/>
 			<DocNoExistToMonitor title="Overvågningsproblem" message="Filen skal findes for at kunne overvåges."/>
-			<FileTooBigToOpen title="Filstørrelsesproblem" message="Filen er for. Den kan ikke åbnes i Notepad++"/>
+			<FileTooBigToOpen title="Filstørrelsesproblem" message="Filen er for. Den kan ikke åbnes i npminmin"/>
 			<FileLoadingException title="Fejlkode: $STR_REPLACE$" message="Fejl ved åbning af filen!"/>
 			<WantToOpenHugeFile title="Meget stor fil" message="Åbning af filer over 2GB kan tage flere minutter.
 Vil du fortsætte?"/>
@@ -1418,17 +1418,17 @@ Vælg et andet."/>
 			<SCMapperDoDeleteOrNot title="Er du sikker?" message="Vil du slette genvejen?"/>
 			<FindCharRangeValueError title="Intervalproblem" message="Skal være mellem 0 og 255."/>
 			<OpenInAdminMode title="Kunne ikke gemme" message="Filen er muligvis beskyttet, og kan ikke gemmes.
-Vil du starte Notepad++ som administrator?"/>
+Vil du starte npminmin som administrator?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Kunne ikke gemme" message="Filen er muligvis beskyttet, og kan ikke gemmes.
-Vil du starte Notepad++ som administrator?"/>
-			<OpenInAdminModeFailed title="Administratorfejl" message="Notepad++ kan ikke åbnes som administrator."/>
+Vil du starte npminmin som administrator?"/>
+			<OpenInAdminModeFailed title="Administratorfejl" message="npminmin kan ikke åbnes som administrator."/>
 			<ViewInBrowser title="Vis aktuel fil i browser" message="Den valgte browser blev ikke fundet."/>
-			<ExitToUpdatePlugins title="Notepad++ lukkes" message="Notepad++ genstarter automatisk for at gennemføre handlingen.
+			<ExitToUpdatePlugins title="npminmin lukkes" message="npminmin genstarter automatisk for at gennemføre handlingen.
 
 Vil du fortsætte?"/>
-			<NeedToRestartToLoadPlugins title="Notepad++ skal genstartes" message="Genstart Notepad++ for at indlæse de nye plugins."/>
-			<ChangeHistoryEnabledWarning title="Notepad++ skal genstartes" message="Genstart Notepad++ for at aktivere ændringshistorik."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
-			<WindowsSessionExit title="Notepad++ - Windows session exit" message="Windows er ved at blive lukket, og du har ugemte data. Vil du lukkeNotepad++ nu?"/>
+			<NeedToRestartToLoadPlugins title="npminmin skal genstartes" message="Genstart npminmin for at indlæse de nye plugins."/>
+			<ChangeHistoryEnabledWarning title="npminmin skal genstartes" message="Genstart npminmin for at aktivere ændringshistorik."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+			<WindowsSessionExit title="npminmin - Windows session exit" message="Windows er ved at blive lukket, og du har ugemte data. Vil du lukkenpminmin nu?"/>
 			<LanguageMenuCompactWarning title="Kompakt sprogmenu" message="Aktiveres ved næste programstart."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Ugemte ændringer kasseres!
 Vil du gemme før du skifter tema?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
@@ -1550,8 +1550,8 @@ Vil du gemme før du skifter tema?"/><!-- HowToReproduce: In the Style Configura
 			<word-chars-list-warning-end value="  i dit tegnsæt."/>
 			<backup-select-folder value="Vælg mappe"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value="Ugyldig sti."/>
-			<cloud-restart-warning value="Genstart Notepad++ for at anvende ændringer."/>
-			<cloud-select-folder value="Vælg til dine Notepad++ indstillinger"/>
+			<cloud-restart-warning value="Genstart npminmin for at anvende ændringer."/>
+			<cloud-select-folder value="Vælg til dine npminmin indstillinger"/>
 			<default-open-save-select-folder value="Vælg standardmappe"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Brug Skift+Enter til at søge i modsat retning"/>
 			<two-find-buttons-tip value="Frem/tilbage knapper"/>

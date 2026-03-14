@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -360,7 +360,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	_hSelf = ::CreateWindowEx(
 					0,\
 					L"Scintilla",\
-					L"Notepad++",\
+					L"npminmin",\
 					WS_CHILD | WS_VSCROLL | WS_HSCROLL | WS_CLIPCHILDREN | WS_EX_RTLREADING,\
 					0, 0, 100, 100,\
 					_hParent,\
@@ -479,7 +479,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	if (hNtdllModule)
 		isWINE = ::GetProcAddress(hNtdllModule, "wine_get_version");
 
-	if (isWINE || // There is a performance issue under WINE when DirectWrite is ON, so we turn it off if user uses Notepad++ under WINE
+	if (isWINE || // There is a performance issue under WINE when DirectWrite is ON, so we turn it off if user uses npminmin under WINE
 		isCoreWindows()) // In the case of Windows Server Core, DirectWrite cannot be on.
 	{
 		nppGui._writeTechnologyEngine = directWriteTechnologyUnavailable;
@@ -2649,7 +2649,7 @@ The method ScintillaEditView::fold() is called not only on manual folding by the
 
 The above lines are important for the case 1.
 
-However, these lines are necessary only on the first load of each file after the startup of Notepad++.
+However, these lines are necessary only on the first load of each file after the startup of npminmin.
 "execute(SCI_COLOURISE, 0, -1);" needs to be run for once (the case 1), not twice or more (the case 2).
 
 So if there's a way to detect if a document has been run "execute(SCI_COLOURISE, 0, -1);" once (in the case 1),
@@ -4523,7 +4523,7 @@ void ScintillaEditView::changeTextDirection(bool isRTL)
 		{
 			(nppParamInst.getNativeLangSpeaker())->messageBox("RTLvsDirectWrite",
 				getHSelf(),
-				L"RTL is not compatible with Direct Write mode. Please disable DirectWrite mode in MISC. section of Preferences dialog, and restart Notepad++.",
+				L"RTL is not compatible with Direct Write mode. Please disable DirectWrite mode in MISC. section of Preferences dialog, and restart npminmin.",
 				L"Cannot run RTL",
 				MB_OK | MB_APPLMODAL);
 

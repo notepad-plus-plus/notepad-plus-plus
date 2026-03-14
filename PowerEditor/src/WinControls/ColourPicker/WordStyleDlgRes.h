@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -29,7 +29,7 @@
     #define IDC_BG_STATIC			(IDD_STYLER_DLG + 7)
     #define IDC_FONTNAME_STATIC      (IDD_STYLER_DLG + 8) 
     #define IDC_FONTSIZE_STATIC       (IDD_STYLER_DLG + 9)
-    //#define IDC_STYLEDEFAULT_WARNING_STATIC (IDD_STYLER_DLG + 10)  for the sake of compablity of traslation xml files, this number (2210) don't be use anymore by Notepad++
+    //#define IDC_STYLEDEFAULT_WARNING_STATIC (IDD_STYLER_DLG + 10)  for the sake of compablity of traslation xml files, this number (2210) don't be use anymore by npminmin
     #define IDC_STYLEDESC_STATIC  (IDD_STYLER_DLG + 11)
     #define IDC_COLOURGROUP_STATIC  (IDD_STYLER_DLG + 12)
     #define IDC_FONTGROUP_STATIC  (IDD_STYLER_DLG + 13)

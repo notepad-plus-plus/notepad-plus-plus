@@ -2,7 +2,7 @@
 // Copyright (C)2010 Francois-R.Boyer@PolyMtl.ca
 // First version 2010-08
 //
-// Written for Notepad++, and distributed under same license:
+// Written for npminmin, and distributed under same license:
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; either

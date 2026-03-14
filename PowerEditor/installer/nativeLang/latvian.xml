@@ -256,14 +256,14 @@
 					<Item id="46001" name="Stilu izveide..."/>
 					<Item id="46250" name="Izveidot savu valodas aprakstu ..."/>
 					<Item id="46180" name="Lietotāja definēta"/>
-					<Item id="47000" name="Par Notepad++..."/>
+					<Item id="47000" name="Par npminmin..."/>
 					<Item id="47010" name="Komandrindas parametri..."/>
-					<Item id="47001" name="Notepad++ mājaslapa"/>
-					<Item id="47002" name="Notepad++ projekta lapa"/>
+					<Item id="47001" name="npminmin mājaslapa"/>
+					<Item id="47002" name="npminmin projekta lapa"/>
 					<Item id="47003" name="NpWiki++ (tiešsaistes palīdzība)"/>
 					<Item id="47004" name="Forums"/>
 					<Item id="47005" name="Iegūt citus spraudņus"/>
-					<Item id="47006" name="Atjaunināt Notepad++"/>
+					<Item id="47006" name="Atjaunināt npminmin"/>
 					<Item id="47008" name="Lietotāja pamācība"/>
 					<Item id="47009" name="Proxy serveris atjauninājumiem ..."/>
 					<Item id="48005" name="Importēt spradni(ņus) ..."/>
@@ -758,7 +758,7 @@
 					<Item id="6152" name="Sesiju atvērt jaunā logā"/>
 					<Item id="6153" name="Vienmēr atvērt jaunā logā"/>
 					<Item id="6154" name="Lietot tikai vienu logu"/>
-					<Item id="6155" name="* Lai izmaiņas stātos spēkā, „Notepad++” ir jāaizver"/>
+					<Item id="6155" name="* Lai izmaiņas stātos spēkā, „npminmin” ir jāaizver"/>
 				</MultiInstance>
 
 				<Delimiter title="Atdalītāji">
@@ -774,7 +774,7 @@
 					<Item id="6264" name="Dropbox"/>
 					<Item id="6265" name="OneDrive"/>
 					<Item id="6266" name="Google Drive"/>
-					<!--Item id="6261" name="Būs spēkā tikai tad, kad tiks aizvērts un par jaunu atvērts Notepad++."/-->
+					<!--Item id="6261" name="Būs spēkā tikai tad, kad tiks aizvērts un par jaunu atvērts npminmin."/-->
 				</Cloud>
 
 				<MISC title="Citi">
@@ -786,7 +786,7 @@
 					<Item id="6319" name="Ieslēgt"/>
 					<Item id="6320" name="Bez pasvītrojuma"/>
 					<Item id="6322" name="Sesijas faila papl.:"/>
-					<Item id="6323" name="Automātiskais Notepad++ atjauninātājs"/>
+					<Item id="6323" name="Automātiskais npminmin atjauninātājs"/>
 					<Item id="6324" name="Dokumentu pārslēdzējs (Ctrl+TAB)"/>
 					<Item id="6326" name="Ieslēgt gudro izcelšanu"/>
 					<Item id="6329" name="Izcelt sakrītošās birkas"/>
@@ -833,14 +833,14 @@
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Peles izvēlnes labošana" message="„Notepad++” peles izvēlnes izmaina labojot failu „contextMenu.xml”. Lai izdarītas izmaiņas stātos spēkā, fails „contextMenu.xml” jāsaglabā, savukārt programma „Notepad++” jāaizver un jāatver."/>
-			<NppHelpAbsentWarning title="Dotā faila nav" message=" neeksistē. To var lejuplādēt no Notepad++ vietnes."/>
+			<ContextMenuXmlEditWarning title="Peles izvēlnes labošana" message="„npminmin” peles izvēlnes izmaina labojot failu „contextMenu.xml”. Lai izdarītas izmaiņas stātos spēkā, fails „contextMenu.xml” jāsaglabā, savukārt programma „npminmin” jāaizver un jāatver."/>
+			<NppHelpAbsentWarning title="Dotā faila nav" message=" neeksistē. To var lejuplādēt no npminmin vietnes."/>
 			<SaveCurrentModifWarning title="Saglabā patreizējās izmaiņas" message="Tev jāsaglabā patreizējās izmaiņas. Saglabātās izmaiņas NEVAR tikt atsauktas. Vai turpināt?"/>
 			<LoseUndoAbilityWarning title="Brīdinājums par atsaukšanas iespēju zaudēšanu" message="Tev jāsaglabā patreizējās izmaiņas. Saglabātās izmaiņas NEVAR tikt atsauktas. Vai turpināt?"/>
-			<CannotMoveDoc title="Pārvieto uz jaunu Notepad++" message="Dokuments ir izmainīts. Saglabā un mēģini vēlreiz."/>
-			<DocReloadWarning title="Atjaunot" message="Vai tiešam gribi ielasīt dokumentu no jauna pazaudējot programmā „Notepad++”  veiktās izmaiņas?"/>
+			<CannotMoveDoc title="Pārvieto uz jaunu npminmin" message="Dokuments ir izmainīts. Saglabā un mēģini vēlreiz."/>
+			<DocReloadWarning title="Atjaunot" message="Vai tiešam gribi ielasīt dokumentu no jauna pazaudējot programmā „npminmin”  veiktās izmaiņas?"/>
 			<FileLockedWarning title="Neizdevās saglabāt" message="Pārbaudi vai fails nav atvērts arī ar kādu citu programmu, vai arī to atļauts dotajā mapē saglabāt."/>
-			<FileAlreadyOpenedInNpp title="" message="Fails jau ir atvērts ar Notepad++."/>
+			<FileAlreadyOpenedInNpp title="" message="Fails jau ir atvērts ar npminmin."/>
 			<DeleteFileFailed title="Faila dzēšana" message="Failu izdzēst neizdevās."/>
 
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->

@@ -23,7 +23,7 @@ HFONT g_hfontbody = nullptr;
 HFONT g_hfontheader = nullptr;
 HFONT g_hfonttitle = nullptr;
 
-#define MAX_GRIDS 1 // Notepad++ uses only one GridHandleStruct, the old value "20" is not necessary 
+#define MAX_GRIDS 1 // npminmin uses only one GridHandleStruct, the old value "20" is not necessary 
 
 struct GridHandleStruct
 {

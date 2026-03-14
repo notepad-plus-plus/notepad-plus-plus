@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	Sardininian translation for Notepad++ 5.9.6.1
+	Sardininian translation for npminmin 5.9.6.1
 	Last modified Sat, December 24th, 2011 01:10 GMT by Marco Solinas.
 	Please e-mail errors, suggestions etc. to solinas.marco(at)libero.it.
 	For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
@@ -251,12 +251,12 @@
 					<Item id="46019" name="File MS INI"/>
 					<Item id="46180" name="Definidu dae s'impitadore"/>
 					<Item id="47000" name="Informatziones a pitzu de..."/>
-					<Item id="47001" name="Pàgina printzipale Notepad++"/>
-					<Item id="47002" name="Pàgina progetu Notepad++"/>
+					<Item id="47001" name="Pàgina printzipale npminmin"/>
+					<Item id="47002" name="Pàgina progetu npminmin"/>
 					<Item id="47003" name="Agitòriu in lìnia"/>
 					<Item id="47004" name="Forum"/>
 					<Item id="47005" name="Otenni àteros plugin"/>
-					<Item id="47006" name="Annoa Notepad++"/>
+					<Item id="47006" name="Annoa npminmin"/>
 					<Item id="47008" name="Ghia..."/>
 					<Item id="48005" name="Importa Plugin..."/>
 					<Item id="48006" name="Importa Tema(s) ..."/>
@@ -572,7 +572,7 @@
 					<Item id="6319" name="Abìlita"/>
 					<Item id="6320" name="Non disìnnnies sutaliniadura"/>
 					<Item id="6322" name="Est. file de sessione:"/>
-					<Item id="6323" name="Annoa automaticamente Notepad++"/>
+					<Item id="6323" name="Annoa automaticamente npminmin"/>
 					<Item id="6324" name="Càmbia documentu (CTRL+TAB)"/>
 					<Item id="6325" name="Bae a s'ùrtima riga a pustis de s'annou"/>
 					<Item id="6326" name="Evidentziatzione intelligente"/>
@@ -630,14 +630,14 @@
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Muda menù contestuale" message="Sa modìfica de su file contextMenu.xml permitit de mudare su menù contestuale de Notepad++.&#x0A;Est pretzisu aviare torra Notepad++ pro chi is modìficas fatas in su file contextMenu.xml fatzant efetu."/>
-			<NppHelpAbsentWarning title="Su file no esistit" message="&#x0A;no esistit. Iscàrriga su file dae su giassu de Notepad++."/>
+			<ContextMenuXmlEditWarning title="Muda menù contestuale" message="Sa modìfica de su file contextMenu.xml permitit de mudare su menù contestuale de npminmin.&#x0A;Est pretzisu aviare torra npminmin pro chi is modìficas fatas in su file contextMenu.xml fatzant efetu."/>
+			<NppHelpAbsentWarning title="Su file no esistit" message="&#x0A;no esistit. Iscàrriga su file dae su giassu de npminmin."/>
 			<SaveCurrentModifWarning title="Sarba modìficas currentes" message="Depes sarbare is modìficas currentes.&#x0A;Totu is modìficas sarbadas non podent èssere annuddadas.&#x0A;&#x0A;Boles sighire?"/>
 			<LoseUndoAbilityWarning title="Atentzione: Pèrdida de sa possibbilidade de ripristinare" message="Depes sarbare is modìficas currentes.&#x0A;Totu is modìficas sarbadas non podent èssere annuddadas.&#x0A;&#x0A;Boles sighire?"/>
-			<CannotMoveDoc title="Invia a una istànzia noa de Notepad++" message="Su documentu est istadu modificadu, est a ddu sarbare in antis de sighire."/>
+			<CannotMoveDoc title="Invia a una istànzia noa de npminmin" message="Su documentu est istadu modificadu, est a ddu sarbare in antis de sighire."/>
 			<DocReloadWarning title="Càrriga torra" message="Ses seguru chi boles carrigare torra su file? Onni Muda fata s'at a pèrdere."/>
 			<FileLockedWarning title="Sarbamentu faddidu" message="Verificare chi su file non siat abertu cun carchi àteru programma."/>
-			<FileAlreadyOpenedInNpp title="" message="Su file est già abertu in Notepad++."/>
+			<FileAlreadyOpenedInNpp title="" message="Su file est già abertu in npminmin."/>
 			<DeleteFileFailed title="Eliminatzione file" message="Eliminatzione de su file faddida."/>
 		</MessageBox>
 		<ProjectManager>

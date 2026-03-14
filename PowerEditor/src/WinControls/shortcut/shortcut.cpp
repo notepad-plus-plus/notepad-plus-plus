@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -1086,7 +1086,7 @@ void recordedMacroStep::PlayBack(Window* pNotepad, ScintillaEditView *pEditView)
 		}
 
 		// If text content has been modified in Scintilla,
-		// then notify Notepad++
+		// then notify npminmin
 		if ( (_message == SCI_SETTEXT)
 			|| (_message == SCI_REPLACESEL) 
 			|| (_message == SCI_ADDTEXT) 

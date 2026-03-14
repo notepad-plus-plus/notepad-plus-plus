@@ -355,17 +355,17 @@ Translation note:
 					<Item id="46016" name="Heç bir şey (Normal Mətn)"/>
 					<Item id="46250" name="Öz dilinizi müəyyən edin..."/>
 					<Item id="46300" name="İstifadəçi Tərtibindəki Dil Qovluğunu Aç..."/>
-					<Item id="46301" name="Notepad++ İstifadəçi Tərtibindəki Diller Kolleksiyası"/>
+					<Item id="46301" name="npminmin İstifadəçi Tərtibindəki Diller Kolleksiyası"/>
 					<Item id="46180" name="İstifadəçi Tərtibindəki"/>
-					<Item id="47000" name="Notepad++ Haqqında"/>
+					<Item id="47000" name="npminmin Haqqında"/>
 					<Item id="47010" name="Komanda Sətiri Arqümentləri..."/>
-					<Item id="47001" name="Notepad++ Ana Səhifəsi"/>
-					<Item id="47002" name="Notepad++ Layihə Səhifəsi"/>
-					<Item id="47003" name="Notepad++ Onlayn İstifadəçi Təlimatı"/>
-					<Item id="47004" name="Notepad++ İcmalı (Forum)"/>
+					<Item id="47001" name="npminmin Ana Səhifəsi"/>
+					<Item id="47002" name="npminmin Layihə Səhifəsi"/>
+					<Item id="47003" name="npminmin Onlayn İstifadəçi Təlimatı"/>
+					<Item id="47004" name="npminmin İcmalı (Forum)"/>
 					<Item id="47012" name="Yazılım məlumatları..."/>
 					<Item id="47005" name="Daha çox plagin əldə et"/>
-					<Item id="47006" name="Notepad++ yeniləməsini həyata keçir"/>
+					<Item id="47006" name="npminmin yeniləməsini həyata keçir"/>
 					<Item id="47009" name="Yeniləyici proksisi qur..."/>
 					<Item id="48005" name="Plaginləri idxal et..."/>
 					<Item id="48006" name="Stil mövzularını idxal et..."/>
@@ -968,7 +968,7 @@ Translation note:
 
 					<Item id="6131" name="Menyu"/>
 					<Item id="6122" name="Menyu panelini gizlət (Alt və ya F10 düyməsi ilə açıb bağlamaq üçün)"/>
-					<Item id="6132" name="Menyu panelindəki sağ qısayolları gizlət ＋ ▼ ✕ (Notepad++ yenidən başlatmaq tələb olunur)"/>
+					<Item id="6132" name="Menyu panelindəki sağ qısayolları gizlət ＋ ▼ ✕ (npminmin yenidən başlatmaq tələb olunur)"/>
 
 					<Item id="6123" name="Lokalizasiya"/>
 				</Global>
@@ -1092,7 +1092,7 @@ Translation note:
 				</DefaultDir>
 
 				<FileAssoc title="Fayl Assosiasiyası">
-					<Item id="4008" name="Zəhmət olmasa Notepad++ çıxın və bu xüsusiyyətdən istifadə etmək üçün Notepad++ Administrator rejimində yenidən başladın."/>
+					<Item id="4008" name="Zəhmət olmasa npminmin çıxın və bu xüsusiyyətdən istifadə etmək üçün npminmin Administrator rejimində yenidən başladın."/>
 					<Item id="4009" name="Dəstəklənən uzantılar:"/>
 					<Item id="4010" name="Qeydiyyatdan keçmiş uzantılar:"/>
 				</FileAssoc>
@@ -1176,7 +1176,7 @@ Translation note:
 				</Print>
 
 				<Searching title="Axtarış">
-					<Item id="6902" name="Axtarış dialoqunda monospaced şrift istifadə et (Notepad++ yenidən başlatmaq tələb olunur)"/>
+					<Item id="6902" name="Axtarış dialoqunda monospaced şrift istifadə et (npminmin yenidən başlatmaq tələb olunur)"/>
 					<Item id="6903" name="Nəticələr pəncərəsinə çıxış verən axtarışdan sonra Axtarış dialoqu açıq qalsın"/>
 					<Item id="6904" name="Bütün Açıq Sənədlərdə Hamısını Dəyişdirməni təsdiqlə"/>
 					<Item id="6905" name="Dəyişdir: Növbəti uyğunluğa keçmə"/>
@@ -1243,7 +1243,7 @@ Translation note:
 					<Item id="6152" name="Sessiyanı yeni nümunədə aç (və çıxış zamanı sessiyanı avtomatik saxla)"/>
 					<Item id="6153" name="Həmişə çoxlu nümunə rejimində"/>
 					<Item id="6154" name="Standart (tək nümunə)"/>
-					<Item id="6155" name="* Bu parametrin dəyişdirilməsi üçün Notepad++ yenidən başlatmaq tələb olunur"/>
+					<Item id="6155" name="* Bu parametrin dəyişdirilməsi üçün npminmin yenidən başlatmaq tələb olunur"/>
 					<Item id="6171" name="Tarix Saatını Fərdiləşdir"/>
 					<Item id="6175" name="Standart tarix saatı sırasını tərsinə çevir (qısa &amp;&amp; uzun formatlar)"/>
 					<Item id="6172" name="Fərdi format:"/>
@@ -1321,11 +1321,11 @@ Translation note:
 					<Item id="6313" name="Sessiz şəkildə yenilə"/>
 					<Item id="6325" name="Yeniləmədən sonra son xəttə sürüş"/>
 					<Item id="6322" name="Sessiya fayl uzantısı:"/>
-					<Item id="6323" name="Notepad++ avtomatik yeniləməsini aktivləşdir"/>
+					<Item id="6323" name="npminmin avtomatik yeniləməsini aktivləşdir"/>
 					<Item id="6324" name="Sənəd Dəyişdirici (Ctrl+TAB)"/>
 					<Item id="6331" name="Başlıq çubuğunda yalnız fayl adını göstər"/>
 					<Item id="6334" name="Simvol kodlaşdırmasını avtomatik aşkarla"/>
-					<Item id="6349" name="DirectWrite istifadə et (Xüsusi simvolların renderini yaxşılaşdıra bilər, Notepad++ yenidən başlatmaq tələb olunur)"/>
+					<Item id="6349" name="DirectWrite istifadə et (Xüsusi simvolların renderini yaxşılaşdıra bilər, npminmin yenidən başlatmaq tələb olunur)"/>
 					<Item id="6337" name="İş Sahəsi fayl uzantısı:"/>
 					<Item id="6114" name="Aktivləşdir"/>
 					<Item id="6117" name="MRU davranışını aktivləşdirin"/>
@@ -1409,8 +1409,8 @@ Bu dialoqu daha sonra Nizamlamalarda yenidən aktivləşdirə bilərsiniz."/>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ və $STR_REPLACE$ əvəz ediləcək dəyərlərdir, bu dəyərləri tərcümə etməyin. -->
-			<ContextMenuXmlEditWarning title="contextMenu redaktəsi" message="contextMenu.xml faylını redaktə etməklə Notepad++ popup kontekst menyusunu dəyişə bilərsiniz.
-contextMenu.xml faylını dəyişdikdən sonra Notepad++ yenidən başlatmaq lazımdır."/>
+			<ContextMenuXmlEditWarning title="contextMenu redaktəsi" message="contextMenu.xml faylını redaktə etməklə npminmin popup kontekst menyusunu dəyişə bilərsiniz.
+contextMenu.xml faylını dəyişdikdən sonra npminmin yenidən başlatmaq lazımdır."/>
 			<SaveCurrentModifWarning title="Cari Dəyişikliyi Saxla" message="Cari dəyişikliyi saxlamalısınız.
 Bütün saxlanılmış dəyişikliklər geri qaytarıla bilməz.
 
@@ -1419,16 +1419,16 @@ Davam etmək istəyirsiniz?"/><!-- HowToReproduce: açıq fayl dəyişdirilib, l
 Bütün saxlanılmış dəyişikliklər geri qaytarıla bilməz.
 
 Davam etmək istəyirsiniz?"/><!-- HowToReproduce: açıq fayl dəyişdirilib və saxlanılıb, sonra siz fayl kodlaşdırmasını dəyişirsiniz. -->
-			<CannotMoveDoc title="Yeni Notepad++ Nümunəsinə Köçür" message="Sənəd dəyişdirilib, saxlayın və yenidən cəhd edin."/><!-- HowToReproduce: Notepad++-dən təmiz (dəyişdirilməmiş) faylı Notepad++ xaricindəki bir yerə sürükləyin, yeni Notepad++ nümunəsi yaradılacaq. Sonra ilk Notepad++-dən saxlanılmamış faylı yeni nümunəyə sürükləyin. -->
-			<DocReloadWarning title="Yenidən yüklə" message="Cari faylı yenidən yükləyib Notepad++-də edilən dəyişiklikləri itirmək istədiyinizə əminsiniz?"/>
+			<CannotMoveDoc title="Yeni npminmin Nümunəsinə Köçür" message="Sənəd dəyişdirilib, saxlayın və yenidən cəhd edin."/><!-- HowToReproduce: npminmin-dən təmiz (dəyişdirilməmiş) faylı npminmin xaricindəki bir yerə sürükləyin, yeni npminmin nümunəsi yaradılacaq. Sonra ilk npminmin-dən saxlanılmamış faylı yeni nümunəyə sürükləyin. -->
+			<DocReloadWarning title="Yenidən yüklə" message="Cari faylı yenidən yükləyib npminmin-də edilən dəyişiklikləri itirmək istədiyinizə əminsiniz?"/>
 			<FileLockedWarning title="Saxlama uğursuz oldu" message="Zəhmət olmasa bu faylın başqa proqramda açıq olub-olmadığını yoxlayın"/>
-			<FileAlreadyOpenedInNpp title="" message="Fayl artıq Notepad++-də açıqdır."/><!-- HowToReproduce: Yeni sənəd açın və "c:/tmp/foo" faylını açın, bu yeni sənədi "c:/tmp/foo" kimi saxlayın, "bəli" cavabını verin, sonra bu mesaj görünəcək. -->
+			<FileAlreadyOpenedInNpp title="" message="Fayl artıq npminmin-də açıqdır."/><!-- HowToReproduce: Yeni sənəd açın və "c:/tmp/foo" faylını açın, bu yeni sənədi "c:/tmp/foo" kimi saxlayın, "bəli" cavabını verin, sonra bu mesaj görünəcək. -->
 			<RenameTabTemporaryNameAlreadyInUse title="Yenidən adlandırma uğursuz oldu" message="Təyin edilən ad artıq başqa vərəqdə istifadə olunur."/><!-- HowToReproduce: Adsız sənədin vərəqini yenidən adlandırın və artıq mövcud olan başqa adsız sənədin adını verin. -->
 			<RenameTabTemporaryNameIsEmpty title="Yenidən adlandırma uğursuz oldu" message="Təyin edilən ad boş ola bilməz və ya yalnız boşluq(lar) və ya TAB(lar) ola bilməz."/><!-- HowToReproduce: Adsız sənədin vərəqini yenidən adlandırın və boş sətir və ya yalnız boşluqlar verin. -->
 			<DeleteFileFailed title="Faylı Sil" message="Faylı silmək uğursuz oldu"/><!-- HowToReproduce: Bu mesaj sistem xətasını qarşısını almaq üçündür. Təkrarlamaq çətindir. -->
 
 			<NbFileToOpenImportantWarning title="Açılacaq faylların sayı çox böyükdür" message="$INT_REPLACE$ fayl açılmaq üzrədir.
-Onları açmaq istədiyinizə əminsiniz?"/><!-- HowToReproduce: Nizamlamalarda "Qovluq buraxıldıqda İş Sahəsi kimi başlatmaq əvəzinə qovluqdakı bütün faylları aç" seçimini yoxlayın, sonra 200-dən çox fayl olan qovluğu Notepad++-ə sürükləyin. -->
+Onları açmaq istədiyinizə əminsiniz?"/><!-- HowToReproduce: Nizamlamalarda "Qovluq buraxıldıqda İş Sahəsi kimi başlatmaq əvəzinə qovluqdakı bütün faylları aç" seçimini yoxlayın, sonra 200-dən çox fayl olan qovluğu npminmin-ə sürükləyin. -->
 			<SettingsOnCloudError title="Buludda Nizamlamalar" message="Görünür ki, buludda nizamlamalar yolu yalnız oxunan diskdədir,
 ya da yazmaq üçün icazə tələb olunan qovluqdadır.
 Buludda nizamlamalarınız ləğv ediləcək. Zəhmət olmasa Nizamlamalar dialoqu vasitəsilə uyğun dəyər təyin edin."/>
@@ -1465,14 +1465,14 @@ Yenidən yükləmək istəyirsiniz?"/>
 			<DoReloadOrNotAndLooseChange title="Yenidən yüklə" message="&quot;$STR_REPLACE$&quot;
 
 Bu fayl başqa proqram tərəfindən dəyişdirilib.
-Onu yenidən yükləyib Notepad++-də edilən dəyişiklikləri itirmək istəyirsiniz?"/>
+Onu yenidən yükləyib npminmin-də edilən dəyişiklikləri itirmək istəyirsiniz?"/>
 			<PrehistoricSystemDetected title="Köhnə sistem aşkarlandı" message="Görünür ki, siz hələ də köhnə sistem istifadə edirsiniz. Bu xüsusiyyət yalnız müasir sistemlərdə işləyir, təəssüf ki."/><!-- HowToReproduce: Windows XP altında "Sənəd Xəritəsi"ni başladın. -->
-			<XpUpdaterProblem title="Notepad++ Yeniləyici" message="Notepad++ yeniləyicisi XP ilə uyğun deyil, çünki XP-də təhlükəsizlik təbəqəsi köhnəlib.
-Notepad++ səhifəsinə keçib ən son versiyanı yükləmək istəyirsiniz?"/><!-- HowToReproduce: Windows XP altında "? -> Notepad++ Yenilə" menyusunu işə salın. -->
-			<GUpProxyConfNeedAdminMode title="Proxy Nizamlamaları" message="Zəhmət olmasa Notepad++-i Admin rejimində yenidən başladın ki, proxy nizamlamalarını tənzimləyəsiniz."/>
+			<XpUpdaterProblem title="npminmin Yeniləyici" message="npminmin yeniləyicisi XP ilə uyğun deyil, çünki XP-də təhlükəsizlik təbəqəsi köhnəlib.
+npminmin səhifəsinə keçib ən son versiyanı yükləmək istəyirsiniz?"/><!-- HowToReproduce: Windows XP altında "? -> npminmin Yenilə" menyusunu işə salın. -->
+			<GUpProxyConfNeedAdminMode title="Proxy Nizamlamaları" message="Zəhmət olmasa npminmin-i Admin rejimində yenidən başladın ki, proxy nizamlamalarını tənzimləyəsiniz."/>
 			<DocTooDirtyToMonitor title="Monitorinq problemi" message="Sənəd dəyişdirilib. Zəhmət olmasa monitorinqdən əvvəl dəyişikliyi saxlayın."/>
 			<DocNoExistToMonitor title="Monitorinq problemi" message="Fayl monitorinq üçün mövcud olmalıdır."/>
-			<FileTooBigToOpen title="Fayl ölçüsü problemi" message="Fayl Notepad++ tərəfindən açılmaq üçün çox böyükdür."/><!-- HowToReproduce: 4GB fayl açmağa cəhd edin (təkrarlamaq asan deyil, sisteminizdən asılıdır). -->
+			<FileTooBigToOpen title="Fayl ölçüsü problemi" message="Fayl npminmin tərəfindən açılmaq üçün çox böyükdür."/><!-- HowToReproduce: 4GB fayl açmağa cəhd edin (təkrarlamaq asan deyil, sisteminizdən asılıdır). -->
 			<FileLoadingException title="Xəta kodu: $STR_REPLACE$" message="Fayl yüklənərkən xəta baş verdi!"/>
 			<WantToOpenHugeFile title="Böyük fayl açma xəbərdarlığı" message="2GB+ böyüklüyündə fayl açmaq bir neçə dəqiqə çəkə bilər.
 Onu açmaq istəyirsiniz?"/>
@@ -1486,8 +1486,8 @@ Onu açmaq istəyirsiniz?"/>
 Cari faylı hər halda saxlamaq istəyirsiniz?"/><!-- HowToReproduce: Bu mesaj sistem xətasını qarşısını almaq üçündür. Təkrarlamaq çətindir. -->
 			<LoadStylersFailed title="stylers.xml yüklənmədi" message="&quot;$STR_REPLACE$&quot; yüklənmədi!"/>
 			<LoadLangsFailed title="Konfiqurator" message="langs.xml yüklənmədi!
-langs.xml faylını bərpa etmək istəyirsiniz?"/><!-- HowToReproduce: Notepad++-i bağlayın. Başqa redaktorla "langs.xml" faylının məzmununu silin (0 uzunluq) və saxlayın. Notepad++-i açın. -->
-			<LoadLangsFailedFinal title="Konfiqurator" message="langs.xml yüklənmədi!"/><!-- HowToReproduce: Notepad++-i bağlayın. Başqa redaktorla "langs.xml" faylını etibarsız XML faylı edin və saxlayın. Notepad++-i açın. -->
+langs.xml faylını bərpa etmək istəyirsiniz?"/><!-- HowToReproduce: npminmin-i bağlayın. Başqa redaktorla "langs.xml" faylının məzmununu silin (0 uzunluq) və saxlayın. npminmin-i açın. -->
+			<LoadLangsFailedFinal title="Konfiqurator" message="langs.xml yüklənmədi!"/><!-- HowToReproduce: npminmin-i bağlayın. Başqa redaktorla "langs.xml" faylını etibarsız XML faylı edin və saxlayın. npminmin-i açın. -->
 			<FolderAsWorspaceSubfolderExists title="İş Sahəsi kimi Qovluq əlavə etmə problemi" message="Əlavə etmək istədiyiniz qovluğun alt qovluğu mövcuddur.
 &quot;$STR_REPLACE$&quot; qovluğunu əlavə etməzdən əvvəl onun kökünü paneldən silin."/><!-- HowToReproduce: "c:\temp\aFolder\" kimi qovluğu "İş Sahəsi kimi Qovluq" panelinə əlavə edin, sonra "c:\temp\" əlavə etməyə cəhd edin. -->
 
@@ -1510,26 +1510,26 @@ zəhmət olmasa başqa ad verin."/>
 			<SCMapperDoDeleteOrNot title="Əminsiniz?" message="Bu qısayolu silmək istədiyinizə əminsiniz?"/>
 			<FindCharRangeValueError title="Aralıq dəyəri problemi" message="0 ilə 255 arasında dəyər daxil etməlisiniz."/>
 			<OpenInAdminMode title="Saxlama uğursuz oldu" message="Fayl saxlanıla bilmədi və qorunur ola bilər.
-Notepad++-i Admin rejimində başlatmaq istəyirsiniz?"/>
+npminmin-i Admin rejimində başlatmaq istəyirsiniz?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Saxlama uğursuz oldu" message="Fayl saxlanıla bilmədi və qorunur ola bilər.
-Notepad++-i Admin rejimində başlatmaq istəyirsiniz?"/>
-			<OpenInAdminModeFailed title="Admin rejimində açma uğursuz oldu" message="Notepad++ Admin rejimində açıla bilmədi."/><!-- HowToReproduce: Admin hüquqlarınız yoxdursa və qorunan yerdə (məsələn, "C:\Program Files\" alt qovluğunda) dəyişdirilmiş fayl saxlamaq istəyirsinizsə, bu mesaj "Admin rejimində aç" dialoqunda "Bəli" cavabı verdikdən sonra görünəcək. -->
+npminmin-i Admin rejimində başlatmaq istəyirsiniz?"/>
+			<OpenInAdminModeFailed title="Admin rejimində açma uğursuz oldu" message="npminmin Admin rejimində açıla bilmədi."/><!-- HowToReproduce: Admin hüquqlarınız yoxdursa və qorunan yerdə (məsələn, "C:\Program Files\" alt qovluğunda) dəyişdirilmiş fayl saxlamaq istəyirsinizsə, bu mesaj "Admin rejimində aç" dialoqunda "Bəli" cavabı verdikdən sonra görünəcək. -->
 			<ViewInBrowser title="Cari Faylı Brauzerdə Göstər" message="Tətbiq sisteminizdə tapılmadı."/>
-			<ExitToUpdatePlugins title="Notepad++ bağlanmaq üzrədir" message="Bəli düyməsini basarsanız, Notepad++ bağlanacaq və əməliyyatlar davam edəcək.
-Bütün əməliyyatlar bitdikdən sonra Notepad++ yenidən başladılacaq.
+			<ExitToUpdatePlugins title="npminmin bağlanmaq üzrədir" message="Bəli düyməsini basarsanız, npminmin bağlanacaq və əməliyyatlar davam edəcək.
+Bütün əməliyyatlar bitdikdən sonra npminmin yenidən başladılacaq.
 Davam etmək istəyirsiniz?"/>
-			<NeedToRestartToLoadPlugins title="Notepad++ yenidən başladılmalıdır" message="Yüklədiyiniz pluginləri yükləmək üçün Notepad++-i yenidən başlatmalısınız."/><!-- HowToReproduce: "Nizamlamalar -> İdxal -> Plugin(lər) idxal et..." menyusu vasitəsilə plugin idxal edin. -->
-			<ChangeHistoryEnabledWarning title="Notepad++ yenidən başladılmalıdır" message="Dəyişiklik Tarixçəsini aktivləşdirmək üçün Notepad++-i yenidən başlatmalısınız."/><!-- HowToReproduce: Nizamlamalar dialoqunda "Dəyişiklik Tarixçəsini göstər" seçimini söndürün. -->
-			<WindowsSessionExit title="Notepad++ - Windows sessiyası bağlanır" message="Windows sessiyası bağlanmaq üzrədir, lakin sizdə saxlanılmamış məlumatlar var. Notepad++-i indi bağlamaq istəyirsiniz?"/>
+			<NeedToRestartToLoadPlugins title="npminmin yenidən başladılmalıdır" message="Yüklədiyiniz pluginləri yükləmək üçün npminmin-i yenidən başlatmalısınız."/><!-- HowToReproduce: "Nizamlamalar -> İdxal -> Plugin(lər) idxal et..." menyusu vasitəsilə plugin idxal edin. -->
+			<ChangeHistoryEnabledWarning title="npminmin yenidən başladılmalıdır" message="Dəyişiklik Tarixçəsini aktivləşdirmək üçün npminmin-i yenidən başlatmalısınız."/><!-- HowToReproduce: Nizamlamalar dialoqunda "Dəyişiklik Tarixçəsini göstər" seçimini söndürün. -->
+			<WindowsSessionExit title="npminmin - Windows sessiyası bağlanır" message="Windows sessiyası bağlanmaq üzrədir, lakin sizdə saxlanılmamış məlumatlar var. npminmin-i indi bağlamaq istəyirsiniz?"/>
 			<LanguageMenuCompactWarning title="Yığcam Dil Menyusu" message="Bu seçim növbəti başlatmada dəyişdiriləcək."/><!-- HowToReproduce: Nizamlamalar dialoqunda "Dil/Dil Menyusu" bölməsində "Dil menyusunu yığcam et" seçimini dəyişdirin. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Saxlanılmamış dəyişikliklər ləğv ediləcək!
 Temaları dəyişməzdən əvvəl dəyişikliklərinizi saxlamaq istəyirsiniz?"/><!-- HowToReproduce: Stil Konfiquratoru dialoqunda bəzi temanı dəyişdirin və saxlamadan başqa temaya keçin. -->
-			<MacroAndRunCmdlWarning title="Makro və Əmrlərin Uyğunluğu" message="Notepad++ v.8.5.2 (və ya daha köhnə) versiyasında saxlanılmış Makro və Əmrləriniz Notepad++-in cari versiyası ilə uyğun olmaya bilər.
+			<MacroAndRunCmdlWarning title="Makro və Əmrlərin Uyğunluğu" message="npminmin v.8.5.2 (və ya daha köhnə) versiyasında saxlanılmış Makro və Əmrləriniz npminmin-in cari versiyası ilə uyğun olmaya bilər.
 Zəhmət olmasa bu əmrləri yoxlayın və lazım gələrsə, yenidən redaktə edin.
 
-Alternativ olaraq, Notepad++ v8.5.2 versiyasına geri qayıda və əvvəlki məlumatlarınızı bərpa edə bilərsiniz.
-Notepad++ köhnə &quot;shortcuts.xml&quot; faylını ehtiyat nüsxə kimi saxlayacaq və &quot;shortcuts.xml.v8.5.2.backup&quot; kimi qeyd edəcək.
-&quot;shortcuts.xml.v8.5.2.backup&quot; faylını &quot;shortcuts.xml&quot; adına dəyişdirərək əmrləriniz bərpa ediləcək və düzgün işləyəcək."/><!-- HowToReproduce: Notepad++-i bağlayın, shortcuts.xml.v8.5.2.backup və v852ShortcutsCompatibilityWarning.xml fayllarını silin, Notepad++-i yenidən başladın, Qısayol Xəritəsi vasitəsilə qısayolları silin və ya dəyişdirin, Notepad++-i bağlayın, sonra bu mesaj görünəcək. -->
+Alternativ olaraq, npminmin v8.5.2 versiyasına geri qayıda və əvvəlki məlumatlarınızı bərpa edə bilərsiniz.
+npminmin köhnə &quot;shortcuts.xml&quot; faylını ehtiyat nüsxə kimi saxlayacaq və &quot;shortcuts.xml.v8.5.2.backup&quot; kimi qeyd edəcək.
+&quot;shortcuts.xml.v8.5.2.backup&quot; faylını &quot;shortcuts.xml&quot; adına dəyişdirərək əmrləriniz bərpa ediləcək və düzgün işləyəcək."/><!-- HowToReproduce: npminmin-i bağlayın, shortcuts.xml.v8.5.2.backup və v852ShortcutsCompatibilityWarning.xml fayllarını silin, npminmin-i yenidən başladın, Qısayol Xəritəsi vasitəsilə qısayolları silin və ya dəyişdirin, npminmin-i bağlayın, sonra bu mesaj görünəcək. -->
 			<NotEnoughRoom4Saving title="Saxlama uğursuz oldu" message="Fayl saxlanıla bilmədi.
 Görünür ki, diskdə faylı saxlamaq üçün kifayət qədər yer yoxdur. Faylınız saxlanılmayıb."/>
 			<FileInaccessibleUserSession title="Fayl əlçatmazdır" message="&quot;$STR_REPLACE$&quot; əl ilə saxlanılmış sessiyanızdan bəzi fayllar əlçatmazdır. Onlar boş və yalnız oxunan sənədlər kimi açıla bilər.
@@ -1542,8 +1542,8 @@ QEYD: Sənədləri yaratmamaq və ya sonradan bağlamaq seçimi ilə əl ilə sa
 Bu sənədləri yaratmaq istəyirsiniz?
 
 QEYD: Sənədləri yaratmamaq və ya sonradan bağlamaq seçimi ilə sessiyanız ÇIXIŞ ZAMANI DƏYİŞDİRİLƏCƏK! Təqdim edirik ki, &quot;session.xml&quot; faylını indi ehtiyat nüsxə kimi saxlayasınız."/>
-			<RTLvsDirectWrite title="RTL işlədilə bilməz" message="RTL DirectWrite rejimi ilə uyğun deyil. Zəhmət olmasa Nizamlamalar dialoqunda DirectWrite rejimini söndürün və Notepad++-i yenidən başladın."/>
-			<FileMemoryAllocationFailed title="Xəta: Fayl yaddaş ayrılması uğursuz oldu" message="Notepad++ tərəfindən yüklənən fayl üçün kifayət qədər bitişik yaddaş yoxdur."/><!-- HowToReproduce: x86 Notepad++-da ümumi ölçüsü ~700MB-dan çox olan bir neçə fayl açmağa cəhd edin (bu, kompüterin yaddaş konfiqurasiyası və cari sistem yaddaş istifadəsindən asılıdır...). -->
+			<RTLvsDirectWrite title="RTL işlədilə bilməz" message="RTL DirectWrite rejimi ilə uyğun deyil. Zəhmət olmasa Nizamlamalar dialoqunda DirectWrite rejimini söndürün və npminmin-i yenidən başladın."/>
+			<FileMemoryAllocationFailed title="Xəta: Fayl yaddaş ayrılması uğursuz oldu" message="npminmin tərəfindən yüklənən fayl üçün kifayət qədər bitişik yaddaş yoxdur."/><!-- HowToReproduce: x86 npminmin-da ümumi ölçüsü ~700MB-dan çox olan bir neçə fayl açmağa cəhd edin (bu, kompüterin yaddaş konfiqurasiyası və cari sistem yaddaş istifadəsindən asılıdır...). -->
 			<FindRegexBackwardDisabled title="Regex geriyə axtarış deaktivdir" message="Standart olaraq, gözlənilməz nəticələrə səbəb ola biləcəyi üçün geriyə regex axtarışı deaktivdir. Geriyə axtarış etmək üçün Axtarış dialoqunu açın və normal və ya genişləndirilmiş axtarış rejimini seçin, regex əvəzinə.
 Axtarış dialoqunu açmaq və ya ona fokus vermək üçün OK düyməsini basın.
 
@@ -1667,8 +1667,8 @@ Axtarış dialoqunu açmaq və ya ona fokus vermək üçün OK düyməsini bası
 			<word-chars-list-warning-end value="  simvollar siyahınızda."/><!-- HowToReproduce: Nizamlamalar dialoqunda "Ayırıcı" bölməsində "Sözün bir hissəsi kimi öz simvollarınızı əlavə edin\r(nə etdiyinizi bilmirsinizsə, bunu seçməyin)" seçimini yoxlayın, sonra mətn sahəsinə boşluq daxil edin. -->
 			<backup-select-folder value="Ehtiyat nüsxə qovluğu kimi qovluq seçin"/><!-- HowToReproduce: Nizamlamalar > Nizamlamalar > Ehtiyat Nüsxə > [...] -->
 			<cloud-invalid-warning value="Etibarsız yol."/>
-			<cloud-restart-warning value="Zəhmət olmasa Notepad++-i yenidən başladın ki, təsir göstərsin."/>
-			<cloud-select-folder value="Notepad++-in nizamlamalarını oxuduğu/yazdığı qovluğu seçin"/><!-- HowToReproduce: Nizamlamalar dialoqunda "Bulud" bölməsində "Bulud yeri yolunu burada təyin edin: " seçimini yoxlayın, sonra "..." düyməsini basın. Bu mesaj "Qovluq Seç" dialoqunda göstərilir. -->
+			<cloud-restart-warning value="Zəhmət olmasa npminmin-i yenidən başladın ki, təsir göstərsin."/>
+			<cloud-select-folder value="npminmin-in nizamlamalarını oxuduğu/yazdığı qovluğu seçin"/><!-- HowToReproduce: Nizamlamalar dialoqunda "Bulud" bölməsində "Bulud yeri yolunu burada təyin edin: " seçimini yoxlayın, sonra "..." düyməsini basın. Bu mesaj "Qovluq Seç" dialoqunda göstərilir. -->
 			<default-open-save-select-folder value="Standart qovluq kimi qovluq seçin"/><!-- HowToReproduce: Nizamlamalar > Nizamlamalar > Standart Qovluq > [...] -->
 			<shift-change-direction-tip value="Əks istiqamətdə axtarış etmək üçün Shift+Enter istifadə edin"/>
 			<two-find-buttons-tip value="2 axtarış düyməsi rejimi"/>

@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -41,8 +41,8 @@ struct PluginUpdateInfo
 	std::wstring _displayName;  // plugin description name
 	Version _version;
 	// Optional
-	std::pair<Version, Version> _nppCompatibleVersions; // compatible to Notepad++ interval versions: <from, to> example: 
-	                                                    // <0.0.0.0, 0.0.0.0>: plugin is compatible to all Notepad++ versions (due to invalid format set)
+	std::pair<Version, Version> _nppCompatibleVersions; // compatible to npminmin interval versions: <from, to> example: 
+	                                                    // <0.0.0.0, 0.0.0.0>: plugin is compatible to all npminmin versions (due to invalid format set)
 	                                                    // <6.9, 6.9>: plugin is compatible to only v6.9
 	                                                    // <4.2, 6.6.6>: from v4.2 (included) to v6.6.6 (included)
 	                                                    // <0.0.0.0, 8.2.1> all until v8.2.1 (included)
@@ -51,7 +51,7 @@ struct PluginUpdateInfo
 	// Optional
 	std::pair<std::pair<Version, Version>, std::pair<Version, Version>> _oldVersionCompatibility; // Used only by Plugin Manager to filter plugins while loading plugins
 	                                                                                              // The 1st interval versions are for old plugins' versions
-	                                                                                              // The 2nd interval versions are for Notepad++ versions
+	                                                                                              // The 2nd interval versions are for npminmin versions
 	                                                                                              // which are compatible with the old plugins' versions given in the 1st interval
 	
 	std::wstring _homepage;

@@ -4,7 +4,7 @@
     <ExternalIncludePath>..\..\lexilla\include;..\..\scintilla\include;..\src\pugixml;..\src\uchardet;..\src\json;$(ExternalIncludePath)</ExternalIncludePath>
     <LinkIncremental>false</LinkIncremental>
     <EnableCppCoreCheck>true</EnableCppCoreCheck>
-    <CodeAnalysisRuleSet>notepadPlus.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>npminmin.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Debug'" Label="Configuration">
     <UseDebugLibraries>true</UseDebugLibraries>
@@ -45,7 +45,7 @@
     <Link>
       <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Dbghelp.lib;Version.lib;Crypt32.lib;wintrust.lib;Sensapi.lib;wininet.lib;imm32.lib;msimg32.lib;uxtheme.lib;dwmapi.lib;libscintilla.lib;liblexilla.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>LinkVerboseLib</ShowProgress>
-      <OutputFile>$(OutDir)notepad++.exe</OutputFile>
+      <OutputFile>$(OutDir)npminmin.exe</OutputFile>
       <Version>1.0</Version>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -73,7 +73,7 @@
       <FixedBaseAddress>false</FixedBaseAddress>
       <TypeLibraryFile>/TLBID</TypeLibraryFile>
       <TypeLibraryResourceID>5</TypeLibraryResourceID>
-      <ProgramDatabaseFile>$(OutDir)notepadPlus.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(OutDir)npminmin.pdb</ProgramDatabaseFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -120,14 +120,14 @@ copy "..\src\langs.model.xml" "$(OutDir)langs.model.xml"
 copy "..\src\stylers.model.xml" "$(OutDir)stylers.model.xml"
 copy "..\src\shortcuts.xml" "$(OutDir)shortcuts.xml"
 copy "..\src\contextMenu.xml" "$(OutDir)contextMenu.xml"
-"mt.exe" -nologo -manifest "..\src\notepad++.exe.manifest" -outputresource:"$(OutDir)notepad++.exe"
+"mt.exe" -nologo -manifest "..\src\npminmin.exe.manifest" -outputresource:"$(OutDir)npminmin.exe"
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(PlatformToolset)|$(Configuration)'=='ClangCL|Debug'">
     <PostBuildEvent>
       <Command>
-"mt.exe" -nologo -manifest "..\src\notepad++.exe.manifest" -outputresource:"$(OutDir)notepad++.exe"
+"mt.exe" -nologo -manifest "..\src\npminmin.exe.manifest" -outputresource:"$(OutDir)npminmin.exe"
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

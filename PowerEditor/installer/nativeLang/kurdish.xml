@@ -2,7 +2,7 @@
 <NotepadPlus>
 	<!--
 	If "RTL" attribute is present and its value is "yes", then user can add "editZoneRTL" attribute beside,
-	and set the value of the attribute in question to "no", so Notepad++ GUI will be RTL,
+	and set the value of the attribute in question to "no", so npminmin GUI will be RTL,
 	but Scintilla zone will be LTR by opening files (see the commented example).
 	Of course, user can set any direction they want afterward, and what they have set on document will be remembered across the sessions.
 	-->
@@ -284,15 +284,15 @@
 					<Item id="46001" name="Style Configurator..."/>
 					<Item id="46250" name="Define your language..."/>
 					<Item id="46180" name="User-Defined"/>
-					<Item id="47000" name="دەربارەی Notepad++..."/>
+					<Item id="47000" name="دەربارەی npminmin..."/>
 					<Item id="47010" name="Command Line Arguments..."/>
-					<Item id="47001" name="Notepad++ Home"/>
-					<Item id="47002" name="Notepad++ Project Page"/>
+					<Item id="47001" name="npminmin Home"/>
+					<Item id="47002" name="npminmin Project Page"/>
 					<Item id="47003" name="Online Documentation"/>
-					<Item id="47004" name="Notepad++ Community (Forum)"/>
+					<Item id="47004" name="npminmin Community (Forum)"/>
 					<Item id="47012" name="Debug Info..."/>
 					<Item id="47005" name="پێوەكراوی زیاتر"/>
-					<Item id="47006" name="نوێكردنەوەی Notepad++"/>
+					<Item id="47006" name="نوێكردنەوەی npminmin"/>
 					<Item id="47009" name="Set Updater Proxy..."/>
 					<Item id="48005" name="بەرزكردنەوەی پێوەكراوەكان(s) ..."/>
 					<Item id="48006" name="هاوردەكردنی قالبەكان(s) ..."/>
@@ -816,10 +816,10 @@
 
 				<MultiInstance title="Multi-Instance">
 					<Item id="6151" name="Multi-instance settings"/>
-					<Item id="6152" name="Open session in a new instance of Notepad++"/>
+					<Item id="6152" name="Open session in a new instance of npminmin"/>
 					<Item id="6153" name="Always in multi-instance mode"/>
 					<Item id="6154" name="Default (mono-instance)"/>
-					<Item id="6155" name="* The modification of this setting needs to restart Notepad++"/>
+					<Item id="6155" name="* The modification of this setting needs to restart npminmin"/>
 				</MultiInstance>
 
 				<Delimiter title="Delimiter">
@@ -858,7 +858,7 @@
 					<Item id="6319" name="Enable"/>
 					<Item id="6320" name="No underline"/>
 					<Item id="6322" name="Session file ext.:"/>
-					<Item id="6323" name="چالاكردنی نوێكردنەوەی Notepad++ بەشێوەیەكی خودكار"/>
+					<Item id="6323" name="چالاكردنی نوێكردنەوەی npminmin بەشێوەیەكی خودكار"/>
 					<Item id="6324" name="Document Switcher (Ctrl+TAB)"/>
 					<Item id="6331" name="Show only filename in title bar"/>
 					<Item id="6334" name="Autodetect character encoding"/>
@@ -902,10 +902,10 @@
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.
-You have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
+			<ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your npminmin popup context menu.
+You have to restart your npminmin to take effect after modifying contextMenu.xml."/>
 			<NppHelpAbsentWarning title="File does not exist" message="
-doesn't exist. Please download it on Notepad++ site."/>
+doesn't exist. Please download it on npminmin site."/>
 			<SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.
 All the saved modifications can not be undone.
 
@@ -914,10 +914,10 @@ Continue?"/>
 All the saved modifications can not be undone.
 
 Continue?"/>
-			<CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
-			<DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
+			<CannotMoveDoc title="Move to new npminmin Instance" message="Document is modified, save it then try again."/>
+			<DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in npminmin?"/>
 			<FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
-			<FileAlreadyOpenedInNpp title="" message="The file is already opened in Notepad++."/>
+			<FileAlreadyOpenedInNpp title="" message="The file is already opened in npminmin."/>
 			<DeleteFileFailed title="Delete File" message="Delete File failed"/>
 
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
@@ -1006,7 +1006,7 @@ Your settings on cloud will be canceled. Please reset a coherent value via Prefe
 			<word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
 			<word-chars-list-warning-end value="  in your character list."/>
 			<cloud-invalid-warning value="Invalid path."/>
-			<cloud-restart-warning value="Please restart Notepad++ to take effect."/>
+			<cloud-restart-warning value="Please restart npminmin to take effect."/>
 			<shift-change-direction-tip value="Use Shift + Enter to search in the opposite direction"/>
 		</MiscStrings>
 	</Native-Langue>

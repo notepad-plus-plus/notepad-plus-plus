@@ -1,407 +1,408 @@
-name: CI_build
-
-on: [push, pull_request]
-env:
-  PYTHON_ALLOW_CACHE: true
-  PYTHON_DIR_CACHE: D:\.cache\python
-
-jobs:
-  before_build:
-
-    runs-on: windows-latest
-    outputs:
-      result: ${{ steps.filter.outputs.result }}
-      matrix: ${{ steps.filter.outputs.matrix }}
-      title: ${{ steps.filter.outputs.title }}
-      python: ${{ steps.filter.outputs.python }}
-
-    steps:
-    - name: Checkout repo
-      uses: actions/checkout@v6
-      with:
-        fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 0 }}
-
-    - name: Commit filtering
-      id: filter
-      run: |
-        $allowMaster = $true
-        $folders_onejob = "PowerEditor/(Test|(installer/(filesForTesting|functionList)))/"
-        $folders_nowork = "\.github/ISSUE_TEMPLATE"
-        $files_nowork = "md|txt|log|ini"
-        $files_needwork = "CMakeLists\.txt"
-
-        $matrix_all = 'matrix={"build_configuration": ["Release", "Debug"], "build_platform": ["x64", "Win32", "ARM64"]}'
-        $matrix_onejob = 'matrix={"build_configuration": ["Debug"], "build_platform": ["Win32"]}'
-        Write-Output $matrix_all >> $env:GITHUB_OUTPUT
-
-        $isPush = "${{github.event_name }}" -eq "push" ? $true : $false
-        $isMaster = $isPush -and $${{ github.ref_name == github.event.repository.master_branch }}
-
-        $commit_message = $isPush ? (git show -s --format=%B) : (git log -1 --no-merges --pretty=%B)
-        $commit_title = ($commit_message -split "[\r\n]+")[0]
-        Write-Output "title=$commit_title" >> $env:GITHUB_OUTPUT
-        $files_modified = @(git diff --name-only HEAD~1)
-        $files_needwork_all = @($files_modified | Where-Object {$_ -notmatch "\.(xml|$files_nowork)$|$folders_nowork|$folders_onejob" -or $_ -match "($files_needwork)$"})
-
-        if ($allowMaster -or !$isMaster) {
-            if ($commit_title -match "\[force all\]") {
-              Write-Output "Run standard jobs"
-            }
-            elseif ($commit_title -match "\[force one\]") {
-              Write-Output "Run only one Win32/Debug job"
-              Write-Output "result=ONEJOB" >> $env:GITHUB_OUTPUT
-              Write-Output $matrix_onejob >> $env:GITHUB_OUTPUT
-            }
-            elseif (($files_modified.length -gt 0 -and $files_needwork_all.length -eq 0) -or $commit_title -match "\[force (xml|none)\]") {
-                if (@($files_modified | Where-Object {$_ -notmatch "\.($files_nowork)$|$folders_nowork"}).length -eq 0 -or $commit_title -match "\[force none\]") {
-                    Write-Output "Changed files on this commit don't require any additional tasks.`n"
-                    Write-Output "result=OK" >> $env:GITHUB_OUTPUT
-                    Write-Output "PYTHON_ALLOW_CACHE=false" >> $env:GITHUB_ENV
-                    Exit
-                }
-                else {
-                    Write-Output "Run only XML validation step"
-                    if (@($files_modified | Where-Object {$_ -match $folders_onejob}).length -eq 0) {
-                        Write-Output "result=XML" >> $env:GITHUB_OUTPUT
-                    }
-                    else {
-                      Write-Output "Run only one Win32/Debug job"
-                      Write-Output "result=ONEJOB" >> $env:GITHUB_OUTPUT
-                      Write-Output $matrix_onejob >> $env:GITHUB_OUTPUT
-                    }
-
-                }
-            }
-            else {
-              Write-Output "Run standard jobs"
-            }
-        }
-        else {
-          Write-Output "Run standard jobs"
-        }
-
-        if ($commit_title -match "\[force nopythoncache\]") {
-          $env:PYTHON_ALLOW_CACHE = "false"
-          Write-Output "PYTHON_ALLOW_CACHE=false" >> $env:GITHUB_ENV
-        }
-        if ($Env:PYTHON_ALLOW_CACHE -eq "true") {
-          $python = ((python -V) -split " ")[1]
-          $requests = (Invoke-RestMethod https://pypi.org/pypi/requests/json).info.version
-          $rfc3987 = (Invoke-RestMethod https://pypi.org/pypi/rfc3987/json).info.version
-          $pywin32 = (Invoke-RestMethod https://pypi.org/pypi/pywin32/json).info.version
-          $lxml = (Invoke-RestMethod https://pypi.org/pypi/lxml/json).info.version
-          $key = "${{ runner.os }}-python_$python-requests_$requests-rfc3987_$rfc3987-pywin32_$pywin32-lxml_$lxml"
-          Write-Output "python=$key" >> $env:GITHUB_OUTPUT
-        }
-
-    - name: (cache) Lookup Python modules
-      if: env.PYTHON_ALLOW_CACHE == 'true'
-      uses: actions/cache/restore@v4
-      id: cache-lookup
-      with:
-        path: ${{ env.PYTHON_DIR_CACHE }}
-        key: ${{ steps.filter.outputs.python }}
-        lookup-only: true
-
-    - name: (cache) Restore Python modules
-      if: env.PYTHON_ALLOW_CACHE == 'true' && steps.filter.outputs.result == 'XML' && steps.cache-lookup.outputs.cache-hit == 'true'
-      uses: actions/cache/restore@v4
-      with:
-        path: ${{ env.PYTHON_DIR_CACHE }}
-        key: ${{ steps.filter.outputs.python }}
-
-    - name: (cache) Install Python modules
-      if: env.PYTHON_ALLOW_CACHE == 'true' && steps.cache-lookup.outputs.cache-hit != 'true'
-      run: |
-        python -m pip install --target ${{ env.PYTHON_DIR_CACHE }} requests rfc3987 pywin32 lxml
-
-    - name: (cache) Save Python modules
-      if: env.PYTHON_ALLOW_CACHE == 'true' && steps.cache-lookup.outputs.cache-hit != 'true' && github.event_name == 'push'
-      uses: actions/cache/save@v4
-      with:
-        path: ${{ env.PYTHON_DIR_CACHE }}
-        key: ${{ steps.filter.outputs.python }}
-
-    - name: XML validation
-      if: steps.filter.outputs.result == 'XML'
-      run: |
-        if ($Env:PYTHON_ALLOW_CACHE -eq "true" -and (Test-Path -Path ${{ env.PYTHON_DIR_CACHE }})) {
-          $Env:PYTHONPATH = "${{ env.PYTHON_DIR_CACHE }}"
-        }
-        else {
-          python -m pip install requests rfc3987 pywin32 lxml
-        }
-        python PowerEditor\Test\xmlValidator\validator_xml.py
-        if ($LastExitCode -eq 0) {
-            Write-Output "`nAll XML files are valid.`n"
-
-        }
-        else {
-            Write-Output "`nSome XML files are invalid.`n"
-            $host.SetShouldExit($LastExitCode)
-        }
-
-  build_windows:
-
-    runs-on: windows-latest
-    needs: before_build
-    if: needs.before_build.outputs.result == '' || needs.before_build.outputs.result == 'ONEJOB'
-    strategy:
-      fail-fast: false
-      matrix: ${{ fromJSON(needs.before_build.outputs.matrix) }}
-
-    steps:
-    - name: Checkout repo
-      uses: actions/checkout@v6
-
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v2
-
-    - name: Modify resource.h N++ version to avoid confusion
-      working-directory: PowerEditor\src\
-      run: |
-           $content = Get-Content -Path 'resource.h'
-           $newContent = $content -replace 'TEXT\(\"Notepad\+\+ v.*\"\)', 'TEXT("Notepad++ GH_BUILD")'
-           $newContent | Set-Content -Path 'resource.h'
-
-    - name: MSBuild of n++ exe
-      working-directory: PowerEditor\visual.net\
-      run: msbuild notepadPlus.sln /m /p:configuration="${{ matrix.build_configuration }}" /p:platform="${{ matrix.build_platform }}" /p:PlatformToolset="v143"
-
-    - name: Archive artifacts for x64 / Release
-      if: matrix.build_platform == 'x64' && matrix.build_configuration == 'Release'
-      uses: actions/upload-artifact@v6
-      with:
-          name: Notepad++.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
-          path: PowerEditor\bin64\Notepad++.exe
-
-    - name: Archive artifacts for Win32 / Release
-      if: matrix.build_platform == 'Win32' && matrix.build_configuration == 'Release'
-      uses: actions/upload-artifact@v6
-      with:
-          name: Notepad++.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
-          path: PowerEditor\bin\Notepad++.exe
-
-    - name: Archive artifacts for ARM64 / Release
-      if: matrix.build_platform == 'ARM64' && matrix.build_configuration == 'Release'
-      uses: actions/upload-artifact@v6
-      with:
-          name: Notepad++.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
-          path: PowerEditor\binarm64\Notepad++.exe
-
-    - name: Archive artifacts for ARM64|x64 / Debug
-      if: (matrix.build_platform == 'ARM64' || matrix.build_platform == 'x64') && matrix.build_configuration == 'Debug'
-      uses: actions/upload-artifact@v6
-      with:
-          name: Notepad++.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
-          path: PowerEditor\visual.net\${{ matrix.build_platform}}\${{ matrix.build_configuration}}\Notepad++.exe
-
-    - name: Archive artifacts for Win32 / Debug
-      if: matrix.build_platform == 'Win32' && matrix.build_configuration == 'Debug'
-      uses: actions/upload-artifact@v6
-      with:
-          name: Notepad++.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
-          path: PowerEditor\visual.net\${{ matrix.build_configuration}}\Notepad++.exe
-
-    - name: (cache) Restore Python modules for Win32 / Debug
-      if: matrix.build_platform == 'Win32' && matrix.build_configuration == 'Debug' && env.PYTHON_ALLOW_CACHE == 'true' && contains(needs.before_build.outputs.title, '[force nopythoncache]') != true
-      uses: actions/cache/restore@v4
-      with:
-        path: ${{ env.PYTHON_DIR_CACHE }}
-        key: ${{ needs.before_build.outputs.python }}
-
-    - name: Run xml validation test for Win32 / Debug only
-      if: matrix.build_platform == 'Win32' && matrix.build_configuration == 'Debug'
-      working-directory: .\
-      run: |
-           if ($Env:PYTHON_ALLOW_CACHE -eq "true" -and $${{ !contains(needs.before_build.outputs.title, '[force nopythoncache]') }} -and (Test-Path -Path ${{ env.PYTHON_DIR_CACHE }})) {
-             $Env:PYTHONPATH = "${{ env.PYTHON_DIR_CACHE }}"
-           }
-           else {
-             python -m pip install requests rfc3987 pywin32 lxml
-           }
-           python PowerEditor\Test\xmlValidator\validator_xml.py
-
-
-    - name: Run FunctionList and UrlDetection Tests for Win32 / Debug only
-      if: matrix.build_platform == 'Win32' && matrix.build_configuration == 'Debug'
-      working-directory: .\
-      run: |
-           Copy-Item "PowerEditor\visual.net\Debug\Notepad++.exe" -Destination "PowerEditor\bin"
-           Copy-Item "PowerEditor\src\langs.model.xml" -Destination "PowerEditor\bin"
-           Copy-Item "PowerEditor\src\stylers.model.xml" -Destination "PowerEditor\bin"
-           Copy-Item "PowerEditor\src\shortcuts.xml" -Destination "PowerEditor\bin"
-           Copy-Item "PowerEditor\src\contextMenu.xml" -Destination "PowerEditor\bin"
-           Copy-Item "PowerEditor\installer\functionList" -Destination "PowerEditor\bin" -Recurse
-
-           Copy-Item "PowerEditor\installer\filesForTesting\regexGlobalTest.xml" -Destination "PowerEditor\bin\functionList"
-           Copy-Item "PowerEditor\installer\filesForTesting\overrideMap.xml" -Destination "PowerEditor\bin\functionList"
-
-           cd .\PowerEditor\Test\FunctionList\
-           .\unitTestLauncher.ps1
-           if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode) }
-
-           cd ..\UrlDetection
-           .\verifyUrlDetection.ps1
-
-
-  # build_windows_clang:
-
-    # runs-on: windows-latest
-    #needs: before_build
-    #if: needs.before_build.outputs.result == ''
-    # strategy:
-      # matrix:
-        # build_configuration: [Release]
-        # build_platform: [x64]
-
-    # steps:
-    # - name: Checkout repo
-      # uses: actions/checkout@v6
-
-    # - name: Add msbuild to PATH
-      # uses: microsoft/setup-msbuild@v2
-
-    # - name: Modify resource.h N++ version to avoid confusion
-      # working-directory: PowerEditor\src\
-      # run: |
-           # $content = Get-Content -Path 'resource.h'
-           # $newContent = $content -replace 'TEXT\(\"Notepad\+\+ v.*\"\)', 'TEXT("Notepad++ GH_BUILD")'
-           # $newContent | Set-Content -Path 'resource.h'
-
-    # - name: MSBuild of n++ exe
-      # working-directory: PowerEditor\visual.net\
-      # run: msbuild notepadPlus.sln /m /p:configuration="${{ matrix.build_configuration }}" /p:platform="${{ matrix.build_platform }}" /p:PlatformToolset="ClangCL"
-
-
-  build_windows_cmake:
-
-    runs-on: windows-latest
-    needs: before_build
-    if: needs.before_build.outputs.result == ''
-    strategy:
-      matrix:
-        include:
-          - build_configuration: Release
-            build_platform: x64
-            arch: amd64
-
-    steps:
-    - name: Checkout repo
-      uses: actions/checkout@v6
-
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v2
-
-    - name: Modify resource.h N++ version to avoid confusion
-      working-directory: PowerEditor\src\
-      run: |
-           $content = Get-Content -Path 'resource.h'
-           $newContent = $content -replace 'TEXT\(\"Notepad\+\+ v.*\"\)', 'TEXT("Notepad++ GH_BUILD")'
-           $newContent | Set-Content -Path 'resource.h'
-
-    - name: Add nmake to PATH
-      uses: ilammy/msvc-dev-cmd@v1
-      with:
-        arch: ${{ matrix.arch }}
-
-    - name: build scintilla
-      working-directory: scintilla/win32/
-      run: |
-           nmake -f scintilla.mak
-
-    - name: build lexilla
-      working-directory: lexilla/src/
-      run: |
-           nmake -f lexilla.mak
-
-    - name: generate cmake
-      working-directory: PowerEditor/src
-      run: |
-           mkdir _build
-           cd _build
-           cmake -G "Visual Studio 17 2022" -A ${{ matrix.build_platform }} -T "v143" ..
-
-    - name: build cmake
-      working-directory: PowerEditor/src
-      run: |
-           cd _build
-           cmake --build . --config ${{ matrix.build_configuration }}
-
-  build_windows_msys2:
-
-    runs-on: windows-latest
-    needs: before_build
-    if: needs.before_build.outputs.result == ''
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - msys: MINGW32
-            env: i686
-            arch: i686
-            configuration: Release
-            compiler: gcc
-          - msys: MINGW32
-            env: i686
-            arch: i686
-            configuration: Debug
-            compiler: gcc
-          - msys: MINGW64
-            env: x86_64
-            arch: x86_64
-            configuration: Release
-            compiler: gcc
-          - msys: MINGW64
-            env: x86_64
-            arch: x86_64
-            configuration: Debug
-            compiler: gcc
-          - msys: CLANG64
-            env: clang-x86_64
-            arch: x86_64
-            configuration: Release
-            compiler: clang
-
-    name: ${{ matrix.msys }} - ${{ matrix.configuration }}
-
-    steps:
-    - name: Checkout repo
-      uses: actions/checkout@v6
-
-    - name: Modify resource.h N++ version to avoid confusion
-      working-directory: PowerEditor\src\
-      shell: pwsh
-      run: |
-           $content = Get-Content -Path 'resource.h'
-           $newContent = $content -replace 'TEXT\(\"Notepad\+\+ v.*\"\)', 'TEXT("Notepad++ GH_BUILD")'
-           $newContent | Set-Content -Path 'resource.h'
-
-    - name: Install and update MSYS2 tools
-      uses: msys2/setup-msys2@v2
-      with:
-        msystem: ${{ matrix.msys }}
-        install: mingw-w64-${{ matrix.env }}-${{ matrix.compiler }} mingw-w64-${{ matrix.env }}-make
-        update: true
-        release: false
-
-    - name: Make n++ exe
-      working-directory: .\
-      run: |
-        Write-host "${{ matrix.msys }}"
-        Write-host "${{ matrix.configuration }}"
-        $Env:MSYSTEM = '${{ matrix.msys }}'
-        $Env:Path = 'C:\msys64\usr\bin' + [IO.Path]::PathSeparator + $Env:Path
-        $Env:Path = 'C:\msys64\' + '${{ matrix.msys }}'.ToLower() + '\bin' + [IO.Path]::PathSeparator + $Env:Path
-        if ( $${{ matrix.configuration == 'Debug'}} ) {$Env:DEBUG = '1'}
-        Write-Output "Tools version:"
-        Write-Output (((${{ matrix.compiler }} --version) | select-object -first 1) + " " + (${{ matrix.compiler }} -dumpmachine))
-        Write-Output (mingw32-make --version) | select-object -first 1
-        Write-Output (sh --version) | select-object -first 1
-        mingw32-make -f PowerEditor\gcc\makefile
-
-    - name: Archive artifacts for ${{ matrix.msys }} / ${{ matrix.configuration }}
-      uses: actions/upload-artifact@v6
-      with:
-        name: Notepad++.${{ matrix.compiler }}.${{ matrix.arch }}.${{ matrix.configuration }}
-        path: bin.${{ matrix.compiler }}.${{ matrix.arch }}${{ matrix.configuration == 'Debug' && '-debug' || '' }}\notepad++.exe
+     1|name: CI_build
+     2|
+     3|on: [push, pull_request]
+     4|env:
+     5|  PYTHON_ALLOW_CACHE: true
+     6|  PYTHON_DIR_CACHE: D:\.cache\python
+     7|
+     8|jobs:
+     9|  before_build:
+    10|
+    11|    runs-on: windows-latest
+    12|    outputs:
+    13|      result: ${{ steps.filter.outputs.result }}
+    14|      matrix: ${{ steps.filter.outputs.matrix }}
+    15|      title: ${{ steps.filter.outputs.title }}
+    16|      python: ${{ steps.filter.outputs.python }}
+    17|
+    18|    steps:
+    19|    - name: Checkout repo
+    20|      uses: actions/checkout@v6
+    21|      with:
+    22|        fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 0 }}
+    23|
+    24|    - name: Commit filtering
+    25|      id: filter
+    26|      run: |
+    27|        $allowMaster = $true
+    28|        $folders_onejob = "PowerEditor/(Test|(installer/(filesForTesting|functionList)))/"
+    29|        $folders_nowork = "\.github/ISSUE_TEMPLATE"
+    30|        $files_nowork = "md|txt|log|ini"
+    31|        $files_needwork = "CMakeLists\.txt"
+    32|
+    33|        $matrix_all = 'matrix={"build_configuration": ["Release", "Debug"], "build_platform": ["x64", "Win32", "ARM64"]}'
+    34|        $matrix_onejob = 'matrix={"build_configuration": ["Debug"], "build_platform": ["Win32"]}'
+    35|        Write-Output $matrix_all >> $env:GITHUB_OUTPUT
+    36|
+    37|        $isPush = "${{github.event_name }}" -eq "push" ? $true : $false
+    38|        $isMaster = $isPush -and $${{ github.ref_name == github.event.repository.master_branch }}
+    39|
+    40|        $commit_message = $isPush ? (git show -s --format=%B) : (git log -1 --no-merges --pretty=%B)
+    41|        $commit_title = ($commit_message -split "[\r\n]+")[0]
+    42|        Write-Output "title=$commit_title" >> $env:GITHUB_OUTPUT
+    43|        $files_modified = @(git diff --name-only HEAD~1)
+    44|        $files_needwork_all = @($files_modified | Where-Object {$_ -notmatch "\.(xml|$files_nowork)$|$folders_nowork|$folders_onejob" -or $_ -match "($files_needwork)$"})
+    45|
+    46|        if ($allowMaster -or !$isMaster) {
+    47|            if ($commit_title -match "\[force all\]") {
+    48|              Write-Output "Run standard jobs"
+    49|            }
+    50|            elseif ($commit_title -match "\[force one\]") {
+    51|              Write-Output "Run only one Win32/Debug job"
+    52|              Write-Output "result=ONEJOB" >> $env:GITHUB_OUTPUT
+    53|              Write-Output $matrix_onejob >> $env:GITHUB_OUTPUT
+    54|            }
+    55|            elseif (($files_modified.length -gt 0 -and $files_needwork_all.length -eq 0) -or $commit_title -match "\[force (xml|none)\]") {
+    56|                if (@($files_modified | Where-Object {$_ -notmatch "\.($files_nowork)$|$folders_nowork"}).length -eq 0 -or $commit_title -match "\[force none\]") {
+    57|                    Write-Output "Changed files on this commit don't require any additional tasks.`n"
+    58|                    Write-Output "result=OK" >> $env:GITHUB_OUTPUT
+    59|                    Write-Output "PYTHON_ALLOW_CACHE=false" >> $env:GITHUB_ENV
+    60|                    Exit
+    61|                }
+    62|                else {
+    63|                    Write-Output "Run only XML validation step"
+    64|                    if (@($files_modified | Where-Object {$_ -match $folders_onejob}).length -eq 0) {
+    65|                        Write-Output "result=XML" >> $env:GITHUB_OUTPUT
+    66|                    }
+    67|                    else {
+    68|                      Write-Output "Run only one Win32/Debug job"
+    69|                      Write-Output "result=ONEJOB" >> $env:GITHUB_OUTPUT
+    70|                      Write-Output $matrix_onejob >> $env:GITHUB_OUTPUT
+    71|                    }
+    72|
+    73|                }
+    74|            }
+    75|            else {
+    76|              Write-Output "Run standard jobs"
+    77|            }
+    78|        }
+    79|        else {
+    80|          Write-Output "Run standard jobs"
+    81|        }
+    82|
+    83|        if ($commit_title -match "\[force nopythoncache\]") {
+    84|          $env:PYTHON_ALLOW_CACHE = "false"
+    85|          Write-Output "PYTHON_ALLOW_CACHE=false" >> $env:GITHUB_ENV
+    86|        }
+    87|        if ($Env:PYTHON_ALLOW_CACHE -eq "true") {
+    88|          $python = ((python -V) -split " ")[1]
+    89|          $requests = (Invoke-RestMethod https://pypi.org/pypi/requests/json).info.version
+    90|          $rfc3987 = (Invoke-RestMethod https://pypi.org/pypi/rfc3987/json).info.version
+    91|          $pywin32 = (Invoke-RestMethod https://pypi.org/pypi/pywin32/json).info.version
+    92|          $lxml = (Invoke-RestMethod https://pypi.org/pypi/lxml/json).info.version
+    93|          $key = "${{ runner.os }}-python_$python-requests_$requests-rfc3987_$rfc3987-pywin32_$pywin32-lxml_$lxml"
+    94|          Write-Output "python=$key" >> $env:GITHUB_OUTPUT
+    95|        }
+    96|
+    97|    - name: (cache) Lookup Python modules
+    98|      if: env.PYTHON_ALLOW_CACHE == 'true'
+    99|      uses: actions/cache/restore@v4
+   100|      id: cache-lookup
+   101|      with:
+   102|        path: ${{ env.PYTHON_DIR_CACHE }}
+   103|        key: ${{ steps.filter.outputs.python }}
+   104|        lookup-only: true
+   105|
+   106|    - name: (cache) Restore Python modules
+   107|      if: env.PYTHON_ALLOW_CACHE == 'true' && steps.filter.outputs.result == 'XML' && steps.cache-lookup.outputs.cache-hit == 'true'
+   108|      uses: actions/cache/restore@v4
+   109|      with:
+   110|        path: ${{ env.PYTHON_DIR_CACHE }}
+   111|        key: ${{ steps.filter.outputs.python }}
+   112|
+   113|    - name: (cache) Install Python modules
+   114|      if: env.PYTHON_ALLOW_CACHE == 'true' && steps.cache-lookup.outputs.cache-hit != 'true'
+   115|      run: |
+   116|        python -m pip install --target ${{ env.PYTHON_DIR_CACHE }} requests rfc3987 pywin32 lxml
+   117|
+   118|    - name: (cache) Save Python modules
+   119|      if: env.PYTHON_ALLOW_CACHE == 'true' && steps.cache-lookup.outputs.cache-hit != 'true' && github.event_name == 'push'
+   120|      uses: actions/cache/save@v4
+   121|      with:
+   122|        path: ${{ env.PYTHON_DIR_CACHE }}
+   123|        key: ${{ steps.filter.outputs.python }}
+   124|
+   125|    - name: XML validation
+   126|      if: steps.filter.outputs.result == 'XML'
+   127|      run: |
+   128|        if ($Env:PYTHON_ALLOW_CACHE -eq "true" -and (Test-Path -Path ${{ env.PYTHON_DIR_CACHE }})) {
+   129|          $Env:PYTHONPATH = "${{ env.PYTHON_DIR_CACHE }}"
+   130|        }
+   131|        else {
+   132|          python -m pip install requests rfc3987 pywin32 lxml
+   133|        }
+   134|        python PowerEditor\Test\xmlValidator\validator_xml.py
+   135|        if ($LastExitCode -eq 0) {
+   136|            Write-Output "`nAll XML files are valid.`n"
+   137|
+   138|        }
+   139|        else {
+   140|            Write-Output "`nSome XML files are invalid.`n"
+   141|            $host.SetShouldExit($LastExitCode)
+   142|        }
+   143|
+   144|  build_windows:
+   145|
+   146|    runs-on: windows-latest
+   147|    needs: before_build
+   148|    if: needs.before_build.outputs.result == '' || needs.before_build.outputs.result == 'ONEJOB'
+   149|    strategy:
+   150|      fail-fast: false
+   151|      matrix: ${{ fromJSON(needs.before_build.outputs.matrix) }}
+   152|
+   153|    steps:
+   154|    - name: Checkout repo
+   155|      uses: actions/checkout@v6
+   156|
+   157|    - name: Add msbuild to PATH
+   158|      uses: microsoft/setup-msbuild@v2
+   159|
+   160|    - name: Modify resource.h N++ version to avoid confusion
+   161|      working-directory: PowerEditor\src\
+   162|      run: |
+   163|           $content = Get-Content -Path 'resource.h'
+   164|           $newContent = $content -replace 'TEXT\(\"Notepad\+\+ v.*\"\)', 'TEXT("npminmin GH_BUILD")'
+   165|           $newContent | Set-Content -Path 'resource.h'
+   166|
+   167|    - name: MSBuild of n++ exe
+   168|      working-directory: PowerEditor\visual.net\
+   169|      run: msbuild notepadPlus.sln /m /p:configuration="${{ matrix.build_configuration }}" /p:platform="${{ matrix.build_platform }}" /p:PlatformToolset="v143"
+   170|
+   171|    - name: Archive artifacts for x64 / Release
+   172|      if: matrix.build_platform == 'x64' && matrix.build_configuration == 'Release'
+   173|      uses: actions/upload-artifact@v6
+   174|      with:
+   175|          name: npminmin.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
+   176|          path: PowerEditor\bin64\npminmin.exe
+   177|
+   178|    - name: Archive artifacts for Win32 / Release
+   179|      if: matrix.build_platform == 'Win32' && matrix.build_configuration == 'Release'
+   180|      uses: actions/upload-artifact@v6
+   181|      with:
+   182|          name: npminmin.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
+   183|          path: PowerEditor\bin\npminmin.exe
+   184|
+   185|    - name: Archive artifacts for ARM64 / Release
+   186|      if: matrix.build_platform == 'ARM64' && matrix.build_configuration == 'Release'
+   187|      uses: actions/upload-artifact@v6
+   188|      with:
+   189|          name: npminmin.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
+   190|          path: PowerEditor\binarm64\npminmin.exe
+   191|
+   192|    - name: Archive artifacts for ARM64|x64 / Debug
+   193|      if: (matrix.build_platform == 'ARM64' || matrix.build_platform == 'x64') && matrix.build_configuration == 'Debug'
+   194|      uses: actions/upload-artifact@v6
+   195|      with:
+   196|          name: npminmin.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
+   197|          path: PowerEditor\visual.net\${{ matrix.build_platform}}\${{ matrix.build_configuration}}\npminmin.exe
+   198|
+   199|    - name: Archive artifacts for Win32 / Debug
+   200|      if: matrix.build_platform == 'Win32' && matrix.build_configuration == 'Debug'
+   201|      uses: actions/upload-artifact@v6
+   202|      with:
+   203|          name: npminmin.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
+   204|          path: PowerEditor\visual.net\${{ matrix.build_configuration}}\npminmin.exe
+   205|
+   206|    - name: (cache) Restore Python modules for Win32 / Debug
+   207|      if: matrix.build_platform == 'Win32' && matrix.build_configuration == 'Debug' && env.PYTHON_ALLOW_CACHE == 'true' && contains(needs.before_build.outputs.title, '[force nopythoncache]') != true
+   208|      uses: actions/cache/restore@v4
+   209|      with:
+   210|        path: ${{ env.PYTHON_DIR_CACHE }}
+   211|        key: ${{ needs.before_build.outputs.python }}
+   212|
+   213|    - name: Run xml validation test for Win32 / Debug only
+   214|      if: matrix.build_platform == 'Win32' && matrix.build_configuration == 'Debug'
+   215|      working-directory: .\
+   216|      run: |
+   217|           if ($Env:PYTHON_ALLOW_CACHE -eq "true" -and $${{ !contains(needs.before_build.outputs.title, '[force nopythoncache]') }} -and (Test-Path -Path ${{ env.PYTHON_DIR_CACHE }})) {
+   218|             $Env:PYTHONPATH = "${{ env.PYTHON_DIR_CACHE }}"
+   219|           }
+   220|           else {
+   221|             python -m pip install requests rfc3987 pywin32 lxml
+   222|           }
+   223|           python PowerEditor\Test\xmlValidator\validator_xml.py
+   224|
+   225|
+   226|    - name: Run FunctionList and UrlDetection Tests for Win32 / Debug only
+   227|      if: matrix.build_platform == 'Win32' && matrix.build_configuration == 'Debug'
+   228|      working-directory: .\
+   229|      run: |
+   230|           Copy-Item "PowerEditor\visual.net\Debug\npminmin.exe" -Destination "PowerEditor\bin"
+   231|           Copy-Item "PowerEditor\src\langs.model.xml" -Destination "PowerEditor\bin"
+   232|           Copy-Item "PowerEditor\src\stylers.model.xml" -Destination "PowerEditor\bin"
+   233|           Copy-Item "PowerEditor\src\shortcuts.xml" -Destination "PowerEditor\bin"
+   234|           Copy-Item "PowerEditor\src\contextMenu.xml" -Destination "PowerEditor\bin"
+   235|           Copy-Item "PowerEditor\installer\functionList" -Destination "PowerEditor\bin" -Recurse
+   236|
+   237|           Copy-Item "PowerEditor\installer\filesForTesting\regexGlobalTest.xml" -Destination "PowerEditor\bin\functionList"
+   238|           Copy-Item "PowerEditor\installer\filesForTesting\overrideMap.xml" -Destination "PowerEditor\bin\functionList"
+   239|
+   240|           cd .\PowerEditor\Test\FunctionList\
+   241|           .\unitTestLauncher.ps1
+   242|           if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode) }
+   243|
+   244|           cd ..\UrlDetection
+   245|           .\verifyUrlDetection.ps1
+   246|
+   247|
+   248|  # build_windows_clang:
+   249|
+   250|    # runs-on: windows-latest
+   251|    #needs: before_build
+   252|    #if: needs.before_build.outputs.result == ''
+   253|    # strategy:
+   254|      # matrix:
+   255|        # build_configuration: [Release]
+   256|        # build_platform: [x64]
+   257|
+   258|    # steps:
+   259|    # - name: Checkout repo
+   260|      # uses: actions/checkout@v6
+   261|
+   262|    # - name: Add msbuild to PATH
+   263|      # uses: microsoft/setup-msbuild@v2
+   264|
+   265|    # - name: Modify resource.h N++ version to avoid confusion
+   266|      # working-directory: PowerEditor\src\
+   267|      # run: |
+   268|           # $content = Get-Content -Path 'resource.h'
+   269|           # $newContent = $content -replace 'TEXT\(\"Notepad\+\+ v.*\"\)', 'TEXT("npminmin GH_BUILD")'
+   270|           # $newContent | Set-Content -Path 'resource.h'
+   271|
+   272|    # - name: MSBuild of n++ exe
+   273|      # working-directory: PowerEditor\visual.net\
+   274|      # run: msbuild notepadPlus.sln /m /p:configuration="${{ matrix.build_configuration }}" /p:platform="${{ matrix.build_platform }}" /p:PlatformToolset="ClangCL"
+   275|
+   276|
+   277|  build_windows_cmake:
+   278|
+   279|    runs-on: windows-latest
+   280|    needs: before_build
+   281|    if: needs.before_build.outputs.result == ''
+   282|    strategy:
+   283|      matrix:
+   284|        include:
+   285|          - build_configuration: Release
+   286|            build_platform: x64
+   287|            arch: amd64
+   288|
+   289|    steps:
+   290|    - name: Checkout repo
+   291|      uses: actions/checkout@v6
+   292|
+   293|    - name: Add msbuild to PATH
+   294|      uses: microsoft/setup-msbuild@v2
+   295|
+   296|    - name: Modify resource.h N++ version to avoid confusion
+   297|      working-directory: PowerEditor\src\
+   298|      run: |
+   299|           $content = Get-Content -Path 'resource.h'
+   300|           $newContent = $content -replace 'TEXT\(\"Notepad\+\+ v.*\"\)', 'TEXT("npminmin GH_BUILD")'
+   301|           $newContent | Set-Content -Path 'resource.h'
+   302|
+   303|    - name: Add nmake to PATH
+   304|      uses: ilammy/msvc-dev-cmd@v1
+   305|      with:
+   306|        arch: ${{ matrix.arch }}
+   307|
+   308|    - name: build scintilla
+   309|      working-directory: scintilla/win32/
+   310|      run: |
+   311|           nmake -f scintilla.mak
+   312|
+   313|    - name: build lexilla
+   314|      working-directory: lexilla/src/
+   315|      run: |
+   316|           nmake -f lexilla.mak
+   317|
+   318|    - name: generate cmake
+   319|      working-directory: PowerEditor/src
+   320|      run: |
+   321|           mkdir _build
+   322|           cd _build
+   323|           cmake -G "Visual Studio 17 2022" -A ${{ matrix.build_platform }} -T "v143" ..
+   324|
+   325|    - name: build cmake
+   326|      working-directory: PowerEditor/src
+   327|      run: |
+   328|           cd _build
+   329|           cmake --build . --config ${{ matrix.build_configuration }}
+   330|
+   331|  build_windows_msys2:
+   332|
+   333|    runs-on: windows-latest
+   334|    needs: before_build
+   335|    if: needs.before_build.outputs.result == ''
+   336|    strategy:
+   337|      fail-fast: false
+   338|      matrix:
+   339|        include:
+   340|          - msys: MINGW32
+   341|            env: i686
+   342|            arch: i686
+   343|            configuration: Release
+   344|            compiler: gcc
+   345|          - msys: MINGW32
+   346|            env: i686
+   347|            arch: i686
+   348|            configuration: Debug
+   349|            compiler: gcc
+   350|          - msys: MINGW64
+   351|            env: x86_64
+   352|            arch: x86_64
+   353|            configuration: Release
+   354|            compiler: gcc
+   355|          - msys: MINGW64
+   356|            env: x86_64
+   357|            arch: x86_64
+   358|            configuration: Debug
+   359|            compiler: gcc
+   360|          - msys: CLANG64
+   361|            env: clang-x86_64
+   362|            arch: x86_64
+   363|            configuration: Release
+   364|            compiler: clang
+   365|
+   366|    name: ${{ matrix.msys }} - ${{ matrix.configuration }}
+   367|
+   368|    steps:
+   369|    - name: Checkout repo
+   370|      uses: actions/checkout@v6
+   371|
+   372|    - name: Modify resource.h N++ version to avoid confusion
+   373|      working-directory: PowerEditor\src\
+   374|      shell: pwsh
+   375|      run: |
+   376|           $content = Get-Content -Path 'resource.h'
+   377|           $newContent = $content -replace 'TEXT\(\"Notepad\+\+ v.*\"\)', 'TEXT("npminmin GH_BUILD")'
+   378|           $newContent | Set-Content -Path 'resource.h'
+   379|
+   380|    - name: Install and update MSYS2 tools
+   381|      uses: msys2/setup-msys2@v2
+   382|      with:
+   383|        msystem: ${{ matrix.msys }}
+   384|        install: mingw-w64-${{ matrix.env }}-${{ matrix.compiler }} mingw-w64-${{ matrix.env }}-make
+   385|        update: true
+   386|        release: false
+   387|
+   388|    - name: Make n++ exe
+   389|      working-directory: .\
+   390|      run: |
+   391|        Write-host "${{ matrix.msys }}"
+   392|        Write-host "${{ matrix.configuration }}"
+   393|        $Env:MSYSTEM = '${{ matrix.msys }}'
+   394|        $Env:Path = 'C:\msys64\usr\bin' + [IO.Path]::PathSeparator + $Env:Path
+   395|        $Env:Path = 'C:\msys64\' + '${{ matrix.msys }}'.ToLower() + '\bin' + [IO.Path]::PathSeparator + $Env:Path
+   396|        if ( $${{ matrix.configuration == 'Debug'}} ) {$Env:DEBUG = '1'}
+   397|        Write-Output "Tools version:"
+   398|        Write-Output (((${{ matrix.compiler }} --version) | select-object -first 1) + " " + (${{ matrix.compiler }} -dumpmachine))
+   399|        Write-Output (mingw32-make --version) | select-object -first 1
+   400|        Write-Output (sh --version) | select-object -first 1
+   401|        mingw32-make -f PowerEditor\gcc\makefile
+   402|
+   403|    - name: Archive artifacts for ${{ matrix.msys }} / ${{ matrix.configuration }}
+   404|      uses: actions/upload-artifact@v6
+   405|      with:
+   406|        name: npminmin.${{ matrix.compiler }}.${{ matrix.arch }}.${{ matrix.configuration }}
+   407|        path: bin.${{ matrix.compiler }}.${{ matrix.arch }}${{ matrix.configuration == 'Debug' && '-debug' || '' }}\npminmin.exe
+   408|

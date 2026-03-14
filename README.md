@@ -1,50 +1,70 @@
-What is Notepad++ ?
-===================
+# npminmin
 
-[![GitHub release](https://img.shields.io/github/release/notepad-plus-plus/notepad-plus-plus.svg)](../../releases/latest)&nbsp;&nbsp;&nbsp;&nbsp;[![Build Status](https://img.shields.io/github/actions/workflow/status/notepad-plus-plus/notepad-plus-plus/CI_build.yml)](https://github.com/notepad-plus-plus/notepad-plus-plus/actions/workflows/CI_build.yml)
-&nbsp;&nbsp;&nbsp;&nbsp;[![Join the discussions at https://community.notepad-plus-plus.org/](https://notepad-plus-plus.org/assets/images/NppCommunityBadge.svg)](https://community.notepad-plus-plus.org/)
+A secure, portable fork of the classic source code editor — with the auto-updater stripped out entirely.
 
-Notepad++ is a free (free as in both "free speech" and "free beer") source code
-editor and Notepad replacement that supports several programming languages and
-natural languages. Running in the MS Windows environment, its use is governed by
-[GPL License](LICENSE).
+## Why this fork?
 
-See the [Notepad++ official site](https://notepad-plus-plus.org/) for more information.
+In 2025, state-sponsored attackers compromised the Notepad++ update infrastructure (WinGup/GUP.exe),
+delivering trojanized installers to targeted users for months. The attack surface was the auto-updater.
 
+**npminmin removes that attack surface by design:**
 
-Notepad++ GPG Release Key
--------------------------
-_Since the release of version 7.6.5 Notepad++ is signed using GPG with the following key:_
+- No WinGup, no GUP.exe, no auto-updater of any kind
+- No Plugin Admin marketplace — no plugin list fetched from the internet  
+- No outbound network calls from the editor or any bundled plugin
+- Portable-only: runs from a folder, no installer, no registry writes
+- Curated, frozen plugin set vendored directly in the repo at known-good versions
+- Air-gap safe — works with zero internet access
 
-- **Signer:** Notepad++
-- **E-mail:** don.h@free.fr
-- **Key ID:** 0x8D84F46E
-- **Key fingerprint:** 14BC E436 2749 B2B5 1F8C 7122 6C42 9F1D 8D84 F46E
-- **Key type:** RSA 4096/4096
-- **Created:** 2019-03-11
-- **Expires:** 2027-03-13
+## Portable Usage
 
-https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/nppGpgPub.asc
+1. Download the latest release zip from [Releases](https://github.com/ridermw/np-minus-minus/releases)
+2. Extract anywhere — USB drive, network share, local folder
+3. Run `npminmin.exe`
+4. Config and session data are stored next to the executable (portable mode)
 
+No admin rights required. No registry entries. Delete the folder to uninstall completely.
 
-Supported OS
-------------
+## Bundled Plugins (frozen, no network)
 
-All the Windows systems still supported by Microsoft are supported by Notepad++. However, not all Notepad++ users can or want to use the newest system. Here is the [Supported systems information](SUPPORTED_SYSTEM.md) you may need in case you are one of them.
+| Plugin | Version | Purpose |
+|--------|---------|---------|
+| ComparePlus | v2.2.0 | Side-by-side file diff |
+| JsonViewer | v2.1.1.0 | JSON tree view and formatter |
+| HexEditor | v0.9.14 | Binary/hex file editing |
+| XMLTools | v3.1.1.13 | XML format, validate, XPath |
+| NppExec | v0.8.10 | Run shell commands from editor |
+| CSVLint | v0.4.7 | CSV/TSV validation and SQL export |
+| Explorer | v1.8.2.32 | Dockable file browser panel |
+| MultiReplace | v5.0.0.35 | Batch find/replace with lists |
+| DSpellCheck | v1.5.0 | Spell checker (Hunspell) |
+| PythonScript | v2.1.0 | Python scripting engine |
+| ColumnTools | v1.4.5.1 | Column ruler for fixed-width data |
+| MarkdownViewerPlusPlus | v0.8.2 | Live Markdown preview |
+| NppExport | bundled | Export code to RTF/HTML |
+| mimeTools | bundled | Base64/URL encode-decode |
+| NppConverter | bundled | Hex/binary/decimal conversion |
 
+Plugin Admin is **disabled** — no marketplace, no plugin list network fetch.
+To add plugins manually, place a `PluginName/PluginName.dll` folder in the `plugins/` directory.
 
+## Security Properties
 
+- Zero outbound network connections from editor or plugins
+- No code signing infrastructure tied to third-party servers
+- Plugin set auditable: all DLLs are committed at fixed versions
+- Suitable for air-gapped and high-security environments
+- No auto-update mechanism that could be compromised
 
-Build Notepad++
----------------
+## Building
 
-Please follow [build guide](BUILD.md) to build Notepad++ from source.
+See [BUILD.md](BUILD.md) for build instructions. Requires Visual Studio 2022 or later.
 
+The build produces `npminmin.exe` (x64). The `doLocalConf.xml` file in the same directory
+activates portable mode automatically.
 
-Contribution
-------------
+## License
 
-Contributions are welcome. Be mindful of our [Contribution Rules](CONTRIBUTING.md) to increase the likelihood of your contribution getting accepted.
+GNU General Public License v3 — see [LICENSE](LICENSE).
 
-[Notepad++ Contributors](https://github.com/notepad-plus-plus/notepad-plus-plus/graphs/contributors)
-
+Based on [Notepad++](https://github.com/notepad-plus-plus/notepad-plus-plus) by Don HO.

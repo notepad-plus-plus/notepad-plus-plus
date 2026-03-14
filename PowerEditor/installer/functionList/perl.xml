@@ -12,7 +12,7 @@
 		<!-- Perl - functions and packages, including fully-qualtified subroutine names -->
 
 			<!--
-			... replacement perl parser ...: https://community.notepad-plus-plus.org/topic/19842
+			... replacement perl parser ...: https://community.github.com/ridermw/np-minus-minus/topic/19842
 			... make sure to rename the id\s*=\s*"perl_function" near the beginning with "perl_syntax" to match
 			...
 			... 2025-11-26: Improve the regex to not include as much pointless backtracking

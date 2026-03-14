@@ -283,15 +283,15 @@
 					<Item id="46250" name="Termenit ho yezh..."/>
 					<Item id="46300" name="Digeriñ doser yezhoù an implijader..."/>
 					<Item id="46180" name="Termenet gant an implijader"/>
-					<Item id="47000" name="Diwar-benn Notepad++"/>
+					<Item id="47000" name="Diwar-benn npminmin"/>
 					<Item id="47010" name="Arguzennoù al linenn-urzhiad..."/>
-					<Item id="47001" name="Lec'hienn ofisiel Notepad++"/>
-					<Item id="47002" name="Pajenn diorren Notepad++"/>
+					<Item id="47001" name="Lec'hienn ofisiel npminmin"/>
+					<Item id="47002" name="Pajenn diorren npminmin"/>
 					<Item id="47003" name="Titouradur enlinenn"/>
-					<Item id="47004" name="Kumuniezh Notepad++ (forom)"/>
+					<Item id="47004" name="Kumuniezh npminmin (forom)"/>
 					<Item id="47012" name="Titouroù diveugiñ..."/>
 					<Item id="47005" name="Kaout muioc'h a lugantoù"/>
-					<Item id="47006" name="Hizivaat Notepad++"/>
+					<Item id="47006" name="Hizivaat npminmin"/>
 					<Item id="47009" name="Termeniñ ar proksi hizivaer..."/>
 					<Item id="48005" name="Emporzhiañ al lugant(où)..."/>
 					<Item id="48006" name="Emporzhiañ un tem(où)..."/>
@@ -770,7 +770,7 @@
 				</DefaultDir>
 
 				<FileAssoc title="Astennoù restroù">
-					<Item id="4008" name="Kuitait Notepad++, mar plij, hag adloc'hit Notepad++ e mod Merour evit ober gant an arc'hweladur-mañ."/>
+					<Item id="4008" name="Kuitait npminmin, mar plij, hag adloc'hit npminmin e mod Merour evit ober gant an arc'hweladur-mañ."/>
 					<Item id="4009" name="Astennoù degemeret:"/>
 					<Item id="4010" name="Astennoù marilhet:"/>
 				</FileAssoc>
@@ -877,10 +877,10 @@
 
 				<MultiInstance title="Lies-iñstañs">
 					<Item id="6151" name="Arventennoù al Lies-iñstañs"/>
-					<Item id="6152" name="Digeriñ an dalc'h e-barzh un iñstañs nevez eus Notepad++"/>
+					<Item id="6152" name="Digeriñ an dalc'h e-barzh un iñstañs nevez eus npminmin"/>
 					<Item id="6153" name="Dalc'hmat er mod lies-iñstañs"/>
 					<Item id="6154" name="Dre ziouer (mod-un-iñstañs)"/>
-					<Item id="6155" name="* Kemmañ an arventenn-mañ a c'houlenno adloc'hañ Notepad++"/>
+					<Item id="6155" name="* Kemmañ an arventenn-mañ a c'houlenno adloc'hañ npminmin"/>
 				</MultiInstance>
 
 				<Delimiter title="Bevenner">
@@ -924,11 +924,11 @@
 					<Item id="6319" name="Enaouiñ"/>
 					<Item id="6320" name="Na islinennañ"/>
 					<Item id="6322" name="Astenn restr an dalc'h:"/>
-					<Item id="6323" name="Enaouiñ em-hizivaer Notepad++"/>
+					<Item id="6323" name="Enaouiñ em-hizivaer npminmin"/>
 					<Item id="6324" name="Gwinter teuliad (Ktrl+taolennata)"/>
 					<Item id="6331" name="Diskouez an anv-restr hepken e barrenn an titloù"/>
 					<Item id="6334" name="Em-diguzhañ an enkodañ arouezioù"/>
-					<Item id="6314" name="Implijout skriturioù mono-spaset en divizoù Klask (adloc'hañ Notepad++ ret)"/>
+					<Item id="6314" name="Implijout skriturioù mono-spaset en divizoù Klask (adloc'hañ npminmin ret)"/>
 					<Item id="6337" name="Astenn restr spas-labour:"/>
 					<Item id="6114" name="Enaouiñ"/>
 					<Item id="6117" name="Enaouiñ ar perc'henner MRU"/>
@@ -991,10 +991,10 @@
 			</DoSaveOrNot>
 		</Dialog>
 		<MessageBox><!-- $INT_REPLACE$ is a place holder, don't translate it -->
-			<ContextMenuXmlEditWarning title="Aozañ al lañser-kendestennel" message="Aozañ lañser-kendestennel.xml a roio an tu deoc'h da gemmañ ho lañser kendestennel popup Notepad++.
-Bez ho po da adloc'hañ ho Notepad++ evit ma vefe kemeret e kont ar c'hemmoù bet graet ganeoc'h e Lañser-kendestennel.xml."/>
+			<ContextMenuXmlEditWarning title="Aozañ al lañser-kendestennel" message="Aozañ lañser-kendestennel.xml a roio an tu deoc'h da gemmañ ho lañser kendestennel popup npminmin.
+Bez ho po da adloc'hañ ho npminmin evit ma vefe kemeret e kont ar c'hemmoù bet graet ganeoc'h e Lañser-kendestennel.xml."/>
 			<NppHelpAbsentWarning title="Ar restr n'eus ket anezhi" message="
-N'eus ket anezhi. Pellgargit anezhi war lec'hienn ofisiel Notepad++, mar plij."/>
+N'eus ket anezhi. Pellgargit anezhi war lec'hienn ofisiel npminmin, mar plij."/>
 			<SaveCurrentModifWarning title="Enrollañ ar c'hemmoù-red" message="Rankout a rafec'h enrollañ ar c'hemmoù n'int ket bet enrollet c'hoazh.
 N'heller ket distreiñ war ar c'hemmoù enrollet avat.
 
@@ -1003,10 +1003,10 @@ Kenderc'hel ganti?"/>
 N'heller ket distreiñ war ar c'hemmoù enrollet avat.
 
 Kenderc'hel ganti?"/>
-			<CannotMoveDoc title="Fiñval en un iñstañs nevez eus Notepad++" message="An teuliad a zo kemmet anezhañ, enrollit anezhañ ha klaskit adarre."/>
-			<DocReloadWarning title="Adkargañ" message="Ha sur oc'h da gaout c'hoant da adkargañ ar restr-red ha koll diwar neuze an holl cheñchamantoù bet graet e Notepad++?"/>
+			<CannotMoveDoc title="Fiñval en un iñstañs nevez eus npminmin" message="An teuliad a zo kemmet anezhañ, enrollit anezhañ ha klaskit adarre."/>
+			<DocReloadWarning title="Adkargañ" message="Ha sur oc'h da gaout c'hoant da adkargañ ar restr-red ha koll diwar neuze an holl cheñchamantoù bet graet e npminmin?"/>
 			<FileLockedWarning title="Argerzh enrollañ c'hwitet" message="Kit da sellet hag-eñ neket digoret ar restr-mañ gant ur programm all"/>
-			<FileAlreadyOpenedInNpp title="" message="Ar restr a zo digoret e-barzh Notepad++ endeo."/>
+			<FileAlreadyOpenedInNpp title="" message="Ar restr a zo digoret e-barzh npminmin endeo."/>
 			<DeleteFileFailed title="Dilemel ar restr" message="Argerzh dilemel ar restr c'hwitet"/>
 
 			<NbFileToOpenImportantWarning title="An niver a restroù da zigeriñ a zo re vras anezhañ" message="$INT_REPLACE$ a restroù a vo digoret eta.
@@ -1036,14 +1036,14 @@ Ha fellout a ra deoc'h adkargañ anezhi?"/>
 			<DoReloadOrNotAndLooseChange title="Adkargañ" message="&quot;$STR_REPLACE$&quot;
 
 Kemmet eo bet ar restr-mañ gant ur programm all.
-Ha c'hoant ho peus da adkargañ anezhi ha koll ar cheñchamantoù bet graet e-barzh Notepad++?"/>
+Ha c'hoant ho peus da adkargañ anezhi ha koll ar cheñchamantoù bet graet e-barzh npminmin?"/>
 			<PrehistoricSystemDetected title="Sistem Ragistorel diguzhet" message="War a-seblant e talc'hit da ober gant ur sistem ragistorel anezhañ. An arc'hweladur-mañ az a en-dro hepken gant ur sistem modern, digarezit."/>
-			<XpUpdaterProblem title="Hizivaer Notepad++" message="Neket kenglotus Hizivaer Notepad++ gant XP abalamour da wiskad surentez XP hag a zo diamzeriet.
-Ha c'hoant ho peus da vont war pajenn Notepad++ evit pellgargañ ar stumm nevesañ?"/>
-			<GUpProxyConfNeedAdminMode title="Arventennoù proksi" message="Adloc'hit Notepad++, mar plij, e mod Merour evit kefluniañ ar proksi."/>
+			<XpUpdaterProblem title="Hizivaer npminmin" message="Neket kenglotus Hizivaer npminmin gant XP abalamour da wiskad surentez XP hag a zo diamzeriet.
+Ha c'hoant ho peus da vont war pajenn npminmin evit pellgargañ ar stumm nevesañ?"/>
+			<GUpProxyConfNeedAdminMode title="Arventennoù proksi" message="Adloc'hit npminmin, mar plij, e mod Merour evit kefluniañ ar proksi."/>
 			<DocTooDirtyToMonitor title="Kudenn mererezh" message="Lous eo ar restr. Enrollit ar c'hemmoù a-raok ober war he zro."/>
 			<DocNoExistToMonitor title="Kudenn mererezh" message="Ar restr a rank bezañ anezhi a-raok ma c'hellfec'h ober war he zro."/>
-			<FileTooBigToOpen title="Kudenn Ment gant ar restr" message="Ar restr a zo re vras anezhi evit ma c'hallfe digeriñ anezhi Notepad++"/>
+			<FileTooBigToOpen title="Kudenn Ment gant ar restr" message="Ar restr a zo re vras anezhi evit ma c'hallfe digeriñ anezhi npminmin"/>
 			<CreateNewFileOrNot title="Krouiñ ur restr nevez" message="&quot;$STR_REPLACE$&quot; n'eus ket outañ. Lakaat krouiñ anezhi?"/>
 			<CreateNewFileError title="Krouiñ ur restr nevez" message="N'heller ket krouiñ ar restr &quot;$STR_REPLACE$&quot;."/>
 			<OpenFileError title="FAZI" message="N'heller ket digeriñ ar restr &quot;$STR_REPLACE$&quot;."/>
@@ -1075,15 +1075,15 @@ roit un an anv all mar plij."/>
 			<SCMapperDoDeleteOrNot title="Ha sur oc'h?" message="Ha sur oc'h da gaout c'hoant da zilemel ar verradenn-mañ?"/>
 			<FindCharRangeValueError title="Talvoudegezh pladigenn gudennek" message="Bez ho peus da skrivañ etre 0 ha 255."/>
 			<OpenInAdminMode title="Argerzh enrollañ c'hwitet" message="N'hall ket bezañ enrollet ar restr dre ma tlefe bezañ gwarezet.
-Ha c'hoant ho peus da loc'hañ Notepad++ e mod Merour?"/>
+Ha c'hoant ho peus da loc'hañ npminmin e mod Merour?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Argerzh enrollañ c'hwitet" message="N'hall ket bezañ enrollet ar restr dre ma tlefe bezañ gwarezet.
-Ha c'hoant ho peus da loc'hañ Notepad++ e mod Merour?"/>
-			<OpenInAdminModeFailed title="Argerzh digeriñ e mod Merour c'hwitet" message="N'heller ket digeriñ Notepad++ e mod Merour."/>
+Ha c'hoant ho peus da loc'hañ npminmin e mod Merour?"/>
+			<OpenInAdminModeFailed title="Argerzh digeriñ e mod Merour c'hwitet" message="N'heller ket digeriñ npminmin e mod Merour."/>
 			<ViewInBrowser title="Gwelet ar restr-red er Merdeer" message="N'heller ket kavout an arload en ho sistem."/>
-			<ExitToUpdatePlugins title="Notepad++ a zo war-nes serriñ" message="Ma klikit war Ya, kuitaet e vo ganeoc'h Notepad++ evit kenderc'hel gant an operiadurioù.
-Adloc'het e vo Notepad++ ur wech echu an holl operiadurioù.
+			<ExitToUpdatePlugins title="npminmin a zo war-nes serriñ" message="Ma klikit war Ya, kuitaet e vo ganeoc'h npminmin evit kenderc'hel gant an operiadurioù.
+Adloc'het e vo npminmin ur wech echu an holl operiadurioù.
 Kenderc'hel ganti?"/>
-			<NeedToRestartToLoadPlugins title="Notepad++ en deus ezhomm da vezañ adloc'het" message="Bez ho peus da adloc'hañ Notepad++ evit kargañ al lugantoù a zo bet staliet ganeoc'h."/>
+			<NeedToRestartToLoadPlugins title="npminmin en deus ezhomm da vezañ adloc'het" message="Bez ho peus da adloc'hañ npminmin evit kargañ al lugantoù a zo bet staliet ganeoc'h."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Roll-istor ar golver"/>
@@ -1184,8 +1184,8 @@ Kenderc'hel ganti?"/>
 			<word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
 			<word-chars-list-warning-end value=" e-barzh ho listennad arouezioù."/>
 			<cloud-invalid-warning value="Hent direizh."/>
-			<cloud-restart-warning value="Adloc'hit Notepad++, mar plij, evit ma vefe kemeret e kont ar c'hemmoù."/>
-			<cloud-select-folder value="Diuzit un doser adalek/da belec'h Notepad++ e lennfe/skrivfe ec'h arventennoù"/>
+			<cloud-restart-warning value="Adloc'hit npminmin, mar plij, evit ma vefe kemeret e kont ar c'hemmoù."/>
+			<cloud-select-folder value="Diuzit un doser adalek/da belec'h npminmin e lennfe/skrivfe ec'h arventennoù"/>
 			<shift-change-direction-tip value="Implijit LKD+Kas evit klask en tu kontrol"/>
 			<two-find-buttons-tip value="Mod klask 2 vouton"/>
 			<find-in-files-filter-tip value="Klask e cpp, cxx, h, hxx &amp;&amp; hpp:

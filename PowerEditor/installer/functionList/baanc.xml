@@ -12,7 +12,7 @@
 		
 		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		|	Based on:
-		|		https://notepad-plus-plus.org/community/topic/14494/functionlist-classrange-question
+		|		https://github.com/ridermw/np-minus-minus/community/topic/14494/functionlist-classrange-question
 		|
 		|	Note(s):
 		|	1.	Boost::Regex 1.58-1.59 do not correctly handle quantifiers on subroutine calls

@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -155,8 +155,8 @@ public:
 
 private:
 	ScintillaEditView** _ppEditView = nullptr;
-	std::wstring _xmlDirPath; // The 1st place to load function list files. Usually it's "%APPDATA%\Notepad++\functionList\"
-	std::wstring _xmlDirInstalledPath; // Where Notepad++ is installed. The 2nd place to load function list files. Usually it's "%PROGRAMFILES%\Notepad++\functionList\" 
+	std::wstring _xmlDirPath; // The 1st place to load function list files. Usually it's "%APPDATA%\npminmin\functionList\"
+	std::wstring _xmlDirInstalledPath; // Where npminmin is installed. The 2nd place to load function list files. Usually it's "%PROGRAMFILES%\npminmin\functionList\" 
 
 	std::unique_ptr<ParserInfo> _parsers[L_EXTERNAL + nbMaxUserDefined] = { nullptr };
 	int _currentUDIndex = L_EXTERNAL;

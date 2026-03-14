@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+// This file is part of npminmin project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -44,11 +44,11 @@
 #include "resource.h"
 
 // The following parameters are for apply() method which will re-initialize the followings GUI with modified styler:
-// 2 Scintilla edit zones, Search result (displayed by Sintilla), Notepad++ GUI & components concerning theme
+// 2 Scintilla edit zones, Search result (displayed by Sintilla), npminmin GUI & components concerning theme
 enum ApplyChange
 {
 	NO_VISUAL_CHANGE    = 0x00, // No need to apply visual effect - User ext.
-	GENERAL_CHANGE      = 0x01, // For Sintilla zones & Notepad++ GUI (Tabbar, Find dialog, etc...)
+	GENERAL_CHANGE      = 0x01, // For Sintilla zones & npminmin GUI (Tabbar, Find dialog, etc...)
 	THEME_CHANGE        = 0x02, // For the components concerning theme, for example the background color of dockable panels 
 	COLOR_CHANGE_4_MENU = 0x04, // For the color items displayed on the menu
 };

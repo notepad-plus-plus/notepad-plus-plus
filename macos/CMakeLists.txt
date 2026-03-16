@@ -287,7 +287,27 @@ target_link_libraries(win32shim PUBLIC
 # Main macOS app target
 # ============================================================
 add_executable(MacOSNotePP
-    "${CMAKE_CURRENT_SOURCE_DIR}/platform/main_phase7.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/app_main.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/app_state.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/app_delegate.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/document_manager.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/file_operations.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/find_replace.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/edit_commands.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/split_view.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/session_manager.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/preferences_dialog.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/menu_builder.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/wndproc.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/appearance.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/scintilla_config.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/lexer_styles.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/language_defs.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/bookmarks.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/autocomplete.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/context_menu.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/status_bar.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/recent_files.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/settings_manager.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/file_monitor_mac.mm"
 )

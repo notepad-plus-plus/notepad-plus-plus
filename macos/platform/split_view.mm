@@ -1,0 +1,273 @@
+// split_view.mm — Split view management
+// Part of the Notepad++ macOS port modular refactor.
+
+#import <Cocoa/Cocoa.h>
+#include "split_view.h"
+#include "npp_constants.h"
+#include "app_state.h"
+#include "string_utils.h"
+#include "document_manager.h"
+#include "lexer_styles.h"
+#include "appearance.h"
+#include "scintilla_config.h"
+#include "scintilla_bridge.h"
+#include "handle_registry.h"
+#include "windows.h"
+#include "commctrl.h"
+
+void layoutSplitTopTabBars()
+{
+	if (!ctx().mainWindow || !ctx().tabHwnd)
+		return;
+
+	NSView* contentView = ctx().mainWindow.contentView;
+	if (!contentView)
+		return;
+
+	const CGFloat tabHeight = 28;
+	const CGFloat topY = contentView.bounds.size.height - tabHeight;
+
+	auto* leftTabInfo = HandleRegistry::getWindowInfo(ctx().tabHwnd);
+	if (leftTabInfo && leftTabInfo->nativeView)
+	{
+		NSView* leftTabView = (__bridge NSView*)leftTabInfo->nativeView;
+		if (ctx().isSplit && ctx().editorContainer)
+		{
+			leftTabView.frame = NSMakeRect(ctx().editorContainer.frame.origin.x, topY,
+			                               ctx().editorContainer.frame.size.width, tabHeight);
+		}
+		else
+		{
+			leftTabView.frame = NSMakeRect(0, topY, contentView.bounds.size.width, tabHeight);
+		}
+	}
+
+	if (ctx().isSplit && ctx().tabHwnd2 && ctx().editorContainer2)
+	{
+		auto* rightTabInfo = HandleRegistry::getWindowInfo(ctx().tabHwnd2);
+		if (rightTabInfo && rightTabInfo->nativeView)
+		{
+			NSView* rightTabView = (__bridge NSView*)rightTabInfo->nativeView;
+			rightTabView.frame = NSMakeRect(ctx().editorContainer2.frame.origin.x, topY,
+			                                ctx().editorContainer2.frame.size.width, tabHeight);
+		}
+	}
+}
+
+void doSplit()
+{
+	if (ctx().isSplit || !ctx().mainWindow || !ctx().editorContainer) return;
+
+	NSView* contentView = ctx().mainWindow.contentView;
+
+	ctx().splitView = [[NSSplitView alloc] initWithFrame:ctx().editorContainer.frame];
+	ctx().splitView.vertical = YES;
+	ctx().splitView.dividerStyle = NSSplitViewDividerStyleThin;
+	ctx().splitView.autoresizingMask = ctx().editorContainer.autoresizingMask;
+
+	NSRect leftFrame = NSMakeRect(0, 0, ctx().editorContainer.frame.size.width / 2, ctx().editorContainer.frame.size.height);
+	ctx().editorContainer.frame = leftFrame;
+	[ctx().editorContainer removeFromSuperview];
+	[ctx().splitView addArrangedSubview:ctx().editorContainer];
+
+	NSRect rightFrame = NSMakeRect(0, 0, ctx().splitView.frame.size.width / 2, ctx().splitView.frame.size.height);
+	ctx().editorContainer2 = [[NSView alloc] initWithFrame:rightFrame];
+	ctx().editorContainer2.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+	[ctx().splitView addArrangedSubview:ctx().editorContainer2];
+
+	CGFloat containerHeight = rightFrame.size.height;
+	CGFloat containerWidth = rightFrame.size.width;
+
+	ctx().tabHwnd2 = CreateWindowExW(
+		0, L"SysTabControl32", L"",
+		WS_CHILD | WS_VISIBLE | TCS_FOCUSNEVER,
+		0, 0,
+		static_cast<int>(containerWidth), 28,
+		ctx().mainHwnd,
+		nullptr, nullptr, nullptr
+	);
+
+	ctx().sciContainer2 = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, containerWidth, containerHeight)];
+	ctx().sciContainer2.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+	[ctx().editorContainer2 addSubview:ctx().sciContainer2];
+
+	ctx().scintillaView2 = ScintillaBridge_createView((__bridge void*)ctx().sciContainer2, 0, 0, 0, 0);
+	if (ctx().scintillaView2)
+	{
+		configureScintilla(ctx().scintillaView2);
+		ScintillaBridge_setNotifyCallback(ctx().scintillaView2, 1,
+			[](intptr_t windowid, unsigned int iMessage, uintptr_t wParam, uintptr_t lParam) {
+				if (iMessage == 1002 && lParam)
+				{
+					struct SciNotifyHeader { void* hwndFrom; uintptr_t idFrom; unsigned int code; };
+					struct SciNotify {
+						SciNotifyHeader nmhdr; intptr_t position; int ch; int modifiers;
+						int modificationType; const char* text; intptr_t length;
+						intptr_t linesAdded; int message; uintptr_t wParam; intptr_t sLParam;
+						intptr_t line; int foldLevelNow; int foldLevelPrev; int margin;
+					};
+					auto* scn = reinterpret_cast<const SciNotify*>(lParam);
+					if (scn->nmhdr.code == 2028)
+						ctx().activeView = 1;
+					else if (scn->nmhdr.code == 2010 && scn->margin == 1 && ctx().scintillaView2)
+					{
+						intptr_t line = ScintillaBridge_sendMessage(ctx().scintillaView2, SCI_LINEFROMPOSITION, scn->position, 0);
+						intptr_t markers = ScintillaBridge_sendMessage(ctx().scintillaView2, SCI_MARKERGET, line, 0);
+						if (markers & BOOKMARK_MASK)
+							ScintillaBridge_sendMessage(ctx().scintillaView2, SCI_MARKERDELETE, line, BOOKMARK_MARKER);
+						else
+							ScintillaBridge_sendMessage(ctx().scintillaView2, SCI_MARKERADD, line, BOOKMARK_MARKER);
+					}
+				}
+			});
+	}
+
+	saveScintillaState();
+	ctx().documents2.clear();
+	int srcIdx = ctx().activeTab >= 0 ? ctx().activeTab : 0;
+	if (srcIdx >= 0 && srcIdx < static_cast<int>(ctx().documents.size()))
+	{
+		ctx().documents2.push_back(ctx().documents[srcIdx]);
+		ctx().activeTab2 = 0;
+
+		if (ctx().tabHwnd2)
+		{
+			TCITEMW tcItem = {};
+			tcItem.mask = TCIF_TEXT;
+			wchar_t titleBuf[256];
+			wcsncpy(titleBuf, ctx().documents[srcIdx].title.c_str(), 255);
+			titleBuf[255] = L'\0';
+			tcItem.pszText = titleBuf;
+			SendMessageW(ctx().tabHwnd2, TCM_INSERTITEMW, 0, reinterpret_cast<LPARAM>(&tcItem));
+			SendMessageW(ctx().tabHwnd2, TCM_SETCURSEL, 0, 0);
+		}
+
+		if (ctx().scintillaView2)
+		{
+			restoreViewToScintilla(ctx().scintillaView2, ctx().documents2, 0);
+			applyLanguageToView(ctx().scintillaView2, ctx().documents2[0].languageIndex);
+		}
+	}
+
+	[contentView addSubview:ctx().splitView];
+	ctx().splitView.delegate = (id<NSSplitViewDelegate>)ctx().mainWindow.delegate;
+	ctx().isSplit = true;
+	layoutSplitTopTabBars();
+
+	ScintillaBridge_resizeToFit(ctx().scintillaView);
+	if (ctx().scintillaView2)
+		ScintillaBridge_resizeToFit(ctx().scintillaView2);
+
+	applyAppearance();
+}
+
+void doUnsplit()
+{
+	if (!ctx().isSplit || !ctx().splitView) return;
+
+	NSView* contentView = ctx().mainWindow.contentView;
+
+	if (ctx().scintillaView2)
+		saveViewState(ctx().scintillaView2, ctx().documents2, ctx().activeTab2);
+
+	if (ctx().scintillaView2)
+	{
+		ScintillaBridge_destroyView(ctx().scintillaView2);
+		ctx().scintillaView2 = nullptr;
+	}
+
+	if (ctx().tabHwnd2)
+	{
+		DestroyWindow(ctx().tabHwnd2);
+		ctx().tabHwnd2 = nullptr;
+	}
+
+	ctx().sciContainer2 = nil;
+
+	[ctx().editorContainer removeFromSuperview];
+	if (ctx().editorContainer2)
+	{
+		[ctx().editorContainer2 removeFromSuperview];
+		ctx().editorContainer2 = nil;
+	}
+
+	[ctx().splitView removeFromSuperview];
+	ctx().splitView = nil;
+
+	CGFloat tabHeight = 28;
+	CGFloat statusHeight = 22;
+	CGFloat editorHeight = contentView.bounds.size.height - tabHeight - statusHeight;
+	ctx().editorContainer.frame = NSMakeRect(0, statusHeight, contentView.bounds.size.width, editorHeight);
+	ctx().editorContainer.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+	[contentView addSubview:ctx().editorContainer];
+	ScintillaBridge_resizeToFit(ctx().scintillaView);
+
+	ctx().documents2.clear();
+	ctx().activeTab2 = -1;
+	ctx().activeView = 0;
+	ctx().isSplit = false;
+	layoutSplitTopTabBars();
+}
+
+void doMoveToOtherView()
+{
+	if (!ctx().isSplit || !ctx().scintillaView || !ctx().scintillaView2) return;
+
+	int srcView = ctx().activeView;
+	int dstView = 1 - srcView;
+	auto& srcDocs = (srcView == 0) ? ctx().documents : ctx().documents2;
+	int srcTab = (srcView == 0) ? ctx().activeTab : ctx().activeTab2;
+
+	if (srcTab < 0 || srcTab >= static_cast<int>(srcDocs.size())) return;
+	if (srcDocs.size() <= 1) return;
+
+	void* srcSci = (srcView == 0) ? ctx().scintillaView : ctx().scintillaView2;
+	saveViewState(srcSci, srcDocs, srcTab);
+
+	DocumentData docCopy = srcDocs[srcTab];
+	addNewTabToView(dstView, docCopy.title, docCopy.content, docCopy.filePath, docCopy.languageIndex);
+
+	auto& dstDocs = (dstView == 0) ? ctx().documents : ctx().documents2;
+	int dstIdx = static_cast<int>(dstDocs.size()) - 1;
+	if (dstIdx >= 0)
+	{
+		dstDocs[dstIdx].encoding = docCopy.encoding;
+		dstDocs[dstIdx].eolMode = docCopy.eolMode;
+		dstDocs[dstIdx].cursorPos = docCopy.cursorPos;
+		dstDocs[dstIdx].anchorPos = docCopy.anchorPos;
+		dstDocs[dstIdx].firstVisibleLine = docCopy.firstVisibleLine;
+		dstDocs[dstIdx].bookmarkedLines = docCopy.bookmarkedLines;
+	}
+
+	closeTabFromView(srcView, srcTab);
+}
+
+void doCloneToOtherView()
+{
+	if (!ctx().isSplit || !ctx().scintillaView || !ctx().scintillaView2) return;
+
+	int srcView = ctx().activeView;
+	int dstView = 1 - srcView;
+	auto& srcDocs = (srcView == 0) ? ctx().documents : ctx().documents2;
+	int srcTab = (srcView == 0) ? ctx().activeTab : ctx().activeTab2;
+
+	if (srcTab < 0 || srcTab >= static_cast<int>(srcDocs.size())) return;
+
+	void* srcSci = (srcView == 0) ? ctx().scintillaView : ctx().scintillaView2;
+	saveViewState(srcSci, srcDocs, srcTab);
+
+	DocumentData docCopy = srcDocs[srcTab];
+	addNewTabToView(dstView, docCopy.title, docCopy.content, docCopy.filePath, docCopy.languageIndex);
+
+	auto& dstDocs = (dstView == 0) ? ctx().documents : ctx().documents2;
+	int dstIdx = static_cast<int>(dstDocs.size()) - 1;
+	if (dstIdx >= 0)
+	{
+		dstDocs[dstIdx].encoding = docCopy.encoding;
+		dstDocs[dstIdx].eolMode = docCopy.eolMode;
+		dstDocs[dstIdx].cursorPos = docCopy.cursorPos;
+		dstDocs[dstIdx].anchorPos = docCopy.anchorPos;
+		dstDocs[dstIdx].firstVisibleLine = docCopy.firstVisibleLine;
+		dstDocs[dstIdx].bookmarkedLines = docCopy.bookmarkedLines;
+	}
+}

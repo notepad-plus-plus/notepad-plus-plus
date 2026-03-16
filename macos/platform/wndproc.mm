@@ -1,0 +1,370 @@
+// wndproc.mm — Main window procedure (command dispatch)
+// Part of the Notepad++ macOS port modular refactor.
+
+#include "wndproc.h"
+#include "npp_constants.h"
+#include "app_state.h"
+#include "document_manager.h"
+#include "file_operations.h"
+#include "find_replace.h"
+#include "edit_commands.h"
+#include "bookmarks.h"
+#include "autocomplete.h"
+#include "preferences_dialog.h"
+#include "split_view.h"
+#include "recent_files.h"
+#include "status_bar.h"
+#include "lexer_styles.h"
+#include "language_defs.h"
+#include "scintilla_bridge.h"
+#include "windows.h"
+#include "commctrl.h"
+
+LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+	switch (msg)
+	{
+		case WM_COMMAND:
+		{
+			UINT cmdId = LOWORD(wParam);
+
+			if (cmdId >= IDM_FILE_RECENT_BASE && cmdId < IDM_FILE_RECENT_BASE + ctx().MAX_RECENT_FILES)
+			{
+				openRecentFile(cmdId - IDM_FILE_RECENT_BASE);
+				return 0;
+			}
+
+			if (cmdId >= IDM_LANG_BASE && cmdId < IDM_LANG_BASE + g_numLanguages)
+			{
+				int langIdx = cmdId - IDM_LANG_BASE;
+				auto& docs = ctx().activeDocuments();
+				int tabIdx = ctx().activeTabIndex();
+				if (tabIdx >= 0 && tabIdx < static_cast<int>(docs.size()))
+					docs[tabIdx].languageIndex = langIdx;
+				applyLanguage(langIdx);
+				return 0;
+			}
+
+			switch (cmdId)
+			{
+				case IDM_FILE_NEW:
+					addNewTab(L"Untitled", "");
+					return 0;
+				case IDM_FILE_OPEN:
+					openFile();
+					return 0;
+				case IDM_FILE_SAVE:
+					saveCurrentFile();
+					return 0;
+				case IDM_FILE_SAVEAS:
+				{
+					auto& docs = ctx().activeDocuments();
+					int tabIdx = ctx().activeTabIndex();
+					if (tabIdx >= 0 && tabIdx < static_cast<int>(docs.size()))
+					{
+						std::wstring origPath = docs[tabIdx].filePath;
+						docs[tabIdx].filePath.clear();
+						saveCurrentFile();
+						if (docs[tabIdx].filePath.empty())
+							docs[tabIdx].filePath = origPath;
+					}
+					return 0;
+				}
+				case IDM_FILE_CLOSE:
+					closeTabFromView(ctx().activeView, ctx().activeTabIndex());
+					return 0;
+				case IDM_FILE_CLOSEALL:
+				{
+					auto& closeDocs = ctx().activeDocuments();
+					while (closeDocs.size() > 1)
+						closeTabFromView(ctx().activeView, static_cast<int>(closeDocs.size()) - 1);
+					closeTabFromView(ctx().activeView, 0);
+					return 0;
+				}
+				case IDM_FILE_RECENT_CLEAR:
+					ctx().recentFiles.clear();
+					rebuildRecentMenu();
+					return 0;
+
+				case IDM_EDIT_UNDO:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci) ScintillaBridge_sendMessage(sci, SCI_UNDO, 0, 0);
+					return 0;
+				}
+				case IDM_EDIT_REDO:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci) ScintillaBridge_sendMessage(sci, SCI_REDO, 0, 0);
+					return 0;
+				}
+				case IDM_EDIT_CUT:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci) ScintillaBridge_sendMessage(sci, SCI_CUT, 0, 0);
+					return 0;
+				}
+				case IDM_EDIT_COPY:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci) ScintillaBridge_sendMessage(sci, SCI_COPY, 0, 0);
+					return 0;
+				}
+				case IDM_EDIT_PASTE:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci) ScintillaBridge_sendMessage(sci, SCI_PASTE, 0, 0);
+					return 0;
+				}
+				case IDM_EDIT_SELECTALL:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci) ScintillaBridge_sendMessage(sci, SCI_SELECTALL, 0, 0);
+					return 0;
+				}
+
+				case IDM_VIEW_WORDWRAP:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci)
+					{
+						intptr_t mode = ScintillaBridge_sendMessage(sci, SCI_GETWRAPMODE, 0, 0);
+						ScintillaBridge_sendMessage(sci, SCI_SETWRAPMODE, mode == 0 ? 1 : 0, 0);
+						HMENU hMenu = GetMenu(hWnd);
+						if (hMenu)
+							CheckMenuItem(hMenu, IDM_VIEW_WORDWRAP,
+							              MF_BYCOMMAND | (mode == 0 ? MF_CHECKED : MF_UNCHECKED));
+					}
+					return 0;
+				}
+				case IDM_VIEW_LINENUMBER:
+				{
+					ctx().showLineNumbers = !ctx().showLineNumbers;
+					void* views[] = { ctx().scintillaView, ctx().scintillaView2 };
+					for (void* sci : views)
+					{
+						if (sci)
+							ScintillaBridge_sendMessage(sci, SCI_SETMARGINWIDTHN, 0,
+							                           ctx().showLineNumbers ? 50 : 0);
+					}
+					HMENU hMenu = GetMenu(hWnd);
+					if (hMenu)
+						CheckMenuItem(hMenu, IDM_VIEW_LINENUMBER,
+						              MF_BYCOMMAND | (ctx().showLineNumbers ? MF_CHECKED : MF_UNCHECKED));
+					return 0;
+				}
+				case IDM_VIEW_FOLDALL:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci) ScintillaBridge_sendMessage(sci, SCI_FOLDALL, SC_FOLDACTION_CONTRACT, 0);
+					return 0;
+				}
+				case IDM_VIEW_UNFOLDALL:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci) ScintillaBridge_sendMessage(sci, SCI_FOLDALL, SC_FOLDACTION_EXPAND, 0);
+					return 0;
+				}
+				case IDM_VIEW_PREFERENCES:
+					showPreferencesDlg();
+					return 0;
+
+				case IDM_SEARCH_FIND:
+					createFindReplaceDlg(false);
+					return 0;
+				case IDM_SEARCH_REPLACE:
+					createFindReplaceDlg(true);
+					return 0;
+				case IDM_SEARCH_FINDNEXT:
+					if (ctx().findText.empty())
+						createFindReplaceDlg(false);
+					else
+						doFindNext(true);
+					return 0;
+				case IDM_SEARCH_FINDPREV:
+					if (ctx().findText.empty())
+						createFindReplaceDlg(false);
+					else
+						doFindNext(false);
+					return 0;
+				case IDM_SEARCH_GOTOLINE:
+					showGoToLineDlg();
+					return 0;
+
+				case IDM_SEARCH_BOOKMARK_TOGGLE:
+					toggleBookmark();
+					return 0;
+				case IDM_SEARCH_BOOKMARK_NEXT:
+					nextBookmark();
+					return 0;
+				case IDM_SEARCH_BOOKMARK_PREV:
+					prevBookmark();
+					return 0;
+				case IDM_SEARCH_BOOKMARK_CLEARALL:
+					clearAllBookmarks();
+					return 0;
+
+				case IDM_EDIT_AUTOCOMPLETE:
+					showAutoComplete();
+					return 0;
+
+				case IDM_EDIT_UPPERCASE:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci) ScintillaBridge_sendMessage(sci, SCI_UPPERCASE, 0, 0);
+					return 0;
+				}
+				case IDM_EDIT_LOWERCASE:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci) ScintillaBridge_sendMessage(sci, SCI_LOWERCASE, 0, 0);
+					return 0;
+				}
+				case IDM_EDIT_TITLECASE:
+					doTitleCase();
+					return 0;
+				case IDM_EDIT_DUP_LINE:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci) ScintillaBridge_sendMessage(sci, SCI_LINEDUPLICATE, 0, 0);
+					return 0;
+				}
+				case IDM_EDIT_DEL_LINE:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci) ScintillaBridge_sendMessage(sci, SCI_LINEDELETE, 0, 0);
+					return 0;
+				}
+				case IDM_EDIT_MOVEUP:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci) ScintillaBridge_sendMessage(sci, SCI_MOVESELECTEDLINESUP, 0, 0);
+					return 0;
+				}
+				case IDM_EDIT_MOVEDOWN:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci) ScintillaBridge_sendMessage(sci, SCI_MOVESELECTEDLINESDOWN, 0, 0);
+					return 0;
+				}
+				case IDM_EDIT_TRIMTRAILING:
+					doTrimTrailingWhitespace();
+					return 0;
+				case IDM_EDIT_REMOVEEMPTY:
+					doRemoveEmptyLines();
+					return 0;
+				case IDM_EDIT_TOGGLECOMMENT:
+					doToggleLineComment();
+					return 0;
+				case IDM_EDIT_SORTASC:
+					doSortLines(true);
+					return 0;
+				case IDM_EDIT_SORTDESC:
+					doSortLines(false);
+					return 0;
+				case IDM_EDIT_JOINLINES:
+					doJoinLines();
+					return 0;
+
+				case IDM_VIEW_SPLIT:
+					doSplit();
+					return 0;
+				case IDM_VIEW_UNSPLIT:
+					doUnsplit();
+					return 0;
+				case IDM_VIEW_MOVETOOTHER:
+					doMoveToOtherView();
+					return 0;
+				case IDM_VIEW_CLONETOOTHER:
+					doCloneToOtherView();
+					return 0;
+
+				case IDM_FORMAT_EOL_LF:
+				case IDM_FORMAT_EOL_CRLF:
+				case IDM_FORMAT_EOL_CR:
+				{
+					void* sci = ctx().activeScintillaView();
+					auto& docs = ctx().activeDocuments();
+					int tabIdx = ctx().activeTabIndex();
+					if (sci && tabIdx >= 0 && tabIdx < static_cast<int>(docs.size()))
+					{
+						int eol = SC_EOL_LF;
+						if (cmdId == IDM_FORMAT_EOL_CRLF) eol = SC_EOL_CRLF;
+						if (cmdId == IDM_FORMAT_EOL_CR)   eol = SC_EOL_CR;
+						docs[tabIdx].eolMode = eol;
+						ScintillaBridge_sendMessage(sci, SCI_SETEOLMODE, eol, 0);
+						ScintillaBridge_sendMessage(sci, SCI_CONVERTEOLS, eol, 0);
+						updateStatusBar();
+					}
+					return 0;
+				}
+
+				case IDM_FORMAT_ENC_UTF8:
+				case IDM_FORMAT_ENC_UTF8BOM:
+				case IDM_FORMAT_ENC_UTF16LE:
+				case IDM_FORMAT_ENC_UTF16BE:
+				case IDM_FORMAT_ENC_ANSI:
+				{
+					auto& docs = ctx().activeDocuments();
+					int tabIdx = ctx().activeTabIndex();
+					if (tabIdx >= 0 && tabIdx < static_cast<int>(docs.size()))
+					{
+						int newEnc = ENC_UTF8;
+						if (cmdId == IDM_FORMAT_ENC_UTF8BOM)  newEnc = ENC_UTF8_BOM;
+						if (cmdId == IDM_FORMAT_ENC_UTF16LE)  newEnc = ENC_UTF16_LE;
+						if (cmdId == IDM_FORMAT_ENC_UTF16BE)  newEnc = ENC_UTF16_BE;
+						if (cmdId == IDM_FORMAT_ENC_ANSI)     newEnc = ENC_ANSI;
+						docs[tabIdx].encoding = newEnc;
+						updateStatusBar();
+					}
+					return 0;
+				}
+			}
+			break;
+		}
+
+		case WM_NOTIFY:
+		{
+			NMHDR* pNmhdr = reinterpret_cast<NMHDR*>(lParam);
+			if (pNmhdr && pNmhdr->code == TCN_SELCHANGE)
+			{
+				if (pNmhdr->hwndFrom == ctx().tabHwnd)
+				{
+					int newSel = static_cast<int>(SendMessageW(ctx().tabHwnd, TCM_GETCURSEL, 0, 0));
+					if (newSel != ctx().activeTab && newSel >= 0)
+						switchToTabInView(0, newSel);
+				}
+				else if (pNmhdr->hwndFrom == ctx().tabHwnd2)
+				{
+					int newSel = static_cast<int>(SendMessageW(ctx().tabHwnd2, TCM_GETCURSEL, 0, 0));
+					if (newSel != ctx().activeTab2 && newSel >= 0)
+						switchToTabInView(1, newSel);
+				}
+				return 0;
+			}
+			break;
+		}
+
+		case WM_TIMER:
+			if (wParam == IDT_STATUSBAR)
+			{
+				updateStatusBar();
+				return 0;
+			}
+			break;
+
+		case WM_SIZE:
+			if (ctx().scintillaView)
+				ScintillaBridge_resizeToFit(ctx().scintillaView);
+			if (ctx().isSplit && ctx().scintillaView2)
+				ScintillaBridge_resizeToFit(ctx().scintillaView2);
+			return 0;
+
+		case WM_CLOSE:
+			KillTimer(hWnd, IDT_STATUSBAR);
+			PostQuitMessage(0);
+			return 0;
+	}
+
+	return DefWindowProcW(hWnd, msg, wParam, lParam);
+}

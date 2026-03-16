@@ -5,10 +5,9 @@
 #include "npp_constants.h"
 #include "app_state.h"
 #include "string_utils.h"
+#include "file_operations.h"
 #include "windows.h"
-
-// Forward declaration — defined in file_operations.mm
-bool openFileAtPath(NSString* path);
+#include <algorithm>
 
 void addRecentFile(const std::wstring& path)
 {

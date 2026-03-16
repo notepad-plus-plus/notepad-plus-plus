@@ -7,6 +7,7 @@
 #include "scintilla_bridge.h"
 #include <set>
 #include <algorithm>
+#include <cctype>
 
 void showAutoComplete()
 {

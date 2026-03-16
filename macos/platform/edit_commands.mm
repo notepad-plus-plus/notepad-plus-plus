@@ -7,6 +7,8 @@
 #include "language_defs.h"
 #include "scintilla_bridge.h"
 #include <algorithm>
+#include <cctype>
+#include <cstring>
 
 void doTitleCase()
 {
@@ -173,6 +175,8 @@ void doSortLines(bool ascending)
 
 	intptr_t startLine = ScintillaBridge_sendMessage(sci, SCI_LINEFROMPOSITION, selStart, 0);
 	intptr_t endLine = ScintillaBridge_sendMessage(sci, SCI_LINEFROMPOSITION, selEnd, 0);
+	if (selEnd == ScintillaBridge_sendMessage(sci, SCI_POSITIONFROMLINE, endLine, 0) && endLine > startLine)
+		--endLine;
 
 	std::vector<std::string> lines;
 	for (intptr_t line = startLine; line <= endLine; ++line)

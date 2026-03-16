@@ -8,6 +8,7 @@
 #include "scintilla_bridge.h"
 #include "ILexer.h"
 #include "Lexilla.h"
+#include <cstring>
 
 // Forward declaration
 void applyAppearance();

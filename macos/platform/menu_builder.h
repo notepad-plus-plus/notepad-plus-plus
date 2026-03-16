@@ -3,7 +3,7 @@
 
 #pragma once
 
-// HMENU is void* in the Win32 shim
-typedef void* HMENU;
+#import <Cocoa/Cocoa.h>
+#include "windows.h"
 
 HMENU buildMenuBar();

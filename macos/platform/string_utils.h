@@ -5,6 +5,7 @@
 
 #import <Foundation/Foundation.h>
 #include <string>
+#include <cwchar>
 
 inline NSString* WideToNSString(const wchar_t* wstr)
 {

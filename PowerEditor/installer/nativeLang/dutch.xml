@@ -9,7 +9,7 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepadplusplus(at)rockytdr.33mail.com)
 
-Last modified on 2026-03-10 by RockyTDR.
+Last modified on 2026-03-16 by xylographe.
 -->
 <NotepadPlus>
 	<Native-Langue name="Nederlands" filename="dutch.xml" version="8.9">
@@ -242,7 +242,7 @@ Last modified on 2026-03-10 by RockyTDR.
 					<Item id="43009" name="Ga naar overeenkomend &amp;haakje"/>
 					<Item id="43010" name="Vorig&amp;e zoeken"/>
 					<Item id="43011" name="&amp;Snel zoeken..."/>
-					<Item id="43013" name="Zoeken in &amp;bestanden"/>
+					<Item id="43013" name="Zoeken in &amp;bestanden..."/>
 					<Item id="43014" name="(&amp;Vluchtig) volgende zoeken"/>
 					<Item id="43015" name="(&amp;Vluchtig) vorige zoeken"/>
 					<Item id="43022" name="Met stijl 1"/>
@@ -1342,7 +1342,7 @@ Last modified on 2026-03-10 by RockyTDR.
 				</Cloud>
 
 				<SearchEngine title="Zoekmachine">
-					<Item id="6271" name="Zoekmachine (voor &quot;zoeken op internet&quot;)"/>
+					<Item id="6271" name="Zoekmachine (voor &quot;Zoeken op internet&quot;)"/>
 					<Item id="6272" name="DuckDuckGo"/>
 					<Item id="6273" name="Google"/>
 					<Item id="6274" name="Bing"/>
@@ -1455,7 +1455,7 @@ Last modified on 2026-03-10 by RockyTDR.
 			<DoSaveAll title="Bevestiging voor alles opslaan">
 				<Item id="1766" name="Weet u zeker dat u alle gewijzigde documenten wilt opslaan?
 
-Kies &quot;altijd ja&quot; als u dit dialoogvenster niet meer wilt zien.
+Kies &quot;Altijd ja&quot; als u dit dialoogvenster niet meer wilt zien.
 U kunt dit dialoogvenster later terug inschakelen via voorkeuren."/>
 				<Item id="6" name="&amp;Ja"/>
 				<Item id="7" name="&amp;Nee"/>
@@ -1495,7 +1495,7 @@ Uw online instellingen zullen geannuleerd worden. Stel een coherente waarde in v
 			<FilePathNotFoundWarning title="Bestand openen" message="Het bestand dat u probeert te openen, bestaat niet."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SessionFileInvalidError title="Kon sessie niet laden" message="Sessiebestand is beschadigd of ongeldig."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Ongeldige actie" message="U kunt alleen bestanden of mappen neerzetten, maar niet allebei tegelijk, omdat u in projectmodus map neerzetten zit.
-U moet &quot;vij neerzetten van een map alle bestanden openen in plaats van de map als werkruimte te starten&quot; inschakelen in de sectie &quot;standaardmap&quot; van het voorkeurenvenster om deze handeling te laten werken."/>
+U moet &quot;Bij neerzetten van een map alle bestanden openen in plaats van de map als werkruimte te starten&quot; inschakelen in de sectie &quot;Standaardmap&quot; van het voorkeurenvenster om deze handeling te laten werken."/>
 			<SortingError title="Sorteerfout" message="Kan numerieke sortering niet uitvoeren vanwege regel $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SortLocaleMultiple title="Sorteren niet uitgevoerd" message="Het sorteren van meerdere selecties wordt niet ondersteund."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<SortLocaleUnknown title="Sorteren mislukt" message="De reden waarom het sorteren mislukte, kan niet worden vastgesteld."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
@@ -1509,9 +1509,9 @@ Er zijn 3 manieren om over te schakelen naar de kolomselectie-modus:
 
 3. (Toetsenbord of Muis)
       Zet de cursor op het gewenste begin van het kolomblok en
-       voer de opdracht &quot;Begin/Einde selecteren in kolommodus&quot; uit;
+       voer de opdracht &quot;Selectie in kolommodus starten/stoppen&quot; uit;
       Beweeg de cursor naar de gewenste positie aan het einde van het kolomblok
-       en voer de opdracht &quot;Begin/Einde selecteren in kolommodus&quot; opnieuw uit."/>
+       en voer de opdracht &quot;Selectie in kolommodus starten/stoppen&quot; opnieuw uit."/>
 			<BufferInvalidWarning title="Opslaan mislukt" message="Kan niet opslaan: buffer is ongeldig."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<DoCloseOrNot title="Niet-bestaand bestand behouden" message="Het bestand &quot;$STR_REPLACE$&quot; bestaat niet meer.
 Dit bestand in de editor houden?"/>
@@ -1572,7 +1572,7 @@ Geef een andere naam op."/>
 			<UDLRemoveCurrentLang title="Huidige taal verwijderen" message="Weet u het zeker?"/>
 			<UDL_importSuccessful title="Aangepaste syntaxis" message="Importeren gelukt."/>
 			<UDL_importFails title="Aangepaste syntaxis" message="Importeren mislukt."/>
-			<UDL_saveBeforeImport title="Aangepaste syntaxis" message="Sla uw syntaxis-definitie op door op de knop &quot;Opslaan Als...&quot; te klikken voordat u exporteert."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_saveBeforeImport title="Aangepaste syntaxis" message="Sla uw syntaxis-definitie op door op de knop &quot;Opslaan als...&quot; te klikken voordat u exporteert."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
 			<UDL_exportSuccessful title="Aangepaste syntaxis" message="Exporteren gelukt."/>
 			<UDL_exportFails title="Aangepaste syntaxis" message="Exporteren mislukt."/>
 			<SCMapperDoDeleteOrNot title="Weet u het zeker?" message="Weet u zeker dat u deze snelkoppeling wilt verwijderen?"/>
@@ -1725,7 +1725,7 @@ Verifieer de zoekvoorwaarden voordat u de handeling uitvoert."/> <!-- HowToRepro
 		</ProjectManager>
 		<MiscStrings>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
-			<word-chars-list-tip value="Hiermee kan een extra teken aan de huidige woordtekenlijst worden toegevoegd. Deze lijst bepaalt wat als woord wordt gezien bij dubbelklikken op een selectie en bij het zoeken met de optie &quot;volledige woorden&quot; aangevinkt."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+			<word-chars-list-tip value="Hiermee kan een extra teken aan de huidige woordtekenlijst worden toegevoegd. Deze lijst bepaalt wat als woord wordt gezien bij dubbelklikken op een selectie en bij het zoeken met de optie &quot;Alleen volledige woorden&quot; aangevinkt."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
 			<eol-custom-color-tip value="Ga naar  de stijlconfigurator om de standaard aangepaste regeleindekleur te wijzigen (&quot;EOL custom color&quot;).."/>
@@ -1777,7 +1777,7 @@ Zoeken in alle bestanden maar alle log- of logs-mappen recursief uitsluiten:
 			<find-status-replace-not-found value="Vervangen: geen overeenkomst gevonden"/>
 			<find-status-replace-readonly value="Vervangen: kan tekst niet vervangen. Huidig document is alleen-lezen"/>
 			<find-status-cannot-find value="Zoeken: kan tekst &quot;$STR_REPLACE$&quot; niet vinden"/>
-			<find-status-cannot-find-pebkac-maybe value="De opgegeven treffer kan niet worden gevonden. Misschien bent u vergeten om &quot;documenteinde negeren&quot; aan, &quot;hoofdlettergevoelig&quot; uit, of &quot;alleen volledige woorden&quot; uit te vinken."/>
+			<find-status-cannot-find-pebkac-maybe value="De opgegeven treffer kan niet worden gevonden. Misschien bent u vergeten om &quot;Documenteinde negeren&quot; aan, &quot;Hoofdlettergevoelig&quot; uit, of &quot;Alleen volledige woorden&quot; uit te vinken."/>
 			<find-status-scope-selection value="in geselecteerde tekst"/>
 			<find-status-scope-all value="in volledig bestand"/>
 			<find-status-scope-backward value="vanaf begin van bestand tot cursor"/>

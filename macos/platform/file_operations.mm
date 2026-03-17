@@ -2,6 +2,7 @@
 // Part of the Notepad++ macOS port modular refactor.
 
 #include "file_operations.h"
+#include <vector>
 #include "npp_constants.h"
 #include "document_data.h"
 #include "app_state.h"
@@ -121,8 +122,54 @@ NSData* encodeForSave(const char* utf8Text, size_t len, int encoding)
 	}
 }
 
+bool switchToFileIfOpen(const std::wstring& filePath)
+{
+	if (filePath.empty()) return false;
+
+	// Canonicalize the path for comparison
+	NSString* nsPath = WideToNSString(filePath.c_str());
+	NSString* canonical = [[nsPath stringByStandardizingPath] stringByResolvingSymlinksInPath];
+	std::wstring canonicalPath = NSStringToWide(canonical);
+
+	// Check main view
+	for (int i = 0; i < static_cast<int>(ctx().documents.size()); ++i)
+	{
+		if (ctx().documents[i].filePath.empty()) continue;
+		NSString* docPath = WideToNSString(ctx().documents[i].filePath.c_str());
+		NSString* docCanonical = [[docPath stringByStandardizingPath] stringByResolvingSymlinksInPath];
+		if ([canonical isEqualToString:docCanonical])
+		{
+			if (ctx().activeView != 0) ctx().activeView = 0;
+			switchToTabInView(0, i);
+			return true;
+		}
+	}
+	// Check split view
+	if (ctx().isSplit)
+	{
+		for (int i = 0; i < static_cast<int>(ctx().documents2.size()); ++i)
+		{
+			if (ctx().documents2[i].filePath.empty()) continue;
+			NSString* docPath = WideToNSString(ctx().documents2[i].filePath.c_str());
+			NSString* docCanonical = [[docPath stringByStandardizingPath] stringByResolvingSymlinksInPath];
+			if ([canonical isEqualToString:docCanonical])
+			{
+				if (ctx().activeView != 1) ctx().activeView = 1;
+				switchToTabInView(1, i);
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 bool openFileAtPath(NSString* path)
 {
+	// Check if already open; switch to it instead of duplicating
+	std::wstring wcheck = NSStringToWide(path);
+	if (switchToFileIfOpen(wcheck))
+		return true;
+
 	NSData* rawData = [NSData dataWithContentsOfFile:path];
 	if (!rawData) return false;
 
@@ -164,22 +211,30 @@ bool openFileAtPath(NSString* path)
 void openFile()
 {
 	OPENFILENAMEW ofn = {};
-	wchar_t filePath[MAX_PATH] = {0};
+	constexpr DWORD bufSize = 32768;
+	std::vector<wchar_t> fileBuf(bufSize, 0);
 	ofn.lStructSize = sizeof(ofn);
 	ofn.hwndOwner = ctx().mainHwnd;
-	ofn.lpstrFile = filePath;
-	ofn.nMaxFile = MAX_PATH;
+	ofn.lpstrFile = fileBuf.data();
+	ofn.nMaxFile = bufSize;
 	ofn.lpstrTitle = L"Open File";
 	ofn.lpstrFilter = L"All Files\0*.*\0"
 	                   L"C/C++ Files\0*.c;*.cpp;*.cc;*.h;*.hpp\0"
 	                   L"Text Files\0*.txt\0";
 	ofn.nFilterIndex = 1;
-	ofn.Flags = OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST;
+	ofn.Flags = OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_ALLOWMULTISELECT;
 
-	if (GetOpenFileNameW(&ofn))
+	if (!GetOpenFileNameW(&ofn))
+		return;
+
+	// Parse null-delimited paths (each is a full path, double-null terminated)
+	const wchar_t* p = fileBuf.data();
+	while (*p)
 	{
-		NSString* path = WideToNSString(filePath);
-		openFileAtPath(path);
+		NSString* path = WideToNSString(p);
+		if (path && path.length > 0)
+			openFileAtPath(path);
+		p += wcslen(p) + 1;
 	}
 }
 
@@ -251,6 +306,9 @@ void saveCurrentFile()
 		else
 		{
 			ScintillaBridge_sendMessage(sci, SCI_SETSAVEPOINT, 0, 0);
+			doc.modified = false;
+			updateTabModifiedIndicator(ctx().activeView, tabIdx);
+			updateWindowDocumentEdited();
 			NSString* nsTitle = WideToNSString(doc.title.c_str());
 			[ctx().mainWindow setTitle:[NSString stringWithFormat:@"Notepad++ — %@", nsTitle]];
 

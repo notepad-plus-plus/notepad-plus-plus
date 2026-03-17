@@ -9,10 +9,12 @@
   <key>CFBundleIdentifier</key>
   <string>com.softcentral.macnotepp</string>
   <key>CFBundleIconFile</key>
-  <string>logo.png</string>
+  <string>AppIcon</string>
   <key>CFBundleInfoDictionaryVersion</key>
   <string>6.0</string>
   <key>CFBundleName</key>
+  <string>MacNote++</string>
+  <key>CFBundleDisplayName</key>
   <string>MacNote++</string>
   <key>CFBundlePackageType</key>
   <string>APPL</string>
@@ -22,5 +24,11 @@
   <string>1.0.0</string>
   <key>NSHighResolutionCapable</key>
   <true/>
+  <key>NSHumanReadableCopyright</key>
+  <string>Copyright © 2024-2026. Based on Notepad++ by Don Ho.</string>
+  <key>LSMinimumSystemVersion</key>
+  <string>13.0</string>
+  <key>LSApplicationCategoryType</key>
+  <string>public.app-category.developer-tools</string>
 </dict>
 </plist>

@@ -93,6 +93,7 @@ void switchToTabInView(int viewIndex, int tabIndex)
 	const auto& doc = docs[tabIndex];
 	NSString* title = WideToNSString(doc.title.c_str());
 	[ctx().mainWindow setTitle:[NSString stringWithFormat:@"Notepad++ — %@", title]];
+	updateWindowDocumentEdited();
 }
 
 void switchToTab(int tabIndex)
@@ -180,6 +181,7 @@ void closeTabFromView(int viewIndex, int tabIndex)
 			SendMessageW(tabHwnd, TCM_SETITEMW, 0, reinterpret_cast<LPARAM>(&tcItem));
 		}
 		[ctx().mainWindow setTitle:@"Notepad++ — Untitled"];
+		updateWindowDocumentEdited();
 		return;
 	}
 
@@ -203,9 +205,47 @@ void closeTabFromView(int viewIndex, int tabIndex)
 	const auto& doc = docs[activeTab];
 	NSString* title = WideToNSString(doc.title.c_str());
 	[ctx().mainWindow setTitle:[NSString stringWithFormat:@"Notepad++ — %@", title]];
+	updateWindowDocumentEdited();
 }
 
 void closeTab(int tabIndex)
 {
 	closeTabFromView(ctx().activeView, tabIndex);
+}
+
+void updateTabModifiedIndicator(int viewIndex, int tabIndex)
+{
+	auto& docs = (viewIndex == 0) ? ctx().documents : ctx().documents2;
+	HWND tabHwnd = (viewIndex == 0) ? ctx().tabHwnd : ctx().tabHwnd2;
+
+	if (tabIndex < 0 || tabIndex >= static_cast<int>(docs.size()))
+		return;
+	if (!tabHwnd) return;
+
+	const auto& doc = docs[tabIndex];
+	std::wstring displayTitle = doc.title;
+	if (doc.modified)
+		displayTitle += L" \u2022";
+
+	TCITEMW tcItem = {};
+	tcItem.mask = TCIF_TEXT;
+	wchar_t titleBuf[256];
+	wcsncpy(titleBuf, displayTitle.c_str(), 255);
+	titleBuf[255] = L'\0';
+	tcItem.pszText = titleBuf;
+	SendMessageW(tabHwnd, TCM_SETITEMW, tabIndex, reinterpret_cast<LPARAM>(&tcItem));
+}
+
+void updateWindowDocumentEdited()
+{
+	if (!ctx().mainWindow) return;
+
+	auto& docs = ctx().activeDocuments();
+	int tabIdx = ctx().activeTabIndex();
+
+	bool isModified = false;
+	if (tabIdx >= 0 && tabIdx < static_cast<int>(docs.size()))
+		isModified = docs[tabIdx].modified;
+
+	[ctx().mainWindow setDocumentEdited:isModified];
 }

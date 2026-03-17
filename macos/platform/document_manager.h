@@ -20,3 +20,6 @@ int addNewTab(const std::wstring& title, const std::string& content,
               const std::wstring& filePath = L"", int langIndex = 2);
 void closeTabFromView(int viewIndex, int tabIndex);
 void closeTab(int tabIndex);
+
+void updateTabModifiedIndicator(int viewIndex, int tabIndex);
+void updateWindowDocumentEdited();

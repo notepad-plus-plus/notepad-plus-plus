@@ -109,6 +109,26 @@ void doSplit()
 					auto* scn = reinterpret_cast<const SciNotify*>(lParam);
 					if (scn->nmhdr.code == 2028)
 						ctx().activeView = 1;
+					else if (scn->nmhdr.code == SCN_SAVEPOINTLEFT)
+					{
+						int tabIdx = ctx().activeTab2;
+						if (tabIdx >= 0 && tabIdx < static_cast<int>(ctx().documents2.size()))
+						{
+							ctx().documents2[tabIdx].modified = true;
+							updateTabModifiedIndicator(1, tabIdx);
+							updateWindowDocumentEdited();
+						}
+					}
+					else if (scn->nmhdr.code == SCN_SAVEPOINTREACHED)
+					{
+						int tabIdx = ctx().activeTab2;
+						if (tabIdx >= 0 && tabIdx < static_cast<int>(ctx().documents2.size()))
+						{
+							ctx().documents2[tabIdx].modified = false;
+							updateTabModifiedIndicator(1, tabIdx);
+							updateWindowDocumentEdited();
+						}
+					}
 					else if (scn->nmhdr.code == 2010 && scn->margin == 1 && ctx().scintillaView2)
 					{
 						intptr_t line = ScintillaBridge_sendMessage(ctx().scintillaView2, SCI_LINEFROMPOSITION, scn->position, 0);

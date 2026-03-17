@@ -1190,28 +1190,61 @@ BOOL GetOpenFileNameW(LPOPENFILENAMEW lpofn)
 		if (response != NSModalResponseOK)
 			return FALSE;
 
-		NSURL* url = panel.URL;
-		if (!url) return FALSE;
+		NSArray<NSURL*>* urls = panel.URLs;
+		if (!urls || urls.count == 0) return FALSE;
 
-		NSString* path = [url path];
 		if (lpofn->lpstrFile && lpofn->nMaxFile > 0)
 		{
-			NSStringToWide(path, lpofn->lpstrFile, lpofn->nMaxFile);
+			if (urls.count == 1)
+			{
+				// Single file: standard behavior
+				NSString* path = [urls[0] path];
+				NSStringToWide(path, lpofn->lpstrFile, lpofn->nMaxFile);
 
-			// Set nFileOffset and nFileExtension
-			NSString* fileName = [path lastPathComponent];
-			NSString* dirPath = [path stringByDeletingLastPathComponent];
-			lpofn->nFileOffset = static_cast<WORD>(dirPath.length + 1);
-			NSRange dotRange = [fileName rangeOfString:@"." options:NSBackwardsSearch];
-			if (dotRange.location != NSNotFound)
-				lpofn->nFileExtension = static_cast<WORD>(lpofn->nFileOffset + dotRange.location + 1);
+				NSString* fileName = [path lastPathComponent];
+				NSString* dirPath = [path stringByDeletingLastPathComponent];
+				lpofn->nFileOffset = static_cast<WORD>(dirPath.length + 1);
+				NSRange dotRange = [fileName rangeOfString:@"." options:NSBackwardsSearch];
+				if (dotRange.location != NSNotFound)
+					lpofn->nFileExtension = static_cast<WORD>(lpofn->nFileOffset + dotRange.location + 1);
+				else
+					lpofn->nFileExtension = 0;
+			}
 			else
+			{
+				// Multiple files: null-delimited full paths, double-null terminated
+				wchar_t* buf = lpofn->lpstrFile;
+				DWORD remaining = lpofn->nMaxFile;
+
+				for (NSURL* fileUrl in urls)
+				{
+					NSString* path = [fileUrl path];
+					NSData* data = [path dataUsingEncoding:NSUTF32LittleEndianStringEncoding];
+					size_t charCount = data.length / sizeof(wchar_t);
+
+					if (charCount + 2 > remaining)
+					{
+						NSLog(@"Warning: multi-select buffer overflow, %lu files could not be included",
+						      (unsigned long)(urls.count));
+						break;
+					}
+
+					memcpy(buf, data.bytes, charCount * sizeof(wchar_t));
+					buf[charCount] = L'\0';
+					buf += charCount + 1;
+					remaining -= (charCount + 1);
+				}
+				*buf = L'\0'; // Double-null terminator
+
+				lpofn->Flags |= OFN_ALLOWMULTISELECT;
+				lpofn->nFileOffset = 0;
 				lpofn->nFileExtension = 0;
+			}
 		}
 
-		if (lpofn->lpstrFileTitle && lpofn->nMaxFileTitle > 0)
+		if (urls.count == 1 && lpofn->lpstrFileTitle && lpofn->nMaxFileTitle > 0)
 		{
-			NSString* fileName = [path lastPathComponent];
+			NSString* fileName = [[urls[0] path] lastPathComponent];
 			NSStringToWide(fileName, lpofn->lpstrFileTitle, lpofn->nMaxFileTitle);
 		}
 

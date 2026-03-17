@@ -129,5 +129,10 @@ HMENU buildMenuBar()
 	}
 	AppendMenuW(hMenuBar, MF_POPUP, reinterpret_cast<UINT_PTR>(hLangMenu), L"&Language");
 
+	// Help menu
+	HMENU hHelpMenu = CreatePopupMenu();
+	AppendMenuW(hHelpMenu, MF_STRING, IDM_HELP_ABOUT, L"About MacNote++");
+	AppendMenuW(hMenuBar, MF_POPUP, reinterpret_cast<UINT_PTR>(hHelpMenu), L"&Help");
+
 	return hMenuBar;
 }

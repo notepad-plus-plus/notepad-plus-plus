@@ -284,6 +284,29 @@ target_link_libraries(win32shim PUBLIC
 )
 
 # ============================================================
+# App icon generation (.icns from logo.png)
+# ============================================================
+set(ICONSET_DIR "${CMAKE_BINARY_DIR}/AppIcon.iconset")
+add_custom_command(
+    OUTPUT "${CMAKE_BINARY_DIR}/AppIcon.icns"
+    COMMAND ${CMAKE_COMMAND} -E make_directory "${ICONSET_DIR}"
+    COMMAND sips -z 16 16     "${NPP_ROOT}/logo.png" --out "${ICONSET_DIR}/icon_16x16.png"
+    COMMAND sips -z 32 32     "${NPP_ROOT}/logo.png" --out "${ICONSET_DIR}/icon_16x16@2x.png"
+    COMMAND sips -z 32 32     "${NPP_ROOT}/logo.png" --out "${ICONSET_DIR}/icon_32x32.png"
+    COMMAND sips -z 64 64     "${NPP_ROOT}/logo.png" --out "${ICONSET_DIR}/icon_32x32@2x.png"
+    COMMAND sips -z 128 128   "${NPP_ROOT}/logo.png" --out "${ICONSET_DIR}/icon_128x128.png"
+    COMMAND sips -z 256 256   "${NPP_ROOT}/logo.png" --out "${ICONSET_DIR}/icon_128x128@2x.png"
+    COMMAND sips -z 256 256   "${NPP_ROOT}/logo.png" --out "${ICONSET_DIR}/icon_256x256.png"
+    COMMAND sips -z 512 512   "${NPP_ROOT}/logo.png" --out "${ICONSET_DIR}/icon_256x256@2x.png"
+    COMMAND sips -z 512 512   "${NPP_ROOT}/logo.png" --out "${ICONSET_DIR}/icon_512x512.png"
+    COMMAND sips -z 583 583   "${NPP_ROOT}/logo.png" --out "${ICONSET_DIR}/icon_512x512@2x.png"
+    COMMAND iconutil -c icns "${ICONSET_DIR}" -o "${CMAKE_BINARY_DIR}/AppIcon.icns"
+    DEPENDS "${NPP_ROOT}/logo.png"
+    COMMENT "Generating AppIcon.icns from logo.png"
+)
+add_custom_target(AppIcon DEPENDS "${CMAKE_BINARY_DIR}/AppIcon.icns")
+
+# ============================================================
 # Main macOS app target
 # ============================================================
 add_executable(MacOSNotePP
@@ -310,6 +333,8 @@ add_executable(MacOSNotePP
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/recent_files.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/settings_manager.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/file_monitor_mac.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/save_prompt.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/about_dialog.mm"
 )
 target_include_directories(MacOSNotePP PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/platform"
@@ -335,11 +360,15 @@ target_compile_options(MacOSNotePP PRIVATE
     -fobjc-arc
     -Wno-deprecated-declarations
 )
+add_dependencies(MacOSNotePP AppIcon)
 add_custom_command(TARGET MacOSNotePP POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "${NPP_ROOT}/logo.png"
         "$<TARGET_FILE_DIR:MacOSNotePP>/logo.png"
-    COMMENT "Copying logo.png for Dock icon"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${CMAKE_BINARY_DIR}/AppIcon.icns"
+        "$<TARGET_FILE_DIR:MacOSNotePP>/AppIcon.icns"
+    COMMENT "Copying logo.png and AppIcon.icns"
 )
 
 # ============================================================
@@ -375,6 +404,9 @@ add_custom_target(MacOSNotePP_package
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "${NPP_ROOT}/logo.png"
         "${NPP_MACOS_APP_RESOURCES}/logo.png"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${CMAKE_BINARY_DIR}/AppIcon.icns"
+        "${NPP_MACOS_APP_RESOURCES}/AppIcon.icns"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "${NPP_MACOS_INFO_PLIST}"
         "${NPP_MACOS_APP_CONTENTS}/Info.plist"

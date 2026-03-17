@@ -8,6 +8,7 @@
 #include "string_utils.h"
 #include "document_manager.h"
 #include "file_operations.h"
+#include "save_prompt.h"
 #include "menu_builder.h"
 #include "wndproc.h"
 #include "scintilla_config.h"
@@ -65,12 +66,28 @@
 
 static void setDockIconFromLogo()
 {
+	// In a proper app bundle, macOS loads the icon from CFBundleIconFile automatically.
+	// Check if the bundle icon is already loaded and usable.
+	NSImage* bundleIcon = [NSApp applicationIconImage];
+	if (bundleIcon && bundleIcon.size.width > 32)
+		return;
+
+	// Fallback for development builds: load logo.png from alongside the executable
 	NSString* executablePath = [[NSBundle mainBundle] executablePath];
 	if (!executablePath)
 		return;
 
-	NSString* logoPath = [[executablePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"logo.png"];
-	NSImage* dockIcon = [[NSImage alloc] initWithContentsOfFile:logoPath];
+	NSString* dir = [executablePath stringByDeletingLastPathComponent];
+
+	// Try .icns first
+	NSString* icnsPath = [dir stringByAppendingPathComponent:@"AppIcon.icns"];
+	NSImage* dockIcon = [[NSImage alloc] initWithContentsOfFile:icnsPath];
+	if (!dockIcon)
+	{
+		// Fall back to logo.png
+		NSString* logoPath = [dir stringByAppendingPathComponent:@"logo.png"];
+		dockIcon = [[NSImage alloc] initWithContentsOfFile:logoPath];
+	}
 	if (dockIcon)
 		[NSApp setApplicationIconImage:dockIcon];
 }
@@ -230,6 +247,26 @@ static void setDockIconFromLogo()
 
 				if (scn->nmhdr.code == 2028) // SCN_FOCUSIN
 					ctx().activeView = 0;
+				else if (scn->nmhdr.code == SCN_SAVEPOINTLEFT)
+				{
+					int tabIdx = ctx().activeTab;
+					if (tabIdx >= 0 && tabIdx < static_cast<int>(ctx().documents.size()))
+					{
+						ctx().documents[tabIdx].modified = true;
+						updateTabModifiedIndicator(0, tabIdx);
+						updateWindowDocumentEdited();
+					}
+				}
+				else if (scn->nmhdr.code == SCN_SAVEPOINTREACHED)
+				{
+					int tabIdx = ctx().activeTab;
+					if (tabIdx >= 0 && tabIdx < static_cast<int>(ctx().documents.size()))
+					{
+						ctx().documents[tabIdx].modified = false;
+						updateTabModifiedIndicator(0, tabIdx);
+						updateWindowDocumentEdited();
+					}
+				}
 				else if (scn->nmhdr.code == 2010) // SCN_MARGINCLICK
 				{
 					if (scn->margin == 1 && ctx().scintillaView)
@@ -353,8 +390,39 @@ static void setDockIconFromLogo()
 
 	restoreSession();
 
+	// Handle CLI arguments (for direct executable launch: ./MacOSNotePP file.txt)
+	NSArray<NSString*>* args = [[NSProcessInfo processInfo] arguments];
+	for (NSUInteger i = 1; i < args.count; ++i)
+	{
+		NSString* arg = args[i];
+		if ([arg hasPrefix:@"-"]) continue;
+		BOOL isDir = NO;
+		if ([[NSFileManager defaultManager] fileExistsAtPath:arg isDirectory:&isDir] && !isDir)
+			openFileAtPath(arg);
+	}
+
 	NSLog(@"=== Notepad++ macOS Port — Phase 7 ===");
 	NSLog(@"Settings, split view, edit commands, encoding, session, drag-and-drop!");
+}
+
+- (void)application:(NSApplication*)sender openFiles:(NSArray<NSString*>*)filenames
+{
+	BOOL anyOpened = NO;
+	for (NSString* path in filenames)
+	{
+		BOOL isDir = NO;
+		if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && !isDir)
+		{
+			if (openFileAtPath(path))
+				anyOpened = YES;
+		}
+	}
+
+	[sender activateIgnoringOtherApps:YES];
+	if (ctx().mainWindow)
+		[ctx().mainWindow makeKeyAndOrderFront:nil];
+
+	[sender replyToOpenOrPrint:anyOpened ? NSApplicationDelegateReplySuccess : NSApplicationDelegateReplyFailure];
 }
 
 - (void)appearanceChanged:(NSNotification*)notification
@@ -372,6 +440,18 @@ static void setDockIconFromLogo()
 {
 	if (ctx().mainHwnd)
 		SendMessageW(ctx().mainHwnd, WM_COMMAND, MAKEWPARAM(static_cast<WORD>(sender.tag), 0), 0);
+}
+
+- (BOOL)windowShouldClose:(NSWindow*)sender
+{
+	return promptAndHandleQuit() ? YES : NO;
+}
+
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication*)sender
+{
+	if (promptAndHandleQuit())
+		return NSTerminateNow;
+	return NSTerminateCancel;
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)sender

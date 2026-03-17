@@ -60,6 +60,9 @@
 #define IDM_VIEW_MOVETOOTHER         42072
 #define IDM_VIEW_CLONETOOTHER        42073
 
+// Help menu commands
+#define IDM_HELP_ABOUT           46001
+
 // Phase 7 — Format/Encoding commands
 #define IDM_FORMAT_EOL_LF            45001
 #define IDM_FORMAT_EOL_CRLF          45002
@@ -254,6 +257,10 @@ enum {
 #define SC_FOLDACTION_TOGGLE      2
 #define SC_FOLDLEVELHEADERFLAG    0x2000
 #define SC_AUTOMATICFOLD_CLICK    0x0004
+
+// Scintilla notification codes
+#define SCN_SAVEPOINTREACHED  2002
+#define SCN_SAVEPOINTLEFT     2003
 
 // EOL mode constants matching Scintilla
 #define SC_EOL_CRLF 0

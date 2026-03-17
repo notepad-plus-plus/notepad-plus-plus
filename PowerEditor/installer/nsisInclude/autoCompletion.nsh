@@ -16,7 +16,7 @@
 
 
 SectionGroup "Auto-completion Files" autoCompletionComponent
-	SetOverwrite off
+	SetOverwrite on
 
 	${MementoSection} "C" C
 		SetOutPath "$INSTDIR\autoCompletion"

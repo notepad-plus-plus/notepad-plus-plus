@@ -9,7 +9,7 @@
 
 void saveViewState(void* sci, std::vector<DocumentData>& docs, int tabIdx);
 void saveScintillaState();
-void restoreViewToScintilla(void* sci, const std::vector<DocumentData>& docs, int tabIndex);
+void restoreViewToScintilla(void* sci, std::vector<DocumentData>& docs, int tabIndex);
 void restoreScintillaState(int tabIndex);
 
 void switchToTabInView(int viewIndex, int tabIndex);

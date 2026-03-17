@@ -307,6 +307,7 @@ void saveCurrentFile()
 		{
 			ScintillaBridge_sendMessage(sci, SCI_SETSAVEPOINT, 0, 0);
 			doc.modified = false;
+			doc.savePointValid = true;
 			updateTabModifiedIndicator(ctx().activeView, tabIdx);
 			updateWindowDocumentEdited();
 			NSString* nsTitle = WideToNSString(doc.title.c_str());

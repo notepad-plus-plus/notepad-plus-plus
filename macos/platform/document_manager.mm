@@ -28,7 +28,8 @@ void saveViewState(void* sci, std::vector<DocumentData>& docs, int tabIdx)
 	doc.cursorPos = ScintillaBridge_sendMessage(sci, SCI_GETCURRENTPOS, 0, 0);
 	doc.anchorPos = ScintillaBridge_sendMessage(sci, SCI_GETANCHOR, 0, 0);
 	doc.firstVisibleLine = ScintillaBridge_sendMessage(sci, SCI_GETFIRSTVISIBLELINE, 0, 0);
-	doc.modified = ScintillaBridge_sendMessage(sci, SCI_GETMODIFY, 0, 0) != 0;
+	if (doc.savePointValid)
+		doc.modified = ScintillaBridge_sendMessage(sci, SCI_GETMODIFY, 0, 0) != 0;
 
 	doc.bookmarkedLines.clear();
 	intptr_t lineCount = ScintillaBridge_sendMessage(sci, SCI_GETLINECOUNT, 0, 0);
@@ -47,19 +48,25 @@ void saveScintillaState()
 	saveViewState(ctx().scintillaView, ctx().documents, ctx().activeTab);
 }
 
-void restoreViewToScintilla(void* sci, const std::vector<DocumentData>& docs, int tabIndex)
+void restoreViewToScintilla(void* sci, std::vector<DocumentData>& docs, int tabIndex)
 {
 	if (tabIndex < 0 || tabIndex >= static_cast<int>(docs.size()))
 		return;
 	if (!sci) return;
 
-	const auto& doc = docs[tabIndex];
+	auto& doc = docs[tabIndex];
+	ctx().suppressSavePointNotifications = true;
 	ScintillaBridge_sendMessage(sci, SCI_SETTEXT, 0, (intptr_t)doc.content.c_str());
-	ScintillaBridge_sendMessage(sci, SCI_SETFIRSTVISIBLELINE, doc.firstVisibleLine, 0);
-	ScintillaBridge_sendMessage(sci, SCI_SETSEL, doc.anchorPos, doc.cursorPos);
 	if (!doc.modified)
 		ScintillaBridge_sendMessage(sci, SCI_SETSAVEPOINT, 0, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETFIRSTVISIBLELINE, doc.firstVisibleLine, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETSEL, doc.anchorPos, doc.cursorPos);
 	ScintillaBridge_sendMessage(sci, SCI_EMPTYUNDOBUFFER, 0, 0);
+	// SCI_EMPTYUNDOBUFFER resets Scintilla's save point to current position.
+	// For modified documents, this makes Scintilla think it's clean when it isn't.
+	// Mark the save point as invalid so SCN_SAVEPOINTREACHED won't clear modified.
+	doc.savePointValid = !doc.modified;
+	ctx().suppressSavePointNotifications = false;
 
 	for (int bkLine : doc.bookmarkedLines)
 		ScintillaBridge_sendMessage(sci, SCI_MARKERADD, bkLine, BOOKMARK_MARKER);
@@ -136,10 +143,12 @@ int addNewTabToView(int viewIndex, const std::wstring& title, const std::string&
 
 	activeTab = newIndex;
 
+	ctx().suppressSavePointNotifications = true;
 	ScintillaBridge_sendMessage(sci, SCI_SETTEXT, 0, (intptr_t)content.c_str());
+	ScintillaBridge_sendMessage(sci, SCI_SETSAVEPOINT, 0, 0);
 	ScintillaBridge_sendMessage(sci, SCI_GOTOPOS, 0, 0);
 	ScintillaBridge_sendMessage(sci, SCI_EMPTYUNDOBUFFER, 0, 0);
-	ScintillaBridge_sendMessage(sci, SCI_SETSAVEPOINT, 0, 0);
+	ctx().suppressSavePointNotifications = false;
 
 	applyLanguageToView(sci, langIndex);
 
@@ -169,9 +178,11 @@ void closeTabFromView(int viewIndex, int tabIndex)
 	if (docs.size() <= 1)
 	{
 		docs[0] = DocumentData();
+		ctx().suppressSavePointNotifications = true;
 		ScintillaBridge_sendMessage(sci, SCI_CLEARALL, 0, 0);
 		ScintillaBridge_sendMessage(sci, SCI_EMPTYUNDOBUFFER, 0, 0);
 		ScintillaBridge_sendMessage(sci, SCI_SETSAVEPOINT, 0, 0);
+		ctx().suppressSavePointNotifications = false;
 		if (tabHwnd)
 		{
 			TCITEMW tcItem = {};

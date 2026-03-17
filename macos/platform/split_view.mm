@@ -111,22 +111,29 @@ void doSplit()
 						ctx().activeView = 1;
 					else if (scn->nmhdr.code == SCN_SAVEPOINTLEFT)
 					{
-						int tabIdx = ctx().activeTab2;
-						if (tabIdx >= 0 && tabIdx < static_cast<int>(ctx().documents2.size()))
+						if (!ctx().suppressSavePointNotifications)
 						{
-							ctx().documents2[tabIdx].modified = true;
-							updateTabModifiedIndicator(1, tabIdx);
-							updateWindowDocumentEdited();
+							int tabIdx = ctx().activeTab2;
+							if (tabIdx >= 0 && tabIdx < static_cast<int>(ctx().documents2.size()))
+							{
+								ctx().documents2[tabIdx].modified = true;
+								updateTabModifiedIndicator(1, tabIdx);
+								updateWindowDocumentEdited();
+							}
 						}
 					}
 					else if (scn->nmhdr.code == SCN_SAVEPOINTREACHED)
 					{
-						int tabIdx = ctx().activeTab2;
-						if (tabIdx >= 0 && tabIdx < static_cast<int>(ctx().documents2.size()))
+						if (!ctx().suppressSavePointNotifications)
 						{
-							ctx().documents2[tabIdx].modified = false;
-							updateTabModifiedIndicator(1, tabIdx);
-							updateWindowDocumentEdited();
+							int tabIdx = ctx().activeTab2;
+							if (tabIdx >= 0 && tabIdx < static_cast<int>(ctx().documents2.size())
+							    && ctx().documents2[tabIdx].savePointValid)
+							{
+								ctx().documents2[tabIdx].modified = false;
+								updateTabModifiedIndicator(1, tabIdx);
+								updateWindowDocumentEdited();
+							}
 						}
 					}
 					else if (scn->nmhdr.code == 2010 && scn->margin == 1 && ctx().scintillaView2)

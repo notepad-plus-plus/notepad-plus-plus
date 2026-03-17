@@ -249,22 +249,29 @@ static void setDockIconFromLogo()
 					ctx().activeView = 0;
 				else if (scn->nmhdr.code == SCN_SAVEPOINTLEFT)
 				{
-					int tabIdx = ctx().activeTab;
-					if (tabIdx >= 0 && tabIdx < static_cast<int>(ctx().documents.size()))
+					if (!ctx().suppressSavePointNotifications)
 					{
-						ctx().documents[tabIdx].modified = true;
-						updateTabModifiedIndicator(0, tabIdx);
-						updateWindowDocumentEdited();
+						int tabIdx = ctx().activeTab;
+						if (tabIdx >= 0 && tabIdx < static_cast<int>(ctx().documents.size()))
+						{
+							ctx().documents[tabIdx].modified = true;
+							updateTabModifiedIndicator(0, tabIdx);
+							updateWindowDocumentEdited();
+						}
 					}
 				}
 				else if (scn->nmhdr.code == SCN_SAVEPOINTREACHED)
 				{
-					int tabIdx = ctx().activeTab;
-					if (tabIdx >= 0 && tabIdx < static_cast<int>(ctx().documents.size()))
+					if (!ctx().suppressSavePointNotifications)
 					{
-						ctx().documents[tabIdx].modified = false;
-						updateTabModifiedIndicator(0, tabIdx);
-						updateWindowDocumentEdited();
+						int tabIdx = ctx().activeTab;
+						if (tabIdx >= 0 && tabIdx < static_cast<int>(ctx().documents.size())
+						    && ctx().documents[tabIdx].savePointValid)
+						{
+							ctx().documents[tabIdx].modified = false;
+							updateTabModifiedIndicator(0, tabIdx);
+							updateWindowDocumentEdited();
+						}
 					}
 				}
 				else if (scn->nmhdr.code == 2010) // SCN_MARGINCLICK

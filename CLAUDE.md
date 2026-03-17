@@ -8,7 +8,35 @@ Notepad++ is a Windows-native source code editor written in C++20. It wraps the 
 
 ## Build Commands
 
-### MSBuild (primary, requires Visual Studio 2022 v143 toolset)
+### macOS Port (CMake + Xcode generator)
+
+Working directory: `macos/build/`
+
+```bash
+# First-time setup (or full clean rebuild)
+cd macos/build
+rm -rf *
+cmake -G Xcode ..
+
+# Build the app (development binary)
+cmake --build . --target MacOSNotePP
+
+# Build the .app bundle (for testing Finder integration, icon, etc.)
+cmake --build . --target MacOSNotePP_package
+
+# Build unsigned DMG for distribution
+cmake --build . --target MacOSNotePP_dmg
+
+# Run the app (development build)
+./Debug/MacOSNotePP
+
+# Run the packaged app
+open ../dist/MacNote++.app
+```
+
+**Important:** Use the Xcode generator (`-G Xcode`). The default Makefiles generator fails on deeply nested object paths in this repo. The Xcode generator is required for reliable builds.
+
+### MSBuild — Windows (primary, requires Visual Studio 2022 v143 toolset)
 
 ```
 msbuild PowerEditor\visual.net\notepadPlus.sln /p:Configuration=Debug /p:Platform=x64

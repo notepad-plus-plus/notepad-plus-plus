@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: February 11, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: March 17, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
@@ -199,7 +199,7 @@
 					<Item id="42052" name="Povi&amp;jest međuspremnika"/>
 					<Item id="42025" name="&amp;Spremi upravo snimljeni makro..."/>
 					<Item id="42026" name="&amp;Smjer teksta s desna na lijevo"/>
-					<Item id="42027" name="&amp;Smjer teksta s lijeva na desno"/>
+					<Item id="42027" name="Smjer teksta s &amp;lijeva na desno"/>
 					<Item id="42028" name="Samo za čitanje u trenutačnom dokumentu"/>
 					<Item id="42102" name="Samo za čitanje za sve dokumente"/>
 					<Item id="42103" name="Očisti samo za čitanje za sve dokumente"/>
@@ -727,10 +727,10 @@
 					<Item id="43059" name="Kopiraj tekst s oznakom 5. stila"/>
 					<Item id="43060" name="Kopiraj tekst sa svim oznakama stila"/>
 					<Item id="43061" name="Kopiraj tekst s oznakom pronađenog"/>
-					<Item id="44100" name="Otvori trenutnu datoteku u Firefoxu"/>
-					<Item id="44101" name="Otvori trenutnu datoteku u Chromeu"/>
-					<Item id="44103" name="Otvori trenutnu datoteku u IE-u"/>
-					<Item id="44102" name="Otvori trenutnu datoteku u Edgeu"/>
+					<Item id="44100" name="Otvori trenutnu datoteku u &amp;Firefoxu"/>
+					<Item id="44101" name="Otvori trenutnu datoteku u &amp;Chromeu"/>
+					<Item id="44103" name="Otvori trenutnu datoteku u &amp;IE-u"/>
+					<Item id="44102" name="Otvori trenutnu datoteku u &amp;Edgeu"/>
 					<Item id="50003" name="Prijeđi na prethodni dokument"/>
 					<Item id="50004" name="Prijeđi na sljedeći dokument"/>
 					<Item id="44051" name="Smotaj razinu 1"/>
@@ -1033,6 +1033,7 @@
 					<Item id="6239" name="Zadrži izbor nakon desnog klika izvan izbora"/>
 					<Item id="6245" name="Uključi virtualni prostor"/>
 					<Item id="6214" name="Omogući kopiranje/izrezivanje retka bez označavanja"/>
+					<Item id="6266" name="Onemogući povlačenje i ispuštanje odabranog teksta"/>
 					<Item id="6225" name="Primjeni korisničku boju na pozadinu odabranog teksta"/>
 					<Item id="6651" name="Indikator trenutno aktivnog retka"/>
 					<Item id="6652" name="Ništa"/>
@@ -1235,6 +1236,7 @@
 					<Item id="6910" name="Min. označenog teksta za auto. uključivanje &quot;U označenom&quot;:"/>
 					<Item id="6913" name="Ispuni polje Mapa pri traženju u datotekama prema aktivnom dokumentu"/>
 					<Item id="6916" name=": Maksimalan broj znakova za automatsko popunjavanje polja za pretraživanje iz odabira"/>
+					<Item id="6917" name="Pronađi u datotekama: Preferiraj sadržaj datoteke na disku u odnosu na otvorene međuspremnike"/>
 				</Searching>
 
 				<RecentFilesHistory title="Povijest datoteka">
@@ -1303,7 +1305,7 @@
 					<Item id="6184" name="Popis dokumenata"/>
 					<Item id="6185" name="Panel ASCII znakova"/>
 					<Item id="6186" name="Mapa kao radni prostor"/>
-					<Item id="6187" name="Projektni paneli"/>
+					<Item id="6187" name="Pro&amp;jektni paneli"/>
 					<Item id="6188" name="Pregledni prikaz dokumenta"/>
 					<Item id="6189" name="Popis funkcija"/>
 					<Item id="6190" name="Paneli dodataka"/>
@@ -1599,12 +1601,6 @@ Nastaviti?"/>
 			<LanguageMenuCompactWarning title="Kompaktni izbornik sintaksi" message="Ova opcija će biti promijenjena pri sljedećem pokretanju."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Nespremljene izmjene će biti odbačene!
 Želite li spremiti izmjene prije promjene teme?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Kompatibilnost Makro i Pokretanje naredbi" message="Vaše Makro i Pokretanje naredbe spremljene u Notepadu++ v.8.5.2 (ili starijem) možda nisu kompatibilne s aktualnom verzijom Notepada++.
-Molim, testirajte te naredbe u aktualnoj verziji Notepada++ i, ako je potrebno, ispravite ih i ponovno spremite.
-
-Alternativno, možete se vratiti na Notepad++ v8.5.2 i vratiti svoje prethodne podatke.
-Notepad++ će sigurnosno kopirati vaš stari &quot;shortcuts.xml&quot; i spremiti ga kao &quot;shortcuts.xml.v8.5.2.backup&quot;.
-Promijenite naziv datoteke &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, i vaše bi naredbe trebale biti vraćene i ispravno raditi."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<FullReadOnlySavingForbidden title="Save failed" message="Ne mogu spremiti datoteku
 Notepad++ potpuni način rada samo za čitanje spriječio je spremanje datoteke."/>
 			<NotEnoughRoom4Saving title="Neuspjelo spremanje" message="Spremanje datoteke nije uspjelo.

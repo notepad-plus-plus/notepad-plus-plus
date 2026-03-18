@@ -4,7 +4,7 @@
 #import <Cocoa/Cocoa.h>
 #include "about_dialog.h"
 
-@interface AboutDialogController : NSObject
+@interface AboutDialogController : NSObject <NSWindowDelegate>
 - (void)openRepository:(id)sender;
 @end
 
@@ -13,6 +13,11 @@
 {
 	[[NSWorkspace sharedWorkspace] openURL:
 		[NSURL URLWithString:@"https://github.com/hybridmachine/MacOS-NotePP"]];
+}
+
+- (void)windowWillClose:(NSNotification*)notification
+{
+	[NSApp stopModal];
 }
 @end
 
@@ -26,6 +31,7 @@ void showAboutDlg()
 			defer:NO];
 		[panel setTitle:@"About MacNote++"];
 		[panel center];
+		[panel setReleasedWhenClosed:NO];
 
 		// Keep the controller alive during modal
 		AboutDialogController* controller = [[AboutDialogController alloc] init];
@@ -146,8 +152,9 @@ void showAboutDlg()
 		[okButton setKeyEquivalent:@"\r"];
 		[contentView addSubview:okButton];
 
-		// Also handle Escape to close
+		// Escape triggers the panel's close, which calls windowWillClose: → stopModal
 		[panel setDefaultButtonCell:[okButton cell]];
+		[panel setDelegate:controller];
 
 		[NSApp runModalForWindow:panel];
 		[panel close];

@@ -64,6 +64,9 @@ struct AppContext
 	NSView* editorContainer2 = nil;
 	NSView* sciContainer2 = nil;
 
+	// Notification suppression (prevents false dirty indicators during tab switches)
+	bool suppressSavePointNotifications = false;
+
 	// Accessor helpers for split view
 	void*& activeScintillaView() { return activeView == 0 ? scintillaView : scintillaView2; }
 	std::vector<DocumentData>& activeDocuments() { return activeView == 0 ? documents : documents2; }

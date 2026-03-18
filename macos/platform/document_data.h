@@ -50,6 +50,7 @@ struct DocumentData
 	intptr_t anchorPos = 0;
 	intptr_t firstVisibleLine = 0;
 	bool modified = false;
+	bool savePointValid = true; // false when Scintilla's save point doesn't reflect real saved state
 	int languageIndex = 2; // Default: C++
 	std::vector<int> bookmarkedLines; // Persisted across tab switches
 	int encoding = ENC_UTF8;

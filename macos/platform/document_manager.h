@@ -9,7 +9,7 @@
 
 void saveViewState(void* sci, std::vector<DocumentData>& docs, int tabIdx);
 void saveScintillaState();
-void restoreViewToScintilla(void* sci, const std::vector<DocumentData>& docs, int tabIndex);
+void restoreViewToScintilla(void* sci, std::vector<DocumentData>& docs, int tabIndex);
 void restoreScintillaState(int tabIndex);
 
 void switchToTabInView(int viewIndex, int tabIndex);
@@ -20,3 +20,6 @@ int addNewTab(const std::wstring& title, const std::string& content,
               const std::wstring& filePath = L"", int langIndex = 2);
 void closeTabFromView(int viewIndex, int tabIndex);
 void closeTab(int tabIndex);
+
+void updateTabModifiedIndicator(int viewIndex, int tabIndex);
+void updateWindowDocumentEdited();

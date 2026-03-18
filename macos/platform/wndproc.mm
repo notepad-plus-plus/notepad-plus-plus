@@ -12,6 +12,8 @@
 #include "autocomplete.h"
 #include "preferences_dialog.h"
 #include "split_view.h"
+#include "save_prompt.h"
+#include "about_dialog.h"
 #include "recent_files.h"
 #include "status_bar.h"
 #include "lexer_styles.h"
@@ -71,10 +73,13 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					return 0;
 				}
 				case IDM_FILE_CLOSE:
-					closeTabFromView(ctx().activeView, ctx().activeTabIndex());
+					if (promptAndHandleClose(ctx().activeView, ctx().activeTabIndex()))
+						closeTabFromView(ctx().activeView, ctx().activeTabIndex());
 					return 0;
 				case IDM_FILE_CLOSEALL:
 				{
+					if (!promptAndHandleCloseAll(ctx().activeView))
+						return 0;
 					auto& closeDocs = ctx().activeDocuments();
 					while (closeDocs.size() > 1)
 						closeTabFromView(ctx().activeView, static_cast<int>(closeDocs.size()) - 1);
@@ -279,6 +284,10 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					doCloneToOtherView();
 					return 0;
 
+				case IDM_HELP_ABOUT:
+					showAboutDlg();
+					return 0;
+
 				case IDM_FORMAT_EOL_LF:
 				case IDM_FORMAT_EOL_CRLF:
 				case IDM_FORMAT_EOL_CR:
@@ -361,6 +370,8 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			return 0;
 
 		case WM_CLOSE:
+			if (!promptAndHandleQuit())
+				return 0;
 			KillTimer(hWnd, IDT_STATUSBAR);
 			PostQuitMessage(0);
 			return 0;

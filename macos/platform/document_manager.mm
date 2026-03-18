@@ -28,7 +28,8 @@ void saveViewState(void* sci, std::vector<DocumentData>& docs, int tabIdx)
 	doc.cursorPos = ScintillaBridge_sendMessage(sci, SCI_GETCURRENTPOS, 0, 0);
 	doc.anchorPos = ScintillaBridge_sendMessage(sci, SCI_GETANCHOR, 0, 0);
 	doc.firstVisibleLine = ScintillaBridge_sendMessage(sci, SCI_GETFIRSTVISIBLELINE, 0, 0);
-	doc.modified = ScintillaBridge_sendMessage(sci, SCI_GETMODIFY, 0, 0) != 0;
+	if (doc.savePointValid)
+		doc.modified = ScintillaBridge_sendMessage(sci, SCI_GETMODIFY, 0, 0) != 0;
 
 	doc.bookmarkedLines.clear();
 	intptr_t lineCount = ScintillaBridge_sendMessage(sci, SCI_GETLINECOUNT, 0, 0);
@@ -47,19 +48,25 @@ void saveScintillaState()
 	saveViewState(ctx().scintillaView, ctx().documents, ctx().activeTab);
 }
 
-void restoreViewToScintilla(void* sci, const std::vector<DocumentData>& docs, int tabIndex)
+void restoreViewToScintilla(void* sci, std::vector<DocumentData>& docs, int tabIndex)
 {
 	if (tabIndex < 0 || tabIndex >= static_cast<int>(docs.size()))
 		return;
 	if (!sci) return;
 
-	const auto& doc = docs[tabIndex];
+	auto& doc = docs[tabIndex];
+	ctx().suppressSavePointNotifications = true;
 	ScintillaBridge_sendMessage(sci, SCI_SETTEXT, 0, (intptr_t)doc.content.c_str());
-	ScintillaBridge_sendMessage(sci, SCI_SETFIRSTVISIBLELINE, doc.firstVisibleLine, 0);
-	ScintillaBridge_sendMessage(sci, SCI_SETSEL, doc.anchorPos, doc.cursorPos);
 	if (!doc.modified)
 		ScintillaBridge_sendMessage(sci, SCI_SETSAVEPOINT, 0, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETFIRSTVISIBLELINE, doc.firstVisibleLine, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETSEL, doc.anchorPos, doc.cursorPos);
 	ScintillaBridge_sendMessage(sci, SCI_EMPTYUNDOBUFFER, 0, 0);
+	// SCI_EMPTYUNDOBUFFER resets Scintilla's save point to current position.
+	// For modified documents, this makes Scintilla think it's clean when it isn't.
+	// Mark the save point as invalid so SCN_SAVEPOINTREACHED won't clear modified.
+	doc.savePointValid = !doc.modified;
+	ctx().suppressSavePointNotifications = false;
 
 	for (int bkLine : doc.bookmarkedLines)
 		ScintillaBridge_sendMessage(sci, SCI_MARKERADD, bkLine, BOOKMARK_MARKER);
@@ -93,6 +100,7 @@ void switchToTabInView(int viewIndex, int tabIndex)
 	const auto& doc = docs[tabIndex];
 	NSString* title = WideToNSString(doc.title.c_str());
 	[ctx().mainWindow setTitle:[NSString stringWithFormat:@"Notepad++ — %@", title]];
+	updateWindowDocumentEdited();
 }
 
 void switchToTab(int tabIndex)
@@ -135,10 +143,12 @@ int addNewTabToView(int viewIndex, const std::wstring& title, const std::string&
 
 	activeTab = newIndex;
 
+	ctx().suppressSavePointNotifications = true;
 	ScintillaBridge_sendMessage(sci, SCI_SETTEXT, 0, (intptr_t)content.c_str());
+	ScintillaBridge_sendMessage(sci, SCI_SETSAVEPOINT, 0, 0);
 	ScintillaBridge_sendMessage(sci, SCI_GOTOPOS, 0, 0);
 	ScintillaBridge_sendMessage(sci, SCI_EMPTYUNDOBUFFER, 0, 0);
-	ScintillaBridge_sendMessage(sci, SCI_SETSAVEPOINT, 0, 0);
+	ctx().suppressSavePointNotifications = false;
 
 	applyLanguageToView(sci, langIndex);
 
@@ -168,9 +178,11 @@ void closeTabFromView(int viewIndex, int tabIndex)
 	if (docs.size() <= 1)
 	{
 		docs[0] = DocumentData();
+		ctx().suppressSavePointNotifications = true;
 		ScintillaBridge_sendMessage(sci, SCI_CLEARALL, 0, 0);
 		ScintillaBridge_sendMessage(sci, SCI_EMPTYUNDOBUFFER, 0, 0);
 		ScintillaBridge_sendMessage(sci, SCI_SETSAVEPOINT, 0, 0);
+		ctx().suppressSavePointNotifications = false;
 		if (tabHwnd)
 		{
 			TCITEMW tcItem = {};
@@ -180,6 +192,7 @@ void closeTabFromView(int viewIndex, int tabIndex)
 			SendMessageW(tabHwnd, TCM_SETITEMW, 0, reinterpret_cast<LPARAM>(&tcItem));
 		}
 		[ctx().mainWindow setTitle:@"Notepad++ — Untitled"];
+		updateWindowDocumentEdited();
 		return;
 	}
 
@@ -203,9 +216,47 @@ void closeTabFromView(int viewIndex, int tabIndex)
 	const auto& doc = docs[activeTab];
 	NSString* title = WideToNSString(doc.title.c_str());
 	[ctx().mainWindow setTitle:[NSString stringWithFormat:@"Notepad++ — %@", title]];
+	updateWindowDocumentEdited();
 }
 
 void closeTab(int tabIndex)
 {
 	closeTabFromView(ctx().activeView, tabIndex);
+}
+
+void updateTabModifiedIndicator(int viewIndex, int tabIndex)
+{
+	auto& docs = (viewIndex == 0) ? ctx().documents : ctx().documents2;
+	HWND tabHwnd = (viewIndex == 0) ? ctx().tabHwnd : ctx().tabHwnd2;
+
+	if (tabIndex < 0 || tabIndex >= static_cast<int>(docs.size()))
+		return;
+	if (!tabHwnd) return;
+
+	const auto& doc = docs[tabIndex];
+	std::wstring displayTitle = doc.title;
+	if (doc.modified)
+		displayTitle += L" \u2022";
+
+	TCITEMW tcItem = {};
+	tcItem.mask = TCIF_TEXT;
+	wchar_t titleBuf[256];
+	wcsncpy(titleBuf, displayTitle.c_str(), 255);
+	titleBuf[255] = L'\0';
+	tcItem.pszText = titleBuf;
+	SendMessageW(tabHwnd, TCM_SETITEMW, tabIndex, reinterpret_cast<LPARAM>(&tcItem));
+}
+
+void updateWindowDocumentEdited()
+{
+	if (!ctx().mainWindow) return;
+
+	auto& docs = ctx().activeDocuments();
+	int tabIdx = ctx().activeTabIndex();
+
+	bool isModified = false;
+	if (tabIdx >= 0 && tabIdx < static_cast<int>(docs.size()))
+		isModified = docs[tabIdx].modified;
+
+	[ctx().mainWindow setDocumentEdited:isModified];
 }

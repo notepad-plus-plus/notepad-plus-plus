@@ -41,7 +41,7 @@ HMENU buildMenuBar()
 	AppendMenuW(hEditMenu, MF_SEPARATOR, 0, nullptr);
 	AppendMenuW(hEditMenu, MF_STRING, IDM_EDIT_SELECTALL, L"Select &All\tCtrl+A");
 	AppendMenuW(hEditMenu, MF_SEPARATOR, 0, nullptr);
-	AppendMenuW(hEditMenu, MF_STRING, IDM_EDIT_AUTOCOMPLETE, L"Auto-&Complete\tCtrl+Space");
+	AppendMenuW(hEditMenu, MF_STRING, IDM_EDIT_AUTOCOMPLETE, L"Auto-&Complete\tF5");
 	AppendMenuW(hEditMenu, MF_SEPARATOR, 0, nullptr);
 
 	HMENU hCaseMenu = CreatePopupMenu();

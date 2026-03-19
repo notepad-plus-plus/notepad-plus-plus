@@ -134,11 +134,20 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					if (sci)
 					{
 						intptr_t mode = ScintillaBridge_sendMessage(sci, SCI_GETWRAPMODE, 0, 0);
-						ScintillaBridge_sendMessage(sci, SCI_SETWRAPMODE, mode == 0 ? 1 : 0, 0);
+						intptr_t newMode = (mode == SC_WRAP_NONE) ? SC_WRAP_WORD : SC_WRAP_NONE;
+
+						// Apply to both views
+						void* views[] = { ctx().scintillaView, ctx().scintillaView2 };
+						for (void* v : views)
+						{
+							if (v)
+								ScintillaBridge_sendMessage(v, SCI_SETWRAPMODE, newMode, 0);
+						}
+
 						HMENU hMenu = GetMenu(hWnd);
 						if (hMenu)
 							CheckMenuItem(hMenu, IDM_VIEW_WORDWRAP,
-							              MF_BYCOMMAND | (mode == 0 ? MF_CHECKED : MF_UNCHECKED));
+							              MF_BYCOMMAND | (newMode == SC_WRAP_WORD ? MF_CHECKED : MF_UNCHECKED));
 					}
 					return 0;
 				}

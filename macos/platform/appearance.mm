@@ -8,6 +8,7 @@
 #include "language_defs.h"
 #include "lexer_styles.h"
 #include "scintilla_bridge.h"
+#include "brace_match.h"
 
 void applyFoldMarkerColorsToView(void* sci, bool isDark)
 {
@@ -59,6 +60,7 @@ void applyAppearanceToView(void* sci, int langIdx, bool isDark)
 		isDark ? 0xFFA050 : 0xFF8000);
 
 	applyFoldMarkerColorsToView(sci, isDark);
+	configureBraceStyles(sci, isDark);
 }
 
 void applyAppearance()

@@ -248,6 +248,15 @@ enum {
 	SCI_DELWORDLEFT = 2335,
 	SCI_DELWORDRIGHT = 2336,
 	SCI_DELLINELEFT = 2395,
+
+	// Brace matching
+	SCI_BRACEHIGHLIGHT = 2351,
+	SCI_BRACEBADLIGHT = 2352,
+	SCI_BRACEMATCH = 2353,
+
+	// Indentation queries
+	SCI_GETUSETABS = 2125,
+	SCI_GETLINEINDENTATION = 2127,
 };
 
 // Scintilla key constants
@@ -310,8 +319,14 @@ enum {
 #define SC_AUTOMATICFOLD_CLICK    0x0004
 
 // Scintilla notification codes
-#define SCN_SAVEPOINTREACHED  2002
-#define SCN_SAVEPOINTLEFT     2003
+#define SCN_CHARADDED        2001
+#define SCN_SAVEPOINTREACHED 2002
+#define SCN_SAVEPOINTLEFT    2003
+#define SCN_UPDATEUI         2007
+
+// Wrap mode constants
+#define SC_WRAP_NONE 0
+#define SC_WRAP_WORD 1
 
 // EOL mode constants matching Scintilla
 #define SC_EOL_CRLF 0

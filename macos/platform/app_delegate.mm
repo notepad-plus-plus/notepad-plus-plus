@@ -21,6 +21,8 @@
 #include "handle_registry.h"
 #include "settings_manager.h"
 #include "file_monitor_mac.h"
+#include "brace_match.h"
+#include "auto_indent.h"
 #include "windows.h"
 #include "commctrl.h"
 
@@ -290,6 +292,14 @@ static void setDockIconFromLogo()
 							ScintillaBridge_sendMessage(ctx().scintillaView, SCI_MARKERADD, line, BOOKMARK_MARKER);
 					}
 				}
+				else if (scn->nmhdr.code == SCN_UPDATEUI)
+				{
+					doBraceMatch(ctx().scintillaView);
+				}
+				else if (scn->nmhdr.code == SCN_CHARADDED)
+				{
+					performAutoIndent(ctx().scintillaView, scn->ch);
+				}
 			}
 		});
 
@@ -370,8 +380,15 @@ static void setDockIconFromLogo()
 
 	addNewTab(L"Welcome", std::string(welcomeText));
 
-	if (s.wordWrap && ctx().scintillaView)
-		ScintillaBridge_sendMessage(ctx().scintillaView, SCI_SETWRAPMODE, 1, 0);
+	if (ctx().scintillaView)
+	{
+		ScintillaBridge_sendMessage(ctx().scintillaView, SCI_SETWRAPMODE,
+			s.wordWrap ? SC_WRAP_WORD : SC_WRAP_NONE, 0);
+		HMENU hMenu = GetMenu(ctx().mainHwnd);
+		if (hMenu)
+			CheckMenuItem(hMenu, IDM_VIEW_WORDWRAP,
+				MF_BYCOMMAND | (s.wordWrap ? MF_CHECKED : MF_UNCHECKED));
+	}
 	if (!ctx().showLineNumbers && ctx().scintillaView)
 		ScintillaBridge_sendMessage(ctx().scintillaView, SCI_SETMARGINWIDTHN, 0, 0);
 

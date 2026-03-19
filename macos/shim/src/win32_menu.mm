@@ -129,6 +129,8 @@ static void setKeyEquivalentFromText(NSMenuItem* item, NSString* shortcutText)
 				key = [NSString stringWithFormat:@"%C", (unichar)NSPageUpFunctionKey];
 			else if ([p caseInsensitiveCompare:@"PageDown"] == NSOrderedSame)
 				key = [NSString stringWithFormat:@"%C", (unichar)NSPageDownFunctionKey];
+			else if ([p caseInsensitiveCompare:@"Space"] == NSOrderedSame)
+				key = @" ";
 			else
 				key = [p lowercaseString];
 		}

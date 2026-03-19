@@ -336,6 +336,8 @@ add_executable(MacOSNotePP
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/save_prompt.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/about_dialog.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/keyboard_shortcuts.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/brace_match.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/auto_indent.mm"
 )
 target_include_directories(MacOSNotePP PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/platform"

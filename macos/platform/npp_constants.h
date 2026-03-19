@@ -248,6 +248,15 @@ enum {
 	SCI_DELWORDLEFT = 2335,
 	SCI_DELWORDRIGHT = 2336,
 	SCI_DELLINELEFT = 2395,
+
+	// Brace matching
+	SCI_BRACEHIGHLIGHT = 2351,
+	SCI_BRACEBADLIGHT = 2352,
+	SCI_BRACEMATCH = 2353,
+
+	// Indentation queries
+	SCI_GETUSETABS = 2125,
+	SCI_GETLINEINDENTATION = 2127,
 };
 
 // Scintilla key constants
@@ -314,15 +323,6 @@ enum {
 #define SCN_SAVEPOINTREACHED 2002
 #define SCN_SAVEPOINTLEFT    2003
 #define SCN_UPDATEUI         2007
-
-// Scintilla brace matching messages (add to SCI enum above would break numbering)
-#define SCI_BRACEHIGHLIGHT   2351
-#define SCI_BRACEBADLIGHT    2352
-#define SCI_BRACEMATCH       2353
-
-// Scintilla indentation messages
-#define SCI_GETLINEINDENTATION 2127
-#define SCI_GETUSETABS         2125
 
 // Wrap mode constants
 #define SC_WRAP_NONE 0

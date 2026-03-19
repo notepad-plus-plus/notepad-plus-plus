@@ -54,13 +54,15 @@ void configureBraceStyles(void* sci, bool isDark)
 {
 	if (!sci) return;
 
+	// Note: Scintilla colors are BGR (not RGB).
+
 	// Style 34: STYLE_BRACELIGHT — matched braces
-	ScintillaBridge_sendMessage(sci, SCI_STYLESETFORE, 34, isDark ? 0x00FF00 : 0xCC0000);
+	ScintillaBridge_sendMessage(sci, SCI_STYLESETFORE, 34, isDark ? 0x00FF00 : 0x0000CC);  // green / dark red
 	ScintillaBridge_sendMessage(sci, SCI_STYLESETBACK, 34, isDark ? 0x3A3A3A : 0xE0E0E0);
 	ScintillaBridge_sendMessage(sci, SCI_STYLESETBOLD, 34, 1);
 
-	// Style 35: STYLE_BRACEBADLIGHT — unmatched brace
-	ScintillaBridge_sendMessage(sci, SCI_STYLESETFORE, 35, 0x0000FF);
-	ScintillaBridge_sendMessage(sci, SCI_STYLESETBACK, 35, isDark ? 0x2A2A3A : 0xFFE0E0);
+	// Style 35: STYLE_BRACEBADLIGHT — unmatched brace (red foreground)
+	ScintillaBridge_sendMessage(sci, SCI_STYLESETFORE, 35, isDark ? 0x6060FF : 0x0000FF);  // light red / red
+	ScintillaBridge_sendMessage(sci, SCI_STYLESETBACK, 35, isDark ? 0x3A2A2A : 0xE0E0FF);  // red-tinted bg
 	ScintillaBridge_sendMessage(sci, SCI_STYLESETBOLD, 35, 1);
 }

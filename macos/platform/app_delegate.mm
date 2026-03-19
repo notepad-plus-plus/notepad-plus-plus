@@ -410,12 +410,36 @@ static void setDockIconFromLogo()
 			openFileAtPath(arg);
 	}
 
+	// Mark init complete and open any files that arrived before Scintilla was ready
+	_finishedLaunching = YES;
+	if (_pendingFiles.count > 0)
+	{
+		for (NSString* path in _pendingFiles)
+			openFileAtPath(path);
+		[_pendingFiles removeAllObjects];
+	}
+
 	NSLog(@"=== Notepad++ macOS Port — Phase 7 ===");
 	NSLog(@"Settings, split view, edit commands, encoding, session, drag-and-drop!");
 }
 
 - (void)application:(NSApplication*)sender openFiles:(NSArray<NSString*>*)filenames
 {
+	// If Scintilla isn't ready yet, queue files for after init completes
+	if (!_finishedLaunching)
+	{
+		if (!_pendingFiles)
+			_pendingFiles = [NSMutableArray array];
+		for (NSString* path in filenames)
+		{
+			BOOL isDir = NO;
+			if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && !isDir)
+				[_pendingFiles addObject:[path copy]];
+		}
+		[sender replyToOpenOrPrint:NSApplicationDelegateReplySuccess];
+		return;
+	}
+
 	BOOL anyOpened = NO;
 	for (NSString* path in filenames)
 	{

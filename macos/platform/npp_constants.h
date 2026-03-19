@@ -310,8 +310,23 @@ enum {
 #define SC_AUTOMATICFOLD_CLICK    0x0004
 
 // Scintilla notification codes
-#define SCN_SAVEPOINTREACHED  2002
-#define SCN_SAVEPOINTLEFT     2003
+#define SCN_CHARADDED        2001
+#define SCN_SAVEPOINTREACHED 2002
+#define SCN_SAVEPOINTLEFT    2003
+#define SCN_UPDATEUI         2007
+
+// Scintilla brace matching messages (add to SCI enum above would break numbering)
+#define SCI_BRACEHIGHLIGHT   2351
+#define SCI_BRACEBADLIGHT    2352
+#define SCI_BRACEMATCH       2353
+
+// Scintilla indentation messages
+#define SCI_GETLINEINDENTATION 2127
+#define SCI_GETUSETABS         2125
+
+// Wrap mode constants
+#define SC_WRAP_NONE 0
+#define SC_WRAP_WORD 1
 
 // EOL mode constants matching Scintilla
 #define SC_EOL_CRLF 0

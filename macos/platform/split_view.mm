@@ -12,6 +12,8 @@
 #include "scintilla_config.h"
 #include "scintilla_bridge.h"
 #include "handle_registry.h"
+#include "brace_match.h"
+#include "auto_indent.h"
 #include "windows.h"
 #include "commctrl.h"
 
@@ -145,6 +147,14 @@ void doSplit()
 						else
 							ScintillaBridge_sendMessage(ctx().scintillaView2, SCI_MARKERADD, line, BOOKMARK_MARKER);
 					}
+					else if (scn->nmhdr.code == SCN_UPDATEUI)
+					{
+						doBraceMatch(ctx().scintillaView2);
+					}
+					else if (scn->nmhdr.code == SCN_CHARADDED)
+					{
+						performAutoIndent(ctx().scintillaView2, scn->ch);
+					}
 				}
 			});
 	}
@@ -186,6 +196,13 @@ void doSplit()
 		ScintillaBridge_resizeToFit(ctx().scintillaView2);
 
 	applyAppearance();
+
+	// Sync word wrap state from main view to new split view
+	if (ctx().scintillaView && ctx().scintillaView2)
+	{
+		intptr_t wrapMode = ScintillaBridge_sendMessage(ctx().scintillaView, SCI_GETWRAPMODE, 0, 0);
+		ScintillaBridge_sendMessage(ctx().scintillaView2, SCI_SETWRAPMODE, wrapMode, 0);
+	}
 }
 
 void doUnsplit()

@@ -9,5 +9,9 @@
 @end
 
 @interface NppAppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate, NSSplitViewDelegate>
+{
+	BOOL _finishedLaunching;
+	NSMutableArray<NSString*>* _pendingFiles;
+}
 - (void)performContextAction:(NSMenuItem*)sender;
 @end

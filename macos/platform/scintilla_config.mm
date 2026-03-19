@@ -5,6 +5,7 @@
 #include "npp_constants.h"
 #include "app_state.h"
 #include "scintilla_bridge.h"
+#include "keyboard_shortcuts.h"
 
 void configureScintilla(void* sci)
 {
@@ -43,6 +44,12 @@ void configureScintilla(void* sci)
 	ScintillaBridge_sendMessage(sci, SCI_SETFOLDFLAGS, 16, 0);
 	ScintillaBridge_sendMessage(sci, SCI_SETAUTOMATICFOLD, SC_AUTOMATICFOLD_CLICK, 0);
 
-	ScintillaBridge_sendMessage(sci, SCI_SETCARETLINEVISIBLE, 1, 0);
-	ScintillaBridge_sendMessage(sci, SCI_SETCARETLINEBACK, 0xF0F0F0, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETCARETLINEVISIBLE, ctx().showCaretLine ? 1 : 0, 0);
+	if (ctx().showCaretLine)
+		ScintillaBridge_sendMessage(sci, SCI_SETCARETLINEBACK, 0xF0F0F0, 0);
+
+	if (ctx().zoomLevel != 0)
+		ScintillaBridge_sendMessage(sci, SCI_SETZOOM, ctx().zoomLevel, 0);
+
+	configureKeyboardShortcuts(sci);
 }

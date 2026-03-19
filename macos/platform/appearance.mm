@@ -48,7 +48,9 @@ void applyAppearanceToView(void* sci, int langIdx, bool isDark)
 	}
 
 	ScintillaBridge_sendMessage(sci, SCI_SETCARETFORE, isDark ? 0xAEAFAD : 0x000000, 0);
-	ScintillaBridge_sendMessage(sci, SCI_SETCARETLINEBACK, isDark ? 0x2A2A2A : 0xF0F0F0, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETCARETLINEVISIBLE, ctx().showCaretLine ? 1 : 0, 0);
+	if (ctx().showCaretLine)
+		ScintillaBridge_sendMessage(sci, SCI_SETCARETLINEBACK, isDark ? 0x2A2A2A : 0xF0F0F0, 0);
 
 	ScintillaBridge_sendMessage(sci, SCI_STYLESETFORE, 33, isDark ? 0x858585 : 0x808080);
 	ScintillaBridge_sendMessage(sci, SCI_STYLESETBACK, 33, isDark ? 0x1E1E1E : 0xF0F0F0);

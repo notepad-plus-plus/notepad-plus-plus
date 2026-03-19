@@ -13,7 +13,7 @@
 void showPreferencesDlg()
 {
 	@autoreleasepool {
-		NSPanel* panel = [[NSPanel alloc] initWithContentRect:NSMakeRect(0, 0, 380, 240)
+		NSPanel* panel = [[NSPanel alloc] initWithContentRect:NSMakeRect(0, 0, 380, 270)
 		                                    styleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskClosable
 		                                    backing:NSBackingStoreBuffered
 		                                    defer:NO];
@@ -22,7 +22,7 @@ void showPreferencesDlg()
 
 		NSView* content = panel.contentView;
 
-		NSTextField* fontLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(20, 195, 100, 20)];
+		NSTextField* fontLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(20, 225, 100, 20)];
 		fontLabel.stringValue = @"Font:";
 		fontLabel.bezeled = NO;
 		fontLabel.drawsBackground = NO;
@@ -30,7 +30,7 @@ void showPreferencesDlg()
 		fontLabel.selectable = NO;
 		[content addSubview:fontLabel];
 
-		NSPopUpButton* fontPopup = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(130, 192, 200, 26) pullsDown:NO];
+		NSPopUpButton* fontPopup = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(130, 222, 200, 26) pullsDown:NO];
 		NSArray* fonts = @[@"Menlo", @"Monaco", @"SF Mono", @"Courier New", @"Consolas",
 		                   @"Fira Code", @"JetBrains Mono", @"Source Code Pro"];
 		for (NSString* f in fonts)
@@ -41,7 +41,7 @@ void showPreferencesDlg()
 			[fontPopup selectItemAtIndex:0];
 		[content addSubview:fontPopup];
 
-		NSTextField* sizeLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(20, 160, 100, 20)];
+		NSTextField* sizeLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(20, 190, 100, 20)];
 		sizeLabel.stringValue = @"Font Size:";
 		sizeLabel.bezeled = NO;
 		sizeLabel.drawsBackground = NO;
@@ -49,7 +49,7 @@ void showPreferencesDlg()
 		sizeLabel.selectable = NO;
 		[content addSubview:sizeLabel];
 
-		NSPopUpButton* sizePopup = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(130, 157, 80, 26) pullsDown:NO];
+		NSPopUpButton* sizePopup = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(130, 187, 80, 26) pullsDown:NO];
 		NSArray* sizes = @[@"9", @"10", @"11", @"12", @"13", @"14", @"16", @"18", @"20", @"24"];
 		for (NSString* s in sizes)
 			[sizePopup addItemWithTitle:s];
@@ -58,7 +58,7 @@ void showPreferencesDlg()
 			[sizePopup selectItemAtIndex:4];
 		[content addSubview:sizePopup];
 
-		NSTextField* tabLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(20, 125, 100, 20)];
+		NSTextField* tabLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(20, 155, 100, 20)];
 		tabLabel.stringValue = @"Tab Width:";
 		tabLabel.bezeled = NO;
 		tabLabel.drawsBackground = NO;
@@ -66,7 +66,7 @@ void showPreferencesDlg()
 		tabLabel.selectable = NO;
 		[content addSubview:tabLabel];
 
-		NSPopUpButton* tabPopup = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(130, 122, 80, 26) pullsDown:NO];
+		NSPopUpButton* tabPopup = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(130, 152, 80, 26) pullsDown:NO];
 		NSArray* tabSizes = @[@"2", @"3", @"4", @"5", @"6", @"7", @"8"];
 		for (NSString* t in tabSizes)
 			[tabPopup addItemWithTitle:t];
@@ -75,7 +75,13 @@ void showPreferencesDlg()
 			[tabPopup selectItemAtIndex:2];
 		[content addSubview:tabPopup];
 
-		NSTextField* darkLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(20, 85, 340, 20)];
+		NSButton* caretLineCheck = [[NSButton alloc] initWithFrame:NSMakeRect(20, 90, 300, 20)];
+		caretLineCheck.title = @"Highlight current line";
+		[caretLineCheck setButtonType:NSButtonTypeSwitch];
+		caretLineCheck.state = ctx().showCaretLine ? NSControlStateValueOn : NSControlStateValueOff;
+		[content addSubview:caretLineCheck];
+
+		NSTextField* darkLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(20, 65, 340, 20)];
 		darkLabel.stringValue = @"Dark mode follows system preferences.";
 		darkLabel.bezeled = NO;
 		darkLabel.drawsBackground = NO;
@@ -111,6 +117,7 @@ void showPreferencesDlg()
 			ctx().fontName = [selFont UTF8String];
 			ctx().fontSize = sizePopup.titleOfSelectedItem.intValue;
 			ctx().tabWidth = tabPopup.titleOfSelectedItem.intValue;
+			ctx().showCaretLine = (caretLineCheck.state == NSControlStateValueOn);
 
 			void* views[] = { ctx().scintillaView, ctx().scintillaView2 };
 			for (void* sci : views)
@@ -134,6 +141,7 @@ void showPreferencesDlg()
 			ss.fontName = ctx().fontName;
 			ss.fontSize = ctx().fontSize;
 			ss.tabWidth = ctx().tabWidth;
+			ss.showCaretLine = ctx().showCaretLine;
 			SettingsManager::instance().save();
 		}
 

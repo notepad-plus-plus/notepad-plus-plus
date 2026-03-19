@@ -21,6 +21,8 @@ struct AppSettings
 	// View state
 	bool wordWrap = false;
 	bool showLineNumbers = true;
+	int zoomLevel = 0;
+	bool showCaretLine = true;
 
 	// Recent files
 	std::vector<std::string> recentFiles;

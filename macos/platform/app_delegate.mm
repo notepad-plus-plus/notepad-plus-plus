@@ -106,6 +106,8 @@ static void setDockIconFromLogo()
 	ctx().fontSize = s.fontSize;
 	ctx().tabWidth = s.tabWidth;
 	ctx().showLineNumbers = s.showLineNumbers;
+	ctx().zoomLevel = s.zoomLevel;
+	ctx().showCaretLine = s.showCaretLine;
 	setDockIconFromLogo();
 
 	ctx().recentFiles.clear();
@@ -483,6 +485,8 @@ static void setDockIconFromLogo()
 	s.fontSize = ctx().fontSize;
 	s.tabWidth = ctx().tabWidth;
 	s.showLineNumbers = ctx().showLineNumbers;
+	s.zoomLevel = ctx().zoomLevel;
+	s.showCaretLine = ctx().showCaretLine;
 	s.wordWrap = ctx().scintillaView ?
 		(ScintillaBridge_sendMessage(ctx().scintillaView, SCI_GETWRAPMODE, 0, 0) != 0) : false;
 

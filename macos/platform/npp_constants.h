@@ -60,6 +60,11 @@
 #define IDM_VIEW_MOVETOOTHER         42072
 #define IDM_VIEW_CLONETOOTHER        42073
 
+// Zoom commands
+#define IDM_VIEW_ZOOMIN              42074
+#define IDM_VIEW_ZOOMOUT             42075
+#define IDM_VIEW_ZOOMRESTORE         42076
+
 // Help menu commands
 #define IDM_HELP_ABOUT           46001
 
@@ -214,7 +219,53 @@ enum {
 	SCI_SETEOLMODE = 2031,
 	SCI_GETEOLMODE = 2030,
 	SCI_CONVERTEOLS = 2029,
+
+	// Zoom
+	SCI_ZOOMIN = 2333,
+	SCI_ZOOMOUT = 2334,
+	SCI_SETZOOM = 2373,
+	SCI_GETZOOM = 2374,
+
+	// Key binding support
+	SCI_ASSIGNCMDKEY = 2070,
+	SCI_CLEARCMDKEY = 2071,
+
+	// Movement commands
+	SCI_DOCUMENTSTART = 2316,
+	SCI_DOCUMENTSTARTEXTEND = 2317,
+	SCI_DOCUMENTEND = 2318,
+	SCI_DOCUMENTENDEXTEND = 2319,
+	SCI_HOME = 2312,
+	SCI_HOMEEXTEND = 2313,
+	SCI_VCHOME = 2331,
+	SCI_VCHOMEEXTEND = 2332,
+	SCI_LINEEND = 2314,
+	SCI_LINEENDEXTEND = 2315,
+	SCI_WORDLEFT = 2308,
+	SCI_WORDLEFTEXTEND = 2309,
+	SCI_WORDRIGHT = 2310,
+	SCI_WORDRIGHTEXTEND = 2311,
+	SCI_DELWORDLEFT = 2335,
+	SCI_DELWORDRIGHT = 2336,
+	SCI_DELLINELEFT = 2395,
 };
+
+// Scintilla key constants
+#define SCK_DOWN    300
+#define SCK_UP      301
+#define SCK_LEFT    302
+#define SCK_RIGHT   303
+#define SCK_HOME    304
+#define SCK_END     305
+#define SCK_DELETE  308
+#define SCK_BACK    8
+
+// Scintilla modifier masks
+#define SCMOD_SHIFT 1
+#define SCMOD_CTRL  2
+#define SCMOD_ALT   4
+#define SCMOD_SUPER 8
+#define SCMOD_META  16
 
 // Scintilla search flags
 #define SCFIND_MATCHCASE  4

@@ -51,6 +51,8 @@ struct AppContext
 	int tabWidth = 4;
 	std::string fontName = "Menlo";
 	bool showLineNumbers = true;
+	int zoomLevel = 0;
+	bool showCaretLine = true;
 
 	// Split view state
 	void* scintillaView2 = nullptr;

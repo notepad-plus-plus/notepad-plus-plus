@@ -73,6 +73,8 @@ bool SettingsManager::load()
 	// View state
 	if ([json[@"wordWrap"] isKindOfClass:[NSNumber class]])        settings.wordWrap = [json[@"wordWrap"] boolValue];
 	if ([json[@"showLineNumbers"] isKindOfClass:[NSNumber class]]) settings.showLineNumbers = [json[@"showLineNumbers"] boolValue];
+	if ([json[@"zoomLevel"] isKindOfClass:[NSNumber class]])       settings.zoomLevel = [json[@"zoomLevel"] intValue];
+	if ([json[@"showCaretLine"] isKindOfClass:[NSNumber class]])   settings.showCaretLine = [json[@"showCaretLine"] boolValue];
 
 	// Recent files
 	settings.recentFiles.clear();
@@ -130,6 +132,8 @@ bool SettingsManager::save()
 		@"tabWidth":     @(settings.tabWidth),
 		@"wordWrap":     @(settings.wordWrap),
 		@"showLineNumbers": @(settings.showLineNumbers),
+		@"zoomLevel":    @(settings.zoomLevel),
+		@"showCaretLine": @(settings.showCaretLine),
 		@"recentFiles":  recentArr
 	};
 

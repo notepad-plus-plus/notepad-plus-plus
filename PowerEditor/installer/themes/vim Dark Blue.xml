@@ -170,6 +170,7 @@
             <WordsStyle name="TYPE WORD" styleID="16" fgColor="00FF00" bgColor="000040" fontName="" fontStyle="0" fontSize="" keywordClass="type1" />
             <WordsStyle name="NUMBER" styleID="4" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING" styleID="6" fgColor="FFA0A0" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRINGRAW" styleID="20" fgColor="FFA0A0" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CHARACTER" styleID="7" fgColor="FFA0A0" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="10" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="VERBATIM" styleID="13" fgColor="00FFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />

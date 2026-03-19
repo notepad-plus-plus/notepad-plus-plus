@@ -79,6 +79,7 @@ Credits:
             <WordsStyle name="TYPE WORD" styleID="16" fgColor="F92672" bgColor="272822" fontName="" fontStyle="" fontSize="" keywordClass="type1" />
             <WordsStyle name="NUMBER" styleID="4" fgColor="AE81FF" bgColor="272822" fontName="" fontStyle="" fontSize="" />
             <WordsStyle name="STRING" styleID="6" fgColor="E6DB74" bgColor="272822" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="STRINGRAW" styleID="20" fgColor="E6DB74" bgColor="272822" fontName="" fontStyle="" fontSize="" />
             <WordsStyle name="CHARACTER" styleID="7" fgColor="E6DB74" bgColor="272822" fontName="" fontStyle="" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="10" fgColor="F92672" bgColor="272822" fontName="" fontStyle="" fontSize="" />
             <WordsStyle name="VERBATIM" styleID="13" fgColor="AE81FF" bgColor="272822" fontName="" fontStyle="" fontSize="" />

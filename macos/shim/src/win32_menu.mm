@@ -147,6 +147,44 @@ static void setKeyEquivalentFromText(NSMenuItem* item, NSString* shortcutText)
 // Menu Target: dispatches NSMenuItem clicks as WM_COMMAND
 // ============================================================
 
+// Forward declaration
+static HMENU findHmenuForNSMenu(NSMenu* menu);
+
+@interface Win32MenuDelegate : NSObject <NSMenuDelegate>
++ (instancetype)shared;
+@end
+
+@implementation Win32MenuDelegate
+
++ (instancetype)shared
+{
+	static Win32MenuDelegate* instance = nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		instance = [[Win32MenuDelegate alloc] init];
+	});
+	return instance;
+}
+
+- (void)menuWillOpen:(NSMenu*)menu
+{
+	HMENU hMenu = findHmenuForNSMenu(menu);
+	if (!hMenu)
+		return;
+
+	HWND mainWnd = HandleRegistry::getMainWindow();
+	if (!mainWnd)
+		return;
+
+	auto* info = HandleRegistry::getWindowInfo(mainWnd);
+	if (info && info->wndProc)
+		info->wndProc(mainWnd, WM_INITMENUPOPUP, reinterpret_cast<WPARAM>(hMenu), 0);
+	else
+		SendMessageW(mainWnd, WM_INITMENUPOPUP, reinterpret_cast<WPARAM>(hMenu), 0);
+}
+
+@end
+
 @interface Win32MenuTarget : NSObject
 + (instancetype)shared;
 - (void)menuItemClicked:(NSMenuItem*)sender;
@@ -283,6 +321,7 @@ HMENU CreateMenu()
 	@autoreleasepool {
 		NSMenu* menu = [[NSMenu alloc] init];
 		[menu setAutoenablesItems:NO];
+		menu.delegate = [Win32MenuDelegate shared];
 		return allocHmenu(menu);
 	}
 }
@@ -333,10 +372,12 @@ BOOL SetMenu(HWND hWnd, HMENU hMenu)
 	// On macOS, we need to wrap the menu items under a main menu with an app menu
 	NSMenu* mainMenu = [[NSMenu alloc] init];
 	[mainMenu setAutoenablesItems:NO];
+	mainMenu.delegate = [Win32MenuDelegate shared];
 
 	// Add application menu (About, Quit)
 	NSMenuItem* appMenuItem = [[NSMenuItem alloc] init];
 	NSMenu* appMenu = [[NSMenu alloc] initWithTitle:@"Notepad++"];
+	appMenu.delegate = [Win32MenuDelegate shared];
 	[appMenu addItemWithTitle:@"About Notepad++" action:@selector(orderFrontStandardAboutPanel:) keyEquivalent:@""];
 	[appMenu addItem:[NSMenuItem separatorItem]];
 	NSMenuItem* quitItem = [appMenu addItemWithTitle:@"Quit Notepad++" action:@selector(terminate:) keyEquivalent:@"q"];

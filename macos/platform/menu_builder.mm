@@ -26,6 +26,11 @@ HMENU buildMenuBar()
 	AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_SAVE, L"&Save\tCtrl+S");
 	AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_SAVEAS, L"Save &As...\tCtrl+Shift+S");
 	AppendMenuW(hFileMenu, MF_SEPARATOR, 0, nullptr);
+	AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_REVEAL_FINDER, L"Reveal in &Finder");
+	AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_COPY_FULL_PATH, L"Copy Full &Path");
+	AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_COPY_FILENAME, L"Copy File &Name");
+	AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_COPY_DIR_PATH, L"Copy &Directory Path");
+	AppendMenuW(hFileMenu, MF_SEPARATOR, 0, nullptr);
 	AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_CLOSE, L"&Close\tCtrl+W");
 	AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_CLOSEALL, L"Close &All");
 	AppendMenuW(hMenuBar, MF_POPUP, reinterpret_cast<UINT_PTR>(hFileMenu), L"&File");
@@ -61,6 +66,11 @@ HMENU buildMenuBar()
 	AppendMenuW(hLineMenu, MF_STRING, IDM_EDIT_JOINLINES, L"&Join Lines");
 	AppendMenuW(hEditMenu, MF_POPUP, reinterpret_cast<UINT_PTR>(hLineMenu), L"Line Operations");
 
+	HMENU hTabSpaceMenu = CreatePopupMenu();
+	AppendMenuW(hTabSpaceMenu, MF_STRING, IDM_EDIT_TABS_TO_SPACES, L"&Tabs to Spaces");
+	AppendMenuW(hTabSpaceMenu, MF_STRING, IDM_EDIT_SPACES_TO_TABS, L"&Spaces to Tabs");
+	AppendMenuW(hEditMenu, MF_POPUP, reinterpret_cast<UINT_PTR>(hTabSpaceMenu), L"Tab/Space Conversion");
+
 	AppendMenuW(hEditMenu, MF_SEPARATOR, 0, nullptr);
 	AppendMenuW(hEditMenu, MF_STRING, IDM_EDIT_TOGGLECOMMENT, L"Toggle &Comment\tCtrl+/");
 	AppendMenuW(hEditMenu, MF_STRING, IDM_EDIT_TRIMTRAILING, L"&Trim Trailing Whitespace");
@@ -88,6 +98,9 @@ HMENU buildMenuBar()
 	HMENU hViewMenu = CreatePopupMenu();
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_WORDWRAP, L"&Word Wrap");
 	AppendMenuW(hViewMenu, MF_STRING | (ctx().showLineNumbers ? MF_CHECKED : MF_UNCHECKED), IDM_VIEW_LINENUMBER, L"&Line Numbers");
+	AppendMenuW(hViewMenu, MF_STRING | (ctx().showWhitespace ? MF_CHECKED : MF_UNCHECKED), IDM_VIEW_SHOW_WS, L"Show &Whitespace && TAB");
+	AppendMenuW(hViewMenu, MF_STRING | (ctx().showEol ? MF_CHECKED : MF_UNCHECKED), IDM_VIEW_SHOW_EOL, L"Show &End of Line");
+	AppendMenuW(hViewMenu, MF_STRING | (ctx().showIndentGuides ? MF_CHECKED : MF_UNCHECKED), IDM_VIEW_SHOW_INDENT, L"Show &Indent Guides");
 	AppendMenuW(hViewMenu, MF_SEPARATOR, 0, nullptr);
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_FOLDALL, L"&Fold All");
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_UNFOLDALL, L"&Unfold All");
@@ -100,6 +113,8 @@ HMENU buildMenuBar()
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_ZOOMIN, L"Zoom &In\tCtrl+=");
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_ZOOMOUT, L"Zoom &Out\tCtrl+-");
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_ZOOMRESTORE, L"&Reset Zoom\tCtrl+0");
+	AppendMenuW(hViewMenu, MF_SEPARATOR, 0, nullptr);
+	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_FULLSCREEN, L"Enter Full Screen\tCtrl+Cmd+F");
 	AppendMenuW(hViewMenu, MF_SEPARATOR, 0, nullptr);
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_PREFERENCES, L"&Preferences...\tCtrl+,");
 	AppendMenuW(hMenuBar, MF_POPUP, reinterpret_cast<UINT_PTR>(hViewMenu), L"&View");

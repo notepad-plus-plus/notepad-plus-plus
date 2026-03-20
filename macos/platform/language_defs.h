@@ -18,3 +18,6 @@ extern const LangDef g_languages[];
 extern const int g_numLanguages;
 
 int guessLanguage(const std::wstring& filePath);
+
+// Returns true if the language uses C-style { } block indentation.
+bool isCStyleLanguage(int languageIndex);

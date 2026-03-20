@@ -13,7 +13,7 @@
 void showPreferencesDlg()
 {
 	@autoreleasepool {
-		NSPanel* panel = [[NSPanel alloc] initWithContentRect:NSMakeRect(0, 0, 380, 300)
+		NSPanel* panel = [[NSPanel alloc] initWithContentRect:NSMakeRect(0, 0, 380, 330)
 		                                    styleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskClosable
 		                                    backing:NSBackingStoreBuffered
 		                                    defer:NO];
@@ -75,6 +75,12 @@ void showPreferencesDlg()
 			[tabPopup selectItemAtIndex:2];
 		[content addSubview:tabPopup];
 
+		NSButton* useTabsCheck = [[NSButton alloc] initWithFrame:NSMakeRect(20, 120, 300, 20)];
+		useTabsCheck.title = @"Use Tabs (instead of Spaces)";
+		[useTabsCheck setButtonType:NSButtonTypeSwitch];
+		useTabsCheck.state = ctx().useTabs ? NSControlStateValueOn : NSControlStateValueOff;
+		[content addSubview:useTabsCheck];
+
 		NSButton* caretLineCheck = [[NSButton alloc] initWithFrame:NSMakeRect(20, 90, 300, 20)];
 		caretLineCheck.title = @"Highlight current line";
 		[caretLineCheck setButtonType:NSButtonTypeSwitch];
@@ -125,6 +131,7 @@ void showPreferencesDlg()
 			ctx().tabWidth = tabPopup.titleOfSelectedItem.intValue;
 			ctx().showCaretLine = (caretLineCheck.state == NSControlStateValueOn);
 			ctx().autoIndent = (autoIndentCheck.state == NSControlStateValueOn);
+			ctx().useTabs = (useTabsCheck.state == NSControlStateValueOn);
 
 			void* views[] = { ctx().scintillaView, ctx().scintillaView2 };
 			for (void* sci : views)
@@ -134,6 +141,7 @@ void showPreferencesDlg()
 				ScintillaBridge_sendMessage(sci, SCI_STYLESETSIZE, 32, ctx().fontSize);
 				ScintillaBridge_sendMessage(sci, SCI_STYLECLEARALL, 0, 0);
 				ScintillaBridge_sendMessage(sci, SCI_SETTABWIDTH, ctx().tabWidth, 0);
+				ScintillaBridge_sendMessage(sci, SCI_SETUSETABS, ctx().useTabs ? 1 : 0, 0);
 			}
 
 			applyAppearance();
@@ -150,6 +158,7 @@ void showPreferencesDlg()
 			ss.tabWidth = ctx().tabWidth;
 			ss.showCaretLine = ctx().showCaretLine;
 			ss.autoIndent = ctx().autoIndent;
+			ss.useTabs = ctx().useTabs;
 			SettingsManager::instance().save();
 		}
 

@@ -248,3 +248,106 @@ void doJoinLines()
 	ScintillaBridge_sendMessage(sci, SCI_SETSEL, selStart, selStart + (intptr_t)result.size());
 	ScintillaBridge_sendMessage(sci, SCI_ENDUNDOACTION, 0, 0);
 }
+
+void doTabsToSpaces()
+{
+	void* sci = ctx().activeScintillaView();
+	if (!sci) return;
+
+	intptr_t tabWidth = ScintillaBridge_sendMessage(sci, SCI_GETTABWIDTH, 0, 0);
+	if (tabWidth <= 0) tabWidth = 4;
+	std::string spaces(tabWidth, ' ');
+
+	intptr_t lineCount = ScintillaBridge_sendMessage(sci, SCI_GETLINECOUNT, 0, 0);
+
+	ScintillaBridge_sendMessage(sci, SCI_BEGINUNDOACTION, 0, 0);
+	for (intptr_t line = lineCount - 1; line >= 0; --line)
+	{
+		intptr_t lineStart = ScintillaBridge_sendMessage(sci, SCI_POSITIONFROMLINE, line, 0);
+		intptr_t lineLen = ScintillaBridge_sendMessage(sci, SCI_LINELENGTH, line, 0);
+		if (lineLen <= 0) continue;
+
+		std::vector<char> buf(lineLen + 1, 0);
+		ScintillaBridge_sendMessage(sci, SCI_GETLINE, line, (intptr_t)buf.data());
+
+		std::string newLeading;
+		intptr_t wsEnd = 0;
+		for (intptr_t i = 0; i < lineLen; ++i)
+		{
+			if (buf[i] == '\t')
+				newLeading += spaces;
+			else if (buf[i] == ' ')
+				newLeading += ' ';
+			else
+			{
+				wsEnd = i;
+				break;
+			}
+			wsEnd = i + 1;
+		}
+
+		if (wsEnd == 0) continue;
+
+		std::string oldLeading(buf.data(), wsEnd);
+		if (oldLeading == newLeading) continue;
+
+		ScintillaBridge_sendMessage(sci, SCI_SETTARGETSTART, lineStart, 0);
+		ScintillaBridge_sendMessage(sci, SCI_SETTARGETEND, lineStart + wsEnd, 0);
+		ScintillaBridge_sendMessage(sci, SCI_REPLACETARGET, newLeading.size(), (intptr_t)newLeading.c_str());
+	}
+	ScintillaBridge_sendMessage(sci, SCI_ENDUNDOACTION, 0, 0);
+}
+
+void doSpacesToTabs()
+{
+	void* sci = ctx().activeScintillaView();
+	if (!sci) return;
+
+	intptr_t tabWidth = ScintillaBridge_sendMessage(sci, SCI_GETTABWIDTH, 0, 0);
+	if (tabWidth <= 0) tabWidth = 4;
+
+	intptr_t lineCount = ScintillaBridge_sendMessage(sci, SCI_GETLINECOUNT, 0, 0);
+
+	ScintillaBridge_sendMessage(sci, SCI_BEGINUNDOACTION, 0, 0);
+	for (intptr_t line = lineCount - 1; line >= 0; --line)
+	{
+		intptr_t lineStart = ScintillaBridge_sendMessage(sci, SCI_POSITIONFROMLINE, line, 0);
+		intptr_t lineLen = ScintillaBridge_sendMessage(sci, SCI_LINELENGTH, line, 0);
+		if (lineLen <= 0) continue;
+
+		std::vector<char> buf(lineLen + 1, 0);
+		ScintillaBridge_sendMessage(sci, SCI_GETLINE, line, (intptr_t)buf.data());
+
+		// Count leading spaces
+		intptr_t spaceCount = 0;
+		intptr_t wsEnd = 0;
+		for (intptr_t i = 0; i < lineLen; ++i)
+		{
+			if (buf[i] == ' ')
+				++spaceCount;
+			else if (buf[i] == '\t')
+				spaceCount += tabWidth;
+			else
+			{
+				wsEnd = i;
+				break;
+			}
+			wsEnd = i + 1;
+		}
+
+		if (wsEnd == 0 || spaceCount == 0) continue;
+
+		intptr_t numTabs = spaceCount / tabWidth;
+		intptr_t extraSpaces = spaceCount % tabWidth;
+		std::string newLeading(numTabs, '\t');
+		newLeading.append(extraSpaces, ' ');
+
+		std::string oldLeading(buf.data(), wsEnd);
+		if (oldLeading == newLeading) continue;
+
+		ScintillaBridge_sendMessage(sci, SCI_SETTARGETSTART, lineStart, 0);
+		ScintillaBridge_sendMessage(sci, SCI_SETTARGETEND, lineStart + wsEnd, 0);
+		ScintillaBridge_sendMessage(sci, SCI_REPLACETARGET, newLeading.size(), (intptr_t)newLeading.c_str());
+	}
+	ScintillaBridge_sendMessage(sci, SCI_ENDUNDOACTION, 0, 0);
+}

@@ -154,7 +154,12 @@ void doSplit()
 					else if (scn->nmhdr.code == SCN_CHARADDED)
 					{
 						if (ctx().autoIndent)
-							performAutoIndent(ctx().scintillaView2, scn->ch);
+						{
+							int langIdx = -1;
+							if (ctx().activeTab2 >= 0 && ctx().activeTab2 < static_cast<int>(ctx().documents2.size()))
+								langIdx = ctx().documents2[ctx().activeTab2].languageIndex;
+							performAutoIndent(ctx().scintillaView2, scn->ch, langIdx);
+						}
 					}
 				}
 			});

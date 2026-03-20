@@ -111,6 +111,10 @@ static void setDockIconFromLogo()
 	ctx().zoomLevel = s.zoomLevel;
 	ctx().showCaretLine = s.showCaretLine;
 	ctx().autoIndent = s.autoIndent;
+	ctx().useTabs = s.useTabs;
+	ctx().showWhitespace = s.showWhitespace;
+	ctx().showEol = s.showEol;
+	ctx().showIndentGuides = s.showIndentGuides;
 	setDockIconFromLogo();
 
 	ctx().recentFiles.clear();
@@ -149,6 +153,7 @@ static void setDockIconFromLogo()
 		ctx().mainWindow = (__bridge NSWindow*)mainInfo->nativeWindow;
 		ctx().mainWindow.delegate = self;
 		[ctx().mainWindow setMinSize:NSMakeSize(500, 400)];
+		ctx().mainWindow.collectionBehavior |= NSWindowCollectionBehaviorFullScreenPrimary;
 
 		if (s.windowX != 100 || s.windowY != 100)
 		{
@@ -300,7 +305,12 @@ static void setDockIconFromLogo()
 				else if (scn->nmhdr.code == SCN_CHARADDED)
 				{
 					if (ctx().autoIndent)
-						performAutoIndent(ctx().scintillaView, scn->ch);
+					{
+						int langIdx = -1;
+						if (ctx().activeTab >= 0 && ctx().activeTab < static_cast<int>(ctx().documents.size()))
+							langIdx = ctx().documents[ctx().activeTab].languageIndex;
+						performAutoIndent(ctx().scintillaView, scn->ch, langIdx);
+					}
 				}
 			}
 		});
@@ -531,6 +541,10 @@ static void setDockIconFromLogo()
 	s.zoomLevel = ctx().zoomLevel;
 	s.showCaretLine = ctx().showCaretLine;
 	s.autoIndent = ctx().autoIndent;
+	s.useTabs = ctx().useTabs;
+	s.showWhitespace = ctx().showWhitespace;
+	s.showEol = ctx().showEol;
+	s.showIndentGuides = ctx().showIndentGuides;
 	s.wordWrap = ctx().scintillaView ?
 		(ScintillaBridge_sendMessage(ctx().scintillaView, SCI_GETWRAPMODE, 0, 0) != 0) : false;
 

@@ -66,6 +66,7 @@ void doCopyDirPath()
 
 void updateFilePathMenuState()
 {
+	// Menu APIs come from the Win32 shim layer and are intentionally used here.
 	HMENU hMenu = GetMenu(ctx().mainHwnd);
 	if (!hMenu) return;
 

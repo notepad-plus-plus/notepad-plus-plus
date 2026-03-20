@@ -8,17 +8,106 @@
 #include <string>
 #include <vector>
 
-// Find the last non-whitespace character on a line (excluding EOL chars).
-static char lastNonWS(const char* buf, intptr_t len)
+// Find the last significant character on a C-style source line.
+// Trailing comments and quoted content are ignored.
+static char lastSignificantCStyleChar(const char* buf, intptr_t len)
 {
-	for (intptr_t i = len - 1; i >= 0; --i)
+	char last = '\0';
+	bool inLineComment = false;
+	bool inBlockComment = false;
+	bool inString = false;
+	bool inChar = false;
+	bool escaped = false;
+
+	for (intptr_t i = 0; i < len; ++i)
 	{
 		char c = buf[i];
+
+		if (inLineComment)
+		{
+			if (c == '\r' || c == '\n')
+				inLineComment = false;
+			continue;
+		}
+
+		if (inBlockComment)
+		{
+			if (c == '*' && (i + 1) < len && buf[i + 1] == '/')
+			{
+				inBlockComment = false;
+				++i;
+			}
+			continue;
+		}
+
+		if (inString)
+		{
+			if (escaped)
+			{
+				escaped = false;
+				continue;
+			}
+			if (c == '\\')
+			{
+				escaped = true;
+				continue;
+			}
+			if (c == '"')
+				inString = false;
+			continue;
+		}
+
+		if (inChar)
+		{
+			if (escaped)
+			{
+				escaped = false;
+				continue;
+			}
+			if (c == '\\')
+			{
+				escaped = true;
+				continue;
+			}
+			if (c == '\'')
+				inChar = false;
+			continue;
+		}
+
+		if (c == '/' && (i + 1) < len)
+		{
+			if (buf[i + 1] == '/')
+			{
+				inLineComment = true;
+				++i;
+				continue;
+			}
+			if (buf[i + 1] == '*')
+			{
+				inBlockComment = true;
+				++i;
+				continue;
+			}
+		}
+
+		if (c == '"')
+		{
+			inString = true;
+			continue;
+		}
+		if (c == '\'')
+		{
+			inChar = true;
+			continue;
+		}
+
 		if (c == '\r' || c == '\n' || c == ' ' || c == '\t')
 			continue;
-		return c;
+
+		last = c;
 	}
-	return '\0';
+
+	return last;
 }
 
 // Check if a line contains only whitespace before the given position.
@@ -64,10 +153,10 @@ void performAutoIndent(void* sci, int charAdded, int languageIndex)
 				intptr_t prevLineLen = ScintillaBridge_sendMessage(sci, SCI_LINELENGTH, prevLine, 0);
 				std::vector<char> prevBuf(prevLineLen + 1, 0);
 				ScintillaBridge_sendMessage(sci, SCI_GETLINE, prevLine, (intptr_t)prevBuf.data());
-				char lastCh = lastNonWS(prevBuf.data(), prevLineLen);
+				char prevSigChar = lastSignificantCStyleChar(prevBuf.data(), prevLineLen);
 
 				intptr_t newIndent;
-				if (lastCh == '{')
+				if (prevSigChar == '{')
 					newIndent = prevIndent;
 				else
 				{
@@ -131,8 +220,8 @@ void performAutoIndent(void* sci, int charAdded, int languageIndex)
 	bool addIndent = false;
 	if (isCStyle)
 	{
-		char last = lastNonWS(lineBuf.data(), prevLineLen);
-		if (last == '{')
+		char prevSigChar = lastSignificantCStyleChar(lineBuf.data(), prevLineLen);
+		if (prevSigChar == '{')
 			addIndent = true;
 	}
 

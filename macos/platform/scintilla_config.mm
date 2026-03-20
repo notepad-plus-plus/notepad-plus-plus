@@ -14,7 +14,7 @@ void configureScintilla(void* sci)
 	ScintillaBridge_sendMessage(sci, SCI_SETCODEPAGE, 65001, 0);
 	ScintillaBridge_sendMessage(sci, SCI_SETWRAPMODE, 0, 0);
 	ScintillaBridge_sendMessage(sci, SCI_SETTABWIDTH, ctx().tabWidth, 0);
-	ScintillaBridge_sendMessage(sci, SCI_SETUSETABS, 0, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETUSETABS, ctx().useTabs ? 1 : 0, 0);
 
 	ScintillaBridge_sendMessage(sci, SCI_SETMARGINTYPEN, 0, 1);
 	ScintillaBridge_sendMessage(sci, SCI_SETMARGINWIDTHN, 0, 50);
@@ -43,6 +43,17 @@ void configureScintilla(void* sci)
 
 	ScintillaBridge_sendMessage(sci, SCI_SETFOLDFLAGS, 16, 0);
 	ScintillaBridge_sendMessage(sci, SCI_SETAUTOMATICFOLD, SC_AUTOMATICFOLD_CLICK, 0);
+
+	// Rectangular / column selection (Opt+drag)
+	ScintillaBridge_sendMessage(sci, SCI_SETRECTANGULARSELECTIONMODIFIER, SCMOD_ALT, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETMULTIPLESELECTION, 1, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETADDITIONALSELECTIONTYPING, 1, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETVIRTUALSPACEOPTIONS, SCVS_RECTANGULARSELECTION, 0);
+
+	// Whitespace / EOL / indent guide visibility
+	ScintillaBridge_sendMessage(sci, SCI_SETVIEWWS, ctx().showWhitespace ? SCWS_VISIBLEALWAYS : SCWS_INVISIBLE, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETVIEWEOL, ctx().showEol ? 1 : 0, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETINDENTATIONGUIDES, ctx().showIndentGuides ? SC_IV_LOOKBOTH : SC_IV_NONE, 0);
 
 	ScintillaBridge_sendMessage(sci, SCI_SETCARETLINEVISIBLE, ctx().showCaretLine ? 1 : 0, 0);
 	if (ctx().showCaretLine)

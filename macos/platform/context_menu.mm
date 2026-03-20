@@ -4,6 +4,7 @@
 #include "context_menu.h"
 #include "npp_constants.h"
 #include "app_state.h"
+#include "file_path_ops.h"
 
 void showContextMenu(NSPoint screenPoint)
 {
@@ -40,6 +41,19 @@ void showContextMenu(NSPoint screenPoint)
 	[contextMenu addItem:selectAllItem];
 	[contextMenu addItem:[NSMenuItem separatorItem]];
 	[contextMenu addItem:bookmarkItem];
+
+	if (hasActiveFilePath())
+	{
+		[contextMenu addItem:[NSMenuItem separatorItem]];
+
+		NSMenuItem* revealItem = [[NSMenuItem alloc] initWithTitle:@"Reveal in Finder" action:@selector(performContextAction:) keyEquivalent:@""];
+		revealItem.tag = IDM_FILE_REVEAL_FINDER;
+		[contextMenu addItem:revealItem];
+
+		NSMenuItem* copyPathItem = [[NSMenuItem alloc] initWithTitle:@"Copy Full Path" action:@selector(performContextAction:) keyEquivalent:@""];
+		copyPathItem.tag = IDM_FILE_COPY_FULL_PATH;
+		[contextMenu addItem:copyPathItem];
+	}
 
 	[NSMenu popUpContextMenu:contextMenu withEvent:[NSApp currentEvent] forView:ctx().mainWindow.contentView];
 }

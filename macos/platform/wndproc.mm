@@ -16,6 +16,7 @@
 #include "about_dialog.h"
 #include "recent_files.h"
 #include "status_bar.h"
+#include "file_path_ops.h"
 #include "lexer_styles.h"
 #include "language_defs.h"
 #include "scintilla_bridge.h"
@@ -89,6 +90,19 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				case IDM_FILE_RECENT_CLEAR:
 					ctx().recentFiles.clear();
 					rebuildRecentMenu();
+					return 0;
+
+				case IDM_FILE_REVEAL_FINDER:
+					doRevealInFinder();
+					return 0;
+				case IDM_FILE_COPY_FULL_PATH:
+					doCopyFullPath();
+					return 0;
+				case IDM_FILE_COPY_FILENAME:
+					doCopyFilename();
+					return 0;
+				case IDM_FILE_COPY_DIR_PATH:
+					doCopyDirPath();
 					return 0;
 
 				case IDM_EDIT_UNDO:
@@ -279,6 +293,12 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				case IDM_EDIT_JOINLINES:
 					doJoinLines();
 					return 0;
+				case IDM_EDIT_TABS_TO_SPACES:
+					doTabsToSpaces();
+					return 0;
+				case IDM_EDIT_SPACES_TO_TABS:
+					doSpacesToTabs();
+					return 0;
 
 				case IDM_VIEW_ZOOMIN:
 				{
@@ -310,7 +330,60 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					return 0;
 				}
 
-				case IDM_VIEW_SPLIT:
+				case IDM_VIEW_SHOW_WS:
+			{
+				ctx().showWhitespace = !ctx().showWhitespace;
+				void* views[] = { ctx().scintillaView, ctx().scintillaView2 };
+				for (void* v : views)
+				{
+					if (v)
+						ScintillaBridge_sendMessage(v, SCI_SETVIEWWS,
+							ctx().showWhitespace ? SCWS_VISIBLEALWAYS : SCWS_INVISIBLE, 0);
+				}
+				HMENU hMenu = GetMenu(hWnd);
+				if (hMenu)
+					CheckMenuItem(hMenu, IDM_VIEW_SHOW_WS,
+						MF_BYCOMMAND | (ctx().showWhitespace ? MF_CHECKED : MF_UNCHECKED));
+				return 0;
+			}
+			case IDM_VIEW_SHOW_EOL:
+			{
+				ctx().showEol = !ctx().showEol;
+				void* views[] = { ctx().scintillaView, ctx().scintillaView2 };
+				for (void* v : views)
+				{
+					if (v)
+						ScintillaBridge_sendMessage(v, SCI_SETVIEWEOL, ctx().showEol ? 1 : 0, 0);
+				}
+				HMENU hMenu = GetMenu(hWnd);
+				if (hMenu)
+					CheckMenuItem(hMenu, IDM_VIEW_SHOW_EOL,
+						MF_BYCOMMAND | (ctx().showEol ? MF_CHECKED : MF_UNCHECKED));
+				return 0;
+			}
+			case IDM_VIEW_SHOW_INDENT:
+			{
+				ctx().showIndentGuides = !ctx().showIndentGuides;
+				void* views[] = { ctx().scintillaView, ctx().scintillaView2 };
+				for (void* v : views)
+				{
+					if (v)
+						ScintillaBridge_sendMessage(v, SCI_SETINDENTATIONGUIDES,
+							ctx().showIndentGuides ? SC_IV_LOOKBOTH : SC_IV_NONE, 0);
+				}
+				HMENU hMenu = GetMenu(hWnd);
+				if (hMenu)
+					CheckMenuItem(hMenu, IDM_VIEW_SHOW_INDENT,
+						MF_BYCOMMAND | (ctx().showIndentGuides ? MF_CHECKED : MF_UNCHECKED));
+				return 0;
+			}
+
+			case IDM_VIEW_FULLSCREEN:
+				if (ctx().mainWindow)
+					[ctx().mainWindow toggleFullScreen:nil];
+				return 0;
+
+			case IDM_VIEW_SPLIT:
 					doSplit();
 					return 0;
 				case IDM_VIEW_UNSPLIT:
@@ -370,6 +443,10 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			}
 			break;
 		}
+
+		case WM_INITMENUPOPUP:
+			updateFilePathMenuState();
+			break;
 
 		case WM_NOTIFY:
 		{

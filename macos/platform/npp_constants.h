@@ -53,6 +53,8 @@
 #define IDM_EDIT_SORTASC             42041
 #define IDM_EDIT_SORTDESC            42042
 #define IDM_EDIT_JOINLINES           42043
+#define IDM_EDIT_TABS_TO_SPACES      42044
+#define IDM_EDIT_SPACES_TO_TABS      42045
 
 // Phase 7 — View commands
 #define IDM_VIEW_SPLIT               42070
@@ -64,6 +66,20 @@
 #define IDM_VIEW_ZOOMIN              42074
 #define IDM_VIEW_ZOOMOUT             42075
 #define IDM_VIEW_ZOOMRESTORE         42076
+
+// Full screen
+#define IDM_VIEW_FULLSCREEN          42077
+
+// File path operations
+#define IDM_FILE_REVEAL_FINDER       42090
+#define IDM_FILE_COPY_FULL_PATH      42091
+#define IDM_FILE_COPY_FILENAME       42092
+#define IDM_FILE_COPY_DIR_PATH       42093
+
+// Whitespace visibility
+#define IDM_VIEW_SHOW_WS             42080
+#define IDM_VIEW_SHOW_EOL            42081
+#define IDM_VIEW_SHOW_INDENT         42082
 
 // Help menu commands
 #define IDM_HELP_ABOUT           46001
@@ -256,7 +272,22 @@ enum {
 
 	// Indentation queries
 	SCI_GETUSETABS = 2125,
+	SCI_SETLINEINDENTATION = 2126,
 	SCI_GETLINEINDENTATION = 2127,
+
+	// Whitespace / EOL visibility
+	SCI_SETVIEWWS            = 2225,
+	SCI_GETVIEWWS            = 2224,
+	SCI_SETVIEWEOL           = 2280,
+	SCI_GETVIEWEOL           = 2281,
+	SCI_SETINDENTATIONGUIDES = 2132,
+	SCI_GETINDENTATIONGUIDES = 2133,
+
+	// Rectangular / column selection
+	SCI_SETMULTIPLESELECTION         = 2563,
+	SCI_SETADDITIONALSELECTIONTYPING = 2565,
+	SCI_SETVIRTUALSPACEOPTIONS       = 2596,
+	SCI_SETRECTANGULARSELECTIONMODIFIER = 2598,
 };
 
 // Scintilla key constants
@@ -275,6 +306,17 @@ enum {
 #define SCMOD_ALT   4
 #define SCMOD_SUPER 8
 #define SCMOD_META  16
+
+// Whitespace visibility modes
+#define SCWS_INVISIBLE         0
+#define SCWS_VISIBLEALWAYS     1
+
+// Indentation guide modes
+#define SC_IV_NONE             0
+#define SC_IV_LOOKBOTH         3
+
+// Virtual space options
+#define SCVS_RECTANGULARSELECTION  1
 
 // Scintilla search flags
 #define SCFIND_MATCHCASE  4

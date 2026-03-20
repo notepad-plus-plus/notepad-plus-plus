@@ -76,6 +76,10 @@ bool SettingsManager::load()
 	if ([json[@"zoomLevel"] isKindOfClass:[NSNumber class]])       settings.zoomLevel = [json[@"zoomLevel"] intValue];
 	if ([json[@"showCaretLine"] isKindOfClass:[NSNumber class]])   settings.showCaretLine = [json[@"showCaretLine"] boolValue];
 	if ([json[@"autoIndent"] isKindOfClass:[NSNumber class]])      settings.autoIndent = [json[@"autoIndent"] boolValue];
+	if ([json[@"useTabs"] isKindOfClass:[NSNumber class]])         settings.useTabs = [json[@"useTabs"] boolValue];
+	if ([json[@"showWhitespace"] isKindOfClass:[NSNumber class]])  settings.showWhitespace = [json[@"showWhitespace"] boolValue];
+	if ([json[@"showEol"] isKindOfClass:[NSNumber class]])         settings.showEol = [json[@"showEol"] boolValue];
+	if ([json[@"showIndentGuides"] isKindOfClass:[NSNumber class]])settings.showIndentGuides = [json[@"showIndentGuides"] boolValue];
 
 	// Recent files
 	settings.recentFiles.clear();
@@ -136,6 +140,10 @@ bool SettingsManager::save()
 		@"zoomLevel":    @(settings.zoomLevel),
 		@"showCaretLine": @(settings.showCaretLine),
 		@"autoIndent":   @(settings.autoIndent),
+		@"useTabs":      @(settings.useTabs),
+		@"showWhitespace": @(settings.showWhitespace),
+		@"showEol":      @(settings.showEol),
+		@"showIndentGuides": @(settings.showIndentGuides),
 		@"recentFiles":  recentArr
 	};
 

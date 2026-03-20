@@ -180,3 +180,22 @@ int guessLanguage(const std::wstring& filePath)
 
 	return 0;
 }
+
+bool isCStyleLanguage(int languageIndex)
+{
+	switch (languageIndex)
+	{
+		case 1:  // C
+		case 2:  // C++
+		case 3:  // Java
+		case 5:  // JavaScript
+		case 7:  // CSS
+		case 13: // Rust
+		case 14: // Go
+		case 15: // Objective-C
+		case 16: // Swift
+			return true;
+		default:
+			return false;
+	}
+}

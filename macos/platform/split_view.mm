@@ -153,7 +153,8 @@ void doSplit()
 					}
 					else if (scn->nmhdr.code == SCN_CHARADDED)
 					{
-						performAutoIndent(ctx().scintillaView2, scn->ch);
+						if (ctx().autoIndent)
+							performAutoIndent(ctx().scintillaView2, scn->ch);
 					}
 				}
 			});

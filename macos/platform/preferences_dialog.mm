@@ -13,7 +13,7 @@
 void showPreferencesDlg()
 {
 	@autoreleasepool {
-		NSPanel* panel = [[NSPanel alloc] initWithContentRect:NSMakeRect(0, 0, 380, 270)
+		NSPanel* panel = [[NSPanel alloc] initWithContentRect:NSMakeRect(0, 0, 380, 300)
 		                                    styleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskClosable
 		                                    backing:NSBackingStoreBuffered
 		                                    defer:NO];
@@ -81,7 +81,13 @@ void showPreferencesDlg()
 		caretLineCheck.state = ctx().showCaretLine ? NSControlStateValueOn : NSControlStateValueOff;
 		[content addSubview:caretLineCheck];
 
-		NSTextField* darkLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(20, 65, 340, 20)];
+		NSButton* autoIndentCheck = [[NSButton alloc] initWithFrame:NSMakeRect(20, 65, 300, 20)];
+		autoIndentCheck.title = @"Auto-indent on Enter";
+		[autoIndentCheck setButtonType:NSButtonTypeSwitch];
+		autoIndentCheck.state = ctx().autoIndent ? NSControlStateValueOn : NSControlStateValueOff;
+		[content addSubview:autoIndentCheck];
+
+		NSTextField* darkLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(20, 40, 340, 20)];
 		darkLabel.stringValue = @"Dark mode follows system preferences.";
 		darkLabel.bezeled = NO;
 		darkLabel.drawsBackground = NO;
@@ -118,6 +124,7 @@ void showPreferencesDlg()
 			ctx().fontSize = sizePopup.titleOfSelectedItem.intValue;
 			ctx().tabWidth = tabPopup.titleOfSelectedItem.intValue;
 			ctx().showCaretLine = (caretLineCheck.state == NSControlStateValueOn);
+			ctx().autoIndent = (autoIndentCheck.state == NSControlStateValueOn);
 
 			void* views[] = { ctx().scintillaView, ctx().scintillaView2 };
 			for (void* sci : views)
@@ -142,6 +149,7 @@ void showPreferencesDlg()
 			ss.fontSize = ctx().fontSize;
 			ss.tabWidth = ctx().tabWidth;
 			ss.showCaretLine = ctx().showCaretLine;
+			ss.autoIndent = ctx().autoIndent;
 			SettingsManager::instance().save();
 		}
 

@@ -75,6 +75,7 @@ bool SettingsManager::load()
 	if ([json[@"showLineNumbers"] isKindOfClass:[NSNumber class]]) settings.showLineNumbers = [json[@"showLineNumbers"] boolValue];
 	if ([json[@"zoomLevel"] isKindOfClass:[NSNumber class]])       settings.zoomLevel = [json[@"zoomLevel"] intValue];
 	if ([json[@"showCaretLine"] isKindOfClass:[NSNumber class]])   settings.showCaretLine = [json[@"showCaretLine"] boolValue];
+	if ([json[@"autoIndent"] isKindOfClass:[NSNumber class]])      settings.autoIndent = [json[@"autoIndent"] boolValue];
 
 	// Recent files
 	settings.recentFiles.clear();
@@ -134,6 +135,7 @@ bool SettingsManager::save()
 		@"showLineNumbers": @(settings.showLineNumbers),
 		@"zoomLevel":    @(settings.zoomLevel),
 		@"showCaretLine": @(settings.showCaretLine),
+		@"autoIndent":   @(settings.autoIndent),
 		@"recentFiles":  recentArr
 	};
 

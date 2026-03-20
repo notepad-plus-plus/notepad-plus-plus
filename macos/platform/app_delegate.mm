@@ -110,6 +110,7 @@ static void setDockIconFromLogo()
 	ctx().showLineNumbers = s.showLineNumbers;
 	ctx().zoomLevel = s.zoomLevel;
 	ctx().showCaretLine = s.showCaretLine;
+	ctx().autoIndent = s.autoIndent;
 	setDockIconFromLogo();
 
 	ctx().recentFiles.clear();
@@ -298,7 +299,8 @@ static void setDockIconFromLogo()
 				}
 				else if (scn->nmhdr.code == SCN_CHARADDED)
 				{
-					performAutoIndent(ctx().scintillaView, scn->ch);
+					if (ctx().autoIndent)
+						performAutoIndent(ctx().scintillaView, scn->ch);
 				}
 			}
 		});
@@ -528,6 +530,7 @@ static void setDockIconFromLogo()
 	s.showLineNumbers = ctx().showLineNumbers;
 	s.zoomLevel = ctx().zoomLevel;
 	s.showCaretLine = ctx().showCaretLine;
+	s.autoIndent = ctx().autoIndent;
 	s.wordWrap = ctx().scintillaView ?
 		(ScintillaBridge_sendMessage(ctx().scintillaView, SCI_GETWRAPMODE, 0, 0) != 0) : false;
 

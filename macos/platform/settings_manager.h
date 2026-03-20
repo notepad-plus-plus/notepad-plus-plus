@@ -23,6 +23,7 @@ struct AppSettings
 	bool showLineNumbers = true;
 	int zoomLevel = 0;
 	bool showCaretLine = true;
+	bool autoIndent = true;
 
 	// Recent files
 	std::vector<std::string> recentFiles;

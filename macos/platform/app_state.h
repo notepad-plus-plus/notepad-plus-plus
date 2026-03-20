@@ -53,6 +53,7 @@ struct AppContext
 	bool showLineNumbers = true;
 	int zoomLevel = 0;
 	bool showCaretLine = true;
+	bool autoIndent = true;
 
 	// Split view state
 	void* scintillaView2 = nullptr;

@@ -55,11 +55,25 @@ void performAutoIndent(void* sci, int charAdded, int languageIndex)
 
 			if (isOnlyWhitespaceBefore(buf.data(), prefixLen) && curLine > 0)
 			{
-				intptr_t prevIndent = ScintillaBridge_sendMessage(sci, SCI_GETLINEINDENTATION, curLine - 1, 0);
+				intptr_t prevLine = curLine - 1;
+				intptr_t prevIndent = ScintillaBridge_sendMessage(sci, SCI_GETLINEINDENTATION, prevLine, 0);
 				intptr_t tabWidth = ScintillaBridge_sendMessage(sci, SCI_GETTABWIDTH, 0, 0);
-				// Indent unit is always measured in columns
-				intptr_t newIndent = prevIndent - tabWidth;
-				if (newIndent < 0) newIndent = 0;
+
+				// Check if previous line ends with '{' (empty block case).
+				// If so, align '}' with the '{' line rather than outdenting further.
+				intptr_t prevLineLen = ScintillaBridge_sendMessage(sci, SCI_LINELENGTH, prevLine, 0);
+				std::vector<char> prevBuf(prevLineLen + 1, 0);
+				ScintillaBridge_sendMessage(sci, SCI_GETLINE, prevLine, (intptr_t)prevBuf.data());
+				char lastCh = lastNonWS(prevBuf.data(), prevLineLen);
+
+				intptr_t newIndent;
+				if (lastCh == '{')
+					newIndent = prevIndent;
+				else
+				{
+					newIndent = prevIndent - tabWidth;
+					if (newIndent < 0) newIndent = 0;
+				}
 
 				ScintillaBridge_sendMessage(sci, SCI_BEGINUNDOACTION, 0, 0);
 				ScintillaBridge_sendMessage(sci, SCI_SETLINEINDENTATION, curLine, newIndent);

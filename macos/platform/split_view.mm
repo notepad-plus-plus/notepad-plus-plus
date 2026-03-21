@@ -149,13 +149,16 @@ void doSplit()
 					}
 					else if (scn->nmhdr.code == SCN_UPDATEUI)
 					{
-						doBraceMatch(ctx().scintillaView2);
-						if (scn->updated & SC_UPDATE_SELECTION)
-							doSmartHighlight(ctx().scintillaView2);
+						if (ctx().scintillaView2)
+						{
+							doBraceMatch(ctx().scintillaView2);
+							if (scn->updated & SC_UPDATE_SELECTION)
+								scheduleSmartHighlight(ctx().scintillaView2);
+						}
 					}
 					else if (scn->nmhdr.code == SCN_CHARADDED)
 					{
-						if (ctx().autoIndent)
+						if (ctx().scintillaView2 && ctx().autoIndent)
 						{
 							int langIdx = -1;
 							if (ctx().activeTab2 >= 0 && ctx().activeTab2 < static_cast<int>(ctx().documents2.size()))
@@ -224,6 +227,8 @@ void doUnsplit()
 
 	if (ctx().scintillaView2)
 	{
+		cancelPendingSmartHighlight();
+		ScintillaBridge_clearNotifyCallback(ctx().scintillaView2);
 		ScintillaBridge_destroyView(ctx().scintillaView2);
 		ctx().scintillaView2 = nullptr;
 	}

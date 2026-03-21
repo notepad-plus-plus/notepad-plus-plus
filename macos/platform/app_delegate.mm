@@ -287,7 +287,7 @@ static void setDockIconFromLogo()
 				{
 					doBraceMatch(ctx().scintillaView);
 					if (scn->updated & SC_UPDATE_SELECTION)
-						doSmartHighlight(ctx().scintillaView);
+						scheduleSmartHighlight(ctx().scintillaView);
 				}
 				else if (scn->nmhdr.code == SCN_CHARADDED)
 				{

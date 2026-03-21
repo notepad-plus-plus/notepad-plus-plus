@@ -44,6 +44,9 @@ typedef void (*ScintillaBridgeNotifyFunc)(intptr_t windowid, unsigned int iMessa
 void ScintillaBridge_setNotifyCallback(void* scintillaView, intptr_t windowid,
                                         ScintillaBridgeNotifyFunc callback);
 
+// Clear the notification callback on a ScintillaView (call before destroy).
+void ScintillaBridge_clearNotifyCallback(void* scintillaView);
+
 #ifdef __cplusplus
 }
 #endif

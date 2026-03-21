@@ -20,6 +20,7 @@ file(GLOB SHIM_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/shim/src/*.mm")
 add_library(win32shim STATIC ${SHIM_SOURCES})
 target_include_directories(win32shim
     PUBLIC "${SHIM_INCLUDE_DIR}"
+    PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/shim/src"
 )
 target_compile_options(win32shim PRIVATE
     -Wno-deprecated-declarations

@@ -44,7 +44,7 @@ bool isDocumentDirty(int viewIndex, int tabIndex)
 		return false;
 
 	// If this is the currently active tab, sync state from Scintilla
-	if (tabIndex == activeTab && sci)
+	if (tabIndex == activeTab && sci && docs[tabIndex].savePointValid)
 		docs[tabIndex].modified = ScintillaBridge_sendMessage(sci, SCI_GETMODIFY, 0, 0) != 0;
 
 	// Untitled buffers with content are dirty even if not "modified"

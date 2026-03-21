@@ -1,6 +1,7 @@
 // wndproc.mm — Main window procedure (command dispatch)
 // Part of the Notepad++ macOS port modular refactor.
 
+#import <Cocoa/Cocoa.h>
 #include "wndproc.h"
 #include "npp_constants.h"
 #include "app_state.h"
@@ -17,6 +18,7 @@
 #include "recent_files.h"
 #include "status_bar.h"
 #include "file_path_ops.h"
+#include "tab_context_menu.h"
 #include "lexer_styles.h"
 #include "language_defs.h"
 #include "scintilla_bridge.h"
@@ -451,7 +453,10 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		case WM_NOTIFY:
 		{
 			NMHDR* pNmhdr = reinterpret_cast<NMHDR*>(lParam);
-			if (pNmhdr && pNmhdr->code == TCN_SELCHANGE)
+			if (!pNmhdr)
+				break;
+
+			if (pNmhdr->code == TCN_SELCHANGE)
 			{
 				if (pNmhdr->hwndFrom == ctx().tabHwnd)
 				{
@@ -467,6 +472,57 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				}
 				return 0;
 			}
+
+			if (pNmhdr->code == NM_TAB_CLOSE ||
+				pNmhdr->code == NM_TAB_REORDER ||
+				pNmhdr->code == NM_TAB_CONTEXTMENU)
+			{
+				// Determine view index from hwndFrom
+				int viewIndex = -1;
+				if (pNmhdr->hwndFrom == ctx().tabHwnd)
+					viewIndex = 0;
+				else if (pNmhdr->hwndFrom == ctx().tabHwnd2)
+					viewIndex = 1;
+				if (viewIndex < 0)
+					break;
+
+				if (pNmhdr->code == NM_TAB_CLOSE)
+				{
+					struct TabCloseNotify {
+						NMHDR hdr;
+						int tabIndex;
+					};
+					auto* tcn = reinterpret_cast<TabCloseNotify*>(lParam);
+					if (promptAndHandleClose(viewIndex, tcn->tabIndex))
+						closeTabFromView(viewIndex, tcn->tabIndex);
+					return 0;
+				}
+
+				if (pNmhdr->code == NM_TAB_REORDER)
+				{
+					struct TabReorderNotify {
+						NMHDR hdr;
+						int fromIndex;
+						int toIndex;
+					};
+					auto* trn = reinterpret_cast<TabReorderNotify*>(lParam);
+					reorderTabInView(viewIndex, trn->fromIndex, trn->toIndex);
+					return 0;
+				}
+
+				if (pNmhdr->code == NM_TAB_CONTEXTMENU)
+				{
+					struct TabContextNotify {
+						NMHDR hdr;
+						int tabIndex;
+						NSPoint screenPoint;
+					};
+					auto* tcn = reinterpret_cast<TabContextNotify*>(lParam);
+					showTabContextMenu(viewIndex, tcn->tabIndex, tcn->screenPoint);
+					return 0;
+				}
+			}
+
 			break;
 		}
 

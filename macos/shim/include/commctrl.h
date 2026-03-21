@@ -153,6 +153,11 @@ inline void InitCommonControls() {}
 #define TCN_GETOBJECT   (TCN_FIRST - 3)
 #define TCN_FOCUSCHANGE (TCN_FIRST - 4)
 
+// Custom macOS tab bar notifications (NppTabBarView)
+#define NM_TAB_CLOSE       (TCN_FIRST - 10)
+#define NM_TAB_REORDER     (TCN_FIRST - 11)
+#define NM_TAB_CONTEXTMENU (TCN_FIRST - 12)
+
 // Tab item mask
 #define TCIF_TEXT    0x0001
 #define TCIF_IMAGE   0x0002

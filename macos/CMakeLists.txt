@@ -340,11 +340,14 @@ add_executable(MacOSNotePP
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/brace_match.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/auto_indent.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/file_path_ops.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/tab_bar_view.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/tab_context_menu.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/smart_highlight.mm"
 )
 target_include_directories(MacOSNotePP PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/platform"
     "${SHIM_INCLUDE_DIR}"
+    "${CMAKE_CURRENT_SOURCE_DIR}/shim/src"
     "${SCINTILLA_INCLUDE_DIR}"
     "${LEXILLA_INCLUDE_DIR}"
     "${UCHARDET_DIR}"

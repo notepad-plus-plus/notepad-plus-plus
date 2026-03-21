@@ -148,6 +148,7 @@ void showTabContextMenu(int viewIndex, int tabIndex, NSPoint screenPoint)
 		s_tabContextTarget = [[NppTabContextTarget alloc] init];
 
 	NSMenu* menu = [[NSMenu alloc] initWithTitle:@"Tab"];
+	menu.autoenablesItems = NO;
 
 	// Close items
 	NSMenuItem* closeItem = [[NSMenuItem alloc] initWithTitle:@"Close"

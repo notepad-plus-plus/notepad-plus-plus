@@ -503,6 +503,13 @@ static const CGFloat kDragThreshold = 5.0;
 // Tracking area (for hover detection)
 // ============================================================
 
+- (void)viewDidMoveToWindow
+{
+	[super viewDidMoveToWindow];
+	if (self.window)
+		self.window.acceptsMouseMovedEvents = YES;
+}
+
 - (void)updateTrackingAreas
 {
 	[super updateTrackingAreas];
@@ -673,7 +680,6 @@ static const CGFloat kDragThreshold = 5.0;
 - (NSInteger)insertionIndexForPoint:(NSPoint)point excludingIndex:(NSInteger)excludeIndex
 {
 	CGFloat x = 0;
-	NSInteger visualIndex = 0;
 
 	for (NSInteger i = 0; i < static_cast<NSInteger>(_tabs.count); ++i)
 	{
@@ -687,7 +693,6 @@ static const CGFloat kDragThreshold = 5.0;
 			return i;
 
 		x += tabWidth + kTabSpacing;
-		++visualIndex;
 	}
 
 	return static_cast<NSInteger>(_tabs.count);

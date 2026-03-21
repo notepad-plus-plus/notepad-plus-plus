@@ -195,6 +195,7 @@ void closeTabFromView(int viewIndex, int tabIndex)
 			SendMessageW(tabHwnd, TCM_SETITEMW, 0, reinterpret_cast<LPARAM>(&tcItem));
 		}
 		[ctx().mainWindow setTitle:@"Notepad++ — Untitled"];
+		updateTabModifiedIndicator(viewIndex, 0);
 		updateWindowDocumentEdited();
 		return;
 	}
@@ -241,9 +242,9 @@ void reorderTabInView(int viewIndex, int fromIndex, int toIndex)
 		return;
 
 	// 1. Move the document in the documents vector
-	DocumentData movedDoc = docs[fromIndex];
+	DocumentData movedDoc = std::move(docs[fromIndex]);
 	docs.erase(docs.begin() + fromIndex);
-	docs.insert(docs.begin() + toIndex, movedDoc);
+	docs.insert(docs.begin() + toIndex, std::move(movedDoc));
 
 	// 2. Adjust activeTab to follow the moved tab
 	if (activeTab == fromIndex)

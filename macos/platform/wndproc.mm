@@ -473,44 +473,54 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				return 0;
 			}
 
-			if (pNmhdr->code == NM_TAB_CLOSE)
+			if (pNmhdr->code == NM_TAB_CLOSE ||
+				pNmhdr->code == NM_TAB_REORDER ||
+				pNmhdr->code == NM_TAB_CONTEXTMENU)
 			{
-				struct TabCloseNotify {
-					NMHDR hdr;
-					int tabIndex;
-				};
-				auto* tcn = reinterpret_cast<TabCloseNotify*>(lParam);
-				int viewIndex = (pNmhdr->hwndFrom == ctx().tabHwnd2) ? 1 : 0;
-				int tabIndex = tcn->tabIndex;
-				if (promptAndHandleClose(viewIndex, tabIndex))
-					closeTabFromView(viewIndex, tabIndex);
-				return 0;
-			}
+				// Determine view index from hwndFrom
+				int viewIndex = -1;
+				if (pNmhdr->hwndFrom == ctx().tabHwnd)
+					viewIndex = 0;
+				else if (pNmhdr->hwndFrom == ctx().tabHwnd2)
+					viewIndex = 1;
+				if (viewIndex < 0)
+					break;
 
-			if (pNmhdr->code == NM_TAB_REORDER)
-			{
-				struct TabReorderNotify {
-					NMHDR hdr;
-					int fromIndex;
-					int toIndex;
-				};
-				auto* trn = reinterpret_cast<TabReorderNotify*>(lParam);
-				int viewIndex = (pNmhdr->hwndFrom == ctx().tabHwnd2) ? 1 : 0;
-				reorderTabInView(viewIndex, trn->fromIndex, trn->toIndex);
-				return 0;
-			}
+				if (pNmhdr->code == NM_TAB_CLOSE)
+				{
+					struct TabCloseNotify {
+						NMHDR hdr;
+						int tabIndex;
+					};
+					auto* tcn = reinterpret_cast<TabCloseNotify*>(lParam);
+					if (promptAndHandleClose(viewIndex, tcn->tabIndex))
+						closeTabFromView(viewIndex, tcn->tabIndex);
+					return 0;
+				}
 
-			if (pNmhdr->code == NM_TAB_CONTEXTMENU)
-			{
-				struct TabContextNotify {
-					NMHDR hdr;
-					int tabIndex;
-					NSPoint screenPoint;
-				};
-				auto* tcn = reinterpret_cast<TabContextNotify*>(lParam);
-				int viewIndex = (pNmhdr->hwndFrom == ctx().tabHwnd2) ? 1 : 0;
-				showTabContextMenu(viewIndex, tcn->tabIndex, tcn->screenPoint);
-				return 0;
+				if (pNmhdr->code == NM_TAB_REORDER)
+				{
+					struct TabReorderNotify {
+						NMHDR hdr;
+						int fromIndex;
+						int toIndex;
+					};
+					auto* trn = reinterpret_cast<TabReorderNotify*>(lParam);
+					reorderTabInView(viewIndex, trn->fromIndex, trn->toIndex);
+					return 0;
+				}
+
+				if (pNmhdr->code == NM_TAB_CONTEXTMENU)
+				{
+					struct TabContextNotify {
+						NMHDR hdr;
+						int tabIndex;
+						NSPoint screenPoint;
+					};
+					auto* tcn = reinterpret_cast<TabContextNotify*>(lParam);
+					showTabContextMenu(viewIndex, tcn->tabIndex, tcn->screenPoint);
+					return 0;
+				}
 			}
 
 			break;

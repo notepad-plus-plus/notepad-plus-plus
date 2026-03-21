@@ -77,18 +77,14 @@ static std::unordered_map<uintptr_t, TabControlData> s_tabControls;
 	auto it = s_tabControls.find(key);
 	if (it == s_tabControls.end()) return;
 
-	// Fire the close callback via WM_COMMAND with a tab-close command ID.
-	// The platform layer handles prompting + closing through the
-	// standard promptAndHandleClose -> closeTabFromView path.
+	// Fire a WM_NOTIFY with NM_TAB_CLOSE so the platform layer can
+	// handle prompting + closing through promptAndHandleClose -> closeTabFromView.
 	HWND parentHwnd = it->second.parent;
 	if (parentHwnd)
 	{
 		auto* parentInfo = HandleRegistry::getWindowInfo(parentHwnd);
 		if (parentInfo && parentInfo->wndProc)
 		{
-			// Encode viewIndex in HIWORD(wParam) and tabIndex in lParam
-			// using IDM_TAB_CLOSE (defined below) as the command ID.
-			// We use a custom notification code so the wndproc can route it.
 			NMHDR nmhdr;
 			nmhdr.hwndFrom = self.tabHwnd;
 			nmhdr.idFrom = 0;
@@ -268,6 +264,10 @@ bool Win32TabControl_HandleMessage(void* hwndVoid, unsigned int msg,
 				[tabView insertTabWithTitle:WideToNS(item.text.c_str()) atIndex:index];
 			}
 
+			// Adjust currentSel when inserting at or before the selected tab
+			if (tab.currentSel >= 0 && index <= tab.currentSel)
+				++tab.currentSel;
+
 			if (tab.currentSel < 0 && !tab.items.empty())
 			{
 				tab.currentSel = 0;
@@ -293,8 +293,15 @@ bool Win32TabControl_HandleMessage(void* hwndVoid, unsigned int msg,
 			if (tabView)
 				[tabView removeTabAtIndex:index];
 
-			if (tab.currentSel >= static_cast<int>(tab.items.size()))
-				tab.currentSel = tab.items.empty() ? -1 : static_cast<int>(tab.items.size()) - 1;
+			// Adjust currentSel: decrement if deleting before, clamp if at/past end
+			if (tab.items.empty())
+				tab.currentSel = -1;
+			else if (index < tab.currentSel)
+				--tab.currentSel;
+			else if (index == tab.currentSel || tab.currentSel >= static_cast<int>(tab.items.size()))
+				tab.currentSel = (tab.currentSel >= static_cast<int>(tab.items.size()))
+					? static_cast<int>(tab.items.size()) - 1
+					: tab.currentSel;
 
 			if (tabView && tab.currentSel >= 0)
 				[tabView selectTabAtIndex:tab.currentSel];

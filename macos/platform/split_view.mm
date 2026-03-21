@@ -105,7 +105,12 @@ void doSplit()
 				{
 					auto* scn = reinterpret_cast<const SciNotification*>(lParam);
 					if (scn->nmhdr.code == 2028)
+					{
+						// Clear smart highlights from the other view on focus switch
+						if (ctx().activeView != 1 && ctx().scintillaView)
+							clearSmartHighlight(ctx().scintillaView);
 						ctx().activeView = 1;
+					}
 					else if (scn->nmhdr.code == SCN_SAVEPOINTLEFT)
 					{
 						if (!ctx().suppressSavePointNotifications)

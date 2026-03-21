@@ -236,7 +236,12 @@ static void setDockIconFromLogo()
 				auto* scn = reinterpret_cast<const SciNotification*>(lParam);
 
 				if (scn->nmhdr.code == 2028) // SCN_FOCUSIN
+				{
+					// Clear smart highlights from the other view on focus switch
+					if (ctx().activeView != 0 && ctx().scintillaView2)
+						clearSmartHighlight(ctx().scintillaView2);
 					ctx().activeView = 0;
+				}
 				else if (scn->nmhdr.code == SCN_SAVEPOINTLEFT)
 				{
 					if (!ctx().suppressSavePointNotifications)

@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Galego" filename="galician.xml" version="8.9">
+	<Native-Langue name="Galego" filename="galician.xml" version="8.9.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -50,14 +50,14 @@ Translation note:
 					<Item subMenuId="search-jumpDown" name="Bai&amp;xar"/>
 					<Item subMenuId="search-copyStyledText" name="Co&amp;piar texto con estilo"/>
 					<Item subMenuId="search-bookmark" name="Marcad&amp;ores"/>
-					<Item subMenuId="view-currentFileIn" name="Ver arquivo actual en"/>
-					<Item subMenuId="view-showSymbol" name="Mostrar opcións de liñas"/>
-					<Item subMenuId="view-zoom" name="Zoom"/>
-					<Item subMenuId="view-moveCloneDocument" name="Mover/Clonar o documento actual"/>
-					<Item subMenuId="view-tab" name="Pestanas"/>
+					<Item subMenuId="view-currentFileIn" name="&amp;Ver arquivo actual en"/>
+					<Item subMenuId="view-showSymbol" name="Mostrar opcións de li&amp;ñas"/>
+					<Item subMenuId="view-zoom" name="&amp;Zoom"/>
+					<Item subMenuId="view-moveCloneDocument" name="&amp;Mover/Clonar o documento actual"/>
+					<Item subMenuId="view-tab" name="Pesta&amp;nas"/>
 					<Item subMenuId="view-collapseLevel" name="Niveis para contraer pestana actual"/>
 					<Item subMenuId="view-uncollapseLevel" name="Niveis para expandir pestana actual"/>
-					<Item subMenuId="view-project" name="Proxecto"/>
+					<Item subMenuId="view-project" name="&amp;Proxecto"/>
 					<Item subMenuId="encoding-characterSets" name="Xogo de caracteres"/>
 					<Item subMenuId="encoding-arabic" name="Árabe"/>
 					<Item subMenuId="encoding-baltic" name="Báltico"/>
@@ -90,7 +90,7 @@ Translation note:
 					<Item id="41002" name="&amp;Abrir"/>
 					<Item id="41019" name="Explorador de arquivos"/>
 					<Item id="41020" name="CMD"/>
-					<Item id="41025" name="Carpeta como espazo de traballo"/>
+					<Item id="41025" name="Carpeta como espazo de trabal&amp;lo"/>
 					<Item id="41003" name="&amp;Pechar pestana activa"/>
 					<Item id="41004" name="P&amp;echar tódalas pestanas"/>
 					<Item id="41005" name="Pechar as outras pestanas"/>
@@ -160,6 +160,7 @@ Translation note:
 					<Item id="42072" name="mAiúsculas e mInÚscuLAs &amp;ALeatoriO"/>
 					<Item id="42073" name="Abrir arquivo"/>
 					<Item id="42074" name="Abrir carpeta contedora no Explorador de arquivos"/>
+					<Item id="42106" name="Ocultar selección █ (Maiús: ●)"/>
 					<Item id="42075" name="Buscar en Internet"/>
 					<Item id="42076" name="Cambiar motor de busca..."/>
 					<Item id="42090" name="Ignorar maiúsculas e minúsculas &amp;&amp; Palabra completa"/>
@@ -197,8 +198,8 @@ Translation note:
 					<Item id="42051" name="Pane&amp;l de caracteres"/>
 					<Item id="42052" name="&amp;Historial do portapapeis"/>
 					<Item id="42025" name="&amp;Gardar macro actualmente gravada"/>
-					<Item id="42026" name="Texto dereita-esquerda"/>
-					<Item id="42027" name="Texto esquerda-dereita"/>
+					<Item id="42026" name="Texto dereita-es&amp;querda"/>
+					<Item id="42027" name="Te&amp;xto esquerda-dereita"/>
 					<Item id="42028" name="Atributo só lectura no documento actual"/>
 					<Item id="42102" name="Atributo só lectura para tódolos documentos"/>
 					<Item id="42103" name="Quitar atributo só lectura para tódolos documentos"/>
@@ -285,12 +286,12 @@ Translation note:
 					<Item id="43502" name="Pechar outros"/>
 					<Item id="43503" name="Copiar nomes seleccionados"/>
 					<Item id="43504" name="Copiar rutas seleccionadas"/>
-					<Item id="44009" name="Só documento actual visible"/>
+					<Item id="44009" name="Só documento actual visi&amp;ble"/>
 					<Item id="44010" name="Contraer todo"/>
-					<Item id="44011" name="Modo &quot;Sen distraccións&quot;"/>
+					<Item id="44011" name="Modo &quot;Sen &amp;distraccións&quot;"/>
 					<Item id="44019" name="Mostrar tódolos caracteres"/>
 					<Item id="44020" name="Mostrar liñas de tabulación"/>
-					<Item id="44022" name="Axuste do texto"/>
+					<Item id="44022" name="Ax&amp;uste do texto"/>
 					<Item id="44023" name="&amp;Aumentar zoom (Ctrl + roda do rato adiante)"/>
 					<Item id="44024" name="&amp;Diminuír zoom (Ctrl + roda do rato atrás)"/>
 					<Item id="44025" name="Mostrar espazos e tabulacións"/>
@@ -298,11 +299,11 @@ Translation note:
 					<Item id="44029" name="Expandir todo"/>
 					<Item id="44030" name="Contraer nivel actual"/>
 					<Item id="44031" name="Expandir nivel actual"/>
-					<Item id="44049" name="Resumo..."/>
-					<Item id="44080" name="Mapa do documento"/>
-					<Item id="44070" name="Listaxe dos documentos"/>
-					<Item id="44084" name="Listaxe de funcións"/>
-					<Item id="44085" name="Carpeta como área de traballo"/>
+					<Item id="44049" name="&amp;Resumo..."/>
+					<Item id="44080" name="Ma&amp;pa do documento"/>
+					<Item id="44070" name="Listaxe dos documen&amp;tos"/>
+					<Item id="44084" name="&amp;Listaxe de funcións"/>
+					<Item id="44085" name="C&amp;arpeta como área de traballo"/>
 					<Item id="44086" name="Pestana 1"/>
 					<Item id="44087" name="Pestana 2"/>
 					<Item id="44088" name="Pestana 3"/>
@@ -316,7 +317,7 @@ Translation note:
 					<Item id="44117" name="Derradeira pestana"/>
 					<Item id="44095" name="Pestana seguinte"/>
 					<Item id="44096" name="Pestana anterior"/>
-					<Item id="44097" name="Monitorizando (tail -f)"/>
+					<Item id="44097" name="Monitor&amp;izando (tail -f)"/>
 					<Item id="44098" name="Mover pestana adiante"/>
 					<Item id="44099" name="Mover pestana atrás"/>
 					<Item id="44110" name="Quitar cor"/>
@@ -327,16 +328,16 @@ Translation note:
 					<Item id="44115" name="Aplicar cor 5"/>
 					<Item id="44130" name="Mostrar caracteres non imprimibles"/>
 					<Item id="44131" name="Mostrar caracteres de control &amp;&amp; EOL de Unicode"/>
-					<Item id="44032" name="Activar o modo de pantalla completa"/>
-					<Item id="44033" name="Restaurar zoom 100%"/>
-					<Item id="44034" name="Sempre visible"/>
-					<Item id="44035" name="Sincronización vertical"/>
-					<Item id="44036" name="Sincronización horizontal"/>
+					<Item id="44032" name="Activar o modo de pantalla &amp;completa"/>
+					<Item id="44033" name="&amp;Restaurar zoom 100%"/>
+					<Item id="44034" name="&amp;Sempre visible"/>
+					<Item id="44035" name="Sincronización v&amp;ertical"/>
+					<Item id="44036" name="Sincronización &amp;horizontal"/>
 					<Item id="44041" name="Mostrar símbolo de axuste"/>
-					<Item id="44072" name="Enfocar noutra vista"/>
-					<Item id="44081" name="Panel de proxecto 1"/>
-					<Item id="44082" name="Panel de proxecto 2"/>
-					<Item id="44083" name="Panel de proxecto 3"/>
+					<Item id="44072" name="En&amp;focar noutra vista"/>
+					<Item id="44081" name="Panel de proxecto &amp;1"/>
+					<Item id="44082" name="Panel de proxecto &amp;2"/>
+					<Item id="44083" name="Panel de proxecto &amp;3"/>
 					<Item id="45001" name="Converter a formato Windows (CR LF)"/>
 					<Item id="45002" name="Converter a formato Unix (LF)"/>
 					<Item id="45003" name="Converter a formato MAC (CR)"/>
@@ -356,10 +357,10 @@ Translation note:
 					<Item id="45057" name="OEM 865: Nórdico"/>
 					<Item id="45053" name="OEM 860: Portugués"/>
 					<Item id="45056" name="OEM 863: Francés"/>
-					<Item id="10001" name="Mover a outra vista"/>
-					<Item id="10002" name="Clonar noutra vista"/>
-					<Item id="10003" name="Mover a unha ventá nova"/>
-					<Item id="10004" name="Abrir nunha ventá nova"/>
+					<Item id="10001" name="&amp;Mover a outra vista"/>
+					<Item id="10002" name="&amp;Clonar noutra vista"/>
+					<Item id="10003" name="Mo&amp;ver a unha ventá nova"/>
+					<Item id="10004" name="&amp;Abrir nunha ventá nova"/>
 					<Item id="10005" name="Ir ao inicio"/>
 					<Item id="10006" name="Ir ao final"/>
 					<Item id="46001" name="Configurador de estilos..."/>
@@ -406,7 +407,7 @@ Translation note:
 					<Item id="50011" name="Parámetros da función &quot;suxerencia seguinte&quot;"/>
 					<Item id="50005" name="Alternar o rexistro de macros"/>
 					<Item id="50006" name="Finalización da ruta"/>
-					<Item id="44042" name="Ocultar liñas"/>
+					<Item id="44042" name="&amp;Ocultar liñas"/>
 					<Item id="42040" name="Abrir tódolos arquivos recentes"/>
 					<Item id="42041" name="Baleirar listaxe de arquivos recentes"/>
 					<Item id="48016" name="Modificar ou borrar accesos directos de macros..."/>
@@ -717,10 +718,10 @@ Translation note:
 					<Item id="43059" name="Copiar texto marcado co estilo 5"/>
 					<Item id="43060" name="Copiar o texto marcado de tódolos estilos"/>
 					<Item id="43061" name="Copiar o texto co estilo da marca da busca"/>
-					<Item id="44100" name="Ver arquivo actual en Firefox"/>
-					<Item id="44101" name="Ver arquivo actual en Chrome"/>
-					<Item id="44103" name="Ver arquivo actual en IE"/>
-					<Item id="44102" name="Ver arquivo actual en Edge"/>
+					<Item id="44100" name="Ver arquivo actual en &amp;Firefox"/>
+					<Item id="44101" name="Ver arquivo actual en &amp;Chrome"/>
+					<Item id="44103" name="Ver arquivo actual en &amp;IE"/>
+					<Item id="44102" name="Ver arquivo actual en &amp;Edge"/>
 					<Item id="50003" name="Cambiar a documento anterior"/>
 					<Item id="50004" name="Cambiar a documento seguinte"/>
 					<Item id="44051" name="Nivel de pregado 1"/>
@@ -1023,6 +1024,7 @@ Translation note:
 					<Item id="6239" name="Manter a selección se preme o botón dereito fóra da selección"/>
 					<Item id="6245" name="Habilitar espazo virtual"/>
 					<Item id="6214" name="Permitir copiar/cortar liña sen selección"/>
+					<Item id="6266" name="Desactivar a función de arrastrar e soltar do texto seleccionado"/>
 					<Item id="6225" name="Aplicar a cor personalizada ao primeiro plano do texto seleccionado"/>
 					<Item id="6651" name="Indicador de liña actual"/>
 					<Item id="6652" name="Ningún"/>
@@ -1172,7 +1174,7 @@ Translation note:
 				</Highlighting>
 
 				<Print title="Impresión">
-					<Item id="6601" name="Im&amp;primir número de liña"/>
+					<Item id="6601" name="Imprimir número de li&amp;ña"/>
 					<Item id="6602" name="Opcións de cor"/>
 					<Item id="6603" name="Sen &amp;modificar"/>
 					<Item id="6604" name="In&amp;vertir"/>
@@ -1188,7 +1190,7 @@ Translation note:
 					<Item id="6708" name="Encabezamento"/>
 					<Item id="6709" name="Part&amp;e esquerda"/>
 					<Item id="6710" name="Parte centra&amp;l"/>
-					<Item id="6711" name="Parte dereita"/>
+					<Item id="6711" name="&amp;Parte dereita"/>
 					<Item id="6717" name="Gros&amp;a"/>
 					<Item id="6718" name="C&amp;ursiva"/>
 					<Item id="6719" name="Pé de páxina"/>
@@ -1222,6 +1224,7 @@ Translation note:
 					<Item id="6910" name="Tamaño para a comprobación automática en &quot;Selección&quot;"/>
 					<Item id="6913" name="Completar o campo de busca na ruta dos arquivos en función do documento activo"/>
 					<Item id="6916" name=": Número máximo de caracteres para encher automaticamente o campo de busca a partir da selección"/>
+					<Item id="6917" name="Buscar en arquivos: dar prioridade ao contido dos arquivos no disco fronte aos búferes abertos"/>
 				</Searching>
 
 				<RecentFilesHistory title="Arquivos recentes">
@@ -1289,7 +1292,7 @@ Translation note:
 					<Item id="6184" name="Listaxe de documentos"/>
 					<Item id="6185" name="Panel de caracteres"/>
 					<Item id="6186" name="Carpeta como espazo de traballo"/>
-					<Item id="6187" name="Paneis de proxectos"/>
+					<Item id="6187" name="Paneis de pro&amp;xectos"/>
 					<Item id="6188" name="Mapa do documento"/>
 					<Item id="6189" name="Listaxe de funcións"/>
 					<Item id="6190" name="Paneis de complementos"/>
@@ -1581,12 +1584,6 @@ Notepad++ reiniciarase despois de que rematen todas.
 			<LanguageMenuCompactWarning title="Menú compacto de linguaxes" message="Esta opción cambiarase no seguinte inicio."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="¡Os cambios non gardados serán descartados!
 ¿Quere gardar os cambios antes de cambiar de tema?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Compatibilidade de Macro e Executar" message="Os comandos Macro e Executar gardados en Notepad++ v.8.5.2 (ou anterior) poden non ser compatibles coa versión actual de Notepad++.
-Probe estes comandos e, se é necesario, volva a editalos.
-
-Alternativamente, pode reinstalar Notepad++ v8.5.2 e restaurar os seus datos anteriores.
-Notepad++ fará unha copia de seguridade do seu antigo &quot;shortcuts.xml&quot; e gardarao como &quot;shortcuts.xml.v8.5.2.backup&quot;.
-Cambie o nome de &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; e os comandos serán restaurados e funcionales de novo."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<FullReadOnlySavingForbidden title="Erro ao gardar" message="Non se pode gardar o arquivo.
 O modo de só lectura total de Notepad++ impediu que se gardara o arquivo."/>
 			<NotEnoughRoom4Saving title="Erro ao gardar" message="Non se  pode gardar o arquivo.

@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Español" filename="spanish.xml" version="8.9">
+	<Native-Langue name="Español" filename="spanish.xml" version="8.9.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -50,14 +50,14 @@ Translation note:
 					<Item subMenuId="search-jumpDown" name="Ba&amp;jar"/>
 					<Item subMenuId="search-copyStyledText" name="Copiar te&amp;xto con estilo"/>
 					<Item subMenuId="search-bookmark" name="Marcad&amp;ores"/>
-					<Item subMenuId="view-currentFileIn" name="Ver archivo actual en"/>
-					<Item subMenuId="view-showSymbol" name="Mostrar opciones de líneas"/>
-					<Item subMenuId="view-zoom" name="Zoom"/>
-					<Item subMenuId="view-moveCloneDocument" name="Mover/Clonar el documento actual"/>
-					<Item subMenuId="view-tab" name="Pestañas"/>
+					<Item subMenuId="view-currentFileIn" name="&amp;Ver archivo actual en"/>
+					<Item subMenuId="view-showSymbol" name="Mostrar o&amp;pciones de líneas"/>
+					<Item subMenuId="view-zoom" name="&amp;Zoom"/>
+					<Item subMenuId="view-moveCloneDocument" name="&amp;Mover/Clonar el documento actual"/>
+					<Item subMenuId="view-tab" name="Pesta&amp;ñas"/>
 					<Item subMenuId="view-collapseLevel" name="Niveles para contraer pestaña actual"/>
 					<Item subMenuId="view-uncollapseLevel" name="Niveles para expandir pestaña actual"/>
-					<Item subMenuId="view-project" name="Proyecto"/>
+					<Item subMenuId="view-project" name="Pro&amp;yecto"/>
 					<Item subMenuId="encoding-characterSets" name="Juego de caracteres"/>
 					<Item subMenuId="encoding-arabic" name="Árabe"/>
 					<Item subMenuId="encoding-baltic" name="Báltico"/>
@@ -90,7 +90,7 @@ Translation note:
 					<Item id="41002" name="&amp;Abrir"/>
 					<Item id="41019" name="Explorador de archivos"/>
 					<Item id="41020" name="CMD"/>
-					<Item id="41025" name="Carpeta como espacio de trabajo"/>
+					<Item id="41025" name="Carpeta como espacio de traba&amp;jo"/>
 					<Item id="41003" name="&amp;Cerrar pestaña activa"/>
 					<Item id="41004" name="Cerrar todas las pesta&amp;ñas"/>
 					<Item id="41005" name="Cerrar las otras pestañas"/>
@@ -159,7 +159,8 @@ Translation note:
 					<Item id="42071" name="In&amp;vertir mayúsculas y MINÚSCULAS"/>
 					<Item id="42072" name="mAyúsculas y mInÚscuLAs &amp;ALeatoriO"/>
 					<Item id="42073" name="Abrir archivo"/>
-					<Item id="42074" name="Abrir carpeta contenedora en explorador de archivos"/>
+					<Item id="42074" name="Abrir carpeta contenedora en Explorador de archivos"/>
+					<Item id="42106" name="Ocultar selección █ (Mayús: ●)"/>
 					<Item id="42075" name="Buscar en Internet"/>
 					<Item id="42076" name="Cambiar motor de búsqueda..."/>
 					<Item id="42090" name="Ignorar mayúsculas y minúsculas &amp;&amp; Palabra completa"/>
@@ -197,8 +198,8 @@ Translation note:
 					<Item id="42051" name="Panel de c&amp;aracteres"/>
 					<Item id="42052" name="&amp;Historial de portapapeles"/>
 					<Item id="42025" name="&amp;Guardar macro actualmente grabada"/>
-					<Item id="42026" name="Texto derecha-izquierda"/>
-					<Item id="42027" name="Texto izquierda-derecha"/>
+					<Item id="42026" name="Texto derecha-iz&amp;quierda"/>
+					<Item id="42027" name="Te&amp;xto izquierda-derecha"/>
 					<Item id="42028" name="Atributo solo lectura en el documento actual"/>
 					<Item id="42102" name="Atributo solo lectura para todos los documentos"/>
 					<Item id="42103" name="Quitar atributo solo lectura para todos los documentos"/>
@@ -285,12 +286,12 @@ Translation note:
 					<Item id="43502" name="Cerrar otros"/>
 					<Item id="43503" name="Copiar nombres seleccionados"/>
 					<Item id="43504" name="Copiar rutas seleccionadas"/>
-					<Item id="44009" name="Solo documento actual visible"/>
+					<Item id="44009" name="Solo documento actual visi&amp;ble"/>
 					<Item id="44010" name="Contraer todo"/>
-					<Item id="44011" name="Modo &quot;Sin distracciones&quot;"/>
+					<Item id="44011" name="Modo &quot;Sin &amp;distracciones&quot;"/>
 					<Item id="44019" name="Mostrar todos los caracteres"/>
 					<Item id="44020" name="Mostrar líneas de sangrías"/>
-					<Item id="44022" name="Ajuste del texto"/>
+					<Item id="44022" name="Ajuste del te&amp;xto"/>
 					<Item id="44023" name="&amp;Aumentar zoom (Ctrl + rueda del ratón adelante)"/>
 					<Item id="44024" name="&amp;Disminuir zoom (Ctrl + rueda del ratón atrás)"/>
 					<Item id="44025" name="Mostrar espacios y tabulaciones"/>
@@ -298,11 +299,11 @@ Translation note:
 					<Item id="44029" name="Expandir todo"/>
 					<Item id="44030" name="Contraer nivel actual"/>
 					<Item id="44031" name="Expandir nivel actual"/>
-					<Item id="44049" name="Resumen..."/>
-					<Item id="44080" name="Mapa del documento"/>
-					<Item id="44070" name="Lista de documentos"/>
-					<Item id="44084" name="Lista de funciones"/>
-					<Item id="44085" name="Carpeta como área de trabajo"/>
+					<Item id="44049" name="&amp;Resumen..."/>
+					<Item id="44080" name="Ma&amp;pa del documento"/>
+					<Item id="44070" name="Lista de documen&amp;tos"/>
+					<Item id="44084" name="&amp;Lista de funciones"/>
+					<Item id="44085" name="C&amp;arpeta como área de trabajo"/>
 					<Item id="44086" name="Pestaña 1"/>
 					<Item id="44087" name="Pestaña 2"/>
 					<Item id="44088" name="Pestaña 3"/>
@@ -316,7 +317,7 @@ Translation note:
 					<Item id="44117" name="Última pestaña"/>
 					<Item id="44095" name="Pestaña siguiente"/>
 					<Item id="44096" name="Pestaña anterior"/>
-					<Item id="44097" name="Monitorizando (tail -f)"/>
+					<Item id="44097" name="Monitor&amp;izando (tail -f)"/>
 					<Item id="44098" name="Mover pestaña adelante"/>
 					<Item id="44099" name="Mover pestaña atrás"/>
 					<Item id="44110" name="Quitar color"/>
@@ -327,16 +328,16 @@ Translation note:
 					<Item id="44115" name="Aplicar color 5"/>
 					<Item id="44130" name="Mostrar caracteres no imprimibles"/>
 					<Item id="44131" name="Mostrar caracteres de control &amp;&amp; EOL de Unicode"/>
-					<Item id="44032" name="Activar el modo de pantalla completa"/>
-					<Item id="44033" name="Restaurar zoom 100%"/>
-					<Item id="44034" name="Siempre visible"/>
-					<Item id="44035" name="Sincronización vertical"/>
-					<Item id="44036" name="Sincronización horizontal"/>
+					<Item id="44032" name="Activar modo de pantalla &amp;completa"/>
+					<Item id="44033" name="&amp;Restaurar zoom 100%"/>
+					<Item id="44034" name="&amp;Siempre visible"/>
+					<Item id="44035" name="Sincro&amp;nización vertical"/>
+					<Item id="44036" name="Sincronización &amp;horizontal"/>
 					<Item id="44041" name="Mostrar símbolo de ajuste"/>
-					<Item id="44072" name="Enfocar en otra vista"/>
-					<Item id="44081" name="Panel de proyecto 1"/>
-					<Item id="44082" name="Panel de proyecto 2"/>
-					<Item id="44083" name="Panel de proyecto 3"/>
+					<Item id="44072" name="En&amp;focar en otra vista"/>
+					<Item id="44081" name="Panel de proyecto &amp;1"/>
+					<Item id="44082" name="Panel de proyecto &amp;2"/>
+					<Item id="44083" name="Panel de proyecto &amp;3"/>
 					<Item id="45001" name="Convertir a formato Windows (CR LF)"/>
 					<Item id="45002" name="Convertir a formato Unix (LF)"/>
 					<Item id="45003" name="Convertir a formato MAC (CR)"/>
@@ -356,10 +357,10 @@ Translation note:
 					<Item id="45057" name="OEM 865: Nórdico"/>
 					<Item id="45053" name="OEM 860: Portugués"/>
 					<Item id="45056" name="OEM 863: Francés"/>
-					<Item id="10001" name="Mover a otra vista"/>
-					<Item id="10002" name="Clonar en otra vista"/>
-					<Item id="10003" name="Mover a una ventana nueva"/>
-					<Item id="10004" name="Abrir en una ventana nueva"/>
+					<Item id="10001" name="&amp;Mover a otra vista"/>
+					<Item id="10002" name="&amp;Clonar en otra vista"/>
+					<Item id="10003" name="Mo&amp;ver a una ventana nueva"/>
+					<Item id="10004" name="&amp;Abrir en una ventana nueva"/>
 					<Item id="10005" name="Ir al inicio"/>
 					<Item id="10006" name="Ir al final"/>
 					<Item id="46001" name="Configurador de estilos..."/>
@@ -406,7 +407,7 @@ Translation note:
 					<Item id="50011" name="Parámetros de la función &quot;sugerencia siguiente&quot;"/>
 					<Item id="50005" name="Alternar el registro de macros"/>
 					<Item id="50006" name="Finalización de la ruta"/>
-					<Item id="44042" name="Ocultar líneas"/>
+					<Item id="44042" name="&amp;Ocultar líneas"/>
 					<Item id="42040" name="Abrir todos los archivos recientes"/>
 					<Item id="42041" name="Vaciar lista de archivos recientes"/>
 					<Item id="48016" name="Modificar o borrar accesos directos de macros..."/>
@@ -717,10 +718,10 @@ Translation note:
 					<Item id="43059" name="Copiar texto marcado con estilo 5"/>
 					<Item id="43060" name="Copiar el texto marcado de todos los estilos"/>
 					<Item id="43061" name="Copiar el texto con estilo de la marca de búsqueda"/>
-					<Item id="44100" name="Ver archivo actual en Firefox"/>
-					<Item id="44101" name="Ver archivo actual en Chrome"/>
-					<Item id="44103" name="Ver archivo actual en IE"/>
-					<Item id="44102" name="Ver archivo actual en Edge"/>
+					<Item id="44100" name="Ver archivo actual en &amp;Firefox"/>
+					<Item id="44101" name="Ver archivo actual en &amp;Chrome"/>
+					<Item id="44103" name="Ver archivo actual en &amp;IE"/>
+					<Item id="44102" name="Ver archivo actual en &amp;Edge"/>
 					<Item id="50003" name="Cambiar a documento anterior"/>
 					<Item id="50004" name="Cambiar a documento siguiente"/>
 					<Item id="44051" name="Nivel de plegado 1"/>
@@ -1023,6 +1024,7 @@ Translation note:
 					<Item id="6239" name="Mantener la selección si pulsa el botón derecho fuera de la selección"/>
 					<Item id="6245" name="Habilitar espacio virtual"/>
 					<Item id="6214" name="Permitir copiar/cortar línea sin selección"/>
+					<Item id="6266" name="Desactivar la función de arrastrar y soltar del texto seleccionado"/>
 					<Item id="6225" name="Aplicar el color personalizado al primer plano del texto seleccionado"/>
 					<Item id="6651" name="Indicador de línea actual"/>
 					<Item id="6652" name="Ninguno"/>
@@ -1222,6 +1224,7 @@ Translation note:
 					<Item id="6910" name="Tamaño para la comprobación automática en &quot;Selección&quot;"/>
 					<Item id="6913" name="Rellenar el campo de búsqueda en el directorio de archivos en función del documento activo"/>
 					<Item id="6916" name=": Número máximo de caracteres para rellenar automáticamente el campo de búsqueda a partir de la selección"/>
+					<Item id="6917" name="Buscar en archivos: dar prioridad al contenido de los archivos en el disco frente a los búferes abiertos"/>
 				</Searching>
 
 				<RecentFilesHistory title="Archivos recientes">
@@ -1289,7 +1292,7 @@ Translation note:
 					<Item id="6184" name="Lista de documentos"/>
 					<Item id="6185" name="Panel de caracteres"/>
 					<Item id="6186" name="Carpeta como espacio de trabajo"/>
-					<Item id="6187" name="Paneles de proyectos"/>
+					<Item id="6187" name="Paneles de pro&amp;yectos"/>
 					<Item id="6188" name="Mapa del documento"/>
 					<Item id="6189" name="Lista de funciones"/>
 					<Item id="6190" name="Paneles de complementos"/>
@@ -1581,12 +1584,6 @@ Notepad++ se reiniciará después de que finalicen todas.
 			<LanguageMenuCompactWarning title="Menú compacto de lenguajes" message="Esta opción se cambiará en el siguiente inicio."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="¡Los cambios no guardados serán descartados!
 ¿Quiere guardar los cambios antes de cambiar de tema?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Compatibilidad de Macro y Ejecutar" message="Los comandos Macro y Ejecutar guardados en Notepad++ v.8.5.2 (o anterior) pueden no ser compatibles con la versión actual de Notepad++.
-Pruebe estos comandos y, si es necesario, vuelva a editarlos.
-
-Alternativamente, puede reinstalar Notepad++ v8.5.2 y restaurar sus datos anteriores.
-Notepad++ hará una copia de seguridad de su antiguo &quot;shortcuts.xml&quot; y lo guardará como &quot;shortcuts.xml.v8.5.2.backup&quot;.
-Cambie el nombre de &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; y sus comandos serán restaurados y funcionales de nuevo."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<FullReadOnlySavingForbidden title="Error al guardar" message="No se puede guardar el archivo.
 El modo de solo lectura total de Notepad++ impidió que se guardara el archivo."/>
 			<NotEnoughRoom4Saving title="Error al guardar" message="No se ha podido guardar el archivo.
@@ -1866,7 +1863,7 @@ NBSP: espacio sin salto de línea
 ZWSP: espacio de ancho cero
 ZWNBSP: espacio sin salto de línea de ancho cero
 
-Para ver la lista completa, consulte el manual del usuario.
+Para ver la lista completa, consulte el manual de usuario.
 Haga clic en el botón derecho &quot;?&quot; para abrir el sitio web del manual de usuario."/>
 			<npcCodepoint-tip value="Punto de código: nombre
 U+00A0: espacio sin salto de línea

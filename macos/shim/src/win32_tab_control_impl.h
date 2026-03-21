@@ -2,12 +2,7 @@
 // Win32 Tab Control shim: data + NSSegmentedControl backing
 // Private implementation header — not part of public API.
 
-#ifdef __APPLE__
-
 #include <cstdint>
-
-// Forward declarations
-typedef struct HWND__* HWND;
 
 // Initialize tab control data for a newly created control.
 void Win32TabControl_Init(void* hwndVoid, void* parentVoid);
@@ -20,5 +15,3 @@ void Win32TabControl_Destroy(void* hwndVoid);
 bool Win32TabControl_HandleMessage(void* hwndVoid, unsigned int msg,
                                     uintptr_t wParam, intptr_t lParam,
                                     intptr_t& result);
-
-#endif // __APPLE__

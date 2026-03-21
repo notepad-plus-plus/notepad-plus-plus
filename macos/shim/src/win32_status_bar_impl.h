@@ -6,6 +6,9 @@
 
 #include <cstdint>
 
+// Create the native status bar view. Returns void* (NSView*).
+void* Win32StatusBar_CreateView(void* parentView, int width);
+
 // Initialize status bar data for a newly created control.
 void Win32StatusBar_Init(void* hwndVoid);
 

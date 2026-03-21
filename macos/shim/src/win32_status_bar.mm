@@ -124,6 +124,23 @@ struct StatusBarData
 static std::unordered_map<uintptr_t, StatusBarData> s_statusBars;
 
 // ============================================================
+// Status bar view creation
+// ============================================================
+
+void* Win32StatusBar_CreateView(void* parentView, int width)
+{
+	NSView* parent = (__bridge NSView*)parentView;
+	if (!parent) return nullptr;
+
+	CGFloat barHeight = 22;
+	NSRect frame = NSMakeRect(0, 0, width > 0 ? width : parent.bounds.size.width, barHeight);
+	Win32StatusBarView* bar = [[Win32StatusBarView alloc] initWithFrame:frame];
+	bar.autoresizingMask = NSViewWidthSizable | NSViewMaxYMargin;
+	[parent addSubview:bar];
+	return (__bridge void*)bar;
+}
+
+// ============================================================
 // Status bar init/destroy
 // ============================================================
 

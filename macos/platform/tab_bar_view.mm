@@ -29,6 +29,9 @@ static const CGFloat kModifiedDotSize = 6.0;
 static const CGFloat kTabCornerRadius = 5.0;
 static const CGFloat kTabTopMargin = 2.0;
 static const CGFloat kDragThreshold = 5.0;
+static const CGFloat kScrollButtonWidth = 20.0;
+static const CGFloat kScrollStep = 120.0;
+static const CGFloat kScrollWheelMultiplier = 3.0;
 
 // ============================================================
 // NppTabBarView private interface
@@ -48,6 +51,11 @@ static const CGFloat kDragThreshold = 5.0;
 	NSPoint _dragStartPoint;
 	NSPoint _dragCurrentPoint;
 	NSInteger _dragInsertionIndex;
+
+	// Scroll state
+	CGFloat _scrollOffset;
+	BOOL _hoveredLeftScroll;
+	BOOL _hoveredRightScroll;
 }
 @end
 
@@ -69,6 +77,10 @@ static const CGFloat kDragThreshold = 5.0;
 		_isDragging = NO;
 		_dragSourceIndex = -1;
 		_dragInsertionIndex = -1;
+
+		_scrollOffset = 0;
+		_hoveredLeftScroll = NO;
+		_hoveredRightScroll = NO;
 	}
 	return self;
 }
@@ -110,6 +122,8 @@ static const CGFloat kDragThreshold = 5.0;
 	if (_selectedIndex < 0 && _tabs.count > 0)
 		_selectedIndex = 0;
 
+	[self clampScrollOffset];
+	[self scrollToShowTabAtIndex:index];
 	[self setNeedsDisplay:YES];
 }
 
@@ -136,6 +150,9 @@ static const CGFloat kDragThreshold = 5.0;
 
 	_hoveredIndex = -1;
 	_hoveredCloseIndex = -1;
+	[self clampScrollOffset];
+	if (_selectedIndex >= 0)
+		[self scrollToShowTabAtIndex:_selectedIndex];
 	[self setNeedsDisplay:YES];
 }
 
@@ -145,13 +162,17 @@ static const CGFloat kDragThreshold = 5.0;
 	_selectedIndex = -1;
 	_hoveredIndex = -1;
 	_hoveredCloseIndex = -1;
+	_scrollOffset = 0;
 	[self setNeedsDisplay:YES];
 }
 
 - (void)selectTabAtIndex:(NSInteger)index
 {
 	if (index >= 0 && index < static_cast<NSInteger>(_tabs.count))
+	{
 		_selectedIndex = index;
+		[self scrollToShowTabAtIndex:index];
+	}
 	[self setNeedsDisplay:YES];
 }
 
@@ -193,6 +214,7 @@ static const CGFloat kDragThreshold = 5.0;
 	if (index < 0 || index >= static_cast<NSInteger>(_tabs.count))
 		return;
 	_tabs[static_cast<NSUInteger>(index)].title = title ?: @"";
+	[self clampScrollOffset];
 	[self setNeedsDisplay:YES];
 }
 
@@ -244,6 +266,115 @@ static const CGFloat kDragThreshold = 5.0;
 	return totalWidth;
 }
 
+- (CGFloat)totalTabContentWidth
+{
+	CGFloat total = 0;
+	for (NSInteger i = 0; i < static_cast<NSInteger>(_tabs.count); ++i)
+	{
+		if (i > 0)
+			total += kTabSpacing;
+		total += [self widthForTabAtIndex:i];
+	}
+	return total;
+}
+
+- (BOOL)overflowsLeft
+{
+	return _scrollOffset > 0;
+}
+
+- (BOOL)overflowsRight
+{
+	CGFloat stripOriginX, stripWidth;
+	[self getTabStripOriginX:&stripOriginX width:&stripWidth];
+	CGFloat totalWidth = [self totalTabContentWidth];
+	return totalWidth - _scrollOffset > stripWidth;
+}
+
+- (void)getTabStripOriginX:(CGFloat*)outX width:(CGFloat*)outWidth
+{
+	CGFloat viewWidth = self.bounds.size.width;
+	CGFloat originX = 0;
+	CGFloat width = viewWidth;
+
+	if ([self overflowsLeftRaw])
+	{
+		originX = kScrollButtonWidth;
+		width -= kScrollButtonWidth;
+	}
+	if ([self overflowsRightRaw])
+	{
+		width -= kScrollButtonWidth;
+	}
+
+	if (outX) *outX = originX;
+	if (outWidth) *outWidth = width;
+}
+
+// Raw overflow checks that don't depend on getTabStripOriginX (avoids recursion)
+- (BOOL)overflowsLeftRaw
+{
+	return _scrollOffset > 0;
+}
+
+- (BOOL)overflowsRightRaw
+{
+	CGFloat totalWidth = [self totalTabContentWidth];
+	CGFloat viewWidth = self.bounds.size.width;
+	// Approximate: if content extends past view, it overflows right
+	// Account for possible left scroll button
+	CGFloat availableWidth = viewWidth;
+	if (_scrollOffset > 0)
+		availableWidth -= kScrollButtonWidth;
+	return totalWidth - _scrollOffset > availableWidth;
+}
+
+- (void)clampScrollOffset
+{
+	CGFloat totalWidth = [self totalTabContentWidth];
+	CGFloat viewWidth = self.bounds.size.width;
+
+	// At max scroll, the left button is visible so the strip is narrower
+	CGFloat maxOffset = totalWidth - (viewWidth - kScrollButtonWidth);
+
+	if (maxOffset < 0)
+		maxOffset = 0;
+	if (_scrollOffset > maxOffset)
+		_scrollOffset = maxOffset;
+	if (_scrollOffset < 0)
+		_scrollOffset = 0;
+}
+
+- (void)scrollToShowTabAtIndex:(NSInteger)index
+{
+	if (index < 0 || index >= static_cast<NSInteger>(_tabs.count))
+		return;
+
+	// Calculate the tab's position in content space (without scroll offset)
+	CGFloat tabX = 0;
+	for (NSInteger i = 0; i < index; ++i)
+		tabX += [self widthForTabAtIndex:i] + kTabSpacing;
+	CGFloat tabWidth = [self widthForTabAtIndex:index];
+
+	CGFloat stripOriginX, stripWidth;
+	[self getTabStripOriginX:&stripOriginX width:&stripWidth];
+
+	// Tab's visible position
+	CGFloat tabVisibleLeft = tabX - _scrollOffset;
+	CGFloat tabVisibleRight = tabVisibleLeft + tabWidth;
+
+	if (tabVisibleLeft < 0)
+	{
+		_scrollOffset = tabX;
+	}
+	else if (tabVisibleRight > stripWidth)
+	{
+		_scrollOffset = tabX + tabWidth - stripWidth;
+	}
+
+	[self clampScrollOffset];
+}
+
 - (NSRect)rectForTabAtIndex:(NSInteger)index
 {
 	if (index < 0 || index >= static_cast<NSInteger>(_tabs.count))
@@ -255,8 +386,11 @@ static const CGFloat kDragThreshold = 5.0;
 		x += [self widthForTabAtIndex:i] + kTabSpacing;
 	}
 
+	CGFloat stripOriginX, stripWidth;
+	[self getTabStripOriginX:&stripOriginX width:&stripWidth];
+
 	CGFloat w = [self widthForTabAtIndex:index];
-	return NSMakeRect(x, 0, w, self.bounds.size.height);
+	return NSMakeRect(stripOriginX + x - _scrollOffset, 0, w, self.bounds.size.height);
 }
 
 - (NSRect)closeButtonRectForTabRect:(NSRect)tabRect
@@ -268,6 +402,12 @@ static const CGFloat kDragThreshold = 5.0;
 
 - (NSInteger)tabIndexAtPoint:(NSPoint)point
 {
+	// Reject points in scroll button zones
+	if ([self overflowsLeftRaw] && point.x < kScrollButtonWidth)
+		return -1;
+	if ([self overflowsRightRaw] && point.x > self.bounds.size.width - kScrollButtonWidth)
+		return -1;
+
 	for (NSInteger i = 0; i < static_cast<NSInteger>(_tabs.count); ++i)
 	{
 		NSRect tabRect = [self rectForTabAtIndex:i];
@@ -331,10 +471,24 @@ static const CGFloat kDragThreshold = 5.0;
 			: [NSColor colorWithCalibratedWhite:0.05 alpha:1.0]
 	};
 
+	// Clip tabs to the strip area (between scroll buttons)
+	CGFloat stripOriginX, stripWidth;
+	[self getTabStripOriginX:&stripOriginX width:&stripWidth];
+	NSRect clipRect = NSMakeRect(stripOriginX, 0, stripWidth, self.bounds.size.height);
+
+	NSGraphicsContext* gc = [NSGraphicsContext currentContext];
+	[gc saveGraphicsState];
+	NSRectClip(clipRect);
+
 	for (NSInteger i = 0; i < static_cast<NSInteger>(_tabs.count); ++i)
 	{
 		// Skip the dragged tab (it will be drawn floating)
 		if (_isDragging && i == _dragSourceIndex)
+			continue;
+
+		// Skip off-screen tabs for performance
+		NSRect tabRect = [self rectForTabAtIndex:i];
+		if (NSMaxX(tabRect) < stripOriginX || tabRect.origin.x > stripOriginX + stripWidth)
 			continue;
 
 		[self drawTabAtIndex:i isDark:isDark normalAttrs:normalAttrs selectedAttrs:selectedAttrs alpha:1.0 offsetX:0];
@@ -348,7 +502,7 @@ static const CGFloat kDragThreshold = 5.0;
 			: [NSColor colorWithCalibratedRed:0.2 green:0.4 blue:0.9 alpha:0.8];
 		[indicatorColor setFill];
 
-		CGFloat insertX = 0;
+		CGFloat insertX = stripOriginX - _scrollOffset;
 		for (NSInteger i = 0; i < _dragInsertionIndex; ++i)
 		{
 			if (i == _dragSourceIndex) continue;
@@ -362,14 +516,17 @@ static const CGFloat kDragThreshold = 5.0;
 	{
 		CGFloat offsetX = _dragCurrentPoint.x - _dragStartPoint.x;
 
-		NSGraphicsContext* gc = [NSGraphicsContext currentContext];
-		[gc saveGraphicsState];
-
 		// Draw with slight transparency
 		[self drawTabAtIndex:_dragSourceIndex isDark:isDark normalAttrs:normalAttrs selectedAttrs:selectedAttrs alpha:0.8 offsetX:offsetX];
-
-		[gc restoreGraphicsState];
 	}
+
+	[gc restoreGraphicsState];
+
+	// Draw scroll buttons on top (outside clip)
+	if ([self overflowsLeftRaw])
+		[self drawScrollButtonLeft:YES isDark:isDark];
+	if ([self overflowsRightRaw])
+		[self drawScrollButtonLeft:NO isDark:isDark];
 }
 
 - (void)drawTabAtIndex:(NSInteger)index isDark:(BOOL)isDark
@@ -499,6 +656,73 @@ static const CGFloat kDragThreshold = 5.0;
 	}
 }
 
+- (void)drawScrollButtonLeft:(BOOL)isLeft isDark:(BOOL)isDark
+{
+	CGFloat viewWidth = self.bounds.size.width;
+	CGFloat viewHeight = self.bounds.size.height;
+	NSRect btnRect;
+
+	if (isLeft)
+		btnRect = NSMakeRect(0, 0, kScrollButtonWidth, viewHeight);
+	else
+		btnRect = NSMakeRect(viewWidth - kScrollButtonWidth, 0, kScrollButtonWidth, viewHeight);
+
+	// Background matching tab bar
+	NSColor* bgColor = isDark
+		? [NSColor colorWithCalibratedRed:0.15 green:0.15 blue:0.15 alpha:1.0]
+		: [NSColor colorWithCalibratedRed:0.92 green:0.92 blue:0.92 alpha:1.0];
+	[bgColor setFill];
+	NSRectFill(btnRect);
+
+	// Hover highlight
+	BOOL isHovered = isLeft ? _hoveredLeftScroll : _hoveredRightScroll;
+	if (isHovered)
+	{
+		NSColor* hoverColor = isDark
+			? [NSColor colorWithCalibratedRed:0.25 green:0.25 blue:0.25 alpha:1.0]
+			: [NSColor colorWithCalibratedRed:0.85 green:0.85 blue:0.85 alpha:1.0];
+		[hoverColor setFill];
+		NSRectFill(btnRect);
+	}
+
+	// Draw chevron
+	NSColor* chevronColor = isDark
+		? [NSColor colorWithCalibratedWhite:0.7 alpha:1.0]
+		: [NSColor colorWithCalibratedWhite:0.35 alpha:1.0];
+	if (isHovered)
+	{
+		chevronColor = isDark
+			? [NSColor colorWithCalibratedWhite:0.95 alpha:1.0]
+			: [NSColor colorWithCalibratedWhite:0.1 alpha:1.0];
+	}
+	[chevronColor setStroke];
+
+	CGFloat midX = NSMidX(btnRect);
+	CGFloat midY = NSMidY(btnRect);
+	CGFloat chevronSize = 4.0;
+
+	NSBezierPath* chevron = [NSBezierPath bezierPath];
+	chevron.lineWidth = 1.5;
+	chevron.lineCapStyle = NSLineCapStyleRound;
+	chevron.lineJoinStyle = NSLineJoinStyleRound;
+
+	if (isLeft)
+	{
+		// < chevron
+		[chevron moveToPoint:NSMakePoint(midX + chevronSize * 0.5, midY - chevronSize)];
+		[chevron lineToPoint:NSMakePoint(midX - chevronSize * 0.5, midY)];
+		[chevron lineToPoint:NSMakePoint(midX + chevronSize * 0.5, midY + chevronSize)];
+	}
+	else
+	{
+		// > chevron
+		[chevron moveToPoint:NSMakePoint(midX - chevronSize * 0.5, midY - chevronSize)];
+		[chevron lineToPoint:NSMakePoint(midX + chevronSize * 0.5, midY)];
+		[chevron lineToPoint:NSMakePoint(midX - chevronSize * 0.5, midY + chevronSize)];
+	}
+	[chevron stroke];
+}
+
 // ============================================================
 // Tracking area (for hover detection)
 // ============================================================
@@ -530,6 +754,12 @@ static const CGFloat kDragThreshold = 5.0;
 	NSPoint localPoint = [self convertPoint:[event locationInWindow] fromView:nil];
 	NSInteger oldHovered = _hoveredIndex;
 	NSInteger oldCloseHovered = _hoveredCloseIndex;
+	BOOL oldLeftScroll = _hoveredLeftScroll;
+	BOOL oldRightScroll = _hoveredRightScroll;
+
+	// Track scroll button hover
+	_hoveredLeftScroll = [self overflowsLeftRaw] && localPoint.x < kScrollButtonWidth;
+	_hoveredRightScroll = [self overflowsRightRaw] && localPoint.x > self.bounds.size.width - kScrollButtonWidth;
 
 	_hoveredIndex = [self tabIndexAtPoint:localPoint];
 	_hoveredCloseIndex = -1;
@@ -542,7 +772,8 @@ static const CGFloat kDragThreshold = 5.0;
 			_hoveredCloseIndex = _hoveredIndex;
 	}
 
-	if (_hoveredIndex != oldHovered || _hoveredCloseIndex != oldCloseHovered)
+	if (_hoveredIndex != oldHovered || _hoveredCloseIndex != oldCloseHovered
+	    || _hoveredLeftScroll != oldLeftScroll || _hoveredRightScroll != oldRightScroll)
 		[self setNeedsDisplay:YES];
 }
 
@@ -555,6 +786,8 @@ static const CGFloat kDragThreshold = 5.0;
 {
 	_hoveredIndex = -1;
 	_hoveredCloseIndex = -1;
+	_hoveredLeftScroll = NO;
+	_hoveredRightScroll = NO;
 	[self setNeedsDisplay:YES];
 }
 
@@ -564,7 +797,31 @@ static const CGFloat kDragThreshold = 5.0;
 
 - (void)mouseDown:(NSEvent*)event
 {
+	// Convert ctrl+click to right-click (macOS convention)
+	if (event.modifierFlags & NSEventModifierFlagControl)
+	{
+		[self rightMouseDown:event];
+		return;
+	}
+
 	NSPoint localPoint = [self convertPoint:[event locationInWindow] fromView:nil];
+
+	// Handle scroll button clicks
+	if ([self overflowsLeftRaw] && localPoint.x < kScrollButtonWidth)
+	{
+		_scrollOffset -= kScrollStep;
+		[self clampScrollOffset];
+		[self setNeedsDisplay:YES];
+		return;
+	}
+	if ([self overflowsRightRaw] && localPoint.x > self.bounds.size.width - kScrollButtonWidth)
+	{
+		_scrollOffset += kScrollStep;
+		[self clampScrollOffset];
+		[self setNeedsDisplay:YES];
+		return;
+	}
+
 	NSInteger clickedIndex = [self tabIndexAtPoint:localPoint];
 
 	if (clickedIndex < 0)
@@ -673,13 +930,37 @@ static const CGFloat kDragThreshold = 5.0;
 	}
 }
 
+- (void)scrollWheel:(NSEvent*)event
+{
+	// Use horizontal delta if available, otherwise convert vertical to horizontal
+	CGFloat delta = event.scrollingDeltaX;
+	if (fabs(delta) < 0.01)
+		delta = -event.scrollingDeltaY;
+
+	if (event.hasPreciseScrollingDeltas)
+	{
+		// Trackpad: use precise deltas directly
+		_scrollOffset -= delta;
+	}
+	else
+	{
+		// Mouse wheel: amplify
+		_scrollOffset -= delta * kScrollWheelMultiplier;
+	}
+
+	[self clampScrollOffset];
+	[self setNeedsDisplay:YES];
+}
+
 // ============================================================
 // Drag helpers
 // ============================================================
 
 - (NSInteger)insertionIndexForPoint:(NSPoint)point excludingIndex:(NSInteger)excludeIndex
 {
-	CGFloat x = 0;
+	CGFloat stripOriginX, stripWidth;
+	[self getTabStripOriginX:&stripOriginX width:&stripWidth];
+	CGFloat x = stripOriginX - _scrollOffset;
 
 	for (NSInteger i = 0; i < static_cast<NSInteger>(_tabs.count); ++i)
 	{
@@ -696,6 +977,16 @@ static const CGFloat kDragThreshold = 5.0;
 	}
 
 	return static_cast<NSInteger>(_tabs.count);
+}
+
+// ============================================================
+// Resize handling
+// ============================================================
+
+- (void)setFrameSize:(NSSize)newSize
+{
+	[super setFrameSize:newSize];
+	[self clampScrollOffset];
 }
 
 // ============================================================

@@ -157,6 +157,7 @@ PowerEditor/bin/SourceCodePro-Regular.ttf
 #-------------------------------------------------------------------------------
 # macOS port
 macos/build/
+macos/dist/
 
 #-------------------------------------------------------------------------------
 # MinGW-w64 GCC
@@ -169,4 +170,3 @@ PowerEditor/src/MISC/md5/RCa06792
 *.db
 *.sln
 *.opendb
-macos/dist

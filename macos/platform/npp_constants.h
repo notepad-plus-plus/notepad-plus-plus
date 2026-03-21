@@ -81,6 +81,16 @@
 #define IDM_VIEW_SHOW_EOL            42081
 #define IDM_VIEW_SHOW_INDENT         42082
 
+// Tab context menu command IDs
+#define IDM_TAB_CLOSE            42200
+#define IDM_TAB_CLOSE_OTHERS     42201
+#define IDM_TAB_CLOSE_ALL        42202
+#define IDM_TAB_CLOSE_TO_RIGHT   42203
+#define IDM_TAB_COPY_FULL_PATH   42210
+#define IDM_TAB_COPY_FILENAME    42211
+#define IDM_TAB_COPY_DIR_PATH    42212
+#define IDM_TAB_REVEAL_FINDER    42213
+
 // Help menu commands
 #define IDM_HELP_ABOUT           46001
 

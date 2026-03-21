@@ -9,6 +9,7 @@
 #include "lexer_styles.h"
 #include "scintilla_bridge.h"
 #include "brace_match.h"
+#include "smart_highlight.h"
 
 void applyFoldMarkerColorsToView(void* sci, bool isDark)
 {
@@ -61,6 +62,7 @@ void applyAppearanceToView(void* sci, int langIdx, bool isDark)
 
 	applyFoldMarkerColorsToView(sci, isDark);
 	configureBraceStyles(sci, isDark);
+	configureSmartHighlightIndicator(sci, isDark);
 }
 
 void applyAppearance()

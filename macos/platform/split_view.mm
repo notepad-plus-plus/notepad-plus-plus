@@ -14,6 +14,8 @@
 #include "handle_registry.h"
 #include "brace_match.h"
 #include "auto_indent.h"
+#include "smart_highlight.h"
+#include "scintilla_notify.h"
 #include "windows.h"
 #include "commctrl.h"
 
@@ -101,14 +103,7 @@ void doSplit()
 			[](intptr_t windowid, unsigned int iMessage, uintptr_t wParam, uintptr_t lParam) {
 				if (iMessage == 1002 && lParam)
 				{
-					struct SciNotifyHeader { void* hwndFrom; uintptr_t idFrom; unsigned int code; };
-					struct SciNotify {
-						SciNotifyHeader nmhdr; intptr_t position; int ch; int modifiers;
-						int modificationType; const char* text; intptr_t length;
-						intptr_t linesAdded; int message; uintptr_t wParam; intptr_t sLParam;
-						intptr_t line; int foldLevelNow; int foldLevelPrev; int margin;
-					};
-					auto* scn = reinterpret_cast<const SciNotify*>(lParam);
+					auto* scn = reinterpret_cast<const SciNotification*>(lParam);
 					if (scn->nmhdr.code == 2028)
 						ctx().activeView = 1;
 					else if (scn->nmhdr.code == SCN_SAVEPOINTLEFT)
@@ -150,6 +145,8 @@ void doSplit()
 					else if (scn->nmhdr.code == SCN_UPDATEUI)
 					{
 						doBraceMatch(ctx().scintillaView2);
+						if (scn->updated & SC_UPDATE_SELECTION)
+							doSmartHighlight(ctx().scintillaView2);
 					}
 					else if (scn->nmhdr.code == SCN_CHARADDED)
 					{

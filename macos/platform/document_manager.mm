@@ -7,6 +7,7 @@
 #include "string_utils.h"
 #include "lexer_styles.h"
 #include "scintilla_bridge.h"
+#include "smart_highlight.h"
 #include "windows.h"
 #include "commctrl.h"
 #include "handle_registry.h"
@@ -93,6 +94,7 @@ void switchToTabInView(int viewIndex, int tabIndex)
 		return;
 	if (!sci) return;
 
+	clearSmartHighlight(sci);
 	saveViewState(sci, docs, activeTab);
 	activeTab = tabIndex;
 	if (tabHwnd)

@@ -63,6 +63,7 @@ void configureScintilla(void* sci)
 	if (ctx().zoomLevel != 0)
 		ScintillaBridge_sendMessage(sci, SCI_SETZOOM, ctx().zoomLevel, 0);
 
+	configureSmartHighlightIndicator(sci, false);
+
 	configureKeyboardShortcuts(sci);
-	configureSmartHighlight(sci);
 }

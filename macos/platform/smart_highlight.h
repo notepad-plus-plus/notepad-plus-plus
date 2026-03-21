@@ -1,12 +1,15 @@
 #pragma once
 
-// Configure smart highlighting indicator styles for the given Scintilla view.
-// Call this once during Scintilla setup.
-void configureSmartHighlight(void* sci);
-
 // Perform smart highlighting for the given Scintilla view.
-// Call this on every SCN_UPDATEUI notification.
 void doSmartHighlight(void* sci);
 
-// Clear all smart highlight indicators from the given Scintilla view.
+// Clear smart-highlight indicators from the given view.
 void clearSmartHighlight(void* sci);
+
+// Configure smart-highlight indicator styles.
+void configureSmartHighlightIndicator(void* sci, bool isDark);
+
+// Shared helper: highlight all occurrences of text using the given indicator.
+// Returns the number of matches highlighted.
+int highlightAllOccurrences(void* sci, const char* utf8Text, int searchFlags,
+                            int indicatorNum, int maxMatches = 2000);

@@ -342,6 +342,7 @@ add_executable(MacOSNotePP
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/file_path_ops.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/tab_bar_view.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/tab_context_menu.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/smart_highlight.mm"
 )
 target_include_directories(MacOSNotePP PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/platform"

@@ -13,6 +13,7 @@
 #include "scintilla_bridge.h"
 #include "handle_registry.h"
 #include "brace_match.h"
+#include "smart_highlight.h"
 #include "auto_indent.h"
 #include "windows.h"
 #include "commctrl.h"
@@ -150,6 +151,7 @@ void doSplit()
 					else if (scn->nmhdr.code == SCN_UPDATEUI)
 					{
 						doBraceMatch(ctx().scintillaView2);
+						doSmartHighlight(ctx().scintillaView2);
 					}
 					else if (scn->nmhdr.code == SCN_CHARADDED)
 					{

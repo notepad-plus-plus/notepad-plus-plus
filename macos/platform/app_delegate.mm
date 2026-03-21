@@ -22,6 +22,7 @@
 #include "settings_manager.h"
 #include "file_monitor_mac.h"
 #include "brace_match.h"
+#include "smart_highlight.h"
 #include "auto_indent.h"
 #include "windows.h"
 #include "commctrl.h"
@@ -301,6 +302,7 @@ static void setDockIconFromLogo()
 				else if (scn->nmhdr.code == SCN_UPDATEUI)
 				{
 					doBraceMatch(ctx().scintillaView);
+					doSmartHighlight(ctx().scintillaView);
 				}
 				else if (scn->nmhdr.code == SCN_CHARADDED)
 				{

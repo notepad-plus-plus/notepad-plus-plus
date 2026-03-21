@@ -1,0 +1,106 @@
+name: macOS_CI_build
+
+on:
+  push:
+    branches: [macos-port]
+    paths:
+      - 'macos/**'
+      - 'scintilla/**'
+      - 'lexilla/**'
+      - 'PowerEditor/src/**'
+      - '.github/workflows/macos_ci.yml'
+  pull_request:
+    branches: [macos-port]
+    paths:
+      - 'macos/**'
+      - 'scintilla/**'
+      - 'lexilla/**'
+      - 'PowerEditor/src/**'
+      - '.github/workflows/macos_ci.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: macos-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build_macos:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-13
+            arch: x86_64
+            name: macOS 13 (Intel)
+          - runner: macos-14
+            arch: arm64
+            name: macOS 14 (ARM64)
+          - runner: macos-15
+            arch: arm64
+            name: macOS 15 (ARM64)
+
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.runner }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Verify logo.png exists
+        run: |
+          if [ ! -f logo.png ]; then
+            echo "::error::logo.png is missing from the repository root. The macOS build requires this file for icon generation. Please commit logo.png to the macos-port branch."
+            exit 1
+          fi
+
+      - name: Prepare build directory
+        run: mkdir -p macos/build
+
+      - name: Cache CMake build directory
+        uses: actions/cache@v4
+        with:
+          path: macos/build
+          key: macos-build-${{ matrix.runner }}-${{ hashFiles('macos/CMakeLists.txt', 'macos/shim/**', 'macos/platform/**') }}
+          restore-keys: |
+            macos-build-${{ matrix.runner }}-
+
+      - name: CMake configure
+        working-directory: macos/build
+        run: cmake -G Xcode ..
+
+      - name: Build MacOSNotePP (Release)
+        working-directory: macos/build
+        run: cmake --build . --target MacOSNotePP --config Release -- -quiet
+
+      - name: Build MacOSNotePP (Debug)
+        working-directory: macos/build
+        run: cmake --build . --target MacOSNotePP --config Debug -- -quiet
+
+      - name: Build app bundle (package)
+        working-directory: macos/build
+        run: cmake --build . --target MacOSNotePP_package --config Release
+
+      - name: Verify app bundle
+        run: |
+          echo "=== App bundle structure ==="
+          ls -lR macos/dist/MacNote++.app/Contents/ | head -30
+          echo ""
+          echo "=== Binary info ==="
+          file macos/dist/MacNote++.app/Contents/MacOS/MacOSNotePP
+          echo ""
+          echo "=== Linked frameworks ==="
+          otool -L macos/dist/MacNote++.app/Contents/MacOS/MacOSNotePP | head -20
+
+      - name: Upload app bundle artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MacNote++.app-${{ matrix.runner }}-${{ matrix.arch }}
+          path: macos/dist/MacNote++.app
+          retention-days: 14
+
+      - name: Upload Release binary artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MacOSNotePP-Release-${{ matrix.runner }}-${{ matrix.arch }}
+          path: macos/build/Release/MacOSNotePP
+          retention-days: 14

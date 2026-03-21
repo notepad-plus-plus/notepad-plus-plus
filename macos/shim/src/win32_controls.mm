@@ -13,6 +13,7 @@
 #include "win32_status_bar_impl.h"
 #include "win32_toolbar_rebar_impl.h"
 #include "win32_dialog_controls_impl.h"
+#include "tab_bar_view.h"
 
 #include <string>
 
@@ -60,15 +61,12 @@ void* Win32Controls_CreateControl(ControlType type, void* parentView,
 	{
 		case ControlType::TabControl:
 		{
-			// NSSegmentedControl for tabs
+			// Custom NppTabBarView for tabs (supports close buttons, drag-reorder, context menu)
 			NSRect frame = NSMakeRect(x, parentH - y - height, width, 28);
-			NSSegmentedControl* seg = [[NSSegmentedControl alloc] initWithFrame:frame];
-			seg.segmentStyle = NSSegmentStyleAutomatic;
-			seg.trackingMode = NSSegmentSwitchTrackingSelectOne;
-			seg.segmentCount = 0;
-			seg.autoresizingMask = NSViewWidthSizable | NSViewMinYMargin;
-			[parent addSubview:seg];
-			return (__bridge void*)seg;
+			NppTabBarView* tabBarView = [[NppTabBarView alloc] initWithFrame:frame];
+			tabBarView.autoresizingMask = NSViewWidthSizable | NSViewMinYMargin;
+			[parent addSubview:tabBarView];
+			return (__bridge void*)tabBarView;
 		}
 
 		case ControlType::StatusBar:

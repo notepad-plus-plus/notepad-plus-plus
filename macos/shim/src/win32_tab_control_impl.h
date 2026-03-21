@@ -1,5 +1,5 @@
 #pragma once
-// Win32 Tab Control shim: data + NSSegmentedControl backing
+// Win32 Tab Control shim: data + NppTabBarView backing
 // Private implementation header — not part of public API.
 
 #include <cstdint>
@@ -15,3 +15,6 @@ void Win32TabControl_Destroy(void* hwndVoid);
 bool Win32TabControl_HandleMessage(void* hwndVoid, unsigned int msg,
                                     uintptr_t wParam, intptr_t lParam,
                                     intptr_t& result);
+
+// Reorder a tab in the shim's internal items array.
+void Win32TabControl_ReorderItem(void* hwndVoid, int fromIndex, int toIndex);

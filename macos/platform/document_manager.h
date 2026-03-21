@@ -21,5 +21,7 @@ int addNewTab(const std::wstring& title, const std::string& content,
 void closeTabFromView(int viewIndex, int tabIndex);
 void closeTab(int tabIndex);
 
+void reorderTabInView(int viewIndex, int fromIndex, int toIndex);
+
 void updateTabModifiedIndicator(int viewIndex, int tabIndex);
 void updateWindowDocumentEdited();

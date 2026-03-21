@@ -9,6 +9,9 @@
 #include "scintilla_bridge.h"
 #include "windows.h"
 #include "commctrl.h"
+#include "handle_registry.h"
+#include "tab_bar_view.h"
+#include "win32_tab_control_impl.h"
 
 void saveViewState(void* sci, std::vector<DocumentData>& docs, int tabIdx)
 {
@@ -224,6 +227,53 @@ void closeTab(int tabIndex)
 	closeTabFromView(ctx().activeView, tabIndex);
 }
 
+void reorderTabInView(int viewIndex, int fromIndex, int toIndex)
+{
+	auto& docs = (viewIndex == 0) ? ctx().documents : ctx().documents2;
+	auto& activeTab = (viewIndex == 0) ? ctx().activeTab : ctx().activeTab2;
+	HWND tabHwnd = (viewIndex == 0) ? ctx().tabHwnd : ctx().tabHwnd2;
+
+	if (fromIndex < 0 || fromIndex >= static_cast<int>(docs.size()))
+		return;
+	if (toIndex < 0 || toIndex >= static_cast<int>(docs.size()))
+		return;
+	if (fromIndex == toIndex)
+		return;
+
+	// 1. Move the document in the documents vector
+	DocumentData movedDoc = docs[fromIndex];
+	docs.erase(docs.begin() + fromIndex);
+	docs.insert(docs.begin() + toIndex, movedDoc);
+
+	// 2. Adjust activeTab to follow the moved tab
+	if (activeTab == fromIndex)
+	{
+		activeTab = toIndex;
+	}
+	else
+	{
+		if (fromIndex < activeTab && toIndex >= activeTab)
+			--activeTab;
+		else if (fromIndex > activeTab && toIndex <= activeTab)
+			++activeTab;
+	}
+
+	// 3. Reorder the shim's TabControlData items array
+	if (tabHwnd)
+		Win32TabControl_ReorderItem(reinterpret_cast<void*>(tabHwnd), fromIndex, toIndex);
+
+	// 4. Reorder the NppTabBarView's tabs array
+	if (tabHwnd)
+	{
+		auto* tabInfo = HandleRegistry::getWindowInfo(tabHwnd);
+		if (tabInfo && tabInfo->nativeView)
+		{
+			NppTabBarView* tabView = (__bridge NppTabBarView*)tabInfo->nativeView;
+			[tabView moveTabFrom:fromIndex to:toIndex];
+		}
+	}
+}
+
 void updateTabModifiedIndicator(int viewIndex, int tabIndex)
 {
 	auto& docs = (viewIndex == 0) ? ctx().documents : ctx().documents2;
@@ -234,17 +284,23 @@ void updateTabModifiedIndicator(int viewIndex, int tabIndex)
 	if (!tabHwnd) return;
 
 	const auto& doc = docs[tabIndex];
-	std::wstring displayTitle = doc.title;
-	if (doc.modified)
-		displayTitle += L" \u2022";
 
+	// Set the title (without bullet — NppTabBarView draws its own modified dot)
 	TCITEMW tcItem = {};
 	tcItem.mask = TCIF_TEXT;
 	wchar_t titleBuf[256];
-	wcsncpy(titleBuf, displayTitle.c_str(), 255);
+	wcsncpy(titleBuf, doc.title.c_str(), 255);
 	titleBuf[255] = L'\0';
 	tcItem.pszText = titleBuf;
 	SendMessageW(tabHwnd, TCM_SETITEMW, tabIndex, reinterpret_cast<LPARAM>(&tcItem));
+
+	// Set modified state directly on the NppTabBarView
+	auto* tabInfo = HandleRegistry::getWindowInfo(tabHwnd);
+	if (tabInfo && tabInfo->nativeView)
+	{
+		NppTabBarView* tabView = (__bridge NppTabBarView*)tabInfo->nativeView;
+		[tabView setModified:doc.modified forTabAtIndex:tabIndex];
+	}
 }
 
 void updateWindowDocumentEdited()

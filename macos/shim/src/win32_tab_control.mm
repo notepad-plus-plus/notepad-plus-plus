@@ -1,4 +1,4 @@
-// Win32 Tab Control shim: TabItemData, TabControlData, NSSegmentedControl backing
+// Win32 Tab Control shim: TabItemData, TabControlData, NppTabBarView backing
 // Extracted from win32_controls.mm as part of shim modularization.
 
 #import <Cocoa/Cocoa.h>
@@ -7,6 +7,7 @@
 #include "handle_registry.h"
 #include "win32_string_helpers.h"
 #include "win32_tab_control_impl.h"
+#include "tab_bar_view.h"
 
 #include <unordered_map>
 #include <vector>
@@ -35,25 +36,22 @@ struct TabControlData
 static std::unordered_map<uintptr_t, TabControlData> s_tabControls;
 
 // ============================================================
-// ObjC helper: Routes NSSegmentedControl selection -> WM_NOTIFY/TCN_SELCHANGE
+// ObjC bridge: Routes NppTabBarView delegate calls -> WM_NOTIFY
 // ============================================================
 
-@interface Win32TabTarget : NSObject
+@interface NppTabBarBridge : NSObject <NppTabBarViewDelegate>
 @property (assign) HWND tabHwnd;
-- (void)tabSelectionChanged:(id)sender;
 @end
 
-@implementation Win32TabTarget
-- (void)tabSelectionChanged:(id)sender
+@implementation NppTabBarBridge
+
+- (void)tabBarView:(NppTabBarView*)tabBar didSelectTabAtIndex:(NSInteger)index
 {
-	NSSegmentedControl* seg = (NSSegmentedControl*)sender;
 	uintptr_t key = reinterpret_cast<uintptr_t>(self.tabHwnd);
 	auto it = s_tabControls.find(key);
 	if (it == s_tabControls.end()) return;
 
-	int newSel = static_cast<int>([seg selectedSegment]);
-	int oldSel = it->second.currentSel;
-	it->second.currentSel = newSel;
+	it->second.currentSel = static_cast<int>(index);
 
 	// Send WM_NOTIFY with TCN_SELCHANGE to the parent
 	HWND parentHwnd = it->second.parent;
@@ -72,10 +70,120 @@ static std::unordered_map<uintptr_t, TabControlData> s_tabControls;
 		}
 	}
 }
+
+- (void)tabBarView:(NppTabBarView*)tabBar didCloseTabAtIndex:(NSInteger)index
+{
+	uintptr_t key = reinterpret_cast<uintptr_t>(self.tabHwnd);
+	auto it = s_tabControls.find(key);
+	if (it == s_tabControls.end()) return;
+
+	// Fire the close callback via WM_COMMAND with a tab-close command ID.
+	// The platform layer handles prompting + closing through the
+	// standard promptAndHandleClose -> closeTabFromView path.
+	HWND parentHwnd = it->second.parent;
+	if (parentHwnd)
+	{
+		auto* parentInfo = HandleRegistry::getWindowInfo(parentHwnd);
+		if (parentInfo && parentInfo->wndProc)
+		{
+			// Encode viewIndex in HIWORD(wParam) and tabIndex in lParam
+			// using IDM_TAB_CLOSE (defined below) as the command ID.
+			// We use a custom notification code so the wndproc can route it.
+			NMHDR nmhdr;
+			nmhdr.hwndFrom = self.tabHwnd;
+			nmhdr.idFrom = 0;
+			nmhdr.code = NM_TAB_CLOSE;
+			// Pack tab index into a custom notification struct
+			struct TabCloseNotify {
+				NMHDR hdr;
+				int tabIndex;
+			};
+			TabCloseNotify tcn;
+			tcn.hdr = nmhdr;
+			tcn.tabIndex = static_cast<int>(index);
+			parentInfo->wndProc(parentHwnd, WM_NOTIFY, 0,
+			                    reinterpret_cast<LPARAM>(&tcn));
+		}
+	}
+}
+
+- (void)tabBarView:(NppTabBarView*)tabBar didMiddleClickTabAtIndex:(NSInteger)index
+{
+	// Same as close
+	[self tabBarView:tabBar didCloseTabAtIndex:index];
+}
+
+- (void)tabBarView:(NppTabBarView*)tabBar didReorderTabFrom:(NSInteger)fromIndex to:(NSInteger)toIndex
+{
+	uintptr_t key = reinterpret_cast<uintptr_t>(self.tabHwnd);
+	auto it = s_tabControls.find(key);
+	if (it == s_tabControls.end()) return;
+
+	HWND parentHwnd = it->second.parent;
+	if (parentHwnd)
+	{
+		auto* parentInfo = HandleRegistry::getWindowInfo(parentHwnd);
+		if (parentInfo && parentInfo->wndProc)
+		{
+			struct TabReorderNotify {
+				NMHDR hdr;
+				int fromIndex;
+				int toIndex;
+			};
+			NMHDR nmhdr;
+			nmhdr.hwndFrom = self.tabHwnd;
+			nmhdr.idFrom = 0;
+			nmhdr.code = NM_TAB_REORDER;
+			TabReorderNotify trn;
+			trn.hdr = nmhdr;
+			trn.fromIndex = static_cast<int>(fromIndex);
+			trn.toIndex = static_cast<int>(toIndex);
+			parentInfo->wndProc(parentHwnd, WM_NOTIFY, 0,
+			                    reinterpret_cast<LPARAM>(&trn));
+		}
+	}
+}
+
+- (void)tabBarView:(NppTabBarView*)tabBar didRightClickTabAtIndex:(NSInteger)index atPoint:(NSPoint)point
+{
+	uintptr_t key = reinterpret_cast<uintptr_t>(self.tabHwnd);
+	auto it = s_tabControls.find(key);
+	if (it == s_tabControls.end()) return;
+
+	HWND parentHwnd = it->second.parent;
+	if (parentHwnd)
+	{
+		auto* parentInfo = HandleRegistry::getWindowInfo(parentHwnd);
+		if (parentInfo && parentInfo->wndProc)
+		{
+			struct TabContextNotify {
+				NMHDR hdr;
+				int tabIndex;
+				NSPoint screenPoint;
+			};
+			NMHDR nmhdr;
+			nmhdr.hwndFrom = self.tabHwnd;
+			nmhdr.idFrom = 0;
+			nmhdr.code = NM_TAB_CONTEXTMENU;
+			TabContextNotify tcn;
+			tcn.hdr = nmhdr;
+			tcn.tabIndex = static_cast<int>(index);
+			// Convert window point to screen point
+			NSWindow* window = tabBar.window;
+			if (window)
+				tcn.screenPoint = [window convertPointToScreen:point];
+			else
+				tcn.screenPoint = point;
+			parentInfo->wndProc(parentHwnd, WM_NOTIFY, 0,
+			                    reinterpret_cast<LPARAM>(&tcn));
+		}
+	}
+}
+
 @end
 
-// Global map of tab targets (prevent deallocation under ARC)
-static NSMutableDictionary<NSNumber*, Win32TabTarget*>* s_tabTargets = nil;
+// Global map of tab bridges (prevent deallocation under ARC)
+static NSMutableDictionary<NSNumber*, NppTabBarBridge*>* s_tabBridges = nil;
 
 // ============================================================
 // Tab control init/destroy
@@ -92,21 +200,20 @@ void Win32TabControl_Init(void* hwndVoid, void* parentVoid)
 	data.parent = parent;
 	s_tabControls[key] = data;
 
-	// Set up action target for the NSSegmentedControl
+	// Set up delegate for the NppTabBarView
 	auto* info = HandleRegistry::getWindowInfo(hwnd);
 	if (info && info->nativeView)
 	{
-		if (!s_tabTargets)
-			s_tabTargets = [NSMutableDictionary dictionary];
+		if (!s_tabBridges)
+			s_tabBridges = [NSMutableDictionary dictionary];
 
-		Win32TabTarget* target = [[Win32TabTarget alloc] init];
-		target.tabHwnd = hwnd;
+		NppTabBarBridge* bridge = [[NppTabBarBridge alloc] init];
+		bridge.tabHwnd = hwnd;
 
-		NSSegmentedControl* seg = (__bridge NSSegmentedControl*)info->nativeView;
-		seg.target = target;
-		seg.action = @selector(tabSelectionChanged:);
+		NppTabBarView* tabBarView = (__bridge NppTabBarView*)info->nativeView;
+		tabBarView.delegate = bridge;
 
-		s_tabTargets[@(key)] = target;
+		s_tabBridges[@(key)] = bridge;
 	}
 }
 
@@ -115,7 +222,7 @@ void Win32TabControl_Destroy(void* hwndVoid)
 	uintptr_t key = reinterpret_cast<uintptr_t>(hwndVoid);
 	s_tabControls.erase(key);
 	NSNumber* num = @(key);
-	[s_tabTargets removeObjectForKey:num];
+	[s_tabBridges removeObjectForKey:num];
 }
 
 // ============================================================
@@ -133,7 +240,7 @@ bool Win32TabControl_HandleMessage(void* hwndVoid, unsigned int msg,
 
 	auto& tab = it->second;
 	auto* info = HandleRegistry::getWindowInfo(hwnd);
-	NSSegmentedControl* seg = info ? (__bridge NSSegmentedControl*)info->nativeView : nil;
+	NppTabBarView* tabView = info ? (__bridge NppTabBarView*)info->nativeView : nil;
 
 	switch (msg)
 	{
@@ -156,21 +263,16 @@ bool Win32TabControl_HandleMessage(void* hwndVoid, unsigned int msg,
 
 			tab.items.insert(tab.items.begin() + index, item);
 
-			// Update NSSegmentedControl
-			if (seg)
+			if (tabView)
 			{
-				seg.segmentCount = static_cast<NSInteger>(tab.items.size());
-				for (int i = 0; i < static_cast<int>(tab.items.size()); ++i)
-				{
-					[seg setLabel:WideToNS(tab.items[i].text.c_str()) forSegment:i];
-					[seg setWidth:0 forSegment:i]; // auto-size
-				}
+				[tabView insertTabWithTitle:WideToNS(item.text.c_str()) atIndex:index];
+			}
 
-				if (tab.currentSel < 0 && !tab.items.empty())
-				{
-					tab.currentSel = 0;
-					seg.selectedSegment = 0;
-				}
+			if (tab.currentSel < 0 && !tab.items.empty())
+			{
+				tab.currentSel = 0;
+				if (tabView)
+					[tabView selectTabAtIndex:0];
 			}
 
 			result = index;
@@ -188,18 +290,14 @@ bool Win32TabControl_HandleMessage(void* hwndVoid, unsigned int msg,
 
 			tab.items.erase(tab.items.begin() + index);
 
-			if (seg)
-			{
-				seg.segmentCount = static_cast<NSInteger>(tab.items.size());
-				for (int i = 0; i < static_cast<int>(tab.items.size()); ++i)
-					[seg setLabel:WideToNS(tab.items[i].text.c_str()) forSegment:i];
-			}
+			if (tabView)
+				[tabView removeTabAtIndex:index];
 
 			if (tab.currentSel >= static_cast<int>(tab.items.size()))
 				tab.currentSel = tab.items.empty() ? -1 : static_cast<int>(tab.items.size()) - 1;
 
-			if (seg && tab.currentSel >= 0)
-				seg.selectedSegment = tab.currentSel;
+			if (tabView && tab.currentSel >= 0)
+				[tabView selectTabAtIndex:tab.currentSel];
 
 			result = TRUE;
 			return true;
@@ -209,7 +307,8 @@ bool Win32TabControl_HandleMessage(void* hwndVoid, unsigned int msg,
 		{
 			tab.items.clear();
 			tab.currentSel = -1;
-			if (seg) seg.segmentCount = 0;
+			if (tabView)
+				[tabView removeAllTabs];
 			result = TRUE;
 			return true;
 		}
@@ -226,7 +325,8 @@ bool Win32TabControl_HandleMessage(void* hwndVoid, unsigned int msg,
 			if (index >= 0 && index < static_cast<int>(tab.items.size()))
 			{
 				tab.currentSel = index;
-				if (seg) seg.selectedSegment = index;
+				if (tabView)
+					[tabView selectTabAtIndex:index];
 			}
 
 			result = oldSel;
@@ -278,8 +378,8 @@ bool Win32TabControl_HandleMessage(void* hwndVoid, unsigned int msg,
 			if (pItem->mask & TCIF_TEXT && pItem->pszText)
 			{
 				item.text = pItem->pszText;
-				if (seg)
-					[seg setLabel:WideToNS(item.text.c_str()) forSegment:index];
+				if (tabView)
+					[tabView setTitle:WideToNS(item.text.c_str()) forTabAtIndex:index];
 			}
 			if (pItem->mask & TCIF_IMAGE)
 				item.image = pItem->iImage;
@@ -294,33 +394,29 @@ bool Win32TabControl_HandleMessage(void* hwndVoid, unsigned int msg,
 		{
 			int index = static_cast<int>(wParam);
 			RECT* pRect = reinterpret_cast<RECT*>(lParam);
-			if (!pRect || !seg || index < 0 || index >= static_cast<int>(tab.items.size()))
+			if (!pRect || !tabView || index < 0 || index >= static_cast<int>(tab.items.size()))
 			{
 				result = FALSE;
 				return true;
 			}
 
-			// Approximate: divide evenly
-			CGFloat segWidth = seg.frame.size.width / (std::max)(1, (int)tab.items.size());
-			pRect->left = static_cast<LONG>(index * segWidth);
-			pRect->top = 0;
-			pRect->right = static_cast<LONG>((index + 1) * segWidth);
-			pRect->bottom = static_cast<LONG>(seg.frame.size.height);
+			NSRect tabRect = [tabView rectForTabAtIndex:index];
+			pRect->left = static_cast<LONG>(tabRect.origin.x);
+			pRect->top = static_cast<LONG>(tabRect.origin.y);
+			pRect->right = static_cast<LONG>(tabRect.origin.x + tabRect.size.width);
+			pRect->bottom = static_cast<LONG>(tabRect.origin.y + tabRect.size.height);
 			result = TRUE;
 			return true;
 		}
 
 		case TCM_ADJUSTRECT:
 		{
-			// wParam TRUE  = given display rect, return window rect (larger)
-			// wParam FALSE = given window rect, return display rect (smaller)
-			// For simplicity, just shrink/expand by tab bar height
 			RECT* pRect = reinterpret_cast<RECT*>(lParam);
 			if (pRect)
 			{
-				if (wParam) // larger: expand upward to include tab bar
-					pRect->top -= 28; // tab bar height
-				else // smaller: shrink to exclude tab bar
+				if (wParam)
+					pRect->top -= 28;
+				else
 					pRect->top += 28;
 			}
 			result = 0;
@@ -346,15 +442,14 @@ bool Win32TabControl_HandleMessage(void* hwndVoid, unsigned int msg,
 		case TCM_HITTEST:
 		{
 			TCHITTESTINFO* pHitTest = reinterpret_cast<TCHITTESTINFO*>(lParam);
-			if (!pHitTest || !seg)
+			if (!pHitTest || !tabView)
 			{
 				result = -1;
 				return true;
 			}
-			// Simple hit test: check which segment the point falls in
-			CGFloat segWidth = seg.frame.size.width / (std::max)(1, (int)tab.items.size());
-			int hitIndex = static_cast<int>(pHitTest->pt.x / segWidth);
-			if (hitIndex >= 0 && hitIndex < static_cast<int>(tab.items.size()))
+			NSPoint point = NSMakePoint(pHitTest->pt.x, pHitTest->pt.y);
+			NSInteger hitIndex = [tabView tabIndexAtPoint:point];
+			if (hitIndex >= 0)
 			{
 				pHitTest->flags = TCHT_ONITEMLABEL;
 				result = hitIndex;
@@ -369,4 +464,40 @@ bool Win32TabControl_HandleMessage(void* hwndVoid, unsigned int msg,
 	}
 
 	return false;
+}
+
+// ============================================================
+// Tab reorder helper
+// ============================================================
+
+void Win32TabControl_ReorderItem(void* hwndVoid, int fromIndex, int toIndex)
+{
+	uintptr_t key = reinterpret_cast<uintptr_t>(hwndVoid);
+	auto it = s_tabControls.find(key);
+	if (it == s_tabControls.end()) return;
+
+	auto& tab = it->second;
+	if (fromIndex < 0 || fromIndex >= static_cast<int>(tab.items.size()))
+		return;
+	if (toIndex < 0 || toIndex >= static_cast<int>(tab.items.size()))
+		return;
+	if (fromIndex == toIndex)
+		return;
+
+	TabItemData movedItem = tab.items[fromIndex];
+	tab.items.erase(tab.items.begin() + fromIndex);
+	tab.items.insert(tab.items.begin() + toIndex, movedItem);
+
+	// Adjust currentSel to follow the moved tab
+	if (tab.currentSel == fromIndex)
+	{
+		tab.currentSel = toIndex;
+	}
+	else
+	{
+		if (fromIndex < tab.currentSel && toIndex >= tab.currentSel)
+			--tab.currentSel;
+		else if (fromIndex > tab.currentSel && toIndex <= tab.currentSel)
+			++tab.currentSel;
+	}
 }

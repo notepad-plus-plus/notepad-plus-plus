@@ -16,8 +16,9 @@ void configureSmartHighlightIndicator(void* sci, bool isDark)
 	ScintillaBridge_sendMessage(sci, SCI_INDICSETOUTLINEALPHA, INDIC_SMART_HIGHLIGHT, 255);
 	ScintillaBridge_sendMessage(sci, SCI_INDICSETUNDER, INDIC_SMART_HIGHLIGHT, 1);
 
-	// Green tint in light mode, blue tint in dark mode (Scintilla uses BGR)
-	int color = isDark ? 0xD0A050 : 0x00CC00;
+	// Green highlight in both modes (Scintilla colors are BGR)
+	// Light: bright green, Dark: softer green
+	int color = isDark ? 0x60FF60 : 0x00CC00;
 	ScintillaBridge_sendMessage(sci, SCI_INDICSETFORE, INDIC_SMART_HIGHLIGHT, color);
 }
 
@@ -103,8 +104,7 @@ void doSmartHighlight(void* sci)
 	// Bail if text contains whitespace
 	for (int i = 0; selBuf[i] != '\0'; ++i)
 	{
-		unsigned char ch = static_cast<unsigned char>(selBuf[i]);
-		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r')
+		if (std::isspace(static_cast<unsigned char>(selBuf[i])))
 			return;
 	}
 

@@ -6,6 +6,7 @@
 #include "app_state.h"
 #include "scintilla_bridge.h"
 #include "keyboard_shortcuts.h"
+#include "smart_highlight.h"
 
 void configureScintilla(void* sci)
 {
@@ -61,6 +62,8 @@ void configureScintilla(void* sci)
 
 	if (ctx().zoomLevel != 0)
 		ScintillaBridge_sendMessage(sci, SCI_SETZOOM, ctx().zoomLevel, 0);
+
+	configureSmartHighlightIndicator(sci, false);
 
 	configureKeyboardShortcuts(sci);
 }

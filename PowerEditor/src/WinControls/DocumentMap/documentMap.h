@@ -22,8 +22,6 @@
 
 #define DM_PANELTITLE     L"Document Map"
 
-const wchar_t VIEWZONE_DOCUMENTMAP[64] = L"Document map";
-
 class ScintillaEditView;
 class Buffer;
 struct MapPosition;
@@ -148,4 +146,5 @@ private:
 	std::wstring id4dockingCont = DM_NOFOCUSWHILECLICKINGCAPTION;
 
 	using DockingDlgInterface::init;
+	using StaticDialog::create;
 };

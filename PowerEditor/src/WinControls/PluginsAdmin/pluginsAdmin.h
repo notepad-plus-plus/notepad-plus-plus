@@ -14,13 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 #pragma once
 
-#include "StaticDialog.h"
-#include "pluginsAdminRes.h"
-#include "TabBar.h"
+#include <windows.h>
+
+#include <string>
+#include <utility>
+#include <vector>
+
+#include "Common.h"
 #include "ListView.h"
+#include "StaticDialog.h"
+#include "TabBar.h"
 #include "URLCtrl.h"
+#include "dpiManagerV2.h"
+#include "pluginsAdminRes.h"
 
 class PluginsManager;
 
@@ -53,7 +62,7 @@ struct PluginUpdateInfo
 	std::wstring _repository;
 	bool _isVisible = true;       // if false then it should not be displayed 
 
-	std::wstring describe();
+	std::wstring describe() const;
 	PluginUpdateInfo() = default;
 	PluginUpdateInfo(const std::wstring& fullFilePath, const std::wstring& fileName);
 };
@@ -80,14 +89,6 @@ enum COLUMN_TYPE { COLUMN_PLUGIN, COLUMN_VERSION };
 enum SORT_TYPE { DISPLAY_NAME_ALPHABET_ENCREASE, DISPLAY_NAME_ALPHABET_DECREASE };
 
 
-struct SortDisplayNameDecrease final
-{
-	bool operator() (const PluginUpdateInfo* l, const PluginUpdateInfo* r)
-	{
-		return (l->_displayName.compare(r->_displayName) <= 0);
-	}
-};
-
 class PluginViewList
 {
 friend class PluginsAdminDlg;
@@ -112,12 +113,12 @@ public:
 	void initView(HINSTANCE hInst, HWND parent) { _ui.init(hInst, parent); }
 	void addColumn(const columnInfo& column2Add) { _ui.addColumn(column2Add); }
 	void reSizeView(RECT & rc) { _ui.reSizeToWH(rc); }
-	void setViewStyleOption(int32_t extraStyle) { _ui.setStyleOption(extraStyle); }
+	void setViewStyleOption(int extraStyle) { _ui.setStyleOption(extraStyle); }
 	size_t nbItem() const { return _ui.nbItem(); }
 	PluginUpdateInfo* getPluginInfoFromUiIndex(size_t index) const { return reinterpret_cast<PluginUpdateInfo*>(_ui.getLParamFromIndex(static_cast<int>(index))); }
 	PluginUpdateInfo* findPluginInfoFromFolderName(const std::wstring& folderName, int& index) const;
 	bool removeFromListIndex(size_t index2remove);
-	bool hideFromListIndex(size_t index2Hide);
+	bool hideFromListIndex(size_t index2hide);
 	bool removeFromFolderName(const std::wstring& folderName);
 	bool removeFromUiIndex(size_t index2remove);
 	bool hideFromPluginInfoPtr(PluginUpdateInfo* pluginInfo2hide);
@@ -165,7 +166,7 @@ public :
 	bool updatePlugins();
 	bool removePlugins();
 
-	void changeTabName(LIST_TYPE index, const wchar_t *name2change);
+	void changeTabName(LIST_TYPE index, wchar_t* name2change);
 	void changeColumnName(COLUMN_TYPE index, const wchar_t *name2change);
 	std::wstring getPluginListVerStr() const;
 	const PluginViewList& getAvailablePluginUpdateInfoList() const {
@@ -214,7 +215,6 @@ private :
 	bool initAvailablePluginsViewFromList();
 	bool initIncompatiblePluginList();
 	bool loadFromPluginInfos();
-	bool checkUpdates();
 
 	enum Operation {
 		pa_install = 0,

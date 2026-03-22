@@ -26,7 +26,7 @@ namespace boost{
 #ifdef __cplusplus
 namespace regex_constants{
 
-enum error_type{
+BOOST_REGEX_MODULE_EXPORT enum error_type{
 
    error_ok = 0,         /* not used */
    error_no_match = 1,   /* not used */

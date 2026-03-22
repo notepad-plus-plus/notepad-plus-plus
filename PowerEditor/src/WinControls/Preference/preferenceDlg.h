@@ -17,11 +17,22 @@
 
 #pragma once
 
+#include <windows.h>
+
+#include <memory>
+#include <string>
+#include <vector>
+
+#include "ColourPicker.h"
+#include "Common.h"
+#include "ContextMenu.h"
 #include "ControlsTab.h"
-#include "preference_rc.h"
+#include "Notepad_plus_msgs.h"
 #include "Parameters.h"
+#include "StaticDialog.h"
+#include "dpiManagerV2.h"
+#include "preference_rc.h"
 #include "regExtDlg.h"
-#include "WordStyleDlg.h"
 
 class MiscSubDlg : public StaticDialog
 {
@@ -58,10 +69,10 @@ public:
 
 private:
 	HWND _accentTip = nullptr;
-	ColourPicker* _pIconColorPicker = nullptr;
+	std::unique_ptr<ColourPicker> _pIconColorPicker = nullptr;
 
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
-	UINT getToolbarIconSetMsg(int* idxIconSet);
+	UINT getToolbarIconSetMsg(int* iconSetID);
 	void move2CtrlLeft(int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight);
 	void enableIconColorPicker(bool enable, bool useDark);
 };
@@ -136,18 +147,18 @@ public:
 	}
 
 private:
-	ColourPicker* _pBackgroundColorPicker = nullptr;
-	ColourPicker* _pCtrlBackgroundColorPicker = nullptr;
-	ColourPicker* _pHotBackgroundColorPicker = nullptr;
-	ColourPicker* _pDlgBackgroundColorPicker = nullptr;
-	ColourPicker* _pErrorBackgroundColorPicker = nullptr;
-	ColourPicker* _pTextColorPicker = nullptr;
-	ColourPicker* _pDarkerTextColorPicker = nullptr;
-	ColourPicker* _pDisabledTextColorPicker = nullptr;
-	ColourPicker* _pEdgeColorPicker = nullptr;
-	ColourPicker* _pLinkColorPicker = nullptr;
-	ColourPicker* _pHotEdgeColorPicker = nullptr;
-	ColourPicker* _pDisabledEdgeColorPicker = nullptr;
+	std::unique_ptr<ColourPicker> _pBackgroundColorPicker = nullptr;
+	std::unique_ptr<ColourPicker> _pCtrlBackgroundColorPicker = nullptr;
+	std::unique_ptr<ColourPicker> _pHotBackgroundColorPicker = nullptr;
+	std::unique_ptr<ColourPicker> _pDlgBackgroundColorPicker = nullptr;
+	std::unique_ptr<ColourPicker> _pErrorBackgroundColorPicker = nullptr;
+	std::unique_ptr<ColourPicker> _pTextColorPicker = nullptr;
+	std::unique_ptr<ColourPicker> _pDarkerTextColorPicker = nullptr;
+	std::unique_ptr<ColourPicker> _pDisabledTextColorPicker = nullptr;
+	std::unique_ptr<ColourPicker> _pEdgeColorPicker = nullptr;
+	std::unique_ptr<ColourPicker> _pLinkColorPicker = nullptr;
+	std::unique_ptr<ColourPicker> _pHotEdgeColorPicker = nullptr;
+	std::unique_ptr<ColourPicker> _pDisabledEdgeColorPicker = nullptr;
 
 	ContextMenu _resetPopupMenu;
 
@@ -396,7 +407,7 @@ public :
 	bool renameDialogTitle(const wchar_t *internalName, const wchar_t *newName);
 	
 	int getListSelectedIndex() const {
-		return static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_GETCURSEL, 0, 0));
+		return static_cast<int>(::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_GETCURSEL, 0, 0));
 	}
 
 	void showDialogByName(const wchar_t *name) const;
@@ -409,7 +420,7 @@ public :
 private :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	void makeCategoryList();
-	int32_t getIndexFromName(const wchar_t *name) const;
+	int getIndexFromName(const wchar_t* name) const;
 	void showDialogByIndex(size_t index) const;
 	WindowVector _wVector;
 	GeneralSubDlg _generalSubDlg;

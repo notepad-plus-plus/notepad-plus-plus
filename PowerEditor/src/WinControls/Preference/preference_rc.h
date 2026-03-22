@@ -209,6 +209,8 @@
 #define IDC_URISCHEMES_STATIC                          6264
 #define IDC_URISCHEMES_EDIT                            6265
 
+#define IDC_CHECK_DISABLESELECTEDTEXTDRAGDROP          6266
+
 #define IDC_WITHCLOUD_RADIO                            6267
 #define IDC_CLOUDPATH_EDIT                             6268
 #define IDD_CLOUDPATH_BROWSE_BUTTON                    6269
@@ -481,6 +483,7 @@
 #define IDC_FILLFINDWHAT_THRESH_QUESTION_BUTTON        6914
 #define IDC_FILLFINDWHAT_THRESHOLD_EDIT                6915
 #define IDC_FILLFINDWHAT_THRESHOLD_STATIC              6916
+#define IDC_CHECK_FIF_IGNOREOPENEDFILES                6917
 
 #define IDD_PREFERENCE_SUB_DARKMODE                    7100
 

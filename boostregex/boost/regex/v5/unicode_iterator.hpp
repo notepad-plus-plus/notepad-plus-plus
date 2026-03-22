@@ -60,12 +60,14 @@ Accepts UTF-32 code points and forwards them on as UTF-16 code points.
 
 #ifndef BOOST_REGEX_UNICODE_ITERATOR_HPP
 #define BOOST_REGEX_UNICODE_ITERATOR_HPP
-#include <cstdint>
 #include <boost/regex/config.hpp>
+#ifndef BOOST_REGEX_AS_MODULE
+#include <cstdint>
 #include <stdexcept>
 #include <sstream>
 #include <ios>
 #include <limits.h> // CHAR_BIT
+#endif
 
 #ifndef BOOST_REGEX_STANDALONE
 #include <boost/throw_exception.hpp>
@@ -75,9 +77,9 @@ namespace boost{
 
 namespace detail{
 
-static const std::uint16_t high_surrogate_base = 0xD7C0u;
-static const std::uint16_t low_surrogate_base = 0xDC00u;
-static const std::uint32_t ten_bit_mask = 0x3FFu;
+BOOST_REGEX_STATIC_CONST std::uint16_t high_surrogate_base = 0xD7C0u;
+BOOST_REGEX_STATIC_CONST std::uint16_t low_surrogate_base = 0xDC00u;
+BOOST_REGEX_STATIC_CONST std::uint32_t ten_bit_mask = 0x3FFu;
 
 inline bool is_high_surrogate(std::uint16_t v)
 {

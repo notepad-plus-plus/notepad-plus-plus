@@ -47,7 +47,7 @@ initUpdatePath:
 
 	${If} $noUserDataChecked == ${BST_CHECKED}
 
-		File "..\bin\doLocalConf.xml"
+		File ".\xml4Config\doLocalConf.xml"
 		StrCpy $USER_PLUGIN_CONF_PATH "$ALLUSERS_PLUGIN_CONF_PATH"
 		CreateDirectory $PLUGIN_INST_PATH\config
 	${ELSE}
@@ -79,7 +79,6 @@ FunctionEnd
 Function copyCommonFiles
 	SetOverwrite off
 	SetOutPath "$UPDATE_PATH\"
-	File "..\bin\contextMenu.xml"
 	File "..\src\tabContextMenu_example.xml"
 	File "..\src\toolbarButtonsConf_example.xml"
 
@@ -87,14 +86,6 @@ Function copyCommonFiles
 	SetOutPath "$INSTDIR\"
 	File "..\bin\langs.model.xml"
 	File "..\bin\stylers.model.xml"
-	File "..\bin\contextMenu.xml"
-
-	SetOverwrite off
-	File "..\bin\shortcuts.xml"
-	
-	; For debug logs
-	File "..\bin\nppLogNulContentCorruptionIssue.xml"
-
 	
 	; Set Section Files and Shortcuts
 	SetOverwrite on

@@ -20,22 +20,25 @@
 #define BOOST_CPP_REGEX_TRAITS_HPP_INCLUDED
 
 #include <boost/regex/config.hpp>
+
+#ifndef BOOST_REGEX_AS_MODULE
 #include <cstdint>
 #include <locale>
 #include <type_traits>
+#include <climits>
+#include <ios>
+#include <istream>
+#ifdef BOOST_HAS_THREADS
+#include <mutex>
+#endif
+#endif
 
 #include <boost/regex/pattern_except.hpp>
 #include <boost/regex/v5/regex_traits_defaults.hpp>
 
-#ifdef BOOST_HAS_THREADS
-#include <mutex>
-#endif
 #include <boost/regex/v5/primary_transform.hpp>
 #include <boost/regex/v5/object_cache.hpp>
 
-#include <climits>
-#include <ios>
-#include <istream>
 
 #ifdef BOOST_REGEX_MSVC
 #pragma warning(push)
@@ -47,7 +50,7 @@ namespace boost{
 //
 // forward declaration is needed by some compilers:
 //
-template <class charT>
+BOOST_REGEX_MODULE_EXPORT template <class charT>
 class cpp_regex_traits;
    
 namespace BOOST_REGEX_DETAIL_NS{
@@ -731,7 +734,7 @@ inline std::shared_ptr<const cpp_regex_traits_implementation<charT> > create_cpp
 
 } // BOOST_REGEX_DETAIL_NS
 
-template <class charT>
+BOOST_REGEX_MODULE_EXPORT template <class charT>
 class cpp_regex_traits
 {
 private:

@@ -19,18 +19,22 @@
 #ifndef BOOST_REGEX_CONFIG_HPP
 #define BOOST_REGEX_CONFIG_HPP
 
-#if !((__cplusplus >= 201103L) || (defined(_MSC_VER) && (_MSC_VER >= 1600)) || defined(BOOST_REGEX_CXX03))
-#  define BOOST_REGEX_CXX03
-#endif
-
-#if defined(BOOST_REGEX_RECURSIVE) && !defined(BOOST_REGEX_CXX03)
-#  define BOOST_REGEX_CXX03
+#if defined(BOOST_REGEX_RECURSIVE)
+#error "All support for the C++03 recursive engine has been removed, this define has no effect anymore."
 #endif
 
 #if defined(__has_include)
 #if !defined(BOOST_REGEX_STANDALONE) && !__has_include(<boost/version.hpp>)
 #define BOOST_REGEX_STANDALONE
 #endif
+#endif
+
+#ifndef BOOST_REGEX_MODULE_EXPORT
+#define BOOST_REGEX_MODULE_EXPORT
+#define BOOST_REGEX_STATIC_CONST static const
+#else
+#define BOOST_REGEX_STATIC_CONST inline constexpr
+#define BOOST_REGEX_STANDALONE
 #endif
 
 /*
@@ -40,6 +44,7 @@
 #if defined(__BORLANDC__) && !defined(__clang__)
 #  include <boost/regex/config/borland.hpp>
 #endif
+
 #ifndef BOOST_REGEX_STANDALONE
 #include <boost/version.hpp>
 #endif
@@ -51,8 +56,12 @@
 *************************************************************************/
 
 #ifdef BOOST_REGEX_STANDALONE
+#ifndef BOOST_REGEX_AS_MODULE
 #include <cassert>
 #  define BOOST_REGEX_ASSERT(x) assert(x)
+#else
+#  define BOOST_REGEX_ASSERT(x) do{ if(x == 0) { std::printf("%s:%d Assertion Failed", __FILE__, __LINE__); std::abort(); } }while(0)
+#endif
 #else
 #include <boost/assert.hpp>
 #  define BOOST_REGEX_ASSERT(x) BOOST_ASSERT(x)
@@ -90,20 +99,7 @@
 #  endif
 #endif
 
-
-/****************************************************************************
-*
-* Legacy support:
-*
-*******************************************************************************/
-
-#if defined(BOOST_NO_STD_LOCALE) || defined(BOOST_NO_CXX11_HDR_MUTEX) || defined(BOOST_NO_CXX11_HDR_TYPE_TRAITS) \
-   || defined(BOOST_NO_CXX11_HDR_ATOMIC) || defined(BOOST_NO_CXX11_ALLOCATOR) || defined(BOOST_NO_CXX11_SMART_PTR) \
-   || defined(BOOST_NO_CXX11_STATIC_ASSERT) || defined(BOOST_NO_NOEXCEPT)
-#ifndef BOOST_REGEX_CXX03
-#  define BOOST_REGEX_CXX03
-#endif
-#endif
+#define BOOST_REGEX_MAX_RECURSION_DEPTH 100
 
 /*****************************************************************************
  *
@@ -112,7 +108,7 @@
  ****************************************************************************/
 
 /* Obsolete macro, use BOOST_VERSION instead: */
-#define BOOST_RE_VERSION 500
+#define BOOST_RE_VERSION 600
 
 /* fix: */
 #if defined(_UNICODE) && !defined(UNICODE)
@@ -156,40 +152,6 @@
 * version number to avoid mismatched header and library versions:
 */
 #define BOOST_REGEX_DETAIL_NS BOOST_REGEX_JOIN(re_detail_, BOOST_RE_VERSION)
-
-/*
- * Fix for gcc prior to 3.4: std::ctype<wchar_t> doesn't allow
- * masks to be combined, for example:
- * std::use_facet<std::ctype<wchar_t> >.is(std::ctype_base::lower|std::ctype_base::upper, L'a');
- * returns *false*.
- */
-#if defined(__GLIBCPP__) && defined(BOOST_REGEX_CXX03)
-#  define BOOST_REGEX_BUGGY_CTYPE_FACET
-#endif
-
-/*
- * If there isn't good enough wide character support then there will
- * be no wide character regular expressions:
- */
-#if (defined(BOOST_NO_CWCHAR) || defined(BOOST_NO_CWCTYPE) || defined(BOOST_NO_STD_WSTRING))
-#  if !defined(BOOST_NO_WREGEX)
-#     define BOOST_NO_WREGEX
-#  endif
-#else
-#  if defined(__sgi) && (defined(__SGI_STL_PORT) || defined(_STLPORT_VERSION))
-      /* STLPort on IRIX is misconfigured: <cwctype> does not compile
-       * as a temporary fix include <wctype.h> instead and prevent inclusion
-       * of STLPort version of <cwctype> */
-#     include <wctype.h>
-#     define __STLPORT_CWCTYPE
-#     define _STLP_CWCTYPE
-#  endif
-
-#if defined(__cplusplus) && defined(BOOST_REGEX_CXX03)
-#  include <boost/regex/config/cwchar.hpp>
-#endif
-
-#endif
 
 /*
  * If Win32 support has been disabled for boost in general, then
@@ -249,19 +211,6 @@
 #  endif
 #else
 #  define BOOST_REGEX_DECL
-#endif
-
-#ifdef BOOST_REGEX_CXX03
-#if !defined(BOOST_REGEX_NO_LIB) && !defined(BOOST_REGEX_SOURCE) && !defined(BOOST_ALL_NO_LIB) && defined(__cplusplus)
-#  define BOOST_LIB_NAME boost_regex
-#  if defined(BOOST_REGEX_DYN_LINK) || defined(BOOST_ALL_DYN_LINK)
-#     define BOOST_DYN_LINK
-#  endif
-#  ifdef BOOST_REGEX_DIAG
-#     define BOOST_LIB_DIAGNOSTIC
-#  endif
-#  include <boost/config/auto_link.hpp>
-#endif
 #endif
 
 /*****************************************************************************
@@ -355,18 +304,7 @@
  * If there are no exceptions then we must report critical-errors
  * the only way we know how; by terminating.
  */
-#include <stdexcept>
-#include <string>
-#include <boost/throw_exception.hpp>
-
-#  define BOOST_REGEX_NOEH_ASSERT(x)\
-if(0 == (x))\
-{\
-   std::string s("Error: critical regex++ failure in: ");\
-   s.append(#x);\
-   std::runtime_error e(s);\
-   boost::throw_exception(e);\
-}
+#  define BOOST_REGEX_NOEH_ASSERT(x) assert(x);
 #else
 /*
  * With exceptions then error handling is taken care of and
@@ -405,26 +343,6 @@ BOOST_REGEX_DECL void BOOST_REGEX_CALL reset_stack_guard_page();
 
 #endif
 
-
-/*****************************************************************************
- *
- *  Algorithm selection and configuration.
- *  These options are now obsolete for C++11 and later (regex v5).
- *
- ****************************************************************************/
-
-#if !defined(BOOST_REGEX_RECURSIVE) && !defined(BOOST_REGEX_NON_RECURSIVE)
-#  if defined(BOOST_REGEX_HAS_MS_STACK_GUARD) && !defined(_STLP_DEBUG) && !defined(__STL_DEBUG) && !(defined(_MSC_VER) && (_MSC_VER >= 1400)) && defined(BOOST_REGEX_CXX03)
-#     define BOOST_REGEX_RECURSIVE
-#  else
-#     define BOOST_REGEX_NON_RECURSIVE
-#  endif
-#endif
-
-#ifdef BOOST_REGEX_NON_RECURSIVE
-#  ifdef BOOST_REGEX_RECURSIVE
-#     error "Can't set both BOOST_REGEX_RECURSIVE and BOOST_REGEX_NON_RECURSIVE"
-#  endif
 #  ifndef BOOST_REGEX_BLOCKSIZE
 #     define BOOST_REGEX_BLOCKSIZE 4096
 #  endif
@@ -440,7 +358,6 @@ BOOST_REGEX_DECL void BOOST_REGEX_CALL reset_stack_guard_page();
 #  ifndef BOOST_REGEX_MAX_CACHE_BLOCKS
 #     define BOOST_REGEX_MAX_CACHE_BLOCKS 16
 #  endif
-#endif
 
 
 /*****************************************************************************

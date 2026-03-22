@@ -16,12 +16,6 @@
 			<Component Id="change_log">
 				<File Source="..\..\bin\change.log" />
 			</Component>
-			<Component Id="contextMenu_xml">
-				<File Source="..\..\src\contextMenu.xml" />
-			</Component>
-			<Component Id="shortcuts_xml">
-				<File Source="..\..\src\shortcuts.xml" />
-			</Component>
 			<Component Id="LICENSE">
 				<File Source="..\..\..\LICENSE" />
 			</Component>

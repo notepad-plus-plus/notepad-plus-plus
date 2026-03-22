@@ -275,7 +275,7 @@ void WindowsDlg::init(HINSTANCE hInst, HWND parent, DocTabView *pTab)
 
 void WindowsDlg::init(HINSTANCE hInst, HWND parent)
 {
-	assert(!"Call other initialize method");
+	assert(false && "Call other initialize method");
 	MyBaseClass::init(hInst, parent);
 	_pTab = NULL;
 }

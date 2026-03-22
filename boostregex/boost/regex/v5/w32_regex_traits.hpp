@@ -23,8 +23,10 @@
 
 #include <boost/regex/pattern_except.hpp>
 #include <boost/regex/v5/regex_traits_defaults.hpp>
+#ifndef BOOST_REGEX_AS_MODULE
 #ifdef BOOST_HAS_THREADS
 #include <mutex>
+#endif
 #endif
 #include <boost/regex/v5/primary_transform.hpp>
 #include <boost/regex/v5/object_cache.hpp>
@@ -652,7 +654,7 @@ std::shared_ptr<const w32_regex_traits_implementation<charT> > create_w32_regex_
 
 } // BOOST_REGEX_DETAIL_NS
 
-template <class charT>
+BOOST_REGEX_MODULE_EXPORT template <class charT>
 class w32_regex_traits
 {
 public:

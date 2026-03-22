@@ -75,10 +75,6 @@ public:
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView);
 
-	void display(bool toShow = true) const override {
-		DockingDlgInterface::display(toShow);
-	}
-
 	void setBackgroundColor(COLORREF bgColour) override {
 		TreeView_SetBkColor(_treeView.getHSelf(), bgColour);
 		TreeView_SetBkColor(_treeViewSearchResult.getHSelf(), bgColour);
@@ -99,7 +95,7 @@ public:
 	void reload();
 	void markEntry();
 	bool serialize(const std::wstring & outputFilename = L"");
-	void addEntry(const wchar_t *node, const wchar_t *displayText, size_t pos);
+	void addEntry(const wchar_t* nodeName, const wchar_t* displayText, size_t pos);
 	void removeAllEntries();
 	void searchFuncAndSwitchView();
 
@@ -135,8 +131,8 @@ private:
 	std::vector< std::pair<int, int> > _skipZones;
 	std::vector<TreeParams> _treeParams;
 
-	std::wstring parseSubLevel(size_t begin, size_t end, std::vector< std::wstring > dataToSearch, intptr_t& foundPos);
-	size_t getBodyClosePos(size_t begin, const wchar_t *bodyOpenSymbol, const wchar_t *bodyCloseSymbol);
+	using DockingDlgInterface::init;
+
 	void notified(LPNMHDR notification);
 	void addInStateArray(TreeStateNode tree2Update, const wchar_t *searchText, bool isSorted);
 	TreeParams* getFromStateArray(const std::wstring& fullFilePath);

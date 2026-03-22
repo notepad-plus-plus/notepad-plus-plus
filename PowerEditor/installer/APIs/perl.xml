@@ -131,6 +131,7 @@
 		<KeyWord name="Tr" />
 		<KeyWord name="UNITCHECK" />
 		<KeyWord name="UNIVERSAL" />
+		<KeyWord name="__CLASS__" func="yes"><Overload retVal="" descr="the name of the class of the invoking instance"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="__DATA__" />
 		<KeyWord name="__END__" />
 		<KeyWord name="__FILE__" func="yes"><Overload retVal="" descr="the name of the current source file"><Param name="" /></Overload></KeyWord>
@@ -141,7 +142,9 @@
 		<KeyWord name="accept" func="yes"><Overload retVal="" descr="accept an incoming socket connect"><Param name="NEWSOCKET" /><Param name="GENERICSOCKET" /></Overload></KeyWord>
 		<KeyWord name="address" />
 		<KeyWord name="alarm" func="yes"><Overload retVal="" descr="schedule a SIGALRM"><Param name="SECONDS" /></Overload><Overload retVal="" descr="schedule a SIGALRM"><Param name="" /></Overload></KeyWord>
+		<KeyWord name="all" func="yes"><Overload retVal="" descr="Evaluates the BLOCK for each element of the LIST (locally setting $_ to each element) and checks the truth of the result of that block. Returns true if every element makes the block yield true, or returns false if at least one element makes the block false."><Param name="BLOCK" /><Param name="LIST" /></Overload></KeyWord>
 		<KeyWord name="and" />
+		<KeyWord name="any" func="yes"><Overload retVal="" descr="Evaluates the BLOCK for each element of the LIST (locally setting $_ to each element) and checks the truth of the result of that block. Returns true if at least one element makes the block yield true, or returns false if no element is found to make it true."><Param name="BLOCK" /><Param name="LIST" /></Overload></KeyWord>
 		<KeyWord name="atan2" func="yes"><Overload retVal="" descr="arctangent of Y/X in the range -PI to PI"><Param name="Y" /><Param name="X" /></Overload></KeyWord>
 		<KeyWord name="attach" />
 		<KeyWord name="attributes" />
@@ -542,3 +545,4 @@
 		<KeyWord name="y" func="yes"><Overload retVal="" descr="transliterate a string (alternate form for tr//)"><Param name="" /></Overload></KeyWord>
 	</AutoComplete>
 </NotepadPlus>
+

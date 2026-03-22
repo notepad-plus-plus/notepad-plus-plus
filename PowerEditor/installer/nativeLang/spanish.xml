@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Español" filename="spanish.xml" version="8.8.5">
+	<Native-Langue name="Español" filename="spanish.xml" version="8.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -140,6 +140,8 @@ Translation note:
 					<Item id="42081" name="Ordenar líneas en descendente ignorando mayúsculas y minúsculas"/>
 					<Item id="42100" name="Ordenar líneas en orden ascendente"/>
 					<Item id="42101" name="Ordenar líneas en orden descendente"/>
+					<Item id="42104" name="Orden de líneas por longitud ascendente"/>
+					<Item id="42105" name="Orden de líneas por longitud descendente"/>
 					<Item id="42061" name="Orden de líneas numérico ascendente"/>
 					<Item id="42062" name="Orden de líneas numérico descendente"/>
 					<Item id="42063" name="Ordenar líneas como decimales (coma) ascendente"/>
@@ -1001,6 +1003,7 @@ Translation note:
 					<Item id="6128" name="Iconos alternativos"/>
 					<Item id="6125" name="Comportamiento"/>
 					<Item id="6126" name="Aspecto &amp;&amp; Estilo"/>
+					<Item id="6136" name="Longitud máxima de la etiqueta de la pestaña:"/>
 				</Tabbar>
 
 				<Scintillas title="Edición 1">
@@ -1774,6 +1777,9 @@ Buscar en todos los archivos pero excluir todas las carpetas de registro o regis
 			<find-status-scope-all value="en todo el archivo."/>
 			<find-status-scope-backward value="desde el inicio del archivo hasta el cursor."/>
 			<find-status-scope-forward value="desde el cursor hasta el final del archivo."/>
+			<find-status-invisible-chars-findWhat value="Caracteres no visibles en el contenido pegado en &quot;Buscar&quot; o &quot;Reemplazar con&quot;."/>
+			<find-status-invisible-chars-findWhat-tip value="Aviso: Caracteres no visibles en el campo de búsqueda (o sustitución).
+El texto pegado en este campo incluye caracteres no visibles (quizás de fin de línea). Si continúa sin eliminarlos, se incluirán en el texto de búsqueda (o sustitución)."/>
 			<finder-find-in-finder value="Buscar en estos resultados..."/>
 			<finder-close-this value="Cerrar el buscador"/>
 			<finder-collapse-all value="Contraer todo"/>
@@ -1902,6 +1908,7 @@ Si selecciona el modo avanzado pero no edita archivos en los lenguajes mencionad
 			<max-len-on-search-tip value="Es posible que la entrada haya superado el límite permitido y haya sido truncada, por lo que no se guardará para la próxima sesión."/>
 			<max-len-on-save-tip value="La longitud de la entrada es muy larga y es posible que no se guarde para la próxima sesión."/>
 			<goto-setting-tip value="Encuentre aquí su configuración"/>
+			<tabbar-tabcompactlabellen-tip value="Limita la longitud visible de los nombres largos en las pestañas. Introduzca el valor deseado para aplicarlo. Rango de valores: 1 a 257 caracteres (0 desactiva el truncado)."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

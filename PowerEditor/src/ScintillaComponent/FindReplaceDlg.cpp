@@ -627,6 +627,9 @@ std::pair<intptr_t, intptr_t> Finder::gotoFoundLine(size_t nOccurrence)
 		return  emptyResult;
 	}
 
+	if (static_cast<size_t>(lno) >= _pMainFoundInfos->size())
+		return std::pair<intptr_t, intptr_t>(0, 0);
+
 	const FoundInfo& fInfo = *(_pMainFoundInfos->begin() + lno);
 	const SearchResultMarkingLine& markingLine = *(_pMainMarkings->begin() + lno);
 
@@ -1561,6 +1564,12 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_INVISIBLECHARSINFINDWHAT:
+		{
+			setStatusMessageWithInvisibleCharsWarning();
+			return TRUE;
+		}
+
 		case WM_INITDIALOG :
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
@@ -1602,7 +1611,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			// Change ComboBox height to accomodate High-DPI settings.
 			// ComboBoxes are scaled using the font used in them, however this results in weird optics
 			// on scaling > 200% (192 DPI). Using this method we accomodate these scalings way better
-			// than the OS does with the current dpiAware.manifest...
+			// than the OS does with the current dpiAware manifest...
 
 			LOGFONT lf{};
 			::GetObject(hFont, sizeof(lf), &lf);
@@ -1654,7 +1663,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_DRAWITEM:
 		{
-			drawItem(reinterpret_cast<DRAWITEMSTRUCT*>(lParam));
+			drawStatusBarItem(reinterpret_cast<DRAWITEMSTRUCT*>(lParam));
 			return TRUE;
 		}
 
@@ -2032,12 +2041,21 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 								_maxLenOnSearchTip.hide();
 							}
 						}
+
+						// Remove status bar warning if it's present
+						removeStatusMessageWithInvisibleCharsWarning();
 					}
 					else if (HIWORD(wParam) == CBN_KILLFOCUS || HIWORD(wParam) == CBN_SELCHANGE)
 					{
 						if (_maxLenOnSearchTip.isValid())
 						{
 							_maxLenOnSearchTip.hide();
+						}
+
+						if (HIWORD(wParam) == CBN_SELCHANGE)
+						{
+							// Remove status bar warning if it's present
+							removeStatusMessageWithInvisibleCharsWarning();
 						}
 					}
 					return TRUE;
@@ -2320,7 +2338,6 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					{
 						setStatusbarMessage(L"", FSNoMessage);
 						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-						combo2ExtendedMode(IDFINDWHAT);
 						_options._str2Search = getTextFromCombo(hFindCombo);
 						updateCombo(IDFINDWHAT);
 
@@ -2336,7 +2353,6 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				{
 					setStatusbarMessage(L"", FSNoMessage);
 					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-					combo2ExtendedMode(IDFINDWHAT);
 					_options._str2Search = getTextFromCombo(hFindCombo);
 					updateCombo(IDFINDWHAT);
 
@@ -2359,7 +2375,6 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					_options._filters = filters;
 
 					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-					combo2ExtendedMode(IDFINDWHAT);
 					_options._str2Search = getTextFromCombo(hFindCombo);
 					updateCombo(IDFINDWHAT);
 
@@ -3159,9 +3174,8 @@ bool FindReplaceDlg::processFindNext(const wchar_t *txt2find, const FindOption *
 	// Show a calltip for a zero length match
 	if (start == end)
 	{
-		wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-regex-zero-length-match", L"zero length match");
-		msg = L"^ " + msg;
-		(*_ppEditView)->showCallTip(start, msg.c_str());
+		const std::string msg = "^ " + pNativeSpeaker->getLocalizedStrFromID("find-regex-zero-length-match", "zero length match");
+		(*_ppEditView)->showCallTip(start, msg);
 	}
 	if (static_cast<MacroStatus>(::SendMessage(_hParent, NPPM_GETCURRENTMACROSTATUS,0,0)) == MacroStatus::RecordInProgress)
 		(*_ppEditView)->execute(SCI_STARTRECORD);
@@ -4488,6 +4502,20 @@ void FindReplaceDlg::setStatusbarMessageWithInvalidCharsInReplaceTextErr()
 	wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-invalid-replace-chars",
 		L"Replace: The replace text contains non-ANSI characters, but the document is encoded in ANSI.");
 	setStatusbarMessage(msg, FSNotFound);
+
+void FindReplaceDlg::setStatusMessageWithInvisibleCharsWarning()
+{
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	std::wstring findWhatWarning = pNativeSpeaker->getLocalizedStrFromID("find-status-invisible-chars-findWhat", L"Invisible characters in pasted \"Find what\" or \"Replace with\" content");
+	std::wstring findWhatWarningTip = pNativeSpeaker->getLocalizedStrFromID("find-status-invisible-chars-findWhat-tip", L"Warning: Invisible characters in search (or replace) field.\nThe text pasted into this field includes invisible (maybe line-ending) characters. If you proceed without deleting them, they will be included in the search (or replace) text.");
+
+	setStatusbarMessage(findWhatWarning, FSWarning, findWhatWarningTip);
+}
+
+void FindReplaceDlg::removeStatusMessageWithInvisibleCharsWarning()
+{
+	if (_statusbarFindStatus == FSWarning)
+		setStatusbarMessage(L"", FSMessage, L"");
 }
 
 wstring FindReplaceDlg::getScopeInfoForStatusBar(FindOption const *pFindOpt) const
@@ -4981,7 +5009,7 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 		enableReplaceFunc(whichType == REPLACE_DLG);
 
 	::SetFocus(toShow ? ::GetDlgItem(_hSelf, IDFINDWHAT) : (*_ppEditView)->getHSelf());
-	display(toShow, true);
+	StaticDialog::displayEnhanced(toShow);
 }
 
 LRESULT CALLBACK FindReplaceDlg::FinderProc(
@@ -5050,6 +5078,59 @@ LRESULT CALLBACK FindReplaceDlg::FinderProc(
 			break;
 	}
 	return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+}
+
+static bool isUnexpectedInvisible(wchar_t ch)
+{
+	if (ch <= 0x001F) // includ EOL
+	{
+		return (ch != L'\t'); // Tab is not considered as unexpected "invisible" characters 
+	}
+
+	switch (ch)
+	{
+	case 0x007F: // Delete
+
+	case 0x00A0: // NBSP
+	case 0x00AD: // SHY
+	case 0x061C: // ALM
+	case 0x070F: // SAM
+	case 0x1680: // OSPM
+	case 0x180E: // MVS
+	case 0x2000: case 0x2001: case 0x2002: case 0x2003: // Quads/Spaces
+	case 0x2004: case 0x2005: case 0x2006: case 0x2007: // Spaces
+	case 0x2008: case 0x2009: case 0x200A:             // Spaces
+	case 0x200B: // ZWSP
+	case 0x200C: // ZWNJ
+	case 0x200D: // ZWJ
+	case 0x200E: // LRM
+	case 0x200F: // RLM
+	case 0x202A: case 0x202B: case 0x202C: case 0x202D: case 0x202E: // Embed/Override
+	case 0x202F: // NNBSP
+	case 0x205F: // MMSP
+	case 0x2060: // WJ
+	case 0x2061: case 0x2062: case 0x2063: case 0x2064: // Invisible Math
+	case 0x2066: case 0x2067: case 0x2068: case 0x2069: // Isolates
+	case 0x206A: case 0x206B: case 0x206C: case 0x206D: // Shaping/Swapping
+	case 0x206E: case 0x206F: // Digit shapes
+	case 0x2028: // Line separator
+	case 0x2029: // Paragraph separator
+	case 0x3000: // IDSP
+	case 0xFFF9: case 0xFFFA: case 0xFFFB: // Interlinear annotation
+		return true;
+
+	default:
+		return false;
+	}
+}
+
+static bool containsInvisibleChar(const std::wstring& text)
+{
+	for (wchar_t ch : text)
+	{
+		if (isUnexpectedInvisible(ch)) return true;
+	}
+	return false;
 }
 
 LRESULT CALLBACK FindReplaceDlg::ComboEditProc(
@@ -5186,6 +5267,12 @@ LRESULT CALLBACK FindReplaceDlg::ComboEditProc(
 					if (!clipboardText.empty())
 					{
 						::SendMessage(hWnd, EM_REPLACESEL, TRUE, reinterpret_cast<LPARAM>(clipboardText.c_str()));
+
+						bool clipboardTextContainInvisibleChars = containsInvisibleChar(clipboardText);
+						if (clipboardTextContainInvisibleChars)
+						{
+							::SendMessage(hParent, NPPM_INTERNAL_INVISIBLECHARSINFINDWHAT, 0, 0);
+						}
 					}
 				}
 				return 0;
@@ -5392,56 +5479,7 @@ void FindReplaceDlg::enableMarkFunc()
 	hideOrShowCtrl4reduceOrNormalMode(_currentStatus);
 }
 
-void FindReplaceDlg::combo2ExtendedMode(int comboID)
-{
-	HWND hFindCombo = ::GetDlgItem(_hSelf, comboID);
-	if (!hFindCombo) return;
-
-	wstring str2transform = getTextFromCombo(hFindCombo);
-
-	// Count the number of character '\n' and '\r'
-	size_t nbEOL = 0;
-	size_t str2transformLen = lstrlen(str2transform.c_str());
-	for (size_t i = 0 ; i < str2transformLen ; ++i)
-	{
-		if (str2transform[i] == '\r' || str2transform[i] == '\n')
-			++nbEOL;
-	}
-
-	if (nbEOL)
-	{
-		wchar_t * newBuffer = new wchar_t[str2transformLen + nbEOL*2 + 1];
-		int j = 0;
-		for (size_t i = 0 ; i < str2transformLen ; ++i)
-		{
-			if (str2transform[i] == '\r')
-			{
-				newBuffer[j++] = '\\';
-				newBuffer[j++] = 'r';
-			}
-			else if (str2transform[i] == '\n')
-			{
-				newBuffer[j++] = '\\';
-				newBuffer[j++] = 'n';
-			}
-			else
-			{
-				newBuffer[j++] = str2transform[i];
-			}
-		}
-		newBuffer[j++] = '\0';
-		setSearchText(newBuffer);
-
-		_options._searchType = FindExtended;
-		::SendDlgItemMessage(_hSelf, IDNORMAL, BM_SETCHECK, FALSE, 0);
-		::SendDlgItemMessage(_hSelf, IDEXTENDED, BM_SETCHECK, TRUE, 0);
-		::SendDlgItemMessage(_hSelf, IDREGEXP, BM_SETCHECK, FALSE, 0);
-
-		delete [] newBuffer;
-	}
-}
-
-void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
+void FindReplaceDlg::drawStatusBarItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
 	//printStr(L"OK"));
 	COLORREF fgColor = black; // black by default
@@ -5459,6 +5497,10 @@ void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	else if (_statusbarFindStatus == FSTopReached || _statusbarFindStatus == FSEndReached)
 	{
 		fgColor = nppParamInst.getFindDlgStatusMsgColor(2);
+	}
+	else if (_statusbarFindStatus == FSWarning)
+	{
+		fgColor = nppParamInst.getFindDlgStatusMsgColor(3);
 	}
 	else if (_statusbarFindStatus == FSNoMessage)
 	{
@@ -5482,6 +5524,11 @@ void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		else if (_statusbarFindStatus == FSTopReached || _statusbarFindStatus == FSEndReached)
 		{
 			HLSColour hls(nppParamInst.getFindDlgStatusMsgColor(2));
+			fgColor = hls.toRGB4DarkMod();
+		}
+		else if (_statusbarFindStatus == FSWarning)
+		{
+			HLSColour hls(nppParamInst.getFindDlgStatusMsgColor(3));
 			fgColor = hls.toRGB4DarkMod();
 		}
 	}
@@ -5676,10 +5723,14 @@ wstring Finder::getHitsString(int count) const
 
 void Finder::addSearchLine(const wchar_t *searchName)
 {
+	wstring oneLineSearchName = searchName;
+	oneLineSearchName.erase(std::remove(oneLineSearchName.begin(), oneLineSearchName.end(), L'\r'), oneLineSearchName.end());
+	oneLineSearchName.erase(std::remove(oneLineSearchName.begin(), oneLineSearchName.end(), L'\n'), oneLineSearchName.end());
+
 	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 	wstring str = pNativeSpeaker->getLocalizedStrFromID("find-result-title", L"Search");
 	str += L" \"";
-	str += searchName;
+	str += oneLineSearchName;
 	str += L"\" \r\n";
 
 	setFinderReadOnly(false);

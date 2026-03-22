@@ -14,7 +14,6 @@
   *   FILE         cregex.cpp
   *   VERSION      see <boost/version.hpp>
   *   DESCRIPTION: Declares POSIX API functions
-  *                + boost::RegEx high level wrapper.
   */
 
 #ifndef BOOST_RE_CREGEX_HPP_INCLUDED
@@ -39,10 +38,12 @@
 #endif
 #endif
 
+#ifndef BOOST_REGEX_AS_MODULE
 #ifdef __cplusplus
 #include <cstddef>
 #else
 #include <stddef.h>
+#endif
 #endif
 
 /* include these defs only for POSIX compatablity */

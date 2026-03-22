@@ -22,6 +22,9 @@
 #ifndef BOOST_REGEX_MATCH_HPP
 #define BOOST_REGEX_MATCH_HPP
 
+#include <boost/regex/v5/match_results.hpp>
+#include <boost/regex/v5/perl_matcher.hpp>
+
 namespace boost{
 
 //
@@ -29,16 +32,16 @@ namespace boost{
 // returns true if the specified regular expression matches
 // the whole of the input.  Fills in what matched in m.
 //
-template <class BidiIterator, class Allocator, class charT, class traits>
+BOOST_REGEX_MODULE_EXPORT template <class BidiIterator, class Allocator, class charT, class traits>
 bool regex_match(BidiIterator first, BidiIterator last, 
                  match_results<BidiIterator, Allocator>& m, 
                  const basic_regex<charT, traits>& e, 
                  match_flag_type flags = match_default)
 {
    BOOST_REGEX_DETAIL_NS::perl_matcher<BidiIterator, Allocator, traits> matcher(first, last, m, e, flags, first);
-   return matcher.match();
+   return BOOST_REGEX_DETAIL_NS::factory_match(matcher);
 }
-template <class iterator, class charT, class traits>
+BOOST_REGEX_MODULE_EXPORT template <class iterator, class charT, class traits>
 bool regex_match(iterator first, iterator last, 
                  const basic_regex<charT, traits>& e, 
                  match_flag_type flags = match_default)
@@ -49,7 +52,7 @@ bool regex_match(iterator first, iterator last,
 //
 // query_match convenience interfaces:
 //
-template <class charT, class Allocator, class traits>
+BOOST_REGEX_MODULE_EXPORT template <class charT, class Allocator, class traits>
 inline bool regex_match(const charT* str, 
                         match_results<const charT*, Allocator>& m, 
                         const basic_regex<charT, traits>& e, 
@@ -58,7 +61,7 @@ inline bool regex_match(const charT* str,
    return regex_match(str, str + traits::length(str), m, e, flags);
 }
 
-template <class ST, class SA, class Allocator, class charT, class traits>
+BOOST_REGEX_MODULE_EXPORT template <class ST, class SA, class Allocator, class charT, class traits>
 inline bool regex_match(const std::basic_string<charT, ST, SA>& s, 
                  match_results<typename std::basic_string<charT, ST, SA>::const_iterator, Allocator>& m, 
                  const basic_regex<charT, traits>& e, 
@@ -66,7 +69,7 @@ inline bool regex_match(const std::basic_string<charT, ST, SA>& s,
 {
    return regex_match(s.begin(), s.end(), m, e, flags);
 }
-template <class charT, class traits>
+BOOST_REGEX_MODULE_EXPORT template <class charT, class traits>
 inline bool regex_match(const charT* str, 
                         const basic_regex<charT, traits>& e, 
                         match_flag_type flags = match_default)
@@ -75,7 +78,7 @@ inline bool regex_match(const charT* str,
    return regex_match(str, str + traits::length(str), m, e, flags | regex_constants::match_any);
 }
 
-template <class ST, class SA, class charT, class traits>
+BOOST_REGEX_MODULE_EXPORT template <class ST, class SA, class charT, class traits>
 inline bool regex_match(const std::basic_string<charT, ST, SA>& s, 
                  const basic_regex<charT, traits>& e, 
                  match_flag_type flags = match_default)

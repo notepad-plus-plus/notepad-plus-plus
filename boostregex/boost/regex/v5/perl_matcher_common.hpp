@@ -20,6 +20,22 @@
 #ifndef BOOST_REGEX_V5_PERL_MATCHER_COMMON_HPP
 #define BOOST_REGEX_V5_PERL_MATCHER_COMMON_HPP
 
+#include <boost/regex/config.hpp>
+
+#ifndef BOOST_REGEX_STANDALONE
+
+#include <boost/config.hpp>
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#pragma once
+#include <boost/regex/v5/perl_matcher.hpp>
+#endif
+
+#endif
+
+#include <boost/regex/v5/basic_regex.hpp>
+#include <boost/regex/v5/match_flags.hpp>
+#include <boost/regex/v5/match_results.hpp>
+
 #ifdef BOOST_REGEX_MSVC
 #  pragma warning(push)
 #pragma warning(disable:4459)
@@ -44,12 +60,7 @@ void perl_matcher<BidiIterator, Allocator, traits>::construct_init(const basic_r
    if(e.empty())
    {
       // precondition failure: e is not a valid regex.
-      std::invalid_argument ex("Invalid regular expression object");
-#ifndef BOOST_REGEX_STANDALONE
-      boost::throw_exception(ex);
-#else
-      throw e;
-#endif
+      BOOST_REGEX_DETAIL_THROW(std::invalid_argument("Invalid regular expression object"));
    }
    pstate = 0;
    m_match_flags = f;
@@ -82,7 +93,11 @@ void perl_matcher<BidiIterator, Allocator, traits>::construct_init(const basic_r
    match_any_mask = static_cast<unsigned char>((f & match_not_dot_newline) ? BOOST_REGEX_DETAIL_NS::test_not_newline : BOOST_REGEX_DETAIL_NS::test_newline);
    // Disable match_any if requested in the state machine:
    if(e.get_data().m_disable_match_any)
+   {
+      if (m_match_flags & match_posix)
+         BOOST_REGEX_DETAIL_THROW(std::logic_error("Invalid regex for POSIX-style matching"));
       m_match_flags &= regex_constants::match_not_any;
+   }
 }
 #ifdef BOOST_REGEX_MSVC
 #  pragma warning(pop)

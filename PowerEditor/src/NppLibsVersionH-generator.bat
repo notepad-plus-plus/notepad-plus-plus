@@ -1,5 +1,8 @@
 @echo off
 
+setlocal
+cd /d %~dp0
+
 rem If this batch file is called from the Microsoft Visual Studio pre-build event,
 rem then the current dir for this bat-file is set to Notepad++ solution/project dir.
 rem Because in this batch file we have to go two dir-levels higher (for finding the files

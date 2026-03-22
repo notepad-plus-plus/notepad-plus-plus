@@ -247,10 +247,10 @@ private:
 	// Member variables
 	UINT_32 m_state[5];
 	UINT_32 m_count[2];
-	UINT_32 m_reserved0[1]; // Memory alignment padding
+	[[maybe_unused]] UINT_32 m_reserved0[1]; // Memory alignment padding
 	UINT_8 m_buffer[64];
 	UINT_8 m_digest[20];
-	UINT_32 m_reserved1[3]; // Memory alignment padding
+	[[maybe_unused]] UINT_32 m_reserved1[3]; // Memory alignment padding
 
 	UINT_8 m_workspace[64];
 	SHA1_WORKSPACE_BLOCK* m_block; // SHA1 pointer to the byte array above

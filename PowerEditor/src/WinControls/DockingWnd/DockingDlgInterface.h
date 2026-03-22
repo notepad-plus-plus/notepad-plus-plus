@@ -17,17 +17,19 @@
 
 #pragma once
 
-#include "dockingResource.h"
-#include "Docking.h"
+#include <windows.h>
+
+#include <shlwapi.h>
 
 #include <array>
-#include <assert.h>
-#include <shlwapi.h>
-#include "Common.h"
-#include "StaticDialog.h"
+#include <cassert>
+#include <string>
+
+#include "Docking.h"
+#include "Notepad_plus_msgs.h"
 #include "NppDarkMode.h"
-
-
+#include "StaticDialog.h"
+#include "dockingResource.h"
 
 class DockingDlgInterface : public StaticDialog
 {
@@ -100,6 +102,8 @@ protected :
 	std::array<int, 3> _iconIDs{};
 	bool _isFloating = true;
 	bool _isClosed = false;
+
+	using StaticDialog::create;
 
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override {
 		switch (message)

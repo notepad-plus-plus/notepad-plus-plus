@@ -23,8 +23,10 @@
 #include <boost/regex/config.hpp>
 #endif
 
+#ifndef BOOST_REGEX_AS_MODULE
 #include <cstddef>
 #include <stdexcept>
+#endif
 #include <boost/regex/v5/error_type.hpp>
 #include <boost/regex/v5/regex_traits_defaults.hpp>
 
@@ -37,7 +39,7 @@ namespace boost{
 #pragma warning(disable : 26812 4459)
 #endif
 #endif
-class regex_error : public std::runtime_error
+BOOST_REGEX_MODULE_EXPORT class regex_error : public std::runtime_error
 {
 public:
    explicit regex_error(const std::string& s, regex_constants::error_type err = regex_constants::error_unknown, std::ptrdiff_t pos = 0)
@@ -52,7 +54,7 @@ public:
       , m_position(0)
    {
    }
-   ~regex_error() noexcept override {}
+   ~regex_error() noexcept override = default;
    regex_constants::error_type code()const
    { return m_error_code; }
    std::ptrdiff_t position()const
@@ -72,8 +74,8 @@ private:
    std::ptrdiff_t m_position;
 };
 
-typedef regex_error bad_pattern;
-typedef regex_error bad_expression;
+BOOST_REGEX_MODULE_EXPORT typedef regex_error bad_pattern;
+BOOST_REGEX_MODULE_EXPORT typedef regex_error bad_expression;
 
 namespace BOOST_REGEX_DETAIL_NS{
 

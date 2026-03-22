@@ -59,16 +59,6 @@
 // exception handling.
 // #define BOOST_REGEX_HAS_MS_STACK_GUARD
 
-// define this if you want to use the recursive algorithm
-// even if BOOST_REGEX_HAS_MS_STACK_GUARD is not defined.
-// NOTE: OBSOLETE!!
-// #define BOOST_REGEX_RECURSIVE
-
-// define this if you want to use the non-recursive
-// algorithm, even if the recursive version would be the default.
-// NOTE: OBSOLETE!!
-// #define BOOST_REGEX_NON_RECURSIVE
-
 // define this if you want to set the size of the memory blocks
 // used by the non-recursive algorithm.
 // #define BOOST_REGEX_BLOCKSIZE 4096
@@ -93,3 +83,7 @@
 
 // define this if you want regex to use __cdecl calling convensions, even when __fastcall is available:
 // #define BOOST_REGEX_NO_FASTCALL
+
+// define this to control how deep non-avoidable recursive function calls can go, typical expressions 
+// and format strings should only recurse a handful of times, this is mainly to prevent DOS type attacks.
+// #define BOOST_REGEX_MAX_RECURSION_DEPTH 100

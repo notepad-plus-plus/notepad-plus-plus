@@ -206,7 +206,7 @@ private:
 };
 
 
-enum FindStatus { FSFound, FSNotFound, FSTopReached, FSEndReached, FSMessage, FSNoMessage};
+enum FindStatus { FSFound, FSNotFound, FSTopReached, FSEndReached, FSMessage, FSNoMessage, FSWarning };
 
 enum FindNextType {
 	FINDNEXTTYPE_FINDNEXT,
@@ -302,14 +302,6 @@ public :
 
 	void getPatterns(std::vector<std::wstring> & patternVect);
 	void getAndValidatePatterns(std::vector<std::wstring> & patternVect);
-
-	void launchFindInFilesDlg() {
-		doDialog(FINDINFILES_DLG);
-	}
-
-	void launchFindInProjectsDlg() {
-		doDialog(FINDINPROJECTS_DLG);
-	}
 
 	void setFindInFilesDirFilter(const wchar_t *dir, const wchar_t *filters);
 	void setProjectCheckmarks(FindHistory *findHistory, int Msk);
@@ -416,8 +408,13 @@ public :
 	void clearMarks(const FindOption& opt);
 	void setStatusbarMessage(const std::wstring & msg, FindStatus status, const std::wstring& tooltipMsg = L"");
 	void setStatusbarMessageWithRegExprErr(ScintillaEditView* pEditView);
+
 	void setStatusbarMessageWithInvalidCharsRegExprErr();
 	void setStatusbarMessageWithInvalidCharsInReplaceTextErr();
+
+	void setStatusMessageWithInvisibleCharsWarning();
+	void removeStatusMessageWithInvisibleCharsWarning();
+
 	std::wstring getScopeInfoForStatusBar(FindOption const *pFindOpt) const;
 	Finder * createFinder();
 	bool removeFinder(Finder *finder2remove);
@@ -435,8 +432,6 @@ protected :
 
 	// Window procedure for the finder
 	static LRESULT CALLBACK FinderProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
-
-	void combo2ExtendedMode(int comboID);
 
 private:
 	SIZE _szMinDialog{};
@@ -529,7 +524,7 @@ private:
 	static const int FR_OP_GLOBAL = 8;
 	static const int FR_OP_FIP = 16;
 	void saveInMacro(size_t cmd, int cmdType);
-	void drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
+	void drawStatusBarItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
 	bool replaceInFilesConfirmCheck(const std::wstring& directory, const std::wstring& fileTypes);
 	bool replaceInProjectsConfirmCheck();
 	bool replaceInOpenDocsConfirmCheck();

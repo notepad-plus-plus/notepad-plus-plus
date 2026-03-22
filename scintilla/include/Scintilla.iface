@@ -3258,6 +3258,12 @@ fun line LineFromIndexPosition=2713(position pos, LineCharacterIndexType lineCha
 # Retrieve the position measured in index units at the start of a document line.
 fun position IndexPositionFromLine=2714(line line, LineCharacterIndexType lineCharacterIndex)
 
+# Get whether drag-and-drop is enabled or disabled
+get bool GetDragDropEnabled=2818(,)
+
+# Enable or disable drag-and-drop
+set void SetDragDropEnabled=2819(bool dragDropEnabled,)
+
 # Start notifying the container of all key presses and commands.
 fun void StartRecord=3001(,)
 

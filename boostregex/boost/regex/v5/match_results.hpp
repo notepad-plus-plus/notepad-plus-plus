@@ -19,6 +19,16 @@
 #ifndef BOOST_REGEX_V5_MATCH_RESULTS_HPP
 #define BOOST_REGEX_V5_MATCH_RESULTS_HPP
 
+#include <boost/regex/v5/match_flags.hpp>
+#include <boost/regex/v5/sub_match.hpp>
+#include <boost/regex/v5/basic_regex.hpp>
+#include <boost/regex/v5/regex_format.hpp>
+
+#ifndef BOOST_REGEX_AS_MODULE
+#include <string>
+#include <vector>
+#endif
+
 namespace boost{
 #ifdef BOOST_REGEX_MSVC
 #pragma warning(push)
@@ -37,7 +47,7 @@ class named_subexpressions;
 
 }
 
-template <class BidiIterator, class Allocator>
+BOOST_REGEX_MODULE_EXPORT template <class BidiIterator, class Allocator>
 class match_results
 { 
 private:
@@ -97,15 +107,23 @@ public:
    bool empty() const
    { return m_subs.size() < 2; }
    // element access:
-   difference_type length(int sub = 0) const
+private:
+   difference_type do_get_length(int sub = 0) const
    {
-      if(m_is_singular)
+      if (m_is_singular)
          raise_logic_error();
       sub += 2;
-      if((sub < (int)m_subs.size()) && (sub > 0))
+      if ((sub < (int)m_subs.size()) && (sub > 0))
          return m_subs[sub].length();
       return 0;
    }
+public:
+   template <class Integer>
+   typename std::enable_if<std::is_integral<Integer>::value, difference_type>::type length(Integer sub) const
+   {
+      return do_get_length(static_cast<int>(sub));
+   }
+   difference_type length() const { return do_get_length(0); }
    difference_type length(const char_type* sub) const
    {
       if(m_is_singular)
@@ -161,7 +179,8 @@ public:
    {
       return position(sub.c_str());
    }
-   string_type str(int sub = 0) const
+private:
+   string_type do_get_string(int sub = 0) const
    {
       if(m_is_singular)
          raise_logic_error();
@@ -177,6 +196,13 @@ public:
       }
       return result;
    }
+public:
+   template <class Integer>
+   typename std::enable_if<std::is_integral<Integer>::value, string_type>::type str(Integer sub) const
+   {
+      return do_get_string(static_cast<int>(sub));
+   }
+   string_type str() const { return do_get_string(0); }
    string_type str(const char_type* sub) const
    {
       return (*this)[sub].str();
@@ -196,16 +222,27 @@ public:
    {
       return (*this)[sub].str();
    }
-   const_reference operator[](int sub) const
+   private:
+   const_reference get_at(int sub) const
    {
       if(m_is_singular && m_subs.empty())
          raise_logic_error();
+      
+      if (sub >= INT_MAX - 2 )
+         return m_null;
+
       sub += 2;
       if(sub < (int)m_subs.size() && (sub >= 0))
       {
          return m_subs[sub];
       }
       return m_null;
+   }
+public:
+   template <class Integer>
+   typename std::enable_if<std::is_integral<Integer>::value, const_reference>::type operator[](Integer sub) const
+   {
+      return get_at(static_cast<int>(sub));
    }
    //
    // Named sub-expressions:
@@ -530,7 +567,7 @@ public:
 
    void  set_named_subs(std::shared_ptr<named_sub_type> subs)
    {
-      m_named_subs = subs;
+      m_named_subs = std::move(subs);
    }
 
 private:
@@ -643,13 +680,13 @@ void  match_results<BidiIterator, Allocator>::maybe_assign(const match_results<B
       *this = m;
 }
 
-template <class BidiIterator, class Allocator>
+BOOST_REGEX_MODULE_EXPORT template <class BidiIterator, class Allocator>
 void swap(match_results<BidiIterator, Allocator>& a, match_results<BidiIterator, Allocator>& b)
 {
    a.swap(b);
 }
 
-template <class charT, class traits, class BidiIterator, class Allocator>
+BOOST_REGEX_MODULE_EXPORT template <class charT, class traits, class BidiIterator, class Allocator>
 std::basic_ostream<charT, traits>&
    operator << (std::basic_ostream<charT, traits>& os,
                 const match_results<BidiIterator, Allocator>& s)

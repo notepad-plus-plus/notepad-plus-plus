@@ -1,0 +1,18 @@
+ 0 400   0   # Comment
+ 0 400   0   
+ 0 400   0   test = 5 # Comment
+ 0 400   0   
+ 0 400   0   $(info $(test)) # Comment
+ 0 400   0   
+ 0 400   0   clean: # Comment
+ 0 400   0   	echo # Not comment
+ 0 400   0   
+ 0 400   0   # Quoting a #
+ 0 400   0   HASH = \#
+ 0 400   0   
+ 0 400   0   # Inside variable reference
+ 0 400   0   OUT = $(#SYM)
+ 0 400   0   
+ 0 400   0   # Inside function call
+ 0 400   0   X = $(subst /,#,$1)
+ 0 400   0   

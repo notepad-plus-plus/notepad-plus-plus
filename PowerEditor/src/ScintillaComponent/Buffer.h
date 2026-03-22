@@ -251,25 +251,25 @@ public:
 
 	const wchar_t * getUserDefineLangName() const	{ return _userLangExt.c_str(); }
 
-	const wchar_t * getCommentLineSymbol() const {
-		const Lang *l = getCurrentLang();
+	const char* getCommentLineSymbol() const {
+		const Lang* l = getCurrentLang();
 		if (!l)
-			return NULL;
-		return l->_pCommentLineSymbol;
+			return nullptr;
+		return l->_pCommentLineSymbol.c_str();
 	}
 
-	const wchar_t * getCommentStart() const {
-		const Lang *l = getCurrentLang();
+	const char* getCommentStart() const {
+		const Lang* l = getCurrentLang();
 		if (!l)
-			return NULL;
-		return l->_pCommentStart;
+			return nullptr;
+		return l->_pCommentStart.c_str();
 	}
 
-	const wchar_t * getCommentEnd() const {
-		const Lang *l = getCurrentLang();
+	const char* getCommentEnd() const {
+		const Lang* l = getCurrentLang();
 		if (!l)
-			return NULL;
-		return l->_pCommentEnd;
+			return nullptr;
+		return l->_pCommentEnd.c_str();
 	}
 
 	bool getNeedsLexing() const { return _needLexer; }

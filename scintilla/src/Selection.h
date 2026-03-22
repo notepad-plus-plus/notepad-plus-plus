@@ -156,6 +156,8 @@ struct SelectionRange {
 	SelectionPosition End() const noexcept {
 		return (anchor < caret) ? caret : anchor;
 	}
+	void StartSet(SelectionPosition sp) noexcept;
+	void EndSet(SelectionPosition sp) noexcept;
 	void Swap() noexcept;
 	bool Trim(SelectionRange range) noexcept;
 	void Truncate(Sci::Position length) noexcept;

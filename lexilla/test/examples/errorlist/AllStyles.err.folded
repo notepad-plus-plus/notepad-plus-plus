@@ -17,6 +17,9 @@
  0 400   0   
  0 400   0   NMAKE : fatal error U1077: '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\bin\HostX64\x64\link.EXE"' : return code '0x460'
  0 400   0   
+ 0 400   0   Delphi diagnostic is similar so also uses style 3
+ 0 400   0   See https://sourceforge.net/p/scintilla/feature-requests/175/
+ 0 400   0   packerunitPas.pas(22) Error: Unknown directive: 'functixon'
  0 400   0   
  0 400   0   Command 4
  0 400   0   >pwd
@@ -113,4 +116,8 @@
  0 400   0   
  0 400   0   Escape Sequence Colour 41
  0 400   0   [31mColour 1 is 41
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   Check short reset after colour
+ 0 400   0   [31m41[m0
  0 400   0   

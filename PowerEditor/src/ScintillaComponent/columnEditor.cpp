@@ -15,13 +15,27 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-//#include <vector>
-//#include <algorithm>
 #include "columnEditor.h"
-#include "ScintillaEditView.h"
-#include "NppConstants.h"
 
-using namespace std;
+#include <windows.h>
+
+#include <algorithm>
+#include <cstdio>
+#include <memory>
+#include <stdexcept>
+#include <string>
+#include <vector>
+
+#include <Scintilla.h>
+
+#include "Common.h"
+#include "NppConstants.h"
+#include "NppDarkMode.h"
+#include "Parameters.h"
+#include "ScintillaEditView.h"
+#include "Window.h"
+#include "columnEditor_rc.h"
+#include "resource.h"
 
 void ColumnEditorDlg::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView)
 {
@@ -45,8 +59,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 {
 	static HBRUSH hRedBrush = nullptr;
 	static int whichFlashRed = 0;
-	constexpr COLORREF rgbRed = RGB(255, 0, 0);
-	static HWND hCurrentBalloonTip = nullptr;
+	static constexpr COLORREF rgbRed = RGB(255, 0, 0);
 
 	switch (message)
 	{
@@ -67,14 +80,16 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			WPARAM curSel = 0;
 			switch (colEditParam._leadingChoice)
 			{
-				case ColumnEditorParam::noneLeading: { curSel = 0; break; }
-				case ColumnEditorParam::zeroLeading : { curSel = 1; break; }
-				case ColumnEditorParam::spaceLeading : { curSel = 2; break; }
+				using enum ColumnEditorParam::leadingChoice;
+				case noneLeading: { curSel = 0; break; }
+				case zeroLeading: { curSel = 1; break; }
+				case spaceLeading: { curSel = 2; break; }
 				default : { curSel = 0; break; }
 			}
 			::SendMessage(::GetDlgItem(_hSelf, IDC_COL_LEADING_COMBO), CB_SETCURSEL, curSel, 0);
 
 			int format = IDC_COL_DEC_RADIO;
+			using enum NumBase;
 			if ((colEditParam._formatChoice == BASE_16) || (colEditParam._formatChoice == BASE_16_UPPERCASE))	// either BASE_16 or BASE_16_UC
 				format = IDC_COL_HEX_RADIO;
 			else if (colEditParam._formatChoice == BASE_08)
@@ -87,9 +102,8 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			// populate the Hex-Case dropdown and activate correct case
 			::SendDlgItemMessage(_hSelf, IDC_COL_HEXUC_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"a-f"));
 			::SendDlgItemMessage(_hSelf, IDC_COL_HEXUC_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"A-F"));
-			UCHAR uc = (colEditParam._formatChoice == BASE_16_UPPERCASE) ? 1 : 0;
+			WPARAM uc = (colEditParam._formatChoice == BASE_16_UPPERCASE) ? 1 : 0;
 			::SendDlgItemMessage(_hSelf, IDC_COL_HEXUC_COMBO, CB_SETCURSEL, uc, 0);	// activate correct case
-			EnableWindow(GetDlgItem(_hSelf, IDC_COL_HEXUC_COMBO), format == IDC_COL_HEX_RADIO);	// enable combobox only if hex is chosen
 
 			switchTo(colEditParam._mainChoice);
 			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
@@ -102,8 +116,8 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			int id = GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
 			if (id == whichFlashRed)
 			{
-				SetBkColor((HDC)wParam, rgbRed);
-				return (LRESULT)hRedBrush;
+				::SetBkColor(reinterpret_cast<HDC>(wParam), rgbRed);
+				return reinterpret_cast<LRESULT>(hRedBrush);
 			}
 			return NppDarkMode::onCtlColorCtrl(reinterpret_cast<HDC>(wParam));
 		}
@@ -170,9 +184,9 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			{
 				case IDCANCEL: // in case of ESC keystroke
 				{
-					if (hCurrentBalloonTip && IsWindowVisible(hCurrentBalloonTip)) // if current baloon tip shown, just hide it
+					if (_hCurrentBalloonTip && IsWindowVisible(_hCurrentBalloonTip)) // if current baloon tip shown, just hide it
 					{
-						ShowWindow(hCurrentBalloonTip, SW_HIDE);
+						::ShowWindow(_hCurrentBalloonTip, SW_HIDE);
 					}
 					else // if current baloon tip doesn't show, we hide Column Editor dialog
 					{
@@ -186,14 +200,16 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				{
 					(*_ppEditView)->execute(SCI_BEGINUNDOACTION);
 
-					constexpr int stringSize = 1024;
-					wchar_t str[stringSize]{};
+					static constexpr int stringSize = 1024;
 
 					bool isTextMode = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_TEXT_RADIO, BM_GETCHECK, 0, 0));
 
 					if (isTextMode)
 					{
-						::SendDlgItemMessage(_hSelf, IDC_COL_TEXT_EDIT, WM_GETTEXT, stringSize, reinterpret_cast<LPARAM>(str));
+						wchar_t strW[stringSize]{};
+						::SendDlgItemMessage(_hSelf, IDC_COL_TEXT_EDIT, WM_GETTEXT, stringSize, reinterpret_cast<LPARAM>(strW));
+
+						const std::string str = wstring2string(strW);
 
 						display(false);
 
@@ -201,7 +217,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 						{
 							ColumnModeInfos colInfos = (*_ppEditView)->getColumnModeSelectInfo();
 							std::sort(colInfos.begin(), colInfos.end(), SortInPositionOrder());
-							(*_ppEditView)->columnReplace(colInfos, str);
+							(*_ppEditView)->columnReplace(colInfos, str.c_str());
 							std::sort(colInfos.begin(), colInfos.end(), SortInSelectOrder());
 							(*_ppEditView)->setMultiSelections(colInfos);
 						}
@@ -213,8 +229,8 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							auto endPos = (*_ppEditView)->execute(SCI_GETLENGTH);
 							auto endLine = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, endPos);
 
-							constexpr int lineAllocatedLen = 1024;
-							wchar_t* line = new wchar_t[lineAllocatedLen];
+							static constexpr int lineAllocatedLen = 1024;
+							auto line = std::make_unique<char[]>(lineAllocatedLen);
 
 							for (size_t i = cursorLine; i <= static_cast<size_t>(endLine); ++i)
 							{
@@ -226,15 +242,14 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 								if (lineLen > lineAllocatedLen)
 								{
-									delete[] line;
-									line = new wchar_t[lineLen];
+									line.reset(new char[lineLen]);
 								}
-								(*_ppEditView)->getGenericText(line, lineLen, lineBegin, lineEnd);
-								wstring s2r(line);
+								(*_ppEditView)->getGenericText(line.get(), lineLen, lineBegin, lineEnd);
+								std::string s2r(line.get());
 
 								if (lineEndCol < cursorCol)
 								{
-									wstring s_space(cursorCol - lineEndCol, ' ');
+									std::string s_space(cursorCol - lineEndCol, ' ');
 									s2r.append(s_space);
 									s2r.append(str);
 								}
@@ -247,18 +262,18 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 									s2r.insert(posRelative2Start, str);
 								}
-								(*_ppEditView)->replaceTarget(s2r.c_str(), lineBegin, lineEnd);
+								(*_ppEditView)->replaceTarget(s2r, lineBegin, lineEnd);
 							}
-							delete[] line;
 						}
 					}
 					else
 					{
 						ColumnEditorParam colEditParam = NppParameters::getInstance()._columnEditParam;
 
+						wchar_t str[stringSize]{};
 						::GetDlgItemText(_hSelf, IDC_COL_INITNUM_EDIT, str, stringSize);
 
-						int initialNumber = getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
+						const int initialNumber = getNumericFieldValueFromText(colEditParam._formatChoice, str);
 						if (initialNumber == -1)
 						{
 							whichFlashRed = sendValidationErrorMessage(IDC_COL_INITNUM_EDIT, colEditParam._formatChoice, str);
@@ -267,7 +282,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 						}
 
 						::GetDlgItemText(_hSelf, IDC_COL_INCREASENUM_EDIT, str, stringSize);
-						int increaseNumber = getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
+						const int increaseNumber = getNumericFieldValueFromText(colEditParam._formatChoice, str);
 						if (increaseNumber == -1)
 						{
 							whichFlashRed = sendValidationErrorMessage(IDC_COL_INCREASENUM_EDIT, colEditParam._formatChoice, str);
@@ -276,7 +291,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 						}
 
 						::GetDlgItemText(_hSelf, IDC_COL_REPEATNUM_EDIT, str, stringSize);
-						int repeat = getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
+						int repeat = getNumericFieldValueFromText(colEditParam._formatChoice, str);
 						if (repeat == -1)
 						{
 							whichFlashRed = sendValidationErrorMessage(IDC_COL_REPEATNUM_EDIT, colEditParam._formatChoice, str);
@@ -289,7 +304,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							repeat = 1; // Without this we might get an infinite loop while calculating the set "numbers" below.
 						}
 
-						UCHAR format = getFormat();
+						const NumBase format = getFormat();
 						display(false);
 
 						if ((*_ppEditView)->execute(SCI_SELECTIONISRECTANGLE) || (*_ppEditView)->execute(SCI_GETSELECTIONS) > 1)
@@ -318,7 +333,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							std::vector<size_t> numbers;
 
 							size_t curNumber = initialNumber;
-							const size_t kiMaxSize = 1 + (size_t)endLine - (size_t)cursorLine;
+							const size_t kiMaxSize = 1 + static_cast<size_t>(endLine) - static_cast<size_t>(cursorLine);
 							while (numbers.size() < kiMaxSize)
 							{
 								for (int i = 0; i < repeat; i++)
@@ -331,11 +346,12 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 								curNumber += increaseNumber;
 							}
 
-							constexpr int lineAllocatedLen = 1024;
-							wchar_t* line = new wchar_t[lineAllocatedLen];
+							static constexpr int lineAllocatedLen = 1024;
+							auto line = std::make_unique<wchar_t[]>(lineAllocatedLen);
 
 							size_t base = 10;
 							bool useUppercase = false;
+							using enum NumBase;
 							if (format == BASE_16)
 								base = 16;
 							else if (format == BASE_08)
@@ -353,8 +369,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							size_t nbInit = getNbDigits(initialNumber, base);
 							size_t nb = std::max<size_t>(nbInit, nbEnd);
 
-
-							for (size_t i = cursorLine; i <= size_t(endLine); ++i)
+							for (size_t i = cursorLine; i <= static_cast<size_t>(endLine); ++i)
 							{
 								auto lineBegin = (*_ppEditView)->execute(SCI_POSITIONFROMLINE, i);
 								auto lineEnd = (*_ppEditView)->execute(SCI_GETLINEENDPOSITION, i);
@@ -364,12 +379,11 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 								if (lineLen > lineAllocatedLen)
 								{
-									delete[] line;
-									line = new wchar_t[lineLen];
+									line.reset(new wchar_t[lineLen]);
 								}
-								(*_ppEditView)->getGenericText(line, lineLen, lineBegin, lineEnd);
+								(*_ppEditView)->getGenericText(line.get(), lineLen, lineBegin, lineEnd);
 
-								wstring s2r(line);
+								std::wstring s2r(line.get());
 
 								//
 								// Calcule wstring
@@ -378,7 +392,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 								if (lineEndCol < cursorCol)
 								{
-									wstring s_space(cursorCol - lineEndCol, ' ');
+									std::wstring s_space(cursorCol - lineEndCol, ' ');
 									s2r.append(s_space);
 									s2r.append(str);
 								}
@@ -392,9 +406,8 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 									s2r.insert(posRelative2Start, str);
 								}
 
-								(*_ppEditView)->replaceTarget(s2r.c_str(), int(lineBegin), int(lineEnd));
+								(*_ppEditView)->replaceTarget(s2r.c_str(), static_cast<int>(lineBegin), static_cast<int>(lineEnd));
 							}
-							delete[] line;
 						}
 					}
 					(*_ppEditView)->execute(SCI_ENDUNDOACTION);
@@ -416,6 +429,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				case IDC_COL_BIN_RADIO:
 				{
 					ColumnEditorParam& colEditParam = NppParameters::getInstance()._columnEditParam;
+					using enum NumBase;
 					colEditParam._formatChoice = BASE_10; // dec
 					if (LOWORD(wParam) == IDC_COL_HEX_RADIO)
 						colEditParam._formatChoice = getHexCase();	// will pick appropriate UC or LC version of hex
@@ -437,7 +451,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 						case EN_CHANGE:
 						{
 							ColumnEditorParam& colEditParam = NppParameters::getInstance()._columnEditParam;
-							constexpr int stringSize = MAX_PATH;
+							static constexpr int stringSize = MAX_PATH;
 							wchar_t str[stringSize]{};
 
 							switch (LOWORD(wParam))
@@ -459,7 +473,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 										return TRUE;
 									}
 
-									int num = getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
+									int num = getNumericFieldValueFromText(colEditParam._formatChoice, str);
 									if (num == -1)
 									{
 										num = colEditParam._initialNum;
@@ -480,7 +494,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 										return TRUE;
 									}
 
-									int num = getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
+									int num = getNumericFieldValueFromText(colEditParam._formatChoice, str);
 									if (num == -1)
 									{
 										num = colEditParam._increaseNum;
@@ -501,7 +515,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 										return TRUE;
 									}
 
-									int num = getNumericFieldValueFromText(colEditParam._formatChoice, str, stringSize);
+									int num = getNumericFieldValueFromText(colEditParam._formatChoice, str);
 									if (num == -1)
 									{
 										num = colEditParam._repeatNum;
@@ -526,8 +540,9 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							}
 							else if(LOWORD(wParam) == IDC_COL_HEXUC_COMBO)
 							{
+								using enum NumBase;
 								ColumnEditorParam& colEditParam = NppParameters::getInstance()._columnEditParam;
-								if ((colEditParam._formatChoice & BASE_16) == BASE_16 )
+								if (colEditParam._formatChoice == BASE_16 || colEditParam._formatChoice == BASE_16_UPPERCASE)
 									colEditParam._formatChoice = getHexCase();
 
 								setNumericFields(colEditParam);	// want the GUI fields to update case when combobox changes
@@ -553,22 +568,6 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				idRedraw = whichFlashRed;		// keep the ID for the one whose flash is ending...
 				whichFlashRed = 0;				// must be 0 before the redraw, otherwise it will maintain color
 				redrawDlgItem(idRedraw, true);	// redraw the just the one that was flashed
-
-				// Remember the latest/current baloon tip handle
-				hCurrentBalloonTip = [](HWND hEditControl) -> HWND {
-					HWND hTooltip = FindWindowEx(NULL, NULL, L"tooltips_class32", NULL);
-
-					while (hTooltip)
-					{
-						HWND hParent = GetParent(hTooltip);
-						if (hParent == hEditControl || hParent == GetParent(hEditControl))
-						{
-							return hTooltip;
-						}
-						hTooltip = FindWindowEx(NULL, hTooltip, L"tooltips_class32", NULL);
-					}
-					return NULL;
-				}(GetDlgItem(_hSelf, idRedraw));
 			}
 
 			if (wParam == IDC_COL_BALLONTIP_TIMER)
@@ -611,6 +610,8 @@ void ColumnEditorDlg::switchTo(bool toText)
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_LEADING_COMBO), !toText);
 	::EnableWindow(::GetDlgItem(_hSelf, IDOK), !toText || !NppParameters::getInstance()._columnEditParam._insertedTextContent.empty());
 
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_HEXUC_COMBO), !toText && isCheckedOrNot(IDC_COL_HEX_RADIO));
+
 	::SetFocus(toText?hText:hNum);
 
 	redrawDlgItem(IDC_COL_INITNUM_STATIC);
@@ -625,9 +626,10 @@ void ColumnEditorDlg::switchTo(bool toText)
 	}
 }
 
-UCHAR ColumnEditorDlg::getFormat()
+NumBase ColumnEditorDlg::getFormat()
 {
-	UCHAR f = BASE_10; // Dec by default
+	using enum NumBase;
+	NumBase f = BASE_10; // Dec by default
 	if (isCheckedOrNot(IDC_COL_HEX_RADIO))
 		f = getHexCase();	// will give BASE_16 or BASE_16_UC, depending on case selector
 	else if (isCheckedOrNot(IDC_COL_OCT_RADIO))
@@ -638,32 +640,34 @@ UCHAR ColumnEditorDlg::getFormat()
 }
 
 
-UCHAR ColumnEditorDlg::getHexCase()
+NumBase ColumnEditorDlg::getHexCase()
 {
+	using enum NumBase;
 	int curSel = static_cast<int>(::SendDlgItemMessage(_hSelf, IDC_COL_HEXUC_COMBO, CB_GETCURSEL, 0, 0));
 	return (curSel == 1) ? BASE_16_UPPERCASE : BASE_16;
 }
 
 ColumnEditorParam::leadingChoice ColumnEditorDlg::getLeading()
 {
-	ColumnEditorParam::leadingChoice leading = ColumnEditorParam::noneLeading;
+	using enum ColumnEditorParam::leadingChoice;
+	ColumnEditorParam::leadingChoice leading = noneLeading;
 	int curSel = static_cast<int>(::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_GETCURSEL, 0, 0));
 	switch (curSel)
 	{
 		case 0:
 		default:
 		{
-			leading = ColumnEditorParam::noneLeading;
+			leading = noneLeading;
 			break;
 		}
 		case 1:
 		{
-			leading = ColumnEditorParam::zeroLeading;
+			leading = zeroLeading;
 			break;
 		}
 		case 2:
 		{
-			leading = ColumnEditorParam::spaceLeading;
+			leading = spaceLeading;
 			break;
 		}
 	}
@@ -672,6 +676,7 @@ ColumnEditorParam::leadingChoice ColumnEditorDlg::getLeading()
 
 void ColumnEditorDlg::setNumericFields(const ColumnEditorParam& colEditParam)
 {
+	using enum NumBase;
 	if (colEditParam._formatChoice == BASE_10)
 	{
 		if (colEditParam._initialNum != -1)
@@ -710,7 +715,7 @@ void ColumnEditorDlg::setNumericFields(const ColumnEditorParam& colEditParam)
 		}
 		bool useUpper = (colEditParam._formatChoice == BASE_16_UPPERCASE);
 
-		constexpr int stringSize = 1024;
+		static constexpr int stringSize = 1024;
 		wchar_t str[stringSize]{};
 
 		if (colEditParam._initialNum != -1)
@@ -742,13 +747,13 @@ void ColumnEditorDlg::setNumericFields(const ColumnEditorParam& colEditParam)
 }
 
 // Convert the string to an integer, depending on base
-int ColumnEditorDlg::getNumericFieldValueFromText(int formatChoice, wchar_t str[], size_t /*stringSize*/)
+int ColumnEditorDlg::getNumericFieldValueFromText(NumBase formatChoice, const std::wstring& str)
 {
-	int num = 0;
 	int base = 0;
 
 	switch (formatChoice)
 	{
+		using enum NumBase;
 		case BASE_16:
 		case BASE_16_UPPERCASE:
 			base = 16;
@@ -764,26 +769,35 @@ int ColumnEditorDlg::getNumericFieldValueFromText(int formatChoice, wchar_t str[
 			break;
 	}
 
+	size_t end = 0;
 	// convert string in base to int value; on error, return -1
-	wchar_t* pEnd = nullptr;
-	num = static_cast<int>(std::wcstol(str, &pEnd, base));
-	if (pEnd == nullptr || *pEnd != L'\0')
+	try
+	{
+		const int num = std::stoi(str, &end, base);
+		if (end != str.length())
+			return -1;
+		return num;
+	}
+	catch (std::invalid_argument const&)
 	{
 		return -1;
 	}
-
-	return num;
+	catch (std::out_of_range const&)
+	{
+		return -1;
+	}
 }
 
-int ColumnEditorDlg::sendValidationErrorMessage(int whichFlashRed, int formatChoice, wchar_t str[])
+int ColumnEditorDlg::sendValidationErrorMessage(int whichFlashRed, NumBase formatChoice, wchar_t str[])
 {
 	wchar_t wcMsg[1024];
-	const wchar_t *wcRadixNote;
-	EDITBALLOONTIP ebt;
+	const wchar_t* wcRadixNote = nullptr;
+	EDITBALLOONTIP ebt{};
 	ebt.cbStruct = sizeof(EDITBALLOONTIP);
 	ebt.pszTitle = L"Invalid Numeric Entry";
 	switch (formatChoice)
 	{
+		using enum NumBase;
 		case BASE_16:
 		case BASE_16_UPPERCASE:
 			wcRadixNote = L"Hex numbers use 0-9, A-F!";
@@ -804,7 +818,24 @@ int ColumnEditorDlg::sendValidationErrorMessage(int whichFlashRed, int formatCho
 		ebt.pszText = wcMsg;
 	}
 	ebt.ttiIcon = TTI_ERROR_LARGE;    // tooltip icon
-	SendMessage(GetDlgItem(_hSelf, whichFlashRed), EM_SHOWBALLOONTIP, 0, (LPARAM)&ebt);
+	::SendMessage(::GetDlgItem(_hSelf, whichFlashRed), EM_SHOWBALLOONTIP, 0, reinterpret_cast<LPARAM>(&ebt));
+
+	_hCurrentBalloonTip = [](HWND hEditControl) -> HWND
+	{
+		HWND hTooltip = ::FindWindowEx(nullptr, nullptr, TOOLTIPS_CLASS, nullptr);
+
+		while (hTooltip)
+		{
+			HWND hParent = ::GetParent(hTooltip);
+			if (hParent == hEditControl || hParent == ::GetParent(hEditControl))
+			{
+				NppDarkMode::setDarkTooltips(hTooltip, NppDarkMode::ToolTipsType::tooltip);
+				return hTooltip;
+			}
+			hTooltip = ::FindWindowEx(nullptr, hTooltip, TOOLTIPS_CLASS, nullptr);
+		}
+		return nullptr;
+	}(::GetDlgItem(_hSelf, whichFlashRed));
 
 	SetTimer(_hSelf, IDT_COL_FLASH_TIMER, 250, NULL);
 	SetTimer(_hSelf, IDC_COL_BALLONTIP_TIMER, 3500, NULL);

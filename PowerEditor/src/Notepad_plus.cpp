@@ -20,6 +20,7 @@
 #include <wininet.h>
 
 #include <ctime>
+#include <memory>
 
 #include "NppXml.h"
 #include "Notepad_plus_Window.h"
@@ -42,6 +43,7 @@
 #include "Common.h"
 #include "NppDarkMode.h"
 #include "dpiManagerV2.h"
+#include "ImageListSet.h"
 
 using namespace std;
 
@@ -51,9 +53,9 @@ enum tb_stat {tb_saved, tb_unsaved, tb_ro, tb_monitored};
 #define DIR_LEFT true
 #define DIR_RIGHT false
 
+static constexpr int IDI_SEPARATOR_ICON = -1;
 
-
-ToolBarButtonUnit toolBarIcons[] = {
+static constexpr ToolBarButtonUnit toolBarIcons[]{
     {IDM_FILE_NEW,                     IDI_NEW_ICON,               IDI_NEW_ICON,                  IDI_NEW_ICON2,              IDI_NEW_ICON2,                 IDI_NEW_ICON_DM,               IDI_NEW_ICON_DM,                  IDI_NEW_ICON_DM2,              IDI_NEW_ICON_DM2,                 IDR_FILENEW},
     {IDM_FILE_OPEN,                    IDI_OPEN_ICON,              IDI_OPEN_ICON,                 IDI_OPEN_ICON2,             IDI_OPEN_ICON2,                IDI_OPEN_ICON_DM,              IDI_OPEN_ICON_DM,                 IDI_OPEN_ICON_DM2,             IDI_OPEN_ICON_DM2,                IDR_FILEOPEN},
     {IDM_FILE_SAVE,                    IDI_SAVE_ICON,              IDI_SAVE_DISABLE_ICON,         IDI_SAVE_ICON2,             IDI_SAVE_DISABLE_ICON2,        IDI_SAVE_ICON_DM,              IDI_SAVE_DISABLE_ICON_DM,         IDI_SAVE_ICON_DM2,             IDI_SAVE_DISABLE_ICON_DM2,        IDR_FILESAVE},
@@ -151,7 +153,7 @@ Notepad_plus::Notepad_plus()
 
 	nppParam.setNativeLangSpeaker(&_nativeLangSpeaker);
 
-	TiXmlDocument *toolButtonsDocRoot = nppParam.getCustomizedToolButtons();
+	NppXml::Document toolButtonsDocRoot = nppParam.getCustomizedToolButtons();
 
 	if (toolButtonsDocRoot)
 	{
@@ -506,7 +508,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	runMenuItems.attach(hRunMenu, runPosBase, IDM_SETTING_SHORTCUT_MAPPER_RUN, L"Modify Shortcut/Delete Command...");
 
 	// Updater menu item
-	if (!nppGUI._doesExistUpdater)
+	if (!nppGUI._doesExistUpdater || nppParam.isNppAutoUpdateDisabled())
 	{
 		::DeleteMenu(_mainMenuHandle, IDM_UPDATE_NPP, MF_BYCOMMAND);
 		::DeleteMenu(_mainMenuHandle, IDM_CONFUPDATERPROXY, MF_BYCOMMAND);
@@ -523,11 +525,11 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	for (int i = 0; i < nppParam.getNbExternalLang(); ++i)
 	{
 		HMENU subMenu = hLangMenu;
-		ExternalLangContainer & externalLangContainer = nppParam.getELCFromIndex(i);
+		const ExternalLangContainer* externalLangContainer = nppParam.getELCFromIndex(i);
 
 		int nbItem = ::GetMenuItemCount(subMenu);
 		wchar_t buffer[MAX_EXTERNAL_LEXER_NAME_LEN]{L'\0'};
-		const wchar_t* lexerNameW = wmc.char2wchar(externalLangContainer._name.c_str(), CP_ACP);
+		const wchar_t* lexerNameW = wmc.char2wchar(externalLangContainer->_name.c_str(), CP_ACP);
 
 		// Find the first separator which is between IDM_LANG_TEXT and languages
 		int x = 0;
@@ -590,8 +592,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	for (int i = 0, len = nppParam.getNbUserLang(); i < len; ++i)
 	{
-		UserLangContainer & userLangContainer = nppParam.getULCFromIndex(i);
-		::InsertMenu(hLangMenu, udlpos + i, MF_BYPOSITION, IDM_LANG_USER + i + 1, userLangContainer.getName());
+		const UserLangContainer* userLangContainer = nppParam.getULCFromIndex(i);
+		::InsertMenu(hLangMenu, udlpos + i, MF_BYPOSITION, IDM_LANG_USER + i + 1, userLangContainer->getName());
 	}
 
 	//Add recent files
@@ -678,9 +680,6 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	}
 
 	updateCommandShortcuts();
-
-	//Translate non-menu shortcuts
-	_nativeLangSpeaker.changeShortcutLang();
 
 	//Update plugin shortcuts, all plugin commands should be available now
 	nppParam.reloadPluginCmds();
@@ -892,6 +891,7 @@ void Notepad_plus::killAllChildren()
 	_mainEditView.destroy();
     _subEditView.destroy();
 	_invisibleEditView.destroy();
+	_fileEditView.destroy();
 
     _subSplitter.destroy();
     _statusBar.destroy();
@@ -941,7 +941,7 @@ bool Notepad_plus::saveGUIParams()
 
 bool Notepad_plus::saveColumnEditorParams()
 {
-	const NppParameters& nppParams = NppParameters::getInstance();
+	NppParameters& nppParams = NppParameters::getInstance();
 	return nppParams.writeColumnEditorSettings();
 }
 
@@ -1971,14 +1971,16 @@ bool Notepad_plus::replaceInFilelist(std::vector<wstring> & fileNames)
 		if (filesCount >= 200)
 			filesPerPercent = filesCount / 100;
 		
-		wstring msg = _nativeLangSpeaker.getLocalizedStrFromID(
-			"replace-in-files-progress-title", L"Replace In Files progress...");
+		wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("replace-in-files-progress-title", L"Replace In Files progress...");
 		progress.open(_findReplaceDlg.getHSelf(), msg.c_str());
 	}
 
 	bool hasInvalidRegExpr = false;
+
 	bool hasInvalidCharsInRegExpr = false;
 	bool hasInvalidCharsInReplaceText = false;
+
+	NppGUI& nppGUI = (NppParameters::getInstance()).getNppGUI();
 
 	for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
 	{
@@ -1986,7 +1988,8 @@ bool Notepad_plus::replaceInFilelist(std::vector<wstring> & fileNames)
 
 		bool closeBuf = false;
 
-		BufferID id = MainFileManager.getBufferFromName(fileNames.at(i).c_str());
+		BufferID id = nppGUI._fif_ignoreunsavedChangesInOpenedFiles ? BUFFER_INVALID : MainFileManager.getBufferFromName(fileNames.at(i).c_str());
+
 		if (id == BUFFER_INVALID)
 		{
 			id = MainFileManager.loadFile(fileNames.at(i).c_str());
@@ -2094,8 +2097,7 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 		if (filesCount >= 200)
 			filesPerPercent = filesCount / 100;
 		
-		wstring msg = _nativeLangSpeaker.getLocalizedStrFromID(
-			"find-in-files-progress-title", L"Find In Files progress...");
+		wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("find-in-files-progress-title", L"Find In Files progress...");
 		progress.open(_findReplaceDlg.getHSelf(), msg.c_str());
 	}
 
@@ -2192,8 +2194,7 @@ bool Notepad_plus::findInFilelist(std::vector<wstring> & fileNames)
 		if (filesCount >= 200)
 			filesPerPercent = filesCount / 100;
 
-		wstring msg = _nativeLangSpeaker.getLocalizedStrFromID(
-			"find-in-files-progress-title", L"Find In Files progress...");
+		wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("find-in-files-progress-title", L"Find In Files progress...");
 		progress.open(_findReplaceDlg.getHSelf(), msg.c_str());
 	}
 
@@ -2201,12 +2202,17 @@ bool Notepad_plus::findInFilelist(std::vector<wstring> & fileNames)
 	bool hasInvalidRegExpr = false;
 	bool hasInvalidCharsInRegExpr = false;
 
+	NppParameters& nppParam = NppParameters::getInstance();
+	const NppGUI& nppGui = nppParam.getNppGUI();
+
 	for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
 	{
 		if (progress.isCancelled()) break;
 
 		bool closeBuf = false;
-		BufferID id = MainFileManager.getBufferFromName(fileNames.at(i).c_str());
+
+		BufferID id = nppGui._fif_ignoreunsavedChangesInOpenedFiles ? BUFFER_INVALID : MainFileManager.getBufferFromName(fileNames.at(i).c_str());
+
 		if (id == BUFFER_INVALID)
 		{
 			id = MainFileManager.loadFile(fileNames.at(i).c_str());
@@ -2272,14 +2278,9 @@ bool Notepad_plus::findInFilelist(std::vector<wstring> & fileNames)
 		return false;
 	}
 
-	if (nbTotal > 0)
+	if (nbTotal > 0 && !nppGui._findDlgAlwaysVisible)
 	{
-		NppParameters& nppParam = NppParameters::getInstance();
-		const NppGUI& nppGui = nppParam.getNppGUI();
-		if (!nppGui._findDlgAlwaysVisible)
-		{
-			_findReplaceDlg.display(false);
-		}
+		_findReplaceDlg.display(false);
 	}
 
 	return true;
@@ -2566,7 +2567,7 @@ int Notepad_plus::doReloadOrNot(const wchar_t *fn, bool dirty)
 			_pPublicInterface->getHSelf(),
 			L"\"$STR_REPLACE$\"\r\rThis file has been modified by another program.\rDo you want to reload it and lose the changes made in Notepad++?",
 			L"Reload",
-			MB_YESNO | MB_APPLMODAL | MB_ICONEXCLAMATION,
+			MB_YESNO | MB_DEFBUTTON2 | MB_APPLMODAL | MB_ICONEXCLAMATION,
 			0, // not used
 			fn);
 	else
@@ -2652,6 +2653,9 @@ void Notepad_plus::checkClipboard()
 	enableCommand(IDM_EDIT_SENTENCECASE_BLEND, hasSelection, MENU);
 	enableCommand(IDM_EDIT_INVERTCASE, hasSelection, MENU);
 	enableCommand(IDM_EDIT_RANDOMCASE, hasSelection, MENU);
+	Buffer* curBuf = _pEditView->getCurrentBuffer();
+	bool canRedact = !curBuf->getFileReadOnly() && !curBuf->getUserReadOnly() && hasSelection;
+	enableCommand(IDM_EDIT_REDACT_SELECTION, canRedact, MENU);
 }
 
 void Notepad_plus::checkDocState()
@@ -2887,10 +2891,8 @@ wstring Notepad_plus::getLangDesc(LangType langType, bool getName)
 
 	if ((langType >= L_EXTERNAL) && (langType < nppParams.L_END))
 	{
-		ExternalLangContainer & elc = nppParams.getELCFromIndex(langType - L_EXTERNAL);
-		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-		const wchar_t* lexerNameW = wmc.char2wchar(elc._name.c_str(), CP_ACP);
-		return wstring(lexerNameW);
+		const ExternalLangContainer* elc = nppParams.getELCFromIndex(langType - L_EXTERNAL);
+		return string2wstring(elc->_name);
 	}
 
 	if (langType < L_TEXT || langType > L_EXTERNAL)
@@ -3180,7 +3182,7 @@ void Notepad_plus::setUniModeText()
 		int cmdID = em.getIndexFromEncoding(encoding);
 		if (cmdID == -1)
 		{
-			assert(!"Encoding problem. Encoding is not added in encoding_table?");
+			assert(false && "Encoding problem. Encoding is not added in encoding_table?");
 			return;
 		}
 		cmdID += IDM_FORMAT_ENCODE;
@@ -3210,9 +3212,39 @@ bool isUrlSchemeDelimiter(wchar_t const c) // characters allowed immedeately bef
 			 ||  (c == '_'));
 }
 
+// Checks URL character if it is a part of text or a special symbol
+// If the character is a part of regular text:
+// - True is returned
+// - Regular text is a fundamental alphanumeric which is regularly a part of the common text of the URL, and not a part of queries, http requests etc
+// If the character is a whitespace, unicode equivalent of whitespace, or a special character used in URL queries (for example http queries, requests)
+// - False is returned
 bool isUrlTextChar(wchar_t const c)
 {
 	if (c <= ' ') return false;
+
+	// Checks for unicode whitespace equivalents (ex: whitespace in different languages, mathematical or other contexts)
+	switch (c)
+	{
+		case L'\u0020':		// space
+		case L'\u00A0':		// non breaking space
+		case L'\u2002':		// en space
+		case L'\u2003':		// em space
+		case L'\u3000':		// ideographic space (east asian languages)
+		case L'\u2004':		// three-per-em
+		case L'\u2005':		// four-per-em
+		case L'\u2006':		// six-per-em
+		case L'\u2007':		// figure space
+		case L'\u2008':		// punctuation space
+		case L'\u2009':		// thin space
+		case L'\u200A':		// hair space
+		case L'\u200B':		// zero width space
+		case L'\u202F':		// narrow non breaking space
+		case L'\u205F':		// medium mathematical space
+		case L'\uFEFF':		// zero width non breaking space (byte order mark)
+			return false;		
+	}
+	
+	// Checks for special characters
 	switch (c)
 	{
 		case '"':
@@ -3225,6 +3257,7 @@ bool isUrlTextChar(wchar_t const c)
 		case '\u007F':
 			return false;
 	}
+	
 	return true;
 }
 
@@ -3701,7 +3734,7 @@ void Notepad_plus::maintainIndentation(wchar_t ch)
 	if (type >= L_EXTERNAL)
 	{
 		NppParameters& nppParam = NppParameters::getInstance();
-		autoIndentMode = nppParam.getELCFromIndex(type - L_EXTERNAL)._autoIndentMode;
+		autoIndentMode = nppParam.getELCFromIndex(type - L_EXTERNAL)->_autoIndentMode;
 		if (autoIndentMode == ExternalLexerAutoIndentMode::Custom)
 			return;
 	}
@@ -5339,36 +5372,36 @@ void Notepad_plus::showFunctionNextHint(bool isNext)
 		autoC->callTipClick(1);
 }
 
-static wstring extractSymbol(wchar_t firstChar, wchar_t secondChar, const wchar_t *str2extract)
+static std::string extractSymbol(char firstChar, char secondChar, const char* str2extract)
 {
 	bool found = false;
-	const size_t extractedLen = 128;
-	wchar_t extracted[extractedLen] = {'\0'};
+	static constexpr size_t extractedLen = 128;
+	char extracted[extractedLen] = { '\0' };
 
-	for (size_t i = 0, j = 0, len = lstrlen(str2extract) ; i < len && j < extractedLen - 1; ++i)
+	for (size_t i = 0, j = 0, len = std::strlen(str2extract); i < len && j < extractedLen - 1; ++i)
 	{
 		if (found)
 		{
 			if (!str2extract[i] || str2extract[i] == ' ')
 			{
 				extracted[j] = '\0';
-				return wstring(extracted);
+				return extracted;
 			}
 			extracted[j++] = str2extract[i];
 		}
 		else
 		{
 			if (!str2extract[i])
-				return L"";
+				return "";
 
-			if (str2extract[i] == firstChar && str2extract[i+1] == secondChar)
+			if (str2extract[i] == firstChar && str2extract[i + 1] == secondChar)
 			{
 				found = true;
 				++i;
 			}
 		}
 	}
-	return  wstring(extracted);
+	return extracted;
 }
 
 bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
@@ -5379,13 +5412,13 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 		return false;
 
 	//-- BlockToStreamComment:
-	const wchar_t *commentStart;
-	const wchar_t *commentEnd;
-	wstring symbolStart;
-	wstring symbolEnd;
+	const char* commentStart = nullptr;
+	const char* commentEnd = nullptr;
+	std::string symbolStart;
+	std::string symbolEnd;
 
-	const wchar_t *commentLineSymbol;
-	wstring symbol;
+	const char* commentLineSymbol = nullptr;
+	std::string symbol;
 
 	//Single Line Comment/Uncomment/Toggle can have two modes:
 	// * a NORMAL MODE which uses a commentLineSymbol to comment/uncomment code per line, and
@@ -5402,12 +5435,14 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 		if (!userLangContainer)
 			return false;
 
-		symbol = extractSymbol('0', '0', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
+		const std::string& kws = userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS];
+
+		symbol = extractSymbol('0', '0', kws.c_str());
 		commentLineSymbol = symbol.c_str();
 		// BlockToStreamComment: Needed to decide, if stream-comment can be called below!
-		symbolStart = extractSymbol('0', '3', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
+		symbolStart = extractSymbol('0', '3', kws.c_str());
 		commentStart = symbolStart.c_str();
-		symbolEnd = extractSymbol('0', '4', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
+		symbolEnd = extractSymbol('0', '4', kws.c_str());
 		commentEnd = symbolEnd.c_str();
 	}
 	else
@@ -5450,16 +5485,16 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 	}
 
 	//For Single Line NORMAL MODE
-	wstring comment;
+	std::string comment;
 	size_t comment_length = 0;
 
 	//For Single Line ADVANCED MODE
-	wstring advCommentStart;
-	wstring advCommentEnd;
+	std::string advCommentStart;
+	std::string advCommentEnd;
 	size_t advCommentStart_length = 0;
 	size_t advCommentEnd_length = 0;
 
-	const wchar_t aSpace[] { L" " };
+	const char aSpace[]{ " " };
 
 	//Only values that have passed through will be assigned, to be sure they are valid!
 	if (!isSingleLineAdvancedMode)
@@ -5516,12 +5551,11 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 			lineIndent = lineStart;
 
 		size_t linebufferSize = lineEnd - lineIndent + 1;
-		wchar_t* linebuf = new wchar_t[linebufferSize];
+		auto linebuf = std::make_unique<char[]>(linebufferSize);
 
-		_pEditView->getGenericText(linebuf, linebufferSize, lineIndent, lineEnd);
+		_pEditView->getGenericText(linebuf.get(), linebufferSize, lineIndent, lineEnd);
 
-        wstring linebufStr = linebuf;
-		delete [] linebuf;
+		std::string linebufStr = linebuf.get();
 
    		if (currCommentMode != cm_comment) // uncomment/toggle
 		{
@@ -5529,7 +5563,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 			{
 				// In order to do get case insensitive comparison use strnicmp() instead case-sensitive comparison.
 				//      Case insensitive comparison is needed e.g. for "REM" and "rem" in Batchfiles.
-				if (wcsnicmp(linebufStr.c_str(), comment.c_str(), !(buf->getLangType() == L_BAANC) ? comment_length - 1 : comment_length) == 0)
+				if (::_strnicmp(linebufStr.c_str(), comment.c_str(), (buf->getLangType() != L_BAANC) ? comment_length - 1 : comment_length) == 0)
 				{
 					size_t len = linebufStr[comment_length - 1] == aSpace[0] ? comment_length : !(buf->getLangType() == L_BAANC) ? comment_length - 1 : comment_length;
 
@@ -5565,8 +5599,8 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 			}
 			else // isSingleLineAdvancedMode
 			{
-				if ((wcsnicmp(linebufStr.c_str(), advCommentStart.c_str(), advCommentStart_length - 1) == 0) &&
-					(wcsnicmp(linebufStr.substr(linebufStr.length() - advCommentEnd_length + 1, advCommentEnd_length - 1).c_str(), advCommentEnd.substr(1, advCommentEnd_length - 1).c_str(), advCommentEnd_length - 1) == 0))
+				if ((::_strnicmp(linebufStr.c_str(), advCommentStart.c_str(), advCommentStart_length - 1) == 0)
+					&& (::_strnicmp(linebufStr.substr(linebufStr.length() - advCommentEnd_length + 1, advCommentEnd_length - 1).c_str(), advCommentEnd.substr(1, advCommentEnd_length - 1).c_str(), advCommentEnd_length - 1) == 0))
 				{
 					size_t startLen = linebufStr[advCommentStart_length - 1] == aSpace[0] ? advCommentStart_length : advCommentStart_length - 1;
 					size_t endLen = linebufStr[linebufStr.length() - advCommentEnd_length] == aSpace[0] ? advCommentEnd_length : advCommentEnd_length - 1;
@@ -5679,15 +5713,15 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 
 bool Notepad_plus::doStreamComment()
 {
-	const wchar_t *commentStart;
-	const wchar_t *commentEnd;
+	const char* commentStart = nullptr;
+	const char* commentEnd = nullptr;
 
-	wstring symbolStart;
-	wstring symbolEnd;
+	std::string symbolStart;
+	std::string symbolEnd;
 
 	// BlockToStreamComment:
-	const wchar_t *commentLineSymbol;
-	wstring symbol;
+	const char* commentLineSymbol = nullptr;
+	std::string symbol;
 
 	Buffer * buf = _pEditView->getCurrentBuffer();
 	// Avoid side-effects (e.g. cursor moves number of comment-characters) when file is read-only.
@@ -5701,13 +5735,15 @@ bool Notepad_plus::doStreamComment()
 		if (!userLangContainer)
 			return false;
 
+		const std::string& kws = userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS];
+
 		// BlockToStreamComment: Next two lines needed to decide, if block-comment can be called below!
-		symbol = extractSymbol('0', '0', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
+		symbol = extractSymbol('0', '0', kws.c_str());
 		commentLineSymbol = symbol.c_str();
 
-		symbolStart = extractSymbol('0', '3', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
+		symbolStart = extractSymbol('0', '3', kws.c_str());
 		commentStart = symbolStart.c_str();
-		symbolEnd = extractSymbol('0', '4', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
+		symbolEnd = extractSymbol('0', '4', kws.c_str());
 		commentEnd = symbolEnd.c_str();
 	}
 	else
@@ -5727,9 +5763,9 @@ bool Notepad_plus::doStreamComment()
 		return false;
 	}
 
-	wstring start_comment(commentStart);
-	wstring end_comment(commentEnd);
-	wstring white_space(L" ");
+	std::string start_comment(commentStart);
+	std::string end_comment(commentEnd);
+	std::string white_space(" ");
 
 	start_comment += white_space;
 	white_space += end_comment;
@@ -7041,7 +7077,7 @@ void Notepad_plus::setFindReplaceFolderFilter(const wchar_t *dir, const wchar_t 
 		if (lt == L_USER)
 		{
 			Buffer * buf = _pEditView->getCurrentBuffer();
-			UserLangContainer * userLangContainer = nppParam.getULCFromName(buf->getUserDefineLangName());
+			const UserLangContainer* userLangContainer = nppParam.getULCFromName(buf->getUserDefineLangName());
 			if (userLangContainer)
 				ext = userLangContainer->getExtention();
 		}
@@ -8805,16 +8841,16 @@ DWORD WINAPI Notepad_plus::backupDocument(void * /*param*/)
 //-- undoStreamComment: New function to undo stream comment around or within selection end-points.
 bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 {
-	const wchar_t* commentStart;
-	const wchar_t* commentEnd;
-	const wchar_t* commentLineSymbol;
+	const char* commentStart = nullptr;
+	const char* commentEnd = nullptr;
+	const char* commentLineSymbol = nullptr;
 
-	wstring symbolStart;
-	wstring symbolEnd;
-	wstring symbol;
+	std::string symbolStart;
+	std::string symbolEnd;
+	std::string symbol;
 
-	const int charbufLen = 10;
-	wchar_t charbuf[charbufLen]{};
+	static constexpr int charbufLen = 10;
+	char charbuf[charbufLen]{};
 
 	bool retVal = false;
 
@@ -8828,11 +8864,13 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 		if (!userLangContainer)
 			return false;
 
-		symbol = extractSymbol('0', '0', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
+		const std::string& kws = userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS];
+
+		symbol = extractSymbol('0', '0', kws.c_str());
 		commentLineSymbol = symbol.c_str();
-		symbolStart = extractSymbol('0', '3', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
+		symbolStart = extractSymbol('0', '3', kws.c_str());
 		commentStart = symbolStart.c_str();
-		symbolEnd = extractSymbol('0', '4', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
+		symbolEnd = extractSymbol('0', '4', kws.c_str());
 		commentEnd = symbolEnd.c_str();
 	}
 	else
@@ -8852,9 +8890,9 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 			return false;
 	}
 
-	wstring start_comment(commentStart);
-	wstring end_comment(commentEnd);
-	wstring white_space(L" ");
+	std::string start_comment(commentStart);
+	std::string end_comment(commentEnd);
+	std::string white_space(" ");
 	size_t start_comment_length = start_comment.length();
 	size_t end_comment_length = end_comment.length();
 
@@ -8890,14 +8928,14 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 		//-- When searching upwards the start-position for searching must be moved one after the current position
 		//   to find a search-string just starting before the current position!
 		//-- Direction DIR_UP ---
-		posStartCommentBefore[iSelStart] = _pEditView->searchInTarget(start_comment.c_str(), start_comment_length, selectionStart, 0);
+		posStartCommentBefore[iSelStart] = _pEditView->searchInTarget(start_comment, selectionStart, 0);
 		(posStartCommentBefore[iSelStart] == -1 ? blnStartCommentBefore[iSelStart] = false : blnStartCommentBefore[iSelStart] = true);
-		posEndCommentBefore[iSelStart] = _pEditView->searchInTarget(end_comment.c_str(), end_comment_length, selectionStart, 0);
+		posEndCommentBefore[iSelStart] = _pEditView->searchInTarget(end_comment, selectionStart, 0);
 		(posEndCommentBefore[iSelStart] == -1 ? blnEndCommentBefore[iSelStart] = false : blnEndCommentBefore[iSelStart] = true);
 		//-- Direction DIR_DOWN ---
-		posStartCommentAfter[iSelStart] = _pEditView->searchInTarget(start_comment.c_str(), start_comment_length, selectionStart, docLength);
+		posStartCommentAfter[iSelStart] = _pEditView->searchInTarget(start_comment, selectionStart, docLength);
 		(posStartCommentAfter[iSelStart] == -1 ? blnStartCommentAfter[iSelStart] = false : blnStartCommentAfter[iSelStart] = true);
-		posEndCommentAfter[iSelStart] = _pEditView->searchInTarget(end_comment.c_str(), end_comment_length, selectionStart, docLength);
+		posEndCommentAfter[iSelStart] = _pEditView->searchInTarget(end_comment, selectionStart, docLength);
 		(posEndCommentAfter[iSelStart] == -1 ? blnEndCommentAfter[iSelStart] = false : blnEndCommentAfter[iSelStart] = true);
 
 		//-- Check, if selectionStart or selectionEnd is within a stream comment -----
@@ -8915,14 +8953,14 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 		{
 			//-- Find all start- and end-comments before and after the selectionEnd position.
 			//-- Direction DIR_UP ---
-			posStartCommentBefore[iSelEnd] = _pEditView->searchInTarget(start_comment.c_str(), start_comment_length, selectionEnd, 0);
+			posStartCommentBefore[iSelEnd] = _pEditView->searchInTarget(start_comment, selectionEnd, 0);
 			(posStartCommentBefore[iSelEnd] == -1 ? blnStartCommentBefore[iSelEnd] = false : blnStartCommentBefore[iSelEnd] = true);
-			posEndCommentBefore[iSelEnd] = _pEditView->searchInTarget(end_comment.c_str(), end_comment_length, selectionEnd, 0);
+			posEndCommentBefore[iSelEnd] = _pEditView->searchInTarget(end_comment, selectionEnd, 0);
 			(posEndCommentBefore[iSelEnd] == -1 ? blnEndCommentBefore[iSelEnd] = false : blnEndCommentBefore[iSelEnd] = true);
 			//-- Direction DIR_DOWN ---
-			posStartCommentAfter[iSelEnd] = _pEditView->searchInTarget(start_comment.c_str(), start_comment_length, selectionEnd, docLength);
+			posStartCommentAfter[iSelEnd] = _pEditView->searchInTarget(start_comment, selectionEnd, docLength);
 			(posStartCommentAfter[iSelEnd] == -1 ? blnStartCommentAfter[iSelEnd] = false : blnStartCommentAfter[iSelEnd] = true);
-			posEndCommentAfter[iSelEnd] = _pEditView->searchInTarget(end_comment.c_str(), end_comment_length, selectionEnd, docLength);
+			posEndCommentAfter[iSelEnd] = _pEditView->searchInTarget(end_comment, selectionEnd, docLength);
 			(posEndCommentAfter[iSelEnd] == -1 ? blnEndCommentAfter[iSelEnd] = false : blnEndCommentAfter[iSelEnd] = true);
 
 			if ((blnStartCommentBefore[iSelEnd] && blnEndCommentAfter[iSelEnd])
@@ -8957,7 +8995,7 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 		//-- First delete end-comment, so that posStartCommentBefore does not change!
 		//-- Get character before end-comment to decide, if there is a white character before the end-comment, which will be removed too!
 		_pEditView->getGenericText(charbuf, charbufLen, posEndComment - 1, posEndComment);
-		if (wcsnicmp(charbuf, white_space.c_str(), white_space.length()) == 0)
+		if (::_strnicmp(charbuf, white_space.c_str(), white_space.length()) == 0)
 		{
 			endCommentLength += 1;
 			posEndComment -= 1;
@@ -8969,7 +9007,7 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 
 		//-- Get character after start-comment to decide, if there is a white character after the start-comment, which will be removed too!
 		_pEditView->getGenericText(charbuf, charbufLen, posStartComment + startCommentLength, posStartComment + startCommentLength + 1);
-		if (wcsnicmp(charbuf, white_space.c_str(), white_space.length()) == 0)
+		if (::_strnicmp(charbuf, white_space.c_str(), white_space.length()) == 0)
 			startCommentLength += 1;
 
 		//-- Delete starting stream-comment string ---------

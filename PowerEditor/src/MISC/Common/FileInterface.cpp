@@ -80,27 +80,6 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 			::SetFileTime(_hFile, &(attributes_original.ftCreationTime), NULL, NULL);
 			::SetFileAttributesW(fname, (_attribParam | attributes_original.dwFileAttributes));
 		}
-
-		NppParameters& nppParam = NppParameters::getInstance();
-		if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
-		{
-			wstring issueFn = nppLogNulContentCorruptionIssue;
-			issueFn += L".log";
-			wstring nppIssueLog = nppParam.getUserPath();
-			pathAppend(nppIssueLog, issueFn);
-
-			std::string msg = _path;
-			if (_hFile != INVALID_HANDLE_VALUE)
-			{
-				msg += " is opened.";
-			}
-			else
-			{
-				msg += " failed to open, CreateFileW ErrorCode: ";
-				msg += std::to_string(_dwErrorCode);
-			}
-			writeLog(nppIssueLog.c_str(), msg.c_str());
-		}
 	}
 }
 
@@ -177,32 +156,6 @@ Please try using another storage and also check if your saved data is not corrup
 		}
 
 		_hFile = INVALID_HANDLE_VALUE;
-
-		if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
-		{
-			wstring issueFn = nppLogNulContentCorruptionIssue;
-			issueFn += L".log";
-			wstring nppIssueLog = nppParam.getUserPath();
-			pathAppend(nppIssueLog, issueFn);
-
-			std::string msg;
-			if (flushError != NOERROR)
-			{
-				msg = "FlushFileBuffers failed with the error code: " + std::to_string(flushError) + " - ";
-
-				LPSTR messageBuffer = nullptr;
-				FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-					nullptr, flushError, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, nullptr);
-				msg += messageBuffer;
-
-				//Free the buffer.
-				LocalFree(messageBuffer);
-				msg += "\n";
-			}
-			msg += _path;
-			msg += " is closed.";
-			writeLog(nppIssueLog.c_str(), msg.c_str());
-		}
 	}
 }
 
@@ -243,43 +196,10 @@ bool Win32_IO_File::write(const void *wbuf, size_t buf_size)
 		}
 	} while (success && bytes_left_to_write);
 
-	NppParameters& nppParam = NppParameters::getInstance();
-
 	if (success == FALSE)
 	{
-		if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
-		{
-			wstring issueFn = nppLogNulContentCorruptionIssue;
-			issueFn += L".log";
-			wstring nppIssueLog = nppParam.getUserPath();
-			pathAppend(nppIssueLog, issueFn);
-
-			std::string msg = _path;
-			msg += " written failed: ";
-			std::wstring lastErrorMsg = GetLastErrorAsString(writeError);
-			msg += wstring2string(lastErrorMsg, CP_UTF8);
-			writeLog(nppIssueLog.c_str(), msg.c_str());
-		}
 		_dwErrorCode = writeError; // store
 		return false;
-	}
-	else
-	{
-		if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
-		{
-			wstring issueFn = nppLogNulContentCorruptionIssue;
-			issueFn += L".log";
-			wstring nppIssueLog = nppParam.getUserPath();
-			pathAppend(nppIssueLog, issueFn);
-
-			std::string msg = _path;
-			msg += "  ";
-			msg += std::to_string(total_bytes_written);
-			msg += "/";
-			msg += std::to_string(buf_size);
-			msg += " bytes are written.";
-			writeLog(nppIssueLog.c_str(), msg.c_str());
-		}
 	}
 
 	_written = true;

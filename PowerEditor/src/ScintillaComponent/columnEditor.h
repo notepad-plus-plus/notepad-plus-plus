@@ -14,11 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 #pragma once
 
-#include "columnEditor_rc.h"
-#include "StaticDialog.h"
+#include <windows.h>
+
+#include <string>
+
+#include "NppConstants.h"
 #include "Parameters.h"
+#include "StaticDialog.h"
+#include "Window.h"
+#include "columnEditor_rc.h"
 
 class ScintillaEditView;
 
@@ -39,16 +46,20 @@ public :
 
 	void display(bool toShow = true) const override;
 	void switchTo(bool toText);
-	UCHAR getFormat();
+	NumBase getFormat();
 	ColumnEditorParam::leadingChoice getLeading();
-	UCHAR getHexCase();
+	NumBase getHexCase();
 
 protected :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private :
 	ScintillaEditView **_ppEditView = nullptr;
+	HWND _hCurrentBalloonTip = nullptr;
+
+	using Window::init;
+
 	void setNumericFields(const ColumnEditorParam& colEditParam);
-	int getNumericFieldValueFromText(int formatChoice, wchar_t str[], size_t stringSize);
-	int sendValidationErrorMessage(int whichFlashRed, int formatChoice, wchar_t str[]);
+	int getNumericFieldValueFromText(NumBase formatChoice, const std::wstring& str);
+	int sendValidationErrorMessage(int whichFlashRed, NumBase formatChoice, wchar_t str[]);
 };

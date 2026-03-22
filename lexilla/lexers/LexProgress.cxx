@@ -123,6 +123,7 @@ namespace {
 
 class LexerABL : public DefaultLexer {
    CharacterSet setWord;
+   CharacterSet setClassName;
    CharacterSet setNegationOp;
    CharacterSet setArithmethicOp;
    CharacterSet setRelOp;
@@ -138,6 +139,7 @@ public:
    LexerABL() :
       DefaultLexer("abl", SCLEX_PROGRESS),
       setWord(CharacterSet::setAlphaNum, "_", 0x80, true),
+      setClassName(CharacterSet::setAlphaNum, "#$%_-", 0x80, true),
       setNegationOp(CharacterSet::setNone, "!"),
       setArithmethicOp(CharacterSet::setNone, "+-/*%"),
       setRelOp(CharacterSet::setNone, "=!<>"),
@@ -440,6 +442,13 @@ void SCI_METHOD LexerABL::Lex(Sci_PositionU startPos, Sci_Position length, int i
                   sc.ForwardSetState(SCE_ABL_DEFAULT);
             }
             break;
+         case SCE_ABL_ANNOTATION:
+         case SCE_ABL_TYPEDANNOTATION:
+            // annotation state persists until we see a character that can't be part of a class name
+            if (!setClassName.Contains(sc.ch)) {
+               sc.SetState(SCE_ABL_DEFAULT);
+            }
+            break;
       }
 
       if (sc.atLineEnd && !atLineEndBeforeSwitch) {
@@ -490,6 +499,20 @@ void SCI_METHOD LexerABL::Lex(Sci_PositionU startPos, Sci_Position length, int i
             } while ((sc.ch == ' ' || sc.ch == '\t') && sc.More());
             if (sc.atLineEnd) {
                sc.SetState(SCE_ABL_DEFAULT);
+            }
+         } else if (sc.ch == '@') {
+            if (!setClassName.Contains(sc.chNext) && sc.chNext != '@') {
+               // not an annotation - it might be something like: display "test" @ a
+               sc.SetState(SCE_ABL_DEFAULT);
+            }
+            else if (sc.chNext == '@') {
+               // @@typedannotation
+               sc.SetState(SCE_ABL_TYPEDANNOTATION);
+               sc.Forward();
+            }
+            else {
+               // @annotation
+               sc.SetState(SCE_ABL_ANNOTATION);
             }
          } else if (isoperator(sc.ch)) {
             sc.SetState(SCE_ABL_OPERATOR);

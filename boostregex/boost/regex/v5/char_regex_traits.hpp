@@ -20,6 +20,8 @@
 #ifndef BOOST_REGEX_V5_CHAR_REGEX_TRAITS_HPP
 #define BOOST_REGEX_V5_CHAR_REGEX_TRAITS_HPP
 
+#include <boost/regex/v5/regex_traits.hpp>
+
 namespace boost{
 
 namespace deprecated{

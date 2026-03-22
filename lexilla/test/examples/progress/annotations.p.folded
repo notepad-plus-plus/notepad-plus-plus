@@ -1,0 +1,20 @@
+ 0 400 400   // @ used in the non-annotation sense
+ 0 400 400   display "test" @ field.
+ 0 400 400   
+ 0 400 400   // source annotation examples
+ 0 400 400   @sourceannotation
+ 0 400 400   @source-annotation()
+ 0 400 400   @source_annotation(prop = "abc")
+ 0 400 400   @source#$%annotation(prop = "abc", prop2 = 123)
+ 0 400 400   
+ 0 400 400   // typed source annotation examples
+ 0 400 400   @@sourceannotation
+ 0 400 400   @@source-annotation()
+ 0 400 400   @@source_annotation(prop = "abc")
+ 0 400 400   @@source#$%annotation(prop = "abc", prop2 = 123)
+ 0 400 400   
+ 0 400 400   // poorly formed annotations
+ 0 400 400   @@@ThreeAtSigns // first two @ signs are typed, next is not typed
+ 0 400 400   @name[containsbadcharacter // annotation style stops at bad character
+ 0 400 400   @@name[containsbadcharacter // typed annotation style stops at bad character
+ 1 400 400   

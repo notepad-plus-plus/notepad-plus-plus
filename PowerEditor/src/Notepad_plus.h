@@ -227,7 +227,7 @@ public:
 	bool undoStreamComment(bool tryBlockComment = true);
 
 	bool addCurrentMacro();
-	void macroPlayback(Macro);
+	void macroPlayback(Macro macro, std::vector<Document>* pDocs4EndUAIn = nullptr);
 
     void loadLastSession();
 	bool loadSession(Session & session, bool isSnapshotMode = false, const wchar_t* userCreatedSessionName = nullptr);

@@ -14,12 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include <windows.h>
-#include <cstring>
 
-#include "StaticDialog.h"
+#include <windows.h>
+
+#include <cstddef>
+#include <cstring>
+#include <cwchar>
+#include <string>
+#include <vector>
+
 #include "Common.h"
+#include "Notepad_plus_msgs.h"
 #include "NppDarkMode.h"
+#include "StaticDialog.h"
+#include "Window.h"
 #include "dpiManagerV2.h"
 
 StaticDialog::~StaticDialog()
@@ -109,49 +117,52 @@ bool StaticDialog::moveForDpiChange()
 	return false;
 }
 
-void StaticDialog::display(bool toShow, bool enhancedPositioningCheckWhenShowing) const
+void StaticDialog::display(bool toShow) const
 {
 	if (toShow)
 	{
-		if (enhancedPositioningCheckWhenShowing)
-		{
-			RECT testPositionRc{}, candidateRc{};
+		// If the user has switched from a dual monitor to a single monitor since we last
+		// displayed the dialog, then ensure that it's still visible on the single monitor.
+		RECT workAreaRect{};
+		RECT rc{};
+		::SystemParametersInfo(SPI_GETWORKAREA, 0, &workAreaRect, 0);
+		::GetWindowRect(_hSelf, &rc);
+		int newLeft = rc.left;
+		int newTop = rc.top;
+		int margin = ::GetSystemMetrics(SM_CYSMCAPTION);
 
-			getWindowRect(testPositionRc);
+		if (newLeft > ::GetSystemMetrics(SM_CXVIRTUALSCREEN) - margin)
+			newLeft -= rc.right - workAreaRect.right;
+		if (newLeft + (rc.right - rc.left) < ::GetSystemMetrics(SM_XVIRTUALSCREEN) + margin)
+			newLeft = workAreaRect.left;
+		if (newTop > ::GetSystemMetrics(SM_CYVIRTUALSCREEN) - margin)
+			newTop -= rc.bottom - workAreaRect.bottom;
+		if (newTop + (rc.bottom - rc.top) < ::GetSystemMetrics(SM_YVIRTUALSCREEN) + margin)
+			newTop = workAreaRect.top;
 
-			candidateRc = getViewablePositionRect(testPositionRc);
-
-			if ((testPositionRc.left != candidateRc.left) || (testPositionRc.top != candidateRc.top))
-			{
-				::MoveWindow(_hSelf, candidateRc.left, candidateRc.top, 
-					candidateRc.right - candidateRc.left, candidateRc.bottom - candidateRc.top, TRUE);
-			}
-		}
+		if ((newLeft != rc.left) || (newTop != rc.top)) // then the virtual screen size has shrunk
+			::SetWindowPos(_hSelf, nullptr, newLeft, newTop, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 		else
+			::SendMessageW(_hSelf, DM_REPOSITION, 0, 0);
+	}
+
+	Window::display(toShow);
+}
+
+void StaticDialog::displayEnhanced(bool toShow) const
+{
+	if (toShow)
+	{
+		RECT testPositionRc{}, candidateRc{};
+
+		getWindowRect(testPositionRc);
+
+		candidateRc = getViewablePositionRect(testPositionRc);
+
+		if ((testPositionRc.left != candidateRc.left) || (testPositionRc.top != candidateRc.top))
 		{
-			// If the user has switched from a dual monitor to a single monitor since we last
-			// displayed the dialog, then ensure that it's still visible on the single monitor.
-			RECT workAreaRect{};
-			RECT rc{};
-			::SystemParametersInfo(SPI_GETWORKAREA, 0, &workAreaRect, 0);
-			::GetWindowRect(_hSelf, &rc);
-			int newLeft = rc.left;
-			int newTop = rc.top;
-			int margin = ::GetSystemMetrics(SM_CYSMCAPTION);
-
-			if (newLeft > ::GetSystemMetrics(SM_CXVIRTUALSCREEN) - margin)
-				newLeft -= rc.right - workAreaRect.right;
-			if (newLeft + (rc.right - rc.left) < ::GetSystemMetrics(SM_XVIRTUALSCREEN) + margin)
-				newLeft = workAreaRect.left;
-			if (newTop > ::GetSystemMetrics(SM_CYVIRTUALSCREEN) - margin)
-				newTop -= rc.bottom - workAreaRect.bottom;
-			if (newTop + (rc.bottom - rc.top) < ::GetSystemMetrics(SM_YVIRTUALSCREEN) + margin)
-				newTop = workAreaRect.top;
-
-			if ((newLeft != rc.left) || (newTop != rc.top)) // then the virtual screen size has shrunk
-				::SetWindowPos(_hSelf, nullptr, newLeft, newTop, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
-			else
-				::SendMessageW(_hSelf, DM_REPOSITION, 0, 0);
+			::MoveWindow(_hSelf, candidateRc.left, candidateRc.top,
+				candidateRc.right - candidateRc.left, candidateRc.bottom - candidateRc.top, TRUE);
 		}
 	}
 

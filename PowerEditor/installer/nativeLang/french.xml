@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Français" filename="french.xml" version="8.8.7">
+	<Native-Langue name="Français" filename="french.xml" version="8.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1017,6 +1017,7 @@ Translation note:
 					<Item id="6239" name="Conserver la sélection lors d’un clic droit en dehors de la sélection"/>
 					<Item id="6245" name="Activer l’espace virtuel"/>
 					<Item id="6214" name="Activer copier/couper la ligne sans sélection"/>
+					<Item id="6266" name="Désactiver le glisser-déposer du texte sélectionné"/>
 					<Item id="6225" name="Appliquer la couleur personnalisée au premier plan du texte sélectionné"/>
 					<Item id="6651" name="Surligner la ligne courante"/>
 					<Item id="6652" name="Aucun"/>
@@ -1216,6 +1217,7 @@ Translation note:
 					<Item id="6910" name="Taille minimale pour l’auto-coche de « Dans la sélection » :"/>
 					<Item id="6913" name="Remplir le champ de &quot;Dossier&quot; de &quot;Recherche dans les fichiers&quot; avec chemin du fichier actif"/>
 					<Item id="6916" name=" : Nombre max. de caractères sélectionnés à copier dans le champ de recherche"/>
+					<Item id="6917" name="Recherche dans les fichiers : préférer le contenu sur disque aux fichiers ouverts"/>
 				</Searching>
 
 				<RecentFilesHistory title="Fichiers récents">
@@ -1572,12 +1574,6 @@ Continuer ?"/>
 			<LanguageMenuCompactWarning title="Menu compact des langages" message="Cette option sera appliquée au prochain lancement."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Les modifications non-enregistrées vont être perdues !
 Voulez-vous enregistrer vos modifications avant de changer de thème ?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Compatibilité des commandes Macro et Exécuter" message="Vos commandes Macro et Exécuter enregistrées dans Notepad++ v.8.5.2 (ou antérieur) peuvent ne pas être compatibles avec la version courante de Notepad++.
-Veuillez tester ces commandes et, si besoin, ré-éditer celles-ci.
-
-Autrement, vous pouvez revenir vers Notepad++ v8.5.2 et restaurer les données précédentes.
-Notepad++ va sauvegarder votre ancien « shortcuts.xml » et l’enregistrer sous « shortcuts.xml.v8.5.2.backup ».
-En renommant « shortcuts.xml.v8.5.2.backup » -&gt; « shortcuts.xml », vos commandes devraient être proprement restaurées."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<NotEnoughRoom4Saving title="Échec de l’enregistrement" message="Échec de l’enregistrement du fichier.
 Il semblerait qu’il n’y a pas assez d’espace sur le disque. Votre fichier n’est pas enregistré."/>
 			<FileInaccessibleUserSession title="Fichier inaccessible" message="Certains fichiers de votre session sauvegardée manuellement « $STR_REPLACE$ » sont inaccessibles. Ils peuvent être ouverts comme des documents vides et en lecture seule en tant qu’espaces réservés.
@@ -1766,6 +1762,9 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
 			<find-status-scope-all value="dans le fichier"/>
 			<find-status-scope-backward value="du début du fichier au curseur"/>
 			<find-status-scope-forward value="du curseur à la fin du fichier"/>
+			<find-status-invisible-chars-findWhat value="Caractères invisibles dans le contenu collé de « Rechercher » ou « Remplacer par »"/>
+			<find-status-invisible-chars-findWhat-tip value="Avertissement : Caractères invisibles dans le champ de recherche (ou de remplacement).
+Le texte collé dans ce champ contient des caractères invisibles (peut-être des fins de ligne). Si vous continuez sans les supprimer, ils seront inclus dans le texte de recherche (ou de remplacement)."/>
 			<finder-find-in-finder value="Rechercher dans les résultats..."/>
 			<finder-close-this value="Fermer le dialogue des résultats"/>
 			<finder-collapse-all value="Replier tout"/>

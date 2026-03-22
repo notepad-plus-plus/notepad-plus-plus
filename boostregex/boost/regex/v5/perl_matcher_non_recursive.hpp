@@ -20,6 +20,18 @@
 #ifndef BOOST_REGEX_V5_PERL_MATCHER_NON_RECURSIVE_HPP
 #define BOOST_REGEX_V5_PERL_MATCHER_NON_RECURSIVE_HPP
 
+#include <boost/regex/config.hpp>
+
+#ifndef BOOST_REGEX_STANDALONE
+
+#include <boost/config.hpp>
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#pragma once
+#include <boost/regex/v5/perl_matcher.hpp>
+#endif
+
+#endif
+
 #include <boost/regex/v5/mem_block_cache.hpp>
 
 #ifdef BOOST_REGEX_MSVC
@@ -225,8 +237,8 @@ void perl_matcher<BidiIterator, Allocator, traits>::extend_stack()
       saved_state* backup_state;
       stack_base = static_cast<saved_state*>(get_mem_block());
       backup_state = reinterpret_cast<saved_state*>(reinterpret_cast<char*>(stack_base)+BOOST_REGEX_BLOCKSIZE);
-      saved_extra_block* block = static_cast<saved_extra_block*>(backup_state);
-      --block;
+      saved_extra_block* block = reinterpret_cast<saved_extra_block*>(
+         reinterpret_cast<std::uintptr_t>(backup_state) - sizeof(saved_extra_block));
       (void) new (block) saved_extra_block(m_stack_base, m_backup_state);
       m_stack_base = stack_base;
       m_backup_state = block;
@@ -1204,7 +1216,10 @@ bool perl_matcher<BidiIterator, Allocator, traits>::skip_until_paren(int index, 
       else if(pstate->type == syntax_element_startmark)
       {
          int idx = static_cast<const re_brace*>(pstate)->index;
-         pstate = pstate->next.p;
+         if(idx > 0)
+            match_startmark();
+         else
+            pstate = pstate->next.p;
          skip_until_paren(idx, false);
          continue;
       }

@@ -49,20 +49,76 @@ using namespace std;
 
 std::mutex command_mutex;
 
-void Notepad_plus::macroPlayback(Macro macro)
+void Notepad_plus::macroPlayback(Macro macro, std::vector<Document>* pDocs4EndUAIn)
 {
 	_playingBackMacro = true;
-	_pEditView->execute(SCI_BEGINUNDOACTION);
 
+	std::vector<Document>* pDocs4EndUA = nullptr;
+	if (pDocs4EndUAIn)
+	{
+		// continue with the passed param doc list
+		pDocs4EndUA = pDocs4EndUAIn;
+	}
+	else
+	{
+		// use local doc list
+		pDocs4EndUA = new std::vector<Document>;
+		if (!pDocs4EndUA)
+			return;
+	}
+
+	Document prevSciDoc = 0;
 	for (Macro::iterator step = macro.begin(); step != macro.end(); ++step)
 	{
+		Document curSciDoc = _pEditView->getCurrentBuffer()->getDocument();
+		if (curSciDoc != prevSciDoc)
+		{
+			// macro step is going to work with different Scintilla Document object
+			// (for which the undo actions are bound)
+
+			if (std::find(pDocs4EndUA->begin(), pDocs4EndUA->end(), curSciDoc) == pDocs4EndUA->end())
+			{
+				// not in the list of the macro affected docs so far
+				_pEditView->execute(SCI_BEGINUNDOACTION); // the macro step will touch another doc, open another undo action
+				pDocs4EndUA->push_back(curSciDoc); // store for possible ending undo action later
+			}
+
+			prevSciDoc = curSciDoc; // remember the doc switch
+		}
+
 		if (step->isScintillaMacro())
 			step->PlayBack(_pPublicInterface, _pEditView);
 		else
 			_findReplaceDlg.execSavedCommand(step->_message, step->_lParameter, string2wstring(step->_sParameter, CP_UTF8));
 	}
 
-	_pEditView->execute(SCI_ENDUNDOACTION);
+	if (!pDocs4EndUAIn)
+	{
+		// handle all the affected docs undo actions closing (for local-only doc list)
+
+		Document invisSciDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER); // store the view's original doc
+		while (!pDocs4EndUA->empty())
+		{
+			Document doc = pDocs4EndUA->back();
+			if (MainFileManager.getBufferFromDocument(doc) == BUFFER_INVALID)
+			{
+				// affected doc no longer exists (a macro step closed its associated Notepad++ tab/buffer),
+				// the ending undo action is not needed (until Notepad++ supports tab/buffer closing undo)
+			}
+			else
+			{
+				// complete the open undo action for existing doc object
+				_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, doc);
+				_invisibleEditView.execute(SCI_ENDUNDOACTION);
+			}
+			pDocs4EndUA->pop_back();
+		}
+		_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, invisSciDoc); // restore
+
+		delete pDocs4EndUA;
+		pDocs4EndUA = nullptr;
+	}
+
 	_playingBackMacro = false;
 }
 
@@ -612,6 +668,56 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_EDIT_REDACT_SELECTION:
+		{
+			_pEditView->execute(SCI_BEGINUNDOACTION);
+
+			const int selCount = static_cast<int>(_pEditView->execute(SCI_GETSELECTIONS));
+			const bool useBullet = (GetKeyState(VK_SHIFT) & 0x8000) != 0;
+
+			const int codePage = static_cast<int>(_pEditView->execute(SCI_GETCODEPAGE));
+			const bool isUnicode = (codePage == SC_CP_UTF8);
+
+			std::string maskSymbol;
+			if (isUnicode)
+				maskSymbol = useBullet ? "\xE2\x97\x8F" : "\xE2\x96\x88"; // ● or █ (UTF-8)
+			else
+				maskSymbol = useBullet ? "." : "#";
+
+
+			for (int i = 0; i < selCount; ++i)
+			{
+				WPARAM start = _pEditView->execute(SCI_GETSELECTIONNSTART, i);
+				LPARAM end = _pEditView->execute(SCI_GETSELECTIONNEND, i);
+				int charCount = static_cast<int>(_pEditView->execute(SCI_COUNTCHARACTERS, start, end));
+
+				if (charCount > 0)
+				{
+
+					std::string maskStr;
+
+					std::vector<std::pair<int, int>> segments2replace;
+					for (int j = 0; j < charCount; ++j)
+					{
+						// Get byte position of the jth character, starting from "start"
+						auto bytePos = _pEditView->execute(SCI_POSITIONRELATIVE, start, j);
+						char aChar = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, bytePos));
+						
+						if (aChar == '\r' || aChar == '\n')
+							maskStr += aChar;
+						else
+							maskStr += maskSymbol;
+					}
+
+					_pEditView->execute(SCI_SETTARGETRANGE, start, end);
+					_pEditView->execute(SCI_REPLACETARGET, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(maskStr.c_str()));
+				}
+			}
+
+			_pEditView->execute(SCI_ENDUNDOACTION);
+		}
+		break;
+
 		case IDM_EDIT_OPENINFOLDER:
 		case IDM_EDIT_OPENASFILE:
 		{
@@ -629,7 +735,13 @@ void Notepad_plus::command(int id)
 			wchar_t cmd2Exec[CURRENTWORD_MAXLENGTH] = { '\0' };
 			if (id == IDM_EDIT_OPENINFOLDER)
 			{
-				wcscpy_s(cmd2Exec, L"explorer");
+				if (!::GetWindowsDirectoryW(cmd2Exec, MAX_PATH))
+					return;
+
+				PathAppend(cmd2Exec, L"explorer.exe");
+
+				if (!doesFileExist(cmd2Exec))
+					return;
 			}
 			else
 			{
@@ -911,11 +1023,11 @@ void Notepad_plus::command(int id)
 			SortLocale sortLocale;
 			auto result = sortLocale.sort(_pEditView, id == IDM_EDIT_SORTLINES_LOCALE_DESCENDING);
 			if (result.status)
-				_nativeLangSpeaker.messageBox(result.tagName.data(),
+				_nativeLangSpeaker.messageBox(result.tagName.c_str(),
 					_pPublicInterface->getHSelf(),
-					result.message.data(),
+					result.message.c_str(),
 					result.status == MB_ICONERROR ? L"Sort Failed" : L"Sort not performed",
-					result.status | MB_OK | MB_APPLMODAL, 0, result.message.data());
+					result.status | MB_OK | MB_APPLMODAL, 0, result.message.c_str());
 		}
 		break;
 
@@ -2340,23 +2452,23 @@ void Notepad_plus::command(int id)
 			auto currentBuf = _pEditView->getCurrentBuffer();
 			if (!currentBuf->isUntitled())
 			{
-				wstring appName;
+				wstring appPathsEntryName;
 
 				if (id == IDM_VIEW_IN_FIREFOX)
 				{
-					appName = L"firefox.exe";
+					appPathsEntryName = L"firefox.exe";
 				}
 				else if (id == IDM_VIEW_IN_CHROME)
 				{
-					appName = L"chrome.exe";
+					appPathsEntryName = L"chrome.exe";
 				}
 				else if (id == IDM_VIEW_IN_EDGE)
 				{
-					appName = L"msedge.exe";
+					appPathsEntryName = L"msedge.exe";
 				}
 				else // if (id == IDM_VIEW_IN_IE)
 				{
-					appName = L"IEXPLORE.EXE";
+					appPathsEntryName = L"IEXPLORE.EXE";
 				}
 
 				wchar_t valData[MAX_PATH] = {'\0'};
@@ -2364,7 +2476,7 @@ void Notepad_plus::command(int id)
 				DWORD valType = 0;
 				HKEY hKey2Check = nullptr;
 				wstring appEntry = L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\";
-				appEntry += appName;
+				appEntry += appPathsEntryName;
 				::RegOpenKeyEx(HKEY_LOCAL_MACHINE, appEntry.c_str(), 0, KEY_READ, &hKey2Check);
 				::RegQueryValueEx(hKey2Check, L"", nullptr, &valType, reinterpret_cast<LPBYTE>(valData), &valDataLen);
 
@@ -3608,7 +3720,8 @@ void Notepad_plus::command(int id)
 		case IDM_CONFUPDATERPROXY :
 		{
 			// wingup doesn't work with the obsolete security layer (API) under xp since downloads are secured with SSL on notepad_plus_plus.org
-			winVer ver = NppParameters::getInstance().getWinVersion();
+			const NppParameters& nppParams = NppParameters::getInstance();
+			winVer ver = nppParams.getWinVersion();
 			if (ver <= WV_XP)
 			{
 				long res = _nativeLangSpeaker.messageBox("XpUpdaterProblem",
@@ -3624,14 +3737,14 @@ void Notepad_plus::command(int id)
 			}
 			else
 			{
-				wstring updaterDir = (NppParameters::getInstance()).getNppPath();
+				wstring updaterDir = nppParams.getNppPath();
 				pathAppend(updaterDir, L"updater");
 
 				wstring updaterFullPath = updaterDir;
 				pathAppend(updaterFullPath, L"gup.exe");
 
 
-#ifdef DEBUG // if not debug, then it's release
+#if !defined(NDEBUG)  // if not debug, then it's release
 				bool isCertifVerified = true;
 #else //RELEASE
 				// check the signature on updater
@@ -3655,44 +3768,10 @@ void Notepad_plus::command(int id)
 						param = L"-options";
 					}
 					else
-					{
-						param = L"-verbose -v";
-						param += VERSION_INTERNAL_VALUE;
-						int archType = NppParameters::getInstance().archType();
-						if (archType == IMAGE_FILE_MACHINE_AMD64)
-						{
-							param += L" -px64";
-						}
-						else if (archType == IMAGE_FILE_MACHINE_ARM64)
-						{
-							param += L" -parm64";
-						}
+					{	
+						nppParams.buildGupParams(param);
 
-						param += L" -infoUrl=";
-						param += INFO_URL;
-
-						param += L" -forceDomain=";
-						param += FORCED_DOWNLOAD_DOMAIN;
-
-						// Verify the code signing certificate and signature of the downloaded installer
-						SecurityGuard sgd;
-						param += L" -chkCertSig=yes";
-
-						param += L" -chkCertRevoc";
-						param += L" -chkCertTrustChain";
-
-						param += L" -chkCertName=";
-						param += sgd.signer_display_name();
-
-						param += L" -chkCertSubject=\"";
-						param += stringReplace(sgd.signer_subject(), L"\"", L"{QUOTE}");
-						param += L"\"";
-
-						param += L" -chkCertKeyId=";
-						param += sgd.signer_key_id();
-
-						param += L" -errLogPath=";
-						param += L"\"%LOCALAPPDATA%\\Notepad++\\log\\securityError.log\"";
+						param += L" -verbose";
 					}
 					Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
 
@@ -4383,6 +4462,7 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_CLEARREADONLYFORALLDOCS:
 			case IDM_EDIT_SORTLINES_LENGTH_ASCENDING:
 			case IDM_EDIT_SORTLINES_LENGTH_DESCENDING:
+			case IDM_EDIT_REDACT_SELECTION:
 				_macro.push_back(recordedMacroStep(id));
 				break;
 

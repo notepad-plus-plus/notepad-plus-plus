@@ -19,7 +19,12 @@
 #ifndef BOOST_REGEX_V5_REGEX_TOKEN_ITERATOR_HPP
 #define BOOST_REGEX_V5_REGEX_TOKEN_ITERATOR_HPP
 
+#include <boost/regex/v5/basic_regex.hpp>
+#include <boost/regex/v5/match_results.hpp>
+#include <boost/regex/v5/sub_match.hpp>
+#ifndef BOOST_REGEX_AS_MODULE
 #include <memory>
+#endif
 
 namespace boost{
 
@@ -120,7 +125,7 @@ private:
    regex_token_iterator_implementation& operator=(const regex_token_iterator_implementation&);
 };
 
-template <class BidirectionalIterator, 
+BOOST_REGEX_MODULE_EXPORT template <class BidirectionalIterator,
           class charT = typename std::iterator_traits<BidirectionalIterator>::value_type,
           class traits = regex_traits<charT> >
 class regex_token_iterator 
@@ -208,39 +213,39 @@ private:
    }
 };
 
-typedef regex_token_iterator<const char*> cregex_token_iterator;
-typedef regex_token_iterator<std::string::const_iterator> sregex_token_iterator;
+BOOST_REGEX_MODULE_EXPORT typedef regex_token_iterator<const char*> cregex_token_iterator;
+BOOST_REGEX_MODULE_EXPORT typedef regex_token_iterator<std::string::const_iterator> sregex_token_iterator;
 #ifndef BOOST_NO_WREGEX
-typedef regex_token_iterator<const wchar_t*> wcregex_token_iterator;
-typedef regex_token_iterator<std::wstring::const_iterator> wsregex_token_iterator;
+BOOST_REGEX_MODULE_EXPORT typedef regex_token_iterator<const wchar_t*> wcregex_token_iterator;
+BOOST_REGEX_MODULE_EXPORT typedef regex_token_iterator<std::wstring::const_iterator> wsregex_token_iterator;
 #endif
 
-template <class charT, class traits>
+BOOST_REGEX_MODULE_EXPORT template <class charT, class traits>
 inline regex_token_iterator<const charT*, charT, traits> make_regex_token_iterator(const charT* p, const basic_regex<charT, traits>& e, int submatch = 0, regex_constants::match_flag_type m = regex_constants::match_default)
 {
    return regex_token_iterator<const charT*, charT, traits>(p, p+traits::length(p), e, submatch, m);
 }
-template <class charT, class traits, class ST, class SA>
+BOOST_REGEX_MODULE_EXPORT template <class charT, class traits, class ST, class SA>
 inline regex_token_iterator<typename std::basic_string<charT, ST, SA>::const_iterator, charT, traits> make_regex_token_iterator(const std::basic_string<charT, ST, SA>& p, const basic_regex<charT, traits>& e, int submatch = 0, regex_constants::match_flag_type m = regex_constants::match_default)
 {
    return regex_token_iterator<typename std::basic_string<charT, ST, SA>::const_iterator, charT, traits>(p.begin(), p.end(), e, submatch, m);
 }
-template <class charT, class traits, std::size_t N>
+BOOST_REGEX_MODULE_EXPORT template <class charT, class traits, std::size_t N>
 inline regex_token_iterator<const charT*, charT, traits> make_regex_token_iterator(const charT* p, const basic_regex<charT, traits>& e, const int (&submatch)[N], regex_constants::match_flag_type m = regex_constants::match_default)
 {
    return regex_token_iterator<const charT*, charT, traits>(p, p+traits::length(p), e, submatch, m);
 }
-template <class charT, class traits, class ST, class SA, std::size_t N>
+BOOST_REGEX_MODULE_EXPORT template <class charT, class traits, class ST, class SA, std::size_t N>
 inline regex_token_iterator<typename std::basic_string<charT, ST, SA>::const_iterator, charT, traits> make_regex_token_iterator(const std::basic_string<charT, ST, SA>& p, const basic_regex<charT, traits>& e, const int (&submatch)[N], regex_constants::match_flag_type m = regex_constants::match_default)
 {
    return regex_token_iterator<typename std::basic_string<charT, ST, SA>::const_iterator, charT, traits>(p.begin(), p.end(), e, submatch, m);
 }
-template <class charT, class traits>
+BOOST_REGEX_MODULE_EXPORT template <class charT, class traits>
 inline regex_token_iterator<const charT*, charT, traits> make_regex_token_iterator(const charT* p, const basic_regex<charT, traits>& e, const std::vector<int>& submatch, regex_constants::match_flag_type m = regex_constants::match_default)
 {
    return regex_token_iterator<const charT*, charT, traits>(p, p+traits::length(p), e, submatch, m);
 }
-template <class charT, class traits, class ST, class SA>
+BOOST_REGEX_MODULE_EXPORT template <class charT, class traits, class ST, class SA>
 inline regex_token_iterator<typename std::basic_string<charT, ST, SA>::const_iterator, charT, traits> make_regex_token_iterator(const std::basic_string<charT, ST, SA>& p, const basic_regex<charT, traits>& e, const std::vector<int>& submatch, regex_constants::match_flag_type m = regex_constants::match_default)
 {
    return regex_token_iterator<typename std::basic_string<charT, ST, SA>::const_iterator, charT, traits>(p.begin(), p.end(), e, submatch, m);

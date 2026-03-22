@@ -7,8 +7,10 @@
 
 #include <cstdint>
 
+#include <vector>
 #include <array>
 #include <map>
+#include <algorithm>
 
 #include "DBCS.h"
 
@@ -88,10 +90,13 @@ bool DBCSIsTrailByte(int codePage, char ch) noexcept {
 bool IsDBCSValidSingleByte(int codePage, int ch) noexcept {
 	switch (codePage) {
 	case cp932:
+		// Shift_jis
 		return ch == 0x80
 			|| (ch >= 0xA0 && ch <= 0xDF)
 			|| (ch >= 0xFD);
-
+	case cp936:
+		// GBK
+		return ch == 0x80;
 	default:
 		return false;
 	}
@@ -99,25 +104,31 @@ bool IsDBCSValidSingleByte(int codePage, int ch) noexcept {
 
 // NOLINTEND(*-magic-numbers)
 
-using CodePageToFoldMap = std::map<int, FoldMap>;
+namespace {
+
+struct CodePageFoldMap {
+	int codePage = 0;
+	FoldMap foldMap;
+	explicit CodePageFoldMap(int codePage_) noexcept : codePage {codePage_} {}
+};
+
+using CodePageToFoldMap = std::vector<CodePageFoldMap>;
 CodePageToFoldMap cpToFoldMap;
 
-bool DBCSHasFoldMap(int codePage) {
-	const CodePageToFoldMap::const_iterator it = cpToFoldMap.find(codePage);
-	return it != cpToFoldMap.end();
 }
 
-void DBCSSetFoldMap(int codePage, const FoldMap &foldMap) {
-	cpToFoldMap[codePage] = foldMap;
-}
-
-FoldMap *DBCSGetMutableFoldMap(int codePage) {
-	// Constructs if needed
-	return &cpToFoldMap[codePage];
+FoldMap *DBCSCreateFoldMap(int codePage) {
+	cpToFoldMap.emplace_back(codePage);
+	return &(cpToFoldMap.back().foldMap);
 }
 
 const FoldMap *DBCSGetFoldMap(int codePage) {
-	return &cpToFoldMap[codePage];
+	const CodePageToFoldMap::iterator it = std::find_if(cpToFoldMap.begin(), cpToFoldMap.end(),
+		[codePage](const CodePageFoldMap &cpfm) -> bool {return cpfm.codePage == codePage; });
+	if (it != cpToFoldMap.end()) {
+		return &(it->foldMap);
+	}
+	return nullptr;
 }
 
 }

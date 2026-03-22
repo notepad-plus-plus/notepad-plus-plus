@@ -63,7 +63,6 @@ PowerEditor/bin/NppShell.x86.dll
 PowerEditor/bin/config.xml
 PowerEditor/bin/stylers.xml
 PowerEditor/bin/langs.xml
-PowerEditor/bin/config.model.xml
 PowerEditor/bin/stylers.model.xml
 PowerEditor/bin/langs.model.xml
 PowerEditor/bin/contextMenu.xml
@@ -71,7 +70,9 @@ PowerEditor/bin/nativeLang.xml
 PowerEditor/bin/session.xml
 PowerEditor/bin/functionList.xml
 PowerEditor/bin/shortcuts.xml
+PowerEditor/bin/NppShell.msix
 PowerEditor/bin/backup/
+PowerEditor/bin/autoCompletion/
 PowerEditor/bin/localization/
 PowerEditor/bin/plugins/
 PowerEditor/bin/updater/

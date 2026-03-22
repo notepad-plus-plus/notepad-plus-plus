@@ -1,19 +1,59 @@
-Notepad++ v8.9 security enhancement, new improvements, regression fixes & bug-fixes:
+Notepad++ v8.9.3 regression fixes, bug-fixes & new improvements:
 
-0. Remove Notepad++ self-singed certificate signature, use only the certificate issued by GlobalSign.
-1. Log security errors automatically while auto-updating in "%LOCALAPPDATA%\Notepad++\log\securityError.log".
-2. Fix jarring color regression in dark mode (introduced in v8.8.9).
-3. Fix "/noUpdater" installer option not working if updater was previously installed.
-4. Fix column mode edit undo regression (introduced in v8.8.9).
-5. Fix issue where an empty file opened without encoding under a UTF-8 system codepage.
-6. Add makefile function list parser.
-7. Improve performance & add missing file ext. from langs.model.xml to langs.xml.
-8. Improve "Open containing folder in Explorer" command to avoid creating Explorer process.
-9. Allow refresh mouse scroll amount according to OS settings changes.
+ 1. Regression fix: a crash in User Defined Language.
+ 2. Regression fix: installing (or removing) plugin re-opens Notepad++ with permanent admin privilege.
+ 3. Regression-fix: wrongly added parenthesis for some multi-bytes characters.
+ 4. Regression-fix: incorrect function list text display for non-UTF8 documents.
+ 5. Regression-fix: ProjectPanel Workspace text localization issue.
+ 6. Regression-fix: Change History margin not enabled by default.
+ 7. Regression-fix: Notepad++ update & plugin download fail behind corporate MITM proxies.
+ 8. Security enhancement: Update cURL to v8.19.0 in auto-updater (WinGUp) to fix cURL security issue (CVE-2025-14819).
+ 9. Improve performance by migrating the XML parser from TinyXML to pugixml.
+10. Update Scintilla to 5.6.0 & Lexilla to 5.4.7.
+11. Fix the issue where printing caused Notepad++ to crash.
+12. Fix Find in Files failing to search file content on disk.
+13. Add disableNppAutoUpdate.xml to disable auto-update when WinGUp (GUP.exe) is present.
+14. Fix a memory leak on exit.
+15. Fix installed auto-completion files not overwritten after update.
+16. Add an option to disable selected text drag-and-drop.
+17. Fix wrong theme-writing path for non-ProgramFiles installations.
+18. Enhancement: prevent XML config files from being overwritten when updating portable package (copy/paste).
+19. Fix incomplete Find dialg tab translation when 1st opêned from Project Panels.
+20. Fix Notepad++ spawning a new Windows Explorer process in Task Manager.
+21. Add Function List & Autocompletion for D language.
+
+
+Notepad++ v8.9.2 regression fixes, bug-fixes & new improvements:
+
+ 1. Security enhancement: Make updater check interity & authenticity of server-returned XML (XMLDsig).
+ 2. Security enhancement: Fix untrusted search path vulnerability (CVE-2026-25926) by launching explorer.exe.
+ 3. Security enhancement: Make auto-updater (WinGUp) even more secured (Remove dll dependency & unscured options).
+ 4. Fix a plugin installation crash due to incorrect processing catch.
+ 5. Add redact selection feature - Default: █, Modifier (Shift + Click): ●.
+ 6. Fix context menu shortcut localization not aligning to the right regression.
+
+
+Notepad++ v8.9.1 regression fixes, bug-fixes & new improvements:
+
+ 1. Fix EOL duplication regression when playing back old recorded macros.
+ 2. Remedy search failure for pasted text containing trailing invisible EOL character.
+ 3. Fix customized context menu regression where separator (id="0") escapes FolderName submenu.
+ 4. Fix issue where a single undo reverted multiple changes after macro execution.
+ 5. Fix visual glitch when dragging dockable dialogs on a 2nd monitor.
+ 6. Fix inconsistent automatic search mode switching (RegEx to Extended) in Find dialog.
+ 7. Fix incorrect URL parsing caused by Unicode special spaces.
+ 8. Update to Boost 1.90.0.
+ 9. Improve update themes feature: fix JavaScript.js edge case.
+10. Update javascript.js to better match javascript (embedded) in all themes.
+11. Function List: enhance for Perl & PHP; add for Nim.
+12. Fix comments and highlighting in TCL.
+13. Update perl keywords and autocomplete for 5.42.
+14. Improvement: display Find dialog status message with invisible characters warning.
+
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.9/
+https://notepad-plus-plus.org/downloads/v8.9.3/
 
 
 Included plugins:
@@ -25,4 +65,4 @@ Included plugins:
 
 Updater (Installer only):
 
-* WinGUp (for Notepad++) v5.3.9
+* WinGUp (for Notepad++) v5.4.1

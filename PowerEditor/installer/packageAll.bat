@@ -21,7 +21,7 @@ if %SIGN% == 0 goto NoSign
 
 REM commands to sign
 
-set signtoolWin11="C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64\signtool.exe"
+set signtoolWin11="C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\signtool.exe"
 
 set Sign_by_GlobalSignCert=%signtoolWin11% sign /n "NOTEPAD++" /tr http://timestamp.globalsign.com/tsa/r6advanced1 /td SHA256 /fd SHA256
 
@@ -31,7 +31,7 @@ REM files to be signed
 
 set nppBinaries=..\bin\notepad++.exe ..\bin64\notepad++.exe ..\binarm64\notepad++.exe
 
-set componentsBinaries=..\bin\plugins\Config\nppPluginList.dll ..\bin64\plugins\Config\nppPluginList.dll ..\binarm64\plugins\Config\nppPluginList.dll ..\bin\updater\GUP.exe ..\bin64\updater\GUP.exe ..\binarm64\updater\GUP.exe ..\bin\updater\libcurl.dll ..\bin64\updater\libcurl.dll ..\binarm64\updater\libcurl.dll
+set componentsBinaries=..\bin\plugins\Config\nppPluginList.dll ..\bin64\plugins\Config\nppPluginList.dll ..\binarm64\plugins\Config\nppPluginList.dll ..\bin\updater\GUP.exe ..\bin64\updater\GUP.exe ..\binarm64\updater\GUP.exe
 
 set pluginBinaries=..\bin\plugins\NppExport\NppExport.dll ..\bin64\plugins\NppExport\NppExport.dll ..\binarm64\plugins\NppExport\NppExport.dll ..\bin\plugins\mimeTools\mimeTools.dll ..\bin64\plugins\mimeTools\mimeTools.dll ..\binarm64\plugins\mimeTools\mimeTools.dll ..\bin\plugins\NppConverter\NppConverter.dll ..\bin64\plugins\NppConverter\NppConverter.dll ..\binarm64\plugins\NppConverter\NppConverter.dll
 
@@ -73,17 +73,11 @@ copy /Y ..\src\langs.model.xml .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ..\src\stylers.model.xml .\minimalist\
 If ErrorLevel 1 goto End
-copy /Y ..\src\contextMenu.xml .\minimalist\
-If ErrorLevel 1 goto End
 copy /Y ..\src\tabContextMenu_example.xml .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ..\src\toolbarButtonsConf_example.xml .\minimalist\
 If ErrorLevel 1 goto End
-copy /Y ..\src\shortcuts.xml .\minimalist\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\doLocalConf.xml .\minimalist\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\minimalist\
+copy /Y .\xml4Config\doLocalConf.xml .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\"notepad++.exe" .\minimalist\
 If ErrorLevel 1 goto End
@@ -108,17 +102,11 @@ copy /Y ..\src\langs.model.xml .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\stylers.model.xml .\minimalist64\
 If ErrorLevel 1 goto End
-copy /Y ..\src\contextMenu.xml .\minimalist64\
-If ErrorLevel 1 goto End
 copy /Y ..\src\tabContextMenu_example.xml .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\toolbarButtonsConf_example.xml .\minimalist64\
 If ErrorLevel 1 goto End
-copy /Y ..\src\shortcuts.xml .\minimalist64\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\doLocalConf.xml .\minimalist64\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\minimalist64\
+copy /Y .\xml4Config\doLocalConf.xml .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin64\"notepad++.exe" .\minimalist64\
 If ErrorLevel 1 goto End
@@ -143,17 +131,11 @@ copy /Y ..\src\langs.model.xml .\minimalistArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\stylers.model.xml .\minimalistArm64\
 If ErrorLevel 1 goto End
-copy /Y ..\src\contextMenu.xml .\minimalistArm64\
-If ErrorLevel 1 goto End
 copy /Y ..\src\tabContextMenu_example.xml .\minimalistArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\toolbarButtonsConf_example.xml .\minimalistArm64\
 If ErrorLevel 1 goto End
-copy /Y ..\src\shortcuts.xml .\minimalistArm64\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\doLocalConf.xml .\minimalistArm64\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\minimalistArm64\
+copy /Y .\xml4Config\doLocalConf.xml .\minimalistArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\binarm64\"notepad++.exe" .\minimalistArm64\
 If ErrorLevel 1 goto End
@@ -229,17 +211,11 @@ copy /Y ..\src\langs.model.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\src\stylers.model.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
-copy /Y ..\src\contextMenu.xml .\zipped.package.release\
-If ErrorLevel 1 goto End
 copy /Y ..\src\tabContextMenu_example.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\src\toolbarButtonsConf_example.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
-copy /Y ..\src\shortcuts.xml .\zipped.package.release\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\doLocalConf.xml .\zipped.package.release\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\zipped.package.release\
+copy /Y .\xml4Config\doLocalConf.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\"notepad++.exe" .\zipped.package.release\
 If ErrorLevel 1 goto End
@@ -257,17 +233,11 @@ copy /Y ..\src\langs.model.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\stylers.model.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
-copy /Y ..\src\contextMenu.xml .\zipped.package.release64\
-If ErrorLevel 1 goto End
 copy /Y ..\src\tabContextMenu_example.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\toolbarButtonsConf_example.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
-copy /Y ..\src\shortcuts.xml .\zipped.package.release64\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\doLocalConf.xml .\zipped.package.release64\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\zipped.package.release64\
+copy /Y .\xml4Config\doLocalConf.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin64\"notepad++.exe" .\zipped.package.release64\
 If ErrorLevel 1 goto End
@@ -284,17 +254,11 @@ copy /Y ..\src\langs.model.xml .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\stylers.model.xml .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End
-copy /Y ..\src\contextMenu.xml .\zipped.package.releaseArm64\
-If ErrorLevel 1 goto End
 copy /Y ..\src\tabContextMenu_example.xml .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\toolbarButtonsConf_example.xml .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End
-copy /Y ..\src\shortcuts.xml .\zipped.package.releaseArm64\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\doLocalConf.xml .\zipped.package.releaseArm64\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\zipped.package.releaseArm64\
+copy /Y .\xml4Config\doLocalConf.xml .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\binarm64\"notepad++.exe" .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End
@@ -371,15 +335,12 @@ If ErrorLevel 1 goto End
 copy /Y ".\themes\*.xml" .\zipped.package.releaseArm64\themes\
 If ErrorLevel 1 goto End
 
-rem Plugins Admin
-rem for disabling auto-updater
-copy /Y ..\src\config.4zipPackage.xml .\zipped.package.release\config.xml
+rem Use Plugins Admin but disable auto-update for x86 portable package
+copy /Y .\xml4Config\disableNppAutoUpdate.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\plugins\Config\nppPluginList.dll .\zipped.package.release\plugins\Config\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\updater\GUP.exe .\zipped.package.release\updater\
-If ErrorLevel 1 goto End
-copy /Y ..\bin\updater\libcurl.dll .\zipped.package.release\updater\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\updater\gup.xml .\zipped.package.release\updater\
 If ErrorLevel 1 goto End
@@ -390,14 +351,12 @@ If ErrorLevel 1 goto End
 copy /Y ..\bin\updater\updater.ico .\zipped.package.release\updater\
 If ErrorLevel 1 goto End
 
-rem For disabling auto-updater
-copy /Y ..\src\config.4zipPackage.xml .\zipped.package.release64\config.xml
+rem Use Plugins Admin but disable auto-update for x64 portable package
+copy /Y .\xml4Config\disableNppAutoUpdate.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin64\plugins\Config\nppPluginList.dll .\zipped.package.release64\plugins\Config\
 If ErrorLevel 1 goto End
 copy /Y ..\bin64\updater\GUP.exe .\zipped.package.release64\updater\
-If ErrorLevel 1 goto End
-copy /Y ..\bin64\updater\libcurl.dll .\zipped.package.release64\updater\
 If ErrorLevel 1 goto End
 copy /Y ..\bin64\updater\gup.xml .\zipped.package.release64\updater\
 If ErrorLevel 1 goto End
@@ -408,14 +367,12 @@ If ErrorLevel 1 goto End
 copy /Y ..\bin64\updater\updater.ico .\zipped.package.release64\updater\
 If ErrorLevel 1 goto End
 
-rem For disabling auto-updater
-copy /Y ..\src\config.4zipPackage.xml .\zipped.package.releaseArm64\config.xml
+rem Use Plugins Admin but disable auto-update for ARM64 portable package
+copy /Y .\xml4Config\disableNppAutoUpdate.xml .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\binarm64\plugins\Config\nppPluginList.dll .\zipped.package.releaseArm64\plugins\Config\
 If ErrorLevel 1 goto End
 copy /Y ..\binarm64\updater\GUP.exe .\zipped.package.releaseArm64\updater\
-If ErrorLevel 1 goto End
-copy /Y ..\binarm64\updater\libcurl.dll .\zipped.package.releaseArm64\updater\
 If ErrorLevel 1 goto End
 copy /Y ..\binarm64\updater\gup.xml .\zipped.package.releaseArm64\updater\
 If ErrorLevel 1 goto End
@@ -462,73 +419,72 @@ If ErrorLevel 1 goto End
 "C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.portable.arm64.7z .\zipped.package.releaseArm64\*
 If ErrorLevel 1 goto End
 
-cd .\msi\
-dotnet build -c release -p:OutputPath=..\build\
+rem set var locally in this batch file
+setlocal 
+
+cd build
+
+:: Get npp.6.9.Installer.exe in %nppInstallerVar%
+for %%f in (npp.*.Installer.exe) do set "nppInstallerVar=%%f"
+
+
+rem get the version string "6.9" in %VERSION%
+set "VERSION=%nppInstallerVar:npp.=%"
+rem replace "npp." with nothing in "npp.6.9.Installer.exe" - now VERSION is "6.9.Installer.exe"
+
+rem echo %VERSION%
+
+set "VERSION=%VERSION:.Installer.exe=%"
+rem replace ".Installer.exe" with nothing in "6.9.Installer.exe" - now VERSION is "6.9"
+
+rem echo %VERSION%
+
+cd ..\msi\
+dotnet build -c release -p:OutputPath=..\build\ -p:DefineConstants=Version=%VERSION%
 If ErrorLevel 1 goto End
 
 cd ..\build\
 
-rem set var locally in this batch file
-setlocal enableDelayedExpansion 
 
-for %%a in (npp.*.Installer.exe) do (
-  rem echo a = %%a
-  set nppInstallerVar=%%a
-  set nppInstallerVar64=!nppInstallerVar:Installer.exe=Installer.x64.exe!
-  set nppInstallerVarArm64=!nppInstallerVar:Installer.exe=Installer.arm64.exe!
+ren npp.portable.zip npp.%VERSION%.portable.zip
+If ErrorLevel 1 goto End
 
-  rem nppInstallerVar should be the version for example: 6.9
-  rem we put npp.6.9. + (portable.zip instead of Installer.exe) into var zipvar
-  set zipvar=!nppInstallerVar:Installer.exe=portable.zip!
+ren npp.portable.x64.zip npp.%VERSION%.portable.x64.zip
+If ErrorLevel 1 goto End
 
-  set zipvar64=!nppInstallerVar:Installer.exe=portable.x64.zip!
-  set zipvarArm64=!nppInstallerVar:Installer.exe=portable.arm64.zip!
-  set 7zvar=!nppInstallerVar:Installer.exe=portable.7z!
-  set 7zvar64=!nppInstallerVar:Installer.exe=portable.x64.7z!
-  set 7zvarArm64=!nppInstallerVar:Installer.exe=portable.arm64.7z!
-  set 7zvarMin=!nppInstallerVar:Installer.exe=portable.minimalist.7z!
-  set 7zvarMin64=!nppInstallerVar:Installer.exe=portable.minimalist.x64.7z!
-  set 7zvarMinArm64=!nppInstallerVar:Installer.exe=portable.minimalist.arm64.7z!
-  
-  set nppInstallerVarMsi64=!nppInstallerVar:Installer.exe=Installer.x64.msi!
-)
+ren npp.portable.arm64.zip npp.%VERSION%.portable.arm64.zip
+If ErrorLevel 1 goto End
 
-rem echo zipvar=!zipvar!
-rem echo zipvar64=!zipvar64!
-rem echo 7zvar=!7zvar!
-rem echo 7zvar64=!7zvar64!
-rem echo 7zvarMin=!7zvarMin!
-rem echo 7zvarMin64=!7zvarMin64!
-ren npp.portable.zip !zipvar!
+ren npp.portable.7z npp.%VERSION%.portable.7z
 If ErrorLevel 1 goto End
-ren npp.portable.x64.zip !zipvar64!
+
+ren npp.portable.x64.7z npp.%VERSION%.portable.x64.7z
 If ErrorLevel 1 goto End
-ren npp.portable.arm64.zip !zipvarArm64!
+
+ren npp.portable.arm64.7z npp.%VERSION%.portable.arm64.7z
 If ErrorLevel 1 goto End
-ren npp.portable.7z !7zvar!
+
+ren npp.portable.minimalist.7z npp.%VERSION%.portable.minimalist.7z
 If ErrorLevel 1 goto End
-ren npp.portable.x64.7z !7zvar64!
+
+ren npp.portable.minimalist.x64.7z npp.%VERSION%.portable.minimalist.x64.7z
 If ErrorLevel 1 goto End
-ren npp.portable.arm64.7z !7zvarArm64!
+
+ren npp.portable.minimalist.arm64.7z npp.%VERSION%.portable.minimalist.arm64.7z
 If ErrorLevel 1 goto End
-ren npp.portable.minimalist.7z !7zvarMin!
-If ErrorLevel 1 goto End
-ren npp.portable.minimalist.x64.7z !7zvarMin64!
-If ErrorLevel 1 goto End
-ren npp.portable.minimalist.arm64.7z !7zvarMinArm64!
-If ErrorLevel 1 goto End
-ren npp.Installer.x64.msi !nppInstallerVarMsi64!
+
+ren npp.Installer.x64.msi npp.%VERSION%.Installer.x64.msi
 If ErrorLevel 1 goto End
 
 if %SIGN% == 0 goto NoSignInstaller
 
-%Sign_by_GlobalSignCert% !nppInstallerVar! !nppInstallerVar64! !nppInstallerVarArm64! !nppInstallerVarMsi64!
+%Sign_by_GlobalSignCert% %nppInstallerVar% npp.%VERSION%.Installer.x64.exe npp.%VERSION%.Installer.arm64.exe npp.%VERSION%.Installer.x64.msi
 If ErrorLevel 1 goto End
 
 :NoSignInstaller
 
 endlocal
 
-cd ..
+REM PACKACKAGES BUILT SUCCESSFUL!
 
 :End

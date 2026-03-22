@@ -13,15 +13,16 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
 #pragma once
 
-#ifndef _WIN32_IE
-#define _WIN32_IE	0x0600
-#endif //_WIN32_IE
+#include <windows.h>
+
+#include <string>
+#include <vector>
 
 #include "Window.h"
-#include "Common.h"
-#include <vector>
 
 struct StatusBarSubclassInfo;
 
@@ -36,11 +37,11 @@ public:
 	bool setPartWidth(int whichPart, int width);
 
 	void destroy() override;
-    virtual void reSizeTo(const RECT& rc);
+	void reSizeTo(RECT& rc) override;
 
 	int getHeight() const override;
 
-    bool setText(const wchar_t* str, int whichPart);
+	bool setText(const wchar_t* str, int whichPart);
 	bool setOwnerDrawText(const wchar_t* str);
 	void adjustParts(int clientWidth);
 
@@ -49,7 +50,7 @@ private:
 	void init(HINSTANCE hInst, HWND hPere) override;
 
 private:
-    std::vector<int> _partWidthArray;
+	std::vector<int> _partWidthArray;
 	int *_lpParts = nullptr;
 	std::wstring _lastSetText;
 	StatusBarSubclassInfo* _pStatusBarInfo = nullptr;

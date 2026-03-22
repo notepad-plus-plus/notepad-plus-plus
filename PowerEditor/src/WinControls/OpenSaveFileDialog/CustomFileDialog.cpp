@@ -720,7 +720,7 @@ public:
 			std::vector<COMDLG_FILTERSPEC> fileTypes;
 			fileTypes.reserve(_filterSpec.size());
 			for (auto&& filter : _filterSpec)
-				fileTypes.push_back({ filter.name.data(), filter.ext.data() });
+				fileTypes.push_back({ filter.name.c_str(), filter.ext.c_str() });
 			hr = _dialog->SetFileTypes(static_cast<UINT>(fileTypes.size()), fileTypes.data());
 		}
 

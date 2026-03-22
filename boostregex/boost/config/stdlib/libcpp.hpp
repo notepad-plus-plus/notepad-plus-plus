@@ -177,4 +177,9 @@
 #endif
 #endif
 
+#if _LIBCPP_VERSION <= 170006
+// no std::ranges::join_view
+#  define BOOST_NO_CXX20_HDR_RANGES
+#endif
+
 //  --- end ---

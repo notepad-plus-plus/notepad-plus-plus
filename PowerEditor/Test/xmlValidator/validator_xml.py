@@ -154,12 +154,6 @@ def parse_xml_files_from_src_dir():
                 xsd_filename = os.path.join("PowerEditor", "Test", "xmlValidator", "toolbarButtons.xsd")
             elif file.endswith("tabContextMenu_example.xml"):
                 xsd_filename = os.path.join("PowerEditor", "Test", "xmlValidator", "tabContext.xsd")
-            elif file.endswith("contextMenu.xml"):
-                xsd_filename = os.path.join("PowerEditor", "Test", "xmlValidator", "contextMenu.xsd")
-            elif file.endswith("shortcuts.xml"):
-                xsd_filename = os.path.join("PowerEditor", "Test", "xmlValidator", "shortcuts.xsd")
-            elif file.endswith("config.4zipPackage.xml"):
-                xsd_filename = os.path.join("PowerEditor", "Test", "xmlValidator", "config.xsd")
             parse_xml_file(os.path.join("PowerEditor/src", file), xsd_filename)
 
 print('Start syntax check and validation for XML files.')

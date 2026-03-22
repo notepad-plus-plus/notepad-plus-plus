@@ -167,8 +167,13 @@ void LexerMakeFile::ColouriseMakeLine(
 		}
 	}
 	int varCount = 0;
+	char previous = 0;
 	while (i < lengthLine) {
-		if (lineBuffer.substr(i, 2) == "$(") {
+		if (lineBuffer[i] == '#' && !bCommand && (varCount == 0) && (previous != '\\')) {
+			styler.ColourTo(startLine + i - 1, state);
+			styler.ColourTo(endPos, SCE_MAKE_COMMENT);
+			return;
+		} else if (lineBuffer.substr(i, 2) == "$(") {
 			styler.ColourTo(startLine + i - 1, state);
 			state = SCE_MAKE_IDENTIFIER;
 			varCount++;
@@ -200,6 +205,7 @@ void LexerMakeFile::ColouriseMakeLine(
 		if (!isspacechar(lineBuffer[i])) {
 			lastNonSpace = i;
 		}
+		previous = lineBuffer[i];
 		i++;
 	}
 	if (state == SCE_MAKE_IDENTIFIER) {

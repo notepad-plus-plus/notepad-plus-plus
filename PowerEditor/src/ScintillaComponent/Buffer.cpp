@@ -1951,10 +1951,10 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 	else
 	{
 		int id = fileFormat._language - L_EXTERNAL;
-		ExternalLangContainer& externalLexer = nppParam.getELCFromIndex(id);
-		const char* lexerName = externalLexer._name.c_str();
-		if (externalLexer.fnCL)
-			_pscratchTilla->execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(externalLexer.fnCL(lexerName)));
+		const ExternalLangContainer* externalLexer = nppParam.getELCFromIndex(id);
+		const char* lexerName = externalLexer->_name.c_str();
+		if (externalLexer->fnCL)
+			_pscratchTilla->execute(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(externalLexer->fnCL(lexerName)));
 	}
 
 	if (fileFormat._encoding != -1)

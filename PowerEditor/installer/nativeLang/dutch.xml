@@ -9,10 +9,10 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepadplusplus(at)rockytdr.33mail.com)
 
-Last modified on 2025-11-11 by xylographe.
+Last modified on 2026-03-16 by xylographe.
 -->
 <NotepadPlus>
-	<Native-Langue name="Nederlands" filename="dutch.xml" version="8.8.7">
+	<Native-Langue name="Nederlands" filename="dutch.xml" version="8.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -147,6 +147,8 @@ Last modified on 2025-11-11 by xylographe.
 					<Item id="42081" name="Regels lexicografisch aflopend hoofdletterongevoelig sorteren"/>
 					<Item id="42100" name="Regels op basis van lokale taalinstellingen oplopend sorteren"/>
 					<Item id="42101" name="Regels op basis van lokale taalinstellingen aflopend sorteren"/>
+					<Item id="42104" name="Regels oplopend op lengte sorteren"/>
+					<Item id="42105" name="Regels aflopend op lengte sorteren"/>
 					<Item id="42061" name="Regels als gehele getallen oplopend sorteren"/>
 					<Item id="42062" name="Regels als gehele getallen aflopend sorteren"/>
 					<Item id="42063" name="Regels als decimalen (komma) oplopend sorteren"/>
@@ -165,6 +167,7 @@ Last modified on 2025-11-11 by xylographe.
 					<Item id="42072" name="WilLeKEUriGe hOoFdlEtteRs"/>
 					<Item id="42073" name="Bestand openen"/>
 					<Item id="42074" name="Bevattende map openen in Windows Verkenner"/>
+					<Item id="42106" name="Selectie redigeren █ (Shift: ●)"/>
 					<Item id="42075" name="Zoeken op internet"/>
 					<Item id="42076" name="Zoekmachine wijzigen..."/>
 					<Item id="42090" name="Niet hoofdlettergevoelig en volledige woorden negeren"/>
@@ -239,7 +242,7 @@ Last modified on 2025-11-11 by xylographe.
 					<Item id="43009" name="Ga naar overeenkomend &amp;haakje"/>
 					<Item id="43010" name="Vorig&amp;e zoeken"/>
 					<Item id="43011" name="&amp;Snel zoeken..."/>
-					<Item id="43013" name="Zoeken in &amp;bestanden"/>
+					<Item id="43013" name="Zoeken in &amp;bestanden..."/>
 					<Item id="43014" name="(&amp;Vluchtig) volgende zoeken"/>
 					<Item id="43015" name="(&amp;Vluchtig) vorige zoeken"/>
 					<Item id="43022" name="Met stijl 1"/>
@@ -1008,7 +1011,7 @@ Last modified on 2025-11-11 by xylographe.
 					<Item id="6128" name="Alternatieve pictogrammen"/>
 					<Item id="6125" name="Gedrag"/>
 					<Item id="6126" name="Gedrag en uiterlijk"/>
-					<Item id="6136" name="Max. tabbladnaamlengte:"/>
+					<Item id="6136" name="Max. lengte tabbladnaam:"/>
 				</Tabbar>
 
 				<Scintillas title="Bewerken 1">
@@ -1028,6 +1031,7 @@ Last modified on 2025-11-11 by xylographe.
 					<Item id="6239" name="Selectie behouden bij rechtsklikken buiten selectie"/>
 					<Item id="6245" name="Virtuele ruimte inschakelen"/>
 					<Item id="6214" name="Kopiëren/knippen van regel zonder te selecteren inschakelen"/>
+					<Item id="6266" name="Slepen en neerzetten voor geselecteerde tekst uitschakelen"/>
 					<Item id="6225" name="Aangepaste kleur toepassen op voorgrond van geselecteerde tekst"/>
 					<Item id="6651" name="Indicator voor huidige regel"/>
 					<Item id="6652" name="Geen"/>
@@ -1228,6 +1232,7 @@ Last modified on 2025-11-11 by xylographe.
 					<Item id="6910" name="Minimale grootte voor automatisch aanvinken &quot;In selectie&quot;:"/>
 					<Item id="6913" name="Mapveld voor zoeken in bestanden opvullen gebaseerd op actief document"/>
 					<Item id="6916" name=": Maximaal aantal tekens van selectie naar zoekveld"/>
+					<Item id="6917" name="Zoeken in bestanden: bestandsinhoud op schijf verkiezen boven geopende buffers"/>
 				</Searching>
 
 				<RecentFilesHistory title="Recente bestanden">
@@ -1337,7 +1342,7 @@ Last modified on 2025-11-11 by xylographe.
 				</Cloud>
 
 				<SearchEngine title="Zoekmachine">
-					<Item id="6271" name="Zoekmachine (voor &quot;zoeken op internet&quot;)"/>
+					<Item id="6271" name="Zoekmachine (voor &quot;Zoeken op internet&quot;)"/>
 					<Item id="6272" name="DuckDuckGo"/>
 					<Item id="6273" name="Google"/>
 					<Item id="6274" name="Bing"/>
@@ -1450,7 +1455,7 @@ Last modified on 2025-11-11 by xylographe.
 			<DoSaveAll title="Bevestiging voor alles opslaan">
 				<Item id="1766" name="Weet u zeker dat u alle gewijzigde documenten wilt opslaan?
 
-Kies &quot;altijd ja&quot; als u dit dialoogvenster niet meer wilt zien.
+Kies &quot;Altijd ja&quot; als u dit dialoogvenster niet meer wilt zien.
 U kunt dit dialoogvenster later terug inschakelen via voorkeuren."/>
 				<Item id="6" name="&amp;Ja"/>
 				<Item id="7" name="&amp;Nee"/>
@@ -1490,7 +1495,7 @@ Uw online instellingen zullen geannuleerd worden. Stel een coherente waarde in v
 			<FilePathNotFoundWarning title="Bestand openen" message="Het bestand dat u probeert te openen, bestaat niet."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SessionFileInvalidError title="Kon sessie niet laden" message="Sessiebestand is beschadigd of ongeldig."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Ongeldige actie" message="U kunt alleen bestanden of mappen neerzetten, maar niet allebei tegelijk, omdat u in projectmodus map neerzetten zit.
-U moet &quot;vij neerzetten van een map alle bestanden openen in plaats van de map als werkruimte te starten&quot; inschakelen in de sectie &quot;standaardmap&quot; van het voorkeurenvenster om deze handeling te laten werken."/>
+U moet &quot;Bij neerzetten van een map alle bestanden openen in plaats van de map als werkruimte te starten&quot; inschakelen in de sectie &quot;Standaardmap&quot; van het voorkeurenvenster om deze handeling te laten werken."/>
 			<SortingError title="Sorteerfout" message="Kan numerieke sortering niet uitvoeren vanwege regel $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SortLocaleMultiple title="Sorteren niet uitgevoerd" message="Het sorteren van meerdere selecties wordt niet ondersteund."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<SortLocaleUnknown title="Sorteren mislukt" message="De reden waarom het sorteren mislukte, kan niet worden vastgesteld."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
@@ -1504,9 +1509,9 @@ Er zijn 3 manieren om over te schakelen naar de kolomselectie-modus:
 
 3. (Toetsenbord of Muis)
       Zet de cursor op het gewenste begin van het kolomblok en
-       voer de opdracht &quot;Begin/Einde selecteren in kolommodus&quot; uit;
+       voer de opdracht &quot;Selectie in kolommodus starten/stoppen&quot; uit;
       Beweeg de cursor naar de gewenste positie aan het einde van het kolomblok
-       en voer de opdracht &quot;Begin/Einde selecteren in kolommodus&quot; opnieuw uit."/>
+       en voer de opdracht &quot;Selectie in kolommodus starten/stoppen&quot; opnieuw uit."/>
 			<BufferInvalidWarning title="Opslaan mislukt" message="Kan niet opslaan: buffer is ongeldig."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<DoCloseOrNot title="Niet-bestaand bestand behouden" message="Het bestand &quot;$STR_REPLACE$&quot; bestaat niet meer.
 Dit bestand in de editor houden?"/>
@@ -1567,7 +1572,7 @@ Geef een andere naam op."/>
 			<UDLRemoveCurrentLang title="Huidige taal verwijderen" message="Weet u het zeker?"/>
 			<UDL_importSuccessful title="Aangepaste syntaxis" message="Importeren gelukt."/>
 			<UDL_importFails title="Aangepaste syntaxis" message="Importeren mislukt."/>
-			<UDL_saveBeforeImport title="Aangepaste syntaxis" message="Sla uw syntaxis-definitie op door op de knop &quot;Opslaan Als...&quot; te klikken voordat u exporteert."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_saveBeforeImport title="Aangepaste syntaxis" message="Sla uw syntaxis-definitie op door op de knop &quot;Opslaan als...&quot; te klikken voordat u exporteert."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
 			<UDL_exportSuccessful title="Aangepaste syntaxis" message="Exporteren gelukt."/>
 			<UDL_exportFails title="Aangepaste syntaxis" message="Exporteren mislukt."/>
 			<SCMapperDoDeleteOrNot title="Weet u het zeker?" message="Weet u zeker dat u deze snelkoppeling wilt verwijderen?"/>
@@ -1587,12 +1592,6 @@ Doorgaan?"/>
 			<LanguageMenuCompactWarning title="Compact taalmenu" message="Deze optie zal bij de volgende start worden gewijzigd."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Niet opgeslagen wijzigingen worden weggegooid!
 Wilt u uw wijzigingen opslaan voordat u van thema wisselt?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Macro- en uitvoeren-opdrachtcompatibiliteit" message="Het is mogelijk dat uw macro- en uitvoeren-opdrachten opgeslagen in Notepad++ v.8.5.2 (of ouder) niet meer compatibel zijn met de huidige versie van Notepad++.
-Test deze opdrachten en bewerk ze indien nodig.
-
-Als alternatief kunt u downgraden naar Notepad++ v8.5.2 en uw vorige gegevens herstellen.
-Notepad++ zal een reservekopie maken van uw oude &quot;shortcuts.xml&quot; en het opslaan als &quot;shortcuts.xml.v8.5.2.backup&quot;.
-Door de naam te wijzigen van &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, zouden uw opdrachten hersteld moeten worden en goed moeten werken."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<FullReadOnlySavingForbidden title="Opslaan mislukt" message="Bestand opslaan is mislukt.
 De schrijfbeveiliging van Notepad++ verhindert het opslaan van dit bestand."/>
 			<NotEnoughRoom4Saving title="Opslaan mislukt" message="Bestand opslaan is mislukt.
@@ -1726,7 +1725,7 @@ Verifieer de zoekvoorwaarden voordat u de handeling uitvoert."/> <!-- HowToRepro
 		</ProjectManager>
 		<MiscStrings>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
-			<word-chars-list-tip value="Hiermee kan een extra teken aan de huidige woordtekenlijst worden toegevoegd. Deze lijst bepaalt wat als woord wordt gezien bij dubbelklikken op een selectie en bij het zoeken met de optie &quot;volledige woorden&quot; aangevinkt."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+			<word-chars-list-tip value="Hiermee kan een extra teken aan de huidige woordtekenlijst worden toegevoegd. Deze lijst bepaalt wat als woord wordt gezien bij dubbelklikken op een selectie en bij het zoeken met de optie &quot;Alleen volledige woorden&quot; aangevinkt."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
 			<eol-custom-color-tip value="Ga naar  de stijlconfigurator om de standaard aangepaste regeleindekleur te wijzigen (&quot;EOL custom color&quot;).."/>
@@ -1778,11 +1777,14 @@ Zoeken in alle bestanden maar alle log- of logs-mappen recursief uitsluiten:
 			<find-status-replace-not-found value="Vervangen: geen overeenkomst gevonden"/>
 			<find-status-replace-readonly value="Vervangen: kan tekst niet vervangen. Huidig document is alleen-lezen"/>
 			<find-status-cannot-find value="Zoeken: kan tekst &quot;$STR_REPLACE$&quot; niet vinden"/>
-			<find-status-cannot-find-pebkac-maybe value="De opgegeven treffer kan niet worden gevonden. Misschien bent u vergeten om &quot;documenteinde negeren&quot; aan, &quot;hoofdlettergevoelig&quot; uit, of &quot;alleen volledige woorden&quot; uit te vinken."/>
+			<find-status-cannot-find-pebkac-maybe value="De opgegeven treffer kan niet worden gevonden. Misschien bent u vergeten om &quot;Documenteinde negeren&quot; aan, &quot;Hoofdlettergevoelig&quot; uit, of &quot;Alleen volledige woorden&quot; uit te vinken."/>
 			<find-status-scope-selection value="in geselecteerde tekst"/>
 			<find-status-scope-all value="in volledig bestand"/>
 			<find-status-scope-backward value="vanaf begin van bestand tot cursor"/>
 			<find-status-scope-forward value="vanaf cursor naar einde van bestand"/>
+			<find-status-invisible-chars-findWhat value="Onzichtbare tekens in geplakte inhoud van &quot;Zoeken naar&quot; of &quot;Vervangen door&quot;"/>
+			<find-status-invisible-chars-findWhat-tip value="Waarschuwing: onzichtbare tekens in veld voor zoeken (of vervangen).
+De tekst die in dit veld is geplakt, bevat onzichtbare tekens (mogelijk regeleindes). Als u doorgaat zonder deze te verwijderen, worden ze opgenomen in de tekst voor zoeken (of vervangen)."/>
 			<finder-find-in-finder value="Zoeken in deze zoekresultaten..."/>
 			<finder-close-this value="Deze zoekresultaten sluiten"/>
 			<finder-collapse-all value="Alles samenvouwen"/>
@@ -1911,7 +1913,7 @@ Als u de geavanceerde modus selecteert maar geen bestanden in de bovengenoemde t
 			<max-len-on-search-tip value="Uw invoer is mogelijk te lang. Uw invoer kan afgekapt worden en zal niet opgeslagen worden voor de volgende sessie."/>
 			<max-len-on-save-tip value="Uw invoer is mogelijk te lang om opgeslagen te worden voor de volgende sessie."/>
 			<goto-setting-tip value="Zoek hier uw instelling"/>
-			<tabbar-tabcompactlabellen-tip value="Beperk de zichtbare lengte van tabbladnamen. Voer een waarde van 1 tot 257 tekens in of 0 om niet af te breken."/>
+			<tabbar-tabcompactlabellen-tip value="Beperkt de zichtbare lengte van lange tabbladnamen. Voer een waarde van 1 tot 257 tekens in of 0 om niet af te breken."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

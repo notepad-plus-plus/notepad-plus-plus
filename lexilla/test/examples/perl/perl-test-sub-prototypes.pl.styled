@@ -130,7 +130,7 @@
 # notation which are highlighted as operators (all other parameters are
 # highlighted as vars of some sort), a minor aesthetic issue
 {0}
-{5}use{0} {11}feature{0} {7}'signatures'{10};{0}
+{5}use{0} {5}feature{0} {7}'signatures'{10};{0}
 
 {5}sub{0} {11}foo{0} {10}({12}$left{10},{0} {12}$right{10}){0} {10}{{0}		{2}# mandatory positional parameters
 {0}    {5}return{0} {12}$left{0} {10}+{0} {12}$right{10};{0}
@@ -232,7 +232,7 @@
 {5}sub{0} {11}Y{10}::{11}bar{0} {10}:{0} {11}lvalue{0} {10};{0}
 
 {2}# built-in attributes for subroutines:
-{11}lvalue{0} {11}method{0} {5}prototype{10}(..){0} {11}locked{0} {11}const{0}
+{11}lvalue{0} {5}method{0} {11}prototype{10}(..){0} {11}locked{0} {11}const{0}
 
 {2}#--------------------------------------------------------------------------
 # end of test file

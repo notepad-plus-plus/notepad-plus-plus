@@ -14,9 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 #pragma once
 
 #include <windows.h>
+
+#include <cstdint>
 
 inline constexpr bool dirUp = true;
 inline constexpr bool dirDown = false;
@@ -110,7 +113,7 @@ enum TextCase : unsigned char
 	RANDOMCASE
 };
 
-enum NumBase : unsigned char
+enum class NumBase : unsigned char
 {
 	BASE_10,
 	BASE_16,
@@ -126,3 +129,411 @@ enum NumBase : unsigned char
 inline constexpr UINT DOCUMENTMAP_MOUSEWHEEL = (WM_USER + 3);
 
 // documentMap
+
+// Parameters
+
+inline constexpr bool POS_VERTICAL = true;
+inline constexpr bool POS_HORIZONTAL = false;
+
+inline constexpr int UDD_SHOW   = 0x01; // 0000 0001
+inline constexpr int UDD_DOCKED = 0x02; // 0000 0010
+
+// 0 : 0000 0000 hide & undocked
+// 1 : 0000 0001 show & undocked
+// 2 : 0000 0010 hide & docked
+// 3 : 0000 0011 show & docked
+
+inline constexpr int TAB_DRAWTOPBAR            =    0x0001;    // 0000 0000 0000 0001
+inline constexpr int TAB_DRAWINACTIVETAB       =    0x0002;    // 0000 0000 0000 0010
+inline constexpr int TAB_DRAGNDROP             =    0x0004;    // 0000 0000 0000 0100
+inline constexpr int TAB_REDUCE                =    0x0008;    // 0000 0000 0000 1000
+inline constexpr int TAB_CLOSEBUTTON           =    0x0010;    // 0000 0000 0001 0000
+inline constexpr int TAB_DBCLK2CLOSE           =    0x0020;    // 0000 0000 0010 0000
+inline constexpr int TAB_VERTICAL              =    0x0040;    // 0000 0000 0100 0000
+inline constexpr int TAB_MULTILINE             =    0x0080;    // 0000 0000 1000 0000
+inline constexpr int TAB_HIDE                  =    0x0100;    // 0000 0001 0000 0000
+inline constexpr int TAB_QUITONEMPTY           =    0x0200;    // 0000 0010 0000 0000
+inline constexpr int TAB_ALTICONS              =    0x0400;    // 0000 0100 0000 0000
+inline constexpr int TAB_PINBUTTON             =    0x0800;    // 0000 1000 0000 0000
+inline constexpr int TAB_INACTIVETABSHOWBUTTON =    0x1000;    // 0001 0000 0000 0000
+inline constexpr int TAB_SHOWONLYPINNEDBUTTON  =    0x2000;    // 0010 0000 0000 0000
+
+inline constexpr bool activeText = true;
+inline constexpr bool activeNumeric = false;
+
+enum class EolType : std::uint8_t
+{
+	windows,
+	macos,
+	unix,
+
+	// special values
+	unknown, // cannot be the first value for legacy code
+	osdefault = windows,
+};
+
+enum UniMode
+{
+	uni8Bit       = 0,  // ANSI
+	uniUTF8       = 1,  // UTF-8 with BOM
+	uni16BE       = 2,  // UTF-16 Big Endian with BOM
+	uni16LE       = 3,  // UTF-16 Little Endian with BOM
+	uniUTF8_NoBOM = 4,  // UTF-8 without BOM
+	uni7Bit       = 5,  // 0 - 127 ASCII
+	uni16BE_NoBOM = 6,  // UTF-16 Big Endian without BOM
+	uni16LE_NoBOM = 7,  // UTF-16 Little Endian without BOM
+	uniEnd
+};
+
+enum ChangeDetect
+{
+	cdDisabled      = 0x00,
+	cdEnabledOld    = 0x01,
+	cdEnabledNew    = 0x02,
+	cdAutoUpdate    = 0x04,
+	cdGo2end        = 0x08
+};
+
+enum BackupFeature
+{
+	bak_none,
+	bak_simple,
+	bak_verbose
+};
+
+enum OpenSaveDirSetting
+{
+	dir_followCurrent,
+	dir_last,
+	dir_userDef
+};
+
+enum MultiInstSetting
+{
+	monoInst,
+	multiInstOnSession,
+	multiInst
+};
+
+enum writeTechnologyEngine
+{
+	defaultTechnology,
+	directWriteTechnology,
+	directWriteRetainTechnology,
+	directWriteDcTechnology,
+	directWriteDX11Technology,
+	directWriteTechnologyUnavailable
+};
+
+enum urlMode
+{
+	urlDisable,
+	urlNoUnderLineFg,
+	urlUnderLineFg,
+	urlNoUnderLineBg,
+	urlUnderLineBg,
+
+	urlMin = urlDisable,
+	urlMax = urlUnderLineBg
+};
+
+enum AutoIndentMode
+{
+	autoIndent_none,
+	autoIndent_advanced,
+	autoIndent_basic
+};
+enum SysTrayAction
+{
+	sta_none,
+	sta_minimize,
+	sta_close,
+	sta_minimize_close
+};
+
+enum LangIdxStyle
+{
+	LANG_INDEX_INSTR = 0,
+	LANG_INDEX_INSTR2 = 1,
+	LANG_INDEX_TYPE = 2,
+	LANG_INDEX_TYPE2 = 3,
+	LANG_INDEX_TYPE3 = 4,
+	LANG_INDEX_TYPE4 = 5,
+	LANG_INDEX_TYPE5 = 6,
+	LANG_INDEX_TYPE6 = 7,
+	LANG_INDEX_TYPE7 = 8,
+	LANG_INDEX_SUBSTYLE1 = 9,
+	LANG_INDEX_SUBSTYLE2 = 10,
+	LANG_INDEX_SUBSTYLE3 = 11,
+	LANG_INDEX_SUBSTYLE4 = 12,
+	LANG_INDEX_SUBSTYLE5 = 13,
+	LANG_INDEX_SUBSTYLE6 = 14,
+	LANG_INDEX_SUBSTYLE7 = 15,
+	LANG_INDEX_SUBSTYLE8 = 16
+};
+
+enum CopyDataParam
+{
+	COPYDATA_PARAMS = 0,
+	//COPYDATA_FILENAMESA = 1, // obsolete, no more useful
+	COPYDATA_FILENAMESW = 2,
+	COPYDATA_FULL_CMDLINE = 3
+};
+
+enum UdlDecSep
+{
+	DECSEP_DOT,
+	DECSEP_COMMA,
+	DECSEP_BOTH
+};
+
+inline constexpr int NPP_STYLING_FILESIZE_LIMIT_DEFAULT = (200 * 1024 * 1024); // 200MB+ file won't be styled
+
+inline constexpr int FINDREPLACE_MAXLENGTH = 16384; // the maximum length of the string (decrease 1 for '\0') to search in the editor
+
+inline constexpr int FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT = 1024;
+inline constexpr int FILL_FINDWHAT_THRESHOLD_DEFAULT = 1024;
+
+inline constexpr const wchar_t fontSizeStrs[][3]{ L"", L"5", L"6", L"7", L"8", L"9", L"10", L"11", L"12", L"14", L"16", L"18", L"20", L"22", L"24", L"26", L"28" };
+
+enum FontStyle
+{
+	FONTSTYLE_NONE = 0,
+	FONTSTYLE_BOLD = 1,
+	FONTSTYLE_ITALIC = 2,
+	FONTSTYLE_UNDERLINE = 4
+};
+
+inline constexpr int STYLE_NOT_USED = -1;
+
+inline constexpr int COLORSTYLE_FOREGROUND = 0x01;
+inline constexpr int COLORSTYLE_BACKGROUND = 0x02;
+inline constexpr int COLORSTYLE_ALL = COLORSTYLE_FOREGROUND | COLORSTYLE_BACKGROUND;
+
+inline constexpr COLORREF g_cDefaultMainDark = RGB(0xDE, 0xDE, 0xDE);
+inline constexpr COLORREF g_cDefaultSecondaryDark = RGB(0x4C, 0xC2, 0xFF);
+inline constexpr COLORREF g_cDefaultMainLight = RGB(0x21, 0x21, 0x21);
+inline constexpr COLORREF g_cDefaultSecondaryLight = RGB(0x00, 0x78, 0xD4);
+
+enum class FluentColor
+{
+	defaultColor,
+	red,
+	green,
+	blue,
+	purple,
+	cyan,
+	olive,
+	yellow,
+	accent,
+	custom,
+	maxValue
+};
+
+inline constexpr int NB_LIST = 20;
+inline constexpr int NB_MAX_LRF_FILE = 30;
+inline constexpr int NB_MAX_USER_LANG = 30;
+inline constexpr int NB_MAX_EXTERNAL_LANG = 30;
+inline constexpr int NB_MAX_IMPORTED_UDL = 50;
+
+inline constexpr int NB_DEFAULT_LRF_CUSTOMLENGTH = 100;
+inline constexpr int NB_MAX_LRF_CUSTOMLENGTH = MAX_PATH - 1;
+
+inline constexpr int NB_MAX_TAB_COMPACT_LABEL_LEN = MAX_PATH - 3; // -3 for the possible ending ellipsis (...)
+
+inline constexpr int MAX_EXTERNAL_LEXER_NAME_LEN = 128;
+
+inline constexpr int RECENTFILES_SHOWFULLPATH = -1;
+inline constexpr int RECENTFILES_SHOWONLYFILENAME = 0;
+
+inline constexpr const wchar_t nppLogNetworkDriveIssue[] = L"nppLogNetworkDriveIssue"; // issue xml/log file name
+
+// Parameters
+
+// UserDefineLangReference
+
+inline constexpr int langNameLenMax = 64;
+inline constexpr int extsLenMax = 256;
+inline constexpr int max_char = 1024 * 30;
+
+// UserDefineLangReference
+
+// TabBar
+
+inline constexpr int g_TabIconSize = 16;
+inline constexpr int g_TabHeight = 22;
+inline constexpr int g_TabHeightLarge = 25;
+inline constexpr int g_TabWidth = 45;
+inline constexpr int g_TabWidthButton = 60;
+inline constexpr int g_TabCloseBtnSize = 11;
+inline constexpr int g_TabPinBtnSize = 11;
+inline constexpr int g_TabCloseBtnSize_DM = 16;
+inline constexpr int g_TabPinBtnSize_DM = 16;
+
+// TabBar
+
+// Style names
+
+inline constexpr const wchar_t TABBAR_ACTIVEFOCUSEDINDCATOR[] = L"Active tab focused indicator";
+inline constexpr const wchar_t TABBAR_ACTIVEUNFOCUSEDINDCATOR[] = L"Active tab unfocused indicator";
+inline constexpr const wchar_t TABBAR_ACTIVETEXT[] = L"Active tab text";
+inline constexpr const wchar_t TABBAR_INACTIVETEXT[] = L"Inactive tabs";
+
+inline constexpr const wchar_t TABBAR_INDIVIDUALCOLOR_1[] = L"Tab color 1";
+inline constexpr const wchar_t TABBAR_INDIVIDUALCOLOR_2[] = L"Tab color 2";
+inline constexpr const wchar_t TABBAR_INDIVIDUALCOLOR_3[] = L"Tab color 3";
+inline constexpr const wchar_t TABBAR_INDIVIDUALCOLOR_4[] = L"Tab color 4";
+inline constexpr const wchar_t TABBAR_INDIVIDUALCOLOR_5[] = L"Tab color 5";
+
+inline constexpr const wchar_t TABBAR_INDIVIDUALCOLOR_DM_1[] = L"Tab color dark mode 1";
+inline constexpr const wchar_t TABBAR_INDIVIDUALCOLOR_DM_2[] = L"Tab color dark mode 2";
+inline constexpr const wchar_t TABBAR_INDIVIDUALCOLOR_DM_3[] = L"Tab color dark mode 3";
+inline constexpr const wchar_t TABBAR_INDIVIDUALCOLOR_DM_4[] = L"Tab color dark mode 4";
+inline constexpr const wchar_t TABBAR_INDIVIDUALCOLOR_DM_5[] = L"Tab color dark mode 5";
+
+inline constexpr const wchar_t VIEWZONE_DOCUMENTMAP[] = L"Document map";
+
+inline constexpr const wchar_t FINDDLG_STAUSNOTFOUND_COLOR[] = L"Find status: Not found";
+inline constexpr const wchar_t FINDDLG_STAUSMESSAGE_COLOR[] = L"Find status: Message";
+inline constexpr const wchar_t FINDDLG_STAUSREACHED_COLOR[] = L"Find status: Search end reached";
+
+inline constexpr const wchar_t g_npcStyleName[] = L"Non-printing characters custom color";
+
+// Style names
+
+
+inline constexpr const char SHORTCUT_XML_CONTENT[] = "\
+<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n\
+<NotepadPlus>\r\n\
+	<InternalCommands />\r\n\
+\r\n\
+	<!--\r\n\
+	You can organize you Macro menu & Run menu by adding the attribute 'FolderName=\"My sub-menu name\"' to any Macro or Command node.\r\n\
+	This will place the corresponding node within a \"My sub-menu name\" sub-menu in the appropriate menu. Please consider the following examples:\r\n\
+	-->\r\n\
+	<Macros>\r\n\
+		<!--\r\n\
+		<Macro name=\"aa\" Ctrl=\"no\" Alt=\"no\" Shift=\"no\" Key=\"0\">\r\n\
+			<Action type=\"1\" message=\"2170\" wParam=\"0\" lParam=\"0\" sParam=\"A\" />\r\n\
+			<Action type=\"1\" message=\"2170\" wParam=\"0\" lParam=\"0\" sParam=\"A\" />\r\n\
+		</Macro>\r\n\
+		<Macro name=\"az\" Ctrl=\"no\" Alt=\"no\" Shift=\"no\" Key=\"0\" FolderName=\"words\">\r\n\
+			<Action type=\"1\" message=\"2170\" wParam=\"0\" lParam=\"0\" sParam=\"a\" />\r\n\
+			<Action type=\"1\" message=\"2170\" wParam=\"0\" lParam=\"0\" sParam=\"z\" />\r\n\
+		</Macro>\r\n\
+			<Macro name=\"qw\" Ctrl=\"no\" Alt=\"no\" Shift=\"no\" Key=\"0\" FolderName=\"words\">\r\n\
+			<Action type=\"1\" message=\"2170\" wParam=\"0\" lParam=\"0\" sParam=\"q\" />\r\n\
+			<Action type=\"1\" message=\"2170\" wParam=\"0\" lParam=\"0\" sParam=\"w\" />\r\n\
+		</Macro>\r\n\
+		<Macro name=\"BB\" Ctrl=\"no\" Alt=\"no\" Shift=\"no\" Key=\"0\">\r\n\
+			<Action type=\"1\" message=\"2170\" wParam=\"0\" lParam=\"0\" sParam=\"B\" />\r\n\
+			<Action type=\"1\" message=\"2170\" wParam=\"0\" lParam=\"0\" sParam=\"B\" />\r\n\
+		</Macro>\r\n\
+		<Macro name=\"Trim Trailing Space and Save\" Ctrl=\"no\" Alt=\"yes\" Shift=\"yes\" Key=\"83\" FolderName=\"func\">\r\n\
+			<Action type=\"2\" message=\"0\" wParam=\"42024\" lParam=\"0\" sParam=\"\" />\r\n\
+			<Action type=\"2\" message=\"0\" wParam=\"41006\" lParam=\"0\" sParam=\"\" />\r\n\
+		</Macro>\r\n\
+		-->\r\n\
+		<Macro name=\"Trim Trailing Space and Save\" Ctrl=\"no\" Alt=\"yes\" Shift=\"yes\" Key=\"83\">\r\n\
+			<Action type=\"2\" message=\"0\" wParam=\"42024\" lParam=\"0\" sParam=\"\" />\r\n\
+			<Action type=\"2\" message=\"0\" wParam=\"41006\" lParam=\"0\" sParam=\"\" />\r\n\
+		</Macro>\r\n\
+	</Macros>\r\n\
+	<UserDefinedCommands>\r\n\
+		<!--\r\n\
+		<Command name=\"Get PHP help\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"112\" FolderName=\"Help on Internet\">https://www.php.net/$(CURRENT_WORD)</Command>\r\n\
+		<Command name=\"Wikipedia Search\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"114\" FolderName=\"Help on Internet\">https://en.wikipedia.org/wiki/Special:Search?search=$(CURRENT_WORD)</Command>\r\n\
+		<Command name=\"Open selected file path in new instance\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"117\">$(NPP_FULL_FILE_PATH) $(CURRENT_WORD) -nosession -multiInst</Command>\r\n\
+		-->\r\n\
+		<Command name=\"Get PHP help\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"112\">https://www.php.net/$(CURRENT_WORD)</Command>\r\n\
+		<Command name=\"Wikipedia Search\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"114\">https://en.wikipedia.org/wiki/Special:Search?search=$(CURRENT_WORD)</Command>\r\n\
+		<Command name=\"Open selected file path in new instance\" Ctrl=\"no\" Alt=\"yes\" Shift=\"no\" Key=\"117\">$(NPP_FULL_FILE_PATH) $(CURRENT_WORD) -nosession -multiInst</Command>\r\n\
+	</UserDefinedCommands>\r\n\
+	<PluginCommands />\r\n\
+	<ScintillaKeys />\r\n\
+</NotepadPlus>\r\n\
+";
+
+
+
+inline constexpr const char CONTEXTMENU_XML_CONTENT[] = "\
+<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n\
+<!--\r\n\
+By modifying this file, you can customize your context menu popuped as right clicking on the edit zone.\r\n\
+It may be more convinient to access to your frequent used commands via context menu than via the top menu.\r\n\
+\r\n\
+Please check \"How to Customize the Context Menu\" on:\r\n\
+https://npp-user-manual.org/docs/config-files/#the-context-menu-contextmenu-xml\r\n\
+-->\r\n\
+<NotepadPlus>\r\n\
+	<ScintillaContextMenu>\r\n\
+		<!-- \r\n\
+		Use MenuEntryName and MenuItemName to localize your commands to add. \r\n\
+		The values should be in English but not in translated language.\r\n\
+		(You can set Notepad++ language back to English from Preferences dialog via menu \"Settings->Preferences...\")\r\n\
+		-->\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Cut\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Copy\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Paste\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Delete\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Select all\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Begin/End Select\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Begin/End Select in Column Mode\"/>\r\n\
+		\r\n\
+		<!-- id=\"0\" is the separator -->\r\n\
+		<Item id=\"0\"/>\r\n\
+		\r\n\
+		<!-- You can use command id to add the commands you want. \r\n\
+		Check english.xml to get commands id:\r\n\
+		https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/english.xml\r\n\
+		\r\n\
+		Use FolderName (optional) to create sub-menu. FolderName can be used in any type of item.\r\n\
+		FolderName value can be in any language.\r\n\
+		TranslateID is for translating FolderName's value. If you create your FolderName, don't add TranslateID.\r\n\
+		-->\r\n\
+		<Item FolderName=\"Style all occurrences of token\" TranslateID=\"contextMenu-styleAlloccurrencesOfToken\" id=\"43022\"/>\r\n\
+		<Item FolderName=\"Style all occurrences of token\" TranslateID=\"contextMenu-styleAlloccurrencesOfToken\" id=\"43024\"/>\r\n\
+		<Item FolderName=\"Style all occurrences of token\" TranslateID=\"contextMenu-styleAlloccurrencesOfToken\" id=\"43026\"/>\r\n\
+		<Item FolderName=\"Style all occurrences of token\" TranslateID=\"contextMenu-styleAlloccurrencesOfToken\" id=\"43028\"/>\r\n\
+		<Item FolderName=\"Style all occurrences of token\" TranslateID=\"contextMenu-styleAlloccurrencesOfToken\" id=\"43030\"/>\r\n\
+		\r\n\
+		<Item FolderName=\"Style one token\"  TranslateID=\"contextMenu-styleOneToken\" id=\"43062\"/>\r\n\
+		<Item FolderName=\"Style one token\"  TranslateID=\"contextMenu-styleOneToken\" id=\"43063\"/>\r\n\
+		<Item FolderName=\"Style one token\"  TranslateID=\"contextMenu-styleOneToken\" id=\"43064\"/>\r\n\
+		<Item FolderName=\"Style one token\"  TranslateID=\"contextMenu-styleOneToken\" id=\"43065\"/>\r\n\
+		<Item FolderName=\"Style one token\"  TranslateID=\"contextMenu-styleOneToken\" id=\"43066\"/>\r\n\
+		\r\n\
+		<Item FolderName=\"Clear style\"  TranslateID=\"contextMenu-clearStyle\" id=\"43023\"/>\r\n\
+		<Item FolderName=\"Clear style\"  TranslateID=\"contextMenu-clearStyle\" id=\"43025\"/>\r\n\
+		<Item FolderName=\"Clear style\"  TranslateID=\"contextMenu-clearStyle\" id=\"43027\"/>\r\n\
+		<Item FolderName=\"Clear style\"  TranslateID=\"contextMenu-clearStyle\" id=\"43029\"/>\r\n\
+		<Item FolderName=\"Clear style\"  TranslateID=\"contextMenu-clearStyle\" id=\"43031\"/>\r\n\
+		<Item FolderName=\"Clear style\"  TranslateID=\"contextMenu-clearStyle\" id=\"43032\"/>\r\n\
+		<Item id=\"0\"/>\r\n\
+		\r\n\
+		<!--\r\n\
+		To add plugin commands, you have to use PluginEntryName and PluginCommandItemName to localize the plugin commands\r\n\
+		-->\r\n\
+		<Item FolderName=\"Plugin commands\" TranslateID=\"contextMenu-PluginCommands\" PluginEntryName=\"MIME Tools\" PluginCommandItemName=\"Base64 Encode\" />\r\n\
+		<Item FolderName=\"Plugin commands\" TranslateID=\"contextMenu-PluginCommands\" PluginEntryName=\"MIME Tools\" PluginCommandItemName=\"Base64 Decode\" />\r\n\
+		\r\n\
+		<!--\r\n\
+		Use ItemNameAs (optional) to rename the menu item name in the context menu \r\n\
+		ItemNameAs can be used in any type of item. ItemNameAs value can be in any language.\r\n\
+		-->\r\n\
+		<Item FolderName=\"Plugin commands\"  TranslateID=\"contextMenu-PluginCommands\" PluginEntryName=\"NppExport\" PluginCommandItemName=\"Copy all formats to clipboard\" ItemNameAs=\"Copy Text with Syntax Highlighting\" />\r\n\
+		<Item id=\"0\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"UPPERCASE\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"lowercase\"/>\r\n\
+		<Item id=\"0\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Open File\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Search on Internet\"/>\r\n\
+		<Item id=\"0\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Toggle Single Line Comment\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Block Comment\"/>\r\n\
+		<Item MenuEntryName=\"Edit\" MenuItemName=\"Block Uncomment\"/>\r\n\
+		<Item id=\"0\"/>\r\n\
+		<Item MenuEntryName=\"View\" MenuItemName=\"Hide lines\"/>\r\n\
+	</ScintillaContextMenu>\r\n\
+</NotepadPlus>\r\n\
+";

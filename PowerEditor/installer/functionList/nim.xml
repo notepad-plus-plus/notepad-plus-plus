@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ====================================================== [ Nim ] -->
+
+		<parser
+			displayName="Nim"
+			id         ="nim_syntax"
+			commentExpr="(?m-s:#.*?$)"
+		>
+			<function
+				mainExpr="(?x)                           # Use free-space mode
+						^ \h*                            # leading white space
+						(?: proc|func|method|iterator|macro|template|converter ) # 'routine' keywords
+						\s+ \K                           # skip spaces and then start capturing function name
+						(?: `.*?` )?                     # (optional) name in backticks
+						[^={(]*                          # scan until parameter list, pragma or function body starts
+						( \( (?: [^()]++ | (?1) )* \) )? # (optional) parameter list
+						[^={]*                           # scan until pragma or function body starts"
+			>
+				<functionName>
+					<!-- remove trailing spaces -->
+					<nameExpr expr="(?-m).*?\S(?=\s*$)" />
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

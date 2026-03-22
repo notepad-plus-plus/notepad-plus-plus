@@ -20,9 +20,11 @@
 #define BOOST_REGEX_WORKAROUND_HPP
 
 #include <boost/regex/config.hpp>
+#ifndef BOOST_REGEX_AS_MODULE
 #include <algorithm>
 #include <stdexcept>
 #include <cstring>
+#endif
 
 #ifndef BOOST_REGEX_STANDALONE
 #include <boost/detail/workaround.hpp>

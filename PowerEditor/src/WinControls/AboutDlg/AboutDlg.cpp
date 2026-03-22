@@ -289,10 +289,12 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_debugInfoStr += wmc.char2wchar(NPP_BOOST_REGEX_VERSION, CP_ACP);
 			_debugInfoStr += L"\r\n";
 
-			// TinyXML-2 version
-			_debugInfoStr += L"TinyXML-2 included: ";
-			_debugInfoStr += to_wstring(TINYXML2_MAJOR_VERSION) + L"." + to_wstring(TINYXML2_MINOR_VERSION) + L"." + to_wstring(TINYXML2_PATCH_VERSION);
+#if defined(PUGIXML_VERSION)
+			// pugixml version
+			_debugInfoStr += L"pugixml included: ";
+			_debugInfoStr += std::to_wstring(PUGIXML_VERSION / 1000) + L"." + std::to_wstring((PUGIXML_VERSION % 1000) / 10);
 			_debugInfoStr += L"\r\n";
+#endif
 
 			// JSON version
 			_debugInfoStr += L"nlohmann JSON included: ";
@@ -327,6 +329,25 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_debugInfoStr += L"Cloud Config: ";
 			const wstring& cloudPath = nppParam.getNppGUI()._cloudPath;
 			_debugInfoStr += cloudPath.empty() ? L"OFF" : cloudPath;
+			_debugInfoStr += L"\r\n";
+
+			//  Auto-Update:
+			// 
+			//  WinGUp  | disableNppAutoUpdate.xml || Auto-Update status
+			//  ========================================================
+			//  present |         present          ||      OFF
+			//  --------------------------------------------------------
+			//  absent  |         present          ||      OFF
+			//  --------------------------------------------------------
+			//  present |         absent           ||      ON
+			//  --------------------------------------------------------
+			//  absent  |         absent           ||      OFF
+			//
+			_debugInfoStr += L"WinGUp: ";
+			_debugInfoStr += nppGui._doesExistUpdater ? L"present" : L"absent";
+			_debugInfoStr += L"\r\n";
+			_debugInfoStr += L"disableNppAutoUpdate.xml: ";
+			_debugInfoStr += nppParam.isNppAutoUpdateDisabled() ? L"present" : L"absent";
 			_debugInfoStr += L"\r\n";
 
 			// Periodic Backup

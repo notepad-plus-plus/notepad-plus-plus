@@ -17,13 +17,24 @@
 
 #pragma once
 
+#include <windows.h>
 
-#include "Scintilla.h"
-#include "SciLexer.h"
+#include <sstream>
+#include <string>
+#include <string_view>
+#include <vector>
+#include <utility>
+
+#include <SciLexer.h>
+#include <Sci_Position.h>
+#include <Scintilla.h>
+
 #include "Buffer.h"
-#include "colors.h"
-#include "UserDefineDialog.h"
+#include "Notepad_plus_msgs.h"
 #include "NppConstants.h"
+#include "UserDefineDialog.h"
+#include "Window.h"
+#include "colors.h"
 
 class NppParameters;
 
@@ -142,13 +153,14 @@ T* variedFormatNumber2String(T* str, size_t strLen, size_t number, size_t base, 
 	//
 	// Determine leading zero/space or none
 	//
-	if (lead == ColumnEditorParam::spaceLeading)
+	using enum ColumnEditorParam::leadingChoice;
+	if (lead == spaceLeading)
 	{
 		noneUsedStart = 0;
 		noneUsedEnd = nbStart = noneUsedZoneLen;
 		nbEnd = nbDigits;
 	}
-	else if (lead == ColumnEditorParam::zeroLeading)
+	else if (lead == zeroLeading)
 	{
 		noUsedSymbol = '0';
 
@@ -156,7 +168,7 @@ T* variedFormatNumber2String(T* str, size_t strLen, size_t number, size_t base, 
 		noneUsedEnd = nbStart = noneUsedZoneLen;
 		nbEnd = nbDigits;
 	}
-	else //if (lead != ColumnEditorParam::noneLeading)
+	else //if (lead != noneLeading)
 	{
 		nbStart = 0;
 		nbEnd = noneUsedStart = numberStrLen;
@@ -248,9 +260,12 @@ public:
 	}
 
 	void destroy() override {
-		::DestroyWindow(_hSelf);
-		_hSelf = nullptr;
-		_pScintillaFunc = nullptr;
+		if (_hSelf)
+		{
+			::DestroyWindow(_hSelf);
+			_hSelf = nullptr;
+			_pScintillaFunc = nullptr;
+		}
 	}
 
 	void init(HINSTANCE hInst, HWND hPere) override;
@@ -270,9 +285,11 @@ public:
 
 
 	void getText(char *dest, size_t start, size_t end) const;
+	void getGenericText(char* dest, size_t destlen, size_t start, size_t end) const;
 	void getGenericText(wchar_t *dest, size_t destlen, size_t start, size_t end) const;
 	void getGenericText(wchar_t* dest, size_t destlen, size_t start, size_t end, intptr_t* mstart, intptr_t* mend, intptr_t* outLen = nullptr) const;
 	std::wstring getGenericTextAsString(size_t start, size_t end) const;
+	void insertGenericTextFrom(size_t position, const char* text2insert) const;
 	void insertGenericTextFrom(size_t position, const wchar_t *text2insert) const;
 	void replaceSelWith(const char * replaceText);
 
@@ -287,15 +304,18 @@ public:
 	std::wstring getSelectedTextToWChar(bool expand = true, Sci_Position* selCharNumber = nullptr);
     char * getWordOnCaretPos(char * txt, size_t size);
 
-	intptr_t searchInTarget(const wchar_t * Text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const;
+	intptr_t searchInTarget(const std::string_view& text2Find, size_t fromPos, size_t toPos) const;
+	intptr_t searchInTarget(const wchar_t* text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const;
 	void appendGenericText(const wchar_t * text2Append) const;
 	void addGenericText(const wchar_t * text2Append) const;
 	void addGenericText(const wchar_t * text2Append, intptr_t* mstart, intptr_t* mend) const;
+	intptr_t replaceTarget(const std::string& str2replace, intptr_t fromTargetPos = -1, intptr_t toTargetPos = -1) const;
 	intptr_t replaceTarget(const wchar_t * str2replace, intptr_t fromTargetPos = -1, intptr_t toTargetPos = -1) const;
 	intptr_t replaceTargetRegExMode(const wchar_t * re, intptr_t fromTargetPos = -1, intptr_t toTargetPos = -1) const;
-	void showAutoCompletion(size_t lenEntered, const wchar_t * list);
-	void showCallTip(size_t startPos, const wchar_t * def);
+	void showAutoCompletion(size_t lenEntered, const std::string& list) const;
+	void showCallTip(size_t startPos, const std::string& def) const;
 	std::wstring getLine(size_t lineNumber) const;
+	void getLine(size_t lineNumber, char* line, size_t lineBufferLen) const;
 	void getLine(size_t lineNumber, wchar_t * line, size_t lineBufferLen) const;
 	void addText(size_t length, const char *buf);
 
@@ -322,16 +342,25 @@ public:
 		return crange;
 	}
 
-	void getWordToCurrentPos(wchar_t * str, intptr_t strLen) const {
-		auto caretPos = execute(SCI_GETCURRENTPOS);
-		auto startPos = execute(SCI_WORDSTARTPOSITION, caretPos, true);
+	void getWordToCurrentPos(char* str, intptr_t strLen) const {
+		const auto caretPos = execute(SCI_GETCURRENTPOS);
+		const auto startPos = execute(SCI_WORDSTARTPOSITION, caretPos, true);
 
 		str[0] = '\0';
 		if ((caretPos - startPos) < strLen)
 			getGenericText(str, strLen, startPos, caretPos);
 	}
 
-	void doUserDefineDlg(bool willBeShown = true, bool isRTL = false) {
+	void getWordToCurrentPos(wchar_t* str, intptr_t strLen) const {
+		auto caretPos = execute(SCI_GETCURRENTPOS);
+		auto startPos = execute(SCI_WORDSTARTPOSITION, caretPos, true);
+
+		str[0] = L'\0';
+		if ((caretPos - startPos) < strLen)
+			getGenericText(str, strLen, startPos, caretPos);
+	}
+
+	static void doUserDefineDlg(bool willBeShown = true, bool isRTL = false) {
 		_userDefineDlg.doDialog(willBeShown, isRTL);
 	}
 
@@ -402,7 +431,7 @@ public:
 
 	void showNpc(bool willBeShown = true, bool isSearchResult = false);
 
-	bool isShownNpc() {
+	static bool isShownNpc() {
 		const auto& svp = NppParameters::getInstance().getSVP();
 		return svp._npcShow;
 	}
@@ -434,7 +463,7 @@ public:
 
 	void showCcUniEol(bool willBeShown = true, bool isSearchResult = false);
 
-	bool isShownCcUniEol() {
+	static bool isShownCcUniEol() {
 		const auto& svp = NppParameters::getInstance().getSVP();
 		return svp._ccUniEolShow;
 	}
@@ -551,7 +580,7 @@ public:
     void currentLinesDown() const;
 
 	intptr_t caseConvertRange(intptr_t start, intptr_t end, TextCase caseToConvert);
-	void changeCase(__inout wchar_t * const strWToConvert, const int & nbChars, const TextCase & caseToConvert) const;
+	static void changeCase(__inout wchar_t* const strWToConvert, const int& nbChars, const TextCase& caseToConvert);
 	void convertSelectedTextTo(const TextCase & caseToConvert);
 	void setMultiSelections(const ColumnModeInfos & cmi);
 
@@ -582,8 +611,8 @@ public:
 	void getCurrentFoldStates(std::vector<size_t> & lineStateVector);
 	void syncFoldStateWith(const std::vector<size_t> & lineStateVectorNew);
 	bool isFoldIndentationBased() const;
-	void foldIndentationBasedLevel(int level, bool mode);
-	void foldLevel(int level, bool mode);
+	void foldIndentationBasedLevel(int level2Collapse, bool mode);
+	void foldLevel(int level2Collapse, bool mode);
 	void foldAll(bool mode);
 	void fold(size_t line, bool mode, bool shouldBeNotified = true);
 	bool isFolded(size_t line) const {
@@ -597,8 +626,8 @@ public:
 
 	ColumnModeInfos getColumnModeSelectInfo();
 
-	void columnReplace(ColumnModeInfos & cmi, const wchar_t *str);
-	void columnReplace(ColumnModeInfos & cmi, size_t initial, size_t incr, size_t repeat, UCHAR format, ColumnEditorParam::leadingChoice lead);
+	void columnReplace(ColumnModeInfos& cmi, const char* str) const;
+	void columnReplace(ColumnModeInfos& cmi, size_t initial, size_t incr, size_t repeat, NumBase format, ColumnEditorParam::leadingChoice lead) const;
 
 	void clearIndicator(int indicatorNumber) {
 		size_t docStart = 0;
@@ -612,34 +641,34 @@ public:
 	static LanguageNameInfo _langNameInfoArray[L_EXTERNAL+1];
 
 	void bufferUpdated(Buffer * buffer, int mask);
-	BufferID getCurrentBufferID() { return _currentBufferID; }
-	Buffer* getCurrentBuffer() { return _currentBuffer; }
+	BufferID getCurrentBufferID() const { return _currentBufferID; }
+	Buffer* getCurrentBuffer() const { return _currentBuffer; }
 	void setCurrentBuffer(Buffer* buf2set) { _currentBuffer = buf2set; }
 	void styleChange();
 
 	void hideLines();
 	bool hidelineMarkerClicked(intptr_t lineNumber);	//true if it did something
 	void notifyHidelineMarkers(Buffer * buf, bool isHide, size_t location, bool del);
-	void hideMarkedLines(size_t searchStart, bool endOfDoc);
-	void showHiddenLines(size_t searchStart, bool endOfDoc, bool doDelete);
+	void hideMarkedLines(size_t searchStart, bool toEndOfDoc) const;
+	void showHiddenLines(size_t searchStart, bool toEndOfDoc, bool doDelete) const;
 	void restoreHiddenLines();
 
 	bool hasSelection() const { return !execute(SCI_GETSELECTIONEMPTY); }
 
-	bool isPythonStyleIndentation(LangType typeDoc) const{
-		return (typeDoc == L_PYTHON || typeDoc == L_COFFEESCRIPT || typeDoc == L_HASKELL ||\
-			typeDoc == L_C || typeDoc == L_CPP || typeDoc == L_OBJC || typeDoc == L_CS || typeDoc == L_JAVA ||\
-			typeDoc == L_PHP || typeDoc == L_JS_EMBEDDED || typeDoc == L_JAVASCRIPT || typeDoc == L_MAKEFILE ||\
+	static bool isPythonStyleIndentation(LangType typeDoc) {
+		return (typeDoc == L_PYTHON || typeDoc == L_COFFEESCRIPT || typeDoc == L_HASKELL ||
+			typeDoc == L_C || typeDoc == L_CPP || typeDoc == L_OBJC || typeDoc == L_CS || typeDoc == L_JAVA ||
+			typeDoc == L_PHP || typeDoc == L_JS_EMBEDDED || typeDoc == L_JAVASCRIPT || typeDoc == L_MAKEFILE ||
 			typeDoc == L_ASN1 || typeDoc == L_GDSCRIPT);
 	}
 
 	void defineDocType(LangType typeDoc);	//setup stylers for active document
 
-	void addCustomWordChars();
-	void restoreDefaultWordChars();
-	void setWordChars();
-	void setCRLF(long color = -1);
-	void setNpcAndCcUniEOL(long color = -1);
+	void addCustomWordChars() const;
+	void restoreDefaultWordChars() const;
+	void setWordChars() const;
+	void setCRLF(long color = -1) const;
+	void setNpcAndCcUniEOL(long color = -1) const;
 
 	void setTabSettings(Lang* lang);
 	bool isWrapRestoreNeeded() const { return _wrapRestoreNeeded; }
@@ -694,32 +723,32 @@ protected:
 
 //Lexers and Styling
 	void restyleBuffer();
-	const char * concatToBuildKeywordList(std::basic_string<char> & kwl, LangType langType, int keywordIndex);
-	void setKeywords(LangType langType, const char *keywords, int index);
-	void populateSubStyleKeywords(LangType langType, int baseStyleID, int numSubStyles, int firstLangIndex, const wchar_t **pKwArray);
-	void setLexer(LangType langID, int whichList, int baseStyleID = STYLE_NOT_USED, int numSubStyles = 8);
-	bool setLexerFromLangID(int langID);
-	void makeStyle(LangType langType, const wchar_t **keywordArray = NULL);
-	void setStyle(Style styleToSet);			//NOT by reference	(style edited)
-	void setSpecialStyle(const Style & styleToSet);	//by reference
-	void setSpecialIndicator(const Style & styleToSet) {
+	static const char* concatToBuildKeywordList(std::string& kwl, LangType langType, int keywordIndex);
+	void setKeywords(LangType langType, const char* keywords, int index) const;
+	void populateSubStyleKeywords(LangType langType, int baseStyleID, int numSubStyles, int firstLangIndex, const char** pKwArray) const;
+	void setLexer(LangType langType, int whichList, int baseStyleID = STYLE_NOT_USED, int numSubStyles = 8) const;
+	bool setLexerFromLangID(int langID) const;
+	void makeStyle(LangType langType, const char** keywordArray = nullptr) const;
+	void setStyle(Style styleToSet) const; //NOT by reference (style edited)
+	void setSpecialStyle(const Style& styleToSet) const; //by reference
+	void setSpecialIndicator(const Style& styleToSet) const {
 		execute(SCI_INDICSETFORE, styleToSet._styleID, styleToSet._bgColor);
 	}
 
 	//Complex lexers (same lexer, different language)
-	void setXmlLexer(LangType type);
- 	void setCppLexer(LangType type);
-	void setHTMLLexer();
-	void setJsLexer();
-	void setTclLexer();
-    void setObjCLexer(LangType type);
-	void setUserLexer(const wchar_t *userLangName = NULL);
-	void setExternalLexer(LangType typeDoc);
-	void setEmbeddedJSLexer();
-    void setEmbeddedPhpLexer();
-    void setEmbeddedAspLexer();
-	void setJsonLexer(bool isJson5 = false);
-	void setTypeScriptLexer();
+	void setXmlLexer(LangType type) const;
+	void setCppLexer(LangType langType) const;
+	void setHTMLLexer() const;
+	void setJsLexer() const;
+	void setTclLexer() const;
+	void setObjCLexer(LangType langType) const;
+	void setUserLexer(const wchar_t* userLangName = nullptr) const;
+	void setExternalLexer(LangType typeDoc) const;
+	void setEmbeddedJSLexer() const;
+	void setEmbeddedPhpLexer() const;
+	void setEmbeddedAspLexer() const;
+	void setJsonLexer(bool isJson5 = false) const;
+	void setTypeScriptLexer() const;
 
 	//Simple lexers
 	void setCssLexer() {
@@ -750,15 +779,13 @@ protected:
 		setLexer(L_MSSQL, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
 	}
 
-	void setBashLexer() {
+	void setBashLexer() const {
 		setLexerFromLangID(L_BASH);
 
-		const wchar_t *pKwArray[NB_LIST] = {NULL};
+		const char* pKwArray[NB_LIST]{};
 		makeStyle(L_BASH, pKwArray);
 
-		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-		const char * keyWords_char = wmc.wchar2char(pKwArray[LANG_INDEX_INSTR], CP_ACP);
-		setKeywords(L_BASH, keyWords_char, LANG_INDEX_INSTR);
+		setKeywords(L_BASH, pKwArray[LANG_INDEX_INSTR], LANG_INDEX_INSTR);
 
 		populateSubStyleKeywords(L_BASH, SCE_SH_IDENTIFIER, 4, LANG_INDEX_SUBSTYLE1, pKwArray);
 		populateSubStyleKeywords(L_BASH, SCE_SH_SCALAR, 4, LANG_INDEX_SUBSTYLE5, pKwArray);
@@ -1067,7 +1094,7 @@ protected:
 		setLexer(L_SEARCHRESULT, LIST_NONE);
 	}
 
-	bool isNeededFolderMargin(LangType typeDoc) const {
+	static bool isNeededFolderMargin(LangType typeDoc) {
 		switch (typeDoc)
 		{
 			case L_ASCII:
@@ -1105,5 +1132,5 @@ protected:
 	}
 
 	std::pair<size_t, size_t> getWordRange();
-	void getFoldColor(COLORREF& fgColor, COLORREF& bgColor, COLORREF& activeFgColor);
+	static void getFoldColor(COLORREF& fgColor, COLORREF& bgColor, COLORREF& activeFgColor);
 };

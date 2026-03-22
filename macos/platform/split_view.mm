@@ -14,6 +14,7 @@
 #include "handle_registry.h"
 #include "brace_match.h"
 #include "smart_highlight.h"
+#include "incremental_search.h"
 #include "auto_indent.h"
 #include "scintilla_notify.h"
 #include "windows.h"
@@ -225,6 +226,14 @@ void doUnsplit()
 	if (ctx().scintillaView2)
 		saveViewState(ctx().scintillaView2, ctx().documents2, ctx().activeTab2);
 
+	// If incremental search bar is in the closing view, remove it first
+	if (isIncrementalSearchVisible() && ctx().incrementalSearchBar) {
+		NSView* bar = ctx().incrementalSearchBar;
+		if ([bar superview] == ctx().editorContainer2 || [bar superview] == ctx().sciContainer2) {
+			[bar removeFromSuperview];
+		}
+	}
+
 	if (ctx().scintillaView2)
 	{
 		cancelPendingSmartHighlight();
@@ -263,6 +272,10 @@ void doUnsplit()
 	ctx().activeTab2 = -1;
 	ctx().activeView = 0;
 	ctx().isSplit = false;
+
+	if (isIncrementalSearchVisible())
+		updateIncrementalSearchTarget();
+
 	layoutSplitTopTabBars();
 }
 

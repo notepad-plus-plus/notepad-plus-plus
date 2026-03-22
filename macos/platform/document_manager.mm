@@ -8,6 +8,7 @@
 #include "lexer_styles.h"
 #include "scintilla_bridge.h"
 #include "smart_highlight.h"
+#include "incremental_search.h"
 #include "windows.h"
 #include "commctrl.h"
 #include "handle_registry.h"
@@ -95,12 +96,23 @@ void switchToTabInView(int viewIndex, int tabIndex)
 	if (!sci) return;
 
 	clearSmartHighlight(sci);
+	// Clear incremental search highlights
+	{
+		intptr_t docLen = ScintillaBridge_sendMessage(sci, SCI_GETLENGTH, 0, 0);
+		if (docLen > 0) {
+			ScintillaBridge_sendMessage(sci, SCI_SETINDICATORCURRENT, INDIC_INCREMENTAL_SEARCH, 0);
+			ScintillaBridge_sendMessage(sci, SCI_INDICATORCLEARRANGE, 0, docLen);
+		}
+	}
 	saveViewState(sci, docs, activeTab);
 	activeTab = tabIndex;
 	if (tabHwnd)
 		SendMessageW(tabHwnd, TCM_SETCURSEL, tabIndex, 0);
 	restoreViewToScintilla(sci, docs, tabIndex);
 	applyLanguageToView(sci, docs[tabIndex].languageIndex);
+
+	if (isIncrementalSearchVisible())
+		updateIncrementalSearchTarget();
 
 	const auto& doc = docs[tabIndex];
 	NSString* title = WideToNSString(doc.title.c_str());

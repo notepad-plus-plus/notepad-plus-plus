@@ -509,7 +509,33 @@ void clearIncrementalSearchHighlights()
 
 void updateIncrementalSearchTarget()
 {
-	// Will be filled in Task 5
+	if (!ctx().incrSearchVisible) return;
+
+	IncrementalSearchBar* bar = getSearchBar();
+	if (!bar) return;
+
+	// Remove bar from current superview
+	[bar removeFromSuperview];
+
+	// Re-add to the active editor container
+	NSView* container = activeEditorContainer();
+	if (!container) return;
+
+	bar.frame = NSMakeRect(0, container.bounds.size.height - kSearchBarHeight,
+	                       container.bounds.size.width, kSearchBarHeight);
+	[container addSubview:bar];
+
+	// Adjust ScintillaView to leave space for bar
+	NSView* sciView = activeScintillaNSView();
+	if (sciView && sciView.superview == container)
+	{
+		NSRect sciFrame = container.bounds;
+		sciFrame.size.height -= kSearchBarHeight;
+		sciView.frame = sciFrame;
+	}
+
+	// Re-run search on the new document
+	performIncrementalSearch();
 }
 
 void doIncrSearchNext()

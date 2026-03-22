@@ -2,6 +2,11 @@
 #import <Cocoa/Cocoa.h>
 #include "search_results_panel.h"
 #include "find_in_files.h"
+#include "file_operations.h"
+#include "app_state.h"
+#include "string_utils.h"
+#include "scintilla_bridge.h"
+#include "npp_constants.h"
 
 // ---------------------------------------------------------------------------
 // Data model classes
@@ -39,12 +44,42 @@
 @end
 
 // ---------------------------------------------------------------------------
+// Custom NSOutlineView subclass — handles Enter key
+// ---------------------------------------------------------------------------
+
+@interface SearchResultsOutlineView : NSOutlineView
+@end
+
+@implementation SearchResultsOutlineView
+
+- (void)keyDown:(NSEvent*)event
+{
+	if (event.keyCode == 36) // Return key
+	{
+		id target = self.target;
+		SEL action = self.doubleAction;
+		if (target && action)
+		{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+			[target performSelector:action withObject:self];
+#pragma clang diagnostic pop
+			return;
+		}
+	}
+	[super keyDown:event];
+}
+
+@end
+
+// ---------------------------------------------------------------------------
 // Outline view data source / delegate
 // ---------------------------------------------------------------------------
 
 @interface SearchResultsController : NSObject <NSOutlineViewDataSource, NSOutlineViewDelegate>
 @property (strong) NSMutableArray* rootItems;  // array of SearchRootItem
 @property (weak) NSOutlineView* outlineView;
+- (void)resultDoubleClicked:(id)sender;
 @end
 
 @implementation SearchResultsController
@@ -156,6 +191,85 @@
 	}
 
 	return cellView;
+}
+
+// MARK: Double-click / Enter navigation
+
+- (void)resultDoubleClicked:(id)sender
+{
+	NSInteger row = [self.outlineView clickedRow];
+	// When triggered via Enter key, clickedRow returns -1; use selectedRow instead
+	if (row < 0)
+	{
+		row = [self.outlineView selectedRow];
+	}
+	if (row < 0)
+	{
+		return;
+	}
+
+	id item = [self.outlineView itemAtRow:row];
+
+	if ([item isKindOfClass:[SearchMatchItem class]])
+	{
+		SearchMatchItem* matchItem = (SearchMatchItem*)item;
+
+		// Try to switch to the file if it is already open
+		std::wstring wpath = NSStringToWide(matchItem.filePath);
+		bool fileReady = switchToFileIfOpen(wpath);
+
+		// If not already open, open it
+		if (!fileReady)
+		{
+			fileReady = openFileAtPath(matchItem.filePath);
+		}
+
+		if (fileReady)
+		{
+			// Navigate to the match in the active Scintilla view
+			void* sci = ctx().activeScintillaView();
+
+			// Go to the line (0-based)
+			ScintillaBridge_sendMessage(sci, SCI_GOTOLINE,
+				static_cast<uintptr_t>(matchItem.lineNumber - 1), 0);
+
+			// Get byte position of the line start
+			intptr_t lineStart = ScintillaBridge_sendMessage(sci, SCI_POSITIONFROMLINE,
+				static_cast<uintptr_t>(matchItem.lineNumber - 1), 0);
+
+			// Select the match text
+			ScintillaBridge_sendMessage(sci, SCI_SETSEL,
+				static_cast<uintptr_t>(lineStart + matchItem.column),
+				static_cast<intptr_t>(lineStart + matchItem.column + matchItem.matchLength));
+
+			// Scroll to show the caret
+			ScintillaBridge_sendMessage(sci, SCI_SCROLLCARET, 0, 0);
+		}
+	}
+	else if ([item isKindOfClass:[SearchFileItem class]])
+	{
+		// Toggle expand/collapse for file items
+		if ([self.outlineView isItemExpanded:item])
+		{
+			[self.outlineView collapseItem:item];
+		}
+		else
+		{
+			[self.outlineView expandItem:item];
+		}
+	}
+	else if ([item isKindOfClass:[SearchRootItem class]])
+	{
+		// Toggle expand/collapse for root items
+		if ([self.outlineView isItemExpanded:item])
+		{
+			[self.outlineView collapseItem:item];
+		}
+		else
+		{
+			[self.outlineView expandItem:item];
+		}
+	}
 }
 
 @end
@@ -285,7 +399,7 @@ static void createPanelIfNeeded()
 	scrollView.autohidesScrollers = YES;
 	scrollView.borderType = NSBezelBorder;
 
-	NSOutlineView* outlineView = [[NSOutlineView alloc] initWithFrame:NSZeroRect];
+	SearchResultsOutlineView* outlineView = [[SearchResultsOutlineView alloc] initWithFrame:NSZeroRect];
 	outlineView.headerView = nil; // no header
 	outlineView.usesAlternatingRowBackgroundColors = YES;
 
@@ -298,6 +412,10 @@ static void createPanelIfNeeded()
 	outlineView.dataSource = sController;
 	outlineView.delegate = sController;
 	sController.outlineView = outlineView;
+
+	// Wire up double-click to navigate to match
+	[outlineView setDoubleAction:@selector(resultDoubleClicked:)];
+	[outlineView setTarget:sController];
 
 	scrollView.documentView = outlineView;
 	[contentView addSubview:scrollView];

@@ -180,7 +180,6 @@ static bool isBinaryFile(NSString* path)
 // ---------------------------------------------------------------------------
 static void searchLinePlainText(const std::string& line,
                                 const std::string& searchTerm,
-                                const std::string& searchTermLower,
                                 bool matchCase,
                                 bool wholeWord,
                                 int lineNumber,
@@ -349,18 +348,6 @@ static void doFindInFiles(const std::string& searchTerm,
 				}
 			}
 
-			// Prepare lowercase search term for case-insensitive plain text search
-			std::string searchTermLower;
-			if (!useRegex && !matchCase)
-			{
-				searchTermLower.resize(searchTerm.size());
-				for (size_t i = 0; i < searchTerm.size(); ++i)
-				{
-					searchTermLower[i] = static_cast<char>(
-						std::tolower(static_cast<unsigned char>(searchTerm[i])));
-				}
-			}
-
 			int filesProcessed = 0;
 
 			for (const auto& filePath : files)
@@ -431,13 +418,20 @@ static void doFindInFiles(const std::string& searchTerm,
 						{
 							if (regexValid)
 							{
-								searchLineRegex(line, regexPattern, wholeWord,
-								                lineNumber, fileResult, totalMatches);
+								try
+								{
+									searchLineRegex(line, regexPattern, wholeWord,
+									                lineNumber, fileResult, totalMatches);
+								}
+								catch (const std::regex_error&)
+								{
+									// Pathological input can throw during matching; skip this line
+								}
 							}
 						}
 						else
 						{
-							searchLinePlainText(line, searchTerm, searchTermLower,
+							searchLinePlainText(line, searchTerm,
 							                    matchCase, wholeWord,
 							                    lineNumber, fileResult, totalMatches);
 						}

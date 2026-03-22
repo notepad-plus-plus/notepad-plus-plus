@@ -45,11 +45,17 @@ void configureScintilla(void* sci)
 	ScintillaBridge_sendMessage(sci, SCI_SETFOLDFLAGS, 16, 0);
 	ScintillaBridge_sendMessage(sci, SCI_SETAUTOMATICFOLD, SC_AUTOMATICFOLD_CLICK, 0);
 
-	// Rectangular / column selection (Opt+drag)
+	// Rectangular / column selection (Opt+drag) and multi-cursor
 	ScintillaBridge_sendMessage(sci, SCI_SETRECTANGULARSELECTIONMODIFIER, SCMOD_ALT, 0);
 	ScintillaBridge_sendMessage(sci, SCI_SETMULTIPLESELECTION, 1, 0);
 	ScintillaBridge_sendMessage(sci, SCI_SETADDITIONALSELECTIONTYPING, 1, 0);
 	ScintillaBridge_sendMessage(sci, SCI_SETVIRTUALSPACEOPTIONS, SCVS_RECTANGULARSELECTION, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETMULTIPASTE, SC_MULTIPASTE_EACH, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETADDITIONALCARETSVISIBLE, 1, 0);
+
+	// Multi-cursor visual styling (Scintilla uses BGR byte order)
+	ScintillaBridge_sendMessage(sci, SCI_SETADDITIONALCARETFORE, 0xCC0000, 0);  // BGR 0xCC0000 = blue
+	ScintillaBridge_sendMessage(sci, SCI_SETADDITIONALSELALPHA, 80, 0);  // semi-transparent selections
 
 	// Whitespace / EOL / indent guide visibility
 	ScintillaBridge_sendMessage(sci, SCI_SETVIEWWS, ctx().showWhitespace ? SCWS_VISIBLEALWAYS : SCWS_INVISIBLE, 0);

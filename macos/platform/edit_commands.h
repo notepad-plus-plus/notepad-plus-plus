@@ -11,3 +11,5 @@ void doSortLines(bool ascending);
 void doJoinLines();
 void doTabsToSpaces();
 void doSpacesToTabs();
+void insertDateTimeShort();
+void insertDateTimeLong();

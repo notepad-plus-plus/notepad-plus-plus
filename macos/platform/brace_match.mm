@@ -50,6 +50,39 @@ void doBraceMatch(void* sci)
 	}
 }
 
+void doGoToMatchingBrace(void* sci)
+{
+	if (!sci) return;
+
+	intptr_t caretPos = ScintillaBridge_sendMessage(sci, SCI_GETCURRENTPOS, 0, 0);
+	intptr_t bracePos = -1;
+
+	// Reuse same before-caret / at-caret priority as doBraceMatch
+	if (caretPos > 0)
+	{
+		int ch = static_cast<int>(ScintillaBridge_sendMessage(sci, SCI_GETCHARAT, caretPos - 1, 0));
+		if (isBraceChar(ch))
+			bracePos = caretPos - 1;
+	}
+
+	if (bracePos < 0)
+	{
+		int ch = static_cast<int>(ScintillaBridge_sendMessage(sci, SCI_GETCHARAT, caretPos, 0));
+		if (isBraceChar(ch))
+			bracePos = caretPos;
+	}
+
+	if (bracePos >= 0)
+	{
+		intptr_t matchPos = ScintillaBridge_sendMessage(sci, SCI_BRACEMATCH, bracePos, 0);
+		if (matchPos >= 0)
+		{
+			ScintillaBridge_sendMessage(sci, SCI_GOTOPOS, matchPos, 0);
+			ScintillaBridge_sendMessage(sci, SCI_CHOOSECARETX, 0, 0);
+		}
+	}
+}
+
 void configureBraceStyles(void* sci, bool isDark)
 {
 	if (!sci) return;

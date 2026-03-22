@@ -1,7 +1,11 @@
 // find_in_files.mm — Find in Files dialog and search engine implementation
 #include "find_in_files.h"
 #include "file_operations.h"
+#include "search_results_panel.h"
+#include "app_state.h"
+#include "string_utils.h"
 #import <Cocoa/Cocoa.h>
+#import <objc/runtime.h>
 #include <fnmatch.h>
 #include <string>
 #include <vector>
@@ -474,12 +478,357 @@ static void doFindInFiles(const std::string& searchTerm,
 }
 
 // ---------------------------------------------------------------------------
+// Dialog state (file-static, reused across calls)
+// ---------------------------------------------------------------------------
+static NSPanel* sFIFPanel = nil;
+static NSTextField* sFIFSearchField = nil;
+static NSTextField* sFIFDirField = nil;
+static NSTextField* sFIFFilterField = nil;
+static NSButton* sFIFMatchCaseCheck = nil;
+static NSButton* sFIFWholeWordCheck = nil;
+static NSButton* sFIFRegexCheck = nil;
+static NSButton* sFIFRecursiveCheck = nil;
+static NSButton* sFIFHiddenCheck = nil;
+static NSButton* sFIFFindAllBtn = nil;
+static NSButton* sFIFCancelBtn = nil;
+static NSTextField* sFIFStatusLabel = nil;
+
+// ---------------------------------------------------------------------------
 // Public API
 // ---------------------------------------------------------------------------
 
 void showFindInFilesDlg()
 {
-	// Stub — will be implemented in Task 8
+	// Reuse existing panel if already created
+	if (sFIFPanel)
+	{
+		// Update search field from ctx() in case it changed
+		if (!ctx().findText.empty())
+		{
+			sFIFSearchField.stringValue = WideToNSString(ctx().findText.c_str());
+		}
+
+		[sFIFPanel makeKeyAndOrderFront:nil];
+		[sFIFPanel makeFirstResponder:sFIFSearchField];
+		return;
+	}
+
+	// -----------------------------------------------------------------------
+	// Create the floating panel
+	// -----------------------------------------------------------------------
+	CGFloat panelW = 480;
+	CGFloat panelH = 320;
+
+	NSRect panelRect = NSMakeRect(0, 0, panelW, panelH);
+	sFIFPanel = [[NSPanel alloc]
+		initWithContentRect:panelRect
+		          styleMask:(NSWindowStyleMaskTitled |
+		                     NSWindowStyleMaskClosable |
+		                     NSWindowStyleMaskUtilityWindow)
+		            backing:NSBackingStoreBuffered
+		              defer:NO];
+	[sFIFPanel setTitle:@"Find in Files"];
+	[sFIFPanel setReleasedWhenClosed:NO];
+	[sFIFPanel setFloatingPanel:YES];
+	[sFIFPanel setBecomesKeyOnlyIfNeeded:NO];
+
+	// Center relative to main window
+	if (ctx().mainWindow)
+	{
+		NSRect mainFrame = [ctx().mainWindow frame];
+		CGFloat x = NSMidX(mainFrame) - panelW / 2;
+		CGFloat y = NSMidY(mainFrame) - panelH / 2;
+		[sFIFPanel setFrameOrigin:NSMakePoint(x, y)];
+	}
+	else
+	{
+		[sFIFPanel center];
+	}
+
+	NSView* content = [sFIFPanel contentView];
+
+	// -----------------------------------------------------------------------
+	// Layout constants
+	// -----------------------------------------------------------------------
+	CGFloat leftMargin = 16;
+	CGFloat rightMargin = 16;
+	CGFloat labelW = 72;
+	CGFloat fieldH = 24;
+	CGFloat rowSpacing = 8;
+	CGFloat fieldX = leftMargin + labelW + 4;
+	CGFloat fieldW = panelW - fieldX - rightMargin;
+	CGFloat browseW = 70;
+	CGFloat dirFieldW = fieldW - browseW - 8;
+
+	// Start from top of content area (flipped-style: compute from top)
+	CGFloat topY = panelH - 16;
+
+	// -----------------------------------------------------------------------
+	// Row 1: Find label + field
+	// -----------------------------------------------------------------------
+	topY -= fieldH;
+	NSTextField* findLabel = [NSTextField labelWithString:@"Find:"];
+	findLabel.frame = NSMakeRect(leftMargin, topY, labelW, fieldH);
+	findLabel.alignment = NSTextAlignmentRight;
+	[content addSubview:findLabel];
+
+	sFIFSearchField = [[NSTextField alloc] initWithFrame:NSMakeRect(fieldX, topY, fieldW, fieldH)];
+	sFIFSearchField.placeholderString = @"Search term";
+	if (!ctx().findText.empty())
+	{
+		sFIFSearchField.stringValue = WideToNSString(ctx().findText.c_str());
+	}
+	[content addSubview:sFIFSearchField];
+
+	// -----------------------------------------------------------------------
+	// Row 2: Directory label + field + Browse button
+	// -----------------------------------------------------------------------
+	topY -= (fieldH + rowSpacing);
+	NSTextField* dirLabel = [NSTextField labelWithString:@"Directory:"];
+	dirLabel.frame = NSMakeRect(leftMargin, topY, labelW, fieldH);
+	dirLabel.alignment = NSTextAlignmentRight;
+	[content addSubview:dirLabel];
+
+	sFIFDirField = [[NSTextField alloc] initWithFrame:NSMakeRect(fieldX, topY, dirFieldW, fieldH)];
+	sFIFDirField.placeholderString = @"/path/to/search";
+
+	// Pre-fill directory from current file or home
+	NSString* dirDefault = NSHomeDirectory();
+	auto& docs = ctx().activeDocuments();
+	int tabIdx = ctx().activeTabIndex();
+	if (tabIdx >= 0 && tabIdx < static_cast<int>(docs.size()) && !docs[tabIdx].filePath.empty())
+	{
+		NSString* path = WideToNSString(docs[tabIdx].filePath.c_str());
+		dirDefault = [path stringByDeletingLastPathComponent];
+	}
+	sFIFDirField.stringValue = dirDefault;
+	[content addSubview:sFIFDirField];
+
+	NSButton* browseBtn = [NSButton buttonWithTitle:@"Browse..."
+	                                         target:nil
+	                                         action:nil];
+	browseBtn.frame = NSMakeRect(fieldX + dirFieldW + 8, topY, browseW, fieldH);
+	[content addSubview:browseBtn];
+
+	// -----------------------------------------------------------------------
+	// Row 3: Filters label + field
+	// -----------------------------------------------------------------------
+	topY -= (fieldH + rowSpacing);
+	NSTextField* filterLabel = [NSTextField labelWithString:@"Filters:"];
+	filterLabel.frame = NSMakeRect(leftMargin, topY, labelW, fieldH);
+	filterLabel.alignment = NSTextAlignmentRight;
+	[content addSubview:filterLabel];
+
+	sFIFFilterField = [[NSTextField alloc] initWithFrame:NSMakeRect(fieldX, topY, fieldW, fieldH)];
+	sFIFFilterField.stringValue = @"*.*";
+	sFIFFilterField.placeholderString = @"*.cpp;*.h;*.mm";
+	[content addSubview:sFIFFilterField];
+
+	// -----------------------------------------------------------------------
+	// Row 4: Checkboxes — Match case, Whole word, Regex
+	// -----------------------------------------------------------------------
+	topY -= (fieldH + rowSpacing + 4);
+	CGFloat checkW = 110;
+	CGFloat checkX = fieldX;
+
+	sFIFMatchCaseCheck = [NSButton checkboxWithTitle:@"Match case" target:nil action:nil];
+	sFIFMatchCaseCheck.frame = NSMakeRect(checkX, topY, checkW, fieldH);
+	sFIFMatchCaseCheck.state = ctx().matchCase ? NSControlStateValueOn : NSControlStateValueOff;
+	[content addSubview:sFIFMatchCaseCheck];
+
+	checkX += checkW + 8;
+	sFIFWholeWordCheck = [NSButton checkboxWithTitle:@"Whole word" target:nil action:nil];
+	sFIFWholeWordCheck.frame = NSMakeRect(checkX, topY, checkW, fieldH);
+	sFIFWholeWordCheck.state = ctx().wholeWord ? NSControlStateValueOn : NSControlStateValueOff;
+	[content addSubview:sFIFWholeWordCheck];
+
+	checkX += checkW + 8;
+	sFIFRegexCheck = [NSButton checkboxWithTitle:@"Regex" target:nil action:nil];
+	sFIFRegexCheck.frame = NSMakeRect(checkX, topY, 80, fieldH);
+	sFIFRegexCheck.state = ctx().useRegex ? NSControlStateValueOn : NSControlStateValueOff;
+	[content addSubview:sFIFRegexCheck];
+
+	// -----------------------------------------------------------------------
+	// Row 5: Checkboxes — Recursive, Hidden
+	// -----------------------------------------------------------------------
+	topY -= (fieldH + rowSpacing);
+	checkX = fieldX;
+
+	sFIFRecursiveCheck = [NSButton checkboxWithTitle:@"In sub-folders" target:nil action:nil];
+	sFIFRecursiveCheck.frame = NSMakeRect(checkX, topY, 130, fieldH);
+	sFIFRecursiveCheck.state = NSControlStateValueOn;
+	[content addSubview:sFIFRecursiveCheck];
+
+	checkX += 130 + 8;
+	sFIFHiddenCheck = [NSButton checkboxWithTitle:@"In hidden folders" target:nil action:nil];
+	sFIFHiddenCheck.frame = NSMakeRect(checkX, topY, 140, fieldH);
+	sFIFHiddenCheck.state = NSControlStateValueOff;
+	[content addSubview:sFIFHiddenCheck];
+
+	// -----------------------------------------------------------------------
+	// Row 6: Buttons — Find All, Cancel, Close
+	// -----------------------------------------------------------------------
+	topY -= (fieldH + rowSpacing + 8);
+	CGFloat btnW = 80;
+	CGFloat btnH = 32;
+	CGFloat btnX = leftMargin;
+
+	sFIFFindAllBtn = [NSButton buttonWithTitle:@"Find All" target:nil action:nil];
+	sFIFFindAllBtn.frame = NSMakeRect(btnX, topY, btnW, btnH);
+	sFIFFindAllBtn.bezelStyle = NSBezelStyleRounded;
+	sFIFFindAllBtn.keyEquivalent = @"\r"; // Enter key
+	[content addSubview:sFIFFindAllBtn];
+
+	btnX += btnW + 12;
+	sFIFCancelBtn = [NSButton buttonWithTitle:@"Cancel" target:nil action:nil];
+	sFIFCancelBtn.frame = NSMakeRect(btnX, topY, btnW, btnH);
+	sFIFCancelBtn.bezelStyle = NSBezelStyleRounded;
+	sFIFCancelBtn.enabled = NO;
+	[content addSubview:sFIFCancelBtn];
+
+	NSButton* closeBtn = [NSButton buttonWithTitle:@"Close" target:nil action:nil];
+	closeBtn.frame = NSMakeRect(panelW - rightMargin - btnW, topY, btnW, btnH);
+	closeBtn.bezelStyle = NSBezelStyleRounded;
+	closeBtn.keyEquivalent = @"\033"; // Escape key
+	[content addSubview:closeBtn];
+
+	// -----------------------------------------------------------------------
+	// Row 7: Status label
+	// -----------------------------------------------------------------------
+	topY -= (btnH + rowSpacing);
+	sFIFStatusLabel = [NSTextField labelWithString:@"Status: Ready"];
+	sFIFStatusLabel.frame = NSMakeRect(leftMargin, topY, panelW - leftMargin - rightMargin, fieldH);
+	sFIFStatusLabel.textColor = [NSColor secondaryLabelColor];
+	[content addSubview:sFIFStatusLabel];
+
+	// -----------------------------------------------------------------------
+	// FIFActionHandler — lightweight ObjC class for button actions
+	// Defined once via the runtime and reused across calls.
+	// -----------------------------------------------------------------------
+	static dispatch_once_t onceToken;
+	static Class fifHandlerClass = nil;
+	dispatch_once(&onceToken, ^{
+		fifHandlerClass = objc_allocateClassPair([NSObject class], "FIFActionHandler", 0);
+
+		// Browse action
+		class_addMethod(fifHandlerClass, @selector(browseAction:), imp_implementationWithBlock(^(id self, id sender) {
+			NSOpenPanel* panel = [NSOpenPanel openPanel];
+			panel.canChooseDirectories = YES;
+			panel.canChooseFiles = NO;
+			panel.allowsMultipleSelection = NO;
+			panel.prompt = @"Select";
+			[panel beginSheetModalForWindow:sFIFPanel completionHandler:^(NSModalResponse result) {
+				if (result == NSModalResponseOK)
+				{
+					sFIFDirField.stringValue = panel.URL.path;
+				}
+			}];
+		}), "v@:@");
+
+		// Find All action
+		class_addMethod(fifHandlerClass, @selector(findAllAction:), imp_implementationWithBlock(^(id self, id sender) {
+			NSString* searchText = sFIFSearchField.stringValue;
+			if (searchText.length == 0)
+			{
+				sFIFStatusLabel.stringValue = @"Status: Enter a search term";
+				return;
+			}
+
+			NSString* directory = sFIFDirField.stringValue;
+			if (directory.length == 0)
+			{
+				sFIFStatusLabel.stringValue = @"Status: Enter a directory";
+				return;
+			}
+
+			NSString* filters = sFIFFilterField.stringValue;
+			if (filters.length == 0)
+			{
+				filters = @"*.*";
+			}
+
+			bool matchCase = (sFIFMatchCaseCheck.state == NSControlStateValueOn);
+			bool wholeWord = (sFIFWholeWordCheck.state == NSControlStateValueOn);
+			bool useRegex = (sFIFRegexCheck.state == NSControlStateValueOn);
+			bool recursive = (sFIFRecursiveCheck.state == NSControlStateValueOn);
+			bool hidden = (sFIFHiddenCheck.state == NSControlStateValueOn);
+
+			// Sync search options back to ctx()
+			ctx().findText = NSStringToWide(searchText);
+			ctx().matchCase = matchCase;
+			ctx().wholeWord = wholeWord;
+			ctx().useRegex = useRegex;
+
+			// Update UI state
+			sFIFStatusLabel.stringValue = @"Status: Searching...";
+			sFIFFindAllBtn.enabled = NO;
+			sFIFCancelBtn.enabled = YES;
+
+			std::string searchTermStr = [searchText UTF8String];
+			std::string dirStr = [directory UTF8String];
+			std::string filterStr = [filters UTF8String];
+
+			doFindInFiles(searchTermStr, dirStr, filterStr,
+			              matchCase, wholeWord, useRegex, recursive, hidden,
+			              [](const FIFSearchResult& result, bool complete) {
+				if (!complete)
+				{
+					// Progress update
+					NSString* status = [NSString stringWithFormat:
+						@"Status: Searching... %d files, %d matches",
+						result.filesSearched, result.totalMatches];
+					sFIFStatusLabel.stringValue = status;
+				}
+				else
+				{
+					// Search complete
+					sFIFFindAllBtn.enabled = YES;
+					sFIFCancelBtn.enabled = NO;
+
+					NSString* status = [NSString stringWithFormat:
+						@"Status: Done: %d matches in %d files of %d searched",
+						result.totalMatches, result.filesWithMatches, result.filesSearched];
+					sFIFStatusLabel.stringValue = status;
+
+					// Show results panel (stub for now, Task 9 implements it)
+					showSearchResultsPanel(result);
+				}
+			});
+		}), "v@:@");
+
+		// Cancel action
+		class_addMethod(fifHandlerClass, @selector(cancelAction:), imp_implementationWithBlock(^(id self, id sender) {
+			cancelFIFSearch();
+			sFIFStatusLabel.stringValue = @"Status: Cancelling...";
+		}), "v@:@");
+
+		// Close action
+		class_addMethod(fifHandlerClass, @selector(closeAction:), imp_implementationWithBlock(^(id self, id sender) {
+			[sFIFPanel orderOut:nil];
+		}), "v@:@");
+
+		objc_registerClassPair(fifHandlerClass);
+	});
+
+	static id fifHandler = [[fifHandlerClass alloc] init];
+
+	browseBtn.target = fifHandler;
+	browseBtn.action = @selector(browseAction:);
+
+	sFIFFindAllBtn.target = fifHandler;
+	sFIFFindAllBtn.action = @selector(findAllAction:);
+
+	sFIFCancelBtn.target = fifHandler;
+	sFIFCancelBtn.action = @selector(cancelAction:);
+
+	closeBtn.target = fifHandler;
+	closeBtn.action = @selector(closeAction:);
+
+	// -----------------------------------------------------------------------
+	// Show the panel
+	// -----------------------------------------------------------------------
+	[sFIFPanel makeKeyAndOrderFront:nil];
+	[sFIFPanel makeFirstResponder:sFIFSearchField];
 }
 
 bool isFIFSearchRunning()

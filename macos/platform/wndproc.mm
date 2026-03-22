@@ -21,6 +21,8 @@
 #include "tab_context_menu.h"
 #include "incremental_search.h"
 #include "find_in_files.h"
+#include "brace_match.h"
+#include "print_support.h"
 #include "lexer_styles.h"
 #include "language_defs.h"
 #include "scintilla_bridge.h"
@@ -96,7 +98,11 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					rebuildRecentMenu();
 					return 0;
 
-				case IDM_FILE_REVEAL_FINDER:
+				case IDM_FILE_PRINT:
+				showPrintDialog(ctx().mainWindow);
+				return 0;
+
+			case IDM_FILE_REVEAL_FINDER:
 					doRevealInFinder();
 					return 0;
 				case IDM_FILE_COPY_FULL_PATH:
@@ -242,6 +248,12 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				case IDM_SEARCH_BOOKMARK_CLEARALL:
 					clearAllBookmarks();
 					return 0;
+				case IDM_SEARCH_GOTOMATCHINGBRACE:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci) doGoToMatchingBrace(sci);
+					return 0;
+				}
 
 				case IDM_EDIT_AUTOCOMPLETE:
 					showAutoComplete();
@@ -309,6 +321,12 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					return 0;
 				case IDM_EDIT_SPACES_TO_TABS:
 					doSpacesToTabs();
+					return 0;
+				case IDM_EDIT_INSERT_DATETIME_SHORT:
+					insertDateTimeShort();
+					return 0;
+				case IDM_EDIT_INSERT_DATETIME_LONG:
+					insertDateTimeLong();
 					return 0;
 
 				case IDM_VIEW_ZOOMIN:
@@ -392,6 +410,11 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			case IDM_VIEW_FULLSCREEN:
 				if (ctx().mainWindow)
 					[ctx().mainWindow toggleFullScreen:nil];
+				return 0;
+
+			case IDM_VIEW_TOOLBAR:
+				if (ctx().mainWindow)
+					[ctx().mainWindow toggleToolbarShown:nil];
 				return 0;
 
 			case IDM_VIEW_SPLIT:

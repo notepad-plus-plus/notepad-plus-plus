@@ -31,6 +31,8 @@ HMENU buildMenuBar()
 	AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_COPY_FILENAME, L"Copy File &Name");
 	AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_COPY_DIR_PATH, L"Copy &Directory Path");
 	AppendMenuW(hFileMenu, MF_SEPARATOR, 0, nullptr);
+	AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_PRINT, L"&Print...\tCtrl+P");
+	AppendMenuW(hFileMenu, MF_SEPARATOR, 0, nullptr);
 	AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_CLOSE, L"&Close\tCtrl+W");
 	AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_CLOSEALL, L"Close &All");
 	AppendMenuW(hMenuBar, MF_POPUP, reinterpret_cast<UINT_PTR>(hFileMenu), L"&File");
@@ -75,6 +77,9 @@ HMENU buildMenuBar()
 	AppendMenuW(hEditMenu, MF_STRING, IDM_EDIT_TOGGLECOMMENT, L"Toggle &Comment\tCtrl+/");
 	AppendMenuW(hEditMenu, MF_STRING, IDM_EDIT_TRIMTRAILING, L"&Trim Trailing Whitespace");
 	AppendMenuW(hEditMenu, MF_STRING, IDM_EDIT_REMOVEEMPTY, L"&Remove Empty Lines");
+	AppendMenuW(hEditMenu, MF_SEPARATOR, 0, nullptr);
+	AppendMenuW(hEditMenu, MF_STRING, IDM_EDIT_INSERT_DATETIME_SHORT, L"Insert Date/Time (&Short)\tCtrl+Shift+D");
+	AppendMenuW(hEditMenu, MF_STRING, IDM_EDIT_INSERT_DATETIME_LONG, L"Insert Date/Time (&Long)");
 
 	AppendMenuW(hMenuBar, MF_POPUP, reinterpret_cast<UINT_PTR>(hEditMenu), L"&Edit");
 
@@ -93,6 +98,8 @@ HMENU buildMenuBar()
 	AppendMenuW(hSearchMenu, MF_STRING, IDM_SEARCH_BOOKMARK_NEXT, L"Ne&xt Bookmark\tF2");
 	AppendMenuW(hSearchMenu, MF_STRING, IDM_SEARCH_BOOKMARK_PREV, L"Pre&vious Bookmark\tShift+F2");
 	AppendMenuW(hSearchMenu, MF_STRING, IDM_SEARCH_BOOKMARK_CLEARALL, L"Clear All Book&marks");
+	AppendMenuW(hSearchMenu, MF_SEPARATOR, 0, nullptr);
+	AppendMenuW(hSearchMenu, MF_STRING, IDM_SEARCH_GOTOMATCHINGBRACE, L"Go to Matching &Brace\tCtrl+B");
 	AppendMenuW(hMenuBar, MF_POPUP, reinterpret_cast<UINT_PTR>(hSearchMenu), L"&Search");
 
 	// View menu
@@ -114,6 +121,8 @@ HMENU buildMenuBar()
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_ZOOMIN, L"Zoom &In\tCtrl+=");
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_ZOOMOUT, L"Zoom &Out\tCtrl+-");
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_ZOOMRESTORE, L"&Reset Zoom\tCtrl+0");
+	AppendMenuW(hViewMenu, MF_SEPARATOR, 0, nullptr);
+	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_TOOLBAR, L"Show/Hide &Toolbar\tCtrl+Alt+T");
 	AppendMenuW(hViewMenu, MF_SEPARATOR, 0, nullptr);
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_PREFERENCES, L"&Preferences...\tCtrl+,");
 	AppendMenuW(hMenuBar, MF_POPUP, reinterpret_cast<UINT_PTR>(hViewMenu), L"&View");

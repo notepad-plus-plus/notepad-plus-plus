@@ -129,71 +129,232 @@ const LangDef g_languages[] = {
 	 "switch Task throw throws true try typealias unowned var weak where while",
 	 "Int Double Float String Bool Character Array Dictionary Set Optional Result "
 	 "Any AnyObject Void Never Error Codable Equatable Hashable Comparable",
-	 IDM_LANG_BASE + 16},
+	 IDM_LANG_BASE + LANG_SWIFT},
+	{"TypeScript", "cpp",
+	 "abstract any as async await boolean break case catch class const constructor continue "
+	 "debugger declare default delete do else enum export extends false finally for from function "
+	 "get goto if implements import in infer instanceof interface is keyof let module namespace "
+	 "never new null of package private protected public readonly require return set static "
+	 "string super switch symbol this throw true try type typeof undefined unique unknown var "
+	 "void while with yield",
+	 "Array Boolean Date Error Function JSON Map Math Number Object Promise Proxy "
+	 "Reflect RegExp Set String Symbol WeakMap WeakSet console document window",
+	 IDM_LANG_BASE + LANG_TYPESCRIPT},
+	{"PHP", "phpscript",
+	 "abstract and array as break callable case catch class clone const continue declare default "
+	 "die do echo else elseif empty enddeclare endfor endforeach endif endswitch endwhile enum "
+	 "eval exit extends final finally fn for foreach function global goto if implements include "
+	 "include_once instanceof insteadof interface isset list match namespace new or print private "
+	 "protected public readonly require require_once return static switch throw trait try unset "
+	 "use var while xor yield",
+	 "int float string bool array object null void mixed never true false self parent",
+	 IDM_LANG_BASE + LANG_PHP},
+	{"Ruby", "ruby",
+	 "alias and begin break case class def defined? do else elsif end ensure false for if in "
+	 "module next nil not or redo rescue retry return self super then true undef unless until "
+	 "when while yield __FILE__ __LINE__ __ENCODING__",
+	 "puts print require require_relative include extend attr_reader attr_writer attr_accessor "
+	 "raise public private protected",
+	 IDM_LANG_BASE + LANG_RUBY},
+	{"Perl", "perl",
+	 "chomp chop chr crypt hex index lc lcfirst length oct ord pack reverse rindex sprintf "
+	 "substr uc ucfirst pos quotemeta split study abs atan2 cos exp int log oct rand sin "
+	 "sqrt srand my our local if elsif else unless while until for foreach do sub return last "
+	 "next redo goto use no require package BEGIN END",
+	 "STDIN STDOUT STDERR ARGV ENV SIG",
+	 IDM_LANG_BASE + LANG_PERL},
+	{"Lua", "lua",
+	 "and break do else elseif end false for function goto if in local nil not or repeat return "
+	 "then true until while",
+	 "assert collectgarbage dofile error getmetatable ipairs load loadfile next pairs pcall "
+	 "print rawequal rawget rawlen rawset require select setmetatable tonumber tostring type xpcall "
+	 "string table math io os coroutine debug",
+	 IDM_LANG_BASE + LANG_LUA},
+	{"YAML", "yaml",
+	 "true false null yes no on off",
+	 "",
+	 IDM_LANG_BASE + LANG_YAML},
+	{"TOML", "toml",
+	 "true false",
+	 "",
+	 IDM_LANG_BASE + LANG_TOML},
+	{"INI/Properties", "props",
+	 "",
+	 "",
+	 IDM_LANG_BASE + LANG_INI},
+	{"Makefile", "makefile",
+	 "define endef undefine ifdef ifndef ifeq ifneq else endif include sinclude override export "
+	 "unexport private vpath",
+	 "",
+	 IDM_LANG_BASE + LANG_MAKEFILE},
+	{"Diff", "diff",
+	 "",
+	 "",
+	 IDM_LANG_BASE + LANG_DIFF},
+	{"Dockerfile", "bash",
+	 "FROM AS RUN CMD LABEL MAINTAINER EXPOSE ENV ADD COPY ENTRYPOINT VOLUME USER WORKDIR ARG "
+	 "ONBUILD STOPSIGNAL HEALTHCHECK SHELL",
+	 "",
+	 IDM_LANG_BASE + LANG_DOCKERFILE},
+	{"CMake", "cmake",
+	 "add_compile_definitions add_compile_options add_custom_command add_custom_target "
+	 "add_definitions add_dependencies add_executable add_library add_subdirectory add_test "
+	 "cmake_minimum_required configure_file enable_testing execute_process file find_package "
+	 "find_path find_library foreach function if include include_directories install list "
+	 "macro message option project return set set_property set_target_properties string target_link_libraries",
+	 "AND OR NOT STREQUAL MATCHES GREATER LESS EQUAL DEFINED COMMAND EXISTS IS_DIRECTORY",
+	 IDM_LANG_BASE + LANG_CMAKE},
+	{"PowerShell", "powershell",
+	 "begin break catch class continue data define do dynamicparam else elseif end enum exit "
+	 "filter finally for foreach from function if in inlinescript parallel param process return "
+	 "switch throw trap try until using var while workflow",
+	 "Write-Host Write-Output Write-Error Write-Warning Get-Content Set-Content "
+	 "Get-ChildItem Get-Item Set-Item New-Item Remove-Item Invoke-Command",
+	 IDM_LANG_BASE + LANG_POWERSHELL},
+	{"R", "r",
+	 "break else for function if in next repeat return while TRUE FALSE NULL NA NA_integer_ "
+	 "NA_real_ NA_complex_ NA_character_ Inf NaN",
+	 "library require source cat print paste paste0 sprintf format nchar substr "
+	 "grep grepl sub gsub strsplit as.numeric as.character as.integer as.logical "
+	 "c list vector matrix data.frame factor length names which is.na",
+	 IDM_LANG_BASE + LANG_R},
+	{"Kotlin", "cpp",
+	 "abstract annotation as break by catch class companion const constructor continue "
+	 "crossinline data delegate do dynamic else enum external false final finally for fun get "
+	 "if import in infix init inline inner interface internal is lateinit noinline null object "
+	 "open operator out override package private protected public reified return sealed set "
+	 "super suspend this throw true try typealias val var vararg when where while",
+	 "Int Long Short Byte Double Float Boolean Char String Array List Map Set Any Unit Nothing "
+	 "Pair Triple MutableList MutableMap MutableSet Sequence",
+	 IDM_LANG_BASE + LANG_KOTLIN},
+	{"Scala", "cpp",
+	 "abstract case catch class def do else enum export extends false final finally for forSome "
+	 "given if implicit import lazy match new null object override package private protected "
+	 "return sealed super then this throw trait true try type val var while with yield",
+	 "Int Long Short Byte Double Float Boolean Char String Array List Map Set Any Unit Nothing "
+	 "Option Some None Either Left Right Future Promise Vector Seq",
+	 IDM_LANG_BASE + LANG_SCALA},
+	{"LaTeX", "latex",
+	 "documentclass usepackage begin end newcommand renewcommand newenvironment "
+	 "section subsection subsubsection paragraph label ref cite bibliography "
+	 "include input maketitle tableofcontents textbf textit emph underline",
+	 "article report book letter beamer memoir standalone",
+	 IDM_LANG_BASE + LANG_LATEX},
 };
 const int g_numLanguages = sizeof(g_languages) / sizeof(g_languages[0]);
 
 int guessLanguage(const std::wstring& filePath)
 {
 	NSString* path = WideToNSString(filePath.c_str());
+	NSString* filename = [path lastPathComponent];
 	NSString* ext = [path.pathExtension lowercaseString];
 
+	// Filename-based detection (for extensionless files) — check first
+	if ([filename isEqualToString:@"Makefile"] || [filename isEqualToString:@"makefile"] ||
+	    [filename isEqualToString:@"GNUmakefile"])
+		return LANG_MAKEFILE;
+	if ([filename isEqualToString:@"Dockerfile"] || [filename hasPrefix:@"Dockerfile."])
+		return LANG_DOCKERFILE;
+	if ([filename isEqualToString:@"CMakeLists.txt"])
+		return LANG_CMAKE;
+
+	// Extension-based detection
 	if ([ext isEqualToString:@"c"] || [ext isEqualToString:@"h"])
-		return 1;
+		return LANG_C;
 	if ([ext isEqualToString:@"cpp"] || [ext isEqualToString:@"cc"] ||
 	    [ext isEqualToString:@"cxx"] || [ext isEqualToString:@"hpp"] ||
 	    [ext isEqualToString:@"hh"] || [ext isEqualToString:@"hxx"] ||
 	    [ext isEqualToString:@"mm"])
-		return 2;
+		return LANG_CPP;
 	if ([ext isEqualToString:@"java"])
-		return 3;
+		return LANG_JAVA;
 	if ([ext isEqualToString:@"py"] || [ext isEqualToString:@"pyw"])
-		return 4;
-	if ([ext isEqualToString:@"js"] || [ext isEqualToString:@"jsx"] ||
-	    [ext isEqualToString:@"ts"] || [ext isEqualToString:@"tsx"])
-		return 5;
+		return LANG_PYTHON;
+	if ([ext isEqualToString:@"js"] || [ext isEqualToString:@"jsx"])
+		return LANG_JAVASCRIPT;
+	if ([ext isEqualToString:@"ts"] || [ext isEqualToString:@"tsx"])
+		return LANG_TYPESCRIPT;
 	if ([ext isEqualToString:@"html"] || [ext isEqualToString:@"htm"])
-		return 6;
+		return LANG_HTML;
 	if ([ext isEqualToString:@"css"] || [ext isEqualToString:@"scss"] ||
 	    [ext isEqualToString:@"less"])
-		return 7;
+		return LANG_CSS;
 	if ([ext isEqualToString:@"xml"] || [ext isEqualToString:@"xsl"] ||
 	    [ext isEqualToString:@"xslt"] || [ext isEqualToString:@"plist"])
-		return 8;
+		return LANG_XML;
 	if ([ext isEqualToString:@"json"])
-		return 9;
+		return LANG_JSON;
 	if ([ext isEqualToString:@"md"] || [ext isEqualToString:@"markdown"])
-		return 10;
+		return LANG_MARKDOWN;
 	if ([ext isEqualToString:@"sql"])
-		return 11;
+		return LANG_SQL;
 	if ([ext isEqualToString:@"sh"] || [ext isEqualToString:@"bash"] ||
 	    [ext isEqualToString:@"zsh"])
-		return 12;
+		return LANG_SHELL;
 	if ([ext isEqualToString:@"rs"])
-		return 13;
+		return LANG_RUST;
 	if ([ext isEqualToString:@"go"])
-		return 14;
+		return LANG_GO;
 	if ([ext isEqualToString:@"m"])
-		return 15;
+		return LANG_OBJC;
 	if ([ext isEqualToString:@"swift"])
-		return 16;
+		return LANG_SWIFT;
+	if ([ext isEqualToString:@"php"] || [ext isEqualToString:@"phtml"])
+		return LANG_PHP;
+	if ([ext isEqualToString:@"rb"] || [ext isEqualToString:@"rake"] ||
+	    [ext isEqualToString:@"gemspec"])
+		return LANG_RUBY;
+	if ([ext isEqualToString:@"pl"] || [ext isEqualToString:@"pm"] ||
+	    [ext isEqualToString:@"t"])
+		return LANG_PERL;
+	if ([ext isEqualToString:@"lua"])
+		return LANG_LUA;
+	if ([ext isEqualToString:@"yml"] || [ext isEqualToString:@"yaml"])
+		return LANG_YAML;
+	if ([ext isEqualToString:@"toml"])
+		return LANG_TOML;
+	if ([ext isEqualToString:@"ini"] || [ext isEqualToString:@"cfg"] ||
+	    [ext isEqualToString:@"properties"] || [ext isEqualToString:@"conf"])
+		return LANG_INI;
+	if ([ext isEqualToString:@"mk"] || [ext isEqualToString:@"mak"])
+		return LANG_MAKEFILE;
+	if ([ext isEqualToString:@"diff"] || [ext isEqualToString:@"patch"])
+		return LANG_DIFF;
+	if ([ext isEqualToString:@"cmake"])
+		return LANG_CMAKE;
+	if ([ext isEqualToString:@"ps1"] || [ext isEqualToString:@"psm1"] ||
+	    [ext isEqualToString:@"psd1"])
+		return LANG_POWERSHELL;
+	if ([ext isEqualToString:@"r"] || [ext isEqualToString:@"rmd"])
+		return LANG_R;
+	if ([ext isEqualToString:@"kt"] || [ext isEqualToString:@"kts"])
+		return LANG_KOTLIN;
+	if ([ext isEqualToString:@"scala"] || [ext isEqualToString:@"sc"])
+		return LANG_SCALA;
+	if ([ext isEqualToString:@"tex"] || [ext isEqualToString:@"latex"] ||
+	    [ext isEqualToString:@"sty"] || [ext isEqualToString:@"cls"])
+		return LANG_LATEX;
 
-	return 0;
+	return LANG_NORMAL_TEXT;
 }
 
 bool isCStyleLanguage(int languageIndex)
 {
 	switch (languageIndex)
 	{
-		case 1:  // C
-		case 2:  // C++
-		case 3:  // Java
-		case 5:  // JavaScript
-		case 7:  // CSS
-		case 13: // Rust
-		case 14: // Go
-		case 15: // Objective-C
-		case 16: // Swift
+		case LANG_C:
+		case LANG_CPP:
+		case LANG_JAVA:
+		case LANG_JAVASCRIPT:
+		case LANG_CSS:
+		case LANG_RUST:
+		case LANG_GO:
+		case LANG_OBJC:
+		case LANG_SWIFT:
+		case LANG_TYPESCRIPT:
+		case LANG_PHP:
+		case LANG_KOTLIN:
+		case LANG_SCALA:
 			return true;
 		default:
 			return false;

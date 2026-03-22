@@ -33,9 +33,11 @@
 #define IDM_SEARCH_BOOKMARK_CLEARALL 43013
 
 // Power Search command IDs (Sprint 5)
-#define IDM_SEARCH_FINDINFILES   43020  // Find in Files dialog (Cmd+Shift+F)
+#define IDM_SEARCH_FINDINFILES       43020  // Find in Files dialog (Cmd+Shift+F)
+#define IDM_SEARCH_GOTOMATCHINGBRACE 43021  // Go to matching brace (Cmd+B)
 
 #define IDM_EDIT_AUTOCOMPLETE        42030
+#define IDM_FILE_PRINT               41020
 #define IDM_FILE_RECENT_BASE         41100  // 41100..41109 for 10 recent files
 #define IDM_FILE_RECENT_CLEAR        41110
 #define IDM_VIEW_PREFERENCES         42050
@@ -59,6 +61,8 @@
 #define IDM_EDIT_JOINLINES           42043
 #define IDM_EDIT_TABS_TO_SPACES      42044
 #define IDM_EDIT_SPACES_TO_TABS      42045
+#define IDM_EDIT_INSERT_DATETIME_SHORT 42046
+#define IDM_EDIT_INSERT_DATETIME_LONG  42047
 
 // Phase 7 — View commands
 #define IDM_VIEW_SPLIT               42070
@@ -73,6 +77,7 @@
 
 // Full screen
 #define IDM_VIEW_FULLSCREEN          42077
+#define IDM_VIEW_TOOLBAR             42078
 
 // File path operations
 #define IDM_FILE_REVEAL_FINDER       42090
@@ -297,11 +302,17 @@ enum {
 	SCI_SETINDENTATIONGUIDES = 2132,
 	SCI_GETINDENTATIONGUIDES = 2133,
 
-	// Rectangular / column selection
+	// Rectangular / column selection and multi-cursor
 	SCI_SETMULTIPLESELECTION         = 2563,
 	SCI_SETADDITIONALSELECTIONTYPING = 2565,
 	SCI_SETVIRTUALSPACEOPTIONS       = 2596,
 	SCI_SETRECTANGULARSELECTIONMODIFIER = 2598,
+	SCI_SETMULTIPASTE                = 2614,
+	SCI_SETADDITIONALCARETSVISIBLE   = 2608,
+	SCI_SETADDITIONALCARETFORE       = 2604,
+	SCI_SETADDITIONALSELFORE         = 2600,
+	SCI_SETADDITIONALSELBACK         = 2601,
+	SCI_SETADDITIONALSELALPHA        = 2602,
 
 	// Indicator messages
 	SCI_INDICSETSTYLE        = 2080,
@@ -343,6 +354,9 @@ enum {
 
 // Virtual space options
 #define SCVS_RECTANGULARSELECTION  1
+
+// Multi-paste mode
+#define SC_MULTIPASTE_EACH  1
 
 // Scintilla search flags
 #define SCFIND_MATCHCASE  4

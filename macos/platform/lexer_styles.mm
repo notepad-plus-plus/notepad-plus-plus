@@ -143,6 +143,145 @@ static const StyleDef s_xmlStyles[] = {
 	{9,  0x008000, 0x6A9955, false, false},
 };
 
+// Ruby lexer styles (SCE_RB_*)
+static const StyleDef s_rubyStyles[] = {
+	{2,  0x008000, 0x6A9955, false, false},   // comment
+	{3,  0x008000, 0x6A9955, false, true},    // POD
+	{4,  0x008080, 0xB5CEA8, false, false},   // number
+	{5,  0xFF0000, 0x569CD6, true,  false},   // keyword
+	{6,  0x800080, 0xCE9178, false, false},   // string double
+	{7,  0x800080, 0xCE9178, false, false},   // string single/char
+	{8,  0x990000, 0x4EC9B0, false, false},   // class name
+	{9,  0x880000, 0xDCDCAA, false, false},   // def name
+	{12, 0xCC6600, 0xDCDCAA, false, false},   // regex
+	{14, 0x808080, 0xC586C0, false, false},   // symbol
+};
+
+// Perl lexer styles (SCE_PL_*)
+static const StyleDef s_perlStyles[] = {
+	{2,  0x008000, 0x6A9955, false, false},   // comment
+	{3,  0x008000, 0x6A9955, false, true},    // POD
+	{4,  0x008080, 0xB5CEA8, false, false},   // number
+	{5,  0xFF0000, 0x569CD6, true,  false},   // keyword
+	{6,  0x800080, 0xCE9178, false, false},   // string double
+	{7,  0x800080, 0xCE9178, false, false},   // character
+	{10, 0x000000, 0xD4D4D4, false, false},   // operator
+	{12, 0x990000, 0x9CDCFE, false, false},   // scalar $
+	{13, 0x990000, 0x9CDCFE, false, false},   // array @
+	{14, 0x990000, 0x9CDCFE, false, false},   // hash %
+	{17, 0xCC6600, 0xDCDCAA, false, false},   // regex
+};
+
+// Lua lexer styles (SCE_LUA_*)
+static const StyleDef s_luaStyles[] = {
+	{1,  0x008000, 0x6A9955, false, false},   // comment
+	{2,  0x008000, 0x6A9955, false, false},   // comment line
+	{3,  0x008000, 0x6A9955, false, true},    // comment doc
+	{4,  0x008080, 0xB5CEA8, false, false},   // number
+	{5,  0xFF0000, 0x569CD6, true,  false},   // keyword
+	{6,  0x800080, 0xCE9178, false, false},   // string
+	{7,  0x800080, 0xCE9178, false, false},   // character
+	{8,  0x800080, 0xCE9178, false, false},   // literal string
+	{9,  0x808080, 0xC586C0, false, false},   // preprocessor
+	{13, 0x990000, 0x4EC9B0, false, false},   // keyword2 (builtins)
+};
+
+// YAML lexer styles (SCE_YAML_*)
+static const StyleDef s_yamlStyles[] = {
+	{1,  0x008000, 0x6A9955, false, false},   // comment
+	{2,  0xFF0000, 0x569CD6, true,  false},   // identifier/key
+	{3,  0xFF0000, 0x569CD6, true,  false},   // keyword
+	{4,  0x008080, 0xB5CEA8, false, false},   // number
+	{5,  0x990000, 0x9CDCFE, false, false},   // reference
+	{6,  0x808080, 0xC586C0, false, false},   // document
+	{7,  0x800080, 0xCE9178, false, false},   // text/value
+};
+
+// TOML lexer styles (SCE_TOML_*)
+static const StyleDef s_tomlStyles[] = {
+	{1,  0x008000, 0x6A9955, false, false},   // comment
+	{3,  0xFF0000, 0x569CD6, true,  false},   // keyword (true/false)
+	{4,  0x008080, 0xB5CEA8, false, false},   // number
+	{5,  0x990000, 0x4EC9B0, true,  false},   // table header
+	{6,  0xFF0000, 0x9CDCFE, false, false},   // key
+	{9,  0x800080, 0xCE9178, false, false},   // string single
+	{10, 0x800080, 0xCE9178, false, false},   // string double
+	{11, 0x800080, 0xCE9178, false, false},   // triple string single
+	{12, 0x800080, 0xCE9178, false, false},   // triple string double
+	{14, 0xCC6600, 0xDCDCAA, false, false},   // datetime
+};
+
+// Properties/INI lexer styles (SCE_PROPS_*)
+static const StyleDef s_propsStyles[] = {
+	{1,  0x008000, 0x6A9955, false, false},   // comment
+	{2,  0x990000, 0x4EC9B0, true,  false},   // section
+	{3,  0x808080, 0xC586C0, false, false},   // assignment
+	{5,  0xFF0000, 0x569CD6, false, false},   // key
+};
+
+// Makefile lexer styles (SCE_MAKE_*)
+static const StyleDef s_makefileStyles[] = {
+	{1,  0x008000, 0x6A9955, false, false},   // comment
+	{2,  0x808080, 0xC586C0, false, false},   // preprocessor
+	{3,  0xFF0000, 0x569CD6, false, false},   // identifier
+	{5,  0x990000, 0x4EC9B0, true,  false},   // target
+};
+
+// Diff lexer styles (SCE_DIFF_*)
+static const StyleDef s_diffStyles[] = {
+	{1,  0x008000, 0x6A9955, false, false},   // comment
+	{2,  0x808080, 0xC586C0, false, false},   // command
+	{3,  0xFF0000, 0x569CD6, true,  false},   // header
+	{4,  0x990000, 0x9CDCFE, false, false},   // position
+	{5,  0x0000CC, 0xFF6060, false, false},   // deleted (red in BGR)
+	{6,  0x00CC00, 0x60FF60, false, false},   // added (green in BGR)
+	{7,  0xCC6600, 0xDCDCAA, false, false},   // changed
+};
+
+// CMake lexer styles (SCE_CMAKE_*)
+static const StyleDef s_cmakeStyles[] = {
+	{1,  0x008000, 0x6A9955, false, false},   // comment
+	{2,  0x800080, 0xCE9178, false, false},   // string DQ
+	{5,  0xFF0000, 0x569CD6, true,  false},   // commands/keywords
+	{6,  0x990000, 0x4EC9B0, false, false},   // parameters
+	{7,  0x808080, 0x9CDCFE, false, false},   // variable
+	{14, 0x008080, 0xB5CEA8, false, false},   // number
+};
+
+// PowerShell lexer styles (SCE_POWERSHELL_*)
+static const StyleDef s_powershellStyles[] = {
+	{1,  0x008000, 0x6A9955, false, false},   // comment
+	{2,  0x800080, 0xCE9178, false, false},   // string
+	{3,  0x800080, 0xCE9178, false, false},   // character
+	{4,  0x008080, 0xB5CEA8, false, false},   // number
+	{5,  0x990000, 0x9CDCFE, false, false},   // variable
+	{8,  0xFF0000, 0x569CD6, true,  false},   // keyword
+	{9,  0x880000, 0xDCDCAA, false, false},   // cmdlet
+	{13, 0x008000, 0x6A9955, false, false},   // comment stream
+};
+
+// R lexer styles (SCE_R_*)
+static const StyleDef s_rStyles[] = {
+	{1,  0x008000, 0x6A9955, false, false},   // comment
+	{2,  0xFF0000, 0x569CD6, true,  false},   // keyword
+	{3,  0x990000, 0x4EC9B0, false, false},   // base keyword
+	{5,  0x008080, 0xB5CEA8, false, false},   // number
+	{6,  0x800080, 0xCE9178, false, false},   // string
+	{7,  0x800080, 0xCE9178, false, false},   // string2
+	{8,  0x000000, 0xD4D4D4, false, false},   // operator
+};
+
+// LaTeX lexer styles (SCE_L_*)
+static const StyleDef s_latexStyles[] = {
+	{1,  0xFF0000, 0x569CD6, true,  false},   // command
+	{2,  0x990000, 0x4EC9B0, false, false},   // tag
+	{3,  0x808080, 0xC586C0, false, false},   // math
+	{4,  0x008000, 0x6A9955, false, false},   // comment
+	{5,  0x990000, 0x4EC9B0, false, false},   // tag2
+	{6,  0x808080, 0xC586C0, false, false},   // math2
+	{9,  0xCC6600, 0xDCDCAA, false, false},   // short command
+};
+
 static const LexerStyles s_allLexerStyles[] = {
 	{"cpp",        s_cppStyles,      sizeof(s_cppStyles) / sizeof(s_cppStyles[0])},
 	{"objc",       s_objcStyles,     sizeof(s_objcStyles) / sizeof(s_objcStyles[0])},
@@ -155,6 +294,19 @@ static const LexerStyles s_allLexerStyles[] = {
 	{"rust",       s_rustStyles,     sizeof(s_rustStyles) / sizeof(s_rustStyles[0])},
 	{"markdown",   s_markdownStyles, sizeof(s_markdownStyles) / sizeof(s_markdownStyles[0])},
 	{"xml",        s_xmlStyles,      sizeof(s_xmlStyles) / sizeof(s_xmlStyles[0])},
+	{"ruby",       s_rubyStyles,     sizeof(s_rubyStyles) / sizeof(s_rubyStyles[0])},
+	{"perl",       s_perlStyles,     sizeof(s_perlStyles) / sizeof(s_perlStyles[0])},
+	{"lua",        s_luaStyles,      sizeof(s_luaStyles) / sizeof(s_luaStyles[0])},
+	{"yaml",       s_yamlStyles,     sizeof(s_yamlStyles) / sizeof(s_yamlStyles[0])},
+	{"toml",       s_tomlStyles,     sizeof(s_tomlStyles) / sizeof(s_tomlStyles[0])},
+	{"props",      s_propsStyles,    sizeof(s_propsStyles) / sizeof(s_propsStyles[0])},
+	{"makefile",   s_makefileStyles, sizeof(s_makefileStyles) / sizeof(s_makefileStyles[0])},
+	{"diff",       s_diffStyles,     sizeof(s_diffStyles) / sizeof(s_diffStyles[0])},
+	{"cmake",      s_cmakeStyles,    sizeof(s_cmakeStyles) / sizeof(s_cmakeStyles[0])},
+	{"powershell", s_powershellStyles, sizeof(s_powershellStyles) / sizeof(s_powershellStyles[0])},
+	{"r",          s_rStyles,        sizeof(s_rStyles) / sizeof(s_rStyles[0])},
+	{"latex",      s_latexStyles,    sizeof(s_latexStyles) / sizeof(s_latexStyles[0])},
+	{"phpscript",  s_cppStyles,      sizeof(s_cppStyles) / sizeof(s_cppStyles[0])},
 };
 
 const LexerStyles* findLexerStyles(const char* lexerName)

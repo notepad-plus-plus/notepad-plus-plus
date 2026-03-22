@@ -1,6 +1,7 @@
 // edit_commands.mm — Edit menu commands (case, line ops, comments, sort, join)
 // Part of the Notepad++ macOS port modular refactor.
 
+#import <Foundation/Foundation.h>
 #include "edit_commands.h"
 #include "npp_constants.h"
 #include "app_state.h"
@@ -349,5 +350,36 @@ void doSpacesToTabs()
 		ScintillaBridge_sendMessage(sci, SCI_SETTARGETEND, lineStart + wsEnd, 0);
 		ScintillaBridge_sendMessage(sci, SCI_REPLACETARGET, newLeading.size(), (intptr_t)newLeading.c_str());
 	}
+	ScintillaBridge_sendMessage(sci, SCI_ENDUNDOACTION, 0, 0);
+}
+
+void insertDateTimeShort()
+{
+	void* sci = ctx().activeScintillaView();
+	if (!sci) return;
+
+	NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+	[formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+	NSString* dateStr = [formatter stringFromDate:[NSDate date]];
+	const char* utf8 = [dateStr UTF8String];
+
+	ScintillaBridge_sendMessage(sci, SCI_BEGINUNDOACTION, 0, 0);
+	ScintillaBridge_sendMessage(sci, SCI_REPLACESEL, 0, reinterpret_cast<intptr_t>(utf8));
+	ScintillaBridge_sendMessage(sci, SCI_ENDUNDOACTION, 0, 0);
+}
+
+void insertDateTimeLong()
+{
+	void* sci = ctx().activeScintillaView();
+	if (!sci) return;
+
+	NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+	[formatter setDateStyle:NSDateFormatterFullStyle];
+	[formatter setTimeStyle:NSDateFormatterMediumStyle];
+	NSString* dateStr = [formatter stringFromDate:[NSDate date]];
+	const char* utf8 = [dateStr UTF8String];
+
+	ScintillaBridge_sendMessage(sci, SCI_BEGINUNDOACTION, 0, 0);
+	ScintillaBridge_sendMessage(sci, SCI_REPLACESEL, 0, reinterpret_cast<intptr_t>(utf8));
 	ScintillaBridge_sendMessage(sci, SCI_ENDUNDOACTION, 0, 0);
 }

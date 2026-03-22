@@ -24,6 +24,7 @@
 #include "brace_match.h"
 #include "smart_highlight.h"
 #include "auto_indent.h"
+#include "toolbar.h"
 #include "scintilla_notify.h"
 #include "windows.h"
 #include "commctrl.h"
@@ -167,6 +168,8 @@ static void setDockIconFromLogo()
 	}
 
 	SetMenu(ctx().mainHwnd, hMenuBar);
+
+	setupToolbar(ctx().mainWindow);
 
 	NSView* contentView = ctx().mainWindow.contentView;
 

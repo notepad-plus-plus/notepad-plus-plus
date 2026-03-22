@@ -76,7 +76,10 @@ void doGoToMatchingBrace(void* sci)
 	{
 		intptr_t matchPos = ScintillaBridge_sendMessage(sci, SCI_BRACEMATCH, bracePos, 0);
 		if (matchPos >= 0)
-			ScintillaBridge_sendMessage(sci, SCI_GOTOPOS, matchPos + 1, 0);
+		{
+			ScintillaBridge_sendMessage(sci, SCI_GOTOPOS, matchPos, 0);
+			ScintillaBridge_sendMessage(sci, SCI_CHOOSECARETX, 0, 0);
+		}
 	}
 }
 

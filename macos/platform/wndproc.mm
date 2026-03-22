@@ -208,14 +208,18 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					createFindReplaceDlg(true);
 					return 0;
 				case IDM_SEARCH_FINDNEXT:
-					if (ctx().findText.empty())
-						createFindReplaceDlg(false);
+					if (isIncrementalSearchVisible())
+						doIncrSearchNext();
+					else if (ctx().findText.empty())
+						showIncrementalSearch();
 					else
 						doFindNext(true);
 					return 0;
 				case IDM_SEARCH_FINDPREV:
-					if (ctx().findText.empty())
-						createFindReplaceDlg(false);
+					if (isIncrementalSearchVisible())
+						doIncrSearchPrev();
+					else if (ctx().findText.empty())
+						showIncrementalSearch();
 					else
 						doFindNext(false);
 					return 0;

@@ -68,6 +68,8 @@ static void setKeyEquivalentFromText(NSMenuItem* item, NSString* shortcutText)
 		NSString* p = [part stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 		if ([p caseInsensitiveCompare:@"Ctrl"] == NSOrderedSame)
 			modifiers |= NSEventModifierFlagCommand; // Ctrl -> Cmd on macOS
+		else if ([p caseInsensitiveCompare:@"Cmd"] == NSOrderedSame)
+			modifiers |= NSEventModifierFlagControl; // Cmd -> Control on macOS
 		else if ([p caseInsensitiveCompare:@"Alt"] == NSOrderedSame)
 			modifiers |= NSEventModifierFlagOption;
 		else if ([p caseInsensitiveCompare:@"Shift"] == NSOrderedSame)

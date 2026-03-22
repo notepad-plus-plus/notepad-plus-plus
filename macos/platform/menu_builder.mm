@@ -115,7 +115,7 @@ HMENU buildMenuBar()
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_ZOOMOUT, L"Zoom &Out\tCtrl+-");
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_ZOOMRESTORE, L"&Reset Zoom\tCtrl+0");
 	AppendMenuW(hViewMenu, MF_SEPARATOR, 0, nullptr);
-	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_FULLSCREEN, L"Enter Full Screen\tAlt+F");
+	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_FULLSCREEN, L"Enter Full Screen\tCtrl+Cmd+F");
 	AppendMenuW(hViewMenu, MF_SEPARATOR, 0, nullptr);
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_PREFERENCES, L"&Preferences...\tCtrl+,");
 	AppendMenuW(hMenuBar, MF_POPUP, reinterpret_cast<UINT_PTR>(hViewMenu), L"&View");

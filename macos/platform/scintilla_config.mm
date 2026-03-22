@@ -53,8 +53,8 @@ void configureScintilla(void* sci)
 	ScintillaBridge_sendMessage(sci, SCI_SETMULTIPASTE, SC_MULTIPASTE_EACH, 0);
 	ScintillaBridge_sendMessage(sci, SCI_SETADDITIONALCARETSVISIBLE, 1, 0);
 
-	// Multi-cursor visual styling (BGR colors)
-	ScintillaBridge_sendMessage(sci, SCI_SETADDITIONALCARETFORE, 0xCC0000, 0);  // dark blue caret
+	// Multi-cursor visual styling (Scintilla uses BGR byte order)
+	ScintillaBridge_sendMessage(sci, SCI_SETADDITIONALCARETFORE, 0xCC0000, 0);  // BGR 0xCC0000 = blue
 	ScintillaBridge_sendMessage(sci, SCI_SETADDITIONALSELALPHA, 80, 0);  // semi-transparent selections
 
 	// Whitespace / EOL / indent guide visibility

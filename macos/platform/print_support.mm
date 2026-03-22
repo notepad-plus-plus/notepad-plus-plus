@@ -19,7 +19,9 @@ void showPrintDialog(NSWindow* parentWindow)
 
 	std::vector<char> buf(len + 1, 0);
 	ScintillaBridge_sendMessage(sci, SCI_GETTEXT, len + 1, reinterpret_cast<intptr_t>(buf.data()));
-	NSString* text = [NSString stringWithUTF8String:buf.data()];
+	NSString* text = [[NSString alloc] initWithBytes:buf.data()
+	                                          length:static_cast<NSUInteger>(len)
+	                                        encoding:NSUTF8StringEncoding];
 	if (!text || text.length == 0) return;
 
 	// Use the editor's current font
@@ -28,12 +30,14 @@ void showPrintDialog(NSWindow* parentWindow)
 	if (!font)
 		font = [NSFont monospacedSystemFontOfSize:ctx().fontSize weight:NSFontWeightRegular];
 
-	// Create an NSTextView for built-in print pagination
-	NSTextView* printView = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, 612, 792)];
+	// Size the print view from the printable area to match selected paper/margins
+	NSPrintInfo* printInfo = [NSPrintInfo sharedPrintInfo];
+	NSRect printableRect = [printInfo imageablePageBounds];
+	NSTextView* printView = [[NSTextView alloc] initWithFrame:printableRect];
 	[printView setFont:font];
 	[printView setString:text];
 
-	NSPrintOperation* op = [NSPrintOperation printOperationWithView:printView];
+	NSPrintOperation* op = [NSPrintOperation printOperationWithView:printView printInfo:printInfo];
 	[op setShowsPrintPanel:YES];
 	[op setShowsProgressPanel:YES];
 

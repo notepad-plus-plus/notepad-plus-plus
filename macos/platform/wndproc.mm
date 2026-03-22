@@ -99,10 +99,10 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					return 0;
 
 				case IDM_FILE_PRINT:
-				showPrintDialog(ctx().mainWindow);
-				return 0;
+					showPrintDialog(ctx().mainWindow);
+					return 0;
 
-			case IDM_FILE_REVEAL_FINDER:
+				case IDM_FILE_REVEAL_FINDER:
 					doRevealInFinder();
 					return 0;
 				case IDM_FILE_COPY_FULL_PATH:

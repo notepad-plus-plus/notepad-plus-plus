@@ -4502,6 +4502,7 @@ void FindReplaceDlg::setStatusbarMessageWithInvalidCharsInReplaceTextErr()
 	wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-invalid-replace-chars",
 		L"Replace: The replace text contains non-ANSI characters, but the document is encoded in ANSI.");
 	setStatusbarMessage(msg, FSNotFound);
+}
 
 void FindReplaceDlg::setStatusMessageWithInvisibleCharsWarning()
 {

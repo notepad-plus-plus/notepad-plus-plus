@@ -63,6 +63,10 @@ void applyAppearanceToView(void* sci, int langIdx, bool isDark)
 	applyFoldMarkerColorsToView(sci, isDark);
 	configureBraceStyles(sci, isDark);
 	configureSmartHighlightIndicator(sci, isDark);
+
+	// Incremental search indicator colors
+	ScintillaBridge_sendMessage(sci, SCI_INDICSETFORE, INDIC_INCREMENTAL_SEARCH,
+		isDark ? 0x50C8FF : 0xFF8000);
 }
 
 void applyAppearance()

@@ -74,6 +74,12 @@ struct AppContext
 	// Notification suppression (prevents false dirty indicators during tab switches)
 	bool suppressSavePointNotifications = false;
 
+	// Incremental search bar state
+	NSView* incrementalSearchBar = nil;
+	bool incrSearchVisible = false;
+	int incrSearchCurrentMatch = -1;
+	int incrSearchTotalMatches = 0;
+
 	// Accessor helpers for split view
 	void*& activeScintillaView() { return activeView == 0 ? scintillaView : scintillaView2; }
 	std::vector<DocumentData>& activeDocuments() { return activeView == 0 ? documents : documents2; }

@@ -80,8 +80,9 @@ HMENU buildMenuBar()
 
 	// Search menu
 	HMENU hSearchMenu = CreatePopupMenu();
-	AppendMenuW(hSearchMenu, MF_STRING, IDM_SEARCH_FIND, L"&Find...\tCtrl+F");
-	AppendMenuW(hSearchMenu, MF_STRING, IDM_SEARCH_REPLACE, L"&Replace...\tCtrl+H");
+	AppendMenuW(hSearchMenu, MF_STRING, IDM_SEARCH_FIND, L"&Find\tCtrl+F");
+	AppendMenuW(hSearchMenu, MF_STRING, IDM_SEARCH_REPLACE, L"Find and &Replace...\tCtrl+H");
+	AppendMenuW(hSearchMenu, MF_STRING, IDM_SEARCH_FINDINFILES, L"Find in F&iles...\tCtrl+Shift+F");
 	AppendMenuW(hSearchMenu, MF_SEPARATOR, 0, nullptr);
 	AppendMenuW(hSearchMenu, MF_STRING, IDM_SEARCH_FINDNEXT, L"Find &Next\tF3");
 	AppendMenuW(hSearchMenu, MF_STRING, IDM_SEARCH_FINDPREV, L"Find &Previous\tShift+F3");

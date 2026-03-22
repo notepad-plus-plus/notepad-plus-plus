@@ -19,6 +19,8 @@
 #include "status_bar.h"
 #include "file_path_ops.h"
 #include "tab_context_menu.h"
+#include "incremental_search.h"
+#include "find_in_files.h"
 #include "lexer_styles.h"
 #include "language_defs.h"
 #include "scintilla_bridge.h"
@@ -200,25 +202,32 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					return 0;
 
 				case IDM_SEARCH_FIND:
-					createFindReplaceDlg(false);
+					showIncrementalSearch();
 					return 0;
 				case IDM_SEARCH_REPLACE:
 					createFindReplaceDlg(true);
 					return 0;
 				case IDM_SEARCH_FINDNEXT:
-					if (ctx().findText.empty())
-						createFindReplaceDlg(false);
+					if (isIncrementalSearchVisible())
+						doIncrSearchNext();
+					else if (ctx().findText.empty())
+						showIncrementalSearch();
 					else
 						doFindNext(true);
 					return 0;
 				case IDM_SEARCH_FINDPREV:
-					if (ctx().findText.empty())
-						createFindReplaceDlg(false);
+					if (isIncrementalSearchVisible())
+						doIncrSearchPrev();
+					else if (ctx().findText.empty())
+						showIncrementalSearch();
 					else
 						doFindNext(false);
 					return 0;
 				case IDM_SEARCH_GOTOLINE:
 					showGoToLineDlg();
+					return 0;
+				case IDM_SEARCH_FINDINFILES:
+					showFindInFilesDlg();
 					return 0;
 
 				case IDM_SEARCH_BOOKMARK_TOGGLE:

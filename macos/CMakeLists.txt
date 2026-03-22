@@ -9,6 +9,26 @@ set(CMAKE_OBJCXX_STANDARD 20)
 set(NPP_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/..")
 
 # ============================================================
+# Code Signing Configuration (opt-in)
+# ============================================================
+option(CODESIGN_ENABLED "Enable code signing for the app bundle and DMG" OFF)
+set(CODESIGN_IDENTITY "Developer ID Application" CACHE STRING
+    "Code signing identity (e.g., 'Developer ID Application: Your Name (TEAMID)')")
+set(CODESIGN_ENTITLEMENTS "${CMAKE_CURRENT_SOURCE_DIR}/platform/MacNote.entitlements" CACHE FILEPATH
+    "Path to entitlements plist for hardened runtime")
+
+if(CODESIGN_ENABLED)
+    message(STATUS "Code signing: ENABLED")
+    message(STATUS "  Identity: ${CODESIGN_IDENTITY}")
+    message(STATUS "  Entitlements: ${CODESIGN_ENTITLEMENTS}")
+    if(NOT EXISTS "${CODESIGN_ENTITLEMENTS}")
+        message(FATAL_ERROR "Entitlements file not found: ${CODESIGN_ENTITLEMENTS}")
+    endif()
+else()
+    message(STATUS "Code signing: DISABLED (pass -DCODESIGN_ENABLED=ON to enable)")
+endif()
+
+# ============================================================
 # Win32 Shim Library
 # ============================================================
 # The shim include directory MUST come first so that
@@ -386,7 +406,7 @@ add_custom_command(TARGET MacOSNotePP POST_BUILD
 )
 
 # ============================================================
-# Packaging: App bundle + unsigned DMG
+# Packaging: App bundle, code signing, and DMG
 # ============================================================
 set(NPP_MACOS_DIST_DIR "${CMAKE_CURRENT_SOURCE_DIR}/dist")
 set(NPP_MACOS_APP_BUNDLE "${NPP_MACOS_DIST_DIR}/MacNote++.app")
@@ -412,10 +432,10 @@ add_custom_target(MacOSNotePP_package
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "$<TARGET_FILE:MacOSNotePP>"
         "${NPP_MACOS_APP_MACOS}/MacOSNotePP"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    COMMAND ditto --norsrc
         "${NPP_ROOT}/logo.png"
         "${NPP_MACOS_APP_MACOS}/logo.png"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    COMMAND ditto --norsrc
         "${NPP_ROOT}/logo.png"
         "${NPP_MACOS_APP_RESOURCES}/logo.png"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
@@ -427,32 +447,100 @@ add_custom_target(MacOSNotePP_package
     COMMENT "Packaging MacNote++.app"
 )
 
-add_custom_target(MacOSNotePP_dmg
-    DEPENDS MacOSNotePP_package
-    COMMAND ${CMAKE_COMMAND} -E make_directory "${NPP_MACOS_DMG_ROOT}"
-    COMMAND ${CMAKE_COMMAND} -E rm -rf "${NPP_MACOS_DMG_APP_BUNDLE}"
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${NPP_MACOS_APP_BUNDLE}"
-        "${NPP_MACOS_DMG_APP_BUNDLE}"
-    COMMAND ${CMAKE_COMMAND} -E rm -rf "${NPP_MACOS_DMG_ROOT}/Applications"
-    COMMAND ${CMAKE_COMMAND} -E create_symlink
-        "/Applications"
-        "${NPP_MACOS_DMG_ROOT}/Applications"
-    COMMAND ${CMAKE_COMMAND} -E rm -f "${NPP_MACOS_UNSIGNED_DMG}"
-    COMMAND hdiutil create
-        -volname "MacNote++"
-        -srcfolder "${NPP_MACOS_DMG_ROOT}"
-        -format UDZO
-        -ov
-        "${NPP_MACOS_UNSIGNED_DMG}"
-    COMMENT "Building MacNote++-unsigned.dmg"
-)
+if(CODESIGN_ENABLED)
+    # Sign and build DMG in /tmp to avoid iCloud/FileProvider xattr interference.
+    # iCloud-synced directories (e.g., ~/Desktop) re-add xattrs that invalidate
+    # code signatures, so all signing and DMG creation happens outside the sync zone.
+    # NOTE: --deep is acceptable while the bundle has no nested frameworks/helpers.
+    # Replace with explicit per-component signing if nested bundles are added.
+    set(NPP_SIGN_STAGE "/tmp/MacNotePP-sign-stage")
+    set(NPP_SIGN_STAGE_APP "${NPP_SIGN_STAGE}/MacNote++.app")
+    set(NPP_SIGN_STAGE_DMG_ROOT "${NPP_SIGN_STAGE}/dmg-root")
+
+    add_custom_target(MacOSNotePP_sign
+        DEPENDS MacOSNotePP_package
+        COMMAND ${CMAKE_COMMAND} -E rm -rf "${NPP_SIGN_STAGE}"
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${NPP_SIGN_STAGE}"
+        COMMAND ditto --norsrc
+            "${NPP_MACOS_APP_BUNDLE}"
+            "${NPP_SIGN_STAGE_APP}"
+        COMMAND xattr -cr "${NPP_SIGN_STAGE_APP}"
+        COMMAND codesign --force --options runtime
+            --sign "${CODESIGN_IDENTITY}"
+            --entitlements "${CODESIGN_ENTITLEMENTS}"
+            --timestamp
+            --deep
+            "${NPP_SIGN_STAGE_APP}"
+        COMMAND codesign --verify --deep --strict --verbose=2
+            "${NPP_SIGN_STAGE_APP}"
+        COMMENT "Code signing MacNote++.app with '${CODESIGN_IDENTITY}'"
+    )
+
+    add_custom_target(MacOSNotePP_dmg
+        DEPENDS MacOSNotePP_sign
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${NPP_SIGN_STAGE_DMG_ROOT}"
+        COMMAND ${CMAKE_COMMAND} -E rm -rf "${NPP_SIGN_STAGE_DMG_ROOT}/MacNote++.app"
+        COMMAND ditto "${NPP_SIGN_STAGE_APP}" "${NPP_SIGN_STAGE_DMG_ROOT}/MacNote++.app"
+        COMMAND ${CMAKE_COMMAND} -E rm -rf "${NPP_SIGN_STAGE_DMG_ROOT}/Applications"
+        COMMAND ${CMAKE_COMMAND} -E create_symlink
+            "/Applications"
+            "${NPP_SIGN_STAGE_DMG_ROOT}/Applications"
+        COMMAND ${CMAKE_COMMAND} -E rm -f "${NPP_SIGN_STAGE}/MacNote++.dmg"
+        COMMAND hdiutil create
+            -volname "MacNote++"
+            -srcfolder "${NPP_SIGN_STAGE_DMG_ROOT}"
+            -format UDZO
+            -ov
+            "${NPP_SIGN_STAGE}/MacNote++.dmg"
+        COMMAND codesign --force --sign "${CODESIGN_IDENTITY}"
+            --timestamp "${NPP_SIGN_STAGE}/MacNote++.dmg"
+        COMMAND codesign --verify --verbose=2 "${NPP_SIGN_STAGE}/MacNote++.dmg"
+        COMMAND ${CMAKE_COMMAND} -E copy
+            "${NPP_SIGN_STAGE}/MacNote++.dmg"
+            "${NPP_MACOS_DIST_DIR}/MacNote++.dmg"
+        COMMAND ${CMAKE_COMMAND} -E echo
+            "Signed DMG: ${NPP_MACOS_DIST_DIR}/MacNote++.dmg"
+        COMMAND ${CMAKE_COMMAND} -E echo
+            "NOTE: If your project directory is iCloud-synced, signature verification"
+        COMMAND ${CMAKE_COMMAND} -E echo
+            "may fail locally due to Finder xattrs. The DMG is valid for distribution."
+        COMMAND ${CMAKE_COMMAND} -E rm -rf "${NPP_SIGN_STAGE}"
+        COMMENT "Building and signing MacNote++.dmg"
+    )
+else()
+    add_custom_target(MacOSNotePP_sign
+        DEPENDS MacOSNotePP_package
+        COMMENT "Code signing SKIPPED (CODESIGN_ENABLED=OFF)"
+    )
+
+    add_custom_target(MacOSNotePP_dmg
+        DEPENDS MacOSNotePP_sign
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${NPP_MACOS_DMG_ROOT}"
+        COMMAND ${CMAKE_COMMAND} -E rm -rf "${NPP_MACOS_DMG_APP_BUNDLE}"
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+            "${NPP_MACOS_APP_BUNDLE}"
+            "${NPP_MACOS_DMG_APP_BUNDLE}"
+        COMMAND ${CMAKE_COMMAND} -E rm -rf "${NPP_MACOS_DMG_ROOT}/Applications"
+        COMMAND ${CMAKE_COMMAND} -E create_symlink
+            "/Applications"
+            "${NPP_MACOS_DMG_ROOT}/Applications"
+        COMMAND ${CMAKE_COMMAND} -E rm -f "${NPP_MACOS_UNSIGNED_DMG}"
+        COMMAND hdiutil create
+            -volname "MacNote++"
+            -srcfolder "${NPP_MACOS_DMG_ROOT}"
+            -format UDZO
+            -ov
+            "${NPP_MACOS_UNSIGNED_DMG}"
+        COMMENT "Building MacNote++-unsigned.dmg"
+    )
+endif()
 
 message(STATUS "=== Notepad++ macOS Port ===")
 message(STATUS "Compatibility compile target: npp_macos_compile_test")
 message(STATUS "App target: MacOSNotePP")
 message(STATUS "Packaging target: MacOSNotePP_package")
-message(STATUS "Unsigned DMG target: MacOSNotePP_dmg")
+message(STATUS "Signing target: MacOSNotePP_sign")
+message(STATUS "DMG target: MacOSNotePP_dmg")
 message(STATUS "Shim headers: ${SHIM_INCLUDE_DIR}")
 message(STATUS "Scintilla: ${SCINTILLA_DIR}")
 message(STATUS "Lexilla: ${LEXILLA_DIR}")

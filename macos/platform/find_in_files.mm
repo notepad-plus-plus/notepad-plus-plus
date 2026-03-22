@@ -186,6 +186,11 @@ static void searchLinePlainText(const std::string& line,
                                 FIFFileResult& fileResult,
                                 int& totalMatches)
 {
+	if (searchTerm.empty())
+	{
+		return;
+	}
+
 	const char* linePtr = line.c_str();
 	size_t lineLen = line.size();
 	size_t termLen = searchTerm.size();
@@ -295,9 +300,9 @@ static void searchLineRegex(const std::string& line,
 // ---------------------------------------------------------------------------
 // doFindInFiles — background search engine
 // ---------------------------------------------------------------------------
-static void doFindInFiles(const std::string& searchTerm,
-                          const std::string& directory,
-                          const std::string& filters,
+static void doFindInFiles(std::string searchTerm,
+                          std::string directory,
+                          std::string filters,
                           bool matchCase,
                           bool wholeWord,
                           bool useRegex,
@@ -305,6 +310,12 @@ static void doFindInFiles(const std::string& searchTerm,
                           bool includeHidden,
                           FIFCallback callback)
 {
+	// Reject empty search term
+	if (searchTerm.empty())
+	{
+		return;
+	}
+
 	// Prevent concurrent searches
 	if (sFIFRunning.load())
 	{

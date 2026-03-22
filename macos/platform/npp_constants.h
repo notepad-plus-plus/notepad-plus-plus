@@ -31,6 +31,10 @@
 #define IDM_SEARCH_BOOKMARK_NEXT     43011
 #define IDM_SEARCH_BOOKMARK_PREV     43012
 #define IDM_SEARCH_BOOKMARK_CLEARALL 43013
+
+// Power Search command IDs (Sprint 5)
+#define IDM_SEARCH_FINDINFILES   43020  // Find in Files dialog (Cmd+Shift+F)
+
 #define IDM_EDIT_AUTOCOMPLETE        42030
 #define IDM_FILE_RECENT_BASE         41100  // 41100..41109 for 10 recent files
 #define IDM_FILE_RECENT_CLEAR        41110

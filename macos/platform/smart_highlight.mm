@@ -4,8 +4,14 @@
 #include "smart_highlight.h"
 #include "npp_constants.h"
 #include "scintilla_bridge.h"
+#include "app_state.h"
 #include <cstring>
 #include <cctype>
+
+// Generation counter for debouncing scheduled highlights.
+// Each call to scheduleSmartHighlight increments the counter;
+// the dispatched block only runs if its captured generation matches.
+static unsigned int sHighlightGeneration = 0;
 
 void configureSmartHighlightIndicator(void* sci, bool isDark)
 {
@@ -121,4 +127,29 @@ void doSmartHighlight(void* sci)
 	// Highlight all occurrences
 	highlightAllOccurrences(sci, selBuf, SCFIND_MATCHCASE | SCFIND_WHOLEWORD,
 	                        INDIC_SMART_HIGHLIGHT);
+}
+
+void cancelPendingSmartHighlight()
+{
+	// Invalidate any pending highlight by advancing the generation
+	++sHighlightGeneration;
+}
+
+void scheduleSmartHighlight(void* sci)
+{
+	if (!sci) return;
+
+	// Advance generation to invalidate any previously scheduled highlight
+	unsigned int generation = ++sHighlightGeneration;
+	void* capturedSci = sci;
+
+	dispatch_async(dispatch_get_main_queue(), ^{
+		if (generation != sHighlightGeneration)
+			return;
+		// Guard against use-after-free: the view may have been destroyed
+		// (e.g., via doUnsplit) between scheduling and execution. Verify
+		// the captured pointer still matches a live view in ctx().
+		if (capturedSci == ctx().scintillaView || capturedSci == ctx().scintillaView2)
+			doSmartHighlight(capturedSci);
+	});
 }

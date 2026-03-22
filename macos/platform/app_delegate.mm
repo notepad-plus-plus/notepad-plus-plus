@@ -287,7 +287,7 @@ static void setDockIconFromLogo()
 				{
 					doBraceMatch(ctx().scintillaView);
 					if (scn->updated & SC_UPDATE_SELECTION)
-						doSmartHighlight(ctx().scintillaView);
+						scheduleSmartHighlight(ctx().scintillaView);
 				}
 				else if (scn->nmhdr.code == SCN_CHARADDED)
 				{
@@ -549,6 +549,14 @@ static void setDockIconFromLogo()
 		ctx().fileMonitor->terminate();
 		delete ctx().fileMonitor;
 		ctx().fileMonitor = nullptr;
+	}
+
+	// Release the main ScintillaView (balances __bridge_retained in createView)
+	if (ctx().scintillaView)
+	{
+		ScintillaBridge_clearNotifyCallback(ctx().scintillaView);
+		ScintillaBridge_destroyView(ctx().scintillaView);
+		ctx().scintillaView = nullptr;
 	}
 }
 

@@ -36,15 +36,18 @@ void* ScintillaBridge_createView(void* parentView, int x, int y, int width, int 
 
 	[parent addSubview:sciView];
 
-	// Return as void* — the view is retained by its superview
-	return (__bridge void*)sciView;
+	// Transfer ownership to caller — the void* now holds a +1 retain.
+	// Use __bridge_transfer in destroyView to reclaim.
+	return (__bridge_retained void*)sciView;
 }
 
 void ScintillaBridge_destroyView(void* scintillaView)
 {
 	if (!scintillaView)
 		return;
-	ScintillaView* view = (__bridge ScintillaView*)scintillaView;
+	// __bridge_transfer reclaims the +1 retain from createView.
+	// ARC releases when view goes out of scope, triggering dealloc.
+	ScintillaView* view = (__bridge_transfer ScintillaView*)scintillaView;
 	[view removeFromSuperview];
 }
 
@@ -94,5 +97,16 @@ void ScintillaBridge_setNotifyCallback(void* scintillaView, intptr_t windowid,
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 	[view registerNotifyCallback:windowid value:(SciNotifyFunc)callback];
+#pragma clang diagnostic pop
+}
+
+void ScintillaBridge_clearNotifyCallback(void* scintillaView)
+{
+	if (!scintillaView)
+		return;
+	ScintillaView* view = (__bridge ScintillaView*)scintillaView;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+	[view registerNotifyCallback:0 value:NULL];
 #pragma clang diagnostic pop
 }

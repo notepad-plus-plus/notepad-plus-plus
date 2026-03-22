@@ -144,9 +144,11 @@ void scheduleSmartHighlight(void* sci)
 	void* capturedSci = sci;
 
 	dispatch_async(dispatch_get_main_queue(), ^{
-		// Only run if no newer highlight was scheduled and the view is still valid
 		if (generation != sHighlightGeneration)
 			return;
+		// Guard against use-after-free: the view may have been destroyed
+		// (e.g., via doUnsplit) between scheduling and execution. Verify
+		// the captured pointer still matches a live view in ctx().
 		if (capturedSci == ctx().scintillaView || capturedSci == ctx().scintillaView2)
 			doSmartHighlight(capturedSci);
 	});

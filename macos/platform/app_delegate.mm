@@ -550,6 +550,14 @@ static void setDockIconFromLogo()
 		delete ctx().fileMonitor;
 		ctx().fileMonitor = nullptr;
 	}
+
+	// Release the main ScintillaView (balances __bridge_retained in createView)
+	if (ctx().scintillaView)
+	{
+		ScintillaBridge_clearNotifyCallback(ctx().scintillaView);
+		ScintillaBridge_destroyView(ctx().scintillaView);
+		ctx().scintillaView = nullptr;
+	}
 }
 
 - (void)windowDidResize:(NSNotification*)notification

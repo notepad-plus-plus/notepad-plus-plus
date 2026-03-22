@@ -795,7 +795,7 @@ void showFindInFilesDlg()
 						result.totalMatches, result.filesWithMatches, result.filesSearched];
 					sFIFStatusLabel.stringValue = status;
 
-					// Show results panel (stub for now, Task 9 implements it)
+					// Show search results panel
 					showSearchResultsPanel(result);
 				}
 			});

@@ -7,6 +7,7 @@
 #include "string_utils.h"
 #include "scintilla_bridge.h"
 #include <cstring>
+#include <vector>
 
 // Forward-declare free functions called by IncrSearchTextField and IncrementalSearchBar
 void hideIncrementalSearch();
@@ -195,7 +196,7 @@ static unsigned int sIncrSearchGeneration = 0;
 	unsigned int gen = ++sIncrSearchGeneration;
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 100 * NSEC_PER_MSEC),
 		dispatch_get_main_queue(), ^{
-			if (gen == sIncrSearchGeneration)
+			if (gen == sIncrSearchGeneration && ctx().incrSearchVisible)
 				performIncrementalSearch();
 		});
 }
@@ -457,6 +458,9 @@ void showIncrementalSearch()
 	[bar.searchField selectText:nil];
 
 	ctx().incrSearchVisible = true;
+
+	// Trigger initial search so pre-filled text shows highlights and match count
+	performIncrementalSearch();
 }
 
 void hideIncrementalSearch()

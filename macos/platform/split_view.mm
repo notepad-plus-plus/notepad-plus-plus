@@ -227,9 +227,11 @@ void doUnsplit()
 		saveViewState(ctx().scintillaView2, ctx().documents2, ctx().activeTab2);
 
 	// If incremental search bar is in the closing view, remove it first
-	if (isIncrementalSearchVisible() && ctx().incrementalSearchBar) {
+	if (isIncrementalSearchVisible() && ctx().incrementalSearchBar)
+	{
 		NSView* bar = ctx().incrementalSearchBar;
-		if ([bar superview] == ctx().editorContainer2 || [bar superview] == ctx().sciContainer2) {
+		if ([bar superview] == ctx().editorContainer2 || [bar superview] == ctx().sciContainer2)
+		{
 			[bar removeFromSuperview];
 		}
 	}

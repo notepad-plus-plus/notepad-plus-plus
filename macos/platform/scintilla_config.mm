@@ -67,7 +67,7 @@ void configureScintilla(void* sci)
 
 	// Incremental search match highlighting (orange rounded box)
 	ScintillaBridge_sendMessage(sci, SCI_INDICSETSTYLE, INDIC_INCREMENTAL_SEARCH, INDIC_ROUNDBOX);
-	ScintillaBridge_sendMessage(sci, SCI_INDICSETFORE, INDIC_INCREMENTAL_SEARCH, 0xFF8000); // orange (BGR)
+	ScintillaBridge_sendMessage(sci, SCI_INDICSETFORE, INDIC_INCREMENTAL_SEARCH, 0xFF8000); // orange
 	ScintillaBridge_sendMessage(sci, SCI_INDICSETALPHA, INDIC_INCREMENTAL_SEARCH, 80);
 	ScintillaBridge_sendMessage(sci, SCI_INDICSETOUTLINEALPHA, INDIC_INCREMENTAL_SEARCH, 200);
 	ScintillaBridge_sendMessage(sci, SCI_INDICSETUNDER, INDIC_INCREMENTAL_SEARCH, 1);

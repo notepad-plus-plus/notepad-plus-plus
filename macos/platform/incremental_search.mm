@@ -1,15 +1,18 @@
 // incremental_search.mm — Incremental search bar implementation
 #import <Cocoa/Cocoa.h>
 #include "incremental_search.h"
+#include "smart_highlight.h"
 #include "npp_constants.h"
 #include "app_state.h"
 #include "string_utils.h"
 #include "scintilla_bridge.h"
+#include <cstring>
 
-// Forward-declare free functions called by IncrSearchTextField
+// Forward-declare free functions called by IncrSearchTextField and IncrementalSearchBar
 void hideIncrementalSearch();
 void doIncrSearchNext();
 void doIncrSearchPrev();
+static void performIncrementalSearch();
 
 // ============================================================
 // IncrSearchTextField — custom NSTextField that intercepts keys
@@ -169,16 +172,32 @@ void doIncrSearchPrev();
 - (void)caseToggled:(id)sender
 {
 	ctx().matchCase = (_caseButton.state == NSControlStateValueOn);
+	performIncrementalSearch();
 }
 
 - (void)wordToggled:(id)sender
 {
 	ctx().wholeWord = (_wordButton.state == NSControlStateValueOn);
+	performIncrementalSearch();
 }
 
 - (void)regexToggled:(id)sender
 {
 	ctx().useRegex = (_regexButton.state == NSControlStateValueOn);
+	performIncrementalSearch();
+}
+
+// Debounced text change handler — re-runs search on every keystroke
+static unsigned int sIncrSearchGeneration = 0;
+
+- (void)controlTextDidChange:(NSNotification*)notification
+{
+	unsigned int gen = ++sIncrSearchGeneration;
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 100 * NSEC_PER_MSEC),
+		dispatch_get_main_queue(), ^{
+			if (gen == sIncrSearchGeneration)
+				performIncrementalSearch();
+		});
 }
 
 @end
@@ -229,6 +248,148 @@ static NSString* getSelectionText(int maxLen)
 	ScintillaBridge_sendMessage(sci, SCI_GETSELTEXT, 0, (intptr_t)buf.data());
 
 	return [NSString stringWithUTF8String:buf.data()];
+}
+
+// ============================================================
+// Core search logic
+// ============================================================
+
+// Build search flags from current toggle button state
+static int buildIncrSearchFlags()
+{
+	int flags = 0;
+	if (ctx().matchCase) flags |= SCFIND_MATCHCASE;
+	if (ctx().wholeWord) flags |= SCFIND_WHOLEWORD;
+	if (ctx().useRegex)  flags |= SCFIND_REGEXP | SCFIND_CXX11REGEX;
+	return flags;
+}
+
+// Count which match index the given position corresponds to (1-based).
+// Searches from document start to the given position, counting matches.
+static int countMatchIndex(void* sci, const char* utf8Text, size_t textLen, int flags, intptr_t matchPos)
+{
+	intptr_t docLen = ScintillaBridge_sendMessage(sci, SCI_GETLENGTH, 0, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETSEARCHFLAGS, flags, 0);
+
+	int index = 0;
+	intptr_t searchStart = 0;
+
+	while (searchStart < docLen)
+	{
+		ScintillaBridge_sendMessage(sci, SCI_SETTARGETSTART, searchStart, 0);
+		ScintillaBridge_sendMessage(sci, SCI_SETTARGETEND, docLen, 0);
+
+		intptr_t pos = ScintillaBridge_sendMessage(sci, SCI_SEARCHINTARGET,
+		                                           textLen, (intptr_t)utf8Text);
+		if (pos < 0) break;
+
+		++index;
+		if (pos == matchPos)
+			return index;
+
+		intptr_t targetEnd = ScintillaBridge_sendMessage(sci, SCI_GETTARGETEND, 0, 0);
+		if (targetEnd <= searchStart)
+		{
+			++searchStart;
+			continue;
+		}
+		searchStart = targetEnd;
+	}
+
+	return 0; // not found
+}
+
+static void performIncrementalSearch()
+{
+	IncrementalSearchBar* bar = getSearchBar();
+	if (!bar) return;
+
+	NSString* searchText = bar.searchField.stringValue;
+	void* sci = ctx().activeScintillaView();
+	if (!sci) return;
+
+	// If search text is empty, clear highlights and reset label
+	if (!searchText || searchText.length == 0)
+	{
+		intptr_t docLen = ScintillaBridge_sendMessage(sci, SCI_GETLENGTH, 0, 0);
+		if (docLen > 0)
+		{
+			ScintillaBridge_sendMessage(sci, SCI_SETINDICATORCURRENT, INDIC_INCREMENTAL_SEARCH, 0);
+			ScintillaBridge_sendMessage(sci, SCI_INDICATORCLEARRANGE, 0, docLen);
+		}
+		bar.matchLabel.stringValue = @"";
+		ctx().incrSearchCurrentMatch = -1;
+		ctx().incrSearchTotalMatches = 0;
+		return;
+	}
+
+	const char* utf8Find = [searchText UTF8String];
+	size_t textLen = strlen(utf8Find);
+
+	// Sync search text to ctx().findText
+	ctx().findText = NSStringToWide(searchText);
+
+	// Build search flags
+	int flags = buildIncrSearchFlags();
+
+	// Clear previous highlights
+	intptr_t docLen = ScintillaBridge_sendMessage(sci, SCI_GETLENGTH, 0, 0);
+	if (docLen > 0)
+	{
+		ScintillaBridge_sendMessage(sci, SCI_SETINDICATORCURRENT, INDIC_INCREMENTAL_SEARCH, 0);
+		ScintillaBridge_sendMessage(sci, SCI_INDICATORCLEARRANGE, 0, docLen);
+	}
+
+	// Highlight all occurrences
+	int count = highlightAllOccurrences(sci, utf8Find, flags, INDIC_INCREMENTAL_SEARCH, 10000);
+
+	if (count == 0)
+	{
+		bar.matchLabel.stringValue = @"No matches";
+		ctx().incrSearchCurrentMatch = -1;
+		ctx().incrSearchTotalMatches = 0;
+		return;
+	}
+
+	ctx().incrSearchTotalMatches = count;
+
+	// Find the match nearest to (at or after) current cursor position
+	intptr_t cursorPos = ScintillaBridge_sendMessage(sci, SCI_GETCURRENTPOS, 0, 0);
+
+	// Search forward from cursor to end
+	ScintillaBridge_sendMessage(sci, SCI_SETSEARCHFLAGS, flags, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETTARGETSTART, cursorPos, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETTARGETEND, docLen, 0);
+
+	intptr_t foundPos = ScintillaBridge_sendMessage(sci, SCI_SEARCHINTARGET,
+	                                                textLen, (intptr_t)utf8Find);
+
+	if (foundPos < 0)
+	{
+		// Wrap: search from beginning
+		ScintillaBridge_sendMessage(sci, SCI_SETTARGETSTART, 0, 0);
+		ScintillaBridge_sendMessage(sci, SCI_SETTARGETEND, docLen, 0);
+		foundPos = ScintillaBridge_sendMessage(sci, SCI_SEARCHINTARGET,
+		                                       textLen, (intptr_t)utf8Find);
+	}
+
+	if (foundPos >= 0)
+	{
+		intptr_t targetEnd = ScintillaBridge_sendMessage(sci, SCI_GETTARGETEND, 0, 0);
+		ScintillaBridge_sendMessage(sci, SCI_SETSEL, foundPos, targetEnd);
+		ScintillaBridge_sendMessage(sci, SCI_SCROLLCARET, 0, 0);
+
+		// Count which match this is
+		int matchIndex = countMatchIndex(sci, utf8Find, textLen, flags, foundPos);
+		ctx().incrSearchCurrentMatch = matchIndex;
+
+		bar.matchLabel.stringValue = [NSString stringWithFormat:@"%d of %d", matchIndex, count];
+	}
+	else
+	{
+		bar.matchLabel.stringValue = @"No matches";
+		ctx().incrSearchCurrentMatch = -1;
+	}
 }
 
 // ============================================================
@@ -333,7 +494,17 @@ bool isIncrementalSearchVisible()
 
 void clearIncrementalSearchHighlights()
 {
-	// Will be filled in Task 3
+	void* views[] = { ctx().scintillaView, ctx().scintillaView2 };
+	for (void* sci : views)
+	{
+		if (!sci) continue;
+		intptr_t docLen = ScintillaBridge_sendMessage(sci, SCI_GETLENGTH, 0, 0);
+		if (docLen <= 0) continue;
+		ScintillaBridge_sendMessage(sci, SCI_SETINDICATORCURRENT, INDIC_INCREMENTAL_SEARCH, 0);
+		ScintillaBridge_sendMessage(sci, SCI_INDICATORCLEARRANGE, 0, docLen);
+	}
+	ctx().incrSearchCurrentMatch = -1;
+	ctx().incrSearchTotalMatches = 0;
 }
 
 void updateIncrementalSearchTarget()
@@ -343,10 +514,102 @@ void updateIncrementalSearchTarget()
 
 void doIncrSearchNext()
 {
-	// Will be filled in Task 3
+	if (ctx().findText.empty()) return;
+
+	void* sci = ctx().activeScintillaView();
+	if (!sci) return;
+
+	NSString* nsFind = WideToNSString(ctx().findText.c_str());
+	const char* utf8Find = [nsFind UTF8String];
+	size_t textLen = strlen(utf8Find);
+	int flags = buildIncrSearchFlags();
+	intptr_t docLen = ScintillaBridge_sendMessage(sci, SCI_GETLENGTH, 0, 0);
+
+	// Search forward from selection end
+	intptr_t selEnd = ScintillaBridge_sendMessage(sci, SCI_GETSELECTIONEND, 0, 0);
+
+	ScintillaBridge_sendMessage(sci, SCI_SETSEARCHFLAGS, flags, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETTARGETSTART, selEnd, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETTARGETEND, docLen, 0);
+
+	intptr_t foundPos = ScintillaBridge_sendMessage(sci, SCI_SEARCHINTARGET,
+	                                                textLen, (intptr_t)utf8Find);
+
+	if (foundPos < 0)
+	{
+		// Wrap: search from beginning to selection end
+		ScintillaBridge_sendMessage(sci, SCI_SETTARGETSTART, 0, 0);
+		ScintillaBridge_sendMessage(sci, SCI_SETTARGETEND, selEnd, 0);
+		foundPos = ScintillaBridge_sendMessage(sci, SCI_SEARCHINTARGET,
+		                                       textLen, (intptr_t)utf8Find);
+	}
+
+	if (foundPos >= 0)
+	{
+		intptr_t targetEnd = ScintillaBridge_sendMessage(sci, SCI_GETTARGETEND, 0, 0);
+		ScintillaBridge_sendMessage(sci, SCI_SETSEL, foundPos, targetEnd);
+		ScintillaBridge_sendMessage(sci, SCI_SCROLLCARET, 0, 0);
+
+		// Update match index label
+		int matchIndex = countMatchIndex(sci, utf8Find, textLen, flags, foundPos);
+		ctx().incrSearchCurrentMatch = matchIndex;
+
+		IncrementalSearchBar* bar = getSearchBar();
+		if (bar)
+		{
+			bar.matchLabel.stringValue = [NSString stringWithFormat:@"%d of %d",
+			                              matchIndex, ctx().incrSearchTotalMatches];
+		}
+	}
 }
 
 void doIncrSearchPrev()
 {
-	// Will be filled in Task 3
+	if (ctx().findText.empty()) return;
+
+	void* sci = ctx().activeScintillaView();
+	if (!sci) return;
+
+	NSString* nsFind = WideToNSString(ctx().findText.c_str());
+	const char* utf8Find = [nsFind UTF8String];
+	size_t textLen = strlen(utf8Find);
+	int flags = buildIncrSearchFlags();
+	intptr_t docLen = ScintillaBridge_sendMessage(sci, SCI_GETLENGTH, 0, 0);
+
+	// Search backward from selection start to document start
+	intptr_t selStart = ScintillaBridge_sendMessage(sci, SCI_GETSELECTIONSTART, 0, 0);
+
+	ScintillaBridge_sendMessage(sci, SCI_SETSEARCHFLAGS, flags, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETTARGETSTART, selStart, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETTARGETEND, 0, 0);
+
+	intptr_t foundPos = ScintillaBridge_sendMessage(sci, SCI_SEARCHINTARGET,
+	                                                textLen, (intptr_t)utf8Find);
+
+	if (foundPos < 0)
+	{
+		// Wrap: search backward from document end to selection start
+		ScintillaBridge_sendMessage(sci, SCI_SETTARGETSTART, docLen, 0);
+		ScintillaBridge_sendMessage(sci, SCI_SETTARGETEND, selStart, 0);
+		foundPos = ScintillaBridge_sendMessage(sci, SCI_SEARCHINTARGET,
+		                                       textLen, (intptr_t)utf8Find);
+	}
+
+	if (foundPos >= 0)
+	{
+		intptr_t targetEnd = ScintillaBridge_sendMessage(sci, SCI_GETTARGETEND, 0, 0);
+		ScintillaBridge_sendMessage(sci, SCI_SETSEL, foundPos, targetEnd);
+		ScintillaBridge_sendMessage(sci, SCI_SCROLLCARET, 0, 0);
+
+		// Update match index label
+		int matchIndex = countMatchIndex(sci, utf8Find, textLen, flags, foundPos);
+		ctx().incrSearchCurrentMatch = matchIndex;
+
+		IncrementalSearchBar* bar = getSearchBar();
+		if (bar)
+		{
+			bar.matchLabel.stringValue = [NSString stringWithFormat:@"%d of %d",
+			                              matchIndex, ctx().incrSearchTotalMatches];
+		}
+	}
 }

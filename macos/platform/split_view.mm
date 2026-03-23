@@ -48,7 +48,7 @@ void layoutSplitTopTabBars()
 	if (!contentView)
 		return;
 
-	const CGFloat tabHeight = 28;
+	const CGFloat tabHeight = NPP_TAB_BAR_HEIGHT;
 	const CGFloat topY = contentView.bounds.size.height - tabHeight;
 
 	auto* leftTabInfo = HandleRegistry::getWindowInfo(ctx().tabHwnd);
@@ -304,8 +304,8 @@ void doUnsplit()
 	[ctx().splitView removeFromSuperview];
 	ctx().splitView = nil;
 
-	CGFloat tabHeight = 28;
-	CGFloat statusHeight = 22;
+	CGFloat tabHeight = NPP_TAB_BAR_HEIGHT;
+	CGFloat statusHeight = NPP_STATUS_BAR_HEIGHT;
 	CGFloat editorHeight = contentView.bounds.size.height - tabHeight - statusHeight;
 	ctx().editorContainer.frame = NSMakeRect(0, statusHeight, contentView.bounds.size.width, editorHeight);
 	ctx().editorContainer.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;

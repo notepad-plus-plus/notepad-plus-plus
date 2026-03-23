@@ -209,8 +209,8 @@ static void setDockIconFromLogo()
 	SendMessageW(ctx().statusBarHwnd, SB_SETTEXTW, 4, reinterpret_cast<LPARAM>(L"LF"));
 	SendMessageW(ctx().statusBarHwnd, SB_SETTEXTW, 5, reinterpret_cast<LPARAM>(L"Ready"));
 
-	CGFloat tabHeight = 28;
-	CGFloat statusHeight = 22;
+	CGFloat tabHeight = NPP_TAB_BAR_HEIGHT;
+	CGFloat statusHeight = NPP_STATUS_BAR_HEIGHT;
 	CGFloat editorHeight = contentView.bounds.size.height - tabHeight - statusHeight;
 
 	if (ctx().statusBarHwnd)

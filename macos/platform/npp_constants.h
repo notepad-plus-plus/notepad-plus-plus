@@ -4,6 +4,12 @@
 #pragma once
 
 // ============================================================
+// Layout constants (shared by app_delegate, split_view, document_map)
+// ============================================================
+constexpr double NPP_TAB_BAR_HEIGHT = 28.0;
+constexpr double NPP_STATUS_BAR_HEIGHT = 22.0;
+
+// ============================================================
 // Command IDs (matching Notepad++ IDM_* convention)
 // ============================================================
 #define IDM_FILE_NEW          41001
@@ -442,9 +448,6 @@ enum {
 #define SC_MOD_INSERTTEXT    0x1
 #define SC_MOD_DELETETEXT    0x2
 #define SC_MOD_BEFOREDELETE  0x800
-
-// Indicator styles
-#define INDIC_ROUNDBOX  7
 
 // Wrap mode constants
 #define SC_WRAP_NONE 0

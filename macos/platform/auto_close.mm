@@ -171,11 +171,11 @@ void handleAutoCloseCharAdded(void* sci, int ch, int languageIndex)
 
 	PendingWrapInfo& pendingWrap = s_pendingWrapByView[sci];
 
-	// Skip-over for typed closers: move caret over existing closer instead of inserting duplicate.
-	if (isCloser(ch))
+	// Skip-over: if the character after the caret matches what was typed, move over it.
+	// For bracket closers ()/]/}), always attempt skip-over and return.
+	// For quotes, attempt skip-over; if no match, fall through to the opener/pairing logic.
 	{
-		intptr_t nextPos = pos;
-		int nextChar = static_cast<int>(ScintillaBridge_sendMessage(sci, SCI_GETCHARAT, nextPos, 0));
+		int nextChar = static_cast<int>(ScintillaBridge_sendMessage(sci, SCI_GETCHARAT, pos, 0));
 		if (nextChar == ch)
 		{
 			ctx().autoCloseInternalEdit = true;
@@ -184,7 +184,14 @@ void handleAutoCloseCharAdded(void* sci, int ch, int languageIndex)
 			ScintillaBridge_sendMessage(sci, SCI_GOTOPOS, pos, 0);
 			ScintillaBridge_sendMessage(sci, SCI_ENDUNDOACTION, 0, 0);
 			ctx().autoCloseInternalEdit = false;
+			clearPendingWrap(sci);
+			return;
 		}
+	}
+
+	// Pure closers (not quotes) that didn't skip-over have nothing else to do.
+	if (isCloser(ch) && !isQuote(ch))
+	{
 		clearPendingWrap(sci);
 		return;
 	}
@@ -258,19 +265,9 @@ void handleAutoCloseModified(void* sci, const SciNotification* scn, int language
 	PairDeleteInfo& info = s_lastDeleteByView[sci];
 	PendingWrapInfo& pendingWrap = s_pendingWrapByView[sci];
 
-	// Capture char before deletion to handle backspace pair deletion.
-	if ((scn->modificationType & SC_MOD_BEFOREDELETE) && scn->length == 1 && scn->position >= 0)
-	{
-		char deleted = static_cast<char>(ScintillaBridge_sendMessage(sci, SCI_GETCHARAT, scn->position, 0));
-		info.deleted = deleted;
-		info.pos = scn->position;
-		info.armed = true;
-		return;
-	}
-
-	// Capture selected text replacement so opener can wrap it in SCN_CHARADDED.
 	if (scn->modificationType & SC_MOD_BEFOREDELETE)
 	{
+		// Reset pending wrap state; it will be re-armed below if this is a selection delete.
 		pendingWrap.armed = false;
 		pendingWrap.position = -1;
 		pendingWrap.deletedText.clear();
@@ -278,6 +275,7 @@ void handleAutoCloseModified(void* sci, const SciNotification* scn, int language
 		intptr_t selectionEmpty = ScintillaBridge_sendMessage(sci, SCI_GETSELECTIONEMPTY, 0, 0);
 		if (selectionEmpty == 0 && scn->position >= 0 && scn->length > 0)
 		{
+			// Selection is being replaced — capture deleted text so opener can wrap it.
 			pendingWrap.position = scn->position;
 			pendingWrap.deletedText.reserve(static_cast<size_t>(scn->length));
 			for (intptr_t i = 0; i < scn->length; ++i)
@@ -287,6 +285,15 @@ void handleAutoCloseModified(void* sci, const SciNotification* scn, int language
 			}
 			pendingWrap.armed = !pendingWrap.deletedText.empty();
 		}
+		else if (scn->length == 1 && scn->position >= 0)
+		{
+			// Single-char backspace — capture deleted char for pair-delete.
+			char deleted = static_cast<char>(ScintillaBridge_sendMessage(sci, SCI_GETCHARAT, scn->position, 0));
+			info.deleted = deleted;
+			info.pos = scn->position;
+			info.armed = true;
+		}
+		return;
 	}
 
 	// After deletion, if we deleted an opener and caret sits before its closer, delete closer too.

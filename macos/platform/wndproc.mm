@@ -421,8 +421,7 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			{
 				if (!ctx().isSplit)
 					return 0;
-				ctx().syncScrolling = !ctx().syncScrolling;
-				setSyncScrollingEnabled(ctx().syncScrolling);
+				setSyncScrollingEnabled(!ctx().syncScrolling);
 				HMENU hMenu = GetMenu(hWnd);
 				if (hMenu)
 					CheckMenuItem(hMenu, IDM_VIEW_SYNCHRONIZE_SCROLLING,

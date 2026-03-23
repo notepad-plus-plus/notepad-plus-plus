@@ -166,8 +166,8 @@ void relayoutDocumentMap()
 	if (!contentView)
 		return;
 
-	const CGFloat tabHeight = 28;
-	const CGFloat statusHeight = 22;
+	const CGFloat tabHeight = NPP_TAB_BAR_HEIGHT;
+	const CGFloat statusHeight = NPP_STATUS_BAR_HEIGHT;
 	NSRect baseEditorFrame = NSMakeRect(0, statusHeight,
 	                                    contentView.bounds.size.width,
 	                                    contentView.bounds.size.height - tabHeight - statusHeight);

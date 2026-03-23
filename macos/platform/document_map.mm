@@ -123,7 +123,12 @@ void initializeDocumentMap()
 
 	ctx().documentMapScintilla = ScintillaBridge_createView((__bridge void*)ctx().documentMapContainer, 0, 0, 0, 0);
 	if (!ctx().documentMapScintilla)
+	{
+		[ctx().documentMapContainer removeFromSuperview];
+		ctx().documentMapContainer = nil;
+		ctx().documentMapScintilla = nullptr;
 		return;
+	}
 
 	configureDocumentMapView(ctx().documentMapScintilla);
 

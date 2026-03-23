@@ -152,6 +152,14 @@ void clearPendingWrap(void* sci)
 }
 }
 
+void autoCloseOnViewDestroyed(void* sci)
+{
+	if (!sci)
+		return;
+	s_lastDeleteByView.erase(sci);
+	s_pendingWrapByView.erase(sci);
+}
+
 void handleAutoCloseCharAdded(void* sci, int ch, int languageIndex)
 {
 	if (!ctx().autoCloseBrackets || !sci || ctx().autoCloseInternalEdit)
@@ -230,7 +238,9 @@ void handleAutoCloseCharAdded(void* sci, int ch, int languageIndex)
 		return;
 	}
 
-	const char prevChar = static_cast<char>(ScintillaBridge_sendMessage(sci, SCI_GETCHARAT, pos - 2, 0));
+	char prevChar = '\0';
+	if (pos >= 2)
+		prevChar = static_cast<char>(ScintillaBridge_sendMessage(sci, SCI_GETCHARAT, pos - 2, 0));
 	const char nextChar = static_cast<char>(ScintillaBridge_sendMessage(sci, SCI_GETCHARAT, pos, 0));
 
 	// Only auto-pair in boundary-ish contexts to avoid noisy insertions mid-token.

@@ -282,6 +282,7 @@ void doUnsplit()
 	{
 		cancelPendingSmartHighlight();
 		ScintillaBridge_clearNotifyCallback(ctx().scintillaView2);
+		autoCloseOnViewDestroyed(ctx().scintillaView2);
 		ScintillaBridge_destroyView(ctx().scintillaView2);
 		ctx().scintillaView2 = nullptr;
 	}

@@ -594,6 +594,7 @@ static void setDockIconFromLogo()
 	if (ctx().scintillaView)
 	{
 		ScintillaBridge_clearNotifyCallback(ctx().scintillaView);
+		autoCloseOnViewDestroyed(ctx().scintillaView);
 		ScintillaBridge_destroyView(ctx().scintillaView);
 		ctx().scintillaView = nullptr;
 	}

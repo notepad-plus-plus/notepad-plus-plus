@@ -116,10 +116,23 @@ jobs:
         id: check_secrets
         env:
           HAS_CERT: ${{ secrets.APPLE_CERTIFICATE_P12 }}
+          HAS_CERT_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          HAS_IDENTITY: ${{ secrets.APPLE_CODESIGN_IDENTITY }}
+          HAS_APPLE_ID: ${{ secrets.APPLE_ID }}
+          HAS_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          HAS_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
         run: |
-          if [ -z "$HAS_CERT" ]; then
+          missing=()
+          [ -z "$HAS_CERT" ] && missing+=("APPLE_CERTIFICATE_P12")
+          [ -z "$HAS_CERT_PASSWORD" ] && missing+=("APPLE_CERTIFICATE_PASSWORD")
+          [ -z "$HAS_IDENTITY" ] && missing+=("APPLE_CODESIGN_IDENTITY")
+          [ -z "$HAS_APPLE_ID" ] && missing+=("APPLE_ID")
+          [ -z "$HAS_TEAM_ID" ] && missing+=("APPLE_TEAM_ID")
+          [ -z "$HAS_APP_PASSWORD" ] && missing+=("APPLE_APP_PASSWORD")
+
+          if [ ${#missing[@]} -ne 0 ]; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
-            echo "::warning::Signing secrets not configured. Skipping signing and notarization."
+            echo "::warning::Signing/notarization secrets not fully configured. Missing: ${missing[*]}. Skipping."
           else
             echo "skip=false" >> "$GITHUB_OUTPUT"
           fi
@@ -133,7 +146,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: MacNote++.app-macos-15-arm64
-          path: macos/dist/MacNote++.app
+          path: macos/dist
 
       - name: Restore executable permission
         if: steps.check_secrets.outputs.skip != 'true'

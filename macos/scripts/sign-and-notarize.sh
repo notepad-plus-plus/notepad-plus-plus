@@ -35,12 +35,19 @@ SKIP_NOTARIZE=false
 SKIP_DMG=false
 VERBOSE=false
 
+# Helper: require a value argument for an option
+require_arg() {
+	if [[ $# -lt 2 || "$2" == --* ]]; then
+		echo "ERROR: $1 requires a value" >&2; exit 1
+	fi
+}
+
 # Parse arguments
 while [[ $# -gt 0 ]]; do
 	case "$1" in
-		--app-path)      APP_PATH="$2"; shift 2 ;;
-		--dmg-path)      DMG_PATH="$2"; shift 2 ;;
-		--entitlements)  ENTITLEMENTS="$2"; shift 2 ;;
+		--app-path)      require_arg "$1" "${2:-}"; APP_PATH="$2"; shift 2 ;;
+		--dmg-path)      require_arg "$1" "${2:-}"; DMG_PATH="$2"; shift 2 ;;
+		--entitlements)  require_arg "$1" "${2:-}"; ENTITLEMENTS="$2"; shift 2 ;;
 		--skip-notarize) SKIP_NOTARIZE=true; shift ;;
 		--skip-dmg)      SKIP_DMG=true; shift ;;
 		--verbose)       VERBOSE=true; shift ;;

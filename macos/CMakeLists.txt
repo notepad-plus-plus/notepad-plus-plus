@@ -448,12 +448,17 @@ add_custom_target(MacOSNotePP_package
 )
 
 if(CODESIGN_ENABLED)
-    # Sign and build DMG in /tmp to avoid iCloud/FileProvider xattr interference.
-    # iCloud-synced directories (e.g., ~/Desktop) re-add xattrs that invalidate
-    # code signatures, so all signing and DMG creation happens outside the sync zone.
+    # Sign and build DMG in a temp directory to avoid iCloud/FileProvider xattr
+    # interference. iCloud-synced directories re-add xattrs that invalidate code
+    # signatures, so all signing and DMG creation happens outside the sync zone.
     # NOTE: --deep is acceptable while the bundle has no nested frameworks/helpers.
     # Replace with explicit per-component signing if nested bundles are added.
-    set(NPP_SIGN_STAGE "/tmp/MacNotePP-sign-stage")
+    if(DEFINED ENV{TMPDIR} AND NOT "$ENV{TMPDIR}" STREQUAL "")
+        set(NPP_SIGN_STAGE_ROOT "$ENV{TMPDIR}")
+    else()
+        set(NPP_SIGN_STAGE_ROOT "/tmp")
+    endif()
+    set(NPP_SIGN_STAGE "${NPP_SIGN_STAGE_ROOT}/MacNotePP-sign-stage")
     set(NPP_SIGN_STAGE_APP "${NPP_SIGN_STAGE}/MacNote++.app")
     set(NPP_SIGN_STAGE_DMG_ROOT "${NPP_SIGN_STAGE}/dmg-root")
 
@@ -473,6 +478,10 @@ if(CODESIGN_ENABLED)
             "${NPP_SIGN_STAGE_APP}"
         COMMAND codesign --verify --deep --strict --verbose=2
             "${NPP_SIGN_STAGE_APP}"
+        COMMAND ${CMAKE_COMMAND} -E rm -rf "${NPP_MACOS_APP_BUNDLE}"
+        COMMAND ditto "${NPP_SIGN_STAGE_APP}" "${NPP_MACOS_APP_BUNDLE}"
+        COMMAND ${CMAKE_COMMAND} -E echo
+            "Signed app bundle: ${NPP_MACOS_APP_BUNDLE}"
         COMMENT "Code signing MacNote++.app with '${CODESIGN_IDENTITY}'"
     )
 

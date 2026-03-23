@@ -49,6 +49,8 @@ HMENU buildMenuBar()
 	AppendMenuW(hEditMenu, MF_STRING, IDM_EDIT_SELECTALL, L"Select &All\tCtrl+A");
 	AppendMenuW(hEditMenu, MF_SEPARATOR, 0, nullptr);
 	AppendMenuW(hEditMenu, MF_STRING, IDM_EDIT_AUTOCOMPLETE, L"Auto-&Complete\tF5");
+	AppendMenuW(hEditMenu, MF_STRING | (ctx().autoCloseBrackets ? MF_CHECKED : MF_UNCHECKED),
+	            IDM_EDIT_AUTOCLOSE_BRACKETS, L"Auto-close &Brackets");
 	AppendMenuW(hEditMenu, MF_SEPARATOR, 0, nullptr);
 
 	HMENU hCaseMenu = CreatePopupMenu();
@@ -117,6 +119,11 @@ HMENU buildMenuBar()
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_UNSPLIT, L"&Unsplit View");
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_MOVETOOTHER, L"&Move to Other View");
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_CLONETOOTHER, L"&Clone to Other View");
+	AppendMenuW(hViewMenu, MF_STRING | (ctx().syncScrolling ? MF_CHECKED : MF_UNCHECKED) |
+	            (ctx().isSplit ? MF_ENABLED : MF_GRAYED),
+	            IDM_VIEW_SYNCHRONIZE_SCROLLING, L"Synchronize Scrolling");
+	AppendMenuW(hViewMenu, MF_STRING | (ctx().documentMapEnabled ? MF_CHECKED : MF_UNCHECKED),
+	            IDM_VIEW_DOCUMENTMAP, L"&Document Map");
 	AppendMenuW(hViewMenu, MF_SEPARATOR, 0, nullptr);
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_ZOOMIN, L"Zoom &In\tCtrl+=");
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_ZOOMOUT, L"Zoom &Out\tCtrl+-");

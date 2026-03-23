@@ -24,10 +24,14 @@ struct AppSettings
 	int zoomLevel = 0;
 	bool showCaretLine = true;
 	bool autoIndent = true;
+	bool autoCloseBrackets = true;
 	bool useTabs = false;
 	bool showWhitespace = false;
 	bool showEol = false;
 	bool showIndentGuides = false;
+	bool syncScrolling = false;
+	bool documentMap = false;
+	int documentMapWidth = 140;
 
 	// Recent files
 	std::vector<std::string> recentFiles;

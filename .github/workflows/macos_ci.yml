@@ -104,3 +104,129 @@ jobs:
           name: MacOSNotePP-Release-${{ matrix.runner }}-${{ matrix.arch }}
           path: macos/build/Release/MacOSNotePP
           retention-days: 14
+
+  sign_and_notarize:
+    name: Sign & Notarize (ARM64)
+    needs: build_macos
+    runs-on: macos-15
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Check signing secrets
+        id: check_secrets
+        env:
+          HAS_CERT: ${{ secrets.APPLE_CERTIFICATE_P12 }}
+          HAS_CERT_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          HAS_IDENTITY: ${{ secrets.APPLE_CODESIGN_IDENTITY }}
+          HAS_APPLE_ID: ${{ secrets.APPLE_ID }}
+          HAS_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          HAS_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+        run: |
+          missing=()
+          [ -z "$HAS_CERT" ] && missing+=("APPLE_CERTIFICATE_P12")
+          [ -z "$HAS_CERT_PASSWORD" ] && missing+=("APPLE_CERTIFICATE_PASSWORD")
+          [ -z "$HAS_IDENTITY" ] && missing+=("APPLE_CODESIGN_IDENTITY")
+          [ -z "$HAS_APPLE_ID" ] && missing+=("APPLE_ID")
+          [ -z "$HAS_TEAM_ID" ] && missing+=("APPLE_TEAM_ID")
+          [ -z "$HAS_APP_PASSWORD" ] && missing+=("APPLE_APP_PASSWORD")
+
+          if [ ${#missing[@]} -ne 0 ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "::warning::Signing/notarization secrets not fully configured. Missing: ${missing[*]}. Skipping."
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout repo
+        if: steps.check_secrets.outputs.skip != 'true'
+        uses: actions/checkout@v4
+
+      - name: Download app bundle artifact
+        if: steps.check_secrets.outputs.skip != 'true'
+        uses: actions/download-artifact@v4
+        with:
+          name: MacNote++.app-macos-15-arm64
+          path: macos/dist
+
+      - name: Restore executable permission
+        if: steps.check_secrets.outputs.skip != 'true'
+        run: chmod +x macos/dist/MacNote++.app/Contents/MacOS/MacOSNotePP
+
+      - name: Import code signing certificate
+        if: steps.check_secrets.outputs.skip != 'true'
+        env:
+          APPLE_CERTIFICATE_P12: ${{ secrets.APPLE_CERTIFICATE_P12 }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+        run: |
+          KEYCHAIN_PATH="$RUNNER_TEMP/signing.keychain-db"
+          KEYCHAIN_PASSWORD="$(openssl rand -base64 32)"
+
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+
+          CERT_PATH="$RUNNER_TEMP/certificate.p12"
+          echo "$APPLE_CERTIFICATE_P12" | base64 --decode > "$CERT_PATH"
+          security import "$CERT_PATH" \
+            -k "$KEYCHAIN_PATH" \
+            -P "$APPLE_CERTIFICATE_PASSWORD" \
+            -T /usr/bin/codesign \
+            -T /usr/bin/security
+
+          security set-key-partition-list -S apple-tool:,apple: \
+            -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+
+          security list-keychains -d user -s "$KEYCHAIN_PATH" $(security list-keychains -d user | tr -d '"')
+
+          rm -f "$CERT_PATH"
+          echo "KEYCHAIN_PATH=$KEYCHAIN_PATH" >> "$GITHUB_ENV"
+
+      - name: Build unsigned DMG
+        if: steps.check_secrets.outputs.skip != 'true'
+        run: |
+          mkdir -p macos/dist/dmg-root
+          rm -rf macos/dist/dmg-root/MacNote++.app
+          cp -R macos/dist/MacNote++.app macos/dist/dmg-root/MacNote++.app
+          rm -f macos/dist/dmg-root/Applications
+          ln -s /Applications macos/dist/dmg-root/Applications
+          rm -f macos/dist/MacNote++-unsigned.dmg
+          hdiutil create \
+            -volname "MacNote++" \
+            -srcfolder macos/dist/dmg-root \
+            -format UDZO \
+            -ov \
+            macos/dist/MacNote++-unsigned.dmg
+
+      - name: Sign and notarize
+        if: steps.check_secrets.outputs.skip != 'true'
+        env:
+          CODESIGN_IDENTITY: ${{ secrets.APPLE_CODESIGN_IDENTITY }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+        run: |
+          chmod +x macos/scripts/sign-and-notarize.sh
+          macos/scripts/sign-and-notarize.sh --verbose
+
+      - name: Upload signed DMG
+        if: steps.check_secrets.outputs.skip != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: MacNote++.dmg-signed-arm64
+          path: macos/dist/MacNote++.dmg
+          retention-days: 30
+
+      - name: Upload signed app bundle
+        if: steps.check_secrets.outputs.skip != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: MacNote++.app-signed-arm64
+          path: macos/dist/MacNote++.app
+          retention-days: 30
+
+      - name: Cleanup keychain
+        if: always()
+        run: |
+          if [ -n "${KEYCHAIN_PATH:-}" ] && [ -f "$KEYCHAIN_PATH" ]; then
+            security delete-keychain "$KEYCHAIN_PATH" || true
+          fi

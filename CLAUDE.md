@@ -27,6 +27,18 @@ cmake --build . --target MacOSNotePP_package
 # Build unsigned DMG for distribution
 cmake --build . --target MacOSNotePP_dmg
 
+# Build with code signing (opt-in, requires Developer ID certificate)
+cmake -G Xcode .. -DCODESIGN_ENABLED=ON -DCODESIGN_IDENTITY="Developer ID Application"
+cmake --build . --target MacOSNotePP_sign     # Sign .app bundle
+cmake --build . --target MacOSNotePP_dmg      # Build + sign DMG
+
+# Full sign + notarize workflow (after building unsigned DMG)
+export CODESIGN_IDENTITY="Developer ID Application"
+export APPLE_ID="your@email.com"
+export APPLE_TEAM_ID="TEAMID"
+export APPLE_APP_PASSWORD="xxxx-xxxx-xxxx-xxxx"
+macos/scripts/sign-and-notarize.sh
+
 # Run the app (development build)
 ./Debug/MacOSNotePP
 

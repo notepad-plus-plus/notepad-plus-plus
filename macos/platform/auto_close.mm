@@ -174,6 +174,7 @@ void handleAutoCloseCharAdded(void* sci, int ch, int languageIndex)
 	// Skip-over: if the character after the caret matches what was typed, move over it.
 	// For bracket closers ()/]/}), always attempt skip-over and return.
 	// For quotes, attempt skip-over; if no match, fall through to the opener/pairing logic.
+	if (isCloser(ch))
 	{
 		int nextChar = static_cast<int>(ScintillaBridge_sendMessage(sci, SCI_GETCHARAT, pos, 0));
 		if (nextChar == ch)

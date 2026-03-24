@@ -257,6 +257,7 @@ void doSplit()
 	relayoutDocumentMap();
 	bindDocumentMapToActiveView();
 	updateDocumentMapViewport();
+	refreshSyncScrollAnchor();
 }
 
 void doUnsplit()
@@ -318,6 +319,7 @@ void doUnsplit()
 	ctx().activeView = 0;
 	ctx().isSplit = false;
 	ctx().syncScrollReentrant = false;
+	refreshSyncScrollAnchor();
 
 	if (isIncrementalSearchVisible())
 		updateIncrementalSearchTarget();

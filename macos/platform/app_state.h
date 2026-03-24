@@ -73,6 +73,9 @@ struct AppContext
 	NSView* sciContainer2 = nil;
 	bool syncScrolling = false;
 	bool syncScrollReentrant = false;
+	bool suppressSyncScroll = false; // Suppresses sync during batch fold operations
+	intptr_t syncScrollVDelta = 0;   // Main first-visible - sub first-visible
+	bool syncScrollVDeltaValid = false;
 
 	// Document map state
 	bool documentMapEnabled = false;

@@ -238,7 +238,8 @@ static void setDockIconFromLogo()
 
 	configureScintilla(ctx().scintillaView);
 	applyAppearance();
-	initializeDocumentMap();
+	if (ctx().documentMapEnabled)
+		initializeDocumentMap();
 	setSyncScrollingEnabled(ctx().syncScrolling);
 
 	// Scintilla notification callback for main view

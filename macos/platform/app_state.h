@@ -80,6 +80,7 @@ struct AppContext
 	NSView* documentMapContainer = nil;
 	NSView* documentMapOverlay = nil;
 	void* documentMapScintilla = nullptr;
+	intptr_t documentMapBoundDoc = 0; // Currently bound document pointer (for ref counting)
 
 	// Notification suppression (prevents false dirty indicators during tab switches)
 	bool suppressSavePointNotifications = false;

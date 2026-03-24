@@ -26,6 +26,7 @@
 #include "lexer_styles.h"
 #include "language_defs.h"
 #include "scintilla_bridge.h"
+#include "auto_close.h"
 #include "sync_scroll.h"
 #include "document_map.h"
 #include "windows.h"
@@ -263,6 +264,14 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				case IDM_EDIT_AUTOCLOSE_BRACKETS:
 				{
 					ctx().autoCloseBrackets = !ctx().autoCloseBrackets;
+					if (!ctx().autoCloseBrackets)
+					{
+						// Clear stale per-view state to prevent unexpected behavior on re-enable
+						if (ctx().scintillaView)
+							autoCloseOnViewDestroyed(ctx().scintillaView);
+						if (ctx().scintillaView2)
+							autoCloseOnViewDestroyed(ctx().scintillaView2);
+					}
 					HMENU hMenu = GetMenu(hWnd);
 					if (hMenu)
 						CheckMenuItem(hMenu, IDM_EDIT_AUTOCLOSE_BRACKETS,

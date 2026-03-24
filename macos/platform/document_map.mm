@@ -145,6 +145,11 @@ void destroyDocumentMap()
 
 	if (ctx().documentMapScintilla)
 	{
+		if (ctx().documentMapBoundDoc != 0)
+		{
+			ScintillaBridge_sendMessage(ctx().documentMapScintilla, SCI_RELEASEDOCUMENT, 0, ctx().documentMapBoundDoc);
+			ctx().documentMapBoundDoc = 0;
+		}
 		ScintillaBridge_destroyView(ctx().documentMapScintilla);
 		ctx().documentMapScintilla = nullptr;
 	}
@@ -213,7 +218,7 @@ void relayoutDocumentMap()
 void setDocumentMapEnabled(bool enabled)
 {
 	ctx().documentMapEnabled = enabled;
-	if (!ctx().documentMapContainer)
+	if (enabled && !ctx().documentMapContainer)
 		initializeDocumentMap();
 
 	relayoutDocumentMap();
@@ -239,6 +244,17 @@ void bindDocumentMapToActiveView()
 		return;
 
 	intptr_t docPtr = ScintillaBridge_sendMessage(active, SCI_GETDOCPOINTER, 0, 0);
+	if (docPtr == ctx().documentMapBoundDoc)
+		return;
+
+	// Release previously bound document reference
+	if (ctx().documentMapBoundDoc != 0)
+		ScintillaBridge_sendMessage(ctx().documentMapScintilla, SCI_RELEASEDOCUMENT, 0, ctx().documentMapBoundDoc);
+
+	// Addref the new document before binding
+	ScintillaBridge_sendMessage(active, SCI_ADDREFDOCUMENT, 0, docPtr);
+	ctx().documentMapBoundDoc = docPtr;
+
 	ScintillaBridge_sendMessage(ctx().documentMapScintilla, SCI_SETDOCPOINTER, 0, docPtr);
 	ScintillaBridge_sendMessage(ctx().documentMapScintilla, SCI_SETREADONLY, 1, 0);
 

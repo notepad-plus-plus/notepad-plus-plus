@@ -22,7 +22,6 @@ static void configureDocumentMapView(void* sci)
 	if (!sci)
 		return;
 
-	ScintillaBridge_sendMessage(sci, SCI_SETREADONLY, 1, 0);
 	ScintillaBridge_sendMessage(sci, SCI_SETZOOM, -10, 0);
 	ScintillaBridge_sendMessage(sci, SCI_SETWRAPMODE, SC_WRAP_NONE, 0);
 	ScintillaBridge_sendMessage(sci, SCI_SETCARETLINEVISIBLE, 0, 0);
@@ -256,7 +255,6 @@ void bindDocumentMapToActiveView()
 	ctx().documentMapBoundDoc = docPtr;
 
 	ScintillaBridge_sendMessage(ctx().documentMapScintilla, SCI_SETDOCPOINTER, 0, docPtr);
-	ScintillaBridge_sendMessage(ctx().documentMapScintilla, SCI_SETREADONLY, 1, 0);
 
 	auto& docs = ctx().activeDocuments();
 	int tabIdx = ctx().activeTabIndex();

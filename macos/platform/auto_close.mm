@@ -6,6 +6,7 @@
 #include "npp_constants.h"
 #include "scintilla_bridge.h"
 #include "scintilla_notify.h"
+#include "SciLexer.h"
 #include <unordered_map>
 #include <cctype>
 #include <string>
@@ -80,7 +81,6 @@ bool isBlankOrBoundary(char ch)
 
 bool isLikelyStringOrCommentStyle(int languageIndex, int style)
 {
-	// Style IDs match SciLexer.h constants for each lexer.
 	switch (languageIndex)
 	{
 		case LANG_C:
@@ -95,31 +95,58 @@ bool isLikelyStringOrCommentStyle(int languageIndex, int style)
 		case LANG_KOTLIN:
 		case LANG_SCALA:
 		case LANG_PHP:
-			return style == 1 || style == 2 || style == 3 || style == 6 || style == 7 ||
-			       style == 12 || style == 13 || style == 15 || style == 17 || style == 18 ||
-			       style == 20 || style == 21 || style == 22 || style == 23 || style == 24 ||
-			       style == 25 || style == 27;
+			return style == SCE_C_COMMENT || style == SCE_C_COMMENTLINE ||
+			       style == SCE_C_COMMENTDOC || style == SCE_C_STRING ||
+			       style == SCE_C_CHARACTER || style == SCE_C_STRINGEOL ||
+			       style == SCE_C_VERBATIM || style == SCE_C_COMMENTLINEDOC ||
+			       style == SCE_C_COMMENTDOCKEYWORD || style == SCE_C_COMMENTDOCKEYWORDERROR ||
+			       style == SCE_C_STRINGRAW || style == SCE_C_TRIPLEVERBATIM ||
+			       style == SCE_C_HASHQUOTEDSTRING || style == SCE_C_PREPROCESSORCOMMENT ||
+			       style == SCE_C_PREPROCESSORCOMMENTDOC || style == SCE_C_USERLITERAL ||
+			       style == SCE_C_ESCAPESEQUENCE;
 		case LANG_PYTHON:
-			return style == 1 || style == 3 || style == 4 || style == 6 || style == 7 ||
-			       style == 12 || style == 13 || style == 16 || style == 17 || style == 18 ||
-			       style == 19;
+			return style == SCE_P_COMMENTLINE || style == SCE_P_STRING ||
+			       style == SCE_P_CHARACTER || style == SCE_P_TRIPLE ||
+			       style == SCE_P_TRIPLEDOUBLE || style == SCE_P_COMMENTBLOCK ||
+			       style == SCE_P_STRINGEOL || style == SCE_P_FSTRING ||
+			       style == SCE_P_FCHARACTER || style == SCE_P_FTRIPLE ||
+			       style == SCE_P_FTRIPLEDOUBLE;
 		case LANG_SHELL:
-			return style == 2 || style == 5 || style == 6 || style == 11 || style == 12 || style == 13;
+			return style == SCE_SH_COMMENTLINE || style == SCE_SH_STRING ||
+			       style == SCE_SH_CHARACTER || style == SCE_SH_BACKTICKS ||
+			       style == SCE_SH_HERE_DELIM || style == SCE_SH_HERE_Q;
 		case LANG_RUBY:
-			return style == 2 || style == 3 || style == 6 || style == 7 || style == 12 ||
-			       style == 18 || style == 19 || style == 20 || style == 21 || style == 22 ||
-			       style == 23 || style == 24 || style == 25 || style == 26 || style == 27 ||
-			       style == 28 || style == 41 || style == 42 || style == 43 || style == 44;
+			return style == SCE_RB_COMMENTLINE || style == SCE_RB_POD ||
+			       style == SCE_RB_STRING || style == SCE_RB_CHARACTER ||
+			       style == SCE_RB_REGEX || style == SCE_RB_BACKTICKS ||
+			       style == SCE_RB_DATASECTION || style == SCE_RB_HERE_DELIM ||
+			       style == SCE_RB_HERE_Q || style == SCE_RB_HERE_QQ ||
+			       style == SCE_RB_HERE_QX || style == SCE_RB_STRING_Q ||
+			       style == SCE_RB_STRING_QQ || style == SCE_RB_STRING_QX ||
+			       style == SCE_RB_STRING_QR || style == SCE_RB_STRING_QW ||
+			       style == SCE_RB_STRING_W || style == SCE_RB_STRING_I ||
+			       style == SCE_RB_STRING_QI || style == SCE_RB_STRING_QS;
 		case LANG_PERL:
-			return style == 2 || style == 3 || style == 6 || style == 7 || style == 17 ||
-			       style == 18 || style == 19 || style == 20 || style == 21 || style == 22 ||
-			       style == 23 || style == 24 || style == 25 || style == 26 || style == 27 ||
-			       style == 28 || style == 29 || style == 30 || style == 31 || style == 42 ||
-			       style == 43 || style == 44 || style == 54 || style == 55 || style == 57 ||
-			       style == 61 || style == 62 || style == 64 || style == 65 || style == 66;
+			return style == SCE_PL_COMMENTLINE || style == SCE_PL_POD ||
+			       style == SCE_PL_STRING || style == SCE_PL_CHARACTER ||
+			       style == SCE_PL_REGEX || style == SCE_PL_REGSUBST ||
+			       style == SCE_PL_LONGQUOTE || style == SCE_PL_BACKTICKS ||
+			       style == SCE_PL_DATASECTION || style == SCE_PL_HERE_DELIM ||
+			       style == SCE_PL_HERE_Q || style == SCE_PL_HERE_QQ ||
+			       style == SCE_PL_HERE_QX || style == SCE_PL_STRING_Q ||
+			       style == SCE_PL_STRING_QQ || style == SCE_PL_STRING_QX ||
+			       style == SCE_PL_STRING_QR || style == SCE_PL_STRING_QW ||
+			       style == SCE_PL_POD_VERB || style == SCE_PL_FORMAT ||
+			       style == SCE_PL_STRING_VAR || style == SCE_PL_XLAT ||
+			       style == SCE_PL_REGEX_VAR || style == SCE_PL_REGSUBST_VAR ||
+			       style == SCE_PL_BACKTICKS_VAR || style == SCE_PL_HERE_QQ_VAR ||
+			       style == SCE_PL_HERE_QX_VAR || style == SCE_PL_STRING_QQ_VAR ||
+			       style == SCE_PL_STRING_QX_VAR || style == SCE_PL_STRING_QR_VAR;
 		case LANG_LUA:
-			return style == 1 || style == 2 || style == 3 || style == 6 || style == 7 ||
-			       style == 8 || style == 12;
+			return style == SCE_LUA_COMMENT || style == SCE_LUA_COMMENTLINE ||
+			       style == SCE_LUA_COMMENTDOC || style == SCE_LUA_STRING ||
+			       style == SCE_LUA_CHARACTER || style == SCE_LUA_LITERALSTRING ||
+			       style == SCE_LUA_STRINGEOL;
 		default:
 			return false;
 	}

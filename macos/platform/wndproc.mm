@@ -197,13 +197,25 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				case IDM_VIEW_FOLDALL:
 				{
 					void* sci = ctx().activeScintillaView();
-					if (sci) ScintillaBridge_sendMessage(sci, SCI_FOLDALL, SC_FOLDACTION_CONTRACT, 0);
+					if (sci)
+					{
+						ctx().suppressSyncScroll = true;
+						ScintillaBridge_sendMessage(sci, SCI_FOLDALL, SC_FOLDACTION_CONTRACT, 0);
+						ctx().suppressSyncScroll = false;
+						syncScrollNow();
+					}
 					return 0;
 				}
 				case IDM_VIEW_UNFOLDALL:
 				{
 					void* sci = ctx().activeScintillaView();
-					if (sci) ScintillaBridge_sendMessage(sci, SCI_FOLDALL, SC_FOLDACTION_EXPAND, 0);
+					if (sci)
+					{
+						ctx().suppressSyncScroll = true;
+						ScintillaBridge_sendMessage(sci, SCI_FOLDALL, SC_FOLDACTION_EXPAND, 0);
+						ctx().suppressSyncScroll = false;
+						syncScrollNow();
+					}
 					return 0;
 				}
 				case IDM_VIEW_PREFERENCES:
@@ -439,8 +451,7 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			}
 			case IDM_VIEW_DOCUMENTMAP:
 			{
-				ctx().documentMapEnabled = !ctx().documentMapEnabled;
-				setDocumentMapEnabled(ctx().documentMapEnabled);
+				setDocumentMapEnabled(!ctx().documentMapEnabled);
 				HMENU hMenu = GetMenu(hWnd);
 				if (hMenu)
 					CheckMenuItem(hMenu, IDM_VIEW_DOCUMENTMAP,

@@ -8,12 +8,20 @@
 
 static constexpr int kChangeHistoryMarginWidth = 4;
 
+static int changeHistoryMode(bool showMarginMarkers)
+{
+	return showMarginMarkers ?
+		(SC_CHANGE_HISTORY_ENABLED | SC_CHANGE_HISTORY_MARKERS) :
+		SC_CHANGE_HISTORY_ENABLED;
+}
+
 void configureChangeHistory(void* sci)
 {
 	if (!sci) return;
 
-	// Enable change tracking with margin markers
-	ScintillaBridge_sendMessage(sci, SCI_SETCHANGEHISTORY, SC_CHANGE_HISTORY_MARKERS, 0);
+	// Enable change tracking + marker display.
+	// SC_CHANGE_HISTORY_ENABLED is required for Scintilla to actually track edits.
+	ScintillaBridge_sendMessage(sci, SCI_SETCHANGEHISTORY, changeHistoryMode(ctx().showChangeHistory), 0);
 
 	// Set up margin 3 as a narrow symbol margin for change bars
 	ScintillaBridge_sendMessage(sci, SCI_SETMARGINTYPEN, CHANGE_HISTORY_MARGIN, 0);
@@ -61,6 +69,10 @@ void applyChangeHistoryColors(void* sci, bool isDark)
 void setChangeHistoryMarginVisible(void* sci, bool visible)
 {
 	if (!sci) return;
+	// If markers are enabled but not mapped to any visible margin, Scintilla paints
+	// them as line background colours in the text area. Keep tracking on, but only
+	// enable marker rendering when the change-history margin is visible.
+	ScintillaBridge_sendMessage(sci, SCI_SETCHANGEHISTORY, changeHistoryMode(visible), 0);
 	ScintillaBridge_sendMessage(sci, SCI_SETMARGINWIDTHN, CHANGE_HISTORY_MARGIN,
 		visible ? kChangeHistoryMarginWidth : 0);
 }

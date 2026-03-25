@@ -10,6 +10,7 @@
 #include "scintilla_bridge.h"
 #include "brace_match.h"
 #include "smart_highlight.h"
+#include "change_history.h"
 
 void applyFoldMarkerColorsToView(void* sci, bool isDark)
 {
@@ -61,6 +62,7 @@ void applyAppearanceToView(void* sci, int langIdx, bool isDark)
 		isDark ? 0xFFA050 : 0xFF8000);
 
 	applyFoldMarkerColorsToView(sci, isDark);
+	applyChangeHistoryColors(sci, isDark);
 	configureBraceStyles(sci, isDark);
 	configureSmartHighlightIndicator(sci, isDark);
 

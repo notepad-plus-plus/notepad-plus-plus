@@ -31,6 +31,7 @@ struct AppSettings
 	bool showIndentGuides = false;
 	bool syncScrolling = false;
 	bool documentMap = false;
+	bool showChangeHistory = true;
 	int documentMapWidth = 140;
 
 	// Recent files

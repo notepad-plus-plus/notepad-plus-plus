@@ -16,9 +16,28 @@
 #include "smart_highlight.h"
 #include "incremental_search.h"
 #include "auto_indent.h"
+#include "auto_close.h"
+#include "sync_scroll.h"
+#include "document_map.h"
 #include "scintilla_notify.h"
 #include "windows.h"
 #include "commctrl.h"
+
+void updateSplitMenuState()
+{
+	HMENU hMenu = GetMenu(ctx().mainHwnd);
+	if (!hMenu)
+		return;
+
+	const bool split = ctx().isSplit;
+	EnableMenuItem(hMenu, IDM_VIEW_SPLIT, MF_BYCOMMAND | (split ? MF_GRAYED : MF_ENABLED));
+	EnableMenuItem(hMenu, IDM_VIEW_UNSPLIT, MF_BYCOMMAND | (split ? MF_ENABLED : MF_GRAYED));
+	EnableMenuItem(hMenu, IDM_VIEW_MOVETOOTHER, MF_BYCOMMAND | (split ? MF_ENABLED : MF_GRAYED));
+	EnableMenuItem(hMenu, IDM_VIEW_CLONETOOTHER, MF_BYCOMMAND | (split ? MF_ENABLED : MF_GRAYED));
+	EnableMenuItem(hMenu, IDM_VIEW_SYNCHRONIZE_SCROLLING, MF_BYCOMMAND | (split ? MF_ENABLED : MF_GRAYED));
+	if (!split)
+		CheckMenuItem(hMenu, IDM_VIEW_SYNCHRONIZE_SCROLLING, MF_BYCOMMAND | MF_UNCHECKED);
+}
 
 void layoutSplitTopTabBars()
 {
@@ -29,7 +48,7 @@ void layoutSplitTopTabBars()
 	if (!contentView)
 		return;
 
-	const CGFloat tabHeight = 28;
+	const CGFloat tabHeight = NPP_TAB_BAR_HEIGHT;
 	const CGFloat topY = contentView.bounds.size.height - tabHeight;
 
 	auto* leftTabInfo = HandleRegistry::getWindowInfo(ctx().tabHwnd);
@@ -43,7 +62,9 @@ void layoutSplitTopTabBars()
 		}
 		else
 		{
-			leftTabView.frame = NSMakeRect(0, topY, contentView.bounds.size.width, tabHeight);
+			NSRect editorFrame = ctx().editorContainer ? ctx().editorContainer.frame :
+				NSMakeRect(0, 0, contentView.bounds.size.width, 0);
+			leftTabView.frame = NSMakeRect(editorFrame.origin.x, topY, editorFrame.size.width, tabHeight);
 		}
 	}
 
@@ -105,12 +126,13 @@ void doSplit()
 				if (iMessage == 1002 && lParam)
 				{
 					auto* scn = reinterpret_cast<const SciNotification*>(lParam);
-					if (scn->nmhdr.code == 2028)
+					if (scn->nmhdr.code == SCN_FOCUSIN)
 					{
 						// Clear smart highlights from the other view on focus switch
 						if (ctx().activeView != 1 && ctx().scintillaView)
 							clearSmartHighlight(ctx().scintillaView);
 						ctx().activeView = 1;
+						bindDocumentMapToActiveView();
 					}
 					else if (scn->nmhdr.code == SCN_SAVEPOINTLEFT)
 					{
@@ -155,16 +177,31 @@ void doSplit()
 							doBraceMatch(ctx().scintillaView2);
 							if (scn->updated & SC_UPDATE_SELECTION)
 								scheduleSmartHighlight(ctx().scintillaView2);
+							handleSyncScrollUpdate(ctx().scintillaView2, scn->updated);
+							handleDocumentMapUpdateUI(ctx().scintillaView2, scn->updated);
 						}
 					}
 					else if (scn->nmhdr.code == SCN_CHARADDED)
 					{
-						if (ctx().scintillaView2 && ctx().autoIndent)
+						if (ctx().scintillaView2)
 						{
 							int langIdx = -1;
 							if (ctx().activeTab2 >= 0 && ctx().activeTab2 < static_cast<int>(ctx().documents2.size()))
 								langIdx = ctx().documents2[ctx().activeTab2].languageIndex;
-							performAutoIndent(ctx().scintillaView2, scn->ch, langIdx);
+							if (ctx().autoCloseBrackets)
+								handleAutoCloseCharAdded(ctx().scintillaView2, scn->ch, langIdx);
+							if (ctx().autoIndent)
+								performAutoIndent(ctx().scintillaView2, scn->ch, langIdx);
+						}
+					}
+					else if (scn->nmhdr.code == SCN_MODIFIED)
+					{
+						if (ctx().scintillaView2 && ctx().autoCloseBrackets)
+						{
+							int langIdx = -1;
+							if (ctx().activeTab2 >= 0 && ctx().activeTab2 < static_cast<int>(ctx().documents2.size()))
+								langIdx = ctx().documents2[ctx().activeTab2].languageIndex;
+							handleAutoCloseModified(ctx().scintillaView2, scn, langIdx);
 						}
 					}
 				}
@@ -202,6 +239,7 @@ void doSplit()
 	ctx().splitView.delegate = (id<NSSplitViewDelegate>)ctx().mainWindow.delegate;
 	ctx().isSplit = true;
 	layoutSplitTopTabBars();
+	updateSplitMenuState();
 
 	ScintillaBridge_resizeToFit(ctx().scintillaView);
 	if (ctx().scintillaView2)
@@ -215,6 +253,11 @@ void doSplit()
 		intptr_t wrapMode = ScintillaBridge_sendMessage(ctx().scintillaView, SCI_GETWRAPMODE, 0, 0);
 		ScintillaBridge_sendMessage(ctx().scintillaView2, SCI_SETWRAPMODE, wrapMode, 0);
 	}
+
+	relayoutDocumentMap();
+	bindDocumentMapToActiveView();
+	updateDocumentMapViewport();
+	refreshSyncScrollAnchor();
 }
 
 void doUnsplit()
@@ -240,6 +283,7 @@ void doUnsplit()
 	{
 		cancelPendingSmartHighlight();
 		ScintillaBridge_clearNotifyCallback(ctx().scintillaView2);
+		autoCloseOnViewDestroyed(ctx().scintillaView2);
 		ScintillaBridge_destroyView(ctx().scintillaView2);
 		ctx().scintillaView2 = nullptr;
 	}
@@ -262,8 +306,8 @@ void doUnsplit()
 	[ctx().splitView removeFromSuperview];
 	ctx().splitView = nil;
 
-	CGFloat tabHeight = 28;
-	CGFloat statusHeight = 22;
+	CGFloat tabHeight = NPP_TAB_BAR_HEIGHT;
+	CGFloat statusHeight = NPP_STATUS_BAR_HEIGHT;
 	CGFloat editorHeight = contentView.bounds.size.height - tabHeight - statusHeight;
 	ctx().editorContainer.frame = NSMakeRect(0, statusHeight, contentView.bounds.size.width, editorHeight);
 	ctx().editorContainer.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
@@ -274,11 +318,17 @@ void doUnsplit()
 	ctx().activeTab2 = -1;
 	ctx().activeView = 0;
 	ctx().isSplit = false;
+	ctx().syncScrollReentrant = false;
+	refreshSyncScrollAnchor();
 
 	if (isIncrementalSearchVisible())
 		updateIncrementalSearchTarget();
 
 	layoutSplitTopTabBars();
+	updateSplitMenuState();
+	relayoutDocumentMap();
+	bindDocumentMapToActiveView();
+	updateDocumentMapViewport();
 }
 
 void doMoveToOtherView()

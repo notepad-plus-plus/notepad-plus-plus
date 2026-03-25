@@ -9,6 +9,8 @@
 #include "scintilla_bridge.h"
 #include "smart_highlight.h"
 #include "incremental_search.h"
+#include "document_map.h"
+#include "sync_scroll.h"
 #include "windows.h"
 #include "commctrl.h"
 #include "handle_registry.h"
@@ -110,6 +112,9 @@ void switchToTabInView(int viewIndex, int tabIndex)
 		SendMessageW(tabHwnd, TCM_SETCURSEL, tabIndex, 0);
 	restoreViewToScintilla(sci, docs, tabIndex);
 	applyLanguageToView(sci, docs[tabIndex].languageIndex);
+	bindDocumentMapToActiveView();
+	updateDocumentMapViewport();
+	refreshSyncScrollAnchor();
 
 	if (isIncrementalSearchVisible())
 		updateIncrementalSearchTarget();
@@ -168,6 +173,12 @@ int addNewTabToView(int viewIndex, const std::wstring& title, const std::string&
 	ctx().suppressSavePointNotifications = false;
 
 	applyLanguageToView(sci, langIndex);
+	if (viewIndex == ctx().activeView)
+	{
+		bindDocumentMapToActiveView();
+		updateDocumentMapViewport();
+	}
+	refreshSyncScrollAnchor();
 
 	NSString* nsTitle = WideToNSString(title.c_str());
 	[ctx().mainWindow setTitle:[NSString stringWithFormat:@"Notepad++ — %@", nsTitle]];
@@ -230,6 +241,12 @@ void closeTabFromView(int viewIndex, int tabIndex)
 		SendMessageW(tabHwnd, TCM_SETCURSEL, activeTab, 0);
 	restoreViewToScintilla(sci, docs, activeTab);
 	applyLanguageToView(sci, docs[activeTab].languageIndex);
+	if (viewIndex == ctx().activeView)
+	{
+		bindDocumentMapToActiveView();
+		updateDocumentMapViewport();
+	}
+	refreshSyncScrollAnchor();
 
 	const auto& doc = docs[activeTab];
 	NSString* title = WideToNSString(doc.title.c_str());

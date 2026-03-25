@@ -24,6 +24,9 @@
 #include "brace_match.h"
 #include "smart_highlight.h"
 #include "auto_indent.h"
+#include "auto_close.h"
+#include "sync_scroll.h"
+#include "document_map.h"
 #include "toolbar.h"
 #include "scintilla_notify.h"
 #include "windows.h"
@@ -114,10 +117,14 @@ static void setDockIconFromLogo()
 	ctx().zoomLevel = s.zoomLevel;
 	ctx().showCaretLine = s.showCaretLine;
 	ctx().autoIndent = s.autoIndent;
+	ctx().autoCloseBrackets = s.autoCloseBrackets;
 	ctx().useTabs = s.useTabs;
 	ctx().showWhitespace = s.showWhitespace;
 	ctx().showEol = s.showEol;
 	ctx().showIndentGuides = s.showIndentGuides;
+	ctx().syncScrolling = s.syncScrolling;
+	ctx().documentMapEnabled = s.documentMap;
+	ctx().documentMapWidth = s.documentMapWidth;
 	setDockIconFromLogo();
 
 	ctx().recentFiles.clear();
@@ -168,6 +175,7 @@ static void setDockIconFromLogo()
 	}
 
 	SetMenu(ctx().mainHwnd, hMenuBar);
+	updateSplitMenuState();
 
 	setupToolbar(ctx().mainWindow);
 
@@ -201,8 +209,8 @@ static void setDockIconFromLogo()
 	SendMessageW(ctx().statusBarHwnd, SB_SETTEXTW, 4, reinterpret_cast<LPARAM>(L"LF"));
 	SendMessageW(ctx().statusBarHwnd, SB_SETTEXTW, 5, reinterpret_cast<LPARAM>(L"Ready"));
 
-	CGFloat tabHeight = 28;
-	CGFloat statusHeight = 22;
+	CGFloat tabHeight = NPP_TAB_BAR_HEIGHT;
+	CGFloat statusHeight = NPP_STATUS_BAR_HEIGHT;
 	CGFloat editorHeight = contentView.bounds.size.height - tabHeight - statusHeight;
 
 	if (ctx().statusBarHwnd)
@@ -230,6 +238,9 @@ static void setDockIconFromLogo()
 
 	configureScintilla(ctx().scintillaView);
 	applyAppearance();
+	if (ctx().documentMapEnabled)
+		initializeDocumentMap();
+	setSyncScrollingEnabled(ctx().syncScrolling);
 
 	// Scintilla notification callback for main view
 	ScintillaBridge_setNotifyCallback(ctx().scintillaView, (intptr_t)ctx().mainHwnd,
@@ -238,12 +249,13 @@ static void setDockIconFromLogo()
 			{
 				auto* scn = reinterpret_cast<const SciNotification*>(lParam);
 
-				if (scn->nmhdr.code == 2028) // SCN_FOCUSIN
+				if (scn->nmhdr.code == SCN_FOCUSIN)
 				{
 					// Clear smart highlights from the other view on focus switch
 					if (ctx().activeView != 0 && ctx().scintillaView2)
 						clearSmartHighlight(ctx().scintillaView2);
 					ctx().activeView = 0;
+					bindDocumentMapToActiveView();
 				}
 				else if (scn->nmhdr.code == SCN_SAVEPOINTLEFT)
 				{
@@ -291,15 +303,31 @@ static void setDockIconFromLogo()
 					doBraceMatch(ctx().scintillaView);
 					if (scn->updated & SC_UPDATE_SELECTION)
 						scheduleSmartHighlight(ctx().scintillaView);
+					handleSyncScrollUpdate(ctx().scintillaView, scn->updated);
+					handleDocumentMapUpdateUI(ctx().scintillaView, scn->updated);
 				}
 				else if (scn->nmhdr.code == SCN_CHARADDED)
 				{
+					int langIdx = -1;
+					if (ctx().activeTab >= 0 && ctx().activeTab < static_cast<int>(ctx().documents.size()))
+						langIdx = ctx().documents[ctx().activeTab].languageIndex;
+
+					if (ctx().autoCloseBrackets)
+						handleAutoCloseCharAdded(ctx().scintillaView, scn->ch, langIdx);
+
 					if (ctx().autoIndent)
+					{
+						performAutoIndent(ctx().scintillaView, scn->ch, langIdx);
+					}
+				}
+				else if (scn->nmhdr.code == SCN_MODIFIED)
+				{
+					if (ctx().autoCloseBrackets)
 					{
 						int langIdx = -1;
 						if (ctx().activeTab >= 0 && ctx().activeTab < static_cast<int>(ctx().documents.size()))
 							langIdx = ctx().documents[ctx().activeTab].languageIndex;
-						performAutoIndent(ctx().scintillaView, scn->ch, langIdx);
+						handleAutoCloseModified(ctx().scintillaView, scn, langIdx);
 					}
 				}
 			}
@@ -438,6 +466,11 @@ static void setDockIconFromLogo()
 		[_pendingFiles removeAllObjects];
 	}
 
+	updateSplitMenuState();
+	setDocumentMapEnabled(ctx().documentMapEnabled);
+	bindDocumentMapToActiveView();
+	updateDocumentMapViewport();
+
 	NSLog(@"=== Notepad++ macOS Port — Phase 7 ===");
 	NSLog(@"Settings, split view, edit commands, encoding, session, drag-and-drop!");
 }
@@ -531,10 +564,14 @@ static void setDockIconFromLogo()
 	s.zoomLevel = ctx().zoomLevel;
 	s.showCaretLine = ctx().showCaretLine;
 	s.autoIndent = ctx().autoIndent;
+	s.autoCloseBrackets = ctx().autoCloseBrackets;
 	s.useTabs = ctx().useTabs;
 	s.showWhitespace = ctx().showWhitespace;
 	s.showEol = ctx().showEol;
 	s.showIndentGuides = ctx().showIndentGuides;
+	s.syncScrolling = ctx().syncScrolling;
+	s.documentMap = ctx().documentMapEnabled;
+	s.documentMapWidth = ctx().documentMapWidth;
 	s.wordWrap = ctx().scintillaView ?
 		(ScintillaBridge_sendMessage(ctx().scintillaView, SCI_GETWRAPMODE, 0, 0) != 0) : false;
 
@@ -558,9 +595,12 @@ static void setDockIconFromLogo()
 	if (ctx().scintillaView)
 	{
 		ScintillaBridge_clearNotifyCallback(ctx().scintillaView);
+		autoCloseOnViewDestroyed(ctx().scintillaView);
 		ScintillaBridge_destroyView(ctx().scintillaView);
 		ctx().scintillaView = nullptr;
 	}
+
+	destroyDocumentMap();
 }
 
 - (void)windowDidResize:(NSNotification*)notification
@@ -571,11 +611,15 @@ static void setDockIconFromLogo()
 		ScintillaBridge_resizeToFit(ctx().scintillaView2);
 
 	layoutSplitTopTabBars();
+	relayoutDocumentMap();
+	updateDocumentMapViewport();
 }
 
 - (void)splitViewDidResizeSubviews:(NSNotification*)notification
 {
 	layoutSplitTopTabBars();
+	relayoutDocumentMap();
+	updateDocumentMapViewport();
 }
 
 @end

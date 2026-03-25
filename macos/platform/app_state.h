@@ -58,6 +58,7 @@ struct AppContext
 	bool showWhitespace = false;
 	bool showEol = false;
 	bool showIndentGuides = false;
+	bool autoCloseBrackets = true;
 
 	// Split view state
 	void* scintillaView2 = nullptr;
@@ -70,9 +71,25 @@ struct AppContext
 	NSView* editorContainer = nil;
 	NSView* editorContainer2 = nil;
 	NSView* sciContainer2 = nil;
+	bool syncScrolling = false;
+	bool syncScrollReentrant = false;
+	bool suppressSyncScroll = false; // Suppresses sync during batch fold operations
+	intptr_t syncScrollVDelta = 0;   // Main first-visible - sub first-visible
+	bool syncScrollVDeltaValid = false;
+
+	// Document map state
+	bool documentMapEnabled = false;
+	int documentMapWidth = 140;
+	NSView* documentMapContainer = nil;
+	NSView* documentMapOverlay = nil;
+	void* documentMapScintilla = nullptr;
+	intptr_t documentMapBoundDoc = 0; // Currently bound document pointer (for ref counting)
 
 	// Notification suppression (prevents false dirty indicators during tab switches)
 	bool suppressSavePointNotifications = false;
+
+	// Auto-close internal edit guard (prevents recursive handling on programmatic edits)
+	bool autoCloseInternalEdit = false;
 
 	// Incremental search bar state
 	NSView* incrementalSearchBar = nil;

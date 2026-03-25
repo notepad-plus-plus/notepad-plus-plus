@@ -9,6 +9,7 @@
 #include "document_manager.h"
 #include "file_operations.h"
 #include "split_view.h"
+#include "sync_scroll.h"
 #include "scintilla_bridge.h"
 #include "windows.h"
 #include "commctrl.h"
@@ -182,11 +183,13 @@ void restoreSession()
 				}
 
 				ctx().activeView = 0;
+				refreshSyncScrollAnchor();
 			}
 		}
 		else if (wasSplit && ctx().documents.size() > 0)
 		{
 			doSplit();
+			refreshSyncScrollAnchor();
 		}
 	}
 }

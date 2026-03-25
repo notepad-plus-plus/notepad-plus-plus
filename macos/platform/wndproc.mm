@@ -26,6 +26,9 @@
 #include "lexer_styles.h"
 #include "language_defs.h"
 #include "scintilla_bridge.h"
+#include "auto_close.h"
+#include "sync_scroll.h"
+#include "document_map.h"
 #include "windows.h"
 #include "commctrl.h"
 
@@ -194,13 +197,25 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				case IDM_VIEW_FOLDALL:
 				{
 					void* sci = ctx().activeScintillaView();
-					if (sci) ScintillaBridge_sendMessage(sci, SCI_FOLDALL, SC_FOLDACTION_CONTRACT, 0);
+					if (sci)
+					{
+						ctx().suppressSyncScroll = true;
+						ScintillaBridge_sendMessage(sci, SCI_FOLDALL, SC_FOLDACTION_CONTRACT, 0);
+						ctx().suppressSyncScroll = false;
+						syncScrollNow();
+					}
 					return 0;
 				}
 				case IDM_VIEW_UNFOLDALL:
 				{
 					void* sci = ctx().activeScintillaView();
-					if (sci) ScintillaBridge_sendMessage(sci, SCI_FOLDALL, SC_FOLDACTION_EXPAND, 0);
+					if (sci)
+					{
+						ctx().suppressSyncScroll = true;
+						ScintillaBridge_sendMessage(sci, SCI_FOLDALL, SC_FOLDACTION_EXPAND, 0);
+						ctx().suppressSyncScroll = false;
+						syncScrollNow();
+					}
 					return 0;
 				}
 				case IDM_VIEW_PREFERENCES:
@@ -258,6 +273,23 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				case IDM_EDIT_AUTOCOMPLETE:
 					showAutoComplete();
 					return 0;
+				case IDM_EDIT_AUTOCLOSE_BRACKETS:
+				{
+					ctx().autoCloseBrackets = !ctx().autoCloseBrackets;
+					if (!ctx().autoCloseBrackets)
+					{
+						// Clear stale per-view state to prevent unexpected behavior on re-enable
+						if (ctx().scintillaView)
+							autoCloseOnViewDestroyed(ctx().scintillaView);
+						if (ctx().scintillaView2)
+							autoCloseOnViewDestroyed(ctx().scintillaView2);
+					}
+					HMENU hMenu = GetMenu(hWnd);
+					if (hMenu)
+						CheckMenuItem(hMenu, IDM_EDIT_AUTOCLOSE_BRACKETS,
+						              MF_BYCOMMAND | (ctx().autoCloseBrackets ? MF_CHECKED : MF_UNCHECKED));
+					return 0;
+				}
 
 				case IDM_EDIT_UPPERCASE:
 				{
@@ -406,6 +438,26 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 						MF_BYCOMMAND | (ctx().showIndentGuides ? MF_CHECKED : MF_UNCHECKED));
 				return 0;
 			}
+			case IDM_VIEW_SYNCHRONIZE_SCROLLING:
+			{
+				if (!ctx().isSplit)
+					return 0;
+				setSyncScrollingEnabled(!ctx().syncScrolling);
+				HMENU hMenu = GetMenu(hWnd);
+				if (hMenu)
+					CheckMenuItem(hMenu, IDM_VIEW_SYNCHRONIZE_SCROLLING,
+					              MF_BYCOMMAND | (ctx().syncScrolling ? MF_CHECKED : MF_UNCHECKED));
+				return 0;
+			}
+			case IDM_VIEW_DOCUMENTMAP:
+			{
+				setDocumentMapEnabled(!ctx().documentMapEnabled);
+				HMENU hMenu = GetMenu(hWnd);
+				if (hMenu)
+					CheckMenuItem(hMenu, IDM_VIEW_DOCUMENTMAP,
+					              MF_BYCOMMAND | (ctx().documentMapEnabled ? MF_CHECKED : MF_UNCHECKED));
+				return 0;
+			}
 
 			case IDM_VIEW_FULLSCREEN:
 				if (ctx().mainWindow)
@@ -479,6 +531,19 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		}
 
 		case WM_INITMENUPOPUP:
+			updateSplitMenuState();
+			{
+				HMENU hMenu = GetMenu(hWnd);
+				if (hMenu)
+				{
+					CheckMenuItem(hMenu, IDM_VIEW_DOCUMENTMAP,
+					              MF_BYCOMMAND | (ctx().documentMapEnabled ? MF_CHECKED : MF_UNCHECKED));
+					CheckMenuItem(hMenu, IDM_EDIT_AUTOCLOSE_BRACKETS,
+					              MF_BYCOMMAND | (ctx().autoCloseBrackets ? MF_CHECKED : MF_UNCHECKED));
+					CheckMenuItem(hMenu, IDM_VIEW_SYNCHRONIZE_SCROLLING,
+					              MF_BYCOMMAND | (ctx().syncScrolling && ctx().isSplit ? MF_CHECKED : MF_UNCHECKED));
+				}
+			}
 			updateFilePathMenuState();
 			break;
 
@@ -571,6 +636,8 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				ScintillaBridge_resizeToFit(ctx().scintillaView);
 			if (ctx().isSplit && ctx().scintillaView2)
 				ScintillaBridge_resizeToFit(ctx().scintillaView2);
+			relayoutDocumentMap();
+			updateDocumentMapViewport();
 			return 0;
 
 		case WM_CLOSE:

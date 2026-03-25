@@ -8,3 +8,4 @@ void doSplit();
 void doUnsplit();
 void doMoveToOtherView();
 void doCloneToOtherView();
+void updateSplitMenuState();

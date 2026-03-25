@@ -408,8 +408,8 @@ enum {
 #define INDIC_SMART_HIGHLIGHT    29
 #define INDIC_INCREMENTAL_SEARCH 28
 
-// Bookmark marker
-#define BOOKMARK_MARKER  24
+// Bookmark marker — uses 19 to avoid conflict with history markers (20-24)
+#define BOOKMARK_MARKER  19
 #define BOOKMARK_MASK    (1 << BOOKMARK_MARKER)
 
 // Scintilla marker shapes
@@ -453,7 +453,7 @@ enum {
 #define SC_MARKNUM_HISTORY_REVERTED_TO_ORIGIN   21
 #define SC_MARKNUM_HISTORY_SAVED                22
 #define SC_MARKNUM_HISTORY_MODIFIED             23
-#define SC_MARKNUM_HISTORY_REVERTED_TO_MODIFIED 20
+#define SC_MARKNUM_HISTORY_REVERTED_TO_MODIFIED 24
 
 // Change history margin
 #define CHANGE_HISTORY_MARGIN  3

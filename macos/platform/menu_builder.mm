@@ -111,6 +111,7 @@ HMENU buildMenuBar()
 	AppendMenuW(hViewMenu, MF_STRING | (ctx().showWhitespace ? MF_CHECKED : MF_UNCHECKED), IDM_VIEW_SHOW_WS, L"Show &Whitespace && TAB");
 	AppendMenuW(hViewMenu, MF_STRING | (ctx().showEol ? MF_CHECKED : MF_UNCHECKED), IDM_VIEW_SHOW_EOL, L"Show &End of Line");
 	AppendMenuW(hViewMenu, MF_STRING | (ctx().showIndentGuides ? MF_CHECKED : MF_UNCHECKED), IDM_VIEW_SHOW_INDENT, L"Show &Indent Guides");
+	AppendMenuW(hViewMenu, MF_STRING | (ctx().showChangeHistory ? MF_CHECKED : MF_UNCHECKED), IDM_VIEW_CHANGE_HISTORY, L"Show Change &History");
 	AppendMenuW(hViewMenu, MF_SEPARATOR, 0, nullptr);
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_FOLDALL, L"&Fold All");
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_UNFOLDALL, L"&Unfold All");

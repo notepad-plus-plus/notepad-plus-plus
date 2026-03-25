@@ -59,6 +59,7 @@ struct AppContext
 	bool showEol = false;
 	bool showIndentGuides = false;
 	bool autoCloseBrackets = true;
+	bool showChangeHistory = true;
 
 	// Split view state
 	void* scintillaView2 = nullptr;

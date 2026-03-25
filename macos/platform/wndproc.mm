@@ -29,6 +29,7 @@
 #include "auto_close.h"
 #include "sync_scroll.h"
 #include "document_map.h"
+#include "change_history.h"
 #include "windows.h"
 #include "commctrl.h"
 
@@ -458,6 +459,21 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					              MF_BYCOMMAND | (ctx().documentMapEnabled ? MF_CHECKED : MF_UNCHECKED));
 				return 0;
 			}
+			case IDM_VIEW_CHANGE_HISTORY:
+			{
+				ctx().showChangeHistory = !ctx().showChangeHistory;
+				void* views[] = { ctx().scintillaView, ctx().scintillaView2 };
+				for (void* v : views)
+				{
+					if (v)
+						setChangeHistoryMarginVisible(v, ctx().showChangeHistory);
+				}
+				HMENU hMenu = GetMenu(hWnd);
+				if (hMenu)
+					CheckMenuItem(hMenu, IDM_VIEW_CHANGE_HISTORY,
+					              MF_BYCOMMAND | (ctx().showChangeHistory ? MF_CHECKED : MF_UNCHECKED));
+				return 0;
+			}
 
 			case IDM_VIEW_FULLSCREEN:
 				if (ctx().mainWindow)
@@ -542,6 +558,8 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					              MF_BYCOMMAND | (ctx().autoCloseBrackets ? MF_CHECKED : MF_UNCHECKED));
 					CheckMenuItem(hMenu, IDM_VIEW_SYNCHRONIZE_SCROLLING,
 					              MF_BYCOMMAND | (ctx().syncScrolling && ctx().isSplit ? MF_CHECKED : MF_UNCHECKED));
+					CheckMenuItem(hMenu, IDM_VIEW_CHANGE_HISTORY,
+					              MF_BYCOMMAND | (ctx().showChangeHistory ? MF_CHECKED : MF_UNCHECKED));
 				}
 			}
 			updateFilePathMenuState();

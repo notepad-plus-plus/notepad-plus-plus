@@ -98,6 +98,7 @@ constexpr double NPP_STATUS_BAR_HEIGHT = 22.0;
 #define IDM_VIEW_SHOW_INDENT         42082
 #define IDM_VIEW_SYNCHRONIZE_SCROLLING 42083
 #define IDM_VIEW_DOCUMENTMAP         42084
+#define IDM_VIEW_CHANGE_HISTORY      42085
 
 // Tab context menu command IDs
 #define IDM_TAB_CLOSE            42200
@@ -347,6 +348,10 @@ enum {
 	SCI_INDICATORCLEARRANGE  = 2505,
 	SCI_WORDENDPOSITION      = 2267,
 	SCI_GETSELECTIONEMPTY    = 2650,
+
+	// Change history
+	SCI_SETCHANGEHISTORY     = 2780,
+	SCI_GETCHANGEHISTORY     = 2781,
 };
 
 // Scintilla key constants
@@ -437,6 +442,25 @@ enum {
 #define SC_FOLDACTION_TOGGLE      2
 #define SC_FOLDLEVELHEADERFLAG    0x2000
 #define SC_AUTOMATICFOLD_CLICK    0x0004
+
+// Change history constants
+#define SC_CHANGE_HISTORY_DISABLED  0
+#define SC_CHANGE_HISTORY_ENABLED   1
+#define SC_CHANGE_HISTORY_MARKERS   2
+#define SC_CHANGE_HISTORY_INDICATORS 4
+
+// Change history marker numbers (Scintilla-defined)
+#define SC_MARKNUM_HISTORY_REVERTED_TO_ORIGIN   21
+#define SC_MARKNUM_HISTORY_SAVED                22
+#define SC_MARKNUM_HISTORY_MODIFIED             23
+#define SC_MARKNUM_HISTORY_REVERTED_TO_MODIFIED 20
+
+// Change history margin
+#define CHANGE_HISTORY_MARGIN  3
+#define CHANGE_HISTORY_MASK    ((1 << SC_MARKNUM_HISTORY_REVERTED_TO_ORIGIN) | \
+                                (1 << SC_MARKNUM_HISTORY_SAVED) | \
+                                (1 << SC_MARKNUM_HISTORY_MODIFIED) | \
+                                (1 << SC_MARKNUM_HISTORY_REVERTED_TO_MODIFIED))
 
 // Scintilla notification codes
 #define SCN_CHARADDED        2001

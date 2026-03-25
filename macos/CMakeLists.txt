@@ -345,6 +345,7 @@ add_executable(MacOSNotePP
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/wndproc.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/appearance.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/scintilla_config.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/change_history.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/lexer_styles.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/language_defs.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/bookmarks.mm"

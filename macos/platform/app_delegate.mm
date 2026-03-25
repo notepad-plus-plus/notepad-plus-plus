@@ -124,6 +124,7 @@ static void setDockIconFromLogo()
 	ctx().showIndentGuides = s.showIndentGuides;
 	ctx().syncScrolling = s.syncScrolling;
 	ctx().documentMapEnabled = s.documentMap;
+	ctx().showChangeHistory = s.showChangeHistory;
 	ctx().documentMapWidth = s.documentMapWidth;
 	setDockIconFromLogo();
 
@@ -571,6 +572,7 @@ static void setDockIconFromLogo()
 	s.showIndentGuides = ctx().showIndentGuides;
 	s.syncScrolling = ctx().syncScrolling;
 	s.documentMap = ctx().documentMapEnabled;
+	s.showChangeHistory = ctx().showChangeHistory;
 	s.documentMapWidth = ctx().documentMapWidth;
 	s.wordWrap = ctx().scintillaView ?
 		(ScintillaBridge_sendMessage(ctx().scintillaView, SCI_GETWRAPMODE, 0, 0) != 0) : false;

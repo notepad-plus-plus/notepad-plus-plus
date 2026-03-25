@@ -7,6 +7,7 @@
 #include "scintilla_bridge.h"
 #include "keyboard_shortcuts.h"
 #include "smart_highlight.h"
+#include "change_history.h"
 
 void configureScintilla(void* sci)
 {
@@ -77,6 +78,8 @@ void configureScintilla(void* sci)
 	ScintillaBridge_sendMessage(sci, SCI_INDICSETALPHA, INDIC_INCREMENTAL_SEARCH, 80);
 	ScintillaBridge_sendMessage(sci, SCI_INDICSETOUTLINEALPHA, INDIC_INCREMENTAL_SEARCH, 200);
 	ScintillaBridge_sendMessage(sci, SCI_INDICSETUNDER, INDIC_INCREMENTAL_SEARCH, 1);
+
+	configureChangeHistory(sci);
 
 	configureKeyboardShortcuts(sci);
 }

@@ -240,8 +240,32 @@ void performAutoIndent(void* sci, int charAdded, int languageIndex)
 			indent.append(tabWidth, ' ');
 	}
 
+	// Check if the cursor sits immediately before a closing brace.
+	// If so, split the brace onto its own line with base indentation.
+	bool splitBrace = false;
+	if (addIndent)
+	{
+		char nextCh = static_cast<char>(ScintillaBridge_sendMessage(sci, SCI_GETCHARAT, curPos, 0));
+		splitBrace = (nextCh == '}');
+	}
+
+	std::string toInsert = indent;
+	if (splitBrace)
+	{
+		intptr_t eolMode = ScintillaBridge_sendMessage(sci, SCI_GETEOLMODE, 0, 0);
+		const char* eolStr = (eolMode == SC_EOL_CR) ? "\r" : (eolMode == SC_EOL_CRLF) ? "\r\n" : "\n";
+		toInsert += eolStr;
+		toInsert += leadingWS;
+	}
+
 	// Insert the indentation on the new line as a single undoable action
 	ScintillaBridge_sendMessage(sci, SCI_BEGINUNDOACTION, 0, 0);
-	ScintillaBridge_sendMessage(sci, SCI_REPLACESEL, 0, (intptr_t)indent.c_str());
+	ScintillaBridge_sendMessage(sci, SCI_REPLACESEL, 0, (intptr_t)toInsert.c_str());
+	if (splitBrace)
+	{
+		// Position cursor on the middle line (after indent, before the closing brace line)
+		intptr_t newPos = curPos + static_cast<intptr_t>(indent.size());
+		ScintillaBridge_sendMessage(sci, SCI_GOTOPOS, newPos, 0);
+	}
 	ScintillaBridge_sendMessage(sci, SCI_ENDUNDOACTION, 0, 0);
 }

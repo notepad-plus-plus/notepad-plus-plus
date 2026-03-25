@@ -41,27 +41,28 @@ void applyChangeHistoryColors(void* sci, bool isDark)
 {
 	if (!sci) return;
 
+	// Scintilla colour parameters use IpRGB integer ordering (0x00BBGGRR).
 	// Modified (unsaved changes) — orange/amber
 	ScintillaBridge_sendMessage(sci, SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_MODIFIED,
-		isDark ? 0x00A5FF : 0x0080CC);  // BGR: orange tones
+		isDark ? 0x00A5FF : 0x0080CC);
 	ScintillaBridge_sendMessage(sci, SCI_MARKERSETFORE, SC_MARKNUM_HISTORY_MODIFIED,
 		isDark ? 0x00A5FF : 0x0080CC);
 
 	// Saved (modified then saved) — green
 	ScintillaBridge_sendMessage(sci, SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_SAVED,
-		isDark ? 0x50C850 : 0x008000);  // BGR: green tones
+		isDark ? 0x50C850 : 0x008000);
 	ScintillaBridge_sendMessage(sci, SCI_MARKERSETFORE, SC_MARKNUM_HISTORY_SAVED,
 		isDark ? 0x50C850 : 0x008000);
 
 	// Reverted to origin — blue
 	ScintillaBridge_sendMessage(sci, SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_REVERTED_TO_ORIGIN,
-		isDark ? 0xFF8050 : 0xCC6600);  // BGR: blue tones
+		isDark ? 0xFF8050 : 0xCC6600);
 	ScintillaBridge_sendMessage(sci, SCI_MARKERSETFORE, SC_MARKNUM_HISTORY_REVERTED_TO_ORIGIN,
 		isDark ? 0xFF8050 : 0xCC6600);
 
 	// Reverted to modified — cyan/teal
 	ScintillaBridge_sendMessage(sci, SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_REVERTED_TO_MODIFIED,
-		isDark ? 0xD0D050 : 0xA0A000);  // BGR: cyan/teal tones
+		isDark ? 0xD0D050 : 0xA0A000);
 	ScintillaBridge_sendMessage(sci, SCI_MARKERSETFORE, SC_MARKNUM_HISTORY_REVERTED_TO_MODIFIED,
 		isDark ? 0xD0D050 : 0xA0A000);
 }

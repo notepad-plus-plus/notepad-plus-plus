@@ -408,7 +408,7 @@ enum {
 #define INDIC_SMART_HIGHLIGHT    29
 #define INDIC_INCREMENTAL_SEARCH 28
 
-// Bookmark marker — uses 19 to avoid conflict with history markers (20-24)
+// Bookmark marker — uses 19 to avoid conflict with history markers (21-24)
 #define BOOKMARK_MARKER  19
 #define BOOKMARK_MASK    (1 << BOOKMARK_MARKER)
 

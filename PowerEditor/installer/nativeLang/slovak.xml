@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.9.2">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.9.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -39,7 +39,7 @@
 					<Item subMenuId="edit-onSelection" name="V&amp;ybraný text"/>
 					<Item subMenuId="edit-multiSelectALL" name="Viacnásobný výber VŠETKO"/>
 					<Item subMenuId="edit-multiSelectNext" name="Viacnásobný výber Ďalší"/>
-					<Item subMenuId="edit-readonlyInNotepad++" name="Iba na čítanie v Notepad++"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="'Iba na čítanie' v Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="História zmien"/>
 					<Item subMenuId="search-markAll" name="Použiť štýl na vše&amp;tky tokeny"/>
 					<Item subMenuId="search-markOne" name="Použiť štýl na &amp;jeden token"/>
@@ -198,8 +198,8 @@
 					<Item id="42025" name="Uložiť aktuálne zaznamenané ma&amp;kro…"/>
 					<Item id="42026" name="Smer textu sprava do&amp;ľava"/>
 					<Item id="42027" name="Smer te&amp;xtu zľava doprava"/>
-					<Item id="42028" name="Iba na čítanie pre aktuálny dokument"/>
-					<Item id="42102" name="Iba na čítanie pre všetky dokumenty"/>
+					<Item id="42028" name="'Iba na čítanie' pre aktuálny dokument"/>
+					<Item id="42102" name="'Iba na čítanie' pre všetky dokumenty"/>
 					<Item id="42103" name="Odstrániť 'Iba na čítanie' pre všetky dokumenty"/>
 					<Item id="42029" name="Skopírovať cestu k aktuálnemu súboru"/>
 					<Item id="42030" name="Skopírovať názov aktuálneho súboru"/>
@@ -207,7 +207,7 @@
 					<Item id="42087" name="Všetky názvy súborov"/>
 					<Item id="42088" name="Všetky cesty súborov"/>
 					<Item id="42032" name="Spustiť makro &amp;viacnásobne…"/>
-					<Item id="42033" name="Atribút Iba na čítanie vo Windowse"/>
+					<Item id="42033" name="Atribút 'Iba na čítanie' vo Windowse"/>
 					<Item id="42035" name="Zakomentovať riadok"/>
 					<Item id="42036" name="Odkomentovať riadok"/>
 					<Item id="42055" name="Odstrániť prázdne riadky"/>
@@ -315,7 +315,7 @@
 					<Item id="44117" name="Posledná karta"/>
 					<Item id="44095" name="Nasledujúca karta"/>
 					<Item id="44096" name="Predchádzajúca karta"/>
-					<Item id="44097" name="Sledovania zmien (tail -&amp;f)"/>
+					<Item id="44097" name="Sledovanie zmien (tail -&amp;f)"/>
 					<Item id="44098" name="Presunúť kartu dopredu"/>
 					<Item id="44099" name="Presunúť kartu dozadu"/>
 					<Item id="44110" name="Odstrániť farbu"/>
@@ -444,8 +444,8 @@
 				<Item CMDID="41016" name="Presunúť do koša…"/>
 				<Item CMDID="41014" name="Obnoviť"/>
 				<Item CMDID="41010" name="Tlačiť…"/>
-				<Item CMDID="42028" name="Iba na čítanie v Notepad++"/>
-				<Item CMDID="42033" name="Atribút Iba na čítanie vo Windowse"/>
+				<Item CMDID="42028" name="'Iba na čítanie' v Notepad++"/>
+				<Item CMDID="42033" name="Atribút 'Iba na čítanie' vo Windowse"/>
 				<Item CMDID="2" name="Kopírovať do schránky"/>
 				<Item CMDID="42029" name="Skopírovať celú cestu k súboru"/>
 				<Item CMDID="42030" name="Skopírovať názov súboru"/>
@@ -1606,7 +1606,7 @@ Ak potrebujete funkciu spätného vyhľadávania pomocou regulárnych výrazov, 
 			<FindAutoChangeOfInSelectionWarning title="Upozornenie na vyhľadávanie" message="Stav začiarkavacieho poľa &quot;Vo výbere&quot; sa automaticky zmení.
 Prosím, overte podmienku vyhľadávania pred vykonaním akcie."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ je potrebné reštartovať" message="Notepad++ je potrebné reštartovať, aby sa zobrazili ovládacie prvky."/>
-			<NoAdminRight2ChangeReadOnlyFileAttribute title="Zmena atribútu súboru len na čítanie zlyhala" message="Na zmenu atribútu súboru spustite Notepad++ ako správca."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Zmena atribútu súboru 'Iba na čítanie' zlyhala" message="Na zmenu atribútu súboru spustite Notepad++ ako správca."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="História schránky"/>
@@ -1720,10 +1720,10 @@ Prosím, overte podmienku vyhľadávania pred vykonaním akcie."/> <!-- HowToRep
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
 			<eol-custom-color-tip value="Pre zmenu predvolenej vlastnej farby EOL prejdite do Nastavenia štýlov (&quot;EOL custom color&quot;)."/>
 
-			<word-chars-list-warning-begin value="Pozor: V zozname znakov máte "/>
-			<word-chars-list-space-warning value="$INT_REPLACE$ medzeru(-y)"/>
+			<word-chars-list-warning-begin value="Pozor: "/>
+			<word-chars-list-space-warning value="$INT_REPLACE$ medzera(-y)"/>
 			<word-chars-list-tab-warning value="$INT_REPLACE$ tabulátor(-y)"/>
-			<word-chars-list-warning-end value="  vo vašom zozname znakov."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+			<word-chars-list-warning-end value=" v zozname znakov."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
 			<backup-select-folder value="Vyberte priečinok na zálohovanie"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value="Neplatná cesta"/>
 			<cloud-restart-warning value="Aby sa zmeny prejavili, reštartujte, prosím, Notepad++."/>
@@ -1772,6 +1772,7 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 			<find-status-scope-all value="v celom súbore"/>
 			<find-status-scope-backward value="od začiatku súboru po kurzor"/>
 			<find-status-scope-forward value="od kurzoru po koniec súboru"/>
+			<find-status-replace-invalid-replace-chars value="Nahradiť: v dokumente ANSI nie je možné nahradiť textom, ktorý nie je v kódovaní ANSI"/>
 			<find-status-invisible-chars-findWhat value="Do poľa &quot;Hľadať&quot; alebo &quot;Nahradiť čím&quot; boli vložené neviditeľné znaky"/>
 			<find-status-invisible-chars-findWhat-tip value="Upozornenie: Neviditeľné znaky v poli vyhľadávania (alebo nahradenia).
 Text vložený do tohto poľa obsahuje neviditeľné znaky (asi znaky konca riadka). Ak ich neodstránite, budú zahrnuté do vyhľadávaného (alebo nahradzovaného) textu."/>

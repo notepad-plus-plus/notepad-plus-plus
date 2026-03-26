@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9"><!-- Datum: 10.03.2026, basiert auf english.xml 8.9 vom 10.03.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.3"><!-- Datum: 26.03.2026, basiert auf english.xml 8.9.3 vom 25.03.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -50,7 +50,7 @@ Translation note:
 					<Item subMenuId="edit-onSelection" name="Mit Auswahl"/>
 					<Item subMenuId="edit-multiSelectALL" name="Mehrfachauswahl ALLE"/>
 					<Item subMenuId="edit-multiSelectNext" name="Mehrfachauswahl Nächstes"/>
-					<Item subMenuId="edit-readonlyInNotepad++" name="Schreibschutz in Notepad++"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Schreibsch&amp;utz in Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="Änderungs-Historie"/>
 					<Item subMenuId="search-markAll" name="&amp;Alle Treffer hervorheben"/>
 					<Item subMenuId="search-markOne" name="Di&amp;esen Treffer hervorheben"/>
@@ -60,13 +60,13 @@ Translation note:
 					<Item subMenuId="search-copyStyledText" name="Hervorgehobenen Text kopieren"/>
 					<Item subMenuId="search-bookmark" name="&amp;Lesezeichen"/>
 					<Item subMenuId="view-currentFileIn" name="Aktuelle Datei betrachten in"/>
-					<Item subMenuId="view-showSymbol" name="Symbole anzeigen"/>
+					<Item subMenuId="view-showSymbol" name="&amp;Symbole anzeigen"/>
 					<Item subMenuId="view-zoom" name="Z&amp;oom"/>
 					<Item subMenuId="view-moveCloneDocument" name="Datei &amp;verschieben/duplizieren"/>
 					<Item subMenuId="view-tab" name="&amp;Tabs"/>
 					<Item subMenuId="view-collapseLevel" name="T&amp;extblöcke schließen"/>
 					<Item subMenuId="view-uncollapseLevel" name="Te&amp;xtblöcke öffnen"/>
-					<Item subMenuId="view-project" name="Projektver&amp;waltung"/>
+					<Item subMenuId="view-project" name="Pro&amp;jektverwaltung"/>
 					<Item subMenuId="encoding-characterSets" name="&amp;Weitere Codepages"/>
 					<Item subMenuId="encoding-arabic" name="&amp;Arabisch"/>
 					<Item subMenuId="encoding-baltic" name="&amp;Baltisch"/>
@@ -86,10 +86,10 @@ Translation note:
 					<Item subMenuId="encoding-vietnamese" name="&amp;Vietnamesisch"/>
 					<Item subMenuId="language-userDefinedLanguage" name="Benutzerdefinierte Sprache"/>
 					<Item subMenuId="settings-import" name="&amp;Importieren"/>
-					<Item subMenuId="tools-md5" name="MD5"/>
-					<Item subMenuId="tools-sha1" name="SHA-1"/>
-					<Item subMenuId="tools-sha256" name="SHA-256"/>
-					<Item subMenuId="tools-sha512" name="SHA-512"/>
+					<Item subMenuId="tools-md5" name="&amp;MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-&amp;1"/>
+					<Item subMenuId="tools-sha256" name="SHA-&amp;256"/>
+					<Item subMenuId="tools-sha512" name="SHA-&amp;512"/>
 					<Item subMenuId="window-sortby" name="Sortieren nach"/>
 				</SubEntries>
 
@@ -210,15 +210,15 @@ Translation note:
 					<Item id="42026" name="Schreib&amp;richtung von rechts nach links"/>
 					<Item id="42027" name="Schreibrichtung von lin&amp;ks nach rechts"/>
 					<Item id="42028" name="Schreibsch&amp;utz für aktuelles Dokument"/>
-					<Item id="42102" name="Schreibschutz für alle Dokumente"/>
-					<Item id="42103" name="Entferne Schreibschutz für alle Dokumente"/>
+					<Item id="42102" name="Schreibschutz für &amp;alle Dokumente"/>
+					<Item id="42103" name="&amp;Entferne Schreibschutz für alle Dokumente"/>
 					<Item id="42029" name="Vollständigen Datei&amp;pfad kopieren"/>
 					<Item id="42030" name="Nur Datei&amp;namen kopieren"/>
 					<Item id="42031" name="Nur &amp;Verzeichnispfad kopieren"/>
 					<Item id="42087" name="Alle Dateinamen kopieren"/>
 					<Item id="42088" name="Alle vollständigen Dateipfade kopieren"/>
 					<Item id="42032" name="Makro &amp;mehrfach ausführen …"/>
-					<Item id="42033" name="Schreibschutz-Attribut in Windows"/>
+					<Item id="42033" name="Schreibschutz-Attribut in &amp;Windows"/>
 					<Item id="42035" name="Zeilen aus&amp;kommentieren"/>
 					<Item id="42036" name="Auskommentierung der Zeilen a&amp;ufheben"/>
 					<Item id="42055" name="&amp;Leerzeilen (nur völlig leere) löschen"/>
@@ -312,7 +312,7 @@ Translation note:
 					<Item id="44080" name="&amp;Miniaturansicht"/>
 					<Item id="44070" name="&amp;Dokumentenliste"/>
 					<Item id="44084" name="&amp;Funktionsliste"/>
-					<Item id="44085" name="Verzeichnis als Arbeitsbereich"/>
+					<Item id="44085" name="Verzei&amp;chnis als Arbeitsbereich"/>
 					<Item id="44086" name="&amp;1. Tab"/>
 					<Item id="44087" name="&amp;2. Tab"/>
 					<Item id="44088" name="&amp;3. Tab"/>
@@ -326,7 +326,7 @@ Translation note:
 					<Item id="44117" name="&amp;Letzter Tab"/>
 					<Item id="44095" name="&amp;Nächster Tab"/>
 					<Item id="44096" name="&amp;Vorheriger Tab"/>
-					<Item id="44097" name="Überwachen (tail -f)"/>
+					<Item id="44097" name="Über&amp;wachen (tail -f)"/>
 					<Item id="44098" name="Tab vorwärts bewegen"/>
 					<Item id="44099" name="Tab rückwärts bewegen"/>
 					<Item id="44110" name="Entferne Farbe"/>
@@ -395,18 +395,18 @@ Translation note:
 					<Item id="48011" name="&amp;Optionen …"/>
 					<Item id="48014" name="Plugin-Verzeichnis öffnen …"/>
 					<Item id="48015" name="Plugin-Verwaltung …"/>
-					<Item id="48501" name="Erstellen …"/>
-					<Item id="48502" name="Aus Dateien erstellen …"/>
-					<Item id="48503" name="Aus Auswahl in der Zwischenablage erstellen"/>
-					<Item id="48504" name="Erstellen …"/>
-					<Item id="48505" name="Aus Dateien erstellen …"/>
-					<Item id="48506" name="Aus Auswahl in der Zwischenablage erstellen"/>
-					<Item id="48507" name="Erstelle …"/>
-					<Item id="48508" name="Erstelle aus Dateien …"/>
-					<Item id="48509" name="Erstelle aus der Auswahl in die Zwischenablage"/>
-					<Item id="48510" name="Erstelle …"/>
-					<Item id="48511" name="Erstelle aus Dateien …"/>
-					<Item id="48512" name="Erstelle aus der Auswahl in die Zwischenablage"/>
+					<Item id="48501" name="&amp;Erstellen …"/>
+					<Item id="48502" name="Aus &amp;Dateien erstellen …"/>
+					<Item id="48503" name="Aus Auswahl in der &amp;Zwischenablage erstellen"/>
+					<Item id="48504" name="&amp;Erstellen …"/>
+					<Item id="48505" name="Aus &amp;Dateien erstellen …"/>
+					<Item id="48506" name="Aus Auswahl in der &amp;Zwischenablage erstellen"/>
+					<Item id="48507" name="&amp;Erstellen …"/>
+					<Item id="48508" name="Aus &amp;Dateien erstellen …"/>
+					<Item id="48509" name="Aus Auswahl in der &amp;Zwischenablage erstellen"/>
+					<Item id="48510" name="&amp;Erstellen …"/>
+					<Item id="48511" name="Aus &amp;Dateien erstellen …"/>
+					<Item id="48512" name="Aus Auswahl in der &amp;Zwischenablage erstellen"/>
 					<Item id="49000" name="Externes Programm &amp;ausführen …"/>
 
 					<Item id="50000" name="&amp;Funktionsvervollständigung"/>
@@ -423,16 +423,16 @@ Translation note:
 					<Item id="48017" name="Verknüpfung &amp;ändern/Befehl löschen …"/>
 
 					<Item id="11001" name="&amp;Fenster …"/>
-					<Item id="11002" name="Name A bis Z"/>
-					<Item id="11003" name="Name Z bis A"/>
-					<Item id="11004" name="Pfad A bis Z"/>
-					<Item id="11005" name="Pfad Z bis A"/>
-					<Item id="11006" name="Typ A bis Z"/>
-					<Item id="11007" name="Typ Z bis A"/>
-					<Item id="11008" name="Inhaltslänge aufsteigend"/>
-					<Item id="11009" name="Inhaltslänge absteigend"/>
-					<Item id="11010" name="Letzte Änderung aufsteigend"/>
-					<Item id="11011" name="Letzte Änderung absteigend"/>
+					<Item id="11002" name="&amp;Name A bis Z"/>
+					<Item id="11003" name="Name &amp;Z bis A"/>
+					<Item id="11004" name="&amp;Pfad A bis Z"/>
+					<Item id="11005" name="Pfad Z &amp;bis A"/>
+					<Item id="11006" name="&amp;Typ A bis Z"/>
+					<Item id="11007" name="T&amp;yp Z bis A"/>
+					<Item id="11008" name="&amp;Inhaltslänge aufsteigend"/>
+					<Item id="11009" name="In&amp;haltslänge absteigend"/>
+					<Item id="11010" name="&amp;Letzte Änderung aufsteigend"/>
+					<Item id="11011" name="Letzte Änderung ab&amp;steigend"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -456,7 +456,7 @@ Translation note:
 				<Item CMDID="41014" name="Neu &amp;laden"/>
 				<Item CMDID="41010" name="&amp;Drucken …"/>
 				<Item CMDID="42028" name="Schreibsch&amp;utz in Notepad++"/>
-				<Item CMDID="42033" name="Schreibschutz-Attribut in Windows"/>
+				<Item CMDID="42033" name="Schreibschutz-Attribut in &amp;Windows"/>
 				<Item CMDID="2" name="In Zwischenablage kopieren"/>
 				<Item CMDID="42029" name="Vollständigen Dateipfad &amp;kopieren"/>
 				<Item CMDID="42030" name="Nur Datei&amp;namen kopieren"/>
@@ -1784,6 +1784,7 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<find-status-scope-all value="in dieser Datei"/>
 			<find-status-scope-backward value="vom Dateianfang bis zum Cursor"/>
 			<find-status-scope-forward value="vom Cursor bis zum Dateiende"/>
+			<find-status-replace-invalid-replace-chars value="Ersetzen: Ein 'nicht-ANSI-Text' kann in einem ANSI-Dokument nicht ersetzt werden"/>
 			<find-status-invisible-chars-findWhat value="Unsichtbare Zeichen im eingefügten &quot;Suchen nach&quot;- oder &quot;Ersetzen durch&quot;-Inhalt"/>
 			<find-status-invisible-chars-findWhat-tip value="Warnung: Unsichtbare Zeichen im Suchen- oder Ersetzen-Feld.
 Der in diese Felder eingefügte Text enthält unsichtbare Zeichen (möglicherweise Zeilenumbrüche). Falls fortgefahren wird, ohne sie zu löschen, werden sie in den Suchen- oder Ersetzen-Text einbezogen."/>

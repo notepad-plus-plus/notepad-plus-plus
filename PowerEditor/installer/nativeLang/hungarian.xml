@@ -5,7 +5,7 @@
 <!-- Prohardver topic: https://prohardver.hu/tema/re_notepad/friss.html -->
 <!-- For more information see the Commits History: https://github.com/notepad-plus-plus/notepad-plus-plus/commits/master/PowerEditor/installer/nativeLang/hungarian.xml -->
 <NotepadPlus>
-	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.9">
+	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.9.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1775,6 +1775,7 @@ Keresés minden fájlban – kivéve rekurzívan a log vagy logs mappákat:
 			<find-status-scope-all value="az egész fájlban"/>
 			<find-status-scope-backward value="a fájl eleje és a kurzor között"/>
 			<find-status-scope-forward value="a kurzor és a fájl vége között"/>
+			<find-status-replace-invalid-replace-chars value="Csere: nem hajtható végre nem-ANSI szöveggel egy ANSI-dokumentumban"/>
 			<find-status-invisible-chars-findWhat value="Láthatatlan karakterek a beillesztett „Keresendő” vagy „Csere erre” tartalomban"/>
 			<find-status-invisible-chars-findWhat-tip value="Figyelem: láthatatlan karakterek a keresési (vagy csere) mezőben!
 A mezőbe beillesztett szöveg láthatatlan karaktereket (esetleg sorvégjeleket) tartalmaz. Ha nem törli ezeket, akkor bekerülnek a keresett (vagy cserélendő) szövegbe"/>
@@ -1910,5 +1911,3 @@ Ha a „Haladó szintű” módot választja, de nem a fenti nyelvek fájljait s
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
-
-

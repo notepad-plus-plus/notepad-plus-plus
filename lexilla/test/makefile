@@ -23,7 +23,7 @@ endif
 
 EXE = $(if $(windir),TestLexers.exe,TestLexers)
 
-BASE_FLAGS += --std=c++2a
+BASE_FLAGS += --std=c++20
 
 ifdef CLANG
     CXX = clang++

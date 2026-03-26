@@ -196,9 +196,11 @@ set void SetViewWS=2021(WhiteSpace viewWS,)
 enu TabDrawMode=SCTD_
 val SCTD_LONGARROW=0
 val SCTD_STRIKEOUT=1
+val SCTD_CONTROLCHAR=2
 
 ali SCTD_LONGARROW=LONG_ARROW
 ali SCTD_STRIKEOUT=STRIKE_OUT
+ali SCTD_CONTROLCHAR=CONTROL_CHAR
 
 # Retrieve the current tab draw mode.
 # Returns one of SCTD_* constants.

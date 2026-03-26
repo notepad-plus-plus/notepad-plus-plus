@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # LexillaData.py - implemented 2013 by Neil Hodgson neilh@scintilla.org
 # Released to the public domain.
-# Requires FileGenerator from Scintilla so scintilla must be a peer directory of lexilla.
 
 """
 Common code used by Lexilla and SciTE for source file regeneration.
@@ -59,7 +58,7 @@ def FindModules(lexFile):
     partLine = ""
     with lexFile.open(encoding=neutralEncoding) as f:
         lineNum = 0
-        for line in f.readlines():
+        for line in f:
             lineNum += 1
             line = line.rstrip()
             if partLine or line.startswith("extern const LexerModule"):
@@ -162,7 +161,7 @@ def FindProperties(lexFile):
     """ Return a set of property names in a lexer implementation file. """
     properties = set()
     with open(lexFile, encoding=neutralEncoding) as f:
-        for s in f.readlines():
+        for s in f:
             if ("GetProperty" in s or "DefineProperty" in s) and "\"" in s:
                 s = s.strip()
                 if not s.startswith("//"):	# Drop comments
@@ -180,7 +179,7 @@ def FindPropertyDocumentation(lexFile):
     documents = {}
     with lexFile.open(encoding=neutralEncoding) as f:
         name = ""
-        for line in f.readlines():
+        for line in f:
             line = line.strip()
             if "// property " in line:
                 propertyName = line.split()[2]
@@ -219,19 +218,19 @@ def FindPropertyDocumentation(lexFile):
 
 def FindCredits(historyFile):
     """ Return a list of contributors in a history file. """
-    creditList = []
+    credits = []
     stage = 0
     with historyFile.open(encoding="utf-8") as f:
-        for line in f.readlines():
-            line = line.strip()
-            if stage == 0 and line == "<table>":
+        for line in f:
+            s = line.strip()
+            if stage == 0 and s == "<table>":
                 stage = 1
-            elif stage == 1 and line == "</table>":
+            elif stage == 1 and s == "</table>":
                 stage = 2
-            if stage == 1 and line.startswith("<td>"):
-                credit = line[4:-5]
-                if "<a" in line:
-                    title, dummy, rest = credit.partition("<a href=")
+            if stage == 1 and s.startswith("<td>"):
+                credit = s[4:-5]
+                if "<a" in s:
+                    title, _, rest = credit.partition("<a href=")
                     urlplus, _bracket, end = rest.partition(">")
                     name = end.split("<")[0]
                     url = urlplus[1:-1]
@@ -239,8 +238,8 @@ def FindCredits(historyFile):
                     if credit:
                         credit += " "
                     credit += name + " " + url
-                creditList.append(credit)
-    return creditList
+                credits.append(credit)
+    return credits
 
 def ciKey(a):
     """ Return a string lowered to be used when sorting. """
@@ -261,7 +260,7 @@ class LexillaData:
         self.versionCommad = self.versionDotted.replace(".", ", ") + ', 0'
 
         with (scintillaRoot / "doc" / "Lexilla.html").open() as f:
-            self.dateModified = [d for d in f.readlines() if "Date.Modified" in d]\
+            self.dateModified = [d for d in f if "Date.Modified" in d]\
                 [0].split('\"')[3]
             # 20130602
             # Lexilla.html

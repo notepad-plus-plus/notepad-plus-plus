@@ -63,24 +63,22 @@ int LexerModule::GetLanguage() const noexcept {
 int LexerModule::GetNumWordLists() const noexcept {
 	if (!wordListDescriptions) {
 		return -1;
-	} else {
-		int numWordLists = 0;
-
-		while (wordListDescriptions[numWordLists]) {
-			++numWordLists;
-		}
-
-		return numWordLists;
 	}
+	int numWordLists = 0;
+
+	while (wordListDescriptions[numWordLists]) {
+		++numWordLists;
+	}
+
+	return numWordLists;
 }
 
 const char *LexerModule::GetWordListDescription(int index) const noexcept {
 	assert(index < GetNumWordLists());
 	if (!wordListDescriptions || (index >= GetNumWordLists())) {
 		return "";
-	} else {
-		return wordListDescriptions[index];
 	}
+	return wordListDescriptions[index];
 }
 
 const LexicalClass *LexerModule::LexClasses() const noexcept {
@@ -94,8 +92,7 @@ size_t LexerModule::NamedStyles() const noexcept {
 Scintilla::ILexer5 *LexerModule::Create() const {
 	if (fnFactory)
 		return fnFactory();
-	else
-		return new LexerSimple(this);
+	return new LexerSimple(this);
 }
 
 void LexerModule::Lex(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle,

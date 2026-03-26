@@ -324,11 +324,11 @@ std::pair<std::string, std::string> MarkedAndFoldedDocument(const Scintilla::IDo
 
 std::vector<std::string> StringSplit(const std::string_view &text, int separator) {
 	std::vector<std::string> vs(text.empty() ? 0 : 1);
-	for (std::string_view::const_iterator it = text.begin(); it != text.end(); ++it) {
-		if (*it == separator) {
+	for (const char ch : text) {
+		if (ch == separator) {
 			vs.push_back(std::string());
 		} else {
-			vs.back() += *it;
+			vs.back() += ch;
 		}
 	}
 	return vs;
@@ -1036,8 +1036,9 @@ int main(int argc, char **argv) {
 		std::filesystem::path examplesDirectory = baseDirectory / "test" / "examples";
 		std::vector<LexerTestsDirectory> directoryList;
 		for (int i = 1; i < argc; i++) {
-			if (argv[i][0] != '-') {
-				std::filesystem::path path = argv[i];
+			const std::string_view arg = argv[i];
+			if (!arg.starts_with('-')) {
+				std::filesystem::path path = arg;
 				if (std::filesystem::is_directory(path)) {
 					std::filesystem::path parent = path.parent_path();
 					const bool singleLexer = std::filesystem::equivalent(examplesDirectory, parent);

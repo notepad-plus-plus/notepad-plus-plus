@@ -4285,18 +4285,16 @@ bool IsIdContinue(int character) noexcept {
 bool IsXidStart(int character) noexcept {
 	if (OmitXidStart(character)) {
 		return false;
-	} else {
-		return IsIdStart(character);
 	}
+	return IsIdStart(character);
 }
 
 // XID_Continue is ID_Continue modified for Normalization Form KC in UAX #31
 bool IsXidContinue(int character) noexcept {
 	if (OmitXidContinue(character)) {
 		return false;
-	} else {
-		return IsIdContinue(character);
 	}
+	return IsIdContinue(character);
 }
 
 CharacterCategoryMap::CharacterCategoryMap() {

@@ -25,19 +25,20 @@
 import datetime, pathlib, sys
 
 def FindCredits(historyFile, removeLinks=True):
+    """ Return a list of contributors in a history file. """
     credits = []
     stage = 0
     with historyFile.open(encoding="utf-8") as f:
-        for line in f.readlines():
-            line = line.strip()
-            if stage == 0 and line == "<table>":
+        for line in f:
+            s = line.strip()
+            if stage == 0 and s == "<table>":
                 stage = 1
-            elif stage == 1 and line == "</table>":
+            elif stage == 1 and s == "</table>":
                 stage = 2
-            if stage == 1 and line.startswith("<td>"):
-                credit = line[4:-5]
-                if removeLinks and "<a" in line:
-                    title, _a, rest = credit.partition("<a href=")
+            if stage == 1 and s.startswith("<td>"):
+                credit = s[4:-5]
+                if removeLinks and "<a" in s:
+                    title, _, rest = credit.partition("<a href=")
                     urlplus, _bracket, end = rest.partition(">")
                     name = end.split("<")[0]
                     url = urlplus[1:-1]
@@ -57,14 +58,14 @@ class ScintillaData:
         self.versionCommad = self.versionDotted.replace(".", ", ") + ', 0'
 
         with (scintillaRoot / "doc" / "index.html").open() as f:
-            self.dateModified = [d for d in f.readlines() if "Date.Modified" in d]\
+            self.dateModified = [d for d in f if "Date.Modified" in d]\
                 [0].split('\"')[3]
             # 20130602
             # index.html, SciTE.html
             dtModified = datetime.datetime.strptime(self.dateModified, "%Y%m%d")
             self.yearModified = self.dateModified[0:4]
             monthModified = dtModified.strftime("%B")
-            dayModified = "%d" % dtModified.day
+            dayModified = f"{dtModified.day}"
             self.mdyModified = monthModified + " " + dayModified + " " + self.yearModified
             # May 22 2013
             # index.html, SciTE.html

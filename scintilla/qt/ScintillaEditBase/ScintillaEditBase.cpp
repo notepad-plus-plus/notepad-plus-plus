@@ -304,6 +304,16 @@ unsigned int TimeOfEvent(const QElapsedTimer &timer)
 	return static_cast<unsigned int>(timer.elapsed() % maxTime);
 }
 
+Point PointOfEvent(const QDropEvent *event)
+{
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+	PLATFORM_ASSERT(false);
+	return PointFromQPointF(event->position());
+#else
+	return PointFromQPoint(event->pos());
+#endif
+}
+
 }
 
 void ScintillaEditBase::mousePressEvent(QMouseEvent *event)
@@ -396,7 +406,7 @@ void ScintillaEditBase::dragEnterEvent(QDragEnterEvent *event)
 	} else if (event->mimeData()->hasText()) {
 		event->acceptProposedAction();
 
-		const Point point = PointFromQPoint(event->pos());
+		const Point point = PointOfEvent(event);
 		sqt->DragEnter(point);
 	} else {
 		event->ignore();
@@ -415,7 +425,7 @@ void ScintillaEditBase::dragMoveEvent(QDragMoveEvent *event)
 	} else if (event->mimeData()->hasText()) {
 		event->acceptProposedAction();
 
-		const Point point = PointFromQPoint(event->pos());
+		const Point point = PointOfEvent(event);
 		sqt->DragMove(point);
 	} else {
 		event->ignore();
@@ -430,7 +440,7 @@ void ScintillaEditBase::dropEvent(QDropEvent *event)
 	} else if (event->mimeData()->hasText()) {
 		event->acceptProposedAction();
 
-		const Point point = PointFromQPoint(event->pos());
+		const Point point = PointOfEvent(event);
 		const bool move = (event->source() == this &&
                  event->proposedAction() == Qt::MoveAction);
 		sqt->Drop(point, event->mimeData(), move);

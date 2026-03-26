@@ -54,7 +54,14 @@ rem 'echo' is word=2, 'a' is default=0
 {2}echo{0} %%{6}%0{0}
 {2}echo{0} %%{6}%%~-abcd{0}
 
+{1}:: Exclamation for delayed expansion
+{2}echo{0} {6}!delayed!{0}
+{2}echo{0} {6}!delayed!{0} {6}!del!{0}
+{2}echo{0} {6}!delayed!{0}a!
+
 {3}:TEST{8} that after label style works
+{3}: TEST2{8} space after :
+{0} {3}:TEST3{8} space before :
 {1}:: Bug 2304: "::" comments not recognised when second command on line
 {2}Set{0} /A xxx{7}={6}%xxx%{7}+{0}1 {7}&{0} {1}:: Increment
 {2}Set{0} /A xxx{7}={6}%xxx%{7}+{0}1 {7}&{0} {1}::Increment

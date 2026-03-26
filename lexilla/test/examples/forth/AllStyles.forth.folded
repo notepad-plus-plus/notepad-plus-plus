@@ -1,0 +1,42 @@
+ 0 400   0   \ SCE_FORTH_DEFAULT=0
+ 0 400   0       
+ 0 400   0   
+ 0 400   0   \ SCE_FORTH_COMMENT=1
+ 0 400   0   \ line comment
+ 0 400   0   
+ 0 400   0   \ SCE_FORTH_COMMENT_ML=2
+ 0 400   0   ( stream comment )
+ 0 400   0   
+ 0 400   0   \ SCE_FORTH_IDENTIFIER=3
+ 0 400   0   FOO
+ 0 400   0   
+ 0 400   0   \ SCE_FORTH_CONTROL=4
+ 0 400   0   DO
+ 0 400   0   LOOP
+ 0 400   0   
+ 0 400   0   \ SCE_FORTH_KEYWORD=5
+ 0 400   0   .S
+ 0 400   0   2DUP
+ 0 400   0   CR
+ 0 400   0   
+ 0 400   0   \ SCE_FORTH_DEFWORD=6
+ 0 400   0   : WORD ;
+ 0 400   0   
+ 0 400   0   \ SCE_FORTH_PREWORD1=7
+ 0 400   0   POSTPONE WORD
+ 0 400   0   
+ 0 400   0   \ SCE_FORTH_PREWORD2=8
+ 0 400   0   INCLUDE S" module.forth"
+ 0 400   0   
+ 0 400   0   \ SCE_FORTH_NUMBER=9
+ 0 400   0   $7F
+ 0 400   0   %01111111
+ 0 400   0   127
+ 0 400   0   
+ 0 400   0   \ SCE_FORTH_STRING=10
+ 0 400   0   ." Hello, world."
+ 0 400   0   ABORT" Aborting..."
+ 0 400   0   
+ 0 400   0   \ SCE_FORTH_LOCALE=11
+ 0 400   0   { local-var }
+ 0 400   0   

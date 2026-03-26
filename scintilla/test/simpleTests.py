@@ -371,6 +371,12 @@ class TestSimple(unittest.TestCase):
 			self.assertEqual(self.ed.Contents(), b"x" + lineEnds[lineEndType] + b"y")
 			self.assertEqual(self.ed.LineLength(0), 1 + len(lineEnds[lineEndType]))
 
+	def testLineEndConversionLengthening(self):
+		# Bug #2501
+		self.ed.AddText(4, b"x\ny\n")
+		self.ed.ConvertEOLs(self.ed.SC_EOL_CRLF)
+		self.assertEqual(self.ed.Contents(), b"x\r\ny\r\n")
+
 	# Several tests for unicode line ends U+2028 and U+2029
 
 	@unittest.skipUnless(unicodeLineEndsAvailable, "can not test Unicode line ends")

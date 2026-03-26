@@ -492,6 +492,7 @@ public:
 		bashStruct.Set("if elif fi while until else then do done esac eval");
 		bashStruct_in.Set("for case select");
 		testOperator.Set("eq ge gt le lt ne ef nt ot");
+		SetOptionSet(&osBash);
 	}
 	void SCI_METHOD Release() override {
 		delete this;
@@ -499,29 +500,10 @@ public:
 	int SCI_METHOD Version() const override {
 		return lvRelease5;
 	}
-	const char * SCI_METHOD PropertyNames() override {
-		return osBash.PropertyNames();
-	}
-	int SCI_METHOD PropertyType(const char* name) override {
-		return osBash.PropertyType(name);
-	}
-	const char * SCI_METHOD DescribeProperty(const char *name) override {
-		return osBash.DescribeProperty(name);
-	}
 	Sci_Position SCI_METHOD PropertySet(const char *key, const char *val) override;
-	const char * SCI_METHOD PropertyGet(const char* key) override {
-		return osBash.PropertyGet(key);
-	}
-	const char * SCI_METHOD DescribeWordListSets() override {
-		return osBash.DescribeWordListSets();
-	}
 	Sci_Position SCI_METHOD WordListSet(int n, const char *wl) override;
 	void SCI_METHOD Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess) override;
 	void SCI_METHOD Fold(Sci_PositionU startPos_, Sci_Position length, int initStyle, IDocument *pAccess) override;
-
-	void * SCI_METHOD PrivateCall(int, void *) override {
-		return nullptr;
-	}
 
 	int SCI_METHOD AllocateSubStyles(int styleBase, int numberStyles) override {
 		return subStyles.Allocate(styleBase, numberStyles);

@@ -3,6 +3,9 @@ Lexilla is on GitHub at https://github.com/ScintillaOrg/lexilla
 Bugs, fixes and features should be posted to the Issue Tracker
 https://github.com/ScintillaOrg/lexilla/issues
 
+AI-generated code and issues are often low quality and difficult to understand
+so should not be posted.
+
 Patches should include test cases. Add a test case file in 
 lexilla/test/examples/<language> and run the test program in 
 lexilla/test.

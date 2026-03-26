@@ -60,7 +60,8 @@ int Accessor::IndentAmount(Sci_Position line, int *flags, PFNIsCommentLeader pfn
 			spaceFlags |= wsTab;
 			if (spaceFlags & wsSpace)
 				spaceFlags |= wsSpaceTab;
-			indent = (indent / 8 + 1) * 8;
+			constexpr int defaultTabSpaces = 8;
+			indent = (indent / defaultTabSpaces + 1) * defaultTabSpaces;
 		}
 		ch = (*this)[++pos];
 	}
@@ -71,6 +72,5 @@ int Accessor::IndentAmount(Sci_Position line, int *flags, PFNIsCommentLeader pfn
 	if ((LineStart(line) == Length()) || (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r') ||
 			(pfnIsCommentLeader && (*pfnIsCommentLeader)(*this, pos, end-pos)))
 		return indent | SC_FOLDLEVELWHITEFLAG;
-	else
-		return indent;
+	return indent;
 }

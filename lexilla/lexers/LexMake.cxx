@@ -57,6 +57,9 @@ const LexicalClass lexicalClasses[] = {
 	3, "SCE_MAKE_IDENTIFIER", "identifier", "Identifiers",
 	4, "SCE_MAKE_OPERATOR", "operator", "Operator",
 	5, "SCE_MAKE_TARGET", "identifier", "Identifiers",
+	6, "", "unused", "",
+	7, "", "unused", "",
+	8, "", "unused", "",
 	9, "SCE_MAKE_IDEOL", "error identifier", "Incomplete identifier reference",
 };
 

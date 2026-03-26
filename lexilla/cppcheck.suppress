@@ -102,7 +102,6 @@ knownConditionTrueFalse:lexilla/lexers/LexHex.cxx
 constVariable:lexilla/lexers/LexHollywood.cxx
 variableScope:lexilla/lexers/LexInno.cxx
 constVariableReference:lexilla/lexers/LexInno.cxx
-constParameterReference:lexilla/lexers/LexJSON.cxx
 constParameterPointer:lexilla/lexers/LexJulia.cxx
 constParameterReference:lexilla/lexers/LexJulia.cxx
 knownConditionTrueFalse:lexilla/lexers/LexJulia.cxx
@@ -113,7 +112,6 @@ constParameterReference:lexilla/lexers/LexLaTeX.cxx
 constParameterReference:lexilla/lexers/LexLisp.cxx
 constParameterPointer:lexilla/lexers/LexMagik.cxx
 constParameterReference:lexilla/lexers/LexMagik.cxx
-constParameterReference:lexilla/lexers/LexMarkdown.cxx
 constParameterPointer:lexilla/lexers/LexMatlab.cxx
 constParameterReference:lexilla/lexers/LexMatlab.cxx
 unreadVariable:lexilla/lexers/LexMatlab.cxx
@@ -240,7 +238,6 @@ constVariableReference:lexilla/lexers/LexMSSQL.cxx
 constVariableReference:lexilla/lexers/LexNsis.cxx
 constVariableReference:lexilla/lexers/LexOpal.cxx
 constVariableReference:lexilla/lexers/LexPOV.cxx
-constVariableReference:lexilla/lexers/LexPascal.cxx
 constVariableReference:lexilla/lexers/LexPB.cxx
 constVariableReference:lexilla/lexers/LexPowerPro.cxx
 constVariableReference:lexilla/lexers/LexPS.cxx

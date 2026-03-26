@@ -204,19 +204,15 @@ void SCI_METHOD TestDocument::StartStyling(Sci_Position position) {
 }
 
 bool SCI_METHOD TestDocument::SetStyleFor(Sci_Position length, char style) {
-	for (Sci_Position i = 0; i < length; i++) {
-		textStyles.at(endStyled) = style;
-		endStyled++;
-	}
+	textStyles.replace(endStyled, length, length, style);
+	endStyled += length;
 	return true;
 }
 
 bool SCI_METHOD TestDocument::SetStyles(Sci_Position length, const char *styles) {
 	assert(styles);
-	for (Sci_Position i = 0; i < length; i++) {
-		textStyles.at(endStyled) = styles[i];
-		endStyled++;
-	}
+	textStyles.replace(endStyled, length, styles, length);
+	endStyled += length;
 	return true;
 }
 

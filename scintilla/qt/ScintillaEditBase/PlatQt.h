@@ -61,13 +61,14 @@ inline Point PointFromQPoint(QPoint qp)
 	return Point(qp.x(), qp.y());
 }
 
+inline Point PointFromQPointF(QPointF qp)
+{
+	return Point(qp.x(), qp.y());
+}
+
 inline QPointF QPointFFromPoint(Point qp)
 {
 	return QPointF(qp.x, qp.y);
-}
-
-constexpr PRectangle RectangleInset(PRectangle rc, XYPOSITION delta) noexcept {
-	return PRectangle(rc.left + delta, rc.top + delta, rc.right - delta, rc.bottom - delta);
 }
 
 class SurfaceImpl : public Surface {

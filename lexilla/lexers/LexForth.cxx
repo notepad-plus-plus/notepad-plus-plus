@@ -29,7 +29,9 @@
 using namespace Lexilla;
 
 static inline bool IsAWordStart(int ch) {
-	return (ch < 0x80) && (isalnum(ch) || ch == '_' || ch == '.');
+	return (ch < 0x80) && (isalnum(ch) ||
+		// symbolic standard words and word prefixes (https://forth-standard.org/standard/core)
+		AnyOf(ch, '!', '#', '\'', '(', '*', '+', ',', '-', '.', '/', '<', '=', '>', '?', '@', '[', '\\', ']', '_'));
 }
 
 static inline bool IsANumChar(int ch) {
@@ -56,7 +58,7 @@ static void ColouriseForthDoc(Sci_PositionU startPos, Sci_Position length, int i
 	{
 		// Determine if the current state should terminate.
 		if (sc.state == SCE_FORTH_COMMENT) {
-			if (sc.atLineEnd) {
+			if (sc.MatchLineEnd()) {
 				sc.SetState(SCE_FORTH_DEFAULT);
 			}
 		}else if (sc.state == SCE_FORTH_COMMENT_ML) {
@@ -109,11 +111,11 @@ static void ColouriseForthDoc(Sci_PositionU startPos, Sci_Position length, int i
 
 		// Determine if a new state should be entered.
 		if (sc.state == SCE_FORTH_DEFAULT) {
-			if (sc.ch == '\\'){
+			if (sc.ch == '\\' && (sc.atLineStart || IsASpaceChar(sc.chPrev)) && IsASpaceChar(sc.chNext)) {
 				sc.SetState(SCE_FORTH_COMMENT);
 			} else if (sc.ch == '(' &&
 					(sc.atLineStart || IsASpaceChar(sc.chPrev)) &&
-					(sc.atLineEnd   || IsASpaceChar(sc.chNext))) {
+					(sc.MatchLineEnd()   || IsASpaceChar(sc.chNext))) {
 				sc.SetState(SCE_FORTH_COMMENT_ML);
 			} else if (	(sc.ch == '$' && (IsASCII(sc.chNext) && isxdigit(sc.chNext))) ) {
 				// number starting with $ is a hex number
@@ -141,7 +143,7 @@ static void ColouriseForthDoc(Sci_PositionU startPos, Sci_Position length, int i
 					sc.Forward();
 			} else if (sc.ch == ';' &&
 					(sc.atLineStart || IsASpaceChar(sc.chPrev)) &&
-					(sc.atLineEnd   || IsASpaceChar(sc.chNext))	) {
+					(sc.MatchLineEnd()   || IsASpaceChar(sc.chNext))	) {
 				// mark the ';' that ends a word
 				sc.SetState(SCE_FORTH_DEFWORD);
 				sc.ForwardSetState(SCE_FORTH_DEFAULT);

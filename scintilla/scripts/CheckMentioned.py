@@ -35,13 +35,13 @@ def depunctuate(s):
 
 symbols = {}
 with open(incFileName, "rt") as incFile:
-	for line in incFile.readlines():
+	for line in incFile:
 		if line.startswith("#define"):
 			identifier = line.split()[1]
 			symbols[identifier] = 0
 
 with open(docFileName, "rt") as docFile:
-	for line in docFile.readlines():
+	for line in docFile:
 		for word in depunctuate(line).split():
 			if word in symbols.keys():
 				symbols[word] = 1

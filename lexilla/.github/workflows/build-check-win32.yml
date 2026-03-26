@@ -16,19 +16,30 @@ jobs:
         env:
           TEST: ${{ matrix.arch == 'amd64' && 'test' || '' }}
         steps:
-        - uses: actions/checkout@v4
+        - uses: actions/checkout@v6
         - name: Preparing nmake
           uses: ilammy/msvc-dev-cmd@v1
           with:
             arch: ${{ matrix.arch }}
+        - name: Cache Scintilla
+          id: cache-scintilla
+          uses: actions/cache@v5
+          with:
+            path: scintilla
+            key: ${{ runner.os }}-scintilla
         - name: Install Scintilla source
+          if: steps.cache-scintilla.outputs.cache-hit != 'true'
           run: |
               pwd
-              cd ..
+              New-Item -Name "scintilla" -Type Directory -Force
+              cd scintilla
               curl --fail --location --show-error --retry 3 -O https://www.scintilla.org/scintilla500.zip
               ls
               7z x scintilla500.zip
-              cd lexilla
+              cd ..
+        - name: Copy Scintilla
+          run: |
+              xcopy /s scintilla\scintilla\ ..\scintilla\
         - name: Unit Test
           run: |
               cd test/unit
@@ -39,7 +50,7 @@ jobs:
               cd src
               nmake -f lexilla.mak DEBUG=1
               cd ..
-        - uses: actions/upload-artifact@v4
+        - uses: actions/upload-artifact@v6
           with:
               name: lexilla${{ matrix.arch == 'amd64_arm64' && '-arm64' || '' }}.dll
               path: bin/lexilla.dll
@@ -48,6 +59,13 @@ jobs:
               cd test
               nmake -f testlexers.mak DEBUG=1 $env:TEST
               cd ..
+        - name: Check metadata
+          if: matrix.arch == 'amd64'
+          run: |
+              cd test/Metadata
+              cl Metadata.cxx ../../access/LexillaAccess.cxx -EHsc -std:c++17 -I ../../include -I ../../access -I ../../../scintilla/include -Fe: Metadata
+              ./Metadata -check
+              cd ../..
         - name: CheckLexilla C Example
           if: matrix.arch == 'amd64'
           run: |

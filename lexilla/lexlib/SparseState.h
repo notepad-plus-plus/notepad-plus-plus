@@ -62,7 +62,7 @@ public:
 		}
 	}
 	bool Delete(Sci_Position position) {
-		typename stateVector::iterator low = Find(position);
+		const typename stateVector::iterator low = Find(position);
 		if (low != states.end()) {
 			states.erase(low, states.end());
 			return true;
@@ -80,7 +80,7 @@ public:
 
 		bool different = true;
 		bool changed = false;
-		typename stateVector::iterator low = Find(other.positionFirst);
+		const typename stateVector::iterator low = Find(other.positionFirst);
 		if (static_cast<size_t>(states.end() - low) == other.states.size()) {
 			// Same number in other as after positionFirst in this
 			different = !std::equal(low, states.end(), other.states.begin());

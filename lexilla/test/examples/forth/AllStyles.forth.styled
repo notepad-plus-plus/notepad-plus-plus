@@ -1,0 +1,41 @@
+{1}\ SCE_FORTH_DEFAULT=0{0}
+    
+
+{1}\ SCE_FORTH_COMMENT=1{0}
+{1}\ line comment{0}
+
+{1}\ SCE_FORTH_COMMENT_ML=2{0}
+{2}( stream comment ){0}
+
+{1}\ SCE_FORTH_IDENTIFIER=3{0}
+{3}FOO{0}
+
+{1}\ SCE_FORTH_CONTROL=4{0}
+{4}DO{0}
+{4}LOOP{0}
+
+{1}\ SCE_FORTH_KEYWORD=5{0}
+{5}.S{0}
+{5}2DUP{0}
+{5}CR{0}
+
+{1}\ SCE_FORTH_DEFWORD=6{0}
+{6}: WORD{0} {6};{0}
+
+{1}\ SCE_FORTH_PREWORD1=7{0}
+{7}POSTPONE{0} {3}WORD{0}
+
+{1}\ SCE_FORTH_PREWORD2=8{0}
+{8}INCLUDE{0} {10}S" module.forth"{0}
+
+{1}\ SCE_FORTH_NUMBER=9{0}
+{9}$7F{0}
+{9}%01111111{0}
+{9}127{0}
+
+{1}\ SCE_FORTH_STRING=10{0}
+{10}." Hello, world."{0}
+{10}ABORT" Aborting..."{0}
+
+{1}\ SCE_FORTH_LOCALE=11{0}
+{11}{ local-var }{0}

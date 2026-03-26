@@ -12,22 +12,37 @@ jobs:
                 cpp_compiler: [g++, clang++]
 
         steps:
-        - uses: actions/checkout@v4
+        - uses: actions/checkout@v6
+        - name: Cache Scintilla
+          id: cache-scintilla
+          uses: actions/cache@v5
+          with:
+            path: scintilla
+            key: ${{ runner.os }}-scintilla
         - name: Install Scintilla source
+          if: steps.cache-scintilla.outputs.cache-hit != 'true'
           run: |
+              (mkdir scintilla)
               (cd .. && wget --no-verbose https://www.scintilla.org/scintilla500.zip)
-              (cd .. && unzip scintilla500.zip)
+              (unzip ../scintilla500.zip -d scintilla)
+        - name: Copy Scintilla
+          run: |
+              (cp -r scintilla/scintilla/ ../scintilla)
         - name: Unit Test
           run: (cd test/unit && make DEBUG=1 CXX=${{matrix.cpp_compiler}} --jobs=$(getconf _NPROCESSORS_ONLN) test)
         - name: Build Lexilla
           run: (cd src && make DEBUG=1 CXX=${{matrix.cpp_compiler}} --jobs=$(getconf _NPROCESSORS_ONLN))
-        - uses: actions/upload-artifact@v4
+        - uses: actions/upload-artifact@v6
           with:
               name: liblexilla-${{matrix.cpp_compiler}}.so
               path: bin/liblexilla.so
               overwrite: true
         - name: Test lexing and folding
           run: (cd test && make DEBUG=1 CXX=${{matrix.cpp_compiler}} --jobs=$(getconf _NPROCESSORS_ONLN) test)
+        - name: Check metadata
+          run: |
+              (cd test/Metadata && make CXX=${{matrix.cpp_compiler}})
+              (cd test/Metadata && ./Metadata -check)
         - name: CheckLexilla C Example
           run: (cd examples/CheckLexilla && make DEBUG=1 --jobs=$(getconf _NPROCESSORS_ONLN) check)
         - name: SimpleLexer Example

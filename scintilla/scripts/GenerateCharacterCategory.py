@@ -2,7 +2,7 @@
 # Script to generate scintilla/src/CharacterCategoryMap.cxx and lexilla/lexlib/CharacterCategory.cxx
 # from Python's Unicode data
 # Should be run rarely when a Python with a new version of Unicode data is available.
-# Requires Python 3.3 or later
+# Requires Python 3.6 or later
 # Should not be run with old versions of Python.
 
 import pathlib, platform, sys, unicodedata
@@ -11,7 +11,7 @@ from FileGenerator import Regenerate
 
 def findCategories(filename):
     with filename.open(encoding="UTF-8") as infile:
-        lines = [x.strip() for x in infile.readlines() if "\tcc" in x]
+        lines = [x.strip() for x in infile if "\tcc" in x]
     values = "".join(lines).replace(" ","").split(",")
     print("Categrories:", values)
     return [v[2:] for v in values]

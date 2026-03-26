@@ -17,9 +17,10 @@
 # Only tested with ASCII file names.
 # Copyright 2019 by Neil Hodgson <neilh@scintilla.org>
 # The License.txt file describes the conditions under which this software may be distributed.
-# Requires Python 2.7 or later
+# Requires Python 3.6 or later
 
 import codecs, glob, os, sys
+from functools import cache
 
 if __name__ == "__main__":
 	import FileGenerator
@@ -28,6 +29,7 @@ else:
 
 continuationLineEnd = " \\"
 
+@cache
 def FindPathToHeader(header, includePath):
 	for incDir in includePath:
 		relPath = os.path.join(incDir, header)
@@ -35,27 +37,25 @@ def FindPathToHeader(header, includePath):
 			return relPath
 	return ""
 
-fhifCache = {}	# Remember the includes in each file. ~5x speed up.
+@cache
 def FindHeadersInFile(filePath):
-	if filePath not in fhifCache:
-		headers = []
-		with codecs.open(filePath, "r", "utf-8") as f:
-			for line in f:
-				if line.strip().startswith("#include"):
-					parts = line.split()
-					if len(parts) > 1:
-						header = parts[1]
-						if header[0] != '<':	# No system headers
-							headers.append(header.strip('"'))
-		fhifCache[filePath] = headers
-	return fhifCache[filePath]
+	headers = []
+	with codecs.open(filePath, "r", "utf-8") as f:
+		for line in f:
+			if line.strip().startswith("#include"):
+				parts = line.split()
+				if len(parts) > 1:
+					header = parts[1]
+					if header[0] != '<':	# No system headers
+						headers.append(header.strip('"'))
+	return headers
 
 def FindHeadersInFileRecursive(filePath, includePath, renames):
 	headerPaths = []
 	for header in FindHeadersInFile(filePath):
 		if header in renames:
 			header = renames[header]
-		relPath = FindPathToHeader(header, includePath)
+		relPath = FindPathToHeader(header, tuple(includePath))
 		if relPath and relPath not in headerPaths:
 				headerPaths.append(relPath)
 				subHeaders = FindHeadersInFileRecursive(relPath, includePath, renames)

@@ -1,0 +1,2687 @@
+There are 139 lexers.
+    a68k
+    abaqus
+    ada
+    apdl
+    as
+    asciidoc
+    asm
+    asn1
+    asy
+    au3
+    ave
+    avs
+    baan
+    bash
+    batch
+    bib
+    blitzbasic
+    bullant
+    caml
+    cil
+    clarion
+    clarionnocase
+    cmake
+    COBOL
+    coffeescript
+    conf
+    cpp
+    cppnocase
+    csound
+    css
+    d
+    dart
+    dataflex
+    diff
+    DMAP
+    DMIS
+    ecl
+    edifact
+    eiffel
+    eiffelkw
+    erlang
+    errorlist
+    escript
+    escseq
+    f77
+    flagship
+    forth
+    fortran
+    freebasic
+    fsharp
+    gap
+    gdscript
+    gui4cli
+    haskell
+    hollywood
+    hypertext
+    ihex
+    indent
+    inno
+    json
+    julia
+    kix
+    kvirc
+    latex
+    lisp
+    literatehaskell
+    lot
+    lout
+    lua
+    magiksf
+    makefile
+    markdown
+    matlab
+    maxima
+    metapost
+    mmixal
+    modula
+    mssql
+    mysql
+    nim
+    nimrod
+    nix
+    nncrontab
+    nsis
+    null
+    octave
+    opal
+    oscript
+    pascal
+    powerbasic
+    perl
+    phpscript
+    PL/M
+    po
+    pov
+    powerpro
+    powershell
+    abl
+    props
+    ps
+    purebasic
+    python
+    r
+    raku
+    rebol
+    registry
+    ruby
+    rust
+    sas
+    scriptol
+    sinex
+    smalltalk
+    SML
+    sorcins
+    specman
+    spice
+    sql
+    srec
+    stata
+    fcST
+    TACL
+    tads3
+    TAL
+    tcl
+    tcmd
+    tehex
+    tex
+    toml
+    troff
+    txt2tags
+    vb
+    vbscript
+    verilog
+    vhdl
+    visualprolog
+    x12
+    xml
+    yaml
+    zig
+
+
+Lexer a68k
+    Word Lists:
+        CPU instructions
+        Registers
+        Directives
+        Extended instructions
+        Comment special words
+        Doxygen keywords
+
+Lexer abaqus
+    Word Lists:
+        processors
+        commands
+        slashommands
+        starcommands
+        arguments
+        functions
+
+Lexer ada
+    Word Lists:
+        Keywords
+
+Lexer apdl
+    Word Lists:
+        processors
+        commands
+        slashommands
+        starcommands
+        arguments
+        functions
+
+Lexer as
+    Properties:
+        string lexer.asm.comment.delimiter
+               Character used for COMMENT directive's delimiter, replacing the standard "~".
+        bool   fold
+        bool   fold.asm.syntax.based
+               Set this property to 0 to disable syntax based folding.
+        bool   fold.asm.comment.multiline
+               Set this property to 1 to enable folding multi-line comments.
+        bool   fold.asm.comment.explicit
+               This option enables folding explicit fold points when using the Asm lexer. Explicit fold points allows adding extra folding by placing a ;{ comment at the start and a ;} at the end of a section that should fold.
+        string fold.asm.explicit.start
+               The string to use for explicit fold start points, replacing the standard ;{.
+        string fold.asm.explicit.end
+               The string to use for explicit fold end points, replacing the standard ;}.
+        bool   fold.asm.explicit.anywhere
+               Set this property to 1 to enable explicit fold points anywhere, not just in line comments.
+        bool   fold.compact
+        string lexer.as.comment.character
+               Overrides the default comment character (which is ';' for asm and '#' for as).
+    Word Lists:
+        CPU instructions
+        FPU instructions
+        Registers
+        Directives
+        Directive operands
+        Extended instructions
+        Directives4Foldstart
+        Directives4Foldend
+
+Lexer asciidoc
+
+Lexer asm
+    Properties:
+        string lexer.asm.comment.delimiter
+               Character used for COMMENT directive's delimiter, replacing the standard "~".
+        bool   fold
+        bool   fold.asm.syntax.based
+               Set this property to 0 to disable syntax based folding.
+        bool   fold.asm.comment.multiline
+               Set this property to 1 to enable folding multi-line comments.
+        bool   fold.asm.comment.explicit
+               This option enables folding explicit fold points when using the Asm lexer. Explicit fold points allows adding extra folding by placing a ;{ comment at the start and a ;} at the end of a section that should fold.
+        string fold.asm.explicit.start
+               The string to use for explicit fold start points, replacing the standard ;{.
+        string fold.asm.explicit.end
+               The string to use for explicit fold end points, replacing the standard ;}.
+        bool   fold.asm.explicit.anywhere
+               Set this property to 1 to enable explicit fold points anywhere, not just in line comments.
+        bool   fold.compact
+        string lexer.as.comment.character
+               Overrides the default comment character (which is ';' for asm and '#' for as).
+    Word Lists:
+        CPU instructions
+        FPU instructions
+        Registers
+        Directives
+        Directive operands
+        Extended instructions
+        Directives4Foldstart
+        Directives4Foldend
+
+Lexer asn1
+    Word Lists:
+        Keywords
+        Attributes
+        Descriptors
+        Types
+
+Lexer asy
+    Word Lists:
+        Primary keywords and identifiers
+        Secondary keywords and identifiers
+
+Lexer au3
+    Word Lists:
+        #autoit keywords
+        #autoit functions
+        #autoit macros
+        #autoit Sent keys
+        #autoit Pre-processors
+        #autoit Special
+        #autoit Expand
+        #autoit UDF
+
+Lexer ave
+
+Lexer avs
+    Word Lists:
+        Keywords
+        Filters
+        Plugins
+        Functions
+        Clip properties
+        User defined functions
+
+Lexer baan
+    Properties:
+        bool   fold
+        bool   fold.comment
+        bool   fold.preprocessor
+        bool   fold.compact
+        bool   fold.baan.syntax.based
+               Set this property to 0 to disable syntax based folding, which is folding based on '{' & '('.
+        bool   fold.baan.keywords.based
+               Set this property to 0 to disable keywords based folding, which is folding based on  for, if, on (case), repeat, select, while and fold ends based on endfor, endif, endcase, until, endselect, endwhile respectively.Also folds declarations which are grouped together.
+        bool   fold.baan.sections
+               Set this property to 0 to disable folding of Main Sections as well as Sub Sections.
+        bool   fold.baan.inner.level
+               Set this property to 1 to enable folding of inner levels of select statements.Disabled by default. case and if statements are also eligible
+        bool   lexer.baan.styling.within.preprocessor
+               For Baan code, determines whether all preprocessor code is styled in the preprocessor style (0, the default) or only from the initial # to the end of the command word(1).
+    Word Lists:
+        Baan & BaanSQL Reserved Keywords 
+        Baan Standard functions
+        Baan Functions Abridged
+        Baan Main Sections 
+        Baan Sub Sections
+        PreDefined Variables
+        PreDefined Attributes
+        Enumerates
+
+Lexer bash
+    Properties:
+        bool   fold
+        bool   fold.comment
+        bool   fold.compact
+        bool   lexer.bash.styling.inside.string
+               Set this property to 1 to highlight shell expansions inside string.
+        bool   lexer.bash.styling.inside.backticks
+               Set this property to 1 to highlight shell expansions inside backticks.
+        bool   lexer.bash.styling.inside.parameter
+               Set this property to 1 to highlight shell expansions inside ${} parameter expansion.
+        bool   lexer.bash.styling.inside.heredoc
+               Set this property to 1 to highlight shell expansions inside here document.
+        int    lexer.bash.command.substitution
+               Set how to highlight $() command substitution. 0 (the default) highlighted as backticks. 1 highlighted inside. 2 highlighted inside with extra scope tracking.
+        bool   lexer.bash.nested.backticks
+               Set this property to 0 to disable nested backquoted command substitution.
+        string lexer.bash.special.parameter
+               Set shell (default is Bash) special parameters.
+    Word Lists:
+        Keywords
+    Sub-Style Bases:
+          8
+          9
+    Styles:
+          0 SCE_SH_DEFAULT [default] White space
+          1 SCE_SH_ERROR [error] Error
+          2 SCE_SH_COMMENTLINE [comment line] Line comment: #
+          3 SCE_SH_NUMBER [literal numeric] Number
+          4 SCE_SH_WORD [keyword] Keyword
+          5 SCE_SH_STRING [literal string] String
+          6 SCE_SH_CHARACTER [literal string] Single quoted string
+          7 SCE_SH_OPERATOR [operator] Operators
+          8 SCE_SH_IDENTIFIER [identifier] Identifiers
+          9 SCE_SH_SCALAR [identifier] Scalar variable
+         10 SCE_SH_PARAM [identifier] Parameter
+         11 SCE_SH_BACKTICKS [literal string] Backtick quoted command
+         12 SCE_SH_HERE_DELIM [operator] Heredoc delimiter
+         13 SCE_SH_HERE_Q [here-doc literal string] Heredoc quoted string
+
+Lexer batch
+    Word Lists:
+        Internal Commands
+        External Commands
+    Styles:
+          0 SCE_BAT_DEFAULT [default] White space
+          1 SCE_BAT_COMMENT [comment] Line comment
+          2 SCE_BAT_WORD [keyword] Keyword
+          3 SCE_BAT_LABEL [label] Label
+          4 SCE_BAT_HIDE [preprocessor] Hide line @
+          5 SCE_BAT_COMMAND [identifier] Command
+          6 SCE_BAT_IDENTIFIER [identifier] Identifier
+          7 SCE_BAT_OPERATOR [operator] Operator
+          8 SCE_BAT_AFTER_LABEL [comment] After label
+
+Lexer bib
+    Word Lists:
+        Entry Names
+
+Lexer blitzbasic
+    Properties:
+        bool   fold
+        bool   fold.basic.syntax.based
+               Set this property to 0 to disable syntax based folding.
+        bool   fold.basic.comment.explicit
+               This option enables folding explicit fold points when using the Basic lexer. Explicit fold points allows adding extra folding by placing a ;{ (BB/PB) or '{ (FB) comment at the start and a ;} (BB/PB) or '} (FB) at the end of a section that should be folded.
+        string fold.basic.explicit.start
+               The string to use for explicit fold start points, replacing the standard ;{ (BB/PB) or '{ (FB).
+        string fold.basic.explicit.end
+               The string to use for explicit fold end points, replacing the standard ;} (BB/PB) or '} (FB).
+        bool   fold.basic.explicit.anywhere
+               Set this property to 1 to enable explicit fold points anywhere, not just in line comments.
+        bool   fold.compact
+    Word Lists:
+        BlitzBasic Keywords
+        user1
+        user2
+        user3
+
+Lexer bullant
+    Word Lists:
+        Keywords
+
+Lexer caml
+    Word Lists:
+        Keywords
+        Keywords2
+        Keywords3
+
+Lexer cil
+    UnicodeLineEnds
+    Properties:
+        bool   fold
+        bool   fold.comment
+        bool   fold.cil.comment.multiline
+               Set this property to 0 to disable folding multi-line comments when fold.comment=1.
+        bool   fold.compact
+    Word Lists:
+        Primary CIL keywords
+        Metadata
+        Opcode instructions
+    Styles:
+          0 SCE_CIL_DEFAULT [default] White space
+          1 SCE_CIL_COMMENT [comment] Multi-line comment
+          2 SCE_CIL_COMMENTLINE [comment line] Line comment
+          3 SCE_CIL_WORD [keyword] Keyword 1
+          4 SCE_CIL_WORD2 [keyword] Keyword 2
+          5 SCE_CIL_WORD3 [keyword] Keyword 3
+          6 SCE_CIL_STRING [literal string] Double quoted string
+          7 SCE_CIL_LABEL [label] Code label
+          8 SCE_CIL_OPERATOR [operator] Operators
+          9 SCE_CIL_IDENTIFIER [identifier] Identifiers
+         10 SCE_CIL_STRINGEOL [error literal string] String is not closed
+
+Lexer clarion
+    Word Lists:
+        Clarion Keywords
+        Compiler Directives
+        Built-in Procedures and Functions
+        Runtime Expressions
+        Structure and Data Types
+        Attributes
+        Standard Equates
+        Reserved Words (Labels)
+        Reserved Words (Procedure Labels)
+
+Lexer clarionnocase
+    Word Lists:
+        Clarion Keywords
+        Compiler Directives
+        Built-in Procedures and Functions
+        Runtime Expressions
+        Structure and Data Types
+        Attributes
+        Standard Equates
+        Reserved Words (Labels)
+        Reserved Words (Procedure Labels)
+
+Lexer cmake
+    Word Lists:
+        Commands
+        Parameters
+        UserDefined
+
+Lexer COBOL
+    Word Lists:
+        A Keywords
+        B Keywords
+        Extended Keywords
+
+Lexer coffeescript
+    Word Lists:
+        Keywords
+        Secondary keywords
+        Unused
+        Global classes
+
+Lexer conf
+    Word Lists:
+        Directives
+        Parameters
+
+Lexer cpp
+    UnicodeLineEnds
+    Properties:
+        bool   styling.within.preprocessor
+               For C++ code, determines whether all preprocessor code is styled in the preprocessor style (0, the default) or only from the initial # to the end of the command word(1).
+        bool   lexer.cpp.allow.dollars
+               Set to 0 to disallow the '$' character in identifiers with the cpp lexer.
+        bool   lexer.cpp.allow.hashes
+               Set to 1 to allow the '#' character in identifiers.
+        bool   lexer.cpp.enable.preprocessor
+               Set to 0 to disable recognition of preprocessor directives.
+        bool   lexer.cpp.track.preprocessor
+               Set to 1 to interpret #if/#else/#endif to grey out code that is not active.
+        bool   lexer.cpp.update.preprocessor
+               Set to 1 to update preprocessor definitions when #define found.
+        bool   lexer.cpp.verbatim.strings.allow.escapes
+               Set to 1 to allow verbatim strings to contain escape sequences.
+        bool   lexer.cpp.triplequoted.strings
+               Set to 1 to enable highlighting of triple-quoted strings.
+        bool   lexer.cpp.hashquoted.strings
+               Set to 1 to enable highlighting of hash-quoted strings.
+        int    lexer.cpp.backquoted.strings
+               Set how to highlighting back-quoted strings. 0 (the default) no highlighting. 1 highlighted as Go raw string. 2 highlighted as JavaScript template literal.
+        bool   lexer.cpp.escape.sequence
+               Set to 1 to enable highlighting of escape sequences in strings
+        bool   fold
+        bool   fold.cpp.syntax.based
+               Set this property to 0 to disable syntax based folding.
+        bool   fold.comment
+               This option enables folding multi-line comments and explicit fold points when using the C++ lexer. Explicit fold points allows adding extra folding by placing a //{ comment at the start and a //} at the end of a section that should fold.
+        bool   fold.cpp.comment.multiline
+               Set this property to 0 to disable folding multi-line comments when fold.comment=1.
+        bool   fold.cpp.comment.explicit
+               Set this property to 0 to disable folding explicit fold points when fold.comment=1.
+        string fold.cpp.explicit.start
+               The string to use for explicit fold start points, replacing the standard //{.
+        string fold.cpp.explicit.end
+               The string to use for explicit fold end points, replacing the standard //}.
+        bool   fold.cpp.explicit.anywhere
+               Set this property to 1 to enable explicit fold points anywhere, not just in line comments.
+        bool   fold.cpp.preprocessor.at.else
+               This option enables folding on a preprocessor #else or #endif line of an #if statement.
+        bool   fold.preprocessor
+               This option enables folding preprocessor directives when using the C++ lexer. Includes C#'s explicit #region and #endregion folding directives.
+        bool   fold.compact
+        bool   fold.at.else
+               This option enables C++ folding on a "} else {" line of an if statement.
+    Word Lists:
+        Primary keywords and identifiers
+        Secondary keywords and identifiers
+        Documentation comment keywords
+        Global classes and typedefs
+        Preprocessor definitions
+        Task marker and error marker keywords
+    Sub-Style Bases:
+         11
+         17
+    Styles:
+          0 SCE_C_DEFAULT [default] White space
+          1 SCE_C_COMMENT [comment] Comment: /* */.
+          2 SCE_C_COMMENTLINE [comment line] Line Comment: //.
+          3 SCE_C_COMMENTDOC [comment documentation] Doc comment: block comments beginning with /** or /*!
+          4 SCE_C_NUMBER [literal numeric] Number
+          5 SCE_C_WORD [keyword] Keyword
+          6 SCE_C_STRING [literal string] Double quoted string
+          7 SCE_C_CHARACTER [literal string character] Single quoted string
+          8 SCE_C_UUID [literal uuid] UUIDs (only in IDL)
+          9 SCE_C_PREPROCESSOR [preprocessor] Preprocessor
+         10 SCE_C_OPERATOR [operator] Operators
+         11 SCE_C_IDENTIFIER [identifier] Identifiers
+         12 SCE_C_STRINGEOL [error literal string] End of line where string is not closed
+         13 SCE_C_VERBATIM [literal string multiline raw] Verbatim strings for C#
+         14 SCE_C_REGEX [literal regex] Regular expressions for JavaScript
+         15 SCE_C_COMMENTLINEDOC [comment documentation line] Doc Comment Line: line comments beginning with /// or //!.
+         16 SCE_C_WORD2 [identifier] Keywords2
+         17 SCE_C_COMMENTDOCKEYWORD [comment documentation keyword] Comment keyword
+         18 SCE_C_COMMENTDOCKEYWORDERROR [error comment documentation keyword] Comment keyword error
+         19 SCE_C_GLOBALCLASS [identifier] Global class
+         20 SCE_C_STRINGRAW [literal string multiline raw] Raw strings for C++0x
+         21 SCE_C_TRIPLEVERBATIM [literal string multiline raw] Triple-quoted strings for Vala
+         22 SCE_C_HASHQUOTEDSTRING [literal string] Hash-quoted strings for Pike
+         23 SCE_C_PREPROCESSORCOMMENT [comment preprocessor] Preprocessor stream comment
+         24 SCE_C_PREPROCESSORCOMMENTDOC [comment preprocessor documentation] Preprocessor stream doc comment
+         25 SCE_C_USERLITERAL [literal] User defined literals
+         26 SCE_C_TASKMARKER [comment taskmarker] Task Marker
+         27 SCE_C_ESCAPESEQUENCE [literal string escapesequence] Escape sequence
+         64  [inactive default] 
+         65  [inactive comment] 
+         66  [inactive comment line] 
+         67  [inactive comment documentation] 
+         68  [inactive literal numeric] 
+         69  [inactive keyword] 
+         70  [inactive literal string] 
+         71  [inactive literal string character] 
+         72  [inactive literal uuid] 
+         73  [inactive preprocessor] 
+         74  [inactive operator] 
+         75  [inactive identifier] 
+         76  [inactive error literal string] 
+         77  [inactive literal string multiline raw] 
+         78  [inactive literal regex] 
+         79  [inactive comment documentation line] 
+         80  [inactive identifier] 
+         81  [inactive comment documentation keyword] 
+         82  [inactive error comment documentation keyword] 
+         83  [inactive identifier] 
+         84  [inactive literal string multiline raw] 
+         85  [inactive literal string multiline raw] 
+         86  [inactive literal string] 
+         87  [inactive comment preprocessor] 
+         88  [inactive comment preprocessor documentation] 
+         89  [inactive literal] 
+         90  [inactive comment taskmarker] 
+         91  [inactive literal string escapesequence] 
+
+Lexer cppnocase
+    UnicodeLineEnds
+    Properties:
+        bool   styling.within.preprocessor
+               For C++ code, determines whether all preprocessor code is styled in the preprocessor style (0, the default) or only from the initial # to the end of the command word(1).
+        bool   lexer.cpp.allow.dollars
+               Set to 0 to disallow the '$' character in identifiers with the cpp lexer.
+        bool   lexer.cpp.allow.hashes
+               Set to 1 to allow the '#' character in identifiers.
+        bool   lexer.cpp.enable.preprocessor
+               Set to 0 to disable recognition of preprocessor directives.
+        bool   lexer.cpp.track.preprocessor
+               Set to 1 to interpret #if/#else/#endif to grey out code that is not active.
+        bool   lexer.cpp.update.preprocessor
+               Set to 1 to update preprocessor definitions when #define found.
+        bool   lexer.cpp.verbatim.strings.allow.escapes
+               Set to 1 to allow verbatim strings to contain escape sequences.
+        bool   lexer.cpp.triplequoted.strings
+               Set to 1 to enable highlighting of triple-quoted strings.
+        bool   lexer.cpp.hashquoted.strings
+               Set to 1 to enable highlighting of hash-quoted strings.
+        int    lexer.cpp.backquoted.strings
+               Set how to highlighting back-quoted strings. 0 (the default) no highlighting. 1 highlighted as Go raw string. 2 highlighted as JavaScript template literal.
+        bool   lexer.cpp.escape.sequence
+               Set to 1 to enable highlighting of escape sequences in strings
+        bool   fold
+        bool   fold.cpp.syntax.based
+               Set this property to 0 to disable syntax based folding.
+        bool   fold.comment
+               This option enables folding multi-line comments and explicit fold points when using the C++ lexer. Explicit fold points allows adding extra folding by placing a //{ comment at the start and a //} at the end of a section that should fold.
+        bool   fold.cpp.comment.multiline
+               Set this property to 0 to disable folding multi-line comments when fold.comment=1.
+        bool   fold.cpp.comment.explicit
+               Set this property to 0 to disable folding explicit fold points when fold.comment=1.
+        string fold.cpp.explicit.start
+               The string to use for explicit fold start points, replacing the standard //{.
+        string fold.cpp.explicit.end
+               The string to use for explicit fold end points, replacing the standard //}.
+        bool   fold.cpp.explicit.anywhere
+               Set this property to 1 to enable explicit fold points anywhere, not just in line comments.
+        bool   fold.cpp.preprocessor.at.else
+               This option enables folding on a preprocessor #else or #endif line of an #if statement.
+        bool   fold.preprocessor
+               This option enables folding preprocessor directives when using the C++ lexer. Includes C#'s explicit #region and #endregion folding directives.
+        bool   fold.compact
+        bool   fold.at.else
+               This option enables C++ folding on a "} else {" line of an if statement.
+    Word Lists:
+        Primary keywords and identifiers
+        Secondary keywords and identifiers
+        Documentation comment keywords
+        Global classes and typedefs
+        Preprocessor definitions
+        Task marker and error marker keywords
+    Sub-Style Bases:
+         11
+         17
+    Styles:
+          0 SCE_C_DEFAULT [default] White space
+          1 SCE_C_COMMENT [comment] Comment: /* */.
+          2 SCE_C_COMMENTLINE [comment line] Line Comment: //.
+          3 SCE_C_COMMENTDOC [comment documentation] Doc comment: block comments beginning with /** or /*!
+          4 SCE_C_NUMBER [literal numeric] Number
+          5 SCE_C_WORD [keyword] Keyword
+          6 SCE_C_STRING [literal string] Double quoted string
+          7 SCE_C_CHARACTER [literal string character] Single quoted string
+          8 SCE_C_UUID [literal uuid] UUIDs (only in IDL)
+          9 SCE_C_PREPROCESSOR [preprocessor] Preprocessor
+         10 SCE_C_OPERATOR [operator] Operators
+         11 SCE_C_IDENTIFIER [identifier] Identifiers
+         12 SCE_C_STRINGEOL [error literal string] End of line where string is not closed
+         13 SCE_C_VERBATIM [literal string multiline raw] Verbatim strings for C#
+         14 SCE_C_REGEX [literal regex] Regular expressions for JavaScript
+         15 SCE_C_COMMENTLINEDOC [comment documentation line] Doc Comment Line: line comments beginning with /// or //!.
+         16 SCE_C_WORD2 [identifier] Keywords2
+         17 SCE_C_COMMENTDOCKEYWORD [comment documentation keyword] Comment keyword
+         18 SCE_C_COMMENTDOCKEYWORDERROR [error comment documentation keyword] Comment keyword error
+         19 SCE_C_GLOBALCLASS [identifier] Global class
+         20 SCE_C_STRINGRAW [literal string multiline raw] Raw strings for C++0x
+         21 SCE_C_TRIPLEVERBATIM [literal string multiline raw] Triple-quoted strings for Vala
+         22 SCE_C_HASHQUOTEDSTRING [literal string] Hash-quoted strings for Pike
+         23 SCE_C_PREPROCESSORCOMMENT [comment preprocessor] Preprocessor stream comment
+         24 SCE_C_PREPROCESSORCOMMENTDOC [comment preprocessor documentation] Preprocessor stream doc comment
+         25 SCE_C_USERLITERAL [literal] User defined literals
+         26 SCE_C_TASKMARKER [comment taskmarker] Task Marker
+         27 SCE_C_ESCAPESEQUENCE [literal string escapesequence] Escape sequence
+         64  [inactive default] 
+         65  [inactive comment] 
+         66  [inactive comment line] 
+         67  [inactive comment documentation] 
+         68  [inactive literal numeric] 
+         69  [inactive keyword] 
+         70  [inactive literal string] 
+         71  [inactive literal string character] 
+         72  [inactive literal uuid] 
+         73  [inactive preprocessor] 
+         74  [inactive operator] 
+         75  [inactive identifier] 
+         76  [inactive error literal string] 
+         77  [inactive literal string multiline raw] 
+         78  [inactive literal regex] 
+         79  [inactive comment documentation line] 
+         80  [inactive identifier] 
+         81  [inactive comment documentation keyword] 
+         82  [inactive error comment documentation keyword] 
+         83  [inactive identifier] 
+         84  [inactive literal string multiline raw] 
+         85  [inactive literal string multiline raw] 
+         86  [inactive literal string] 
+         87  [inactive comment preprocessor] 
+         88  [inactive comment preprocessor documentation] 
+         89  [inactive literal] 
+         90  [inactive comment taskmarker] 
+         91  [inactive literal string escapesequence] 
+
+Lexer csound
+    Word Lists:
+        Opcodes
+        Header Statements
+        User keywords
+
+Lexer css
+    Word Lists:
+        CSS1 Properties
+        Pseudo-classes
+        CSS2 Properties
+        CSS3 Properties
+        Pseudo-elements
+        Browser-Specific CSS Properties
+        Browser-Specific Pseudo-classes
+        Browser-Specific Pseudo-elements
+
+Lexer d
+    Properties:
+        bool   fold
+        bool   fold.d.syntax.based
+               Set this property to 0 to disable syntax based folding.
+        bool   fold.comment
+        bool   fold.d.comment.multiline
+               Set this property to 0 to disable folding multi-line comments when fold.comment=1.
+        bool   fold.d.comment.explicit
+               Set this property to 0 to disable folding explicit fold points when fold.comment=1.
+        string fold.d.explicit.start
+               The string to use for explicit fold start points, replacing the standard //{.
+        string fold.d.explicit.end
+               The string to use for explicit fold end points, replacing the standard //}.
+        bool   fold.d.explicit.anywhere
+               Set this property to 1 to enable explicit fold points anywhere, not just in line comments.
+        bool   fold.compact
+        int    lexer.d.fold.at.else
+               This option enables D folding on a "} else {" line of an if statement.
+        bool   fold.at.else
+    Word Lists:
+        Primary keywords and identifiers
+        Secondary keywords and identifiers
+        Documentation comment keywords
+        Type definitions and aliases
+        Keywords 5
+        Keywords 6
+        Keywords 7
+
+Lexer dart
+    Properties:
+        bool   fold
+    Word Lists:
+        Primary keywords
+        Secondary keywords
+        Tertiary keywords
+        Global type definitions
+    Styles:
+          0 SCE_DART_DEFAULT [default] White space
+          1 SCE_DART_COMMENTLINE [comment line] Comment: //
+          2 SCE_DART_COMMENTLINEDOC [comment line documentation] Comment: ///
+          3 SCE_DART_COMMENTBLOCK [comment] Comment: /* */
+          4 SCE_DART_COMMENTBLOCKDOC [comment documentation] Comment: /** */
+          5 SCE_DART_STRING_SQ [literal string] Single quoted string
+          6 SCE_DART_STRING_DQ [literal string] Double quoted string
+          7 SCE_DART_TRIPLE_STRING_SQ [literal string multiline] Single quoted multiline string
+          8 SCE_DART_TRIPLE_STRING_DQ [literal string multiline] Double quoted multiline string
+          9 SCE_DART_RAWSTRING_SQ [literal string raw] Single quoted raw string
+         10 SCE_DART_RAWSTRING_DQ [literal string raw] Double quoted raw string
+         11 SCE_DART_TRIPLE_RAWSTRING_SQ [literal string multiline raw] Single quoted multiline raw string
+         12 SCE_DART_TRIPLE_RAWSTRING_DQ [literal string multiline raw] Double quoted multiline raw string
+         13 SCE_DART_ESCAPECHAR [literal string escapesequence] Escape sequence
+         14 SCE_DART_IDENTIFIER [identifier] Identifier
+         15 SCE_DART_IDENTIFIER_STRING [identifier interpolated] Identifier following $ inside strings
+         16 SCE_DART_OPERATOR [operator] Operator
+         17 SCE_DART_OPERATOR_STRING [operator interpolated] Braces following $ inside string
+         18 SCE_DART_SYMBOL_IDENTIFIER [identifier symbol] Symbol name introduced by #
+         19 SCE_DART_SYMBOL_OPERATOR [operator symbol] Operator introduced by #
+         20 SCE_DART_NUMBER [literal numeric] Number
+         21 SCE_DART_KEY [key] Keys preceding ':' and named parameters
+         22 SCE_DART_METADATA [preprocessor] Metadata introduced by @
+         23 SCE_DART_KW_PRIMARY [keyword] Primary keywords
+         24 SCE_DART_KW_SECONDARY [identifier] Secondary keywords
+         25 SCE_DART_KW_TERTIARY [identifier] Tertiary keywords
+         26 SCE_DART_KW_TYPE [identifier] Global types
+         27 SCE_DART_STRINGEOL [error literal string] End of line where string is not closed
+
+Lexer dataflex
+    Word Lists:
+        Keywords
+        Scope open
+        Scope close
+        Operators
+
+Lexer diff
+
+Lexer DMAP
+    Word Lists:
+        Primary keywords and identifiers
+        Intrinsic functions
+        Extended and user defined functions
+
+Lexer DMIS
+    Word Lists:
+        DMIS Major Words
+        DMIS Minor Words
+        Unsupported DMIS Major Words
+        Unsupported DMIS Minor Words
+        Keywords for code folding start
+        Corresponding keywords for code folding end
+        
+
+Lexer ecl
+    Word Lists:
+        Keywords
+
+Lexer edifact
+    Properties:
+        bool   fold
+               Whether to apply folding to document or not
+        bool   lexer.edifact.highlight.un.all
+               Whether to apply UN* highlighting to all UN segments, or just to UNH
+
+Lexer eiffel
+    Word Lists:
+        Keywords
+
+Lexer eiffelkw
+    Word Lists:
+        Keywords
+
+Lexer erlang
+    Word Lists:
+        Erlang Reserved words
+        Erlang BIFs
+        Erlang Preprocessor
+        Erlang Module Attributes
+        Erlang Documentation
+        Erlang Documentation Macro
+
+Lexer errorlist
+    Properties:
+        bool   lexer.errorlist.value.separate
+               For lines in the output pane that are matches from Find in Files or GCC-stylediagnostics, style the path and line number separately from the rest of theline with style 21 used for the rest of the line.This allows matched text to be more easily distinguished from its location.
+        bool   lexer.errorlist.escape.sequences
+               Set to 1 to interpret escape sequences.
+    Styles:
+          0 SCE_ERR_DEFAULT [diagnostic] Text
+          1 SCE_ERR_PYTHON [diagnostic] Python Error
+          2 SCE_ERR_GCC [diagnostic] GCC Error
+          3 SCE_ERR_MS [diagnostic] Microsoft Error
+          4 SCE_ERR_CMD [default] Command or return status
+          5 SCE_ERR_BORLAND [diagnostic] Borland error and warning messages
+          6 SCE_ERR_PERL [diagnostic] Perl error and warning messages
+          7 SCE_ERR_NET [diagnostic] .NET tracebacks
+          8 SCE_ERR_LUA [diagnostic] Lua error and warning messages
+          9 SCE_ERR_CTAG [diagnostic] ctags
+         10 SCE_ERR_DIFF_CHANGED [default] Diff changed !
+         11 SCE_ERR_DIFF_ADDITION [default] Diff addition +
+         12 SCE_ERR_DIFF_DELETION [default] Diff deletion -
+         13 SCE_ERR_DIFF_MESSAGE [default] Diff message ---
+         14 SCE_ERR_PHP [diagnostic] PHP error
+         15 SCE_ERR_ELF [diagnostic] Essential Lahey Fortran 90 error
+         16 SCE_ERR_IFC [diagnostic] Intel Fortran Compiler error
+         17 SCE_ERR_IFORT [diagnostic] Intel Fortran Compiler v8.0 error/warning
+         18 SCE_ERR_ABSF [diagnostic] Absoft Pro Fortran 90/95 v8.2 error or warning
+         19 SCE_ERR_TIDY [diagnostic] HTML Tidy
+         20 SCE_ERR_JAVA_STACK [diagnostic] Java runtime stack trace
+         21 SCE_ERR_VALUE [default] Text matched with find in files and message part of GCC errors
+         22 SCE_ERR_GCC_INCLUDED_FROM [diagnostic] GCC showing include path to following error
+         23 SCE_ERR_ESCSEQ [escapesequence] Escape sequence
+         24 SCE_ERR_ESCSEQ_UNKNOWN [escapesequence] Escape sequence unknown
+         25 SCE_ERR_GCC_EXCERPT [diagnostic] GCC showing excerpt of code with pointer
+         26 SCE_ERR_BASH [diagnostic] Bash diagnostic
+         27  [unused] 
+         28  [unused] 
+         29  [unused] 
+         30  [unused] 
+         31  [unused] 
+         32  [predefined] 
+         33  [predefined] 
+         34  [predefined] 
+         35  [predefined] 
+         36  [predefined] 
+         37  [predefined] 
+         38  [predefined] 
+         39  [predefined] 
+         40 SCE_ERR_ES_BLACK [default] Black
+         41 SCE_ERR_ES_RED [default] Red
+         42 SCE_ERR_ES_GREEN [default] Green
+         43 SCE_ERR_ES_BROWN [default] Brown
+         44 SCE_ERR_ES_BLUE [default] Blue
+         45 SCE_ERR_ES_MAGENTA [default] Magenta
+         46 SCE_ERR_ES_CYAN [default] Cyan
+         47 SCE_ERR_ES_GRAY [default] Gray
+         48 SCE_ERR_ES_DARK_GRAY [default] Dark Gray
+         49 SCE_ERR_ES_BRIGHT_RED [default] Bright Red
+         50 SCE_ERR_ES_BRIGHT_GREEN [default] Bright Green
+         51 SCE_ERR_ES_YELLOW [default] Yellow
+         52 SCE_ERR_ES_BRIGHT_BLUE [default] Bright Blue
+         53 SCE_ERR_ES_BRIGHT_MAGENTA [default] Bright Magenta
+         54 SCE_ERR_ES_BRIGHT_CYAN [default] Bright Cyan
+         55 SCE_ERR_ES_WHITE [default] White
+
+Lexer escript
+    Word Lists:
+        Primary keywords and identifiers
+        Intrinsic functions
+        Extended and user defined functions
+
+Lexer escseq
+    Properties:
+        bool   lexer.escseq.colour.text
+               Set to 1 to colour text following the escape sequences.
+    Styles:
+          0 SCE_ESCSEQ_DEFAULT [default] Default
+          1 SCE_ESCSEQ_BLACK_DEFAULT [default] Black Default
+          2 SCE_ESCSEQ_RED_DEFAULT [default] Red Default
+          3 SCE_ESCSEQ_GREEN_DEFAULT [default] Green Default
+          4 SCE_ESCSEQ_YELLOW_DEFAULT [default] Yellow Default
+          5 SCE_ESCSEQ_BLUE_DEFAULT [default] Blue Default
+          6 SCE_ESCSEQ_MAGENTA_DEFAULT [default] Magenta Default
+          7 SCE_ESCSEQ_CYAN_DEFAULT [default] Cyan Default
+          8 SCE_ESCSEQ_WHITE_DEFAULT [default] White Default
+          9 SCE_ESCSEQ_DEFAULT_BLACK [default] Default Black
+         10 SCE_ESCSEQ_BLACK_BLACK [default] Black Black
+         11 SCE_ESCSEQ_RED_BLACK [default] Red Black
+         12 SCE_ESCSEQ_GREEN_BLACK [default] Green Black
+         13 SCE_ESCSEQ_YELLOW_BLACK [default] Yellow Black
+         14 SCE_ESCSEQ_BLUE_BLACK [default] Blue Black
+         15 SCE_ESCSEQ_MAGENTA_BLACK [default] Magenta Black
+         16 SCE_ESCSEQ_CYAN_BLACK [default] Cyan Black
+         17 SCE_ESCSEQ_WHITE_BLACK [default] White Black
+         18 SCE_ESCSEQ_DEFAULT_RED [default] Default Red
+         19 SCE_ESCSEQ_BLACK_RED [default] Black Red
+         20 SCE_ESCSEQ_RED_RED [default] Red Red
+         21 SCE_ESCSEQ_GREEN_RED [default] Green Red
+         22 SCE_ESCSEQ_YELLOW_RED [default] Yellow Red
+         23 SCE_ESCSEQ_BLUE_RED [default] Blue Red
+         24 SCE_ESCSEQ_MAGENTA_RED [default] Magenta Red
+         25 SCE_ESCSEQ_CYAN_RED [default] Cyan Red
+         26 SCE_ESCSEQ_WHITE_RED [default] White Red
+         27 SCE_ESCSEQ_DEFAULT_GREEN [default] Default Green
+         28 SCE_ESCSEQ_BLACK_GREEN [default] Black Green
+         29 SCE_ESCSEQ_RED_GREEN [default] Red Green
+         30 SCE_ESCSEQ_GREEN_GREEN [default] Green Green
+         31  [unused] 
+         32  [predefined] 
+         33  [predefined] 
+         34  [predefined] 
+         35  [predefined] 
+         36  [predefined] 
+         37  [predefined] 
+         38  [predefined] 
+         39  [predefined] 
+         40 SCE_ESCSEQ_YELLOW_GREEN [default] Yellow Green
+         41 SCE_ESCSEQ_BLUE_GREEN [default] Blue Green
+         42 SCE_ESCSEQ_MAGENTA_GREEN [default] Magenta Green
+         43 SCE_ESCSEQ_CYAN_GREEN [default] Cyan Green
+         44 SCE_ESCSEQ_WHITE_GREEN [default] White Green
+         45 SCE_ESCSEQ_DEFAULT_YELLOW [default] Default Yellow
+         46 SCE_ESCSEQ_BLACK_YELLOW [default] Black Yellow
+         47 SCE_ESCSEQ_RED_YELLOW [default] Red Yellow
+         48 SCE_ESCSEQ_GREEN_YELLOW [default] Green Yellow
+         49 SCE_ESCSEQ_YELLOW_YELLOW [default] Yellow Yellow
+         50 SCE_ESCSEQ_BLUE_YELLOW [default] Blue Yellow
+         51 SCE_ESCSEQ_MAGENTA_YELLOW [default] Magenta Yellow
+         52 SCE_ESCSEQ_CYAN_YELLOW [default] Cyan Yellow
+         53 SCE_ESCSEQ_WHITE_YELLOW [default] White Yellow
+         54 SCE_ESCSEQ_DEFAULT_BLUE [default] Default Blue
+         55 SCE_ESCSEQ_BLACK_BLUE [default] Black Blue
+         56 SCE_ESCSEQ_RED_BLUE [default] Red Blue
+         57 SCE_ESCSEQ_GREEN_BLUE [default] Green Blue
+         58 SCE_ESCSEQ_YELLOW_BLUE [default] Yellow Blue
+         59 SCE_ESCSEQ_BLUE_BLUE [default] Blue Blue
+         60 SCE_ESCSEQ_MAGENTA_BLUE [default] Magenta Blue
+         61 SCE_ESCSEQ_CYAN_BLUE [default] Cyan Blue
+         62 SCE_ESCSEQ_WHITE_BLUE [default] White Blue
+         63 SCE_ESCSEQ_DEFAULT_MAGENTA [default] Default Magenta
+         64 SCE_ESCSEQ_BLACK_MAGENTA [default] Black Magenta
+         65 SCE_ESCSEQ_RED_MAGENTA [default] Red Magenta
+         66 SCE_ESCSEQ_GREEN_MAGENTA [default] Green Magenta
+         67 SCE_ESCSEQ_YELLOW_MAGENTA [default] Yellow Magenta
+         68 SCE_ESCSEQ_BLUE_MAGENTA [default] Blue Magenta
+         69 SCE_ESCSEQ_MAGENTA_MAGENTA [default] Magenta Magenta
+         70 SCE_ESCSEQ_CYAN_MAGENTA [default] Cyan Magenta
+         71 SCE_ESCSEQ_WHITE_MAGENTA [default] White Magenta
+         72 SCE_ESCSEQ_DEFAULT_CYAN [default] Default Cyan
+         73 SCE_ESCSEQ_BLACK_CYAN [default] Black Cyan
+         74 SCE_ESCSEQ_RED_CYAN [default] Red Cyan
+         75 SCE_ESCSEQ_GREEN_CYAN [default] Green Cyan
+         76 SCE_ESCSEQ_YELLOW_CYAN [default] Yellow Cyan
+         77 SCE_ESCSEQ_BLUE_CYAN [default] Blue Cyan
+         78 SCE_ESCSEQ_MAGENTA_CYAN [default] Magenta Cyan
+         79 SCE_ESCSEQ_CYAN_CYAN [default] Cyan Cyan
+         80 SCE_ESCSEQ_WHITE_CYAN [default] White Cyan
+         81 SCE_ESCSEQ_DEFAULT_WHITE [default] Default White
+         82 SCE_ESCSEQ_BLACK_WHITE [default] Black White
+         83 SCE_ESCSEQ_RED_WHITE [default] Red White
+         84 SCE_ESCSEQ_GREEN_WHITE [default] Green White
+         85 SCE_ESCSEQ_YELLOW_WHITE [default] Yellow White
+         86 SCE_ESCSEQ_BLUE_WHITE [default] Blue White
+         87 SCE_ESCSEQ_MAGENTA_WHITE [default] Magenta White
+         88 SCE_ESCSEQ_CYAN_WHITE [default] Cyan White
+         89 SCE_ESCSEQ_WHITE_WHITE [default] White White
+         90 SCE_ESCSEQ_BOLD_DEFAULT [default] Bold Default
+         91 SCE_ESCSEQ_BOLD_BLACK_DEFAULT [default] Bold Black Default
+         92 SCE_ESCSEQ_BOLD_RED_DEFAULT [default] Bold Red Default
+         93 SCE_ESCSEQ_BOLD_GREEN_DEFAULT [default] Bold Green Default
+         94 SCE_ESCSEQ_BOLD_YELLOW_DEFAULT [default] Bold Yellow Default
+         95 SCE_ESCSEQ_BOLD_BLUE_DEFAULT [default] Bold Blue Default
+         96 SCE_ESCSEQ_BOLD_MAGENTA_DEFAULT [default] Bold Magenta Default
+         97 SCE_ESCSEQ_BOLD_CYAN_DEFAULT [default] Bold Cyan Default
+         98 SCE_ESCSEQ_BOLD_WHITE_DEFAULT [default] Bold White Default
+         99 SCE_ESCSEQ_BOLD_DEFAULT_BLACK [default] Bold Default Black
+        100 SCE_ESCSEQ_BOLD_BLACK_BLACK [default] Bold Black Black
+        101 SCE_ESCSEQ_BOLD_RED_BLACK [default] Bold Red Black
+        102 SCE_ESCSEQ_BOLD_GREEN_BLACK [default] Bold Green Black
+        103 SCE_ESCSEQ_BOLD_YELLOW_BLACK [default] Bold Yellow Black
+        104 SCE_ESCSEQ_BOLD_BLUE_BLACK [default] Bold Blue Black
+        105 SCE_ESCSEQ_BOLD_MAGENTA_BLACK [default] Bold Magenta Black
+        106 SCE_ESCSEQ_BOLD_CYAN_BLACK [default] Bold Cyan Black
+        107 SCE_ESCSEQ_BOLD_WHITE_BLACK [default] Bold White Black
+        108 SCE_ESCSEQ_BOLD_DEFAULT_RED [default] Bold Default Red
+        109 SCE_ESCSEQ_BOLD_BLACK_RED [default] Bold Black Red
+        110 SCE_ESCSEQ_BOLD_RED_RED [default] Bold Red Red
+        111 SCE_ESCSEQ_BOLD_GREEN_RED [default] Bold Green Red
+        112 SCE_ESCSEQ_BOLD_YELLOW_RED [default] Bold Yellow Red
+        113 SCE_ESCSEQ_BOLD_BLUE_RED [default] Bold Blue Red
+        114 SCE_ESCSEQ_BOLD_MAGENTA_RED [default] Bold Magenta Red
+        115 SCE_ESCSEQ_BOLD_CYAN_RED [default] Bold Cyan Red
+        116 SCE_ESCSEQ_BOLD_WHITE_RED [default] Bold White Red
+        117 SCE_ESCSEQ_BOLD_DEFAULT_GREEN [default] Bold Default Green
+        118 SCE_ESCSEQ_BOLD_BLACK_GREEN [default] Bold Black Green
+        119 SCE_ESCSEQ_BOLD_RED_GREEN [default] Bold Red Green
+        120 SCE_ESCSEQ_BOLD_GREEN_GREEN [default] Bold Green Green
+        121 SCE_ESCSEQ_BOLD_YELLOW_GREEN [default] Bold Yellow Green
+        122 SCE_ESCSEQ_BOLD_BLUE_GREEN [default] Bold Blue Green
+        123 SCE_ESCSEQ_BOLD_MAGENTA_GREEN [default] Bold Magenta Green
+        124 SCE_ESCSEQ_BOLD_CYAN_GREEN [default] Bold Cyan Green
+        125 SCE_ESCSEQ_BOLD_WHITE_GREEN [default] Bold White Green
+        126 SCE_ESCSEQ_BOLD_DEFAULT_YELLOW [default] Bold Default Yellow
+        127 SCE_ESCSEQ_BOLD_BLACK_YELLOW [default] Bold Black Yellow
+        128 SCE_ESCSEQ_BOLD_RED_YELLOW [default] Bold Red Yellow
+        129 SCE_ESCSEQ_BOLD_GREEN_YELLOW [default] Bold Green Yellow
+        130 SCE_ESCSEQ_BOLD_YELLOW_YELLOW [default] Bold Yellow Yellow
+        131 SCE_ESCSEQ_BOLD_BLUE_YELLOW [default] Bold Blue Yellow
+        132 SCE_ESCSEQ_BOLD_MAGENTA_YELLOW [default] Bold Magenta Yellow
+        133 SCE_ESCSEQ_BOLD_CYAN_YELLOW [default] Bold Cyan Yellow
+        134 SCE_ESCSEQ_BOLD_WHITE_YELLOW [default] Bold White Yellow
+        135 SCE_ESCSEQ_BOLD_DEFAULT_BLUE [default] Bold Default Blue
+        136 SCE_ESCSEQ_BOLD_BLACK_BLUE [default] Bold Black Blue
+        137 SCE_ESCSEQ_BOLD_RED_BLUE [default] Bold Red Blue
+        138 SCE_ESCSEQ_BOLD_GREEN_BLUE [default] Bold Green Blue
+        139 SCE_ESCSEQ_BOLD_YELLOW_BLUE [default] Bold Yellow Blue
+        140 SCE_ESCSEQ_BOLD_BLUE_BLUE [default] Bold Blue Blue
+        141 SCE_ESCSEQ_BOLD_MAGENTA_BLUE [default] Bold Magenta Blue
+        142 SCE_ESCSEQ_BOLD_CYAN_BLUE [default] Bold Cyan Blue
+        143 SCE_ESCSEQ_BOLD_WHITE_BLUE [default] Bold White Blue
+        144 SCE_ESCSEQ_BOLD_DEFAULT_MAGENTA [default] Bold Default Magenta
+        145 SCE_ESCSEQ_BOLD_BLACK_MAGENTA [default] Bold Black Magenta
+        146 SCE_ESCSEQ_BOLD_RED_MAGENTA [default] Bold Red Magenta
+        147 SCE_ESCSEQ_BOLD_GREEN_MAGENTA [default] Bold Green Magenta
+        148 SCE_ESCSEQ_BOLD_YELLOW_MAGENTA [default] Bold Yellow Magenta
+        149 SCE_ESCSEQ_BOLD_BLUE_MAGENTA [default] Bold Blue Magenta
+        150 SCE_ESCSEQ_BOLD_MAGENTA_MAGENTA [default] Bold Magenta Magenta
+        151 SCE_ESCSEQ_BOLD_CYAN_MAGENTA [default] Bold Cyan Magenta
+        152 SCE_ESCSEQ_BOLD_WHITE_MAGENTA [default] Bold White Magenta
+        153 SCE_ESCSEQ_BOLD_DEFAULT_CYAN [default] Bold Default Cyan
+        154 SCE_ESCSEQ_BOLD_BLACK_CYAN [default] Bold Black Cyan
+        155 SCE_ESCSEQ_BOLD_RED_CYAN [default] Bold Red Cyan
+        156 SCE_ESCSEQ_BOLD_GREEN_CYAN [default] Bold Green Cyan
+        157 SCE_ESCSEQ_BOLD_YELLOW_CYAN [default] Bold Yellow Cyan
+        158 SCE_ESCSEQ_BOLD_BLUE_CYAN [default] Bold Blue Cyan
+        159 SCE_ESCSEQ_BOLD_MAGENTA_CYAN [default] Bold Magenta Cyan
+        160 SCE_ESCSEQ_BOLD_CYAN_CYAN [default] Bold Cyan Cyan
+        161 SCE_ESCSEQ_BOLD_WHITE_CYAN [default] Bold White Cyan
+        162 SCE_ESCSEQ_BOLD_DEFAULT_WHITE [default] Bold Default White
+        163 SCE_ESCSEQ_BOLD_BLACK_WHITE [default] Bold Black White
+        164 SCE_ESCSEQ_BOLD_RED_WHITE [default] Bold Red White
+        165 SCE_ESCSEQ_BOLD_GREEN_WHITE [default] Bold Green White
+        166 SCE_ESCSEQ_BOLD_YELLOW_WHITE [default] Bold Yellow White
+        167 SCE_ESCSEQ_BOLD_BLUE_WHITE [default] Bold Blue White
+        168 SCE_ESCSEQ_BOLD_MAGENTA_WHITE [default] Bold Magenta White
+        169 SCE_ESCSEQ_BOLD_CYAN_WHITE [default] Bold Cyan White
+        170 SCE_ESCSEQ_BOLD_WHITE_WHITE [default] Bold White White
+        171 SCE_ESCSEQ_IDENTIFIER [default] Sequence Identifier
+        172 SCE_ESCSEQ_UNKNOWN [default] Sequence Unknown
+
+Lexer f77
+    Word Lists:
+        Primary keywords and identifiers
+        Intrinsic functions
+        Extended and user defined functions
+
+Lexer flagship
+    Word Lists:
+        Keywords Commands
+        Std Library Functions
+        Procedure, return, exit
+        Class (oop)
+        Doxygen keywords
+
+Lexer forth
+    Word Lists:
+        control keywords
+        keywords
+        definition words
+        prewords with one argument
+        prewords with two arguments
+        string definition keywords
+
+Lexer fortran
+    Word Lists:
+        Primary keywords and identifiers
+        Intrinsic functions
+        Extended and user defined functions
+
+Lexer freebasic
+    Properties:
+        bool   fold
+        bool   fold.basic.syntax.based
+               Set this property to 0 to disable syntax based folding.
+        bool   fold.basic.comment.explicit
+               This option enables folding explicit fold points when using the Basic lexer. Explicit fold points allows adding extra folding by placing a ;{ (BB/PB) or '{ (FB) comment at the start and a ;} (BB/PB) or '} (FB) at the end of a section that should be folded.
+        string fold.basic.explicit.start
+               The string to use for explicit fold start points, replacing the standard ;{ (BB/PB) or '{ (FB).
+        string fold.basic.explicit.end
+               The string to use for explicit fold end points, replacing the standard ;} (BB/PB) or '} (FB).
+        bool   fold.basic.explicit.anywhere
+               Set this property to 1 to enable explicit fold points anywhere, not just in line comments.
+        bool   fold.compact
+    Word Lists:
+        FreeBasic Keywords
+        FreeBasic PreProcessor Keywords
+        user defined 1
+        user defined 2
+
+Lexer fsharp
+    Properties:
+        bool   fold
+        bool   fold.compact
+        bool   fold.comment
+               Setting this option to 0 disables comment folding in F# files.
+        bool   fold.fsharp.comment.stream
+               Setting this option to 0 disables folding of ML-style comments in F# files when fold.comment=1.
+        bool   fold.fsharp.comment.multiline
+               Setting this option to 0 disables folding of grouped line comments in F# files when fold.comment=1.
+        bool   fold.fsharp.preprocessor
+               Setting this option to 1 enables folding of F# compiler directives.
+        bool   fold.fsharp.imports
+               Setting this option to 0 disables folding of F# import declarations.
+    Word Lists:
+        standard language keywords
+        core functions, including those in the FSharp.Collections namespace
+        built-in types, core namespaces, modules
+        optional
+        optional
+
+Lexer gap
+    Word Lists:
+        Keywords 1
+        Keywords 2
+        Keywords 3 (unused)
+        Keywords 4 (unused)
+
+Lexer gdscript
+    UnicodeLineEnds
+    Properties:
+        int    lexer.gdscript.whinge.level
+               For GDScript code, checks whether indenting is consistent. The default, 0 turns off indentation checking, 1 checks whether each line is potentially inconsistent with the previous line, 2 checks whether any space characters occur before a tab character in the indentation, 3 checks whether any spaces are in the indentation, and 4 checks for any tab characters in the indentation. 1 is a good level to use.
+        bool   lexer.gdscript.literals.binary
+               Set to 0 to not recognise binary and octal literals: 0b1011 0o712.
+        bool   lexer.gdscript.strings.over.newline
+               Set to 1 to allow strings to span newline characters.
+        bool   lexer.gdscript.keywords2.no.sub.identifiers
+               When enabled, it will not style keywords2 items that are used as a sub-identifier. Example: when set, will not highlight "foo.open" when "open" is a keywords2 item.
+        bool   fold
+        bool   fold.gdscript.quotes
+               This option enables folding multi-line quoted strings when using the GDScript lexer.
+        bool   fold.compact
+        bool   lexer.gdscript.unicode.identifiers
+               Set to 0 to not recognise Unicode identifiers.
+    Word Lists:
+        Keywords
+        Highlighted identifiers
+    Sub-Style Bases:
+         11
+    Styles:
+          0 SCE_GD_DEFAULT [default] White space
+          1 SCE_GD_COMMENTLINE [comment line] Comment
+          2 SCE_GD_NUMBER [literal numeric] Number
+          3 SCE_GD_STRING [literal string] String
+          4 SCE_GD_CHARACTER [literal string] Single quoted string
+          5 SCE_GD_WORD [keyword] Keyword
+          6 SCE_GD_TRIPLE [literal string] Triple quotes
+          7 SCE_GD_TRIPLEDOUBLE [literal string] Triple double quotes
+          8 SCE_GD_CLASSNAME [identifier] Class name definition
+          9 SCE_GD_FUNCNAME [identifier] Function or method name definition
+         10 SCE_GD_OPERATOR [operator] Operators
+         11 SCE_GD_IDENTIFIER [identifier] Identifiers
+         12 SCE_GD_COMMENTBLOCK [comment] Comment-blocks
+         13 SCE_GD_STRINGEOL [error literal string] End of line where string is not closed
+         14 SCE_GD_WORD2 [identifier] Highlighted identifiers
+         15 SCE_GD_ANNOTATION [annotation] Annotations
+         16 SCE_GD_NODEPATH [path] Node path
+
+Lexer gui4cli
+    Word Lists:
+        Globals
+        Events
+        Attributes
+        Control
+        Commands
+
+Lexer haskell
+    Properties:
+        bool   lexer.haskell.allow.hash
+               Set to 0 to disallow the '#' character at the end of identifiers and literals with the haskell lexer (GHC -XMagicHash extension)
+        bool   lexer.haskell.allow.quotes
+               Set to 0 to disable highlighting of Template Haskell name quotations and promoted constructors (GHC -XTemplateHaskell and -XDataKinds extensions)
+        bool   lexer.haskell.allow.questionmark
+               Set to 1 to allow the '?' character at the start of identifiers with the haskell lexer (GHC & Hugs -XImplicitParams extension)
+        bool   lexer.haskell.import.safe
+               Set to 0 to disallow "safe" keyword in imports (GHC -XSafe, -XTrustworthy, -XUnsafe extensions)
+        bool   lexer.haskell.cpp
+               Set to 0 to disable C-preprocessor highlighting (-XCPP extension)
+        bool   styling.within.preprocessor
+               For Haskell code, determines whether all preprocessor code is styled in the preprocessor style (0, the default) or only from the initial # to the end of the command word(1).
+        bool   fold
+        bool   fold.comment
+        bool   fold.compact
+        bool   fold.haskell.imports
+               Set to 1 to enable folding of import declarations
+    Word Lists:
+        Keywords
+        FFI
+        Reserved operators
+
+Lexer hollywood
+    Properties:
+        bool   fold
+        bool   fold.compact
+    Word Lists:
+        Hollywood keywords
+        Hollywood standard API functions
+        Hollywood plugin API functions
+        Hollywood plugin methods
+
+Lexer hypertext
+    Properties:
+        int    asp.default.language
+               Script in ASP code is initially assumed to be in JavaScript. To change this to VBScript set asp.default.language to 2. Python is 3.
+        bool   html.tags.case.sensitive
+               For XML and HTML, setting this property to 1 will make tags match in a case sensitive way which is the expected behaviour for XML and XHTML.
+        bool   lexer.xml.allow.scripts
+               Set to 0 to disable scripts in XML.
+        int    lexer.xml.allow.php
+               Set to 0 to disable PHP in XML, 1 to accept <?php and <?=, 2 to also accept <?.The default is 2.
+        int    lexer.html.allow.php
+               Set to 0 to disable PHP in HTML, 1 to accept <?php and <?=, 2 to also accept <?.The default is 2.
+        bool   lexer.html.mako
+               Set to 1 to enable the mako template language.
+        bool   lexer.html.django
+               Set to 1 to enable the django template language.
+        bool   lexer.xml.allow.asp
+               Set to 0 to disable ASP in XML.
+        bool   lexer.html.allow.asp
+               Set to 0 to disable ASP in HTML.
+        bool   fold
+        bool   fold.html
+               Folding is turned on or off for HTML and XML files with this option. The fold option must also be on for folding to occur.
+        bool   fold.html.preprocessor
+               Folding is turned on or off for scripts embedded in HTML files with this option. The default is on.
+        bool   fold.compact
+        bool   fold.hypertext.comment
+               Allow folding for comments in scripts embedded in HTML. The default is off.
+        bool   fold.hypertext.heredoc
+               Allow folding for heredocs in scripts embedded in HTML. The default is off.
+        bool   fold.xml.at.tag.open
+               Enable folding for XML at the start of open tag. The default is off.
+    Word Lists:
+        HTML elements and attributes
+        JavaScript keywords
+        VBScript keywords
+        Python keywords
+        PHP keywords
+        SGML and DTD keywords
+    Sub-Style Bases:
+          1
+          3
+         46
+         61
+         74
+         96
+        121
+    Styles:
+          0 SCE_H_DEFAULT [default] Text
+          1 SCE_H_TAG [tag] Tags
+          2 SCE_H_TAGUNKNOWN [error tag] Unknown Tags
+          3 SCE_H_ATTRIBUTE [attribute] Attributes
+          4 SCE_H_ATTRIBUTEUNKNOWN [error attribute] Unknown Attributes
+          5 SCE_H_NUMBER [literal numeric] Numbers
+          6 SCE_H_DOUBLESTRING [literal string] Double quoted strings
+          7 SCE_H_SINGLESTRING [literal string] Single quoted strings
+          8 SCE_H_OTHER [tag operator] Other inside tag, including space and '='
+          9 SCE_H_COMMENT [comment] Comment
+         10 SCE_H_ENTITY [literal] Entities
+         11 SCE_H_TAGEND [tag] XML style tag ends '/>'
+         12 SCE_H_XMLSTART [identifier] XML identifier start '<?'
+         13 SCE_H_XMLEND [identifier] XML identifier end '?>'
+         14 SCE_H_SCRIPT [error] Internal state which should never be visible
+         15 SCE_H_ASP [preprocessor] ASP <% ... %>
+         16 SCE_H_ASPAT [preprocessor] ASP <% ... %>
+         17 SCE_H_CDATA [literal] CDATA
+         18 SCE_H_QUESTION [preprocessor] PHP
+         19 SCE_H_VALUE [literal string] Unquoted values
+         20 SCE_H_XCCOMMENT [comment] ASP.NET, JSP Comment <%-- ... --%>
+         21 SCE_H_SGML_DEFAULT [default] SGML tags <! ... >
+         22 SCE_H_SGML_COMMAND [preprocessor] SGML command
+         23 SCE_H_SGML_1ST_PARAM [preprocessor] SGML 1st param
+         24 SCE_H_SGML_DOUBLESTRING [literal string] SGML double string
+         25 SCE_H_SGML_SIMPLESTRING [literal string] SGML single string
+         26 SCE_H_SGML_ERROR [error] SGML error
+         27 SCE_H_SGML_SPECIAL [literal] SGML special (#XXXX type)
+         28 SCE_H_SGML_ENTITY [literal] SGML entity
+         29 SCE_H_SGML_COMMENT [comment] SGML comment
+         30 SCE_H_SGML_1ST_PARAM_COMMENT [error comment] SGML first parameter - lexer internal. It is an error if any text is in this style.
+         31 SCE_H_SGML_BLOCK_DEFAULT [default] SGML block
+         32  [predefined] 
+         33  [predefined] 
+         34  [predefined] 
+         35  [predefined] 
+         36  [predefined] 
+         37  [predefined] 
+         38  [predefined] 
+         39  [predefined] 
+         40 SCE_HJ_START [client javascript default] JS Start - allows eol filled background to not start on same line as SCRIPT tag
+         41 SCE_HJ_DEFAULT [client javascript default] JS Default
+         42 SCE_HJ_COMMENT [client javascript comment] JS Comment
+         43 SCE_HJ_COMMENTLINE [client javascript comment line] JS Line Comment
+         44 SCE_HJ_COMMENTDOC [client javascript comment documentation] JS Doc comment
+         45 SCE_HJ_NUMBER [client javascript literal numeric] JS Number
+         46 SCE_HJ_WORD [client javascript identifier] JS Word
+         47 SCE_HJ_KEYWORD [client javascript keyword] JS Keyword
+         48 SCE_HJ_DOUBLESTRING [client javascript literal string] JS Double quoted string
+         49 SCE_HJ_SINGLESTRING [client javascript literal string] JS Single quoted string
+         50 SCE_HJ_SYMBOLS [client javascript operator] JS Symbols
+         51 SCE_HJ_STRINGEOL [client javascript error literal string] JavaScript EOL
+         52 SCE_HJ_REGEX [client javascript literal regex] JavaScript RegEx
+         53 SCE_HJ_TEMPLATELITERAL [client javascript literal template] JS Template Literal
+         54  [unused] 
+         55 SCE_HJA_START [server javascript default] JS Start - allows eol filled background to not start on same line as SCRIPT tag
+         56 SCE_HJA_DEFAULT [server javascript default] JS Default
+         57 SCE_HJA_COMMENT [server javascript comment] JS Comment
+         58 SCE_HJA_COMMENTLINE [server javascript comment line] JS Line Comment
+         59 SCE_HJA_COMMENTDOC [server javascript comment documentation] JS Doc comment
+         60 SCE_HJA_NUMBER [server javascript literal numeric] JS Number
+         61 SCE_HJA_WORD [server javascript identifier] JS Word
+         62 SCE_HJA_KEYWORD [server javascript keyword] JS Keyword
+         63 SCE_HJA_DOUBLESTRING [server javascript literal string] JS Double quoted string
+         64 SCE_HJA_SINGLESTRING [server javascript literal string] JS Single quoted string
+         65 SCE_HJA_SYMBOLS [server javascript operator] JS Symbols
+         66 SCE_HJA_STRINGEOL [server javascript error literal string] JavaScript EOL
+         67 SCE_HJA_REGEX [server javascript literal regex] JavaScript RegEx
+         68 SCE_HJA_TEMPLATELITERAL [server javascript literal template] JS Template Literal
+         69  [unused] 
+         70 SCE_HB_START [client basic default] Start
+         71 SCE_HB_DEFAULT [client basic default] Default
+         72 SCE_HB_COMMENTLINE [client basic comment line] Comment
+         73 SCE_HB_NUMBER [client basic literal numeric] Number
+         74 SCE_HB_WORD [client basic keyword] KeyWord
+         75 SCE_HB_STRING [client basic literal string] String
+         76 SCE_HB_IDENTIFIER [client basic identifier] Identifier
+         77 SCE_HB_STRINGEOL [client basic literal string] Unterminated string
+         78  [unused] 
+         79  [unused] 
+         80 SCE_HBA_START [server basic default] Start
+         81 SCE_HBA_DEFAULT [server basic default] Default
+         82 SCE_HBA_COMMENTLINE [server basic comment line] Comment
+         83 SCE_HBA_NUMBER [server basic literal numeric] Number
+         84 SCE_HBA_WORD [server basic keyword] KeyWord
+         85 SCE_HBA_STRING [server basic literal string] String
+         86 SCE_HBA_IDENTIFIER [server basic identifier] Identifier
+         87 SCE_HBA_STRINGEOL [server basic literal string] Unterminated string
+         88  [unused] 
+         89  [unused] 
+         90 SCE_HP_START [client python default] Embedded Python
+         91 SCE_HP_DEFAULT [client python default] Embedded Python
+         92 SCE_HP_COMMENTLINE [client python comment line] Comment
+         93 SCE_HP_NUMBER [client python literal numeric] Number
+         94 SCE_HP_STRING [client python literal string] String
+         95 SCE_HP_CHARACTER [client python literal string character] Single quoted string
+         96 SCE_HP_WORD [client python keyword] Keyword
+         97 SCE_HP_TRIPLE [client python literal string] Triple quotes
+         98 SCE_HP_TRIPLEDOUBLE [client python literal string] Triple double quotes
+         99 SCE_HP_CLASSNAME [client python identifier] Class name definition
+        100 SCE_HP_DEFNAME [client python identifier] Function or method name definition
+        101 SCE_HP_OPERATOR [client python operator] Operators
+        102 SCE_HP_IDENTIFIER [client python identifier] Identifiers
+        103  [unused] 
+        104 SCE_HPHP_COMPLEX_VARIABLE [server php identifier] PHP complex variable
+        105 SCE_HPA_START [server python default] ASP Python
+        106 SCE_HPA_DEFAULT [server python default] ASP Python
+        107 SCE_HPA_COMMENTLINE [server python comment line] Comment
+        108 SCE_HPA_NUMBER [server python literal numeric] Number
+        109 SCE_HPA_STRING [server python literal string] String
+        110 SCE_HPA_CHARACTER [server python literal string character] Single quoted string
+        111 SCE_HPA_WORD [server python keyword] Keyword
+        112 SCE_HPA_TRIPLE [server python literal string] Triple quotes
+        113 SCE_HPA_TRIPLEDOUBLE [server python literal string] Triple double quotes
+        114 SCE_HPA_CLASSNAME [server python identifier] Class name definition
+        115 SCE_HPA_DEFNAME [server python identifier] Function or method name definition
+        116 SCE_HPA_OPERATOR [server python operator] Operators
+        117 SCE_HPA_IDENTIFIER [server python identifier] Identifiers
+        118 SCE_HPHP_DEFAULT [server php default] Default
+        119 SCE_HPHP_HSTRING [server php literal string] Double quoted String
+        120 SCE_HPHP_SIMPLESTRING [server php literal string] Single quoted string
+        121 SCE_HPHP_WORD [server php keyword] Keyword
+        122 SCE_HPHP_NUMBER [server php literal numeric] Number
+        123 SCE_HPHP_VARIABLE [server php identifier] Variable
+        124 SCE_HPHP_COMMENT [server php comment] Comment
+        125 SCE_HPHP_COMMENTLINE [server php comment line] One line comment
+        126 SCE_HPHP_HSTRING_VARIABLE [server php literal string identifier] PHP variable in double quoted string
+        127 SCE_HPHP_OPERATOR [server php operator] PHP operator
+
+Lexer ihex
+
+Lexer indent
+
+Lexer inno
+    Word Lists:
+        Sections
+        Keywords
+        Parameters
+        Preprocessor directives
+        Pascal keywords
+        User defined keywords
+
+Lexer json
+    Properties:
+        bool   lexer.json.escape.sequence
+               Set to 1 to enable highlighting of escape sequences in strings
+        bool   lexer.json.allow.comments
+               Set to 1 to enable highlighting of line/block comments in JSON
+        bool   fold.compact
+        bool   fold
+    Word Lists:
+        JSON Keywords
+        JSON-LD Keywords
+
+Lexer julia
+    Properties:
+        bool   fold
+        bool   fold.compact
+        bool   fold.comment
+        bool   fold.julia.docstring
+               Fold multiline triple-doublequote strings, usually used to document a function or type above the definition.
+        bool   fold.julia.syntax.based
+               Set this property to 0 to disable syntax based folding.
+        bool   lexer.julia.highlight.typeannotation
+               This option enables highlighting of the type identifier after `::`.
+        bool   lexer.julia.highlight.lexerror
+               This option enables highlighting of syntax error int character or number definition.
+    Word Lists:
+        Primary keywords and identifiers
+        Built in types
+        Other keywords
+        Built in functions
+    Styles:
+          0 SCE_JULIA_DEFAULT [default] White space
+          1 SCE_JULIA_COMMENT [comment] Comment
+          2 SCE_JULIA_NUMBER [literal numeric] Number
+          3 SCE_JULIA_KEYWORD1 [keyword] Reserved keywords
+          4 SCE_JULIA_KEYWORD2 [identifier] Builtin type names
+          5 SCE_JULIA_KEYWORD3 [identifier] Constants
+          6 SCE_JULIA_CHAR [literal string character] Single quoted string
+          7 SCE_JULIA_OPERATOR [operator] Operator
+          8 SCE_JULIA_BRACKET [bracket operator] Bracket operator
+          9 SCE_JULIA_IDENTIFIER [identifier] Identifier
+         10 SCE_JULIA_STRING [literal string] Double quoted String
+         11 SCE_JULIA_SYMBOL [literal string symbol] Symbol
+         12 SCE_JULIA_MACRO [macro preprocessor] Macro
+         13 SCE_JULIA_STRINGINTERP [literal string interpolated] String interpolation
+         14 SCE_JULIA_DOCSTRING [literal string documentation] Docstring
+         15 SCE_JULIA_STRINGLITERAL [literal string] String literal prefix
+         16 SCE_JULIA_COMMAND [literal string command] Command
+         17 SCE_JULIA_COMMANDLITERAL [literal string command] Command literal prefix
+         18 SCE_JULIA_TYPEANNOT [identifier type] Type annotation identifier
+         19 SCE_JULIA_LEXERROR [lexer error] Lexing error
+         20 SCE_JULIA_KEYWORD4 [identifier] Builtin function names
+         21 SCE_JULIA_TYPEOPERATOR [operator type] Type annotation operator
+
+Lexer kix
+
+Lexer kvirc
+    Word Lists:
+        primary
+        function_keywords
+
+Lexer latex
+
+Lexer lisp
+    Word Lists:
+        Functions and special operators
+        Keywords
+
+Lexer literatehaskell
+    Properties:
+        bool   lexer.haskell.allow.hash
+               Set to 0 to disallow the '#' character at the end of identifiers and literals with the haskell lexer (GHC -XMagicHash extension)
+        bool   lexer.haskell.allow.quotes
+               Set to 0 to disable highlighting of Template Haskell name quotations and promoted constructors (GHC -XTemplateHaskell and -XDataKinds extensions)
+        bool   lexer.haskell.allow.questionmark
+               Set to 1 to allow the '?' character at the start of identifiers with the haskell lexer (GHC & Hugs -XImplicitParams extension)
+        bool   lexer.haskell.import.safe
+               Set to 0 to disallow "safe" keyword in imports (GHC -XSafe, -XTrustworthy, -XUnsafe extensions)
+        bool   lexer.haskell.cpp
+               Set to 0 to disable C-preprocessor highlighting (-XCPP extension)
+        bool   styling.within.preprocessor
+               For Haskell code, determines whether all preprocessor code is styled in the preprocessor style (0, the default) or only from the initial # to the end of the command word(1).
+        bool   fold
+        bool   fold.comment
+        bool   fold.compact
+        bool   fold.haskell.imports
+               Set to 1 to enable folding of import declarations
+    Word Lists:
+        Keywords
+        FFI
+        Reserved operators
+
+Lexer lot
+
+Lexer lout
+    Word Lists:
+        Predefined identifiers
+        Predefined delimiters
+        Predefined keywords
+
+Lexer lua
+    Properties:
+        bool   fold.compact
+    Word Lists:
+        Keywords
+        Basic functions
+        String, (table) & math functions
+        (coroutines), I/O & system facilities
+        user1
+        user2
+        user3
+        user4
+    Sub-Style Bases:
+         11
+    Styles:
+          0 SCE_LUA_DEFAULT [default] White space: Visible only in View Whitespace mode (or if it has a back colour)
+          1 SCE_LUA_COMMENT [comment] Block comment (Lua 5.0)
+          2 SCE_LUA_COMMENTLINE [comment line] Line comment
+          3 SCE_LUA_COMMENTDOC [comment documentation] Doc comment
+          4 SCE_LUA_NUMBER [literal numeric] Number
+          5 SCE_LUA_WORD [keyword] Keyword
+          6 SCE_LUA_STRING [literal string] (Double quoted) String
+          7 SCE_LUA_CHARACTER [literal string character] Character (Single quoted string)
+          8 SCE_LUA_LITERALSTRING [literal string] Literal string
+          9 SCE_LUA_PREPROCESSOR [preprocessor] Preprocessor (obsolete in Lua 4.0 and up)
+         10 SCE_LUA_OPERATOR [operator] Operators
+         11 SCE_LUA_IDENTIFIER [identifier] Identifier (everything else...)
+         12 SCE_LUA_STRINGEOL [error literal string] End of line where string is not closed
+         13 SCE_LUA_WORD2 [identifier] Other keywords
+         14 SCE_LUA_WORD3 [identifier] Other keywords
+         15 SCE_LUA_WORD4 [identifier] Other keywords
+         16 SCE_LUA_WORD5 [identifier] Other keywords
+         17 SCE_LUA_WORD6 [identifier] Other keywords
+         18 SCE_LUA_WORD7 [identifier] Other keywords
+         19 SCE_LUA_WORD8 [identifier] Other keywords
+         20 SCE_LUA_LABEL [label] Labels
+
+Lexer magiksf
+    Word Lists:
+        Accessors (local, global, self, super, thisthread)
+        Pragmatic (pragma, private)
+        Containers (method, block, proc)
+        Flow (if, then, elif, else)
+        Characters (space, tab, newline, return)
+        Fold Containers (method, proc, block, if, loop)
+
+Lexer makefile
+    Word Lists:
+        Directives
+    Styles:
+          0 SCE_MAKE_DEFAULT [default] White space
+          1 SCE_MAKE_COMMENT [comment] Comment
+          2 SCE_MAKE_PREPROCESSOR [preprocessor] Preprocessor
+          3 SCE_MAKE_IDENTIFIER [identifier] Identifiers
+          4 SCE_MAKE_OPERATOR [operator] Operator
+          5 SCE_MAKE_TARGET [identifier] Identifiers
+          6  [unused] 
+          7  [unused] 
+          8  [unused] 
+          9 SCE_MAKE_IDEOL [error identifier] Incomplete identifier reference
+
+Lexer markdown
+
+Lexer matlab
+    Word Lists:
+        Keywords
+
+Lexer maxima
+
+Lexer metapost
+    Word Lists:
+        MetaPost
+        MetaFun
+
+Lexer mmixal
+    Word Lists:
+        Operation Codes
+        Special Register
+        Predefined Symbols
+
+Lexer modula
+    Word Lists:
+        Keywords
+        ReservedKeywords
+        Operators
+        PragmaKeyswords
+        EscapeCodes
+        DoxygeneKeywords
+
+Lexer mssql
+    Word Lists:
+        Statements
+        Data Types
+        System tables
+        Global variables
+        Functions
+        System Stored Procedures
+        Operators
+
+Lexer mysql
+    Word Lists:
+        Major Keywords
+        Keywords
+        Database Objects
+        Functions
+        System Variables
+        Procedure keywords
+        User Keywords 1
+        User Keywords 2
+        User Keywords 3
+
+Lexer nim
+    UnicodeLineEnds
+    Properties:
+        bool   lexer.nim.raw.strings.highlight.ident
+               Set to 1 to enable highlighting generalized raw string identifiers. Generalized raw string identifiers are anything other than r (or R).
+        bool   fold
+        bool   fold.compact
+    Word Lists:
+        Keywords
+    Styles:
+          0 SCE_NIM_DEFAULT [default] White space
+          1 SCE_NIM_COMMENT [comment block] Block comment
+          2 SCE_NIM_COMMENTDOC [comment block doc] Block doc comment
+          3 SCE_NIM_COMMENTLINE [comment line] Line comment
+          4 SCE_NIM_COMMENTLINEDOC [comment doc] Line doc comment
+          5 SCE_NIM_NUMBER [literal numeric] Number
+          6 SCE_NIM_STRING [literal string] String
+          7 SCE_NIM_CHARACTER [literal string] Single quoted string
+          8 SCE_NIM_WORD [keyword] Keyword
+          9 SCE_NIM_TRIPLE [literal string] Triple quotes
+         10 SCE_NIM_TRIPLEDOUBLE [literal string] Triple double quotes
+         11 SCE_NIM_BACKTICKS [operator definition] Identifiers
+         12 SCE_NIM_FUNCNAME [identifier] Function name definition
+         13 SCE_NIM_STRINGEOL [error literal string] String is not closed
+         14 SCE_NIM_NUMERROR [numeric error] Numeric format error
+         15 SCE_NIM_OPERATOR [operator] Operators
+         16 SCE_NIM_IDENTIFIER [identifier] Identifiers
+
+Lexer nimrod
+    Word Lists:
+        Keywords
+
+Lexer nix
+    Properties:
+        bool   fold
+    Word Lists:
+        Keywords 1
+        Keywords 2
+        Keywords 3
+        Keywords 4
+    Styles:
+          0 SCE_NIX_DEFAULT [default] White space
+          1 SCE_NIX_COMMENTLINE [comment line] Comment: //
+          2 SCE_NIX_COMMENTBLOCK [comment] Comment: /* */
+          3 SCE_NIX_STRING [literal string] Double quoted string
+          4 SCE_NIX_STRING_MULTILINE [literal string multiline] Single quoted multiline string
+          5 SCE_NIX_ESCAPECHAR [literal string escapesequence] Escape sequence
+          6 SCE_NIX_IDENTIFIER [identifier] Identifier
+          7 SCE_NIX_OPERATOR [operator] Operator
+          8 SCE_NIX_OPERATOR_STRING [operator interpolated] Braces following $ inside string
+          9 SCE_NIX_NUMBER [literal numeric] Number
+         10 SCE_NIX_KEY [key] Keys preceding '='
+         11 SCE_NIX_PATH [identifier] Path literal
+         12 SCE_NIX_KEYWORD1 [keyword] Primary keywords
+         13 SCE_NIX_KEYWORD2 [identifier] Keywords 2
+         14 SCE_NIX_KEYWORD3 [identifier] Keywords 3
+         15 SCE_NIX_KEYWORD4 [identifier] Keywords 4
+         16 SCE_NIX_STRINGEOL [error literal string] End of line where string is not closed
+
+Lexer nncrontab
+    Word Lists:
+        Section keywords and Forth words
+        nnCrontab keywords
+        Modifiers
+
+Lexer nsis
+    Word Lists:
+        Functions
+        Variables
+        Lables
+        UserDefined
+
+Lexer null
+
+Lexer octave
+    Word Lists:
+        Keywords
+
+Lexer opal
+    Word Lists:
+        Keywords
+        Sorts
+
+Lexer oscript
+    Word Lists:
+        Keywords and reserved words
+        Literal constants
+        Literal operators
+        Built-in value and reference types
+        Built-in global functions
+        Built-in static objects
+
+Lexer pascal
+    Properties:
+        bool   lexer.pascal.smart.highlighting
+               Set to 0 to not completely handle some complex features like 'property'.
+        bool   fold
+        bool   fold.comment
+        bool   fold.preprocessor
+        bool   fold.compact
+    Word Lists:
+        Keywords
+    Styles:
+          0 SCE_PAS_DEFAULT [default] White space
+          1 SCE_PAS_IDENTIFIER [identifier] Identifier
+          2 SCE_PAS_COMMENT [comment] Comment: { ... }
+          3 SCE_PAS_COMMENT2 [comment] Comment: (* ... *)
+          4 SCE_PAS_COMMENTLINE [comment line] Line Comment: // ...
+          5 SCE_PAS_PREPROCESSOR [preprocessor] Preprocessor: {$ ... }
+          6 SCE_PAS_PREPROCESSOR2 [preprocessor] Preprocessor: (*$ ... *)
+          7 SCE_PAS_NUMBER [literal numeric] Number
+          8 SCE_PAS_HEXNUMBER [literal numeric] Hex Number
+          9 SCE_PAS_WORD [keyword] Keyword
+         10 SCE_PAS_STRING [literal string] Single quoted string
+         11 SCE_PAS_STRINGEOL [error literal string] End of line where string is not closed
+         12 SCE_PAS_CHARACTER [literal string character] Character
+         13 SCE_PAS_OPERATOR [operator] Operator
+         14 SCE_PAS_ASM [assembler] Inline Assembler
+
+Lexer powerbasic
+    Word Lists:
+        Keywords
+
+Lexer perl
+    Properties:
+        bool   fold
+        bool   fold.comment
+        bool   fold.compact
+        bool   fold.perl.pod
+               Set to 0 to disable folding Pod blocks when using the Perl lexer.
+        bool   fold.perl.package
+               Set to 0 to disable folding packages when using the Perl lexer.
+        bool   fold.perl.comment.explicit
+               Set to 0 to disable explicit folding.
+        bool   fold.perl.at.else
+               This option enables Perl folding on a "} else {" line of an if statement.
+    Word Lists:
+        Keywords
+    Styles:
+          0 SCE_PL_DEFAULT [default] white space
+          1 SCE_PL_ERROR [error] error
+          2 SCE_PL_COMMENTLINE [comment line] comment
+          3 SCE_PL_POD [data] pod: = at beginning of line
+          4 SCE_PL_NUMBER [literal numeric] number
+          5 SCE_PL_WORD [keyword] keyword
+          6 SCE_PL_STRING [literal string interpolated] double quoted string
+          7 SCE_PL_CHARACTER [literal string] single quoted string
+          8 SCE_PL_PUNCTUATION [operator] symbols / punctuation. currently not used
+          9 SCE_PL_PREPROCESSOR [preprocessor unused] preprocessor. currently not used
+         10 SCE_PL_OPERATOR [operator] operators
+         11 SCE_PL_IDENTIFIER [identifier] identifiers (functions, etc.)
+         12 SCE_PL_SCALAR [identifier] scalars: $var
+         13 SCE_PL_ARRAY [identifier] array: @var
+         14 SCE_PL_HASH [identifier] hash: %var
+         15 SCE_PL_SYMBOLTABLE [identifier] symbol table: *var
+         16 SCE_PL_VARIABLE_INDEXER [identifier unused] sce_pl_variable_indexer allocated but unused
+         17 SCE_PL_REGEX [literal regex] regex: /re/ or m{re}
+         18 SCE_PL_REGSUBST [literal regex] substitution: s/re/ore/
+         19 SCE_PL_LONGQUOTE [literal string] long quote (qq, qr, qw, qx) -- obsolete: replaced by qq, qx, qr, qw
+         20 SCE_PL_BACKTICKS [literal string interpolated] back ticks
+         21 SCE_PL_DATASECTION [data] data section: __data__ or __end__ at beginning of line
+         22 SCE_PL_HERE_DELIM [here-doc literal string] here-doc (delimiter)
+         23 SCE_PL_HERE_Q [here-doc literal string] here-doc (single quoted, q)
+         24 SCE_PL_HERE_QQ [here-doc literal string interpolated] here-doc (double quoted, qq)
+         25 SCE_PL_HERE_QX [here-doc literal interpolated] here-doc (back ticks, qx)
+         26 SCE_PL_STRING_Q [literal string] single quoted string, generic
+         27 SCE_PL_STRING_QQ [literal string interpolated] qq = double quoted string
+         28 SCE_PL_STRING_QX [literal string interpolated] qx = back ticks
+         29 SCE_PL_STRING_QR [literal regex] qr = regex
+         30 SCE_PL_STRING_QW [literal string interpolated] qw = array
+         31 SCE_PL_POD_VERB [data] pod: verbatim paragraphs
+         32  [predefined] 
+         33  [predefined] 
+         34  [predefined] 
+         35  [predefined] 
+         36  [predefined] 
+         37  [predefined] 
+         38  [predefined] 
+         39  [predefined] 
+         40 SCE_PL_SUB_PROTOTYPE [identifier] subroutine prototype
+         41 SCE_PL_FORMAT_IDENT [identifier] format identifier
+         42 SCE_PL_FORMAT [literal string] format body
+         43 SCE_PL_STRING_VAR [identifier interpolated] double quoted string (interpolated variable)
+         44 SCE_PL_XLAT [literal string] translation: tr{}{} y{}{}
+         45  [unused] 
+         46  [unused] 
+         47  [unused] 
+         48  [unused] 
+         49  [unused] 
+         50  [unused] 
+         51  [unused] 
+         52  [unused] 
+         53  [unused] 
+         54 SCE_PL_REGEX_VAR [identifier interpolated] regex: /re/ or m{re} (interpolated variable)
+         55 SCE_PL_REGSUBST_VAR [identifier interpolated] substitution: s/re/ore/ (interpolated variable)
+         56  [unused] 
+         57 SCE_PL_BACKTICKS_VAR [identifier interpolated] back ticks (interpolated variable)
+         58  [unused] 
+         59  [unused] 
+         60  [unused] 
+         61 SCE_PL_HERE_QQ_VAR [identifier interpolated] here-doc (double quoted, qq) (interpolated variable)
+         62 SCE_PL_HERE_QX_VAR [identifier interpolated] here-doc (back ticks, qx) (interpolated variable)
+         63  [unused] 
+         64 SCE_PL_STRING_QQ_VAR [identifier interpolated] qq = double quoted string (interpolated variable)
+         65 SCE_PL_STRING_QX_VAR [identifier interpolated] qx = back ticks (interpolated variable)
+         66 SCE_PL_STRING_QR_VAR [identifier interpolated] qr = regex (interpolated variable)
+
+Lexer phpscript
+    Properties:
+        int    asp.default.language
+               Script in ASP code is initially assumed to be in JavaScript. To change this to VBScript set asp.default.language to 2. Python is 3.
+        bool   html.tags.case.sensitive
+               For XML and HTML, setting this property to 1 will make tags match in a case sensitive way which is the expected behaviour for XML and XHTML.
+        bool   lexer.xml.allow.scripts
+               Set to 0 to disable scripts in XML.
+        int    lexer.xml.allow.php
+               Set to 0 to disable PHP in XML, 1 to accept <?php and <?=, 2 to also accept <?.The default is 2.
+        int    lexer.html.allow.php
+               Set to 0 to disable PHP in HTML, 1 to accept <?php and <?=, 2 to also accept <?.The default is 2.
+        bool   lexer.html.mako
+               Set to 1 to enable the mako template language.
+        bool   lexer.html.django
+               Set to 1 to enable the django template language.
+        bool   lexer.xml.allow.asp
+               Set to 0 to disable ASP in XML.
+        bool   lexer.html.allow.asp
+               Set to 0 to disable ASP in HTML.
+        bool   fold
+        bool   fold.html
+               Folding is turned on or off for HTML and XML files with this option. The fold option must also be on for folding to occur.
+        bool   fold.html.preprocessor
+               Folding is turned on or off for scripts embedded in HTML files with this option. The default is on.
+        bool   fold.compact
+        bool   fold.hypertext.comment
+               Allow folding for comments in scripts embedded in HTML. The default is off.
+        bool   fold.hypertext.heredoc
+               Allow folding for heredocs in scripts embedded in HTML. The default is off.
+        bool   fold.xml.at.tag.open
+               Enable folding for XML at the start of open tag. The default is off.
+    Word Lists:
+        
+        
+        
+        
+        PHP keywords
+        
+    Sub-Style Bases:
+          1
+          3
+         46
+         61
+         74
+         96
+        121
+    Styles:
+          0 SCE_H_DEFAULT [default] Text
+          1 SCE_H_TAG [tag] Tags
+          2 SCE_H_TAGUNKNOWN [error tag] Unknown Tags
+          3 SCE_H_ATTRIBUTE [attribute] Attributes
+          4 SCE_H_ATTRIBUTEUNKNOWN [error attribute] Unknown Attributes
+          5 SCE_H_NUMBER [literal numeric] Numbers
+          6 SCE_H_DOUBLESTRING [literal string] Double quoted strings
+          7 SCE_H_SINGLESTRING [literal string] Single quoted strings
+          8 SCE_H_OTHER [tag operator] Other inside tag, including space and '='
+          9 SCE_H_COMMENT [comment] Comment
+         10 SCE_H_ENTITY [literal] Entities
+         11 SCE_H_TAGEND [tag] XML style tag ends '/>'
+         12 SCE_H_XMLSTART [identifier] XML identifier start '<?'
+         13 SCE_H_XMLEND [identifier] XML identifier end '?>'
+         14 SCE_H_SCRIPT [error] Internal state which should never be visible
+         15 SCE_H_ASP [preprocessor] ASP <% ... %>
+         16 SCE_H_ASPAT [preprocessor] ASP <% ... %>
+         17 SCE_H_CDATA [literal] CDATA
+         18 SCE_H_QUESTION [preprocessor] PHP
+         19 SCE_H_VALUE [literal string] Unquoted values
+         20 SCE_H_XCCOMMENT [comment] ASP.NET, JSP Comment <%-- ... --%>
+         21 SCE_H_SGML_DEFAULT [default] SGML tags <! ... >
+         22 SCE_H_SGML_COMMAND [preprocessor] SGML command
+         23 SCE_H_SGML_1ST_PARAM [preprocessor] SGML 1st param
+         24 SCE_H_SGML_DOUBLESTRING [literal string] SGML double string
+         25 SCE_H_SGML_SIMPLESTRING [literal string] SGML single string
+         26 SCE_H_SGML_ERROR [error] SGML error
+         27 SCE_H_SGML_SPECIAL [literal] SGML special (#XXXX type)
+         28 SCE_H_SGML_ENTITY [literal] SGML entity
+         29 SCE_H_SGML_COMMENT [comment] SGML comment
+         30 SCE_H_SGML_1ST_PARAM_COMMENT [error comment] SGML first parameter - lexer internal. It is an error if any text is in this style.
+         31 SCE_H_SGML_BLOCK_DEFAULT [default] SGML block
+         32  [predefined] 
+         33  [predefined] 
+         34  [predefined] 
+         35  [predefined] 
+         36  [predefined] 
+         37  [predefined] 
+         38  [predefined] 
+         39  [predefined] 
+         40 SCE_HJ_START [client javascript default] JS Start - allows eol filled background to not start on same line as SCRIPT tag
+         41 SCE_HJ_DEFAULT [client javascript default] JS Default
+         42 SCE_HJ_COMMENT [client javascript comment] JS Comment
+         43 SCE_HJ_COMMENTLINE [client javascript comment line] JS Line Comment
+         44 SCE_HJ_COMMENTDOC [client javascript comment documentation] JS Doc comment
+         45 SCE_HJ_NUMBER [client javascript literal numeric] JS Number
+         46 SCE_HJ_WORD [client javascript identifier] JS Word
+         47 SCE_HJ_KEYWORD [client javascript keyword] JS Keyword
+         48 SCE_HJ_DOUBLESTRING [client javascript literal string] JS Double quoted string
+         49 SCE_HJ_SINGLESTRING [client javascript literal string] JS Single quoted string
+         50 SCE_HJ_SYMBOLS [client javascript operator] JS Symbols
+         51 SCE_HJ_STRINGEOL [client javascript error literal string] JavaScript EOL
+         52 SCE_HJ_REGEX [client javascript literal regex] JavaScript RegEx
+         53 SCE_HJ_TEMPLATELITERAL [client javascript literal template] JS Template Literal
+         54  [unused] 
+         55 SCE_HJA_START [server javascript default] JS Start - allows eol filled background to not start on same line as SCRIPT tag
+         56 SCE_HJA_DEFAULT [server javascript default] JS Default
+         57 SCE_HJA_COMMENT [server javascript comment] JS Comment
+         58 SCE_HJA_COMMENTLINE [server javascript comment line] JS Line Comment
+         59 SCE_HJA_COMMENTDOC [server javascript comment documentation] JS Doc comment
+         60 SCE_HJA_NUMBER [server javascript literal numeric] JS Number
+         61 SCE_HJA_WORD [server javascript identifier] JS Word
+         62 SCE_HJA_KEYWORD [server javascript keyword] JS Keyword
+         63 SCE_HJA_DOUBLESTRING [server javascript literal string] JS Double quoted string
+         64 SCE_HJA_SINGLESTRING [server javascript literal string] JS Single quoted string
+         65 SCE_HJA_SYMBOLS [server javascript operator] JS Symbols
+         66 SCE_HJA_STRINGEOL [server javascript error literal string] JavaScript EOL
+         67 SCE_HJA_REGEX [server javascript literal regex] JavaScript RegEx
+         68 SCE_HJA_TEMPLATELITERAL [server javascript literal template] JS Template Literal
+         69  [unused] 
+         70 SCE_HB_START [client basic default] Start
+         71 SCE_HB_DEFAULT [client basic default] Default
+         72 SCE_HB_COMMENTLINE [client basic comment line] Comment
+         73 SCE_HB_NUMBER [client basic literal numeric] Number
+         74 SCE_HB_WORD [client basic keyword] KeyWord
+         75 SCE_HB_STRING [client basic literal string] String
+         76 SCE_HB_IDENTIFIER [client basic identifier] Identifier
+         77 SCE_HB_STRINGEOL [client basic literal string] Unterminated string
+         78  [unused] 
+         79  [unused] 
+         80 SCE_HBA_START [server basic default] Start
+         81 SCE_HBA_DEFAULT [server basic default] Default
+         82 SCE_HBA_COMMENTLINE [server basic comment line] Comment
+         83 SCE_HBA_NUMBER [server basic literal numeric] Number
+         84 SCE_HBA_WORD [server basic keyword] KeyWord
+         85 SCE_HBA_STRING [server basic literal string] String
+         86 SCE_HBA_IDENTIFIER [server basic identifier] Identifier
+         87 SCE_HBA_STRINGEOL [server basic literal string] Unterminated string
+         88  [unused] 
+         89  [unused] 
+         90 SCE_HP_START [client python default] Embedded Python
+         91 SCE_HP_DEFAULT [client python default] Embedded Python
+         92 SCE_HP_COMMENTLINE [client python comment line] Comment
+         93 SCE_HP_NUMBER [client python literal numeric] Number
+         94 SCE_HP_STRING [client python literal string] String
+         95 SCE_HP_CHARACTER [client python literal string character] Single quoted string
+         96 SCE_HP_WORD [client python keyword] Keyword
+         97 SCE_HP_TRIPLE [client python literal string] Triple quotes
+         98 SCE_HP_TRIPLEDOUBLE [client python literal string] Triple double quotes
+         99 SCE_HP_CLASSNAME [client python identifier] Class name definition
+        100 SCE_HP_DEFNAME [client python identifier] Function or method name definition
+        101 SCE_HP_OPERATOR [client python operator] Operators
+        102 SCE_HP_IDENTIFIER [client python identifier] Identifiers
+        103  [unused] 
+        104 SCE_HPHP_COMPLEX_VARIABLE [server php identifier] PHP complex variable
+        105 SCE_HPA_START [server python default] ASP Python
+        106 SCE_HPA_DEFAULT [server python default] ASP Python
+        107 SCE_HPA_COMMENTLINE [server python comment line] Comment
+        108 SCE_HPA_NUMBER [server python literal numeric] Number
+        109 SCE_HPA_STRING [server python literal string] String
+        110 SCE_HPA_CHARACTER [server python literal string character] Single quoted string
+        111 SCE_HPA_WORD [server python keyword] Keyword
+        112 SCE_HPA_TRIPLE [server python literal string] Triple quotes
+        113 SCE_HPA_TRIPLEDOUBLE [server python literal string] Triple double quotes
+        114 SCE_HPA_CLASSNAME [server python identifier] Class name definition
+        115 SCE_HPA_DEFNAME [server python identifier] Function or method name definition
+        116 SCE_HPA_OPERATOR [server python operator] Operators
+        117 SCE_HPA_IDENTIFIER [server python identifier] Identifiers
+        118 SCE_HPHP_DEFAULT [server php default] Default
+        119 SCE_HPHP_HSTRING [server php literal string] Double quoted String
+        120 SCE_HPHP_SIMPLESTRING [server php literal string] Single quoted string
+        121 SCE_HPHP_WORD [server php keyword] Keyword
+        122 SCE_HPHP_NUMBER [server php literal numeric] Number
+        123 SCE_HPHP_VARIABLE [server php identifier] Variable
+        124 SCE_HPHP_COMMENT [server php comment] Comment
+        125 SCE_HPHP_COMMENTLINE [server php comment line] One line comment
+        126 SCE_HPHP_HSTRING_VARIABLE [server php literal string identifier] PHP variable in double quoted string
+        127 SCE_HPHP_OPERATOR [server php operator] PHP operator
+
+Lexer PL/M
+    Word Lists:
+        Keywords
+
+Lexer po
+
+Lexer pov
+    Word Lists:
+        Language directives
+        Objects & CSG & Appearance
+        Types & Modifiers & Items
+        Predefined Identifiers
+        Predefined Functions
+        User defined 1
+        User defined 2
+        User defined 3
+
+Lexer powerpro
+    Word Lists:
+        Keyword list 1
+        Keyword list 2
+        Keyword list 3
+        Keyword list 4
+
+Lexer powershell
+    Word Lists:
+        Commands
+        Cmdlets
+        Aliases
+        Functions
+        User1
+        DocComment
+
+Lexer abl
+    Properties:
+        bool   fold
+        bool   fold.abl.syntax.based
+               Set this property to 0 to disable syntax based folding.
+        bool   fold.comment
+               This option enables folding multi-line comments and explicit fold points when using the ABL lexer. 
+        bool   fold.abl.comment.multiline
+               Set this property to 0 to disable folding multi-line comments when fold.comment=1.
+        bool   fold.compact
+    Word Lists:
+        Primary keywords and identifiers
+        Keywords that opens a block, only when used to begin a syntactic line
+        Keywords that opens a block anywhere in a syntactic line
+        Task Marker
+
+Lexer props
+
+Lexer ps
+    Word Lists:
+        PS Level 1 operators
+        PS Level 2 operators
+        PS Level 3 operators
+        RIP-specific operators
+        User-defined operators
+
+Lexer purebasic
+    Properties:
+        bool   fold
+        bool   fold.basic.syntax.based
+               Set this property to 0 to disable syntax based folding.
+        bool   fold.basic.comment.explicit
+               This option enables folding explicit fold points when using the Basic lexer. Explicit fold points allows adding extra folding by placing a ;{ (BB/PB) or '{ (FB) comment at the start and a ;} (BB/PB) or '} (FB) at the end of a section that should be folded.
+        string fold.basic.explicit.start
+               The string to use for explicit fold start points, replacing the standard ;{ (BB/PB) or '{ (FB).
+        string fold.basic.explicit.end
+               The string to use for explicit fold end points, replacing the standard ;} (BB/PB) or '} (FB).
+        bool   fold.basic.explicit.anywhere
+               Set this property to 1 to enable explicit fold points anywhere, not just in line comments.
+        bool   fold.compact
+    Word Lists:
+        PureBasic Keywords
+        PureBasic PreProcessor Keywords
+        user defined 1
+        user defined 2
+
+Lexer python
+    UnicodeLineEnds
+    Properties:
+        int    tab.timmy.whinge.level
+               For Python code, checks whether indenting is consistent. The default, 0 turns off indentation checking, 1 checks whether each line is potentially inconsistent with the previous line, 2 checks whether any space characters occur before a tab character in the indentation, 3 checks whether any spaces are in the indentation, and 4 checks for any tab characters in the indentation. 1 is a good level to use.
+        bool   lexer.python.literals.binary
+               Set to 0 to not recognise Python 3 binary and octal literals: 0b1011 0o712.
+        bool   lexer.python.strings.u
+               Set to 0 to not recognise Python Unicode literals u"x" as used before Python 3.
+        bool   lexer.python.strings.b
+               Set to 0 to not recognise Python 3 bytes literals b"x".
+        bool   lexer.python.strings.f
+               Set to 0 to not recognise Python 3.6 f-string literals f"var={var}".
+        bool   lexer.python.strings.f.pep.701
+               Set to 0 to use pre-PEP 701 / Python 3.12 f-string lexing.
+        bool   lexer.python.strings.t
+               Set to 0 to not recognise Python 3.14 t-string literals t"var={var}".
+        bool   lexer.python.strings.over.newline
+               Set to 1 to allow strings to span newline characters.
+        bool   lexer.python.keywords2.no.sub.identifiers
+               When enabled, it will not style keywords2 items that are used as a sub-identifier. Example: when set, will not highlight "foo.open" when "open" is a keywords2 item.
+        bool   fold
+        bool   fold.quotes.python
+               This option enables folding multi-line quoted strings when using the Python lexer.
+        bool   fold.compact
+        bool   lexer.python.unicode.identifiers
+               Set to 0 to not recognise Python 3 Unicode identifiers.
+        int    lexer.python.identifier.attributes
+               Set to 1 to recognise Python identifier attributes.
+        int    lexer.python.decorator.attributes
+               Set to 1 to recognise Python decorator attributes.
+    Word Lists:
+        Keywords
+        Highlighted identifiers
+    Sub-Style Bases:
+         11
+    Styles:
+          0 SCE_P_DEFAULT [default] White space
+          1 SCE_P_COMMENTLINE [comment line] Comment
+          2 SCE_P_NUMBER [literal numeric] Number
+          3 SCE_P_STRING [literal string] String
+          4 SCE_P_CHARACTER [literal string] Single quoted string
+          5 SCE_P_WORD [keyword] Keyword
+          6 SCE_P_TRIPLE [literal string] Triple quotes
+          7 SCE_P_TRIPLEDOUBLE [literal string] Triple double quotes
+          8 SCE_P_CLASSNAME [identifier] Class name definition
+          9 SCE_P_DEFNAME [identifier] Function or method name definition
+         10 SCE_P_OPERATOR [operator] Operators
+         11 SCE_P_IDENTIFIER [identifier] Identifiers
+         12 SCE_P_COMMENTBLOCK [comment] Comment-blocks
+         13 SCE_P_STRINGEOL [error literal string] End of line where string is not closed
+         14 SCE_P_WORD2 [identifier] Highlighted identifiers
+         15 SCE_P_DECORATOR [preprocessor] Decorators
+         16 SCE_P_FSTRING [literal string interpolated] F-String
+         17 SCE_P_FCHARACTER [literal string interpolated] Single quoted f-string
+         18 SCE_P_FTRIPLE [literal string interpolated] Triple quoted f-string
+         19 SCE_P_FTRIPLEDOUBLE [literal string interpolated] Triple double quoted f-string
+         20 SCE_P_ATTRIBUTE [identifier] Attribute of identifier
+
+Lexer r
+    Word Lists:
+        Language Keywords
+        Base / Default package function
+        Other Package Functions
+        Unused
+        Unused
+
+Lexer raku
+    Properties:
+        bool   fold
+        bool   fold.comment
+        bool   fold.compact
+        bool   fold.raku.comment.multiline
+               Set this property to 0 to disable folding multi-line comments when fold.comment=1.
+        bool   fold.raku.comment.pod
+               Set this property to 0 to disable folding POD comments when fold.comment=1.
+    Word Lists:
+        Keywords and identifiers
+        Functions
+        Types basic
+        Types composite
+        Types domain-specific
+        Types exception
+        Adverbs
+
+Lexer rebol
+    Word Lists:
+        Keywords
+
+Lexer registry
+    Properties:
+        bool   fold.compact
+        bool   fold
+
+Lexer ruby
+    Properties:
+        bool   fold.compact
+        bool   fold.comment
+    Word Lists:
+        Keywords
+    Sub-Style Bases:
+         11
+    Styles:
+          0 SCE_RB_DEFAULT [default] White space
+          1 SCE_RB_ERROR [error] Error
+          2 SCE_RB_COMMENTLINE [comment] Comment
+          3 SCE_RB_POD [data] POD
+          4 SCE_RB_NUMBER [literal numeric] Number
+          5 SCE_RB_WORD [keyword] Keyword
+          6 SCE_RB_STRING [literal string] Quoted string
+          7 SCE_RB_CHARACTER [literal string character] Quoted string
+          8 SCE_RB_CLASSNAME [identifier] Class name definition
+          9 SCE_RB_DEFNAME [identifier] Function or method name definition
+         10 SCE_RB_OPERATOR [operator] Operator
+         11 SCE_RB_IDENTIFIER [identifier] Identifiers
+         12 SCE_RB_REGEX [literal regex] RegEx
+         13 SCE_RB_GLOBAL [identifier] Global
+         14 SCE_RB_SYMBOL [identifier symbol] 
+         15 SCE_RB_MODULE_NAME [identifier] Module name
+         16 SCE_RB_INSTANCE_VAR [identifier] Instance variable
+         17 SCE_RB_CLASS_VAR [identifier] Class variable
+         18 SCE_RB_BACKTICKS [literal string interpolated] Back ticks
+         19 SCE_RB_DATASECTION [data] Data section
+         20 SCE_RB_HERE_DELIM [here-doc literal string] Here-doc (delimiter)
+         21 SCE_RB_HERE_Q [here-doc literal string] Here-doc (single quoted, q)
+         22 SCE_RB_HERE_QQ [here-doc literal string] Here-doc (double quoted, qq)
+         23 SCE_RB_HERE_QX [here-doc literal string] Here-doc (back ticks, qx)
+         24 SCE_RB_STRING_Q [literal string] Single quoted string, generic
+         25 SCE_RB_STRING_QQ [literal string interpolated] qq = double quoted string
+         26 SCE_RB_STRING_QX [literal string interpolated] qx = back ticks
+         27 SCE_RB_STRING_QR [literal regex] qr = regex
+         28 SCE_RB_STRING_QW [literal string interpolated] qw = array
+         29 SCE_RB_WORD_DEMOTED [keyword] Keyword demoted
+         30 SCE_RB_STDIN [file] Standard input stream
+         31 SCE_RB_STDOUT [file] Standard output stream
+         32  [predefined] 
+         33  [predefined] 
+         34  [predefined] 
+         35  [predefined] 
+         36  [predefined] 
+         37  [predefined] 
+         38  [predefined] 
+         39  [predefined] 
+         40 SCE_RB_STDERR [file] Standard error stream
+         41 SCE_RB_STRING_W [literal string] String array
+         42 SCE_RB_STRING_I [literal string] Symbol array
+         43 SCE_RB_STRING_QI [literal string interpolated] Interpolable symbol array
+         44 SCE_RB_STRING_QS [identifier symbol] Symbol
+
+Lexer rust
+    Properties:
+        bool   fold
+        bool   fold.comment
+        bool   fold.compact
+        bool   fold.at.else
+        bool   fold.rust.syntax.based
+               Set this property to 0 to disable syntax based folding.
+        bool   fold.rust.comment.multiline
+               Set this property to 0 to disable folding multi-line comments when fold.comment=1.
+        bool   fold.rust.comment.explicit
+               Set this property to 0 to disable folding explicit fold points when fold.comment=1.
+        string fold.rust.explicit.start
+               The string to use for explicit fold start points, replacing the standard //{.
+        string fold.rust.explicit.end
+               The string to use for explicit fold end points, replacing the standard //}.
+        bool   fold.rust.explicit.anywhere
+               Set this property to 1 to enable explicit fold points anywhere, not just in line comments.
+        int    lexer.rust.fold.at.else
+               This option enables Rust folding on a "} else {" line of an if statement.
+    Word Lists:
+        Primary keywords and identifiers
+        Built in types
+        Other keywords
+        Keywords 4
+        Keywords 5
+        Keywords 6
+        Keywords 7
+    Styles:
+          0 SCE_RUST_DEFAULT [default] White space
+          1 SCE_RUST_COMMENTBLOCK [comment] Comment
+          2 SCE_RUST_COMMENTLINE [comment line] Line comment
+          3 SCE_RUST_COMMENTBLOCKDOC [comment documentation] Doc comment
+          4 SCE_RUST_COMMENTLINEDOC [comment documentation line] Doc comment line
+          5 SCE_RUST_NUMBER [literal numeric] Number
+          6 SCE_RUST_WORD [keyword] Keywords
+          7 SCE_RUST_WORD2 [identifier] Keywords 2
+          8 SCE_RUST_WORD3 [identifier] Keywords 3
+          9 SCE_RUST_WORD4 [identifier] Keywords 4
+         10 SCE_RUST_WORD5 [identifier] Keywords 5
+         11 SCE_RUST_WORD6 [identifier] Keywords 6
+         12 SCE_RUST_WORD7 [identifier] Keywords 7
+         13 SCE_RUST_STRING [literal string] Regular string
+         14 SCE_RUST_STRINGR [literal string raw] Raw string
+         15 SCE_RUST_CHARACTER [literal string character] Character
+         16 SCE_RUST_OPERATOR [operator] Operator
+         17 SCE_RUST_IDENTIFIER [identifier] Identifier
+         18 SCE_RUST_LIFETIME [annotation] Lifetime
+         19 SCE_RUST_MACRO [macro preprocessor] Macro
+         20 SCE_RUST_LEXERROR [error] Lexical error
+         21 SCE_RUST_BYTESTRING [literal string] Byte string
+         22 SCE_RUST_BYTESTRINGR [literal string raw] Raw byte string
+         23 SCE_RUST_BYTECHARACTER [literal string character] Byte character
+         24 SCE_RUST_CSTRING [literal string] C string
+         25 SCE_RUST_CSTRINGR [literal string raw] Raw C string
+
+Lexer sas
+    Word Lists:
+        Language Keywords
+        Macro Keywords
+        Types
+
+Lexer scriptol
+
+Lexer sinex
+    Word Lists:
+        SNX
+
+Lexer smalltalk
+    Word Lists:
+        Special selectors
+
+Lexer SML
+    Word Lists:
+        Keywords
+        Keywords2
+        Keywords3
+
+Lexer sorcins
+    Word Lists:
+        Command
+        Parameter
+        Constant
+
+Lexer specman
+    Word Lists:
+        Primary keywords and identifiers
+        Secondary keywords and identifiers
+        Sequence keywords and identifiers
+        User defined keywords and identifiers
+        Unused
+
+Lexer spice
+    Word Lists:
+        Keywords
+        Keywords2
+        Keywords3
+
+Lexer sql
+    Properties:
+        bool   fold
+        bool   fold.sql.at.else
+               This option enables SQL folding on a "ELSE" and "ELSIF" line of an IF statement.
+        bool   fold.comment
+        bool   fold.compact
+        bool   fold.sql.only.begin
+               Set to 1 to only fold on 'begin' but not other keywords.
+        bool   lexer.sql.backticks.identifier
+               Recognise backtick quoting of identifiers.
+        bool   lexer.sql.numbersign.comment
+               If "lexer.sql.numbersign.comment" property is set to 0 a line beginning with '#' will not be a comment.
+        bool   sql.backslash.escapes
+               Enables backslash as an escape character in SQL.
+        bool   lexer.sql.allow.dotted.word
+               Set to 1 to colourise recognized words with dots (recommended for Oracle PL/SQL objects).
+    Word Lists:
+        Keywords
+        Database Objects
+        PLDoc
+        SQL*Plus
+        User Keywords 1
+        User Keywords 2
+        User Keywords 3
+        User Keywords 4
+
+Lexer srec
+
+Lexer stata
+    Word Lists:
+        Language Keywords
+        Types
+
+Lexer fcST
+    Word Lists:
+        Keywords
+        Types
+        Functions
+        FB
+        Local_Var
+        Local_Pragma
+
+Lexer TACL
+    Word Lists:
+        Builtins
+        Labels
+        Commands
+
+Lexer tads3
+    Word Lists:
+        TADS3 Keywords
+        User defined 1
+        User defined 2
+        User defined 3
+
+Lexer TAL
+    Word Lists:
+        Keywords
+        Builtins
+
+Lexer tcl
+    Word Lists:
+        TCL Keywords
+        TK Keywords
+        iTCL Keywords
+        tkCommands
+        expand
+        user1
+        user2
+        user3
+        user4
+
+Lexer tcmd
+    Word Lists:
+        Internal Commands
+        Aliases
+
+Lexer tehex
+
+Lexer tex
+    Word Lists:
+        TeX, eTeX, pdfTeX, Omega
+        ConTeXt Dutch
+        ConTeXt English
+        ConTeXt German
+        ConTeXt Czech
+        ConTeXt Italian
+        ConTeXt Romanian
+
+Lexer toml
+    Word Lists:
+        Keywords
+
+Lexer troff
+    Word Lists:
+        Predefined requests
+        Flow control requests/commands with conditionals
+        Flow control requests/commands without conditionals
+        Requests and commands, initiating ignore blocks
+        Requests and commands with end-macros
+
+Lexer txt2tags
+
+Lexer vb
+    Properties:
+        bool   fold
+        bool   lexer.vb.strings.multiline
+               Set to 1 to allow strings to continue over line ends.
+    Word Lists:
+        Keywords
+        user1
+        user2
+        user3
+    Styles:
+          0 SCE_B_DEFAULT [default] White space
+          1 SCE_B_COMMENT [comment] Comment: '
+          2 SCE_B_NUMBER [literal numeric] Number
+          3 SCE_B_KEYWORD [keyword] Keyword
+          4 SCE_B_STRING [literal string] Double quoted string
+          5 SCE_B_PREPROCESSOR [preprocessor] Preprocessor
+          6 SCE_B_OPERATOR [operator] Operators
+          7 SCE_B_IDENTIFIER [identifier] Identifiers
+          8 SCE_B_DATE [literal date] Date
+          9 SCE_B_STRINGEOL [error literal string] End of line where string is not closed
+         10 SCE_B_KEYWORD2 [identifier] Keywords2
+         11 SCE_B_KEYWORD3 [identifier] Keywords3
+         12 SCE_B_KEYWORD4 [identifier] Keywords4
+
+Lexer vbscript
+    Properties:
+        bool   fold
+        bool   lexer.vb.strings.multiline
+               Set to 1 to allow strings to continue over line ends.
+    Word Lists:
+        Keywords
+        user1
+        user2
+        user3
+    Styles:
+          0 SCE_B_DEFAULT [default] White space
+          1 SCE_B_COMMENT [comment] Comment: '
+          2 SCE_B_NUMBER [literal numeric] Number
+          3 SCE_B_KEYWORD [keyword] Keyword
+          4 SCE_B_STRING [literal string] Double quoted string
+          5 SCE_B_PREPROCESSOR [preprocessor] Preprocessor
+          6 SCE_B_OPERATOR [operator] Operators
+          7 SCE_B_IDENTIFIER [identifier] Identifiers
+          8 SCE_B_DATE [literal date] Date
+          9 SCE_B_STRINGEOL [error literal string] End of line where string is not closed
+         10 SCE_B_KEYWORD2 [identifier] Keywords2
+         11 SCE_B_KEYWORD3 [identifier] Keywords3
+         12 SCE_B_KEYWORD4 [identifier] Keywords4
+
+Lexer verilog
+    UnicodeLineEnds
+    Properties:
+        bool   fold.comment
+               This option enables folding multi-line comments when using the Verilog lexer.
+        bool   fold.preprocessor
+               This option enables folding preprocessor directives when using the Verilog lexer.
+        bool   fold.compact
+        bool   fold.at.else
+               This option enables folding on the else line of an if statement.
+        bool   fold.verilog.flags
+               This option enables folding module definitions. Typically source files contain only one module definition so this option is somewhat useless.
+        bool   lexer.verilog.track.preprocessor
+               Set to 1 to interpret `if/`else/`endif to grey out code that is not active.
+        bool   lexer.verilog.update.preprocessor
+               Set to 1 to update preprocessor definitions when `define, `undef, or `undefineall found.
+        bool   lexer.verilog.portstyling
+               Set to 1 to style input, output, and inout ports differently from regular keywords.
+        bool   lexer.verilog.allupperkeywords
+               Set to 1 to style identifiers that are all uppercase as documentation keyword.
+        bool   lexer.verilog.fold.preprocessor.else
+               This option enables folding on `else and `elsif preprocessor directives.
+
+Lexer vhdl
+    Word Lists:
+        Keywords
+        Operators
+        Attributes
+        Standard Functions
+        Standard Packages
+        Standard Types
+        User Words
+
+Lexer visualprolog
+    Properties:
+        bool   lexer.visualprolog.verbatim.strings
+               Set to 0 to disable highlighting verbatim strings using '@'.
+        bool   lexer.visualprolog.backquoted.strings
+               Set to 1 to enable using back quotes (``) to delimit strings.
+    Word Lists:
+        Major keywords (class, predicates, ...)
+        Minor keywords (if, then, try, ...)
+        Directive keywords without the '#' (include, requires, ...)
+        Documentation keywords without the '@' (short, detail, ...)
+    Styles:
+          0 SCE_VISUALPROLOG_DEFAULT [default] Default style
+          1 SCE_VISUALPROLOG_KEY_MAJOR [keyword major] Major keyword
+          2 SCE_VISUALPROLOG_KEY_MINOR [keyword minor] Minor keyword
+          3 SCE_VISUALPROLOG_KEY_DIRECTIVE [keyword preprocessor] Directove keyword
+          4 SCE_VISUALPROLOG_COMMENT_BLOCK [comment] Multiline comment /* */
+          5 SCE_VISUALPROLOG_COMMENT_LINE [comment line] Line comment % ...
+          6 SCE_VISUALPROLOG_COMMENT_KEY [comment documentation keyword] Doc keyword in comment % @short ...
+          7 SCE_VISUALPROLOG_COMMENT_KEY_ERROR [comment] A non recognized doc keyword % @qqq ...
+          8 SCE_VISUALPROLOG_IDENTIFIER [identifier] Identifier (black)
+          9 SCE_VISUALPROLOG_VARIABLE [variable identifier] Variable (green)
+         10 SCE_VISUALPROLOG_ANONYMOUS [variable anonymous identifier] Anonymous Variable _XXX (dimmed green)
+         11 SCE_VISUALPROLOG_NUMBER [numeric] Number
+         12 SCE_VISUALPROLOG_OPERATOR [operator] Operator
+         13 SCE_VISUALPROLOG_UNUSED1 [unused] 
+         14 SCE_VISUALPROLOG_UNUSED2 [unused] 
+         15 SCE_VISUALPROLOG_UNUSED3 [unused] 
+         16 SCE_VISUALPROLOG_STRING_QUOTE [literal string quote] Quotes surrounding string literals
+         17 SCE_VISUALPROLOG_STRING_ESCAPE [literal string escapesequence] Escape sequence in string literal
+         18 SCE_VISUALPROLOG_STRING_ESCAPE_ERROR [error literal string escapesequence] Error in escape sequence in string literal
+         19 SCE_VISUALPROLOG_UNUSED4 [unused] 
+         20 SCE_VISUALPROLOG_STRING [literal string] String literal
+         21 SCE_VISUALPROLOG_UNUSED5 [unused] 
+         22 SCE_VISUALPROLOG_STRING_EOL [literal string multiline raw escapesequence] Verbatim/multiline string literal EOL
+         23 SCE_VISUALPROLOG_EMBEDDED [literal string embedded] Embedded syntax [| ... |]
+
+Lexer x12
+    Properties:
+        bool   fold
+               Whether to apply folding to document or not
+
+Lexer xml
+    Properties:
+        int    asp.default.language
+               Script in ASP code is initially assumed to be in JavaScript. To change this to VBScript set asp.default.language to 2. Python is 3.
+        bool   html.tags.case.sensitive
+               For XML and HTML, setting this property to 1 will make tags match in a case sensitive way which is the expected behaviour for XML and XHTML.
+        bool   lexer.xml.allow.scripts
+               Set to 0 to disable scripts in XML.
+        int    lexer.xml.allow.php
+               Set to 0 to disable PHP in XML, 1 to accept <?php and <?=, 2 to also accept <?.The default is 2.
+        int    lexer.html.allow.php
+               Set to 0 to disable PHP in HTML, 1 to accept <?php and <?=, 2 to also accept <?.The default is 2.
+        bool   lexer.html.mako
+               Set to 1 to enable the mako template language.
+        bool   lexer.html.django
+               Set to 1 to enable the django template language.
+        bool   lexer.xml.allow.asp
+               Set to 0 to disable ASP in XML.
+        bool   lexer.html.allow.asp
+               Set to 0 to disable ASP in HTML.
+        bool   fold
+        bool   fold.html
+               Folding is turned on or off for HTML and XML files with this option. The fold option must also be on for folding to occur.
+        bool   fold.html.preprocessor
+               Folding is turned on or off for scripts embedded in HTML files with this option. The default is on.
+        bool   fold.compact
+        bool   fold.hypertext.comment
+               Allow folding for comments in scripts embedded in HTML. The default is off.
+        bool   fold.hypertext.heredoc
+               Allow folding for heredocs in scripts embedded in HTML. The default is off.
+        bool   fold.xml.at.tag.open
+               Enable folding for XML at the start of open tag. The default is off.
+    Word Lists:
+        HTML elements and attributes
+        JavaScript keywords
+        VBScript keywords
+        Python keywords
+        PHP keywords
+        SGML and DTD keywords
+    Sub-Style Bases:
+          1
+          3
+         46
+         61
+         74
+         96
+        121
+    Styles:
+          0 SCE_H_DEFAULT [default] Default
+          1 SCE_H_TAG [tag] Tags
+          2 SCE_H_TAGUNKNOWN [error tag] Unknown Tags
+          3 SCE_H_ATTRIBUTE [attribute] Attributes
+          4 SCE_H_ATTRIBUTEUNKNOWN [error attribute] Unknown Attributes
+          5 SCE_H_NUMBER [literal numeric] Numbers
+          6 SCE_H_DOUBLESTRING [literal string] Double quoted strings
+          7 SCE_H_SINGLESTRING [literal string] Single quoted strings
+          8 SCE_H_OTHER [tag operator] Other inside tag, including space and '='
+          9 SCE_H_COMMENT [comment] Comment
+         10 SCE_H_ENTITY [literal] Entities
+         11 SCE_H_TAGEND [tag] XML style tag ends '/>'
+         12 SCE_H_XMLSTART [identifier] XML identifier start '<?'
+         13 SCE_H_XMLEND [identifier] XML identifier end '?>'
+         14  [unused] 
+         15  [unused] 
+         16  [unused] 
+         17 SCE_H_CDATA [literal] CDATA
+         18 SCE_H_QUESTION [preprocessor] Question
+         19 SCE_H_VALUE [literal string] Unquoted Value
+         20  [unused] 
+         21 SCE_H_SGML_DEFAULT [default] SGML tags <! ... >
+         22 SCE_H_SGML_COMMAND [preprocessor] SGML command
+         23 SCE_H_SGML_1ST_PARAM [preprocessor] SGML 1st param
+         24 SCE_H_SGML_DOUBLESTRING [literal string] SGML double string
+         25 SCE_H_SGML_SIMPLESTRING [literal string] SGML single string
+         26 SCE_H_SGML_ERROR [error] SGML error
+         27 SCE_H_SGML_SPECIAL [literal] SGML special (#XXXX type)
+         28 SCE_H_SGML_ENTITY [literal] SGML entity
+         29 SCE_H_SGML_COMMENT [comment] SGML comment
+         30  [unused] 
+         31 SCE_H_SGML_BLOCK_DEFAULT [default] SGML block
+
+Lexer yaml
+    Word Lists:
+        Keywords
+
+Lexer zig
+    Properties:
+        bool   fold
+    Word Lists:
+        Primary keywords
+        Secondary keywords
+        Tertiary keywords
+        Global type definitions
+    Styles:
+          0 SCE_ZIG_DEFAULT [default] White space
+          1 SCE_ZIG_COMMENTLINE [comment line] Comment: //
+          2 SCE_ZIG_COMMENTLINEDOC [comment line documentation] Comment: ///
+          3 SCE_ZIG_COMMENTLINETOP [comment line documentation] Comment: //!
+          4 SCE_ZIG_NUMBER [literal numeric] Number
+          5 SCE_ZIG_OPERATOR [operator] Operator
+          6 SCE_ZIG_CHARACTER [literal string character] Single quoted string
+          7 SCE_ZIG_STRING [literal string] Double quoted string
+          8 SCE_ZIG_MULTISTRING [literal string multiline] Multiline string introduced by two backslashes
+          9 SCE_ZIG_ESCAPECHAR [literal string escapesequence] Escape sequence
+         10 SCE_ZIG_IDENTIFIER [identifier] Identifier
+         11 SCE_ZIG_FUNCTION [identifier] Function definition
+         12 SCE_ZIG_BUILTIN_FUNCTION [identifier] Builtin function
+         13 SCE_ZIG_KW_PRIMARY [keyword] Primary keywords
+         14 SCE_ZIG_KW_SECONDARY [identifier] Secondary keywords
+         15 SCE_ZIG_KW_TERTIARY [identifier] Tertiary keywords
+         16 SCE_ZIG_KW_TYPE [identifier] Global types
+         17 SCE_ZIG_IDENTIFIER_STRING [identifier] Identifier using @"" syntax
+         18 SCE_ZIG_STRINGEOL [error literal string] End of line where string is not closed
+

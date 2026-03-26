@@ -12,12 +12,33 @@
 
 namespace Lexilla {
 
+inline std::string JoinWordListDescriptions(const char *const wordListDescriptions[]) {
+	std::string wordLists;
+	if (wordListDescriptions) {
+		for (size_t wl = 0; wordListDescriptions[wl]; wl++) {
+			if (wl > 0)
+				wordLists += "\n";
+			wordLists += wordListDescriptions[wl];
+		}
+	}
+	return wordLists;
+}
+
+// Allow OptionSet<T> to be called without knowing T
+struct OptionSetInterface {
+	[[nodiscard]] virtual const char *PropertyNames() const noexcept = 0;
+	[[nodiscard]] virtual int PropertyType(const char *name) const = 0;
+	[[nodiscard]] virtual const char *DescribeProperty(const char *name) const = 0;
+	[[nodiscard]] virtual const char *PropertyGet(const char *name) const = 0;
+	[[nodiscard]] virtual const char *DescribeWordListSets() const noexcept = 0;
+};
+
 template <typename T>
-class OptionSet {
-	typedef T Target;
-	typedef bool T::*plcob;
-	typedef int T::*plcoi;
-	typedef std::string T::*plcos;
+class OptionSet : public OptionSetInterface {
+	using Target = T;
+	using plcob = bool T::*;
+	using plcoi = int T::*;
+	using plcos = std::string T::*;
 	struct Option {
 		int opType;
 		union {
@@ -70,11 +91,11 @@ class OptionSet {
 			}
 			return false;
 		}
-		const char *Get() const noexcept {
+		[[nodiscard]] const char *Get() const noexcept {
 			return value.c_str();
 		}
 	};
-	typedef std::map<std::string, Option, std::less<>> OptionMap;
+	using OptionMap = std::map<std::string, Option, std::less<>> ;
 	OptionMap nameToDef;
 	std::string names;
 	std::string wordLists;
@@ -85,6 +106,8 @@ class OptionSet {
 		names += name;
 	}
 public:
+	virtual ~OptionSet() = default;
+
 	void DefineProperty(const char *name, plcob pb, std::string_view description="") {
 		nameToDef[name] = Option(pb, description);
 		AppendName(name);
@@ -106,17 +129,17 @@ public:
 		nameToDef[name] = Option(pi, description);
 		AppendName(name);
 	}
-	const char *PropertyNames() const noexcept {
+	[[nodiscard]] const char *PropertyNames() const noexcept final {
 		return names.c_str();
 	}
-	int PropertyType(const char *name) const {
+	[[nodiscard]] int PropertyType(const char *name) const final {
 		typename OptionMap::const_iterator const it = nameToDef.find(name);
 		if (it != nameToDef.end()) {
 			return it->second.opType;
 		}
 		return SC_TYPE_BOOLEAN;
 	}
-	const char *DescribeProperty(const char *name) const {
+	[[nodiscard]] const char *DescribeProperty(const char *name) const final {
 		typename OptionMap::const_iterator const it = nameToDef.find(name);
 		if (it != nameToDef.end()) {
 			return it->second.description.c_str();
@@ -132,7 +155,7 @@ public:
 		return false;
 	}
 
-	const char *PropertyGet(const char *name) const {
+	[[nodiscard]] const char *PropertyGet(const char *name) const final {
 		typename OptionMap::const_iterator const it = nameToDef.find(name);
 		if (it != nameToDef.end()) {
 			return it->second.Get();
@@ -141,16 +164,10 @@ public:
 	}
 
 	void DefineWordListSets(const char * const wordListDescriptions[]) {
-		if (wordListDescriptions) {
-			for (size_t wl = 0; wordListDescriptions[wl]; wl++) {
-				if (wl > 0)
-					wordLists += "\n";
-				wordLists += wordListDescriptions[wl];
-			}
-		}
+		wordLists = JoinWordListDescriptions(wordListDescriptions);
 	}
 
-	const char *DescribeWordListSets() const noexcept {
+	[[nodiscard]] const char *DescribeWordListSets() const noexcept final {
 		return wordLists.c_str();
 	}
 };

@@ -40,7 +40,7 @@ namespace {
 const char *const JSONWordListDesc[] = {
 	"JSON Keywords",
 	"JSON-LD Keywords",
-	0
+	nullptr
 };
 
 /**
@@ -58,18 +58,18 @@ struct CompactIRI {
 		foundInvalidChar = false;
 		setCompactIRI = CharacterSet(CharacterSet::setAlpha, "$_-");
 	}
-	void resetState() {
+	void resetState() noexcept {
 		colonCount = 0;
 		foundInvalidChar = false;
 	}
-	void checkChar(int ch) {
+	void checkChar(int ch) noexcept {
 		if (ch == ':') {
 			colonCount++;
 		} else {
 			foundInvalidChar |= !setCompactIRI.Contains(ch);
 		}
 	}
-	bool shouldHighlight() const {
+	[[nodiscard]] bool shouldHighlight() const noexcept {
 		return !foundInvalidChar && colonCount == 1;
 	}
 };
@@ -89,7 +89,7 @@ struct EscapeSequence {
 		setEscapeChars = CharacterSet(CharacterSet::setNone, "\\\"tnbfru/");
 	}
 	// Returns true if the following character is a valid escaped character
-	bool newSequence(int nextChar) {
+	bool newSequence(int nextChar) noexcept {
 		digitsLeft = 0;
 		if (nextChar == 'u') {
 			digitsLeft = 5;
@@ -98,10 +98,10 @@ struct EscapeSequence {
 		}
 		return true;
 	}
-	bool atEscapeEnd() const {
+	[[nodiscard]] bool atEscapeEnd() const noexcept {
 		return digitsLeft <= 0;
 	}
-	bool isInvalidChar(int currChar) const {
+	[[nodiscard]] bool isInvalidChar(int currChar) const noexcept {
 		return !setHexDigits.Contains(currChar);
 	}
 };
@@ -149,9 +149,9 @@ class LexerJSON : public DefaultLexer {
 		Sci_Position i = 0;
 		while (i < 50) {
 			i++;
-			char curr = styler.SafeGetCharAt(start+i, '\0');
-			char next = styler.SafeGetCharAt(start+i+1, '\0');
-			bool atEOL = (curr == '\r' && next != '\n') || (curr == '\n');
+			const char curr = styler.SafeGetCharAt(start+i, '\0');
+			const char next = styler.SafeGetCharAt(start+i+1, '\0');
+			const bool atEOL = (curr == '\r' && next != '\n') || (curr == '\n');
 			if (curr == ch) {
 				return true;
 			} else if (!isspacechar(curr) || atEOL) {
@@ -173,7 +173,7 @@ class LexerJSON : public DefaultLexer {
 		bool escaped = false;
 		while (i < 100) {
 			i++;
-			char curr = styler.SafeGetCharAt(start+i, '\0');
+			const char curr = styler.SafeGetCharAt(start+i, '\0');
 			if (escaped) {
 				escaped = false;
 				continue;
@@ -188,13 +188,13 @@ class LexerJSON : public DefaultLexer {
 		return false;
 	}
 
-	static bool IsNextWordInList(WordList &keywordList, CharacterSet wordSet,
-								 StyleContext &context, LexAccessor &styler) {
+	static bool IsNextWordInList(const WordList &keywordList, const CharacterSet &wordSet,
+								 const StyleContext &context, LexAccessor &styler) {
 		char word[51];
-		Sci_Position currPos = (Sci_Position) context.currentPos;
+		const Sci_Position currPos = static_cast<Sci_Position>(context.currentPos);
 		int i = 0;
 		while (i < 50) {
-			char ch = styler.SafeGetCharAt(currPos + i);
+			const char ch = styler.SafeGetCharAt(currPos + i);
 			if (!wordSet.Contains(ch)) {
 				break;
 			}
@@ -213,7 +213,7 @@ class LexerJSON : public DefaultLexer {
 		setKeywordJSONLD(CharacterSet::setAlpha, ":@"),
 		setKeywordJSON(CharacterSet::setAlpha, "$_") {
 	}
-	virtual ~LexerJSON() {}
+	virtual ~LexerJSON() = default;
 	int SCI_METHOD Version() const override {
 		return lvRelease5;
 	}
@@ -239,7 +239,7 @@ class LexerJSON : public DefaultLexer {
 		return optSetJSON.PropertyGet(key);
 	}
 	Sci_Position SCI_METHOD WordListSet(int n, const char *wl) override {
-		WordList *wordListN = 0;
+		WordList *wordListN = nullptr;
 		switch (n) {
 			case 0:
 				wordListN = &keywordsJSON;
@@ -257,7 +257,7 @@ class LexerJSON : public DefaultLexer {
 		return firstModification;
 	}
 	void *SCI_METHOD PrivateCall(int, void *) override {
-		return 0;
+		return nullptr;
 	}
 	static ILexer5 *LexerFactoryJSON() {
 		return new LexerJSON;
@@ -373,6 +373,14 @@ void SCI_METHOD LexerJSON::Lex(Sci_PositionU startPos,
 				}
 				if (context.ch == '"') {
 					context.ForwardSetState(SCE_JSON_DEFAULT);
+				} else if (context.ch == '\\') {
+					if (options.escapeSequence) {
+						context.SetState(SCE_JSON_ESCAPESEQUENCE);
+						if (!escapeSeq.newSequence(context.chNext)) {
+							context.SetState(SCE_JSON_ERROR);
+						}
+					}
+					context.Forward();
 				} else if (context.atLineEnd) {
 					context.ChangeState(SCE_JSON_STRINGEOL);
 				}
@@ -396,7 +404,7 @@ void SCI_METHOD LexerJSON::Lex(Sci_PositionU startPos,
 			if (context.ch == '"') {
 				compactIRI.resetState();
 				context.SetState(SCE_JSON_STRING);
-				Sci_Position currPos = static_cast<Sci_Position>(context.currentPos);
+				const Sci_Position currPos = static_cast<Sci_Position>(context.currentPos);
 				if (AtPropertyName(styler, currPos)) {
 					context.SetState(SCE_JSON_PROPERTYNAME);
 				}
@@ -412,30 +420,30 @@ void SCI_METHOD LexerJSON::Lex(Sci_PositionU startPos,
 					context.SetState(SCE_JSON_KEYWORD);
 				}
 			}
-			bool numberStart =
+			const bool numberStart =
 				IsADigit(context.ch) && (context.chPrev == '+'||
 										 context.chPrev == '-' ||
 										 context.atLineStart ||
 										 IsASpace(context.chPrev) ||
 										 setOperators.Contains(context.chPrev));
-			bool exponentPart =
+			const bool exponentPart =
 				tolower(context.ch) == 'e' &&
 				IsADigit(context.chPrev) &&
 				(IsADigit(context.chNext) ||
 				 context.chNext == '+' ||
 				 context.chNext == '-');
-			bool signPart =
+			const bool signPart =
 				(context.ch == '-' || context.ch == '+') &&
 				((tolower(context.chPrev) == 'e' && IsADigit(context.chNext)) ||
 				 ((IsASpace(context.chPrev) || setOperators.Contains(context.chPrev))
 				  && IsADigit(context.chNext)));
-			bool adjacentDigit =
+			const bool adjacentDigit =
 				IsADigit(context.ch) && IsADigit(context.chPrev);
-			bool afterExponent = IsADigit(context.ch) && tolower(context.chPrev) == 'e';
-			bool dotPart = context.ch == '.' &&
+			const bool afterExponent = IsADigit(context.ch) && tolower(context.chPrev) == 'e';
+			const bool dotPart = context.ch == '.' &&
 				IsADigit(context.chPrev) &&
 				IsADigit(context.chNext);
-			bool afterDot = IsADigit(context.ch) && context.chPrev == '.';
+			const bool afterDot = IsADigit(context.ch) && context.chPrev == '.';
 			if (numberStart ||
 				exponentPart ||
 				signPart ||
@@ -462,16 +470,16 @@ void SCI_METHOD LexerJSON::Fold(Sci_PositionU startPos,
 	}
 	LexAccessor styler(pAccess);
 	Sci_PositionU currLine = styler.GetLine(startPos);
-	Sci_PositionU endPos = startPos + length;
+	const Sci_PositionU endPos = startPos + length;
 	int currLevel = SC_FOLDLEVELBASE;
 	if (currLine > 0)
 		currLevel = styler.LevelAt(currLine - 1) >> 16;
 	int nextLevel = currLevel;
 	int visibleChars = 0;
 	for (Sci_PositionU i = startPos; i < endPos; i++) {
-		char curr = styler.SafeGetCharAt(i);
-		char next = styler.SafeGetCharAt(i+1);
-		bool atEOL = (curr == '\r' && next != '\n') || (curr == '\n');
+		const char curr = styler.SafeGetCharAt(i);
+		const char next = styler.SafeGetCharAt(i+1);
+		const bool atEOL = (curr == '\r' && next != '\n') || (curr == '\n');
 		if (styler.StyleAt(i) == SCE_JSON_OPERATOR) {
 			if (curr == '{' || curr == '[') {
 				nextLevel++;

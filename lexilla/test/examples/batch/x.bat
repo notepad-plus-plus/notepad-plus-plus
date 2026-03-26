@@ -54,7 +54,14 @@ echo %%0
 echo %%%0
 echo %%%%~-abcd
 
+:: Exclamation for delayed expansion
+echo !delayed!
+echo !delayed! !del!
+echo !delayed!a!
+
 :TEST that after label style works
+: TEST2 space after :
+ :TEST3 space before :
 :: Bug 2304: "::" comments not recognised when second command on line
 Set /A xxx=%xxx%+1 & :: Increment
 Set /A xxx=%xxx%+1 & ::Increment

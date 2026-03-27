@@ -27,6 +27,7 @@
 #include "auto_close.h"
 #include "sync_scroll.h"
 #include "document_map.h"
+#include "function_list_panel.h"
 #include "toolbar.h"
 #include "scintilla_notify.h"
 #include "windows.h"
@@ -124,8 +125,10 @@ static void setDockIconFromLogo()
 	ctx().showIndentGuides = s.showIndentGuides;
 	ctx().syncScrolling = s.syncScrolling;
 	ctx().documentMapEnabled = s.documentMap;
+	ctx().functionListEnabled = s.functionList;
 	ctx().showChangeHistory = s.showChangeHistory;
 	ctx().documentMapWidth = s.documentMapWidth;
+	ctx().functionListWidth = s.functionListWidth;
 	setDockIconFromLogo();
 
 	ctx().recentFiles.clear();
@@ -241,6 +244,8 @@ static void setDockIconFromLogo()
 	applyAppearance();
 	if (ctx().documentMapEnabled)
 		initializeDocumentMap();
+	if (ctx().functionListEnabled)
+		initializeFunctionListPanel();
 	setSyncScrollingEnabled(ctx().syncScrolling);
 
 	// Scintilla notification callback for main view
@@ -257,6 +262,7 @@ static void setDockIconFromLogo()
 						clearSmartHighlight(ctx().scintillaView2);
 					ctx().activeView = 0;
 					bindDocumentMapToActiveView();
+					bindFunctionListToActiveView();
 				}
 				else if (scn->nmhdr.code == SCN_SAVEPOINTLEFT)
 				{
@@ -306,6 +312,7 @@ static void setDockIconFromLogo()
 						scheduleSmartHighlight(ctx().scintillaView);
 					handleSyncScrollUpdate(ctx().scintillaView, scn->updated);
 					handleDocumentMapUpdateUI(ctx().scintillaView, scn->updated);
+					scheduleFunctionListRefresh();
 				}
 				else if (scn->nmhdr.code == SCN_CHARADDED)
 				{
@@ -330,6 +337,7 @@ static void setDockIconFromLogo()
 							langIdx = ctx().documents[ctx().activeTab].languageIndex;
 						handleAutoCloseModified(ctx().scintillaView, scn, langIdx);
 					}
+					scheduleFunctionListRefresh();
 				}
 			}
 		});
@@ -469,8 +477,11 @@ static void setDockIconFromLogo()
 
 	updateSplitMenuState();
 	setDocumentMapEnabled(ctx().documentMapEnabled);
+	setFunctionListEnabled(ctx().functionListEnabled);
 	bindDocumentMapToActiveView();
 	updateDocumentMapViewport();
+	bindFunctionListToActiveView();
+	updateFunctionListNow();
 
 	NSLog(@"=== Notepad++ macOS Port — Phase 7 ===");
 	NSLog(@"Settings, split view, edit commands, encoding, session, drag-and-drop!");
@@ -572,8 +583,10 @@ static void setDockIconFromLogo()
 	s.showIndentGuides = ctx().showIndentGuides;
 	s.syncScrolling = ctx().syncScrolling;
 	s.documentMap = ctx().documentMapEnabled;
+	s.functionList = ctx().functionListEnabled;
 	s.showChangeHistory = ctx().showChangeHistory;
 	s.documentMapWidth = ctx().documentMapWidth;
+	s.functionListWidth = ctx().functionListWidth;
 	s.wordWrap = ctx().scintillaView ?
 		(ScintillaBridge_sendMessage(ctx().scintillaView, SCI_GETWRAPMODE, 0, 0) != 0) : false;
 
@@ -603,6 +616,7 @@ static void setDockIconFromLogo()
 	}
 
 	destroyDocumentMap();
+	destroyFunctionListPanel();
 }
 
 - (void)windowDidResize:(NSNotification*)notification
@@ -613,15 +627,17 @@ static void setDockIconFromLogo()
 		ScintillaBridge_resizeToFit(ctx().scintillaView2);
 
 	layoutSplitTopTabBars();
-	relayoutDocumentMap();
+	relayoutFunctionListPanel();
 	updateDocumentMapViewport();
+	scheduleFunctionListRefresh();
 }
 
 - (void)splitViewDidResizeSubviews:(NSNotification*)notification
 {
 	layoutSplitTopTabBars();
-	relayoutDocumentMap();
+	relayoutFunctionListPanel();
 	updateDocumentMapViewport();
+	scheduleFunctionListRefresh();
 }
 
 @end

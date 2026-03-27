@@ -19,6 +19,7 @@
 #include "auto_close.h"
 #include "sync_scroll.h"
 #include "document_map.h"
+#include "function_list_panel.h"
 #include "scintilla_notify.h"
 #include "windows.h"
 #include "commctrl.h"
@@ -133,6 +134,7 @@ void doSplit()
 							clearSmartHighlight(ctx().scintillaView);
 						ctx().activeView = 1;
 						bindDocumentMapToActiveView();
+						bindFunctionListToActiveView();
 					}
 					else if (scn->nmhdr.code == SCN_SAVEPOINTLEFT)
 					{
@@ -179,6 +181,7 @@ void doSplit()
 								scheduleSmartHighlight(ctx().scintillaView2);
 							handleSyncScrollUpdate(ctx().scintillaView2, scn->updated);
 							handleDocumentMapUpdateUI(ctx().scintillaView2, scn->updated);
+							scheduleFunctionListRefresh();
 						}
 					}
 					else if (scn->nmhdr.code == SCN_CHARADDED)
@@ -203,6 +206,7 @@ void doSplit()
 								langIdx = ctx().documents2[ctx().activeTab2].languageIndex;
 							handleAutoCloseModified(ctx().scintillaView2, scn, langIdx);
 						}
+						scheduleFunctionListRefresh();
 					}
 				}
 			});
@@ -254,9 +258,11 @@ void doSplit()
 		ScintillaBridge_sendMessage(ctx().scintillaView2, SCI_SETWRAPMODE, wrapMode, 0);
 	}
 
-	relayoutDocumentMap();
+	relayoutFunctionListPanel();
 	bindDocumentMapToActiveView();
 	updateDocumentMapViewport();
+	bindFunctionListToActiveView();
+	scheduleFunctionListRefresh();
 	refreshSyncScrollAnchor();
 }
 
@@ -326,9 +332,11 @@ void doUnsplit()
 
 	layoutSplitTopTabBars();
 	updateSplitMenuState();
-	relayoutDocumentMap();
+	relayoutFunctionListPanel();
 	bindDocumentMapToActiveView();
 	updateDocumentMapViewport();
+	bindFunctionListToActiveView();
+	scheduleFunctionListRefresh();
 }
 
 void doMoveToOtherView()

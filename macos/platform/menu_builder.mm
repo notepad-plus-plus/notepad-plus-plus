@@ -125,6 +125,8 @@ HMENU buildMenuBar()
 	            IDM_VIEW_SYNCHRONIZE_SCROLLING, L"Synchronize Scrolling");
 	AppendMenuW(hViewMenu, MF_STRING | (ctx().documentMapEnabled ? MF_CHECKED : MF_UNCHECKED),
 	            IDM_VIEW_DOCUMENTMAP, L"&Document Map");
+	AppendMenuW(hViewMenu, MF_STRING | (ctx().functionListEnabled ? MF_CHECKED : MF_UNCHECKED),
+	            IDM_VIEW_FUNCTIONLIST, L"&Function List");
 	AppendMenuW(hViewMenu, MF_SEPARATOR, 0, nullptr);
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_ZOOMIN, L"Zoom &In\tCtrl+=");
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_ZOOMOUT, L"Zoom &Out\tCtrl+-");

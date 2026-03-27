@@ -8,6 +8,7 @@
 #include "npp_constants.h"
 #include "scintilla_bridge.h"
 #include "split_view.h"
+#include "function_list_panel.h"
 #include <algorithm>
 
 @interface DocumentMapOverlayView : NSView
@@ -168,50 +169,7 @@ void destroyDocumentMap()
 
 void relayoutDocumentMap()
 {
-	if (!ctx().mainWindow || !ctx().editorContainer)
-		return;
-
-	NSView* contentView = ctx().mainWindow.contentView;
-	if (!contentView)
-		return;
-
-	const CGFloat tabHeight = NPP_TAB_BAR_HEIGHT;
-	const CGFloat statusHeight = NPP_STATUS_BAR_HEIGHT;
-	NSRect baseEditorFrame = NSMakeRect(0, statusHeight,
-	                                    contentView.bounds.size.width,
-	                                    contentView.bounds.size.height - tabHeight - statusHeight);
-
-	CGFloat mapWidth = ctx().documentMapEnabled ? static_cast<CGFloat>(ctx().documentMapWidth) : 0.0;
-	if (mapWidth < 0) mapWidth = 0;
-	if (mapWidth > baseEditorFrame.size.width - 120) mapWidth = std::max<CGFloat>(0, baseEditorFrame.size.width - 120);
-
-	NSRect editorFrame = baseEditorFrame;
-	editorFrame.size.width -= mapWidth;
-
-	if (ctx().isSplit && ctx().splitView)
-	{
-		ctx().splitView.frame = editorFrame;
-		[ctx().splitView adjustSubviews];
-	}
-	else
-	{
-		ctx().editorContainer.frame = editorFrame;
-	}
-
-	if (ctx().documentMapContainer)
-	{
-		NSRect mapFrame = NSMakeRect(NSMaxX(editorFrame), baseEditorFrame.origin.y, mapWidth, baseEditorFrame.size.height);
-		ctx().documentMapContainer.frame = mapFrame;
-		ctx().documentMapContainer.hidden = !ctx().documentMapEnabled;
-	}
-
-	layoutSplitTopTabBars();
-	if (ctx().documentMapScintilla)
-		ScintillaBridge_resizeToFit(ctx().documentMapScintilla);
-	if (ctx().scintillaView)
-		ScintillaBridge_resizeToFit(ctx().scintillaView);
-	if (ctx().isSplit && ctx().scintillaView2)
-		ScintillaBridge_resizeToFit(ctx().scintillaView2);
+	relayoutFunctionListPanel();
 }
 
 void setDocumentMapEnabled(bool enabled)

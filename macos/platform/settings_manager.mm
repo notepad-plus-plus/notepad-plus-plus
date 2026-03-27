@@ -83,8 +83,10 @@ bool SettingsManager::load()
 	if ([json[@"showIndentGuides"] isKindOfClass:[NSNumber class]])settings.showIndentGuides = [json[@"showIndentGuides"] boolValue];
 	if ([json[@"syncScrolling"] isKindOfClass:[NSNumber class]])   settings.syncScrolling = [json[@"syncScrolling"] boolValue];
 	if ([json[@"documentMap"] isKindOfClass:[NSNumber class]])     settings.documentMap = [json[@"documentMap"] boolValue];
+	if ([json[@"functionList"] isKindOfClass:[NSNumber class]])    settings.functionList = [json[@"functionList"] boolValue];
 	if ([json[@"showChangeHistory"] isKindOfClass:[NSNumber class]])settings.showChangeHistory = [json[@"showChangeHistory"] boolValue];
 	if ([json[@"documentMapWidth"] isKindOfClass:[NSNumber class]])settings.documentMapWidth = [json[@"documentMapWidth"] intValue];
+	if ([json[@"functionListWidth"] isKindOfClass:[NSNumber class]])settings.functionListWidth = [json[@"functionListWidth"] intValue];
 
 	// Recent files
 	settings.recentFiles.clear();
@@ -152,8 +154,10 @@ bool SettingsManager::save()
 		@"showIndentGuides": @(settings.showIndentGuides),
 		@"syncScrolling": @(settings.syncScrolling),
 		@"documentMap": @(settings.documentMap),
+		@"functionList": @(settings.functionList),
 		@"showChangeHistory": @(settings.showChangeHistory),
 		@"documentMapWidth": @(settings.documentMapWidth),
+		@"functionListWidth": @(settings.functionListWidth),
 		@"recentFiles":  recentArr
 	};
 

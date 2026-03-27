@@ -99,6 +99,7 @@ constexpr double NPP_STATUS_BAR_HEIGHT = 22.0;
 #define IDM_VIEW_SYNCHRONIZE_SCROLLING 42083
 #define IDM_VIEW_DOCUMENTMAP         42084
 #define IDM_VIEW_CHANGE_HISTORY      42085
+#define IDM_VIEW_FUNCTIONLIST        42086
 
 // Tab context menu command IDs
 #define IDM_TAB_CLOSE            42200

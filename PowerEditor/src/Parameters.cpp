@@ -4080,12 +4080,14 @@ Default UDL + Created + Imported
 */
 void NppParameters::writeDefaultUDL()
 {
+	bool bNeedDocDelete = false;
 	bool firstCleanDone = false;
 	std::vector<std::pair<bool, bool>> deleteState; //vector< pair<toDel, isInDefaultSharedContainer> >
 	for (const auto& udl : _pXmlUserLangsDoc)
 	{
 		if (!_pXmlUserLangDoc._doc)
 		{
+			bNeedDocDelete = true;
 			_pXmlUserLangDoc._doc = new NppXml::NewDocument();
 			NppXml::createNewDeclaration(_pXmlUserLangDoc._doc);
 			NppXml::createChildElement(_pXmlUserLangDoc._doc, "NotepadPlus");
@@ -4134,6 +4136,12 @@ void NppParameters::writeDefaultUDL()
 		}
 	}
 	// else nothing to change, do nothing
+
+	if (bNeedDocDelete)
+	{
+		delete _pXmlUserLangDoc._doc;
+		_pXmlUserLangDoc._doc = nullptr;
+	}
 }
 
 void NppParameters::writeNonDefaultUDL()

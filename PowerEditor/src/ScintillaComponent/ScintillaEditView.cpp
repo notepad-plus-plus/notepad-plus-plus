@@ -2181,9 +2181,9 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 BufferID ScintillaEditView::attachDefaultDoc()
 {
 	// get the doc pointer attached (by default) on the view Scintilla
-	Document doc = execute(SCI_GETDOCPOINTER, 0, 0);
-	execute(SCI_ADDREFDOCUMENT, 0, doc);
-	BufferID id = MainFileManager.bufferFromDocument(doc, _isMainEditZone);
+	_docDefault = execute(SCI_GETDOCPOINTER, 0, 0);
+	execute(SCI_ADDREFDOCUMENT, 0, _docDefault);
+	BufferID id = MainFileManager.bufferFromDocument(_docDefault, _isMainEditZone);
 	Buffer * buf = MainFileManager.getBufferByID(id);
 
 	MainFileManager.addBufferReference(id, this);	//add a reference. Notepad only shows the buffer in tabbar

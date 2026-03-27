@@ -879,22 +879,32 @@ void Notepad_plus::killAllChildren()
 	_rebarTop.destroy();
 	_rebarBottom.destroy();
 
-    if (_pMainSplitter)
-    {
-        _pMainSplitter->destroy();
-        delete _pMainSplitter;
-    }
+	if (_pMainSplitter)
+	{
+		_pMainSplitter->destroy();
+		delete _pMainSplitter;
+	}
 
-    _mainDocTab.destroy();
-    _subDocTab.destroy();
+	_mainDocTab.destroy();
+	_subDocTab.destroy();
 
 	_mainEditView.destroy();
-    _subEditView.destroy();
+	_subEditView.destroy();
 	_invisibleEditView.destroy();
+
+	Document scratchDocDefault = FileManager::getInstance().getScratchDocDefault();
+	if (scratchDocDefault != 0)
+	{
+		assert(scratchDocDefault == _fileEditView.execute(SCI_GETDOCPOINTER));
+		// we must balance our call to SCI_ADDREFDOCUMENT in the FileManager::init with a call to SCI_RELEASEDOCUMENT
+		// before! destroying the Scintilla wnd, otherwise the Scintilla view default Document object refcount will never reach zero
+		// in destructor and as a consequence multiple Scintilla objects leaks happen
+		_fileEditView.execute(SCI_RELEASEDOCUMENT, 0, scratchDocDefault);
+	}
 	_fileEditView.destroy();
 
-    _subSplitter.destroy();
-    _statusBar.destroy();
+	_subSplitter.destroy();
+	_statusBar.destroy();
 
 	_scintillaCtrls4Plugins.destroy();
 	_dockingManager.destroy();

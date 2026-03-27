@@ -262,6 +262,14 @@ public:
 	void destroy() override {
 		if (_hSelf)
 		{
+			if (_docDefault != 0)
+			{
+				assert(_docDefault == execute(SCI_GETDOCPOINTER));
+				// we must balance our call to SCI_ADDREFDOCUMENT in the ScintillaEditView::attachDefaultDoc with a call to SCI_RELEASEDOCUMENT
+				// before! destroying the Scintilla wnd, otherwise the Scintilla view default Document object refcount will never reach zero
+				// in destructor and as a consequence multiple Scintilla objects leaks happen
+				execute(SCI_RELEASEDOCUMENT, 0, _docDefault);
+			}
 			::DestroyWindow(_hSelf);
 			_hSelf = nullptr;
 			_pScintillaFunc = nullptr;
@@ -696,9 +704,9 @@ protected:
 
 	static int _refCount;
 
-    static UserDefineDialog _userDefineDlg;
+	static UserDefineDialog _userDefineDlg;
 
-    static const int _markersArray[][NB_FOLDER_STATE];
+	static const int _markersArray[][NB_FOLDER_STATE];
 
 	static LRESULT CALLBACK ScintillaProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 
@@ -706,6 +714,7 @@ protected:
 	SCINTILLA_FUNC _pScintillaFunc = nullptr;
 	SCINTILLA_PTR  _pScintillaPtr = nullptr;
 	BufferID attachDefaultDoc();
+	Document _docDefault = 0;
 
 	//Store the current buffer so it can be retrieved later
 	BufferID _currentBufferID = nullptr;

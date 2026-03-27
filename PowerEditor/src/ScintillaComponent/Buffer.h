@@ -122,6 +122,10 @@ public:
 	                                                                                          // The value of isAutoDetectEncodingDisabled4Loading will be restored to false after each file loading 
 	                                                                                          // to restore the encoding auto-detection ability for other file loading operations. 
 
+	Document getScratchDocDefault() const {
+		return _scratchDocDefault;
+	}
+
 private:
 	struct LoadedFileFormat {
 		LoadedFileFormat() = default;

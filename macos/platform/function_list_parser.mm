@@ -1,10 +1,19 @@
 #include "function_list_parser.h"
+#include "function_list_panel.h"
 #include "language_defs.h"
 
 #include <algorithm>
 #include <cctype>
+#include <cstdio>
 #include <regex>
 #include <stdexcept>
+
+static FILE* dbgLog()
+{
+	static FILE* f = fopen("/tmp/MacNotePP.log", "a");
+	return f;
+}
+#define FLLOG(fmt, ...) do { if (FILE* _f = dbgLog()) { fprintf(_f, "[FLParser] " fmt "\n", ##__VA_ARGS__); fflush(_f); } } while(0)
 #include <unordered_map>
 #include <unordered_set>
 
@@ -178,8 +187,20 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 
 	size_t lineStart = 0;
 	int lineNo = 1;
+	int linesProcessed = 0;
+	int linesSkippedLength = 0;
+	int linesSkippedRegexErr = 0;
+	int matchCount = 0;
+	int pendingSetCount = 0;
+	int pendingFlushCount = 0;
+	FLLOG("parseBrace: starting lang=%d textLen=%zu", languageIndex, utf8Text.size());
 	while (lineStart <= utf8Text.size())
 	{
+		if ((lineNo & 0x3FF) == 0 && isFunctionListShuttingDown())
+		{
+			FLLOG("parseBrace: CANCELLED at line %d (shutting down)", lineNo);
+			return;
+		}
 		size_t lineEnd = utf8Text.find('\n', lineStart);
 		if (lineEnd == std::string::npos)
 			lineEnd = utf8Text.size();
@@ -205,6 +226,8 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 				{
 					accum.addSymbol(pendingFunc.name, topCont, pendingFunc.line, pendingFunc.namePosition);
 				}
+				++pendingFlushCount;
+				++matchCount;
 				hasPendingFunc = false;
 			}
 			else if (!clean.empty() && (endsWithSemicolon(clean) || clean[0] == '}'))
@@ -217,7 +240,9 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 		// is this long, and complex regexes can hit backtracking limits
 		// (std::regex error_complexity) on lines common in large C files.
 		// Brace counting below still runs on every line.
-		if (line.size() <= 1000) try
+		++linesProcessed;
+		if (line.size() > 1000) { ++linesSkippedLength; }
+		else try
 		{
 		std::smatch m;
 		if (languageIndex == LANG_RUST)
@@ -257,12 +282,18 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 				const std::string func = m[2].str();
 				accum.addContainer(container, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))));
 				accum.addSymbol(func, container, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(2))));
+				++matchCount;
+				if (matchCount <= 5) FLLOG("  match[%d] scoped: %s::%s line=%d", matchCount, container.c_str(), func.c_str(), lineNo);
 			}
 			else if (std::regex_search(line, m, cppFuncRe))
 			{
 				const std::string func = m[1].str();
 				if (!isControlKeyword(func))
+				{
 					accum.addSymbol(func, topContainer, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))));
+					++matchCount;
+					if (matchCount <= 5) FLLOG("  match[%d] inline: %s line=%d", matchCount, func.c_str(), lineNo);
+				}
 			}
 			else if (!endsWithSemicolon(clean))
 			{
@@ -276,6 +307,8 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 					pendingFunc.line = lineNo;
 					pendingFunc.namePosition = static_cast<int>(lineStart + static_cast<size_t>(m.position(2)));
 					pendingFunc.containerPosition = static_cast<int>(lineStart + static_cast<size_t>(m.position(1)));
+					++pendingSetCount;
+					if (pendingSetCount <= 5) FLLOG("  pending scoped: %s::%s line=%d", pendingFunc.container.c_str(), pendingFunc.name.c_str(), lineNo);
 				}
 				else if (std::regex_search(line, m, cppSigRe))
 				{
@@ -357,7 +390,7 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 				}
 			}
 		}
-		} catch (const std::regex_error&) {} // skip lines that exceed regex complexity
+		} catch (const std::regex_error&) { ++linesSkippedRegexErr; }
 
 		for (char c : line)
 		{
@@ -387,6 +420,8 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 		lineStart = lineEnd + 1;
 		++lineNo;
 	}
+	FLLOG("parseBrace: done — lines=%d skippedLen=%d skippedRegex=%d matches=%d pendingSet=%d pendingFlush=%d",
+		  linesProcessed, linesSkippedLength, linesSkippedRegexErr, matchCount, pendingSetCount, pendingFlushCount);
 }
 
 static std::vector<FunctionListNode> buildTree(const ParseAccum& accum)
@@ -447,14 +482,21 @@ static std::vector<FunctionListNode> buildTree(const ParseAccum& accum)
 
 std::vector<FunctionListNode> parseFunctionListNodes(int languageIndex, const std::string& utf8Text)
 {
+	FLLOG("parseFunctionListNodes: langIndex=%d textLen=%zu", languageIndex, utf8Text.size());
 	ParseAccum accum;
 	if (utf8Text.empty())
+	{
+		FLLOG("parseFunctionListNodes: EMPTY text");
 		return {};
+	}
 
 	if (languageIndex == LANG_PYTHON)
 		parsePython(utf8Text, accum);
 	else
 		parseBraceLanguage(utf8Text, languageIndex, accum);
 
-	return buildTree(accum);
+	FLLOG("parseFunctionListNodes: symbols=%zu containers=%zu", accum.symbols.size(), accum.containerOrder.size());
+	auto roots = buildTree(accum);
+	FLLOG("parseFunctionListNodes: returning %zu root nodes", roots.size());
+	return roots;
 }

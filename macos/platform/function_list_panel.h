@@ -10,3 +10,4 @@ void bindFunctionListToActiveView();
 void updateFunctionListNow();
 void scheduleFunctionListRefresh();
 void invalidateFunctionListPendingRefresh();
+bool isFunctionListShuttingDown();

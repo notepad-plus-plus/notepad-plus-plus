@@ -1,7 +1,15 @@
 #import <Cocoa/Cocoa.h>
 #include <algorithm>
 #include <atomic>
+#include <cstdio>
 #include <vector>
+
+static FILE* dbgLog()
+{
+	static FILE* f = fopen("/tmp/MacNotePP.log", "a");
+	return f;
+}
+#define FLLOG(fmt, ...) do { if (FILE* _f = dbgLog()) { fprintf(_f, "[FL] " fmt "\n", ##__VA_ARGS__); fflush(_f); } } while(0)
 
 #include "function_list_panel.h"
 #include "function_list_parser.h"
@@ -145,6 +153,7 @@ static NSView* sContainer = nil;
 static NSTextField* sEmptyLabel = nil;
 static NSScrollView* sScroll = nil;
 static std::atomic<int> sRefreshGeneration{0};
+static std::atomic<bool> sShuttingDown{false};
 
 static constexpr size_t kMaxParseSize = 16 * 1024 * 1024; // 16 MB
 static constexpr size_t kAsyncParseThreshold = 2 * 1024 * 1024; // 2 MB
@@ -193,28 +202,43 @@ static bool fetchActiveDocumentText(std::string& outText, int& outLangIndex)
 {
 	auto& docs = ctx().activeDocuments();
 	int tabIdx = ctx().activeTabIndex();
+	FLLOG("fetchText: tabIdx=%d docCount=%d", tabIdx, static_cast<int>(docs.size()));
 	if (tabIdx < 0 || tabIdx >= static_cast<int>(docs.size()))
+	{
+		FLLOG("fetchText: BAIL — tabIdx out of range");
 		return false;
+	}
 
 	outText = docs[tabIdx].content;
 	outLangIndex = docs[tabIdx].languageIndex;
+	FLLOG("fetchText: langIndex=%d contentLen=%zu", outLangIndex, outText.size());
 	void* sci = ctx().activeScintillaView();
+	FLLOG("fetchText: scintilla=%p", sci);
 	if (sci)
 	{
 		intptr_t len = ScintillaBridge_sendMessage(sci, SCI_GETTEXTLENGTH, 0, 0);
+		FLLOG("fetchText: SCI_GETTEXTLENGTH=%ld maxParse=%zu", static_cast<long>(len), kMaxParseSize);
 		if (len > 0 && static_cast<size_t>(len) < kMaxParseSize)
 		{
 			std::vector<char> buf(static_cast<size_t>(len + 1), '\0');
 			ScintillaBridge_sendMessage(sci, SCI_GETTEXT, len + 1, reinterpret_cast<intptr_t>(buf.data()));
 			outText.assign(buf.data(), static_cast<size_t>(len));
+			FLLOG("fetchText: got %zu bytes from Scintilla", outText.size());
+		}
+		else
+		{
+			FLLOG("fetchText: SKIP Scintilla fetch (len=%ld)", static_cast<long>(len));
 		}
 	}
 
-	return !outText.empty() && outText.size() < kMaxParseSize;
+	bool ok = !outText.empty() && outText.size() < kMaxParseSize;
+	FLLOG("fetchText: returning %s (textLen=%zu)", ok ? "true" : "false", outText.size());
+	return ok;
 }
 
 static void applyParsedNodes(const std::vector<FunctionListNode>& nodes)
 {
+	FLLOG("applyNodes: %zu nodes, controller=%p outline=%p", nodes.size(), sController, sController ? sController.outlineView : nil);
 	if (!sController || !sController.outlineView)
 		return;
 	[sController.roots removeAllObjects];
@@ -291,7 +315,11 @@ void initializeFunctionListPanel()
 
 void destroyFunctionListPanel()
 {
+	// Signal background parse to stop and wait for it to drain
+	sShuttingDown.store(true);
 	invalidateFunctionListPendingRefresh();
+	dispatch_sync(parseQueue(), ^{});
+
 	if (sScroll)
 	{
 		[sScroll removeFromSuperview];
@@ -397,6 +425,11 @@ bool isFunctionListEnabled()
 	return ctx().functionListEnabled;
 }
 
+bool isFunctionListShuttingDown()
+{
+	return sShuttingDown.load();
+}
+
 void bindFunctionListToActiveView()
 {
 	if (ctx().functionListEnabled)
@@ -405,10 +438,15 @@ void bindFunctionListToActiveView()
 
 void updateFunctionListNow()
 {
+	FLLOG("updateNow: controller=%p outline=%p", sController, sController ? sController.outlineView : nil);
 	if (!sController || !sController.outlineView)
+	{
+		FLLOG("updateNow: BAIL — no controller/outline");
 		return;
+	}
 	if (!shouldShowFunctionList())
 	{
+		FLLOG("updateNow: BAIL — shouldShow=false (enabled=%d container=%p)", ctx().functionListEnabled, sContainer);
 		clearPanelData();
 		return;
 	}
@@ -417,27 +455,43 @@ void updateFunctionListNow()
 	int langIndex = 0;
 	if (!fetchActiveDocumentText(text, langIndex))
 	{
+		FLLOG("updateNow: BAIL — fetchText returned false");
 		clearPanelData();
 		return;
 	}
+
+	FLLOG("updateNow: textLen=%zu langIndex=%d asyncThreshold=%zu", text.size(), langIndex, kAsyncParseThreshold);
 
 	if (text.size() > kAsyncParseThreshold)
 	{
 		// Parse large files on a background queue to keep the UI responsive
 		const int generation = sRefreshGeneration.load();
+		FLLOG("updateNow: ASYNC parse, generation=%d", generation);
 		dispatch_async(parseQueue(), ^{
-			if (generation != sRefreshGeneration.load())
+			int curGen = sRefreshGeneration.load();
+			if (generation != curGen)
+			{
+				FLLOG("asyncParse: STALE (mine=%d current=%d)", generation, curGen);
 				return;
+			}
+			FLLOG("asyncParse: starting parse (textLen=%zu lang=%d)", text.size(), langIndex);
 			std::vector<FunctionListNode> nodes = parseFunctionListNodes(langIndex, text);
+			FLLOG("asyncParse: done, %zu nodes", nodes.size());
 			dispatch_async(dispatch_get_main_queue(), ^{
-				if (generation != sRefreshGeneration.load())
+				int curGen2 = sRefreshGeneration.load();
+				if (generation != curGen2)
+				{
+					FLLOG("asyncApply: STALE (mine=%d current=%d)", generation, curGen2);
 					return;
+				}
+				FLLOG("asyncApply: applying %zu nodes", nodes.size());
 				applyParsedNodes(nodes);
 			});
 		});
 	}
 	else
 	{
+		FLLOG("updateNow: SYNC parse");
 		applyParsedNodes(parseFunctionListNodes(langIndex, text));
 	}
 }

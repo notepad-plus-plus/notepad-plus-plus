@@ -162,6 +162,7 @@ static void parsePython(const std::string& utf8Text, ParseAccum& accum)
 static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, ParseAccum& accum)
 {
 	static const std::regex classRe(R"(\b(class|struct|interface|protocol|extension)\s+([A-Za-z_]\w*))");
+	static const std::regex cStructRe(R"(\bstruct\s+([A-Za-z_]\w*))");
 	static const std::regex rustImplRe(R"(\bimpl(?:\s*<[^>]+>)?\s+([A-Za-z_]\w*))");
 	static const std::regex goTypeRe(R"(^\s*type\s+([A-Za-z_]\w*)\s+(?:struct|interface)\b)");
 
@@ -244,7 +245,17 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 		if (line.size() > 1000) { ++linesSkippedLength; }
 		else try
 		{
+		// Skip comment lines — they cause false matches (e.g. "interface does" in sqlite3.c)
+		bool isComment = false;
+		if (!clean.empty())
+		{
+			char c0 = clean[0];
+			isComment = (c0 == '*') || (c0 == '/' && clean.size() >= 2 && (clean[1] == '/' || clean[1] == '*'));
+		}
+
 		std::smatch m;
+		if (!isComment)
+		{
 		if (languageIndex == LANG_RUST)
 		{
 			if (std::regex_search(line, m, rustImplRe))
@@ -256,6 +267,15 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 		else if (languageIndex == LANG_GO)
 		{
 			if (std::regex_search(line, m, goTypeRe))
+			{
+				pendingContainer = m[1].str();
+				accum.addContainer(pendingContainer, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))));
+			}
+		}
+		else if (languageIndex == LANG_C)
+		{
+			// C has no class/interface — only match struct
+			if (std::regex_search(line, m, cStructRe))
 			{
 				pendingContainer = m[1].str();
 				accum.addContainer(pendingContainer, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))));
@@ -390,6 +410,7 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 				}
 			}
 		}
+		} // if (!isComment)
 		} catch (const std::regex_error&) { ++linesSkippedRegexErr; }
 
 		for (char c : line)

@@ -1,15 +1,19 @@
 #import <Cocoa/Cocoa.h>
 #include <algorithm>
 #include <atomic>
-#include <cstdio>
 #include <vector>
 
+#ifdef DEBUG
+#include <cstdio>
 static FILE* dbgLog()
 {
 	static FILE* f = fopen("/tmp/MacNotePP.log", "a");
 	return f;
 }
 #define FLLOG(fmt, ...) do { if (FILE* _f = dbgLog()) { fprintf(_f, "[FL] " fmt "\n", ##__VA_ARGS__); fflush(_f); } } while(0)
+#else
+#define FLLOG(...) do { } while(0)
+#endif
 
 #include "function_list_panel.h"
 #include "function_list_parser.h"
@@ -460,7 +464,10 @@ void setFunctionListEnabled(bool enabled)
 	if (enabled)
 		updateFunctionListNow();
 	else
+	{
 		clearPanelData();
+		invalidateFunctionListPendingRefresh();
+	}
 }
 
 bool isFunctionListEnabled()

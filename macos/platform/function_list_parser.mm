@@ -4,16 +4,20 @@
 
 #include <algorithm>
 #include <cctype>
-#include <cstdio>
 #include <regex>
 #include <stdexcept>
 
+#ifdef DEBUG
+#include <cstdio>
 static FILE* dbgLog()
 {
 	static FILE* f = fopen("/tmp/MacNotePP.log", "a");
 	return f;
 }
 #define FLLOG(fmt, ...) do { if (FILE* _f = dbgLog()) { fprintf(_f, "[FLParser] " fmt "\n", ##__VA_ARGS__); fflush(_f); } } while(0)
+#else
+#define FLLOG(...) do { } while(0)
+#endif
 #include <unordered_map>
 #include <unordered_set>
 
@@ -553,9 +557,23 @@ std::vector<FunctionListNode> parseFunctionListNodes(int languageIndex, const st
 	}
 
 	if (languageIndex == LANG_PYTHON)
+	{
 		parsePython(utf8Text, accum);
-	else
+	}
+	else if (languageIndex == LANG_C || languageIndex == LANG_CPP
+		|| languageIndex == LANG_OBJC || languageIndex == LANG_JAVA
+		|| languageIndex == LANG_JAVASCRIPT || languageIndex == LANG_TYPESCRIPT
+		|| languageIndex == LANG_GO || languageIndex == LANG_RUST
+		|| languageIndex == LANG_SWIFT || languageIndex == LANG_PHP
+		|| languageIndex == LANG_KOTLIN || languageIndex == LANG_SCALA)
+	{
 		parseBraceLanguage(utf8Text, languageIndex, accum);
+	}
+	else
+	{
+		FLLOG("parseFunctionListNodes: lang=%d not supported, skipping", languageIndex);
+		return {};
+	}
 
 	FLLOG("parseFunctionListNodes: symbols=%zu containers=%zu", accum.symbols.size(), accum.containerOrder.size());
 	auto roots = buildTree(accum);

@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <cctype>
 #include <regex>
+#include <stdexcept>
 #include <unordered_map>
 #include <unordered_set>
 
@@ -121,6 +122,8 @@ static void parsePython(const std::string& utf8Text, ParseAccum& accum)
 		while (!classStack.empty() && indent <= classStack.back().second)
 			classStack.pop_back();
 
+		if (line.size() <= 1000) try
+		{
 		std::smatch m;
 		if (std::regex_search(line, m, classRe))
 		{
@@ -138,6 +141,7 @@ static void parsePython(const std::string& utf8Text, ParseAccum& accum)
 			const int pos = static_cast<int>(lineStart + static_cast<size_t>(m.position(1)));
 			accum.addSymbol(m[1].str(), container, lineNo, pos);
 		}
+		} catch (const std::regex_error&) {}
 
 		if (lineEnd == utf8Text.size())
 			break;
@@ -209,6 +213,12 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 			}
 		}
 
+		// Skip regex matching on very long lines — no function signature
+		// is this long, and complex regexes can hit backtracking limits
+		// (std::regex error_complexity) on lines common in large C files.
+		// Brace counting below still runs on every line.
+		if (line.size() <= 1000) try
+		{
 		std::smatch m;
 		if (languageIndex == LANG_RUST)
 		{
@@ -347,6 +357,7 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 				}
 			}
 		}
+		} catch (const std::regex_error&) {} // skip lines that exceed regex complexity
 
 		for (char c : line)
 		{

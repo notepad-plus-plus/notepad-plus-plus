@@ -4,3 +4,5 @@
 #pragma once
 
 void configureScintilla(void* sci);
+void refreshLineNumberMargin(void* sci);
+void refreshLineNumberMargins();

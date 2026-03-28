@@ -9,6 +9,61 @@
 #include "smart_highlight.h"
 #include "change_history.h"
 
+namespace
+{
+constexpr intptr_t kLineNumberStyle = 33;
+constexpr intptr_t kLineNumberMarginLeft = 4;
+constexpr int kLineNumberMarginExtraWidth = 12;
+
+int lineNumberDigits(intptr_t lineCount)
+{
+	int digits = 1;
+	while (lineCount >= 10)
+	{
+		lineCount /= 10;
+		++digits;
+	}
+	return digits;
+}
+
+int calculateLineNumberMarginWidth(void* sci)
+{
+	intptr_t lineCount = ScintillaBridge_sendMessage(sci, SCI_GETLINECOUNT, 0, 0);
+	if (lineCount < 1)
+		lineCount = 1;
+
+	const int digits = lineNumberDigits(lineCount);
+	std::string sample(static_cast<size_t>(digits), '9');
+	intptr_t textWidth = ScintillaBridge_sendMessage(sci, SCI_TEXTWIDTH,
+		static_cast<uintptr_t>(kLineNumberStyle), reinterpret_cast<intptr_t>(sample.data()));
+	if (textWidth <= 0)
+	{
+		const int fontSize = ctx().fontSize > 0 ? ctx().fontSize : 13;
+		textWidth = digits * (fontSize - 2);
+	}
+
+	return static_cast<int>(textWidth) + kLineNumberMarginExtraWidth;
+}
+}
+
+void refreshLineNumberMargin(void* sci)
+{
+	if (!sci)
+		return;
+
+	const bool showLineNumbers = ctx().showLineNumbers;
+	ScintillaBridge_sendMessage(sci, SCI_SETMARGINLEFT, 0,
+		showLineNumbers ? kLineNumberMarginLeft : 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETMARGINWIDTHN, 0,
+		showLineNumbers ? calculateLineNumberMarginWidth(sci) : 0);
+}
+
+void refreshLineNumberMargins()
+{
+	refreshLineNumberMargin(ctx().scintillaView);
+	refreshLineNumberMargin(ctx().scintillaView2);
+}
+
 void configureScintilla(void* sci)
 {
 	if (!sci) return;
@@ -19,7 +74,7 @@ void configureScintilla(void* sci)
 	ScintillaBridge_sendMessage(sci, SCI_SETUSETABS, ctx().useTabs ? 1 : 0, 0);
 
 	ScintillaBridge_sendMessage(sci, SCI_SETMARGINTYPEN, 0, 1);
-	ScintillaBridge_sendMessage(sci, SCI_SETMARGINWIDTHN, 0, 50);
+	refreshLineNumberMargin(sci);
 
 	ScintillaBridge_sendMessage(sci, SCI_SETMARGINTYPEN, 1, 0);
 	ScintillaBridge_sendMessage(sci, SCI_SETMARGINWIDTHN, 1, 16);

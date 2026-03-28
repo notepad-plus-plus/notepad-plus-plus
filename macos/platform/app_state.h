@@ -86,6 +86,10 @@ struct AppContext
 	void* documentMapScintilla = nullptr;
 	intptr_t documentMapBoundDoc = 0; // Currently bound document pointer (for ref counting)
 
+	// Function list state
+	bool functionListEnabled = false;
+	int functionListWidth = 200;
+
 	// Notification suppression (prevents false dirty indicators during tab switches)
 	bool suppressSavePointNotifications = false;
 

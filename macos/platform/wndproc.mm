@@ -25,10 +25,12 @@
 #include "print_support.h"
 #include "lexer_styles.h"
 #include "language_defs.h"
+#include "scintilla_config.h"
 #include "scintilla_bridge.h"
 #include "auto_close.h"
 #include "sync_scroll.h"
 #include "document_map.h"
+#include "function_list_panel.h"
 #include "change_history.h"
 #include "windows.h"
 #include "commctrl.h"
@@ -182,13 +184,7 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				case IDM_VIEW_LINENUMBER:
 				{
 					ctx().showLineNumbers = !ctx().showLineNumbers;
-					void* views[] = { ctx().scintillaView, ctx().scintillaView2 };
-					for (void* sci : views)
-					{
-						if (sci)
-							ScintillaBridge_sendMessage(sci, SCI_SETMARGINWIDTHN, 0,
-							                           ctx().showLineNumbers ? 50 : 0);
-					}
+					refreshLineNumberMargins();
 					HMENU hMenu = GetMenu(hWnd);
 					if (hMenu)
 						CheckMenuItem(hMenu, IDM_VIEW_LINENUMBER,
@@ -370,6 +366,7 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 						ScintillaBridge_sendMessage(ctx().scintillaView2, SCI_ZOOMIN, 0, 0);
 					if (ctx().scintillaView)
 						ctx().zoomLevel = static_cast<int>(ScintillaBridge_sendMessage(ctx().scintillaView, SCI_GETZOOM, 0, 0));
+					refreshLineNumberMargins();
 					return 0;
 				}
 				case IDM_VIEW_ZOOMOUT:
@@ -380,6 +377,7 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 						ScintillaBridge_sendMessage(ctx().scintillaView2, SCI_ZOOMOUT, 0, 0);
 					if (ctx().scintillaView)
 						ctx().zoomLevel = static_cast<int>(ScintillaBridge_sendMessage(ctx().scintillaView, SCI_GETZOOM, 0, 0));
+					refreshLineNumberMargins();
 					return 0;
 				}
 				case IDM_VIEW_ZOOMRESTORE:
@@ -389,6 +387,7 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 						ScintillaBridge_sendMessage(ctx().scintillaView, SCI_SETZOOM, 0, 0);
 					if (ctx().isSplit && ctx().scintillaView2)
 						ScintillaBridge_sendMessage(ctx().scintillaView2, SCI_SETZOOM, 0, 0);
+					refreshLineNumberMargins();
 					return 0;
 				}
 
@@ -457,6 +456,15 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				if (hMenu)
 					CheckMenuItem(hMenu, IDM_VIEW_DOCUMENTMAP,
 					              MF_BYCOMMAND | (ctx().documentMapEnabled ? MF_CHECKED : MF_UNCHECKED));
+				return 0;
+			}
+			case IDM_VIEW_FUNCTIONLIST:
+			{
+				setFunctionListEnabled(!ctx().functionListEnabled);
+				HMENU hMenu = GetMenu(hWnd);
+				if (hMenu)
+					CheckMenuItem(hMenu, IDM_VIEW_FUNCTIONLIST,
+					              MF_BYCOMMAND | (ctx().functionListEnabled ? MF_CHECKED : MF_UNCHECKED));
 				return 0;
 			}
 			case IDM_VIEW_CHANGE_HISTORY:
@@ -554,6 +562,8 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				{
 					CheckMenuItem(hMenu, IDM_VIEW_DOCUMENTMAP,
 					              MF_BYCOMMAND | (ctx().documentMapEnabled ? MF_CHECKED : MF_UNCHECKED));
+					CheckMenuItem(hMenu, IDM_VIEW_FUNCTIONLIST,
+					              MF_BYCOMMAND | (ctx().functionListEnabled ? MF_CHECKED : MF_UNCHECKED));
 					CheckMenuItem(hMenu, IDM_EDIT_AUTOCLOSE_BRACKETS,
 					              MF_BYCOMMAND | (ctx().autoCloseBrackets ? MF_CHECKED : MF_UNCHECKED));
 					CheckMenuItem(hMenu, IDM_VIEW_SYNCHRONIZE_SCROLLING,

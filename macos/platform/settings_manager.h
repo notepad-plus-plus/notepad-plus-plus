@@ -31,8 +31,10 @@ struct AppSettings
 	bool showIndentGuides = false;
 	bool syncScrolling = false;
 	bool documentMap = false;
+	bool functionList = false;
 	bool showChangeHistory = true;
 	int documentMapWidth = 140;
+	int functionListWidth = 200;
 
 	// Recent files
 	std::vector<std::string> recentFiles;

@@ -7,6 +7,7 @@
 #include "app_state.h"
 #include "language_defs.h"
 #include "lexer_styles.h"
+#include "scintilla_config.h"
 #include "scintilla_bridge.h"
 #include "brace_match.h"
 #include "smart_highlight.h"
@@ -69,6 +70,8 @@ void applyAppearanceToView(void* sci, int langIdx, bool isDark)
 	// Incremental search indicator colors
 	ScintillaBridge_sendMessage(sci, SCI_INDICSETFORE, INDIC_INCREMENTAL_SEARCH,
 		isDark ? 0x50C8FF : 0xFF8000);
+
+	refreshLineNumberMargin(sci);
 }
 
 void applyAppearance()

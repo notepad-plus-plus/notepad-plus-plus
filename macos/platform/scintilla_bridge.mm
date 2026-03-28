@@ -88,6 +88,19 @@ void ScintillaBridge_resizeToFit(void* scintillaView)
 		view.frame = parent.bounds;
 }
 
+void ScintillaBridge_focus(void* scintillaView)
+{
+	if (!scintillaView)
+		return;
+
+	ScintillaView* view = (__bridge ScintillaView*)scintillaView;
+	if (view.window)
+		[view.window makeFirstResponder:view];
+
+	if ([view message:SCI_GETFOCUS wParam:0 lParam:0] == 0)
+		[view message:SCI_SETFOCUS wParam:1 lParam:0];
+}
+
 void ScintillaBridge_setNotifyCallback(void* scintillaView, intptr_t windowid,
                                         ScintillaBridgeNotifyFunc callback)
 {

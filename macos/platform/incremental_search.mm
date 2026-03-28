@@ -485,7 +485,7 @@ void hideIncrementalSearch()
 	NSView* sciView = activeScintillaNSView();
 	if (sciView)
 	{
-		[sciView.window makeFirstResponder:sciView];
+		ScintillaBridge_focus((__bridge void*)sciView);
 	}
 
 	ctx().incrSearchVisible = false;

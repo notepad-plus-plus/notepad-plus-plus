@@ -35,6 +35,56 @@ static FILE* dbgLog()
 @implementation FunctionListItem
 @end
 
+static intptr_t functionListTargetPosition(void* sci, const FunctionListItem* item)
+{
+	if (!sci || !item)
+		return -1;
+
+	if (item.line > 0)
+	{
+		return ScintillaBridge_sendMessage(sci, SCI_POSITIONFROMLINE,
+			static_cast<uintptr_t>(item.line - 1), 0);
+	}
+
+	if (item.position >= 0)
+		return item.position;
+
+	return -1;
+}
+
+static void focusFunctionListEditor(void* sci)
+{
+	if (!sci)
+		return;
+
+	ScintillaBridge_focus(sci);
+
+	NSView* sciView = (__bridge NSView*)sci;
+	dispatch_async(dispatch_get_main_queue(), ^{
+		ScintillaBridge_focus((__bridge void*)sciView);
+	});
+}
+
+static void activateFunctionListItem(FunctionListItem* item)
+{
+	if (!item)
+		return;
+
+	void* sci = ctx().activeScintillaView();
+	if (!sci)
+		return;
+
+	intptr_t targetPos = functionListTargetPosition(sci, item);
+	if (targetPos < 0)
+		return;
+
+	ScintillaBridge_sendMessage(sci, SCI_GOTOPOS, static_cast<uintptr_t>(targetPos), 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETSEL,
+		static_cast<uintptr_t>(targetPos), targetPos);
+	ScintillaBridge_sendMessage(sci, SCI_SCROLLCARET, 0, 0);
+	focusFunctionListEditor(sci);
+}
+
 @interface FunctionListOutlineView : NSOutlineView
 @end
 
@@ -172,36 +222,7 @@ static FILE* dbgLog()
 		return;
 	}
 
-	void* sci = ctx().activeScintillaView();
-	if (!sci)
-		return;
-
-	const bool hasExactPosition = item.position > 0 || (item.position == 0 && item.line == 1);
-	if (hasExactPosition)
-	{
-		ScintillaBridge_sendMessage(sci, SCI_GOTOPOS, static_cast<uintptr_t>(item.position), 0);
-		ScintillaBridge_sendMessage(sci, SCI_SETSEL,
-			static_cast<uintptr_t>(item.position), static_cast<intptr_t>(item.position));
-		ScintillaBridge_sendMessage(sci, SCI_SCROLLCARET, 0, 0);
-	}
-	else if (item.line > 0)
-	{
-		ScintillaBridge_sendMessage(sci, SCI_GOTOLINE, static_cast<uintptr_t>(item.line - 1), 0);
-		intptr_t lineStart = ScintillaBridge_sendMessage(sci, SCI_POSITIONFROMLINE,
-			static_cast<uintptr_t>(item.line - 1), 0);
-		ScintillaBridge_sendMessage(sci, SCI_SETSEL,
-			static_cast<uintptr_t>(lineStart), static_cast<intptr_t>(lineStart));
-		ScintillaBridge_sendMessage(sci, SCI_SCROLLCARET, 0, 0);
-	}
-	else if (item.position >= 0)
-	{
-		ScintillaBridge_sendMessage(sci, SCI_GOTOPOS, static_cast<uintptr_t>(item.position), 0);
-		ScintillaBridge_sendMessage(sci, SCI_SCROLLCARET, 0, 0);
-	}
-
-	// Return focus to the editor so the caret line highlight activates
-	NSView* sciView = (__bridge NSView*)sci;
-	[sciView.window makeFirstResponder:sciView];
+	activateFunctionListItem(item);
 }
 @end
 

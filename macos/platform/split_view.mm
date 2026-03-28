@@ -262,7 +262,6 @@ void doSplit()
 	bindDocumentMapToActiveView();
 	updateDocumentMapViewport();
 	bindFunctionListToActiveView();
-	scheduleFunctionListRefresh();
 	refreshSyncScrollAnchor();
 }
 
@@ -336,7 +335,6 @@ void doUnsplit()
 	bindDocumentMapToActiveView();
 	updateDocumentMapViewport();
 	bindFunctionListToActiveView();
-	scheduleFunctionListRefresh();
 }
 
 void doMoveToOtherView()

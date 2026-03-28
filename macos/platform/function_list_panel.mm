@@ -250,6 +250,7 @@ void initializeFunctionListPanel()
 	outline.dataSource = sController;
 	outline.delegate = sController;
 	outline.target = sController;
+	outline.action = @selector(outlineActivated:);
 	outline.doubleAction = @selector(outlineActivated:);
 	sController.outlineView = outline;
 	sController.emptyLabel = sEmptyLabel;
@@ -307,6 +308,11 @@ void relayoutFunctionListPanel()
 	if (mapWidth < 0) mapWidth = 0;
 
 	CGFloat maxSide = std::max<CGFloat>(0.0, baseEditorFrame.size.width - 120.0);
+	if (mapWidth > maxSide)
+	{
+		mapWidth = maxSide;
+		ctx().documentMapWidth = static_cast<int>(mapWidth);
+	}
 	if (flWidth + mapWidth > maxSide)
 	{
 		flWidth = std::max<CGFloat>(0.0, maxSide - mapWidth);

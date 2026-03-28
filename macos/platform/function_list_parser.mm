@@ -103,8 +103,8 @@ static bool endsWithSemicolon(const std::string& trimmed)
 
 static void parsePython(const std::string& utf8Text, ParseAccum& accum)
 {
-	const std::regex classRe(R"(^\s*class\s+([A-Za-z_]\w*)\b)");
-	const std::regex defRe(R"(^\s*def\s+([A-Za-z_]\w*)\s*\()");
+	static const std::regex classRe(R"(^\s*class\s+([A-Za-z_]\w*)\b)");
+	static const std::regex defRe(R"(^\s*def\s+([A-Za-z_]\w*)\s*\()");
 	std::vector<std::pair<std::string, int>> classStack;
 
 	size_t lineStart = 0;
@@ -148,23 +148,23 @@ static void parsePython(const std::string& utf8Text, ParseAccum& accum)
 
 static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, ParseAccum& accum)
 {
-	const std::regex classRe(R"(\b(class|struct|interface|protocol|extension)\s+([A-Za-z_]\w*))");
-	const std::regex rustImplRe(R"(\bimpl(?:\s*<[^>]+>)?\s+([A-Za-z_]\w*))");
-	const std::regex goTypeRe(R"(^\s*type\s+([A-Za-z_]\w*)\s+(?:struct|interface)\b)");
+	static const std::regex classRe(R"(\b(class|struct|interface|protocol|extension)\s+([A-Za-z_]\w*))");
+	static const std::regex rustImplRe(R"(\bimpl(?:\s*<[^>]+>)?\s+([A-Za-z_]\w*))");
+	static const std::regex goTypeRe(R"(^\s*type\s+([A-Za-z_]\w*)\s+(?:struct|interface)\b)");
 
-	const std::regex cppScopedFuncRe(R"(\b([A-Za-z_]\w*)::([A-Za-z_~]\w*)\s*\([^;{}]*\)\s*(?:const\s*)?\{)");
-	const std::regex cppFuncRe(R"(^\s*[\w:<>\~\*&\s]+\s+([A-Za-z_~]\w*)\s*\([^;{}]*\)\s*(?:const\s*)?\{)");
-	const std::regex javaFuncRe(R"(^\s*(?:public|protected|private|static|final|synchronized|abstract|native|strictfp|\s)+[\w\<\>\[\],\s]+\s+([A-Za-z_]\w*)\s*\([^;{}]*\)\s*\{)");
-	const std::regex jsFunctionRe(R"(^\s*function\s+([A-Za-z_$]\w*)\s*\()");
-	const std::regex jsArrowRe(R"(^\s*(?:const|let|var)\s+([A-Za-z_$]\w*)\s*=\s*(?:async\s*)?\([^)]*\)\s*=>)");
-	const std::regex jsMethodRe(R"(^\s*(?:async\s+)?([A-Za-z_$]\w*)\s*\([^)]*\)\s*\{)");
-	const std::regex goFuncRe(R"(^\s*func\s*(?:\(\s*[^)]*?\s+\*?([A-Za-z_]\w*)\s*\)\s*)?([A-Za-z_]\w*)\s*\()");
-	const std::regex rustFuncRe(R"(^\s*(?:pub\s+)?(?:async\s+)?fn\s+([A-Za-z_]\w*)\s*\()");
-	const std::regex swiftFuncRe(R"(^\s*(?:public|internal|private|fileprivate|open|static|class|final|override|mutating|nonmutating|required|convenience|\s)*\s*func\s+([A-Za-z_]\w*)\s*\()");
+	static const std::regex cppScopedFuncRe(R"(\b([A-Za-z_]\w*)::([A-Za-z_~]\w*)\s*\([^;{}]*\)\s*(?:const\s*)?\{)");
+	static const std::regex cppFuncRe(R"(^\s*[\w:<>\~\*&\s]+\s+([A-Za-z_~]\w*)\s*\([^;{}]*\)\s*(?:const\s*)?\{)");
+	static const std::regex javaFuncRe(R"(^\s*(?:public|protected|private|static|final|synchronized|abstract|native|strictfp|\s)+[\w\<\>\[\],\s]+\s+([A-Za-z_]\w*)\s*\([^;{}]*\)\s*\{)");
+	static const std::regex jsFunctionRe(R"(^\s*function\s+([A-Za-z_$]\w*)\s*\()");
+	static const std::regex jsArrowRe(R"(^\s*(?:const|let|var)\s+([A-Za-z_$]\w*)\s*=\s*(?:async\s*)?\([^)]*\)\s*=>)");
+	static const std::regex jsMethodRe(R"(^\s*(?:async\s+)?([A-Za-z_$]\w*)\s*\([^)]*\)\s*\{)");
+	static const std::regex goFuncRe(R"(^\s*func\s*(?:\(\s*[^)]*?\s+\*?([A-Za-z_]\w*)\s*\)\s*)?([A-Za-z_]\w*)\s*\()");
+	static const std::regex rustFuncRe(R"(^\s*(?:pub\s+)?(?:async\s+)?fn\s+([A-Za-z_]\w*)\s*\()");
+	static const std::regex swiftFuncRe(R"(^\s*(?:public|internal|private|fileprivate|open|static|class|final|override|mutating|nonmutating|required|convenience|\s)*\s*func\s+([A-Za-z_]\w*)\s*\()");
 
 	// Allman-style signature regexes (no trailing \{)
-	const std::regex cppScopedSigRe(R"(\b([A-Za-z_]\w*)::([A-Za-z_~]\w*)\s*\([^;{}]*\))");
-	const std::regex cppSigRe(R"(^\s*(?:[\w*&<>:~]+\s+)+([A-Za-z_~]\w*)\s*\([^;{}]*\))");
+	static const std::regex cppScopedSigRe(R"(\b([A-Za-z_]\w*)::([A-Za-z_~]\w*)\s*\([^;{}]*\))");
+	static const std::regex cppSigRe(R"(^\s*(?:[\w*&<>:~]+\s+)+([A-Za-z_~]\w*)\s*\([^;{}]*\))");
 
 	std::vector<ContainerScope> containerStack;
 	std::string pendingContainer;

@@ -244,8 +244,6 @@ static void setDockIconFromLogo()
 	applyAppearance();
 	if (ctx().documentMapEnabled)
 		initializeDocumentMap();
-	if (ctx().functionListEnabled)
-		initializeFunctionListPanel();
 	setSyncScrollingEnabled(ctx().syncScrolling);
 
 	// Scintilla notification callback for main view
@@ -480,8 +478,6 @@ static void setDockIconFromLogo()
 	setFunctionListEnabled(ctx().functionListEnabled);
 	bindDocumentMapToActiveView();
 	updateDocumentMapViewport();
-	bindFunctionListToActiveView();
-	updateFunctionListNow();
 
 	NSLog(@"=== Notepad++ macOS Port — Phase 7 ===");
 	NSLog(@"Settings, split view, edit commands, encoding, session, drag-and-drop!");

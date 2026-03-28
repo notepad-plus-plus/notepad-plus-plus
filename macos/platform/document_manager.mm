@@ -116,7 +116,6 @@ void switchToTabInView(int viewIndex, int tabIndex)
 	bindDocumentMapToActiveView();
 	updateDocumentMapViewport();
 	bindFunctionListToActiveView();
-	scheduleFunctionListRefresh();
 	refreshSyncScrollAnchor();
 
 	if (isIncrementalSearchVisible())
@@ -181,7 +180,6 @@ int addNewTabToView(int viewIndex, const std::wstring& title, const std::string&
 		bindDocumentMapToActiveView();
 		updateDocumentMapViewport();
 		bindFunctionListToActiveView();
-		scheduleFunctionListRefresh();
 	}
 	refreshSyncScrollAnchor();
 
@@ -251,7 +249,6 @@ void closeTabFromView(int viewIndex, int tabIndex)
 		bindDocumentMapToActiveView();
 		updateDocumentMapViewport();
 		bindFunctionListToActiveView();
-		scheduleFunctionListRefresh();
 	}
 	refreshSyncScrollAnchor();
 

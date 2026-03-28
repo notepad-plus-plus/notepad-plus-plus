@@ -95,20 +95,43 @@ static FILE* dbgLog()
 	viewForTableColumn:(NSTableColumn*)tableColumn
 	              item:(id)item
 {
+	static const NSInteger kLineNumberTag = 100;
+
 	NSTableCellView* cell = [outlineView makeViewWithIdentifier:@"FunctionListCell" owner:self];
 	if (!cell)
 	{
 		cell = [[NSTableCellView alloc] initWithFrame:NSMakeRect(0, 0, 160, 20)];
+
 		NSTextField* text = [NSTextField labelWithString:@""];
 		text.translatesAutoresizingMaskIntoConstraints = NO;
 		text.lineBreakMode = NSLineBreakByTruncatingTail;
+		[text setContentHuggingPriority:NSLayoutPriorityDefaultLow
+		                 forOrientation:NSLayoutConstraintOrientationHorizontal];
+		[text setContentCompressionResistancePriority:NSLayoutPriorityDefaultLow
+		                              forOrientation:NSLayoutConstraintOrientationHorizontal];
 		[cell addSubview:text];
 		cell.textField = text;
+
+		NSTextField* lineLabel = [NSTextField labelWithString:@""];
+		lineLabel.translatesAutoresizingMaskIntoConstraints = NO;
+		lineLabel.alignment = NSTextAlignmentRight;
+		lineLabel.textColor = NSColor.secondaryLabelColor;
+		lineLabel.lineBreakMode = NSLineBreakByClipping;
+		lineLabel.tag = kLineNumberTag;
+		[lineLabel setContentHuggingPriority:NSLayoutPriorityRequired
+		                      forOrientation:NSLayoutConstraintOrientationHorizontal];
+		[lineLabel setContentCompressionResistancePriority:NSLayoutPriorityRequired
+		                                   forOrientation:NSLayoutConstraintOrientationHorizontal];
+		[cell addSubview:lineLabel];
+
 		cell.identifier = @"FunctionListCell";
 		[NSLayoutConstraint activateConstraints:@[
 			[text.leadingAnchor constraintEqualToAnchor:cell.leadingAnchor constant:4],
-			[text.trailingAnchor constraintEqualToAnchor:cell.trailingAnchor constant:-4],
-			[text.centerYAnchor constraintEqualToAnchor:cell.centerYAnchor]
+			[text.trailingAnchor constraintEqualToAnchor:lineLabel.leadingAnchor constant:-4],
+			[text.centerYAnchor constraintEqualToAnchor:cell.centerYAnchor],
+			[lineLabel.trailingAnchor constraintEqualToAnchor:cell.trailingAnchor constant:-4],
+			[lineLabel.centerYAnchor constraintEqualToAnchor:cell.centerYAnchor],
+			[lineLabel.widthAnchor constraintGreaterThanOrEqualToConstant:56]
 		]];
 	}
 
@@ -118,6 +141,13 @@ static FILE* dbgLog()
 		cell.textField.font = [NSFont boldSystemFontOfSize:[NSFont systemFontSize]];
 	else
 		cell.textField.font = [NSFont systemFontOfSize:[NSFont smallSystemFontSize]];
+
+	NSTextField* lineLabel = [cell viewWithTag:kLineNumberTag];
+	CGFloat fontSize = flItem.container ? [NSFont systemFontSize] : [NSFont smallSystemFontSize];
+	lineLabel.font = [NSFont monospacedDigitSystemFontOfSize:fontSize weight:NSFontWeightRegular];
+	lineLabel.stringValue = flItem.line > 0
+		? [NSString stringWithFormat:@"%d", flItem.line]
+		: @"";
 	return cell;
 }
 
@@ -143,12 +173,35 @@ static FILE* dbgLog()
 	}
 
 	void* sci = ctx().activeScintillaView();
-	if (!sci || item.position < 0)
+	if (!sci)
 		return;
 
-	ScintillaBridge_sendMessage(sci, SCI_GOTOPOS, static_cast<uintptr_t>(item.position), 0);
-	ScintillaBridge_sendMessage(sci, SCI_SETSEL, static_cast<uintptr_t>(item.position), static_cast<intptr_t>(item.position));
-	ScintillaBridge_sendMessage(sci, SCI_SCROLLCARET, 0, 0);
+	const bool hasExactPosition = item.position > 0 || (item.position == 0 && item.line == 1);
+	if (hasExactPosition)
+	{
+		ScintillaBridge_sendMessage(sci, SCI_GOTOPOS, static_cast<uintptr_t>(item.position), 0);
+		ScintillaBridge_sendMessage(sci, SCI_SETSEL,
+			static_cast<uintptr_t>(item.position), static_cast<intptr_t>(item.position));
+		ScintillaBridge_sendMessage(sci, SCI_SCROLLCARET, 0, 0);
+	}
+	else if (item.line > 0)
+	{
+		ScintillaBridge_sendMessage(sci, SCI_GOTOLINE, static_cast<uintptr_t>(item.line - 1), 0);
+		intptr_t lineStart = ScintillaBridge_sendMessage(sci, SCI_POSITIONFROMLINE,
+			static_cast<uintptr_t>(item.line - 1), 0);
+		ScintillaBridge_sendMessage(sci, SCI_SETSEL,
+			static_cast<uintptr_t>(lineStart), static_cast<intptr_t>(lineStart));
+		ScintillaBridge_sendMessage(sci, SCI_SCROLLCARET, 0, 0);
+	}
+	else if (item.position >= 0)
+	{
+		ScintillaBridge_sendMessage(sci, SCI_GOTOPOS, static_cast<uintptr_t>(item.position), 0);
+		ScintillaBridge_sendMessage(sci, SCI_SCROLLCARET, 0, 0);
+	}
+
+	// Return focus to the editor so the caret line highlight activates
+	NSView* sciView = (__bridge NSView*)sci;
+	[sciView.window makeFirstResponder:sciView];
 }
 @end
 

@@ -7,6 +7,7 @@
 #include "string_utils.h"
 #include "lexer_styles.h"
 #include "scintilla_bridge.h"
+#include "scintilla_config.h"
 #include "smart_highlight.h"
 #include "incremental_search.h"
 #include "document_map.h"
@@ -78,6 +79,8 @@ void restoreViewToScintilla(void* sci, std::vector<DocumentData>& docs, int tabI
 
 	for (int bkLine : doc.bookmarkedLines)
 		ScintillaBridge_sendMessage(sci, SCI_MARKERADD, bkLine, BOOKMARK_MARKER);
+
+	refreshLineNumberMargin(sci);
 }
 
 void restoreScintillaState(int tabIndex)

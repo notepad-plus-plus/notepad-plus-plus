@@ -327,6 +327,9 @@ static void setDockIconFromLogo()
 				}
 				else if (scn->nmhdr.code == SCN_MODIFIED)
 				{
+					if (scn->linesAdded != 0)
+						refreshLineNumberMargin(ctx().scintillaView);
+
 					if (ctx().autoCloseBrackets)
 					{
 						int langIdx = -1;

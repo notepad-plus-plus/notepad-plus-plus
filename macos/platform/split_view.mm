@@ -198,6 +198,9 @@ void doSplit()
 					}
 					else if (scn->nmhdr.code == SCN_MODIFIED)
 					{
+						if (scn->linesAdded != 0)
+							refreshLineNumberMargin(ctx().scintillaView2);
+
 						if (ctx().scintillaView2 && ctx().autoCloseBrackets)
 						{
 							int langIdx = -1;

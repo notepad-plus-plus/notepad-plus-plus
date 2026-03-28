@@ -1,5 +1,6 @@
 #import <Cocoa/Cocoa.h>
 #include <algorithm>
+#include <atomic>
 #include <vector>
 
 #include "function_list_panel.h"
@@ -143,7 +144,16 @@ static FunctionListController* sController = nil;
 static NSView* sContainer = nil;
 static NSTextField* sEmptyLabel = nil;
 static NSScrollView* sScroll = nil;
-static int sRefreshGeneration = 0;
+static std::atomic<int> sRefreshGeneration{0};
+
+static constexpr size_t kMaxParseSize = 16 * 1024 * 1024; // 16 MB
+static constexpr size_t kAsyncParseThreshold = 2 * 1024 * 1024; // 2 MB
+
+static dispatch_queue_t parseQueue()
+{
+	static dispatch_queue_t q = dispatch_queue_create("com.notepadpp.functionlist.parse", DISPATCH_QUEUE_SERIAL);
+	return q;
+}
 
 static FunctionListItem* toItem(const FunctionListNode& node)
 {
@@ -179,31 +189,44 @@ static void clearPanelData()
 	updateEmptyState();
 }
 
-static std::vector<FunctionListNode> parseActiveDocument()
+static bool fetchActiveDocumentText(std::string& outText, int& outLangIndex)
 {
-	std::vector<FunctionListNode> empty;
 	auto& docs = ctx().activeDocuments();
 	int tabIdx = ctx().activeTabIndex();
 	if (tabIdx < 0 || tabIdx >= static_cast<int>(docs.size()))
-		return empty;
+		return false;
 
-	std::string text = docs[tabIdx].content;
+	outText = docs[tabIdx].content;
+	outLangIndex = docs[tabIdx].languageIndex;
 	void* sci = ctx().activeScintillaView();
 	if (sci)
 	{
 		intptr_t len = ScintillaBridge_sendMessage(sci, SCI_GETTEXTLENGTH, 0, 0);
-		if (len > 0 && len < 2 * 1024 * 1024)
+		if (len > 0 && static_cast<size_t>(len) < kMaxParseSize)
 		{
 			std::vector<char> buf(static_cast<size_t>(len + 1), '\0');
 			ScintillaBridge_sendMessage(sci, SCI_GETTEXT, len + 1, reinterpret_cast<intptr_t>(buf.data()));
-			text.assign(buf.data(), static_cast<size_t>(len));
+			outText.assign(buf.data(), static_cast<size_t>(len));
 		}
 	}
 
-	if (text.empty() || text.size() > 2 * 1024 * 1024)
-		return empty;
+	return !outText.empty() && outText.size() < kMaxParseSize;
+}
 
-	return parseFunctionListNodes(docs[tabIdx].languageIndex, text);
+static void applyParsedNodes(const std::vector<FunctionListNode>& nodes)
+{
+	if (!sController || !sController.outlineView)
+		return;
+	[sController.roots removeAllObjects];
+	for (const auto& n : nodes)
+		[sController.roots addObject:toItem(n)];
+	[sController.outlineView reloadData];
+	for (FunctionListItem* item in sController.roots)
+	{
+		if (item.container)
+			[sController.outlineView expandItem:item];
+	}
+	updateEmptyState();
 }
 
 void initializeFunctionListPanel()
@@ -390,18 +413,33 @@ void updateFunctionListNow()
 		return;
 	}
 
-	[sController.roots removeAllObjects];
-	std::vector<FunctionListNode> nodes = parseActiveDocument();
-	for (const auto& n : nodes)
-		[sController.roots addObject:toItem(n)];
-
-	[sController.outlineView reloadData];
-	for (FunctionListItem* item in sController.roots)
+	std::string text;
+	int langIndex = 0;
+	if (!fetchActiveDocumentText(text, langIndex))
 	{
-		if (item.container)
-			[sController.outlineView expandItem:item];
+		clearPanelData();
+		return;
 	}
-	updateEmptyState();
+
+	if (text.size() > kAsyncParseThreshold)
+	{
+		// Parse large files on a background queue to keep the UI responsive
+		const int generation = sRefreshGeneration.load();
+		dispatch_async(parseQueue(), ^{
+			if (generation != sRefreshGeneration.load())
+				return;
+			std::vector<FunctionListNode> nodes = parseFunctionListNodes(langIndex, text);
+			dispatch_async(dispatch_get_main_queue(), ^{
+				if (generation != sRefreshGeneration.load())
+					return;
+				applyParsedNodes(nodes);
+			});
+		});
+	}
+	else
+	{
+		applyParsedNodes(parseFunctionListNodes(langIndex, text));
+	}
 }
 
 void scheduleFunctionListRefresh()

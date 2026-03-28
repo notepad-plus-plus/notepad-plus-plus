@@ -181,7 +181,6 @@ void doSplit()
 								scheduleSmartHighlight(ctx().scintillaView2);
 							handleSyncScrollUpdate(ctx().scintillaView2, scn->updated);
 							handleDocumentMapUpdateUI(ctx().scintillaView2, scn->updated);
-							scheduleFunctionListRefresh();
 						}
 					}
 					else if (scn->nmhdr.code == SCN_CHARADDED)

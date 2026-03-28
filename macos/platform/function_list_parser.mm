@@ -40,16 +40,20 @@ struct ParseAccum
 	std::vector<std::string> containerOrder;
 	std::unordered_set<std::string> containerSeen;
 
-	void addContainer(const std::string& name, int line, int pos)
+	void addContainer(const std::string& name, int line, int pos, const char* matchType)
 	{
 		if (name.empty())
 			return;
+		bool isNew = containerSeen.insert(name).second;
 		containerPos.emplace(name, std::make_pair(line, pos));
-		if (containerSeen.insert(name).second)
+		if (isNew)
+		{
 			containerOrder.push_back(name);
+			FLLOG("  +CONTAINER [%s] \"%s\" line=%d pos=%d", matchType, name.c_str(), line, pos);
+		}
 	}
 
-	void addSymbol(const std::string& name, const std::string& container, int line, int pos)
+	void addSymbol(const std::string& name, const std::string& container, int line, int pos, const char* matchType)
 	{
 		if (name.empty())
 			return;
@@ -59,6 +63,7 @@ struct ParseAccum
 		sym.line = line;
 		sym.position = pos;
 		symbols.push_back(std::move(sym));
+		FLLOG("  +FUNC [%s] \"%s\" container=\"%s\" line=%d pos=%d", matchType, name.c_str(), container.c_str(), line, pos);
 	}
 };
 
@@ -91,7 +96,11 @@ static int leadingIndent(const std::string& s)
 static bool isControlKeyword(const std::string& name)
 {
 	static const std::unordered_set<std::string> kKeywords{
-		"if", "for", "while", "switch", "catch", "return", "sizeof", "new", "delete", "throw"
+		"if", "for", "while", "switch", "catch", "return", "sizeof", "new", "delete", "throw",
+		// C type keywords that regex can capture as function names
+		// (e.g. function-pointer-returning functions: "void (*func(...))(void){")
+		"void", "int", "char", "unsigned", "signed", "short", "long",
+		"double", "float", "bool", "auto", "register", "extern", "typedef"
 	};
 	return kKeywords.find(name) != kKeywords.end();
 }
@@ -138,7 +147,7 @@ static void parsePython(const std::string& utf8Text, ParseAccum& accum)
 		{
 			const std::string className = m[1].str();
 			const int classPos = static_cast<int>(lineStart + static_cast<size_t>(m.position(1)));
-			accum.addContainer(className, lineNo, classPos);
+			accum.addContainer(className, lineNo, classPos, "py-class");
 			classStack.emplace_back(className, indent);
 		}
 
@@ -148,7 +157,7 @@ static void parsePython(const std::string& utf8Text, ParseAccum& accum)
 			if (!classStack.empty())
 				container = classStack.back().first;
 			const int pos = static_cast<int>(lineStart + static_cast<size_t>(m.position(1)));
-			accum.addSymbol(m[1].str(), container, lineNo, pos);
+			accum.addSymbol(m[1].str(), container, lineNo, pos, "py-def");
 		}
 		} catch (const std::regex_error&) {}
 
@@ -219,18 +228,19 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 		{
 			if (clean == "{")
 			{
+				FLLOG("  PENDING-FLUSH \"%s\" (brace on line %d)", pendingFunc.name.c_str(), lineNo);
 				std::string topCont;
 				if (!containerStack.empty())
 					topCont = containerStack.back().name;
 
 				if (pendingFunc.isScoped)
 				{
-					accum.addContainer(pendingFunc.container, pendingFunc.line, pendingFunc.containerPosition);
-					accum.addSymbol(pendingFunc.name, pendingFunc.container, pendingFunc.line, pendingFunc.namePosition);
+					accum.addContainer(pendingFunc.container, pendingFunc.line, pendingFunc.containerPosition, "allman-scoped");
+					accum.addSymbol(pendingFunc.name, pendingFunc.container, pendingFunc.line, pendingFunc.namePosition, "allman-scoped");
 				}
 				else
 				{
-					accum.addSymbol(pendingFunc.name, topCont, pendingFunc.line, pendingFunc.namePosition);
+					accum.addSymbol(pendingFunc.name, topCont, pendingFunc.line, pendingFunc.namePosition, "allman");
 				}
 				++pendingFlushCount;
 				++matchCount;
@@ -238,6 +248,7 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 			}
 			else if (!clean.empty() && (endsWithSemicolon(clean) || clean[0] == '}'))
 			{
+				FLLOG("  PENDING-DISCARD \"%s\" (line %d: '%c')", pendingFunc.name.c_str(), lineNo, clean[0]);
 				hasPendingFunc = false;
 			}
 		}
@@ -266,7 +277,7 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 			if (std::regex_search(line, m, rustImplRe))
 			{
 				pendingContainer = m[1].str();
-				accum.addContainer(pendingContainer, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))));
+				accum.addContainer(pendingContainer, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))), "rust-impl");
 			}
 		}
 		else if (languageIndex == LANG_GO)
@@ -274,16 +285,19 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 			if (std::regex_search(line, m, goTypeRe))
 			{
 				pendingContainer = m[1].str();
-				accum.addContainer(pendingContainer, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))));
+				accum.addContainer(pendingContainer, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))), "go-type");
 			}
 		}
 		else if (languageIndex == LANG_C)
 		{
-			// C has no class/interface — only match struct
-			if (std::regex_search(line, m, cStructRe))
+			// C has no class/interface — only match actual struct definitions.
+			// Skip typedefs ("typedef struct X X;") and preprocessor lines ("#define ...struct").
+			if (clean.find("typedef") == std::string::npos
+				&& clean[0] != '#'
+				&& std::regex_search(line, m, cStructRe))
 			{
 				pendingContainer = m[1].str();
-				accum.addContainer(pendingContainer, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))));
+				accum.addContainer(pendingContainer, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))), "c-struct");
 			}
 		}
 		else
@@ -291,7 +305,7 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 			if (std::regex_search(line, m, classRe))
 			{
 				pendingContainer = m[2].str();
-				accum.addContainer(pendingContainer, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(2))));
+				accum.addContainer(pendingContainer, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(2))), "class");
 			}
 		}
 
@@ -305,19 +319,17 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 			{
 				const std::string container = m[1].str();
 				const std::string func = m[2].str();
-				accum.addContainer(container, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))));
-				accum.addSymbol(func, container, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(2))));
+				accum.addContainer(container, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))), "cpp-scoped");
+				accum.addSymbol(func, container, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(2))), "cpp-scoped");
 				++matchCount;
-				if (matchCount <= 5) FLLOG("  match[%d] scoped: %s::%s line=%d", matchCount, container.c_str(), func.c_str(), lineNo);
 			}
 			else if (std::regex_search(line, m, cppFuncRe))
 			{
 				const std::string func = m[1].str();
 				if (!isControlKeyword(func))
 				{
-					accum.addSymbol(func, topContainer, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))));
+					accum.addSymbol(func, topContainer, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))), "cpp-inline");
 					++matchCount;
-					if (matchCount <= 5) FLLOG("  match[%d] inline: %s line=%d", matchCount, func.c_str(), lineNo);
 				}
 			}
 			else if (!endsWithSemicolon(clean))
@@ -333,7 +345,7 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 					pendingFunc.namePosition = static_cast<int>(lineStart + static_cast<size_t>(m.position(2)));
 					pendingFunc.containerPosition = static_cast<int>(lineStart + static_cast<size_t>(m.position(1)));
 					++pendingSetCount;
-					if (pendingSetCount <= 5) FLLOG("  pending scoped: %s::%s line=%d", pendingFunc.container.c_str(), pendingFunc.name.c_str(), lineNo);
+					FLLOG("  PENDING [allman-scoped] %s::%s line=%d", pendingFunc.container.c_str(), pendingFunc.name.c_str(), lineNo);
 				}
 				else if (std::regex_search(line, m, cppSigRe))
 				{
@@ -345,6 +357,7 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 						pendingFunc.isScoped = false;
 						pendingFunc.line = lineNo;
 						pendingFunc.namePosition = static_cast<int>(lineStart + static_cast<size_t>(m.position(1)));
+						FLLOG("  PENDING [allman] %s line=%d", func.c_str(), lineNo);
 					}
 				}
 			}
@@ -352,19 +365,19 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 		else if (languageIndex == LANG_JAVA)
 		{
 			if (std::regex_search(line, m, javaFuncRe))
-				accum.addSymbol(m[1].str(), topContainer, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))));
+				accum.addSymbol(m[1].str(), topContainer, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))), "java-func");
 		}
 		else if (languageIndex == LANG_JAVASCRIPT || languageIndex == LANG_TYPESCRIPT)
 		{
 			if (std::regex_search(line, m, jsFunctionRe))
-				accum.addSymbol(m[1].str(), "", lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))));
+				accum.addSymbol(m[1].str(), "", lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))), "js-function");
 			else if (std::regex_search(line, m, jsArrowRe))
-				accum.addSymbol(m[1].str(), "", lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))));
+				accum.addSymbol(m[1].str(), "", lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))), "js-arrow");
 			else if (std::regex_search(line, m, jsMethodRe))
 			{
 				const std::string func = m[1].str();
 				if (!isControlKeyword(func))
-					accum.addSymbol(func, topContainer, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))));
+					accum.addSymbol(func, topContainer, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))), "js-method");
 			}
 		}
 		else if (languageIndex == LANG_GO)
@@ -376,20 +389,20 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 				{
 					container = m[1].str();
 					if (!container.empty())
-						accum.addContainer(container, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))));
+						accum.addContainer(container, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))), "go-receiver");
 				}
-				accum.addSymbol(m[2].str(), container, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(2))));
+				accum.addSymbol(m[2].str(), container, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(2))), "go-func");
 			}
 		}
 		else if (languageIndex == LANG_RUST)
 		{
 			if (std::regex_search(line, m, rustFuncRe))
-				accum.addSymbol(m[1].str(), topContainer, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))));
+				accum.addSymbol(m[1].str(), topContainer, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))), "rust-fn");
 		}
 		else if (languageIndex == LANG_SWIFT)
 		{
 			if (std::regex_search(line, m, swiftFuncRe))
-				accum.addSymbol(m[1].str(), topContainer, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))));
+				accum.addSymbol(m[1].str(), topContainer, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))), "swift-func");
 		}
 		else
 		{
@@ -397,7 +410,7 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 			{
 				const std::string func = m[1].str();
 				if (!isControlKeyword(func))
-					accum.addSymbol(func, topContainer, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))));
+					accum.addSymbol(func, topContainer, lineNo, static_cast<int>(lineStart + static_cast<size_t>(m.position(1))), "generic-inline");
 			}
 			else if (!endsWithSemicolon(clean))
 			{
@@ -411,6 +424,7 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 						pendingFunc.isScoped = false;
 						pendingFunc.line = lineNo;
 						pendingFunc.namePosition = static_cast<int>(lineStart + static_cast<size_t>(m.position(1)));
+						FLLOG("  PENDING [generic-allman] %s line=%d", func.c_str(), lineNo);
 					}
 				}
 			}
@@ -452,6 +466,7 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 
 static std::vector<FunctionListNode> buildTree(const ParseAccum& accum)
 {
+	FLLOG("buildTree: %zu symbols, %zu containers", accum.symbols.size(), accum.containerOrder.size());
 	std::vector<FunctionListNode> roots;
 	std::unordered_map<std::string, size_t> containerIndex;
 
@@ -499,6 +514,27 @@ static std::vector<FunctionListNode> buildTree(const ParseAccum& accum)
 			node.line = sym.line;
 			node.position = sym.position;
 			roots.push_back(std::move(node));
+		}
+	}
+
+	// Remove empty containers — they're forward declarations or typedefs, not real class/struct bodies
+	roots.erase(std::remove_if(roots.begin(), roots.end(), [](const FunctionListNode& n) {
+		return n.isContainer && n.children.empty();
+	}), roots.end());
+
+	FLLOG("buildTree: FINAL TREE (%zu root nodes):", roots.size());
+	for (size_t i = 0; i < roots.size(); ++i)
+	{
+		const auto& r = roots[i];
+		if (r.isContainer)
+		{
+			FLLOG("  [%zu] CONTAINER \"%s\" line=%d (%zu children)", i, r.title.c_str(), r.line, r.children.size());
+			for (size_t j = 0; j < r.children.size(); ++j)
+				FLLOG("    [%zu.%zu] FUNC \"%s\" line=%d", i, j, r.children[j].title.c_str(), r.children[j].line);
+		}
+		else
+		{
+			FLLOG("  [%zu] FUNC \"%s\" line=%d", i, r.title.c_str(), r.line);
 		}
 	}
 

@@ -310,7 +310,6 @@ static void setDockIconFromLogo()
 						scheduleSmartHighlight(ctx().scintillaView);
 					handleSyncScrollUpdate(ctx().scintillaView, scn->updated);
 					handleDocumentMapUpdateUI(ctx().scintillaView, scn->updated);
-					scheduleFunctionListRefresh();
 				}
 				else if (scn->nmhdr.code == SCN_CHARADDED)
 				{

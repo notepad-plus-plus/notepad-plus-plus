@@ -154,6 +154,8 @@ static NSTextField* sEmptyLabel = nil;
 static NSScrollView* sScroll = nil;
 static std::atomic<int> sRefreshGeneration{0};
 static std::atomic<bool> sShuttingDown{false};
+static std::atomic<int> sParseProgress{-1}; // -1 = idle, 0-100 = parsing
+static NSTimer* sProgressTimer = nil;
 
 static constexpr size_t kMaxParseSize = 16 * 1024 * 1024; // 16 MB
 static constexpr size_t kAsyncParseThreshold = 2 * 1024 * 1024; // 2 MB
@@ -189,8 +191,47 @@ static void updateEmptyState()
 	sEmptyLabel.hidden = (sController.roots.count != 0);
 }
 
+static void stopProgressIndicator()
+{
+	if (sProgressTimer)
+	{
+		[sProgressTimer invalidate];
+		sProgressTimer = nil;
+	}
+	sParseProgress.store(-1);
+	if (sEmptyLabel)
+	{
+		sEmptyLabel.stringValue = @"No functions";
+		sEmptyLabel.textColor = NSColor.secondaryLabelColor;
+	}
+}
+
+static void startProgressIndicator()
+{
+	stopProgressIndicator();
+	sParseProgress.store(0);
+	if (sEmptyLabel)
+	{
+		sEmptyLabel.stringValue = @"Parsing\u2026";
+		sEmptyLabel.textColor = NSColor.secondaryLabelColor;
+		sEmptyLabel.hidden = NO;
+	}
+	sProgressTimer = [NSTimer scheduledTimerWithTimeInterval:0.3 repeats:YES block:^(NSTimer* timer) {
+		int pct = sParseProgress.load();
+		if (pct < 0)
+		{
+			[timer invalidate];
+			sProgressTimer = nil;
+			return;
+		}
+		if (sEmptyLabel && !sEmptyLabel.hidden)
+			sEmptyLabel.stringValue = [NSString stringWithFormat:@"Parsing\u2026 %d%%", pct];
+	}];
+}
+
 static void clearPanelData()
 {
+	stopProgressIndicator();
 	if (!sController || !sController.outlineView)
 		return;
 	[sController.roots removeAllObjects];
@@ -238,6 +279,7 @@ static bool fetchActiveDocumentText(std::string& outText, int& outLangIndex)
 
 static void applyParsedNodes(const std::vector<FunctionListNode>& nodes)
 {
+	stopProgressIndicator();
 	FLLOG("applyNodes: %zu nodes, controller=%p outline=%p", nodes.size(), sController, sController ? sController.outlineView : nil);
 	if (!sController || !sController.outlineView)
 		return;
@@ -317,6 +359,7 @@ void destroyFunctionListPanel()
 {
 	// Signal background parse to stop and wait for it to drain
 	sShuttingDown.store(true);
+	stopProgressIndicator();
 	invalidateFunctionListPendingRefresh();
 	dispatch_sync(parseQueue(), ^{});
 
@@ -430,6 +473,11 @@ bool isFunctionListShuttingDown()
 	return sShuttingDown.load();
 }
 
+void setFunctionListParseProgress(int percent)
+{
+	sParseProgress.store(percent);
+}
+
 void bindFunctionListToActiveView()
 {
 	if (ctx().functionListEnabled)
@@ -465,6 +513,7 @@ void updateFunctionListNow()
 	if (text.size() > kAsyncParseThreshold)
 	{
 		// Parse large files on a background queue to keep the UI responsive
+		startProgressIndicator();
 		const int generation = sRefreshGeneration.load();
 		FLLOG("updateNow: ASYNC parse, generation=%d", generation);
 		dispatch_async(parseQueue(), ^{

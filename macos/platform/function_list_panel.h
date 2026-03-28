@@ -11,3 +11,4 @@ void updateFunctionListNow();
 void scheduleFunctionListRefresh();
 void invalidateFunctionListPendingRefresh();
 bool isFunctionListShuttingDown();
+void setFunctionListParseProgress(int percent);

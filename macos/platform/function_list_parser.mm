@@ -197,10 +197,15 @@ static void parseBraceLanguage(const std::string& utf8Text, int languageIndex, P
 	FLLOG("parseBrace: starting lang=%d textLen=%zu", languageIndex, utf8Text.size());
 	while (lineStart <= utf8Text.size())
 	{
-		if ((lineNo & 0x3FF) == 0 && isFunctionListShuttingDown())
+		if ((lineNo & 0x3FF) == 0)
 		{
-			FLLOG("parseBrace: CANCELLED at line %d (shutting down)", lineNo);
-			return;
+			if (isFunctionListShuttingDown())
+			{
+				FLLOG("parseBrace: CANCELLED at line %d (shutting down)", lineNo);
+				return;
+			}
+			if (!utf8Text.empty())
+				setFunctionListParseProgress(static_cast<int>(lineStart * 100 / utf8Text.size()));
 		}
 		size_t lineEnd = utf8Text.find('\n', lineStart);
 		if (lineEnd == std::string::npos)

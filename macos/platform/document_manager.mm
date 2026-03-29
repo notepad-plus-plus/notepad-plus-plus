@@ -19,6 +19,13 @@
 #include "tab_bar_view.h"
 #include "win32_tab_control_impl.h"
 
+static uint64_t sNextFunctionListDocumentId = 1;
+
+uint64_t allocateFunctionListDocumentId()
+{
+	return sNextFunctionListDocumentId++;
+}
+
 void saveViewState(void* sci, std::vector<DocumentData>& docs, int tabIdx)
 {
 	if (tabIdx < 0 || tabIdx >= static_cast<int>(docs.size()))
@@ -152,6 +159,8 @@ int addNewTabToView(int viewIndex, const std::wstring& title, const std::string&
 	doc.content = content;
 	doc.filePath = filePath;
 	doc.languageIndex = langIndex;
+	doc.functionListDocumentId = allocateFunctionListDocumentId();
+	doc.functionListRevision = 0;
 	docs.push_back(doc);
 
 	int newIndex = static_cast<int>(docs.size()) - 1;
@@ -211,7 +220,11 @@ void closeTabFromView(int viewIndex, int tabIndex)
 
 	if (docs.size() <= 1)
 	{
+		if (docs[0].functionListDocumentId != 0)
+			invalidateFunctionListCacheForDocument(docs[0].functionListDocumentId);
 		docs[0] = DocumentData();
+		docs[0].functionListDocumentId = allocateFunctionListDocumentId();
+		docs[0].functionListRevision = 0;
 		ctx().suppressSavePointNotifications = true;
 		ScintillaBridge_sendMessage(sci, SCI_CLEARALL, 0, 0);
 		ScintillaBridge_sendMessage(sci, SCI_EMPTYUNDOBUFFER, 0, 0);
@@ -233,6 +246,7 @@ void closeTabFromView(int viewIndex, int tabIndex)
 
 	if (tabHwnd)
 		SendMessageW(tabHwnd, TCM_DELETEITEM, tabIndex, 0);
+	invalidateFunctionListCacheForDocument(docs[tabIndex].functionListDocumentId);
 	docs.erase(docs.begin() + tabIndex);
 
 	if (tabIndex < activeTab)

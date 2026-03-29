@@ -208,7 +208,17 @@ void doSplit()
 								langIdx = ctx().documents2[ctx().activeTab2].languageIndex;
 							handleAutoCloseModified(ctx().scintillaView2, scn, langIdx);
 						}
-						scheduleFunctionListRefresh();
+
+						if (scn->modificationType & (SC_MOD_INSERTTEXT | SC_MOD_DELETETEXT))
+						{
+							int tabIdx = ctx().activeTab2;
+							if (!ctx().suppressSavePointNotifications
+							    && tabIdx >= 0 && tabIdx < static_cast<int>(ctx().documents2.size()))
+							{
+								++ctx().documents2[tabIdx].functionListRevision;
+								scheduleFunctionListRefresh();
+							}
+						}
 					}
 				}
 			});
@@ -220,6 +230,7 @@ void doSplit()
 	if (srcIdx >= 0 && srcIdx < static_cast<int>(ctx().documents.size()))
 	{
 		ctx().documents2.push_back(ctx().documents[srcIdx]);
+		ctx().documents2[0].functionListDocumentId = allocateFunctionListDocumentId();
 		ctx().activeTab2 = 0;
 
 		if (ctx().tabHwnd2)

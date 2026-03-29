@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <cstdint>
 #include <string>
 #include <vector>
 #include "document_data.h"
@@ -25,3 +26,5 @@ void reorderTabInView(int viewIndex, int fromIndex, int toIndex);
 
 void updateTabModifiedIndicator(int viewIndex, int tabIndex);
 void updateWindowDocumentEdited();
+
+uint64_t allocateFunctionListDocumentId();

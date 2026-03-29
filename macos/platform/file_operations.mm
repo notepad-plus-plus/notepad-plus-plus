@@ -10,6 +10,7 @@
 #include "language_defs.h"
 #include "lexer_styles.h"
 #include "document_manager.h"
+#include "function_list_panel.h"
 #include "recent_files.h"
 #include "status_bar.h"
 #include "scintilla_bridge.h"
@@ -282,9 +283,15 @@ void saveCurrentFile()
 			SendMessageW(tabHwnd, TCM_SETITEMW, tabIdx, reinterpret_cast<LPARAM>(&tcItem));
 		}
 
+		int oldLanguageIndex = doc.languageIndex;
 		doc.languageIndex = guessLanguage(doc.filePath);
 		if (sci)
 			applyLanguageToView(sci, doc.languageIndex);
+		if (doc.languageIndex != oldLanguageIndex)
+		{
+			++doc.functionListRevision;
+			scheduleFunctionListRefresh();
+		}
 	}
 
 	if (!sci) return;

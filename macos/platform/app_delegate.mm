@@ -337,7 +337,17 @@ static void setDockIconFromLogo()
 							langIdx = ctx().documents[ctx().activeTab].languageIndex;
 						handleAutoCloseModified(ctx().scintillaView, scn, langIdx);
 					}
-					scheduleFunctionListRefresh();
+
+					if (scn->modificationType & (SC_MOD_INSERTTEXT | SC_MOD_DELETETEXT))
+					{
+						int tabIdx = ctx().activeTab;
+						if (!ctx().suppressSavePointNotifications
+						    && tabIdx >= 0 && tabIdx < static_cast<int>(ctx().documents.size()))
+						{
+							++ctx().documents[tabIdx].functionListRevision;
+							scheduleFunctionListRefresh();
+						}
+					}
 				}
 			}
 		});

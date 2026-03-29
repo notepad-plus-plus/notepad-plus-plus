@@ -1,6 +1,8 @@
 #import <Cocoa/Cocoa.h>
 #include <algorithm>
 #include <atomic>
+#include <cstdint>
+#include <unordered_map>
 #include <vector>
 
 #ifdef DEBUG
@@ -238,6 +240,17 @@ static NSTimer* sProgressTimer = nil;
 static constexpr size_t kMaxParseSize = 16 * 1024 * 1024; // 16 MB
 static constexpr size_t kAsyncParseThreshold = 2 * 1024 * 1024; // 2 MB
 
+static void applyParsedNodes(const std::vector<FunctionListNode>& nodes);
+
+struct FunctionListCacheEntry
+{
+	uint64_t revision = 0;
+	int languageIndex = -1;
+	std::vector<FunctionListNode> nodes;
+};
+
+static std::unordered_map<uint64_t, FunctionListCacheEntry> sFunctionListCache;
+
 static dispatch_queue_t parseQueue()
 {
 	static dispatch_queue_t q = dispatch_queue_create("com.notepadpp.functionlist.parse", DISPATCH_QUEUE_SERIAL);
@@ -317,20 +330,97 @@ static void clearPanelData()
 	updateEmptyState();
 }
 
-static bool fetchActiveDocumentText(std::string& outText, int& outLangIndex)
+static bool fetchActiveDocumentMetadata(uint64_t& outDocumentId, uint64_t& outRevision, int& outLangIndex)
 {
 	auto& docs = ctx().activeDocuments();
 	int tabIdx = ctx().activeTabIndex();
-	FLLOG("fetchText: tabIdx=%d docCount=%d", tabIdx, static_cast<int>(docs.size()));
+	FLLOG("fetchMeta: tabIdx=%d docCount=%d", tabIdx, static_cast<int>(docs.size()));
 	if (tabIdx < 0 || tabIdx >= static_cast<int>(docs.size()))
 	{
-		FLLOG("fetchText: BAIL — tabIdx out of range");
+		FLLOG("fetchMeta: BAIL — tabIdx out of range");
 		return false;
 	}
 
+	auto& doc = docs[tabIdx];
+	if (doc.functionListDocumentId == 0)
+		doc.functionListDocumentId = allocateFunctionListDocumentId();
+
+	outDocumentId = doc.functionListDocumentId;
+	outRevision = doc.functionListRevision;
+	outLangIndex = doc.languageIndex;
+	FLLOG("fetchMeta: docId=%llu rev=%llu lang=%d",
+	      static_cast<unsigned long long>(outDocumentId),
+	      static_cast<unsigned long long>(outRevision),
+	      outLangIndex);
+	return true;
+}
+
+static bool applyCachedNodesIfFresh(uint64_t documentId, uint64_t revision, int langIndex)
+{
+	const auto it = sFunctionListCache.find(documentId);
+	if (it == sFunctionListCache.end())
+		return false;
+
+	const auto& entry = it->second;
+	if (entry.revision != revision || entry.languageIndex != langIndex)
+	{
+		FLLOG("cache: STALE docId=%llu rev=%llu/%llu lang=%d/%d",
+		      static_cast<unsigned long long>(documentId),
+		      static_cast<unsigned long long>(revision),
+		      static_cast<unsigned long long>(entry.revision),
+		      langIndex, entry.languageIndex);
+		return false;
+	}
+
+	FLLOG("cache: HIT docId=%llu rev=%llu lang=%d nodes=%zu",
+	      static_cast<unsigned long long>(documentId),
+	      static_cast<unsigned long long>(revision),
+	      langIndex, entry.nodes.size());
+	applyParsedNodes(entry.nodes);
+	return true;
+}
+
+static bool applyCachedNodesForActiveDocument()
+{
+	uint64_t documentId = 0;
+	uint64_t revision = 0;
+	int langIndex = 0;
+	if (!fetchActiveDocumentMetadata(documentId, revision, langIndex))
+		return false;
+
+	return applyCachedNodesIfFresh(documentId, revision, langIndex);
+}
+
+static void cacheParsedNodes(uint64_t documentId, uint64_t revision, int langIndex,
+                             std::vector<FunctionListNode> nodes)
+{
+	if (documentId == 0)
+		return;
+
+	FunctionListCacheEntry entry;
+	entry.revision = revision;
+	entry.languageIndex = langIndex;
+	entry.nodes = std::move(nodes);
+	sFunctionListCache[documentId] = std::move(entry);
+	FLLOG("cache: STORE docId=%llu rev=%llu lang=%d",
+	      static_cast<unsigned long long>(documentId),
+	      static_cast<unsigned long long>(revision),
+	      langIndex);
+}
+
+static bool fetchActiveDocumentText(std::string& outText, uint64_t& outDocumentId,
+                                    uint64_t& outRevision, int& outLangIndex)
+{
+	if (!fetchActiveDocumentMetadata(outDocumentId, outRevision, outLangIndex))
+		return false;
+
+	auto& docs = ctx().activeDocuments();
+	int tabIdx = ctx().activeTabIndex();
 	outText = docs[tabIdx].content;
-	outLangIndex = docs[tabIdx].languageIndex;
-	FLLOG("fetchText: langIndex=%d contentLen=%zu", outLangIndex, outText.size());
+	FLLOG("fetchText: docId=%llu rev=%llu lang=%d contentLen=%zu",
+	      static_cast<unsigned long long>(outDocumentId),
+	      static_cast<unsigned long long>(outRevision),
+	      outLangIndex, outText.size());
 	void* sci = ctx().activeScintillaView();
 	FLLOG("fetchText: scintilla=%p", sci);
 	if (sci)
@@ -351,7 +441,11 @@ static bool fetchActiveDocumentText(std::string& outText, int& outLangIndex)
 	}
 
 	bool ok = !outText.empty() && outText.size() < kMaxParseSize;
-	FLLOG("fetchText: returning %s (textLen=%zu)", ok ? "true" : "false", outText.size());
+	FLLOG("fetchText: returning %s (docId=%llu rev=%llu textLen=%zu)",
+	      ok ? "true" : "false",
+	      static_cast<unsigned long long>(outDocumentId),
+	      static_cast<unsigned long long>(outRevision),
+	      outText.size());
 	return ok;
 }
 
@@ -440,6 +534,7 @@ void destroyFunctionListPanel()
 	stopProgressIndicator();
 	invalidateFunctionListPendingRefresh();
 	dispatch_sync(parseQueue(), ^{});
+	sFunctionListCache.clear();
 
 	if (sScroll)
 	{
@@ -561,8 +656,17 @@ void setFunctionListParseProgress(int percent)
 
 void bindFunctionListToActiveView()
 {
-	if (ctx().functionListEnabled)
-		scheduleFunctionListRefresh();
+	if (!ctx().functionListEnabled)
+		return;
+
+	// Tab/view switches should restore a fresh cached outline immediately.
+	if (applyCachedNodesForActiveDocument())
+	{
+		invalidateFunctionListPendingRefresh();
+		return;
+	}
+
+	scheduleFunctionListRefresh();
 }
 
 void updateFunctionListNow()
@@ -580,9 +684,21 @@ void updateFunctionListNow()
 		return;
 	}
 
-	std::string text;
+	uint64_t documentId = 0;
+	uint64_t revision = 0;
 	int langIndex = 0;
-	if (!fetchActiveDocumentText(text, langIndex))
+	if (!fetchActiveDocumentMetadata(documentId, revision, langIndex))
+	{
+		FLLOG("updateNow: BAIL — fetchMeta returned false");
+		clearPanelData();
+		return;
+	}
+
+	if (applyCachedNodesIfFresh(documentId, revision, langIndex))
+		return;
+
+	std::string text;
+	if (!fetchActiveDocumentText(text, documentId, revision, langIndex))
 	{
 		FLLOG("updateNow: BAIL — fetchText returned false");
 		clearPanelData();
@@ -596,7 +712,13 @@ void updateFunctionListNow()
 		// Parse large files on a background queue to keep the UI responsive
 		startProgressIndicator();
 		const int generation = sRefreshGeneration.load();
-		FLLOG("updateNow: ASYNC parse, generation=%d", generation);
+		const uint64_t parseDocumentId = documentId;
+		const uint64_t parseRevision = revision;
+		const int parseLangIndex = langIndex;
+		FLLOG("updateNow: ASYNC parse, generation=%d docId=%llu rev=%llu",
+		      generation,
+		      static_cast<unsigned long long>(parseDocumentId),
+		      static_cast<unsigned long long>(parseRevision));
 		dispatch_async(parseQueue(), ^{
 			int curGen = sRefreshGeneration.load();
 			if (generation != curGen)
@@ -604,8 +726,11 @@ void updateFunctionListNow()
 				FLLOG("asyncParse: STALE (mine=%d current=%d)", generation, curGen);
 				return;
 			}
-			FLLOG("asyncParse: starting parse (textLen=%zu lang=%d)", text.size(), langIndex);
-			std::vector<FunctionListNode> nodes = parseFunctionListNodes(langIndex, text);
+			FLLOG("asyncParse: starting parse (docId=%llu rev=%llu textLen=%zu lang=%d)",
+			      static_cast<unsigned long long>(parseDocumentId),
+			      static_cast<unsigned long long>(parseRevision),
+			      text.size(), parseLangIndex);
+			std::vector<FunctionListNode> nodes = parseFunctionListNodes(parseLangIndex, text);
 			FLLOG("asyncParse: done, %zu nodes", nodes.size());
 			dispatch_async(dispatch_get_main_queue(), ^{
 				int curGen2 = sRefreshGeneration.load();
@@ -614,15 +739,43 @@ void updateFunctionListNow()
 					FLLOG("asyncApply: STALE (mine=%d current=%d)", generation, curGen2);
 					return;
 				}
-				FLLOG("asyncApply: applying %zu nodes", nodes.size());
+
+				uint64_t currentDocumentId = 0;
+				uint64_t currentRevision = 0;
+				int currentLangIndex = 0;
+				if (!fetchActiveDocumentMetadata(currentDocumentId, currentRevision, currentLangIndex))
+				{
+					FLLOG("asyncApply: BAIL — fetchMeta failed");
+					return;
+				}
+				if (currentDocumentId != parseDocumentId
+				    || currentRevision != parseRevision
+				    || currentLangIndex != parseLangIndex)
+				{
+					FLLOG("asyncApply: STALE doc state mine(doc=%llu rev=%llu lang=%d) current(doc=%llu rev=%llu lang=%d)",
+					      static_cast<unsigned long long>(parseDocumentId),
+					      static_cast<unsigned long long>(parseRevision),
+					      parseLangIndex,
+					      static_cast<unsigned long long>(currentDocumentId),
+					      static_cast<unsigned long long>(currentRevision),
+					      currentLangIndex);
+					return;
+				}
+
+				FLLOG("asyncApply: applying %zu nodes for docId=%llu rev=%llu", nodes.size(),
+				      static_cast<unsigned long long>(parseDocumentId),
+				      static_cast<unsigned long long>(parseRevision));
 				applyParsedNodes(nodes);
+				cacheParsedNodes(parseDocumentId, parseRevision, parseLangIndex, nodes);
 			});
 		});
 	}
 	else
 	{
 		FLLOG("updateNow: SYNC parse");
-		applyParsedNodes(parseFunctionListNodes(langIndex, text));
+		std::vector<FunctionListNode> nodes = parseFunctionListNodes(langIndex, text);
+		applyParsedNodes(nodes);
+		cacheParsedNodes(documentId, revision, langIndex, std::move(nodes));
 	}
 }
 
@@ -643,4 +796,13 @@ void scheduleFunctionListRefresh()
 void invalidateFunctionListPendingRefresh()
 {
 	++sRefreshGeneration;
+}
+
+void invalidateFunctionListCacheForDocument(uint64_t documentId)
+{
+	if (documentId == 0)
+		return;
+
+	sFunctionListCache.erase(documentId);
+	FLLOG("cache: INVALIDATE docId=%llu", static_cast<unsigned long long>(documentId));
 }

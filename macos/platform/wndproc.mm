@@ -55,7 +55,14 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				auto& docs = ctx().activeDocuments();
 				int tabIdx = ctx().activeTabIndex();
 				if (tabIdx >= 0 && tabIdx < static_cast<int>(docs.size()))
-					docs[tabIdx].languageIndex = langIdx;
+				{
+					if (docs[tabIdx].languageIndex != langIdx)
+					{
+						docs[tabIdx].languageIndex = langIdx;
+						++docs[tabIdx].functionListRevision;
+						scheduleFunctionListRefresh();
+					}
+				}
 				applyLanguage(langIdx);
 				return 0;
 			}

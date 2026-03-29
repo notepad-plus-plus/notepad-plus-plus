@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <cstdint>
 #include <string>
 #include <vector>
 #include "npp_constants.h"
@@ -55,4 +56,6 @@ struct DocumentData
 	std::vector<int> bookmarkedLines; // Persisted across tab switches
 	int encoding = ENC_UTF8;
 	int eolMode = SC_EOL_LF;
+	uint64_t functionListDocumentId = 0;
+	uint64_t functionListRevision = 0;
 };

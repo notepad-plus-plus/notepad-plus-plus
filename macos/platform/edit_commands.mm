@@ -10,6 +10,9 @@
 #include <algorithm>
 #include <cctype>
 #include <cstring>
+#include <random>
+#include <unordered_set>
+#include <vector>
 
 void doTitleCase()
 {
@@ -382,4 +385,358 @@ void insertDateTimeLong()
 	ScintillaBridge_sendMessage(sci, SCI_BEGINUNDOACTION, 0, 0);
 	ScintillaBridge_sendMessage(sci, SCI_REPLACESEL, 0, reinterpret_cast<intptr_t>(utf8));
 	ScintillaBridge_sendMessage(sci, SCI_ENDUNDOACTION, 0, 0);
+}
+
+// ============================================================
+// Helper: read selected lines from the active editor
+// ============================================================
+static bool readSelectedLines(void*& sci, intptr_t& startLine, intptr_t& endLine,
+                              intptr_t& replStart, intptr_t& replEnd,
+                              std::vector<std::string>& lines)
+{
+	sci = ctx().activeScintillaView();
+	if (!sci) return false;
+
+	intptr_t selStart = ScintillaBridge_sendMessage(sci, SCI_GETSELECTIONSTART, 0, 0);
+	intptr_t selEnd = ScintillaBridge_sendMessage(sci, SCI_GETSELECTIONEND, 0, 0);
+	if (selStart == selEnd) return false;
+
+	startLine = ScintillaBridge_sendMessage(sci, SCI_LINEFROMPOSITION, selStart, 0);
+	endLine = ScintillaBridge_sendMessage(sci, SCI_LINEFROMPOSITION, selEnd, 0);
+	if (selEnd == ScintillaBridge_sendMessage(sci, SCI_POSITIONFROMLINE, endLine, 0) && endLine > startLine)
+		--endLine;
+
+	for (intptr_t line = startLine; line <= endLine; ++line)
+	{
+		intptr_t lineStart = ScintillaBridge_sendMessage(sci, SCI_POSITIONFROMLINE, line, 0);
+		intptr_t lineEnd = ScintillaBridge_sendMessage(sci, SCI_GETLINEENDPOSITION, line, 0);
+		intptr_t len = lineEnd - lineStart;
+		std::string text(len, '\0');
+		for (intptr_t i = 0; i < len; ++i)
+			text[i] = (char)ScintillaBridge_sendMessage(sci, SCI_GETCHARAT, lineStart + i, 0);
+		lines.push_back(text);
+	}
+
+	replStart = ScintillaBridge_sendMessage(sci, SCI_POSITIONFROMLINE, startLine, 0);
+	replEnd = ScintillaBridge_sendMessage(sci, SCI_GETLINEENDPOSITION, endLine, 0);
+	return true;
+}
+
+// Helper: replace the selected line range with reordered lines
+static void replaceSelectedLines(void* sci, intptr_t replStart, intptr_t replEnd,
+                                 const std::vector<std::string>& lines)
+{
+	std::string result;
+	for (size_t i = 0; i < lines.size(); ++i)
+	{
+		result += lines[i];
+		if (i + 1 < lines.size()) result += '\n';
+	}
+
+	ScintillaBridge_sendMessage(sci, SCI_BEGINUNDOACTION, 0, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETTARGETSTART, replStart, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETTARGETEND, replEnd, 0);
+	ScintillaBridge_sendMessage(sci, SCI_REPLACETARGET, result.size(), (intptr_t)result.c_str());
+	ScintillaBridge_sendMessage(sci, SCI_ENDUNDOACTION, 0, 0);
+}
+
+// ============================================================
+// Sprint P2 — Case conversions
+// ============================================================
+
+void doSentenceCase()
+{
+	void* sci = ctx().activeScintillaView();
+	if (!sci) return;
+	intptr_t selStart = ScintillaBridge_sendMessage(sci, SCI_GETSELECTIONSTART, 0, 0);
+	intptr_t selEnd = ScintillaBridge_sendMessage(sci, SCI_GETSELECTIONEND, 0, 0);
+	if (selStart == selEnd) return;
+
+	intptr_t len = selEnd - selStart;
+	std::string text(len + 1, '\0');
+	ScintillaBridge_sendMessage(sci, SCI_GETSELTEXT, 0, (intptr_t)text.data());
+	text.resize(len);
+
+	bool capitalize = true;
+	for (size_t i = 0; i < text.size(); ++i)
+	{
+		unsigned char ch = static_cast<unsigned char>(text[i]);
+		if (capitalize && isalpha(ch))
+		{
+			text[i] = toupper(ch);
+			capitalize = false;
+		}
+		else if (isalpha(ch))
+		{
+			text[i] = tolower(ch);
+		}
+
+		// Sentence boundary: . ! ? followed by whitespace
+		if ((text[i] == '.' || text[i] == '!' || text[i] == '?') &&
+		    i + 1 < text.size() && isspace(static_cast<unsigned char>(text[i + 1])))
+		{
+			capitalize = true;
+		}
+	}
+
+	ScintillaBridge_sendMessage(sci, SCI_BEGINUNDOACTION, 0, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETTARGETSTART, selStart, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETTARGETEND, selEnd, 0);
+	ScintillaBridge_sendMessage(sci, SCI_REPLACETARGET, len, (intptr_t)text.c_str());
+	ScintillaBridge_sendMessage(sci, SCI_SETSEL, selStart, selStart + (intptr_t)text.size());
+	ScintillaBridge_sendMessage(sci, SCI_ENDUNDOACTION, 0, 0);
+}
+
+void doInvertCase()
+{
+	void* sci = ctx().activeScintillaView();
+	if (!sci) return;
+	intptr_t selStart = ScintillaBridge_sendMessage(sci, SCI_GETSELECTIONSTART, 0, 0);
+	intptr_t selEnd = ScintillaBridge_sendMessage(sci, SCI_GETSELECTIONEND, 0, 0);
+	if (selStart == selEnd) return;
+
+	intptr_t len = selEnd - selStart;
+	std::string text(len + 1, '\0');
+	ScintillaBridge_sendMessage(sci, SCI_GETSELTEXT, 0, (intptr_t)text.data());
+	text.resize(len);
+
+	for (size_t i = 0; i < text.size(); ++i)
+	{
+		unsigned char ch = static_cast<unsigned char>(text[i]);
+		if (isupper(ch))
+			text[i] = tolower(ch);
+		else if (islower(ch))
+			text[i] = toupper(ch);
+	}
+
+	ScintillaBridge_sendMessage(sci, SCI_BEGINUNDOACTION, 0, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETTARGETSTART, selStart, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETTARGETEND, selEnd, 0);
+	ScintillaBridge_sendMessage(sci, SCI_REPLACETARGET, len, (intptr_t)text.c_str());
+	ScintillaBridge_sendMessage(sci, SCI_SETSEL, selStart, selStart + (intptr_t)text.size());
+	ScintillaBridge_sendMessage(sci, SCI_ENDUNDOACTION, 0, 0);
+}
+
+void doCamelCase()
+{
+	void* sci = ctx().activeScintillaView();
+	if (!sci) return;
+	intptr_t selStart = ScintillaBridge_sendMessage(sci, SCI_GETSELECTIONSTART, 0, 0);
+	intptr_t selEnd = ScintillaBridge_sendMessage(sci, SCI_GETSELECTIONEND, 0, 0);
+	if (selStart == selEnd) return;
+
+	intptr_t len = selEnd - selStart;
+	std::string text(len + 1, '\0');
+	ScintillaBridge_sendMessage(sci, SCI_GETSELTEXT, 0, (intptr_t)text.data());
+	text.resize(len);
+
+	// Split on whitespace, underscores, hyphens, and punctuation runs
+	std::vector<std::string> tokens;
+	std::string token;
+	for (size_t i = 0; i < text.size(); ++i)
+	{
+		unsigned char ch = static_cast<unsigned char>(text[i]);
+		if (isspace(ch) || ch == '_' || ch == '-' || (ispunct(ch) && ch != '\''))
+		{
+			if (!token.empty())
+			{
+				tokens.push_back(token);
+				token.clear();
+			}
+		}
+		else
+		{
+			token += text[i];
+		}
+	}
+	if (!token.empty())
+		tokens.push_back(token);
+
+	// First token all lowercase, subsequent tokens leading-capitalized
+	std::string result;
+	for (size_t t = 0; t < tokens.size(); ++t)
+	{
+		std::string& tok = tokens[t];
+		if (t == 0)
+		{
+			for (size_t i = 0; i < tok.size(); ++i)
+				tok[i] = tolower(static_cast<unsigned char>(tok[i]));
+		}
+		else
+		{
+			tok[0] = toupper(static_cast<unsigned char>(tok[0]));
+			for (size_t i = 1; i < tok.size(); ++i)
+				tok[i] = tolower(static_cast<unsigned char>(tok[i]));
+		}
+		result += tok;
+	}
+
+	ScintillaBridge_sendMessage(sci, SCI_BEGINUNDOACTION, 0, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETTARGETSTART, selStart, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETTARGETEND, selEnd, 0);
+	ScintillaBridge_sendMessage(sci, SCI_REPLACETARGET, result.size(), (intptr_t)result.c_str());
+	ScintillaBridge_sendMessage(sci, SCI_SETSEL, selStart, selStart + (intptr_t)result.size());
+	ScintillaBridge_sendMessage(sci, SCI_ENDUNDOACTION, 0, 0);
+}
+
+void doSnakeCase()
+{
+	void* sci = ctx().activeScintillaView();
+	if (!sci) return;
+	intptr_t selStart = ScintillaBridge_sendMessage(sci, SCI_GETSELECTIONSTART, 0, 0);
+	intptr_t selEnd = ScintillaBridge_sendMessage(sci, SCI_GETSELECTIONEND, 0, 0);
+	if (selStart == selEnd) return;
+
+	intptr_t len = selEnd - selStart;
+	std::string text(len + 1, '\0');
+	ScintillaBridge_sendMessage(sci, SCI_GETSELTEXT, 0, (intptr_t)text.data());
+	text.resize(len);
+
+	// Split on whitespace/hyphens/underscores AND camelCase transitions
+	std::vector<std::string> tokens;
+	std::string token;
+	for (size_t i = 0; i < text.size(); ++i)
+	{
+		unsigned char ch = static_cast<unsigned char>(text[i]);
+		if (isspace(ch) || ch == '-' || ch == '_')
+		{
+			if (!token.empty())
+			{
+				tokens.push_back(token);
+				token.clear();
+			}
+		}
+		else if (isupper(ch) && !token.empty() &&
+		         islower(static_cast<unsigned char>(token.back())))
+		{
+			// camelCase transition: lowercase followed by uppercase
+			tokens.push_back(token);
+			token.clear();
+			token += text[i];
+		}
+		else
+		{
+			token += text[i];
+		}
+	}
+	if (!token.empty())
+		tokens.push_back(token);
+
+	// Join with underscores, all lowercase
+	std::string result;
+	for (size_t t = 0; t < tokens.size(); ++t)
+	{
+		if (t > 0) result += '_';
+		for (size_t i = 0; i < tokens[t].size(); ++i)
+			result += tolower(static_cast<unsigned char>(tokens[t][i]));
+	}
+
+	ScintillaBridge_sendMessage(sci, SCI_BEGINUNDOACTION, 0, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETTARGETSTART, selStart, 0);
+	ScintillaBridge_sendMessage(sci, SCI_SETTARGETEND, selEnd, 0);
+	ScintillaBridge_sendMessage(sci, SCI_REPLACETARGET, result.size(), (intptr_t)result.c_str());
+	ScintillaBridge_sendMessage(sci, SCI_SETSEL, selStart, selStart + (intptr_t)result.size());
+	ScintillaBridge_sendMessage(sci, SCI_ENDUNDOACTION, 0, 0);
+}
+
+// ============================================================
+// Sprint P2 — Sort / line operation variants
+// ============================================================
+
+void doSortLinesCaseInsensitive()
+{
+	void* sci = nullptr;
+	intptr_t startLine = 0, endLine = 0, replStart = 0, replEnd = 0;
+	std::vector<std::string> lines;
+	if (!readSelectedLines(sci, startLine, endLine, replStart, replEnd, lines))
+		return;
+
+	std::sort(lines.begin(), lines.end(), [](const std::string& a, const std::string& b)
+	{
+		size_t minLen = (a.size() < b.size()) ? a.size() : b.size();
+		for (size_t i = 0; i < minLen; ++i)
+		{
+			int ca = tolower(static_cast<unsigned char>(a[i]));
+			int cb = tolower(static_cast<unsigned char>(b[i]));
+			if (ca != cb) return ca < cb;
+		}
+		return a.size() < b.size();
+	});
+
+	replaceSelectedLines(sci, replStart, replEnd, lines);
+}
+
+void doSortLinesReverse()
+{
+	void* sci = nullptr;
+	intptr_t startLine = 0, endLine = 0, replStart = 0, replEnd = 0;
+	std::vector<std::string> lines;
+	if (!readSelectedLines(sci, startLine, endLine, replStart, replEnd, lines))
+		return;
+
+	std::reverse(lines.begin(), lines.end());
+	replaceSelectedLines(sci, replStart, replEnd, lines);
+}
+
+void doRemoveDuplicateLines()
+{
+	void* sci = nullptr;
+	intptr_t startLine = 0, endLine = 0, replStart = 0, replEnd = 0;
+	std::vector<std::string> lines;
+	if (!readSelectedLines(sci, startLine, endLine, replStart, replEnd, lines))
+		return;
+
+	// Preserve first-occurrence order
+	std::unordered_set<std::string> seen;
+	std::vector<std::string> unique;
+	for (auto& line : lines)
+	{
+		if (seen.insert(line).second)
+			unique.push_back(line);
+	}
+
+	replaceSelectedLines(sci, replStart, replEnd, unique);
+}
+
+void doSortLinesNumeric()
+{
+	void* sci = nullptr;
+	intptr_t startLine = 0, endLine = 0, replStart = 0, replEnd = 0;
+	std::vector<std::string> lines;
+	if (!readSelectedLines(sci, startLine, endLine, replStart, replEnd, lines))
+		return;
+
+	std::sort(lines.begin(), lines.end(), [](const std::string& a, const std::string& b)
+	{
+		char* endA = nullptr;
+		char* endB = nullptr;
+		long numA = strtol(a.c_str(), &endA, 10);
+		long numB = strtol(b.c_str(), &endB, 10);
+		bool aIsNum = (endA != a.c_str());
+		bool bIsNum = (endB != b.c_str());
+
+		// Numeric lines sort before non-numeric
+		if (aIsNum && !bIsNum) return true;
+		if (!aIsNum && bIsNum) return false;
+		if (!aIsNum && !bIsNum) return a < b;
+		if (numA != numB) return numA < numB;
+		return a < b;
+	});
+
+	replaceSelectedLines(sci, replStart, replEnd, lines);
+}
+
+void doSortLinesRandom()
+{
+	void* sci = nullptr;
+	intptr_t startLine = 0, endLine = 0, replStart = 0, replEnd = 0;
+	std::vector<std::string> lines;
+	if (!readSelectedLines(sci, startLine, endLine, replStart, replEnd, lines))
+		return;
+
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::shuffle(lines.begin(), lines.end(), gen);
+
+	replaceSelectedLines(sci, replStart, replEnd, lines);
 }

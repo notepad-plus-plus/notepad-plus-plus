@@ -349,6 +349,33 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				case IDM_EDIT_SORTDESC:
 					doSortLines(false);
 					return 0;
+				case IDM_EDIT_SENTENCECASE:
+					doSentenceCase();
+					return 0;
+				case IDM_EDIT_INVERTCASE:
+					doInvertCase();
+					return 0;
+				case IDM_EDIT_CAMELCASE:
+					doCamelCase();
+					return 0;
+				case IDM_EDIT_SNAKECASE:
+					doSnakeCase();
+					return 0;
+				case IDM_EDIT_SORT_CASE_INSENSITIVE:
+					doSortLinesCaseInsensitive();
+					return 0;
+				case IDM_EDIT_SORT_REVERSE:
+					doSortLinesReverse();
+					return 0;
+				case IDM_EDIT_REMOVE_DUPLICATES:
+					doRemoveDuplicateLines();
+					return 0;
+				case IDM_EDIT_SORT_NUMERIC:
+					doSortLinesNumeric();
+					return 0;
+				case IDM_EDIT_SORT_RANDOM:
+					doSortLinesRandom();
+					return 0;
 				case IDM_EDIT_JOINLINES:
 					doJoinLines();
 					return 0;

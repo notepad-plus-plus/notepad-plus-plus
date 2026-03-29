@@ -57,6 +57,11 @@ HMENU buildMenuBar()
 	AppendMenuW(hCaseMenu, MF_STRING, IDM_EDIT_UPPERCASE, L"&UPPERCASE\tCtrl+Shift+U");
 	AppendMenuW(hCaseMenu, MF_STRING, IDM_EDIT_LOWERCASE, L"&lowercase\tCtrl+U");
 	AppendMenuW(hCaseMenu, MF_STRING, IDM_EDIT_TITLECASE, L"&Title Case");
+	AppendMenuW(hCaseMenu, MF_STRING, IDM_EDIT_SENTENCECASE, L"&Sentence case");
+	AppendMenuW(hCaseMenu, MF_STRING, IDM_EDIT_INVERTCASE, L"&iNVERT cASE");
+	AppendMenuW(hCaseMenu, MF_SEPARATOR, 0, nullptr);
+	AppendMenuW(hCaseMenu, MF_STRING, IDM_EDIT_CAMELCASE, L"&camelCase");
+	AppendMenuW(hCaseMenu, MF_STRING, IDM_EDIT_SNAKECASE, L"sna&ke_case");
 	AppendMenuW(hEditMenu, MF_POPUP, reinterpret_cast<UINT_PTR>(hCaseMenu), L"Case Conversion");
 
 	HMENU hLineMenu = CreatePopupMenu();
@@ -67,6 +72,11 @@ HMENU buildMenuBar()
 	AppendMenuW(hLineMenu, MF_SEPARATOR, 0, nullptr);
 	AppendMenuW(hLineMenu, MF_STRING, IDM_EDIT_SORTASC, L"&Sort Lines (Ascending)");
 	AppendMenuW(hLineMenu, MF_STRING, IDM_EDIT_SORTDESC, L"Sort Lines (&Descending)");
+	AppendMenuW(hLineMenu, MF_STRING, IDM_EDIT_SORT_CASE_INSENSITIVE, L"Sort Lines (&Case Insensitive)");
+	AppendMenuW(hLineMenu, MF_STRING, IDM_EDIT_SORT_REVERSE, L"&Reverse Line Order");
+	AppendMenuW(hLineMenu, MF_STRING, IDM_EDIT_SORT_NUMERIC, L"Sort Lines (&Numeric)");
+	AppendMenuW(hLineMenu, MF_STRING, IDM_EDIT_SORT_RANDOM, L"Sort Lines (R&andom)");
+	AppendMenuW(hLineMenu, MF_STRING, IDM_EDIT_REMOVE_DUPLICATES, L"Remove &Duplicate Lines");
 	AppendMenuW(hLineMenu, MF_STRING, IDM_EDIT_JOINLINES, L"&Join Lines");
 	AppendMenuW(hEditMenu, MF_POPUP, reinterpret_cast<UINT_PTR>(hLineMenu), L"Line Operations");
 

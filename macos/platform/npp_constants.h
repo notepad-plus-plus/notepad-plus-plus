@@ -71,6 +71,19 @@ constexpr double NPP_STATUS_BAR_HEIGHT = 22.0;
 #define IDM_EDIT_INSERT_DATETIME_LONG  42047
 #define IDM_EDIT_AUTOCLOSE_BRACKETS  42048
 
+// Case conversions (Sprint P2)
+#define IDM_EDIT_SENTENCECASE    42100
+#define IDM_EDIT_INVERTCASE      42101
+#define IDM_EDIT_CAMELCASE       42102
+#define IDM_EDIT_SNAKECASE       42103
+
+// Line operations (Sprint P2)
+#define IDM_EDIT_SORT_CASE_INSENSITIVE  42104
+#define IDM_EDIT_SORT_REVERSE           42105
+#define IDM_EDIT_REMOVE_DUPLICATES      42106
+#define IDM_EDIT_SORT_NUMERIC           42107
+#define IDM_EDIT_SORT_RANDOM            42108
+
 // Phase 7 — View commands
 #define IDM_VIEW_SPLIT               42070
 #define IDM_VIEW_UNSPLIT             42071

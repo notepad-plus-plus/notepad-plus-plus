@@ -232,6 +232,7 @@ void closeTabFromView(int viewIndex, int tabIndex)
 		ScintillaBridge_sendMessage(sci, SCI_CLEARALL, 0, 0);
 		ScintillaBridge_sendMessage(sci, SCI_EMPTYUNDOBUFFER, 0, 0);
 		ScintillaBridge_sendMessage(sci, SCI_SETSAVEPOINT, 0, 0);
+		ScintillaBridge_sendMessage(sci, SCI_SETZOOM, 0, 0);
 		ctx().suppressSavePointNotifications = false;
 		if (tabHwnd)
 		{

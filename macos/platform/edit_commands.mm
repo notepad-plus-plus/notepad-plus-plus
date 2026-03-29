@@ -168,52 +168,27 @@ void doToggleLineComment()
 	ScintillaBridge_sendMessage(sci, SCI_ENDUNDOACTION, 0, 0);
 }
 
+// Forward declarations for helpers defined later (Sprint P2)
+static bool readSelectedLines(void*& sci, intptr_t& startLine, intptr_t& endLine,
+                              intptr_t& replStart, intptr_t& replEnd,
+                              std::vector<std::string>& lines);
+static void replaceSelectedLines(void* sci, intptr_t replStart, intptr_t replEnd,
+                                 const std::vector<std::string>& lines);
+
 void doSortLines(bool ascending)
 {
-	void* sci = ctx().activeScintillaView();
-	if (!sci) return;
-
-	intptr_t selStart = ScintillaBridge_sendMessage(sci, SCI_GETSELECTIONSTART, 0, 0);
-	intptr_t selEnd = ScintillaBridge_sendMessage(sci, SCI_GETSELECTIONEND, 0, 0);
-	if (selStart == selEnd) return;
-
-	intptr_t startLine = ScintillaBridge_sendMessage(sci, SCI_LINEFROMPOSITION, selStart, 0);
-	intptr_t endLine = ScintillaBridge_sendMessage(sci, SCI_LINEFROMPOSITION, selEnd, 0);
-	if (selEnd == ScintillaBridge_sendMessage(sci, SCI_POSITIONFROMLINE, endLine, 0) && endLine > startLine)
-		--endLine;
-
+	void* sci = nullptr;
+	intptr_t startLine = 0, endLine = 0, replStart = 0, replEnd = 0;
 	std::vector<std::string> lines;
-	for (intptr_t line = startLine; line <= endLine; ++line)
-	{
-		intptr_t lineStart = ScintillaBridge_sendMessage(sci, SCI_POSITIONFROMLINE, line, 0);
-		intptr_t lineEnd = ScintillaBridge_sendMessage(sci, SCI_GETLINEENDPOSITION, line, 0);
-		intptr_t len = lineEnd - lineStart;
-		std::string text(len, '\0');
-		for (intptr_t i = 0; i < len; ++i)
-			text[i] = (char)ScintillaBridge_sendMessage(sci, SCI_GETCHARAT, lineStart + i, 0);
-		lines.push_back(text);
-	}
+	if (!readSelectedLines(sci, startLine, endLine, replStart, replEnd, lines))
+		return;
 
 	if (ascending)
 		std::sort(lines.begin(), lines.end());
 	else
 		std::sort(lines.begin(), lines.end(), std::greater<std::string>());
 
-	std::string result;
-	for (size_t i = 0; i < lines.size(); ++i)
-	{
-		result += lines[i];
-		if (i + 1 < lines.size()) result += '\n';
-	}
-
-	intptr_t replStart = ScintillaBridge_sendMessage(sci, SCI_POSITIONFROMLINE, startLine, 0);
-	intptr_t replEnd = ScintillaBridge_sendMessage(sci, SCI_GETLINEENDPOSITION, endLine, 0);
-
-	ScintillaBridge_sendMessage(sci, SCI_BEGINUNDOACTION, 0, 0);
-	ScintillaBridge_sendMessage(sci, SCI_SETTARGETSTART, replStart, 0);
-	ScintillaBridge_sendMessage(sci, SCI_SETTARGETEND, replEnd, 0);
-	ScintillaBridge_sendMessage(sci, SCI_REPLACETARGET, result.size(), (intptr_t)result.c_str());
-	ScintillaBridge_sendMessage(sci, SCI_ENDUNDOACTION, 0, 0);
+	replaceSelectedLines(sci, replStart, replEnd, lines);
 }
 
 void doJoinLines()

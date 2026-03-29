@@ -60,6 +60,23 @@ bool MacroManager::isRecording() const
 
 void MacroManager::recordStep(int message, uintptr_t wParam, intptr_t lParam)
 {
+	// Normalize newline insertions to SCI_NEWLINE so playback uses the
+	// document's EOL mode rather than replaying a raw \r or \n byte.
+	// This matches Notepad++ upstream behavior.
+	if (message == SCI_REPLACESEL && lParam != 0)
+	{
+		const char* str = reinterpret_cast<const char*>(lParam);
+		if ((str[0] == '\n' || str[0] == '\r') && str[1] == '\0')
+		{
+			MacroStep nlStep;
+			nlStep.message = SCI_NEWLINE;
+			nlStep.wParam = 0;
+			nlStep.lParam = 0;
+			_currentMacro.push_back(nlStep);
+			return;
+		}
+	}
+
 	MacroStep step;
 	step.message = message;
 	step.wParam = wParam;

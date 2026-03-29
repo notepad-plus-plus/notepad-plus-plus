@@ -19,29 +19,61 @@
 // Helper: compute a hex-encoded hash digest
 // ------------------------------------------------------------------
 
+// Use incremental CommonCrypto APIs (Init/Update/Final) to avoid CC_LONG
+// truncation on inputs larger than UINT32_MAX. Data is fed in chunks.
 static std::string computeHash(const void* data, size_t length, const std::string& algorithm)
 {
-	unsigned char digest[CC_SHA512_DIGEST_LENGTH]; // largest possible
+	unsigned char digest[CC_SHA512_DIGEST_LENGTH];
 	unsigned int digestLen = 0;
+	constexpr size_t kChunkSize = 1024 * 1024; // 1 MB
+	const auto* bytes = static_cast<const unsigned char*>(data);
 
 	if (algorithm == "MD5")
 	{
-		CC_MD5(data, static_cast<CC_LONG>(length), digest);
+		CC_MD5_CTX ctx;
+		CC_MD5_Init(&ctx);
+		for (size_t offset = 0; offset < length; offset += kChunkSize)
+		{
+			size_t chunk = (length - offset < kChunkSize) ? (length - offset) : kChunkSize;
+			CC_MD5_Update(&ctx, bytes + offset, static_cast<CC_LONG>(chunk));
+		}
+		CC_MD5_Final(digest, &ctx);
 		digestLen = CC_MD5_DIGEST_LENGTH;
 	}
 	else if (algorithm == "SHA1")
 	{
-		CC_SHA1(data, static_cast<CC_LONG>(length), digest);
+		CC_SHA1_CTX ctx;
+		CC_SHA1_Init(&ctx);
+		for (size_t offset = 0; offset < length; offset += kChunkSize)
+		{
+			size_t chunk = (length - offset < kChunkSize) ? (length - offset) : kChunkSize;
+			CC_SHA1_Update(&ctx, bytes + offset, static_cast<CC_LONG>(chunk));
+		}
+		CC_SHA1_Final(digest, &ctx);
 		digestLen = CC_SHA1_DIGEST_LENGTH;
 	}
 	else if (algorithm == "SHA256")
 	{
-		CC_SHA256(data, static_cast<CC_LONG>(length), digest);
+		CC_SHA256_CTX ctx;
+		CC_SHA256_Init(&ctx);
+		for (size_t offset = 0; offset < length; offset += kChunkSize)
+		{
+			size_t chunk = (length - offset < kChunkSize) ? (length - offset) : kChunkSize;
+			CC_SHA256_Update(&ctx, bytes + offset, static_cast<CC_LONG>(chunk));
+		}
+		CC_SHA256_Final(digest, &ctx);
 		digestLen = CC_SHA256_DIGEST_LENGTH;
 	}
 	else if (algorithm == "SHA512")
 	{
-		CC_SHA512(data, static_cast<CC_LONG>(length), digest);
+		CC_SHA512_CTX ctx;
+		CC_SHA512_Init(&ctx);
+		for (size_t offset = 0; offset < length; offset += kChunkSize)
+		{
+			size_t chunk = (length - offset < kChunkSize) ? (length - offset) : kChunkSize;
+			CC_SHA512_Update(&ctx, bytes + offset, static_cast<CC_LONG>(chunk));
+		}
+		CC_SHA512_Final(digest, &ctx);
 		digestLen = CC_SHA512_DIGEST_LENGTH;
 	}
 	else
@@ -50,13 +82,13 @@ static std::string computeHash(const void* data, size_t length, const std::strin
 	}
 
 	// Convert to lowercase hex string
+	static const char hexDigits[] = "0123456789abcdef";
 	std::string hex;
 	hex.reserve(digestLen * 2);
 	for (unsigned int i = 0; i < digestLen; ++i)
 	{
-		char buf[3];
-		snprintf(buf, sizeof(buf), "%02x", digest[i]);
-		hex += buf;
+		hex += hexDigits[digest[i] >> 4];
+		hex += hexDigits[digest[i] & 0x0F];
 	}
 	return hex;
 }

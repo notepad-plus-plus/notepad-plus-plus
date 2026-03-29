@@ -386,6 +386,9 @@ enum {
 	SCI_SETCHANGEHISTORY     = 2780,
 	SCI_GETCHANGEHISTORY     = 2781,
 
+	// Newline insertion (document-context-aware EOL)
+	SCI_NEWLINE              = 2329,
+
 	// Macro recording
 	SCI_STARTRECORD          = 3001,
 	SCI_STOPRECORD           = 3002,

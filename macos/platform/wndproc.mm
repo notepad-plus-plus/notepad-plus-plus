@@ -146,13 +146,21 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				case IDM_EDIT_CUT:
 				{
 					void* sci = ctx().activeScintillaView();
-					if (sci) ScintillaBridge_sendMessage(sci, SCI_CUT, 0, 0);
+					if (sci)
+					{
+						ScintillaBridge_sendMessage(sci, SCI_CUT, 0, 0);
+						captureClipboardEntry();
+					}
 					return 0;
 				}
 				case IDM_EDIT_COPY:
 				{
 					void* sci = ctx().activeScintillaView();
-					if (sci) ScintillaBridge_sendMessage(sci, SCI_COPY, 0, 0);
+					if (sci)
+					{
+						ScintillaBridge_sendMessage(sci, SCI_COPY, 0, 0);
+						captureClipboardEntry();
+					}
 					return 0;
 				}
 				case IDM_EDIT_PASTE:

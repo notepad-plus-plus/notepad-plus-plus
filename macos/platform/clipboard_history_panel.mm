@@ -153,7 +153,35 @@ static void focusActiveEditor()
 @end
 
 // ---------------------------------------------------------------------------
+// Clipboard capture — shared between direct capture and timer polling
+// ---------------------------------------------------------------------------
+static void captureFromPasteboard()
+{
+	NSString* text = [[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString];
+	if (!text || text.length == 0)
+		return;
+
+	std::string utf8(text.UTF8String);
+
+	// Skip consecutive duplicates
+	if (!sHistory.empty() && sHistory.front() == utf8)
+		return;
+
+	// Cap individual entry size
+	if (utf8.size() > kMaxEntryBytes)
+		utf8.resize(kMaxEntryBytes);
+
+	sHistory.push_front(std::move(utf8));
+	if (sHistory.size() > kMaxHistoryEntries)
+		sHistory.pop_back();
+
+	if (sTableView)
+		[sTableView reloadData];
+}
+
+// ---------------------------------------------------------------------------
 // Clipboard monitoring (NSTimer on main run loop)
+// Catches external clipboard changes; in-app copy/cut uses captureClipboardEntry().
 // ---------------------------------------------------------------------------
 static void startClipboardMonitoring()
 {
@@ -168,27 +196,7 @@ static void startClipboardMonitoring()
 		if (currentCount == sLastChangeCount)
 			return;
 		sLastChangeCount = currentCount;
-
-		NSString* text = [[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString];
-		if (!text || text.length == 0)
-			return;
-
-		std::string utf8(text.UTF8String);
-
-		// Skip consecutive duplicates
-		if (!sHistory.empty() && sHistory.front() == utf8)
-			return;
-
-		// Cap individual entry size
-		if (utf8.size() > kMaxEntryBytes)
-			utf8.resize(kMaxEntryBytes);
-
-		sHistory.push_front(std::move(utf8));
-		if (sHistory.size() > kMaxHistoryEntries)
-			sHistory.pop_back();
-
-		if (sTableView)
-			[sTableView reloadData];
+		captureFromPasteboard();
 	}];
 	sMonitoringActive = true;
 }
@@ -297,16 +305,35 @@ void destroyClipboardHistoryPanel()
 void setClipboardHistoryEnabled(bool enabled)
 {
 	ctx().clipboardHistoryEnabled = enabled;
-	if (enabled && !sContainer)
-		initializeClipboardHistoryPanel();
-	if (enabled && !sMonitoringActive)
-		startClipboardMonitoring();
+	if (enabled)
+	{
+		if (!sContainer)
+			initializeClipboardHistoryPanel();
+		if (!sMonitoringActive)
+			startClipboardMonitoring();
+	}
+	else
+	{
+		stopClipboardMonitoring();
+	}
 	relayoutFunctionListPanel();
 }
 
 bool isClipboardHistoryEnabled()
 {
 	return ctx().clipboardHistoryEnabled;
+}
+
+void captureClipboardEntry()
+{
+	if (!sMonitoringActive)
+		return;
+
+	// Scintilla writes to the pasteboard synchronously during SCI_COPY/SCI_CUT,
+	// so the content is available immediately. Capture it now and update the
+	// change count so the polling timer doesn't re-capture the same entry.
+	captureFromPasteboard();
+	sLastChangeCount = [NSPasteboard generalPasteboard].changeCount;
 }
 
 void* clipboardHistoryContainerView()

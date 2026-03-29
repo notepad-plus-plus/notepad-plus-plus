@@ -71,6 +71,19 @@ constexpr double NPP_STATUS_BAR_HEIGHT = 22.0;
 #define IDM_EDIT_INSERT_DATETIME_LONG  42047
 #define IDM_EDIT_AUTOCLOSE_BRACKETS  42048
 
+// Case conversions (Sprint P2)
+#define IDM_EDIT_SENTENCECASE    42100
+#define IDM_EDIT_INVERTCASE      42101
+#define IDM_EDIT_CAMELCASE       42102
+#define IDM_EDIT_SNAKECASE       42103
+
+// Line operations (Sprint P2)
+#define IDM_EDIT_SORT_CASE_INSENSITIVE  42104
+#define IDM_EDIT_SORT_REVERSE           42105
+#define IDM_EDIT_REMOVE_DUPLICATES      42106
+#define IDM_EDIT_SORT_NUMERIC           42107
+#define IDM_EDIT_SORT_RANDOM            42108
+
 // Phase 7 — View commands
 #define IDM_VIEW_SPLIT               42070
 #define IDM_VIEW_UNSPLIT             42071
@@ -113,6 +126,20 @@ constexpr double NPP_STATUS_BAR_HEIGHT = 22.0;
 
 // Help menu commands
 #define IDM_HELP_ABOUT           46001
+
+// Macro menu commands (Sprint P2)
+#define IDM_MACRO_START_RECORD   47001
+#define IDM_MACRO_STOP_RECORD    47002
+#define IDM_MACRO_PLAYBACK       47003
+#define IDM_MACRO_PLAYBACK_MULTI 47004
+#define IDM_MACRO_SAVE           47005
+#define IDM_MACRO_LOAD           47006
+
+// Tools menu commands (Sprint P2)
+#define IDM_TOOLS_HASH_MD5       48001
+#define IDM_TOOLS_HASH_SHA1      48002
+#define IDM_TOOLS_HASH_SHA256    48003
+#define IDM_TOOLS_HASH_SHA512    48004
 
 // Phase 7 — Format/Encoding commands
 #define IDM_FORMAT_EOL_LF            45001
@@ -358,6 +385,19 @@ enum {
 	// Change history
 	SCI_SETCHANGEHISTORY     = 2780,
 	SCI_GETCHANGEHISTORY     = 2781,
+
+	// Newline insertion (document-context-aware EOL)
+	SCI_NEWLINE              = 2329,
+
+	// Macro recording
+	SCI_STARTRECORD          = 3001,
+	SCI_STOPRECORD           = 3002,
+
+	// Additional messages used by macro string-payload detection
+	SCI_ADDTEXT              = 2001,
+	SCI_REPLACETARGETRE      = 2195,
+	SCI_SEARCHNEXT           = 2367,
+	SCI_SEARCHPREV           = 2368,
 };
 
 // Scintilla key constants
@@ -474,6 +514,7 @@ enum {
 #define SCN_SAVEPOINTLEFT    2003
 #define SCN_UPDATEUI         2007
 #define SCN_MODIFIED         2008
+#define SCN_MACRORECORD      2009
 #define SCN_FOCUSIN          2028
 
 // Scintilla modification flags

@@ -32,6 +32,8 @@
 #include "document_map.h"
 #include "function_list_panel.h"
 #include "change_history.h"
+#include "hash_tools.h"
+#include "macro_manager.h"
 #include "windows.h"
 #include "commctrl.h"
 
@@ -349,6 +351,33 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				case IDM_EDIT_SORTDESC:
 					doSortLines(false);
 					return 0;
+				case IDM_EDIT_SENTENCECASE:
+					doSentenceCase();
+					return 0;
+				case IDM_EDIT_INVERTCASE:
+					doInvertCase();
+					return 0;
+				case IDM_EDIT_CAMELCASE:
+					doCamelCase();
+					return 0;
+				case IDM_EDIT_SNAKECASE:
+					doSnakeCase();
+					return 0;
+				case IDM_EDIT_SORT_CASE_INSENSITIVE:
+					doSortLinesCaseInsensitive();
+					return 0;
+				case IDM_EDIT_SORT_REVERSE:
+					doSortLinesReverse();
+					return 0;
+				case IDM_EDIT_REMOVE_DUPLICATES:
+					doRemoveDuplicateLines();
+					return 0;
+				case IDM_EDIT_SORT_NUMERIC:
+					doSortLinesNumeric();
+					return 0;
+				case IDM_EDIT_SORT_RANDOM:
+					doSortLinesRandom();
+					return 0;
 				case IDM_EDIT_JOINLINES:
 					doJoinLines();
 					return 0;
@@ -367,33 +396,43 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 				case IDM_VIEW_ZOOMIN:
 				{
-					if (ctx().scintillaView)
-						ScintillaBridge_sendMessage(ctx().scintillaView, SCI_ZOOMIN, 0, 0);
-					if (ctx().isSplit && ctx().scintillaView2)
-						ScintillaBridge_sendMessage(ctx().scintillaView2, SCI_ZOOMIN, 0, 0);
-					if (ctx().scintillaView)
-						ctx().zoomLevel = static_cast<int>(ScintillaBridge_sendMessage(ctx().scintillaView, SCI_GETZOOM, 0, 0));
+					void* sci = ctx().activeScintillaView();
+					if (sci)
+					{
+						ScintillaBridge_sendMessage(sci, SCI_ZOOMIN, 0, 0);
+						auto& docs = ctx().activeDocuments();
+						int tabIdx = ctx().activeTabIndex();
+						if (tabIdx >= 0 && tabIdx < static_cast<int>(docs.size()))
+							docs[tabIdx].zoomLevel = static_cast<int>(ScintillaBridge_sendMessage(sci, SCI_GETZOOM, 0, 0));
+					}
 					refreshLineNumberMargins();
 					return 0;
 				}
 				case IDM_VIEW_ZOOMOUT:
 				{
-					if (ctx().scintillaView)
-						ScintillaBridge_sendMessage(ctx().scintillaView, SCI_ZOOMOUT, 0, 0);
-					if (ctx().isSplit && ctx().scintillaView2)
-						ScintillaBridge_sendMessage(ctx().scintillaView2, SCI_ZOOMOUT, 0, 0);
-					if (ctx().scintillaView)
-						ctx().zoomLevel = static_cast<int>(ScintillaBridge_sendMessage(ctx().scintillaView, SCI_GETZOOM, 0, 0));
+					void* sci = ctx().activeScintillaView();
+					if (sci)
+					{
+						ScintillaBridge_sendMessage(sci, SCI_ZOOMOUT, 0, 0);
+						auto& docs = ctx().activeDocuments();
+						int tabIdx = ctx().activeTabIndex();
+						if (tabIdx >= 0 && tabIdx < static_cast<int>(docs.size()))
+							docs[tabIdx].zoomLevel = static_cast<int>(ScintillaBridge_sendMessage(sci, SCI_GETZOOM, 0, 0));
+					}
 					refreshLineNumberMargins();
 					return 0;
 				}
 				case IDM_VIEW_ZOOMRESTORE:
 				{
-					ctx().zoomLevel = 0;
-					if (ctx().scintillaView)
-						ScintillaBridge_sendMessage(ctx().scintillaView, SCI_SETZOOM, 0, 0);
-					if (ctx().isSplit && ctx().scintillaView2)
-						ScintillaBridge_sendMessage(ctx().scintillaView2, SCI_SETZOOM, 0, 0);
+					void* sci = ctx().activeScintillaView();
+					if (sci)
+					{
+						ScintillaBridge_sendMessage(sci, SCI_SETZOOM, 0, 0);
+						auto& docs = ctx().activeDocuments();
+						int tabIdx = ctx().activeTabIndex();
+						if (tabIdx >= 0 && tabIdx < static_cast<int>(docs.size()))
+							docs[tabIdx].zoomLevel = 0;
+					}
 					refreshLineNumberMargins();
 					return 0;
 				}
@@ -511,6 +550,50 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					return 0;
 				case IDM_VIEW_CLONETOOTHER:
 					doCloneToOtherView();
+					return 0;
+
+				case IDM_TOOLS_HASH_MD5:
+					doHashMD5();
+					return 0;
+				case IDM_TOOLS_HASH_SHA1:
+					doHashSHA1();
+					return 0;
+				case IDM_TOOLS_HASH_SHA256:
+					doHashSHA256();
+					return 0;
+				case IDM_TOOLS_HASH_SHA512:
+					doHashSHA512();
+					return 0;
+
+				case IDM_MACRO_START_RECORD:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci) MacroManager::instance().startRecording(sci);
+					return 0;
+				}
+				case IDM_MACRO_STOP_RECORD:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci) MacroManager::instance().stopRecording(sci);
+					return 0;
+				}
+				case IDM_MACRO_PLAYBACK:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci) MacroManager::instance().playback(sci);
+					return 0;
+				}
+				case IDM_MACRO_PLAYBACK_MULTI:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci) MacroManager::instance().playbackMultiple(sci, 0);
+					return 0;
+				}
+				case IDM_MACRO_SAVE:
+					MacroManager::instance().saveMacro("");
+					return 0;
+				case IDM_MACRO_LOAD:
+					MacroManager::instance().loadMacro("");
 					return 0;
 
 				case IDM_HELP_ABOUT:

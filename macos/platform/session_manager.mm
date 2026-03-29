@@ -44,6 +44,7 @@ void saveSession()
 			@"languageIndex": @(doc.languageIndex),
 			@"encoding": @(doc.encoding),
 			@"eolMode": @(doc.eolMode),
+			@"zoomLevel": @(doc.zoomLevel),
 		}];
 	}
 
@@ -63,6 +64,7 @@ void saveSession()
 				@"languageIndex": @(doc.languageIndex),
 				@"encoding": @(doc.encoding),
 				@"eolMode": @(doc.eolMode),
+				@"zoomLevel": @(doc.zoomLevel),
 			}];
 		}
 	}
@@ -120,6 +122,14 @@ void restoreSession()
 					ctx().documents[idx].encoding = [tab[@"encoding"] intValue];
 				if (tab[@"eolMode"])
 					ctx().documents[idx].eolMode = [tab[@"eolMode"] intValue];
+				if (tab[@"zoomLevel"])
+				{
+					ctx().documents[idx].zoomLevel = [tab[@"zoomLevel"] intValue];
+					// Apply zoom to Scintilla immediately so saveViewState()
+					// reads the correct value when the next tab is opened
+					ScintillaBridge_sendMessage(ctx().scintillaView, SCI_SETZOOM,
+					                            ctx().documents[idx].zoomLevel, 0);
+				}
 			}
 		}
 	}
@@ -170,6 +180,12 @@ void restoreSession()
 							ctx().documents2[idx].encoding = [tab[@"encoding"] intValue];
 						if (tab[@"eolMode"])
 							ctx().documents2[idx].eolMode = [tab[@"eolMode"] intValue];
+						if (tab[@"zoomLevel"])
+						{
+							ctx().documents2[idx].zoomLevel = [tab[@"zoomLevel"] intValue];
+							ScintillaBridge_sendMessage(ctx().scintillaView2, SCI_SETZOOM,
+							                            ctx().documents2[idx].zoomLevel, 0);
+						}
 					}
 				}
 

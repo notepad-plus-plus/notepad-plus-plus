@@ -21,6 +21,7 @@
 #include "document_map.h"
 #include "function_list_panel.h"
 #include "scintilla_notify.h"
+#include "macro_manager.h"
 #include "windows.h"
 #include "commctrl.h"
 
@@ -220,6 +221,11 @@ void doSplit()
 							}
 						}
 					}
+					else if (scn->nmhdr.code == SCN_MACRORECORD)
+					{
+						if (MacroManager::instance().isRecording())
+							MacroManager::instance().recordStep(scn->message, scn->wParam, scn->lParam);
+					}
 				}
 			});
 	}
@@ -378,6 +384,7 @@ void doMoveToOtherView()
 		dstDocs[dstIdx].anchorPos = docCopy.anchorPos;
 		dstDocs[dstIdx].firstVisibleLine = docCopy.firstVisibleLine;
 		dstDocs[dstIdx].bookmarkedLines = docCopy.bookmarkedLines;
+		dstDocs[dstIdx].zoomLevel = docCopy.zoomLevel;
 	}
 
 	closeTabFromView(srcView, srcTab);
@@ -410,5 +417,6 @@ void doCloneToOtherView()
 		dstDocs[dstIdx].anchorPos = docCopy.anchorPos;
 		dstDocs[dstIdx].firstVisibleLine = docCopy.firstVisibleLine;
 		dstDocs[dstIdx].bookmarkedLines = docCopy.bookmarkedLines;
+		dstDocs[dstIdx].zoomLevel = docCopy.zoomLevel;
 	}
 }

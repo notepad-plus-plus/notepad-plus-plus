@@ -109,8 +109,8 @@ void configureScintilla(void* sci)
 	ScintillaBridge_sendMessage(sci, SCI_SETMULTIPASTE, SC_MULTIPASTE_EACH, 0);
 	ScintillaBridge_sendMessage(sci, SCI_SETADDITIONALCARETSVISIBLE, 1, 0);
 
-	// Multi-cursor visual styling (Scintilla uses BGR byte order)
-	ScintillaBridge_sendMessage(sci, SCI_SETADDITIONALCARETFORE, 0xCC0000, 0);  // BGR 0xCC0000 = blue
+	// Multi-cursor visual styling
+	ScintillaBridge_sendMessage(sci, SCI_SETADDITIONALCARETFORE, 0x0000CC, 0);  // RGB 0x0000CC = blue
 	ScintillaBridge_sendMessage(sci, SCI_SETADDITIONALSELALPHA, 80, 0);  // semi-transparent selections
 
 	// Whitespace / EOL / indent guide visibility
@@ -121,9 +121,6 @@ void configureScintilla(void* sci)
 	ScintillaBridge_sendMessage(sci, SCI_SETCARETLINEVISIBLE, ctx().showCaretLine ? 1 : 0, 0);
 	if (ctx().showCaretLine)
 		ScintillaBridge_sendMessage(sci, SCI_SETCARETLINEBACK, 0xF0F0F0, 0);
-
-	if (ctx().zoomLevel != 0)
-		ScintillaBridge_sendMessage(sci, SCI_SETZOOM, ctx().zoomLevel, 0);
 
 	configureSmartHighlightIndicator(sci, false);
 

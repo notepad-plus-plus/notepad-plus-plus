@@ -57,6 +57,11 @@ HMENU buildMenuBar()
 	AppendMenuW(hCaseMenu, MF_STRING, IDM_EDIT_UPPERCASE, L"&UPPERCASE\tCtrl+Shift+U");
 	AppendMenuW(hCaseMenu, MF_STRING, IDM_EDIT_LOWERCASE, L"&lowercase\tCtrl+U");
 	AppendMenuW(hCaseMenu, MF_STRING, IDM_EDIT_TITLECASE, L"&Title Case");
+	AppendMenuW(hCaseMenu, MF_STRING, IDM_EDIT_SENTENCECASE, L"&Sentence case");
+	AppendMenuW(hCaseMenu, MF_STRING, IDM_EDIT_INVERTCASE, L"&iNVERT cASE");
+	AppendMenuW(hCaseMenu, MF_SEPARATOR, 0, nullptr);
+	AppendMenuW(hCaseMenu, MF_STRING, IDM_EDIT_CAMELCASE, L"&camelCase");
+	AppendMenuW(hCaseMenu, MF_STRING, IDM_EDIT_SNAKECASE, L"sna&ke_case");
 	AppendMenuW(hEditMenu, MF_POPUP, reinterpret_cast<UINT_PTR>(hCaseMenu), L"Case Conversion");
 
 	HMENU hLineMenu = CreatePopupMenu();
@@ -67,6 +72,11 @@ HMENU buildMenuBar()
 	AppendMenuW(hLineMenu, MF_SEPARATOR, 0, nullptr);
 	AppendMenuW(hLineMenu, MF_STRING, IDM_EDIT_SORTASC, L"&Sort Lines (Ascending)");
 	AppendMenuW(hLineMenu, MF_STRING, IDM_EDIT_SORTDESC, L"Sort Lines (&Descending)");
+	AppendMenuW(hLineMenu, MF_STRING, IDM_EDIT_SORT_CASE_INSENSITIVE, L"Sort Lines (&Case Insensitive)");
+	AppendMenuW(hLineMenu, MF_STRING, IDM_EDIT_SORT_REVERSE, L"&Reverse Line Order");
+	AppendMenuW(hLineMenu, MF_STRING, IDM_EDIT_SORT_NUMERIC, L"Sort Lines (&Numeric)");
+	AppendMenuW(hLineMenu, MF_STRING, IDM_EDIT_SORT_RANDOM, L"Sort Lines (R&andom)");
+	AppendMenuW(hLineMenu, MF_STRING, IDM_EDIT_REMOVE_DUPLICATES, L"Remove &Duplicate Lines");
 	AppendMenuW(hLineMenu, MF_STRING, IDM_EDIT_JOINLINES, L"&Join Lines");
 	AppendMenuW(hEditMenu, MF_POPUP, reinterpret_cast<UINT_PTR>(hLineMenu), L"Line Operations");
 
@@ -155,6 +165,28 @@ HMENU buildMenuBar()
 	AppendMenuW(hFormatMenu, MF_POPUP, reinterpret_cast<UINT_PTR>(hEncMenu), L"&Encoding");
 
 	AppendMenuW(hMenuBar, MF_POPUP, reinterpret_cast<UINT_PTR>(hFormatMenu), L"F&ormat");
+
+	// Macro menu
+	HMENU hMacroMenu = CreatePopupMenu();
+	AppendMenuW(hMacroMenu, MF_STRING, IDM_MACRO_START_RECORD, L"Start &Recording\tCtrl+Shift+R");
+	AppendMenuW(hMacroMenu, MF_STRING, IDM_MACRO_STOP_RECORD, L"S&top Recording\tCtrl+Shift+R");
+	AppendMenuW(hMacroMenu, MF_SEPARATOR, 0, nullptr);
+	AppendMenuW(hMacroMenu, MF_STRING, IDM_MACRO_PLAYBACK, L"&Playback\tCtrl+Shift+P");
+	AppendMenuW(hMacroMenu, MF_STRING, IDM_MACRO_PLAYBACK_MULTI, L"Run &Multiple Times...");
+	AppendMenuW(hMacroMenu, MF_SEPARATOR, 0, nullptr);
+	AppendMenuW(hMacroMenu, MF_STRING, IDM_MACRO_SAVE, L"&Save Current Macro...");
+	AppendMenuW(hMacroMenu, MF_STRING, IDM_MACRO_LOAD, L"&Load Macro...");
+	AppendMenuW(hMenuBar, MF_POPUP, reinterpret_cast<UINT_PTR>(hMacroMenu), L"&Macro");
+
+	// Tools menu (between Macro and Language)
+	HMENU hToolsMenu = CreatePopupMenu();
+	HMENU hHashMenu = CreatePopupMenu();
+	AppendMenuW(hHashMenu, MF_STRING, IDM_TOOLS_HASH_MD5, L"&MD5");
+	AppendMenuW(hHashMenu, MF_STRING, IDM_TOOLS_HASH_SHA1, L"SHA-&1");
+	AppendMenuW(hHashMenu, MF_STRING, IDM_TOOLS_HASH_SHA256, L"SHA-&256");
+	AppendMenuW(hHashMenu, MF_STRING, IDM_TOOLS_HASH_SHA512, L"SHA-&512");
+	AppendMenuW(hToolsMenu, MF_POPUP, reinterpret_cast<UINT_PTR>(hHashMenu), L"&Hash");
+	AppendMenuW(hMenuBar, MF_POPUP, reinterpret_cast<UINT_PTR>(hToolsMenu), L"&Tools");
 
 	// Language menu
 	HMENU hLangMenu = CreatePopupMenu();

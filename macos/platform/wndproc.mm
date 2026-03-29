@@ -32,6 +32,7 @@
 #include "document_map.h"
 #include "function_list_panel.h"
 #include "change_history.h"
+#include "hash_tools.h"
 #include "windows.h"
 #include "commctrl.h"
 
@@ -548,6 +549,19 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					return 0;
 				case IDM_VIEW_CLONETOOTHER:
 					doCloneToOtherView();
+					return 0;
+
+				case IDM_TOOLS_HASH_MD5:
+					doHashMD5();
+					return 0;
+				case IDM_TOOLS_HASH_SHA1:
+					doHashSHA1();
+					return 0;
+				case IDM_TOOLS_HASH_SHA256:
+					doHashSHA256();
+					return 0;
+				case IDM_TOOLS_HASH_SHA512:
+					doHashSHA512();
 					return 0;
 
 				case IDM_HELP_ABOUT:

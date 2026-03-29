@@ -166,6 +166,16 @@ HMENU buildMenuBar()
 
 	AppendMenuW(hMenuBar, MF_POPUP, reinterpret_cast<UINT_PTR>(hFormatMenu), L"F&ormat");
 
+	// Tools menu (between Format and Language)
+	HMENU hToolsMenu = CreatePopupMenu();
+	HMENU hHashMenu = CreatePopupMenu();
+	AppendMenuW(hHashMenu, MF_STRING, IDM_TOOLS_HASH_MD5, L"&MD5");
+	AppendMenuW(hHashMenu, MF_STRING, IDM_TOOLS_HASH_SHA1, L"SHA-&1");
+	AppendMenuW(hHashMenu, MF_STRING, IDM_TOOLS_HASH_SHA256, L"SHA-&256");
+	AppendMenuW(hHashMenu, MF_STRING, IDM_TOOLS_HASH_SHA512, L"SHA-&512");
+	AppendMenuW(hToolsMenu, MF_POPUP, reinterpret_cast<UINT_PTR>(hHashMenu), L"&Hash");
+	AppendMenuW(hMenuBar, MF_POPUP, reinterpret_cast<UINT_PTR>(hToolsMenu), L"&Tools");
+
 	// Language menu
 	HMENU hLangMenu = CreatePopupMenu();
 	for (int i = 0; i < g_numLanguages; ++i)

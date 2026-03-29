@@ -127,6 +127,12 @@ constexpr double NPP_STATUS_BAR_HEIGHT = 22.0;
 // Help menu commands
 #define IDM_HELP_ABOUT           46001
 
+// Tools menu commands (Sprint P2)
+#define IDM_TOOLS_HASH_MD5       48001
+#define IDM_TOOLS_HASH_SHA1      48002
+#define IDM_TOOLS_HASH_SHA256    48003
+#define IDM_TOOLS_HASH_SHA512    48004
+
 // Phase 7 — Format/Encoding commands
 #define IDM_FORMAT_EOL_LF            45001
 #define IDM_FORMAT_EOL_CRLF          45002

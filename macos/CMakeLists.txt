@@ -374,6 +374,7 @@ add_executable(MacOSNotePP
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/search_results_panel.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/toolbar.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/print_support.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/hash_tools.mm"
 )
 target_include_directories(MacOSNotePP PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/platform"

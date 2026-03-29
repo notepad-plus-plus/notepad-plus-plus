@@ -56,6 +56,7 @@ struct DocumentData
 	std::vector<int> bookmarkedLines; // Persisted across tab switches
 	int encoding = ENC_UTF8;
 	int eolMode = SC_EOL_LF;
+	int zoomLevel = 0;
 	uint64_t functionListDocumentId = 0;
 	uint64_t functionListRevision = 0;
 };

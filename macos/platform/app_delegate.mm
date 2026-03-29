@@ -115,7 +115,6 @@ static void setDockIconFromLogo()
 	ctx().fontSize = s.fontSize;
 	ctx().tabWidth = s.tabWidth;
 	ctx().showLineNumbers = s.showLineNumbers;
-	ctx().zoomLevel = s.zoomLevel;
 	ctx().showCaretLine = s.showCaretLine;
 	ctx().autoIndent = s.autoIndent;
 	ctx().autoCloseBrackets = s.autoCloseBrackets;
@@ -581,7 +580,6 @@ static void setDockIconFromLogo()
 	s.fontSize = ctx().fontSize;
 	s.tabWidth = ctx().tabWidth;
 	s.showLineNumbers = ctx().showLineNumbers;
-	s.zoomLevel = ctx().zoomLevel;
 	s.showCaretLine = ctx().showCaretLine;
 	s.autoIndent = ctx().autoIndent;
 	s.autoCloseBrackets = ctx().autoCloseBrackets;

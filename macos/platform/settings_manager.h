@@ -21,7 +21,6 @@ struct AppSettings
 	// View state
 	bool wordWrap = false;
 	bool showLineNumbers = true;
-	int zoomLevel = 0;
 	bool showCaretLine = true;
 	bool autoIndent = true;
 	bool autoCloseBrackets = true;

@@ -44,6 +44,7 @@ void saveSession()
 			@"languageIndex": @(doc.languageIndex),
 			@"encoding": @(doc.encoding),
 			@"eolMode": @(doc.eolMode),
+			@"zoomLevel": @(doc.zoomLevel),
 		}];
 	}
 
@@ -63,6 +64,7 @@ void saveSession()
 				@"languageIndex": @(doc.languageIndex),
 				@"encoding": @(doc.encoding),
 				@"eolMode": @(doc.eolMode),
+				@"zoomLevel": @(doc.zoomLevel),
 			}];
 		}
 	}
@@ -120,6 +122,8 @@ void restoreSession()
 					ctx().documents[idx].encoding = [tab[@"encoding"] intValue];
 				if (tab[@"eolMode"])
 					ctx().documents[idx].eolMode = [tab[@"eolMode"] intValue];
+				if (tab[@"zoomLevel"])
+					ctx().documents[idx].zoomLevel = [tab[@"zoomLevel"] intValue];
 			}
 		}
 	}
@@ -170,6 +174,8 @@ void restoreSession()
 							ctx().documents2[idx].encoding = [tab[@"encoding"] intValue];
 						if (tab[@"eolMode"])
 							ctx().documents2[idx].eolMode = [tab[@"eolMode"] intValue];
+						if (tab[@"zoomLevel"])
+							ctx().documents2[idx].zoomLevel = [tab[@"zoomLevel"] intValue];
 					}
 				}
 

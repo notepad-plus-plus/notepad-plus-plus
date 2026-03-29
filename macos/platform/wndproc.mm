@@ -367,33 +367,43 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 				case IDM_VIEW_ZOOMIN:
 				{
-					if (ctx().scintillaView)
-						ScintillaBridge_sendMessage(ctx().scintillaView, SCI_ZOOMIN, 0, 0);
-					if (ctx().isSplit && ctx().scintillaView2)
-						ScintillaBridge_sendMessage(ctx().scintillaView2, SCI_ZOOMIN, 0, 0);
-					if (ctx().scintillaView)
-						ctx().zoomLevel = static_cast<int>(ScintillaBridge_sendMessage(ctx().scintillaView, SCI_GETZOOM, 0, 0));
+					void* sci = ctx().activeScintillaView();
+					if (sci)
+					{
+						ScintillaBridge_sendMessage(sci, SCI_ZOOMIN, 0, 0);
+						auto& docs = ctx().activeDocuments();
+						int tabIdx = ctx().activeTabIndex();
+						if (tabIdx >= 0 && tabIdx < static_cast<int>(docs.size()))
+							docs[tabIdx].zoomLevel = static_cast<int>(ScintillaBridge_sendMessage(sci, SCI_GETZOOM, 0, 0));
+					}
 					refreshLineNumberMargins();
 					return 0;
 				}
 				case IDM_VIEW_ZOOMOUT:
 				{
-					if (ctx().scintillaView)
-						ScintillaBridge_sendMessage(ctx().scintillaView, SCI_ZOOMOUT, 0, 0);
-					if (ctx().isSplit && ctx().scintillaView2)
-						ScintillaBridge_sendMessage(ctx().scintillaView2, SCI_ZOOMOUT, 0, 0);
-					if (ctx().scintillaView)
-						ctx().zoomLevel = static_cast<int>(ScintillaBridge_sendMessage(ctx().scintillaView, SCI_GETZOOM, 0, 0));
+					void* sci = ctx().activeScintillaView();
+					if (sci)
+					{
+						ScintillaBridge_sendMessage(sci, SCI_ZOOMOUT, 0, 0);
+						auto& docs = ctx().activeDocuments();
+						int tabIdx = ctx().activeTabIndex();
+						if (tabIdx >= 0 && tabIdx < static_cast<int>(docs.size()))
+							docs[tabIdx].zoomLevel = static_cast<int>(ScintillaBridge_sendMessage(sci, SCI_GETZOOM, 0, 0));
+					}
 					refreshLineNumberMargins();
 					return 0;
 				}
 				case IDM_VIEW_ZOOMRESTORE:
 				{
-					ctx().zoomLevel = 0;
-					if (ctx().scintillaView)
-						ScintillaBridge_sendMessage(ctx().scintillaView, SCI_SETZOOM, 0, 0);
-					if (ctx().isSplit && ctx().scintillaView2)
-						ScintillaBridge_sendMessage(ctx().scintillaView2, SCI_SETZOOM, 0, 0);
+					void* sci = ctx().activeScintillaView();
+					if (sci)
+					{
+						ScintillaBridge_sendMessage(sci, SCI_SETZOOM, 0, 0);
+						auto& docs = ctx().activeDocuments();
+						int tabIdx = ctx().activeTabIndex();
+						if (tabIdx >= 0 && tabIdx < static_cast<int>(docs.size()))
+							docs[tabIdx].zoomLevel = 0;
+					}
 					refreshLineNumberMargins();
 					return 0;
 				}

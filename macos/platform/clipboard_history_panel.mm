@@ -312,10 +312,8 @@ void setClipboardHistoryEnabled(bool enabled)
 		if (!sMonitoringActive)
 			startClipboardMonitoring();
 	}
-	else
-	{
-		stopClipboardMonitoring();
-	}
+	// Once the feature has been enabled, keep monitoring active even while
+	// the panel is hidden so clipboard activity continues to accumulate.
 	relayoutFunctionListPanel();
 }
 
@@ -329,11 +327,15 @@ void captureClipboardEntry()
 	if (!sMonitoringActive)
 		return;
 
+	NSInteger currentCount = [NSPasteboard generalPasteboard].changeCount;
+	if (currentCount == sLastChangeCount)
+		return;
+
 	// Scintilla writes to the pasteboard synchronously during SCI_COPY/SCI_CUT,
-	// so the content is available immediately. Capture it now and update the
-	// change count so the polling timer doesn't re-capture the same entry.
+	// so the content is available immediately. Only capture when the pasteboard
+	// actually changed to avoid recording stale content after no-op copy/cut.
 	captureFromPasteboard();
-	sLastChangeCount = [NSPasteboard generalPasteboard].changeCount;
+	sLastChangeCount = currentCount;
 }
 
 void* clipboardHistoryContainerView()

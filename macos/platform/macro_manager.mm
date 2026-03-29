@@ -19,9 +19,9 @@ static bool isStringMessage(int message)
 		case SCI_SETTEXT:        // 2181
 		case SCI_REPLACETARGET:  // 2194 — used by Find & Replace
 		case 2195:               // SCI_REPLACETARGETRE
-		case 2282:               // SCI_SEARCHNEXT
-		case 2283:               // SCI_SEARCHPREV
-		case 2014:               // SCI_ADDTEXT (via length + lParam)
+		case 2367:               // SCI_SEARCHNEXT
+		case 2368:               // SCI_SEARCHPREV
+		case 2001:               // SCI_ADDTEXT (via length + lParam)
 		case SCI_TEXTWIDTH:      // 2276
 		case SCI_STYLESETFONT:   // 2056
 			return true;

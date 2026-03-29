@@ -426,11 +426,18 @@ static bool readSelectedLines(void*& sci, intptr_t& startLine, intptr_t& endLine
 static void replaceSelectedLines(void* sci, intptr_t replStart, intptr_t replEnd,
                                  const std::vector<std::string>& lines)
 {
+	// Use the document's EOL mode so we don't silently rewrite CRLF/CR to LF
+	const char* eol = "\n";
+	int eolLen = 1;
+	int eolMode = static_cast<int>(ScintillaBridge_sendMessage(sci, SCI_GETEOLMODE, 0, 0));
+	if (eolMode == SC_EOL_CRLF) { eol = "\r\n"; eolLen = 2; }
+	else if (eolMode == SC_EOL_CR) { eol = "\r"; eolLen = 1; }
+
 	std::string result;
 	for (size_t i = 0; i < lines.size(); ++i)
 	{
 		result += lines[i];
-		if (i + 1 < lines.size()) result += '\n';
+		if (i + 1 < lines.size()) result.append(eol, eolLen);
 	}
 
 	ScintillaBridge_sendMessage(sci, SCI_BEGINUNDOACTION, 0, 0);

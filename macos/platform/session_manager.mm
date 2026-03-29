@@ -123,7 +123,13 @@ void restoreSession()
 				if (tab[@"eolMode"])
 					ctx().documents[idx].eolMode = [tab[@"eolMode"] intValue];
 				if (tab[@"zoomLevel"])
+				{
 					ctx().documents[idx].zoomLevel = [tab[@"zoomLevel"] intValue];
+					// Apply zoom to Scintilla immediately so saveViewState()
+					// reads the correct value when the next tab is opened
+					ScintillaBridge_sendMessage(ctx().scintillaView, SCI_SETZOOM,
+					                            ctx().documents[idx].zoomLevel, 0);
+				}
 			}
 		}
 	}
@@ -175,7 +181,11 @@ void restoreSession()
 						if (tab[@"eolMode"])
 							ctx().documents2[idx].eolMode = [tab[@"eolMode"] intValue];
 						if (tab[@"zoomLevel"])
+						{
 							ctx().documents2[idx].zoomLevel = [tab[@"zoomLevel"] intValue];
+							ScintillaBridge_sendMessage(ctx().scintillaView2, SCI_SETZOOM,
+							                            ctx().documents2[idx].zoomLevel, 0);
+						}
 					}
 				}
 

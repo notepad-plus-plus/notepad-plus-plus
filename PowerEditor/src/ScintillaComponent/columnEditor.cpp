@@ -467,7 +467,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 								{
 									::GetDlgItemText(_hSelf, LOWORD(wParam), str, stringSize);
 
-									if (lstrcmp(str, L"") == 0)
+									if (str[0] == L'\0')
 									{
 										colEditParam._initialNum = -1;
 										return TRUE;
@@ -488,7 +488,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 								{
 									::GetDlgItemText(_hSelf, LOWORD(wParam), str, stringSize);
 
-									if (lstrcmp(str, L"") == 0)
+									if (str[0] == L'\0')
 									{
 										colEditParam._increaseNum = -1;
 										return TRUE;
@@ -509,7 +509,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 								{
 									::GetDlgItemText(_hSelf, LOWORD(wParam), str, stringSize);
 
-									if (lstrcmp(str, L"") == 0)
+									if (str[0] == L'\0')
 									{
 										colEditParam._repeatNum = -1;
 										return TRUE;
@@ -749,6 +749,9 @@ void ColumnEditorDlg::setNumericFields(const ColumnEditorParam& colEditParam)
 // Convert the string to an integer, depending on base
 int ColumnEditorDlg::getNumericFieldValueFromText(NumBase formatChoice, const std::wstring& str)
 {
+	if (str.empty())
+		return 0;
+
 	int base = 0;
 
 	switch (formatChoice)

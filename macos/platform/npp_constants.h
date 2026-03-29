@@ -389,6 +389,12 @@ enum {
 	// Macro recording
 	SCI_STARTRECORD          = 3001,
 	SCI_STOPRECORD           = 3002,
+
+	// Additional messages used by macro string-payload detection
+	SCI_ADDTEXT              = 2001,
+	SCI_REPLACETARGETRE      = 2195,
+	SCI_SEARCHNEXT           = 2367,
+	SCI_SEARCHPREV           = 2368,
 };
 
 // Scintilla key constants

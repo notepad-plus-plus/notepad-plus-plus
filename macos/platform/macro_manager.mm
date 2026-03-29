@@ -13,17 +13,17 @@ static bool isStringMessage(int message)
 {
 	switch (message)
 	{
-		case SCI_REPLACESEL:     // 2170
-		case SCI_INSERTTEXT:     // 2003
-		case SCI_SEARCHINTARGET: // 2197
-		case SCI_SETTEXT:        // 2181
-		case SCI_REPLACETARGET:  // 2194 — used by Find & Replace
-		case 2195:               // SCI_REPLACETARGETRE
-		case 2367:               // SCI_SEARCHNEXT
-		case 2368:               // SCI_SEARCHPREV
-		case 2001:               // SCI_ADDTEXT (via length + lParam)
-		case SCI_TEXTWIDTH:      // 2276
-		case SCI_STYLESETFONT:   // 2056
+		case SCI_REPLACESEL:      // 2170
+		case SCI_INSERTTEXT:      // 2003
+		case SCI_SEARCHINTARGET:  // 2197
+		case SCI_SETTEXT:         // 2181
+		case SCI_REPLACETARGET:   // 2194 — used by Find & Replace
+		case SCI_REPLACETARGETRE: // 2195
+		case SCI_SEARCHNEXT:      // 2367
+		case SCI_SEARCHPREV:      // 2368
+		case SCI_ADDTEXT:         // 2001 (via length + lParam)
+		case SCI_TEXTWIDTH:       // 2276
+		case SCI_STYLESETFONT:    // 2056
 			return true;
 		default:
 			return false;
@@ -67,7 +67,23 @@ void MacroManager::recordStep(int message, uintptr_t wParam, intptr_t lParam)
 	if (isStringMessage(message) && lParam != 0)
 	{
 		const char* str = reinterpret_cast<const char*>(lParam);
-		step.text = str;
+		// For messages where wParam is an explicit byte length and the buffer
+		// is not guaranteed NUL-terminated, copy using the length to avoid
+		// reading past the buffer. Fall back to NUL-terminated for the rest.
+		switch (message)
+		{
+			case SCI_ADDTEXT:         // wParam = length
+			case SCI_REPLACETARGET:   // wParam = length (-1 for NUL-term)
+			case SCI_REPLACETARGETRE: // wParam = length (-1 for NUL-term)
+				if (wParam != static_cast<uintptr_t>(-1))
+					step.text.assign(str, static_cast<size_t>(wParam));
+				else
+					step.text = str;
+				break;
+			default:
+				step.text = str;
+				break;
+		}
 		step.lParam = 0; // Marker: use text field on playback
 	}
 	else
@@ -241,8 +257,22 @@ void MacroManager::saveMacro(const std::string& name)
 	NSData* data = [NSJSONSerialization dataWithJSONObject:allMacros
 	                                              options:NSJSONWritingPrettyPrinted
 	                                                error:&error];
-	if (data && !error && path)
-		[data writeToFile:path atomically:YES];
+	if (!data || error)
+	{
+		NSAlert* errAlert = [[NSAlert alloc] init];
+		errAlert.messageText = @"Save Failed";
+		errAlert.informativeText = error ? error.localizedDescription : @"Could not serialize macro data.";
+		[errAlert runModal];
+		return;
+	}
+
+	if (path && ![data writeToFile:path atomically:YES])
+	{
+		NSAlert* errAlert = [[NSAlert alloc] init];
+		errAlert.messageText = @"Save Failed";
+		errAlert.informativeText = @"Could not write macros file to disk.";
+		[errAlert runModal];
+	}
 }
 
 void MacroManager::loadMacro(const std::string& name)
@@ -251,14 +281,35 @@ void MacroManager::loadMacro(const std::string& name)
 	if (!path) return;
 
 	NSData* data = [NSData dataWithContentsOfFile:path];
-	if (!data) return;
+	if (!data)
+	{
+		NSAlert* errAlert = [[NSAlert alloc] init];
+		errAlert.messageText = @"Load Failed";
+		errAlert.informativeText = @"No saved macros file found.";
+		[errAlert runModal];
+		return;
+	}
 
-	id parsed = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-	if (![parsed isKindOfClass:[NSDictionary class]]) return;
+	NSError* jsonError = nil;
+	id parsed = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+	if (![parsed isKindOfClass:[NSDictionary class]])
+	{
+		NSAlert* errAlert = [[NSAlert alloc] init];
+		errAlert.messageText = @"Load Failed";
+		errAlert.informativeText = jsonError ? jsonError.localizedDescription : @"Macros file is corrupted.";
+		[errAlert runModal];
+		return;
+	}
 	NSDictionary* allMacros = parsed;
 
 	if (allMacros.count == 0)
+	{
+		NSAlert* errAlert = [[NSAlert alloc] init];
+		errAlert.messageText = @"No Macros";
+		errAlert.informativeText = @"No saved macros found.";
+		[errAlert runModal];
 		return;
+	}
 
 	NSString* macroName = nil;
 

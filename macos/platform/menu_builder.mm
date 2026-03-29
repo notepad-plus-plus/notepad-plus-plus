@@ -168,10 +168,10 @@ HMENU buildMenuBar()
 
 	// Macro menu
 	HMENU hMacroMenu = CreatePopupMenu();
-	AppendMenuW(hMacroMenu, MF_STRING, IDM_MACRO_START_RECORD, L"Start &Recording");
-	AppendMenuW(hMacroMenu, MF_STRING, IDM_MACRO_STOP_RECORD, L"S&top Recording");
+	AppendMenuW(hMacroMenu, MF_STRING, IDM_MACRO_START_RECORD, L"Start &Recording\tCtrl+Shift+R");
+	AppendMenuW(hMacroMenu, MF_STRING, IDM_MACRO_STOP_RECORD, L"S&top Recording\tCtrl+Shift+R");
 	AppendMenuW(hMacroMenu, MF_SEPARATOR, 0, nullptr);
-	AppendMenuW(hMacroMenu, MF_STRING, IDM_MACRO_PLAYBACK, L"&Playback");
+	AppendMenuW(hMacroMenu, MF_STRING, IDM_MACRO_PLAYBACK, L"&Playback\tCtrl+Shift+P");
 	AppendMenuW(hMacroMenu, MF_STRING, IDM_MACRO_PLAYBACK_MULTI, L"Run &Multiple Times...");
 	AppendMenuW(hMacroMenu, MF_SEPARATOR, 0, nullptr);
 	AppendMenuW(hMacroMenu, MF_STRING, IDM_MACRO_SAVE, L"&Save Current Macro...");

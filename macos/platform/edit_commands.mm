@@ -410,11 +410,19 @@ static bool readSelectedLines(void*& sci, intptr_t& startLine, intptr_t& endLine
 	{
 		intptr_t lineStart = ScintillaBridge_sendMessage(sci, SCI_POSITIONFROMLINE, line, 0);
 		intptr_t lineEnd = ScintillaBridge_sendMessage(sci, SCI_GETLINEENDPOSITION, line, 0);
-		intptr_t len = lineEnd - lineStart;
-		std::string text(len, '\0');
-		for (intptr_t i = 0; i < len; ++i)
-			text[i] = (char)ScintillaBridge_sendMessage(sci, SCI_GETCHARAT, lineStart + i, 0);
-		lines.push_back(text);
+		intptr_t contentLen = lineEnd - lineStart;
+		// Use SCI_GETLINE for bulk read (includes EOL), then truncate to content length
+		intptr_t fullLen = ScintillaBridge_sendMessage(sci, SCI_LINELENGTH, line, 0);
+		if (fullLen > 0)
+		{
+			std::string buf(static_cast<size_t>(fullLen) + 1, '\0');
+			ScintillaBridge_sendMessage(sci, SCI_GETLINE, line, reinterpret_cast<intptr_t>(buf.data()));
+			lines.push_back(buf.substr(0, static_cast<size_t>(contentLen)));
+		}
+		else
+		{
+			lines.push_back(std::string());
+		}
 	}
 
 	replStart = ScintillaBridge_sendMessage(sci, SCI_POSITIONFROMLINE, startLine, 0);

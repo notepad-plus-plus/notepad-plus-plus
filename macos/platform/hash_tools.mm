@@ -6,6 +6,7 @@
 
 #import <Cocoa/Cocoa.h>
 #include <CommonCrypto/CommonDigest.h>
+#include <cstdio>
 #include <string>
 #include <vector>
 
@@ -42,6 +43,10 @@ static std::string computeHash(const void* data, size_t length, const std::strin
 	{
 		CC_SHA512(data, static_cast<CC_LONG>(length), digest);
 		digestLen = CC_SHA512_DIGEST_LENGTH;
+	}
+	else
+	{
+		return "(unsupported algorithm)";
 	}
 
 	// Convert to lowercase hex string

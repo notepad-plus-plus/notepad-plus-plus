@@ -6,7 +6,9 @@
 #include "scintilla_bridge.h"
 #include "npp_constants.h"
 
-// Messages that use lParam as a string pointer and need text copying during record
+// Messages that use lParam as a string pointer and need text copying during record.
+// This list matches Notepad++ upstream's recordedMacroStep handling for Scintilla
+// messages that pass string data via lParam.
 static bool isStringMessage(int message)
 {
 	switch (message)
@@ -15,6 +17,13 @@ static bool isStringMessage(int message)
 		case SCI_INSERTTEXT:     // 2003
 		case SCI_SEARCHINTARGET: // 2197
 		case SCI_SETTEXT:        // 2181
+		case SCI_REPLACETARGET:  // 2194 — used by Find & Replace
+		case 2195:               // SCI_REPLACETARGETRE
+		case 2282:               // SCI_SEARCHNEXT
+		case 2283:               // SCI_SEARCHPREV
+		case 2014:               // SCI_ADDTEXT (via length + lParam)
+		case SCI_TEXTWIDTH:      // 2276
+		case SCI_STYLESETFONT:   // 2056
 			return true;
 		default:
 			return false;

@@ -89,6 +89,10 @@ struct AppContext
 	bool functionListEnabled = false;
 	int functionListWidth = 200;
 
+	// Clipboard history state
+	bool clipboardHistoryEnabled = false;
+	int clipboardHistoryWidth = 220;
+
 	// Notification suppression (prevents false dirty indicators during tab switches)
 	bool suppressSavePointNotifications = false;
 

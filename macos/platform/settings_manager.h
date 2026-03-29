@@ -31,9 +31,11 @@ struct AppSettings
 	bool syncScrolling = false;
 	bool documentMap = false;
 	bool functionList = false;
+	bool clipboardHistory = false;
 	bool showChangeHistory = true;
 	int documentMapWidth = 140;
 	int functionListWidth = 200;
+	int clipboardHistoryWidth = 220;
 
 	// Recent files
 	std::vector<std::string> recentFiles;

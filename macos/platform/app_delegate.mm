@@ -28,6 +28,7 @@
 #include "sync_scroll.h"
 #include "document_map.h"
 #include "function_list_panel.h"
+#include "clipboard_history_panel.h"
 #include "toolbar.h"
 #include "scintilla_notify.h"
 #include "macro_manager.h"
@@ -126,9 +127,11 @@ static void setDockIconFromLogo()
 	ctx().syncScrolling = s.syncScrolling;
 	ctx().documentMapEnabled = s.documentMap;
 	ctx().functionListEnabled = s.functionList;
+	ctx().clipboardHistoryEnabled = s.clipboardHistory;
 	ctx().showChangeHistory = s.showChangeHistory;
 	ctx().documentMapWidth = s.documentMapWidth;
 	ctx().functionListWidth = s.functionListWidth;
+	ctx().clipboardHistoryWidth = s.clipboardHistoryWidth;
 	setDockIconFromLogo();
 
 	ctx().recentFiles.clear();
@@ -493,6 +496,7 @@ static void setDockIconFromLogo()
 	updateSplitMenuState();
 	setDocumentMapEnabled(ctx().documentMapEnabled);
 	setFunctionListEnabled(ctx().functionListEnabled);
+	setClipboardHistoryEnabled(ctx().clipboardHistoryEnabled);
 	bindDocumentMapToActiveView();
 	updateDocumentMapViewport();
 
@@ -596,9 +600,11 @@ static void setDockIconFromLogo()
 	s.syncScrolling = ctx().syncScrolling;
 	s.documentMap = ctx().documentMapEnabled;
 	s.functionList = ctx().functionListEnabled;
+	s.clipboardHistory = ctx().clipboardHistoryEnabled;
 	s.showChangeHistory = ctx().showChangeHistory;
 	s.documentMapWidth = ctx().documentMapWidth;
 	s.functionListWidth = ctx().functionListWidth;
+	s.clipboardHistoryWidth = ctx().clipboardHistoryWidth;
 	s.wordWrap = ctx().scintillaView ?
 		(ScintillaBridge_sendMessage(ctx().scintillaView, SCI_GETWRAPMODE, 0, 0) != 0) : false;
 
@@ -629,6 +635,7 @@ static void setDockIconFromLogo()
 
 	destroyDocumentMap();
 	destroyFunctionListPanel();
+	destroyClipboardHistoryPanel();
 }
 
 - (void)windowDidResize:(NSNotification*)notification

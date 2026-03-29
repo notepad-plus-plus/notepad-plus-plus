@@ -30,6 +30,7 @@
 #include "function_list_panel.h"
 #include "toolbar.h"
 #include "scintilla_notify.h"
+#include "macro_manager.h"
 #include "windows.h"
 #include "commctrl.h"
 
@@ -347,6 +348,11 @@ static void setDockIconFromLogo()
 							scheduleFunctionListRefresh();
 						}
 					}
+				}
+				else if (scn->nmhdr.code == SCN_MACRORECORD)
+				{
+					if (MacroManager::instance().isRecording())
+						MacroManager::instance().recordStep(scn->message, scn->wParam, scn->lParam);
 				}
 			}
 		});

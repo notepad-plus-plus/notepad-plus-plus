@@ -33,6 +33,7 @@
 #include "function_list_panel.h"
 #include "change_history.h"
 #include "hash_tools.h"
+#include "macro_manager.h"
 #include "windows.h"
 #include "commctrl.h"
 
@@ -562,6 +563,37 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					return 0;
 				case IDM_TOOLS_HASH_SHA512:
 					doHashSHA512();
+					return 0;
+
+				case IDM_MACRO_START_RECORD:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci) MacroManager::instance().startRecording(sci);
+					return 0;
+				}
+				case IDM_MACRO_STOP_RECORD:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci) MacroManager::instance().stopRecording(sci);
+					return 0;
+				}
+				case IDM_MACRO_PLAYBACK:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci) MacroManager::instance().playback(sci);
+					return 0;
+				}
+				case IDM_MACRO_PLAYBACK_MULTI:
+				{
+					void* sci = ctx().activeScintillaView();
+					if (sci) MacroManager::instance().playbackMultiple(sci, 0);
+					return 0;
+				}
+				case IDM_MACRO_SAVE:
+					MacroManager::instance().saveMacro("");
+					return 0;
+				case IDM_MACRO_LOAD:
+					MacroManager::instance().loadMacro("");
 					return 0;
 
 				case IDM_HELP_ABOUT:

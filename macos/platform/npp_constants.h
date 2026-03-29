@@ -127,6 +127,14 @@ constexpr double NPP_STATUS_BAR_HEIGHT = 22.0;
 // Help menu commands
 #define IDM_HELP_ABOUT           46001
 
+// Macro menu commands (Sprint P2)
+#define IDM_MACRO_START_RECORD   47001
+#define IDM_MACRO_STOP_RECORD    47002
+#define IDM_MACRO_PLAYBACK       47003
+#define IDM_MACRO_PLAYBACK_MULTI 47004
+#define IDM_MACRO_SAVE           47005
+#define IDM_MACRO_LOAD           47006
+
 // Tools menu commands (Sprint P2)
 #define IDM_TOOLS_HASH_MD5       48001
 #define IDM_TOOLS_HASH_SHA1      48002
@@ -377,6 +385,10 @@ enum {
 	// Change history
 	SCI_SETCHANGEHISTORY     = 2780,
 	SCI_GETCHANGEHISTORY     = 2781,
+
+	// Macro recording
+	SCI_STARTRECORD          = 3001,
+	SCI_STOPRECORD           = 3002,
 };
 
 // Scintilla key constants
@@ -493,6 +505,7 @@ enum {
 #define SCN_SAVEPOINTLEFT    2003
 #define SCN_UPDATEUI         2007
 #define SCN_MODIFIED         2008
+#define SCN_MACRORECORD      2009
 #define SCN_FOCUSIN          2028
 
 // Scintilla modification flags

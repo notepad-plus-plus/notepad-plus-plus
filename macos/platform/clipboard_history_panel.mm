@@ -8,7 +8,7 @@
 #include <utility>
 
 #include "clipboard_history_panel.h"
-#include "function_list_panel.h"
+#include "panel_layout.h"
 #include "app_state.h"
 #include "scintilla_bridge.h"
 #include "npp_constants.h"
@@ -323,7 +323,7 @@ void setClipboardHistoryEnabled(bool enabled)
 		if (sTableView)
 			[sTableView reloadData];
 	}
-	relayoutFunctionListPanel();
+	relayoutPanels();
 }
 
 bool isClipboardHistoryEnabled()

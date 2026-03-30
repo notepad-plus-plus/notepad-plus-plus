@@ -21,6 +21,7 @@ static FILE* dbgLog()
 
 #include "function_list_panel.h"
 #include "function_list_parser.h"
+#include "panel_layout.h"
 #include "app_state.h"
 #include "document_manager.h"
 #include "npp_constants.h"
@@ -556,94 +557,9 @@ void destroyFunctionListPanel()
 	sController = nil;
 }
 
-void relayoutFunctionListPanel()
+void* functionListContainerView()
 {
-	if (!ctx().mainWindow || !ctx().editorContainer)
-		return;
-
-	NSView* contentView = ctx().mainWindow.contentView;
-	if (!contentView)
-		return;
-
-	const CGFloat tabHeight = NPP_TAB_BAR_HEIGHT;
-	const CGFloat statusHeight = NPP_STATUS_BAR_HEIGHT;
-	NSRect baseEditorFrame = NSMakeRect(0, statusHeight,
-		contentView.bounds.size.width,
-		contentView.bounds.size.height - tabHeight - statusHeight);
-
-	CGFloat mapWidth = (ctx().documentMapEnabled ? static_cast<CGFloat>(ctx().documentMapWidth) : 0.0);
-	CGFloat flWidth = (ctx().functionListEnabled ? static_cast<CGFloat>(ctx().functionListWidth) : 0.0);
-	CGFloat chWidth = (ctx().clipboardHistoryEnabled ? static_cast<CGFloat>(ctx().clipboardHistoryWidth) : 0.0);
-	if (flWidth < 0) flWidth = 0;
-	if (mapWidth < 0) mapWidth = 0;
-	if (chWidth < 0) chWidth = 0;
-
-	// Clamp: total side panels cannot exceed (window width - 120px editor minimum)
-	CGFloat maxSide = std::max<CGFloat>(0.0, baseEditorFrame.size.width - 120.0);
-	if (mapWidth > maxSide)
-	{
-		mapWidth = maxSide;
-		ctx().documentMapWidth = static_cast<int>(mapWidth);
-	}
-	if (flWidth + mapWidth > maxSide)
-	{
-		flWidth = std::max<CGFloat>(0.0, maxSide - mapWidth);
-		ctx().functionListWidth = static_cast<int>(flWidth);
-	}
-	if (chWidth + flWidth + mapWidth > maxSide)
-	{
-		chWidth = std::max<CGFloat>(0.0, maxSide - flWidth - mapWidth);
-		ctx().clipboardHistoryWidth = static_cast<int>(chWidth);
-	}
-
-	NSRect editorFrame = baseEditorFrame;
-	editorFrame.size.width -= (chWidth + flWidth + mapWidth);
-	if (editorFrame.size.width < 120)
-		editorFrame.size.width = 120;
-
-	if (ctx().isSplit && ctx().splitView)
-	{
-		ctx().splitView.frame = editorFrame;
-		[ctx().splitView adjustSubviews];
-	}
-	else
-	{
-		ctx().editorContainer.frame = editorFrame;
-	}
-
-	// Panel frames (left to right after editor):
-	// 1. Clipboard History
-	NSView* chContainer = (__bridge NSView*)clipboardHistoryContainerView();
-	NSRect chFrame = NSMakeRect(NSMaxX(editorFrame), baseEditorFrame.origin.y, chWidth, baseEditorFrame.size.height);
-	if (chContainer)
-	{
-		chContainer.frame = chFrame;
-		chContainer.hidden = !ctx().clipboardHistoryEnabled;
-	}
-
-	// 2. Function List
-	NSRect flFrame = NSMakeRect(NSMaxX(chFrame), baseEditorFrame.origin.y, flWidth, baseEditorFrame.size.height);
-	if (sContainer)
-	{
-		sContainer.frame = flFrame;
-		sContainer.hidden = !ctx().functionListEnabled;
-	}
-
-	// 3. Document Map
-	if (ctx().documentMapContainer)
-	{
-		NSRect mapFrame = NSMakeRect(NSMaxX(flFrame), baseEditorFrame.origin.y, mapWidth, baseEditorFrame.size.height);
-		ctx().documentMapContainer.frame = mapFrame;
-		ctx().documentMapContainer.hidden = !ctx().documentMapEnabled;
-	}
-
-	layoutSplitTopTabBars();
-	if (ctx().documentMapScintilla)
-		ScintillaBridge_resizeToFit(ctx().documentMapScintilla);
-	if (ctx().scintillaView)
-		ScintillaBridge_resizeToFit(ctx().scintillaView);
-	if (ctx().isSplit && ctx().scintillaView2)
-		ScintillaBridge_resizeToFit(ctx().scintillaView2);
+	return (__bridge void*)sContainer;
 }
 
 void setFunctionListEnabled(bool enabled)
@@ -651,7 +567,7 @@ void setFunctionListEnabled(bool enabled)
 	ctx().functionListEnabled = enabled;
 	if (enabled && !sContainer)
 		initializeFunctionListPanel();
-	relayoutFunctionListPanel();
+	relayoutPanels();
 	if (enabled)
 		updateFunctionListNow();
 	else

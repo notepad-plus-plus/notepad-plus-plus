@@ -29,6 +29,7 @@
 #include "document_map.h"
 #include "function_list_panel.h"
 #include "clipboard_history_panel.h"
+#include "panel_layout.h"
 #include "toolbar.h"
 #include "scintilla_notify.h"
 #include "macro_manager.h"
@@ -660,7 +661,7 @@ static void setDockIconFromLogo()
 		ScintillaBridge_resizeToFit(ctx().scintillaView2);
 
 	layoutSplitTopTabBars();
-	relayoutFunctionListPanel();
+	relayoutPanels();
 	updateDocumentMapViewport();
 	scheduleFunctionListRefresh();
 }
@@ -668,7 +669,7 @@ static void setDockIconFromLogo()
 - (void)splitViewDidResizeSubviews:(NSNotification*)notification
 {
 	layoutSplitTopTabBars();
-	relayoutFunctionListPanel();
+	relayoutPanels();
 	updateDocumentMapViewport();
 	scheduleFunctionListRefresh();
 }

@@ -20,6 +20,7 @@
 #include "sync_scroll.h"
 #include "document_map.h"
 #include "function_list_panel.h"
+#include "panel_layout.h"
 #include "scintilla_notify.h"
 #include "macro_manager.h"
 #include "windows.h"
@@ -277,7 +278,7 @@ void doSplit()
 		ScintillaBridge_sendMessage(ctx().scintillaView2, SCI_SETWRAPMODE, wrapMode, 0);
 	}
 
-	relayoutFunctionListPanel();
+	relayoutPanels();
 	bindDocumentMapToActiveView();
 	updateDocumentMapViewport();
 	bindFunctionListToActiveView();
@@ -350,7 +351,7 @@ void doUnsplit()
 
 	layoutSplitTopTabBars();
 	updateSplitMenuState();
-	relayoutFunctionListPanel();
+	relayoutPanels();
 	bindDocumentMapToActiveView();
 	updateDocumentMapViewport();
 	bindFunctionListToActiveView();

@@ -367,6 +367,7 @@ add_executable(MacOSNotePP
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/function_list_panel.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/clipboard_history_panel.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/panel_divider.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/panel_layout.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/file_path_ops.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/tab_bar_view.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/tab_context_menu.mm"

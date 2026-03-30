@@ -82,11 +82,11 @@ bool SettingsManager::load()
 	if ([json[@"showIndentGuides"] isKindOfClass:[NSNumber class]])settings.showIndentGuides = [json[@"showIndentGuides"] boolValue];
 	if ([json[@"syncScrolling"] isKindOfClass:[NSNumber class]])   settings.syncScrolling = [json[@"syncScrolling"] boolValue];
 	if ([json[@"documentMap"] isKindOfClass:[NSNumber class]])     settings.documentMap = [json[@"documentMap"] boolValue];
-	if ([json[@"functionList"] isKindOfClass:[NSNumber class]])    settings.functionList = [json[@"functionList"] boolValue];
-	if ([json[@"clipboardHistory"] isKindOfClass:[NSNumber class]])settings.clipboardHistory = [json[@"clipboardHistory"] boolValue];
-	if ([json[@"showChangeHistory"] isKindOfClass:[NSNumber class]])settings.showChangeHistory = [json[@"showChangeHistory"] boolValue];
-	if ([json[@"documentMapWidth"] isKindOfClass:[NSNumber class]])settings.documentMapWidth = [json[@"documentMapWidth"] intValue];
-	if ([json[@"functionListWidth"] isKindOfClass:[NSNumber class]])settings.functionListWidth = [json[@"functionListWidth"] intValue];
+	if ([json[@"functionList"] isKindOfClass:[NSNumber class]])         settings.functionList = [json[@"functionList"] boolValue];
+	if ([json[@"clipboardHistory"] isKindOfClass:[NSNumber class]])     settings.clipboardHistory = [json[@"clipboardHistory"] boolValue];
+	if ([json[@"showChangeHistory"] isKindOfClass:[NSNumber class]])    settings.showChangeHistory = [json[@"showChangeHistory"] boolValue];
+	if ([json[@"documentMapWidth"] isKindOfClass:[NSNumber class]])     settings.documentMapWidth = [json[@"documentMapWidth"] intValue];
+	if ([json[@"functionListWidth"] isKindOfClass:[NSNumber class]])    settings.functionListWidth = [json[@"functionListWidth"] intValue];
 	if ([json[@"clipboardHistoryWidth"] isKindOfClass:[NSNumber class]])settings.clipboardHistoryWidth = [json[@"clipboardHistoryWidth"] intValue];
 
 	// Recent files

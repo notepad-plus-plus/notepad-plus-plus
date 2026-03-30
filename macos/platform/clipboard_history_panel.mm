@@ -312,8 +312,13 @@ void setClipboardHistoryEnabled(bool enabled)
 		if (!sMonitoringActive)
 			startClipboardMonitoring();
 	}
-	// Once the feature has been enabled, keep monitoring active even while
-	// the panel is hidden so clipboard activity continues to accumulate.
+	else
+	{
+		stopClipboardMonitoring();
+		sHistory.clear();
+		if (sTableView)
+			[sTableView reloadData];
+	}
 	relayoutFunctionListPanel();
 }
 

@@ -3,12 +3,8 @@
     <OutputName>npp.Installer.x64</OutputName>
     <OutputType>Package</OutputType>
 	<Platform>x64</Platform>
-	<SuppressValidation>true</SuppressValidation>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <DebugType>none</DebugType>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="WixToolset.Util.wixext" Version="*" />
-  </ItemGroup>
 </Project>

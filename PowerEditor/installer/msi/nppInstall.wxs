@@ -1,4 +1,5 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+
 	<Package	Name="Notepad++"
 				Manufacturer="Notepad++ team"
 				Version="$(var.Version)"
@@ -11,7 +12,7 @@
 		-->
 		<Icon Id="Icon.ico" SourceFile="..\images\npp_inst.ico"/>
 		<Property Id="ARPPRODUCTICON" Value="Icon.ico" />
-
+		
 		<!--
 		No reboot after the installation by default
 		-->
@@ -69,39 +70,29 @@
 			<Component Id="cmp_NppShellMsix" Guid="{EB6E5606-60D1-4C69-8C9B-C0B12A19C6CE}">
 				<File Source="..\..\bin64\NppShell.msix" KeyPath="yes" />
 			</Component>
-			<Component Id="cmp_NppShellRegistry" Guid="{373DA2A0-EC23-41DC-A84D-48584FCC6619}">
-				<RegistryKey Root="HKCR" Key="*\shell\ANotepad++64">
-					<RegistryValue Type="string" Value="Notepad++ Context menu" KeyPath="yes" />
-					<RegistryValue Name="ExplorerCommandHandler" Type="string" Value="{B298D29A-A6ED-11DE-BA8C-A68E55D89593}" />
-					<RegistryValue Name="NeverDefault" Type="string" Value="" />
-				</RegistryKey>
-				<RegistryKey Root="HKCR" Key="CLSID\{B298D29A-A6ED-11DE-BA8C-A68E55D89593}">
-					<RegistryValue Type="string" Value="notepad++" />
-				</RegistryKey>
-				<RegistryKey Root="HKCR" Key="CLSID\{B298D29A-A6ED-11DE-BA8C-A68E55D89593}\InProcServer32">
-					<RegistryValue Type="string" Value="[ContextMenuFolder]NppShell.dll" />
-					<RegistryValue Name="ThreadingModel" Type="string" Value="Apartment" />
-				</RegistryKey>
-			</Component>
 		</ComponentGroup>
-		<!--
-		Register sparse MSIX package immediately during install for Windows 11 modern context menu
-		-->
-		<SetProperty Id="QtExecCmd"
-					 Value="powershell.exe -NonInteractive -WindowStyle Hidden -Command &quot;Add-AppxPackage -Path '[ContextMenuFolder]NppShell.msix' -ExternalLocation '[ContextMenuFolder]'&quot;"
-					 Before="RegisterSparsePackage"
-					 Sequence="execute" />
+	
 
-		<CustomAction Id="RegisterSparsePackage"
-					  BinaryRef="Wix4UtilCA_X86"
-					  DllEntry="WixQuietExec"
-					  Execute="deferred"
-					  Impersonate="yes"
-					  Return="ignore" />
+		<CustomAction	Id="RegisterNppShell" 
+						Directory="System64Folder" 
+						ExeCommand='"[System64Folder]regsvr32.exe" /s "[ContextMenuFolder]NppShell.dll"'
+						Execute="deferred"
+						Impersonate="no"
+						Return="check" />
+
+		<CustomAction	Id="UnregisterNppShell" 
+						Directory="System64Folder" 
+						ExeCommand='"[System64Folder]regsvr32.exe" /s /u "[ContextMenuFolder]NppShell.dll"'
+						Execute="deferred"
+						Impersonate="no"
+						Return="ignore" />
 
 		<InstallExecuteSequence>
-			<Custom Action="RegisterSparsePackage" After="InstallFiles" Condition="NOT Installed" />
+			<Custom Action="RegisterNppShell" After="InstallFiles" Condition="NOT Installed" />
+			<Custom Action="UnregisterNppShell" Before="RemoveFiles" Condition="REMOVE~=&quot;ALL&quot;"/>
 		</InstallExecuteSequence>
+
+
 
 		<Feature Id="MainApplication" Title="Notepad++ Files" Level="1">
 			<ComponentGroupRef Id="CoreComponentGroup" />

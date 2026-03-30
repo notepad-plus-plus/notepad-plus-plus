@@ -114,6 +114,9 @@ constexpr double NPP_STATUS_BAR_HEIGHT = 22.0;
 #define IDM_VIEW_CHANGE_HISTORY      42085
 #define IDM_VIEW_FUNCTIONLIST        42086
 #define IDM_VIEW_CLIPBOARD_HISTORY   42087
+#define IDM_VIEW_FILEBROWSER         42088
+#define IDM_VIEW_FILESWITCHER        42089
+#define IDM_FILE_OPENFOLDER          42094
 
 // Tab context menu command IDs
 #define IDM_TAB_CLOSE            42200

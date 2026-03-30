@@ -5,6 +5,7 @@
 #import <Cocoa/Cocoa.h>
 #include <deque>
 #include <string>
+#include <utility>
 
 #include "clipboard_history_panel.h"
 #include "function_list_panel.h"
@@ -167,9 +168,14 @@ static void captureFromPasteboard()
 	if (!sHistory.empty() && sHistory.front() == utf8)
 		return;
 
-	// Cap individual entry size
+	// Cap individual entry size, truncating at a valid UTF-8 boundary
 	if (utf8.size() > kMaxEntryBytes)
-		utf8.resize(kMaxEntryBytes);
+	{
+		size_t pos = kMaxEntryBytes;
+		while (pos > 0 && (static_cast<unsigned char>(utf8[pos]) & 0xC0) == 0x80)
+			--pos;
+		utf8.resize(pos);
+	}
 
 	sHistory.push_front(std::move(utf8));
 	if (sHistory.size() > kMaxHistoryEntries)
@@ -279,8 +285,6 @@ void initializeClipboardHistoryPanel()
 		[sScrollView.trailingAnchor constraintEqualToAnchor:sContainer.trailingAnchor constant:-6],
 		[sScrollView.bottomAnchor constraintEqualToAnchor:sContainer.bottomAnchor constant:-6]
 	]];
-
-	relayoutFunctionListPanel();
 }
 
 void destroyClipboardHistoryPanel()

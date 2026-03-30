@@ -5,6 +5,8 @@
 #include <unordered_map>
 #include <vector>
 
+#include "clipboard_history_panel.h"
+
 #ifdef DEBUG
 #include <cstdio>
 static FILE* dbgLog()
@@ -571,9 +573,12 @@ void relayoutFunctionListPanel()
 
 	CGFloat mapWidth = (ctx().documentMapEnabled ? static_cast<CGFloat>(ctx().documentMapWidth) : 0.0);
 	CGFloat flWidth = (ctx().functionListEnabled ? static_cast<CGFloat>(ctx().functionListWidth) : 0.0);
+	CGFloat chWidth = (ctx().clipboardHistoryEnabled ? static_cast<CGFloat>(ctx().clipboardHistoryWidth) : 0.0);
 	if (flWidth < 0) flWidth = 0;
 	if (mapWidth < 0) mapWidth = 0;
+	if (chWidth < 0) chWidth = 0;
 
+	// Clamp: total side panels cannot exceed (window width - 120px editor minimum)
 	CGFloat maxSide = std::max<CGFloat>(0.0, baseEditorFrame.size.width - 120.0);
 	if (mapWidth > maxSide)
 	{
@@ -585,9 +590,14 @@ void relayoutFunctionListPanel()
 		flWidth = std::max<CGFloat>(0.0, maxSide - mapWidth);
 		ctx().functionListWidth = static_cast<int>(flWidth);
 	}
+	if (chWidth + flWidth + mapWidth > maxSide)
+	{
+		chWidth = std::max<CGFloat>(0.0, maxSide - flWidth - mapWidth);
+		ctx().clipboardHistoryWidth = static_cast<int>(chWidth);
+	}
 
 	NSRect editorFrame = baseEditorFrame;
-	editorFrame.size.width -= (flWidth + mapWidth);
+	editorFrame.size.width -= (chWidth + flWidth + mapWidth);
 	if (editorFrame.size.width < 120)
 		editorFrame.size.width = 120;
 
@@ -601,13 +611,25 @@ void relayoutFunctionListPanel()
 		ctx().editorContainer.frame = editorFrame;
 	}
 
-	NSRect flFrame = NSMakeRect(NSMaxX(editorFrame), baseEditorFrame.origin.y, flWidth, baseEditorFrame.size.height);
+	// Panel frames (left to right after editor):
+	// 1. Clipboard History
+	NSView* chContainer = (__bridge NSView*)clipboardHistoryContainerView();
+	NSRect chFrame = NSMakeRect(NSMaxX(editorFrame), baseEditorFrame.origin.y, chWidth, baseEditorFrame.size.height);
+	if (chContainer)
+	{
+		chContainer.frame = chFrame;
+		chContainer.hidden = !ctx().clipboardHistoryEnabled;
+	}
+
+	// 2. Function List
+	NSRect flFrame = NSMakeRect(NSMaxX(chFrame), baseEditorFrame.origin.y, flWidth, baseEditorFrame.size.height);
 	if (sContainer)
 	{
 		sContainer.frame = flFrame;
 		sContainer.hidden = !ctx().functionListEnabled;
 	}
 
+	// 3. Document Map
 	if (ctx().documentMapContainer)
 	{
 		NSRect mapFrame = NSMakeRect(NSMaxX(flFrame), baseEditorFrame.origin.y, mapWidth, baseEditorFrame.size.height);

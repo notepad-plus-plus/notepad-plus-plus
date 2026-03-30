@@ -371,53 +371,35 @@ ${MementoSection} "Context Menu Entry" explorerContextMenu
 	WriteRegStr HKCR "CLSID\{B298D29A-A6ED-11DE-BA8C-A68E55D89593}\InProcServer32" "" "$INSTDIR\contextMenu\NppShell.dll"
 	WriteRegStr HKCR "CLSID\{B298D29A-A6ED-11DE-BA8C-A68E55D89593}\InProcServer32" "ThreadingModel" "Apartment"
 
-	; PackagedCom entries (needed for Windows 11 modern context menu)
+	; Register MSIX for Windows 11 modern context menu
+	; Skip only for x86 Notepad++ installation on Windows 32 system
 	!ifdef ARCH64
-		Call WritePackagedComKeys
+		Call RegisterMSIX
 	!else ifdef ARCHARM64
-		Call WritePackagedComKeys
+		Call RegisterMSIX
 	!else
 		${If} ${RunningX64}
-			Call WritePackagedComKeys
+			Call RegisterMSIX
 		${EndIf}
 	!endif
-	
-	; Register MSIX (Include the ExternalLocation flag for Sparse Packages)
+
+${MementoSectionEnd}
+
+${MementoSectionDone}
+
+; Helper function for registering MSIX (Include the ExternalLocation flag for Sparse Packages)
+Function RegisterMSIX
 	nsExec::ExecToLog 'powershell -Command "Add-AppxPackage -Path \"$INSTDIR\contextMenu\NppShell.msix\" -ExternalLocation \"$INSTDIR\contextMenu\""'
 
 	; Wait 2 seconds for the AppX service to finish indexing the new identity
 	Sleep 2000
-
+	
 	; Notify the Shell (Association Change + Interrupt)
 	System::Call 'shell32::SHChangeNotify(i 0x08000000, i 0, p 0, p 0)'
 	System::Call 'shell32::SHChangeNotify(i 0x00008000, i 0, p 0, p 0)'
 
 	; Broadcast the change
 	SendMessage ${HWND_BROADCAST} ${WM_SETTINGCHANGE} 0 "STR:ShellState" /TIMEOUT=2000
-
-${MementoSectionEnd}
-
-${MementoSectionDone}
-
-; Helper function for PackagedCom keys (only needed on 64bit / potential Win11)
-Function WritePackagedComKeys
-	SetRegView 64
-	WriteRegStr HKCR "PackagedCom\ClassIndex\{E6950302-61F0-4FEB-97DB-855E30D4A991}" "" ""
-	WriteRegStr HKCR "PackagedCom\ClassIndex\{E6950302-61F0-4FEB-97DB-855E30D4A991}\NotepadPlusPlus_1.0.0.0_neutral__2247w0b46hfww" "" ""
-
-	WriteRegDWORD HKCR "PackagedCom\Package\NotepadPlusPlus_1.0.0.0_neutral__2247w0b46hfww" "" 0x43
-	WriteRegStr   HKCR "PackagedCom\Package\NotepadPlusPlus_1.0.0.0_neutral__2247w0b46hfww\Class\{E6950302-61F0-4FEB-97DB-855E30D4A991}" "ServerId" ""
-	WriteRegDWORD HKCR "PackagedCom\Package\NotepadPlusPlus_1.0.0.0_neutral__2247w0b46hfww\Class\{E6950302-61F0-4FEB-97DB-855E30D4A991}" "ServerId" 0x0
-	WriteRegStr   HKCR "PackagedCom\Package\NotepadPlusPlus_1.0.0.0_neutral__2247w0b46hfww\Class\{E6950302-61F0-4FEB-97DB-855E30D4A991}" "DllPath" "NppShell.dll"
-	WriteRegDWORD HKCR "PackagedCom\Package\NotepadPlusPlus_1.0.0.0_neutral__2247w0b46hfww\Class\{E6950302-61F0-4FEB-97DB-855E30D4A991}" "Threading" 0x0
-
-	WriteRegStr   HKCR "PackagedCom\Package\NotepadPlusPlus_1.0.0.0_neutral__2247w0b46hfww\Server\0" "ApplicationId" "NotepadPlusPlus"
-	WriteRegStr   HKCR "PackagedCom\Package\NotepadPlusPlus_1.0.0.0_neutral__2247w0b46hfww\Server\0" "ApplicationDisplayName" "Notepad++"
-	WriteRegStr   HKCR "PackagedCom\Package\NotepadPlusPlus_1.0.0.0_neutral__2247w0b46hfww\Server\0" "DisplayName" "Notepad++ Shell Extension"
-	WriteRegStr   HKCR "PackagedCom\Package\NotepadPlusPlus_1.0.0.0_neutral__2247w0b46hfww\Server\0" "SurrogateAppId" "{E6950302-61F0-4FEB-97DB-855E30D4A991}"
-	WriteRegDWORD HKCR "PackagedCom\Package\NotepadPlusPlus_1.0.0.0_neutral__2247w0b46hfww\Server\0" "TrustLevel" 0x1
-	WriteRegDWORD HKCR "PackagedCom\Package\NotepadPlusPlus_1.0.0.0_neutral__2247w0b46hfww\Server\0" "RuntimeBehavior" 0x1
-	WriteRegDWORD HKCR "PackagedCom\Package\NotepadPlusPlus_1.0.0.0_neutral__2247w0b46hfww\Server\0" "BnoIsolation" 0x0
 FunctionEnd
 
 

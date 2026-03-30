@@ -29,6 +29,8 @@
 #include "document_map.h"
 #include "function_list_panel.h"
 #include "clipboard_history_panel.h"
+#include "file_browser_panel.h"
+#include "file_switcher_panel.h"
 #include "panel_layout.h"
 #include "toolbar.h"
 #include "scintilla_notify.h"
@@ -503,6 +505,10 @@ static void setDockIconFromLogo()
 	setDocumentMapEnabled(ctx().documentMapEnabled);
 	setFunctionListEnabled(ctx().functionListEnabled);
 	setClipboardHistoryEnabled(ctx().clipboardHistoryEnabled);
+	if (ctx().fileBrowserEnabled)
+		setFileBrowserEnabled(ctx().fileBrowserEnabled);
+	if (ctx().fileSwitcherEnabled)
+		setFileSwitcherEnabled(ctx().fileSwitcherEnabled);
 	bindDocumentMapToActiveView();
 	updateDocumentMapViewport();
 
@@ -647,6 +653,8 @@ static void setDockIconFromLogo()
 	destroyDocumentMap();
 	destroyFunctionListPanel();
 	destroyClipboardHistoryPanel();
+	destroyFileBrowserPanel();
+	destroyFileSwitcherPanel();
 }
 
 - (void)windowDidResize:(NSNotification*)notification

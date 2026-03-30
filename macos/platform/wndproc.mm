@@ -32,6 +32,8 @@
 #include "document_map.h"
 #include "function_list_panel.h"
 #include "clipboard_history_panel.h"
+#include "file_browser_panel.h"
+#include "file_switcher_panel.h"
 #include "change_history.h"
 #include "hash_tools.h"
 #include "macro_manager.h"
@@ -531,6 +533,29 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					              MF_BYCOMMAND | (ctx().clipboardHistoryEnabled ? MF_CHECKED : MF_UNCHECKED));
 				return 0;
 			}
+			case IDM_VIEW_FILEBROWSER:
+			{
+				setFileBrowserEnabled(!ctx().fileBrowserEnabled);
+				HMENU hMenu = GetMenu(hWnd);
+				if (hMenu)
+					CheckMenuItem(hMenu, IDM_VIEW_FILEBROWSER,
+					              MF_BYCOMMAND | (ctx().fileBrowserEnabled ? MF_CHECKED : MF_UNCHECKED));
+				return 0;
+			}
+			case IDM_VIEW_FILESWITCHER:
+			{
+				setFileSwitcherEnabled(!ctx().fileSwitcherEnabled);
+				HMENU hMenu = GetMenu(hWnd);
+				if (hMenu)
+					CheckMenuItem(hMenu, IDM_VIEW_FILESWITCHER,
+					              MF_BYCOMMAND | (ctx().fileSwitcherEnabled ? MF_CHECKED : MF_UNCHECKED));
+				return 0;
+			}
+			case IDM_FILE_OPENFOLDER:
+			{
+				openFolderWithDialog();
+				return 0;
+			}
 			case IDM_VIEW_CHANGE_HISTORY:
 			{
 				ctx().showChangeHistory = !ctx().showChangeHistory;
@@ -674,6 +699,10 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					              MF_BYCOMMAND | (ctx().functionListEnabled ? MF_CHECKED : MF_UNCHECKED));
 					CheckMenuItem(hMenu, IDM_VIEW_CLIPBOARD_HISTORY,
 					              MF_BYCOMMAND | (ctx().clipboardHistoryEnabled ? MF_CHECKED : MF_UNCHECKED));
+					CheckMenuItem(hMenu, IDM_VIEW_FILEBROWSER,
+					              MF_BYCOMMAND | (ctx().fileBrowserEnabled ? MF_CHECKED : MF_UNCHECKED));
+					CheckMenuItem(hMenu, IDM_VIEW_FILESWITCHER,
+					              MF_BYCOMMAND | (ctx().fileSwitcherEnabled ? MF_CHECKED : MF_UNCHECKED));
 					CheckMenuItem(hMenu, IDM_EDIT_AUTOCLOSE_BRACKETS,
 					              MF_BYCOMMAND | (ctx().autoCloseBrackets ? MF_CHECKED : MF_UNCHECKED));
 					CheckMenuItem(hMenu, IDM_VIEW_SYNCHRONIZE_SCROLLING,

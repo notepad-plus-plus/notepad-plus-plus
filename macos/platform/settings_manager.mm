@@ -88,6 +88,13 @@ bool SettingsManager::load()
 	if ([json[@"documentMapWidth"] isKindOfClass:[NSNumber class]])     settings.documentMapWidth = [json[@"documentMapWidth"] intValue];
 	if ([json[@"functionListWidth"] isKindOfClass:[NSNumber class]])    settings.functionListWidth = [json[@"functionListWidth"] intValue];
 	if ([json[@"clipboardHistoryWidth"] isKindOfClass:[NSNumber class]])settings.clipboardHistoryWidth = [json[@"clipboardHistoryWidth"] intValue];
+	if ([json[@"fileBrowser"] isKindOfClass:[NSNumber class]])      settings.fileBrowser = [json[@"fileBrowser"] boolValue];
+	if ([json[@"fileSwitcher"] isKindOfClass:[NSNumber class]])     settings.fileSwitcher = [json[@"fileSwitcher"] boolValue];
+	if ([json[@"leftPanelWidth"] isKindOfClass:[NSNumber class]])   settings.leftPanelWidth = [json[@"leftPanelWidth"] intValue];
+	if ([json[@"fileBrowserHeightRatio"] isKindOfClass:[NSNumber class]]) settings.fileBrowserHeightRatio = [json[@"fileBrowserHeightRatio"] doubleValue];
+	if ([json[@"fileBrowserRootPath"] isKindOfClass:[NSString class]]) settings.fileBrowserRootPath = [json[@"fileBrowserRootPath"] UTF8String];
+	if ([json[@"rightPanelWidth"] isKindOfClass:[NSNumber class]])  settings.rightPanelWidth = [json[@"rightPanelWidth"] intValue];
+	if ([json[@"functionListHeightRatio"] isKindOfClass:[NSNumber class]]) settings.functionListHeightRatio = [json[@"functionListHeightRatio"] doubleValue];
 
 	// Recent files
 	settings.recentFiles.clear();
@@ -160,6 +167,13 @@ bool SettingsManager::save()
 		@"documentMapWidth": @(settings.documentMapWidth),
 		@"functionListWidth": @(settings.functionListWidth),
 		@"clipboardHistoryWidth": @(settings.clipboardHistoryWidth),
+		@"fileBrowser": @(settings.fileBrowser),
+		@"fileSwitcher": @(settings.fileSwitcher),
+		@"leftPanelWidth": @(settings.leftPanelWidth),
+		@"fileBrowserHeightRatio": @(settings.fileBrowserHeightRatio),
+		@"fileBrowserRootPath": settings.fileBrowserRootPath.empty() ? @"" : @(settings.fileBrowserRootPath.c_str()),
+		@"rightPanelWidth": @(settings.rightPanelWidth),
+		@"functionListHeightRatio": @(settings.functionListHeightRatio),
 		@"recentFiles":  recentArr
 	};
 

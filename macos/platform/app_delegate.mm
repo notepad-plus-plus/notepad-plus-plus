@@ -129,6 +129,13 @@ static void setDockIconFromLogo()
 	ctx().functionListEnabled = s.functionList;
 	ctx().clipboardHistoryEnabled = s.clipboardHistory;
 	ctx().showChangeHistory = s.showChangeHistory;
+	ctx().fileBrowserEnabled = s.fileBrowser;
+	ctx().fileSwitcherEnabled = s.fileSwitcher;
+	ctx().leftPanelWidth = s.leftPanelWidth;
+	ctx().fileBrowserHeightRatio = s.fileBrowserHeightRatio;
+	ctx().fileBrowserRootPath = s.fileBrowserRootPath;
+	ctx().rightPanelWidth = s.rightPanelWidth;
+	ctx().functionListHeightRatio = s.functionListHeightRatio;
 	ctx().documentMapWidth = s.documentMapWidth;
 	ctx().functionListWidth = s.functionListWidth;
 	ctx().clipboardHistoryWidth = s.clipboardHistoryWidth;
@@ -602,6 +609,13 @@ static void setDockIconFromLogo()
 	s.functionList = ctx().functionListEnabled;
 	s.clipboardHistory = ctx().clipboardHistoryEnabled;
 	s.showChangeHistory = ctx().showChangeHistory;
+	s.fileBrowser = ctx().fileBrowserEnabled;
+	s.fileSwitcher = ctx().fileSwitcherEnabled;
+	s.leftPanelWidth = ctx().leftPanelWidth;
+	s.fileBrowserHeightRatio = ctx().fileBrowserHeightRatio;
+	s.fileBrowserRootPath = ctx().fileBrowserRootPath;
+	s.rightPanelWidth = ctx().rightPanelWidth;
+	s.functionListHeightRatio = ctx().functionListHeightRatio;
 	s.documentMapWidth = ctx().documentMapWidth;
 	s.functionListWidth = ctx().functionListWidth;
 	s.clipboardHistoryWidth = ctx().clipboardHistoryWidth;

@@ -12,6 +12,7 @@
 #include "incremental_search.h"
 #include "document_map.h"
 #include "function_list_panel.h"
+#include "file_switcher_panel.h"
 #include "sync_scroll.h"
 #include "windows.h"
 #include "commctrl.h"
@@ -129,6 +130,7 @@ void switchToTabInView(int viewIndex, int tabIndex)
 	bindDocumentMapToActiveView();
 	updateDocumentMapViewport();
 	bindFunctionListToActiveView();
+	bindFileSwitcherToActiveView();
 	refreshSyncScrollAnchor();
 
 	if (isIncrementalSearchVisible())
@@ -195,6 +197,7 @@ int addNewTabToView(int viewIndex, const std::wstring& title, const std::string&
 		bindDocumentMapToActiveView();
 		updateDocumentMapViewport();
 		bindFunctionListToActiveView();
+		reloadFileSwitcherData();
 	}
 	refreshSyncScrollAnchor();
 
@@ -270,6 +273,7 @@ void closeTabFromView(int viewIndex, int tabIndex)
 		bindDocumentMapToActiveView();
 		updateDocumentMapViewport();
 		bindFunctionListToActiveView();
+		reloadFileSwitcherData();
 	}
 	refreshSyncScrollAnchor();
 

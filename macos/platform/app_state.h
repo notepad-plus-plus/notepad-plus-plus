@@ -87,11 +87,9 @@ struct AppContext
 
 	// Function list state
 	bool functionListEnabled = false;
-	int functionListWidth = 200;
 
 	// Clipboard history state
 	bool clipboardHistoryEnabled = false;
-	int clipboardHistoryWidth = 220;
 
 	// Left zone — File Browser + File Switcher
 	bool fileBrowserEnabled = false;

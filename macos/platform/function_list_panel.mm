@@ -481,13 +481,13 @@ void initializeFunctionListPanel()
 
 	sController = [[FunctionListController alloc] init];
 
-	CGFloat width = static_cast<CGFloat>(ctx().functionListWidth);
+	CGFloat width = static_cast<CGFloat>(ctx().rightPanelWidth);
 	if (width < 120) width = 120;
 	if (width > 360) width = 360;
-	ctx().functionListWidth = static_cast<int>(width);
+	ctx().rightPanelWidth = static_cast<int>(width);
 
 	sContainer = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, width, 100)];
-	sContainer.autoresizingMask = NSViewMinXMargin | NSViewHeightSizable;
+	sContainer.autoresizingMask = NSViewWidthSizable;
 	[contentView addSubview:sContainer];
 
 	sEmptyLabel = [NSTextField labelWithString:@"No functions"];

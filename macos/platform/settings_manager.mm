@@ -86,8 +86,6 @@ bool SettingsManager::load()
 	if ([json[@"clipboardHistory"] isKindOfClass:[NSNumber class]])     settings.clipboardHistory = [json[@"clipboardHistory"] boolValue];
 	if ([json[@"showChangeHistory"] isKindOfClass:[NSNumber class]])    settings.showChangeHistory = [json[@"showChangeHistory"] boolValue];
 	if ([json[@"documentMapWidth"] isKindOfClass:[NSNumber class]])     settings.documentMapWidth = [json[@"documentMapWidth"] intValue];
-	if ([json[@"functionListWidth"] isKindOfClass:[NSNumber class]])    settings.functionListWidth = [json[@"functionListWidth"] intValue];
-	if ([json[@"clipboardHistoryWidth"] isKindOfClass:[NSNumber class]])settings.clipboardHistoryWidth = [json[@"clipboardHistoryWidth"] intValue];
 	if ([json[@"fileBrowser"] isKindOfClass:[NSNumber class]])      settings.fileBrowser = [json[@"fileBrowser"] boolValue];
 	if ([json[@"fileSwitcher"] isKindOfClass:[NSNumber class]])     settings.fileSwitcher = [json[@"fileSwitcher"] boolValue];
 	if ([json[@"leftPanelWidth"] isKindOfClass:[NSNumber class]])   settings.leftPanelWidth = [json[@"leftPanelWidth"] intValue];
@@ -165,8 +163,6 @@ bool SettingsManager::save()
 		@"clipboardHistory": @(settings.clipboardHistory),
 		@"showChangeHistory": @(settings.showChangeHistory),
 		@"documentMapWidth": @(settings.documentMapWidth),
-		@"functionListWidth": @(settings.functionListWidth),
-		@"clipboardHistoryWidth": @(settings.clipboardHistoryWidth),
 		@"fileBrowser": @(settings.fileBrowser),
 		@"fileSwitcher": @(settings.fileSwitcher),
 		@"leftPanelWidth": @(settings.leftPanelWidth),

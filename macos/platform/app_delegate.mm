@@ -138,8 +138,6 @@ static void setDockIconFromLogo()
 	ctx().rightPanelWidth = s.rightPanelWidth;
 	ctx().functionListHeightRatio = s.functionListHeightRatio;
 	ctx().documentMapWidth = s.documentMapWidth;
-	ctx().functionListWidth = s.functionListWidth;
-	ctx().clipboardHistoryWidth = s.clipboardHistoryWidth;
 	setDockIconFromLogo();
 
 	ctx().recentFiles.clear();
@@ -618,8 +616,6 @@ static void setDockIconFromLogo()
 	s.rightPanelWidth = ctx().rightPanelWidth;
 	s.functionListHeightRatio = ctx().functionListHeightRatio;
 	s.documentMapWidth = ctx().documentMapWidth;
-	s.functionListWidth = ctx().functionListWidth;
-	s.clipboardHistoryWidth = ctx().clipboardHistoryWidth;
 	s.wordWrap = ctx().scintillaView ?
 		(ScintillaBridge_sendMessage(ctx().scintillaView, SCI_GETWRAPMODE, 0, 0) != 0) : false;
 

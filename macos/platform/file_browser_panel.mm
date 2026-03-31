@@ -50,8 +50,26 @@ static NSImage* cachedIconForPath(NSString* path, bool isDirectory)
 	if (cacheKey.length == 0) cacheKey = @"__noext__";
 	NSImage* cached = [iconCache() objectForKey:cacheKey];
 	if (cached) return cached;
-	NSImage* icon = [[NSWorkspace sharedWorkspace] iconForFile:path];
-	[icon setSize:NSMakeSize(16, 16)];
+
+	NSImage* icon = nil;
+	if (isDirectory)
+	{
+		icon = [[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kGenericFolderIcon)];
+	}
+	else
+	{
+		NSString* ext = [path pathExtension];
+		if (ext.length > 0)
+			icon = [[NSWorkspace sharedWorkspace] iconForFileType:ext];
+		else
+			icon = [[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kGenericDocumentIcon)];
+	}
+
+	if (icon)
+		[icon setSize:NSMakeSize(16, 16)];
+	else
+		icon = [[NSWorkspace sharedWorkspace] iconForFile:path]; // fallback
+
 	[iconCache() setObject:icon forKey:cacheKey];
 	return icon;
 }

@@ -20,7 +20,28 @@
 #include "function_list_panel.h"
 #include "npp_constants.h"
 #include "scintilla_bridge.h"
+#include "windows.h"
 #include "split_view.h"
+
+// ---------------------------------------------------------------------------
+// syncPanelMenuCheckmarks — updates View menu checks from ctx() flags
+// ---------------------------------------------------------------------------
+static void syncPanelMenuCheckmarks()
+{
+	if (!ctx().mainHwnd)
+		return;
+	HMENU hMenu = GetMenu(ctx().mainHwnd);
+	if (!hMenu)
+		return;
+	CheckMenuItem(hMenu, IDM_VIEW_FILEBROWSER,
+	              MF_BYCOMMAND | (ctx().fileBrowserEnabled ? MF_CHECKED : MF_UNCHECKED));
+	CheckMenuItem(hMenu, IDM_VIEW_FILESWITCHER,
+	              MF_BYCOMMAND | (ctx().fileSwitcherEnabled ? MF_CHECKED : MF_UNCHECKED));
+	CheckMenuItem(hMenu, IDM_VIEW_FUNCTIONLIST,
+	              MF_BYCOMMAND | (ctx().functionListEnabled ? MF_CHECKED : MF_UNCHECKED));
+	CheckMenuItem(hMenu, IDM_VIEW_CLIPBOARD_HISTORY,
+	              MF_BYCOMMAND | (ctx().clipboardHistoryEnabled ? MF_CHECKED : MF_UNCHECKED));
+}
 
 // ---------------------------------------------------------------------------
 // Static divider views — created lazily on first use
@@ -49,6 +70,7 @@ static void ensureLeftVerticalDivider(NSView* contentView)
 				ctx().fileBrowserEnabled = false;
 				ctx().fileSwitcherEnabled = false;
 				ctx().leftPanelWidth = kDefaultLeftPanelWidth;
+				syncPanelMenuCheckmarks();
 			}
 			relayoutPanels();
 		},
@@ -75,6 +97,7 @@ static void ensureRightVerticalDivider(NSView* contentView)
 				ctx().functionListEnabled = false;
 				ctx().clipboardHistoryEnabled = false;
 				ctx().rightPanelWidth = kDefaultRightPanelWidth;
+				syncPanelMenuCheckmarks();
 			}
 			relayoutPanels();
 		},

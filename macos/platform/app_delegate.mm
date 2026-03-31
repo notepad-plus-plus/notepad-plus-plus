@@ -272,6 +272,7 @@ static void setDockIconFromLogo()
 					ctx().activeView = 0;
 					bindDocumentMapToActiveView();
 					bindFunctionListToActiveView();
+					bindFileSwitcherToActiveView();
 				}
 				else if (scn->nmhdr.code == SCN_SAVEPOINTLEFT)
 				{

@@ -138,6 +138,7 @@ void doSplit()
 						ctx().activeView = 1;
 						bindDocumentMapToActiveView();
 						bindFunctionListToActiveView();
+						bindFileSwitcherToActiveView();
 					}
 					else if (scn->nmhdr.code == SCN_SAVEPOINTLEFT)
 					{

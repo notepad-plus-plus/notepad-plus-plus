@@ -673,8 +673,14 @@ static void stopFSEventsMonitoring()
 	// Update in-memory model and refresh outline view immediately
 	node->filename = [newName UTF8String];
 	node->path = [newPath UTF8String];
+
+	// If a directory was renamed, descendant paths are now stale — invalidate
+	// the subtree so children are reloaded from disk on next expansion
+	if (node->isDirectory)
+		invalidateChildrenRecursive(*node);
+
 	if (sOutlineView)
-		[sOutlineView reloadItem:wrapper];
+		[sOutlineView reloadItem:nil reloadChildren:YES];
 }
 
 - (void)deleteItem:(id)sender

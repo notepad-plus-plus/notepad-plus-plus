@@ -515,6 +515,7 @@ static void stopFSEventsMonitoring()
 	}
 
 	// Immediately refresh so the new file appears without waiting for FSEvents
+	invalidateChildrenRecursive(sRootNode);
 	if (sOutlineView)
 		[sOutlineView reloadItem:nil reloadChildren:YES];
 }
@@ -600,6 +601,7 @@ static void stopFSEventsMonitoring()
 	}
 
 	// Immediately refresh so the new folder appears without waiting for FSEvents
+	invalidateChildrenRecursive(sRootNode);
 	if (sOutlineView)
 		[sOutlineView reloadItem:nil reloadChildren:YES];
 }

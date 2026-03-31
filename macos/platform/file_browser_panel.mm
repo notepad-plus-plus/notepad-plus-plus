@@ -511,7 +511,12 @@ static void stopFSEventsMonitoring()
 		err.messageText = @"Error";
 		err.informativeText = [NSString stringWithFormat:@"Could not create file '%@'.", name];
 		[err runModal];
+		return;
 	}
+
+	// Immediately refresh so the new file appears without waiting for FSEvents
+	if (sOutlineView)
+		[sOutlineView reloadItem:nil reloadChildren:YES];
 }
 
 - (void)newFolder:(id)sender
@@ -591,7 +596,12 @@ static void stopFSEventsMonitoring()
 			err.informativeText = [NSString stringWithFormat:@"Could not create folder '%@'.", name];
 		}
 		[err runModal];
+		return;
 	}
+
+	// Immediately refresh so the new folder appears without waiting for FSEvents
+	if (sOutlineView)
+		[sOutlineView reloadItem:nil reloadChildren:YES];
 }
 
 - (void)renameItem:(id)sender
@@ -653,7 +663,14 @@ static void stopFSEventsMonitoring()
 	{
 		NSAlert* err = [NSAlert alertWithError:error];
 		[err runModal];
+		return;
 	}
+
+	// Update in-memory model and refresh outline view immediately
+	node->filename = [newName UTF8String];
+	node->path = [newPath UTF8String];
+	if (sOutlineView)
+		[sOutlineView reloadItem:wrapper];
 }
 
 - (void)deleteItem:(id)sender
@@ -681,7 +698,13 @@ static void stopFSEventsMonitoring()
 		return;
 
 	NSURL* url = [NSURL fileURLWithPath:path];
-	[[NSWorkspace sharedWorkspace] recycleURLs:@[url] completionHandler:nil];
+	[[NSWorkspace sharedWorkspace] recycleURLs:@[url]
+	                        completionHandler:^(NSDictionary<NSURL*, NSURL*>* _Nonnull newURLs, NSError* _Nullable error) {
+		dispatch_async(dispatch_get_main_queue(), ^{
+			if (sOutlineView)
+				[sOutlineView reloadData];
+		});
+	}];
 }
 
 - (void)revealInFinder:(id)sender

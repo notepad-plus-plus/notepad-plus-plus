@@ -65,7 +65,7 @@ struct FileBrowserNode
 	bool isDirectory = false;
 	bool isExpanded = false;
 	bool childrenLoaded = false;
-	std::vector<FileBrowserNode> children;
+	std::vector<std::shared_ptr<FileBrowserNode>> children;
 };
 
 static FileBrowserNode sRootNode;
@@ -94,8 +94,8 @@ static void loadChildren(FileBrowserNode& node)
 	if (!contents)
 		return;
 
-	std::vector<FileBrowserNode> dirs;
-	std::vector<FileBrowserNode> files;
+	std::vector<std::shared_ptr<FileBrowserNode>> dirs;
+	std::vector<std::shared_ptr<FileBrowserNode>> files;
 
 	for (NSString* name in contents)
 	{
@@ -110,21 +110,22 @@ static void loadChildren(FileBrowserNode& node)
 		BOOL isDir = NO;
 		[fm fileExistsAtPath:fullPath isDirectory:&isDir];
 
-		FileBrowserNode child;
-		child.path = [fullPath UTF8String];
-		child.filename = nameStr;
-		child.isDirectory = isDir ? true : false;
+		auto child = std::make_shared<FileBrowserNode>();
+		child->path = [fullPath UTF8String];
+		child->filename = nameStr;
+		child->isDirectory = isDir ? true : false;
 
-		if (child.isDirectory)
+		if (child->isDirectory)
 			dirs.push_back(std::move(child));
 		else
 			files.push_back(std::move(child));
 	}
 
 	// Sort directories and files alphabetically (case-insensitive)
-	auto cmpFunc = [](const FileBrowserNode& a, const FileBrowserNode& b) {
-		NSString* sa = [NSString stringWithUTF8String:a.filename.c_str()];
-		NSString* sb = [NSString stringWithUTF8String:b.filename.c_str()];
+	auto cmpFunc = [](const std::shared_ptr<FileBrowserNode>& a,
+	                  const std::shared_ptr<FileBrowserNode>& b) {
+		NSString* sa = [NSString stringWithUTF8String:a->filename.c_str()];
+		NSString* sb = [NSString stringWithUTF8String:b->filename.c_str()];
 		return [sa caseInsensitiveCompare:sb] == NSOrderedAscending;
 	};
 
@@ -143,23 +144,30 @@ static void invalidateChildrenRecursive(FileBrowserNode& node)
 {
 	node.childrenLoaded = false;
 	for (auto& child : node.children)
-		invalidateChildrenRecursive(child);
+		invalidateChildrenRecursive(*child);
 }
 
 // ---------------------------------------------------------------------------
 // Obj-C wrapper for NSOutlineView (following FunctionListItem pattern)
 // ---------------------------------------------------------------------------
 @interface FileBrowserNodeWrapper : NSObject
-@property (nonatomic, assign) FileBrowserNode* node;
-+ (instancetype)wrapperForNode:(FileBrowserNode*)node;
+{
+	std::shared_ptr<FileBrowserNode> _sharedNode;
+}
+@property (nonatomic, readonly) FileBrowserNode* node;
++ (instancetype)wrapperForNode:(std::shared_ptr<FileBrowserNode>)sharedNode;
 @end
 
 @implementation FileBrowserNodeWrapper
-+ (instancetype)wrapperForNode:(FileBrowserNode*)node
++ (instancetype)wrapperForNode:(std::shared_ptr<FileBrowserNode>)sharedNode
 {
 	FileBrowserNodeWrapper* wrapper = [[FileBrowserNodeWrapper alloc] init];
-	wrapper.node = node;
+	wrapper->_sharedNode = sharedNode;
 	return wrapper;
+}
+- (FileBrowserNode*)node
+{
+	return _sharedNode.get();
 }
 @end
 
@@ -338,7 +346,7 @@ static void stopFSEventsMonitoring()
 	if (!parent || index < 0 || index >= static_cast<NSInteger>(parent->children.size()))
 		return nil;
 
-	return [FileBrowserNodeWrapper wrapperForNode:&parent->children[static_cast<size_t>(index)]];
+	return [FileBrowserNodeWrapper wrapperForNode:parent->children[static_cast<size_t>(index)]];
 }
 
 - (BOOL)outlineView:(NSOutlineView*)outlineView isItemExpandable:(id)item

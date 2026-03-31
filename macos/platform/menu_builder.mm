@@ -31,7 +31,7 @@ HMENU buildMenuBar()
 	AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_COPY_FILENAME, L"Copy File &Name");
 	AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_COPY_DIR_PATH, L"Copy &Directory Path");
 	AppendMenuW(hFileMenu, MF_SEPARATOR, 0, nullptr);
-	AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_OPENFOLDER, L"Open Fol&der...\tCtrl+Shift+K");
+	AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_OPENFOLDER, L"Open Fol&der...\tCtrl+Shift+J");
 	AppendMenuW(hFileMenu, MF_SEPARATOR, 0, nullptr);
 	AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_PRINT, L"&Print...\tCtrl+P");
 	AppendMenuW(hFileMenu, MF_SEPARATOR, 0, nullptr);

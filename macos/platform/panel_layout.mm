@@ -253,16 +253,30 @@ void relayoutPanels()
 		}
 		else
 		{
-			// Single panel fills the entire zone
-			if (fbContainer && ctx().fileBrowserEnabled)
+			// Single panel fills the entire zone; hide the other
+			if (fbContainer)
 			{
-				fbContainer.frame = NSMakeRect(curX, zoneY, leftWidth, zoneH);
-				fbContainer.hidden = NO;
+				if (ctx().fileBrowserEnabled)
+				{
+					fbContainer.frame = NSMakeRect(curX, zoneY, leftWidth, zoneH);
+					fbContainer.hidden = NO;
+				}
+				else
+				{
+					fbContainer.hidden = YES;
+				}
 			}
-			if (fsContainer && ctx().fileSwitcherEnabled)
+			if (fsContainer)
 			{
-				fsContainer.frame = NSMakeRect(curX, zoneY, leftWidth, zoneH);
-				fsContainer.hidden = NO;
+				if (ctx().fileSwitcherEnabled)
+				{
+					fsContainer.frame = NSMakeRect(curX, zoneY, leftWidth, zoneH);
+					fsContainer.hidden = NO;
+				}
+				else
+				{
+					fsContainer.hidden = YES;
+				}
 			}
 			if (sLeftHorizontalDivider)
 				sLeftHorizontalDivider.hidden = YES;

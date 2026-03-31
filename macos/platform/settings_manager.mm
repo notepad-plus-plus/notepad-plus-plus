@@ -96,7 +96,23 @@ bool SettingsManager::load()
 		if (rootPath)
 			settings.fileBrowserRootPath = rootPath;
 	}
-	if ([json[@"rightPanelWidth"] isKindOfClass:[NSNumber class]])  settings.rightPanelWidth = [json[@"rightPanelWidth"] intValue];
+	if ([json[@"rightPanelWidth"] isKindOfClass:[NSNumber class]])
+	{
+		settings.rightPanelWidth = [json[@"rightPanelWidth"] intValue];
+	}
+	else
+	{
+		// Migration: derive rightPanelWidth from legacy per-panel width keys
+		NSNumber* flWidth = json[@"functionListWidth"];
+		NSNumber* chWidth = json[@"clipboardHistoryWidth"];
+		int migrated = 0;
+		if ([flWidth isKindOfClass:[NSNumber class]])
+			migrated = [flWidth intValue];
+		if ([chWidth isKindOfClass:[NSNumber class]] && [chWidth intValue] > migrated)
+			migrated = [chWidth intValue];
+		if (migrated > 0)
+			settings.rightPanelWidth = migrated;
+	}
 	if ([json[@"functionListHeightRatio"] isKindOfClass:[NSNumber class]]) settings.functionListHeightRatio = [json[@"functionListHeightRatio"] doubleValue];
 
 	// Recent files

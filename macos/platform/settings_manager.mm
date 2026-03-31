@@ -89,7 +89,13 @@ bool SettingsManager::load()
 	if ([json[@"fileBrowser"] isKindOfClass:[NSNumber class]])      settings.fileBrowser = [json[@"fileBrowser"] boolValue];
 	if ([json[@"fileSwitcher"] isKindOfClass:[NSNumber class]])     settings.fileSwitcher = [json[@"fileSwitcher"] boolValue];
 	if ([json[@"leftPanelWidth"] isKindOfClass:[NSNumber class]])   settings.leftPanelWidth = [json[@"leftPanelWidth"] intValue];
-	if ([json[@"fileBrowserHeightRatio"] isKindOfClass:[NSNumber class]]) settings.fileBrowserHeightRatio = [json[@"fileBrowserHeightRatio"] doubleValue];
+	if ([json[@"fileBrowserHeightRatio"] isKindOfClass:[NSNumber class]])
+	{
+		double ratio = [json[@"fileBrowserHeightRatio"] doubleValue];
+		if (ratio < 0.15) ratio = 0.15;
+		else if (ratio > 0.85) ratio = 0.85;
+		settings.fileBrowserHeightRatio = ratio;
+	}
 	if ([json[@"fileBrowserRootPath"] isKindOfClass:[NSString class]])
 	{
 		const char* rootPath = [json[@"fileBrowserRootPath"] UTF8String];
@@ -113,7 +119,13 @@ bool SettingsManager::load()
 		if (migrated > 0)
 			settings.rightPanelWidth = migrated;
 	}
-	if ([json[@"functionListHeightRatio"] isKindOfClass:[NSNumber class]]) settings.functionListHeightRatio = [json[@"functionListHeightRatio"] doubleValue];
+	if ([json[@"functionListHeightRatio"] isKindOfClass:[NSNumber class]])
+	{
+		double ratio = [json[@"functionListHeightRatio"] doubleValue];
+		if (ratio < 0.15) ratio = 0.15;
+		else if (ratio > 0.85) ratio = 0.85;
+		settings.functionListHeightRatio = ratio;
+	}
 
 	// Recent files
 	settings.recentFiles.clear();

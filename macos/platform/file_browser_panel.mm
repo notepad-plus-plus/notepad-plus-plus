@@ -284,11 +284,13 @@ static void startFSEventsMonitoring(const std::string& path)
 
 static void stopFSEventsMonitoring()
 {
-	if (sDebounceTimer)
-	{
-		dispatch_source_cancel(sDebounceTimer);
-		sDebounceTimer = nil;
-	}
+	dispatch_sync(fileBrowserQueue(), ^{
+		if (sDebounceTimer)
+		{
+			dispatch_source_cancel(sDebounceTimer);
+			sDebounceTimer = nil;
+		}
+	});
 
 	if (sEventStream)
 	{

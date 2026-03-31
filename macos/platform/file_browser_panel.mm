@@ -711,6 +711,13 @@ static void stopFSEventsMonitoring()
 	[[NSWorkspace sharedWorkspace] recycleURLs:@[url]
 	                        completionHandler:^(NSDictionary<NSURL*, NSURL*>* _Nonnull newURLs, NSError* _Nullable error) {
 		dispatch_async(dispatch_get_main_queue(), ^{
+			if (error)
+			{
+				NSAlert* errAlert = [NSAlert alertWithError:error];
+				[errAlert runModal];
+				return;
+			}
+			invalidateChildrenRecursive(sRootNode);
 			if (sOutlineView)
 				[sOutlineView reloadData];
 		});

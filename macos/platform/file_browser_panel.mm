@@ -1031,11 +1031,12 @@ void openFolderWithDialog()
 		return;
 
 	std::string path = [url.path UTF8String];
-	openFolderInFileBrowser(path);
 
 	// Auto-enable the file browser if it is not already enabled
 	if (!ctx().fileBrowserEnabled)
 		setFileBrowserEnabled(true);
+
+	openFolderInFileBrowser(path);
 }
 
 void* fileBrowserContainerView()

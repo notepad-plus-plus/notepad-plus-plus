@@ -157,6 +157,19 @@ static void switchToDocumentAtRow(NSInteger row)
 - (void)revealInFinder:(id)sender;
 @end
 
+// ---------------------------------------------------------------------------
+// resolveTargetRow — returns clickedRow if valid, else selectedRow
+// ---------------------------------------------------------------------------
+static NSInteger resolveTargetRow()
+{
+	if (!sTableView)
+		return -1;
+	NSInteger row = sTableView.clickedRow;
+	if (row < 0)
+		row = sTableView.selectedRow;
+	return row;
+}
+
 @implementation FileSwitcherController
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView*)tableView
@@ -334,9 +347,7 @@ static void switchToDocumentAtRow(NSInteger row)
 // ---------------------------------------------------------------------------
 - (void)tableViewClicked:(id)sender
 {
-	NSInteger row = sTableView ? sTableView.clickedRow : -1;
-	if (row < 0 && sTableView)
-		row = sTableView.selectedRow;
+	NSInteger row = resolveTargetRow();
 	if (row < 0)
 		return;
 	switchToDocumentAtRow(row);
@@ -347,7 +358,7 @@ static void switchToDocumentAtRow(NSInteger row)
 // ---------------------------------------------------------------------------
 - (void)closeDocument:(id)sender
 {
-	NSInteger row = sTableView ? sTableView.clickedRow : -1;
+	NSInteger row = resolveTargetRow();
 	ResolvedRow resolved;
 	if (!resolveRow(row, resolved))
 		return;
@@ -358,7 +369,7 @@ static void switchToDocumentAtRow(NSInteger row)
 
 - (void)saveDocument:(id)sender
 {
-	NSInteger row = sTableView ? sTableView.clickedRow : -1;
+	NSInteger row = resolveTargetRow();
 	ResolvedRow resolved;
 	if (!resolveRow(row, resolved))
 		return;
@@ -370,7 +381,7 @@ static void switchToDocumentAtRow(NSInteger row)
 
 - (void)copyPath:(id)sender
 {
-	NSInteger row = sTableView ? sTableView.clickedRow : -1;
+	NSInteger row = resolveTargetRow();
 	ResolvedRow resolved;
 	if (!resolveRow(row, resolved))
 		return;
@@ -394,7 +405,7 @@ static void switchToDocumentAtRow(NSInteger row)
 
 - (void)revealInFinder:(id)sender
 {
-	NSInteger row = sTableView ? sTableView.clickedRow : -1;
+	NSInteger row = resolveTargetRow();
 	ResolvedRow resolved;
 	if (!resolveRow(row, resolved))
 		return;
@@ -419,7 +430,7 @@ static void switchToDocumentAtRow(NSInteger row)
 {
 	[menu removeAllItems];
 
-	NSInteger row = sTableView ? sTableView.clickedRow : -1;
+	NSInteger row = resolveTargetRow();
 	ResolvedRow resolved;
 	if (!resolveRow(row, resolved))
 		return;

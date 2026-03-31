@@ -90,7 +90,12 @@ bool SettingsManager::load()
 	if ([json[@"fileSwitcher"] isKindOfClass:[NSNumber class]])     settings.fileSwitcher = [json[@"fileSwitcher"] boolValue];
 	if ([json[@"leftPanelWidth"] isKindOfClass:[NSNumber class]])   settings.leftPanelWidth = [json[@"leftPanelWidth"] intValue];
 	if ([json[@"fileBrowserHeightRatio"] isKindOfClass:[NSNumber class]]) settings.fileBrowserHeightRatio = [json[@"fileBrowserHeightRatio"] doubleValue];
-	if ([json[@"fileBrowserRootPath"] isKindOfClass:[NSString class]]) settings.fileBrowserRootPath = [json[@"fileBrowserRootPath"] UTF8String];
+	if ([json[@"fileBrowserRootPath"] isKindOfClass:[NSString class]])
+	{
+		const char* rootPath = [json[@"fileBrowserRootPath"] UTF8String];
+		if (rootPath)
+			settings.fileBrowserRootPath = rootPath;
+	}
 	if ([json[@"rightPanelWidth"] isKindOfClass:[NSNumber class]])  settings.rightPanelWidth = [json[@"rightPanelWidth"] intValue];
 	if ([json[@"functionListHeightRatio"] isKindOfClass:[NSNumber class]]) settings.functionListHeightRatio = [json[@"functionListHeightRatio"] doubleValue];
 
@@ -167,7 +172,7 @@ bool SettingsManager::save()
 		@"fileSwitcher": @(settings.fileSwitcher),
 		@"leftPanelWidth": @(settings.leftPanelWidth),
 		@"fileBrowserHeightRatio": @(settings.fileBrowserHeightRatio),
-		@"fileBrowserRootPath": settings.fileBrowserRootPath.empty() ? @"" : @(settings.fileBrowserRootPath.c_str()),
+		@"fileBrowserRootPath": stringFromFileSystemPath(settings.fileBrowserRootPath) ?: @"",
 		@"rightPanelWidth": @(settings.rightPanelWidth),
 		@"functionListHeightRatio": @(settings.functionListHeightRatio),
 		@"recentFiles":  recentArr

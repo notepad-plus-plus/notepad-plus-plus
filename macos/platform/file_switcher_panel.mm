@@ -49,18 +49,20 @@ static NSString* displayPathForDocument(const DocumentData& doc)
 	if (!rootPath.empty())
 	{
 		NSString* root = [NSString stringWithUTF8String:rootPath.c_str()];
-		if (root && [fullPath hasPrefix:root])
+		if (root)
 		{
-			NSString* relative = [fullPath substringFromIndex:root.length];
-			if ([relative hasPrefix:@"/"])
-				relative = [relative substringFromIndex:1];
-			return relative;
+			NSString* normalizedRoot = [root hasSuffix:@"/"] ? root : [root stringByAppendingString:@"/"];
+			if ([fullPath hasPrefix:normalizedRoot])
+			{
+				NSString* relative = [fullPath substringFromIndex:normalizedRoot.length];
+				return relative;
+			}
 		}
 	}
 
-	// Otherwise show parent directory name
+	// Otherwise show full parent directory path
 	NSString* parent = [fullPath stringByDeletingLastPathComponent];
-	return [parent lastPathComponent];
+	return parent;
 }
 
 // ---------------------------------------------------------------------------
@@ -173,18 +175,27 @@ static void switchToDocumentAtRow(NSInteger row)
 	// Check if this is a separator row
 	if (ctx().isSplit && row == count1)
 	{
-		NSTextField* label = [NSTextField labelWithString:@"\u2014 Split View \u2014"];
-		label.alignment = NSTextAlignmentCenter;
-		label.font = [NSFont systemFontOfSize:10 weight:NSFontWeightMedium];
-		label.textColor = NSColor.tertiaryLabelColor;
+		static NSString* separatorID = @"FileSwitcherSeparator";
+		NSTableCellView* cell = [tableView makeViewWithIdentifier:separatorID owner:self];
+		if (!cell)
+		{
+			cell = [[NSTableCellView alloc] initWithFrame:NSZeroRect];
+			cell.identifier = separatorID;
 
-		NSTableCellView* cell = [[NSTableCellView alloc] initWithFrame:NSZeroRect];
-		label.translatesAutoresizingMaskIntoConstraints = NO;
-		[cell addSubview:label];
-		[NSLayoutConstraint activateConstraints:@[
-			[label.centerXAnchor constraintEqualToAnchor:cell.centerXAnchor],
-			[label.centerYAnchor constraintEqualToAnchor:cell.centerYAnchor]
-		]];
+			NSTextField* label = [NSTextField labelWithString:@""];
+			label.tag = 10;
+			label.alignment = NSTextAlignmentCenter;
+			label.font = [NSFont systemFontOfSize:10 weight:NSFontWeightMedium];
+			label.textColor = NSColor.tertiaryLabelColor;
+			label.translatesAutoresizingMaskIntoConstraints = NO;
+			[cell addSubview:label];
+			[NSLayoutConstraint activateConstraints:@[
+				[label.centerXAnchor constraintEqualToAnchor:cell.centerXAnchor],
+				[label.centerYAnchor constraintEqualToAnchor:cell.centerYAnchor]
+			]];
+		}
+		NSTextField* label = (NSTextField*)[cell viewWithTag:10];
+		label.stringValue = @"\u2014 Split View \u2014";
 		return cell;
 	}
 
@@ -203,58 +214,68 @@ static void switchToDocumentAtRow(NSInteger row)
 	int activeIdx = (resolved.viewIndex == 0) ? ctx().activeTab : ctx().activeTab2;
 	bool isActive = (resolved.docIndex == activeIdx) && (resolved.viewIndex == ctx().activeView);
 
-	// Build two-line cell
-	NSTableCellView* cell = [[NSTableCellView alloc] initWithFrame:NSZeroRect];
+	// Reuse or create document cell
+	static NSString* cellID = @"FileSwitcherDocCell";
+	NSTableCellView* cell = [tableView makeViewWithIdentifier:cellID owner:self];
+	if (!cell)
+	{
+		cell = [[NSTableCellView alloc] initWithFrame:NSZeroRect];
+		cell.identifier = cellID;
 
-	// Modified indicator dot (6px orange circle)
-	NSView* modDot = [[NSView alloc] initWithFrame:NSZeroRect];
-	modDot.translatesAutoresizingMaskIntoConstraints = NO;
-	modDot.wantsLayer = YES;
-	modDot.layer.cornerRadius = 3.0;
+		// Modified indicator dot (6px orange circle) — subview index 0
+		NSView* modDot = [[NSView alloc] initWithFrame:NSZeroRect];
+		modDot.translatesAutoresizingMaskIntoConstraints = NO;
+		modDot.wantsLayer = YES;
+		modDot.layer.cornerRadius = 3.0;
+		[cell addSubview:modDot];
+
+		// Filename label — subview index 1
+		NSTextField* titleLabel = [NSTextField labelWithString:@""];
+		titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+		titleLabel.textColor = NSColor.labelColor;
+		titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
+		[cell addSubview:titleLabel];
+
+		// Path label (dimmer, smaller) — subview index 2
+		NSTextField* pathLabel = [NSTextField labelWithString:@""];
+		pathLabel.translatesAutoresizingMaskIntoConstraints = NO;
+		pathLabel.font = [NSFont systemFontOfSize:10 weight:NSFontWeightRegular];
+		pathLabel.textColor = NSColor.secondaryLabelColor;
+		pathLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
+		[cell addSubview:pathLabel];
+
+		// Layout constraints
+		[NSLayoutConstraint activateConstraints:@[
+			[modDot.leadingAnchor constraintEqualToAnchor:cell.leadingAnchor constant:4],
+			[modDot.centerYAnchor constraintEqualToAnchor:cell.centerYAnchor],
+			[modDot.widthAnchor constraintEqualToConstant:6],
+			[modDot.heightAnchor constraintEqualToConstant:6],
+			[titleLabel.leadingAnchor constraintEqualToAnchor:modDot.trailingAnchor constant:4],
+			[titleLabel.trailingAnchor constraintLessThanOrEqualToAnchor:cell.trailingAnchor constant:-4],
+			[titleLabel.topAnchor constraintEqualToAnchor:cell.topAnchor constant:2],
+			[pathLabel.leadingAnchor constraintEqualToAnchor:titleLabel.leadingAnchor],
+			[pathLabel.trailingAnchor constraintLessThanOrEqualToAnchor:cell.trailingAnchor constant:-4],
+			[pathLabel.topAnchor constraintEqualToAnchor:titleLabel.bottomAnchor constant:0],
+			[pathLabel.bottomAnchor constraintLessThanOrEqualToAnchor:cell.bottomAnchor constant:-2]
+		]];
+	}
+
+	// Update cell content (subviews added in fixed order: 0=modDot, 1=title, 2=path)
+	NSView* modDot = cell.subviews[0];
+	NSTextField* titleLabel = (NSTextField*)cell.subviews[1];
+	NSTextField* pathLabel = (NSTextField*)cell.subviews[2];
+
 	modDot.layer.backgroundColor = doc.modified
 		? [NSColor orangeColor].CGColor
 		: [NSColor clearColor].CGColor;
-	[cell addSubview:modDot];
 
-	// Filename label
 	NSString* titleStr = wstringToNSString(doc.title);
-	NSTextField* titleLabel = [NSTextField labelWithString:titleStr ?: @"Untitled"];
-	titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+	titleLabel.stringValue = titleStr ?: @"Untitled";
 	titleLabel.font = isActive
 		? [NSFont systemFontOfSize:12 weight:NSFontWeightSemibold]
 		: [NSFont systemFontOfSize:12 weight:NSFontWeightRegular];
-	titleLabel.textColor = NSColor.labelColor;
-	titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
-	[cell addSubview:titleLabel];
 
-	// Path label (dimmer, smaller)
-	NSString* pathStr = displayPathForDocument(doc);
-	NSTextField* pathLabel = [NSTextField labelWithString:pathStr];
-	pathLabel.translatesAutoresizingMaskIntoConstraints = NO;
-	pathLabel.font = [NSFont systemFontOfSize:10 weight:NSFontWeightRegular];
-	pathLabel.textColor = NSColor.secondaryLabelColor;
-	pathLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
-	[cell addSubview:pathLabel];
-
-	// Layout constraints
-	[NSLayoutConstraint activateConstraints:@[
-		// Modified dot: 6x6, vertically centered, left edge
-		[modDot.leadingAnchor constraintEqualToAnchor:cell.leadingAnchor constant:4],
-		[modDot.centerYAnchor constraintEqualToAnchor:cell.centerYAnchor],
-		[modDot.widthAnchor constraintEqualToConstant:6],
-		[modDot.heightAnchor constraintEqualToConstant:6],
-
-		// Title: to the right of the dot
-		[titleLabel.leadingAnchor constraintEqualToAnchor:modDot.trailingAnchor constant:4],
-		[titleLabel.trailingAnchor constraintLessThanOrEqualToAnchor:cell.trailingAnchor constant:-4],
-		[titleLabel.topAnchor constraintEqualToAnchor:cell.topAnchor constant:2],
-
-		// Path: below title
-		[pathLabel.leadingAnchor constraintEqualToAnchor:titleLabel.leadingAnchor],
-		[pathLabel.trailingAnchor constraintLessThanOrEqualToAnchor:cell.trailingAnchor constant:-4],
-		[pathLabel.topAnchor constraintEqualToAnchor:titleLabel.bottomAnchor constant:0],
-		[pathLabel.bottomAnchor constraintLessThanOrEqualToAnchor:cell.bottomAnchor constant:-2]
-	]];
+	pathLabel.stringValue = displayPathForDocument(doc);
 
 	return cell;
 }
@@ -294,6 +315,8 @@ static void switchToDocumentAtRow(NSInteger row)
 - (void)tableViewClicked:(id)sender
 {
 	NSInteger row = sTableView ? sTableView.clickedRow : -1;
+	if (row < 0 && sTableView)
+		row = sTableView.selectedRow;
 	if (row < 0)
 		return;
 	switchToDocumentAtRow(row);

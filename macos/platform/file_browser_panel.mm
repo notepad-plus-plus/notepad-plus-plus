@@ -5,6 +5,7 @@
 #import <Cocoa/Cocoa.h>
 #include <CoreServices/CoreServices.h>
 #include <algorithm>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -235,11 +236,9 @@ static void fsEventsCallback(ConstFSEventStreamRef streamRef,
 			dispatch_time(DISPATCH_TIME_NOW, 500 * NSEC_PER_MSEC),
 			DISPATCH_TIME_FOREVER, 100 * NSEC_PER_MSEC);
 		dispatch_source_set_event_handler(sDebounceTimer, ^{
-			// Invalidate all childrenLoaded flags
-			invalidateChildrenRecursive(sRootNode);
-
-			// Reload UI on main queue
+			// Perform model invalidation and UI reload on the main queue to avoid data races
 			dispatch_async(dispatch_get_main_queue(), ^{
+				invalidateChildrenRecursive(sRootNode);
 				if (sOutlineView)
 					[sOutlineView reloadData];
 			});
@@ -417,6 +416,8 @@ static void stopFSEventsMonitoring()
 - (void)outlineViewClicked:(id)sender
 {
 	NSInteger row = sOutlineView ? sOutlineView.clickedRow : -1;
+	if (row < 0 && sOutlineView)
+		row = sOutlineView.selectedRow;
 	if (row < 0)
 		return;
 
@@ -503,7 +504,14 @@ static void stopFSEventsMonitoring()
 		return;
 	}
 
-	[[NSFileManager defaultManager] createFileAtPath:fullPath contents:[NSData data] attributes:nil];
+	BOOL created = [[NSFileManager defaultManager] createFileAtPath:fullPath contents:[NSData data] attributes:nil];
+	if (!created)
+	{
+		NSAlert* err = [[NSAlert alloc] init];
+		err.messageText = @"Error";
+		err.informativeText = [NSString stringWithFormat:@"Could not create file '%@'.", name];
+		[err runModal];
+	}
 }
 
 - (void)newFolder:(id)sender
@@ -569,10 +577,21 @@ static void stopFSEventsMonitoring()
 		return;
 	}
 
-	[[NSFileManager defaultManager] createDirectoryAtPath:fullPath
-	                          withIntermediateDirectories:NO
-	                                          attributes:nil
-	                                               error:nil];
+	NSError* error = nil;
+	BOOL created = [[NSFileManager defaultManager] createDirectoryAtPath:fullPath
+	                                        withIntermediateDirectories:NO
+	                                                        attributes:nil
+	                                                             error:&error];
+	if (!created)
+	{
+		NSAlert* err = error ? [NSAlert alertWithError:error] : [[NSAlert alloc] init];
+		if (!error)
+		{
+			err.messageText = @"Error";
+			err.informativeText = [NSString stringWithFormat:@"Could not create folder '%@'.", name];
+		}
+		[err runModal];
+	}
 }
 
 - (void)renameItem:(id)sender

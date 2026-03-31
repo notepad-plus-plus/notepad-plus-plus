@@ -15,18 +15,12 @@
 #include "panel_divider.h"
 #include "app_state.h"
 #include "clipboard_history_panel.h"
+#include "file_browser_panel.h"
+#include "file_switcher_panel.h"
 #include "function_list_panel.h"
 #include "npp_constants.h"
 #include "scintilla_bridge.h"
 #include "split_view.h"
-
-// ---------------------------------------------------------------------------
-// Stubs for panels not yet implemented (Tasks 6 and 7).
-// These use weak linkage so that the real implementations in
-// file_browser_panel.mm / file_switcher_panel.mm will override them.
-// ---------------------------------------------------------------------------
-__attribute__((weak)) void* fileBrowserContainerView() { return nullptr; }
-__attribute__((weak)) void* fileSwitcherContainerView() { return nullptr; }
 
 // ---------------------------------------------------------------------------
 // Static divider views — created lazily on first use

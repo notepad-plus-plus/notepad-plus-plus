@@ -283,6 +283,7 @@ static void setDockIconFromLogo()
 							ctx().documents[tabIdx].modified = true;
 							updateTabModifiedIndicator(0, tabIdx);
 							updateWindowDocumentEdited();
+							reloadFileSwitcherData();
 						}
 					}
 				}
@@ -297,6 +298,7 @@ static void setDockIconFromLogo()
 							ctx().documents[tabIdx].modified = false;
 							updateTabModifiedIndicator(0, tabIdx);
 							updateWindowDocumentEdited();
+							reloadFileSwitcherData();
 						}
 					}
 				}

@@ -1,7 +1,5 @@
 #import "panel_divider.h"
 
-static const CGFloat kDividerThickness = 3.0;
-
 @implementation PanelDividerView
 {
 	NSPoint _dragStart;

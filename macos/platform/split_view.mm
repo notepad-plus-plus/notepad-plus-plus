@@ -21,6 +21,7 @@
 #include "document_map.h"
 #include "function_list_panel.h"
 #include "panel_layout.h"
+#include "file_switcher_panel.h"
 #include "scintilla_notify.h"
 #include "macro_manager.h"
 #include "windows.h"
@@ -148,6 +149,7 @@ void doSplit()
 								ctx().documents2[tabIdx].modified = true;
 								updateTabModifiedIndicator(1, tabIdx);
 								updateWindowDocumentEdited();
+								reloadFileSwitcherData();
 							}
 						}
 					}
@@ -162,6 +164,7 @@ void doSplit()
 								ctx().documents2[tabIdx].modified = false;
 								updateTabModifiedIndicator(1, tabIdx);
 								updateWindowDocumentEdited();
+								reloadFileSwitcherData();
 							}
 						}
 					}

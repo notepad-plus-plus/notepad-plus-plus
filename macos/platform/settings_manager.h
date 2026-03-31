@@ -34,8 +34,13 @@ struct AppSettings
 	bool clipboardHistory = false;
 	bool showChangeHistory = true;
 	int documentMapWidth = 140;
-	int functionListWidth = 200;
-	int clipboardHistoryWidth = 220;
+	bool fileBrowser = false;
+	bool fileSwitcher = false;
+	int leftPanelWidth = 200;
+	double fileBrowserHeightRatio = 0.6;
+	std::string fileBrowserRootPath;
+	int rightPanelWidth = 220;
+	double functionListHeightRatio = 0.5;
 
 	// Recent files
 	std::vector<std::string> recentFiles;

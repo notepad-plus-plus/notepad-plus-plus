@@ -8,7 +8,7 @@
 #include "npp_constants.h"
 #include "scintilla_bridge.h"
 #include "split_view.h"
-#include "function_list_panel.h"
+#include "panel_layout.h"
 #include <algorithm>
 
 @interface DocumentMapOverlayView : NSView
@@ -169,7 +169,7 @@ void destroyDocumentMap()
 
 void relayoutDocumentMap()
 {
-	relayoutFunctionListPanel();
+	relayoutPanels();
 }
 
 void setDocumentMapEnabled(bool enabled)

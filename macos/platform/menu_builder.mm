@@ -31,6 +31,8 @@ HMENU buildMenuBar()
 	AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_COPY_FILENAME, L"Copy File &Name");
 	AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_COPY_DIR_PATH, L"Copy &Directory Path");
 	AppendMenuW(hFileMenu, MF_SEPARATOR, 0, nullptr);
+	AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_OPENFOLDER, L"Open Fol&der...\tCtrl+Shift+J");
+	AppendMenuW(hFileMenu, MF_SEPARATOR, 0, nullptr);
 	AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_PRINT, L"&Print...\tCtrl+P");
 	AppendMenuW(hFileMenu, MF_SEPARATOR, 0, nullptr);
 	AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_CLOSE, L"&Close\tCtrl+W");
@@ -139,6 +141,10 @@ HMENU buildMenuBar()
 	            IDM_VIEW_FUNCTIONLIST, L"&Function List");
 	AppendMenuW(hViewMenu, MF_STRING | (ctx().clipboardHistoryEnabled ? MF_CHECKED : MF_UNCHECKED),
 	            IDM_VIEW_CLIPBOARD_HISTORY, L"Clipboard &History\tCtrl+Shift+H");
+	AppendMenuW(hViewMenu, MF_STRING | (ctx().fileBrowserEnabled ? MF_CHECKED : MF_UNCHECKED),
+	            IDM_VIEW_FILEBROWSER, L"File &Browser\tCtrl+Shift+E");
+	AppendMenuW(hViewMenu, MF_STRING | (ctx().fileSwitcherEnabled ? MF_CHECKED : MF_UNCHECKED),
+	            IDM_VIEW_FILESWITCHER, L"File &Switcher\tCtrl+Shift+O");
 	AppendMenuW(hViewMenu, MF_SEPARATOR, 0, nullptr);
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_ZOOMIN, L"Zoom &In\tCtrl+=");
 	AppendMenuW(hViewMenu, MF_STRING, IDM_VIEW_ZOOMOUT, L"Zoom &Out\tCtrl+-");

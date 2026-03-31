@@ -12,5 +12,5 @@ void captureClipboardEntry();
 
 // Returns opaque pointer to the panel's container view (NSView*),
 // or nullptr if the panel has not been initialized.
-// Used by relayoutFunctionListPanel() for geometry positioning.
+// Used by relayoutPanels() for geometry positioning.
 void* clipboardHistoryContainerView();

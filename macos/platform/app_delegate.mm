@@ -29,6 +29,9 @@
 #include "document_map.h"
 #include "function_list_panel.h"
 #include "clipboard_history_panel.h"
+#include "file_browser_panel.h"
+#include "file_switcher_panel.h"
+#include "panel_layout.h"
 #include "toolbar.h"
 #include "scintilla_notify.h"
 #include "macro_manager.h"
@@ -129,9 +132,14 @@ static void setDockIconFromLogo()
 	ctx().functionListEnabled = s.functionList;
 	ctx().clipboardHistoryEnabled = s.clipboardHistory;
 	ctx().showChangeHistory = s.showChangeHistory;
+	ctx().fileBrowserEnabled = s.fileBrowser;
+	ctx().fileSwitcherEnabled = s.fileSwitcher;
+	ctx().leftPanelWidth = s.leftPanelWidth;
+	ctx().fileBrowserHeightRatio = s.fileBrowserHeightRatio;
+	ctx().fileBrowserRootPath = s.fileBrowserRootPath;
+	ctx().rightPanelWidth = s.rightPanelWidth;
+	ctx().functionListHeightRatio = s.functionListHeightRatio;
 	ctx().documentMapWidth = s.documentMapWidth;
-	ctx().functionListWidth = s.functionListWidth;
-	ctx().clipboardHistoryWidth = s.clipboardHistoryWidth;
 	setDockIconFromLogo();
 
 	ctx().recentFiles.clear();
@@ -264,6 +272,7 @@ static void setDockIconFromLogo()
 					ctx().activeView = 0;
 					bindDocumentMapToActiveView();
 					bindFunctionListToActiveView();
+					bindFileSwitcherToActiveView();
 				}
 				else if (scn->nmhdr.code == SCN_SAVEPOINTLEFT)
 				{
@@ -275,6 +284,7 @@ static void setDockIconFromLogo()
 							ctx().documents[tabIdx].modified = true;
 							updateTabModifiedIndicator(0, tabIdx);
 							updateWindowDocumentEdited();
+							reloadFileSwitcherData();
 						}
 					}
 				}
@@ -289,6 +299,7 @@ static void setDockIconFromLogo()
 							ctx().documents[tabIdx].modified = false;
 							updateTabModifiedIndicator(0, tabIdx);
 							updateWindowDocumentEdited();
+							reloadFileSwitcherData();
 						}
 					}
 				}
@@ -497,6 +508,10 @@ static void setDockIconFromLogo()
 	setDocumentMapEnabled(ctx().documentMapEnabled);
 	setFunctionListEnabled(ctx().functionListEnabled);
 	setClipboardHistoryEnabled(ctx().clipboardHistoryEnabled);
+	if (ctx().fileBrowserEnabled)
+		setFileBrowserEnabled(ctx().fileBrowserEnabled);
+	if (ctx().fileSwitcherEnabled)
+		setFileSwitcherEnabled(ctx().fileSwitcherEnabled);
 	bindDocumentMapToActiveView();
 	updateDocumentMapViewport();
 
@@ -602,9 +617,14 @@ static void setDockIconFromLogo()
 	s.functionList = ctx().functionListEnabled;
 	s.clipboardHistory = ctx().clipboardHistoryEnabled;
 	s.showChangeHistory = ctx().showChangeHistory;
+	s.fileBrowser = ctx().fileBrowserEnabled;
+	s.fileSwitcher = ctx().fileSwitcherEnabled;
+	s.leftPanelWidth = ctx().leftPanelWidth;
+	s.fileBrowserHeightRatio = ctx().fileBrowserHeightRatio;
+	s.fileBrowserRootPath = ctx().fileBrowserRootPath;
+	s.rightPanelWidth = ctx().rightPanelWidth;
+	s.functionListHeightRatio = ctx().functionListHeightRatio;
 	s.documentMapWidth = ctx().documentMapWidth;
-	s.functionListWidth = ctx().functionListWidth;
-	s.clipboardHistoryWidth = ctx().clipboardHistoryWidth;
 	s.wordWrap = ctx().scintillaView ?
 		(ScintillaBridge_sendMessage(ctx().scintillaView, SCI_GETWRAPMODE, 0, 0) != 0) : false;
 
@@ -636,6 +656,8 @@ static void setDockIconFromLogo()
 	destroyDocumentMap();
 	destroyFunctionListPanel();
 	destroyClipboardHistoryPanel();
+	destroyFileBrowserPanel();
+	destroyFileSwitcherPanel();
 }
 
 - (void)windowDidResize:(NSNotification*)notification
@@ -646,7 +668,7 @@ static void setDockIconFromLogo()
 		ScintillaBridge_resizeToFit(ctx().scintillaView2);
 
 	layoutSplitTopTabBars();
-	relayoutFunctionListPanel();
+	relayoutPanels();
 	updateDocumentMapViewport();
 	scheduleFunctionListRefresh();
 }
@@ -654,7 +676,7 @@ static void setDockIconFromLogo()
 - (void)splitViewDidResizeSubviews:(NSNotification*)notification
 {
 	layoutSplitTopTabBars();
-	relayoutFunctionListPanel();
+	relayoutPanels();
 	updateDocumentMapViewport();
 	scheduleFunctionListRefresh();
 }

@@ -86,8 +86,46 @@ bool SettingsManager::load()
 	if ([json[@"clipboardHistory"] isKindOfClass:[NSNumber class]])     settings.clipboardHistory = [json[@"clipboardHistory"] boolValue];
 	if ([json[@"showChangeHistory"] isKindOfClass:[NSNumber class]])    settings.showChangeHistory = [json[@"showChangeHistory"] boolValue];
 	if ([json[@"documentMapWidth"] isKindOfClass:[NSNumber class]])     settings.documentMapWidth = [json[@"documentMapWidth"] intValue];
-	if ([json[@"functionListWidth"] isKindOfClass:[NSNumber class]])    settings.functionListWidth = [json[@"functionListWidth"] intValue];
-	if ([json[@"clipboardHistoryWidth"] isKindOfClass:[NSNumber class]])settings.clipboardHistoryWidth = [json[@"clipboardHistoryWidth"] intValue];
+	if ([json[@"fileBrowser"] isKindOfClass:[NSNumber class]])      settings.fileBrowser = [json[@"fileBrowser"] boolValue];
+	if ([json[@"fileSwitcher"] isKindOfClass:[NSNumber class]])     settings.fileSwitcher = [json[@"fileSwitcher"] boolValue];
+	if ([json[@"leftPanelWidth"] isKindOfClass:[NSNumber class]])   settings.leftPanelWidth = [json[@"leftPanelWidth"] intValue];
+	if ([json[@"fileBrowserHeightRatio"] isKindOfClass:[NSNumber class]])
+	{
+		double ratio = [json[@"fileBrowserHeightRatio"] doubleValue];
+		if (ratio < 0.15) ratio = 0.15;
+		else if (ratio > 0.85) ratio = 0.85;
+		settings.fileBrowserHeightRatio = ratio;
+	}
+	if ([json[@"fileBrowserRootPath"] isKindOfClass:[NSString class]])
+	{
+		const char* rootPath = [json[@"fileBrowserRootPath"] UTF8String];
+		if (rootPath)
+			settings.fileBrowserRootPath = rootPath;
+	}
+	if ([json[@"rightPanelWidth"] isKindOfClass:[NSNumber class]])
+	{
+		settings.rightPanelWidth = [json[@"rightPanelWidth"] intValue];
+	}
+	else
+	{
+		// Migration: derive rightPanelWidth from legacy per-panel width keys
+		NSNumber* flWidth = json[@"functionListWidth"];
+		NSNumber* chWidth = json[@"clipboardHistoryWidth"];
+		int migrated = 0;
+		if ([flWidth isKindOfClass:[NSNumber class]])
+			migrated = [flWidth intValue];
+		if ([chWidth isKindOfClass:[NSNumber class]] && [chWidth intValue] > migrated)
+			migrated = [chWidth intValue];
+		if (migrated > 0)
+			settings.rightPanelWidth = migrated;
+	}
+	if ([json[@"functionListHeightRatio"] isKindOfClass:[NSNumber class]])
+	{
+		double ratio = [json[@"functionListHeightRatio"] doubleValue];
+		if (ratio < 0.15) ratio = 0.15;
+		else if (ratio > 0.85) ratio = 0.85;
+		settings.functionListHeightRatio = ratio;
+	}
 
 	// Recent files
 	settings.recentFiles.clear();
@@ -158,8 +196,13 @@ bool SettingsManager::save()
 		@"clipboardHistory": @(settings.clipboardHistory),
 		@"showChangeHistory": @(settings.showChangeHistory),
 		@"documentMapWidth": @(settings.documentMapWidth),
-		@"functionListWidth": @(settings.functionListWidth),
-		@"clipboardHistoryWidth": @(settings.clipboardHistoryWidth),
+		@"fileBrowser": @(settings.fileBrowser),
+		@"fileSwitcher": @(settings.fileSwitcher),
+		@"leftPanelWidth": @(settings.leftPanelWidth),
+		@"fileBrowserHeightRatio": @(settings.fileBrowserHeightRatio),
+		@"fileBrowserRootPath": stringFromFileSystemPath(settings.fileBrowserRootPath) ?: @"",
+		@"rightPanelWidth": @(settings.rightPanelWidth),
+		@"functionListHeightRatio": @(settings.functionListHeightRatio),
 		@"recentFiles":  recentArr
 	};
 

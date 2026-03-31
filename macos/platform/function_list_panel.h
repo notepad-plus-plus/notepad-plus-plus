@@ -4,8 +4,11 @@
 
 void initializeFunctionListPanel();
 void destroyFunctionListPanel();
-void relayoutFunctionListPanel();
 void setFunctionListEnabled(bool enabled);
+
+// Returns opaque pointer to the panel's container view (NSView*),
+// or nullptr if the panel has not been initialized.
+void* functionListContainerView();
 bool isFunctionListEnabled();
 
 void bindFunctionListToActiveView();

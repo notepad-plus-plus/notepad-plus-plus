@@ -8,7 +8,7 @@
 #include <utility>
 
 #include "clipboard_history_panel.h"
-#include "function_list_panel.h"
+#include "panel_layout.h"
 #include "app_state.h"
 #include "scintilla_bridge.h"
 #include "npp_constants.h"
@@ -228,13 +228,13 @@ void initializeClipboardHistoryPanel()
 
 	sController = [[ClipboardHistoryController alloc] init];
 
-	CGFloat width = static_cast<CGFloat>(ctx().clipboardHistoryWidth);
+	CGFloat width = static_cast<CGFloat>(ctx().rightPanelWidth);
 	if (width < 120) width = 120;
 	if (width > 360) width = 360;
-	ctx().clipboardHistoryWidth = static_cast<int>(width);
+	ctx().rightPanelWidth = static_cast<int>(width);
 
 	sContainer = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, width, 100)];
-	sContainer.autoresizingMask = NSViewMinXMargin | NSViewHeightSizable;
+	sContainer.autoresizingMask = NSViewWidthSizable;
 	[contentView addSubview:sContainer];
 
 	// Scroll view
@@ -323,7 +323,7 @@ void setClipboardHistoryEnabled(bool enabled)
 		if (sTableView)
 			[sTableView reloadData];
 	}
-	relayoutFunctionListPanel();
+	relayoutPanels();
 }
 
 bool isClipboardHistoryEnabled()

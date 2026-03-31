@@ -87,11 +87,23 @@ struct AppContext
 
 	// Function list state
 	bool functionListEnabled = false;
-	int functionListWidth = 200;
 
 	// Clipboard history state
 	bool clipboardHistoryEnabled = false;
-	int clipboardHistoryWidth = 220;
+
+	// Left zone — File Browser + File Switcher
+	bool fileBrowserEnabled = false;
+	bool fileSwitcherEnabled = false;
+	int leftPanelWidth = 200;
+	CGFloat fileBrowserHeightRatio = 0.6;
+	std::string fileBrowserRootPath;
+	std::vector<std::string> fileBrowserIgnorePatterns = {
+		".git", ".DS_Store", "node_modules", "__pycache__", ".build", "build"
+	};
+
+	// Right zone — replaces per-panel widths for Function List + Clipboard History
+	int rightPanelWidth = 220;
+	CGFloat functionListHeightRatio = 0.5;
 
 	// Notification suppression (prevents false dirty indicators during tab switches)
 	bool suppressSavePointNotifications = false;

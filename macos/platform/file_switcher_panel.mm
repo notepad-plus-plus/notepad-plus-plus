@@ -217,27 +217,36 @@ static void switchToDocumentAtRow(NSInteger row)
 	// Reuse or create document cell
 	static NSString* cellID = @"FileSwitcherDocCell";
 	NSTableCellView* cell = [tableView makeViewWithIdentifier:cellID owner:self];
+
+	// Identifier constants used for both cell creation and subview lookup
+	static NSUserInterfaceItemIdentifier const modDotID = @"modDot";
+	static NSUserInterfaceItemIdentifier const titleID = @"titleLabel";
+	static NSUserInterfaceItemIdentifier const pathID = @"pathLabel";
+
 	if (!cell)
 	{
 		cell = [[NSTableCellView alloc] initWithFrame:NSZeroRect];
 		cell.identifier = cellID;
 
-		// Modified indicator dot (6px orange circle) — subview index 0
+		// Modified indicator dot (6px orange circle)
 		NSView* modDot = [[NSView alloc] initWithFrame:NSZeroRect];
+		modDot.identifier = modDotID;
 		modDot.translatesAutoresizingMaskIntoConstraints = NO;
 		modDot.wantsLayer = YES;
 		modDot.layer.cornerRadius = 3.0;
 		[cell addSubview:modDot];
 
-		// Filename label — subview index 1
+		// Filename label
 		NSTextField* titleLabel = [NSTextField labelWithString:@""];
+		titleLabel.identifier = titleID;
 		titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		titleLabel.textColor = NSColor.labelColor;
 		titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
 		[cell addSubview:titleLabel];
 
-		// Path label (dimmer, smaller) — subview index 2
+		// Path label (dimmer, smaller)
 		NSTextField* pathLabel = [NSTextField labelWithString:@""];
+		pathLabel.identifier = pathID;
 		pathLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		pathLabel.font = [NSFont systemFontOfSize:10 weight:NSFontWeightRegular];
 		pathLabel.textColor = NSColor.secondaryLabelColor;
@@ -260,10 +269,21 @@ static void switchToDocumentAtRow(NSInteger row)
 		]];
 	}
 
-	// Update cell content (subviews added in fixed order: 0=modDot, 1=title, 2=path)
-	NSView* modDot = cell.subviews[0];
-	NSTextField* titleLabel = (NSTextField*)cell.subviews[1];
-	NSTextField* pathLabel = (NSTextField*)cell.subviews[2];
+	// Update cell content — use identifiers for robust subview lookup
+	auto findSubview = [](NSView* parent, NSUserInterfaceItemIdentifier ident) -> NSView* {
+		for (NSView* sv in parent.subviews)
+		{
+			if ([sv.identifier isEqualToString:ident])
+				return sv;
+		}
+		return nil;
+	};
+	NSView* modDot = findSubview(cell, modDotID);
+	NSTextField* titleLabel = (NSTextField*)findSubview(cell, titleID);
+	NSTextField* pathLabel = (NSTextField*)findSubview(cell, pathID);
+
+	if (!modDot || !titleLabel || !pathLabel)
+		return cell;
 
 	modDot.layer.backgroundColor = doc.modified
 		? [NSColor orangeColor].CGColor

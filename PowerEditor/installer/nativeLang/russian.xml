@@ -4,7 +4,7 @@ Updated to :
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.9.2">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.9.3">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -1762,6 +1762,7 @@ Updated to :
 			<find-status-replaced-next-not-found value="Замена: заменено 1 совпадение. Совпадений больше нет."/>
 			<find-status-replace-not-found value="Замена: совпадений не найдено"/>
 			<find-status-replace-readonly value="Замена: Невозможно заменить текст. Текущий документ доступен только для чтения."/>
+			<find-status-replace-invalid-replace-chars value="Замена: нельзя заменить текст в ANSI документе, который не соответствующий стандарту ANSI."/>
 			<find-status-cannot-find value="Поиск: Не удается найти текст &quot;$STR_REPLACE$&quot;"/>
 			<find-status-cannot-find-pebkac-maybe value="Данное совпадение не может быть найдено. Возможно, вы забыли установить флажок &quot;Зациклить поиск&quot; (на ВКЛ), &quot;Учитывать регистр&quot; (на ВЫКЛ), или &quot;Только целые слова&quot; (на ВЫКЛ)."/>
 			<find-status-scope-selection value="в выделенном тексте"/>

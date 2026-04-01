@@ -616,7 +616,7 @@
             <Keywords name="type1">include bininclude requires orrequires if then else elseif endif error message export externally options</Keywords>
             <Keywords name="type2">short detail end exception withdomain</Keywords>
         </Language>
-        <Language name="xml" ext="xml xaml xsl xslt xsd xul kml svg mxml xsml wsdl xlf xliff xbl sxbl sitemap gml gpx plist vcproj vcxproj csproj csxproj vbproj dbproj wxs wixproj" commentLine="" commentStart="&lt;!--" commentEnd="--&gt;">
+        <Language name="xml" ext="xml xaml xsl xslt xsd xul kml svg mxml xsml wsdl xlf xliff xbl sxbl sitemap gml gpx plist slnx targets vcproj vcxproj csproj csxproj vbproj dbproj wxs wixproj" commentLine="" commentStart="&lt;!--" commentEnd="--&gt;">
             <Keywords name="instre1">ATTLIST DOCTYPE ELEMENT ENTITY NOTATION</Keywords>
             <Keywords name="substyle1"></Keywords>
             <Keywords name="substyle2"></Keywords>

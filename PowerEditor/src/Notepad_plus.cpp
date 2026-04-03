@@ -4507,19 +4507,21 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 		//else
 			// do not change the current Notepad++ edit-view
 
-		int filesDropped = ::DragQueryFile(hdrop, 0xffffffff, NULL, 0);
+		int filesDropped = ::DragQueryFileW(hdrop, 0xffffffff, NULL, 0);
 
 		vector<wstring> folderPaths;
 		vector<wstring> filePaths;
 		for (int i = 0; i < filesDropped; ++i)
 		{
-			wchar_t pathDropped[MAX_PATH];
-			::DragQueryFile(hdrop, i, pathDropped, MAX_PATH);
+			wchar_t pathDropped[MAX_PATH]{};
+			::DragQueryFileW(hdrop, i, pathDropped, MAX_PATH);
 			if (doesDirectoryExist(pathDropped))
 			{
-				size_t len = lstrlen(pathDropped);
-				if (len > 0 && pathDropped[len - 1] != wchar_t('\\'))
+				size_t len = lstrlenW(pathDropped);
+				if ((len > 0) && (pathDropped[len - 1] != wchar_t('\\')))
 				{
+					if (len + 1 >= MAX_PATH)
+						continue; // not enough space for the trailing backslash, try next
 					pathDropped[len] = wchar_t('\\');
 					pathDropped[len + 1] = wchar_t('\0');
 				}
@@ -4534,13 +4536,17 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 		NppParameters& nppParam = NppParameters::getInstance();
 		bool isOldMode = nppParam.getNppGUI()._isFolderDroppedOpenFiles;
 
-		if (isOldMode || folderPaths.size() == 0) // old mode or new mode + only files
+		if ((filePaths.size() == 0) && (folderPaths.size() == 0))
+		{
+			// invalid paths, do nothing
+		}
+		else if (isOldMode || folderPaths.size() == 0) // old mode or new mode + only files
 		{
 			BufferID lastOpened = BUFFER_INVALID;
 			for (int i = 0; i < filesDropped; ++i)
 			{
-				wchar_t pathDropped[MAX_PATH];
-				::DragQueryFile(hdrop, i, pathDropped, MAX_PATH);
+				wchar_t pathDropped[MAX_PATH]{};
+				::DragQueryFileW(hdrop, i, pathDropped, MAX_PATH);
 				BufferID test = doOpen(pathDropped);
 				if (test != BUFFER_INVALID)
 					lastOpened = test;

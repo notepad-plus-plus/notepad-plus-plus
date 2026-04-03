@@ -597,7 +597,16 @@ void VerticalFileSwitcher::popupMenuCmd(int cmdID)
 void VerticalFileSwitcher::display(bool toShow) const
 {
 	DockingDlgInterface::display(toShow);
-	_fileListView.ensureVisibleCurrentItem();	// without this call the current item may stay above visible area after the program startup
+
+	if (toShow)
+	{
+		// Startup restore of a floating panel may skip WM_SIZE for this dialog.
+		// Force one layout pass so the list control gets a valid size.
+		RECT rc{};
+		::GetClientRect(_hSelf, &rc);
+		::SendMessage(_hSelf, WM_SIZE, 0, MAKELPARAM(rc.right - rc.left, rc.bottom - rc.top));
+		_fileListView.ensureVisibleCurrentItem();	// without this call the current item may stay above visible area after the program startup
+	}
 }
 
 void VerticalFileSwitcher::activateDoc(TaskLstFnStatus *tlfs) const

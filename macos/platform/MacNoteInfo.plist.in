@@ -5,7 +5,7 @@
   <key>CFBundleDevelopmentRegion</key>
   <string>en</string>
   <key>CFBundleExecutable</key>
-  <string>MacOSNotePP</string>
+  <string>MacNotePlusPlus</string>
   <key>CFBundleIdentifier</key>
   <string>com.softcentral.macnotepp</string>
   <key>CFBundleIconFile</key>
@@ -19,9 +19,9 @@
   <key>CFBundlePackageType</key>
   <string>APPL</string>
   <key>CFBundleShortVersionString</key>
-  <string>1.0.0</string>
+  <string>1.0.1</string>
   <key>CFBundleVersion</key>
-  <string>1.0.0</string>
+  <string>1.0.1</string>
   <key>NSHighResolutionCapable</key>
   <true/>
   <key>NSHumanReadableCopyright</key>

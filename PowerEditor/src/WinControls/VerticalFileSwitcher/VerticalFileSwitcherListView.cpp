@@ -177,6 +177,7 @@ void VerticalFileSwitcherListView::initList()
 void VerticalFileSwitcherListView::reload()
 {
 	// Suppress redraws for performance. We target _hParent to prevent scroll bar flickering.
+	::SendMessage(_hSelf, WM_SETREDRAW, false, 0);
 	::SendMessage(_hParent, WM_SETREDRAW, false, 0);
 	removeAll();
 	initList();
@@ -185,6 +186,7 @@ void VerticalFileSwitcherListView::reload()
 	::GetClientRect(_hParent, &rc);
 	resizeColumns(rc.right - rc.left);
 	::SendMessage(_hParent, WM_SETREDRAW, true, 0);
+	::SendMessage(_hSelf, WM_SETREDRAW, true, 0);
 	redrawItems();
 }
 

@@ -12,7 +12,7 @@
 - (void)openRepository:(id)sender
 {
 	[[NSWorkspace sharedWorkspace] openURL:
-		[NSURL URLWithString:@"https://github.com/hybridmachine/MacOS-NotePP"]];
+		[NSURL URLWithString:@"https://github.com/hybridmachine/MacNotePlusPlus"]];
 }
 
 - (void)windowWillClose:(NSNotification*)notification
@@ -114,13 +114,13 @@ void showAboutDlg()
 
 		// Repository link (clickable button styled as link)
 		NSButton* linkButton = [[NSButton alloc] initWithFrame:NSMakeRect(60, y, 280, 20)];
-		[linkButton setTitle:@"github.com/hybridmachine/MacOS-NotePP"];
+		[linkButton setTitle:@"github.com/hybridmachine/MacNotePlusPlus"];
 		[linkButton setBezelStyle:NSBezelStyleInline];
 		[linkButton setBordered:NO];
 		[linkButton setTarget:controller];
 		[linkButton setAction:@selector(openRepository:)];
 		NSMutableAttributedString* linkAttr = [[NSMutableAttributedString alloc]
-			initWithString:@"github.com/hybridmachine/MacOS-NotePP"];
+			initWithString:@"github.com/hybridmachine/MacNotePlusPlus"];
 		[linkAttr addAttribute:NSForegroundColorAttributeName
 		                 value:[NSColor linkColor]
 		                 range:NSMakeRange(0, linkAttr.length)];

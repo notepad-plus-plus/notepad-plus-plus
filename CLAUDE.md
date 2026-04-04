@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Notepad++ is a Windows-native source code editor written in C++20. It wraps the Scintilla editor component and Lexilla lexer library, adding tabbed editing, plugin support, docking panels, and extensive configuration. It is a Win32 application using the Windows API directly (no cross-platform framework).
+**MacNotePlusPlus 1.0** is a macOS port of Notepad++, the Windows-native source code editor written in C++20. The upstream Notepad++ wraps the Scintilla editor component and Lexilla lexer library, adding tabbed editing, plugin support, docking panels, and extensive configuration. The original is a Win32 application using the Windows API directly (no cross-platform framework). This project brings that functionality to macOS.
 
 ## Build Commands
 

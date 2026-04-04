@@ -18,6 +18,9 @@ set(CODESIGN_ENTITLEMENTS "${CMAKE_CURRENT_SOURCE_DIR}/platform/MacNote.entitlem
     "Path to entitlements plist for hardened runtime")
 
 if(CODESIGN_ENABLED)
+    # Escape parentheses for Xcode generator shell scripts
+    string(REPLACE "(" "\\(" CODESIGN_IDENTITY "${CODESIGN_IDENTITY}")
+    string(REPLACE ")" "\\)" CODESIGN_IDENTITY "${CODESIGN_IDENTITY}")
     message(STATUS "Code signing: ENABLED")
     message(STATUS "  Identity: ${CODESIGN_IDENTITY}")
     message(STATUS "  Entitlements: ${CODESIGN_ENTITLEMENTS}")
@@ -330,7 +333,7 @@ add_custom_target(AppIcon DEPENDS "${CMAKE_BINARY_DIR}/AppIcon.icns")
 # ============================================================
 # Main macOS app target
 # ============================================================
-add_executable(MacOSNotePP
+add_executable(MacNotePlusPlus
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/app_main.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/app_state.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/app_delegate.mm"
@@ -382,7 +385,7 @@ add_executable(MacOSNotePP
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/hash_tools.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/macro_manager.mm"
 )
-target_include_directories(MacOSNotePP PRIVATE
+target_include_directories(MacNotePlusPlus PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/platform"
     "${SHIM_INCLUDE_DIR}"
     "${CMAKE_CURRENT_SOURCE_DIR}/shim/src"
@@ -390,7 +393,7 @@ target_include_directories(MacOSNotePP PRIVATE
     "${LEXILLA_INCLUDE_DIR}"
     "${UCHARDET_DIR}"
 )
-target_link_libraries(MacOSNotePP
+target_link_libraries(MacNotePlusPlus
     win32shim
     scintilla_bridge
     Scintilla
@@ -403,18 +406,18 @@ target_link_libraries(MacOSNotePP
     "-framework UniformTypeIdentifiers"
     "-framework CoreServices"
 )
-target_compile_options(MacOSNotePP PRIVATE
+target_compile_options(MacNotePlusPlus PRIVATE
     -fobjc-arc
     -Wno-deprecated-declarations
 )
-add_dependencies(MacOSNotePP AppIcon)
-add_custom_command(TARGET MacOSNotePP POST_BUILD
+add_dependencies(MacNotePlusPlus AppIcon)
+add_custom_command(TARGET MacNotePlusPlus POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "${NPP_ROOT}/logo.png"
-        "$<TARGET_FILE_DIR:MacOSNotePP>/logo.png"
+        "$<TARGET_FILE_DIR:MacNotePlusPlus>/logo.png"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "${CMAKE_BINARY_DIR}/AppIcon.icns"
-        "$<TARGET_FILE_DIR:MacOSNotePP>/AppIcon.icns"
+        "$<TARGET_FILE_DIR:MacNotePlusPlus>/AppIcon.icns"
     COMMENT "Copying logo.png and AppIcon.icns"
 )
 
@@ -428,7 +431,7 @@ set(NPP_MACOS_APP_MACOS "${NPP_MACOS_APP_CONTENTS}/MacOS")
 set(NPP_MACOS_APP_RESOURCES "${NPP_MACOS_APP_CONTENTS}/Resources")
 set(NPP_MACOS_DMG_ROOT "${NPP_MACOS_DIST_DIR}/dmg-root")
 set(NPP_MACOS_DMG_APP_BUNDLE "${NPP_MACOS_DMG_ROOT}/MacNote++.app")
-set(NPP_MACOS_UNSIGNED_DMG "${NPP_MACOS_DIST_DIR}/MacNote++-unsigned.dmg")
+set(NPP_MACOS_UNSIGNED_DMG "${NPP_MACOS_DIST_DIR}/MacNotePlusPlus-unsigned.dmg")
 set(NPP_MACOS_INFO_PLIST "${CMAKE_CURRENT_BINARY_DIR}/MacNote++-Info.plist")
 
 configure_file(
@@ -437,14 +440,14 @@ configure_file(
     @ONLY
 )
 
-add_custom_target(MacOSNotePP_package
-    DEPENDS MacOSNotePP
+add_custom_target(MacNotePlusPlus_package
+    DEPENDS MacNotePlusPlus
     COMMAND ${CMAKE_COMMAND} -E rm -rf "${NPP_MACOS_APP_BUNDLE}"
     COMMAND ${CMAKE_COMMAND} -E make_directory "${NPP_MACOS_APP_MACOS}"
     COMMAND ${CMAKE_COMMAND} -E make_directory "${NPP_MACOS_APP_RESOURCES}"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        "$<TARGET_FILE:MacOSNotePP>"
-        "${NPP_MACOS_APP_MACOS}/MacOSNotePP"
+        "$<TARGET_FILE:MacNotePlusPlus>"
+        "${NPP_MACOS_APP_MACOS}/MacNotePlusPlus"
     COMMAND ditto --norsrc
         "${NPP_ROOT}/logo.png"
         "${NPP_MACOS_APP_MACOS}/logo.png"
@@ -475,8 +478,8 @@ if(CODESIGN_ENABLED)
     set(NPP_SIGN_STAGE_APP "${NPP_SIGN_STAGE}/MacNote++.app")
     set(NPP_SIGN_STAGE_DMG_ROOT "${NPP_SIGN_STAGE}/dmg-root")
 
-    add_custom_target(MacOSNotePP_sign
-        DEPENDS MacOSNotePP_package
+    add_custom_target(MacNotePlusPlus_sign
+        DEPENDS MacNotePlusPlus_package
         COMMAND ${CMAKE_COMMAND} -E rm -rf "${NPP_SIGN_STAGE}"
         COMMAND ${CMAKE_COMMAND} -E make_directory "${NPP_SIGN_STAGE}"
         COMMAND ditto --norsrc
@@ -498,8 +501,8 @@ if(CODESIGN_ENABLED)
         COMMENT "Code signing MacNote++.app with '${CODESIGN_IDENTITY}'"
     )
 
-    add_custom_target(MacOSNotePP_dmg
-        DEPENDS MacOSNotePP_sign
+    add_custom_target(MacNotePlusPlus_dmg
+        DEPENDS MacNotePlusPlus_sign
         COMMAND ${CMAKE_COMMAND} -E make_directory "${NPP_SIGN_STAGE_DMG_ROOT}"
         COMMAND ${CMAKE_COMMAND} -E rm -rf "${NPP_SIGN_STAGE_DMG_ROOT}/MacNote++.app"
         COMMAND ditto "${NPP_SIGN_STAGE_APP}" "${NPP_SIGN_STAGE_DMG_ROOT}/MacNote++.app"
@@ -507,36 +510,36 @@ if(CODESIGN_ENABLED)
         COMMAND ${CMAKE_COMMAND} -E create_symlink
             "/Applications"
             "${NPP_SIGN_STAGE_DMG_ROOT}/Applications"
-        COMMAND ${CMAKE_COMMAND} -E rm -f "${NPP_SIGN_STAGE}/MacNote++.dmg"
+        COMMAND ${CMAKE_COMMAND} -E rm -f "${NPP_SIGN_STAGE}/MacNotePlusPlus.dmg"
         COMMAND hdiutil create
-            -volname "MacNote++"
+            -volname "MacNotePlusPlus"
             -srcfolder "${NPP_SIGN_STAGE_DMG_ROOT}"
             -format UDZO
             -ov
-            "${NPP_SIGN_STAGE}/MacNote++.dmg"
+            "${NPP_SIGN_STAGE}/MacNotePlusPlus.dmg"
         COMMAND codesign --force --sign "${CODESIGN_IDENTITY}"
-            --timestamp "${NPP_SIGN_STAGE}/MacNote++.dmg"
-        COMMAND codesign --verify --verbose=2 "${NPP_SIGN_STAGE}/MacNote++.dmg"
+            --timestamp "${NPP_SIGN_STAGE}/MacNotePlusPlus.dmg"
+        COMMAND codesign --verify --verbose=2 "${NPP_SIGN_STAGE}/MacNotePlusPlus.dmg"
         COMMAND ${CMAKE_COMMAND} -E copy
-            "${NPP_SIGN_STAGE}/MacNote++.dmg"
-            "${NPP_MACOS_DIST_DIR}/MacNote++.dmg"
+            "${NPP_SIGN_STAGE}/MacNotePlusPlus.dmg"
+            "${NPP_MACOS_DIST_DIR}/MacNotePlusPlus.dmg"
         COMMAND ${CMAKE_COMMAND} -E echo
-            "Signed DMG: ${NPP_MACOS_DIST_DIR}/MacNote++.dmg"
+            "Signed DMG: ${NPP_MACOS_DIST_DIR}/MacNotePlusPlus.dmg"
         COMMAND ${CMAKE_COMMAND} -E echo
             "NOTE: If your project directory is iCloud-synced, signature verification"
         COMMAND ${CMAKE_COMMAND} -E echo
             "may fail locally due to Finder xattrs. The DMG is valid for distribution."
         COMMAND ${CMAKE_COMMAND} -E rm -rf "${NPP_SIGN_STAGE}"
-        COMMENT "Building and signing MacNote++.dmg"
+        COMMENT "Building and signing MacNotePlusPlus.dmg"
     )
 else()
-    add_custom_target(MacOSNotePP_sign
-        DEPENDS MacOSNotePP_package
+    add_custom_target(MacNotePlusPlus_sign
+        DEPENDS MacNotePlusPlus_package
         COMMENT "Code signing SKIPPED (CODESIGN_ENABLED=OFF)"
     )
 
-    add_custom_target(MacOSNotePP_dmg
-        DEPENDS MacOSNotePP_sign
+    add_custom_target(MacNotePlusPlus_dmg
+        DEPENDS MacNotePlusPlus_sign
         COMMAND ${CMAKE_COMMAND} -E make_directory "${NPP_MACOS_DMG_ROOT}"
         COMMAND ${CMAKE_COMMAND} -E rm -rf "${NPP_MACOS_DMG_APP_BUNDLE}"
         COMMAND ${CMAKE_COMMAND} -E copy_directory
@@ -548,21 +551,21 @@ else()
             "${NPP_MACOS_DMG_ROOT}/Applications"
         COMMAND ${CMAKE_COMMAND} -E rm -f "${NPP_MACOS_UNSIGNED_DMG}"
         COMMAND hdiutil create
-            -volname "MacNote++"
+            -volname "MacNotePlusPlus"
             -srcfolder "${NPP_MACOS_DMG_ROOT}"
             -format UDZO
             -ov
             "${NPP_MACOS_UNSIGNED_DMG}"
-        COMMENT "Building MacNote++-unsigned.dmg"
+        COMMENT "Building MacNotePlusPlus-unsigned.dmg"
     )
 endif()
 
 message(STATUS "=== Notepad++ macOS Port ===")
 message(STATUS "Compatibility compile target: npp_macos_compile_test")
-message(STATUS "App target: MacOSNotePP")
-message(STATUS "Packaging target: MacOSNotePP_package")
-message(STATUS "Signing target: MacOSNotePP_sign")
-message(STATUS "DMG target: MacOSNotePP_dmg")
+message(STATUS "App target: MacNotePlusPlus")
+message(STATUS "Packaging target: MacNotePlusPlus_package")
+message(STATUS "Signing target: MacNotePlusPlus_sign")
+message(STATUS "DMG target: MacNotePlusPlus_dmg")
 message(STATUS "Shim headers: ${SHIM_INCLUDE_DIR}")
 message(STATUS "Scintilla: ${SCINTILLA_DIR}")
 message(STATUS "Lexilla: ${LEXILLA_DIR}")

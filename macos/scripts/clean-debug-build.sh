@@ -12,6 +12,6 @@ echo "==> Running CMake setup (Xcode generator)..."
 cmake -G Xcode ..
 
 echo "==> Building debug package..."
-cmake --build . --target MacOSNotePP_package --config Debug
+cmake --build . --target MacNotePlusPlus_package --config Debug
 
 echo "==> Done. App bundle is at: $(cd "$SCRIPT_DIR/../dist" && pwd)/MacNote++.app"

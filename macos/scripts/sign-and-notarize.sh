@@ -84,10 +84,10 @@ fi
 
 # Auto-detect DMG path
 if [[ -z "$DMG_PATH" ]] && ! $SKIP_DMG; then
-	if [[ -f "${MACOS_DIR}/dist/MacNote++.dmg" ]]; then
-		DMG_PATH="${MACOS_DIR}/dist/MacNote++.dmg"
-	elif [[ -f "${MACOS_DIR}/dist/MacNote++-unsigned.dmg" ]]; then
-		DMG_PATH="${MACOS_DIR}/dist/MacNote++-unsigned.dmg"
+	if [[ -f "${MACOS_DIR}/dist/MacNotePlusPlus.dmg" ]]; then
+		DMG_PATH="${MACOS_DIR}/dist/MacNotePlusPlus.dmg"
+	elif [[ -f "${MACOS_DIR}/dist/MacNotePlusPlus-unsigned.dmg" ]]; then
+		DMG_PATH="${MACOS_DIR}/dist/MacNotePlusPlus-unsigned.dmg"
 	else
 		warn "No DMG found in dist/. Use --dmg-path or --skip-dmg."
 		SKIP_DMG=true

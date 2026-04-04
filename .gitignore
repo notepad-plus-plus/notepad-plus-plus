@@ -173,3 +173,4 @@ PowerEditor/src/MISC/md5/RCa06792
 *.sln
 *.opendb
 .superpowers/
+.env

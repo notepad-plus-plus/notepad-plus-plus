@@ -45,6 +45,8 @@
 
 #include "NppConstants.h"
 
+#include <shellapi.h>
+
 using namespace std;
 
 std::mutex command_mutex;
@@ -719,6 +721,70 @@ void Notepad_plus::command(int id)
 		break;
 
 		case IDM_EDIT_OPENINFOLDER:
+		{
+			if (_pEditView->execute(SCI_GETSELECTIONS) != 1) // Multi-Selection || Column mode || no selection
+				return;
+
+			HWND hwnd = _pPublicInterface->getHSelf();
+
+			const int strSize = CURRENTWORD_MAXLENGTH;
+			auto currentWord = std::make_unique<wchar_t[]>(strSize);
+			std::fill_n(currentWord.get(), strSize, L'\0');
+
+			::SendMessage(hwnd, NPPM_GETFILENAMEATCURSOR, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentWord.get()));
+
+			// Build absolute path for the item under cursor
+			wstring fullTargetPath;
+			if (doesPathExist(currentWord.get()))
+			{
+				fullTargetPath = currentWord.get();
+			}
+			else // Relative path -> combine with current directory
+			{
+				auto currentDir = std::make_unique<wchar_t[]>(strSize);
+				std::fill_n(currentDir.get(), strSize, L'\0');
+				::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir.get()));
+
+				fullTargetPath = currentDir.get();
+				fullTargetPath += L"\\";
+				fullTargetPath += currentWord.get();
+
+				if (!doesPathExist(fullTargetPath.c_str()))
+				{
+					_nativeLangSpeaker.messageBox("FilePathNotFoundWarning",
+						_pPublicInterface->getHSelf(),
+						L"The file/folder you're trying to open doesn't exist.",
+						L"Open in Folder",
+						MB_OK | MB_APPLMODAL);
+					return;
+				}
+			}
+
+			// Use modern shell API to open folder and select the item
+			HRESULT hr = HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
+			ScopedCOMInit com;
+			if (com.isInitialized())
+			{
+				ITEMIDLIST* pidl = nullptr;
+				hr = ::SHParseDisplayName(fullTargetPath.c_str(), nullptr, &pidl, 0, nullptr);
+				if (SUCCEEDED(hr))
+				{
+					hr = ::SHOpenFolderAndSelectItems(pidl, 0, nullptr, 0);
+					::CoTaskMemFree(pidl);
+				}
+			}
+
+			// Fallback to old method if modern API fails
+			if (hr == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND))
+			{
+				wstring param = L"/select,\"";
+				param += fullTargetPath;
+				param += L"\"";
+				::ShellExecute(hwnd, L"open", L"explorer.exe", param.c_str(), L".", SW_SHOWNORMAL);
+			}
+			break;
+		}
+
 		case IDM_EDIT_OPENASFILE:
 		{
 			if (_pEditView->execute(SCI_GETSELECTIONS) != 1) // Multi-Selection || Column mode || no selection
@@ -731,33 +797,18 @@ void Notepad_plus::command(int id)
 			std::fill_n(currentWord.get(), strSize, L'\0');
 
 			::SendMessage(hwnd, NPPM_GETFILENAMEATCURSOR, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentWord.get()));
-			
+
 			wchar_t cmd2Exec[CURRENTWORD_MAXLENGTH] = { '\0' };
-			if (id == IDM_EDIT_OPENINFOLDER)
-			{
-				if (!::GetWindowsDirectoryW(cmd2Exec, MAX_PATH))
-					return;
-
-				PathAppend(cmd2Exec, L"explorer.exe");
-
-				if (!doesFileExist(cmd2Exec))
-					return;
-			}
-			else
-			{
-				::SendMessage(hwnd, NPPM_GETNPPFULLFILEPATH, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(cmd2Exec));
-			}
+			::SendMessage(hwnd, NPPM_GETNPPFULLFILEPATH, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(cmd2Exec));
 
 			// Full file path: could be a folder or a file
 			if (doesPathExist(currentWord.get()))
 			{
-				wstring fullFilePath = id == IDM_EDIT_OPENINFOLDER ? L"/select," : L"";
-				fullFilePath += L"\"";
+				wstring fullFilePath = L"\"";
 				fullFilePath += currentWord.get();
 				fullFilePath += L"\"";
 
-				if (id == IDM_EDIT_OPENINFOLDER ||
-					(id == IDM_EDIT_OPENASFILE && !doesDirectoryExist(currentWord.get())))
+				if (!doesDirectoryExist(currentWord.get()))
 					::ShellExecute(hwnd, L"open", cmd2Exec, fullFilePath.c_str(), L".", SW_SHOW);
 			}
 			else // Relative file path - need concatenate with current full file path
@@ -767,14 +818,13 @@ void Notepad_plus::command(int id)
 
 				::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir.get()));
 
-				wstring fullFilePath = id == IDM_EDIT_OPENINFOLDER ? L"/select," : L"";
-				fullFilePath += L"\"";
+				wstring fullFilePath = L"\"";
 				fullFilePath += currentDir.get();
 				fullFilePath += L"\\";
 				fullFilePath += currentWord.get();
+				fullFilePath += L"\"";
 
-				if ((id == IDM_EDIT_OPENASFILE && 
-					(!doesFileExist(fullFilePath.c_str() + 1)))) // + 1 for skipping the 1st char '"'
+				if (!doesFileExist(fullFilePath.c_str() + 1)) // +1 for skipping the 1st char '"'
 				{
 					_nativeLangSpeaker.messageBox("FilePathNotFoundWarning",
 						_pPublicInterface->getHSelf(),
@@ -783,13 +833,11 @@ void Notepad_plus::command(int id)
 						MB_OK | MB_APPLMODAL);
 					return;
 				}
-				// else id == IDM_EDIT_OPENINFOLDER - do it anyway. (even the last part does not exist, it doesn't matter)
 
-				fullFilePath += L"\"";
 				::ShellExecute(hwnd, L"open", cmd2Exec, fullFilePath.c_str(), L".", SW_SHOW);
 			}
+			break;
 		}
-		break;
 
 		case IDM_EDIT_SEARCHONINTERNET:
 		{

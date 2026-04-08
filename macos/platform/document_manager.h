@@ -24,6 +24,8 @@ void closeTab(int tabIndex);
 
 void reorderTabInView(int viewIndex, int fromIndex, int toIndex);
 
+void migrateTabToView(int viewIndex, const DocumentData& doc);
+
 void updateTabModifiedIndicator(int viewIndex, int tabIndex);
 void updateWindowDocumentEdited();
 

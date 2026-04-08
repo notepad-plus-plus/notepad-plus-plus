@@ -24,6 +24,7 @@
 #include "file_switcher_panel.h"
 #include "scintilla_notify.h"
 #include "macro_manager.h"
+#include "status_bar.h"
 #include "windows.h"
 #include "commctrl.h"
 
@@ -90,6 +91,9 @@ void doSplit()
 
 	NSView* contentView = ctx().mainWindow.contentView;
 
+	// Save original frame for rollback if Scintilla creation fails
+	NSRect originalFrame = ctx().editorContainer.frame;
+
 	ctx().splitView = [[NSSplitView alloc] initWithFrame:ctx().editorContainer.frame];
 	ctx().splitView.vertical = YES;
 	ctx().splitView.dividerStyle = NSSplitViewDividerStyleThin;
@@ -122,7 +126,27 @@ void doSplit()
 	[ctx().editorContainer2 addSubview:ctx().sciContainer2];
 
 	ctx().scintillaView2 = ScintillaBridge_createView((__bridge void*)ctx().sciContainer2, 0, 0, 0, 0);
-	if (ctx().scintillaView2)
+	if (!ctx().scintillaView2)
+	{
+		// Rollback: restore editorContainer to contentView
+		[ctx().editorContainer removeFromSuperview];
+		if (ctx().tabHwnd2)
+		{
+			DestroyWindow(ctx().tabHwnd2);
+			ctx().tabHwnd2 = nullptr;
+		}
+		ctx().editorContainer2 = nil;
+		ctx().sciContainer2 = nil;
+		[ctx().splitView removeFromSuperview];
+		ctx().splitView = nil;
+		ctx().editorContainer.translatesAutoresizingMaskIntoConstraints = YES;
+		ctx().editorContainer.frame = originalFrame;
+		ctx().editorContainer.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+		[contentView addSubview:ctx().editorContainer];
+		ScintillaBridge_resizeToFit(ctx().scintillaView);
+		return;
+	}
+
 	{
 		configureScintilla(ctx().scintillaView2);
 		ScintillaBridge_setNotifyCallback(ctx().scintillaView2, 1,
@@ -295,8 +319,18 @@ void doUnsplit()
 
 	NSView* contentView = ctx().mainWindow.contentView;
 
+	// Save both views' state before destroying anything
 	if (ctx().scintillaView2)
 		saveViewState(ctx().scintillaView2, ctx().documents2, ctx().activeTab2);
+	if (ctx().scintillaView)
+		saveViewState(ctx().scintillaView, ctx().documents, ctx().activeTab);
+
+	// Capture which document the user was editing
+	bool wasActiveInView2 = (ctx().activeView == 1);
+	int view2ActiveIdx = ctx().activeTab2;
+
+	// Snapshot documents2 for migration before clearing
+	std::vector<DocumentData> docsToMigrate = ctx().documents2;
 
 	// If incremental search bar is in the closing view, remove it first
 	if (isIncrementalSearchVisible() && ctx().incrementalSearchBar)
@@ -308,6 +342,7 @@ void doUnsplit()
 		}
 	}
 
+	// Destroy second Scintilla view
 	if (ctx().scintillaView2)
 	{
 		cancelPendingSmartHighlight();
@@ -317,6 +352,7 @@ void doUnsplit()
 		ctx().scintillaView2 = nullptr;
 	}
 
+	// Destroy second tab bar
 	if (ctx().tabHwnd2)
 	{
 		DestroyWindow(ctx().tabHwnd2);
@@ -325,6 +361,7 @@ void doUnsplit()
 
 	ctx().sciContainer2 = nil;
 
+	// Reparent editorContainer back to contentView
 	[ctx().editorContainer removeFromSuperview];
 	if (ctx().editorContainer2)
 	{
@@ -335,6 +372,12 @@ void doUnsplit()
 	[ctx().splitView removeFromSuperview];
 	ctx().splitView = nil;
 
+	// NSSplitView sets translatesAutoresizingMaskIntoConstraints=NO on arranged
+	// subviews and manages them via Auto Layout. After removing editorContainer
+	// from the split view, restore autoresizing mask behavior so the explicitly
+	// set frame is respected by contentView's layout.
+	ctx().editorContainer.translatesAutoresizingMaskIntoConstraints = YES;
+
 	CGFloat tabHeight = NPP_TAB_BAR_HEIGHT;
 	CGFloat statusHeight = NPP_STATUS_BAR_HEIGHT;
 	CGFloat editorHeight = contentView.bounds.size.height - tabHeight - statusHeight;
@@ -343,11 +386,68 @@ void doUnsplit()
 	[contentView addSubview:ctx().editorContainer];
 	ScintillaBridge_resizeToFit(ctx().scintillaView);
 
+	// Migrate documents from view 2 to view 0.
+	// Skip unmodified mirrors (same filePath already in view 0 and not modified)
+	// to avoid duplicating the initial split clone. Preserve modified clones
+	// since they may have diverged.
+	int migratedActiveIdx = -1;
+	for (int i = 0; i < static_cast<int>(docsToMigrate.size()); ++i)
+	{
+		const auto& doc = docsToMigrate[i];
+
+		bool skip = false;
+		if (!doc.modified)
+		{
+			if (!doc.filePath.empty())
+			{
+				// Skip unmodified doc if same file already open in view 0
+				for (const auto& d : ctx().documents)
+				{
+					if (d.filePath == doc.filePath)
+					{
+						skip = true;
+						break;
+					}
+				}
+			}
+			else if (doc.content.empty())
+			{
+				// Skip empty untitled unmodified placeholder
+				skip = true;
+			}
+		}
+
+		if (skip)
+		{
+			invalidateFunctionListCacheForDocument(doc.functionListDocumentId);
+			continue;
+		}
+
+		if (wasActiveInView2 && i == view2ActiveIdx)
+			migratedActiveIdx = static_cast<int>(ctx().documents.size());
+		migrateTabToView(0, doc);
+	}
+
 	ctx().documents2.clear();
 	ctx().activeTab2 = -1;
 	ctx().activeView = 0;
 	ctx().isSplit = false;
 	ctx().syncScrollReentrant = false;
+
+	// If user was focused on view 2, switch to that migrated tab
+	if (wasActiveInView2 && migratedActiveIdx >= 0
+	    && migratedActiveIdx < static_cast<int>(ctx().documents.size()))
+	{
+		ctx().activeTab = migratedActiveIdx;
+		if (ctx().tabHwnd)
+			SendMessageW(ctx().tabHwnd, TCM_SETCURSEL, ctx().activeTab, 0);
+	}
+
+	// Restore main Scintilla content from the active document
+	restoreViewToScintilla(ctx().scintillaView, ctx().documents, ctx().activeTab);
+	if (ctx().activeTab >= 0 && ctx().activeTab < static_cast<int>(ctx().documents.size()))
+		applyLanguageToView(ctx().scintillaView, ctx().documents[ctx().activeTab].languageIndex);
+
 	refreshSyncScrollAnchor();
 
 	if (isIncrementalSearchVisible())
@@ -356,9 +456,34 @@ void doUnsplit()
 	layoutSplitTopTabBars();
 	updateSplitMenuState();
 	relayoutPanels();
+
+	// Restore focus and update UI to reflect the active document
+	ScintillaBridge_focus(ctx().scintillaView);
+
+	if (ctx().activeTab >= 0 && ctx().activeTab < static_cast<int>(ctx().documents.size()))
+	{
+		NSString* title = WideToNSString(ctx().documents[ctx().activeTab].title.c_str());
+		[ctx().mainWindow setTitle:[NSString stringWithFormat:@"Notepad++ — %@", title]];
+	}
+	updateWindowDocumentEdited();
+
 	bindDocumentMapToActiveView();
 	updateDocumentMapViewport();
 	bindFunctionListToActiveView();
+	reloadFileSwitcherData();
+	updateStatusBar();
+
+	// Deferred display refresh after Cocoa completes layout.
+	// Capture the pointer before dispatch to avoid races with ctx() changes.
+	void* capturedSciView = ctx().scintillaView;
+	dispatch_async(dispatch_get_main_queue(), ^{
+		if (capturedSciView)
+		{
+			ScintillaBridge_resizeToFit(capturedSciView);
+			NSView* view = (__bridge NSView*)capturedSciView;
+			[view setNeedsDisplay:YES];
+		}
+	});
 }
 
 void doMoveToOtherView()

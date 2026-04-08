@@ -288,6 +288,34 @@ void closeTab(int tabIndex)
 	closeTabFromView(ctx().activeView, tabIndex);
 }
 
+void migrateTabToView(int viewIndex, const DocumentData& doc)
+{
+	auto& docs = (viewIndex == 0) ? ctx().documents : ctx().documents2;
+	HWND tabHwnd = (viewIndex == 0) ? ctx().tabHwnd : ctx().tabHwnd2;
+
+	DocumentData newDoc = doc;
+	// Keep the existing functionListDocumentId so cached entries remain valid.
+	// Only allocate a new one if the source didn't have one.
+	if (newDoc.functionListDocumentId == 0)
+		newDoc.functionListDocumentId = allocateFunctionListDocumentId();
+	docs.push_back(newDoc);
+
+	int newIndex = static_cast<int>(docs.size()) - 1;
+
+	if (tabHwnd)
+	{
+		TCITEMW tcItem = {};
+		tcItem.mask = TCIF_TEXT;
+		wchar_t titleBuf[256];
+		wcsncpy(titleBuf, newDoc.title.c_str(), 255);
+		titleBuf[255] = L'\0';
+		tcItem.pszText = titleBuf;
+		SendMessageW(tabHwnd, TCM_INSERTITEMW, newIndex, reinterpret_cast<LPARAM>(&tcItem));
+	}
+
+	updateTabModifiedIndicator(viewIndex, newIndex);
+}
+
 void reorderTabInView(int viewIndex, int fromIndex, int toIndex)
 {
 	auto& docs = (viewIndex == 0) ? ctx().documents : ctx().documents2;

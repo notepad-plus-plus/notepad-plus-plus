@@ -197,30 +197,14 @@ void Notepad_plus::command(int id)
 
 		case IDM_FILE_OPEN_FOLDER:
 		{
-			HRESULT hr = HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
-
-			ScopedCOMInit com;
-			if (com.isInitialized())
-			{
-				ITEMIDLIST* pidl = nullptr;
-				hr = ::SHParseDisplayName(_pEditView->getCurrentBuffer()->getFullPathName(), nullptr, &pidl, 0, nullptr);
-				if (SUCCEEDED(hr))
-				{
-					hr = ::SHOpenFolderAndSelectItems(pidl, 0, nullptr, 0);
-					::CoTaskMemFree(pidl);
-				}
-			}
-
+			const wchar_t* fullPath = _pEditView->getCurrentBuffer()->getFullPathName();
+			HRESULT hr = openInExplorerAndSelect(fullPath);
 			if (hr == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND))
 			{
 				// fallback (but without selecting the current file)
-				// - either the COM cannot be used or the above shell APIs mysteriously fail on some systems
-				//   with the "file not found" even though the file is there
-				// - do not use this fallback for any other possible error (like E_INVALIDARG, etc.)
 				::ShellExecuteW(_pPublicInterface->getHSelf(), L"explore",
-					std::filesystem::path(_pEditView->getCurrentBuffer()->getFullPathName()).parent_path().c_str(), nullptr, nullptr, SW_SHOWNORMAL);
+					std::filesystem::path(fullPath).parent_path().c_str(), nullptr, nullptr, SW_SHOWNORMAL);
 			}
-
 			break;
 		}
 
@@ -744,8 +728,8 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
-		case IDM_EDIT_OPENINFOLDER:
-		case IDM_EDIT_OPENASFILE:
+		case IDM_EDIT_OPENSELECTEDFILEFOLDERINEXPLORER:
+		case IDM_EDIT_OPENSELECTEDFILETOEDIT:
 		{
 			if (_pEditView->execute(SCI_GETSELECTIONS) != 1) // Multi-Selection || Column mode || no selection
 				return;
@@ -757,65 +741,83 @@ void Notepad_plus::command(int id)
 			std::fill_n(currentWord.get(), strSize, L'\0');
 
 			::SendMessage(hwnd, NPPM_GETFILENAMEATCURSOR, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentWord.get()));
-			
-			wchar_t cmd2Exec[CURRENTWORD_MAXLENGTH] = { '\0' };
-			if (id == IDM_EDIT_OPENINFOLDER)
+
+			if (id == IDM_EDIT_OPENSELECTEDFILEFOLDERINEXPLORER)
 			{
-				if (!::GetWindowsDirectoryW(cmd2Exec, MAX_PATH))
-					return;
+				wstring fullTargetPath;
+				if (doesPathExist(currentWord.get()))
+				{
+					fullTargetPath = currentWord.get();
+				}
+				else
+				{
+					auto currentDir = std::make_unique<wchar_t[]>(strSize);
+					std::fill_n(currentDir.get(), strSize, L'\0');
+					::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir.get()));
+					fullTargetPath = currentDir.get();
+					fullTargetPath += L"\\";
+					fullTargetPath += currentWord.get();
+				}
 
-				PathAppend(cmd2Exec, L"explorer.exe");
-
-				if (!doesFileExist(cmd2Exec))
-					return;
-			}
-			else
-			{
-				::SendMessage(hwnd, NPPM_GETNPPFULLFILEPATH, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(cmd2Exec));
-			}
-
-			// Full file path: could be a folder or a file
-			if (doesPathExist(currentWord.get()))
-			{
-				wstring fullFilePath = id == IDM_EDIT_OPENINFOLDER ? L"/select," : L"";
-				fullFilePath += L"\"";
-				fullFilePath += currentWord.get();
-				fullFilePath += L"\"";
-
-				if (id == IDM_EDIT_OPENINFOLDER ||
-					(id == IDM_EDIT_OPENASFILE && !doesDirectoryExist(currentWord.get())))
-					::ShellExecute(hwnd, L"open", cmd2Exec, fullFilePath.c_str(), L".", SW_SHOW);
-			}
-			else // Relative file path - need concatenate with current full file path
-			{
-				auto currentDir = std::make_unique<wchar_t[]>(strSize);
-				std::fill_n(currentDir.get(), strSize, L'\0');
-
-				::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir.get()));
-
-				wstring fullFilePath = id == IDM_EDIT_OPENINFOLDER ? L"/select," : L"";
-				fullFilePath += L"\"";
-				fullFilePath += currentDir.get();
-				fullFilePath += L"\\";
-				fullFilePath += currentWord.get();
-
-				if ((id == IDM_EDIT_OPENASFILE && 
-					(!doesFileExist(fullFilePath.c_str() + 1)))) // + 1 for skipping the 1st char '"'
+				if (!doesPathExist(fullTargetPath.c_str()))
 				{
 					_nativeLangSpeaker.messageBox("FilePathNotFoundWarning",
 						_pPublicInterface->getHSelf(),
-						L"The file you're trying to open doesn't exist.",
-						L"File Open",
+						L"The path you're trying to open doesn't exist.",
+						L"Open in Folder",
 						MB_OK | MB_APPLMODAL);
 					return;
 				}
-				// else id == IDM_EDIT_OPENINFOLDER - do it anyway. (even the last part does not exist, it doesn't matter)
 
-				fullFilePath += L"\"";
-				::ShellExecute(hwnd, L"open", cmd2Exec, fullFilePath.c_str(), L".", SW_SHOW);
+				HRESULT hr = openInExplorerAndSelect(fullTargetPath.c_str());
+				if (hr == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND))
+				{
+					// Fallback: open parent folder
+					std::filesystem::path fsPath(fullTargetPath);
+					::ShellExecuteW(hwnd, L"explore", fsPath.parent_path().c_str(), nullptr, nullptr, SW_SHOWNORMAL);
+				}
 			}
+			else // IDM_EDIT_OPENSELECTEDFILETOEDIT
+			{
+				wchar_t cmd2Exec[CURRENTWORD_MAXLENGTH] = { '\0' };
+				::SendMessage(hwnd, NPPM_GETNPPFULLFILEPATH, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(cmd2Exec));
+
+				if (doesPathExist(currentWord.get()))
+				{
+					wstring fullFilePath = L"\"";
+					fullFilePath += currentWord.get();
+					fullFilePath += L"\"";
+
+					if (!doesDirectoryExist(currentWord.get()))
+						::ShellExecute(hwnd, L"open", cmd2Exec, fullFilePath.c_str(), L".", SW_SHOW);
+				}
+				else
+				{
+					auto currentDir = std::make_unique<wchar_t[]>(strSize);
+					std::fill_n(currentDir.get(), strSize, L'\0');
+					::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir.get()));
+
+					wstring fullFilePath = L"\"";
+					fullFilePath += currentDir.get();
+					fullFilePath += L"\\";
+					fullFilePath += currentWord.get();
+					fullFilePath += L"\"";
+
+					if (!doesFileExist(fullFilePath.c_str() + 1))
+					{
+						_nativeLangSpeaker.messageBox("FilePathNotFoundWarning",
+							_pPublicInterface->getHSelf(),
+							L"The path you're trying to open doesn't exist.",
+							L"File Open",
+							MB_OK | MB_APPLMODAL);
+						return;
+					}
+
+					::ShellExecute(hwnd, L"open", cmd2Exec, fullFilePath.c_str(), L".", SW_SHOW);
+				}
+			}
+			break;
 		}
-		break;
 
 		case IDM_EDIT_SEARCHONINTERNET:
 		{

@@ -844,35 +844,25 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		case IDM_FILEBROWSER_EXPLORERHERE:
 		{
 			if (!selectedNode) return;
-			
 			wstring selPath = getNodePath(selectedNode);
 			if (doesPathExist(selPath.c_str()))
 			{
 				namespace fs = std::filesystem;
 				bool isFolder = fs::is_directory(selPath);
-
-				HRESULT hr = HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
 				
 				if (isFolder)
 				{
+					// Just open the folder without selecting anything
 					::ShellExecuteW(getHSelf(), L"explore", selPath.c_str(), nullptr, nullptr, SW_SHOWNORMAL);
 				}
 				else
 				{
-					ScopedCOMInit com;
-					if (com.isInitialized())
-					{
-						ITEMIDLIST* pidl = nullptr;
-						hr = ::SHParseDisplayName(selPath.c_str(), nullptr, &pidl, 0, nullptr);
-						if (SUCCEEDED(hr))
-						{
-							hr = ::SHOpenFolderAndSelectItems(pidl, 0, nullptr, 0);
-							::CoTaskMemFree(pidl);
-						}
-					}
-
+					HRESULT hr = openInExplorerAndSelect(selPath.c_str());
 					if (hr == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND))
+					{
+						// Fallback: open parent folder
 						::ShellExecuteW(getHSelf(), L"explore", fs::path(selPath).parent_path().c_str(), nullptr, nullptr, SW_SHOWNORMAL);
+					}
 				}
 			}
 		}

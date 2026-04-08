@@ -605,8 +605,8 @@ BEGIN
         END
         POPUP "&On Selection"
         BEGIN
-            MENUITEM "Open File", IDM_EDIT_OPENASFILE
-            MENUITEM "Open Containing Folder in Explorer", IDM_EDIT_OPENINFOLDER
+            MENUITEM "Open File", IDM_EDIT_OPENSELECTEDFILETOEDIT
+            MENUITEM "Open Containing Folder in Explorer", IDM_EDIT_OPENSELECTEDFILEFOLDERINEXPLORER
             MENUITEM SEPARATOR
             MENUITEM "&Redact Selection █ (Shift: ●)", IDM_EDIT_REDACT_SELECTION
             MENUITEM SEPARATOR

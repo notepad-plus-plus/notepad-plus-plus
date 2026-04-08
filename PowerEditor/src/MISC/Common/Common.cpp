@@ -48,6 +48,10 @@
 #include "Utf8.h"
 #include "dpiManagerV2.h"
 
+#include <shlobj.h>
+#include <shellapi.h>
+#include <filesystem>
+
 using namespace std;
 
 void printInt(int int2print)
@@ -2466,4 +2470,23 @@ void expandEnv(wstring& path2Expand)
 			path2Expand = buffer2.data();
 		}
 	}
+}
+
+HRESULT openInExplorerAndSelect(const wchar_t* path)
+{
+    if (!doesPathExist(path))
+        return HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
+
+    ScopedCOMInit com;
+    if (!com.isInitialized())
+        return E_FAIL;
+
+    ITEMIDLIST* pidl = nullptr;
+    HRESULT hr = ::SHParseDisplayName(path, nullptr, &pidl, 0, nullptr);
+    if (SUCCEEDED(hr))
+    {
+        hr = ::SHOpenFolderAndSelectItems(pidl, 0, nullptr, 0);
+        ::CoTaskMemFree(pidl);
+    }
+    return hr;
 }

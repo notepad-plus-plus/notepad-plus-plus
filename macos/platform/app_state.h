@@ -24,6 +24,7 @@ struct AppContext
 {
 	// Main editor
 	void* scintillaView = nullptr;
+	HWND scintillaMainHwnd = nullptr;
 	NSWindow* mainWindow = nil;
 	HWND mainHwnd = nullptr;
 	HWND tabHwnd = nullptr;
@@ -62,6 +63,7 @@ struct AppContext
 
 	// Split view state
 	void* scintillaView2 = nullptr;
+	HWND scintillaSecondHwnd = nullptr;
 	NSSplitView* splitView = nil;
 	bool isSplit = false;
 	int activeView = 0; // 0=main, 1=sub

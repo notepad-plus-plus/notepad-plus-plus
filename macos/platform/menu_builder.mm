@@ -8,6 +8,8 @@
 #include "language_defs.h"
 #include "windows.h"
 
+static HMENU s_pluginsMenuHandle = nullptr;
+
 HMENU buildMenuBar()
 {
 	HMENU hMenuBar = CreateMenu();
@@ -196,6 +198,11 @@ HMENU buildMenuBar()
 	AppendMenuW(hToolsMenu, MF_POPUP, reinterpret_cast<UINT_PTR>(hHashMenu), L"&Hash");
 	AppendMenuW(hMenuBar, MF_POPUP, reinterpret_cast<UINT_PTR>(hToolsMenu), L"&Tools");
 
+	// Plugins menu (populated by MacPluginManager after loading)
+	HMENU hPluginsMenu = CreatePopupMenu();
+	s_pluginsMenuHandle = hPluginsMenu;
+	AppendMenuW(hMenuBar, MF_POPUP, reinterpret_cast<UINT_PTR>(hPluginsMenu), L"&Plugins");
+
 	// Language menu
 	HMENU hLangMenu = CreatePopupMenu();
 	for (int i = 0; i < g_numLanguages; ++i)
@@ -212,4 +219,9 @@ HMENU buildMenuBar()
 	AppendMenuW(hMenuBar, MF_POPUP, reinterpret_cast<UINT_PTR>(hHelpMenu), L"&Help");
 
 	return hMenuBar;
+}
+
+HMENU getPluginsMenuHandle()
+{
+	return s_pluginsMenuHandle;
 }

@@ -218,6 +218,10 @@ int MacPluginManager::loadPluginFromPath(const std::wstring& pluginFilePath)
 	pi->_cmdIdBase = static_cast<int>(_pluginsCommands.size());
 	for (int i = 0; i < pi->_nbFuncItem; ++i)
 	{
+		// Skip separators (null _pFunc) — upstream only assigns IDs to real commands
+		if (!pi->_funcItems[i]._pFunc)
+			continue;
+
 		int cmdId = _staticCmdAlloc.allocate(1);
 		if (cmdId < 0)
 		{
@@ -293,8 +297,9 @@ HMENU MacPluginManager::initMenu(HMENU hPluginsMenu)
 		for (int i = 0; i < pi->_nbFuncItem; ++i)
 		{
 			FuncItem& fi = pi->_funcItems[i];
-			if (fi._itemName[0] == L'-')
+			if (!fi._pFunc)
 			{
+				// Null _pFunc indicates a separator (upstream convention)
 				::AppendMenuW(pluginSub, MF_SEPARATOR, 0, nullptr);
 			}
 			else

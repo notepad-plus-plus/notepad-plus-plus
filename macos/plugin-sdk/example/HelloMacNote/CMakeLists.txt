@@ -4,10 +4,6 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_library(HelloMacNote MODULE HelloMacNote.cpp)
 
-target_include_directories(HelloMacNote PRIVATE
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../include"
-)
-
 set_target_properties(HelloMacNote PROPERTIES
     PREFIX ""
     SUFFIX ".dylib"

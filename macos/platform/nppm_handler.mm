@@ -24,10 +24,12 @@ static LRESULT copyWideToBuffer(const std::wstring& src, WPARAM maxChars, LPARAM
 		return static_cast<LRESULT>(src.size());
 	}
 
+	// Fail without writing when the buffer is too small (matches upstream behavior)
+	if (maxChars != 0 && src.size() >= static_cast<size_t>(maxChars))
+		return 0;
+
 	wchar_t* buf = reinterpret_cast<wchar_t*>(lParam);
-	size_t copyLen = src.size();
-	if (maxChars > 0 && copyLen >= static_cast<size_t>(maxChars))
-		copyLen = static_cast<size_t>(maxChars) - 1;
+	const size_t copyLen = src.size();
 	wcsncpy(buf, src.c_str(), copyLen);
 	buf[copyLen] = L'\0';
 	return TRUE;

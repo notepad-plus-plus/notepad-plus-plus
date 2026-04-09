@@ -339,6 +339,21 @@ void applyLanguageToView(void* sci, int langIndex)
 	ScintillaBridge_sendMessage(sci, SCI_SETPROPERTY, (uintptr_t)"fold.comment", (intptr_t)"1");
 	ScintillaBridge_sendMessage(sci, SCI_SETPROPERTY, (uintptr_t)"fold.preprocessor", (intptr_t)"1");
 
+	// HTML-family properties (hypertext, phpscript, xml all use LexHTML.cxx)
+	if (strcmp(lang.lexerName, "hypertext") == 0 ||
+		strcmp(lang.lexerName, "phpscript") == 0 ||
+		strcmp(lang.lexerName, "xml") == 0)
+	{
+		ScintillaBridge_sendMessage(sci, SCI_SETPROPERTY, (uintptr_t)"fold.html", (intptr_t)"1");
+		ScintillaBridge_sendMessage(sci, SCI_SETPROPERTY, (uintptr_t)"fold.hypertext.comment", (intptr_t)"1");
+
+		// XML disables embedded scripts; other LexHTML-based lexers must re-enable them
+		// so switching away from XML does not inherit the XML-only setting.
+		ScintillaBridge_sendMessage(sci, SCI_SETPROPERTY,
+			(uintptr_t)"lexer.xml.allow.scripts",
+			(intptr_t)(strcmp(lang.lexerName, "xml") == 0 ? "0" : "1"));
+	}
+
 	ScintillaBridge_sendMessage(sci, SCI_STYLESETFONT, 32, (intptr_t)ctx().fontName.c_str());
 	ScintillaBridge_sendMessage(sci, SCI_STYLESETSIZE, 32, ctx().fontSize);
 

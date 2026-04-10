@@ -1,0 +1,37 @@
+version: Build {build}
+image: Visual Studio 2022
+
+environment:
+    matrix:
+        - platform: Win32
+        - platform: x64
+        - platform: ARM64
+
+configuration:
+    - Release
+    - Debug
+
+before_build:
+    - ps: |
+        Write-Output "Platform : $env:platform"
+        Write-Output "Configuration : $env:configuration"
+
+build:
+    parallel: true
+    project: projects\2022\ComparePlus.sln
+
+after_build:
+    - cd "%APPVEYOR_BUILD_FOLDER%"
+    - ps: >-
+
+        Push-AppveyorArtifact "Notepad++\plugins\ComparePlus\ComparePlus.dll" -FileName ComparePlus.dll
+
+        if ($($env:APPVEYOR_REPO_TAG) -eq "true" -and $env:configuration -eq "Release") {
+            $ZipFileName = "ComparePlus_$($env:APPVEYOR_REPO_TAG_NAME)_$env:platform.zip"
+            Remove-Item .\Notepad++\plugins\ComparePlus\*.pdb
+            7z a $ZipFileName .\Notepad++\plugins\ComparePlus\*
+        }
+
+artifacts:
+    - path: ComparePlus_*.zip
+      name: releases

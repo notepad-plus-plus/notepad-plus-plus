@@ -1,0 +1,34 @@
+
+#ignore thumbnails created by windows
+Thumbs.db
+#Ignore files build by Visual Studio
+.vs/
+*.obj
+*.pdb
+*.user
+*.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.vsp
+*.cache
+*.ilk
+*.log
+*.lib
+*.sbr
+*.sdf
+*.opendb
+*.opensdf
+[rR]elease*/
+[dD]ebug*/
+Notepad++/
+*~
+*.swp
+*.ipch
+*.exp

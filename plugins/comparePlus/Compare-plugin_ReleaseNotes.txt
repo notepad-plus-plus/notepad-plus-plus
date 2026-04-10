@@ -1,0 +1,195 @@
+Changelog:
+----------
+
+2.0.0.0
+
+	- Major Compare plugin re-work, big portions of the code are re-written.
+	- Fix crashes and unstable behavior.
+	- Fix memory leaks.
+	- Improved compare algorithm in both accuracy and speed.
+	- Reduced memory usage.
+	- Support for unlimited active compares.
+	- 'Set First' command added to select the first file to compare (that removes the need to manually
+		move one of the files to the other view before comparing).
+	- Better N++ notifications handling - closing or moving compared files is handled appropriately
+		and doesn't lead to weird/unexpected results.
+	- Proper file positions restoring after closing the compare.
+	- Greatly improved Navigation bar.
+	- Improved Compare progress behavior - it now accurately represents the compare process.
+	- Improved settings dialog - the plugin behavior / results presentation is more customizable now.
+	- Better results synchronization in case of wrap around active setting and in general.
+	- Added compare toolbar icons (thanks to Yaron).
+	- Better compare results line margin symbols (thanks to Yaron).
+	- Better default diff colors (thanks to Yaron).
+	- Updated for 64-bit build (thanks to Christian Grasser - chcg).
+	- Added VS2015 project (thanks to Waldi Ravens - xylographe).
+	- Numerous bug fixes and improvements.
+
+[1.5.7]
+[    1. NEW: *** Compare released under GPLv3 ***]
+[    2. NEW: Change behavior when files match (immediately exit compare)]
+[    3. FIX: Some menu items where not disabled anymore when compare is not running]
+[* This version was never released by J. Leroy, but its changes are downmerged since *]
+[* version 1.5.6.3. Also I (ufo) will never make any version number higher than 1.5.6.x, *]
+[* since I don't know if 1.5.7 will ever get released. *]
+
+1.5.6.7
+
+    1. NEW: Show progress bar dialog while comparing (thanks to Pavel N.!)
+            NOTE: Due to the sophisticated nonlinear diff algorithm a truly estimated progress seems
+            not doable, thus the progress sometimes gets recalculated (jumps back some steps) and
+            sometimes finishes before reaching 100%!
+    2. NEW: "Blank" color gets auto calculated in respect of the current theme (removed from settings)
+            NOTE: Requires N++ version 6.6.8 or higher!
+    3. NEW: Sync zoom levels of both views when comparing
+    4. FIX: Not comparing with temp file, when original file is not the last one the document tab bar
+    5. FIX: Too low "diff size limit" (e.g plug-in exception when comparing a 1.5 MB file with a 1 KB file)
+    6. FIX: Again some minor improvements to coloring and nav bar
+
+1.5.6.6
+
+    1. NEW: Loader for using N++ as an external diff viewer (e.g. in TortoiseSVN, TortoiseGit, ..)
+            Syntax: .../Notepad++/plugins/ComparePlugin/compare.exe <file_path_1> <file_path_2>
+    2. NEW: Use default background color of current theme as background color for nav bar
+    3. FIX: Exception after confirming options dialog when navigation bar isn't used
+    4. FIX: Miscellaneous minor fixes and improvements for the nav bar
+
+1.5.6.5
+
+    1. NEW: Flash window when restarting "Previous" or "Next" diff search from top or
+            bottom (a la N++'s "Wrap around" search mode)
+    2. NEW: Auto "Clear Results" when closing one of both compared files
+    3. NEW: Warning message box before displaying high amount of differing lines (more than 1000)
+    4. NEW: Navigation bar: Better visibility of small diff places in large documents (minimum height of 25 pixels)
+    5. FIX: Navigation bar: Wrong display in wrapped mode
+    6. FIX: Navigation bar: Dragged selection jumping to bottom when dragging above top
+    7. FIX: Navigation bar: Selection not changing after first click (only after second click)
+    8. FIX: Navigation bar: Scrolling by clicking (regression in 1.5.6.4)
+    9. FIX: Mouse scrolling in inactive view (regression in 1.5.6.4)
+   10. FIX: Automatically jump to first difference after comparison (regression in 1.5.6.4)
+   11. FIX: Don't always force focusing second view after comparing
+   12. FIX: Focus not returned to N++ after first comparison
+
+1.5.6.4
+
+    1. NEW: Support viewing differences in "Word wrap" mode
+    2. FIX: Restore "Synchronize Vertical Scrolling" and "Synchronize Horizontal Scrolling" after "Clear Results"
+
+1.5.6.3
+
+    1. NEW: Automatically jump to first difference after comparison
+    2. NEW: 'Compare against GIT base'
+            (therefor using libgit2: http://libgit2.github.com/)
+    3. FIX: 'Compare against SVN base' doesn't work with newer SVN versions (1.7 and above)
+              (therefor using SQLite: http://www.sqlite.org/)
+
+1.5.6.2
+
+    1. FIX: Small changes not visible in navigation bar (in bigger files) (thx to Rolf P.)
+    2. FIX: Syntax highlighting broken after 'Compare' and 'Clear Results' (since N++ 6.2.1)
+    3. FIX: Change highlight not visible (since N++ 6.2.1)
+
+1.5.6.1
+
+    1. FIX: Weird focus clipping while shutting down (no application gets focus again, when N++ is gone).
+
+1.5.6
+
+    1. NEW: "Previous" and "Next" commands now jumping blockwise instead of linewise.
+    2. NEW: When comparing to last save or SVN base: Temp files now inherit the language highlighting from the original file.
+    3. NEW: Marker icons for moved state.
+    4. FIX: Restoring of "Synchronize Horizontal Scrolling" check state after "Clear results".
+    5. FIX: Swapping of "Navigation bar" check state when N++ starts after it was closed with opened navigation bar.
+    6. CHANGED: When comparing to last save or SVN base: Show temp files in first view (left side) instead of second view.
+    7. CHANGED: More intuitive default highlighting colors (green=new, red=deleted, yellow=changed, blue=moved).
+    8. CHANGED: Navigation bar background color now system's active caption color.
+
+1.5.5
+
+	1. Side bar can now be used to scroll.
+	2. Fixed an issue causing N++ to crash when comparing R/O files.
+
+1.5.4
+
+	1. New side bar showing a graphical view of comparison results.
+	2. New navigation keys (go to first/next/previous/last result).
+	3. Compare released in both UNICODE and ANSI version.
+	4. New markers icons.
+
+1.5.3
+
+	1. New Option and About menu entry, thanks to Jens.
+	2. Colors used for comparison results are now configurable in Option menu
+      (there is now no need to edit Compare.ini).
+	3. Compare to last save shortcut move to Alt+S
+	4. Compare against SVN base shortcut move to Alt+B
+	5. Bookmark and Compare marker bugs resolved, thanks to Thell
+
+1.5.2
+
+1.5.1
+
+    1. New colors. Thanks to Mark Baines for the suggestions
+	2. Fixes ( Thanks to Todd Schmitt for the excellent QA):
+       Memory leak fixed
+       Letters were getting cut off if the Formats weren't Windows
+       Occasionaly the some letters were cut off at the end of the file
+       Crash bug if there was a blank line at the beginning of the document
+
+1.5
+
+	1. "Align Matches", "Detect Moves", and "Ignore spaces" are now options
+	2. "Show Changes since last save" option added in case you want to see the differences
+       since you last saved, or if the file is modified outside of Notepad++ and
+       you want to see those changes
+	3. "Compare with SVN base" if the file is in a svn repository you can see the
+       changes since you last committed
+	4. There is now a colors section in the compare.ini to change the colors
+	5. Fixed a bug in the change detection
+	6. Compare checks to see if enough files are open before it checks if it has the right version.
+
+
+1.4
+
+	1. Fixed Issue where plugin would hang if you cleared a result that had an extra line at the end
+	2. Fixed a bug where matches in the middle of insert and delete blocks would not line up properly
+	3. Fixed bug that would delete a empty line on clear if there was a blank line under it
+	4. Compares hashes of strings instead of the full string for some fairly significant speed improvements
+	5. Changed lines are compared at the word level instead of the letter, which provides some more accurate results
+	6. Spaces are no longer considered when comparing matches
+
+
+1.3
+
+	1. New feature! Matches will now sync up with each other, so its easier to see the differences in the files.
+       Much like how winmerge or some of the other major diff tools look. (thanks for the help Jens)
+
+1.2.1
+
+	1. Bug fix:
+       Compare would hang if only one tab is open
+    2. If compare moves a tab to another panel, than it will now move it back when the user selects Clear
+	3. Optimization:
+       When possible, changes are shifted to make the results more readable.
+
+1.2
+
+	1. By very, very popular demand: If two panels aren't already selected, the plugin will move the current tab
+       into the second panel and than run the compare.
+	2. Improved Moved detection.
+	3. Vastly improved Changed detection. Only lines that were actually modified will show up as green,
+       and the parts of the line that are different are highlighted.
+	4. Horizontal and vertical syncronization are enabled by default. (thanks to jenslorenz)
+	5. Fixed bug where files claimed to be identical if there was only one change. (Thanks to nicolasjolet)
+
+1.1
+
+	1. Fixed bug where display would not immediately show the changes after compare.
+	2. Changed the way lines were marked to improve performance
+	3. There is now a prompt to notify you if the two files are identical
+	4. A description of each of the colors meaning was added to the about dialog box
+	5. A very crude "moved" detection algorithm was added. So lines that are the same but just
+       in a different place are now marked as grey
+
+
+

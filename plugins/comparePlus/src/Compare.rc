@@ -1,0 +1,336 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE
+BEGIN
+	"resource.h\0"
+END
+
+2 TEXTINCLUDE
+BEGIN
+	"#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+	"#include ""windows.h""\r\n"
+	"#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+	"\0"
+END
+
+3 TEXTINCLUDE
+BEGIN
+	"\r\n"
+	"\0"
+END
+
+#endif	// APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialogs
+//
+
+IDD_ABOUT_DIALOG DIALOGEX 0, 0, 175, 223
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "ComparePlus"
+FONT 9, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+	DEFPUSHBUTTON	"Close", IDC_CLOSE, 25, 202, 50, 16
+	PUSHBUTTON		"Donate...", IDC_DONATE, 100, 202, 50, 16
+	GROUPBOX		"Info", IDC_INFO, 5, 7, 165, 85
+	CTEXT			TO_STR(Version PLUGIN_VERSION), IDC_VERSION, 10, 20, 155, 8
+	CTEXT			"Build time:", IDC_BUILD_TIME, 10, 33, 155, 8
+	CTEXT			"Author:  Pavel Nedev", IDC_AUTHOR, 10, 46, 155, 8
+	CTEXT			"ComparePlus is based on Compare plugin by", IDC_STATIC, 10, 65, 155, 8
+	CTEXT			"Ty Landercasper and Jean-Sébastien Leroy", IDC_STATIC, 10, 75, 155, 8
+	GROUPBOX		"External libraries", IDC_LIBS, 5, 100, 165, 42
+	CTEXT			"LibGit2:", IDC_GITLIB_VER, 10, 112, 155, 8
+	CTEXT			"SQLite3:", IDC_SQLITE3_VER, 10, 125, 155, 8
+	GROUPBOX		"Links", IDC_LINKS, 5, 150, 165, 42
+	CTEXT			"Help and Support", IDC_REPO_URL, 10, 162, 155, 8
+	CTEXT			"User Guide", IDC_GUIDE_URL, 10, 175, 155, 8
+END
+
+
+IDD_SETTINGS_DIALOG DIALOGEX 0, 0, 630, 350
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "ComparePlus   Settings"
+FONT 9, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+	GROUPBOX		"Main", IDC_MAIN, 7, 7, 310, 309, BS_MULTILINE
+	GROUPBOX		"Set as First to Compare", IDC_FIRST, 15, 22, 122, 61, BS_MULTILINE
+	AUTORADIOBUTTON	"Set as new file", IDC_FIRST_NEW, 21, 39, 107, 16, WS_GROUP | WS_TABSTOP | BS_MULTILINE
+	AUTORADIOBUTTON	"Set as old file", IDC_FIRST_OLD, 21, 59, 107, 16, BS_MULTILINE
+	GROUPBOX		"Files Position", IDC_FILES_POS, 15, 90, 122, 61, BS_MULTILINE
+	AUTORADIOBUTTON	"New file in right view", IDC_NEW_IN_SUB, 21, 107, 107, 16, WS_GROUP | WS_TABSTOP | BS_MULTILINE
+	AUTORADIOBUTTON	"Old file in right view", IDC_OLD_IN_SUB, 21, 127, 107, 16, BS_MULTILINE
+	GROUPBOX		"Default Compare in Single-View", IDC_DEFAULT_COMPARE, 15, 158, 122, 61, BS_MULTILINE
+	AUTORADIOBUTTON	"Current and previous files", IDC_COMPARE_TO_PREV, 21, 175, 107, 16, WS_GROUP | WS_TABSTOP | BS_MULTILINE
+	AUTORADIOBUTTON	"Current and next files", IDC_COMPARE_TO_NEXT, 21, 195, 107, 16, BS_MULTILINE
+	GROUPBOX		"Compare StatusBar Info", IDC_STATUS_BAR, 15, 226, 122, 81, BS_MULTILINE
+	AUTORADIOBUTTON	"Diffs summary", IDC_DIFFS_SUMMARY, 21, 243, 107, 16, WS_GROUP | WS_TABSTOP | BS_MULTILINE
+	AUTORADIOBUTTON	"Compare options", IDC_COMPARE_OPTIONS, 21, 263, 107, 16, BS_MULTILINE
+	AUTORADIOBUTTON	"Disabled", IDC_STATUS_DISABLED, 21, 283, 107, 16, BS_MULTILINE
+	GROUPBOX		"Misc.", IDC_MISC, 145, 22, 163, 285, BS_MULTILINE
+	AUTOCHECKBOX	"Warn about encodings mismatch", IDC_ENCODINGS_CHECK, 153, 39, 138, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Warn before comparing big files", IDC_SIZES_CHECK, 153, 59, 138, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Warn about active manual sync points", IDC_MANUAL_SYNC_CHECK, 153, 79, 138, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Prompt to close files on match", IDC_CLOSE_ON_MATCH, 153, 99, 138, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Hide compare margin", IDC_HIDE_MARGIN, 153, 119, 138, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Never colorize ignored lines", IDC_NEVER_MARK_IGNORED, 153, 139, 138, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Move caret on navigation", IDC_FOLLOWING_CARET, 153, 159, 138, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Wrap around diffs on navigation", IDC_WRAP_AROUND, 153, 179, 138, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Go to first diff after re-Compare", IDC_GOTO_FIRST_DIFF, 153, 199, 138, 16, BS_MULTILINE
+	GROUPBOX		"Coloring", IDC_COLORS, 327, 7, 146, 309, BS_MULTILINE
+	LTEXT			"Added line", IDC_ADDED, 338, 25, 60, 16, BS_MULTILINE
+	COMBOBOX		IDC_COMBO_ADDED_COLOR, 423, 23, 40, 12, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+	LTEXT			"Removed line", IDC_REMOVED, 338, 46, 60, 16, BS_MULTILINE
+	COMBOBOX		IDC_COMBO_REMOVED_COLOR, 423, 44, 40, 12, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+	LTEXT			"Moved line", IDC_MOVED, 338, 67, 60, 16, BS_MULTILINE
+	COMBOBOX		IDC_COMBO_MOVED_COLOR, 423, 65, 40, 12, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+	LTEXT			"Changed line", IDC_CHANGED, 338, 88, 60, 16, BS_MULTILINE
+	COMBOBOX		IDC_COMBO_CHANGED_COLOR, 423, 86, 40, 12, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+	LTEXT			"Added part", IDC_ADDED_PART, 338, 109, 60, 16, BS_MULTILINE
+	COMBOBOX		IDC_COMBO_ADDED_PART_COLOR, 423, 107, 40, 12, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+	LTEXT			"Removed part", IDC_REMOVED_PART, 338, 130, 60, 16, BS_MULTILINE
+	COMBOBOX		IDC_COMBO_REMOVED_PART_COLOR, 423, 128, 40, 12, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+	LTEXT			"Moved part:", IDC_MOVED_PART, 338, 151, 60, 16, BS_MULTILINE
+	COMBOBOX		IDC_COMBO_MOVED_PART_COLOR, 423, 149, 40, 12, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+	LTEXT			"Part transparency [%]", IDC_PART_TRANSP, 338, 174, 70, 24, BS_MULTILINE
+	EDITTEXT		IDC_PART_TRANSP_EDIT, 435, 175, 28, 14, ES_AUTOHSCROLL | ES_NUMBER
+	CONTROL			"", IDC_PART_TRANSP_SPIN, "msctls_updown32", UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS, 458, 182, 6, 14
+	LTEXT			"Caret line transparency [%]", IDC_CARET_TRANSP, 338, 202, 70, 24, BS_MULTILINE
+	EDITTEXT		IDC_CARET_TRANSP_EDIT, 435, 203, 28, 14, ES_AUTOHSCROLL | ES_NUMBER
+	CONTROL			"", IDC_CARET_TRANSP_SPIN, "msctls_updown32", UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS, 458, 210, 6, 14
+	LTEXT			"Min line resemblance to mark as changed [%]", IDC_CHANGE_RESEMBL, 338, 230, 70, 24, BS_MULTILINE
+	EDITTEXT		IDC_CHANGE_RES_EDIT, 435, 231, 28, 14, ES_AUTOHSCROLL | ES_NUMBER
+	CONTROL			"", IDC_CHANGE_RES_SPIN, "msctls_updown32", UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS, 458, 238, 6, 14
+	GROUPBOX		"Toolbar (require restart)", IDC_TOOLBAR, 483, 7, 140, 309, BS_MULTILINE
+	AUTOCHECKBOX	"Add the following to the toolbar:", IDC_ENABLE_TOOLBAR, 491, 25, 122, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Set as First to Compare", IDC_SET_AS_FIRST_TB, 496, 48, 107, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Compare", IDC_COMPARE_TB, 496, 68, 107, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Compare Selections", IDC_COMPARE_SELECTIONS_TB, 496, 88, 107, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Clear Active Compare", IDC_CLEAR_COMPARE_TB, 496, 108, 107, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Navigation commands", IDC_NAVIGATION_TB, 496, 128, 107, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Diffs Visual Filters", IDC_DIFFS_FILTERS_TB, 496, 148, 107, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Navigation Bar", IDC_NAV_BAR_TB, 496, 168, 107, 16, BS_MULTILINE
+	DEFPUSHBUTTON	"OK", IDOK, 204, 327, 50, 16
+	PUSHBUTTON		"Reset", IDDEFAULT, 282, 327, 50, 16
+	PUSHBUTTON		"Cancel", IDCANCEL, 360, 327, 50, 16
+END
+
+
+IDD_COMPARE_OPTIONS_DIALOG DIALOGEX 0, 0, 240, 326
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "ComparePlus   Compare Options"
+FONT 9, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+	GROUPBOX		"Detect", IDC_DETECT, 7, 10, 226, 61, BS_MULTILINE
+	AUTOCHECKBOX	"Moves", IDC_DETECT_MOVES, 15, 27, 100, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Sub-block diffs", IDC_DETECT_SUB_BLOCK_DIFFS, 125, 27, 100, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Sub-line moves", IDC_DETECT_SUB_LINE_MOVES, 15, 47, 100, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Character diffs", IDC_DETECT_CHAR_DIFFS, 125, 47, 100, 16, BS_MULTILINE
+	GROUPBOX		"Ignore", IDC_IGNORE, 7, 80, 226, 101, BS_MULTILINE
+	AUTOCHECKBOX	"Folded lines", IDC_IGNORE_FOLDED_LINES, 15, 97, 100, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Hidden lines", IDC_IGNORE_HIDDEN_LINES, 125, 97, 100, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Empty lines", IDC_IGNORE_EMPTY_LINES, 15, 117, 100, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Case", IDC_IGNORE_CASE, 15, 137, 100, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Line endings (EOL)", IDC_IGNORE_EOL, 125, 137, 100, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Changed spaces", IDC_IGNORE_CHANGED_SPACES, 15, 157, 80, 16, BS_MULTILINE
+	AUTOCHECKBOX	"All spaces", IDC_IGNORE_ALL_SPACES, 125, 157, 80, 16, BS_MULTILINE
+	GROUPBOX		"Ignore line portions Regex (works per-line)", IDC_REGEX, 7, 190, 226, 101, BS_MULTILINE
+	AUTOCHECKBOX	"Enable", IDC_IGNORE_REGEX, 15, 207, 40, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Highlight ignored portions", IDC_HIGHLIGHT_REGEX_IGNORES, 105, 207, 105, 16, BS_MULTILINE
+	COMBOBOX		IDC_IGNORE_REGEX_STR, 15, 227, 210, 12, CBS_HASSTRINGS | CBS_DROPDOWN | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+	AUTORADIOBUTTON	"Ignore matches", IDC_REGEX_MODE_IGNORE, 20, 247, 100, 16, WS_GROUP | WS_TABSTOP | BS_MULTILINE
+	AUTORADIOBUTTON	"Compare matches", IDC_REGEX_MODE_MATCH, 125, 247, 100, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Compare also lines without match", IDC_REGEX_INCL_NOMATCH_LINES, 70, 267, 150, 16, BS_MULTILINE
+	DEFPUSHBUTTON	"OK", IDOK, 52, 303, 44, 16
+	PUSHBUTTON		"Cancel", IDCANCEL, 144, 303, 44, 16
+END
+
+
+IDD_VISUAL_FILTERS_DIALOG DIALOGEX 0, 0, 150, 208
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "ComparePlus   Visual Filters"
+FONT 9, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+	LTEXT			"NOTE: First line can never be hidden", IDC_NOTE, 10, 8, 130, 16, BS_MULTILINE
+	GROUPBOX		"Diffs Filters", IDC_FILTERS, 7, 29, 136, 121, BS_MULTILINE
+	AUTOCHECKBOX	"Hide matches", IDC_HIDE_MATCHES, 15, 46, 115, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Hide all diffs", IDC_HIDE_ALL_DIFFS, 15, 66, 115, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Hide added/removed lines", IDC_HIDE_NEW_LINES, 20, 86, 110, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Hide changed lines", IDC_HIDE_CHANGED_LINES, 20, 106, 110, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Hide moved lines", IDC_HIDE_MOVED_LINES, 20, 126, 114, 16, BS_MULTILINE
+	AUTOCHECKBOX	"Show only compared selections", IDC_SHOW_ONLY_SELECTIONS, 15, 159, 120, 16, BS_MULTILINE
+	DEFPUSHBUTTON	"OK", IDOK, 20, 185, 45, 16
+	PUSHBUTTON		"Cancel", IDCANCEL, 85, 185, 45, 16
+END
+
+
+IDD_NAV_DIALOG DIALOGEX 0, 0, 194, 94
+STYLE DS_SETFONT | DS_3DLOOK | DS_FIXEDSYS | WS_CAPTION | WS_THICKFRAME
+EXSTYLE WS_EX_TOOLWINDOW
+FONT 9, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+	IDD_ABOUT_DIALOG, DIALOG
+	BEGIN
+		LEFTMARGIN, 5
+		RIGHTMARGIN, 170
+		TOPMARGIN, 5
+		BOTTOMMARGIN, 203
+	END
+
+	IDD_SETTINGS_DIALOG, DIALOG
+	BEGIN
+		LEFTMARGIN, 7
+		RIGHTMARGIN, 623
+		TOPMARGIN, 7
+		BOTTOMMARGIN, 328
+	END
+
+	IDD_COMPARE_OPTIONS_DIALOG, DIALOG
+	BEGIN
+		LEFTMARGIN, 7
+		RIGHTMARGIN, 233
+		TOPMARGIN, 7
+		BOTTOMMARGIN, 304
+	END
+
+	IDD_VISUAL_FILTERS_DIALOG, DIALOG
+	BEGIN
+		LEFTMARGIN, 7
+		RIGHTMARGIN, 143
+		TOPMARGIN, 7
+		BOTTOMMARGIN, 186
+	END
+
+	IDD_NAV_DIALOG, DIALOG
+	BEGIN
+		LEFTMARGIN, 7
+		RIGHTMARGIN, 187
+		TOPMARGIN, 7
+		BOTTOMMARGIN, 72
+	END
+END
+#endif	// APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_SETFIRST			BITMAP	"../res/icons/Standard/FirstToCompare.bmp"
+IDB_SETFIRST_RTL		BITMAP	"../res/icons/Standard/FirstToCompareRTL.bmp"
+IDB_COMPARE				BITMAP	"../res/icons/Standard/Compare.bmp"
+IDB_COMPARE_LINES		BITMAP	"../res/icons/Standard/CompareLines.bmp"
+IDB_CLEARCOMPARE		BITMAP	"../res/icons/Standard/ClearCompare.bmp"
+IDB_FIRST				BITMAP	"../res/icons/Standard/First.bmp"
+IDB_LAST				BITMAP	"../res/icons/Standard/Last.bmp"
+IDB_PREV				BITMAP	"../res/icons/Standard/Previous.bmp"
+IDB_NEXT				BITMAP	"../res/icons/Standard/Next.bmp"
+IDB_DIFFS_FILTERS		BITMAP	"../res/icons/Standard/DiffsFilters.bmp"
+IDB_NAVBAR				BITMAP	"../res/icons/Standard/NavBar.bmp"
+
+IDB_DOCKING_ICON		ICON	"../res/icons/Standard/CompareDocking.ico"
+
+IDB_SETFIRST_FL			ICON	"../res/icons/Fluent/FirstToCompareFluent.ico"
+IDB_SETFIRST_RTL_FL		ICON	"../res/icons/Fluent/FirstToCompareRTLFluent.ico"
+IDB_COMPARE_FL			ICON	"../res/icons/Fluent/CompareFluent.ico"
+IDB_COMPARE_LINES_FL	ICON	"../res/icons/Fluent/CompareLinesFluent.ico"
+IDB_CLEARCOMPARE_FL		ICON	"../res/icons/Fluent/ClearCompareFluent.ico"
+IDB_FIRST_FL			ICON	"../res/icons/Fluent/FirstFluent.ico"
+IDB_LAST_FL				ICON	"../res/icons/Fluent/LastFluent.ico"
+IDB_PREV_FL				ICON	"../res/icons/Fluent/PreviousFluent.ico"
+IDB_NEXT_FL				ICON	"../res/icons/Fluent/NextFluent.ico"
+IDB_DIFFS_FILTERS_FL	ICON	"../res/icons/Fluent/DiffsFiltersFluent.ico"
+IDB_NAVBAR_FL			ICON	"../res/icons/Fluent/NavBarFluent.ico"
+
+IDB_SETFIRST_FL_DM		ICON	"../res/icons/FluentDM/FirstToCompareFluentDM.ico"
+IDB_SETFIRST_RTL_FL_DM	ICON	"../res/icons/FluentDM/FirstToCompareRTLFluentDM.ico"
+IDB_COMPARE_FL_DM		ICON	"../res/icons/FluentDM/CompareFluentDM.ico"
+IDB_COMPARE_LINES_FL_DM	ICON	"../res/icons/FluentDM/CompareLinesFluentDM.ico"
+IDB_CLEARCOMPARE_FL_DM	ICON	"../res/icons/FluentDM/ClearCompareFluentDM.ico"
+IDB_FIRST_FL_DM			ICON	"../res/icons/FluentDM/FirstFluentDM.ico"
+IDB_LAST_FL_DM			ICON	"../res/icons/FluentDM/LastFluentDM.ico"
+IDB_PREV_FL_DM			ICON	"../res/icons/FluentDM/PreviousFluentDM.ico"
+IDB_NEXT_FL_DM			ICON	"../res/icons/FluentDM/NextFluentDM.ico"
+IDB_DIFFS_FILTERS_FL_DM	ICON	"../res/icons/FluentDM/DiffsFiltersFluentDM.ico"
+IDB_NAVBAR_FL_DM		ICON	"../res/icons/FluentDM/NavBarFluentDM.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+#define VER_FILEVERSION_STR		TO_STR(PLUGIN_VERSION\0)
+
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION		VER_FILEVERSION
+PRODUCTVERSION	VER_FILEVERSION
+FILEFLAGSMASK	VS_FFI_FILEFLAGSMASK
+FILEFLAGS		VER_FILEFLAGS
+FILEOS			VOS_NT
+FILETYPE		VFT_DLL
+FILESUBTYPE		VFT2_UNKNOWN
+BEGIN
+	BLOCK "StringFileInfo"
+	BEGIN
+		BLOCK "040904E4"
+		BEGIN
+			VALUE "CompanyName",		"Pavel Nedev\0"
+			VALUE "FileDescription",	"Compare plugin for Notepad++\0"
+			VALUE "FileVersion",		VER_FILEVERSION_STR
+			VALUE "InternalName",		"ComparePlus\0"
+			VALUE "LegalCopyright",		VER_COPYRIGHT
+			VALUE "OriginalFilename",	"ComparePlus.dll\0"
+			VALUE "ProductName",		VER_PRODUCT_STR
+			VALUE "ProductVersion",		VER_FILEVERSION_STR
+		END
+	END
+	BLOCK "VarFileInfo"
+	BEGIN
+		VALUE "Translation", 0x409, 1252
+	END
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////

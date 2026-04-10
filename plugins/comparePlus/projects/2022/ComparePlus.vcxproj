@@ -1,0 +1,483 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM64">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM64">
+      <Configuration>Release</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{73C0A930-C2F5-45D2-9795-8EFE62E2F4C6}</ProjectGuid>
+    <RootNamespace>ComparePlus</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC70.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC70.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC70.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC70.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC70.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC70.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>14.0.23107.0</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\Notepad++\plugins\ComparePlus\</OutDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\Notepad++\plugins\ComparePlus\</OutDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">..\..\Notepad++\plugins\ComparePlus\</OutDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\Notepad++\plugins\ComparePlus\</OutDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\Notepad++\plugins\ComparePlus\</OutDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">..\..\Notepad++\plugins\ComparePlus\</OutDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">false</LinkIncremental>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" />
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ComparePlus</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ComparePlus</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">ComparePlus</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ComparePlus</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ComparePlus</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">ComparePlus</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ResourceCompile>
+      <AdditionalOptions>/D_DEBUG %(AdditionalOptions)</AdditionalOptions>
+    </ResourceCompile>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>../../src;../../src/Engine;../../src/AboutDlg;../../src/NavDlg;../../src/NppAPI;../../src/SettingsDlg;../../src/CompareOptionsDlg;../../src/VisualFiltersDlg;../../src/ProgressDlg;../../src/Icons;../../src/boost_regex/include;../../src/nlohmann;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WIN32_WINNT=0x0600;WIN32_LEAN_AND_MEAN;NOCOMM;_WINDOWS;_USRDLL;COMPARE_EXPORTS;_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES;_DEBUG;MULTITHREAD;BOOST_REGEX_STANDALONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>comctl32.lib;comdlg32.lib;shlwapi.lib;shell32.lib;gdi32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)ComparePlus.dll</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)ComparePlus.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <ImportLibrary>ComparePlus.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>echo Copying additional libs to plugins\ComparePlus\libs
+if not exist "$(OutDir)libs" mkdir "$(OutDir)libs"
+copy "..\..\libs\x86\*.dll" "$(OutDir)libs"</Command>
+      <Command>echo Copying localization files to plugins\ComparePlus\localization
+if not exist "$(OutDir)localization" mkdir "$(OutDir)localization"
+copy "..\..\res\localization\*.json" "$(OutDir)localization"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ResourceCompile>
+      <AdditionalOptions>/D_DEBUG /DWIN64 %(AdditionalOptions)</AdditionalOptions>
+    </ResourceCompile>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>../../src;../../src/Engine;../../src/AboutDlg;../../src/NavDlg;../../src/NppAPI;../../src/SettingsDlg;../../src/CompareOptionsDlg;../../src/VisualFiltersDlg;../../src/ProgressDlg;../../src/Icons;../../src/boost_regex/include;../../src/nlohmann;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WIN32_WINNT=0x0600;WIN32_LEAN_AND_MEAN;NOCOMM;_WINDOWS;_USRDLL;COMPARE_EXPORTS;_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES;_DEBUG;WIN64;MULTITHREAD;BOOST_REGEX_STANDALONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>comctl32.lib;comdlg32.lib;shlwapi.lib;shell32.lib;gdi32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)ComparePlus.dll</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)ComparePlus.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <ImportLibrary>ComparePlus.lib</ImportLibrary>
+    </Link>
+    <PostBuildEvent>
+      <Command>echo Copying additional libs to plugins\ComparePlus\libs
+if not exist "$(OutDir)libs" mkdir "$(OutDir)libs"
+copy "..\..\libs\x64\*.dll" "$(OutDir)libs"</Command>
+      <Command>echo Copying localization files to plugins\ComparePlus\localization
+if not exist "$(OutDir)localization" mkdir "$(OutDir)localization"
+copy "..\..\res\localization\*.json" "$(OutDir)localization"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <ResourceCompile>
+      <AdditionalOptions>/D_DEBUG /DWIN64 %(AdditionalOptions)</AdditionalOptions>
+    </ResourceCompile>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>../../src;../../src/Engine;../../src/AboutDlg;../../src/NavDlg;../../src/NppAPI;../../src/SettingsDlg;../../src/CompareOptionsDlg;../../src/VisualFiltersDlg;../../src/ProgressDlg;../../src/Icons;../../src/boost_regex/include;../../src/nlohmann;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WIN32_WINNT=0x0600;WIN32_LEAN_AND_MEAN;NOCOMM;_WINDOWS;_USRDLL;COMPARE_EXPORTS;_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES;_DEBUG;WIN64;MULTITHREAD;BOOST_REGEX_STANDALONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>comctl32.lib;comdlg32.lib;shlwapi.lib;shell32.lib;gdi32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)ComparePlus.dll</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)ComparePlus.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <ImportLibrary>ComparePlus.lib</ImportLibrary>
+    </Link>
+    <PostBuildEvent>
+      <Command>echo Copying additional libs to plugins\ComparePlus\libs
+if not exist "$(OutDir)libs" mkdir "$(OutDir)libs"
+copy "..\..\libs\arm64\*.dll" "$(OutDir)libs"</Command>
+      <Command>echo Copying localization files to plugins\ComparePlus\localization
+if not exist "$(OutDir)localization" mkdir "$(OutDir)localization"
+copy "..\..\res\localization\*.json" "$(OutDir)localization"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ResourceCompile>
+      <AdditionalOptions>/DNDEBUG %(AdditionalOptions)</AdditionalOptions>
+    </ResourceCompile>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>false</OmitFramePointers>
+      <AdditionalIncludeDirectories>../../src;../../src/Engine;../../src/AboutDlg;../../src/NavDlg;../../src/NppAPI;../../src/SettingsDlg;../../src/CompareOptionsDlg;../../src/VisualFiltersDlg;../../src/ProgressDlg;../../src/Icons;../../src/boost_regex/include;../../src/nlohmann;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WIN32_WINNT=0x0600;WIN32_LEAN_AND_MEAN;NOCOMM;_WINDOWS;_USRDLL;COMPARE_EXPORTS;_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES;NDEBUG;MULTITHREAD;BOOST_REGEX_STANDALONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>comctl32.lib;comdlg32.lib;shlwapi.lib;shell32.lib;gdi32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)ComparePlus.dll</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <ImportLibrary>ComparePlus.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>echo Copying additional libs to plugins\ComparePlus\libs
+if not exist "$(OutDir)libs" mkdir "$(OutDir)libs"
+copy "..\..\libs\x86\*.dll" "$(OutDir)libs"</Command>
+      <Command>echo Copying localization files to plugins\ComparePlus\localization
+if not exist "$(OutDir)localization" mkdir "$(OutDir)localization"
+copy "..\..\res\localization\*.json" "$(OutDir)localization"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ResourceCompile>
+      <AdditionalOptions>/DNDEBUG /DWIN64 %(AdditionalOptions)</AdditionalOptions>
+    </ResourceCompile>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>false</OmitFramePointers>
+      <AdditionalIncludeDirectories>../../src;../../src/Engine;../../src/AboutDlg;../../src/NavDlg;../../src/NppAPI;../../src/SettingsDlg;../../src/CompareOptionsDlg;../../src/VisualFiltersDlg;../../src/ProgressDlg;../../src/Icons;../../src/boost_regex/include;../../src/nlohmann;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WIN32_WINNT=0x0600;WIN32_LEAN_AND_MEAN;NOCOMM;_WINDOWS;_USRDLL;COMPARE_EXPORTS;_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES;NDEBUG;WIN64;MULTITHREAD;BOOST_REGEX_STANDALONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>comctl32.lib;comdlg32.lib;shlwapi.lib;shell32.lib;gdi32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)ComparePlus.dll</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <ImportLibrary>ComparePlus.lib</ImportLibrary>
+    </Link>
+    <PostBuildEvent>
+      <Command>echo Copying additional libs to plugins\ComparePlus\libs
+if not exist "$(OutDir)libs" mkdir "$(OutDir)libs"
+copy "..\..\libs\x64\*.dll" "$(OutDir)libs"</Command>
+      <Command>echo Copying localization files to plugins\ComparePlus\localization
+if not exist "$(OutDir)localization" mkdir "$(OutDir)localization"
+copy "..\..\res\localization\*.json" "$(OutDir)localization"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <ResourceCompile>
+      <AdditionalOptions>/DNDEBUG /DWIN64 %(AdditionalOptions)</AdditionalOptions>
+    </ResourceCompile>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>false</OmitFramePointers>
+      <AdditionalIncludeDirectories>../../src;../../src/Engine;../../src/AboutDlg;../../src/NavDlg;../../src/NppAPI;../../src/SettingsDlg;../../src/CompareOptionsDlg;../../src/VisualFiltersDlg;../../src/ProgressDlg;../../src/Icons;../../src/boost_regex/include;../../src/nlohmann;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WIN32_WINNT=0x0600;WIN32_LEAN_AND_MEAN;NOCOMM;_WINDOWS;_USRDLL;COMPARE_EXPORTS;_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES;NDEBUG;WIN64;MULTITHREAD;BOOST_REGEX_STANDALONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>comctl32.lib;comdlg32.lib;shlwapi.lib;shell32.lib;gdi32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)ComparePlus.dll</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <ImportLibrary>ComparePlus.lib</ImportLibrary>
+    </Link>
+    <PostBuildEvent>
+      <Command>echo Copying additional libs to plugins\ComparePlus\libs
+if not exist "$(OutDir)libs" mkdir "$(OutDir)libs"
+copy "..\..\libs\arm64\*.dll" "$(OutDir)libs"</Command>
+      <Command>echo Copying localization files to plugins\ComparePlus\localization
+if not exist "$(OutDir)localization" mkdir "$(OutDir)localization"
+copy "..\..\res\localization\*.json" "$(OutDir)localization"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\AboutDlg\URLCtrl.cpp" />
+    <ClCompile Include="..\..\src\AboutDlg\AboutDialog.cpp" />
+    <ClCompile Include="..\..\src\SettingsDlg\ColorCombo.cpp" />
+    <ClCompile Include="..\..\src\SettingsDlg\SettingsDialog.cpp" />
+    <ClCompile Include="..\..\src\CompareOptionsDlg\CompareOptionsDialog.cpp" />
+    <ClCompile Include="..\..\src\VisualFiltersDlg\VisualFiltersDialog.cpp" />
+    <ClCompile Include="..\..\src\Tools.cpp" />
+    <ClCompile Include="..\..\src\UserSettings.cpp" />
+    <ClCompile Include="..\..\src\Compare.cpp" />
+    <ClCompile Include="..\..\src\Engine\Engine.cpp" />
+    <ClCompile Include="..\..\src\LibGit2\LibGit2Helper.cpp" />
+    <ClCompile Include="..\..\src\NavDlg\NavDialog.cpp" />
+    <ClCompile Include="..\..\src\NppHelpers.cpp" />
+    <ClCompile Include="..\..\src\NppAPI\DockingFeature\StaticDialog.cpp" />
+    <ClCompile Include="..\..\src\ProgressDlg\ProgressDlg.cpp" />
+    <ClCompile Include="..\..\src\LibHelpers.cpp" />
+    <ClCompile Include="..\..\src\SQLite\SqliteHelper.cpp" />
+    <ClCompile Include="..\..\src\Strings.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\AboutDlg\URLCtrl.h" />
+    <ClInclude Include="..\..\src\AboutDlg\AboutDialog.h" />
+    <ClInclude Include="..\..\src\SettingsDlg\ColorCombo.h" />
+    <ClInclude Include="..\..\src\SettingsDlg\SettingsDialog.h" />
+    <ClInclude Include="..\..\src\CompareOptionsDlg\CompareOptionsDialog.h" />
+    <ClInclude Include="..\..\src\VisualFiltersDlg\VisualFiltersDialog.h" />
+    <ClInclude Include="..\..\src\Tools.h" />
+    <ClInclude Include="..\..\src\UserSettings.h" />
+    <ClInclude Include="..\..\src\Compare.h" />
+    <ClInclude Include="..\..\src\Engine\Engine.h" />
+    <ClInclude Include="..\..\src\LibGit2\LibGit2Helper.h" />
+    <ClInclude Include="..\..\src\Icons\icon_added.h" />
+    <ClInclude Include="..\..\src\Icons\icon_moved.h" />
+    <ClInclude Include="..\..\src\Icons\icon_removed.h" />
+    <ClInclude Include="..\..\src\Icons\icon_changed.h" />
+    <ClInclude Include="..\..\src\Icons\icon_arrows.h" />
+    <ClInclude Include="..\..\src\NavDlg\NavDialog.h" />
+    <ClInclude Include="..\..\src\NppHelpers.h" />
+    <ClInclude Include="..\..\src\ProgressDlg\ProgressDlg.h" />
+    <ClInclude Include="..\..\src\Resource.h" />
+    <ClInclude Include="..\..\src\NppAPI\NppInternalDefines.h" />
+    <ClInclude Include="..\..\src\NppAPI\DockingFeature\Window.h" />
+    <ClInclude Include="..\..\src\NppAPI\DockingFeature\Docking.h" />
+    <ClInclude Include="..\..\src\NppAPI\DockingFeature\dockingResource.h" />
+    <ClInclude Include="..\..\src\NppAPI\DockingFeature\DockingDlgInterface.h" />
+    <ClInclude Include="..\..\src\NppAPI\DockingFeature\StaticDialog.h" />
+    <ClInclude Include="..\..\src\NppAPI\Notepad_plus_msgs.h" />
+    <ClInclude Include="..\..\src\NppAPI\menuCmdID.h" />
+    <ClInclude Include="..\..\src\NppAPI\PluginInterface.h" />
+    <ClInclude Include="..\..\src\NppAPI\Scintilla.h" />
+    <ClInclude Include="..\..\src\NppAPI\Sci_Position.h" />
+    <ClInclude Include="..\..\src\Engine\diff_types.h" />
+    <ClInclude Include="..\..\src\Engine\diff.h" />
+    <ClInclude Include="..\..\src\Engine\myers_diff.h" />
+    <ClInclude Include="..\..\src\Engine\fast_myers_diff.h" />
+    <ClInclude Include="..\..\src\LibHelpers.h" />
+    <ClInclude Include="..\..\src\SQLite\SqliteHelper.h" />
+    <ClInclude Include="..\..\src\Strings.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\src\Compare.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\license.txt" />
+    <None Include="..\..\README.md" />
+    <None Include="..\..\Help.md" />
+    <None Include="..\..\res\icons\Standard\FirstToCompare.bmp" />
+    <None Include="..\..\res\icons\Standard\FirstToCompareRTL.bmp" />
+    <None Include="..\..\res\icons\Standard\Compare.bmp" />
+    <None Include="..\..\res\icons\Standard\CompareLines.bmp" />
+    <None Include="..\..\res\icons\Standard\ClearCompare.bmp" />
+    <None Include="..\..\res\icons\Standard\First.bmp" />
+    <None Include="..\..\res\icons\Standard\Last.bmp" />
+    <None Include="..\..\res\icons\Standard\Prev.bmp" />
+    <None Include="..\..\res\icons\Standard\Next.bmp" />
+    <None Include="..\..\res\icons\Standard\DiffsFilters.bmp" />
+    <None Include="..\..\res\icons\Standard\NavBar.bmp" />
+    <None Include="..\..\res\icons\Standard\CompareDocking.ico" />
+    <None Include="..\..\res\icons\Fluent\FirstToCompareFluent.ico" />
+    <None Include="..\..\res\icons\Fluent\FirstToCompareRTLFluent.ico" />
+    <None Include="..\..\res\icons\Fluent\CompareFluent.ico" />
+    <None Include="..\..\res\icons\Fluent\CompareLinesFluent.ico" />
+    <None Include="..\..\res\icons\Fluent\ClearCompareFluent.ico" />
+    <None Include="..\..\res\icons\Fluent\FirstFluent.ico" />
+    <None Include="..\..\res\icons\Fluent\LastFluent.ico" />
+    <None Include="..\..\res\icons\Fluent\PrevFluent.ico" />
+    <None Include="..\..\res\icons\Fluent\NextFluent.ico" />
+    <None Include="..\..\res\icons\Fluent\DiffsFiltersFluent.ico" />
+    <None Include="..\..\res\icons\Fluent\NavBarFluent.ico" />
+    <None Include="..\..\res\icons\FluentDM\FirstToCompareFluentDM.ico" />
+    <None Include="..\..\res\icons\FluentDM\FirstToCompareRTLFluentDM.ico" />
+    <None Include="..\..\res\icons\FluentDM\CompareFluentDM.ico" />
+    <None Include="..\..\res\icons\FluentDM\CompareLinesFluentDM.ico" />
+    <None Include="..\..\res\icons\FluentDM\ClearCompareFluentDM.ico" />
+    <None Include="..\..\res\icons\FluentDM\FirstFluentDM.ico" />
+    <None Include="..\..\res\icons\FluentDM\LastFluentDM.ico" />
+    <None Include="..\..\res\icons\FluentDM\PrevFluentDM.ico" />
+    <None Include="..\..\res\icons\FluentDM\NextFluentDM.ico" />
+    <None Include="..\..\res\icons\FluentDM\DiffsFiltersFluentDM.ico" />
+    <None Include="..\..\res\icons\FluentDM\NavBarFluentDM.ico" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

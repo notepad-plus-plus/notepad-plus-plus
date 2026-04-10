@@ -1,0 +1,140 @@
+ComparePlus Changelog:
+----------------------
+
+
+07.11.2025
+v2.2.0
+
+	- Add possibility for manual compare syncronization points via bookmarks
+	- Implement SHA256 computation internally and also don't use it on re-compare unless needed
+	- Fix several issues with command line compare triggering
+	- Fix some minor regex ignore issues
+	- NavBar scroller is now handling dark mode properly for Windows 10 and above
+	- Various optimizations
+
+	Known issue: DirectWrite on GDI DC rendering mode is not working properly and leads to Notepad++ close on compare
+		(this affects all ComparePlus versions after 1.2.0)
+
+
+03.09.2025
+v2.1.1
+
+	- Fix update problem on views alignment when rendering mode is DirectWrite
+	- Add history of the ignored regexes (remember 5 entries)
+	- Use simplified version of the URL Ctrl code from Notepad++ to show links in About Dialog
+
+
+24.08.2025
+v2.1.0
+
+	- Code reworked for Unicode APIs only
+	- Fix empty file compare problem
+	- Fix trailing empty spaces ignore
+	- Fix and optimize copy/delete visual lines commands
+	- Add new command to bookmark all/selected visible lines
+	- Allocate new margin num instead of using predefined one
+	- Add "Hide Compare Margin" setting
+	- Add regex ignored line portions marking
+	- Several other fixes and optimizations (mainly regarding views alignment and hidden lines)
+	- Update SQLite3 library to v3.50.4 and libGit2 library to v1.9.1 (thanks to Christian Grasser)
+
+
+10.08.2025
+v2.0.0
+
+	- Enable multithreading in changed lines detection
+	- Compare now includes also the line endings (EOL) so now it will find also mismatched EOL types
+	- Added EOL ignore option
+	- Added hidden lines ignore option
+	- Added option to disable changed lines detection (so called sub-block diffs)
+	- Added detection of sub-line moves option (moves detection within changed lines)
+	- Added advanced regex ignore line portions option using Boost Regex engine for improved speed and extended
+		syntax allowing complex patterns. Regex can be configured to either ignore or compare only the line portions
+		matching the pattern
+	- Added compare options dialog which groups all possible detect/ignore compare options
+	- Added diffs visual filtering dialog which allows fine selection of diff types to be shown
+	- Commands to bookmark diffs are replaced by new commands to copy/delete only visible lines
+		(made to work in synergy with diffs visual filtering but usable also in the generic case when there are
+		hidden lines in Notepad++ document that should not be copied/deleted)
+	- Added generate patch command (produces unified diff type patch file)
+	- Added apply patch command (can be used on the old file of a comparison to produce the new file)
+	- Added revert patch command that reverts the result of apply patch. Can also be used on the new file of a
+		comparison to produce the old file BUT this might not always work if patch had been generated from compare
+		that had some ignore options enabled due to a possibly mismatching contexts
+	- Compared files views synchronization speed is increased reducing scroll lag and making it more responsive
+	- Report if there are ignored differences between files when those are considered matching
+	- Added setting configuring if warning about big size files comparison is to be shown
+	- Removed the setting to align all matching lines - those will always be aligned now
+	- Increased font size in dialogs for improved visibility on high DPI displays
+	- Plugin's menu updated and reordered
+	- Plugin's About dialog now prints current libraries versions, author's e-mail link is removed
+	- Update Notepad++ and Scintilla plugin API headers and ensure compatibility
+	- Update SQLite3 library to v3.50.3
+	- Several minor corner-case bug fixes and some optimizations
+
+
+28.02.2024
+v1.2.0
+
+	- Update Notepad++ and Scintilla plugin API headers
+	- Let Notepad++ handle dialogs dark mode
+	- Allocate diff changes indicator number via Notepad++ API
+	- Handle 'Replace All' Notepad++ notifications
+	- Improve diffs post-processing steps (better diffs presentation in some specific cases)
+	- Fixed bug and improvements in the change detection algo
+	- Add commands to bookmark diffs
+	- Add commands to jump to changes positions within changed line
+	- Add option to ignore folded lines and also allow folding in compare state
+	- Add 'Ignore Changed Spaces' option, the current 'Ignore Space' is actually the 'Ignore All Spaces'
+	- Remove "Best Sequence Change Detect" option - does not bring any added value anymore
+	- Add compare status info type setting
+	- Make 'Cancel Compare' much more responsive
+	- Disable auto-recompare if compare took more than 5 seconds
+	- Add warning message before comparing very large files
+	- Change Notepad++ status bar compare info implementation (avoids crashes due to TextFX interoperation)
+	- Save and restore each view caret line color and layer on compare (improves plugins interoperability)
+	- Fix unwanted selection when activating compared file
+	- Fix last line alignment and sync
+	- Fix selection compare zero line alignment
+	- Restore view properly after selections compare close
+	- Changes to some menu items names for more clarity
+
+
+02.10.2022
+v1.1.0
+
+	- Update Notepad++ and Scintilla plugin API headers
+	- Fix possible crash due to multithreading
+	- Fix margin diff symbols for high DPI displays
+	- Fix tabs handling if tabs are hidden in Notepad++
+	- Fix position and caret glitch when changing files in compare mode
+	- Improve command line triggered compare so restored session does not interfere
+		(command line compare syntax is `notepad++ -pluginMessage=compare new_file.txt old_file.txt`)
+	- Add settings for enabling / disabling toolbar buttons
+	- Update build to VS2022
+	- Fix several minor navigation commands and alignment on first line issues
+	- Update SQLite3 library to v3.39.4
+
+
+01.09.2022
+v1.0.0
+
+	- Initial ComparePlus release
+	- Based on the latest (to-date) dev state of the old Compare-plugin
+	- Improved integration with Notepad++ (works only with Notepad++ versions >= 8.4.2)
+	- Handles Notepad++ Dark Mode (except for NavBar scroller)
+	- Improved compare algorithm in both accuracy and speed
+	- Can compare files selections (parts of files)
+	- Has Find Uniqie commands to find lines that are only present in each file/selection
+	- Can compare file/selection to clipboard
+	- Gives compare statistics (diffs/matches count)
+	- Detects character diffs
+	- Has various ignore options - spaces, empty lines, case ignore and the advanced ignore regex
+	- Can filter results to show only diffs and show only compared selections
+	- Has auto-re-compare on change feature
+	- Preserves undo history (uses Scintilla annotations to sync views)
+	- Has various settings to customize behavior (including control over "mark lines as changed" decision)
+	- Compare progress is more smooth and informative and cancelling ongoing compare is much more responsive
+	- Has "equalize diffs" feature - try mouse left-clicking on a diff's compare margin (symbol) and the same but holding Ctrl or Shift keys (or both)
+	- Can run files compare directly when starting Notepad++ from the command line (notepad++ -pluginMessage=compare old_file.txt new_file.txt)
+	- Has also ARM64 build (except the SVN diff command that depends on external library which doesn't have ARM64 variant)

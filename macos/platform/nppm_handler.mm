@@ -7,11 +7,38 @@
 #include "scintilla_bridge.h"
 #include "language_defs.h"
 #include "lexer_styles.h"
+#include "document_manager.h"
+#include "file_operations.h"
+#include "string_utils.h"
 #include "Notepad_plus_msgs.h"
 #include "Scintilla.h"
 
 #include <cwchar>
 #include <filesystem>
+
+// ============================================================
+// Helper: find a document by buffer ID across both views
+// Returns (viewIndex, tabIndex) or (-1, -1) if not found.
+// When priorityView is specified, that view is searched first.
+// ============================================================
+static std::pair<int, int> findDocByBufferId(uint64_t bufferId, int priorityView = 0)
+{
+	auto searchView = [&](int viewIdx) -> std::pair<int, int>
+	{
+		auto& docs = (viewIdx == 0) ? ctx().documents : ctx().documents2;
+		for (int i = 0; i < static_cast<int>(docs.size()); ++i)
+		{
+			if (docs[i].bufferId == bufferId)
+				return {viewIdx, i};
+		}
+		return {-1, -1};
+	};
+
+	auto result = searchView(priorityView);
+	if (result.first >= 0)
+		return result;
+	return searchView(priorityView == 0 ? 1 : 0);
+}
 
 // ============================================================
 // Helper: copy wide string to plugin buffer with two-call contract
@@ -177,6 +204,106 @@ LRESULT handleNppmMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				return FALSE;
 			return pluginManager().allocateIndicator(static_cast<int>(wParam), startNumber) ? TRUE : FALSE;
 		}
+
+		// ---- Buffer ID messages (Phase 1b, issue #100) ----
+
+		case NPPM_GETCURRENTBUFFERID:
+		{
+			if (tabIdx >= 0 && tabIdx < static_cast<int>(docs.size()))
+				return static_cast<LRESULT>(docs[tabIdx].bufferId);
+			return 0;
+		}
+
+		case NPPM_GETBUFFERIDFROMPOS:
+		{
+			int index = static_cast<int>(wParam);
+			int viewIdx = static_cast<int>(lParam);
+			auto& viewDocs = (viewIdx == 0) ? ctx().documents : ctx().documents2;
+			if (index < 0 || index >= static_cast<int>(viewDocs.size()))
+				return 0; // NULL = invalid
+			return static_cast<LRESULT>(viewDocs[index].bufferId);
+		}
+
+		case NPPM_GETPOSFROMBUFFERID:
+		{
+			uint64_t bufferId = static_cast<uint64_t>(wParam);
+			int priorityView = static_cast<int>(lParam);
+			auto [viewIdx, tabIndex] = findDocByBufferId(bufferId, priorityView);
+			if (viewIdx < 0)
+				return -1;
+			// VIEW in 2 highest bits, INDEX in lower 30 bits
+			return static_cast<LRESULT>((viewIdx << 30) | tabIndex);
+		}
+
+		case NPPM_GETFULLPATHFROMBUFFERID:
+		{
+			uint64_t bufferId = static_cast<uint64_t>(wParam);
+			auto [viewIdx, tabIndex] = findDocByBufferId(bufferId);
+			if (viewIdx < 0)
+				return -1;
+			auto& viewDocs = (viewIdx == 0) ? ctx().documents : ctx().documents2;
+			const std::wstring& path = viewDocs[tabIndex].filePath;
+			if (!lParam)
+				return static_cast<LRESULT>(path.size());
+			wchar_t* buf = reinterpret_cast<wchar_t*>(lParam);
+			wcscpy(buf, path.c_str());
+			return static_cast<LRESULT>(path.size());
+		}
+
+		case NPPM_GETBUFFERLANGTYPE:
+		{
+			uint64_t bufferId = static_cast<uint64_t>(wParam);
+			auto [viewIdx, tabIndex] = findDocByBufferId(bufferId);
+			if (viewIdx < 0)
+				return -1;
+			auto& viewDocs = (viewIdx == 0) ? ctx().documents : ctx().documents2;
+			return static_cast<LRESULT>(viewDocs[tabIndex].languageIndex);
+		}
+
+		case NPPM_SETBUFFERLANGTYPE:
+		{
+			uint64_t bufferId = static_cast<uint64_t>(wParam);
+			int langType = static_cast<int>(lParam);
+			auto [viewIdx, tabIndex] = findDocByBufferId(bufferId);
+			if (viewIdx < 0)
+				return FALSE;
+			auto& viewDocs = (viewIdx == 0) ? ctx().documents : ctx().documents2;
+			viewDocs[tabIndex].languageIndex = langType;
+			// If this buffer is currently active, apply the language
+			if (viewIdx == ctx().activeView && tabIndex == ctx().activeTabIndex())
+				applyLanguage(langType);
+			return TRUE;
+		}
+
+		// ---- File operation messages (Phase 1b, issue #100) ----
+
+		case NPPM_DOOPEN:
+		{
+			if (!lParam)
+				return FALSE;
+			const wchar_t* path = reinterpret_cast<const wchar_t*>(lParam);
+			@autoreleasepool {
+				NSString* nsPath = WideToNSString(path);
+				return openFileAtPath(nsPath) ? TRUE : FALSE;
+			}
+		}
+
+		case NPPM_SWITCHTOFILE:
+		{
+			if (!lParam)
+				return FALSE;
+			const wchar_t* path = reinterpret_cast<const wchar_t*>(lParam);
+			std::wstring wpath(path);
+			return switchToFileIfOpen(wpath) ? TRUE : FALSE;
+		}
+
+		case NPPM_GETCURRENTNATIVELANGENCODING:
+			return 65001; // UTF-8 code page
+
+		case NPPM_ADDSCNMODIFIEDFLAGS:
+			// Accept the flags but no-op for now — our host already forwards
+			// all SCN_MODIFIED notifications to plugins
+			return TRUE;
 
 		default:
 			NSLog(@"Unhandled NPPM message: 0x%X (offset +%d)", msg, msg - NPPMSG);

@@ -9,6 +9,7 @@
 #include "lexer_styles.h"
 #include "document_manager.h"
 #include "file_operations.h"
+#include "menu_builder.h"
 #include "string_utils.h"
 #include "Notepad_plus_msgs.h"
 #include "Scintilla.h"
@@ -143,6 +144,15 @@ LRESULT handleNppmMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			::CheckMenuItem(GetMenu(hWnd), static_cast<UINT>(wParam),
 			                lParam ? MF_CHECKED : MF_UNCHECKED);
 			return TRUE;
+		}
+
+		case NPPM_GETMENUHANDLE:
+		{
+			int menuChoice = static_cast<int>(wParam);
+			if (menuChoice == NPPMAINMENU)
+				return reinterpret_cast<LRESULT>(GetMenu(hWnd));
+			else // NPPPLUGINMENU
+				return reinterpret_cast<LRESULT>(getPluginsMenuHandle());
 		}
 
 		case NPPM_GETPLUGINSCONFIGDIR:

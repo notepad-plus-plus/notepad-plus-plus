@@ -16,7 +16,7 @@
 #define ID_PLUGINS_CMD_DYNAMIC_LIMIT   24999
 #define MARKER_PLUGINS                 1
 #define MARKER_PLUGINS_LIMIT           15
-#define INDICATOR_PLUGINS              9
+#define INDICATOR_PLUGINS              8
 #define INDICATOR_PLUGINS_LIMIT        20
 
 using PFUNCISUNICODE = BOOL (__cdecl*)();
@@ -353,7 +353,10 @@ void MacPluginManager::notify(const SCNotification* notification)
 		{
 			try
 			{
-				pi->_pBeNotified(const_cast<SCNotification*>(notification));
+				// Copy the notification per plugin so one plugin cannot mutate
+				// the object seen by later plugins (matches upstream behavior).
+				SCNotification scNotifCopy = *notification;
+				pi->_pBeNotified(&scNotifCopy);
 			}
 			catch (...)
 			{
@@ -385,20 +388,38 @@ void MacPluginManager::relayNppMessages(UINT Message, WPARAM wParam, LPARAM lPar
 
 bool MacPluginManager::allocateCmdID(int numberRequired, int* start)
 {
-	*start = _dynamicCmdAlloc.allocate(numberRequired);
-	return (*start >= 0);
+	int result = _dynamicCmdAlloc.allocate(numberRequired);
+	if (result < 0)
+	{
+		*start = 0;
+		return false;
+	}
+	*start = result;
+	return true;
 }
 
 bool MacPluginManager::allocateMarker(int numberRequired, int* start)
 {
-	*start = _markerAlloc.allocate(numberRequired);
-	return (*start >= 0);
+	int result = _markerAlloc.allocate(numberRequired);
+	if (result < 0)
+	{
+		*start = 0;
+		return false;
+	}
+	*start = result;
+	return true;
 }
 
 bool MacPluginManager::allocateIndicator(int numberRequired, int* start)
 {
-	*start = _indicatorAlloc.allocate(numberRequired);
-	return (*start >= 0);
+	int result = _indicatorAlloc.allocate(numberRequired);
+	if (result < 0)
+	{
+		*start = 0;
+		return false;
+	}
+	*start = result;
+	return true;
 }
 
 // ============================================================

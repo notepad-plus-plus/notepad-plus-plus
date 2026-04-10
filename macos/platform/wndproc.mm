@@ -69,6 +69,13 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 						docs[tabIdx].languageIndex = langIdx;
 						++docs[tabIdx].functionListRevision;
 						scheduleFunctionListRefresh();
+
+						// Notify plugins that the language changed
+						SCNotification notif{};
+						notif.nmhdr.hwndFrom = ctx().mainHwnd;
+						notif.nmhdr.code = NPPN_LANGCHANGED;
+						notif.nmhdr.idFrom = 0; // V1: no stable buffer ID yet
+						pluginManager().notify(&notif);
 					}
 				}
 				applyLanguage(langIdx);

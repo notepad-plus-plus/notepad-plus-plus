@@ -14,6 +14,8 @@
 #include "function_list_panel.h"
 #include "file_switcher_panel.h"
 #include "sync_scroll.h"
+#include "plugin_manager.h"
+#include "Notepad_plus_msgs.h"
 #include "windows.h"
 #include "commctrl.h"
 #include "handle_registry.h"
@@ -224,6 +226,15 @@ void closeTabFromView(int viewIndex, int tabIndex)
 		return;
 	if (!sci) return;
 
+	// Notify plugins that a file is about to be closed
+	{
+		SCNotification notif{};
+		notif.nmhdr.hwndFrom = ctx().mainHwnd;
+		notif.nmhdr.code = NPPN_FILEBEFORECLOSE;
+		notif.nmhdr.idFrom = 0; // V1: no stable buffer ID yet
+		pluginManager().notify(&notif);
+	}
+
 	if (docs.size() <= 1)
 	{
 		if (docs[0].functionListDocumentId != 0)
@@ -248,6 +259,15 @@ void closeTabFromView(int viewIndex, int tabIndex)
 		[ctx().mainWindow setTitle:@"Notepad++ — Untitled"];
 		updateTabModifiedIndicator(viewIndex, 0);
 		updateWindowDocumentEdited();
+
+		// Notify plugins that the file has been closed
+		{
+			SCNotification notif{};
+			notif.nmhdr.hwndFrom = ctx().mainHwnd;
+			notif.nmhdr.code = NPPN_FILECLOSED;
+			notif.nmhdr.idFrom = 0;
+			pluginManager().notify(&notif);
+		}
 		return;
 	}
 
@@ -281,6 +301,15 @@ void closeTabFromView(int viewIndex, int tabIndex)
 	NSString* title = WideToNSString(doc.title.c_str());
 	[ctx().mainWindow setTitle:[NSString stringWithFormat:@"Notepad++ — %@", title]];
 	updateWindowDocumentEdited();
+
+	// Notify plugins that the file has been closed
+	{
+		SCNotification notif{};
+		notif.nmhdr.hwndFrom = ctx().mainHwnd;
+		notif.nmhdr.code = NPPN_FILECLOSED;
+		notif.nmhdr.idFrom = 0;
+		pluginManager().notify(&notif);
+	}
 }
 
 void closeTab(int tabIndex)

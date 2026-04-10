@@ -66,6 +66,13 @@ LRESULT handleNppmMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			{
 				docs[tabIdx].languageIndex = langType;
 				applyLanguage(langType);
+
+				// Notify plugins that the language changed
+				SCNotification notif{};
+				notif.nmhdr.hwndFrom = hWnd;
+				notif.nmhdr.code = NPPN_LANGCHANGED;
+				notif.nmhdr.idFrom = 0;
+				pluginManager().notify(&notif);
 			}
 			return TRUE;
 		}
@@ -77,8 +84,28 @@ LRESULT handleNppmMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				return static_cast<LRESULT>(ctx().documents.size());
 			else if (viewType == 2) // SECOND_VIEW
 				return static_cast<LRESULT>(ctx().documents2.size());
-			else // ALL_OPEN_FILES
-				return static_cast<LRESULT>(ctx().documents.size() + ctx().documents2.size());
+			else // ALL_OPEN_FILES — deduplicate split-view mirrors
+			{
+				size_t count = ctx().documents.size();
+				for (const auto& doc2 : ctx().documents2)
+				{
+					bool duplicate = false;
+					if (!doc2.filePath.empty())
+					{
+						for (const auto& doc1 : ctx().documents)
+						{
+							if (doc1.filePath == doc2.filePath)
+							{
+								duplicate = true;
+								break;
+							}
+						}
+					}
+					if (!duplicate)
+						++count;
+				}
+				return static_cast<LRESULT>(count);
+			}
 		}
 
 		case NPPM_SETMENUITEMCHECK:
@@ -215,18 +242,32 @@ LRESULT handleRunCommandMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPara
 			if (!sci)
 				return copyWideToBuffer(L"", wParam, lParam);
 
-			intptr_t pos = ScintillaBridge_sendMessage(sci, SCI_GETCURRENTPOS, 0, 0);
-			intptr_t wordStart = ScintillaBridge_sendMessage(sci, SCI_WORDSTARTPOSITION, pos, 1);
-			intptr_t wordEnd = ScintillaBridge_sendMessage(sci, SCI_WORDENDPOSITION, pos, 1);
+			// If there is a selection, return the selected text (matches upstream behavior).
+			// Only fall back to word-boundary logic when there is no selection.
+			intptr_t selStart = ScintillaBridge_sendMessage(sci, SCI_GETSELECTIONSTART, 0, 0);
+			intptr_t selEnd = ScintillaBridge_sendMessage(sci, SCI_GETSELECTIONEND, 0, 0);
 
-			if (wordEnd <= wordStart)
+			intptr_t rangeStart, rangeEnd;
+			if (selEnd > selStart)
+			{
+				rangeStart = selStart;
+				rangeEnd = selEnd;
+			}
+			else
+			{
+				intptr_t pos = ScintillaBridge_sendMessage(sci, SCI_GETCURRENTPOS, 0, 0);
+				rangeStart = ScintillaBridge_sendMessage(sci, SCI_WORDSTARTPOSITION, pos, 1);
+				rangeEnd = ScintillaBridge_sendMessage(sci, SCI_WORDENDPOSITION, pos, 1);
+			}
+
+			if (rangeEnd <= rangeStart)
 				return copyWideToBuffer(L"", wParam, lParam);
 
-			intptr_t len = wordEnd - wordStart;
+			intptr_t len = rangeEnd - rangeStart;
 			std::string utf8(static_cast<size_t>(len) + 1, '\0');
 			Sci_TextRangeFull tr{};
-			tr.chrg.cpMin = wordStart;
-			tr.chrg.cpMax = wordEnd;
+			tr.chrg.cpMin = rangeStart;
+			tr.chrg.cpMax = rangeEnd;
 			tr.lpstrText = utf8.data();
 			ScintillaBridge_sendMessage(sci, SCI_GETTEXTRANGEFULL, 0, reinterpret_cast<intptr_t>(&tr));
 

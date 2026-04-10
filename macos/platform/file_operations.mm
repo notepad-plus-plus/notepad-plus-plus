@@ -211,10 +211,14 @@ bool openFileAtPath(NSString* path)
 
 	// Notify plugins that a file was opened
 	{
+		auto& activeDocs = ctx().activeDocuments();
+		int activeIdx = ctx().activeTabIndex();
+		uint64_t bufId = (activeIdx >= 0 && activeIdx < static_cast<int>(activeDocs.size()))
+			? activeDocs[activeIdx].bufferId : 0;
 		SCNotification notif{};
 		notif.nmhdr.hwndFrom = ctx().mainHwnd;
 		notif.nmhdr.code = NPPN_FILEOPENED;
-		notif.nmhdr.idFrom = 0; // V1: no stable buffer ID yet
+		notif.nmhdr.idFrom = static_cast<uintptr_t>(bufId);
 		pluginManager().notify(&notif);
 	}
 
@@ -340,7 +344,7 @@ void saveCurrentFile()
 				SCNotification notif{};
 				notif.nmhdr.hwndFrom = ctx().mainHwnd;
 				notif.nmhdr.code = NPPN_FILESAVED;
-				notif.nmhdr.idFrom = 0; // V1: no stable buffer ID yet
+				notif.nmhdr.idFrom = static_cast<uintptr_t>(doc.bufferId);
 				pluginManager().notify(&notif);
 			}
 		}

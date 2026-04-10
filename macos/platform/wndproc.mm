@@ -79,7 +79,7 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 						SCNotification notif{};
 						notif.nmhdr.hwndFrom = ctx().mainHwnd;
 						notif.nmhdr.code = NPPN_LANGCHANGED;
-						notif.nmhdr.idFrom = 0; // V1: no stable buffer ID yet
+						notif.nmhdr.idFrom = static_cast<uintptr_t>(docs[tabIdx].bufferId);
 						pluginManager().notify(&notif);
 					}
 				}

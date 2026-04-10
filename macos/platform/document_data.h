@@ -59,4 +59,8 @@ struct DocumentData
 	int zoomLevel = 0;
 	uint64_t functionListDocumentId = 0;
 	uint64_t functionListRevision = 0;
+	uint64_t bufferId = 0; // Stable buffer ID for plugin API (NPPM_GETCURRENTBUFFERID etc.)
 };
+
+// Allocate a unique buffer ID (monotonic, never reused)
+uint64_t allocateBufferId();

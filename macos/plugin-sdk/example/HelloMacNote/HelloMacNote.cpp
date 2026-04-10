@@ -2,6 +2,7 @@
 // Compiles on both Windows (.dll) and macOS (.dylib) without #ifdef guards.
 
 #include "PluginInterface.h"
+#include <ctime>
 
 static NppData nppData;
 static const int NB_FUNC = 3;
@@ -23,9 +24,12 @@ static void insertTimestamp()
 	::SendMessage(nppData._nppHandle, NPPM_GETCURRENTSCINTILLA, 0, reinterpret_cast<LPARAM>(&which));
 	HWND sci = (which == 0) ? nppData._scintillaMainHandle : nppData._scintillaSecondHandle;
 
-	// Insert text at the current position
-	const char* text = "[HelloMacNote timestamp]";
-	::SendMessage(sci, SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(text));
+	// Format current date/time and insert at cursor
+	time_t now = time(nullptr);
+	struct tm* lt = localtime(&now);
+	char buf[64];
+	strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", lt);
+	::SendMessage(sci, SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(buf));
 }
 
 static void showVersion()

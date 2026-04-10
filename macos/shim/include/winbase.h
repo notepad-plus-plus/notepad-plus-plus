@@ -10,6 +10,16 @@
 #include <unistd.h>
 
 // ============================================================
+// DLL entry point constants
+// ============================================================
+#ifndef DLL_PROCESS_ATTACH
+#define DLL_PROCESS_ATTACH 1
+#define DLL_THREAD_ATTACH  2
+#define DLL_THREAD_DETACH  3
+#define DLL_PROCESS_DETACH 0
+#endif
+
+// ============================================================
 // Error codes
 // ============================================================
 #define ERROR_SUCCESS          0L
@@ -1147,4 +1157,57 @@ inline HRESULT GetApplicationRestartSettings(HANDLE hProcess, LPWSTR pwzCommandl
 	if (pcchSize) *pcchSize = 0;
 	if (pdwFlags) *pdwFlags = 0;
 	return E_NOTIMPL;
+}
+
+// ============================================================
+// INI file (Private Profile) functions — declarations only.
+// Implemented in win32_profile.mm (ObjC++ for Foundation access).
+// ============================================================
+UINT GetPrivateProfileIntW(LPCWSTR lpAppName, LPCWSTR lpKeyName, INT nDefault, LPCWSTR lpFileName);
+DWORD GetPrivateProfileStringW(LPCWSTR lpAppName, LPCWSTR lpKeyName, LPCWSTR lpDefault,
+                               LPWSTR lpReturnedString, DWORD nSize, LPCWSTR lpFileName);
+BOOL WritePrivateProfileStringW(LPCWSTR lpAppName, LPCWSTR lpKeyName, LPCWSTR lpString, LPCWSTR lpFileName);
+
+// ============================================================
+// MSVC CRT safe string functions (not in tchar.h for non-tchar code)
+// ============================================================
+
+#include <cerrno>
+#include <cstdarg>
+
+// Forward-declare _wfopen from winbase.h (defined above)
+#ifndef _WFOPEN_DEFINED
+FILE* _wfopen(const wchar_t* filename, const wchar_t* mode);
+#define _WFOPEN_DEFINED
+#endif
+
+inline errno_t _wfopen_s(FILE** pFile, const wchar_t* filename, const wchar_t* mode)
+{
+	if (!pFile) return EINVAL;
+	*pFile = _wfopen(filename, mode);
+	return (*pFile) ? 0 : errno;
+}
+
+inline errno_t _itow_s(int value, wchar_t* buf, size_t sizeInWords, int radix)
+{
+	if (!buf || sizeInWords == 0) return EINVAL;
+	if (radix == 10)
+		swprintf(buf, sizeInWords, L"%d", value);
+	else if (radix == 16)
+		swprintf(buf, sizeInWords, L"%x", value);
+	else if (radix == 8)
+		swprintf(buf, sizeInWords, L"%o", value);
+	else
+		buf[0] = L'\0';
+	return 0;
+}
+
+inline int _snwprintf_s(wchar_t* buf, size_t sizeOfBuffer, size_t count, const wchar_t* fmt, ...)
+{
+	(void)count;
+	va_list args;
+	va_start(args, fmt);
+	int r = vswprintf(buf, sizeOfBuffer, fmt, args);
+	va_end(args);
+	return r;
 }

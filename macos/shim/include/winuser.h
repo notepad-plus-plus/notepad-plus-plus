@@ -1929,3 +1929,56 @@ inline BOOL EnumWindows(WNDENUMPROC lpEnumFunc, LPARAM lParam)
 	return TRUE;
 }
 BOOL EnumChildWindows(HWND hWndParent, WNDENUMPROC lpEnumFunc, LPARAM lParam);
+
+// ============================================================
+// SendInput (stub for macOS — used by ComparePlus for click simulation)
+// ============================================================
+#define INPUT_MOUSE    0
+#define INPUT_KEYBOARD 1
+#define INPUT_HARDWARE 2
+
+#define MOUSEEVENTF_LEFTDOWN   0x0002
+#define MOUSEEVENTF_LEFTUP     0x0004
+
+struct MOUSEINPUT
+{
+	LONG dx;
+	LONG dy;
+	DWORD mouseData;
+	DWORD dwFlags;
+	DWORD time;
+	ULONG_PTR dwExtraInfo;
+};
+
+struct KEYBDINPUT
+{
+	WORD wVk;
+	WORD wScan;
+	DWORD dwFlags;
+	DWORD time;
+	ULONG_PTR dwExtraInfo;
+};
+
+struct HARDWAREINPUT
+{
+	DWORD uMsg;
+	WORD wParamL;
+	WORD wParamH;
+};
+
+struct INPUT
+{
+	DWORD type;
+	union
+	{
+		MOUSEINPUT mi;
+		KEYBDINPUT ki;
+		HARDWAREINPUT hi;
+	};
+};
+
+inline UINT SendInput(UINT nInputs, INPUT* pInputs, int cbSize)
+{
+	(void)nInputs; (void)pInputs; (void)cbSize;
+	return 0; // Stub — no input simulation on macOS
+}

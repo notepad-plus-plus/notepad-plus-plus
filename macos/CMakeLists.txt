@@ -457,6 +457,59 @@ add_custom_target(install_sample_plugin
 )
 
 # ============================================================
+# Plugin: ComparePlus (macOS port)
+# ============================================================
+set(COMPARE_PLUS_DIR "${NPP_ROOT}/plugins/comparePlus")
+
+add_library(ComparePlus MODULE
+    "${COMPARE_PLUS_DIR}/src/Compare.cpp"
+    "${COMPARE_PLUS_DIR}/src/NppHelpers.cpp"
+    "${COMPARE_PLUS_DIR}/src/Tools.cpp"
+    "${COMPARE_PLUS_DIR}/src/Strings.cpp"
+    "${COMPARE_PLUS_DIR}/src/UserSettings.cpp"
+    "${COMPARE_PLUS_DIR}/src/Engine/Engine.cpp"
+)
+target_include_directories(ComparePlus PRIVATE
+    "${SHIM_INCLUDE_DIR}"
+    "${COMPARE_PLUS_DIR}/src/NppAPI"
+    "${COMPARE_PLUS_DIR}/src"
+    "${COMPARE_PLUS_DIR}/src/Engine"
+    "${COMPARE_PLUS_DIR}/src/Icons"
+    "${COMPARE_PLUS_DIR}/src/nlohmann"
+    "${COMPARE_PLUS_DIR}/src/AboutDlg"
+    "${COMPARE_PLUS_DIR}/src/SettingsDlg"
+    "${COMPARE_PLUS_DIR}/src/CompareOptionsDlg"
+    "${COMPARE_PLUS_DIR}/src/VisualFiltersDlg"
+    "${COMPARE_PLUS_DIR}/src/NavDlg"
+    "${COMPARE_PLUS_DIR}/src/ProgressDlg"
+    "${COMPARE_PLUS_DIR}/src/NppAPI/DockingFeature"
+    "${COMPARE_PLUS_DIR}/src/boost_regex/include"
+    "${SCINTILLA_INCLUDE_DIR}"
+)
+target_compile_definitions(ComparePlus PRIVATE
+    UNICODE
+    _UNICODE
+    BOOST_REGEX_STANDALONE
+)
+set_target_properties(ComparePlus PROPERTIES
+    PREFIX ""
+    SUFFIX ".dylib"
+    OUTPUT_NAME "ComparePlus"
+)
+target_compile_options(ComparePlus PRIVATE -Wno-deprecated-declarations)
+target_link_options(ComparePlus PRIVATE -undefined dynamic_lookup)
+
+add_custom_target(install_compare_plus
+    DEPENDS ComparePlus
+    COMMAND ${CMAKE_COMMAND} -E make_directory
+        "$ENV{HOME}/Library/Application Support/MacNote++/plugins/ComparePlus"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "$<TARGET_FILE:ComparePlus>"
+        "$ENV{HOME}/Library/Application Support/MacNote++/plugins/ComparePlus/ComparePlus.dylib"
+    COMMENT "Installing ComparePlus plugin to ~/Library/Application Support/MacNote++/plugins/"
+)
+
+# ============================================================
 # Packaging: App bundle, code signing, and DMG
 # ============================================================
 set(NPP_MACOS_DIST_DIR "${CMAKE_CURRENT_SOURCE_DIR}/dist")

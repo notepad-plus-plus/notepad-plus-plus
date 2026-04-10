@@ -457,6 +457,12 @@ int GetDeviceCaps(HDC hdc, int index);
 COLORREF GetSysColor(int nIndex);
 HBRUSH GetSysColorBrush(int nIndex);
 int GetSystemMetrics(int nIndex);
+
+#ifndef SM_CXMENUCHECK
+#define SM_CXMENUCHECK   71
+#define SM_CYMENUCHECK   72
+#endif
+
 BOOL SystemParametersInfoW(UINT uiAction, UINT uiParam, LPVOID pvParam, UINT fWinIni);
 #define SystemParametersInfo SystemParametersInfoW
 

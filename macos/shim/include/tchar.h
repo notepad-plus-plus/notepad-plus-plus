@@ -167,6 +167,37 @@ inline int swprintf_s(wchar_t* buf, size_t count, const wchar_t* fmt, ...) {
 #define _vsnwprintf vswprintf
 #define sscanf_s sscanf
 
+// _snwprintf_s: safe variant of _snwprintf
+inline int _snwprintf_s(wchar_t* buf, size_t sizeOfBuffer, size_t count, const wchar_t* fmt, ...) {
+	(void)count;
+	va_list args;
+	va_start(args, fmt);
+	int r = vswprintf(buf, sizeOfBuffer, fmt, args);
+	va_end(args);
+	return r;
+}
+
+// _itow_s: safe variant of _itow
+inline errno_t _itow_s(int value, wchar_t* buf, size_t sizeInWords, int radix) {
+	if (!buf || sizeInWords == 0) return EINVAL;
+	if (radix == 10)
+		swprintf(buf, sizeInWords, L"%d", value);
+	else if (radix == 16)
+		swprintf(buf, sizeInWords, L"%x", value);
+	else if (radix == 8)
+		swprintf(buf, sizeInWords, L"%o", value);
+	else
+		buf[0] = L'\0';
+	return 0;
+}
+
+// _wfopen_s: safe variant of _wfopen
+inline errno_t _wfopen_s(FILE** pFile, const wchar_t* filename, const wchar_t* mode) {
+	if (!pFile) return EINVAL;
+	*pFile = _wfopen(filename, mode);
+	return (*pFile) ? 0 : errno;
+}
+
 // memcpy_s / memmove_s
 #include <cstring>
 #include <cerrno>

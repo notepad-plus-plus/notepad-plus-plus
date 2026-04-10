@@ -16,6 +16,8 @@
 #include "scintilla_bridge.h"
 #include "file_monitor_mac.h"
 #include "uchardet.h"
+#include "plugin_manager.h"
+#include "Notepad_plus_msgs.h"
 #include "windows.h"
 #include "commdlg.h"
 #include "commctrl.h"
@@ -206,6 +208,16 @@ bool openFileAtPath(NSString* path)
 	addRecentFile(wpath);
 	rebuildRecentMenu();
 	updateStatusBar();
+
+	// Notify plugins that a file was opened
+	{
+		SCNotification notif{};
+		notif.nmhdr.hwndFrom = ctx().mainHwnd;
+		notif.nmhdr.code = NPPN_FILEOPENED;
+		notif.nmhdr.idFrom = 0; // V1: no stable buffer ID yet
+		pluginManager().notify(&notif);
+	}
+
 	return true;
 }
 
@@ -322,6 +334,15 @@ void saveCurrentFile()
 
 			addRecentFile(doc.filePath);
 			rebuildRecentMenu();
+
+			// Notify plugins that the file was saved
+			{
+				SCNotification notif{};
+				notif.nmhdr.hwndFrom = ctx().mainHwnd;
+				notif.nmhdr.code = NPPN_FILESAVED;
+				notif.nmhdr.idFrom = 0; // V1: no stable buffer ID yet
+				pluginManager().notify(&notif);
+			}
 		}
 
 		delete[] buf;

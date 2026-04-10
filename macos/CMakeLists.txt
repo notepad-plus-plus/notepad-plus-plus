@@ -384,6 +384,8 @@ add_executable(MacNotePlusPlus
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/print_support.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/hash_tools.mm"
     "${CMAKE_CURRENT_SOURCE_DIR}/platform/macro_manager.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/plugin_manager.mm"
+    "${CMAKE_CURRENT_SOURCE_DIR}/platform/nppm_handler.mm"
 )
 target_include_directories(MacNotePlusPlus PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/platform"
@@ -392,6 +394,7 @@ target_include_directories(MacNotePlusPlus PRIVATE
     "${SCINTILLA_INCLUDE_DIR}"
     "${LEXILLA_INCLUDE_DIR}"
     "${UCHARDET_DIR}"
+    "${NPP_SRC_DIR}/MISC/PluginsManager"
 )
 target_link_libraries(MacNotePlusPlus
     win32shim
@@ -410,6 +413,8 @@ target_compile_options(MacNotePlusPlus PRIVATE
     -fobjc-arc
     -Wno-deprecated-declarations
 )
+# Export symbols so plugins loaded via dlopen can resolve host functions (SendMessageW, etc.)
+target_link_options(MacNotePlusPlus PRIVATE -Wl,-export_dynamic)
 add_dependencies(MacNotePlusPlus AppIcon)
 add_custom_command(TARGET MacNotePlusPlus POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
@@ -419,6 +424,36 @@ add_custom_command(TARGET MacNotePlusPlus POST_BUILD
         "${CMAKE_BINARY_DIR}/AppIcon.icns"
         "$<TARGET_FILE_DIR:MacNotePlusPlus>/AppIcon.icns"
     COMMENT "Copying logo.png and AppIcon.icns"
+)
+
+# ============================================================
+# Sample plugin: HelloMacNote
+# ============================================================
+add_library(HelloMacNote MODULE
+    "${CMAKE_CURRENT_SOURCE_DIR}/plugin-sdk/example/HelloMacNote/HelloMacNote.cpp"
+)
+target_include_directories(HelloMacNote PRIVATE
+    "${SHIM_INCLUDE_DIR}"
+    "${NPP_SRC_DIR}/MISC/PluginsManager"
+    "${SCINTILLA_INCLUDE_DIR}"
+)
+set_target_properties(HelloMacNote PROPERTIES
+    PREFIX ""
+    SUFFIX ".dylib"
+    OUTPUT_NAME "HelloMacNote"
+)
+target_compile_options(HelloMacNote PRIVATE -Wno-deprecated-declarations)
+target_link_options(HelloMacNote PRIVATE -undefined dynamic_lookup)
+
+# Opt-in install target: cmake --build . --target install_sample_plugin
+add_custom_target(install_sample_plugin
+    DEPENDS HelloMacNote
+    COMMAND ${CMAKE_COMMAND} -E make_directory
+        "$ENV{HOME}/Library/Application Support/MacNote++/plugins/HelloMacNote"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "$<TARGET_FILE:HelloMacNote>"
+        "$ENV{HOME}/Library/Application Support/MacNote++/plugins/HelloMacNote/HelloMacNote.dylib"
+    COMMENT "Installing HelloMacNote plugin to ~/Library/Application Support/MacNote++/plugins/"
 )
 
 # ============================================================

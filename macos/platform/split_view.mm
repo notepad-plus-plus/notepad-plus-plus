@@ -23,6 +23,7 @@
 #include "panel_layout.h"
 #include "file_switcher_panel.h"
 #include "scintilla_notify.h"
+#include "plugin_manager.h"
 #include "macro_manager.h"
 #include "status_bar.h"
 #include "windows.h"
@@ -125,7 +126,33 @@ void doSplit()
 	ctx().sciContainer2.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 	[ctx().editorContainer2 addSubview:ctx().sciContainer2];
 
-	ctx().scintillaView2 = ScintillaBridge_createView((__bridge void*)ctx().sciContainer2, 0, 0, 0, 0);
+	// Reuse the pre-created second Scintilla view (created hidden at startup for plugin compatibility)
+	if (ctx().scintillaView2)
+	{
+		NSView* sciView = (__bridge NSView*)ctx().scintillaView2;
+		NSView* oldParent = [sciView superview];
+		[sciView removeFromSuperview];
+		if (oldParent && oldParent.hidden)
+			[oldParent removeFromSuperview]; // Remove the hidden container
+		NSView* parent = ctx().sciContainer2;
+		sciView.frame = parent.bounds;
+		[parent addSubview:sciView];
+		sciView.hidden = NO;
+	}
+	else
+	{
+		ctx().scintillaView2 = ScintillaBridge_createView((__bridge void*)ctx().sciContainer2, 0, 0, 0, 0);
+		if (ctx().scintillaView2)
+		{
+			HandleRegistry::WindowInfo sci2Info{};
+			sci2Info.nativeView = ctx().scintillaView2;
+			sci2Info.className = L"Scintilla";
+			sci2Info.isScintilla = true;
+			sci2Info.parent = ctx().mainHwnd;
+			ctx().scintillaSecondHwnd = HandleRegistry::createWindow(std::move(sci2Info));
+		}
+	}
+
 	if (!ctx().scintillaView2)
 	{
 		// Rollback: restore editorContainer to contentView
@@ -255,6 +282,9 @@ void doSplit()
 						if (MacroManager::instance().isRecording())
 							MacroManager::instance().recordStep(scn->message, scn->wParam, scn->lParam);
 					}
+
+					// Forward Scintilla notifications to plugins
+					pluginManager().notify(reinterpret_cast<const SCNotification*>(scn));
 				}
 			});
 	}
@@ -342,14 +372,18 @@ void doUnsplit()
 		}
 	}
 
-	// Destroy second Scintilla view
+	// Hide second Scintilla view (keep alive for plugin handle compatibility)
 	if (ctx().scintillaView2)
 	{
 		cancelPendingSmartHighlight();
 		ScintillaBridge_clearNotifyCallback(ctx().scintillaView2);
 		autoCloseOnViewDestroyed(ctx().scintillaView2);
-		ScintillaBridge_destroyView(ctx().scintillaView2);
-		ctx().scintillaView2 = nullptr;
+		NSView* sciView = (__bridge NSView*)ctx().scintillaView2;
+		[sciView removeFromSuperview];
+		NSView* hiddenContainer = [[NSView alloc] initWithFrame:NSZeroRect];
+		hiddenContainer.hidden = YES;
+		[ctx().editorContainer addSubview:hiddenContainer];
+		[hiddenContainer addSubview:sciView];
 	}
 
 	// Destroy second tab bar

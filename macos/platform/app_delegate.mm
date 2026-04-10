@@ -20,6 +20,8 @@
 #include "scintilla_bridge.h"
 #include "handle_registry.h"
 #include "settings_manager.h"
+#include "plugin_manager.h"
+#include "Notepad_plus_msgs.h"
 #include "file_monitor_mac.h"
 #include "brace_match.h"
 #include "smart_highlight.h"
@@ -251,11 +253,40 @@ static void setDockIconFromLogo()
 		return;
 	}
 
+	// Register main Scintilla view with HandleRegistry so SendMessage(sciHandle, SCI_*, ...) works
+	{
+		HandleRegistry::WindowInfo sciInfo{};
+		sciInfo.nativeView = ctx().scintillaView;
+		sciInfo.className = L"Scintilla";
+		sciInfo.isScintilla = true;
+		sciInfo.parent = ctx().mainHwnd;
+		ctx().scintillaMainHwnd = HandleRegistry::createWindow(std::move(sciInfo));
+	}
+
 	configureScintilla(ctx().scintillaView);
 	applyAppearance();
 	if (ctx().documentMapEnabled)
 		initializeDocumentMap();
 	setSyncScrollingEnabled(ctx().syncScrolling);
+
+	// Pre-create the second Scintilla view (hidden) so plugins always have a valid handle.
+	// doSplit() will reuse this view instead of creating a new one.
+	{
+		NSView* hiddenContainer = [[NSView alloc] initWithFrame:NSZeroRect];
+		hiddenContainer.hidden = YES;
+		[ctx().editorContainer addSubview:hiddenContainer];
+		ctx().scintillaView2 = ScintillaBridge_createView((__bridge void*)hiddenContainer, 0, 0, 0, 0);
+		if (ctx().scintillaView2)
+		{
+			HandleRegistry::WindowInfo sci2Info{};
+			sci2Info.nativeView = ctx().scintillaView2;
+			sci2Info.className = L"Scintilla";
+			sci2Info.isScintilla = true;
+			sci2Info.parent = ctx().mainHwnd;
+			ctx().scintillaSecondHwnd = HandleRegistry::createWindow(std::move(sci2Info));
+			configureScintilla(ctx().scintillaView2);
+		}
+	}
 
 	// Scintilla notification callback for main view
 	ScintillaBridge_setNotifyCallback(ctx().scintillaView, (intptr_t)ctx().mainHwnd,
@@ -368,6 +399,9 @@ static void setDockIconFromLogo()
 					if (MacroManager::instance().isRecording())
 						MacroManager::instance().recordStep(scn->message, scn->wParam, scn->lParam);
 				}
+
+				// Forward Scintilla notifications to plugins
+				pluginManager().notify(reinterpret_cast<const SCNotification*>(scn));
 			}
 		});
 
@@ -515,6 +549,25 @@ static void setDockIconFromLogo()
 	bindDocumentMapToActiveView();
 	updateDocumentMapViewport();
 
+	// Initialize plugin system
+	{
+		NppData nppData;
+		nppData._nppHandle = ctx().mainHwnd;
+		nppData._scintillaMainHandle = ctx().scintillaMainHwnd;
+		nppData._scintillaSecondHandle = ctx().scintillaSecondHwnd;
+		pluginManager().init(nppData);
+		pluginManager().loadPlugins();
+		pluginManager().initMenu(getPluginsMenuHandle());
+	}
+
+	// Notify plugins that initialization is complete
+	{
+		SCNotification readyNotif{};
+		readyNotif.nmhdr.hwndFrom = ctx().mainHwnd;
+		readyNotif.nmhdr.code = NPPN_READY;
+		pluginManager().notify(&readyNotif);
+	}
+
 	NSLog(@"=== Notepad++ macOS Port — Phase 7 ===");
 	NSLog(@"Settings, split view, edit commands, encoding, session, drag-and-drop!");
 }
@@ -590,6 +643,26 @@ static void setDockIconFromLogo()
 
 - (void)applicationWillTerminate:(NSNotification*)notification
 {
+	// Notify plugins that we are shutting down
+	{
+		SCNotification shutdownNotif{};
+		shutdownNotif.nmhdr.hwndFrom = ctx().mainHwnd;
+		shutdownNotif.nmhdr.code = NPPN_SHUTDOWN;
+		pluginManager().notify(&shutdownNotif);
+	}
+
+	// Destroy Scintilla HWNDs to release HandleRegistry-retained native views
+	if (ctx().scintillaSecondHwnd)
+	{
+		HandleRegistry::destroyWindow(ctx().scintillaSecondHwnd);
+		ctx().scintillaSecondHwnd = nullptr;
+	}
+	if (ctx().scintillaMainHwnd)
+	{
+		HandleRegistry::destroyWindow(ctx().scintillaMainHwnd);
+		ctx().scintillaMainHwnd = nullptr;
+	}
+
 	saveSession();
 
 	auto& s = SettingsManager::instance().settings;

@@ -39,6 +39,9 @@
 #include "macro_manager.h"
 #include "windows.h"
 #include "commctrl.h"
+#include "plugin_manager.h"
+#include "nppm_handler.h"
+#include "Notepad_plus_msgs.h"
 
 LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -47,6 +50,11 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		case WM_COMMAND:
 		{
 			UINT cmdId = LOWORD(wParam);
+
+			// Relay WM_COMMAND to plugins' messageProc before dispatching.
+			// Individual command handlers return early, so the catch-all at the
+			// end of MainWndProc would never reach relayNppMessages for them.
+			pluginManager().relayNppMessages(msg, wParam, lParam);
 
 			if (cmdId >= IDM_FILE_RECENT_BASE && cmdId < IDM_FILE_RECENT_BASE + ctx().MAX_RECENT_FILES)
 			{
@@ -66,11 +74,29 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 						docs[tabIdx].languageIndex = langIdx;
 						++docs[tabIdx].functionListRevision;
 						scheduleFunctionListRefresh();
+
+						// Notify plugins that the language changed
+						SCNotification notif{};
+						notif.nmhdr.hwndFrom = ctx().mainHwnd;
+						notif.nmhdr.code = NPPN_LANGCHANGED;
+						notif.nmhdr.idFrom = 0; // V1: no stable buffer ID yet
+						pluginManager().notify(&notif);
 					}
 				}
 				applyLanguage(langIdx);
 				return 0;
 			}
+
+			// Plugin commands: static FuncItem range
+			if (cmdId >= 22000 && cmdId < 23000) // ID_PLUGINS_CMD .. ID_PLUGINS_CMD_LIMIT
+			{
+				int i = cmdId - 22000;
+				pluginManager().runPluginCommand(i);
+				return 0;
+			}
+			// Plugin commands: dynamic range (allocated via NPPM_ALLOCATECMDID)
+			if (pluginManager().inDynamicRange(cmdId))
+				return 0;
 
 			switch (cmdId)
 			{
@@ -813,7 +839,28 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			KillTimer(hWnd, IDT_STATUSBAR);
 			PostQuitMessage(0);
 			return 0;
+		default:
+		{
+			// Handle NPPM range (WM_USER + 1000)
+			if (msg >= NPPMSG && msg < NPPMSG + 200)
+			{
+				LRESULT result = handleNppmMessage(hWnd, msg, wParam, lParam);
+				pluginManager().relayNppMessages(msg, wParam, lParam);
+				return result;
+			}
+			// Handle RUNCOMMAND_USER range (WM_USER + 3000)
+			if (msg >= RUNCOMMAND_USER && msg < RUNCOMMAND_USER + 20)
+			{
+				LRESULT result = handleRunCommandMessage(hWnd, msg, wParam, lParam);
+				pluginManager().relayNppMessages(msg, wParam, lParam);
+				return result;
+			}
+			break;
+		}
 	}
+
+	// Catch-all: relay all messages to plugins' messageProc (matches upstream)
+	pluginManager().relayNppMessages(msg, wParam, lParam);
 
 	return DefWindowProcW(hWnd, msg, wParam, lParam);
 }

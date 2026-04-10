@@ -24,8 +24,9 @@ static LRESULT copyWideToBuffer(const std::wstring& src, WPARAM maxChars, LPARAM
 		return static_cast<LRESULT>(src.size());
 	}
 
-	// Fail without writing when the buffer is too small (matches upstream behavior)
-	if (maxChars != 0 && src.size() >= static_cast<size_t>(maxChars))
+	// Fail without writing when the buffer is too small (matches upstream behavior).
+	// Also reject maxChars==0 with a non-null buffer to prevent overflow.
+	if (maxChars == 0 || src.size() >= static_cast<size_t>(maxChars))
 		return 0;
 
 	wchar_t* buf = reinterpret_cast<wchar_t*>(lParam);

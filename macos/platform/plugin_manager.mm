@@ -236,8 +236,7 @@ int MacPluginManager::loadPluginFromPath(const std::wstring& pluginFilePath)
 		_pluginsCommands.push_back(cmd);
 	}
 
-	// Create plugin submenu
-	pi->_pluginMenu = ::CreateMenu();
+	// Plugin submenu is created later during menu initialization (initMenu).
 
 	NSLog(@"Loaded plugin: %@", [NSString stringWithUTF8String:wideToUTF8(pi->_displayName).c_str()]);
 

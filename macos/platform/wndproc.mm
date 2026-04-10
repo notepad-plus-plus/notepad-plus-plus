@@ -51,6 +51,11 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		{
 			UINT cmdId = LOWORD(wParam);
 
+			// Relay WM_COMMAND to plugins' messageProc before dispatching.
+			// Individual command handlers return early, so the catch-all at the
+			// end of MainWndProc would never reach relayNppMessages for them.
+			pluginManager().relayNppMessages(msg, wParam, lParam);
+
 			if (cmdId >= IDM_FILE_RECENT_BASE && cmdId < IDM_FILE_RECENT_BASE + ctx().MAX_RECENT_FILES)
 			{
 				openRecentFile(cmdId - IDM_FILE_RECENT_BASE);
@@ -91,10 +96,7 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			}
 			// Plugin commands: dynamic range (allocated via NPPM_ALLOCATECMDID)
 			if (pluginManager().inDynamicRange(cmdId))
-			{
-				pluginManager().relayNppMessages(WM_COMMAND, cmdId, 0);
 				return 0;
-			}
 
 			switch (cmdId)
 			{

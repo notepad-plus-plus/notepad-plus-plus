@@ -9,3 +9,8 @@ set_target_properties(HelloMacNote PROPERTIES
     SUFFIX ".dylib"
     OUTPUT_NAME "HelloMacNote"
 )
+
+# Allow unresolved symbols that the host app provides at load time
+target_link_options(HelloMacNote PRIVATE
+    "LINKER:-undefined,dynamic_lookup"
+)

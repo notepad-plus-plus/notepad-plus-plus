@@ -148,6 +148,15 @@ void switchToTabInView(int viewIndex, int tabIndex)
 	NSString* title = WideToNSString(doc.title.c_str());
 	[ctx().mainWindow setTitle:[NSString stringWithFormat:@"Notepad++ — %@", title]];
 	updateWindowDocumentEdited();
+
+	// Notify plugins that a buffer was activated
+	{
+		SCNotification notif{};
+		notif.nmhdr.hwndFrom = ctx().mainHwnd;
+		notif.nmhdr.code = NPPN_BUFFERACTIVATED;
+		notif.nmhdr.idFrom = static_cast<uintptr_t>(doc.bufferId);
+		pluginManager().notify(&notif);
+	}
 }
 
 void switchToTab(int tabIndex)

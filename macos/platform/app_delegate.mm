@@ -568,6 +568,14 @@ static void setDockIconFromLogo()
 		pluginManager().notify(&readyNotif);
 	}
 
+	// Signal plugins that toolbar is ready for icon registration
+	{
+		SCNotification tbNotif{};
+		tbNotif.nmhdr.hwndFrom = ctx().mainHwnd;
+		tbNotif.nmhdr.code = NPPN_TBMODIFICATION;
+		pluginManager().notify(&tbNotif);
+	}
+
 	NSLog(@"=== Notepad++ macOS Port — Phase 7 ===");
 	NSLog(@"Settings, split view, edit commands, encoding, session, drag-and-drop!");
 }
@@ -643,6 +651,14 @@ static void setDockIconFromLogo()
 
 - (void)applicationWillTerminate:(NSNotification*)notification
 {
+	// Notify plugins that we are about to shut down (last chance for cleanup)
+	{
+		SCNotification beforeNotif{};
+		beforeNotif.nmhdr.hwndFrom = ctx().mainHwnd;
+		beforeNotif.nmhdr.code = NPPN_BEFORESHUTDOWN;
+		pluginManager().notify(&beforeNotif);
+	}
+
 	// Notify plugins that we are shutting down
 	{
 		SCNotification shutdownNotif{};

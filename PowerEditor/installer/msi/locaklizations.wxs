@@ -287,5 +287,39 @@
 				<File Source="..\..\installer\nativeLang\zulu.xml" />
 			</Component>
 		</ComponentGroup>
+
+<Property Id="NPP_LANG" Secure="yes" />
+
+
+<SetProperty Id="CopyNativeLangAction"
+    Value='"[SystemFolder]xcopy.exe" "[LocalizationFolder][NPP_LANG].xml" "[INSTALLFOLDER]nativeLang.xml*" /Y /Q'
+    Before="CopyNativeLangAction"
+    Sequence="execute" />
+	
+<SetProperty Id="DeleteNativeLangAction"
+    Value='"[SystemFolder]cmd.exe" /C del /F /Q "[INSTALLFOLDER]nativeLang.xml"'
+    Before="DeleteNativeLangAction"
+    Sequence="execute" />
+	
+
+<CustomAction Id="CopyNativeLangAction"
+    BinaryRef="Wix4UtilCA_X64"
+    DllEntry="WixQuietExec"
+    Execute="deferred"
+    Impersonate="no"
+    Return="check" />
+
+<CustomAction Id="DeleteNativeLangAction"
+    BinaryRef="Wix4UtilCA_X64"
+    DllEntry="WixQuietExec"
+    Execute="deferred"
+    Impersonate="no"
+    Return="ignore" />
+
+<InstallExecuteSequence>
+    <Custom Action="CopyNativeLangAction" After="InstallFiles" Condition="NPP_LANG AND NOT Installed" />
+    <Custom Action="DeleteNativeLangAction" Before="RemoveFiles" Condition="NPP_LANG AND Installed AND REMOVE=&quot;ALL&quot;" />
+</InstallExecuteSequence>
+
 	</Fragment>
 </Wix>

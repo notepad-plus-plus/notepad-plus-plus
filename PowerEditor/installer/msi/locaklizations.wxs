@@ -288,38 +288,66 @@
 			</Component>
 		</ComponentGroup>
 
-<Property Id="NPP_LANG" Secure="yes" />
+		<!--
+		NPP_LANG Property:
+		Use "NPP_LANG=localizationFileNameWithoutExtension" to install one of language listed above.
+		For example, the Notepad++ French localization file is "french.xml". To install the French localization, use "NPP_LANG=french".
+		Likewise, to install the Argentine Spanish localization, use "NPP_LANG=spanish_ar";
+		and to install the Serbian Cyrillic localization, use "NPP_LANG=serbianCyrillic".
+		-->
+
+		<Property Id="NPP_LANG" Secure="yes">
+			<RegistrySearch Id="NPP_LANG_Search"
+							Root="HKCU"
+							Key="Software\Notepad++\Lang"
+							Name="active"
+							Type="raw" />
+		</Property>
+
+		<Component Id="nativeLang_registry" Guid="{1EC78A68-B1D8-4112-85CB-84C6E3C348B1}" Directory="INSTALLFOLDER">
+			<RegistryValue  Root="HKCU"
+							Key="Software\Notepad++\Lang"
+							Name="active"
+							Type="string"
+							Value="[NPP_LANG]"
+							KeyPath="yes" />
+		</Component>
+
+		<Feature Id="NativeLangFeature" Title="Native Language" Level="0">
+			<ComponentRef Id="nativeLang_registry" />
+			<Level Value="1" Condition="NPP_LANG" />
+		</Feature>
 
 
-<SetProperty Id="CopyNativeLangAction"
-    Value='"[SystemFolder]xcopy.exe" "[LocalizationFolder][NPP_LANG].xml" "[INSTALLFOLDER]nativeLang.xml*" /Y /Q'
-    Before="CopyNativeLangAction"
-    Sequence="execute" />
-	
-<SetProperty Id="DeleteNativeLangAction"
-    Value='"[SystemFolder]cmd.exe" /C del /F /Q "[INSTALLFOLDER]nativeLang.xml"'
-    Before="DeleteNativeLangAction"
-    Sequence="execute" />
-	
+		<SetProperty Id="CopyNativeLangAction"
+					 Value='"[SystemFolder]xcopy.exe" "[LocalizationFolder][NPP_LANG].xml" "[INSTALLFOLDER]nativeLang.xml*" /Y /Q'
+					 Before="CopyNativeLangAction"
+					 Sequence="execute" />
 
-<CustomAction Id="CopyNativeLangAction"
-    BinaryRef="Wix4UtilCA_X64"
-    DllEntry="WixQuietExec"
-    Execute="deferred"
-    Impersonate="no"
-    Return="check" />
+		<SetProperty Id="DeleteNativeLangAction"
+					 Value='"[SystemFolder]cmd.exe" /C del /F /Q "[INSTALLFOLDER]nativeLang.xml"'
+					 Before="DeleteNativeLangAction"
+					 Sequence="execute" />
 
-<CustomAction Id="DeleteNativeLangAction"
-    BinaryRef="Wix4UtilCA_X64"
-    DllEntry="WixQuietExec"
-    Execute="deferred"
-    Impersonate="no"
-    Return="ignore" />
 
-<InstallExecuteSequence>
-    <Custom Action="CopyNativeLangAction" After="InstallFiles" Condition="NPP_LANG AND NOT Installed" />
-    <Custom Action="DeleteNativeLangAction" Before="RemoveFiles" Condition="NPP_LANG AND Installed AND REMOVE=&quot;ALL&quot;" />
-</InstallExecuteSequence>
+		<CustomAction Id="CopyNativeLangAction"
+					  BinaryRef="Wix4UtilCA_X64"
+					  DllEntry="WixQuietExec"
+					  Execute="deferred"
+					  Impersonate="no"
+					  Return="ignore" />
+
+		<CustomAction Id="DeleteNativeLangAction"
+					  BinaryRef="Wix4UtilCA_X64"
+					  DllEntry="WixQuietExec"
+					  Execute="deferred"
+					  Impersonate="no"
+					  Return="ignore" />
+
+		<InstallExecuteSequence>
+			<Custom Action="CopyNativeLangAction" After="InstallFiles" Condition="NPP_LANG AND NOT Installed" />
+			<Custom Action="DeleteNativeLangAction" Before="RemoveFiles" Condition="NPP_LANG AND Installed AND REMOVE=&quot;ALL&quot;" />
+		</InstallExecuteSequence>
 
 	</Fragment>
 </Wix>

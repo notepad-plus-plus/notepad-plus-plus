@@ -768,6 +768,20 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					wchar_t *fileNamesW = static_cast<wchar_t *>(pCopyData->lpData);
 					const CmdLineParamsDTO & cmdLineParams = nppParam.getCmdLineParams();
 					loadCommandlineParams(fileNamesW, &cmdLineParams);
+					
+					const bool restoredFromTray = (::SendMessage(hwnd, NPPM_INTERNAL_RESTOREFROMTRAY, 0, 0) != FALSE);
+					if (!restoredFromTray)
+					{
+						if (::IsIconic(hwnd))
+							::ShowWindow(hwnd, SW_RESTORE);
+						else if (!::IsWindowVisible(hwnd))
+						{
+							::ShowWindow(hwnd, SW_SHOW);
+							::SendMessage(hwnd, WM_SIZE, 0, 0);
+						}
+					}
+
+					::SetForegroundWindow(hwnd);					
 					break;
 				}
 			}

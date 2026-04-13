@@ -56,7 +56,7 @@ void allowPrivilegeMessages(const Notepad_plus_Window& notepad_plus_plus, winVer
 				if (func)
 				{
 					func(WM_COPYDATA, MSGFLT_ADD);
-					func(NPPM_INTERNAL_RESTOREFROMTRAY, MSGFLT_ADD);
+					func(NPPM_INTERNAL_RESTOREFROMMINIMIZED, MSGFLT_ADD);
 				}
 			}
 			else
@@ -68,7 +68,7 @@ void allowPrivilegeMessages(const Notepad_plus_Window& notepad_plus_plus, winVer
 				if (funcEx)
 				{
 					funcEx(notepad_plus_plus.getHSelf(), WM_COPYDATA, MSGFLT_ALLOW, NULL);
-					funcEx(notepad_plus_plus.getHSelf(), NPPM_INTERNAL_RESTOREFROMTRAY, MSGFLT_ALLOW, NULL);
+					funcEx(notepad_plus_plus.getHSelf(), NPPM_INTERNAL_RESTOREFROMMINIMIZED, MSGFLT_ALLOW, NULL);
 				}
 			}
 		}
@@ -728,7 +728,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 			nppParameters.destroyInstance();
 
 			// Restore the window, bring it to front, etc
-			bool isInSystemTray = ::SendMessage(hNotepad_plus, NPPM_INTERNAL_RESTOREFROMTRAY, 0, 0);
+			bool isInSystemTray = ::SendMessage(hNotepad_plus, NPPM_INTERNAL_RESTOREFROMMINIMIZED, 0, 0);
 
 			if (!isInSystemTray)
 			{

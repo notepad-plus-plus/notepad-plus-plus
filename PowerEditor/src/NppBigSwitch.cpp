@@ -2815,7 +2815,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case NPPM_INTERNAL_RESTOREFROMTRAY:
+		case NPPM_INTERNAL_RESTOREFROMMINIMIZED:
 		{
 			// When mono instance, bring this one to front
 			if (_pTrayIco != nullptr && _pTrayIco->isInTray())
@@ -2823,6 +2823,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				// We are in tray, restore properly..
 				::SendMessage(hwnd, NPPM_INTERNAL_MINIMIZED_TRAY, 0, WM_LBUTTONUP);
 				return TRUE;
+			}
+			else
+			{
+				if (::IsIconic(hwnd))
+					::ShowWindow(hwnd, SW_RESTORE);
 			}
 			return FALSE;
 		}

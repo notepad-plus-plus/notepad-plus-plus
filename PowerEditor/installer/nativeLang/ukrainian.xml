@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Українська" filename="ukrainian.xml" version="8.8.1">
+	<Native-Langue name="Українська" filename="ukrainian.xml" version="8.9.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -37,23 +37,24 @@ Translation note:
 					<Item subMenuId="edit-autoCompletion" name="Автозавершення"/>
 					<Item subMenuId="edit-eolConversion" name="Перетворення EOL"/>
 					<Item subMenuId="edit-blankOperations" name="Порожні операції"/>
-					<Item subMenuId="edit-pasteSpecial" name="&amp;Вставити спеціальне"/>
+					<Item subMenuId="edit-pasteSpecial" name="Спеціальна вставка"/>
 					<Item subMenuId="edit-onSelection" name="У вибраному"/>
 					<Item subMenuId="edit-multiSelectALL" name="Множинний вибір УСЕ"/>
 					<Item subMenuId="edit-multiSelectNext" name="Множинний вибір Далі"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Тільки для читання у Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="Історія змін"/>
 					<Item subMenuId="search-markAll" name="Стиль до всіх випадків токену"/>
 					<Item subMenuId="search-markOne" name="Стиль до одного токену"/>
 					<Item subMenuId="search-unmarkAll" name="Очистити стиль"/>
 					<Item subMenuId="search-jumpUp" name="Вгору"/>
 					<Item subMenuId="search-jumpDown" name="Вниз"/>
-					<Item subMenuId="search-copyStyledText" name="Копіювати стиль тексту"/>
+					<Item subMenuId="search-copyStyledText" name="Копіювати стилізований текст"/>
 					<Item subMenuId="search-bookmark" name="Закладка"/>
 					<Item subMenuId="view-currentFileIn" name="Переглянути цей файл у"/>
 					<Item subMenuId="view-showSymbol" name="Показати символ"/>
 					<Item subMenuId="view-zoom" name="Масштаб"/>
 					<Item subMenuId="view-moveCloneDocument" name="Перемістити/Клонувати поточний документ"/>
-					<Item subMenuId="view-tab" name="Вкладка"/>
+					<Item subMenuId="view-tab" name="Ta&amp;b"/>
 					<Item subMenuId="view-collapseLevel" name="Згорнути рівень"/>
 					<Item subMenuId="view-uncollapseLevel" name="Розгорнути рівень"/>
 					<Item subMenuId="view-project" name="Проєкт"/>
@@ -139,6 +140,8 @@ Translation note:
 					<Item id="42081" name="Сортувати рядки Lex. за спаданням, ігноруючи регістр"/>
 					<Item id="42100" name="Сортувати рядки в порядку локалі за зростанням"/>
 					<Item id="42101" name="Сортувати рядки в порядку локалі за спаданням"/>
+					<Item id="42104" name="Сортувати рядки за довжиною за зростанням"/>
+					<Item id="42105" name="Сортувати рядки за довжиною за спаданням"/>
 					<Item id="42061" name="Сортувати рядки як цілі числа за зростанням"/>
 					<Item id="42062" name="Сортувати рядки як цілі числа за спаданням"/>
 					<Item id="42063" name="Сортувати рядки як десяткові (кома) за зростанням"/>
@@ -157,6 +160,7 @@ Translation note:
 					<Item id="42072" name="виПАдковиЙ ПорЯдок"/>
 					<Item id="42073" name="Відкрити файл"/>
 					<Item id="42074" name="Відкрити теку в провіднику"/>
+					<Item id="42106" name="Редагувати вибране █ (Shift: ●)"/>
 					<Item id="42075" name="Пошук в Інтернеті"/>
 					<Item id="42076" name="Змінити пошукову систему..."/>
 					<Item id="42090" name="Ігнорувати регістр і ціле слово"/>
@@ -196,7 +200,9 @@ Translation note:
 					<Item id="42025" name="Зберегти записаний макрос..."/>
 					<Item id="42026" name="Текст справа наліво"/>
 					<Item id="42027" name="Текст зліва направо"/>
-					<Item id="42028" name="Тільки для читання у Notepad++"/>
+					<Item id="42028" name="Тільки читання у поточному документі"/>
+					<Item id="42102" name="Тільки читання для всіх документів"/>
+					<Item id="42103" name="Очистити &quot;Тільки читання&quot; для всіх документів"/>
 					<Item id="42029" name="Копіювати шлях до поточного файлу"/>
 					<Item id="42030" name="Копіювати назву поточного файлу"/>
 					<Item id="42031" name="Копіювати шлях до поточної теки"/>
@@ -243,13 +249,13 @@ Translation note:
 					<Item id="43030" name="Використання стилю 5"/>
 					<Item id="43031" name="Стерти стиль 5"/>
 					<Item id="43032" name="Стерти всі стилі"/>
-					<Item id="43033" name="Стиль 1"/>
+					<Item id="43033" name="Змінити пошукову систему..."/>
 					<Item id="43034" name="Стиль 2"/>
 					<Item id="43035" name="Стиль 3"/>
 					<Item id="43036" name="Стиль 4"/>
 					<Item id="43037" name="Стиль 5"/>
 					<Item id="43038" name="Знайти стиль позначок"/>
-					<Item id="43039" name="Стиль 1"/>
+					<Item id="43039" name="Змінити пошукову систему..."/>
 					<Item id="43040" name="Стиль 2"/>
 					<Item id="43041" name="Стиль 3"/>
 					<Item id="43042" name="Стиль 4"/>
@@ -280,7 +286,7 @@ Translation note:
 					<Item id="43502" name="Закрити інші"/>
 					<Item id="43503" name="Копіювати вибрані назви"/>
 					<Item id="43504" name="Копіювати вибрані шляхи"/>
-					<Item id="44009" name="Текст на все вікно"/>
+					<Item id="44009" name="Наліпка"/>
 					<Item id="44010" name="Згорнути все"/>
 					<Item id="44011" name="Режим зосередження"/>
 					<Item id="44019" name="Показати всі символи"/>
@@ -322,11 +328,11 @@ Translation note:
 					<Item id="44115" name="Застосувати колір 5"/>
 					<Item id="44130" name="Показувати символи, що не друкуються"/>
 					<Item id="44131" name="Показати символи керування &amp;&amp; Unicode EOL"/>
-					<Item id="44032" name="На весь екран"/>
+					<Item id="44032" name="Повноекранний режим"/>
 					<Item id="44033" name="Відновити масштаб"/>
 					<Item id="44034" name="Завжди вгорі"/>
-					<Item id="44035" name="Синхронізувати вертикальне прокручування"/>
-					<Item id="44036" name="Синхронізувати горизонтальне прокручування"/>
+					<Item id="44035" name="Синхронне вертикальне прокручування"/>
+					<Item id="44036" name="Синхронне горизонтальне прокручування"/>
 					<Item id="44041" name="Показувати символ переведення рядка"/>
 					<Item id="44072" name="Фокус на інше подання"/>
 					<Item id="44081" name="Панель проєкту 1"/>
@@ -397,8 +403,8 @@ Translation note:
 					<Item id="50000" name="Завершення функцій"/>
 					<Item id="50001" name="Завершення слів"/>
 					<Item id="50002" name="Підказка параметрів функцій"/>
-					<Item id="50010" name="Наступна підказка параметрів функцій"/>
-					<Item id="50011" name="Попередня підказка параметрів функцій"/>
+					<Item id="50010" name="Попередня підказка параметрів функції"/>
+					<Item id="50011" name="Наступна підказка параметрів функції"/>
 					<Item id="50005" name="Перемкнути запис макросу"/>
 					<Item id="50006" name="Завершення шляху"/>
 					<Item id="44042" name="Приховати рядки"/>
@@ -416,6 +422,8 @@ Translation note:
 					<Item id="11007" name="Тип від Z до A"/>
 					<Item id="11008" name="Довжина вмісту за зростанням"/>
 					<Item id="11009" name="Довжина вмісту за спаданням"/>
+					<Item id="11010" name="Час зміни за зростанням"/>
+					<Item id="11011" name="Час зміни за спаданням"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -710,10 +718,10 @@ Translation note:
 					<Item id="43059" name="Копіювати текст зі стилем 5"/>
 					<Item id="43060" name="Копіювати текст усіх стилів"/>
 					<Item id="43061" name="Копіювати текст зі стилем Знайти позначку"/>
-					<Item id="44100" name="Переглянути цей файл у Firefox"/>
-					<Item id="44101" name="Переглянути цей файл у Chrome"/>
-					<Item id="44103" name="Переглянути цей файл в IE"/>
-					<Item id="44102" name="Переглянути цей файл в Edge"/>
+					<Item id="44100" name="Переглянути цей файл у &amp;Firefox"/>
+					<Item id="44101" name="Переглянути цей файл у &amp;Chrome"/>
+					<Item id="44103" name="Переглянути цей файл в &amp;IE"/>
+					<Item id="44102" name="Переглянути цей файл в &amp;Edge"/>
 					<Item id="50003" name="Перейти до попереднього документа"/>
 					<Item id="50004" name="Перейти до наступного документа"/>
 					<Item id="44051" name="Згорнути рівень 1"/>
@@ -996,6 +1004,7 @@ Translation note:
 					<Item id="6128" name="Змінювати піктограми"/>
 					<Item id="6125" name="Поведінка"/>
 					<Item id="6126" name="Вигляд і сприйняття"/>
+					<Item id="6136" name="Макс. довжина мітки вкладки:"/>
 				</Tabbar>
 
 				<Scintillas title="Редагування 1">
@@ -1015,6 +1024,7 @@ Translation note:
 					<Item id="6239" name="Утримувати вибір при клацанні за межами вибору"/>
 					<Item id="6245" name="Увімкнути віртуальний простір"/>
 					<Item id="6214" name="Увімкнути копіювання/вирізання рядків без вибору"/>
+					<Item id="6266" name="Вимкнути перетягування вибраного тексту"/>
 					<Item id="6225" name="Застосувати власний колір до переднього плану вибраного тексту"/>
 					<Item id="6651" name="Індикатор поточного рядка"/>
 					<Item id="6652" name="Немає"/>
@@ -1215,6 +1225,7 @@ Translation note:
 					<Item id="6910" name="Мінімальний розмір для автоматичної перевірки &quot;у виборі&quot;:"/>
 					<Item id="6913" name="Заповнити поле пошуку в каталозі файлів на основі активного документа"/>
 					<Item id="6916" name=": максимум символів для автозаповнення поля пошуку з вибраного"/>
+					<Item id="6917" name="Шукати у файлах: надавати перевагу вмісту файлів на диску, а не відкритим буферам"/>
 				</Searching>
 
 				<RecentFilesHistory title="Історія файлів">
@@ -1520,7 +1531,7 @@ Translation note:
 			<WindowsSessionExit title="Notepad++ - вихід із сеансу Windows" message="Сеанс Windows невдовзі буде завершено, але у вас є незбережені дані. Хочете вийти з Notepad++ зараз?"/>
 			<LanguageMenuCompactWarning title="Компактне меню мови" message="Цей параметр буде змінено під час наступного запуску."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Незбережені зміни будуть скасовані! Ви хочете зберегти зміни перед зміною теми?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Сумісність макросів і команд виконання" message="Ваші макроси й команди виконання, збережені в Notepad++ v.8.5.2 (чи старіше), можуть бути несумісними з поточною версією Notepad++. Випробуйте ці команди та, за потреби, відредагуйте їх.  Або ж ви можете встановити старішу версію Notepad++ v8.5.2 та відновити свої попередні дані. Notepad++ збереже резервну копію вашого файлу &quot;shortcuts.xml&quot; з назвою &quot;shortcuts.xml.v8.5.2.backup&quot;. Перейменувавши файл &quot;shortcuts.xml.v8.5.2.backup&quot; на -&gt; &quot;shortcuts.xml&quot;, ваші команди мають відновитися і працювати правильно."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<FullReadOnlySavingForbidden title="Не вдалося зберегти" message="Неможливо зберегти файл. Режим повної заборони збереження лише для читання у Notepad++ не дозволив зберегти файл."/>
 			<NotEnoughRoom4Saving title="Не вдалося зберегти" message="Не вдалося зберегти файл. Схоже, на диску недостатньо вільного місця."/>
 			<FileInaccessibleUserSession title="Файл недоступний" message="Деякі файли з вашого збереженого вручну сеансу &quot;$STR_REPLACE$&quot; недоступні. Їх можна відкрити як заповнювачі –  порожні та доступні лише для читання документи.  Бажаєте створити ці заповнювачі?  ПРИМІТКА: якщо ви вирішите не створювати заповнювачі або закрити їх згодом, ваш збережений вручну сеанс НЕ буде змінено при виході."/>
 			<FileInaccessibleDefaultSessionXml title="Файл недоступний" message="Деякі файли з вашого минулого сеансу недоступні. Їх можна відкрити як заповнювачі – порожні та доступні лише для читання документи.  Бажаєте створити ці заповнювачі?  ПРИМІТКА: якщо ви вирішите не створювати заповнювачі або закрити їх згодом, ваш сеанс БУДЕ ЗМІНЕНО ПРИ ВИХОДІ! Пропонуємо вам створити резервну копію &quot;session.xml&quot; зараз."/>
@@ -1547,6 +1558,7 @@ Translation note:
 			<ColumnPath name="Шлях"/>
 			<ColumnType name="Тип"/>
 			<ColumnSize name="Розмір"/>
+			<ColumnDateTime name="Час зміни"/>
 			<NbDocsTotal name="всього документів:"/>
 			<MenuCopyName name="Копіювати назви"/>
 			<MenuCopyPath name="Копіювати назви шляхів"/>
@@ -1685,6 +1697,9 @@ Translation note:
 			<find-status-scope-all value="в цілому файлі"/>
 			<find-status-scope-backward value="від початку файлу до каретки"/>
 			<find-status-scope-forward value="від каретки до кінця файлу"/>
+			<find-status-replace-invalid-replace-chars value="Замінити: не можна замінити на не-ANSI текст у документі ANSI"/>
+			<find-status-invisible-chars-findWhat value="Невидимі символи у вставленому &quot;Знайти що&quot; або &quot;Замінити на&quot; вміст"/>
+			<find-status-invisible-chars-findWhat-tip value="Попередження: невидимі символи у полі пошуку (або заміни). Текст, вставлений у це поле, містить невидимі символи (можливо, символи кінця рядка). Якщо їх не видалити, вони будуть включені до тексту пошуку (або заміни)."/>
 			<finder-find-in-finder value="Знайти в цих результатах пошуку..."/>
 			<finder-close-this value="Закрити ці результати пошуку"/>
 			<finder-collapse-all value="Згорнути все"/>
@@ -1786,6 +1801,7 @@ Translation note:
 			<max-len-on-search-tip value="Ймовірно, введене значення перевищує допустиме обмеження і могло бути скорочене, тому його не буде збережено для наступного сеансу."/>
 			<max-len-on-save-tip value="Довжина введеного значення завелика і може не зберегтися для наступного сеансу."/>
 			<goto-setting-tip value="Знайдіть свій параметр тут"/>
+			<tabbar-tabcompactlabellen-tip value="Обмеження видимої довжини назв вкладок. Введіть, щоб застосувати вказане значення. Діапазон значень: 1–257 символів (0 вимикає обмеження)."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

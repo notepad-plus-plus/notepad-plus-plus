@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: March 17, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: April 10, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.9">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.9.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1793,6 +1793,7 @@ Nađi u svim datotekama s izuzetkom svih mapa log ili logs rekurzivno:
 			<find-status-scope-all value="u cijeloj datoteci"/>
 			<find-status-scope-backward value="od početka datoteke do kursora"/>
 			<find-status-scope-forward value="od kursora do kraja datoteke"/>
+			<find-status-replace-invalid-replace-chars value="Zamijeni: nije moguće zamijeniti ne-ANSI tekstom u ANSI dokumentu"/>
 			<find-status-invisible-chars-findWhat value="Nevidljivi znakovi u zalijepljenom sadržaju &quot;Pronađi&quot; ili &quot;Zamijeni sa&quot;"/>
 			<find-status-invisible-chars-findWhat-tip value="Upozorenje: Nevidljivi znakovi u polju za pretraživanje (ili zamjenu).
 Tekst zalijepljen u ovo polje sadrži nevidljive znakove (možda one koji završavaju redak). Ako nastavite bez brisanja, bit će uključeni u tekst za pretraživanje (ili zamjenu)."/>

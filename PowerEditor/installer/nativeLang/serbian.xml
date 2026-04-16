@@ -5,7 +5,7 @@
 		- Radoš Milićev (https://github.com/rammba)
 -->
 <NotepadPlus>
-	<Native-Langue name="Srpski" filename="serbian.xml"  version="8.9.1">
+	<Native-Langue name="Srpski" filename="serbian.xml"  version="8.9.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1024,6 +1024,7 @@
 					<Item id="6239" name="Zadrži izbor nakon desnog klika izvan trenutnog izbora"/>
 					<Item id="6245" name="Omogući virtuelni razmak"/>
 					<Item id="6214" name="Omogući kopiranje/isecanje linije bez odabira"/>
+					<Item id="6266" name="Onemogući prevlačenje odabranog teksta"/>
 					<Item id="6225" name="Primeni prilagođenu boju na odabrani tekst"/>
 					<Item id="6651" name="Pokazivač trenutne linije"/>
 					<Item id="6652" name="Ništa"/>
@@ -1216,7 +1217,7 @@
 					<Item id="6902" name="Koristi jednaka slova u dijalogu za pronalaženje (Mora se ponovo pokrenuti Notepad++)"/>
 					<Item id="6903" name="Dijalog za pronalaženje ostaje otvoren nakon pretrage koja ispisuje rezultat u prozor"/>
 					<Item id="6904" name="Potvrdi &quot;Zameni sve u svim otvorenim dokumentima&quot;"/>
-					<Item id="6905" name="Zamena: Nemoj se pomeriti na trenutno"/>
+					<Item id="6905" name="Zameni: Nemoj se pomeriti na trenutno"/>
 					<Item id="6906" name="Prozor za rezultate pretrage: prikaži samo jedan unos po liniji ako je moguće"/>
 					<Item id="6907" name="Kada je dijalog za pronalaženje pokrenut"/>
 					<Item id="6908" name="Postavi izabrani tekst u polje za pretragu"/>
@@ -1224,6 +1225,7 @@
 					<Item id="6910" name="Minimalna veličina za automatsku proveru za &quot;U izboru&quot;:"/>
 					<Item id="6913" name="Postavi aktivni dokument u direktorijum polje u &quot;Pronađi u datotekama&quot;"/>
 					<Item id="6916" name=": Maksimalno karaktera za automatsko popunjavanje polja za pretragu"/>
+					<Item id="6917" name="Pronađi u datotekama: Daj prednost sadržaju na disku u odnosu na otvorene bafere"/>
 				</Searching>
 
 				<RecentFilesHistory title="Istorija nedavnih dat.">
@@ -1583,12 +1585,6 @@ Nastavite?"/>
 			<LanguageMenuCompactWarning title="Kompaktan jezički meni" message="Ova opcija će biti promenjena u narednom pokretanju."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Nesačuvane promene će biti odbačene!
 Da li želite sačuvati promene pre prebacivanja tema?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Kompatibilnost makroa i komandi za pokretanje" message="Vaše komande za makroe i pokretanje sačuvane u Notepad++ v.8.5.2 (ili starijoj) mogu biti nekompatibilne sa trenutnom Notepad++ verzijom.
-Testirajte komande i uredite ih ako je potrebno.
-
-Alternativno, možete spustiti Notepad++ na v8.5.2 i povratiti prethodne podatke.
-Notepad++ će backup-ovati stariji &quot;shortcuts.xml&quot; i sačuvati ga kao &quot;shortcuts.xml.v8.5.2.backup&quot;.
-Preimenovanjem &quot;shortcuts.xml.v8.5.2.backup&quot; na &quot;shortcuts.xml&quot;, vaše komande će biti povraćene i radiće normalno."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<FullReadOnlySavingForbidden title="Neuspešno čuvanje" message="Datoteka se ne može sačuvati.
 Režim zabranjenog čuvanja u Notepad++, samo za čitanje, sprečio je da datoteka bude sačuvana."/>
 			<NotEnoughRoom4Saving title="Neuspešno čuvanje" message="Neuspešno čuvanje datoteke.
@@ -1779,6 +1775,7 @@ Pronađi u svim datotekama, ali isključi sve foldere log ili logs rekurzivno:
 			<find-status-scope-all value="u celoj datoteci"/>
 			<find-status-scope-backward value="od starta datoteke to pokazivača"/>
 			<find-status-scope-forward value="od pokazivača do kraja datoteke"/>
+			<find-status-replace-invalid-replace-chars value="Zameni: U ANSI dokumentu se ne može zameniti sa tekstom koji nije ANSI"/>
 			<find-status-invisible-chars-findWhat value="Nevidljivi karakteri u sadržaju nalepljenom na &quot;Pronađi&quot; ili &quot;Zameni sa&quot;"/>
 			<find-status-invisible-chars-findWhat-tip value="Upozorenje: Nevidljivi karakteri u poljima za pretragu (ili zamenu).
 Tekst nalepljen u ovo polje sadrži nevidljive karaktere (možda kraj linije). Ako nastavite, ti karakteri će biti sadržani u pretrazi (ili tekstu za zamenu)."/>
@@ -1914,5 +1911,3 @@ Ako izabereš napredni mod, a ne izmeniš datoteke u pomenutim jezicima, uvlače
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
-
-

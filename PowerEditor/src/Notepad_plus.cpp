@@ -5202,10 +5202,11 @@ void Notepad_plus::processSessionInsertStep()
 {
 	_sessionInsertPumpArmed = false;
 
-	// Process a small batch per tick. 1 = perfectly smooth but ~300 ticks to
-	// drain. 8 is a good compromise — a drained tab bar in ~40 ticks (~ms),
-	// each batch short enough not to stall input.
-	constexpr int kPerTick = 8;
+	// Balance: larger batches drain faster but push tick duration above the
+	// ~50 ms SendMessageTimeout budget — Windows marks the app "not responding"
+	// and user input feels stuck. kPerTick=4 keeps a tick around 20–25 ms
+	// (well under budget) and drains a 300-tab session in ~80 ticks ≈ 0.5 s.
+	constexpr int kPerTick = 4;
 	const NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 	const bool isSnapshotMode = nppGUI.isSnapshotMode();
 
@@ -5300,9 +5301,12 @@ void Notepad_plus::processSessionInsertStep()
 			buf->setHeaderLineState(entry.info._foldStates, (whichOne == MAIN_VIEW) ? &_mainEditView : &_subEditView);
 		buf->_lazyPendingMarks = entry.info._marks;
 
-		// Also queue for background content load so tabs become usable even
-		// without the user clicking them.
-		queueLazyLoad(id);
+		// Do NOT queue synchronous content load on the main thread. Each
+		// resolveLazyBuffer call performs a blocking file read; even at one
+		// per message tick, a single >50 ms read makes the window
+		// unresponsive for the duration of that tick. A worker-thread IO
+		// pipeline is the proper fix (separate change); for now, content
+		// loads on tab activation only.
 	}
 
 	if (!_pendingSessionInserts.empty())
@@ -5311,12 +5315,10 @@ void Notepad_plus::processSessionInsertStep()
 	}
 	else
 	{
-		// Final flush: repaint the tab bar and kick content-load pump.
 		::SendMessage(_mainDocTab.getHSelf(), WM_SETREDRAW, TRUE, 0);
 		::RedrawWindow(_mainDocTab.getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW | RDW_ALLCHILDREN);
 		::SendMessage(_subDocTab.getHSelf(), WM_SETREDRAW, TRUE, 0);
 		::RedrawWindow(_subDocTab.getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW | RDW_ALLCHILDREN);
-		kickLazyLoadQueue();
 	}
 }
 

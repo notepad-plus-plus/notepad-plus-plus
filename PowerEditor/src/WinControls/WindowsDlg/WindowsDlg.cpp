@@ -464,7 +464,21 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						}
 						else if (pLvdi->item.iSubItem == 3) // size
 						{
-							size_t docSize = buf->docLength();
+							// For lazy-pending buffers the Scintilla doc is empty
+							// (content will be loaded on activation). Show the
+							// real on-disk size instead of 0 so this column is
+							// meaningful during a session restore.
+							size_t docSize = 0;
+							if (buf->isLazyPending())
+							{
+								int64_t onDisk = buf->getFileLength();
+								if (onDisk > 0)
+									docSize = static_cast<size_t>(onDisk);
+							}
+							else
+							{
+								docSize = buf->docLength();
+							}
 							string docSizeText = to_string(docSize);
 							text = wstring(docSizeText.begin(), docSizeText.end());
 						}

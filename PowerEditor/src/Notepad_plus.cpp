@@ -5190,6 +5190,136 @@ void Notepad_plus::processLazyLoadQueueStep()
 	kickLazyLoadQueue();
 }
 
+void Notepad_plus::kickSessionInsertQueue()
+{
+	if (_sessionInsertPumpArmed || _pendingSessionInserts.empty())
+		return;
+	_sessionInsertPumpArmed = true;
+	::PostMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_SESSIONINSERTNEXT, 0, 0);
+}
+
+void Notepad_plus::processSessionInsertStep()
+{
+	_sessionInsertPumpArmed = false;
+
+	// Process a small batch per tick. 1 = perfectly smooth but ~300 ticks to
+	// drain. 8 is a good compromise — a drained tab bar in ~40 ticks (~ms),
+	// each batch short enough not to stall input.
+	constexpr int kPerTick = 8;
+	const NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+	const bool isSnapshotMode = nppGUI.isSnapshotMode();
+
+	for (int n = 0; n < kPerTick && !_pendingSessionInserts.empty(); ++n)
+	{
+		PendingSessionInsert entry = _pendingSessionInserts.front();
+		_pendingSessionInserts.pop_front();
+
+		const wchar_t* pFn = entry.info._fileName.c_str();
+		const int whichOne = entry.whichOne;
+
+		// Fast existence probe (no thread-spawning).
+		WIN32_FILE_ATTRIBUTE_DATA a{};
+		const bool fileExists = ::GetFileAttributesExW(pFn, GetFileExInfoStandard, &a)
+			&& a.dwFileAttributes != INVALID_FILE_ATTRIBUTES
+			&& !(a.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY);
+		WIN32_FILE_ATTRIBUTE_DATA ab{};
+		const bool backupExists = !entry.info._backupFilePath.empty()
+			&& ::GetFileAttributesExW(entry.info._backupFilePath.c_str(), GetFileExInfoStandard, &ab)
+			&& ab.dwFileAttributes != INVALID_FILE_ATTRIBUTES
+			&& !(ab.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY);
+
+		BufferID id = BUFFER_INVALID;
+		if (fileExists)
+		{
+			const bool hasSnapshotBackup = isSnapshotMode && backupExists;
+			id = MainFileManager.newLazyDocument(
+				pFn, whichOne, entry.info._encoding,
+				hasSnapshotBackup ? entry.info._backupFilePath.c_str() : nullptr,
+				entry.info._originalFileLastModifTimestamp);
+		}
+		else if (isSnapshotMode && backupExists)
+		{
+			id = MainFileManager.newLazyBackupDocument(
+				pFn, entry.info._backupFilePath.c_str(),
+				whichOne, entry.info._encoding,
+				entry.info._originalFileLastModifTimestamp);
+		}
+		else
+		{
+			// Orphaned entry: real file gone, no backup. Skip silently to match
+			// the synchronous path (which erases such entries from the session).
+			continue;
+		}
+
+		if (id == BUFFER_INVALID)
+			continue;
+
+		Buffer* buf = MainFileManager.getBufferByID(id);
+		if (!buf)
+			continue;
+
+		// Apply session metadata — same set the synchronous loop applies. All
+		// these setters are no-op for notifications while isLazyPending is true;
+		// resolveLazyBuffer fires a single omnibus notify later.
+		buf->setPosition(entry.info, (whichOne == MAIN_VIEW) ? &_mainEditView : &_subEditView);
+		buf->setMapPosition(entry.info._mapPos);
+
+		// Language resolution (same logic as main-view block in loadSession).
+		const wchar_t* pLn = entry.info._langName.c_str();
+		int langId = getLangFromMenuName(pLn);
+		LangType lang2set = L_TEXT;
+		if (!langId)
+		{
+			for (size_t k = 0; k < nppGUI._excludedLangList.size(); ++k)
+			{
+				if (nppGUI._excludedLangList[k]._langName == pLn)
+				{
+					lang2set = nppGUI._excludedLangList[k]._langType;
+					break;
+				}
+			}
+		}
+		else if (langId != IDM_LANG_USER)
+		{
+			lang2set = menuID2LangType(langId);
+		}
+		if (lang2set == L_EXTERNAL)
+			lang2set = (LangType)(langId - IDM_LANG_EXTERNAL + L_EXTERNAL);
+		buf->setLangType(lang2set, pLn);
+
+		if (entry.info._encoding != -1)
+			buf->setEncoding(entry.info._encoding);
+		buf->setUserReadOnly(entry.info._isUserReadOnly || nppGUI._isFullReadOnly || nppGUI._isFullReadOnlySavingForbidden);
+		buf->setPinned(entry.info._isPinned);
+		buf->setUntitledTabRenamedStatus(entry.info._isUntitledTabRenamed);
+		buf->setRTL(entry.info._isRTL);
+
+		DocTabView& tabs = (whichOne == MAIN_VIEW) ? _mainDocTab : _subDocTab;
+		tabs.setIndividualTabColour(id, entry.info._individualTabColour);
+		if (!entry.info._foldStates.empty())
+			buf->setHeaderLineState(entry.info._foldStates, (whichOne == MAIN_VIEW) ? &_mainEditView : &_subEditView);
+		buf->_lazyPendingMarks = entry.info._marks;
+
+		// Also queue for background content load so tabs become usable even
+		// without the user clicking them.
+		queueLazyLoad(id);
+	}
+
+	if (!_pendingSessionInserts.empty())
+	{
+		kickSessionInsertQueue();
+	}
+	else
+	{
+		// Final flush: repaint the tab bar and kick content-load pump.
+		::SendMessage(_mainDocTab.getHSelf(), WM_SETREDRAW, TRUE, 0);
+		::RedrawWindow(_mainDocTab.getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW | RDW_ALLCHILDREN);
+		::SendMessage(_subDocTab.getHSelf(), WM_SETREDRAW, TRUE, 0);
+		::RedrawWindow(_subDocTab.getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW | RDW_ALLCHILDREN);
+		kickLazyLoadQueue();
+	}
+}
+
 void Notepad_plus::performPostReload(int whichOne)
 {
 	NppParameters& nppParam = NppParameters::getInstance();

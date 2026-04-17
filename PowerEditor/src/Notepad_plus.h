@@ -292,6 +292,19 @@ private:
 	std::deque<BufferID> _lazyLoadQueue;
 	bool _lazyLoadPumpArmed = false; // true after PostMessage, cleared in handler to avoid flooding the queue
 
+	// Deferred session-restore inserts. loadSession synchronously processes
+	// only the active tab; everything else is enqueued here and the message
+	// pump inserts one entry per WM_APP_SESSION_INSERT_NEXT tick. Each entry
+	// is a (sessionFileInfo copy, whichOne) — the session's own vector is
+	// NOT safe to retain pointers into because it is mutated during restore.
+	struct PendingSessionInsert
+	{
+		sessionFileInfo info;
+		int whichOne; // MAIN_VIEW or SUB_VIEW
+	};
+	std::deque<PendingSessionInsert> _pendingSessionInserts;
+	bool _sessionInsertPumpArmed = false;
+
 	AutoCompletion _autoCompleteMain;
 	AutoCompletion _autoCompleteSub; // each Scintilla has its own autoComplete
 
@@ -488,6 +501,12 @@ private:
 	void dropLazyLoadFromQueue(BufferID id);
 	void processLazyLoadQueueStep();
 	void kickLazyLoadQueue();
+
+	// Deferred session insertion: the message-pump-driven worker that
+	// materialises one pending session entry per tick, keeping the UI
+	// interactive while a 300+ tab session finishes restoring in the background.
+	void kickSessionInsertQueue();
+	void processSessionInsertStep();
 //END: Document management
 
 	int doSaveOrNot(const wchar_t *fn, bool isMulti = false);

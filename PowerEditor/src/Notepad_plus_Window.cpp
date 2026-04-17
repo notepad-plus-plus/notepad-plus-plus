@@ -177,24 +177,52 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 	if (cmdLineParams->_alwaysOnTop)
 		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_ALWAYSONTOP, 0);
 
+	// TEMP timeline instrumentation — writes event timestamps to %TEMP%\npp_startup.log
+	auto __traceEvent = [](const wchar_t* name) {
+		wchar_t __path[MAX_PATH] = {};
+		GetTempPathW(MAX_PATH, __path);
+		wcscat_s(__path, MAX_PATH, L"npp_startup.log");
+		FILE* __f = nullptr;
+		if (_wfopen_s(&__f, __path, L"a") == 0 && __f) {
+			static LARGE_INTEGER __t0 = {};
+			LARGE_INTEGER __t, __freq;
+			QueryPerformanceCounter(&__t); QueryPerformanceFrequency(&__freq);
+			if (__t0.QuadPart == 0) __t0 = __t;
+			double ms = (double)(__t.QuadPart - __t0.QuadPart) * 1000.0 / (double)__freq.QuadPart;
+			fwprintf(__f, L"%.1fms  %s\n", ms, name);
+			fclose(__f);
+		}
+	};
+	__traceEvent(L"before ShowWindow");
+
+	// Show the main window BEFORE we restore the session, so the user sees
+	// a real window immediately instead of waiting (black/blue rectangle for
+	// 1-2 s on a large session). loadLastSession still blocks the message
+	// loop, but it pumps WM_PAINT internally so the tab bar visibly fills up.
+	const bool showAtStartup = !nppParams.doFunctionListExport() && !nppParams.doPrintAndExit() && !cmdLineParams->_isPreLaunch;
+	if (showAtStartup)
+	{
+		if (cmdLineParams->isPointValid())
+			::ShowWindow(_hSelf, SW_SHOW);
+		else
+			::ShowWindow(_hSelf, nppGUI._isMaximized ? SW_MAXIMIZE : SW_SHOW);
+		::UpdateWindow(_hSelf);
+	}
+	__traceEvent(L"after ShowWindow");
+
 	std::chrono::steady_clock::duration sessionLoadingTime{};
 	if (nppGUI._rememberLastSession && !nppGUI._isCmdlineNosessionActivated)
 	{
 		std::chrono::steady_clock::time_point sessionLoadingStartTP = std::chrono::steady_clock::now();
+		__traceEvent(L"before loadLastSession");
 		_notepad_plus_plus_core.loadLastSession();
+		__traceEvent(L"after loadLastSession");
 		sessionLoadingTime = std::chrono::steady_clock::now() - sessionLoadingStartTP;
 	}
 
 	if (nppParams.doFunctionListExport() || nppParams.doPrintAndExit())
 	{
 		::ShowWindow(_hSelf, SW_HIDE);
-	}
-	else if (!cmdLineParams->_isPreLaunch)
-	{
-		if (cmdLineParams->isPointValid())
-			::ShowWindow(_hSelf, SW_SHOW);
-		else
-			::ShowWindow(_hSelf, nppGUI._isMaximized ? SW_MAXIMIZE : SW_SHOW);
 	}
 	else
 	{
@@ -341,12 +369,14 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 		::SendMessage(_hSelf, WM_COMMAND, IDM_FILE_NEW, 0);
 	}
 
+	__traceEvent(L"before NPPN_READY");
 	// Notify plugins that Notepad++ is ready
 	SCNotification scnN{};
 	scnN.nmhdr.code = NPPN_READY;
 	scnN.nmhdr.hwndFrom = _hSelf;
 	scnN.nmhdr.idFrom = 0;
 	_notepad_plus_plus_core._pluginsManager.notify(&scnN);
+	__traceEvent(L"after NPPN_READY");
 
 	if (!cmdLineParams->_easterEggName.empty())
 	{
@@ -426,9 +456,12 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 	bool isSnapshotMode = nppGUI.isSnapshotMode();
 	if (isSnapshotMode)
 	{
+		__traceEvent(L"before checkModifiedDocument");
 		_notepad_plus_plus_core.checkModifiedDocument(false);
+		__traceEvent(L"after checkModifiedDocument");
 		// Launch backup task
 		_notepad_plus_plus_core.launchDocumentBackupTask();
+		__traceEvent(L"after launchDocumentBackupTask");
 	}
 
 	// Make this call later to take effect

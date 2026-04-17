@@ -877,6 +877,12 @@ void FileManager::checkFilesystemChanges(bool bCheckOnlyCurrentBuffer)
 
 				i = int(_nbBufs) - 1;
 			}
+			// Skip lazy-pending buffers: each checkFileState() spawns a worker
+			// thread via getFileAttributesExWithTimeout(). Over 300+ deferred
+			// buffers that costs multiple seconds during startup. The buffer
+			// will be checked by resolveLazyBuffer when it's actually materialised.
+			if (_buffers[i]->isLazyPending())
+				continue;
 			_buffers[i]->checkFileState();	//something has changed. Triggers update automatically
 		}
 	}

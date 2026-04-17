@@ -5309,6 +5309,21 @@ void Notepad_plus::processSessionInsertStep()
 		// loads on tab activation only.
 	}
 
+	// BEFORE scheduling the next pump tick, explicitly dispatch any pending
+	// paint messages. WM_PAINT is synthetic (generated from a dirty region,
+	// not queued), so in a tight PostMessage->handler->PostMessage loop the
+	// message queue never "empties" and GetMessage never returns WM_PAINT —
+	// the menu bar / toolbar / main window stay unpainted for seconds. Pump
+	// paint explicitly here so UI chrome appears immediately.
+	{
+		MSG __paint;
+		while (::PeekMessageW(&__paint, nullptr, WM_PAINT, WM_PAINT, PM_REMOVE))
+		{
+			::TranslateMessage(&__paint);
+			::DispatchMessageW(&__paint);
+		}
+	}
+
 	if (!_pendingSessionInserts.empty())
 	{
 		kickSessionInsertQueue();

@@ -88,9 +88,41 @@ void DocTabView::addBuffer(BufferID buffer)
 	tie.pszText = const_cast<wchar_t*>(buf->getCompactFileName());
 	tie.lParam = reinterpret_cast<LPARAM>(buffer);
 	::SendMessage(_hSelf, TCM_INSERTITEM, _nbItem++, reinterpret_cast<LPARAM>(&tie));
-	bufferUpdated(buf, BufferChangeMask);
 
-	::SendMessage(_hParent, WM_SIZE, 0, 0);
+	if (_batchInsertDepth == 0)
+	{
+		// Normal path: re-run bufferUpdated to apply status-specific icon +
+		// ampersand-encoded label. Inside a batch we skip this — addBuffer has
+		// already set a reasonable label and image via TCITEM above, and
+		// bufferUpdated is O(N) (linear getIndexByBuffer scan), so calling it
+		// once per tab during session restore is quadratic over 300+ tabs.
+		bufferUpdated(buf, BufferChangeMask);
+		::SendMessage(_hParent, WM_SIZE, 0, 0);
+	}
+}
+
+void DocTabView::beginBatchInsert()
+{
+	if (_batchInsertDepth++ == 0 && _hSelf)
+	{
+		// Freeze tab-control drawing while we mass-insert. Each TCM_INSERTITEM
+		// with custom-drawn tabs would otherwise trigger a partial repaint.
+		::SendMessage(_hSelf, WM_SETREDRAW, FALSE, 0);
+	}
+}
+
+void DocTabView::endBatchInsert()
+{
+	if (_batchInsertDepth == 0)
+		return;
+	if (--_batchInsertDepth == 0 && _hSelf)
+	{
+		::SendMessage(_hSelf, WM_SETREDRAW, TRUE, 0);
+		// Force one clean repaint of the full tab bar; without the Update the
+		// TRUE-redraw alone may leave stale pixels until the next event.
+		::RedrawWindow(_hSelf, nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_UPDATENOW | RDW_ALLCHILDREN);
+		::SendMessage(_hParent, WM_SIZE, 0, 0);
+	}
 }
 
 void DocTabView::closeBuffer(BufferID buffer)

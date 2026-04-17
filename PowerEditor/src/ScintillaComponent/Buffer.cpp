@@ -78,7 +78,7 @@ namespace // anonymous
 
 using namespace std;
 
-Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const wchar_t *fileName, bool isLargeFile)
+Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const wchar_t *fileName, bool isLargeFile, bool skipInitialFileStat)
 	// type must be either DOC_REGULAR or DOC_UNNAMED
 	: _pManager(pManager) , _id(id), _doc(doc), _lang(L_TEXT), _isLargeFile(isLargeFile)
 {
@@ -96,9 +96,20 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 	if (nppParamInst.getNppGUI()._isFullReadOnly || nppParamInst.getNppGUI()._isFullReadOnlySavingForbidden)
 		_isUserReadOnly = true; // preset for the FileManager loadFile(), newEmptyDocument() and bufferFromDocument() funcs
 
-	setFileName(fileName);
-	updateTimeStamp();
-	checkFileState();
+	if (skipInitialFileStat)
+	{
+		// Lazy-session buffers defer all filesystem probes to resolveLazyBuffer.
+		// setFileName() internally calls updateTimeStamp() (thread-spawning!) and
+		// extension lang detection — both redundant here because the session
+		// loader will overwrite lang via setLangType and resolve will re-stat.
+		setFileNameForLazyInit(fileName);
+	}
+	else
+	{
+		setFileName(fileName);
+		updateTimeStamp();
+		checkFileState();
+	}
 
 	// reset after initialization
 	_canNotify = true;
@@ -110,7 +121,11 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 
 void Buffer::doNotify(int mask)
 {
-	if (_canNotify)
+	// Lazy-session buffers suppress notifications while they are still pending.
+	// Each notification fans out to 4 views + DocumentListPanel — for 300+
+	// buffers the fan-out dominates session-restore time. resolveLazyBuffer
+	// fires a single BufferChangeMask notification when it flips the flag off.
+	if (_canNotify && !_isLazyPending)
 	{
 		assert(_pManager != nullptr);
 		_pManager->beNotifiedOfBufferChange(this, mask);
@@ -249,6 +264,34 @@ void Buffer::updateTimeStamp()
 	// else (res == 0) => nothing to change
 }
 
+
+// Lazy-session init: copy name + compute compact display, but SKIP both
+// the extension-based language detection (session's langType will be applied
+// by the loader a moment later) and updateTimeStamp() (spawns a thread per
+// call — unacceptable in a 300+ tab loop). Keep _isFromNetwork, it's a
+// pointer/string test, not a stat.
+void Buffer::setFileNameForLazyInit(const wchar_t *fn)
+{
+	_fullPathName = fn;
+	_fileName = PathFindFileName(_fullPathName.c_str());
+
+	const UINT tabCompactLabelLen = NppParameters::getInstance().getNbTabCompactLabelLen();
+	if ((tabCompactLabelLen == 0) || (static_cast<UINT>(wcslen(_fileName)) <= tabCompactLabelLen))
+	{
+		_compactFileName = _fileName;
+	}
+	else
+	{
+		_compactFileName.resize(tabCompactLabelLen + 1, L'\0');
+		if (!::PathCompactPathExW(_compactFileName.data(), _fileName, static_cast<UINT>(_compactFileName.size()), 0))
+			_compactFileName = _fileName;
+	}
+
+	// _isFromNetwork is deferred — PathIsNetworkPath can do network calls for
+	// UNC paths, and we don't need this flag until the buffer is activated.
+	// resolveLazyBuffer fills it in when the deferred file-state runs.
+	// Notifications are suppressed while _canNotify is false (ctor) anyway.
+}
 
 // Set full path file name in buffer object,
 // and determine its language by its extension.
@@ -1729,7 +1772,7 @@ BufferID FileManager::newPlaceholderDocument(const wchar_t* missingFilename, int
 	return buf;
 }
 
-BufferID FileManager::newLazyDocument(const wchar_t* filename, int whichOne, int encoding)
+BufferID FileManager::newLazyDocument(const wchar_t* filename, int whichOne, int encoding, const wchar_t* backupPath, FILETIME originalTimestamp)
 {
 	if (!filename || !*filename)
 		return BUFFER_INVALID;
@@ -1750,17 +1793,66 @@ BufferID FileManager::newLazyDocument(const wchar_t* filename, int whichOne, int
 			::GetLongPathName(fullpath, fullpath, MAX_PATH);
 	}
 
-	// Allocate an empty Scintilla document. No file IO happens here — that's
-	// the entire point of a lazy buffer. Large-file detection is deferred until
-	// resolveLazyBuffer() when we actually read the file.
-	Document doc = static_cast<Document>(_pscratchTilla->execute(SCI_CREATEDOCUMENT, 0, SC_DOCUMENTOPTION_TEXT_LARGE));
+	// Do NOT allocate a Scintilla document. resolveLazyBuffer creates it on
+	// demand. SCI_CREATEDOCUMENT is ~5ms — multiplied by 300+ session tabs it
+	// dominates startup. A null _doc is safe here because no code path touches
+	// Buffer::getDocument() on a lazy-pending buffer before resolveLazyBuffer
+	// runs (we skip the SCI marker block in loadSession, and activateBuffer
+	// resolves first).
+	Document doc = 0;
 
-	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath, false);
+	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath, false, /*skipInitialFileStat=*/true);
 	BufferID id = newBuf;
 	newBuf->_id = id;
 	newBuf->_isLazyPending = true;
 	if (encoding != -1)
 		newBuf->_encoding = encoding;
+
+	// Attach snapshot-backup info if supplied. resolveLazyBuffer reads content
+	// from _backupFileName when it is set, preserving unsaved edits.
+	if (backupPath && *backupPath)
+	{
+		newBuf->_backupFileName = backupPath;
+		newBuf->setDirty(true); // no-op while isLazyPending, but flag sticks
+	}
+
+	const FILETIME zero = {};
+	if (CompareFileTime(&originalTimestamp, &zero) != 0)
+		newBuf->_timeStamp = originalTimestamp;
+
+	_buffers.push_back(newBuf);
+	++_nbBufs;
+	++_nextBufferID;
+
+	_pNotepadPlus->loadBufferIntoView(id, whichOne);
+	return id;
+}
+
+BufferID FileManager::newLazyBackupDocument(const wchar_t* displayName, const wchar_t* backupPath, int whichOne, int encoding, FILETIME originalTimestamp)
+{
+	if (!displayName || !*displayName || !backupPath || !*backupPath)
+		return BUFFER_INVALID;
+
+	// Defer SCI_CREATEDOCUMENT to resolveLazyBuffer (see newLazyDocument comment).
+	Document doc = 0;
+
+	// DOC_UNNAMED matches what the eager backup-restore path produces: the tab
+	// shows "new N" and Ctrl+S will ask Save-As, which is the correct UX.
+	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, displayName, false, /*skipInitialFileStat=*/true);
+	BufferID id = newBuf;
+	newBuf->_id = id;
+	newBuf->_backupFileName = backupPath;
+	newBuf->_isLazyPending = true;
+	if (encoding != -1)
+		newBuf->_encoding = encoding;
+
+	const FILETIME zero = {};
+	if (CompareFileTime(&originalTimestamp, &zero) != 0)
+		newBuf->_timeStamp = originalTimestamp;
+
+	// Match eager behavior: these tabs carry unsaved edits and must stay dirty
+	// so the close-confirm dialog treats them correctly.
+	newBuf->setDirty(true);
 
 	_buffers.push_back(newBuf);
 	++_nbBufs;
@@ -1778,11 +1870,88 @@ bool FileManager::resolveLazyBuffer(BufferID id)
 
 	// Guard against re-entry: flip the flag off first so any nested activation
 	// (e.g. a paint triggered by loadFileData) does not re-queue the same load.
+	// Flipping this off also un-suppresses Buffer::doNotify for future setters.
 	buf->_isLazyPending = false;
 
-	// reloadBuffer() reads the on-disk file into the existing empty Document,
-	// which is exactly the semantics we want. If the file is gone, mark the
-	// buffer inaccessible (same visual state as a stale session entry).
+	// newLazyDocument / newLazyBackupDocument defer SCI_CREATEDOCUMENT to save
+	// ~5ms × 300+ tabs during session restore. Allocate the Scintilla doc now,
+	// before any loader touches buf->getDocument().
+	if (!buf->_doc)
+	{
+		buf->_doc = static_cast<Document>(_pscratchTilla->execute(SCI_CREATEDOCUMENT, 0, SC_DOCUMENTOPTION_TEXT_LARGE));
+	}
+
+	// Backup-restore lazy variant: content lives at _backupFileName, either
+	// because this is an UNTITLED tab (real path doesn't exist) or because
+	// a REGULAR file had unsaved snapshot edits. In both cases we prefer the
+	// backup so we don't silently discard the user's unsaved edits; the
+	// resolved buffer stays dirty.
+	const bool isBackupRestore = !buf->_backupFileName.empty() && doesFileExist(buf->_backupFileName.c_str());
+	if (isBackupRestore)
+	{
+		const wchar_t* src = buf->_backupFileName.c_str();
+		if (!doesFileExist(src))
+		{
+			buf->setInaccessibility(true);
+			return false;
+		}
+
+		WIN32_FILE_ATTRIBUTE_DATA attrs{};
+		attrs.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
+		int64_t fileSize = 0;
+		if (getFileAttributesExWithTimeout(src, &attrs) && attrs.dwFileAttributes != INVALID_FILE_ATTRIBUTES)
+		{
+			LARGE_INTEGER sz{}; sz.LowPart = attrs.nFileSizeLow; sz.HighPart = attrs.nFileSizeHigh;
+			fileSize = sz.QuadPart;
+		}
+		else
+		{
+			buf->setInaccessibility(true);
+			return false;
+		}
+
+		Utf8_16_Read unicodeConvertor;
+		LoadedFileFormat fmt;
+		fmt._encoding = buf->getEncoding();
+		fmt._eolFormat = EolType::unknown;
+		fmt._language = buf->getLangType();
+
+		char* data = new char[blockSize + 8];
+		buf->_canNotify = false;
+		bool ok = loadFileData(buf->getDocument(), fileSize, src, data, &unicodeConvertor, fmt);
+		buf->_canNotify = true;
+		delete[] data;
+
+		if (!ok)
+		{
+			buf->setInaccessibility(true);
+			return false;
+		}
+		setLoadedBufferEncodingAndEol(buf, unicodeConvertor, fmt._encoding, fmt._eolFormat);
+		// Stamp the buffer's known-file-time with the ORIGINAL file's current
+		// timestamp if it still exists. Without this the next checkFileState()
+		// call (e.g. on tab activation) will see a mismatch and pop the
+		// "file was modified externally" dialog for every backup-restored tab.
+		if (doesFileExist(buf->getFullPathName()))
+		{
+			WIN32_FILE_ATTRIBUTE_DATA a{};
+			if (getFileAttributesExWithTimeout(buf->getFullPathName(), &a) && a.dwFileAttributes != INVALID_FILE_ATTRIBUTES)
+				buf->_timeStamp = a.ftLastWriteTime;
+		}
+		// The whole point of backup-restore is that this content isn't on disk —
+		// it's a pending unsaved edit. Keep it dirty.
+		buf->setDirty(true);
+		// Fire a single omnibus notification AFTER the buffer state is final,
+		// so DocTabView/EditView/DocumentListPanel pick up the real filename,
+		// dirty marker, lang, encoding, etc. Exclude BufferChangeStatus — that
+		// bit triggers the "reload externally modified" prompt path, which is
+		// wrong for a buffer whose content we just deliberately loaded.
+		beNotifiedOfBufferChange(buf, BufferChangeMask & ~BufferChangeStatus);
+		return true;
+	}
+
+	// Regular file lazy: reloadBuffer() reads the on-disk file into the existing
+	// empty Document. If the file is gone, mark the buffer inaccessible.
 	if (!doesFileExist(buf->getFullPathName()))
 	{
 		buf->setInaccessibility(true);
@@ -1796,9 +1965,23 @@ bool FileManager::resolveLazyBuffer(BufferID id)
 		return false;
 	}
 
+	// Deferred file-state checks that the lazy ctor skipped. Order matters:
+	// updateTimeStamp first (records the current on-disk mtime), then
+	// checkFileState (compares stored vs current — after update, they match,
+	// so status stays DOC_REGULAR and no "reload externally modified" prompt
+	// is raised for the tab the user just opened).
+	buf->updateTimeStamp();
+	buf->checkFileState();
+	buf->_isFromNetwork = PathIsNetworkPath(buf->getFullPathName());
+
 	buf->setDirty(false);
 	buf->setLoadedDirty(false);
 	buf->setUnsync(false);
+
+	// Fire the omnibus notification last (minus Status, which is already
+	// synchronized above). All session metadata setters ran while
+	// _isLazyPending==true and therefore did not notify; flush now.
+	beNotifiedOfBufferChange(buf, BufferChangeMask & ~BufferChangeStatus);
 	return true;
 }
 

@@ -2454,6 +2454,14 @@ void Notepad_plus::loadLastSession()
 
 bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wchar_t* userCreatedSessionName)
 {
+	// TEMP INSTRUMENTATION — remove before merge. Logs loadSession timing to
+	// %TEMP%\npp_lazy_trace.log so we can compare lazy ON vs OFF honestly.
+	const LARGE_INTEGER __trace_t0 = []() { LARGE_INTEGER t; QueryPerformanceCounter(&t); return t; }();
+	LARGE_INTEGER __trace_freq; QueryPerformanceFrequency(&__trace_freq);
+	int __trace_lazy = 0, __trace_eager = 0, __trace_placeholder = 0, __trace_skipped = 0, __trace_backup_eager = 0;
+	LARGE_INTEGER __trace_main_end = {}, __trace_sub_end = {};
+	int64_t __trace_ticks_create = 0, __trace_ticks_apply = 0;
+
 	NppParameters& nppParam = NppParameters::getInstance();
 	const NppGUI& nppGUI = nppParam.getNppGUI();
 
@@ -2467,11 +2475,18 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 
 	int mainIndex2Update = -1;
 
-	// Lazy session load: defer content load for non-active files and snapshot-dirty
-	// files. Snapshot-dirty files have unsaved edits in backup and must be loaded
-	// normally to preserve those edits. Files missing from disk also fall through to
-	// the existing placeholder path — lazy loading only helps when the file exists.
-	const bool lazyEnabled = nppGUI._isLazySessionLoad && !isSnapshotMode;
+	// Batch-insert guard: suppress per-tab WM_SIZE relayout and tab-control
+	// redraws while we fill both DocTabViews. Without this, each of the 300+
+	// addBuffer() calls forces a full parent relayout — quadratic.
+	_mainDocTab.beginBatchInsert();
+	_subDocTab.beginBatchInsert();
+
+	// Lazy session load: defer content load for non-active files. The per-file
+	// decision below still eagerly loads any file that has a pending snapshot
+	// backup (they hold unsaved edits that must be restored on startup) — so
+	// lazy coexists with snapshot mode. Missing files fall through to the
+	// existing placeholder path regardless of this flag.
+	const bool lazyEnabled = nppGUI._isLazySessionLoad;
 
 	// no session
 	if (!session.nbMainFiles() && !session.nbSubFiles())
@@ -2502,25 +2517,68 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			isWow64Off = true;
 		}
 #endif
-		if (doesFileExist(pFn))
+		// Fast, non-thread-spawning existence probes. doesFileExist() creates a
+		// worker thread per call via getFileAttributesExWithTimeout — for 300+
+		// session entries in a hot loop that adds seconds of pure thread-spawn
+		// overhead. We use direct GetFileAttributesExW here and accept the
+		// (tiny) risk of a hang on an adversarial network path; that risk was
+		// already present elsewhere in startup.
+		const bool fileExistsFast = [&]() {
+			WIN32_FILE_ATTRIBUTE_DATA a{};
+			return ::GetFileAttributesExW(pFn, GetFileExInfoStandard, &a)
+				&& a.dwFileAttributes != INVALID_FILE_ATTRIBUTES
+				&& !(a.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY);
+		}();
+		const bool backupExistsFast = session._mainViewFiles[i]._backupFilePath.empty() ? false : [&]() {
+			WIN32_FILE_ATTRIBUTE_DATA a{};
+			return ::GetFileAttributesExW(session._mainViewFiles[i]._backupFilePath.c_str(), GetFileExInfoStandard, &a)
+				&& a.dwFileAttributes != INVALID_FILE_ATTRIBUTES
+				&& !(a.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY);
+		}();
+
+		if (fileExistsFast)
 		{
 			const bool isActiveTab = lazyEnabled && (i == session._activeMainIndex) && (session._activeView == MAIN_VIEW || session.nbSubFiles() == 0);
-			if (isSnapshotMode && !session._mainViewFiles[i]._backupFilePath.empty())
+			const bool hasSnapshotBackup = isSnapshotMode && backupExistsFast;
+			if (lazyEnabled && !isActiveTab) {
+				LARGE_INTEGER __c0, __c1; QueryPerformanceCounter(&__c0);
+				lastOpened = MainFileManager.newLazyDocument(pFn, MAIN_VIEW, session._mainViewFiles[i]._encoding, hasSnapshotBackup ? session._mainViewFiles[i]._backupFilePath.c_str() : nullptr, session._mainViewFiles[i]._originalFileLastModifTimestamp);
+				QueryPerformanceCounter(&__c1); __trace_ticks_create += (__c1.QuadPart - __c0.QuadPart);
+				++__trace_lazy;
+			}
+			else if (hasSnapshotBackup) {
 				lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding, session._mainViewFiles[i]._backupFilePath.c_str(), session._mainViewFiles[i]._originalFileLastModifTimestamp);
-			else if (lazyEnabled && !isActiveTab)
-				lastOpened = MainFileManager.newLazyDocument(pFn, MAIN_VIEW, session._mainViewFiles[i]._encoding);
-			else
+				++__trace_eager;
+			}
+			else {
 				lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding);
+				++__trace_eager;
+			}
 		}
-		else if (isSnapshotMode && doesFileExist(session._mainViewFiles[i]._backupFilePath.c_str()))
+		else if (isSnapshotMode && backupExistsFast)
 		{
-			lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding, session._mainViewFiles[i]._backupFilePath.c_str(), session._mainViewFiles[i]._originalFileLastModifTimestamp);
+			const bool isActiveTab = lazyEnabled && (i == session._activeMainIndex) && (session._activeView == MAIN_VIEW || session.nbSubFiles() == 0);
+			if (lazyEnabled && !isActiveTab)
+			{
+				LARGE_INTEGER __c0, __c1; QueryPerformanceCounter(&__c0);
+				lastOpened = MainFileManager.newLazyBackupDocument(pFn, session._mainViewFiles[i]._backupFilePath.c_str(), MAIN_VIEW, session._mainViewFiles[i]._encoding, session._mainViewFiles[i]._originalFileLastModifTimestamp);
+				QueryPerformanceCounter(&__c1); __trace_ticks_create += (__c1.QuadPart - __c0.QuadPart);
+				++__trace_lazy;
+			}
+			else
+			{
+				lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding, session._mainViewFiles[i]._backupFilePath.c_str(), session._mainViewFiles[i]._originalFileLastModifTimestamp);
+				++__trace_backup_eager;
+			}
 		}
 		else
 		{
 			BufferID foundBufID = MainFileManager.getBufferFromName(pFn);
-			if (foundBufID == BUFFER_INVALID)
+			if (foundBufID == BUFFER_INVALID) {
 				lastOpened = nppGUI._keepSessionAbsentFileEntries ? MainFileManager.newPlaceholderDocument(pFn, MAIN_VIEW, userCreatedSessionName) : BUFFER_INVALID;
+				++__trace_placeholder;
+			}
+			else ++__trace_skipped;
 		}
 #ifndef	_WIN64
 		if (isWow64Off)
@@ -2529,6 +2587,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			isWow64Off = false;
 		}
 #endif
+		LARGE_INTEGER __ap0; QueryPerformanceCounter(&__ap0);
 		if (lastOpened != BUFFER_INVALID)
 		{
 			showView(MAIN_VIEW);
@@ -2592,20 +2651,32 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 
 			_mainDocTab.setIndividualTabColour(lastOpened, session._mainViewFiles[i]._individualTabColour);
 
-			//Force in the document so we can add the markers
-			//Don't use default methods because of performance
-			Document prevDoc = _mainEditView.execute(SCI_GETDOCPOINTER);
-			unsigned long MODEVENTMASK_ON = nppParam.getScintillaModEventMask();
-			_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
-			_mainEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-			_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
-			for (size_t j = 0, len = session._mainViewFiles[i]._marks.size(); j < len ; ++j)
+			if (buf->isLazyPending())
 			{
-				_mainEditView.execute(SCI_MARKERADD, session._mainViewFiles[i]._marks[j], MARK_BOOKMARK);
+				// For lazy buffers we skip the SCI_SETDOCPOINTER swap (twice!) +
+				// SCI_MARKERADD loop here — each swap makes Scintilla reattach to
+				// a new doc and reinitialize, which is ~20–40ms. For 300+ tabs
+				// that's where the startup time goes. Stash marks on the Buffer;
+				// resolveLazyBuffer() applies them after content is loaded.
+				buf->_lazyPendingMarks = session._mainViewFiles[i]._marks;
 			}
-			_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
-			_mainEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
-			_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+			else
+			{
+				//Force in the document so we can add the markers
+				//Don't use default methods because of performance
+				Document prevDoc = _mainEditView.execute(SCI_GETDOCPOINTER);
+				unsigned long MODEVENTMASK_ON = nppParam.getScintillaModEventMask();
+				_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+				_mainEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+				_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+				for (size_t j = 0, len = session._mainViewFiles[i]._marks.size(); j < len ; ++j)
+				{
+					_mainEditView.execute(SCI_MARKERADD, session._mainViewFiles[i]._marks[j], MARK_BOOKMARK);
+				}
+				_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+				_mainEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
+				_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+			}
 			++i;
 		}
 		else
@@ -2614,7 +2685,9 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			session._mainViewFiles.erase(posIt);
 			allSessionFilesLoaded = false;
 		}
+		{ LARGE_INTEGER __ap1; QueryPerformanceCounter(&__ap1); __trace_ticks_apply += (__ap1.QuadPart - __ap0.QuadPart); }
 	}
+	QueryPerformanceCounter(&__trace_main_end);
 
 	if (mainIndex2Update != -1)
 	{
@@ -2730,20 +2803,27 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 
 			_subDocTab.setIndividualTabColour(lastOpened, session._subViewFiles[k]._individualTabColour);
 
-			//Force in the document so we can add the markers
-			//Don't use default methods because of performance
-			Document prevDoc = _subEditView.execute(SCI_GETDOCPOINTER);
-			unsigned long MODEVENTMASK_ON = nppParam.getScintillaModEventMask();
-			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
-			_subEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
-			for (size_t j = 0, len = session._subViewFiles[k]._marks.size(); j < len ; ++j)
+			if (buf->isLazyPending())
 			{
-				_subEditView.execute(SCI_MARKERADD, session._subViewFiles[k]._marks[j], MARK_BOOKMARK);
+				buf->_lazyPendingMarks = session._subViewFiles[k]._marks;
 			}
-			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
-			_subEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
-			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+			else
+			{
+				//Force in the document so we can add the markers
+				//Don't use default methods because of performance
+				Document prevDoc = _subEditView.execute(SCI_GETDOCPOINTER);
+				unsigned long MODEVENTMASK_ON = nppParam.getScintillaModEventMask();
+				_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+				_subEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+				_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+				for (size_t j = 0, len = session._subViewFiles[k]._marks.size(); j < len ; ++j)
+				{
+					_subEditView.execute(SCI_MARKERADD, session._subViewFiles[k]._marks[j], MARK_BOOKMARK);
+				}
+				_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+				_subEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
+				_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+			}
 
 			++k;
 		}
@@ -2760,6 +2840,12 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 		_subEditView.syncFoldStateWith(session._subViewFiles[subIndex2Update]._foldStates);
 		_isFolding = false;
 	}
+
+	// Flush the deferred relayout + redraw from the batch-insert guard. This
+	// must happen BEFORE activateBuffer below, so the tab bar is sized by the
+	// time the active tab is switched in.
+	_mainDocTab.endBatchInsert();
+	_subDocTab.endBatchInsert();
 
 	_mainEditView.restoreCurrentPosPreStep();
 	_subEditView.restoreCurrentPosPreStep();
@@ -2828,6 +2914,27 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 	{
 		// If the session is user's created session but not session.xml, we force to launch Folder as Workspace and add roots
 		launchFileBrowser(session._fileBrowserRoots, session._fileBrowserSelectedItem, true);
+	}
+
+	// TEMP INSTRUMENTATION — write elapsed ms + counts to %TEMP%\npp_lazy_trace.log
+	{
+		LARGE_INTEGER __trace_t1; QueryPerformanceCounter(&__trace_t1);
+		double __trace_ms = (double)(__trace_t1.QuadPart - __trace_t0.QuadPart) * 1000.0 / (double)__trace_freq.QuadPart;
+		double __trace_main_ms = __trace_main_end.QuadPart ? (double)(__trace_main_end.QuadPart - __trace_t0.QuadPart) * 1000.0 / (double)__trace_freq.QuadPart : 0.0;
+		wchar_t __trace_path[MAX_PATH] = {};
+		GetTempPathW(MAX_PATH, __trace_path);
+		wcscat_s(__trace_path, MAX_PATH, L"npp_lazy_trace.log");
+		FILE* __trace_f = nullptr;
+		if (_wfopen_s(&__trace_f, __trace_path, L"a") == 0 && __trace_f) {
+			SYSTEMTIME __st; GetLocalTime(&__st);
+			double __trace_create_ms = (double)__trace_ticks_create * 1000.0 / (double)__trace_freq.QuadPart;
+			double __trace_apply_ms = (double)__trace_ticks_apply * 1000.0 / (double)__trace_freq.QuadPart;
+			fwprintf(__trace_f, L"[%04d-%02d-%02d %02d:%02d:%02d] loadSession: lazyEnabled=%d snapshot=%d mainFiles=%zu subFiles=%zu  mainLoop=%.1fms total=%.1fms  (lazyCreate=%.1fms apply=%.1fms)  eager=%d lazy=%d backup_eager=%d placeholder=%d skipped=%d\n",
+				__st.wYear, __st.wMonth, __st.wDay, __st.wHour, __st.wMinute, __st.wSecond,
+				(int)lazyEnabled, (int)isSnapshotMode, session.nbMainFiles(), session.nbSubFiles(),
+				__trace_main_ms, __trace_ms, __trace_create_ms, __trace_apply_ms, __trace_eager, __trace_lazy, __trace_backup_eager, __trace_placeholder, __trace_skipped);
+			fclose(__trace_f);
+		}
 	}
 
 	// Especially File status auto-detection set on "Enable for all opened files":  nppGUI._fileAutoDetection & cdEnabledOld

@@ -97,7 +97,16 @@ public:
 	// The buffer is inserted into view with the real full path set, empty Scintilla
 	// document, and _isLazyPending=true. File content is loaded later via
 	// resolveLazyBuffer() (on tab activation or from the background queue).
-	BufferID newLazyDocument(const wchar_t* filename, int whichOne, int encoding);
+	// If backupPath is non-null and refers to an existing snapshot backup file,
+	// the buffer is additionally marked dirty and will load its content from
+	// the backup (preserving unsaved edits) instead of the original file.
+	BufferID newLazyDocument(const wchar_t* filename, int whichOne, int encoding, const wchar_t* backupPath = nullptr, FILETIME originalTimestamp = {});
+
+	// create a lazy-session placeholder for an UNTITLED tab whose content lives in
+	// the snapshot backup directory (produced by isSnapshotMode). The tab displays
+	// displayName (e.g. "new 12"), stays dirty, and lazily loads from backupPath
+	// on first activation.
+	BufferID newLazyBackupDocument(const wchar_t* displayName, const wchar_t* backupPath, int whichOne, int encoding, FILETIME originalTimestamp);
 
 	// Load the on-disk content for a lazy-pending buffer. Returns true on success.
 	// After this call, the buffer behaves like a normally-opened file.
@@ -177,12 +186,17 @@ public:
 	//Load the document into Scintilla/add to TabBar
 	//The entire lifetime if the buffer, the Document has reference count of _atleast_ one
 	//Destructor makes sure its purged
-	Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const wchar_t *fileName, bool isLargeFile);
+	Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const wchar_t *fileName, bool isLargeFile, bool skipInitialFileStat = false);
 
 	// this method 1. copies the file name
 	//             2. determines the language from the ext of file name
 	//             3. gets the last modified time
 	void setFileName(const wchar_t *fn);
+
+	// Variant used by lazy-session-load construction: copy the name and compute
+	// the compact/display string, but skip extension-based language detection
+	// and the filesystem stat (updateTimeStamp). Both are deferred to resolveLazyBuffer.
+	void setFileNameForLazyInit(const wchar_t *fn);
 
 	const wchar_t * getFullPathName() const { return _fullPathName.c_str(); }
 
@@ -502,4 +516,10 @@ private:
 	bool _isPinned = false;
 
 	bool _isLazyPending = false; // true for lazy-session placeholder buffers awaiting file load
+
+public:
+	// Bookmark line numbers deferred by lazy-session restore. They are applied
+	// to the Scintilla document in resolveLazyBuffer() after the file content
+	// is loaded. Public because the loader in NppIO.cpp stashes them directly.
+	std::vector<size_t> _lazyPendingMarks;
 };

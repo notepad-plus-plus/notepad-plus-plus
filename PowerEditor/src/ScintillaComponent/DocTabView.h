@@ -47,6 +47,13 @@ public:
 	}
 
 	void addBuffer(BufferID buffer);
+
+	// Batch-insert mode for session restore: while a batch is open, addBuffer
+	// skips the per-tab WM_SIZE relayout (which is O(N) → quadratic over 300+
+	// tabs) and suspends tab-control redraw. endBatchInsert() flushes once.
+	void beginBatchInsert();
+	void endBatchInsert();
+
 	void closeBuffer(BufferID buffer);
 	void bufferUpdated(const Buffer* buffer, int mask);
 
@@ -99,6 +106,8 @@ private :
 
 	std::vector<IconList *> _pIconListVector;
 	int _iconListIndexChoice = -1;
+
+	int _batchInsertDepth = 0; // >0 while addBuffer should skip per-tab WM_SIZE/redraw
 
 	using Window::init;
 	using TabBar::init;

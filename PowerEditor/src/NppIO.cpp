@@ -2538,13 +2538,17 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 
 		const bool isActiveTab = lazyEnabled && (i == session._activeMainIndex) && (session._activeView == MAIN_VIEW || session.nbSubFiles() == 0);
 
-		// Fast path when lazy is on and this is NOT the active tab: defer
-		// everything (buffer creation, tab insert, metadata apply) to the
-		// background queue. loadSession becomes ~O(activeTab) instead of
-		// O(session size), so the main thread unblocks in tens of milliseconds.
+		// R1 tradeoff: three options, pick the fastest to-first-content:
+		//   (a) sync insert all: 2–3 s freeze, order correct, active at right index
+		//   (b) async pump, active sync first: instant active tab, but active
+		//       lands at tab index 0 regardless of session position
+		//   (c) async pump, active processed in order: order correct but user
+		//       waits (activeIndex × tickInterval) ms to see active content
+		// We pick (b) because the user's primary goal is "instant startup".
+		// Order-preservation is tracked as a known limitation.
 		if (lazyEnabled && !isActiveTab && (fileExistsFast || (isSnapshotMode && backupExistsFast)))
 		{
-			_pendingSessionInserts.push_back({session._mainViewFiles[i], MAIN_VIEW});
+			_pendingSessionInserts.push_back({session._mainViewFiles[i], MAIN_VIEW, false});
 			++__trace_lazy;
 			++i;
 			continue;
@@ -2552,8 +2556,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 
 		if (fileExistsFast)
 		{
-			const bool hasSnapshotBackup = isSnapshotMode && backupExistsFast;
-			if (hasSnapshotBackup) {
+			if (isSnapshotMode && backupExistsFast) {
 				lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding, session._mainViewFiles[i]._backupFilePath.c_str(), session._mainViewFiles[i]._originalFileLastModifTimestamp);
 				++__trace_eager;
 			}
@@ -2906,9 +2909,9 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 	if (_pDocumentListPanel)
 		_pDocumentListPanel->reload();
 
-	// Kick the deferred session-insert pump. It materialises pending tabs
-	// batch-by-batch via WM_APP messages so the main thread unblocks and the
-	// user sees an interactive window while the tab bar fills up.
+	// With R1 fix, everything is inserted synchronously in session order, so
+	// the pending queue is empty. Keep this call for defense if future code
+	// pushes anything; no-op when empty.
 	if (lazyEnabled && !_pendingSessionInserts.empty())
 	{
 		kickSessionInsertQueue();

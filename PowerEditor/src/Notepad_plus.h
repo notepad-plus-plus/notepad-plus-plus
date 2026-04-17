@@ -301,6 +301,7 @@ private:
 	{
 		sessionFileInfo info;
 		int whichOne; // MAIN_VIEW or SUB_VIEW
+		bool isActive = false; // when processed, the pump resolves content + activates
 	};
 	std::deque<PendingSessionInsert> _pendingSessionInserts;
 	bool _sessionInsertPumpArmed = false;

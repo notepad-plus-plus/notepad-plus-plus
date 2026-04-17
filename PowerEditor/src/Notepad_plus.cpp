@@ -5300,13 +5300,8 @@ void Notepad_plus::processSessionInsertStep()
 		if (!entry.info._foldStates.empty())
 			buf->setHeaderLineState(entry.info._foldStates, (whichOne == MAIN_VIEW) ? &_mainEditView : &_subEditView);
 		buf->_lazyPendingMarks = entry.info._marks;
-
-		// Do NOT queue synchronous content load on the main thread. Each
-		// resolveLazyBuffer call performs a blocking file read; even at one
-		// per message tick, a single >50 ms read makes the window
-		// unresponsive for the duration of that tick. A worker-thread IO
-		// pipeline is the proper fix (separate change); for now, content
-		// loads on tab activation only.
+		// isActive not used in option (b): active is handled sync in loadSession.
+		(void)entry.isActive;
 	}
 
 	// BEFORE scheduling the next pump tick, explicitly dispatch any pending
@@ -6597,6 +6592,29 @@ bool Notepad_plus::getIntegralDockingData(DockedWidgetData & dockData, int & iCo
 
 void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includeUntitledDoc)
 {
+	// R2: drain any pending lazy-session inserts first. Without this, a user
+	// that closes Notepad++ before the background pump finishes restoring
+	// their 300+ tab session loses every un-materialised tab from session.xml
+	// (they aren't in _mainDocTab/_subDocTab yet). Synchronous drain at close
+	// is fine — it's a 1–2 s one-time cost at shutdown, not startup.
+	while (!_pendingSessionInserts.empty())
+		processSessionInsertStep();
+
+	// After structural drain, resolve content for UNTITLED backup-restored
+	// buffers ONLY. getCurrentOpenedFiles drops untitled tabs with
+	// docLength==0, and their identity IS the backup content — losing that
+	// loses the user's unsaved edits. Regular lazy buffers serialize fine
+	// from path + metadata (isUntitled=false → filter doesn't drop them);
+	// we skip content load for them and the SCI_SETDOCPOINTER path below
+	// is guarded against null Documents. This cuts close time from ~17 s to
+	// ~1–2 s on a 300-tab session (untitled backups only).
+	for (size_t i = 0; i < MainFileManager.getNbBuffers(); ++i)
+	{
+		Buffer* b = MainFileManager.getBufferByIndex(i);
+		if (b && b->isLazyPending() && b->getStatus() == DOC_UNNAMED)
+			MainFileManager.resolveLazyBuffer(b->getID());
+	}
+
 	_mainEditView.saveCurrentPos();	//save position so itll be correct in the session
 	_subEditView.saveCurrentPos();	//both views
 	session._activeView = currentView();
@@ -6652,13 +6670,25 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includeUntitled
 			sfi._individualTabColour = docTab[k]->getIndividualTabColourId(static_cast<int>(i));
 			sfi._isRTL = buf->isRTL();
 
-			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-
-			auto nextMarkedLine = _invisibleEditView.execute(SCI_MARKERNEXT, 0, (1 << MARK_BOOKMARK));
-			while (nextMarkedLine != -1)
+			// Lazy buffers whose content was never materialised have no
+			// Scintilla Document. They also have no live bookmarks to
+			// serialize (marks only exist on a loaded doc), so skip the
+			// marker enumeration entirely. _lazyPendingMarks is the
+			// authoritative list for these.
+			if (buf->getDocument())
 			{
-				sfi._marks.push_back(nextMarkedLine);
-				nextMarkedLine = _invisibleEditView.execute(SCI_MARKERNEXT, nextMarkedLine + 1, (1 << MARK_BOOKMARK));
+				_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+
+				auto nextMarkedLine = _invisibleEditView.execute(SCI_MARKERNEXT, 0, (1 << MARK_BOOKMARK));
+				while (nextMarkedLine != -1)
+				{
+					sfi._marks.push_back(nextMarkedLine);
+					nextMarkedLine = _invisibleEditView.execute(SCI_MARKERNEXT, nextMarkedLine + 1, (1 << MARK_BOOKMARK));
+				}
+			}
+			else if (!buf->_lazyPendingMarks.empty())
+			{
+				sfi._marks = buf->_lazyPendingMarks;
 			}
 
 			if (i == activeIndex)

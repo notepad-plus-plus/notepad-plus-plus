@@ -465,13 +465,26 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						else if (pLvdi->item.iSubItem == 3) // size
 						{
 							// For lazy-pending buffers the Scintilla doc is empty
-							// (content will be loaded on activation). Show the
-							// real on-disk size instead of 0 so this column is
-							// meaningful during a session restore.
+							// (content will load on activation). Show a meaningful
+							// size: real file size for regular files, or the
+							// backup-file size for untitled tabs restored from
+							// snapshot backup (getFileLength returns -1 for
+							// DOC_UNNAMED).
 							size_t docSize = 0;
 							if (buf->isLazyPending())
 							{
 								int64_t onDisk = buf->getFileLength();
+								if (onDisk < 0 && !buf->getBackupFileName().empty())
+								{
+									WIN32_FILE_ATTRIBUTE_DATA a{};
+									if (GetFileAttributesEx(buf->getBackupFileName().c_str(), GetFileExInfoStandard, &a) != 0)
+									{
+										LARGE_INTEGER sz{};
+										sz.LowPart = a.nFileSizeLow;
+										sz.HighPart = a.nFileSizeHigh;
+										onDisk = sz.QuadPart;
+									}
+								}
 								if (onDisk > 0)
 									docSize = static_cast<size_t>(onDisk);
 							}

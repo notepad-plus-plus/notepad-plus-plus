@@ -1791,6 +1791,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_LAZYLOADNEXT:
+		{
+			processLazyLoadQueueStep();
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_SCROLLBEYONDLASTLINE:
 		{
 			const bool endAtLastLine = !(nppParam.getSVP())._scrollBeyondLastLine;

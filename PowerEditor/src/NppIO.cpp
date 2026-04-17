@@ -2467,6 +2467,12 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 
 	int mainIndex2Update = -1;
 
+	// Lazy session load: defer content load for non-active files and snapshot-dirty
+	// files. Snapshot-dirty files have unsaved edits in backup and must be loaded
+	// normally to preserve those edits. Files missing from disk also fall through to
+	// the existing placeholder path — lazy loading only helps when the file exists.
+	const bool lazyEnabled = nppGUI._isLazySessionLoad && !isSnapshotMode;
+
 	// no session
 	if (!session.nbMainFiles() && !session.nbSubFiles())
 	{
@@ -2498,8 +2504,11 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 #endif
 		if (doesFileExist(pFn))
 		{
+			const bool isActiveTab = lazyEnabled && (i == session._activeMainIndex) && (session._activeView == MAIN_VIEW || session.nbSubFiles() == 0);
 			if (isSnapshotMode && !session._mainViewFiles[i]._backupFilePath.empty())
 				lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding, session._mainViewFiles[i]._backupFilePath.c_str(), session._mainViewFiles[i]._originalFileLastModifTimestamp);
+			else if (lazyEnabled && !isActiveTab)
+				lastOpened = MainFileManager.newLazyDocument(pFn, MAIN_VIEW, session._mainViewFiles[i]._encoding);
 			else
 				lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding);
 		}
@@ -2648,8 +2657,11 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			}
 			else
 			{
+				const bool isActiveTab = lazyEnabled && (k == session._activeSubIndex) && session._activeView == SUB_VIEW;
 				if (isSnapshotMode && !session._subViewFiles[k]._backupFilePath.empty())
 					lastOpened = doOpen(pFn, false, false, session._subViewFiles[k]._encoding, session._subViewFiles[k]._backupFilePath.c_str(), session._subViewFiles[k]._originalFileLastModifTimestamp);
+				else if (lazyEnabled && !isActiveTab && doesFileExist(pFn))
+					lastOpened = MainFileManager.newLazyDocument(pFn, SUB_VIEW, session._subViewFiles[k]._encoding);
 				else
 					lastOpened = doOpen(pFn, false, false, session._subViewFiles[k]._encoding);
 			}
@@ -2782,6 +2794,35 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 
 	if (_pDocumentListPanel)
 		_pDocumentListPanel->reload();
+
+	// Enqueue every lazy-pending buffer we created during session restore.
+	// The queue pump posts itself one tab at a time via WM_APP messages, so
+	// the main window is interactive the moment loadSession() returns — the
+	// user can click any tab and it will jump the queue.
+	if (lazyEnabled)
+	{
+		for (size_t i = 0; i < session.nbMainFiles(); ++i)
+		{
+			BufferID id = _mainDocTab.findBufferByName(session._mainViewFiles[i]._fileName.c_str());
+			if (id != BUFFER_INVALID)
+			{
+				Buffer* buf = MainFileManager.getBufferByID(id);
+				if (buf && buf->isLazyPending())
+					queueLazyLoad(id);
+			}
+		}
+		for (size_t k = 0; k < session.nbSubFiles(); ++k)
+		{
+			BufferID id = _subDocTab.findBufferByName(session._subViewFiles[k]._fileName.c_str());
+			if (id != BUFFER_INVALID)
+			{
+				Buffer* buf = MainFileManager.getBufferByID(id);
+				if (buf && buf->isLazyPending())
+					queueLazyLoad(id);
+			}
+		}
+		kickLazyLoadQueue();
+	}
 
 	if (userCreatedSessionName && !session._fileBrowserRoots.empty())
 	{

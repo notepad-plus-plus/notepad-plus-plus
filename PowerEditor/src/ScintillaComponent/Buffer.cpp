@@ -1729,6 +1729,79 @@ BufferID FileManager::newPlaceholderDocument(const wchar_t* missingFilename, int
 	return buf;
 }
 
+BufferID FileManager::newLazyDocument(const wchar_t* filename, int whichOne, int encoding)
+{
+	if (!filename || !*filename)
+		return BUFFER_INVALID;
+
+	// Resolve to a full path the same way loadFile() does, so the buffer's
+	// identity matches what a normal open would produce. Required so that
+	// later calls like getBufferFromName() succeed and duplicate-open detection
+	// works across lazy and eagerly-loaded buffers.
+	wchar_t fullpath[MAX_PATH] = { 0 };
+	if (isWin32NamespacePrefixedFileName(filename))
+	{
+		wcsncpy_s(fullpath, _countof(fullpath), filename, _TRUNCATE);
+	}
+	else
+	{
+		::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
+		if (wcschr(fullpath, '~'))
+			::GetLongPathName(fullpath, fullpath, MAX_PATH);
+	}
+
+	// Allocate an empty Scintilla document. No file IO happens here — that's
+	// the entire point of a lazy buffer. Large-file detection is deferred until
+	// resolveLazyBuffer() when we actually read the file.
+	Document doc = static_cast<Document>(_pscratchTilla->execute(SCI_CREATEDOCUMENT, 0, SC_DOCUMENTOPTION_TEXT_LARGE));
+
+	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath, false);
+	BufferID id = newBuf;
+	newBuf->_id = id;
+	newBuf->_isLazyPending = true;
+	if (encoding != -1)
+		newBuf->_encoding = encoding;
+
+	_buffers.push_back(newBuf);
+	++_nbBufs;
+	++_nextBufferID;
+
+	_pNotepadPlus->loadBufferIntoView(id, whichOne);
+	return id;
+}
+
+bool FileManager::resolveLazyBuffer(BufferID id)
+{
+	Buffer* buf = getBufferByID(id);
+	if (!buf || !buf->_isLazyPending)
+		return true; // already resolved or invalid — treat as no-op success
+
+	// Guard against re-entry: flip the flag off first so any nested activation
+	// (e.g. a paint triggered by loadFileData) does not re-queue the same load.
+	buf->_isLazyPending = false;
+
+	// reloadBuffer() reads the on-disk file into the existing empty Document,
+	// which is exactly the semantics we want. If the file is gone, mark the
+	// buffer inaccessible (same visual state as a stale session entry).
+	if (!doesFileExist(buf->getFullPathName()))
+	{
+		buf->setInaccessibility(true);
+		return false;
+	}
+
+	bool ok = reloadBuffer(id);
+	if (!ok)
+	{
+		buf->setInaccessibility(true);
+		return false;
+	}
+
+	buf->setDirty(false);
+	buf->setLoadedDirty(false);
+	buf->setUnsync(false);
+	return true;
+}
+
 BufferID FileManager::bufferFromDocument(Document doc, bool isMainEditZone)
 {
 	NppParameters& nppParamInst = NppParameters::getInstance();

@@ -16,6 +16,7 @@
 
 #pragma once
 
+#include <deque>
 #include "ScintillaEditView.h"
 #include "DocTabView.h"
 #include "SplitterContainer.h"
@@ -284,6 +285,13 @@ private:
 	DockingManager _dockingManager;
 	std::vector<int> _internalFuncIDs;
 
+	// Lazy session load queue. std::deque supports O(1) pop-front for the
+	// worker pump and O(n) erase to drop a buffer the user just activated.
+	// BufferIDs are stable for the lifetime of a buffer, so they're safe to
+	// hold across message pumps.
+	std::deque<BufferID> _lazyLoadQueue;
+	bool _lazyLoadPumpArmed = false; // true after PostMessage, cleared in handler to avoid flooding the queue
+
 	AutoCompletion _autoCompleteMain;
 	AutoCompletion _autoCompleteSub; // each Scintilla has its own autoComplete
 
@@ -471,6 +479,15 @@ private:
 	bool activateBuffer(BufferID id, int whichOne, bool forceApplyHilite = false);			//activate buffer in that view if found
 	void notifyBufferActivated(BufferID bufid, int view);
 	void performPostReload(int whichOne);
+
+	// Lazy session load: queue management. The queue is processed one buffer
+	// per WM_APP message loop tick so the UI stays responsive during a cold
+	// start with many session files. User activation of a pending tab calls
+	// resolveLazyBuffer synchronously and drops the tab from the queue.
+	void queueLazyLoad(BufferID id);
+	void dropLazyLoadFromQueue(BufferID id);
+	void processLazyLoadQueueStep();
+	void kickLazyLoadQueue();
 //END: Document management
 
 	int doSaveOrNot(const wchar_t *fn, bool isMulti = false);

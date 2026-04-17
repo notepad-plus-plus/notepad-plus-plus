@@ -93,6 +93,16 @@ public:
 	// create an empty placeholder for a missing file when loading session
 	BufferID newPlaceholderDocument(const wchar_t * missingFilename, int whichOne, const wchar_t* userCreatedSessionName);
 
+	// create a lazy-session placeholder buffer bound to an existing on-disk file.
+	// The buffer is inserted into view with the real full path set, empty Scintilla
+	// document, and _isLazyPending=true. File content is loaded later via
+	// resolveLazyBuffer() (on tab activation or from the background queue).
+	BufferID newLazyDocument(const wchar_t* filename, int whichOne, int encoding);
+
+	// Load the on-disk content for a lazy-pending buffer. Returns true on success.
+	// After this call, the buffer behaves like a normally-opened file.
+	bool resolveLazyBuffer(BufferID id);
+
 	//create Buffer from existing Scintilla, used from new Scintillas.
 	BufferID bufferFromDocument(Document doc, bool isMainEditZone);
 
@@ -205,6 +215,11 @@ public:
 
 	bool isInaccessible() const { return _isInaccessible; }
 	void setInaccessibility(bool val) { _isInaccessible = val; }
+
+	// Lazy session load: buffer is a placeholder awaiting file content.
+	// Content is loaded on first tab activation or by the background load queue.
+	bool isLazyPending() const { return _isLazyPending; }
+	void setLazyPending(bool val) { _isLazyPending = val; }
 
 	bool getFileReadOnly() const { return _isFileReadOnly; }
 
@@ -485,4 +500,6 @@ private:
 
 	bool _isRTL = false;
 	bool _isPinned = false;
+
+	bool _isLazyPending = false; // true for lazy-session placeholder buffers awaiting file load
 };

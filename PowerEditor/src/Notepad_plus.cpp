@@ -5073,6 +5073,17 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne, bool forceApplyHili
 	}
 
 	Buffer * pBuf = MainFileManager.getBufferByID(id);
+
+	// If this buffer was deferred by lazy-session-load, read its file now
+	// (synchronously) before we let Scintilla paint it. The background queue
+	// would eventually have done the same, but the user is looking at this tab
+	// right now, so jump the queue.
+	if (pBuf && pBuf->isLazyPending())
+	{
+		MainFileManager.resolveLazyBuffer(id);
+		dropLazyLoadFromQueue(id);
+	}
+
 	bool reload = pBuf->getNeedReload();
 	if (reload)
 	{
@@ -5111,6 +5122,60 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne, bool forceApplyHili
 	notifyBufferActivated(id, whichOne);
 
 	return true;
+}
+
+void Notepad_plus::queueLazyLoad(BufferID id)
+{
+	// No-op guard: the same buffer could be queued twice if a malformed session
+	// duplicated a path. Deduping here is cheaper than doing it at pump time.
+	for (BufferID existing : _lazyLoadQueue)
+	{
+		if (existing == id)
+			return;
+	}
+	_lazyLoadQueue.push_back(id);
+}
+
+void Notepad_plus::dropLazyLoadFromQueue(BufferID id)
+{
+	for (auto it = _lazyLoadQueue.begin(); it != _lazyLoadQueue.end(); ++it)
+	{
+		if (*it == id)
+		{
+			_lazyLoadQueue.erase(it);
+			return;
+		}
+	}
+}
+
+void Notepad_plus::kickLazyLoadQueue()
+{
+	// PostMessage returns control to the message loop immediately, which is
+	// what keeps the UI responsive on a cold start with many session files.
+	if (_lazyLoadPumpArmed || _lazyLoadQueue.empty())
+		return;
+	_lazyLoadPumpArmed = true;
+	::PostMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_LAZYLOADNEXT, 0, 0);
+}
+
+void Notepad_plus::processLazyLoadQueueStep()
+{
+	_lazyLoadPumpArmed = false;
+
+	if (_lazyLoadQueue.empty())
+		return;
+
+	BufferID id = _lazyLoadQueue.front();
+	_lazyLoadQueue.pop_front();
+
+	Buffer* buf = MainFileManager.getBufferByID(id);
+	if (buf && buf->isLazyPending())
+		MainFileManager.resolveLazyBuffer(id);
+
+	// Re-arm until the queue is empty. One load per message tick keeps the
+	// UI responsive — user input (including a tab click that fronts an entry)
+	// is handled between ticks.
+	kickLazyLoadQueue();
 }
 
 void Notepad_plus::performPostReload(int whichOne)

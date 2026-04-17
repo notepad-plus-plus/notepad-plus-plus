@@ -739,6 +739,7 @@ struct NppGUI final
 	int _isMinimizedToTray = sta_none;
 	bool _rememberLastSession = true; // remember next session boolean will be written in the settings
 	bool _keepSessionAbsentFileEntries = false;
+	bool _isLazySessionLoad = false; // When true, defer loading non-active session files; load on demand when user activates a tab, with a background queue.
 	bool _isCmdlineNosessionActivated = false; // used for if -nosession is indicated on the launch time
 	bool _isFullReadOnly = false;
 	bool _isFullReadOnlySavingForbidden = false;

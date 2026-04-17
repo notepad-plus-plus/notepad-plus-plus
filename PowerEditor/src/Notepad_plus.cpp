@@ -4754,6 +4754,49 @@ void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool dontClose)
 	}
 }
 
+void Notepad_plus::loadBufferIntoViewAt(BufferID id, int whichOne, int insertIndex)
+{
+	if (insertIndex < 0)
+	{
+		loadBufferIntoView(id, whichOne);
+		return;
+	}
+
+	DocTabView* tabToOpen = (whichOne == MAIN_VIEW) ? &_mainDocTab : &_subDocTab;
+	ScintillaEditView* viewToOpen = (whichOne == MAIN_VIEW) ? &_mainEditView : &_subEditView;
+
+	if (tabToOpen->getIndexByBuffer(id) != -1)
+		return;
+
+	// Trim the dummy "new 1" that NPP auto-creates at startup in a cold view.
+	// Mirrors the dontClose logic from loadBufferIntoView so the tab count
+	// stays right. Only relevant when there's a single untitled clean tab.
+	BufferID idToClose = BUFFER_INVALID;
+	if (tabToOpen->nbItem() == 1)
+	{
+		idToClose = tabToOpen->getBufferByIndex(0);
+		Buffer* buf = MainFileManager.getBufferByID(idToClose);
+		if (buf->isDirty() || !buf->isUntitled())
+			idToClose = BUFFER_INVALID;
+	}
+
+	MainFileManager.addBufferReference(id, viewToOpen);
+
+	if (idToClose != BUFFER_INVALID)
+	{
+		// Replace the dummy tab in place — insertIndex is effectively 0.
+		tabToOpen->setBuffer(0, id);
+		activateBuffer(id, whichOne);
+		MainFileManager.closeBuffer(idToClose, viewToOpen);
+		if (_pDocumentListPanel)
+			_pDocumentListPanel->closeItem(idToClose, whichOne);
+	}
+	else
+	{
+		tabToOpen->addBufferAt(static_cast<size_t>(insertIndex), id);
+	}
+}
+
 bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne)
 {
 	DocTabView * tabToClose = (whichOne == MAIN_VIEW) ? &_mainDocTab : &_subDocTab;
@@ -5235,6 +5278,16 @@ void Notepad_plus::processSessionInsertStep()
 			&& ab.dwFileAttributes != INVALID_FILE_ATTRIBUTES
 			&& !(ab.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY);
 
+		// Compute insertion index so tabs appear in original session order
+		// regardless of the fact that the active tab was inserted first
+		// (sync in loadSession, currently sitting at position 0 on the bar).
+		// Rule: insert entry at its session index. Because the pump processes
+		// in session order and the active tab sits in front of the cursor as
+		// we process entries before the active's session index, the tab-bar
+		// size at processing time equals `sessionIndex`, so `TCM_INSERTITEM`
+		// at that index is always valid.
+		const int insertTabIndex = static_cast<int>(entry.sessionIndex);
+
 		BufferID id = BUFFER_INVALID;
 		if (fileExists)
 		{
@@ -5242,14 +5295,16 @@ void Notepad_plus::processSessionInsertStep()
 			id = MainFileManager.newLazyDocument(
 				pFn, whichOne, entry.info._encoding,
 				hasSnapshotBackup ? entry.info._backupFilePath.c_str() : nullptr,
-				entry.info._originalFileLastModifTimestamp);
+				entry.info._originalFileLastModifTimestamp,
+				insertTabIndex);
 		}
 		else if (isSnapshotMode && backupExists)
 		{
 			id = MainFileManager.newLazyBackupDocument(
 				pFn, entry.info._backupFilePath.c_str(),
 				whichOne, entry.info._encoding,
-				entry.info._originalFileLastModifTimestamp);
+				entry.info._originalFileLastModifTimestamp,
+				insertTabIndex);
 		}
 		else
 		{

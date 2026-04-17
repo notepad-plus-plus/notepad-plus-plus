@@ -2548,7 +2548,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 		// Order-preservation is tracked as a known limitation.
 		if (lazyEnabled && !isActiveTab && (fileExistsFast || (isSnapshotMode && backupExistsFast)))
 		{
-			_pendingSessionInserts.push_back({session._mainViewFiles[i], MAIN_VIEW, false});
+			_pendingSessionInserts.push_back({session._mainViewFiles[i], MAIN_VIEW, i, false});
 			++__trace_lazy;
 			++i;
 			continue;
@@ -2742,10 +2742,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 		const bool subIsActiveTab = lazyEnabled && (k == session._activeSubIndex) && session._activeView == SUB_VIEW;
 		if (lazyEnabled && !subIsActiveTab)
 		{
-			// Defer to background pump like main view. Safe because sub view
-			// is small and active tab (if in sub view) is handled sync by the
-			// branch above.
-			_pendingSessionInserts.push_back({session._subViewFiles[k], SUB_VIEW});
+			_pendingSessionInserts.push_back({session._subViewFiles[k], SUB_VIEW, k, false});
 			++k;
 			continue;
 		}

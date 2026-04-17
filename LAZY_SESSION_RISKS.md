@@ -11,30 +11,42 @@ Legend: **UNVERIFIED** / **NOT A BUG** / **CONFIRMED** / **FIXED** / **TESTED**
 ---
 
 ## R1. Tab ordering broken for active tab
-**Status:** CONFIRMED — accepted tradeoff, documented
+**Status:** FIXED + TESTED
 
-**Verified:** Session had active `new 3` at index 341/342. After startup
-active appears at tab-bar index 0 instead of 341. Tab-bar order is
-`[new 3, new 5, new 18, …, new 2]` instead of session's
-`[new 5, new 18, …, new 2, new 3]`.
+**Verified:** Session had active `new 3` at index 341/342. Initial
+implementation placed active at tab-bar index 0 and pushed all other
+tabs to indices 1..341, breaking the session order.
 
-**Attempted fix — sync insert all:** makes loadSession take ~2.6 s
-(window stays blank the whole time). Regresses user perception far more
-than the ordering issue.
+**Fix:** use `TCM_INSERTITEM`'s explicit index argument. The pump
+processes session entries in session order and inserts each one at
+its own session index. Because the active tab is already at tab-bar
+index 0 and every prior session entry lands at its own (smaller)
+session index, `TCM_INSERTITEM` at index `sessionIndex` is always
+valid (`≤ current nbItem`). The active tab drifts rightward as
+smaller-indexed entries are inserted before it, and finally lands at
+its original session index.
 
-**Attempted fix — pump active in order:** makes user wait
-(activeIndex × tickInterval) ms for their active content. For active at
-index 341 of 342 that is ~2 s of blank content — same UX penalty as
-sync insert.
+Worked example for `active_idx=A=341, N=342`:
+- t=0: `[active]` at index 0
+- t=1 (pump processes session_0): insert at 0 → `[session_0, active]`
+- t=2 (session_1): insert at 1 → `[session_0, session_1, active]`
+- …
+- t=341 (session_340, i.e. the last non-active): insert at 340 →
+  `[session_0, session_1, …, session_340, active]`
 
-**Decision:** keep option (b) — active tab sync-inserted at tab-bar
-index 0, others fill in session order behind. Document as known
-limitation in the PR. Windows dialog / Ctrl+Tab navigation still work
-(they use buffer order, not strict visual order).
+Implementation:
+- `DocTabView::addBufferAt(index, buffer)` — TCM_INSERTITEM with
+  explicit index, picks the correct icon from buffer state.
+- `Notepad_plus::loadBufferIntoViewAt(id, whichOne, insertIndex)` —
+  tab-at-index wrapper that still handles the dummy-new-1 trim case.
+- `newLazyDocument` / `newLazyBackupDocument` take an
+  `insertTabIndex = -1` default (keeps existing append behaviour
+  intact); the pump passes the session index.
+- `PendingSessionInsert` gains `sessionIndex`.
 
-A proper fix (reorder after pump drains, or insert at arbitrary index)
-requires either a tab-control reorder API we do not currently use, or a
-tab-bar redesign. Out of scope for the initial PR.
+**Test:** 342-tab session → load → drain → close. Compared
+session.xml before vs after: 0 position differences across all 342
+entries. Active `new 3` stayed at session index 341.
 
 ---
 

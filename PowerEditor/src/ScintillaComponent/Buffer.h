@@ -100,13 +100,13 @@ public:
 	// If backupPath is non-null and refers to an existing snapshot backup file,
 	// the buffer is additionally marked dirty and will load its content from
 	// the backup (preserving unsaved edits) instead of the original file.
-	BufferID newLazyDocument(const wchar_t* filename, int whichOne, int encoding, const wchar_t* backupPath = nullptr, FILETIME originalTimestamp = {});
+	BufferID newLazyDocument(const wchar_t* filename, int whichOne, int encoding, const wchar_t* backupPath = nullptr, FILETIME originalTimestamp = {}, int insertTabIndex = -1);
 
 	// create a lazy-session placeholder for an UNTITLED tab whose content lives in
 	// the snapshot backup directory (produced by isSnapshotMode). The tab displays
 	// displayName (e.g. "new 12"), stays dirty, and lazily loads from backupPath
 	// on first activation.
-	BufferID newLazyBackupDocument(const wchar_t* displayName, const wchar_t* backupPath, int whichOne, int encoding, FILETIME originalTimestamp);
+	BufferID newLazyBackupDocument(const wchar_t* displayName, const wchar_t* backupPath, int whichOne, int encoding, FILETIME originalTimestamp, int insertTabIndex = -1);
 
 	// Load the on-disk content for a lazy-pending buffer. Returns true on success.
 	// After this call, the buffer behaves like a normally-opened file.

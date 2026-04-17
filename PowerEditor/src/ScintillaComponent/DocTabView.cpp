@@ -115,6 +115,46 @@ void DocTabView::addBuffer(BufferID buffer)
 	}
 }
 
+void DocTabView::addBufferAt(size_t index, BufferID buffer)
+{
+	if (buffer == BUFFER_INVALID)
+		return;
+	if (getIndexByBuffer(buffer) != -1)
+		return;
+	if (index > _nbItem)
+		index = _nbItem; // safety — TCM_INSERTITEM would ignore out-of-range
+
+	const Buffer* buf = MainFileManager.getBufferByID(buffer);
+	TCITEM tie{};
+	tie.mask = TCIF_TEXT | TCIF_IMAGE | TCIF_PARAM;
+
+	int iImage = -1;
+	if (_hasImgLst)
+	{
+		iImage = 0;
+		if (buf->isDirty())
+			iImage = UNSAVED_IMG_INDEX;
+		if (buf->isMonitoringOn())
+			iImage = MONITORING_IMG_INDEX;
+		else if (buf->getFileReadOnly())
+			iImage = REDONLYSYS_IMG_INDEX;
+		else if (buf->getUserReadOnly())
+			iImage = REDONLY_IMG_INDEX;
+	}
+	tie.iImage = iImage;
+	tie.pszText = const_cast<wchar_t*>(buf->getCompactFileName());
+	tie.lParam = reinterpret_cast<LPARAM>(buffer);
+
+	::SendMessage(_hSelf, TCM_INSERTITEM, index, reinterpret_cast<LPARAM>(&tie));
+	++_nbItem;
+
+	if (_batchInsertDepth == 0)
+	{
+		bufferUpdated(buf, BufferChangeMask);
+		::SendMessage(_hParent, WM_SIZE, 0, 0);
+	}
+}
+
 void DocTabView::beginBatchInsert()
 {
 	if (_batchInsertDepth++ == 0 && _hSelf)

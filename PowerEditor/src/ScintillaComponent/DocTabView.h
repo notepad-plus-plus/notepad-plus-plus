@@ -48,6 +48,11 @@ public:
 
 	void addBuffer(BufferID buffer);
 
+	// Insert at an explicit tab-control index. Used by the lazy-session
+	// pump to restore the original session tab order even though the
+	// active tab was inserted first. `index` must be <= current nbItem().
+	void addBufferAt(size_t index, BufferID buffer);
+
 	// Batch-insert mode for session restore: while a batch is open, addBuffer
 	// skips the per-tab WM_SIZE relayout (which is O(N) → quadratic over 300+
 	// tabs) and suspends tab-control redraw. endBatchInsert() flushes once.

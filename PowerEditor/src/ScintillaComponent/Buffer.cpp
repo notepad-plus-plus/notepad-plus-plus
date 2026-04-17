@@ -1783,7 +1783,7 @@ BufferID FileManager::newPlaceholderDocument(const wchar_t* missingFilename, int
 	return buf;
 }
 
-BufferID FileManager::newLazyDocument(const wchar_t* filename, int whichOne, int encoding, const wchar_t* backupPath, FILETIME originalTimestamp)
+BufferID FileManager::newLazyDocument(const wchar_t* filename, int whichOne, int encoding, const wchar_t* backupPath, FILETIME originalTimestamp, int insertTabIndex)
 {
 	if (!filename || !*filename)
 		return BUFFER_INVALID;
@@ -1835,11 +1835,14 @@ BufferID FileManager::newLazyDocument(const wchar_t* filename, int whichOne, int
 	++_nbBufs;
 	++_nextBufferID;
 
-	_pNotepadPlus->loadBufferIntoView(id, whichOne);
+	if (insertTabIndex >= 0)
+		_pNotepadPlus->loadBufferIntoViewAt(id, whichOne, insertTabIndex);
+	else
+		_pNotepadPlus->loadBufferIntoView(id, whichOne);
 	return id;
 }
 
-BufferID FileManager::newLazyBackupDocument(const wchar_t* displayName, const wchar_t* backupPath, int whichOne, int encoding, FILETIME originalTimestamp)
+BufferID FileManager::newLazyBackupDocument(const wchar_t* displayName, const wchar_t* backupPath, int whichOne, int encoding, FILETIME originalTimestamp, int insertTabIndex)
 {
 	if (!displayName || !*displayName || !backupPath || !*backupPath)
 		return BUFFER_INVALID;
@@ -1869,7 +1872,10 @@ BufferID FileManager::newLazyBackupDocument(const wchar_t* displayName, const wc
 	++_nbBufs;
 	++_nextBufferID;
 
-	_pNotepadPlus->loadBufferIntoView(id, whichOne);
+	if (insertTabIndex >= 0)
+		_pNotepadPlus->loadBufferIntoViewAt(id, whichOne, insertTabIndex);
+	else
+		_pNotepadPlus->loadBufferIntoView(id, whichOne);
 	return id;
 }
 

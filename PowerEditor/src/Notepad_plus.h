@@ -300,8 +300,11 @@ private:
 	struct PendingSessionInsert
 	{
 		sessionFileInfo info;
-		int whichOne; // MAIN_VIEW or SUB_VIEW
-		bool isActive = false; // when processed, the pump resolves content + activates
+		int whichOne;        // MAIN_VIEW or SUB_VIEW
+		size_t sessionIndex; // position in session._mainViewFiles / _subViewFiles;
+		                     // used to insert each tab at its original tab-bar slot so
+		                     // the active-inserted-first hack does not reorder tabs
+		bool isActive = false; // reserved; currently active is inserted sync by loadSession
 	};
 	std::deque<PendingSessionInsert> _pendingSessionInserts;
 	bool _sessionInsertPumpArmed = false;
@@ -488,6 +491,11 @@ private:
 	void docOpenInNewInstance(FileTransferMode mode, int x = 0, int y = 0);
 
 	void loadBufferIntoView(BufferID id, int whichOne, bool dontClose = false);		//Doesn't _activate_ the buffer
+
+	// Insert the buffer's tab at a specific tab-bar index instead of appending.
+	// Used by the lazy-session pump to restore exact session tab order. If
+	// insertIndex < 0 the behaviour is identical to loadBufferIntoView.
+	void loadBufferIntoViewAt(BufferID id, int whichOne, int insertIndex);
 	bool removeBufferFromView(BufferID id, int whichOne);	//Activates alternative of possible, or creates clean document if not clean already
 
 	bool activateBuffer(BufferID id, int whichOne, bool forceApplyHilite = false);			//activate buffer in that view if found

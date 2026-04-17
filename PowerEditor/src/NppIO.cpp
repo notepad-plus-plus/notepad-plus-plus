@@ -2452,15 +2452,20 @@ void Notepad_plus::loadLastSession()
 	_isFolding = false;
 }
 
+// Flip to 1 to enable the lazy-session diagnostic log at
+// %TEMP%\npp_lazy_trace.log. Kept in-tree but off by default so the
+// measurement harness is readily available for regression work.
+#define NPP_LAZY_SESSION_TRACE 0
+
 bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wchar_t* userCreatedSessionName)
 {
-	// TEMP INSTRUMENTATION — remove before merge. Logs loadSession timing to
-	// %TEMP%\npp_lazy_trace.log so we can compare lazy ON vs OFF honestly.
+#if NPP_LAZY_SESSION_TRACE
 	const LARGE_INTEGER __trace_t0 = []() { LARGE_INTEGER t; QueryPerformanceCounter(&t); return t; }();
 	LARGE_INTEGER __trace_freq; QueryPerformanceFrequency(&__trace_freq);
 	int __trace_lazy = 0, __trace_eager = 0, __trace_placeholder = 0, __trace_skipped = 0, __trace_backup_eager = 0;
 	LARGE_INTEGER __trace_main_end = {}, __trace_sub_end = {};
 	int64_t __trace_ticks_create = 0, __trace_ticks_apply = 0;
+#endif
 
 	NppParameters& nppParam = NppParameters::getInstance();
 	const NppGUI& nppGUI = nppParam.getNppGUI();
@@ -2549,7 +2554,9 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 		if (lazyEnabled && !isActiveTab && (fileExistsFast || (isSnapshotMode && backupExistsFast)))
 		{
 			_pendingSessionInserts.push_back({session._mainViewFiles[i], MAIN_VIEW, i, false});
+#if NPP_LAZY_SESSION_TRACE
 			++__trace_lazy;
+#endif
 			++i;
 			continue;
 		}
@@ -2558,26 +2565,36 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 		{
 			if (isSnapshotMode && backupExistsFast) {
 				lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding, session._mainViewFiles[i]._backupFilePath.c_str(), session._mainViewFiles[i]._originalFileLastModifTimestamp);
+#if NPP_LAZY_SESSION_TRACE
 				++__trace_eager;
+#endif
 			}
 			else {
 				lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding);
+#if NPP_LAZY_SESSION_TRACE
 				++__trace_eager;
+#endif
 			}
 		}
 		else if (isSnapshotMode && backupExistsFast)
 		{
 			lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding, session._mainViewFiles[i]._backupFilePath.c_str(), session._mainViewFiles[i]._originalFileLastModifTimestamp);
+#if NPP_LAZY_SESSION_TRACE
 			++__trace_backup_eager;
+#endif
 		}
 		else
 		{
 			BufferID foundBufID = MainFileManager.getBufferFromName(pFn);
 			if (foundBufID == BUFFER_INVALID) {
 				lastOpened = nppGUI._keepSessionAbsentFileEntries ? MainFileManager.newPlaceholderDocument(pFn, MAIN_VIEW, userCreatedSessionName) : BUFFER_INVALID;
+#if NPP_LAZY_SESSION_TRACE
 				++__trace_placeholder;
+#endif
 			}
+#if NPP_LAZY_SESSION_TRACE
 			else ++__trace_skipped;
+#endif
 		}
 #ifndef	_WIN64
 		if (isWow64Off)
@@ -2586,7 +2603,9 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			isWow64Off = false;
 		}
 #endif
+#if NPP_LAZY_SESSION_TRACE
 		LARGE_INTEGER __ap0; QueryPerformanceCounter(&__ap0);
+#endif
 		if (lastOpened != BUFFER_INVALID)
 		{
 			showView(MAIN_VIEW);
@@ -2684,7 +2703,9 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			session._mainViewFiles.erase(posIt);
 			allSessionFilesLoaded = false;
 		}
+#if NPP_LAZY_SESSION_TRACE
 		{ LARGE_INTEGER __ap1; QueryPerformanceCounter(&__ap1); __trace_ticks_apply += (__ap1.QuadPart - __ap0.QuadPart); }
+#endif
 
 		// Progressive visual update: every 20 tabs, temporarily lift the batch
 		// freeze, paint, freeze again. The user sees tabs fill in groups instead
@@ -2707,7 +2728,9 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			}
 		}
 	}
+#if NPP_LAZY_SESSION_TRACE
 	QueryPerformanceCounter(&__trace_main_end);
+#endif
 
 	if (mainIndex2Update != -1)
 	{
@@ -2920,7 +2943,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 		launchFileBrowser(session._fileBrowserRoots, session._fileBrowserSelectedItem, true);
 	}
 
-	// TEMP INSTRUMENTATION — write elapsed ms + counts to %TEMP%\npp_lazy_trace.log
+#if NPP_LAZY_SESSION_TRACE
 	{
 		LARGE_INTEGER __trace_t1; QueryPerformanceCounter(&__trace_t1);
 		double __trace_ms = (double)(__trace_t1.QuadPart - __trace_t0.QuadPart) * 1000.0 / (double)__trace_freq.QuadPart;
@@ -2940,6 +2963,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			fclose(__trace_f);
 		}
 	}
+#endif
 
 	// Especially File status auto-detection set on "Enable for all opened files":  nppGUI._fileAutoDetection & cdEnabledOld
 	// when "Remember inaccessible files from past session" is enabled:             nppGUI._keepSessionAbsentFileEntries

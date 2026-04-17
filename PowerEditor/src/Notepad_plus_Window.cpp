@@ -177,7 +177,11 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 	if (cmdLineParams->_alwaysOnTop)
 		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_ALWAYSONTOP, 0);
 
-	// TEMP timeline instrumentation — writes event timestamps to %TEMP%\npp_startup.log
+	// Flip to 1 to log the main init() timeline to %TEMP%\npp_startup.log.
+	// Used to verify lazy-session-load timings and paint / responsiveness
+	// milestones (window shown, loadLastSession done, NPPN_READY, etc).
+#define NPP_STARTUP_TRACE 0
+#if NPP_STARTUP_TRACE
 	auto __traceEvent = [](const wchar_t* name) {
 		wchar_t __path[MAX_PATH] = {};
 		GetTempPathW(MAX_PATH, __path);
@@ -193,6 +197,9 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 			fclose(__f);
 		}
 	};
+#else
+	auto __traceEvent = [](const wchar_t*) {};
+#endif
 	__traceEvent(L"before ShowWindow");
 
 	// Show the main window BEFORE we restore the session, so the user sees

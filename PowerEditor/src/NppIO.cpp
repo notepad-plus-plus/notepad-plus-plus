@@ -2475,11 +2475,11 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 
 	int mainIndex2Update = -1;
 
-	// Batch-insert guard: suppress per-tab WM_SIZE relayout and tab-control
-	// redraws while we fill both DocTabViews. Without this, each of the 300+
-	// addBuffer() calls forces a full parent relayout — quadratic.
-	_mainDocTab.beginBatchInsert();
-	_subDocTab.beginBatchInsert();
+	// Batch-insert guards (RAII): suppress per-tab WM_SIZE relayout and
+	// tab-control redraws while we fill both DocTabViews. RAII ensures the
+	// tab bar is un-frozen even if an unexpected exception escapes the loop.
+	DocTabView::BatchInsertGuard __mainBatch(&_mainDocTab);
+	DocTabView::BatchInsertGuard __subBatch(&_subDocTab);
 
 	// Lazy session load: defer content load for non-active files. The per-file
 	// decision below still eagerly loads any file that has a pending snapshot
@@ -2869,9 +2869,9 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 		_isFolding = false;
 	}
 
-	// Flush the deferred relayout + redraw from the batch-insert guard. This
-	// must happen BEFORE activateBuffer below, so the tab bar is sized by the
-	// time the active tab is switched in.
+	// Flush the batch guards BEFORE activateBuffer below so the tab bar is
+	// fully sized by the time the active tab is switched in. RAII dtors
+	// would fire at scope end (after activateBuffer) — too late.
 	_mainDocTab.endBatchInsert();
 	_subDocTab.endBatchInsert();
 

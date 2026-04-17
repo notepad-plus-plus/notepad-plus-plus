@@ -1078,12 +1078,21 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			size_t nbDocPrimary = _mainDocTab.nbItem();
 			size_t nbDocSecond = _subDocTab.nbItem();
+			// Include any not-yet-materialised lazy session entries so plugins
+			// that count buffers at NPPN_READY see the true total. Per-view
+			// counts split by whichOne.
+			size_t pendingPrimary = 0, pendingSecond = 0;
+			for (const auto& e : _pendingSessionInserts)
+			{
+				if (e.whichOne == MAIN_VIEW) ++pendingPrimary;
+				else ++pendingSecond;
+			}
 			if (lParam == ALL_OPEN_FILES)
-				return nbDocPrimary + nbDocSecond;
+				return nbDocPrimary + nbDocSecond + pendingPrimary + pendingSecond;
 			else if (lParam == PRIMARY_VIEW)
-				return nbDocPrimary;
+				return nbDocPrimary + pendingPrimary;
 			else if (lParam == SECOND_VIEW)
-				return nbDocSecond;
+				return nbDocSecond + pendingSecond;
 			else
 				return 0;
 		}
@@ -1107,6 +1116,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					Buffer * buf = MainFileManager.getBufferByID(id);
 					lstrcpy(fileNames[j++], buf->getFullPathName());
 				}
+				// Include pending lazy session entries for MAIN_VIEW so plugins
+				// at NPPN_READY see the complete file list.
+				for (const auto& e : _pendingSessionInserts)
+				{
+					if (j >= nbFileNames) break;
+					if (e.whichOne == MAIN_VIEW)
+						lstrcpy(fileNames[j++], e.info._fileName.c_str());
+				}
 			}
 
 			if (message != NPPM_GETOPENFILENAMESPRIMARY_DEPRECATED)
@@ -1116,6 +1133,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					BufferID id = _subDocTab.getBufferByIndex(i);
 					Buffer * buf = MainFileManager.getBufferByID(id);
 					lstrcpy(fileNames[j++], buf->getFullPathName());
+				}
+				for (const auto& e : _pendingSessionInserts)
+				{
+					if (j >= nbFileNames) break;
+					if (e.whichOne == SUB_VIEW)
+						lstrcpy(fileNames[j++], e.info._fileName.c_str());
 				}
 			}
 			return j;

@@ -83,7 +83,21 @@ void DocTabView::addBuffer(BufferID buffer)
 
 	int index = -1;
 	if (_hasImgLst)
+	{
+		// Match the icon that bufferUpdated would set, so that inside a
+		// batch (where we skip the bufferUpdated call) lazy/dirty state is
+		// visible immediately. Without this, session-restored dirty
+		// untitled tabs looked "saved" until the user clicked them.
 		index = 0;
+		if (buf->isDirty())
+			index = UNSAVED_IMG_INDEX;
+		if (buf->isMonitoringOn())
+			index = MONITORING_IMG_INDEX;
+		else if (buf->getFileReadOnly())
+			index = REDONLYSYS_IMG_INDEX;
+		else if (buf->getUserReadOnly())
+			index = REDONLY_IMG_INDEX;
+	}
 	tie.iImage = index;
 	tie.pszText = const_cast<wchar_t*>(buf->getCompactFileName());
 	tie.lParam = reinterpret_cast<LPARAM>(buffer);

@@ -939,7 +939,12 @@ void FileManager::closeBuffer(BufferID id, const ScintillaEditView* identifier)
 
 	if (!refs) // buffer can be deallocated
 	{
-		_pscratchTilla->execute(SCI_RELEASEDOCUMENT, 0, buf->_doc);	//release for FileManager, Document is now gone
+		// Lazy-session buffers that were never activated have _doc == 0
+		// (SCI_CREATEDOCUMENT was deferred to resolveLazyBuffer). Passing
+		// NULL to SCI_RELEASEDOCUMENT would hit Scintilla's doc-table
+		// deref unguarded.
+		if (buf->_doc)
+			_pscratchTilla->execute(SCI_RELEASEDOCUMENT, 0, buf->_doc);
 		_buffers.erase(_buffers.begin() + index);
 		delete buf;
 		_nbBufs--;

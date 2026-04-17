@@ -54,6 +54,18 @@ public:
 	void beginBatchInsert();
 	void endBatchInsert();
 
+	// RAII guard — prefer this over raw begin/end so the tab bar is guaranteed
+	// to be un-frozen even if an exception escapes the caller.
+	class BatchInsertGuard
+	{
+		DocTabView* _v;
+	public:
+		explicit BatchInsertGuard(DocTabView* v) : _v(v) { if (_v) _v->beginBatchInsert(); }
+		~BatchInsertGuard() { if (_v) _v->endBatchInsert(); }
+		BatchInsertGuard(const BatchInsertGuard&) = delete;
+		BatchInsertGuard& operator=(const BatchInsertGuard&) = delete;
+	};
+
 	void closeBuffer(BufferID buffer);
 	void bufferUpdated(const Buffer* buffer, int mask);
 

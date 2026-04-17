@@ -2248,6 +2248,10 @@ bool Notepad_plus::findInOpenedFiles()
 		for (size_t i = 0, len = _mainDocTab.nbItem(); i < len ; ++i)
 		{
 			pBuf = MainFileManager.getBufferByID(_mainDocTab.getBufferByIndex(i));
+			// Lazy buffer: materialise before searching. User explicitly asked
+			// for "find in all open files" so loading the content is expected.
+			if (pBuf->isLazyPending())
+				MainFileManager.resolveLazyBuffer(pBuf->getID());
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
 
 			setCodePageForInvisibleView(pBuf);
@@ -2279,6 +2283,8 @@ bool Notepad_plus::findInOpenedFiles()
 			{
 				continue;  // clone was already searched in main; skip re-searching in sub
 			}
+			if (pBuf->isLazyPending())
+				MainFileManager.resolveLazyBuffer(pBuf->getID());
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
 
 			setCodePageForInvisibleView(pBuf);

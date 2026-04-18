@@ -386,6 +386,130 @@ epoch because we skipped updateTimeStamp in ctor.
 
 ---
 
+## R15. External-change detection for lazy-loaded tabs — full analysis
+**Status:** DOCUMENTED — known behavioural change, candidate for a
+follow-up PR. See scenario-by-scenario analysis below and R10 for the
+related shutdown-time drain.
+
+### Stock Notepad++ behaviour (eager restore)
+At startup with eager restore, each buffer gets:
+1. `_timeStamp` set from `session._originalFileLastModifTimestamp`
+2. `checkFilesystemChanges(false)` runs, which calls
+   `checkFileState()` on every buffer, compares that stored stamp
+   against the current on-disk mtime.
+3. If they differ → buffer status flips to `DOC_MODIFIED` → the
+   `notifyBufferChanged` handler raises the "This file has been
+   modified by another program. Do you want to reload it?" dialog.
+
+So a user who modifies a file externally between NPP shutdown and
+NPP startup is informed on launch, for every such file, with the
+option to reload or keep their session copy.
+
+### Lazy restore — what happens now
+- `checkFilesystemChanges(false)` skips lazy-pending buffers (see
+  R10). It must, otherwise it re-introduces the 300+ thread-spawning
+  stat calls on the startup hot path.
+- Worker thread calls `ReadFile` on the current on-disk content and
+  posts it to the main thread.
+- `FileManager::applyLazyContent` for a non-backup buffer then runs
+  `updateTimeStamp()` (records CURRENT disk mtime) followed by
+  `checkFileState()` (compares stored-vs-disk — they match because
+  updateTimeStamp just ran, so status stays `DOC_REGULAR`) and fires
+  a `BufferChangeMask & ~BufferChangeStatus` notification.
+
+**Net effect:** the user is no longer prompted about externally
+changed files. The lazy path silently applies the latest disk
+content, and whatever was stored in session.xml as
+`_originalFileLastModifTimestamp` is never used as a comparison
+point.
+
+### Scenario-by-scenario
+
+#### S1. File changed externally, user had no local edits, snapshot off
+- Eager: "reload externally modified" prompt at startup.
+- Lazy: buffer shows current disk content. No prompt.
+- **Impact:** user loses awareness that a teammate / script / other
+  editor touched the file. Usually benign — the user probably wants
+  the latest version anyway — but surprising for some workflows.
+
+#### S2. File changed externally, user HAD snapshot-unsaved edits
+- Session entry has `_backupFilePath` set; worker reads the **backup**
+  file (user's pending edits). Original file on disk is NOT read by
+  the worker.
+- On activation / save, user's pending edits would overwrite the
+  externally changed version if they save. **Silent edit conflict.**
+- Eager: user would be prompted and could compare.
+- **Impact:** real data-loss risk in a collaborative scenario. Rare
+  but worth surfacing.
+
+#### S3. File deleted externally between shutdown and startup
+- Worker `ReadFile` fails → empty bytes → worker discards.
+- Buffer stays lazy. First activation → `resolveLazyBuffer` sees
+  `doesFileExist == false` → `setInaccessibility(true)`.
+- Visually: tab appears, clicking shows inaccessible indicator.
+- Eager: same end state but entry may have been dropped from
+  session.xml or shown via placeholder dialog at startup.
+
+#### S4. File renamed externally
+- Same as S3 from NPP's perspective (old path gone).
+
+#### S5. Worker is mid-read and user clicks the tab
+- Main's `activateBuffer` hook calls `resolveLazyBuffer` sync →
+  reloadBuffer → loadFileData with current content → updateTimeStamp
+  sets buffer stamp to current disk mtime → no prompt.
+- Same silent-apply pattern as S1.
+
+#### S6. File changes AFTER the worker applied it
+- Post-apply the buffer has current content + current timestamp.
+- Stock file-monitoring machinery (if enabled) detects the next
+  change and prompts normally.
+- **No regression** — works exactly like eager after apply.
+
+#### S7. User types in a tab before worker delivery
+- Cannot happen: typing requires the tab to be active, activation
+  forces `resolveLazyBuffer` sync before the edit surface is ready.
+
+### Options considered for a proper fix
+
+**Option A — Silent informational notification**
+After worker apply, if the read timestamp differs from
+`_originalFileLastModifTimestamp`, post a one-shot notification
+bar ("N files were modified externally since your last session")
+with a button to list them. Less intrusive than a per-file modal.
+
+**Option B — Preserve session timestamp, let stock flow prompt**
+Keep `_timeStamp = session._originalFileLastModifTimestamp` instead
+of `updateTimeStamp()` to current mtime. Stock `checkFileState`
+would then see a mismatch and fire `DOC_MODIFIED` → the existing
+prompt pops. Drawback: the prompt says "reload from disk" even
+though the on-disk version is already in the buffer, which is
+confusing to users.
+
+**Option C — Per-tab "externally-changed" badge**
+New Buffer flag `_wasExternallyChangedDuringSession`, set in
+`applyLazyContent` when the comparison differs. Tab icon gets a
+subtle marker; tooltip explains. No modal interruption.
+
+### Current decision: ACCEPTED / DOCUMENTED
+
+For this PR we accept the semantic shift — external changes before
+NPP launch are silently applied for non-backup lazy tabs. Reasoning:
+
+- On a 300+ tab session the stock behaviour can be a prompt blizzard
+  at launch. Several users on the Notepad++ tracker have asked to
+  suppress it.
+- The user never loses data for S1 / S5 — the current disk content
+  is what they get.
+- S2 (backup + external change) is real, but very rare — it requires
+  both unsaved edits AND someone else modifying the file between
+  your shutdown and restart. Flag as known limitation.
+- S3 / S4 (deleted / renamed) are handled identically in shape
+  (buffer becomes inaccessible on activation); only the time at
+  which it surfaces differs.
+- The correct long-term fix is Option A or C, which needs UX input
+  from Notepad++ maintainers (notification bar vs tab badge vs
+  prompt-with-option-to-suppress). Out of scope for the initial PR.
+
 ## R10. External file changes not detected for lazy tabs
 **Status:** ACCEPTED — semantics shift but not a regression
 

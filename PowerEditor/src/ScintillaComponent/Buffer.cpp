@@ -1933,8 +1933,21 @@ bool FileManager::applyLazyContent(BufferID id, const char* bytes, size_t nbByte
 
 	if (fromBackup)
 	{
-		// Backup-restore: content IS the user's unsaved edits; keep dirty.
+		// Snapshot-restore: content IS the user's unsaved edits. Keep dirty
+		// and leave _timeStamp at session's original mtime of the *original*
+		// file (not the backup) so that if the original has been changed on
+		// disk since last NPP session, checkFileState catches it and raises
+		// the stock reload prompt. This matches eager snapshot restore
+		// (R15 S2): user is warned; choosing "reload" discards their
+		// backup edits in favour of the new disk content, choosing "no"
+		// marks the buffer unsync and keeps the edits.
 		buf->setDirty(true);
+
+		// Skip checkFileState when the original doesn't exist on disk —
+		// those are untitled-tab backups (filename like "new 12") where
+		// there is no original file to compare against.
+		if (doesFileExist(buf->getFullPathName()))
+			buf->checkFileState();
 	}
 	else
 	{
@@ -1945,15 +1958,12 @@ bool FileManager::applyLazyContent(BufferID id, const char* bytes, size_t nbByte
 
 		buf->_isFromNetwork = PathIsNetworkPath(buf->getFullPathName());
 
-		// IMPORTANT — external-change detection (R15):
-		// Deliberately DO NOT call updateTimeStamp() here. Leaving the
-		// stored _timeStamp equal to session's _originalFileLastModifTimestamp
-		// is what lets checkFileState detect that the file was modified
-		// externally between NPP shutdown and this moment. When a mismatch
-		// is found, checkFileState sets DOC_MODIFIED and fires the
-		// BufferChangeStatus notification, which routes through the stock
-		// "reload externally modified?" prompt (or the auto-update path
-		// if the user configured it) — exactly the UX of eager restore.
+		// External-change detection (R15 S1): keep buf->_timeStamp =
+		// session's original mtime. If the file was touched externally
+		// since that snapshot, checkFileState sets DOC_MODIFIED and the
+		// stock "reload externally modified?" prompt fires — same UX as
+		// eager restore. The user's auto-update preference is honoured
+		// automatically because we route through the same code path.
 		buf->checkFileState();
 	}
 
@@ -2030,24 +2040,21 @@ bool FileManager::resolveLazyBuffer(BufferID id)
 			return false;
 		}
 		setLoadedBufferEncodingAndEol(buf, unicodeConvertor, fmt._encoding, fmt._eolFormat);
-		// Stamp the buffer's known-file-time with the ORIGINAL file's current
-		// timestamp if it still exists. Without this the next checkFileState()
-		// call (e.g. on tab activation) will see a mismatch and pop the
-		// "file was modified externally" dialog for every backup-restored tab.
-		if (doesFileExist(buf->getFullPathName()))
-		{
-			WIN32_FILE_ATTRIBUTE_DATA a{};
-			if (getFileAttributesExWithTimeout(buf->getFullPathName(), &a) && a.dwFileAttributes != INVALID_FILE_ATTRIBUTES)
-				buf->_timeStamp = a.ftLastWriteTime;
-		}
-		// The whole point of backup-restore is that this content isn't on disk —
-		// it's a pending unsaved edit. Keep it dirty.
+
+		// Snapshot-restore: content IS the user's unsaved edits. Keep dirty.
+		// IMPORTANT — do NOT overwrite _timeStamp with the current disk
+		// mtime: it must remain equal to session's original mtime so that
+		// checkFileState can detect if the *original* file was changed
+		// externally since last NPP session (R15 S2). If the original has
+		// since moved on disk, DOC_MODIFIED fires and the user is prompted
+		// — exactly as eager snapshot restore behaves.
 		buf->setDirty(true);
-		// Fire a single omnibus notification AFTER the buffer state is final,
-		// so DocTabView/EditView/DocumentListPanel pick up the real filename,
-		// dirty marker, lang, encoding, etc. Exclude BufferChangeStatus — that
-		// bit triggers the "reload externally modified" prompt path, which is
-		// wrong for a buffer whose content we just deliberately loaded.
+		if (doesFileExist(buf->getFullPathName()))
+			buf->checkFileState();
+
+		// Omnibus notification for the remaining buffer-state changes.
+		// BufferChangeStatus is excluded because checkFileState already
+		// fired its own when it flipped status to DOC_MODIFIED (if it did).
 		beNotifiedOfBufferChange(buf, BufferChangeMask & ~BufferChangeStatus);
 		return true;
 	}

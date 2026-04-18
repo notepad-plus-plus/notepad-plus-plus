@@ -510,15 +510,24 @@ Stock NPP's auto-update preference (`cdAutoUpdate` on
 prefer silent reloads — we route through the same code so that
 preference is honoured automatically.
 
-**S2 still not fully handled.** Backup-restored buffers load their
-content from the user's snapshot backup file, which is the correct
-semantics (don't drop unsaved edits). But we do NOT currently warn
-the user that the *original* file also changed on disk while they
-were away. That requires a second-class "reload?" prompt that
-discards the backup — not symmetrical with the single-source
-eager path either. Out of scope for this PR; deferred to a
-follow-up that wires in a clearer UX (e.g. three-way conflict
-dialog).
+**S2 is now handled the same way eager does.** For a backup-restore
+buffer, `applyLazyContent` / `resolveLazyBuffer` keep
+`_timeStamp = session._originalFileLastModifTimestamp` (of the
+original file, not the backup) and call `checkFileState()`. If the
+original file on disk was changed externally between last NPP
+shutdown and now, status flips to `DOC_MODIFIED` → stock prompt
+fires. User clicks "Yes" → reload replaces backup content with new
+disk version (loses unsaved edits, matches eager). "No" → buffer
+becomes unsync, backup edits preserved. This is exactly the UX the
+eager snapshot restore path offers today — no special case in lazy.
+
+Untitled backups (filenames like `new 12` that have no original
+file on disk) skip the checkFileState call because there is nothing
+to compare against.
+
+A cleaner three-way conflict UI (show both versions side by side,
+manual merge, etc.) is still future work — but that is a stock NPP
+UX concern, not specific to the lazy-load feature.
 
 **S3 / S4** unchanged — become inaccessible on activation.
 

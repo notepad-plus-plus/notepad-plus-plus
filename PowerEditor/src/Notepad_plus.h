@@ -16,7 +16,12 @@
 
 #pragma once
 
+#include <atomic>
+#include <condition_variable>
 #include <deque>
+#include <mutex>
+#include <thread>
+#include <vector>
 #include "ScintillaEditView.h"
 #include "DocTabView.h"
 #include "SplitterContainer.h"
@@ -309,6 +314,20 @@ private:
 	std::deque<PendingSessionInsert> _pendingSessionInserts;
 	bool _sessionInsertPumpArmed = false;
 
+	// Worker-thread content pre-fetch. See startLazyLoadWorker / worker main.
+	struct LazyLoadWorkerRequest
+	{
+		BufferID id;
+		std::wstring sourcePath; // path to read bytes from (backup if present, else fullPathName)
+		bool fromBackup;         // whether sourcePath is the snapshot backup
+		int encoding;            // buffer's encoding at queue time
+	};
+	std::deque<LazyLoadWorkerRequest> _lazyLoadWorkerQueue;
+	std::mutex _lazyLoadWorkerMutex;
+	std::condition_variable _lazyLoadWorkerCv;
+	std::thread _lazyLoadWorkerThread;
+	std::atomic<bool> _lazyLoadWorkerStop{false};
+
 	AutoCompletion _autoCompleteMain;
 	AutoCompletion _autoCompleteSub; // each Scintilla has its own autoComplete
 
@@ -510,6 +529,16 @@ private:
 	void dropLazyLoadFromQueue(BufferID id);
 	void processLazyLoadQueueStep();
 	void kickLazyLoadQueue();
+
+	// Worker-thread content pre-fetch: takes BufferIDs from
+	// _lazyLoadWorkerQueue, reads file bytes off the main thread, and posts
+	// each completed read back via NPPM_INTERNAL_LAZYLOADWORKERDONE. Main
+	// thread applies the bytes to the Scintilla document on arrival.
+	void startLazyLoadWorker();
+	void stopLazyLoadWorker();
+	void lazyLoadWorkerMain();
+	void enqueueWorkerLazyLoad(BufferID id);
+	void handleLazyLoadWorkerDone(void* payload);
 
 	// Deferred session insertion: the message-pump-driven worker that
 	// materialises one pending session entry per tick, keeping the UI

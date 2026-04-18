@@ -1,6 +1,75 @@
 # Lazy Session Load — Risk Register
 
+## R14. Background content pre-fetch should never block UI thread
+**Status:** FIXED + TESTED
+
+**Goal:** when the user clicks any tab — even one deep in a 300+ tab
+session — its content must already be loaded. The original design
+only loaded on click, so a click on an un-prefetched tab stalled the
+UI for the duration of one file read.
+
+**Wrong approach tried first:** WM_TIMER-driven pump resolving one
+buffer per tick on the main thread. Each tick blocks for the duration
+of one `ReadFile` — fine for local SSD (ms) but catastrophic for
+unreachable paths (WSL offline, sleeping HDD → 15–30 s per tab).
+
+**Correct approach:** a dedicated worker thread reads file bytes off
+the main thread. Flow:
+
+1. Session-insert pump enqueues `(BufferID, path, encoding)` into a
+   thread-safe deque (`_lazyLoadWorkerQueue`, protected by
+   `_lazyLoadWorkerMutex` + `_lazyLoadWorkerCv`).
+2. Worker thread waits on the condition variable, pops a request,
+   reads file bytes, posts `NPPM_INTERNAL_LAZYLOADWORKERDONE` back to
+   the main window with a heap-allocated payload containing the
+   bytes.
+3. Main thread validates (buffer still exists, still lazy, path
+   still matches — guards against `Buffer*` pointer reuse after a
+   tab close) then calls `FileManager::applyLazyContent` to create
+   the Scintilla doc and insert the bytes.
+
+**Race-condition analysis:**
+- _Double read_ (user clicks tab while worker is reading it): main
+  syncs via `resolveLazyBuffer`, flips `_isLazyPending` off. When
+  worker payload arrives main discards it — user sees content
+  instantly, worker's work is wasted but harmless.
+- _Pointer reuse_ (tab closed → `Buffer*` freed → address reused by
+  new buffer): payload contains `sourcePath`, main compares against
+  current buffer's backup/full path, drops on mismatch.
+- _Dirty status_: backup-restore keeps `dirty=true`, regular file
+  resets. `_isLazyPending` gates the apply so user edits between
+  queue and delivery are never overwritten.
+- _Shutdown_: `stopLazyLoadWorker` sets atomic stop + notifies CV,
+  then waits only 200 ms for the thread. If the worker is stuck
+  inside `ReadFile` on an unreachable path the thread is detached —
+  OS finalises it at process exit, and the worker touches no NPP
+  state after that point (just `ReadFile` + `PostMessage` to a
+  window that's about to be destroyed; PostMessage to a dead HWND is
+  a no-op).
+- _Deadlock_: the only shared state is the queue + stop flag; both
+  locks are leaf locks held for microseconds. No cross-lock paths.
+
+**Measurement:** launch with 342-tab session, sample
+`GetProcessIoCounters` + `SendMessageTimeout(50ms)` every ~300 ms.
+Over 20 s: 57 / 59 probes were responsive (the 2 misses are at
+`t=70 ms` and `t=433 ms` before the window is even shown); thread
+count jumps from 4 to 11 (worker started); read bytes climb from 0
+to 4 MB as the worker pulls session files. The user never sees the
+wait cursor.
+
+---
+
 ## R13. Wait-cursor / "busy" state during background drain
+**Status:** SUPERSEDED BY R14
+
+Originally fixed by switching the content-load pump from
+`PostMessage` to `SetTimer`. The R14 worker-thread design removes
+the main-thread content pump entirely, so this concern no longer
+applies — the only thing that can briefly "busy" the main thread
+is applying already-read bytes to a Scintilla document, which is
+pure memory work.
+
+## R13-original. Wait-cursor / "busy" state during background drain
 **Status:** FIXED + TESTED
 
 **Verified by user:** even with init() returning in ~150 ms and the

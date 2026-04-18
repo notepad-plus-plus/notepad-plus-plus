@@ -190,6 +190,12 @@ Notepad_plus::~Notepad_plus()
 	// the destruction of its children windows' handles,
 	// its children windows' handles will be destroyed automatically!
 
+	// Signal the lazy-load worker thread to exit and wait for it to
+	// finish BEFORE anything else is torn down. The worker holds no
+	// pointers into the members being destroyed, but any in-flight
+	// PostMessage would be dispatched to a destroyed window.
+	stopLazyLoadWorker();
+
 	(NppParameters::getInstance()).destroyInstance();
 
 	delete _pTrayIco;
@@ -5211,12 +5217,210 @@ void Notepad_plus::dropLazyLoadFromQueue(BufferID id)
 
 void Notepad_plus::kickLazyLoadQueue()
 {
-	// PostMessage returns control to the message loop immediately, which is
-	// what keeps the UI responsive on a cold start with many session files.
-	if (_lazyLoadPumpArmed || _lazyLoadQueue.empty())
+	// Superseded by the worker-thread pipeline (startLazyLoadWorker +
+	// enqueueWorkerLazyLoad). Kept as a no-op so any legacy caller does
+	// not crash — the worker path replaces the in-main-thread timer pump
+	// because even a single blocking IO call during a tick freezes the
+	// UI on network / sleeping-drive paths.
+}
+
+// -----------------------------------------------------------------------
+// Worker-thread lazy content pre-fetch
+// -----------------------------------------------------------------------
+//
+// The worker thread pops a LazyLoadWorkerRequest from _lazyLoadWorkerQueue,
+// reads the file bytes (which is the only potentially-slow part) off the
+// main thread, then posts NPPM_INTERNAL_LAZYLOADWORKERDONE to the main
+// window with a heap-allocated payload. The main thread handles all
+// Scintilla operations: document creation, content insertion, encoding
+// conversion, notification fan-out. This keeps the main thread free to
+// dispatch input for the full duration of the IO.
+//
+// Thread-safety:
+//  - Only _lazyLoadWorkerQueue + _lazyLoadWorkerMutex/Cv are shared.
+//    BufferID (a Buffer*) is passed by value into the worker but the
+//    worker NEVER dereferences it. The id is treated as an opaque handle
+//    and re-validated on the main thread before any buffer state is
+//    touched (the main thread owns Buffer lifetime).
+//  - The worker holds no pointers into FileManager state, so closing
+//    a tab while the worker is reading its file can't UAF.
+//  - `std::atomic<bool> _lazyLoadWorkerStop` is the termination flag.
+//    stopLazyLoadWorker sets it, notifies the cv, and joins the thread.
+
+namespace
+{
+	// Payload posted from worker to main. Heap-allocated, deleted by
+	// handleLazyLoadWorkerDone after it applies the content.
+	struct LazyLoadWorkerDonePayload
+	{
+		BufferID id;
+		std::wstring sourcePath; // path bytes were read from; used to guard
+		                         // against Buffer* pointer reuse: if the id
+		                         // resolves to a Buffer whose current backup
+		                         // or full path does not match, it is a new
+		                         // buffer in a reused slot — drop the bytes.
+		std::vector<char> bytes;
+		int encoding;
+		bool fromBackup;
+	};
+
+	// Read an entire file into memory. Returns empty vector on any failure
+	// (missing file, permission denied, disk error). We do NOT diagnose —
+	// main thread will just leave the buffer in lazy state if the bytes
+	// never arrive; the user will hit the standard on-click error path.
+	std::vector<char> readAllBytes(const std::wstring& path)
+	{
+		std::vector<char> out;
+		HANDLE h = ::CreateFileW(path.c_str(), GENERIC_READ, FILE_SHARE_READ, nullptr,
+			OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
+		if (h == INVALID_HANDLE_VALUE)
+			return out;
+
+		LARGE_INTEGER sz{};
+		if (!::GetFileSizeEx(h, &sz) || sz.QuadPart <= 0 || sz.QuadPart > (1LL << 31))
+		{
+			::CloseHandle(h);
+			return out; // 0 bytes or >2 GB — skip, let on-click path handle it
+		}
+
+		out.resize(static_cast<size_t>(sz.QuadPart));
+		DWORD read = 0;
+		if (!::ReadFile(h, out.data(), static_cast<DWORD>(out.size()), &read, nullptr) || read != out.size())
+			out.clear();
+		::CloseHandle(h);
+		return out;
+	}
+}
+
+void Notepad_plus::startLazyLoadWorker()
+{
+	if (_lazyLoadWorkerThread.joinable())
+		return; // already running
+	_lazyLoadWorkerStop.store(false);
+	_lazyLoadWorkerThread = std::thread(&Notepad_plus::lazyLoadWorkerMain, this);
+}
+
+void Notepad_plus::stopLazyLoadWorker()
+{
+	if (!_lazyLoadWorkerThread.joinable())
 		return;
-	_lazyLoadPumpArmed = true;
-	::PostMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_LAZYLOADNEXT, 0, 0);
+	{
+		std::lock_guard<std::mutex> lk(_lazyLoadWorkerMutex);
+		_lazyLoadWorkerStop.store(true);
+		_lazyLoadWorkerQueue.clear();
+	}
+	_lazyLoadWorkerCv.notify_all();
+
+	// Try to join cleanly, but only wait briefly. The worker may be mid-
+	// ReadFile on an unreachable path (stopped WSL distro, disconnected
+	// share) and would not observe the stop flag until that blocking IO
+	// returns — which can take an SMB timeout (15+ s). That would gate
+	// closing Notepad++ on network state. Detach instead: the OS finalises
+	// the thread at process exit, and since the worker touches no NPP
+	// state after this point (only ReadFile + PostMessage to a window
+	// handle that is about to be destroyed), detaching is safe.
+	HANDLE h = reinterpret_cast<HANDLE>(_lazyLoadWorkerThread.native_handle());
+	DWORD wait = ::WaitForSingleObject(h, 200); // 200 ms grace
+	if (wait == WAIT_OBJECT_0)
+		_lazyLoadWorkerThread.join();
+	else
+		_lazyLoadWorkerThread.detach();
+}
+
+void Notepad_plus::lazyLoadWorkerMain()
+{
+	for (;;)
+	{
+		LazyLoadWorkerRequest req;
+		{
+			std::unique_lock<std::mutex> lk(_lazyLoadWorkerMutex);
+			_lazyLoadWorkerCv.wait(lk, [this]{
+				return _lazyLoadWorkerStop.load() || !_lazyLoadWorkerQueue.empty();
+			});
+			if (_lazyLoadWorkerStop.load())
+				return;
+			req = std::move(_lazyLoadWorkerQueue.front());
+			_lazyLoadWorkerQueue.pop_front();
+		}
+
+		std::vector<char> bytes = readAllBytes(req.sourcePath);
+		if (bytes.empty())
+			continue; // leave buffer lazy; activation path will try again
+
+		auto* payload = new LazyLoadWorkerDonePayload{
+			req.id, req.sourcePath, std::move(bytes), req.encoding, req.fromBackup
+		};
+		::PostMessage(_pPublicInterface->getHSelf(),
+			NPPM_INTERNAL_LAZYLOADWORKERDONE, 0,
+			reinterpret_cast<LPARAM>(payload));
+	}
+}
+
+void Notepad_plus::enqueueWorkerLazyLoad(BufferID id)
+{
+	// Read buffer state on main thread under no lock — Buffer mutation
+	// only happens on main thread, so the read is safe here.
+	Buffer* buf = MainFileManager.getBufferByID(id);
+	if (!buf || !buf->isLazyPending())
+		return;
+
+	LazyLoadWorkerRequest req;
+	req.id = id;
+	req.encoding = buf->getEncoding();
+	const std::wstring& backup = buf->getBackupFileName();
+	if (!backup.empty())
+	{
+		req.sourcePath = backup;
+		req.fromBackup = true;
+	}
+	else
+	{
+		req.sourcePath = buf->getFullPathName();
+		req.fromBackup = false;
+	}
+
+	{
+		std::lock_guard<std::mutex> lk(_lazyLoadWorkerMutex);
+		// Skip if already queued for the worker.
+		for (const auto& q : _lazyLoadWorkerQueue)
+			if (q.id == id) return;
+		_lazyLoadWorkerQueue.push_back(std::move(req));
+	}
+	_lazyLoadWorkerCv.notify_one();
+	startLazyLoadWorker();
+}
+
+void Notepad_plus::handleLazyLoadWorkerDone(void* rawPayload)
+{
+	std::unique_ptr<LazyLoadWorkerDonePayload> p(
+		static_cast<LazyLoadWorkerDonePayload*>(rawPayload));
+	if (!p) return;
+
+	// Validate the BufferID:
+	//  1. Buffer must still be in _buffers (tab not closed in the meantime).
+	//  2. Buffer must still be lazy-pending (main thread may have resolved
+	//     it synchronously via activateBuffer / findInOpenedFiles hook while
+	//     the worker was reading).
+	//  3. Buffer's path must still match what the worker read FROM. BufferID
+	//     is a Buffer* and Windows' heap may reuse a freed address for a
+	//     newly opened buffer; without this check the payload could end up
+	//     applied to an unrelated buffer.
+	if (MainFileManager.getBufferIndexByID(p->id) < 0)
+		return;
+	Buffer* buf = MainFileManager.getBufferByID(p->id);
+	if (!buf || !buf->isLazyPending())
+		return;
+	const std::wstring& currentPath = p->fromBackup
+		? buf->getBackupFileName()
+		: std::wstring(buf->getFullPathName());
+	if (currentPath != p->sourcePath)
+		return;
+
+	// Defer the actual Scintilla doc creation + byte insertion to
+	// FileManager, which already owns the scratchTilla view. See
+	// FileManager::applyLazyContent.
+	MainFileManager.applyLazyContent(p->id, p->bytes.data(), p->bytes.size(),
+		p->encoding, p->fromBackup);
 }
 
 void Notepad_plus::processLazyLoadQueueStep()
@@ -5376,8 +5580,13 @@ void Notepad_plus::processSessionInsertStep()
 		if (!entry.info._foldStates.empty())
 			buf->setHeaderLineState(entry.info._foldStates, (whichOne == MAIN_VIEW) ? &_mainEditView : &_subEditView);
 		buf->_lazyPendingMarks = entry.info._marks;
-		// isActive not used in option (b): active is handled sync in loadSession.
-		(void)entry.isActive;
+		(void)entry.isActive; // active is handled sync in loadSession
+
+		// Kick the worker-thread pre-fetch. The worker reads file bytes
+		// off the main thread and posts them back via
+		// NPPM_INTERNAL_LAZYLOADWORKERDONE, so the main thread only ever
+		// blocks to apply the bytes to Scintilla (fast, no IO).
+		enqueueWorkerLazyLoad(id);
 	}
 
 	// BEFORE scheduling the next pump tick, explicitly dispatch any pending

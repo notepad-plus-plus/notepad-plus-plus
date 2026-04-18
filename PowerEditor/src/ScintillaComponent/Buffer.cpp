@@ -1876,6 +1876,84 @@ BufferID FileManager::newLazyBackupDocument(const wchar_t* displayName, const wc
 	return id;
 }
 
+bool FileManager::applyLazyContent(BufferID id, const char* bytes, size_t nbBytes, int encoding, bool fromBackup)
+{
+	Buffer* buf = getBufferByID(id);
+	if (!buf || !buf->_isLazyPending)
+		return true;
+
+	// Allocate the Scintilla document now (we deferred it at lazy creation
+	// time to avoid cost on 300+ tab session restore).
+	if (!buf->_doc)
+	{
+		buf->_doc = static_cast<Document>(_pscratchTilla->execute(
+			SCI_CREATEDOCUMENT, 0, SC_DOCUMENTOPTION_TEXT_LARGE));
+	}
+
+	// Flip the lazy flag BEFORE content insertion so the normal notify
+	// path is live again for any legitimate Scintilla-driven events.
+	buf->_isLazyPending = false;
+
+	// Feed the bytes through Utf8_16_Read, mirroring what loadFileData
+	// does for a synchronous open. We dispatch to the scratchTilla view
+	// instead of the real edit views so the active document isn't
+	// disturbed while this runs.
+	Utf8_16_Read unicodeConvertor;
+	LoadedFileFormat fmt;
+	fmt._encoding = encoding;
+	fmt._eolFormat = EolType::unknown;
+	fmt._language = buf->getLangType();
+
+	const Document prevDoc = _pscratchTilla->execute(SCI_GETDOCPOINTER);
+	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buf->_doc);
+	_pscratchTilla->execute(SCI_CLEARALL);
+
+	if (bytes && nbBytes > 0)
+	{
+		// Convert in one pass — session files are typically small; streaming
+		// in blocks would only matter for huge files which snapshot sessions
+		// rarely contain anyway.
+		size_t converted = unicodeConvertor.convert(const_cast<char*>(bytes), nbBytes);
+		const char* data = unicodeConvertor.getNewBuf();
+		if (data && converted > 0)
+		{
+			_pscratchTilla->execute(SCI_APPENDTEXT, converted, reinterpret_cast<LPARAM>(data));
+		}
+		else if (unicodeConvertor.getEncoding() == uni8Bit)
+		{
+			_pscratchTilla->execute(SCI_APPENDTEXT, nbBytes, reinterpret_cast<LPARAM>(bytes));
+		}
+	}
+
+	_pscratchTilla->execute(SCI_EMPTYUNDOBUFFER);
+	_pscratchTilla->execute(SCI_SETSAVEPOINT);
+	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, prevDoc);
+
+	setLoadedBufferEncodingAndEol(buf, unicodeConvertor, fmt._encoding, fmt._eolFormat);
+
+	// Record timestamps / network status. These touch the filesystem but
+	// for a file we just successfully read the stat cost is minimal.
+	if (!fromBackup)
+	{
+		buf->updateTimeStamp();
+		buf->checkFileState();
+		buf->_isFromNetwork = PathIsNetworkPath(buf->getFullPathName());
+	}
+
+	// Backup-restore keeps dirty; regular-file reload clears it.
+	if (fromBackup)
+		buf->setDirty(true);
+	else
+	{
+		buf->setDirty(false);
+		buf->setLoadedDirty(false);
+		buf->setUnsync(false);
+	}
+
+	beNotifiedOfBufferChange(buf, BufferChangeMask & ~BufferChangeStatus);
+	return true;
+}
+
 bool FileManager::resolveLazyBuffer(BufferID id)
 {
 	Buffer* buf = getBufferByID(id);

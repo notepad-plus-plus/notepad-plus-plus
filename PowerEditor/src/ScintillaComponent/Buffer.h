@@ -112,6 +112,13 @@ public:
 	// After this call, the buffer behaves like a normally-opened file.
 	bool resolveLazyBuffer(BufferID id);
 
+	// Apply bytes previously read on a worker thread to a lazy buffer.
+	// Creates the Scintilla Document on demand, fills it, runs the encoding
+	// / EOL detection, clears the lazy flag and fires the completion
+	// notification. Must be called on the main thread. Used by the
+	// worker-thread content pre-fetch (Notepad_plus::lazyLoadWorkerMain).
+	bool applyLazyContent(BufferID id, const char* bytes, size_t nbBytes, int encoding, bool fromBackup);
+
 	//create Buffer from existing Scintilla, used from new Scintillas.
 	BufferID bufferFromDocument(Document doc, bool isMainEditZone);
 

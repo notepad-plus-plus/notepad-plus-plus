@@ -761,6 +761,7 @@
 	#define NPPM_INTERNAL_DISABLESELECTEDTEXTDRAGDROP   (NOTEPADPLUS_USER_INTERNAL + 113)
 	#define NPPM_INTERNAL_LAZYLOADNEXT                  (NOTEPADPLUS_USER_INTERNAL + 114)  // Used by lazy session load background queue
 	#define NPPM_INTERNAL_SESSIONINSERTNEXT             (NOTEPADPLUS_USER_INTERNAL + 115)  // Used by deferred session-restore background queue
+	#define NPPM_INTERNAL_LAZYLOADWORKERDONE            (NOTEPADPLUS_USER_INTERNAL + 116)  // Worker thread posts this to main when a lazy buffer's file content has been read
 
 // See Notepad_plus_msgs.h
 //#define NPPMSG   (WM_USER + 1000)

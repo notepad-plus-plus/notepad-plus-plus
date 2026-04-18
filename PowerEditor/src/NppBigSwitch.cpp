@@ -1814,6 +1814,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		// NOTE: NPPM_INTERNAL_LAZYLOADNEXT is also a SetTimer id — handled
+		// via the WM_TIMER case below. This case is kept for any legacy
+		// PostMessage callers but the main pump uses WM_TIMER now.
 		case NPPM_INTERNAL_LAZYLOADNEXT:
 		{
 			processLazyLoadQueueStep();
@@ -1824,15 +1827,23 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			if (wParam == NPPM_INTERNAL_SESSIONINSERTNEXT)
 			{
-				// The pump is armed via SetTimer (lowest message priority).
-				// Always kill the one-shot timer before we do any work —
-				// processSessionInsertStep re-arms a new one at the end if
-				// the queue is still non-empty.
+				// Session-insert pump (structural: create lazy tab shells).
+				// Lowest-priority timer so user input always wins.
 				::KillTimer(hwnd, NPPM_INTERNAL_SESSIONINSERTNEXT);
 				processSessionInsertStep();
 				return 0;
 			}
 			break;
+		}
+
+		case NPPM_INTERNAL_LAZYLOADWORKERDONE:
+		{
+			// Posted by the worker thread after it finishes reading a
+			// lazy buffer's bytes from disk. lParam is a heap-allocated
+			// LazyLoadWorkerDonePayload; handleLazyLoadWorkerDone takes
+			// ownership and releases it.
+			handleLazyLoadWorkerDone(reinterpret_cast<void*>(lParam));
+			return 0;
 		}
 
 		case NPPM_INTERNAL_SCROLLBEYONDLASTLINE:

@@ -1,5 +1,32 @@
 # Lazy Session Load — Risk Register
 
+## R13. Wait-cursor / "busy" state during background drain
+**Status:** FIXED + TESTED
+
+**Verified by user:** even with init() returning in ~150 ms and the
+window painting at ~500 ms, the mouse cursor stayed as a wait
+(hourglass) and clicks were ignored for the entire ~2 s while the
+background pump filled the tab bar.
+
+**Root cause:** the pump re-armed itself via `PostMessage`. Regular
+posted messages compete with user input in the same queue, and a
+tight PostMessage → handler → PostMessage loop (even with 1 ms of
+work per tick) keeps the UI-thread "busy" from the OS's point of
+view. Windows surfaces that as a wait cursor.
+
+**Fix:** `kickSessionInsertQueue` now uses `SetTimer` with
+`USER_TIMER_MINIMUM` (~10 ms) instead of `PostMessage`. `WM_TIMER` is
+the **lowest priority** message in a Win32 queue — Windows only
+delivers it when no other messages (input, paint, sent messages) are
+pending. So any mouse move / click / key event always wins against
+the pump, the cursor stays as the regular arrow, and clicks are
+processed instantly. Pump drain time rises slightly (one tick per
+~10 ms), but for 342 tabs that's ~3.4 s of progressive fill with
+full UI responsiveness — which is the UX we wanted.
+
+---
+
+
 Scope: every behavior that might regress from the lazy-session-load changes
 on branch `feature/lazy-session-load`.
 

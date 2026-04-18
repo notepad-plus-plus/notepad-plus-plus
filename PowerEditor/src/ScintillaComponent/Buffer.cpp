@@ -1792,17 +1792,14 @@ BufferID FileManager::newLazyDocument(const wchar_t* filename, int whichOne, int
 	// identity matches what a normal open would produce. Required so that
 	// later calls like getBufferFromName() succeed and duplicate-open detection
 	// works across lazy and eagerly-loaded buffers.
+	// Session filenames are already absolute and normalized when NPP wrote
+	// them, so we skip GetLongPathName (filesystem call — could block on
+	// network paths) entirely for lazy init. GetFullPathName is also skipped
+	// because it would expand 8.3 short names and resolve the current
+	// directory, neither of which is needed for a path the session already
+	// stored in canonical form. Accept the raw session filename as-is.
 	wchar_t fullpath[MAX_PATH] = { 0 };
-	if (isWin32NamespacePrefixedFileName(filename))
-	{
-		wcsncpy_s(fullpath, _countof(fullpath), filename, _TRUNCATE);
-	}
-	else
-	{
-		::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
-		if (wcschr(fullpath, '~'))
-			::GetLongPathName(fullpath, fullpath, MAX_PATH);
-	}
+	wcsncpy_s(fullpath, _countof(fullpath), filename, _TRUNCATE);
 
 	// Do NOT allocate a Scintilla document. resolveLazyBuffer creates it on
 	// demand. SCI_CREATEDOCUMENT is ~5ms — multiplied by 300+ session tabs it

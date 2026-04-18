@@ -2522,36 +2522,16 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			isWow64Off = true;
 		}
 #endif
-		// Fast, non-thread-spawning existence probes. doesFileExist() creates a
-		// worker thread per call via getFileAttributesExWithTimeout — for 300+
-		// session entries in a hot loop that adds seconds of pure thread-spawn
-		// overhead. We use direct GetFileAttributesExW here and accept the
-		// (tiny) risk of a hang on an adversarial network path; that risk was
-		// already present elsewhere in startup.
-		const bool fileExistsFast = [&]() {
-			WIN32_FILE_ATTRIBUTE_DATA a{};
-			return ::GetFileAttributesExW(pFn, GetFileExInfoStandard, &a)
-				&& a.dwFileAttributes != INVALID_FILE_ATTRIBUTES
-				&& !(a.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY);
-		}();
-		const bool backupExistsFast = session._mainViewFiles[i]._backupFilePath.empty() ? false : [&]() {
-			WIN32_FILE_ATTRIBUTE_DATA a{};
-			return ::GetFileAttributesExW(session._mainViewFiles[i]._backupFilePath.c_str(), GetFileExInfoStandard, &a)
-				&& a.dwFileAttributes != INVALID_FILE_ATTRIBUTES
-				&& !(a.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY);
-		}();
-
 		const bool isActiveTab = lazyEnabled && (i == session._activeMainIndex) && (session._activeView == MAIN_VIEW || session.nbSubFiles() == 0);
 
-		// R1 tradeoff: three options, pick the fastest to-first-content:
-		//   (a) sync insert all: 2–3 s freeze, order correct, active at right index
-		//   (b) async pump, active sync first: instant active tab, but active
-		//       lands at tab index 0 regardless of session position
-		//   (c) async pump, active processed in order: order correct but user
-		//       waits (activeIndex × tickInterval) ms to see active content
-		// We pick (b) because the user's primary goal is "instant startup".
-		// Order-preservation is tracked as a known limitation.
-		if (lazyEnabled && !isActiveTab && (fileExistsFast || (isSnapshotMode && backupExistsFast)))
+		// Defer every non-active entry to the background pump without ANY
+		// filesystem probing here. A session may contain unreachable paths
+		// (disconnected shares, stopped WSL distros, unplugged drives) and
+		// stat-ing them would reintroduce the multi-second freeze we are
+		// trying to eliminate. The pump decides tab type from session
+		// metadata alone; resolveLazyBuffer handles IO at activation time
+		// and surfaces missing files through normal "inaccessible" UX.
+		if (lazyEnabled && !isActiveTab)
 		{
 			_pendingSessionInserts.push_back({session._mainViewFiles[i], MAIN_VIEW, i, false});
 #if NPP_LAZY_SESSION_TRACE
@@ -2560,6 +2540,14 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			++i;
 			continue;
 		}
+
+		// Active tab and the lazy-off path both keep the original stat-and-
+		// doOpen flow below. Use the timeout variant (doesFileExist spawns a
+		// worker thread with a bounded wait) so that even if the active
+		// tab's file is on an unreachable path we don't freeze forever.
+		const bool fileExistsFast = doesFileExist(pFn);
+		const bool backupExistsFast = !session._mainViewFiles[i]._backupFilePath.empty()
+			&& doesFileExist(session._mainViewFiles[i]._backupFilePath.c_str());
 
 		if (fileExistsFast)
 		{

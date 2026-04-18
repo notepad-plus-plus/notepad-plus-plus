@@ -5244,18 +5244,26 @@ void Notepad_plus::kickSessionInsertQueue()
 	if (_sessionInsertPumpArmed || _pendingSessionInserts.empty())
 		return;
 	_sessionInsertPumpArmed = true;
-	::PostMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_SESSIONINSERTNEXT, 0, 0);
+	// Use WM_TIMER rather than a regular PostMessage. WM_TIMER has the
+	// LOWEST priority in the message queue — Windows only delivers it when
+	// no other messages (including input and paint) are pending. That
+	// means the pump cannot keep the thread "busy from the OS point of
+	// view" and the wait-cursor / not-responding state stops showing up
+	// while 300+ tabs fill in the background.
+	::SetTimer(_pPublicInterface->getHSelf(), NPPM_INTERNAL_SESSIONINSERTNEXT, USER_TIMER_MINIMUM, nullptr);
 }
 
 void Notepad_plus::processSessionInsertStep()
 {
 	_sessionInsertPumpArmed = false;
 
-	// Balance: larger batches drain faster but push tick duration above the
-	// ~50 ms SendMessageTimeout budget — Windows marks the app "not responding"
-	// and user input feels stuck. kPerTick=4 keeps a tick around 20–25 ms
-	// (well under budget) and drains a 300-tab session in ~80 ticks ≈ 0.5 s.
-	constexpr int kPerTick = 4;
+	// Diagnostic minimum: 1 entry per tick means each message-pump handler
+	// executes roughly a single newLazy* + tab insert + metadata set (~5 ms)
+	// and then yields. If this STILL blocks the UI thread noticeably, the
+	// culprit is per-entry work inside newLazyDocument / loadBufferIntoViewAt
+	// rather than aggregated batch duration, and we will need to profile
+	// those specifically.
+	constexpr int kPerTick = 1;
 	const NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 	const bool isSnapshotMode = nppGUI.isSnapshotMode();
 
@@ -5267,16 +5275,21 @@ void Notepad_plus::processSessionInsertStep()
 		const wchar_t* pFn = entry.info._fileName.c_str();
 		const int whichOne = entry.whichOne;
 
-		// Fast existence probe (no thread-spawning).
-		WIN32_FILE_ATTRIBUTE_DATA a{};
-		const bool fileExists = ::GetFileAttributesExW(pFn, GetFileExInfoStandard, &a)
-			&& a.dwFileAttributes != INVALID_FILE_ATTRIBUTES
-			&& !(a.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY);
-		WIN32_FILE_ATTRIBUTE_DATA ab{};
-		const bool backupExists = !entry.info._backupFilePath.empty()
-			&& ::GetFileAttributesExW(entry.info._backupFilePath.c_str(), GetFileExInfoStandard, &ab)
-			&& ab.dwFileAttributes != INVALID_FILE_ATTRIBUTES
-			&& !(ab.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY);
+		// CRITICAL: do NOT call GetFileAttributesExW / doesFileExist here.
+		// A session may contain unreachable paths (\\wsl.localhost\... with
+		// WSL stopped, disconnected UNC shares, unplugged external drives).
+		// A stat on such a path blocks the main thread for the SMB / NFS
+		// timeout (15–30 s), which is exactly the freeze lazy-session load
+		// is supposed to eliminate. Decide tab type from the session
+		// filename alone; resolveLazyBuffer handles any IO at activation.
+		//
+		// Discriminator: PathIsRelativeW returns FALSE for absolute
+		// filesystem paths ("C:\...", "\\wsl.localhost\...", "\\?\C:\..."),
+		// TRUE for everything else (bare "new N" tab names and any legacy
+		// relative names that may have been saved historically). Untitled
+		// tabs only have a meaningful source if they carry a backup path.
+		const bool isAbsolutePath = !::PathIsRelativeW(entry.info._fileName.c_str());
+		const bool hasBackupPath = !entry.info._backupFilePath.empty();
 
 		// Compute insertion index so tabs appear in original session order
 		// regardless of the fact that the active tab was inserted first
@@ -5289,17 +5302,19 @@ void Notepad_plus::processSessionInsertStep()
 		const int insertTabIndex = static_cast<int>(entry.sessionIndex);
 
 		BufferID id = BUFFER_INVALID;
-		if (fileExists)
+		if (isAbsolutePath)
 		{
-			const bool hasSnapshotBackup = isSnapshotMode && backupExists;
+			// Regular file tab. Snapshot-backup content (if any) is loaded
+			// by resolveLazyBuffer when the user activates the tab.
 			id = MainFileManager.newLazyDocument(
 				pFn, whichOne, entry.info._encoding,
-				hasSnapshotBackup ? entry.info._backupFilePath.c_str() : nullptr,
+				(isSnapshotMode && hasBackupPath) ? entry.info._backupFilePath.c_str() : nullptr,
 				entry.info._originalFileLastModifTimestamp,
 				insertTabIndex);
 		}
-		else if (isSnapshotMode && backupExists)
+		else if (isSnapshotMode && hasBackupPath)
 		{
+			// Untitled "new N" tab restored from its snapshot backup file.
 			id = MainFileManager.newLazyBackupDocument(
 				pFn, entry.info._backupFilePath.c_str(),
 				whichOne, entry.info._encoding,

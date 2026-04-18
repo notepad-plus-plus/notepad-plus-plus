@@ -1820,10 +1820,19 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case NPPM_INTERNAL_SESSIONINSERTNEXT:
+		case WM_TIMER:
 		{
-			processSessionInsertStep();
-			return TRUE;
+			if (wParam == NPPM_INTERNAL_SESSIONINSERTNEXT)
+			{
+				// The pump is armed via SetTimer (lowest message priority).
+				// Always kill the one-shot timer before we do any work —
+				// processSessionInsertStep re-arms a new one at the end if
+				// the queue is still non-empty.
+				::KillTimer(hwnd, NPPM_INTERNAL_SESSIONINSERTNEXT);
+				processSessionInsertStep();
+				return 0;
+			}
+			break;
 		}
 
 		case NPPM_INTERNAL_SCROLLBEYONDLASTLINE:

@@ -1931,25 +1931,35 @@ bool FileManager::applyLazyContent(BufferID id, const char* bytes, size_t nbByte
 
 	setLoadedBufferEncodingAndEol(buf, unicodeConvertor, fmt._encoding, fmt._eolFormat);
 
-	// Record timestamps / network status. These touch the filesystem but
-	// for a file we just successfully read the stat cost is minimal.
-	if (!fromBackup)
-	{
-		buf->updateTimeStamp();
-		buf->checkFileState();
-		buf->_isFromNetwork = PathIsNetworkPath(buf->getFullPathName());
-	}
-
-	// Backup-restore keeps dirty; regular-file reload clears it.
 	if (fromBackup)
+	{
+		// Backup-restore: content IS the user's unsaved edits; keep dirty.
 		buf->setDirty(true);
+	}
 	else
 	{
+		// Regular-file reload: content is current on disk. Clean state.
 		buf->setDirty(false);
 		buf->setLoadedDirty(false);
 		buf->setUnsync(false);
+
+		buf->_isFromNetwork = PathIsNetworkPath(buf->getFullPathName());
+
+		// IMPORTANT — external-change detection (R15):
+		// Deliberately DO NOT call updateTimeStamp() here. Leaving the
+		// stored _timeStamp equal to session's _originalFileLastModifTimestamp
+		// is what lets checkFileState detect that the file was modified
+		// externally between NPP shutdown and this moment. When a mismatch
+		// is found, checkFileState sets DOC_MODIFIED and fires the
+		// BufferChangeStatus notification, which routes through the stock
+		// "reload externally modified?" prompt (or the auto-update path
+		// if the user configured it) — exactly the UX of eager restore.
+		buf->checkFileState();
 	}
 
+	// Fire the omnibus notification. Status is already handled above via
+	// checkFileState (which fires its own BufferChangeStatus when the state
+	// flips), so we mask it out here to avoid a duplicate.
 	beNotifiedOfBufferChange(buf, BufferChangeMask & ~BufferChangeStatus);
 	return true;
 }
@@ -2057,22 +2067,22 @@ bool FileManager::resolveLazyBuffer(BufferID id)
 		return false;
 	}
 
-	// Deferred file-state checks that the lazy ctor skipped. Order matters:
-	// updateTimeStamp first (records the current on-disk mtime), then
-	// checkFileState (compares stored vs current — after update, they match,
-	// so status stays DOC_REGULAR and no "reload externally modified" prompt
-	// is raised for the tab the user just opened).
-	buf->updateTimeStamp();
-	buf->checkFileState();
 	buf->_isFromNetwork = PathIsNetworkPath(buf->getFullPathName());
-
 	buf->setDirty(false);
 	buf->setLoadedDirty(false);
 	buf->setUnsync(false);
 
-	// Fire the omnibus notification last (minus Status, which is already
-	// synchronized above). All session metadata setters ran while
-	// _isLazyPending==true and therefore did not notify; flush now.
+	// External-change detection (R15): keep buf->_timeStamp = session's
+	// original on-disk mtime (set in newLazyDocument from the session
+	// entry). checkFileState will compare that against current disk mtime;
+	// a mismatch flips status to DOC_MODIFIED and fires BufferChangeStatus,
+	// which routes through the stock "reload externally modified?" prompt
+	// (or auto-update path) just like eager restore. Without this the
+	// user would silently get current content with no awareness.
+	buf->checkFileState();
+
+	// Fire the omnibus notification minus Status (checkFileState already
+	// fired its own BufferChangeStatus if the state flipped).
 	beNotifiedOfBufferChange(buf, BufferChangeMask & ~BufferChangeStatus);
 	return true;
 }

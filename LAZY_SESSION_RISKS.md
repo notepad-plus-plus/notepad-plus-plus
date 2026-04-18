@@ -490,25 +490,37 @@ New Buffer flag `_wasExternallyChangedDuringSession`, set in
 `applyLazyContent` when the comparison differs. Tab icon gets a
 subtle marker; tooltip explains. No modal interruption.
 
-### Current decision: ACCEPTED / DOCUMENTED
+### Current decision: FIX via Option B — preserve session timestamp
 
-For this PR we accept the semantic shift — external changes before
-NPP launch are silently applied for non-backup lazy tabs. Reasoning:
+**S1 / S5 now behave like eager restore.** Reverted the
+"silent apply" decision. For a non-backup lazy buffer, neither
+`applyLazyContent` (worker path) nor `resolveLazyBuffer` (sync
+click path) calls `updateTimeStamp()` anymore. The buffer's
+`_timeStamp` stays equal to
+`session._originalFileLastModifTimestamp` (populated in
+`newLazyDocument`). `checkFileState()` then compares that against
+the current on-disk mtime; when the file has been touched by
+another program the status flips to `DOC_MODIFIED` and the stock
+"Reload externally modified?" prompt fires through the existing
+`notifyBufferChanged` path — exactly what an eager-restored
+buffer does.
 
-- On a 300+ tab session the stock behaviour can be a prompt blizzard
-  at launch. Several users on the Notepad++ tracker have asked to
-  suppress it.
-- The user never loses data for S1 / S5 — the current disk content
-  is what they get.
-- S2 (backup + external change) is real, but very rare — it requires
-  both unsaved edits AND someone else modifying the file between
-  your shutdown and restart. Flag as known limitation.
-- S3 / S4 (deleted / renamed) are handled identically in shape
-  (buffer becomes inaccessible on activation); only the time at
-  which it surfaces differs.
-- The correct long-term fix is Option A or C, which needs UX input
-  from Notepad++ maintainers (notification bar vs tab badge vs
-  prompt-with-option-to-suppress). Out of scope for the initial PR.
+Stock NPP's auto-update preference (`cdAutoUpdate` on
+`_fileAutoDetection`) still suppresses the prompt for users who
+prefer silent reloads — we route through the same code so that
+preference is honoured automatically.
+
+**S2 still not fully handled.** Backup-restored buffers load their
+content from the user's snapshot backup file, which is the correct
+semantics (don't drop unsaved edits). But we do NOT currently warn
+the user that the *original* file also changed on disk while they
+were away. That requires a second-class "reload?" prompt that
+discards the backup — not symmetrical with the single-source
+eager path either. Out of scope for this PR; deferred to a
+follow-up that wires in a clearer UX (e.g. three-way conflict
+dialog).
+
+**S3 / S4** unchanged — become inaccessible on activation.
 
 ## R10. External file changes not detected for lazy tabs
 **Status:** ACCEPTED — semantics shift but not a regression

@@ -21,6 +21,7 @@
 
 #include <ctime>
 #include <memory>
+#include <tuple>
 
 #include "NppXml.h"
 #include "Notepad_plus_Window.h"
@@ -5131,9 +5132,12 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne, bool forceApplyHili
 
 	// If this buffer was deferred by lazy-session-load, read its file now
 	// (synchronously) before we let Scintilla paint it. The background queue
-	// would eventually have done the same, but the user is looking at this tab
-	// right now, so jump the queue.
-	const bool wasLazy = pBuf && pBuf->isLazyPending();
+	// would eventually have done the same, but the user is looking at this
+	// tab right now, so jump the queue. Matching the rest of activateBuffer
+	// which assumes pBuf is non-null (caller guarantees the BufferID is
+	// valid), so no defensive null-check here — the static analyser's
+	// C6011 would otherwise flag the unchecked deref two lines below.
+	const bool wasLazy = pBuf->isLazyPending();
 	if (wasLazy)
 	{
 		MainFileManager.resolveLazyBuffer(id);
@@ -5319,8 +5323,10 @@ void Notepad_plus::stopLazyLoadWorker()
 	// the thread at process exit, and since the worker touches no NPP
 	// state after this point (only ReadFile + PostMessage to a window
 	// handle that is about to be destroyed), detaching is safe.
-	HANDLE h = reinterpret_cast<HANDLE>(_lazyLoadWorkerThread.native_handle());
-	DWORD wait = ::WaitForSingleObject(h, 200); // 200 ms grace
+	// std::thread::native_handle returns HANDLE on MSVC's STL — pass through
+	// without a redundant cast (which the analyzer flags via C26473).
+	const HANDLE h = _lazyLoadWorkerThread.native_handle();
+	const DWORD wait = ::WaitForSingleObject(h, 200); // 200 ms grace
 	if (wait == WAIT_OBJECT_0)
 		_lazyLoadWorkerThread.join();
 	else
@@ -5347,12 +5353,22 @@ void Notepad_plus::lazyLoadWorkerMain()
 		if (bytes.empty())
 			continue; // leave buffer lazy; activation path will try again
 
-		auto* payload = new LazyLoadWorkerDonePayload{
-			req.id, req.sourcePath, std::move(bytes), req.encoding, req.fromBackup
-		};
-		::PostMessage(_pPublicInterface->getHSelf(),
-			NPPM_INTERNAL_LAZYLOADWORKERDONE, 0,
-			reinterpret_cast<LPARAM>(payload));
+		// Build the payload through unique_ptr to satisfy /analyze C26403
+		// (owner pointers must have an explicit transfer of ownership).
+		// Ownership transfers to the main thread via PostMessage; if Post
+		// fails (very rare — e.g. window destroyed during shutdown) the
+		// unique_ptr deletes for us.
+		auto payload = std::make_unique<LazyLoadWorkerDonePayload>(
+			LazyLoadWorkerDonePayload{
+				req.id, req.sourcePath, std::move(bytes),
+				req.encoding, req.fromBackup
+			});
+		if (::PostMessage(_pPublicInterface->getHSelf(),
+				NPPM_INTERNAL_LAZYLOADWORKERDONE, 0,
+				reinterpret_cast<LPARAM>(payload.get())))
+		{
+			payload.release();
+		}
 	}
 }
 
@@ -5580,7 +5596,7 @@ void Notepad_plus::processSessionInsertStep()
 		if (!entry.info._foldStates.empty())
 			buf->setHeaderLineState(entry.info._foldStates, (whichOne == MAIN_VIEW) ? &_mainEditView : &_subEditView);
 		buf->_lazyPendingMarks = entry.info._marks;
-		(void)entry.isActive; // active is handled sync in loadSession
+		std::ignore = entry.isActive; // active is handled sync in loadSession
 
 		// Kick the worker-thread pre-fetch. The worker reads file bytes
 		// off the main thread and posts them back via

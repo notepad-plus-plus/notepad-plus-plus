@@ -317,10 +317,10 @@ private:
 	// Worker-thread content pre-fetch. See startLazyLoadWorker / worker main.
 	struct LazyLoadWorkerRequest
 	{
-		BufferID id;
+		BufferID id = nullptr;
 		std::wstring sourcePath; // path to read bytes from (backup if present, else fullPathName)
-		bool fromBackup;         // whether sourcePath is the snapshot backup
-		int encoding;            // buffer's encoding at queue time
+		bool fromBackup = false; // whether sourcePath is the snapshot backup
+		int encoding = -1;       // buffer's encoding at queue time
 	};
 	std::deque<LazyLoadWorkerRequest> _lazyLoadWorkerQueue;
 	std::mutex _lazyLoadWorkerMutex;

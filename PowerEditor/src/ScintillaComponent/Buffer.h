@@ -84,9 +84,9 @@ public:
 
 	void beNotifiedOfBufferChange(Buffer * theBuf, int mask);
 
-	void closeBuffer(BufferID, const ScintillaEditView* identifer);		//called by Notepad++
+	void closeBuffer(BufferID, ScintillaEditView* identifer); //called by Notepad++
 
-	void addBufferReference(BufferID id, ScintillaEditView * identifer);	//called by Scintilla etc indirectly
+	void addBufferReference(BufferID id, ScintillaEditView* identifer); // called by Scintilla etc indirectly
 
 	BufferID loadFile(const wchar_t * filename, Document doc = static_cast<Document>(NULL), int encoding = -1, const wchar_t *backupFileName = nullptr, FILETIME fileNameTimestamp = {});	//ID == BUFFER_INVALID on failure. If Doc == NULL, a new file is created, otherwise data is loaded in given document
 	BufferID newEmptyDocument();
@@ -283,8 +283,8 @@ public:
 	void setUntitledTabRenamedStatus(bool isRenamed) { _isUntitledTabRenamed = isRenamed; }
 
 	//these two return reference count after operation
-	int addReference(ScintillaEditView * identifier);		//if ID not registered, creates a new Position for that ID and new foldstate
-	int removeReference(const ScintillaEditView * identifier);		//reduces reference. If zero, Document is purged
+	int addReference(ScintillaEditView* identifier); // if ID not registered, creates a new Position for that ID and new foldstate
+	int removeReference(ScintillaEditView* identifier); // reduces reference. If zero, Document is purged
 
 	void setHideLineChanged(bool isHide, size_t location);
 

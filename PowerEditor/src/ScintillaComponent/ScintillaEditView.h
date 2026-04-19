@@ -690,6 +690,32 @@ public:
 	bool expandWordSelection();
 	bool pasteToMultiSelection() const;
 	void setElementColour(int element, COLORREF color) const { execute(SCI_SETELEMENTCOLOUR, element, color | 0xFF000000); }
+	
+	int increaseClonedBufsRefCount() {
+		assert(_clonedBufsRefCount >= 0);
+		_clonedBufsRefCount++;
+		if (_clonedBufsRefCount == 1)
+		{
+			// for cloned doc bufs, we have to temporarily disable the SCI_SETUNDOSELECTIONHISTORY feature for all of its associated views
+			// - if a doc buf has a different cursor position in one view (let's say No.1 here) than in the second (No.2), right at the moment
+			//   an undo action point with view-dependent positional info is being created for a view (1), then the Ctrl+Z undo positional stuff
+			//   will be always miscalculated if done from the other view (2)
+			// - this part of the Scintilla undo stuff is maintained by the Scintilla Editor/EditModel class,
+			//   so it has to be handled here (also, the view can have more than one cloned doc buf associated)
+			execute(SCI_SETUNDOSELECTIONHISTORY, SC_UNDO_SELECTION_HISTORY_DISABLED);
+		}
+		return _clonedBufsRefCount;
+	}
+	int decreaseClonedBufsRefCount() {
+		assert(_clonedBufsRefCount > 0);
+		_clonedBufsRefCount--;
+		if (!_clonedBufsRefCount)
+		{
+			// this view is being dissociated from any cloned doc buf, so reenable its SCI_SETUNDOSELECTIONHISTORY ability
+			execute(SCI_SETUNDOSELECTIONHISTORY, SC_UNDO_SELECTION_HISTORY_ENABLED | SC_UNDO_SELECTION_HISTORY_SCROLL);
+		}
+		return _clonedBufsRefCount;
+	}
 
 protected:
 	static bool _SciInit;
@@ -720,6 +746,8 @@ protected:
 	intptr_t _beginSelectPosition = -1;
 	static std::string _defaultCharList;
 	bool _isMultiPasteActive = false;
+
+	int _clonedBufsRefCount = 0;
 
 //Lexers and Styling
 	void restyleBuffer();

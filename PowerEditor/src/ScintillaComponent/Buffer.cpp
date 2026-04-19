@@ -714,12 +714,23 @@ int Buffer::indexOfReference(const ScintillaEditView * identifier) const
 }
 
 
-int Buffer::addReference(ScintillaEditView * identifier)
+int Buffer::addReference(ScintillaEditView* identifier)
 {
 	if (indexOfReference(identifier) != -1)
 		return _references;
 
+	if (_referees.size() == 1)
+	{
+		// this doc buf is being cloned, ensure disabling of the SCI_SETUNDOSELECTIONHISTORY also for its 1st view
+		_referees[0]->increaseClonedBufsRefCount();
+	}
 	_referees.push_back(identifier);
+	if (_referees.size() >= 2)
+	{
+		// for cloned doc bufs, we have to temporarily disable the SCI_SETUNDOSELECTIONHISTORY feature for all of its associated views
+		identifier->increaseClonedBufsRefCount();
+	}
+
 	_positions.push_back(Position());
 	_foldStates.push_back(std::vector<size_t>());
 	++_references;
@@ -727,13 +738,24 @@ int Buffer::addReference(ScintillaEditView * identifier)
 }
 
 
-int Buffer::removeReference(const ScintillaEditView * identifier)
+int Buffer::removeReference(ScintillaEditView* identifier)
 {
 	int indexToPop = indexOfReference(identifier);
 	if (indexToPop == -1)
 		return _references;
 
+	if (_referees.size() >= 2)
+	{
+		// a unique view is being dissociated from this doc buf
+		identifier->decreaseClonedBufsRefCount();
+	}
 	_referees.erase(_referees.begin() + indexToPop);
+	if (_referees.size() == 1)
+	{
+		// this doc buf is no longer cloned, allow potential reenabling of the SCI_SETUNDOSELECTIONHISTORY also for its last single view
+		_referees[0]->decreaseClonedBufsRefCount();
+	}
+
 	_positions.erase(_positions.begin() + indexToPop);
 	_foldStates.erase(_foldStates.begin() + indexToPop);
 	_references--;
@@ -881,7 +903,7 @@ void FileManager::addBufferReference(BufferID buffer, ScintillaEditView * identi
 }
 
 
-void FileManager::closeBuffer(BufferID id, const ScintillaEditView* identifier)
+void FileManager::closeBuffer(BufferID id, ScintillaEditView* identifier)
 {
 	int index = getBufferIndexByID(id);
 	Buffer* buf = getBufferByIndex(index);

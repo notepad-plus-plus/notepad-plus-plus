@@ -5315,22 +5315,20 @@ void Notepad_plus::stopLazyLoadWorker()
 	}
 	_lazyLoadWorkerCv.notify_all();
 
-	// Try to join cleanly, but only wait briefly. The worker may be mid-
-	// ReadFile on an unreachable path (stopped WSL distro, disconnected
-	// share) and would not observe the stop flag until that blocking IO
-	// returns — which can take an SMB timeout (15+ s). That would gate
-	// closing Notepad++ on network state. Detach instead: the OS finalises
-	// the thread at process exit, and since the worker touches no NPP
-	// state after this point (only ReadFile + PostMessage to a window
-	// handle that is about to be destroyed), detaching is safe.
-	// std::thread::native_handle returns HANDLE on MSVC's STL — pass through
-	// without a redundant cast (which the analyzer flags via C26473).
-	const HANDLE h = _lazyLoadWorkerThread.native_handle();
-	const DWORD wait = ::WaitForSingleObject(h, 200); // 200 ms grace
-	if (wait == WAIT_OBJECT_0)
-		_lazyLoadWorkerThread.join();
-	else
-		_lazyLoadWorkerThread.detach();
+	// Always detach. join() would block closing Notepad++ on however long
+	// the worker is stuck inside ReadFile — for an unreachable path
+	// (stopped WSL distro, disconnected share) that is the SMB timeout
+	// (15+ s). Detach is safe because:
+	//   - the worker holds no pointers into NPP state, so its post-stop
+	//     activity (finish current ReadFile, then exit on the stop flag
+	//     at the next loop iteration) cannot UAF anything we destroy
+	//   - any in-flight PostMessage targets a window handle that is about
+	//     to be destroyed, which Win32 silently no-ops
+	// We avoid using std::thread::native_handle() + WaitForSingleObject
+	// here because native_handle_type is HANDLE on the MSVC STL but
+	// pthread_t on MinGW-w64 with winpthreads, which would break the
+	// MinGW / CLANG64 CI matrix.
+	_lazyLoadWorkerThread.detach();
 }
 
 void Notepad_plus::lazyLoadWorkerMain()

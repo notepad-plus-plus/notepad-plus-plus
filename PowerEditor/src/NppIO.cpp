@@ -1835,6 +1835,35 @@ bool Notepad_plus::fileSave(BufferID bufferID)
 
 		return doSave(bufferID, buf->getFullPathName(), false);
 	}
+	else if (buf->getFileReadOnly() && buf->isDirty()) //readonly but has unsaved changes
+	{
+		int res = _nativeLangSpeaker.messageBox("FileIsReadOnlyRemoveAttribute",
+			_pPublicInterface->getHSelf(),
+			L"The file is read-only and cannot be saved.\rDo you want to remove the read-only attribute and save?",
+            L"Save Failed - File is Read-Only",
+            MB_YESNO | MB_ICONWARNING);
+		
+		if (res == IDYES)
+		{
+			// Remove the read-only attribute from the file and retry save
+			const wchar_t* filepath = buf->getFullPathName();
+			DWORD attrs = ::GetFileAttributes(filepath);
+			if (attrs != INVALID_FILE_ATTRIBUTES){
+				attrs &= ~FILE_ATTRIBUTE_READONLY;
+				if (::SetFileAttributes(filepath, attrs))
+                {
+                    buf->setFileReadOnly(false);
+                    return fileSave(bufferID);
+                }
+			}
+			// SetFileAttributes failed, fall through to error
+			_nativeLangSpeaker.messageBox("FileReadOnlyRemoveAttributeFailed",
+                _pPublicInterface->getHSelf(),
+                L"Could not remove the read-only attribute. Check file permissions.",
+                L"Remove Read-Only Failed",
+                MB_OK | MB_ICONERROR);
+        }
+	}
 	return false;
 }
 

@@ -1412,6 +1412,14 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
                         {
                             auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
                             reloadLangCombo();
+
+                            HWND hNpp = ::GetParent(_hSelf);
+                            HMENU m = reinterpret_cast<HMENU>(::SendMessage(hNpp, NPPM_INTERNAL_GETMENU, 0, 0));
+                            int newIndex = nppParam.getNbUserLang() - 1;
+                            const wchar_t* newName = nppParam.getULCFromIndex(newIndex)->getName();
+                            ::InsertMenu(::GetSubMenu(m, MENUINDEX_LANGUAGE), IDM_LANG_USER + newIndex, MF_BYCOMMAND, IDM_LANG_USER + newIndex + 1, newName);
+                            ::DrawMenuBar(hNpp);
+
                             ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_SETCURSEL, i, 0);
                             
                             pNativeSpeaker->messageBox("UDL_importSuccessful",

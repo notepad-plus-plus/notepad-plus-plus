@@ -460,7 +460,7 @@ void FindReplaceDlg::fillFindHistory()
 			else
 			{
 				id = IDC_TRANSPARENT_ALWAYS_RADIO;
-				(NppParameters::getInstance()).SetTransparent(_hSelf, findHistory._transparency);
+				NppParameters::SetTransparent(_hSelf, findHistory._transparency);
 
 			}
 			::SendDlgItemMessage(_hSelf, id, BM_SETCHECK, TRUE, 0);
@@ -1676,7 +1676,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				findHistory._transparency = percent;
 				if (isCheckedOrNot(IDC_TRANSPARENT_ALWAYS_RADIO))
 				{
-					(NppParameters::getInstance()).SetTransparent(_hSelf, percent);
+					NppParameters::SetTransparent(_hSelf, percent);
 				}
 			}
 			return TRUE;
@@ -1798,11 +1798,11 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				if (LOWORD(wParam) == WA_INACTIVE && isVisible())
 				{
 					int percent = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0));
-					(NppParameters::getInstance()).SetTransparent(_hSelf, percent);
+					NppParameters::SetTransparent(_hSelf, percent);
 				}
 				else
 				{
-					(NppParameters::getInstance()).removeTransparent(_hSelf);
+					NppParameters::removeTransparent(_hSelf);
 				}
 			}
 
@@ -2910,12 +2910,12 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					DIALOG_TYPE dlgT = getCurrentStatus();
 					calcAndSetCtrlsPos(dlgT, true);
 
-					::SetWindowPos(_hSelf, nullptr, 0, 0, w, dlgH, SWP_NOMOVE | SWP_NOZORDER | SWP_NOREDRAW);
-
 					hideOrShowCtrl4reduceOrNormalMode(dlgT);
 
 					::SetDlgItemText(_hSelf, IDD_RESIZE_TOGGLE_BUTTON, isLessModeOn ? L"˅" : L"˄");
-					
+
+					::SetWindowPos(_hSelf, nullptr, 0, 0, w, dlgH, SWP_NOMOVE | SWP_NOZORDER | SWP_FRAMECHANGED);
+
 					redraw();
 				}
 				return TRUE;
@@ -5242,14 +5242,16 @@ void FindReplaceDlg::calcAndSetCtrlsPos(DIALOG_TYPE dlgT, bool fromColBtn)
 {
 	const bool isNotLessMode = !NppParameters::getInstance().getNppGUI()._findWindowLessMode;
 
+	RECT rcBtn1stPos{};
 	RECT rcBtn2ndPos{};
 	RECT rcBtn3rdPos{};
 
+	getMappedChildRect(IDOK, rcBtn1stPos);
 	getMappedChildRect(IDREPLACE, rcBtn2ndPos);
 	getMappedChildRect(IDREPLACEALL, rcBtn3rdPos);
 	
 	const LONG btnGap = rcBtn3rdPos.top - rcBtn2ndPos.bottom;
-	constexpr UINT flags = SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_NOCOPYBITS;
+	static constexpr UINT flags = SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_NOCOPYBITS;
 
 	if (isNotLessMode)
 	{
@@ -5258,7 +5260,6 @@ void FindReplaceDlg::calcAndSetCtrlsPos(DIALOG_TYPE dlgT, bool fromColBtn)
 
 		LONG yFrame = -btnGapOneHalf;
 		LONG hFrame = btnGapDbl;
-		int ySelCheck = rcBtn3rdPos.top;
 		RECT closeNewRc{};
 
 		switch (dlgT)
@@ -5292,11 +5293,8 @@ void FindReplaceDlg::calcAndSetCtrlsPos(DIALOG_TYPE dlgT, bool fromColBtn)
 
 			case MARK_DLG:
 			{
-				RECT rcBtn1stPos{};
-				getMappedChildRect(IDOK, rcBtn1stPos);
 				yFrame += rcBtn2ndPos.top;
 				hFrame += (rcBtn2ndPos.bottom - rcBtn1stPos.top);
-				ySelCheck = rcBtn2ndPos.top;
 
 				RECT rcCopyMarkedBtn{};
 				getMappedChildRect(IDC_COPY_MARKED_TEXT, rcCopyMarkedBtn);
@@ -5311,12 +5309,19 @@ void FindReplaceDlg::calcAndSetCtrlsPos(DIALOG_TYPE dlgT, bool fromColBtn)
 		{
 			RECT rcCheckBtn{};
 			getMappedChildRect(IDC_IN_SELECTION_CHECK, rcCheckBtn);
-			::SetWindowPos(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), nullptr, rcCheckBtn.left, ySelCheck + btnGap / 2, 0, 0, SWP_NOSIZE | flags);
 
 			const LONG xFrame = rcCheckBtn.left - btnGapOneHalf;
 			const LONG wFrame = (rcBtn2ndPos.right - rcCheckBtn.left) + btnGapDbl;
 			::SetWindowPos(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), nullptr, xFrame, yFrame, wFrame, hFrame, flags);
 		}
+	}
+
+	if (dlgT == MARK_DLG)
+	{
+		const RECT rcMark = isNotLessMode ?  rcBtn2ndPos : rcBtn1stPos;
+		const RECT rcMarkClear = isNotLessMode ? rcBtn3rdPos : rcBtn2ndPos;
+		::SetWindowPos(::GetDlgItem(_hSelf, IDCMARKALL), nullptr, rcMark.left, rcMark.top, 0, 0, SWP_NOSIZE | flags);
+		::SetWindowPos(::GetDlgItem(_hSelf, IDC_CLEAR_ALL), nullptr, rcMarkClear.left, rcMarkClear.top, 0, 0, SWP_NOSIZE | flags);
 	}
 
 	if (fromColBtn)

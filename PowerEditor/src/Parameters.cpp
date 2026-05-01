@@ -3877,25 +3877,28 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(const NppXml
 	return std::pair<unsigned char, unsigned char>(static_cast<unsigned char>(iBegin), static_cast<unsigned char>(iEnd));
 }
 
-bool NppParameters::importUDLFromFile(const std::wstring& sourceFile)
+std::pair<unsigned char, unsigned char> NppParameters::importUDLFromFile(const std::wstring& sourceFile)
 {
 	NppXml::Document pXmlUserLangDoc = new NppXml::NewDocument();
 
+	std::pair<unsigned char, unsigned char> addUdlResult(static_cast<unsigned char>(0), static_cast<unsigned char>(0));
 	bool loadOkay = NppXml::loadFile(pXmlUserLangDoc, sourceFile.c_str());
+
 	if (loadOkay)
 	{
-		auto r = addUserDefineLangsFromXmlTree(pXmlUserLangDoc);
-		loadOkay = (r.second - r.first) != 0;
-		if (loadOkay)
+		addUdlResult = addUserDefineLangsFromXmlTree(pXmlUserLangDoc);
+		unsigned char addedUdlNumber = addUdlResult.second - addUdlResult.first;
+
+		if (addedUdlNumber)
 		{
-			_pXmlUserLangsDoc.emplace_back(nullptr, sourceFile, true, true, r);
+			_pXmlUserLangsDoc.emplace_back(nullptr, sourceFile, true, true, addUdlResult);
 
 			// imported UDL from xml file will be added into default udl, so we should make default udl dirty
 			setUdlXmlDirtyFromXmlDoc(_pXmlUserLangDoc._doc);
 		}
 	}
 	delete pXmlUserLangDoc;
-	return loadOkay;
+	return addUdlResult;
 }
 
 bool NppParameters::exportUDLToFile(size_t langIndex2export, const std::wstring& fileName2save)

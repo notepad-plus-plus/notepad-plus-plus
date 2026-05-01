@@ -1400,6 +1400,7 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
 
                         return TRUE;
                     }
+
                     case IDC_IMPORT_BUTTON :
                     {
                         CustomFileDialog fDlg(_hSelf);
@@ -1407,8 +1408,8 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
                         wstring sourceFile = fDlg.doOpenSingleFileDlg();
                         if (sourceFile.empty()) break;
 
-                        bool isSuccessful = nppParam.importUDLFromFile(sourceFile);
-                        if (isSuccessful)
+                        auto udlNumbersBeforeAfter = nppParam.importUDLFromFile(sourceFile);
+                        if (udlNumbersBeforeAfter.second - udlNumbersBeforeAfter.first != 0)
                         {
                             auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
                             reloadLangCombo();
@@ -1420,6 +1421,17 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
                                 L"User Defined Language",
                                 MB_OK | MB_APPLMODAL,
                                 0);
+
+                            // Update language menu
+                            HWND hNpp = ::GetParent(_hSelf);
+                            HMENU hLangMenu = ::GetSubMenu(reinterpret_cast<HMENU>(::SendMessage(hNpp, NPPM_INTERNAL_GETMENU, 0, 0)), MENUINDEX_LANGUAGE);
+
+                            for (auto j = udlNumbersBeforeAfter.first + 1; j <= udlNumbersBeforeAfter.second; ++j)
+                            {
+                                const wchar_t* newName = nppParam.getULCFromIndex(j - 1)->getName();
+                                ::InsertMenu(hLangMenu, IDM_LANG_USER + udlNumbersBeforeAfter.first, MF_BYCOMMAND, IDM_LANG_USER + j, newName);
+                            }
+                            ::DrawMenuBar(hNpp);
                         }
                         else
                         {

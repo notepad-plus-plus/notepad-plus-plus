@@ -1702,7 +1702,7 @@ public:
 		return _themeSwitcher;
 	}
 
-	bool importUDLFromFile(const std::wstring& sourceFile);
+	std::pair<unsigned char, unsigned char> importUDLFromFile(const std::wstring& sourceFile); // return the pair of (udlNumberBeforeImporting, udlNumberAfterImporting)
 	bool exportUDLToFile(size_t langIndex2export, const std::wstring& fileName2save);
 	NativeLangSpeaker* getNativeLangSpeaker() {
 		return _pNativeLangSpeaker;

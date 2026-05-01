@@ -17,8 +17,9 @@
 
 #pragma once
 
-#include "documentSnapshot_rc.h"
 #include "StaticDialog.h"
+
+#include <windows.h>
 
 class ScintillaEditView;
 class Buffer;
@@ -37,7 +38,7 @@ public:
 	}
 
 	void scrollSnapshotWith(const MapPosition & mapPos, int textZoneWidth);
-	void saveCurrentSnapshot(ScintillaEditView & editView);
+	void saveCurrentSnapshot(const ScintillaEditView& editView);
 
 protected:
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;

@@ -349,7 +349,7 @@ intptr_t CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 			_vzDlg.init(::GetModuleHandle(NULL), _hSelf);
 			_vzDlg.doDialog();
-			(NppParameters::getInstance()).setTransparent(_vzDlg.getHSelf(), 50); // 0 <= transparancy < 256
+			NppParameters::setTransparent(_vzDlg.getHSelf(), 50); // 0 <= transparancy < 256
 			BringWindowToTop (_vzDlg.getHSelf());
 
 			setSyntaxHiliting();

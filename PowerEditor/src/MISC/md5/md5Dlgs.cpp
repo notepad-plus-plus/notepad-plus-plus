@@ -14,22 +14,32 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include "md5.h"
+
+#include "md5Dlgs.h"
+
+#include <windows.h>
+
+#include <shlwapi.h>
+
 #include <cstdint>
+#include <cstdio>
+#include <cstring>
+#include <sstream>
+#include <string>
+
+#include <Scintilla.h>
+
+#include "calc_sha1.h"
+#include "md5.h"
 #include "sha-256.h"
 #include "sha512.h"
-#include "calc_sha1.h"
-#include "md5Dlgs.h"
-#include "md5Dlgs_rc.h"
+
+#include "Common.h"
 #include "CustomFileDialog.h"
-#include "Parameters.h"
-#include <shlwapi.h>
-#include "resource.h"
-
-#include <commctrl.h>
-
 #include "NppConstants.h"
 #include "NppDarkMode.h"
+#include "md5Dlgs_rc.h"
+#include "resource.h"
 
 static LRESULT CALLBACK TextEditSelectAllProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 

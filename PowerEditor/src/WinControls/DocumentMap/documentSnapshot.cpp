@@ -16,7 +16,9 @@
 
 
 #include "documentSnapshot.h"
+
 #include "ScintillaEditView.h"
+#include "documentSnapshot_rc.h"
 
 intptr_t CALLBACK DocumentPeeker::run_dlgProc(UINT message, WPARAM /*wParam*/, LPARAM /*lParam*/)
 {
@@ -150,7 +152,7 @@ void DocumentPeeker::scrollSnapshotWith(const MapPosition & mapPos, int textZone
 	}
 }
 
-void DocumentPeeker::saveCurrentSnapshot(ScintillaEditView & editView)
+void DocumentPeeker::saveCurrentSnapshot(const ScintillaEditView& editView)
 {
 	if (_pPeekerView)
 	{

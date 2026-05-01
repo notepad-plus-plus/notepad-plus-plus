@@ -296,6 +296,7 @@ Translation note:
 					<Item id="44024" name="縮小表示(Ctrl+マウスホイールを下へ)(&amp;O)"/>
 					<Item id="44025" name="半角スペースとタブを表示"/>
 					<Item id="44026" name="改行コードを表示"/>
+					<Item id="44027" name="ビュー間で同期する(&amp;S)"/>
 					<Item id="44029" name="すべて展開する"/>
 					<Item id="44030" name="カーソル位置のレベルで畳む"/>
 					<Item id="44031" name="カーソル位置のレベルで展開"/>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.9.3  13/Mar/2026  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.9.5  1/May/2026  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.9.2">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.9.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -302,6 +302,7 @@
 					<Item id="44024" name="Zme&amp;nšit Ctrl-Myš kolečko dolu"/>
 					<Item id="44025" name="Zobrazit prázdné znaky a tabulátory"/>
 					<Item id="44026" name="Zobrazit konce řádků"/>
+					<Item id="44027" name="&amp;Synchronizovat mezi pohledy"/>
 					<Item id="44029" name="Rozbalit vše"/>
 					<Item id="44030" name="Sbalit aktuální úroveň"/>
 					<Item id="44031" name="Rozbalit aktuální úroveň"/>
@@ -314,7 +315,7 @@
 					<Item id="44042" name="Skrýt řádky"/>
 					<Item id="44049" name="Souhrnné informace..."/>
 					<Item id="44070" name="Seznam dokumentů"/>
-					<Item id="44072" name="Přejít na další náhled"/>
+					<Item id="44072" name="Přejít na další pohled"/>
 					<Item id="44080" name="Přehledná mapa dokumentu"/>
 					<Item id="44081" name="Panel 1"/>
 					<Item id="44082" name="Panel 2"/>
@@ -364,8 +365,8 @@
 					<Item id="45057" name="OEM 865: Skandinávské jazyky"/>
 					<Item id="45053" name="OEM 860: Portugalština"/>
 					<Item id="45056" name="OEM 863: Francouzština"/>
-					<Item id="10001" name="Přesunout do druhého náhledu"/>
-					<Item id="10002" name="Vytvořit kopii v druhém náhledu"/>
+					<Item id="10001" name="Přesunout do druhého pohledu"/>
+					<Item id="10002" name="Vytvořit kopii v druhém pohledu"/>
 					<Item id="10003" name="Přesunout do nové instance"/>
 					<Item id="10004" name="Otevřít v nové instanci"/>
 					<Item id="10005" name="Přesunout na začátek"/>
@@ -463,8 +464,8 @@
 				<Item CMDID="42030" name="Kopírovat název souboru"/>
 				<Item CMDID="42031" name="Kopírovat název aktuálního adresáře souboru"/>
 				<Item CMDID="3" name="Přesunout dokument/kartu"/>
-				<Item CMDID="10001" name="Přesunout do druhého náhledu"/>
-				<Item CMDID="10002" name="Vytvořit kopii v druhém náhledu"/>
+				<Item CMDID="10001" name="Přesunout do druhého pohledu"/>
+				<Item CMDID="10002" name="Vytvořit kopii v druhém pohledu"/>
 				<Item CMDID="10003" name="Přesunout do nové instance"/>
 				<Item CMDID="10004" name="Otevřít v nové instanci"/>
 				<Item CMDID="10005" name="Přesunout na začátek"/>
@@ -1616,7 +1617,7 @@ Před provedením akce si prosím nejprve ověřte nastavené podmínky."/> <!--
 			<ColumnName name="Název"/>
 			<ColumnExt name="Příp."/>
 			<ColumnPath name="Cesta"/>
-			<ListGroups name="Seskupovat podle náhledu"/>
+			<ListGroups name="Seskupovat podle pohledu"/>
 		</DocList>
 		
 		<WindowsDlg>
@@ -1777,6 +1778,7 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 			<find-status-scope-all value="v celém souboru"/>
 			<find-status-scope-backward value="od začátku souboru až ke kurzoru"/>
 			<find-status-scope-forward value="od kurzoru až do konce souboru"/>
+			<find-status-replace-invalid-replace-chars value="Nahradit: v ANSI dokumentu nelze nahrazovat textem, který není v ANSI kódování"/>
 			<find-status-invisible-chars-findWhat value="Do políčka &quot;Najít&quot; nebo &quot;Nahradit&quot; byl vložen obsah s neviditelnými znaky."/>
 			<find-status-invisible-chars-findWhat-tip value="Upozornění: Neviditelné znaky v políčku pro vyhledávání (nebo nahrazování).
 

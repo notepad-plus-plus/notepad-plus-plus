@@ -861,7 +861,6 @@ void FileBrowser::popupMenuCmd(int cmdID)
 					}
 				}
 			}
-			break;
 		}
 		break;
 

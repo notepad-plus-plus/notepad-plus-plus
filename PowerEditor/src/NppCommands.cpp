@@ -197,7 +197,8 @@ void Notepad_plus::command(int id)
 		case IDM_FILE_OPEN_FOLDER:
 		{
 			const wchar_t* fullPath = _pEditView->getCurrentBuffer()->getFullPathName();
-			if (OpenInExplorerAndSelect(fullPath) == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND))
+			HRESULT hr = OpenInExplorerAndSelect(fullPath);
+			if (hr == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND))
 			{
 				// fallback (but without selecting the current file)
 				::ShellExecuteW(_pPublicInterface->getHSelf(), L"explore",

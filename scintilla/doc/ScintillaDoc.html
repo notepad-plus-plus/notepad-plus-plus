@@ -959,6 +959,12 @@ struct Sci_TextRangeFull {
         </tr>
 
         <tr>
+          <th align="left"><code>SC_STATUS_OUTSIDE_DOCUMENT</code></th>
+          <td>3</td>
+          <td>An operation was attempted on a position that is outside the document</td>
+        </tr>
+
+        <tr>
           <th align="left"><code>SC_STATUS_WARN_REGEX</code></th>
           <td>1001</td>
           <td>Regular expression is invalid</td>
@@ -966,6 +972,10 @@ struct Sci_TextRangeFull {
 
       </tbody>
     </table>
+
+    <p>To more easily check the status of APIs, applications should call the direct status function using
+    <a class="message" href="#SCI_GETDIRECTSTATUSFUNCTION"><code>SCI_GETDIRECTSTATUSFUNCTION</code></a>.
+    </p>
 
     <h2 id="Selection">Selection</h2>
 

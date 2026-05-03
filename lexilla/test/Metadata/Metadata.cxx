@@ -7,7 +7,7 @@
 // If the public domain is not possible in your location then it can also be used under the same
 // license as Scintilla. https://www.scintilla.org/License.txt
 
-/* 
+/*
 
 Build
 
@@ -21,7 +21,7 @@ Using
 
     List metadata of standard Lexilla shared library in lexilla/bin.
         Metadata
-    
+
     List metadata of particular shared library conforming to Lexilla protocol
         Metadata ../../examples/SimpleLexer/SimpleLexer.dll
 
@@ -135,7 +135,7 @@ void ShowAllMetadata(std::ostringstream &os, const std::vector<std::string> &lex
 }
 
 int main(int argc, char *argv[]) {
-	char szLexillaPath[] = "../../bin/" LEXILLA_LIB LEXILLA_EXTENSION;
+	const char szLexillaPath[] = "../../bin/" LEXILLA_LIB LEXILLA_EXTENSION;
 	const char *libPath = szLexillaPath;
 	bool checking = false;
 	if (argc > 1) {

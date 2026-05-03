@@ -2,6 +2,32 @@ module FormatSpecifiersTest
 
 let x = List.fold (*) 24.5 [ 1.; 2.; 3. ]
 
+let template =
+    $"""<html>
+  <%%@language=VBScript%%>
+  <%%-- comment --%%>
+  <script type="text/javascript">
+    console.info(`Access time: ${{new Date().toLocaleTimeString()}}`);
+  </script>
+  <script type="text/vbscript">dim e="%.9g{System.Math.Exp 1.}>"</script>
+  <%%response.write("Last mod time: %A{System.DateTime.Now.ToString("yyyy-MM-dd h:mm:ss tt")}")%%>
+  <%% 'comment%%>
+  <%%dim pi="{System.Math.PI,-16}"'comment%%>
+</html>"""
+
+let template' (date: System.DateTime) =
+    $@"""<html>
+  <%%@language=VBScript%%>
+  <%%-- comment --%%>
+  <script type=""text/javascript"">
+    console.info(`Access time: ${{new Date().toLocaleTimeString()}}`);
+  </script>
+  <script type=""text/vbscript"">dim e=""%.9g{System.Math.Exp 1.}>""</script>
+  <%%response.write(""Last mod time: %A{date}"")%%>
+  <%% 'comment%%>
+  <%%dim pi=""{System.Math.PI,-16}""'comment%%>
+</html>"""
+
 // expect "147.00"
 printfn "Speed: %.2f m/s" x
 printfn $"Speed: %.2f{x} m/s"

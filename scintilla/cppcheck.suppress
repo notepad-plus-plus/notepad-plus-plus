@@ -1,6 +1,6 @@
 // File to suppress cppcheck warnings for files that will not be fixed.
 // Does not suppress warnings where an additional occurrence of the warning may be of interest.
-// Configured for cppcheck 2.15
+// Configured for cppcheck 2.20
 
 // Just a report of how many checkers are run
 checkersReport
@@ -50,10 +50,30 @@ knownConditionTrueFalse:scintilla/src/EditView.cxx
 // This makes no sense
 CastIntegerToAddressAtReturn:scintilla\src\DBCS.cxx
 
+// Preprocessor #if with *_CHECK_VERSION(...) *_VERSION_CHECK(...)
+syntaxError:scintilla/gtk/Wrappers.h
+syntaxError:scintilla/gtk/PlatGTK.cxx
+syntaxError:scintilla/gtk/ScintillaGTKAccessible.cxx
+syntaxError:scintilla/qt/ScintillaEditBase/PlatQt.cpp
+syntaxError:scintilla/qt/ScintillaEditBase/ScintillaEditBase.cpp
+syntaxError:scintilla/qt/ScintillaEditBase/ScintillaQt.cpp
+
+noValidConfiguration:scintilla/gtk/PlatGTK.cxx
+noValidConfiguration:scintilla/gtk/ScintillaGTKAccessible.cxx
+
+unmatchedSuppression:scintilla/gtk/PlatGTK.cxx
+unmatchedSuppression:scintilla/gtk/ScintillaGTKAccessible.cxx
+unmatchedSuppression:scintilla/qt/ScintillaEditBase/PlatQt.cpp
+unmatchedSuppression:scintilla/qt/ScintillaEditBase/ScintillaEditBase.cpp
+unmatchedSuppression:scintilla/qt/ScintillaEditBase/ScintillaQt.cpp
+
 // G_DEFINE_TYPE is too complex to pass to cppcheck
 unknownMacro:scintilla/gtk/PlatGTK.cxx
 // G_END_DECLS
 unknownMacro:scintilla/gtk/scintilla-marshal.h
+
+// Marshaling hidden from cppcheck
+unusedFunction:scintilla/gtk/scintilla-marshal.c
 
 // Difficult to test accessibility so don't change
 constParameterPointer:scintilla/gtk/ScintillaGTKAccessible.cxx
@@ -66,16 +86,48 @@ preprocessorErrorDirective:scintilla/qt/**.cpp
 // Doesn't understand Qt slots macro
 unknownMacro:scintilla/qt/ScintillaEditBase/*.h
 
+// Provided for other projects
+unusedFunction:scintilla/qt/ScintillaEdit/ScintillaDocument.cpp
+
+// Provided for other projects
+unusedFunction:scintilla/call/ScintillaCall.cxx
+
+// Don't want to unnecessarily allow const pointers to be made mutable through reinterpret_cast
+constParameterPointer:scintilla/call/ScintillaCall.cxx
+constParameterPointer:scintilla/src/Editor.cxx
+constVariablePointer:scintilla/src/Editor.cxx
+
 // The performance cost of by-value passing is often small and using a reference decreases
 // code legibility.
 passedByValue
 
+// For conciseness, the testing code is much sloppier than the library
+
 // Suppress everything in catch.hpp as won't be changing
 *:scintilla/test/unit/catch.hpp
 
-// Checks for moves move to variables that are not read but the moved from is checked
+// unread variables and overwritten without read in tests
 unreadVariable:scintilla/test/unit/*.cxx
+
+// Checks for moves move to variables that are not read but the moved from is checked
 accessMoved:scintilla/test/unit/*.cxx
+
+// 'obviously' true tests are still useful
+knownConditionTrueFalse:scintilla/test/unit/*.cxx
+
+// fields in TEST_CASE could be restricted to SECTION but not interesting
+variableScope:scintilla/test/unit/*.cxx
+
+// overwritten without read in tests
+redundantInitialization:scintilla/test/unit/*.cxx
+redundantAssignment:scintilla/test/unit/*.cxx
+unusedVariable:scintilla/test/unit/*.cxx
+
+// doesn't understand cppcheck TEST_CASE
+syntaxError:scintilla/test/unit/*.cxx
+
+// doesn't understand cppcheck generated functions
+unusedFunction:scintilla/test/unit/*.cxx
 
 // cppcheck fails REQUIRE from Catch
 comparisonOfFuncReturningBoolError:scintilla/test/unit/*.cxx

@@ -530,6 +530,13 @@ void SCI_METHOD Document::SetErrorStatus(int status) {
 	}
 }
 
+void Document::CheckPosition(Sci::Position pos) const {
+	PLATFORM_ASSERT((pos >= 0) && (pos <= LengthNoExcept()));
+	if ((pos < 0) || (pos > LengthNoExcept())) {
+		throw Failure(Status::OutsideDocument);
+	}
+}
+
 Sci_Position SCI_METHOD Document::LineFromPosition(Sci_Position pos) const {
 	return cb.LineFromPosition(pos);
 }
@@ -1485,6 +1492,7 @@ Sci::Position Document::InsertString(Sci::Position position, const char *s, Sci:
 	if (insertLength <= 0) {
 		return 0;
 	}
+	CheckPosition(position);
 	CheckReadOnly();	// Application may change read only state here
 	if (cb.IsReadOnly()) {
 		return 0;
@@ -2571,10 +2579,10 @@ bool SCI_METHOD Document::SetStyleFor(Sci_Position length, char style) {
 		return false;
 	}
 	enteredStyling++;
-	const Sci::Position prevEndStyled = endStyled;
-	if (cb.SetStyleFor(endStyled, length, style)) {
+	const ChangedRange cr = cb.SetStyleFor(endStyled, length, style);
+	if (!cr.Empty()) {
 		const DocModification mh(ModificationFlags::ChangeStyle | ModificationFlags::User,
-			                prevEndStyled, length);
+			                cr.start, cr.end - cr.start + 1);
 		NotifyModified(mh);
 	}
 	endStyled += length;
@@ -2587,22 +2595,11 @@ bool SCI_METHOD Document::SetStyles(Sci_Position length, const char *styles) {
 		return false;
 	}
 	enteredStyling++;
-	bool didChange = false;
-	Sci::Position startMod = 0;
-	Sci::Position endMod = 0;
-	for (int iPos = 0; iPos < length; iPos++, endStyled++) {
-		PLATFORM_ASSERT(endStyled < Length());
-		if (cb.SetStyleAt(endStyled, styles[iPos])) {
-			if (!didChange) {
-				startMod = endStyled;
-			}
-			didChange = true;
-			endMod = endStyled;
-		}
-	}
-	if (didChange) {
+	const ChangedRange cr = cb.SetStyles(endStyled, styles, length);
+	endStyled += length;
+	if (!cr.Empty()) {
 		const DocModification mh(ModificationFlags::ChangeStyle | ModificationFlags::User,
-			                startMod, endMod - startMod + 1);
+			                cr.start, cr.end - cr.start + 1);
 		NotifyModified(mh);
 	}
 	enteredStyling--;
@@ -3021,7 +3018,7 @@ Sci::Position Document::BraceMatch(Sci::Position position, Sci::Position /*maxRe
 		return -1;
 	const int styBrace = StyleIndexAt(position);
 	int direction = -1;
-	if (chBrace == '(' || chBrace == '[' || chBrace == '{' || chBrace == '<')
+	if (AnyOf(chBrace, '(', '[', '{', '<'))
 		direction = 1;
 	int depth = 1;
 	position = useStartPos ? startPos : position + direction;
@@ -3034,7 +3031,7 @@ Sci::Position Document::BraceMatch(Sci::Position position, Sci::Position /*maxRe
 
 	while ((position >= 0) && (position < LengthNoExcept())) {
 		const unsigned char chAtPos = CharAt(position);
-		if (chAtPos == chBrace || chAtPos == chSeek) {
+		if (AnyOf(chAtPos, chBrace, chSeek)) {
 			if (((position > GetEndStyled()) || (StyleIndexAt(position) == styBrace)) &&
 				(chAtPos <= maxSafeChar || position == MovePositionOutsideChar(position, direction, false))) {
 				depth += (chAtPos == chBrace) ? 1 : -1;

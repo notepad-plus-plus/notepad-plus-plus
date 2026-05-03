@@ -30,7 +30,7 @@ procedure procedurename(const parameter2: type2);
 // comment2=3
 (* comment text *)
 
-// commentline=4 
+// commentline=4
 // example line
 
 // preprocessor=5
@@ -61,7 +61,7 @@ $123ABCDEF
 $ABCDEF123
 
 // word=9
-absolute abstract and array as 
+absolute abstract and array as
 
 // string=10
 'string'
@@ -72,11 +72,21 @@ absolute abstract and array as
 // character=12
 #65
 
-// operator=13 
-$ & * + / < = > ^  
+// operator=13
+$ & * + / < = > ^
 
-// asm
-asm 
-  this is 
+// asm=14
+asm
+  this is
   inside assembler
 end
+
+// multiline string=15
+'''
+triple-quoted
+''';
+
+'''''
+5 quotes needs matching 5 quote end
+''' triple quotes allowed in 5 quote
+''''';

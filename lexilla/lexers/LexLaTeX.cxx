@@ -234,6 +234,8 @@ void SCI_METHOD LexerLaTeX::Lex(Sci_PositionU startPos, Sci_Position length, int
 			switch (ch) {
 			case '\\' :
 				styler.ColourTo(i - 1, state);
+				if ((i + 1) >= styler.Length())
+					break;
 				if (latexIsLetter(chNext)) {
 					state = SCE_L_COMMAND;
 				} else if (latexIsSpecial(chNext)) {

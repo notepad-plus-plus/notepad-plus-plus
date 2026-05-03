@@ -10,6 +10,11 @@
 
 namespace Scintilla::Internal {
 
+struct Failure : public std::runtime_error {
+	Status status;
+	Failure(Status status_) : std::runtime_error("failure with status"), status(status_) {}
+};
+
 // Interface to per-line data that wants to see each line insertion and deletion
 class PerLine {
 public:
@@ -66,6 +71,24 @@ struct SplitView {
 	}
 };
 
+struct ChangedRange {
+	Sci::Position start = Sci::invalidPosition;
+	Sci::Position end = Sci::invalidPosition;
+	ChangedRange() noexcept = default;
+	ChangedRange(Sci::Position start_, Sci::Position end_) noexcept : start(start_), end(end_) {}
+	[[nodiscard]] bool Empty() const noexcept {
+		return start < 0;
+	}
+	void Merge(const ChangedRange &cr2) noexcept {
+		if (cr2.start >= 0) {
+			if (start < 0) {
+				*this = cr2;
+			} else {
+				end = cr2.end;
+			}
+		}
+	}
+};
 
 /**
  * Holder for an expandable array of characters that supports undo and line markers.
@@ -141,9 +164,9 @@ public:
 	const char *InsertString(Sci::Position position, const char *s, Sci::Position insertLength, bool &startSequence);
 
 	/// Setting styles for positions outside the range of the buffer is safe and has no effect.
-	/// @return true if the style of a character is changed.
-	bool SetStyleAt(Sci::Position position, char styleValue) noexcept;
-	bool SetStyleFor(Sci::Position position, Sci::Position lengthStyle, char styleValue) noexcept;
+	/// @return range where style of characters changed.
+	ChangedRange SetStyles(Sci::Position position, const char *styles, Sci::Position length) noexcept;
+	ChangedRange SetStyleFor(Sci::Position position, Sci::Position length, char value) noexcept;
 
 	const char *DeleteChars(Sci::Position position, Sci::Position deleteLength, bool &startSequence);
 

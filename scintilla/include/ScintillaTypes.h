@@ -433,6 +433,7 @@ enum class Status {
 	Ok = 0,
 	Failure = 1,
 	BadAlloc = 2,
+	OutsideDocument = 3,
 	WarnStart = 1000,
 	RegEx = 1001,
 };

@@ -157,7 +157,29 @@ struct DocPlus {
 		document.GetCharRange(contents.data(), 0, length);
 		return contents;
 	}
+
+	[[nodiscard]] std::string Styles() const {
+		const Sci::Position length = document.Length();
+		std::string contents(length, 0);
+		document.GetStyleRange(reinterpret_cast<unsigned char *>(contents.data()), 0, length);
+		return contents;
+	}
 };
+
+namespace {
+
+// Provide an empty watcher to avoid filling in all the virtuals in simple watchers.
+struct EmptyWatcher : public DocWatcher {
+	void NotifyModifyAttempt(Document *, void *) override {};
+	void NotifySavePoint(Document *, void *, bool) override {};
+	void NotifyModified(Document *, DocModification, void *) override {};
+	void NotifyDeleted(Document *, void *) noexcept override {};
+	void NotifyStyleNeeded(Document *, void *, Sci::Position) override {};
+	void NotifyErrorOccurred(Document *, void *, Scintilla::Status) override {};
+	void NotifyGroupCompleted(Document *, void *) noexcept override {};
+};
+
+}
 
 void TimeTrace(std::string_view sv, const Catch::Timer &tikka) {
 	std::cout << sv << std::setw(5) << tikka.getElapsedMilliseconds() << " milliseconds" << std::endl;
@@ -183,6 +205,81 @@ TEST_CASE("Document") {
 		REQUIRE(0 == doc.document.LineFromPosition(static_cast<int>(sLength)));
 		REQUIRE(doc.document.CanUndo());
 		REQUIRE(!doc.document.CanRedo());
+	}
+
+	SECTION("Style") {
+		// Check that styling calls SetStyles and SetStyleFor modify the correct bytes and
+		// produce a minimal span in the notification.
+		// Also checks the notification mechanism.
+		struct ModificationWatcher : public EmptyWatcher {
+			Sci::Position modPos = -1;
+			Sci::Position modLength = -1;
+			void NotifyModified(Document *, DocModification mh, void *) noexcept final {
+				modPos = mh.position;
+				modLength = mh.length;
+			}
+			void Clear() noexcept {
+				modPos = -1;
+				modLength = -1;
+			}
+		};
+		DocPlus doc(sText, 0);
+		// Length of sText is 9
+		REQUIRE(doc.Styles() == std::string(9, 0));
+		ModificationWatcher mw;
+		doc.document.AddWatcher(&mw, nullptr);
+		doc.document.StartStyling(1);
+		doc.document.SetStyles(5, "\0abc\0");
+		REQUIRE(doc.Styles() == std::string("\0\0abc\0\0\0\0", 9));
+		// The NULs are not changed so are not included in the modification range
+		REQUIRE(mw.modPos == 2);
+		REQUIRE(mw.modLength == 3);
+
+		// No change so no notification so no update
+		mw.Clear();
+		doc.document.StartStyling(1);
+		doc.document.SetStyles(5, "\0abc\0");
+		REQUIRE(mw.modPos == -1);
+		REQUIRE(mw.modLength == -1);
+
+		// Just change one byte
+		doc.document.StartStyling(1);
+		doc.document.SetStyles(5, "\0bbc\0");
+		REQUIRE(mw.modPos == 2);
+		REQUIRE(mw.modLength == 1);
+		REQUIRE(doc.Styles() == std::string("\0\0bbc\0\0\0\0", 9));
+
+		// Move the gap
+		doc.MoveGap(1);
+		doc.document.StartStyling(1);
+		doc.document.SetStyles(5, "\0cbc\0");
+		REQUIRE(mw.modPos == 2);
+		REQUIRE(mw.modLength == 1);
+		REQUIRE(doc.Styles() == std::string("\0\0cbc\0\0\0\0", 9));
+
+		doc.MoveGap(2);
+		doc.document.StartStyling(1);
+		doc.document.SetStyles(5, "\0dcc\0");
+		REQUIRE(mw.modPos == 2);
+		REQUIRE(mw.modLength == 2);
+		REQUIRE(doc.Styles() == std::string("\0\0dcc\0\0\0\0", 9));
+
+		// Test SetStyleFor
+
+		doc.MoveGap(3);
+		doc.document.StartStyling(3);
+		doc.document.SetStyleFor(1, 0);	// After gap
+		REQUIRE(mw.modPos == 3);
+		REQUIRE(mw.modLength == 1);
+		REQUIRE(doc.Styles() == std::string("\0\0d\0c\0\0\0\0", 9));
+
+		doc.document.StartStyling(2);
+		doc.document.SetStyleFor(3, 0);	// Over gap
+		REQUIRE(mw.modPos == 2);
+		REQUIRE(mw.modLength == 3);
+		REQUIRE(doc.Styles() == std::string("\0\0\0\0\0\0\0\0\0", 9));
+
+		doc.document.RemoveWatcher(&mw, nullptr);
 	}
 
 	// Search ranges are from first argument to just before second argument

@@ -200,6 +200,24 @@ Lexer as
         Extended instructions
         Directives4Foldstart
         Directives4Foldend
+    Styles:
+          0 SCE_ASM_DEFAULT [default] White space
+          1 SCE_ASM_COMMENT [comment line] Comment
+          2 SCE_ASM_NUMBER [literal numeric] Number
+          3 SCE_ASM_STRING [literal string] String
+          4 SCE_ASM_OPERATOR [operator] Operator
+          5 SCE_ASM_IDENTIFIER [identifier] Identifier
+          6 SCE_ASM_CPUINSTRUCTION [keyword] CPU Instruction
+          7 SCE_ASM_MATHINSTRUCTION [keyword] FPU Instruction
+          8 SCE_ASM_REGISTER [keyword identifier] Register
+          9 SCE_ASM_DIRECTIVE [keyword] Directive
+         10 SCE_ASM_DIRECTIVEOPERAND [keyword] Directive Operand
+         11 SCE_ASM_COMMENTBLOCK [comment] Comment block
+         12 SCE_ASM_CHARACTER [literal string] Single quoted string
+         13 SCE_ASM_STRINGEOL [error literal string] End of line where string is not closed
+         14 SCE_ASM_EXTINSTRUCTION [keyword] Extended Instruction
+         15 SCE_ASM_COMMENTDIRECTIVE [comment] Directive Comment
+         16 SCE_ASM_STRINGBACKQUOTE [literal string] Back quoted string
 
 Lexer asciidoc
 
@@ -232,6 +250,24 @@ Lexer asm
         Extended instructions
         Directives4Foldstart
         Directives4Foldend
+    Styles:
+          0 SCE_ASM_DEFAULT [default] White space
+          1 SCE_ASM_COMMENT [comment line] Comment
+          2 SCE_ASM_NUMBER [literal numeric] Number
+          3 SCE_ASM_STRING [literal string] String
+          4 SCE_ASM_OPERATOR [operator] Operator
+          5 SCE_ASM_IDENTIFIER [identifier] Identifier
+          6 SCE_ASM_CPUINSTRUCTION [keyword] CPU Instruction
+          7 SCE_ASM_MATHINSTRUCTION [keyword] FPU Instruction
+          8 SCE_ASM_REGISTER [keyword identifier] Register
+          9 SCE_ASM_DIRECTIVE [keyword] Directive
+         10 SCE_ASM_DIRECTIVEOPERAND [keyword] Directive Operand
+         11 SCE_ASM_COMMENTBLOCK [comment] Comment block
+         12 SCE_ASM_CHARACTER [literal string] Single quoted string
+         13 SCE_ASM_STRINGEOL [error literal string] End of line where string is not closed
+         14 SCE_ASM_EXTINSTRUCTION [keyword] Extended Instruction
+         15 SCE_ASM_COMMENTDIRECTIVE [comment] Directive Comment
+         16 SCE_ASM_STRINGBACKQUOTE [literal string] Back quoted string
 
 Lexer asn1
     Word Lists:
@@ -1132,6 +1168,8 @@ Lexer fsharp
                Setting this option to 0 disables folding of grouped line comments in F# files when fold.comment=1.
         bool   fold.fsharp.preprocessor
                Setting this option to 1 enables folding of F# compiler directives.
+        bool   fold.fsharp.quotes
+               Setting this option to 1 enables folding of multi-line strings in F# files.
         bool   fold.fsharp.imports
                Setting this option to 0 disables folding of F# import declarations.
     Word Lists:
@@ -1750,6 +1788,7 @@ Lexer pascal
          12 SCE_PAS_CHARACTER [literal string character] Character
          13 SCE_PAS_OPERATOR [operator] Operator
          14 SCE_PAS_ASM [assembler] Inline Assembler
+         15 SCE_PAS_MULTILINESTRING [literal string multiline] Triple quoted multiline string
 
 Lexer powerbasic
     Word Lists:

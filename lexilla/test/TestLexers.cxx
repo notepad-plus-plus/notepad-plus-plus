@@ -407,7 +407,7 @@ class PropertyMap {
 		return withVars;
 	}
 
-	std::vector<std::string> GetFilePatterns(const std::string &key) const {
+	static std::vector<std::string> GetFilePatterns(const std::string &key) {
 		std::vector<std::string> exts;
 		// Malformed patterns are skipped if we require the whole prefix here;
 		// a fuzzy search lets us collect and report them

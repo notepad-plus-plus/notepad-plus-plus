@@ -1570,6 +1570,19 @@ void SCI_METHOD LexerCPP::Fold(Sci_PositionU startPos, Sci_Position length, int 
 					levelNext++;
 				} else if (styler.Match(j, "end")) {
 					levelNext--;
+				} else if (styler.Match(j, "pragma")) {
+					constexpr size_t lenPragma = 6;
+					j += lenPragma;
+					if (IsASpaceOrTab(styler.SafeGetCharAt(j))) {
+						while ((j < endPos) && IsASpaceOrTab(styler.SafeGetCharAt(j))) {
+							j++;
+						}
+						if (styler.Match(j, "region")) {
+							levelNext++;
+						} else if (styler.Match(j, "endregion")) {
+							levelNext--;
+						}
+					}
 				}
 
 				if (options.foldPreprocessorAtElse && (styler.Match(j, "else") || styler.Match(j, "elif"))) {

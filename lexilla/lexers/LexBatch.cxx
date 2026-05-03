@@ -635,4 +635,4 @@ void LexerBatch::Lex(Sci_PositionU startPos, Sci_Position length, int, Scintilla
 
 }
 
-extern const LexerModule lmBatch(SCLEX_LUA, LexerBatch::LexerFactoryBatch, "batch", batchWordListDesc);
+extern const LexerModule lmBatch(SCLEX_BATCH, LexerBatch::LexerFactoryBatch, "batch", batchWordListDesc);

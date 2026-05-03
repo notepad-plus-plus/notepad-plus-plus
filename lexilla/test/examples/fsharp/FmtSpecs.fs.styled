@@ -2,6 +2,32 @@
 
 {1}let{0} {6}x{0} {12}={0} {3}List{0}.{2}fold{0} {12}(*){0} {13}24.5{0} {12}[{0} {13}1.{12};{0} {13}2.{12};{0} {13}3.{0} {12}]{0}
 
+{1}let{0} {6}template{0} {12}={0}
+    {15}$"""<html>
+  <{19}%%{15}@language=VBScript{19}%%{15}>
+  <{19}%%{15}-- comment --{19}%%{15}>
+  <script type="text/javascript">
+    console.info(`Access time: ${{new Date().toLocaleTimeString()}}`);
+  </script>
+  <script type="text/vbscript">dim e="{19}%.9g{15}{System.Math.Exp 1.}>"</script>
+  <{19}%%{15}response.write("Last mod time: {19}%A{15}{System.DateTime.Now.ToString("yyyy-MM-dd h:mm:ss tt")}"){19}%%{15}>
+  <{19}%%{15} 'comment{19}%%{15}>
+  <{19}%%{15}dim pi="{System.Math.PI{19},-16{15}}"'comment{19}%%{15}>
+</html>"""{0}
+
+{1}let{0} {6}template'{0} {12}({6}date{12}:{0} {3}System{0}.{3}DateTime{12}){0} {12}={0}
+    {16}$@"""<html>
+  <{19}%%{16}@language=VBScript{19}%%{16}>
+  <{19}%%{16}-- comment --{19}%%{16}>
+  <script type=""text/javascript"">
+    console.info(`Access time: ${{new Date().toLocaleTimeString()}}`);
+  </script>
+  <script type=""text/vbscript"">dim e=""{19}%.9g{16}{System.Math.Exp 1.}>""</script>
+  <{19}%%{16}response.write(""Last mod time: {19}%A{16}{date}""){19}%%{16}>
+  <{19}%%{16} 'comment{19}%%{16}>
+  <{19}%%{16}dim pi=""{System.Math.PI{19},-16{16}}""'comment{19}%%{16}>
+</html>"""{0}
+
 {9}// expect "147.00"
 {2}printfn{0} {15}"Speed: {19}%.2f{15} m/s"{0} {6}x{0}
 {2}printfn{0} {15}$"Speed: {19}%.2f{15}{x} m/s"{0}

@@ -768,6 +768,8 @@ sptr_t ScintillaQt::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam)
 		}
 	} catch (std::bad_alloc &) {
 		errorStatus = Status::BadAlloc;
+	} catch (Failure &failure) {
+		errorStatus = failure.status;
 	} catch (...) {
 		errorStatus = Status::Failure;
 	}

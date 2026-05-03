@@ -599,6 +599,29 @@
     </table>
     <h2 id="Releases">Releases</h2>
     <h3>
+       <a href="https://www.scintilla.org/scintilla562.zip">Release 5.6.2</a>
+    </h3>
+    <ul>
+	<li>
+	Released 29 April 2026.
+	</li>
+	<li>
+	Add error status SC_STATUS_OUTSIDE_DOCUMENT that is set when operations are attempted on a position
+	outside the document.
+	Positions are checked earlier to prevent actions partly succeeding.
+	Incomplete actions could lead to features that are out of synchronization
+	like change history referring to text that has been deleted.
+	</li>
+	<li>
+	On Win32 with DirectWrite in a GDI scaled application, draw sharper text in autocompletion lists.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2505/">Bug #2505</a>.
+	</li>
+	<li>
+	On Win32 update scaling when the application moves to another monitor.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2503/">Bug #2503</a>.
+	</li>
+    </ul>
+    <h3>
        <a href="https://www.scintilla.org/scintilla561.zip">Release 5.6.1</a>
     </h3>
     <ul>

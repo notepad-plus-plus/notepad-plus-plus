@@ -49,6 +49,9 @@
  0 400 400    comment ~ A multiple-line
  0 400 400    comment directive~
  1 400 400   
+ 0 400 400   ; back quoted string=16
+ 0 400 400   `back-quoted-string`
+ 1 400 400   
  0 400 400   ; test for folding from segment to ends
  2 400 401 + data segment
  0 401 401 | hw db "HW!"

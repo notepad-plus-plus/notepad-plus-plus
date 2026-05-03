@@ -2,6 +2,32 @@
  1 400 400   
  0 400 400   let x = List.fold (*) 24.5 [ 1.; 2.; 3. ]
  1 400 400   
+ 0 400 400   let template =
+ 2 400 401 +     $"""<html>
+ 0 401 401 |   <%%@language=VBScript%%>
+ 0 401 401 |   <%%-- comment --%%>
+ 0 401 401 |   <script type="text/javascript">
+ 0 401 401 |     console.info(`Access time: ${{new Date().toLocaleTimeString()}}`);
+ 0 401 401 |   </script>
+ 0 401 401 |   <script type="text/vbscript">dim e="%.9g{System.Math.Exp 1.}>"</script>
+ 0 401 401 |   <%%response.write("Last mod time: %A{System.DateTime.Now.ToString("yyyy-MM-dd h:mm:ss tt")}")%%>
+ 0 401 401 |   <%% 'comment%%>
+ 0 401 401 |   <%%dim pi="{System.Math.PI,-16}"'comment%%>
+ 0 401 400 | </html>"""
+ 1 400 400   
+ 0 400 400   let template' (date: System.DateTime) =
+ 2 400 401 +     $@"""<html>
+ 0 401 401 |   <%%@language=VBScript%%>
+ 0 401 401 |   <%%-- comment --%%>
+ 0 401 401 |   <script type=""text/javascript"">
+ 0 401 401 |     console.info(`Access time: ${{new Date().toLocaleTimeString()}}`);
+ 0 401 401 |   </script>
+ 0 401 401 |   <script type=""text/vbscript"">dim e=""%.9g{System.Math.Exp 1.}>""</script>
+ 0 401 401 |   <%%response.write(""Last mod time: %A{date}"")%%>
+ 0 401 401 |   <%% 'comment%%>
+ 0 401 401 |   <%%dim pi=""{System.Math.PI,-16}""'comment%%>
+ 0 401 400 | </html>"""
+ 1 400 400   
  0 400 400   // expect "147.00"
  0 400 400   printfn "Speed: %.2f m/s" x
  0 400 400   printfn $"Speed: %.2f{x} m/s"

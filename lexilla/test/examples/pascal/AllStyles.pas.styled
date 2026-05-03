@@ -30,7 +30,7 @@
 {4}// comment2=3
 {3}(* comment text *){0}
 
-{4}// commentline=4 
+{4}// commentline=4
 // example line
 {0}
 {4}// preprocessor=5
@@ -61,7 +61,7 @@
 {8}$ABCDEF123{0}
 
 {4}// word=9
-{9}absolute{0} {9}abstract{0} {9}and{0} {9}array{0} {9}as{0} 
+{9}absolute{0} {9}abstract{0} {9}and{0} {9}array{0} {9}as{0}
 
 {4}// string=10
 {10}'string'{0}
@@ -72,11 +72,21 @@
 {4}// character=12
 {12}#65{0}
 
-{4}// operator=13 
-{8}${0} {13}&{0} {13}*{0} {13}+{0} {13}/{0} {13}<{0} {13}={0} {13}>{0} {13}^{0}  
+{4}// operator=13
+{8}${0} {13}&{0} {13}*{0} {13}+{0} {13}/{0} {13}<{0} {13}={0} {13}>{0} {13}^{0}
 
-{4}// asm
-{9}asm{14} 
-  this is 
+{4}// asm=14
+{9}asm{14}
+  this is
   inside assembler
 {9}end{0}
+
+{4}// multiline string=15
+{15}'''
+triple-quoted
+'''{13};{0}
+
+{15}'''''
+5 quotes needs matching 5 quote end
+''' triple quotes allowed in 5 quote
+'''''{13};{0}

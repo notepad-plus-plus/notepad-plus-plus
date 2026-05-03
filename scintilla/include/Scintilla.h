@@ -872,6 +872,7 @@ typedef sptr_t (*SciFnDirectStatus)(sptr_t ptr, unsigned int iMessage, uptr_t wP
 #define SC_STATUS_OK 0
 #define SC_STATUS_FAILURE 1
 #define SC_STATUS_BADALLOC 2
+#define SC_STATUS_OUTSIDE_DOCUMENT 3
 #define SC_STATUS_WARN_START 1000
 #define SC_STATUS_WARN_REGEX 1001
 #define SCI_SETSTATUS 2382

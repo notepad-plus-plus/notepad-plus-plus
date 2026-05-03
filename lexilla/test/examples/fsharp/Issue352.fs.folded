@@ -1,0 +1,17 @@
+ 0 400 400   module Issue352
+ 1 400 400   
+ 0 400 400   let asyncFn() = async {
+ 0 400 400       let expr = backgroundTask { return 4L }
+ 0 400 400       let (|Even|Odd|) n = if n % 2L |> (=) 0L then Even n else Odd
+ 0 400 400       match! task { return! expr } |> Async.AwaitTask with
+ 0 400 400       | Even n ->
+ 0 400 400           return [ yield! seq { for i in 0L..2L..n do yield i } ]
+ 0 400 400       | Odd ->
+ 0 400 400           let! val' = expr |> Async.AwaitTask
+ 0 400 400           printfn "%s(%s): %d is odd."
+ 0 400 400           <| System.IO.Path.Combine(__SOURCE_DIRECTORY__, __SOURCE_FILE__)
+ 0 400 400           <| __LINE__
+ 0 400 400           <| val'
+ 0 400 400           return []
+ 0 400 400   }
+ 0 400   0   

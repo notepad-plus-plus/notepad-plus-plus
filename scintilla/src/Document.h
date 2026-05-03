@@ -369,6 +369,7 @@ public:
 	int SCI_METHOD DEVersion() const noexcept override;
 
 	void SCI_METHOD SetErrorStatus(int status) override;
+	void CheckPosition(Sci::Position pos) const;
 
 	Sci_Position SCI_METHOD LineFromPosition(Sci_Position pos) const override;
 	Sci::Line SciLineFromPosition(Sci::Position pos) const noexcept;	// Avoids casting LineFromPosition

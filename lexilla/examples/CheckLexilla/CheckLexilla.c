@@ -72,7 +72,7 @@ static Function FindSymbol(Module m, const char *symbol) {
 }
 
 int main(int argc, char *argv[]) {
-	char szLexillaPath[] = "../../bin/" LEXILLA_LIB LEXILLA_EXTENSION;
+	const char szLexillaPath[] = "../../bin/" LEXILLA_LIB LEXILLA_EXTENSION;
 	const char *libPath = szLexillaPath;
 	if (argc > 1) {
 		libPath = argv[1];

@@ -1,0 +1,10 @@
+ 0 400   0   # Failure case for issue #326
+ 0 400   0   # SCE_YAML_TEXT should extend over empty line
+ 2 400   0 + my_yaml_block: |+
+ 0 402   0 |   This block is text
+ 1 402   0 | 
+ 0 402   0 |   even if the line above is empty
+ 0 402   0 |   these two text lines should also be highlighted as text.
+ 1 400   0   
+ 0 400   0   # End of example, should be the end of text rendering
+ 0 400   0   

@@ -183,6 +183,7 @@ const LexicalClass lexicalClasses[] = {
 	12, "SCE_PAS_CHARACTER","literal string character", "Character",
 	13, "SCE_PAS_OPERATOR","operator", "Operator",
 	14, "SCE_PAS_ASM", "assembler", "Inline Assembler", 
+	15, "SCE_PAS_MULTILINESTRING", "literal string multiline", "Triple quoted multiline string",
 };
 
 class LexerPascal : public DefaultLexer {
@@ -324,7 +325,22 @@ void LexerPascal::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle
 	const CharacterSet setHexNumber(CharacterSet::setDigits, "abcdefABCDEF");
 	const CharacterSet setOperator(CharacterSet::setNone, "#$&'()*+,-./:;<=>@[]^{}");
 
+	// To terminate SCE_PAS_MULTILINESTRING, need to know number of quotes at start so retreat to starting line. 
+	if ((initStyle == SCE_PAS_MULTILINESTRING) && (startPos > 0)) {
+		const Sci_Position endPos = startPos + length;
+		// Look for line start not in SCE_PAS_MULTILINESTRING
+		Sci_Position line = std::max<Sci_Position>(styler.GetLine(startPos) - 1, 0);
+		while ((line > 0) && (styler.StyleIndexAt(styler.LineStart(line)) == SCE_PAS_MULTILINESTRING)) {
+			line--;
+		}
+		startPos = styler.LineStart(line);
+		length = endPos - startPos;
+		initStyle = startPos == 0 ? SCE_PAS_DEFAULT : styler.StyleIndexAt(startPos - 1);
+	}
+
 	int curLineState = 0;
+	size_t countQuotes = 0;
+	bool inStringIndent = true;
 
 	StyleContext sc(startPos, length, initStyle, styler);
 	if (sc.currentLine > 0) {
@@ -332,6 +348,9 @@ void LexerPascal::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle
 	}
 
 	for (; sc.More(); sc.Forward()) {
+		if (sc.atLineStart) {
+			inStringIndent = true;
+		}
 		// Determine if the current state should terminate.
 		switch (sc.state) {
 			case SCE_PAS_NUMBER:
@@ -385,6 +404,22 @@ void LexerPascal::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle
 					sc.SetState(SCE_PAS_DEFAULT);
 				}
 				break;
+			case SCE_PAS_MULTILINESTRING:
+				if (inStringIndent) {
+					// Only terminate for first multi-quote on line
+					inStringIndent = IsASpaceOrTab(sc.ch);
+					if (sc.Match("'''")) {
+						size_t foundQuotes = 3;
+						while (sc.GetRelativeChar(foundQuotes) == '\'') {
+							foundQuotes++;
+						}
+						if (foundQuotes >= countQuotes) {
+							sc.Forward(countQuotes);
+							sc.SetState(SCE_PAS_DEFAULT);
+						}
+					}
+				}
+				break;
 			case SCE_PAS_CHARACTER:
 				if (!setHexNumber.Contains(sc.ch) && sc.ch != '$') {
 					sc.SetState(SCE_PAS_DEFAULT);
@@ -398,6 +433,8 @@ void LexerPascal::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle
 				break;
 			case SCE_PAS_ASM:
 				sc.SetState(SCE_PAS_DEFAULT);
+				break;
+			default:	// Only SCE_PAS_DEFAULT missing from cases
 				break;
 		}
 
@@ -421,7 +458,21 @@ void LexerPascal::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle
 			} else if (sc.Match('/', '/')) {
 				sc.SetState(SCE_PAS_COMMENTLINE);
 			} else if (sc.ch == '\'') {
-				sc.SetState(SCE_PAS_STRING);
+				if (sc.Match("'''")) {
+					// Count quotes for handling 5-quote and 7-quote ... variants
+					countQuotes = 3;
+					while (sc.GetRelativeChar(countQuotes) == '\'') {
+						countQuotes++;
+					}
+					if (((countQuotes % 2) == 1) && AnyOf(sc.GetRelativeChar(countQuotes), '\r', '\n')) {
+						sc.SetState(SCE_PAS_MULTILINESTRING);
+						sc.Forward(countQuotes);
+					} else {
+						sc.SetState(SCE_PAS_STRING);
+					}
+				} else {
+					sc.SetState(SCE_PAS_STRING);
+				}
 			} else if (sc.ch == '#') {
 				sc.SetState(SCE_PAS_CHARACTER);
 			} else if (setOperator.Contains(sc.ch) && !(curLineState & stateInAsm)) {

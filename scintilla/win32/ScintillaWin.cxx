@@ -366,9 +366,9 @@ public:
 
 	void SetCompositionFont(const ViewStyle &vs, int style, UINT dpi) const {
 		LOGFONTW lf{};
-		int sizeZoomed = vs.styles[style].size + (vs.zoomLevel * FontSizeMultiplier);
-		if (sizeZoomed <= 2 * FontSizeMultiplier)	// Hangs if sizeZoomed <= 1
-			sizeZoomed = 2 * FontSizeMultiplier;
+		// Hangs if font height <= 1, so force minimum value
+		const int sizeZoomed = std::max(vs.styles[style].size + (vs.zoomLevel * FontSizeMultiplier),
+			2 * FontSizeMultiplier);
 		// The negative is to allow for leading
 		lf.lfHeight = -::MulDiv(sizeZoomed, dpi, pointsPerInch * FontSizeMultiplier);
 		lf.lfWeight = static_cast<LONG>(vs.styles[style].weight);
@@ -905,7 +905,11 @@ bool ScintillaWin::UpdateRenderingParams(bool force) noexcept {
 	}
 
 	hCurrentMonitor = monitor;
-	deviceScaleFactor = Internal::GetDeviceScaleFactorWhenGdiScalingActive(hRootWnd);
+	const float newDeviceScaleFactor = Internal::GetDeviceScaleFactorWhenGdiScalingActive(hRootWnd);
+	if (deviceScaleFactor != newDeviceScaleFactor) {
+		deviceScaleFactor = newDeviceScaleFactor;
+		targets.valid = false;
+	}
 	renderingParams->defaultRenderingParams = std::move(monitorRenderingParams);
 	renderingParams->customRenderingParams = std::move(customClearTypeRenderingParams);
 	return true;
@@ -2492,17 +2496,18 @@ sptr_t ScintillaWin::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 		case WM_MOUSEACTIVATE:
 		case WM_NCHITTEST:
 		case WM_NCCALCSIZE:
-		case WM_NCPAINT:
 		case WM_NCMOUSEMOVE:
 		case WM_NCLBUTTONDOWN:
 		case WM_SYSCOMMAND:
 		case WM_WINDOWPOSCHANGING:
 			return ::DefWindowProc(MainHWND(), msg, wParam, lParam);
 
+		case WM_NCPAINT:
 		case WM_WINDOWPOSCHANGED:
 #if defined(USE_D2D)
 			if (technology != Technology::Default) {
 				if (UpdateRenderingParams(false)) {
+					reverseArrowCursor.Invalidate();
 					DropGraphics();
 					Redraw();
 				}
@@ -2556,6 +2561,8 @@ sptr_t ScintillaWin::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 		}
 	} catch (std::bad_alloc &) {
 		errorStatus = Status::BadAlloc;
+	} catch (Failure &failure) {
+		errorStatus = failure.status;
 	} catch (...) {
 		errorStatus = Status::Failure;
 	}

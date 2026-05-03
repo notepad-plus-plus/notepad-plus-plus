@@ -72,8 +72,10 @@
  0 401 400 | #endif
  1 400 400   
  2 400 401 + int main() {
- 0 401 401 | 	double x[] = {3.14159,6.02e23,1.6e-19,1.0+1};
- 0 401 401 | 	int y[] = {75,0113,0x4b};
+ 2 401 402 + #region array declarations
+ 0 402 402 | 	double x[] = {3.14159,6.02e23,1.6e-19,1.0+1};
+ 0 402 402 | 	int y[] = {75,0113,0x4b};
+ 0 402 401 | #endregion
  0 401 401 | 	printf("hello world %d %g\n", y[0], x[0]);
  1 401 401 | 
  0 401 401 | 	// JavaScript regular expression (14) tests
@@ -83,11 +85,13 @@
  0 401 401 | 	// arrow function
  0 401 401 | 	() => /a|b/i.test("baby");
  1 401 401 | 
- 0 401 401 | 	// Escape sequence (27) tests
- 0 401 401 | 	printf("\'\"\?\\\a\b\f\n\r\t\v \P");
- 0 401 401 | 	printf("\0a \013a \019");
- 0 401 401 | 	printf("\x013ac \xdz");
- 0 401 401 | 	printf("\ua34df \uz");
- 0 401 401 | 	printf("\Ua34df7833 \Uz");
+ 2 401 402 + #pragma region print tests
+ 0 402 402 | 	// Escape sequence (27) tests
+ 0 402 402 | 	printf("\'\"\?\\\a\b\f\n\r\t\v \P");
+ 0 402 402 | 	printf("\0a \013a \019");
+ 0 402 402 | 	printf("\x013ac \xdz");
+ 0 402 402 | 	printf("\ua34df \uz");
+ 0 402 402 | 	printf("\Ua34df7833 \Uz");
+ 0 402 401 | #pragma endregion
  0 401 400 | }
  1 400 400   

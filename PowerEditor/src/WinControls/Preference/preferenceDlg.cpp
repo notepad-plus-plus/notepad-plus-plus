@@ -983,7 +983,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 			NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
 			wstring findInFilesFilterTip = pNativeSpeaker->getLocalizedStrFromID("toolbar-accent-tip", L"This option makes your toolbar icons follow Windows system accent color. Accent color is the highlight color used in buttons, borders, and Start menu tiles in Windows. To change it, go to Settings > Personalization > Colors, then select your preferred accent color.");
-			_accentTip = CreateToolTip(IDD_ACCENT_TIP_STATIC, _hSelf, _hInst, findInFilesFilterTip.data(), pNativeSpeaker->isRTL());
+			_accentTip = createToolTip(IDD_ACCENT_TIP_STATIC, _hSelf, _hInst, findInFilesFilterTip.data(), pNativeSpeaker->isRTL());
 
 			::SendDlgItemMessage(_hSelf, nppGUITbInfo._tbUseMono ? IDC_RADIO_COMPLETE : IDC_RADIO_PARTIAL, BM_SETCHECK, BST_CHECKED, 0);
 
@@ -1358,7 +1358,7 @@ intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
 			wstring tabCompactLabelLenTip = pNativeSpeaker->getLocalizedStrFromID("tabbar-tabcompactlabellen-tip",
 				L"Limits the visible length of long tab names. Enter to apply the given value. Value range: 1-257 characters (0 disables the truncation).");
-			_tabCompactLabelLenTip = CreateToolTip(IDC_TABCOMPACTLABELLEN_TIP_STATIC, _hSelf, _hInst, tabCompactLabelLenTip.data(), pNativeSpeaker->isRTL());
+			_tabCompactLabelLenTip = createToolTip(IDC_TABCOMPACTLABELLEN_TIP_STATIC, _hSelf, _hInst, tabCompactLabelLenTip.data(), pNativeSpeaker->isRTL());
 
 			HWND hEdit = ::GetDlgItem(_hSelf, IDC_EDIT_TABCOMPACTLABELLEN);
 			subclassEditToAcceptEnterKey(hEdit, WM_COMMAND, MAKEWPARAM(IDC_EDIT_TABCOMPACTLABELLEN, EN_KILLFOCUS), reinterpret_cast<LPARAM>(hEdit));
@@ -2111,7 +2111,7 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
 			wstring tip2show = pNativeSpeaker->getLocalizedStrFromID("eol-custom-color-tip", L"Go to Style Configurator to change the default EOL custom color (\"EOL custom color\").");
 
-			_tip = CreateToolTip(IDC_BUTTON_LAUNCHSTYLECONF_CRLF, _hSelf, _hInst, tip2show.data(), pNativeSpeaker->isRTL());
+			_tip = createToolTip(IDC_BUTTON_LAUNCHSTYLECONF_CRLF, _hSelf, _hInst, tip2show.data(), pNativeSpeaker->isRTL());
 
 			const bool isNpcModeAbbrv = svp._npcMode == svp.abbreviation;
 			setChecked(IDC_RADIO_NPC_ABBREVIATION, isNpcModeAbbrv);
@@ -2150,11 +2150,11 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			wstring tipNpcInc2show = pNativeSpeaker->getLocalizedStrFromID("npcIncludeCcUniEol-tip",
 				L"Apply non-printing characters appearance settings to C0, C1 control and Unicode EOL (next line, line separator and paragraph separator) characters.");
 
-			_tipNote = CreateToolTip(IDC_BUTTON_NPC_NOTE, _hSelf, _hInst, tipNote2Show.data(), pNativeSpeaker->isRTL());
-			_tipAbb = CreateToolTip(IDC_RADIO_NPC_ABBREVIATION, _hSelf, _hInst, tipAb2Show.data(), pNativeSpeaker->isRTL());
-			_tipCodepoint = CreateToolTip(IDC_RADIO_NPC_CODEPOINT, _hSelf, _hInst, tipCp2Show.data(), pNativeSpeaker->isRTL());
-			_tipNpcColor = CreateToolTip(IDC_BUTTON_NPC_LAUNCHSTYLECONF, _hSelf, _hInst, tipNpcCol2show.data(), pNativeSpeaker->isRTL());
-			_tipNpcInclude = CreateToolTip(IDC_CHECK_NPC_INCLUDECCUNIEOL, _hSelf, _hInst, tipNpcInc2show.data(), pNativeSpeaker->isRTL());
+			_tipNote = createToolTip(IDC_BUTTON_NPC_NOTE, _hSelf, _hInst, tipNote2Show.data(), pNativeSpeaker->isRTL());
+			_tipAbb = createToolTip(IDC_RADIO_NPC_ABBREVIATION, _hSelf, _hInst, tipAb2Show.data(), pNativeSpeaker->isRTL());
+			_tipCodepoint = createToolTip(IDC_RADIO_NPC_CODEPOINT, _hSelf, _hInst, tipCp2Show.data(), pNativeSpeaker->isRTL());
+			_tipNpcColor = createToolTip(IDC_BUTTON_NPC_LAUNCHSTYLECONF, _hSelf, _hInst, tipNpcCol2show.data(), pNativeSpeaker->isRTL());
+			_tipNpcInclude = createToolTip(IDC_CHECK_NPC_INCLUDECCUNIEOL, _hSelf, _hInst, tipNpcInc2show.data(), pNativeSpeaker->isRTL());
 
 			_tips.push_back(_tipNote);
 			_tips.push_back(_tipAbb);
@@ -3030,7 +3030,7 @@ intptr_t CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wPar
 			NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 			wstring tipNote2Show = pNativeSpeaker->getLocalizedStrFromID("verticalEdge-tip",	L"Add your column marker by indicating its position with a decimal number. You can define several column markers by using white space to separate the different numbers.");
 
-			_verticalEdgeTip = CreateToolTip(IDC_BUTTON_VES_TIP, _hSelf, _hInst, tipNote2Show.data(), pNativeSpeaker->isRTL());
+			_verticalEdgeTip = createToolTip(IDC_BUTTON_VES_TIP, _hSelf, _hInst, tipNote2Show.data(), pNativeSpeaker->isRTL());
 
 			initScintParam();
 
@@ -3335,7 +3335,7 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
 			wstring tipScintillaRenderingTechnology2Show = pNativeSpeaker->getLocalizedStrFromID("scintillaRenderingTechnology-tip",
 				L"May improve rendering of special characters or resolve some graphics issues, restart Notepad++ to apply the changes.");
-			_tipScintillaRenderingTechnology = CreateToolTip(IDC_COMBO_SC_TECHNOLOGY_CHOICE, _hSelf, _hInst,
+			_tipScintillaRenderingTechnology = createToolTip(IDC_COMBO_SC_TECHNOLOGY_CHOICE, _hSelf, _hInst,
 				tipScintillaRenderingTechnology2Show.data(), pNativeSpeaker->isRTL());
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DETECTENCODING, BM_SETCHECK, nppGUI._detectEncoding, 0);
@@ -4251,8 +4251,8 @@ intptr_t CALLBACK IndentationSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 				L"\n"\
 				L"If you select advanced mode but do not edit files in the aforementioned languages, the indentation will remain in basic mode.");
 
-			_tipAutoIndentBasic = CreateToolTip(IDC_RADIO_AUTOINDENT_BASIC, _hSelf, _hInst, tipAutoIndentBasic2Show.data(), pNativeSpeaker->isRTL());
-			_tipAutoIndentAdvanced = CreateToolTip(IDC_RADIO_AUTOINDENT_ADVANCED, _hSelf, _hInst, tipAutoIndentAdvanced2show.data(), pNativeSpeaker->isRTL());
+			_tipAutoIndentBasic = createToolTip(IDC_RADIO_AUTOINDENT_BASIC, _hSelf, _hInst, tipAutoIndentBasic2Show.data(), pNativeSpeaker->isRTL());
+			_tipAutoIndentAdvanced = createToolTip(IDC_RADIO_AUTOINDENT_ADVANCED, _hSelf, _hInst, tipAutoIndentAdvanced2show.data(), pNativeSpeaker->isRTL());
 
 			return TRUE;
 		}
@@ -6402,7 +6402,7 @@ intptr_t CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 			wstring tip2show = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-tip", L"This allows you to include additional character into current word characters while double clicking for selection or searching with \"Match whole word only\" option checked.");
 
-			_tip = CreateToolTip(IDD_WORDCHAR_QUESTION_BUTTON, _hSelf, _hInst, tip2show.data(), pNativeSpeaker->isRTL());
+			_tip = createToolTip(IDD_WORDCHAR_QUESTION_BUTTON, _hSelf, _hInst, tip2show.data(), pNativeSpeaker->isRTL());
 			return TRUE;
 		}
 
@@ -6787,7 +6787,7 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 
 			NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 			wstring enablePerfTip = pNativeSpeaker->getLocalizedStrFromID("largeFileRestriction-tip", L"Some features may slow performance in large files. These features can be auto-disabled on opening a large file. You can customize them here.\n\nNOTE:\n1. Modifying options here requires re-open currently opened large files to get proper behavior.\n\n2. If \"Deactivate Word Wrap globally\" is checked and you open a large file, \"Word Wrap\" will be disabled for all files. You can re-enable it via menu \"View->Word Wrap\"");
-			_largeFileRestrictionTip = CreateToolTip(IDD_PERFORMANCE_TIP_QUESTION_BUTTON, _hSelf, _hInst, enablePerfTip.data(), false);
+			_largeFileRestrictionTip = createToolTip(IDD_PERFORMANCE_TIP_QUESTION_BUTTON, _hSelf, _hInst, enablePerfTip.data(), false);
 
 			return TRUE;
 		}
@@ -7102,7 +7102,7 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			
 			tipInSelectionText = stringReplace(tipInSelectionText, L"$INT_REPLACE$", std::to_wstring(FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT));
 
-			_tipInSelThresh = CreateToolTip(IDC_INSELECTION_THRESH_QUESTION_BUTTON, _hSelf, _hInst, tipInSelectionText.data(), pNativeSpeaker->isRTL());
+			_tipInSelThresh = createToolTip(IDC_INSELECTION_THRESH_QUESTION_BUTTON, _hSelf, _hInst, tipInSelectionText.data(), pNativeSpeaker->isRTL());
 			if (_tipInSelThresh != nullptr)
 			{
 				::SendMessage(_tipInSelThresh, TTM_SETMAXTIPWIDTH, 0, 260);
@@ -7112,7 +7112,7 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 			tipFillFindWhatText = stringReplace(tipFillFindWhatText, L"$INT_REPLACE$", std::to_wstring(FINDREPLACE_MAXLENGTH - 1));
 
-			_tipFillFindWhatThresh = CreateToolTip(IDC_FILLFINDWHAT_THRESH_QUESTION_BUTTON, _hSelf, _hInst, tipFillFindWhatText.data(), pNativeSpeaker->isRTL());
+			_tipFillFindWhatThresh = createToolTip(IDC_FILLFINDWHAT_THRESH_QUESTION_BUTTON, _hSelf, _hInst, tipFillFindWhatText.data(), pNativeSpeaker->isRTL());
 			if (_tipFillFindWhatThresh != nullptr)
 			{
 				::SendMessage(_tipFillFindWhatThresh, TTM_SETMAXTIPWIDTH, 0, 260);

@@ -159,7 +159,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 
 			NativeLangSpeaker* pNativeSpeaker = nppParamInst.getNativeLangSpeaker();
 			wstring globalOverrideTipStr = pNativeSpeaker->getLocalizedStrFromID("global-override-tip", L"Enabling \"Global override\" here will override that parameter in all language styles. What you probably really want is to use the \"Default Style\" settings instead");
-			_globalOverrideTip = CreateToolTip(IDC_GLOBAL_WHATISGLOBALOVERRIDE_LINK, _hSelf, _hInst, globalOverrideTipStr.data(), false);
+			_globalOverrideTip = createToolTip(IDC_GLOBAL_WHATISGLOBALOVERRIDE_LINK, _hSelf, _hInst, globalOverrideTipStr.data(), false);
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 			NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);

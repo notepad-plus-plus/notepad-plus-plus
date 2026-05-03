@@ -397,7 +397,7 @@ private:
 					int ctrlId = GetDlgCtrlID(_hwndButton);
 					if (ctrlId != 0)
 					{
-						_hwndButtonTooltip = CreateToolTip(ctrlId, hwndDlg, 0, const_cast<LPWSTR>(tipText.c_str()), pNativeSpeaker->isRTL());
+						_hwndButtonTooltip = createToolTip(ctrlId, hwndDlg, 0, tipText.data(), pNativeSpeaker->isRTL());
 					}
 				}
 			}

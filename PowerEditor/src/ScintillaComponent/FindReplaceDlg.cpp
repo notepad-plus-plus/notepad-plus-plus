@@ -1631,16 +1631,16 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			 NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
 			 wstring searchButtonTip = pNativeSpeaker->getLocalizedStrFromID("shift-change-direction-tip", L"Use Shift+Enter to search in the opposite direction.");
-			 _shiftTrickUpTip = CreateToolTip(IDOK, _hSelf, _hInst, searchButtonTip.data(), _isRTL);
+			 _shiftTrickUpTip = createToolTip(IDOK, _hSelf, _hInst, searchButtonTip.data(), _isRTL);
 
 			 wstring checkboxTip = pNativeSpeaker->getLocalizedStrFromID("two-find-buttons-tip", L"2 find buttons mode");
-			 _2ButtonsTip = CreateToolTip(IDC_2_BUTTONS_MODE, _hSelf, _hInst, checkboxTip.data(), _isRTL);
+			 _2ButtonsTip = createToolTip(IDC_2_BUTTONS_MODE, _hSelf, _hInst, checkboxTip.data(), _isRTL);
 
 			 wstring findInFilesFilterTip = pNativeSpeaker->getLocalizedStrFromID("find-in-files-filter-tip", L"Find in cpp, cxx, h, hxx && hpp:\r*.cpp *.cxx *.h *.hxx *.hpp\r\rFind in all files except exe, obj && log:\r*.* !*.exe !*.obj !*.log\r\rFind in all files but exclude folders tests, bin && bin64:\r*.* !\\tests !\\bin*\r\rFind in all files but exclude all folders log or logs recursively:\r*.* !+\\log*");
-			 _filterTip = CreateToolTip(IDC_FIF_FILTER_TIP_STATIC, _hSelf, _hInst, findInFilesFilterTip.data(), _isRTL);
+			 _filterTip = createToolTip(IDC_FIF_FILTER_TIP_STATIC, _hSelf, _hInst, findInFilesFilterTip.data(), _isRTL);
 
 			 wstring dirFromActiveDocTip = pNativeSpeaker->getLocalizedStrFromID("find-in-files-dir-from-active-doc-tip", L"Fill directory field based on active document");
-			 _dirFromActiveDocTip = CreateToolTip(IDD_FINDINFILES_SETDIRFROMDOC_BUTTON, _hSelf, _hInst, dirFromActiveDocTip.data(), _isRTL);
+			 _dirFromActiveDocTip = createToolTip(IDD_FINDINFILES_SETDIRFROMDOC_BUTTON, _hSelf, _hInst, dirFromActiveDocTip.data(), _isRTL);
 
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDC_FINDPREV), L"▲");
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDC_FINDNEXT), L"▼ Find Next");
@@ -5500,7 +5500,7 @@ void FindReplaceDlg::drawStatusBarItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 			{
 				rect.right = rect.left + s;
 				rect.bottom = rect.top + s;
-				_statusbarTooltipWnd = CreateToolTipRect(1, _statusBar.getHSelf(), _hInst, _statusbarTooltipMsg.data(), rect);
+				_statusbarTooltipWnd = createToolTipRect(1, _statusBar.getHSelf(), _hInst, _statusbarTooltipMsg.data(), rect);
 
 				NppDarkMode::setDarkTooltips(_statusbarTooltipWnd, NppDarkMode::ToolTipsType::tooltip);
 			}

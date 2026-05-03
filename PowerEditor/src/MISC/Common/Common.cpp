@@ -1211,7 +1211,7 @@ static bool isHelpTipStaticTextCtrl(HWND hWnd)
 	return true;
 }
 
-static LRESULT CALLBACK HelpTipStaticTextCtrlParentClickProc(
+static LRESULT CALLBACK helpTipStaticTextCtrlParentClickProc(
 	HWND hwnd,
 	UINT Message,
 	WPARAM wParam,
@@ -1226,7 +1226,7 @@ static LRESULT CALLBACK HelpTipStaticTextCtrlParentClickProc(
 	{
 		case WM_NCDESTROY:
 		{
-			::RemoveWindowSubclass(hwnd, HelpTipStaticTextCtrlParentClickProc, uIdSubclass);
+			::RemoveWindowSubclass(hwnd, helpTipStaticTextCtrlParentClickProc, uIdSubclass);
 			break;
 		}
 
@@ -1260,7 +1260,7 @@ static LRESULT CALLBACK HelpTipStaticTextCtrlParentClickProc(
 	return ::DefSubclassProc(hwnd, Message, wParam, lParam);
 }
 
-HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PWSTR pszText, bool isRTL)
+HWND createToolTip(int toolID, HWND hDlg, HINSTANCE hInst, wchar_t* pszText, bool isRTL)
 {
 	if (!toolID || !hDlg || !pszText)
 	{
@@ -1315,16 +1315,16 @@ HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PWSTR pszText, 
 		::SendMessage(hwndTip, TTM_SETDELAYTIME, TTDT_INITIAL, MAKELPARAM(200, 0));
 
 		// Subclass to make tooltip appear if user click on static text
-		if (::GetWindowSubclass(hDlg, HelpTipStaticTextCtrlParentClickProc, toolInfo.uId, nullptr) == FALSE)
+		if (::GetWindowSubclass(hDlg, helpTipStaticTextCtrlParentClickProc, toolInfo.uId, nullptr) == FALSE)
 		{
-			::SetWindowSubclass(hDlg, HelpTipStaticTextCtrlParentClickProc, toolInfo.uId, reinterpret_cast<DWORD_PTR>(hwndTip));
+			::SetWindowSubclass(hDlg, helpTipStaticTextCtrlParentClickProc, toolInfo.uId, reinterpret_cast<DWORD_PTR>(hwndTip));
 		}
 	}
 
 	return hwndTip;
 }
 
-HWND CreateToolTipRect(int toolID, HWND hWnd, HINSTANCE hInst, const PWSTR pszText, const RECT rc)
+HWND createToolTipRect(int toolID, HWND hWnd, HINSTANCE hInst, wchar_t* pszText, const RECT rc)
 {
 	if (!toolID || !hWnd || !pszText)
 	{

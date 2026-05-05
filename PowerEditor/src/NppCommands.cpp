@@ -2700,16 +2700,30 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_ZOOMIN:
 		{
 			_pEditView->execute(SCI_ZOOMIN);
+			syncZoom();
 			break;
 		}
 		case IDM_VIEW_ZOOMOUT:
 			_pEditView->execute(SCI_ZOOMOUT);
+			syncZoom();
 			break;
 
 		case IDM_VIEW_ZOOMRESTORE:
 			//Zoom factor of 0 points means default view
 			_pEditView->execute(SCI_SETZOOM, 0);//_zoomOriginalValue);
+			syncZoom();
 			break;
+
+		case IDM_VIEW_ZOOM_SYNC:
+		{
+			NppParameters& nppParam = NppParameters::getInstance();
+			ScintillaViewParams& svp = (ScintillaViewParams&)nppParam.getSVP();
+			svp._zoomSync = !svp._zoomSync;
+			checkMenuItem(IDM_VIEW_ZOOM_SYNC, svp._zoomSync);
+			if (svp._zoomSync)
+				syncZoom();
+			break;
+		}
 
 		case IDM_VIEW_SYNSCROLLV:
 		{

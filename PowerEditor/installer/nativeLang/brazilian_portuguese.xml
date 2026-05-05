@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 29 Mar 2026 for 8.9.3+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 01 May 2026 for 8.9.4+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -296,6 +296,7 @@ Translation note:
 					<Item id="44024" name="Reduzir (Ctrl+Roda do Mouse para Baixo)"/>
 					<Item id="44025" name="Exibir espaços e tabulações"/>
 					<Item id="44026" name="Exibir final de linha"/>
+					<Item id="44027" name="&amp;Sincronizar entre Visualizações"/>
 					<Item id="44029" name="Expandir todos níveis"/>
 					<Item id="44030" name="Recolher nível atual"/>
 					<Item id="44031" name="Expandir nível atual"/>

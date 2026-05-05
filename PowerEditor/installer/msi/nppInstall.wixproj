@@ -11,6 +11,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="WixToolset.Util.wixext" Version="*" />
+		<PackageReference Include="WixToolset.Util.wixext" Version="6.0.2" />
 	</ItemGroup>
 </Project>

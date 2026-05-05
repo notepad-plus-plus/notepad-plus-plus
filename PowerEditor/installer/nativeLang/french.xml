@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Français" filename="french.xml" version="8.9">
+	<Native-Langue name="Français" filename="french.xml" version="8.9.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -41,6 +41,7 @@ Translation note:
 					<Item subMenuId="edit-onSelection" name="Pour la sélection"/>
 					<Item subMenuId="edit-multiSelectALL" name="Multi-sélection TOUS"/>
 					<Item subMenuId="edit-multiSelectNext" name="Multi-sélection Suivant"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Lecture seule dans Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="Historique de modification"/>
 					<Item subMenuId="search-markAll" name="Marquer tout"/>
 					<Item subMenuId="search-markOne" name="Marquer uniquement la sélection"/>
@@ -137,6 +138,10 @@ Translation note:
 					<Item id="42060" name="Trier les lignes dans l’ordre lexicographique décroissant"/>
 					<Item id="42080" name="Trier les lignes dans l’ordre lexico. croissant en ignorant la casse"/>
 					<Item id="42081" name="Trier les lignes dans l’ordre lexico. décroissant en ignorant la casse"/>
+					<Item id="42100" name="Trier les lignes dans l’ordre régional croissant"/>
+					<Item id="42101" name="Trier les lignes dans l’ordre régional décroissant"/>
+					<Item id="42104" name="Trier les lignes par longueur croissante"/>
+					<Item id="42105" name="Trier les lignes par longueur décroissante"/>
 					<Item id="42061" name="Trier les lignes dans l’ordre d’entier croissant"/>
 					<Item id="42062" name="Trier les lignes dans l’ordre d’entier décroissant"/>
 					<Item id="42063" name="Trier les lignes dans l’ordre décimal (virgule) croissant"/>
@@ -155,6 +160,7 @@ Translation note:
 					<Item id="42072" name="aLÉATOirE"/>
 					<Item id="42073" name="Ouverture du fichier"/>
 					<Item id="42074" name="Ouvrir le répertoire dans l’explorateur"/>
+					<Item id="42106" name="Caviarder la sélection █ (Shift : ●)"/>
 					<Item id="42075" name="Rechercher sur Internet"/>
 					<Item id="42076" name="Changer le moteur de recherche..."/>
 					<Item id="42090" name="Ignorer la casse &amp;&amp; le mot entier"/>
@@ -194,7 +200,9 @@ Translation note:
 					<Item id="42025" name="Enregistrer la macro"/>
 					<Item id="42026" name="Texte de droite à gauche"/>
 					<Item id="42027" name="Texte de gauche à droite"/>
-					<Item id="42028" name="Lecture seule dans Notepad++"/>
+					<Item id="42028" name="Lecture seule pour le document courant"/>
+					<Item id="42102" name="Lecture seule pour tous les documents"/>
+					<Item id="42103" name="Enlever la lecture seule pour tous les documents"/>
 					<Item id="42029" name="Copier le chemin complet du document actuel"/>
 					<Item id="42030" name="Copier le nom du document actuel"/>
 					<Item id="42031" name="Copier le dossier du document actuel"/>
@@ -288,6 +296,7 @@ Translation note:
 					<Item id="44024" name="Zoom a&amp;rrière (Ctrl+Molette vers le bas)"/>
 					<Item id="44025" name="Afficher les blancs et les tabulations"/>
 					<Item id="44026" name="Afficher les symboles de fin de ligne"/>
+					<Item id="44027" name="Synchroniser entre les vues"/>
 					<Item id="44029" name="Déplier tous les blocs"/>
 					<Item id="44030" name="Replier le bloc de la ligne actuelle"/>
 					<Item id="44031" name="Déplier le bloc de la ligne actuelle"/>
@@ -963,7 +972,6 @@ Translation note:
 					<Item id="6129" name="Icônes pleines (petite)"/>
 					<Item id="6130" name="Icônes pleines (grande)"/>
 					<Item id="6105" name="Icônes standard (petite)"/>
-
 					<Item id="6011" name="Colorisation"/>
 					<Item id="6012" name="Complèt"/>
 					<Item id="6013" name="Partiel"/>
@@ -1111,6 +1119,7 @@ Translation note:
 					<Item id="6419" name="Nouveau document"/>
 					<Item id="6420" name="Appliquer aux fichiers ANSI ouverts"/>
 					<Item id="6432" name="Toujours ouvrir un nouveau document en plus au démarrage"/>
+					<Item id="6433" name="Utiliser la première ligne du document comme nom d'onglet sans titre"/>
 				</NewDoc>
 
 				<DefaultDir title="Dossier par défaut">
@@ -1482,6 +1491,9 @@ Veuillez réinitialiser une valeur cohérente au dialogue Préférences."/>
 			<DroppingFolderAsProjectModeWarning title="Action invalide" message="Vous ne pouvez déposer que des fichiers ou des dossiers mais pas les deux, car vous êtes en mode projet.
 Pour rendre cette opération possible, vous devez activer « Lors de glisser-déposer d’un dossier, ouvrir tous les fichiers dans ce dossier » à la page « Dossier par défaut » du dialogue Préférences."/>
 			<SortingError title="Erreur de tri" message="Impossible d’effectuer le tri numérique à cause de la ligne $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SortLocaleMultiple title="Tri non-exécuté" message="Le tri de sélections multiples n'est pas supporté."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleUnknown title="Échec du tri" message="La raison de l'échec du tri ne peut pas être déterminée."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+			<SortLocaleExcept title="Échec du tri" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Sélection en mode colonnes" message="
 Il existe 3 façons d’activer le mode colonne :
 
@@ -1503,7 +1515,7 @@ Voulez-vous continuer ?"/>
 			<NoBackupDoSaveFile title="Sauvegarde" message="Votre fichier de sauvegarde ne peut pas être trouvé (effacé de l’extérieur).
 Sauvegardez-le sinon vos données seront perdues
 Voulez-vous enregistrer le fichier « $STR_REPLACE$ » ?"/>
-			<DoReloadOrNot title="Recharger" message="« $STR_REPLACE$ »
+			<DoReloadOrNot title="Recharger" message="$STR_REPLACE$
 
 Ce fichier a été modifié par un autre programme.
 Voulez-vous le recharger ?"/>
@@ -1574,6 +1586,8 @@ Continuer ?"/>
 			<LanguageMenuCompactWarning title="Menu compact des langages" message="Cette option sera appliquée au prochain lancement."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Les modifications non-enregistrées vont être perdues !
 Voulez-vous enregistrer vos modifications avant de changer de thème ?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+			<FullReadOnlySavingForbidden title="Échec de la sauvegarde" message="Impossible de sauvegarder le fichier.
+Le mode d'interdiction de sauvegarde en lecture seule totale de Notepad++ a empêché la sauvegarde du fichier."/>
 			<NotEnoughRoom4Saving title="Échec de l’enregistrement" message="Échec de l’enregistrement du fichier.
 Il semblerait qu’il n’y a pas assez d’espace sur le disque. Votre fichier n’est pas enregistré."/>
 			<FileInaccessibleUserSession title="Fichier inaccessible" message="Certains fichiers de votre session sauvegardée manuellement « $STR_REPLACE$ » sont inaccessibles. Ils peuvent être ouverts comme des documents vides et en lecture seule en tant qu’espaces réservés.
@@ -1762,6 +1776,7 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
 			<find-status-scope-all value="dans le fichier"/>
 			<find-status-scope-backward value="du début du fichier au curseur"/>
 			<find-status-scope-forward value="du curseur à la fin du fichier"/>
+			<find-status-replace-invalid-replace-chars value="Remplacer : impossible de remplacer avec du texte non-ANSI dans un document en ANSI"/>
 			<find-status-invisible-chars-findWhat value="Caractères invisibles dans le contenu collé de « Rechercher » ou « Remplacer par »"/>
 			<find-status-invisible-chars-findWhat-tip value="Avertissement : Caractères invisibles dans le champ de recherche (ou de remplacement).
 Le texte collé dans ce champ contient des caractères invisibles (peut-être des fins de ligne). Si vous continuez sans les supprimer, ils seront inclus dans le texte de recherche (ou de remplacement)."/>
@@ -1777,14 +1792,14 @@ Le texte collé dans ce champ contient des caractères invisibles (peut-être de
 			<finder-wrap-long-lines value="Retour à la ligne automatique"/>
 			<common-ok value="OK"/>
 			<common-cancel value="Annuler"/>
-			<common-name value="Nom : "/>
+			<common-name value="Nom"/>
 			<tabrename-title value="Renommer onglet actuel"/>
-			<tabrename-newname value="Nom nouveau : "/>
+			<tabrename-newname value="Nouveau nom"/>
 			<splitter-rotate-left value="Tourner vers la gauche"/>
 			<splitter-rotate-right value="Tourner vers la droite"/>
-			<userdefined-title-new value="Langage nouveau..."/>
-			<userdefined-title-save value="Enregistrer langage actuel sous..."/>
-			<userdefined-title-rename value="Renommer langage actuel"/>
+			<userdefined-title-new value="Nouveau langage..."/>
+			<userdefined-title-save value="Enregistrer le langage actuel sous..."/>
+			<userdefined-title-rename value="Renommer le langage actuel"/>
 			<summary value="Statistiques"/>
 			<summary-filepath value="Chemin d’accès : "/>
 			<summary-filecreatetime value="Date de création : "/>

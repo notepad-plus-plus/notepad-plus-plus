@@ -469,6 +469,18 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			ScintillaEditView* unfocusView = isFromPrimary ? &_subEditView : &_mainEditView;
 			_smartHighlighter.highlightView(notifyView, unfocusView);
+
+			if (!_isSyncingZoom)
+			{
+				_isSyncingZoom = true;
+				const ScintillaViewParams& svp = NppParameters::getInstance().getSVP();
+				if (svp._zoomSync && viewVisible(MAIN_VIEW) && viewVisible(SUB_VIEW))
+				{
+					intptr_t zoom = notifyView->execute(SCI_GETZOOM);
+					unfocusView->execute(SCI_SETZOOM, zoom);
+				}
+				_isSyncingZoom = false;
+			}
 			break;
 		}
 

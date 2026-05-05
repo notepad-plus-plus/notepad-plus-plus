@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.9.3">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.9.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -294,6 +294,7 @@
 					<Item id="44024" name="&amp;Oddialiť  (Ctrl+Koliesko myši nadol)"/>
 					<Item id="44025" name="Zobraziť medzery a tabulátory"/>
 					<Item id="44026" name="Zobraziť konce riadkov"/>
+					<Item id="44027" name="&amp;Synchronizovať medzi zobrazeniami"/>
 					<Item id="44029" name="Rozbaliť všetko"/>
 					<Item id="44030" name="Zbaliť aktuálnu úroveň"/>
 					<Item id="44031" name="Rozbaliť aktuálnu úroveň"/>

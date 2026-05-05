@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.9">
+	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.9.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -265,6 +265,7 @@
 					<Item id="44024" name="縮小(&amp;O; Ctrl+滑鼠滾輪向下)"/>
 					<Item id="44025" name="顯示空白及 TAB"/>
 					<Item id="44026" name="顯示行尾"/>
+					<Item id="44027" name="雙檢視同步"/>
 					<Item id="44029" name="全部展開"/>
 					<Item id="44030" name="收摺此層"/>
 					<Item id="44031" name="展開此層"/>

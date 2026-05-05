@@ -4,7 +4,7 @@ Updated to :
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.9.3">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.9.4">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -329,6 +329,7 @@ Updated to :
 
 					<Item id="44025" name="Отображать Пробелы и Табуляции"/>
 					<Item id="44026" name="Отображать символ Конца Строки"/>
+					<Item id="44027" name="&amp;Синхрониз. шрифты окон"/>
 					<Item id="44019" name="Отображать все символы"/>
 					<Item id="44020" name="Отображать Направляющие Отступов"/>
 					<Item id="44041" name="Отображать знак Переноса Строк"/>

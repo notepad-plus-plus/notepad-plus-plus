@@ -26,7 +26,7 @@
 #include <algorithm>
 #include <cassert>
 #include <cerrno>
-#include <climits>
+#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -1186,7 +1186,81 @@ wstring GetLastErrorAsString(DWORD errorCode)
 	return errorMsg;
 }
 
-HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PWSTR pszText, bool isRTL)
+static bool isHelpTipStaticTextCtrl(HWND hWnd)
+{
+	static constexpr int strLen = 8; // 8 is enough, WC_STATIC length is 7
+	auto className = std::wstring(strLen, L'\0');
+	className.resize(static_cast<size_t>(::GetClassNameW(hWnd, className.data(), strLen)));
+	if (className != WC_STATIC)
+	{
+		return false;
+	}
+
+	const int ctrlStrLen = ::GetWindowTextLengthW(hWnd);
+	if (ctrlStrLen == 0)
+	{
+		return false;
+	}
+
+	auto ctrlText = std::wstring(ctrlStrLen + 1, L'\0');
+	ctrlText.resize(static_cast<size_t>(::GetWindowTextW(hWnd, ctrlText.data(), ctrlStrLen + 1)));
+	if (ctrlText != L"(?)")
+	{
+		return false;
+	}
+	return true;
+}
+
+static LRESULT CALLBACK helpTipStaticTextCtrlParentClickProc(
+	HWND hwnd,
+	UINT Message,
+	WPARAM wParam,
+	LPARAM lParam,
+	UINT_PTR uIdSubclass,
+	DWORD_PTR dwRefData
+)
+{
+	auto hTip = reinterpret_cast<HWND>(dwRefData);
+
+	switch (Message)
+	{
+		case WM_NCDESTROY:
+		{
+			::RemoveWindowSubclass(hwnd, helpTipStaticTextCtrlParentClickProc, uIdSubclass);
+			break;
+		}
+
+		case WM_COMMAND:
+		{
+			if (HIWORD(wParam) == STN_CLICKED && lParam != 0)
+			{
+				static const auto hTool = [&hTip]() -> HWND
+				{
+					TOOLINFO toolInfo{};
+					toolInfo.cbSize = sizeof(TOOLINFO);
+					if (::SendMessage(hTip, TTM_GETCURRENTTOOL, 0, reinterpret_cast<LPARAM>(&toolInfo)) != 0)
+					{
+						return reinterpret_cast<HWND>(toolInfo.uId);
+					}
+					return nullptr;
+				}();
+
+				if (hTool == reinterpret_cast<HWND>(lParam))
+				{
+					::SendMessage(hTip, TTM_POPUP, 0, 0);
+				}
+			}
+			break;
+		}
+
+		default:
+			break;
+	}
+
+	return ::DefSubclassProc(hwnd, Message, wParam, lParam);
+}
+
+HWND createToolTip(int toolID, HWND hDlg, HINSTANCE hInst, wchar_t* pszText, bool isRTL)
 {
 	if (!toolID || !hDlg || !pszText)
 	{
@@ -1230,13 +1304,27 @@ HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PWSTR pszText, 
 
 	SendMessage(hwndTip, TTM_ACTIVATE, TRUE, 0);
 	SendMessage(hwndTip, TTM_SETMAXTIPWIDTH, 0, 200);
-	// Make tip stay 15 seconds
-	SendMessage(hwndTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((15000), (0)));
+	// Make tip stay 32 seconds (INT16_MAX - 1 is max allowed value)
+	::SendMessage(hwndTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM(INT16_MAX - 1, 0));
+
+	if (isHelpTipStaticTextCtrl(hwndTool))
+	{
+		// Make tip for static text with "(?)" to appear almost immediately,
+		// instead of default 500 ms delay.
+		// "200" is used to avoid some "visual glitch" when moving mouse fast.
+		::SendMessage(hwndTip, TTM_SETDELAYTIME, TTDT_INITIAL, MAKELPARAM(200, 0));
+
+		// Subclass to make tooltip appear if user click on static text
+		if (::GetWindowSubclass(hDlg, helpTipStaticTextCtrlParentClickProc, toolInfo.uId, nullptr) == FALSE)
+		{
+			::SetWindowSubclass(hDlg, helpTipStaticTextCtrlParentClickProc, toolInfo.uId, reinterpret_cast<DWORD_PTR>(hwndTip));
+		}
+	}
 
 	return hwndTip;
 }
 
-HWND CreateToolTipRect(int toolID, HWND hWnd, HINSTANCE hInst, const PWSTR pszText, const RECT rc)
+HWND createToolTipRect(int toolID, HWND hWnd, HINSTANCE hInst, wchar_t* pszText, const RECT rc)
 {
 	if (!toolID || !hWnd || !pszText)
 	{
@@ -1272,8 +1360,9 @@ HWND CreateToolTipRect(int toolID, HWND hWnd, HINSTANCE hInst, const PWSTR pszTe
 
 	SendMessage(hwndTip, TTM_ACTIVATE, TRUE, 0);
 	SendMessage(hwndTip, TTM_SETMAXTIPWIDTH, 0, 200);
-	// Make tip stay 15 seconds
-	SendMessage(hwndTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((15000), (0)));
+	// Make tip stay 32 seconds and appear faster
+	::SendMessage(hwndTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM(INT16_MAX - 1, 0));
+	::SendMessage(hwndTip, TTM_SETDELAYTIME, TTDT_INITIAL, MAKELPARAM(100, 0));
 
 	return hwndTip;
 }
@@ -2318,7 +2407,7 @@ void ControlInfoTip::hide()
 
 DWORD invokeNppUacOp(const std::wstring& strCmdLineParams)
 {
-	if ((strCmdLineParams.length() == 0) || (strCmdLineParams.length() > (USHRT_MAX / sizeof(WCHAR))))
+	if ((strCmdLineParams.length() == 0) || (strCmdLineParams.length() > (UINT16_MAX / sizeof(WCHAR))))
 	{
 		// no cmdline or it exceeds the current max WinOS 32767 WCHARs
 		return ERROR_INVALID_PARAMETER;

@@ -774,6 +774,8 @@ BEGIN
             MENUITEM "Zoom &In (Ctrl+Mouse Wheel Up)",       IDM_VIEW_ZOOMIN
             MENUITEM "Zoom &Out (Ctrl+Mouse Wheel Down)",    IDM_VIEW_ZOOMOUT
             MENUITEM "&Restore Default Zoom",                IDM_VIEW_ZOOMRESTORE
+            MENUITEM SEPARATOR
+            MENUITEM "&Synchronize Across Views",            IDM_VIEW_ZOOM_SYNC
         END
         POPUP "&Move/Clone Current Document"
         BEGIN

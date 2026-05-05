@@ -23,7 +23,7 @@ REM commands to sign
 
 set signtoolWin11="C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\signtool.exe"
 
-set Sign_by_GlobalSignCert=%signtoolWin11% sign /n "NOTEPAD++" /tr http://timestamp.globalsign.com/tsa/r6advanced1 /td SHA256 /fd SHA256
+set Sign_by_GlobalSignCert=%signtoolWin11% sign /n "NOTEPAD++" /d "Notepad++ Installer" /du "https://notepad-plus-plus.org" /tr http://timestamp.globalsign.com/tsa/r6advanced1 /td SHA256 /fd SHA256
 
 set DOUBLE_SIGNING=/as
 

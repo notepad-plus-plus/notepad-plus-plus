@@ -4028,22 +4028,24 @@ void ScintillaEditView::columnReplace(ColumnModeInfos& cmi, size_t initial, size
 
 			variedFormatNumber2String<char>(str, stringSize, numbers.at(i), base, useUppercase, kib, lead);
 
-			const bool hasVirtualSpc = cmi[i]._nbVirtualAnchorSpc > 0;
+			auto va = (cmi[i]._nbVirtualAnchorSpc > cmi[i]._nbVirtualCaretSpc) ? cmi[i]._nbVirtualCaretSpc : cmi[i]._nbVirtualAnchorSpc;
+			auto vc = (cmi[i]._nbVirtualAnchorSpc > cmi[i]._nbVirtualCaretSpc) ? cmi[i]._nbVirtualAnchorSpc : cmi[i]._nbVirtualCaretSpc;
+			const bool hasVirtualSpc = va > 0;
 			if (hasVirtualSpc) // if virtual space is present, then insert space
 			{
-				for (intptr_t j = 0, k = cmi[i]._selLpos; j < cmi[i]._nbVirtualCaretSpc ; ++j, ++k)
+				for (intptr_t j = 0, k = cmi[i]._selLpos; j < vc ; ++j, ++k)
 				{
 					execute(SCI_INSERTTEXT, k, reinterpret_cast<LPARAM>(" "));
 				}
-				cmi[i]._selLpos += cmi[i]._nbVirtualAnchorSpc;
-				cmi[i]._selRpos += cmi[i]._nbVirtualCaretSpc;
+				cmi[i]._selLpos += va;
+				cmi[i]._selRpos += vc;
 			}
 			execute(SCI_SETTARGETRANGE, cmi[i]._selLpos, cmi[i]._selRpos);
 			execute(SCI_REPLACETARGET, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(str));
 
 			if (hasVirtualSpc)
 			{
-				totalDiff += cmi[i]._nbVirtualAnchorSpc + strlen(str);
+				totalDiff += va + strlen(str);
 				// Now there's no more virtual space
 				cmi[i]._nbVirtualAnchorSpc = 0;
 				cmi[i]._nbVirtualCaretSpc = 0;

@@ -1892,7 +1892,7 @@ void NppParameters::removeTransparent(HWND hwnd)
 }
 
 
-void NppParameters::SetTransparent(HWND hwnd, int percent)
+void NppParameters::setTransparent(HWND hwnd, int percent)
 {
 	::SetWindowLongPtr(hwnd, GWL_EXSTYLE, ::GetWindowLongPtr(hwnd, GWL_EXSTYLE) | WS_EX_LAYERED);
 	if (percent > 255)
@@ -3877,25 +3877,28 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(const NppXml
 	return std::pair<unsigned char, unsigned char>(static_cast<unsigned char>(iBegin), static_cast<unsigned char>(iEnd));
 }
 
-bool NppParameters::importUDLFromFile(const std::wstring& sourceFile)
+std::pair<unsigned char, unsigned char> NppParameters::importUDLFromFile(const std::wstring& sourceFile)
 {
 	NppXml::Document pXmlUserLangDoc = new NppXml::NewDocument();
 
+	std::pair<unsigned char, unsigned char> addUdlResult(static_cast<unsigned char>(0), static_cast<unsigned char>(0));
 	bool loadOkay = NppXml::loadFile(pXmlUserLangDoc, sourceFile.c_str());
+
 	if (loadOkay)
 	{
-		auto r = addUserDefineLangsFromXmlTree(pXmlUserLangDoc);
-		loadOkay = (r.second - r.first) != 0;
-		if (loadOkay)
+		addUdlResult = addUserDefineLangsFromXmlTree(pXmlUserLangDoc);
+		unsigned char addedUdlNumber = addUdlResult.second - addUdlResult.first;
+
+		if (addedUdlNumber)
 		{
-			_pXmlUserLangsDoc.emplace_back(nullptr, sourceFile, true, true, r);
+			_pXmlUserLangsDoc.emplace_back(nullptr, sourceFile, true, true, addUdlResult);
 
 			// imported UDL from xml file will be added into default udl, so we should make default udl dirty
 			setUdlXmlDirtyFromXmlDoc(_pXmlUserLangDoc._doc);
 		}
 	}
 	delete pXmlUserLangDoc;
-	return loadOkay;
+	return addUdlResult;
 }
 
 bool NppParameters::exportUDLToFile(size_t langIndex2export, const std::wstring& fileName2save)
@@ -6702,6 +6705,7 @@ void NppParameters::feedScintillaParam(const NppXml::Element& element)
 
 	_svp._zoom = static_cast<intptr_t>(NppXml::int64Attribute(element, "zoom", _svp._zoom));
 	_svp._zoom2 = static_cast<intptr_t>(NppXml::int64Attribute(element, "zoom2", _svp._zoom2));
+	_svp._zoomSync = getBoolAttribute(element, "zoomSync", _svp._zoomSync);
 
 	// White Space visibility State
 	_svp._whiteSpaceShow = getBoolAttribute(element, "whiteSpaceShow", _svp._whiteSpaceShow, STR_BOOL_SHOWHIDE);
@@ -6993,6 +6997,7 @@ bool NppParameters::writeScintillaParams()
 	NppXml::setAttribute(scintNode, "edgeMultiColumnPos", edgeColumnPosStr);
 	NppXml::setAttribute(scintNode, "zoom", _svp._zoom);
 	NppXml::setAttribute(scintNode, "zoom2", _svp._zoom2);
+	setBoolAttribute(scintNode, "zoomSync", _svp._zoomSync);
 	setBoolAttribute(scintNode, "whiteSpaceShow", _svp._whiteSpaceShow, STR_BOOL_SHOWHIDE);
 	setBoolAttribute(scintNode, "eolShow", _svp._eolShow, STR_BOOL_SHOWHIDE);
 	NppXml::setAttribute(scintNode, "eolMode", _svp._eolMode);

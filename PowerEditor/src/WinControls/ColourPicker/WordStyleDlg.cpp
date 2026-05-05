@@ -159,7 +159,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 
 			NativeLangSpeaker* pNativeSpeaker = nppParamInst.getNativeLangSpeaker();
 			wstring globalOverrideTipStr = pNativeSpeaker->getLocalizedStrFromID("global-override-tip", L"Enabling \"Global override\" here will override that parameter in all language styles. What you probably really want is to use the \"Default Style\" settings instead");
-			_globalOverrideTip = CreateToolTip(IDC_GLOBAL_WHATISGLOBALOVERRIDE_LINK, _hSelf, _hInst, globalOverrideTipStr.data(), false);
+			_globalOverrideTip = createToolTip(IDC_GLOBAL_WHATISGLOBALOVERRIDE_LINK, _hSelf, _hInst, globalOverrideTipStr.data(), false);
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 			NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
@@ -265,7 +265,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			if (reinterpret_cast<HWND>(lParam) == ::GetDlgItem(_hSelf, IDC_SC_PERCENTAGE_SLIDER))
 			{
 				const auto percent = static_cast<int>(::SendDlgItemMessage(_hSelf, IDC_SC_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0));
-				NppParameters::SetTransparent(_hSelf, percent);
+				NppParameters::setTransparent(_hSelf, percent);
 			}
 			return TRUE;
 		}
@@ -420,7 +420,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 						if (isChecked)
 						{
 							const auto percent = static_cast<int>(::SendDlgItemMessage(_hSelf, IDC_SC_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0));
-							NppParameters::SetTransparent(_hSelf, percent);
+							NppParameters::setTransparent(_hSelf, percent);
 						}
 						else
 							NppParameters::removeTransparent(_hSelf);

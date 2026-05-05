@@ -296,6 +296,7 @@
 					<Item id="44024" name="&amp;Kicsinyítés (Ctrl + görgetés lefelé)"/>
 					<Item id="44025" name="&amp;Szóközök és tabulátorok megjelenítése"/>
 					<Item id="44026" name="S&amp;orvégjelek megjelenítése"/>
+					<Item id="44027" name="N&amp;ézetek közötti szinkronizálás"/>
 					<Item id="44029" name="&amp;Minden blokk kibontása"/>
 					<Item id="44030" name="&amp;Az aktuális blokk összecsukása"/>
 					<Item id="44031" name="&amp;Az aktuális blokk kibontása"/>
@@ -1903,8 +1904,8 @@ Ha a „Haladó szintű” módot választja, de nem a fenti nyelvek fájljait s
 			<statusbar-Sel value="Kij.: "/>
 			<statusbar-Sel-number value="Kij."/>
 			<toolbar-accent-tip value="A beállítással az eszköztár ikonjaira a Windows kiemelőszíne alkalmazható. A kiemelőszín egy, a Windows gombjaiban, szegélyeiben és a Start menüben az elemek hangsúlyozására használt szín. A módosításhoz kattintson a ⚙ Beállítások » Személyre szabás » Színek lehetőségre, majd válassza ki a kívánt Kiemelőszínt"/>
-			<len-limit-exceeded-tip value="Karakterkorlát túllépve: előfordulhat, hogy a felvett szöveg meghaladja a megengedett hosszúságot, emiatt lehet, hogy rövidítve lesz, valamint a levágott részt nem menti a rendszer a következő munkamenethez"/>
-			<max-len-on-search-tip value="Előfordulhat, hogy a felvett szöveg meghaladja a megengedett hosszúságot, emiatt lehet, hogy rövidítve lesz, valamint a levágott részt nem menti a rendszer a következő munkamenethez"/>
+			<len-limit-exceeded-tip value="Karakterkorlát túllépve: előfordulhat, hogy a felvett szöveg meghaladja a megengedett hosszúságot, emiatt lehet, hogy rövidítve lesz, valamint a levágott részt nem menti a Notepad++ a következő munkamenethez"/>
+			<max-len-on-search-tip value="Előfordulhat, hogy a felvett szöveg meghaladja a megengedett hosszúságot, emiatt lehet, hogy rövidítve lesz, valamint a levágott részt nem menti a Notepad++ a következő munkamenethez"/>
 			<max-len-on-save-tip value="A felvett szöveg rendkívül hosszú, emiatt előfordulhat, hogy nem lehet teljesen menteni a következő munkamenethez"/>
 			<goto-setting-tip value="Keresés a beállítások között"/>
 			<tabbar-tabcompactlabellen-tip value="A terjedelmes lapnevek hosszának korlátozása. A megadott érték alkalmazásához nyomjon Entert. Értéktartomány: 1–257 karakter (a 0 kikapcsolja a levágást)"/>

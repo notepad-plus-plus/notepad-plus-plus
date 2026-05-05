@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.3"><!-- Datum: 26.03.2026, basiert auf english.xml 8.9.3 vom 25.03.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.3"><!-- Datum: 30.04.2026, basiert auf english.xml 8.9.3 vom 29.04.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -305,6 +305,7 @@ Translation note:
 					<Item id="44024" name="Schrift ver&amp;kleinern (STRG + Mausrad nach unten)"/>
 					<Item id="44025" name="&amp;Leerzeichen und Tabulatoren anzeigen"/>
 					<Item id="44026" name="Zeilenende anze&amp;igen"/>
+					<Item id="44027" name="&amp;Synchronisiere zwischen Ansichten"/>
 					<Item id="44029" name="Alle Textblöcke &amp;öffnen"/>
 					<Item id="44030" name="Textblock schlie&amp;ßen"/>
 					<Item id="44031" name="Textblock öff&amp;nen"/>

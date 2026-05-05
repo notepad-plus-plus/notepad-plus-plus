@@ -348,7 +348,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	_zoomOriginalValue = _pEditView->execute(SCI_GETZOOM);
 	_mainEditView.execute(SCI_SETZOOM, svp._zoom);
-	_subEditView.execute(SCI_SETZOOM, svp._zoom2);
+	_subEditView.execute(SCI_SETZOOM, svp._zoomSync ? svp._zoom : svp._zoom2);
 
 	::SendMessage(hwnd, NPPM_INTERNAL_SETMULTISELECTION, 0, 0);
 
@@ -2685,8 +2685,13 @@ void Notepad_plus::checkSyncState()
 		_toolBar.setCheck(IDM_VIEW_SYNSCROLLV, false);
 		_toolBar.setCheck(IDM_VIEW_SYNSCROLLH, false);
 	}
+	else
+	{
+		syncZoom();
+	}
 	enableCommand(IDM_VIEW_SYNSCROLLV, canDoSync, MENU | TOOLBAR);
 	enableCommand(IDM_VIEW_SYNSCROLLH, canDoSync, MENU | TOOLBAR);
+	enableCommand(IDM_VIEW_ZOOM_SYNC, canDoSync, MENU);
 }
 
 void Notepad_plus::setupColorSampleBitmapsOnMainMenuItems()
@@ -5184,6 +5189,9 @@ void Notepad_plus::staticCheckMenuAndTB() const
 	checkMenuItem(IDM_VIEW_WRAP, b);
 	_toolBar.setCheck(IDM_VIEW_WRAP, b);
 	checkMenuItem(IDM_VIEW_WRAP_SYMBOL, _pEditView->isWrapSymbolVisible());
+
+	// Zoom sync
+	checkMenuItem(IDM_VIEW_ZOOM_SYNC, NppParameters::getInstance().getSVP()._zoomSync);
 }
 
 
@@ -5732,7 +5740,21 @@ void Notepad_plus::saveScintillasZoom()
 	NppParameters& nppParam = NppParameters::getInstance();
 	ScintillaViewParams & svp = (ScintillaViewParams &)nppParam.getSVP();
 	svp._zoom = _mainEditView.execute(SCI_GETZOOM);
-	svp._zoom2 = _subEditView.execute(SCI_GETZOOM);
+	svp._zoom2 = svp._zoomSync ? svp._zoom : _subEditView.execute(SCI_GETZOOM);
+}
+
+void Notepad_plus::syncZoom()
+{
+	const NppParameters& nppParam = NppParameters::getInstance();
+	const ScintillaViewParams& svp = nppParam.getSVP();
+	if (!svp._zoomSync) return;
+	if (!viewVisible(MAIN_VIEW) || !viewVisible(SUB_VIEW)) return;
+
+	_isSyncingZoom = true;
+	intptr_t zoom = _pEditView->execute(SCI_GETZOOM);
+	ScintillaEditView* otherView = (_pEditView == &_mainEditView) ? &_subEditView : &_mainEditView;
+	otherView->execute(SCI_SETZOOM, zoom);
+	_isSyncingZoom = false;
 }
 
 bool Notepad_plus::addCurrentMacro()

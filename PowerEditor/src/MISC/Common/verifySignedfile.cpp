@@ -18,14 +18,24 @@
 // VerifyDLL.cpp : Verification of an Authenticode signed DLL
 //
 
-#include <memory>
+
+#include "verifySignedfile.h"
+
 #include <windows.h>
+
 #include <wintrust.h>
 #include <softpub.h>
 #include <wincrypt.h>
 #include <sensapi.h>
+
+#include <cstdint>
 #include <iomanip>
-#include "verifySignedfile.h"
+#include <ios>
+#include <memory>
+#include <sstream>
+#include <string>
+#include <vector>
+
 #include "Common.h"
 #include "sha-256.h"
 
@@ -110,7 +120,7 @@ bool SecurityGuard::checkSha256(const std::wstring& filePath, NppModule module2c
 bool doLogCertifError = false;
 const wstring errorLogPath = L"%LOCALAPPDATA%\\Notepad++\\log\\nppComponentCertErrors.log";
 
-void writeCertVerifLog(const wchar_t* logFileName, const wchar_t* log2write)
+static void writeCertVerifLog(const wchar_t* logFileName, const wchar_t* log2write)
 {
 	wstring expandedLogFileName = logFileName;
 	expandEnv(expandedLogFileName);
@@ -161,7 +171,7 @@ bool SecurityGuard::verifySignedBinary(const std::wstring& filepath)
 		// if offline, revocation is not checked
 		// depending on windows version, this may introduce a latency on offline systems
 		DWORD netstatus;
-		QOCINFO oci;
+		QOCINFO oci{};
 		oci.dwSize = sizeof(oci);
 		CONST wchar_t* msftTEXTest_site = L"http://www.msftncsi.com/ncsi.txt";
 		bool online = false;

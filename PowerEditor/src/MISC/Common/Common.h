@@ -24,7 +24,6 @@
 
 #include <algorithm>
 #include <locale>
-#include <sstream>
 #include <string>
 #include <unordered_set>
 #include <vector>
@@ -162,8 +161,8 @@ std::wstring GetLastErrorAsString(DWORD errorCode = 0);
 std::wstring intToString(int val);
 std::wstring uintToString(unsigned int val);
 
-HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PWSTR pszText, bool isRTL);
-HWND CreateToolTipRect(int toolID, HWND hWnd, HINSTANCE hInst, const PWSTR pszText, const RECT rc);
+HWND createToolTip(int toolID, HWND hDlg, HINSTANCE hInst, wchar_t* pszText, bool isRTL);
+HWND createToolTipRect(int toolID, HWND hWnd, HINSTANCE hInst, wchar_t* pszText, const RECT rc);
 
 bool isCertificateValidated(const std::wstring & fullFilePath, const std::wstring & subjectName2check);
 bool isAssoCommandExisting(LPCWSTR FullPathName);

@@ -400,6 +400,7 @@ private:
 
 	bool _isFileOpening = false;
 	bool _isAdministrator = false;
+	bool _isSyncingZoom = false;
 
 	bool _isNppSessionSavedAtExit = false; // guard flag, it prevents emptying of the Notepad++ session.xml in case of multiple WM_ENDSESSION or WM_CLOSE messages
 
@@ -486,6 +487,7 @@ private:
 	void checkUndoState();
 	void checkMacroState();
 	void checkSyncState();
+	void syncZoom();
 	void setupColorSampleBitmapsOnMainMenuItems();
 	void dropFiles(HDROP hdrop);
 	void checkModifiedDocument(bool bCheckOnlyCurrentBuffer);

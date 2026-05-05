@@ -298,14 +298,14 @@
 
 		<Property Id="NPP_LANG" Secure="yes">
 			<RegistrySearch Id="NPP_LANG_Search"
-							Root="HKCU"
+							Root="HKLM"
 							Key="Software\Notepad++\Lang"
 							Name="active"
 							Type="raw" />
 		</Property>
 
-		<Component Id="nativeLang_registry" Guid="{1EC78A68-B1D8-4112-85CB-84C6E3C348B1}" Directory="INSTALLFOLDER">
-			<RegistryValue  Root="HKCU"
+		<Component Id="nativeLang_registry" Guid="{86989CD1-5FE5-43AE-A7EA-0CDAE0B9F69B}" Directory="INSTALLFOLDER">
+			<RegistryValue  Root="HKLM"
 							Key="Software\Notepad++\Lang"
 							Name="active"
 							Type="string"

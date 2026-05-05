@@ -1,60 +1,29 @@
-Notepad++ v8.9.3 regression fixes, bug-fixes & new improvements:
+Notepad++ v8.9.4 crash fixes, bug-fixes & new improvements:
 
- 1. Regression fix: a crash in User Defined Language.
- 2. Regression fix: installing (or removing) plugin re-opens Notepad++ with permanent admin privilege.
- 3. Regression-fix: wrongly added parenthesis for some multi-bytes characters.
- 4. Regression-fix: incorrect function list text display for non-UTF8 documents.
- 5. Regression-fix: ProjectPanel Workspace text localization issue.
- 6. Regression-fix: Change History margin not enabled by default.
- 7. Regression-fix: Notepad++ update & plugin download fail behind corporate MITM proxies.
- 8. Security enhancement: Update cURL to v8.19.0 in auto-updater (WinGUp) to fix cURL security issue (CVE-2025-14819).
- 9. Improve performance by migrating the XML parser from TinyXML to pugixml.
-10. Update Scintilla to 5.6.0 & Lexilla to 5.4.7.
-11. Fix the issue where printing caused Notepad++ to crash.
-12. Fix Find in Files failing to search file content on disk.
-13. Add disableNppAutoUpdate.xml to disable auto-update when WinGUp (GUP.exe) is present.
-14. Fix a memory leak on exit.
-15. Fix installed auto-completion files not overwritten after update.
-16. Add model capacity of shortcuts.xml & contexMenu.xml for administration.
-17. Add an option to disable selected text drag-and-drop.
-18. Fix wrong theme-writing path for non-ProgramFiles installations.
-19. Enhancement: prevent XML config files from being overwritten when updating portable package (copy/paste).
-20. Fix incomplete Find dialg tab translation when 1st opêned from Project Panels.
-21. Fix Notepad++ spawning a new Windows Explorer process in Task Manager.
-22. Add Function List & Autocompletion for D language.
-
-
-Notepad++ v8.9.2 regression fixes, bug-fixes & new improvements:
-
- 1. Security enhancement: Make updater check interity & authenticity of server-returned XML (XMLDsig).
- 2. Security enhancement: Fix untrusted search path vulnerability (CVE-2026-25926) by launching explorer.exe.
- 3. Security enhancement: Make auto-updater (WinGUp) even more secured (Remove dll dependency & unscured options).
- 4. Fix a plugin installation crash due to incorrect processing catch.
- 5. Add redact selection feature - Default: █, Modifier (Shift + Click): ●.
- 6. Fix context menu shortcut localization not aligning to the right regression.
-
-
-Notepad++ v8.9.1 regression fixes, bug-fixes & new improvements:
-
- 1. Fix EOL duplication regression when playing back old recorded macros.
- 2. Remedy search failure for pasted text containing trailing invisible EOL character.
- 3. Fix customized context menu regression where separator (id="0") escapes FolderName submenu.
- 4. Fix issue where a single undo reverted multiple changes after macro execution.
- 5. Fix visual glitch when dragging dockable dialogs on a 2nd monitor.
- 6. Fix inconsistent automatic search mode switching (RegEx to Extended) in Find dialog.
- 7. Fix incorrect URL parsing caused by Unicode special spaces.
- 8. Update to Boost 1.90.0.
- 9. Improve update themes feature: fix JavaScript.js edge case.
-10. Update javascript.js to better match javascript (embedded) in all themes.
-11. Function List: enhance for Perl & PHP; add for Nim.
-12. Fix comments and highlighting in TCL.
-13. Update perl keywords and autocomplete for 5.42.
-14. Improvement: display Find dialog status message with invisible characters warning.
-
+ 1. Fix crashes in FindInFiles when nativeLang.xml's "find-result-hits" contains "%s".
+ 2. Fix drop-file crash when file path length reaches 259 characters.
+ 3. Fix crash caused by undoing column editor bad input in virtual space.
+ 4. Fix bad column editor input in reverse-direction column selection on virtual space.
+ 5. Update to Scintilla 5.6.1 & Lexilla 5.4.8.
+ 6. Fix EOL conversion to Windows format not working (Scintilla update related).
+ 7. Fix rendering corruption in .bat files (Lexilla update related).
+ 8. Fix quote escaping causing incorrect JSON syntax highlighting (Lexilla update related).
+ 9. Fix MSI installation error due to context menu item registration.
+10. Fix NSIS installation stalling caused by context menu registration issue.
+11. Add NPP_LANG property to install a specific localization file for MSI.
+12. Fix MSI installer display random Hexadecimal number as name on UAC.
+13. Add version info into MSI file property (as value of "Comments").
+14. Fix minimized window not restoring in administrator mode.
+15. Fix Unicode search mismatching ANSI character '?'.
+16. Fix Column Editor regression with empty fields.
+17. Fix floating dialog content not displaying in certain situations.
+18. Fix visual glitch when toggling group view in Document List.
+19. Support improved C++ 11 raw string literal handling.
+20. Fix visual glitch in the Mark dialog.
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.9.3/
+https://notepad-plus-plus.org/downloads/v8.9.4/
 
 
 Included plugins:

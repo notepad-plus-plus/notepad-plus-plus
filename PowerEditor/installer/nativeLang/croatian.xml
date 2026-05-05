@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: April 10, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: May 1, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
@@ -296,6 +296,7 @@
 					<Item id="44024" name="U&amp;manji (Ctrl + kotačić miša dolje)"/>
 					<Item id="44025" name="Prikaži &amp;razmake i tabulatore"/>
 					<Item id="44026" name="Prikaži &amp;kraj retka"/>
+					<Item id="44027" name="&amp;Sinkroniziraj među prikazima"/>
 					<Item id="44029" name="R&amp;azmotaj sve razine"/>
 					<Item id="44030" name="Sm&amp;otaj trenutnu razinu"/>
 					<Item id="44031" name="Razmo&amp;taj trenutnu razinu"/>

@@ -780,6 +780,7 @@ Installation:
             <WordsStyle name="CHARACTER" styleID="12" fgColor="2AA198" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="13" fgColor="586E75" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ASM" styleID="14" fgColor="268BD2" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="MULTILINESTRING" styleID="15" fgColor="2AA198" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="perl" desc="Perl" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="657B83" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />

@@ -586,6 +586,7 @@ Credits:
             <WordsStyle name="PREPROCESSOR2" styleID="6" fgColor="FFFFFF" bgColor="222C28" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="HEX NUMBER" styleID="8" fgColor="FFFFFF" bgColor="222C28" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING" styleID="10" fgColor="FFFFFF" bgColor="222C28" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="MULTILINESTRING" styleID="15" fgColor="FFFFFF" bgColor="222C28" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="perl" desc="Perl" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="FFFFFF" bgColor="222C28" fontName="" fontStyle="10" fontSize="" />

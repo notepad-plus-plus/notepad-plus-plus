@@ -555,6 +555,7 @@ https://notepad-plus-plus.org/donate/
             <WordsStyle name="PREPROCESSOR2" styleID="6" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="HEX NUMBER" styleID="8" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING" styleID="10" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="MULTILINESTRING" styleID="15" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="perl" desc="Perl" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="" fontSize="" />

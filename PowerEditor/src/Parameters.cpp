@@ -1567,7 +1567,7 @@ bool NppParameters::load()
 
 	_pXmlUserLangDoc._path = _userDefineLangPath;
 	_pXmlUserLangDoc._doc = new NppXml::NewDocument();
-	loadOkay = NppXml::loadFile(_pXmlUserLangDoc._doc, _userDefineLangPath.c_str());
+	loadOkay = NppXml::loadFileUDL(_pXmlUserLangDoc._doc, _userDefineLangPath.c_str());
 	if (!loadOkay)
 	{
 		delete _pXmlUserLangDoc._doc;
@@ -1584,7 +1584,7 @@ bool NppParameters::load()
 	for (const auto& i : udlFiles)
 	{
 		NppXml::Document udlDoc = new NppXml::NewDocument();
-		loadOkay = NppXml::loadFile(udlDoc, i.c_str());
+		loadOkay = NppXml::loadFileUDL(udlDoc, i.c_str());
 		if (!loadOkay)
 		{
 			delete udlDoc;
@@ -4127,7 +4127,7 @@ void NppParameters::writeDefaultUDL()
 
 	if (firstCleanDone) // at least one udl is for saving, the udl to be deleted are ignored
 	{
-		static_cast<void>(NppXml::saveFile(_pXmlUserLangDoc._doc, _userDefineLangPath.c_str()));
+		static_cast<void>(NppXml::saveFileUDL(_pXmlUserLangDoc._doc, _userDefineLangPath.c_str()));
 	}
 	else if (deleteAll)
 	{
@@ -4170,7 +4170,7 @@ void NppParameters::writeNonDefaultUDL()
 				{
 					insertUserLang2Tree(root, _userLangArray[i].get());
 				}
-				static_cast<void>(NppXml::saveFile(udl._udlXmlDoc, udl._path.c_str()));
+				static_cast<void>(NppXml::saveFileUDL(udl._udlXmlDoc, udl._path.c_str()));
 			}
 		}
 	}

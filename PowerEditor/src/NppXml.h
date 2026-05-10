@@ -32,6 +32,8 @@ namespace NppXml
 	using Node = pugi::xml_node;
 	using Attribute = pugi::xml_attribute;
 
+	[[nodiscard]] inline pugi::string_t normalizeEOL(const pugi::string_t& text);
+
 	[[nodiscard]] inline bool loadFile(Document doc, const wchar_t* filename) {
 		return doc->load_file(filename, pugi::parse_default | pugi::parse_comments | pugi::parse_declaration);
 	}
@@ -60,33 +62,6 @@ namespace NppXml
 		{
 			bool for_each(pugi::xml_node& node) override
 			{
-				auto normalizeEOL = [](const pugi::string_t& text)
-				{
-					pugi::string_t normalized;
-					const size_t len = text.length();
-
-					for (size_t i = 0; i < len; ++i)
-					{
-						if (text[i] == PUGIXML_TEXT('\r'))
-						{
-							if (i + 1 < len && text[i + 1] == PUGIXML_TEXT('\n'))
-							{
-								normalized += PUGIXML_TEXT('\n');
-								++i;
-							}
-							else
-							{
-								normalized += PUGIXML_TEXT('\n');
-							}
-						}
-						else
-						{
-							normalized += text[i];
-						}
-					}
-					return normalized;
-				};
-
 				if (node.type() == pugi::node_comment)
 				{
 					const pugi::string_t normalizedText = normalizeEOL(node.value());
@@ -106,6 +81,32 @@ namespace NppXml
 	}
 
 	[[nodiscard]] inline bool saveFileProject(const Document doc, const wchar_t* filename) {
+		return doc->save_file(filename, "    ", pugi::format_indent | pugi::format_no_declaration | pugi::format_save_file_text);
+	}
+
+	[[nodiscard]] inline bool loadFileUDL(Document doc, const wchar_t* filename)
+	{
+		// UDL lists can contain EOL separator, so UDL must be loaded without pugi::parse_eol.
+		return doc->load_file(filename, pugi::parse_cdata | pugi::parse_escapes | pugi::parse_comments);
+	}
+
+	[[nodiscard]] inline bool saveFileUDL(const Document doc, const wchar_t* filename)
+	{
+		// Without pugi::parse_eol EOL are not normalized when loaded.
+		// To avoid issue with CRLF converting to CRCRLF on save, EOL are normalized on save
+		// to have LF eol.
+		struct eol_norm_walker : pugi::xml_tree_walker
+		{
+			bool for_each(pugi::xml_node& node) override
+			{
+				const pugi::string_t normalizedText = normalizeEOL(node.value());
+				node.set_value(normalizedText.c_str());
+				return true;
+			}
+		};
+
+		eol_norm_walker walker;
+		doc->traverse(walker);
 		return doc->save_file(filename, "    ", pugi::format_indent | pugi::format_no_declaration | pugi::format_save_file_text);
 	}
 
@@ -254,5 +255,32 @@ namespace NppXml
 
 	[[nodiscard]] inline const char* value(const Attribute& attr) {
 		return attr.value();
+	}
+
+	pugi::string_t normalizeEOL(const pugi::string_t& text)
+	{
+		pugi::string_t normalized;
+		const size_t len = text.length();
+
+		for (size_t i = 0; i < len; ++i)
+		{
+			if (text[i] == PUGIXML_TEXT('\r'))
+			{
+				if (i + 1 < len && text[i + 1] == PUGIXML_TEXT('\n'))
+				{
+					normalized += PUGIXML_TEXT('\n');
+					++i;
+				}
+				else
+				{
+					normalized += PUGIXML_TEXT('\n');
+				}
+			}
+			else
+			{
+				normalized += text[i];
+			}
+		}
+		return normalized;
 	}
 }

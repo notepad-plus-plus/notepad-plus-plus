@@ -12,7 +12,7 @@ Additionnal information about Corsican localization:
 
 2. History of Corsican translation for Notepad++:
 
-	- Updated in 2026 by Patriccollu di Santa Maria è Sichè: Feb. 10th (v8.9.1+), Mar. 10th (v8.9.2+)
+	- Updated in 2026 by Patriccollu di Santa Maria è Sichè: Feb. 10th (v8.9.1+), Mar. 10th (v8.9.2+), May 17th (v8.9.5+)
 	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8), Apr. 20th (v8.8),
 			  June 26th (v8.8.1+), July 24th (v8.8.3+), Sep. 30th (v8.8.5+), Dec. 12th (v8.8.9+)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
@@ -37,7 +37,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.9.2">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.9.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -82,11 +82,11 @@ Additionnal information about Corsican localization:
 					<Item subMenuId="search-jumpDown" name="Andà in&amp;ghjò"/>
 					<Item subMenuId="search-copyStyledText" name="Cupià u t&amp;estu di stilu"/>
 					<Item subMenuId="search-bookmark" name="In&amp;detta"/>
-					<Item subMenuId="view-currentFileIn" name="Fighjà u schedariu attuale in"/>
-					<Item subMenuId="view-showSymbol" name="Affissà i simbuli"/>
-					<Item subMenuId="view-zoom" name="Ingrandamentu"/>
-					<Item subMenuId="view-moveCloneDocument" name="Dispiazzà o duppià u ducumentu attuale"/>
-					<Item subMenuId="view-tab" name="Unghjetta"/>
+					<Item subMenuId="view-currentFileIn" name="&amp;Fighjà u schedariu attuale in"/>
+					<Item subMenuId="view-showSymbol" name="Affissà i sim&amp;buli"/>
+					<Item subMenuId="view-zoom" name="In&amp;grandamentu"/>
+					<Item subMenuId="view-moveCloneDocument" name="Dispiazzà o duppià u ducume&amp;ntu attuale"/>
+					<Item subMenuId="view-tab" name="&amp;Unghjetta"/>
 					<Item subMenuId="view-collapseLevel" name="Ripiegà u livellu"/>
 					<Item subMenuId="view-uncollapseLevel" name="Spiegà u livellu"/>
 					<Item subMenuId="view-project" name="Prughjettu"/>
@@ -122,7 +122,7 @@ Additionnal information about Corsican localization:
 					<Item id="41002" name="&amp;Apre…"/>
 					<Item id="41019" name="Espluratore"/>
 					<Item id="41020" name="Invitu di cumanda"/>
-					<Item id="41025" name="Cartulare cum’è spaziu di travagliu"/>
+					<Item id="41025" name="Cartulare cum’&amp;è spaziu di travagliu"/>
 					<Item id="41003" name="&amp;Chjode"/>
 					<Item id="41004" name="Chjodeli &amp;tutti"/>
 					<Item id="41005" name="Tuttu chjode FOR di u ducumentu attuale"/>
@@ -230,8 +230,8 @@ Additionnal information about Corsican localization:
 					<Item id="42051" name="&amp;Pannellu di i caratteri"/>
 					<Item id="42052" name="Cr&amp;onolugia di u preme’papei"/>
 					<Item id="42025" name="&amp;Arregistrà a prucedura arricurdata…"/>
-					<Item id="42026" name="Testu da diritta à manca"/>
-					<Item id="42027" name="Testu da manca à diritta"/>
+					<Item id="42026" name="Testu da diritta à &amp;manca"/>
+					<Item id="42027" name="Testu da manca à &amp;diritta"/>
 					<Item id="42028" name="Lettura sola per u ducumentu attuale"/>
 					<Item id="42102" name="Lettura sola per tutti i ducumenti"/>
 					<Item id="42103" name="Caccià a lettura sola per tutti i ducumenti"/>
@@ -318,23 +318,24 @@ Additionnal information about Corsican localization:
 					<Item id="43502" name="Chjode l’altri ducumenti"/>
 					<Item id="43503" name="Cupià i nomi selezziunati"/>
 					<Item id="43504" name="Cupià i chjassi selezziunati"/>
-					<Item id="44009" name="Post-it"/>
+					<Item id="44009" name="&amp;Post-it"/>
 					<Item id="44010" name="Piegà tutti i livelli"/>
-					<Item id="44011" name="Modu senza distrazzione"/>
+					<Item id="44011" name="Modu s&amp;enza distrazzione"/>
 					<Item id="44019" name="Affissà tutti i caratteri"/>
 					<Item id="44020" name="Affissà a guida d’indentazione"/>
-					<Item id="44022" name="Ritornu autumaticu à a linea"/>
+					<Item id="44022" name="Ritornu autumaticu &amp;à a linea"/>
 					<Item id="44023" name="&amp;Ingrandà u testu (Ctrl+rutulella insù)"/>
 					<Item id="44024" name="&amp;Diminuì u testu (Ctrl+rutulella inghjò)"/>
 					<Item id="44025" name="Affissà i spazii è e tabulazioni"/>
 					<Item id="44026" name="Affissà i simbuli di fine di linea"/>
+					<Item id="44027" name="&amp;Sincrunizà trà e viste"/>
 					<Item id="44029" name="Spiegà tutti i livelli"/>
 					<Item id="44030" name="Ripiegà u livellu attuale"/>
 					<Item id="44031" name="Spiegà u livellu attuale"/>
-					<Item id="44049" name="Riassuntu…"/>
-					<Item id="44080" name="Cartugrafia di u ducumentu"/>
-					<Item id="44070" name="Lista di i ducumenti"/>
-					<Item id="44084" name="Lista di e funzioni"/>
+					<Item id="44049" name="&amp;Riassuntu…"/>
+					<Item id="44080" name="&amp;Cartugrafia di u ducumentu"/>
+					<Item id="44070" name="L&amp;ista di i ducumenti"/>
+					<Item id="44084" name="Lista di e fun&amp;zioni"/>
 					<Item id="44085" name="Cartulare cum’è spaziu di travagliu"/>
 					<Item id="44086" name="1ᵃ unghjetta"/>
 					<Item id="44087" name="2ᵃ unghjetta"/>
@@ -349,7 +350,7 @@ Additionnal information about Corsican localization:
 					<Item id="44117" name="Ultima unghjetta"/>
 					<Item id="44095" name="Unghjetta seguente"/>
 					<Item id="44096" name="Unghjetta precedente"/>
-					<Item id="44097" name="Appustamentu (tail -f)"/>
+					<Item id="44097" name="&amp;Appustamentu (tail -f)"/>
 					<Item id="44098" name="Dispiazzà à l’unghjetta davanti"/>
 					<Item id="44099" name="Dispiazzà à l’unghjetta dinanzu"/>
 					<Item id="44110" name="Caccià u culore"/>
@@ -360,16 +361,16 @@ Additionnal information about Corsican localization:
 					<Item id="44115" name="Appiecà u culore 5"/>
 					<Item id="44130" name="Affissà i caratteri nonstampevule"/>
 					<Item id="44131" name="Affissà i caratteri di cuntrollu è e fine di linea Unicode"/>
-					<Item id="44032" name="Attivà o disattivà u modu di screnu sanu"/>
-					<Item id="44033" name="Risturà l’ingrandamentu predefinitu"/>
-					<Item id="44034" name="Sempre in primu pianu"/>
-					<Item id="44035" name="Sincrunizazione verticale di l’affissera"/>
-					<Item id="44036" name="Sincrunizazione orizuntale di l’affissera"/>
+					<Item id="44032" name="A&amp;ttivà o disattivà u modu di screnu sanu"/>
+					<Item id="44033" name="&amp;Risturà l’ingrandamentu predefinitu"/>
+					<Item id="44034" name="&amp;Sempre in primu pianu"/>
+					<Item id="44035" name="Sincrunizà l’affissera &amp;verticalmente"/>
+					<Item id="44036" name="Sincrunizà l’affissera &amp;orizuntalmente"/>
 					<Item id="44041" name="Affissà i simbuli di ritornu à a linea"/>
 					<Item id="44072" name="Attivà un’altra vista"/>
-					<Item id="44081" name="Pannellu di prughjettu 1"/>
-					<Item id="44082" name="Pannellu di prughjettu 2"/>
-					<Item id="44083" name="Pannellu di prughjettu 3"/>
+					<Item id="44081" name="Pannellu di prughjettu &amp;1"/>
+					<Item id="44082" name="Pannellu di prughjettu &amp;2"/>
+					<Item id="44083" name="Pannellu di prughjettu &amp;3"/>
 					<Item id="45001" name="Windows (CR LF)"/>
 					<Item id="45002" name="Unix (LF)"/>
 					<Item id="45003" name="Macintosh (CR)"/>
@@ -389,10 +390,10 @@ Additionnal information about Corsican localization:
 					<Item id="45057" name="OEM 865 : Nordicu"/>
 					<Item id="45053" name="OEM 860 : Purtughese"/>
 					<Item id="45056" name="OEM 863 : Francese"/>
-					<Item id="10001" name="Dispiazzà in l’altra vista"/>
-					<Item id="10002" name="Duppià in l’altra vista"/>
-					<Item id="10003" name="Dispiazzà in una finestra nova"/>
-					<Item id="10004" name="Apre in una finestra nova"/>
+					<Item id="10001" name="Dispiazzà in l’altra &amp;vista"/>
+					<Item id="10002" name="&amp;Duppià in l’altra vista"/>
+					<Item id="10003" name="Dispiazzà in una &amp;finestra nova"/>
+					<Item id="10004" name="&amp;Apre in una finestra nova"/>
 					<Item id="10005" name="Dispiazzà à u principiu"/>
 					<Item id="10006" name="Dispiazzà à a fine"/>
 					<Item id="46001" name="&amp;Cunfiguratore di stilu…"/>
@@ -439,7 +440,7 @@ Additionnal information about Corsican localization:
 					<Item id="50011" name="Suggestione seguente di parametri di funzione"/>
 					<Item id="50005" name="Attivà o disattivà l’arregistramentu d’una prucedura"/>
 					<Item id="50006" name="Cumpiimentu di chjassu"/>
-					<Item id="44042" name="Piattà e linee"/>
+					<Item id="44042" name="&amp;Piattà e linee"/>
 					<Item id="42040" name="Apre tutti i schedarii recenti"/>
 					<Item id="42041" name="Viutà a lista di i schedarii recenti"/>
 					<Item id="48016" name="Ghjestione di l’accurtatoghji di tastera per e prucedure…"/>
@@ -547,7 +548,7 @@ Additionnal information about Corsican localization:
 				<Item id="1664" name="Pannellu di prughjettu 3"/>
 				<Item id="1641" name="Circalle tutte in u ducumentu attuale"/>
 				<Item id="1686" name="Traspar&amp;enza"/>
-				<Item id="1703" name=". &amp;inchjude fine di linea"/>
+				<Item id="1703" name=". &amp;include fine di linea"/>
 				<Item id="1721" name="▲"/>
 				<Item id="1723" name="▼ Circà a seguente"/>
 				<Item id="1725" name="Cupià u testu marcatu"/>
@@ -686,6 +687,10 @@ Additionnal information about Corsican localization:
 				</SubDialog>
 			</StyleConfig>
 
+			<ColorPopup>
+				<Item id="1" name="D’altri culori…"/>
+			</ColorPopup>
+
 			<ShortcutMapper title="Definizione di l’accurtatoghji di tastera">
 				<Item id="2602" name="Mudificà"/>
 				<Item id="2603" name="Squassà"/>
@@ -749,10 +754,10 @@ Additionnal information about Corsican localization:
 					<Item id="43059" name="Cupià u testu stilizatu da 5ᵘ stilu"/>
 					<Item id="43060" name="Cupià u testu stilizatu da tutti i stili"/>
 					<Item id="43061" name="Cupià u testu stilizatu da u stilu di marca di ricerca"/>
-					<Item id="44100" name="Fighjà u schedariu attuale cù Firefox"/>
-					<Item id="44101" name="Fighjà u schedariu attuale cù Chrome"/>
-					<Item id="44103" name="Fighjà u schedariu attuale cù Internet Explorer"/>
-					<Item id="44102" name="Fighjà u schedariu attuale cù Edge"/>
+					<Item id="44100" name="Fighjà u schedariu attuale cù &amp;Firefox"/>
+					<Item id="44101" name="Fighjà u schedariu attuale cù &amp;Chrome"/>
+					<Item id="44103" name="Fighjà u schedariu attuale cù &amp;Internet Explorer"/>
+					<Item id="44102" name="Fighjà u schedariu attuale cù &amp;Edge"/>
 					<Item id="50003" name="Passà à u ducumentu precedente"/>
 					<Item id="50004" name="Passà à u ducumentu seguente"/>
 					<Item id="44051" name="Ripiegà u livellu 1"/>
@@ -1323,7 +1328,7 @@ Additionnal information about Corsican localization:
 					<Item id="6184" name="Lista di i ducumenti"/>
 					<Item id="6185" name="Pannellu di i caratteri"/>
 					<Item id="6186" name="Cartulare cum’è spaziu di travagliu"/>
-					<Item id="6187" name="Pannelli di prughjettu"/>
+					<Item id="6187" name="Pannelli di prug&amp;hjettu"/>
 					<Item id="6188" name="Cartugrafia di u ducumentu"/>
 					<Item id="6189" name="Lista di e funzioni"/>
 					<Item id="6190" name="Pannelli di modulu d’estensione"/>
@@ -1467,7 +1472,7 @@ Additionnal information about Corsican localization:
 				<Item id="1717" name="Modu &amp;nurmale"/>
 				<Item id="1719" name="&amp;Espressione regulare"/>
 				<Item id="1718" name="Modu &amp;aumintatu (\n, \r, \t, \0, \x…)"/>
-				<Item id="1720" name=". &amp;inchjude fine di linea"/>
+				<Item id="1720" name=". &amp;include fine di linea"/>
 			</FindInFinder>
 			<DoSaveOrNot title="Arregistrà">
 				<Item id="1761" name="Arregistrà u schedariu « $STR_REPLACE$ » ?"/>
@@ -1644,6 +1649,9 @@ S’è vo avete bisognu di a funzione di ricerca RegEx à l’arritrosa, lighjit
 Ci vole à verificà a cundizione di ricerca prima di fà l’azzione."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ richiede d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per affissà l’accurtatoghji di u listinu di diritta."/>
 			<NoAdminRight2ChangeReadOnlyFileAttribute title="Fiascu di u cambiamentu d’attributu di lettura sola di u schedariu" message="Ci vole à lancià Notepad++ in modu Amministratore per cambià l’attributi di u schedariu."/>
+			<ReadOnlyFileCannotBeSaved title="Fiascu d’arregistramentu ; schedariu in lettura sola" message="&quot;$STR_REPLACE$&quot;
+U schedariu hè in lettura sola è ùn pò micca esse arregistratu.
+Ci vole à caccià a lettura sola eppò arregistrà u vostru schedariu."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Cronolugia di u preme’papei"/>
@@ -1809,6 +1817,7 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
 			<find-status-scope-all value="in u schedariu sanu"/>
 			<find-status-scope-backward value="da u principiu di schedariu à u cursore"/>
 			<find-status-scope-forward value="da u cursore à a fine di schedariu"/>
+			<find-status-replace-invalid-replace-chars value="Rimpiazzà : In un ducumentu ANSI, ùn si pò rimpiazzà cù un testu non ANSI"/>
 			<find-status-invisible-chars-findWhat value="Caratteri invisibile in u cuntenutu incullatu di « Cosa à circà » o « Rimpiazzà cù »"/>
 			<find-status-invisible-chars-findWhat-tip value="Avertimentu : Caratteri invisibile in u campu di ricerca (o di rimpiazzamentu).
 U testu incullatu in stu campu cuntene caratteri invisibile (forse fine di linea). S’è vo cuntinuate senza squassalli, seranu inchjusi in u testu di ricerca (o di rimpiazzamentu)."/>

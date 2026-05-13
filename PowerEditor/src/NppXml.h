@@ -87,7 +87,7 @@ namespace NppXml
 	[[nodiscard]] inline bool loadFileUDL(Document doc, const wchar_t* filename)
 	{
 		// UDL lists can contain EOL separator, so UDL must be loaded without pugi::parse_eol.
-		return doc->load_file(filename, pugi::parse_cdata | pugi::parse_escapes | pugi::parse_comments);
+		return doc->load_file(filename, pugi::parse_cdata | pugi::parse_escapes | pugi::parse_comments | pugi::parse_declaration);
 	}
 
 	[[nodiscard]] inline bool saveFileUDL(const Document doc, const wchar_t* filename)

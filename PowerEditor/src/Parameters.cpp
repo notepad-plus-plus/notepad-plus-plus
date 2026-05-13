@@ -3882,8 +3882,8 @@ std::pair<unsigned char, unsigned char> NppParameters::importUDLFromFile(const s
 	NppXml::Document pXmlUserLangDoc = new NppXml::NewDocument();
 
 	std::pair<unsigned char, unsigned char> addUdlResult(static_cast<unsigned char>(0), static_cast<unsigned char>(0));
-	bool loadOkay = NppXml::loadFile(pXmlUserLangDoc, sourceFile.c_str());
-
+	
+	const bool loadOkay = NppXml::loadFileUDL(pXmlUserLangDoc, sourceFile.c_str());
 	if (loadOkay)
 	{
 		addUdlResult = addUserDefineLangsFromXmlTree(pXmlUserLangDoc);
@@ -3910,10 +3910,11 @@ bool NppParameters::exportUDLToFile(size_t langIndex2export, const std::wstring&
 		return false;
 
 	NppXml::Document pNewXmlUserLangDoc = new NppXml::NewDocument();
+	NppXml::createNewDeclaration(pNewXmlUserLangDoc);
 	NppXml::Element newRoot2export = NppXml::createChildElement(pNewXmlUserLangDoc, "NotepadPlus");
 
 	insertUserLang2Tree(newRoot2export, _userLangArray[langIndex2export].get());
-	const bool result = NppXml::saveFile(pNewXmlUserLangDoc, fileName2save.c_str());
+	const bool result = NppXml::saveFileUDL(pNewXmlUserLangDoc, fileName2save.c_str());
 
 	delete pNewXmlUserLangDoc;
 	return result;

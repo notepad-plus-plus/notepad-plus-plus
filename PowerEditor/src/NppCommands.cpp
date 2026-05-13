@@ -743,9 +743,9 @@ void Notepad_plus::command(int id)
 			HRESULT hr = OpenInExplorerAndSelect(fullTargetPath.c_str());
 			if (hr == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND))
 			{
-				// fallback to old method
-				wstring param = L"/select,\"" + fullTargetPath + L"\"";
-				::ShellExecute(hwnd, L"open", L"explorer.exe", param.c_str(), nullptr, SW_SHOWNORMAL);
+				// Fallback: just open the parent folder without selecting the file
+				std::filesystem::path fsPath(fullTargetPath);
+				::ShellExecuteW(hwnd, L"explore", fsPath.parent_path().c_str(), nullptr, nullptr, SW_SHOWNORMAL);
 			}
 			break;
 		}

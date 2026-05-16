@@ -359,9 +359,6 @@ ${MementoSection} "Context Menu Entry" explorerContextMenu
 		${EndIf}
 	!endif
 
-	; Write registry entries directly instead of using regsvr32
-	SetRegView 64
-
 	; Shell context menu entry
 	WriteRegStr HKCR "*\shell\ANotepad++64" "" "Notepad++ Context menu"
 	WriteRegStr HKCR "*\shell\ANotepad++64" "ExplorerCommandHandler" "{B298D29A-A6ED-11DE-BA8C-A68E55D89593}"
@@ -381,7 +378,6 @@ ${MementoSection} "Context Menu Entry" explorerContextMenu
 	!else ; 32 bits installer
 		${If} ${RunningX64} ; running in Windows 64 bits
 			Call RegisterMSIX
-			SetRegView 32
 		${EndIf}
 	!endif
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: May 1, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: May 19, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.9.3">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.9.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -664,6 +664,10 @@
 					<Item id="2235" name="Što je Global override?"/>
 				</SubDialog>
 			</StyleConfig>
+
+			<ColorPopup>
+				<Item id="1" name="Više boja..."/>
+			</ColorPopup>
 
 			<ShortcutMapper title="Mapiranje tipkovnih prečaca">
 				<Item id="2602" name="Izmijeni"/>
@@ -1582,11 +1586,11 @@ molim izaberite neko drugo."/>
 			<UDLRemoveCurrentLang title="Ukloni trenutnu sintaksu" message="Jeste li sigurni?"/>
 			<UDL_importSuccessful title="Korisnički definirana sintaksa" message="Uvoz uspješan."/>
 			<UDL_importFails title="Korisnički definirana sintaksa" message="Uvoz nije uspio."/>
-			<UDL_saveBeforeImport title="Korisnički definirana sintaksa" message="Prije izvoza spremite svoju definiciju sintakse klikom na gumb &quot;Spremi kao...&quot;."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_saveBeforeImport title="Korisnički definirana sintaksa" message="Prije izvoza spremite svoju definiciju sintakse klikom na gumb &quot;Spremi kao...&quot;."/><!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
 			<UDL_exportSuccessful title="Korisnički definirana sintaksa" message="Izvoz uspješan."/>
 			<UDL_exportFails title="Korisnički definirana sintaksa" message="Izvoz nije uspio."/>
 			<SCMapperDoDeleteOrNot title="Jeste li sigurni?" message="Jeste li sigurni da želite izbrisati ovaj prečac?"/>>
-			<FindCharRangeValueError title="Problem s rasponom vrijednosti" message="Trebate upisati broj između 0 i 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
+			<FindCharRangeValueError title="Problem s rasponom vrijednosti" message="Trebate upisati broj između 0 i 255."/><!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Spremanje nije uspjelo" message="Datoteka ne može biti spremljena, možda je zaštićena od prepisivanja.
 Želite li pokrenuti Notepad++ u Administratorskom načinu?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Spremanje nije uspjelo" message="Datoteka ne može biti spremljena, možda je zaštićena od prepisivanja.
@@ -1626,9 +1630,12 @@ Pritisnite gumb U redu kako bi otvorili dijaloški okvir Traži ili postavite fo
 Ako vam je potrebna značajka pretraživanja regularnih izraza unatrag, potražite u korisničkom priručniku upute o tome kako ju omogućiti."/>
 			<PrintError title="0" message="Nije moguće pokrenuti dokument pisača."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 			<FindAutoChangeOfInSelectionWarning title="Upozorenje pretraživanja" message="Stanje potvrdnog okvira &quot;U označenom&quot; je automatski promijenjeno.
-Prije izvođenja radnje provjerite uvjet pretraživanja."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+Prije izvođenja radnje provjerite uvjet pretraživanja."/><!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ treba ponovno pokrenuti" message="Potreban je restart Notepada++ za prikaz prečaca s desne strane izborničke vrpce"/>
 			<NoAdminRight2ChangeReadOnlyFileAttribute title="Promjena atributa datoteke samo za čitanje nije uspjela" message="Pokrenite Notepad++ kao administrator kako biste promijenili atribute datoteke."/>
+			<ReadOnlyFileCannotBeSaved title="Spremanje nije uspjelo - Datoteka je samo za čitanje" message="&quot;$STR_REPLACE$&quot;
+Datoteka je samo za čitanje i ne može se spremiti.
+Uklonite atribut samo za čitanje, a zatim spremite datoteku."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Povijest međuspremnika"/>

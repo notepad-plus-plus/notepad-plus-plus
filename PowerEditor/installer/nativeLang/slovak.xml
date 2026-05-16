@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.9.4">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.9.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -652,6 +652,10 @@
 					<Item id="2235" name="Čo je &quot;Global override&quot;?"/>
 				</SubDialog>
 			</StyleConfig>
+
+			<ColorPopup>
+				<Item id="1" name="Viac farieb…"/>
+			</ColorPopup>
 
 			<ShortcutMapper title="Nastavenie klávesových skratiek">
 				<Item id="2602" name="Upraviť"/>
@@ -1480,7 +1484,7 @@ Pokračovať?"/>
 			
 			<NbFileToOpenImportantWarning title="Počet otváraných súborov je príliš veľký" message="Chystáte sa otvoriť $INT_REPLACE$ súborov.
 Naozaj ich chcete otvoriť?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
-			<SettingsOnCloudError title="Nastavenia v cloude" message="Zdá sa, že cesta ku cloudu s nastaveniami je nastavená na jednotku určenú len na čítanie
+			<SettingsOnCloudError title="Nastavenia v cloude" message="Zdá sa, že cesta ku cloudu s nastaveniami je nastavená na jednotku určenú iba na čítanie
 alebo na priečinok bez oprávnenia na zápis.
 Uloženie vašich nastavení do cloudu bude zrušené. Znovu, prosím, nastavte zodpovedajúcu hodnotu v ponuke &quot;Nastavenia -> Predvoľby… -> Odkaz na cloud&quot;."/>
 			<FilePathNotFoundWarning title="Otvoriť súbor" message="Súbor, ktorý sa pokúšate otvoriť, neexistuje."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
@@ -1587,12 +1591,12 @@ Pokračovať?"/>
 Chcete uložiť zmeny pred prepnutím motívu?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
 			<NotEnoughRoom4Saving title="Uloženie zlyhalo" message="Nepodarilo sa uložiť súbor.
 Zdá sa, že na disku nie je dostatok miesta na uloženie súboru. Súbor sa neuložil."/>
-			<FileInaccessibleUserSession title="Nedostupný súbor" message="Niektoré súbory z manuálne uloženej relácie &quot;$STR_REPLACE$&quot; sú nedostupné. Môžete ich otvoriť ako prázdne dokumenty a len na čítanie ako zástupné karty.
+			<FileInaccessibleUserSession title="Nedostupný súbor" message="Niektoré súbory z manuálne uloženej relácie &quot;$STR_REPLACE$&quot; sú nedostupné. Môžete ich otvoriť ako prázdne dokumenty a iba na čítanie ako zástupné karty.
 			
 Chcete vytvoriť tieto zástupné karty?
 
 POZNÁMKA: Ak sa rozhodnete nevytvárať zástupné karty alebo ich neskôr zatvoríte, vaša ručne uložená relácia sa pri ukončení NEzmení."/>
-			<FileInaccessibleDefaultSessionXml title="Nedostupný súbor" message="Niektoré súbory z poslednej relácie sú nedostupné. Môžete ich otvoriť ako prázdne dokumenty a len na čítanie ako zástupné karty.
+			<FileInaccessibleDefaultSessionXml title="Nedostupný súbor" message="Niektoré súbory z poslednej relácie sú nedostupné. Môžete ich otvoriť ako prázdne dokumenty a iba na čítanie ako zástupné karty.
 			
 Chcete vytvoriť tieto zástupné karty?
 
@@ -1608,6 +1612,9 @@ Ak potrebujete funkciu spätného vyhľadávania pomocou regulárnych výrazov, 
 Prosím, overte podmienku vyhľadávania pred vykonaním akcie."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ je potrebné reštartovať" message="Notepad++ je potrebné reštartovať, aby sa zobrazili ovládacie prvky."/>
 			<NoAdminRight2ChangeReadOnlyFileAttribute title="Zmena atribútu súboru 'Iba na čítanie' zlyhala" message="Na zmenu atribútu súboru spustite Notepad++ ako správca."/>
+			<ReadOnlyFileCannotBeSaved title="Uloženie zlyhalo - Súbor je iba na čítanie" message="&quot;$STR_REPLACE$&quot;
+Súbor je iba na čítanie a nemôže byť uložený.
+Odstráňte označenie 'iba na čítanie', a potom súbor uložte."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="História schránky"/>
@@ -1732,16 +1739,16 @@ Prosím, overte podmienku vyhľadávania pred vykonaním akcie."/> <!-- HowToRep
 			<default-open-save-select-folder value="Vyberte predvolený priečinok"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Na vyhľadávanie v opačnom smere použite Shift+Enter"/>
 			<two-find-buttons-tip value="Režim dvoch tlačidiel"/>
-			<find-in-files-filter-tip value="Hľadať v cpp, cxx, h, hxx &amp;&amp; hpp:
+			<find-in-files-filter-tip value="Hľadať v cpp, cxx, h, hxx a hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
-Hľadá vo všetkých súboroch okrem exe, obj &amp;&amp; log:
+Hľadať vo všetkých súboroch okrem exe, obj a log:
 *.* !*.exe !*.obj !*.log
 
-Hľadá vo všetkých súboroch okrem priečinkov tests, bin &amp;&amp; bin64:
+Hľadať vo všetkých súboroch okrem priečinkov tests, bin a bin64:
 *.* !\tests !\bin*
 
-Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs rekurzívne:
+Hľadať vo všetkých súboroch okrem všetkých priečinkov log alebo logs rekurzívne:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Vyberte priečinok, v ktorom chcete hľadať"/><!-- HowToReproduce: Search > Find in Files > [...] -->
 			<find-in-files-dir-from-active-doc-tip value="Vyplniť pole Priečinok z aktívneho dokumentu"/><!-- HowToReproduce: Search > Find in Files > [<<] -->

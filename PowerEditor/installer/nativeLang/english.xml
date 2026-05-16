@@ -656,6 +656,10 @@ Translation note:
 				</SubDialog>
 			</StyleConfig>
 
+			<ColorPopup>
+				<Item id="1" name="More Colors..."/>
+			</ColorPopup>
+
 			<ShortcutMapper title="Shortcut Mapper">
 				<Item id="2602" name="Modify"/>
 				<Item id="2603" name="Delete"/>

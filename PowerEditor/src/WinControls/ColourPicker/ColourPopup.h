@@ -17,9 +17,10 @@
 
 #pragma once
 
-#include "resource.h"
+#include <windows.h>
 
 #include "StaticDialog.h"
+#include "resource.h"
 
 #define WM_PICKUP_COLOR (COLOURPOPUP_USER + 1)
 
@@ -34,7 +35,11 @@ public:
 	void doDialog(POINT p);
 
 	void destroy() override {
-		::DestroyWindow(_hSelf);
+		if (_hSelf != nullptr)
+		{
+			::DestroyWindow(_hSelf);
+			_hSelf = nullptr;
+		}
 	}
 
 private:
@@ -42,5 +47,5 @@ private:
 
 	static intptr_t CALLBACK dlgClrPopupProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
-	static uintptr_t CALLBACK chooseColorDlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+	static UINT_PTR CALLBACK chooseColorDlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 };

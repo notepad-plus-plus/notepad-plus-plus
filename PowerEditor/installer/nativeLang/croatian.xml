@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: May 1, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: May 16, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.9.3">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.9.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1629,6 +1629,9 @@ Ako vam je potrebna značajka pretraživanja regularnih izraza unatrag, potraži
 Prije izvođenja radnje provjerite uvjet pretraživanja."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ treba ponovno pokrenuti" message="Potreban je restart Notepada++ za prikaz prečaca s desne strane izborničke vrpce"/>
 			<NoAdminRight2ChangeReadOnlyFileAttribute title="Promjena atributa datoteke samo za čitanje nije uspjela" message="Pokrenite Notepad++ kao administrator kako biste promijenili atribute datoteke."/>
+			<ReadOnlyFileCannotBeSaved title="Spremanje nije uspjelo - Datoteka je samo za čitanje" message="&quot;$STR_REPLACE$&quot;
+Datoteka je samo za čitanje i ne može se spremiti.
+Uklonite atribut samo za čitanje, a zatim spremite datoteku."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Povijest međuspremnika"/>

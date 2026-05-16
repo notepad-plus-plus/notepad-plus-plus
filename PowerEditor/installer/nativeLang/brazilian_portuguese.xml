@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 01 May 2026 for 8.9.4+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 16 May 2026 for 8.9.5+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.9.3">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.9.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -655,6 +655,10 @@ Translation note:
 					<Item id="2235" name="O que é Global override?"/>
 				</SubDialog>
 			</StyleConfig>
+
+			<ColorPopup>
+				<Item id="1" name="Mais Cores..."/>
+			</ColorPopup>
 
 			<ShortcutMapper title="Mapeador de atalhos">
 				<Item id="2602" name="Modificar"/>
@@ -1611,6 +1615,9 @@ Se for necessário executar uma busca regex para trás, consulte o manual de usu
 Por favor verifique a condição de localização antes de continuar."/> <!-- Como Reproduzir: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 		<Need2Restart2ShowMenuShortcuts title="O Notepad++ precisa ser reiniciado" message="O Notepad++ precisa ser reiniciado para mostrar os atalhos de botão direito."/>
 		<NoAdminRight2ChangeReadOnlyFileAttribute title="Falha na mudança de atributo de apenas leitura do arquivo" message="Por favor execute o Notepad++ como administrador para mudar os atributos de arquivo."/>
+		<ReadOnlyFileCannotBeSaved title="Erro ao Salvar - Arquivo é de Somente Leitura" message="&quot;$STR_REPLACE$&quot;
+O arquivo é de somente leitura e não pode ser salvo.
+Por favor, remova o atributo de somente leitura e depois salve o seu arquivo."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>

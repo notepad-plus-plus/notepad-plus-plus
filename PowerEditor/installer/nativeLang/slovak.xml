@@ -653,6 +653,10 @@
 				</SubDialog>
 			</StyleConfig>
 
+			<ColorPopup>
+				<Item id="1" name="Viac farieb…"/>
+			</ColorPopup>
+
 			<ShortcutMapper title="Nastavenie klávesových skratiek">
 				<Item id="2602" name="Upraviť"/>
 				<Item id="2603" name="Odstrániť"/>

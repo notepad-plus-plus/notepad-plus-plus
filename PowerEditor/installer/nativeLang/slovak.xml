@@ -1612,7 +1612,8 @@ Ak potrebujete funkciu spätného vyhľadávania pomocou regulárnych výrazov, 
 Prosím, overte podmienku vyhľadávania pred vykonaním akcie."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ je potrebné reštartovať" message="Notepad++ je potrebné reštartovať, aby sa zobrazili ovládacie prvky."/>
 			<NoAdminRight2ChangeReadOnlyFileAttribute title="Zmena atribútu súboru 'Iba na čítanie' zlyhala" message="Na zmenu atribútu súboru spustite Notepad++ ako správca."/>
-			<ReadOnlyFileCannotBeSaved title="Uloženie zlyhalo - Súbor je iba na čítanie" message="Súbor je iba na čítanie a nemôže byť uložený.
+			<ReadOnlyFileCannotBeSaved title="Uloženie zlyhalo - Súbor je iba na čítanie" message="&quot;$STR_REPLACE$&quot;
+Súbor je iba na čítanie a nemôže byť uložený.
 Odstráňte označenie 'iba na čítanie', a potom súbor uložte."/>
 		</MessageBox>
 		<ClipboardHistory>

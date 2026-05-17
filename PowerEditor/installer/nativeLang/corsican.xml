@@ -12,7 +12,7 @@ Additionnal information about Corsican localization:
 
 2. History of Corsican translation for Notepad++:
 
-	- Updated in 2026 by Patriccollu di Santa Maria è Sichè: Feb. 10th (v8.9.1+), Mar. 10th (v8.9.2+), May 12th (v8.9.5+)
+	- Updated in 2026 by Patriccollu di Santa Maria è Sichè: Feb. 10th (v8.9.1+), Mar. 10th (v8.9.2+), May 17th (v8.9.5+)
 	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8), Apr. 20th (v8.8),
 			  June 26th (v8.8.1+), July 24th (v8.8.3+), Sep. 30th (v8.8.5+), Dec. 12th (v8.8.9+)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
@@ -440,7 +440,7 @@ Additionnal information about Corsican localization:
 					<Item id="50011" name="Suggestione seguente di parametri di funzione"/>
 					<Item id="50005" name="Attivà o disattivà l’arregistramentu d’una prucedura"/>
 					<Item id="50006" name="Cumpiimentu di chjassu"/>
-					<Item id="44042" name="Piattà e linee"/>
+					<Item id="44042" name="&amp;Piattà e linee"/>
 					<Item id="42040" name="Apre tutti i schedarii recenti"/>
 					<Item id="42041" name="Viutà a lista di i schedarii recenti"/>
 					<Item id="48016" name="Ghjestione di l’accurtatoghji di tastera per e prucedure…"/>
@@ -686,6 +686,10 @@ Additionnal information about Corsican localization:
 					<Item id="2235" name="Cosa serà a « Global override » ?"/>
 				</SubDialog>
 			</StyleConfig>
+
+			<ColorPopup>
+				<Item id="1" name="D’altri culori…"/>
+			</ColorPopup>
 
 			<ShortcutMapper title="Definizione di l’accurtatoghji di tastera">
 				<Item id="2602" name="Mudificà"/>
@@ -1645,6 +1649,9 @@ S’è vo avete bisognu di a funzione di ricerca RegEx à l’arritrosa, lighjit
 Ci vole à verificà a cundizione di ricerca prima di fà l’azzione."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ richiede d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per affissà l’accurtatoghji di u listinu di diritta."/>
 			<NoAdminRight2ChangeReadOnlyFileAttribute title="Fiascu di u cambiamentu d’attributu di lettura sola di u schedariu" message="Ci vole à lancià Notepad++ in modu Amministratore per cambià l’attributi di u schedariu."/>
+			<ReadOnlyFileCannotBeSaved title="Fiascu d’arregistramentu ; schedariu in lettura sola" message="&quot;$STR_REPLACE$&quot;
+U schedariu hè in lettura sola è ùn pò micca esse arregistratu.
+Ci vole à caccià a lettura sola eppò arregistrà u vostru schedariu."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Cronolugia di u preme’papei"/>

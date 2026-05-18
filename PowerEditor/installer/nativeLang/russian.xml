@@ -4,7 +4,7 @@ Updated to :
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.9.4">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.9.5">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -329,7 +329,6 @@ Updated to :
 
 					<Item id="44025" name="Отображать Пробелы и Табуляции"/>
 					<Item id="44026" name="Отображать символ Конца Строки"/>
-					<Item id="44027" name="&amp;Синхрониз. шрифты окон"/>
 					<Item id="44019" name="Отображать все символы"/>
 					<Item id="44020" name="Отображать Направляющие Отступов"/>
 					<Item id="44041" name="Отображать знак Переноса Строк"/>
@@ -337,6 +336,7 @@ Updated to :
 					<Item id="44023" name="Крупнее    (Ctrl+Кол. Вверх)"/>
 					<Item id="44024" name="Мельче    (Ctrl+Кол. Вниз)"/>
 					<Item id="44033" name="Восстановить масштаб..."/>
+					<Item id="44027" name="Синхрониз. размер текста окон"/>
 
 					<Item id="10001" name="Переместить в Другую Область"/>
 					<Item id="10002" name="Дублировать в Другой Области"/>
@@ -689,6 +689,10 @@ Updated to :
 					<Item id="2235" name="Что делает 'Global override'?"/>
 				</SubDialog>
 			</StyleConfig>
+			<ColorPopup>
+				<Item id="1" name="Больше Цветов..."/>
+			</ColorPopup>
+
 			<ShortcutMapper title="Управление Клавишами Быстрого Доступа">
 				<Item id="2602" name="Изменить"/>
 				<Item id="2603" name="Удалить"/>
@@ -1607,6 +1611,9 @@ Updated to :
 Пожалуйста, проверьте условие поиска перед выполнением действия."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ необходимо перезапустить" message="Notepad++ необходимо перезапустить, чтобы отобразить нужные значки меню."/>
 			<NoAdminRight2ChangeReadOnlyFileAttribute title="Не удалось изменить атрибут файла 'только для чтения'" message="Чтобы изменять атрибут файлов, запустите Notepad++ от имени администратора."/>
+			<ReadOnlyFileCannotBeSaved title="Сохранение не удалось — файл только для чтения." message="&quot;$STR_REPLACE$&quot;
+Файл доступен только для чтения и не может быть сохранен.
+Сначала снимите флажок &quot;Только для чтения&quot;, а затем сохраните файл."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="История Буфера"/>

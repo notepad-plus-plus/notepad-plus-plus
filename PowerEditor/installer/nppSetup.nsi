@@ -344,23 +344,24 @@ ${MementoSection} "Context Menu Entry" explorerContextMenu
 	
 	IfFileExists $INSTDIR\contextmenu\NppShell.dll 0 +2
 		ExecWait '"$winSysDir\rundll32.exe" "$INSTDIR\contextmenu\NppShell.dll",CleanupDll'
-	!ifdef ARCH64
+
+!ifdef ARCH64
+	File /oname=$INSTDIR\contextMenu\NppShell.msix "..\bin64\NppShell.msix"
+	File /oname=$INSTDIR\contextMenu\NppShell.dll "..\bin64\NppShell.x64.dll"
+!else ifdef ARCHARM64
+	File /oname=$INSTDIR\contextMenu\NppShell.msix "..\binarm64\NppShell.msix"
+	File /oname=$INSTDIR\contextMenu\NppShell.dll "..\binarm64\NppShell.arm64.dll"
+!else
+	; We need to test which arch we are running on, since 32bit exe can be run on both 32bit and 64bit Windows.
+	${If} ${RunningX64}
+		; We are running on 64bit Windows, so we need the msix as well, since it might be Windows 11.
 		File /oname=$INSTDIR\contextMenu\NppShell.msix "..\bin64\NppShell.msix"
 		File /oname=$INSTDIR\contextMenu\NppShell.dll "..\bin64\NppShell.x64.dll"
-	!else ifdef ARCHARM64
-		File /oname=$INSTDIR\contextMenu\NppShell.msix "..\binarm64\NppShell.msix"
-		File /oname=$INSTDIR\contextMenu\NppShell.dll "..\binarm64\NppShell.arm64.dll"
-	!else
-		; We need to test which arch we are running on, since 32bit exe can be run on both 32bit and 64bit Windows.
-		${If} ${RunningX64}
-			; We are running on 64bit Windows, so we need the msix as well, since it might be Windows 11.
-			File /oname=$INSTDIR\contextMenu\NppShell.msix "..\bin64\NppShell.msix"
-			File /oname=$INSTDIR\contextMenu\NppShell.dll "..\bin64\NppShell.x64.dll"
-		${Else}
-			; We are running on 32bit Windows, so no need for the msix file, since there is no way this could even be upgraded to Windows 11.
-			File /oname=$INSTDIR\contextMenu\NppShell.dll "..\bin\NppShell.x86.dll"
-		${EndIf}
-	!endif
+	${Else}
+		; We are running on 32bit Windows, so no need for the msix file, since there is no way this could even be upgraded to Windows 11.
+		File /oname=$INSTDIR\contextMenu\NppShell.dll "..\bin\NppShell.x86.dll"
+	${EndIf}
+!endif
 
 	; Shell context menu entry
 	WriteRegStr HKCR "*\shell\ANotepad++64" "" "Notepad++ Context menu"
@@ -374,15 +375,11 @@ ${MementoSection} "Context Menu Entry" explorerContextMenu
 
 	; Register MSIX for Windows 11 modern context menu
 	; Skip only for x86 Notepad++ installation on Windows 32 system
-	!ifdef ARCH64 ; x64 installer
-		Call RegisterMSIX
-	!else ifdef ARCHARM64 ; arm64 installer
-		Call RegisterMSIX
-	!else ; 32 bits installer
-		${If} ${RunningX64} ; running in Windows 64 bits
-			Call RegisterMSIX
-		${EndIf}
-	!endif
+!ifdef ARCH64 || ARCHARM64 ; x64 installer
+	Call RegisterMSIX
+!else ; 32 bits installer
+	ExecWait '"$winSysDir\regsvr32.exe" /s "$INSTDIR\contextMenu\NppShell.dll"'
+!endif
 
 ${MementoSectionEnd}
 

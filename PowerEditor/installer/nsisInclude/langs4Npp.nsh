@@ -424,6 +424,9 @@ SectionGroup un.localization
 	Section un.japanese
 		Delete "$INSTDIR\localization\japanese.xml"
 	SectionEnd
+	Section un.kabyle
+		Delete "$INSTDIR\localization\kabyle.xml"
+	SectionEnd
 	Section un.kannada
 		Delete "$INSTDIR\localization\kannada.xml"
 	SectionEnd

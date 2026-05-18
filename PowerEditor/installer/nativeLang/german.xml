@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.3"><!-- Datum: 30.04.2026, basiert auf english.xml 8.9.3 vom 29.04.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.5"><!-- Datum: 18.05.2026, basiert auf english.xml 8.9.5 vom 17.05.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -211,7 +211,7 @@ Translation note:
 					<Item id="42027" name="Schreibrichtung von lin&amp;ks nach rechts"/>
 					<Item id="42028" name="Schreibsch&amp;utz für aktuelles Dokument"/>
 					<Item id="42102" name="Schreibschutz für &amp;alle Dokumente"/>
-					<Item id="42103" name="&amp;Entferne Schreibschutz für alle Dokumente"/>
+					<Item id="42103" name="Schreibschutz für alle Dokumente &amp;entfernen"/>
 					<Item id="42029" name="Vollständigen Datei&amp;pfad kopieren"/>
 					<Item id="42030" name="Nur Datei&amp;namen kopieren"/>
 					<Item id="42031" name="Nur &amp;Verzeichnispfad kopieren"/>
@@ -282,9 +282,9 @@ Translation note:
 					<Item id="43064" name="Markierung &amp;3"/>
 					<Item id="43065" name="Markierung &amp;4"/>
 					<Item id="43066" name="Markierung &amp;5"/>
-					<Item id="43067" name="Gehe zur nächsten Änderung"/>
-					<Item id="43068" name="Gehe zur vorherigen Änderung"/>
-					<Item id="43069" name="Änderungs-Historie löschen"/>
+					<Item id="43067" name="Zur nächsten Änderung gehen"/>
+					<Item id="43068" name="Zur vorherigen Änderung gehen"/>
+					<Item id="43069" name="Änderungshistorie löschen"/>
 					<Item id="43045" name="Suchergebnis-&amp;Fenster"/>
 					<Item id="43046" name="Zum n&amp;ächsten Suchergebnis springen"/>
 					<Item id="43047" name="Zum vorherigen S&amp;uchergebnis springen"/>
@@ -305,7 +305,7 @@ Translation note:
 					<Item id="44024" name="Schrift ver&amp;kleinern (STRG + Mausrad nach unten)"/>
 					<Item id="44025" name="&amp;Leerzeichen und Tabulatoren anzeigen"/>
 					<Item id="44026" name="Zeilenende anze&amp;igen"/>
-					<Item id="44027" name="&amp;Synchronisiere zwischen Ansichten"/>
+					<Item id="44027" name="Zwischen Ansichten &amp;synchronisieren"/>
 					<Item id="44029" name="Alle Textblöcke &amp;öffnen"/>
 					<Item id="44030" name="Textblock schlie&amp;ßen"/>
 					<Item id="44031" name="Textblock öff&amp;nen"/>
@@ -517,7 +517,7 @@ Translation note:
 				<Item id="1659" name="&amp;Versteckte Ordner"/>
 				<Item id="1624" name="Suchmodus"/>
 				<Item id="1625" name="Norma&amp;l"/>
-				<Item id="1626" name="Erwe&amp;itert (\n, \r, \t, \0, \x…)"/>
+				<Item id="1626" name="Erwe&amp;itert (\n, \r, \t, \0, \x, …)"/>
 				<Item id="1660" name="Ersetzen in Dateien"/>
 				<Item id="1665" name="Ersetzen in Projekten"/>
 				<Item id="1662" name="Projekt Tafel 1"/>
@@ -546,7 +546,7 @@ Translation note:
 				<Item id="2" name="S&amp;chließen"/>
 				<Item id="2901" name="&amp;Nicht-ASCII-Zeichen (128–255)"/>
 				<Item id="2902" name="&amp;ASCII-Zeichen (0–127)"/>
-				<Item id="2903" name="&amp;Benutzerdefiniert (0-255):"/>
+				<Item id="2903" name="&amp;Benutzerdefiniert (0–255):"/>
 				<Item id="2906" name="A&amp;ufwärts"/>
 				<Item id="2907" name="Ab&amp;wärts"/>
 				<Item id="2908" name="Suchrichtung"/>
@@ -664,6 +664,10 @@ Translation note:
 					<Item id="2235" name="Was bedeutet 'Global override'?"/>
 				</SubDialog>
 			</StyleConfig>
+
+			<ColorPopup>
+				<Item id="1" name="Weitere Farben …"/>
+			</ColorPopup>
 
 			<ShortcutMapper title="Tastenkombinationen">
 				<Item id="2602" name="Ändern …"/>
@@ -1002,11 +1006,11 @@ Translation note:
 					<Item id="6108" name="Tabs nicht mit der Maus verschiebbar"/>
 					<Item id="6109" name="Farbe inaktiver Tabs ändern"/>
 					<Item id="6110" name="Aktiven Tab farbig hervorheben"/>
-					<Item id="6111" name="Schaltfläche auf inaktiven Tabs anzeigen"/>
+					<Item id="6111" name="Schaltflächen auf inaktiven Tabs anzeigen"/>
 					<Item id="6112" name="Schließen-Kreuz anzeigen"/>
 					<Item id="6113" name="Tabs per Doppelklick schließen"/>
 					<Item id="6115" name="Pin-Tab-Funktion aktivieren (anheften/loslösen)"/>
-					<Item id="6135" name="Nur angeheftete Schaltfläche anzeigen"/>
+					<Item id="6135" name="Nur angeheftete Pins anzeigen"/>
 					<Item id="6118" name="Ausblenden"/>
 					<Item id="6119" name="Mehrzeilig"/>
 					<Item id="6120" name="Vertikal"/>
@@ -1152,7 +1156,7 @@ Translation note:
 					<Item id="6508" name="Sprachmenü"/>
 					<Item id="6335" name="Backslash ist Escapezeichen für SQL"/>
 				</Language>
-				
+
 				<Indentation title="Einrückungen">
 					<Item id="7161" name="Autom. Einrückung"/>
 					<Item id="7162" name="Keine"/>
@@ -1613,13 +1617,16 @@ HINWEIS: Wenn die Platzhalter nicht erstellt oder später geschlossen werden, wi
 			<FileMemoryAllocationFailed title="Ausnahmefehler: Dateispeicherzuweisung fehlgeschlagen" message="Eventuell gibt es nicht genügend zusammenhängenden freien Speicher für die von Notepad++ geladene Datei."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 			<FindRegexBackwardDisabled title="Regex-Rückwärtssuche nicht aktiv" message="Standardmäßig ist die Regex-Rückwärtssuche deaktiviert da möglicherweise unerwartete Ergebnisse auftreten. Um dennoch eine Regex-Rückwärtssuche durchzuführen, ist in der Suche entweder die normale oder erweiterte Suche statt regulärer Ausdrucke auszuwählen.
 OK auswählen um die Suche zu öffnen oder in den Vordergrund zu bringen.
-			
+
 Falls die Regex-Rückwärtssuche dennoch benötigt wird, kann deren Aktivierung im Benutzerhandbuch nachgeschlagen werden."/>
 			<PrintError title="0" message="Druckerdokument kann nicht gestartet werden."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 			<FindAutoChangeOfInSelectionWarning title="Suchwarnung" message="Der Status des Kontrollkästchens 'In Auswahl' wurde automatisch geändert.
 Bitte die Suchbedingungen überprüfen, bevor die Aktion ausgeführt wird."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Neustart von Notepad++ erforderlich" message="Notepad++ muss zur Anzeige der Tastenkürzel neu gestartet werden."/>
 			<NoAdminRight2ChangeReadOnlyFileAttribute title="Ändern des Schreibschutz-Attributs der Datei fehlgeschlagen" message="Bitte Notepad++ als Administrator ausführen, um Dateiattribute zu ändern."/>
+			<ReadOnlyFileCannotBeSaved title="Speichern fehlgeschlagen – Schreibschutz" message="&quot;$STR_REPLACE$&quot;
+Die Datei ist schreibgeschützt und kann nicht gespeichert werden.
+Entferne den Schreibschutz, um die Datei zu speichern."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>
@@ -1785,7 +1792,7 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<find-status-scope-all value="in dieser Datei"/>
 			<find-status-scope-backward value="vom Dateianfang bis zum Cursor"/>
 			<find-status-scope-forward value="vom Cursor bis zum Dateiende"/>
-			<find-status-replace-invalid-replace-chars value="Ersetzen: Ein 'nicht-ANSI-Text' kann in einem ANSI-Dokument nicht ersetzt werden"/>
+			<find-status-replace-invalid-replace-chars value="Ersetzen: Kann in einem ANSI-Dokument nicht durch Nicht-ANSI-Text ersetzt werden"/>
 			<find-status-invisible-chars-findWhat value="Unsichtbare Zeichen im eingefügten &quot;Suchen nach&quot;- oder &quot;Ersetzen durch&quot;-Inhalt"/>
 			<find-status-invisible-chars-findWhat-tip value="Warnung: Unsichtbare Zeichen im Suchen- oder Ersetzen-Feld.
 Der in diese Felder eingefügte Text enthält unsichtbare Zeichen (möglicherweise Zeilenumbrüche). Falls fortgefahren wird, ohne sie zu löschen, werden sie in den Suchen- oder Ersetzen-Text einbezogen."/>
@@ -1910,8 +1917,8 @@ Wenn diese 'Intelligente Einrückung' gewählt wird, aber keine Dateien in den o
 
 			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
 			<statusbar-Pos value="Pos: "/>
-			<statusbar-Sel value="Gew: "/>
-			<statusbar-Sel-number value="Gew"/>
+			<statusbar-Sel value="Asw: "/>
+			<statusbar-Sel-number value="Asw"/>
 			<toolbar-accent-tip value="Mit dieser Option werden die Symbolleistensymbole der Akzentfarbe des Windows-Systems angepasst. Die Akzentfarbe ist die Farbe, mit der Schaltflächen, Rahmen und Startmenükacheln in Windows hervorgehoben werden. Um sie zu ändern, gehe zu Einstellungen &gt; Personalisierung &gt; Farben und wähle die bevorzugte Akzentfarbe."/>
 			<len-limit-exceeded-tip value="Zeichen-Limit überschritten: Die Eingabe überschreitet evtl. das zulässige Limit und wurde möglicherweise gekürzt, und sie wird nicht für die nächste Sitzung gespeichert."/>
 			<max-len-on-search-tip value="Die Eingabe überschreitet evtl. das zulässige Limit und wurde möglicherweise gekürzt, und sie wird nicht für die nächste Sitzung gespeichert."/>

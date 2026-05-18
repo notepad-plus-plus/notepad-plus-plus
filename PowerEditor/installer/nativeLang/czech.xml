@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.9.5  1/May/2026  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.9.6  18/May/2026  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.9.4">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.9.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -666,7 +666,11 @@
 					<Item id="2235" name="Co znamená &quot;Global override&quot;?"/>
 				</SubDialog>
 			</StyleConfig>
-			
+
+			<ColorPopup>
+				<Item id="1" name="Více barev..."/>
+			</ColorPopup>
+
 			<ShortcutMapper title="Asociace klávesových zkratek">
 				<Item id="2602" name="Změnit"/>
 				<Item id="2603" name="Odstranit"/>
@@ -1606,6 +1610,9 @@ Pokud opravdu potřebujete funkci zpětného vyhledávání při regulárních v
 Před provedením akce si prosím nejprve ověřte nastavené podmínky."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Restartujte Notepad++" message="Je zapotřebí restartovat Notepad++, aby se vpravo mohly zobrazit ovládací prvky hlavního menu."/>
 			<NoAdminRight2ChangeReadOnlyFileAttribute title="Změna atributu souboru 'pouze pro čtení' se nezdařila." message="Pro změnu atributů souboru spusťte Notepad++ s právy administrátora."/>
+			<ReadOnlyFileCannotBeSaved title="Uložení selhalo - soubor je pouze pro čtení" message="&quot;$STR_REPLACE$&quot;
+Soubor je 'pouze pro čtení', a proto jej nelze uložit.
+Odeberte nejprve prosím povolení 'pouze pro čtení' a poté soubor uložte."/>
 		</MessageBox>
 		
 		<ClipboardHistory>

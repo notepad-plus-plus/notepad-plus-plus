@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: May 16, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: May 19, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
@@ -664,6 +664,10 @@
 					<Item id="2235" name="Što je Global override?"/>
 				</SubDialog>
 			</StyleConfig>
+
+			<ColorPopup>
+				<Item id="1" name=Više boja..."/>
+			</ColorPopup>
 
 			<ShortcutMapper title="Mapiranje tipkovnih prečaca">
 				<Item id="2602" name="Izmijeni"/>

@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.9.3">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.9.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -654,6 +654,10 @@ Translation note:
 					<Item id="2235" name="Vad är Global override?"/>
 				</SubDialog>
 			</StyleConfig>
+
+			<ColorPopup>
+				<Item id="1" name="Fler färger..."/>
+			</ColorPopup>
 
 			<ShortcutMapper title="Kortkommandon">
 				<Item id="2602" name="Ändra"/>
@@ -1614,6 +1618,9 @@ Se användarmanualen för instruktioner om hur man aktiverar reguljär bakåtsö
 Kontrollera sökvillkoren innan du utför åtgärden."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ behöver startas om" message="Notepad++ behöver startas om för att visa knapparna på högersidan."/>
 			<NoAdminRight2ChangeReadOnlyFileAttribute title="Misslyckades att ändra filens skrivskyddsattribut" message="Starta Notepad++ som administratör för att ändra filattribut."/>
+			<ReadOnlyFileCannotBeSaved title="Misslyckades att spara - Filen är skrivskyddad" message="&quot;$STR_REPLACE$&quot;
+Filen är skrivskyddad och kan inte sparas.
+Var god ta bort skrivskyddet och spara sedan din fil."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>

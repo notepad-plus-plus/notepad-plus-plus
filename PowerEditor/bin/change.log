@@ -1,3 +1,13 @@
+Notepad++ v8.9.6 vulnerability fix, regression fixes & bug-fixes:
+
+ 1. Fix vulnerability (CVE-2026-46710) of v8.9.4 & v8.9.5 installer.
+ 2. Fix x86 installer regression of not showing installation entry in Control Panel's "Unstall a program".
+ 3. Fix x86 installer regression where context menu not installed or uninstalled correctly.
+ 4. Fix UAC prompt display regression (“Notepad++ installer” instead of “Notepad++”) for Notepad++ v8.9.5.
+ 5. Fix incorrect bevaviour when saving dirty read-only files.
+ 6. Fix regression where saving a UDL file removed XML declaration.
+
+
 Notepad++ v8.9.5 regression fixes, bug-fixes & new improvements:
 
  1. Fix updating issue where using v8.9.4 32-bits installer creates duplicate "Uninstall a program" entries.
@@ -36,7 +46,7 @@ Notepad++ v8.9.4 crash fixes, bug-fixes & new improvements:
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.9.5/
+https://notepad-plus-plus.org/downloads/v8.9.6/
 
 
 Included plugins:

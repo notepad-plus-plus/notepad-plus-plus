@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Vietnamese" filename="vietnamese.xml" version="8.9.3">
+	<Native-Langue name="Vietnamese" filename="vietnamese.xml" version="8.9.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -598,7 +598,7 @@ Translation note:
 			</SHA1FromTextDlg>
 
 			<SHA512FromFilesDlg title="Tạo mã băm SHA-512 từ tệp">
-			<Item id="1922" name="Chọn tệp để &amp;tạo SHA-512..."/>
+				<Item id="1922" name="Chọn tệp để &amp;tạo SHA-512..."/>
 				<Item id="1924" name="Sa&amp;o chép vào Clipboard"/>
 				<Item id="2" name="&amp;Đóng"/>
 			</SHA512FromFilesDlg>
@@ -998,7 +998,7 @@ Translation note:
 					<Item id="6115" name="Bật tính năng ghim thẻ"/>
 					<Item id="6135" name="Chỉ hiển thị nút đã ghim"/>
 					<Item id="6118" name="Ẩn"/>
-<Item id="6119" name="Nhiều dòng"/>
+					<Item id="6119" name="Nhiều dòng"/>
 					<Item id="6120" name="Thẳng đứng"/>
 					<Item id="6121" name="Thoát khi đóng thẻ cuối cùng"/>
 					<Item id="6128" name="Các biểu tượng thay thế"/>
@@ -1565,11 +1565,11 @@ vui lòng chọn một tên khác."/>
 			<UDLRemoveCurrentLang title="Xóa ngôn ngữ hiện tại" message="Bạn có chắc chắn không?"/>
 			<UDL_importSuccessful title="Ngôn ngữ do người dùng định nghĩa" message="Nhập thành công."/>
 			<UDL_importFails title="Ngôn ngữ do người dùng định nghĩa" message="Nhập thất bại."/>
-			<UDL_saveBeforeImport title="Ngôn ngữ do người dùng định nghĩa" message="Trước khi xuất, hãy lưu định nghĩa ngôn ngữ của bạn bằng cách nhấn nút &quot;Lưu dưới dạng...&quot;."/> 
+			<UDL_saveBeforeImport title="Ngôn ngữ do người dùng định nghĩa" message="Trước khi xuất, hãy lưu định nghĩa ngôn ngữ của bạn bằng cách nhấn nút &quot;Lưu dưới dạng...&quot;."/>
 			<UDL_exportSuccessful title="Ngôn ngữ do người dùng định nghĩa" message="Xuất thành công."/>
 			<UDL_exportFails title="Ngôn ngữ do người dùng định nghĩa" message="Xuất thất bại."/>
 			<SCMapperDoDeleteOrNot title="Bạn có chắc chắn?" message="Bạn có chắc chắn muốn xóa phím tắt này không?"/>
-			<FindCharRangeValueError title="Lỗi giá trị phạm vi" message="Bạn phải nhập giá trị trong khoảng từ 0 đến 255."/> 
+			<FindCharRangeValueError title="Lỗi giá trị phạm vi" message="Bạn phải nhập giá trị trong khoảng từ 0 đến 255."/>
 			<OpenInAdminMode title="Lưu thất bại" message="Tệp không thể lưu và có thể đã bị bảo vệ.
 Bạn có muốn khởi chạy Notepad++ dưới quyền Quản trị viên (Administrator) không?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Lưu thất bại" message="Tệp không thể lưu và có thể đã bị bảo vệ.
@@ -1910,4 +1910,4 @@ Nếu bạn chọn chế độ nâng cao nhưng không chỉnh sửa các tệp 
 			<tabbar-tabcompactlabellen-tip value="Giới hạn độ dài hiển thị của các tên thẻ dài. Nhấn Enter để áp dụng giá trị đã nhập. Phạm vi giá trị: 1-257 ký tự (0 để tắt việc cắt ngắn)."/>
 		</MiscStrings>
 	</Native-Langue>
-</NotepadPlus>			
+</NotepadPlus>

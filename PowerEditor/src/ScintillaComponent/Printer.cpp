@@ -411,7 +411,28 @@ size_t Printer::doPrint(bool justDoIt)
 		
 		frPrint.chrg.cpMin = static_cast<Sci_Position>(lengthPrinted);
 		frPrint.chrg.cpMax = static_cast<Sci_Position>(lengthDoc);
+		Sci_Position foundFormFeed = -1;
+		if (nppGUI._printSettings._printFormFeedPageBreak) 
+		{
+			// look for form feed: if found, stop current page just before the FF (though scintilla will continue through the EOL if one comes immediately after FF)
+			Sci_TextToFindFull ttf;
+			ttf.chrg = frPrint.chrg;
+			ttf.lpstrText = "\f";	// null terminated formfeed
+			foundFormFeed = static_cast<Sci_Position>(_pSEView->execute(SCI_FINDTEXTFULL, static_cast<WPARAM>(SCFIND_NONE), reinterpret_cast<LPARAM>(&ttf)));
+			// if FF is found, then stop the current page just before the FF by changing cpMax
+			if (foundFormFeed > 0)
+				frPrint.chrg.cpMax = foundFormFeed - 1;	// stop the current page just before the FF
+			else if (foundFormFeed == 0)
+				frPrint.chrg.cpMax = 0;	// but if FF was the first character, then just stop at that character (cannot stop before 0)
+		}
+
+		// actually send this page to Scintilla's print-page fomatter, whether or not FF is found
 		lengthPrinted = _pSEView->execute(SCI_FORMATRANGEFULL, printPage, reinterpret_cast<LPARAM>(&frPrint));
+
+		// if FF was found, _after_ we've done the print-formatting for the current page, make sure that the start of the _next_ page is after this FF
+		//		(without this increment by 1, it will just print the same FF inifintitely)
+		if ((foundFormFeed != -1) && (static_cast<Sci_Position>(lengthPrinted) <= foundFormFeed))
+			lengthPrinted = foundFormFeed + 1;
 
 		if (printPage) 
 		{

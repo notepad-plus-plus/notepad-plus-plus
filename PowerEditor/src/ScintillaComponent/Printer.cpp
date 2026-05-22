@@ -411,7 +411,19 @@ size_t Printer::doPrint(bool justDoIt)
 		
 		frPrint.chrg.cpMin = static_cast<Sci_Position>(lengthPrinted);
 		frPrint.chrg.cpMax = static_cast<Sci_Position>(lengthDoc);
+		Sci_Position foundFormFeed = -1;
+		if(nppGUI._printSettings._printFormFeedPageBreak) {
+			// look for form feed: if found, stop current page just before the FF
+			Sci_TextToFindFull ttf;
+			ttf.chrg = frPrint.chrg;
+			ttf.lpstrText = "\f";	// null terminated formfeed
+			foundFormFeed = static_cast<Sci_Position>(_pSEView->execute(SCI_FINDTEXTFULL, static_cast<WPARAM>(SCFIND_NONE), reinterpret_cast<LPARAM>(&ttf)));
+			if (foundFormFeed != -1)
+				frPrint.chrg.cpMax = foundFormFeed - 1;	// end the print range on the character before the FF
+		}
 		lengthPrinted = _pSEView->execute(SCI_FORMATRANGEFULL, printPage, reinterpret_cast<LPARAM>(&frPrint));
+		if ((foundFormFeed != -1) && (static_cast<Sci_Position>(lengthPrinted) <= foundFormFeed))
+			lengthPrinted = foundFormFeed + 1;	// next time, start _after_ the FF
 
 		if (printPage) 
 		{

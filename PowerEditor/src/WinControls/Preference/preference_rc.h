@@ -373,6 +373,7 @@
 #define IDC_MT_STATIC                                  6613
 #define IDC_MR_STATIC                                  6614
 #define IDC_MB_STATIC                                  6615
+#define IDC_CHECK_PRINTFORMFEED                        6616
 
 #define IDC_CURRENTLINEMARK_STATIC                     6651
 #define IDC_RADIO_CLM_NONE                             6652

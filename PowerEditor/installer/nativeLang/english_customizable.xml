@@ -1181,6 +1181,7 @@ Translation note:
 
 				<Print title="Print">
 					<Item id="6601" name="Print line n&amp;umber"/>
+					<Item id="6616" name="Print formfeed a&amp;s page break"/>
 					<Item id="6602" name="Color Options"/>
 					<Item id="6603" name="W&amp;YSIWYG"/>
 					<Item id="6604" name="I&amp;nvert"/>

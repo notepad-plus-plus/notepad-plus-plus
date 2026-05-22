@@ -6121,12 +6121,13 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 
 			_nppGUI._isLangMenuCompact = getBoolAttribute(childNode, "langMenuCompact", _nppGUI._isLangMenuCompact);
 		}
-		// <GUIConfig name="Print" lineNumber="yes" printOption="3" headerLeft="" headerMiddle="" headerRight="" footerLeft=""
+		// <GUIConfig name="Print" lineNumber="yes" formFeedPageBreak="no" printOption="3" headerLeft="" headerMiddle="" headerRight="" footerLeft=""
 		// footerMiddle="" footerRight="" headerFontName="" headerFontStyle="0" headerFontSize="0" footerFontName="" footerFontStyle="0"
 		// footerFontSize="0" margeLeft="0" margeRight="0" margeTop="0" margeBottom="0" />
 		else if (std::strcmp(nm, "Print") == 0)
 		{
 			_nppGUI._printSettings._printLineNumber = getBoolAttribute(childNode, "lineNumber", _nppGUI._printSettings._printLineNumber);
+			_nppGUI._printSettings._printFormFeedPageBreak = getBoolAttribute(childNode, "formFeedPageBreak", _nppGUI._printSettings._printFormFeedPageBreak);
 
 			_nppGUI._printSettings._printOption = getRangeDefaultAttribute<int>(childNode, "printOption", SC_PRINT_NORMAL, SC_PRINT_COLOURONWHITE, _nppGUI._printSettings._printOption);
 
@@ -7800,6 +7801,7 @@ void NppParameters::writePrintSetting(NppXml::Element& element) const
 	const auto& prSet = _nppGUI._printSettings;
 
 	setBoolAttribute(element, "lineNumber", prSet._printLineNumber);
+	setBoolAttribute(element, "formFeedPageBreak", prSet._printFormFeedPageBreak);
 
 	NppXml::setAttribute(element, "printOption", prSet._printOption);
 

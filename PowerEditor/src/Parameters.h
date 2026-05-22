@@ -516,6 +516,7 @@ struct LangMenuItem final
 
 struct PrintSettings final {
 	bool _printLineNumber = true;
+	bool _printFormFeedPageBreak = false;
 	int _printOption = SC_PRINT_COLOURONWHITE;
 
 	std::wstring _headerLeft;

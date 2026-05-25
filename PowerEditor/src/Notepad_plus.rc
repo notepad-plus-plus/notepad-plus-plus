@@ -1021,6 +1021,7 @@ BEGIN
         MENUITEM "Diff",                    IDM_LANG_DIFF
         MENUITEM "Erlang",                  IDM_LANG_ERLANG
         MENUITEM "ErrorList",               IDM_LANG_ERRORLIST
+        MENUITEM "Escape Sequence (ANSI)",  IDM_LANG_ESCSEQ
         MENUITEM "ESCRIPT",                 IDM_LANG_ESCRIPT
         MENUITEM "Forth",                   IDM_LANG_FORTH
         MENUITEM "Fortran (free form)",     IDM_LANG_FORTRAN
@@ -1135,9 +1136,10 @@ BEGIN
     END
     POPUP "E"
     BEGIN
-        MENUITEM "Erlang",                IDM_LANG_ERLANG
-        MENUITEM "ErrorList",             IDM_LANG_ERRORLIST
-        MENUITEM "ESCRIPT",               IDM_LANG_ESCRIPT
+        MENUITEM "Erlang",                    IDM_LANG_ERLANG
+        MENUITEM "ErrorList",                 IDM_LANG_ERRORLIST
+        MENUITEM "Escape Sequence (ANSI)",    IDM_LANG_ESCSEQ
+        MENUITEM "ESCRIPT",                   IDM_LANG_ESCRIPT
     END
     POPUP "F"
     BEGIN

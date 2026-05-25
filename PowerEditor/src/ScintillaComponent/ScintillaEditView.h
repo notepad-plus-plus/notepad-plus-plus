@@ -1081,6 +1081,14 @@ protected:
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.errorlist.escape.sequences"), reinterpret_cast<LPARAM>("1"));
 	}
 
+	void setEscSeqLexer() {
+		setLexer(L_ESCSEQ, LIST_NONE);
+		bool doShowEscapeChars = isShownCcUniEol();	// decide based on the ControlCharacter+UnicodeEOL flag
+		execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ESCSEQ_IDENTIFIER), static_cast<LPARAM>(doShowEscapeChars));
+		execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ESCSEQ_UNKNOWN), static_cast<LPARAM>(doShowEscapeChars));
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.escseq.colour.text"), reinterpret_cast<LPARAM>("1"));
+	}
+
 	//--------------------
 
 	void setSearchResultLexer() {

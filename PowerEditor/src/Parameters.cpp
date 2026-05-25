@@ -8154,6 +8154,9 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 		case L_ERRORLIST:
 			id = IDM_LANG_ERRORLIST; break;
 
+		case L_ESCSEQ:
+			id = IDM_LANG_ESCSEQ; break;
+
 		case L_SEARCHRESULT :
 			id = -1;	break;
 

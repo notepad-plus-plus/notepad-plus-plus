@@ -63,8 +63,6 @@
 
 #endif
 
-#define CMD_INTERPRETER L"%COMSPEC%"
-
 class NativeLangSpeaker;
 
 /*!
@@ -74,9 +72,9 @@ class NativeLangSpeaker;
 */
 EolType convertIntToFormatType(int value, EolType defvalue = EolType::osdefault);
 
-#define PURE_LC_NONE	0
-#define PURE_LC_BOL	 1
-#define PURE_LC_WSP	 2
+#define PURE_LC_NONE 0
+#define PURE_LC_BOL  1
+#define PURE_LC_WSP  2
 
 void cutString(const wchar_t* str2cut, std::vector<std::wstring>& patternVect);
 void cutStringBy(const wchar_t* str2cut, std::vector<std::wstring>& patternVect, wchar_t byChar, bool allowEmptyStr);
@@ -811,9 +809,6 @@ struct NppGUI final
 
 	std::wstring _definedSessionExt;
 	std::wstring _definedWorkspaceExt;
-
-	// items with no Notepad++ GUI to set
-	std::wstring _commandLineInterpreter = CMD_INTERPRETER;
 
 	enum AutoUpdateMode { autoupdate_disabled, autoupdate_on_startup, autoupdate_on_exit };
 	struct AutoUpdateOptions

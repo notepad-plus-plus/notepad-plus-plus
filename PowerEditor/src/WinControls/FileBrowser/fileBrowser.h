@@ -35,6 +35,7 @@
 #define FB_FINDINFILES        L"Find in Files..."
 #define FB_EXPLORERHERE       L"Explorer here"
 #define FB_CMDHERE            L"CMD here"
+#define FB_POWERSHELLHERE     L"PowerShell here"
 #define FB_OPENINNPP          L"Open"
 #define FB_SHELLEXECUTE       L"Run by system"
 

@@ -90,6 +90,7 @@ Translation note:
 					<Item id="41002" name="&amp;Ouvrir..."/>
 					<Item id="41019" name="Explorateur Windows"/>
 					<Item id="41020" name="Invite de commande (cmd)"/>
+					<Item id="41027" name="PowerShell"/>
 					<Item id="41025" name="Dossier en tant qu’espace de travail"/>
 					<Item id="41003" name="Fermer"/>
 					<Item id="41004" name="Fermer tout"/>
@@ -441,6 +442,7 @@ Translation note:
 				<Item CMDID="1" name="Ouvrir dans"/>
 				<Item CMDID="41019" name="Ouvrir le répertoire du fichier en cours dans l’explorateur"/>
 				<Item CMDID="41020" name="Ouvrir le répertoire du fichier en cours dans l’invite de commande"/>
+				<Item CMDID="41027" name="Ouvrir le répertoire du fichier en cours dans PowerShell"/>
 				<Item CMDID="41025" name="Ouvrir le répertoire du fichier en cours en tant qu’espace de travail"/>
 				<Item CMDID="41023" name="Ouvrir dans l’application par défaut"/>
 				<Item CMDID="41017" name="Renommer le fichier actuel"/>
@@ -684,6 +686,8 @@ Translation note:
 				<MainCommandNames>
 					<Item id="41019" name="Ouvrir le répertoire du fichier dans Explorateur Windows"/>
 					<Item id="41020" name="Ouvrir le répertoire du fichier dans Invite de commande"/>
+					<Item id="41027" name="Ouvrir le répertoire du fichier dans PowerShell"/>
+					<Item id="41025" name="Ouvrir le répertoire du fichier dans Dossier en tant qu’espace de travail"/>
 					<Item id="41021" name="Ouvrir le dernier fichier fermé"/>
 					<Item id="45001" name="Convertir les sauts de ligne en Windows (CR LF)"/>
 					<Item id="45002" name="Convertir les sauts de ligne en Unix (LF)"/>
@@ -1675,6 +1679,7 @@ Veuillez supprimer l'attribut « lecture seule » puis enregistrer votre fichier
 				<Item id="3518" name="Explorer depuis ici"/>
 				<Item id="3519" name="CMD depuis ici"/>
 				<Item id="3520" name="Copier le nom du fichier"/>
+				<Item id="3521" name="PowerShell depuis ici"/>
 			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>

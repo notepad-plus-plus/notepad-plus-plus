@@ -90,6 +90,7 @@ Translation note:
 					<Item id="41002" name="&amp;Open..."/>
 					<Item id="41019" name="Explorer"/>
 					<Item id="41020" name="cmd"/>
+					<Item id="41027" name="PowerShell"/>
 					<Item id="41025" name="Folder as Wor&amp;kspace"/>
 					<Item id="41003" name="&amp;Close"/>
 					<Item id="41004" name="Clos&amp;e All"/>
@@ -441,6 +442,7 @@ Translation note:
 				<Item CMDID="1" name="Open into"/>
 				<Item CMDID="41019" name="Open Containing Folder in Explorer"/>
 				<Item CMDID="41020" name="Open Containing Folder in cmd"/>
+				<Item CMDID="41027" name="Open Containing Folder in PowerShell"/>
 				<Item CMDID="41025" name="Open Containing Folder as Workspace"/>
 				<Item CMDID="41023" name="Open in Default Viewer"/>
 				<Item CMDID="41017" name="Rename..."/>
@@ -684,6 +686,8 @@ Translation note:
 				<MainCommandNames>
 					<Item id="41019" name="Open containing folder in Explorer"/>
 					<Item id="41020" name="Open containing folder in Command Prompt"/>
+					<Item id="41027" name="Open containing folder in PowerShell"/>
+					<Item id="41025" name="Open Containing Folder as Workspace"/>
 					<Item id="41021" name="Restore Recent Closed File"/>
 					<Item id="45001" name="EOL Conversion to Windows (CR LF)"/>
 					<Item id="45002" name="EOL Conversion to Unix (LF)"/>
@@ -1589,7 +1593,7 @@ Continue?"/>
 			<WindowsSessionExit title="Notepad++ - Windows session exit" message="Windows session is about to be terminated but you have some data unsaved. Do you want to exit Notepad++ now?"/>
 			<LanguageMenuCompactWarning title="Compact Language Menu" message="This option will be changed on the next launch."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Unsaved changes are about to be discarded!
-Do you want to save your changes before switching themes?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. --> 
+Do you want to save your changes before switching themes?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
 			<FullReadOnlySavingForbidden title="Save failed" message="Cannot save file.
 The Notepad++ full read-only saving forbidden mode prevented the file from being saved."/>
 			<NotEnoughRoom4Saving title="Save failed" message="Failed to save file.
@@ -1675,6 +1679,7 @@ Please remove read-only then save your file."/>
 				<Item id="3518" name="Explorer here"/>
 				<Item id="3519" name="CMD here"/>
 				<Item id="3520" name="Copy file name"/>
+				<Item id="3521" name="PowerShell here"/>
 			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>

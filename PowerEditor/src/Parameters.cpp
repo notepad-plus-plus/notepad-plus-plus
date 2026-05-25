@@ -102,6 +102,7 @@ static constexpr WinMenuKeyDefinition winKeyDefs[]
 	{ VK_O,       IDM_FILE_OPEN,                                true,  false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_OPEN_FOLDER,                         false, false, false, L"Open containing folder in Explorer" },
 	{ VK_NULL,    IDM_FILE_OPEN_CMD,                            false, false, false, L"Open containing folder in Command Prompt" },
+	{ VK_NULL,    IDM_FILE_OPEN_POWERSHELL,                     false, false, false, L"Open containing folder in PowerShell" },
 	{ VK_NULL,    IDM_FILE_OPEN_DEFAULT_VIEWER,                 false, false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_OPENFOLDERASWORKSPACE,                false, false, false, nullptr },
 	{ VK_R,       IDM_FILE_RELOAD,                              true,  false, false, nullptr },
@@ -6422,17 +6423,6 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 			_nppGUI._enableFoldCmdToggable = getBoolAttribute(childNode, "enableFoldCmdToggable");
 			_nppGUI._hideMenuRightShortcuts = getBoolAttribute(childNode, "hideMenuRightShortcuts");
 		}
-		// <GUIConfig name="commandLineInterpreter"></GUIConfig>
-		else if (std::strcmp(nm, "commandLineInterpreter") == 0)
-		{
-			NppXml::Node cmdLineInterpreterNode = NppXml::firstChild(childNode);
-			if (cmdLineInterpreterNode)
-			{
-				const char* cli = NppXml::value(cmdLineInterpreterNode);
-				if (cli && cli[0])
-					_nppGUI._commandLineInterpreter = string2wstring(cli);
-			}
-		}
 		// <GUIConfig name="DarkMode" enable="no" colorTone="0" customColorTop="2105376" customColorMenuHotTrack="4539717" customColorActive="3684408"
 		// customColorMain="2105376" customColorError="176" customColorText="14737632" customColorDarkText="12632256" customColorDisabledText="8421504"
 		// customColorLinkText="65535" customColorEdge="6579300" customColorHotEdge="10197915" customColorDisabledEdge="4737096" enableWindowsMode="no"
@@ -7593,14 +7583,6 @@ void NppParameters::createXmlTreeFromGUIParams()
 		setBoolAttribute(GUIConfigElement, "wholeWordOnly", _nppGUI._smartHiliteWordOnly);
 		setBoolAttribute(GUIConfigElement, "useFindSettings", _nppGUI._smartHiliteUseFindSettings);
 		setBoolAttribute(GUIConfigElement, "onAnotherView", _nppGUI._smartHiliteOnAnotherView);
-	}
-
-	// <GUIConfig name="commandLineInterpreter"></GUIConfig>
-	if (_nppGUI._commandLineInterpreter.compare(CMD_INTERPRETER))
-	{
-		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
-		NppXml::setAttribute(GUIConfigElement, "name", "commandLineInterpreter");
-		NppXml::createChildText(GUIConfigElement, wstring2string(_nppGUI._commandLineInterpreter));
 	}
 
 	// <GUIConfig name="DarkMode" enable="no" colorTone="0" customColorTop="2105376" customColorMenuHotTrack="4539717" customColorActive="3684408"

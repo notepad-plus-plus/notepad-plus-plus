@@ -1080,6 +1080,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVEAS, L"Save As..."));
 					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_FOLDER, L"Open Containing Folder in Explorer", L"Open into"));
 					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_CMD, L"Open Containing Folder in cmd", L"Open into"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_POWERSHELL, L"Open Containing Folder in PowerShell", L"Open into"));
 					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CONTAININGFOLDERASWORKSPACE, L"Open Containing Folder as Workspace", L"Open into"));
 					itemUnitArray.push_back(MenuItemUnit(0, NULL, L"Open into"));
 					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_DEFAULT_VIEWER, L"Open in Default Viewer", L"Open into"));
@@ -1150,6 +1151,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			_tabPopupMenu.enableItem(IDM_FILE_RELOAD, isFileExisting);
 			_tabPopupMenu.enableItem(IDM_FILE_OPEN_FOLDER, isFileExisting);
 			_tabPopupMenu.enableItem(IDM_FILE_OPEN_CMD, isFileExisting);
+			_tabPopupMenu.enableItem(IDM_FILE_OPEN_POWERSHELL, isFileExisting);
 			_tabPopupMenu.enableItem(IDM_FILE_CONTAININGFOLDERASWORKSPACE, isFileExisting);
 
 			_tabPopupMenu.enableItem(IDM_FILE_OPEN_DEFAULT_VIEWER, isAssoCommandExisting(buf->getFullPathName()));

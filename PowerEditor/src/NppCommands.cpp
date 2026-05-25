@@ -225,8 +225,33 @@ void Notepad_plus::command(int id)
 
 		case IDM_FILE_OPEN_CMD:
 		{
-			Command cmd(NppParameters::getInstance().getNppGUI()._commandLineInterpreter.c_str());
+			Command cmd(L"%COMSPEC%");
 			cmd.run(_pPublicInterface->getHSelf(), L"$(CURRENT_DIRECTORY)");
+		}
+		break;
+
+		case IDM_FILE_OPEN_POWERSHELL:
+		{
+			static wchar_t psPath[512] = {L'\0'};
+			if (psPath[0] == L'\0')
+			{
+				const wchar_t* subkey = L"SOFTWARE\\Microsoft\\PowerShell\\1\\ShellIds\\Microsoft.PowerShell";
+				const wchar_t* valueName = L"Path";
+				HKEY hKey = nullptr;
+
+				LONG status = ::RegOpenKeyExW(HKEY_LOCAL_MACHINE, subkey, 0, KEY_READ, &hKey);
+
+				if (status != ERROR_SUCCESS) return; // key not found
+
+				DWORD bufSize = sizeof(psPath);
+
+				status = ::RegGetValueW(hKey, nullptr, valueName, RRF_RT_REG_SZ, nullptr, psPath, &bufSize);
+				::RegCloseKey(hKey);
+
+				if (status != ERROR_SUCCESS) return; // value not found
+			}
+			Command powerShell(psPath);
+			powerShell.run(_pPublicInterface->getHSelf(), L"$(CURRENT_DIRECTORY)");
 		}
 		break;
 

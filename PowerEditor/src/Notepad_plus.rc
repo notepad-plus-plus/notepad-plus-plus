@@ -450,6 +450,7 @@ BEGIN
         BEGIN
             MENUITEM "Explorer",       IDM_FILE_OPEN_FOLDER
             MENUITEM "cmd",            IDM_FILE_OPEN_CMD
+            MENUITEM "PowerShell",     IDM_FILE_OPEN_POWERSHELL
             MENUITEM SEPARATOR
             MENUITEM "Folder as Workspace", IDM_FILE_CONTAININGFOLDERASWORKSPACE
         END

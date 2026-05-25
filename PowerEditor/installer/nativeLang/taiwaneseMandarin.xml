@@ -81,6 +81,7 @@
 					<Item id="41002" name="開啟舊檔(&amp;O)..."/>
 					<Item id="41019" name="在檔案總管"/>
 					<Item id="41020" name="在 CMD 內"/>
+					<Item id="41027" name="在 PowerShell 內"/>
 					<Item id="41025" name="資料夾工作區"/>
 					<Item id="41003" name="關閉(&amp;C)"/>
 					<Item id="41004" name="全部關閉(&amp;E)"/>
@@ -405,6 +406,7 @@
 				<Item CMDID="1" name="開啟至"/>
 				<Item CMDID="41019" name="在檔案總管開啟資料夾路徑"/>
 				<Item CMDID="41020" name="在 CMD 開啟資料夾路徑"/>
+				<Item CMDID="41027" name="在 PowerShell 開啟資料夾路徑"/>
 				<Item CMDID="41025" name="在工作區開啟此檔資料夾"/>
 				<Item CMDID="41023" name="在預設檢視中開啟"/>
 				<Item CMDID="41017" name="重新命名..."/>
@@ -631,6 +633,8 @@
 				<MainCommandNames>
 					<Item id="41019" name="在檔案總管內開啟檔案位置"/>
 					<Item id="41020" name="在 CMD 內開啟檔案位置"/>
+					<Item id="41027" name="在 PowerShell 內開啟檔案位置"/>
+					<Item id="41025" name="在資料夾工作區內開啟檔案位置"/>
 					<Item id="41021" name="重新開啟最近關閉的檔案"/>
 					<Item id="45001" name="轉換成 Windows 換行格式(CR LF)"/>
 					<Item id="45002" name="轉換成 UNIX 換行格式 (LF)"/>
@@ -1536,6 +1540,7 @@
 				<Item id="3517" name="在檔案中尋找..."/>
 				<Item id="3518" name="在此開啟檔案總管"/>
 				<Item id="3519" name="在此開啟 CMD"/>
+				<Item id="3521" name="在此開啟 Powershell"/>
 			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>

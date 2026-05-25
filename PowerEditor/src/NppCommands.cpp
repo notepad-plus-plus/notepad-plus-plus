@@ -2623,10 +2623,16 @@ void Notepad_plus::command(int id)
 			for (auto pView : pViews)
 			{
 				Buffer* pBuf = pView->getCurrentBuffer();
+				// ErrorList and EscapeSequence both need to set visiblity of ANSI control sequences based on View setting
 				if (pBuf->getLangType() == L_ERRORLIST)
 				{
 					pView->execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ERR_ESCSEQ), static_cast<LPARAM>(isChecked));
 					pView->execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ERR_ESCSEQ_UNKNOWN), static_cast<LPARAM>(isChecked));
+				}
+				else if (pBuf->getLangType() == L_ESCSEQ)
+				{
+					pView->execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ESCSEQ_IDENTIFIER), static_cast<LPARAM>(isChecked));
+					pView->execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ESCSEQ_UNKNOWN), static_cast<LPARAM>(isChecked));
 				}
 			}
 
@@ -2660,10 +2666,16 @@ void Notepad_plus::command(int id)
 			for (auto pView : pViews)
 			{
 				Buffer* pBuf = pView->getCurrentBuffer();
+				// ErrorList and EscapeSequence both need to set visiblity of ANSI control sequences based on View setting
 				if (pBuf->getLangType() == L_ERRORLIST)
 				{
 					pView->execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ERR_ESCSEQ), static_cast<LPARAM>(isChecked));
 					pView->execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ERR_ESCSEQ_UNKNOWN), static_cast<LPARAM>(isChecked));
+				}
+				else if (pBuf->getLangType() == L_ESCSEQ)
+				{
+					pView->execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ESCSEQ_IDENTIFIER), static_cast<LPARAM>(isChecked));
+					pView->execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ESCSEQ_UNKNOWN), static_cast<LPARAM>(isChecked));
 				}
 			}
 
@@ -3971,6 +3983,7 @@ void Notepad_plus::command(int id)
 		case IDM_LANG_TOML:
 		case IDM_LANG_SAS:
 		case IDM_LANG_ERRORLIST:
+		case IDM_LANG_ESCSEQ:
 		case IDM_LANG_USER :
 		{
 			LangType lang = menuID2LangType(id);

@@ -2395,7 +2395,7 @@ void expandEnv(wstring& path2Expand)
 	}
 }
 
-HRESULT OpenInExplorerAndSelect(const wchar_t* path)
+HRESULT openInExplorerAndSelect(const wchar_t* path)
 {
     if (!doesPathExist(path))
         return HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);

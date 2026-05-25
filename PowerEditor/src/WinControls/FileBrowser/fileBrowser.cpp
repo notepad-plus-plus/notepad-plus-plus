@@ -853,7 +853,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 				}
 				else
 				{
-					HRESULT hr = OpenInExplorerAndSelect(selPath.c_str());
+					HRESULT hr = openInExplorerAndSelect(selPath.c_str());
 					if (hr == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND))
 					{
 						// Fallback: open parent folder

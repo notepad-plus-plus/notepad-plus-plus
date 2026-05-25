@@ -197,7 +197,7 @@ void Notepad_plus::command(int id)
 		case IDM_FILE_OPEN_FOLDER:
 		{
 			const wchar_t* fullPath = _pEditView->getCurrentBuffer()->getFullPathName();
-			HRESULT hr = OpenInExplorerAndSelect(fullPath);
+			HRESULT hr = openInExplorerAndSelect(fullPath);
 			if (hr == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND))
 			{
 				// fallback (but without selecting the current file)
@@ -703,6 +703,7 @@ void Notepad_plus::command(int id)
 		break;
 
 		case IDM_EDIT_OPENINFOLDER:
+		case IDM_EDIT_OPENASFILE:
 		{
 			if (_pEditView->execute(SCI_GETSELECTIONS) != 1)
 				return;
@@ -715,91 +716,79 @@ void Notepad_plus::command(int id)
 
 			::SendMessage(hwnd, NPPM_GETFILENAMEATCURSOR, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentWord.get()));
 
-			wstring fullTargetPath;
-			if (doesPathExist(currentWord.get()))
+			if (id == IDM_EDIT_OPENINFOLDER)
 			{
-				fullTargetPath = currentWord.get();
-			}
-			else
-			{
-				auto currentDir = std::make_unique<wchar_t[]>(strSize);
-				std::fill_n(currentDir.get(), strSize, L'\0');
-				::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir.get()));
-				fullTargetPath = currentDir.get();
-				fullTargetPath += L"\\";
-				fullTargetPath += currentWord.get();
-			}
+				wstring fullTargetPath;
+				if (doesPathExist(currentWord.get()))
+				{
+					fullTargetPath = currentWord.get();
+				}
+				else
+				{
+					auto currentDir = std::make_unique<wchar_t[]>(strSize);
+					std::fill_n(currentDir.get(), strSize, L'\0');
+					::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir.get()));
+					fullTargetPath = currentDir.get();
+					fullTargetPath += L"\\";
+					fullTargetPath += currentWord.get();
+				}
 
-			if (!doesPathExist(fullTargetPath.c_str()))
-			{
-				_nativeLangSpeaker.messageBox("FilePathNotFoundWarning",
-					_pPublicInterface->getHSelf(),
-					L"The file/folder you're trying to open doesn't exist.",
-					L"Open in Folder",
-					MB_OK | MB_APPLMODAL);
-				return;
-			}
-
-			HRESULT hr = OpenInExplorerAndSelect(fullTargetPath.c_str());
-			if (hr == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND))
-			{
-				// Fallback: just open the parent folder without selecting the file
-				std::filesystem::path fsPath(fullTargetPath);
-				::ShellExecuteW(hwnd, L"explore", fsPath.parent_path().c_str(), nullptr, nullptr, SW_SHOWNORMAL);
-			}
-			break;
-		}
-
-		case IDM_EDIT_OPENASFILE:
-		{
-			if (_pEditView->execute(SCI_GETSELECTIONS) != 1) // Multi-Selection || Column mode || no selection
-				return;
-
-			HWND hwnd = _pPublicInterface->getHSelf();
-
-			const int strSize = CURRENTWORD_MAXLENGTH;
-			auto currentWord = std::make_unique<wchar_t[]>(strSize);
-			std::fill_n(currentWord.get(), strSize, L'\0');
-
-			::SendMessage(hwnd, NPPM_GETFILENAMEATCURSOR, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentWord.get()));
-
-			wchar_t cmd2Exec[CURRENTWORD_MAXLENGTH] = { '\0' };
-			::SendMessage(hwnd, NPPM_GETNPPFULLFILEPATH, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(cmd2Exec));
-
-			// Full file path: could be a folder or a file
-			if (doesPathExist(currentWord.get()))
-			{
-				wstring fullFilePath = L"\"";
-				fullFilePath += currentWord.get();
-				fullFilePath += L"\"";
-
-				if (!doesDirectoryExist(currentWord.get()))
-					::ShellExecute(hwnd, L"open", cmd2Exec, fullFilePath.c_str(), L".", SW_SHOW);
-			}
-			else // Relative file path - need concatenate with current full file path
-			{
-				auto currentDir = std::make_unique<wchar_t[]>(strSize);
-				std::fill_n(currentDir.get(), strSize, L'\0');
-
-				::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir.get()));
-
-				wstring fullFilePath = L"\"";
-				fullFilePath += currentDir.get();
-				fullFilePath += L"\\";
-				fullFilePath += currentWord.get();
-				fullFilePath += L"\"";
-
-				if (!doesFileExist(fullFilePath.c_str() + 1)) // +1 for skipping the 1st char '"'
+				if (!doesPathExist(fullTargetPath.c_str()))
 				{
 					_nativeLangSpeaker.messageBox("FilePathNotFoundWarning",
 						_pPublicInterface->getHSelf(),
-						L"The file you're trying to open doesn't exist.",
-						L"File Open",
+						L"The file/folder you're trying to open doesn't exist.",
+						L"Open in Folder",
 						MB_OK | MB_APPLMODAL);
 					return;
 				}
 
-				::ShellExecute(hwnd, L"open", cmd2Exec, fullFilePath.c_str(), L".", SW_SHOW);
+				HRESULT hr = openInExplorerAndSelect(fullTargetPath.c_str());
+				if (hr == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND))
+				{
+					// Fallback: open parent folder
+					std::filesystem::path fsPath(fullTargetPath);
+					::ShellExecuteW(hwnd, L"explore", fsPath.parent_path().c_str(), nullptr, nullptr, SW_SHOWNORMAL);
+				}
+			}
+			else // IDM_EDIT_OPENASFILE
+			{
+				wchar_t cmd2Exec[CURRENTWORD_MAXLENGTH] = { '\0' };
+				::SendMessage(hwnd, NPPM_GETNPPFULLFILEPATH, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(cmd2Exec));
+
+				if (doesPathExist(currentWord.get()))
+				{
+					wstring fullFilePath = L"\"";
+					fullFilePath += currentWord.get();
+					fullFilePath += L"\"";
+
+					if (!doesDirectoryExist(currentWord.get()))
+						::ShellExecute(hwnd, L"open", cmd2Exec, fullFilePath.c_str(), L".", SW_SHOW);
+				}
+				else
+				{
+					auto currentDir = std::make_unique<wchar_t[]>(strSize);
+					std::fill_n(currentDir.get(), strSize, L'\0');
+					::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir.get()));
+
+					wstring fullFilePath = L"\"";
+					fullFilePath += currentDir.get();
+					fullFilePath += L"\\";
+					fullFilePath += currentWord.get();
+					fullFilePath += L"\"";
+
+					if (!doesFileExist(fullFilePath.c_str() + 1))
+					{
+						_nativeLangSpeaker.messageBox("FilePathNotFoundWarning",
+							_pPublicInterface->getHSelf(),
+							L"The file you're trying to open doesn't exist.",
+							L"File Open",
+							MB_OK | MB_APPLMODAL);
+						return;
+					}
+
+					::ShellExecute(hwnd, L"open", cmd2Exec, fullFilePath.c_str(), L".", SW_SHOW);
+				}
 			}
 			break;
 		}

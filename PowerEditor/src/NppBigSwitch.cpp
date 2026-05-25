@@ -730,7 +730,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				case COPYDATA_FULL_CMDLINE:
 				{
-					nppParam.setCmdLineString(static_cast<wchar_t*>(pCopyData->lpData));
+					try {
+						wchar_t* str2set = static_cast<wchar_t*>(pCopyData->lpData);
+						nppParam.setCmdLineString(str2set);
+					}
+					catch (...)
+					{
+#if !defined(NDEBUG)
+						printStr(L"COPYDATA_FULL_CMDLINE: invalid string pointer.");
+#endif
+					}
 					break;
 				}
 
@@ -754,7 +763,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					else
 					{
 #if !defined(NDEBUG)  
-						printStr(L"sizeof(CmdLineParams) != cmdLineParamsSize\rCmdLineParams is formed by an instance of another version,\rwhereas your CmdLineParams has been modified in this instance.");
+						printStr(L"COPYDATA_PARAMS: sizeof(CmdLineParams) != cmdLineParamsSize\rCmdLineParams is formed by an instance of another version,\rwhereas your CmdLineParams has been modified in this instance.");
 #endif
 					}
 
@@ -765,9 +774,17 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 				case COPYDATA_FILENAMESW:
 				{
-					wchar_t *fileNamesW = static_cast<wchar_t *>(pCopyData->lpData);
-					const CmdLineParamsDTO & cmdLineParams = nppParam.getCmdLineParams();
-					loadCommandlineParams(fileNamesW, &cmdLineParams);
+					try {
+						wchar_t* fileNamesW = static_cast<wchar_t*>(pCopyData->lpData);
+						const CmdLineParamsDTO& cmdLineParams = nppParam.getCmdLineParams();
+						loadCommandlineParams(fileNamesW, &cmdLineParams);
+					}
+					catch (...)
+					{
+#if !defined(NDEBUG)
+						printStr(L"COPYDATA_FILENAMESW: invalid string pointer.");
+#endif
+					}
 					break;
 				}
 			}

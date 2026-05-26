@@ -1,3 +1,10 @@
+Notepad++ v8.9.6.1 vulnerability fixes:
+
+ 1. Fix bad formed COPYDATASTRUCT makes Notepad++ crash (CVE-2026-48770).
+ 2. Fix arbitrary code execution vulnerability via config.xml (CVE-2026-48778).
+ 3. Fix arbitrary code execution vulnerability via shortcuts.xml (CVE-2026-48778).
+
+
 Notepad++ v8.9.6 vulnerability fix, regression fixes & bug-fixes:
 
  1. Fix vulnerability (CVE-2026-46710) of v8.9.4 & v8.9.5 installer.
@@ -46,7 +53,7 @@ Notepad++ v8.9.4 crash fixes, bug-fixes & new improvements:
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.9.6/
+https://notepad-plus-plus.org/downloads/v8.9.6.1/
 
 
 Included plugins:

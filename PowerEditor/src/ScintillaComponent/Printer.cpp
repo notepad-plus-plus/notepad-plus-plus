@@ -419,7 +419,7 @@ size_t Printer::doPrint(bool justDoIt)
 			ttf.lpstrText = "\f";	// null terminated formfeed
 			foundFormFeed = static_cast<Sci_Position>(_pSEView->execute(SCI_FINDTEXTFULL, static_cast<WPARAM>(SCFIND_NONE), reinterpret_cast<LPARAM>(&ttf)));
 			if (foundFormFeed != -1)
-				frPrint.chrg.cpMax = foundFormFeed - 1;	// end the print range on the character before the FF
+				frPrint.chrg.cpMax = (foundFormFeed>0) ? foundFormFeed - 1 : 0;	// end the print range on the character before the FF, but never go lower than 0
 		}
 		lengthPrinted = _pSEView->execute(SCI_FORMATRANGEFULL, printPage, reinterpret_cast<LPARAM>(&frPrint));
 		if ((foundFormFeed != -1) && (static_cast<Sci_Position>(lengthPrinted) <= foundFormFeed))

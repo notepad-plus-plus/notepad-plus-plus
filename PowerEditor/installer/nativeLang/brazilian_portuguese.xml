@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 16 May 2026 for 8.9.5+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 01 Jun 2026 for 8.9.6+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.9.5">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.9.6.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -90,6 +90,7 @@ Translation note:
 					<Item id="41002" name="&amp;Abrir..."/>
 					<Item id="41019" name="Explorer"/>
 					<Item id="41020" name="CMD (Prompt de Comando)"/>
+					<Item id="41027" name="PowerShell"/>
 					<Item id="41025" name="Pasta como espaço de trabalho"/>
 					<Item id="41003" name="&amp;Fechar"/>
 					<Item id="41004" name="F&amp;echar todos"/>
@@ -400,6 +401,7 @@ Translation note:
 					<Item id="48511" name="Gerar dos arquivos..."/>
 					<Item id="48512" name="Gerar a partir da seleção na área de transferência"/>
 					<Item id="49000" name="Executa&amp;r..."/>
+					<Item id="49001" name="Validar shortcuts.xml"/>
 
 					<Item id="50000" name="Completar função"/>
 					<Item id="50001" name="Completar palavra"/>
@@ -441,6 +443,7 @@ Translation note:
 				<Item CMDID="1" name="Abrir em"/>
 				<Item CMDID="41019" name="Abrir o caminho no Explorer"/>
 				<Item CMDID="41020" name="Abrir o caminho no CMD (Prompt de Comando)"/>
+				<Item CMDID="41027" name="Abrir o caminho no PowerShell"/>
 				<Item CMDID="41025" name="Abrir o caminho como espaço de trabalho"/>
 				<Item CMDID="41023" name="Abrir no visualizador padrão"/>
 				<Item CMDID="41017" name="Renomear..."/>
@@ -684,6 +687,8 @@ Translation note:
 				<MainCommandNames>
 					<Item id="41019" name="Abrir o caminho no Explorer"/>
 					<Item id="41020" name="Abrir o caminho no Prompt de Comando"/>
+					<Item id="41027" name="Abrir o caminho no PowerShell"/>
+					<Item id="41025" name="Abrir o camino como Espaço de Trabalho"/>
 					<Item id="41021" name="Restaurar último arquivo fechado"/>
 					<Item id="45001" name="Conversão EOL para Windows (CR LF)"/>
 					<Item id="45002" name="Conversão EOL para Unix (LF)"/>
@@ -1618,6 +1623,12 @@ Por favor verifique a condição de localização antes de continuar."/> <!-- Co
 		<ReadOnlyFileCannotBeSaved title="Erro ao Salvar - Arquivo é de Somente Leitura" message="&quot;$STR_REPLACE$&quot;
 O arquivo é de somente leitura e não pode ser salvo.
 Por favor, remova o atributo de somente leitura e depois salve o seu arquivo."/>
+		<ShortcutsXmlHMACMissing title="Aviso de Segurança" message="The security information for shortcuts.xml is missing in config.xml.
+
+Por motivos de segurança, a integridade do arquivo shortcuts.xml será checada. Para executar seu comando customizado, revise o arquivo aberto shortcuts.xml. Se o conteúdo do arquivo estiver OK, use &quot;Validar shortcuts.xml&quot; do menu para confirmar."/>
+		<ShortcutsXmlTampered title="Aviso de Segurança" message="O arquivo shortcuts.xml parece ter sido alterado manualmente.
+
+Por motivos de segurança, revise o arquivo aberto shortcuts.xml. Se o conteúdo do arquivo estiver OK, use &quot;Validar shortcuts.xml&quot; do menu para confirmar."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>
@@ -1675,6 +1686,7 @@ Por favor, remova o atributo de somente leitura e depois salve o seu arquivo."/>
 				<Item id="3518" name="Explorar aqui"/>
 				<Item id="3519" name="CMD (Prompt de Comando) aqui"/>
 				<Item id="3520" name="Copiar nome do arquivo"/>
+				<Item id="3521" name="PowerShell aqui"/>
 			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>
@@ -1911,6 +1923,7 @@ Se você ativar o modo avançado mas não editar arquivos destas linguagens, a i
  			<statusbar-Sel value="Sel: "/>
  			<statusbar-Sel-number value="Sel"/>
 			<toolbar-accent-tip value="Esta opção faz com que os ícondes de sua barra de ferramentas sigam a cor principal do sistema Windows. A cor principal é a cor de destaque usada em botões, margens, e títulos no Menu Iniciar do Windows. Para alterar, acesse Configurações &gt; Preferências &gt; Cores, e então selecione seu padrão de  cores preferido."/>
+			<len-limit-exceeded-tip value="Limite de tamanho excedido: Seu texto pode exceder o limite permitido e pode ter sido truncado, e não será salvo para a próxima sessão."/>
 			<max-len-on-search-tip value="São permitidos apenas $INT_REPLACE$ caracteres para tamanho de texto de localização/substituição - o seu texto pode ser truncado, e não será salvo para a próxima sessão."/>
 			<max-len-on-save-tip value="Este texto de localização (> $INT_REPLACE$ caracteres) não será salvo para a próxima sessão."/>
 			<goto-setting-tip value="Encontre sua configuração aqui"/>

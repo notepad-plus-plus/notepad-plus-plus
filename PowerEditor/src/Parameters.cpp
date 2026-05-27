@@ -3090,18 +3090,30 @@ bool NppParameters::loadSession(Session& session, const wchar_t* sessionFileName
 	return loadOkay;
 }
 
-bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, Session& session)
+bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, Session& session, bool bReportIfError)
 {
 	if (!pSessionDoc)
+	{
+		if (bReportIfError)
+			::MessageBoxW(nullptr, L"No pSessionDoc! (impossible - by ref...)", L"NppParameters::getSessionFromXmlTree", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
 		return false;
+	}
 
 	NppXml::Element root = NppXml::firstChildElement(pSessionDoc, "NotepadPlus");
 	if (!root)
+	{
+		if (bReportIfError)
+			::MessageBoxW(nullptr, L"No root!", L"NppParameters::getSessionFromXmlTree", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
 		return false;
+	}
 
 	NppXml::Element sessionRoot = NppXml::firstChildElement(root, "Session");
 	if (!sessionRoot)
+	{
+		if (bReportIfError)
+			::MessageBoxW(nullptr, L"No sessionRoot!", L"NppParameters::getSessionFromXmlTree", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
 		return false;
+	}
 
 	const int index = NppXml::intAttribute(sessionRoot, "activeView", -1);
 	if (index >= 0)
@@ -4430,11 +4442,11 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 	if (sessionSaveOK)
 	{
 		NppXml::Document pXmlSessionCheck = new NppXml::NewDocument();
-		sessionSaveOK = NppXml::loadFile(pXmlSessionCheck, sessionPathName);
+		sessionSaveOK = NppXml::loadFile(pXmlSessionCheck, sessionPathName, isEndSessionCritical() ? false : true);
 		if (sessionSaveOK)
 		{
 			Session sessionCheck;
-			sessionSaveOK = getSessionFromXmlTree(pXmlSessionCheck, sessionCheck);
+			sessionSaveOK = getSessionFromXmlTree(pXmlSessionCheck, sessionCheck, isEndSessionCritical() ? false : true);
 		}
 		delete pXmlSessionCheck;
 	}

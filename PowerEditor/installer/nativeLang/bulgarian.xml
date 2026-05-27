@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 17.05.2026 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 04.07.2026 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \========================================================================== -->
 <NotepadPlus>
@@ -102,6 +102,7 @@
 					<!-- Подменю "Местоположение на файла" -->
 					<Item id="41019" name="Отваряне на папката"/>
 					<Item id="41020" name="Отваряне в cmd конзола"/>
+					<Item id="41027" name="Отваряне в PowerShell"/>
 					<Item id="41025" name="Директория като работно място"/>
 					<!-- Меню "Файл" -->
 					<Item id="41023" name="Отваряне по подразбиране"/>
@@ -461,6 +462,7 @@
 					<Item id="50005" name="Начало / Край на запис на макрос"/>
 					<!-- Меню "Стартиране" -->
 					<Item id="49000" name="&amp;Стартиране на програма..."/>
+					<Item id="49001" name="Валидиране на shortcuts.xml"/>
 					<Item id="48017" name="Преки пътища и команди..."/>
 					<!-- Меню "Добавки" -->
 					<Item id="48015" name="Управление на добавки..."/>
@@ -513,6 +515,7 @@
 				<!-- Подменю "Отваряне на" -->
 				<Item CMDID="41019" name="Отваряне папката на файла"/>
 				<Item CMDID="41020" name="Отваряне папката на файла в cmd"/>
+				<Item CMDID="41027" name="Отваряне папката на файла в PowerShell"/>
 				<Item CMDID="41025" name="Отваряне на директорията като работно място"/>
 				<Item CMDID="41023" name="Отваряне по подразбиране"/>
 				<!-- Контекстно меню на раздел -->
@@ -641,6 +644,7 @@
 				<Item id="1681" name="Търсене:"/>
 				<Item id="1685" name="Главни / малки букви"/>
 				<Item id="1690" name="Открояване на всички"/>
+				<Item id="1691" name="Брой"/>
 			</IncrementalFind>
 			<!-- Прозорец за "Търсене в намерените резултати" -->
 			<FindInFinder title="Търсене в намерените резултати">
@@ -1111,7 +1115,6 @@
 				</Highlighting>
 				<!-- Печат -->
 				<Print title="Печат">
-					<Item id="6601" name="Отпечатване &amp;номер на редовете"/>
 					<Item id="6602" name="Опции за цветен печат"/>
 					<Item id="6603" name="&amp;Цветно, както се вижда"/>
 					<Item id="6604" name="&amp;Обръщане на цветове"/>
@@ -1122,6 +1125,8 @@
 					<Item id="6613" name="&amp;Горе"/>
 					<Item id="6614" name="&amp;Дясно"/>
 					<Item id="6615" name="Д&amp;олу"/>
+					<Item id="6601" name="Отпечатване &amp;номер на редовете"/>
+					<Item id="6616" name="Отпечатване знака за нова страница като &amp;разделител на страница"/>
 					<Item id="6728" name="Горен и долен колонтитули"/>
 					<Item id="6725" name="&amp;Променливи:"/>
 					<ComboBox id="6724">
@@ -1383,6 +1388,8 @@
 					<!-- Подменю "Местоположение на файла" -->
 					<Item id="41019" name="Местоположение на файла – Отваряне на папката"/>
 					<Item id="41020" name="Местоположение на файла – Отваряне в cmd конзола"/>
+					<Item id="41027" name="Местоположение на файла – Отваряне в PowerShell"/>
+					<Item id="41025" name="Местоположение на файла – Директория като работно място"/>
 					<!-- Подменю "Последно използвани" -->
 					<Item id="41021" name="Отваряне на последно затворен файл"/>
 					<!-- Меню "Редактиране" -->
@@ -1677,6 +1684,7 @@
 				<Item id="3518" name="Отваряне папката до тук"/>
 				<Item id="3519" name="Отваряне папката в cmd"/>
 				<Item id="3520" name="Копиране името на файла"/>
+				<Item id="3521" name="Отваряне папката в PowerShell"/>
 			</Menu>
 		</FolderAsWorkspace>
 		<MiscStrings>
@@ -1760,6 +1768,7 @@
 			<find-result-line-prefix value="Ред"/>
 			<find-regex-zero-length-match value="повторение с нулева дължина"/>
 			<find-in-files-progress-title value="Намиране във файлове..."/>
+			<discover-file-candidates-title value="Откриване на потенциални файлове..."/>
 			<progress-hits-title value="Повторения:"/>
 			<progress-cancel-info value="Отмяна на операцията, моля, изчакайте..."/>
 			<!-- "Замяна във файловете" -->
@@ -1864,7 +1873,6 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 			<common-ok value="Добре"/>
 			<common-cancel value="Отказ"/>
 			<!-- Постъпково търсене -->
-			<IncrementalFind-FSFound value="$INT_REPLACE$ съвпадения"/>
 			<IncrementalFind-FSNotFound value="Фразата не е намерена"/>
 			<IncrementalFind-FSTopReached value="Достигнато е началото, продължава отдолу"/>
 			<IncrementalFind-FSEndReached value="Достигнат е краят, продължава отгоре"/>
@@ -1883,6 +1891,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 			<fileSaveAsCopySaveButton-tip value="Задръжте клавиша Shift, докато натискате Запис, за да отворите копието след запазване."/>
 			<scintillaRenderingTechnology-tip value="Може да се подобри изобразяването на специални символи или да се решат някои графични проблеми. Изисква се рестартиране на Notepad++."/>
 			<goto-setting-tip value="Намерете настройките си тук"/>
+			<common-error value="Грешка"/>
 			<!-- Лента на състоянието -->
 			<statusbar-length-lines value="дълж.: $STR_REPLACE1$    редове: $STR_REPLACE2$"/>
 			<statusbar-Ln-Col value="Ред: $STR_REPLACE1$    Кол: $STR_REPLACE2$"/>
@@ -1950,7 +1959,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Настройките ще бъдат отменени.
 
 Върнете стойността им в първоначално състояние чрез опциите в &quot;Предпочитания...&quot;"/>
-			<FilePathNotFoundWarning title="Отваряне на файл" message="Файлът, който се опитвате да отворите не съществува"/>
+			<FilePathNotFoundWarning title="Отваряне на път" message="Пътят, който се опитвате да отворите не съществува"/>
 			<SessionFileInvalidError title="Неуспешно зареждане на сесия" message="Невалиден или повреден файл за сесия"/>
 			<ColumnModeTip title="Колонен режим" message="За преминаване в колонен режим използвайте:
 
@@ -2101,7 +2110,13 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Режимът на Notepad++ за пълна забрана на запис в режим &quot;само за четене&quot; предотврати записването на файла."/>
 			<ReadOnlyFileCannotBeSaved title="Неуспешен запис - файлът е само за четене" message="&quot;$STR_REPLACE$&quot;
 Файлът е само за четене и не може да бъде записан.
-премахнете атрибута &quot;само за четене&quot;, след което запишете файла си."/>
+Премахнете атрибута &quot;само за четене&quot;, след което запишете файла си."/>
+			<ShortcutsXmlHMACMissing title="Предупреждение за сигурност" message="Липсва информация за сигурността на shortcuts.xml в config.xml.
+
+От съображения за сигурност целостта на shortcuts.xml ще бъде проверена. За да изпълните вашата персонализирана команда, прегледайте отворения shortcuts.xml. Ако съдържанието на файла е наред, използвайте &quot;Валидиране на shortcuts.xml&quot; от менюто, за да го потвърдите."/>
+			<ShortcutsXmlTampered title="Предупреждение за сигурност" message="Изглежда, че файлът shortcuts.xml е бил променян ръчно.
+
+От съображения за сигурност, прегледайте отворения shortcuts.xml. Ако съдържанието на файла е наред, използвайте &quot;Валидиране на shortcuts.xml&quot; от менюто, за да го потвърдите."/>
 		</MessageBox>
 	</Native-Langue>
 </NotepadPlus>

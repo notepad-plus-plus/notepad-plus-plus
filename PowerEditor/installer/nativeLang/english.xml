@@ -1622,22 +1622,6 @@ Please verify the search condition before performing the action."/> <!-- HowToRe
 			<ReadOnlyFileCannotBeSaved title="Save failed - File is Read-Only" message="&quot;$STR_REPLACE$&quot;
 The file is read-only and cannot be saved.
 Please remove read-only then save your file."/>
-			<RunSecurityNotSafeURL title="Run - Security Warning" message="This command is a URL with an unsecure protocol (http):
-&quot;$STR_REPLACE$&quot;
-This may indicate a misconfiguration or tampering.
-
-Proceed anyway?"/>
-			<RunSecurityCmdNotFound title="Run - Security Error" message="Command not found or path too long:
-&quot;$STR_REPLACE$&quot;" />
-			<RunSecurityOnlyAbsolutePathAllowed title="Run - Security Error" message="Only absolute paths are allowed:
-&quot;$STR_REPLACE$&quot; is invalid command."/>
-			<RunSecurityFileNoExist title="Run - Security Error" message="File does not exist:
-&quot;$STR_REPLACE$&quot;"/>
-			<RunSecurityNoTrustedLocation title="Run - Security Warning" message="This command will run an executable file from an untrusted location:
-&quot;$STR_REPLACE$&quot;
-This may indicate a misconfiguration or tampering.
-
-Proceed anyway?"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Clipboard History"/>

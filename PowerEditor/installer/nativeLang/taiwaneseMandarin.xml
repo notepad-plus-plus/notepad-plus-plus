@@ -1490,22 +1490,6 @@
 			<ReadOnlyFileCannotBeSaved title="儲存檔案失敗 - 該文件為唯讀" message="&quot;$STR_REPLACE$&quot;
 該文件為唯讀，無法儲存。
 請取消唯讀設定後再儲存檔案。"/>
-			<RunSecurityNotSafeURL title="執行 - 安全警告" message="此命令指向的 URL 使用了不安全的協定 (http)：
-&quot;$STR_REPLACE$&quot;
-這可能配置錯誤或系統被篡改。
-
-是否繼續？"/>
-			<RunSecurityCmdNotFound title="執行 - 安全錯誤" message="命令未找到或路徑過長：
-&quot;$STR_REPLACE$&quot;" />
-			<RunSecurityOnlyAbsolutePathAllowed title="執行 - 安全錯誤" message="只允許使用絕對路徑：
-&quot;$STR_REPLACE$&quot; 是無效命令。"/>
-			<RunSecurityFileNoExist title="執行 - 安全錯誤" message="文件不存在：
-&quot;$STR_REPLACE$&quot;"/>
-			<RunSecurityNoTrustedLocation title="執行 - 安全警告" message="此命令將從不受信任的位置運行可執行檔：
-&quot;$STR_REPLACE$&quot;
-這可能配置錯誤或系統被篡改。
-
-是否繼續？"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="剪貼簿記錄"/>

@@ -40,6 +40,7 @@
 #include "sha-256.h"
 #include "calc_sha1.h"
 #include "sha512.h"
+#include "hmac.h"
 #include "SortLocale.h"
 #include "dpiManagerV2.h"
 
@@ -2916,6 +2917,22 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
+		case IDM_EXECUTE_VALIDATE_SHORTCUTSXML:
+		{
+			NppParameters& nppParams = NppParameters::getInstance();
+
+			// Read back the file content as bytes
+			std::string fileContent = getFileContent(nppParams.getShortcutsPath().c_str());
+
+			// Compute HMAC
+			std::string machineGUID = getMachineGUID();
+			std::string hmac = computeHMAC(machineGUID, fileContent);
+
+			// Store in config.xml
+			nppParams.getNppGUI()._shortcutsXmlHmacInConfig = hmac;
+			break;
+		}
+
 		case IDM_FORMAT_TODOS:
 		case IDM_FORMAT_TOUNIX:
 		case IDM_FORMAT_TOMAC:
@@ -4282,6 +4299,58 @@ void Notepad_plus::command(int id)
 			}
 			else if ((id >= ID_USER_CMD) && (id < ID_USER_CMD_LIMIT))
 			{
+				//-- shortcuts.xml security validation --//
+
+				NppParameters& nppParams = NppParameters::getInstance();
+				NppGUI& nppGUI = nppParams.getNppGUI();
+
+				// If HMAC is absent from config.xml, force user enable security validation, and generate and save HMAC in config.xml
+				if (nppGUI._shortcutsXmlHmacInConfig.empty())
+				{
+					// Open shortcuts.xml in read-only for user to review
+					BufferID shortcutsBufId = doOpen(nppParams.getShortcutsPath(), false, true);
+					if (shortcutsBufId != BUFFER_INVALID)
+					{
+						switchToFile(shortcutsBufId);
+
+						nppParams.getNativeLangSpeaker()->messageBox("ShortcutsXmlHMACMissing",
+							NULL,
+							L"The security information for shortcuts.xml is missing in config.xml.\r\rFor security reasons, the integrity of shortcuts.xml will be checked. To run your customized command, please review the opened shortcuts.xml. If the file content is OK, use \"Validate shortcuts.xml\" from the menu to confirm it.",
+							L"Security Warning",
+							MB_OK);
+					}					
+					return;
+				}
+
+				// If HMAC is present, calculate shortcuts.xml HMAC and compare with the one from config.xml
+				else
+				{
+					std::string currentShortcutsXmlHMAC = computeHMAC(getMachineGUID(), getFileContent(nppParams.getShortcutsPath().c_str()));
+
+					if (currentShortcutsXmlHMAC != nppGUI._shortcutsXmlHmacInConfig)
+					{
+						// if they don't match, it means shortcuts.xml could be tampered with, so show warning message and calculate shortcuts.xml HMAC
+
+						// Open shortcuts.xml in read-only for user to review
+						BufferID shortcutsBufId = doOpen(nppParams.getShortcutsPath(), false, true);
+						if (shortcutsBufId != BUFFER_INVALID)
+						{
+							switchToFile(shortcutsBufId);
+
+							nppParams.getNativeLangSpeaker()->messageBox("ShortcutsXmlTampered",
+								NULL,
+								L"The shortcuts.xml file appears to have been modified manually.\r\rFor security reasons, please review the opened shortcuts.xml. If the file content is OK, use \"Validate shortcuts.xml\" from the menu to confirm it.",
+								L"Security Warning",
+								MB_OK);
+						}
+						return;
+					}
+					// else if they match, it means shortcuts.xml is safe
+				}
+
+				//-- End shortcuts.xml security validation --//
+
+
 				int i = id - ID_USER_CMD;
 				const vector<UserCommand> & theUserCommands = (NppParameters::getInstance()).getUserCommandList();
 				UserCommand ucmd = theUserCommands[i];

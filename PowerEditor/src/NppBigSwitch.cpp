@@ -2752,10 +2752,17 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				scnN.nmhdr.code = NPPN_SHUTDOWN;
 				_pluginsManager.notify(&scnN);
 
-				saveScintillasZoom(); 
+				saveScintillasZoom();
+
+				//
+				// saving shortcuts.xml: it should be done before "saveGUIParams" for recalculeting its HMAC to save in config.xml
+				//
+				saveShortcuts();
+
 				saveGUIParams(); //writeGUIParams writeScintillaParams
 				saveFindHistory(); //writeFindHistory
 				_lastRecentFileList.saveLRFL(); //writeRecentFileHistorySettings, writeHistory
+
 				//
 				// saving config.xml
 				//
@@ -2765,11 +2772,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				// saving userDefineLang.xml
 				//
 				saveUserDefineLangs();
-
-				//
-				// saving shortcuts.xml
-				//
-				saveShortcuts();
 
 				if (!_isNppSessionSavedAtExit)
 				{

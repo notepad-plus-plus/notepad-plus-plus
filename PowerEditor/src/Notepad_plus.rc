@@ -1314,6 +1314,9 @@ BEGIN
     POPUP "&Run"
     BEGIN
         MENUITEM "&Run...",    IDM_EXECUTE
+		MENUITEM "Edit shortcuts.xml",        IDM_EXECUTE_EDIT_SHORTCUTSXML
+		MENUITEM "Validate shortcuts.xml",    IDM_EXECUTE_VALIDATE_SHORTCUTSXML
+		MENUITEM SEPARATOR
     END
 
     POPUP "&Plugins"

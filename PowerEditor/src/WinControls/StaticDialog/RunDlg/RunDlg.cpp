@@ -310,7 +310,7 @@ HINSTANCE Command::run(HWND hWnd, const wchar_t* cwd)
 	wchar_t cwd2Exec[MAX_PATH]{};
 	expandNppEnvironmentStrs(cwd, cwd2Exec, MAX_PATH, hWnd);
 	
-
+	/*
 	//-- Security validation --//
 	std::wstring resolvedCmd = stripQuotes(cmd2Exec);
 	const NativeLangSpeaker* pNativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
@@ -411,6 +411,7 @@ HINSTANCE Command::run(HWND hWnd, const wchar_t* cwd)
 	wcscpy_s(cmd2Exec, resolvedCmd.c_str());
 
 	//-- End security validation --//
+	*/
 
 	HINSTANCE res = ::ShellExecute(hWnd, L"open", cmd2Exec, args2Exec, cwd2Exec, SW_SHOW);
 

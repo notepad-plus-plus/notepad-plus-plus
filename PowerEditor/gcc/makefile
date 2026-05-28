@@ -265,6 +265,7 @@ THIRD_DIRS := $(SRC_DIRECTORY)/json \
               $(SRC_DIRECTORY)/MISC/sha1 \
               $(SRC_DIRECTORY)/MISC/sha2 \
               $(SRC_DIRECTORY)/MISC/sha512 \
+              $(SRC_DIRECTORY)/MISC/hmac \
               $(SCINTILLA_DIRECTORY)/include \
               $(LEXILLA_DIRECTORY)/include
 

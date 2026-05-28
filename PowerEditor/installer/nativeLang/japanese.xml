@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.9.5">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.9.6.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -90,6 +90,7 @@ Translation note:
 					<Item id="41002" name="開く(&amp;O)..."/>
 					<Item id="41019" name="エクスプローラー"/>
 					<Item id="41020" name="コマンドプロンプト"/>
+					<Item id="41027" name="PowerShell"/>
 					<Item id="41025" name="フォルダーをワークスペースとして開く(&amp;K)"/>
 					<Item id="41003" name="閉じる(&amp;C)"/>
 					<Item id="41004" name="すべて閉じる(&amp;E)"/>
@@ -404,6 +405,7 @@ Translation note:
 					<Item id="48511" name="ファイルから生成..."/>
 					<Item id="48512" name="選択範囲から生成しクリップボードへ出力"/>
 					<Item id="49000" name="ファイル名を指定して実行(&amp;R)..."/>
+					<Item id="49001" name="shortcuts.xml を承認する"/>
 
 					<Item id="50000" name="関数名補完"/>
 					<Item id="50001" name="単語補完"/>
@@ -445,6 +447,7 @@ Translation note:
 				<Item CMDID="1" name="開く"/>
 				<Item CMDID="41019" name="ファイルの場所をエクスプローラーで開く"/>
 				<Item CMDID="41020" name="ファイルの場所をコマンドプロンプトで開く"/>
+				<Item CMDID="41027" name="ファイルの場所をPowerShellで開く"/>
 				<Item CMDID="41025" name="ファイルを含むフォルダーをワークスペースとして開く"/>
 				<Item CMDID="41023" name="既定のアプリで開く"/>
 				<Item CMDID="41017" name="名前の変更..."/>
@@ -689,6 +692,8 @@ Translation note:
 				<MainCommandNames>
 					<Item id="41019" name="このファイルのあるフォルダーをエクスプローラーで開く"/>
 					<Item id="41020" name="このファイルのあるフォルダーをコマンドプロンプトで開く"/>
+					<Item id="41027" name="このファイルのあるフォルダーをPowerShellで開く"/>
+					<Item id="41025" name="このファイルのあるフォルダーをワークスペースとして開く"/>
 					<Item id="41021" name="直前に閉じたファイルを開く"/>
 					<Item id="45001" name="改行コードを Windows (CR LF) に変換"/>
 					<Item id="45002" name="改行コードを Unix (LF) に変換"/>
@@ -1620,6 +1625,12 @@ OKボタンを押すと検索ダイアログが開きます。
 			<ReadOnlyFileCannotBeSaved title="保存に失敗しました - 読み取り専用です" message="「$STR_REPLACE$」
 このファイルが読み取り専用のため、保存できませんでした。
 読み取り専用を解除してから保存を行ってください。"/>
+			<ShortcutsXmlHMACMissing title="セキュリティー警告" message="shortcuts.xml についてのセキュリティー情報が、config.xml に見つかりません。
+
+セキュリティーのため、shortcuts.xml の完全性が都度検証されます。設定したコマンドを実行するには、まず shortcuts.xml の内容が意図したものであるかを確認してください。問題なければ、メニューから「shortcuts.xml を承認する」を押してください。"/>
+			<ShortcutsXmlTampered title="セキュリティー警告" message="shortcuts.xml が手動で変更されたようです。
+
+セキュリティーのため、shortcuts.xml の内容が意図したものであるかを確認してください。問題なければ、メニューから「shortcuts.xml を承認する」を押してください。"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="クリップボード履歴"/>
@@ -1677,6 +1688,7 @@ OKボタンを押すと検索ダイアログが開きます。
 				<Item id="3518" name="エクスプローラーを開く"/>
 				<Item id="3519" name="コマンドプロンプトを開く"/>
 				<Item id="3520" name="ファイル名をコピー"/>
+				<Item id="3521" name="PowerShellを開く"/>
 			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>

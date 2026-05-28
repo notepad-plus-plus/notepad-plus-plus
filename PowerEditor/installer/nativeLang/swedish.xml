@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.9.5">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.9.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -90,6 +90,7 @@ Translation note:
 					<Item id="41002" name="&amp;Öppna"/>
 					<Item id="41019" name="Utforskaren"/>
 					<Item id="41020" name="Kommandotolken"/>
+					<Item id="41027" name="PowerShell"/>
 					<Item id="41025" name="Mapp som arbets&amp;yta"/>
 					<Item id="41003" name="S&amp;täng"/>
 					<Item id="41004" name="Stän&amp;g alla"/>
@@ -440,6 +441,7 @@ Translation note:
 				<Item CMDID="1" name="Öppna i"/>
 				<Item CMDID="41019" name="Öppna objektets mapp i utforskaren"/>
 				<Item CMDID="41020" name="Öppna objektets mapp i kommandotolken"/>
+				<Item CMDID="41027" name="Öppna objektets mapp i PowerShell"/>
 				<Item CMDID="41025" name="Öppna objektets mapp som arbetsyta"/>
 				<Item CMDID="41023" name="Öppna i standardprogram"/>
 				<Item CMDID="41017" name="Byt namn..."/>
@@ -683,6 +685,8 @@ Translation note:
 				<MainCommandNames>
 					<Item id="41019" name="Öppna objektets mapp i utforskaren"/>
 					<Item id="41020" name="Öppna objektets mapp i kommandotolken"/>
+					<Item id="41027" name="Öppna objektets mapp i PowerShell"/>
+					<Item id="41025" name="Öppna objektets mapp som arbetsyta"/>
 					<Item id="41021" name="Återställ senast stängd fil"/>
 					<Item id="45001" name="Konvertera radslut till Windows (CR LF)"/>
 					<Item id="45002" name="Konvertera radslut till Unix (LF)"/>
@@ -1621,6 +1625,22 @@ Kontrollera sökvillkoren innan du utför åtgärden."/> <!-- HowToReproduce: ht
 			<ReadOnlyFileCannotBeSaved title="Misslyckades att spara - Filen är skrivskyddad" message="&quot;$STR_REPLACE$&quot;
 Filen är skrivskyddad och kan inte sparas.
 Var god ta bort skrivskyddet och spara sedan din fil."/>
+			<RunSecurityNotSafeURL title="Kör - Säkerhetsvarning" message="Det här kommandot är en webbadress med ett osäkert protokoll (http):
+&quot;$STR_REPLACE$&quot;
+Det här kan tyda på en felkonfiguration eller manipulering.
+
+Vill du fortsätta ändå?"/>
+			<RunSecurityCmdNotFound title="Kör - Säkerhetsfel" message="Kommandot hittades inte eller så är sökvägen för lång:
+&quot;$STR_REPLACE$&quot;" />
+			<RunSecurityOnlyAbsolutePathAllowed title="Kör - Säkerhetsfel" message="Endast absoluta sökvägar är tillåtna:
+&quot;$STR_REPLACE$&quot; är ett ogiltigt kommando."/>
+			<RunSecurityFileNoExist title="Kör - Säkerhetsfel" message="Filen finns inte:
+&quot;$STR_REPLACE$&quot;"/>
+			<RunSecurityNoTrustedLocation title="Kör - Säkerhetsvarning" message="Det här kommandot kommer att köra en körbar fil från en opålitlig plats:
+&quot;$STR_REPLACE$&quot;
+Det här kan tyda på en felkonfiguration eller manipulering.
+
+Vill du fortsätta ändå?"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>
@@ -1678,6 +1698,7 @@ Var god ta bort skrivskyddet och spara sedan din fil."/>
 				<Item id="3518" name="Öppna utforskaren här"/>
 				<Item id="3519" name="Öppna kommandotolken här"/>
 				<Item id="3520" name="Kopiera filnamn"/>
+				<Item id="3521" name="Öppna PowerShell här"/>
 			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>

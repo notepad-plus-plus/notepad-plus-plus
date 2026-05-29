@@ -780,8 +780,6 @@ bool Notepad_plus::doSave(BufferID id, const wchar_t * filename, bool isCopy)
 						wchar_t nppFullPath[MAX_PATH]{};
 						::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
 
-						Buffer* buf = MainFileManager.getBufferByID(id);
-
 						//process the fileNamePath into LRF
 						wstring fileNamePath = buf->getFullPathName();
 

@@ -59,6 +59,7 @@ SET(projIncludDir	../../scintilla/include/
 					./MISC/sha1/
 					./MISC/sha2/
 					./MISC/sha512/
+					./MISC/hmac/
 					./WinControls/PluginsAdmin/
 					./json/)
 
@@ -209,6 +210,7 @@ SET(include_files
 			./MISC/sha1/sha1.h
 			./MISC/sha2/sha-256.h
 			./MISC/sha512/sha512.h
+			./MISC/hmac/hmac.h
 			./NppDarkMode.h
 			./NppXml.h
 			./ScintillaComponent/columnEditor_rc.h

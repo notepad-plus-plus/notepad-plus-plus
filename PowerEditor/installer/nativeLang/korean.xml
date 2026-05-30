@@ -321,7 +321,7 @@ Translation note:
 					<Item id="44117" name="마지막 탭"/>
 					<Item id="44095" name="다음 탭"/>
 					<Item id="44096" name="이전 탭"/>
-					<Item id="44097" name="모니터링 (tail -f)"(&amp;r)/>
+					<Item id="44097" name="모니터링 (tail -f)(&amp;r)"/>
 					<Item id="44098" name="탭 앞으로 이동"/>
 					<Item id="44099" name="탭 뒤로 이동"/>
 					<Item id="44110" name="색 제거"/>

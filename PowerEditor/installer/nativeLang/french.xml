@@ -1622,21 +1622,6 @@ Veuillez vérifier la condition de recherche avant de procéder à l'action."/> 
 			<ReadOnlyFileCannotBeSaved title="Échec de la sauvegarde - Fichier est en lecture seule" message="&quot;$STR_REPLACE$&quot;
 Le fichier est en lecture seule et ne peut pas être enregistré.
 Veuillez supprimer l'attribut « lecture seule » puis enregistrer votre fichier."/>
-			<RunSecurityNotSafeURL title="Exécution - Alert de Sécurité" message="Cette commande est une URL utilisant un protocole non sécurisé (http) :
-&quot;$STR_REPLACE$&quot;
-This may indicate a misconfiguration or tampering.
-
-Proceed anyway?"/>
-			<RunSecurityCmdNotFound title="Exécution - Erreur de Sécurité" message="Commande introuvable ou chemin d'accès trop long :
-&quot;$STR_REPLACE$&quot;" />
-			<RunSecurityOnlyAbsolutePathAllowed title="Exécution - Erreur de Sécurité" message="Seuls les chemins absolus sont autorisés :
-&quot;$STR_REPLACE$&quot; est une commande invalide."/>
-			<RunSecurityFileNoExist title="Exécution - Erreur de Sécurité" message="Le fichier n'existe pas :
-&quot;$STR_REPLACE$&quot;"/>
-			<RunSecurityNoTrustedLocation title="Exécution - Alert de Sécurité" message="Cette commande exécutera un fichier exécutable depuis un emplacement non fiable :
-This may indicate a misconfiguration or tampering.
-
-Proceed anyway?"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historique du presse-papier"/>

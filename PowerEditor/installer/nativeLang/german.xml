@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.5"><!-- Datum: 18.05.2026, basiert auf english.xml 8.9.5 vom 17.05.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.6"><!-- Datum: 31.05.2026, basiert auf english.xml 8.9.6 vom 30.05.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -99,6 +99,7 @@ Translation note:
 					<Item id="41002" name="&amp;Öffnen …"/>
 					<Item id="41019" name="E&amp;xplorer"/>
 					<Item id="41020" name="&amp;Eingabeaufforderung (cmd)"/>
+					<Item id="41027" name="PowerShell"/>
 					<Item id="41025" name="Ordner als Arbeitsbereich"/>
 					<Item id="41003" name="S&amp;chließen"/>
 					<Item id="41004" name="All&amp;e schließen"/>
@@ -450,6 +451,7 @@ Translation note:
 				<Item CMDID="1" name="Öffne in"/>
 				<Item CMDID="41019" name="Ordner im E&amp;xplorer öffnen"/>
 				<Item CMDID="41020" name="Kommandozeile im aktuellen &amp;Ordner öffnen"/>
+				<Item CMDID="41027" name="Ordner in PowerShell öffnen"/>
 				<Item CMDID="41025" name="Enthaltenden Ordner als Arbeitsbereich öffnen"/>
 				<Item CMDID="41023" name="Im Standard-Betrachter öffnen"/>
 				<Item CMDID="41017" name="Um&amp;benennen …"/>
@@ -693,6 +695,8 @@ Translation note:
 				<MainCommandNames>
 					<Item id="41019" name="Ordner im Explorer öffnen"/>
 					<Item id="41020" name="Ordner in der Kommandozeile öffnen"/>
+					<Item id="41027" name="Ordner in PowerShell öffnen"/>
+					<Item id="41025" name="Ordner im Arbeitsbereich öffnen"/>
 					<Item id="41021" name="Zuletzt geschlossene Datei wieder öffnen"/>
 					<Item id="45001" name="Zeilenende umwandeln zu Windows (CR LF)"/>
 					<Item id="45002" name="Zeilenende umwandeln zu Unix (LF)"/>
@@ -1684,6 +1688,7 @@ Entferne den Schreibschutz, um die Datei zu speichern."/>
 				<Item id="3518" name="Explorer hier öffnen"/>
 				<Item id="3519" name="Kommandozeile hier öffnen"/>
 				<Item id="3520" name="Dateinamen kopieren"/>
+				<Item id="3521" name="PowerShell hier"/>
 			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>

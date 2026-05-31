@@ -4,7 +4,7 @@ Updated to :
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.9.5">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.9.6">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -445,6 +445,7 @@ Updated to :
 					<Item id="48016" name="&amp;Управление Макросами..."/>
 
 					<Item id="49000" name="Запуск..."/>
+					<Item id="49001" name="Проверить shortcuts.xml"/>
 					<Item id="48017" name="Управление Командами..."/>
 
 					<Item id="11001" name="Список Ф&amp;айлов..."/>
@@ -1617,22 +1618,13 @@ Updated to :
 			<ReadOnlyFileCannotBeSaved title="Сохранение не удалось — файл только для чтения." message="&quot;$STR_REPLACE$&quot;
 Файл доступен только для чтения и не может быть сохранен.
 Сначала снимите флажок &quot;Только для чтения&quot;, а затем сохраните файл."/>
-			<RunSecurityNotSafeURL title="Запуск - Предупреждение безопасности" message="Эта команда представляет собой URL-адрес с незащищенным протоколом (http):
-&quot;$STR_REPLACE$&quot;
-Это может указывать на неправильную конфигурацию или вмешательство.
+			<ShortcutsXmlTampered title="Предупреждение о безопасности" message="По всей видимости, файл shortcuts.xml был изменен вручную.
 
-Продолжить в любом случае?"/>
-			<RunSecurityCmdNotFound title="Запуск - Ошибка безопасности" message="Команда не найдена или путь слишком длинный:
-&quot;$STR_REPLACE$&quot;" />
-			<RunSecurityOnlyAbsolutePathAllowed title="Запуск - Ошибка безопасности" message="Разрешены только абсолютные пути:
-&quot;$STR_REPLACE$&quot; это недопустимая команда."/>
-			<RunSecurityFileNoExist title="Запуск - Ошибка безопасности" message="Файл не существует:
-&quot;$STR_REPLACE$&quot;"/>
-			<RunSecurityNoTrustedLocation title="Запуск - Предупреждение безопасности" message="Эта команда запускает исполняемый файл из ненадежного места:
-&quot;$STR_REPLACE$&quot;
-Это может указывать на неправильную конфигурацию или вмешательство.
+В целях безопасности, пожалуйста, проверьте открытый файл shortcuts.xml. Если содержимое файла в порядке, используйте пункт в меню &quot;Проверить shortcuts.xml&quot;, чтобы это подтвердить."/>
+			<ShortcutsXmlHMACMissing title="Предупреждение о безопасности" message="Информация о безопасности для файла shortcuts.xml отсутствует в файле config.xml.
 
-Продолжить в любом случае?"/>
+В целях безопасности будет проверена целостность файла shortcuts.xml. Для выполнения настроенной команды проверьте открытый файл shortcuts.xml.
+Если содержимое файла в порядке, используйте пункт в меню &quot;Проверить shortcuts.xml&quot;, чтобы это подтвердить."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="История Буфера"/>

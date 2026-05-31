@@ -499,7 +499,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	// Run Menu
 	HMENU hRunMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_RUN);
-	int const runPosBase = 2;
+	int const runPosBase = 4;
 	DynamicMenu& runMenuItems = nppParam.getRunMenuItems();
 	size_t nbRunTopLevelItem = runMenuItems.getTopLevelItemNumber();
 	if (nbRunTopLevelItem >= 1)

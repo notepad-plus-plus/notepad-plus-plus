@@ -1624,22 +1624,6 @@ OKボタンを押すと検索ダイアログが開きます。
 			<ReadOnlyFileCannotBeSaved title="保存に失敗しました - 読み取り専用です" message="「$STR_REPLACE$」
 このファイルが読み取り専用のため、保存できませんでした。
 読み取り専用を解除してから保存を行ってください。"/>
-			<RunSecurityNotSafeURL title="実行 - セキュリティー警告" message="このコマンドは安全でないプロトコル（http）を使うURLです。
-「$STR_REPLACE$」
-設定ミスや改ざんの可能性があります。
-
-このまま実行してよろしいですか？"/>
-			<RunSecurityCmdNotFound title="実行 - セキュリティーエラー" message="コマンドが見つからないか、パスが長すぎます。
-「$STR_REPLACE$」"/>
-			<RunSecurityOnlyAbsolutePathAllowed title="実行 - セキュリティーエラー" message="絶対パスのみ指定できます。
-「$STR_REPLACE$」は無効なコマンドです。"/>
-			<RunSecurityFileNoExist title="実行 - セキュリティーエラー" message="ファイルが見つかりません。
-「$STR_REPLACE$」"/>
-			<RunSecurityNoTrustedLocation title="実行 - セキュリティー警告" message="このコマンドは、信頼できない場所にあるファイルを実行します。
-「$STR_REPLACE$」
-設定ミスや改ざんの可能性があります。
-
-このまま実行してよろしいですか？"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="クリップボード履歴"/>

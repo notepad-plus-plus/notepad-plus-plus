@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.5"><!-- Datum: 18.05.2026, basiert auf english.xml 8.9.5 vom 17.05.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.6.4"><!-- Datum: 04.07.2026, basiert auf english.xml 8.9.6.4 vom 03.07.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -99,6 +99,7 @@ Translation note:
 					<Item id="41002" name="&amp;Öffnen …"/>
 					<Item id="41019" name="E&amp;xplorer"/>
 					<Item id="41020" name="&amp;Eingabeaufforderung (cmd)"/>
+					<Item id="41027" name="PowerShell"/>
 					<Item id="41025" name="Ordner als Arbeitsbereich"/>
 					<Item id="41003" name="S&amp;chließen"/>
 					<Item id="41004" name="All&amp;e schließen"/>
@@ -409,6 +410,7 @@ Translation note:
 					<Item id="48511" name="Aus &amp;Dateien erstellen …"/>
 					<Item id="48512" name="Aus Auswahl in der &amp;Zwischenablage erstellen"/>
 					<Item id="49000" name="Externes Programm &amp;ausführen …"/>
+					<Item id="49001" name="Überprüfe shortcuts.xml"/>
 
 					<Item id="50000" name="&amp;Funktionsvervollständigung"/>
 					<Item id="50001" name="&amp;Wortvervollständigung"/>
@@ -450,6 +452,7 @@ Translation note:
 				<Item CMDID="1" name="Öffne in"/>
 				<Item CMDID="41019" name="Ordner im E&amp;xplorer öffnen"/>
 				<Item CMDID="41020" name="Kommandozeile im aktuellen &amp;Ordner öffnen"/>
+				<Item CMDID="41027" name="Ordner in PowerShell öffnen"/>
 				<Item CMDID="41025" name="Enthaltenden Ordner als Arbeitsbereich öffnen"/>
 				<Item CMDID="41023" name="Im Standard-Betrachter öffnen"/>
 				<Item CMDID="41017" name="Um&amp;benennen …"/>
@@ -540,6 +543,7 @@ Translation note:
 				<Item id="1681" name="Suchen:"/>
 				<Item id="1685" name="&amp;Groß-/Kleinschreibung"/>
 				<Item id="1690" name="&amp;Alle markieren"/>
+				<Item id="1691" name="&amp;Zählen"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Suche nach Zeichencodes">
@@ -693,6 +697,8 @@ Translation note:
 				<MainCommandNames>
 					<Item id="41019" name="Ordner im Explorer öffnen"/>
 					<Item id="41020" name="Ordner in der Kommandozeile öffnen"/>
+					<Item id="41027" name="Ordner in PowerShell öffnen"/>
+					<Item id="41025" name="Ordner im Arbeitsbereich öffnen"/>
 					<Item id="41021" name="Zuletzt geschlossene Datei wieder öffnen"/>
 					<Item id="45001" name="Zeilenende umwandeln zu Windows (CR LF)"/>
 					<Item id="45002" name="Zeilenende umwandeln zu Unix (LF)"/>
@@ -1190,6 +1196,7 @@ Translation note:
 
 				<Print title="Drucken">
 					<Item id="6601" name="Zeilennu&amp;mmern mitdrucken"/>
+					<Item id="6616" name="Formfeed &amp;als Seitenumbruch drucken"/>
 					<Item id="6602" name="Farbo&amp;ptionen"/>
 					<Item id="6603" name="Wie angezeigt (W&amp;YSIWYG)"/>
 					<Item id="6604" name="I&amp;nvertieren"/>
@@ -1499,7 +1506,7 @@ Sind Sie sicher?"/>
 			<SettingsOnCloudError title="Cloud-Einstellungen" message="Der von Ihnen angegebene Pfad für die Einstellungen in der Cloud erlaubt kein
 Speichern oder es fehlen die Schreibberechtigungen.
 Ihre Einstellungen konnten nicht gespeichert werden. Bitte passen Sie die Einstellungen an."/>
-			<FilePathNotFoundWarning title="Datei öffnen" message="Die zu öffnende Datei existiert nicht."/>
+			<FilePathNotFoundWarning title="Pfad öffnen" message="Der zu öffnende Pfad existiert nicht."/>
 			<SessionFileInvalidError title="Konnte Sitzung nicht laden" message="Die Sitzungsdatei ist entweder beschädigt oder ungültig."/>
 			<DroppingFolderAsProjectModeWarning title="Ungültige Aktion" message="Es können entweder Dateien oder Verzeichnisse abgelegt werden, aber nicht beides zugleich, da das Programm im 'Verzeichnis als Projekt'-Modus ist.
 Um dies zu ändern aktivieren Sie die Option &quot;Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses&quot; im &quot;Standardverzeichnis&quot; Bereich des Optionen-Dialogs."/>
@@ -1627,6 +1634,12 @@ Bitte die Suchbedingungen überprüfen, bevor die Aktion ausgeführt wird."/> <!
 			<ReadOnlyFileCannotBeSaved title="Speichern fehlgeschlagen – Schreibschutz" message="&quot;$STR_REPLACE$&quot;
 Die Datei ist schreibgeschützt und kann nicht gespeichert werden.
 Entferne den Schreibschutz, um die Datei zu speichern."/>
+			<ShortcutsXmlHMACMissing title="Sicherheitswarnung" message="Die Sicherheitsinformationen für 'shortcuts.xml' fehlen in 'config.xml'.
+
+Aus Sicherheitsgründen wird die Integrität der Datei 'shortcuts.xml' überprüft. Um das angepasste Kommando zu starten, bitte die geöffnete Datei 'shortcuts.xml' überprüfen. Wenn der Dateiinhalt in Ordnung ist, verwende &quot;Überprüfe shortcuts.xml&quot; aus dem Menü um das zu bestätigen."/>
+			<ShortcutsXmlTampered title="Sicherheitswarnung" message="Die Datei 'shortcuts.xml' dürfte manuell verändert worden sein.
+
+Aus Sicherheitsgründen bitte die geöffnete Datei 'shortcuts.xml' überprüfen. Wenn der Dateiinhalt in Ordnung ist, verwende &quot;Überprüfe shortcuts.xml&quot; aus dem Menü um das zu bestätigen."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>
@@ -1684,6 +1697,7 @@ Entferne den Schreibschutz, um die Datei zu speichern."/>
 				<Item id="3518" name="Explorer hier öffnen"/>
 				<Item id="3519" name="Kommandozeile hier öffnen"/>
 				<Item id="3520" name="Dateinamen kopieren"/>
+				<Item id="3521" name="PowerShell hier öffnen"/>
 			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>
@@ -1809,6 +1823,7 @@ Der in diese Felder eingefügte Text enthält unsichtbare Zeichen (möglicherwei
 			<common-ok value="OK"/>
 			<common-cancel value="Abbruch"/>
 			<common-name value="Name: "/>
+			<common-error value="Fehler"/>
 			<tabrename-title value="Akt. Register umbenennen"/>
 			<tabrename-newname value="Neuer Name: "/>
 			<splitter-rotate-left value="Nach links drehen"/>
@@ -1830,6 +1845,7 @@ Der in diese Felder eingefügte Text enthält unsichtbare Zeichen (möglicherwei
 			<progress-hits-title value="Treffer:"/>
 			<progress-cancel-info value="Aktion wird abgebrochen, bitte warten …"/>
 			<find-in-files-progress-title value="Fortschritt für die Suche in Dateien …"/>
+			<discover-file-candidates-title value="Entdecke Dateikandidaten …"/>
 			<replace-in-files-confirm-title value="Sind Sie sicher?"/>
 			<replace-in-files-confirm-directory value="Sind Sie sicher, dass alle Treffer ersetzt werden sollen in: "/>
 			<replace-in-files-confirm-filetype value="Für Dateityp: "/>
@@ -1855,7 +1871,6 @@ Der in diese Felder eingefügte Text enthält unsichtbare Zeichen (möglicherwei
 			<tab-untitled-string value="neu "/>
 			<file-save-assign-type value="Erweiterung &amp;anfügen"/>
 			<close-panel-tip value="Schließen"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ Übereinstimmungen"/>
 			<IncrementalFind-FSNotFound value="Ausdruck nicht gefunden"/>
 			<IncrementalFind-FSTopReached value="Anfang der Seite erreicht, Fortsetzung von unten"/>
 			<IncrementalFind-FSEndReached value="Ende der Seite erreicht, Fortsetzung von oben"/>

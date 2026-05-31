@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.9.5">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.9.6.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -86,8 +86,9 @@
 				<Commands>
 					<Item id="41001" name="&amp;Nový"/>
 					<Item id="41002" name="&amp;Otvoriť…"/>
-					<Item id="41019" name="v Prieskumníkovi"/>
-					<Item id="41020" name="v Príkazovom riadku"/>
+					<Item id="41019" name="Prieskumník"/>
+					<Item id="41020" name="Príkazový riadok"/>
+					<Item id="41027" name="PowerShell"/>
 					<Item id="41025" name="Priečinok ako pra&amp;covný priestor"/>
 					<Item id="41003" name="Zavrieť"/>
 					<Item id="41004" name="Z&amp;avrieť všetky"/>
@@ -398,6 +399,7 @@
 					<Item id="48511" name="Vytvoriť zo súborov…"/>
 					<Item id="48512" name="Vytvoriť z výberu do schránky"/>
 					<Item id="49000" name="&amp;Spustiť…"/>
+					<Item id="49001" name="Overiť súbor shortcuts.xml"/>
 
 					<Item id="50000" name="Dokončovanie funkcií"/>
 					<Item id="50001" name="Dokončovanie slov"/>
@@ -439,6 +441,7 @@
 				<Item CMDID="1" name="Otvoriť v"/>
 				<Item CMDID="41019" name="Otvoriť priečinok súboru v Prieskumníkovi"/>
 				<Item CMDID="41020" name="Otvoriť priečinok súboru v Príkazovom riadku"/>
+				<Item CMDID="41027" name="Otvoriť priečinok súboru v PowerShelli"/>
 				<Item CMDID="41025" name="Otvoriť priečinok súboru ako pracovný priestor"/>
 				<Item CMDID="41023" name="Otvoriť v predvolenom prehliadači"/>
 				<Item CMDID="41017" name="Premenovať…"/>
@@ -680,7 +683,9 @@
 				<ClearContextMenu name="Vymazať"/>
 				<MainCommandNames>
 					<Item id="41019" name="Otvoriť priečinok súboru v Prieskumníkovi"/>
-					<Item id="41020" name="Otvoriť priečinok súboru Príkazovom riadku"/>
+					<Item id="41020" name="Otvoriť priečinok súboru v Príkazovom riadku"/>
+					<Item id="41027" name="Otvoriť priečinok súboru v PowerShelli"/>
+					<Item id="41025" name="Otvoriť priečinok súboru ako pracovný priestor"/>
 					<Item id="41021" name="Obnoviť naposledy zatvorený súbor"/>
 					<Item id="45001" name="Konvertovať do formátu Windows (CR LF)"/>
 					<Item id="45002" name="Konvertovať do formátu Unix (LF)"/>
@@ -1615,6 +1620,12 @@ Prosím, overte podmienku vyhľadávania pred vykonaním akcie."/> <!-- HowToRep
 			<ReadOnlyFileCannotBeSaved title="Uloženie zlyhalo - Súbor je iba na čítanie" message="&quot;$STR_REPLACE$&quot;
 Súbor je iba na čítanie a nemôže byť uložený.
 Odstráňte označenie 'iba na čítanie', a potom súbor uložte."/>
+			<ShortcutsXmlHMACMissing title="Bezpečnostné upozornenie" message="V súbore config.xml chýbajú bezpečnostné informácie pre súbor shortcuts.xml.
+
+Z bezpečnostných dôvodov sa skontroluje integrita súboru shortcuts.xml. Ak chcete spustiť svoj vlastný príkaz, skontrolujte otvorený súbor shortcuts.xml. Ak je obsah súboru v poriadku, potvrďte to pomocou položky &quot;Overiť súbor shortcuts.xml&quot; v ponuke."/>
+			<ShortcutsXmlTampered title="Bezpečnostné upozornenie" message="Zdá sa, že súbor shortcuts.xml bol upravený ručne.
+
+Z bezpečnostných dôvodov skontrolujte otvorený súbor shortcuts.xml. Ak je obsah súboru v poriadku, potvrďte to pomocou položky &quot;Overiť súbor shortcuts.xml&quot; v ponuke."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="História schránky"/>
@@ -1672,6 +1683,7 @@ Odstráňte označenie 'iba na čítanie', a potom súbor uložte."/>
 				<Item id="3518" name="Otvoriť umiestnenie v Prieskumníkovi"/>
 				<Item id="3519" name="Otvoriť umiestnenie v Príkazovom riadku"/>
 				<Item id="3520" name="Kopírovať názov súboru"/>
+				<Item id="3521" name="Otvoriť priečinok v PowerShelli"/>
 			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>

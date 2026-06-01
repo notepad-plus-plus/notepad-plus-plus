@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Français" filename="french.xml" version="8.9.6">
+	<Native-Langue name="Français" filename="french.xml" version="8.9.6.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -401,6 +401,7 @@ Translation note:
 					<Item id="48511" name="Générer depuis les fichiers..."/>
 					<Item id="48512" name="Générer dans le presse-papiers depuis la sélection"/>
 					<Item id="49000" name="&amp;Exécuter..."/>
+					<Item id="49001" name="Valider shortcuts.xml"/>
 
 					<Item id="50000" name="Complétion de fonction"/>
 					<Item id="50001" name="Complétion de mot"/>
@@ -1622,6 +1623,15 @@ Veuillez vérifier la condition de recherche avant de procéder à l'action."/> 
 			<ReadOnlyFileCannotBeSaved title="Échec de la sauvegarde - Fichier est en lecture seule" message="&quot;$STR_REPLACE$&quot;
 Le fichier est en lecture seule et ne peut pas être enregistré.
 Veuillez supprimer l'attribut « lecture seule » puis enregistrer votre fichier."/>
+			<ShortcutsXmlHMACMissing title="Avertissement de sécurité" message="Les informations de sécurité pour shortcuts.xml sont absentes dans config.xml.
+
+Pour des raisons de sécurité, l’intégrité de shortcuts.xml sera vérifiée.
+Pour exécuter votre commande personnalisée, veuillez examiner le fichier shortcuts.xml ouvert.
+Si son contenu est correct, utilisez « Valider shortcuts.xml » dans le menu pour le confirmer."/>
+			<ShortcutsXmlTampered title="Avertissement de sécurité" message="Le fichier shortcuts.xml semble avoir été modifié manuellement.
+
+Pour des raisons de sécurité, veuillez examiner le fichier shortcuts.xml ouvert.
+Si son contenu est correct, utilisez « Valider shortcuts.xml » dans le menu pour le confirmer."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historique du presse-papier"/>

@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.9.6">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.9.6.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -405,6 +405,7 @@ Translation note:
 					<Item id="48511" name="ファイルから生成..."/>
 					<Item id="48512" name="選択範囲から生成しクリップボードへ出力"/>
 					<Item id="49000" name="ファイル名を指定して実行(&amp;R)..."/>
+					<Item id="49001" name="shortcuts.xml を承認する"/>
 
 					<Item id="50000" name="関数名補完"/>
 					<Item id="50001" name="単語補完"/>
@@ -1624,6 +1625,12 @@ OKボタンを押すと検索ダイアログが開きます。
 			<ReadOnlyFileCannotBeSaved title="保存に失敗しました - 読み取り専用です" message="「$STR_REPLACE$」
 このファイルが読み取り専用のため、保存できませんでした。
 読み取り専用を解除してから保存を行ってください。"/>
+			<ShortcutsXmlHMACMissing title="セキュリティー警告" message="shortcuts.xml についてのセキュリティー情報が、config.xml に見つかりません。
+
+セキュリティーのため、shortcuts.xml の完全性が都度検証されます。設定したコマンドを実行するには、まず shortcuts.xml の内容が意図したものであるかを確認してください。問題なければ、メニューから「shortcuts.xml を承認する」を押してください。"/>
+			<ShortcutsXmlTampered title="セキュリティー警告" message="shortcuts.xml が手動で変更されたようです。
+
+セキュリティーのため、shortcuts.xml の内容が意図したものであるかを確認してください。問題なければ、メニューから「shortcuts.xml を承認する」を押してください。"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="クリップボード履歴"/>

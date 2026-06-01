@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 30 May 2026 for 8.9.6+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 01 Jun 2026 for 8.9.6+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.9.6">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.9.6.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -401,6 +401,7 @@ Translation note:
 					<Item id="48511" name="Gerar dos arquivos..."/>
 					<Item id="48512" name="Gerar a partir da seleção na área de transferência"/>
 					<Item id="49000" name="Executa&amp;r..."/>
+					<Item id="49001" name="Validar shortcuts.xml"/>
 
 					<Item id="50000" name="Completar função"/>
 					<Item id="50001" name="Completar palavra"/>
@@ -1622,6 +1623,12 @@ Por favor verifique a condição de localização antes de continuar."/> <!-- Co
 		<ReadOnlyFileCannotBeSaved title="Erro ao Salvar - Arquivo é de Somente Leitura" message="&quot;$STR_REPLACE$&quot;
 O arquivo é de somente leitura e não pode ser salvo.
 Por favor, remova o atributo de somente leitura e depois salve o seu arquivo."/>
+		<ShortcutsXmlHMACMissing title="Aviso de Segurança" message="The security information for shortcuts.xml is missing in config.xml.
+
+Por motivos de segurança, a integridade do arquivo shortcuts.xml será checada. Para executar seu comando customizado, revise o arquivo aberto shortcuts.xml. Se o conteúdo do arquivo estiver OK, use &quot;Validar shortcuts.xml&quot; do menu para confirmar."/>
+		<ShortcutsXmlTampered title="Aviso de Segurança" message="O arquivo shortcuts.xml parece ter sido alterado manualmente.
+
+Por motivos de segurança, revise o arquivo aberto shortcuts.xml. Se o conteúdo do arquivo estiver OK, use &quot;Validar shortcuts.xml&quot; do menu para confirmar."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>

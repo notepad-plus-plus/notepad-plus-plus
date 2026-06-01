@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.9.5">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.9.6.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -399,6 +399,7 @@
 					<Item id="48511" name="Vytvoriť zo súborov…"/>
 					<Item id="48512" name="Vytvoriť z výberu do schránky"/>
 					<Item id="49000" name="&amp;Spustiť…"/>
+					<Item id="49001" name="Overiť súbor shortcuts.xml"/>
 
 					<Item id="50000" name="Dokončovanie funkcií"/>
 					<Item id="50001" name="Dokončovanie slov"/>
@@ -1619,6 +1620,12 @@ Prosím, overte podmienku vyhľadávania pred vykonaním akcie."/> <!-- HowToRep
 			<ReadOnlyFileCannotBeSaved title="Uloženie zlyhalo - Súbor je iba na čítanie" message="&quot;$STR_REPLACE$&quot;
 Súbor je iba na čítanie a nemôže byť uložený.
 Odstráňte označenie 'iba na čítanie', a potom súbor uložte."/>
+			<ShortcutsXmlHMACMissing title="Bezpečnostné upozornenie" message="V súbore config.xml chýbajú bezpečnostné informácie pre súbor shortcuts.xml.
+
+Z bezpečnostných dôvodov sa skontroluje integrita súboru shortcuts.xml. Ak chcete spustiť svoj vlastný príkaz, skontrolujte otvorený súbor shortcuts.xml. Ak je obsah súboru v poriadku, potvrďte to pomocou položky &quot;Overiť súbor shortcuts.xml&quot; v ponuke."/>
+			<ShortcutsXmlTampered title="Bezpečnostné upozornenie" message="Zdá sa, že súbor shortcuts.xml bol upravený ručne.
+
+Z bezpečnostných dôvodov skontrolujte otvorený súbor shortcuts.xml. Ak je obsah súboru v poriadku, potvrďte to pomocou položky &quot;Overiť súbor shortcuts.xml&quot; v ponuke."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="História schránky"/>

@@ -1668,6 +1668,8 @@ Please remove read-only then save your file."/>
 			<ExpandAllFoldersTip name="Unfold all"/>
 			<CollapseAllFoldersTip name="Fold all"/>
 			<LocateCurrentFileTip name="Locate current file"/>
+			<FilterTip name="Filter files..."/>
+			<FilterClearTip name="Clear filter"/>
 			<Menu>
 				<Item id="3511" name="Remove"/>
 				<Item id="3512" name="Remove All"/>

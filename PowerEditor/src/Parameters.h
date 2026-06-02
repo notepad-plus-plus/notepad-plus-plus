@@ -870,6 +870,7 @@ struct NppGUI final
 	LargeFileRestriction _largeFileRestriction;
 
 	std::string _shortcutsXmlHmacInConfig;
+	std::string _shortcutsOnDiskHmac;
 };
 
 

@@ -4327,9 +4327,7 @@ void Notepad_plus::command(int id)
 				// If HMAC is present, calculate shortcuts.xml HMAC and compare with the one from config.xml
 				else
 				{
-					std::string currentShortcutsXmlHMAC = computeHMAC(getMachineGUID(), getFileContent(nppParams.getShortcutsPath().c_str()));
-
-					if (currentShortcutsXmlHMAC != nppGUI._shortcutsXmlHmacInConfig)
+					if (nppGUI._shortcutsOnDiskHmac != nppGUI._shortcutsXmlHmacInConfig)
 					{
 						// if they don't match, it means shortcuts.xml could be tampered with, so show warning message and calculate shortcuts.xml HMAC
 

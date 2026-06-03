@@ -7,6 +7,7 @@ Translation note:
 <!--
   <localization work version="8.9.6" name= "YoungUk Song" mail= "sdkncu1342@gmail.com"/> <localization work version="7.8.1~8.6.9" nick="Sapziller" name="ByungJo Yoon" mail="yunbj@naver.com"/> <localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/>
 -->
+<NotepadPlus>
 	<Native-Langue name="한국어" filename="korean.xml" version="8.9.6">
 		<Menu>
 			<Main>

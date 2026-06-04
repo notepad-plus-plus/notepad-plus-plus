@@ -26,6 +26,7 @@
 #include <utility>
 #include <vector>
 
+#include "NppConstants.h"
 #include "NppDarkMode.h"
 #include "Parameters.h"
 #include "dpiManagerV2.h"
@@ -480,4 +481,79 @@ void ToolBarIcons::destroy()
 	_iconListVector[HLIST_DEFAULT2].destroy();
 	_iconListVector[HLIST_DISABLE].destroy();
 	_iconListVector[HLIST_DISABLE2].destroy();
+}
+
+HBITMAP ToolBarIcons::resizeHBitmap(HBITMAP srcBmp, int destW, int destH)
+{
+	if (destW <= 0 || destH <= 0 || !srcBmp)
+		return nullptr;
+
+	BITMAP bm{};
+	if (::GetObject(srcBmp, sizeof(BITMAP), &bm) == 0)
+		return nullptr;
+
+	const int srcW = bm.bmWidth;
+	const int srcH = std::abs(bm.bmHeight);
+	if (srcW <= 0 || srcH <= 0 || (srcW == destW && srcH == destH))
+		return nullptr;
+
+	HDC hdcScreen = ::GetDC(nullptr);
+	if (!hdcScreen) return nullptr;
+
+	HDC hdcTmp = ::CreateCompatibleDC(hdcScreen);
+	if (!hdcTmp)
+	{
+		::ReleaseDC(nullptr, hdcScreen);
+		return nullptr;
+	}
+
+	auto cleanup = [hdcScreen, hdcTmp](HBITMAP result)
+	{
+		::DeleteDC(hdcTmp);
+		::ReleaseDC(nullptr, hdcScreen);
+		return result;
+	};
+
+	BITMAPINFO srcBmi{};
+	srcBmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+	srcBmi.bmiHeader.biWidth = srcW;
+	srcBmi.bmiHeader.biHeight = -srcH;
+	srcBmi.bmiHeader.biPlanes = 1;
+	srcBmi.bmiHeader.biBitCount = 32;
+	srcBmi.bmiHeader.biCompression = BI_RGB;
+
+	auto srcPixels = std::vector<BYTE>(static_cast<size_t>(srcW) * static_cast<size_t>(srcH) * 4);
+	if (!::GetDIBits(hdcTmp, srcBmp, 0, srcH, srcPixels.data(), &srcBmi, DIB_RGB_COLORS))
+		return cleanup(nullptr);
+
+	BITMAPINFO dstBmi = srcBmi;
+	dstBmi.bmiHeader.biWidth = destW;
+	dstBmi.bmiHeader.biHeight = -destH;
+
+	void* dstBits = nullptr;
+	HBITMAP hbmDst = ::CreateDIBSection(hdcScreen, &dstBmi, DIB_RGB_COLORS, &dstBits, nullptr, 0);
+	if (!hbmDst)
+		return cleanup(nullptr);
+
+	auto hOld = static_cast<HBITMAP>(::SelectObject(hdcTmp, hbmDst));
+	::SetStretchBltMode(hdcTmp, HALFTONE);
+
+	const int retVal = ::StretchDIBits(
+		hdcTmp,
+		0, 0, destW, destH,
+		0, 0, srcW, srcH,
+		srcPixels.data(),
+		&srcBmi,
+		DIB_RGB_COLORS,
+		SRCCOPY);
+
+	::SelectObject(hdcTmp, hOld);
+
+	if (retVal == 0 || (retVal > 0 && static_cast<UINT>(retVal) == GDI_ERROR))
+	{
+		::DeleteObject(hbmDst);
+		return cleanup(nullptr);
+	}
+
+	return cleanup(hbmDst);
 }

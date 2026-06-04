@@ -26,6 +26,7 @@
 #include <utility>
 #include <vector>
 
+#include "NppConstants.h"
 #include "NppDarkMode.h"
 #include "Parameters.h"
 #include "dpiManagerV2.h"
@@ -480,4 +481,115 @@ void ToolBarIcons::destroy()
 	_iconListVector[HLIST_DEFAULT2].destroy();
 	_iconListVector[HLIST_DISABLE].destroy();
 	_iconListVector[HLIST_DISABLE2].destroy();
+}
+
+HBITMAP ToolBarIcons::resizeHBitmap(HBITMAP srcBmp, int destW, int destH)
+{
+	if (destW <= 0 || destH <= 0 || !srcBmp)
+		return nullptr;
+
+	BITMAP bm{};
+	if (::GetObject(srcBmp, sizeof(BITMAP), &bm) == 0)
+		return nullptr;
+
+	const int srcW = bm.bmWidth;
+	const int srcH = std::abs(bm.bmHeight);
+	if (srcW <= 0 || srcH <= 0 || (srcW == destW && srcH == destH))
+		return nullptr;
+
+	HDC hdcScreen = ::GetDC(nullptr);
+	if (!hdcScreen) return nullptr;
+
+	HDC hdcSrc = ::CreateCompatibleDC(hdcScreen);
+	HDC hdcDst = ::CreateCompatibleDC(hdcScreen);
+	if (!hdcSrc || !hdcDst)
+	{
+		if (hdcSrc) ::DeleteDC(hdcSrc);
+		if (hdcDst) ::DeleteDC(hdcDst);
+		::ReleaseDC(nullptr, hdcScreen);
+		return nullptr;
+	}
+
+	auto cleanup = [hdcScreen, hdcSrc, hdcDst](HBITMAP result)
+	{
+		::DeleteDC(hdcSrc);
+		::DeleteDC(hdcDst);
+		::ReleaseDC(nullptr, hdcScreen);
+		return result;
+	};
+
+	BITMAPINFO srcBmi{};
+	srcBmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+	srcBmi.bmiHeader.biWidth = srcW;
+	srcBmi.bmiHeader.biHeight = -srcH;
+	srcBmi.bmiHeader.biPlanes = 1;
+	srcBmi.bmiHeader.biBitCount = 32;
+	srcBmi.bmiHeader.biCompression = BI_RGB;
+
+	auto srcPixels = std::make_unique<RGBQUAD[]>(static_cast<size_t>(srcW) * static_cast<size_t>(srcH));
+	if (!::GetDIBits(hdcSrc, srcBmp, 0, srcH, srcPixels.get(), &srcBmi, DIB_RGB_COLORS))
+		return cleanup(nullptr);
+
+	BITMAPINFO dstBmi = srcBmi;
+	dstBmi.bmiHeader.biWidth = destW;
+	dstBmi.bmiHeader.biHeight = -destH;
+
+	void* dstBits = nullptr;
+	HBITMAP hbmDst = ::CreateDIBSection(hdcScreen, &dstBmi, DIB_RGB_COLORS, &dstBits, nullptr, 0);
+	if (!hbmDst)
+		return cleanup(nullptr);
+
+	auto hOldDst = static_cast<HBITMAP>(::SelectObject(hdcDst, hbmDst));
+
+	const COLORREF clrTopLeftPixel = RGB(srcPixels[0].rgbRed, srcPixels[0].rgbGreen, srcPixels[0].rgbBlue);
+	// For toolbar icons black is usually used as indicator of transparency.
+	// Checking for 1st top left pixel should work for most time.
+	if (srcPixels[0].rgbReserved == 0 && clrTopLeftPixel == 0)
+	{
+		auto hOldSrc = static_cast<HBITMAP>(::SelectObject(hdcSrc, srcBmp));
+
+		BLENDFUNCTION bf{};
+		bf.BlendOp = AC_SRC_OVER;
+		bf.BlendFlags = 0;
+		bf.SourceConstantAlpha = 255;
+		bf.AlphaFormat = AC_SRC_ALPHA;
+
+		const BOOL retVal = ::AlphaBlend(
+			hdcDst,
+			0, 0, destW, destH,
+			hdcSrc,
+			0, 0, srcW, srcH,
+			bf);
+
+		::SelectObject(hdcSrc, hOldSrc);
+		::SelectObject(hdcDst, hOldDst);
+
+		if (retVal == FALSE)
+		{
+			::DeleteObject(hbmDst);
+			return cleanup(nullptr);
+		}
+	}
+	else
+	{
+		::SetStretchBltMode(hdcDst, HALFTONE);
+		const int retVal = ::StretchDIBits(
+			hdcDst,
+			0, 0, destW, destH,
+			0, 0, srcW, srcH,
+			srcPixels.get(),
+			&srcBmi,
+			DIB_RGB_COLORS,
+			SRCCOPY);
+
+		::SelectObject(hdcDst, hOldDst);
+
+		if (retVal == 0 || (retVal > 0 && static_cast<UINT>(retVal) == GDI_ERROR))
+		{
+			::DeleteObject(hbmDst);
+			return cleanup(nullptr);
+		}
+	}
+
+	return cleanup(hbmDst);
 }

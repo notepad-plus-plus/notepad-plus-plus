@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: May 19, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: June 4, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.9.5">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.9.6.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -90,6 +90,7 @@
 					<Item id="41002" name="&amp;Otvori..."/>
 					<Item id="41019" name="U &amp;Eksploreru"/>
 					<Item id="41020" name="U &amp;naredbenom retku"/>
+					<Item id="41027" name="U PowerShellu"/>
 					<Item id="41025" name="U &amp;mapi kao radnom prostoru"/>
 					<Item id="41003" name="&amp;Zatvori"/>
 					<Item id="41004" name="Z&amp;atvori sve"/>
@@ -408,6 +409,7 @@
 					<Item id="48511" name="Generiraj iz &amp;datoteka..."/>
 					<Item id="48512" name="Generiraj iz &amp;izbora u međuspremnik"/>
 					<Item id="49000" name="&amp;Pokreni..."/>
+					<Item id="49001" name="Validiraj shortcuts.&amp;xml"/>
 
 					<Item id="50000" name="Dopunjavanje &amp;funkcija"/>
 					<Item id="50001" name="Dopunjavanje &amp;riječi"/>
@@ -449,6 +451,7 @@
 				<Item CMDID="1" name="Otvori mapu"/>
 				<Item CMDID="41019" name="Otvori mapu s trenutnom datotekom u Eksploreru"/>
 				<Item CMDID="41020" name="Otvori mapu s trenutnom datotekom u naredbenom retku"/>
+				<Item CMDID="41027" name="Otvori mapu s trenutnom datotekom u PowerShellu"/>
 				<Item CMDID="41025" name="Otvori mapu s trenutnom datotekom kao radni prostor"/>
 				<Item CMDID="41023" name="Otvori u zadanom pregledniku"/>
 				<Item CMDID="41017" name="Preimenuj..."/>
@@ -693,6 +696,8 @@
 				<MainCommandNames>
 					<Item id="41019" name="Otvori mapu koja sadrži trenutnu datoteku u Eksploreru"/>
 					<Item id="41020" name="Otvori mapu koja sadrži trenutnu datoteku u naredbenom retku"/>
+					<Item id="41027" name="Otvori mapu koja sadrži trenutnu datoteku u PowerShellu"/>
+					<Item id="41025" name="Otvori mapu koja sadrži trenutnu datoteku kao radni prostor"/>
 					<Item id="41021" name="Vrati nedavno zatvorenu datoteku"/>
 					<Item id="45001" name="Konverzija kraja retka (EOL) u Windows (CR LF)"/>
 					<Item id="45002" name="Konverzija kraja retka (EOL) u Unix (LF)"/>
@@ -1636,6 +1641,12 @@ Prije izvođenja radnje provjerite uvjet pretraživanja."/><!-- HowToReproduce: 
 			<ReadOnlyFileCannotBeSaved title="Spremanje nije uspjelo - Datoteka je samo za čitanje" message="&quot;$STR_REPLACE$&quot;
 Datoteka je samo za čitanje i ne može se spremiti.
 Uklonite atribut samo za čitanje, a zatim spremite datoteku."/>
+			<ShortcutsXmlHMACMissing title="Sigurnosno upozorenje" message="Sigurnosne informacije za shortcuts.xml nedostaju u config.xml.
+
+Iz sigurnosnih razloga, provjerit će se integritet datoteke shortcuts.xml. Kako biste pokrenuli prilagođenu naredbu, pregledajte otvorenu datoteku shortcuts.xml. Ako je sadržaj datoteke u redu, upotrijebite &quot;Validiraj shortcuts.xml&quot; iz izbornika kako biste to potvrdili."/>
+			<ShortcutsXmlTampered title="Sigurnosno upozorenje" message="Čini se da je datoteka shortcuts.xml ručno izmijenjena.
+
+Iz sigurnosnih razloga, pregledajte otvorenu datoteku shortcuts.xml. Ako je sadržaj datoteke u redu, upotrijebite &quot;Validiraj shortcuts.xml&quot; iz izbornika kako biste to potvrdili."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Povijest međuspremnika"/>
@@ -1693,6 +1704,7 @@ Uklonite atribut samo za čitanje, a zatim spremite datoteku."/>
 				<Item id="3518" name="Eksplorer ovdje"/>
 				<Item id="3519" name="Naredbeni redak ovdje"/>
 				<Item id="3520" name="Kopiraj naziv datoteke"/>
+				<Item id="3521" name="PowerShell ovdje"/>
 			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>

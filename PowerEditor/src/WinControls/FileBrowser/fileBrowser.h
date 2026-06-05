@@ -170,7 +170,7 @@ protected:
 
 	std::wstring _selectedNodeFullPath; // this member is used only for PostMessage call
 
-	std::vector<SortingData4lParam*> sortingDataArray;
+	std::vector<SortingData4lParam*> _sortingDataArray;
 
 	std::wstring _expandAllFolders = L"Unfold all";
 	std::wstring _collapseAllFolders = L"Fold all";

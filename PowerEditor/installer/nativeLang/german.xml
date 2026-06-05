@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.6"><!-- Datum: 31.05.2026, basiert auf english.xml 8.9.6 vom 30.05.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.6.2"><!-- Datum: 05.06.2026, basiert auf english.xml 8.9.6.2 vom 01.06.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -410,6 +410,7 @@ Translation note:
 					<Item id="48511" name="Aus &amp;Dateien erstellen …"/>
 					<Item id="48512" name="Aus Auswahl in der &amp;Zwischenablage erstellen"/>
 					<Item id="49000" name="Externes Programm &amp;ausführen …"/>
+					<Item id="49001" name="Überprüfe shortcuts.xml"/>
 
 					<Item id="50000" name="&amp;Funktionsvervollständigung"/>
 					<Item id="50001" name="&amp;Wortvervollständigung"/>
@@ -1631,6 +1632,12 @@ Bitte die Suchbedingungen überprüfen, bevor die Aktion ausgeführt wird."/> <!
 			<ReadOnlyFileCannotBeSaved title="Speichern fehlgeschlagen – Schreibschutz" message="&quot;$STR_REPLACE$&quot;
 Die Datei ist schreibgeschützt und kann nicht gespeichert werden.
 Entferne den Schreibschutz, um die Datei zu speichern."/>
+			<ShortcutsXmlHMACMissing title="Sicherheitswarnung" message="Die Sicherheitsinformationen für 'shortcuts.xml' fehlen in 'config.xml'.
+
+Aus Sicherheitsgründen wird die Integrität der Datei 'shortcuts.xml' überprüft. Um das angepasste Kommando zu starten, bitte die geöffnete Datei 'shortcuts.xml' überprüfen. Wenn der Dateiinhalt in Ordnung ist, verwende &quot;Überprüfe shortcuts.xml&quot; aus dem Menü um das zu bestätigen."/>
+			<ShortcutsXmlTampered title="Sicherheitswarnung" message="Die Datei 'shortcuts.xml' dürfte manuell verändert worden sein.
+
+Aus Sicherheitsgründen bitte die geöffnete Datei 'shortcuts.xml' überprüfen. Wenn der Dateiinhalt in Ordnung ist, verwende &quot;Überprüfe shortcuts.xml&quot; aus dem Menü um das zu bestätigen."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>
@@ -1688,7 +1695,7 @@ Entferne den Schreibschutz, um die Datei zu speichern."/>
 				<Item id="3518" name="Explorer hier öffnen"/>
 				<Item id="3519" name="Kommandozeile hier öffnen"/>
 				<Item id="3520" name="Dateinamen kopieren"/>
-				<Item id="3521" name="PowerShell hier"/>
+				<Item id="3521" name="PowerShell hier öffnen"/>
 			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>

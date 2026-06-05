@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.9.6  18/May/2026  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.9.6.4  5/Jun/2026  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.9.5">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.9.6.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -115,6 +115,7 @@
 					<Item id="41024" name="Zavřít všechny nezměněné"/>
 					<Item id="41025" name="Složka jako Pracovní plocha"/>
 					<Item id="41026" name="Zavřít vše KROMĚ připnutých"/>
+					<Item id="41027" name="PowerShell"/>
 					<Item id="42001" name="Vyjmou&amp;t"/>
 					<Item id="42002" name="&amp;Kopírovat"/>
 					<Item id="42003" name="&amp;Zpět"/>
@@ -415,6 +416,7 @@
 					<Item id="48511" name="Generovat ze souborů..."/>
 					<Item id="48512" name="Generovat z výběru do Schránky"/>
 					<Item id="49000" name="&amp;Spustit..."/>
+					<Item id="49001" name="Ověřit soubor shortcuts.xml"/>
 					<Item id="50000" name="Dokončování funkcí"/>
 					<Item id="50001" name="Dokončování slov"/>
 					<Item id="50002" name="Nápověda k parametrům funkcí"/>
@@ -449,9 +451,10 @@
 				<Item CMDID="41006" name="Uložit"/>
 				<Item CMDID="41008" name="Uložit jako..."/>
 				<Item CMDID="1" name="Otevřít v"/>
-				<Item CMDID="41019" name="Otevřít složku obsahující akt. soubor v Průzkumníkovi"/>
-				<Item CMDID="41020" name="Otevřít složku obsahující akt. soubor v okně s příkaz. řádkem"/>
-				<Item CMDID="41025" name="Otevřít složku obsahující akt. soubor jako Pracovní plochu"/>
+				<Item CMDID="41019" name="Otevřít složku aktuálního souboru v Průzkumníkovi"/>
+				<Item CMDID="41020" name="Otevřít složku aktuálního souboru v okně s příkazovým řádkem"/>
+				<Item CMDID="41027" name="Otevřít složku aktuálního souboru v PowerShellu"/>
+				<Item CMDID="41025" name="Otevřít složku aktuálního souboru jako Pracovní plochu"/>
 				<Item CMDID="41023" name="Otevřít v implicitním prohlížeči"/>
 				<Item CMDID="41017" name="Přejmenovat..."/>
 				<Item CMDID="41016" name="Přesunout do Koše"/>
@@ -542,6 +545,7 @@
 				<Item id="1681" name="Najít:"/>
 				<Item id="1685" name="&amp;Rozlišovat velikost písmen"/>
 				<Item id="1690" name="&amp;Zvýraznit všechny"/>
+				<Item id="1691" name="Celkový &amp;počet"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Najít znaky z rozsahu...">
@@ -693,8 +697,10 @@
 				<DeleteContextMenu name="Odstranit"/>
 				<ClearContextMenu name="Vymazat"/>
 				<MainCommandNames>
-					<Item id="41019" name="Otevřít složku obsahující akt. soubor v Průzkumníkovi"/>
-					<Item id="41020" name="Otevřít složku obsahující akt. soubor v okně s příkaz. řádkem"/>
+					<Item id="41019" name="Otevřít složku aktuálního souboru v Průzkumníkovi"/>
+					<Item id="41020" name="Otevřít složku aktuálního souboru v okně s příkazovým řádkem"/>
+					<Item id="41027" name="Otevřít složku aktuálního souboru v PowerShellu"/>
+					<Item id="41025" name="Otevřít složku aktuálního souboru jako Pracovní plochu"/>
 					<Item id="41021" name="Znovuotevřít právě zavřený soubor"/>
 					<Item id="45001" name="Konverze konců řádků (EOL) na CR LF (Windows)"/>
 					<Item id="45002" name="Konverze konců řádků (EOL) na LF (Unix)"/>
@@ -1217,6 +1223,7 @@
 					<Item id="6613" name="Na&amp;hoře"/>
 					<Item id="6614" name="V&amp;pravo"/>
 					<Item id="6615" name="Dol&amp;e"/>
+					<Item id="6616" name="Znak 0x0C (&amp;formfeed) zalomí stránku"/>
 					<Item id="6706" name="&amp;Tučně"/>
 					<Item id="6707" name="&amp;Kurzíva"/>
 					<Item id="6708" name="Záhlaví"/>
@@ -1506,7 +1513,7 @@ Potvrzovací dialog můžete kdykoliv reaktivovat v &quot;Nastavení&quot;."/>
 			<DeleteFileFailed title="Odstranit Soubor" message="Odstranění souboru selhalo"/>
 			<NbFileToOpenImportantWarning title="Velmi mnoho souborů k otevření" message="$INT_REPLACE$ souborů má být otevřeno.\rJste si tím jisti?"/>
 			<SettingsOnCloudError title="Nastavení cloudu" message="Zdá se, že nastavená cesta k i-úložišti ukazuje na jednotku, která je určena pouze ke čtení\r nebo na složku bez oprávnění k zápisu.\rVaše nastavení i-úložiště bude zrušeno. Prosím nastavte znovu odpovídající hodnotu v dialogu Volby..."/>
-			<FilePathNotFoundWarning title="Otevření souboru" message="Soubor, který se pokoušíte otevřít, neexistuje."/>
+			<FilePathNotFoundWarning title="Otevřít cestu" message="Souborová cesta, kterou se pokoušíte otevřít, neexistuje."/>
 			<SessionFileInvalidError title="Relace nemohla být zavedena" message="Soubor relace je buďto poškozen nebo je neplatný."/>
 			<DroppingFolderAsProjectModeWarning title="Neplatná akce" message="Můžete přetahovat soubory nebo složky, ale ne obojí zároveň, jelikož máte zapnutý mód pro otevírání složek souborů jako projektů. Pro změnu nastavení musíte v Nastavení->Volby...->ImplicitníAdresář povolit &quot;Otevírat všechny soubory ve složce při přetažení myší (místo zdroje pro pracovní plochu)&quot;."/>
 			<SortingError title="Chyba třídění" message="Nebylo možné provést numerické setřídění kvůli řádku $INT_REPLACE$."/>
@@ -1613,6 +1620,12 @@ Před provedením akce si prosím nejprve ověřte nastavené podmínky."/> <!--
 			<ReadOnlyFileCannotBeSaved title="Uložení selhalo - soubor je pouze pro čtení" message="&quot;$STR_REPLACE$&quot;
 Soubor je 'pouze pro čtení', a proto jej nelze uložit.
 Odeberte nejprve prosím povolení 'pouze pro čtení' a poté soubor uložte."/>
+			<ShortcutsXmlHMACMissing title="Bezpečnostní upozornění" message="V konfiguračním souboru config.xml chybí platný autentizační kód pro soubor shortcuts.xml.
+
+Z bezpečnostních důvodů musí být nejprve ověřena integrita souboru shortcuts.xml. Pokud chcete spustit vlastní příkaz(y), nejprve zkontrolujte otevřený soubor shortcuts.xml. Jestliže bude jeho obsah v pořádku, použijte příkaz &quot;Ověřit soubor shortcuts.xml&quot; v menu 'Spustit'."/>
+			<ShortcutsXmlTampered title="Bezpečnostní upozornění" message="Soubor shortcuts.xml byl pravděpodobně manuálně upraven nebo poškozen.
+
+Z bezpečnostních důvodů musí být nejprve ověřena jeho integrita. Pokud chcete spustit vlastní příkaz(y), nejprve zkontrolujte otevřený soubor shortcuts.xml. Jestliže bude jeho obsah v pořádku, použijte příkaz &quot;Ověřit soubor shortcuts.xml&quot; v menu 'Spustit'."/>
 		</MessageBox>
 		
 		<ClipboardHistory>
@@ -1677,6 +1690,7 @@ Odeberte nejprve prosím povolení 'pouze pro čtení' a poté soubor uložte."/
 				<Item id="3518" name="Průzkumník zde"/>
 				<Item id="3519" name="cmd zde"/>
 				<Item id="3520" name="Kopírovat název souboru"/>
+				<Item id="3521" name="PowerShell zde"/>
 			</Menu>
 		</FolderAsWorkspace>
 
@@ -1803,6 +1817,7 @@ Text vložený do políčka(ček) obsahuje implicitně neviditelné znaky (pravd
 			<common-ok value="OK"/>
 			<common-cancel value="Storno"/>
 			<common-name value="Název"/>
+			<common-error value="Chyba"/>
 			<tabrename-title value="Přejmenovat aktuální kartu (tab)"/>
 			<tabrename-newname value="Nový název"/>
 			<splitter-rotate-left value="Otočit doleva"/>
@@ -1824,6 +1839,7 @@ Text vložený do políčka(ček) obsahuje implicitně neviditelné znaky (pravd
 			<progress-hits-title value="Výskytů:"/>
 			<progress-cancel-info value="Ruším operaci, počkejte prosím ..."/>
 			<find-in-files-progress-title value="Průběh hledání v souborech ..."/>
+			<discover-file-candidates-title value="Probíhá vytváření seznamu souborů k prohledání..."/>
 			<replace-in-files-confirm-title value="Jste si jistí?"/>
 			<replace-in-files-confirm-directory value="Jste si jistí, že chcete nahradit všechny výskyty v:"/>
 			<replace-in-files-confirm-filetype value="Pro typ souboru:"/>
@@ -1849,7 +1865,6 @@ Text vložený do políčka(ček) obsahuje implicitně neviditelné znaky (pravd
 			<tab-untitled-string value="nový "/>
 			<file-save-assign-type value="Přid&amp;at příponu."/>
 			<close-panel-tip value="Zavřít"/>
-			<IncrementalFind-FSFound value="výskytů: $INT_REPLACE$"/>
 			<IncrementalFind-FSNotFound value="Výraz nenalezen."/>
 			<IncrementalFind-FSTopReached value="Dosažen začátek stránky, pokračování odspodu."/>
 			<IncrementalFind-FSEndReached value="Dosažen konec stránky, pokračování odshora."/>

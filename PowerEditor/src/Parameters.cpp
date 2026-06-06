@@ -21,6 +21,8 @@
 
 #include <shlobj.h>
 #include <shlwapi.h>
+#include <pathcch.h>
+#include <strsafe.h>
 
 #include <algorithm>
 #include <array>
@@ -3189,20 +3191,28 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 					std::wstring wstrLangName = langName ? string2wstring(langName) : L"";
 
 					const wchar_t* pBackupFilePath = wmc.char2wchar(NppXml::attribute(childNode, "backupFilePath"), CP_UTF8);
-					std::wstring currentBackupFilePath = NppParameters::getInstance().getUserPath() + L"\\backup\\";
+					wchar_t normalizedBackupFilePath[MAX_PATH]{};
+
 					if (pBackupFilePath)
 					{
-						std::wstring backupFilePath = pBackupFilePath;
+						::PathCchCanonicalize(normalizedBackupFilePath, MAX_PATH, pBackupFilePath);
+					}
+
+					std::wstring currentBackupFilePath = NppParameters::getInstance().getUserPath() + L"\\backup\\";
+
+					if (normalizedBackupFilePath[0])
+					{
+						std::wstring backupFilePath = normalizedBackupFilePath;
 						if (!backupFilePath.starts_with(currentBackupFilePath))
 						{
 							// reconstruct backupFilePath
-							wchar_t* fn = ::PathFindFileNameW(pBackupFilePath);
+							wchar_t* fn = ::PathFindFileNameW(normalizedBackupFilePath);
 							currentBackupFilePath += fn;
-							pBackupFilePath = currentBackupFilePath.c_str();
+							StringCchCopyW(normalizedBackupFilePath, MAX_PATH, currentBackupFilePath.c_str());
 						}
 					}
 
-					FILETIME fileModifiedTimestamp{
+					FILETIME fileModifiedTimestamp {
 						.dwLowDateTime = static_cast<DWORD>(NppXml::uint64Attribute(childNode, "originalFileLastModifTimestamp", 0)),
 						.dwHighDateTime = static_cast<DWORD>(NppXml::uint64Attribute(childNode, "originalFileLastModifTimestampHigh", 0))
 					};
@@ -3215,7 +3225,7 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 
 					sessionFileInfo sfi(wstrFileName.c_str(), wstrLangName.c_str(), encoding,
 						isUserReadOnly, isPinned, isUntitleTabRenamed,
-						position, pBackupFilePath, fileModifiedTimestamp, mapPosition);
+						position, normalizedBackupFilePath, fileModifiedTimestamp, mapPosition);
 
 					sfi._individualTabColour = NppXml::intAttribute(childNode, "tabColourId", -1);
 					sfi._isRTL = getBoolAttribute(childNode, "RTL");

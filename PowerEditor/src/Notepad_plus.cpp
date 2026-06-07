@@ -1812,7 +1812,32 @@ void Notepad_plus::removeDuplicateLines()
 
 }
 
-void Notepad_plus::getMatchedFileNames(const wchar_t *dir, size_t level, const vector<wstring> & patterns, vector<wstring> & fileNames, bool isRecursive, bool isInHiddenDir)
+class MatchedFileNameProgress final
+{
+public:
+	explicit MatchedFileNameProgress(Progress & progress) : _pProgress(&progress) {}
+	// Updates progress if enough time has passed and returns whether search should continue
+	bool report(const wchar_t * currentPath, int nbHitsSoFar)
+	{
+		static constexpr std::chrono::milliseconds updateInterval{ 50 };
+		const auto now = std::chrono::steady_clock::now();
+		if (now - _pLastUpdateTime >= updateInterval)
+		{
+			if (_pProgress->isCancelled())
+			{
+				return false;
+			}
+			_pLastUpdateTime = now;
+			_pProgress->setInfo(currentPath, nbHitsSoFar);
+		}
+		return true;
+	}
+private:
+	std::chrono::steady_clock::time_point _pLastUpdateTime = std::chrono::steady_clock::now();
+	Progress* _pProgress;
+};
+
+void Notepad_plus::getMatchedFileNames(const wchar_t *dir, size_t level, const vector<wstring> & patterns, vector<wstring> & fileNames, bool isRecursive, bool isInHiddenDir, MatchedFileNameProgress* progress)
 {
 	level++;
 
@@ -1840,7 +1865,7 @@ void Notepad_plus::getMatchedFileNames(const wchar_t *dir, size_t level, const v
 						wstring pathDir(dir);
 						pathDir += foundData.cFileName;
 						pathDir += L"\\";
-						getMatchedFileNames(pathDir.c_str(), level, patterns, fileNames, isRecursive, isInHiddenDir);
+						getMatchedFileNames(pathDir.c_str(), level, patterns, fileNames, isRecursive, isInHiddenDir, progress);
 					}
 				}
 			}
@@ -1852,6 +1877,11 @@ void Notepad_plus::getMatchedFileNames(const wchar_t *dir, size_t level, const v
 					pathFile += foundData.cFileName;
 					fileNames.push_back(pathFile.c_str());
 				}
+			}
+
+			if (progress && !progress->report(dir, static_cast<int>(fileNames.size())))
+			{
+				break;
 			}
 		} while (::FindNextFile(hFindFile, &foundData));
 		::FindClose(hFindFile);
@@ -1871,8 +1901,16 @@ bool Notepad_plus::createFilelistForFiles(vector<wstring> & fileNames)
 
 	bool isRecursive = _findReplaceDlg.isRecursive();
 	bool isInHiddenDir = _findReplaceDlg.isInHiddenDir();
-	getMatchedFileNames(dir2Search, 0, patterns2Match, fileNames, isRecursive, isInHiddenDir);
-	return true;
+
+	Progress progress(_pPublicInterface->getHinst());
+	wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("discover-file-candidates-title", L"Discovering file candidates...");
+	progress.open(_findReplaceDlg.getHSelf(), msg.c_str());
+	progress.setInfo(L"", 0);
+
+	MatchedFileNameProgress matchedFileNameProgress{ progress };
+	getMatchedFileNames(dir2Search, 0, patterns2Match, fileNames, isRecursive, isInHiddenDir, &matchedFileNameProgress);
+
+	return !progress.isCancelled();
 }
 
 bool Notepad_plus::createFilelistForProjects(vector<wstring> & fileNames)

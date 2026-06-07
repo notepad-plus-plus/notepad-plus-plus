@@ -49,31 +49,32 @@ public:
 class LineLayout {
 private:
 	std::unique_ptr<int []>lineStarts;
-	int lenLineStarts;
+	int lenLineStarts = 0;
 	/// Drawing is only performed for @a maxLineLength characters on each line.
 	Sci::Line lineNumber;
 public:
 	enum { wrapWidthInfinite = 0x7ffffff };
 
-	int maxLineLength;
-	int numCharsInLine;
-	int numCharsBeforeEOL;
-	enum class ValidLevel { invalid, checkTextAndStyle, positions, lines } validity;
-	int xHighlightGuide;
-	bool highlightColumn;
-	bool containsCaret;
-	int edgeColumn;
+	int maxLineLength = -1;
+	int numCharsInLine = 0;
+	int numCharsBeforeEOL = 0;
+	enum class ValidLevel { invalid, checkTextAndStyle, positions, lines };
+	ValidLevel validity = ValidLevel::invalid;
+	int xHighlightGuide = 0;
+	bool highlightColumn = false;
+	bool containsCaret = false;
+	unsigned char bracePreviousStyles[2]{};
+	int edgeColumn = 0;
 	std::unique_ptr<char[]> chars;
 	std::unique_ptr<unsigned char[]> styles;
 	std::unique_ptr<XYPOSITION[]> positions;
-	unsigned char bracePreviousStyles[2];
 
 	std::unique_ptr<BidiData> bidiData;
 
 	// Wrapped line support
-	int widthLine;
-	int lines;
-	XYPOSITION wrapIndent; // In pixels
+	int widthLine = wrapWidthInfinite;
+	int lines = 1;
+	XYPOSITION wrapIndent = 0; // In pixels
 
 	LineLayout(Sci::Line lineNumber_, int maxLineLength_);
 	void Resize(int maxLineLength_);

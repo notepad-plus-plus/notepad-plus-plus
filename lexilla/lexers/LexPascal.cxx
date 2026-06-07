@@ -117,6 +117,7 @@ contains requires
 #include <string>
 #include <string_view>
 #include <map>
+#include <algorithm>
 
 #include "ILexer.h"
 #include "Scintilla.h"

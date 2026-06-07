@@ -13,6 +13,7 @@
 #include <optional>
 #include <algorithm>
 #include <memory>
+#include <ostream>
 
 #include "ScintillaTypes.h"
 

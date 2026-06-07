@@ -34,6 +34,8 @@
 using namespace Scintilla;
 using namespace Lexilla;
 
+namespace {
+
 /* Nested comments require keeping the value of the nesting level for every
    position in the document.  But since scintilla always styles line by line,
    we only need to store one value per line. The non-negative number indicates
@@ -42,15 +44,15 @@ using namespace Lexilla;
 
 // Underscore, letter, digit and universal alphas from C99 Appendix D.
 
-static bool IsWordStart(int ch) {
+bool IsWordStart(int ch) {
 	return (IsASCII(ch) && (isalpha(ch) || ch == '_')) || !IsASCII(ch);
 }
 
-static bool IsWord(int ch) {
+bool IsWord(int ch) {
 	return (IsASCII(ch) && (isalnum(ch) || ch == '_')) || !IsASCII(ch);
 }
 
-static bool IsDoxygen(int ch) {
+bool IsDoxygen(int ch) {
 	if (IsASCII(ch) && islower(ch))
 		return true;
 	if (ch == '$' || ch == '@' || ch == '\\' ||
@@ -60,11 +62,11 @@ static bool IsDoxygen(int ch) {
 	return false;
 }
 
-static bool IsStringSuffix(int ch) {
+bool IsStringSuffix(int ch) {
 	return ch == 'c' || ch == 'w' || ch == 'd';
 }
 
-static bool IsStreamCommentStyle(int style) {
+bool IsStreamCommentStyle(int style) {
 	return style == SCE_D_COMMENT ||
 		style == SCE_D_COMMENTDOC ||
 		style == SCE_D_COMMENTDOCKEYWORD ||
@@ -101,7 +103,7 @@ struct OptionsD {
 	}
 };
 
-static const char * const dWordLists[] = {
+const char * const dWordLists[] = {
 			"Primary keywords and identifiers",
 			"Secondary keywords and identifiers",
 			"Documentation comment keywords",
@@ -566,6 +568,8 @@ void SCI_METHOD LexerD::Fold(Sci_PositionU startPos, Sci_Position length, int in
 		if (!IsASpace(ch))
 			visibleChars++;
 	}
+}
+
 }
 
 extern const LexerModule lmD(SCLEX_D, LexerD::LexerFactoryD, "d", dWordLists);

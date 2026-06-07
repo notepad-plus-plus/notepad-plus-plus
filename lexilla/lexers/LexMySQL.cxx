@@ -33,15 +33,17 @@
 
 using namespace Lexilla;
 
-static inline bool IsAWordChar(int ch) {
+namespace {
+
+inline bool IsAWordChar(int ch) {
 	return (ch < 0x80) && (isalnum(ch) || ch == '_');
 }
 
-static inline bool IsAWordStart(int ch) {
+inline bool IsAWordStart(int ch) {
 	return (ch < 0x80) && (isalpha(ch) || ch == '_');
 }
 
-static inline bool IsANumberChar(int ch) {
+inline bool IsANumberChar(int ch) {
 	// Not exactly following number definition (several dots are seen as OK, etc.)
 	// but probably enough in most cases.
 	return (ch < 0x80) &&
@@ -54,7 +56,7 @@ static inline bool IsANumberChar(int ch) {
 /**
  * Check if the current content context represent a keyword and set the context state if so.
  */
-static void CheckForKeyword(StyleContext& sc, WordList* keywordlists[], int activeState)
+void CheckForKeyword(StyleContext& sc, WordList* keywordlists[], int activeState)
 {
   Sci_Position length = sc.LengthCurrent() + 1; // +1 for the next char
   char* s = new char[length];
@@ -90,7 +92,7 @@ static void CheckForKeyword(StyleContext& sc, WordList* keywordlists[], int acti
 #define HIDDENCOMMAND_STATE 0x40 // Offset for states within a hidden command.
 #define MASKACTIVE(style) (style & ~HIDDENCOMMAND_STATE)
 
-static void SetDefaultState(StyleContext& sc, int activeState)
+void SetDefaultState(StyleContext& sc, int activeState)
 {
   if (activeState == 0)
     sc.SetState(SCE_MYSQL_DEFAULT);
@@ -98,7 +100,7 @@ static void SetDefaultState(StyleContext& sc, int activeState)
     sc.SetState(SCE_MYSQL_HIDDENCOMMAND);
 }
 
-static void ForwardDefaultState(StyleContext& sc, int activeState)
+void ForwardDefaultState(StyleContext& sc, int activeState)
 {
   if (activeState == 0)
     sc.ForwardSetState(SCE_MYSQL_DEFAULT);
@@ -106,7 +108,7 @@ static void ForwardDefaultState(StyleContext& sc, int activeState)
     sc.ForwardSetState(SCE_MYSQL_HIDDENCOMMAND);
 }
 
-static void ColouriseMySQLDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[],
+void ColouriseMySQLDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[],
                             Accessor &styler)
 {
 	StyleContext sc(startPos, length, initStyle, styler, 127);
@@ -321,7 +323,7 @@ static void ColouriseMySQLDoc(Sci_PositionU startPos, Sci_Position length, int i
 /**
  * Helper function to determine if we have a foldable comment currently.
  */
-static bool IsStreamCommentStyle(int style)
+bool IsStreamCommentStyle(int style)
 {
 	return MASKACTIVE(style) == SCE_MYSQL_COMMENT;
 }
@@ -332,7 +334,7 @@ static bool IsStreamCommentStyle(int style)
  * Code copied from StyleContext and modified to work here. Should go into Accessor as a
  * companion to Match()...
  */
-static bool MatchIgnoreCase(Accessor &styler, Sci_Position currentPos, const char *s)
+bool MatchIgnoreCase(Accessor &styler, Sci_Position currentPos, const char *s)
 {
   for (Sci_Position n = 0; *s; n++)
   {
@@ -347,7 +349,7 @@ static bool MatchIgnoreCase(Accessor &styler, Sci_Position currentPos, const cha
 
 // Store both the current line's fold level and the next lines in the
 // level store to make it easy to pick up with each increment.
-static void FoldMySQLDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *[], Accessor &styler)
+void FoldMySQLDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *[], Accessor &styler)
 {
 	bool foldComment = styler.GetPropertyInt("fold.comment") != 0;
 	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
@@ -561,7 +563,7 @@ static void FoldMySQLDoc(Sci_PositionU startPos, Sci_Position length, int initSt
 
 //--------------------------------------------------------------------------------------------------
 
-static const char * const mysqlWordListDesc[] = {
+const char * const mysqlWordListDesc[] = {
 	"Major Keywords",
 	"Keywords",
 	"Database Objects",
@@ -573,5 +575,7 @@ static const char * const mysqlWordListDesc[] = {
 	"User Keywords 3",
 	0
 };
+
+}
 
 extern const LexerModule lmMySQL(SCLEX_MYSQL, ColouriseMySQLDoc, "mysql", FoldMySQLDoc, mysqlWordListDesc);

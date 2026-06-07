@@ -26,6 +26,7 @@
 #include <QPaintDevice>
 #include <QPaintEngine>
 #include <QWidget>
+#include <QWindow>
 #include <QPixmap>
 #include <QPainter>
 #include <QPainterPath>
@@ -943,13 +944,14 @@ PRectangle Window::GetMonitorRect(Point pt)
 //----------------------------------------------------------------------
 class ListWidget : public QListWidget {
 public:
-	explicit ListWidget(QWidget *parent);
+	explicit ListWidget(QWidget *parent_);
 
 	void setDelegate(IListBoxDelegate *lbDelegate);
 
 	int currentSelection();
 
 protected:
+	void showEvent(QShowEvent *event) override;
 	void selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) override;
 	void mouseDoubleClickEvent(QMouseEvent *event) override;
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
@@ -959,6 +961,7 @@ protected:
 #endif
 
 private:
+	QWidget *parent = nullptr;
 	IListBoxDelegate *delegate;
 };
 
@@ -1245,13 +1248,18 @@ std::unique_ptr<ListBox> ListBox::Allocate()
 {
 	return std::make_unique<ListBoxImpl>();
 }
-ListWidget::ListWidget(QWidget *parent)
-: QListWidget(parent), delegate(nullptr)
+ListWidget::ListWidget(QWidget *parent_)
+: QListWidget(parent_), parent(parent_), delegate(nullptr)
 {}
 
 void ListWidget::setDelegate(IListBoxDelegate *lbDelegate)
 {
 	delegate = lbDelegate;
+}
+
+void ListWidget::showEvent(QShowEvent *)
+{
+	windowHandle()->setTransientParent(parent->window()->windowHandle());
 }
 
 void ListWidget::selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) {

@@ -15,6 +15,7 @@
 #include <cmath>
 #include <climits>
 
+#include <stdexcept>
 #include <string_view>
 #include <vector>
 #include <map>

@@ -20,10 +20,13 @@
 #include <cmath>
 
 #include <stdexcept>
+#include <string>
 #include <string_view>
 #include <vector>
 #include <map>
 #include <optional>
+#include <algorithm>
+#include <iterator>
 #include <functional>
 #include <memory>
 #include <numeric>

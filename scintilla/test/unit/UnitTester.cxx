@@ -9,6 +9,7 @@
 #include <cstdio>
 #include <cstdarg>
 
+#include <string>
 #include <string_view>
 #include <vector>
 #include <optional>

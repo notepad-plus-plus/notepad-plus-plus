@@ -51,75 +51,74 @@ using namespace Lexilla;
 namespace {
    // Use an unnamed namespace to protect the functions and classes from name conflicts
 
-   void highlightTaskMarker(StyleContext &sc, LexAccessor &styler, WordList &markerList){
-      if ((isoperator(sc.chPrev) || IsASpace(sc.chPrev)) && markerList.Length()) {
-         const int lengthMarker = 50;
-         char marker[lengthMarker+1];
-         Sci_Position currPos = (Sci_Position) sc.currentPos;
-         Sci_Position i = 0;
-         while (i < lengthMarker) {
-            char ch = styler.SafeGetCharAt(currPos + i);
-            if (IsASpace(ch) || isoperator(ch)) {
-               break;
-            }
-            marker[i] = ch;
-            i++;
+void highlightTaskMarker(StyleContext &sc, LexAccessor &styler, WordList &markerList){
+   if ((isoperator(sc.chPrev) || IsASpace(sc.chPrev)) && markerList.Length()) {
+      const int lengthMarker = 50;
+      char marker[lengthMarker+1];
+      Sci_Position currPos = (Sci_Position) sc.currentPos;
+      Sci_Position i = 0;
+      while (i < lengthMarker) {
+         char ch = styler.SafeGetCharAt(currPos + i);
+         if (IsASpace(ch) || isoperator(ch)) {
+            break;
          }
-         marker[i] = '\0';
-         if (markerList.InListAbbreviated (marker,'(')) {
-            sc.SetState(SCE_ABL_TASKMARKER);
-         }
+         marker[i] = ch;
+         i++;
+      }
+      marker[i] = '\0';
+      if (markerList.InListAbbreviated (marker,'(')) {
+         sc.SetState(SCE_ABL_TASKMARKER);
       }
    }
-
-   bool IsStreamCommentStyle(int style) {
-      return style == SCE_ABL_COMMENT;
-             // style == SCE_ABL_LINECOMMENT;  Only block comments are used for folding
-   }
-
-   // Options used for LexerABL
-   struct OptionsABL {
-      bool fold;
-      bool foldSyntaxBased;
-      bool foldComment;
-      bool foldCommentMultiline;
-      bool foldCompact;
-      OptionsABL() {
-         fold = false;
-         foldSyntaxBased = true;
-         foldComment = true;
-         foldCommentMultiline = true;
-         foldCompact = false;
-      }
-   };
-
-   const char *const ablWordLists[] = {
-               "Primary keywords and identifiers",
-               "Keywords that opens a block, only when used to begin a syntactic line",
-               "Keywords that opens a block anywhere in a syntactic line",
-               "Task Marker", /* "END MODIFY START TODO" */
-               0,
-   };
-
-   struct OptionSetABL : public OptionSet<OptionsABL> {
-      OptionSetABL() {
-         DefineProperty("fold", &OptionsABL::fold);
-
-         DefineProperty("fold.abl.syntax.based", &OptionsABL::foldSyntaxBased,
-            "Set this property to 0 to disable syntax based folding.");
-
-         DefineProperty("fold.comment", &OptionsABL::foldComment,
-            "This option enables folding multi-line comments and explicit fold points when using the ABL lexer. ");
-
-         DefineProperty("fold.abl.comment.multiline", &OptionsABL::foldCommentMultiline,
-            "Set this property to 0 to disable folding multi-line comments when fold.comment=1.");
-
-         DefineProperty("fold.compact", &OptionsABL::foldCompact);
-
-         DefineWordListSets(ablWordLists);
-      }
-   };
 }
+
+bool IsStreamCommentStyle(int style) {
+   return style == SCE_ABL_COMMENT;
+          // style == SCE_ABL_LINECOMMENT;  Only block comments are used for folding
+}
+
+// Options used for LexerABL
+struct OptionsABL {
+   bool fold;
+   bool foldSyntaxBased;
+   bool foldComment;
+   bool foldCommentMultiline;
+   bool foldCompact;
+   OptionsABL() {
+      fold = false;
+      foldSyntaxBased = true;
+      foldComment = true;
+      foldCommentMultiline = true;
+      foldCompact = false;
+   }
+};
+
+const char *const ablWordLists[] = {
+            "Primary keywords and identifiers",
+            "Keywords that opens a block, only when used to begin a syntactic line",
+            "Keywords that opens a block anywhere in a syntactic line",
+            "Task Marker", /* "END MODIFY START TODO" */
+            0,
+};
+
+struct OptionSetABL : public OptionSet<OptionsABL> {
+   OptionSetABL() {
+      DefineProperty("fold", &OptionsABL::fold);
+
+      DefineProperty("fold.abl.syntax.based", &OptionsABL::foldSyntaxBased,
+         "Set this property to 0 to disable syntax based folding.");
+
+      DefineProperty("fold.comment", &OptionsABL::foldComment,
+         "This option enables folding multi-line comments and explicit fold points when using the ABL lexer. ");
+
+      DefineProperty("fold.abl.comment.multiline", &OptionsABL::foldCommentMultiline,
+         "Set this property to 0 to disable folding multi-line comments when fold.comment=1.");
+
+      DefineProperty("fold.compact", &OptionsABL::foldCompact);
+
+      DefineWordListSets(ablWordLists);
+   }
+};
 
 class LexerABL : public DefaultLexer {
    CharacterSet setWord;
@@ -603,6 +602,8 @@ void SCI_METHOD LexerABL::Fold(Sci_PositionU startPos, Sci_Position length, int 
          visibleChars = 0;
       }
    }
+}
+
 }
 
 extern const LexerModule lmProgress(SCLEX_PROGRESS, LexerABL::LexerFactoryABL, "abl", ablWordLists);

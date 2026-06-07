@@ -34,6 +34,8 @@ Using
 #include <string>
 #include <string_view>
 #include <vector>
+#include <iterator>
+#include <ios>
 #include <iostream>
 #include <sstream>
 #include <fstream>

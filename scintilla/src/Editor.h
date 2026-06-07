@@ -96,8 +96,14 @@ public:
 	size_t Length() const noexcept {
 		return s.length();
 	}
+	std::string_view AsView() const noexcept {
+		return std::string_view(s);
+	}
 	size_t LengthWithTerminator() const noexcept {
 		return s.length() + 1;
+	}
+	std::string_view AsViewWithTerminator() const noexcept {
+		return std::string_view(s.c_str(), s.length()+1);
 	}
 	bool Empty() const noexcept {
 		return s.empty();
@@ -439,14 +445,17 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	virtual void InsertCharacter(std::string_view sv, Scintilla::CharacterSource charSource);
 	void ClearSelectionRange(SelectionRange &range);
 	void ClearBeforeTentativeStart();
-	void InsertPaste(const char *text, Sci::Position len);
+	void InsertPaste(std::string_view text);
+	[[deprecated]] void InsertPaste(const char *text, Sci::Position len);
 	enum class PasteShape { stream=0, rectangular = 1, line = 2 };
-	void InsertPasteShape(const char *text, Sci::Position len, PasteShape shape);
+	void InsertPasteShape(std::string_view text, PasteShape shape);
+	[[deprecated]] void InsertPasteShape(const char *text, Sci::Position len, PasteShape shape);
 	void ClearSelection(bool retainMultipleSelections = false);
 	void ClearAll();
 	void ClearDocumentStyle();
 	virtual void Cut();
-	void PasteRectangular(SelectionPosition pos, const char *ptr, Sci::Position len);
+	void PasteRectangular(SelectionPosition pos, std::string_view text);
+	[[deprecated]] void PasteRectangular(SelectionPosition pos, const char *ptr, Sci::Position len);
 	virtual void Copy() = 0;
 	void CopyAllowLine();
 	void CutAllowLine();
@@ -540,8 +549,9 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	virtual void DisplayCursor(Window::Cursor c);
 	virtual bool DragThreshold(Point ptStart, Point ptNow);
 	virtual void StartDrag();
-	void DropAt(SelectionPosition position, const char *value, size_t lengthValue, bool moving, bool rectangular);
-	void DropAt(SelectionPosition position, const char *value, bool moving, bool rectangular);
+	void DropAt(SelectionPosition position, std::string_view value, bool moving, bool rectangular);
+	[[deprecated]] void DropAt(SelectionPosition position, const char *value, size_t lengthValue, bool moving, bool rectangular);
+	[[deprecated]] void DropAt(SelectionPosition position, const char *value, bool moving, bool rectangular);
 	/** PositionInSelection returns true if position in selection. */
 	bool PositionInSelection(Sci::Position pos);
 	bool PointInSelection(Point pt);

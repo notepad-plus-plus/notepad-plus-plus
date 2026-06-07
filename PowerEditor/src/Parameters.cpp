@@ -21,7 +21,6 @@
 
 #include <shlobj.h>
 #include <shlwapi.h>
-#include <pathcch.h>
 #include <strsafe.h>
 
 #include <algorithm>
@@ -3195,7 +3194,7 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 
 					if (pBackupFilePath)
 					{
-						::PathCchCanonicalize(normalizedBackupFilePath, MAX_PATH, pBackupFilePath);
+						::PathCanonicalize(normalizedBackupFilePath, pBackupFilePath);
 					}
 
 					std::wstring currentBackupFilePath = NppParameters::getInstance().getUserPath() + L"\\backup\\";

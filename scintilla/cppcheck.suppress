@@ -43,6 +43,9 @@ knownConditionTrueFalse:scintilla/win32/ScintillaWin.cxx
 // GetData is implementing interface so shouldn't add const
 constParameterPointer:scintilla/win32/ScintillaWin.cxx
 
+// Window::SetCursor could be static if only on Win32 but not on other platforms
+functionStatic:scintilla/win32/PlatWin.cxx
+
 // Doesn't handle intptr_t (long long) being signed
 knownConditionTrueFalse:scintilla/src/Editor.cxx
 knownConditionTrueFalse:scintilla/src/EditView.cxx
@@ -94,7 +97,6 @@ unusedFunction:scintilla/call/ScintillaCall.cxx
 
 // Don't want to unnecessarily allow const pointers to be made mutable through reinterpret_cast
 constParameterPointer:scintilla/call/ScintillaCall.cxx
-constParameterPointer:scintilla/src/Editor.cxx
 constVariablePointer:scintilla/src/Editor.cxx
 
 // The performance cost of by-value passing is often small and using a reference decreases

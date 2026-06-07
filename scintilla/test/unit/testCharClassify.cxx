@@ -9,6 +9,7 @@
 #include <optional>
 #include <algorithm>
 #include <memory>
+#include <ostream>
 #include <iostream>
 
 #include "Debugging.h"

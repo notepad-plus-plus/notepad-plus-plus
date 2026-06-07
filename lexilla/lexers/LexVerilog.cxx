@@ -176,8 +176,6 @@ struct OptionSetVerilog : public OptionSet<OptionsVerilog> {
 
 const char styleSubable[] = {0};
 
-}
-
 class LexerVerilog : public DefaultLexer {
 	CharacterSet setWord;
 	WordList keywords;
@@ -355,15 +353,15 @@ Sci_Position SCI_METHOD LexerVerilog::WordListSet(int n, const char *wl) {
 	return firstModification;
 }
 
-static inline bool IsAWordChar(const int ch) {
-	return (ch < 0x80) && (isalnum(ch) || ch == '_' || ch == '\''|| ch == '$');
+inline bool IsAWordChar(const int ch) {
+	return IsAlphaNumeric(ch) || ch == '_' || ch == '\''|| ch == '$';
 }
 
-static inline bool IsAWordStart(const int ch) {
-	return (ch < 0x80) && (isalnum(ch) || ch == '_' || ch == '$');
+inline bool IsAWordStart(const int ch) {
+	return IsAlphaNumeric(ch) || ch == '_' || ch == '$';
 }
 
-static inline bool AllUpperCase(const char *a) {
+inline bool AllUpperCase(const char *a) {
 	while (*a) {
 		if (*a >= 'a' && *a <= 'z') return false;
 		a++;
@@ -380,7 +378,7 @@ struct After {
 	}
 };
 
-static std::string GetRestOfLine(LexAccessor &styler, Sci_Position start, bool allowSpace) {
+std::string GetRestOfLine(LexAccessor &styler, Sci_Position start, bool allowSpace) {
 	std::string restOfLine;
 	Sci_Position i =0;
 	char ch = styler.SafeGetCharAt(start, '\n');
@@ -397,7 +395,7 @@ static std::string GetRestOfLine(LexAccessor &styler, Sci_Position start, bool a
 	return restOfLine;
 }
 
-static bool IsSpaceOrTab(int ch) {
+bool IsSpaceOrTab(int ch) {
 	return ch == ' ' || ch == '\t';
 }
 
@@ -772,11 +770,11 @@ void SCI_METHOD LexerVerilog::Lex(Sci_PositionU startPos, Sci_Position length, i
 	sc.Complete();
 }
 
-static bool IsStreamCommentStyle(int style) {
+bool IsStreamCommentStyle(int style) {
 	return style == SCE_V_COMMENT;
 }
 
-static bool IsCommentLine(Sci_Position line, LexAccessor &styler) {
+bool IsCommentLine(Sci_Position line, LexAccessor &styler) {
 	Sci_Position pos = styler.LineStart(line);
 	Sci_Position eolPos = styler.LineStart(line + 1) - 1;
 	for (Sci_Position i = pos; i < eolPos; i++) {
@@ -1073,7 +1071,7 @@ std::vector<std::string> LexerVerilog::Tokenize(const std::string &expr) const {
 	return tokens;
 }
 
-static const char * const verilogWordLists[] = {
+const char * const verilogWordLists[] = {
             "Primary keywords and identifiers",
             "Secondary keywords and identifiers",
             "System Tasks",
@@ -1082,5 +1080,7 @@ static const char * const verilogWordLists[] = {
             "Preprocessor definitions",
             0,
         };
+
+}
 
 extern const LexerModule lmVerilog(SCLEX_VERILOG, LexerVerilog::LexerFactoryVerilog, "verilog", verilogWordLists);

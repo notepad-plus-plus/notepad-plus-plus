@@ -14,10 +14,13 @@
 #include <cstddef>
 #include <cstdint>
 
+#include <utility>
 #include <string>
 #include <string_view>
 #include <vector>
 #include <optional>
+#include <algorithm>
+#include <iterator>
 #include <memory>
 
 #include "Debugging.h"

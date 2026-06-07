@@ -21,6 +21,7 @@
 #include <ctime>
 #include <cmath>
 #include <stdexcept>
+#include <new>
 #include <string>
 #include <string_view>
 #include <vector>

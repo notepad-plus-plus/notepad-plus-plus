@@ -593,7 +593,7 @@ private:
 	bool findInOpenedFiles();
 	bool findInCurrentFile(bool isEntireDoc);
 
-	void getMatchedFileNames(const wchar_t *dir, size_t level, const std::vector<std::wstring> & patterns, std::vector<std::wstring> & fileNames, bool isRecursive, bool isInHiddenDir);
+	void getMatchedFileNames(const wchar_t *dir, size_t level, const std::vector<std::wstring> & patterns, std::vector<std::wstring> & fileNames, bool isRecursive, bool isInHiddenDir, Progress * progress = nullptr);
 	void doSynScroll(HWND hW);
 	void setWorkingDir(const wchar_t *dir);
 

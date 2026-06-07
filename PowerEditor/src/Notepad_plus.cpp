@@ -1812,8 +1812,13 @@ void Notepad_plus::removeDuplicateLines()
 
 }
 
-void Notepad_plus::getMatchedFileNames(const wchar_t *dir, size_t level, const vector<wstring> & patterns, vector<wstring> & fileNames, bool isRecursive, bool isInHiddenDir)
+void Notepad_plus::getMatchedFileNames(const wchar_t *dir, size_t level, const vector<wstring> & patterns, vector<wstring> & fileNames, bool isRecursive, bool isInHiddenDir, Progress * progress)
 {
+	if (progress && progress->isCancelled())
+	{
+		return;
+	}
+
 	level++;
 
 	wstring dirFilter(dir);
@@ -1825,6 +1830,11 @@ void Notepad_plus::getMatchedFileNames(const wchar_t *dir, size_t level, const v
 	{
 		do
 		{
+			if (progress && progress->isCancelled())
+			{
+				break;
+			}
+
 			if (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 			{
 				if (!isInHiddenDir && (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN))
@@ -1840,7 +1850,7 @@ void Notepad_plus::getMatchedFileNames(const wchar_t *dir, size_t level, const v
 						wstring pathDir(dir);
 						pathDir += foundData.cFileName;
 						pathDir += L"\\";
-						getMatchedFileNames(pathDir.c_str(), level, patterns, fileNames, isRecursive, isInHiddenDir);
+						getMatchedFileNames(pathDir.c_str(), level, patterns, fileNames, isRecursive, isInHiddenDir, progress);
 					}
 				}
 			}
@@ -1851,6 +1861,22 @@ void Notepad_plus::getMatchedFileNames(const wchar_t *dir, size_t level, const v
 					wstring pathFile(dir);
 					pathFile += foundData.cFileName;
 					fileNames.push_back(pathFile.c_str());
+
+					if (progress)
+					{
+						// Major slowdown if we update per-file for large directories.
+						// To make the UX a little nicer, waterfall the divisor so that "rare" patterns still update the UI.
+						const size_t fileCount = fileNames.size();
+						const size_t divisor =
+							fileCount <= 100 ? 1 :
+							fileCount <= 1000 ? 100 :
+							fileCount <= 10000 ? 1000 :
+							10000;
+						if (fileCount % divisor == 0)
+						{
+							progress->setInfo(fileNames.back().c_str(), static_cast<int>(fileCount));
+						}
+					}
 				}
 			}
 		} while (::FindNextFile(hFindFile, &foundData));
@@ -1871,8 +1897,15 @@ bool Notepad_plus::createFilelistForFiles(vector<wstring> & fileNames)
 
 	bool isRecursive = _findReplaceDlg.isRecursive();
 	bool isInHiddenDir = _findReplaceDlg.isInHiddenDir();
-	getMatchedFileNames(dir2Search, 0, patterns2Match, fileNames, isRecursive, isInHiddenDir);
-	return true;
+
+	Progress progress(_pPublicInterface->getHinst());
+	wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("discover-file-candidates-title", L"Discovering file candidates...");
+	progress.open(_findReplaceDlg.getHSelf(), msg.c_str());
+	progress.setInfo(L"", 0);
+
+	getMatchedFileNames(dir2Search, 0, patterns2Match, fileNames, isRecursive, isInHiddenDir, &progress);
+
+	return !progress.isCancelled();
 }
 
 bool Notepad_plus::createFilelistForProjects(vector<wstring> & fileNames)

@@ -2474,19 +2474,22 @@ void expandEnv(wstring& path2Expand)
 
 HRESULT openInExplorerAndSelect(const wchar_t* path)
 {
-    if (!doesPathExist(path))
-        return HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
+	if (!doesPathExist(path))
+		return HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
 
-    ScopedCOMInit com;
-    if (!com.isInitialized())
-        return E_FAIL;
+	ScopedCOMInit com;
+	if (!com.isInitialized())
+		return E_FAIL;
 
-    ITEMIDLIST* pidl = nullptr;
-    HRESULT hr = ::SHParseDisplayName(path, nullptr, &pidl, 0, nullptr);
-    if (SUCCEEDED(hr))
-    {
-        hr = ::SHOpenFolderAndSelectItems(pidl, 0, nullptr, 0);
-        ::CoTaskMemFree(pidl);
-    }
-    return hr;
+	std::filesystem::path canonicalPath(path);
+	canonicalPath = std::filesystem::weakly_canonical(canonicalPath).make_preferred();
+
+	ITEMIDLIST* pidl = nullptr;
+	HRESULT hr = ::SHParseDisplayName(canonicalPath.c_str(), nullptr, &pidl, 0, nullptr);
+	if (SUCCEEDED(hr))
+	{
+		hr = ::SHOpenFolderAndSelectItems(pidl, 0, nullptr, 0);
+		::CoTaskMemFree(pidl);
+	}
+	return hr;
 }

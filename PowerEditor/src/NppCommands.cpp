@@ -754,6 +754,7 @@ void Notepad_plus::command(int id)
 					auto currentDir = std::make_unique<wchar_t[]>(strSize);
 					std::fill_n(currentDir.get(), strSize, L'\0');
 					::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir.get()));
+
 					fullTargetPath = currentDir.get();
 					fullTargetPath += L"\\";
 					fullTargetPath += currentWord.get();
@@ -761,10 +762,10 @@ void Notepad_plus::command(int id)
 
 				if (!doesPathExist(fullTargetPath.c_str()))
 				{
-					_nativeLangSpeaker.messageBox("FilePathNotFoundWarning",
+					_nativeLangSpeaker.messageBox("PathNotFoundWarning",
 						_pPublicInterface->getHSelf(),
 						L"The path you're trying to open doesn't exist.",
-						L"Open in Folder",
+						L"Open Containing Folder in Explorer",
 						MB_OK | MB_APPLMODAL);
 					return;
 				}
@@ -782,14 +783,10 @@ void Notepad_plus::command(int id)
 				wchar_t cmd2Exec[CURRENTWORD_MAXLENGTH] = { '\0' };
 				::SendMessage(hwnd, NPPM_GETNPPFULLFILEPATH, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(cmd2Exec));
 
+				wstring fullFilePath;
 				if (doesPathExist(currentWord.get()))
 				{
-					wstring fullFilePath = L"\"";
-					fullFilePath += currentWord.get();
-					fullFilePath += L"\"";
-
-					if (!doesDirectoryExist(currentWord.get()))
-						::ShellExecute(hwnd, L"open", cmd2Exec, fullFilePath.c_str(), L".", SW_SHOW);
+					fullFilePath = currentWord.get();
 				}
 				else
 				{
@@ -797,24 +794,23 @@ void Notepad_plus::command(int id)
 					std::fill_n(currentDir.get(), strSize, L'\0');
 					::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir.get()));
 
-					wstring fullFilePath = L"\"";
-					fullFilePath += currentDir.get();
+					fullFilePath = currentDir.get();
 					fullFilePath += L"\\";
 					fullFilePath += currentWord.get();
-					fullFilePath += L"\"";
-
-					if (!doesFileExist(fullFilePath.c_str() + 1))
-					{
-						_nativeLangSpeaker.messageBox("FilePathNotFoundWarning",
-							_pPublicInterface->getHSelf(),
-							L"The path you're trying to open doesn't exist.",
-							L"File Open",
-							MB_OK | MB_APPLMODAL);
-						return;
-					}
-
-					::ShellExecute(hwnd, L"open", cmd2Exec, fullFilePath.c_str(), L".", SW_SHOW);
 				}
+
+				if (!doesFileExist(fullFilePath.c_str()))
+				{
+					_nativeLangSpeaker.messageBox("FilePathNotFoundWarning",
+						_pPublicInterface->getHSelf(),
+						L"The file you're trying to open doesn't exist.",
+						L"Open File",
+						MB_OK | MB_APPLMODAL);
+					return;
+				}
+
+				fullFilePath = L"\"" + fullFilePath + L"\"";
+				::ShellExecute(hwnd, L"open", cmd2Exec, fullFilePath.c_str(), L".", SW_SHOW);
 			}
 			break;
 		}

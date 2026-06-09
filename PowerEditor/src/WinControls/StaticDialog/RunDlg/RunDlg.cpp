@@ -103,7 +103,6 @@ int whichVar(wchar_t *str)
 	return VAR_NOT_RECOGNIZED;
 }
 
-// Since I'm sure the length will be 256, I won't check the lstrlen : watch out!
 void expandNppEnvironmentStrs(const wchar_t *strSrc, wchar_t *stringDest, size_t strDestLen, HWND hWnd)
 {
 	size_t j = 0;
@@ -130,7 +129,7 @@ void expandNppEnvironmentStrs(const wchar_t *strSrc, wchar_t *stringDest, size_t
 			{
 				wchar_t str[MAX_PATH] = { '\0' };
 				int m = 0;
-				for (int k = iBegin  ; k <= iEnd ; ++k)
+				for (int k = iBegin  ; m < MAX_PATH -1 && k <= iEnd ; ++k)
 					str[m++] = strSrc[k];
 				str[m] = '\0';
 

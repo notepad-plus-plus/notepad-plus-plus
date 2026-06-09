@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="简体中文" filename="chineseSimplified.xml" version="8.8.8">
+	<Native-Langue name="简体中文" filename="chineseSimplified.xml" version="8.9.6.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -90,6 +90,7 @@ Translation note:
 					<Item id="41002" name="打开(&amp;O)..."/>
 					<Item id="41019" name="文件管理器"/>
 					<Item id="41020" name="命令行"/>
+										<Item id="41027" name="PowerShell"/>
 					<Item id="41025" name="文件夹工作区"/>
 					<Item id="41003" name="关闭(&amp;C)"/>
 					<Item id="41004" name="全部关闭(&amp;E)"/>
@@ -140,6 +141,8 @@ Translation note:
 					<Item id="42081" name="降序排列文本行（忽略大小写）"/>
 					<Item id="42100" name="按区域设置升序排列文本行"/>
 					<Item id="42101" name="按区域设置降序排列文本行"/>
+					<Item id="42104" name="按行长升序排序"/>
+					<Item id="42105" name="按行长降序排列"/>
 					<Item id="42061" name="升序排列整数"/>
 					<Item id="42062" name="降序排列整数"/>
 					<Item id="42063" name="升序排列小数（逗号作为小数点）"/>
@@ -158,6 +161,7 @@ Translation note:
 					<Item id="42072" name="随机大小写(&amp;R)"/>
 					<Item id="42073" name="打开文件"/>
 					<Item id="42074" name="在文件管理器中打开所在文件夹"/>
+					<Item id="42106" name="隐藏选定内容 █（Shift：●）)"/>
 					<Item id="42075" name="在线搜索"/>
 					<Item id="42076" name="更改搜索引擎..."/>
 					<Item id="42090" name="忽略大小写和全词匹配"/>
@@ -293,6 +297,7 @@ Translation note:
 					<Item id="44024" name="缩小(&amp;O) (Ctrl+鼠标滚轮向下)"/>
 					<Item id="44025" name="显示空格与制表符"/>
 					<Item id="44026" name="显示换行符"/>
+					<Item id="44027" name="多视图同步"/>
 					<Item id="44029" name="展开所有层次"/>
 					<Item id="44030" name="折叠当前层次"/>
 					<Item id="44031" name="展开当前层次"/>
@@ -396,6 +401,7 @@ Translation note:
 					<Item id="48511" name="从文件生成..."/>
 					<Item id="48512" name="从选区生成并复制到剪贴板"/>
 					<Item id="49000" name="运行(&amp;R)..."/>
+					<Item id="49001" name="验证shortcuts.xml文件"/>
 
 					<Item id="50000" name="函数自动补全"/>
 					<Item id="50001" name="单词自动补全"/>
@@ -437,6 +443,7 @@ Translation note:
 				<Item CMDID="1" name="打开至"/>
 				<Item CMDID="41019" name="打开所在文件夹"/>
 				<Item CMDID="41020" name="打开所在文件夹(命令行)"/>
+				<Item CMDID="41027" name="在 PowerShell 中打开所在文件夹"/>
 				<Item CMDID="41025" name="打开所在文件夹工作区"/>
 				<Item CMDID="41023" name="使用默认程序打开"/>
 				<Item CMDID="41017" name="重命名..."/>
@@ -652,10 +659,13 @@ Translation note:
 				</SubDialog>
 			</StyleConfig>
 
-			<ShortcutMapper title="快捷键管理">
+			<ColorPopup>
+				<Item id="1" name="更多颜色..."/>
+			</ColorPopup>
+			<ShortcutMapper title="快捷键管理器">
 				<Item id="2602" name="修改"/>
 				<Item id="2603" name="删除"/>
-				<Item id="2606" name="清空"/>
+				<Item id="2606" name="清除"/>
 				<Item id="2607" name="过滤: "/>
 				<Item id="1" name="关闭"/>
 				<ColumnName name="名称"/>
@@ -676,6 +686,8 @@ Translation note:
 				<MainCommandNames>
 					<Item id="41019" name="打开所在文件夹"/>
 					<Item id="41020" name="打开所在文件夹(命令行)"/>
+					<Item id="41027" name="在 PowerShell 中打开所在文件夹"/>
+					<Item id="41025" name="打开所在文件夹作为工作区"/>
 					<Item id="41021" name="恢复最近一个关闭的文件"/>
 					<Item id="45001" name="换行符转为 Windows (CR LF)"/>
 					<Item id="45002" name="换行符转为 Unix (LF)"/>
@@ -1021,6 +1033,7 @@ Translation note:
 					<Item id="6239" name="选区外右键点击时保留选区"/>
 					<Item id="6245" name="启用行尾虚拟空格"/>
 					<Item id="6214" name="启用在未选择内容时复制/剪切整行"/>
+					<Item id="6266" name="禁用选定文本拖放"/>
 					<Item id="6225" name="将自定义颜色应用于所选文本的前景色"/>
 					<Item id="6651" name="当前行指示器"/>
 					<Item id="6652" name="无"/>
@@ -1221,6 +1234,7 @@ Translation note:
 					<Item id="6910" name="自动勾选“选取范围内”的最小值(选中字符数):"/>
 					<Item id="6913" name="使用当前文档所在目录填充目录字段(文件中查找)"/>
 					<Item id="6916" name=": 从选择内容自动填充查找字段的最大字符数"/>
+					<Item id="6917" name="在文件中查找：优先选择磁盘上的文件内容而非打开的缓冲区"/>
 				</Searching>
 
 				<RecentFilesHistory title="最近文件记录">
@@ -1668,6 +1682,7 @@ Notepad++ 会备份您旧的 “shortcuts.xml” 文件，并将其保存为 “
 				<Item id="3518" name="文件管理器打开"/>
 				<Item id="3519" name="命令行打开"/>
 				<Item id="3520" name="复制文件名"/>
+				<Item id="3521" name="在此处打开 PowerShell"/>
 			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>
@@ -1776,6 +1791,10 @@ Notepad++ 会备份您旧的 “shortcuts.xml” 文件，并将其保存为 “
 			<find-status-scope-all value="(在整个文件范围内)"/>
 			<find-status-scope-backward value="(从文件头到光标范围内)"/>
 			<find-status-scope-forward value="(从光标到文件尾范围内)"/>
+			<find-status-replace-invalid-replace-chars value="替换：无法在 ANSI 文档中使用非 ANSI 文本进行替换"/>
+			<find-status-invisible-chars-findWhat value="粘贴的“查找内容”或“替换为”内容中存在不可见字符"/>
+			<find-status-invisible-chars-findWhat-tip value="警告：搜索（或替换）字段中存在不可见字符。
+粘贴到该字段的文本包含不可见（可能是行结束）字符。如果您在不删除这些字符的情况下继续操作，它们将被包含在搜索（或替换）文本中。"/>
 			<finder-find-in-finder value="在此搜索结果中查找..."/>
 			<finder-close-this value="关闭此搜索结果"/>
 			<finder-collapse-all value="全部折叠"/>

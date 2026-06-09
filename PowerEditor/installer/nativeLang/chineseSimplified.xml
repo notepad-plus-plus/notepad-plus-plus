@@ -90,7 +90,7 @@ Translation note:
 					<Item id="41002" name="打开(&amp;O)..."/>
 					<Item id="41019" name="文件管理器"/>
 					<Item id="41020" name="命令行"/>
-										<Item id="41027" name="PowerShell"/>
+					<Item id="41027" name="PowerShell"/>
 					<Item id="41025" name="文件夹工作区"/>
 					<Item id="41003" name="关闭(&amp;C)"/>
 					<Item id="41004" name="全部关闭(&amp;E)"/>
@@ -662,10 +662,10 @@ Translation note:
 			<ColorPopup>
 				<Item id="1" name="更多颜色..."/>
 			</ColorPopup>
-			<ShortcutMapper title="快捷键管理器">
+			<ShortcutMapper title="快捷键管理">
 				<Item id="2602" name="修改"/>
 				<Item id="2603" name="删除"/>
-				<Item id="2606" name="清除"/>
+				<Item id="2606" name="清空"/>
 				<Item id="2607" name="过滤: "/>
 				<Item id="1" name="关闭"/>
 				<ColumnName name="名称"/>

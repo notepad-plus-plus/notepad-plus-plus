@@ -1234,7 +1234,7 @@ Translation note:
 					<Item id="6907" name="찾기 대화창을 실행할 때"/>
 					<Item id="6908" name="선택된 텍스트로 찾기 창 채우기"/>
 					<Item id="6909" name="아무 것도 선택되지 않으면 커서 아래의 단어 선택"/>
-					<Item id="6910" name="&quot;선택 범위 내quot;에서 자동 검사 최소 크기:"/>
+					<Item id="6910" name="&quot;선택 범위 내&quot;에서 자동 검사 최소 크기:"/>
 					<Item id="6913" name="활성 문서를 기준으로 파일에서 찾기 디렉터리 필드 채우기"/>
 					<Item id="6916" name=": 선택한 것을 기준으로 검색 필드를 자동 채울 때의 최대 문자 수"/>
 					<Item id="6917" name="파일에서 찾기: 현재 열려있는 버퍼보다 디스크에 있는 파일 내용을 우선"/>
@@ -1577,7 +1577,7 @@ langs.xml 파일을 복구하시겠습니까?"/><!-- HowToReproduce: Close Notep
 			<UDLRemoveCurrentLang title="현재 언어 삭제" message="삭제하시겠습니까?"/>
 			<UDL_importSuccessful title="사용자 정의 언어" message="성공적으로 가져왔습니다."/>
 			<UDL_importFails title="사용자 정의 언어" message="가져올 수 없습니다."/>
-			<UDL_saveBeforeImport title="사용자 정의 언어" message="내보내기 전에 언어 정의를 &quot;다른 이름으로 저장...&quot; 버튼을 눌러 저장하세요."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_saveBeforeImport title="사용자 정의 언어" message="내보내기 전에 언어 정의를 &quot;다른 이름으로 저장...&quot; 버튼을 눌러 저장하세요."/><!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
 			<UDL_exportSuccessful title="사용자 정의 언어" message="성공적으로 내보냈습니다."/>
 			<UDL_exportFails title="사용자 정의 언어" message="내보낼 수 없습니다."/>
 			<SCMapperDoDeleteOrNot title="확인" message="이 단축키를 삭제하시겠습니까?"/>
@@ -1606,7 +1606,7 @@ Notepad++가 읽기 전용 저장 금지 모드이기 때문에 파일을 저장
 표시 목적의 빈 파일을 만드시겠습니까?
 
 참고: 파일을 만들지 않거나, 나중에 파일을 닫으면, 프로그램을 종료할 때 수동 저장 세션을 바꿀 수 없습니다."/>
-<FileInaccessibleDefaultSessionXml title="파일 접근불가" message="이전 세션의 일부 파일에 접근할 수 없습니다. 표시 목적의 비어 있는 읽기 전용 파일로 열 수 있습니다.
+			<FileInaccessibleDefaultSessionXml title="파일 접근불가" message="이전 세션의 일부 파일에 접근할 수 없습니다. 표시 목적의 비어 있는 읽기 전용 파일로 열 수 있습니다.
 
 표시 목적의 빈 파일을 만드시겠습니까?
 참고: 파일을 만들지 않거나 나중에 파일을 닫으면, 프로그램을 종료할 때 세션이 수정됩니다! &quot;session.xml&quot;을 백업하는 것을 추천합니다."/>
@@ -1618,7 +1618,7 @@ Notepad++가 읽기 전용 저장 금지 모드이기 때문에 파일을 저장
 정규 표현식 기반의 이전 방향 찾기가 필요하다면, 이 기능 활성화에 대한 사용자 매뉴얼을 참조하세요."/>
 			<PrintError title="0" message="프린터 문서를 시작할 수 없습니다."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 			<FindAutoChangeOfInSelectionWarning title="찾기 경고" message="&quot;선택 범위 내&quot; 체크박스의 상태가 자동으로 변경되었습니다.
-작업을 수행하기 전에 검색 조건을 확인하세요."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+작업을 수행하기 전에 검색 조건을 확인하세요."/><!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ 재시작이 필요합니다" message="오른쪽 메뉴 단축키를 표시하려면 Notepad++ 재시작이 필요합니다."/>
 			<NoAdminRight2ChangeReadOnlyFileAttribute title="파일의 읽기 전용 속성 변경 실패" message="파일 속성을 변경하려면 Notepad++를 관리자 권한으로 실행하세요."/>
 			<ReadOnlyFileCannotBeSaved title="저장 실패 - 파일이 읽기 전용입니다" message="&quot;$STR_REPLACE$&quot;
@@ -1630,7 +1630,7 @@ Notepad++가 읽기 전용 저장 금지 모드이기 때문에 파일을 저장
 
 계속하시겠습니까?"/>
 			<RunSecurityCmdNotFound title="실행 - 보안 오류" message="명령을 찾을 수 없거나 경로가 너무 깁니다:
-&quot;$STR_REPLACE$&quot;" />
+&quot;$STR_REPLACE$&quot;"/>
 			<RunSecurityOnlyAbsolutePathAllowed title="실행 - 보안 오류" message="절대 경로만 허용됩니다:
 &quot;$STR_REPLACE$&quot; 명령은 유효하지 않은 명령입니다."/>
 			<RunSecurityFileNoExist title="실행 - 보안 오류" message="파일이 존재하지 않습니다:

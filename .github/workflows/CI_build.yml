@@ -8,7 +8,7 @@ env:
 jobs:
   before_build:
 
-    runs-on: windows-latest
+    runs-on: windows-2022
     outputs:
       result: ${{ steps.filter.outputs.result }}
       matrix: ${{ steps.filter.outputs.matrix }}
@@ -143,7 +143,7 @@ jobs:
 
   build_windows:
 
-    runs-on: windows-latest
+    runs-on: windows-2022
     needs: before_build
     if: needs.before_build.outputs.result == '' || needs.before_build.outputs.result == 'ONEJOB'
     strategy:
@@ -245,7 +245,7 @@ jobs:
 
   # build_windows_clang:
 
-    # runs-on: windows-latest
+    # runs-on: windows-2022
     #needs: before_build
     #if: needs.before_build.outputs.result == ''
     # strategy:
@@ -274,7 +274,7 @@ jobs:
 
   build_windows_cmake:
 
-    runs-on: windows-latest
+    runs-on: windows-2022
     needs: before_build
     if: needs.before_build.outputs.result == ''
     strategy:
@@ -328,7 +328,7 @@ jobs:
 
   build_windows_msys2:
 
-    runs-on: windows-latest
+    runs-on: windows-2022
     needs: before_build
     if: needs.before_build.outputs.result == ''
     strategy:

@@ -1812,13 +1812,33 @@ void Notepad_plus::removeDuplicateLines()
 
 }
 
-void Notepad_plus::getMatchedFileNames(const wchar_t *dir, size_t level, const vector<wstring> & patterns, vector<wstring> & fileNames, bool isRecursive, bool isInHiddenDir, Progress * progress)
+class MatchedFileNameProgress final
 {
-	if (progress && progress->isCancelled())
+public:
+	explicit MatchedFileNameProgress(Progress & progress) : _pProgress(&progress) {}
+	// Updates progress if enough time has passed and returns whether search should continue
+	bool report(const wchar_t * currentPath, int nbHitsSoFar)
 	{
-		return;
+		static constexpr std::chrono::milliseconds updateInterval{ 50 };
+		const auto now = std::chrono::steady_clock::now();
+		if (now - _pLastUpdateTime >= updateInterval)
+		{
+			if (_pProgress->isCancelled())
+			{
+				return false;
+			}
+			_pLastUpdateTime = now;
+			_pProgress->setInfo(currentPath, nbHitsSoFar);
+		}
+		return true;
 	}
+private:
+	std::chrono::steady_clock::time_point _pLastUpdateTime = std::chrono::steady_clock::now();
+	Progress* _pProgress;
+};
 
+void Notepad_plus::getMatchedFileNames(const wchar_t *dir, size_t level, const vector<wstring> & patterns, vector<wstring> & fileNames, bool isRecursive, bool isInHiddenDir, MatchedFileNameProgress* progress)
+{
 	level++;
 
 	wstring dirFilter(dir);
@@ -1830,11 +1850,6 @@ void Notepad_plus::getMatchedFileNames(const wchar_t *dir, size_t level, const v
 	{
 		do
 		{
-			if (progress && progress->isCancelled())
-			{
-				break;
-			}
-
 			if (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 			{
 				if (!isInHiddenDir && (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN))
@@ -1861,23 +1876,12 @@ void Notepad_plus::getMatchedFileNames(const wchar_t *dir, size_t level, const v
 					wstring pathFile(dir);
 					pathFile += foundData.cFileName;
 					fileNames.push_back(pathFile.c_str());
-
-					if (progress)
-					{
-						// Major slowdown if we update per-file for large directories.
-						// To make the UX a little nicer, waterfall the divisor so that "rare" patterns still update the UI.
-						const size_t fileCount = fileNames.size();
-						const size_t divisor =
-							fileCount <= 100 ? 1 :
-							fileCount <= 1000 ? 100 :
-							fileCount <= 10000 ? 1000 :
-							10000;
-						if (fileCount % divisor == 0)
-						{
-							progress->setInfo(fileNames.back().c_str(), static_cast<int>(fileCount));
-						}
-					}
 				}
+			}
+
+			if (progress && !progress->report(dir, static_cast<int>(fileNames.size())))
+			{
+				break;
 			}
 		} while (::FindNextFile(hFindFile, &foundData));
 		::FindClose(hFindFile);
@@ -1903,7 +1907,8 @@ bool Notepad_plus::createFilelistForFiles(vector<wstring> & fileNames)
 	progress.open(_findReplaceDlg.getHSelf(), msg.c_str());
 	progress.setInfo(L"", 0);
 
-	getMatchedFileNames(dir2Search, 0, patterns2Match, fileNames, isRecursive, isInHiddenDir, &progress);
+	MatchedFileNameProgress matchedFileNameProgress{ progress };
+	getMatchedFileNames(dir2Search, 0, patterns2Match, fileNames, isRecursive, isInHiddenDir, &matchedFileNameProgress);
 
 	return !progress.isCancelled();
 }

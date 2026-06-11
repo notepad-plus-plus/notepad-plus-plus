@@ -36,7 +36,21 @@
   <PropertyGroup>
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v143</PlatformToolset>
+    <!--
+      Allow both v143 (default, Win7-compatible) and v145 (VS2026).
+      VS2022 users → v143
+      VS2026 users → v145 (if forced by environment)
+      Release builds should continue using v143.
+    -->
+
+    <!-- Default toolset: v143 -->
+    <PlatformToolset Condition="'$(PlatformToolset)'==''">v143</PlatformToolset>
+
+    <!-- Allow v145 if VS2026 sets it -->
+    <PlatformToolset Condition="'$(PlatformToolset)'=='v145'">v145</PlatformToolset>
+
+    <!-- Allow explicit v143 -->
+    <PlatformToolset Condition="'$(PlatformToolset)'=='v143'">v143</PlatformToolset>
     <TargetName>lib$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

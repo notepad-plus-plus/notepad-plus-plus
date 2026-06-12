@@ -762,10 +762,10 @@ void Notepad_plus::command(int id)
 
 				if (!doesPathExist(fullTargetPath.c_str()))
 				{
-					_nativeLangSpeaker.messageBox("PathNotFoundWarning",
+					_nativeLangSpeaker.messageBox("FilePathNotFoundWarning",
 						_pPublicInterface->getHSelf(),
 						L"The path you're trying to open doesn't exist.",
-						L"Open Containing Folder in Explorer",
+						L"Open Path",
 						MB_OK | MB_APPLMODAL);
 					return;
 				}
@@ -803,8 +803,8 @@ void Notepad_plus::command(int id)
 				{
 					_nativeLangSpeaker.messageBox("FilePathNotFoundWarning",
 						_pPublicInterface->getHSelf(),
-						L"The file you're trying to open doesn't exist.",
-						L"Open File",
+						L"The path you're trying to open doesn't exist.",
+						L"Open Path",
 						MB_OK | MB_APPLMODAL);
 					return;
 				}

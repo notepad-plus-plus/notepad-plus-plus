@@ -2481,11 +2481,8 @@ HRESULT openInExplorerAndSelect(const wchar_t* path)
 	if (!com.isInitialized())
 		return E_FAIL;
 
-	std::filesystem::path canonicalPath(path);
-	canonicalPath = std::filesystem::weakly_canonical(canonicalPath).make_preferred();
-
 	ITEMIDLIST* pidl = nullptr;
-	HRESULT hr = ::SHParseDisplayName(canonicalPath.c_str(), nullptr, &pidl, 0, nullptr);
+	HRESULT hr = ::SHParseDisplayName(path, nullptr, &pidl, 0, nullptr);
 	if (SUCCEEDED(hr))
 	{
 		hr = ::SHOpenFolderAndSelectItems(pidl, 0, nullptr, 0);

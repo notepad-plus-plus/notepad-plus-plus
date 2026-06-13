@@ -770,12 +770,14 @@ void Notepad_plus::command(int id)
 					return;
 				}
 
-				HRESULT hr = openInExplorerAndSelect(fullTargetPath.c_str());
+				std::filesystem::path canonicalPath(fullTargetPath.c_str());
+				canonicalPath = canonicalPath.lexically_normal();
+
+				HRESULT hr = openInExplorerAndSelect(canonicalPath.c_str());
 				if (hr == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND))
 				{
 					// Fallback: open parent folder
-					std::filesystem::path fsPath(fullTargetPath);
-					::ShellExecuteW(hwnd, L"explore", fsPath.parent_path().c_str(), nullptr, nullptr, SW_SHOWNORMAL);
+					::ShellExecuteW(hwnd, L"explore", canonicalPath.parent_path().c_str(), nullptr, nullptr, SW_SHOWNORMAL);
 				}
 			}
 			else // IDM_EDIT_OPENSELECTEDFILETOEDIT

@@ -317,7 +317,7 @@ void Notepad_plus::command(int id)
 				errorMsg += intToString(retResult);
 				errorMsg += L"\n----------------------------------------------------------";
 				
-				::MessageBox(_pPublicInterface->getHSelf(), errorMsg.c_str(), L"ShellExecute - ERROR", MB_ICONINFORMATION | MB_APPLMODAL);
+				NppDarkMode::darkMessageBoxW(_pPublicInterface->getHSelf(), errorMsg.c_str(), L"ShellExecute - ERROR", MB_ICONINFORMATION | MB_APPLMODAL);
 			}
 		}
 		break;
@@ -2316,7 +2316,7 @@ void Notepad_plus::command(int id)
 			{
 				if (_isAdministrator)
 				{
-					MessageBox(_pPublicInterface->getHSelf(), GetLastErrorAsString(GetLastError()).c_str(),	L"Changing file read-only attribute failed", MB_OK | MB_ICONWARNING);
+					NppDarkMode::darkMessageBoxW(_pPublicInterface->getHSelf(), GetLastErrorAsString(GetLastError()).c_str(), L"Changing file read-only attribute failed", MB_OK | MB_ICONWARNING);
 				}
 				else
 				{
@@ -2906,7 +2906,7 @@ void Notepad_plus::command(int id)
 
 				wstring summaryLabel = pNativeSpeaker->getLocalizedStrFromID("summary", L"Summary");
 
-				::MessageBox(_pPublicInterface->getHSelf(), characterNumber.c_str(), summaryLabel.c_str(), MB_OK|MB_APPLMODAL);
+				NppDarkMode::darkMessageBoxW(_pPublicInterface->getHSelf(), characterNumber.c_str(), summaryLabel.c_str(), MB_OK | MB_APPLMODAL);
 			}
 		}
 		break;

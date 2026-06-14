@@ -19,11 +19,12 @@
 
 #include <windows.h>
 
+#include <ios>
 #include <sstream>
 #include <string>
 #include <string_view>
-#include <vector>
 #include <utility>
+#include <vector>
 
 #include <SciLexer.h>
 #include <Sci_Position.h>
@@ -32,6 +33,7 @@
 #include "Buffer.h"
 #include "Notepad_plus_msgs.h"
 #include "NppConstants.h"
+#include "NppDarkMode.h"
 #include "UserDefineDialog.h"
 #include "Window.h"
 #include "colors.h"
@@ -605,7 +607,7 @@ public:
 		if ((NppParameters::getInstance()).isTransparentAvailable())
 			convertSelectedTextTo(caseToConvert);
 		else
-			::MessageBox(_hSelf, L"This function needs a newer OS version.", L"Change Case Error", MB_OK | MB_ICONHAND);
+			NppDarkMode::darkMessageBoxW(_hSelf, L"This function needs a newer OS version.", L"Change Case Error", MB_OK | MB_ICONHAND);
 	}
 
 	void getCurrentFoldStates(std::vector<size_t> & lineStateVector);

@@ -65,7 +65,7 @@ void IconList::addIcon(int iconID, int cx, int cy, int failIconID, bool isToolba
 		int userAnswer = 0;
 		if (!ignoreWarning)
 		{
-			userAnswer = ::MessageBoxA(NULL, "IconList::addIcon : LoadIcon() function return null.\nIgnore the error?\n\n\"Yes\": ignore the error and launch Notepad++\n\"No\": Quit Notepad++\n\"Cancel\": display all errors", std::to_string(iconID).c_str(), MB_YESNOCANCEL | MB_ICONWARNING);
+			userAnswer = NppDarkMode::darkMessageBoxW(nullptr, L"IconList::addIcon : LoadIcon() function return null.\nIgnore the error?\n\n\"Yes\": ignore the error and launch Notepad++\n\"No\": Quit Notepad++\n\"Cancel\": display all errors", std::to_wstring(iconID).c_str(), MB_YESNOCANCEL | MB_ICONWARNING);
 			ignoreWarning = userAnswer == IDYES;
 		}
 

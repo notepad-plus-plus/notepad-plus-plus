@@ -370,7 +370,7 @@ void StaticDialog::create(int dialogID, bool isRTL, bool msgDestParent, WORD fon
 	{
 		std::wstring errMsg = L"CreateDialogParam() return NULL.\rGetLastError(): ";
 		errMsg += GetLastErrorAsString();
-		::MessageBox(NULL, errMsg.c_str(), L"In StaticDialog::create()", MB_OK);
+		NppDarkMode::darkMessageBoxW(nullptr, errMsg.c_str(), L"In StaticDialog::create()", MB_OK);
 		return;
 	}
 

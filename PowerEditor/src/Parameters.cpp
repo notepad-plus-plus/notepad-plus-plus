@@ -54,6 +54,7 @@
 #include "ScintillaEditView.h"
 #include "ToolBar.h"
 #include "UserDefineDialog.h"
+#include "hmac.h"
 #include "keys.h"
 #include "localization.h"
 #include "localizationString.h"
@@ -61,7 +62,6 @@
 #include "resource.h"
 #include "shortcut.h"
 #include "verifySignedfile.h"
-#include "hmac.h"
 
 #ifdef _MSC_VER
 #pragma warning(disable : 4996) // for GetVersionEx()
@@ -1202,7 +1202,7 @@ bool NppParameters::reloadStylers(const wchar_t* stylePath)
 	{
 		if (!_pNativeLangSpeaker)
 		{
-			::MessageBox(nullptr, _pXmlUserStylerDoc._path.c_str(), L"Load stylers.xml failed", MB_OK);
+			NppDarkMode::darkMessageBoxW(nullptr, _pXmlUserStylerDoc._path.c_str(), L"Load stylers.xml failed", MB_OK);
 		}
 		else
 		{
@@ -1409,7 +1409,7 @@ bool NppParameters::load()
 			std::wstring errMsg = L"The given path\r";
 			errMsg += _cmdSettingsDir;
 			errMsg += L"\nvia command line \"-settingsDir=\" is not a valid directory.\rThis argument will be ignored.";
-			::MessageBox(NULL, errMsg.c_str(), L"Invalid directory", MB_OK);
+			NppDarkMode::darkMessageBoxW(nullptr, errMsg.c_str(), L"Invalid directory", MB_OK);
 		}
 		else
 		{
@@ -1446,7 +1446,7 @@ bool NppParameters::load()
 				}
 				else
 				{
-					doRecover = ::MessageBox(NULL, L"Load langs.xml failed!\rDo you want to recover your langs.xml?", L"Configurator", MB_YESNO);
+					doRecover = NppDarkMode::darkMessageBoxW(nullptr, L"Load langs.xml failed!\rDo you want to recover your langs.xml?", L"Configurator", MB_YESNO);
 				}
 			}
 		}
@@ -1475,7 +1475,7 @@ bool NppParameters::load()
 		}
 		else
 		{
-			::MessageBox(NULL, L"Load langs.xml failed!", L"Configurator", MB_OK);
+			NppDarkMode::darkMessageBoxW(nullptr, L"Load langs.xml failed!", L"Configurator", MB_OK);
 		}
 
 		delete _pXmlDoc._doc;
@@ -1546,7 +1546,7 @@ bool NppParameters::load()
 		}
 		else
 		{
-			::MessageBox(NULL, _stylerPath.c_str(), L"Load stylers.xml failed", MB_OK);
+			NppDarkMode::darkMessageBoxW(nullptr, _stylerPath.c_str(), L"Load stylers.xml failed", MB_OK);
 		}
 		delete _pXmlUserStylerDoc._doc;
 		_pXmlUserStylerDoc._doc = nullptr;
@@ -4352,7 +4352,7 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 		{
 			std::wstring errTitle = L"Session file backup error: ";
 			errTitle += GetLastErrorAsString(0);
-			::MessageBox(nullptr, sessionPathName, errTitle.c_str(), MB_OK);
+			NppDarkMode::darkMessageBoxW(nullptr, sessionPathName, errTitle.c_str(), MB_OK);
 		}
 	}
 
@@ -4472,7 +4472,7 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 	}
 	else if (!isEndSessionCritical())
 	{
-		::MessageBox(nullptr, sessionPathName, L"Error of saving session XML file", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
+		NppDarkMode::darkMessageBoxW(nullptr, sessionPathName, L"Error of saving session XML file", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
 	}
 
 	//
@@ -4483,7 +4483,7 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 		if (doesBackupCopyExist) // session backup file exists, restore it
 		{
 			if (!isEndSessionCritical())
-				::MessageBox(nullptr, backupPathName, L"Saving session error - restoring from the backup:", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
+				NppDarkMode::darkMessageBoxW(nullptr, backupPathName, L"Saving session error - restoring from the backup:", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
 
 			std::wstring sessionPathNameFail2Load = sessionPathName;
 			sessionPathNameFail2Load += L".fail2Load";

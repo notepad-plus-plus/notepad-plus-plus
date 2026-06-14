@@ -5889,7 +5889,7 @@ void Finder::copyPathnames()
 		if (!str2Clipboard(toClipboard, _hSelf))
 		{
 			assert(false);
-			::MessageBox(NULL, L"Error placing pathnames into clipboard.", L"Notepad++", MB_ICONINFORMATION);
+			NppDarkMode::darkMessageBoxW(nullptr, L"Error placing pathnames into clipboard.", L"Notepad++", MB_ICONINFORMATION);
 		}
 	}
 }
@@ -5994,7 +5994,7 @@ void Finder::copy()
 	if (!str2Clipboard(toClipboard, _hSelf))
 	{
 		assert(false);
-		::MessageBox(nullptr, L"Error placing text in clipboard.", L"Notepad++", MB_ICONINFORMATION);
+		NppDarkMode::darkMessageBoxW(nullptr, L"Error placing text in clipboard.", L"Notepad++", MB_ICONINFORMATION);
 	}
 }
 

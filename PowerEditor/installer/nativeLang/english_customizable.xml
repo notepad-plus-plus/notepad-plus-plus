@@ -1813,6 +1813,7 @@ The text pasted into this field includes invisible (maybe line-ending) character
 			<common-ok value="OK"/>
 			<common-cancel value="Cancel"/>
 			<common-name value="Name"/>
+			<common-error value="Error"/>
 			<tabrename-title value="Rename Current Tab"/>
 			<tabrename-newname value="New name"/>
 			<splitter-rotate-left value="Rotate to left"/>

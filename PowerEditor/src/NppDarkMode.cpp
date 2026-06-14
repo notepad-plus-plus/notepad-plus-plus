@@ -20,19 +20,30 @@
 #include "DarkMode/DarkMode.h"
 #include "DarkMode/UAHMenuBar.h"
 
+#include <windows.h>
+
 #include <dwmapi.h>
 #include <shlwapi.h>
 #include <uxtheme.h>
+#include <vsstyle.h>
 #include <vssym32.h>
 
+#include <algorithm>
+#include <array>
+#include <cassert>
+#include <cmath>
+#include <cstdlib>
+#include <cwchar>
 #include <memory>
+#include <string>
 
+#include "NppConstants.h"
 #include "Parameters.h"
+#include "ToolBar.h"
 #include "dpiManagerV2.h"
 #include "resource.h"
 
 #ifdef __GNUC__
-#include <cmath>
 #define WINAPI_LAMBDA WINAPI
 #ifndef DWMWA_USE_IMMERSIVE_DARK_MODE
 #define DWMWA_USE_IMMERSIVE_DARK_MODE 20
@@ -2851,16 +2862,24 @@ namespace NppDarkMode
 		}
 	}
 
+	static void enableSysLinkCtrlCtlColor(HWND hWnd)
+	{
+		LITEM lItem{};
+		lItem.iLink = 0;
+		lItem.mask = LIF_ITEMINDEX | LIF_STATE;
+		lItem.state = NppDarkMode::isEnabled() ? LIS_DEFAULTCOLORS : 0;
+		lItem.stateMask = LIS_DEFAULTCOLORS;
+		while (::SendMessage(hWnd, LM_SETITEM, 0, reinterpret_cast<LPARAM>(&lItem)) == TRUE)
+		{
+			++lItem.iLink;
+		}
+	}
+
 	static void setUrlLinkControlColor(HWND hWnd, NppDarkModeParams p)
 	{
 		if (p._theme)
 		{
-			LITEM item{};
-			item.iLink = 0; // for now colorize only 1st item
-			item.mask = LIF_ITEMINDEX | LIF_STATE;
-			item.state = NppDarkMode::isEnabled() ? LIS_DEFAULTCOLORS : 0;
-			item.stateMask = LIS_DEFAULTCOLORS;
-			::SendMessage(hWnd, LM_SETITEM, 0, reinterpret_cast<LPARAM>(&item));
+			enableSysLinkCtrlCtlColor(hWnd);
 		}
 	}
 

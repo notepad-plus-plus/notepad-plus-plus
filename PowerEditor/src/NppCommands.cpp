@@ -15,36 +15,66 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-#include <algorithm>
-#include <memory>
-#include <string>
-#include <vector>
-#include <shlwapi.h>
-#include <shlobj.h>
-#include <filesystem>
-#include "Notepad_plus_Window.h"
-#include "EncodingMapper.h"
-#include "ShortcutMapper.h"
-#include "TaskListDlg.h"
-#include "clipboardFormats.h"
-#include "VerticalFileSwitcher.h"
-#include "documentMap.h"
-#include "functionListPanel.h"
-#include "ProjectPanel.h"
-#include "fileBrowser.h"
-#include "clipboardHistoryPanel.h"
-#include "ansiCharPanel.h"
-#include "Sorters.h"
-#include "verifySignedfile.h"
-#include "md5.h"
-#include "sha-256.h"
-#include "calc_sha1.h"
-#include "sha512.h"
-#include "hmac.h"
-#include "SortLocale.h"
-#include "dpiManagerV2.h"
+#include <windows.h>
 
+#include <algorithm>
+#include <cctype>
+#include <cstdint>
+#include <cwctype>
+#include <filesystem>
+#include <memory>
+#include <mutex>
+#include <string>
+#include <string.h>
+#include <utility>
+#include <vector>
+
+#include <SciLexer.h>
+#include <Scintilla.h>
+
+#include "Common.h"
+#include "DocTabView.h"
+#include "EncodingMapper.h"
+#include "FindReplaceDlg.h"
+#include "Notepad_plus.h"
+#include "Notepad_plus_Window.h"
+#include "Notepad_plus_msgs.h"
 #include "NppConstants.h"
+#include "NppDarkMode.h"
+#include "Parameters.h"
+#include "Processus.h"
+#include "ProjectPanel.h"
+#include "RunDlg.h"
+#include "ScintillaEditView.h"
+#include "ShortcutMapper.h"
+#include "SortLocale.h"
+#include "Sorters.h"
+#include "SplitterContainer.h"
+#include "TabBar.h"
+#include "TaskListDlg.h"
+#include "UserDefineDialog.h"
+#include "VerticalFileSwitcher.h"
+#include "Window.h"
+#include "WindowsDlg.h"
+#include "ansiCharPanel.h"
+#include "calc_sha1.h"
+#include "clipboardFormats.h"
+#include "clipboardHistoryPanel.h"
+#include "documentMap.h"
+#include "dpiManagerV2.h"
+#include "fileBrowser.h"
+#include "functionListPanel.h"
+#include "hmac.h"
+#include "localization.h"
+#include "md5.h"
+#include "md5Dlgs.h"
+#include "menuCmdID.h"
+#include "resource.h"
+#include "sha-256.h"
+#include "sha512.h"
+#include "shortcut.h"
+#include "trayIconControler.h"
+#include "verifySignedfile.h"
 
 using namespace std;
 
@@ -829,7 +859,7 @@ void Notepad_plus::command(int id)
 			if (nppGui._searchEngineChoice == nppGui.se_custom)
 			{
 				url = nppGui._searchEngineCustom;
-				url.erase(std::remove_if(url.begin(), url.end(), [](_TUCHAR x) {return _istspace(x); }),
+				url.erase(std::remove_if(url.begin(), url.end(), [](wchar_t x) {return std::iswspace(x); }),
 					url.end());
 
 				auto httpPos = url.find(L"http://");

@@ -14,26 +14,48 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include <deque>
-#include <algorithm>
-#include <time.h>
-#include <locale>
-#include <sys/stat.h>
+
 #include "Buffer.h"
-#include "Scintilla.h"
-#include "ILexer.h"
-#include "Lexilla.h"
-#include "Parameters.h"
-#include "Notepad_plus.h"
-#include "ScintillaEditView.h"
+
+#include <windows.h>
+
+#include <excpt.h>
+#include <shlwapi.h>
+
+#include <algorithm>
+#include <cassert>
+#include <climits>
+#include <cstdint>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <ctime>
+#include <cwchar>
+#include <mutex>
+#include <stdexcept>
+#include <string>
+#include <vector>
+
+#include <ILexer.h>
+#include <Lexilla.h>
+#include <Scintilla.h>
+#include <Utf8_16.h>
+#include <uchardet.h>
+
+#include "Common.h"
 #include "EncodingMapper.h"
-#include "uchardet.h"
 #include "FileInterface.h"
+#include "Notepad_plus.h"
+#include "Notepad_plus_msgs.h"
+#include "NppConstants.h"
+#include "Parameters.h"
+#include "ScintillaEditView.h"
+#include "localization.h"
+#include "menuCmdID.h"
 
-
-static const int blockSize = 128 * 1024 + 4;
-static const int CR = 0x0D;
-static const int LF = 0x0A;
+static constexpr int blockSize = 128 * 1024 + 4;
+static constexpr int CR = 0x0D;
+static constexpr int LF = 0x0A;
 
 long Buffer::_recentTagCtr = 0;
 
@@ -2107,9 +2129,9 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 #if defined(__GNUC__)
 				// there is the std::current_exception() possibility, but getting the real exception code from there requires an ugly hack,
 				// because of the std::exception_ptr has its members _Data1 (GetExceptionCode) and _Data2 (GetExceptionInformation) private
-				_stprintf_s(szException, _countof(szException), L"unknown exception");
+				::swprintf_s(szException, _countof(szException), L"unknown exception");
 #else
-				_stprintf_s(szException, _countof(szException), L"0x%X (SEH)", ::GetExceptionCode());
+				::swprintf_s(szException, _countof(szException), L"0x%X (SEH)", ::GetExceptionCode());
 #endif
 				break;
 			case SC_STATUS_BADALLOC:
@@ -2123,7 +2145,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 			[[fallthrough]];
 			case SC_STATUS_FAILURE:
 			default:
-				_stprintf_s(szException, _countof(szException), L"%d (Scintilla)", sciStatus);
+				::swprintf_s(szException, _countof(szException), L"%d (Scintilla)", sciStatus);
 				break;
 		}
 

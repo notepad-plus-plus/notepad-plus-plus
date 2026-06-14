@@ -20,6 +20,7 @@
 #include <windows.h>
 
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 #include "DockingDlgInterface.h"
@@ -118,6 +119,16 @@ struct SortingData4lParam {
 };
 
 
+struct CaseInsensitivePathHash
+{
+	std::size_t operator()(const std::wstring& s) const noexcept;
+};
+
+struct CaseInsensitivePathEq
+{
+	bool operator()(const std::wstring& a, const std::wstring& b) const noexcept;
+};
+
 class FileBrowser : public DockingDlgInterface {
 public:
 	FileBrowser(): DockingDlgInterface(IDD_FILEBROWSER) {}
@@ -137,7 +148,13 @@ public:
 
 	std::wstring getNodePath(HTREEITEM node) const;
 	std::wstring getNodeName(HTREEITEM node) const;
-	void addRootFolder(std::wstring rootFolderPath);
+	void addRootFolder(std::wstring rootFolderPath, bool isUserInitiatedAdd = false);
+
+	void applyExpandStateFor(HTREEITEM rootHItem);
+	void recordExpandStateChange(HTREEITEM hItem, bool expanded);
+	void purgeExpandStateForRoot(const std::wstring& rootPath);
+	std::unordered_set<std::wstring, CaseInsensitivePathHash, CaseInsensitivePathEq> getExpandedPaths() const;
+	void setExpandedPaths(const std::unordered_set<std::wstring>& paths);
 
 	HTREEITEM getRootFromFullPath(const std::wstring & rootPath) const;
 	HTREEITEM findChildNodeFromName(HTREEITEM parent, const std::wstring& label) const;
@@ -160,6 +177,11 @@ protected:
 	std::vector<HIMAGELIST> _iconListVector;
 
 	TreeView _treeView;
+
+	std::unordered_set<std::wstring, CaseInsensitivePathHash, CaseInsensitivePathEq> _expandedPaths;
+	std::unordered_set<std::wstring, CaseInsensitivePathHash, CaseInsensitivePathEq> _materializedPaths;
+	bool _isApplyingPersistedState = false;
+
 	HIMAGELIST _hImaLst = nullptr;
 
 	HMENU _hGlobalMenu = NULL;

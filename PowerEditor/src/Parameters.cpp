@@ -3276,7 +3276,30 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 			const char* fileName = NppXml::attribute(childNode, "foldername");
 			if (fileName && fileName[0])
 			{
-				session._fileBrowserRoots.push_back(string2wstring(fileName));
+				std::wstring rootFolder = string2wstring(fileName);
+				session._fileBrowserRoots.push_back(rootFolder);
+
+				std::unordered_set<std::wstring> seenLower;
+				for (NppXml::Element expNode = NppXml::firstChildElement(childNode, "expanded");
+					expNode;
+					expNode = NppXml::nextSiblingElement(expNode, "expanded"))
+				{
+					const char* pathAttr = NppXml::attribute(expNode, "path");
+					if (!pathAttr || !pathAttr[0])
+						continue;
+
+					std::wstring expandedPath = string2wstring(pathAttr);
+					std::wstring lowerExpanded = stringToLower(expandedPath);
+					std::wstring lowerRoot = stringToLower(rootFolder);
+					if (lowerExpanded.rfind(lowerRoot, 0) != 0)
+						continue;
+
+					if (seenLower.find(lowerExpanded) != seenLower.end())
+						continue;
+					seenLower.insert(lowerExpanded);
+
+					session._fileBrowserExpandedPaths.insert(expandedPath);
+				}
 			}
 		}
 	}
@@ -3330,7 +3353,30 @@ void NppParameters::feedFileBrowserParameters(const NppXml::Element& element)
 		const char* filePath = NppXml::attribute(childNode, "foldername");
 		if (filePath && filePath[0])
 		{
-			_fileBrowserRoot.push_back(string2wstring(filePath));
+			std::wstring rootFolder = string2wstring(filePath);
+			_fileBrowserRoot.push_back(rootFolder);
+
+			std::unordered_set<std::wstring> seenLower;
+			for (NppXml::Element expNode = NppXml::firstChildElement(childNode, "expanded");
+				expNode;
+				expNode = NppXml::nextSiblingElement(expNode, "expanded"))
+			{
+				const char* pathAttr = NppXml::attribute(expNode, "path");
+				if (!pathAttr || !pathAttr[0])
+					continue;
+
+				std::wstring expandedPath = string2wstring(pathAttr);
+				std::wstring lowerExpanded = stringToLower(expandedPath);
+				std::wstring lowerRoot = stringToLower(rootFolder);
+				if (lowerExpanded.rfind(lowerRoot, 0) != 0)
+					continue;
+
+				if (seenLower.find(lowerExpanded) != seenLower.end())
+					continue;
+				seenLower.insert(lowerExpanded);
+
+				_fileBrowserExpandedPaths.insert(expandedPath);
+			}
 		}
 	}
 }
@@ -4447,6 +4493,23 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 			{
 				NppXml::Element fileNameNode = NppXml::createChildElement(fileBrowserRootNode, "root");
 				NppXml::setAttribute(fileNameNode, "foldername", wstring2string(fbRoot));
+
+				std::vector<std::wstring> sortedExpanded;
+				for (const auto& ep : session._fileBrowserExpandedPaths)
+				{
+					std::wstring lowerEp = stringToLower(ep);
+					std::wstring lowerRoot = stringToLower(fbRoot);
+					if (lowerEp.rfind(lowerRoot, 0) == 0)
+					{
+						sortedExpanded.push_back(ep);
+					}
+				}
+				std::sort(sortedExpanded.begin(), sortedExpanded.end());
+				for (const auto& ep : sortedExpanded)
+				{
+					NppXml::Element expNode = NppXml::createChildElement(fileNameNode, "expanded");
+					NppXml::setAttribute(expNode, "path", wstring2string(ep));
+				}
 			}
 		}
 	}
@@ -5167,7 +5230,7 @@ bool NppParameters::writeProjectPanelsSettings()
 	return true;
 }
 
-bool NppParameters::writeFileBrowserSettings(const std::vector<std::wstring>& rootPaths, const std::wstring& latestSelectedItemPath)
+bool NppParameters::writeFileBrowserSettings(const std::vector<std::wstring>& rootPaths, const std::wstring& latestSelectedItemPath, const std::unordered_set<std::wstring>& expandedPaths)
 {
 	if (!_xmlUserDoc._doc) return false;
 
@@ -5196,6 +5259,23 @@ bool NppParameters::writeFileBrowserSettings(const std::vector<std::wstring>& ro
 		{
 			NppXml::Element fbRootNode = NppXml::createChildElement(fileBrowserRootNode, "root");
 			NppXml::setAttribute(fbRootNode, "foldername", wstring2string(rootPath));
+
+			std::vector<std::wstring> sortedExpanded;
+			for (const auto& ep : expandedPaths)
+			{
+				std::wstring lowerEp = stringToLower(ep);
+				std::wstring lowerRoot = stringToLower(rootPath);
+				if (lowerEp.rfind(lowerRoot, 0) == 0)
+				{
+					sortedExpanded.push_back(ep);
+				}
+			}
+			std::sort(sortedExpanded.begin(), sortedExpanded.end());
+			for (const auto& ep : sortedExpanded)
+			{
+				NppXml::Element expNode = NppXml::createChildElement(fbRootNode, "expanded");
+				NppXml::setAttribute(expNode, "path", wstring2string(ep));
+			}
 		}
 	}
 

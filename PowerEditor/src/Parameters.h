@@ -32,6 +32,7 @@
 #include <memory>
 #include <stdexcept>
 #include <string>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
@@ -157,6 +158,7 @@ struct Session
 	std::vector<sessionFileInfo> _mainViewFiles;
 	std::vector<sessionFileInfo> _subViewFiles;
 	std::vector<std::wstring> _fileBrowserRoots;
+	std::unordered_set<std::wstring> _fileBrowserExpandedPaths;
 };
 
 
@@ -1474,7 +1476,7 @@ public:
 
 	bool writeProjectPanelsSettings();
 	bool writeColumnEditorSettings();
-	bool writeFileBrowserSettings(const std::vector<std::wstring>& rootPaths, const std::wstring& latestSelectedItemPath);
+	bool writeFileBrowserSettings(const std::vector<std::wstring>& rootPaths, const std::wstring& latestSelectedItemPath, const std::unordered_set<std::wstring>& expandedPaths = {});
 
 	static NppXml::Element getChildElementByAttribute(const NppXml::Element& element, const char* childName, const char* attributeName, const char* attributeVal);
 
@@ -1608,6 +1610,8 @@ public:
 
 	const std::vector<std::wstring>& getFileBrowserRoots() const { return _fileBrowserRoot; }
 	const std::wstring& getFileBrowserSelectedItemPath() const { return _fileBrowserSelectedItemPath; }
+	const std::unordered_set<std::wstring>& getFileBrowserExpandedPaths() const { return _fileBrowserExpandedPaths; }
+	void setFileBrowserExpandedPaths(std::unordered_set<std::wstring> paths) { _fileBrowserExpandedPaths = std::move(paths); }
 
 	void setWorkSpaceFilePath(int i, const wchar_t *wsFile);
 
@@ -1871,6 +1875,7 @@ private:
 
 	std::vector<std::wstring> _fileBrowserRoot;
 	std::wstring _fileBrowserSelectedItemPath;
+	std::unordered_set<std::wstring> _fileBrowserExpandedPaths;
 
 	Accelerator* _pAccelerator = nullptr;
 	ScintillaAccelerator* _pScintAccelerator = nullptr;

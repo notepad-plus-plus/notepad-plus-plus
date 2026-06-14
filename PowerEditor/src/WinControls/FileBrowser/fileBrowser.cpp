@@ -26,6 +26,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <cwchar>
+#include <functional>
 #include <string>
 #include <vector>
 #include <filesystem>
@@ -44,6 +45,23 @@
 #include "menuCmdID.h"
 #include "resource.h"
 
+
+std::size_t CaseInsensitivePathHash::operator()(const std::wstring& s) const noexcept
+{
+	return std::hash<std::wstring>{}(stringToLower(s));
+}
+
+bool CaseInsensitivePathEq::operator()(const std::wstring& a, const std::wstring& b) const noexcept
+{
+	return stringToLower(a) == stringToLower(b);
+}
+
+static bool startsWithCaseInsensitive(const std::wstring& path, const std::wstring& prefix)
+{
+	std::wstring lowerPath = stringToLower(path);
+	std::wstring lowerPrefix = stringToLower(prefix);
+	return lowerPath.rfind(lowerPrefix, 0) == 0;
+}
 
 enum ItemIdx
 {
@@ -734,6 +752,25 @@ void FileBrowser::notified(LPNMHDR notification)
 						_treeView.setItemImage(nmtv->itemNew.hItem, INDEX_OPEN_ROOT, INDEX_OPEN_ROOT);
 					}
 				}
+
+				if (notification->hwndFrom == _treeView.getHSelf() && !_isApplyingPersistedState)
+				{
+					recordExpandStateChange(nmtv->itemNew.hItem, nmtv->action == TVE_EXPAND);
+
+					if (nmtv->action == TVE_EXPAND)
+					{
+						for (HTREEITEM hChild = _treeView.getChildFrom(nmtv->itemNew.hItem);
+							hChild != nullptr;
+							hChild = _treeView.getNextSibling(hChild))
+						{
+							std::wstring childPath = getNodePath(hChild);
+							if (!childPath.empty() && _expandedPaths.find(childPath) != _expandedPaths.end())
+							{
+								_treeView.expand(hChild);
+							}
+						}
+					}
+				}
 			}
 			break;
 
@@ -827,10 +864,11 @@ void FileBrowser::popupMenuCmd(int cmdID)
 			if (_treeView.getParent(selectedNode) != nullptr || rootPath == nullptr)
 				return;
 
+			std::wstring removedRootPath = *rootPath;
 			size_t nbFolderUpdaters = _folderUpdaters.size();
 			for (size_t i = 0; i < nbFolderUpdaters; ++i)
 			{
-				if (_folderUpdaters[i]->_rootFolder._rootPath == *rootPath)
+				if (_folderUpdaters[i]->_rootFolder._rootPath == removedRootPath)
 				{
 					_folderUpdaters[i]->stopWatcher();
 					_folderUpdaters.erase(_folderUpdaters.begin() + i);
@@ -838,6 +876,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 					break;
 				}
 			}
+			purgeExpandStateForRoot(removedRootPath);
 		}
 		break;
 		
@@ -963,7 +1002,8 @@ void FileBrowser::popupMenuCmd(int cmdID)
 			wstring folderPath = folderBrowser(_hParent, openWorkspaceStr);
 			if (!folderPath.empty())
 			{
-				addRootFolder(folderPath);
+				purgeExpandStateForRoot(folderPath);
+				addRootFolder(folderPath, true);
 			}
 		}
 		break;
@@ -1033,7 +1073,7 @@ void FileBrowser::getDirectoryStructure(const wchar_t *dir, const std::vector<ws
 	}
 }
 
-void FileBrowser::addRootFolder(wstring rootFolderPath)
+void FileBrowser::addRootFolder(wstring rootFolderPath, bool isUserInitiatedAdd)
 {
 	if (!doesDirectoryExist(rootFolderPath.c_str()))
 		return;
@@ -1091,7 +1131,16 @@ void FileBrowser::addRootFolder(wstring rootFolderPath)
 	getDirectoryStructure(rootFolderPath.c_str(), patterns2Match, directoryStructure, true, false);
 	HTREEITEM hRootItem = createFolderItemsFromDirStruct(nullptr, directoryStructure);
 	_treeView.customSorting(hRootItem, categorySortFunc, 0, true); // needed here for possible *nix like storages (Samba, WebDAV, WSL, ...)
-	_treeView.expand(hRootItem);
+
+	if (isUserInitiatedAdd)
+	{
+		_treeView.fold(hRootItem);
+	}
+	else
+	{
+		applyExpandStateFor(hRootItem);
+	}
+
 	_folderUpdaters.push_back(new FolderUpdater(directoryStructure, this));
 	_folderUpdaters[_folderUpdaters.size() - 1]->startWatcher();
 }
@@ -1118,6 +1167,12 @@ HTREEITEM FileBrowser::createFolderItemsFromDirStruct(HTREEITEM hParentItem, con
 		sortingDataArray.push_back(customData);
 
 		hFolderItem = _treeView.addItem(directoryStructure._name.c_str(), hParentItem, INDEX_CLOSE_NODE, reinterpret_cast<LPARAM>(customData));
+	}
+
+	std::wstring folderPath = getNodePath(hFolderItem);
+	if (!folderPath.empty())
+	{
+		_materializedPaths.insert(folderPath);
 	}
 
 	for (const auto& folder : directoryStructure._subFolders)
@@ -1508,6 +1563,79 @@ bool FileBrowser::renameInTree(const wstring& rootPath, HTREEITEM node, const st
 	_treeView.customSorting(_treeView.getParent(foundItem), categorySortFunc, 0, false);
 
 	return true;
+}
+
+void FileBrowser::setExpandedPaths(const std::unordered_set<std::wstring>& paths)
+{
+	_expandedPaths.clear();
+	for (const auto& p : paths)
+	{
+		_expandedPaths.insert(p);
+	}
+}
+
+std::unordered_set<std::wstring, CaseInsensitivePathHash, CaseInsensitivePathEq> FileBrowser::getExpandedPaths() const
+{
+	std::unordered_set<std::wstring, CaseInsensitivePathHash, CaseInsensitivePathEq> result;
+	for (const auto& entry : _expandedPaths)
+	{
+		if (_materializedPaths.find(entry) != _materializedPaths.end())
+		{
+			result.insert(entry);
+		}
+	}
+	return result;
+}
+
+void FileBrowser::applyExpandStateFor(HTREEITEM rootHItem)
+{
+	_isApplyingPersistedState = true;
+
+	std::function<void(HTREEITEM)> walkAndExpand = [&](HTREEITEM hItem)
+	{
+		if (!hItem)
+			return;
+
+		std::wstring path = getNodePath(hItem);
+		if (_expandedPaths.find(path) != _expandedPaths.end())
+		{
+			_treeView.expand(hItem);
+
+			for (HTREEITEM hChild = _treeView.getChildFrom(hItem);
+				hChild != nullptr;
+				hChild = _treeView.getNextSibling(hChild))
+			{
+				walkAndExpand(hChild);
+			}
+		}
+	};
+
+	walkAndExpand(rootHItem);
+
+	_isApplyingPersistedState = false;
+}
+
+void FileBrowser::recordExpandStateChange(HTREEITEM hItem, bool expanded)
+{
+	std::wstring path = getNodePath(hItem);
+	if (path.empty())
+		return;
+
+	if (expanded)
+		_expandedPaths.insert(path);
+	else
+		_expandedPaths.erase(path);
+}
+
+void FileBrowser::purgeExpandStateForRoot(const std::wstring& rootPath)
+{
+	for (auto it = _expandedPaths.begin(); it != _expandedPaths.end(); )
+	{
+		if (startsWithCaseInsensitive(*it, rootPath))
+			it = _expandedPaths.erase(it);
+		else
+			++it;
+	}
 }
 
 int CALLBACK FileBrowser::categorySortFunc(LPARAM lParam1, LPARAM lParam2, LPARAM /*lParamSort*/)

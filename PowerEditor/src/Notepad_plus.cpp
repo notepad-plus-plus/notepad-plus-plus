@@ -973,7 +973,9 @@ bool Notepad_plus::saveFileBrowserParam()
 	{
 		vector<wstring> rootPaths = _pFileBrowser->getRoots();
 		wstring selectedItemPath = _pFileBrowser->getSelectedItemPath();
-		return (NppParameters::getInstance()).writeFileBrowserSettings(rootPaths, selectedItemPath);
+		auto expandedPaths = _pFileBrowser->getExpandedPaths();
+		std::unordered_set<std::wstring> transportPaths(expandedPaths.begin(), expandedPaths.end());
+		return (NppParameters::getInstance()).writeFileBrowserSettings(rootPaths, selectedItemPath, transportPaths);
 	}
 	return true; // nothing to save so true is returned
 }
@@ -7591,6 +7593,9 @@ void Notepad_plus::launchFileBrowser(const vector<wstring> & folders, const wstr
 	{
 		_pFileBrowser->deleteAllFromTree();
 	}
+
+	NppParameters& nppParam = NppParameters::getInstance();
+	_pFileBrowser->setExpandedPaths(nppParam.getFileBrowserExpandedPaths());
 
 	for (size_t i = 0; i <folders.size(); ++i)
 	{

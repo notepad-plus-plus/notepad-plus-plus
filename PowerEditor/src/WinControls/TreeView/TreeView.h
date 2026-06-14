@@ -115,6 +115,7 @@ public:
 	bool restoreFoldingStateFrom(const TreeStateNode & treeState2Compare, HTREEITEM treeviewNode);
 	bool retrieveFoldingStateTo(TreeStateNode & treeState2Construct, HTREEITEM treeviewNode);
 	bool searchLeafAndBuildTree(const TreeView & tree2Build, const std::wstring & text2Search, int index2Search);
+	bool searchAndBuildTreeWithAncestors(const TreeView & tree2Build, const std::wstring & text2Search, int leafImageIndex);
 	void sort(HTREEITEM hTreeItem, bool isRecusive);
 	void customSorting(HTREEITEM hTreeItem, PFNTVCOMPARE sortingCallbackFunc, LPARAM lParam, bool isRecursive);
 	bool setImageList(const std::vector<int>& imageIds, int imgSize = 0);

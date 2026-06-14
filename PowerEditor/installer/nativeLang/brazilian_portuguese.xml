@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 01 Jun 2026 for 8.9.6+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 04 Jul 2026 for 8.9.6.4+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.9.6.2">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.9.6.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -534,6 +534,7 @@ Translation note:
 				<Item id="1681" name="Procurar:"/>
 				<Item id="1685" name="Diferenciar maiúsc/minúsc"/>
 				<Item id="1690" name="Destacar todos"/>
+				<Item id="1691" name="C&amp;ontar"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Localizar caracteres em um intervalo...">
@@ -1186,6 +1187,7 @@ Translation note:
 
 				<Print title="Impressão">
 					<Item id="6601" name="Imprimir número da linha"/>
+					<Item id="6616" name="Imprimir avanço de formulário como quebra de página"/>
 					<Item id="6602" name="Opções de cores"/>
 					<Item id="6603" name="Colorido (com cor de fundo)"/>
 					<Item id="6604" name="Inverter"/>
@@ -1495,7 +1497,7 @@ Tem certeza de que deseja abri-los?"/><!-- HowToReproduce: Check "Open all files
 			<SettingsOnCloudError title="Configurações na nuvem" message="Parece que o caminho de configurações na nuvem está definido como somente leitura
 ou está em uma pasta que necessita de privilégios para escrita.
 Suas configurações na nuvem serão canceladas. Por favor, redefina um valor coerente através da caixa de diálogo Preferências."/>
-			<FilePathNotFoundWarning title="Abrir arquivo" message="O arquivo que você está tentando abrir não existe."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<FilePathNotFoundWarning title="Abrir caminho" message="O caminho que você está tentando abrir não existe."/>
 			<SessionFileInvalidError title="Não foi possível carregar a sessão" message="O arquivo de sessão está corrompido ou não é válido."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Você só pode soltar arquivos ou pastas, mas não ambos, porque você está soltando Pasta como modo Projeto.
 É necessário habilitar &quot;Abrir todos os arquivos da pasta em vez de usar a pasta como espaço de trabalho&quot; na seção &quot;Diretório padrão&quot; da opção Preferências para que esta operação funcione."/>
@@ -1811,7 +1813,8 @@ O texto colado neste campo inclui caracteres invisíveis (talvez caracter de fin
 			<finder-wrap-long-lines value="Quebra de linha em linhas longas"/>
 			<common-ok value="OK"/>
 			<common-cancel value="Cancelar"/>
-			<common-name value="Nome: "/>
+			<common-name value="Nome"/>
+			<common-error value="Erro"/>
 			<tabrename-title value="Renomear aba atual"/>
 			<tabrename-newname value="Novo nome: "/>
 			<splitter-rotate-left value="Girar para a esquerda"/>
@@ -1833,6 +1836,7 @@ O texto colado neste campo inclui caracteres invisíveis (talvez caracter de fin
 			<progress-hits-title value="Ocorrências:"/>
 			<progress-cancel-info value="Cancelando operação, aguarde..."/>
 			<find-in-files-progress-title value="Progresso do Localizar nos arquivos..."/>
+			<discover-file-candidates-title value="Descobrindo arquivos candidatos..."/>
 			<replace-in-files-confirm-title value="Tem certeza?"/>
 			<replace-in-files-confirm-directory value="Tem certeza de que deseja substituir todas as ocorrências em:"/>
 			<replace-in-files-confirm-filetype value="Para o tipo de arquivo:"/>
@@ -1858,7 +1862,6 @@ O texto colado neste campo inclui caracteres invisíveis (talvez caracter de fin
 			<tab-untitled-string value="novo "/>
 			<file-save-assign-type value="&amp;Acrescentar extensão"/>
 			<close-panel-tip value="Fechar"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ ocorrências"/>
 			<IncrementalFind-FSNotFound value="Frase não encontrada"/>
 			<IncrementalFind-FSTopReached value="Chegou ao começo da página, continuando do final"/>
 			<IncrementalFind-FSEndReached value="Chegou ao final da página, continuando do começo"/>

@@ -34,8 +34,69 @@ namespace NppXml
 
 	[[nodiscard]] inline pugi::string_t normalizeEOL(const pugi::string_t& text);
 
-	[[nodiscard]] inline bool loadFile(Document doc, const wchar_t* filename) {
-		return doc->load_file(filename, pugi::parse_default | pugi::parse_comments | pugi::parse_declaration);
+	[[nodiscard]] inline bool loadFile(Document doc, const wchar_t* filename, bool bReportIfError = false) {
+		//return doc->load_file(filename, pugi::parse_default | pugi::parse_comments | pugi::parse_declaration);
+		const pugi::xml_parse_result result = doc->load_file(filename, pugi::parse_default | pugi::parse_comments | pugi::parse_declaration);
+		if (result.status == pugi::xml_parse_status::status_ok) {
+			return true;
+		}
+		else {
+			if (bReportIfError) {
+				const wchar_t* szEncoding;
+				switch (result.encoding) {
+					case pugi::xml_encoding::encoding_auto:
+						szEncoding = L"auto (via BOM or < / <? detection, UTF8 if BOM not found)";
+						break;
+					case pugi::xml_encoding::encoding_utf8:
+						szEncoding = L"utf8";
+						break;
+					case pugi::xml_encoding::encoding_utf16_le:
+						szEncoding = L"utf16_le";
+						break;
+					case pugi::xml_encoding::encoding_utf16_be:
+						szEncoding = L"utf16_be";
+						break;
+					case pugi::xml_encoding::encoding_utf16:
+						szEncoding = L"utf16 (native endianness)";
+						break;
+					case pugi::xml_encoding::encoding_utf32_le:
+						szEncoding = L"utf32_le";
+						break;
+					case pugi::xml_encoding::encoding_utf32_be:
+						szEncoding = L"utf32_be";
+						break;
+					case pugi::xml_encoding::encoding_utf32:
+						szEncoding = L"utf32 (native endianness)";
+						break;
+					case pugi::xml_encoding::encoding_wchar:
+						szEncoding = L"wchar (either UTF16 or UTF32)";
+						break;
+					case pugi::xml_encoding::encoding_latin1:
+						szEncoding = L"latin1";
+						break;
+					default:
+						szEncoding = L"unknown enum: ";
+				}
+
+				std::wstring wstrDescription;
+				const int descLen = ::MultiByteToWideChar(CP_ACP, 0, result.description(), -1, nullptr, 0);
+				if (descLen > 0)
+				{
+					wstrDescription.resize(descLen - 1, L'\0');
+					::MultiByteToWideChar(CP_ACP, 0, result.description(), -1, wstrDescription.data(), descLen);
+				}
+
+				std::wstring msg = filename;
+				msg += L"\n\n- status: " + std::to_wstring(result.status) + L" (" + wstrDescription + L")";
+				msg += L"\n- last parsed offset: " + std::to_wstring(result.offset) + L" (char_t units)";
+				msg += L"\n- source document encoding: ";
+				msg += szEncoding;
+				msg += (lstrcmpW(szEncoding, L"unknown enum: ") == 0) ? std::to_wstring(result.encoding) : L"";
+
+				::MessageBoxW(nullptr, msg.c_str(), L"pugixml::load_file", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
+			}
+			return false;
+		}
 	}
 
 	[[nodiscard]] inline bool saveFile(const Document doc, const wchar_t* filename) {

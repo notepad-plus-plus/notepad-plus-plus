@@ -235,7 +235,7 @@ void Gripper::create()
         DWORD dwError = ::GetLastError();
         wchar_t  str[128];
         ::wsprintf(str, L"GetLastError() returned %lu", dwError);
-        ::MessageBox(NULL, str, L"SetWindowsHookEx(MOUSE) failed on Gripper::create()", MB_OK | MB_ICONERROR);
+		NppDarkMode::darkMessageBoxW(nullptr, str, L"SetWindowsHookEx(MOUSE) failed on Gripper::create()", MB_OK | MB_ICONERROR);
     }
 
 	if (ver != WV_UNKNOWN && ver < WV_VISTA)
@@ -246,7 +246,7 @@ void Gripper::create()
 			DWORD dwError = ::GetLastError();
 			wchar_t  str[128];
 			::wsprintf(str, L"GetLastError() returned %lu", dwError);
-			::MessageBox(NULL, str, L"SetWindowsHookEx(KEYBOARD) failed on Gripper::create()", MB_OK | MB_ICONERROR);
+			NppDarkMode::darkMessageBoxW(nullptr, str, L"SetWindowsHookEx(KEYBOARD) failed on Gripper::create()", MB_OK | MB_ICONERROR);
 		}
 	}
 //  Removed regarding W9x systems

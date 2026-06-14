@@ -413,7 +413,7 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 					msg = stringReplace(msg, L"$STR_REPLACE1$", longFileName);
 					msg = stringReplace(msg, L"$STR_REPLACE2$", longFileDir);
 				}
-				::MessageBox(_pPublicInterface->getHSelf(), msg.c_str(), title.c_str(), MB_OK);
+				NppDarkMode::darkMessageBoxW(_pPublicInterface->getHSelf(), msg.c_str(), title.c_str(), MB_OK);
 			}
 
 			if (!isCreateFileSuccessful)
@@ -727,7 +727,7 @@ bool Notepad_plus::doSave(BufferID id, const wchar_t * filename, bool isCopy)
 		if (!(NppParameters::getInstance()).isEndSessionCritical()) // can we report to the user?
 		{
 			wstring errorMessage = GetLastErrorAsString(::GetLastError());
-			::MessageBox(_pPublicInterface->getHSelf(), errorMessage.c_str(), L"Save failed", MB_OK | MB_ICONWARNING);
+			NppDarkMode::darkMessageBoxW(_pPublicInterface->getHSelf(), errorMessage.c_str(), L"Save failed", MB_OK | MB_ICONWARNING);
 		}
 	}
 	else if (res == SavingStatus::SaveOpenFailed)

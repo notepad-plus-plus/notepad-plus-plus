@@ -30,6 +30,7 @@
 
 #include "Common.h"
 #include "IDAllocator.h"
+#include "NppDarkMode.h"
 #include "PluginInterface.h"
 #include "resource.h"
 
@@ -143,7 +144,7 @@ private:
 		std::wstring msg = pluginName;
 		msg += L" just crashed in\r";
 		msg += funcSignature;
-		::MessageBox(NULL, msg.c_str(), L"Plugin Crash", MB_OK|MB_ICONSTOP);
+		NppDarkMode::darkMessageBoxW(nullptr, msg.c_str(), L"Plugin Crash", MB_OK | MB_ICONSTOP);
 	}
 
 	static void pluginExceptionAlert(const wchar_t* pluginName, const std::exception& e) {
@@ -152,7 +153,7 @@ private:
 		msg += L"\r\n\r\nException reason: ";
 		msg += string2wstring(e.what(), CP_UTF8);
 
-		::MessageBox(NULL, msg.c_str(), L"Plugin Exception", MB_OK);
+		NppDarkMode::darkMessageBoxW(nullptr, msg.c_str(), L"Plugin Exception", MB_OK);
 	}
 
 	bool isInLoadedDlls(const wchar_t* fn) const {

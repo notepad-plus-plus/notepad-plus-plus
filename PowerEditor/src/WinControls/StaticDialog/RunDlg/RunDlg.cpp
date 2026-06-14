@@ -255,7 +255,7 @@ HINSTANCE Command::run(HWND hWnd, const wchar_t* cwd)
 		errorMsg += intToString(retResult);
 		errorMsg += L"\n----------------------------------------------------------";
 
-		::MessageBox(hWnd, errorMsg.c_str(), L"ShellExecute - ERROR", MB_ICONINFORMATION | MB_APPLMODAL);
+		NppDarkMode::darkMessageBoxW(hWnd, errorMsg.c_str(), L"ShellExecute - ERROR", MB_ICONINFORMATION | MB_APPLMODAL);
 	}
 
 	return res;

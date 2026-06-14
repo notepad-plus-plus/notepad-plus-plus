@@ -14,14 +14,32 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include "StaticDialog.h"
+
 #include "RunDlg.h"
+
+#include <windows.h>
+
+#include <strsafe.h>
+
+#include <algorithm>
+#include <cwchar>
+#include <string>
+#include <vector>
+
+#include "Common.h"
+#include "ContextMenu.h"
 #include "CustomFileDialog.h"
 #include "Notepad_plus_msgs.h"
-#include "shortcut.h"
+#include "NppDarkMode.h"
 #include "Parameters.h"
-#include "Notepad_plus.h"
-#include <strsafe.h>
+#include "RunDlg_rc.h"
+#include "StaticDialog.h"
+#include "Window.h"
+#include "dpiManagerV2.h"
+#include "localization.h"
+#include "menuCmdID.h"
+#include "resource.h"
+#include "shortcut.h"
 
 using namespace std;
 
@@ -30,7 +48,7 @@ void Command::extractArgs(wchar_t* cmd2Exec, size_t cmd2ExecLen, wchar_t* args, 
 	size_t i = 0;
 	bool quoted = false;
 
-	size_t cmdEntierLen = lstrlen(cmdEntier);
+	size_t cmdEntierLen = std::wcslen(cmdEntier);
 
 	size_t shortest = std::min<size_t>(cmd2ExecLen, argsLen);
 
@@ -113,7 +131,7 @@ void expandNppEnvironmentStrs(const wchar_t *strSrc, wchar_t *stringDest, size_t
 		if ((strSrc[i] == '$') && (strSrc[i+1] == '('))
 		{
 			iBegin = i += 2;
-			for (size_t len2 = size_t(lstrlen(strSrc)); size_t(i) < len2 ; ++i)
+			for (size_t len2 = std::wcslen(strSrc); static_cast<size_t>(i) < len2 ; ++i)
 			{
 				if (strSrc[i] == ')')
 				{
@@ -154,7 +172,7 @@ void expandNppEnvironmentStrs(const wchar_t *strSrc, wchar_t *stringDest, size_t
 					else
 						::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(expandedStr));
 
-					for (size_t p = 0, len3 = size_t(lstrlen(expandedStr)); p < len3; ++p)
+					for (size_t p = 0, len3 = std::wcslen(expandedStr); p < len3; ++p)
 					{
 						if (j < (strDestLen-1))
 							stringDest[j++] = expandedStr[p];
@@ -397,7 +415,7 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 					NppParameters& nppParams = NppParameters::getInstance();
 					std::vector<UserCommand> & theUserCmds = nppParams.getUserCommandList();
 
-					int nbCmd = static_cast<int32_t>(theUserCmds.size());
+					const auto nbCmd = static_cast<int>(theUserCmds.size());
 					int cmdID = ID_USER_CMD + nbCmd;
 
 					DynamicMenu& runMenu = nppParams.getRunMenuItems();

@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.9.6.2">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.9.6.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1183,6 +1183,7 @@
 
 				<Print title="Tlač">
 					<Item id="6601" name="Tlačiť čísla &amp;riadkov"/>
+					<Item id="6616" name="Vytlačiť posun formulára ako koniec strany"/>
 					<Item id="6602" name="Možnosti &amp;farieb"/>
 					<Item id="6603" name="&amp;WYSIWYG"/>
 					<Item id="6604" name="Inv&amp;ertovať"/>

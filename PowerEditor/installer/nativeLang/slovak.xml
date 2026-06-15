@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.9.6.2">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.9.6.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -532,18 +532,19 @@
 				<Item id="1681" name="Hľadať:"/>
 				<Item id="1685" name="&amp;Rozlišovať veľkosť písmen"/>
 				<Item id="1690" name="&amp;Zvýrazniť všetky"/>
+				<Item id="1691" name="P&amp;očet"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Hľadať znaky v rozsahu…">
 				<Item id="2" name="&amp;Zavrieť"/>
 				<Item id="2901" name="&amp;Nie-ASCII znaky (128 – 255)"/>
-				<Item id="2902" name="&amp;ASCII znaky (0 – 127)"/>
+				<Item id="2902" name="ASCII z&amp;naky (0 – 127)"/>
 				<Item id="2903" name="Vlastný &amp;rozsah (0 – 255):"/>
 				<Item id="2906" name="&amp;Hore"/>
 				<Item id="2907" name="&amp;Dole"/>
 				<Item id="2908" name="Smer"/>
 				<Item id="2909" name="&amp;Cyklicky"/>
-				<Item id="2910" name="&amp;Hľadať"/>
+				<Item id="2910" name="Hľ&amp;adať"/>
 			</FindCharsInRange>
 
 			<GoToLine title="Ísť na…">
@@ -1183,6 +1184,7 @@
 
 				<Print title="Tlač">
 					<Item id="6601" name="Tlačiť čísla &amp;riadkov"/>
+					<Item id="6616" name="Vytlačiť posun formulára ako koniec strany"/>
 					<Item id="6602" name="Možnosti &amp;farieb"/>
 					<Item id="6603" name="&amp;WYSIWYG"/>
 					<Item id="6604" name="Inv&amp;ertovať"/>
@@ -1492,7 +1494,7 @@ Naozaj ich chcete otvoriť?"/><!-- HowToReproduce: Check "Open all files of fold
 			<SettingsOnCloudError title="Nastavenia v cloude" message="Zdá sa, že cesta ku cloudu s nastaveniami je nastavená na jednotku určenú iba na čítanie
 alebo na priečinok bez oprávnenia na zápis.
 Uloženie vašich nastavení do cloudu bude zrušené. Znovu, prosím, nastavte zodpovedajúcu hodnotu v ponuke &quot;Nastavenia -> Predvoľby… -> Odkaz na cloud&quot;."/>
-			<FilePathNotFoundWarning title="Otvoriť súbor" message="Súbor, ktorý sa pokúšate otvoriť, neexistuje."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<FilePathNotFoundWarning title="Otvoriť cestu" message="Cesta, ktorú sa pokúšate otvoriť, neexistuje."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SessionFileInvalidError title="Reláciu nie je možné načítať" message="Súbor relácie je poškodený alebo neplatný."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Neplatná operácia" message="Preťahovať môžete buď len súbory, alebo len adresáre. Nie oboje súčasne, pretože máte aktivovaný režim otvárania priečinka ako pracovného priestoru.
 Aby táto operácia fungovala, musíte povoliť položku &quot;Pri pretiahnutí priečinka myšou otvoriť súbory v priečinku, nie panel prac. priestoru&quot; v ponuke &quot;Nastavenia -> Predvoľby… -> Predvolený priečinok&quot;."/>
@@ -1809,6 +1811,7 @@ Text vložený do tohto poľa obsahuje neviditeľné znaky (asi znaky konca riad
 			<common-ok value="OK"/>
 			<common-cancel value="Zrušiť"/>
 			<common-name value="Názov"/>
+			<common-error value="Chyba"/>
 			<tabrename-title value="Premenovať aktuálnu kartu"/>
 			<tabrename-newname value="Nový názov"/>
 			<splitter-rotate-left value="Otočiť doľava"/>
@@ -1830,6 +1833,7 @@ Text vložený do tohto poľa obsahuje neviditeľné znaky (asi znaky konca riad
 			<progress-hits-title value="Nájdené:"/>
 			<progress-cancel-info value="Ruší sa operácia, čakajte, prosím…"/>
 			<find-in-files-progress-title value="Prebieha hľadanie v súboroch…"/>
+			<discover-file-candidates-title value="Vyhľadávajú sa vhodné súbory…"/>
 			<replace-in-files-confirm-title value="Naozaj?"/>
 			<replace-in-files-confirm-directory value="Naozaj chcete nahradiť všetky výskyty v:"/>
 			<replace-in-files-confirm-filetype value="Pre typ súboru:"/>
@@ -1855,7 +1859,6 @@ Text vložený do tohto poľa obsahuje neviditeľné znaky (asi znaky konca riad
 			<tab-untitled-string value="nový "/>
 			<file-save-assign-type value="&amp;Pripojiť príponu"/>
 			<close-panel-tip value="Zavrieť"/>
-			<IncrementalFind-FSFound value="Počet výskytov: $INT_REPLACE$"/>
 			<IncrementalFind-FSNotFound value="Fráza sa nenašla"/>
 			<IncrementalFind-FSTopReached value="Dosiahnutý začiatok strany, pokračovanie zdola"/>
 			<IncrementalFind-FSEndReached value="Dosiahnutý koniec strany, pokračovanie zhora"/>

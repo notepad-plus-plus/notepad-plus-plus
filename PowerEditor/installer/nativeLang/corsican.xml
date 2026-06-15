@@ -12,7 +12,8 @@ Additionnal information about Corsican localization:
 
 2. History of Corsican translation for Notepad++:
 
-	- Updated in 2026 by Patriccollu di Santa Maria è Sichè: Feb. 10th (v8.9.1+), Mar. 10th (v8.9.2+), May 17th (v8.9.5+)
+	- Updated in 2026 by Patriccollu di Santa Maria è Sichè: Feb. 10th (v8.9.1+), Mar. 10th (v8.9.2+), May 17th (v8.9.5+),
+			  June 15th (v8.9.6.4+)
 	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8), Apr. 20th (v8.8),
 			  June 26th (v8.8.1+), July 24th (v8.8.3+), Sep. 30th (v8.8.5+), Dec. 12th (v8.8.9+)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
@@ -37,7 +38,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.9.5">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.9.6.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -122,6 +123,7 @@ Additionnal information about Corsican localization:
 					<Item id="41002" name="&amp;Apre…"/>
 					<Item id="41019" name="Espluratore"/>
 					<Item id="41020" name="Invitu di cumanda"/>
+					<Item id="41027" name="PowerShell"/>
 					<Item id="41025" name="Cartulare cum’&amp;è spaziu di travagliu"/>
 					<Item id="41003" name="&amp;Chjode"/>
 					<Item id="41004" name="Chjodeli &amp;tutti"/>
@@ -432,6 +434,7 @@ Additionnal information about Corsican localization:
 					<Item id="48511" name="Ingenerà per certi schedarii…"/>
 					<Item id="48512" name="Ingenerà in u preme’papei per a selezzione"/>
 					<Item id="49000" name="&amp;Lancià…"/>
+					<Item id="49001" name="Cunvalidà shortcuts.xml"/>
 
 					<Item id="50000" name="Cumpiimentu di funzione"/>
 					<Item id="50001" name="Cumpiimentu di parolla"/>
@@ -473,6 +476,7 @@ Additionnal information about Corsican localization:
 				<Item CMDID="1" name="Apre in"/>
 				<Item CMDID="41019" name="Apre cù l’espluratore u cartulare cuntenendu u schedariu"/>
 				<Item CMDID="41020" name="Apre cù l’invitu di cumanda u cartulare cuntenendu u schedariu"/>
+				<Item CMDID="41027" name="Apre cù PowerShell u cartulare cuntenendu u schedariu"/>
 				<Item CMDID="41025" name="Apre u cartulare cuntenendu u schedariu cum’è spaziu di travagliu"/>
 				<Item CMDID="41023" name="Apre in l’appiecazione predefinita"/>
 				<Item CMDID="41017" name="Rinuminà…"/>
@@ -715,6 +719,8 @@ Additionnal information about Corsican localization:
 				<MainCommandNames>
 					<Item id="41019" name="Apre cù l’espluratore u cartulare cuntenendu u schedariu"/>
 					<Item id="41020" name="Apre cù l’invitu di cumanda u cartulare cuntenendu u schedariu"/>
+					<Item id="41027" name="Apre cù PowerShell u cartulare cuntenendu u schedariu"/>
+					<Item id="41025" name="Apre u cartulare cuntenendu u schedariu cum’è spaziu di travagliu"/>
 					<Item id="41021" name="Risturà u schedariu chjosu pocu fà"/>
 					<Item id="45001" name="Cunversione di fine di linea à u furmatu Windows (CR LF)"/>
 					<Item id="45002" name="Cunversione di fine di linea à u furmatu Unix (LF)"/>
@@ -1210,7 +1216,8 @@ Additionnal information about Corsican localization:
 				</Highlighting>
 
 				<Print title="Stampà">
-					<Item id="6601" name="Stampà u &amp;numeru di linea"/>
+					<Item id="6601" name="Stamp&amp;à u numeru di linea"/>
+					<Item id="6616" name="Stampà &amp;FF (FormFeed) cum’è saltu di pagina"/>
 					<Item id="6602" name="Ozzioni di culore"/>
 					<Item id="6603" name="Tale è quale (&amp;WYSIWYG)"/>
 					<Item id="6604" name="In&amp;vertisce"/>
@@ -1220,8 +1227,8 @@ Additionnal information about Corsican localization:
 					<Item id="6612" name="&amp;Manca"/>
 					<Item id="6613" name="In&amp;sù"/>
 					<Item id="6614" name="&amp;Diritta"/>
-					<Item id="6615" name="In&amp;ghjò"/>
-					<Item id="6706" name="Gra&amp;ssu"/>
+					<Item id="6615" name="I&amp;nghjò"/>
+					<Item id="6706" name="&amp;Grassu"/>
 					<Item id="6707" name="&amp;Italicu"/>
 					<Item id="6708" name="Intestatura"/>
 					<Item id="6709" name="&amp;Parte à manu manca"/>
@@ -1649,9 +1656,15 @@ S’è vo avete bisognu di a funzione di ricerca RegEx à l’arritrosa, lighjit
 Ci vole à verificà a cundizione di ricerca prima di fà l’azzione."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ richiede d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per affissà l’accurtatoghji di u listinu di diritta."/>
 			<NoAdminRight2ChangeReadOnlyFileAttribute title="Fiascu di u cambiamentu d’attributu di lettura sola di u schedariu" message="Ci vole à lancià Notepad++ in modu Amministratore per cambià l’attributi di u schedariu."/>
-			<ReadOnlyFileCannotBeSaved title="Fiascu d’arregistramentu ; schedariu in lettura sola" message="&quot;$STR_REPLACE$&quot;
+			<ReadOnlyFileCannotBeSaved title="Fiascu d’arregistramentu ; schedariu in lettura sola" message="« $STR_REPLACE$ »
 U schedariu hè in lettura sola è ùn pò micca esse arregistratu.
 Ci vole à caccià a lettura sola eppò arregistrà u vostru schedariu."/>
+			<ShortcutsXmlHMACMissing title="Avertimentu di sicurità" message="L’infurmazione di sicurità per shortcuts.xml hè assente in config.xml.
+
+Per raghjoni di sicurità, l’integrità di shortcuts.xml hà da esse verificata. Per lancià a vostra cumanda persunalizata, ci vole à esaminà u schedariu shortcuts.xml chì hè apertu. S’è u so cuntenutu hè currettu, impiegate l’ozzione « Cunvalidà shortcuts.xml » di u listinu « Lancià » per cunfirmallu."/>
+			<ShortcutsXmlTampered title="Avertimentu di sicurità" message="U schedariu shortcuts.xml pare esse statu mudificatu manualmente.
+
+Per raghjoni di sicurità, ci vole à esaminà u schedariu shortcuts.xml chì hè apertu. S’è u so cuntenutu hè currettu, impiegate l’ozzione « Cunvalidà shortcuts.xml » di u listinu « Lancià » per cunfirmallu."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Cronolugia di u preme’papei"/>
@@ -1709,6 +1722,7 @@ Ci vole à caccià a lettura sola eppò arregistrà u vostru schedariu."/>
 				<Item id="3518" name="Espluratore quì"/>
 				<Item id="3519" name="CMD quì"/>
 				<Item id="3520" name="Cupià u nome di schedariu"/>
+				<Item id="3521" name="PowerShell quì"/>
 			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>

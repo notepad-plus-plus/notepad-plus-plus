@@ -188,33 +188,35 @@ FunctionEnd
 
 
 Function writeInstallInfoInRegistry
-	WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe" "" "$INSTDIR\notepad++.exe"
-	
-	WriteRegStr HKLM "Software\${APPNAME}" "" "$INSTDIR"
+	; SHCTX follows the install mode: HKLM for all-users, HKCU for a per-user install.
+	WriteRegStr SHCTX "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe" "" "$INSTDIR\notepad++.exe"
+
+	WriteRegStr SHCTX "Software\${APPNAME}" "" "$INSTDIR"
+	WriteRegStr SHCTX "Software\${APPNAME}" "InstallMode" "$MultiUserInstallMode" ; read back by the uninstaller
 	!ifdef ARCH64
-		WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayName" "${APPNAME} (64-bit x64)"
+		WriteRegStr SHCTX "${UNINSTALL_REG_KEY}" "DisplayName" "${APPNAME} (64-bit x64)"
 	!else ifdef ARCHARM64
-		WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayName" "${APPNAME} (ARM 64-bit)"
+		WriteRegStr SHCTX "${UNINSTALL_REG_KEY}" "DisplayName" "${APPNAME} (ARM 64-bit)"
 	!else
-		WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayName" "${APPNAME} (32-bit x86)"
+		WriteRegStr SHCTX "${UNINSTALL_REG_KEY}" "DisplayName" "${APPNAME} (32-bit x86)"
 	!endif
-	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "Publisher" "Notepad++ Team"
-	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "MajorVersion" "${VERSION_MAJOR}"
-	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "MinorVersion" "${VERSION_MINOR}"
-	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "UninstallString" '"$INSTDIR\uninstall.exe"'
-	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "QuietUninstallString" '"$INSTDIR\uninstall.exe" /S'
-	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayIcon" "$INSTDIR\notepad++.exe"
-	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayVersion" "${APPVERSION}"
-	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "URLInfoAbout" "${APPWEBSITE}"
-	WriteRegDWORD HKLM "${UNINSTALL_REG_KEY}" "VersionMajor" ${VERSION_MAJOR}
-	WriteRegDWORD HKLM "${UNINSTALL_REG_KEY}" "VersionMinor" ${VERSION_MINOR}
-	WriteRegDWORD HKLM "${UNINSTALL_REG_KEY}" "NoModify" 1
-	WriteRegDWORD HKLM "${UNINSTALL_REG_KEY}" "NoRepair" 1
+	WriteRegStr SHCTX "${UNINSTALL_REG_KEY}" "Publisher" "Notepad++ Team"
+	WriteRegStr SHCTX "${UNINSTALL_REG_KEY}" "MajorVersion" "${VERSION_MAJOR}"
+	WriteRegStr SHCTX "${UNINSTALL_REG_KEY}" "MinorVersion" "${VERSION_MINOR}"
+	WriteRegStr SHCTX "${UNINSTALL_REG_KEY}" "UninstallString" '"$INSTDIR\uninstall.exe"'
+	WriteRegStr SHCTX "${UNINSTALL_REG_KEY}" "QuietUninstallString" '"$INSTDIR\uninstall.exe" /S'
+	WriteRegStr SHCTX "${UNINSTALL_REG_KEY}" "DisplayIcon" "$INSTDIR\notepad++.exe"
+	WriteRegStr SHCTX "${UNINSTALL_REG_KEY}" "DisplayVersion" "${APPVERSION}"
+	WriteRegStr SHCTX "${UNINSTALL_REG_KEY}" "URLInfoAbout" "${APPWEBSITE}"
+	WriteRegDWORD SHCTX "${UNINSTALL_REG_KEY}" "VersionMajor" ${VERSION_MAJOR}
+	WriteRegDWORD SHCTX "${UNINSTALL_REG_KEY}" "VersionMinor" ${VERSION_MINOR}
+	WriteRegDWORD SHCTX "${UNINSTALL_REG_KEY}" "NoModify" 1
+	WriteRegDWORD SHCTX "${UNINSTALL_REG_KEY}" "NoRepair" 1
 	
 	${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2
 	IfErrors +3 0
 	IntFmt $0 "0x%08X" $0
-	WriteRegDWORD HKLM "${UNINSTALL_REG_KEY}" "EstimatedSize" "$0"
+	WriteRegDWORD SHCTX "${UNINSTALL_REG_KEY}" "EstimatedSize" "$0"
 	
 	WriteUninstaller "$INSTDIR\uninstall.exe"
 FunctionEnd

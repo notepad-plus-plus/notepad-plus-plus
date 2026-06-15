@@ -747,10 +747,9 @@ void Notepad_plus::command(int id)
 			if (dwRequiredSize > 0)
 			{
 				// Try to expand environment strings, nevertheless currentWord is copied with or without expansion
-				fullTargetPath.resize(dwRequiredSize, L'\0');
-				::ExpandEnvironmentStringsW(currentWord.get(), fullTargetPath.data(), dwRequiredSize);
-				if (!fullTargetPath.empty() && fullTargetPath.back() == L'\0')
-					fullTargetPath.pop_back(); // remove superfluous null-terminator (added by ExpandEnvironmentStringsW)
+				auto targetPath = std::make_unique<wchar_t[]>(dwRequiredSize);
+				::ExpandEnvironmentStringsW(currentWord.get(), targetPath.get(), dwRequiredSize);
+				fullTargetPath = targetPath.get();
 			}
 			else
 			{
@@ -804,11 +803,11 @@ void Notepad_plus::command(int id)
 					return;
 				}
 
-				wchar_t cmd2Exec[CURRENTWORD_MAXLENGTH] = { '\0' };
-				::SendMessage(hwnd, NPPM_GETNPPFULLFILEPATH, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(cmd2Exec));
+				wchar_t npp2Exec[CURRENTWORD_MAXLENGTH] = { '\0' };
+				::SendMessage(hwnd, NPPM_GETNPPFULLFILEPATH, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(npp2Exec));
 
 				fullTargetPath = L"\"" + fullTargetPath + L"\"";
-				::ShellExecute(hwnd, L"open", cmd2Exec, fullTargetPath.c_str(), L".", SW_SHOW);
+				::ShellExecute(hwnd, L"open", npp2Exec, fullTargetPath.c_str(), L".", SW_SHOW);
 			}
 			break;
 		}

@@ -1190,6 +1190,7 @@ Translation note:
 
 				<Print title="印刷">
 					<Item id="6601" name="行番号を印刷する(&amp;U)"/>
+					<Item id="6616" name="formfeed制御文字を改ページとして扱う(&amp;S)"/>
 					<Item id="6602" name="色"/>
 					<Item id="6603" name="編集画面の表示のまま(&amp;Y)"/>
 					<Item id="6604" name="反転(&amp;N)"/>

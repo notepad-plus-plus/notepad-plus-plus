@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: June 4, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: June 16, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
@@ -1196,7 +1196,8 @@
 				</Highlighting>
 
 				<Print title="Ispisivanje">
-					<Item id="6601" name="Ispi&amp;ši brojeve redaka"/>
+					<Item id="6601" name="Ispiši &amp;brojeve redaka"/>
+					<Item id="6616" name="Ispiši &amp;formfeed kao prijelom stranice"/>
 					<Item id="6602" name="Mogućnosti boja"/>
 					<Item id="6603" name="&amp;WYSIWYG"/>
 					<Item id="6604" name="&amp;Inverzija boja"/>
@@ -1218,7 +1219,7 @@
 					<Item id="6719" name="Podnožje"/>
 					<Item id="6720" name="Lije&amp;vo"/>
 					<Item id="6721" name="Sredin&amp;a"/>
-					<Item id="6722" name="Desn&amp;o"/>
+					<Item id="6722" name="Des&amp;no"/>
 					<Item id="6723" name="Doda&amp;ti"/>
 					<ComboBox id="6724">
 						<Element name="Naziv i puni put"/>

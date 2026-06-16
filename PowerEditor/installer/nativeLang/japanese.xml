@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.9.6.2">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.9.6.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -538,6 +538,7 @@ Translation note:
 				<Item id="1681" name="検索文字列:"/>
 				<Item id="1685" name="大/小文字を区別(&amp;C)"/>
 				<Item id="1690" name="すべてハイライト(&amp;H)"/>
+				<Item id="1691" name="一致数を表示(&amp;O)"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="文字範囲を指定して検索...">
@@ -1190,6 +1191,7 @@ Translation note:
 
 				<Print title="印刷">
 					<Item id="6601" name="行番号を印刷する(&amp;U)"/>
+					<Item id="6616" name="formfeed制御文字を改ページとして扱う(&amp;S)"/>
 					<Item id="6602" name="色"/>
 					<Item id="6603" name="編集画面の表示のまま(&amp;Y)"/>
 					<Item id="6604" name="反転(&amp;N)"/>
@@ -1499,8 +1501,7 @@ Translation note:
 本当に開きますか?"/>
 			<SettingsOnCloudError title="警告: クラウド設定" message="クラウドのパスが、読み込み専用ドライブか、書き込み権限が必要なフォルダーに設定されています。
 クラウドの設定はキャンセルされます。環境設定画面で正しい場所を指定し直して下さい。"/>
-
-			<FilePathNotFoundWarning title="警告: ファイルを開く" message="指定されたファイルは存在しません。"/>
+			<FilePathNotFoundWarning title="警告: パスを開く" message="指定されたパスは存在しません。"/>
 			<SessionFileInvalidError title="セッションを読み込めません" message="セッションファイルが破損しているか、正しい形式ではありません。"/>
 			<DroppingFolderAsProjectModeWarning title="無効な操作です" message="「フォルダーをプロジェクトとして開く」設定になっているため、ファイルとフォルダーを同時にドロップして開くことはできません。
 この操作を使いたい場合、「環境設定」を開き、「既定のディレクトリ」の「フォルダーをドロップした時、ワークスペースとせずに すべてのファイルを開く」を有効にして下さい。"/>
@@ -1812,6 +1813,7 @@ OKボタンを押すと検索ダイアログが開きます。
 			<common-ok value="OK"/>
 			<common-cancel value="ｷｬﾝｾﾙ"/>
 			<common-name value="名前"/>
+			<common-error value="エラー"/>
 			<tabrename-title value="現ﾀﾌﾞのﾌｧｲﾙ名を変更"/>
 			<tabrename-newname value="新ﾌｧｲﾙ名"/>
 			<splitter-rotate-left value="左回りに回す"/>
@@ -1833,6 +1835,7 @@ OKボタンを押すと検索ダイアログが開きます。
 			<progress-hits-title value="一致件数:"/>
 			<progress-cancel-info value="キャンセルしています。お待ちください..."/>
 			<find-in-files-progress-title value="複数ファイル内を検索中..."/>
+			<discover-file-candidates-title value="対象のファイルを列挙中..."/>
 			<replace-in-files-confirm-title value="本当によろしいですか？"/>
 			<replace-in-files-confirm-directory value="下記ディレクトリ内の該当箇所をすべて置換しようとしています。よろしいですか？"/>
 			<replace-in-files-confirm-filetype value="ファイルの種類："/>
@@ -1858,7 +1861,6 @@ OKボタンを押すと検索ダイアログが開きます。
 			<tab-untitled-string value="新規"/>
 			<file-save-assign-type value="拡張子をつける(&amp;A)"/>
 			<close-panel-tip value="閉じる"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ 件の一致"/>
 			<IncrementalFind-FSNotFound value="見つかりません"/>
 			<IncrementalFind-FSTopReached value="文書の先頭に達したため、末尾から検索しました"/>
 			<IncrementalFind-FSEndReached value="文書の末尾に達したため、先頭から検索しました"/>

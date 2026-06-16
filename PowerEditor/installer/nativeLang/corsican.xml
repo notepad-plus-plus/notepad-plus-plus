@@ -13,7 +13,7 @@ Additionnal information about Corsican localization:
 2. History of Corsican translation for Notepad++:
 
 	- Updated in 2026 by Patriccollu di Santa Maria è Sichè: Feb. 10th (v8.9.1+), Mar. 10th (v8.9.2+), May 17th (v8.9.5+),
-			  June 15th (v8.9.6.4+)
+			  June 17h (v8.9.6.4+)
 	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8), Apr. 20th (v8.8),
 			  June 26th (v8.8.1+), July 24th (v8.8.3+), Sep. 30th (v8.8.5+), Dec. 12th (v8.8.9+)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
@@ -1529,7 +1529,7 @@ Da veru, vulete apreli ?"/><!-- HowToReproduce: Check "Open all files of folder
 			<SettingsOnCloudError title="Parametri di u nivulu" message="Pare chì u chjassu di i parametri di u nivulu hè definitu nant’à un lettore in
 lettura sola, o in un cartulare chì richiede diritti d’accessu di scrittura.
 I vostri parametri di u nivulu anu da esse abbandunati. Ci vole à rimette un valore accetevule via u dialogu di Preferenze."/>
-			<FilePathNotFoundWarning title="Apertura di schedariu" message="U schedariu chì voi pruvate d’apre ùn esiste micca."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<FilePathNotFoundWarning title="Apre u chjassu" message="U chjassu chì vo pruvate à apre ùn esiste micca."/>
 			<SessionFileInvalidError title="Ùn si pò micca caricà una sessione" message="U schedariu di sessione hè sia alteratu, sia inaccettevule."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Azzione inaccetevule" message="Pudete depone solu schedarii o cartulari ma micca tremindui, perchè site in u modu di dipositu Cartulare cum’è spaziu di travagliu.
 Ci vole à attivà l’ozzione « À u depone d’un cartulare, apre tutti i schedarii invece d’impiegallu cum’è spaziu di travagliu » in a sezzione « Cartulare predefinitu » di e Preferenze per fà què."/>
@@ -1848,6 +1848,7 @@ U testu incullatu in stu campu cuntene caratteri invisibile (forse fine di linea
 			<common-ok value="Vai"/>
 			<common-cancel value="Abbandunà"/>
 			<common-name value="Nome"/>
+			<common-error value="Sbagliu"/>
 			<tabrename-title value="Rinuminà l’unghjetta attuale"/>
 			<tabrename-newname value="Nome novu"/>
 			<splitter-rotate-left value="Girà à manca"/>

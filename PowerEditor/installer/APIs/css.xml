@@ -713,7 +713,7 @@
 		<KeyWord name="yellow" />
 		<KeyWord name="z-index" />
 		<KeyWord name="zoom" />
-				<KeyWord name="acos()" />
+		<KeyWord name="acos()" />
 		<KeyWord name="asin()" />
 		<KeyWord name="atan()" />
 		<KeyWord name="atan2()" />

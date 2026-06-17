@@ -580,6 +580,7 @@ Updated to :
 				<Item id="1681" name="Найти"/>
 				<Item id="1685" name="Учитывать регистр"/>
 				<Item id="1690" name="Подсветка всех"/>
+				<Item id="1691" name="Подсчёт"/>
 			</IncrementalFind>
 			<FindCharsInRange title="Найти символы в диапазоне....">
 				<Item id="2" name="За&amp;крыть"/>
@@ -1217,6 +1218,7 @@ Updated to :
 					<Item id="6709" name="Левая часть"/>
 					<Item id="6710" name="Средняя часть"/>
 					<Item id="6711" name="Правая часть"/>
+					<Item id="6616" name="FormFeed как Разрыв страницы"/>
 					<Item id="6717" name="Полужирный"/>
 					<Item id="6718" name="Курсив"/>
 					<Item id="6719" name="Нижний колонтитул"/>
@@ -1525,7 +1527,7 @@ Updated to :
 			<GUpConfNeedAdminMode title="Настройки Прокси" message="Пожалуйста, перезапустите Notepad++ в режиме администратора для настройки прокси."/>
 			<NbFileToOpenImportantWarning title="Большое количество файлов" message="$INT_REPLACE$ файлов будут открыты.&#x0A;Вы уверены, что хотите их открыть?"/>
 			<SettingsOnCloudError title="Параметры Облака" message="Похоже, что путь облака указан на диск или папку, с пометкой &quot;Только Чтение&quot;.&#x0A;Вам необходимо открыть доступ или получить права на запись.&#x0A;Ваши параметры облака будут отменены. Пожалуйста, сбросьте значение в окне Настройки..."/>
-			<FilePathNotFoundWarning title="Открытие Файла" message="Файл, который вы пытаетесь открыть, не существует."/>
+			<FilePathNotFoundWarning title="Открытие Пути" message="Путь, который вы пытаетесь открыть, не существует."/>
 			<SessionFileInvalidError title="Не удалось загрузить Сессию" message="Файл сессии поврежден или недействителен."/>
 			<DroppingFolderAsProjectModeWarning title="Неправильное действие" message="Вы можете применить, только одно из двух: файлы или папки, но не оба, потому, что вы перетаскиваете в режиме &quot;Папка как Проект&quot;.&#x0A;Вы должны включить &quot;Открыть все файлы папки при перетаскивании, вместо запуска Папка как Рабочая Область&quot; в &quot;Директорию По Умолчанию&quot;, чтобы эта операция работала зайдите в Настройки."/>
 			<SortingError title="Ошибка сортировки" message="Невозможно выполнить числовую сортировку из-за строки $INT_REPLACE$."/>
@@ -1805,6 +1807,7 @@ Updated to :
 			<common-ok value="О&amp;К"/>
 			<common-cancel value="&amp;Отмена"/>
 			<common-name value="Имя: "/>
+			<common-error value="Ошибка"/>
 			<tabrename-title value="Задать Новое Имя"/>
 			<tabrename-newname value="Новое имя: "/>
 			<splitter-rotate-left value="Вращение влево"/>
@@ -1831,6 +1834,7 @@ Updated to :
 			<progress-hits-title value="Совпадений:"/>
 			<progress-cancel-info value="Отмена операции, подождите..."/>
 
+			<discover-file-candidates-title value="Обнаружение потенциальных файлов..."/>
 			<find-in-files-progress-title value="Прогресс поиска в файлах..."/>
 			<replace-in-files-confirm-title value="Вы уверены?"/>
 			<replace-in-files-confirm-directory value="Вы точно хотите заменить все совпадения в директории:"/>
@@ -1857,7 +1861,6 @@ Updated to :
 			<tab-untitled-string value="новый "/>
 			<file-save-assign-type value="&amp;Добавлять расширение"/>
 			<close-panel-tip value="Закрыть"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ совпадений"/>
 			<IncrementalFind-FSNotFound value="Выражение не найдено"/>
 			<IncrementalFind-FSTopReached value="Выше совпадений нет, продолжено снизу"/>
 			<IncrementalFind-FSEndReached value="Ниже совпадений нет, продолжено сверху"/>

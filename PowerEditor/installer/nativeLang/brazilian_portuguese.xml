@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 14 Jun 2026 for 8.9.6.4+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 17 Jun 2026 for 8.9.6.4+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -1496,7 +1496,7 @@ Tem certeza de que deseja abri-los?"/><!-- HowToReproduce: Check "Open all files
 			<SettingsOnCloudError title="Configurações na nuvem" message="Parece que o caminho de configurações na nuvem está definido como somente leitura
 ou está em uma pasta que necessita de privilégios para escrita.
 Suas configurações na nuvem serão canceladas. Por favor, redefina um valor coerente através da caixa de diálogo Preferências."/>
-			<FilePathNotFoundWarning title="Abrir arquivo" message="O arquivo que você está tentando abrir não existe."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<FilePathNotFoundWarning title="Abrir caminho" message="O caminho que você está tentando abrir não existe."/>
 			<SessionFileInvalidError title="Não foi possível carregar a sessão" message="O arquivo de sessão está corrompido ou não é válido."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Você só pode soltar arquivos ou pastas, mas não ambos, porque você está soltando Pasta como modo Projeto.
 É necessário habilitar &quot;Abrir todos os arquivos da pasta em vez de usar a pasta como espaço de trabalho&quot; na seção &quot;Diretório padrão&quot; da opção Preferências para que esta operação funcione."/>
@@ -1812,7 +1812,8 @@ O texto colado neste campo inclui caracteres invisíveis (talvez caracter de fin
 			<finder-wrap-long-lines value="Quebra de linha em linhas longas"/>
 			<common-ok value="OK"/>
 			<common-cancel value="Cancelar"/>
-			<common-name value="Nome: "/>
+			<common-name value="Nome"/>
+			<common-error value="Erro"/>
 			<tabrename-title value="Renomear aba atual"/>
 			<tabrename-newname value="Novo nome: "/>
 			<splitter-rotate-left value="Girar para a esquerda"/>

@@ -550,7 +550,7 @@ bool ProjectPanel::buildTreeFrom(const NppXml::Element& projectRoot, HTREEITEM h
 		childNode;
 		childNode = NppXml::nextSibling(childNode))
 	{
-		const char* nodeName = NppXml::name(childNode);
+		const char* nodeName = NppXml::getName(childNode);
 		if (std::strcmp(nodeName, "Folder") == 0)
 		{
 			const char* itemName = NppXml::attribute(childNode, "name");

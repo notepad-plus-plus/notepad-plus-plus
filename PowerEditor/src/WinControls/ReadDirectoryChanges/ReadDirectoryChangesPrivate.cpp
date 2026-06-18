@@ -143,7 +143,7 @@ void CReadChangesRequest::ProcessNotification()
 
 		std::wstring wstrFilename(fni.FileName, fni.FileNameLength/sizeof(wchar_t));
 		// Handle a trailing backslash, such as for a root directory.
-		if (!m_wstrDirectory.empty() && m_wstrDirectory.back() != L'\\')
+		if (!wstrFilename.empty() && wstrFilename.back() != L'\\')
 			wstrFilename = m_wstrDirectory + L"\\" + wstrFilename;
 		else
 			wstrFilename = m_wstrDirectory + wstrFilename;

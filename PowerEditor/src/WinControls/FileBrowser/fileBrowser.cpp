@@ -74,7 +74,7 @@ FileBrowser::~FileBrowser()
 		delete folder;
 	}
 
-	for (const auto cd : _sortingDataArray)
+	for (const auto cd : sortingDataArray)
 	{
 		delete cd;
 	}
@@ -1108,14 +1108,14 @@ HTREEITEM FileBrowser::createFolderItemsFromDirStruct(HTREEITEM hParentItem, con
 			rootPath[len - 1] = '\0';
 
 		SortingData4lParam* customData = new SortingData4lParam(rootPath, L"", true);
-		_sortingDataArray.push_back(customData);
+		sortingDataArray.push_back(customData);
 
 		hFolderItem = _treeView.addItem(directoryStructure._name.c_str(), TVI_ROOT, INDEX_CLOSE_ROOT, reinterpret_cast<LPARAM>(customData));
 	}
 	else
 	{
 		SortingData4lParam* customData = new SortingData4lParam(L"", directoryStructure._name, true);
-		_sortingDataArray.push_back(customData);
+		sortingDataArray.push_back(customData);
 
 		hFolderItem = _treeView.addItem(directoryStructure._name.c_str(), hParentItem, INDEX_CLOSE_NODE, reinterpret_cast<LPARAM>(customData));
 	}
@@ -1128,7 +1128,7 @@ HTREEITEM FileBrowser::createFolderItemsFromDirStruct(HTREEITEM hParentItem, con
 	for (const auto& file : directoryStructure._files)
 	{
 		SortingData4lParam* customData = new SortingData4lParam(L"", file._name, false);
-		_sortingDataArray.push_back(customData);
+		sortingDataArray.push_back(customData);
 
 		_treeView.addItem(file._name.c_str(), hFolderItem, INDEX_LEAF, reinterpret_cast<LPARAM>(customData));
 	}
@@ -1302,14 +1302,14 @@ bool FileBrowser::addToTree(FilesToChange & group, HTREEITEM node)
 			if (doesDirectoryExist((group._commonPath + file).c_str()))
 			{
 				SortingData4lParam* customData = new SortingData4lParam(L"", file, true);
-				_sortingDataArray.push_back(customData);
+				sortingDataArray.push_back(customData);
 
 				_treeView.addItem(file.c_str(), node, INDEX_CLOSE_NODE, reinterpret_cast<LPARAM>(customData));
 			}
 			else
 			{
 				SortingData4lParam* customData = new SortingData4lParam(L"", file, false);
-				_sortingDataArray.push_back(customData);
+				sortingDataArray.push_back(customData);
 
 				_treeView.addItem(file.c_str(), node, INDEX_LEAF, reinterpret_cast<LPARAM>(customData));
 			}

@@ -1,20 +1,18 @@
 /**
- * pugixml parser - version 1.15
+ * pugixml parser - version 1.16
  * --------------------------------------------------------
- * Copyright (C) 2006-2025, by Arseny Kapoulkine (arseny.kapoulkine@gmail.com)
  * Report bugs and download new versions at https://pugixml.org/
  *
- * This library is distributed under the MIT License. See notice at the end
- * of this file.
+ * SPDX-FileCopyrightText: Copyright (C) 2006-2026, by Arseny Kapoulkine (arseny.kapoulkine@gmail.com)
+ * SPDX-License-Identifier: MIT
  *
- * This work is based on the pugxml parser, which is:
- * Copyright (C) 2003, by Kristen Wegner (kristen@tima.net)
+ * See LICENSE.md or notice at the end of this file.
  */
 
 // Define version macro; evaluates to major * 1000 + minor * 10 + patch so that it's safe to use in less-than comparisons
 // Note: pugixml used major * 100 + minor * 10 + patch format up until 1.9 (which had version identifier 190); starting from pugixml 1.10, the minor version number is two digits
 #ifndef PUGIXML_VERSION
-#	define PUGIXML_VERSION 1150 // 1.15
+#	define PUGIXML_VERSION 1160 // 1.16
 #endif
 
 // Include user configuration file (this can define various configuration macros)
@@ -136,6 +134,15 @@
 #	endif
 #endif
 
+// If C++ is 2017 or higher, add 'inline' variables
+#ifndef PUGIXML_INLINE_VAR
+#	ifdef __cpp_inline_variables
+#		define PUGIXML_INLINE_VAR inline
+#	else
+#		define PUGIXML_INLINE_VAR
+#	endif
+#endif
+
 // Character interface macros
 #ifdef PUGIXML_WCHAR_MODE
 #	define PUGIXML_TEXT(t) L ## t
@@ -182,69 +189,69 @@ namespace pugi
 
 	// Minimal parsing mode (equivalent to turning all other flags off).
 	// Only elements and PCDATA sections are added to the DOM tree, no text conversions are performed.
-	const unsigned int parse_minimal = 0x0000;
+	PUGIXML_INLINE_VAR const unsigned int parse_minimal = 0x0000;
 
 	// This flag determines if processing instructions (node_pi) are added to the DOM tree. This flag is off by default.
-	const unsigned int parse_pi = 0x0001;
+	PUGIXML_INLINE_VAR const unsigned int parse_pi = 0x0001;
 
 	// This flag determines if comments (node_comment) are added to the DOM tree. This flag is off by default.
-	const unsigned int parse_comments = 0x0002;
+	PUGIXML_INLINE_VAR const unsigned int parse_comments = 0x0002;
 
 	// This flag determines if CDATA sections (node_cdata) are added to the DOM tree. This flag is on by default.
-	const unsigned int parse_cdata = 0x0004;
+	PUGIXML_INLINE_VAR const unsigned int parse_cdata = 0x0004;
 
 	// This flag determines if plain character data (node_pcdata) that consist only of whitespace are added to the DOM tree.
 	// This flag is off by default; turning it on usually results in slower parsing and more memory consumption.
-	const unsigned int parse_ws_pcdata = 0x0008;
+	PUGIXML_INLINE_VAR const unsigned int parse_ws_pcdata = 0x0008;
 
 	// This flag determines if character and entity references are expanded during parsing. This flag is on by default.
-	const unsigned int parse_escapes = 0x0010;
+	PUGIXML_INLINE_VAR const unsigned int parse_escapes = 0x0010;
 
 	// This flag determines if EOL characters are normalized (converted to #xA) during parsing. This flag is on by default.
-	const unsigned int parse_eol = 0x0020;
+	PUGIXML_INLINE_VAR const unsigned int parse_eol = 0x0020;
 
 	// This flag determines if attribute values are normalized using CDATA normalization rules during parsing. This flag is on by default.
-	const unsigned int parse_wconv_attribute = 0x0040;
+	PUGIXML_INLINE_VAR const unsigned int parse_wconv_attribute = 0x0040;
 
 	// This flag determines if attribute values are normalized using NMTOKENS normalization rules during parsing. This flag is off by default.
-	const unsigned int parse_wnorm_attribute = 0x0080;
+	PUGIXML_INLINE_VAR const unsigned int parse_wnorm_attribute = 0x0080;
 
 	// This flag determines if document declaration (node_declaration) is added to the DOM tree. This flag is off by default.
-	const unsigned int parse_declaration = 0x0100;
+	PUGIXML_INLINE_VAR const unsigned int parse_declaration = 0x0100;
 
 	// This flag determines if document type declaration (node_doctype) is added to the DOM tree. This flag is off by default.
-	const unsigned int parse_doctype = 0x0200;
+	PUGIXML_INLINE_VAR const unsigned int parse_doctype = 0x0200;
 
 	// This flag determines if plain character data (node_pcdata) that is the only child of the parent node and that consists only
 	// of whitespace is added to the DOM tree.
 	// This flag is off by default; turning it on may result in slower parsing and more memory consumption.
-	const unsigned int parse_ws_pcdata_single = 0x0400;
+	PUGIXML_INLINE_VAR const unsigned int parse_ws_pcdata_single = 0x0400;
 
 	// This flag determines if leading and trailing whitespace is to be removed from plain character data. This flag is off by default.
-	const unsigned int parse_trim_pcdata = 0x0800;
+	PUGIXML_INLINE_VAR const unsigned int parse_trim_pcdata = 0x0800;
 
 	// This flag determines if plain character data that does not have a parent node is added to the DOM tree, and if an empty document
 	// is a valid document. This flag is off by default.
-	const unsigned int parse_fragment = 0x1000;
+	PUGIXML_INLINE_VAR const unsigned int parse_fragment = 0x1000;
 
-	// This flag determines if plain character data is be stored in the parent element's value. This significantly changes the structure of
+	// This flag determines if plain character data is stored in the parent element's value. This significantly changes the structure of
 	// the document; this flag is only recommended for parsing documents with many PCDATA nodes in memory-constrained environments.
 	// This flag is off by default.
-	const unsigned int parse_embed_pcdata = 0x2000;
+	PUGIXML_INLINE_VAR const unsigned int parse_embed_pcdata = 0x2000;
 
-	// This flag determines whether determines whether the the two pcdata should be merged or not, if no intermediatory data are parsed in the document.
+	// This flag determines whether two adjacent pcdata should be merged or not, if no intermediary data are parsed in the document.
 	// This flag is off by default.
-	const unsigned int parse_merge_pcdata = 0x4000;
+	PUGIXML_INLINE_VAR const unsigned int parse_merge_pcdata = 0x4000;
 
 	// The default parsing mode.
 	// Elements, PCDATA and CDATA sections are added to the DOM tree, character/reference entities are expanded,
 	// End-of-Line characters are normalized, attribute values are normalized using CDATA normalization rules.
-	const unsigned int parse_default = parse_cdata | parse_escapes | parse_wconv_attribute | parse_eol;
+	PUGIXML_INLINE_VAR const unsigned int parse_default = parse_cdata | parse_escapes | parse_wconv_attribute | parse_eol;
 
 	// The full parsing mode.
 	// Nodes of all types are added to the DOM tree, character/reference entities are expanded,
 	// End-of-Line characters are normalized, attribute values are normalized using CDATA normalization rules.
-	const unsigned int parse_full = parse_default | parse_pi | parse_comments | parse_declaration | parse_doctype;
+	PUGIXML_INLINE_VAR const unsigned int parse_full = parse_default | parse_pi | parse_comments | parse_declaration | parse_doctype;
 
 	// These flags determine the encoding of input data for XML document
 	enum xml_encoding
@@ -258,50 +265,50 @@ namespace pugi
 		encoding_utf32_be,	// Big-endian UTF32
 		encoding_utf32,		// UTF32 with native endianness
 		encoding_wchar,		// The same encoding wchar_t has (either UTF16 or UTF32)
-		encoding_latin1
+		encoding_latin1		// Latin1 encoding (ISO-8859-1)
 	};
 
 	// Formatting flags
 
 	// Indent the nodes that are written to output stream with as many indentation strings as deep the node is in DOM tree. This flag is on by default.
-	const unsigned int format_indent = 0x01;
+	PUGIXML_INLINE_VAR const unsigned int format_indent = 0x01;
 
 	// Write encoding-specific BOM to the output stream. This flag is off by default.
-	const unsigned int format_write_bom = 0x02;
+	PUGIXML_INLINE_VAR const unsigned int format_write_bom = 0x02;
 
 	// Use raw output mode (no indentation and no line breaks are written). This flag is off by default.
-	const unsigned int format_raw = 0x04;
+	PUGIXML_INLINE_VAR const unsigned int format_raw = 0x04;
 
 	// Omit default XML declaration even if there is no declaration in the document. This flag is off by default.
-	const unsigned int format_no_declaration = 0x08;
+	PUGIXML_INLINE_VAR const unsigned int format_no_declaration = 0x08;
 
 	// Don't escape attribute values and PCDATA contents. This flag is off by default.
-	const unsigned int format_no_escapes = 0x10;
+	PUGIXML_INLINE_VAR const unsigned int format_no_escapes = 0x10;
 
 	// Open file using text mode in xml_document::save_file. This enables special character (i.e. new-line) conversions on some systems. This flag is off by default.
-	const unsigned int format_save_file_text = 0x20;
+	PUGIXML_INLINE_VAR const unsigned int format_save_file_text = 0x20;
 
 	// Write every attribute on a new line with appropriate indentation. This flag is off by default.
-	const unsigned int format_indent_attributes = 0x40;
+	PUGIXML_INLINE_VAR const unsigned int format_indent_attributes = 0x40;
 
 	// Don't output empty element tags, instead writing an explicit start and end tag even if there are no children. This flag is off by default.
-	const unsigned int format_no_empty_element_tags = 0x80;
+	PUGIXML_INLINE_VAR const unsigned int format_no_empty_element_tags = 0x80;
 
 	// Skip characters belonging to range [0; 32) instead of "&#xNN;" encoding. This flag is off by default.
-	const unsigned int format_skip_control_chars = 0x100;
+	PUGIXML_INLINE_VAR const unsigned int format_skip_control_chars = 0x100;
 
 	// Use single quotes ' instead of double quotes " for enclosing attribute values. This flag is off by default.
-	const unsigned int format_attribute_single_quote = 0x200;
+	PUGIXML_INLINE_VAR const unsigned int format_attribute_single_quote = 0x200;
 
 	// Output characters belonging to range [0; 32) in hexadecimal format instead of decimal - Notepad++ modification for backward compatibility with tinyxml1
-	const unsigned int format_control_chars_in_hexadecimal = 0x10000;
+	PUGIXML_INLINE_VAR const unsigned int format_control_chars_in_hexadecimal = 0x10000;
 
 	// The default set of formatting flags.
 	// Nodes are indented depending on their depth in DOM tree, a default declaration is output if document has none.
-	const unsigned int format_default = format_indent;
+	PUGIXML_INLINE_VAR const unsigned int format_default = format_indent;
 
-	const int default_double_precision = 17;
-	const int default_float_precision = 9;
+	PUGIXML_INLINE_VAR const int default_double_precision = 17;
+	PUGIXML_INLINE_VAR const int default_float_precision = 9;
 
 	// Forward declarations
 	struct xml_attribute_struct;
@@ -621,6 +628,12 @@ namespace pugi
 		xml_attribute insert_attribute_before(string_view_t name, const xml_attribute& attr);
 	#endif
 
+		// Get attribute with specified name, adding one if it does not exist. Returns the existing or added attribute, or empty attribute on errors.
+		xml_attribute ensure_attribute(const char_t* name);
+	#ifdef PUGIXML_HAS_STRING_VIEW
+		xml_attribute ensure_attribute(string_view_t name);
+	#endif
+
 		// Add a copy of the specified attribute. Returns added attribute, or empty attribute on errors.
 		xml_attribute append_copy(const xml_attribute& proto);
 		xml_attribute prepend_copy(const xml_attribute& proto);
@@ -641,8 +654,14 @@ namespace pugi
 	#ifdef PUGIXML_HAS_STRING_VIEW
 		xml_node append_child(string_view_t name);
 		xml_node prepend_child(string_view_t name);
-		xml_node insert_child_after(string_view_t, const xml_node& node);
+		xml_node insert_child_after(string_view_t name, const xml_node& node);
 		xml_node insert_child_before(string_view_t name, const xml_node& node);
+	#endif
+
+		// Get child with specified name, adding one if it does not exist. Returns the existing or added node, or empty node on errors.
+		xml_node ensure_child(const char_t* name);
+	#ifdef PUGIXML_HAS_STRING_VIEW
+		xml_node ensure_child(string_view_t name);
 	#endif
 
 		// Add a copy of the specified node as a child. Returns added node, or empty node on errors.
@@ -1344,7 +1363,7 @@ namespace pugi
 		// Evaluate expression as string value in the specified context; performs type conversion if necessary.
 		// At most capacity characters are written to the destination buffer, full result size is returned (includes terminating zero).
 		// If PUGIXML_NO_EXCEPTIONS is not defined, throws std::bad_alloc on out of memory errors.
-		// If PUGIXML_NO_EXCEPTIONS is defined, returns empty  set instead.
+		// If PUGIXML_NO_EXCEPTIONS is defined, returns empty string instead.
 		size_t evaluate_string(char_t* buffer, size_t capacity, const xpath_node& n) const;
 
 		// Evaluate expression as node set in the specified context.
@@ -1563,7 +1582,7 @@ namespace std
 #endif
 
 /**
- * Copyright (c) 2006-2025 Arseny Kapoulkine
+ * Copyright (c) 2006-2026 Arseny Kapoulkine
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation

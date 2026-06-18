@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2006-2025 Arseny Kapoulkine
+Copyright (c) 2006-2026 Arseny Kapoulkine
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation

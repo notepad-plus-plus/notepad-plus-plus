@@ -22,6 +22,8 @@
 #include <cstdint>
 #include <cstring>
 #include <concepts>
+#include <string>
+#include <type_traits>
 
 // Simple wrapper for PugiXML
 namespace NppXml
@@ -65,7 +67,7 @@ namespace NppXml
 				if (node.type() == pugi::node_comment)
 				{
 					const pugi::string_t normalizedText = normalizeEOL(node.value());
-					node.set_value(normalizedText.c_str());
+					node.set_value(normalizedText);
 				}
 				return true;
 			}
@@ -100,7 +102,7 @@ namespace NppXml
 			bool for_each(pugi::xml_node& node) override
 			{
 				const pugi::string_t normalizedText = normalizeEOL(node.value());
-				node.set_value(normalizedText.c_str());
+				node.set_value(normalizedText);
 				return true;
 			}
 		};
@@ -139,11 +141,11 @@ namespace NppXml
 		return node.next_sibling();
 	}
 
-	[[nodiscard]] inline const char* name(const Node& node) {
+	[[nodiscard]] inline const char* getName(const Node& node) {
 		return node.name();
 	}
 
-	[[nodiscard]] inline const char* value(const Node& node) {
+	[[nodiscard]] inline const char* getValue(const Node& node) {
 		return node.value();
 	}
 
@@ -157,6 +159,15 @@ namespace NppXml
 
 	[[nodiscard]] inline const char* attribute(const Element& elem, const char* name, const char* defaultValue = nullptr) {
 		return elem.attribute(name).as_string(defaultValue);
+	}
+
+	[[nodiscard]] inline std::wstring attributeW(const Element& elem, const char* name, const pugi::string_t& defaultValue = "") {
+		if (const char* attr = elem.attribute(name).as_string(defaultValue.c_str());
+			attr != nullptr && attr[0])
+		{
+			return pugi::as_wide(attr);
+		}
+		return L"";
 	}
 
 	[[nodiscard]] inline int intAttribute(const Element& elem, const char* name, int defaultValue = 0) {
@@ -176,27 +187,19 @@ namespace NppXml
 	}
 
 	template <typename T>
-		requires (!std::same_as<T, pugi::string_t>)
-	inline bool setAttribute(Element& elem, const char* name, T value)
-	{
-		auto attr = elem.attribute(name);
-		if (!attr)
-		{
-			attr = elem.append_attribute(name);
-		}
-		return attr.set_value(value);
+		requires (!std::same_as<T, pugi::string_t>
+			&& !std::same_as<T, std::wstring>
+			&& !std::same_as<std::remove_cvref_t<std::remove_pointer_t<std::decay_t<T>>>, wchar_t>)
+	inline bool setAttribute(Element& elem, const char* name, T value) {
+		return elem.ensure_attribute(name).set_value(value);
 	}
 
-	template <typename T>
-		requires (std::same_as<T, pugi::string_t>)
-	inline bool setAttribute(Element& elem, const char* name, const T& value)
-	{
-		auto attr = elem.attribute(name);
-		if (!attr)
-		{
-			attr = elem.append_attribute(name);
-		}
-		return attr.set_value(value);
+	inline bool setAttribute(Element& elem, const char* name, const pugi::string_t& value) {
+		return elem.ensure_attribute(name).set_value(value);
+	}
+
+	inline bool setAttribute(Element& elem, const char* name, const std::wstring& value) {
+		return elem.ensure_attribute(name).set_value(pugi::as_utf8(value));
 	}
 
 	inline void createNewDeclaration(Document& doc) {
@@ -249,11 +252,11 @@ namespace NppXml
 		return attr.next_attribute();
 	}
 
-	[[nodiscard]] inline const char* name(const Attribute& attr) {
+	[[nodiscard]] inline const char* getName(const Attribute& attr) {
 		return attr.name();
 	}
 
-	[[nodiscard]] inline const char* value(const Attribute& attr) {
+	[[nodiscard]] inline const char* getValue(const Attribute& attr) {
 		return attr.value();
 	}
 

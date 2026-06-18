@@ -37,7 +37,9 @@
 
 // C++ standard library
 #include <stdexcept>
+#include <system_error>
 #include <new>
+#include <utility>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -54,6 +56,8 @@
 #include <chrono>
 #include <charconv>
 #include <regex>
+#include <ios>
+#include <ostream>
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -63,6 +67,7 @@
 #include <thread>
 #include <future>
 #include <type_traits>
+#include <locale>
 
 // GTK headers
 #include <glib.h>

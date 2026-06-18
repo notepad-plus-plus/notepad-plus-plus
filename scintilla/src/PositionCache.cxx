@@ -12,6 +12,7 @@
 #include <cmath>
 
 #include <stdexcept>
+#include <utility>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -64,20 +65,7 @@ void BidiData::Resize(size_t maxLineLength_) {
 }
 
 LineLayout::LineLayout(Sci::Line lineNumber_, int maxLineLength_) :
-	lenLineStarts(0),
-	lineNumber(lineNumber_),
-	maxLineLength(-1),
-	numCharsInLine(0),
-	numCharsBeforeEOL(0),
-	validity(ValidLevel::invalid),
-	xHighlightGuide(0),
-	highlightColumn(false),
-	containsCaret(false),
-	edgeColumn(0),
-	bracePreviousStyles{},
-	widthLine(wrapWidthInfinite),
-	lines(1),
-	wrapIndent(0) {
+	lineNumber(lineNumber_) {
 	Resize(maxLineLength_);
 }
 

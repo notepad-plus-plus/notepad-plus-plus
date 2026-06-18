@@ -16,9 +16,13 @@
 
 #include <cmath>
 
+#include <new>
+#include <string>
 #include <string_view>
 #include <vector>
 #include <optional>
+#include <algorithm>
+#include <memory>
 
 #import <Cocoa/Cocoa.h>
 #if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
@@ -1107,7 +1111,7 @@ void ScintillaCocoa::Paste(bool forceRectangular) {
 	{
 		UndoGroup ug(pdoc);
 		ClearSelection(false);
-		InsertPasteShape(selectedText.Data(), selectedText.Length(),
+		InsertPasteShape(selectedText.AsView(),
 				 selectedText.rectangular ? PasteShape::rectangular : PasteShape::stream);
 	}
 
@@ -1648,7 +1652,7 @@ bool ScintillaCocoa::PerformDragOperation(id <NSDraggingInfo> info) {
 		NSDragOperation operation = [info draggingSourceOperationMask];
 		bool moving = (operation & NSDragOperationMove) != 0;
 
-		DropAt(posDrag, text.Data(), text.Length(), moving, text.rectangular);
+		DropAt(posDrag, text.AsView(), moving, text.rectangular);
 	};
 
 	return true;

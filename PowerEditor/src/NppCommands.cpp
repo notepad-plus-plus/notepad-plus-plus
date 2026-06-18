@@ -15,36 +15,66 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-#include <algorithm>
-#include <memory>
-#include <string>
-#include <vector>
-#include <shlwapi.h>
-#include <shlobj.h>
-#include <filesystem>
-#include "Notepad_plus_Window.h"
-#include "EncodingMapper.h"
-#include "ShortcutMapper.h"
-#include "TaskListDlg.h"
-#include "clipboardFormats.h"
-#include "VerticalFileSwitcher.h"
-#include "documentMap.h"
-#include "functionListPanel.h"
-#include "ProjectPanel.h"
-#include "fileBrowser.h"
-#include "clipboardHistoryPanel.h"
-#include "ansiCharPanel.h"
-#include "Sorters.h"
-#include "verifySignedfile.h"
-#include "md5.h"
-#include "sha-256.h"
-#include "calc_sha1.h"
-#include "sha512.h"
-#include "hmac.h"
-#include "SortLocale.h"
-#include "dpiManagerV2.h"
+#include <windows.h>
 
+#include <algorithm>
+#include <cctype>
+#include <cstdint>
+#include <cwctype>
+#include <filesystem>
+#include <memory>
+#include <mutex>
+#include <string>
+#include <string.h>
+#include <utility>
+#include <vector>
+
+#include <SciLexer.h>
+#include <Scintilla.h>
+
+#include "Common.h"
+#include "DocTabView.h"
+#include "EncodingMapper.h"
+#include "FindReplaceDlg.h"
+#include "Notepad_plus.h"
+#include "Notepad_plus_Window.h"
+#include "Notepad_plus_msgs.h"
 #include "NppConstants.h"
+#include "NppDarkMode.h"
+#include "Parameters.h"
+#include "Processus.h"
+#include "ProjectPanel.h"
+#include "RunDlg.h"
+#include "ScintillaEditView.h"
+#include "ShortcutMapper.h"
+#include "SortLocale.h"
+#include "Sorters.h"
+#include "SplitterContainer.h"
+#include "TabBar.h"
+#include "TaskListDlg.h"
+#include "UserDefineDialog.h"
+#include "VerticalFileSwitcher.h"
+#include "Window.h"
+#include "WindowsDlg.h"
+#include "ansiCharPanel.h"
+#include "calc_sha1.h"
+#include "clipboardFormats.h"
+#include "clipboardHistoryPanel.h"
+#include "documentMap.h"
+#include "dpiManagerV2.h"
+#include "fileBrowser.h"
+#include "functionListPanel.h"
+#include "hmac.h"
+#include "localization.h"
+#include "md5.h"
+#include "md5Dlgs.h"
+#include "menuCmdID.h"
+#include "resource.h"
+#include "sha-256.h"
+#include "sha512.h"
+#include "shortcut.h"
+#include "trayIconControler.h"
+#include "verifySignedfile.h"
 
 using namespace std;
 
@@ -287,7 +317,7 @@ void Notepad_plus::command(int id)
 				errorMsg += intToString(retResult);
 				errorMsg += L"\n----------------------------------------------------------";
 				
-				::MessageBox(_pPublicInterface->getHSelf(), errorMsg.c_str(), L"ShellExecute - ERROR", MB_ICONINFORMATION | MB_APPLMODAL);
+				NppDarkMode::darkMessageBoxW(_pPublicInterface->getHSelf(), errorMsg.c_str(), L"ShellExecute - ERROR", MB_ICONINFORMATION | MB_APPLMODAL);
 			}
 		}
 		break;
@@ -742,79 +772,72 @@ void Notepad_plus::command(int id)
 
 			::SendMessage(hwnd, NPPM_GETFILENAMEATCURSOR, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentWord.get()));
 
+			std::wstring fullTargetPath;
+			DWORD dwRequiredSize = ::ExpandEnvironmentStringsW(currentWord.get(), nullptr, 0);
+			if (dwRequiredSize > 0)
+			{
+				// Try to expand environment strings, nevertheless currentWord is copied with or without expansion
+				auto targetPath = std::make_unique<wchar_t[]>(dwRequiredSize);
+				::ExpandEnvironmentStringsW(currentWord.get(), targetPath.get(), dwRequiredSize);
+				fullTargetPath = targetPath.get();
+			}
+			else
+			{
+				// Fallback: Copy currentWord
+				fullTargetPath = currentWord.get();
+			}
+
+			if (!doesPathExist(fullTargetPath.c_str()))
+			{
+				// Concatenate relative path
+				auto currentDir = std::make_unique<wchar_t[]>(strSize);
+				std::fill_n(currentDir.get(), strSize, L'\0');
+				::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir.get()));
+
+				fullTargetPath = currentDir.get();
+				fullTargetPath += L"\\";
+				fullTargetPath += currentWord.get();
+			}
+
 			if (id == IDM_EDIT_OPENSELECTEDFILEFOLDERINEXPLORER)
 			{
-				wstring fullTargetPath;
-				if (doesPathExist(currentWord.get()))
-				{
-					fullTargetPath = currentWord.get();
-				}
-				else
-				{
-					auto currentDir = std::make_unique<wchar_t[]>(strSize);
-					std::fill_n(currentDir.get(), strSize, L'\0');
-					::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir.get()));
-					fullTargetPath = currentDir.get();
-					fullTargetPath += L"\\";
-					fullTargetPath += currentWord.get();
-				}
-
 				if (!doesPathExist(fullTargetPath.c_str()))
 				{
 					_nativeLangSpeaker.messageBox("FilePathNotFoundWarning",
 						_pPublicInterface->getHSelf(),
 						L"The path you're trying to open doesn't exist.",
-						L"Open in Folder",
+						L"Open Path",
 						MB_OK | MB_APPLMODAL);
 					return;
 				}
 
-				HRESULT hr = openInExplorerAndSelect(fullTargetPath.c_str());
+				std::filesystem::path canonicalPath(fullTargetPath.c_str());
+				canonicalPath = canonicalPath.lexically_normal();
+
+				HRESULT hr = openInExplorerAndSelect(canonicalPath.c_str());
 				if (hr == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND))
 				{
 					// Fallback: open parent folder
-					std::filesystem::path fsPath(fullTargetPath);
-					::ShellExecuteW(hwnd, L"explore", fsPath.parent_path().c_str(), nullptr, nullptr, SW_SHOWNORMAL);
+					::ShellExecuteW(hwnd, L"explore", canonicalPath.parent_path().c_str(), nullptr, nullptr, SW_SHOWNORMAL);
 				}
 			}
 			else // IDM_EDIT_OPENSELECTEDFILETOEDIT
 			{
-				wchar_t cmd2Exec[CURRENTWORD_MAXLENGTH] = { '\0' };
-				::SendMessage(hwnd, NPPM_GETNPPFULLFILEPATH, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(cmd2Exec));
-
-				if (doesPathExist(currentWord.get()))
+				if (!doesFileExist(fullTargetPath.c_str()))
 				{
-					wstring fullFilePath = L"\"";
-					fullFilePath += currentWord.get();
-					fullFilePath += L"\"";
-
-					if (!doesDirectoryExist(currentWord.get()))
-						::ShellExecute(hwnd, L"open", cmd2Exec, fullFilePath.c_str(), L".", SW_SHOW);
+					_nativeLangSpeaker.messageBox("FilePathNotFoundWarning",
+						_pPublicInterface->getHSelf(),
+						L"The path you're trying to open doesn't exist.",
+						L"Open Path",
+						MB_OK | MB_APPLMODAL);
+					return;
 				}
-				else
-				{
-					auto currentDir = std::make_unique<wchar_t[]>(strSize);
-					std::fill_n(currentDir.get(), strSize, L'\0');
-					::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir.get()));
 
-					wstring fullFilePath = L"\"";
-					fullFilePath += currentDir.get();
-					fullFilePath += L"\\";
-					fullFilePath += currentWord.get();
-					fullFilePath += L"\"";
+				wchar_t npp2Exec[CURRENTWORD_MAXLENGTH] = { '\0' };
+				::SendMessage(hwnd, NPPM_GETNPPFULLFILEPATH, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(npp2Exec));
 
-					if (!doesFileExist(fullFilePath.c_str() + 1))
-					{
-						_nativeLangSpeaker.messageBox("FilePathNotFoundWarning",
-							_pPublicInterface->getHSelf(),
-							L"The path you're trying to open doesn't exist.",
-							L"File Open",
-							MB_OK | MB_APPLMODAL);
-						return;
-					}
-
-					::ShellExecute(hwnd, L"open", cmd2Exec, fullFilePath.c_str(), L".", SW_SHOW);
-				}
+				fullTargetPath = L"\"" + fullTargetPath + L"\"";
+				::ShellExecute(hwnd, L"open", npp2Exec, fullTargetPath.c_str(), L".", SW_SHOW);
 			}
 			break;
 		}
@@ -829,7 +852,7 @@ void Notepad_plus::command(int id)
 			if (nppGui._searchEngineChoice == nppGui.se_custom)
 			{
 				url = nppGui._searchEngineCustom;
-				url.erase(std::remove_if(url.begin(), url.end(), [](_TUCHAR x) {return _istspace(x); }),
+				url.erase(std::remove_if(url.begin(), url.end(), [](wchar_t x) {return std::iswspace(x); }),
 					url.end());
 
 				auto httpPos = url.find(L"http://");
@@ -2286,7 +2309,7 @@ void Notepad_plus::command(int id)
 			{
 				if (_isAdministrator)
 				{
-					MessageBox(_pPublicInterface->getHSelf(), GetLastErrorAsString(GetLastError()).c_str(),	L"Changing file read-only attribute failed", MB_OK | MB_ICONWARNING);
+					NppDarkMode::darkMessageBoxW(_pPublicInterface->getHSelf(), GetLastErrorAsString(GetLastError()).c_str(), L"Changing file read-only attribute failed", MB_OK | MB_ICONWARNING);
 				}
 				else
 				{
@@ -2623,10 +2646,16 @@ void Notepad_plus::command(int id)
 			for (auto pView : pViews)
 			{
 				Buffer* pBuf = pView->getCurrentBuffer();
+				// ErrorList and EscapeSequence both need to set visiblity of ANSI control sequences based on View setting
 				if (pBuf->getLangType() == L_ERRORLIST)
 				{
 					pView->execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ERR_ESCSEQ), static_cast<LPARAM>(isChecked));
 					pView->execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ERR_ESCSEQ_UNKNOWN), static_cast<LPARAM>(isChecked));
+				}
+				else if (pBuf->getLangType() == L_ESCSEQ)
+				{
+					pView->execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ESCSEQ_IDENTIFIER), static_cast<LPARAM>(isChecked));
+					pView->execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ESCSEQ_UNKNOWN), static_cast<LPARAM>(isChecked));
 				}
 			}
 
@@ -2660,10 +2689,16 @@ void Notepad_plus::command(int id)
 			for (auto pView : pViews)
 			{
 				Buffer* pBuf = pView->getCurrentBuffer();
+				// ErrorList and EscapeSequence both need to set visiblity of ANSI control sequences based on View setting
 				if (pBuf->getLangType() == L_ERRORLIST)
 				{
 					pView->execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ERR_ESCSEQ), static_cast<LPARAM>(isChecked));
 					pView->execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ERR_ESCSEQ_UNKNOWN), static_cast<LPARAM>(isChecked));
+				}
+				else if (pBuf->getLangType() == L_ESCSEQ)
+				{
+					pView->execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ESCSEQ_IDENTIFIER), static_cast<LPARAM>(isChecked));
+					pView->execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ESCSEQ_UNKNOWN), static_cast<LPARAM>(isChecked));
 				}
 			}
 
@@ -2864,7 +2899,7 @@ void Notepad_plus::command(int id)
 
 				wstring summaryLabel = pNativeSpeaker->getLocalizedStrFromID("summary", L"Summary");
 
-				::MessageBox(_pPublicInterface->getHSelf(), characterNumber.c_str(), summaryLabel.c_str(), MB_OK|MB_APPLMODAL);
+				NppDarkMode::darkMessageBoxW(_pPublicInterface->getHSelf(), characterNumber.c_str(), summaryLabel.c_str(), MB_OK | MB_APPLMODAL);
 			}
 		}
 		break;
@@ -3971,6 +4006,7 @@ void Notepad_plus::command(int id)
 		case IDM_LANG_TOML:
 		case IDM_LANG_SAS:
 		case IDM_LANG_ERRORLIST:
+		case IDM_LANG_ESCSEQ:
 		case IDM_LANG_USER :
 		{
 			LangType lang = menuID2LangType(id);

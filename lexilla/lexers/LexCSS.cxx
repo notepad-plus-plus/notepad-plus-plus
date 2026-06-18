@@ -37,8 +37,9 @@
 
 using namespace Lexilla;
 
+namespace {
 
-static inline bool IsAWordChar(const unsigned int ch) {
+inline bool IsAWordChar(const unsigned int ch) {
 	/* FIXME:
 	 * The CSS spec allows "ISO 10646 characters U+00A1 and higher" to be treated as word chars.
 	 * Unfortunately, we are only getting string bytes here, and not full unicode characters. We cannot guarantee
@@ -75,7 +76,7 @@ inline int NestingLevelLookBehind(Sci_PositionU startPos, Accessor &styler) {
 	return nestingLevel;
 }
 
-static void ColouriseCssDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[], Accessor &styler) {
+void ColouriseCssDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[], Accessor &styler) {
 	WordList &css1Props = *keywordlists[0];
 	WordList &pseudoClasses = *keywordlists[1];
 	WordList &css2Props = *keywordlists[2];
@@ -505,7 +506,7 @@ static void ColouriseCssDoc(Sci_PositionU startPos, Sci_Position length, int ini
 	sc.Complete();
 }
 
-static void FoldCSSDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler) {
+void FoldCSSDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler) {
 	bool foldComment = styler.GetPropertyInt("fold.comment") != 0;
 	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
 	Sci_PositionU endPos = startPos + length;
@@ -555,7 +556,7 @@ static void FoldCSSDoc(Sci_PositionU startPos, Sci_Position length, int, WordLis
 	styler.SetLevel(lineCurrent, levelPrev | flagsNext);
 }
 
-static const char * const cssWordListDesc[] = {
+const char * const cssWordListDesc[] = {
 	"CSS1 Properties",
 	"Pseudo-classes",
 	"CSS2 Properties",
@@ -566,5 +567,7 @@ static const char * const cssWordListDesc[] = {
 	"Browser-Specific Pseudo-elements",
 	0
 };
+
+}
 
 extern const LexerModule lmCss(SCLEX_CSS, ColouriseCssDoc, "css", FoldCSSDoc, cssWordListDesc);

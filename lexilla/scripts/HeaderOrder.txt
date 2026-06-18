@@ -34,6 +34,7 @@
 #include <cstdarg>
 
 // C++ standard library
+#include <stdexcept>
 #include <utility>
 #include <string>
 #include <string_view>
@@ -46,7 +47,7 @@
 #include <iterator>
 #include <functional>
 #include <memory>
-#include <regex>
+#include <ios>
 #include <iostream>
 #include <sstream>
 #include <fstream>

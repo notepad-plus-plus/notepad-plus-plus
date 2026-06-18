@@ -5,17 +5,24 @@
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
+
 #include <stdexcept>
+#include <utility>
+#include <string>
 #include <string_view>
 #include <vector>
 #include <map>
 #include <set>
 #include <optional>
 #include <algorithm>
+#include <iterator>
 #include <memory>
+#include <ios>
+#include <ostream>
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <locale>
 
 #include "ScintillaTypes.h"
 

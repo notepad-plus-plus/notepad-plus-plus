@@ -1186,6 +1186,7 @@ Translation note:
 
 				<Print title="Print">
 					<Item id="6601" name="Print line n&amp;umber"/>
+					<Item id="6616" name="Print formfeed a&amp;s page break"/>
 					<Item id="6602" name="Color Options"/>
 					<Item id="6603" name="W&amp;YSIWYG"/>
 					<Item id="6604" name="I&amp;nvert"/>
@@ -1495,7 +1496,7 @@ Are you sure you want to open them?"/><!-- HowToReproduce: Check "Open all files
 			<SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,
 or on a folder needed privilege right for writing access.
 Your settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
-			<FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<FilePathNotFoundWarning title="Open Path" message="The path you're trying to open doesn't exist."/>
 			<SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Invalid action" message="You can only drop files or folders but not both, because you're in dropping Folder as Project mode.
 You have to enable &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
@@ -1812,6 +1813,7 @@ The text pasted into this field includes invisible (maybe line-ending) character
 			<common-ok value="OK"/>
 			<common-cancel value="Cancel"/>
 			<common-name value="Name"/>
+			<common-error value="Error"/>
 			<tabrename-title value="Rename Current Tab"/>
 			<tabrename-newname value="New name"/>
 			<splitter-rotate-left value="Rotate to left"/>

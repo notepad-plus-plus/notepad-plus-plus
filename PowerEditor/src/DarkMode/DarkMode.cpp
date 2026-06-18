@@ -5,10 +5,14 @@
 #include "IatHook.h"
 
 #include <uxtheme.h>
+#include <vsstyle.h>
 #include <vssym32.h>
 
-#include <unordered_set>
+#include <cstdint>
+#include <cwchar>
 #include <mutex>
+#include <unordered_set>
+#include <utility>
 
 #if defined(__GNUC__) && __GNUC__ > 8
 #define WINAPI_LAMBDA_RETURN(return_t) -> return_t WINAPI
@@ -76,7 +80,6 @@ struct WINDOWCOMPOSITIONATTRIBDATA
 using fnRtlGetNtVersionNumbers = void (WINAPI *)(LPDWORD major, LPDWORD minor, LPDWORD build);
 using fnSetWindowCompositionAttribute = BOOL (WINAPI *)(HWND hWnd, WINDOWCOMPOSITIONATTRIBDATA*);
 // 1809 17763
-using fnShouldAppsUseDarkMode = bool (WINAPI *)(); // ordinal 132
 using fnAllowDarkModeForWindow = bool (WINAPI *)(HWND hWnd, bool allow); // ordinal 133
 using fnAllowDarkModeForApp = bool (WINAPI *)(bool allow); // ordinal 135, in 1809
 using fnFlushMenuThemes = void (WINAPI *)(); // ordinal 136
@@ -89,32 +92,20 @@ using fnShouldSystemUseDarkMode = bool (WINAPI *)(); // ordinal 138
 using fnSetPreferredAppMode = PreferredAppMode (WINAPI *)(PreferredAppMode appMode); // ordinal 135, in 1903
 using fnIsDarkModeAllowedForApp = bool (WINAPI *)(); // ordinal 139
 
-fnSetWindowCompositionAttribute _SetWindowCompositionAttribute = nullptr;
-fnShouldAppsUseDarkMode _ShouldAppsUseDarkMode = nullptr;
-fnAllowDarkModeForWindow _AllowDarkModeForWindow = nullptr;
-fnAllowDarkModeForApp _AllowDarkModeForApp = nullptr;
-fnFlushMenuThemes _FlushMenuThemes = nullptr;
-fnRefreshImmersiveColorPolicyState _RefreshImmersiveColorPolicyState = nullptr;
-fnIsDarkModeAllowedForWindow _IsDarkModeAllowedForWindow = nullptr;
-fnGetIsImmersiveColorUsingHighContrast _GetIsImmersiveColorUsingHighContrast = nullptr;
-fnOpenNcThemeData _OpenNcThemeData = nullptr;
+static fnSetWindowCompositionAttribute _SetWindowCompositionAttribute = nullptr;
+static fnAllowDarkModeForWindow _AllowDarkModeForWindow = nullptr;
+static fnAllowDarkModeForApp _AllowDarkModeForApp = nullptr;
+static fnFlushMenuThemes _FlushMenuThemes = nullptr;
+static fnRefreshImmersiveColorPolicyState _RefreshImmersiveColorPolicyState = nullptr;
+static fnIsDarkModeAllowedForWindow _IsDarkModeAllowedForWindow = nullptr;
+static fnGetIsImmersiveColorUsingHighContrast _GetIsImmersiveColorUsingHighContrast = nullptr;
+static fnOpenNcThemeData _OpenNcThemeData = nullptr;
 // 1903 18362
-//fnShouldSystemUseDarkMode _ShouldSystemUseDarkMode = nullptr;
-fnSetPreferredAppMode _SetPreferredAppMode = nullptr;
+static fnSetPreferredAppMode _SetPreferredAppMode = nullptr;
 
 bool g_darkModeSupported = false;
 bool g_darkModeEnabled = false;
-DWORD g_buildNumber = 0;
-
-bool ShouldAppsUseDarkMode()
-{
-	if (!_ShouldAppsUseDarkMode)
-	{
-		return false;
-	}
-
-	return _ShouldAppsUseDarkMode();
-}
+static DWORD g_buildNumber = 0;
 
 bool AllowDarkModeForWindow(HWND hWnd, bool allow)
 {
@@ -146,9 +137,9 @@ void SetTitleBarThemeColor(HWND hWnd, BOOL dark)
 void RefreshTitleBarThemeColor(HWND hWnd)
 {
 	BOOL dark = FALSE;
-	if (_IsDarkModeAllowedForWindow && _ShouldAppsUseDarkMode)
+	if (_IsDarkModeAllowedForWindow)
 	{
-		if (_IsDarkModeAllowedForWindow(hWnd) && _ShouldAppsUseDarkMode() && !IsHighContrast())
+		if (_IsDarkModeAllowedForWindow(hWnd) && !IsHighContrast())
 		{
 			dark = TRUE;
 		}
@@ -159,16 +150,20 @@ void RefreshTitleBarThemeColor(HWND hWnd)
 
 bool IsColorSchemeChangeMessage(LPARAM lParam)
 {
-	bool is = false;
-	if (lParam && (lstrcmpi(reinterpret_cast<LPCWCH>(lParam), L"ImmersiveColorSet") == 0) && _RefreshImmersiveColorPolicyState)
+	const bool isMsg = lParam && (_wcsicmp(reinterpret_cast<LPCWSTR>(lParam), L"ImmersiveColorSet") == 0);
+	if (isMsg)
 	{
-		_RefreshImmersiveColorPolicyState();
-		is = true;
-	}
+		if (_RefreshImmersiveColorPolicyState != nullptr)
+		{
+			_RefreshImmersiveColorPolicyState();
+		}
 
-	if (_GetIsImmersiveColorUsingHighContrast)
-		_GetIsImmersiveColorUsingHighContrast(IHCM_REFRESH);
-	return is;
+		if (_GetIsImmersiveColorUsingHighContrast != nullptr)
+		{
+			_GetIsImmersiveColorUsingHighContrast(IMMERSIVE_HC_CACHE_MODE::IHCM_REFRESH);
+		}
+	}
+	return isMsg;
 }
 
 bool IsColorSchemeChangeMessage(UINT message, LPARAM lParam)
@@ -180,13 +175,13 @@ bool IsColorSchemeChangeMessage(UINT message, LPARAM lParam)
 
 void AllowDarkModeForApp(bool allow)
 {
-	if (_AllowDarkModeForApp)
-		_AllowDarkModeForApp(allow);
-	else if (_SetPreferredAppMode)
+	if (_SetPreferredAppMode)
 		_SetPreferredAppMode(allow ? PreferredAppMode::ForceDark : PreferredAppMode::Default);
+	else if (_AllowDarkModeForApp)
+		_AllowDarkModeForApp(allow);
 }
 
-void FlushMenuThemes()
+static void FlushMenuThemes()
 {
 	if (_FlushMenuThemes)
 	{
@@ -205,7 +200,7 @@ void EnableDarkScrollBarForWindowAndChildren(HWND hwnd)
 	g_darkScrollBarWindows.insert(hwnd);
 }
 
-bool IsWindowOrParentUsingDarkScrollBar(HWND hwnd)
+static bool IsWindowOrParentUsingDarkScrollBar(HWND hwnd)
 {
 	HWND hwndRoot = GetAncestor(hwnd, GA_ROOT);
 
@@ -223,7 +218,7 @@ bool IsWindowOrParentUsingDarkScrollBar(HWND hwnd)
 	return false;
 }
 
-void FixDarkScrollBar()
+static void FixDarkScrollBar()
 {
 	HMODULE hComctl = LoadLibraryEx(L"comctl32.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
 	if (hComctl)
@@ -253,7 +248,7 @@ void FixDarkScrollBar()
 	}
 }
 
-constexpr bool CheckBuildNumber(DWORD buildNumber)
+static constexpr bool CheckBuildNumber(DWORD buildNumber)
 {
 	return (buildNumber == 17763 || // 1809
 		buildNumber == 18362 || // 1903
@@ -303,7 +298,6 @@ void InitDarkMode()
 				_OpenNcThemeData = reinterpret_cast<fnOpenNcThemeData>(GetProcAddress(hUxtheme, MAKEINTRESOURCEA(49)));
 				_RefreshImmersiveColorPolicyState = reinterpret_cast<fnRefreshImmersiveColorPolicyState>(GetProcAddress(hUxtheme, MAKEINTRESOURCEA(104)));
 				_GetIsImmersiveColorUsingHighContrast = reinterpret_cast<fnGetIsImmersiveColorUsingHighContrast>(GetProcAddress(hUxtheme, MAKEINTRESOURCEA(106)));
-				_ShouldAppsUseDarkMode = reinterpret_cast<fnShouldAppsUseDarkMode>(GetProcAddress(hUxtheme, MAKEINTRESOURCEA(132)));
 				_AllowDarkModeForWindow = reinterpret_cast<fnAllowDarkModeForWindow>(GetProcAddress(hUxtheme, MAKEINTRESOURCEA(133)));
 
 				auto ord135 = GetProcAddress(hUxtheme, MAKEINTRESOURCEA(135));
@@ -323,7 +317,6 @@ void InitDarkMode()
 
 				if (_OpenNcThemeData &&
 					_RefreshImmersiveColorPolicyState &&
-					_ShouldAppsUseDarkMode &&
 					_AllowDarkModeForWindow &&
 					(_AllowDarkModeForApp || _SetPreferredAppMode) &&
 					_FlushMenuThemes &&
@@ -341,12 +334,346 @@ void SetDarkMode(bool useDark, bool fixDarkScrollbar)
 	if (g_darkModeSupported)
 	{
 		AllowDarkModeForApp(useDark);
-		//_RefreshImmersiveColorPolicyState();
 		FlushMenuThemes();
 		if (fixDarkScrollbar)
 		{
 			FixDarkScrollBar();
 		}
-		g_darkModeEnabled = ShouldAppsUseDarkMode() && !IsHighContrast();
+		g_darkModeEnabled = useDark && !IsHighContrast();
+	}
+}
+
+class ModuleHandle
+{
+public:
+	ModuleHandle() = delete;
+
+	explicit ModuleHandle(const wchar_t* moduleName) noexcept
+		: m_hModule(::LoadLibraryExW(moduleName, nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32))
+	{
+	}
+
+	ModuleHandle(const ModuleHandle&) = delete;
+	ModuleHandle& operator=(const ModuleHandle&) = delete;
+
+	ModuleHandle(ModuleHandle&&) = delete;
+	ModuleHandle& operator=(ModuleHandle&&) = delete;
+
+	~ModuleHandle()
+	{
+		if (m_hModule != nullptr)
+		{
+			::FreeLibrary(m_hModule);
+			m_hModule = nullptr;
+		}
+	}
+
+	[[nodiscard]] HMODULE get() const noexcept
+	{
+		return m_hModule;
+	}
+
+	[[nodiscard]] bool isLoaded() const noexcept
+	{
+		return m_hModule != nullptr;
+	}
+
+private:
+	HMODULE m_hModule = nullptr;
+};
+
+using fnFindThunkInModule = auto (*)(void* moduleBase, const char* dllName, const char* funcName)->PIMAGE_THUNK_DATA;
+
+using fnGetThemeColor = auto (WINAPI*)(HTHEME hTheme, int iPartId, int iStateId, int iPropId, COLORREF* pColor)->HRESULT;
+using fnDrawThemeBackgroundEx = auto (WINAPI*)(HTHEME hTheme, HDC hdc, int iPartId, int iStateId, LPCRECT pRect, const DTBGOPTS* pOptions)->HRESULT;
+
+template <typename P>
+static auto ReplaceFunction(IMAGE_THUNK_DATA* addr, const P& newFunction) noexcept -> P
+{
+	DWORD oldProtect = 0;
+	if (::VirtualProtect(addr, sizeof(IMAGE_THUNK_DATA), PAGE_READWRITE, &oldProtect) == FALSE)
+	{
+		return nullptr;
+	}
+
+	const ULONGLONG oldFunction = addr->u1.Function;
+	addr->u1.Function = reinterpret_cast<ULONGLONG>(newFunction);
+	::VirtualProtect(addr, sizeof(IMAGE_THUNK_DATA), oldProtect, &oldProtect);
+	return reinterpret_cast<P>(oldFunction);
+}
+
+template <typename T>
+struct HookData
+{
+	T m_trueFn = nullptr;
+	size_t m_ref = 0;
+	const char* m_dllName = nullptr;
+
+	const char* m_fnName = nullptr;
+	fnFindThunkInModule m_findFn = nullptr;
+
+	std::uint16_t m_ord = 0;
+
+	void init(const char* dllName, const char* funcName, const fnFindThunkInModule& findFn) noexcept
+	{
+		if (m_dllName == nullptr)
+		{
+			m_dllName = dllName;
+			m_fnName = funcName;
+			m_findFn = findFn;
+
+			m_ord = 0;
+		}
+	}
+
+	void init(const char* dllName, std::uint16_t ord) noexcept
+	{
+		if (m_dllName == nullptr)
+		{
+			m_dllName = dllName;
+			m_ord = ord;
+
+			m_fnName = nullptr;
+			m_findFn = nullptr;
+		}
+	}
+
+	[[nodiscard]] IMAGE_THUNK_DATA* findAddr(HMODULE hMod) const noexcept
+	{
+		if (m_fnName != nullptr && m_findFn != nullptr)
+		{
+			return m_findFn(hMod, m_dllName, m_fnName);
+		}
+
+		if (m_ord != 0)
+		{
+			return FindDelayLoadThunkInModule(hMod, m_dllName, m_ord);
+		}
+
+		return nullptr;
+	}
+};
+
+template <typename T, typename... InitArgs>
+static auto HookFunction(HookData<T>& hookData, T newFn, const char* dllName, InitArgs&&... args) noexcept -> bool
+{
+	const ModuleHandle moduleComctl(L"comctl32.dll");
+	if (!moduleComctl.isLoaded())
+	{
+		return false;
+	}
+
+	if (hookData.m_trueFn == nullptr && hookData.m_ref == 0)
+	{
+		hookData.init(dllName, std::forward<InitArgs>(args)...);
+
+		auto* addr = hookData.findAddr(moduleComctl.get());
+		if (addr != nullptr)
+		{
+			hookData.m_trueFn = ReplaceFunction<T>(addr, newFn);
+		}
+	}
+
+	if (hookData.m_trueFn != nullptr)
+	{
+		++hookData.m_ref;
+		return true;
+	}
+	return false;
+}
+
+template <typename T>
+static void UnhookFunction(HookData<T>& hookData) noexcept
+{
+	const ModuleHandle moduleComctl(L"comctl32.dll");
+	if (!moduleComctl.isLoaded())
+	{
+		return;
+	}
+
+	if (hookData.m_ref > 0)
+	{
+		--hookData.m_ref;
+
+		if (hookData.m_trueFn != nullptr && hookData.m_ref == 0)
+		{
+			auto* addr = hookData.findAddr(moduleComctl.get());
+			if (addr != nullptr)
+			{
+				ReplaceFunction<T>(addr, hookData.m_trueFn);
+				hookData.m_trueFn = nullptr;
+			}
+		}
+	}
+}
+
+static HookData<fnGetThemeColor> g_hookDataGetThemeColor{};
+static HookData<fnDrawThemeBackgroundEx> g_hookDataDrawThemeBackgroundEx{};
+
+static constexpr COLORREF kMainInstructionTextClr = RGB(96, 205, 255);
+static constexpr COLORREF kOtherTextClr = RGB(255, 255, 255);
+
+static HTHEME g_hDarkTheme = nullptr;
+
+static HRESULT WINAPI MyGetThemeColor(
+	HTHEME hTheme,
+	int iPartId,
+	int iStateId,
+	int iPropId,
+	COLORREF* pColor
+) noexcept
+{
+	const HRESULT retVal = g_hookDataGetThemeColor.m_trueFn(hTheme, iPartId, iStateId, iPropId, pColor);
+	if (!g_darkModeEnabled || pColor == nullptr)
+	{
+		return retVal;
+	}
+
+	if (iPropId == TMT_TEXTCOLOR)
+	{
+		switch (iPartId)
+		{
+			case TDLG_MAININSTRUCTIONPANE:
+			{
+				*pColor = kMainInstructionTextClr;
+				break;
+			}
+
+			case TDLG_CONTENTPANE:
+			case TDLG_EXPANDOTEXT:
+			case TDLG_VERIFICATIONTEXT:
+			case TDLG_FOOTNOTEPANE:
+			case TDLG_EXPANDEDFOOTERAREA:
+			{
+				if (g_hDarkTheme != nullptr)
+				{
+					g_hookDataGetThemeColor.m_trueFn(g_hDarkTheme, iPartId, iStateId, iPropId, pColor);
+				}
+				else
+				{
+					*pColor = kOtherTextClr;
+				}
+				break;
+			}
+
+			default:
+			{
+				break;
+			}
+		}
+	}
+	return retVal;
+}
+
+static constexpr std::uint16_t kDrawThemeBackgroundExOrdinal = 47;
+
+static constexpr COLORREF kMainPaneBgClr = RGB(44, 44, 44);
+static constexpr COLORREF kFooterBgClr = RGB(32, 32, 32);
+
+static HBRUSH g_hBrushBg = nullptr;
+static HBRUSH g_hBrushBgFooter = nullptr;
+
+static HRESULT WINAPI MyDrawThemeBackgroundEx(
+	HTHEME hTheme,
+	HDC hdc,
+	int iPartId,
+	int iStateId,
+	LPCRECT pRect,
+	const DTBGOPTS* pOptions
+) noexcept
+{
+	if (!g_darkModeEnabled || pOptions == nullptr)
+	{
+		return g_hookDataDrawThemeBackgroundEx.m_trueFn(hTheme, hdc, iPartId, iStateId, pRect, pOptions);
+	}
+
+	switch (iPartId)
+	{
+		case TDLG_PRIMARYPANEL:
+		{
+			::FillRect(hdc, pRect, g_hBrushBg);
+			break;
+		}
+
+		case TDLG_SECONDARYPANEL:
+		case TDLG_FOOTNOTEPANE:
+		{
+			::FillRect(hdc, &pOptions->rcClip, g_hBrushBgFooter);
+			break;
+		}
+
+		default:
+		{
+			return g_hookDataDrawThemeBackgroundEx.m_trueFn(hTheme, hdc, iPartId, iStateId, pRect, pOptions);
+		}
+	}
+	return S_OK;
+}
+
+bool HookThemeColor() noexcept
+{
+	COLORREF clrMain = kMainPaneBgClr;
+	COLORREF clrFooter = kFooterBgClr;
+
+	if (IsWindows11() && g_hDarkTheme == nullptr)
+	{
+		g_hDarkTheme = ::OpenThemeData(nullptr, L"DarkMode_Explorer::TaskDialog");
+		if (g_hDarkTheme != nullptr)
+		{
+			if (FAILED(::GetThemeColor(g_hDarkTheme, TDLG_PRIMARYPANEL, 0, TMT_FILLCOLOR, &clrMain)))
+			{
+				clrMain = kMainPaneBgClr;
+			}
+
+			if (FAILED(::GetThemeColor(g_hDarkTheme, TDLG_SECONDARYPANEL, 0, TMT_FILLCOLOR, &clrFooter)))
+			{
+				clrFooter = kFooterBgClr;
+			}
+		}
+	}
+
+	if (g_hBrushBg == nullptr)
+	{
+		g_hBrushBg = ::CreateSolidBrush(clrMain);
+	}
+
+	if (g_hBrushBgFooter == nullptr)
+	{
+		g_hBrushBgFooter = ::CreateSolidBrush(clrFooter);
+	}
+
+	return
+		HookFunction<fnGetThemeColor>(g_hookDataGetThemeColor,
+			MyGetThemeColor,
+			"uxtheme.dll",
+			static_cast<const char*>("GetThemeColor"),
+			static_cast<fnFindThunkInModule>(FindDelayLoadThunkInModule))
+		&& HookFunction<fnDrawThemeBackgroundEx>(g_hookDataDrawThemeBackgroundEx,
+			MyDrawThemeBackgroundEx,
+			"uxtheme.dll",
+			kDrawThemeBackgroundExOrdinal);
+}
+
+
+void UnhookThemeColor() noexcept
+{
+	UnhookFunction<fnGetThemeColor>(g_hookDataGetThemeColor);
+	UnhookFunction<fnDrawThemeBackgroundEx>(g_hookDataDrawThemeBackgroundEx);
+	if (g_hDarkTheme != nullptr && g_hookDataGetThemeColor.m_ref == 0)
+	{
+		::CloseThemeData(g_hDarkTheme);
+		g_hDarkTheme = nullptr;
+	}
+
+	if (g_hBrushBg != nullptr)
+	{
+		::DeleteObject(g_hBrushBg);
+		g_hBrushBg = nullptr;
+	}
+
+	if (g_hBrushBgFooter != nullptr)
+	{
+		::DeleteObject(g_hBrushBgFooter);
+		g_hBrushBgFooter = nullptr;
 	}
 }

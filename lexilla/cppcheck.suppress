@@ -117,7 +117,6 @@ knownConditionTrueFalse:lexilla/lexers/LexJulia.cxx
 unreadVariable:lexilla/lexers/LexJulia.cxx
 variableScope:lexilla/lexers/LexJulia.cxx
 variableScope:lexilla/lexers/LexLaTeX.cxx
-constParameterReference:lexilla/lexers/LexLaTeX.cxx
 constParameterReference:lexilla/lexers/LexLisp.cxx
 constParameterPointer:lexilla/lexers/LexMagik.cxx
 constParameterReference:lexilla/lexers/LexMagik.cxx

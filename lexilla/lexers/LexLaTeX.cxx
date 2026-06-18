@@ -5,14 +5,14 @@
 // Copyright 1998-2001 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
-// Modified by G. HU in 2013. Added folding, syntax highting inside math environments, and changed some minor behaviors.
+// Modified by G. HU in 2013. Added folding, syntax highlighting inside math environments, and changed some minor behaviors.
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <assert.h>
-#include <ctype.h>
+#include <cstdlib>
+#include <cassert>
+#include <cstring>
+#include <cctype>
+#include <cstdio>
+#include <cstdarg>
 
 #include <string>
 #include <string_view>
@@ -36,6 +36,8 @@ using namespace Scintilla;
 using namespace Lexilla;
 
 using namespace std;
+
+namespace {
 
 struct latexFoldSave {
 	latexFoldSave() : structLev(0) {
@@ -103,24 +105,24 @@ public:
 	}
 };
 
-static bool latexIsSpecial(int ch) {
+bool latexIsSpecial(int ch) noexcept {
 	return (ch == '#') || (ch == '$') || (ch == '%') || (ch == '&') || (ch == '_') ||
 		   (ch == '{') || (ch == '}') || (ch == ' ');
 }
 
-static bool latexIsBlank(int ch) {
+bool latexIsBlank(int ch) noexcept {
 	return (ch == ' ') || (ch == '\t');
 }
 
-static bool latexIsBlankAndNL(int ch) {
+bool latexIsBlankAndNL(int ch) noexcept {
 	return (ch == ' ') || (ch == '\t') || (ch == '\r') || (ch == '\n');
 }
 
-static bool latexIsLetter(int ch) {
+bool latexIsLetter(int ch) {
 	return IsASCII(ch) && isalpha(ch);
 }
 
-static bool latexIsTagValid(Sci_Position &i, Sci_Position l, Accessor &styler) {
+bool latexIsTagValid(Sci_Position &i, Sci_Position l, Accessor &styler) {
 	while (i < l) {
 		if (styler.SafeGetCharAt(i) == '{') {
 			while (i < l) {
@@ -140,22 +142,33 @@ static bool latexIsTagValid(Sci_Position &i, Sci_Position l, Accessor &styler) {
 	return false;
 }
 
-static bool latexNextNotBlankIs(Sci_Position i, Accessor &styler, char needle) {
-  char ch;
-	while (i < styler.Length()) {
-    ch = styler.SafeGetCharAt(i);
-		if (!latexIsBlankAndNL(ch) && ch != '*') {
-      if (ch == needle)
-        return true;
-      else
-        return false;
+// Determine if there is a valid [optional argument] after a command.
+// Heuristic searches for '[' followed by non-special characters then ']'
+// but is not exhaustive and may fail.
+bool latexIsCmdOpt(Sci_Position i, Accessor &styler) {
+	bool beforeOptional = true;
+	for (; i < styler.Length(); i++) {
+		const char ch = styler.SafeGetCharAt(i);
+		if (beforeOptional) {
+			if (ch == '[') {
+				beforeOptional = false;
+			} else if (!latexIsBlankAndNL(ch) && ch != '*') {
+				return false;
+			}
+		} else {
+			if (ch == ']') { // Whole [optional] -> success
+				return true;
+			}
+			if (ch > ' ' && latexIsSpecial(ch)) {
+				// Prefer inner highlighting inside optional command argument
+				return false;
+			}
 		}
-		i++;
 	}
 	return false;
 }
 
-static bool latexLastWordIs(Sci_Position start, Accessor &styler, const char *needle) {
+bool latexLastWordIs(Sci_Position start, Accessor &styler, const char *needle) {
 	Sci_PositionU i = 0;
 	Sci_PositionU l = static_cast<Sci_PositionU>(strlen(needle));
 	Sci_Position ini = start-l+1;
@@ -170,7 +183,7 @@ static bool latexLastWordIs(Sci_Position start, Accessor &styler, const char *ne
 	return (strcmp(s, needle) == 0);
 }
 
-static bool latexLastWordIsMathEnv(Sci_Position pos, Accessor &styler) {
+bool latexLastWordIsMathEnv(Sci_Position pos, Accessor &styler) {
 	Sci_Position i, j;
 	char s[32];
 	const char *mathEnvs[] = { "align", "alignat", "flalign", "gather",
@@ -192,7 +205,7 @@ static bool latexLastWordIsMathEnv(Sci_Position pos, Accessor &styler) {
 	return false;
 }
 
-static inline void latexStateReset(int &mode, int &state) {
+void latexStateReset(int mode, int &state) noexcept {
 	switch (mode) {
 	case 1:     state = SCE_L_MATH; break;
 	case 2:     state = SCE_L_MATH2; break;
@@ -285,7 +298,7 @@ void SCI_METHOD LexerLaTeX::Lex(Sci_PositionU startPos, Sci_Position length, int
 		case SCE_L_COMMAND :
 			if (!latexIsLetter(chNext)) {
 				styler.ColourTo(i, state);
-				if (latexNextNotBlankIs(i + 1, styler, '[' )) {
+				if (latexIsCmdOpt(i + 1, styler)) {
 					state = SCE_L_CMDOPT;
 				} else if (latexLastWordIs(i, styler, "\\begin")) {
 					state = SCE_L_TAG;
@@ -323,7 +336,7 @@ void SCI_METHOD LexerLaTeX::Lex(Sci_PositionU startPos, Sci_Position length, int
 					state = SCE_L_MATH2;
 				}
 			} else {
-				styler.ColourTo(i, SCE_L_ERROR);
+				styler.ColourTo(i < styler.Length() ? i : styler.Length() - 1, SCE_L_ERROR);
 				latexStateReset(mode, state);
 				ch = styler.SafeGetCharAt(i);
 				if (ch == '\r' || ch == '\n') setMode(styler.GetLine(i), mode);
@@ -335,7 +348,7 @@ void SCI_METHOD LexerLaTeX::Lex(Sci_PositionU startPos, Sci_Position length, int
 				styler.ColourTo(i, state);
 				latexStateReset(mode, state);
 			} else {
-				styler.ColourTo(i, SCE_L_ERROR);
+				styler.ColourTo(i < styler.Length() ? i : styler.Length() - 1, SCE_L_ERROR);
 				latexStateReset(mode, state);
 				ch = styler.SafeGetCharAt(i);
 				if (ch == '\r' || ch == '\n') setMode(styler.GetLine(i), mode);
@@ -357,6 +370,8 @@ void SCI_METHOD LexerLaTeX::Lex(Sci_PositionU startPos, Sci_Position length, int
 					}
 					state = SCE_L_COMMAND;
 				} else if (latexIsSpecial(chNext)) {
+					if ((i + 1) >= styler.Length())
+						break;
 					styler.ColourTo(i + 1, SCE_L_SPECIAL);
 					i++;
 					chNext = styler.SafeGetCharAt(i + 1);
@@ -399,6 +414,8 @@ void SCI_METHOD LexerLaTeX::Lex(Sci_PositionU startPos, Sci_Position length, int
 					}
 					state = SCE_L_COMMAND;
 				} else if (latexIsSpecial(chNext)) {
+					if ((i + 1) >= styler.Length())
+						break;
 					styler.ColourTo(i + 1, SCE_L_SPECIAL);
 					i++;
 					chNext = styler.SafeGetCharAt(i + 1);
@@ -474,7 +491,7 @@ void SCI_METHOD LexerLaTeX::Lex(Sci_PositionU startPos, Sci_Position length, int
 				i++;
 				chNext = styler.SafeGetCharAt(i + 1);
 			} else if (chVerbatimDelim != '\0' && (ch == '\n' || ch == '\r')) {
-				styler.ColourTo(i, SCE_L_ERROR);
+				styler.ColourTo(i - 1, SCE_L_ERROR);
 				latexStateReset(mode, state);
 				chVerbatimDelim = '\0';
 			}
@@ -486,7 +503,7 @@ void SCI_METHOD LexerLaTeX::Lex(Sci_PositionU startPos, Sci_Position length, int
 	styler.Flush();
 }
 
-static int latexFoldSaveToInt(const latexFoldSave &save) {
+int latexFoldSaveToInt(const latexFoldSave &save) {
 	int sum = 0;
 	for (int i = 0; i <= save.structLev; ++i)
 		sum += save.openBegins[i];
@@ -558,8 +575,10 @@ void SCI_METHOD LexerLaTeX::Fold(Sci_PositionU startPos, Sci_Position length, in
 	styler.Flush();
 }
 
-static const char *const emptyWordListDesc[] = {
-	0
+const char *const emptyWordListDesc[] = {
+	nullptr
 };
+
+}
 
 extern const LexerModule lmLatex(SCLEX_LATEX, LexerLaTeX::LexerFactoryLaTeX, "latex", emptyWordListDesc);

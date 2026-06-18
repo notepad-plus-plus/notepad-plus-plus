@@ -17,6 +17,7 @@
 #include <QInputContext>
 #endif
 #include <QMimeData>
+#include <QWindow>
 #include <QMenu>
 #include <QTextCodec>
 #include <QScrollBar>
@@ -388,7 +389,7 @@ void ScintillaQt::PasteFromMode(QClipboard::Mode clipboardMode_)
 
 	UndoGroup ug(pdoc);
 	ClearSelection(multiPasteMode == MultiPaste::Each);
-	InsertPasteShape(selText.Data(), selText.Length(),
+	InsertPasteShape(selText.AsView(),
 		isRectangular ? PasteShape::rectangular : (isLine ? PasteShape::line : PasteShape::stream));
 	EnsureCaretVisible();
 }
@@ -679,13 +680,19 @@ void ScintillaQt::StartDrag()
 
 class CallTipImpl : public QWidget {
 public:
-	explicit CallTipImpl(CallTip *pct_)
+	explicit CallTipImpl(QWindow *transientParent_, CallTip *pct_)
 		: QWidget(nullptr, Qt::ToolTip),
+		  transientParent(transientParent_),
 		  pct(pct_)
 	{
 #if QT_VERSION >= QT_VERSION_CHECK(5, 9, 0)
 		setWindowFlag(Qt::WindowTransparentForInput);
 #endif
+	}
+
+	void showEvent(QShowEvent *) override
+	{
+		windowHandle()->setTransientParent(transientParent);
 	}
 
 	void paintEvent(QPaintEvent *) override
@@ -699,6 +706,7 @@ public:
 	}
 
 private:
+	QWindow *transientParent;
 	CallTip *pct;
 };
 
@@ -706,7 +714,7 @@ void ScintillaQt::CreateCallTipWindow(PRectangle rc)
 {
 
 	if (!ct.wCallTip.Created()) {
-		QWidget *pCallTip = new CallTipImpl(&ct);
+		QWidget *pCallTip = new CallTipImpl(scrollArea->window()->windowHandle(), &ct);
 		ct.wCallTip = pCallTip;
 		pCallTip->move(rc.left, rc.top);
 		pCallTip->resize(rc.Width(), rc.Height());
@@ -855,7 +863,7 @@ void ScintillaQt::Drop(const Point &point, const QMimeData *data, bool move)
 	SelectionPosition movePos = SPositionFromLocation(point,
 				false, false, UserVirtualSpace());
 
-	DropAt(movePos, bytes, len, move, rectangular);
+	DropAt(movePos, std::string_view(bytes.constData(), len), move, rectangular);
 }
 
 void ScintillaQt::DropUrls(const QMimeData *data)

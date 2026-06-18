@@ -1,0 +1,44 @@
+{0}
+{8}subroutine{0} {7}test_sub{6}({7}a{6}){0} {8}bind{6}({7}c{6}){0}
+
+    {8}change{0} {8}team{0} {6}({0} {7}new_team{0} {6}){0}
+    {1}! Statements executed with new_team as the current team{0}
+    {8}end{0} {8}team{0}
+    
+    {8}type{0} {7}ball{0}
+        {8}real{0} {6}::{0} {7}dia{0}
+    {8}end{0} {8}type{0}
+
+{1}! test directive:{0}
+{11}!gcc$ vector{0}
+
+    {8}critical{0}
+        {6}:{0}
+    {8}end{0} {8}critical{0}
+
+    {8}critical{0} {6}({8}stat{6}={2}2{6},{0} {8}errmsg{6}={2}2{6}){0}
+        {6}:{0}
+    {8}end{0} {8}critical{0}
+
+    {8}enumeration{0} {8}type{0} {6}::{0} {7}colour{0}
+        {8}enumerator{0} {6}::{0} {7}red{6},{0} {7}orange{6},{0} {7}green{0}
+    {8}end{0} {8}enumeration{0} {8}type{0}
+    {1}!{0}
+    {8}select{0} {8}rank{6}({7}x{6}){0}
+        {8}rank{0} {6}({2}0{6}){0}
+            {7}x{0} {6}={0} {2}0{0}
+        {8}rank{0} {6}({2}2{6}){0}
+            {8}IF{0} {6}({8}SIZE{6}({7}x{6},{2}2{6})>={2}2{6}){0} {7}x{6}(:,{2}2{6}){0} {6}={0} {2}2{0}
+        {8}rank{0} {8}default{0}
+            {8}print{0} {6}*,{0} {3}'I did not expect rank'{6},{0} {8}rank{6}({7}x{6}),{0} {3}'shape'{6},{0} {9}shape{6}({7}x{6}){0}
+            {8}error{0} {8}stop{0} {3}'process bad arg'{0}
+    {8}end{0} {8}select{0}
+
+    {8}enum{6},{0} {8}bind{6}({7}c{6}){0} {6}::{0} {7}season{0}
+        {8}enumerator{0} {6}::{0} {7}spring{6}={2}5{6},{0} {7}summer{6}={2}7{6},{0} {7}autumn{6},{0} {7}winter{0}
+    {8}end{0} {8}enum{0}
+{6}:{0}
+{8}end{0} {8}subroutine{0}
+
+
+

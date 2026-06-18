@@ -15,13 +15,32 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-#include <functional>
-#include <algorithm>
 #include "WindowsDlg.h"
-#include "WindowsDlgRc.h"
+
+#include <algorithm>
+#include <cassert>
+#include <cctype>
+#include <cstdio>
+#include <cstdlib>
+#include <cwchar>
+#include <cwctype>
+#include <functional>
+#include <string>
+#include <utility>
+#include <vector>
+
+#include "Buffer.h"
+#include "Common.h"
+#include "ContextMenu.h"
 #include "DocTabView.h"
-#include "EncodingMapper.h"
+#include "NppDarkMode.h"
+#include "Parameters.h"
+#include "StaticDialog.h"
+#include "WindowsDlgRc.h"
+#include "dpiManagerV2.h"
 #include "localization.h"
+#include "menuCmdID.h"
+#include "resource.h"
 
 using namespace std;
 
@@ -87,8 +106,8 @@ struct NumericStringEquivalence
 	{
 		const wchar_t *p = *str;
 		int value = 0;
-		for (*length = 0; isdigit(*p); ++(*length))
-			value = value * 10 + *p++ - '0';
+		for (*length = 0; std::iswdigit(*p); ++(*length))
+			value = value * 10 + *p++ - L'0';
 		*str = p;
 		return (value);
 	}
@@ -106,22 +125,22 @@ struct NumericStringEquivalence
 				break;
 			}
 
-			if (_istdigit(*str1) && _istdigit(*str2))
+			if (std::iswdigit(*str1) && std::iswdigit(*str2))
 			{
 				lcmp = wcstol(str1, &p1, 10) - wcstol(str2, &p2, 10);
 				if ( lcmp == 0 )
-					lcmp = static_cast<int32_t>((p2 - str2) - (p1 - str1));
+					lcmp = static_cast<int>((p2 - str2) - (p1 - str1));
 				if ( lcmp != 0 )
 					break;
 				str1 = p1, str2 = p2;
 			}
 			else
 			{
-				if (_istascii(*str1) && _istupper(*str1))
+				if (::iswascii(*str1) && std::iswupper(*str1))
 					c1 = towlower(*str1);
 				else
 					c1 = *str1;
-				if (_istascii(*str2) && _istupper(*str2))
+				if (::iswascii(*str2) && std::iswupper(*str2))
 					c2 = towlower(*str2);
 				else
 					c2 = *str2;
@@ -154,7 +173,7 @@ struct BufferEquivalent
 
 	static inline unsigned long long to_u64(const FILETIME& ft)
 	{
-		ULARGE_INTEGER u;
+		ULARGE_INTEGER u{};
 		u.LowPart = ft.dwLowDateTime;
 		u.HighPart = ft.dwHighDateTime;
 		return u.QuadPart; // 100-ns ticks since 1601 UTC
@@ -1362,7 +1381,7 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView* pTab)
 		size_t nDoc = pTab->nbItem();
 		nDoc = std::min<size_t>(nDoc, nMaxDoc);
 		UINT id = firstId;
-		UINT guard = firstId + static_cast<int32_t>(nDoc);
+		UINT guard = firstId + static_cast<UINT>(nDoc);
 		size_t pos = 0;
 		for (; id < guard; ++id, ++pos)
 		{
@@ -1373,7 +1392,7 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView* pTab)
 			mii.cbSize = sizeof(mii);
 			mii.fMask = MIIM_STRING | MIIM_STATE | MIIM_ID;
 
-			wstring strBuffer(BuildMenuFileName(60, static_cast<int32_t>(pos), buf->getFileName(), !isDropListMenu));
+			wstring strBuffer(BuildMenuFileName(60, static_cast<int>(pos), buf->getFileName(), !isDropListMenu));
 			std::vector<wchar_t> vBuffer(strBuffer.begin(), strBuffer.end());
 			if (buf->isDirty()) 
 			{
@@ -1384,7 +1403,7 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView* pTab)
 			mii.dwTypeData = (&vBuffer[0]);
 
 			mii.fState &= ~(MF_GRAYED | MF_DISABLED | MF_CHECKED);
-			if (static_cast<int32_t>(pos) == curDoc)
+			if (static_cast<int>(pos) == curDoc)
 			{
 				mii.fState |= MF_CHECKED;
 			}

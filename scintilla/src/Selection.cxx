@@ -9,6 +9,8 @@
 #include <cstdlib>
 
 #include <stdexcept>
+#include <system_error>
+#include <utility>
 #include <string>
 #include <string_view>
 #include <vector>

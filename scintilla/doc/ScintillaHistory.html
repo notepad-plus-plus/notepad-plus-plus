@@ -595,9 +595,35 @@
 	<td>Nathaniel Braun</td>
       </tr><tr>
 	<td>Stephan T. Lavavej</td>
+	<td>RealMalWare</td>
     </tr>
     </table>
     <h2 id="Releases">Releases</h2>
+    <h3>
+       <a href="https://www.scintilla.org/scintilla563.zip">Release 5.6.3</a>
+    </h3>
+    <ul>
+	<li>
+	Released 6 June 2026.
+	</li>
+	<li>
+	Restore selection and scroll position for undo and redo on additional views instead of just the view
+	performing the undo or redo.
+	<a href="https://github.com/notepad-plus-plus/notepad-plus-plus/pull/18014">Notepad++ Pull Request #18014</a>.
+	</li>
+	<li>
+	Improve performance of rectangular paste when many spaces must be inserted.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2302/">Bug #2302</a>.
+	</li>
+	<li>
+	On Win32, close the clipboard before inserting pasted or dropped text so that the clipboard is not blocked while
+	the insertion is performed.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2507/">Bug #2507</a>.
+	</li>
+	<li>
+	On Qt with Wayland, fix failures with displaying calltips and autocompletion lists.
+	</li>
+    </ul>
     <h3>
        <a href="https://www.scintilla.org/scintilla562.zip">Release 5.6.2</a>
     </h3>

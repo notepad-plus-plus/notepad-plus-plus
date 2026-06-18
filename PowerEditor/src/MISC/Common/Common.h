@@ -20,7 +20,6 @@
 #include <windows.h>
 
 #include <commctrl.h>
-#include <tchar.h>
 
 #include <algorithm>
 #include <locale>

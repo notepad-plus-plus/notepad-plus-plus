@@ -21,6 +21,7 @@
 
 #include <shlobj.h>
 #include <shlwapi.h>
+#include <strsafe.h>
 
 #include <algorithm>
 #include <array>
@@ -53,6 +54,7 @@
 #include "ScintillaEditView.h"
 #include "ToolBar.h"
 #include "UserDefineDialog.h"
+#include "hmac.h"
 #include "keys.h"
 #include "localization.h"
 #include "localizationString.h"
@@ -60,7 +62,6 @@
 #include "resource.h"
 #include "shortcut.h"
 #include "verifySignedfile.h"
-#include "hmac.h"
 
 #ifdef _MSC_VER
 #pragma warning(disable : 4996) // for GetVersionEx()
@@ -1201,7 +1202,7 @@ bool NppParameters::reloadStylers(const wchar_t* stylePath)
 	{
 		if (!_pNativeLangSpeaker)
 		{
-			::MessageBox(nullptr, _pXmlUserStylerDoc._path.c_str(), L"Load stylers.xml failed", MB_OK);
+			NppDarkMode::darkMessageBoxW(nullptr, _pXmlUserStylerDoc._path.c_str(), L"Load stylers.xml failed", MB_OK);
 		}
 		else
 		{
@@ -1408,7 +1409,7 @@ bool NppParameters::load()
 			std::wstring errMsg = L"The given path\r";
 			errMsg += _cmdSettingsDir;
 			errMsg += L"\nvia command line \"-settingsDir=\" is not a valid directory.\rThis argument will be ignored.";
-			::MessageBox(NULL, errMsg.c_str(), L"Invalid directory", MB_OK);
+			NppDarkMode::darkMessageBoxW(nullptr, errMsg.c_str(), L"Invalid directory", MB_OK);
 		}
 		else
 		{
@@ -1445,7 +1446,7 @@ bool NppParameters::load()
 				}
 				else
 				{
-					doRecover = ::MessageBox(NULL, L"Load langs.xml failed!\rDo you want to recover your langs.xml?", L"Configurator", MB_YESNO);
+					doRecover = NppDarkMode::darkMessageBoxW(nullptr, L"Load langs.xml failed!\rDo you want to recover your langs.xml?", L"Configurator", MB_YESNO);
 				}
 			}
 		}
@@ -1474,7 +1475,7 @@ bool NppParameters::load()
 		}
 		else
 		{
-			::MessageBox(NULL, L"Load langs.xml failed!", L"Configurator", MB_OK);
+			NppDarkMode::darkMessageBoxW(nullptr, L"Load langs.xml failed!", L"Configurator", MB_OK);
 		}
 
 		delete _pXmlDoc._doc;
@@ -1545,7 +1546,7 @@ bool NppParameters::load()
 		}
 		else
 		{
-			::MessageBox(NULL, _stylerPath.c_str(), L"Load stylers.xml failed", MB_OK);
+			NppDarkMode::darkMessageBoxW(nullptr, _stylerPath.c_str(), L"Load stylers.xml failed", MB_OK);
 		}
 		delete _pXmlUserStylerDoc._doc;
 		_pXmlUserStylerDoc._doc = nullptr;
@@ -3189,20 +3190,28 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 					std::wstring wstrLangName = langName ? string2wstring(langName) : L"";
 
 					const wchar_t* pBackupFilePath = wmc.char2wchar(NppXml::attribute(childNode, "backupFilePath"), CP_UTF8);
-					std::wstring currentBackupFilePath = NppParameters::getInstance().getUserPath() + L"\\backup\\";
+					wchar_t normalizedBackupFilePath[MAX_PATH]{};
+
 					if (pBackupFilePath)
 					{
-						std::wstring backupFilePath = pBackupFilePath;
+						::PathCanonicalize(normalizedBackupFilePath, pBackupFilePath);
+					}
+
+					std::wstring currentBackupFilePath = NppParameters::getInstance().getUserPath() + L"\\backup\\";
+
+					if (normalizedBackupFilePath[0])
+					{
+						std::wstring backupFilePath = normalizedBackupFilePath;
 						if (!backupFilePath.starts_with(currentBackupFilePath))
 						{
 							// reconstruct backupFilePath
-							wchar_t* fn = ::PathFindFileNameW(pBackupFilePath);
+							wchar_t* fn = ::PathFindFileNameW(normalizedBackupFilePath);
 							currentBackupFilePath += fn;
-							pBackupFilePath = currentBackupFilePath.c_str();
+							StringCchCopyW(normalizedBackupFilePath, MAX_PATH, currentBackupFilePath.c_str());
 						}
 					}
 
-					FILETIME fileModifiedTimestamp{
+					FILETIME fileModifiedTimestamp {
 						.dwLowDateTime = static_cast<DWORD>(NppXml::uint64Attribute(childNode, "originalFileLastModifTimestamp", 0)),
 						.dwHighDateTime = static_cast<DWORD>(NppXml::uint64Attribute(childNode, "originalFileLastModifTimestampHigh", 0))
 					};
@@ -3215,7 +3224,7 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 
 					sessionFileInfo sfi(wstrFileName.c_str(), wstrLangName.c_str(), encoding,
 						isUserReadOnly, isPinned, isUntitleTabRenamed,
-						position, pBackupFilePath, fileModifiedTimestamp, mapPosition);
+						position, normalizedBackupFilePath, fileModifiedTimestamp, mapPosition);
 
 					sfi._individualTabColour = NppXml::intAttribute(childNode, "tabColourId", -1);
 					sfi._isRTL = getBoolAttribute(childNode, "RTL");
@@ -4343,7 +4352,7 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 		{
 			std::wstring errTitle = L"Session file backup error: ";
 			errTitle += GetLastErrorAsString(0);
-			::MessageBox(nullptr, sessionPathName, errTitle.c_str(), MB_OK);
+			NppDarkMode::darkMessageBoxW(nullptr, sessionPathName, errTitle.c_str(), MB_OK);
 		}
 	}
 
@@ -4463,7 +4472,7 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 	}
 	else if (!isEndSessionCritical())
 	{
-		::MessageBox(nullptr, sessionPathName, L"Error of saving session XML file", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
+		NppDarkMode::darkMessageBoxW(nullptr, sessionPathName, L"Error of saving session XML file", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
 	}
 
 	//
@@ -4474,7 +4483,7 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 		if (doesBackupCopyExist) // session backup file exists, restore it
 		{
 			if (!isEndSessionCritical())
-				::MessageBox(nullptr, backupPathName, L"Saving session error - restoring from the backup:", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
+				NppDarkMode::darkMessageBoxW(nullptr, backupPathName, L"Saving session error - restoring from the backup:", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
 
 			std::wstring sessionPathNameFail2Load = sessionPathName;
 			sessionPathNameFail2Load += L".fail2Load";
@@ -6160,12 +6169,13 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 
 			_nppGUI._isLangMenuCompact = getBoolAttribute(childNode, "langMenuCompact", _nppGUI._isLangMenuCompact);
 		}
-		// <GUIConfig name="Print" lineNumber="yes" printOption="3" headerLeft="" headerMiddle="" headerRight="" footerLeft=""
+		// <GUIConfig name="Print" lineNumber="yes" formFeedPageBreak="no" printOption="3" headerLeft="" headerMiddle="" headerRight="" footerLeft=""
 		// footerMiddle="" footerRight="" headerFontName="" headerFontStyle="0" headerFontSize="0" footerFontName="" footerFontStyle="0"
 		// footerFontSize="0" margeLeft="0" margeRight="0" margeTop="0" margeBottom="0" />
 		else if (std::strcmp(nm, "Print") == 0)
 		{
 			_nppGUI._printSettings._printLineNumber = getBoolAttribute(childNode, "lineNumber", _nppGUI._printSettings._printLineNumber);
+			_nppGUI._printSettings._printFormFeedPageBreak = getBoolAttribute(childNode, "formFeedPageBreak", _nppGUI._printSettings._printFormFeedPageBreak);
 
 			_nppGUI._printSettings._printOption = getRangeDefaultAttribute<int>(childNode, "printOption", SC_PRINT_NORMAL, SC_PRINT_COLOURONWHITE, _nppGUI._printSettings._printOption);
 
@@ -7840,6 +7850,7 @@ void NppParameters::writePrintSetting(NppXml::Element& element) const
 	const auto& prSet = _nppGUI._printSettings;
 
 	setBoolAttribute(element, "lineNumber", prSet._printLineNumber);
+	setBoolAttribute(element, "formFeedPageBreak", prSet._printFormFeedPageBreak);
 
 	NppXml::setAttribute(element, "printOption", prSet._printOption);
 
@@ -8193,6 +8204,9 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 
 		case L_ERRORLIST:
 			id = IDM_LANG_ERRORLIST; break;
+
+		case L_ESCSEQ:
+			id = IDM_LANG_ESCSEQ; break;
 
 		case L_SEARCHRESULT :
 			id = -1;	break;

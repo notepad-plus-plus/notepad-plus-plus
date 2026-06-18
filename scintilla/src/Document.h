@@ -130,6 +130,9 @@ struct StyledText {
 	size_t StyleAt(size_t i) const noexcept {
 		return multipleStyles ? styles[i] : style;
 	}
+	std::string_view AsView() const noexcept {
+		return { text, length };
+	}
 };
 
 class HighlightDelimiter {
@@ -462,7 +465,8 @@ public:
 	Sci::Position CountUTF16(Sci::Position startPos, Sci::Position endPos) const noexcept;
 	Sci::Position FindColumn(Sci::Line line, Sci::Position column) const noexcept;
 	void Indent(bool forwards, Sci::Line lineBottom, Sci::Line lineTop);
-	static std::string TransformLineEnds(const char *s, size_t len, Scintilla::EndOfLine eolModeWanted);
+	static std::string TransformLineEnds(std::string_view s, Scintilla::EndOfLine eolModeWanted);
+	[[deprecated]]static std::string TransformLineEnds(const char *s, size_t len, Scintilla::EndOfLine eolModeWanted);
 	void ConvertLineEnds(Scintilla::EndOfLine eolModeSet);
 	std::string_view EOLString() const noexcept;
 	void SetReadOnly(bool set) noexcept { cb.SetReadOnly(set); }
@@ -650,9 +654,10 @@ public:
 	Scintilla::FoldLevel foldLevelPrev;
 	Sci::Line annotationLinesAdded;
 	Sci::Position token;
+	Sci::Position newPos = -1;	/**< Reasonable new caret position after undo or redo. */
 
 	DocModification(Scintilla::ModificationFlags modificationType_, Sci::Position position_=0, Sci::Position length_=0,
-		Sci::Line linesAdded_=0, const char *text_=nullptr, Sci::Line line_=0) noexcept :
+		Sci::Line linesAdded_=0, const char *text_=nullptr, Sci::Line line_=0, Sci::Position newPos_=-1) noexcept :
 		modificationType(modificationType_),
 		position(position_),
 		length(length_),
@@ -662,7 +667,8 @@ public:
 		foldLevelNow(Scintilla::FoldLevel::None),
 		foldLevelPrev(Scintilla::FoldLevel::None),
 		annotationLinesAdded(0),
-		token(0) {}
+		token(0),
+		newPos(newPos_) {}
 
 	DocModification(Scintilla::ModificationFlags modificationType_, const Action &act, Sci::Line linesAdded_=0) noexcept :
 		modificationType(modificationType_),

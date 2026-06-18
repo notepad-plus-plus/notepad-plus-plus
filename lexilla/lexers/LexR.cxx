@@ -28,11 +28,11 @@ using namespace Lexilla;
 namespace {
 
 inline bool IsAWordChar(int ch) noexcept {
-	return (ch < 0x80) && (isalnum(ch) || ch == '.' || ch == '_');
+	return IsAlphaNumeric(ch) || ch == '.' || ch == '_';
 }
 
 inline bool IsAWordStart(int ch) noexcept {
-	return (ch < 0x80) && (isalnum(ch) || ch == '_');
+	return IsAlphaNumeric(ch) || ch == '_';
 }
 
 constexpr bool IsAnOperator(int ch) noexcept {

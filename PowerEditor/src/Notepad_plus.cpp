@@ -2444,7 +2444,7 @@ int Notepad_plus::doSaveOrNot(const wchar_t* fn, bool isMulti)
 
 		msg = stringReplace(msg, L"$STR_REPLACE$", fn);
 
-		return ::MessageBox(_pPublicInterface->getHSelf(), msg.c_str(), title.c_str(), MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
+		return NppDarkMode::darkMessageBoxW(_pPublicInterface->getHSelf(), msg.c_str(), title.c_str(), MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
 	}
 
 	DoSaveOrNotBox doSaveOrNotBox;
@@ -4139,6 +4139,8 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_SAS;
         case IDM_LANG_ERRORLIST:
             return L_ERRORLIST;
+        case IDM_LANG_ESCSEQ:
+            return L_ESCSEQ;
         case IDM_LANG_USER:
             return L_USER;
 		default:

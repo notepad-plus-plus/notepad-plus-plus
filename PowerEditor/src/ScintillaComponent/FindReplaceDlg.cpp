@@ -6475,7 +6475,18 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 				bool isFound = _pFRDlg->processFindNext(str2Search.c_str(), &fo, &findStatus);
 
 				fo._str2Search = str2Search;
-				int nbCounted = _pFRDlg->processAll(ProcessCountAll, &fo);
+
+				// Counting every match on each keystroke scans the whole document, which
+				// makes incremental search sluggish on very large files (issue #11613).
+				// Past the large-file threshold, skip the running total: the search itself
+				// still works (processFindNext above), we just don't display the count.
+				int nbCounted = -1;
+				const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+				const LRESULT docLength = (*(_pFRDlg->_ppEditView))->execute(SCI_GETLENGTH);
+				const bool skipCountForLargeFile = nppGui._largeFileRestriction._isEnabled
+					&& docLength >= nppGui._largeFileRestriction._largeFileSizeDefInByte;
+				if (!skipCountForLargeFile)
+					nbCounted = _pFRDlg->processAll(ProcessCountAll, &fo);
 				setFindStatus(findStatus, nbCounted);
 
 				// If case-sensitivity changed (to Match=yes), there may have been a matched selection that

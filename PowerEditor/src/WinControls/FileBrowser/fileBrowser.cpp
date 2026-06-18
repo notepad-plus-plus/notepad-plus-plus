@@ -74,7 +74,7 @@ FileBrowser::~FileBrowser()
 		delete folder;
 	}
 
-	for (const auto cd : sortingDataArray)
+	for (const auto cd : _sortingDataArray)
 	{
 		delete cd;
 	}
@@ -1108,14 +1108,14 @@ HTREEITEM FileBrowser::createFolderItemsFromDirStruct(HTREEITEM hParentItem, con
 			rootPath[len - 1] = '\0';
 
 		SortingData4lParam* customData = new SortingData4lParam(rootPath, L"", true);
-		sortingDataArray.push_back(customData);
+		_sortingDataArray.push_back(customData);
 
 		hFolderItem = _treeView.addItem(directoryStructure._name.c_str(), TVI_ROOT, INDEX_CLOSE_ROOT, reinterpret_cast<LPARAM>(customData));
 	}
 	else
 	{
 		SortingData4lParam* customData = new SortingData4lParam(L"", directoryStructure._name, true);
-		sortingDataArray.push_back(customData);
+		_sortingDataArray.push_back(customData);
 
 		hFolderItem = _treeView.addItem(directoryStructure._name.c_str(), hParentItem, INDEX_CLOSE_NODE, reinterpret_cast<LPARAM>(customData));
 	}
@@ -1128,7 +1128,7 @@ HTREEITEM FileBrowser::createFolderItemsFromDirStruct(HTREEITEM hParentItem, con
 	for (const auto& file : directoryStructure._files)
 	{
 		SortingData4lParam* customData = new SortingData4lParam(L"", file._name, false);
-		sortingDataArray.push_back(customData);
+		_sortingDataArray.push_back(customData);
 
 		_treeView.addItem(file._name.c_str(), hFolderItem, INDEX_LEAF, reinterpret_cast<LPARAM>(customData));
 	}
@@ -1302,14 +1302,14 @@ bool FileBrowser::addToTree(FilesToChange & group, HTREEITEM node)
 			if (doesDirectoryExist((group._commonPath + file).c_str()))
 			{
 				SortingData4lParam* customData = new SortingData4lParam(L"", file, true);
-				sortingDataArray.push_back(customData);
+				_sortingDataArray.push_back(customData);
 
 				_treeView.addItem(file.c_str(), node, INDEX_CLOSE_NODE, reinterpret_cast<LPARAM>(customData));
 			}
 			else
 			{
 				SortingData4lParam* customData = new SortingData4lParam(L"", file, false);
-				sortingDataArray.push_back(customData);
+				_sortingDataArray.push_back(customData);
 
 				_treeView.addItem(file.c_str(), node, INDEX_LEAF, reinterpret_cast<LPARAM>(customData));
 			}
@@ -1416,6 +1416,19 @@ std::vector<HTREEITEM> FileBrowser::findInTree(FilesToChange & group, HTREEITEM 
 
 	if (group._linarWithoutLastPathElement.empty())
 	{
+		// items to find should have existing corresponding files on disk (fixes vanishing or multiplying of FaW-panel items)
+		group._files.erase(std::remove_if(group._files.begin(), group._files.end(),
+			[&group](const auto& file)
+			{
+				return doesPathExist((group._commonPath + file).c_str());
+			}),
+			group._files.end());
+
+		if (group._files.empty())
+		{
+			return {};
+		}
+
 		// Search
 		return findChildNodesFromNames(node, group._files);
 	}
@@ -1501,7 +1514,26 @@ bool FileBrowser::renameInTree(const wstring& rootPath, HTREEITEM node, const st
 	if (foundItem == nullptr)
 			return false;
 
-	// found it, rename it
+	// found it, try to rename it
+	if (!_treeView.renameItem(foundItem, renameTo.c_str()))
+	{
+		// renameItem just prevented multiplication of a FaW-panel item
+		// (typical situation - renaming of a previously added short-lived "filepath.tmp" treeview item,
+		// which had been created before as a part of a complex save-file-as-tmp-then-rename op...)
+
+		std::filesystem::path path2Check = rootPath;
+		for (const auto& part : linarPathArrayFrom)
+		{
+			path2Check /= part; // reconstruct back the split path of item being renamed
+		}
+
+		if (!doesPathExist(path2Check.wstring().c_str()))
+		{
+			_treeView.removeItem(foundItem); // remove non-existing orphan
+			return false;
+		}
+	}
+
 	_treeView.renameItem(foundItem, renameTo.c_str());
 	SortingData4lParam* compareData = reinterpret_cast<SortingData4lParam*>(_treeView.getItemParam(foundItem));
 	compareData->_label = renameTo;

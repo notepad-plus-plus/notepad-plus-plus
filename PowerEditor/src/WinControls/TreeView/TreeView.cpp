@@ -175,17 +175,38 @@ wstring TreeView::getItemDisplayName(HTREEITEM Item2Set) const
 	return tvItem.pszText;
 }
 
-bool TreeView::renameItem(HTREEITEM Item2Set, const wchar_t *newName)
+bool TreeView::renameItem(const HTREEITEM Item2Set, const wchar_t* newName)
 {
 	if (!Item2Set || !newName)
 		return false;
 
-	TVITEM tvItem{};
-	tvItem.hItem = Item2Set;
-	tvItem.mask = TVIF_TEXT;
-	tvItem.pszText = (LPWSTR)newName;
+	TVITEMW tvItem{};
 	tvItem.cchTextMax = MAX_PATH;
-	SendMessage(_hSelf, TVM_SETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
+	tvItem.mask = TVIF_TEXT;
+
+	// prevent multiplication of the same item
+	HTREEITEM hItem = nullptr;
+	HTREEITEM hParent = getParent(Item2Set);
+	if (!hParent)
+		hItem = getRoot(); // get current level 1st item, Item2Set is at the top/root level
+	else
+		hItem = getChildFrom(hParent); // get current level 1st item, Item2Set is a child node
+	while (hItem)
+	{
+		wchar_t textBuffer[MAX_PATH]{};
+		tvItem.hItem = hItem;
+		tvItem.pszText = textBuffer;
+		::SendMessageW(_hSelf, TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
+		if (lstrcmpW(newName, tvItem.pszText) == 0)
+			return false; // a duplicity found, interrupting
+
+		hItem = getNextSibling(hItem); // next item to check
+	}
+
+	// ok, can rename
+	tvItem.hItem = Item2Set;
+	tvItem.pszText = const_cast<LPWSTR>(newName);
+	::SendMessageW(_hSelf, TVM_SETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 	return true;
 }
 

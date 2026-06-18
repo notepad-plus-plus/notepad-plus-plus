@@ -1186,6 +1186,7 @@
 
 				<Print title="Nyomtatás">
 					<Item id="6601" name="&amp;Sorok számozásának nyomtatása"/>
+					<Item id="6616" name="La&amp;pemelés (FF) oldaltörésként"/>
 					<Item id="6602" name="Színbeállítások"/>
 					<Item id="6603" name="Ahogy látszik (&amp;WYSIWYG)"/>
 					<Item id="6604" name="Ford&amp;ított színek"/>
@@ -1495,7 +1496,7 @@ Biztosan megnyitja mindet?"/><!-- HowToReproduce: Check "Open all files of folde
 			<SettingsOnCloudError title="Beállítások tárolása felhőben" message="Úgy tűnik, a felhőtárhely helyi elérési útja írásvédett meghajtóra mutat,
 vagy pedig a megadott mappához írási jogosultság szükséges.
 A felhőben tárolandó beállításai törlődnek. Kérjük, állítson be megfelelő értéket a „Gépház”-ban"/>
-			<FilePathNotFoundWarning title="Fájl megnyitása" message="A megnyitni kívánt fájl nem létezik"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<FilePathNotFoundWarning title="Elérési út megnyitása" message="A megnyitni kívánt elérési út nem létezik"/>
 			<SessionFileInvalidError title="Sikertelen munkamenet-betöltés" message="A munkamenetfájl sérült vagy érvénytelen"/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Érvénytelen művelet" message="A Notepad++-ra vagy csak fájlokat, vagy csak mappákat ejthet (mindkettőt nem), mivel a „fogd és vidd” műveletre projektmód van beállítva.
 A művelet végrehajtásához a „Gépház” párbeszédpanel „Alapértelmezett mappa” szakaszában az „Egy mappa »fogd és vidd« ejtésekor a fájlok megnyitása…” lehetőség engedélyezése szükséges"/>
@@ -1812,6 +1813,7 @@ A mezőbe beillesztett szöveg láthatatlan karaktereket (esetleg sorvégjeleket
 			<common-ok value="OK"/>
 			<common-cancel value="Mégse"/>
 			<common-name value="Név"/>
+			<common-error value="Hiba"/>
 			<tabrename-title value="A jelenlegi fül átnevezése"/>
 			<tabrename-newname value="Új név"/>
 			<splitter-rotate-left value="Forgatás balra"/>

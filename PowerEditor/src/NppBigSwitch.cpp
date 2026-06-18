@@ -3769,7 +3769,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			_statusBar.setPartWidth(STATUSBAR_CUR_POS, DPIManagerV2::scale(260, dpi));
 			_statusBar.setPartWidth(STATUSBAR_EOF_FORMAT, DPIManagerV2::scale(110, dpi));
 			_statusBar.setPartWidth(STATUSBAR_UNICODE_TYPE, DPIManagerV2::scale(120, dpi));
-			_statusBar.setPartWidth(STATUSBAR_TYPING_MODE, DPIManagerV2::scale(30, dpi));
+			_statusBar.setPartWidth(STATUSBAR_TYPING_MODE, DPIManagerV2::scale(40, dpi)); // 40 (not 30): "INS"/"OVR" was clipped to "IN"
 
 			return TRUE;
 		}

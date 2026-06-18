@@ -1500,8 +1500,7 @@ Translation note:
 本当に開きますか?"/>
 			<SettingsOnCloudError title="警告: クラウド設定" message="クラウドのパスが、読み込み専用ドライブか、書き込み権限が必要なフォルダーに設定されています。
 クラウドの設定はキャンセルされます。環境設定画面で正しい場所を指定し直して下さい。"/>
-
-			<FilePathNotFoundWarning title="警告: ファイルを開く" message="指定されたファイルは存在しません。"/>
+			<FilePathNotFoundWarning title="警告: パスを開く" message="指定されたパスは存在しません。"/>
 			<SessionFileInvalidError title="セッションを読み込めません" message="セッションファイルが破損しているか、正しい形式ではありません。"/>
 			<DroppingFolderAsProjectModeWarning title="無効な操作です" message="「フォルダーをプロジェクトとして開く」設定になっているため、ファイルとフォルダーを同時にドロップして開くことはできません。
 この操作を使いたい場合、「環境設定」を開き、「既定のディレクトリ」の「フォルダーをドロップした時、ワークスペースとせずに すべてのファイルを開く」を有効にして下さい。"/>
@@ -1813,6 +1812,7 @@ OKボタンを押すと検索ダイアログが開きます。
 			<common-ok value="OK"/>
 			<common-cancel value="ｷｬﾝｾﾙ"/>
 			<common-name value="名前"/>
+			<common-error value="エラー"/>
 			<tabrename-title value="現ﾀﾌﾞのﾌｧｲﾙ名を変更"/>
 			<tabrename-newname value="新ﾌｧｲﾙ名"/>
 			<splitter-rotate-left value="左回りに回す"/>

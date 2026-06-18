@@ -5521,8 +5521,18 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 		if (!nm)
 			continue;
 
+		// <GUIConfig name="ColorPickerCustomColors" color0="..." ... color15="..." />
+		if (std::strcmp(nm, "ColorPickerCustomColors") == 0)
+		{
+			size_t i = 0;
+			for (auto &cc : _nppGUI._colorPickerCustomColors)
+			{
+				const std::string attrName = "color" + std::to_string(i++);
+				cc = static_cast<COLORREF>(NppXml::intAttribute(childNode, attrName.c_str(), static_cast<int>(cc)));
+			}
+		}
 		// <GUIConfig name="ToolBar" visible="yes" fluentColor="0" fluentCustomColor="0" fluentMono="no">standard</GUIConfig>
-		if (std::strcmp(nm, "ToolBar") == 0)
+		else if (std::strcmp(nm, "ToolBar") == 0)
 		{
 			_nppGUI._toolbarShow = getBoolAttribute(childNode, "visible", _nppGUI._toolbarShow);
 
@@ -7706,6 +7716,19 @@ void NppParameters::createXmlTreeFromGUIParams()
 		setBoolAttribute(GUIConfigElement, "lightTbFluentMono", lightTbInfo._tbUseMono);
 		NppXml::setAttribute(GUIConfigElement, "lightTabIconSet", lightDefaults._tabIconSet);
 		setBoolAttribute(GUIConfigElement, "lightTabUseTheme", lightDefaults._tabUseTheme);
+	}
+
+	// <GUIConfig name="ColorPickerCustomColors" color0="..." ... color15="..." />
+	{
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "ColorPickerCustomColors");
+
+		size_t i = 0;
+		for (auto & cc : _nppGUI._colorPickerCustomColors)
+		{
+			const std::string attrName = "color" + std::to_string(i++);
+			NppXml::setAttribute(GUIConfigElement, attrName.c_str(), static_cast<int>(cc));
+		}
 	}
 
 	// <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" lineNumberDynamicWidth="yes" bookMarkMargin="show" indentGuideLine="show"

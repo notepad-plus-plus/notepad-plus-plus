@@ -710,6 +710,12 @@ struct NppGUI final
 	bool _statusBarShow = true;
 	bool _menuBarShow = true;
 
+	// The 16 custom color slots of the Windows color picker (ChooseColor), persisted
+	// across restarts (issue #4782). ChooseColorW reads/writes this array in place.
+	std::array<COLORREF, 16> _colorPickerCustomColors{ {
+		white, white, white, white, white, white, white, white,
+		white, white, white, white, white, white, white, white } };
+
 	int _tabStatus = (TAB_DRAWTOPBAR | TAB_DRAWINACTIVETAB | TAB_DRAGNDROP | TAB_REDUCE | TAB_CLOSEBUTTON | TAB_PINBUTTON);
 	bool _forceTabbarVisible = false;
 	UINT _tabCompactLabelLen = 0; // 0 ... no compacting

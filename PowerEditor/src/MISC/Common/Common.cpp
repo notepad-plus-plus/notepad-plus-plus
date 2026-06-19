@@ -601,7 +601,7 @@ std::wstring string2wstring(const std::string& rString, UINT codepage)
 	{
 		auto str = std::wstring(len, L'\0');
 		::MultiByteToWideChar(codepage, 0, rString.c_str(), -1, str.data(), len);
-		str.pop_back(); // remove extra null terminator
+		str.resize(static_cast<size_t>(len) - 1); // remove extra null terminator
 		return str;
 	}
 	return L"";
@@ -615,7 +615,7 @@ std::string wstring2string(const std::wstring& rwString, UINT codepage)
 	{
 		auto str = std::string(len, '\0');
 		::WideCharToMultiByte(codepage, 0, rwString.c_str(), -1, str.data(), len, nullptr, nullptr);
-		str.pop_back(); // remove extra null terminator
+		str.resize(static_cast<size_t>(len) - 1); // remove extra null terminator
 		return str;
 	}
 	return "";

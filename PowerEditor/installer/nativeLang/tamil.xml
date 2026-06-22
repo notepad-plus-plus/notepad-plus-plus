@@ -13,7 +13,7 @@
 					<Item menuId="language" name="மொழி (&amp;L)"/>
 					<Item menuId="settings" name="அமைப்புகள் (&amp;T)"/>
 					<Item menuId="tools" name="கருவிகள் (&amp;O)"/>
-					<Item menuId="run" name="ஓட்டு (&amp;R)"/>
+					<Item menuId="run" name="இயக்கு (&amp;R)"/>
 					<Item menuId="Plugins" name="செருகுநிரல்கள் (&amp;P)"/>
 					<Item menuId="Window" name="சாளரம் (&amp;W)"/>
 				</Entries>
@@ -175,7 +175,7 @@
 					<Item id="42031" name="நடப்பு Dir. Pathஐ ஒட்டுப்பலகையில் எடு"/>
 					<Item id="42087" name="எல்லா கோப்பு பெயர்களையும் பலகையில் எடு"/>
 					<Item id="42088" name="எல்லா கோப்பு பாதைகளையும் பலகையில் எடு"/>
-					<Item id="42032" name="Macroஐ பல முறை ஓட்டு..."/>
+					<Item id="42032" name="Macroஐ பல முறை இயக்கு..."/>
 					<Item id="42035" name="ஓர்வரி கருத்து"/>
 					<Item id="42036" name="ஓர்வரி கருத்தை அகற்று"/>
 					<Item id="42055" name="காலி வரிகளை அகற்று"/>
@@ -343,7 +343,7 @@
 					<Item id="48504" name="உருவாக்குக..."/>
 					<Item id="48505" name="கோப்புகளிலிருந்து உருவாக்குக..."/>
 					<Item id="48506" name="ஒட்டுப்பலகையினுள்ளெடுத்த தேர்வுகளிலிருந்து உருவாக்குக"/>
-					<Item id="49000" name="ஓட்டு... (&amp;R)"/>
+					<Item id="49000" name="இயக்கு... (&amp;R)"/>
 
 					<Item id="50000" name="செயல்பாடு முடித்தல்"/>
 					<Item id="50001" name="சொல் முடித்தல்"/>
@@ -379,7 +379,7 @@
 				<Item CMID="7" name="முழு கோப்பு வழியை பலகையில் எடு"/>
 				<Item CMID="8" name="கோப்பு வழியை பலகையில் எடு"/>
 				<Item CMID="9" name="நடப்பு கோப்பு உறை வழியை பலகையில் எடு"/>
-				<Item CMID="10" name="மறுபெயாரிடு "/>
+				<Item CMID="10" name="மறுபெயரிடு"/>
 				<Item CMID="11" name="நீக்கு"/>
 				<Item CMID="12" name="வாசிப்பு மட்டும்"/>
 				<Item CMID="13" name="படிக்க-மட்டும் Flagஐ துப்புரவாக்கு"/>
@@ -390,7 +390,7 @@
 				<Item CMID="18" name="வலதிலுள்ள எல்லாவற்றையும் முடு"/>
 				<Item CMID="19" name="உலாவியில் உள்ளடக்கும் கோப்புறைத் திற"/>
 				<Item CMID="20" name="cmdஇல் உள்ளடக்கும் கோப்புறையைத் திற"/>
-				<Item CMID="21" name="இயள்புநிலைப் பார்வையைளரைத் திற"/>
+				<Item CMID="21" name="இயல்புநிலைப் பார்வையகத்தில் திற"/>
 				<Item CMID="22" name="மாற்றப்படாத எல்லாவற்றையும் மூடு"/>
 				<Item CMID="23" name="உள்ளடக்கும் கோப்புறையை பணியிடமாகத் திற"/>
 			</TabBar>
@@ -463,9 +463,9 @@
 				<Item id="2006" name="நீங்கள் அதற்குமேல் செல்ல முடியாது :"/>
 			</GoToLine>
 
-			<Run title="ஓட்டு...">
-				<Item id="1903" name="ஓட்டுவதற்கான நிரல்"/>
-				<Item id="1" name="ஓட்டு"/>
+			<Run title="இயக்கு...">
+				<Item id="1903" name="இயக்குவதற்கான நிரல்"/>
+				<Item id="1" name="இயக்கு"/>
 				<Item id="2" name="ரத்து செய்"/>
 				<Item id="1904" name="சேமி..."/>
 			</Run>
@@ -548,7 +548,7 @@
 				<ColumnPlugin name="செருகுநிரல்"/>
 				<MainMenuTab name="முக்கியப் பட்டியல்"/>
 				<MacrosTab name="Macroக்கள்"/>
-				<RunCommandsTab name="ஓட்டு கட்டளைகள்"/>
+				<RunCommandsTab name="இயக்கு கட்டளைகள்"/>
 				<PluginCommandsTab name="செருகுநிரல் கட்டளைகள்"/>
 				<ScintillaCommandsTab name="Scintilla கட்டளைகள்"/>
 				<ConflictInfoOk name="இந்த உருப்படிக்கு ஒரு குறுக்குவழி மோதலும் இல்லை."/>
@@ -1126,13 +1126,13 @@
 					<Item id="6361" name="'எல்லாவற்றையும் சேமி' உறுதிபடுத்தும் அரையாடலை செயல்படுத்து"/>
 				</MISC>
 			</Preference>
-			<MultiMacro title="Macroஐ பல முறை ஓட்டு">
-				<Item id="1" name="ஓட்டு (&amp;R)"/>
+			<MultiMacro title="Macroஐ பல முறை இயக்கு">
+				<Item id="1" name="இயக்கு (&amp;R)"/>
 				<Item id="2" name="ரத்து செய் (&amp;C)"/>
-				<Item id="8006" name="ஓட்டுவதற்கான Macro :"/>
-				<Item id="8001" name="ஓட்டு"/>
+				<Item id="8006" name="இயக்குவதற்கான Macro :"/>
+				<Item id="8001" name="இயக்கு"/>
 				<Item id="8005" name="காலநிலைகள்"/>
-				<Item id="8002" name="கோப்பின் இறுதிவரை ஓட்டு (&amp;E)"/>
+				<Item id="8002" name="கோப்பின் இறுதிவரை இயக்கு (&amp;E)"/>
 			</MultiMacro>
 			<Window title="சாளரங்கள்">
 				<Item id="1" name="தெடக்கு (&amp;A)"/>

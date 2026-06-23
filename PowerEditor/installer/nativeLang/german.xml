@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.6.2"><!-- Datum: 15.06.2026, basiert auf english.xml 8.9.6.2 vom 14.06.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.6.2"><!-- Datum: 23.06.2026, basiert auf english.xml 8.9.6.2 vom 20.06.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1505,7 +1505,7 @@ Sind Sie sicher?"/>
 			<SettingsOnCloudError title="Cloud-Einstellungen" message="Der von Ihnen angegebene Pfad für die Einstellungen in der Cloud erlaubt kein
 Speichern oder es fehlen die Schreibberechtigungen.
 Ihre Einstellungen konnten nicht gespeichert werden. Bitte passen Sie die Einstellungen an."/>
-			<FilePathNotFoundWarning title="Datei öffnen" message="Die zu öffnende Datei existiert nicht."/>
+			<FilePathNotFoundWarning title="Pfad öffnen" message="Der zu öffnende Pfad existiert nicht."/>
 			<SessionFileInvalidError title="Konnte Sitzung nicht laden" message="Die Sitzungsdatei ist entweder beschädigt oder ungültig."/>
 			<DroppingFolderAsProjectModeWarning title="Ungültige Aktion" message="Es können entweder Dateien oder Verzeichnisse abgelegt werden, aber nicht beides zugleich, da das Programm im 'Verzeichnis als Projekt'-Modus ist.
 Um dies zu ändern aktivieren Sie die Option &quot;Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses&quot; im &quot;Standardverzeichnis&quot; Bereich des Optionen-Dialogs."/>
@@ -1822,6 +1822,7 @@ Der in diese Felder eingefügte Text enthält unsichtbare Zeichen (möglicherwei
 			<common-ok value="OK"/>
 			<common-cancel value="Abbruch"/>
 			<common-name value="Name: "/>
+			<common-error value="Fehler"/>
 			<tabrename-title value="Akt. Register umbenennen"/>
 			<tabrename-newname value="Neuer Name: "/>
 			<splitter-rotate-left value="Nach links drehen"/>

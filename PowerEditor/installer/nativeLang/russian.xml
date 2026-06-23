@@ -1833,6 +1833,7 @@ Updated to :
 			<progress-hits-title value="Совпадений:"/>
 			<progress-cancel-info value="Отмена операции, подождите..."/>
 
+			<discover-file-candidates-title value="Обнаружение потенциальных файлов..."/>
 			<find-in-files-progress-title value="Прогресс поиска в файлах..."/>
 			<replace-in-files-confirm-title value="Вы уверены?"/>
 			<replace-in-files-confirm-directory value="Вы точно хотите заменить все совпадения в директории:"/>

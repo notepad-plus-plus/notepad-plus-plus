@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.9.6.2">
+	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.9.6.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -486,6 +486,7 @@
 				<Item id="1681" name="搜尋："/>
 				<Item id="1685" name="區分大小寫"/>
 				<Item id="1690" name="醒目提示所有"/>
+				<Item id="1691" name="計算總數"/>
 			</IncrementalFind>
 			<FindCharsInRange title="以字元編號搜尋字元">
 				<Item id="2" name="關閉"/>

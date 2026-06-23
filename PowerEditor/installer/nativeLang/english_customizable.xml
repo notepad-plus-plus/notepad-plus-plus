@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english_customizable.xml" version="8.9.6.2">
+	<Native-Langue name="English" filename="english_customizable.xml" version="8.9.6.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -534,6 +534,7 @@ Translation note:
 				<Item id="1681" name="Find:"/>
 				<Item id="1685" name="Match &amp;case"/>
 				<Item id="1690" name="&amp;Highlight all"/>
+				<Item id="1691" name="C&amp;ount"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Find Characters in Range...">

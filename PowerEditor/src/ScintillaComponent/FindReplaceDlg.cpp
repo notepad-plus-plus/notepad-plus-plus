@@ -6397,6 +6397,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 		case WM_INITDIALOG:
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(getHSelf());
+			::SendDlgItemMessage(_hSelf, IDC_INCFINDCOUNT, BM_SETCHECK, TRUE, 0);
 			return TRUE;
 		}
 
@@ -6475,7 +6476,11 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 				bool isFound = _pFRDlg->processFindNext(str2Search.c_str(), &fo, &findStatus);
 
 				fo._str2Search = str2Search;
-				int nbCounted = _pFRDlg->processAll(ProcessCountAll, &fo);
+				int nbCounted = -1;
+				if (::SendDlgItemMessage(_hSelf, IDC_INCFINDCOUNT, BM_GETCHECK, 0, 0) == BST_CHECKED)
+				{
+					nbCounted = _pFRDlg->processAll(ProcessCountAll, &fo);
+				}
 				setFindStatus(findStatus, nbCounted);
 
 				// If case-sensitivity changed (to Match=yes), there may have been a matched selection that
@@ -6491,7 +6496,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 			if (updateHiLight)
 			{
 				bool highlight = !str2Search.empty() &&
-					(BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_INCFINDHILITEALL, BM_GETCHECK, 0, 0));
+					(::SendDlgItemMessage(_hSelf, IDC_INCFINDHILITEALL, BM_GETCHECK, 0, 0) == BST_CHECKED);
 				markSelectedTextInc(highlight, &fo);
 			}
 			return TRUE;

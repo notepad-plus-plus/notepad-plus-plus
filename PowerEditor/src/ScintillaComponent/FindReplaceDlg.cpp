@@ -4837,7 +4837,7 @@ void FindReplaceDlg::enableProjectCheckmarks()
 				if (s & MF_CHECKED)
 				{
 					enableFindDlgItem (idd [i], true);
-					if (BST_CHECKED == ::SendDlgItemMessage(_hSelf, idd [i], BM_GETCHECK, 0, 0))
+					if (isCheckedOrNot(idd [i]))
 						enable = true;
 				}
 				else
@@ -6467,7 +6467,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 			fo._isWholeWord = false;
 			fo._incrementalType = advance ? NextIncremental : FirstIncremental;
 			fo._whichDirection = forward ? DIR_DOWN : DIR_UP;
-			fo._isMatchCase = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_INCFINDMATCHCASE, BM_GETCHECK, 0, 0));
+			fo._isMatchCase = isCheckedOrNot(IDC_INCFINDMATCHCASE);
 
 			wstring str2Search = getTextFromCombo(::GetDlgItem(_hSelf, IDC_INCFINDTEXT));
 			if (updateSearch)
@@ -6477,7 +6477,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 
 				fo._str2Search = str2Search;
 				int nbCounted = -1;
-				if (::SendDlgItemMessage(_hSelf, IDC_INCFINDCOUNT, BM_GETCHECK, 0, 0) == BST_CHECKED)
+				if (isCheckedOrNot(IDC_INCFINDCOUNT))
 				{
 					nbCounted = _pFRDlg->processAll(ProcessCountAll, &fo);
 				}
@@ -6495,8 +6495,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 
 			if (updateHiLight)
 			{
-				bool highlight = !str2Search.empty() &&
-					(::SendDlgItemMessage(_hSelf, IDC_INCFINDHILITEALL, BM_GETCHECK, 0, 0) == BST_CHECKED);
+				bool highlight = !str2Search.empty() && isCheckedOrNot(IDC_INCFINDHILITEALL);
 				markSelectedTextInc(highlight, &fo);
 			}
 			return TRUE;

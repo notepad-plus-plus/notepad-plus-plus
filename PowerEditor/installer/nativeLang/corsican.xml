@@ -13,7 +13,7 @@ Additionnal information about Corsican localization:
 2. History of Corsican translation for Notepad++:
 
 	- Updated in 2026 by Patriccollu di Santa Maria è Sichè: Feb. 10th (v8.9.1+), Mar. 10th (v8.9.2+), May 17th (v8.9.5+),
-			  June 17h (v8.9.6.4+)
+			  June 24th (v8.9.6.4+)
 	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8), Apr. 20th (v8.8),
 			  June 26th (v8.8.1+), July 24th (v8.8.3+), Sep. 30th (v8.8.5+), Dec. 12th (v8.8.9+)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
@@ -566,6 +566,7 @@ Additionnal information about Corsican localization:
 				<Item id="1681" name="Circà :"/>
 				<Item id="1685" name="&amp;Rispettà a cassa"/>
 				<Item id="1690" name="&amp;Tuttu sopralineà"/>
+				<Item id="1691" name="&amp;Cuntera"/>
 			</IncrementalFind>
 			<FindCharsInRange title="Circà caratteri in una stesa…">
 				<Item id="2" name="C&amp;hjode"/>
@@ -1870,6 +1871,7 @@ U testu incullatu in stu campu cuntene caratteri invisibile (forse fine di linea
 			<progress-hits-title value="Occurrenze :"/>
 			<progress-cancel-info value="Abbandonu di l’operazione, aspittate per piacè…"/>
 			<find-in-files-progress-title value="Prugressione di a ricerca in i schedarii…"/>
+			<discover-file-candidates-title value="Scuperta di i schedarii candidati…"/>
 			<replace-in-files-confirm-title value="Cunfirmazione"/>
 			<replace-in-files-confirm-directory value="Da veru, vulete rimpiazzà tutte l’occurrenze in :"/>
 			<replace-in-files-confirm-filetype value="Per u(i) tipu(i) di schedariu :"/>

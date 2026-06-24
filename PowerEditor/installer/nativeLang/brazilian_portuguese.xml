@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 17 Jun 2026 for 8.9.6.4+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 24 Jun 2026 for 8.9.6.4+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -534,6 +534,7 @@ Translation note:
 				<Item id="1681" name="Procurar:"/>
 				<Item id="1685" name="Diferenciar maiúsc/minúsc"/>
 				<Item id="1690" name="Destacar todos"/>
+				<Item id="1691" name="C&amp;ontar"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Localizar caracteres em um intervalo...">
@@ -1835,6 +1836,7 @@ O texto colado neste campo inclui caracteres invisíveis (talvez caracter de fin
 			<progress-hits-title value="Ocorrências:"/>
 			<progress-cancel-info value="Cancelando operação, aguarde..."/>
 			<find-in-files-progress-title value="Progresso do Localizar nos arquivos..."/>
+			<discover-file-candidates-title value="Descobrindo arquivos candidatos..."/>
 			<replace-in-files-confirm-title value="Tem certeza?"/>
 			<replace-in-files-confirm-directory value="Tem certeza de que deseja substituir todas as ocorrências em:"/>
 			<replace-in-files-confirm-filetype value="Para o tipo de arquivo:"/>

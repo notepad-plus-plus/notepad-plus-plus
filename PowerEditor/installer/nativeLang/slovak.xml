@@ -532,18 +532,19 @@
 				<Item id="1681" name="Hľadať:"/>
 				<Item id="1685" name="&amp;Rozlišovať veľkosť písmen"/>
 				<Item id="1690" name="&amp;Zvýrazniť všetky"/>
+				<Item id="1691" name="P&amp;očet"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Hľadať znaky v rozsahu…">
 				<Item id="2" name="&amp;Zavrieť"/>
 				<Item id="2901" name="&amp;Nie-ASCII znaky (128 – 255)"/>
-				<Item id="2902" name="&amp;ASCII znaky (0 – 127)"/>
+				<Item id="2902" name="ASCII z&amp;naky (0 – 127)"/>
 				<Item id="2903" name="Vlastný &amp;rozsah (0 – 255):"/>
 				<Item id="2906" name="&amp;Hore"/>
 				<Item id="2907" name="&amp;Dole"/>
 				<Item id="2908" name="Smer"/>
 				<Item id="2909" name="&amp;Cyklicky"/>
-				<Item id="2910" name="&amp;Hľadať"/>
+				<Item id="2910" name="Hľ&amp;adať"/>
 			</FindCharsInRange>
 
 			<GoToLine title="Ísť na…">
@@ -1832,6 +1833,7 @@ Text vložený do tohto poľa obsahuje neviditeľné znaky (asi znaky konca riad
 			<progress-hits-title value="Nájdené:"/>
 			<progress-cancel-info value="Ruší sa operácia, čakajte, prosím…"/>
 			<find-in-files-progress-title value="Prebieha hľadanie v súboroch…"/>
+			<discover-file-candidates-title value="Vyhľadávajú sa vhodné súbory…"/>
 			<replace-in-files-confirm-title value="Naozaj?"/>
 			<replace-in-files-confirm-directory value="Naozaj chcete nahradiť všetky výskyty v:"/>
 			<replace-in-files-confirm-filetype value="Pre typ súboru:"/>

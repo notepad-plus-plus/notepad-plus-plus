@@ -580,6 +580,7 @@ Updated to :
 				<Item id="1681" name="Найти"/>
 				<Item id="1685" name="Учитывать регистр"/>
 				<Item id="1690" name="Подсветка всех"/>
+				<Item id="1691" name="Подсчёт"/>
 			</IncrementalFind>
 			<FindCharsInRange title="Найти символы в диапазоне....">
 				<Item id="2" name="За&amp;крыть"/>

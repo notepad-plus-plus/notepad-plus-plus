@@ -2826,7 +2826,9 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 	if (userCreatedSessionName && !session._fileBrowserRoots.empty())
 	{
 		// If the session is user's created session but not session.xml, we force to launch Folder as Workspace and add roots
-		launchFileBrowser(session._fileBrowserRoots, session._fileBrowserSelectedItem, true);
+		std::vector<std::wstring> dummy; // use nppParam.getFileBrowserRoots() instead
+
+		launchFileBrowser(dummy, session._fileBrowserSelectedItem, true, &(session._fileBrowserRoots));
 	}
 
 	// Especially File status auto-detection set on "Enable for all opened files":  nppGUI._fileAutoDetection & cdEnabledOld

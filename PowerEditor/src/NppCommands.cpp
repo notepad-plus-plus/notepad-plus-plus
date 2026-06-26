@@ -1211,8 +1211,10 @@ void Notepad_plus::command(int id)
 		{
 			if (_pFileBrowser == nullptr) // first launch, check in params to open folders
 			{
-				const NppParameters& nppParam = NppParameters::getInstance();
-				launchFileBrowser(nppParam.getFileBrowserRoots(), nppParam.getFileBrowserSelectedItemPath());
+				std::vector<std::wstring> dummy; // use nppParam.getFileBrowserRoots() instead
+				NppParameters& nppParam = NppParameters::getInstance();
+
+				launchFileBrowser(dummy, nppParam.getFileBrowserSelectedItemPath(), true, &(nppParam.getFileBrowserRoots()));
 				if (_pFileBrowser != nullptr)
 				{
 					checkMenuItem(IDM_VIEW_FILEBROWSER, true);

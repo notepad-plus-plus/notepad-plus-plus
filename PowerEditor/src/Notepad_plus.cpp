@@ -973,7 +973,9 @@ bool Notepad_plus::saveFileBrowserParam()
 	{
 		vector<wstring> rootPaths = _pFileBrowser->getRoots();
 		wstring selectedItemPath = _pFileBrowser->getSelectedItemPath();
-		return (NppParameters::getInstance()).writeFileBrowserSettings(rootPaths, selectedItemPath);
+		auto expandedPaths = _pFileBrowser->getExpandedPathsFromFaW();
+		std::unordered_set<std::wstring> transportPaths(expandedPaths.begin(), expandedPaths.end());
+		return (NppParameters::getInstance()).writeFileBrowserSettings(rootPaths, selectedItemPath, transportPaths);
 	}
 	return true; // nothing to save so true is returned
 }
@@ -7580,7 +7582,9 @@ void Notepad_plus::launchAnsiCharPanel()
 	_pAnsiCharPanel->display();
 }
 
-void Notepad_plus::launchFileBrowser(const vector<wstring> & folders, const wstring& selectedItemPath, bool fromScratch)
+// folders is the list of roots of tree structure to be added to the file browser.
+// if _pFileBrowserRoots is not NULL, then _pFileBrowserRoots is used, otherwise folders is used.
+void Notepad_plus::launchFileBrowser(const vector<wstring> & folders, const wstring& selectedItemPath, bool fromScratch, std::vector<FileBrowserRootsInfo>* pFileBrowserRoots)
 {
 	if (!_pFileBrowser)
 	{
@@ -7630,9 +7634,20 @@ void Notepad_plus::launchFileBrowser(const vector<wstring> & folders, const wstr
 		_pFileBrowser->deleteAllFromTree();
 	}
 
-	for (size_t i = 0; i <folders.size(); ++i)
+
+	if (pFileBrowserRoots)
 	{
-		_pFileBrowser->addRootFolder(folders[i]);
+		for (auto i : *pFileBrowserRoots)
+		{
+			_pFileBrowser->addRootFolder(i._root, &(i._expandedPaths));
+		}
+	}
+	else
+	{
+		for (const auto& i : folders)
+		{
+			_pFileBrowser->addRootFolder(i);
+		}
 	}
 
 	_pFileBrowser->display();

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: June 16, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: June 26, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.9.6.2">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.9.6.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -542,6 +542,7 @@
 				<Item id="1681" name="Pronađi: "/>
 				<Item id="1685" name="Razlikuj &amp;velika i mala slova"/>
 				<Item id="1690" name="Označi &amp;sva pojavljivanja"/>
+				<Item id="1691" name="&amp;Izbroji"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Pronađi znakove u rasponu...">
@@ -1511,7 +1512,7 @@ Jeste li sigurni da ih želite sve otvoriti?"/><!-- HowToReproduce: Check "Open 
 			<SettingsOnCloudError title="Podešavanje oblaka" message="Izgleda da je put u podešavanju oblaka postavljen na pogon koji je samo za čitanje,
 ili na mapu koja zahtijeva posebne ovlasti za pisanje.
 Vaše postavke oblaka će biti poništene. Molim, resetirajte odgovarajuću vrijednost preko dijaloga Postavke."/>
-			<FilePathNotFoundWarning title="Otvaranje datoteke" message="Datoteka koju pokušavate otvoriti ne postoji."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<FilePathNotFoundWarning title="Otvaranje puta" message="Put koji pokušavate otvoriti ne postoji."/>
 			<SessionFileInvalidError title="Ne mogu učitati sesiju" message="Datoteka sesije je ili oštećena ili nije valjana."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Pogrešna akcija" message="Možete ispustiti samo datoteke ili mape, ali ne oboje, jer ispuštate Mape u Projektnom načinu.
 Morate omogućiti &quot;Otvori sve datoteke mape umjesto pokretanja 'Mapa kao radni prostor' pri prenošenju mape&quot; u odjeljku &quot;Zadana mapa&quot; dijaloga Postavki kako bi ova operacija radila."/>
@@ -1831,6 +1832,7 @@ Tekst zalijepljen u ovo polje sadrži nevidljive znakove (možda one koji završ
 			<common-ok value="U redu"/>
 			<common-cancel value="Poništi"/>
 			<common-name value="Ime"/>
+			<common-error value="Greška"/>
 			<tabrename-title value="Preimenuj trenutnu karticu"/>
 			<tabrename-newname value="Novo ime"/>
 			<splitter-rotate-left value="Rotiraj lijevo"/>
@@ -1852,6 +1854,7 @@ Tekst zalijepljen u ovo polje sadrži nevidljive znakove (možda one koji završ
 			<progress-hits-title value="Nađeno:"/>
 			<progress-cancel-info value="Poništavanje operacije, molim pričekajte..."/>
 			<find-in-files-progress-title value="Napredak traženja u datotekama..."/>
+			<discover-file-candidates-title value="Otkrivanje datoteka kandidata..."/>
 			<replace-in-files-confirm-title value="Jeste li sigurni?"/>
 			<replace-in-files-confirm-directory value="Jeste li sigurni da želite zamijeniti sva pojavljivanja u:"/>
 			<replace-in-files-confirm-filetype value="Za vrstu datoteka:"/>

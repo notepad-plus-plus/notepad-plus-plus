@@ -26,6 +26,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <cwchar>
+#include <functional>
 #include <string>
 #include <vector>
 #include <filesystem>
@@ -740,7 +741,6 @@ void FileBrowser::notified(LPNMHDR notification)
 			case TVN_BEGINDRAG:
 			{
 				_treeView.beginDrag((LPNMTREEVIEW)notification);
-				
 			}
 			break;
 		}
@@ -1033,7 +1033,7 @@ void FileBrowser::getDirectoryStructure(const wchar_t *dir, const std::vector<ws
 	}
 }
 
-void FileBrowser::addRootFolder(wstring rootFolderPath)
+void FileBrowser::addRootFolder(wstring rootFolderPath, std::unordered_set<std::wstring>* pExpandedPaths)
 {
 	if (!doesDirectoryExist(rootFolderPath.c_str()))
 		return;
@@ -1091,7 +1091,19 @@ void FileBrowser::addRootFolder(wstring rootFolderPath)
 	getDirectoryStructure(rootFolderPath.c_str(), patterns2Match, directoryStructure, true, false);
 	HTREEITEM hRootItem = createFolderItemsFromDirStruct(nullptr, directoryStructure);
 	_treeView.customSorting(hRootItem, categorySortFunc, 0, true); // needed here for possible *nix like storages (Samba, WebDAV, WSL, ...)
-	_treeView.expand(hRootItem);
+
+	if (pExpandedPaths)
+	{
+		applyExpandState(hRootItem, pExpandedPaths);
+	}
+	/*
+	else
+	{
+		//_treeView.fold(hRootItem);
+		// Nothing to do, the root is already folded by default
+	}
+	*/
+
 	_folderUpdaters.push_back(new FolderUpdater(directoryStructure, this));
 	_folderUpdaters[_folderUpdaters.size() - 1]->startWatcher();
 }
@@ -1193,7 +1205,7 @@ vector<wstring> FileBrowser::getRoots() const
 		tvItem.hItem = hItemNode;
 		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
-		roots.push_back(reinterpret_cast<SortingData4lParam*>(tvItem.lParam)->_rootPath);
+		roots.push_back((reinterpret_cast<SortingData4lParam*>(tvItem.lParam))->_rootPath);
 	}
 	return roots;
 }
@@ -1540,6 +1552,73 @@ bool FileBrowser::renameInTree(const wstring& rootPath, HTREEITEM node, const st
 	_treeView.customSorting(_treeView.getParent(foundItem), categorySortFunc, 0, false);
 
 	return true;
+}
+
+std::vector<std::wstring> FileBrowser::getExpandedPathsFromFaW() const
+{
+	std::vector<std::wstring> expandedList;
+	HWND hTree = _treeView.getHSelf();
+
+	std::function<void(HTREEITEM)> walk = [&](HTREEITEM hItem) {
+		while (hItem != nullptr)
+		{
+			UINT state = TreeView_GetItemState(hTree, hItem, TVIS_EXPANDED);
+			if (state & TVIS_EXPANDED)
+			{
+				std::wstring path = getNodePath(hItem);
+				if (!path.empty())
+				{
+					expandedList.push_back(path);
+				}
+			}
+
+			HTREEITEM hChild = TreeView_GetChild(hTree, hItem);
+			if (hChild)
+			{
+				walk(hChild);
+			}
+
+			hItem = TreeView_GetNextSibling(hTree, hItem);
+		}
+	};
+
+	HTREEITEM hRoot = TreeView_GetRoot(hTree);
+	walk(hRoot);
+	return expandedList;
+}
+
+void FileBrowser::applyExpandState(HTREEITEM rootHItem, std::unordered_set<std::wstring>* pExpandedPaths)
+{
+	if (!rootHItem || !pExpandedPaths || pExpandedPaths->empty()) return;
+
+	std::wstring rootPath = getNodePath(rootHItem);
+	if (rootPath.empty()) return;
+
+	// Walk the tree and expand nodes that match the paths in pExpandedPaths.
+	// pExpandedPaths is the list of expaned node under rootHItem, which is modified in place to remove paths that have been expanded,
+	// so we can stop early the recursive walking if all paths are found.
+	std::function<void(HTREEITEM)> walkAndExpand = [&](HTREEITEM hItem) {
+		if (!hItem || pExpandedPaths->empty()) return;
+
+		std::wstring path = getNodePath(hItem);
+		auto it = pExpandedPaths->find(path);
+		if (it != pExpandedPaths->end())
+		{
+			_treeView.expand(hItem);
+			pExpandedPaths->erase(it);
+		}
+
+		if (pExpandedPaths->empty()) return;
+
+		for (HTREEITEM hChild = _treeView.getChildFrom(hItem);
+			hChild != nullptr;
+			hChild = _treeView.getNextSibling(hChild))
+		{
+			walkAndExpand(hChild);
+		}
+	};
+
+	walkAndExpand(rootHItem);
 }
 
 int CALLBACK FileBrowser::categorySortFunc(LPARAM lParam1, LPARAM lParam2, LPARAM /*lParamSort*/)

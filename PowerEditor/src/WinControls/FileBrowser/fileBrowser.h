@@ -20,6 +20,7 @@
 #include <windows.h>
 
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 #include "DockingDlgInterface.h"
@@ -137,7 +138,10 @@ public:
 
 	std::wstring getNodePath(HTREEITEM node) const;
 	std::wstring getNodeName(HTREEITEM node) const;
-	void addRootFolder(std::wstring rootFolderPath);
+	void addRootFolder(std::wstring rootFolderPath, std::unordered_set<std::wstring>* pExpandedPaths = nullptr);
+
+	void applyExpandState(HTREEITEM rootHItem, std::unordered_set<std::wstring>* pExpandedPaths);
+	std::vector<std::wstring> getExpandedPathsFromFaW() const;
 
 	HTREEITEM getRootFromFullPath(const std::wstring & rootPath) const;
 	HTREEITEM findChildNodeFromName(HTREEITEM parent, const std::wstring& label) const;
@@ -160,6 +164,7 @@ protected:
 	std::vector<HIMAGELIST> _iconListVector;
 
 	TreeView _treeView;
+
 	HIMAGELIST _hImaLst = nullptr;
 
 	HMENU _hGlobalMenu = NULL;

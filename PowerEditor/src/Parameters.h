@@ -32,6 +32,7 @@
 #include <memory>
 #include <stdexcept>
 #include <string>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
@@ -145,6 +146,13 @@ struct sessionFileInfo : public Position
 	MapPosition _mapPos;
 };
 
+struct FileBrowserRootsInfo
+{
+	std::wstring _root;
+	std::unordered_set<std::wstring> _expandedPaths;
+
+	FileBrowserRootsInfo(const std::wstring& root) : _root(root) {}
+};
 
 struct Session
 {
@@ -157,7 +165,7 @@ struct Session
 	std::wstring _fileBrowserSelectedItem;
 	std::vector<sessionFileInfo> _mainViewFiles;
 	std::vector<sessionFileInfo> _subViewFiles;
-	std::vector<std::wstring> _fileBrowserRoots;
+	std::vector<FileBrowserRootsInfo> _fileBrowserRoots;
 };
 
 
@@ -1481,7 +1489,7 @@ public:
 
 	bool writeProjectPanelsSettings();
 	bool writeColumnEditorSettings();
-	bool writeFileBrowserSettings(const std::vector<std::wstring>& rootPaths, const std::wstring& latestSelectedItemPath);
+	bool writeFileBrowserSettings(const std::vector<std::wstring>& rootPaths, const std::wstring& latestSelectedItemPath, const std::unordered_set<std::wstring>& expandedPaths = {});
 
 	static NppXml::Element getChildElementByAttribute(const NppXml::Element& element, const char* childName, const char* attributeName, const char* attributeVal);
 
@@ -1613,7 +1621,7 @@ public:
 		return _workSpaceFilePaths[i].c_str();
 	}
 
-	const std::vector<std::wstring>& getFileBrowserRoots() const { return _fileBrowserRoot; }
+	std::vector<FileBrowserRootsInfo>& getFileBrowserRoots() { return _fileBrowserRoots; }
 	const std::wstring& getFileBrowserSelectedItemPath() const { return _fileBrowserSelectedItemPath; }
 
 	void setWorkSpaceFilePath(int i, const wchar_t *wsFile);
@@ -1876,7 +1884,7 @@ private:
 	std::wstring _currentDirectory;
 	std::wstring _workSpaceFilePaths[3];
 
-	std::vector<std::wstring> _fileBrowserRoot;
+	std::vector<FileBrowserRootsInfo> _fileBrowserRoots;
 	std::wstring _fileBrowserSelectedItemPath;
 
 	Accelerator* _pAccelerator = nullptr;

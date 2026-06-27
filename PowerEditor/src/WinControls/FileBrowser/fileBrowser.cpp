@@ -1205,7 +1205,7 @@ vector<wstring> FileBrowser::getRoots() const
 		tvItem.hItem = hItemNode;
 		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
-		roots.push_back(reinterpret_cast<SortingData4lParam*>(tvItem.lParam)->_rootPath);
+		roots.push_back((reinterpret_cast<SortingData4lParam*>(tvItem.lParam))->_rootPath);
 	}
 	return roots;
 }

@@ -151,7 +151,7 @@ struct FileBrowserRootsInfo
 	std::wstring _root;
 	std::unordered_set<std::wstring> _expandedPaths;
 
-	FileBrowserRootsInfo(const std::wstring& root) : _root(root)	{}
+	FileBrowserRootsInfo(const std::wstring& root) : _root(root) {}
 };
 
 struct Session

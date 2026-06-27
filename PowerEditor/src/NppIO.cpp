@@ -2934,9 +2934,23 @@ const wchar_t * Notepad_plus::fileSaveSession(size_t nbFile, wchar_t ** fileName
 		if (includeFileBrowser && _pFileBrowser && !_pFileBrowser->isClosed())
 		{
 			currentSession._fileBrowserSelectedItem = _pFileBrowser->getSelectedItemPath();
-			for (auto&& rootFileName : _pFileBrowser->getRoots())
+
+			std::vector<std::wstring> expandedPaths = _pFileBrowser->getExpandedPathsFromFaW();
+			std::vector<std::wstring> roots = _pFileBrowser->getRoots();
+			for (auto& rootFileName : roots)
 			{
-				currentSession._fileBrowserRoots.push_back({ rootFileName });
+				FileBrowserRootsInfo rootInfo(rootFileName);
+
+				for (const auto& i : expandedPaths)
+				{
+					std::wstring lowerExpandedPath = stringToLower(i);
+					std::wstring lowerRoot = stringToLower(rootFileName);
+					if (lowerExpandedPath.rfind(lowerRoot, 0) == 0)
+					{
+						rootInfo._expandedPaths.insert(i);
+					}
+				}
+				currentSession._fileBrowserRoots.push_back(rootInfo);
 			}
 		}
 

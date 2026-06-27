@@ -545,6 +545,7 @@
 				<Item id="1681" name="Najít:"/>
 				<Item id="1685" name="&amp;Rozlišovat velikost písmen"/>
 				<Item id="1690" name="&amp;Zvýraznit všechny"/>
+				<Item id="1691" name="Celkový &amp;počet"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Najít znaky z rozsahu...">
@@ -1222,6 +1223,7 @@
 					<Item id="6613" name="Na&amp;hoře"/>
 					<Item id="6614" name="V&amp;pravo"/>
 					<Item id="6615" name="Dol&amp;e"/>
+					<Item id="6616" name="Znak 0x0C (&amp;formfeed) zalomí stránku"/>
 					<Item id="6706" name="&amp;Tučně"/>
 					<Item id="6707" name="&amp;Kurzíva"/>
 					<Item id="6708" name="Záhlaví"/>
@@ -1511,7 +1513,7 @@ Potvrzovací dialog můžete kdykoliv reaktivovat v &quot;Nastavení&quot;."/>
 			<DeleteFileFailed title="Odstranit Soubor" message="Odstranění souboru selhalo"/>
 			<NbFileToOpenImportantWarning title="Velmi mnoho souborů k otevření" message="$INT_REPLACE$ souborů má být otevřeno.\rJste si tím jisti?"/>
 			<SettingsOnCloudError title="Nastavení cloudu" message="Zdá se, že nastavená cesta k i-úložišti ukazuje na jednotku, která je určena pouze ke čtení\r nebo na složku bez oprávnění k zápisu.\rVaše nastavení i-úložiště bude zrušeno. Prosím nastavte znovu odpovídající hodnotu v dialogu Volby..."/>
-			<FilePathNotFoundWarning title="Otevření souboru" message="Soubor, který se pokoušíte otevřít, neexistuje."/>
+			<FilePathNotFoundWarning title="Otevřít cestu" message="Souborová cesta, kterou se pokoušíte otevřít, neexistuje."/>
 			<SessionFileInvalidError title="Relace nemohla být zavedena" message="Soubor relace je buďto poškozen nebo je neplatný."/>
 			<DroppingFolderAsProjectModeWarning title="Neplatná akce" message="Můžete přetahovat soubory nebo složky, ale ne obojí zároveň, jelikož máte zapnutý mód pro otevírání složek souborů jako projektů. Pro změnu nastavení musíte v Nastavení->Volby...->ImplicitníAdresář povolit &quot;Otevírat všechny soubory ve složce při přetažení myší (místo zdroje pro pracovní plochu)&quot;."/>
 			<SortingError title="Chyba třídění" message="Nebylo možné provést numerické setřídění kvůli řádku $INT_REPLACE$."/>
@@ -1815,6 +1817,7 @@ Text vložený do políčka(ček) obsahuje implicitně neviditelné znaky (pravd
 			<common-ok value="OK"/>
 			<common-cancel value="Storno"/>
 			<common-name value="Název"/>
+			<common-error value="Chyba"/>
 			<tabrename-title value="Přejmenovat aktuální kartu (tab)"/>
 			<tabrename-newname value="Nový název"/>
 			<splitter-rotate-left value="Otočit doleva"/>
@@ -1836,6 +1839,7 @@ Text vložený do políčka(ček) obsahuje implicitně neviditelné znaky (pravd
 			<progress-hits-title value="Výskytů:"/>
 			<progress-cancel-info value="Ruším operaci, počkejte prosím ..."/>
 			<find-in-files-progress-title value="Průběh hledání v souborech ..."/>
+			<discover-file-candidates-title value="Probíhá vytváření seznamu souborů k prohledání..."/>
 			<replace-in-files-confirm-title value="Jste si jistí?"/>
 			<replace-in-files-confirm-directory value="Jste si jistí, že chcete nahradit všechny výskyty v:"/>
 			<replace-in-files-confirm-filetype value="Pro typ souboru:"/>

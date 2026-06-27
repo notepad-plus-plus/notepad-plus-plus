@@ -1594,7 +1594,9 @@ void FileBrowser::applyExpandState(HTREEITEM rootHItem, std::unordered_set<std::
 	std::wstring rootPath = getNodePath(rootHItem);
 	if (rootPath.empty()) return;
 
-
+	// Walk the tree and expand nodes that match the paths in pExpandedPaths.
+	// pExpandedPaths is the list of expaned node under rootHItem, which is modified in place to remove paths that have been expanded,
+	// so we can stop early the recursive walking if all paths are found.
 	std::function<void(HTREEITEM)> walkAndExpand = [&](HTREEITEM hItem) {
 		if (!hItem || pExpandedPaths->empty()) return;
 

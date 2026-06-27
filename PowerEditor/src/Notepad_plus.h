@@ -145,6 +145,7 @@ class ProjectPanel;
 class DocumentMap;
 class FunctionListPanel;
 class FileBrowser;
+class MatchedFileNameProgress;
 struct QuoteParams;
 
 class Notepad_plus final
@@ -593,7 +594,7 @@ private:
 	bool findInOpenedFiles();
 	bool findInCurrentFile(bool isEntireDoc);
 
-	void getMatchedFileNames(const wchar_t *dir, size_t level, const std::vector<std::wstring> & patterns, std::vector<std::wstring> & fileNames, bool isRecursive, bool isInHiddenDir);
+	void getMatchedFileNames(const wchar_t *dir, size_t level, const std::vector<std::wstring> & patterns, std::vector<std::wstring> & fileNames, bool isRecursive, bool isInHiddenDir, MatchedFileNameProgress* progress = nullptr);
 	void doSynScroll(HWND hW);
 	void setWorkingDir(const wchar_t *dir);
 
@@ -632,7 +633,7 @@ private:
 	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID);
 	void launchDocMap();
 	void launchFunctionList();
-	void launchFileBrowser(const std::vector<std::wstring> & folders, const std::wstring& selectedItemPath, bool fromScratch = false);
+	void launchFileBrowser(const std::vector<std::wstring> & folders, const std::wstring& selectedItemPath, bool fromScratch = false, std::vector<FileBrowserRootsInfo>* pFileBrowserRoots = nullptr);
 	void showAllQuotes() const;
 	static DWORD WINAPI threadTextPlayer(void *text2display);
 	static DWORD WINAPI threadTextTroller(void *params);

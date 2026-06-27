@@ -620,7 +620,7 @@ void SCI_METHOD LexerPython::Lex(Sci_PositionU startPos, Sci_Position length, in
 	StyleContext sc(startPos, endPos - startPos, initStyle, styler);
 
 	bool indentGood = true;
-	Sci_Position startIndicator = sc.currentPos;
+	Sci_Position startIndent = sc.currentPos;
 	bool inContinuedString = false;
 
 	for (; sc.More(); sc.Forward()) {
@@ -638,8 +638,8 @@ void SCI_METHOD LexerPython::Lex(Sci_PositionU startPos, Sci_Position length, in
 				indentGood = (spaceFlags & wsTab) == 0;
 			}
 			if (!indentGood) {
-				styler.IndicatorFill(startIndicator, sc.currentPos, indicatorWhitespace, 0);
-				startIndicator = sc.currentPos;
+				styler.IndicatorFill(startIndent, sc.currentPos, indicatorWhitespace, 0);
+				startIndent = sc.currentPos;
 			}
 		}
 
@@ -857,8 +857,8 @@ void SCI_METHOD LexerPython::Lex(Sci_PositionU startPos, Sci_Position length, in
 		// End of code to find the end of a state
 
 		if (!indentGood && !IsASpaceOrTab(sc.ch)) {
-			styler.IndicatorFill(startIndicator, sc.currentPos, indicatorWhitespace, 1);
-			startIndicator = sc.currentPos;
+			styler.IndicatorFill(startIndent, sc.currentPos, indicatorWhitespace, 1);
+			startIndent = sc.currentPos;
 			indentGood = true;
 		}
 
@@ -928,7 +928,7 @@ void SCI_METHOD LexerPython::Lex(Sci_PositionU startPos, Sci_Position length, in
 			}
 		}
 	}
-	styler.IndicatorFill(startIndicator, sc.currentPos, indicatorWhitespace, 0);
+	styler.IndicatorFill(startIndent, sc.currentPos, indicatorWhitespace, 0);
 	sc.Complete();
 }
 

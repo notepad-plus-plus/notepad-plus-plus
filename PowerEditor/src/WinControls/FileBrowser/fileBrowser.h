@@ -20,6 +20,7 @@
 #include <windows.h>
 
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 #include "DockingDlgInterface.h"
@@ -139,7 +140,10 @@ public:
 
 	std::wstring getNodePath(HTREEITEM node) const;
 	std::wstring getNodeName(HTREEITEM node) const;
-	void addRootFolder(std::wstring rootFolderPath);
+	void addRootFolder(std::wstring rootFolderPath, std::unordered_set<std::wstring>* pExpandedPaths = nullptr);
+
+	void applyExpandState(HTREEITEM rootHItem, std::unordered_set<std::wstring>* pExpandedPaths);
+	std::vector<std::wstring> getExpandedPathsFromFaW() const;
 
 	HTREEITEM getRootFromFullPath(const std::wstring & rootPath) const;
 	HTREEITEM findChildNodeFromName(HTREEITEM parent, const std::wstring& label) const;
@@ -162,11 +166,13 @@ protected:
 	std::vector<HIMAGELIST> _iconListVector;
 
 	TreeView _treeView;
+
 	TreeView _treeViewSearchResult;
 	TreeView* _pActiveTreeView = &_treeView;
 
 	HWND _hFilterEdit = nullptr;
 	HFONT _hFontFilterEdit = nullptr;
+
 
 	HIMAGELIST _hImaLst = nullptr;
 
@@ -178,7 +184,7 @@ protected:
 
 	std::wstring _selectedNodeFullPath; // this member is used only for PostMessage call
 
-	std::vector<SortingData4lParam*> sortingDataArray;
+	std::vector<SortingData4lParam*> _sortingDataArray;
 
 	std::wstring _expandAllFolders = L"Unfold all";
 	std::wstring _collapseAllFolders = L"Fold all";

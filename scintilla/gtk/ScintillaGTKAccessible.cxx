@@ -762,7 +762,7 @@ void ScintillaGTKAccessible::PasteText(int charPosition) {
 				std::string convertedText;
 				if (len > 0 && scia->sci->convertPastes) {
 					// Convert line endings of the paste into our local line-endings mode
-					convertedText = Document::TransformLineEnds(text, len, scia->sci->pdoc->eolMode);
+					convertedText = Document::TransformLineEnds(std::string_view(text), scia->sci->pdoc->eolMode);
 					len = convertedText.length();
 					text = convertedText.c_str();
 				}

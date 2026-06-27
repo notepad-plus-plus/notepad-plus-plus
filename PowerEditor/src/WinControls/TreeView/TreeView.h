@@ -45,7 +45,7 @@ public:
 	HTREEITEM searchSubItemByName(const wchar_t *itemName, HTREEITEM hParentItem);
 	void removeItem(HTREEITEM hTreeItem);
 	void removeAllItems();
-	bool renameItem(HTREEITEM Item2Set, const wchar_t *newName);
+	bool renameItem(const HTREEITEM Item2Set, const wchar_t* newName);
 	void makeLabelEditable(bool toBeEnabled);
 
 	HTREEITEM getChildFrom(HTREEITEM hTreeItem) const {

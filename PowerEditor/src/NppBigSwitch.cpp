@@ -179,6 +179,8 @@ LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 
 				SetOSAppRestart();
 
+				addClipboardListener();
+
 				return lRet;
 			}
 			catch (std::exception& ex)
@@ -2741,6 +2743,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				// currently it is used only in the Notepad_plus::backupDocument worker thread,
 				// use it in such a thread like:	if (g_bNppExitFlag.load()) -> finish work of & exit the thread
 
+				_pPublicInterface->removeClipboardListener();
+
 				if (_beforeSpecialView._isFullScreen)	//closing, return to windowed mode
 					fullScreenToggle();
 				if (_beforeSpecialView._isPostIt)		//closing, return to windowed mode
@@ -2900,6 +2904,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			::SendMessage(curTabView->getHSelf(), WM_LBUTTONDBLCLK, wParam, lParam);
 
 			return TRUE;
+		}
+
+		case WM_CLIPBOARDUPDATE:
+		{
+			checkClipboard();
+			return 0;
 		}
 
 		case NPPM_INTERNAL_MINIMIZED_TRAY:
@@ -3759,7 +3769,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			_statusBar.setPartWidth(STATUSBAR_CUR_POS, DPIManagerV2::scale(260, dpi));
 			_statusBar.setPartWidth(STATUSBAR_EOF_FORMAT, DPIManagerV2::scale(110, dpi));
 			_statusBar.setPartWidth(STATUSBAR_UNICODE_TYPE, DPIManagerV2::scale(120, dpi));
-			_statusBar.setPartWidth(STATUSBAR_TYPING_MODE, DPIManagerV2::scale(30, dpi));
+			_statusBar.setPartWidth(STATUSBAR_TYPING_MODE, DPIManagerV2::scale(40, dpi)); // 40 (not 30): "INS"/"OVR" was clipped to "IN"
 
 			return TRUE;
 		}

@@ -32,6 +32,7 @@
 #include <memory>
 #include <stdexcept>
 #include <string>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
@@ -40,6 +41,7 @@
 #include <SciLexer.h>
 #include <Scintilla.h>
 
+#include "Common.h"
 #include "ContextMenu.h"
 #include "DockingCont.h"
 #include "Notepad_plus_msgs.h"
@@ -144,6 +146,13 @@ struct sessionFileInfo : public Position
 	MapPosition _mapPos;
 };
 
+struct FileBrowserRootsInfo
+{
+	std::wstring _root;
+	std::unordered_set<std::wstring> _expandedPaths;
+
+	FileBrowserRootsInfo(const std::wstring& root) : _root(root) {}
+};
 
 struct Session
 {
@@ -156,7 +165,7 @@ struct Session
 	std::wstring _fileBrowserSelectedItem;
 	std::vector<sessionFileInfo> _mainViewFiles;
 	std::vector<sessionFileInfo> _subViewFiles;
-	std::vector<std::wstring> _fileBrowserRoots;
+	std::vector<FileBrowserRootsInfo> _fileBrowserRoots;
 };
 
 
@@ -514,6 +523,7 @@ struct LangMenuItem final
 
 struct PrintSettings final {
 	bool _printLineNumber = true;
+	bool _printFormFeedPageBreak = false;
 	int _printOption = SC_PRINT_COLOURONWHITE;
 
 	std::wstring _headerLeft;
@@ -708,6 +718,12 @@ struct NppGUI final
 	bool _statusBarShow = true;
 	bool _menuBarShow = true;
 
+	// The 16 custom color slots of the Windows color picker (ChooseColor), persisted
+	// across restarts (issue #4782). ChooseColorW reads/writes this array in place.
+	std::array<COLORREF, 16> _colorPickerCustomColors{ {
+		white, white, white, white, white, white, white, white,
+		white, white, white, white, white, white, white, white } };
+
 	int _tabStatus = (TAB_DRAWTOPBAR | TAB_DRAWINACTIVETAB | TAB_DRAGNDROP | TAB_REDUCE | TAB_CLOSEBUTTON | TAB_PINBUTTON);
 	bool _forceTabbarVisible = false;
 	UINT _tabCompactLabelLen = 0; // 0 ... no compacting
@@ -870,6 +886,7 @@ struct NppGUI final
 	LargeFileRestriction _largeFileRestriction;
 
 	std::string _shortcutsXmlHmacInConfig;
+	std::string _shortcutsOnDiskHmac;
 };
 
 
@@ -1373,7 +1390,7 @@ private:
 	// XML Document with its path
 	struct XmlDocPath final
 	{
-		NppXml::Document _doc;
+		NppXml::Document _doc{};
 		std::wstring _path;
 	};
 
@@ -1472,7 +1489,7 @@ public:
 
 	bool writeProjectPanelsSettings();
 	bool writeColumnEditorSettings();
-	bool writeFileBrowserSettings(const std::vector<std::wstring>& rootPaths, const std::wstring& latestSelectedItemPath);
+	bool writeFileBrowserSettings(const std::vector<std::wstring>& rootPaths, const std::wstring& latestSelectedItemPath, const std::unordered_set<std::wstring>& expandedPaths = {});
 
 	static NppXml::Element getChildElementByAttribute(const NppXml::Element& element, const char* childName, const char* attributeName, const char* attributeVal);
 
@@ -1604,7 +1621,7 @@ public:
 		return _workSpaceFilePaths[i].c_str();
 	}
 
-	const std::vector<std::wstring>& getFileBrowserRoots() const { return _fileBrowserRoot; }
+	std::vector<FileBrowserRootsInfo>& getFileBrowserRoots() { return _fileBrowserRoots; }
 	const std::wstring& getFileBrowserSelectedItemPath() const { return _fileBrowserSelectedItemPath; }
 
 	void setWorkSpaceFilePath(int i, const wchar_t *wsFile);
@@ -1826,7 +1843,7 @@ public:
 	bool isAdmin() const { return _isAdminMode; }
 	bool regexBackward4PowerUser() const { return _findHistory._regexBackward4PowerUser; }
 	bool isRegForOSAppRestartDisabled() const { return _isRegForOSAppRestartDisabled; }
-	std::wstring getShortcutsPath() const { return _shortcutsPath; }
+	const std::wstring& getShortcutsPath() const { return _shortcutsPath; }
 
 private:
 	bool _isAnyShortcutModified = false;
@@ -1867,7 +1884,7 @@ private:
 	std::wstring _currentDirectory;
 	std::wstring _workSpaceFilePaths[3];
 
-	std::vector<std::wstring> _fileBrowserRoot;
+	std::vector<FileBrowserRootsInfo> _fileBrowserRoots;
 	std::wstring _fileBrowserSelectedItemPath;
 
 	Accelerator* _pAccelerator = nullptr;

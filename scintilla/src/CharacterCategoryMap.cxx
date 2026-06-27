@@ -9,6 +9,7 @@
 // Copyright 2013 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
+#include <utility>
 #include <vector>
 #include <algorithm>
 #include <iterator>

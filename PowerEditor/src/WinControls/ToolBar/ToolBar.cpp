@@ -25,6 +25,7 @@
 #include <stdexcept>
 #include <string>
 #include <string_view>
+#include <vector>
 
 #include "Common.h"
 #include "FindReplaceDlg_rc.h"
@@ -39,7 +40,7 @@
 #include "resource.h"
 #include "shortcut.h"
 
-static constexpr DWORD WS_TOOLBARSTYLE = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS | TBSTYLE_FLAT | CCS_TOP | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
+static constexpr DWORD WS_TOOLBARSTYLE = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS | TBSTYLE_FLAT | TBSTYLE_TRANSPARENT | CCS_TOP | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
 
 static constexpr int REBAR_BAR_EXTERNAL = 10;
 
@@ -87,6 +88,18 @@ static constexpr ToolbarIconIdUnit toolbarIconIDs[]{
 	{ L"playback-multiple", true },
 	{ L"save-macro", true }
 };
+
+static void destroyHBmpElementsInVector(std::vector<HBITMAP>& vectorHBmp)
+{
+	for (auto& hBmp : vectorHBmp)
+	{
+		if (hBmp)
+		{
+			::DeleteObject(hBmp);
+			hBmp = nullptr;
+		}
+	}
+}
 
 void ToolBar::initHideButtonsConf(NppXml::Document toolButtonsDocRoot, const ToolBarButtonUnit* buttonUnitArray, int arraySize)
 {
@@ -229,7 +242,9 @@ bool ToolBar::init(HINSTANCE hInst, HWND hPere, toolBarStatusType type, const To
 
 	//Create the list of buttons
 	_nbButtons = arraySize;
+	_vStdBtnBmp = std::vector<HBITMAP>(_nbButtons, nullptr);
 	_nbDynButtons = _vDynBtnReg.size();
+	_vDynBtnBmp = std::vector<HBITMAP>(_nbDynButtons, nullptr);
 	_nbTotalButtons = _nbButtons + (_nbDynButtons ? _nbDynButtons + 1 : 0);
 	_pTBB = std::make_unique<TBBUTTON[]>(_nbTotalButtons); //add one for the extra separator
 
@@ -321,6 +336,11 @@ void ToolBar::destroy()
 	::DestroyWindow(_hSelf);
 	_hSelf = nullptr;
 	_toolBarIcons.destroy();
+	destroyHBmpElementsInVector(_vStdBtnBmp);
+	if (_nbDynButtons > 0)
+	{
+		destroyHBmpElementsInVector(_vDynBtnBmp);
+	}
 }
 
 int ToolBar::getWidth() const
@@ -484,17 +504,29 @@ void ToolBar::reset(bool create)
 		TBADDBITMAP addbmpdyn = { 0, 0 };
 		for (size_t i = 0; i < _nbButtons; ++i)
 		{
-			int icoID = _toolBarIcons.getStdIconAt(static_cast<int>(i));
-			HBITMAP hBmp = static_cast<HBITMAP>(::LoadImage(_hInst, MAKEINTRESOURCE(icoID), IMAGE_BITMAP, iconDpiDynamicalSize, iconDpiDynamicalSize, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+			const int icoID = _toolBarIcons.getStdIconAt(static_cast<int>(i));
+			auto& hBmp = _vStdBtnBmp.at(i);
+			if (hBmp != nullptr)
+			{
+				::DeleteObject(hBmp);
+				hBmp = nullptr;
+			}
+			hBmp = static_cast<HBITMAP>(::LoadImage(_hInst, MAKEINTRESOURCE(icoID), IMAGE_BITMAP, iconDpiDynamicalSize, iconDpiDynamicalSize, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+
 			addbmp.nID = reinterpret_cast<UINT_PTR>(hBmp);
 			::SendMessage(_hSelf, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
 		}
 
 		if (_nbDynButtons > 0)
 		{
+			destroyHBmpElementsInVector(_vDynBtnBmp);
+			
 			for (size_t j = 0; j < _nbDynButtons; ++j)
 			{
-				addbmpdyn.nID = reinterpret_cast<UINT_PTR>(_vDynBtnReg.at(j)._hBmp);
+				auto& hBmp = _vDynBtnBmp.at(j);
+				hBmp = ToolBarIcons::resizeHBitmap(_vDynBtnReg.at(j)._hBmp, iconDpiDynamicalSize, iconDpiDynamicalSize);
+
+				addbmpdyn.nID = reinterpret_cast<UINT_PTR>(hBmp ? hBmp : _vDynBtnReg.at(j)._hBmp);
 				::SendMessage(_hSelf, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmpdyn));
 			}
 		}

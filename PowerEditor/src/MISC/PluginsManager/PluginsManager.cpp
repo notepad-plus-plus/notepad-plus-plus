@@ -39,6 +39,7 @@
 #include "Common.h"
 #include "Notepad_plus_msgs.h"
 #include "NppConstants.h"
+#include "NppDarkMode.h"
 #include "NppXml.h"
 #include "Parameters.h"
 #include "PluginInterface.h"
@@ -288,7 +289,7 @@ int PluginsManager::loadPluginFromPath(const wchar_t *pluginFilePath)
 		msg += L"\n\n";
 		msg += pluginFileName;
 		msg += USERMSG;
-		if (::MessageBox(_nppData._nppHandle, msg.c_str(), pluginFilePath, MB_YESNO) == IDYES)
+		if (NppDarkMode::darkMessageBoxW(_nppData._nppHandle, msg.c_str(), pluginFilePath, MB_YESNO) == IDYES)
 		{
 
 			::DeleteFile(pluginFilePath);
@@ -306,7 +307,7 @@ int PluginsManager::loadPluginFromPath(const wchar_t *pluginFilePath)
 		msg += L"\n\n";
 		msg += pluginFileName;
 		msg += USERMSG;
-		if (::MessageBox(_nppData._nppHandle, msg.c_str(), pluginFilePath, MB_YESNO) == IDYES)
+		if (NppDarkMode::darkMessageBoxW(_nppData._nppHandle, msg.c_str(), pluginFilePath, MB_YESNO) == IDYES)
 		{
 			::DeleteFile(pluginFilePath);
 		}

@@ -619,7 +619,7 @@ static bool loadFromJson(std::vector<PluginUpdateInfo*>& pl, std::wstring& verSt
 #if !defined(NDEBUG) 
 		catch (const wstring& exceptionStr)
 		{
-			::MessageBox(NULL, exceptionStr.c_str(), L"Exception caught in: PluginsAdmin loadFromJson()", MB_ICONERROR);
+			NppDarkMode::darkMessageBoxW(nullptr, exceptionStr.c_str(), L"Exception caught in: PluginsAdmin loadFromJson()", MB_ICONERROR);
 			continue;
 		}
 

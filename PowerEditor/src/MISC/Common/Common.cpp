@@ -48,6 +48,10 @@
 #include "Utf8.h"
 #include "dpiManagerV2.h"
 
+#include <shlobj.h>
+#include <shellapi.h>
+#include <filesystem>
+
 using namespace std;
 
 void printInt(int int2print)
@@ -595,8 +599,9 @@ std::wstring string2wstring(const std::string& rString, UINT codepage)
 	const int len = ::MultiByteToWideChar(codepage, 0, rString.c_str(), -1, nullptr, 0);
 	if (len > 0)
 	{
-		std::wstring str(len - 1, L'\0');
+		auto str = std::wstring(len, L'\0');
 		::MultiByteToWideChar(codepage, 0, rString.c_str(), -1, str.data(), len);
+		str.resize(static_cast<size_t>(len) - 1); // remove extra null terminator
 		return str;
 	}
 	return L"";
@@ -608,8 +613,9 @@ std::string wstring2string(const std::wstring& rwString, UINT codepage)
 	const int len = ::WideCharToMultiByte(codepage, 0, rwString.c_str(), -1, nullptr, 0, nullptr, nullptr);
 	if (len > 0)
 	{
-		std::string str(len - 1, '\0');
+		auto str = std::string(len, '\0');
 		::WideCharToMultiByte(codepage, 0, rwString.c_str(), -1, str.data(), len, nullptr, nullptr);
+		str.resize(static_cast<size_t>(len) - 1); // remove extra null terminator
 		return str;
 	}
 	return "";
@@ -2466,4 +2472,23 @@ void expandEnv(wstring& path2Expand)
 			path2Expand = buffer2.data();
 		}
 	}
+}
+
+HRESULT openInExplorerAndSelect(const wchar_t* path)
+{
+	if (!doesPathExist(path))
+		return HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
+
+	ScopedCOMInit com;
+	if (!com.isInitialized())
+		return E_FAIL;
+
+	ITEMIDLIST* pidl = nullptr;
+	HRESULT hr = ::SHParseDisplayName(path, nullptr, &pidl, 0, nullptr);
+	if (SUCCEEDED(hr))
+	{
+		hr = ::SHOpenFolderAndSelectItems(pidl, 0, nullptr, 0);
+		::CoTaskMemFree(pidl);
+	}
+	return hr;
 }

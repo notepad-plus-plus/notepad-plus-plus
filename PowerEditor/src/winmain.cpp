@@ -14,14 +14,32 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include "Notepad_plus_Window.h"
-#include "Processus.h"
-#include "Win32Exception.h"	//Win32 exception
-#include "MiniDumper.h"			//Write dump files
-#include "verifySignedfile.h"
-#include "NppDarkMode.h"
-#include "dpiManagerV2.h"
+
+#include <windows.h>
+
+#include <chrono>
+#include <cstdlib>
+#include <cwchar>
+#include <exception>
+#include <iterator>
 #include <memory>
+#include <stdexcept>
+#include <string>
+#include <vector>
+
+#include "Common.h"
+#include "FileInterface.h"
+#include "MiniDumper.h" //Write dump files
+#include "Notepad_plus_Window.h"
+#include "Notepad_plus_msgs.h"
+#include "NppConstants.h"
+#include "NppDarkMode.h"
+#include "Parameters.h"
+#include "Processus.h"
+#include "Win32Exception.h" //Win32 exception
+#include "dpiManagerV2.h"
+#include "resource.h"
+#include "verifySignedfile.h"
 
 typedef std::vector<std::wstring> ParamVector;
 
@@ -265,7 +283,7 @@ intptr_t getNumberFromParam(char paramName, ParamVector & params, bool & isParam
 		return -1;
 	}
 	isParamePresent = true;
-	return static_cast<intptr_t>(_ttoi64(numStr.c_str()));
+	return static_cast<intptr_t>(std::stoll(numStr));
 }
 
 std::wstring getEasterEggNameFromParam(ParamVector & params, unsigned char & type)

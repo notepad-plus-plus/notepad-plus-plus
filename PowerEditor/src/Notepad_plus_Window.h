@@ -68,6 +68,40 @@ public:
 		DPIManagerV2::loadIcon(hinst, MAKEINTRESOURCE(IDI_M30ICON), ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), icon);
 	}
 
+	bool addClipboardListener() {
+		if (!_isClipboardListener)
+		{
+			_isClipboardListener = ::AddClipboardFormatListener(_hSelf);
+#ifndef NDEBUG
+			if (!_isClipboardListener)
+			{
+				std::wstring msg = L"AddClipboardFormatListener failed!\n\nErrorCode: ";
+				msg += std::to_wstring(::GetLastError());
+				::MessageBoxW(_hSelf, msg.c_str(), L"Notepad_plus_Window::addClipboardListener", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
+			}
+#endif
+		}
+		return _isClipboardListener;
+	}
+
+	void removeClipboardListener() {
+		if (_isClipboardListener)
+		{
+			_isClipboardListener = false;
+#ifdef NDEBUG
+			::RemoveClipboardFormatListener(_hSelf);
+#else
+			BOOL bRemoved = ::RemoveClipboardFormatListener(_hSelf);
+			if (!bRemoved)
+			{
+				std::wstring msg = L"RemoveClipboardFormatListener failed!\n\nErrorCode: ";
+				msg += std::to_wstring(::GetLastError());
+				::MessageBoxW(_hSelf, msg.c_str(), L"Notepad_plus_Window::removeClipboardListener", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
+			}
+#endif
+		}
+	}
+
 private:
 	Notepad_plus _notepad_plus_plus_core;
 	static LRESULT CALLBACK Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
@@ -81,4 +115,6 @@ private:
 	std::wstring _userQuote; // keep the availability of this string for thread using
 
 	HICON _hIconAbsent = nullptr;
+
+	bool _isClipboardListener = false;
 };

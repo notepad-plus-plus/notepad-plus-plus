@@ -392,8 +392,11 @@ Function RegisterMSIX
 		; Get PowerShell path from the Registry
 		ReadRegStr $0 HKLM "SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" "Path"
 
+        ; Pass INSTDIR as an environment variable
+        System::Call 'kernel32::SetEnvironmentVariableW(w "NPP_INSTDIR", w "$INSTDIR")'
+
 		; Use PowerShell to register a modern Windows 11 right-click context menu silently
-		nsExec::ExecToLog '"$0" -Command "Add-AppxPackage -Path \"$INSTDIR\contextMenu\NppShell.msix\" -ExternalLocation \"$INSTDIR\contextMenu\""'
+        nsExec::ExecToLog '"$0" -Command "Add-AppxPackage -Path \"$$env:NPP_INSTDIR\contextMenu\NppShell.msix\" -ExternalLocation \"$$env:NPP_INSTDIR\contextMenu\""'
 
 		; Wait 2 seconds for the AppX service to finish indexing the new identity
 		Sleep 2000

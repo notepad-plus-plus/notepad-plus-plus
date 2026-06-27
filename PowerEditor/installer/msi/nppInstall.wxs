@@ -24,6 +24,11 @@
 		<SummaryInformation Comments="Notepad++ v$(var.Version) (x64)" />
 
 		<!--
+		Consider the 4th digit of version number for the updating, with AllowSameVersionUpgrades="yes"
+		-->
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." AllowSameVersionUpgrades="yes" />
+
+		<!--
 		Installation directory structure
 		-->
 		<StandardDirectory Id="ProgramFiles64Folder">

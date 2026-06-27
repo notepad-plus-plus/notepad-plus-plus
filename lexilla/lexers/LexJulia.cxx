@@ -40,7 +40,9 @@
 using namespace Scintilla;
 using namespace Lexilla;
 
-static const int MAX_JULIA_IDENT_CHARS = 1023;
+namespace {
+
+const int MAX_JULIA_IDENT_CHARS = 1023;
 
 // Options used for LexerJulia
 struct OptionsJulia {
@@ -199,7 +201,7 @@ Sci_Position SCI_METHOD LexerJulia::WordListSet(int n, const char *wl) {
 	return firstModification;
 }
 
-static inline bool IsJuliaOperator(int ch) {
+inline bool IsJuliaOperator(int ch) {
     if (ch == '%' || ch == '^' || ch == '&' || ch == '*' ||
         ch == '-' || ch == '+' || ch == '=' || ch == '|' ||
         ch == '<' || ch == '>' || ch == '/' || ch == '~' ||
@@ -210,7 +212,7 @@ static inline bool IsJuliaOperator(int ch) {
 }
 
 // The list contains non-ascii unary operators
-static inline bool IsJuliaUnaryOperator (int ch) {
+inline bool IsJuliaUnaryOperator (int ch) {
     if (ch == 0x00ac || ch == 0x221a || ch == 0x221b ||
         ch == 0x221c || ch == 0x22c6 || ch == 0x00b1 ||
         ch == 0x2213 ) {
@@ -219,7 +221,7 @@ static inline bool IsJuliaUnaryOperator (int ch) {
     return false;
 }
 
-static inline bool IsJuliaParen (int ch) {
+inline bool IsJuliaParen (int ch) {
     if (ch == '(' || ch == ')' || ch == '{' || ch == '}' ||
         ch == '[' || ch == ']' ) {
         return true;
@@ -230,7 +232,7 @@ static inline bool IsJuliaParen (int ch) {
 // Unicode parsing from Julia source code:
 // https://github.com/JuliaLang/julia/blob/master/src/flisp/julia_extensions.c
 // keep the same function name to be easy to find again
-static int is_wc_cat_id_start(uint32_t wc) {
+int is_wc_cat_id_start(uint32_t wc) {
     const CharacterCategory cat = CategoriseCharacter((int) wc);
 
     return (cat == ccLu || cat == ccLl ||
@@ -291,7 +293,7 @@ static int is_wc_cat_id_start(uint32_t wc) {
             (wc >= 0x1D7CE && wc <= 0x1D7E1)); // 𝟎 through 𝟗 (inclusive), 𝟘 through 𝟡 (inclusive)
 }
 
-static inline bool IsIdentifierFirstCharacter (int ch) {
+inline bool IsIdentifierFirstCharacter (int ch) {
     if (IsASCII(ch)) {
         return (bool) (isalpha(ch) || ch == '_');
     }
@@ -302,7 +304,7 @@ static inline bool IsIdentifierFirstCharacter (int ch) {
     return is_wc_cat_id_start((uint32_t) ch);
 }
 
-static inline bool IsIdentifierCharacter (int ch) {
+inline bool IsIdentifierCharacter (int ch) {
     if (IsASCII(ch)) {
         return (bool) (isalnum(ch) || ch == '_' || ch == '!');
     }
@@ -328,7 +330,7 @@ static inline bool IsIdentifierCharacter (int ch) {
 }
 
 // keep the same function name to be easy to find again
-static const uint32_t opsuffs[] = {
+const uint32_t opsuffs[] = {
    0x00b2, // ²
    0x00b3, // ³
    0x00b9, // ¹
@@ -447,10 +449,10 @@ static const uint32_t opsuffs[] = {
    0xa71c, // ꜜ
    0xa71d  // ꜝ
 };
-static const size_t opsuffs_len = sizeof(opsuffs) / (sizeof(uint32_t));
+const size_t opsuffs_len = sizeof(opsuffs) / (sizeof(uint32_t));
 
 // keep the same function name to be easy to find again
-static bool jl_op_suffix_char(uint32_t wc) {
+bool jl_op_suffix_char(uint32_t wc) {
     if (wc < 0xA1 || wc > 0x10ffff) {
         return false;
     }
@@ -469,7 +471,7 @@ static bool jl_op_suffix_char(uint32_t wc) {
 }
 
 // keep the same function name to be easy to find again
-static bool never_id_char(uint32_t wc) {
+bool never_id_char(uint32_t wc) {
      const CharacterCategory cat = CategoriseCharacter((int) wc);
      return (
           // spaces and control characters:
@@ -494,7 +496,7 @@ static bool never_id_char(uint32_t wc) {
 }
 
 
-static bool IsOperatorFirstCharacter (int ch) {
+bool IsOperatorFirstCharacter (int ch) {
     if (IsASCII(ch)) {
         if (IsJuliaOperator(ch) ||
             ch == '!' || ch == '?' ||
@@ -513,7 +515,7 @@ static bool IsOperatorFirstCharacter (int ch) {
     return false;
 }
 
-static bool IsOperatorCharacter (int ch) {
+bool IsOperatorCharacter (int ch) {
     if (IsOperatorFirstCharacter(ch) ||
         (!IsASCII(ch) && jl_op_suffix_char((uint32_t) ch)) ) {
         return true;
@@ -521,14 +523,14 @@ static bool IsOperatorCharacter (int ch) {
     return false;
 }
 
-static bool CheckBoundsIndexing(char *str) {
+bool CheckBoundsIndexing(char *str) {
     if (strcmp("begin", str) == 0 || strcmp("end", str) == 0 ) {
         return true;
     }
     return false;
 }
 
-static int CheckKeywordFoldPoint(char *str) {
+int CheckKeywordFoldPoint(char *str) {
     if (strcmp ("if", str) == 0 ||
         strcmp ("for", str) == 0 ||
         strcmp ("while", str) == 0 ||
@@ -551,7 +553,7 @@ static int CheckKeywordFoldPoint(char *str) {
     return 0;
 }
 
-static bool IsNumberExpon(int ch, int base) {
+bool IsNumberExpon(int ch, int base) {
     if ((base == 10 && (ch == 'e' || ch == 'E' || ch == 'f')) ||
         (base == 16 && (ch == 'p' || ch == 'P'))) {
         return true;
@@ -560,7 +562,7 @@ static bool IsNumberExpon(int ch, int base) {
 }
 
 /* Scans a sequence of digits, returning true if it found any. */
-static bool ScanDigits(StyleContext& sc, int base, bool allow_sep) {
+bool ScanDigits(StyleContext& sc, int base, bool allow_sep) {
 	bool found = false;
     for (;;) {
 		if (IsADigit(sc.chNext, base) || (allow_sep && sc.chNext == '_')) {
@@ -573,7 +575,7 @@ static bool ScanDigits(StyleContext& sc, int base, bool allow_sep) {
 	return found;
 }
 
-static inline bool ScanNHexas(StyleContext &sc, int max) {
+inline bool ScanNHexas(StyleContext &sc, int max) {
     int n = 0;
     bool error = false;
 
@@ -589,7 +591,7 @@ static inline bool ScanNHexas(StyleContext &sc, int max) {
     return error;
 }
 
-static void resumeCharacter(StyleContext &sc, bool lexerror) {
+void resumeCharacter(StyleContext &sc, bool lexerror) {
     bool error = false;
 
     //  ''' case
@@ -674,11 +676,11 @@ static void resumeCharacter(StyleContext &sc, bool lexerror) {
     }
 }
 
-static inline bool IsACharacter(StyleContext &sc) {
+inline bool IsACharacter(StyleContext &sc) {
     return (sc.chPrev == '\'' && sc.chNext == '\'');
 }
 
-static void ScanParenInterpolation(StyleContext &sc) {
+void ScanParenInterpolation(StyleContext &sc) {
     // TODO: no syntax highlighting inside a string interpolation
 
     // Level of nested parenthesis
@@ -712,7 +714,7 @@ static void ScanParenInterpolation(StyleContext &sc) {
 /*
  * Start parsing a number, parse the base.
  */
-static void initNumber (StyleContext &sc, int &base, bool &with_dot) {
+void initNumber (StyleContext &sc, int &base, bool &with_dot) {
     base = 10;
     with_dot = false;
     sc.SetState(SCE_JULIA_NUMBER);
@@ -741,7 +743,7 @@ static void initNumber (StyleContext &sc, int &base, bool &with_dot) {
  * The `triple` argument specifies if it is a triple-quote String or Command.
  * Interpolation is detected (with `$`), and parsed if `allow_interp` is true.
  */
-static void resumeStringLike(StyleContext &sc, int quote, bool triple, bool allow_interp, bool full_highlight) {
+void resumeStringLike(StyleContext &sc, int quote, bool triple, bool allow_interp, bool full_highlight) {
     int stylePrev = sc.state;
     bool checkcurrent = false;
 
@@ -799,15 +801,15 @@ static void resumeStringLike(StyleContext &sc, int quote, bool triple, bool allo
     }
 }
 
-static void resumeCommand(StyleContext &sc, bool triple, bool allow_interp) {
+void resumeCommand(StyleContext &sc, bool triple, bool allow_interp) {
     return resumeStringLike(sc, '`', triple, allow_interp, true);
 }
 
-static void resumeString(StyleContext &sc, bool triple, bool allow_interp) {
+void resumeString(StyleContext &sc, bool triple, bool allow_interp) {
     return resumeStringLike(sc, '"', triple, allow_interp, true);
 }
 
-static void resumeNumber (StyleContext &sc, int base, bool &with_dot, bool lexerror) {
+void resumeNumber (StyleContext &sc, int base, bool &with_dot, bool lexerror) {
     if (IsNumberExpon(sc.ch, base)) {
         if (IsADigit(sc.chNext) || sc.chNext == '+' || sc.chNext == '-') {
             sc.Forward();
@@ -837,7 +839,7 @@ static void resumeNumber (StyleContext &sc, int base, bool &with_dot, bool lexer
     }
 }
 
-static void resumeOperator (StyleContext &sc) {
+void resumeOperator (StyleContext &sc) {
     if (sc.chNext == ':' && (sc.ch == ':' || sc.ch == '<' ||
                     (sc.ch == '>' && (sc.chPrev != '-' && sc.chPrev != '=')))) {
         // Case `:a=>:b`
@@ -1257,6 +1259,8 @@ void SCI_METHOD LexerJulia::Fold(Sci_PositionU startPos, Sci_Position length, in
             visibleChars = 0;
         }
     }
+}
+
 }
 
 extern const LexerModule lmJulia(SCLEX_JULIA, LexerJulia::LexerFactoryJulia, "julia", juliaWordLists);

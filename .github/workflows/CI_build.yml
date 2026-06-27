@@ -166,7 +166,7 @@ jobs:
 
     - name: MSBuild of n++ exe
       working-directory: PowerEditor\visual.net\
-      run: msbuild notepadPlus.sln /m /p:configuration="${{ matrix.build_configuration }}" /p:platform="${{ matrix.build_platform }}" /p:PlatformToolset="v143"
+      run: msbuild notepadPlus.sln /m /p:configuration="${{ matrix.build_configuration }}" /p:platform="${{ matrix.build_platform }}"
 
     - name: Archive artifacts for x64 / Release
       if: matrix.build_platform == 'x64' && matrix.build_configuration == 'Release'
@@ -318,7 +318,7 @@ jobs:
       run: |
            mkdir _build
            cd _build
-           cmake -G "Visual Studio 17 2022" -A ${{ matrix.build_platform }} -T "v143" ..
+           cmake -G "Visual Studio 18 2026" -A ${{ matrix.build_platform }} -T "v145" ..
 
     - name: build cmake
       working-directory: PowerEditor/src

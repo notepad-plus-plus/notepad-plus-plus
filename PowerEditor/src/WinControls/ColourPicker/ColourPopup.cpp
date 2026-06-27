@@ -223,11 +223,10 @@ intptr_t CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			{
 				case IDOK:
 				{
-					static constexpr COLORREF white = RGB(0xFF, 0xFF, 0xFF);
-					static constinit std::array<COLORREF, 16> customColors{ {
-						white, white, white, white, white, white, white, white,
-						white, white, white, white, white, white, white, white,
-					} };
+					// The 16 custom color slots are persisted across restarts (issue #4782):
+					// ChooseColorW reads/writes this array in place, and it is saved to
+					// config.xml on exit.
+					auto& customColors = NppParameters::getInstance().getNppGUI()._colorPickerCustomColors;
 
 					CHOOSECOLOR cc{};
 					cc.lStructSize = sizeof(CHOOSECOLOR);

@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english_customizable.xml" version="8.9.6">
+	<Native-Langue name="English" filename="english_customizable.xml" version="8.9.6.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -401,6 +401,7 @@ Translation note:
 					<Item id="48511" name="Generate from files..."/>
 					<Item id="48512" name="Generate from selection into clipboard"/>
 					<Item id="49000" name="&amp;Run..."/>
+					<Item id="49001" name="Validate shortcuts.xml"/>
 
 					<Item id="50000" name="Function Completion"/>
 					<Item id="50001" name="Word Completion"/>
@@ -533,6 +534,7 @@ Translation note:
 				<Item id="1681" name="Find:"/>
 				<Item id="1685" name="Match &amp;case"/>
 				<Item id="1690" name="&amp;Highlight all"/>
+				<Item id="1691" name="C&amp;ount"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Find Characters in Range...">
@@ -1185,6 +1187,7 @@ Translation note:
 
 				<Print title="Print">
 					<Item id="6601" name="Print line n&amp;umber"/>
+					<Item id="6616" name="Print formfeed a&amp;s page break"/>
 					<Item id="6602" name="Color Options"/>
 					<Item id="6603" name="W&amp;YSIWYG"/>
 					<Item id="6604" name="I&amp;nvert"/>
@@ -1494,7 +1497,7 @@ Are you sure you want to open them?"/><!-- HowToReproduce: Check "Open all files
 			<SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,
 or on a folder needed privilege right for writing access.
 Your settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
-			<FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<FilePathNotFoundWarning title="Open Path" message="The path you're trying to open doesn't exist."/>
 			<SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Invalid action" message="You can only drop files or folders but not both, because you're in dropping Folder as Project mode.
 You have to enable &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
@@ -1622,6 +1625,12 @@ Please verify the search condition before performing the action."/> <!-- HowToRe
 			<ReadOnlyFileCannotBeSaved title="Save failed - File is Read-Only" message="&quot;$STR_REPLACE$&quot;
 The file is read-only and cannot be saved.
 Please remove read-only then save your file."/>
+			<ShortcutsXmlHMACMissing title="Security Warning" message="The security information for shortcuts.xml is missing in config.xml.
+
+For security reasons, the integrity of shortcuts.xml will be checked. To run your customized command, please review the opened shortcuts.xml. If the file content is OK, use &quot;Validate shortcuts.xml&quot; from the menu to confirm it."/>
+			<ShortcutsXmlTampered title="Security Warning" message="The shortcuts.xml file appears to have been modified manually.
+
+For security reasons, please review the opened shortcuts.xml. If the file content is OK, use &quot;Validate shortcuts.xml&quot; from the menu to confirm it."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Clipboard History"/>
@@ -1805,6 +1814,7 @@ The text pasted into this field includes invisible (maybe line-ending) character
 			<common-ok value="OK"/>
 			<common-cancel value="Cancel"/>
 			<common-name value="Name"/>
+			<common-error value="Error"/>
 			<tabrename-title value="Rename Current Tab"/>
 			<tabrename-newname value="New name"/>
 			<splitter-rotate-left value="Rotate to left"/>

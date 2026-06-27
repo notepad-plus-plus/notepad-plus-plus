@@ -5082,6 +5082,9 @@ intptr_t CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			bool printLN = nppGUI._printSettings._printLineNumber;
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_PRINTLINENUM, BM_SETCHECK, printLN, 0);
 
+			bool printFF = nppGUI._printSettings._printFormFeedPageBreak;
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_PRINTFORMFEED, BM_SETCHECK, printFF, 0);
+
 			int ID2Check = 0;
 			switch (nppGUI._printSettings._printOption)
 			{
@@ -5357,6 +5360,10 @@ intptr_t CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			{
 				case IDC_CHECK_PRINTLINENUM:
 					nppGUI._printSettings._printLineNumber = isCheckedOrNot(IDC_CHECK_PRINTLINENUM);
+					break;
+
+				case  IDC_CHECK_PRINTFORMFEED:
+					nppGUI._printSettings._printFormFeedPageBreak = isCheckedOrNot(IDC_CHECK_PRINTFORMFEED);
 					break;
 
 				case  IDC_RADIO_WYSIWYG:

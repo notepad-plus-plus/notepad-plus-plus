@@ -448,7 +448,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_statusBar.setPartWidth(STATUSBAR_CUR_POS, DPIManagerV2::scale(260, dpi));
 	_statusBar.setPartWidth(STATUSBAR_EOF_FORMAT, DPIManagerV2::scale(110, dpi));
 	_statusBar.setPartWidth(STATUSBAR_UNICODE_TYPE, DPIManagerV2::scale(120, dpi));
-	_statusBar.setPartWidth(STATUSBAR_TYPING_MODE, DPIManagerV2::scale(30, dpi));
+	_statusBar.setPartWidth(STATUSBAR_TYPING_MODE, DPIManagerV2::scale(40, dpi)); // 40 (not 30): "INS"/"OVR" was clipped to "IN"
 	_statusBar.display(willBeShown);
 
 	_pMainWindow = &_mainDocTab;
@@ -973,7 +973,9 @@ bool Notepad_plus::saveFileBrowserParam()
 	{
 		vector<wstring> rootPaths = _pFileBrowser->getRoots();
 		wstring selectedItemPath = _pFileBrowser->getSelectedItemPath();
-		return (NppParameters::getInstance()).writeFileBrowserSettings(rootPaths, selectedItemPath);
+		auto expandedPaths = _pFileBrowser->getExpandedPathsFromFaW();
+		std::unordered_set<std::wstring> transportPaths(expandedPaths.begin(), expandedPaths.end());
+		return (NppParameters::getInstance()).writeFileBrowserSettings(rootPaths, selectedItemPath, transportPaths);
 	}
 	return true; // nothing to save so true is returned
 }
@@ -1812,7 +1814,32 @@ void Notepad_plus::removeDuplicateLines()
 
 }
 
-void Notepad_plus::getMatchedFileNames(const wchar_t *dir, size_t level, const vector<wstring> & patterns, vector<wstring> & fileNames, bool isRecursive, bool isInHiddenDir)
+class MatchedFileNameProgress final
+{
+public:
+	explicit MatchedFileNameProgress(Progress & progress) : _pProgress(&progress) {}
+	// Updates progress if enough time has passed and returns whether search should continue
+	bool report(const wchar_t * currentPath, int nbHitsSoFar)
+	{
+		static constexpr std::chrono::milliseconds updateInterval{ 50 };
+		const auto now = std::chrono::steady_clock::now();
+		if (now - _pLastUpdateTime >= updateInterval)
+		{
+			if (_pProgress->isCancelled())
+			{
+				return false;
+			}
+			_pLastUpdateTime = now;
+			_pProgress->setInfo(currentPath, nbHitsSoFar);
+		}
+		return true;
+	}
+private:
+	std::chrono::steady_clock::time_point _pLastUpdateTime = std::chrono::steady_clock::now();
+	Progress* _pProgress;
+};
+
+void Notepad_plus::getMatchedFileNames(const wchar_t *dir, size_t level, const vector<wstring> & patterns, vector<wstring> & fileNames, bool isRecursive, bool isInHiddenDir, MatchedFileNameProgress* progress)
 {
 	level++;
 
@@ -1840,7 +1867,7 @@ void Notepad_plus::getMatchedFileNames(const wchar_t *dir, size_t level, const v
 						wstring pathDir(dir);
 						pathDir += foundData.cFileName;
 						pathDir += L"\\";
-						getMatchedFileNames(pathDir.c_str(), level, patterns, fileNames, isRecursive, isInHiddenDir);
+						getMatchedFileNames(pathDir.c_str(), level, patterns, fileNames, isRecursive, isInHiddenDir, progress);
 					}
 				}
 			}
@@ -1852,6 +1879,11 @@ void Notepad_plus::getMatchedFileNames(const wchar_t *dir, size_t level, const v
 					pathFile += foundData.cFileName;
 					fileNames.push_back(pathFile.c_str());
 				}
+			}
+
+			if (progress && !progress->report(dir, static_cast<int>(fileNames.size())))
+			{
+				break;
 			}
 		} while (::FindNextFile(hFindFile, &foundData));
 		::FindClose(hFindFile);
@@ -1871,8 +1903,16 @@ bool Notepad_plus::createFilelistForFiles(vector<wstring> & fileNames)
 
 	bool isRecursive = _findReplaceDlg.isRecursive();
 	bool isInHiddenDir = _findReplaceDlg.isInHiddenDir();
-	getMatchedFileNames(dir2Search, 0, patterns2Match, fileNames, isRecursive, isInHiddenDir);
-	return true;
+
+	Progress progress(_pPublicInterface->getHinst());
+	wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("discover-file-candidates-title", L"Discovering file candidates...");
+	progress.open(_findReplaceDlg.getHSelf(), msg.c_str());
+	progress.setInfo(L"", 0);
+
+	MatchedFileNameProgress matchedFileNameProgress{ progress };
+	getMatchedFileNames(dir2Search, 0, patterns2Match, fileNames, isRecursive, isInHiddenDir, &matchedFileNameProgress);
+
+	return !progress.isCancelled();
 }
 
 bool Notepad_plus::createFilelistForProjects(vector<wstring> & fileNames)
@@ -2444,7 +2484,7 @@ int Notepad_plus::doSaveOrNot(const wchar_t* fn, bool isMulti)
 
 		msg = stringReplace(msg, L"$STR_REPLACE$", fn);
 
-		return ::MessageBox(_pPublicInterface->getHSelf(), msg.c_str(), title.c_str(), MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
+		return NppDarkMode::darkMessageBoxW(_pPublicInterface->getHSelf(), msg.c_str(), title.c_str(), MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
 	}
 
 	DoSaveOrNotBox doSaveOrNotBox;
@@ -4139,6 +4179,8 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_SAS;
         case IDM_LANG_ERRORLIST:
             return L_ERRORLIST;
+        case IDM_LANG_ESCSEQ:
+            return L_ESCSEQ;
         case IDM_LANG_USER:
             return L_USER;
 		default:
@@ -7540,7 +7582,9 @@ void Notepad_plus::launchAnsiCharPanel()
 	_pAnsiCharPanel->display();
 }
 
-void Notepad_plus::launchFileBrowser(const vector<wstring> & folders, const wstring& selectedItemPath, bool fromScratch)
+// folders is the list of roots of tree structure to be added to the file browser.
+// if _pFileBrowserRoots is not NULL, then _pFileBrowserRoots is used, otherwise folders is used.
+void Notepad_plus::launchFileBrowser(const vector<wstring> & folders, const wstring& selectedItemPath, bool fromScratch, std::vector<FileBrowserRootsInfo>* pFileBrowserRoots)
 {
 	if (!_pFileBrowser)
 	{
@@ -7590,9 +7634,20 @@ void Notepad_plus::launchFileBrowser(const vector<wstring> & folders, const wstr
 		_pFileBrowser->deleteAllFromTree();
 	}
 
-	for (size_t i = 0; i <folders.size(); ++i)
+
+	if (pFileBrowserRoots)
 	{
-		_pFileBrowser->addRootFolder(folders[i]);
+		for (auto i : *pFileBrowserRoots)
+		{
+			_pFileBrowser->addRootFolder(i._root, &(i._expandedPaths));
+		}
+	}
+	else
+	{
+		for (const auto& i : folders)
+		{
+			_pFileBrowser->addRootFolder(i);
+		}
 	}
 
 	_pFileBrowser->display();

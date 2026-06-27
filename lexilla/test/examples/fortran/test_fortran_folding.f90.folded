@@ -1,0 +1,45 @@
+ 1 400   0   
+ 2 400   0 + subroutine test_sub(a) bind(c)
+ 1 401   0 | 
+ 2 401   0 +     change team ( new_team )
+ 0 402   0 |     ! Statements executed with new_team as the current team
+ 0 402   0 |     end team
+ 1 401   0 |     
+ 2 401   0 +     type ball
+ 0 402   0 |         real :: dia
+ 0 402   0 |     end type
+ 1 401   0 | 
+ 0 401   0 | ! test directive:
+ 0 401   0 | !gcc$ vector
+ 1 401   0 | 
+ 2 401   0 +     critical
+ 0 402   0 |         :
+ 0 402   0 |     end critical
+ 1 401   0 | 
+ 2 401   0 +     critical (stat=2, errmsg=2)
+ 0 402   0 |         :
+ 0 402   0 |     end critical
+ 1 401   0 | 
+ 2 401   0 +     enumeration type :: colour
+ 0 402   0 |         enumerator :: red, orange, green
+ 0 402   0 |     end enumeration type
+ 0 401   0 |     !
+ 2 401   0 +     select rank(x)
+ 0 404   0 |         rank (0)
+ 0 404   0 |             x = 0
+ 0 404   0 |         rank (2)
+ 0 404   0 |             IF (SIZE(x,2)>=2) x(:,2) = 2
+ 0 404   0 |         rank default
+ 0 404   0 |             print *, 'I did not expect rank', rank(x), 'shape', shape(x)
+ 0 404   0 |             error stop 'process bad arg'
+ 0 404   0 |     end select
+ 1 401   0 | 
+ 2 401   0 +     enum, bind(c) :: season
+ 0 402   0 |         enumerator :: spring=5, summer=7, autumn, winter
+ 0 402   0 |     end enum
+ 0 401   0 | :
+ 0 401   0 | end subroutine
+ 1 400   0   
+ 1 400   0   
+ 1 400   0   
+ 0 400   0   

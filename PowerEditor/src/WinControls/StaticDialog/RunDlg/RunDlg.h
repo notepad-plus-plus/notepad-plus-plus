@@ -16,8 +16,11 @@
 
 #pragma once
 
-#include "Common.h"
-#include "RunDlg_rc.h"
+#include <windows.h>
+
+#include <string>
+
+#include "StaticDialog.h"
 
 #define CURRENTWORD_MAXLENGTH 2048
 

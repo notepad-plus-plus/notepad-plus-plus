@@ -963,7 +963,7 @@ void UserDefineDialog::changeStyle()
 
     auto style = ::GetWindowLongPtr(_hSelf, GWL_STYLE);
     if (!style)
-        ::MessageBox(NULL, L"GetWindowLongPtr failed in UserDefineDialog::changeStyle()", L"", MB_OK);
+		NppDarkMode::darkMessageBoxW(nullptr, L"GetWindowLongPtr failed in UserDefineDialog::changeStyle()", L"", MB_OK);
 
     style = (_status == DOCK)?
         ((style & ~WS_POPUP) & ~DS_MODALFRAME & ~WS_CAPTION) | WS_CHILD :
@@ -971,7 +971,7 @@ void UserDefineDialog::changeStyle()
 
     auto result = ::SetWindowLongPtr(_hSelf, GWL_STYLE, style);
     if (!result)
-        ::MessageBox(NULL, L"SetWindowLongPtr failed in UserDefineDialog::changeStyle()", L"", MB_OK);
+		NppDarkMode::darkMessageBoxW(nullptr, L"SetWindowLongPtr failed in UserDefineDialog::changeStyle()", L"", MB_OK);
 
     if (_status == DOCK)
         getActualPosSize();

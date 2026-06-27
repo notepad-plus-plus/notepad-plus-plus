@@ -33,6 +33,8 @@
 
 using namespace Lexilla;
 
+namespace {
+
 static void ColouriseVHDLDoc(
   Sci_PositionU startPos,
   Sci_Position length,
@@ -42,22 +44,22 @@ static void ColouriseVHDLDoc(
 
 
 /***************************************/
-static inline bool IsAWordChar(const int ch) {
-  return (ch < 0x80) && (isalnum(ch) || ch == '.' || ch == '_' );
+inline bool IsAWordChar(const int ch) {
+  return IsAlphaNumeric(ch) || ch == '.' || ch == '_';
 }
 
 /***************************************/
-static inline bool IsAWordStart(const int ch) {
-  return (ch < 0x80) && (isalnum(ch) || ch == '_');
+inline bool IsAWordStart(const int ch) {
+  return IsAlphaNumeric(ch) || ch == '_';
 }
 
 /***************************************/
-static inline bool IsABlank(unsigned int ch) {
+inline bool IsABlank(unsigned int ch) {
   return (ch == ' ') || (ch == 0x09) || (ch == 0x0b) ;
 }
 
 /***************************************/
-static void ColouriseVHDLDoc(
+void ColouriseVHDLDoc(
   Sci_PositionU startPos,
   Sci_Position length,
   int initStyle,
@@ -177,7 +179,7 @@ static void ColouriseVHDLDoc(
   sc.Complete();
 }
 //=============================================================================
-static bool IsCommentLine(Sci_Position line, Accessor &styler) {
+bool IsCommentLine(Sci_Position line, Accessor &styler) {
   Sci_Position pos = styler.LineStart(line);
   Sci_Position eol_pos = styler.LineStart(line + 1) - 1;
   for (Sci_Position i = pos; i < eol_pos; i++) {
@@ -190,7 +192,7 @@ static bool IsCommentLine(Sci_Position line, Accessor &styler) {
   }
   return false;
 }
-static bool IsCommentBlockStart(Sci_Position line, Accessor &styler)
+bool IsCommentBlockStart(Sci_Position line, Accessor &styler)
 {
   Sci_Position pos = styler.LineStart(line);
   Sci_Position eol_pos = styler.LineStart(line + 1) - 1;
@@ -204,7 +206,7 @@ static bool IsCommentBlockStart(Sci_Position line, Accessor &styler)
   return false;
 }
 
-static bool IsCommentBlockEnd(Sci_Position line, Accessor &styler)
+bool IsCommentBlockEnd(Sci_Position line, Accessor &styler)
 {
   Sci_Position pos = styler.LineStart(line);
   Sci_Position eol_pos = styler.LineStart(line + 1) - 1;
@@ -219,14 +221,14 @@ static bool IsCommentBlockEnd(Sci_Position line, Accessor &styler)
   return false;
 }
 
-static bool IsCommentStyle(char style)
+bool IsCommentStyle(char style)
 {
   return style == SCE_VHDL_BLOCK_COMMENT || style == SCE_VHDL_COMMENT || style == SCE_VHDL_COMMENTLINEBANG;
 }
 
 //=============================================================================
 // Folding the code
-static void FoldNoBoxVHDLDoc(
+void FoldNoBoxVHDLDoc(
   Sci_PositionU startPos,
   Sci_Position length,
   int,
@@ -289,7 +291,7 @@ static void FoldNoBoxVHDLDoc(
         char s[32];
         Sci_PositionU k;
         for(k=0; (k<31 ) && (k<end-j+1 ); k++) {
-          s[k] = static_cast<char>(tolower(styler[j+k]));
+          s[k] = MakeLowerCase(styler[j+k]);
         }
         s[k] = '\0';
 
@@ -387,7 +389,7 @@ static void FoldNoBoxVHDLDoc(
         char s[32];
         Sci_PositionU k;
         for(k=0; (k<31 ) && (k<i-lastStart+1 ); k++) {
-          s[k] = static_cast<char>(tolower(styler[lastStart+k]));
+          s[k] = MakeLowerCase(styler[lastStart+k]);
         }
         s[k] = '\0';
 
@@ -543,13 +545,13 @@ static void FoldNoBoxVHDLDoc(
 }
 
 //=============================================================================
-static void FoldVHDLDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *[],
+void FoldVHDLDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *[],
                        Accessor &styler) {
   FoldNoBoxVHDLDoc(startPos, length, initStyle, styler);
 }
 
 //=============================================================================
-static const char * const VHDLWordLists[] = {
+const char * const VHDLWordLists[] = {
             "Keywords",
             "Operators",
             "Attributes",
@@ -560,6 +562,7 @@ static const char * const VHDLWordLists[] = {
             0,
         };
 
+}
 
 extern const LexerModule lmVHDL(SCLEX_VHDL, ColouriseVHDLDoc, "vhdl", FoldVHDLDoc, VHDLWordLists);
 

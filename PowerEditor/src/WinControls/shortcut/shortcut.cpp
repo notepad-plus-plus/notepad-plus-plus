@@ -1470,7 +1470,7 @@ void CommandShortcut::setCategoryFromMenu(HMENU hMenu)
 		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "settings", L"Settings");
 	else if ( _id < IDM_EXECUTE)
 		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "tools", L"Tools");
-	else
+	else // _id >= IDM_EXECUTE
 		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "run", L"Run");
 }
 

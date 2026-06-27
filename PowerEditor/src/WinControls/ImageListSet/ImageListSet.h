@@ -162,6 +162,8 @@ public:
 		return _iconListVector[witchList].changeIcon(iconIndex, iconLocation);
 	}
 
+	static HBITMAP resizeHBitmap(HBITMAP srcBmp, int destW, int destH);
+
 private:
 	ToolBarIconIDs _tbiis;
 	std::vector<DynamicCmdIcoBmp> _moreCmds;

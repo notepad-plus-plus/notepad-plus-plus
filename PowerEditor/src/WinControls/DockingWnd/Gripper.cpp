@@ -15,10 +15,21 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-#include <stdexcept>
 #include "Gripper.h"
+
+#include <windows.h>
+
+#include <stdexcept>
+#include <vector>
+
+#include "Common.h"
+#include "Docking.h"
+#include "DockingCont.h"
 #include "DockingManager.h"
+#include "Notepad_plus_msgs.h"
+#include "NppDarkMode.h"
 #include "Parameters.h"
+#include "dockingResource.h"
 
 using namespace std;
 
@@ -224,7 +235,7 @@ void Gripper::create()
         DWORD dwError = ::GetLastError();
         wchar_t  str[128];
         ::wsprintf(str, L"GetLastError() returned %lu", dwError);
-        ::MessageBox(NULL, str, L"SetWindowsHookEx(MOUSE) failed on Gripper::create()", MB_OK | MB_ICONERROR);
+		NppDarkMode::darkMessageBoxW(nullptr, str, L"SetWindowsHookEx(MOUSE) failed on Gripper::create()", MB_OK | MB_ICONERROR);
     }
 
 	if (ver != WV_UNKNOWN && ver < WV_VISTA)
@@ -235,7 +246,7 @@ void Gripper::create()
 			DWORD dwError = ::GetLastError();
 			wchar_t  str[128];
 			::wsprintf(str, L"GetLastError() returned %lu", dwError);
-			::MessageBox(NULL, str, L"SetWindowsHookEx(KEYBOARD) failed on Gripper::create()", MB_OK | MB_ICONERROR);
+			NppDarkMode::darkMessageBoxW(nullptr, str, L"SetWindowsHookEx(KEYBOARD) failed on Gripper::create()", MB_OK | MB_ICONERROR);
 		}
 	}
 //  Removed regarding W9x systems
@@ -414,7 +425,7 @@ void Gripper::doTabReordering(POINT pt)
 						return;
 					}
 
-					_iItem = static_cast<int32_t>(iItem);
+					_iItem = static_cast<int>(iItem);
 				}
 				else if (_hTab && ((hTab != _hTab) || (_iItem == -1)))
 				{
@@ -424,7 +435,7 @@ void Gripper::doTabReordering(POINT pt)
 					::SendMessage(hTab, TCM_GETITEMRECT, iLastItem, reinterpret_cast<LPARAM>(&rc));
 					if ((rc.left + rc.right) < pt.x)
 					{
-						_iItem = static_cast<int32_t>(iLastItem) + 1;
+						_iItem = static_cast<int>(iLastItem) + 1;
 					}
 				}
 
@@ -875,13 +886,13 @@ DockingCont* Gripper::workHitTest(POINT pt, RECT *rc)
 				default:
 					break;
 			}
-			::MapWindowPoints(_dockData.hWnd, NULL, (LPPOINT)(&rcCont), 2);
+			::MapWindowPoints(_dockData.hWnd, nullptr, reinterpret_cast<LPPOINT>(&rcCont), 2);
 
 			if (::PtInRect(&rcCont, pt) == TRUE)
 			{
-				if (rc != NULL)
+				if (rc != nullptr)
 				{
-					::MapWindowPoints(_dockData.hWnd, NULL, (LPPOINT)(rc), 2);
+					::MapWindowPoints(_dockData.hWnd, nullptr, reinterpret_cast<LPPOINT>(rc), 2);
 					rc->right  -= rc->left;
 					rc->bottom -= rc->top;
 				}
@@ -891,7 +902,7 @@ DockingCont* Gripper::workHitTest(POINT pt, RECT *rc)
 	}
 
 	/* no docking area found */
-	return NULL;
+	return nullptr;
 }
 
 
@@ -910,7 +921,7 @@ void Gripper::initTabInformation()
 	else
 	{
 		// get active tab item
-		_iItem = static_cast<int32_t>(::SendMessage(_hTabSource, TCM_GETCURSEL, 0, 0));
+		_iItem = static_cast<int>(::SendMessage(_hTabSource, TCM_GETCURSEL, 0, 0));
 	}
 
 	/* get size of item */

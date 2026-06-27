@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.9.3">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.9.6.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -90,6 +90,7 @@ Translation note:
 					<Item id="41002" name="&amp;Öppna"/>
 					<Item id="41019" name="Utforskaren"/>
 					<Item id="41020" name="Kommandotolken"/>
+					<Item id="41027" name="PowerShell"/>
 					<Item id="41025" name="Mapp som arbets&amp;yta"/>
 					<Item id="41003" name="S&amp;täng"/>
 					<Item id="41004" name="Stän&amp;g alla"/>
@@ -399,6 +400,7 @@ Translation note:
 					<Item id="48511" name="Generera från filer..."/>
 					<Item id="48512" name="Generera från markering till urklipp"/>
 					<Item id="49000" name="&amp;Kör..."/>
+					<Item id="49001" name="Validera shortcuts.xml"/>
 
 					<Item id="50000" name="Funktionskomplettering"/>
 					<Item id="50001" name="Ordkomplettering"/>
@@ -440,6 +442,7 @@ Translation note:
 				<Item CMDID="1" name="Öppna i"/>
 				<Item CMDID="41019" name="Öppna objektets mapp i utforskaren"/>
 				<Item CMDID="41020" name="Öppna objektets mapp i kommandotolken"/>
+				<Item CMDID="41027" name="Öppna objektets mapp i PowerShell"/>
 				<Item CMDID="41025" name="Öppna objektets mapp som arbetsyta"/>
 				<Item CMDID="41023" name="Öppna i standardprogram"/>
 				<Item CMDID="41017" name="Byt namn..."/>
@@ -655,6 +658,10 @@ Translation note:
 				</SubDialog>
 			</StyleConfig>
 
+			<ColorPopup>
+				<Item id="1" name="Fler färger..."/>
+			</ColorPopup>
+
 			<ShortcutMapper title="Kortkommandon">
 				<Item id="2602" name="Ändra"/>
 				<Item id="2603" name="Radera"/>
@@ -679,6 +686,8 @@ Translation note:
 				<MainCommandNames>
 					<Item id="41019" name="Öppna objektets mapp i utforskaren"/>
 					<Item id="41020" name="Öppna objektets mapp i kommandotolken"/>
+					<Item id="41027" name="Öppna objektets mapp i PowerShell"/>
+					<Item id="41025" name="Öppna objektets mapp som arbetsyta"/>
 					<Item id="41021" name="Återställ senast stängd fil"/>
 					<Item id="45001" name="Konvertera radslut till Windows (CR LF)"/>
 					<Item id="45002" name="Konvertera radslut till Unix (LF)"/>
@@ -1614,6 +1623,15 @@ Se användarmanualen för instruktioner om hur man aktiverar reguljär bakåtsö
 Kontrollera sökvillkoren innan du utför åtgärden."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ behöver startas om" message="Notepad++ behöver startas om för att visa knapparna på högersidan."/>
 			<NoAdminRight2ChangeReadOnlyFileAttribute title="Misslyckades att ändra filens skrivskyddsattribut" message="Starta Notepad++ som administratör för att ändra filattribut."/>
+			<ReadOnlyFileCannotBeSaved title="Misslyckades att spara - Filen är skrivskyddad" message="&quot;$STR_REPLACE$&quot;
+Filen är skrivskyddad och kan inte sparas.
+Var god ta bort skrivskyddet och spara sedan din fil."/>
+			<ShortcutsXmlHMACMissing title="Säkerhetsvarning" message="Säkerhetsinformationen för shortcuts.xml saknas i config.xml.
+
+Integriteten för shortcuts.xml kommer att kontrolleras av säkerhetsskäl. Var god granska den öppnade filen shortcuts.xml för att köra ditt anpassade kommando. Använd &quot;Validera shortcuts.xml&quot; från menyn för att bekräfta det om filinnehållet är OK."/>
+			<ShortcutsXmlTampered title="Säkerhetsvarning" message="Filen shortcuts.xml verkar ha ändrats manuellt.
+
+Var god granska den öppnade filen shortcuts.xml av säkerhetsskäl. Använd &quot;Validera shortcuts.xml&quot; från menyn för att bekräfta det om filinnehållet är OK."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>
@@ -1671,6 +1689,7 @@ Kontrollera sökvillkoren innan du utför åtgärden."/> <!-- HowToReproduce: ht
 				<Item id="3518" name="Öppna utforskaren här"/>
 				<Item id="3519" name="Öppna kommandotolken här"/>
 				<Item id="3520" name="Kopiera filnamn"/>
+				<Item id="3521" name="Öppna PowerShell här"/>
 			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>

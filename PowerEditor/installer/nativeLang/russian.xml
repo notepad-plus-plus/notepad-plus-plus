@@ -4,7 +4,7 @@ Updated to :
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.9.5">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.9.6">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -87,6 +87,7 @@ Updated to :
 
 					<Item id="41019" name="&amp;Открыть папку файла"/>
 					<Item id="41020" name="Открыть папку в &amp;консоли cmd"/>
+					<Item id="41027" name="PowerShell"/>
 					<Item id="41025" name="Папка файла как Проект"/>
 
 					<Item id="41023" name="Открыть стандартным приложением"/>
@@ -444,6 +445,7 @@ Updated to :
 					<Item id="48016" name="&amp;Управление Макросами..."/>
 
 					<Item id="49000" name="Запуск..."/>
+					<Item id="49001" name="Утвердить shortcuts.xml"/>
 					<Item id="48017" name="Управление Командами..."/>
 
 					<Item id="11001" name="Список Ф&amp;айлов..."/>
@@ -489,6 +491,7 @@ Updated to :
 				<Item CMDID="1" name="Открыть папку файла"/>
 				<Item CMDID="41019" name="Открыть папку файла"/>
 				<Item CMDID="41020" name="Открыть папку файла в cmd"/>
+				<Item CMDID="41027" name="Открыть папку файла в PowerShell"/>
 				<Item CMDID="41025" name="Открыть папку файла как Проект"/>
 				<Item CMDID="41023" name="Открыть стандартным приложением"/>
 				<Item CMDID="41017" name="Переименовать..."/>
@@ -692,7 +695,6 @@ Updated to :
 			<ColorPopup>
 				<Item id="1" name="Больше Цветов..."/>
 			</ColorPopup>
-
 			<ShortcutMapper title="Управление Клавишами Быстрого Доступа">
 				<Item id="2602" name="Изменить"/>
 				<Item id="2603" name="Удалить"/>
@@ -730,6 +732,8 @@ Updated to :
 					<Item id="42021" name="Воспроизвести Макрос"/>
 					<Item id="41019" name="Открыть папку файла"/>
 					<Item id="41020" name="Открыть папку файла в cmd"/>
+					<Item id="41027" name="Открыть папку файла в PowerShell"/>
+					<Item id="41025" name="Открыть папку файла как Проект"/>
 					<Item id="41021" name="Открыть последний закрытый файл"/>
 					<Item id="45001" name="Преобразовать в Windows (CR LF)"/>
 					<Item id="45002" name="Преобразовать в Unix (LF)"/>
@@ -1614,6 +1618,13 @@ Updated to :
 			<ReadOnlyFileCannotBeSaved title="Сохранение не удалось — файл только для чтения." message="&quot;$STR_REPLACE$&quot;
 Файл доступен только для чтения и не может быть сохранен.
 Сначала снимите флажок &quot;Только для чтения&quot;, а затем сохраните файл."/>
+			<ShortcutsXmlHMACMissing title="Предупреждение о безопасности" message="Информация о безопасности для файла shortcuts.xml отсутствует в файле config.xml.
+
+В целях безопасности будет проверена целостность файла shortcuts.xml. Для выполнения настроенной команды проверьте открытый файл shortcuts.xml.
+Если содержимое файла в порядке, используйте пункт в меню &quot;Утвердить shortcuts.xml&quot;, чтобы это подтвердить."/>
+			<ShortcutsXmlTampered title="Предупреждение о безопасности" message="По всей видимости, файл shortcuts.xml был изменен вручную.
+
+В целях безопасности, пожалуйста, проверьте открытый файл shortcuts.xml. Если содержимое файла в порядке, используйте пункт в меню &quot;Утвердить shortcuts.xml&quot;, чтобы это подтвердить."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="История Буфера"/>
@@ -1671,6 +1682,7 @@ Updated to :
 				<Item id="3518" name="Открыть папку объекта"/>
 				<Item id="3519" name="Открыть cmd"/>
 				<Item id="3520" name="Копировать Имя Файла"/>
+				<Item id="3521" name="PowerShell здесь"/>
 			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>

@@ -998,6 +998,9 @@ void FileBrowser::getDirectoryStructure(const wchar_t *dir, const std::vector<ws
 	{
 		do
 		{
+			if (foundData.dwFileAttributes & FILE_ATTRIBUTE_REPARSE_POINT) // Ignore junctions and symbolic links to prevent infinite recursive loop
+				return;
+
 			if (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 			{
 				if (!isInHiddenDir && (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN))

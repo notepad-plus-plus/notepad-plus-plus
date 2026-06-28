@@ -842,3 +842,144 @@ void TreeView::customSorting(HTREEITEM hTreeItem, PFNTVCOMPARE sortingCallbackFu
 	for (HTREEITEM hItem = getChildFrom(hTreeItem); hItem != NULL; hItem = getNextSibling(hItem))
 		customSorting(hItem, sortingCallbackFunc, lParam, isRecusive);
 }
+
+
+// ---------- helpers for searchAndBuildTreeWithAncestors ----------
+
+static HTREEITEM tvGetNextItem(HWND hwnd, HTREEITEM item, UINT relation)
+{
+	return reinterpret_cast<HTREEITEM>(::SendMessage(hwnd, TVM_GETNEXTITEM, relation, reinterpret_cast<LPARAM>(item)));
+}
+
+static HTREEITEM tvInsertCopy(HWND dstHwnd, HTREEITEM dstParent, const TVITEM& srcItem)
+{
+	TVINSERTSTRUCT tvis{};
+	tvis.item = srcItem;
+	tvis.hInsertAfter = TVI_LAST;
+	tvis.hParent = dstParent;
+	return reinterpret_cast<HTREEITEM>(::SendMessage(dstHwnd, TVM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&tvis)));
+}
+
+// Returns true if 'src' or any descendant has a name containing needleUpper.
+static bool fbHasAnyMatch(HWND srcHwnd, HTREEITEM src, const std::wstring& needleUpper)
+{
+	wchar_t buf[MAX_PATH] = {};
+	TVITEM tvItem{};
+	tvItem.hItem = src;
+	tvItem.pszText = buf;
+	tvItem.cchTextMax = MAX_PATH;
+	tvItem.mask = TVIF_TEXT;
+	::SendMessage(srcHwnd, TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
+
+	if (stringToUpper(wstring(buf)).find(needleUpper) != wstring::npos)
+		return true;
+
+	for (HTREEITEM child = tvGetNextItem(srcHwnd, src, TVGN_CHILD);
+	     child;
+	     child = tvGetNextItem(srcHwnd, child, TVGN_NEXT))
+	{
+		if (fbHasAnyMatch(srcHwnd, child, needleUpper))
+			return true;
+	}
+	return false;
+}
+
+// Unconditionally clones the entire subtree under src into dstParent.
+static void fbCloneAllChildren(HWND srcHwnd, HWND dstHwnd, HTREEITEM dstParent, HTREEITEM src)
+{
+	for (HTREEITEM child = tvGetNextItem(srcHwnd, src, TVGN_CHILD);
+	     child;
+	     child = tvGetNextItem(srcHwnd, child, TVGN_NEXT))
+	{
+		wchar_t buf[MAX_PATH] = {};
+		TVITEM tvItem{};
+		tvItem.hItem = child;
+		tvItem.pszText = buf;
+		tvItem.cchTextMax = MAX_PATH;
+		tvItem.mask = TVIF_TEXT | TVIF_PARAM | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+		::SendMessage(srcHwnd, TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
+
+		HTREEITEM dst = tvInsertCopy(dstHwnd, dstParent, tvItem);
+		fbCloneAllChildren(srcHwnd, dstHwnd, dst, child);
+	}
+}
+
+// Recursively builds the filtered tree.
+// Returns the inserted HTREEITEM for src, or nullptr if nothing from this subtree matched.
+//   - Leaf items: included iff their name matches.
+//   - Name-matched folders: included collapsed, with full child subtree copied unconditionally.
+//   - Non-matching folders: included and EXPANDED only if a descendant matches.
+static HTREEITEM fbBuildFilteredNode(HWND srcHwnd, HWND dstHwnd, HTREEITEM dstParent,
+                                     HTREEITEM src, const std::wstring& needleUpper, int leafIdx)
+{
+	wchar_t buf[MAX_PATH] = {};
+	TVITEM tvItem{};
+	tvItem.hItem = src;
+	tvItem.pszText = buf;
+	tvItem.cchTextMax = MAX_PATH;
+	tvItem.mask = TVIF_TEXT | TVIF_PARAM | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+	::SendMessage(srcHwnd, TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
+
+	const bool isLeaf = (tvItem.iImage == leafIdx);
+	const bool nameMatches = (stringToUpper(wstring(buf)).find(needleUpper) != wstring::npos);
+
+	if (isLeaf)
+	{
+		if (!nameMatches) return nullptr;
+		return tvInsertCopy(dstHwnd, dstParent, tvItem);
+	}
+
+	// Folder (root or non-root)
+	if (nameMatches)
+	{
+		// Name-matched folder: insert collapsed, copy all original children unconditionally.
+		HTREEITEM dst = tvInsertCopy(dstHwnd, dstParent, tvItem);
+		fbCloneAllChildren(srcHwnd, dstHwnd, dst, src);
+		// Leave collapsed per spec (no TVE_EXPAND).
+		return dst;
+	}
+
+	// Non-matching folder: probe for any descendant match before creating the node.
+	bool hasMatch = false;
+	for (HTREEITEM child = tvGetNextItem(srcHwnd, src, TVGN_CHILD);
+	     child && !hasMatch;
+	     child = tvGetNextItem(srcHwnd, child, TVGN_NEXT))
+	{
+		hasMatch = fbHasAnyMatch(srcHwnd, child, needleUpper);
+	}
+	if (!hasMatch) return nullptr;
+
+	// At least one descendant matches: create the ancestor folder and recurse.
+	HTREEITEM dst = tvInsertCopy(dstHwnd, dstParent, tvItem);
+
+	for (HTREEITEM child = tvGetNextItem(srcHwnd, src, TVGN_CHILD);
+	     child;
+	     child = tvGetNextItem(srcHwnd, child, TVGN_NEXT))
+	{
+		fbBuildFilteredNode(srcHwnd, dstHwnd, dst, child, needleUpper, leafIdx);
+	}
+
+	// Expand ancestor folder so the matching descendants are visible.
+	::SendMessage(dstHwnd, TVM_EXPAND, TVE_EXPAND, reinterpret_cast<LPARAM>(dst));
+	return dst;
+}
+
+// ---------- public method ----------
+
+bool TreeView::searchAndBuildTreeWithAncestors(const TreeView& tree2Build, const wstring& text2Search, int leafImageIndex)
+{
+	if (!_hSelf || !tree2Build.getHSelf()) return false;
+
+	const wstring needleUpper = stringToUpper(text2Search);
+	const HWND dstHwnd = tree2Build.getHSelf();
+	bool anyMatch = false;
+
+	for (HTREEITEM topLevel = tvGetNextItem(_hSelf, nullptr, TVGN_ROOT);
+	     topLevel;
+	     topLevel = tvGetNextItem(_hSelf, topLevel, TVGN_NEXT))
+	{
+		HTREEITEM dst = fbBuildFilteredNode(_hSelf, dstHwnd, TVI_ROOT, topLevel, needleUpper, leafImageIndex);
+		if (dst) anyMatch = true;
+	}
+	return anyMatch;
+}

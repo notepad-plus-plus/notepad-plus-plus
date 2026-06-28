@@ -2750,6 +2750,28 @@ void NppParameters::updateStylesXml(const NppXml::Element& rootUser, const std::
 		}
 	}
 
+	// Ensure searchResult LexerType is always the last child of mainElemUser,
+	// regardless of where it appeared in the original XML or where new entries
+	// were appended during the merge above.
+	NppXml::Element searchResultNode;
+	for (NppXml::Element lexerNode = NppXml::firstChildElement(mainElemUser, "LexerType");
+		lexerNode;
+		lexerNode = NppXml::nextSiblingElement(lexerNode, "LexerType"))
+	{
+		const char* name = NppXml::attribute(lexerNode, "name");
+		if (name && std::strcmp(name, "searchResult") == 0)
+		{
+			searchResultNode = lexerNode;
+			break;
+		}
+	}
+
+	if (searchResultNode)
+	{
+		NppXml::deleteChild(mainElemUser, searchResultNode);
+		NppXml::insertEndChild(mainElemUser, searchResultNode);
+	}
+
 	return;
 }
 

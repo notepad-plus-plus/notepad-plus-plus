@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
-@author	 Geoffray Warnants - http://www.geoffray.be
-@version	1.35.20100625
+@author      Geoffray Warnants - http://www.geoffray.be
+@contributor Krzysztof "Krzysiu" Blachnicki - https://github.com/Krzysiu
+@version     1.36.20260214
 -->
 <NotepadPlus>
 	<AutoComplete>
@@ -106,6 +107,13 @@
 				<Param name="array input"/>
 				<Param name="int size"/>
 				<Param name="bool preserve_keys=false"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="array_column" func="yes">
+			<Overload retVal="array">
+				<Param name="array array"/>
+				<Param name="mixed column_name"/>
+				<Param name="[mixed index_key=null]"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="array_combine" func="yes">
@@ -541,23 +549,23 @@
 		</KeyWord>
 		<KeyWord name="bcmod" func="yes">
 			<Overload retVal="string">
-	   			<Param name="string left_operand"/>
-	   			<Param name="string right_operand"/>
-	   		</Overload>
+				<Param name="string left_operand"/>
+				<Param name="string right_operand"/>
+			</Overload>
 		</KeyWord>
 		<KeyWord name="bcmul" func="yes">
-	   		<Overload retVal="string">
+			<Overload retVal="string">
 				<Param name="string left_operand"/>
 				<Param name="string right_operand"/>
 				<Param name="[int scale]"/>
-	   		</Overload>
+			</Overload>
 		</KeyWord>
 		<KeyWord name="bcpow" func="yes">
-	   		<Overload retVal="string">
-	   			<Param name="string x"/>
-	   			<Param name="string y"/>
-	   			<Param name="[int scale]"/>
-	   		</Overload>
+			<Overload retVal="string">
+				<Param name="string x"/>
+				<Param name="string y"/>
+				<Param name="[int scale]"/>
+			</Overload>
 		</KeyWord>
 		<KeyWord name="bcpowmod" func="yes">
 			<Overload retVal="string">
@@ -568,15 +576,15 @@
 			</Overload>
 		</KeyWord>
 		<KeyWord name="bcscale" func="yes">
-	   		<Overload retVal="bool">
-	   			<Param name="int scale"/>
-	   		</Overload>
+			<Overload retVal="bool">
+				<Param name="int scale"/>
+			</Overload>
 		</KeyWord>
 		<KeyWord name="bcsqrt" func="yes">
-	   		<Overload retVal="string">
-	   			<Param name="string operand"/>
-	   			<Param name="[int scale]"/>
-	   		</Overload>
+			<Overload retVal="string">
+				<Param name="string operand"/>
+				<Param name="[int scale]"/>
+			</Overload>
 		</KeyWord>
 		<KeyWord name="bcsub" func="yes">
 			<Overload retVal="string">
@@ -2821,18 +2829,18 @@
 		<KeyWord name="file_get_contents" func="yes">
 			<Overload retVal="string|false">
 				<Param name="string filename"/>
-				<Param name="[bool use_include_path=false"/>
-				<Param name="[resource context=NULL"/>
-				<Param name="[int offset=0"/>
-				<Param name="[int length]]]]"/>
+				<Param name="[int flags=0]"/>
+				<Param name="[resource context]"/>
+				<Param name="[int offset=-1]"/>
+				<Param name="[int maxlen=-1]"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="file_put_contents" func="yes">
 			<Overload retVal="int|false">
-				<Param name="string filename"/>
+				<Param name="string file"/>
 				<Param name="mixed data"/>
-				<Param name="[int flags=0"/>
-				<Param name="[resource context=NULL]]"/>
+				<Param name="[int flags=0]"/>
+				<Param name="[resource context]"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="file_register_wrapper" func="yes">
@@ -3544,6 +3552,11 @@
 		<KeyWord name="get_magic_quotes_runtime" func="yes">
 			<Overload retVal="int">
 				<Param name="void"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="get_mangled_object_vars" func="yes">
+			<Overload retVal="array">
+				<Param name="object obj"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="get_meta_tags" func="yes">
@@ -4386,15 +4399,15 @@
 			</Overload>
 		</KeyWord>
 		<KeyWord name="ibase_pconnect" func="yes">
-	   		<Overload retVal="resource">
-	   			<Param name="string database"/>
-	   			<Param name="[string username"/>
-	   			<Param name="[string password"/>
-	   			<Param name="[string charset"/>
-	   			<Param name="[int buffers"/>
-	   			<Param name="[int dialect"/>
-	   			<Param name="[string role]]]]]]"/>
-	   		</Overload>
+			<Overload retVal="resource">
+				<Param name="string database"/>
+				<Param name="[string username"/>
+				<Param name="[string password"/>
+				<Param name="[string charset"/>
+				<Param name="[int buffers"/>
+				<Param name="[int dialect"/>
+				<Param name="[string role]]]]]]"/>
+			</Overload>
 		</KeyWord>
 		<KeyWord name="ibase_prepare" func="yes">
 			<Overload retVal="resource">
@@ -5851,16 +5864,16 @@
 			</Overload>
 		</KeyWord>
 		<KeyWord name="is_callable" func="yes">
-	   		<Overload retVal="bool">
-	   			<Param name="mixed var"/>
-	   			<Param name="[bool syntax_only"/>
-	   			<Param name="[string callable_name]]"/>
-	   		</Overload>
+			<Overload retVal="bool">
+				<Param name="mixed var"/>
+				<Param name="[bool syntax_only"/>
+				<Param name="[string callable_name]]"/>
+			</Overload>
 		</KeyWord>
 		<KeyWord name="is_countable" func="yes">
-	   		<Overload retVal="bool">
-	   			<Param name="mixed value"/>
-	   		</Overload>
+			<Overload retVal="bool">
+				<Param name="mixed value"/>
+			</Overload>
 		</KeyWord>
 		<KeyWord name="is_dir" func="yes">
 			<Overload retVal="bool">
@@ -5873,9 +5886,9 @@
 			</Overload>
 		</KeyWord>
 		<KeyWord name="is_executable" func="yes">
-	   		<Overload retVal="bool">
-	   			<Param name="string filename"/>
-	   		</Overload>
+			<Overload retVal="bool">
+				<Param name="string filename"/>
+			</Overload>
 		</KeyWord>
 		<KeyWord name="is_file" func="yes">
 			<Overload retVal="bool">
@@ -6082,8 +6095,8 @@
 		<KeyWord name="json_validate" func="yes">
 			<Overload retVal="bool">
 				<Param name="string json"/>
-				<Param name="[int depth=512"/>
-				<Param name="[int flags=0]]"/>
+				<Param name="[int depth=512]"/>
+				<Param name="[int flags=0]"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="juliantojd" func="yes">
@@ -6546,6 +6559,12 @@
 				<Param name="[string encoding]]"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="mb_chr" func="yes">
+			<Overload retVal="string|false">
+				<Param name="int codepoint"/>
+				<Param name="[string encoding]"/>
+			</Overload>
+		</KeyWord>
 		<KeyWord name="mb_convert_case" func="yes">
 			<Overload retVal="string">
 				<Param name="string sourcestring"/>
@@ -6721,9 +6740,21 @@
 				<Param name="[string language]"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="mb_lcfirst" func="yes">
+			<Overload retVal="string">
+				<Param name="string string"/>
+				<Param name="[string encoding]"/>
+			</Overload>
+		</KeyWord>
 		<KeyWord name="mb_list_encodings" func="yes">
 			<Overload retVal="array">
 				<Param name="void"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="mb_ord" func="yes">
+			<Overload retVal="int|false">
+				<Param name="string string"/>
+				<Param name="[string encoding]"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="mb_output_handler" func="yes">
@@ -6878,9 +6909,16 @@
 			<Overload retVal="string">
 				<Param name="string string"/>
 				<Param name="int length"/>
-				<Param name="[string pad_string=&quot; &quot;"/>
-				<Param name="[int pad_type=STR_PAD_RIGHT"/>
-				<Param name="[string encoding]]]"/>
+				<Param name="[string pad_string=' ']"/>
+				<Param name="[int pad_type=STR_PAD_RIGHT]"/>
+				<Param name="[string encoding=null]"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="mb_str_split" func="yes">
+			<Overload retVal="array">
+				<Param name="string string"/>
+				<Param name="[int length=1]"/>
+				<Param name="[string encoding]"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="mb_substitute_character" func="yes">
@@ -6900,6 +6938,19 @@
 			<Overload retVal="int">
 				<Param name="string haystack"/>
 				<Param name="string needle"/>
+				<Param name="[string encoding]"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="mb_trim" func="yes">
+			<Overload retVal="string">
+				<Param name="string string"/>
+				<Param name="[string characters]"/>
+				<Param name="[string encoding]"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="mb_ucfirst" func="yes">
+			<Overload retVal="string">
+				<Param name="string string"/>
 				<Param name="[string encoding]"/>
 			</Overload>
 		</KeyWord>
@@ -7958,6 +8009,11 @@
 				<Param name="mixed values"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="mysqli_ping" func="yes">
+			<Overload retVal="bool">
+				<Param name="mysqli link"/>
+			</Overload>
+		</KeyWord>
 		<KeyWord name="mysqli_poll" func="yes">
 			<Overload retVal="int|false">
 				<Param name="array &amp;read"/>
@@ -7965,11 +8021,6 @@
 				<Param name="array &amp;reject"/>
 				<Param name="int sec"/>
 				<Param name="[int usec]"/>
-			</Overload>
-		</KeyWord>
-		<KeyWord name="mysqli_ping" func="yes">
-			<Overload retVal="bool">
-				<Param name="mysqli link"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="mysqli_prepare" func="yes">
@@ -8641,14 +8692,14 @@
 				<Param name="int status"/>
 			</Overload>
 		</KeyWord>
-		<KeyWord name="ob_list_handlers" func="yes">
-			<Overload retVal="array">
-				<Param name="void"/>
-			</Overload>
-		</KeyWord>
 		<KeyWord name="ob_implicit_flush" func="yes">
 			<Overload retVal="void">
 				<Param name="[int flag=true]"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ob_list_handlers" func="yes">
+			<Overload retVal="array">
+				<Param name="void"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="ob_start" func="yes">
@@ -12238,12 +12289,12 @@
 				<Param name="[array options]"/>
 			</Overload>
 		</KeyWord>
-		<KeyWord name="stream_context_get_params" func="yes">
+		<KeyWord name="stream_context_get_options" func="yes">
 			<Overload retVal="array">
 				<Param name="resource stream_or_context"/>
 			</Overload>
 		</KeyWord>
-		<KeyWord name="stream_context_get_options" func="yes">
+		<KeyWord name="stream_context_get_params" func="yes">
 			<Overload retVal="array">
 				<Param name="resource stream_or_context"/>
 			</Overload>
@@ -12320,10 +12371,10 @@
 			</Overload>
 		</KeyWord>
 		<KeyWord name="stream_get_contents" func="yes">
-			<Overload retVal="string|false">
-				<Param name="resource stream"/>
-				<Param name="[int length=-1"/>
-				<Param name="[int offset=-1]]"/>
+			<Overload retVal="string">
+				<Param name="resource handle"/>
+				<Param name="[int maxlength=-1]"/>
+				<Param name="[int offset=0]"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="stream_get_filters" func="yes">

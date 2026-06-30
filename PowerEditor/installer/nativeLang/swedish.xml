@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.9.6.2">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.9.6.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -533,6 +533,7 @@ Translation note:
 				<Item id="1681" name="Sök:"/>
 				<Item id="1685" name="&amp;Matcha skiftläge"/>
 				<Item id="1690" name="M&amp;arkera alla"/>
+				<Item id="1691" name="Anta&amp;l sökträffar"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Hitta tecken i intervall...">
@@ -1184,6 +1185,7 @@ Translation note:
 
 				<Print title="Utskrift">
 					<Item id="6601" name="Skriv ut radn&amp;ummer"/>
+					<Item id="6616" name="&amp;Skriv ut sidmatning som sidbrytning"/>
 					<Item id="6602" name="Färginställningar"/>
 					<Item id="6603" name="W&amp;YSIWYG"/>
 					<Item id="6604" name="I&amp;nvertera"/>
@@ -1492,7 +1494,7 @@ Vill du fortsätta?"/><!-- HowToReproduce: when you openned file is modified and
 			<SettingsOnCloudError title="Molninställningar" message="Det ser ut som att sökvägen för molnet leder till en skrivskyddad hårddisk
 eller en mapp som kräver rättigheter för skrivåtkomst.
 Dina inställningar för molnet kommer att avbrytas. Återställ värdet i inställningarna."/>
-			<FilePathNotFoundWarning title="Öppna fil" message="Filen du försöker öppna finns inte."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<FilePathNotFoundWarning title="Öppna sökväg" message="Sökvägen du försöker öppna finns inte."/>
 			<SessionFileInvalidError title="Kunde inte läsa in sessionen" message="Sessionsfilen är antingen skadad eller ogiltig."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Felaktig åtgärd" message="Du kan endast släppa filer eller mappar men inte båda eftersom du är i läget för att släppa mappar som projekt.
 Du måste aktivera &quot;Öppna alla filer inuti mappar som släpps i stället för att öppna dem som arbetsytor&quot; via avsnittet &quot;Standardmapp&quot; i inställningarna för att denna åtgärd ska fungera."/>
@@ -1815,6 +1817,7 @@ Texten som klistrades in i detta fält innehåller osynliga tecken (kanske radsl
 			<common-ok value="OK"/>
 			<common-cancel value="Avbryt"/>
 			<common-name value="Namn"/>
+			<common-error value="Fel"/>
 			<tabrename-title value="Döp om aktuell flik"/>
 			<tabrename-newname value="Nytt namn"/>
 			<splitter-rotate-left value="Rotera åt vänster"/>
@@ -1836,6 +1839,7 @@ Texten som klistrades in i detta fält innehåller osynliga tecken (kanske radsl
 			<progress-hits-title value="Träffar:"/>
 			<progress-cancel-info value="Avbryter åtgärd, var god vänta..."/>
 			<find-in-files-progress-title value="Förlopp för &quot;Sök i filer&quot;..."/>
+			<discover-file-candidates-title value="Upptäcker filkandidater..."/>
 			<replace-in-files-confirm-title value="Är du säker?"/>
 			<replace-in-files-confirm-directory value="Är du säker på att du vill ersätta alla förekomster i:"/>
 			<replace-in-files-confirm-filetype value="För filtypen:"/>
@@ -1861,7 +1865,6 @@ Texten som klistrades in i detta fält innehåller osynliga tecken (kanske radsl
 			<tab-untitled-string value="nytt "/>
 			<file-save-assign-type value="&amp;Lägg till filändelse"/>
 			<close-panel-tip value="Stäng"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ matchningar"/>
 			<IncrementalFind-FSNotFound value="Frasen hittades inte"/>
 			<IncrementalFind-FSTopReached value="Nådde början på sidan, fortsätter från slutet"/>
 			<IncrementalFind-FSEndReached value="Nådde slutet på sidan, fortsätter från början"/>

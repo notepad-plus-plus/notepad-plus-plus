@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.6.2"><!-- Datum: 23.06.2026, basiert auf english.xml 8.9.6.2 vom 20.06.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.6.4"><!-- Datum: 30.06.2026, basiert auf english.xml 8.9.6.2 vom 29.06.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -543,6 +543,7 @@ Translation note:
 				<Item id="1681" name="Suchen:"/>
 				<Item id="1685" name="&amp;Groß-/Kleinschreibung"/>
 				<Item id="1690" name="&amp;Alle markieren"/>
+				<Item id="1691" name="&amp;Zählen"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Suche nach Zeichencodes">
@@ -1844,6 +1845,7 @@ Der in diese Felder eingefügte Text enthält unsichtbare Zeichen (möglicherwei
 			<progress-hits-title value="Treffer:"/>
 			<progress-cancel-info value="Aktion wird abgebrochen, bitte warten …"/>
 			<find-in-files-progress-title value="Fortschritt für die Suche in Dateien …"/>
+			<discover-file-candidates-title value="Entdecke Dateikandidaten …"/>
 			<replace-in-files-confirm-title value="Sind Sie sicher?"/>
 			<replace-in-files-confirm-directory value="Sind Sie sicher, dass alle Treffer ersetzt werden sollen in: "/>
 			<replace-in-files-confirm-filetype value="Für Dateityp: "/>

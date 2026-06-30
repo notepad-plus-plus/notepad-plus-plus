@@ -5,7 +5,7 @@
 <!-- Prohardver topic: https://prohardver.hu/tema/re_notepad/friss.html -->
 <!-- For more information see the Commits History: https://github.com/notepad-plus-plus/notepad-plus-plus/commits/master/PowerEditor/installer/nativeLang/hungarian.xml -->
 <NotepadPlus>
-	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.9.6.2">
+	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.9.6.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -235,7 +235,7 @@
 					<Item id="43053" name="A &amp;zárójelben lévő rész kijelölése – (), [], {}"/>
 					<Item id="43009" name="Ugrás a &amp;zárójel párjához"/>
 					<Item id="43010" name="&amp;Előző keresése"/>
-					<Item id="43011" name="&amp;Böngészőstílusú keresés"/>
+					<Item id="43011" name="&amp;Böngészőstílusú (inkrementális) keresés"/>
 					<Item id="43013" name="Keresés &amp;fájlokban…"/>
 					<Item id="43014" name="Kö&amp;vetkező keresése (kurzor alatti szó)"/>
 					<Item id="43015" name="&amp;Előző keresése (kurzor alatti szó)"/>
@@ -534,6 +534,7 @@
 				<Item id="1681" name="&amp;Keresés:"/>
 				<Item id="1685" name="K&amp;is- és nagybetűérzékeny"/>
 				<Item id="1690" name="&amp;Az összes kiemelése"/>
+				<Item id="1691" name="&amp;Számlálás"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Keresés karaktertartományban">
@@ -1186,6 +1187,7 @@
 
 				<Print title="Nyomtatás">
 					<Item id="6601" name="&amp;Sorok számozásának nyomtatása"/>
+					<Item id="6616" name="La&amp;pemelés (FF) oldaltörésként"/>
 					<Item id="6602" name="Színbeállítások"/>
 					<Item id="6603" name="Ahogy látszik (&amp;WYSIWYG)"/>
 					<Item id="6604" name="Ford&amp;ított színek"/>
@@ -1495,7 +1497,7 @@ Biztosan megnyitja mindet?"/><!-- HowToReproduce: Check "Open all files of folde
 			<SettingsOnCloudError title="Beállítások tárolása felhőben" message="Úgy tűnik, a felhőtárhely helyi elérési útja írásvédett meghajtóra mutat,
 vagy pedig a megadott mappához írási jogosultság szükséges.
 A felhőben tárolandó beállításai törlődnek. Kérjük, állítson be megfelelő értéket a „Gépház”-ban"/>
-			<FilePathNotFoundWarning title="Fájl megnyitása" message="A megnyitni kívánt fájl nem létezik"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<FilePathNotFoundWarning title="Elérési út megnyitása" message="A megnyitni kívánt elérési út nem létezik"/>
 			<SessionFileInvalidError title="Sikertelen munkamenet-betöltés" message="A munkamenetfájl sérült vagy érvénytelen"/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Érvénytelen művelet" message="A Notepad++-ra vagy csak fájlokat, vagy csak mappákat ejthet (mindkettőt nem), mivel a „fogd és vidd” műveletre projektmód van beállítva.
 A művelet végrehajtásához a „Gépház” párbeszédpanel „Alapértelmezett mappa” szakaszában az „Egy mappa »fogd és vidd« ejtésekor a fájlok megnyitása…” lehetőség engedélyezése szükséges"/>
@@ -1812,6 +1814,7 @@ A mezőbe beillesztett szöveg láthatatlan karaktereket (esetleg sorvégjeleket
 			<common-ok value="OK"/>
 			<common-cancel value="Mégse"/>
 			<common-name value="Név"/>
+			<common-error value="Hiba"/>
 			<tabrename-title value="A jelenlegi fül átnevezése"/>
 			<tabrename-newname value="Új név"/>
 			<splitter-rotate-left value="Forgatás balra"/>
@@ -1833,6 +1836,7 @@ A mezőbe beillesztett szöveg láthatatlan karaktereket (esetleg sorvégjeleket
 			<progress-hits-title value="Találatok száma:"/>
 			<progress-cancel-info value="Művelet megszakítása; kérjük, várjon…"/>
 			<find-in-files-progress-title value="A fájlokban keresés folyamatban…"/>
+			<discover-file-candidates-title value="Lehetséges fájlok felderítése…"/>
 			<replace-in-files-confirm-title value="Biztos benne?"/>
 			<replace-in-files-confirm-directory value="Biztosan cserélni szeretné az összes előfordulást az alábbi mappában?"/>
 			<replace-in-files-confirm-filetype value="A kapcsolódó fájlnévszűrő:"/>

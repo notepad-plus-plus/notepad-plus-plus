@@ -1861,7 +1861,6 @@ Updated to :
 			<tab-untitled-string value="новый "/>
 			<file-save-assign-type value="&amp;Добавлять расширение"/>
 			<close-panel-tip value="Закрыть"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ совпадений"/>
 			<IncrementalFind-FSNotFound value="Выражение не найдено"/>
 			<IncrementalFind-FSTopReached value="Выше совпадений нет, продолжено снизу"/>
 			<IncrementalFind-FSEndReached value="Ниже совпадений нет, продолжено сверху"/>

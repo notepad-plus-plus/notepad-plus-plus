@@ -6340,6 +6340,25 @@ void FindIncrementDlg::display(bool toShow) const
 	_pRebar->setIDVisible(_rbBand.wID, toShow);
 }
 
+LRESULT CALLBACK IncrFindChildProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam,	UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
+{
+	if (uMsg == WM_KILLFOCUS)
+	{
+		HWND hwndGaining = reinterpret_cast<HWND>(wParam);
+		HWND hwndDlg = reinterpret_cast<HWND>(dwRefData);
+
+		if (hwndGaining != NULL && !IsChild(hwndDlg, hwndGaining))
+		{
+			::SendMessageW(hwndDlg, NPPM_INTERNAL_REINITINCREMENTALFINDNTH, 0, 0);
+		}
+	}
+
+	if (uMsg == WM_NCDESTROY)
+		RemoveWindowSubclass(hWnd, IncrFindChildProc, uIdSubclass);
+
+	return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+}
+
 intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
 {
 	switch (message)
@@ -6398,6 +6417,30 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(getHSelf());
 			::SendDlgItemMessage(_hSelf, IDC_INCFINDCOUNT, BM_SETCHECK, TRUE, 0);
+
+			static const struct { int id; UINT_PTR subclassId; } controls[] =
+			{
+				{ IDCANCEL,              1 },
+				{ IDC_INCFINDTEXT,       2 },
+				{ IDC_INCFINDPREVOK,     3 },
+				{ IDC_INCFINDNXTOK,      4 },
+				{ IDC_INCFINDMATCHCASE,  5 },
+				{ IDC_INCFINDHILITEALL,  6 },
+				{ IDC_INCFINDCOUNT,      7 },
+			};
+
+			for (auto& c : controls)
+			{
+				HWND hwndCtrl = GetDlgItem(_hSelf, c.id);
+				SetWindowSubclass(hwndCtrl, IncrFindChildProc, c.subclassId, (DWORD_PTR)_hSelf);
+			}
+
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_REINITINCREMENTALFINDNTH:
+		{
+			_nth = 0;
 			return TRUE;
 		}
 
@@ -6415,6 +6458,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 					(*(_pFRDlg->_ppEditView))->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_INC);
 					(*(_pFRDlg->_ppEditView))->grabFocus();
 					display(false);
+					_nth = 0;
 					return TRUE;
 
 				case IDM_SEARCH_FINDINCREMENT:	// Accel table: Start incremental search
@@ -6431,7 +6475,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 				case IDM_SEARCH_FINDNEXT:		// Accel table: find next
 				case IDC_INCFINDPREVOK:
 				case IDC_INCFINDNXTOK:
-				case IDOK:
+				case IDOK:						// Enter key in the edit field
 					updateSearch = true;
 					advance = true;
 					forward = (LOWORD(wParam) == IDC_INCFINDNXTOK) ||
@@ -6448,6 +6492,10 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 
 				case IDC_INCFINDHILITEALL:
 					updateHiLight = true;
+					break;
+
+				case IDC_INCFINDCOUNT:
+					_nth = 0;
 					break;
 
 				case IDC_INCFINDTEXT:
@@ -6475,13 +6523,57 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 				FindStatus findStatus = FSFound;
 				bool isFound = _pFRDlg->processFindNext(str2Search.c_str(), &fo, &findStatus);
 
+				if (isFound)
+				{
+					switch (LOWORD(wParam))
+					{
+						case IDC_INCFINDTEXT:
+							_nth = 1;
+							break;
+
+						case IDM_SEARCH_FINDPREV:		// Accel table: find prev
+						case IDC_INCFINDPREVOK:
+							_nth -= 1;
+							break;
+
+						case IDM_SEARCH_FINDNEXT:		// Accel table: find next
+						case IDC_INCFINDNXTOK:
+							_nth += 1;
+							break;
+
+						case IDOK:
+							_nth += forward ?  1 : -1;
+							break;
+
+						case IDC_INCFINDMATCHCASE:
+							_nth = 0;
+							break;
+					}
+				}
+				else
+				{
+					_nth = 0;
+				}
+
 				fo._str2Search = str2Search;
 				int nbCounted = -1;
+
 				if (isCheckedOrNot(IDC_INCFINDCOUNT))
 				{
 					nbCounted = _pFRDlg->processAll(ProcessCountAll, &fo);
 				}
-				setFindStatus(findStatus, nbCounted);
+
+				if (nbCounted)
+				{
+					if (_nth == 0)
+						_nth = forward ? 1 : nbCounted;
+					else if (_nth < 0)
+						_nth = nbCounted + (forward ? -1 : 1) + _nth;
+					else if (_nth > nbCounted)
+						_nth = 1;
+				}
+
+				setFindStatus(findStatus, nbCounted, _nth);
 
 				// If case-sensitivity changed (to Match=yes), there may have been a matched selection that
 				// now does not match; so if Not Found, clear selection and put caret at beginning of what was
@@ -6549,7 +6641,7 @@ void FindIncrementDlg::markSelectedTextInc(bool enable, FindOption *opt)
 	_pFRDlg->markAllInc(opt);
 }
 
-void FindIncrementDlg::setFindStatus(FindStatus iStatus, int nbCounted)
+void FindIncrementDlg::setFindStatus(FindStatus iStatus, int nbCounted, int nth)
 {
 	wstring statusStr2Display;
 
@@ -6559,24 +6651,11 @@ void FindIncrementDlg::setFindStatus(FindStatus iStatus, int nbCounted)
 
 	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
-	if (nbCounted >= 0)
+	if (nbCounted > 0)
 	{
-		statusStr2Display = pNativeSpeaker->getLocalizedStrFromID("IncrementalFind-FSFound", L"");
-
-		if (statusStr2Display.empty())
-		{
-			wchar_t strFindFSFound[128] = L"";
-
-			if (nbCounted == 1)
-				wsprintf(strFindFSFound, L"%d match", nbCounted);
-			else
-				wsprintf(strFindFSFound, L"%s matches", commafyInt(nbCounted).c_str());
-			statusStr2Display = strFindFSFound;
-		}
-		else
-		{
-			statusStr2Display = stringReplace(statusStr2Display, L"$INT_REPLACE$", std::to_wstring(nbCounted));
-		}
+		wchar_t strFindFSFound[128] = L"";
+		wsprintf(strFindFSFound, L"%d/%d", nth, nbCounted);
+		statusStr2Display = strFindFSFound;
 	}
 
 
@@ -6587,12 +6666,26 @@ void FindIncrementDlg::setFindStatus(FindStatus iStatus, int nbCounted)
 			break;
 
 		case FindStatus::FSTopReached:
-			statusStr2Display = pNativeSpeaker->getLocalizedStrFromID("IncrementalFind-FSTopReached", strFSTopReached);
-			break;
+		{
+			auto topReached = pNativeSpeaker->getLocalizedStrFromID("IncrementalFind-FSTopReached", strFSTopReached);
+
+			if (nbCounted > 0)
+				statusStr2Display += (L" - " + topReached);
+			else
+				statusStr2Display = topReached;
+		}
+		break;
 
 		case FindStatus::FSEndReached:
-			statusStr2Display = pNativeSpeaker->getLocalizedStrFromID("IncrementalFind-FSEndReached", strFSEndReached);
-			break;
+		{
+			auto endReached = pNativeSpeaker->getLocalizedStrFromID("IncrementalFind-FSEndReached", strFSEndReached);
+
+			if (nbCounted > 0)
+				statusStr2Display += (L" - " + endReached);
+			else
+				statusStr2Display = endReached;
+		}
+		break;
 
 		case FindStatus::FSFound:
 			break;
@@ -6638,6 +6731,7 @@ void FindIncrementDlg::addToRebar(ReBar * rebar)
 	_pRebar->addBand(&_rbBand, true);
 	_pRebar->setGrayBackground(_rbBand.wID);
 }
+
 
 const wchar_t Progress::cClassName[] = L"NppProgressClass";
 const wchar_t Progress::cDefaultHeader[] = L"Operation progress...";

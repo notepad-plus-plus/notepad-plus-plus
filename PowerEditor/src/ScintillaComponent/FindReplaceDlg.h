@@ -546,13 +546,12 @@ public :
 		::SendDlgItemMessage(_hSelf, IDC_INCFINDTEXT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(txt2find));
 	}
 
-	void setFindStatus(FindStatus iStatus, int nbCounted);
+	void setFindStatus(FindStatus iStatus, int nbCounted, int nth);
 	
-	FindStatus getFindStatus() {
-		return _findStatus;
-	}
+	FindStatus getFindStatus() { return _findStatus; }
 
 	void addToRebar(ReBar* rebar);
+
 private :
 	bool _isRTL = false;
 	FindReplaceDlg *_pFRDlg = nullptr;
@@ -560,6 +559,7 @@ private :
 
 	ReBar* _pRebar = nullptr;
 	REBARBANDINFO _rbBand{};
+	int _nth = 0;
 
 	using Window::init;
 

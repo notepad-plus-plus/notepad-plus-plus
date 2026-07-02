@@ -2234,7 +2234,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					default:
 						break;
 				}
-}
+			}
 
 			SCNotification *notification = reinterpret_cast<SCNotification *>(lParam);
 

@@ -551,7 +551,6 @@ public :
 	FindStatus getFindStatus() { return _findStatus; }
 
 	void addToRebar(ReBar* rebar);
-	void reInitNth() { _nth = 0; }
 
 private :
 	bool _isRTL = false;

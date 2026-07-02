@@ -6927,9 +6927,6 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 		buf->checkFileState();
 	}
 
-	if (_incrementFindDlg.isCreated())
-		_incrementFindDlg.reInitNth();
-
 	_linkTriggered = true;
 }
 

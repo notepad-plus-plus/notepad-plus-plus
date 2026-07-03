@@ -1861,7 +1861,6 @@ The text pasted into this field includes invisible (maybe line-ending) character
 			<tab-untitled-string value="new "/>
 			<file-save-assign-type value="&amp;Append extension"/>
 			<close-panel-tip value="Close"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ matches"/>
 			<IncrementalFind-FSNotFound value="Phrase not found"/>
 			<IncrementalFind-FSTopReached value="Reached top of page, continued from bottom"/>
 			<IncrementalFind-FSEndReached value="Reached end of page, continued from top"/>

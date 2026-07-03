@@ -1862,7 +1862,6 @@ Le texte collé dans ce champ contient des caractères invisibles (peut-être de
 			<tab-untitled-string value="nouveau "/>
 			<file-save-assign-type value="Conc&amp;aténer extension"/>
 			<close-panel-tip value="Fermer"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ correspondances"/>
 			<IncrementalFind-FSNotFound value="Expression introuvable"/>
 			<IncrementalFind-FSTopReached value="Haut de page atteint, continuer en partant du bas"/>
 			<IncrementalFind-FSEndReached value="Fin de page atteinte, continuer en partant du haut"/>

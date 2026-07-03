@@ -88,6 +88,12 @@ struct FindOption
 	bool _isMatchLineNumber = false; // always false for main search
 };
 
+struct MatchPosition
+{
+	intptr_t start = -1;
+	intptr_t end = -1;
+};
+
 //This class contains generic search functions as static functions for easy access
 class Searching {
 public:
@@ -275,15 +281,17 @@ public :
 	void initOptionsFromDlg();
 
 	void doDialog(DIALOG_TYPE whichType, bool isRTL = false, bool toShow = true);
-	bool processFindNext(const wchar_t *txt2find, const FindOption *options = NULL, FindStatus *oFindStatus = NULL, FindNextType findNextType = FINDNEXTTYPE_FINDNEXT);
-	bool processReplace(const wchar_t *txt2find, const wchar_t *txt2replace, const FindOption *options = NULL);
+	bool processFindNext(const wchar_t* txt2find,
+		const FindOption* options = nullptr, FindStatus* oFindStatus = nullptr, FindNextType findNextType = FINDNEXTTYPE_FINDNEXT, MatchPosition* pMatch = nullptr);
+	bool processReplace(const wchar_t* txt2find, const wchar_t* txt2replace, const FindOption* options = nullptr);
 
-	int markAll(const wchar_t *txt2find, int styleID);
-	int markAllInc(const FindOption *opt);
-	
+	int markAll(const wchar_t* txt2find, int styleID);
+	int markAllInc(const FindOption* opt);
 
-	int processAll(ProcessOperation op, const FindOption *opt, bool isEntire = false, const FindersInfo *pFindersInfo = nullptr, int colourStyleID = -1);
-	int processRange(ProcessOperation op, FindReplaceInfo & findReplaceInfo, const FindersInfo *pFindersInfo, const FindOption *opt = nullptr, int colourStyleID = -1, ScintillaEditView *view2Process = nullptr);
+	int processAll(ProcessOperation op, const FindOption* opt,
+		bool isEntire = false, const FindersInfo *pFindersInfo = nullptr, int colourStyleID = -1, std::vector<MatchPosition>* pMatches = nullptr);
+	int processRange(ProcessOperation op, FindReplaceInfo& findReplaceInfo, const FindersInfo* pFindersInfo,
+		const FindOption* opt = nullptr, int colourStyleID = -1, ScintillaEditView* view2Process = nullptr, std::vector<MatchPosition>* pMatches = nullptr);
 
 	void replaceAllInOpenedDocs();
 	void findAllIn(InWhat op);
@@ -546,13 +554,12 @@ public :
 		::SendDlgItemMessage(_hSelf, IDC_INCFINDTEXT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(txt2find));
 	}
 
-	void setFindStatus(FindStatus iStatus, int nbCounted);
-	
-	FindStatus getFindStatus() {
-		return _findStatus;
-	}
+	void setFindStatus(FindStatus iStatus, int nbCounted, int nth);
+
+	FindStatus getFindStatus() { return _findStatus; }
 
 	void addToRebar(ReBar* rebar);
+
 private :
 	bool _isRTL = false;
 	FindReplaceDlg *_pFRDlg = nullptr;
@@ -560,6 +567,7 @@ private :
 
 	ReBar* _pRebar = nullptr;
 	REBARBANDINFO _rbBand{};
+	intptr_t _nth = 0;
 
 	using Window::init;
 

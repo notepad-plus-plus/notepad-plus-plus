@@ -1859,7 +1859,6 @@ Text vložený do tohto poľa obsahuje neviditeľné znaky (asi znaky konca riad
 			<tab-untitled-string value="nový "/>
 			<file-save-assign-type value="&amp;Pripojiť príponu"/>
 			<close-panel-tip value="Zavrieť"/>
-			<IncrementalFind-FSFound value="Počet výskytov: $INT_REPLACE$"/>
 			<IncrementalFind-FSNotFound value="Fráza sa nenašla"/>
 			<IncrementalFind-FSTopReached value="Dosiahnutý začiatok strany, pokračovanie zdola"/>
 			<IncrementalFind-FSEndReached value="Dosiahnutý koniec strany, pokračovanie zhora"/>

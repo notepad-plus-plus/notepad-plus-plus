@@ -105,7 +105,7 @@ public:
 				(option->_searchType == FindRegex ? SCFIND_REGEXP|SCFIND_POSIX : 0) |
 				((option->_searchType == FindRegex && option->_dotMatchesNewline) ? SCFIND_REGEXP_DOTMATCHESNL : 0);
 	}
-	static void displaySectionCentered(size_t posStart, size_t posEnd, ScintillaEditView * pEditView, bool isDownwards = true);
+	static void displaySectionCentered(size_t posStart, size_t posEnd, ScintillaEditView* pEditView, bool isDownwards = true);
 
 private:
 	static bool readBase(const wchar_t * str, int * value, int base, int size);
@@ -125,7 +125,7 @@ public:
 		_scintView.destroy();
 	}
 
-	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
+	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView** ppEditView) {
 		DockingDlgInterface::init(hInst, hPere);
 		_ppEditView = ppEditView;
 	}
@@ -171,7 +171,7 @@ private:
 		intptr_t auxiliaryInfo = -1; // according the status - see getCurrentPosInLineInfo member function definition's above comment
 	};
 
-	ScintillaEditView **_ppEditView = nullptr;
+	ScintillaEditView** _ppEditView = nullptr;
 	std::vector<FoundInfo> _foundInfos1;
 	std::vector<FoundInfo> _foundInfos2;
 	std::vector<FoundInfo>* _pMainFoundInfos = &_foundInfos1;
@@ -269,7 +269,7 @@ public :
 
 	~FindReplaceDlg() override;
 
-	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
+	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView** ppEditView) {
 		Window::init(hInst, hPere);
 		if (!ppEditView)
 			throw std::runtime_error("FindIncrementDlg::init : ppEditView is null.");
@@ -554,11 +554,13 @@ public :
 		::SendDlgItemMessage(_hSelf, IDC_INCFINDTEXT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(txt2find));
 	}
 
-	void setFindStatus(FindStatus iStatus, int nbCounted, int nth);
+	void setFindStatus(FindStatus iStatus, size_t nbCounted, int nth);
 
 	FindStatus getFindStatus() { return _findStatus; }
 
 	void addToRebar(ReBar* rebar);
+
+	void reInitCount() { _matches.clear(); };
 
 private :
 	bool _isRTL = false;
@@ -567,6 +569,8 @@ private :
 
 	ReBar* _pRebar = nullptr;
 	REBARBANDINFO _rbBand{};
+
+	std::vector<MatchPosition> _matches;
 	intptr_t _nth = 0;
 
 	using Window::init;

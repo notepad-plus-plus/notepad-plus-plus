@@ -1861,7 +1861,6 @@ OKボタンを押すと検索ダイアログが開きます。
 			<tab-untitled-string value="新規"/>
 			<file-save-assign-type value="拡張子をつける(&amp;A)"/>
 			<close-panel-tip value="閉じる"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ 件の一致"/>
 			<IncrementalFind-FSNotFound value="見つかりません"/>
 			<IncrementalFind-FSTopReached value="文書の先頭に達したため、末尾から検索しました"/>
 			<IncrementalFind-FSEndReached value="文書の末尾に達したため、先頭から検索しました"/>

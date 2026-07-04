@@ -554,7 +554,7 @@ public :
 		::SendDlgItemMessage(_hSelf, IDC_INCFINDTEXT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(txt2find));
 	}
 
-	void setFindStatus(FindStatus iStatus, int nbCounted, int nth);
+	void setFindStatus(FindStatus iStatus, size_t nbCounted, int nth);
 
 	FindStatus getFindStatus() { return _findStatus; }
 
@@ -567,6 +567,8 @@ private :
 
 	ReBar* _pRebar = nullptr;
 	REBARBANDINFO _rbBand{};
+
+	std::vector<MatchPosition> _matches;
 	intptr_t _nth = 0;
 
 	using Window::init;

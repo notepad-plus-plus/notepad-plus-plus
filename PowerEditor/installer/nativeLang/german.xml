@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.6.4"><!-- Datum: 30.06.2026, basiert auf english.xml 8.9.6.4 vom 29.06.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.6.4"><!-- Datum: 04.07.2026, basiert auf english.xml 8.9.6.4 vom 03.07.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1871,7 +1871,6 @@ Der in diese Felder eingefügte Text enthält unsichtbare Zeichen (möglicherwei
 			<tab-untitled-string value="neu "/>
 			<file-save-assign-type value="Erweiterung &amp;anfügen"/>
 			<close-panel-tip value="Schließen"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ Übereinstimmungen"/>
 			<IncrementalFind-FSNotFound value="Ausdruck nicht gefunden"/>
 			<IncrementalFind-FSTopReached value="Anfang der Seite erreicht, Fortsetzung von unten"/>
 			<IncrementalFind-FSEndReached value="Ende der Seite erreicht, Fortsetzung von oben"/>

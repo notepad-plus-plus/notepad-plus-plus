@@ -6719,11 +6719,15 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 				{
 					performPostReload(mainActive?MAIN_VIEW:SUB_VIEW);
 				}
+
 				break;
 			}
 
 			case DOC_NEEDRELOAD: // by log monitoring
 			{
+				if (_incrementFindDlg.isCreated())
+					_incrementFindDlg.reInitCount();
+
 				doReload(buffer->getID(), false);
 
 				// not only test main view

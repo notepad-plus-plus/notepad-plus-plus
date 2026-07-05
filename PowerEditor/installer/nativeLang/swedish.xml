@@ -1865,7 +1865,6 @@ Texten som klistrades in i detta fält innehåller osynliga tecken (kanske radsl
 			<tab-untitled-string value="nytt "/>
 			<file-save-assign-type value="&amp;Lägg till filändelse"/>
 			<close-panel-tip value="Stäng"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ matchningar"/>
 			<IncrementalFind-FSNotFound value="Frasen hittades inte"/>
 			<IncrementalFind-FSTopReached value="Nådde början på sidan, fortsätter från slutet"/>
 			<IncrementalFind-FSEndReached value="Nådde slutet på sidan, fortsätter från början"/>

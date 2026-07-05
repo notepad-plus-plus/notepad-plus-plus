@@ -1865,7 +1865,6 @@ Text vložený do políčka(ček) obsahuje implicitně neviditelné znaky (pravd
 			<tab-untitled-string value="nový "/>
 			<file-save-assign-type value="Přid&amp;at příponu."/>
 			<close-panel-tip value="Zavřít"/>
-			<IncrementalFind-FSFound value="výskytů: $INT_REPLACE$"/>
 			<IncrementalFind-FSNotFound value="Výraz nenalezen."/>
 			<IncrementalFind-FSTopReached value="Dosažen začátek stránky, pokračování odspodu."/>
 			<IncrementalFind-FSEndReached value="Dosažen konec stránky, pokračování odshora."/>

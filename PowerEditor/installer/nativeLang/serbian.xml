@@ -1838,7 +1838,6 @@ Tekst nalepljen u ovo polje sadrži nevidljive karaktere (možda kraj linije). A
 			<tab-untitled-string value="novo "/>
 			<file-save-assign-type value="&amp;Dodaj ekstenziju"/>
 			<close-panel-tip value="Zatvori"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ poklapanja"/>
 			<IncrementalFind-FSNotFound value="Fraza nije pronađena"/>
 			<IncrementalFind-FSTopReached value="Dostignut početak stranice, nastavak od kraja"/>
 			<IncrementalFind-FSEndReached value="Dostignut kraj stranice, nastavak od početka"/>

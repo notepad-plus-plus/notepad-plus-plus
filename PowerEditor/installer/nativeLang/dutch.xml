@@ -1844,7 +1844,6 @@ De tekst die in dit veld is geplakt, bevat onzichtbare tekens (mogelijk regelein
 			<tab-untitled-string value="nieuw "/>
 			<file-save-assign-type value="&amp;Extensie toevoegen"/>
 			<close-panel-tip value="Sluiten"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ overeenkomsten"/>
 			<IncrementalFind-FSNotFound value="Zin niet gevonden"/>
 			<IncrementalFind-FSTopReached value="Bovenkant van pagina bereikt. Verdergegaan vanaf onderkant"/>
 			<IncrementalFind-FSEndReached value="Einde van pagina bereikt. Verdergegaan vanaf bovenkant"/>

@@ -1956,7 +1956,6 @@ $STR_REPLACE$
 			<tab-untitled-string value="new "/><!-- #new v7.9.6 -->
 			<file-save-assign-type value="追加副檔名(&amp;A)"/><!-- #new v7.9.6 -->
 			<close-panel-tip value="閂"/><!-- #new v8.0.0 -->
-			<IncrementalFind-FSFound value="搵到 $INT_REPLACE$ 個符合結果"/><!-- #new v8.1.5 -->
 			<IncrementalFind-FSNotFound value="搵唔到喎"/><!-- #new v8.1.5 -->
 			<IncrementalFind-FSTopReached value="已經過咗文件開端，而家返底部繼續搵"/><!-- #new v8.1.5 -->
 			<IncrementalFind-FSEndReached value="已經過咗文件結尾，而家返頂部繼續搵"/><!-- #new v8.1.5 -->

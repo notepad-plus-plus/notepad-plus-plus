@@ -1772,7 +1772,6 @@ log və ya logs qovluqlarını istisna edərək bütün fayllarda tap:
 			<tab-untitled-string value="yeni "/>
 			<file-save-assign-type value="&amp;Uzantı əlavə et"/>
 			<close-panel-tip value="Bağla"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ uyğunluq tapıldı"/>
 			<IncrementalFind-FSNotFound value="İfadə tapılmadı"/>
 			<IncrementalFind-FSTopReached value="Səhifənin əvvəlinə çatıldı, alt hissədən davam edildi"/>
 			<IncrementalFind-FSEndReached value="Səhifənin sonuna çatıldı, yuxarıdan davam edildi"/>

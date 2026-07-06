@@ -1869,7 +1869,6 @@ Găsește în toate fișierele, dar exclude toate folderele log sau logs în mod
 			<tab-untitled-string value="nou "/>
 			<file-save-assign-type value="&amp;Adaugă extensia"/>
 			<close-panel-tip value="Închide"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ potriviri"/>
 			<IncrementalFind-FSNotFound value="Expresia nu a fost găsită"/>
 			<IncrementalFind-FSTopReached value="S-a ajuns la începutul paginii, a continuat de jos"/>
 			<IncrementalFind-FSEndReached value="S-a ajuns la sfârșitul paginii, a continuat de sus"/>

@@ -1585,7 +1585,6 @@ The comments are here for explanation, it's not necessary to translate them.
 			<tab-untitled-string value="новы "/>
 			<file-save-assign-type value="Дадаць пашырэнне"/>
 			<close-panel-tip value="Закрыць"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ супадзенняў"/>
 			<IncrementalFind-FSNotFound value="Фраза не знойдзена"/>
 			<IncrementalFind-FSTopReached value="Дасягнуты пачатак старонкі, працягнута з канца"/>
 			<IncrementalFind-FSEndReached value="Дасягнуты канец старонкі, працягнута спачатку"/>

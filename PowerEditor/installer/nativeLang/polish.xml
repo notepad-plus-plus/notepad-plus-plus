@@ -1836,7 +1836,6 @@ Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folde
 			<tab-untitled-string value="nowy "/>
 			<file-save-assign-type value="&amp;Dodaj rozszerzenie"/>
 			<close-panel-tip value="Zamknij"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ trafień"/>
 			<IncrementalFind-FSNotFound value="Nie znaleziono frazy"/>
 			<IncrementalFind-FSTopReached value="Osiągnięto początek dokumentu, kontynuacja od końca"/>
 			<IncrementalFind-FSEndReached value="Osiągnięto koniec dokumentu, kontynuacja od początku"/>

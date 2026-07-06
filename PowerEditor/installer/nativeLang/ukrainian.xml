@@ -1759,7 +1759,6 @@ Translation note:
 			<tab-untitled-string value="новий "/>
 			<file-save-assign-type value="Приєднати розширення"/>
 			<close-panel-tip value="Закрити"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ збігів"/>
 			<IncrementalFind-FSNotFound value="Фразу не знайдено"/>
 			<IncrementalFind-FSTopReached value="Досягнуто початку сторінки, продовжено з кінця"/>
 			<IncrementalFind-FSEndReached value="Досягнуто кінця сторінки, продовжено з початку"/>

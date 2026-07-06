@@ -1527,7 +1527,6 @@ Bilatu fitxategi guztietan baina alde batera utzi log ala logs karpetak modu err
 			<tab-untitled-string value="berria "/>
 			<file-save-assign-type value="&amp;Gehitu luzapena"/>
 			<close-panel-tip value="Itxi"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ bat-etortzeak"/>
 			<IncrementalFind-FSNotFound value="Esaldia ez da aurkitu"/>
 			<IncrementalFind-FSTopReached value="Orriaren hasierara iritsi da, azpitik jarraitu da"/>
 			<IncrementalFind-FSEndReached value="Orriaren amaierara iritsi da, goitik jarraitu da"/>

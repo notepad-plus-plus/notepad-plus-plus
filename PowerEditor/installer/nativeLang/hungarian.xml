@@ -1862,7 +1862,6 @@ A mezőbe beillesztett szöveg láthatatlan karaktereket (esetleg sorvégjeleket
 			<tab-untitled-string value="új "/>
 			<file-save-assign-type value="Kiterjesztés hozzáadása"/>
 			<close-panel-tip value="Bezárás"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ találat"/>
 			<IncrementalFind-FSNotFound value="A kifejezés nem található"/>
 			<IncrementalFind-FSTopReached value="Az oldal tetejének elérése után folytatás lentről"/>
 			<IncrementalFind-FSEndReached value="Az oldal végének elérése után folytatás fentről"/>

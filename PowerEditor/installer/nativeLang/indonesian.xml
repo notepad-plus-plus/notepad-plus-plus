@@ -1641,7 +1641,6 @@ Temukan dalam semua berkas kecuali semua folder log atau logs secara berulang:
 			<tab-untitled-string value="baru "/>
 			<file-save-assign-type value="&amp;Tambahkan ekstensi"/>
 			<close-panel-tip value="Tutup"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ kecocokan"/>
 			<IncrementalFind-FSNotFound value="Frasa tidak ditemukan"/>
 			<IncrementalFind-FSTopReached value="Atas halaman tercapai, dilanjutkan dari bawah"/>
 			<IncrementalFind-FSEndReached value="Bawa halaman tercapai, dilanjutkan dari atas"/>

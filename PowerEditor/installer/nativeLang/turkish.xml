@@ -1823,7 +1823,6 @@ Tüm dosyalarda bul ama şu klasörleri tekrarlı olarak hariç tut - log ya da 
 			<tab-untitled-string value="yeni "/>
 			<file-save-assign-type value="Uz&amp;antı Ekle"/>
 			<close-panel-tip value="Kapat"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ Eşleşme"/>
 			<IncrementalFind-FSNotFound value="Sözcük bulunamadı"/>
 			<IncrementalFind-FSTopReached value="Sayfanın en başına ulaşıldı, sondan başlandı"/>
 			<IncrementalFind-FSEndReached value="Sayfanın en sonuna ulaşıldı, baştan başlandı"/>

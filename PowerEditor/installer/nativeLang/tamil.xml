@@ -1861,7 +1861,6 @@ folders log logs recursively:
 			<tab-untitled-string value="புதிய"/>
 			<file-save-assign-type value="Append extension (&amp;A)"/>
 			<close-panel-tip value="மூடு"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ matches"/>
 			<IncrementalFind-FSNotFound value="Phrase not found"/>
 			<IncrementalFind-FSTopReached value="Reached top of page, continued bottom"/>
 			<IncrementalFind-FSEndReached value="Reached end of page, continued top"/>

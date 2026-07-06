@@ -1814,7 +1814,6 @@ Cerca in tutti i file, ma escludi tutte le cartelle o sottocartelle log o logs:
 			<tab-untitled-string value="nuovo "/>
 			<file-save-assign-type value="&amp;Accoda estensione"/>
 			<close-panel-tip value="Chiudi"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ corrispondenze"/>
 			<IncrementalFind-FSNotFound value="Testo non trovato"/>
 			<IncrementalFind-FSTopReached value="È stato raggiunto l&apos;inizio della pagina, si continuerà dal fondo"/>
 			<IncrementalFind-FSEndReached value="È stata raggiunta la fine della pagina, si continuerà dall&apos;inizio"/>

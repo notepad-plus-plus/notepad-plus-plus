@@ -1840,7 +1840,6 @@ Văn bản được dán vào trường này có cả kí tự vô hình (có th
 			<tab-untitled-string value="mới "/>
 			<file-save-assign-type value="&amp;Thêm phần mở rộng vào sau"/>
 			<close-panel-tip value="Đóng"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ kết quả so khớp"/>
 			<IncrementalFind-FSNotFound value="Không tìm thấy cụm từ"/>
 			<IncrementalFind-FSTopReached value="Đã đi tới đầu trang, tiếp tục từ bên dưới"/>
 			<IncrementalFind-FSEndReached value="Đã đi tới cuối trang, tiếp tục từ bên trên"/>

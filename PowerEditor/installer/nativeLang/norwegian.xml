@@ -1771,7 +1771,6 @@ Finn i alle filer, men ekskluder alle mapper log eller logs rekursivt:
 			<tab-untitled-string value="ny "/>
 			<file-save-assign-type value="&amp;Legg til filtype"/>
 			<close-panel-tip value="Lukk"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ treff"/>
 			<IncrementalFind-FSNotFound value="Frase ikke funnet"/>
 			<IncrementalFind-FSTopReached value="Nådd toppen av siden, fortsatt fra bunnen"/>
 			<IncrementalFind-FSEndReached value="Nådd slutten av siden, fortsatt fra toppen"/>

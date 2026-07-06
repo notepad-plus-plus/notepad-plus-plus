@@ -1481,7 +1481,6 @@ Updated to v8.2.1:
 			<file-save-assign-type value="&amp;Иацҵалатәуп ахкырбага"/>
 			<file-rename-title value="Ахьӡ ԥсахтәуп"/>
 			<close-panel-tip value="Иарктәуп"/>
-			<IncrementalFind-FSFound value="Аиқәшәарақәа $INT_REPLACE$"/>
 			<IncrementalFind-FSNotFound value="Афраза ԥшаам"/>
 			<IncrementalFind-FSTopReached value="Аҩадахьы аиқәшәарақәа ыҟаӡам, иацҵоуп аладахьы"/>
 			<IncrementalFind-FSEndReached value="Аладахьы аиқәшәарақәа ыҟаӡам, иацҵоуп аҩадахьы"/>

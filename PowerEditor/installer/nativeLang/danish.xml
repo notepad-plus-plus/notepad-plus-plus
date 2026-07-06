@@ -1654,7 +1654,6 @@ Find i alle filer, undtagen i mapperne log med undermapper:
 			<tab-untitled-string value="Ny fil "/>
 			<file-save-assign-type value="&amp;Tilføj filtype"/>
 			<close-panel-tip value="Luk"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ forekomster"/>
 			<IncrementalFind-FSNotFound value="Intet fundet"/>
 			<IncrementalFind-FSTopReached value="Nåede toppen, fortsatte fra enden"/>
 			<IncrementalFind-FSEndReached value="Nåede enden, fortsatte fra toppen"/>

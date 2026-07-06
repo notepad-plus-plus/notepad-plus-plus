@@ -1854,7 +1854,6 @@ Notepad++ 会备份您旧的 “shortcuts.xml” 文件，并将其保存为 “
 			<tab-untitled-string value="新文件"/>
 			<file-save-assign-type value="追加扩展名(&amp;A)"/>
 			<close-panel-tip value="关闭"/>
-			<IncrementalFind-FSFound value="匹配 $INT_REPLACE$ 次"/>
 			<IncrementalFind-FSNotFound value="未找到匹配项"/>
 			<IncrementalFind-FSTopReached value="已到达页面顶部，从底部继续"/>
 			<IncrementalFind-FSEndReached value="已到达页面底部，从顶部继续"/>

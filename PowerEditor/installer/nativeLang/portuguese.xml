@@ -1838,7 +1838,6 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 			<tab-untitled-string value="novo "/>
 			<file-save-assign-type value="&amp;Adicionar extensão"/>
 			<close-panel-tip value="Fechar"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ ocorrência(s)"/>
 			<IncrementalFind-FSNotFound value="Frase não encontrada"/>
 			<IncrementalFind-FSTopReached value="Atingido o topo da página, continuou do final"/>
 			<IncrementalFind-FSEndReached value="Atingido o final da página, continuou do topo"/>

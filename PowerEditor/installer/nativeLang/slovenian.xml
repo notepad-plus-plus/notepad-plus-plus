@@ -1734,7 +1734,6 @@ Najdi v vseh datotekah, vendar rekurzivno izključite vse mape dnevnikov ali vse
 			<tab-untitled-string value="nov "/>
 			<file-save-assign-type value="&amp;Dodaj razširitev"/>
 			<close-panel-tip value="Zapri"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ se ujema"/>
 			<IncrementalFind-FSNotFound value="Fraze ni mogoče najti"/>
 			<IncrementalFind-FSTopReached value="Dosežen vrh strani, nadaljevanje od spodaj"/>
 			<IncrementalFind-FSEndReached value="Dosežen konec strani, nadaljevanje od zgoraj"/>

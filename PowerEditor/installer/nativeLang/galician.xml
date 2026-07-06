@@ -1836,7 +1836,6 @@ O texto pegado neste campo inclúe caracteres non visibles (quizais de fin de li
 			<tab-untitled-string value="novo"/>
 			<file-save-assign-type value="Eng&amp;adir extensión"/>
 			<close-panel-tip value="Pechar"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ coinciden"/>
 			<IncrementalFind-FSNotFound value="Frase non encontrada"/>
 			<IncrementalFind-FSTopReached value="Chegouse ao inicio da páxina, continúa desde o final"/>
 			<IncrementalFind-FSEndReached value="Chegouse ao final da páxina, continúa desde o principio"/>

@@ -6468,7 +6468,6 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 					(*(_pFRDlg->_ppEditView))->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_INC);
 					(*(_pFRDlg->_ppEditView))->grabFocus();
 					display(false);
-					_nth = 0;
 					_matches.clear();
 					return TRUE;
 
@@ -6507,7 +6506,6 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 					break;
 
 				case IDC_INCFINDCOUNT:
-					_nth = 0;
 					_matches.clear();
 					break;
 
@@ -6536,12 +6534,11 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 			{
 				FindStatus findStatus = FSFound;
 				MatchPosition match;
+
 				bool isFound = _pFRDlg->processFindNext(str2Search.c_str(), &fo, &findStatus, FINDNEXTTYPE_FINDNEXT, &match);
-				if (!isFound)
-					_nth = 0;
 
 				fo._str2Search = str2Search;
-
+				intptr_t nth = 0;
 
 				if (isCheckedOrNot(IDC_INCFINDCOUNT))
 				{
@@ -6555,14 +6552,14 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 						{
 							if ((match.start == _matches[i].start) && (match.end == _matches[i].end))
 							{
-								_nth = i + 1;
+								nth = i + 1;
 								break;
 							}
 						}
 					}
 				}
 
-				setFindStatus(findStatus, _matches.size(), static_cast<int>(_nth));
+				setFindStatus(findStatus, _matches.size(), static_cast<int>(nth));
 
 				// If case-sensitivity changed (to Match=yes), there may have been a matched selection that
 				// now does not match; so if Not Found, clear selection and put caret at beginning of what was

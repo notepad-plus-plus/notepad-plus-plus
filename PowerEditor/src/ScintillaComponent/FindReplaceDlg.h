@@ -571,7 +571,6 @@ private :
 	REBARBANDINFO _rbBand{};
 
 	std::vector<MatchPosition> _matches;
-	intptr_t _nth = 0;
 
 	using Window::init;
 

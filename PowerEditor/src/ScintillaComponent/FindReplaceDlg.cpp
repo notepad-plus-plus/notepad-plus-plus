@@ -6517,6 +6517,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 						updateSearch = true;
 						updateHiLight = isCheckedOrNot(IDC_INCFINDHILITEALL);
 						updateCase = isCheckedOrNot(IDC_INCFINDMATCHCASE);
+						_matches.clear();
 						break;
 					}
 					// treat other edit notifications as unhandled

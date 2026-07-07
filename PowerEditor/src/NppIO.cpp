@@ -844,10 +844,10 @@ bool Notepad_plus::doSave(BufferID id, const wchar_t * filename, bool isCopy)
 	return res == SavingStatus::SaveOK;
 }
 
-void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup, bool lazy)
+void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup, bool closing)
 {
 	DocTabView *tabToClose = (whichOne == MAIN_VIEW)?&_mainDocTab:&_subDocTab;
-	int i = lazy ? -2 : tabToClose->getIndexByBuffer(id);
+	int i = closing ? -2 : tabToClose->getIndexByBuffer(id);
 	if (i == -1)
 		return;
 
@@ -911,7 +911,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup, bool 
 	}
 
 	//Do all the works
-	bool isBufRemoved = removeBufferFromView(id, whichOne, lazy);
+	bool isBufRemoved = removeBufferFromView(id, whichOne, closing);
 	BufferID hiddenBufferID = BUFFER_INVALID;
 	if (nbDocs == 1 && canHideView(whichOne))
 	{	//close the view if both visible
@@ -1478,7 +1478,7 @@ bool Notepad_plus::fileCloseAllGiven(const std::vector<BufferViewInfo>& fileInfo
 	bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
 	for (const auto& i : buffersToClose)
 	{
-		doClose(i._bufID, i._iView, isSnapshotMode, true);
+		doClose(i._bufID, i._iView, isSnapshotMode);
 	}
 
 	return true;
@@ -1738,7 +1738,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 
 		for (auto i = static_cast<int>(_pNonDocTab->nbItem()) - 1; i >= 0; --i) //close all from right to left
 		{
-			doClose(_pNonDocTab->getBufferByIndex(i), viewNo, isSnapshotMode, true);
+			doClose(_pNonDocTab->getBufferByIndex(i), viewNo, isSnapshotMode);
 		}
     }
 
@@ -2644,7 +2644,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			}
 			else
 			{
-				_mainViewLazyMarks.emplace(lastOpened, std::move(session._mainViewFiles[i]._marks));
+				_mainViewLazyMarks.emplace(lastOpened, session._mainViewFiles[i]._marks);
 			}
 
 			++i;
@@ -2788,7 +2788,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			}
 			else
 			{
-				_subViewLazyMarks.emplace(lastOpened, std::move(session._subViewFiles[k]._marks));
+				_subViewLazyMarks.emplace(lastOpened, session._subViewFiles[k]._marks);
 			}
 
 			++k;

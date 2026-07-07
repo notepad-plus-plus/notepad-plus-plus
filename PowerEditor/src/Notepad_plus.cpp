@@ -4817,13 +4817,13 @@ void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool* pDontClos
 	}
 }
 
-bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne, bool lazy)
+bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne, bool closing)
 {
 	DocTabView * tabToClose = (whichOne == MAIN_VIEW) ? &_mainDocTab : &_subDocTab;
 	ScintillaEditView * viewToClose = (whichOne == MAIN_VIEW) ? &_mainEditView : &_subEditView;
 
 	//check if buffer exists
-	int index = lazy ? -2 : tabToClose->getIndexByBuffer(id);
+	int index = closing ? -2 : tabToClose->getIndexByBuffer(id);
 	if (index == -1)        //doesn't exist, done
 		return false;
 
@@ -4840,7 +4840,7 @@ bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne, bool lazy)
 		}
 	}
 
-	if (!lazy)
+	if (!closing)
 	{
 		int active = tabToClose->getCurrentTabIndex();
 		if (active == index) //need an alternative (close real doc, put empty one back)
@@ -5163,18 +5163,21 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne, bool forceApplyHili
 				//Force in the document so we can add the markers
 				//Don't use default methods because of performance
 				Buffer* buf = MainFileManager.getBufferByID(id);
-				Document prevDoc = _mainEditView.execute(SCI_GETDOCPOINTER);
-				unsigned long MODEVENTMASK_ON = NppParameters::getInstance().getScintillaModEventMask();
-				_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
-				_mainEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-				_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
-				for (size_t j = 0, len = it->second.size(); j < len; ++j)
+				if (buf)
 				{
-					_mainEditView.execute(SCI_MARKERADD, it->second[j], MARK_BOOKMARK);
+					Document prevDoc = _mainEditView.execute(SCI_GETDOCPOINTER);
+					unsigned long MODEVENTMASK_ON = NppParameters::getInstance().getScintillaModEventMask();
+					_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+					_mainEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+					_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+					for (size_t j = 0, len = it->second.size(); j < len; ++j)
+					{
+						_mainEditView.execute(SCI_MARKERADD, it->second[j], MARK_BOOKMARK);
+					}
+					_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+					_mainEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
+					_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 				}
-				_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
-				_mainEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
-				_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 				_mainViewLazyMarks.erase(it);
 			}
 		}
@@ -5198,18 +5201,21 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne, bool forceApplyHili
 				//Force in the document so we can add the markers
 				//Don't use default methods because of performance
 				Buffer* buf = MainFileManager.getBufferByID(id);
-				Document prevDoc = _subEditView.execute(SCI_GETDOCPOINTER);
-				unsigned long MODEVENTMASK_ON = NppParameters::getInstance().getScintillaModEventMask();
-				_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
-				_subEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-				_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
-				for (size_t j = 0, len = it->second.size(); j < len; ++j)
+				if (buf)
 				{
-					_subEditView.execute(SCI_MARKERADD, it->second[j], MARK_BOOKMARK);
+					Document prevDoc = _subEditView.execute(SCI_GETDOCPOINTER);
+					unsigned long MODEVENTMASK_ON = NppParameters::getInstance().getScintillaModEventMask();
+					_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+					_subEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+					_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+					for (size_t j = 0, len = it->second.size(); j < len; ++j)
+					{
+						_subEditView.execute(SCI_MARKERADD, it->second[j], MARK_BOOKMARK);
+					}
+					_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+					_subEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
+					_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 				}
-				_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
-				_subEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
-				_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 				_subViewLazyMarks.erase(it);
 			}
 		}

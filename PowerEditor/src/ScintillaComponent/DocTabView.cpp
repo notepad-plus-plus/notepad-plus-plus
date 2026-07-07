@@ -71,11 +71,11 @@ void DocTabView::createIconSets()
 	_docTabIconListDarkMode.create(iconDpiDynamicalSize, _hInst, docTabIconIDs_darkMode, sizeof(docTabIconIDs_darkMode) / sizeof(int));
 }
 
-void DocTabView::addBuffer(BufferID buffer)
+void DocTabView::addBuffer(BufferID buffer, bool lazy)
 {
 	if (buffer == BUFFER_INVALID)	//valid only
 		return;
-	if (getIndexByBuffer(buffer) != -1)	//no duplicates
+	if (!lazy && getIndexByBuffer(buffer) != -1)	//no duplicates
 		return;
 	const Buffer* buf = MainFileManager.getBufferByID(buffer);
 	TCITEM tie{};
@@ -88,6 +88,10 @@ void DocTabView::addBuffer(BufferID buffer)
 	tie.pszText = const_cast<wchar_t*>(buf->getCompactFileName());
 	tie.lParam = reinterpret_cast<LPARAM>(buffer);
 	::SendMessage(_hSelf, TCM_INSERTITEM, _nbItem++, reinterpret_cast<LPARAM>(&tie));
+
+	if (lazy)
+		return;
+
 	bufferUpdated(buf, BufferChangeMask);
 
 	::SendMessage(_hParent, WM_SIZE, 0, 0);
@@ -244,7 +248,7 @@ void DocTabView::bufferUpdated(const Buffer* buffer, int mask)
 }
 
 
-void DocTabView::setBuffer(size_t index, BufferID id)
+void DocTabView::setBuffer(size_t index, BufferID id, bool lazy)
 {
 	if (index >= _nbItem)
 		return;
@@ -253,6 +257,9 @@ void DocTabView::setBuffer(size_t index, BufferID id)
 	tie.lParam = reinterpret_cast<LPARAM>(id);
 	tie.mask = TCIF_PARAM;
 	::SendMessage(_hSelf, TCM_SETITEM, index, reinterpret_cast<LPARAM>(&tie));
+
+	if (lazy)
+		return;
 
 	bufferUpdated(MainFileManager.getBufferByID(id), BufferChangeMask);	//update tab, everything has changed
 

@@ -472,7 +472,7 @@ private:
 	void docOpenInNewInstance(FileTransferMode mode, int x = 0, int y = 0);
 
 	void loadBufferIntoView(BufferID id, int whichOne, bool* pDontClose = nullptr, bool lazy = false);		//Doesn't _activate_ the buffer
-	bool removeBufferFromView(BufferID id, int whichOne, bool lazy = false);	//Activates alternative of possible, or creates clean document if not clean already
+	bool removeBufferFromView(BufferID id, int whichOne, bool closing = false);	//Activates alternative of possible, or creates clean document if not clean already
 
 	bool activateBuffer(BufferID id, int whichOne, bool forceApplyHilite = false);			//activate buffer in that view if found
 	void notifyBufferActivated(BufferID bufid, int view);
@@ -691,6 +691,8 @@ private:
 			SendMessage(_self->_subDocTab.getHSelf(), WM_SETREDRAW, TRUE, 0);
 			InvalidateRect(_self->_mainDocTab.getHSelf(), NULL, TRUE);
 			InvalidateRect(_self->_subDocTab.getHSelf(), NULL, TRUE);
+			UpdateWindow(_self->_mainDocTab.getHSelf());
+			UpdateWindow(_self->_subDocTab.getHSelf());
 		}
 	};
 };

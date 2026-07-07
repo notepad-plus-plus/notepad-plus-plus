@@ -844,10 +844,10 @@ bool Notepad_plus::doSave(BufferID id, const wchar_t * filename, bool isCopy)
 	return res == SavingStatus::SaveOK;
 }
 
-void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
+void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup, bool lazy)
 {
 	DocTabView *tabToClose = (whichOne == MAIN_VIEW)?&_mainDocTab:&_subDocTab;
-	int i = tabToClose->getIndexByBuffer(id);
+	int i = lazy ? -2 : tabToClose->getIndexByBuffer(id);
 	if (i == -1)
 		return;
 
@@ -911,7 +911,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 	}
 
 	//Do all the works
-	bool isBufRemoved = removeBufferFromView(id, whichOne);
+	bool isBufRemoved = removeBufferFromView(id, whichOne, lazy);
 	BufferID hiddenBufferID = BUFFER_INVALID;
 	if (nbDocs == 1 && canHideView(whichOne))
 	{	//close the view if both visible
@@ -1198,6 +1198,8 @@ void Notepad_plus::unPinnedForAllBuffers()
 
 bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 {
+	_DeferRedrawHelper defer(this);
+
 	bool noSaveToAll = false;
 	bool saveToAll = false;
 
@@ -1382,20 +1384,23 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 		activateBuffer(_pNonDocTab->getBufferByIndex(0), otherView());
 		for (auto i = static_cast<int>(_pNonDocTab->nbItem()) - 1; i >= 0; --i) //close all from right to left
 		{
-			doClose(_pNonDocTab->getBufferByIndex(i), otherView(), doDeleteBackup);
+			doClose(_pNonDocTab->getBufferByIndex(i), otherView(), doDeleteBackup, true);
 		}
     }
 
 	activateBuffer(_pDocTab->getBufferByIndex(0), currentView());
 	for (auto i = static_cast<int>(_pDocTab->nbItem()) - 1; i >= 0; --i)
 	{	//close all from right to left
-		doClose(_pDocTab->getBufferByIndex(i), currentView(), doDeleteBackup);
+		doClose(_pDocTab->getBufferByIndex(i), currentView(), doDeleteBackup, true);
 	}
+
 	return true;
 }
 
 bool Notepad_plus::fileCloseAllGiven(const std::vector<BufferViewInfo>& fileInfos)
 {
+	_DeferRedrawHelper defer(this);
+
 	// First check if we need to save any file.
 
 	bool noSaveToAll = false;
@@ -1473,7 +1478,7 @@ bool Notepad_plus::fileCloseAllGiven(const std::vector<BufferViewInfo>& fileInfo
 	bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
 	for (const auto& i : buffersToClose)
 	{
-		doClose(i._bufID, i._iView, isSnapshotMode);
+		doClose(i._bufID, i._iView, isSnapshotMode, true);
 	}
 
 	return true;
@@ -1560,6 +1565,8 @@ bool Notepad_plus::fileCloseAllUnchanged()
 
 bool Notepad_plus::fileCloseAllButCurrent()
 {
+	_DeferRedrawHelper defer(this);
+
 	BufferID current = _pEditView->getCurrentBufferID();
 	const int activeViewID = currentView();
 	int active = _pDocTab->getCurrentTabIndex();
@@ -1731,7 +1738,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 
 		for (auto i = static_cast<int>(_pNonDocTab->nbItem()) - 1; i >= 0; --i) //close all from right to left
 		{
-			doClose(_pNonDocTab->getBufferByIndex(i), viewNo, isSnapshotMode);
+			doClose(_pNonDocTab->getBufferByIndex(i), viewNo, isSnapshotMode, true);
 		}
     }
 
@@ -2419,7 +2426,8 @@ void Notepad_plus::fileNew()
 	BufferID newBufID = MainFileManager.newEmptyDocument();
 	if (newBufID != BUFFER_INVALID)
 	{
-		loadBufferIntoView(newBufID, currentView(), true); // true, because we want multiple new files if possible
+		bool dontClose = true;
+		loadBufferIntoView(newBufID, currentView(), &dontClose); // true, because we want multiple new files if possible
 		switchToFile(newBufID);
 	}
 }
@@ -2507,6 +2515,8 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 
 	int mainIndex2Update = -1;
 
+	std::optional defer = _DeferRedrawHelper(this);
+
 	// no session
 	if (!session.nbMainFiles() && !session.nbSubFiles())
 	{
@@ -2518,6 +2528,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 		return true;
 	}
 
+	bool dontCloseDefaultView = false;
 	for (size_t i = 0; i < session.nbMainFiles() ; )
 	{
 		const wchar_t *pFn = session._mainViewFiles[i]._fileName.c_str();
@@ -2536,22 +2547,13 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			isWow64Off = true;
 		}
 #endif
-		if (doesFileExist(pFn))
-		{
-			if (isSnapshotMode && !session._mainViewFiles[i]._backupFilePath.empty())
-				lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding, session._mainViewFiles[i]._backupFilePath.c_str(), session._mainViewFiles[i]._originalFileLastModifTimestamp);
-			else
-				lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding);
-		}
-		else if (isSnapshotMode && doesFileExist(session._mainViewFiles[i]._backupFilePath.c_str()))
+		if (isSnapshotMode && doesFileExist(session._mainViewFiles[i]._backupFilePath.c_str()))
 		{
 			lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding, session._mainViewFiles[i]._backupFilePath.c_str(), session._mainViewFiles[i]._originalFileLastModifTimestamp);
 		}
 		else
 		{
-			BufferID foundBufID = MainFileManager.getBufferFromName(pFn);
-			if (foundBufID == BUFFER_INVALID)
-				lastOpened = nppGUI._keepSessionAbsentFileEntries ? MainFileManager.newPlaceholderDocument(pFn, MAIN_VIEW, userCreatedSessionName) : BUFFER_INVALID;
+			lastOpened = MainFileManager.newPlaceholderDocument(pFn, SUB_VIEW, userCreatedSessionName, true, &dontCloseDefaultView);
 		}
 #ifndef	_WIN64
 		if (isWow64Off)
@@ -2623,20 +2625,28 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 
 			_mainDocTab.setIndividualTabColour(lastOpened, session._mainViewFiles[i]._individualTabColour);
 
-			//Force in the document so we can add the markers
-			//Don't use default methods because of performance
-			Document prevDoc = _mainEditView.execute(SCI_GETDOCPOINTER);
-			unsigned long MODEVENTMASK_ON = nppParam.getScintillaModEventMask();
-			_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
-			_mainEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-			_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
-			for (size_t j = 0, len = session._mainViewFiles[i]._marks.size(); j < len ; ++j)
+			if (buf->getStatus() != DOC_LAZYLOAD)
 			{
-				_mainEditView.execute(SCI_MARKERADD, session._mainViewFiles[i]._marks[j], MARK_BOOKMARK);
+				//Force in the document so we can add the markers
+				//Don't use default methods because of performance
+				Document prevDoc = _mainEditView.execute(SCI_GETDOCPOINTER);
+				unsigned long MODEVENTMASK_ON = nppParam.getScintillaModEventMask();
+				_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+				_mainEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+				_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+				for (size_t j = 0, len = session._mainViewFiles[i]._marks.size(); j < len; ++j)
+				{
+					_mainEditView.execute(SCI_MARKERADD, session._mainViewFiles[i]._marks[j], MARK_BOOKMARK);
+				}
+				_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+				_mainEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
+				_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 			}
-			_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
-			_mainEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
-			_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+			else
+			{
+				_mainViewLazyMarks.emplace(lastOpened, std::move(session._mainViewFiles[i]._marks));
+			}
+
 			++i;
 		}
 		else
@@ -2677,7 +2687,8 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			isWow64Off = true;
 		}
 #endif
-		if (doesFileExist(pFn) || (isSnapshotMode && doesFileExist(session._subViewFiles[k]._backupFilePath.c_str())))
+		//if (doesFileExist(pFn) || (isSnapshotMode && doesFileExist(session._subViewFiles[k]._backupFilePath.c_str())))
+		if (isSnapshotMode && doesFileExist(session._subViewFiles[k]._backupFilePath.c_str()))
 		{
 			//check if already open in main. If so, clone
 			BufferID clonedBuf = _mainDocTab.findBufferByName(pFn);
@@ -2690,15 +2701,15 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			{
 				if (isSnapshotMode && !session._subViewFiles[k]._backupFilePath.empty())
 					lastOpened = doOpen(pFn, false, false, session._subViewFiles[k]._encoding, session._subViewFiles[k]._backupFilePath.c_str(), session._subViewFiles[k]._originalFileLastModifTimestamp);
-				else
+				else if (doesFileExist(pFn))
 					lastOpened = doOpen(pFn, false, false, session._subViewFiles[k]._encoding);
+				else
+					lastOpened = MainFileManager.newPlaceholderDocument(pFn, SUB_VIEW, userCreatedSessionName, true, &dontCloseDefaultView);
 			}
 		}
 		else
 		{
-			BufferID foundBufID = MainFileManager.getBufferFromName(pFn);
-			if (foundBufID == BUFFER_INVALID)
-				lastOpened = nppGUI._keepSessionAbsentFileEntries ? MainFileManager.newPlaceholderDocument(pFn, SUB_VIEW, userCreatedSessionName) : BUFFER_INVALID;
+			lastOpened = MainFileManager.newPlaceholderDocument(pFn, SUB_VIEW, userCreatedSessionName, true, &dontCloseDefaultView);
 		}
 #ifndef	_WIN64
 		if (isWow64Off)
@@ -2744,11 +2755,11 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 					pLn = L"";	//default user defined
 				}
 			}
+
 			buf->setLangType(typeToSet, pLn);
 			buf->setEncoding(session._subViewFiles[k]._encoding);
 			buf->setUserReadOnly(session._subViewFiles[k]._isUserReadOnly || nppGUI._isFullReadOnly || nppGUI._isFullReadOnlySavingForbidden);
 			buf->setPinned(session._subViewFiles[k]._isPinned);
-
 			buf->setUntitledTabRenamedStatus(session._subViewFiles[k]._isUntitledTabRenamed);
 
 			if (isSnapshotMode && !session._subViewFiles[k]._backupFilePath.empty() && doesFileExist(session._subViewFiles[k]._backupFilePath.c_str()))
@@ -2758,20 +2769,27 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 
 			_subDocTab.setIndividualTabColour(lastOpened, session._subViewFiles[k]._individualTabColour);
 
-			//Force in the document so we can add the markers
-			//Don't use default methods because of performance
-			Document prevDoc = _subEditView.execute(SCI_GETDOCPOINTER);
-			unsigned long MODEVENTMASK_ON = nppParam.getScintillaModEventMask();
-			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
-			_subEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
-			for (size_t j = 0, len = session._subViewFiles[k]._marks.size(); j < len ; ++j)
+			if (buf->getStatus() != DOC_LAZYLOAD)
 			{
-				_subEditView.execute(SCI_MARKERADD, session._subViewFiles[k]._marks[j], MARK_BOOKMARK);
+				//Force in the document so we can add the markers
+				//Don't use default methods because of performance
+				Document prevDoc = _subEditView.execute(SCI_GETDOCPOINTER);
+				unsigned long MODEVENTMASK_ON = nppParam.getScintillaModEventMask();
+				_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+				_subEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+				_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+				for (size_t j = 0, len = session._subViewFiles[k]._marks.size(); j < len; ++j)
+				{
+					_subEditView.execute(SCI_MARKERADD, session._subViewFiles[k]._marks[j], MARK_BOOKMARK);
+				}
+				_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+				_subEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
+				_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 			}
-			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
-			_subEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
-			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+			else
+			{
+				_subViewLazyMarks.emplace(lastOpened, std::move(session._subViewFiles[k]._marks));
+			}
 
 			++k;
 		}
@@ -2782,6 +2800,9 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			allSessionFilesLoaded = false;
 		}
 	}
+
+	defer.reset();
+
 	if (subIndex2Update != -1)
 	{
 		_isFolding = true;

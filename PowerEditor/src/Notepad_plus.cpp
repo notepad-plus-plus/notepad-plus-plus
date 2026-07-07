@@ -867,7 +867,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	loadBufferIntoView(_subEditView.getCurrentBufferID(), SUB_VIEW);
 	activateBuffer(_mainEditView.getCurrentBufferID(), MAIN_VIEW);
 	activateBuffer(_subEditView.getCurrentBufferID(), SUB_VIEW);
-
+	 
 	_mainEditView.grabFocus();
 
 	return TRUE;
@@ -4591,14 +4591,33 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 		else if (isOldMode || folderPaths.size() == 0) // old mode or new mode + only files
 		{
 			BufferID lastOpened = BUFFER_INVALID;
-			for (int i = 0; i < filesDropped; ++i)
+
+			std::optional defer = _DeferRedrawHelper(this);
+
+			if (filesDropped > 1)
 			{
-				wchar_t pathDropped[MAX_PATH]{};
-				::DragQueryFileW(hdrop, i, pathDropped, MAX_PATH);
-				BufferID test = doOpen(pathDropped);
-				if (test != BUFFER_INVALID)
-					lastOpened = test;
+				for (int i = 0; i < filesDropped; ++i)
+				{
+					wchar_t pathDropped[MAX_PATH]{};
+					::DragQueryFileW(hdrop, i, pathDropped, MAX_PATH);
+					BufferID test = MainFileManager.newPlaceholderDocument(pathDropped, SUB_VIEW, nullptr, true, nullptr);
+					if (test != BUFFER_INVALID)
+						lastOpened = test;
+				}
 			}
+			else
+			{
+				for (int i = 0; i < filesDropped; ++i)
+				{
+					wchar_t pathDropped[MAX_PATH]{};
+					::DragQueryFileW(hdrop, i, pathDropped, MAX_PATH);
+					BufferID test = doOpen(pathDropped);
+					if (test != BUFFER_INVALID)
+						lastOpened = test;
+				}
+			}
+
+			defer.reset();
 
 			if (lastOpened != BUFFER_INVALID)
 			{
@@ -4757,19 +4776,19 @@ bool Notepad_plus::isEmpty()
 	return isEmpty;
 }
 
-void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool dontClose)
+void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool* pDontClose, bool lazy)
 {
 	DocTabView * tabToOpen = (whichOne == MAIN_VIEW)?&_mainDocTab:&_subDocTab;
 	ScintillaEditView * viewToOpen = (whichOne == MAIN_VIEW)?&_mainEditView:&_subEditView;
 
 	//check if buffer exists
-	int index = tabToOpen->getIndexByBuffer(id);
+	int index = lazy ? -1 : tabToOpen->getIndexByBuffer(id);
 	if (index != -1)	//already open, done
 		return;
 
 	BufferID idToClose = BUFFER_INVALID;
 	//Check if the tab has a single clean buffer. Close it if so
-	if (!dontClose && tabToOpen->nbItem() == 1)
+	if ((!pDontClose || !*pDontClose) && tabToOpen->nbItem() == 1)
 	{
 		idToClose = tabToOpen->getBufferByIndex(0);
 		Buffer * buf = MainFileManager.getBufferByID(idToClose);
@@ -4789,20 +4808,22 @@ void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool dontClose)
 		MainFileManager.closeBuffer(idToClose, viewToOpen);	//delete the buffer
 		if (_pDocumentListPanel)
 			_pDocumentListPanel->closeItem(idToClose, whichOne);
+		if (pDontClose)
+			*pDontClose = true;
 	}
 	else
 	{
-		tabToOpen->addBuffer(id);
+		tabToOpen->addBuffer(id, lazy);
 	}
 }
 
-bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne)
+bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne, bool lazy)
 {
 	DocTabView * tabToClose = (whichOne == MAIN_VIEW) ? &_mainDocTab : &_subDocTab;
 	ScintillaEditView * viewToClose = (whichOne == MAIN_VIEW) ? &_mainEditView : &_subEditView;
 
 	//check if buffer exists
-	int index = tabToClose->getIndexByBuffer(id);
+	int index = lazy ? -2 : tabToClose->getIndexByBuffer(id);
 	if (index == -1)        //doesn't exist, done
 		return false;
 
@@ -4819,54 +4840,57 @@ bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne)
 		}
 	}
 
-	int active = tabToClose->getCurrentTabIndex();
-	if (active == index) //need an alternative (close real doc, put empty one back)
+	if (!lazy)
 	{
-		if (tabToClose->nbItem() == 1)  //need alternative doc, add new one. Use special logic to prevent flicker of adding new tab then closing other
+		int active = tabToClose->getCurrentTabIndex();
+		if (active == index) //need an alternative (close real doc, put empty one back)
 		{
-			BufferID newID = MainFileManager.newEmptyDocument();
-			MainFileManager.addBufferReference(newID, viewToClose);
-			tabToClose->setBuffer(0, newID);        //can safely use id 0, last (only) tab open
-			activateBuffer(newID, whichOne);        //activate. DocTab already activated but not a problem
-		}
-		else
-		{
-			int toActivate = 0;
-			//activate next doc, otherwise prev if not possible
-			if (size_t(active) == tabToClose->nbItem() - 1) //prev
+			if (tabToClose->nbItem() == 1)  //need alternative doc, add new one. Use special logic to prevent flicker of adding new tab then closing other
 			{
-				toActivate = active - 1;
+				BufferID newID = MainFileManager.newEmptyDocument();
+				MainFileManager.addBufferReference(newID, viewToClose);
+				tabToClose->setBuffer(0, newID);        //can safely use id 0, last (only) tab open
+				activateBuffer(newID, whichOne);        //activate. DocTab already activated but not a problem
 			}
 			else
 			{
-				toActivate = active;    //activate the 'active' index. Since we remove the tab first, the indices shift (on the right side)
-			}
-
-			if (NppParameters::getInstance().getNppGUI()._styleMRU)
-			{
-				// After closing a file choose the file to activate based on MRU list and not just last file in the list.
-				TaskListInfo taskListInfo;
-				::SendMessage(_pPublicInterface->getHSelf(), WM_GETTASKLISTINFO, reinterpret_cast<WPARAM>(&taskListInfo), 0);
-				size_t i, n = taskListInfo._tlfsLst.size();
-				for (i = 0; i < n; i++)
+				int toActivate = 0;
+				//activate next doc, otherwise prev if not possible
+				if (size_t(active) == tabToClose->nbItem() - 1) //prev
 				{
-					const TaskLstFnStatus& tfs = taskListInfo._tlfsLst[i];
-					if (tfs._iView != whichOne || tfs._bufID == id)
-						continue;
-					toActivate = tfs._docIndex >= active ? tfs._docIndex - 1 : tfs._docIndex;
-					break;
+					toActivate = active - 1;
 				}
-			}
+				else
+				{
+					toActivate = active;    //activate the 'active' index. Since we remove the tab first, the indices shift (on the right side)
+				}
 
-			tabToClose->deletItemAt((size_t)index); //delete first
-			_isFolding = true; // So we can ignore events while folding is taking place
-			activateBuffer(tabToClose->getBufferByIndex(toActivate), whichOne);     //then activate. The prevent jumpy tab behaviour
-			_isFolding = false;
+				if (NppParameters::getInstance().getNppGUI()._styleMRU)
+				{
+					// After closing a file choose the file to activate based on MRU list and not just last file in the list.
+					TaskListInfo taskListInfo;
+					::SendMessage(_pPublicInterface->getHSelf(), WM_GETTASKLISTINFO, reinterpret_cast<WPARAM>(&taskListInfo), 0);
+					size_t i, n = taskListInfo._tlfsLst.size();
+					for (i = 0; i < n; i++)
+					{
+						const TaskLstFnStatus& tfs = taskListInfo._tlfsLst[i];
+						if (tfs._iView != whichOne || tfs._bufID == id)
+							continue;
+						toActivate = tfs._docIndex >= active ? tfs._docIndex - 1 : tfs._docIndex;
+						break;
+					}
+				}
+
+				tabToClose->deletItemAt((size_t)index); //delete first
+				_isFolding = true; // So we can ignore events while folding is taking place
+				activateBuffer(tabToClose->getBufferByIndex(toActivate), whichOne);     //then activate. The prevent jumpy tab behaviour
+				_isFolding = false;
+			}
 		}
-	}
-	else
-	{
-		tabToClose->deletItemAt((size_t)index);
+		else
+		{
+			tabToClose->deletItemAt((size_t)index);
+		}
 	}
 
 	MainFileManager.closeBuffer(id, viewToClose);
@@ -5121,8 +5145,9 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne, bool forceApplyHili
 	}
 
 	Buffer * pBuf = MainFileManager.getBufferByID(id);
+	bool lazy = pBuf->getStatus() == DOC_LAZYLOAD;
 	bool reload = pBuf->getNeedReload();
-	if (reload)
+	if (reload || lazy)
 	{
 		MainFileManager.reloadBuffer(id);
 		pBuf->setNeedReload(false);
@@ -5130,6 +5155,30 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne, bool forceApplyHili
 
 	if (whichOne == MAIN_VIEW)
 	{
+		if (lazy)
+		{
+			auto it = _mainViewLazyMarks.find(id);
+			if (it != _mainViewLazyMarks.end())
+			{
+				//Force in the document so we can add the markers
+				//Don't use default methods because of performance
+				Buffer* buf = MainFileManager.getBufferByID(id);
+				Document prevDoc = _mainEditView.execute(SCI_GETDOCPOINTER);
+				unsigned long MODEVENTMASK_ON = NppParameters::getInstance().getScintillaModEventMask();
+				_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+				_mainEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+				_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+				for (size_t j = 0, len = it->second.size(); j < len; ++j)
+				{
+					_mainEditView.execute(SCI_MARKERADD, it->second[j], MARK_BOOKMARK);
+				}
+				_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+				_mainEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
+				_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+				_mainViewLazyMarks.erase(it);
+			}
+		}
+
 		if (_mainDocTab.activateBuffer(id))	//only activate if possible
 		{
 			_isFolding = true;
@@ -5141,6 +5190,30 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne, bool forceApplyHili
 	}
 	else
 	{
+		if (lazy)
+		{
+			auto it = _subViewLazyMarks.find(id);
+			if (it != _subViewLazyMarks.end())
+			{
+				//Force in the document so we can add the markers
+				//Don't use default methods because of performance
+				Buffer* buf = MainFileManager.getBufferByID(id);
+				Document prevDoc = _subEditView.execute(SCI_GETDOCPOINTER);
+				unsigned long MODEVENTMASK_ON = NppParameters::getInstance().getScintillaModEventMask();
+				_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+				_subEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+				_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+				for (size_t j = 0, len = it->second.size(); j < len; ++j)
+				{
+					_subEditView.execute(SCI_MARKERADD, it->second[j], MARK_BOOKMARK);
+				}
+				_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+				_subEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
+				_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+				_subViewLazyMarks.erase(it);
+			}
+		}
+
 		if (_subDocTab.activateBuffer(id))
 		{
 			_isFolding = true;
@@ -6677,6 +6750,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 			case DOC_UNNAMED: 	//nothing todo
 			case DOC_REGULAR: 	//nothing todo
 			case DOC_INACCESSIBLE: 	//nothing todo
+			case DOC_LAZYLOAD: 	//nothing todo
 			{
 				break;
 			}

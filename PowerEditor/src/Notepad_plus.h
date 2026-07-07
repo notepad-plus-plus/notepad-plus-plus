@@ -173,7 +173,7 @@ public:
 	BufferID doOpen(const std::wstring& fileName, bool isRecursive = false, bool isReadOnly = false, int encoding = -1, const wchar_t *backupFileName = NULL, FILETIME fileNameTimestamp = {});
 	bool doReload(BufferID id, bool alert = true);
 	bool doSave(BufferID, const wchar_t * filename, bool isSaveCopy = false);
-	void doClose(BufferID, int whichOne, bool doDeleteBackup = false);
+	void doClose(BufferID, int whichOne, bool doDeleteBackup = false, bool lazy = false);
 
 
 	void fileOpen();
@@ -424,6 +424,10 @@ private:
 
 	std::vector<HWND> _sysTrayHiddenHwnd;
 
+	// lazyload marks
+	std::map<BufferID, std::vector<size_t>> _mainViewLazyMarks;
+	std::map<BufferID, std::vector<size_t>> _subViewLazyMarks;
+
 	BOOL notify(SCNotification *notification);
 	void command(int id);
 
@@ -467,8 +471,8 @@ private:
 	void docGotoAnotherEditView(FileTransferMode mode);	//TransferMode
 	void docOpenInNewInstance(FileTransferMode mode, int x = 0, int y = 0);
 
-	void loadBufferIntoView(BufferID id, int whichOne, bool dontClose = false);		//Doesn't _activate_ the buffer
-	bool removeBufferFromView(BufferID id, int whichOne);	//Activates alternative of possible, or creates clean document if not clean already
+	void loadBufferIntoView(BufferID id, int whichOne, bool* pDontClose = nullptr, bool lazy = false);		//Doesn't _activate_ the buffer
+	bool removeBufferFromView(BufferID id, int whichOne, bool lazy = false);	//Activates alternative of possible, or creates clean document if not clean already
 
 	bool activateBuffer(BufferID id, int whichOne, bool forceApplyHilite = false);			//activate buffer in that view if found
 	void notifyBufferActivated(BufferID bufid, int view);
@@ -675,4 +679,18 @@ private:
 	int getIcoID(DockingDlgInterface* panel);
 	void loadPanelIcon(HINSTANCE hInst, DockingDlgInterface* panel, HICON* phIcon);
 	void refreshPanelIcon(HINSTANCE hInst, DockingDlgInterface* panel);
+
+	struct _DeferRedrawHelper {
+		Notepad_plus* _self;
+		_DeferRedrawHelper(Notepad_plus* s) : _self(s) {
+			SendMessage(_self->_mainDocTab.getHSelf(), WM_SETREDRAW, FALSE, 0);
+			SendMessage(_self->_subDocTab.getHSelf(), WM_SETREDRAW, FALSE, 0);
+		}
+		~_DeferRedrawHelper() {
+			SendMessage(_self->_mainDocTab.getHSelf(), WM_SETREDRAW, TRUE, 0);
+			SendMessage(_self->_subDocTab.getHSelf(), WM_SETREDRAW, TRUE, 0);
+			InvalidateRect(_self->_mainDocTab.getHSelf(), NULL, TRUE);
+			InvalidateRect(_self->_subDocTab.getHSelf(), NULL, TRUE);
+		}
+	};
 };

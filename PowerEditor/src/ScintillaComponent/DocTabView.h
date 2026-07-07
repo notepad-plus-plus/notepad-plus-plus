@@ -46,7 +46,7 @@ public:
 		TabBar::setImageList(_pIconListVector[_iconListIndexChoice]->getHandle());
 	}
 
-	void addBuffer(BufferID buffer);
+	void addBuffer(BufferID buffer, bool lazy = false);
 	void closeBuffer(BufferID buffer);
 	void bufferUpdated(const Buffer* buffer, int mask);
 
@@ -58,7 +58,7 @@ public:
 	int getIndexByBuffer(BufferID id);
 	BufferID getBufferByIndex(size_t index);
 
-	void setBuffer(size_t index, BufferID id);
+	void setBuffer(size_t index, BufferID id, bool lazy = false);
 
 	void reSizeTo(RECT & rc) override;
 

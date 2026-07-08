@@ -682,17 +682,7 @@ private:
 
 	struct _DeferRedrawHelper {
 		Notepad_plus* _self;
-		_DeferRedrawHelper(Notepad_plus* s) : _self(s) {
-			SendMessage(_self->_mainDocTab.getHSelf(), WM_SETREDRAW, FALSE, 0);
-			SendMessage(_self->_subDocTab.getHSelf(), WM_SETREDRAW, FALSE, 0);
-		}
-		~_DeferRedrawHelper() {
-			SendMessage(_self->_mainDocTab.getHSelf(), WM_SETREDRAW, TRUE, 0);
-			SendMessage(_self->_subDocTab.getHSelf(), WM_SETREDRAW, TRUE, 0);
-			InvalidateRect(_self->_mainDocTab.getHSelf(), NULL, TRUE);
-			InvalidateRect(_self->_subDocTab.getHSelf(), NULL, TRUE);
-			UpdateWindow(_self->_mainDocTab.getHSelf());
-			UpdateWindow(_self->_subDocTab.getHSelf());
-		}
+		_DeferRedrawHelper(Notepad_plus* s);
+		~_DeferRedrawHelper();
 	};
 };

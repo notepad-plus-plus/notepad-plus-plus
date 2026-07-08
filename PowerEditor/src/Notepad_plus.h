@@ -173,7 +173,7 @@ public:
 	BufferID doOpen(const std::wstring& fileName, bool isRecursive = false, bool isReadOnly = false, int encoding = -1, const wchar_t *backupFileName = NULL, FILETIME fileNameTimestamp = {});
 	bool doReload(BufferID id, bool alert = true);
 	bool doSave(BufferID, const wchar_t * filename, bool isSaveCopy = false);
-	void doClose(BufferID, int whichOne, bool doDeleteBackup = false, bool lazy = false);
+	void doClose(int index, BufferID, int whichOne, bool doDeleteBackup = false);
 
 
 	void fileOpen();
@@ -472,7 +472,7 @@ private:
 	void docOpenInNewInstance(FileTransferMode mode, int x = 0, int y = 0);
 
 	void loadBufferIntoView(BufferID id, int whichOne, bool* pDontClose = nullptr, bool lazy = false);		//Doesn't _activate_ the buffer
-	bool removeBufferFromView(BufferID id, int whichOne, bool closing = false);	//Activates alternative of possible, or creates clean document if not clean already
+	bool removeBufferFromView(int index, BufferID id, int whichOne);	//Activates alternative of possible, or creates clean document if not clean already
 
 	bool activateBuffer(BufferID id, int whichOne, bool forceApplyHilite = false);			//activate buffer in that view if found
 	void notifyBufferActivated(BufferID bufid, int view);

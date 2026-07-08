@@ -155,6 +155,23 @@ BufferID DocTabView::findBufferByName(const wchar_t * fullfilename) //-1 if not 
 }
 
 
+
+std::vector<BufferID> DocTabView::getBuffersByIndex()
+{
+	std::vector<BufferID> result(_nbItem);
+
+	TCITEM tie{};
+	tie.lParam = -1;
+	tie.mask = TCIF_PARAM;
+	for (size_t i = 0; i < _nbItem; ++i)
+	{
+		::SendMessage(_hSelf, TCM_GETITEM, i, reinterpret_cast<LPARAM>(&tie));
+		result[i] = reinterpret_cast<BufferID>(tie.lParam);
+	}
+
+	return result;
+}
+
 int DocTabView::getIndexByBuffer(BufferID id)
 {
 	TCITEM tie{};

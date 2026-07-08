@@ -844,10 +844,10 @@ bool Notepad_plus::doSave(BufferID id, const wchar_t * filename, bool isCopy)
 	return res == SavingStatus::SaveOK;
 }
 
-void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup, bool closing)
+void Notepad_plus::doClose(int index, BufferID id, int whichOne, bool doDeleteBackup)
 {
 	DocTabView *tabToClose = (whichOne == MAIN_VIEW)?&_mainDocTab:&_subDocTab;
-	int i = closing ? -2 : tabToClose->getIndexByBuffer(id);
+	int i = index != -1 ? index : tabToClose->getIndexByBuffer(id);
 	if (i == -1)
 		return;
 
@@ -911,7 +911,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup, bool 
 	}
 
 	//Do all the works
-	bool isBufRemoved = removeBufferFromView(id, whichOne, closing);
+	bool isBufRemoved = removeBufferFromView(index, id, whichOne);
 	BufferID hiddenBufferID = BUFFER_INVALID;
 	if (nbDocs == 1 && canHideView(whichOne))
 	{	//close the view if both visible
@@ -1175,22 +1175,25 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 	if (isSnapshotMode && isCloned) // if Buffer is cloned then we don't delete backup file
 		doDeleteBackup = false;
 
-	doClose(bufferID, viewToClose, doDeleteBackup);
+	doClose(-1, bufferID, viewToClose, doDeleteBackup);
 	return true;
 }
 
 void Notepad_plus::unPinnedForAllBuffers()
 {
-	for (size_t i = 0; i < _mainDocTab.nbItem(); ++i)
+	std::vector<BufferID> mainDocBuffers = _mainDocTab.getBuffersByIndex();
+	std::vector<BufferID> subDocBuffers = _subDocTab.getBuffersByIndex();
+
+	for (size_t i = 0; i < mainDocBuffers.size(); ++i)
 	{
-		BufferID id = _mainDocTab.getBufferByIndex(i);
+		BufferID id = mainDocBuffers[i];
 		Buffer* buf = MainFileManager.getBufferByID(id);
 		buf->setPinned(false);
 	}
 
-	for (size_t i = 0; i < _subDocTab.nbItem(); ++i)
+	for (size_t i = 0; i < subDocBuffers.size(); ++i)
 	{
-		BufferID id = _subDocTab.getBufferByIndex(i);
+		BufferID id = subDocBuffers[i];
 		Buffer* buf = MainFileManager.getBufferByID(id);
 		buf->setPinned(false);
 	}
@@ -1209,9 +1212,12 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 	//check in the both view
 	std::unordered_set<BufferID> uniqueBuffers;
 
-	for (size_t i = 0; i < _mainDocTab.nbItem() && !noSaveToAll; ++i)
+	std::vector<BufferID> mainDocBuffers = _mainDocTab.getBuffersByIndex();
+	std::vector<BufferID> subDocBuffers = _subDocTab.getBuffersByIndex();
+
+	for (size_t i = 0; i < mainDocBuffers.size() && !noSaveToAll; ++i)
 	{
-		BufferID id = _mainDocTab.getBufferByIndex(i);
+		BufferID id = mainDocBuffers[i];
 		Buffer * buf = MainFileManager.getBufferByID(id);
 
 		// Put all the BufferID from main view to hash table
@@ -1293,9 +1299,9 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 		}
 	}
 
-	for (size_t i = 0; i < _subDocTab.nbItem() && !noSaveToAll; ++i)
+	for (size_t i = 0; i < subDocBuffers.size() && !noSaveToAll; ++i)
 	{
-		BufferID id = _subDocTab.getBufferByIndex(i);
+		BufferID id = subDocBuffers[i];
 		Buffer * buf = MainFileManager.getBufferByID(id);
 
 		// Is this buffer already included?
@@ -1379,19 +1385,27 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 	//Then start closing, inactive view first so the active is left open
     if (bothActive())
     {
-		//first close all docs in non-current view, which gets closed automatically
-		//Set active tab to the last one closed.
-		activateBuffer(_pNonDocTab->getBufferByIndex(0), otherView());
-		for (auto i = static_cast<int>(_pNonDocTab->nbItem()) - 1; i >= 0; --i) //close all from right to left
+		std::vector<BufferID> nonDocBuffers = _pNonDocTab->getBuffersByIndex();
+		if (!nonDocBuffers.empty())
 		{
-			doClose(_pNonDocTab->getBufferByIndex(i), otherView(), doDeleteBackup, true);
+			//first close all docs in non-current view, which gets closed automatically
+			//Set active tab to the last one closed.
+			activateBuffer(nonDocBuffers[0], otherView());
+			for (auto i = static_cast<int>(nonDocBuffers.size()) - 1; i >= 0; --i) //close all from right to left
+			{
+				doClose(i, nonDocBuffers[i], otherView(), doDeleteBackup);
+			}
 		}
     }
 
-	activateBuffer(_pDocTab->getBufferByIndex(0), currentView());
-	for (auto i = static_cast<int>(_pDocTab->nbItem()) - 1; i >= 0; --i)
-	{	//close all from right to left
-		doClose(_pDocTab->getBufferByIndex(i), currentView(), doDeleteBackup, true);
+	std::vector<BufferID> docBuffers = _pDocTab->getBuffersByIndex();
+	if (!docBuffers.empty())
+	{
+		activateBuffer(docBuffers[0], currentView());
+		for (auto i = static_cast<int>(docBuffers.size()) - 1; i >= 0; --i)
+		{	//close all from right to left
+			doClose(i, docBuffers[i], currentView(), doDeleteBackup);
+		}
 	}
 
 	return true;
@@ -1478,7 +1492,7 @@ bool Notepad_plus::fileCloseAllGiven(const std::vector<BufferViewInfo>& fileInfo
 	bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
 	for (const auto& i : buffersToClose)
 	{
-		doClose(i._bufID, i._iView, isSnapshotMode);
+		doClose(-1, i._bufID, i._iView, isSnapshotMode);
 	}
 
 	return true;
@@ -1501,10 +1515,11 @@ bool Notepad_plus::fileCloseAllToRight()
 	// Indexes must go from high to low to deal with the fact that when one index is closed, any remaining
 	// indexes (smaller than the one just closed) will point to the wrong tab.
 	const int iActive = _pDocTab->getCurrentTabIndex();
+	std::vector<BufferID> docBuffers = _pDocTab->getBuffersByIndex();
 	std::vector<BufferViewInfo> bufsToClose;
-	for (int i = int(_pDocTab->nbItem()) - 1; i > iActive; i--)
+	for (int i = int(docBuffers.size()) - 1; i > iActive; i--)
 	{
-		bufsToClose.push_back(BufferViewInfo(_pDocTab->getBufferByIndex(i), currentView()));
+		bufsToClose.push_back(BufferViewInfo(docBuffers[i], currentView()));
 	}
 	return fileCloseAllGiven(bufsToClose);
 }
@@ -1512,33 +1527,25 @@ bool Notepad_plus::fileCloseAllToRight()
 void Notepad_plus::fileCloseAllButPinned()
 {
 	std::vector<BufferViewInfo> bufsToClose;
+	std::vector<BufferID> mainDocBuffers = _mainDocTab.getBuffersByIndex();
+	std::vector<BufferID> subDocBuffers = _subDocTab.getBuffersByIndex();
 
 	int iPinned = -1;
-	for (int j = 0; j < int(_mainDocTab.nbItem()); ++j)
+	for (int j = 0; j < int(mainDocBuffers.size()); ++j)
 	{
-		if (_mainDocTab.getBufferByIndex(j)->isPinned())
-			iPinned++;
+		if (mainDocBuffers[j]->isPinned())
+			bufsToClose.push_back(BufferViewInfo(mainDocBuffers[j], MAIN_VIEW));
 		else
 			break;
 	}
 	
-	for (int i = int(_mainDocTab.nbItem()) - 1; i > iPinned; i--)
-	{
-		bufsToClose.push_back(BufferViewInfo(_mainDocTab.getBufferByIndex(i), MAIN_VIEW));
-	}
-
-
 	iPinned = -1;
-	for (int j = 0; j < int(_subDocTab.nbItem()); ++j)
+	for (int j = 0; j < int(subDocBuffers.size()); ++j)
 	{
-		if (_subDocTab.getBufferByIndex(j)->isPinned())
-			iPinned++;
+		if (subDocBuffers[j]->isPinned())
+			bufsToClose.push_back(BufferViewInfo(subDocBuffers[j], SUB_VIEW));
 		else
 			break;
-	}
-	for (int i = int(_subDocTab.nbItem()) - 1; i > iPinned; i--)
-	{
-		bufsToClose.push_back(BufferViewInfo(_subDocTab.getBufferByIndex(i), SUB_VIEW));
 	}
 	
 	fileCloseAllGiven(bufsToClose);
@@ -1549,14 +1556,15 @@ bool Notepad_plus::fileCloseAllUnchanged()
 	// Indexes must go from high to low to deal with the fact that when one index is closed, any remaining
 	// indexes (smaller than the one just closed) will point to the wrong tab.
 	std::vector<BufferViewInfo> bufsToClose;
+	std::vector<BufferID> docBuffers = _pDocTab->getBuffersByIndex();
 
-	for (int i = int(_pDocTab->nbItem()) - 1; i >= 0; i--)
+	for (int i = int(docBuffers.size()) - 1; i >= 0; i--)
 	{
-		BufferID id = _pDocTab->getBufferByIndex(i);
+		BufferID id = docBuffers[i];
 		Buffer* buf = MainFileManager.getBufferByID(id);
 		if ((buf->isUntitled() && buf->docLength() == 0) || !buf->isDirty())
 		{
-			bufsToClose.push_back(BufferViewInfo(_pDocTab->getBufferByIndex(i), currentView()));
+			bufsToClose.push_back(BufferViewInfo(id, currentView()));
 		}
 	}
 
@@ -1578,10 +1586,13 @@ bool Notepad_plus::fileCloseAllButCurrent()
 
 	//closes all documents, makes the current view the only one visible
 
+	std::vector<BufferID> mainDocBuffers = _mainDocTab.getBuffersByIndex();
+	std::vector<BufferID> subDocBuffers = _subDocTab.getBuffersByIndex();
+
 	//first check if we need to save any file
-	for (size_t i = 0; i < _mainDocTab.nbItem() && !noSaveToAll; ++i)
+	for (size_t i = 0; i < mainDocBuffers.size() && !noSaveToAll; ++i)
 	{
-		BufferID id = _mainDocTab.getBufferByIndex(i);
+		BufferID id = mainDocBuffers[i];
 		Buffer* buf = MainFileManager.getBufferByID(id);
 		if (id == current)
 			continue;
@@ -1641,7 +1652,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 			{
 				for (auto j = static_cast<int>(mainSaveOpIndex.size()) - 1; j >= 0; --j) //close all from right to left
 				{
-					doClose(_mainDocTab.getBufferByIndex(mainSaveOpIndex[j]), MAIN_VIEW, isSnapshotMode);
+					doClose(j, mainDocBuffers[mainSaveOpIndex[j]], MAIN_VIEW, isSnapshotMode);
 				}
 
 				return false;
@@ -1650,9 +1661,9 @@ bool Notepad_plus::fileCloseAllButCurrent()
 		}
 	}
 
-	for (size_t i = 0; i < _subDocTab.nbItem() && !noSaveToAll; ++i)
+	for (size_t i = 0; i < subDocBuffers.size() && !noSaveToAll; ++i)
 	{
-		BufferID id = _subDocTab.getBufferByIndex(i);
+		BufferID id = subDocBuffers[i];
 		Buffer * buf = MainFileManager.getBufferByID(id);
 		if (id == current)
 			continue;
@@ -1712,13 +1723,14 @@ bool Notepad_plus::fileCloseAllButCurrent()
 			{
 				for (auto j = static_cast<int>(mainSaveOpIndex.size()) - 1; j >= 0; --j) //close all from right to left
 				{
-					doClose(_mainDocTab.getBufferByIndex(mainSaveOpIndex[j]), MAIN_VIEW, isSnapshotMode);
+					doClose(j, mainDocBuffers[mainSaveOpIndex[j]], MAIN_VIEW, isSnapshotMode);
 				}
 
 				for (auto j = static_cast<int>(subSaveOpIndex.size()) - 1; j >= 0; --j) //close all from right to left
 				{
-					doClose(_subDocTab.getBufferByIndex(subSaveOpIndex[j]), SUB_VIEW, isSnapshotMode);
+					doClose(j, subDocBuffers[subSaveOpIndex[j]], SUB_VIEW, isSnapshotMode);
 				}
+
 				return false;
 			}
 
@@ -1731,39 +1743,49 @@ bool Notepad_plus::fileCloseAllButCurrent()
 	//Then start closing, inactive view first so the active is left open
     if (bothActive())
     {
-		//first close all docs in non-current view, which gets closed automatically
-		//Set active tab to the last one closed.
-		const int viewNo = otherView();
-		activateBuffer(_pNonDocTab->getBufferByIndex(0), viewNo);
-
-		for (auto i = static_cast<int>(_pNonDocTab->nbItem()) - 1; i >= 0; --i) //close all from right to left
+		std::vector<BufferID> nonDocBuffers = _pNonDocTab->getBuffersByIndex();
+		if (!nonDocBuffers.empty())
 		{
-			doClose(_pNonDocTab->getBufferByIndex(i), viewNo, isSnapshotMode);
+			//first close all docs in non-current view, which gets closed automatically
+			//Set active tab to the last one closed.
+			const int viewNo = otherView();
+			activateBuffer(nonDocBuffers[0], viewNo);
+
+			for (auto i = static_cast<int>(nonDocBuffers.size()) - 1; i >= 0; --i) //close all from right to left
+			{
+				doClose(i, nonDocBuffers[i], viewNo, isSnapshotMode);
+			}
 		}
     }
 
-	const int viewNo = currentView();
-	size_t nbItems = _pDocTab->nbItem();
-	activateBuffer(_pDocTab->getBufferByIndex(0), viewNo);
-	
-	// After activateBuffer() call, if file is deleted, user will decide to keep or not the tab
-	// So here we check if the 1st tab is closed or not
-	size_t newNbItems = _pDocTab->nbItem();
-
-	if (nbItems > newNbItems) // the 1st tab has been removed
+	std::vector<BufferID> docBuffers = _pDocTab->getBuffersByIndex();
+	if (!docBuffers.empty())
 	{
-		// active tab move 1 position forward
-		active -= 1;
-	}
+		const int viewNo = currentView();
+		size_t nbItems = docBuffers.size();
+		activateBuffer(docBuffers[0], viewNo);
 
-	for (auto i = static_cast<int>(newNbItems) - 1; i >= 0; --i) //close all from right to left
-	{
-		if (i == active)	//don't close active index
+		// After activateBuffer() call, if file is deleted, user will decide to keep or not the tab
+		// So here we check if the 1st tab is closed or not
+		size_t newNbItems = _pDocTab->nbItem();
+
+		if (nbItems > newNbItems) // the 1st tab has been removed
 		{
-			continue;
+			// active tab move 1 position forward
+			active -= 1;
+			docBuffers.erase(docBuffers.begin());
 		}
-		doClose(_pDocTab->getBufferByIndex(i), viewNo, isSnapshotMode);
+
+		for (auto i = static_cast<int>(docBuffers.size()) - 1; i >= 0; --i) //close all from right to left
+		{
+			if (i == active)	//don't close active index
+			{
+				continue;
+			}
+			doClose(i, docBuffers[i], viewNo, isSnapshotMode);
+		}
 	}
+
 	return true;
 }
 
@@ -1943,10 +1965,11 @@ size_t Notepad_plus::getNbDirtyBuffer(int view)
 	if (view == SUB_VIEW)
 		pDocTabView = &_subDocTab;
 
+	std::vector<BufferID> docBuffers = pDocTabView->getBuffersByIndex();
 	size_t count = 0;
-	for (size_t i = 0; i < pDocTabView->nbItem(); ++i)
+	for (size_t i = 0; i < docBuffers.size(); ++i)
 	{
-		BufferID id = pDocTabView->getBufferByIndex(i);
+		BufferID id = docBuffers[i];
 		Buffer* buf = MainFileManager.getBufferByID(id);
 
 		if (buf->isDirty())
@@ -1973,18 +1996,20 @@ bool Notepad_plus::fileSaveAll()
 	{
 		if (viewVisible(MAIN_VIEW))
 		{
-			for (size_t i = 0; i < _mainDocTab.nbItem(); ++i)
+			std::vector<BufferID> mainDocBuffers = _mainDocTab.getBuffersByIndex();
+			for (size_t i = 0; i < mainDocBuffers.size(); ++i)
 			{
-				BufferID idToSave = _mainDocTab.getBufferByIndex(i);
+				BufferID idToSave = mainDocBuffers[i];
 				fileSave(idToSave);
 			}
 		}
 
 		if (viewVisible(SUB_VIEW))
 		{
+			std::vector<BufferID> subDocBuffers = _subDocTab.getBuffersByIndex();
 			for (size_t i = 0; i < _subDocTab.nbItem(); ++i)
 			{
-				BufferID idToSave = _subDocTab.getBufferByIndex(i);
+				BufferID idToSave = subDocBuffers[i];
 				fileSave(idToSave);
 			}
 		}
@@ -2384,8 +2409,8 @@ bool Notepad_plus::fileDelete(BufferID id)
 			return false;
 		}
 		bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
-		doClose(bufferID, MAIN_VIEW, isSnapshotMode);
-		doClose(bufferID, SUB_VIEW, isSnapshotMode);
+		doClose(-1, bufferID, MAIN_VIEW, isSnapshotMode);
+		doClose(-1, bufferID, SUB_VIEW, isSnapshotMode);
 
 		scnN.nmhdr.code = NPPN_FILEDELETED;
 		_pluginsManager.notify(&scnN);

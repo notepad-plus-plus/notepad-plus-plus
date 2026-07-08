@@ -1538,9 +1538,10 @@ void Notepad_plus::command(int id)
 				std::vector<Buffer*> buffers;
 				for (auto&& docTab : docTabs)
 				{
-					for (size_t i = 0, len = docTab->nbItem(); i < len; ++i)
+					std::vector<BufferID> docTabBuffers = docTab->getBuffersByIndex();
+					for (size_t i = 0, len = docTabBuffers.size(); i < len; ++i)
 					{
-						BufferID bufID = docTab->getBufferByIndex(i);
+						BufferID bufID = docTabBuffers[i];
 						Buffer* buf = MainFileManager.getBufferByID(bufID);
 						// Don't add duplicates because a buffer might be cloned in other view.
 						if (docTabs.size() < 2 || std::find(buffers.begin(), buffers.end(), buf) == buffers.end())

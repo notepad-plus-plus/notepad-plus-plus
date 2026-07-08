@@ -1248,11 +1248,13 @@ bool Notepad_plus::replaceInOpenedFiles()
 	const bool isEntireDoc = true;
 	bool hasInvalidRegExpr = false;
 
+	std::vector<BufferID> mainDocBuffers = _mainDocTab.getBuffersByIndex();
+
 	if (_mainWindowStatus & WindowMainActive)
 	{
-		for (size_t i = 0, len = _mainDocTab.nbItem(); i < len ; ++i)
+		for (size_t i = 0, len = mainDocBuffers.size(); i < len ; ++i)
 		{
-			pBuf = MainFileManager.getBufferByID(_mainDocTab.getBufferByIndex(i));
+			pBuf = MainFileManager.getBufferByID(mainDocBuffers[i]);
 			if (pBuf->isReadOnly())
 				continue;
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
@@ -1278,11 +1280,12 @@ bool Notepad_plus::replaceInOpenedFiles()
 
 	if (!hasInvalidRegExpr && (_mainWindowStatus & WindowSubActive))
 	{
-		for (size_t i = 0, len = _subDocTab.nbItem(); i < len; ++i)
+		std::vector<BufferID> subDocBuffers = _subDocTab.getBuffersByIndex();
+		for (size_t i = 0, len = subDocBuffers.size(); i < len; ++i)
 		{
-			BufferID bufId = _subDocTab.getBufferByIndex(i);
+			BufferID bufId = subDocBuffers[i];
 
-			if (_mainDocTab.getIndexByBuffer(bufId) != -1)
+			if (std::find(mainDocBuffers.begin(), mainDocBuffers.end(), bufId) != mainDocBuffers.end())
 			{
 				// cloned doc, replacements already done in main doc
 				continue;
@@ -2283,11 +2286,13 @@ bool Notepad_plus::findInOpenedFiles()
 
 	_findReplaceDlg.beginNewFilesSearch();
 
+	std::vector<BufferID> mainDocBuffers = _mainDocTab.getBuffersByIndex();
+
 	if (_mainWindowStatus & WindowMainActive)
 	{
-		for (size_t i = 0, len = _mainDocTab.nbItem(); i < len ; ++i)
+		for (size_t i = 0, len = mainDocBuffers.size(); i < len ; ++i)
 		{
-			pBuf = MainFileManager.getBufferByID(_mainDocTab.getBufferByIndex(i));
+			pBuf = MainFileManager.getBufferByID(mainDocBuffers[i]);
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
 
 			setCodePageForInvisibleView(pBuf);
@@ -2308,17 +2313,20 @@ bool Notepad_plus::findInOpenedFiles()
 		}
 	}
 
-	size_t nbUniqueBuffers = _mainDocTab.nbItem();
+	size_t nbUniqueBuffers = mainDocBuffers.size();
 
 	if (!hasInvalidRegExpr && (_mainWindowStatus & WindowSubActive))
 	{
-		for (size_t i = 0, len2 = _subDocTab.nbItem(); i < len2 ; ++i)
+		std::vector<BufferID> subDocBuffers = _subDocTab.getBuffersByIndex();
+		for (size_t i = 0, len2 = subDocBuffers.size(); i < len2 ; ++i)
 		{
-			pBuf = MainFileManager.getBufferByID(_subDocTab.getBufferByIndex(i));
-			if (_mainDocTab.getIndexByBuffer(pBuf) != -1)
+			BufferID bufId = subDocBuffers[i];
+			pBuf = MainFileManager.getBufferByID(bufId);
+			if (std::find(mainDocBuffers.begin(), mainDocBuffers.end(), bufId) != mainDocBuffers.end())
 			{
 				continue;  // clone was already searched in main; skip re-searching in sub
 			}
+
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
 
 			setCodePageForInvisibleView(pBuf);
@@ -3518,9 +3526,10 @@ void Notepad_plus::removeAllHotSpot()
 	DocTabView* twoDocView[] { &_mainDocTab, &_subDocTab };
 	for (DocTabView* pDocView : twoDocView)
 	{
-		for (size_t i = 0; i < pDocView->nbItem(); ++i)
+		std::vector<BufferID> docBuffers = pDocView->getBuffersByIndex();
+		for (size_t i = 0; i < docBuffers.size(); ++i)
 		{
-			BufferID id = pDocView->getBufferByIndex(i);
+			BufferID id = docBuffers[i];
 			Buffer* buf = MainFileManager.getBufferByID(id);
 
 			if (buf->allowClickableLink()) // if it's not allowed clickabled link in the buffer, there's nothing to be cleared
@@ -4817,13 +4826,14 @@ void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool* pDontClos
 	}
 }
 
-bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne, bool closing)
+bool Notepad_plus::removeBufferFromView(int index, BufferID id, int whichOne)
 {
 	DocTabView * tabToClose = (whichOne == MAIN_VIEW) ? &_mainDocTab : &_subDocTab;
 	ScintillaEditView * viewToClose = (whichOne == MAIN_VIEW) ? &_mainEditView : &_subEditView;
 
 	//check if buffer exists
-	int index = closing ? -2 : tabToClose->getIndexByBuffer(id);
+	if (index == -1)
+		index = tabToClose->getIndexByBuffer(id);
 	if (index == -1)        //doesn't exist, done
 		return false;
 
@@ -4840,57 +4850,54 @@ bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne, bool closing)
 		}
 	}
 
-	if (!closing)
+	int active = tabToClose->getCurrentTabIndex();
+	if (active == index) //need an alternative (close real doc, put empty one back)
 	{
-		int active = tabToClose->getCurrentTabIndex();
-		if (active == index) //need an alternative (close real doc, put empty one back)
+		if (tabToClose->nbItem() == 1)  //need alternative doc, add new one. Use special logic to prevent flicker of adding new tab then closing other
 		{
-			if (tabToClose->nbItem() == 1)  //need alternative doc, add new one. Use special logic to prevent flicker of adding new tab then closing other
-			{
-				BufferID newID = MainFileManager.newEmptyDocument();
-				MainFileManager.addBufferReference(newID, viewToClose);
-				tabToClose->setBuffer(0, newID);        //can safely use id 0, last (only) tab open
-				activateBuffer(newID, whichOne);        //activate. DocTab already activated but not a problem
-			}
-			else
-			{
-				int toActivate = 0;
-				//activate next doc, otherwise prev if not possible
-				if (size_t(active) == tabToClose->nbItem() - 1) //prev
-				{
-					toActivate = active - 1;
-				}
-				else
-				{
-					toActivate = active;    //activate the 'active' index. Since we remove the tab first, the indices shift (on the right side)
-				}
-
-				if (NppParameters::getInstance().getNppGUI()._styleMRU)
-				{
-					// After closing a file choose the file to activate based on MRU list and not just last file in the list.
-					TaskListInfo taskListInfo;
-					::SendMessage(_pPublicInterface->getHSelf(), WM_GETTASKLISTINFO, reinterpret_cast<WPARAM>(&taskListInfo), 0);
-					size_t i, n = taskListInfo._tlfsLst.size();
-					for (i = 0; i < n; i++)
-					{
-						const TaskLstFnStatus& tfs = taskListInfo._tlfsLst[i];
-						if (tfs._iView != whichOne || tfs._bufID == id)
-							continue;
-						toActivate = tfs._docIndex >= active ? tfs._docIndex - 1 : tfs._docIndex;
-						break;
-					}
-				}
-
-				tabToClose->deletItemAt((size_t)index); //delete first
-				_isFolding = true; // So we can ignore events while folding is taking place
-				activateBuffer(tabToClose->getBufferByIndex(toActivate), whichOne);     //then activate. The prevent jumpy tab behaviour
-				_isFolding = false;
-			}
+			BufferID newID = MainFileManager.newEmptyDocument();
+			MainFileManager.addBufferReference(newID, viewToClose);
+			tabToClose->setBuffer(0, newID);        //can safely use id 0, last (only) tab open
+			activateBuffer(newID, whichOne);        //activate. DocTab already activated but not a problem
 		}
 		else
 		{
-			tabToClose->deletItemAt((size_t)index);
+			int toActivate = 0;
+			//activate next doc, otherwise prev if not possible
+			if (size_t(active) == tabToClose->nbItem() - 1) //prev
+			{
+				toActivate = active - 1;
+			}
+			else
+			{
+				toActivate = active;    //activate the 'active' index. Since we remove the tab first, the indices shift (on the right side)
+			}
+
+			if (NppParameters::getInstance().getNppGUI()._styleMRU)
+			{
+				// After closing a file choose the file to activate based on MRU list and not just last file in the list.
+				TaskListInfo taskListInfo;
+				::SendMessage(_pPublicInterface->getHSelf(), WM_GETTASKLISTINFO, reinterpret_cast<WPARAM>(&taskListInfo), 0);
+				size_t i, n = taskListInfo._tlfsLst.size();
+				for (i = 0; i < n; i++)
+				{
+					const TaskLstFnStatus& tfs = taskListInfo._tlfsLst[i];
+					if (tfs._iView != whichOne || tfs._bufID == id)
+						continue;
+					toActivate = tfs._docIndex >= active ? tfs._docIndex - 1 : tfs._docIndex;
+					break;
+				}
+			}
+
+			tabToClose->deletItemAt((size_t)index); //delete first
+			_isFolding = true; // So we can ignore events while folding is taking place
+			activateBuffer(tabToClose->getBufferByIndex(toActivate), whichOne);     //then activate. The prevent jumpy tab behaviour
+			_isFolding = false;
 		}
+	}
+	else
+	{
+		tabToClose->deletItemAt((size_t)index);
 	}
 
 	MainFileManager.closeBuffer(id, viewToClose);
@@ -5032,7 +5039,7 @@ void Notepad_plus::docOpenInNewInstance(FileTransferMode mode, int x, int y)
 	cmd.run(_pPublicInterface->getHSelf());
 	if (mode == TransferMove)
 	{
-		doClose(bufferID, currentView());
+		doClose(-1, bufferID, currentView());
 		if (noOpenedDoc())
 			::SendMessage(_pPublicInterface->getHSelf(), WM_CLOSE, 0, 0);
 	}
@@ -5110,7 +5117,7 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 		monitoringWasOn = buf->isMonitoringOn();
 
 		//just close the activate document, since thats the one we moved (no search)
-		doClose(_pEditView->getCurrentBufferID(), currentView());
+		doClose(-1, _pEditView->getCurrentBufferID(), currentView());
 	} // else it was cone, so leave it
 
 	//Activate the other view since thats where the document went
@@ -5947,24 +5954,25 @@ bool Notepad_plus::switchToFile(BufferID id)
 
 void Notepad_plus::getTaskListInfo(TaskListInfo *tli)
 {
-	int currentNbDoc = static_cast<int32_t>(_pDocTab->nbItem());
-	int nonCurrentNbDoc = static_cast<int32_t>(_pNonDocTab->nbItem());
+	std::vector<BufferID> currentNbDocBuffers = _pDocTab->getBuffersByIndex();
+	std::vector<BufferID> nonCurrentNbDocBuffers;
 
 	tli->_currentIndex = 0;
 
-	if (!viewVisible(otherView()))
-		nonCurrentNbDoc = 0;
+	if (viewVisible(otherView()))
+		nonCurrentNbDocBuffers = _pNonDocTab->getBuffersByIndex();
 
-	for (int i = 0 ; i < currentNbDoc ; ++i)
+	for (int i = 0 ; i < currentNbDocBuffers.size(); ++i)
 	{
-		BufferID bufID = _pDocTab->getBufferByIndex(i);
+		BufferID bufID = currentNbDocBuffers[i];
 		Buffer * b = MainFileManager.getBufferByID(bufID);
 		int status = b->isMonitoringOn()?tb_monitored:(b->isReadOnly()?tb_ro:(b->isDirty()?tb_unsaved:tb_saved));
 		tli->_tlfsLst.push_back(TaskLstFnStatus(currentView(), i, b->getFullPathName(), status, (void *)bufID, b->getDocColorId()));
 	}
-	for (int i = 0 ; i < nonCurrentNbDoc ; ++i)
+
+	for (int i = 0 ; i < nonCurrentNbDocBuffers.size(); ++i)
 	{
-		BufferID bufID = _pNonDocTab->getBufferByIndex(i);
+		BufferID bufID = nonCurrentNbDocBuffers[i];
 		Buffer * b = MainFileManager.getBufferByID(bufID);
 		int status = b->isMonitoringOn()?tb_monitored:(b->isReadOnly()?tb_ro:(b->isDirty()?tb_unsaved:tb_saved));
 		tli->_tlfsLst.push_back(TaskLstFnStatus(otherView(), i, b->getFullPathName(), status, (void *)bufID, b->getDocColorId()));
@@ -6531,9 +6539,10 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includeUntitled
 	docTab[1] = &_subDocTab;
 	for (size_t k = 0; k < nbElem; ++k)
 	{
-		for (size_t i = 0, len = docTab[k]->nbItem(); i < len ; ++i)
+		std::vector<BufferID> docBuffers = docTab[k]->getBuffersByIndex();
+		for (size_t i = 0, len = docBuffers.size(); i < len ; ++i)
 		{
-			BufferID bufID = docTab[k]->getBufferByIndex(i);
+			BufferID bufID = docBuffers[i];
 			ScintillaEditView *editView = k == 0 ? &_mainEditView : &_subEditView;
 			size_t activeIndex = k == 0 ? session._activeMainIndex : session._activeSubIndex;
 			vector<sessionFileInfo> *viewFiles = (vector<sessionFileInfo> *)(k == 0?&(session._mainViewFiles):&(session._subViewFiles));
@@ -6855,8 +6864,8 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 					{
 						//close in both views, doing current view last since that has to remain opened
 						bool isSnapshotMode = nppGUI.isSnapshotMode();
-						doClose(buffer->getID(), otherView(), isSnapshotMode);
-						doClose(buffer->getID(), currentView(), isSnapshotMode);
+						doClose(-1, buffer->getID(), otherView(), isSnapshotMode);
+						doClose(-1, buffer->getID(), currentView(), isSnapshotMode);
 						return;
 					}
 					else
@@ -9469,9 +9478,10 @@ void Notepad_plus::changeReadOnlyUserModeForAllOpenedTabs(const bool ro)
 	std::vector<DocTabView*> tabViews = { &_mainDocTab, &_subDocTab };
 	for (auto& pTabView : tabViews)
 	{
-		for (size_t i = 0; i < pTabView->nbItem(); ++i)
+		std::vector<BufferID> viewBuffers = pTabView->getBuffersByIndex();
+		for (size_t i = 0; i < viewBuffers.size(); ++i)
 		{
-			BufferID id = pTabView->getBufferByIndex(i);
+			BufferID id = viewBuffers[i];
 			if (id != BUFFER_INVALID)
 			{
 				Buffer* buf = MainFileManager.getBufferByID(id);

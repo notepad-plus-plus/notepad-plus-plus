@@ -278,6 +278,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			// (mouse wheel vertical & horizontal scroll amount, DirectWrite rendering params, base elements, style etc.)
 			::SendMessage(_mainEditView.getHSelf(), WM_SETTINGCHANGE, wParam, lParam);
 			::SendMessage(_subEditView.getHSelf(), WM_SETTINGCHANGE, wParam, lParam);
+			HWND hFindResults = _findReplaceDlg.getHFindResults();
+			if (hFindResults != NULL)
+			{
+				::SendMessage(hFindResults, WM_SETTINGCHANGE, wParam, lParam);
+			}
 
 			return ::DefWindowProc(hwnd, message, wParam, lParam);
 		}

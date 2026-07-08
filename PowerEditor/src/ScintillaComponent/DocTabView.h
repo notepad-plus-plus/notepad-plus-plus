@@ -55,6 +55,7 @@ public:
 	BufferID activeBuffer();
 	BufferID findBufferByName(const wchar_t * fullfilename);	//-1 if not found, something else otherwise
 
+	std::vector<BufferID> getBuffersByIndex();
 	int getIndexByBuffer(BufferID id);
 	BufferID getBufferByIndex(size_t index);
 
@@ -89,7 +90,6 @@ public:
 			index = 0;
 		return _pIconListVector[index]->getHandle();
 	}
-
 private :
 	ScintillaEditView *_pView = nullptr;
 

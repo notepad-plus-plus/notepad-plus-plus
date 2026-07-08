@@ -658,6 +658,11 @@ enum class CharacterSource {
 	ImeResult = 2,
 };
 
+enum class ScaleTechnique {
+	Default = 0,
+	PixelAligned = 1,
+};
+
 enum class Bidirectional {
 	Disabled = 0,
 	L2R = 1,

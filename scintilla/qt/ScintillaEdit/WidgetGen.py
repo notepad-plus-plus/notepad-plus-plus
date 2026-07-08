@@ -44,6 +44,7 @@ typeAliases = {
 	"colour": "int",
 	"colouralpha": "int",
 	"keymod": "int",
+	"pixels": "int",
 	"string": "const char *",
 	"stringresult": "const char *",
 	"cells": "const char *",
@@ -58,7 +59,7 @@ def cppAlias(s):
 		return s
 
 understoodTypes = ["", "void", "int", "bool", "position", "line", "pointer",
-	"colour", "colouralpha", "keymod", "string", "stringresult", "cells"]
+	"colour", "colouralpha", "keymod", "pixels", "string", "stringresult", "cells"]
 
 def understoodType(t):
 	return t in understoodTypes or Face.IsEnumeration(t)
@@ -76,21 +77,103 @@ def checkTypes(name, v):
 		understandAllTypes = False
 	return understandAllTypes
 
-def arguments(v, stringResult, options):
+def isPixel(t):
+	return t == "pixels"
+
+def hasPixels(v):
+	return isPixel(v["ReturnType"]) or isPixel(v["Param1Type"]) or isPixel(v["Param2Type"])
+
+def floatSuffix(options):
+	return "F" if options["qtStyle"] else "_f"
+
+def argCppType(t, floatVariant):
+	# The float (_f) twin takes logical pixels as a double; the int variant
+	# takes the plain integer alias.
+	if floatVariant and isPixel(t):
+		return "double"
+	a = cppAlias(t)
+	if a == "int":
+		a = "sptr_t"
+	return a
+
+def returnCppType(v, stringResult, floatVariant):
+	if stringResult:
+		return "QByteArray"
+	if floatVariant and isPixel(v["ReturnType"]):
+		return "double"
+	r = cppAlias(v["ReturnType"])
+	if r == "int":
+		r = "sptr_t"
+	return r
+
+def arguments(v, stringResult, options, floatVariant):
 	ret = ""
-	p1Type = cppAlias(v["Param1Type"])
-	if p1Type == "int":
-		p1Type = "sptr_t"
+	p1Type = argCppType(v["Param1Type"], floatVariant)
 	if p1Type:
 		ret = ret + p1Type + " " + normalisedName(v["Param1Name"], options)
-	p2Type = cppAlias(v["Param2Type"])
-	if p2Type == "int":
-		p2Type = "sptr_t"
+	p2Type = argCppType(v["Param2Type"], floatVariant)
 	if p2Type and not stringResult:
 		if p1Type:
 			ret = ret + ", "
 		ret = ret + p2Type + " " + normalisedName(v["Param2Name"], options)
 	return ret
+
+def sendArg(ptype, pname, options):
+	# Expression passed to send() for one parameter slot. A pixels slot takes
+	# logical pixels from the caller; the engine expects device pixels.
+	if not cppAlias(ptype):
+		return "0"
+	name = normalisedName(pname, options) if pname else "0"
+	if isPixel(ptype):
+		return "qRound64(" + name + " * sciScale)"
+	if "*" in cppAlias(ptype):
+		return "(sptr_t)" + name
+	return name
+
+def declaration(name, v, feat, options, floatVariant):
+	constDeclarator = " const" if feat == "get" else ""
+	stringResult = v["Param2Type"] == "stringresult"
+	returnType = returnCppType(v, stringResult, floatVariant)
+	suffix = floatSuffix(options) if floatVariant else ""
+	return ("\t" + returnType + " " + normalisedName(name, options, feat) + suffix + "(" +
+		arguments(v, stringResult, options, floatVariant) +
+		")" + constDeclarator + ";")
+
+def definition(name, v, feat, options, floatVariant):
+	out = []
+	constDeclarator = " const" if feat == "get" else ""
+	featureDefineName = "SCI_" + name.upper()
+	stringResult = v["Param2Type"] == "stringresult"
+	returnType = returnCppType(v, stringResult, floatVariant)
+	suffix = floatSuffix(options) if floatVariant else ""
+	out.append(returnType + " ScintillaEdit::" + normalisedName(name, options, feat) + suffix + "(" +
+		arguments(v, stringResult, options, floatVariant) +
+		")" + constDeclarator + " {")
+	if hasPixels(v):
+		# The "ScintillaScale" viewport property (set by ScintillaQt::SetScaleProperty)
+		# is the device-pixel ratio under SCALE_TECHNIQUE_PIXEL_ALIGNED and 0.0
+		# otherwise; treat 0.0 as 1.0 so the conversion is a no-op when unscaled.
+		out.append("    const double sciScaleProp = viewport()->property(\"ScintillaScale\").toDouble();")
+		out.append("    const double sciScale = sciScaleProp ? sciScaleProp : 1.0;")
+	returnStatement = "return " if returnType != "void" else ""
+	if stringResult:
+		out.append("    " + returnStatement + "TextReturner(" + featureDefineName + ", " +
+			sendArg(v["Param1Type"], v["Param1Name"], options) + ");")
+	else:
+		call = ("send(" + featureDefineName + ", " +
+			sendArg(v["Param1Type"], v["Param1Name"], options) + ", " +
+			sendArg(v["Param2Type"], v["Param2Name"], options) + ")")
+		if isPixel(v["ReturnType"]):
+			# Engine returns device pixels; hand back logical pixels.
+			if floatVariant:
+				out.append("    " + returnStatement + call + " / sciScale;")
+			else:
+				out.append("    " + returnStatement + "qRound64(" + call + " / sciScale);")
+		else:
+			out.append("    " + returnStatement + call + ";")
+	out.append("}")
+	out.append("")
+	return out
 
 def printHFile(f, options):
 	out = []
@@ -100,16 +183,9 @@ def printHFile(f, options):
 			feat = v["FeatureType"]
 			if feat in ["fun", "get", "set"]:
 				if checkTypes(name, v):
-					constDeclarator = " const" if feat == "get" else ""
-					returnType = cppAlias(v["ReturnType"])
-					if returnType == "int":
-						returnType = "sptr_t"
-					stringResult = v["Param2Type"] == "stringresult"
-					if stringResult:
-						returnType = "QByteArray"
-					out.append("\t" + returnType + " " + normalisedName(name, options, feat) + "(" +
-						arguments(v, stringResult, options)+
-						")" + constDeclarator + ";")
+					out.append(declaration(name, v, feat, options, False))
+					if hasPixels(v):
+						out.append(declaration(name, v, feat, options, True))
 	return out
 
 def methodNames(f, options):
@@ -129,49 +205,9 @@ def printCPPFile(f, options):
 			feat = v["FeatureType"]
 			if feat in ["fun", "get", "set"]:
 				if checkTypes(name, v):
-					constDeclarator = " const" if feat == "get" else ""
-					featureDefineName = "SCI_" + name.upper()
-					returnType = cppAlias(v["ReturnType"])
-					if returnType == "int":
-						returnType = "sptr_t"
-					stringResult = v["Param2Type"] == "stringresult"
-					if stringResult:
-						returnType = "QByteArray"
-					returnStatement = ""
-					if returnType != "void":
-						returnStatement = "return "
-					out.append(returnType + " ScintillaEdit::" + normalisedName(name, options, feat) + "(" +
-						arguments(v, stringResult, options) +
-						")" + constDeclarator + " {")
-					returns = ""
-					if stringResult:
-						returns += "    " + returnStatement + "TextReturner(" + featureDefineName + ", "
-						if "*" in cppAlias(v["Param1Type"]):
-							returns += "(sptr_t)"
-						if v["Param1Name"]:
-							returns += normalisedName(v["Param1Name"], options)
-						else:
-							returns += "0"
-						returns += ");"
-					else:
-						returns += "    " + returnStatement + "send(" + featureDefineName + ", "
-						if "*" in cppAlias(v["Param1Type"]):
-							returns += "(sptr_t)"
-						if v["Param1Name"]:
-							returns += normalisedName(v["Param1Name"], options)
-						else:
-							returns += "0"
-						returns += ", "
-						if "*" in cppAlias(v["Param2Type"]):
-							returns += "(sptr_t)"
-						if v["Param2Name"]:
-							returns += normalisedName(v["Param2Name"], options)
-						else:
-							returns += "0"
-						returns += ");"
-					out.append(returns)
-					out.append("}")
-					out.append("")
+					out += definition(name, v, feat, options, False)
+					if hasPixels(v):
+						out += definition(name, v, feat, options, True)
 	return out
 
 def gtkNames():
@@ -199,7 +235,9 @@ def usage():
 def readInterface(cleanGenerated):
 	f = Face.Face()
 	if not cleanGenerated:
-		f.ReadFromFile("../../include/Scintilla.iface")
+		# pickUpPixels lets Face apply the '## ... pixels ...' annotations so the
+		# pixel slots come back typed as "pixels"; the int + _f twins follow.
+		f.ReadFromFile("../../include/Scintilla.iface", pickUpPixels=True)
 	return f
 
 def main(argv):

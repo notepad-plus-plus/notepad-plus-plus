@@ -33,6 +33,7 @@ ScintillaQt::ScintillaQt(QAbstractScrollArea *parent)
 {
 
 	wMain = scrollArea->viewport();
+	scrollArea->viewport()->setProperty("ScintillaScale", 0.0);
 
 	imeInteraction = IMEInteraction::Inline;
 
@@ -276,6 +277,11 @@ std::string ScintillaQt::EncodedFromUTF8(std::string_view utf8) const {
 void ScintillaQt::ScrollText(Sci::Line linesToMove)
 {
 	int dy = vs.lineHeight * (linesToMove);
+	if (IsPixelAlignedScale()) {
+		// lineHeight is in device pixels, viewport()->scroll() needs logical pixels
+		const qreal scale = window(wMain.GetID())->devicePixelRatioF();
+		dy = qRound(dy / scale);
+	}
 	scrollArea->viewport()->scroll(0, dy);
 }
 
@@ -715,7 +721,13 @@ void ScintillaQt::CreateCallTipWindow(PRectangle rc)
 
 	if (!ct.wCallTip.Created()) {
 		QWidget *pCallTip = new CallTipImpl(scrollArea->window()->windowHandle(), &ct);
+		const qreal scaleDevice = ScaleOfWindow(wMain.GetID());
+		pCallTip->setProperty("ScintillaScale",
+			scaleTechnique == ScaleTechnique::PixelAligned ? scaleDevice : 0.0);
+
 		ct.wCallTip = pCallTip;
+		if (scaleDevice)
+			rc = rc * scaleDevice;
 		pCallTip->move(rc.left, rc.top);
 		pCallTip->resize(rc.Width(), rc.Height());
 	}
@@ -771,6 +783,16 @@ sptr_t ScintillaQt::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam)
 		case Message::GetRectangularSelectionModifier:
 			return rectangularSelectionModifier;
 
+		case Message::SetScaleTechnique:
+			scaleTechnique = static_cast<ScaleTechnique>(wParam);
+			// Scale property needs to be set before InvalidateStyleRedraw()
+			SetScaleProperty();
+			InvalidateStyleRedraw();
+			break;
+
+		case Message::GetScaleTechnique:
+			return static_cast<sptr_t>(scaleTechnique);
+
 		default:
 			return ScintillaBase::WndProc(iMessage, wParam, lParam);
 		}
@@ -805,20 +827,55 @@ sptr_t ScintillaQt::DirectStatusFunction(
 	return returnValue;
 }
 
+void ScintillaQt::SetScaleProperty()
+{
+	qreal scale = 0.0;
+	if (scaleTechnique == ScaleTechnique::PixelAligned) {
+		QWidget *widget = window(wMain.GetID());
+		scale = widget->devicePixelRatioF();
+	}
+	scrollArea->viewport()->setProperty("ScintillaScale", scale);
+}
+
 // Additions to merge in Scientific Toolworks widget structure
 
 void ScintillaQt::PartialPaint(const PRectangle &rect)
 {
-	rcPaint = rect;
+	SetScaleProperty();
+	if (scaleTechnique == ScaleTechnique::PixelAligned) {
+		QWidget *widget = window(wMain.GetID());
+		rcPaint = rect * widget->devicePixelRatioF();
+	} else {
+		rcPaint = rect;
+	}
 	paintState = PaintState::painting;
 	PRectangle rcClient = GetClientRectangle();
 	paintingAllText = rcPaint.Contains(rcClient);
 
 	AutoSurface surfacePaint(this);
-	Paint(surfacePaint, rcPaint);
+	if (scaleTechnique == ScaleTechnique::PixelAligned) {
+		// Create Bitmap of exactly window size then blit after Paint call
+		QWidget *widget = window(wMain.GetID());
+		const qreal scale = widget->devicePixelRatioF();
+		const QSize sz = widget->size() * scale;
+		const int w = sz.width();
+		const int h = sz.height();
+		std::unique_ptr<Surface> surfPix = SurfaceImpl_AllocatePixMap(w, h, CurrentSurfaceMode(), 0.0);
+		PRectangle rcScaled = PRectangle::FromInts(0, 0, w, h);
+		Paint(surfPix.get(), rcScaled);
+		surfacePaint->Copy(rcScaled, Point(0,0), *surfPix);
+	} else {
+		Paint(surfacePaint, rcPaint);
+	}
 	surfacePaint->Release();
 
 	if (paintState == PaintState::abandoned) {
+		if (scaleTechnique == ScaleTechnique::PixelAligned) {
+			// Should try more repair but just queue a full repaint.
+			scrollArea->viewport()->update();
+			paintState = PaintState::notPainting;
+			return;
+		}
 		// FIXME: Failure to paint the requested rectangle in each
 		// paint event causes flicker on some platforms (Mac?)
 		// Paint rect immediately.

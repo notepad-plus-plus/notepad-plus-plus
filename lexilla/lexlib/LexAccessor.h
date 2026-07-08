@@ -113,6 +113,7 @@ public:
 		}
 		return true;
 	}
+	[[nodiscard]] bool Match(Sci_Position pos, std::string_view sv);
 	bool MatchIgnoreCase(Sci_Position pos, const char *s);
 
 	// Get first len - 1 characters in range [startPos_, endPos_).

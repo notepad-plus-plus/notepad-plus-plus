@@ -5106,6 +5106,8 @@ struct Sci_TextToFindFull {
     </code>
 <div  class="provisional">
     <code>
+     <a class="message" href="#SCI_SETSCALETECHNIQUE">SCI_SETSCALETECHNIQUE(int technique)</a><br />
+     <a class="message" href="#SCI_GETSCALETECHNIQUE">SCI_GETSCALETECHNIQUE &rarr; int</a><br />
      <a class="message" href="#SCI_SETBIDIRECTIONAL"><span class="provisional">SCI_SETBIDIRECTIONAL(int bidirectional)</span></a><br />
      <a class="message" href="#SCI_GETBIDIRECTIONAL">SCI_GETBIDIRECTIONAL &rarr; int</a><br />
     </code>
@@ -5354,6 +5356,35 @@ struct Sci_TextToFindFull {
      <p>When the inline IME mode is active, characters are added tentatively before being finalised and an
      <a class="message" href="#SCN_CHARADDED">SCN_CHARADDED</a>
      notification (with <code class="parameter">characterSource</code> set to <code>SC_CHARACTERSOURCE_TENTATIVE_INPUT</code>) is sent for each character.</p>
+
+<div  class="provisional">
+   <p><b id="SCI_SETSCALETECHNIQUE">SCI_SETSCALETECHNIQUE(int technique)</b><br />
+     <b id="SCI_GETSCALETECHNIQUE">SCI_GETSCALETECHNIQUE &rarr; int</b><br />
+     This setting changes the implementation of display scaling on some platforms.</p>
+
+    <table class="standard" summary="Technology choice">
+      <tbody valign="top">
+        <tr>
+          <th align="left"><code>SCALE_TECHNIQUE_DEFAULT</code></th>
+
+          <td>0</td>
+
+          <td>Default behaviour for the platform.</td>
+        </tr>
+
+        <tr>
+          <th align="left"><code>SCALE_TECHNIQUE_PIXEL_ALIGNED</code></th>
+
+          <td>1</td>
+
+          <td>Align top and bottom of lines to physical pixels and avoid 'seams' between background rectangles for fractional scaling.
+	  Implemented on Qt. This mode may be slower than the default.</td>
+        </tr>
+
+      </tbody>
+    </table>
+</div>
+    <br />
 
 <div  class="provisional">
     <a href="#ProvisionalMessages">These bidirectional features are experimental and incomplete.</a><br />

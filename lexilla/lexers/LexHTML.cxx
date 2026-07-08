@@ -1693,6 +1693,9 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 				}
 			} else if ((state != SCE_H_SGML_BLOCK_DEFAULT) && isWordCdata(i + 1, i + 7, styler)) {
 				state = SCE_H_CDATA;
+				styler.ColourTo(i + 1, SCE_H_SGML_DEFAULT);
+				styler.ColourTo(i + 1 + 5, SCE_H_SGML_COMMAND);
+				styler.ColourTo(i + 1 + 5 + 1, SCE_H_SGML_DEFAULT);
 			} else {
 				styler.ColourTo(i, SCE_H_SGML_DEFAULT); // <! is default
 				beforeLanguage = scriptLanguage;
@@ -1944,7 +1947,8 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 			break;
 		case SCE_H_CDATA:
 			if ((chPrev2 == ']') && (chPrev == ']') && (ch == '>')) {
-				styler.ColourTo(i, StateToPrint);
+				styler.ColourTo(i - 3, StateToPrint);
+				styler.ColourTo(i, SCE_H_SGML_DEFAULT);
 				state = SCE_H_DEFAULT;
 				levelCurrent--;
 			}
@@ -2570,7 +2574,7 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 			} else if (ch == '$' && IsPhpWordStart(chNext)) {
 				styler.ColourTo(i - 1, StateToPrint);
 				state = SCE_HPHP_HSTRING_VARIABLE;
-			} else if (styler.Match(i, phpStringDelimiter.c_str())) {
+			} else if (styler.Match(i, phpStringDelimiter)) {
 				if (phpStringDelimiter == "\"") {
 					styler.ColourTo(i, StateToPrint);
 					state = SCE_HPHP_DEFAULT;
@@ -2594,7 +2598,7 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 					styler.ColourTo(i, StateToPrint);
 					state = SCE_HPHP_DEFAULT;
 				}
-			} else if (lineStartVisibleChars == 1 && styler.Match(i, phpStringDelimiter.c_str())) {
+			} else if (lineStartVisibleChars == 1 && styler.Match(i, phpStringDelimiter)) {
 				const int psdLength = static_cast<int>(phpStringDelimiter.length());
 				if (!IsPhpWordChar(styler.SafeGetCharAt(i + psdLength))) {
 					i += (((i + psdLength) < lengthDoc) ? psdLength : lengthDoc) - 1;

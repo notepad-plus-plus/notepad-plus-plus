@@ -127,6 +127,13 @@ bool ScintillaEditBase::event(QEvent *event)
 	} else if (event->type() == QEvent::Hide) {
 		setMouseTracking(false);
 		result = QAbstractScrollArea::event(event);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
+	} else if (event->type() == QEvent::DevicePixelRatioChange) {
+		// Reset cached data
+		sqt->SetScaleProperty();
+		sqt->InvalidateStyleRedraw();
+		result = QAbstractScrollArea::event(event);
+#endif
 	} else {
 		result = QAbstractScrollArea::event(event);
 	}
@@ -318,7 +325,7 @@ Point PointOfEvent(const QDropEvent *event)
 
 void ScintillaEditBase::mousePressEvent(QMouseEvent *event)
 {
-	const Point pos = PointFromQPoint(event->pos());
+	const Point pos = PointFromQPoint(event->pos()) * (sqt->IsPixelAlignedScale() ? devicePixelRatioF() : 1.0);
 
 	emit buttonPressed(event);
 
@@ -347,7 +354,7 @@ void ScintillaEditBase::mousePressEvent(QMouseEvent *event)
 
 void ScintillaEditBase::mouseReleaseEvent(QMouseEvent *event)
 {
-	const QPoint point = event->pos();
+	const QPoint point = event->pos() * (sqt->IsPixelAlignedScale() ? devicePixelRatioF() : 1.0);
 	if (event->button() == Qt::LeftButton)
 		sqt->ButtonUpWithModifiers(PointFromQPoint(point), TimeOfEvent(time), ModifiersOfKeyboard());
 
@@ -367,7 +374,7 @@ void ScintillaEditBase::mouseDoubleClickEvent(QMouseEvent *event)
 
 void ScintillaEditBase::mouseMoveEvent(QMouseEvent *event)
 {
-	const Point pos = PointFromQPoint(event->pos());
+	const Point pos = PointFromQPoint(event->pos())  * (sqt->IsPixelAlignedScale() ? devicePixelRatioF() : 1.0);
 
 	const bool shift = QApplication::keyboardModifiers() & Qt::ShiftModifier;
 	const bool ctrl  = QApplication::keyboardModifiers() & Qt::ControlModifier;
@@ -503,7 +510,7 @@ std::vector<int> MapImeIndicators(QInputMethodEvent *event)
 			if (format.hasProperty(QTextFormat::BackgroundBrush)) // win32, linux
 				indicator = IndicatorTarget;
 
-#ifdef Q_OS_OSX
+#ifdef Q_OS_MACOS
 			if (charFormat.underlineStyle() == QTextCharFormat::SingleUnderline) {
 				QColor uc = charFormat.underlineColor();
 				if (uc.lightness() < 2) { // osx

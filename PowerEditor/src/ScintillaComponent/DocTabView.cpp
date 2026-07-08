@@ -41,6 +41,39 @@ static constexpr int docTabIconIDs[] = { IDI_SAVED_ICON, IDI_UNSAVED_ICON, IDI_R
 static constexpr int docTabIconIDs_darkMode[] = { IDI_SAVED_DM_ICON, IDI_UNSAVED_DM_ICON, IDI_READONLY_DM_ICON, IDI_READONLYSYS_DM_ICON, IDI_MONITORING_DM_ICON };
 static constexpr int docTabIconIDs_alt[] = { IDI_SAVED_ALT_ICON, IDI_UNSAVED_ALT_ICON, IDI_READONLY_ALT_ICON, IDI_READONLYSYS_ALT_ICON, IDI_MONITORING_ICON };
 
+static void encodeTabName(const Buffer* buffer, wchar_t* out, size_t outSize)
+{
+	//This code will read in one character at a time and duplicate every first ampersand(&).
+	//ex. If input is "test & test && test &&&" then output will be "test && test &&& test &&&&".
+	//Tab's caption must be encoded like this because otherwise tab control would make tab too small or too big for the text.
+
+	const wchar_t* in = buffer->getCompactFileName();
+	size_t i = 0;
+
+	while (*in != 0 && i < outSize)
+	{
+		i++;
+		if (*in == '&')
+		{
+			*out++ = '&';
+			*out++ = '&';
+			while (*(++in) == '&')
+				*out++ = '&';
+		}
+		else
+			*out++ = *in++;
+	}
+
+	if (buffer->getStatus() == DOC_LAZYLOAD && i - 4 < outSize)
+	{
+		*(out++) = L'(';
+		*(out++) = L'L';
+		*(out++) = L')';
+	}
+
+	*out = '\0';
+}
+
 void DocTabView::init(HINSTANCE hInst, HWND parent, ScintillaEditView* pView, unsigned char indexChoice, unsigned char buttonsStatus)
 {
 	TabBarPlus::init(hInst, parent, false, false, buttonsStatus);
@@ -77,6 +110,10 @@ void DocTabView::addBuffer(BufferID buffer, bool lazy)
 		return;
 	if (!lazy && getIndexByBuffer(buffer) != -1)	//no duplicates
 		return;
+
+	//We must make space for the added ampersand characters.
+	wchar_t encodedLabel[2 * MAX_PATH] = { '\0' };
+
 	const Buffer* buf = MainFileManager.getBufferByID(buffer);
 	TCITEM tie{};
 	tie.mask = TCIF_TEXT | TCIF_IMAGE | TCIF_PARAM;
@@ -85,8 +122,9 @@ void DocTabView::addBuffer(BufferID buffer, bool lazy)
 	if (_hasImgLst)
 		index = 0;
 	tie.iImage = index;
-	tie.pszText = const_cast<wchar_t*>(buf->getCompactFileName());
+	tie.pszText = encodedLabel;
 	tie.lParam = reinterpret_cast<LPARAM>(buffer);
+	encodeTabName(buffer, encodedLabel, sizeof(encodedLabel) / sizeof(encodedLabel[0]));
 	::SendMessage(_hSelf, TCM_INSERTITEM, _nbItem++, reinterpret_cast<LPARAM>(&tie));
 
 	if (lazy)
@@ -233,27 +271,7 @@ void DocTabView::bufferUpdated(const Buffer* buffer, int mask)
 	{
 		tie.mask |= TCIF_TEXT;
 		tie.pszText = encodedLabel;
-
-		{
-			const wchar_t* in = buffer->getCompactFileName();
-			wchar_t* out = encodedLabel;
-
-			//This code will read in one character at a time and duplicate every first ampersand(&).
-			//ex. If input is "test & test && test &&&" then output will be "test && test &&& test &&&&".
-			//Tab's caption must be encoded like this because otherwise tab control would make tab too small or too big for the text.
-
-			while (*in != 0)
-			if (*in == '&')
-			{
-				*out++ = '&';
-				*out++ = '&';
-				while (*(++in) == '&')
-					*out++ = '&';
-			}
-			else
-				*out++ = *in++;
-			*out = '\0';
-		}
+		encodeTabName(buffer, encodedLabel, sizeof(encodedLabel) / sizeof(encodedLabel[0]));
 	}
 
 	::SendMessage(_hSelf, TCM_SETITEM, index, reinterpret_cast<LPARAM>(&tie));

@@ -1135,6 +1135,16 @@ bool FileManager::reloadBuffer(BufferID id)
 		buf->setSavePointDirty(false);
 
 		setLoadedBufferEncodingAndEol(buf, unicodeConvertor, loadedFileFormat._encoding, loadedFileFormat._eolFormat);
+
+		if (buf->getStatus() == DOC_LAZYLOAD)
+		{
+			buf->setStatus(DOC_REGULAR);
+			buf->updateTimeStamp();
+		}
+	}
+	else if (buf->getStatus() == DOC_LAZYLOAD)
+	{
+		buf->setStatus(DOC_INACCESSIBLE);
 	}
 
 	return res;

@@ -2578,7 +2578,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 		}
 		else
 		{
-			lastOpened = MainFileManager.newPlaceholderDocument(pFn, SUB_VIEW, userCreatedSessionName, true, &dontCloseDefaultView);
+			lastOpened = MainFileManager.newPlaceholderDocument(pFn, MAIN_VIEW, userCreatedSessionName, true, &dontCloseDefaultView);
 		}
 #ifndef	_WIN64
 		if (isWow64Off)
@@ -2729,12 +2729,12 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 				else if (doesFileExist(pFn))
 					lastOpened = doOpen(pFn, false, false, session._subViewFiles[k]._encoding);
 				else
-					lastOpened = MainFileManager.newPlaceholderDocument(pFn, SUB_VIEW, userCreatedSessionName, true, &dontCloseDefaultView);
+					lastOpened = MainFileManager.newPlaceholderDocument(pFn, MAIN_VIEW, userCreatedSessionName, true, &dontCloseDefaultView);
 			}
 		}
 		else
 		{
-			lastOpened = MainFileManager.newPlaceholderDocument(pFn, SUB_VIEW, userCreatedSessionName, true, &dontCloseDefaultView);
+			lastOpened = MainFileManager.newPlaceholderDocument(pFn, MAIN_VIEW, userCreatedSessionName, true, &dontCloseDefaultView);
 		}
 #ifndef	_WIN64
 		if (isWow64Off)

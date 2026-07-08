@@ -34,7 +34,7 @@ enum DocFileStatus {
 	DOC_MODIFIED     = 0x08, // File in environment has changed
 	DOC_NEEDRELOAD   = 0x10, // File is modified & needed to be reload (by log monitoring)
 	DOC_INACCESSIBLE = 0x20, // File is absent on its load; this status is temporay for setting file not dirty & readonly; and it will be replaced to DOC_DELETED
-	DOC_LAZYLOAD     = 0x21
+	DOC_LAZYLOAD     = 0x40  // File is present but not loaded, instead it is only loaded once active ( will affect operations requiring the buffer like search )
 };
 
 enum BufferStatusInfo {
@@ -121,8 +121,7 @@ public:
 	void enableAutoDetectEncoding4Loading() { isAutoDetectEncodingDisabled4Loading = false; }
 	void disableAutoDetectEncoding4Loading() { isAutoDetectEncodingDisabled4Loading = true; } // Disable the encoding auto-detection on loading file while switching among the different encoding.
 	                                                                                          // The value of isAutoDetectEncodingDisabled4Loading will be restored to false after each file loading 
-	                                                                                          // to restore the encoding auto-detection ability for other file loading operations. 
-
+	                                                                                          // to restore the encoding auto-detection ability for other file loading operations.
 private:
 	struct LoadedFileFormat {
 		LoadedFileFormat() = default;
@@ -394,7 +393,6 @@ public:
 
 	bool isPinned() const { return _isPinned; }
 	void setPinned(bool isPinned) { _isPinned = isPinned; }
-
 private:
 	int indexOfReference(const ScintillaEditView * identifier) const;
 

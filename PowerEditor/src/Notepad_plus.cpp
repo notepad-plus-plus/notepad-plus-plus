@@ -4232,6 +4232,10 @@ void Notepad_plus::setTitle()
 	{
 		result += L"*";
 	}
+	else if (buf->getStatus() == DOC_LAZYLOAD)
+	{
+		result += L"(L)";
+	}
 
 	if (nppGUI._shortTitlebar)
 	{
@@ -5252,12 +5256,17 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne, bool forceApplyHili
 			return false;
 	}
 
-	if (reload)
+	if (reload || lazy)
 	{
 		performPostReload(whichOne);
 	}
 
 	notifyBufferActivated(id, whichOne);
+
+	int status = (int)pBuf->getStatus();
+	wchar_t buffer[1024];
+	_snwprintf(buffer, 1023, L"activateBuffer: %s, %d", pBuf->getCompactFileName(), status);
+	OutputDebugStringW(buffer);
 
 	return true;
 }

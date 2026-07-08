@@ -4633,6 +4633,7 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 					{
 						lastOpened = test;
 						if (_pDocumentListPanel)
+							_pDocumentListPanel->getHSelf();
 							_pDocumentListPanel->newItem(MainFileManager.getBufferByID(lastOpened), currentView());
 					}
 				}
@@ -9518,5 +9519,27 @@ void Notepad_plus::changeReadOnlyUserModeForAllOpenedTabs(const bool ro)
 					buf->setUserReadOnly(ro);
 			}
 		}
+	}
+}
+
+Notepad_plus::_DeferRedrawHelper::_DeferRedrawHelper(Notepad_plus* s) : _self(s) {
+	SendMessage(_self->_mainDocTab.getHSelf(), WM_SETREDRAW, FALSE, 0);
+	SendMessage(_self->_subDocTab.getHSelf(), WM_SETREDRAW, FALSE, 0);
+	if (_self->_pDocumentListPanel)
+		SendMessage(_self->_pDocumentListPanel->getHSelf(), WM_SETREDRAW, FALSE, 0);
+}
+
+Notepad_plus::_DeferRedrawHelper::~_DeferRedrawHelper() {
+	SendMessage(_self->_mainDocTab.getHSelf(), WM_SETREDRAW, TRUE, 0);
+	SendMessage(_self->_subDocTab.getHSelf(), WM_SETREDRAW, TRUE, 0);
+	InvalidateRect(_self->_mainDocTab.getHSelf(), NULL, TRUE);
+	InvalidateRect(_self->_subDocTab.getHSelf(), NULL, TRUE);
+	UpdateWindow(_self->_mainDocTab.getHSelf());
+	UpdateWindow(_self->_subDocTab.getHSelf());
+	if (_self->_pDocumentListPanel)
+	{
+		SendMessage(_self->_pDocumentListPanel->getHSelf(), WM_SETREDRAW, TRUE, 0);
+		InvalidateRect(_self->_pDocumentListPanel->getHSelf(), NULL, TRUE);
+		UpdateWindow(_self->_pDocumentListPanel->getHSelf());
 	}
 }

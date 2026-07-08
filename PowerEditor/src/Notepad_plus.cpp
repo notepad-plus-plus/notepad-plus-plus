@@ -4613,9 +4613,13 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 				{
 					wchar_t pathDropped[MAX_PATH]{};
 					::DragQueryFileW(hdrop, i, pathDropped, MAX_PATH);
-					BufferID test = MainFileManager.newPlaceholderDocument(pathDropped, MAIN_VIEW, nullptr, true, nullptr);
+					BufferID test = MainFileManager.newPlaceholderDocument(pathDropped, currentView(), nullptr, true, nullptr);
 					if (test != BUFFER_INVALID)
+					{
 						lastOpened = test;
+						if (_pDocumentListPanel)
+							_pDocumentListPanel->newItem(MainFileManager.getBufferByID(lastOpened), currentView());
+					}
 				}
 			}
 			else

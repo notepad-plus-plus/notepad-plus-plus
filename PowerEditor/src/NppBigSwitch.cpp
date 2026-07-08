@@ -1116,9 +1116,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			size_t j = 0;
 			if (message != NPPM_GETOPENFILENAMESSECOND_DEPRECATED)
 			{
-				for (size_t i = 0; i < _mainDocTab.nbItem() && j < nbFileNames; ++i)
+				std::vector<BufferID> mainDocBuffers = _mainDocTab.getBuffersByIndex();
+				for (size_t i = 0; i < mainDocBuffers.size() && j < nbFileNames; ++i)
 				{
-					BufferID id = _mainDocTab.getBufferByIndex(i);
+					BufferID id = mainDocBuffers[i];
 					Buffer * buf = MainFileManager.getBufferByID(id);
 					lstrcpy(fileNames[j++], buf->getFullPathName());
 				}
@@ -1126,9 +1127,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			if (message != NPPM_GETOPENFILENAMESPRIMARY_DEPRECATED)
 			{
-				for (size_t i = 0; i < _subDocTab.nbItem() && j < nbFileNames; ++i)
+				std::vector<BufferID> subDocBuffers = _subDocTab.getBuffersByIndex();
+				for (size_t i = 0; i < subDocBuffers.size() && j < nbFileNames; ++i)
 				{
-					BufferID id = _subDocTab.getBufferByIndex(i);
+					BufferID id = subDocBuffers[i];
 					Buffer * buf = MainFileManager.getBufferByID(id);
 					lstrcpy(fileNames[j++], buf->getFullPathName());
 				}
@@ -3757,9 +3759,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			const std::vector<DocTabView*> tabViews = { &_mainDocTab, &_subDocTab };
 			for (auto& pTabView : tabViews)
 			{
-				for (size_t i = 0; i < pTabView->nbItem(); ++i)
+				std::vector<BufferID> tabViewBuffers = pTabView->getBuffersByIndex();
+				for (size_t i = 0; i < tabViewBuffers.size(); ++i)
 				{
-					BufferID id = pTabView->getBufferByIndex(i);
+					BufferID id = tabViewBuffers[i];
 					if (id != BUFFER_INVALID)
 					{
 						Buffer* buf = MainFileManager.getBufferByID(id);
@@ -4265,9 +4268,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			Buffer* pBuf = NULL;
 			for (size_t v = 0; v < 2; ++v)
 			{
-				for (size_t i = 0, len = pTab[v]->nbItem(); i < len; ++i)
+				std::vector<BufferID> tabBuffers = pTab[v]->getBuffersByIndex();
+				for (size_t i = 0, len = tabBuffers.size(); i < len; ++i)
 				{
-					pBuf = MainFileManager.getBufferByID(pTab[v]->getBufferByIndex(i));
+					pBuf = MainFileManager.getBufferByID(tabBuffers[i]);
 
 					if (pBuf->getLangType() == L_SQL)
 					{

@@ -4328,13 +4328,7 @@ void Notepad_plus::command(int id)
 					_pDocMap->setSyntaxHiliting();
 				}
 			}
-			else if ((id >= ID_MACRO) && (id < ID_MACRO_LIMIT))
-			{
-				int i = id - ID_MACRO;
-				vector<MacroShortcut> & theMacros = (NppParameters::getInstance()).getMacroList();
-				macroPlayback(theMacros[i].getMacro());
-			}
-			else if ((id >= ID_USER_CMD) && (id < ID_USER_CMD_LIMIT))
+			else if (((id >= ID_MACRO) && (id < ID_MACRO_LIMIT)) || ((id >= ID_USER_CMD) && (id < ID_USER_CMD_LIMIT))) // shortcuts.xml commands
 			{
 				//-- shortcuts.xml security validation --//
 
@@ -4355,7 +4349,7 @@ void Notepad_plus::command(int id)
 							L"The security information for shortcuts.xml is missing in config.xml.\r\rFor security reasons, the integrity of shortcuts.xml will be checked. To run your customized command, please review the opened shortcuts.xml. If the file content is OK, use \"Validate shortcuts.xml\" from the menu to confirm it.",
 							L"Security Warning",
 							MB_OK);
-					}					
+					}
 					return;
 				}
 
@@ -4385,13 +4379,21 @@ void Notepad_plus::command(int id)
 
 				//-- End shortcuts.xml security validation --//
 
+				if ((id >= ID_MACRO) && (id < ID_MACRO_LIMIT))
+				{
+					int i = id - ID_MACRO;
+					vector<MacroShortcut>& theMacros = nppParams.getMacroList();
+					macroPlayback(theMacros[i].getMacro());
+				}
+				else if ((id >= ID_USER_CMD) && (id < ID_USER_CMD_LIMIT))
+				{
+					int i = id - ID_USER_CMD;
+					const vector<UserCommand>& theUserCommands = nppParams.getUserCommandList();
+					UserCommand ucmd = theUserCommands[i];
 
-				int i = id - ID_USER_CMD;
-				const vector<UserCommand> & theUserCommands = (NppParameters::getInstance()).getUserCommandList();
-				UserCommand ucmd = theUserCommands[i];
-
-				Command cmd(string2wstring(ucmd.getCmd(), CP_UTF8));
-				cmd.run(_pPublicInterface->getHSelf());
+					Command cmd(string2wstring(ucmd.getCmd(), CP_UTF8));
+					cmd.run(_pPublicInterface->getHSelf());
+				}
 			}
 			else if ((id >= ID_PLUGINS_CMD) && (id < ID_PLUGINS_CMD_LIMIT))
 			{

@@ -183,13 +183,14 @@ std::shared_ptr<Font> Font::Allocate(const FontParameters &fp)
 
 SurfaceImpl::SurfaceImpl() = default;
 
-SurfaceImpl::SurfaceImpl(int width, int height, SurfaceMode mode_)
+SurfaceImpl::SurfaceImpl(int width, int height, SurfaceMode mode_, qreal scale_)
 {
 	if (width < 1) width = 1;
 	if (height < 1) height = 1;
 	deviceOwned = true;
 	device = new QPixmap(width, height);
 	mode = mode_;
+	scale = scale_;
 }
 
 SurfaceImpl::~SurfaceImpl()
@@ -212,21 +213,88 @@ void SurfaceImpl::Clear()
 	painterOwned = false;
 }
 
+double ScaleOfWindow(WindowID wid)
+{
+	const QWidget *widget = window(wid);
+	if (!widget) {
+		return 1.0;
+	}
+	const QVariant variant = widget->property("ScintillaScale");
+	return variant.toDouble();
+}
+
+// Define SCINTILLA_QT_BACKINGSTORE_FIXED when building against a Qt whose
+// backing store tracks dirty state at device-pixel resolution; that makes the
+// fractional-scaling workarounds below compile out entirely.
+
+#if defined(Q_OS_APPLE) && !defined(SCINTILLA_QT_BACKINGSTORE_FIXED)
+// Grow a logical update rect so its coordinates translate into even device
+// pixels w/o rounding. The coordinates need to be even because there's
+// a dirty grid that's 1/2 the size of the device pixel grid on Retina
+// displays. This may grow the rect more than needed on non-Retina displays
+static QRect SnapToDevicePixelGrid(QRect upd, qreal scale, QSize widgetSize)
+{
+	const int backing = (scale >= 2.0) ? 2 : 1;
+	if (backing == 1)
+		return upd;   // grid is already device-pixel resolution; nothing to snap
+
+	// q logical pixels span q * (scale/backing) grid cells.  The smallest q
+	// that makes this whole is the snap period whose multiples put logical
+	// edges on the device-pixel grid.  (scale/backing is the fractional
+	// QT_SCALE_FACTOR, e.g. 1.5 -> q == 2, 1.25 -> q == 4.)
+	const double zoom = scale / backing;
+	int q = 0;
+	for (int n = 1; n <= 8; ++n) {
+		if (std::fabs(zoom * n - std::round(zoom * n)) < 1e-4) {
+			q = n;
+			break;
+		}
+	}
+	if (q == 0)
+		return QRect();   // not a simple ratio
+	if (q == 1)
+		return upd;       // already on the grid
+
+	auto floorTo = [](int v, int n) { int r = v % n; if (r < 0) r += n; return v - r; };
+	const int l = floorTo(upd.left(),   q);
+	const int t = floorTo(upd.top(),    q);
+	const int r = floorTo(upd.right()  + q, q) - 1;   // ceil the exclusive edge
+	const int b = floorTo(upd.bottom() + q, q) - 1;
+	const QRect snapped(QPoint(l, t), QPoint(r, b));
+	if (snapped.width() >= widgetSize.width() && snapped.height() >= widgetSize.height())
+		return QRect();   // would cover the whole widget
+	return snapped;
+}
+#endif
+
+double ScaleToMultiply(WindowID wid)
+{
+	const qreal scale = ScaleOfWindow(wid);
+	return scale ? scale : 1.0;
+}
+
 void SurfaceImpl::Init(WindowID wid)
 {
 	Release();
-	device = static_cast<QWidget *>(wid);
+	device = window(wid);
+	scale = ScaleOfWindow(wid);
 }
 
 void SurfaceImpl::Init(SurfaceID sid, WindowID /*wid*/)
 {
 	Release();
 	device = static_cast<QPaintDevice *>(sid);
+	scale = 0.0;
 }
 
 std::unique_ptr<Surface> SurfaceImpl::AllocatePixMap(int width, int height)
 {
-	return std::make_unique<SurfaceImpl>(width, height, mode);
+	return std::make_unique<SurfaceImpl>(width, height, mode, scale);
+}
+
+std::unique_ptr<Surface> SurfaceImpl_AllocatePixMap(int width, int height, SurfaceMode mode, qreal scale)
+{
+	return std::make_unique<SurfaceImpl>(width, height, mode, scale);
 }
 
 void SurfaceImpl::SetMode(SurfaceMode mode_)
@@ -309,7 +377,11 @@ int SurfaceImpl::PixelDivisions()
 
 int SurfaceImpl::DeviceHeightFont(int points)
 {
-	return points;
+	if (scale) {
+		return points * scale;
+	} else {
+		return points;
+	}
 }
 
 void SurfaceImpl::LineDraw(Point start, Point end, Stroke stroke)
@@ -796,6 +868,10 @@ QPainter *SurfaceImpl::GetPainter()
 		painter->setRenderHint(QPainter::TextAntialiasing, true);
 
 		painter->setRenderHint(QPainter::Antialiasing, true);
+
+		if (scale) {
+			painter->scale(1.0 / scale, 1.0 / scale);
+		}
 	}
 
 	return painter;
@@ -810,11 +886,6 @@ std::unique_ptr<Surface> Surface::Allocate(Technology)
 //----------------------------------------------------------------------
 
 namespace {
-
-QWidget *window(WindowID wid) noexcept
-{
-	return static_cast<QWidget *>(wid);
-}
 
 QRect ScreenRectangleForPoint(QPoint posGlobal)
 {
@@ -854,6 +925,8 @@ void Window::SetPosition(PRectangle rc)
 
 void Window::SetPositionRelative(PRectangle rc, const Window *relativeTo)
 {
+	const qreal scale = ScaleToMultiply(relativeTo->wid);
+	rc = rc / scale;
 	QPoint oPos = window(relativeTo->wid)->mapToGlobal(QPoint(0,0));
 	int ox = oPos.x();
 	int oy = oPos.y();
@@ -884,7 +957,9 @@ void Window::SetPositionRelative(PRectangle rc, const Window *relativeTo)
 PRectangle Window::GetClientPosition() const
 {
 	// The client position is the window position
-	return GetPosition();
+	const qreal scale = ScaleToMultiply(wid);
+	const PRectangle rc = GetPosition();
+	return rc * scale;
 }
 
 void Window::Show(bool show)
@@ -901,8 +976,35 @@ void Window::InvalidateAll()
 
 void Window::InvalidateRectangle(PRectangle rc)
 {
-	if (wid)
-		window(wid)->update(QRectFromPRect(rc));
+	if (wid) {
+		const qreal scale = ScaleOfWindow(wid);
+		QRect upd;
+		
+		if (!scale) {
+			upd = QRectFromPRect(rc);
+		} else {
+#if !defined(Q_OS_WIN) && !defined(Q_OS_APPLE) && !defined(SCINTILLA_QT_BACKINGSTORE_FIXED)
+			// Using X11 or Wayland, likely Linux but may be a BSD or similar
+			if (scale != 1.0 && scale != 2.0) {
+				window(wid)->update();
+				return;
+			}
+#endif
+			upd = QRectFFromPRect(rc / scale).toAlignedRect();
+		}
+
+#if defined(Q_OS_APPLE) && !defined(SCINTILLA_QT_BACKINGSTORE_FIXED)
+		// macOS: snap the update to the backing store's device-pixel grid.
+		const QRect snapped = SnapToDevicePixelGrid(upd, scale, window(wid)->size());
+		if (snapped.isNull()) {
+			window(wid)->update();
+			return;
+		}
+		upd = snapped;
+#endif
+
+		window(wid)->update(upd);
+	}
 }
 
 void Window::SetCursor(Cursor curs)
@@ -999,6 +1101,7 @@ private:
 	int visibleRows{5};
 	QMap<int,QPixmap> images;
 	float imageScale{1.0};
+	QWidget *owner = nullptr;
 };
 ListBoxImpl::ListBoxImpl() noexcept = default;
 
@@ -1012,7 +1115,10 @@ void ListBoxImpl::Create(Window &parent,
 	unicodeMode = unicodeMode_;
 
 	QWidget *qparent = static_cast<QWidget *>(parent.GetID());
+	owner = qparent;
 	ListWidget *list = new ListWidget(qparent);
+	const qreal scale = ScaleOfWindow(parent.GetID());
+	list->setProperty("ScintillaScale", scale);
 
 #if defined(Q_OS_WIN)
 	// On Windows, Qt::ToolTip causes a crash when the list is clicked on
@@ -1054,7 +1160,14 @@ void ListBoxImpl::SetFont(const Font *font)
 	ListWidget *list = GetWidget();
 	const FontAndCharacterSet *pfacs = AsFontAndCharacterSet(font);
 	if (pfacs && pfacs->pfont) {
-		list->setFont(*(pfacs->pfont));
+		QFont fontDeScaled = *(pfacs->pfont);
+		const qreal scaleOwner = ScaleOfWindow(owner);
+		if (scaleOwner) {
+			const qreal scale = window(owner)->devicePixelRatioF();
+			qreal pointSize = fontDeScaled.pointSizeF() / scale;
+			fontDeScaled.setPointSizeF(pointSize);
+		}
+		list->setFont(fontDeScaled);
 	}
 }
 void ListBoxImpl::SetAverageCharWidth(int /*width*/) {}
@@ -1081,10 +1194,11 @@ PRectangle ListBoxImpl::GetDesiredRect()
 	QStyle *style = QApplication::style();
 	int width = list->sizeHintForColumn(0) + (2 * list->frameWidth());
 	if (Length() > rows) {
-		width += style->pixelMetric(QStyle::PM_ScrollBarExtent);
+		width += style->pixelMetric(QStyle::PM_ScrollBarExtent) + 1;
 	}
 
-	return PRectangle(0, 0, width, height);
+	const qreal scale = ScaleOfWindow(wid);
+	return PRectangle(0, 0, width, height) * (scale ? scale : 1.0);
 }
 int ListBoxImpl::CaretFromEdge()
 {

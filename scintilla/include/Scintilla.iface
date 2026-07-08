@@ -66,6 +66,7 @@
 ##     keymod -> integer containing key in low half and modifiers in high half
 ##     formatrange
 ##     formatrangefull
+##     pixels -> intptr_t pixel positions and sizes (experimental: used in ## line following definition)
 ## Enumeration types always start with a capital letter
 ## Types no longer used:
 ##     findtextex -> searchrange
@@ -211,10 +212,12 @@ set void SetTabDrawMode=2699(TabDrawMode tabDrawMode,)
 
 # Find the position from a point within the window.
 fun position PositionFromPoint=2022(int x, int y)
+## fun position PositionFromPoint=2022(pixels x, pixels y)
 
 # Find the position from a point within the window but return
 # INVALID_POSITION if not close to text.
 fun position PositionFromPointClose=2023(int x, int y)
+## fun position PositionFromPointClose=2023(pixels x, pixels y)
 
 # Set caret to start of a line and ensure it is visible.
 fun void GotoLine=2024(line line,)
@@ -273,9 +276,11 @@ get int GetTabWidth=2121(,)
 
 # Set the minimum visual width of a tab.
 set void SetTabMinimumWidth=2724(int pixels,)
+## set void SetTabMinimumWidth=2724(pixels pixels,)
 
 # Get the minimum visual width of a tab.
 get int GetTabMinimumWidth=2725(,)
+## get pixels GetTabMinimumWidth=2725(,)
 
 # Clear explicit tabstops on a line.
 fun void ClearTabStops=2675(line line,)
@@ -440,6 +445,7 @@ set void MarkerSetBackSelectedTranslucent=2296(int markerNumber, colouralpha bac
 
 # Set the width of strokes used in .01 pixels so 50  = 1/2 pixel width.
 set void MarkerSetStrokeWidth=2297(int markerNumber, int hundredths)
+## set void MarkerSetStrokeWidth=2297(int markerNumber, pixels hundredths)
 
 # Enable/disable highlight for current folding block (smallest one that contains the caret)
 fun void MarkerEnableHighlight=2293(bool enabled,)
@@ -499,9 +505,11 @@ get MarginType GetMarginTypeN=2241(int margin,)
 
 # Set the width of a margin to a width expressed in pixels.
 set void SetMarginWidthN=2242(int margin, int pixelWidth)
+## set void SetMarginWidthN=2242(int margin, pixels pixelWidth)
 
 # Retrieve the width of a margin in pixels.
 get int GetMarginWidthN=2243(int margin,)
+## get pixels GetMarginWidthN=2243(int margin,)
 
 # Set a mask that determines which markers are displayed in a margin.
 set void SetMarginMaskN=2244(int margin, int mask)
@@ -1010,9 +1018,11 @@ get IndicFlag IndicGetFlags=2685(int indicator,)
 
 # Set the stroke width of an indicator in hundredths of a pixel.
 set void IndicSetStrokeWidth=2751(int indicator, int hundredths)
+## set void IndicSetStrokeWidth=2751(int indicator, pixels hundredths)
 
 # Retrieve the stroke width of an indicator.
 get int IndicGetStrokeWidth=2752(int indicator,)
+## get pixels IndicGetStrokeWidth=2752(int indicator,)
 
 # Set the foreground colour of all whitespace and whether to use this setting.
 fun void SetWhitespaceFore=2084(bool useSetting, colour fore)
@@ -1022,9 +1032,11 @@ fun void SetWhitespaceBack=2085(bool useSetting, colour back)
 
 # Set the size of the dots used to mark space characters.
 set void SetWhitespaceSize=2086(int size,)
+## set void SetWhitespaceSize=2086(pixels size,)
 
 # Get the size of the dots used to mark space characters.
 get int GetWhitespaceSize=2087(,)
+## get pixels GetWhitespaceSize=2087(,)
 
 # Used to hold extra styling information for each line.
 set void SetLineState=2092(line line, int state)
@@ -1050,10 +1062,12 @@ set void SetCaretLineBack=2098(colour back,)
 # Retrieve the caret line frame width.
 # Width = 0 means this option is disabled.
 get int GetCaretLineFrame=2704(,)
+## get pixels GetCaretLineFrame=2704(,)
 
 # Display the caret line framed.
 # Set width != 0 to enable this option and width = 0 to disable it.
 set void SetCaretLineFrame=2705(int width,)
+## set void SetCaretLineFrame=2705(pixels width,)
 
 # Set a style to be changeable or not (read only).
 # Experimental feature, currently buggy.
@@ -1374,15 +1388,19 @@ set void AllocateLines=2089(line lines,)
 
 # Sets the size in pixels of the left margin.
 set void SetMarginLeft=2155(, int pixelWidth)
+## set void SetMarginLeft=2155(, pixels pixelWidth)
 
 # Returns the size in pixels of the left margin.
 get int GetMarginLeft=2156(,)
+## get pixels GetMarginLeft=2156(,)
 
 # Sets the size in pixels of the right margin.
 set void SetMarginRight=2157(, int pixelWidth)
+## set void SetMarginRight=2157(, pixels pixelWidth)
 
 # Returns the size in pixels of the right margin.
 get int GetMarginRight=2158(,)
+## get pixels GetMarginRight=2158(,)
 
 # Is the document different from when it was last saved?
 get bool GetModify=2159(,)
@@ -1411,9 +1429,11 @@ get bool GetSelectionHidden=2088(,)
 
 # Retrieve the x value of the point in the window where a position is displayed.
 fun int PointXFromPosition=2164(, position pos)
+## fun pixels PointXFromPosition=2164(, position pos)
 
 # Retrieve the y value of the point in the window where a position is displayed.
 fun int PointYFromPosition=2165(, position pos)
+## fun pixels PointYFromPosition=2165(, position pos)
 
 # Retrieve the line containing a position.
 fun line LineFromPosition=2166(position pos,)
@@ -1497,9 +1517,11 @@ get bool GetOvertype=2187(,)
 
 # Set the width of the insert mode caret.
 set void SetCaretWidth=2188(int pixelWidth,)
+## set void SetCaretWidth=2188(pixels pixelWidth,)
 
 # Returns the width of the insert mode caret.
 get int GetCaretWidth=2189(,)
+## get pixels GetCaretWidth=2189(,)
 
 # Sets the position that starts the target which is used for updating the
 # document without affecting the scroll position.
@@ -1596,6 +1618,7 @@ set void CallTipSetForeHlt=2207(colour fore,)
 
 # Enable use of STYLE_CALLTIP and set call tip tab size in pixels.
 set void CallTipUseStyle=2212(int tabSize,)
+## set void CallTipUseStyle=2212(pixels tabSize,)
 
 # Set position of calltip, above or below text.
 set void CallTipSetPosition=2213(bool above,)
@@ -1814,9 +1837,11 @@ get WrapVisualLocation GetWrapVisualFlagsLocation=2463(,)
 
 # Set the start indent for wrapped lines.
 set void SetWrapStartIndent=2464(int indent,)
+## set void SetWrapStartIndent=2464(pixels indent,)
 
 # Retrive the start indent for wrapped lines.
 get int GetWrapStartIndent=2465(,)
+## get pixels GetWrapStartIndent=2465(,)
 
 enu WrapIndentMode=SC_WRAPINDENT_
 val SC_WRAPINDENT_FIXED=0
@@ -1846,9 +1871,11 @@ get LineCache GetLayoutCache=2273(,)
 
 # Sets the document width assumed for scrolling.
 set void SetScrollWidth=2274(int pixelWidth,)
+## set void SetScrollWidth=2274(pixels pixelWidth,)
 
 # Retrieve the document width assumed for scrolling.
 get int GetScrollWidth=2275(,)
+## get pixels GetScrollWidth=2275(,)
 
 # Sets whether the maximum width line displayed is used to set scroll width.
 set void SetScrollWidthTracking=2516(bool tracking,)
@@ -1860,6 +1887,7 @@ get bool GetScrollWidthTracking=2517(,)
 # NUL terminated text argument.
 # Does not handle tab or control characters.
 fun int TextWidth=2276(int style, string text)
+## fun pixels TextWidth=2276(int style, string text)
 
 # Sets the scroll range so that maximum scroll position has
 # the last line at the bottom of the view (default).
@@ -1872,6 +1900,7 @@ get bool GetEndAtLastLine=2278(,)
 
 # Retrieve the height of a particular line of text in pixels.
 fun int TextHeight=2279(line line,)
+## fun pixels TextHeight=2279(line line,)
 
 # Show or hide the vertical scroll bar.
 set void SetVScrollBar=2280(bool visible,)
@@ -1934,6 +1963,7 @@ fun void LinesJoin=2288(,)
 # Split the lines in the target into lines that are less wide than pixelWidth
 # where possible.
 fun void LinesSplit=2289(int pixelWidth,)
+## fun void LinesSplit=2289(pixels pixelWidth,)
 
 # Set one of the colours used as a chequerboard pattern in the fold margin
 fun void SetFoldMarginColour=2290(bool useSetting, colour back)
@@ -2352,9 +2382,11 @@ fun void DelLineRight=2396(,)
 
 # Set the xOffset (ie, horizontal scroll position).
 set void SetXOffset=2397(int xOffset,)
+## set void SetXOffset=2397(pixels xOffset,)
 
 # Get the xOffset (ie, horizontal scroll position).
 get int GetXOffset=2398(,)
+## get pixels GetXOffset=2398(,)
 
 # Set the last x chosen value to be the caret x position.
 fun void ChooseCaretX=2399(,)
@@ -2389,6 +2421,7 @@ val CARET_EVEN=0x08
 # Set the way the caret is kept visible when going sideways.
 # The exclusion zone is given in pixels.
 fun void SetXCaretPolicy=2402(CaretPolicy caretPolicy, int caretSlop)
+## fun void SetXCaretPolicy=2402(CaretPolicy caretPolicy, pixels caretSlop)
 
 # Set the way the line the caret is on is kept visible.
 # The exclusion zone is given in lines.
@@ -2757,15 +2790,19 @@ get Alpha IndicGetOutlineAlpha=2559(int indicator,)
 
 # Set extra ascent for each line
 set void SetExtraAscent=2525(int extraAscent,)
+## set void SetExtraAscent=2525(pixels extraAscent,)
 
 # Get extra ascent for each line
 get int GetExtraAscent=2526(,)
+## get pixels GetExtraAscent=2526(,)
 
 # Set extra descent for each line
 set void SetExtraDescent=2527(int extraDescent,)
+## set void SetExtraDescent=2527(pixels extraDescent,)
 
 # Get extra descent for each line
 get int GetExtraDescent=2528(,)
+## get pixels GetExtraDescent=2528(,)
 
 # Which symbol was defined for markerNumber with MarkerDefine
 fun MarkerSymbol MarkerSymbolDefined=2529(int markerNumber,)
@@ -2866,10 +2903,12 @@ fun void AddUndoAction=2560(int token, UndoFlags flags)
 
 # Find the position of a character from a point within the window.
 fun position CharPositionFromPoint=2561(int x, int y)
+## fun position CharPositionFromPoint=2561(pixels x, pixels y)
 
 # Find the position of a character from a point within the window.
 # Return INVALID_POSITION if not close to text.
 fun position CharPositionFromPointClose=2562(int x, int y)
+## fun position CharPositionFromPointClose=2562(pixels x, pixels y)
 
 # Set whether switching to rectangular mode while selecting with the mouse is allowed.
 set void SetMouseSelectionRectangularSwitch=2668(bool mouseSelectionRectangularSwitch,)
@@ -2918,6 +2957,7 @@ fun void AddSelection=2573(position caret, position anchor)
 
 # Find the selection index for a point. -1 when not at a selection.
 fun int SelectionFromPoint=2474(int x, int y)
+## fun int SelectionFromPoint=2474(pixels x, pixels y)
 
 # Drop one selection
 fun void DropSelectionN=2671(int selection,)
@@ -3541,6 +3581,16 @@ evt void MarginRightClick=2031(int modifiers, int position, int margin)
 evt void AutoCSelectionChange=2032(int listType, string text, int position)
 
 cat Provisional
+
+enu ScaleTechnique=SCALE_TECHNIQUE_
+val SCALE_TECHNIQUE_DEFAULT=0
+val SCALE_TECHNIQUE_PIXEL_ALIGNED=1
+
+# Set the scale technique
+set void SetScaleTechnique=2820(ScaleTechnique technique,)
+
+# Get the scale technique
+get ScaleTechnique GetScaleTechnique=2821(,)
 
 enu Bidirectional=SC_BIDIRECTIONAL_
 val SC_BIDIRECTIONAL_DISABLED=0

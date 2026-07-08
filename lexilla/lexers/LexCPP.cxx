@@ -1544,9 +1544,9 @@ void SCI_METHOD LexerCPP::Fold(Sci_PositionU startPos, Sci_Position length, int 
 		}
 		if (options.foldComment && options.foldCommentExplicit && ((style == SCE_C_COMMENTLINE) || options.foldExplicitAnywhere)) {
 			if (userDefinedFoldMarkers) {
-				if (styler.Match(i, options.foldExplicitStart.c_str())) {
+				if (styler.Match(i, std::string_view(options.foldExplicitStart))) {
 					levelNext++;
-				} else if (styler.Match(i, options.foldExplicitEnd.c_str())) {
+				} else if (styler.Match(i, std::string_view(options.foldExplicitEnd))) {
 					levelNext--;
 				}
 			} else {

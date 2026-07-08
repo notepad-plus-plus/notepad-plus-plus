@@ -3559,6 +3559,14 @@ void ScintillaCall::SetILexer(void *ilexer) {
 	CallPointer(Message::SetILexer, 0, ilexer);
 }
 
+void ScintillaCall::SetScaleTechnique(Scintilla::ScaleTechnique technique) {
+	Call(Message::SetScaleTechnique, static_cast<uintptr_t>(technique));
+}
+
+ScaleTechnique ScintillaCall::ScaleTechnique() {
+	return static_cast<Scintilla::ScaleTechnique>(Call(Message::GetScaleTechnique));
+}
+
 Bidirectional ScintillaCall::Bidirectional() {
 	return static_cast<Scintilla::Bidirectional>(Call(Message::GetBidirectional));
 }

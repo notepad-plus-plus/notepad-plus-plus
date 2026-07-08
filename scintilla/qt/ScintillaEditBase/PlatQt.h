@@ -74,6 +74,13 @@ inline QPointF QPointFFromPoint(Point qp)
 	return QPointF(qp.x, qp.y);
 }
 
+inline QWidget *window(WindowID wid) noexcept
+{
+	return static_cast<QWidget *>(wid);
+}
+
+double ScaleOfWindow(WindowID wid);
+
 class SurfaceImpl : public Surface {
 private:
 	QPaintDevice *device = nullptr;
@@ -81,6 +88,7 @@ private:
 	bool deviceOwned = false;
 	bool painterOwned = false;
 	SurfaceMode mode;
+	qreal scale = 0.0;
 	const char *codecName = nullptr;
 	QTextCodec *codec = nullptr;
 
@@ -88,7 +96,7 @@ private:
 
 public:
 	SurfaceImpl();
-	SurfaceImpl(int width, int height, SurfaceMode mode_);
+	SurfaceImpl(int width, int height, SurfaceMode mode_, qreal scale_);
 	virtual ~SurfaceImpl() override;
 
 	void Init(WindowID wid) override;
@@ -163,6 +171,8 @@ public:
 	void SetPainter(QPainter *painter);
 	QPainter *GetPainter();
 };
+
+std::unique_ptr<Surface> SurfaceImpl_AllocatePixMap(int width, int height, SurfaceMode mode, qreal scale);
 
 }
 

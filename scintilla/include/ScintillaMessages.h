@@ -831,6 +831,8 @@ enum class Message {
 	TagsOfStyle = 4031,
 	DescriptionOfStyle = 4032,
 	SetILexer = 4033,
+	SetScaleTechnique = 2820,
+	GetScaleTechnique = 2821,
 	GetBidirectional = 2708,
 	SetBidirectional = 2709,
 	GetBoostRegexErrmsg = 5000,

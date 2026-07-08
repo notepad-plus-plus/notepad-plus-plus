@@ -1,0 +1,36 @@
+{1}| A Baan nonsense example that produces all styles 0..24{0}
+{6}#pragma{0} {4}nowarnings{0}
+{6}#include{0} {7}<{23}bic_desktop{7}>{0}
+{6}#define{0} {24}BOB{0} {3}17{0}
+
+{2}FunctionUsage
+    Do the main thing
+EndFunctionUsage{0}
+{4}function{0} {22}main{7}(){0} {7}{{0}
+    {1}| Comment{0}
+    {4}long{0} {8}a{0}
+    {8}a{0} {7}={0} {3}0{0}
+    {4}message{7}({5}"message"{7}){0}
+    {10}abort.io{7}(){0}
+    {9}"Unclosed string
+{0}    {4}domain{0} {21}tcmcs.str50{0} {8}err.msg{0}
+    {14}actual.occ{0} {7}={0} {3}4{0}
+    {8}rc{0} {7}={0} {8}stpapi.enum.answer{7}({5}"tdilc4113s000"{7},{5}"tdilc40062"{7},{16}tcyesno.yes{7}){0}
+    {8}x{0} {7}={0} {15}__FILE__{0}
+    {1}| Table{0}
+    {18}rcd.tabcde111{0}
+    {1}| SQL{0}
+    {19}abcde111.fghi{0}
+    {1}| Function {0}
+    {20}abint.dllcdefg.h{0}
+    {17}DALUPDATE{7}({5}"tccom100"{7},{0} {4}true{7},{0} {8}err.msg{7}){0}
+{7}}{0}
+
+{11}x.is.mandatory{7}(){0} {7}{{0}
+    {8}return{7}({4}true{7}){0}
+{7}}{0}
+
+{13}form.1{7}:{0}
+
+{12}init.form{7}:{0}
+    {1}| ...{0}

@@ -474,9 +474,9 @@ void SCI_METHOD LexerAsm::Fold(Sci_PositionU startPos_, Sci_Position length, int
 		}
 		if (options.foldCommentExplicit && ((style == SCE_ASM_COMMENT) || options.foldExplicitAnywhere)) {
 			if (userDefinedFoldMarkers) {
-				if (styler.Match(i, options.foldExplicitStart.c_str())) {
+				if (styler.Match(i, options.foldExplicitStart)) {
 					levelNext++;
-				} else if (styler.Match(i, options.foldExplicitEnd.c_str())) {
+				} else if (styler.Match(i, options.foldExplicitEnd)) {
 					levelNext--;
 				}
 			} else {

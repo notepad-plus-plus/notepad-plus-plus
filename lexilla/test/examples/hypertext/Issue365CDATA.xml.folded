@@ -1,0 +1,14 @@
+ 0 400   0   <!DOCTYPE html>
+ 2 400   0 + <html>
+ 2 401   0 + <foo>
+ 0 402   0 |   Here is a CDATA <![CDATA[]]> section: <![CDATA[ < > & ]]>
+ 0 402   0 | with all kinds of unescaped text.
+ 0 402   0 | </foo>
+ 2 401   0 + <example-code><![CDATA[
+ 0 403   0 | while (x < len && !done) {
+ 0 403   0 |     print( "Still working, 'zzzz'." );
+ 0 403   0 |     ++x;
+ 0 403   0 |     }
+ 0 403   0 | ]]></example-code>
+ 0 401   0 | </html>
+ 0 400   0   

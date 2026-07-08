@@ -99,6 +99,22 @@ void delLeftWordInEdit(HWND hEdit)
 	}
 }
 
+std::wstring formatInteger(const intptr_t inputNumber)
+{
+	try
+	{
+		std::wstringstream ss;
+		ss.imbue(getSysLocale());
+		ss << inputNumber;
+		return ss.str();
+	}
+	catch (...)
+	{
+		// convert at least to raw digits without separators
+		return std::to_wstring(inputNumber);
+	}
+}
+
 int Searching::convertExtendedToString(const wchar_t * query, wchar_t * result, int length)
 {	//query may equal to result, since it always gets smaller
 	int i = 0, j = 0;
@@ -2601,7 +2617,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							else //if (nbCounted == 0 || nbCounted > 1)
 							{
 								result = pNativeSpeaker->getLocalizedStrFromID("find-status-count-nb-matches", L"Count: $INT_REPLACE$ matches");
-								result = stringReplace(result, L"$INT_REPLACE$", std::to_wstring(nbCounted));
+								result = stringReplace(result, L"$INT_REPLACE$", formatInteger(nbCounted));
 							}
 							result += L" ";
 							result += getScopeInfoForStatusBar(&_options);
@@ -5719,9 +5735,9 @@ void Finder::addFileHitCount(int count)
 
 void Finder::addSearchResultInfo(int count, int countSearched, bool searchedEntireNotSelection, const FindOption* pFindOpt)
 {
-	wstring nbResStr = std::to_wstring(count);
-	wstring nbFoundFilesStr = std::to_wstring(_nbFoundFiles);
-	wstring nbSearchedFilesStr = std::to_wstring(countSearched);
+	wstring nbResStr = formatInteger(count);
+	wstring nbFoundFilesStr = formatInteger(_nbFoundFiles);
+	wstring nbSearchedFilesStr = formatInteger(countSearched);
 
 	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
@@ -6644,11 +6660,7 @@ void FindIncrementDlg::setFindStatus(FindStatus iStatus, size_t nbCounted, int n
 	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
 	if (nbCounted > 0)
-	{
-		wchar_t strFindFSFound[128]{};
-		wsprintf(strFindFSFound, L"%d/%d", nth, nbCounted);
-		statusStr2Display = strFindFSFound;
-	}
+		statusStr2Display = formatInteger(nth) + L"/" + formatInteger(nbCounted);
 
 	switch (iStatus)
 	{

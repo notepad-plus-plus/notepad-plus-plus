@@ -9,10 +9,10 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepadplusplus(at)rockytdr.33mail.com)
 
-Last modified on 2026-03-16 by xylographe.
+Last modified on 2026-07-11 by BdR76.
 -->
 <NotepadPlus>
-	<Native-Langue name="Nederlands" filename="dutch.xml" version="8.9">
+	<Native-Langue name="Nederlands" filename="dutch.xml" version="8.9.6.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -97,6 +97,7 @@ Last modified on 2026-03-16 by xylographe.
 					<Item id="41002" name="&amp;Openen..."/>
 					<Item id="41019" name="in Windows Verkenner"/>
 					<Item id="41020" name="in opdrachtprompt"/>
+					<Item id="41027" name="in PowerShell"/>
 					<Item id="41025" name="Map als werkruimte"/>
 					<Item id="41003" name="&amp;Sluiten"/>
 					<Item id="41004" name="&amp;Alles sluiten"/>
@@ -303,6 +304,7 @@ Last modified on 2026-03-16 by xylographe.
 					<Item id="44024" name="&amp;Uitzoomen (Ctrl + Omlaag scrollen)"/>
 					<Item id="44025" name="Spaties en tabs weergeven"/>
 					<Item id="44026" name="Regeleindemarkering weergeven"/>
+					<Item id="44027" name="&amp;Deelvensters synchronisere"/>
 					<Item id="44029" name="Alles uitvouwen"/>
 					<Item id="44030" name="Huidig niveau samenvouwen"/>
 					<Item id="44031" name="Huidig niveau uitvouwen"/>
@@ -406,6 +408,7 @@ Last modified on 2026-03-16 by xylographe.
 					<Item id="48511" name="Genereren van bestanden..."/>
 					<Item id="48512" name="Genereren van selectie naar klembord"/>
 					<Item id="49000" name="Uitvoe&amp;ren..."/>
+					<Item id="49001" name="shortcuts.xml valideren"/>
 
 					<Item id="50000" name="Functies aanvullen"/>
 					<Item id="50001" name="Woorden aanvullen"/>
@@ -447,6 +450,7 @@ Last modified on 2026-03-16 by xylographe.
 				<Item CMDID="1" name="Openen in"/>
 				<Item CMDID="41019" name="Bevattende map in Verkenner weergeven"/>
 				<Item CMDID="41020" name="Bevattende map in opdrachtprompt openen"/>
+				<Item CMDID="41027" name="Bevattende map in PowerShell openen"/>
 				<Item CMDID="41025" name="Bevattende map als werkruimte openen"/>
 				<Item CMDID="41023" name="In standaardviewer openen"/>
 				<Item CMDID="41017" name="Naam wijzigen..."/>
@@ -537,6 +541,7 @@ Last modified on 2026-03-16 by xylographe.
 				<Item id="1681" name="Zoeken:"/>
 				<Item id="1685" name="Hoofdlettergevoelig"/>
 				<Item id="1690" name="Alles markeren"/>
+				<Item id="1691" name="Tellen"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Tekens zoeken in bereik...">
@@ -662,6 +667,10 @@ Last modified on 2026-03-16 by xylographe.
 				</SubDialog>
 			</StyleConfig>
 
+			<ColorPopup>
+				<Item id="1" name="Meer Kleuren..."/>
+			</ColorPopup>
+
 			<ShortcutMapper title="Sneltoetsen-mapper">
 				<Item id="2602" name="Wijzigen"/>
 				<Item id="2603" name="Verwijderen"/>
@@ -687,6 +696,8 @@ Last modified on 2026-03-16 by xylographe.
 					<Item id="41019" name="Bevattende map in Verkenner openen"/>
 					<Item id="41020" name="Bevattende map in Opdrachtprompt openen"/>
 					<Item id="41021" name="Recent gesloten bestand herstellen"/>
+					<Item id="41027" name="Bevattende map in PowerShell openen"/>
+					<Item id="41025" name="Bevattende map als werkruimte openen"/>
 					<Item id="45001" name="Regeleinde-conversie naar Windows (CR LF)"/>
 					<Item id="45002" name="Regeleinde-conversie naar Unix (LF)"/>
 					<Item id="45003" name="Regeleinde-conversie naar Macintosh (CR)"/>
@@ -1097,7 +1108,7 @@ Last modified on 2026-03-16 by xylographe.
 					<Item id="6292" name="Dynamische breedte"/>
 					<Item id="6293" name="Constante breedte"/>
 					<Item id="6207" name="Bladwijzers weergeven"/>
-					<Item id="6223" name="Geschiedenis van wijzigingen"/>
+					<Item id="6295" name="Geschiedenis van wijzigingen"/>
 					<Item id="6223" name="In de marge weergeven"/>
 					<Item id="6296" name="In de tekst weergeven"/>
 					<Item id="6211" name="Instellingen verticale rand"/>
@@ -1183,6 +1194,7 @@ Last modified on 2026-03-16 by xylographe.
 
 				<Print title="Afdrukken">
 					<Item id="6601" name="Regelnummers afdrukken"/>
+					<Item id="6616" name="Formfeed als pagina-einde afdrukken"/>
 					<Item id="6602" name="Kleuropties"/>
 					<Item id="6603" name="Zoals weergegeven op het scherm"/>
 					<Item id="6604" name="Negatief"/>
@@ -1416,7 +1428,7 @@ Last modified on 2026-03-16 by xylographe.
 				<Item id="2033" name="&amp;Nummer invoegen"/>
 				<Item id="2030" name="Beg&amp;innummer:"/>
 				<Item id="2031" name="&amp;Verhogen met:"/>
-				<Item id="2035" name="Voor&amp;loop"/>
+				<Item id="2038" name="Voor&amp;loop"/>
 				<ComboBox id="2039">
 					<Element name="Geen"/>
 					<Element name="Nullen"/>
@@ -1617,6 +1629,15 @@ Als u de functie voor achterwaarts regex-zoeken nodig hebt, raadpleegt u de gebr
 Verifieer de zoekvoorwaarden voordat u de handeling uitvoert."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ moet opnieuw gestart worden" message="Notepad++ nmoet opnieuw gestart worden om snelkoppelingen in het rechter menu weer te geven."/>
 			<NoAdminRight2ChangeReadOnlyFileAttribute title="Wijzigen van alleen-lezen kenmerk van bestand is mislukt" message="Start Notepad++ in de beheerdersmodus om bestandskenmerken te wijzigen."/>
+			<ReadOnlyFileCannotBeSaved title="Opslaan mislukt - Bestand is alleen-lezen" message="&quot;$STR_REPLACE$&quot;
+Het bestand is alleen-lezen en kan niet worden opgeslagen.
+Verwijder de alleen-lezenbeveiliging en sla het bestand daarna op."/>
+			<ShortcutsXmlHMACMissing title="Beveiligingswaarschuwing" message="De beveiligingsinformatie voor shortcuts.xml ontbreekt in config.xml.
+
+Om veiligheidsredenen wordt de integriteit van shortcuts.xml gecontroleerd. Als u uw aangepaste opdracht wilt uitvoeren, controleer dan eerst het geopende bestand shortcuts.xml. Als de inhoud van het bestand in orde is, gebruikt u &quot;shortcuts.xml valideren&quot; in het menu om dit te bevestigen."/>
+			<ShortcutsXmlTampered title="Beveiligingswaarschuwing" message="Het bestand shortcuts.xml lijkt handmatig te zijn gewijzigd.
+
+Om veiligheidsredenen wordt u aangeraden het geopende bestand shortcuts.xml te controleren. Als de inhoud van het bestand in orde is, gebruikt u &quot;shortcuts.xml valideren&quot; in het menu om dit te bevestigen."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Geschiedenis van klembord"/>
@@ -1674,6 +1695,7 @@ Verifieer de zoekvoorwaarden voordat u de handeling uitvoert."/> <!-- HowToRepro
 				<Item id="3518" name="Locatie openen in Verkenner"/>
 				<Item id="3519" name="Locatie openen in opdrachtprompt"/>
 				<Item id="3520" name="Bestandsnaam kopiëren"/>
+				<Item id="3521" name="Locatie openen in PowerShell"/>
 			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>
@@ -1782,6 +1804,7 @@ Zoeken in alle bestanden maar alle log- of logs-mappen recursief uitsluiten:
 			<find-status-scope-all value="in volledig bestand"/>
 			<find-status-scope-backward value="vanaf begin van bestand tot cursor"/>
 			<find-status-scope-forward value="vanaf cursor naar einde van bestand"/>
+			<find-status-replace-invalid-replace-chars value="Vervangen: kan niet vervangen met non-ANSI tekst in een ANSI document"/>
 			<find-status-invisible-chars-findWhat value="Onzichtbare tekens in geplakte inhoud van &quot;Zoeken naar&quot; of &quot;Vervangen door&quot;"/>
 			<find-status-invisible-chars-findWhat-tip value="Waarschuwing: onzichtbare tekens in veld voor zoeken (of vervangen).
 De tekst die in dit veld is geplakt, bevat onzichtbare tekens (mogelijk regeleindes). Als u doorgaat zonder deze te verwijderen, worden ze opgenomen in de tekst voor zoeken (of vervangen)."/>
@@ -1798,6 +1821,7 @@ De tekst die in dit veld is geplakt, bevat onzichtbare tekens (mogelijk regelein
 			<common-ok value="Ok"/>
 			<common-cancel value="Annuleren"/>
 			<common-name value="Naam"/>
+			<common-error value="Fout"/>
 			<tabrename-title value="Huidige tab hernoemen"/>
 			<tabrename-newname value="Nieuwe naam"/>
 			<splitter-rotate-left value="Linksom draaien"/>
@@ -1819,6 +1843,7 @@ De tekst die in dit veld is geplakt, bevat onzichtbare tekens (mogelijk regelein
 			<progress-hits-title value="Treffers:"/>
 			<progress-cancel-info value="Bewerking annuleren. Even geduld..."/>
 			<find-in-files-progress-title value="Voortgang van zoeken in bestanden..."/>
+			<discover-file-candidates-title value="Bestandskandidaten ontdekken..."/>
 			<replace-in-files-confirm-title value="Weet u het zeker?"/>
 			<replace-in-files-confirm-directory value="Wilt u alle overeenkomsten vervangen in:"/>
 			<replace-in-files-confirm-filetype value="Voor bestandstype:"/>

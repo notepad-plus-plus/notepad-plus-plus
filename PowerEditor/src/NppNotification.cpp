@@ -49,7 +49,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		{
 			if (!notifyView) return FALSE;
 
-			if (notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT))
+			if (notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT))  // SC_PERFORMED_UNDO | SC_PERFORMED_REDO are also included in SC_MOD_DELETETEXT and SC_MOD_INSERTTEXT
 			{
 				// Make temporary tab name automatically by using the 1st line of content for untitled documents
 				Buffer* buffer = notifyView->getCurrentBuffer();
@@ -66,12 +66,16 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				// While the text modification, we make sure the link beblow the modification will be reprocessed
 				_linkTriggered = true;
 				::InvalidateRect(notifyView->getHSelf(), NULL, TRUE);
-			}
 
-			if (notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT | SC_PERFORMED_UNDO | SC_PERFORMED_REDO))
-			{
 				// for the backup system
 				_pEditView->getCurrentBuffer()->setModifiedStatus(true);
+
+				// check if an associated IncrementalSearch does need a reset for nth/total count
+				if (_incrementFindDlg.isCreated())
+				{
+					if (_incrementFindDlg.getAssociatedScintillaView() == _pEditView)
+						_incrementFindDlg.reInitCount();
+				}
 			}
 
 			if (notification->modificationType & SC_MOD_CHANGEINDICATOR)

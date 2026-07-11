@@ -210,7 +210,7 @@ private:
 };
 
 
-enum FindStatus { FSFound, FSNotFound, FSTopReached, FSEndReached, FSMessage, FSNoMessage, FSWarning };
+enum FindStatus { FSFound, FSNotFound, FSTopReached, FSEndReached, FSMessage, FSNoMessage, FSWarning, FSResetCount };
 
 enum FindNextType {
 	FINDNEXTTYPE_FINDNEXT,
@@ -560,7 +560,17 @@ public :
 
 	void addToRebar(ReBar* rebar);
 
-	void reInitCount() { _matches.clear(); };
+	void reInitCount() {
+		_matches.clear();
+		setFindStatus(FindStatus::FSResetCount, 0, 0);
+	};
+
+	ScintillaEditView* getAssociatedScintillaView() {
+		if (_pFRDlg)
+			return *(_pFRDlg->_ppEditView);
+		else
+			return nullptr;
+	};
 
 private :
 	bool _isRTL = false;

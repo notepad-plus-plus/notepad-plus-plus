@@ -6683,6 +6683,13 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 
 			case DOC_MODIFIED:	//ask for reloading
 			{
+				// check if an associated IncrementalSearch does not need reset
+				if (_incrementFindDlg.isCreated())
+				{
+					if (_incrementFindDlg.getAssociatedScintillaView() == _pEditView)
+						_incrementFindDlg.reInitCount();
+				}
+				
 				// Since it is being monitored DOC_NEEDRELOAD is going to handle the change.
 				if (buffer->isMonitoringOn())
 					break;

@@ -134,7 +134,7 @@ private:
 	SORT_TYPE _sortType = DISPLAY_NAME_ALPHABET_ENCREASE;
 };
 
-enum LIST_TYPE { AVAILABLE_LIST, UPDATES_LIST, INSTALLED_LIST, INCOMPATIBLE_LIST };
+enum LIST_TYPE { AVAILABLE_LIST, UPDATES_LIST, INSTALLED_LIST, INCOMPATIBLE_LIST, DISABLED_LIST };
 
 
 class PluginsAdminDlg final : public StaticDialog
@@ -165,6 +165,8 @@ public :
 	bool installPlugins();
 	bool updatePlugins();
 	bool removePlugins();
+	bool deactivatePlugins();
+	bool activatePlugins();
 
 	void changeTabName(LIST_TYPE index, wchar_t* name2change);
 	void changeColumnName(COLUMN_TYPE index, const wchar_t *name2change);
@@ -175,6 +177,10 @@ public :
 	
 	PluginViewList& getIncompatibleList() {
 		return _incompatibleList;
+	}
+
+	PluginViewList& getDisabledList() {
+		return _disabledList;
 	}
 
 protected:
@@ -194,6 +200,12 @@ private :
 	PluginViewList _updateList;       // A dynamical list, items are removable
 	PluginViewList _installedList;    // A dynamical list, items are removable
 	PluginViewList _incompatibleList; // A permanent list, once it's loaded (no removal - only hide or show) 
+	PluginViewList _disabledList;     // A dynamical list, items are removable - deactivated plugins, scanned from _disabledPluginsRootDir
+
+	std::wstring _disabledPluginsRootDir; // e.g. "C:\Program Files\Notepad++\plugins_disabled"
+	                                       // kept OUTSIDE the "plugins" folder tree on purpose,
+	                                       // so a plugin loader that scans "plugins" recursively
+	                                       // in the future will never accidentally pick it up.
 
 	PluginsManager *_pPluginsManager = nullptr;
 	NppCurrentStatus _nppCurrentStatus;
@@ -214,12 +226,20 @@ private :
 	
 	bool initAvailablePluginsViewFromList();
 	bool initIncompatiblePluginList();
+	bool initDisabledPluginList();
 	bool loadFromPluginInfos();
 
 	enum Operation {
 		pa_install = 0,
 		pa_update = 1,
-		pa_remove = 2
+		pa_remove = 2,
+		pa_deactivate = 3,
+		pa_activate = 4
 	};
 	bool exitToInstallRemovePlugins(Operation op, const std::vector<PluginUpdateInfo*>& puis);
+
+	// Handles pa_deactivate / pa_activate: moves plugin folders between the "plugins"
+	// directory and _disabledPluginsRootDir (in the given direction), then restarts Npp
+	// the same way exitToInstallRemovePlugins() does for install/update/remove.
+	bool exitToDeactivateActivatePlugins(Operation op, const std::vector<PluginUpdateInfo*>& puis);
 };

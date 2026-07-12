@@ -937,6 +937,7 @@ void NativeLangSpeaker::changePluginsAdminDlgLang(PluginsAdminDlg& pluginsAdminD
 				const char* titre2 = NppXml::attribute(dlgNode, "titleUpdates");
 				const char* titre3 = NppXml::attribute(dlgNode, "titleInstalled");
 				const char* titre4 = NppXml::attribute(dlgNode, "titleIncompatible");
+				const char* titre5 = NppXml::attribute(dlgNode, "titleDisabled");
 
 				if (titre1 && titre1[0])
 				{
@@ -957,6 +958,11 @@ void NativeLangSpeaker::changePluginsAdminDlgLang(PluginsAdminDlg& pluginsAdminD
 				{
 					std::wstring nameW = string2wstring(titre4, _nativeLangEncoding);
 					pluginsAdminDlg.changeTabName(INCOMPATIBLE_LIST, nameW.data());
+				}
+				if (titre5 && titre5[0])
+				{
+					std::wstring nameW = string2wstring(titre5, _nativeLangEncoding);
+					pluginsAdminDlg.changeTabName(DISABLED_LIST, nameW.data());
 				}
 			}
 

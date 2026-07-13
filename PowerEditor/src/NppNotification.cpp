@@ -70,10 +70,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				// for the backup system
 				_pEditView->getCurrentBuffer()->setModifiedStatus(true);
 
-				// check if an associated IncrementalSearch does need a reset for nth/total count
-				if (_incrementFindDlg.isCreated() && _rebarBottom.getIDVisible(REBAR_BAR_SEARCH))
+				// check if possible IncrementalSearch does not need reset
+				if (_incrementFindDlg.isCreated() && _incrementFindDlg.isVisible())
 				{
-					if (_incrementFindDlg.getAssociatedScintillaView() == _pEditView)
+					if (_incrementFindDlg.getAssociatedScintillaView() == notifyView)
 						_incrementFindDlg.reInitCount();
 				}
 			}

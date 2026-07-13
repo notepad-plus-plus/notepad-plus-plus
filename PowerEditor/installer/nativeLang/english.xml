@@ -1819,6 +1819,12 @@ The text pasted into this field includes invisible (maybe line-ending) character
 			<common-cancel value="Cancel"/>
 			<common-name value="Name"/>
 			<common-error value="Error"/>
+			<plugin-overwrite-title value="Plugin folder conflict"/>
+			<plugin-overwrite-content value="$STR_REPLACE$ already exists in the destination folder.&#x0A;Do you want to overwrite it?"/>
+			<plugin-overwrite-btn-yes value="Yes"/>
+			<plugin-overwrite-btn-yestoall value="Yes to all"/>
+			<plugin-overwrite-btn-no value="No"/>
+			<plugin-overwrite-btn-cancel value="Cancel"/>
 			<tabrename-title value="Rename Current Tab"/>
 			<tabrename-newname value="New name"/>
 			<splitter-rotate-left value="Rotate to left"/>

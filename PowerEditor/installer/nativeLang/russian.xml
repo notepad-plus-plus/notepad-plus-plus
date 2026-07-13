@@ -1812,6 +1812,12 @@ Updated to :
 			<common-cancel value="&amp;Отмена"/>
 			<common-name value="Имя: "/>
 			<common-error value="Ошибка"/>
+			<plugin-overwrite-title value="Конфликт папки плагина"/>
+			<plugin-overwrite-content value="$STR_REPLACE$ уже существует в целевой папке.&#x0A;Перезаписать?"/>
+			<plugin-overwrite-btn-yes value="Да"/>
+			<plugin-overwrite-btn-yestoall value="Да для всех"/>
+			<plugin-overwrite-btn-no value="Нет"/>
+			<plugin-overwrite-btn-cancel value="Отмена"/>
 			<tabrename-title value="Задать Новое Имя"/>
 			<tabrename-newname value="Новое имя: "/>
 			<splitter-rotate-left value="Вращение влево"/>

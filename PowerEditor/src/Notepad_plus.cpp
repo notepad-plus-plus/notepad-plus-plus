@@ -5158,9 +5158,6 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne, bool forceApplyHili
 
 	notifyBufferActivated(id, whichOne);
 
-	if (_incrementFindDlg.isCreated() && _rebarBottom.getIDVisible(REBAR_BAR_SEARCH))
-		_incrementFindDlg.reInitCount();
-
 	return true;
 }
 
@@ -6686,10 +6683,10 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 
 			case DOC_MODIFIED:	//ask for reloading
 			{
-				// check if an associated IncrementalSearch does not need reset
-				if (_incrementFindDlg.isCreated() && _rebarBottom.getIDVisible(REBAR_BAR_SEARCH))
+				// check if possible IncrementalSearch does not need reset
+				if (_incrementFindDlg.isCreated() && _incrementFindDlg.isVisible())
 				{
-					if (_incrementFindDlg.getAssociatedScintillaView() == _pEditView)
+					if (_pEditView->getCurrentBuffer() == buffer)
 						_incrementFindDlg.reInitCount();
 				}
 				
@@ -6735,7 +6732,8 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 
 			case DOC_NEEDRELOAD: // by log monitoring
 			{
-				if (_incrementFindDlg.isCreated() && _rebarBottom.getIDVisible(REBAR_BAR_SEARCH))
+				// check if possible IncrementalSearch does not need reset
+				if (_incrementFindDlg.isCreated() && _incrementFindDlg.isVisible())
 					_incrementFindDlg.reInitCount();
 
 				doReload(buffer->getID(), false);
@@ -6942,6 +6940,10 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	}
 
 	_linkTriggered = true;
+
+	// check if possible IncrementalSearch does not need reset
+	if (_incrementFindDlg.isCreated() && _incrementFindDlg.isVisible())
+		_incrementFindDlg.reInitCount();
 }
 
 std::vector<wstring> Notepad_plus::loadCommandlineParams(const wchar_t * commandLine, const CmdLineParamsDTO * pCmdParams)

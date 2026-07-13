@@ -6542,12 +6542,6 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 			return TRUE;
 		}
 
-		case NPPM_INTERNAL_REINITINCSEARCHCOUNT:
-		{
-			_matches.clear();
-			return TRUE;
-		}
-
 		case WM_ERASEBKGND:
 		{
 			if (NppDarkMode::isEnabled())
@@ -6689,6 +6683,14 @@ void FindIncrementDlg::addToRebar(ReBar * rebar)
 	_rbBand.cxIdeal		= _rbBand.cx			= client.right-client.left;
 
 	_pRebar->addBand(&_rbBand, true);
+
+	// fix for FindIncrementDlg::StaticDialog::Window::isVisible() to be usable for the nth/count optimization from the start
+	// - the above ReBar::addBand uses Windows Common Controls RB_INSERTBAND, which internal stuff causes
+	//   that the IncrementalSearch dlg child-wnd (passed in the REBARBANDINFO struct) has immediately the WS_VISIBLE set
+	//   after sending that RB_INSERTBAND msg, even if that IncrementalSearch dlg is not really visible yet
+	LONG_PTR style = ::GetWindowLongPtrW(_hSelf, GWL_STYLE);
+	::SetWindowLongPtrW(_hSelf, GWL_STYLE, style & ~WS_VISIBLE);
+
 	_pRebar->setGrayBackground(_rbBand.wID);
 }
 

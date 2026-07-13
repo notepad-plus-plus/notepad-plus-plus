@@ -6686,8 +6686,8 @@ void FindIncrementDlg::addToRebar(ReBar * rebar)
 
 	// fix for FindIncrementDlg::StaticDialog::Window::isVisible() to be usable for the nth/count optimization from the start
 	// - the above ReBar::addBand uses Windows Common Controls RB_INSERTBAND, which internal stuff causes
-	//   that the SearchResults dlg child-wnd (passed in the REBARBANDINFO struct) has immediately the WS_VISIBLE set
-	//   after sending that RB_INSERTBAND msg, even if that SearchResults dlg is not really visible yet
+	//   that the IncrementalSearch dlg child-wnd (passed in the REBARBANDINFO struct) has immediately the WS_VISIBLE set
+	//   after sending that RB_INSERTBAND msg, even if that IncrementalSearch dlg is not really visible yet
 	LONG_PTR style = ::GetWindowLongPtrW(_hSelf, GWL_STYLE);
 	::SetWindowLongPtrW(_hSelf, GWL_STYLE, style & ~WS_VISIBLE);
 

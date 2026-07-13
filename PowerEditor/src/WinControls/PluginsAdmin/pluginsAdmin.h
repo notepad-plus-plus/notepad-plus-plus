@@ -167,6 +167,8 @@ public :
 	bool removePlugins();
 	bool deactivatePlugins();
 	bool activatePlugins();
+	bool removeDisabledPlugins();
+	bool removeIncompatiblePlugins();
 
 	void changeTabName(LIST_TYPE index, wchar_t* name2change);
 	void changeColumnName(COLUMN_TYPE index, const wchar_t *name2change);
@@ -236,7 +238,7 @@ private :
 		pa_deactivate = 3,
 		pa_activate = 4
 	};
-	bool exitToInstallRemovePlugins(Operation op, const std::vector<PluginUpdateInfo*>& puis);
+	bool exitToInstallRemovePlugins(Operation op, const std::vector<PluginUpdateInfo*>& puis, const std::wstring& customRoot = L"");
 
 	// Handles pa_deactivate / pa_activate: moves plugin folders between the "plugins"
 	// directory and _disabledPluginsRootDir (in the given direction), then restarts Npp

@@ -649,7 +649,7 @@ Updated to :
 				<Item id="2" name="За&amp;крыть"/>
 			</SHA512FromTextDlg>
 
-			<PluginsAdminDlg title="Управление Плагинами" titleAvailable="Доступные" titleUpdates="Обновления" titleInstalled="Установленные" titleIncompatible="Несовместимые">
+			<PluginsAdminDlg title="Управление Плагинами" titleAvailable="Доступные" titleUpdates="Обновления" titleInstalled="Установленные" titleIncompatible="Несовместимые" titleDisabled="Деактивированные">
 				<ColumnPlugin name="Плагины"/>
 				<ColumnVersion name="Версия"/>
 				<Item id="5501" name="Поиск: "/>
@@ -659,6 +659,10 @@ Updated to :
 				<Item id="5508" name="Далее"/>
 				<Item id="5509" name="Версия плагина: "/>
 				<Item id="5511" name="Домашняя страница"/>
+				<Item id="5512" name="Деактивировать"/>
+				<Item id="5513" name="Активировать"/>
+				<Item id="5514" name="Удалить"/>
+				<Item id="5515" name="Удалить"/>
 				<Item id="2" name="За&amp;крыть"/>
 			</PluginsAdminDlg>
 			<StyleConfig title="Конфигуратор стилей">

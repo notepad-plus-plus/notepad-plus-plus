@@ -287,30 +287,60 @@ static std::wstring computeDisabledPluginsRootDir(const std::wstring& pluginRoot
 
 enum class OverwriteChoice { Yes, YesToAll, No, Cancel };
 
+// Simple "$STR_REPLACE$" substitution, same placeholder convention used by
+// NativeLangSpeaker::messageBox() elsewhere in the codebase - done manually
+// here because getLocalizedStrFromID() returns the raw template string.
+static std::wstring replaceToken(std::wstring str, const std::wstring& token, const std::wstring& value)
+{
+	size_t pos = str.find(token);
+	if (pos != std::wstring::npos)
+		str.replace(pos, token.length(), value);
+	return str;
+}
+
 // Asks "<folderName> already exists at destination - overwrite?" with 4 real,
 // distinct buttons (Yes / Yes to all / No / Cancel), via TaskDialogIndirect
-// (a plain MessageBox can't offer more than 3 choices).
-static OverwriteChoice askOverwriteConfirmation(HWND hParent, const std::wstring& folderName)
+// (a plain MessageBox can't offer more than 3 choices). Title/content/button
+// text are localized via NativeLangSpeaker::getLocalizedStrFromID() (falls
+// back to English if the running language file doesn't have these ids yet).
+static OverwriteChoice askOverwriteConfirmation(HWND hParent, const std::wstring& folderName, NativeLangSpeaker* pNativeSpeaker)
 {
 	enum { ID_YES = 100, ID_YESTOALL = 101, ID_NO = 102, ID_CANCEL = 103 };
 
-	const TASKDIALOG_BUTTON buttons[] = {
-		{ ID_YES,      L"Yes" },
-		{ ID_YESTOALL, L"Yes to all" },
-		{ ID_NO,       L"No" },
-		{ ID_CANCEL,   L"Cancel" },
-	};
+	wstring title = L"Notepad++";
+	wstring mainInstruction = L"Plugin folder conflict";
+	wstring contentTemplate = L"$STR_REPLACE$ already exists in the destination folder.\nDo you want to overwrite it?";
+	wstring btnYes = L"Yes";
+	wstring btnYesToAll = L"Yes to all";
+	wstring btnNo = L"No";
+	wstring btnCancel = L"Cancel";
 
-	wstring content = folderName;
-	content += L" already exists in the destination folder.\nDo you want to overwrite it?";
+	if (pNativeSpeaker)
+	{
+		mainInstruction = pNativeSpeaker->getLocalizedStrFromID("plugin-overwrite-title", mainInstruction);
+		contentTemplate = pNativeSpeaker->getLocalizedStrFromID("plugin-overwrite-content", contentTemplate);
+		btnYes = pNativeSpeaker->getLocalizedStrFromID("plugin-overwrite-btn-yes", btnYes);
+		btnYesToAll = pNativeSpeaker->getLocalizedStrFromID("plugin-overwrite-btn-yestoall", btnYesToAll);
+		btnNo = pNativeSpeaker->getLocalizedStrFromID("plugin-overwrite-btn-no", btnNo);
+		btnCancel = pNativeSpeaker->getLocalizedStrFromID("plugin-overwrite-btn-cancel", btnCancel);
+	}
+
+	wstring content = replaceToken(contentTemplate, L"$STR_REPLACE$", folderName);
+
+	const TASKDIALOG_BUTTON buttons[] = {
+		{ ID_YES,      btnYes.c_str() },
+		{ ID_YESTOALL, btnYesToAll.c_str() },
+		{ ID_NO,       btnNo.c_str() },
+		{ ID_CANCEL,   btnCancel.c_str() },
+	};
 
 	TASKDIALOGCONFIG config{};
 	config.cbSize = sizeof(config);
 	config.hwndParent = hParent;
 	config.dwFlags = TDF_SIZE_TO_CONTENT;
 	config.pszMainIcon = TD_INFORMATION_ICON;
-	config.pszWindowTitle = L"Notepad++";
-	config.pszMainInstruction = L"Plugin folder conflict";
+	config.pszWindowTitle = title.c_str();
+	config.pszMainInstruction = mainInstruction.c_str();
 	config.pszContent = content.c_str();
 	config.cButtons = ARRAYSIZE(buttons);
 	config.pButtons = buttons;
@@ -465,6 +495,7 @@ bool PluginsAdminDlg::exitToDeactivateActivatePlugins(Operation op, const vector
 
 	NppParameters& nppParameters = NppParameters::getInstance();
 	wstring pluginsRootDir = nppParameters.getPluginRootDir();
+	NativeLangSpeaker* pNativeSpeaker = nppParameters.getNativeLangSpeaker();
 
 	wstring srcRoot = (op == pa_deactivate) ? pluginsRootDir : _disabledPluginsRootDir;
 	wstring destRoot = (op == pa_deactivate) ? _disabledPluginsRootDir : pluginsRootDir;
@@ -488,7 +519,7 @@ bool PluginsAdminDlg::exitToDeactivateActivatePlugins(Operation op, const vector
 
 		if (isDirectoryExisting(destPath) && !yesToAll)
 		{
-			OverwriteChoice choice = askOverwriteConfirmation(_hSelf, folderName);
+			OverwriteChoice choice = askOverwriteConfirmation(_hSelf, folderName, pNativeSpeaker);
 
 			if (choice == OverwriteChoice::Cancel)
 				return false; // abort the whole operation, nothing gets moved
@@ -538,7 +569,6 @@ bool PluginsAdminDlg::exitToDeactivateActivatePlugins(Operation op, const vector
 	}
 
 	// Ask user's confirmation - same restart warning as install/update/remove
-	NativeLangSpeaker* pNativeSpeaker = nppParameters.getNativeLangSpeaker();
 	auto res = pNativeSpeaker->messageBox("ExitToUpdatePlugins",
 		_hSelf,
 		L"If you click YES, you will quit Notepad++ to continue the operations.\nNotepad++ will be restarted after all the operations are terminated.\nContinue?",

@@ -6,8 +6,10 @@ title: "[Feature request] <title>"
 body:
 - type: checkboxes
   attributes:
-    label: Is there an existing issue for this?
-    description: Please search to see if an issue already exists for the feature you request.
+    label: Is there an existing issue (open or closed) for this?
+    description:  |
+      Please search both opened and closed issues to see if an issue already exists 
+      for the feature you request. (Remove `is:open` from search bar.)
     options:
     - label: I have searched the existing issues
       required: true

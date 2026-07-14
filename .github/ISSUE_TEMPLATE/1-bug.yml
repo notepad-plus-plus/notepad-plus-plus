@@ -6,9 +6,10 @@ title: "[BUG] <title>"
 body:
 - type: checkboxes
   attributes:
-    label: Is there an existing issue for this?
+    label: Is there an existing issue (open or closed) for this?
     description: |
-      Please search to see if an issue already exists for the bug you encountered.
+      Please search both opened and closed issues to see if an issue already exists 
+      for the bug you encountered. (Remove `is:open` from search bar.)
       If the issue is for a plugin (except for mimeTools, NppConverter, and NppExport),
       report it to the plugin author rather than here.
     options:

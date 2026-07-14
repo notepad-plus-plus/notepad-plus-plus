@@ -4645,7 +4645,6 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 					{
 						lastOpened = test;
 						if (_pDocumentListPanel)
-							_pDocumentListPanel->getHSelf();
 							_pDocumentListPanel->newItem(MainFileManager.getBufferByID(lastOpened), currentView());
 					}
 				}

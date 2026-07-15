@@ -2403,7 +2403,7 @@ void NppParameters::updateLangXml(NppXml::Element& mainElemUser, const NppXml::E
 				const char* pcUserValue = NppXml::attribute(thisLanguageFromUser, attrName);
 				if (!pcUserValue)
 					NppXml::setAttribute(thisLanguageFromUser, attrName, NppXml::getValue(attrModel));
-				else if (std::strcmp(attrName, "ext"))
+				else if (std::strcmp(attrName, "ext") == 0)
 				{
 					// Get both user and model values for the ext attribute
 					std::string sExtValues = std::string(pcUserValue) + " " + NppXml::getValue(attrModel);

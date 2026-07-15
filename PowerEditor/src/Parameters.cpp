@@ -5882,8 +5882,7 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 				if (val)
 				{
 					using enum urlMode;
-					try
-					{
+					try {
 						const int i = std::stoi(val);
 						if ((i >= static_cast<int>(urlMin)) && (i <= static_cast<int>(urlMax)))
 							_nppGUI._styleURL = static_cast<urlMode>(i);

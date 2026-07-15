@@ -162,8 +162,7 @@ LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 	{
 		case WM_CREATE:
 		{
-			try
-			{
+			try {
 				NppDarkMode::setDarkTitleBar(hwnd);
 				NppDarkMode::autoSubclassWindowMenuBar(hwnd);
 				NppDarkMode::autoSubclassCtlColor(hwnd);

@@ -431,8 +431,7 @@ size_t Utf8_16_Write::convert(char* p, size_t _size)
 		m_nBufSize = 0;
 	}
 
-	try
-	{
+	try {
 		switch (m_eEncoding)
 		{
 		case uni7Bit:

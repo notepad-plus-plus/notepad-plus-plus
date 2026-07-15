@@ -3580,8 +3580,7 @@ void Notepad_plus::addHotSpot(ScintillaEditView* view)
 
 	pView->getText(encodedText, startPos, endPos);
 	wchar_t* wideText = nullptr;
-	try
-	{
+	try {
 		wideText = new wchar_t[endPos - startPos + 1];
 	}
 	catch (const std::bad_alloc&)

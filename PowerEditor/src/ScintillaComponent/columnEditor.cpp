@@ -774,8 +774,7 @@ int ColumnEditorDlg::getNumericFieldValueFromText(NumBase formatChoice, const st
 
 	size_t end = 0;
 	// convert string in base to int value; on error, return -1
-	try
-	{
+	try {
 		const int num = std::stoi(str, &end, base);
 		if (end != str.length())
 			return -1;

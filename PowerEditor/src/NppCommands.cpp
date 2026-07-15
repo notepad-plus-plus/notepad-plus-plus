@@ -1036,8 +1036,7 @@ void Notepad_plus::command(int id)
 			{
 				pSorter = std::make_unique<RandomSorter>(isDescending, fromColumn, toColumn);
 			}
-			try
-			{
+			try {
 				_pEditView->sortLines(fromLine, toLine, pSorter.get());
 			}
 			catch (size_t& failedLineIndex)

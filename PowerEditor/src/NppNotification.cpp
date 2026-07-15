@@ -1203,8 +1203,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case TTN_GETDISPINFO:
 		{
-			try
-			{
+			try {
 				LPTOOLTIPTEXT lpttt = (LPTOOLTIPTEXT)notification;
 				lpttt->hinst = NULL;
 

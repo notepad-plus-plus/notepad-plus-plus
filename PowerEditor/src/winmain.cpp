@@ -539,8 +539,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 			if ((__argc == 4) && (wcscmp(wszNppUacOpSign, NPP_UAC_SETFILEATTRIBUTES_SIGN) == 0))
 			{
 				// __wargv[x]: 2 ... dwFileAttributes (string), 3  ...  filePath
-				try
-				{
+				try {
 					return static_cast<int>(nppUacSetFileAttributes(static_cast<DWORD>(std::stoul(std::wstring(__wargv[2]))), __wargv[3]));
 				}
 				catch ([[maybe_unused]] const std::exception& e)
@@ -816,8 +815,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	Win32Exception::installHandler();
 	MiniDumper mdump;	//for debugging purposes.
 	bool isException = false;
-	try
-	{
+	try {
 		notepad_plus_plus.init(hInstance, NULL, quotFileName.c_str(), &cmdLineParams);
 		allowPrivilegeMessages(notepad_plus_plus, ver);
 		bool going = true;

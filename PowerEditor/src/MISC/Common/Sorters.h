@@ -536,8 +536,7 @@ public:
 			}
 			else
 			{
-				try
-				{
+				try {
 					nonEmptyInputAsNumbers.push_back(std::make_pair(lineIndex, convertStringToNumber(preparedLine)));
 				}
 				catch (...)

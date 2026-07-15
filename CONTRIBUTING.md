@@ -90,6 +90,20 @@ In short: The easier the code review is, the better the chance your pull request
     }
     ```
 
+    For try bloc, Java-like braces should be used as well, in .cpp or .h files.
+
+    * Good:
+  
+    ```cpp
+    try {
+        // instructions
+    }
+    catch (...)
+    {
+        // instructions
+    }
+    ```
+
 2. Use tabs instead of white-spaces (we usually set our editors to 4 white-spaces for 1 tab, but the choice is up to you)
 
 3. Always leave one space before and after binary and ternary operators

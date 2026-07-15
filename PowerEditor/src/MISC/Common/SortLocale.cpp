@@ -133,8 +133,7 @@ SortLocale::Result SortLocale::sort(ScintillaEditView* sci, bool descending) con
 	intptr_t vsCaret = 0;
 	intptr_t lnCaret = 0;
 
-	try
-	{
+	try {
 
 		// Build a vector which will contain the sort keys and pointers to the lines to be sorted.
 
@@ -256,8 +255,7 @@ SortLocale::Result SortLocale::sort(ScintillaEditView* sci, bool descending) con
 
 	catch (const std::exception& e)
 	{
-		try
-		{
+		try {
 			int errlen = MultiByteToWideChar(CP_ACP, 0, e.what(), -1, 0, 0);
 			if (errlen < 2) return errorUnknown;
 			std::wstring errmsg(errlen - 1, 0);

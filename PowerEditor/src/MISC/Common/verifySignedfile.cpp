@@ -319,7 +319,8 @@ bool SecurityGuard::verifySignedBinary(const std::wstring& filepath)
 		display_name = display_name_buffer.get();
 
 	}
-	catch (const string& s) {
+	catch (const string& s)
+	{
 		if (doLogCertifError)
 		{
 			wstring msg = string2wstring(s, CP_UTF8);
@@ -328,7 +329,8 @@ bool SecurityGuard::verifySignedBinary(const std::wstring& filepath)
 		}
 		status = false;
 	}
-	catch (...) {
+	catch (...)
+	{
 		// Unknown error
 		if (doLogCertifError)
 			writeCertVerifLog(errorLogPath.c_str(), L"VerifyComponent: error while getting certificate information");

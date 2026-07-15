@@ -99,8 +99,7 @@ std::string getFileContent(const wchar_t* file2read, bool* pbFailed)
 	char data[blockSize];
 	std::string wholeFileContent;
 	size_t lenFile = 0;
-	try
-	{
+	try {
 		do
 		{
 			lenFile = fread(data, 1, blockSize, fp);
@@ -963,8 +962,7 @@ const std::locale& getSysLocale()
 {
 	static const auto systemLocale = []()
 	{
-		try
-		{
+		try {
 			return std::locale("");
 		}
 		catch (const std::runtime_error&)

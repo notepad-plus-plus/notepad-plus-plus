@@ -4500,8 +4500,7 @@ wstring FindReplaceDlg::getScopeInfoForStatusBar(FindOption const *pFindOpt) con
 
 void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const wstring& stringValue)
 {
-	try
-	{
+	try {
 		switch (cmd)
 		{
 			case IDC_FRCOMMAND_INIT:

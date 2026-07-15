@@ -105,8 +105,7 @@ int PluginsManager::loadPluginFromPath(const wchar_t *pluginFilePath)
 	NppParameters& nppParams = NppParameters::getInstance();
 
 	auto pi = std::make_unique<PluginInfo>();
-	try
-	{
+	try {
 		pi->_moduleName = pluginFileName;
 		static constexpr int binArchType = NppParameters::archType();
 		if (getBinaryArchitectureType(pluginFilePath) != binArchType)
@@ -645,8 +644,7 @@ void PluginsManager::runPluginCommand(size_t i)
 	{
 		if (_pluginsCommands[i]._pFunc != NULL)
 		{
-			try
-			{
+			try {
 				_pluginsCommands[i]._pFunc();
 			}
 			catch (std::exception& e)
@@ -673,8 +671,7 @@ void PluginsManager::runPluginCommand(const wchar_t *pluginName, int commandID)
 		{
 			if (_pluginsCommands[i]._funcID == commandID)
 			{
-				try
-				{
+				try {
 					_pluginsCommands[i]._pFunc();
 				}
 				catch (std::exception& e)
@@ -704,8 +701,7 @@ void PluginsManager::notify(size_t indexPluginInfo, const SCNotification *notifi
 		// To avoid the plugin change the data in SCNotification
 		// Each notification to pass to a plugin is a copy of SCNotification instance
 		SCNotification scNotif = *notification;
-		try
-		{
+		try {
 			_pluginInfos[indexPluginInfo]->_pBeNotified(&scNotif);
 		}
 		catch (std::exception& e)
@@ -743,8 +739,7 @@ void PluginsManager::relayNppMessages(UINT Message, WPARAM wParam, LPARAM lParam
 	{
         if (_pluginInfos[i]->_hLib)
 		{
-			try
-			{
+			try {
 				_pluginInfos[i]->_pMessageProc(Message, wParam, lParam);
 			}
 			catch (std::exception& e)
@@ -775,8 +770,7 @@ bool PluginsManager::relayPluginMessages(UINT Message, WPARAM wParam, LPARAM lPa
 		{
             if (_pluginInfos[i]->_hLib)
 			{
-				try
-				{
+				try {
 					_pluginInfos[i]->_pMessageProc(Message, wParam, lParam);
 				}
 				catch (std::exception& e)

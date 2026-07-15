@@ -971,10 +971,18 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		case IDM_FILEBROWSER_SHELLEXECUTE:
 		{
 			if (!selectedNode) return;
-			wstring path = getNodePath(selectedNode);
+			wstring literalPath = L"\\\\?\\" + getNodePath(selectedNode);
 
-			if (doesPathExist(path.c_str()))
-				::ShellExecute(NULL, L"open", path.c_str(), NULL, NULL, SW_SHOWNORMAL);
+			if (doesPathExist(literalPath.c_str()))
+			{
+				SHELLEXECUTEINFO sei{};
+				sei.cbSize = sizeof(sei);
+				sei.fMask = SEE_MASK_FLAG_NO_UI;
+				sei.lpVerb = L"open";
+				sei.lpFile = literalPath.c_str();
+				sei.nShow = SW_SHOWNORMAL;
+				::ShellExecuteEx(&sei);
+			}
 		}
 		break;
 	}

@@ -726,90 +726,66 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_COPYDATA:
 		{
-			COPYDATASTRUCT *pCopyData = reinterpret_cast<COPYDATASTRUCT *>(lParam);
+			if (lParam == 0)
+				return TRUE; // invalid
 
-			switch (pCopyData->dwData)
-			{
-				case COPYDATA_FULL_CMDLINE:
+			COPYDATASTRUCT* pCopyData = reinterpret_cast<COPYDATASTRUCT*>(lParam);
+			if (pCopyData->lpData == nullptr)
+				return TRUE; // invalid
+
+			try {
+				switch (pCopyData->dwData)
 				{
-					try
+					case COPYDATA_FULL_CMDLINE:
 					{
 						wchar_t* str2set = static_cast<wchar_t*>(pCopyData->lpData);
 						nppParam.setCmdLineString(str2set);
+						break;
 					}
-					catch (...)
-					{
-#if !defined(NDEBUG)
-						printStr(L"COPYDATA_FULL_CMDLINE: invalid string pointer.");
-#endif
-					}
-					break;
-				}
 
-				case COPYDATA_PARAMS:
-				{
-					const CmdLineParamsDTO* cmdLineParam = static_cast<const CmdLineParamsDTO*>(pCopyData->lpData); // CmdLineParams object from another instance
-					const DWORD cmdLineParamsSize = pCopyData->cbData; // CmdLineParams size from another instance
-
-					if (!cmdLineParam)
+					case COPYDATA_PARAMS:
 					{
-#if !defined(NDEBUG)
-						printStr(L"COPYDATA_PARAMS: invalid pCopyData->lpData nullptr.");
-#endif
-					}
-					else
-					{
-						try
+						const CmdLineParamsDTO* cmdLineParam = static_cast<const CmdLineParamsDTO*>(pCopyData->lpData); // CmdLineParams object from another instance
+						const DWORD cmdLineParamsSize = pCopyData->cbData; // CmdLineParams size from another instance
+						if (sizeof(CmdLineParamsDTO) == cmdLineParamsSize) // make sure the structure is the same
 						{
-							if (sizeof(CmdLineParamsDTO) == cmdLineParamsSize) // make sure the structure is the same
+							nppParam.setCmdlineParam(*cmdLineParam); // need to be guarded for possible invalid ptr passed
+							wstring pluginMessage{ nppParam.getCmdLineParams()._pluginMessage };
+							if (!pluginMessage.empty())
 							{
-								nppParam.setCmdlineParam(*cmdLineParam); // need to be guarded for possible invalid ptr passed
-								wstring pluginMessage{ nppParam.getCmdLineParams()._pluginMessage };
-								if (!pluginMessage.empty())
-								{
-									SCNotification scnN{};
-									scnN.nmhdr.code = NPPN_CMDLINEPLUGINMSG;
-									scnN.nmhdr.hwndFrom = hwnd;
-									scnN.nmhdr.idFrom = reinterpret_cast<uptr_t>(pluginMessage.c_str());
-									_pluginsManager.notify(&scnN);
-								}
-
-								NppGUI& nppGui = nppParam.getNppGUI();
-								nppGui._isCmdlineNosessionActivated = cmdLineParam->_isNoSession; // need to be guarded for possible invalid ptr passed
+								SCNotification scnN{};
+								scnN.nmhdr.code = NPPN_CMDLINEPLUGINMSG;
+								scnN.nmhdr.hwndFrom = hwnd;
+								scnN.nmhdr.idFrom = reinterpret_cast<uptr_t>(pluginMessage.c_str());
+								_pluginsManager.notify(&scnN);
 							}
-							else
-							{
+
+							NppGUI& nppGui = nppParam.getNppGUI();
+							nppGui._isCmdlineNosessionActivated = cmdLineParam->_isNoSession; // need to be guarded for possible invalid ptr passed
+						}
+						else
+						{
 #if !defined(NDEBUG)  
-								printStr(L"COPYDATA_PARAMS: sizeof(CmdLineParams) != cmdLineParamsSize\rCmdLineParams is formed by an instance of another version,\rwhereas your CmdLineParams has been modified in this instance.");
-#endif
-							}
-						}
-						catch (...)
-						{
-#if !defined(NDEBUG)
-							printStr(L"COPYDATA_PARAMS: probably invalid pCopyData->lpData pointer.");
+							printStr(L"COPYDATA_PARAMS: sizeof(CmdLineParams) != cmdLineParamsSize\rCmdLineParams is formed by an instance of another version,\rwhereas your CmdLineParams has been modified in this instance.");
 #endif
 						}
+						break;
 					}
-					break;
-				}
 
-				case COPYDATA_FILENAMESW:
-				{
-					try
+					case COPYDATA_FILENAMESW:
 					{
 						wchar_t* fileNamesW = static_cast<wchar_t*>(pCopyData->lpData);
 						const CmdLineParamsDTO& cmdLineParams = nppParam.getCmdLineParams();
 						loadCommandlineParams(fileNamesW, &cmdLineParams);
+						break;
 					}
-					catch (...)
-					{
-#if !defined(NDEBUG)
-						printStr(L"COPYDATA_FILENAMESW: invalid string pointer.");
-#endif
-					}
-					break;
 				}
+			}
+			catch (...)
+			{
+#if !defined(NDEBUG)
+				printStr(L"WM_COPYDATA exception: probably an invalid pointer.");
+#endif
 			}
 
 			return TRUE;

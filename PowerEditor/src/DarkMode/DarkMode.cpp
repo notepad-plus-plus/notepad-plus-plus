@@ -191,8 +191,8 @@ static void FlushMenuThemes()
 
 // limit dark scroll bar to specific windows and their children
 
-std::unordered_set<HWND> g_darkScrollBarWindows;
-std::mutex g_darkScrollBarMutex;
+static std::unordered_set<HWND> g_darkScrollBarWindows;
+static std::mutex g_darkScrollBarMutex;
 
 void EnableDarkScrollBarForWindowAndChildren(HWND hwnd)
 {
@@ -384,9 +384,6 @@ private:
 
 using fnFindThunkInModule = auto (*)(void* moduleBase, const char* dllName, const char* funcName)->PIMAGE_THUNK_DATA;
 
-using fnGetThemeColor = auto (WINAPI*)(HTHEME hTheme, int iPartId, int iStateId, int iPropId, COLORREF* pColor)->HRESULT;
-using fnDrawThemeBackgroundEx = auto (WINAPI*)(HTHEME hTheme, HDC hdc, int iPartId, int iStateId, LPCRECT pRect, const DTBGOPTS* pOptions)->HRESULT;
-
 template <typename P>
 static auto ReplaceFunction(IMAGE_THUNK_DATA* addr, const P& newFunction) noexcept -> P
 {
@@ -507,11 +504,13 @@ static void UnhookFunction(HookData<T>& hookData) noexcept
 	}
 }
 
-static HookData<fnGetThemeColor> g_hookDataGetThemeColor{};
-static HookData<fnDrawThemeBackgroundEx> g_hookDataDrawThemeBackgroundEx{};
+static HookData<decltype(&::GetThemeColor)> g_hookDataGetThemeColor{};
+static HookData<decltype(&::DrawThemeBackgroundEx)> g_hookDataDrawThemeBackgroundEx{};
 
-static constexpr COLORREF kMainInstructionTextClr = RGB(96, 205, 255);
+static constexpr COLORREF kMainInstructionTextClr = RGB(153, 235, 255);
 static constexpr COLORREF kOtherTextClr = RGB(255, 255, 255);
+static COLORREF g_mainInstructionTextClr = kMainInstructionTextClr;
+static COLORREF g_otherTextClr = kOtherTextClr;
 
 static HTHEME g_hDarkTheme = nullptr;
 
@@ -535,7 +534,7 @@ static HRESULT WINAPI MyGetThemeColor(
 		{
 			case TDLG_MAININSTRUCTIONPANE:
 			{
-				*pColor = kMainInstructionTextClr;
+				*pColor = g_mainInstructionTextClr;
 				break;
 			}
 
@@ -551,7 +550,7 @@ static HRESULT WINAPI MyGetThemeColor(
 				}
 				else
 				{
-					*pColor = kOtherTextClr;
+					*pColor = g_otherTextClr;
 				}
 				break;
 			}
@@ -625,9 +624,19 @@ bool HookThemeColor() noexcept
 				clrMain = kMainPaneBgClr;
 			}
 
-			if (FAILED(::GetThemeColor(g_hDarkTheme, TDLG_SECONDARYPANEL, 0, TMT_FILLCOLOR, &clrFooter)))
+			if (FAILED(::GetThemeColor(g_hDarkTheme, TDLG_FOOTNOTEPANE, 0, TMT_FILLCOLOR, &clrFooter)))
 			{
 				clrFooter = kFooterBgClr;
+			}
+
+			if (FAILED(::GetThemeColor(g_hDarkTheme, TDLG_PRIMARYPANEL, 0, TMT_TEXTCOLOR, &g_otherTextClr)))
+			{
+				g_otherTextClr = kOtherTextClr;
+			}
+
+			if (FAILED(::GetThemeColor(g_hDarkTheme, TDLG_MAININSTRUCTIONPANE, 0, TMT_TEXTCOLOR, &g_mainInstructionTextClr)))
+			{
+				g_mainInstructionTextClr = kMainInstructionTextClr;
 			}
 		}
 	}
@@ -643,12 +652,12 @@ bool HookThemeColor() noexcept
 	}
 
 	return
-		HookFunction<fnGetThemeColor>(g_hookDataGetThemeColor,
+		HookFunction<decltype(&::GetThemeColor)>(g_hookDataGetThemeColor,
 			MyGetThemeColor,
 			"uxtheme.dll",
 			static_cast<const char*>("GetThemeColor"),
 			static_cast<fnFindThunkInModule>(FindDelayLoadThunkInModule))
-		&& HookFunction<fnDrawThemeBackgroundEx>(g_hookDataDrawThemeBackgroundEx,
+		&& HookFunction<decltype(&::DrawThemeBackgroundEx)>(g_hookDataDrawThemeBackgroundEx,
 			MyDrawThemeBackgroundEx,
 			"uxtheme.dll",
 			kDrawThemeBackgroundExOrdinal);
@@ -657,8 +666,8 @@ bool HookThemeColor() noexcept
 
 void UnhookThemeColor() noexcept
 {
-	UnhookFunction<fnGetThemeColor>(g_hookDataGetThemeColor);
-	UnhookFunction<fnDrawThemeBackgroundEx>(g_hookDataDrawThemeBackgroundEx);
+	UnhookFunction<decltype(&::GetThemeColor)>(g_hookDataGetThemeColor);
+	UnhookFunction<decltype(&::DrawThemeBackgroundEx)>(g_hookDataDrawThemeBackgroundEx);
 	if (g_hDarkTheme != nullptr && g_hookDataGetThemeColor.m_ref == 0)
 	{
 		::CloseThemeData(g_hDarkTheme);
@@ -675,5 +684,106 @@ void UnhookThemeColor() noexcept
 	{
 		::DeleteObject(g_hBrushBgFooter);
 		g_hBrushBgFooter = nullptr;
+	}
+}
+
+extern "C"
+{
+	static LPCWSTR WINAPI DummyMB_GetString([[maybe_unused]] UINT wBtn) noexcept
+	{
+		return nullptr;
+	}
+}
+static decltype(&DummyMB_GetString) pfMB_GetString = DummyMB_GetString;
+
+void InitMB_GetString() noexcept
+{
+	static bool isInit = false;
+	if (isInit)
+	{
+		return;
+	}
+
+	if (HMODULE hUser32 = ::GetModuleHandleW(L"user32.dll");
+		hUser32 != nullptr)
+	{
+		if (auto proc = ::GetProcAddress(hUser32, "MB_GetString");
+			proc != nullptr)
+		{
+			pfMB_GetString = reinterpret_cast<decltype(&DummyMB_GetString)>(proc);
+		}
+		isInit = true;
+	}
+}
+
+LPCWSTR MyMB_GetString(UINT wBtn) noexcept
+{
+	if (auto str = pfMB_GetString(wBtn - 1);
+		str != nullptr)
+	{
+		return str;
+	}
+
+	switch (wBtn)
+	{
+		case IDOK:
+		{
+			return L"OK";
+		}
+
+		case IDCANCEL:
+		{
+			return L"Cancel";
+		}
+
+		case IDABORT:
+		{
+			return L"&Abort";
+		}
+
+		case IDRETRY:
+		{
+			return L"&Retry";
+		}
+
+		case IDIGNORE:
+		{
+			return L"&Ignore";
+		}
+
+		case IDYES:
+		{
+			return L"&Yes";
+		}
+
+		case IDNO:
+		{
+			return L"&No";
+		}
+
+		case IDCLOSE:
+		{
+			return L"&Close";
+		}
+
+		case IDHELP:
+		{
+			return L"Help";
+		}
+
+		case IDTRYAGAIN:
+		{
+			return L"&Try Again";
+		}
+
+		case IDCONTINUE:
+		{
+			return L"&Continue";
+		}
+
+		default:
+		{
+			return nullptr;
+		}
 	}
 }

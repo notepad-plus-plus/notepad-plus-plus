@@ -19,3 +19,5 @@ bool IsWindows11();
 DWORD GetWindowsBuildNumber();
 bool HookThemeColor() noexcept;
 void UnhookThemeColor() noexcept;
+void InitMB_GetString() noexcept;
+LPCWSTR MyMB_GetString(UINT wBtn) noexcept;

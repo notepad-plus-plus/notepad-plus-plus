@@ -205,8 +205,8 @@ int PluginsManager::loadPluginFromPath(const wchar_t *pluginFilePath)
 			char lexName[MAX_EXTERNAL_LEXER_NAME_LEN]{};
 
 			int numLexers = GetLexerCount();
-
-			std::unique_ptr<ExternalLangContainer> containers[30]{};
+			std::unique_ptr<ExternalLangContainer> containers[NB_MAX_EXTERNAL_LANG]{};
+			int numLexers = numLexers > NB_MAX_EXTERNAL_LANG ? NB_MAX_EXTERNAL_LANG : numLexers;
 
 			for (int x = 0; x < numLexers; ++x)
 			{

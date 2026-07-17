@@ -208,6 +208,18 @@ Notepad_plus::~Notepad_plus()
 
 LRESULT Notepad_plus::init(HWND hwnd)
 {
+	struct defer_ {
+		HWND _hwnd;
+		defer_(HWND hwnd) : _hwnd(hwnd) {
+			SendMessage(_hwnd, WM_SETREDRAW, FALSE, 0);
+		}
+		~defer_() {
+			SendMessage(_hwnd, WM_SETREDRAW, TRUE, 0);
+			InvalidateRect(_hwnd, NULL, TRUE);
+			UpdateWindow(_hwnd);
+		}
+	} _defer(hwnd);
+
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = nppParam.getNppGUI();
 	const UINT dpi = DPIManagerV2::getDpiForWindow(hwnd);

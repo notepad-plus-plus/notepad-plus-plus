@@ -226,6 +226,18 @@ bool ToolBar::init(HINSTANCE hInst, HWND hPere, toolBarStatusType type, const To
 {
 	Window::init(hInst, hPere);
 	
+	struct defer_ {
+		ToolBar* _self;
+		defer_(ToolBar* self) : _self(self) {
+			SendMessage(_self->getHSelf(), WM_SETREDRAW, FALSE, 0);
+		}
+		~defer_() {
+			SendMessage(_self->getHSelf(), WM_SETREDRAW, TRUE, 0);
+			InvalidateRect(_self->getHSelf(), NULL, TRUE);
+			UpdateWindow(_self->getHSelf());
+		}
+	} _defer(this);
+
 	_state = type;
 
 	_dpiManager.setDpi(hPere);

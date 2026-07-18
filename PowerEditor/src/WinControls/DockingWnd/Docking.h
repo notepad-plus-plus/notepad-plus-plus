@@ -57,19 +57,21 @@ typedef struct DockedWidgetData {            // DockedWidget data (old name: tTb
 	HICON hIconTab = nullptr;                // icon for tabs
 	const wchar_t* pszAddInfo = nullptr;     // for plugin to display additional information
 
+	// [REQUIRED] It's the plugin file name with its extension (e.g. L"MyPlugin.dll"). 
+	// It is used as a unique identifier to reload and initialize the docking window on application startup.
+	const wchar_t* pszModuleName = nullptr;
+
 	// internal data, do not use !!!
 	RECT rcFloat = {};                       // floating position
 	int iPrevCont = 0;                       // stores the privious container (toggling between float and dock)
-	const wchar_t* pszModuleName = nullptr;  // it's the plugin file name. It's used to identify the plugin
 } DockedWidgetData, tTbData;
 
 
 struct tDockMgr {
 	HWND hWnd = nullptr;                  // the docking manager wnd
-	RECT rcRegion[DOCKCONT_MAX] = {{}};   // position of docked dialogs
+	RECT rcRegion[DOCKCONT_MAX] = { {} };   // position of docked dialogs
 };
 
 
 #define	HIT_TEST_THICKNESS		20
 #define SPLITTER_WIDTH			4
-

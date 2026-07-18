@@ -792,6 +792,14 @@ bool FileBrowser::selectItemFromPath(const wstring& itemPath) const
 
 			if (foundItem)
 			{
+				// A path lookup targets the full tree. If a filter is active,
+				// _treeView is hidden and _pActiveTreeView points at the (possibly
+				// empty) search-result tree; selecting here would auto-expand
+				// ancestors and drive that wrong tree with a foreign HTREEITEM.
+				// Clearing the filter restores _treeView as the active view (via
+				// EN_CHANGE -> filterAndSwitchView) so the file is actually shown.
+				::SetWindowText(_hFilterEdit, L"");
+
 				_treeView.selectItem(foundItem);
 				_treeView.grabFocus();
 				return true;
@@ -1052,29 +1060,38 @@ void FileBrowser::notified(LPNMHDR notification)
 			case TVN_ITEMEXPANDED:
 			{
 				LPNMTREEVIEW nmtv = (LPNMTREEVIEW)notification;
+
+				// Act on the tree that raised the notification, not on
+				// _pActiveTreeView. They differ when a _treeView item is expanded
+				// while the filtered search-result view is active; using
+				// _pActiveTreeView there drives the wrong control with a foreign
+				// HTREEITEM and crashes when that control is empty.
+				TreeView& srcTree = (notification->hwndFrom == _treeViewSearchResult.getHSelf())
+					? _treeViewSearchResult : _treeView;
+
 				tvItem.hItem = nmtv->itemNew.hItem;
 				tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
 
-				if (getNodeType(nmtv->itemNew.hItem) == browserNodeType_folder)
+				if (getNodeType(nmtv->itemNew.hItem, srcTree.getHSelf()) == browserNodeType_folder)
 				{
 					if (nmtv->action == TVE_COLLAPSE)
 					{
-						_pActiveTreeView->setItemImage(nmtv->itemNew.hItem, INDEX_CLOSE_NODE, INDEX_CLOSE_NODE);
+						srcTree.setItemImage(nmtv->itemNew.hItem, INDEX_CLOSE_NODE, INDEX_CLOSE_NODE);
 					}
 					else if (nmtv->action == TVE_EXPAND)
 					{
-						_pActiveTreeView->setItemImage(nmtv->itemNew.hItem, INDEX_OPEN_NODE, INDEX_OPEN_NODE);
+						srcTree.setItemImage(nmtv->itemNew.hItem, INDEX_OPEN_NODE, INDEX_OPEN_NODE);
 					}
 				}
-				else if (getNodeType(nmtv->itemNew.hItem) == browserNodeType_root)
+				else if (getNodeType(nmtv->itemNew.hItem, srcTree.getHSelf()) == browserNodeType_root)
 				{
 					if (nmtv->action == TVE_COLLAPSE)
 					{
-						_pActiveTreeView->setItemImage(nmtv->itemNew.hItem, INDEX_CLOSE_ROOT, INDEX_CLOSE_ROOT);
+						srcTree.setItemImage(nmtv->itemNew.hItem, INDEX_CLOSE_ROOT, INDEX_CLOSE_ROOT);
 					}
 					else if (nmtv->action == TVE_EXPAND)
 					{
-						_pActiveTreeView->setItemImage(nmtv->itemNew.hItem, INDEX_OPEN_ROOT, INDEX_OPEN_ROOT);
+						srcTree.setItemImage(nmtv->itemNew.hItem, INDEX_OPEN_ROOT, INDEX_OPEN_ROOT);
 					}
 				}
 			}
@@ -1090,12 +1107,15 @@ void FileBrowser::notified(LPNMHDR notification)
 	}
 }
 
-BrowserNodeType FileBrowser::getNodeType(HTREEITEM hItem)
+BrowserNodeType FileBrowser::getNodeType(HTREEITEM hItem, HWND hTreeView)
 {
 	TVITEM tvItem{};
 	tvItem.hItem = hItem;
 	tvItem.mask = TVIF_IMAGE | TVIF_PARAM;
-	SendMessage(_pActiveTreeView->getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
+	// Query the tree the item actually belongs to. Defaults to the active tree,
+	// but callers handling a notification must pass notification->hwndFrom so we
+	// never read an item through the wrong control.
+	SendMessage(hTreeView ? hTreeView : _pActiveTreeView->getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
 	// File
 	if (tvItem.iImage == INDEX_LEAF)
@@ -1403,7 +1423,12 @@ void FileBrowser::addRootFolder(wstring rootFolderPath, std::unordered_set<std::
 				
 				HTREEITEM foundItem = findInTree(rootPath, nullptr, linarPathArray);
 				if (foundItem)
+				{
+					// Same as selectItemFromPath: reveal in the full tree so the
+					// active view matches the control being selected/expanded.
+					::SetWindowText(_hFilterEdit, L"");
 					_treeView.selectItem(foundItem);
+				}
 				return;
 			}
 			

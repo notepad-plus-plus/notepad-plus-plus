@@ -195,7 +195,7 @@ protected:
 	void destroyMenus();
 	void filterAndSwitchView();
 
-	BrowserNodeType getNodeType(HTREEITEM hItem);
+	BrowserNodeType getNodeType(HTREEITEM hItem, HWND hTreeView = nullptr);
 	void popupMenuCmd(int cmdID);
 
 	bool selectCurrentEditingFile() const;

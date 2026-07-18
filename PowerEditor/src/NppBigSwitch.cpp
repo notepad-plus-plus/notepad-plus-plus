@@ -1501,6 +1501,55 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			if (!_recordingMacro) // if we're not currently recording, then playback the recorded keystrokes
 			{
+				//-- shortcuts.xml security validation --//
+
+				NppParameters& nppParams = NppParameters::getInstance();
+				NppGUI& nppGUI = nppParams.getNppGUI();
+
+				// If HMAC is absent from config.xml, force user enable security validation, and generate and save HMAC in config.xml
+				if (nppGUI._shortcutsXmlHmacInConfig.empty())
+				{
+					// Open shortcuts.xml in read-only for user to review
+					BufferID shortcutsBufId = doOpen(nppParams.getShortcutsPath(), false, true);
+					if (shortcutsBufId != BUFFER_INVALID)
+					{
+						switchToFile(shortcutsBufId);
+
+						nppParams.getNativeLangSpeaker()->messageBox("ShortcutsXmlHMACMissing",
+							NULL,
+							L"The security information for shortcuts.xml is missing in config.xml.\r\rFor security reasons, the integrity of shortcuts.xml will be checked. To run your customized command, please review the opened shortcuts.xml. If the file content is OK, use \"Validate shortcuts.xml\" from the menu to confirm it.",
+							L"Security Warning",
+							MB_OK);
+					}
+					return FALSE;
+				}
+
+				// If HMAC is present, calculate shortcuts.xml HMAC and compare with the one from config.xml
+				else
+				{
+					if (nppGUI._shortcutsOnDiskHmac != nppGUI._shortcutsXmlHmacInConfig)
+					{
+						// if they don't match, it means shortcuts.xml could be tampered with, so show warning message and calculate shortcuts.xml HMAC
+
+						// Open shortcuts.xml in read-only for user to review
+						BufferID shortcutsBufId = doOpen(nppParams.getShortcutsPath(), false, true);
+						if (shortcutsBufId != BUFFER_INVALID)
+						{
+							switchToFile(shortcutsBufId);
+
+							nppParams.getNativeLangSpeaker()->messageBox("ShortcutsXmlTampered",
+								NULL,
+								L"The shortcuts.xml file appears to have been modified manually.\r\rFor security reasons, please review the opened shortcuts.xml. If the file content is OK, use \"Validate shortcuts.xml\" from the menu to confirm it.",
+								L"Security Warning",
+								MB_OK);
+						}
+						return FALSE;
+					}
+					// else if they match, it means shortcuts.xml is safe
+				}
+
+				//-- End shortcuts.xml security validation --//
+
 				int times = _runMacroDlg.isMulti() ? _runMacroDlg.getTimes() : -1;
 
 				int counter = 0;

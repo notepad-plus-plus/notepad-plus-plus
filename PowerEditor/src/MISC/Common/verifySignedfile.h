@@ -77,7 +77,7 @@ private:
 	std::wstring _signer_key_id = L"CC0D94922CDA3A18A7D286138525AF9C3942E9E7"; //=> Should be UPPERCASE
 
 	bool _doCheckRevocation = false;
-	bool _doCheckChainOfTrust = false;
+	bool _doCheckChainOfTrust = true;
 
 	bool verifySignedBinary(const std::wstring& filepath);
 };

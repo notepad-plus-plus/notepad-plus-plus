@@ -191,17 +191,15 @@ bool SecurityGuard::verifySignedBinary(const std::wstring& filepath)
 	{
 		// Verify signature and cert-chain validity
 		GUID policy = WINTRUST_ACTION_GENERIC_VERIFY_V2;
-		LONG vtrust = ::WinVerifyTrust(NULL, &policy, &winTEXTrust_data);
+		LONG hasError = ::WinVerifyTrust(NULL, &policy, &winTEXTrust_data);
 
 		// Post check cleanup
 		winTEXTrust_data.dwStateAction = WTD_STATEACTION_CLOSE;
 		LONG t2 = ::WinVerifyTrust(NULL, &policy, &winTEXTrust_data);
 
-		if (vtrust)
+		if (hasError)
 		{
-			if (doLogCertifError)
-				writeCertVerifLog(errorLogPath.c_str(), L"VerifyComponent: trust verification failed");
-
+			writeCertVerifLog(errorLogPath.c_str(), L"VerifyComponent: trust verification failed");
 			return false;
 		}
 

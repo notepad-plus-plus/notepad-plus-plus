@@ -2580,6 +2580,7 @@ void Notepad_plus::checkClipboard()
 {
 	bool hasSelection = _pEditView->hasSelection();
 	bool canPaste = (_pEditView->execute(SCI_CANPASTE) != 0);
+	Buffer* curBuf = _pEditView->getCurrentBuffer();
 
 	if (!NppParameters::getInstance().getSVP()._lineCopyCutWithoutSelection)
 	{
@@ -2599,8 +2600,14 @@ void Notepad_plus::checkClipboard()
 			enableCommand(IDM_EDIT_COPY, false, MENU | TOOLBAR);
 		}
 	}
+
 	enableCommand(IDM_EDIT_PASTE, canPaste, MENU | TOOLBAR);
-	enableCommand(IDM_EDIT_DELETE, hasSelection, MENU | TOOLBAR);
+
+	// The Delete command should be enabled even without a selection,
+	// as long as the document is not in read-only mode.
+	bool isDocReadOnly = curBuf->getFileReadOnly() || curBuf->getUserReadOnly();
+	enableCommand(IDM_EDIT_DELETE, !isDocReadOnly, MENU | TOOLBAR);
+
 	enableCommand(IDM_EDIT_UPPERCASE, hasSelection, MENU);
 	enableCommand(IDM_EDIT_LOWERCASE, hasSelection, MENU);
 	enableCommand(IDM_EDIT_PROPERCASE_FORCE, hasSelection, MENU);
@@ -2609,8 +2616,9 @@ void Notepad_plus::checkClipboard()
 	enableCommand(IDM_EDIT_SENTENCECASE_BLEND, hasSelection, MENU);
 	enableCommand(IDM_EDIT_INVERTCASE, hasSelection, MENU);
 	enableCommand(IDM_EDIT_RANDOMCASE, hasSelection, MENU);
-	Buffer* curBuf = _pEditView->getCurrentBuffer();
-	bool canRedact = !curBuf->getFileReadOnly() && !curBuf->getUserReadOnly() && hasSelection;
+
+	// Use isDocReadOnly to determine if redaction is possible
+	bool canRedact = !isDocReadOnly && hasSelection;
 	enableCommand(IDM_EDIT_REDACT_SELECTION, canRedact, MENU);
 }
 

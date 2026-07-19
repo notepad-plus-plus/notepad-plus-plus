@@ -1435,8 +1435,31 @@ void Notepad_plus::command(int id)
 		break;
 
 		case IDM_EDIT_DELETE:
-			_pEditView->execute(WM_CLEAR);
+		{
+			HWND focusedHwnd = ::GetFocus();
+
+			// If the focus is on the main editor (Scintilla), execute the clear command
+			if (focusedHwnd == _pEditView->getHSelf())
+			{
+				_pEditView->execute(WM_CLEAR);
+			}
+			else
+			{
+				// If the focus is on a Search Results (Finder) window, delete the selected entry
+				Finder* finder = _findReplaceDlg.getFinderFrom(focusedHwnd);
+				if (finder)
+				{
+					finder->deleteResult();
+				}
+				else
+				{
+					// If focus is elsewhere, redirect it to the editor and execute clear
+					::SetFocus(_pEditView->getHSelf());
+					_pEditView->execute(WM_CLEAR);
+				}
+			}
 			break;
+		}
 
 		case IDM_MACRO_STARTRECORDINGMACRO:
 		case IDM_MACRO_STOPRECORDINGMACRO:

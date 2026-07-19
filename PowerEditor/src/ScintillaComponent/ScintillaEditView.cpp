@@ -2466,7 +2466,11 @@ void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask)
 
 		if (mask & BufferChangeReadonly)
 		{
-			execute(SCI_SETREADONLY, _currentBuffer->isReadOnly());
+			// We only enforce a locked editor if the user has explicitly toggled the "Read-Only" state 
+			// within Notepad++ (UserReadOnly). If the file is only read-only at the file system level 
+			// (FileReadOnly), we keep the editor unlocked to allow modifications, which can then 
+			// be saved to a different file via the "Save As" redirection logic.
+			execute(SCI_SETREADONLY, _currentBuffer->getUserReadOnly());
 		}
 
 		if (mask & BufferChangeUnicode)

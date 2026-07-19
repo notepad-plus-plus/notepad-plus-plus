@@ -1769,17 +1769,12 @@ bool Notepad_plus::fileSave(BufferID bufferID)
 
 	if (buf->isDirty())
 	{
-		if (buf->isReadOnly()) //cannot save if readonly in Notepad++ or in Windows
+		if (buf->isReadOnly())
 		{
-			_nativeLangSpeaker.messageBox("ReadOnlyFileCannotBeSaved",
-				_pPublicInterface->getHSelf(),
-				L"\"$STR_REPLACE$\"\rThe file is read-only and cannot be saved.\rPlease remove read-only then save your file.",
-				L"Save Failed - File is Read-Only",
-				MB_OK | MB_ICONWARNING,
-				0,
-				buf->getFullPathName());
-			
-			return false;
+			// If the document is read-only (either on disk or via user toggle), redirect the 
+			// "Save" action to "Save As". bu allows users to modify read-only files as 
+			// templates and save them to a new path instead of showing a "Save Failed" error.
+			return fileSaveAs(bufferID);
 		}
 
 		if (buf->isUntitled())

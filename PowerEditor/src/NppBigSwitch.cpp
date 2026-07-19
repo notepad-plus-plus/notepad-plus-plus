@@ -3197,16 +3197,19 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_ALLOCATECMDID:
 		{
+			if (!lParam) return FALSE;
 			return _pluginsManager.allocateCmdID(static_cast<int32_t>(wParam), reinterpret_cast<int *>(lParam));
 		}
 
 		case NPPM_ALLOCATEMARKER:
 		{
+			if (!lParam) return FALSE;
 			return _pluginsManager.allocateMarker(static_cast<int32_t>(wParam), reinterpret_cast<int *>(lParam));
 		}
 
 		case NPPM_ALLOCATEINDICATOR:
 		{
+			if (!lParam) return FALSE;
 			return _pluginsManager.allocateIndicator(static_cast<int32_t>(wParam), reinterpret_cast<int *>(lParam));
 		}
 

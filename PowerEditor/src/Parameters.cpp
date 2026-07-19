@@ -4412,16 +4412,16 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 	//
 	// Backup session file before overriting it
 	//
-	wchar_t backupPathName[MAX_PATH]{};
+	std::wstring backupPathName;
 	BOOL doesBackupCopyExist = FALSE;
 	if (doesFileExist(sessionPathName))
 	{
-		std::wcscpy(backupPathName, sessionPathName);
-		std::wcscat(backupPathName, SESSION_BACKUP_EXT);
+		backupPathName = sessionPathName;
+		backupPathName += SESSION_BACKUP_EXT;
 
 		// Make sure backup file is not read-only, if it exists
-		removeReadOnlyFlagFromFileAttributes(backupPathName);
-		doesBackupCopyExist = CopyFile(sessionPathName, backupPathName, FALSE);
+		removeReadOnlyFlagFromFileAttributes(backupPathName.c_str());
+		doesBackupCopyExist = CopyFile(sessionPathName, backupPathName.c_str(), FALSE);
 		if (!doesBackupCopyExist && !isEndSessionCritical())
 		{
 			std::wstring errTitle = L"Session file backup error: ";
@@ -4563,11 +4563,11 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 		if (doesBackupCopyExist) // session backup file exists, restore it
 		{
 			if (!isEndSessionCritical())
-				NppDarkMode::darkMessageBoxW(nullptr, backupPathName, L"Saving session error - restoring from the backup:", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
+				NppDarkMode::darkMessageBoxW(nullptr, backupPathName.c_str(), L"Saving session error - restoring from the backup:", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
 
 			std::wstring sessionPathNameFail2Load = sessionPathName;
 			sessionPathNameFail2Load += L".fail2Load";
-			ReplaceFile(sessionPathName, backupPathName, sessionPathNameFail2Load.c_str(), REPLACEFILE_IGNORE_MERGE_ERRORS | REPLACEFILE_IGNORE_ACL_ERRORS, 0, 0);
+			ReplaceFile(sessionPathName, backupPathName.c_str(), sessionPathNameFail2Load.c_str(), REPLACEFILE_IGNORE_MERGE_ERRORS | REPLACEFILE_IGNORE_ACL_ERRORS, 0, 0);
 		}
 	}
 	/*

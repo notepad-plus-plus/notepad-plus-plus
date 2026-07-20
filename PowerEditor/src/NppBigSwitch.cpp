@@ -1736,6 +1736,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_SAVESESSION:
 		{
+			if (!lParam) return FALSE;
 			sessionInfo *pSi = reinterpret_cast<sessionInfo *>(lParam);
 			return (LRESULT)fileSaveSession(pSi->nbFile, pSi->files, pSi->sessionFilePathName);
 		}

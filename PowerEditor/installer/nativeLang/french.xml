@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Français" filename="french.xml" version="8.9.6.4">
+	<Native-Langue name="Français" filename="french.xml" version="8.9.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -534,7 +534,7 @@ Translation note:
 				<Item id="1681" name="Rechercher :"/>
 				<Item id="1685" name="Sensible à la casse"/>
 				<Item id="1690" name="Surligner tout"/>
-				<Item id="1691" name="Conter"/>
+				<Item id="1691" name="Compter"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Rechercher des caractères dans une plage">
@@ -1628,11 +1628,11 @@ Veuillez supprimer l'attribut « lecture seule » puis enregistrer votre fichier
 
 Pour des raisons de sécurité, l’intégrité de shortcuts.xml sera vérifiée.
 Pour exécuter votre commande personnalisée, veuillez examiner le fichier shortcuts.xml ouvert.
-Si son contenu est correct, utilisez « Valider shortcuts.xml » dans le menu pour le confirmer."/>
+Si son contenu est correct, utilisez « Valider shortcuts.xml » dans le menu &quot;Exécution&quot; pour le confirmer."/>
 			<ShortcutsXmlTampered title="Avertissement de sécurité" message="Le fichier shortcuts.xml semble avoir été modifié manuellement.
 
 Pour des raisons de sécurité, veuillez examiner le fichier shortcuts.xml ouvert.
-Si son contenu est correct, utilisez « Valider shortcuts.xml » dans le menu pour le confirmer."/>
+Si son contenu est correct, utilisez « Valider shortcuts.xml » dans le menu &quot;Exécution&quot; pour le confirmer."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historique du presse-papier"/>

@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english_customizable.xml" version="8.9.6.4">
+	<Native-Langue name="English" filename="english_customizable.xml" version="8.9.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1627,10 +1627,10 @@ The file is read-only and cannot be saved.
 Please remove read-only then save your file."/>
 			<ShortcutsXmlHMACMissing title="Security Warning" message="The security information for shortcuts.xml is missing in config.xml.
 
-For security reasons, the integrity of shortcuts.xml will be checked. To run your customized command, please review the opened shortcuts.xml. If the file content is OK, use &quot;Validate shortcuts.xml&quot; from the menu to confirm it."/>
+For security reasons, the integrity of shortcuts.xml will be checked. To run your customized command, please review the opened shortcuts.xml. If the file content is OK, use &quot;Validate shortcuts.xml&quot; from the &quot;Run&quot; menu to confirm it."/>
 			<ShortcutsXmlTampered title="Security Warning" message="The shortcuts.xml file appears to have been modified manually.
 
-For security reasons, please review the opened shortcuts.xml. If the file content is OK, use &quot;Validate shortcuts.xml&quot; from the menu to confirm it."/>
+For security reasons, please review the opened shortcuts.xml. If the file content is OK, use &quot;Validate shortcuts.xml&quot; from the &quot;Run&quot; menu to confirm it."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Clipboard History"/>

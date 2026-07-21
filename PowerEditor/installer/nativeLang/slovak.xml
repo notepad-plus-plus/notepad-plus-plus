@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.9.6.4">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.9.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -611,7 +611,7 @@
 				<Item id="1934" name="Sko&amp;pírovať do schránky"/>
 				<Item id="2" name="&amp;Close"/>
 			</SHA512FromTextDlg>
-			<PluginsAdminDlg title="Správa doplnkov" titleAvailable="Dostupné" titleUpdates="Aktualizácie" titleInstalled="Nainštalované" titleIncompatible="Nekompatibilné">
+			<PluginsAdminDlg title="Správa doplnkov" titleAvailable="Dostupné" titleUpdates="Aktualizácie" titleInstalled="Nainštalované" titleIncompatible="Nekompatibilné" titleDisabled="Vypnuté">
 				<ColumnPlugin name="Doplnok"/>
 				<ColumnVersion name="Verzia"/>
 				<Item id="5501" name="&amp;Hľadať:"/>
@@ -621,6 +621,8 @@
 				<Item id="5508" name="Ďa&amp;lší"/>
 				<Item id="5509" name="Verzia zoznamu doplnkov:"/>
 				<Item id="5511" name="Repozitár zoznamu doplnkov"/>
+				<Item id="5512" name="&amp;Vypnuté"/>
+				<Item id="5513" name="&amp;Zapnuté"/>
 				<Item id="2" name="Zavrieť"/>
 			</PluginsAdminDlg>
 
@@ -1463,6 +1465,18 @@ Toto dialógové okno môžete neskôr znovu aktivovať v Predvoľbách."/>
 				<Item id="7" name="&amp;Nie"/>
 				<Item id="4" name="&amp;Vždy áno"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+			<NetworkPathWarning title="Načítava sa relácia Notepad++" title2="Klikateľný odkaz file://">
+				<Item id="1771" name="Upozornenie na sieťovú cestu:
+
+$STR_REPLACE$
+
+Jej načítaním sa systém Windows automaticky prihlási na tento server, čo môže viesť k odhaleniu vašich prihlasovacích údajov do systému Windows.
+Načítať aj tak?"/>
+				<Item id="2" name="&amp;Preskočiť"/>
+				<Item id="6" name="&amp;Načítať"/>
+				<Item id="7" name="&amp;Vždy preskočiť sieťovú cestu"/>
+				<Item id="4" name="Vždy načítať &amp;sieťovú cestu"/>
+			</NetworkPathWarning>
 			
 			<DebugInfo title="Informácie o ladení">
 				<Item id="1752" name="&amp;Skopírovať informácie o ladení do schránky"/>
@@ -1623,10 +1637,10 @@ Súbor je iba na čítanie a nemôže byť uložený.
 Odstráňte označenie 'iba na čítanie', a potom súbor uložte."/>
 			<ShortcutsXmlHMACMissing title="Bezpečnostné upozornenie" message="V súbore config.xml chýbajú bezpečnostné informácie pre súbor shortcuts.xml.
 
-Z bezpečnostných dôvodov sa skontroluje integrita súboru shortcuts.xml. Ak chcete spustiť svoj vlastný príkaz, skontrolujte otvorený súbor shortcuts.xml. Ak je obsah súboru v poriadku, potvrďte to pomocou položky &quot;Overiť súbor shortcuts.xml&quot; v ponuke."/>
+Z bezpečnostných dôvodov sa skontroluje integrita súboru shortcuts.xml. Ak chcete spustiť svoj vlastný príkaz, skontrolujte otvorený súbor shortcuts.xml. Ak je obsah súboru v poriadku, potvrďte to pomocou položky &quot;Overiť súbor shortcuts.xml&quot; v ponuke &quot;Spustiť&quot;."/>
 			<ShortcutsXmlTampered title="Bezpečnostné upozornenie" message="Zdá sa, že súbor shortcuts.xml bol upravený ručne.
 
-Z bezpečnostných dôvodov skontrolujte otvorený súbor shortcuts.xml. Ak je obsah súboru v poriadku, potvrďte to pomocou položky &quot;Overiť súbor shortcuts.xml&quot; v ponuke."/>
+Z bezpečnostných dôvodov skontrolujte otvorený súbor shortcuts.xml. Ak je obsah súboru v poriadku, potvrďte to pomocou položky &quot;Overiť súbor shortcuts.xml&quot; v ponuke &quot;Spustiť&quot;."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="História schránky"/>

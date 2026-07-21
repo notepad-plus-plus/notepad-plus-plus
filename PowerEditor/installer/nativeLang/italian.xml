@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 8.8.0
-    Last modified Sun, Apr 21st, 2025.
+    Italian translation for Notepad++ 8.9.6.4
+    Last modified Tue, Jul 21st, 2026.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <!--
@@ -10,7 +10,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Italiano" filename="italian.xml" version="8.8.0">
+	<Native-Langue name="Italiano" filename="italian.xml" version="8.9.6.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -46,6 +46,7 @@ Translation note:
 					<Item subMenuId="edit-onSelection" name="&amp;Testo selezionato"/>
 					<Item subMenuId="edit-multiSelectALL" name="Effettua la Selezione Multipla di tutto"/>
 					<Item subMenuId="edit-multiSelectNext" name="Effettua la Selezione Multipla successiva"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Sola lettura in Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="Cronologia delle modific&amp;he"/>
 					<Item subMenuId="search-markAll" name="&amp;Applica Stile per tutte le corrispondenze"/>
 					<Item subMenuId="search-markOne" name="Applica Stile s&amp;olo per la selezione"/>
@@ -94,6 +95,7 @@ Translation note:
 					<Item id="41002" name="&amp;Apri..."/>
 					<Item id="41019" name="Esplora Risorse"/>
 					<Item id="41020" name="Prompt dei Comandi"/>
+					<Item id="41027" name="PowerShell"/>
 					<Item id="41025" name="Cartella come Area di Lavoro"/>
 					<Item id="41003" name="&amp;Chiudi"/>
 					<Item id="41004" name="C&amp;hiudi tutto"/>
@@ -142,6 +144,10 @@ Translation note:
 					<Item id="42060" name="Ordina le righe decrescente"/>
 					<Item id="42080" name="Ordina le righe crescente ignorando maiuscole/minuscole"/>
 					<Item id="42081" name="Ordina le righe decrescente ignorando maiuscole/minuscole"/>
+					<Item id="42100" name="Ordina le righe in ordine locale crescente"/>
+					<Item id="42101" name="Ordina le righe in ordine locale decrescente"/>
+					<Item id="42104" name="Ordina le righe per lunghezza crescente"/>
+					<Item id="42105" name="Ordina le righe per lunghezza decrescente"/>
 					<Item id="42061" name="Ordina le righe come interi crescenti"/>
 					<Item id="42062" name="Ordina le righe come interi decrescenti"/>
 					<Item id="42063" name="Ordina le righe come valori decimali (virgola) crescenti"/>
@@ -160,6 +166,7 @@ Translation note:
 					<Item id="42072" name="mAiusCole/miNUScoLE &amp;casUaLi"/>
 					<Item id="42073" name="Apri file"/>
 					<Item id="42074" name="Apri cartella in Esplora Risorse"/>
+					<Item id="42106" name="Oscura Selezione █ (Maiusc: ●)"/>
 					<Item id="42075" name="Cerca in Internet"/>
 					<Item id="42076" name="Modifica motore di ricerca..."/>
 					<Item id="42090" name="Ignora maiuscole/minuscole e Solo Parole Intere"/>
@@ -171,7 +178,7 @@ Translation note:
 					<Item id="42096" name="Solo Parole Intere"/>
 					<Item id="42097" name="Distingui tra maiuscole/minuscole e Solo Parole Intere"/>
 					<Item id="42098" name="Annulla l'ultima Multi-Selezione aggiunta"/>
-					<Item id="42099" name="Ignora Corrente e Vai alla Successiva  Multiselezione"/>
+					<Item id="42099" name="Ignora Corrente e Vai alla Successiva Multiselezione"/>
 					<Item id="42018" name="&amp;Inizia registrazione"/>
 					<Item id="42019" name="&amp;Ferma registrazione"/>
 					<Item id="42021" name="&amp;Esegui la macro"/>
@@ -200,12 +207,15 @@ Translation note:
 					<Item id="42026" name="Direzione del testo Destra-Sinistra"/>
 					<Item id="42027" name="Direzione del testo Sinistra-Destra"/>
 					<Item id="42028" name="Sessione &amp;documento in sola lettura"/>
+					<Item id="42102" name="Sola lettura per tutti i documenti"/>
+					<Item id="42103" name="Rimuovi sola lettura per tutti i documenti"/>
 					<Item id="42029" name="Copia il percorso completo del file corrente"/>
 					<Item id="42030" name="Copia Nome file corrente"/>
 					<Item id="42031" name="Copia il percorso della cartella corrente"/>
 					<Item id="42087" name="Copia tutti i Nomi File"/>
 					<Item id="42088" name="Copia Tutti i percorsi file"/>
 					<Item id="42032" name="Esegui una macro più volte..."/>
+					<Item id="42033" name="Attributo di sola lettura in Windows"/>
 					<Item id="42035" name="Commenta singola riga"/>
 					<Item id="42036" name="Rimuovi commento per singola riga"/>
 					<Item id="42055" name="Rimuovi righe vuote"/>
@@ -292,6 +302,7 @@ Translation note:
 					<Item id="44024" name="&amp;Riduci testo (Ctrl+rotellina Mouse Giù)"/>
 					<Item id="44025" name="Visualizza gli spazi e le tabulazioni"/>
 					<Item id="44026" name="Visualizza carattere di fine riga"/>
+					<Item id="44027" name="&amp;Sincronizza tra le viste"/>
 					<Item id="44029" name="Espandi tutti i livelli"/>
 					<Item id="44030" name="Comprimi il livello corrente"/>
 					<Item id="44031" name="Espandi il livello corrente"/>
@@ -395,6 +406,7 @@ Translation note:
 					<Item id="48511" name="Genera da file..."/>
 					<Item id="48512" name="Genera dalla selezione negli Appunti"/>
 					<Item id="49000" name="E&amp;segui..."/>
+					<Item id="49001" name="Convalida shortcuts.xml"/>
 
 					<Item id="50000" name="Completa funzione"/>
 					<Item id="50001" name="Completa parola"/>
@@ -418,6 +430,8 @@ Translation note:
 					<Item id="11007" name="Tipo dalla Z alla A"/>
 					<Item id="11008" name="Dimensione Crescente"/>
 					<Item id="11009" name="Dimensione Decrescente"/>
+					<Item id="11010" name="Data modifica crescente"/>
+					<Item id="11011" name="Data modifica decrescente"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -434,6 +448,7 @@ Translation note:
 				<Item CMDID="1" name="Apri in"/>
 				<Item CMDID="41019" name="Apri la cartella in Esplora Risorse"/>
 				<Item CMDID="41020" name="Apri la cartella nel prompt dei comandi"/>
+				<Item CMDID="41027" name="Apri la cartella in PowerShell"/>
 				<Item CMDID="41025" name="Apri la cartella come Area di Lavoro"/>
 				<Item CMDID="41023" name="Apri con il visualizzatore predefinito"/>
 				<Item CMDID="41017" name="Rinomina il file..."/>
@@ -441,6 +456,7 @@ Translation note:
 				<Item CMDID="41014" name="Ricarica"/>
 				<Item CMDID="41010" name="Stampa..."/>
 				<Item CMDID="42028" name="Sola lettura"/>
+				<Item CMDID="42033" name="Attributo di sola lettura in Windows"/>
 				<Item CMDID="2" name="Copia negli appunti"/>
 				<Item CMDID="42029" name="Copia il percorso completo del file"/>
 				<Item CMDID="42030" name="Copia il nome del file"/>
@@ -523,6 +539,7 @@ Translation note:
 				<Item id="1681" name="Trova:"/>
 				<Item id="1685" name="Maiuscole/&amp;minuscole"/>
 				<Item id="1690" name="Evidenzia &amp;tutto"/>
+				<Item id="1691" name="C&amp;onta"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Trova caratteri...">
@@ -648,6 +665,10 @@ Translation note:
 				</SubDialog>
 			</StyleConfig>
 
+			<ColorPopup>
+				<Item id="1" name="Altri colori..."/>
+			</ColorPopup>
+
 			<ShortcutMapper title="Tasti di scelta rapida">
 				<Item id="2602" name="Modifica"/>
 				<Item id="2603" name="Elimina"/>
@@ -672,6 +693,8 @@ Translation note:
 				<MainCommandNames>
 					<Item id="41019" name="Apri la cartella in Esplora Risorse"/>
 					<Item id="41020" name="Apri la cartella nel Prompt dei Comandi"/>
+					<Item id="41027" name="Apri la cartella in PowerShell"/>
+					<Item id="41025" name="Apri la cartella come Area di Lavoro"/>
 					<Item id="41021" name="Ripristina i file recenti"/>
 					<Item id="45001" name="Fine riga in formato Windows (CR+LF)"/>
 					<Item id="45002" name="Fine riga in formato Unix (LF)"/>
@@ -989,12 +1012,15 @@ Translation note:
 					<Item id="6112" name="Visualizza pulsante di chiusura"/>
 					<Item id="6113" name="Il Doppio clic Chiude la scheda"/>
 					<Item id="6115" name="Abilita il fissaggio delle schede"/>
-					<Item id="6135" name="Show only pinned button"/>
+					<Item id="6135" name="Mostra solo il pulsante di fissaggio"/>
 					<Item id="6118" name="Nascondi"/>
 					<Item id="6119" name="Utilizza più righe"/>
 					<Item id="6120" name="Verticale"/>
 					<Item id="6121" name="Esci alla chiusura dell&apos;ultima scheda"/>
 					<Item id="6128" name="Icone alternative"/>
+					<Item id="6125" name="Comportamento"/>
+					<Item id="6126" name="Aspetto"/>
+					<Item id="6136" name="Lunghezza max. etichetta scheda:"/>
 				</Tabbar>
 
 				<Scintillas title="Modifica 1">
@@ -1014,6 +1040,7 @@ Translation note:
 					<Item id="6239" name="Mantieni la selezione quando clicchi con il tasto destro fuori da essa"/>
 					<Item id="6245" name="Attiva spazio virtuale"/>
 					<Item id="6214" name="Abilita Copia/Taglia Riga senza selezione"/>
+					<Item id="6266" name="Disabilita trascinamento del testo selezionato"/>
 					<Item id="6225" name="Applica colore personalizzato al testo selezionato in secondo piano"/>
 					<Item id="6651" name="Indicatore di linea corrente"/>
 					<Item id="6652" name="Nessuno"/>
@@ -1107,6 +1134,7 @@ Translation note:
 					<Item id="6419" name="Nuovo Documento"/>
 					<Item id="6420" name="Applica all&apos;apertura di file ANSI"/>
 					<Item id="6432" name="Aggiungi un nuovo documento all'avvio"/>
+					<Item id="6433" name="Usa la prima riga del documento come nome della scheda senza titolo"/>
 				</NewDoc>
 
 				<DefaultDir title="Cartella predefinita">
@@ -1164,6 +1192,7 @@ Translation note:
 
 				<Print title="Stampa">
 					<Item id="6601" name="N&amp;umeri di riga"/>
+					<Item id="6616" name="&amp;Stampa il carattere di avanzamento pagina come interruzione pagina"/>
 					<Item id="6602" name="Opzioni Colore"/>
 					<Item id="6603" name="&amp;WYSIWYG"/>
 					<Item id="6604" name="&amp;Inverti"/>
@@ -1212,6 +1241,8 @@ Translation note:
 					<Item id="6909" name="Proponi la parola del cursore quando non è selezionato nulla"/>
 					<Item id="6910" name="Dim. minima per l'abilitazione automatica di &quot;Nella selezione&quot;:"/>
 					<Item id="6913" name="Compila il campo Cartella di Cerca nei file con quella del doc. corrente"/>
+					<Item id="6916" name=": N. max di caratteri per compilare automaticamente il campo Trova dalla selezione"/>
+					<Item id="6917" name="Trova nei file: preferisci il contenuto su disco rispetto ai buffer aperti"/>
 				</Searching>
 
 				<RecentFilesHistory title="Cronologia File Recenti">
@@ -1350,13 +1381,18 @@ Translation note:
 						<Element name="DirectWrite (draw to GDI DC)"/>
 						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="Disabilita"/>
+						<Element name="Abilita all'avvio di Notepad++"/>
+						<Element name="Abilita all'uscita da Notepad++"/>
+					</ComboBox>
 					<Item id="6308" name="Area di notifica"/>
 					<Item id="6363" name="modalità rendering"/>
+					<Item id="6365" name="Aggiornamento automatico:"/>
 					<Item id="6312" name="Rilevamento Stato File"/>
 					<Item id="6313" name="Aggiorna senza notifica"/>
 					<Item id="6325" name="Vai all&apos;ultima riga dopo l&apos;aggiornamento"/>
 					<Item id="6322" name="Est. file di sessione:"/>
-					<Item id="6323" name="Aggiorna automaticamente Notepad++"/>
 					<Item id="6324" name="Cambia Documento (Ctrl+TAB)"/>
 					<Item id="6331" name="Visualizza solo il nome file nella barra del titolo"/>
 					<Item id="6334" name="Rileva automaticamente la codifica caratteri"/>
@@ -1471,6 +1507,9 @@ Le impostazioni del Cloud saranno annullate. Reimposta un valore coerente dalle 
 			<DroppingFolderAsProjectModeWarning title="Azione non valida" message="Puoi trascinare file o cartelle, ma non entrambi, perché sei in modalità Trascina Cartella come Progetto.
 Devi abilitare &quot;Apri tutti i file della cartella invece di avviare Cartella come Area di Lavoro al trascinamento&quot; nella sezione &quot;Cartella predefinita&quot; delle preferenze per attivare questa funzionalità."/>
 			<SortingError title="Errore ordinamento" message="Impossibile effettuare un ordinamento numerico a causa della riga $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SortLocaleMultiple title="Ordinamento non eseguito" message="L'ordinamento di selezioni multiple non è supportato."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleUnknown title="Ordinamento non riuscito" message="Non è possibile determinare il motivo del mancato ordinamento."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+			<SortLocaleExcept title="Ordinamento non riuscito" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Selezione in Modalità Colonna" message="
 Esistono 3 modi per passare alla modalità Selezione-Colonna:
 
@@ -1543,7 +1582,7 @@ usarne un altro."/>
 			<UDLRemoveCurrentLang title="Rimuovere il linguaggio corrente" message="Rimuovere il linguaggio corrente?"/>
 			<UDL_importSuccessful title="Linguaggio definito dall'utente" message="Importazione riuscita."/>
 			<UDL_importFails title="Linguaggio definito dall'utente" message="Importazione non andata a buon fine."/>
-			<UDL_saveBeforeImport title="Linguaggio definito dall'utente" message="Prima dell'esportazione, salva la tua definizione del linguaggio cliccando su  &quot;Salva con nome...&quot;."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_saveBeforeImport title="Linguaggio definito dall'utente" message="Prima dell'esportazione, salva la tua definizione del linguaggio cliccando su &quot;Salva con nome...&quot;."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
 			<UDL_exportSuccessful title="Linguaggio definito dall'utente" message="Esportazione riuscita."/>
 			<UDL_exportFails title="Linguaggio definito dall'utente" message="Esportazione non andata a buon fine."/>
 			<SCMapperDoDeleteOrNot title="Eliminazione scorciatoia" message="Eliminare questa scorciatoia?"/>
@@ -1563,12 +1602,8 @@ Continuare?"/>
 			<LanguageMenuCompactWarning title="Menù Linguaggio Compatto" message="L&apos;opzione sarà effettiva al riavvio."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Le modifiche non salvate verranno perse.
 Salvare le modifiche prima di cambiare tema?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Compatibilità dei Comandi di Macro ed Esegui" message="I salvataggi dei comandi di Macro ed Esegui di Notepad++ v.8.5.2 (o successive) potrebbero non essere compatibili con la versione corrente di Notepad++.
-Testare questi comandi e, se necessario, rimodificarli.
-
-Alternativamente, è possibile tornare a Notepad++ v8.5.2 e ripristinare i dati precedenti.
-Notepad++ salverà il vecchio &quot;shortcuts.xml&quot; come &quot;shortcuts.xml.v8.5.2.backup&quot;.
-Rinominando &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, i comandi saranno ripristinati e funzioneranno correttamente."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<FullReadOnlySavingForbidden title="Salvataggio non riuscito" message="Impossibile salvare il file.
+La modalità di sola lettura totale di Notepad++ ha impedito il salvataggio del file."/>
 			<NotEnoughRoom4Saving title="Salvataggio non andato a buon fine" message="Il salvataggio del file non è andato a buon fine.
 Lo spazio su disco non è sufficiente per salvare il file. Il file non è stato salvato."/>
 			<FileInaccessibleUserSession title="File non accessibili" message="Alcuni file della sessione salvata non sono più accessibili. È possibile mantenere i file aperti in sola lettura e vuoto.
@@ -1591,6 +1626,16 @@ Nel caso fosse necessaria la funzione di ricerca Espressione regolare a ritroso,
 			<FindAutoChangeOfInSelectionWarning title="Avviso di ricerca" message="Il valore della casella di controllo &quot;Nella selezione&quot; è stato modificato automaticamente.
 Verificare le condizioni di ricerca prima di eseguire l'azione."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Riavvio Notepad++" message="Per visualizzare le scorciatoie del menu di destra, Notepad++ deve essere riavviato."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Modifica dell'attributo di sola lettura non riuscita" message="Eseguire Notepad++ come amministratore per modificare gli attributi del file."/>
+			<ReadOnlyFileCannotBeSaved title="Salvataggio non riuscito - File di sola lettura" message="&quot;$STR_REPLACE$&quot;
+Il file è di sola lettura e non può essere salvato.
+Rimuovere la sola lettura e salvare nuovamente il file."/>
+			<ShortcutsXmlHMACMissing title="Avviso di sicurezza" message="Le informazioni di sicurezza per shortcuts.xml mancano in config.xml.
+
+Per motivi di sicurezza, l'integrità di shortcuts.xml verrà verificata. Per eseguire il comando personalizzato, esaminare il file shortcuts.xml aperto. Se il contenuto del file è corretto, usare &quot;Convalida shortcuts.xml&quot; dal menu per confermarlo."/>
+			<ShortcutsXmlTampered title="Avviso di sicurezza" message="Il file shortcuts.xml sembra essere stato modificato manualmente.
+
+Per motivi di sicurezza, esaminare il file shortcuts.xml aperto. Se il contenuto del file è corretto, usare &quot;Convalida shortcuts.xml&quot; dal menu per confermarlo."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Cronologia Appunti"/>
@@ -1607,6 +1652,7 @@ Verificare le condizioni di ricerca prima di eseguire l'azione."/> <!-- HowToRep
 			<ColumnPath name="Percorso"/>
 			<ColumnType name="Tipo"/>
 			<ColumnSize name="Dimensione"/>
+			<ColumnDateTime name="Data modifica"/>
 			<NbDocsTotal name="documenti totali:"/>
 			<MenuCopyName name="Copia Nome(i)"/>
 			<MenuCopyPath name="Copia Percorso(i)"/>
@@ -1647,6 +1693,7 @@ Verificare le condizioni di ricerca prima di eseguire l'azione."/> <!-- HowToRep
 				<Item id="3518" name="Apri cartella in Esplora Risorse"/>
 				<Item id="3519" name="Apri cartella nel Prompt dei Comandi"/>
 				<Item id="3520" name="Copia nome file"/>
+				<Item id="3521" name="Apri PowerShell qui"/>
 			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>
@@ -1755,6 +1802,10 @@ Cerca in tutti i file, ma escludi tutte le cartelle o sottocartelle log o logs:
 			<find-status-scope-all value="nell'intero file"/>
 			<find-status-scope-backward value="dall&apos;inizio fino al cursore"/>
 			<find-status-scope-forward value="dal cursore fino alla fine"/>
+			<find-status-replace-invalid-replace-chars value="Sostituisci: impossibile sostituire con testo non-ANSI in un documento ANSI"/>
+			<find-status-invisible-chars-findWhat value="Caratteri invisibili incollati nel campo &quot;Trova&quot; o &quot;Sostituisci con&quot;"/>
+			<find-status-invisible-chars-findWhat-tip value="Attenzione: caratteri invisibili nel campo di ricerca (o sostituzione).
+Il testo incollato in questo campo include caratteri invisibili (forse di fine riga). Se si procede senza rimuoverli, saranno inclusi nel testo di ricerca (o sostituzione)."/>
 			<finder-find-in-finder value="Trova in questi risultati..."/>
 			<finder-close-this value="Chiudi i risultati"/>
 			<finder-collapse-all value="Riduci tutto"/>
@@ -1768,6 +1819,7 @@ Cerca in tutti i file, ma escludi tutte le cartelle o sottocartelle log o logs:
 			<common-ok value="Conferma"/>
 			<common-cancel value="Annulla"/>
 			<common-name value="Nome"/>
+			<common-error value="Errore"/>
 			<tabrename-title value="Rinomina scheda corrente"/>
 			<tabrename-newname value="Nuovo nome"/>
 			<splitter-rotate-left value="Ruota a sinistra"/>
@@ -1789,6 +1841,7 @@ Cerca in tutti i file, ma escludi tutte le cartelle o sottocartelle log o logs:
 			<progress-hits-title value="Corrispondenze:"/>
 			<progress-cancel-info value="Annullamento operazione, attendere..."/>
 			<find-in-files-progress-title value="Ricerca nei file in corso..."/>
+			<discover-file-candidates-title value="Ricerca dei file candidati in corso..."/>
 			<replace-in-files-confirm-title value="Conferma"/>
 			<replace-in-files-confirm-directory value="Sostituire tutte le corrispondenze in:"/>
 			<replace-in-files-confirm-filetype value="Per i tipi di file:"/>
@@ -1854,6 +1907,7 @@ Premere il pulsante &quot;?&quot; a destra per aprire il sito Web con il manuale
 			<npcCustomColor-tip value="Per personalizzare il colore predefinito degli spazi e dei caratteri non stampabili selezionati, Vai a Configura gli Stili (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Applicare le impostazioni dell&apos;aspetto dei caratteri non stampabili ai caratteri di controllo C0, C1 e Ritorno a capo Unicode (riga successiva, separatore di riga e separatore di paragrafo)."/>
 			<searchingInSelThresh-tip value="Il numero di caratteri selezionati nella zona di modifica per controllare automaticamente la casella di controllo &quot;Nella selezione&quot; quando la finestra di dialogo Trova è attivata. Il valore massimo è 1024. Impostare il valore a 0 per disabilitare il controllo automatico."/>
+			<searchingFillFindWhat-tip value="Numero massimo di caratteri selezionati nella zona di modifica per compilare automaticamente il campo &quot;Trova&quot; quando viene premuto Ctrl-F. Il valore massimo è $INT_REPLACE$, ovvero la dimensione massima del campo &quot;Trova&quot;, limitata dal sistema."/>
 			<verticalEdge-tip value="Aggiungi le posizioni dei tuoi delimitatori di colonna, separati da spazi. Indicali con dei numeri interi."/>
 			<fileSaveAsCopySaveButton-tip value="Per aprire il file dopo il salvataggio, tenere premuto il tasto Shift mentre si preme il pulsante &quot;Salva&quot;"/>
 			<autoIndentBasic-tip value="Assicurarsi che il rientro della riga corrente (ovvero la nuova riga che è stata creata premendo il tasto INVIO) corrisponda al rientro della riga precedente."/>
@@ -1876,7 +1930,12 @@ Se viene selezionata la modalità avanzata, ma non vengono modificati i file nei
 			<statusbar-Pos value="Pos: "/>
 			<statusbar-Sel value="Sel: "/>
 			<statusbar-Sel-number value="Sel"/>
-			<toolbar-accent-tip value="Questa opzione fa sì che le icone della barra degli strumenti seguano il colore principale del sistema Windows. Il colore principale è il colore di evidenziazione utilizzato per pulsanti, bordi e riquadri del menu Avvio in Windows. Per modificarlo, vai su Impostazioni &gt; Personalizzazione  &gt;  Colori, quindi seleziona il colore principale preferito."/>
+			<toolbar-accent-tip value="Questa opzione fa sì che le icone della barra degli strumenti seguano il colore principale del sistema Windows. Il colore principale è il colore di evidenziazione utilizzato per pulsanti, bordi e riquadri del menu Avvio in Windows. Per modificarlo, vai su Impostazioni &gt; Personalizzazione &gt; Colori, quindi seleziona il colore principale preferito."/>
+			<len-limit-exceeded-tip value="Limite di lunghezza superato: il testo inserito potrebbe superare il limite consentito ed essere stato troncato, e non verrà salvato per la prossima sessione."/>
+			<max-len-on-search-tip value="Il testo inserito potrebbe superare il limite consentito ed essere stato troncato, e non verrà salvato per la prossima sessione."/>
+			<max-len-on-save-tip value="La lunghezza del testo inserito è molto elevata e potrebbe non essere salvata per la prossima sessione."/>
+			<goto-setting-tip value="Trova la tua impostazione qui"/>
+			<tabbar-tabcompactlabellen-tip value="Limita la lunghezza visibile dei nomi lunghi delle schede. Premi Invio per applicare il valore inserito. Intervallo di valori: 1-257 caratteri (0 disabilita il troncamento)."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

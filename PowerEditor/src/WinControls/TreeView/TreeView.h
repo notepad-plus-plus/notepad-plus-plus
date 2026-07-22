@@ -18,6 +18,7 @@
 
 #include <windows.h>
 #include <commctrl.h>
+#include <functional>
 #include "Window.h"
 #include "Common.h"
 #include "NppDarkMode.h"
@@ -35,6 +36,10 @@ class TreeView : public Window {
 public:
 	TreeView() = default;
 	~TreeView() override = default;
+
+	// Given a source item's already-fetched TVITEM, returns the in-memory name to match against.
+	// Keeps TreeView decoupled from FileBrowser's SortingData4lParam (constitution III).
+	using NameExtractor = std::function<std::wstring(const TVITEM&)>;
 
 	virtual void init(HINSTANCE hInst, HWND parent, int treeViewID);
 	void destroy() override;
@@ -115,7 +120,7 @@ public:
 	bool restoreFoldingStateFrom(const TreeStateNode & treeState2Compare, HTREEITEM treeviewNode);
 	bool retrieveFoldingStateTo(TreeStateNode & treeState2Construct, HTREEITEM treeviewNode);
 	bool searchLeafAndBuildTree(const TreeView & tree2Build, const std::wstring & text2Search, int index2Search);
-	bool searchAndBuildTreeWithAncestors(const TreeView & tree2Build, const std::wstring & text2Search, int leafImageIndex);
+	bool searchAndBuildTreeWithAncestors(const TreeView & tree2Build, const std::wstring & text2Search, int leafImageIndex, const NameExtractor & getName);
 	void sort(HTREEITEM hTreeItem, bool isRecusive);
 	void customSorting(HTREEITEM hTreeItem, PFNTVCOMPARE sortingCallbackFunc, LPARAM lParam, bool isRecursive);
 	bool setImageList(const std::vector<int>& imageIds, int imgSize = 0);

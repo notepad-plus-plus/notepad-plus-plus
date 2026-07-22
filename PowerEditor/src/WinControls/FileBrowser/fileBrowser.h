@@ -189,11 +189,14 @@ protected:
 	std::wstring _expandAllFolders = L"Unfold all";
 	std::wstring _collapseAllFolders = L"Fold all";
 	std::wstring _locateCurrentFile = L"Locate current file";
-	std::wstring _filterTip = L"Filter files...";
+	std::wstring _filterTip = L"Filter (Enter)...";
+	std::wstring _appliedFilter{}; // applied filter text; empty <=> full _treeView is active
 
 	void initPopupMenus();
 	void destroyMenus();
-	void filterAndSwitchView();
+	void applyFilter();             // build + switch to result; set _appliedFilter
+	void clearFilter();             // restore full _treeView; clear _appliedFilter
+	void reapplyFilterIfActive();   // re-run applyFilter() when a filter is applied (FR-009)
 
 	BrowserNodeType getNodeType(HTREEITEM hItem, HWND hTreeView = nullptr);
 	void popupMenuCmd(int cmdID);

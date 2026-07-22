@@ -66,6 +66,10 @@ enum FBCmd
 	FB_CMD_EXPANDALL
 };
 
+// WM_COMMAND HIWORD notification code the subclassed filter edit sends on Enter to request an
+// apply. Must be distinct from EN_CHANGE (0x0300), which now signals only "text changed".
+constexpr WORD FB_FILTER_APPLY = 0xFB01;
+
 
 FileBrowser::~FileBrowser()
 {
@@ -307,6 +311,22 @@ static LRESULT CALLBACK fileBrowserFilterEditProc(HWND hwnd, UINT message, WPARA
 			if (wParam == VK_TAB)
 			{
 				::SendMessage(::GetParent(::GetParent(hwnd)), WM_COMMAND, VK_TAB, 1);
+				return 0;
+			}
+			if (wParam == VK_RETURN)
+			{
+				// Handle Enter here (not WM_KEYDOWN) so the single-line edit never receives the
+				// Return character and beeps; mirrors the VK_TAB handling above.
+				::SendMessage(::GetParent(::GetParent(hwnd)), WM_COMMAND,
+					MAKEWPARAM(IDC_FILEBROWSER_FILTEREDIT, FB_FILTER_APPLY), 0);
+				return 0;
+			}
+			if (wParam == VK_ESCAPE)
+			{
+				// Clear the box; the resulting EN_CHANGE (empty) restores the full tree via
+				// clearFilter() - one clear path. Handled here (not WM_KEYDOWN) so the edit does
+				// not beep on the Escape character, and swallowed so Esc does not dismiss the panel.
+				::SetWindowText(hwnd, L"");
 				return 0;
 			}
 			LRESULT result = ::DefSubclassProc(hwnd, message, wParam, lParam);
@@ -576,7 +596,14 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 		{
 			if (HIWORD(wParam) == EN_CHANGE && LOWORD(wParam) == IDC_FILEBROWSER_FILTEREDIT)
 			{
-				filterAndSwitchView();
+				// Typing never rebuilds. Only an emptied box restores the full tree (FR-001/FR-002).
+				if (::GetWindowTextLength(_hFilterEdit) == 0)
+					clearFilter();
+				return TRUE;
+			}
+			if (HIWORD(wParam) == FB_FILTER_APPLY && LOWORD(wParam) == IDC_FILEBROWSER_FILTEREDIT)
+			{
+				applyFilter();
 				return TRUE;
 			}
 			if (wParam == VK_TAB)
@@ -628,7 +655,7 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 		case WM_CTLCOLOREDIT:
 		{
 			// Color the filter edit red only when a filter search has actually been performed and yielded no results.
-			// Using _pActiveTreeView (set by filterAndSwitchView) instead of inspecting the edit text avoids spurious
+			// Using _pActiveTreeView (set by applyFilter/clearFilter) instead of inspecting the edit text avoids spurious
 			// red coloring during dialog init, where paint can fire before the aux tree is fully realized.
 			if (reinterpret_cast<HWND>(lParam) == _hFilterEdit)
 			{
@@ -659,6 +686,7 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 				addToTree(group, nullptr);
 			}
 
+			reapplyFilterIfActive(); // FR-009: keep the shown result consistent after a workspace change
 			break;
 		}
 
@@ -672,6 +700,7 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 				deleteFromTree(group);
 			}
 
+			reapplyFilterIfActive(); // FR-009: keep the shown result consistent after a workspace change
 			break;
 		}
 
@@ -703,6 +732,8 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			{
 				//MessageBox(NULL, file2Change[0].c_str(), L"file/folder is not removed", MB_OK);
 			}
+
+			reapplyFilterIfActive(); // FR-009: keep the shown result consistent after a workspace change
 			break;
 		}
 
@@ -797,7 +828,7 @@ bool FileBrowser::selectItemFromPath(const wstring& itemPath) const
 				// empty) search-result tree; selecting here would auto-expand
 				// ancestors and drive that wrong tree with a foreign HTREEITEM.
 				// Clearing the filter restores _treeView as the active view (via
-				// EN_CHANGE -> filterAndSwitchView) so the file is actually shown.
+				// the empty-box EN_CHANGE -> clearFilter path) so the file is actually shown.
 				::SetWindowText(_hFilterEdit, L"");
 
 				_treeView.selectItem(foundItem);
@@ -826,30 +857,61 @@ void FileBrowser::destroyMenus()
 	::DestroyMenu(_hFileMenu);
 }
 
-void FileBrowser::filterAndSwitchView()
+void FileBrowser::applyFilter()
 {
 	wchar_t text2search[MAX_PATH] = { '\0' };
 	::SendMessage(_hFilterEdit, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(text2search));
 
 	if (text2search[0] == L'\0')
 	{
-		_treeViewSearchResult.display(false);
-		_treeView.display(true);
-		_pActiveTreeView = &_treeView;
+		clearFilter();
+		return;
 	}
-	else
+
+	if (_treeView.getRoot() == nullptr)
+		return;
+
+	const HWND hSearchResult = _treeViewSearchResult.getHSelf();
+	// Batch the build (inserts plus the reveal expands) into a single repaint to avoid flicker.
+	::SendMessage(hSearchResult, WM_SETREDRAW, FALSE, 0);
+	_treeViewSearchResult.removeAllItems();
+	auto nameExtractor = [](const TVITEM& item) -> std::wstring
 	{
-		if (_treeView.getRoot() == nullptr) return;
+		const SortingData4lParam* data = reinterpret_cast<const SortingData4lParam*>(item.lParam);
+		if (data != nullptr && !data->_label.empty())
+			return data->_label;            // non-root: in-memory name (FR-006), no text re-query
+		return item.pszText != nullptr ? std::wstring(item.pszText) : std::wstring(); // root: basename
+	};
+	_treeView.searchAndBuildTreeWithAncestors(_treeViewSearchResult, text2search, INDEX_LEAF, nameExtractor);
+	::SendMessage(hSearchResult, WM_SETREDRAW, TRUE, 0);
+	::InvalidateRect(hSearchResult, nullptr, TRUE);
 
-		_treeViewSearchResult.removeAllItems();
-		_treeView.searchAndBuildTreeWithAncestors(_treeViewSearchResult, text2search, INDEX_LEAF);
+	_treeView.display(false);
+	_treeViewSearchResult.display(true);
+	_pActiveTreeView = &_treeViewSearchResult;
+	_appliedFilter = text2search;
 
-		_treeView.display(false);
-		_treeViewSearchResult.display(true);
-		_pActiveTreeView = &_treeViewSearchResult;
-	}
-	// Repaint filter edit to update no-match color
+	// Repaint filter edit to update no-match color.
 	::InvalidateRect(_hFilterEdit, nullptr, TRUE);
+}
+
+void FileBrowser::clearFilter()
+{
+	_treeViewSearchResult.display(false);
+	_treeView.display(true);
+	_pActiveTreeView = &_treeView;
+	_appliedFilter.clear();
+
+	// Repaint filter edit to update no-match color.
+	::InvalidateRect(_hFilterEdit, nullptr, TRUE);
+}
+
+void FileBrowser::reapplyFilterIfActive()
+{
+	// Rare workspace-level event (add/remove/rename): the box still holds the applied text,
+	// so applyFilter() re-reads it and rebuilds against the updated _treeView (FR-009).
+	if (!_appliedFilter.empty())
+		applyFilter();
 }
 
 wstring FileBrowser::getNodePath(HTREEITEM node) const
@@ -1475,7 +1537,7 @@ void FileBrowser::addRootFolder(wstring rootFolderPath, std::unordered_set<std::
 
 	_folderUpdaters.push_back(new FolderUpdater(directoryStructure, this));
 	_folderUpdaters[_folderUpdaters.size() - 1]->startWatcher();
-	filterAndSwitchView();
+	applyFilter();
 }
 
 HTREEITEM FileBrowser::createFolderItemsFromDirStruct(HTREEITEM hParentItem, const FolderInfo & directoryStructure)

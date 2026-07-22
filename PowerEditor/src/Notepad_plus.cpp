@@ -588,13 +588,14 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		// If compact language menu is enabled, remove any submenus that became empty after exclusion
 		if (nppGUI._isLangMenuCompact)
 		{
-			int nbItems = ::GetMenuItemCount(hLangMenu);
-			for (int i = nbItems - 1; i >= 0; --i)
+			int nbLangItems = ::GetMenuItemCount(hLangMenu);
+			for (int i = nbLangItems - 1; i >= 0; --i)
 			{
 				HMENU hSubMenu = ::GetSubMenu(hLangMenu, i);
 				if (hSubMenu && ::GetMenuItemCount(hSubMenu) == 0)
 				{
 					::RemoveMenu(hLangMenu, i, MF_BYPOSITION);
+					::DestroyMenu(hSubMenu);
 				}
 			}
 		}

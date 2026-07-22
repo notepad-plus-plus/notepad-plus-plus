@@ -4818,6 +4818,8 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 					HWND grandParent = ::GetParent(_hParent);
 					HMENU mainMenu = reinterpret_cast<HMENU>(::SendMessage(grandParent, NPPM_INTERNAL_GETMENU, 0, 0));
+					HMENU subLangMenu = ::GetSubMenu(mainMenu, MENUINDEX_LANGUAGE);
+					int nbLangItems = ::GetMenuItemCount(subLangMenu);
 
 					if (LOWORD(wParam)==IDC_BUTTON_REMOVE)
 					{
@@ -4827,57 +4829,26 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						// and remove the sub-menu if it is empty after removing the language.
 						if (nppGUI._isLangMenuCompact)
 						{
-							HMENU subLangMenu = ::GetSubMenu(mainMenu, MENUINDEX_LANGUAGE);
-
-							int nbItem = ::GetMenuItemCount(subLangMenu);
-							int x = 0;
-							MENUITEMINFO menuItemInfo{};
-							menuItemInfo.cbSize = sizeof(MENUITEMINFO);
-							menuItemInfo.fMask = MIIM_FTYPE;
-							for (; x < nbItem; ++x)
+							for (int i = nbLangItems - 1; i >= 0; --i)
 							{
-								::GetMenuItemInfo(subLangMenu, x, TRUE, &menuItemInfo);
-								if (menuItemInfo.fType & MFT_SEPARATOR)
+								HMENU hSubMenu = ::GetSubMenu(subLangMenu, i);
+								if (hSubMenu && ::GetMenuItemCount(hSubMenu) == 0)
 								{
+									::RemoveMenu(subLangMenu, i, MF_BYPOSITION);
+									::DestroyMenu(hSubMenu);
 									break;
-								}
-							}
-
-							// Find the location in existing language menu to insert to. This includes submenu if using compact language menu.
-							wchar_t firstLetter = lmi._langName.empty() ? L'\0' : towupper(lmi._langName[0]);
-							wchar_t buffer[MAX_EXTERNAL_LEXER_NAME_LEN]{ L'\0' };
-							menuItemInfo.fMask = MIIM_SUBMENU;
-
-							for (++x; x < nbItem; ++x)
-							{
-								::GetMenuItemInfo(subLangMenu, x, TRUE, &menuItemInfo);
-								::GetMenuString(subLangMenu, x, buffer, MAX_EXTERNAL_LEXER_NAME_LEN, MF_BYPOSITION);
-
-								// Check if using compact language menu.
-								if (menuItemInfo.hSubMenu && buffer[0] == firstLetter)
-								{
-									// Found the sub-menu for the language's first letter. Search in it instead.
-									if (::GetMenuItemCount(menuItemInfo.hSubMenu) == 0)
-									{
-										::RemoveMenu(subLangMenu, x, MF_BYPOSITION);
-										::DestroyMenu(menuItemInfo.hSubMenu);
-										break;
-									}
 								}
 							}
 						}
 					}
 					else // IDC_BUTTON_RESTORE
 					{
-						HMENU subLangMenu = ::GetSubMenu(mainMenu, MENUINDEX_LANGUAGE);
-
 						// Find the first separator which is between IDM_LANG_TEXT and languages
-						int nbItem = ::GetMenuItemCount(subLangMenu);
 						int x = 0;
 						MENUITEMINFO menuItemInfo{};
 						menuItemInfo.cbSize = sizeof(MENUITEMINFO);
 						menuItemInfo.fMask = MIIM_FTYPE;
-						for (; x < nbItem; ++x)
+						for (; x < nbLangItems; ++x)
 						{
 							::GetMenuItemInfo(subLangMenu, x, TRUE, &menuItemInfo);
 							if (menuItemInfo.fType & MFT_SEPARATOR)
@@ -4893,7 +4864,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 						bool enteredLetterSubMenu = false;
 
-						for (++x; x < nbItem; ++x)
+						for (++x; x < nbLangItems; ++x)
 						{
 							::GetMenuItemInfo(subLangMenu, x, TRUE, &menuItemInfo);
 							::GetMenuString(subLangMenu, x, buffer, MAX_EXTERNAL_LEXER_NAME_LEN, MF_BYPOSITION);
@@ -4902,7 +4873,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							if (menuItemInfo.hSubMenu && buffer[0] == firstLetter)
 							{
 								// Found the submenu for the language's first letter. Search in it instead.
-								nbItem = ::GetMenuItemCount(menuItemInfo.hSubMenu);
+								nbLangItems = ::GetMenuItemCount(menuItemInfo.hSubMenu);
 								x = -1;
 								enteredLetterSubMenu = true;
 							}
@@ -4918,8 +4889,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							// then insert the language as its first (and only) entry.
 							HMENU newLetterSubMenu = ::CreatePopupMenu();
 							wchar_t letterLabel[2] = { firstLetter, L'\0' };
-							::InsertMenu(subLangMenu, x, MF_BYPOSITION | MF_POPUP,
-								reinterpret_cast<UINT_PTR>(newLetterSubMenu), letterLabel);
+							::InsertMenu(subLangMenu, x, MF_BYPOSITION | MF_POPUP, reinterpret_cast<UINT_PTR>(newLetterSubMenu), letterLabel);
 							::InsertMenu(newLetterSubMenu, 0, MF_BYPOSITION, lmi._cmdID, lmi._langName.c_str());
 						}
 						else

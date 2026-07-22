@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.9.6.4">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.9.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1628,10 +1628,10 @@ OKボタンを押すと検索ダイアログが開きます。
 読み取り専用を解除してから保存を行ってください。"/>
 			<ShortcutsXmlHMACMissing title="セキュリティー警告" message="shortcuts.xml についてのセキュリティー情報が、config.xml に見つかりません。
 
-セキュリティーのため、shortcuts.xml の完全性が都度検証されます。設定したコマンドを実行するには、まず shortcuts.xml の内容が意図したものであるかを確認してください。問題なければ、メニューから「shortcuts.xml を承認する」を押してください。"/>
+セキュリティーのため、shortcuts.xml の完全性が都度検証されます。設定したコマンドを実行するには、まず shortcuts.xml の内容が意図したものであるかを確認してください。問題なければ、「実行」メニューから「shortcuts.xml を承認する」を押してください。"/>
 			<ShortcutsXmlTampered title="セキュリティー警告" message="shortcuts.xml が手動で変更されたようです。
 
-セキュリティーのため、shortcuts.xml の内容が意図したものであるかを確認してください。問題なければ、メニューから「shortcuts.xml を承認する」を押してください。"/>
+セキュリティーのため、shortcuts.xml の内容が意図したものであるかを確認してください。問題なければ、「実行」メニューから「shortcuts.xml を承認する」を押してください。"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="クリップボード履歴"/>

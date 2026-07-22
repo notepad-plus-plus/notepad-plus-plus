@@ -5,7 +5,7 @@
 <!-- Prohardver topic: https://prohardver.hu/tema/re_notepad/friss.html -->
 <!-- For more information see the Commits History: https://github.com/notepad-plus-plus/notepad-plus-plus/commits/master/PowerEditor/installer/nativeLang/hungarian.xml -->
 <NotepadPlus>
-	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.9.6.4">
+	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.9.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1627,10 +1627,10 @@ A fájl csak olvasható, emiatt nem menthető el.
 Kérjük, törölje a dokumentum csak olvasható beállítását, majd mentse el a fájlt."/>
 			<ShortcutsXmlHMACMissing title="Biztonsági figyelmeztetés" message="A config.xml fájlból hiányoznak a shortcuts.xml biztonsági adatai.
 
-Biztonsági okokból a Notepad++ ellenőrzi a shortcuts.xml integritását. Egyéni parancsai futtatásához, kérjük, tekintse át a megnyitott shortcuts.xml fájlt. Ha a fájl tartalmát rendben találja, válassza a menüből az „A shortcuts.xml érvényesítése” lehetőséget a megerősítéshez."/>
+Biztonsági okokból a Notepad++ ellenőrzi a shortcuts.xml integritását. Egyéni parancsai futtatásához, kérjük, tekintse át a megnyitott shortcuts.xml fájlt. Ha a fájl tartalmát rendben találja, válassza a „Futtatás” menüből az „A shortcuts.xml érvényesítése” lehetőséget a megerősítéshez."/>
 			<ShortcutsXmlTampered title="Biztonsági figyelmeztetés" message="Úgy tűnik, hogy a shortcuts.xml fájl kézzel lett módosítva.
 
-Biztonsági okokból, kérjük, tekintse át a megnyitott shortcuts.xml fájlt. Ha a fájl tartalmát rendben találja, válassza a menüből az „A shortcuts.xml érvényesítése” lehetőséget a megerősítéshez."/>
+Biztonsági okokból, kérjük, tekintse át a megnyitott shortcuts.xml fájlt. Ha a fájl tartalmát rendben találja, válassza a „Futtatás” menüből az „A shortcuts.xml érvényesítése” lehetőséget a megerősítéshez."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Vágólap-előzmények"/>

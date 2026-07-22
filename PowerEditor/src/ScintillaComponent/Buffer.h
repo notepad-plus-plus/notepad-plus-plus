@@ -33,7 +33,8 @@ enum DocFileStatus {
 	DOC_DELETED      = 0x04, // doesn't exist in environment anymore, but not DOC_UNNAMED
 	DOC_MODIFIED     = 0x08, // File in environment has changed
 	DOC_NEEDRELOAD   = 0x10, // File is modified & needed to be reload (by log monitoring)
-	DOC_INACCESSIBLE = 0x20  // File is absent on its load; this status is temporay for setting file not dirty & readonly; and it will be replaced to DOC_DELETED
+	DOC_INACCESSIBLE = 0x20, // File is absent on its load; this status is temporay for setting file not dirty & readonly; and it will be replaced to DOC_DELETED
+	DOC_LAZYLOAD     = 0x40  // File is present but not loaded, instead it is only loaded once active ( will affect operations requiring the buffer like search )
 };
 
 enum BufferStatusInfo {
@@ -91,7 +92,7 @@ public:
 	BufferID loadFile(const wchar_t * filename, Document doc = static_cast<Document>(NULL), int encoding = -1, const wchar_t *backupFileName = nullptr, FILETIME fileNameTimestamp = {});	//ID == BUFFER_INVALID on failure. If Doc == NULL, a new file is created, otherwise data is loaded in given document
 	BufferID newEmptyDocument();
 	// create an empty placeholder for a missing file when loading session
-	BufferID newPlaceholderDocument(const wchar_t * missingFilename, int whichOne, const wchar_t* userCreatedSessionName);
+	BufferID newPlaceholderDocument(const wchar_t * missingFilename, int whichOne, const wchar_t* userCreatedSessionName, bool lazyLoaded, bool* pDontClose);
 
 	//create Buffer from existing Scintilla, used from new Scintillas.
 	BufferID bufferFromDocument(Document doc, bool isMainEditZone);
@@ -120,8 +121,7 @@ public:
 	void enableAutoDetectEncoding4Loading() { isAutoDetectEncodingDisabled4Loading = false; }
 	void disableAutoDetectEncoding4Loading() { isAutoDetectEncodingDisabled4Loading = true; } // Disable the encoding auto-detection on loading file while switching among the different encoding.
 	                                                                                          // The value of isAutoDetectEncodingDisabled4Loading will be restored to false after each file loading 
-	                                                                                          // to restore the encoding auto-detection ability for other file loading operations. 
-
+	                                                                                          // to restore the encoding auto-detection ability for other file loading operations.
 private:
 	struct LoadedFileFormat {
 		LoadedFileFormat() = default;
@@ -172,7 +172,7 @@ public:
 	// this method 1. copies the file name
 	//             2. determines the language from the ext of file name
 	//             3. gets the last modified time
-	void setFileName(const wchar_t *fn);
+	void setFileName(const wchar_t *fn, bool lazy = false);
 
 	const wchar_t * getFullPathName() const { return _fullPathName.c_str(); }
 
@@ -393,7 +393,6 @@ public:
 
 	bool isPinned() const { return _isPinned; }
 	void setPinned(bool isPinned) { _isPinned = isPinned; }
-
 private:
 	int indexOfReference(const ScintillaEditView * identifier) const;
 
@@ -485,4 +484,6 @@ private:
 
 	bool _isRTL = false;
 	bool _isPinned = false;
+
+	int _loadNotifyMask = 0;
 };

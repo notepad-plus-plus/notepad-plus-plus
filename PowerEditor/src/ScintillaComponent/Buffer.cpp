@@ -132,8 +132,20 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 
 void Buffer::doNotify(int mask)
 {
+	if (_currentStatus == DOC_LAZYLOAD)
+	{
+		_loadNotifyMask |= mask;
+		return;
+	}
+
 	if (_canNotify)
 	{
+		if (_loadNotifyMask)
+		{
+			mask |= _loadNotifyMask;
+			_loadNotifyMask = 0;
+		}
+
 		assert(_pManager != nullptr);
 		_pManager->beNotifiedOfBufferChange(this, mask);
 	}
@@ -274,7 +286,7 @@ void Buffer::updateTimeStamp()
 
 // Set full path file name in buffer object,
 // and determine its language by its extension.
-void Buffer::setFileName(const wchar_t *fn)
+void Buffer::setFileName(const wchar_t *fn, bool lazy)
 {
 	NppParameters& nppParamInst = NppParameters::getInstance();
 	if (_fullPathName == fn)
@@ -300,6 +312,12 @@ void Buffer::setFileName(const wchar_t *fn)
 			// compacting failed, use the original instead
 			_compactFileName = _fileName;
 		}
+	}
+
+	if (lazy)
+	{
+		doNotify(BufferChangeFilename);
+		return;
 	}
 
 	_isFromNetwork = PathIsNetworkPath(fn);
@@ -485,7 +503,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 	}
 
 	bool isOK = false;
-	if (_currentStatus == DOC_INACCESSIBLE && !fileExists)	//document is absent on its first load - we set readonly and not dirty, and make it be as document which has been deleted
+	if ((_currentStatus == DOC_INACCESSIBLE || _currentStatus == DOC_LAZYLOAD) && !fileExists)	//document is absent on its first load - we set readonly and not dirty, and make it be as document which has been deleted
 	{
 		_currentStatus = DOC_DELETED;//DOC_INACCESSIBLE;
 		_isInaccessible = true;
@@ -493,6 +511,10 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		_isDirty = false;
 		_timeStamp = {};
 		doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
+		isOK = true;
+	}
+	else if (_currentStatus == DOC_LAZYLOAD && fileExists)
+	{
 		isOK = true;
 	}
 	else if (_currentStatus != DOC_DELETED && !fileExists)	//document has been deleted
@@ -777,7 +799,6 @@ void Buffer::setHideLineChanged(bool isHide, size_t location)
 	}
 }
 
-
 void Buffer::setDeferredReload() // triggers a reload on the next Document access
 {
 	_isDirty = false;	//when reloading, just set to false, since it should be marked as clean
@@ -918,7 +939,6 @@ void FileManager::closeBuffer(BufferID id, const ScintillaEditView* identifier)
 		_nbBufs--;
 	}
 }
-
 
 // backupFileName is sentinel of backup mode: if it's not NULL, then we use it (load it). Otherwise we use filename
 BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encoding, const wchar_t* backupFileName, FILETIME fileNameTimestamp)
@@ -1115,6 +1135,16 @@ bool FileManager::reloadBuffer(BufferID id)
 		buf->setSavePointDirty(false);
 
 		setLoadedBufferEncodingAndEol(buf, unicodeConvertor, loadedFileFormat._encoding, loadedFileFormat._eolFormat);
+
+		if (buf->getStatus() == DOC_LAZYLOAD)
+		{
+			buf->setStatus(DOC_REGULAR);
+			buf->updateTimeStamp();
+		}
+	}
+	else if (buf->getStatus() == DOC_LAZYLOAD)
+	{
+		buf->setStatus(DOC_INACCESSIBLE);
 	}
 
 	return res;
@@ -1705,11 +1735,11 @@ BufferID FileManager::newEmptyDocument()
 	return id;
 }
 
-BufferID FileManager::newPlaceholderDocument(const wchar_t* missingFilename, int whichOne, const wchar_t* userCreatedSessionName)
+BufferID FileManager::newPlaceholderDocument(const wchar_t* missingFilename, int whichOne, const wchar_t* userCreatedSessionName, bool lazyLoaded, bool* pDontClose)
 {
 	NppParameters& nppParamInst = NppParameters::getInstance();
 
-	if (!nppParamInst.theWarningHasBeenGiven())
+	if (!lazyLoaded && !nppParamInst.theWarningHasBeenGiven())
 	{
 		int res = 0;
 		if (userCreatedSessionName)
@@ -1737,16 +1767,26 @@ BufferID FileManager::newPlaceholderDocument(const wchar_t* missingFilename, int
 		nppParamInst.setPlaceHolderEnable(res == IDYES);
 	}
 
-	if (!nppParamInst.isPlaceHolderEnabled())
+	if (!lazyLoaded && !nppParamInst.isPlaceHolderEnabled())
 		return BUFFER_INVALID;
 
 	BufferID buf = MainFileManager.newEmptyDocument();
 	if (buf == BUFFER_INVALID)
 		return BUFFER_INVALID;
 
-	_pNotepadPlus->loadBufferIntoView(buf, whichOne);
-	buf->setFileName(missingFilename);
-	buf->_currentStatus = DOC_INACCESSIBLE;
+	if (lazyLoaded)
+	{
+		buf->_currentStatus = DOC_LAZYLOAD;
+		buf->setFileName(missingFilename, true);
+		_pNotepadPlus->loadBufferIntoView(buf, whichOne, pDontClose, true);
+		buf->_needReloading = true;
+	}
+	else
+	{
+		_pNotepadPlus->loadBufferIntoView(buf, whichOne, pDontClose);
+		buf->setFileName(missingFilename, false);
+		buf->_currentStatus = DOC_INACCESSIBLE;
+	}
 
 	return buf;
 }

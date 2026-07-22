@@ -613,7 +613,7 @@ Translation note:
 				<Item id="1934" name="Co&amp;py to Clipboard"/>
 				<Item id="2" name="&amp;Close"/>
 			</SHA512FromTextDlg>
-			<PluginsAdminDlg title="Plugins Admin" titleAvailable="Available" titleUpdates="Updates" titleInstalled="Installed" titleIncompatible="Incompatible">
+			<PluginsAdminDlg title="Plugins Admin" titleAvailable="Available" titleUpdates="Updates" titleInstalled="Installed" titleIncompatible="Incompatible" titleDisabled="Deactivated">
 				<ColumnPlugin name="Plugin"/>
 				<ColumnVersion name="Version"/>
 				<Item id="5501" name="&amp;Search:"/>
@@ -623,6 +623,10 @@ Translation note:
 				<Item id="5508" name="&amp;Next"/>
 				<Item id="5509" name="Plugin list version:"/>
 				<Item id="5511" name="Plugin list repository"/>
+				<Item id="5512" name="D&amp;eactivate"/>
+				<Item id="5513" name="&amp;Activate"/>
+				<Item id="5514" name="Re&amp;move"/>
+				<Item id="5515" name="Re&amp;move"/>
 				<Item id="2" name="Close"/>
 			</PluginsAdminDlg>
 
@@ -1815,6 +1819,12 @@ The text pasted into this field includes invisible (maybe line-ending) character
 			<common-cancel value="Cancel"/>
 			<common-name value="Name"/>
 			<common-error value="Error"/>
+			<plugin-overwrite-title value="Plugin folder conflict"/>
+			<plugin-overwrite-content value="$STR_REPLACE$ already exists in the destination folder.&#x0A;Do you want to overwrite it?"/>
+			<plugin-overwrite-btn-yes value="Yes"/>
+			<plugin-overwrite-btn-yestoall value="Yes to all"/>
+			<plugin-overwrite-btn-no value="No"/>
+			<plugin-overwrite-btn-cancel value="Cancel"/>
 			<tabrename-title value="Rename Current Tab"/>
 			<tabrename-newname value="New name"/>
 			<splitter-rotate-left value="Rotate to left"/>

@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.9.6.4">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.9.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -618,7 +618,7 @@ Translation note:
 				<Item id="2" name="閉じる(&amp;C)"/>
 			</SHA512FromTextDlg>
 
-			<PluginsAdminDlg title="プラグイン管理" titleAvailable="利用可能" titleUpdates="アップデート" titleInstalled="インストール済み" titleIncompatible="互換性がない">
+			<PluginsAdminDlg title="プラグイン管理" titleAvailable="利用可能" titleUpdates="アップデート" titleInstalled="インストール済み" titleIncompatible="互換性がない" titleDisabled="無効化済み">
 				<ColumnPlugin name="プラグイン"/>
 				<ColumnVersion name="バージョン"/>
 				<Item id="5501" name="検索(&amp;S)："/>
@@ -628,6 +628,8 @@ Translation note:
 				<Item id="5508" name="次を検索(&amp;N)"/>
 				<Item id="5509" name="プラグインリストのバージョン："/>
 				<Item id="5511" name="プラグインリストのレポジトリ"/>
+				<Item id="5512" name="無効化する(&amp;E)"/>
+				<Item id="5513" name="有効にする(&amp;A)"/>
 				<Item id="2" name="閉じる"/>
 			</PluginsAdminDlg>
 
@@ -1471,7 +1473,18 @@ Translation note:
 				<Item id="7" name="いいえ(&amp;N)"/>
 				<Item id="4" name="常に はい(&amp;A)"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+			<NetworkPathWarning title="Notepad++ セッションの読み込み" title2="クリックできる file:// リンク">
+				<Item id="1771" name="ネットワークパスの警告:
 
+$STR_REPLACE$
+
+この読み込みを続けると、Windowsが自動的にこのサーバーと認証を行うため、Windowsのログイン情報が漏洩する恐れがあります。
+読み込みを続けますか？"/>
+				<Item id="2" name="スキップ(&amp;S)"/>
+				<Item id="6" name="読み込む(&amp;L)"/>
+				<Item id="7" name="常にネットワークパスをスキップ(&amp;A)"/>
+				<Item id="4" name="常にネットワークパスを読み込む(&amp;E)"/>
+			</NetworkPathWarning>
 			<DebugInfo title="デバッグ情報">
 				<Item id="1752" name="情報をクリップボードにコピー（&amp;C）"/>
 				<Item id="1" name="OK"/>
@@ -1627,10 +1640,10 @@ OKボタンを押すと検索ダイアログが開きます。
 読み取り専用を解除してから保存を行ってください。"/>
 			<ShortcutsXmlHMACMissing title="セキュリティー警告" message="shortcuts.xml についてのセキュリティー情報が、config.xml に見つかりません。
 
-セキュリティーのため、shortcuts.xml の完全性が都度検証されます。設定したコマンドを実行するには、まず shortcuts.xml の内容が意図したものであるかを確認してください。問題なければ、メニューから「shortcuts.xml を承認する」を押してください。"/>
+セキュリティーのため、shortcuts.xml の完全性が都度検証されます。設定したコマンドを実行するには、まず shortcuts.xml の内容が意図したものであるかを確認してください。問題なければ、「実行」メニューから「shortcuts.xml を承認する」を押してください。"/>
 			<ShortcutsXmlTampered title="セキュリティー警告" message="shortcuts.xml が手動で変更されたようです。
 
-セキュリティーのため、shortcuts.xml の内容が意図したものであるかを確認してください。問題なければ、メニューから「shortcuts.xml を承認する」を押してください。"/>
+セキュリティーのため、shortcuts.xml の内容が意図したものであるかを確認してください。問題なければ、「実行」メニューから「shortcuts.xml を承認する」を押してください。"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="クリップボード履歴"/>

@@ -78,6 +78,7 @@
 
 using namespace std;
 
+
 std::mutex command_mutex;
 
 void Notepad_plus::macroPlayback(Macro macro, std::vector<Document>* pDocs4EndUAIn)
@@ -153,7 +154,66 @@ void Notepad_plus::macroPlayback(Macro macro, std::vector<Document>* pDocs4EndUA
 	_playingBackMacro = false;
 }
 
+/*
+ * Triggers a warning if a massive selection is being overwritten by a significantly smaller clipboard text.
+ * Designed to prevent accidental data loss while ensuring high performance and macro compatibility.
+ */
+static bool confirmLargePaste(ScintillaEditView* pView, bool isMacroPlaying)
+{
+	// 1. Macro Safety: Never interrupt macro playback with a UI popup.
+	if (isMacroPlaying)
+	{
+		return true;
+	}
 
+	// 2. Performance: Calculate selection length.
+	size_t totalSelLen = 0;
+	const size_t nbSelections = pView->execute(SCI_GETSELECTIONS);
+	for (size_t i = 0; i < nbSelections; ++i)
+	{
+		totalSelLen += (pView->execute(SCI_GETSELECTIONNEND, i) - pView->execute(SCI_GETSELECTIONNSTART, i));
+	}
+
+	// High threshold to minimize user annoyance (500k characters).
+	const size_t threshold = 500000;
+	if (totalSelLen < threshold)
+	{
+		return true;
+	}
+
+	// 3. Clipboard Reliability & Performance:
+	size_t clipboardLen = 0;
+	if (::OpenClipboard(pView->getHSelf()))
+	{
+		HANDLE hData = ::GetClipboardData(CF_UNICODETEXT);
+		if (hData)
+		{
+			// GlobalSize is O(1), instantly returns the buffer size even for gigabytes of data.
+			// CF_UNICODETEXT is wchar_t, so we divide by its size to get character count.
+			clipboardLen = ::GlobalSize(hData) / sizeof(wchar_t);
+		}
+		::CloseClipboard();
+	}
+	else
+	{
+		// 4. Fallback: If clipboard is locked by another process, proceed silently.
+		// Safety is important, but preventing the user from pasting at all is worse.
+		return true;
+	}
+
+	// 5. Heuristic Check: Selection is massive AND clipboard is at least 10x smaller.
+	if (totalSelLen > (clipboardLen * 10))
+	{
+		const int ret = NppDarkMode::darkMessageBoxW(pView->getHSelf(),
+			L"You are about to overwrite a very large selection with much smaller text from the clipboard.\n\nAre you sure you want to proceed?",
+			L"Large Selection Overwrite Warning",
+			MB_YESNO | MB_ICONWARNING | MB_DEFBUTTON2);
+
+		return (ret == IDYES);
+	}
+
+	return true;
+}
 
 void Notepad_plus::command(int id)
 {
@@ -642,6 +702,12 @@ void Notepad_plus::command(int id)
 			HWND focusedHwnd = ::GetFocus();
 			if (focusedHwnd == _pEditView->getHSelf())
 			{
+				// Guard against accidental massive overwrites, skipping if macro is playing
+				if (!confirmLargePaste(_pEditView, _playingBackMacro))
+				{
+					break;
+				}
+
 				size_t nbSelections = _pEditView->execute(SCI_GETSELECTIONS);
 				Buffer* buf = getCurrentBuffer();
 				bool isRO = buf->isReadOnly();

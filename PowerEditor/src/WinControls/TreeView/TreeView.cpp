@@ -842,3 +842,93 @@ void TreeView::customSorting(HTREEITEM hTreeItem, PFNTVCOMPARE sortingCallbackFu
 	for (HTREEITEM hItem = getChildFrom(hTreeItem); hItem != NULL; hItem = getNextSibling(hItem))
 		customSorting(hItem, sortingCallbackFunc, lParam, isRecusive);
 }
+
+
+// ---------- helpers for searchAndBuildTreeWithAncestors ----------
+
+static HTREEITEM tvGetNextItem(HWND hwnd, HTREEITEM item, UINT relation)
+{
+	return reinterpret_cast<HTREEITEM>(::SendMessage(hwnd, TVM_GETNEXTITEM, relation, reinterpret_cast<LPARAM>(item)));
+}
+
+static HTREEITEM tvInsertCopy(HWND dstHwnd, HTREEITEM dstParent, const TVITEM& srcItem)
+{
+	TVINSERTSTRUCT tvis{};
+	tvis.item = srcItem;
+	tvis.hInsertAfter = TVI_LAST;
+	tvis.hParent = dstParent;
+	return reinterpret_cast<HTREEITEM>(::SendMessage(dstHwnd, TVM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&tvis)));
+}
+
+// Recursively builds the filtered tree in a single pass (insert-then-prune).
+// Returns the inserted HTREEITEM for src, or nullptr if nothing from this subtree survived.
+//   - Leaf items: included iff their name matches.
+//   - Folders: inserted provisionally, children recursed once; kept iff the folder's own name
+//     matches OR at least one descendant was inserted. Kept-by-descendant folders are EXPANDED;
+//     kept-by-own-name-only folders remain bare & collapsed (no surviving children). Otherwise
+//     the provisional folder is deleted.
+static HTREEITEM fbBuildFilteredNode(HWND srcHwnd, HWND dstHwnd, HTREEITEM dstParent,
+                                     HTREEITEM src, const std::wstring& needleUpper, int leafIdx,
+                                     const TreeView::NameExtractor& getName)
+{
+	wchar_t buf[MAX_PATH] = {};
+	TVITEM tvItem{};
+	tvItem.hItem = src;
+	tvItem.pszText = buf;
+	tvItem.cchTextMax = MAX_PATH;
+	tvItem.mask = TVIF_TEXT | TVIF_PARAM | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+	::SendMessage(srcHwnd, TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
+
+	const bool isLeaf = (tvItem.iImage == leafIdx);
+	const bool nameMatches = (stringToUpper(getName(tvItem)).find(needleUpper) != wstring::npos);
+
+	if (isLeaf)
+	{
+		if (!nameMatches)
+			return nullptr;
+		return tvInsertCopy(dstHwnd, dstParent, tvItem);
+	}
+
+	// Folder: insert provisionally, recurse children ONCE (no probe), then keep-or-prune.
+	HTREEITEM dst = tvInsertCopy(dstHwnd, dstParent, tvItem);
+	bool anyChildInserted = false;
+	for (HTREEITEM child = tvGetNextItem(srcHwnd, src, TVGN_CHILD);
+	     child;
+	     child = tvGetNextItem(srcHwnd, child, TVGN_NEXT))
+	{
+		if (fbBuildFilteredNode(srcHwnd, dstHwnd, dst, child, needleUpper, leafIdx, getName) != nullptr)
+			anyChildInserted = true;
+	}
+
+	if (nameMatches || anyChildInserted)
+	{
+		if (anyChildInserted)
+			::SendMessage(dstHwnd, TVM_EXPAND, TVE_EXPAND, reinterpret_cast<LPARAM>(dst)); // reveal matches
+		return dst; // name-only match => bare, collapsed node (no surviving children)
+	}
+
+	::SendMessage(dstHwnd, TVM_DELETEITEM, 0, reinterpret_cast<LPARAM>(dst)); // prune non-matching folder
+	return nullptr;
+}
+
+// ---------- public method ----------
+
+bool TreeView::searchAndBuildTreeWithAncestors(const TreeView& tree2Build, const wstring& text2Search, int leafImageIndex, const NameExtractor& getName)
+{
+	if (!_hSelf || !tree2Build.getHSelf())
+		return false;
+
+	const wstring needleUpper = stringToUpper(text2Search);
+	const HWND dstHwnd = tree2Build.getHSelf();
+	bool anyMatch = false;
+
+	for (HTREEITEM topLevel = tvGetNextItem(_hSelf, nullptr, TVGN_ROOT);
+	     topLevel;
+	     topLevel = tvGetNextItem(_hSelf, topLevel, TVGN_NEXT))
+	{
+		HTREEITEM dst = fbBuildFilteredNode(_hSelf, dstHwnd, TVI_ROOT, topLevel, needleUpper, leafImageIndex, getName);
+		if (dst)
+			anyMatch = true;
+	}
+	return anyMatch;
+}

@@ -4,7 +4,7 @@ Updated to :
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.9.6">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.9.7">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -603,7 +603,7 @@ Updated to :
 				<Item id="2008" name="Символ"/>
 			</GoToLine>
 			<Run title="Запуск...">
-				<Item id="1" name="&amp;Запуск!"/>
+				<Item id="1" name="&amp;Запустить"/>
 				<Item id="2" name="&amp;Отмена"/>
 				<Item id="1904" name="&amp;Сохранить..."/>
 				<Item id="1903" name="Введите параметры запуска программы"/>
@@ -1623,10 +1623,10 @@ Updated to :
 			<ShortcutsXmlHMACMissing title="Предупреждение о безопасности" message="Информация о безопасности для файла shortcuts.xml отсутствует в файле config.xml.
 
 В целях безопасности будет проверена целостность файла shortcuts.xml. Для выполнения настроенной команды проверьте открытый файл shortcuts.xml.
-Если содержимое файла в порядке, используйте пункт в меню &quot;Утвердить shortcuts.xml&quot;, чтобы это подтвердить."/>
+Если содержимое файла в порядке, используйте пункт &quot;Утвердить shortcuts.xml&quot; в меню &quot;Запуск&quot;, чтобы это подтвердить."/>
 			<ShortcutsXmlTampered title="Предупреждение о безопасности" message="По всей видимости, файл shortcuts.xml был изменен вручную.
 
-В целях безопасности, пожалуйста, проверьте открытый файл shortcuts.xml. Если содержимое файла в порядке, используйте пункт в меню &quot;Утвердить shortcuts.xml&quot;, чтобы это подтвердить."/>
+В целях безопасности, пожалуйста, проверьте открытый файл shortcuts.xml. Если содержимое файла в порядке, используйте пункт &quot;Утвердить shortcuts.xml&quot; в меню &quot;Запуск&quot;, чтобы это подтвердить."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="История Буфера"/>

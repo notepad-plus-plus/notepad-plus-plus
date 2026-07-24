@@ -4946,6 +4946,21 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 		enableReplaceFunc(whichType == REPLACE_DLG);
 
 	::SetFocus(toShow ? ::GetDlgItem(_hSelf, IDFINDWHAT) : (*_ppEditView)->getHSelf());
+
+	if (toShow)
+	{
+		// If Find is not currently on the same monitor as the main Notepad++ window
+		// (main window moved since Find was last shown, or this is the first open
+		// and the saved position was on a different monitor), recenter Find over
+		// the main window so it opens on the correct monitor.
+		RECT rc{};
+		getWindowRect(rc);
+		HMONITOR hMonFind = ::MonitorFromRect(&rc, MONITOR_DEFAULTTONEAREST);
+		HMONITOR hMonParent = ::MonitorFromWindow(_hParent, MONITOR_DEFAULTTONEAREST);
+		if (hMonFind != hMonParent)
+			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
+	}
+
 	StaticDialog::displayEnhanced(toShow);
 }
 

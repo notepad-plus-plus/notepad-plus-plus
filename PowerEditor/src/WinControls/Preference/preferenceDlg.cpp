@@ -4863,7 +4863,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						menuItemInfo.fMask = MIIM_SUBMENU;
 
 						bool enteredLetterSubMenu = false;
-
+						HMENU subMenu2InsertIn = subLangMenu;
 						for (++x; x < nbLangItems; ++x)
 						{
 							::GetMenuItemInfo(subLangMenu, x, TRUE, &menuItemInfo);
@@ -4876,6 +4876,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 								nbLangItems = ::GetMenuItemCount(menuItemInfo.hSubMenu);
 								x = -1;
 								enteredLetterSubMenu = true;
+								subMenu2InsertIn = menuItemInfo.hSubMenu;
 							}
 							else if (lstrcmp(lmi._langName.c_str(), buffer) < 0)
 							{
@@ -4894,7 +4895,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						}
 						else
 						{
-							::InsertMenu(subLangMenu, x, MF_BYPOSITION, lmi._cmdID, lmi._langName.c_str());
+							::InsertMenu(subMenu2InsertIn, x, MF_BYPOSITION, lmi._cmdID, lmi._langName.c_str());
 						}
 					}
 

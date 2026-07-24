@@ -1617,7 +1617,7 @@ Appuyez sur le bouton OK pour ouvrir la boîte de dialogue de recherche ou lui d
 
 Si vous avez besoin de la fonction de recherche d’expression régulière inversée, consultez le manuel de l’utilisateur pour savoir comment l’activer."/>
 			<PrintError title="0" message="Impossible de démarrer l'imprimante de document."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
-			<FindAutoChangeOfInSelectionWarning title="Avertissement de recherche" message="L'état de laa case à cocher &quot;Dans la sélection&quot; a été automatiquement modifié.
+			<FindAutoChangeOfInSelectionWarning title="Avertissement de recherche" message="L'état de la case à cocher &quot;Dans la sélection&quot; a été automatiquement modifié.
 Veuillez vérifier la condition de recherche avant de procéder à l'action."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Redémarrer Notepad++" message="Vous avez besoins de redémarrer Notepad++ afin d'afficher menu ＋ ▼ ✕ "/>
 			<NoAdminRight2ChangeReadOnlyFileAttribute title="Impossible de modifier l'attribut lecture seule" message="Veuillez lancer Notepad++ en mode « Administrateur » pour modifier cet attribut du fichier."/>

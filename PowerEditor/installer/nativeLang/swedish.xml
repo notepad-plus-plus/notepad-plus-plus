@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.9.6.4">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.9.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -612,7 +612,7 @@ Translation note:
 				<Item id="1934" name="Ko&amp;piera till urklipp"/>
 				<Item id="2" name="St&amp;äng"/>
 			</SHA512FromTextDlg>
-			<PluginsAdminDlg title="Hantera insticksprogram" titleAvailable="Tillgängliga" titleUpdates="Uppdateringar" titleInstalled="Installerade" titleIncompatible="Inkompatibla">
+			<PluginsAdminDlg title="Hantera insticksprogram" titleAvailable="Tillgängliga" titleUpdates="Uppdateringar" titleInstalled="Installerade" titleIncompatible="Inkompatibla" titleDisabled="Inaktiverade">
 				<ColumnPlugin name="Insticksprogram"/>
 				<ColumnVersion name="Version"/>
 				<Item id="5501" name="&amp;Sök:"/>
@@ -622,6 +622,8 @@ Translation note:
 				<Item id="5508" name="&amp;Nästa"/>
 				<Item id="5509" name="Insticksprogramslistans version:"/>
 				<Item id="5511" name="Insticksprogramslistans källkod"/>
+				<Item id="5512" name="Inakti&amp;vera"/>
+				<Item id="5513" name="&amp;Aktivera"/>
 				<Item id="2" name="Stäng"/>
 			</PluginsAdminDlg>
 
@@ -1463,6 +1465,18 @@ Du kan aktivera denna dialogruta i inställningarna senare."/>
 				<Item id="7" name="N&amp;ej"/>
 				<Item id="4" name="&amp;Alltid"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+			<NetworkPathWarning title="Sessionsinläsning i Notepad++" title2="Klickbar länk med prefixet file://">
+				<Item id="1771" name="Varning för nätverkssökväg:
+
+$STR_REPLACE$
+
+Om den läses in kommer Windows automatiskt att autentisera mot servern, vilket potentiellt kan exponera din inloggningsinformation för Windows.
+Vill du läsa in den ändå?"/>
+				<Item id="2" name="Hoppa öve&amp;r"/>
+				<Item id="6" name="&amp;Läs in"/>
+				<Item id="7" name="Hoppa &amp;alltid över "/>
+				<Item id="4" name="Läsa alltid in &amp;nätverkssökvägar"/>
+			</NetworkPathWarning>
 
 			<DebugInfo title="Felsökningsinformation">
 				<Item id="1752" name="&amp;Kopiera felsökningsinfo till urklipp"/>
@@ -1629,10 +1643,10 @@ Filen är skrivskyddad och kan inte sparas.
 Var god ta bort skrivskyddet och spara sedan din fil."/>
 			<ShortcutsXmlHMACMissing title="Säkerhetsvarning" message="Säkerhetsinformationen för shortcuts.xml saknas i config.xml.
 
-Integriteten för shortcuts.xml kommer att kontrolleras av säkerhetsskäl. Var god granska den öppnade filen shortcuts.xml för att köra ditt anpassade kommando. Använd &quot;Validera shortcuts.xml&quot; från menyn för att bekräfta det om filinnehållet är OK."/>
+Integriteten för shortcuts.xml kommer att kontrolleras av säkerhetsskäl. Var god granska den öppnade filen shortcuts.xml för att köra ditt anpassade kommando. Använd &quot;Validera shortcuts.xml&quot; från menyn &quot;Kör&quot; för att bekräfta att filinnehållet är OK."/>
 			<ShortcutsXmlTampered title="Säkerhetsvarning" message="Filen shortcuts.xml verkar ha ändrats manuellt.
 
-Var god granska den öppnade filen shortcuts.xml av säkerhetsskäl. Använd &quot;Validera shortcuts.xml&quot; från menyn för att bekräfta det om filinnehållet är OK."/>
+Var god granska den öppnade filen shortcuts.xml av säkerhetsskäl. Använd &quot;Validera shortcuts.xml&quot; från menyn &quot;Kör&quot; för att bekräfta att filinnehållet är OK."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>

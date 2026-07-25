@@ -21,10 +21,15 @@
 #endif
 #include <comdef.h>		// _com_error
 #include <comip.h>		// _com_ptr_t
+#include <imm.h>		// ImmGetContext, ImmGetCompositionString
 #include <unordered_map>
 #include "CustomFileDialog.h"
 #include "Parameters.h"
 #include "localization.h"
+
+#ifdef _MSC_VER
+#pragma comment(lib, "imm32.lib")	// For querying the IME composition state.
+#endif
 
 using namespace std;
 
@@ -475,6 +480,25 @@ private:
 		return fileName;
 	}
 
+	// Tells whether an IME is currently composing text in the file name edit box.
+	// Two independent sources are used, because neither one covers every IME:
+	// - the composition messages tracked in CallProcHook(),
+	// - a direct IMM query, which also catches the case where the hook was installed
+	//   after the composition had already started.
+	bool isImeComposing(HWND hwnd) const
+	{
+		if (_isImeComposing)
+			return true;
+		bool composing = false;
+		HIMC himc = ::ImmGetContext(hwnd);
+		if (himc)
+		{
+			composing = ::ImmGetCompositionString(himc, GCS_COMPSTR, nullptr, 0) > 0;
+			::ImmReleaseContext(hwnd, himc);
+		}
+		return composing;
+	}
+
 	// Modifies the file name if necesary after user confirmed input.
 	// Called after the user input but before OnFileOk() and before any name validation.
 	void onPreFileOk()
@@ -485,6 +509,9 @@ private:
 		wstring fileName = getDialogFileName(_dialog);
 		expandEnv(fileName);
 		bool nameChanged = transformPath(fileName);
+		// Remember where what the user typed ends, so that the caret can be put back
+		// there afterwards instead of leaving the whole name selected.
+		const DWORD caretPos = static_cast<DWORD>(fileName.length());
 		// Update the controls.
 		if (!doesDirectoryExist(getAbsPath(fileName).c_str()))
 		{
@@ -500,6 +527,12 @@ private:
 			// Clear the name first to ensure it's updated properly.
 			_dialog->SetFileName(L"");
 			_dialog->SetFileName(fileName.c_str());
+			// Put the caret right after the typed name (before the appended extension)
+			// instead of leaving everything selected, since the selection is implicitly
+			// modified by SetFileName() - same reason as in onTypeChange().
+			// Without this, the next keystroke would replace the whole name.
+			if (_hwndNameEdit)
+				::SendMessage(_hwndNameEdit, EM_SETSEL, caretPos, caretPos);
 		}
 	}
 
@@ -610,6 +643,15 @@ private:
 				if (it != s_handleMap.end() && it->second && hwnd == it->second->_hwndButton)
 					it->second->onPreFileOk();
 			}
+			else if (msg && (msg->message == WM_IME_STARTCOMPOSITION || msg->message == WM_IME_ENDCOMPOSITION))
+			{
+				// Keep track of the IME composition state of the file name edit box.
+				// Some IMEs end the composition only after the Enter key has been seen by
+				// the keyboard hook, so the state cannot be queried reliably from there alone.
+				auto it = s_handleMap.find(msg->hwnd);
+				if (it != s_handleMap.end() && it->second && msg->hwnd == it->second->_hwndNameEdit)
+					it->second->_isImeComposing = (msg->message == WM_IME_STARTCOMPOSITION);
+			}
 		}
 		return ::CallNextHookEx(nullptr, nCode, wParam, lParam);
 	}
@@ -624,7 +666,15 @@ private:
 				HWND hwnd = GetFocus();
 				auto it = s_handleMap.find(hwnd);
 				if (it != s_handleMap.end() && it->second && hwnd == it->second->_hwndNameEdit)
-					it->second->onPreFileOk();
+				{
+					// A CJK IME uses Enter to commit the text being composed, not to confirm
+					// the file name. Treating that Enter as a confirmation appends the extension
+					// in the middle of the name the user is still typing.
+					// The key itself is never swallowed here: it is always passed on to
+					// CallNextHookEx() below, so pressing Enter to save keeps working as before.
+					if (!it->second->isImeComposing(hwnd))
+						it->second->onPreFileOk();
+				}
 			}
 		}
 		return ::CallNextHookEx(nullptr, nCode, wParam, lParam);
@@ -646,6 +696,7 @@ private:
 	UINT _lastSelectedType = 0;  // Last selected non-wildcard file type.
 	UINT _wildcardType = 0;  // Wildcard *.* file type index (usually 1).
 	bool _isSaveAsCopy = false;
+	bool _isImeComposing = false;  // True while an IME composes text in the file name edit box.
 };
 std::unordered_map<HWND, FileDialogEventHandler*> FileDialogEventHandler::s_handleMap;
 

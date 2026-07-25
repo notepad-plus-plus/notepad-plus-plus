@@ -4860,7 +4860,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						// Find the location in existing language menu to insert to. This includes submenu if using compact language menu.
 						wchar_t firstLetter = lmi._langName.empty() ? L'\0' : towupper(lmi._langName[0]);
 						wchar_t buffer[MAX_EXTERNAL_LEXER_NAME_LEN]{ L'\0' };
-						menuItemInfo.fMask = MIIM_SUBMENU;
+						menuItemInfo.fMask = MIIM_FTYPE | MIIM_SUBMENU;
 
 						bool enteredLetterSubMenu = false;
 						HMENU subMenu2InsertIn = subLangMenu;
@@ -4878,7 +4878,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 								enteredLetterSubMenu = true;
 								subMenu2InsertIn = menuItemInfo.hSubMenu;
 							}
-							else if (lstrcmp(lmi._langName.c_str(), buffer) < 0)
+							else if ((menuItemInfo.fType & MFT_SEPARATOR) || (lstrcmp(lmi._langName.c_str(), buffer) < 0))
 							{
 								break;
 							}

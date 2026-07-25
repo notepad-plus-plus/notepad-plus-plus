@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.9.6.4">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.9.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1630,10 +1630,10 @@ Filen är skrivskyddad och kan inte sparas.
 Var god ta bort skrivskyddet och spara sedan din fil."/>
 			<ShortcutsXmlHMACMissing title="Säkerhetsvarning" message="Säkerhetsinformationen för shortcuts.xml saknas i config.xml.
 
-Integriteten för shortcuts.xml kommer att kontrolleras av säkerhetsskäl. Var god granska den öppnade filen shortcuts.xml för att köra ditt anpassade kommando. Använd &quot;Validera shortcuts.xml&quot; från menyn för att bekräfta det om filinnehållet är OK."/>
+Integriteten för shortcuts.xml kommer att kontrolleras av säkerhetsskäl. Var god granska den öppnade filen shortcuts.xml för att köra ditt anpassade kommando. Använd &quot;Validera shortcuts.xml&quot; från menyn &quot;Kör&quot; för att bekräfta att filinnehållet är OK."/>
 			<ShortcutsXmlTampered title="Säkerhetsvarning" message="Filen shortcuts.xml verkar ha ändrats manuellt.
 
-Var god granska den öppnade filen shortcuts.xml av säkerhetsskäl. Använd &quot;Validera shortcuts.xml&quot; från menyn för att bekräfta det om filinnehållet är OK."/>
+Var god granska den öppnade filen shortcuts.xml av säkerhetsskäl. Använd &quot;Validera shortcuts.xml&quot; från menyn &quot;Kör&quot; för att bekräfta att filinnehållet är OK."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>

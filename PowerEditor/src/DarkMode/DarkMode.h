@@ -21,3 +21,5 @@ bool HookThemeColor() noexcept;
 void UnhookThemeColor() noexcept;
 void InitMB_GetString() noexcept;
 LPCWSTR MyMB_GetString(UINT wBtn) noexcept;
+bool HookClrGetSysColorBrush() noexcept;
+size_t UnhookClrGetSysColorBrush() noexcept;

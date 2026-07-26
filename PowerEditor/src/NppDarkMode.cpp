@@ -113,6 +113,8 @@ namespace NppDarkMode
 		HBRUSH hotEdgeBrush = nullptr;
 		HBRUSH disabledEdgeBrush = nullptr;
 
+		HBRUSH darkerTextBrush = nullptr;
+
 		Brushes(const Colors& colors)
 			: background(::CreateSolidBrush(colors.background))
 			, ctrlBackground(::CreateSolidBrush(colors.softerBackground))
@@ -123,6 +125,8 @@ namespace NppDarkMode
 			, edgeBrush(::CreateSolidBrush(colors.edge))
 			, hotEdgeBrush(::CreateSolidBrush(colors.hotEdge))
 			, disabledEdgeBrush(::CreateSolidBrush(colors.disabledEdge))
+
+			, darkerTextBrush(::CreateSolidBrush(colors.darkerText))
 		{}
 
 		~Brushes()
@@ -136,6 +140,8 @@ namespace NppDarkMode
 			::DeleteObject(edgeBrush);			edgeBrush = nullptr;
 			::DeleteObject(hotEdgeBrush);		hotEdgeBrush = nullptr;
 			::DeleteObject(disabledEdgeBrush);	disabledEdgeBrush = nullptr;
+
+			::DeleteObject(darkerTextBrush);    darkerTextBrush = nullptr;
 		}
 
 		void change(const Colors& colors)
@@ -150,6 +156,8 @@ namespace NppDarkMode
 			::DeleteObject(hotEdgeBrush);
 			::DeleteObject(disabledEdgeBrush);
 
+			::DeleteObject(darkerTextBrush);
+
 			background = ::CreateSolidBrush(colors.background);
 			ctrlBackground = ::CreateSolidBrush(colors.softerBackground);
 			hotBackground = ::CreateSolidBrush(colors.hotBackground);
@@ -159,6 +167,8 @@ namespace NppDarkMode
 			edgeBrush = ::CreateSolidBrush(colors.edge);
 			hotEdgeBrush = ::CreateSolidBrush(colors.hotEdge);
 			disabledEdgeBrush = ::CreateSolidBrush(colors.disabledEdge);
+
+			darkerTextBrush = ::CreateSolidBrush(colors.darkerText);
 		}
 	};
 
@@ -749,6 +759,8 @@ namespace NppDarkMode
 	HBRUSH getEdgeBrush()                 { return getTheme()._brushes.edgeBrush; }
 	HBRUSH getHotEdgeBrush()              { return getTheme()._brushes.hotEdgeBrush; }
 	HBRUSH getDisabledEdgeBrush()         { return getTheme()._brushes.disabledEdgeBrush; }
+
+	HBRUSH getDarkerTextBrush()           { return getTheme()._brushes.darkerTextBrush; }
 
 	HPEN getDarkerTextPen()               { return getTheme()._pens.darkerTextPen; }
 	HPEN getEdgePen()                     { return getTheme()._pens.edgePen; }
@@ -5012,5 +5024,17 @@ namespace NppDarkMode
 			return ::MessageBoxW(hWnd, lpText, lpCaption, uType);
 		}
 		return btnPressed;
+	}
+
+	// for luminosity slider control
+	BOOL darkChooseColorW(LPCHOOSECOLORW cc)
+	{
+		if (NppDarkMode::isExperimentalActive() && ::HookClrGetSysColorBrush())
+		{
+			const auto retVal = ::ChooseColorW(cc);
+			::UnhookClrGetSysColorBrush();
+			return retVal;
+		}
+		return ::ChooseColorW(cc);
 	}
 }

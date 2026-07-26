@@ -202,12 +202,8 @@ private :
 	PluginViewList _updateList;       // A dynamical list, items are removable
 	PluginViewList _installedList;    // A dynamical list, items are removable
 	PluginViewList _incompatibleList; // A permanent list, once it's loaded (no removal - only hide or show) 
-	PluginViewList _disabledList;     // A dynamical list, items are removable - deactivated plugins, scanned from _disabledPluginsRootDir
-
-	std::wstring _disabledPluginsRootDir; // e.g. "C:\Program Files\Notepad++\plugins_disabled"
-	                                       // kept OUTSIDE the "plugins" folder tree on purpose,
-	                                       // so a plugin loader that scans "plugins" recursively
-	                                       // in the future will never accidentally pick it up.
+	PluginViewList _disabledList;     // A dynamical list, items are removable - deactivated plugins,
+	                                   // scanned from the "disabled" subfolder of the plugins root dir
 
 	PluginsManager *_pPluginsManager = nullptr;
 	NppCurrentStatus _nppCurrentStatus;
@@ -240,8 +236,8 @@ private :
 	};
 	bool exitToInstallRemovePlugins(Operation op, const std::vector<PluginUpdateInfo*>& puis, const std::wstring& customRoot = L"");
 
-	// Handles pa_deactivate / pa_activate: moves plugin folders between the "plugins"
-	// directory and _disabledPluginsRootDir (in the given direction), then restarts Npp
-	// the same way exitToInstallRemovePlugins() does for install/update/remove.
+	// Handles pa_deactivate / pa_activate: moves plugin folders between "plugins"
+	// and "plugins\disabled" (direction depends on op), then restarts Npp the same
+	// way exitToInstallRemovePlugins() does for install/update/remove.
 	bool exitToDeactivateActivatePlugins(Operation op, const std::vector<PluginUpdateInfo*>& puis);
 };

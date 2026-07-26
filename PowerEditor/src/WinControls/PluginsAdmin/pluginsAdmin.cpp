@@ -21,9 +21,6 @@
 
 #include <shlobj.h>
 #include <shlwapi.h>
-#include <commctrl.h> // TaskDialogIndirect (used for the deactivate/activate overwrite-conflict prompt)
-
-#pragma comment(lib, "comctl32.lib")
 
 #include <algorithm>
 #include <cctype>
@@ -271,93 +268,6 @@ static bool isDirectoryExisting(const std::wstring& dir)
 	return (attrs != INVALID_FILE_ATTRIBUTES) && (attrs & FILE_ATTRIBUTE_DIRECTORY);
 }
 
-// Deactivated plugins are kept in a folder that is a SIBLING of "plugins"
-// (e.g. "...\Notepad++\plugins_disabled"), not a subfolder of it, so that a
-// future recursive scan of "plugins" can never accidentally pick them up.
-static std::wstring computeDisabledPluginsRootDir(const std::wstring& pluginRootDir)
-{
-	wchar_t buf[MAX_PATH]{};
-	wcsncpy_s(buf, pluginRootDir.c_str(), _TRUNCATE);
-	::PathRemoveFileSpec(buf); // strip the last component ("plugins") -> parent dir
-
-	std::wstring disabledRoot = buf;
-	pathAppend(disabledRoot, L"plugins_disabled");
-	return disabledRoot;
-}
-
-enum class OverwriteChoice { Yes, YesToAll, No, Cancel };
-
-// Simple "$STR_REPLACE$" substitution, same placeholder convention used by
-// NativeLangSpeaker::messageBox() elsewhere in the codebase - done manually
-// here because getLocalizedStrFromID() returns the raw template string.
-static std::wstring replaceToken(std::wstring str, const std::wstring& token, const std::wstring& value)
-{
-	size_t pos = str.find(token);
-	if (pos != std::wstring::npos)
-		str.replace(pos, token.length(), value);
-	return str;
-}
-
-// Asks "<folderName> already exists at destination - overwrite?" with 4 real,
-// distinct buttons (Yes / Yes to all / No / Cancel), via TaskDialogIndirect
-// (a plain MessageBox can't offer more than 3 choices). Title/content/button
-// text are localized via NativeLangSpeaker::getLocalizedStrFromID() (falls
-// back to English if the running language file doesn't have these ids yet).
-static OverwriteChoice askOverwriteConfirmation(HWND hParent, const std::wstring& folderName, NativeLangSpeaker* pNativeSpeaker)
-{
-	enum { ID_YES = 100, ID_YESTOALL = 101, ID_NO = 102, ID_CANCEL = 103 };
-
-	wstring title = L"Notepad++";
-	wstring mainInstruction = L"Plugin folder conflict";
-	wstring contentTemplate = L"$STR_REPLACE$ already exists in the destination folder.\nDo you want to overwrite it?";
-	wstring btnYes = L"Yes";
-	wstring btnYesToAll = L"Yes to all";
-	wstring btnNo = L"No";
-	wstring btnCancel = L"Cancel";
-
-	if (pNativeSpeaker)
-	{
-		mainInstruction = pNativeSpeaker->getLocalizedStrFromID("plugin-overwrite-title", mainInstruction);
-		contentTemplate = pNativeSpeaker->getLocalizedStrFromID("plugin-overwrite-content", contentTemplate);
-		btnYes = pNativeSpeaker->getLocalizedStrFromID("plugin-overwrite-btn-yes", btnYes);
-		btnYesToAll = pNativeSpeaker->getLocalizedStrFromID("plugin-overwrite-btn-yestoall", btnYesToAll);
-		btnNo = pNativeSpeaker->getLocalizedStrFromID("plugin-overwrite-btn-no", btnNo);
-		btnCancel = pNativeSpeaker->getLocalizedStrFromID("plugin-overwrite-btn-cancel", btnCancel);
-	}
-
-	wstring content = replaceToken(contentTemplate, L"$STR_REPLACE$", folderName);
-
-	const TASKDIALOG_BUTTON buttons[] = {
-		{ ID_YES,      btnYes.c_str() },
-		{ ID_YESTOALL, btnYesToAll.c_str() },
-		{ ID_NO,       btnNo.c_str() },
-		{ ID_CANCEL,   btnCancel.c_str() },
-	};
-
-	TASKDIALOGCONFIG config{};
-	config.cbSize = sizeof(config);
-	config.hwndParent = hParent;
-	config.dwFlags = TDF_SIZE_TO_CONTENT;
-	config.pszMainIcon = TD_INFORMATION_ICON;
-	config.pszWindowTitle = title.c_str();
-	config.pszMainInstruction = mainInstruction.c_str();
-	config.pszContent = content.c_str();
-	config.cButtons = ARRAYSIZE(buttons);
-	config.pButtons = buttons;
-	config.nDefaultButton = ID_NO;
-
-	int pressedButtonId = ID_CANCEL;
-	::TaskDialogIndirect(&config, &pressedButtonId, nullptr, nullptr);
-
-	switch (pressedButtonId)
-	{
-		case ID_YES:      return OverwriteChoice::Yes;
-		case ID_YESTOALL: return OverwriteChoice::YesToAll;
-		case ID_NO:       return OverwriteChoice::No;
-		default:          return OverwriteChoice::Cancel;
-	}
-}
-
 PluginsAdminDlg::PluginsAdminDlg()
 {
 	// Get wingup path
@@ -376,8 +286,6 @@ PluginsAdminDlg::PluginsAdminDlg()
 #else //RELEASE
 	pathAppend(_pluginListFullPath, L"nppPluginList.dll");
 #endif
-
-	_disabledPluginsRootDir = computeDisabledPluginsRootDir(nppParameters.getPluginRootDir());
 }
 
 wstring PluginsAdminDlg::getPluginListVerStr() const
@@ -414,7 +322,7 @@ bool PluginsAdminDlg::exitToInstallRemovePlugins(Operation op, const vector<Plug
 	updaterParams += L"\" ";
 
 	// customRoot lets pa_remove operate on a folder other than the regular
-	// "plugins" directory - used to delete folders from _disabledPluginsRootDir.
+	// "plugins" directory - used to delete folders from "plugins\disabled".
 	updaterParams += L"\"";
 	updaterParams += customRoot.empty() ? nppParameters.getPluginRootDir() : customRoot;
 	updaterParams += L"\"";
@@ -482,9 +390,11 @@ bool PluginsAdminDlg::exitToInstallRemovePlugins(Operation op, const vector<Plug
 	return true;
 }
 
-// Moves plugin folders between the "plugins" directory and _disabledPluginsRootDir
-// (direction depends on "op"), via gup's "-deactivate"/"-activate" flags, then
-// restarts Notepad++ the same way exitToInstallRemovePlugins() does.
+// Moves plugin folders between "plugins" and "plugins\disabled" (direction
+// depends on "op"), via gup's "-deactivate"/"-activate" flags, then restarts
+// Notepad++ the same way exitToInstallRemovePlugins() does. The checked items
+// are already user-confirmed (checkbox selection), so no extra overwrite
+// prompt is needed here - gup always overwrites on conflict.
 bool PluginsAdminDlg::exitToDeactivateActivatePlugins(Operation op, const vector<PluginUpdateInfo*>& puis)
 {
 	if (op != pa_deactivate && op != pa_activate)
@@ -495,48 +405,11 @@ bool PluginsAdminDlg::exitToDeactivateActivatePlugins(Operation op, const vector
 
 	NppParameters& nppParameters = NppParameters::getInstance();
 	wstring pluginsRootDir = nppParameters.getPluginRootDir();
-	NativeLangSpeaker* pNativeSpeaker = nppParameters.getNativeLangSpeaker();
+	wstring disabledRootDir = pluginsRootDir;
+	pathAppend(disabledRootDir, L"disabled");
 
-	wstring srcRoot = (op == pa_deactivate) ? pluginsRootDir : _disabledPluginsRootDir;
-	wstring destRoot = (op == pa_deactivate) ? _disabledPluginsRootDir : pluginsRootDir;
-
-	// Conflict check: ask the user before we exit, since gup runs headless afterwards.
-	// Cancel aborts the whole operation (nothing gets moved, not even already-confirmed ones).
-	bool yesToAll = false;
-	vector<PluginUpdateInfo*> confirmedPuis;
-
-	for (const auto& pui : puis)
-	{
-		wstring folderName = pui->_folderName;
-		if (folderName.empty())
-		{
-			auto lastindex = pui->_displayName.find_last_of(L".");
-			folderName = (lastindex != wstring::npos) ? pui->_displayName.substr(0, lastindex) : pui->_displayName;
-		}
-
-		wstring destPath = destRoot;
-		pathAppend(destPath, folderName);
-
-		if (isDirectoryExisting(destPath) && !yesToAll)
-		{
-			OverwriteChoice choice = askOverwriteConfirmation(_hSelf, folderName, pNativeSpeaker);
-
-			if (choice == OverwriteChoice::Cancel)
-				return false; // abort the whole operation, nothing gets moved
-
-			if (choice == OverwriteChoice::No)
-				continue; // skip only this one, keep asking about the rest
-
-			if (choice == OverwriteChoice::YesToAll)
-				yesToAll = true;
-			// Yes / YesToAll: fall through, this one gets moved (and overwritten)
-		}
-
-		confirmedPuis.push_back(pui);
-	}
-
-	if (confirmedPuis.empty())
-		return false;
+	wstring srcRoot = (op == pa_deactivate) ? pluginsRootDir : disabledRootDir;
+	wstring destRoot = (op == pa_deactivate) ? disabledRootDir : pluginsRootDir;
 
 	wstring updaterParams = (op == pa_deactivate) ? L"-deactivate " : L"-activate ";
 
@@ -554,7 +427,7 @@ bool PluginsAdminDlg::exitToDeactivateActivatePlugins(Operation op, const vector
 	updaterParams += destRoot;
 	updaterParams += L"\"";
 
-	for (const auto& pui : confirmedPuis)
+	for (const auto& pui : puis)
 	{
 		wstring folderName = pui->_folderName;
 		if (folderName.empty())
@@ -569,6 +442,7 @@ bool PluginsAdminDlg::exitToDeactivateActivatePlugins(Operation op, const vector
 	}
 
 	// Ask user's confirmation - same restart warning as install/update/remove
+	NativeLangSpeaker* pNativeSpeaker = nppParameters.getNativeLangSpeaker();
 	auto res = pNativeSpeaker->messageBox("ExitToUpdatePlugins",
 		_hSelf,
 		L"If you click YES, you will quit Notepad++ to continue the operations.\nNotepad++ will be restarted after all the operations are terminated.\nContinue?",
@@ -643,14 +517,18 @@ bool PluginsAdminDlg::activatePlugins()
 
 bool PluginsAdminDlg::removeDisabledPlugins()
 {
-	// Deletes the selected folders straight from plugins_disabled - no separate
+	// Deletes the selected folders straight from "plugins\disabled" - no separate
 	// "are you sure" prompt beyond the usual "Notepad++ is about to exit" one
 	// (which already lets the user back out).
 
 	vector<size_t> indexes = _disabledList.getCheckedIndexes();
 	vector<PluginUpdateInfo*> puis = _disabledList.fromUiIndexesToPluginInfos(indexes);
 
-	return exitToInstallRemovePlugins(pa_remove, puis, _disabledPluginsRootDir);
+	NppParameters& nppParameters = NppParameters::getInstance();
+	wstring disabledRootDir = nppParameters.getPluginRootDir();
+	pathAppend(disabledRootDir, L"disabled");
+
+	return exitToInstallRemovePlugins(pa_remove, puis, disabledRootDir);
 }
 
 bool PluginsAdminDlg::removeIncompatiblePlugins()
@@ -1012,7 +890,7 @@ bool PluginsAdminDlg::updateList()
 	// initialize installed list view
 	loadFromPluginInfos();
 
-	// initialize deactivated list view (scanned from _disabledPluginsRootDir)
+	// initialize deactivated list view (scanned from "plugins\disabled")
 	initDisabledPluginList();
 
 	return true;
@@ -1071,8 +949,9 @@ bool PluginsAdminDlg::initIncompatiblePluginList()
 	return true;
 }
 
-// Scans _disabledPluginsRootDir (a sibling of "plugins", never a subfolder of it)
-// and builds one PluginUpdateInfo entry per deactivated plugin folder found there.
+// Scans "plugins\disabled" (a subfolder of the plugins root dir, excluded from
+// plugin loading in PluginsManager::loadPlugins()) and builds one PluginUpdateInfo
+// entry per deactivated plugin folder found there.
 // Unlike loadFromPluginInfos(), this does NOT go through PluginsManager, since
 // deactivated plugins are, by definition, not loaded into memory.
 //
@@ -1087,13 +966,14 @@ bool PluginsAdminDlg::initIncompatiblePluginList()
 //    "information not available" description is used instead of leaving it blank.
 bool PluginsAdminDlg::initDisabledPluginList()
 {
-	if (_disabledPluginsRootDir.empty())
-		return false;
+	NppParameters& nppParameters = NppParameters::getInstance();
+	wstring disabledRootDir = nppParameters.getPluginRootDir();
+	pathAppend(disabledRootDir, L"disabled");
 
-	if (!isDirectoryExisting(_disabledPluginsRootDir))
+	if (!isDirectoryExisting(disabledRootDir))
 		return true; // nothing has been deactivated yet - not an error
 
-	wstring searchPath = _disabledPluginsRootDir;
+	wstring searchPath = disabledRootDir;
 	pathAppend(searchPath, L"*");
 
 	WIN32_FIND_DATA findData{};
@@ -1133,8 +1013,8 @@ bool PluginsAdminDlg::initDisabledPluginList()
 		pui->_folderName = folderName;
 
 		// deactivated plugin layout mirrors the regular plugin folder layout:
-		// plugins_disabled\PluginName\PluginName.dll
-		wstring pluginDllPath = _disabledPluginsRootDir;
+		// plugins\disabled\PluginName\PluginName.dll
+		wstring pluginDllPath = disabledRootDir;
 		pathAppend(pluginDllPath, folderName);
 		pathAppend(pluginDllPath, folderName + L".dll");
 
@@ -1729,36 +1609,36 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
                      pnmh->hwndFrom == _disabledList.getViewHwnd())
 			{
 				const PluginViewList* pViewList = nullptr;
-				int buttonID = 0;
-				int buttonID2 = 0; // Installed/Disabled tabs drive two buttons at once
+				int leftButtonID = 0;
+				int rightButtonID = 0; // Installed/Disabled tabs drive two buttons at once (left/right by physical position)
 				bool useFullDescribe = true; // Incompatible keeps its original plain _description display
 
 				if (pnmh->hwndFrom == _availableList.getViewHwnd())
 				{
 					pViewList = &_availableList;
-					buttonID = IDC_PLUGINADM_INSTALL;
+					leftButtonID = IDC_PLUGINADM_INSTALL;
 				}
 				else if (pnmh->hwndFrom == _updateList.getViewHwnd())
 				{
 					pViewList = &_updateList;
-					buttonID = IDC_PLUGINADM_UPDATE;
+					leftButtonID = IDC_PLUGINADM_UPDATE;
 				}
 				else if (pnmh->hwndFrom == _installedList.getViewHwnd())
 				{
 					pViewList = &_installedList;
-					buttonID = IDC_PLUGINADM_REMOVE;
-					buttonID2 = IDC_PLUGINADM_DEACTIVATE;
+					leftButtonID = IDC_PLUGINADM_DEACTIVATE;   // left button (x=368 in .rc)
+					rightButtonID = IDC_PLUGINADM_REMOVE;      // right button (x=432 in .rc)
 				}
 				else if (pnmh->hwndFrom == _disabledList.getViewHwnd())
 				{
 					pViewList = &_disabledList;
-					buttonID = IDC_PLUGINADM_ACTIVATE;
-					buttonID2 = IDC_PLUGINADM_REMOVE_DISABLED;
+					leftButtonID = IDC_PLUGINADM_ACTIVATE;         // left button (x=368 in .rc)
+					rightButtonID = IDC_PLUGINADM_REMOVE_DISABLED; // right button (x=432 in .rc)
 				}
 				else // pnmh->hwndFrom == _incompatibleList.getViewHwnd()
 				{
 					pViewList = &_incompatibleList;
-					buttonID = IDC_PLUGINADM_REMOVE_INCOMPATIBLE;
+					leftButtonID = IDC_PLUGINADM_REMOVE_INCOMPATIBLE;
 					useFullDescribe = false;
 				}
 
@@ -1774,13 +1654,13 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							vector<size_t> checkedArray = pViewList->getCheckedIndexes();
 							bool showButton = checkedArray.size() > 0;
 
-							if (buttonID)
+							if (leftButtonID)
 							{
-								::EnableWindow(::GetDlgItem(_hSelf, buttonID), showButton);
+								::EnableWindow(::GetDlgItem(_hSelf, leftButtonID), showButton);
 							}
-							if (buttonID2)
+							if (rightButtonID)
 							{
-								::EnableWindow(::GetDlgItem(_hSelf, buttonID2), showButton);
+								::EnableWindow(::GetDlgItem(_hSelf, rightButtonID), showButton);
 							}
 						}
 						else if (pnmv->uNewState & LVIS_SELECTED)

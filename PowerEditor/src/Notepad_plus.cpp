@@ -5279,11 +5279,6 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne, bool forceApplyHili
 
 	notifyBufferActivated(id, whichOne);
 
-	int status = (int)pBuf->getStatus();
-	wchar_t buffer[1024];
-	_snwprintf(buffer, 1023, L"activateBuffer: %s, %d", pBuf->getCompactFileName(), status);
-	OutputDebugStringW(buffer);
-
 	return true;
 }
 

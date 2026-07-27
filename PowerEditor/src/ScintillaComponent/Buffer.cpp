@@ -505,7 +505,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 	bool isOK = false;
 	if ((_currentStatus == DOC_INACCESSIBLE || _currentStatus == DOC_LAZYLOAD) && !fileExists)	//document is absent on its first load - we set readonly and not dirty, and make it be as document which has been deleted
 	{
-		_currentStatus = DOC_DELETED;//DOC_INACCESSIBLE;
+		_currentStatus = _currentStatus == DOC_LAZYLOAD ? DOC_INACCESSIBLE : DOC_DELETED;
 		_isInaccessible = true;
 		_isFileReadOnly = true;
 		_isDirty = false;

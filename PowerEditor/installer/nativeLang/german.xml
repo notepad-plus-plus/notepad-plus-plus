@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.6.4"><!-- Datum: 04.07.2026, basiert auf english.xml 8.9.6.4 vom 03.07.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.7"><!-- Datum: 28.07.2026, basiert auf english.xml 8.9.7 vom 26.07.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1636,10 +1636,10 @@ Die Datei ist schreibgeschützt und kann nicht gespeichert werden.
 Entferne den Schreibschutz, um die Datei zu speichern."/>
 			<ShortcutsXmlHMACMissing title="Sicherheitswarnung" message="Die Sicherheitsinformationen für 'shortcuts.xml' fehlen in 'config.xml'.
 
-Aus Sicherheitsgründen wird die Integrität der Datei 'shortcuts.xml' überprüft. Um das angepasste Kommando zu starten, bitte die geöffnete Datei 'shortcuts.xml' überprüfen. Wenn der Dateiinhalt in Ordnung ist, verwende &quot;Überprüfe shortcuts.xml&quot; aus dem Menü um das zu bestätigen."/>
+Aus Sicherheitsgründen wird die Integrität der Datei 'shortcuts.xml' überprüft. Um das angepasste Kommando zu starten, bitte die geöffnete Datei 'shortcuts.xml' überprüfen. Wenn der Dateiinhalt in Ordnung ist, verwende 'Überprüfe shortcuts' aus dem Menü 'Ausführen' um das zu bestätigen."/>
 			<ShortcutsXmlTampered title="Sicherheitswarnung" message="Die Datei 'shortcuts.xml' dürfte manuell verändert worden sein.
 
-Aus Sicherheitsgründen bitte die geöffnete Datei 'shortcuts.xml' überprüfen. Wenn der Dateiinhalt in Ordnung ist, verwende &quot;Überprüfe shortcuts.xml&quot; aus dem Menü um das zu bestätigen."/>
+Aus Sicherheitsgründen bitte die geöffnete Datei 'shortcuts.xml' überprüfen. Wenn der Dateiinhalt in Ordnung ist, verwende 'Überprüfe shortcuts' aus dem Menü 'Ausführen' um das zu bestätigen."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>

@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.6.4"><!-- Datum: 04.07.2026, basiert auf english.xml 8.9.6.4 vom 03.07.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.7"><!-- Datum: 06.08.2026, basiert auf english.xml 8.9.7 vom 06.08.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1475,7 +1475,18 @@ Diese Wahl kann jederzeit in den Einstellungen angepasst werden."/>
 				<Item id="7" name="&amp;Nein"/>
 				<Item id="4" name="&amp;Immer Ja"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+			<NetworkPathWarning title="Lade Notepad++ Sitzung">
+				<Item id="1771" name="Netzwerkpfad Warnung:
 
+$STR_REPLACE$
+
+Wenn Sie die Datei laden, authentifiziert sich Windows automatisch bei diesem Server. Eventuell werden dadurch die Windows-Anmeldedaten offengelegt.
+Mit dem Laden fortfahren?"/>
+				<Item id="7" name="Über&amp;springen"/>
+				<Item id="6" name="&amp;Laden"/>
+				<Item id="2" name="Netzwerkpf&amp;ad immer überspringen"/>
+				<Item id="4" name="&amp;Netzwerkpfad immer laden"/>
+			</NetworkPathWarning>
 			<DebugInfo title="Debug-Info">
 				<Item id="1752" name="&amp;Kopiere Debug-Info in Zwischenabl."/>
 				<Item id="1" name="OK"/>
@@ -1635,10 +1646,10 @@ Die Datei ist schreibgeschützt und kann nicht gespeichert werden.
 Entferne den Schreibschutz, um die Datei zu speichern."/>
 			<ShortcutsXmlHMACMissing title="Sicherheitswarnung" message="Die Sicherheitsinformationen für 'shortcuts.xml' fehlen in 'config.xml'.
 
-Aus Sicherheitsgründen wird die Integrität der Datei 'shortcuts.xml' überprüft. Um das angepasste Kommando zu starten, bitte die geöffnete Datei 'shortcuts.xml' überprüfen. Wenn der Dateiinhalt in Ordnung ist, verwende &quot;Überprüfe shortcuts.xml&quot; aus dem Menü um das zu bestätigen."/>
+Aus Sicherheitsgründen wird die Integrität der Datei 'shortcuts.xml' überprüft. Um das angepasste Kommando zu starten, bitte die geöffnete Datei 'shortcuts.xml' überprüfen. Wenn der Dateiinhalt in Ordnung ist, verwende 'Überprüfe shortcuts' aus dem Menü 'Ausführen' um das zu bestätigen."/>
 			<ShortcutsXmlTampered title="Sicherheitswarnung" message="Die Datei 'shortcuts.xml' dürfte manuell verändert worden sein.
 
-Aus Sicherheitsgründen bitte die geöffnete Datei 'shortcuts.xml' überprüfen. Wenn der Dateiinhalt in Ordnung ist, verwende &quot;Überprüfe shortcuts.xml&quot; aus dem Menü um das zu bestätigen."/>
+Aus Sicherheitsgründen bitte die geöffnete Datei 'shortcuts.xml' überprüfen. Wenn der Dateiinhalt in Ordnung ist, verwende 'Überprüfe shortcuts' aus dem Menü 'Ausführen' um das zu bestätigen."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>

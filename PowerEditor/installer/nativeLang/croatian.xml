@@ -1552,8 +1552,6 @@ Ovu datoteku je izmijenio drugi program.
 			<PrehistoricSystemDetected title="Detektiran prapovijesni sistem" message="Izgleda da još koristite prapovijesni operativni sistem. Žao mi je, ali ova mogućnost radi samo na modernim sistemima."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Notepad++ ažuriranje" message="Notepad++ ažuriranje nije kompatibilno s XP zbog zastarjele sigurnosne zaštite pod XP.
 Želite li preuzeti najnoviju verziju s Notepad++ web stranica?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Postavke proxyja" message="Molim zatvorite Notepad++ i pokrenite ga kao Administrator
-kako bi prilagodili proxy."/>
 			<DocTooDirtyToMonitor title="Problem nadgledanja" message="Dokument nije konzistentan. Molim spremite izmjene prije nadgledanja."/>
 			<DocNoExistToMonitor title="Problem nadgledanja" message="Datoteka mora postojati da bi se nadgledala."/>
 			<FileTooBigToOpen title="Problem s veličinom datoteke" message="Datoteka je prevelika da bi se otvorila u Notepadu++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->

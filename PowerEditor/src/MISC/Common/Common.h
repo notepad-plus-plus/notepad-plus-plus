@@ -346,3 +346,6 @@ private:
 	ScopedCOMInit(const ScopedCOMInit&) = delete;
 	ScopedCOMInit& operator=(const ScopedCOMInit&) = delete;
 };
+
+
+bool needsElevation4Access(const std::wstring& path2check, bool bWriteAccess);

@@ -2066,7 +2066,6 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 
 Продължаване?"/>
 			<NeedToRestartToLoadPlugins title="Рестартиране на Notepad++" message="Notepad++ трябва да се рестартира за да заредят инсталираните добавки"/>
-			<GUpProxyConfNeedAdminMode title="Настройка на прокси" message="За настройка на прокси, рестартирайте Notepad++ с администраторски права"/>
 			<WantToOpenHugeFile title="Отваряне на огромен файл" message="Отварянето на огромен файл с размер над 2GB може да отнеме няколко минути.
 			
 Искате ли да се отвори?"/>

@@ -1462,7 +1462,6 @@ Vuto recargarƚo e perdare tute ƚe modìfeghe aportà en Notepad++?"/>
 			<PrehistoricSystemDetected title="Catà on sistema preistorego" message="Senbra che te si drìo doparare on sistema preistorego. Sta funsionaƚità ƚa ga bisogno de on sistema pì moderno."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Axornamento Notepad++" message="Ƚ&apos;axornamento otomàtico de Notepad++ no&apos;l xe conpatibiƚe co XP par colpa de on sistema de parmesi obsoƚeto.
 Vuto &apos;ndare inte ƚa pàgina de Notepad++ par descargare ƚ&apos;axornamento manualmente?"/>
-			<GUpProxyConfNeedAdminMode title="Inpostasion proxy" message="Riƚancia Notepad++ co i priviƚegi de aministradore par configurare el proxy."/>
 			<DocTooDirtyToMonitor title="Problema monitoragio" message="El documento el xe sporco. Salva ƚe modìfeghe vanti de scomisiare el monitoragio."/>
 			<DocNoExistToMonitor title="Problema monitoragio" message="El file el deve existare par èsare monitorà."/>
 			<FileTooBigToOpen title="Problema dimension file" message="El file el xe masa grando par èsare vèrto co Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->

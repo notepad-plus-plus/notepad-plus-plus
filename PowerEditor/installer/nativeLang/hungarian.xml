@@ -1537,7 +1537,6 @@ Szeretné újratölteni, és elvetni a Notepad++-ban végzett módosításokat?"
 			<PrehistoricSystemDetected title="Őskori rendszer észlelve" message="Úgy tűnik, hogy még mindig egy őskori rendszert használ. Sajnáljuk, de ez a funkció csak modern operációs rendszereken működik."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Notepad++-frissítés" message="A Notepad++ frissítőrendszere (a Windows XP elavult biztonsági rétege miatt) nem kompatibilis az XP-vel.
 Meglátogatja a Notepad++ weboldalát a legújabb verzió letöltéséhez?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Proxybeállítások" message="A proxybeállításokhoz, kérjük, rendszergazdaként indítsa újra a Notepad++-t"/>
 			<DocTooDirtyToMonitor title="Fájlfelügyeleti probléma" message="A dokumentum módosítva lett. Kérjük, mentse el a módosításokat, mielőtt felügyeli a fájlt"/>
 			<DocNoExistToMonitor title="Fájlfelügyeleti probléma" message="A fájl felügyeletéhez léteznie kell annak"/>
 			<FileTooBigToOpen title="Fájlméretprobléma" message="A fájl túl nagy ahhoz, hogy a Notepad++ megnyithassa azt"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->

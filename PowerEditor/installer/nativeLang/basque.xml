@@ -1263,7 +1263,6 @@ Berriz kargatu eta Notepad++en egindako aldaketak galdu nahi dituzu?"/>
 			<PrehistoricSystemDetected title="Aurrehistoriako sistema antzeman da" message="Aurrehistoriako sistema bat erabiltzen duzula dirudi. Sentitzen dugu baina funtzio honek sistema modernoetan baino ez du funtzionatzen."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Notepad++ Eguneratzailea" message="Notepad++ eguneratzailea ez da XP-ekin bateragarria XP barruko segurtasun-geruza zaharkitua dela-eta.
 Notepad++eko webgunera joan eta azken bertsioa jaitsi nahi duzu?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Proxy-aren Ezarpenak" message="Notepad++ kudeatzaile-moduan berrabiarazi ezazu proxy-a konfiguratzeko."/>
 			<DocTooDirtyToMonitor title="Monitorizatze arazoa" message="Dokumentua zikin dago. Gorde ezazu mesedez egindako aldaketak monitorizatu aurretik."/>
 			<DocNoExistToMonitor title="Monitorizatze arazoa" message="Fitxategia existitu behar da monitorizatua izan dadin."/>
 			<FileTooBigToOpen title="Arazoa fitxategi-tamainarekin" message="Fitxategia handiegia da Notepad++en ireki ahal izateko"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->

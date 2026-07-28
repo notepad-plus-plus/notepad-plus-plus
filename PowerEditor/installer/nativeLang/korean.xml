@@ -1538,7 +1538,6 @@ Translation note:
 			<PrehistoricSystemDetected title="구시대 시스템 감지" message="오래된 시스템을 사용하는 것 같습니다. 이 기능은 최신 시스템에서만 동작합니다. 죄송합니다."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Notepad++ 업데이터" message="Notepad++ 업데이터는 보안 문제로 인해 XP에서 동작하지 않습니다.
 Notepad++ 홈페이지에서 직접 다운로드 받으시겠습니까?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="프록시 설정" message="프록시 설정을 위해 관리자 모드로 재실행해 주세요."/>
 			<DocTooDirtyToMonitor title="모니터링 오류" message="이 문서는 저장되지 않았습니다. 모니터링을 하기 전에 변경 사항을 저장해 주세요."/>
 			<DocNoExistToMonitor title="모니터링 오류" message="모니터링을 위해서는 파일이 있어야 합니다."/>
 			<FileTooBigToOpen title="파일 크기 오류" message="Notepad++에서 열기에는 파일이 너무 큽니다."/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->

@@ -1537,7 +1537,6 @@ Deseja recarregá-lo e perder as alterações feitas no Notepad++?"/>
 			<PrehistoricSystemDetected title="Sistema pré-histórico detectado" message="Parece que você ainda usa um sistema pré-histórico. Esse recurso funciona apenas em um sistema moderno. Desculpe."/>
 			<XpUpdaterProblem title="Atualizador do Notepad++" message="O atualizador do Notepad++ não é compatível com o Windows XP devido à camada de segurança obsoleta dele.
 Deseja ir para a página do Notepad++ e baixar a última versão?"/>
-			<GUpProxyConfNeedAdminMode title="Configurações de Proxy" message="Reinicie o Notepad++ como Admin para configurar o proxy."/>
 			<DocTooDirtyToMonitor title="Problema de monitoramento" message="O documento está sujo. Por favor, salve a modificação antes de monitorá-lo."/>
 			<DocNoExistToMonitor title="Problema de monitoramento" message="O arquivo deve existir para ser monitorado."/>
 			<FileTooBigToOpen title="Problema no tamanho do arquivo" message="Arquivo é muito grande para ser aberto pelo Notepad++"/>

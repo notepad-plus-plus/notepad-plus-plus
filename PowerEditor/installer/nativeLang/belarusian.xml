@@ -1314,7 +1314,6 @@ The comments are here for explanation, it's not necessary to translate them.
 			<PrehistoricSystemDetected title="Выяўлена састарэлая сістэма" message="Відавочна, што вы ўсё яшчэ выкарыстоўваеце састарэлую сістэму. Прабачце, але гэта функцыя працуе толькі ў сучаснай сістэме."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Сістэма абнаўлення Notepad++" message="Сістэма абнаўлення Notepad++ несумяшчальная з АС Windows XP з-за састарэлага ўзроўню бяспекі ў гэтай сістэме.
 Перайсці на старонку Notepad++ для таго, каб спампаваць апошнюю версію праграмы?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Налады проксі" message="Перазапусціце Notepad++ у рэжыме адміністратара, каб наладзіць проксі."/>
 			<DocTooDirtyToMonitor title="Праблема маніторынгу" message="Дакументы зменены. Калі ласка, захавайце змяненні перад пачаткам яго маніторынгу."/>
 			<DocNoExistToMonitor title="Праблема маніторынгу" message="Файл павінен існаваць для яго маніторынгу."/>
 			<FileTooBigToOpen title="Праблема памеру файла" message="Надта вялікі файл для адкрыцця ў Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->

@@ -1177,7 +1177,6 @@
 			<PrehistoricSystemDetected title="Εντοπίστηκε προϊστορικό σύστημα" message="Φαίνεται ότι εξακολουθείτε να χρησιμοποιείτε ένα προϊστορικό σύστημα. Αυτή η λειτουργία λειτουργεί μόνο σε ένα σύγχρονο σύστημα, συγγνώμη."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Notepad++ Ενημερωτής" message="Notepad++ το πρόγραμμα ενημέρωσης δεν είναι συμβατό με τα XP λόγω του απαρχαιωμένου στρώματος ασφαλείας των XP.
 Θέλετε να μεταβείτε στη σελίδα του Notepad++ για να κατεβάσετε την τελευταία έκδοση;"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Ρυθμίσεις proxy" message="Παρακαλούμε επανεκκινήστε το Notepad++ σε λειτουργία διαχειριστή για να ρυθμίσετε το διακομιστή μεσολάβησης."/>
 			<DocTooDirtyToMonitor title="Πρόβλημα παρακολούθησης" message="Το έγγραφο είναι βρώμικο. Αποθηκεύστε την τροποποίηση πριν την παρακολουθήσετε."/>
 			<DocNoExistToMonitor title="Πρόβλημα παρακολούθησης" message="Το αρχείο πρέπει να υπάρχει για να παρακολουθείται."/>
 			<FileTooBigToOpen title="Πρόβλημα μεγέθους αρχείου" message="Το αρχείο είναι πολύ μεγάλο για να ανοιχτεί στο Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->

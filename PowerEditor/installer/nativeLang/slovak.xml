@@ -1536,7 +1536,6 @@ Chcete ho obnoviť a prísť tak o zmeny vykonané v programe Notepad++?"/>
 			<PrehistoricSystemDetected title="Zistený príliš starý systém" message="Zdá sa, že používate príliš starý systém. Ospravedlňujeme sa, ale táto funkcia je podporovaná len na novších systémoch."/>
 			<XpUpdaterProblem title="Aktualizácia programu Notepad++" message="Aktualizácia programu Notepad++ nie je kompatibilná s Windows XP z dôvodu zastaralej bezpečnostnej vrstvy tohto systému.
 Prejsť na domovskú stránku programu Notepad++, odkiaľ si môžete stiahnuť najnovšiu verziu?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Nastavenia proxy" message="Pre nastavenie proxy, spustite, prosím, Notepad++ v režime správcu."/>
 			<DocTooDirtyToMonitor title="Problém so sledovaním zmien" message="Dokument bol pozmenený. Pred sledovaním zmien, uložte všetky zmeny v dokumente."/>
 			<DocNoExistToMonitor title="Problém so sledovaním zmien" message="Súbor musí najprv existovať, aby v ňom bolo možné sledovať zmeny."/>
 			<FileTooBigToOpen title="Problém s veľkosťou súboru" message="Súbor je príliš veľký, aby mohol byť otvorený v programe Notepad++."/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->

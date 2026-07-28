@@ -1537,7 +1537,6 @@ Do you want to reload it and lose the changes made in Notepad++?"/>
 			<PrehistoricSystemDetected title="Prehistoric system detected" message="It seems you still use a prehistoric system. This feature works only on a modern system, sorry."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Notepad++ Updater" message="Notepad++ updater is not compatible with XP due to the obsolete security layer under XP.
 Do you want to go to Notepad++ page to download the latest version?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Proxy Settings" message="Please relaunch Notepad++ in Admin mode to configure proxy."/>
 			<DocTooDirtyToMonitor title="Monitoring problem" message="The document is dirty. Please save the modification before monitoring it."/>
 			<DocNoExistToMonitor title="Monitoring problem" message="The file should exist to be monitored."/>
 			<FileTooBigToOpen title="File size problem" message="File is too big to be opened by Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->

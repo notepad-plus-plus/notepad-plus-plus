@@ -1630,7 +1630,6 @@ Reload 會放棄你喺 Notepad++ 改過嘅嘢，咁仲繼唔繼續呢？"/>
 			<PrehistoricSystemDetected title="系統太舊" message="似乎你個系統太舊啦喂，呢個功能唔 work，真係唔好意思。"/>
 			<XpUpdaterProblem title="更新 Notepad++" message="由於 Windows XP 嘅安全機制太過舊，更新程式唔再兼容 XP 系統啦。
 要唔要去 Notepad++ 網站，下載最新嘅版本呢？"/>
-			<GUpProxyConfNeedAdminMode title="設定更新程式嘅代理伺服器" message="麻煩「以系統管理員身份執行」Notepad++，再設定代理伺服器。"/>
 			<DocTooDirtyToMonitor title="監控問題" message="份文件污糟咗，麻煩 save 咗佢先至再監視。"/>
 			<DocNoExistToMonitor title="監控問題" message="份文件已經唔存在喇，冇辦法進行監視。"/>
 			<FileTooBigToOpen title="檔案太大" message="檔案太大開唔到。"/>

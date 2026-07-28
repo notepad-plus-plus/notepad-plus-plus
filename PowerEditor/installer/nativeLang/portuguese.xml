@@ -1521,7 +1521,6 @@ Deseja recarregá-lo e perder as alterações feitas no Notepad++?"/>
 			<PrehistoricSystemDetected title="Sistema pré-histórico detetado" message="Parece que ainda se utiliza um sistema pré-histórico. Este recurso funciona apenas num sistema moderno, desculpe."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Atualizador do Notepad++" message="O atualizador do Notepad++ não é compatível com XP devido à segurança obsoleta no XP.
 Deseja ir à página Notepad++ para transferir a versão mais recente?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Definições Proxy" message="Inicie novamente o Notepad++ no modo de administrador para configurar o proxy."/>
 			<DocTooDirtyToMonitor title="Problema de monitorização" message="O documento foi modificado. Guarde a modificação antes de a monitorizar."/>
 			<DocNoExistToMonitor title="Problema de monitorização" message="O ficheiro deve existir para ser monitorizado."/>
 			<FileTooBigToOpen title="Problema do tamanho do ficheiro" message="O ficheiro é demasiado grande para ser aberto pelo Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->

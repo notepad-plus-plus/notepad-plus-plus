@@ -1503,7 +1503,6 @@ Ricaricarlo e perdere tutte le modifiche apportate in Notepad++?"/>
 			<PrehistoricSystemDetected title="Sistema preistorico trovato" message="Sembra si stia usando un sistema preistorico. Questa funzionalità richiede un sistema più moderno."/>
 			<XpUpdaterProblem title="Aggiornamento Notepad++" message="L&apos;aggiornamento automatico di Notepad++ non è compatibile con XP a causa di un sistema di permessi obsoleto.
 Aprire la pagina di Notepad++ per scaricare l&apos;aggiornamento manualmente?"/>
-			<GUpProxyConfNeedAdminMode title="Impostazioni proxy" message="Rilanciare Notepad++ con i privilegi di amministratore per configurare il proxy."/>
 			<DocTooDirtyToMonitor title="Problema monitoraggio" message="Il documento è stato modificato. Salvare le modifiche prima di avviare il monitoraggio."/>
 			<DocNoExistToMonitor title="Problema monitoraggio" message="Il file deve esistere per essere monitorato."/>
 			<FileTooBigToOpen title="Problema dimensione file" message="Il file è troppo grande per essere aperto con Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->

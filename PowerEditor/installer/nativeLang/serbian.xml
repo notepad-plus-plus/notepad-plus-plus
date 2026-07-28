@@ -1525,7 +1525,6 @@ Da li želite da je ponovo učitate i izgubite promene napravljene u Notepad++?"
 			<PrehistoricSystemDetected title="Detektovan praistorijski sistem" message="Izgleda da koristite praistorijski sistem. Izvinite, ali ova funkcionalnost radi samo na modernim sistemima."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Notepad++ ažuriranje" message="Notepad++ ažuriranje nije kompatibilno sa XP zbog zastarelih sigurnosnih slojeva u XP-u.
 Želite li otići na Notepad++ stranicu da skinete najnoviju verziju?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Proxy podešavanja" message="Ponovo pokrenite Notepad++ kao administrator da bi ste podesili proxy."/>
 			<DocTooDirtyToMonitor title="Problem sa nadgledanjem" message="Dokument je prljav. Molimo sačuvajte promenu pre nadgledanja."/>
 			<DocNoExistToMonitor title="Problem sa nadgledanjem" message="Datoteka treba da postoji da bi se nadgledala."/>
 			<FileTooBigToOpen title="Problem sa veličinom datoteke" message="Datoteka je prevelika da bi je Notepad++ otvorio"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->

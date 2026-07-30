@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.7"><!-- Datum: 28.07.2026, basiert auf english.xml 8.9.7 vom 26.07.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.7"><!-- Datum: 30.07.2026, basiert auf english.xml 8.9.7 vom 28.07.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1546,7 +1546,6 @@ Soll die Datei erneut geladen werden und die Änderungen ignoriert werden?"/>
 			<PrehistoricSystemDetected title="Altes Betriebssystem festgestellt" message="Anscheinend verwenden Sie ein veraltetes Betriebssystem - diese Funktion funktioniert nur mit einem modernen Betriebssystem."/>
 			<XpUpdaterProblem title="Automatisches Update" message="Die Update-Funktion von Notepad++ ist unter Windows XP wegen fehlender Sicherheitsebene nicht kompatibel.
 Soll auf die Homepage von Notepad++ gewechselt werden um die aktuellste Version herunterzuladen?"/>
-			<GUpProxyConfNeedAdminMode title="Proxyeinstellungen" message="Um Proxyeinstellungen vorzunehmen muss Notepad++ im Administrator-Modus neu gestartet werden."/>
 			<DocTooDirtyToMonitor title="Überwachungsproblem" message="Die Datei ist unsauber. Bitte vor der Überwachung die Änderungen speichern."/>
 			<DocNoExistToMonitor title="Überwachungsproblem" message="Die Datei muss existieren, um überwacht werden zu können."/>
 			<FileTooBigToOpen title="Problem mit Dateigröße" message="Die Datei ist zu groß, um mit Notepad++ geöffnet zu werden."/>

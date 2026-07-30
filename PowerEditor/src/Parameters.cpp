@@ -3214,22 +3214,45 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 					const wchar_t* pBackupFilePath = wmc.char2wchar(NppXml::attribute(childNode, "backupFilePath"), CP_UTF8);
 					wchar_t normalizedBackupFilePath[MAX_PATH]{};
 
-					if (pBackupFilePath)
+					if (pBackupFilePath && wcslen(pBackupFilePath) < MAX_PATH)
 					{
-						::PathCanonicalize(normalizedBackupFilePath, pBackupFilePath);
+						std::wstring sanitizedPath = pBackupFilePath;
+						std::replace(sanitizedPath.begin(), sanitizedPath.end(), L'/', L'\\');
+
+						if (!::PathCanonicalize(normalizedBackupFilePath, sanitizedPath.c_str()))
+							normalizedBackupFilePath[0] = L'\0'; // treat failure as "no path" -> falls through to reconstruction below
+					}
+					else if (pBackupFilePath)
+					{
+						wchar_t* fn = ::PathFindFileNameW(pBackupFilePath);
+						StringCchCopyW(normalizedBackupFilePath, MAX_PATH, fn);
 					}
 
 					std::wstring currentBackupFilePath = NppParameters::getInstance().getUserPath() + L"\\backup\\";
 
+					wchar_t normalizedBackupDir[MAX_PATH] {};
+					if (::GetFullPathNameW(currentBackupFilePath.c_str(), MAX_PATH, normalizedBackupDir, NULL) == 0)
+						StringCchCopyW(normalizedBackupDir, MAX_PATH, currentBackupFilePath.c_str());
+
 					if (normalizedBackupFilePath[0])
 					{
 						std::wstring backupFilePath = normalizedBackupFilePath;
-						if (!backupFilePath.starts_with(currentBackupFilePath))
+						bool isConfined = false;
+						size_t normalizedBackupDirLen = wcslen(normalizedBackupDir);
+						if (backupFilePath.size() >= normalizedBackupDirLen)
+						{
+							int res = ::CompareStringOrdinal(backupFilePath.c_str(), static_cast<int>(normalizedBackupDirLen), normalizedBackupDir, static_cast<int>(normalizedBackupDirLen), TRUE);
+							isConfined = res == CSTR_EQUAL;
+						}
+
+						if (!isConfined)
 						{
 							// reconstruct backupFilePath
 							wchar_t* fn = ::PathFindFileNameW(normalizedBackupFilePath);
-							currentBackupFilePath += fn;
-							StringCchCopyW(normalizedBackupFilePath, MAX_PATH, currentBackupFilePath.c_str());
+
+							std::wstring safePath = normalizedBackupDir;
+							safePath += fn;
+							StringCchCopyW(normalizedBackupFilePath, MAX_PATH, safePath.c_str());
 						}
 					}
 

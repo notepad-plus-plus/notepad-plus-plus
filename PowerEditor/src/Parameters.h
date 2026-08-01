@@ -193,6 +193,7 @@ struct CmdLineParams
 	bool _isRecursive = false;
 	bool _openFoldersAsWorkspace = false;
 	bool _monitorFiles = false;
+	bool _monitoringMode = false;
 
 	LangType _langType = L_EXTERNAL;
 	std::wstring _localizationPath;
@@ -1844,6 +1845,8 @@ public:
 	bool regexBackward4PowerUser() const { return _findHistory._regexBackward4PowerUser; }
 	bool isRegForOSAppRestartDisabled() const { return _isRegForOSAppRestartDisabled; }
 	const std::wstring& getShortcutsPath() const { return _shortcutsPath; }
+	void setMonitoringModeOn() { _isMonitoringMode = true; }
+	bool isMonitoringMode() const { return _isMonitoringMode; }
 
 private:
 	bool _isAnyShortcutModified = false;
@@ -1892,6 +1895,8 @@ private:
 
 	FindDlgTabTitles _findDlgTabTitles;
 	bool _asNotepadStyle = false;
+
+	bool _isMonitoringMode = false;
 
 	winVer _winVersion = WV_UNKNOWN;
 	Platform _platForm = PF_UNKNOWN;

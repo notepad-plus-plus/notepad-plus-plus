@@ -684,8 +684,8 @@ const wchar_t COMMAND_ARG_HELP[] = L"Usage:\r\n\
 \r\n\
 notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-udl=\"My UDL Name\"]\r\n\
 [-LlangCode] [-nLineNumber] [-cColumnNumber] [-pPosition] [-xLeftPos] [-yTopPos]\r\n\
-[-monitor] [-nosession] [-notabbar] [-systemtray] [-loadingTime] [-alwaysOnTop]\r\n\
-[-ro] [-fullReadOnly] [-fullReadOnlySavingForbidden] [-openSession] [-r]\r\n\
+[-monitor] [-monitoringMode] [-nosession] [-notabbar] [-systemtray] [-loadingTime]\r\n\
+[-alwaysOnTop] [-ro] [-fullReadOnly] [-fullReadOnlySavingForbidden] [-openSession] [-r]\r\n\
 [-qn=\"Easter egg name\" | -qt=\"a text to display.\" | -qf=\"D:\\my quote.txt\"]\r\n\
 [-qSpeed1|2|3] [-quickPrint] [-settingsDir=\"d:\\your settings dir\\\"]\r\n\
 [-openFoldersAsWorkspace]  [-titleAdd=\"additional title bar text\"]\r\n\
@@ -702,7 +702,8 @@ notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-udl=\"My UDL Name\"]\
 -p: Scroll to indicated position on filePath\r\n\
 -x: Move Notepad++ to indicated left side position on the screen\r\n\
 -y: Move Notepad++ to indicated top position on the screen\r\n\
--monitor: Open file with file monitoring enabled\r\n\
+-monitor: Open files given in arguments with file monitoring enabled\r\n\
+-monitoringMode: Monitoring all files opened in Notepad++\r\n\
 -nosession: Launch Notepad++ without previous session\r\n\
 -notabbar: Launch Notepad++ without tab bar\r\n\
 -ro: Make the filePath read-only\r\n\

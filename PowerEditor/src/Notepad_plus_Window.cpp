@@ -174,6 +174,10 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 		}
 	}
 
+	if (cmdLineParams->_monitoringMode)
+		nppParams.setMonitoringModeOn();
+
+
 	if (cmdLineParams->_alwaysOnTop)
 		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_ALWAYSONTOP, 0);
 

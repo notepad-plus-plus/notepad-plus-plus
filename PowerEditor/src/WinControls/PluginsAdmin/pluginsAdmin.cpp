@@ -260,14 +260,6 @@ vector<PluginUpdateInfo*> PluginViewList::fromUiIndexesToPluginInfos(const std::
 	return r;
 }
 
-// Minimal, self-contained directory-existence check (kept local to this file
-// so we don't depend on an unverified helper from Common.h).
-static bool isDirectoryExisting(const std::wstring& dir)
-{
-	DWORD attrs = ::GetFileAttributes(dir.c_str());
-	return (attrs != INVALID_FILE_ATTRIBUTES) && (attrs & FILE_ATTRIBUTE_DIRECTORY);
-}
-
 PluginsAdminDlg::PluginsAdminDlg()
 {
 	// Get wingup path
@@ -391,7 +383,7 @@ bool PluginsAdminDlg::exitToInstallRemovePlugins(Operation op, const vector<Plug
 }
 
 // Moves plugin folders between "plugins" and "plugins\disabled" (direction
-// depends on "op"), via gup's "-moveFolder" flag, then restarts
+// depends on "op"), via gup's "-deactivate"/"-activate" flags, then restarts
 // Notepad++ the same way exitToInstallRemovePlugins() does. The checked items
 // are already user-confirmed (checkbox selection), so no extra overwrite
 // prompt is needed here - gup always overwrites on conflict.
@@ -411,7 +403,7 @@ bool PluginsAdminDlg::exitToDeactivateActivatePlugins(Operation op, const vector
 	wstring srcRoot = (op == pa_deactivate) ? pluginsRootDir : disabledRootDir;
 	wstring destRoot = (op == pa_deactivate) ? disabledRootDir : pluginsRootDir;
 
-	wstring updaterParams = L"-moveFolder ";
+	wstring updaterParams = (op == pa_deactivate) ? L"-deactivate " : L"-activate ";
 
 	wchar_t nppFullPath[MAX_PATH]{};
 	::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
@@ -452,7 +444,7 @@ bool PluginsAdminDlg::exitToDeactivateActivatePlugins(Operation op, const vector
 	if (res == IDYES)
 	{
 		// destination folder must exist before gup tries to move things into it
-		if (!isDirectoryExisting(destRoot))
+		if (!doesDirectoryExist(destRoot.c_str()))
 			::CreateDirectory(destRoot.c_str(), NULL);
 
 		nppParameters.setWingupFullPath(_updaterFullPath);
@@ -970,7 +962,7 @@ bool PluginsAdminDlg::initDisabledPluginList()
 	wstring disabledRootDir = nppParameters.getPluginRootDir();
 	pathAppend(disabledRootDir, L"disabled");
 
-	if (!isDirectoryExisting(disabledRootDir))
+	if (!doesDirectoryExist(disabledRootDir.c_str()))
 		return true; // nothing has been deactivated yet - not an error
 
 	wstring searchPath = disabledRootDir;
@@ -1375,8 +1367,6 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 	HWND hRemoveButton = ::GetDlgItem(_hSelf, IDC_PLUGINADM_REMOVE);
 	HWND hDeactivateButton = ::GetDlgItem(_hSelf, IDC_PLUGINADM_DEACTIVATE);
 	HWND hActivateButton = ::GetDlgItem(_hSelf, IDC_PLUGINADM_ACTIVATE);
-	HWND hRemoveDisabledButton = ::GetDlgItem(_hSelf, IDC_PLUGINADM_REMOVE_DISABLED);
-	HWND hRemoveIncompatibleButton = ::GetDlgItem(_hSelf, IDC_PLUGINADM_REMOVE_INCOMPATIBLE);
 
 	::ShowWindow(hInstallButton, showAvailable ? SW_SHOW : SW_HIDE);
 	if (showAvailable)
@@ -1394,9 +1384,17 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 	}
 	::EnableWindow(hUpdateButton, showUpdate);
 
+	// IDC_PLUGINADM_REMOVE is shared by 3 tabs: Installed, Incompatible, Disabled
+	// (the dispatch to the right removeXxxPlugins() happens in WM_COMMAND, by
+	// checking the currently selected tab)
+	const bool showRemove = showInstalled || showIncompatibile || showDisabled;
+	::ShowWindow(hRemoveButton, showRemove ? SW_SHOW : SW_HIDE);
+
 	// Installed tab drives two buttons at once: Remove and Deactivate
-	::ShowWindow(hRemoveButton, showInstalled ? SW_SHOW : SW_HIDE);
 	::ShowWindow(hDeactivateButton, showInstalled ? SW_SHOW : SW_HIDE);
+	// Disabled tab drives two buttons at once: Activate and Remove
+	::ShowWindow(hActivateButton, showDisabled ? SW_SHOW : SW_HIDE);
+
 	if (showInstalled)
 	{
 		vector<size_t> checkedArray = _installedList.getCheckedIndexes();
@@ -1404,37 +1402,23 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 		::EnableWindow(hRemoveButton, hasChecked);
 		::EnableWindow(hDeactivateButton, hasChecked);
 	}
+	else if (showIncompatibile)
+	{
+		vector<size_t> checkedArray = _incompatibleList.getCheckedIndexes();
+		::EnableWindow(hRemoveButton, checkedArray.size() > 0);
+	}
+	else if (showDisabled)
+	{
+		vector<size_t> checkedArray = _disabledList.getCheckedIndexes();
+		bool hasChecked = checkedArray.size() > 0;
+		::EnableWindow(hRemoveButton, hasChecked);
+		::EnableWindow(hActivateButton, hasChecked);
+	}
 	else
 	{
 		::EnableWindow(hRemoveButton, FALSE);
 		::EnableWindow(hDeactivateButton, FALSE);
-	}
-
-	// Disabled tab drives two buttons at once: Activate and Remove
-	::ShowWindow(hActivateButton, showDisabled ? SW_SHOW : SW_HIDE);
-	::ShowWindow(hRemoveDisabledButton, showDisabled ? SW_SHOW : SW_HIDE);
-	if (showDisabled)
-	{
-		vector<size_t> checkedArray = _disabledList.getCheckedIndexes();
-		bool hasChecked = checkedArray.size() > 0;
-		::EnableWindow(hActivateButton, hasChecked);
-		::EnableWindow(hRemoveDisabledButton, hasChecked);
-	}
-	else
-	{
 		::EnableWindow(hActivateButton, FALSE);
-		::EnableWindow(hRemoveDisabledButton, FALSE);
-	}
-
-	::ShowWindow(hRemoveIncompatibleButton, showIncompatibile ? SW_SHOW : SW_HIDE);
-	if (showIncompatibile)
-	{
-		vector<size_t> checkedArray = _incompatibleList.getCheckedIndexes();
-		::EnableWindow(hRemoveIncompatibleButton, checkedArray.size() > 0);
-	}
-	else
-	{
-		::EnableWindow(hRemoveIncompatibleButton, FALSE);
 	}
 }
 
@@ -1556,7 +1540,23 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 				case IDC_PLUGINADM_REMOVE:
 				{
-					removePlugins();
+					// IDC_PLUGINADM_REMOVE is shared by Installed, Incompatible and
+					// Disabled tabs - dispatch to the matching remove function
+					const int curTab = int(::SendMessage(_tab.getHSelf(), TCM_GETCURSEL, 0, 0));
+					switch (curTab)
+					{
+						case 2: // Installed
+							removePlugins();
+							break;
+						case 3: // Incompatible
+							removeIncompatiblePlugins();
+							break;
+						case 4: // Deactivated
+							removeDisabledPlugins();
+							break;
+						default:
+							break;
+					}
 					return true;
 				}
 
@@ -1569,18 +1569,6 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				case IDC_PLUGINADM_ACTIVATE:
 				{
 					activatePlugins();
-					return true;
-				}
-
-				case IDC_PLUGINADM_REMOVE_DISABLED:
-				{
-					removeDisabledPlugins();
-					return true;
-				}
-
-				case IDC_PLUGINADM_REMOVE_INCOMPATIBLE:
-				{
-					removeIncompatiblePlugins();
 					return true;
 				}
 
@@ -1632,13 +1620,13 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				else if (pnmh->hwndFrom == _disabledList.getViewHwnd())
 				{
 					pViewList = &_disabledList;
-					leftButtonID = IDC_PLUGINADM_ACTIVATE;         // left button (x=368 in .rc)
-					rightButtonID = IDC_PLUGINADM_REMOVE_DISABLED; // right button (x=432 in .rc)
+					leftButtonID = IDC_PLUGINADM_ACTIVATE; // left button (x=368 in .rc)
+					rightButtonID = IDC_PLUGINADM_REMOVE;  // right button (x=432 in .rc), shared with Installed/Incompatible
 				}
 				else // pnmh->hwndFrom == _incompatibleList.getViewHwnd()
 				{
 					pViewList = &_incompatibleList;
-					leftButtonID = IDC_PLUGINADM_REMOVE_INCOMPATIBLE;
+					leftButtonID = IDC_PLUGINADM_REMOVE; // shared with Installed/Disabled
 					useFullDescribe = false;
 				}
 

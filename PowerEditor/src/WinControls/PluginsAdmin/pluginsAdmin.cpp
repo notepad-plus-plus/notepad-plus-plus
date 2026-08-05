@@ -391,7 +391,7 @@ bool PluginsAdminDlg::exitToInstallRemovePlugins(Operation op, const vector<Plug
 }
 
 // Moves plugin folders between "plugins" and "plugins\disabled" (direction
-// depends on "op"), via gup's "-deactivate"/"-activate" flags, then restarts
+// depends on "op"), via gup's "-moveFolder" flag, then restarts
 // Notepad++ the same way exitToInstallRemovePlugins() does. The checked items
 // are already user-confirmed (checkbox selection), so no extra overwrite
 // prompt is needed here - gup always overwrites on conflict.
@@ -411,7 +411,7 @@ bool PluginsAdminDlg::exitToDeactivateActivatePlugins(Operation op, const vector
 	wstring srcRoot = (op == pa_deactivate) ? pluginsRootDir : disabledRootDir;
 	wstring destRoot = (op == pa_deactivate) ? disabledRootDir : pluginsRootDir;
 
-	wstring updaterParams = (op == pa_deactivate) ? L"-deactivate " : L"-activate ";
+	wstring updaterParams = L"-moveFolder ";
 
 	wchar_t nppFullPath[MAX_PATH]{};
 	::GetModuleFileName(NULL, nppFullPath, MAX_PATH);

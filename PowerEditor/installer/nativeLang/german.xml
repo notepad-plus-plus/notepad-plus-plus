@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.7"><!-- Datum: 30.07.2026, basiert auf english.xml 8.9.7 vom 28.07.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.7"><!-- Datum: 06.08.2026, basiert auf english.xml 8.9.7 vom 06.08.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1475,7 +1475,18 @@ Diese Wahl kann jederzeit in den Einstellungen angepasst werden."/>
 				<Item id="7" name="&amp;Nein"/>
 				<Item id="4" name="&amp;Immer Ja"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+			<NetworkPathWarning title="Lade Notepad++ Sitzung">
+				<Item id="1771" name="Netzwerkpfad Warnung:
 
+$STR_REPLACE$
+
+Wenn Sie die Datei laden, authentifiziert sich Windows automatisch bei diesem Server. Eventuell werden dadurch die Windows-Anmeldedaten offengelegt.
+Mit dem Laden fortfahren?"/>
+				<Item id="7" name="Über&amp;springen"/>
+				<Item id="6" name="&amp;Laden"/>
+				<Item id="2" name="Netzwerkpf&amp;ad immer überspringen"/>
+				<Item id="4" name="&amp;Netzwerkpfad immer laden"/>
+			</NetworkPathWarning>
 			<DebugInfo title="Debug-Info">
 				<Item id="1752" name="&amp;Kopiere Debug-Info in Zwischenabl."/>
 				<Item id="1" name="OK"/>

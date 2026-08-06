@@ -1465,7 +1465,18 @@ Vous pourrez réactiver cette boîte de dialogue dans les Préférences ultérie
 				<Item id="7" name="&amp;Non"/>
 				<Item id="4" name="Toujours Oui"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+			<NetworkPathWarning title="Notepad++ : chargement de la session">
+				<Item id="1771" name="Avertissement concernant le chemin réseau :
 
+$STR_REPLACE$
+
+Le charger amènera Windows à s'authentifier automatiquement auprès de ce serveur, ce qui risque d'exposer vos informations de connexion Windows.
+Charger quand même ?"/>
+				<Item id="7" name="&amp;Ignorer"/>
+				<Item id="6" name="&amp;Charger"/>
+				<Item id="2" name="&amp;Toujours ignorer les chemins réseau"/>
+				<Item id="4" name="Toujours charger les chemins &amp;réseau"/>
+			</NetworkPathWarning>
 			<DebugInfo title="Informations de débogage">
 				<Item id="1752" name="&amp;Copier les informations de débogage dans le presse-papier"/>
 				<Item id="1" name="OK"/>

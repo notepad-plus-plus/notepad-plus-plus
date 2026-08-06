@@ -831,7 +831,7 @@ void DoSaveOrNotBox::changeLang()
 	wstring defaultMessage = L"Save file \"$STR_REPLACE$\" ?";
 	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 
-	if (nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveOrNot"))
+	if (nativeLangSpeaker && nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveOrNot"))
 	{
 		constexpr unsigned char len = 255;
 		wchar_t text[len]{};
@@ -891,35 +891,35 @@ intptr_t CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				case IDCANCEL:
 				{
 					::EndDialog(_hSelf, -1);
-					clickedButtonId = IDCANCEL;
+					_clickedButtonId = IDCANCEL;
 					return TRUE;
 				}
 
 				case IDYES:
 				{
 					::EndDialog(_hSelf, 0);
-					clickedButtonId = IDYES;
+					_clickedButtonId = IDYES;
 					return TRUE;
 				}
 
 				case IDNO:
 				{
 					::EndDialog(_hSelf, 0);
-					clickedButtonId = IDNO;
+					_clickedButtonId = IDNO;
 					return TRUE;
 				}
 
 				case IDIGNORE:
 				{
 					::EndDialog(_hSelf, 0);
-					clickedButtonId = IDIGNORE;
+					_clickedButtonId = IDIGNORE;
 					return TRUE;
 				}
 
 				case IDRETRY:
 				{
 					::EndDialog(_hSelf, 0);
-					clickedButtonId = IDRETRY;
+					_clickedButtonId = IDRETRY;
 					return TRUE;
 				}
 			}
@@ -943,7 +943,7 @@ void DoSaveAllBox::changeLang()
 	wstring defaultMessage = L"Are you sure you want to save all modified documents?\r\rChoose \"Always Yes\" if you don't want to see this dialog again.\rYou can re-activate this dialog in Preferences later.";
 	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 
-	if (nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveAll"))
+	if (nativeLangSpeaker && nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveAll"))
 	{
 		constexpr size_t len = 1024;
 		wchar_t text[len]{};
@@ -1000,28 +1000,28 @@ intptr_t CALLBACK DoSaveAllBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			case IDCANCEL:
 			{
 				::EndDialog(_hSelf, -1);
-				clickedButtonId = IDCANCEL;
+				_clickedButtonId = IDCANCEL;
 				return TRUE;
 			}
 
 			case IDYES:
 			{
 				::EndDialog(_hSelf, 0);
-				clickedButtonId = IDYES;
+				_clickedButtonId = IDYES;
 				return TRUE;
 			}
 
 			case IDNO:
 			{
 				::EndDialog(_hSelf, 0);
-				clickedButtonId = IDNO;
+				_clickedButtonId = IDNO;
 				return TRUE;
 			}
 
 			case IDRETRY:
 			{
 				::EndDialog(_hSelf, 0);
-				clickedButtonId = IDRETRY;
+				_clickedButtonId = IDRETRY;
 				return TRUE;
 			}
 		}
@@ -1029,6 +1029,110 @@ intptr_t CALLBACK DoSaveAllBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 	}
 	default:
 		return FALSE;
+	}
+	return FALSE;
+}
+
+
+void NetworkPathWarningBox::doDialog(bool isRTL)
+{
+	StaticDialog::myCreateDialogBoxIndirectParam(IDD_NETWORKPATHWARNINGBOX, isRTL);
+}
+
+void NetworkPathWarningBox::changeLang()
+{
+	wstring msg;
+	wstring defaultMessage = L"Network Path Warning:\r\r$STR_REPLACE$\r\rLoading it will cause Windows to automatically authenticate to that server, potentially exposing your Windows login information.\rLoad anyway?";
+	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+
+	if (nativeLangSpeaker && nativeLangSpeaker->changeDlgLang(_hSelf, "NetworkPathWarning"))
+	{
+		constexpr size_t len = 1024;
+		wchar_t text[len]{};
+		::GetDlgItemText(_hSelf, IDC_NETWORKPATHWARNINGTEXT, text, len);
+		msg = text;
+	}
+
+	if (msg.empty())
+		msg = defaultMessage;
+
+	msg = stringReplace(msg, L"$STR_REPLACE$", _networkPath);
+
+	::SetDlgItemText(_hSelf, IDC_NETWORKPATHWARNINGTEXT, msg.c_str());
+}
+
+intptr_t CALLBACK NetworkPathWarningBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+		case WM_INITDIALOG:
+		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
+			changeLang();
+			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
+			return TRUE;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case WM_DPICHANGED:
+		{
+			_dpiManager.setDpiWP(wParam);
+			setPositionDpi(lParam);
+
+			return TRUE;
+		}
+
+		case WM_COMMAND:
+		{
+			switch (LOWORD(wParam))
+			{
+				case IDCANCEL:
+				{
+					::EndDialog(_hSelf, -1);
+					_clickedButtonId = IDCANCEL;
+					return TRUE;
+				}
+
+				case IDYES:
+				{
+					::EndDialog(_hSelf, 0);
+					_clickedButtonId = IDYES;
+					return TRUE;
+				}
+
+				case IDNO:
+				{
+					::EndDialog(_hSelf, 0);
+					_clickedButtonId = IDNO;
+					return TRUE;
+				}
+
+				case IDRETRY:
+				{
+					::EndDialog(_hSelf, 0);
+					_clickedButtonId = IDRETRY;
+					return TRUE;
+				}
+			}
+			break;
+		}
+		default:
+			return FALSE;
 	}
 	return FALSE;
 }

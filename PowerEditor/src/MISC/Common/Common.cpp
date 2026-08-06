@@ -1877,10 +1877,22 @@ bool isUnsupportedFileName(const wstring& fileName)
 
 bool isUnsupportedFileName(const wchar_t* szFileName)
 {
-	const wstring fileName = szFileName;
+	const std::wstring fileName = szFileName;
 	return isUnsupportedFileName(fileName);
 }
 
+bool isUncPath(const std::wstring& path)
+{
+	// Extended-length UNC: \\?\UNC\server\share\...  or  //?/UNC/server/share/...
+	if (isWin32NamespacePrefixedFileName(path))
+	{
+		std::wstring rest = path.substr(4); // strip \\?\ or //?/
+		return (rest.starts_with(L"UNC\\") || rest.starts_with(L"UNC/"));
+	}
+
+	// Plain UNC: \\server\share\...  or  //server/share/...
+	return (path.starts_with(L"\\\\") || path.starts_with(L"//"));
+}
 
 Version::Version(const wstring& versionStr)
 {

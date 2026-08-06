@@ -124,7 +124,7 @@ public:
 	void destroy() override {}
 
 	int getClickedButtonId() const {
-		return clickedButtonId;
+		return _clickedButtonId;
 	}
 
 	void changeLang();
@@ -133,7 +133,7 @@ protected:
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private:
-	int clickedButtonId = -1;
+	int _clickedButtonId = -1;
 	std::wstring _fn;
 	bool _isMulti = false;
 };
@@ -148,7 +148,7 @@ public:
 	void destroy() override {}
 
 	int getClickedButtonId() const {
-		return clickedButtonId;
+		return _clickedButtonId;
 	}
 
 	void changeLang();
@@ -157,5 +157,33 @@ protected:
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private:
-	int clickedButtonId = -1;
+	int _clickedButtonId = -1;
+};
+
+class NetworkPathWarningBox : public StaticDialog
+{
+public:
+	NetworkPathWarningBox() = default;
+
+	void init(HINSTANCE hInst, HWND parent, const std::wstring& path) {
+		Window::init(hInst, parent);
+		_networkPath = path;
+	}
+
+	void doDialog(bool isRTL = false);
+
+	void destroy() override {}
+
+	int getClickedButtonId() const {
+		return _clickedButtonId;
+	}
+
+	void changeLang();
+
+protected:
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
+
+private:
+	int _clickedButtonId = -1;
+	std::wstring _networkPath;
 };

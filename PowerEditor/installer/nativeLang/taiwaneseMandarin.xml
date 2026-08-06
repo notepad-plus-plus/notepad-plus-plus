@@ -96,8 +96,8 @@
 					<Item id="41010" name="列印(&amp;P)..."/>
 					<Item id="1001" name="立即列印(&amp;W)"/>
 					<Item id="41011" name="結束(&amp;X)"/>
-					<Item id="41012" name="載入工作階段(&amp;I)..."/>
-					<Item id="41013" name="儲存工作階段(&amp;I)..."/>
+					<Item id="41012" name="載入文件群組(&amp;I)..."/>
+					<Item id="41013" name="儲存文件群組(&amp;I)..."/>
 					<Item id="41014" name="重新載入(&amp;L)"/>
 					<Item id="41015" name="另存複本(&amp;Y)..."/>
 					<Item id="41016" name="移至回收筒(&amp;B)"/>
@@ -1199,13 +1199,13 @@
 				</RecentFilesHistory>
 
 				<Backup title="備份">
-					<Item id="6817" name="工作階段快照及定期備份"/>
-					<Item id="6818" name="啟用工作階段快照及定期備份"/>
+					<Item id="6817" name="文件群組快照及定期備份"/>
+					<Item id="6818" name="啟用文件群組快照及定期備份"/>
 					<Item id="6819" name="每"/>
 					<Item id="6821" name="秒備份一次"/>
 					<Item id="6822" name="備份資料夾："/>
-					<Item id="6309" name="開啟程式時繼續上次的工作階段"/>
-					<Item id="6825" name="保存上次的工作階段中無法讀取的文件"/>
+					<Item id="6309" name="開啟程式時繼續上次的文件群組"/>
+					<Item id="6825" name="保存上次的文件群組中無法讀取的文件"/>
 					<Item id="6801" name="備份"/>
 					<Item id="6315" name="無"/>
 					<Item id="6316" name="簡易備份"/>
@@ -1238,7 +1238,7 @@
 				</AutoCompletion>
 				<MultiInstance title="多重實體與日期時間">
 					<Item id="6151" name="多重 Notepad++ 實體設定"/>
-					<Item id="6152" name="在新的 Notepad++ 實體開啟工作階段（並在結束程式前自動儲存載入的工作階段）"/>
+					<Item id="6152" name="在新的 Notepad++ 實體開啟文件群組（並在結束程式前自動儲存載入的文件群組）"/>
 					<Item id="6153" name="允許多重實體"/>
 					<Item id="6154" name="禁止多重實體（預設）"/>
 					<Item id="6155" name="（重新啟動 Notepad++ 以使變更生效。）"/>
@@ -1320,7 +1320,7 @@
 					<Item id="6312" name="自動更新檔案狀態"/>
 					<Item id="6313" name="於背景自動更新"/>
 					<Item id="6325" name="更新後捲動至最後一行"/>
-					<Item id="6322" name="工作階段檔案副檔名："/>
+					<Item id="6322" name="文件群組檔案副檔名："/>
 					<Item id="6324" name="文件切換器（Ctrl + TAB）"/>
 					<Item id="6331" name="在標題列僅顯示檔案名稱（隱藏資料夾路徑）"/>
 					<Item id="6334" name="自動偵測檔案編碼"/>
@@ -1395,6 +1395,22 @@
 				<Item id="7" name="不要(&amp;N)"/>
 				<Item id="4" name="始終確定"/>
 			</DoSaveAll>
+			<NetworkPathWarning title="Notepad++ 文件群組載入">
+				<Item id="1771" name="網路路徑警告：
+
+$STR_REPLACE$
+
+載入該檔案會導致 Windows 自動向該伺服器進行身份驗證，這可能會洩露您的 Windows 登入資訊。
+仍然加載嗎？"/>
+				<Item id="7" name="略過"/>
+				<Item id="6" name="載入"/>
+				<Item id="2" name="一律略過網路路徑"/>
+				<Item id="4" name="一律載入網路路徑"/>
+			</NetworkPathWarning>
+			<DebugInfo title="偵錯資訊">
+				<Item id="1752" name="將偵錯資訊複製到剪貼簿"/>
+				<Item id="1" name="關閉"/>
+			</DebugInfo>
 		</Dialog>
 		<MessageBox>
 			<ContextMenuXmlEditWarning title="編輯快顯功能表" message="編輯 contextMenu.xml 可以變更 Notepad++ 之快顯功能表。
@@ -1414,7 +1430,7 @@
 			<SettingsOnCloudError title="雲端設定" message="設定的雲端路徑位於一個唯讀的磁碟或未擁有寫入權限的資料夾，因此你的「雲端」設定將被清除。
 請在「偏好設定」中重新設定。"/>
 			<FilePathNotFoundWarning title="開啟檔案" message="你試圖開啟的文件不存在。"/>
-			<SessionFileInvalidError title="無法開啟工作階段" message="工作階段檔案無效或已被損毀。"/>
+			<SessionFileInvalidError title="無法開啟文件群組" message="文件群組檔案無效或已被損毀。"/>
 			<DroppingFolderAsProjectModeWarning title="操作無效" message="由於你在「偏好設定」「預設資料夾」中關閉了「拖放資料夾時開啟資料夾中所有文件，而不啟動資料夾工作區」的選項，你只能拖放文件或資料夾的其中之一。
 請啟用此選項，然後再試一次。"/>
 			<SortingError title="排序錯誤" message="第 $INT_REPLACE$ 行無法執行數字排序。"/>
@@ -1473,17 +1489,17 @@
 繼續嗎？"/>
 			<NeedToRestartToLoadPlugins title="重新啟動 Notepad++" message="你必須重新啟動 Notepad++ 才能載入已安裝的外掛模組。"/>
 			<ChangeHistoryEnabledWarning title="重新啟動 Notepad++" message="你必須重新啟動 Notepad++ 才能啟動文件修改紀錄。"/>
-			<FileInaccessibleUserSession title="檔案不存在" message="儲存的工作階段 &quot;$STR_REPLACE$&quot; 中有一些已不存在的檔案。它們可以以空白唯讀文件的形式作為佔位欄而創建。
+			<FileInaccessibleUserSession title="檔案不存在" message="儲存的文件群組 &quot;$STR_REPLACE$&quot; 中有一些已不存在的檔案。它們可以以空白唯讀文件的形式作為佔位欄而創建。
 
 你想為它們創建佔位欄嗎？
 
-請注意，如果你選擇不創建佔位欄或稍後關閉它們，工作階段檔案將不會在 Notepad++ 關閉時被修改。
+請注意，如果你選擇不創建佔位欄或稍後關閉它們，文件群組檔案將不會在 Notepad++ 關閉時被修改。
 "/>
-			<FileInaccessibleDefaultSessionXml title="檔案不存在" message="過去的工作階段中有一些已不存在的檔案。它們可以以空白唯讀文件的形式作為佔位欄而創建。
+			<FileInaccessibleDefaultSessionXml title="檔案不存在" message="過去的文件群組中有一些已不存在的檔案。它們可以以空白唯讀文件的形式作為佔位欄而創建。
 
 你想為它們創建佔位欄嗎？
 
-請注意，如果你選擇不創建佔位欄或稍後關閉它們，工作階段檔案將在 Notepad++ 關閉時被修改。我們建議你現在備份工作階段檔案 &quot;session.xml&quot; 。"/>
+請注意，如果你選擇不創建佔位欄或稍後關閉它們，文件群組檔案將在 Notepad++ 關閉時被修改。我們建議你現在備份文件群組檔案 &quot;session.xml&quot; 。"/>
 			<RTLvsDirectWrite title="無法執行「文字由右至左」指令" message="「文字由右至左」指令與「直接寫入」模式不相容。 請在偏好設定對話框的「其他」中停用「直接寫入」模式，然後重新​​啟動 Notepad++ 。"/>
 			<FileMemoryAllocationFailed title="例外狀況：檔案記憶體分配失敗" message="可能沒有足夠的連續可用記憶體供 Notepad++ 載入檔案。"/>
 			<Need2Restart2ShowMenuShortcuts title="重新啟動 Notepad++" message="Notepad++ 需要重新啟動才能顯示選單右邊捷徑。"/>

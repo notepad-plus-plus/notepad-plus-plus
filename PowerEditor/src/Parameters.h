@@ -888,6 +888,9 @@ struct NppGUI final
 
 	std::string _shortcutsXmlHmacInConfig;
 	std::string _shortcutsOnDiskHmac;
+
+	enum NetworkPathWarningMethod { networkPathAlwaysAsk, networkPathAlwaysSkip, networkPathAlwaysLoad};
+	NetworkPathWarningMethod _networkPathWarningMethod = networkPathAlwaysAsk;
 };
 
 
@@ -1531,7 +1534,7 @@ public:
 	void writeNonDefaultUDL();
 	void writeNeed2SaveUDL();
 	void writeShortcuts();
-	void writeSession(const Session& session, const wchar_t* fileName = nullptr) const;
+	void writeSession(const Session& session, const wchar_t* fileName = nullptr);
 	bool writeFindHistory();
 
 	bool isExistingUserLangName(const wchar_t* newName) const {
@@ -1982,7 +1985,7 @@ private:
 	bool getUserCmdsFromXmlTree();
 	bool getPluginCmdsFromXmlTree();
 	bool getScintKeysFromXmlTree();
-	static bool getSessionFromXmlTree(const NppXml::Document& pSessionDoc, Session& session);
+	bool getSessionFromXmlTree(const NppXml::Document& pSessionDoc, Session& session);
 
 	void feedGUIParameters(const NppXml::Element& element);
 	void feedKeyWordsParameters(const NppXml::Element& element);

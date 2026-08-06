@@ -3197,7 +3197,6 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 							int buttonID = networkPathWarningBox.getClickedButtonId();
 							networkPathWarningBox.destroy();
 
-							//int res = ::MessageBox(nullptr, L"Loading it may transmit your Windows credentials to that server. Load anyway?", L"Notepad++ session loading - Network Path Warning", MB_YESNO | MB_ICONWARNING);
 							if (buttonID == IDNO) // skip
 							{
 								continue;
@@ -3255,6 +3254,45 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 					std::wstring wstrLangName = langName ? string2wstring(langName) : L"";
 
 					const wchar_t* pBackupFilePath = wmc.char2wchar(NppXml::attribute(childNode, "backupFilePath"), CP_UTF8);
+
+					if (isUncPath(pBackupFilePath))
+					{
+						if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysAsk)
+						{
+							NetworkPathWarningBox networkPathWarningBox;
+							networkPathWarningBox.init(hInst, nppHwnd, pBackupFilePath);
+							networkPathWarningBox.doDialog(_pNativeLangSpeaker ? _pNativeLangSpeaker->isRTL() : false);
+							int buttonID = networkPathWarningBox.getClickedButtonId();
+							networkPathWarningBox.destroy();
+
+							if (buttonID == IDNO) // skip
+							{
+								continue;
+							}
+							else if (buttonID == IDCANCEL) // Always skip
+							{
+								_nppGUI._networkPathWarningMethod = NppGUI::networkPathAlwaysSkip;
+								continue;
+							}
+							else if (buttonID == IDRETRY) // Always load
+							{
+								_nppGUI._networkPathWarningMethod = NppGUI::networkPathAlwaysLoad;
+							}
+							//else if (buttonID == IDYES) // load 
+							//{
+								// do nothing, continue to load the file
+							//}
+						}
+						else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysSkip)
+						{
+							continue;
+						}
+						else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysLoad)
+						{
+							// do nothing, continue to load the file
+						}
+					}
+
 					wchar_t normalizedBackupFilePath[MAX_PATH]{};
 
 					if (pBackupFilePath && wcslen(pBackupFilePath) < MAX_PATH)

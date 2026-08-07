@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 29 Jul 2026 for 8.9.7+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 06 Aug 2026 for 8.9.7+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -1466,6 +1466,18 @@ Você pode reativar esta janela de confirmação em Preferências depois."/>
 				<Item id="7" name="&amp;Não"/>
 				<Item id="4" name="Sem&amp;pre Sim"/>
 			</DoSaveAll><!-- HowToReproduce: Check the &quot;Enable Save All confirm dialog&quot; checkbox in Preference->MISC, now click &quot;Save all&quot; -->
+			<NetworkPathWarning title="Carregando sessão do Notepad++">
+				<Item id="1771" name="Aviso de Caminho de Rede:
+
+$STR_REPLACE$
+
+Efetuar a carga vai fazer com que o Windows automaticamente autentique neste servidor, potencialmente expondo suas informações de login no Windows.
+Carrega assim mesmo?"/>
+				<Item id="7" name="&amp;Ignorar"/>
+				<Item id="6" name="&amp;Carregar"/>
+				<Item id="2" name="&ampSempre ignore caminho de rede"/>
+				<Item id="4" name="Sempre carregue cami&amp;nho de rede"/>
+			</NetworkPathWarning>
 
 			<DebugInfo title="Informação de Depuração">
 				<Item id="1752" name="&amp;Copiar informação de depuração para a área de transferência"/>

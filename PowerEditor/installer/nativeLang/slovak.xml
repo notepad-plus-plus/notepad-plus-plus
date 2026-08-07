@@ -1463,16 +1463,16 @@ Toto dialógové okno môžete neskôr znovu aktivovať v Predvoľbách."/>
 				<Item id="7" name="&amp;Nie"/>
 				<Item id="4" name="&amp;Vždy áno"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
-			<NetworkPathWarning title="Načítava sa relácia Notepad++">
+			<NetworkPathWarning title="Načítava sa relácia Notepad++ title2="Klikateľný odkaz file://"">
 				<Item id="1771" name="Upozornenie na sieťovú cestu:
 
 $STR_REPLACE$
 
 Jej načítaním sa systém Windows automaticky prihlási na tento server, čo môže viesť k odhaleniu vašich prihlasovacích údajov do systému Windows.
 Načítať aj tak?"/>
-				<Item id="7" name="&amp;Preskočiť"/>
+				<Item id="2" name="&amp;Preskočiť"/>
 				<Item id="6" name="&amp;Načítať"/>
-				<Item id="2" name="&ampVždy preskočiť sieťovú cestu"/>
+				<Item id="7" name="&ampVždy preskočiť sieťovú cestu"/>
 				<Item id="4" name="Vždy načítať &amp;sieťovú cestu"/>
 			</NetworkPathWarning>
 			

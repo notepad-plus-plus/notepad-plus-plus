@@ -1508,6 +1508,18 @@ Updated to :
 				<Item id="7" name="&amp;Нет"/>
 				<Item id="4" name="Всегда Да"/>
 			</DoSaveAll>
+			<NetworkPathWarning title="Загрузка сессии Notepad++">
+				<Item id="1771" name="Предупреждение о сетевом пути:
+
+$STR_REPLACE$
+
+Загрузка приведет к автоматической аутентификации Windows на этом сервере, что потенциально может раскрыть ваши учетные данные для входа в Windows.
+Загрузить в любом случае?"/>
+				<Item id="7" name="&amp;Пропустить"/>
+				<Item id="6" name="&amp;Загрузить"/>
+				<Item id="2" name="&amp;Всегда пропускать сетевой путь"/>
+				<Item id="4" name="Всегда загружать &amp;сетевой путь"/>
+			</NetworkPathWarning>
 			<DebugInfo title="Отладочная Информация">
 				<Item id="1752" name="&amp;Скопир. инфор. в буфер обмена"/>
 				<Item id="1" name="О&amp;К"/>

@@ -1473,10 +1473,10 @@ $STR_REPLACE$
 
 Efetuar a carga vai fazer com que o Windows automaticamente autentique neste servidor, potencialmente expondo suas informações de login no Windows.
 Carrega assim mesmo?"/>
-				<Item id="7" name="&amp;Ignorar"/>
-				<Item id="6" name="&amp;Carregar"/>
-				<Item id="2" name="&amp;Sempre ignore caminho de rede"/>
-				<Item id="4" name="Sempre carregue caminho de &amp;rede"/>
+				<Item id="7" name="Ignorar"/>
+				<Item id="6" name="Carregar"/>
+				<Item id="2" name="Sempre ignore caminho de rede"/>
+				<Item id="4" name="Sempre carregue caminho de rede"/>
 			</NetworkPathWarning>
 
 			<DebugInfo title="Informação de Depuração">

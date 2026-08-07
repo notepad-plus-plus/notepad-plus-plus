@@ -1219,10 +1219,10 @@ bool NativeLangSpeaker::getDoSaveOrNotStrings(std::wstring& title, std::wstring&
 	return false;
 }
 
-bool NativeLangSpeaker::changeDlgLang(HWND hDlg, const char* dlgTagName, char* title, size_t titleMaxSize) const
+bool NativeLangSpeaker::changeDlgLang(HWND hDlg, const char* dlgTagName, char* titleOut, size_t titleOutMaxSize, const char* titleOutTag) const
 {
-	if (title)
-		title[0] = '\0';
+	if (titleOut)
+		titleOut[0] = '\0';
 
 	if (!_nativeLang) return false;
 
@@ -1235,14 +1235,14 @@ bool NativeLangSpeaker::changeDlgLang(HWND hDlg, const char* dlgTagName, char* t
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
 	// Set Title
-	const char* title2set = NppXml::attribute(dlgNode, "title");
-	if ((title2set && title2set[0]) && hDlg)
+	const char* titleToset = NppXml::attribute(dlgNode, titleOutTag && titleOutTag[0] ? titleOutTag : "title");
+	if ((titleToset && titleToset[0]) && hDlg)
 	{
-		const wchar_t* nameW = wmc.char2wchar(title2set, _nativeLangEncoding);
+		const wchar_t* nameW = wmc.char2wchar(titleToset, _nativeLangEncoding);
 		::SetWindowText(hDlg, nameW);
 
-		if (title && titleMaxSize)
-			strncpy(title, title2set, titleMaxSize - 1);
+		if (titleOut && titleOutMaxSize)
+			strncpy(titleOut, titleToset, titleOutMaxSize - 1);
 	}
 
 	// Set the text of child control

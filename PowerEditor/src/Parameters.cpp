@@ -3197,23 +3197,10 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 							int buttonID = networkPathWarningBox.getClickedButtonId();
 							networkPathWarningBox.destroy();
 
-							if (buttonID == IDNO) // skip
+							if (buttonID == IDCANCEL || buttonID == IDNO) // Skip once or Always skip
 							{
 								continue;
 							}
-							else if (buttonID == IDCANCEL) // Always skip
-							{
-								_nppGUI._networkPathWarningMethod = NppGUI::networkPathAlwaysSkip;
-								continue;
-							}
-							else if (buttonID == IDRETRY) // Always load
-							{
-								_nppGUI._networkPathWarningMethod = NppGUI::networkPathAlwaysLoad;
-							}
-							//else if (buttonID == IDYES) // load 
-							//{
-								// do nothing, continue to load the file
-							//}
 						}
 						else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysSkip)
 						{
@@ -3265,23 +3252,10 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 							int buttonID = networkPathWarningBox.getClickedButtonId();
 							networkPathWarningBox.destroy();
 
-							if (buttonID == IDNO) // skip
+							if (buttonID == IDCANCEL || buttonID == IDNO) // Skip once or Always skip
 							{
 								continue;
 							}
-							else if (buttonID == IDCANCEL) // Always skip
-							{
-								_nppGUI._networkPathWarningMethod = NppGUI::networkPathAlwaysSkip;
-								continue;
-							}
-							else if (buttonID == IDRETRY) // Always load
-							{
-								_nppGUI._networkPathWarningMethod = NppGUI::networkPathAlwaysLoad;
-							}
-							//else if (buttonID == IDYES) // load 
-							//{
-								// do nothing, continue to load the file
-							//}
 						}
 						else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysSkip)
 						{

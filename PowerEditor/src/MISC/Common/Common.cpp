@@ -1894,6 +1894,35 @@ bool isUncPath(const std::wstring& path)
 	return (path.starts_with(L"\\\\") || path.starts_with(L"//"));
 }
 
+bool isUncFileUrl(const std::wstring& url)
+{
+	// file://server/share/... -> leaks NTLM. file:///C:/... or file://localhost/... does not.
+	if (!url.starts_with(L"file://"))
+		return false;
+
+	size_t hostStart = 7; // after "file://"
+	size_t hostEnd = url.find(L'/', hostStart); // file:///C:/dossier/fichier.txt -> hostEnd = 7
+	                                            // file://localhost/C:/dossier/fichier.txt -> hostEnd = 16
+	                                            // file://./C:/dossier/fichier.txt -> hostEnd = 8
+
+	std::wstring host = (hostEnd == std::wstring::npos) ? url.substr(hostStart) : url.substr(hostStart, hostEnd - hostStart);
+
+	if (host.empty() || host == L".")
+		return false;
+
+	if (_wcsicmp(host.c_str(), L"localhost") == 0)
+		return false;
+
+	if (host == L"127.0.0.1" || host == L"::1" || host == L"[::1]")
+		return false;
+
+	// host like "C:" or "C|" (drive letter, sometimes seen w/o triple slash)
+	if (host.size() == 2 && iswalpha(host[0]) && (host[1] == L':' || host[1] == L'|'))
+		return false;
+
+	return true;
+}
+
 Version::Version(const wstring& versionStr)
 {
 	try {

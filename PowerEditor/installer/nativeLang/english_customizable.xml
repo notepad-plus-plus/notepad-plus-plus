@@ -1466,17 +1466,17 @@ You can re-activate this dialog in Preferences later."/>
 				<Item id="7" name="&amp;No"/>
 				<Item id="4" name="&amp;Always yes"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
-			<NetworkPathWarning title="Notepad++ session loading">
+			<NetworkPathWarning title="Notepad++ session loading" title2="Clickable file:// link">
 				<Item id="1771" name="Network Path Warning:
 
 $STR_REPLACE$
 
 Loading it will cause Windows to automatically authenticate to that server, potentially exposing your Windows login information.
 Load anyway?"/>
-				<Item id="7" name="&amp;Skip"/>
+				<Item id="2" name="&amp;Skip"/>
 				<Item id="6" name="&amp;Load"/>
-				<Item id="2" name="&ampAlways skip network path"/>
-				<Item id="4" name="Always load n&amp;network path"/>
+				<Item id="7" name="&amp;Always skip network path"/>
+				<Item id="4" name="Always load n&amp;etwork path"/>
 			</NetworkPathWarning>
 			<DebugInfo title="Debug Info">
 				<Item id="1752" name="&amp;Copy debug info to clipboard"/>

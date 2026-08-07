@@ -1502,9 +1502,9 @@ CAPTION "Notepad++ session loading"
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     LTEXT           "",IDC_NETWORKPATHWARNINGTEXT,32,8,251,69,0x2000
-    DEFPUSHBUTTON   "&Skip",IDNO,36,95,63,14
+    DEFPUSHBUTTON   "&Skip",IDCANCEL,36,95,63,14
     PUSHBUTTON      "&Load",IDYES,36,113,63,14
-    PUSHBUTTON      "&Always skip network path",IDCANCEL,119,95,163,14
+    PUSHBUTTON      "&Always skip network path",IDNO,119,95,163,14
     PUSHBUTTON      "Always load &network path",IDRETRY,119,113,163,14
 END
 

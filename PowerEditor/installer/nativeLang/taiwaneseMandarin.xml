@@ -1395,16 +1395,16 @@
 				<Item id="7" name="不要(&amp;N)"/>
 				<Item id="4" name="始終確定"/>
 			</DoSaveAll>
-			<NetworkPathWarning title="Notepad++ 文件群組載入">
+			<NetworkPathWarning title="Notepad++ 文件群組載入" title2="可點擊的 file:// 鏈接">
 				<Item id="1771" name="網路路徑警告：
 
 $STR_REPLACE$
 
 載入該檔案會導致 Windows 自動向該伺服器進行身份驗證，這可能會洩露您的 Windows 登入資訊。
 仍然加載嗎？"/>
-				<Item id="7" name="略過"/>
+				<Item id="2" name="略過"/>
 				<Item id="6" name="載入"/>
-				<Item id="2" name="一律略過網路路徑"/>
+				<Item id="7" name="一律略過網路路徑"/>
 				<Item id="4" name="一律載入網路路徑"/>
 			</NetworkPathWarning>
 			<DebugInfo title="偵錯資訊">

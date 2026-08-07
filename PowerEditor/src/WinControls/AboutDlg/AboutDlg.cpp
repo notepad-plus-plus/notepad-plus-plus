@@ -1045,12 +1045,37 @@ void NetworkPathWarningBox::changeLang()
 	wstring defaultMessage = L"Network Path Warning:\r\r$STR_REPLACE$\r\rLoading it will cause Windows to automatically authenticate to that server, potentially exposing your Windows login information.\rLoad anyway?";
 	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 
-	if (nativeLangSpeaker && nativeLangSpeaker->changeDlgLang(_hSelf, "NetworkPathWarning"))
+	if (nativeLangSpeaker)
 	{
-		constexpr size_t len = 1024;
-		wchar_t text[len]{};
-		::GetDlgItemText(_hSelf, IDC_NETWORKPATHWARNINGTEXT, text, len);
-		msg = text;
+		bool isLangChanged = false;
+
+		if (!_titleTag.empty()) // override the title with the 2nd one manually if the title tag is not empty
+		{
+			static constexpr size_t titreMaxSize = 128;
+			char titre2[titreMaxSize] {};
+			isLangChanged = nativeLangSpeaker->changeDlgLang(_hSelf, "NetworkPathWarning", titre2, titreMaxSize, _titleTag.c_str());
+			if (titre2[0])
+			{
+				wstring wTitre2 = WcharMbcsConvertor::getInstance().char2wchar(titre2, nativeLangSpeaker->getLangEncoding());
+				::SetWindowText(_hSelf, wTitre2.c_str());
+			}
+			else
+			{
+				::SetWindowText(_hSelf, L"Clickable file:// link");
+			}
+		}
+		else
+		{
+			isLangChanged = nativeLangSpeaker->changeDlgLang(_hSelf, "NetworkPathWarning");
+		}
+
+		if (isLangChanged)
+		{
+			constexpr size_t len = 1024;
+			wchar_t text[len]{};
+			::GetDlgItemText(_hSelf, IDC_NETWORKPATHWARNINGTEXT, text, len);
+			msg = text;
+		}
 	}
 
 	if (msg.empty())
@@ -1099,6 +1124,8 @@ intptr_t CALLBACK NetworkPathWarningBox::run_dlgProc(UINT message, WPARAM wParam
 
 		case WM_COMMAND:
 		{
+			NppParameters& nppParam = NppParameters::getInstance();
+			NppGUI& nppGUI = nppParam.getNppGUI();
 			switch (LOWORD(wParam))
 			{
 				case IDCANCEL:
@@ -1119,6 +1146,7 @@ intptr_t CALLBACK NetworkPathWarningBox::run_dlgProc(UINT message, WPARAM wParam
 				{
 					::EndDialog(_hSelf, 0);
 					_clickedButtonId = IDNO;
+					nppGUI._networkPathWarningMethod = NppGUI::networkPathAlwaysSkip;
 					return TRUE;
 				}
 
@@ -1126,6 +1154,7 @@ intptr_t CALLBACK NetworkPathWarningBox::run_dlgProc(UINT message, WPARAM wParam
 				{
 					::EndDialog(_hSelf, 0);
 					_clickedButtonId = IDRETRY;
+					nppGUI._networkPathWarningMethod = NppGUI::networkPathAlwaysLoad;
 					return TRUE;
 				}
 			}

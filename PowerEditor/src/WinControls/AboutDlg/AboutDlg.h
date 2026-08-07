@@ -165,9 +165,11 @@ class NetworkPathWarningBox : public StaticDialog
 public:
 	NetworkPathWarningBox() = default;
 
-	void init(HINSTANCE hInst, HWND parent, const std::wstring& path) {
+	void init(HINSTANCE hInst, HWND parent, const std::wstring& path, const char* titleTag = nullptr) {
 		Window::init(hInst, parent);
 		_networkPath = path;
+		if (titleTag)
+			_titleTag = titleTag;
 	}
 
 	void doDialog(bool isRTL = false);
@@ -186,4 +188,5 @@ protected:
 private:
 	int _clickedButtonId = -1;
 	std::wstring _networkPath;
+	std::string _titleTag;
 };

@@ -1475,7 +1475,7 @@ Efetuar a carga vai fazer com que o Windows automaticamente autentique neste ser
 Carrega assim mesmo?"/>
 				<Item id="7" name="&amp;Ignorar"/>
 				<Item id="6" name="&amp;Carregar"/>
-				<Item id="2" name="&ampSempre ignore caminho de rede"/>
+				<Item id="2" name="&amp;Sempre ignore caminho de rede"/>
 				<Item id="4" name="Sempre carregue cami&amp;nho de rede"/>
 			</NetworkPathWarning>
 

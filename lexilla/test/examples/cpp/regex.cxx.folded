@@ -1,0 +1,22 @@
+ 0 400 400   // regex.cxx Test Javascript regex literal support
+ 0 400 400   // Has .cxx extension but really JavaScript.
+ 1 400 400   
+ 0 400 400   // Basic
+ 0 400 400   x = /\d+/
+ 1 400 400   
+ 0 400 400   // Flags following
+ 0 400 400   x = /x_\w+/iu
+ 1 400 400   
+ 0 400 400   // Single character
+ 0 400 400   x = /a/
+ 1 400 400   
+ 0 400 400   // / inside set
+ 0 400 400   x = /\w+[+-*/]/
+ 1 400 400   
+ 0 400 400   // Empty -> Line comment
+ 0 400 400   //
+ 1 400 400   
+ 0 400 400   // Line end before terminating / so operator not regex.
+ 0 400 400   x = /a
+ 0 400 400   /
+ 1 400 400   

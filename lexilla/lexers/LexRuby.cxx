@@ -1023,17 +1023,17 @@ void LexerRuby::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, 
         [[nodiscard]] bool canExit() const noexcept {
             return inner_string_count > 0;
         }
-        void enter(int &state, const QuoteCls &curr_quote) noexcept {
-            inner_string_types[inner_string_count] = state;
-            state = SCE_RB_DEFAULT;
+        void enter(int &stateToSet, const QuoteCls &curr_quote) noexcept {
+            inner_string_types[inner_string_count] = stateToSet;
+            stateToSet = SCE_RB_DEFAULT;
             inner_expn_brace_counts[inner_string_count] = brace_counts;
             brace_counts = 0;
             inner_quotes[inner_string_count] = curr_quote;
             ++inner_string_count;
         }
-        void exit(int &state, QuoteCls &curr_quote) noexcept {
+        void exit(int &stateToSet, QuoteCls &curr_quote) noexcept {
             --inner_string_count;
-            state = inner_string_types[inner_string_count];
+            stateToSet = inner_string_types[inner_string_count];
             brace_counts = inner_expn_brace_counts[inner_string_count];
             curr_quote = inner_quotes[inner_string_count];
         }

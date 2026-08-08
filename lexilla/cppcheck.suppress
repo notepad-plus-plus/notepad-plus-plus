@@ -126,6 +126,7 @@ unreadVariable:lexilla/lexers/LexMatlab.cxx
 variableScope:lexilla/lexers/LexMatlab.cxx
 variableScope:lexilla/lexers/LexMetapost.cxx
 constParameterReference:lexilla/lexers/LexModula.cxx
+constVariableReference:lexilla/lexers/LexModula.cxx
 duplicateBreak:lexilla/lexers/LexModula.cxx
 variableScope:lexilla/lexers/LexModula.cxx
 constParameterReference:lexilla/lexers/LexMPT.cxx
@@ -289,6 +290,9 @@ syntaxError:lexilla/test/unit/*.cxx
 
 // Tests often test things that are always true
 knownConditionTrueFalse:lexilla/test/unit/testCharacterSet.cxx
+
+// cppcheck appears to misinterpret && accumulation
+knownConditionTrueFalse:lexilla/test/TestLexers.cxx
 
 // unread/unused variables and overwritten without read in tests
 unreadVariable:lexilla/test/unit/*.cxx

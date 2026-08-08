@@ -69,6 +69,7 @@
 #include "EditView.h"
 #include "Editor.h"
 #include "ElapsedPeriod.h"
+#include "RunThreads.h"
 
 using namespace Scintilla;
 using namespace Scintilla::Internal;
@@ -1539,6 +1540,9 @@ namespace {
 // This allows faster processing when lines differ greatly in length and thus time to lay out.
 constexpr Sci::Position lengthToMultiThread = 4000;
 
+// Generally, source code lines are mostly shorter than lengthCommon so use this for initial LineLayout size.
+constexpr int lengthCommon = 200;
+
 }
 
 bool Editor::WrapBlock(Surface *surface, Sci::Line lineToWrap, Sci::Line lineToWrapEnd) {
@@ -1558,9 +1562,6 @@ bool Editor::WrapBlock(Surface *surface, Sci::Line lineToWrap, Sci::Line lineToW
 
 	// Wrap all the short lines in multiple threads
 
-	// If only 1 thread needed then use the main thread, else spin up multiple
-	const std::launch policy = multiThreaded ? std::launch::async : std::launch::deferred;
-
 	std::atomic<size_t> nextIndex = 0;
 
 	// Lines that are less likely to be re-examined should not be read from or written to the cache.
@@ -1574,12 +1575,10 @@ bool Editor::WrapBlock(Surface *surface, Sci::Line lineToWrap, Sci::Line lineToW
 	// Protect the line layout cache from being accessed from multiple threads simultaneously
 	std::mutex mutexRetrieve;
 
-	std::vector<std::future<void>> futures;
-	for (size_t th = 0; th < threads; th++) {
-		std::future<void> fut = std::async(policy,
-			[=, &surface, &nextIndex, &linesAfterWrap, &mutexRetrieve]() {
+	RunThreads(threads,
+		[=, &surface, &nextIndex, &linesAfterWrap, &mutexRetrieve]() {
 			// llTemporary is reused for non-significant lines, avoiding allocation costs.
-			std::shared_ptr<LineLayout> llTemporary = std::make_shared<LineLayout>(-1, 200);
+			std::shared_ptr<LineLayout> llTemporary = std::make_shared<LineLayout>(-1, lengthCommon);
 			while (true) {
 				const size_t i = nextIndex.fetch_add(1, std::memory_order_acq_rel);
 				if (i >= linesBeingWrapped) {
@@ -1591,8 +1590,13 @@ bool Editor::WrapBlock(Surface *surface, Sci::Line lineToWrap, Sci::Line lineToW
 				if (lengthLine < lengthToMultiThread) {
 					std::shared_ptr<LineLayout> ll;
 					if (significantLines.LineMayCache(lineNumber)) {
-						std::lock_guard<std::mutex> guard(mutexRetrieve);
-						ll = view.RetrieveLineLayout(lineNumber, *this);
+						if (multiThreaded) {
+							std::lock_guard<std::mutex> guard(mutexRetrieve);
+							ll = view.RetrieveLineLayout(lineNumber, *this);
+						} else {
+							// No lock needed for single threaded
+							ll = view.RetrieveLineLayout(lineNumber, *this);
+						}
 					} else {
 						ll = llTemporary;
 						ll->ReSet(lineNumber, lengthLine);
@@ -1602,12 +1606,6 @@ bool Editor::WrapBlock(Surface *surface, Sci::Line lineToWrap, Sci::Line lineToW
 				}
 			}
 		});
-		futures.push_back(std::move(fut));
-	}
-	for (const std::future<void> &f : futures) {
-		f.wait();
-	}
-	// End of multiple threads
 
 	// Multiply duration by number of threads to produce (near) equivalence to duration if single threaded
 	const double durationShortLines = epWrapping.Duration(true);
@@ -1616,7 +1614,7 @@ bool Editor::WrapBlock(Surface *surface, Sci::Line lineToWrap, Sci::Line lineToW
 	// Wrap all the long lines in the main thread.
 	// LayoutLine may then multi-thread over segments in each line.
 
-	std::shared_ptr<LineLayout> llLarge = std::make_shared<LineLayout>(-1, 200);
+	std::shared_ptr<LineLayout> llLarge = std::make_shared<LineLayout>(-1, lengthCommon);
 	for (size_t indexLarge = 0; indexLarge < linesBeingWrapped; indexLarge++) {
 		if (linesAfterWrap[indexLarge] == 0) {
 			const Sci::Line lineNumber = lineToWrap + indexLarge;
@@ -2181,8 +2179,8 @@ void Editor::InsertCharacter(std::string_view sv, CharacterSource charSource) {
 
 void Editor::ClearSelectionRange(SelectionRange &range) {
 	if (!range.Empty()) {
-		if (range.Length()) {
-			pdoc->DeleteChars(range.Start().Position(), range.Length());
+		if (const Sci::Position length = range.Length()) {
+			pdoc->DeleteChars(range.Start().Position(), length);
 			range.ClearVirtualSpace();
 		} else {
 			// Range is all virtual so collapse to start of virtual space
@@ -2643,8 +2641,10 @@ bool Editor::NotifyUpdateUI() {
 		NotificationData scn = {};
 		scn.nmhdr.code = Notification::UpdateUI;
 		scn.updated = needUpdateUI;
+		scn.position = updateTextStart;
 		NotifyParent(scn);
 		needUpdateUI = Update::None;
+		updateTextStart = InvalidPosition;
 		return true;
 	}
 	return false;
@@ -2801,6 +2801,14 @@ constexpr Sci::Position MovePositionForDeletion(Sci::Position position, Sci::Pos
 
 void Editor::NotifyModified(Document *, DocModification mh, void *) {
 	ContainerNeedsUpdate(Update::Content);
+	if (FlagSet(mh.modificationType, ModificationFlags::InsertText | ModificationFlags::DeleteText)) {
+		ContainerNeedsUpdate(Update::Text);
+		updateTextStart = updateTextStart == InvalidPosition ? mh.position : std::min(updateTextStart, mh.position);
+	}
+	if (mh.linesAdded != 0) {
+		ContainerNeedsUpdate(Update::LineCount);
+	}
+
 	if (paintState == PaintState::painting) {
 		CheckForChangeOutsidePaint(Range(mh.position, mh.position + mh.length));
 	}
@@ -2947,7 +2955,7 @@ void Editor::NotifyModified(Document *, DocModification mh, void *) {
 		if ((!willRedrawAll) && ((paintState == PaintState::notPainting) || !PaintContainsMargin())) {
 			if (FlagSet(mh.modificationType, ModificationFlags::ChangeFold)) {
 				// Fold changes can affect the drawing of following lines so redraw whole margin
-				RedrawSelMargin(marginView.highlightDelimiter.isEnabled ? -1 : mh.line - 1, true);
+				RedrawSelMargin(marginView.highlightDelimiter.IsEnabled() ? -1 : mh.line - 1, true);
 			} else {
 				RedrawSelMargin(mh.line);
 			}
@@ -5235,39 +5243,10 @@ void Editor::ButtonUpWithModifiers(Point pt, unsigned int curTime, KeyMod modifi
 		ChangeMouseCapture(false);
 		NotifyIndicatorClick(false, newPos.Position(), modifiers);
 		if (inDragDrop == DragDrop::dragging) {
-			const SelectionPosition selStart = SelectionStart();
-			const SelectionPosition selEnd = SelectionEnd();
-			if (selStart < selEnd) {
-				if (drag.Length()) {
-					const Sci::Position length = drag.Length();
-					if (FlagSet(modifiers, KeyMod::Ctrl)) {
-						const Sci::Position lengthInserted = pdoc->InsertString(
-							newPos.Position(), drag.Data(), length);
-						if (lengthInserted > 0) {
-							SetSelection(newPos.Position(), newPos.Position() + lengthInserted);
-						}
-					} else if (newPos < selStart) {
-						pdoc->DeleteChars(selStart.Position(), drag.Length());
-						const Sci::Position lengthInserted = pdoc->InsertString(
-							newPos.Position(), drag.Data(), length);
-						if (lengthInserted > 0) {
-							SetSelection(newPos.Position(), newPos.Position() + lengthInserted);
-						}
-					} else if (newPos > selEnd) {
-						pdoc->DeleteChars(selStart.Position(), drag.Length());
-						newPos.Add(-static_cast<Sci::Position>(drag.Length()));
-						const Sci::Position lengthInserted = pdoc->InsertString(
-							newPos.Position(), drag.Data(), length);
-						if (lengthInserted > 0) {
-							SetSelection(newPos.Position(), newPos.Position() + lengthInserted);
-						}
-					} else {
-						SetEmptySelection(newPos.Position());
-					}
-					drag.Clear();
-				}
-				selectionUnit = TextUnit::character;
-			}
+			// This is a backup version of text drop for when StartDrag is not implemented for the platform.
+			DropAt(newPos, drag.AsView(), !FlagSet(modifiers, KeyMod::Ctrl), drag.rectangular);
+			drag.Clear();
+			selectionUnit = TextUnit::character;
 		} else {
 			if (selectionUnit == TextUnit::character) {
 				if (sel.Count() > 1) {
@@ -7559,7 +7538,7 @@ sptr_t Editor::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 		RedrawSelMargin();
 		break;
 	case Message::MarkerEnableHighlight:
-		marginView.highlightDelimiter.isEnabled = wParam == 1;
+		marginView.highlightDelimiter.SetEnabled(wParam == 1);
 		RedrawSelMargin();
 		break;
 	case Message::MarkerSetAlpha:

@@ -11,11 +11,19 @@
 #include <vector>
 #include <initializer_list>
 
+#if defined(LEXILLA_NO_EXPORT)
+#define EXPORT_FUNCTION
+#else
 #if defined(_WIN32)
 #define EXPORT_FUNCTION __declspec(dllexport)
-#define CALLING_CONVENTION __stdcall
 #else
 #define EXPORT_FUNCTION __attribute__((visibility("default")))
+#endif
+#endif
+
+#if defined(_WIN32)
+#define CALLING_CONVENTION __stdcall
+#else
 #define CALLING_CONVENTION
 #endif
 

@@ -518,6 +518,19 @@ constexpr bool isLineEnd(int ch) noexcept {
 	return ch == '\r' || ch == '\n';
 }
 
+// Find whether there is a closing '/' for a regex starting at start.
+bool CheckRegexClosed(Accessor &styler, Sci_PositionU start) {
+	for (Sci_Position pos = 1; ; pos++) {
+		const char ch = styler.SafeGetCharAt(start + pos, '\n');
+		if (ch == '/') {
+			return true;
+		}
+		if (isLineEnd(ch)) {
+			return false;
+		}
+	}
+}
+
 bool isMakoBlockEnd(const int ch, const int chNext, const std::string &blockType) noexcept {
 	if (blockType.empty()) {
 		return ((ch == '%') && (chNext == '>'));
@@ -2205,7 +2218,7 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 			} else if (ch == '/' && chNext == '/') {
 				styler.ColourTo(i - 1, StateToPrint);
 				state = SCE_HJ_COMMENTLINE;
-			} else if (ch == '/' && setOKBeforeJSRE.Contains(chPrevNonWhite)) {
+			} else if (ch == '/' && setOKBeforeJSRE.Contains(chPrevNonWhite) && CheckRegexClosed(styler, i)) {
 				styler.ColourTo(i - 1, StateToPrint);
 				state = SCE_HJ_REGEX;
 			} else if (ch == '\"') {

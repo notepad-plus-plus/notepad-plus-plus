@@ -639,8 +639,20 @@ Sci::Line Document::GetLastChild(Sci::Line lineParent, std::optional<FoldLevel> 
 	const Sci::Line maxLine = LinesTotal() - 1;
 	const Sci::Line lookLastLine = (lastLine != -1) ? std::min(maxLine, lastLine) : maxLine;
 	Sci::Line lineMaxSubord = lineParent;
+
+	// A fold start is commonly closely followed by its last child, but it could be a long distance,
+	// perhaps the end of the file. This may be caused by an unbalanced fold start.
+	// To reduce lexer/folder overhead use progressively larger blocks of lines.
+	// First 10 grow by 1 then geometric 1.2x growth.
+	Sci::Line linesToStyle = 1;
+	constexpr Sci::Line growthFraction = 5;
+
 	while (lineMaxSubord < maxLine) {
-		EnsureStyledTo(LineStart(lineMaxSubord + 2));
+		const Sci::Position posNeedStyle = LineStart(lineMaxSubord + 2);
+		if (posNeedStyle > GetEndStyled()) {
+			EnsureStyledTo(LineStart(lineMaxSubord + linesToStyle + 1));
+			linesToStyle += std::max<Sci::Line>(1, linesToStyle / growthFraction);
+		}
 		if (!IsSubordinate(levelStart, GetFoldLevel(lineMaxSubord + 1)))
 			break;
 		if ((lineMaxSubord >= lookLastLine) && !LevelIsWhitespace(GetFoldLevel(lineMaxSubord)))
@@ -726,10 +738,7 @@ void Document::GetHighlightDelimiters(HighlightDelimiter &highlightDelimiter, Sc
 	if (firstChangeableLineAfter == -1)
 		firstChangeableLineAfter = endFoldBlock + 1;
 
-	highlightDelimiter.beginFoldBlock = beginFoldBlock;
-	highlightDelimiter.endFoldBlock = endFoldBlock;
-	highlightDelimiter.firstChangeableLineBefore = firstChangeableLineBefore;
-	highlightDelimiter.firstChangeableLineAfter = firstChangeableLineAfter;
+	highlightDelimiter.Set(beginFoldBlock, endFoldBlock, firstChangeableLineBefore, firstChangeableLineAfter);
 }
 
 Sci::Position Document::ClampPositionIntoDocument(Sci::Position pos) const noexcept {

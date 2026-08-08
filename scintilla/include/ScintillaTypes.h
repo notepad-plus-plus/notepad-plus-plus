@@ -603,6 +603,8 @@ enum class Update {
 	Selection = 0x2,
 	VScroll = 0x4,
 	HScroll = 0x8,
+	Text = 0x10,
+	LineCount = 0x20,
 };
 
 enum class FocusChange {

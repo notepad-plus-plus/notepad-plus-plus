@@ -651,13 +651,13 @@ class ScintillaWin :
 
 	std::string EncodeWString(std::wstring_view wsv);
 	sptr_t DefWndProc(Message iMessage, uptr_t wParam, sptr_t lParam) override;
-	void IdleWork() override;
-	void QueueIdleWork(WorkItems items, Sci::Position upTo) override;
-	bool SetIdle(bool on) override;
 	UINT_PTR timers[static_cast<int>(TickReason::dwell)+1] {};
 	bool FineTickerRunning(TickReason reason) override;
 	void FineTickerStart(TickReason reason, int millis, int tolerance) override;
 	void FineTickerCancel(TickReason reason) override;
+	bool SetIdle(bool on) override;
+	void IdleWork() override;
+	void QueueIdleWork(WorkItems items, Sci::Position upTo) override;
 	void SetMouseCapture(bool on) override;
 	bool HaveMouseCapture() override;
 	void SetTrackMouseLeaveEvent(bool on) noexcept;
@@ -2618,7 +2618,6 @@ void ScintillaWin::FineTickerCancel(TickReason reason) {
 		timers[reasonIndex] = 0;
 	}
 }
-
 
 bool ScintillaWin::SetIdle(bool on) {
 	// On Win32 the Idler is implemented as a Timer on the Scintilla window.  This

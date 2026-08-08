@@ -23,10 +23,6 @@ knownArgument:scintilla/src/SparseVector.h
 // cppcheck 2.11 can't find system headers on Win32.
 missingIncludeSystem
 
-// The cast converts from 'unsigned char ' to 'char' so isn't unused.
-// Redundant code: Found unused cast of expression 'leadByte'
-constStatement:scintilla/src/Document.cxx
-
 // Some non-explicit constructors are used for conversions or are private to lexers
 noExplicitConstructor
 
@@ -70,6 +66,9 @@ unmatchedSuppression:scintilla/qt/ScintillaEditBase/PlatQt.cpp
 unmatchedSuppression:scintilla/qt/ScintillaEditBase/ScintillaEditBase.cpp
 unmatchedSuppression:scintilla/qt/ScintillaEditBase/ScintillaQt.cpp
 
+// While ShowAssertionPopUps always returns false, it can be set to true for debugging
+knownConditionTrueFalse:scintilla/qt/ScintillaEditBase/PlatQt.cpp
+
 // G_DEFINE_TYPE is too complex to pass to cppcheck
 unknownMacro:scintilla/gtk/PlatGTK.cxx
 // G_END_DECLS
@@ -85,6 +84,7 @@ constVariablePointer:scintilla/gtk/ScintillaGTKAccessible.cxx
 
 // moc_ files show #error as they are not built with standard context
 preprocessorErrorDirective:scintilla/qt/**.cpp
+noValidConfiguration:scintilla/qt/ScintillaEditBase/build/**.cpp
 
 // Doesn't understand Qt slots macro
 unknownMacro:scintilla/qt/ScintillaEditBase/*.h

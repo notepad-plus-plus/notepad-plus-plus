@@ -7,5 +7,10 @@
  0 401   0 | /a/gm.test('a');
  0 401   0 | 'a'.replace(/a/g, 'b');
  0 401   0 | 'a'.replace(/a/gm, 'b');
+ 1 401   0 | 
+ 0 401   0 | // No second / on line means first is operator, not start of regex
+ 0 401   0 | re = /a|
+ 0 401   0 | b/i.test("baby");
+ 1 401   0 | 
  0 401   0 | </script>
  0 400   0   

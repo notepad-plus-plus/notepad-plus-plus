@@ -154,6 +154,10 @@
     <div class="console">nmake -f lexilla.mak</div>
     <br />
 
+    <p>Lexilla normally publishes entry points so that it works as a shared library
+    but applications that are linking statically may hide these by defining
+    the preprocessor symbol <code>LEXILLA_NO_EXPORT</code>.</p>
+
     <div>After building Lexilla, its test suite can be run with make/nmake in the lexilla/test directory. For gcc or clang</div>
     <div class="console">make test</div>
     or for MSVC<br />

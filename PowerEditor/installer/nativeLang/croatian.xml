@@ -1490,8 +1490,8 @@ Učitavanje će uzrokovati automatsku autentifikaciju sustava Windows na tom pos
 Učitaj svejedno?"/>
 				<Item id="7" name="&amp;Preskoči"/>
 				<Item id="6" name="&amp;Učitaj"/>
-				<Item id="2" name="Uvijek p&ampreskoči mrežnu putanju"/>
-				<Item id="4" name="Uvijek u&ampčitaj mrežnu putanj"/>
+				<Item id="2" name="Uvijek p&amp;reskoči mrežnu putanju"/>
+				<Item id="4" name="Uvijek u&amp;čitaj mrežnu putanj"/>
 			</NetworkPathWarning>
 
 			<DebugInfo title="Debug informacije">

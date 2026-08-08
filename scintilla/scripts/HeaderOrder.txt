@@ -156,6 +156,7 @@
 #include "EditView.h"
 #include "Editor.h"
 #include "ElapsedPeriod.h"
+#include "RunThreads.h"
 
 #include "AutoComplete.h"
 #include "ScintillaBase.h"

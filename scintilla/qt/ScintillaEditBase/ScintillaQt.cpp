@@ -527,6 +527,24 @@ bool ScintillaQt::SetIdle(bool on)
 	return ChangeIdle(on);
 }
 
+void ScintillaQt::customEvent(QEvent* event)
+{
+	if (event->type() == workEvent) {
+		workInQueue = false;
+		Editor::IdleWork();
+	}
+	QObject::customEvent(event);
+}
+
+void ScintillaQt::QueueIdleWork(WorkItems items, Sci::Position upTo)
+{
+	Editor::QueueIdleWork(items, upTo);
+	if (!workInQueue) {
+		QCoreApplication::postEvent(this, new QEvent(workEvent));
+		workInQueue = true;
+	}
+}
+
 CharacterSet ScintillaQt::CharacterSetOfDocument() const
 {
 	return vs.styles[STYLE_DEFAULT].characterSet;

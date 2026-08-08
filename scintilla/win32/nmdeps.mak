@@ -277,7 +277,8 @@ $(DIR_O)/Editor.obj: \
 	../src/MarginView.h \
 	../src/EditView.h \
 	../src/Editor.h \
-	../src/ElapsedPeriod.h
+	../src/ElapsedPeriod.h \
+	../src/RunThreads.h
 $(DIR_O)/EditView.obj: \
 	../src/EditView.cxx \
 	../include/ScintillaTypes.h \
@@ -314,7 +315,8 @@ $(DIR_O)/EditView.obj: \
 	../src/EditModel.h \
 	../src/MarginView.h \
 	../src/EditView.h \
-	../src/ElapsedPeriod.h
+	../src/ElapsedPeriod.h \
+	../src/RunThreads.h
 $(DIR_O)/Geometry.obj: \
 	../src/Geometry.cxx \
 	../src/Geometry.h

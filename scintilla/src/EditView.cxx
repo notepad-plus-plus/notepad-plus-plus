@@ -67,6 +67,7 @@
 #include "MarginView.h"
 #include "EditView.h"
 #include "ElapsedPeriod.h"
+#include "RunThreads.h"
 
 using namespace Scintilla;
 using namespace Scintilla::Internal;
@@ -495,25 +496,13 @@ void EditView::LayoutLine(const EditModel &model, Surface *surface, const ViewSt
 			std::atomic<uint32_t> nextIndex = 0;
 
 			const bool textUnicode = CpUtf8 == model.pdoc->dbcsCodePage;
-			const bool multiThreaded = threads > 1;
-			const bool multiThreadedContext = multiThreaded || callerMultiThreaded;
+			const bool multiThreadedContext = (threads > 1) || callerMultiThreaded;
 			IPositionCache *pCache = posCache.get();
 
 			// If only 1 thread needed then use the main thread, else spin up multiple
-			const std::launch policy = (multiThreaded) ? std::launch::async : std::launch::deferred;
-
-			std::vector<std::future<void>> futures;
-			for (size_t th = 0; th < threads; th++) {
-				// Find relative positions of everything except for tabs
-				std::future<void> fut = std::async(policy,
-					[pCache, surface, &vstyle, &ll, &segments, &nextIndex, textUnicode, multiThreadedContext]() {
-					LayoutSegments(pCache, surface, vstyle, ll, segments, nextIndex, textUnicode, multiThreadedContext);
+			RunThreads(threads, [pCache, surface, &vstyle, ll, &segments, &nextIndex, textUnicode, multiThreadedContext]() {
+				LayoutSegments(pCache, surface, vstyle, ll, segments, nextIndex, textUnicode, multiThreadedContext);
 				});
-				futures.push_back(std::move(fut));
-			}
-			for (const std::future<void> &f : futures) {
-				f.wait();
-			}
 		}
 
 		// Accumulate absolute positions from relative positions within segments and expand tabs

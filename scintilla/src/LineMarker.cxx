@@ -371,7 +371,11 @@ void LineMarker::Draw(Surface *surface, const PRectangle &rcWhole, const Font *f
 	const XYPOSITION centreY = std::floor(centre.y);
 	const XYPOSITION dimOn2 = std::floor(minDim / 2);
 	const XYPOSITION dimOn4 = std::floor(minDim / 4);
-	const XYPOSITION armSize = dimOn2 - 2;
+	// Half-thickness of the plus/minus bars, historically 1 pixel.  Scale
+	// with strokeWidth so the symbols keep their weight when the surface
+	// is in device pixels and strokeWidth has been set to match.
+	const XYPOSITION barOn2 = std::round(std::max<XYPOSITION>(strokeWidth, 1.0));
+	const XYPOSITION armSize = dimOn2 - 2 * barOn2;
 	if (marginStyle == MarginType::Number || marginStyle == MarginType::Text || marginStyle == MarginType::RText) {
 		// On textual margins move marker to the left to try to avoid overlapping the text
 		centreX = rcWhole.left + dimOn2 + 1;
@@ -418,18 +422,18 @@ void LineMarker::Draw(Surface *surface, const PRectangle &rcWhole, const Font *f
 
 	case MarkerSymbol::Plus: {
 			const Point pts[] = {
-				Point(centreX - armSize, centreY - 1),
-				Point(centreX - 1, centreY - 1),
-				Point(centreX - 1, centreY - armSize),
-				Point(centreX + 1, centreY - armSize),
-				Point(centreX + 1, centreY - 1),
-				Point(centreX + armSize, centreY - 1),
-				Point(centreX + armSize, centreY + 1),
-				Point(centreX + 1, centreY + 1),
-				Point(centreX + 1, centreY + armSize),
-				Point(centreX - 1, centreY + armSize),
-				Point(centreX - 1, centreY + 1),
-				Point(centreX - armSize, centreY + 1),
+				Point(centreX - armSize, centreY - barOn2),
+				Point(centreX - barOn2, centreY - barOn2),
+				Point(centreX - barOn2, centreY - armSize),
+				Point(centreX + barOn2, centreY - armSize),
+				Point(centreX + barOn2, centreY - barOn2),
+				Point(centreX + armSize, centreY - barOn2),
+				Point(centreX + armSize, centreY + barOn2),
+				Point(centreX + barOn2, centreY + barOn2),
+				Point(centreX + barOn2, centreY + armSize),
+				Point(centreX - barOn2, centreY + armSize),
+				Point(centreX - barOn2, centreY + barOn2),
+				Point(centreX - armSize, centreY + barOn2),
 			};
 			AlignedPolygon(surface, pts, std::size(pts));
 		}
@@ -437,10 +441,10 @@ void LineMarker::Draw(Surface *surface, const PRectangle &rcWhole, const Font *f
 
 	case MarkerSymbol::Minus: {
 			const Point pts[] = {
-				Point(centreX - armSize, centreY - 1),
-				Point(centreX + armSize, centreY - 1),
-				Point(centreX + armSize, centreY + 1),
-				Point(centreX - armSize, centreY + 1),
+				Point(centreX - armSize, centreY - barOn2),
+				Point(centreX + armSize, centreY - barOn2),
+				Point(centreX + armSize, centreY + barOn2),
+				Point(centreX - armSize, centreY + barOn2),
 			};
 			AlignedPolygon(surface, pts, std::size(pts));
 		}

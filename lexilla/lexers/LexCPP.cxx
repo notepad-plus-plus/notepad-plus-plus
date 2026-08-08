@@ -87,6 +87,16 @@ bool followsReturnKeyword(const StyleContext &sc, LexAccessor &styler) {
 	return !*s;
 }
 
+bool CheckRegexClosed(StyleContext &sc) {
+	const Sci_Position length = sc.lineEnd - sc.currentPos;
+	for (Sci_Position pos = 1; pos < length; pos++) {
+		if (sc.GetRelativeChar(pos) == '/') {
+			return true;
+		}
+	}
+	return false;
+}
+
 constexpr bool IsOperatorOrSpace(int ch) noexcept {
 	return isoperator(ch) || IsASpace(ch);
 }
@@ -1340,7 +1350,8 @@ void SCI_METHOD LexerCPP::Lex(Sci_PositionU startPos, Sci_Position length, int i
 				   && (setOKBeforeRE.Contains(chPrevNonWhite)
 				       || followsReturnKeyword(sc, styler))
 				   && (!setCouldBePostOp.Contains(chPrevNonWhite)
-				       || !FollowsPostfixOperator(sc, styler))) {
+				       || !FollowsPostfixOperator(sc, styler))
+				   && CheckRegexClosed(sc)) {
 				sc.SetState(SCE_C_REGEX|activitySet);	// JavaScript's RegEx
 				inRERange = false;
 			} else if (sc.ch == '\"') {

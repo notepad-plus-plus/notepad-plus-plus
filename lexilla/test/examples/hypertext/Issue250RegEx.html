@@ -7,4 +7,9 @@
 /a/gm.test('a');
 'a'.replace(/a/g, 'b');
 'a'.replace(/a/gm, 'b');
+
+// No second / on line means first is operator, not start of regex
+re = /a|
+b/i.test("baby");
+
 </script>

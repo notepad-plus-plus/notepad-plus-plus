@@ -73,10 +73,10 @@ std::string directoryLoadDefault;
 std::string lastLoaded;
 
 struct LexLibrary {
-	Lexilla::CreateLexerFn fnCL;
-	Lexilla::LexerNameFromIDFn fnLNFI;
-	Lexilla::GetLibraryPropertyNamesFn fnGLPN;
-	Lexilla::SetLibraryPropertyFn fnSLP;
+	Lexilla::CreateLexerFn fnCL {};
+	Lexilla::LexerNameFromIDFn fnLNFI {};
+	Lexilla::GetLibraryPropertyNamesFn fnGLPN {};
+	Lexilla::SetLibraryPropertyFn fnSLP {};
 	std::string nameSpace;
 };
 std::vector<LexLibrary> libraries;

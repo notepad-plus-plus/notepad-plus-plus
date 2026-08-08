@@ -78,6 +78,8 @@ class ScintillaEditBase;
 
 namespace Scintilla::Internal {
 
+constexpr QEvent::Type workEvent = QEvent::User;
+
 class ScintillaQt : public QObject, public ScintillaBase {
 	Q_OBJECT
 
@@ -136,6 +138,8 @@ private:
 	void FineTickerCancel(TickReason reason) override;
 	bool ChangeIdle(bool on);
 	bool SetIdle(bool on) override;
+	bool workInQueue = false;
+	void QueueIdleWork(WorkItems items, Sci::Position upTo) override;
 	void SetMouseCapture(bool on) override;
 	bool HaveMouseCapture() override;
 	void StartDrag() override;
@@ -172,6 +176,7 @@ protected:
 	void DropUrls(const QMimeData *data);
 
 	void timerEvent(QTimerEvent *event) override;
+	void customEvent(QEvent* event) override;
 
 private:
 	QAbstractScrollArea *scrollArea;

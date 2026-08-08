@@ -29,7 +29,7 @@ public:
 
 	virtual const std::vector<const IDecoration*> &View() const noexcept = 0;
 
-	virtual void SetCurrentIndicator(int indicator) = 0;
+	virtual void SetCurrentIndicator(int indicator) noexcept = 0;
 	virtual int GetCurrentIndicator() const noexcept = 0;
 
 	virtual void SetCurrentValue(int value) noexcept = 0;

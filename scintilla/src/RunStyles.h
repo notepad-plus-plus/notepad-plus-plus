@@ -17,9 +17,9 @@ namespace Scintilla::Internal {
 // when some of the requested range already had the requested value.
 template <typename DISTANCE>
 struct FillResult {
-	bool changed;
-	DISTANCE position;
-	DISTANCE fillLength;
+	bool changed = false;
+	DISTANCE position {};
+	DISTANCE fillLength {};
 };
 
 template <typename DISTANCE, typename STYLE>

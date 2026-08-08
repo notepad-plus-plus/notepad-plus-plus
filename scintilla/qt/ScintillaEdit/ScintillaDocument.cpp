@@ -2,6 +2,7 @@
 // Wrapper for Scintilla document object so it can be manipulated independently.
 // Copyright (c) 2011 Archaeopteryx Software, Inc. d/b/a Wingware
 
+#include <cstdlib>
 #include <cstdint>
 
 #include <stdexcept>
@@ -189,14 +190,14 @@ void ScintillaDocument::insert_string(int position, const QByteArray &str) {
     (static_cast<Document *>(pdoc))->InsertString(position, str.data(), str.size());
 }
 
-QByteArray ScintillaDocument::get_char_range(int position, int length) const {
+QByteArray ScintillaDocument::get_char_range(int position, int lengthGet) const {
     const Document *doc = static_cast<Document *>(pdoc);
 
-    if (position < 0 || length <= 0 || position + length > doc->Length())
+    if (position < 0 || lengthGet <= 0 || position + lengthGet > doc->Length())
         return QByteArray();
 
-    QByteArray ba(length, '\0');
-    doc->GetCharRange(ba.data(), position, length);
+    QByteArray ba(lengthGet, '\0');
+    doc->GetCharRange(ba.data(), position, lengthGet);
     return ba;
 }
 
@@ -228,8 +229,8 @@ void ScintillaDocument::start_styling(int position) {
     (static_cast<Document *>(pdoc))->StartStyling(position);
 }
 
-bool ScintillaDocument::set_style_for(int length, char style) {
-    return (static_cast<Document *>(pdoc))->SetStyleFor(length, style);
+bool ScintillaDocument::set_style_for(int lengthSet, char style) {
+    return (static_cast<Document *>(pdoc))->SetStyleFor(lengthSet, style);
 }
 
 int ScintillaDocument::get_end_styled() const {

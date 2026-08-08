@@ -601,6 +601,39 @@
     </table>
     <h2 id="Releases">Releases</h2>
     <h3>
+       <a href="https://www.scintilla.org/scintilla565.zip">Release 5.6.5</a>
+    </h3>
+    <ul>
+	<li>
+	Released 4 August 2026.
+	</li>
+	<li>
+	Add SC_UPDATE_TEXT and SC_UPDATE_LINE_COUNT flags to SCN_UPDATEUI notifications.
+	This can help improve performance by client code switching from listening for changes with rapid
+	SCN_MODIFIED to delayed SCN_UPDATEUI notifications.
+	</li>
+	<li>
+	On Qt, prepare for drawing asynchronously to avoid styling inside the draw handler.
+	This may improve performance and matches other platforms.
+	</li>
+	<li>
+	On Cocoa, fix problem where styling and update UI notifications were performed inside drawing
+	instead of before drawing which could cause drawing to be abandoned unnecessarily.
+	</li>
+	<li>
+	Increase interior width of MarkerSymbol::Plus and Minus to match stroke width setting.
+	</li>
+	<li>
+	Improve performance of fold discovery in some situations by styling progressively larger
+	blocks of lines.
+	</li>
+	<li>
+	Don't use std::async and std::future in single threaded situations.
+	This avoids crashes with some runtime libraries as well as minor performance costs.
+	<a href="https://github.com/geany/geany/issues/4620">Geany Issue #4620</a>.
+	</li>
+    </ul>
+    <h3>
        <a href="https://www.scintilla.org/scintilla564.zip">Release 5.6.4</a>
     </h3>
     <ul>

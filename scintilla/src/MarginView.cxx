@@ -506,7 +506,7 @@ void MarginView::PaintMargin(Surface *surface, Sci::Line topLine, PRectangle rc,
 				surface->FillRectangle(rcOneMargin, vs.styles[StyleLineNumber].back);
 			}
 
-			if (marginStyle.ShowsFolding() && highlightDelimiter.isEnabled) {
+			if (marginStyle.ShowsFolding() && highlightDelimiter.IsEnabled()) {
 				const Sci::Line lastLine = model.pcs->DocFromDisplay(topLine + model.LinesOnScreen()) + 1;
 				model.pdoc->GetHighlightDelimiters(highlightDelimiter,
 					model.pdoc->SciLineFromPosition(model.sel.MainCaret()), lastLine);

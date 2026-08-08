@@ -276,7 +276,8 @@ Editor.o: \
 	../src/MarginView.h \
 	../src/EditView.h \
 	../src/Editor.h \
-	../src/ElapsedPeriod.h
+	../src/ElapsedPeriod.h \
+	../src/RunThreads.h
 EditView.o: \
 	../src/EditView.cxx \
 	../include/ScintillaTypes.h \
@@ -313,7 +314,8 @@ EditView.o: \
 	../src/EditModel.h \
 	../src/MarginView.h \
 	../src/EditView.h \
-	../src/ElapsedPeriod.h
+	../src/ElapsedPeriod.h \
+	../src/RunThreads.h
 Geometry.o: \
 	../src/Geometry.cxx \
 	../src/Geometry.h

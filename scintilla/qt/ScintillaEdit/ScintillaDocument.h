@@ -57,7 +57,7 @@ public:
     void set_read_only(bool read_only);
     bool is_read_only() const;
     void insert_string(int position, const QByteArray &str);
-    QByteArray get_char_range(int position, int length) const;
+    QByteArray get_char_range(int position, int lengthGet) const;
     char style_at(int position) const;
     int line_start(int lineno) const;
     int line_end(int lineno) const;
@@ -65,7 +65,7 @@ public:
     int length() const;
     int lines_total() const;
     void start_styling(int position);
-    bool set_style_for(int length, char style);
+    bool set_style_for(int lengthSet, char style);
     int get_end_styled() const;
     void ensure_styled_to(int position);
     void set_current_indicator(int indic);

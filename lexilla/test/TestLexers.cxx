@@ -1000,7 +1000,7 @@ std::filesystem::path FindLexillaDirectory(std::filesystem::path startDirectory)
 struct LexerTestsDirectory {
 	std::filesystem::path path;
 	std::filesystem::path parent;
-	bool singleLexer;
+	bool singleLexer=false;
 };
 
 bool AccessLexilla(std::filesystem::path basePath, const std::vector<LexerTestsDirectory> &directoryList) {

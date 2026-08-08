@@ -1138,6 +1138,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_4, L"Apply Color 4", L"Apply Color to Tab"));
 					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_5, L"Apply Color 5", L"Apply Color to Tab"));
 					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_NONE, L"Remove Color", L"Apply Color to Tab"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_WRAP_GLOBAL, L"Use Global Setting", L"Word Wrap"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_WRAP_OFF, L"Off", L"Word Wrap"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_WRAP_ON, L"On", L"Word Wrap"));
 
 					// IMPORTANT: If any submenu entry is added/moved/removed, you have to change the value of tabCmSubMenuEntryPos[] in localization.cpp file
 				}
@@ -1159,6 +1162,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			Buffer* buf = _pEditView->getCurrentBuffer();
 			bool isUserReadOnly = buf->getUserReadOnly();
 			_tabPopupMenu.checkItem(IDM_EDIT_TOGGLEREADONLY, isUserReadOnly);
+			_tabPopupMenu.checkItem(IDM_VIEW_TAB_WRAP_GLOBAL, buf->getWrapMode() == DocumentWrapMode::useGlobal);
+			_tabPopupMenu.checkItem(IDM_VIEW_TAB_WRAP_OFF, buf->getWrapMode() == DocumentWrapMode::off);
+			_tabPopupMenu.checkItem(IDM_VIEW_TAB_WRAP_ON, buf->getWrapMode() == DocumentWrapMode::on);
 
 			bool isSysReadOnly = buf->getFileReadOnly();
 			bool isInaccessible = buf->isInaccessible();

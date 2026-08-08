@@ -489,6 +489,7 @@ private:
 	void checkMacroState();
 	void checkSyncState();
 	void syncZoom();
+	void applyWrapToBuffer(Buffer* buffer);
 	void setupColorSampleBitmapsOnMainMenuItems();
 	void dropFiles(HDROP hdrop);
 	void checkModifiedDocument(bool bCheckOnlyCurrentBuffer);

@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 04.07.2026 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 09.08.2026 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \========================================================================== -->
 <NotepadPlus>
@@ -678,6 +678,18 @@
 				<Item id="7" name="&amp;Не"/>
 				<Item id="4" name="Да, &amp;винаги"/>
 			</DoSaveAll>
+			<NetworkPathWarning title="Зареждане на сесията на Notepad++" title2="Връзка към файл file://">
+				<Item id="1771" name="Предупреждение за мрежов път:
+
+$STR_REPLACE$
+
+Зареждането му ще накара Windows автоматично да се удостовери пред този сървър, потенциално разкривайки информацията за вашия вход в Windows.
+Да продължи ли зареждането въпреки това?"/>
+				<Item id="2" name="&amp;Пропускане"/>
+				<Item id="6" name="&amp;Зареждане"/>
+				<Item id="7" name="&amp;Винаги да се пропуска мрежовия път"/>
+				<Item id="4" name="Винаги да се зарежда &amp;мрежовия път"/>
+			</NetworkPathWarning>
 			<!-- Меню "Търсене" начало -->
 			<!-- "Отиване на..." -->
 			<GoToLine title="Отиване на...">
@@ -1578,14 +1590,16 @@
 				<Item id="2" name="Отказ"/>
 			</Run>
 			<!-- Меню "Добавки" - "Управление на добавки..." -->
-			<PluginsAdminDlg title="Управление на добавки" titleAvailable="Налични" titleUpdates="Актуализации" titleInstalled="Инсталирани" titleIncompatible="Несъвместими">
+			<PluginsAdminDlg title="Управление на добавки" titleAvailable="Налични" titleUpdates="Актуализации" titleInstalled="Инсталирани" titleIncompatible="Несъвместими" titleDisabled="Деактивирани">
 				<ColumnPlugin name="Добавка"/>
 				<ColumnVersion name="Версия"/>
 				<Item id="5501" name="&amp;Търсене:"/>
 				<Item id="5503" name="&amp;Инсталиране"/>
 				<Item id="5504" name="&amp;Обновяване"/>
-				<Item id="5505" name="&amp;Премахване"/>
 				<Item id="5508" name="&amp;Следващ"/>
+				<Item id="5512" name="Деактивиране"/>
+				<Item id="5513" name="Активиране"/>
+				<Item id="5505" name="&amp;Премахване"/>
 				<Item id="5509" name="Версия на списъка с добавки: "/>
 				<Item id="5511" name="Хранилище на списъкa с добавки"/>
 				<Item id="2" name="Затваряне"/>
@@ -2112,10 +2126,10 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Премахнете атрибута &quot;само за четене&quot;, след което запишете файла си."/>
 			<ShortcutsXmlHMACMissing title="Предупреждение за сигурност" message="Липсва информация за сигурността на shortcuts.xml в config.xml.
 
-От съображения за сигурност целостта на shortcuts.xml ще бъде проверена. За да изпълните вашата персонализирана команда, прегледайте отворения shortcuts.xml. Ако съдържанието на файла е наред, използвайте &quot;Валидиране на shortcuts.xml&quot; от менюто, за да го потвърдите."/>
+От съображения за сигурност целостта на shortcuts.xml ще бъде проверена. За да изпълните вашата персонализирана команда, прегледайте отворения shortcuts.xml. Ако съдържанието на файла е наред, използвайте &quot;Валидиране на shortcuts.xml&quot; от менюто &quot;Стартиране&quot;, за да го потвърдите."/>
 			<ShortcutsXmlTampered title="Предупреждение за сигурност" message="Изглежда, че файлът shortcuts.xml е бил променян ръчно.
 
-От съображения за сигурност, прегледайте отворения shortcuts.xml. Ако съдържанието на файла е наред, използвайте &quot;Валидиране на shortcuts.xml&quot; от менюто, за да го потвърдите."/>
+От съображения за сигурност, прегледайте отворения shortcuts.xml. Ако съдържанието на файла е наред, използвайте &quot;Валидиране на shortcuts.xml&quot; от менюто &quot;Стартиране&quot;, за да го потвърдите."/>
 		</MessageBox>
 	</Native-Langue>
 </NotepadPlus>

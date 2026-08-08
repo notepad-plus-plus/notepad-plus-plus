@@ -625,8 +625,6 @@ Translation note:
 				<Item id="5511" name="Plugin list repository"/>
 				<Item id="5512" name="D&amp;eactivate"/>
 				<Item id="5513" name="&amp;Activate"/>
-				<Item id="5514" name="Re&amp;move"/>
-				<Item id="5515" name="Re&amp;move"/>
 				<Item id="2" name="Close"/>
 			</PluginsAdminDlg>
 

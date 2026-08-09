@@ -618,7 +618,7 @@ Translation note:
 				<Item id="2" name="閉じる(&amp;C)"/>
 			</SHA512FromTextDlg>
 
-			<PluginsAdminDlg title="プラグイン管理" titleAvailable="利用可能" titleUpdates="アップデート" titleInstalled="インストール済み" titleIncompatible="互換性がない">
+			<PluginsAdminDlg title="プラグイン管理" titleAvailable="利用可能" titleUpdates="アップデート" titleInstalled="インストール済み" titleIncompatible="互換性がない" titleDisabled="無効化済み">
 				<ColumnPlugin name="プラグイン"/>
 				<ColumnVersion name="バージョン"/>
 				<Item id="5501" name="検索(&amp;S)："/>
@@ -628,6 +628,8 @@ Translation note:
 				<Item id="5508" name="次を検索(&amp;N)"/>
 				<Item id="5509" name="プラグインリストのバージョン："/>
 				<Item id="5511" name="プラグインリストのレポジトリ"/>
+				<Item id="5512" name="無効化する(&amp;E)"/>
+				<Item id="5513" name="有効にする(&amp;A)"/>
 				<Item id="2" name="閉じる"/>
 			</PluginsAdminDlg>
 

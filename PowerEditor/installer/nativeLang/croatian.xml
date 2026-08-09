@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: August 6, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: August 8, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
@@ -622,7 +622,7 @@
 				<Item id="1934" name="&amp;Kopiraj u međuspremnik"/>
 				<Item id="2" name="&amp;Zatvori"/>
 			</SHA512FromTextDlg>
-			<PluginsAdminDlg title="Uređivanje dodataka" titleAvailable="Dostupno" titleUpdates="Ažuriranja" titleInstalled="Instalirano" titleIncompatible="Nekompatibilno">
+			<PluginsAdminDlg title="Uređivanje dodataka" titleAvailable="Dostupno" titleUpdates="Ažuriranja" titleInstalled="Instalirano" titleIncompatible="Nekompatibilno" titleDisabled="Deaktivirano">
 				<ColumnPlugin name="Dodatak"/>
 				<ColumnVersion name="Verzija"/>
 				<Item id="5501" name="&amp;Traži:"/>
@@ -632,6 +632,8 @@
 				<Item id="5508" name="&amp;Sljedeće"/>
 				<Item id="5509" name="Verzija popisa dodataka: "/>
 				<Item id="5511" name="Spremište popisa dodataka"/>
+				<Item id="5512" name="&amp;Deaktiviraj"/>
+				<Item id="5513" name="A&amp;ktiviraj"/>
 				<Item id="2" name="Zatvori"/>
 			</PluginsAdminDlg>
 
@@ -1481,17 +1483,17 @@ Ovaj dijalog možete kasnije ponovo aktivirati u Postavkama."/>
 				<Item id="7" name="&amp;Ne"/>
 				<Item id="4" name="&amp;Uvijek da"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
-			<NetworkPathWarning title="Učitavanje sesije Notepad++">
+			<NetworkPathWarning title="Učitavanje sesije Notepad++" title2="Klikabilna datoteka:// link">
 				<Item id="1771" name="Upozorenje o mrežnoj putanji:
 
 $STR_REPLACE$
 
 Učitavanje će uzrokovati automatsku autentifikaciju sustava Windows na tom poslužitelju, što potencijalno otkriva vaše podatke za prijavu u sustav Windows.
 Učitaj svejedno?"/>
-				<Item id="7" name="&amp;Preskoči"/>
+				<Item id="2" name="&amp;Preskoči"/>
 				<Item id="6" name="&amp;Učitaj"/>
-				<Item id="2" name="Uvijek p&amp;reskoči mrežnu putanju"/>
-				<Item id="4" name="Uvijek u&amp;čitaj mrežnu putanj"/>
+				<Item id="7" name="Uvijek p&amp;reskoči mrežnu putanju"/>
+				<Item id="4" name="Uvijek u&amp;čitaj mrežnu putanju"/>
 			</NetworkPathWarning>
 
 			<DebugInfo title="Debug informacije">

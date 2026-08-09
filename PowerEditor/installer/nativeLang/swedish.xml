@@ -612,7 +612,7 @@ Translation note:
 				<Item id="1934" name="Ko&amp;piera till urklipp"/>
 				<Item id="2" name="St&amp;äng"/>
 			</SHA512FromTextDlg>
-			<PluginsAdminDlg title="Hantera insticksprogram" titleAvailable="Tillgängliga" titleUpdates="Uppdateringar" titleInstalled="Installerade" titleIncompatible="Inkompatibla">
+			<PluginsAdminDlg title="Hantera insticksprogram" titleAvailable="Tillgängliga" titleUpdates="Uppdateringar" titleInstalled="Installerade" titleIncompatible="Inkompatibla" titleDisabled="Inaktiverade">
 				<ColumnPlugin name="Insticksprogram"/>
 				<ColumnVersion name="Version"/>
 				<Item id="5501" name="&amp;Sök:"/>
@@ -622,6 +622,8 @@ Translation note:
 				<Item id="5508" name="&amp;Nästa"/>
 				<Item id="5509" name="Insticksprogramslistans version:"/>
 				<Item id="5511" name="Insticksprogramslistans källkod"/>
+				<Item id="5512" name="Inakti&amp;vera"/>
+				<Item id="5513" name="&amp;Aktivera"/>
 				<Item id="2" name="Stäng"/>
 			</PluginsAdminDlg>
 

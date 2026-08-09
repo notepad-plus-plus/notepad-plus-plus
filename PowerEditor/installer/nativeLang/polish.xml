@@ -1524,7 +1524,6 @@ Przeładować go i stracić wszystkie zmiany dokonane w Notepad++?"/>
 			<PrehistoricSystemDetected title="Antyczny system" message="Wykryto antyczny system operacyjny. Przepraszamy, ale ta funkcja działa jedynie na nowoczesnych systemach."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Samoaktualizacja Notepad++" message="Automatyczne aktualizowanie Notepad++ jest niemożliwe w systemie Windows XP ze względu na przestarzałe sposoby ochrony systemu.
 Uruchomić stronę internetową Notepad++ z najnowszą wersją programu?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Ustawienia serwera proxy" message="Uruchom Notepad++ jako administrator, aby skonfigurować ustawienia serwera proxy."/>
 			<DocTooDirtyToMonitor title="Problem z monitorowaniem" message="Plik został naruszony. Musi zostać pierw zapisany, żeby mógł być monitorowany."/>
 			<DocNoExistToMonitor title="Problem z monitorowaniem" message="Plik musi istnieć na dysku, żeby być monitorowany."/>
 			<FileTooBigToOpen title="Problem z rozmiarem" message="Plik jest zbyt duży, żeby mógł być otwarty przez Notepad++."/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->

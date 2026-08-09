@@ -1522,7 +1522,6 @@ Bạn có muốm tải lại nó và mất đi các thay đổi được tạo r
 			<PrehistoricSystemDetected title="Phát hiện hệ thống cổ đại" message="Có vẻ như bạn vẫn đang sử dụng một hệ thống cổ đại. Tính năng này chỉ hoạt động trên một hệ thống hiện đại, xin lỗi."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Trình cập nhật Notepad++" message="Trình cập nhật Notepad++ không tương thích với XP do các lớp bảo mật lỗi thời trên XP.
 Bạn có muốn đi đến trang Notepad++ để tải xuống phiên bản mới nhất không?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Thiết đặt proxy" message="Xin hãy chạy lại Notepad++ trong chế độ quản trị viên để cấu hình proxy."/>
 			<DocTooDirtyToMonitor title="Vấn đề theo dõi" message="Tài liệu này bị 'bẩn'. Xin hãy lưu các chỉnh sửa lại trước khi theo dõi nó."/>
 			<DocNoExistToMonitor title="Vấn đề theo dõi" message="Tệp phải tồn tại để có thể được theo dõi."/>
 			<FileTooBigToOpen title="Vấn đề kích cỡ tệp" message="Tệp này là quá lớn để Notepad++ có thể mở được."/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->

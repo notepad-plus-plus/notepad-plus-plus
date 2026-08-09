@@ -1524,7 +1524,6 @@ Este arquivo foi modificado por outro programa.
 			<PrehistoricSystemDetected title="Detectado sistema obsoleto" message="Parece que está usando un sistema obsoleto. Lamentablemente esta función só funciona nun sistema máis moderno."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Actualizador Notepad++" message="O actualizador de Notepad++ non é compatible con XP debido á capa de seguridade obsoleta en XP.
 ¿Desexa ir á páxina de Notepad++ para descargar a última versión?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Configuración do proxy" message="Para cambiar a configuración do proxy, reinicie Notepad++ no modo Administrador."/>
 			<DocTooDirtyToMonitor title="Problema de monitorización" message="O documento non está limpo. Garde as modificacións antes de monitorealo."/>
 			<DocNoExistToMonitor title="Problema de monitorización" message="O arquivo debe existir para ser monitoreado."/>
 			<FileTooBigToOpen title="Problema de tamaño de arquivo" message="O arquivo é demasiado grande para abrilo con Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->

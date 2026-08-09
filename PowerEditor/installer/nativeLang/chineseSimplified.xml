@@ -1534,7 +1534,6 @@ Translation note:
 			<PrehistoricSystemDetected title="检测到上古系统" message="您的系统好像过于古老了。很抱歉，这个功能只能在现代系统当中使用。"/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Notepad++ 升级工具" message="Notepad++ 升级工具不兼容 Win XP，由于 Win XP 的安全层过于陈旧。
 是否前往 Notepad++ 官网下载最新版？"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="代理设置" message="请以管理员身份重新启动 Notepad++ 以配置代理。"/>
 			<DocTooDirtyToMonitor title="监视问题" message="文档没有保存，请先保存修改再监视它。"/>
 			<DocNoExistToMonitor title="监视问题" message="文件必须存在才能被监视。"/>
 			<FileTooBigToOpen title="文件大小问题" message="文件太大，Notepad++ 无法打开。"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->

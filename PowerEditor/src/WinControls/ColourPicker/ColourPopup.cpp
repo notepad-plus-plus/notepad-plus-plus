@@ -240,7 +240,7 @@ intptr_t CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 					Window::display(false);
 
 					const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED);
-					ChooseColorW(&cc);
+					NppDarkMode::darkChooseColorW(&cc);
 					DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
 
 					::SendMessage(_hParent, WM_PICKUP_COLOR, cc.rgbResult, 0);

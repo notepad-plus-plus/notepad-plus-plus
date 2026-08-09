@@ -1544,7 +1544,6 @@ Wilt u het opnieuw laden en de wijzigingen gemaakt in Notepad++ verliezen?"/>
 			<PrehistoricSystemDetected title="Prehistorisch systeem gedetecteerd" message="Het lijkt erop dat u nog steeds een prehistorisch systeem gebruikt.Deze functie werkt alleen op een modern systeem, sorry."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Notepad++ updater" message="Notepad++ updater is niet compatibel met XP vanwege de verouderde beveiligingslaag onder XP.
 Wilt u naar de Notepad++-pagina gaan om de laatste versie te downloaden?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Proxy-instellingen" message="Start Notepad++ opnieuw in beheerdersmodus om de proxy te configureren."/>
 			<DocTooDirtyToMonitor title="Monitoring-probleem" message="Het document is vervuild. Sla de wijziging op voordat u het monitort."/>
 			<DocNoExistToMonitor title="Monitoring-probleem" message="Het bestand moet bestaan om gemonitord te worden."/>
 			<FileTooBigToOpen title="Probleem met bestandsgrootte" message="Het bestand is te groot om te worden geopend met Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->

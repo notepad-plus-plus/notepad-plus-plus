@@ -613,7 +613,7 @@ Translation note:
 				<Item id="1934" name="Copier dans le presse-papiers"/>
 				<Item id="2" name="Fermer"/>
 			</SHA512FromTextDlg>
-			<PluginsAdminDlg title="Gestionnaire des modules d’extension" titleAvailable="Disponibles" titleUpdates="Mises à jour" titleInstalled="Installés" titleIncompatible="Incompatibilité">
+			<PluginsAdminDlg title="Gestionnaire des modules d’extension" titleAvailable="Disponibles" titleUpdates="Mises à jour" titleInstalled="Installés" titleIncompatible="Incompatibilité" titleDisabled="Désactivé">
 				<ColumnPlugin name="Modules d’extension"/>
 				<ColumnVersion name="Version"/>
 				<Item id="5501" name="Recherche : "/>
@@ -623,6 +623,8 @@ Translation note:
 				<Item id="5508" name="Suivant"/>
 				<Item id="5509" name="Version du module Plugin list : "/>
 				<Item id="5511" name="Dépot du module Plugin list"/>
+				<Item id="5512" name="Désactiver"/>
+				<Item id="5513" name="Activer"/>
 				<Item id="2" name="Fermer"/>
 			</PluginsAdminDlg>
 
@@ -1465,7 +1467,18 @@ Vous pourrez réactiver cette boîte de dialogue dans les Préférences ultérie
 				<Item id="7" name="&amp;Non"/>
 				<Item id="4" name="Toujours Oui"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+			<NetworkPathWarning title="Notepad++ : chargement de la session" title2="Le lien file:// cliquable">
+				<Item id="1771" name="Avertissement concernant le chemin réseau :
 
+$STR_REPLACE$
+
+Le charger amènera Windows à s'authentifier automatiquement auprès de ce serveur, ce qui risque d'exposer vos informations de connexion Windows.
+Charger quand même ?"/>
+				<Item id="2" name="&amp;Ignorer"/>
+				<Item id="6" name="&amp;Charger"/>
+				<Item id="7" name="&amp;Toujours ignorer les chemins réseau"/>
+				<Item id="4" name="Toujours charger les chemins &amp;réseau"/>
+			</NetworkPathWarning>
 			<DebugInfo title="Informations de débogage">
 				<Item id="1752" name="&amp;Copier les informations de débogage dans le presse-papier"/>
 				<Item id="1" name="OK"/>
@@ -1536,7 +1549,6 @@ Voulez-vous le recharger et perdre les modifications effectuées dans Notepad++ 
 			<PrehistoricSystemDetected title="Système préhistorique détecté" message="Il semble que vous utilisez toujours un système préhistorique, cette fonctionnalité ne fonctionne que sur un système moderne, désolé."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Mettre à jour Notepad++" message="Le metteur à jour de Notepad++ est incompatible avec XP en raison de la couche de sécurité obsolète de XP.
 Voulez-vous télécharger la dernière version de Notepad++ sur le site officiel ?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Paramétrage de Proxy" message=" Afin de pouvoir configurer le proxy, relancez Notepad++ en mode « Administrateur »."/>
 			<DocTooDirtyToMonitor title="Surveillance de Log" message="Le document a été modifié. Veuillez l’enregistrer d’abord."/>
 			<DocNoExistToMonitor title="Surveillance de Log" message="Le fichier doit exister pour être surveillé."/>
 			<FileTooBigToOpen title="Fichier trop volumineux" message="Ce fichier est trop volumineux pour être ouvert avec Notepad++."/>
@@ -1617,7 +1629,7 @@ Appuyez sur le bouton OK pour ouvrir la boîte de dialogue de recherche ou lui d
 
 Si vous avez besoin de la fonction de recherche d’expression régulière inversée, consultez le manuel de l’utilisateur pour savoir comment l’activer."/>
 			<PrintError title="0" message="Impossible de démarrer l'imprimante de document."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
-			<FindAutoChangeOfInSelectionWarning title="Avertissement de recherche" message="L'état de laa case à cocher &quot;Dans la sélection&quot; a été automatiquement modifié.
+			<FindAutoChangeOfInSelectionWarning title="Avertissement de recherche" message="L'état de la case à cocher &quot;Dans la sélection&quot; a été automatiquement modifié.
 Veuillez vérifier la condition de recherche avant de procéder à l'action."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Redémarrer Notepad++" message="Vous avez besoins de redémarrer Notepad++ afin d'afficher menu ＋ ▼ ✕ "/>
 			<NoAdminRight2ChangeReadOnlyFileAttribute title="Impossible de modifier l'attribut lecture seule" message="Veuillez lancer Notepad++ en mode « Administrateur » pour modifier cet attribut du fichier."/>

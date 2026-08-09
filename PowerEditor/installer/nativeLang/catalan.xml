@@ -998,7 +998,6 @@ By Hiro5 <groccat at gmail>
 			<DoReloadOrNotAndLooseChange title="Recarrega" message="&quot;$STR_REPLACE$&quot;&#xD;&#xD;Aquest fitxer s'ha modificat amb un altre programa.&#xD;El voleu recarregar i perdre els canvis que s'han fet amb Notepad++?"/>
 			<PrehistoricSystemDetected title="Sistema prehistòric detectat" message="Sembla que encara utilitzeu un sistema prehistòric, lamentablement aquesta característica només funciona en un sistema més modern."/>
 			<XpUpdaterProblem title="Actualitzador de Notepad++" message="L'actualitzador de Notepad++ no és compatible amb XP per una capa de seguretat obsoleta sota XP.&#xD;Voleu anar a la web de Notepad++ per baixar l'última versió?"/>
-			<GUpProxyConfNeedAdminMode title="Opcions de proxy" message="Reinicieu Notepad++ en mode Admin. per configurar el proxy."/>
 			<DocTooDirtyToMonitor title="Problema de monitoratge" message="El document està en brut. Deseu la modificació abans de monitorar-lo."/>
 			<DocNoExistToMonitor title="Problema de monitoratge" message="El fitxer hauria d'existir per monitorar-lo."/>
 			<FileTooBigToOpen title="Problema amb mida de fitxer" message="El fitxer és massa gran per obrir-lo amb Notepad++"/>

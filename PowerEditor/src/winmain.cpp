@@ -352,6 +352,7 @@ const wchar_t FLAG_TITLEBAR_ADD[] = L"-titleAdd=";
 const wchar_t FLAG_APPLY_UDL[] = L"-udl=";
 const wchar_t FLAG_PLUGIN_MESSAGE[] = L"-pluginMessage=";
 const wchar_t FLAG_MONITOR_FILES[] = L"-monitor";
+const wchar_t FLAG_MONITORING_MODE[] = L"-monitoringMode";
 
 void doException(Notepad_plus_Window & notepad_plus_plus)
 {
@@ -601,6 +602,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	cmdLineParams._isRecursive = isInList(FLAG_RECURSIVE, params);
 	cmdLineParams._openFoldersAsWorkspace = isInList(FLAG_OPEN_FOLDERS_AS_WORKSPACE, params);
 	cmdLineParams._monitorFiles = isInList(FLAG_MONITOR_FILES, params);
+	cmdLineParams._monitoringMode = isInList(FLAG_MONITORING_MODE, params);
 
 	cmdLineParams._langType = getLangTypeFromParam(params);
 	cmdLineParams._localizationPath = getLocalizationPathFromParam(params);

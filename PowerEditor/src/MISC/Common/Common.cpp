@@ -1877,10 +1877,51 @@ bool isUnsupportedFileName(const wstring& fileName)
 
 bool isUnsupportedFileName(const wchar_t* szFileName)
 {
-	const wstring fileName = szFileName;
+	const std::wstring fileName = szFileName;
 	return isUnsupportedFileName(fileName);
 }
 
+bool isUncPath(const std::wstring& path)
+{
+	// Extended-length UNC: \\?\UNC\server\share\...  or  //?/UNC/server/share/...
+	if (isWin32NamespacePrefixedFileName(path))
+	{
+		std::wstring rest = path.substr(4); // strip \\?\ or //?/
+		return (rest.starts_with(L"UNC\\") || rest.starts_with(L"UNC/"));
+	}
+
+	// Plain UNC: \\server\share\...  or  //server/share/...
+	return (path.starts_with(L"\\\\") || path.starts_with(L"//"));
+}
+
+bool isUncFileUrl(const std::wstring& url)
+{
+	// file://server/share/... -> leaks NTLM. file:///C:/... or file://localhost/... does not.
+	if (!url.starts_with(L"file://"))
+		return false;
+
+	size_t hostStart = 7; // after "file://"
+	size_t hostEnd = url.find(L'/', hostStart); // file:///C:/dossier/fichier.txt -> hostEnd = 7
+	                                            // file://localhost/C:/dossier/fichier.txt -> hostEnd = 16
+	                                            // file://./C:/dossier/fichier.txt -> hostEnd = 8
+
+	std::wstring host = (hostEnd == std::wstring::npos) ? url.substr(hostStart) : url.substr(hostStart, hostEnd - hostStart);
+
+	if (host.empty() || host == L".")
+		return false;
+
+	if (_wcsicmp(host.c_str(), L"localhost") == 0)
+		return false;
+
+	if (host == L"127.0.0.1" || host == L"::1" || host == L"[::1]")
+		return false;
+
+	// host like "C:" or "C|" (drive letter, sometimes seen w/o triple slash)
+	if (host.size() == 2 && iswalpha(host[0]) && (host[1] == L':' || host[1] == L'|'))
+		return false;
+
+	return true;
+}
 
 Version::Version(const wstring& versionStr)
 {
@@ -2489,4 +2530,93 @@ HRESULT openInExplorerAndSelect(const wchar_t* path)
 		::CoTaskMemFree(pidl);
 	}
 	return hr;
+}
+
+bool needsElevation4Access(const std::wstring& path2check, bool bWriteAccess)
+{
+	namespace fs = std::filesystem;
+
+	WIN32_FILE_ATTRIBUTE_DATA attribs{};
+	attribs.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
+	BOOL bGetAttribs = getFileAttributesExWithTimeout(path2check.c_str(), &attribs);
+	if (!bGetAttribs || (attribs.dwFileAttributes == INVALID_FILE_ATTRIBUTES))
+	{
+		// either the getFileAttributesExWithTimeout failed or the path2check (file or dir) does not exist
+		return false;
+	}
+
+	fs::path testFile;
+	bool fileExists = false;
+
+	if (attribs.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+	{
+		// path2check is an existing dir
+		fs::path targetDir(path2check);
+		bool foundDirFile = false;
+
+		try {
+			for (const auto& entry : fs::directory_iterator(targetDir))
+			{
+				if (entry.is_regular_file())
+				{
+					// found a file there to test on
+					testFile = entry.path();
+					fileExists = true;
+					foundDirFile = true;
+					break;
+				}
+			}
+		}
+		catch (const fs::filesystem_error& e)
+		{
+			if (e.code() == std::errc::permission_denied || e.code().value() == ERROR_ACCESS_DENIED)
+			{
+				if (!bWriteAccess)
+					return true; // lack the READ permissions here for sure, needs elevation
+
+				// for bWriteAccess == true, do nothing here (proceed directly to the tempfile write test below)
+			}
+			else
+			{
+				return false; // no meaning to continue checking (network drop, etc.)
+			}
+		}
+		catch (...)
+		{
+			return false; // no meaning to continue checking (std::bad_alloc & others)
+		}
+
+		// fallback for an empty dir
+		if (!foundDirFile)
+		{
+			if (!bWriteAccess)
+				return false; // no elevation required (no exception case, we only want to check READ access and can read it - it's empty)
+
+			// generate a pseudorandom tempfile to test WRITE access
+			std::wstring tempFileName = L"test-" + std::to_wstring(::GetTickCount64()) + L".tmp";
+			testFile = targetDir / tempFileName;
+			fileExists = false;
+		}
+	}
+	else
+	{
+		// path2check is an existing file
+		testFile = path2check;
+		fileExists = true;
+	}
+
+	// test the desired access rights
+	HANDLE hFile = ::CreateFileW(testFile.c_str(), bWriteAccess ? GENERIC_WRITE : GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE,
+		nullptr, fileExists ? OPEN_EXISTING : CREATE_NEW, fileExists ? FILE_ATTRIBUTE_NORMAL : FILE_FLAG_DELETE_ON_CLOSE, nullptr);
+	if (hFile != INVALID_HANDLE_VALUE)
+	{
+		::CloseHandle(hFile);
+		return false; // can open, no elevation required
+	}
+
+	if (::GetLastError() == ERROR_ACCESS_DENIED)
+		return true; // elevation required
+
+	// an elevation will not help us here (HW R/O, file-in-use locks, complex restrictive ACLs, etc.)
+	return false;
 }

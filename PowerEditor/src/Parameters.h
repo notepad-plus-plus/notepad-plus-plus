@@ -193,6 +193,7 @@ struct CmdLineParams
 	bool _isRecursive = false;
 	bool _openFoldersAsWorkspace = false;
 	bool _monitorFiles = false;
+	bool _monitoringMode = false;
 
 	LangType _langType = L_EXTERNAL;
 	std::wstring _localizationPath;
@@ -887,6 +888,9 @@ struct NppGUI final
 
 	std::string _shortcutsXmlHmacInConfig;
 	std::string _shortcutsOnDiskHmac;
+
+	enum NetworkPathWarningMethod { networkPathAlwaysAsk, networkPathAlwaysSkip, networkPathAlwaysLoad};
+	NetworkPathWarningMethod _networkPathWarningMethod = networkPathAlwaysAsk;
 };
 
 
@@ -1530,7 +1534,7 @@ public:
 	void writeNonDefaultUDL();
 	void writeNeed2SaveUDL();
 	void writeShortcuts();
-	void writeSession(const Session& session, const wchar_t* fileName = nullptr) const;
+	void writeSession(const Session& session, const wchar_t* fileName = nullptr);
 	bool writeFindHistory();
 
 	bool isExistingUserLangName(const wchar_t* newName) const {
@@ -1844,6 +1848,8 @@ public:
 	bool regexBackward4PowerUser() const { return _findHistory._regexBackward4PowerUser; }
 	bool isRegForOSAppRestartDisabled() const { return _isRegForOSAppRestartDisabled; }
 	const std::wstring& getShortcutsPath() const { return _shortcutsPath; }
+	void setMonitoringModeOn() { _isMonitoringMode = true; }
+	bool isMonitoringMode() const { return _isMonitoringMode; }
 
 private:
 	bool _isAnyShortcutModified = false;
@@ -1892,6 +1898,8 @@ private:
 
 	FindDlgTabTitles _findDlgTabTitles;
 	bool _asNotepadStyle = false;
+
+	bool _isMonitoringMode = false;
 
 	winVer _winVersion = WV_UNKNOWN;
 	Platform _platForm = PF_UNKNOWN;
@@ -1977,7 +1985,7 @@ private:
 	bool getUserCmdsFromXmlTree();
 	bool getPluginCmdsFromXmlTree();
 	bool getScintKeysFromXmlTree();
-	static bool getSessionFromXmlTree(const NppXml::Document& pSessionDoc, Session& session);
+	bool getSessionFromXmlTree(const NppXml::Document& pSessionDoc, Session& session);
 
 	void feedGUIParameters(const NppXml::Element& element);
 	void feedKeyWordsParameters(const NppXml::Element& element);

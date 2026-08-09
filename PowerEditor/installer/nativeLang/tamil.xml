@@ -1536,7 +1536,6 @@ lose changes made Notepad++?"/>
 			<PrehistoricSystemDetected title="Prehistoric system detected" message="It seems you still use prehistoric system. This feature works மட்டும் on modern system, sorry."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Notepad++ Updater" message="Notepad++ updater is not compatible XP due obsolete security layer 
 under XP. Do you want go Notepad++ page download latest version?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Proxy அமைப்புகள்" message="Please relaunch Notepad++ Admin mode configure proxy."/>
 			<DocTooDirtyToMonitor title="Monitoring problem" message="ஆவணம் is dirty. Please சேமி modification before monitoring it."/>
 			<DocNoExistToMonitor title="Monitoring problem" message="கோப்பு should exist be monitored."/>
 			<FileTooBigToOpen title="கோப்பு size problem" message="கோப்பு is too big be opened Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->

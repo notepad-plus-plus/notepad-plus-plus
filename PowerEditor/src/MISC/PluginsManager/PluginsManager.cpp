@@ -354,7 +354,9 @@ bool PluginsManager::loadPlugins(const wchar_t* dir, const PluginViewList* plugi
 		const wchar_t* incompatibleWarningWithSolution = L"%s's version %s is not compatible to this version of Notepad++ (v%s).\r\nAs a result the plugin cannot be loaded.\r\n\r\nGo to Updates section and update your plugin to %s for solving the compatibility issue.";
 
 		wstring foundFileName = foundData.cFileName;
-		if (foundFileName != L"." && foundFileName != L".." && _wcsicmp(foundFileName.c_str(), L"Config") != 0)
+		// "Config" holds settings, not plugins; "disabled" holds deactivated plugins moved by
+		// the Plugins Admin dialog - both must never be scanned/loaded as plugin folders.
+		if (foundFileName != L"." && foundFileName != L".." && _wcsicmp(foundFileName.c_str(), L"Config") != 0 && _wcsicmp(foundFileName.c_str(), L"disabled") != 0)
 		{
 			wstring pluginsFullPathFilter = pluginsFolder;
 			pathAppend(pluginsFullPathFilter, foundFileName);
@@ -426,7 +428,8 @@ bool PluginsManager::loadPlugins(const wchar_t* dir, const PluginViewList* plugi
 		while (::FindNextFile(hFindFolder, &foundData))
 		{
 			wstring foundFileName2 = foundData.cFileName;
-			if (foundFileName2 != L"." && foundFileName2 != L".." && _wcsicmp(foundFileName2.c_str(), L"Config") != 0)
+			// same exclusion as above ("Config" and "disabled")
+			if (foundFileName2 != L"." && foundFileName2 != L".." && _wcsicmp(foundFileName2.c_str(), L"Config") != 0 && _wcsicmp(foundFileName2.c_str(), L"disabled") != 0)
 			{
 				wstring pluginsFullPathFilter2 = pluginsFolder;
 				pathAppend(pluginsFullPathFilter2, foundFileName2);

@@ -1526,7 +1526,6 @@
 			<PrehistoricSystemDetected title="Детектован праисторијски систем" message="Изгледа да користите праисторијски систем. Извините, али ова функционалност ради само на модерним системима."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Notepad++ ажурирање" message="Notepad++ ажурирање није компатибилно са XP због застарелих сигурносних слојева у XP-у.
 Желите ли отићи на Notepad++ страницу да скинете најновију верзију?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Proxy подешавања" message="Поново покрените Notepad++ као администратор да би сте подесили proxy."/>
 			<DocTooDirtyToMonitor title="Проблем са надгледањем" message="Документ је прљав. Молимо сачувајте промену пре надгледања."/>
 			<DocNoExistToMonitor title="Проблем са надгледањем" message="Датотека треба да постоји да би се надгледала."/>
 			<FileTooBigToOpen title="Проблем са величином датотеке" message="Датотека је превелика да би је Notepad++ отворио"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->

@@ -1534,7 +1534,6 @@ Vill du ladda om den och förlora ändringarna som gjordes i Notepad++?"/>
 			<PrehistoricSystemDetected title="Förhistoriskt system upptäcktes" message="Det verkar som om du fortfarande använder ett uråldrigt system. Tyvärr fungerar endast denna funktion på ett modernt system."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Uppdateringsprogram för Notepad++" message="Uppdateringsprogrammet för Notepad++ är inte kompatibelt med XP på grund av ett föråldrat säkerhetslager i XP.
 Vill du gå till hemsidan för Notepad++ för att ladda ned den senaste versionen?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Proxyinställningar" message="Var god starta om Notepad++ som administratör för att konfigurera proxyn."/>
 			<DocTooDirtyToMonitor title="Övervakningsproblem" message="Dokumentet har ändrats. Spara ändringarna innan du övervakar den."/>
 			<DocNoExistToMonitor title="Övervakningsproblem" message="Filen måste finnas för att kunna övervakas."/>
 			<FileTooBigToOpen title="Problem med filstorleken" message="Filen är för stor för att öppnas med Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->

@@ -463,6 +463,11 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 	else
 	{
 		buffer = MainFileManager.loadFile(longFileName, static_cast<Document>(NULL), encoding);
+		if (buffer != BUFFER_INVALID && nppParam.isMonitoringMode())
+		{
+			monitoringStartOrStopAndUpdateUI(buffer, true);
+			createMonitoringThread(buffer);
+		}
 	}
 
     if (buffer != BUFFER_INVALID)

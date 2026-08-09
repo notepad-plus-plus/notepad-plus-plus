@@ -1377,7 +1377,6 @@ Vil du genindlæse og miste de ændringer du har lavet her?"/>
 			<PrehistoricSystemDetected title="Forældet styresystem" message="Windows er tilsyneladende forældet. Funktionen virker kun på nyere udgaver af styresystemet"/>
 			<XpUpdaterProblem title="Notepad++ opdatering" message="Windows XP understøtter ikke opdateringsfunktionen.
 Vil du hente den nyeste Notepad++ på hjemmesiden?"/>
-			<GUpProxyConfNeedAdminMode title="Proxyindstillinger" message="Genstart Notepad++ som administrator, for at indstille en proxy."/>
 			<DocTooDirtyToMonitor title="Overvågningsproblem" message="Dokumentet er beskidt. Gem ændringen inden det overvåges."/>
 			<DocNoExistToMonitor title="Overvågningsproblem" message="Filen skal findes for at kunne overvåges."/>
 			<FileTooBigToOpen title="Filstørrelsesproblem" message="Filen er for. Den kan ikke åbnes i Notepad++"/>

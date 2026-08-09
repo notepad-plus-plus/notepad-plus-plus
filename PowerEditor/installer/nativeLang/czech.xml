@@ -1545,7 +1545,6 @@ Existují 3 způsoby přepnutí do režimu výběru sloupce:
 			<DoReloadOrNotAndLooseChange title="Znovuotevření" message="&quot;$STR_REPLACE$&quot;  Tento soubor byl změněn jiným programem. Chcete jej znovu načíst a ztratit tak všechny změny provedené v Notepadu++?"/>
 			<PrehistoricSystemDetected title="Detekován příliš starý systém" message="Vypadá to, že používáte příliš starý operační systém. Je nám líto, ale tato funkce je podporována pouze na novějších systémech."/>
 			<XpUpdaterProblem title="Aktualizační program Notepadu++" message="Aktualizační program Notepadu++ není kompatibilní s Windows XP vzhledem k zastaralé bezpečnostní vrstvě tohoto systému. Chcete místo toho přejít na webové stránky Notepadu++, odkud si můžete sami stáhnout poslední verzi Notepadu++?"/>
-			<GUpProxyConfNeedAdminMode title="Nastavení proxy-serveru" message="Pro nastavení proxy-serveru spusťte prosím znovu Notepad++ pod účtem administrátora."/>
 			<DocTooDirtyToMonitor title="Chyba sledování stavu" message="Dokument je v nekonzistentním stavu. Uložte prosím změny v dokumentu před zapnutím sledování jeho stavu."/>
 			<DocNoExistToMonitor title="Problém se sledováním stavu" message="Soubor musí existovat, aby jej bylo možné sledovat."/>
 			<FileTooBigToOpen title="Problém s velikostí souboru" message="Soubor je příliš velký na to, aby mohl být otevřen v Notepadu++."/>

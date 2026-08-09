@@ -1469,7 +1469,6 @@ Onu yenidən yükləyib Notepad++-də edilən dəyişiklikləri itirmək istəyi
 			<PrehistoricSystemDetected title="Köhnə sistem aşkarlandı" message="Görünür ki, siz hələ də köhnə sistem istifadə edirsiniz. Bu xüsusiyyət yalnız müasir sistemlərdə işləyir, təəssüf ki."/><!-- HowToReproduce: Windows XP altında "Sənəd Xəritəsi"ni başladın. -->
 			<XpUpdaterProblem title="Notepad++ Yeniləyici" message="Notepad++ yeniləyicisi XP ilə uyğun deyil, çünki XP-də təhlükəsizlik təbəqəsi köhnəlib.
 Notepad++ səhifəsinə keçib ən son versiyanı yükləmək istəyirsiniz?"/><!-- HowToReproduce: Windows XP altında "? -> Notepad++ Yenilə" menyusunu işə salın. -->
-			<GUpProxyConfNeedAdminMode title="Proxy Nizamlamaları" message="Zəhmət olmasa Notepad++-i Admin rejimində yenidən başladın ki, proxy nizamlamalarını tənzimləyəsiniz."/>
 			<DocTooDirtyToMonitor title="Monitorinq problemi" message="Sənəd dəyişdirilib. Zəhmət olmasa monitorinqdən əvvəl dəyişikliyi saxlayın."/>
 			<DocNoExistToMonitor title="Monitorinq problemi" message="Fayl monitorinq üçün mövcud olmalıdır."/>
 			<FileTooBigToOpen title="Fayl ölçüsü problemi" message="Fayl Notepad++ tərəfindən açılmaq üçün çox böyükdür."/><!-- HowToReproduce: 4GB fayl açmağa cəhd edin (təkrarlamaq asan deyil, sisteminizdən asılıdır). -->

@@ -1545,7 +1545,6 @@ Dorești să-l reîncarci și să anulezi modificările efectuate în Notepad++?
             <PrehistoricSystemDetected title="S-a detectat un sistem preistoric" message="Se pare că încă folosești un sistem foarte vechi. Această funcție se poate executa doar pe un sistem modern."/>
             <XpUpdaterProblem title="Actualizator Notepad++" message="Actualizatorul Notepad++ nu este compatibil cu Windows XP datorită nivelelor de securitate depășite ale acestuia.
 Dorești să vizitezi pagina de descărcare a Notepad++ ca să descarci ultima versiune?"/>
-			<GUpProxyConfNeedAdminMode title="Setări proxy" message="Te rugăm să repornești Notepad++ în modul Admin pentru a configura setările proxy."/>
 			<DocTooDirtyToMonitor title="Problemă de monitorizare" message="Documentul este necorespunzător. Salvează modificările înainte de a-l monitoriza."/>
             <DocNoExistToMonitor title="Problemă de monitorizare" message="Pentru a putea fi monitorizat fișierul trebuie să existe."/>
             <FileTooBigToOpen title="Problemă cu dimensiunea fișierului" message="Fișierul este prea mare pentru a fi deschis cu Notepad++"/>

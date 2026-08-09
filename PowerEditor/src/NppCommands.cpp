@@ -3845,28 +3845,21 @@ void Notepad_plus::command(int id)
 				if (isCertifVerified)
 				{
 					wstring param;
+					bool isElevationRequired = false;
+
 					if (id == IDM_CONFUPDATERPROXY)
 					{
-						if (!_isAdministrator)
-						{
-							_nativeLangSpeaker.messageBox("GUpProxyConfNeedAdminMode",
-								_pPublicInterface->getHSelf(),
-								L"Please relaunch Notepad++ in Admin mode to configure proxy.",
-								L"Proxy Settings",
-								MB_OK | MB_APPLMODAL);
-							return;
-						}
 						param = L"-options";
+						isElevationRequired = needsElevation4Access(updaterDir, true); // proxy settings storage is ".\updater\gupOptions.xml"
 					}
 					else
-					{	
+					{
 						nppParams.buildGupParams(param);
-
 						param += L" -verbose";
 					}
-					Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
 
-					updater.run();
+					Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
+					updater.run(isElevationRequired);
 				}
 			}
 			break;

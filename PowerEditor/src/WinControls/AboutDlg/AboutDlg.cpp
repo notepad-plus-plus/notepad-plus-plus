@@ -684,8 +684,8 @@ const wchar_t COMMAND_ARG_HELP[] = L"Usage:\r\n\
 \r\n\
 notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-udl=\"My UDL Name\"]\r\n\
 [-LlangCode] [-nLineNumber] [-cColumnNumber] [-pPosition] [-xLeftPos] [-yTopPos]\r\n\
-[-monitor] [-nosession] [-notabbar] [-systemtray] [-loadingTime] [-alwaysOnTop]\r\n\
-[-ro] [-fullReadOnly] [-fullReadOnlySavingForbidden] [-openSession] [-r]\r\n\
+[-monitor] [-monitoringMode] [-nosession] [-notabbar] [-systemtray] [-loadingTime]\r\n\
+[-alwaysOnTop] [-ro] [-fullReadOnly] [-fullReadOnlySavingForbidden] [-openSession] [-r]\r\n\
 [-qn=\"Easter egg name\" | -qt=\"a text to display.\" | -qf=\"D:\\my quote.txt\"]\r\n\
 [-qSpeed1|2|3] [-quickPrint] [-settingsDir=\"d:\\your settings dir\\\"]\r\n\
 [-openFoldersAsWorkspace]  [-titleAdd=\"additional title bar text\"]\r\n\
@@ -702,7 +702,8 @@ notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-udl=\"My UDL Name\"]\
 -p: Scroll to indicated position on filePath\r\n\
 -x: Move Notepad++ to indicated left side position on the screen\r\n\
 -y: Move Notepad++ to indicated top position on the screen\r\n\
--monitor: Open file with file monitoring enabled\r\n\
+-monitor: Open files given in arguments with file monitoring enabled\r\n\
+-monitoringMode: Monitoring all files opened in Notepad++\r\n\
 -nosession: Launch Notepad++ without previous session\r\n\
 -notabbar: Launch Notepad++ without tab bar\r\n\
 -ro: Make the filePath read-only\r\n\
@@ -830,7 +831,7 @@ void DoSaveOrNotBox::changeLang()
 	wstring defaultMessage = L"Save file \"$STR_REPLACE$\" ?";
 	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 
-	if (nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveOrNot"))
+	if (nativeLangSpeaker && nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveOrNot"))
 	{
 		constexpr unsigned char len = 255;
 		wchar_t text[len]{};
@@ -890,35 +891,35 @@ intptr_t CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				case IDCANCEL:
 				{
 					::EndDialog(_hSelf, -1);
-					clickedButtonId = IDCANCEL;
+					_clickedButtonId = IDCANCEL;
 					return TRUE;
 				}
 
 				case IDYES:
 				{
 					::EndDialog(_hSelf, 0);
-					clickedButtonId = IDYES;
+					_clickedButtonId = IDYES;
 					return TRUE;
 				}
 
 				case IDNO:
 				{
 					::EndDialog(_hSelf, 0);
-					clickedButtonId = IDNO;
+					_clickedButtonId = IDNO;
 					return TRUE;
 				}
 
 				case IDIGNORE:
 				{
 					::EndDialog(_hSelf, 0);
-					clickedButtonId = IDIGNORE;
+					_clickedButtonId = IDIGNORE;
 					return TRUE;
 				}
 
 				case IDRETRY:
 				{
 					::EndDialog(_hSelf, 0);
-					clickedButtonId = IDRETRY;
+					_clickedButtonId = IDRETRY;
 					return TRUE;
 				}
 			}
@@ -942,7 +943,7 @@ void DoSaveAllBox::changeLang()
 	wstring defaultMessage = L"Are you sure you want to save all modified documents?\r\rChoose \"Always Yes\" if you don't want to see this dialog again.\rYou can re-activate this dialog in Preferences later.";
 	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 
-	if (nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveAll"))
+	if (nativeLangSpeaker && nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveAll"))
 	{
 		constexpr size_t len = 1024;
 		wchar_t text[len]{};
@@ -999,28 +1000,28 @@ intptr_t CALLBACK DoSaveAllBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			case IDCANCEL:
 			{
 				::EndDialog(_hSelf, -1);
-				clickedButtonId = IDCANCEL;
+				_clickedButtonId = IDCANCEL;
 				return TRUE;
 			}
 
 			case IDYES:
 			{
 				::EndDialog(_hSelf, 0);
-				clickedButtonId = IDYES;
+				_clickedButtonId = IDYES;
 				return TRUE;
 			}
 
 			case IDNO:
 			{
 				::EndDialog(_hSelf, 0);
-				clickedButtonId = IDNO;
+				_clickedButtonId = IDNO;
 				return TRUE;
 			}
 
 			case IDRETRY:
 			{
 				::EndDialog(_hSelf, 0);
-				clickedButtonId = IDRETRY;
+				_clickedButtonId = IDRETRY;
 				return TRUE;
 			}
 		}
@@ -1028,6 +1029,139 @@ intptr_t CALLBACK DoSaveAllBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 	}
 	default:
 		return FALSE;
+	}
+	return FALSE;
+}
+
+
+void NetworkPathWarningBox::doDialog(bool isRTL)
+{
+	StaticDialog::myCreateDialogBoxIndirectParam(IDD_NETWORKPATHWARNINGBOX, isRTL);
+}
+
+void NetworkPathWarningBox::changeLang()
+{
+	wstring msg;
+	wstring defaultMessage = L"Network Path Warning:\r\r$STR_REPLACE$\r\rLoading it will cause Windows to automatically authenticate to that server, potentially exposing your Windows login information.\rLoad anyway?";
+	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+
+	if (nativeLangSpeaker)
+	{
+		bool isLangChanged = false;
+
+		if (!_titleTag.empty()) // override the title with the 2nd one manually if the title tag is not empty
+		{
+			static constexpr size_t titreMaxSize = 128;
+			char titre2[titreMaxSize] {};
+			isLangChanged = nativeLangSpeaker->changeDlgLang(_hSelf, "NetworkPathWarning", titre2, titreMaxSize, _titleTag.c_str());
+			if (titre2[0])
+			{
+				wstring wTitre2 = WcharMbcsConvertor::getInstance().char2wchar(titre2, nativeLangSpeaker->getLangEncoding());
+				::SetWindowText(_hSelf, wTitre2.c_str());
+			}
+			else
+			{
+				::SetWindowText(_hSelf, L"Clickable file:// link");
+			}
+		}
+		else
+		{
+			isLangChanged = nativeLangSpeaker->changeDlgLang(_hSelf, "NetworkPathWarning");
+		}
+
+		if (isLangChanged)
+		{
+			constexpr size_t len = 1024;
+			wchar_t text[len]{};
+			::GetDlgItemText(_hSelf, IDC_NETWORKPATHWARNINGTEXT, text, len);
+			msg = text;
+		}
+	}
+
+	if (msg.empty())
+		msg = defaultMessage;
+
+	msg = stringReplace(msg, L"$STR_REPLACE$", _networkPath);
+
+	::SetDlgItemText(_hSelf, IDC_NETWORKPATHWARNINGTEXT, msg.c_str());
+}
+
+intptr_t CALLBACK NetworkPathWarningBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+		case WM_INITDIALOG:
+		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
+			changeLang();
+			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
+			return TRUE;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case WM_DPICHANGED:
+		{
+			_dpiManager.setDpiWP(wParam);
+			setPositionDpi(lParam);
+
+			return TRUE;
+		}
+
+		case WM_COMMAND:
+		{
+			NppParameters& nppParam = NppParameters::getInstance();
+			NppGUI& nppGUI = nppParam.getNppGUI();
+			switch (LOWORD(wParam))
+			{
+				case IDCANCEL:
+				{
+					::EndDialog(_hSelf, -1);
+					_clickedButtonId = IDCANCEL;
+					return TRUE;
+				}
+
+				case IDYES:
+				{
+					::EndDialog(_hSelf, 0);
+					_clickedButtonId = IDYES;
+					return TRUE;
+				}
+
+				case IDNO:
+				{
+					::EndDialog(_hSelf, 0);
+					_clickedButtonId = IDNO;
+					nppGUI._networkPathWarningMethod = NppGUI::networkPathAlwaysSkip;
+					return TRUE;
+				}
+
+				case IDRETRY:
+				{
+					::EndDialog(_hSelf, 0);
+					_clickedButtonId = IDRETRY;
+					nppGUI._networkPathWarningMethod = NppGUI::networkPathAlwaysLoad;
+					return TRUE;
+				}
+			}
+			break;
+		}
+		default:
+			return FALSE;
 	}
 	return FALSE;
 }

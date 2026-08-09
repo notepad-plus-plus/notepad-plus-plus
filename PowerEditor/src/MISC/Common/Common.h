@@ -205,6 +205,8 @@ bool isWin32NamespacePrefixedFileName(const std::wstring& fileName);
 bool isWin32NamespacePrefixedFileName(const wchar_t* szFileName);
 bool isUnsupportedFileName(const std::wstring& fileName);
 bool isUnsupportedFileName(const wchar_t* szFileName);
+bool isUncPath(const std::wstring& path);
+bool isUncFileUrl(const std::wstring& url);
 
 class Version final
 {
@@ -346,3 +348,6 @@ private:
 	ScopedCOMInit(const ScopedCOMInit&) = delete;
 	ScopedCOMInit& operator=(const ScopedCOMInit&) = delete;
 };
+
+
+bool needsElevation4Access(const std::wstring& path2check, bool bWriteAccess);

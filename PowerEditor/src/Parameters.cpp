@@ -3158,10 +3158,13 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
 	static constexpr size_t nbView = 2;
-	NppXml::Element viewRoots[nbView]{
+	NppXml::Element viewRoots[nbView] {
 		NppXml::firstChildElement(sessionRoot, "mainView"),
 		NppXml::firstChildElement(sessionRoot, "subView")
 	};
+
+	HINSTANCE hInst = ::GetModuleHandle(nullptr);
+	HWND nppHwnd = ::FindWindow(Notepad_plus_Window::getClassName(), NULL);
 
 	for (size_t k = 0; k < nbView; ++k)
 	{
@@ -3182,6 +3185,33 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 				const char* fileName = NppXml::attribute(childNode, "filename");
 				if (fileName)
 				{
+					std::wstring wstrFileName = string2wstring(fileName);
+
+					if (isUncPath(wstrFileName))
+					{
+						if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysAsk)
+						{
+							NetworkPathWarningBox networkPathWarningBox;
+							networkPathWarningBox.init(hInst, nppHwnd, wstrFileName);
+							networkPathWarningBox.doDialog(_pNativeLangSpeaker ? _pNativeLangSpeaker->isRTL() : false);
+							int buttonID = networkPathWarningBox.getClickedButtonId();
+							networkPathWarningBox.destroy();
+
+							if (buttonID == IDCANCEL || buttonID == IDNO) // Skip once or Always skip
+							{
+								continue;
+							}
+						}
+						else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysSkip)
+						{
+							continue;
+						}
+						else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysLoad)
+						{
+							// do nothing, continue to load the file
+						}
+					}
+
 					Position position{
 						._firstVisibleLine = static_cast<intptr_t>(NppXml::int64Attribute(childNode, "firstVisibleLine", 0)),
 						._startPos = static_cast<intptr_t>(NppXml::int64Attribute(childNode, "startPos", 0)),
@@ -3208,28 +3238,76 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 
 					const char* langName = NppXml::attribute(childNode, "lang");
 
-					std::wstring wstrFileName = string2wstring(fileName);
 					std::wstring wstrLangName = langName ? string2wstring(langName) : L"";
 
 					const wchar_t* pBackupFilePath = wmc.char2wchar(NppXml::attribute(childNode, "backupFilePath"), CP_UTF8);
+
+					if (isUncPath(pBackupFilePath))
+					{
+						if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysAsk)
+						{
+							NetworkPathWarningBox networkPathWarningBox;
+							networkPathWarningBox.init(hInst, nppHwnd, pBackupFilePath);
+							networkPathWarningBox.doDialog(_pNativeLangSpeaker ? _pNativeLangSpeaker->isRTL() : false);
+							int buttonID = networkPathWarningBox.getClickedButtonId();
+							networkPathWarningBox.destroy();
+
+							if (buttonID == IDCANCEL || buttonID == IDNO) // Skip once or Always skip
+							{
+								continue;
+							}
+						}
+						else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysSkip)
+						{
+							continue;
+						}
+						else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysLoad)
+						{
+							// do nothing, continue to load the file
+						}
+					}
+
 					wchar_t normalizedBackupFilePath[MAX_PATH]{};
 
-					if (pBackupFilePath)
+					if (pBackupFilePath && wcslen(pBackupFilePath) < MAX_PATH)
 					{
-						::PathCanonicalize(normalizedBackupFilePath, pBackupFilePath);
+						std::wstring sanitizedPath = pBackupFilePath;
+						std::replace(sanitizedPath.begin(), sanitizedPath.end(), L'/', L'\\');
+
+						if (!::PathCanonicalize(normalizedBackupFilePath, sanitizedPath.c_str()))
+							normalizedBackupFilePath[0] = L'\0'; // treat failure as "no path" -> falls through to reconstruction below
+					}
+					else if (pBackupFilePath)
+					{
+						wchar_t* fn = ::PathFindFileNameW(pBackupFilePath);
+						StringCchCopyW(normalizedBackupFilePath, MAX_PATH, fn);
 					}
 
 					std::wstring currentBackupFilePath = NppParameters::getInstance().getUserPath() + L"\\backup\\";
 
+					wchar_t normalizedBackupDir[MAX_PATH] {};
+					if (::GetFullPathNameW(currentBackupFilePath.c_str(), MAX_PATH, normalizedBackupDir, NULL) == 0)
+						StringCchCopyW(normalizedBackupDir, MAX_PATH, currentBackupFilePath.c_str());
+
 					if (normalizedBackupFilePath[0])
 					{
 						std::wstring backupFilePath = normalizedBackupFilePath;
-						if (!backupFilePath.starts_with(currentBackupFilePath))
+						bool isConfined = false;
+						size_t normalizedBackupDirLen = wcslen(normalizedBackupDir);
+						if (backupFilePath.size() >= normalizedBackupDirLen)
+						{
+							int res = ::CompareStringOrdinal(backupFilePath.c_str(), static_cast<int>(normalizedBackupDirLen), normalizedBackupDir, static_cast<int>(normalizedBackupDirLen), TRUE);
+							isConfined = res == CSTR_EQUAL;
+						}
+
+						if (!isConfined)
 						{
 							// reconstruct backupFilePath
 							wchar_t* fn = ::PathFindFileNameW(normalizedBackupFilePath);
-							currentBackupFilePath += fn;
-							StringCchCopyW(normalizedBackupFilePath, MAX_PATH, currentBackupFilePath.c_str());
+
+							std::wstring safePath = normalizedBackupDir;
+							safePath += fn;
+							StringCchCopyW(normalizedBackupFilePath, MAX_PATH, safePath.c_str());
 						}
 					}
 
@@ -4400,7 +4478,7 @@ void NppParameters::insertScintKey(NppXml::Element& scintKeyRoot, const Scintill
 }
 
 
-void NppParameters::writeSession(const Session& session, const wchar_t* fileName) const
+void NppParameters::writeSession(const Session& session, const wchar_t* fileName)
 {
 	const wchar_t* sessionPathName = fileName ? fileName : _sessionPath.c_str();
 
@@ -6561,7 +6639,7 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 		}
 		// <GUIConfig name="MISC" fileSwitcherWithoutExtColumn="no" fileSwitcherExtWidth="50" fileSwitcherWithoutPathColumn="no" fileSwitcherPathWidth="50"
 		// fileSwitcherNoGroups="no" backSlashIsEscapeCharacterForSql="yes" writeTechnologyEngine="1" isFolderDroppedOpenFiles="no" docPeekOnTab="no"
-		// docPeekOnMap="no" sortFunctionList="no" saveDlgExtFilterToAllTypes="no" muteSounds="no" enableFoldCmdToggable="no" hideMenuRightShortcuts="no" />
+		// docPeekOnMap="no" sortFunctionList="no" saveDlgExtFilterToAllTypes="no" muteSounds="no" enableFoldCmdToggable="no" hideMenuRightShortcuts="no"  networkPathWarningMethod=0/>
 		else if (std::strcmp(nm, "MISC") == 0)
 		{
 			_nppGUI._fileSwitcherWithoutExtColumn = getBoolAttribute(childNode, "fileSwitcherWithoutExtColumn");
@@ -6587,6 +6665,7 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 			_nppGUI._muteSounds = getBoolAttribute(childNode, "muteSounds");
 			_nppGUI._enableFoldCmdToggable = getBoolAttribute(childNode, "enableFoldCmdToggable");
 			_nppGUI._hideMenuRightShortcuts = getBoolAttribute(childNode, "hideMenuRightShortcuts");
+			_nppGUI._networkPathWarningMethod = static_cast<NppGUI::NetworkPathWarningMethod>(NppXml::intAttribute(childNode, "networkPathWarningMethod", _nppGUI._networkPathWarningMethod));
 		}
 		// <GUIConfig name="DarkMode" enable="no" colorTone="0" customColorTop="2105376" customColorMenuHotTrack="4539717" customColorActive="3684408"
 		// customColorMain="2105376" customColorError="176" customColorText="14737632" customColorDarkText="12632256" customColorDisabledText="8421504"
@@ -7685,7 +7764,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 	// <GUIConfig name="MISC" fileSwitcherWithoutExtColumn="no" fileSwitcherExtWidth="50" fileSwitcherWithoutPathColumn="no" fileSwitcherPathWidth="50"
 	// fileSwitcherNoGroups="no" backSlashIsEscapeCharacterForSql="yes" writeTechnologyEngine="1" isFolderDroppedOpenFiles="no" docPeekOnTab="no"
-	// docPeekOnMap="no" sortFunctionList="no" saveDlgExtFilterToAllTypes="no" muteSounds="no" enableFoldCmdToggable="no" hideMenuRightShortcuts="no" />
+	// docPeekOnMap="no" sortFunctionList="no" saveDlgExtFilterToAllTypes="no" muteSounds="no" enableFoldCmdToggable="no" hideMenuRightShortcuts="no" networkPathWarningMethod=0/>
 	{
 		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
 		NppXml::setAttribute(GUIConfigElement, "name", "MISC");
@@ -7705,6 +7784,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		setBoolAttribute(GUIConfigElement, "muteSounds", _nppGUI._muteSounds);
 		setBoolAttribute(GUIConfigElement, "enableFoldCmdToggable", _nppGUI._enableFoldCmdToggable);
 		setBoolAttribute(GUIConfigElement, "hideMenuRightShortcuts", _nppGUI._hideMenuRightShortcuts);
+		NppXml::setAttribute(GUIConfigElement, "networkPathWarningMethod", _nppGUI._networkPathWarningMethod);
 	}
 
 	// <GUIConfig name="Searching" monospacedFontFindDlg="no" fillFindFieldWithSelected="yes" fillFindFieldSelectCaret="yes"

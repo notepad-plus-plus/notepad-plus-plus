@@ -508,7 +508,7 @@ bool PluginsAdminDlg::removePlugins(int iTab)
 		break;
 
 		default:
-			break;
+			return false;
 	}
 
 	vector<size_t> indexes = pList->getCheckedIndexes();

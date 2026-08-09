@@ -564,7 +564,7 @@
 				<Item id="2" name="關閉"/>
 			</SHA512FromTextDlg>
             
-			<PluginsAdminDlg title="外掛模組管理" titleAvailable="可安裝" titleUpdates="更新" titleInstalled="已安裝" titleIncompatible="不相容">
+			<PluginsAdminDlg title="外掛模組管理" titleAvailable="可安裝" titleUpdates="更新" titleInstalled="已安裝" titleIncompatible="不相容" titleDisabled="停用">
 				<ColumnPlugin name="外掛模組"/>
 				<ColumnVersion name="版本"/>
 				<Item id="5501" name="搜尋："/>
@@ -574,6 +574,8 @@
 				<Item id="5508" name="找下一個"/>
 				<Item id="5509" name="外掛模組清單版本："/>
 				<Item id="5511" name="外掛模組清單存儲庫"/>
+				<Item id="5512" name="停用"/>
+				<Item id="5513" name="啟用"/>
 				<Item id="2" name="關閉"/>
 			</PluginsAdminDlg>
 

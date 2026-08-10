@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 10  Aug 2026 for 8.9.7+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 10 Aug 2026 for 8.9.7+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -613,7 +613,7 @@ Translation note:
 				<Item id="1934" name="Co&amp;piar"/>
 				<Item id="2" name="&amp;Fechar"/>
 			</SHA512FromTextDlg>
-			<PluginsAdminDlg title="Gerenciador de plugins" titleAvailable="Disponíveis" titleUpdates="Atualizações" titleInstalled="Instalados" titleIncompatible="Incompatíveis">
+			<PluginsAdminDlg title="Gerenciador de plugins" titleAvailable="Disponíveis" titleUpdates="Atualizações" titleInstalled="Instalados" titleIncompatible="Incompatíveis" titleDisabled="Desativados">
 				<ColumnPlugin name="Plugin"/>
 				<ColumnVersion name="Versão"/>
 				<Item id="5501" name="Pesquisar:"/>
@@ -1913,7 +1913,7 @@ Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Usu�
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Acesse o Configurador de Estilos para mudar a cor padrão para espaços em branco e caracteres sem representação selecionados (&quot;Cor padrão para caracteres sem representação&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Aplicar as configurações de caracteres sem representação para os caracteres C0, C1 e EOL Unicode (próxima linha, separador de linha e separador de parágrafo)."/>
-			<searchingInSelThresh-tip value="Minimum number of selected characters in edit zone to automatically check the &quot;In selection&quot; checkbox when the Find dialog is activated. The maximum value is $INT_REPLACE$. Set the value to 0 to disable auto-checking."/>
+			<searchingInSelThresh-tip value="Número mínimo de caracteres selecionados em modo editor para marcar automaticamente a caixa de seleção &quot;Na seleção&quot; quando a janela Localizar for ativada. O número máximo é $INT_REPLACE$. Ajuste o valor para 0 para desabilitar a checagem automática."/>
 			<searchingFillFindWhat-tip value="Número máximo de caracteres selecionados no modo editor para preencher automaticamente o campo &quot;Localizar&quot; quando o Ctrl-F for utilizado. O valor máximo é $INT_REPLACE$, que é o valor máximo do campo &quot;Localizar&quot;, limitado pelo sistema."/>
 			<verticalEdge-tip value="Adicione seu marcador de coluna indicando a posição com um número decimal. É possível definir vários marcadores de coluna usando um espaço em branco para separar os números diferentes."/>
 			<fileSaveAsCopySaveButton-tip value="Pressione a tecla Shift enquanto clica em &quot;Salvar uma cópia como...&quot; para abrir a cópia após salvar."/>

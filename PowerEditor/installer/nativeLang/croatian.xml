@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: August 8, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: August 10, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
@@ -1178,7 +1178,7 @@
 					<Item id="6311" name="tabulatore"/>
 					<Item id="6510" name="Koristi zadanu vrijednost"/>
 					<Item id="6512" name="Tipka Backspace poništava uvlake,
-					umjesto brisanja jednog razmaka"/>
+umjesto brisanja jednog razmaka"/>
 				</Indentation>
 
 				<Highlighting title="Označavanje">

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.9.6.4  5/Jun/2026  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.9.7  10/Aug/2026  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.9.6.4">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.9.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -625,7 +625,7 @@
 				<Item id="2" name="&amp;Zavřít"/>
 			</SHA512FromTextDlg>
 
-			<PluginsAdminDlg title="Správa pluginů" titleAvailable="Dostupné" titleUpdates="Aktualizované" titleInstalled="Instalované" titleIncompatible="Nekompatibilní">
+			<PluginsAdminDlg title="Správa pluginů" titleAvailable="Dostupné" titleUpdates="Aktualizované" titleInstalled="Instalované" titleIncompatible="Nekompatibilní" titleDisabled="Deaktivované">
 				<ColumnPlugin name="Plugin"/>
 				<ColumnVersion name="Verze"/>
 				<Item id="5501" name="&amp;Rešerše:"/>
@@ -635,6 +635,8 @@
 				<Item id="5508" name="&amp;Pokračovat"/>
 				<Item id="5509" name="Verze seznamu pluginů:"/>
 				<Item id="5511" name="Repozitář seznamu pluginů"/>
+				<Item id="5512" name="&amp;Deaktivovat"/>
+				<Item id="5513" name="&amp;Aktivovat"/>
 				<Item id="2" name="Ukončit"/>
 			</PluginsAdminDlg>
 
@@ -1472,7 +1474,7 @@
 				<Item id="1718" name="&amp;Rozšířený (\n, \r, \t, \0, \x...)"/>
 				<Item id="1720" name="&amp;. označuje nový ř."/>
 			</FindInFinder>
-			
+
 			<DoSaveOrNot title="Ukládání">
 				<Item id="1761" name="Uložit soubor &quot;$STR_REPLACE$&quot; ?"/>
 				<Item id="6" name="&amp;Ano"/>
@@ -1491,6 +1493,19 @@ Potvrzovací dialog můžete kdykoliv reaktivovat v &quot;Nastavení&quot;."/>
 				<Item id="7" name="&amp;Ne"/>
 				<Item id="4" name="&amp;Pokaždé ano"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+
+			<NetworkPathWarning title="Načtení relace Notepadu++" title2="Klikatelný odkaz file://">
+				<Item id="1771" name="Varování před uloženou síťovou cestou:
+
+$STR_REPLACE$
+
+Načtení způsobí, že se systém Windows automaticky ověří danému serveru, což může vést k odhalení vašich přihlašovacích údajů do systému Windows.
+Přesto načíst?"/>
+				<Item id="2" name="&amp;Přeskočit"/>
+				<Item id="6" name="&amp;Načíst"/>
+				<Item id="7" name="&amp;Vždy přeskočit síťovou cestu"/>
+				<Item id="4" name="Vždy načíst &amp;síťovou cestu"/>
+			</NetworkPathWarning>
 
 			<DebugInfo title="Informace k ladění">
 				<Item id="1752" name="&amp;Zkopírujte informace do Schránky"/>

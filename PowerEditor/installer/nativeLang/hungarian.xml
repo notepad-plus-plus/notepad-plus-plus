@@ -5,7 +5,7 @@
 <!-- Prohardver topic: https://prohardver.hu/tema/re_notepad/friss.html -->
 <!-- For more information see the Commits History: https://github.com/notepad-plus-plus/notepad-plus-plus/commits/master/PowerEditor/installer/nativeLang/hungarian.xml -->
 <NotepadPlus>
-	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.9.6.4">
+	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.9.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -613,7 +613,7 @@
 				<Item id="1934" name="&amp;Másolás a vágólapra"/>
 				<Item id="2" name="&amp;Bezárás"/>
 			</SHA512FromTextDlg>
-			<PluginsAdminDlg title="Bővítménykezelő" titleAvailable="Elérhető bővítmények" titleUpdates="Frissíthetők" titleInstalled="Telepítettek" titleIncompatible="Nem kompatibilisek">
+			<PluginsAdminDlg title="Bővítménykezelő" titleAvailable="Elérhető bővítmények" titleUpdates="Frissíthetők" titleInstalled="Telepítettek" titleIncompatible="Nem kompatibilisek" titleDisabled="Kikapcsoltak">
 				<ColumnPlugin name="Bővítmény"/>
 				<ColumnVersion name="Verzió"/>
 				<Item id="5501" name="&amp;Keresés:"/>
@@ -623,6 +623,8 @@
 				<Item id="5508" name="Kö&amp;vetkező"/>
 				<Item id="5509" name="A bővítménylista verziója:"/>
 				<Item id="5511" name="Bővítménylista-tároló"/>
+				<Item id="5512" name="K&amp;ikapcsolás"/>
+				<Item id="5513" name="Vi&amp;sszakapcsolás"/>
 				<Item id="2" name="&amp;Bezárás"/>
 			</PluginsAdminDlg>
 
@@ -1187,7 +1189,7 @@
 
 				<Print title="Nyomtatás">
 					<Item id="6601" name="&amp;Sorok számozásának nyomtatása"/>
-					<Item id="6616" name="La&amp;pemelés (FF) oldaltörésként"/>
+					<Item id="6616" name="La&amp;pemelés (form feed) oldaltörésként"/>
 					<Item id="6602" name="Színbeállítások"/>
 					<Item id="6603" name="Ahogy látszik (&amp;WYSIWYG)"/>
 					<Item id="6604" name="Ford&amp;ított színek"/>
@@ -1466,7 +1468,18 @@ Ebben az esetben a „Gépház” párbeszédpanel „Egyéb” szakasza alatt k
 				<Item id="7" name="&amp;Nem"/>
 				<Item id="4" name="Igen, &amp;mindig"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+			<NetworkPathWarning title="Notepad++-munkamenet betöltése" title2="Kattintható „file://”-hivatkozás">
+				<Item id="1771" name="Figyelmeztetés hálózati elérési úttal kapcsolatban:
 
+$STR_REPLACE$
+
+A fájl betöltése esetén a Windows automatikusan hitelesíti magát az adott szerveren, ami potenciálisan felfedheti a Windows-bejelentkezési adatait.
+Mindenképpen betölti?"/>
+				<Item id="7" name="&amp;Kihagyás"/>
+				<Item id="6" name="&amp;Betöltés"/>
+				<Item id="2" name="&amp;Mindegyik hálózati út kihagyása"/>
+				<Item id="4" name="M&amp;indegyik hálózati út betöltése"/>
+			</NetworkPathWarning>
 			<DebugInfo title="Hibakeresési adatok">
 				<Item id="1752" name="&amp;Adatok másolása a vágólapra"/>
 				<Item id="1" name="&amp;OK"/>
@@ -1626,10 +1639,10 @@ A fájl csak olvasható, emiatt nem menthető el.
 Kérjük, törölje a dokumentum csak olvasható beállítását, majd mentse el a fájlt."/>
 			<ShortcutsXmlHMACMissing title="Biztonsági figyelmeztetés" message="A config.xml fájlból hiányoznak a shortcuts.xml biztonsági adatai.
 
-Biztonsági okokból a Notepad++ ellenőrzi a shortcuts.xml integritását. Egyéni parancsai futtatásához, kérjük, tekintse át a megnyitott shortcuts.xml fájlt. Ha a fájl tartalmát rendben találja, válassza a menüből az „A shortcuts.xml érvényesítése” lehetőséget a megerősítéshez."/>
+Biztonsági okokból a Notepad++ ellenőrzi a shortcuts.xml integritását. Egyéni parancsai futtatásához, kérjük, tekintse át a megnyitott shortcuts.xml fájlt. Ha a fájl tartalmát rendben találja, válassza a „Futtatás” menüből az „A shortcuts.xml érvényesítése” lehetőséget a megerősítéshez."/>
 			<ShortcutsXmlTampered title="Biztonsági figyelmeztetés" message="Úgy tűnik, hogy a shortcuts.xml fájl kézzel lett módosítva.
 
-Biztonsági okokból, kérjük, tekintse át a megnyitott shortcuts.xml fájlt. Ha a fájl tartalmát rendben találja, válassza a menüből az „A shortcuts.xml érvényesítése” lehetőséget a megerősítéshez."/>
+Biztonsági okokból, kérjük, tekintse át a megnyitott shortcuts.xml fájlt. Ha a fájl tartalmát rendben találja, válassza a „Futtatás” menüből az „A shortcuts.xml érvényesítése” lehetőséget a megerősítéshez."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Vágólap-előzmények"/>

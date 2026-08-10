@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 04 Jul 2026 for 8.9.6.4+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 10 Aug 2026 for 8.9.7+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.9.6.4">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.9.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -480,7 +480,7 @@ Translation note:
 				<Item id="43105" name="Fechar Ícone da Bandeja"/>
 			</TrayIcon>
 		</Menu>
-		
+
 		<Dialog>
 			<Find title="" titleFind="Localizar" titleReplace="Substituir" titleFindInFiles="Localizar nos arquivos" titleFindInProjects="Localizar nos projetos" titleMark="Marcar">
 				<Item id="1" name="Localizar próximo"/>
@@ -613,7 +613,7 @@ Translation note:
 				<Item id="1934" name="Co&amp;piar"/>
 				<Item id="2" name="&amp;Fechar"/>
 			</SHA512FromTextDlg>
-			<PluginsAdminDlg title="Gerenciador de plugins" titleAvailable="Disponíveis" titleUpdates="Atualizações" titleInstalled="Instalados" titleIncompatible="Incompatíveis">
+			<PluginsAdminDlg title="Gerenciador de plugins" titleAvailable="Disponíveis" titleUpdates="Atualizações" titleInstalled="Instalados" titleIncompatible="Incompatíveis" titleDisabled="Desativados">
 				<ColumnPlugin name="Plugin"/>
 				<ColumnVersion name="Versão"/>
 				<Item id="5501" name="Pesquisar:"/>
@@ -623,6 +623,8 @@ Translation note:
 				<Item id="5508" name="Próximo"/>
 				<Item id="5509" name="Versões de lista de Plugins: "/>
 				<Item id="5511" name="Repositório de lista de Plugins"/>
+				<Item id="5512" name="D&amp;esativar"/>
+				<Item id="5513" name="&amp;Ativar"/>
 				<Item id="2" name="Fechar"/>
 			</PluginsAdminDlg>
 
@@ -997,7 +999,7 @@ Translation note:
 					<Item id="6023" name="Cor base do Sistema"/>
 					<Item id="6024" name="Particularizado"/>
 				</Toolbar>
-				
+
 				<Tabbar title="Barra de Abas">
 					<Item id="6107" name="Reduzir"/>
 					<Item id="6108" name="Travar (sem arrastar e soltar)"/>
@@ -1017,7 +1019,7 @@ Translation note:
 					<Item id="6126" name="Olhar &amp;&amp; sentir"/>
 					<Item id="6136" name="Tam. máx. de nome em aba:"/>
 				</Tabbar>
-				
+
 				<Scintillas title="Edição 1">
 					<Item id="6216" name="Configurações do cursor"/>
 					<Item id="6217" name="Largura:"/>
@@ -1043,7 +1045,7 @@ Translation note:
 					<Item id="6654" name="Enquadrado"/>
 					<Item id="6655" name="Largura:"/>
 				</Scintillas>
-				
+
 				<Scintillas2 title="Edição 2">
 					<Item id="6521" name="Multi-Edição"/>
 					<Item id="6522" name="Habilitar Multi-Edição (Ctrl+Clique do Mouse/seleção)"/>
@@ -1318,8 +1320,8 @@ Translation note:
 					<Item id="6256" name="Permitir em múltiplas linhas"/>
 					<Item id="6161" name="Lista de caracteres de palavras"/>
 					<Item id="6162" name="Usar lista de caracteres de palavras sem mudanças"/>
-					<Item id="6163" name="Adicionar seus caracteres como parte da palavra
-(não o escolha a menos que saiba o que está fazendo)"/>
+					<Item id="6163" name="Adicionar seu caracter como parte da palavra
+(não ative a menos que saiba o que está fazendo)"/>
 				</Delimiter>
 
 				<Performance title="Desempenho">
@@ -1466,7 +1468,18 @@ Você pode reativar esta janela de confirmação em Preferências depois."/>
 				<Item id="7" name="&amp;Não"/>
 				<Item id="4" name="Sem&amp;pre Sim"/>
 			</DoSaveAll><!-- HowToReproduce: Check the &quot;Enable Save All confirm dialog&quot; checkbox in Preference->MISC, now click &quot;Save all&quot; -->
+			<NetworkPathWarning title="Carregando sessão do Notepad++">
+				<Item id="1771" name="Aviso de Caminho de Rede:
 
+$STR_REPLACE$
+
+Efetuar a carga vai fazer com que o Windows automaticamente autentique neste servidor, potencialmente expondo suas informações de login no Windows.
+Carrega assim mesmo?"/>
+				<Item id="2" name="&amp;Ignorar"/>
+				<Item id="6" name="&amp;Carregar"/>
+				<Item id="7" name="&amp;Sempre ignore caminho de rede"/>
+				<Item id="4" name="Sempre carregue caminho de &amp;rede"/>
+			</NetworkPathWarning>
 			<DebugInfo title="Informação de Depuração">
 				<Item id="1752" name="&amp;Copiar informação de depuração para a área de transferência"/>
 				<Item id="1" name="OK"/>
@@ -1626,10 +1639,10 @@ O arquivo é de somente leitura e não pode ser salvo.
 Por favor, remova o atributo de somente leitura e depois salve o seu arquivo."/>
 		<ShortcutsXmlHMACMissing title="Aviso de Segurança" message="The security information for shortcuts.xml is missing in config.xml.
 
-Por motivos de segurança, a integridade do arquivo shortcuts.xml será checada. Para executar seu comando customizado, revise o arquivo aberto shortcuts.xml. Se o conteúdo do arquivo estiver OK, use &quot;Validar shortcuts.xml&quot; do menu para confirmar."/>
+Por motivos de segurança, a integridade do arquivo shortcuts.xml será checada. Para executar seu comando customizado, revise o arquivo aberto shortcuts.xml. Se o conteúdo do arquivo estiver OK, use &quot;Validar shortcuts.xml&quot; do menu &quot;Executar&quot; para confirmar."/>
 		<ShortcutsXmlTampered title="Aviso de Segurança" message="O arquivo shortcuts.xml parece ter sido alterado manualmente.
 
-Por motivos de segurança, revise o arquivo aberto shortcuts.xml. Se o conteúdo do arquivo estiver OK, use &quot;Validar shortcuts.xml&quot; do menu para confirmar."/>
+Por motivos de segurança, revise o arquivo aberto shortcuts.xml. Se o conteúdo do arquivo estiver OK, use &quot;Validar shortcuts.xml&quot; do menu &quot;Executar&quot;para confirmar."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>
@@ -1900,7 +1913,7 @@ Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Usu�
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Acesse o Configurador de Estilos para mudar a cor padrão para espaços em branco e caracteres sem representação selecionados (&quot;Cor padrão para caracteres sem representação&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Aplicar as configurações de caracteres sem representação para os caracteres C0, C1 e EOL Unicode (próxima linha, separador de linha e separador de parágrafo)."/>
-			<searchingInSelThresh-tip value="Minimum number of selected characters in edit zone to automatically check the &quot;In selection&quot; checkbox when the Find dialog is activated. The maximum value is $INT_REPLACE$. Set the value to 0 to disable auto-checking."/>
+			<searchingInSelThresh-tip value="Número mínimo de caracteres selecionados em modo editor para marcar automaticamente a caixa de seleção &quot;Na seleção&quot; quando a janela Localizar for ativada. O número máximo é $INT_REPLACE$. Ajuste o valor para 0 para desabilitar a checagem automática."/>
 			<searchingFillFindWhat-tip value="Número máximo de caracteres selecionados no modo editor para preencher automaticamente o campo &quot;Localizar&quot; quando o Ctrl-F for utilizado. O valor máximo é $INT_REPLACE$, que é o valor máximo do campo &quot;Localizar&quot;, limitado pelo sistema."/>
 			<verticalEdge-tip value="Adicione seu marcador de coluna indicando a posição com um número decimal. É possível definir vários marcadores de coluna usando um espaço em branco para separar os números diferentes."/>
 			<fileSaveAsCopySaveButton-tip value="Pressione a tecla Shift enquanto clica em &quot;Salvar uma cópia como...&quot; para abrir a cópia após salvar."/>

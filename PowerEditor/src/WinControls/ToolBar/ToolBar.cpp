@@ -39,6 +39,8 @@
 #include "menuCmdID.h"
 #include "resource.h"
 #include "shortcut.h"
+#include "AboutDlg.h"
+#include "localization.h"
 
 static constexpr DWORD WS_TOOLBARSTYLE = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS | TBSTYLE_FLAT | TBSTYLE_TRANSPARENT | CCS_TOP | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
 
@@ -180,11 +182,40 @@ void ToolBar::initTheme(NppXml::Document toolIconsDocRoot)
 		if (_toolIcons)
 		{
 			namespace fs = ::std::filesystem;
-			fs::path iconFolderDir = NppParameters::getInstance().getUserPath();
+			NppParameters& nppParams = NppParameters::getInstance();
+			fs::path iconFolderDir = nppParams.getUserPath();
 			iconFolderDir /= L"toolbarIcons";
 
 			const char* folderName = NppXml::attribute(_toolIcons, "icoFolderName");
 			iconFolderDir /= (folderName ? string2wstring(folderName, CP_UTF8) : L"default");
+
+			if (isUncPath(iconFolderDir))
+			{
+				NppGUI& nppGUI = nppParams.getNppGUI();
+				if (nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysAsk)
+				{
+					const NativeLangSpeaker* pNativeLangSpeaker = nppParams.getNativeLangSpeaker();
+
+					NetworkPathWarningBox networkPathWarningBox;
+					networkPathWarningBox.init(_hInst, _hParent, iconFolderDir, "title3");
+					networkPathWarningBox.doDialog(pNativeLangSpeaker ? pNativeLangSpeaker->isRTL() : false);
+					int buttonID = networkPathWarningBox.getClickedButtonId();
+					networkPathWarningBox.destroy();
+
+					if (buttonID == IDCANCEL || buttonID == IDNO) // Skip once or Always skip
+					{
+						return;
+					}
+				}
+				else if (nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysSkip)
+				{
+					return;
+				}
+				else if (nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysLoad)
+				{
+					// do nothing, continue to load the file
+				}
+			}
 
 			size_t i = 0;
 			fs::path disabled_suffix = L"_disabled";

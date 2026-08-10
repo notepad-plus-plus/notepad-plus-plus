@@ -3377,6 +3377,32 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 			if (fileName && fileName[0])
 			{
 				std::wstring rootFolder = string2wstring(fileName);
+
+				if (isUncPath(rootFolder))
+				{
+					if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysAsk)
+					{
+						NetworkPathWarningBox networkPathWarningBox;
+						networkPathWarningBox.init(hInst, nppHwnd, rootFolder);
+						networkPathWarningBox.doDialog(_pNativeLangSpeaker ? _pNativeLangSpeaker->isRTL() : false);
+						int buttonID = networkPathWarningBox.getClickedButtonId();
+						networkPathWarningBox.destroy();
+
+						if (buttonID == IDCANCEL || buttonID == IDNO) // Skip once or Always skip
+						{
+							continue;
+						}
+					}
+					else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysSkip)
+					{
+						continue;
+					}
+					else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysLoad)
+					{
+						// do nothing, continue to load the file
+					}
+				}
+
 				std::wstring lowerRoot = stringToLower(rootFolder);
 				FileBrowserRootsInfo fileRootInfo(std::move(rootFolder));
 

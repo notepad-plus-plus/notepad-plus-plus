@@ -1061,7 +1061,12 @@ void NetworkPathWarningBox::changeLang()
 			}
 			else
 			{
-				::SetWindowText(_hSelf, L"Clickable file:// link");
+				if (_titleTag == "title2")
+					::SetWindowText(_hSelf, L"Clickable file:// link");
+				else if (_titleTag == "title3")
+					::SetWindowText(_hSelf, L"Loading toolbarButtonsConf.xml");
+				else if (_titleTag == "title4")
+					::SetWindowText(_hSelf, L"Loading Project Panel XML file");
 			}
 		}
 		else

@@ -157,6 +157,7 @@ bool SecurityGuard::verifySignedBinary(const std::wstring& filepath)
 	winTEXTrust_data.dwUnionChoice = WTD_CHOICE_FILE;        // we are not checking catalog signed files
 	winTEXTrust_data.dwStateAction = WTD_STATEACTION_VERIFY; // only checking
 	winTEXTrust_data.fdwRevocationChecks = WTD_REVOKE_WHOLECHAIN;  // verify the whole certificate chain
+	winTEXTrust_data.dwProvFlags = WTD_CACHE_ONLY_URL_RETRIEVAL; // look only in the cached CRL when verifying embedded signature
 	winTEXTrust_data.pFile = &file_data;
 
 	if (!_doCheckRevocation)

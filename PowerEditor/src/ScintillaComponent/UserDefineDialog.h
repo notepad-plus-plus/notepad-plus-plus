@@ -267,7 +267,7 @@ protected :
     intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
     void setKeywords2List(int ctrlID) override;
 private :
-	static void retrieve(wchar_t* dest, const wchar_t* toRetrieve, const wchar_t* prefix);
+	static void retrieve(wchar_t* dest, size_t destMaxLen, const wchar_t* toRetrieve, const wchar_t* prefix);
     URLCtrl _pageLink;
 };
 
@@ -290,7 +290,7 @@ protected :
     intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
     void setKeywords2List(int id) override;
 private :
-	static void retrieve(wchar_t* dest, const wchar_t* toRetrieve, const wchar_t* prefix);
+	static void retrieve(wchar_t* dest, size_t destMaxLen, const wchar_t* toRetrieve, const wchar_t* prefix);
 };
 
 class SymbolsStyleDialog : public SharedParametersDialog
@@ -302,7 +302,7 @@ protected :
     intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
     void setKeywords2List(int id) override;
 private :
-	static void retrieve(wchar_t* dest, const wchar_t* toRetrieve, const wchar_t* prefix);
+	static void retrieve(wchar_t* dest, size_t destMaxLen, const wchar_t* toRetrieve, const wchar_t* prefix);
 };
 
 class UserDefineDialog : public SharedParametersDialog

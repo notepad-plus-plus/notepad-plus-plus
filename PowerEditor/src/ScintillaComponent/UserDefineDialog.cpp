@@ -260,16 +260,16 @@ void FolderStyleDialog::updateDlg()
 	::SendDlgItemMessage(_hSelf, IDC_FOLDER_IN_COMMENT_CLOSE_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(string2wstring(_pUserLang->_keywordLists[SCE_USER_KWLIST_FOLDERS_IN_COMMENT_CLOSE]).c_str()));
 }
 
-void FolderStyleDialog::retrieve(wchar_t* dest, const wchar_t* toRetrieve, const wchar_t* prefix)
+void FolderStyleDialog::retrieve(wchar_t* dest, size_t destMaxLen, const wchar_t* toRetrieve, const wchar_t* prefix)
 {
-    int j = 0;
+    size_t j = 0;
     bool begin2Copy = false;
 
 	for (size_t i = 0, len = std::wcslen(toRetrieve); i < len; ++i)
     {
         if ((i == 0 || (toRetrieve[i-1] == ' ')) && (toRetrieve[i] == prefix[0] && toRetrieve[i+1] == prefix[1]))
         {
-            if (j > 0)
+            if (j > 0 && j < destMaxLen)
                 dest[j++] = ' ';
 
             begin2Copy = true;
@@ -281,10 +281,12 @@ void FolderStyleDialog::retrieve(wchar_t* dest, const wchar_t* toRetrieve, const
             begin2Copy = false;
         }
 
-        if (begin2Copy)
+        if (begin2Copy && j < destMaxLen)
             dest[j++] = toRetrieve[i];
     }
-    dest[j++] = '\0';
+
+    if (j < destMaxLen)
+        dest[j++] = '\0';
 }
 
 intptr_t CALLBACK KeyWordsStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
@@ -569,40 +571,45 @@ void CommentStyleDialog::setKeywords2List(int id)
     }
 }
 
-void CommentStyleDialog::retrieve(wchar_t* dest, const wchar_t* toRetrieve, const wchar_t* prefix)
+void CommentStyleDialog::retrieve(wchar_t* dest, size_t destMaxLen, const wchar_t* toRetrieve, const wchar_t* prefix)
 {
-    int j = 0;
+    size_t j = 0;
     bool begin2Copy = false;
     bool inGroup = false;
 
-	for (size_t i = 0, len = std::wcslen(toRetrieve); i < len; ++i)
+    for (size_t i = 0, len = std::wcslen(toRetrieve); i < len; ++i)
     {
-        if ((i == 0 || (toRetrieve[i-1] == ' ')) && (toRetrieve[i] == prefix[0] && toRetrieve[i+1] == prefix[1]))
+        if ((i == 0 || (toRetrieve[i - 1] == ' ')) && (toRetrieve[i] == prefix[0] && toRetrieve[i + 1] == prefix[1]))
         {
-            if (j > 0)
+            if (j > 0 && j < destMaxLen)
                 dest[j++] = ' ';
 
             begin2Copy = true;
             ++i;
             continue;
         }
-		if (toRetrieve[i] == '(' && toRetrieve[i + 1] == '(' && !inGroup && begin2Copy)
+
+        if (toRetrieve[i] == '(' && toRetrieve[i + 1] == '(' && !inGroup && begin2Copy)
         {
             inGroup = true;
         }
-		if (toRetrieve[i] != ')' && toRetrieve[i - 1] == ')' && toRetrieve[i - 2] == ')' && inGroup)
+
+        if (toRetrieve[i] != ')' && toRetrieve[i - 1] == ')' && toRetrieve[i - 2] == ')' && inGroup)
         {
             inGroup = false;
         }
-		if (toRetrieve[i] == ' ' && begin2Copy)
+
+        if (toRetrieve[i] == ' ' && begin2Copy)
         {
             begin2Copy = false;
         }
 
-        if (begin2Copy || inGroup)
+        if (j < destMaxLen && (begin2Copy || inGroup))
             dest[j++] = toRetrieve[i];
     }
-    dest[j++] = '\0';
+
+    if (j < destMaxLen)
+        dest[j++] = '\0';
 }
 
 void CommentStyleDialog::updateDlg()
@@ -619,7 +626,7 @@ void CommentStyleDialog::updateDlg()
     for (int i = 0; static_cast<size_t>(i) < sizeof(list) / sizeof(int); ++i)
     {
         _itow(i, intBuffer + 1, 10);
-		retrieve(_kwlBuffer.data(), string2wstring(_pUserLang->_keywordLists[SCE_USER_KWLIST_COMMENTS]).c_str(), intBuffer);
+		retrieve(_kwlBuffer.data(), _kwlBuffer.capacity(), string2wstring(_pUserLang->_keywordLists[SCE_USER_KWLIST_COMMENTS]).c_str(), intBuffer);
 		::SendDlgItemMessage(_hSelf, list[i], WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_kwlBuffer.c_str()));
     }
 
@@ -679,7 +686,7 @@ void SymbolsStyleDialog::updateDlg()
         else
             _itow(i, intBuffer, 10);
 
-		retrieve(_kwlBuffer.data(), string2wstring(_pUserLang->_keywordLists[SCE_USER_KWLIST_DELIMITERS]).c_str(), intBuffer);
+		retrieve(_kwlBuffer.data(), _kwlBuffer.capacity(), string2wstring(_pUserLang->_keywordLists[SCE_USER_KWLIST_DELIMITERS]).c_str(), intBuffer);
 		::SendDlgItemMessage(_hSelf, list[i], WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_kwlBuffer.c_str()));
     }
 
@@ -759,9 +766,9 @@ intptr_t CALLBACK SymbolsStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, L
 }
 
 
-void SymbolsStyleDialog::retrieve(wchar_t* dest, const wchar_t* toRetrieve, const wchar_t* prefix)
+void SymbolsStyleDialog::retrieve(wchar_t* dest, size_t destMaxLen, const wchar_t* toRetrieve, const wchar_t* prefix)
 {
-    int j = 0;
+    size_t j = 0;
     bool begin2Copy = false;
     bool inGroup = false;
 
@@ -769,30 +776,34 @@ void SymbolsStyleDialog::retrieve(wchar_t* dest, const wchar_t* toRetrieve, cons
     {
         if ((i == 0 || (toRetrieve[i-1] == ' ')) && (toRetrieve[i] == prefix[0] && toRetrieve[i+1] == prefix[1]))
         {
-            if (j > 0)
+            if (j > 0 && j < destMaxLen)
                 dest[j++] = ' ';
 
             begin2Copy = true;
             ++i;
             continue;
         }
+
 		if (toRetrieve[i] == '(' && toRetrieve[i + 1] == '(' && !inGroup && begin2Copy)
         {
             inGroup = true;
         }
+
 		if (toRetrieve[i] != ')' && toRetrieve[i - 1] == ')' && toRetrieve[i - 2] == ')' && inGroup)
         {
             inGroup = false;
         }
+
 		if (toRetrieve[i] == ' ' && begin2Copy)
         {
             begin2Copy = false;
         }
 
-        if (begin2Copy || inGroup)
+        if (j < destMaxLen && (begin2Copy || inGroup))
             dest[j++] = toRetrieve[i];
     }
-    dest[j++] = '\0';
+    if (j < destMaxLen)
+        dest[j++] = '\0';
 }
 
 void SymbolsStyleDialog::setKeywords2List(int id)

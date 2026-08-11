@@ -122,7 +122,6 @@ u78 Utf8_16_Read::utf8_7bits_8bits()
 
 size_t Utf8_16_Read::convert(char* buf, size_t len)
 {
-	// bugfix by Jens Lorenz
 	static	size_t nSkip = 0;
 
 	m_pBuf = (ubyte*)buf;
@@ -164,7 +163,10 @@ size_t Utf8_16_Read::convert(char* buf, size_t len)
         case uni16LE:
 		{
             size_t newSize = (len + len % 2) + (len + len % 2) / 2;
-            
+
+			if (m_Iter16.getState() == Utf16_Iter::eSurrogate)
+				newSize += 4;
+
 			if (m_nAllocatedBufSize != newSize)
             {
 				if (m_pNewBuf)
@@ -181,6 +183,7 @@ size_t Utf8_16_Read::convert(char* buf, size_t len)
 			if (m_nAllocatedBufSize)
 			{
 				ubyte* pCur = m_pNewBuf;
+				ubyte* pEnd = m_pNewBuf + m_nAllocatedBufSize;
 
 				m_Iter16.set(m_pBuf + nSkip, len - nSkip, m_eEncoding);
 
@@ -189,7 +192,16 @@ size_t Utf8_16_Read::convert(char* buf, size_t len)
 					++m_Iter16;
 					utf8 c;
 					while (m_Iter16.get(&c))
+					{
+						if (pCur >= pEnd)
+						{
+							// It should not happen, but if it happens, we return 0 to indicate an error
+							m_nNewBufSize = 0;
+							return 0;
+						}
+
 						*pCur++ = c;
+					}
 				}
 				m_nNewBufSize = pCur - m_pNewBuf;
 			}

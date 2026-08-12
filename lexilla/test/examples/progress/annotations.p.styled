@@ -1,19 +1,41 @@
 {12}// @ used in the non-annotation sense
-{2}display{0} {3}"test"{0} @ {7}field{6}.{0}
+{2}display{0} {3}"test"{0} {6}@{0} {7}field{6}.{0}
+
+{12}// [ used in the non-annotation sense
+{7}a{6}[{7}b{6}]{0} {6}={0} {1}12{0}
 
 {12}// source annotation examples
 {13}@sourceannotation{0}
-{13}@source-annotation{6}(){0}
+	{13}@source-annotation{6}(){0}
 {13}@source_annotation{6}({7}prop{0} {6}={0} {3}"abc"{6}){0}
-{13}@source#$%annotation{6}({7}prop{0} {6}={0} {3}"abc"{6},{0} {7}prop2{0} {6}={0} {1}123{6}){0}
+  {13}@source#$%annotation{6}({7}prop{0} {6}={0} {3}"abc"{6},{0} {7}prop2{0} {6}={0} {1}123{6}){0}
 
-{12}// typed source annotation examples
-{14}@@sourceannotation{0}
-{14}@@source-annotation{6}(){0}
-{14}@@source_annotation{6}({7}prop{0} {6}={0} {3}"abc"{6}){0}
-{14}@@source#$%annotation{6}({7}prop{0} {6}={0} {3}"abc"{6},{0} {7}prop2{0} {6}={0} {1}123{6}){0}
+{12}// typed annotation examples
+{6}[{14}typedannotation{6}]{0}
+	{6}[{14}typed-annotation{6}()]{0}
+{6}[{14}typed_annotation{6}({7}prop{0} {6}={0} {3}"abc"{6})]{0}
+  {6}[{14}typed#$%annotation{6}({7}prop{0} {6}={0} {3}"abc"{6},{0} {7}prop2{0} {6}={0} {1}123{6})]{0}
+{6}[{14}typedannotation{6}({0}
+    {7}prop{0} {6}={0} {3}"abc"{6},{0}
+    {7}prop2{0} {6}={0} {1}123{6})]{0}
+
+{12}// we don't care if the property list is malformed; @ or [ followed by a class
+// name at the start of a line is always styled as an annotation
+{13}@source_annotation{6}({7}prop{0} {6}={0} {3}"abc"{0}
+{6}[{14}typed_annotation{6}({7}prop{0} {6}={0} {3}"abc"{6},{0} {7}prop2{0} {6}={0} {1}123{6}]{0}
+{13}@source_annotation{0}
+
+{12}// not an annotation because it's not the first non-whitespace character
+{7}bad{0}   {6}@{7}notannotation{0}
+  {7}bad{0}   {6}[{7}notannotation{6}]{0}
 
 {12}// poorly formed annotations
-{14}@@{13}@ThreeAtSigns{0} {12}// first two @ signs are typed, next is not typed
+{6}@@@{7}ThreeAtSigns{0} {12}// the @s are all operators, no annotation on this line
 {13}@name{6}[{7}containsbadcharacter{0} {12}// annotation style stops at bad character
-{14}@@name{6}[{7}containsbadcharacter{0} {12}// typed annotation style stops at bad character
+{6}[{14}name{6}[{7}containsbadcharacter{0} {12}// typed annotation style stops at bad character
+{6}[{14}name{6}/{7}containsbadcharacter{0} {12}// typed annotation style stops at bad character
+{6}[{0} {7}typedannotation{0} {6}]{0} {12}// can't have a space between [ and the class name
+{0}
+{12}// array reference on multiple lines
+{7}a{0}
+{6}[{14}b{6}]{0} {6}={0} {1}12{0} {12}// valid syntax but will be styled as an annotation; lesson: don't do that

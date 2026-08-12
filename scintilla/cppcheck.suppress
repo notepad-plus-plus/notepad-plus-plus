@@ -99,6 +99,9 @@ unusedFunction:scintilla/call/ScintillaCall.cxx
 constParameterPointer:scintilla/call/ScintillaCall.cxx
 constVariablePointer:scintilla/src/Editor.cxx
 
+// Code in ChangeCaseOfSelection works on two string_views in parallel to find shared prefix and suffix
+mismatchingContainers:scintilla/src/Editor.cxx
+
 // The performance cost of by-value passing is often small and using a reference decreases
 // code legibility.
 passedByValue

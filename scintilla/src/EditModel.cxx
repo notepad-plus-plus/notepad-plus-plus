@@ -55,9 +55,6 @@
 using namespace Scintilla;
 using namespace Scintilla::Internal;
 
-Caret::Caret() noexcept :
-	active(false), on(false), period(500) {}
-
 void ModelState::RememberSelectionForUndo(int index, const Selection &sel) {
 	historyForUndo.indexCurrent = index;
 	historyForUndo.ssCurrent = sel.ToString();

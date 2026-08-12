@@ -3556,7 +3556,7 @@ evt void ModifyAttemptRO=2004(void)
 # GTK Specific to work around focus and accelerator problems:
 evt void Key=2005(int ch, int modifiers)
 evt void DoubleClick=2006(int modifiers, int position, int line)
-evt void UpdateUI=2007(int updated)
+evt void UpdateUI=2007(int updated, int position)
 evt void Modified=2008(int position, int modificationType, string text, int length, int linesAdded, int line, int foldLevelNow, int foldLevelPrev, int token, int annotationLinesAdded)
 evt void MacroRecord=2009(int message, int wParam, int lParam)
 evt void MarginClick=2010(int modifiers, int position, int margin)

@@ -22,6 +22,9 @@ struct StyleAndColour {
 	}
 };
 
+constexpr int strokeWidthScale = 100;
+constexpr int strokeWidthMax = 10 * strokeWidthScale;
+
 /**
  */
 class Indicator {
@@ -46,10 +49,11 @@ public:
 	bool OverridesTextFore() const noexcept {
 		return sacNormal.style == Scintilla::IndicatorStyle::TextFore || sacHover.style == Scintilla::IndicatorStyle::TextFore || sacNormal.style == Scintilla::IndicatorStyle::ExplorerLink || sacHover.style == Scintilla::IndicatorStyle::ExplorerLink;
 	}
-	Scintilla::IndicFlag Flags() const noexcept {
+	[[nodiscard]] Scintilla::IndicFlag Flags() const noexcept {
 		return attributes;
 	}
-	void SetFlags(Scintilla::IndicFlag attributes_) noexcept;
+	bool SetStyle(Scintilla::IndicatorStyle style) noexcept;
+	bool SetFore(ColourRGBA fore) noexcept;
 };
 
 }

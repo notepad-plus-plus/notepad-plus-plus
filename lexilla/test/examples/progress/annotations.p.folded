@@ -1,20 +1,41 @@
  0 400 400   // @ used in the non-annotation sense
  0 400 400   display "test" @ field.
  0 400 400   
+ 0 400 400   // [ used in the non-annotation sense
+ 0 400 400   a[b] = 12
+ 0 400 400   
  0 400 400   // source annotation examples
  0 400 400   @sourceannotation
- 0 400 400   @source-annotation()
+ 0 400 400   	@source-annotation()
  0 400 400   @source_annotation(prop = "abc")
- 0 400 400   @source#$%annotation(prop = "abc", prop2 = 123)
+ 0 400 400     @source#$%annotation(prop = "abc", prop2 = 123)
  0 400 400   
- 0 400 400   // typed source annotation examples
- 0 400 400   @@sourceannotation
- 0 400 400   @@source-annotation()
- 0 400 400   @@source_annotation(prop = "abc")
- 0 400 400   @@source#$%annotation(prop = "abc", prop2 = 123)
+ 0 400 400   // typed annotation examples
+ 0 400 400   [typedannotation]
+ 0 400 400   	[typed-annotation()]
+ 0 400 400   [typed_annotation(prop = "abc")]
+ 0 400 400     [typed#$%annotation(prop = "abc", prop2 = 123)]
+ 0 400 400   [typedannotation(
+ 0 400 400       prop = "abc",
+ 0 400 400       prop2 = 123)]
+ 0 400 400   
+ 0 400 400   // we don't care if the property list is malformed; @ or [ followed by a class
+ 0 400 400   // name at the start of a line is always styled as an annotation
+ 0 400 400   @source_annotation(prop = "abc"
+ 0 400 400   [typed_annotation(prop = "abc", prop2 = 123]
+ 0 400 400   @source_annotation
+ 0 400 400   
+ 0 400 400   // not an annotation because it's not the first non-whitespace character
+ 0 400 400   bad   @notannotation
+ 0 400 400     bad   [notannotation]
  0 400 400   
  0 400 400   // poorly formed annotations
- 0 400 400   @@@ThreeAtSigns // first two @ signs are typed, next is not typed
+ 0 400 400   @@@ThreeAtSigns // the @s are all operators, no annotation on this line
  0 400 400   @name[containsbadcharacter // annotation style stops at bad character
- 0 400 400   @@name[containsbadcharacter // typed annotation style stops at bad character
- 1 400 400   
+ 0 400 400   [name[containsbadcharacter // typed annotation style stops at bad character
+ 0 400 400   [name/containsbadcharacter // typed annotation style stops at bad character
+ 0 400 400   [ typedannotation ] // can't have a space between [ and the class name
+ 0 400 400   
+ 0 400 400   // array reference on multiple lines
+ 0 400 400   a
+ 0 400 400   [b] = 12 // valid syntax but will be styled as an annotation; lesson: don't do that

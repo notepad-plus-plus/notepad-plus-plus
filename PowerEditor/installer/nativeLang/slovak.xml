@@ -621,8 +621,8 @@
 				<Item id="5508" name="Ďa&amp;lší"/>
 				<Item id="5509" name="Verzia zoznamu doplnkov:"/>
 				<Item id="5511" name="Repozitár zoznamu doplnkov"/>
-				<Item id="5512" name="&amp;Vypnuté"/>
-				<Item id="5513" name="&amp;Zapnuté"/>
+				<Item id="5512" name="&amp;Vypnúť"/>
+				<Item id="5513" name="&amp;Zapnúť"/>
 				<Item id="2" name="Zavrieť"/>
 			</PluginsAdminDlg>
 

@@ -572,6 +572,9 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 
 	bool Idle();
 	enum class TickReason { caret, scroll, widen, dwell, platform };
+	static constexpr int tickerInterval = 100;	// Default background ticker period for caret blinking, auto-scroll, ...
+	static constexpr int tickerIntervalWiden = 50;	// Ticker period for reflecting measured width to widen scroll bar
+	static constexpr int tickerToleranceFraction = 10;	// Default tolerance is 1/10 of tick interval
 	virtual void TickFor(TickReason reason);
 	virtual bool FineTickerRunning(TickReason reason);
 	virtual void FineTickerStart(TickReason reason, int millis, int tolerance);

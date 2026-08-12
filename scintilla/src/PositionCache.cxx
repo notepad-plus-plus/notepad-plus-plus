@@ -599,10 +599,7 @@ std::shared_ptr<LineLayout> LineLayoutCache::Retrieve(Sci::Line lineNumber, Sci:
 	}
 
 	if (pos < cache.size()) {
-		if (cache[pos] && !cache[pos]->CanHold(lineNumber, maxChars)) {
-			cache[pos]->ReSet(lineNumber, maxChars);
-		}
-		if (!cache[pos]) {
+		if (!cache[pos] || !cache[pos]->CanHold(lineNumber, maxChars)) {
 			cache[pos] = std::make_shared<LineLayout>(lineNumber, maxChars);
 		}
 #ifdef CHECK_LLC

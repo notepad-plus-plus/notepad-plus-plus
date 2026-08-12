@@ -303,6 +303,16 @@ void Indicator::Draw(Surface *surface, const PRectangle &rc, const PRectangle &r
 	}
 }
 
-void Indicator::SetFlags(IndicFlag attributes_) noexcept {
-	attributes = attributes_;
+bool Indicator::SetStyle(Scintilla::IndicatorStyle style) noexcept {
+	const bool different = (sacNormal.style != style) || (sacHover.style != style);
+	sacNormal.style = style;
+	sacHover.style = style;
+	return different;
+}
+
+bool Indicator::SetFore(ColourRGBA fore) noexcept {
+	const bool different = (sacNormal.fore != fore) || (sacHover.fore != fore);
+	sacNormal.fore = fore;
+	sacHover.fore = fore;
+	return different;
 }

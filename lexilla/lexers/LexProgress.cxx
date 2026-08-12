@@ -500,19 +500,29 @@ void SCI_METHOD LexerABL::Lex(Sci_PositionU startPos, Sci_Position length, int i
                sc.SetState(SCE_ABL_DEFAULT);
             }
          } else if (sc.ch == '@') {
-            if (!setClassName.Contains(sc.chNext) && sc.chNext != '@') {
-               // not an annotation - it might be something like: display "test" @ a
-               sc.SetState(SCE_ABL_DEFAULT);
-            }
-            else if (sc.chNext == '@') {
-               // @@typedannotation
-               sc.SetState(SCE_ABL_TYPEDANNOTATION);
-               sc.Forward();
-            }
-            else {
-               // @annotation
+            if (setClassName.Contains(sc.chNext) && visibleChars1 == 0) {
+               // @sourceannotation
                sc.SetState(SCE_ABL_ANNOTATION);
             }
+            else {
+               // not a source annotation - it might be something like: display "test" @ a
+               sc.SetState(SCE_ABL_OPERATOR);
+            }
+         }
+         else if (sc.ch == '[') {
+             if (setClassName.Contains(sc.chNext) && visibleChars1 == 0) {
+                // [typedannotation]
+                // The bracket is an operator and what follows is a typed annotation.
+                // Only the annotation's class name is styled as SCE_ABL_TYPEDANNOTATION;
+                // any properties that follow it are styled normally.
+                sc.SetState(SCE_ABL_OPERATOR);
+                sc.Forward();
+                sc.SetState(SCE_ABL_TYPEDANNOTATION);
+             }
+             else {
+                // not a typed annotation - it might be something like: a[b] = 12
+                sc.SetState(SCE_ABL_OPERATOR);
+             }
          } else if (isoperator(sc.ch)) {
             sc.SetState(SCE_ABL_OPERATOR);
             /*    This code allows highlight of handles. Alas, it would cause the phrase "last-event:function"

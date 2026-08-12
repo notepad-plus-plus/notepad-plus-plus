@@ -14,11 +14,10 @@ namespace Scintilla::Internal {
 */
 class Caret {
 public:
-	bool active;
-	bool on;
-	int period;
-
-	Caret() noexcept;
+	static constexpr int periodCaret = 500;	// Default caret period in milliseconds
+	bool active=false;
+	bool on=false;
+	int period=periodCaret;
 };
 
 enum class UndoRedo { undo, redo };

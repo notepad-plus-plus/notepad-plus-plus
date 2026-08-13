@@ -1,4 +1,4 @@
-﻿// This file is part of Notepad++ project
+// This file is part of Notepad++ project
 // Copyright (C)2021 adzm / Adam D. Walling
 
 // This program is free software: you can redistribute it and/or modify
@@ -211,10 +211,10 @@ namespace NppDarkMode
 
 	// black (default)
 	static constexpr Colors darkColors{
-		HEXRGB(0x202020),   // background
-		HEXRGB(0x383838),   // softerBackground
+		HEXRGB(0x000000),   // background
+		HEXRGB(0x000000),   // softerBackground
 		HEXRGB(0x454545),   // hotBackground
-		HEXRGB(0x202020),   // pureBackground
+		HEXRGB(0x000000),   // pureBackground
 		HEXRGB(0xB00000),   // errorBackground
 		HEXRGB(0xE0E0E0),   // textColor
 		HEXRGB(0xC0C0C0),   // darkerTextColor
@@ -525,7 +525,7 @@ namespace NppDarkMode
 		HWND hwndRoot = GetAncestor(hwnd, GA_ROOTOWNER);
 
 		// wParam == true, will reset style and toolbar icon
-		::SendMessage(hwndRoot, NPPM_INTERNAL_REFRESHDARKMODE, static_cast<WPARAM>(!forceRefresh), 0);
+		::SendMessage(hwndRoot, NPPM_INTERNAL_REFRESHDARKMODE, static_cast<WPARAM>(supportedChanged || forceRefresh), 0);
 	}
 
 	void initAdvancedOptions()

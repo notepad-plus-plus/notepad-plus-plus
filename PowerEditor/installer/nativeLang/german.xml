@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.7"><!-- Datum: 06.08.2026, basiert auf english.xml 8.9.7 vom 06.08.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.7"><!-- Datum: 13.08.2026, basiert auf english_customizable.xml/english.xml 8.9.7 vom 13.08.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -632,6 +632,8 @@ Translation note:
 				<Item id="5508" name="&amp;Nächstes finden"/>
 				<Item id="5509" name="&amp;Version der Plugin-Liste: "/>
 				<Item id="5511" name="Speicherort der &amp;Plugin-Liste"/>
+				<Item id="5512" name="&amp;Deaktivieren"/>
+				<Item id="5513" name="A&amp;ktivieren"/>
 				<Item id="2" name="Schließen"/>
 			</PluginsAdminDlg>
 
@@ -1475,16 +1477,16 @@ Diese Wahl kann jederzeit in den Einstellungen angepasst werden."/>
 				<Item id="7" name="&amp;Nein"/>
 				<Item id="4" name="&amp;Immer Ja"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
-			<NetworkPathWarning title="Lade Notepad++ Sitzung">
+			<NetworkPathWarning title="Lade Notepad++ Sitzung" title2="Wählbare Datei:// link">
 				<Item id="1771" name="Netzwerkpfad Warnung:
 
 $STR_REPLACE$
 
 Wenn Sie die Datei laden, authentifiziert sich Windows automatisch bei diesem Server. Eventuell werden dadurch die Windows-Anmeldedaten offengelegt.
 Mit dem Laden fortfahren?"/>
-				<Item id="7" name="Über&amp;springen"/>
+				<Item id="2" name="Über&amp;springen"/>
 				<Item id="6" name="&amp;Laden"/>
-				<Item id="2" name="Netzwerkpf&amp;ad immer überspringen"/>
+				<Item id="7" name="Netzwerkpf&amp;ad immer überspringen"/>
 				<Item id="4" name="&amp;Netzwerkpfad immer laden"/>
 			</NetworkPathWarning>
 			<DebugInfo title="Debug-Info">

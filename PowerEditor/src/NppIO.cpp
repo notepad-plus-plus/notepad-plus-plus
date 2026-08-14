@@ -2664,6 +2664,8 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 	switchEditViewTo(SUB_VIEW);	//open files in sub
 	int subIndex2Update = -1;
 
+	bool shouldQueryMainViewForClones = (session.nbMainFiles() > 0); // only if it has real docs/tabs (a view has also its implicit doc/tab otherwise)
+
 	for (size_t k = 0 ; k < session.nbSubFiles() ; )
 	{
 		const wchar_t *pFn = session._subViewFiles[k]._fileName.c_str();
@@ -2685,7 +2687,10 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 		if (doesFileExist(pFn) || (isSnapshotMode && doesFileExist(session._subViewFiles[k]._backupFilePath.c_str())))
 		{
 			//check if already open in main. If so, clone
-			BufferID clonedBuf = _mainDocTab.findBufferByName(pFn);
+			BufferID clonedBuf = BUFFER_INVALID;
+			if (shouldQueryMainViewForClones)
+				clonedBuf = _mainDocTab.findBufferByName(pFn);
+
 			if (clonedBuf != BUFFER_INVALID)
 			{
 				loadBufferIntoView(clonedBuf, SUB_VIEW);

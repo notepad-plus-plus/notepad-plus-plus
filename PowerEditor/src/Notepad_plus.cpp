@@ -2781,21 +2781,33 @@ void Notepad_plus::setupColorSampleBitmapsOnMainMenuItems()
 		if (pStyle)
 		{
 			HBITMAP hNewBitmap = generateSolidColourMenuItemIcon(pStyle->_bgColor);
-
-			SetMenuItemBitmaps(_mainMenuHandle, bitmapOnStyleMenuItemsInfo[j].firstOfThisColorMenuId, MF_BYCOMMAND, hNewBitmap, hNewBitmap);
-			for (int relatedMenuId : bitmapOnStyleMenuItemsInfo[j].sameColorMenuIds)
+			if (hNewBitmap)
 			{
-				SetMenuItemBitmaps(_mainMenuHandle, relatedMenuId, MF_BYCOMMAND, hNewBitmap, NULL);
+				if (!::SetMenuItemBitmaps(_mainMenuHandle, bitmapOnStyleMenuItemsInfo[j].firstOfThisColorMenuId, MF_BYCOMMAND, hNewBitmap, hNewBitmap))
+				{
+					::DeleteObject(hNewBitmap);
+				}
+				else
+				{
+					for (int relatedMenuId : bitmapOnStyleMenuItemsInfo[j].sameColorMenuIds)
+					{
+						::SetMenuItemBitmaps(_mainMenuHandle, relatedMenuId, MF_BYCOMMAND, hNewBitmap, NULL);
+					}
+				}
 			}
 		}
 	}
 
 	// Adds tab colour icons
-	for (int i = 0; i < 5; ++i)
+	for (int i = 0; i < TAB_COLORS_COUNT; ++i)
 	{
 		COLORREF colour = nppParam.getIndividualTabColor(i, NppDarkMode::isEnabled(), true);
 		HBITMAP hBitmap = generateSolidColourMenuItemIcon(colour);
-		SetMenuItemBitmaps(_mainMenuHandle, IDM_VIEW_TAB_COLOUR_1 + i, MF_BYCOMMAND, hBitmap, hBitmap);
+		if (hBitmap)
+		{
+			if (!::SetMenuItemBitmaps(_mainMenuHandle, IDM_VIEW_TAB_COLOUR_1 + i, MF_BYCOMMAND, hBitmap, hBitmap))
+				::DeleteObject(hBitmap);
+		}
 	}
 }
 
@@ -9161,28 +9173,53 @@ void Notepad_plus::updateCommandShortcuts()
 
 HBITMAP Notepad_plus::generateSolidColourMenuItemIcon(COLORREF colour)
 {
-	HDC hDC = GetDC(NULL);
-	const int bitmapXYsize = 16;
-	HBITMAP hNewBitmap = CreateCompatibleBitmap(hDC, bitmapXYsize, bitmapXYsize);
-	HDC hDCn = CreateCompatibleDC(hDC);
-	HBITMAP hOldBitmap = static_cast<HBITMAP>(SelectObject(hDCn, hNewBitmap));
-	RECT rc = { 0, 0, bitmapXYsize, bitmapXYsize };
+	HDC hDC = ::GetDC(nullptr);
+	if (!hDC)
+		return nullptr;
 
-	// paint full-size black square
-	HBRUSH hBlackBrush = CreateSolidBrush(RGB(0,0,0));
-	FillRect(hDCn, &rc, hBlackBrush);
-	DeleteObject(hBlackBrush);
+	static constexpr int bitmapXYsize = 16;
+	HBITMAP hNewBitmap = ::CreateCompatibleBitmap(hDC, bitmapXYsize, bitmapXYsize);
+	if (hNewBitmap)
+	{
+		HDC hDCn = ::CreateCompatibleDC(hDC);
+		if (!hDCn)
+		{
+			::DeleteObject(hNewBitmap);
+			hNewBitmap = nullptr;
+		}
+		else
+		{
+			HBITMAP hOldBitmap = static_cast<HBITMAP>(::SelectObject(hDCn, hNewBitmap));
+			RECT rc = { 0, 0, bitmapXYsize, bitmapXYsize };
 
-	// overpaint a slightly smaller colored square
-	rc.left = rc.top = 1;
-	rc.right = rc.bottom = bitmapXYsize - 1;
-	HBRUSH hColorBrush = CreateSolidBrush(colour);
-	FillRect(hDCn, &rc, hColorBrush);
-	DeleteObject(hColorBrush);
+			// paint full-size black square
+			HBRUSH hBrush = ::CreateSolidBrush(RGB(0, 0, 0));
+			if (hBrush)
+			{
+				::FillRect(hDCn, &rc, hBrush);
+				::DeleteObject(hBrush);
+				hBrush = nullptr;
+			}
 
-	// restore old bitmap so we can delete it to avoid leak
-	SelectObject(hDCn, hOldBitmap);
-	DeleteDC(hDCn);
+			// overpaint a slightly smaller colored square
+			rc.left = rc.top = 1;
+			rc.right = rc.bottom = bitmapXYsize - 1;
+			hBrush = ::CreateSolidBrush(colour);
+			if (hBrush)
+			{
+				::FillRect(hDCn, &rc, hBrush);
+				::DeleteObject(hBrush);
+				hBrush = nullptr;
+			}
+
+			// restore old bitmap so we can delete it to avoid leak
+			::SelectObject(hDCn, hOldBitmap);
+
+			::DeleteDC(hDCn);
+		}
+	}
+
+	::ReleaseDC(nullptr, hDC);
 
 	return hNewBitmap;
 }

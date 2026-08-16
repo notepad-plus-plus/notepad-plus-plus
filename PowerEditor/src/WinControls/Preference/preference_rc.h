@@ -287,12 +287,11 @@
 #define IDC_SMARTHILITEMATCHING_STATIC                 6354
 #define IDC_CHECK_MUTE_SOUNDS                          6360
 #define IDC_CHECK_SAVEALLCONFIRM                       6361
-
 #define IDC_COMBO_SC_TECHNOLOGY_CHOICE                 6362
 #define IDC_SC_TECHNOLOGY_STATIC                       6363
-
 #define IDC_COMBO_AUTOUPDATE                           6364
 #define IDC_AUTOUPDATE_STATIC                          6365
+#define IDC_CHECK_ALOOWSIMLINKFAW                      6366
 
 #define IDD_PREFERENCE_SUB_NEWDOCUMENT                 6400
 #define IDC_FORMAT_GB_STATIC                           6401

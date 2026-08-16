@@ -891,6 +891,8 @@ struct NppGUI final
 
 	enum NetworkPathWarningMethod { networkPathAlwaysAsk, networkPathAlwaysSkip, networkPathAlwaysLoad};
 	NetworkPathWarningMethod _networkPathWarningMethod = networkPathAlwaysAsk;
+
+	bool _isFawSymlinkAllowed = false; // allow to open symlink files in FaW (Folder as Workspace) panel.
 };
 
 

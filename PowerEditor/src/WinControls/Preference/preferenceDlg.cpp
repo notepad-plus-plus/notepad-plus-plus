@@ -3339,6 +3339,7 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DETECTENCODING, BM_SETCHECK, nppGUI._detectEncoding, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SAVEALLCONFIRM, BM_SETCHECK, nppGUI._saveAllConfirm, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_ALOOWSIMLINKFAW, BM_SETCHECK, nppGUI._isFawSymlinkAllowed, 0);
 
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_AUTOUPDATE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Disable"));
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_AUTOUPDATE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Enable on Notepad++ startup"));
@@ -3495,6 +3496,23 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 				case IDC_CHECK_SAVEALLCONFIRM:
 				{
 					nppGUI._saveAllConfirm = isCheckedOrNot(IDC_CHECK_SAVEALLCONFIRM);
+					return TRUE;
+				}
+
+				case IDC_CHECK_ALOOWSIMLINKFAW:
+				{
+					static bool isFirstTime = true;
+					nppGUI._isFawSymlinkAllowed = isCheckedOrNot(IDC_CHECK_ALOOWSIMLINKFAW);
+					if (nppGUI._isFawSymlinkAllowed && isFirstTime)
+					{
+						NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+						pNativeSpeaker->messageBox("SymlinkLoadingWarning",
+							_hSelf,
+							L"Enabling symlink loading in Folder as Workspace may cause Notepad++ to enter an infinite loop and freeze.\rThis can happen when directory symlinks resolve to parent folders or form circular references.\rProceed only if you understand the risks.",
+							L"Warning: Symlink Loading May Cause Freeze",
+							MB_OK | MB_ICONWARNING | MB_APPLMODAL);
+						isFirstTime = false;
+					}
 					return TRUE;
 				}
 

@@ -125,6 +125,66 @@ bool SetOSAppRestart()
 	return bRet;
 }
 
+static bool isSenderTrusted(WPARAM wParam)
+{
+	HWND hSenderWnd = reinterpret_cast<HWND>(wParam);
+	if (hSenderWnd == NULL || !IsWindow(hSenderWnd))
+		return false; // no real window handle presented -> reject
+
+	DWORD dwProcessId = 0;
+	if (GetWindowThreadProcessId(hSenderWnd, &dwProcessId) == 0 || dwProcessId == 0)
+		return false;
+
+	if (dwProcessId == GetCurrentProcessId())
+		return true; // same-process, trivially trusted
+
+	HANDLE hProcess = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, dwProcessId);
+	if (!hProcess)
+		return false;
+
+	bool isTrusted = false;
+
+	// Integrity level: require Medium or higher (blocks Low-IL sandboxes)
+	HANDLE hToken = NULL;
+	if (OpenProcessToken(hProcess, TOKEN_QUERY, &hToken))
+	{
+		BYTE tokenBuffer[sizeof(TOKEN_MANDATORY_LABEL) + SECURITY_MAX_SID_SIZE] = { 0 };
+		DWORD dwLength = 0;
+		if (GetTokenInformation(hToken, TokenIntegrityLevel, tokenBuffer, sizeof(tokenBuffer), &dwLength))
+		{
+			PTOKEN_MANDATORY_LABEL pTIL = reinterpret_cast<PTOKEN_MANDATORY_LABEL>(tokenBuffer);
+			DWORD dwIntegrityLevel = *GetSidSubAuthority(
+				pTIL->Label.Sid,
+				(DWORD)(UCHAR)(*GetSidSubAuthorityCount(pTIL->Label.Sid) - 1));
+
+			if (dwIntegrityLevel >= SECURITY_MANDATORY_MEDIUM_RID)
+				isTrusted = true;
+		}
+		CloseHandle(hToken);
+	}
+
+	// Executable identity: require it to be this same binary (another Notepad++ instance with the same path)
+	if (isTrusted)
+	{
+		wchar_t senderImagePath[MAX_PATH] = { 0 };
+		DWORD dwSize = MAX_PATH;
+		wchar_t selfImagePath[MAX_PATH] = { 0 };
+
+		if (QueryFullProcessImageNameW(hProcess, 0, senderImagePath, &dwSize) &&
+			GetModuleFileNameW(NULL, selfImagePath, MAX_PATH) > 0)
+		{
+			isTrusted = (_wcsicmp(senderImagePath, selfImagePath) == 0);
+		}
+		else
+		{
+			isTrusted = false;
+		}
+	}
+
+	CloseHandle(hProcess);
+	return isTrusted;
+}
+
 LRESULT CALLBACK Notepad_plus_Window::Notepad_plus_Proc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (hwnd == NULL)
@@ -733,63 +793,53 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (lParam == 0)
 				return TRUE; // invalid
 
+			if (!isSenderTrusted(wParam))
+				return TRUE; // reject: not another trusted instance of this same binary
+
 			COPYDATASTRUCT* pCopyData = reinterpret_cast<COPYDATASTRUCT*>(lParam);
 			if (pCopyData->lpData == nullptr)
 				return TRUE; // invalid
 
-			try {
-				switch (pCopyData->dwData)
-				{
-					case COPYDATA_FULL_CMDLINE:
-					{
-						wchar_t* str2set = static_cast<wchar_t*>(pCopyData->lpData);
-						nppParam.setCmdLineString(str2set);
-						break;
-					}
-
-					case COPYDATA_PARAMS:
-					{
-						const CmdLineParamsDTO* cmdLineParam = static_cast<const CmdLineParamsDTO*>(pCopyData->lpData); // CmdLineParams object from another instance
-						const DWORD cmdLineParamsSize = pCopyData->cbData; // CmdLineParams size from another instance
-						if (sizeof(CmdLineParamsDTO) == cmdLineParamsSize) // make sure the structure is the same
-						{
-							nppParam.setCmdlineParam(*cmdLineParam); // need to be guarded for possible invalid ptr passed
-							wstring pluginMessage{ nppParam.getCmdLineParams()._pluginMessage };
-							if (!pluginMessage.empty())
-							{
-								SCNotification scnN{};
-								scnN.nmhdr.code = NPPN_CMDLINEPLUGINMSG;
-								scnN.nmhdr.hwndFrom = hwnd;
-								scnN.nmhdr.idFrom = reinterpret_cast<uptr_t>(pluginMessage.c_str());
-								_pluginsManager.notify(&scnN);
-							}
-
-							NppGUI& nppGui = nppParam.getNppGUI();
-							nppGui._isCmdlineNosessionActivated = cmdLineParam->_isNoSession; // need to be guarded for possible invalid ptr passed
-						}
-						else
-						{
-#if !defined(NDEBUG)  
-							printStr(L"COPYDATA_PARAMS: sizeof(CmdLineParams) != cmdLineParamsSize\rCmdLineParams is formed by an instance of another version,\rwhereas your CmdLineParams has been modified in this instance.");
-#endif
-						}
-						break;
-					}
-
-					case COPYDATA_FILENAMESW:
-					{
-						wchar_t* fileNamesW = static_cast<wchar_t*>(pCopyData->lpData);
-						const CmdLineParamsDTO& cmdLineParams = nppParam.getCmdLineParams();
-						loadCommandlineParams(fileNamesW, &cmdLineParams);
-						break;
-					}
-				}
-			}
-			catch (...)
+			switch (pCopyData->dwData)
 			{
-#if !defined(NDEBUG)
-				printStr(L"WM_COPYDATA exception: probably an invalid pointer.");
-#endif
+				case COPYDATA_FULL_CMDLINE:
+				{
+					wchar_t* str2set = static_cast<wchar_t*>(pCopyData->lpData);
+					nppParam.setCmdLineString(str2set);
+					break;
+				}
+
+				case COPYDATA_PARAMS:
+				{
+					const CmdLineParamsDTO* cmdLineParam = static_cast<const CmdLineParamsDTO*>(pCopyData->lpData); // CmdLineParams object from another instance, but the same binary
+					const DWORD cmdLineParamsSize = pCopyData->cbData; // CmdLineParams size from another instance
+					if (sizeof(CmdLineParamsDTO) == cmdLineParamsSize) // make sure the structure is the same
+					{
+						nppParam.setCmdlineParam(*cmdLineParam); // need to be guarded for possible invalid ptr passed
+
+						wstring pluginMessage{ nppParam.getCmdLineParams()._pluginMessage };
+						if (!pluginMessage.empty())
+						{
+							SCNotification scnN{};
+							scnN.nmhdr.code = NPPN_CMDLINEPLUGINMSG;
+							scnN.nmhdr.hwndFrom = hwnd;
+							scnN.nmhdr.idFrom = reinterpret_cast<uptr_t>(pluginMessage.c_str());
+							_pluginsManager.notify(&scnN);
+						}
+
+						NppGUI& nppGui = nppParam.getNppGUI();
+						nppGui._isCmdlineNosessionActivated = cmdLineParam->_isNoSession; // need to be guarded for possible invalid ptr passed
+					}
+					break;
+				}
+
+				case COPYDATA_FILENAMESW:
+				{
+					wchar_t* fileNamesW = static_cast<wchar_t*>(pCopyData->lpData);
+					const CmdLineParamsDTO& cmdLineParams = nppParam.getCmdLineParams();
+					loadCommandlineParams(fileNamesW, &cmdLineParams);
+					break;
+				}
 			}
 
 			return TRUE;

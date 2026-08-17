@@ -786,7 +786,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				{
 					docGotoAnotherEditView(isInCtrlStat?TransferClone:TransferMove);
 				}
-				else
+				else // Drop outside of current Notepad++
 				{
 					RECT nppZone{};
 					::GetWindowRect(_pPublicInterface->getHSelf(), &nppZone);
@@ -840,7 +840,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					}
 				}
 			}
-			//break;
+
 			sender->resetDraggingPoint();
 			return TRUE;
 		}

@@ -136,7 +136,7 @@ static bool isSenderTrusted(WPARAM wParam)
 		return false;
 
 	if (dwProcessId == GetCurrentProcessId())
-		return true; // same-process, trivially trusted
+		return false; // same-process - the same Notepad++ instance never send itself WM_COPYDATA - could be fake -> reject
 
 	HANDLE hProcess = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, dwProcessId);
 	if (!hProcess)

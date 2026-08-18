@@ -684,7 +684,7 @@ struct AdvancedOptions final
 	AdvOptDefaults _darkDefaults{ L"DarkModeDefault.xml", { toolBarStatusType::TB_SMALL, FluentColor::defaultColor, 0, false }, 2, false };
 	AdvOptDefaults _lightDefaults{ L"", { toolBarStatusType::TB_STANDARD, FluentColor::defaultColor, 0, false }, 0, true };
 
-	bool _enableWindowsMode = false;
+	bool _enableWindowsMode = true;
 };
 
 struct DarkModeConf final

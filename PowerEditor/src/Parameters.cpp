@@ -5609,6 +5609,8 @@ std::wstring NppParameters::getLocPathFromStr(const std::wstring & localizationC
 		return L"tatar.xml";
 	if (localizationCode == L"te")
 		return L"telugu.xml";
+	if (localizationCode == L"lo")
+        return L"lao.xml";
 	if (localizationCode == L"th")
 		return L"thai.xml";
 	if (localizationCode == L"tr")

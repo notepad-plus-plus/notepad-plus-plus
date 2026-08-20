@@ -451,6 +451,9 @@ SectionGroup un.localization
 	Section un.lithuanian
 		Delete "$INSTDIR\localization\lithuanian.xml"
 	SectionEnd
+	Section un.lao
+        Delete "$INSTDIR\localization\lao.xml"
+    SectionEnd
 	Section un.luxembourgish
 		Delete "$INSTDIR\localization\luxembourgish.xml"
 	SectionEnd

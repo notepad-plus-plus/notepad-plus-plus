@@ -23,6 +23,7 @@ LocalizationSwitcher::LocalizationDefinition localizationDefs[] =
 	{L"台灣繁體",                L"taiwaneseMandarin.xml"},
 	{L"中文简体",                L"chineseSimplified.xml"},
 	{L"한국어",                  L"korean.xml"},
+	{L"ລາວ", 					L"lao.xml"},
 	{L"日本語",                  L"japanese.xml"},
 	{L"Deutsch",                L"german.xml"},
 	{L"Español",                L"spanish.xml"},

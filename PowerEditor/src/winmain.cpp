@@ -48,13 +48,15 @@ namespace
 {
 
 
-void allowPrivilegeMessages(const Notepad_plus_Window& notepad_plus_plus, winVer winVer)
+void allowForbidPrivilegeMessages(const Notepad_plus_Window& notepad_plus_plus, winVer winVer)
 {
 	#ifndef MSGFLT_ADD
 	const DWORD MSGFLT_ADD = 1;
+	const DWORD MSGFLT_REMOVE = 2;
 	#endif
 	#ifndef MSGFLT_ALLOW
 	const DWORD MSGFLT_ALLOW = 1;
+	const DWORD MSGFLT_DISALLOW = 2;
 	#endif
 	// Tell UAC that lower integrity processes are allowed to send WM_COPYDATA (or other) messages to this process (or window)
 	// This (WM_COPYDATA) allows opening new files to already opened elevated Notepad++ process via explorer context menu.
@@ -75,6 +77,8 @@ void allowPrivilegeMessages(const Notepad_plus_Window& notepad_plus_plus, winVer
 				{
 					func(WM_COPYDATA, MSGFLT_ADD);
 					func(NPPM_INTERNAL_RESTOREFROMMINIMIZED, MSGFLT_ADD);
+
+					func(WM_COMMAND, MSGFLT_REMOVE); // Disallow WM_COMMAND messages from lower integrity processes (for security reasons)
 				}
 			}
 			else
@@ -87,6 +91,8 @@ void allowPrivilegeMessages(const Notepad_plus_Window& notepad_plus_plus, winVer
 				{
 					funcEx(notepad_plus_plus.getHSelf(), WM_COPYDATA, MSGFLT_ALLOW, NULL);
 					funcEx(notepad_plus_plus.getHSelf(), NPPM_INTERNAL_RESTOREFROMMINIMIZED, MSGFLT_ALLOW, NULL);
+
+					funcEx(notepad_plus_plus.getHSelf(), WM_COMMAND, MSGFLT_DISALLOW, NULL); // Disallow WM_COMMAND messages from lower integrity processes (for security reasons)
 				}
 			}
 		}
@@ -831,7 +837,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	bool isException = false;
 	try {
 		notepad_plus_plus.init(hInstance, NULL, quotFileName.c_str(), &cmdLineParams);
-		allowPrivilegeMessages(notepad_plus_plus, ver);
+		allowForbidPrivilegeMessages(notepad_plus_plus, ver);
 		bool going = true;
 		while (going)
 		{

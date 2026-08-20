@@ -56,6 +56,7 @@
   !insertmacro MUI_LANGUAGE "Kurdish"
   !insertmacro MUI_LANGUAGE "Latvian"
   !insertmacro MUI_LANGUAGE "Lithuanian"
+  !insertmacro MUI_LANGUAGE "Lao"
   !insertmacro MUI_LANGUAGE "Luxembourgish"
   !insertmacro MUI_LANGUAGE "Macedonian"
   !insertmacro MUI_LANGUAGE "Malay"

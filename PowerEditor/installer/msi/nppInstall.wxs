@@ -100,10 +100,16 @@
 			Register sparse MSIX package after user next login for Windows 11 modern context menu
 			-->
 			<Component Id="cmp_RegSparsePackage" Guid="{02E790D5-3018-48E5-9B04-2C75925767AD}">
+				<RegistryKey Root="HKLM" Key="SOFTWARE\Notepad++">
+					<RegistryValue Name="ContextMenuFolder"
+						Type="string"
+						Value="[ContextMenuFolder]"
+						KeyPath="no" />
+				</RegistryKey>
 				<RegistryKey Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce">
-				<RegistryValue Name="RegisterNppShell"
-							   Value="&quot;[System64Folder]WindowsPowerShell\v1.0\powershell.exe&quot; -NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy Bypass -Command &quot;$p = '[ContextMenuFolder]'.TrimEnd('\'); Add-AppxPackage -Path \&quot;$p\NppShell.msix\&quot; -ExternalLocation \&quot;$p\&quot;&quot;"
-							   Type="string" />
+					<RegistryValue Name="RegisterNppShell"
+						Type="string"
+						Value="&quot;[System64Folder]WindowsPowerShell\v1.0\powershell.exe&quot; -NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy Bypass -Command &quot;$p = (Get-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Notepad++' -Name ContextMenuFolder).ContextMenuFolder.TrimEnd('\'); Add-AppxPackage -Path (Join-Path $p 'NppShell.msix') -ExternalLocation $p; Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Notepad++' -Name ContextMenuFolder -ErrorAction SilentlyContinue&quot;" />
 				</RegistryKey>
 			</Component>
 		</ComponentGroup>

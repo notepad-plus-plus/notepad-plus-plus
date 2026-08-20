@@ -786,7 +786,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				{
 					docGotoAnotherEditView(isInCtrlStat?TransferClone:TransferMove);
 				}
-				else
+				else // Drop outside of current Notepad++
 				{
 					RECT nppZone{};
 					::GetWindowRect(_pPublicInterface->getHSelf(), &nppZone);
@@ -825,7 +825,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 						else
 						{
 							::SendMessage(hWinParent, NPPM_INTERNAL_SWITCHVIEWFROMHWND, 0, reinterpret_cast<LPARAM>(hWin));
-							::SendMessage(hWinParent, WM_COPYDATA, reinterpret_cast<WPARAM>(_pPublicInterface->getHinst()), reinterpret_cast<LPARAM>(&fileNamesData));
+							::SendMessage(hWinParent, WM_COPYDATA, reinterpret_cast<WPARAM>(_pPublicInterface->getHSelf()), reinterpret_cast<LPARAM>(&fileNamesData));
 							if (!isInCtrlStat)
 							{
 								fileClose(bufferToClose, iView);
@@ -840,7 +840,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					}
 				}
 			}
-			//break;
+
 			sender->resetDraggingPoint();
 			return TRUE;
 		}

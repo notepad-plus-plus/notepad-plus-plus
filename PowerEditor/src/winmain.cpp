@@ -766,25 +766,37 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 			if (params.size() > 0                         // if there are files to open, use the WM_COPYDATA system
 				|| !cmdLineParams._pluginMessage.empty()) // or pluginMessage is present, use the WM_COPYDATA system as well
 			{
+				static const wchar_t* className = L"NppIpcSenderWnd";
+				WNDCLASSW wc{};
+				wc.lpfnWndProc = DefWindowProcW;
+				wc.hInstance = hInstance;
+				wc.lpszClassName = className;
+				RegisterClassW(&wc);
+
+				// HWND_MESSAGE: message-only window, never visible, no taskbar entry
+				HWND hIpcSender = CreateWindowExW(0, className, L"", 0, 0, 0, 0, 0,	HWND_MESSAGE, NULL, hInstance, NULL);
+
 				CmdLineParamsDTO dto = CmdLineParamsDTO::FromCmdLineParams(cmdLineParams);
 
 				COPYDATASTRUCT paramData{};
 				paramData.dwData = COPYDATA_PARAMS;
 				paramData.lpData = &dto;
 				paramData.cbData = sizeof(dto);
-				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&paramData));
+				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hIpcSender), reinterpret_cast<LPARAM>(&paramData));
 
 				COPYDATASTRUCT cmdLineData{};
 				cmdLineData.dwData = COPYDATA_FULL_CMDLINE;
 				cmdLineData.lpData = (void*)cmdLineString.c_str();
 				cmdLineData.cbData = static_cast<DWORD>((cmdLineString.length() + 1) * sizeof(wchar_t));
-				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&cmdLineData));
+				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hIpcSender), reinterpret_cast<LPARAM>(&cmdLineData));
 
 				COPYDATASTRUCT fileNamesData{};
 				fileNamesData.dwData = COPYDATA_FILENAMESW;
 				fileNamesData.lpData = (void *)quotFileName.c_str();
 				fileNamesData.cbData = static_cast<DWORD>((quotFileName.length() + 1) * sizeof(wchar_t));
-				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&fileNamesData));
+				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hIpcSender), reinterpret_cast<LPARAM>(&fileNamesData));
+
+				::DestroyWindow(hIpcSender);
 			}
 			return 0;
         }

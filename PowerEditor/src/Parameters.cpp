@@ -9066,7 +9066,7 @@ void NppParameters::initTabCustomColors()
 
 void NppParameters::setIndividualTabColor(COLORREF colour2Set, int colourIndex, bool isDarkMode)
 {
-	if (colourIndex < 0 || colourIndex > 4) return;
+	if ((colourIndex < 0) || (colourIndex >= TAB_COLORS_COUNT)) return;
 
 	if (isDarkMode)
 		individualTabHuesFor_Dark[colourIndex].loadFromRGB(colour2Set);
@@ -9078,7 +9078,7 @@ void NppParameters::setIndividualTabColor(COLORREF colour2Set, int colourIndex, 
 
 COLORREF NppParameters::getIndividualTabColor(int colourIndex, bool isDarkMode, bool saturated)
 {
-	if (colourIndex < 0 || colourIndex > 4) return {};
+	if ((colourIndex < 0) || (colourIndex >= TAB_COLORS_COUNT)) return {};
 
 	HLSColour result;
 	if (isDarkMode)

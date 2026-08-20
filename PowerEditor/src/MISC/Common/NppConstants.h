@@ -158,6 +158,8 @@ inline constexpr int TAB_PINBUTTON             =    0x0800;    // 0000 1000 0000
 inline constexpr int TAB_INACTIVETABSHOWBUTTON =    0x1000;    // 0001 0000 0000 0000
 inline constexpr int TAB_SHOWONLYPINNEDBUTTON  =    0x2000;    // 0010 0000 0000 0000
 
+inline constexpr int TAB_COLORS_COUNT = 5;
+
 inline constexpr bool activeText = true;
 inline constexpr bool activeNumeric = false;
 

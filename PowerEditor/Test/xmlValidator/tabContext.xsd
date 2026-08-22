@@ -11,6 +11,7 @@
                   <xs:attribute name="MenuEntryName" type="xs:string" use="optional"/>
                   <xs:attribute name="MenuItemName" type="xs:string" use="optional"/>
                   <xs:attribute name="FolderName" type="xs:string" use="optional"/>
+                  <xs:attribute name="ItemNameAs" type="xs:string" use="optional"/>
                   <xs:attribute name="id" type="xs:integer" use="optional"/>
                 </xs:complexType>
               </xs:element>

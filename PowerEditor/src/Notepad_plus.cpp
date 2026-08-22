@@ -5243,7 +5243,7 @@ void Notepad_plus::staticCheckMenuAndTB() const
 
 
 	// Wrap
-	b = _pEditView->isWrap();
+	b = NppParameters::getInstance().getSVP()._doWrap;
 	checkMenuItem(IDM_VIEW_WRAP, b);
 	_toolBar.setCheck(IDM_VIEW_WRAP, b);
 	checkMenuItem(IDM_VIEW_WRAP_SYMBOL, _pEditView->isWrapSymbolVisible());
@@ -6507,6 +6507,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includeUntitled
 			sfi._isMonitoring = buf->isMonitoringOn();
 			sfi._individualTabColour = docTab[k]->getIndividualTabColourId(static_cast<int>(i));
 			sfi._isRTL = buf->isRTL();
+			sfi._wrapMode = buf->getWrapMode();
 
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
 

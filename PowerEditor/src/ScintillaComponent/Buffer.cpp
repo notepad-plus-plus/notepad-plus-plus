@@ -130,6 +130,13 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 }
 
 
+bool Buffer::isWrapEnabled() const
+{
+	return _wrapMode == DocumentWrapMode::on ||
+		(_wrapMode == DocumentWrapMode::useGlobal && NppParameters::getInstance().getSVP()._doWrap);
+}
+
+
 void Buffer::doNotify(int mask)
 {
 	if (_canNotify)
@@ -963,16 +970,6 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 	if (nppGui._largeFileRestriction._isEnabled)
 		isLargeFile = fileSize >= nppGui._largeFileRestriction._largeFileSizeDefInByte;
 
-	// Due to the performance issue, the Word Wrap feature will be disabled if it's ON
-	if (isLargeFile && nppGui._largeFileRestriction._deactivateWordWrap)
-	{
-		bool isWrap = _pNotepadPlus->_pEditView->isWrap();
-		if (isWrap)
-		{
-			_pNotepadPlus->command(IDM_VIEW_WRAP);
-		}
-	}
-
 	bool ownDoc = false;
 	if (!doc)
 	{
@@ -1019,6 +1016,10 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 	if (loadRes)
 	{
 		Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath, isLargeFile);
+		// Due to performance concerns, disable word wrap for this large-file buffer only.
+		if (isLargeFile && nppGui._largeFileRestriction._deactivateWordWrap)
+			newBuf->setWrapMode(DocumentWrapMode::off);
+
 		BufferID id = newBuf;
 		newBuf->_id = id;
 

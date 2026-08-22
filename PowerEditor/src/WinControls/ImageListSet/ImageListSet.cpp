@@ -38,7 +38,7 @@ void IconList::init(HINSTANCE hInst, int iconSize)
 	_hInst = hInst;
 	_iconSize = iconSize;
 	static constexpr int nbMore = 45;
-	_hImglst = ImageList_Create(iconSize, iconSize, ILC_COLOR32 | ILC_MASK, 0, nbMore);
+	_hImglst = ImageList_Create(iconSize, iconSize, ILC_COLOR32 | ILC_MASK, nbMore * 2, nbMore);
 	if (!_hImglst)
 		throw std::runtime_error("IconList::create : ImageList_Create() function returns null");
 }

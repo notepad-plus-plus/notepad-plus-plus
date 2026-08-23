@@ -978,7 +978,7 @@ BEGIN
                 MENUITEM "OEM 858",             IDM_FORMAT_DOS_858
                 MENUITEM "OEM 860 : Portuguese",  IDM_FORMAT_DOS_860
                 MENUITEM "OEM 863 : French",      IDM_FORMAT_DOS_863
-                MENUITEM "OEM-US",              IDM_FORMAT_DOS_437
+                MENUITEM "OEM-US : CP437",      IDM_FORMAT_DOS_437
                 MENUITEM "Windows-1252",        IDM_FORMAT_WIN_1252
             END
 

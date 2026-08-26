@@ -9182,7 +9182,12 @@ HBITMAP Notepad_plus::generateSolidColourMenuItemIcon(COLORREF colour)
 	if (hNewBitmap)
 	{
 		HDC hDCn = ::CreateCompatibleDC(hDC);
-		if (hDCn)
+		if (!hDCn)
+		{
+			::DeleteObject(hNewBitmap);
+			hNewBitmap = nullptr;
+		}
+		else
 		{
 			HBITMAP hOldBitmap = static_cast<HBITMAP>(::SelectObject(hDCn, hNewBitmap));
 			RECT rc = { 0, 0, bitmapXYsize, bitmapXYsize };

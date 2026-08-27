@@ -1172,7 +1172,7 @@ static bool isInListNested(int nestedKey, vector<forwardStruct> & forwards, Styl
             if ((iter->_maskID != SCE_USER_MASK_NESTING_COMMENT_LINE) ||
                 (iter->_maskID == SCE_USER_MASK_NESTING_COMMENT_LINE &&
                     ((pureLC == PURE_LC_NONE) ||
-                     (pureLC == PURE_LC_BOL && (sc.chPrev == '\r' || sc.chPrev == '\n')) ||
+                     (pureLC == PURE_LC_BOL && sc.atLineStart) ||
                      (pureLC == PURE_LC_WSP && visibleChars == false))))
 
             {
@@ -1851,6 +1851,11 @@ static void ColouriseUserDoc(Sci_PositionU startPos, Sci_Position length, int in
                         // paint backward keyword and move on
                         sc.SetState(SCE_USER_STYLE_COMMENTLINE);
                         sc.Forward(iter->length());
+                        if (sc.atLineStart)
+                        {
+                            visibleChars = false;
+                            skipVisibleCheck = true;
+                        }
                         // was current line comment sequence nested, or do we start over from SCE_USER_STYLE_IDENTIFIER?
                         readLastNested(lastNestedGroup, newState, openIndex);
                         // paint end of line comment sequence
@@ -2011,7 +2016,7 @@ static void ColouriseUserDoc(Sci_PositionU startPos, Sci_Position length, int in
                 if (!commentLineOpen.empty())
                 {
                     if ((pureLC == PURE_LC_NONE) ||
-                        (pureLC == PURE_LC_BOL && (sc.chPrev == '\r' || sc.chPrev == '\n')) ||
+                        (pureLC == PURE_LC_BOL && sc.atLineStart) ||
                         (pureLC == PURE_LC_WSP && visibleChars == false) )
                     {
                         if (isInListForward(commentLineOpen, sc, ignoreCase, openIndex, skipForward))

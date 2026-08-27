@@ -1466,7 +1466,7 @@ Toto dialógové okno môžete neskôr znovu aktivovať v Predvoľbách."/>
 				<Item id="7" name="&amp;Nie"/>
 				<Item id="4" name="&amp;Vždy áno"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
-			<NetworkPathWarning title="Načítava sa relácia Notepad++" title2="Klikateľný odkaz file:// title3="Načítava sa toolbarButtonsConf.xml" title4="Načítava sa súbor XML panela projektu">
+			<NetworkPathWarning title="Načítava sa relácia Notepad++" title2="Klikateľný odkaz file://" title3="Načítava sa toolbarButtonsConf.xml" title4="Načítava sa súbor XML panela projektu">
 				<Item id="1771" name="Upozornenie na sieťovú cestu:
 
 $STR_REPLACE$

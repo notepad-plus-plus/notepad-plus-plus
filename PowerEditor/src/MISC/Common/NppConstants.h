@@ -85,6 +85,13 @@ enum lineWrapMethod
 	LINEWRAP_INDENT
 };
 
+enum class DocumentWrapMode : unsigned char
+{
+	useGlobal,
+	off,
+	on
+};
+
 enum lineHiliteMode
 {
 	LINEHILITE_NONE,

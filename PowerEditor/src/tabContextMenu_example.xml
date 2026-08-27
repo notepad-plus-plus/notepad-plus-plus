@@ -61,6 +61,9 @@ https://npp-user-manual.org/docs/config-files/#the-context-menu-tabcontextmenu-x
 		<Item FolderName="Apply Color to Tab" MenuEntryName="View" MenuItemName="Apply Color 4"/>
 		<Item FolderName="Apply Color to Tab" MenuEntryName="View" MenuItemName="Apply Color 5"/>
 		<Item FolderName="Apply Color to Tab" MenuEntryName="View" MenuItemName="Remove Color"/>
+		<Item FolderName="Word Wrap" id="44118" ItemNameAs="Use Global Setting"/>
+		<Item FolderName="Word Wrap" id="44119" ItemNameAs="Off"/>
+		<Item FolderName="Word Wrap" id="44120" ItemNameAs="On"/>
 
 	</TabContextMenu>
 </NotepadPlus>

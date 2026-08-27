@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.9.7">
+	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.9.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1334,6 +1334,7 @@
 					<Item id="6346" name="於文件導覽窺視檔案"/>
 					<Item id="6360" name="靜音"/>
 					<Item id="6361" name="啟動全部儲存確認"/>
+					<Item id="6366" name="允許在「資料夾工作區」中載入符號連結"/>
 				</MISC>
 			</Preference>
 
@@ -1397,7 +1398,7 @@
 				<Item id="7" name="不要(&amp;N)"/>
 				<Item id="4" name="始終確定"/>
 			</DoSaveAll>
-			<NetworkPathWarning title="Notepad++ 文件群組載入" title2="可點擊的 file:// 鏈接">
+			<NetworkPathWarning title="Notepad++ 文件群組載入" title2="可點擊的 file:// 鏈接" title3="toolbarButtonsConf.xml 載入中" title4="專案管理員 XML 文件載入中">
 				<Item id="1771" name="網路路徑警告：
 
 $STR_REPLACE$
@@ -1518,6 +1519,9 @@ $STR_REPLACE$
 
 基於安全考量，請檢視已開啟的 shortcuts.xml。
 如果內容正確，請從「執行」選單中使用「驗證 shortcuts.xml 檔案」來確認。"/>
+			<SymlinkLoadingWarning title="警告：載入符號連結可能導致程式凍結" message="啟用「資料夾工作區」中的符號連結載入功能可能會使 Notepad++ 進入無限循環並造成程式凍結。
+當目錄符號連結指向父層資料夾或形成循環引用時，就可能發生此問題。
+請在充分了解風險後再繼續操作。"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="剪貼簿記錄"/>

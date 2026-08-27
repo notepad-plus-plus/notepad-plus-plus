@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english_customizable.xml" version="8.9.7">
+	<Native-Langue name="English" filename="english_customizable.xml" version="8.9.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1401,6 +1401,7 @@ Translation note:
 					<Item id="6346" name="Peek on document map"/>
 					<Item id="6360" name="Mute all sounds"/>
 					<Item id="6361" name="Enable Save All confirm dialog"/>
+					<Item id="6366" name="Allow loading symlinks in Folder as Workspace panel"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Run a Macro Multiple Times">
@@ -1468,7 +1469,7 @@ You can re-activate this dialog in Preferences later."/>
 				<Item id="7" name="&amp;No"/>
 				<Item id="4" name="&amp;Always yes"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
-			<NetworkPathWarning title="Notepad++ session loading" title2="Clickable file:// link">
+			<NetworkPathWarning title="Notepad++ session loading" title2="Clickable file:// link" title3="Loading toolbarButtonsConf.xml" title4="Loading Project Panel XML file">
 				<Item id="1771" name="Network Path Warning:
 
 $STR_REPLACE$
@@ -1643,6 +1644,9 @@ For security reasons, the integrity of shortcuts.xml will be checked. To run you
 			<ShortcutsXmlTampered title="Security Warning" message="The shortcuts.xml file appears to have been modified manually.
 
 For security reasons, please review the opened shortcuts.xml. If the file content is OK, use &quot;Validate shortcuts.xml&quot; from the &quot;Run&quot; menu to confirm it."/>
+			<SymlinkLoadingWarning title="Warning: Symlink Loading May Cause Freeze" message="Enabling symlink loading in Folder as Workspace may cause Notepad++ to enter an infinite loop and freeze.
+This can happen when directory symlinks resolve to parent folders or form circular references.
+Proceed only if you understand the risks."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Clipboard History"/>

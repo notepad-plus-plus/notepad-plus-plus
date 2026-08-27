@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Français" filename="french.xml" version="8.9.7">
+	<Native-Langue name="Français" filename="french.xml" version="8.9.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1400,6 +1400,7 @@ Translation note:
 					<Item id="6346" name="Aperçu à commutateur de documents"/>
 					<Item id="6360" name="Chut !"/>
 					<Item id="6361" name="Activer la confirmation pour la commande « Enregistrer tout »"/>
+					<Item id="6366" name="Autoriser le chargement des liens symboliques dans « Dossier en tant qu’espace de travail »"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Exécuter une macro en boucle">
@@ -1467,7 +1468,7 @@ Vous pourrez réactiver cette boîte de dialogue dans les Préférences ultérie
 				<Item id="7" name="&amp;Non"/>
 				<Item id="4" name="Toujours Oui"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
-			<NetworkPathWarning title="Notepad++ : chargement de la session" title2="Le lien file:// cliquable">
+			<NetworkPathWarning title="Notepad++ : chargement de la session" title2="Le lien file:// cliquable" title3="Chargement de toolbarButtonsConf.xml" title4="Chargement du fichier XML du panneau de projet">
 				<Item id="1771" name="Avertissement concernant le chemin réseau :
 
 $STR_REPLACE$
@@ -1645,6 +1646,9 @@ Si son contenu est correct, utilisez « Valider shortcuts.xml » dans le men
 
 Pour des raisons de sécurité, veuillez examiner le fichier shortcuts.xml ouvert.
 Si son contenu est correct, utilisez « Valider shortcuts.xml » dans le menu &quot;Exécution&quot; pour le confirmer."/>
+			<SymlinkLoadingWarning title="Avertissement : le chargement des liens symboliques peut provoquer un blocage" message="Activer le chargement des liens symboliques dans « Dossier en tant qu’espace de travail » peut entraîner une boucle infinie et provoquer le blocage de Notepad++.
+Ce problème peut survenir lorsque des liens symboliques de répertoires se résolvent vers des dossiers parents ou créent des références circulaires.
+N’avancez que si vous comprenez les risques."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historique du presse-papier"/>

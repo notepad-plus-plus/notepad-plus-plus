@@ -1,0 +1,23 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+	remove|purge)
+		if command -v update-desktop-database >/dev/null 2>&1; then
+			update-desktop-database -q /usr/share/applications 2>/dev/null || true
+		fi
+		if command -v gtk-update-icon-cache >/dev/null 2>&1; then
+			gtk-update-icon-cache -q -t -f /usr/share/icons/hicolor 2>/dev/null || true
+		fi
+		;;
+esac
+
+if [ "$1" = "purge" ]; then
+	# NOTE: per-user Wine prefixes live in each user's
+	# ~/.local/share/notepad-plus-plus/ and are intentionally left in place.
+	# Remove them manually if desired:
+	#   rm -rf ~/.local/share/notepad-plus-plus
+	:
+fi
+
+exit 0

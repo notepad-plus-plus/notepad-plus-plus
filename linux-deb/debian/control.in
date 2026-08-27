@@ -1,0 +1,23 @@
+Package: notepad-plus-plus
+Version: @VERSION@
+Section: editors
+Priority: optional
+Architecture: @ARCH@
+Depends: wine | wine64 | wine-stable | wine-development
+Recommends: winbind, fonts-liberation
+Suggests: winetricks
+Installed-Size: @SIZE@
+Maintainer: @MAINTAINER@
+Homepage: https://notepad-plus-plus.org/
+Description: Notepad++ source code editor (Windows build, runs via Wine)
+ Notepad++ is a free (GPL) source code editor and Notepad replacement that
+ supports dozens of programming and natural languages, built on the Scintilla
+ editing component.
+ .
+ This package contains the genuine Windows build of Notepad++, compiled from
+ source with MinGW-w64, together with a launcher and desktop integration that
+ run it under Wine. Every Notepad++ feature - plugins, user-defined languages,
+ sessions, macros, themes - works exactly as on Windows because it IS the
+ Windows program.
+ .
+ This is NOT a native Linux port; it requires Wine at runtime.

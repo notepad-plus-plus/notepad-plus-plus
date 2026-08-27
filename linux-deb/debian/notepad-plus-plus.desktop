@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Notepad++
+GenericName=Text Editor
+Comment=Edit source code and text files (Windows build via Wine)
+Exec=notepad-plus-plus %F
+Icon=notepad-plus-plus
+Terminal=false
+Categories=Utility;TextEditor;
+Keywords=notepad;editor;code;text;npp;source;
+StartupNotify=true
+StartupWMClass=notepad++.exe
+MimeType=text/plain;text/x-csrc;text/x-chdr;text/x-c++src;text/x-c++hdr;text/x-java;text/x-python;text/x-perl;text/x-php;text/x-sql;text/x-lua;text/x-ruby;text/x-shellscript;text/html;text/xml;application/xml;application/json;application/javascript;text/css;text/markdown;text/x-makefile;text/x-diff;

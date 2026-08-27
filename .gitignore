@@ -160,6 +160,14 @@ PowerEditor/bin/SourceCodePro-Regular.ttf
 
 bin.*
 scintilla/win32/*.o
+PowerEditor/gcc/.npp-toolchain-stamp
+
+#-------------------------------------------------------------------------------
+# Notepad++ Linux .deb (Wine) packaging build artifacts
+# The linux-deb/ toolkit itself is tracked; only its generated outputs are ignored.
+
+linux-deb/out/
+linux-deb/.stage/
 
 
 PowerEditor/src/MISC/md5/RCa06792

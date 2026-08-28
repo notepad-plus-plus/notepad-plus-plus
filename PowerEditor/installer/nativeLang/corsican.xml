@@ -13,7 +13,7 @@ Additionnal information about Corsican localization:
 2. History of Corsican translation for Notepad++:
 
 	- Updated in 2026 by Patriccollu di Santa Maria è Sichè: Feb. 10th (v8.9.1+), Mar. 10th (v8.9.2+), May 17th (v8.9.5+),
-			  June 24th (v8.9.6.4+), Aug. 20th (v8.9.7+)
+			  June 24th (v8.9.6.4+), Aug. 28th (v8.9.8+)
 	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8), Apr. 20th (v8.8),
 			  June 26th (v8.8.1+), July 24th (v8.8.3+), Sep. 30th (v8.8.5+), Dec. 12th (v8.8.9+)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
@@ -38,7 +38,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.9.7">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.9.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1434,6 +1434,7 @@ Additionnal information about Corsican localization:
 					<Item id="6346" name="Fighjulata à a cartugrafia di u ducumentu"/>
 					<Item id="6360" name="Ammutulisce tutti i soni"/>
 					<Item id="6361" name="Attivà u dialogu per cunfirmà l’arregistramentu di tutti i schedarii"/>
+					<Item id="6366" name="Permette u caricamentu di i liami simbulichi nant’à u panellu di u cartulare cum’è spaziu di travagliu"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Lancià una prucedura parechje volte">
@@ -1501,7 +1502,7 @@ Pudete attivà torna st’ozzione in u dialogu di e preferenze."/>
 				<Item id="7" name="&amp;Nò"/>
 				<Item id="4" name="S&amp;empre sì"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
-			<NetworkPathWarning title="Caricamentu di a sessione Notepad++" title2="Liame file:// clicchevule">
+			<NetworkPathWarning title="Caricamentu di a sessione Notepad++" title2="Liame file:// clicchevule" title3="Caricamentu di toolbarButtonsConf.xml" title4="Caricamentu di u schedariu XML di u panellu di prughjettu">
 				<Item id="1771" name="Avertimentu apprupositu di u chjassu di reta :
 
 $STR_REPLACE$
@@ -1679,6 +1680,9 @@ Per raghjoni di sicurità, l’integrità di shortcuts.xml hà da esse verificat
 			<ShortcutsXmlTampered title="Avertimentu di sicurità" message="U schedariu shortcuts.xml pare esse statu mudificatu manualmente.
 
 Per raghjoni di sicurità, ci vole à esaminà u schedariu shortcuts.xml chì hè apertu. S’è u so cuntenutu hè currettu, impiegate l’ozzione « Cunvalidà shortcuts.xml » di u listinu « Lancià » per cunfirmallu."/>
+			<SymlinkLoadingWarning title="Avertimentu : u caricamentu di i liami simbolichi pò cagiunà un blucchime" message="L’attivazione di u caricamentu di i liami simbulichi in u cartulare cum’è spaziu di travagliu pò fà entre Notepad++ in un ciclu senza fine è si finisce da un blucchime.
+Què pò accade quandu certi liami simbolichi si facenu versu cartulari di livellu superiore o creanu referenze circulare.
+Cuntinuate solu s’è vo capite i risichi."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Cronolugia di u preme’papei"/>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 10 Aug 2026 for 8.9.7+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 28 Aug 2026 for 8.9.8+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.9.7">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.9.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1401,6 +1401,7 @@ Translation note:
 					<Item id="6346" name="Espiar no mapa do documento"/>
 					<Item id="6360" name="Silenciar todos os sons"/>
 					<Item id="6361" name="Habilitar caixa de diálogo de confirmação Salvar todos"/>
+					<Item id="6366" name="Permitir a carga de links simbólicos em Pasta como Espaço de Trabalho"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Executar macro múltiplas vezes">
@@ -1468,7 +1469,7 @@ Você pode reativar esta janela de confirmação em Preferências depois."/>
 				<Item id="7" name="&amp;Não"/>
 				<Item id="4" name="Sem&amp;pre Sim"/>
 			</DoSaveAll><!-- HowToReproduce: Check the &quot;Enable Save All confirm dialog&quot; checkbox in Preference->MISC, now click &quot;Save all&quot; -->
-			<NetworkPathWarning title="Carregando sessão do Notepad++">
+			<NetworkPathWarning title="Carregando sessão do Notepad++" title2="Arquivo clicável:// link" title3="Carregando toolbarButtonsConf.xml" title4="Carregando arquivo XML de Projeto">
 				<Item id="1771" name="Aviso de Caminho de Rede:
 
 $STR_REPLACE$
@@ -1643,6 +1644,9 @@ Por motivos de segurança, a integridade do arquivo shortcuts.xml será checada.
 		<ShortcutsXmlTampered title="Aviso de Segurança" message="O arquivo shortcuts.xml parece ter sido alterado manualmente.
 
 Por motivos de segurança, revise o arquivo aberto shortcuts.xml. Se o conteúdo do arquivo estiver OK, use &quot;Validar shortcuts.xml&quot; do menu &quot;Executar&quot;para confirmar."/>
+		<SymlinkLoadingWarning title="Aviso: Carga de Link Simbólico Pode Provocar Travamento" message="A ativação de carga de links simbólicos em Pasta como Espaço de Trabalho Pode fazer o Notepad++ entrar em um loop infinito e travar.
+Isto pode acontecer quando os links simbólicos apontam para pastas pais ou formam referências circulares.
+Continue apenas se você compreender os riscos."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>

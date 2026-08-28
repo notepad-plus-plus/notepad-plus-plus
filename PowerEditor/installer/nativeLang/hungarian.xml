@@ -5,7 +5,7 @@
 <!-- Prohardver topic: https://prohardver.hu/tema/re_notepad/friss.html -->
 <!-- For more information see the Commits History: https://github.com/notepad-plus-plus/notepad-plus-plus/commits/master/PowerEditor/installer/nativeLang/hungarian.xml -->
 <NotepadPlus>
-	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.9.7">
+	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.9.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -91,7 +91,7 @@
 					<Item id="41019" name="Megnyitás &amp;Fájlkezelőben"/>
 					<Item id="41020" name="Megnyitás &amp;terminálban"/>
 					<Item id="41027" name="Megnyitás &amp;PowerShellben"/>
-					<Item id="41025" name="M&amp;appa mint munkaterület"/>
+					<Item id="41025" name="M&amp;appa munkaterületként"/>
 					<Item id="41003" name="&amp;Bezárás"/>
 					<Item id="41004" name="Az összes &amp;bezárása"/>
 					<Item id="41005" name="&amp;Az összes bezárása, KIVÉVE ezt"/>
@@ -305,7 +305,7 @@
 					<Item id="44080" name="&amp;Dokumentumtérkép"/>
 					<Item id="44070" name="D&amp;okumentumlista"/>
 					<Item id="44084" name="&amp;Függvénylista"/>
-					<Item id="44085" name="&amp;Mappa mint munkaterület"/>
+					<Item id="44085" name="&amp;Mappa munkaterületként"/>
 					<Item id="44086" name="&amp;1. fül"/>
 					<Item id="44087" name="&amp;2. fül"/>
 					<Item id="44088" name="&amp;3. fül"/>
@@ -756,7 +756,7 @@
 					<Item id="44081" name="1. projektpanel"/>
 					<Item id="44082" name="2. projektpanel"/>
 					<Item id="44083" name="3. projektpanel"/>
-					<Item id="44085" name="Mappa mint munkaterület"/>
+					<Item id="44085" name="Mappa munkaterületként"/>
 					<Item id="44080" name="Dokumentumtérkép"/>
 					<Item id="44070" name="Dokumentumlista"/>
 					<Item id="44084" name="Függvénylista"/>
@@ -764,9 +764,9 @@
 					<Item id="44104" name="Váltás az 1. projektpanelre"/>
 					<Item id="44105" name="Váltás a 2. projektpanelre"/>
 					<Item id="44106" name="Váltás a 3. projektpanelre"/>
-					<Item id="44107" name="Váltás a „Mappa mint munkaterület”-re"/>
-					<Item id="44109" name="Váltás a „Dokumentumlistá”-ra"/>
-					<Item id="44108" name="Váltás a „Függvénylistá”-ra"/>
+					<Item id="44107" name="Váltás a „Mappa munkaterületként” panelre"/>
+					<Item id="44109" name="Váltás a „Dokumentumlista” panelre"/>
+					<Item id="44108" name="Váltás a „Függvénylista” panelre"/>
 					<Item id="44110" name="Egyéni fülszín eltávolítása"/>
 					<Item id="44111" name="1. fülszín alkalmazása"/>
 					<Item id="44112" name="2. fülszín alkalmazása"/>
@@ -1138,7 +1138,7 @@
 					<Item id="6413" name="A fájlmegnyitások és -mentések alapértelmezett mappája"/>
 					<Item id="6414" name="&amp;A jelenlegi dokumentum alapján"/>
 					<Item id="6415" name="A&amp;z utoljára használt mappa alapján"/>
-					<Item id="6431" name="&amp;Egy mappa „fogd és vidd” ejtésekor a fájlok megnyitása a „Mappa mint munkaterület” indítása helyett"/>
+					<Item id="6431" name="&amp;Egy mappa „fogd és vidd” ejtésekor a fájlok megnyitása a „Mappa munkaterületként” indítása helyett"/>
 				</DefaultDir>
 
 				<FileAssoc title="Fájltársítások">
@@ -1306,7 +1306,7 @@
 					<Item id="6183" name="&amp;Vágólap-előzmények"/>
 					<Item id="6184" name="D&amp;okumentumlista"/>
 					<Item id="6185" name="&amp;Karaktertábla"/>
-					<Item id="6186" name="Ma&amp;ppa mint munkaterület"/>
+					<Item id="6186" name="Ma&amp;ppa munkaterületként"/>
 					<Item id="6187" name="P&amp;rojektpanelek"/>
 					<Item id="6188" name="Dokume&amp;ntumtérkép"/>
 					<Item id="6189" name="&amp;Függvénylista"/>
@@ -1401,6 +1401,7 @@
 					<Item id="6346" name="Me&amp;gjelenítés itt: „Dokumentumtérkép”"/>
 					<Item id="6360" name="Az &amp;összes hang némítása"/>
 					<Item id="6361" name="Megerő&amp;sítés kérése „Az összes mentése” esetén"/>
+					<Item id="6366" name="A „Ma&amp;ppa munkaterületként” betölthet szimbolikus linkeket"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Makró többszöri futtatása">
@@ -1468,7 +1469,7 @@ Ebben az esetben a „Gépház” párbeszédpanel „Egyéb” szakasza alatt k
 				<Item id="7" name="&amp;Nem"/>
 				<Item id="4" name="Igen, &amp;mindig"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
-			<NetworkPathWarning title="Notepad++-munkamenet betöltése" title2="Kattintható „file://”-hivatkozás">
+			<NetworkPathWarning title="Notepad++-munkamenet betöltése" title2="Kattintható „file://”-hivatkozás" title3="A toolbarButtonsConf.xml betöltése" title4="A projektpanel XML-fájljának betöltése">
 				<Item id="1771" name="Figyelmeztetés hálózati elérési úttal kapcsolatban:
 
 $STR_REPLACE$
@@ -1568,7 +1569,7 @@ Mindenesetre el szeretné menteni a jelenlegi fájlt?"/><!-- HowToReproduce: thi
 			<LoadLangsFailed title="Beállításkezelő" message="Nem sikerült a langs.xml betöltése!
 Helyre szeretné állítani a langs.xml fájlt?"/><!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
 			<LoadLangsFailedFinal title="Beállításkezelő" message="Nem sikerült a langs.xml betöltése!"/><!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
-			<FolderAsWorspaceSubfolderExists title="Probléma mappa hozzáadásakor a „Mappa mint munkaterület”-hez" message="A hozzáadni kívánt könyvtárnak már létezik itt almappája.
+			<FolderAsWorspaceSubfolderExists title="Probléma mappa hozzáadásakor a „Mappa munkaterületként” panelhez" message="A hozzáadni kívánt könyvtárnak már létezik itt almappája.
 Kérjük, távolítsa el a panelről az almappát, mielőtt hozzáadja a következő könyvtárat: „$STR_REPLACE$”"/><!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
 			<ProjectPanelChanged title="$STR_REPLACE$" message="Változott a munkaterület. Szeretné menteni?"/>
@@ -1643,6 +1644,9 @@ Biztonsági okokból a Notepad++ ellenőrzi a shortcuts.xml integritását. Egy�
 			<ShortcutsXmlTampered title="Biztonsági figyelmeztetés" message="Úgy tűnik, hogy a shortcuts.xml fájl kézzel lett módosítva.
 
 Biztonsági okokból, kérjük, tekintse át a megnyitott shortcuts.xml fájlt. Ha a fájl tartalmát rendben találja, válassza a „Futtatás” menüből az „A shortcuts.xml érvényesítése” lehetőséget a megerősítéshez."/>
+			<SymlinkLoadingWarning title="Figyelem: a szimbolikus linkek betöltése a Notepad++ lefagyásához vezethet" message="A szimbolikus linkek betöltésének engedélyezése a „Mappa munkaterületként” panelen azt eredményezheti, hogy a Notepad++ végtelen ciklusba kerül és lefagy.
+Ez akkor fordulhat elő, ha a könyvtár szimbolikus linkjei a szülőmappákra mutatnak, vagy körkörös hivatkozásokat képeznek.
+Csak akkor folytassa, ha tisztában van a kockázatokkal."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Vágólap-előzmények"/>
@@ -1684,8 +1688,8 @@ Biztonsági okokból, kérjük, tekintse át a megnyitott shortcuts.xml fájlt. 
 			<PreferencesInitialSort name="Alapértelmezésként a függvények rendezése (A-tól Z-ig)"/>
 		</FunctionList>
 		<FolderAsWorkspace>
-			<PanelTitle name="Mappa mint munkaterület"/>
-			<SelectFolderFromBrowserString name="Mappa hozzáadása a „Mappa mint munkaterület”-hez"/>
+			<PanelTitle name="Mappa munkaterületként"/>
+			<SelectFolderFromBrowserString name="Mappa hozzáadása a „Mappa munkaterületként” panelhez"/>
 			<ExpandAllFoldersTip name="Minden mappa kibontása"/>
 			<CollapseAllFoldersTip name="Minden mappa összecsukása"/>
 			<LocateCurrentFileTip name="Az aktuális fájl megkeresése"/>
@@ -1870,7 +1874,7 @@ A mezőbe beillesztett szöveg láthatatlan karaktereket (esetleg sorvégjeleket
 			<find-result-hits value="($INT_REPLACE$ találat)"/>
 			<find-result-line-prefix value="Sor"/><!-- Must not begin with space or tab character -->
 			<find-regex-zero-length-match value="nulla hosszúságú illeszkedés"/>
-			<session-save-folder-as-workspace value="Mentés Mappa mint munkaterületként"/>
+			<session-save-folder-as-workspace value="„Mappa munkaterületként” mentése"/>
 			<tab-untitled-string value="új "/>
 			<file-save-assign-type value="Kiterjesztés hozzáadása"/>
 			<close-panel-tip value="Bezárás"/>

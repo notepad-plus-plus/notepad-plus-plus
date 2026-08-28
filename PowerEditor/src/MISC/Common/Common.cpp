@@ -1883,28 +1883,32 @@ bool isUnsupportedFileName(const wchar_t* szFileName)
 
 bool isUncPath(const std::wstring& path)
 {
-	// Extended-length UNC: \\?\UNC\server\share\...  or  //?/UNC/server/share/...
+	// Extended-length UNC: \\?\UNC\server\share\... or //?/UNC/server/share/...
 	if (isWin32NamespacePrefixedFileName(path))
 	{
 		std::wstring rest = path.substr(4); // strip \\?\ or //?/
 		return (rest.starts_with(L"UNC\\") || rest.starts_with(L"UNC/"));
 	}
 
-	// Plain UNC: \\server\share\...  or  //server/share/...
-	return (path.starts_with(L"\\\\") || path.starts_with(L"//"));
+	// Plain UNC: GetFullPathNameW (and CreateFileW/FindFirstFileW's internal normalization)
+	// treats ANY pair of leading path separators - \\, //, \/, or /\ - as the start of a UNC path, not just matching pairs.
+	// Match that behavior exactly rather than re-deriving it.
+	auto isPathSep = [](wchar_t c) { return c == L'\\' || c == L'/'; };
+	return path.size() >= 2 && isPathSep(path[0]) && isPathSep(path[1]);
 }
 
 bool isUncFileUrl(const std::wstring& url)
 {
 	// file://server/share/... -> leaks NTLM. file:///C:/... or file://localhost/... does not.
-	if (!url.starts_with(L"file://"))
+	// Scheme match must be case-insensitive
+	if (url.size() < 7 || _wcsnicmp(url.c_str(), L"file://", 7) != 0)
 		return false;
 
 	size_t hostStart = 7; // after "file://"
-	size_t hostEnd = url.find(L'/', hostStart); // file:///C:/dossier/fichier.txt -> hostEnd = 7
-	                                            // file://localhost/C:/dossier/fichier.txt -> hostEnd = 16
-	                                            // file://./C:/dossier/fichier.txt -> hostEnd = 8
 
+	// Use the first separator of EITHER kind: ShellExecuteW/URL resolution accept
+	// backslashes here too (e.g. file://server\share\file.txt)
+	size_t hostEnd = url.find_first_of(L"/\\", hostStart);
 	std::wstring host = (hostEnd == std::wstring::npos) ? url.substr(hostStart) : url.substr(hostStart, hostEnd - hostStart);
 
 	if (host.empty() || host == L".")

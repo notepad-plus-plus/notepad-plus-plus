@@ -1887,7 +1887,7 @@ bool isUncPath(const std::wstring& path)
 	if (isWin32NamespacePrefixedFileName(path))
 	{
 		std::wstring rest = path.substr(4); // strip \\?\ or //?/
-		return (rest.starts_with(L"UNC\\") || rest.starts_with(L"UNC/"));
+		return (_wcsnicmp(rest.c_str(), L"UNC\\", 4) == 0) || (_wcsnicmp(rest.c_str(), L"UNC/", 4) == 0);
 	}
 
 	// Plain UNC: GetFullPathNameW (and CreateFileW/FindFirstFileW's internal normalization)

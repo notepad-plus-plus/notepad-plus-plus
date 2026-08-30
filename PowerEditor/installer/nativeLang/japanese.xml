@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.9.7">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.9.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1406,6 +1406,7 @@ Translation note:
 					<Item id="6346" name="文書マップに表示する"/>
 					<Item id="6360" name="音を鳴らさないようにする"/>
 					<Item id="6361" name="「すべて保存」時に確認ダイアログを表示する"/>
+					<Item id="6366" name="「フォルダーをワークスペースとして開く」にてシンボリックリンクを開くことを許可する"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="指定マクロを複数回実行">
@@ -1473,7 +1474,7 @@ Translation note:
 				<Item id="7" name="いいえ(&amp;N)"/>
 				<Item id="4" name="常に はい(&amp;A)"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
-			<NetworkPathWarning title="Notepad++ セッションの読み込み" title2="クリックできる file:// リンク">
+			<NetworkPathWarning title="Notepad++ セッションの読み込み" title2="クリックできる file:// リンク" title3="toolbarButtonsConf.xml の読み込み" title4="プロジェクトパネルの XML ファイルの読み込み">
 				<Item id="1771" name="ネットワークパスの警告:
 
 $STR_REPLACE$
@@ -1644,6 +1645,9 @@ OKボタンを押すと検索ダイアログが開きます。
 			<ShortcutsXmlTampered title="セキュリティー警告" message="shortcuts.xml が手動で変更されたようです。
 
 セキュリティーのため、shortcuts.xml の内容が意図したものであるかを確認してください。問題なければ、「実行」メニューから「shortcuts.xml を承認する」を押してください。"/>
+			<SymlinkLoadingWarning title="警告: シンボリックリンクを開くとフリーズすることがあります" message="シンボリックリンクの読み込みを「フォルダーをワークスペースとして開く」で許可すると、Notepad++ が無限ループに陥り、フリーズすることが起こりえます。
+この状況は、シンボリックリンクが親フォルダーを指していたり、循環参照を作ったりすると起こります。
+十分注意してこの機能を利用してください。"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="クリップボード履歴"/>

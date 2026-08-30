@@ -50,7 +50,8 @@ public :
 
 	void createTabs(WindowVector & winVector);
 
-	void reSizeTo(RECT& rc) override;
+	void reSizeTo([[maybe_unused]] RECT& rc) override {} // don't use, use reSizeToWH instead
+	void reSizeToWH(RECT& rc) override;
 	void activateWindowAt(int index);
 
 	void clickedUpdate()

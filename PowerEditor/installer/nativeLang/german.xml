@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.7"><!-- Datum: 13.08.2026, basiert auf english_customizable.xml/english.xml 8.9.7 vom 13.08.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.8"><!-- Datum: 03.09.2026, basiert auf english.xml 8.9.8 vom 28.08.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -622,7 +622,7 @@ Translation note:
 				<Item id="1934" name="&amp;Kopiere in Zwischenablage"/>
 				<Item id="2" name="S&amp;chließen"/>
 			</SHA512FromTextDlg>
-			<PluginsAdminDlg title="Plugin-Verwaltung" titleAvailable="Verfügbar" titleUpdates="Aktualisierungen" titleInstalled="Installiert" titleIncompatible="Inkompatibel">
+			<PluginsAdminDlg title="Plugin-Verwaltung" titleAvailable="Verfügbar" titleUpdates="Aktualisierungen" titleInstalled="Installiert" titleIncompatible="Deaktiviert">
 				<ColumnPlugin name="Plugin"/>
 				<ColumnVersion name="Version"/>
 				<Item id="5501" name="&amp;Suchen:"/>
@@ -1410,6 +1410,7 @@ Translation note:
 					<Item id="6346" name="Momentaufnahme in Miniaturansicht"/>
 					<Item id="6360" name="Alle Klänge stummschalten"/>
 					<Item id="6361" name="Dialogfeld 'Alle Dateien speichern' aktivieren"/>
+					<Item id="6366" name="Das Laden von Symlinks im Bereich 'Ordner als Arbeitsbereich' zulassen"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Makro mehrfach ausführen">
@@ -1477,7 +1478,7 @@ Diese Wahl kann jederzeit in den Einstellungen angepasst werden."/>
 				<Item id="7" name="&amp;Nein"/>
 				<Item id="4" name="&amp;Immer Ja"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
-			<NetworkPathWarning title="Lade Notepad++ Sitzung" title2="Wählbare Datei:// link">
+			<NetworkPathWarning title="Lade Notepad++ Sitzung" title2="Wählbare Datei:// link" title3="Lade toolbarButtonsConf.xml" title4="XML-Datei des Projektbereichs wird geladen">
 				<Item id="1771" name="Netzwerkpfad Warnung:
 
 $STR_REPLACE$
@@ -1652,6 +1653,9 @@ Aus Sicherheitsgründen wird die Integrität der Datei 'shortcuts.xml' überprü
 			<ShortcutsXmlTampered title="Sicherheitswarnung" message="Die Datei 'shortcuts.xml' dürfte manuell verändert worden sein.
 
 Aus Sicherheitsgründen bitte die geöffnete Datei 'shortcuts.xml' überprüfen. Wenn der Dateiinhalt in Ordnung ist, verwende 'Überprüfe shortcuts' aus dem Menü 'Ausführen' um das zu bestätigen."/>
+			<SymlinkLoadingWarning title="Warnung: Das Laden von Symlinks kann zu einem Systemabsturz führen" message="Das Aktivieren des Ladens von Symlinks in 'Ordner als Arbeitsbereich' kann dazu führen, dass Notepad++ in eine Endlosschleife gerät und abstürzt.
+Das kann passieren, wenn Verzeichnis-Symlinks auf übergeordnete Ordner verweisen oder zirkuläre Verweise bilden.
+Nur fortfahren, wenn man sich der Risiken bewusst ist."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>

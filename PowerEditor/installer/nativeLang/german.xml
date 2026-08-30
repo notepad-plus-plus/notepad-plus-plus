@@ -1410,7 +1410,7 @@ Translation note:
 					<Item id="6346" name="Momentaufnahme in Miniaturansicht"/>
 					<Item id="6360" name="Alle Klänge stummschalten"/>
 					<Item id="6361" name="Dialogfeld 'Alle Dateien speichern' aktivieren"/>
-					<Item id="6366" name="Das Laden von Symlinks im Bereich 'Ordner als Arbeitsbereich' zulassen
+					<Item id="6366" name="Das Laden von Symlinks im Bereich 'Ordner als Arbeitsbereich' zulassen"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Makro mehrfach ausführen">

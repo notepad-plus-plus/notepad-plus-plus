@@ -1910,8 +1910,32 @@ bool isUncFileUrl(const std::wstring& url)
 	// backslashes here too (e.g. file://server\share\file.txt)
 	size_t hostEnd = url.find_first_of(L"/\\", hostStart);
 	std::wstring host = (hostEnd == std::wstring::npos) ? url.substr(hostStart) : url.substr(hostStart, hostEnd - hostStart);
+ 
+	if (host.empty())
+	{
+		// it could be file:////host/sample.txt or file:///C:/sample.txt, which are both valid UNC paths.
+		if (url.length() <= MAX_PATH)
+		{
+			wchar_t path[MAX_PATH]{};
+			DWORD pathLen = MAX_PATH;
+			return SUCCEEDED(::PathCreateFromUrlW(url.c_str(), path, &pathLen, 0)) && isUncPath(path);
+		}
+		else // very long path
+		{
+			if (_wcsnicmp(url.c_str(), L"file:////", 9) != 0) // not a UNC path, just a very long local file path
+			{
+				return false;
+			}
+			else
+			{
+				hostStart = 9; // after "file:////"
+				size_t hostEnd = url.find_first_of(L"/\\", hostStart);
+				host = (hostEnd == std::wstring::npos) ? url.substr(hostStart) : url.substr(hostStart, hostEnd - hostStart);
+			}
+		}
+	}
 
-	if (host.empty() || host == L".")
+	if (host == L".")
 		return false;
 
 	if (_wcsicmp(host.c_str(), L"localhost") == 0)

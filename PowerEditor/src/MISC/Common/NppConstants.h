@@ -465,7 +465,7 @@ By modifying this file, you can customize your context menu popuped as right cli
 It may be more convinient to access to your frequent used commands via context menu than via the top menu.\r\n\
 \r\n\
 Please check \"How to Customize the Context Menu\" on:\r\n\
-https://npp-user-manual.org/docs/config-files/#the-context-menu-contextmenu-xml\r\n\
+https://npp-user-manual.org/docs/config-files/#the-context-menu-contextmenuxml\r\n\
 -->\r\n\
 <NotepadPlus>\r\n\
 	<ScintillaContextMenu>\r\n\

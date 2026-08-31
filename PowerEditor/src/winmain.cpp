@@ -26,6 +26,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
+#include <tlhelp32.h>
 
 #include "Common.h"
 #include "FileInterface.h"
@@ -521,6 +522,58 @@ DWORD nppUacCreateEmptyFile(const wchar_t* wszNewEmptyFilePath)
 	return ERROR_SUCCESS;
 }
 
+// Returns true only if this process's immediate parent is an unelevated
+// notepad++.exe located at the same path as the currently running binary.
+bool isParentProcessThisNotepadPlusPlus()
+{
+	DWORD currentPid = ::GetCurrentProcessId();
+	DWORD parentPid = 0;
+
+	HANDLE hSnap = ::CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+	if (hSnap == INVALID_HANDLE_VALUE)
+		return false;
+
+	PROCESSENTRY32W pe32{};
+	pe32.dwSize = sizeof(pe32);
+
+	bool found = false;
+	if (::Process32FirstW(hSnap, &pe32))
+	{
+		do
+		{
+			if (pe32.th32ProcessID == currentPid)
+			{
+				parentPid = pe32.th32ParentProcessID;
+				found = true;
+				break;
+			}
+		} while (::Process32NextW(hSnap, &pe32));
+	}
+	::CloseHandle(hSnap);
+
+	if (!found || parentPid == 0)
+		return false;
+
+	HANDLE hParent = ::OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, parentPid);
+	if (hParent == nullptr)
+		return false; // parent gone or inaccessible — fail closed
+
+	wchar_t parentPath[MAX_PATH] = {};
+	DWORD parentPathLen = MAX_PATH;
+	bool gotPath = ::QueryFullProcessImageNameW(hParent, 0, parentPath, &parentPathLen) != 0;
+	::CloseHandle(hParent);
+
+	if (!gotPath)
+		return false;
+
+	wchar_t selfPath[MAX_PATH] = {};
+	if (::GetModuleFileNameW(nullptr, selfPath, MAX_PATH) == 0)
+		return false;
+
+	return (_wcsicmp(parentPath, selfPath) == 0);
+}
+
+
 } // namespace
 
 
@@ -537,6 +590,13 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 		const wchar_t* wszNppUacOpSign = __wargv[1];
 		if (lstrlenW(wszNppUacOpSign) > lstrlenW(L"#UAC-#"))
 		{
+			// Check the parent caller to ensure it is Notepad++ and not some other process
+			if (!isParentProcessThisNotepadPlusPlus())
+			{
+				::MessageBox(Notepad_plus_Window::gNppHWND, L"The parent process is not Notepad++. Aborting the operation for security reasons.", L"Notepad++ UAC OPS Warning", MB_OK | MB_ICONERROR);
+				return static_cast<int>(ERROR_ACCESS_DENIED);
+			}
+
 			if ((__argc == 4) && (wcscmp(wszNppUacOpSign, NPP_UAC_SAVE_SIGN) == 0))
 			{
 				// __wargv[x]: 2 ... tempFilePath, 3  ...  protectedFilePath2Save

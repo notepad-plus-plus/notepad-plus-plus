@@ -587,8 +587,8 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	// Notepad++ UAC OPS /////////////////////////////////////////////////////////////////////////////////////////////
 	if ((lstrlenW(pCmdLine) > 0) && (__argc >= 2)) // safe (if pCmdLine is NULL, lstrlen returns 0)
 	{
-		const wchar_t* wszNppUacOpSign = __wargv[1];
-		if (lstrlenW(wszNppUacOpSign) > lstrlenW(L"#UAC-#"))
+		const std::wstring nppUacOpSign = __wargv[1];
+		if (nppUacOpSign.starts_with(NPP_UAC_OP_PREFIX))
 		{
 			// Check the parent caller to ensure it is Notepad++ and not some other process
 			if (!isParentProcessThisNotepadPlusPlus())
@@ -597,13 +597,13 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 				return static_cast<int>(ERROR_ACCESS_DENIED);
 			}
 
-			if ((__argc == 4) && (wcscmp(wszNppUacOpSign, NPP_UAC_SAVE_SIGN) == 0))
+			if ((__argc == 4) && (nppUacOpSign == NPP_UAC_SAVE_SIGN))
 			{
 				// __wargv[x]: 2 ... tempFilePath, 3  ...  protectedFilePath2Save
 				return static_cast<int>(nppUacSave(__wargv[2], __wargv[3]));
 			}
 
-			if ((__argc == 4) && (wcscmp(wszNppUacOpSign, NPP_UAC_SETFILEATTRIBUTES_SIGN) == 0))
+			if ((__argc == 4) && (nppUacOpSign == NPP_UAC_SETFILEATTRIBUTES_SIGN))
 			{
 				// __wargv[x]: 2 ... dwFileAttributes (string), 3  ...  filePath
 				try {
@@ -615,13 +615,13 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 				}
 			}
 
-			if ((__argc == 4) && (wcscmp(wszNppUacOpSign, NPP_UAC_MOVEFILE_SIGN) == 0))
+			if ((__argc == 4) && (nppUacOpSign == NPP_UAC_MOVEFILE_SIGN))
 			{
 				// __wargv[x]: 2 ... originalFilePath, 3  ...  newFilePath
 				return static_cast<int>(nppUacMoveFile(__wargv[2], __wargv[3]));
 			}
 
-			if ((__argc == 3) && (wcscmp(wszNppUacOpSign, NPP_UAC_CREATEEMPTYFILE_SIGN) == 0))
+			if ((__argc == 3) && (nppUacOpSign == NPP_UAC_CREATEEMPTYFILE_SIGN))
 			{
 				// __wargv[x]: 2 ... newEmptyFilePath
 				return static_cast<int>(nppUacCreateEmptyFile(__wargv[2]));

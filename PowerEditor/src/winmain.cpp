@@ -566,11 +566,12 @@ bool isParentProcessThisNotepadPlusPlus()
 	if (!gotPath)
 		return false;
 
-	wchar_t selfPath[MAX_PATH] = {};
-	if (::GetModuleFileNameW(nullptr, selfPath, MAX_PATH) == 0)
+	wchar_t selfImagePath[MAX_PATH] = {};
+	DWORD dwSizeSelf = MAX_PATH;
+	if (!::QueryFullProcessImageNameW(::GetCurrentProcess(), 0, selfImagePath, &dwSizeSelf))
 		return false;
 
-	return (_wcsicmp(parentPath, selfPath) == 0);
+	return (_wcsicmp(parentPath, selfImagePath) == 0);
 }
 
 

@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.9.7">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.9.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1398,6 +1398,7 @@
 					<Item id="6346" name="Náhľad na mape dokumentu"/>
 					<Item id="6360" name="Stlmiť všetky zvuky"/>
 					<Item id="6361" name="Povoliť potvrdzovacie dialógové okno Uložiť všetko"/>
+					<Item id="6366" name="Povoliť načítanie symbolických odkazov v paneli Priečinok ako pracovný priestor"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Spustiť makro viacnásobne">
@@ -1465,7 +1466,7 @@ Toto dialógové okno môžete neskôr znovu aktivovať v Predvoľbách."/>
 				<Item id="7" name="&amp;Nie"/>
 				<Item id="4" name="&amp;Vždy áno"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
-			<NetworkPathWarning title="Načítava sa relácia Notepad++" title2="Klikateľný odkaz file://">
+			<NetworkPathWarning title="Načítava sa relácia Notepad++" title2="Klikateľný odkaz file://" title3="Načítava sa toolbarButtonsConf.xml" title4="Načítava sa súbor XML panela projektu">
 				<Item id="1771" name="Upozornenie na sieťovú cestu:
 
 $STR_REPLACE$
@@ -1641,6 +1642,9 @@ Z bezpečnostných dôvodov sa skontroluje integrita súboru shortcuts.xml. Ak c
 			<ShortcutsXmlTampered title="Bezpečnostné upozornenie" message="Zdá sa, že súbor shortcuts.xml bol upravený ručne.
 
 Z bezpečnostných dôvodov skontrolujte otvorený súbor shortcuts.xml. Ak je obsah súboru v poriadku, potvrďte to pomocou položky &quot;Overiť súbor shortcuts.xml&quot; v ponuke &quot;Spustiť&quot;."/>
+			<SymlinkLoadingWarning title="Upozornenie: Načítavanie symbolických odkazov môže spôsobiť zamrznutie systému" message="Povolenie načítavania symbolických odkazov v režime Priečinok ako pracovný priestor môže spôsobiť, že sa Notepad++zacyklí a zamrzne.
+K tomu môže dôjsť, ak sa symbolické odkazy na priečinky smerujú do nadradených priečinkov alebo vytvárajú cyklické odkazy.
+Pokračujte len vtedy, ak rozumiete rizikám."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="História schránky"/>

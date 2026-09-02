@@ -3321,17 +3321,17 @@ void Notepad_plus::command(int id)
 
 			if (idEncoding != -1)
 			{
-				// try to save the current clipboard CF_TEXT content 1st
+				// try to save the current clipboard text content 1st
 				HGLOBAL hglbClipboardCopy = NULL;
 				if (::OpenClipboard(_pPublicInterface->getHSelf()))
 				{
-					HANDLE hClipboardData = ::GetClipboardData(CF_TEXT);
-					if (hClipboardData) // NULL if there is no previous CF_TEXT data in
+					HANDLE hClipboardData = ::GetClipboardData(CF_UNICODETEXT); // system itself ensures possible CF_TEXT or CF_OEMTEXT conversion
+					if (hClipboardData) // NULL if there is no previous text data in
 					{
 						LPVOID pClipboardData = ::GlobalLock(hClipboardData);
 						if (pClipboardData)
 						{
-							size_t clipboardDataSize = ::GlobalSize(pClipboardData);
+							size_t clipboardDataSize = ::GlobalSize(hClipboardData);
 							hglbClipboardCopy = ::GlobalAlloc(GMEM_MOVEABLE, clipboardDataSize);
 							if (hglbClipboardCopy)
 							{
@@ -3386,8 +3386,11 @@ void Notepad_plus::command(int id)
 						{
 							if (::EmptyClipboard())
 							{
-								if (::SetClipboardData(CF_TEXT, pClipboardCopy))
+								if (::SetClipboardData(CF_UNICODETEXT, pClipboardCopy))
+								{
+									// system takes ownership of our new HGLOBAL heap memory
 									bAllOk = true;
+								}
 							}
 							::GlobalUnlock(hglbClipboardCopy);
 						}

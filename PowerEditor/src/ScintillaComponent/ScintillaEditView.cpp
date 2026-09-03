@@ -4916,8 +4916,7 @@ bool ScintillaEditView::pasteToMultiSelection() const
 		{
 			LRESULT posStart = execute(SCI_GETSELECTIONNSTART, i);
 			LRESULT posEnd = execute(SCI_GETSELECTIONNEND, i);
-			replaceTarget(clipboardStrings[i].c_str(), posStart, posEnd);
-			posStart += clipboardStrings[i].length();
+			posStart += replaceTarget(clipboardStrings[i].c_str(), posStart, posEnd);
 			execute(SCI_SETSELECTIONNSTART, i, posStart);
 			execute(SCI_SETSELECTIONNEND, i, posStart);
 		}
@@ -4946,8 +4945,7 @@ bool ScintillaEditView::pasteToMultiSelection() const
 			// remove the latest added EOL
 			severalStr.erase(severalStr.length() - eolStr.length());
 
-			replaceTarget(severalStr.c_str(), posStart, posEnd);
-			posStart += severalStr.length();
+			posStart += replaceTarget(severalStr.c_str(), posStart, posEnd);
 			execute(SCI_SETSELECTIONNSTART, i, posStart);
 			execute(SCI_SETSELECTIONNEND, i, posStart);
 		}

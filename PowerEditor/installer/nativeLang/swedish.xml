@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.9.7">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.9.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1398,6 +1398,7 @@ Translation note:
 					<Item id="6346" name="Förhandsgranska i dokumentvyn"/>
 					<Item id="6360" name="Stäng av alla ljud"/>
 					<Item id="6361" name="Aktivera bekräftelsedialog för att spara alla dokument"/>
+					<Item id="6366" name="Låt symboliska länkar läsas in i panelen &quot;Mapp som arbetsyta&quot;"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Kör ett makro flera gånger">
@@ -1465,7 +1466,7 @@ Du kan aktivera denna dialogruta i inställningarna senare."/>
 				<Item id="7" name="N&amp;ej"/>
 				<Item id="4" name="&amp;Alltid"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
-			<NetworkPathWarning title="Sessionsinläsning i Notepad++" title2="Klickbar länk med prefixet file://">
+			<NetworkPathWarning title="Sessionsinläsning i Notepad++" title2="Klickbar länk med prefixet file://" title3="Läser in toolbarButtonsConf.xml" title4="Läser in XML-fil i projektpanel">
 				<Item id="1771" name="Varning för nätverkssökväg:
 
 $STR_REPLACE$
@@ -1647,6 +1648,9 @@ Integriteten för shortcuts.xml kommer att kontrolleras av säkerhetsskäl. Var 
 			<ShortcutsXmlTampered title="Säkerhetsvarning" message="Filen shortcuts.xml verkar ha ändrats manuellt.
 
 Var god granska den öppnade filen shortcuts.xml av säkerhetsskäl. Använd &quot;Validera shortcuts.xml&quot; från menyn &quot;Kör&quot; för att bekräfta att filinnehållet är OK."/>
+			<SymlinkLoadingWarning title="Varning: Programmet kan fastna om symboliska länkar läses in" message="Om inläsning av symboliska länkar aktiveras i &quot;Mapp som arbetsyta&quot; kan det få Notepad++ att hamna i en oändlig loop och fastna.
+Detta kan hända när symboliska länkar för mappar pekar på överordnade mappar eller skapar cirkulära referenser.
+Fortsätt endast om du förstår riskerna."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>

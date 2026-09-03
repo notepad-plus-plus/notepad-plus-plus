@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.8"><!-- Datum: 30.08.2026, basiert auf english.xml 8.9.8 vom 28.08.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.8"><!-- Datum: 03.09.2026, basiert auf english.xml 8.9.8 vom 28.08.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -622,7 +622,7 @@ Translation note:
 				<Item id="1934" name="&amp;Kopiere in Zwischenablage"/>
 				<Item id="2" name="S&amp;chließen"/>
 			</SHA512FromTextDlg>
-			<PluginsAdminDlg title="Plugin-Verwaltung" titleAvailable="Verfügbar" titleUpdates="Aktualisierungen" titleInstalled="Installiert" titleIncompatible="Inkompatibel">
+			<PluginsAdminDlg title="Plugin-Verwaltung" titleAvailable="Verfügbar" titleUpdates="Aktualisierungen" titleInstalled="Installiert" titleIncompatible="Deaktiviert">
 				<ColumnPlugin name="Plugin"/>
 				<ColumnVersion name="Version"/>
 				<Item id="5501" name="&amp;Suchen:"/>

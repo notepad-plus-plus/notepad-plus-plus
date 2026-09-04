@@ -3619,6 +3619,8 @@ generic_string NppParameters::getLocPathFromStr(const generic_string & localizat
 		return TEXT("bosnian.xml");
 	if (localizationCode == TEXT("pt-br"))
 		return TEXT("brazilian_portuguese.xml");
+	if (localizationCode == TEXT("ml"))
+        return TEXT("malayalam.xml");	
 	if (localizationCode == TEXT("br-fr"))
 		return TEXT("breton.xml");
 	if (localizationCode == TEXT("bg"))

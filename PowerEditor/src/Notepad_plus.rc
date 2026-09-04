@@ -1077,6 +1077,7 @@ BEGIN
         MENUITEM "Smalltalk",               IDM_LANG_SMALLTALK
         MENUITEM "Spice",                   IDM_LANG_SPICE
         MENUITEM "SQL",                     IDM_LANG_SQL
+        MENUITEM "Structured Text",         IDM_LANG_STTXT
         MENUITEM "Swift",                  IDM_LANG_SWIFT
         MENUITEM "S-Record",                IDM_LANG_SREC
         MENUITEM "TCL",                     IDM_LANG_TCL
@@ -1230,6 +1231,7 @@ BEGIN
         MENUITEM "Smalltalk",             IDM_LANG_SMALLTALK
         MENUITEM "Spice",                 IDM_LANG_SPICE
         MENUITEM "SQL",                   IDM_LANG_SQL
+        MENUITEM "Structured Text",       IDM_LANG_STTXT
         MENUITEM "Swift",                IDM_LANG_SWIFT
         MENUITEM "S-Record",              IDM_LANG_SREC
     END

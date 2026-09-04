@@ -1074,6 +1074,14 @@ protected:
 		setLexer(L_SAS, LIST_0 | LIST_1 | LIST_2 | LIST_3);
 	}
 
+	void setSTTXTLexer() {
+		setLexer(L_STTXT, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.comment"), reinterpret_cast<LPARAM>("1"));
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
+	}
+
 	void setErrorListLexer() {
 		setLexer(L_ERRORLIST, LIST_NONE);
 		bool doShowEscapeChars = isShownCcUniEol();	// decide based on the ControlCharacter+UnicodeEOL flag

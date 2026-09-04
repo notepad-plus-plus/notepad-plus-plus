@@ -39,7 +39,7 @@ enum LangType {L_TEXT, L_PHP , L_C, L_CPP, L_CS, L_OBJC, L_JAVA, L_RC,\
 			   L_MMIXAL, L_NIM, L_NNCRONTAB, L_OSCRIPT, L_REBOL, \
 			   L_REGISTRY, L_RUST, L_SPICE, L_TXT2TAGS, L_VISUALPROLOG,\
 			   L_TYPESCRIPT, L_JSON5, L_MSSQL, L_GDSCRIPT, L_HOLLYWOOD,\
-			   L_GOLANG, L_RAKU, L_TOML, L_SAS, L_ERRORLIST, L_ESCSEQ,\
+			   L_GOLANG, L_RAKU, L_TOML, L_SAS, L_ERRORLIST, L_ESCSEQ, L_STTXT,\
 			   // The end of enumerated language type, so it should be always at the end
 			   L_EXTERNAL};
 enum class ExternalLexerAutoIndentMode { Standard, C_Like, Custom };

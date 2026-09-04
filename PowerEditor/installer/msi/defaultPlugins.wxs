@@ -1,0 +1,34 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+	<Fragment>
+		<!--
+		Plugin MimeTools
+		-->
+		<ComponentGroup Id="PluginMimeToolsComponentGroup" Directory="PluginMimeToolsFolder">
+				<Component Id="PluginMimeTools">
+					<File Source="..\..\bin64\plugins\mimeTools\mimeTools.dll" KeyPath="yes" />
+				</Component>
+		</ComponentGroup>
+	</Fragment>
+		  
+	<Fragment>
+		<!--
+		Plugin NppConverter
+		-->
+		<ComponentGroup Id="PluginNppConverterComponentGroup" Directory="PluginNppConverterFolder">
+			<Component Id="PluginNppConverter">
+				<File Source="..\..\bin64\plugins\NppConverter\NppConverter.dll" KeyPath="yes" />
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+
+	<Fragment>
+		<!--
+		Plugin NppExport
+		-->
+		<ComponentGroup Id="PluginNppExportComponentGroup" Directory="PluginNppExportFolder">
+			<Component Id="PluginNppExport">
+				<File Source="..\..\bin64\plugins\NppExport\NppExport.dll" KeyPath="yes" />
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>

@@ -1,0 +1,35 @@
+// This file is part of Notepad++ project
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+#include <windows.h>
+#include "regExtDlgRc.h"
+
+
+IDD_REGEXT_BOX DIALOGEX 115, 10, 460, 205
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | DS_CONTROL
+FONT 8, L"MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    LTEXT           "Please exit Notepad++ and relaunch Notepad++ in Administrator mode to use this feature.",IDC_ADMINMUSTBEONMSG_STATIC,20,0,300,16
+    LTEXT           "Supported extensions:",IDC_SUPPORTEDEXTS_STATIC,70,18,80,8
+    LISTBOX         IDC_REGEXT_LANG_LIST,70,30,100,125,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+    LISTBOX         IDC_REGEXT_LANGEXT_LIST,175,30,80,125,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_CUSTOMEXT_EDIT,175,86,80,12,ES_AUTOHSCROLL | NOT WS_VISIBLE
+    PUSHBUTTON      "->",IDC_ADDFROMLANGEXT_BUTTON,265,76,25,14
+    PUSHBUTTON      "<-",IDC_REMOVEEXT_BUTTON,265,96,25,14
+    LTEXT           "Registered extensions:",IDC_REGISTEREDEXTS_STATIC,300,18,80,8
+    LISTBOX         IDC_REGEXT_REGISTEREDEXTS_LIST,300,30,80,125,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+END

@@ -1,0 +1,48 @@
+ 0 400   0   % Enumerate all styles: 0 to 12
+ 0 400   0   % Not a valid laTeX file as entities are unbalanced and not semantically correct
+ 0 400   0   % comment=4
+ 0 400   0   
+ 0 400   0   % whitespace=0
+ 0 400   0   text	%
+ 0 400   0   
+ 0 400   0   % command=1
+ 0 400   0   \documentclass
+ 0 400   0   
+ 0 400   0   % tag=2
+ 2 400   0 + \begin{document}
+ 0 401   0 | 
+ 0 401   0 | % tag closing=5
+ 0 401   0 | \end{document}
+ 0 400   0   
+ 0 400   0   % math=3
+ 2 400   0 + \begin{math}
+ 0 401   0 | E &= mc^2
+ 0 401   0 | \end{math}
+ 0 400   0   
+ 0 400   0   % math block=6
+ 2 400   0 + \begin{align}
+ 0 401   0 | E &= mc^2
+ 0 401   0 | \end{align}
+ 0 400   0   
+ 0 400   0   % comment block=7
+ 2 400   0 + \begin{comment}
+ 0 401   0 | A block comment
+ 0 401   0 | \end{comment}
+ 0 400   0   
+ 0 400   0   % verbatim=8
+ 2 400   0 + \begin{verbatim}
+ 0 401   0 | puts $foo
+ 0 401   0 | \end{verbatim}
+ 0 400   0   
+ 0 400   0   % short command=9
+ 0 400   0   \(\)
+ 0 400   0   
+ 0 400   0   % special=10
+ 0 400   0   \#
+ 0 400   0   
+ 0 400   0   % command optional argument=11
+ 0 400   0   \x[12pt]
+ 0 400   0   
+ 0 400   0   % error=12
+ 0 400   0   \
+ 0 400   0   

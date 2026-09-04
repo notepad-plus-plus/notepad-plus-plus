@@ -1,0 +1,209 @@
+version: 8.4.{build}
+image: Visual Studio 2022
+
+#skip_commits:
+#  files:
+#    - PowerEditor/bin/*/*.xml
+#    - PowerEditor/installer/*/*.xml
+
+environment:
+  python_dir: C:\Python311-x64
+  matrix:
+    #- compiler: MSC
+    #  platform: Win32
+
+    - compiler: MSC
+      platform: x64
+
+    #- compiler: MSC
+    #  platform: arm64
+
+    #- compiler: GCC
+    #  platform: i686
+
+    #- compiler: GCC
+    #  platform: x86_64
+
+configuration:
+    - Release
+    #- Debug
+
+before_build:
+    - ps: |
+        Write-Output "Build parameters:"
+        Write-Output "Compiler : $env:compiler"
+        Write-Output "Platform : $env:platform"
+        Write-Output "Configuration : $env:configuration"
+        Write-Output ""
+        # XML validation mode
+        $allowMaster = $true
+        if ($allowMaster -or $env:APPVEYOR_PULL_REQUEST_NUMBER) {
+            $folders_onejob = "PowerEditor/(Test|(installer/(filesForTesting|functionList)))/"
+            $files_nowork = "md|txt|log|ini"
+            $files_modified = @(git diff --name-only HEAD~1)
+            $files_notmached = @($files_modified | Where-Object {$_ -notmatch "\.(xml|$files_nowork)$|$folders_onejob"})
+            if (($files_modified.length -gt 0 -and $files_notmached.length -eq 0) -or $env:APPVEYOR_REPO_COMMIT_MESSAGE -match "\[force (xml|nowork)\]") {
+                if (@($files_modified | Where-Object {$_ -notmatch "\.($files_nowork)$"}).length -eq 0 -or $env:APPVEYOR_REPO_COMMIT_MESSAGE -match "\[force nowork\]") {
+                    Write-Output "Changed files on this commit don't require any additional tasks.`n"
+                    Exit-AppVeyorBuild
+                }
+                else {
+                    Write-Output "XML validation mode`n"
+                    if ("$env:platform/$env:configuration" -eq "Win32/Debug") {
+                        if (@($files_modified | Where-Object {$_ -match $folders_onejob}).length -eq 0) {
+                            $env:Path = "$env:python_dir;$env:python_dir\Scripts;" + $env:Path
+                            python -m pip install requests rfc3987 pywin32 lxml
+                            python PowerEditor\Test\xmlValidator\validator_xml.py
+                            if ($LastExitCode -eq 0) {
+                                Write-Output "`nAll XML files are valid.`n"
+                                Exit-AppVeyorBuild
+                            }
+                            else {
+                                Write-Output "`nSome XML files are invalid.`n"
+                                $host.SetShouldExit($LastExitCode)
+                            }
+                        }
+                    }
+                    else {
+                        Write-Output "In XML validation mode only Win32/Debug performs the proper tasks.`n"
+                        Exit-AppVeyorBuild
+                    }
+                }
+            }
+            elseif ($env:APPVEYOR_REPO_COMMIT_MESSAGE -match "\[xml\]" -and $env:APPVEYOR_REPO_COMMIT_MESSAGE -notmatch "\[force compile\]") {
+                throw "Changed files on this commit require full build."
+            }
+        }
+
+for:
+
+- matrix:
+    only:
+      - compiler: MSC
+        platform: Win32
+        configuration: Release
+  skip_commits:
+    message: /\[xml\]/
+  build:
+    parallel: true
+    project: PowerEditor\visual.net\notepadPlus.sln
+  after_build:
+    # artifacts
+    - ps: |
+        $nppFileName = "Notepad++.$env:platform.$env:configuration.exe"
+        Push-AppveyorArtifact "PowerEditor\bin\Notepad++.exe" -FileName "$nppFileName"
+
+- matrix:
+    only:
+      - compiler: MSC
+        platform: Win32
+        configuration: Debug
+  build:
+    parallel: true
+    project: PowerEditor\visual.net\notepadPlus.sln
+  after_build:
+    # artifacts
+    - ps: |
+        $nppFileName = "Notepad++.$env:platform.$env:configuration.exe"
+        Push-AppveyorArtifact "PowerEditor\visual.net\Debug\Notepad++.exe" -FileName "$nppFileName"
+    # xml files syntax checks
+    - set PATH=%python_dir%;%python_dir%\Scripts;%PATH%
+    - python -m pip install requests rfc3987 pywin32 lxml
+    - python PowerEditor\Test\xmlValidator\validator_xml.py
+    # tests
+    - ps: |
+        Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\visual.net\Debug\Notepad++.exe" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+        Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\langs.model.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+        Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\src\stylers.model.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin"
+        Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\installer\functionList" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin" -Recurse
+
+        Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\installer\filesForTesting\regexGlobalTest.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin\functionList"
+        Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\installer\filesForTesting\overrideMap.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin\functionList"
+
+        cd .\PowerEditor\Test\FunctionList\
+        .\unitTestLauncher.ps1
+        if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode) }
+
+        cd ..\UrlDetection
+        .\verifyUrlDetection.ps1
+
+        cd "$env:APPVEYOR_BUILD_FOLDER"
+
+- matrix:
+    only:
+      - compiler: MSC
+        platform: x64
+  skip_commits:
+    message: /\[xml\]/
+  build:
+    parallel: true
+    project: PowerEditor\visual.net\notepadPlus.sln
+  after_build:
+    # artifacts
+    - ps: |
+        $nppFileName = "Notepad++.$env:platform.$env:configuration.exe"
+        if ("$env:platform/$env:configuration" -eq "x64/Release") {
+            Push-AppveyorArtifact "PowerEditor\bin64\Notepad++.exe" -FileName "$nppFileName"
+        }
+        if ("$env:platform/$env:configuration" -eq "x64/Debug") {
+            Push-AppveyorArtifact "PowerEditor\visual.net\x64\Debug\Notepad++.exe" -FileName "$nppFileName"
+        }
+
+- matrix:
+    only:
+      - compiler: MSC
+        platform: arm64
+  skip_commits:
+    message: /\[xml\]/
+  build:
+    parallel: true
+    project: PowerEditor\visual.net\notepadPlus.sln
+  after_build:
+    # artifacts
+    - ps: |
+        $nppFileName = "Notepad++.$env:platform.$env:configuration.exe"
+        if ("$env:platform/$env:configuration" -eq "arm64/Release") {
+            Push-AppveyorArtifact "PowerEditor\binarm64\Notepad++.exe" -FileName "$nppFileName"
+        }
+        if ("$env:platform/$env:configuration" -eq "arm64/Debug") {
+            Push-AppveyorArtifact "PowerEditor\visual.net\arm64\Debug\Notepad++.exe" -FileName "$nppFileName"
+        }
+
+- matrix:
+    only:
+      - compiler: GCC
+  skip_commits:
+    message: /\[xml\]/
+  build_script:
+    - set PATH=C:\msys64\usr\bin;%PATH%
+    - if "%platform%" EQU "i686" set MSYSTEM=MINGW32 && set PATH=C:\msys64\mingw32\bin;%PATH%
+    - if "%platform%" EQU "x86_64" set MSYSTEM=MINGW64 && set PATH=C:\msys64\mingw64\bin;%PATH%
+    - if "%configuration%" EQU "Debug" set DEBUG=1
+    # uncomment lines below to update packages to use latest gcc
+    #- bash -lc "pacman --noconfirm -Syuu"
+    #- bash -lc "pacman --noconfirm -Syuu"
+    #- if "%platform%" EQU "i686" bash -lc "pacman --noconfirm -S mingw-w64-i686-gcc mingw-w64-i686-make"
+    #- if "%platform%" EQU "x86_64" bash -lc "pacman --noconfirm -S mingw-w64-x86_64-gcc mingw-w64-x86_64-make"
+    - ps: |
+        Write-Output "Tools version:"
+        Write-Output (((gcc --version) | select-object -first 1) + " " + (gcc -dumpmachine))
+        Write-Output (make --version) | select-object -first 1
+        Write-Output (sh --version) | select-object -first 1
+        Write-Output ""
+    - make -f PowerEditor\gcc\makefile
+  after_build:
+    # artifacts
+    - ps: |
+        $nppFileName = "Notepad++.$env:compiler.$env:platform.$env:configuration.exe"
+        if ("$env:platform/$env:configuration" -eq "i686/Release") {
+            Push-AppveyorArtifact "bin.i686\notepad++.exe" -FileName "$nppFileName"
+        }
+        if ("$env:platform/$env:configuration" -eq "i686/Debug") {
+            Push-AppveyorArtifact "bin.i686-debug\notepad++.exe" -FileName "$nppFileName"
+        }
+        if ("$env:platform/$env:configuration" -eq "x86_64/Release") {
+            Push-AppveyorArtifact "bin.x86_64\notepad++.exe" -FileName "$nppFileName"
+        }
+        if ("$env:platform/$env:configuration" -eq "x86_64/Debug") {
+            Push-AppveyorArtifact "bin.x86_64-debug\notepad++.exe" -FileName "$nppFileName"
+        }

@@ -1,0 +1,16 @@
+{1}# Simple nesting{0}
+{16}f" {{0} {3}""{0} {16}} "{0}
+
+{1}# Multi-line field with comment{0}
+{16}f" {{0}
+
+{3}""{0} {1}# comment{0}
+
+{16}} "{0}
+
+{1}# Single quoted continued with \{0}
+{16}f" \
+"{0}
+
+{1}# 4 nested f-strings{0}
+{17}f'Outer {{16}f"nested {{2}1{16}} {f"nested {{2}2{16}} {f"nested {{2}3{16}} {f"nested {{2}4{16}}"}"}"}"{17}}'{0}

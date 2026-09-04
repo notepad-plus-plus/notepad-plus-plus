@@ -1,0 +1,73 @@
+cat <<A\"
+$(echo 00)
+A"
+
+cat <<A\\\"
+$(echo 01)
+A\"
+
+cat <<A\B
+$(echo 1)
+AB
+
+cat <<A\\B
+$(echo 2)
+A\B
+
+cat <<A\\\B
+$(echo 3)
+A\B
+
+cat <<A\\\\B
+$(echo 4)
+A\\B
+
+cat <<A\\\\\B
+$(echo 5)
+A\\B
+
+cat <<'A\'
+$(echo 10)
+A\
+
+cat <<'A\B'
+$(echo 11)
+A\B
+
+cat <<'A\\B'
+$(echo 12)
+A\\B
+
+cat <<'A\\\B'
+$(echo 13)
+A\\\B
+
+cat <<'A\\\\B'
+$(echo 14)
+A\\\\B
+
+cat <<"A\""
+$(echo 20)
+A"
+
+cat <<"A\B"
+$(echo 21)
+A\B
+
+cat <<"A\\B"
+$(echo 22)
+A\B
+
+cat <<"A\\\B"
+$(echo 23)
+A\\B
+
+cat <<"A\\\\B"
+$(echo 24)
+A\\B
+
+cat <<"A\\\\\B"
+$(echo 25)
+A\\\B
+
+echo x

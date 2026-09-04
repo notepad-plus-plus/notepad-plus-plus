@@ -1,0 +1,889 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<NotepadPlus>
+	<Native-Langue name="Taqbaylit" filename="kabyle.xml">
+		<Menu>
+			<Main>
+				<!-- Main Menu Entries -->
+				<Entries>
+					<Item menuId="file" name="Afaylu"/>
+					<Item menuId="edit" name="Taẓrigt"/>
+					<Item menuId="search" name="Nadi"/>
+					<Item menuId="view" name="Abeqqeḍ"/>
+					<Item menuId="encoding" name="Asettengel"/>
+					<Item menuId="language" name="Tameslayt"/>
+					<Item menuId="settings" name="Iɣewwaren"/>
+					<Item menuId="macro" name="Macro"/>
+					<Item menuId="run" name="Selkem "/>
+					<Item menuId="Plugins" name="Plugins"/>
+					<Item menuId="Window" name="Asfaylu"/>
+				</Entries>
+
+				<!-- Sub Menu Entries -->
+				<SubEntries>
+					<Item subMenuId="edit-copyToClipboard" name="Copy to Clipboard"/>
+					<Item subMenuId="edit-indent" name="Asiẓi"/>
+					<Item subMenuId="edit-convertCaseTo" name="Err askil d"/>
+					<Item subMenuId="edit-lineOperations" name="Ajerriḍ"/>
+					<Item subMenuId="edit-comment" name="Awennit"/>
+					<Item subMenuId="edit-autoCompletion" name="Auto-Completion"/>
+					<Item subMenuId="edit-eolConversion" name="Selket tineṭṭagin n ujerriḍ"/>
+					<Item subMenuId="edit-blankOperations" name="Selket isekkilen imlalen"/>
+					<Item subMenuId="edit-pasteSpecial" name="Asenteḍ imeẓli"/>
+					<Item subMenuId="search-markAll" name="Creḍ kulec"/>
+					<Item subMenuId="search-unmarkAll" name="Kkes akk ticraḍ"/>
+					<Item subMenuId="search-jumpUp" name="Ruḥ d asawen"/>
+					<Item subMenuId="search-jumpDown" name="Ruḥ d aksar"/>
+					<Item subMenuId="search-bookmark" name="Asɣal"/>
+					<Item subMenuId="view-showSymbol" name="Izamulen usligen"/>
+					<Item subMenuId="view-zoom" name="Zoom"/>
+					<Item subMenuId="view-moveCloneDocument" name="Smutti/sleg zzmam amiran"/>
+					<Item subMenuId="view-collapseLevel" name="Ḍfes aswir"/>
+					<Item subMenuId="view-uncollapseLevel" name="Fsi aswir"/>
+					<Item subMenuId="view-project" name="Asenfar"/>
+					<Item subMenuId="encoding-characterSets" name="Asttengel n uskil"/>
+					<Item subMenuId="encoding-arabic" name="Arabic"/>
+					<Item subMenuId="encoding-baltic" name="Baltic"/>
+					<Item subMenuId="encoding-celtic" name="Celtic"/>
+					<Item subMenuId="encoding-cyrillic" name="Cyrillic"/>
+					<Item subMenuId="encoding-centralEuropean" name="Central European"/>
+					<Item subMenuId="encoding-chinese" name="Chinese"/>
+					<Item subMenuId="encoding-easternEuropean" name="Eastern European"/>
+					<Item subMenuId="encoding-greek" name="Greek"/>
+					<Item subMenuId="encoding-hebrew" name="Hebrew"/>
+					<Item subMenuId="encoding-japanese" name="Japanese"/>
+					<Item subMenuId="encoding-korean" name="Korean"/>
+					<Item subMenuId="encoding-northEuropean" name="North European"/>
+					<Item subMenuId="encoding-thai" name="Thai"/>
+					<Item subMenuId="encoding-turkish" name="Turkish"/>
+					<Item subMenuId="encoding-westernEuropean" name="Western European"/>
+					<Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
+					<Item subMenuId="settings-import" name="Kter"/>
+					<Item subMenuId="file-closeMore" name="Mdel ugar"/>
+				</SubEntries>
+
+				<!-- all menu item -->
+				<Commands>
+					<Item id="1001" name="Siggez tura"/>
+					<Item id="10001" name="Move to Other View"/>
+					<Item id="10002" name="Clone to Other View"/>
+					<Item id="10003" name="Smutti ɣer usfaylu amaynut"/>
+					<Item id="10004" name="Lli deg usfaylu amaynut"/>
+
+					<Item id="41001" name="Amaynut"/>
+					<Item id="41002" name="Lli"/>
+					<Item id="41003" name="Mdel"/>
+					<Item id="41004" name="Mdel kulec"/>
+					<Item id="41005" name="Mdel kulec ala zzmam amiran"/>
+					<Item id="41006" name="Sekles"/>
+					<Item id="41007" name="Sekles kulec"/>
+					<Item id="41008" name="Sekles ddaw..."/>
+					<Item id="41009" name="Mdel kulec ɣer zelmaḍ"/>
+					<Item id="41010" name="Siggez..."/>
+
+					<Item id="41011" name="Ffeɣ"/>
+					<Item id="41012" name="Zdem tissi..."/>
+					<Item id="41013" name="Sekles tissi..."/>
+					<Item id="41014" name="Ales azdam seg uḍebsi"/>
+					<Item id="41015" name="Sekles anɣel ddaw..."/>
+					<Item id="41016" name="Kkes seg uḍebsi"/>
+					<Item id="41017" name="Beddel Isem..."/>
+					<Item id="41018" name="Mdel kulec ɣer yeffus"/>
+					<Item id="41019" name="Explorer"/>
+					<Item id="41020" name="cmd"/>
+					<Item id="42001" name="Gzem"/>
+					<Item id="42002" name="Nɣel"/>
+					<Item id="42003" name="Semmet"/>
+					<Item id="42004" name="Redo"/>
+					<Item id="42005" name="Senteḍ"/>
+					<Item id="42006" name="Kkes"/>
+					<Item id="42007" name="Fren kulec"/>
+					<Item id="42008" name="Simɣur asiẓi"/>
+					<Item id="42009" name="Simectuḥ asiẓi"/>
+					<Item id="42010" name="Sleg ajerriḍ amiran"/>
+					<Item id="42012" name="Seftutes ajerriḍ"/>
+					<Item id="42013" name="Sddukel ijerriḍen"/>
+					<Item id="42014" name="Smutti ajerriḍ-agi d asawen"/>
+					<Item id="42015" name="Smutti ajerriḍ-agi d aksar"/>
+					<Item id="42016" name="ameqran"/>
+					<Item id="42017" name="amectuḥ"/>
+					<Item id="42018" name="Bdu asekles"/>
+					<Item id="42019" name="Ḥbes asekles"/>
+					<Item id="42020" name="Begin/End Select"/>
+					<Item id="42021" name="Allus n u macro"/>
+					<Item id="42022" name="Ger/kkes awennit"/>
+					<Item id="42023" name="Wennet iḥder yettwafernen"/>
+					<Item id="42024" name="Kkes iskilen imlalen si tagarra ujerriḍ "/>
+					<Item id="42025" name="Sekles a Macro"/>
+					<Item id="42026" name="Aḍris seg uyfus sɣer zelmaḍ"/>
+					<Item id="42027" name="Aḍris seg uzelmaḍ ɣer uyfus"/>
+					<Item id="42028" name="Zzmam i tɣuri kan"/>
+					<Item id="42029" name="Nɣel abrid n ufaylu amiran"/>
+					<Item id="42030" name="Nɣel isem n ufaylu amiran"/>
+					<Item id="42031" name="Nɣel akaram n ufaylu amiran"/>
+					<Item id="42032" name="Selkem a Macro aṭas n tikkal..."/>
+					<Item id="42034" name="Amaẓrag n tgejda..."/>
+					<Item id="42035" name="Ger awennit"/>
+					<Item id="42036" name="kkes awennit"/>
+					<Item id="42037" name="Column Mode..."/>
+					<Item id="42038" name="Senteḍ agbur HTML"/>
+					<Item id="42039" name="Senteḍ agbur RTF"/>
+					<Item id="42040" name="Lli akk ifuyla ingurra"/>
+					<Item id="42041" name="Sfeḍ tabdart n ifuyla ingurra"/>
+					<Item id="42042" name="Kkes isekilen imlalen di tazwara ujerriḍ"/>
+					<Item id="42043" name="Kkes isekilen imlalen di tazwara d tagarra ujerriḍ"/>
+					<Item id="42044" name="Err tagarra ujerriḍ d askil amlal"/>
+					<Item id="42045" name="Kkes si tagarra ujerriḍ iskilen imlalen ur nenfiε"/>
+					<Item id="42046" name="Err tarigla d askil amlal"/>
+					<Item id="42047" name="Err askil d tarigla"/>
+					<Item id="42048" name="Copy Binary Content"/>
+					<Item id="42049" name="Cut Binary Content"/>
+					<Item id="42050" name="Paste Binary Content"/>
+					<Item id="42051" name="Character Panel"/>
+					<Item id="42052" name="Clipboard History"/>
+					<Item id="42053" name="Space to TAB (Leading)"/>
+					<Item id="42054" name="Space to TAB (All)"/>
+					<Item id="42055" name="Kkes ijerriḍen ilmawen"/>
+					<Item id="42056" name="Remove Empty Lines (Containing Blank characters)"/>
+					<Item id="42057" name="Insert Blank Line Above Current"/>
+					<Item id="42058" name="Insert Blank Line Below Current"/>
+					<Item id="42059" name="Sort Lines in Ascending Order"/>
+					<Item id="42060" name="Sort Lines in Descending Order"/>
+					<Item id="43001" name="Af-d..."/>
+					<Item id="43002" name="Af-d win ɣers"/>
+					<Item id="43003" name="Semselsi"/>
+					<Item id="43004" name="Aweḍ ɣer..."/>
+					<Item id="43005" name="Ger/kkes asɣal"/>
+					<Item id="43006" name="Asasɣal d-iteddun"/>
+					<Item id="43007" name="Asasɣal iεeddan"/>
+					<Item id="43008" name="Kkes isɣalen merra"/>
+					<Item id="43009" name="Go to Matching Brace"/>
+					<Item id="43010" name="Af-d win iεeddan"/>
+					<Item id="43011" name="Incremental Search"/>
+					<Item id="43013" name="Af-d deg yifuyla"/>
+					<Item id="43014" name="Anadi aylal ɣer sdat"/>
+					<Item id="43015" name="Anadi aylal ɣer sdeffir"/>
+					<Item id="43016" name="Creḍ kulec"/>
+					<Item id="43017" name="Kkes akk ticraḍ"/>
+					<Item id="43018" name="Gzem ijerriḍen yettwacerḍen"/>
+					<Item id="43019" name="Nɣel ijerriḍen yettwacerḍen"/>
+					<Item id="43020" name="Senteḍ deg umkan ijerriḍen yettwacerḍen"/>
+					<Item id="43021" name="kkes ijerriḍen yettwacerḍen"/>
+					<Item id="43022" name="Seqdec aɣanib 1u"/>
+					<Item id="43023" name="Kkes aɣanib 1u"/>
+					<Item id="43024" name="Seqdec aɣanib 2w"/>
+					<Item id="43025" name="Kkes aɣanib 2w"/>
+					<Item id="43026" name="Seqdec aɣanib 3w"/>
+					<Item id="43027" name="Kkes aɣanib 3w"/>
+					<Item id="43028" name="Seqdec aɣanib 4w"/>
+					<Item id="43029" name="Kkes aɣanib 4w"/>
+					<Item id="43030" name="Seqdec aɣanib 5w "/>
+					<Item id="43031" name="Kkes aɣanib 5w"/>
+					<Item id="43032" name="Kkes iɣunab merra"/>
+					<Item id="43033" name="Aɣanib 1u"/>
+					<Item id="43034" name="Aɣanib 2w"/>
+					<Item id="43035" name="Aɣanib 3w"/>
+					<Item id="43036" name="Aɣanib 4w"/>
+					<Item id="43037" name="Aɣanib 5w"/>
+					<Item id="43038" name="Af-d Aɣanib"/>
+					<Item id="43039" name="Aɣanib 1w"/>
+					<Item id="43040" name="Aɣanib 2w"/>
+					<Item id="43041" name="Aɣanib 3w"/>
+					<Item id="43042" name="Aɣanib 4w"/>
+					<Item id="43043" name="Aɣanib 5w"/>
+					<Item id="43044" name="Af-d aɣanib"/>
+					<Item id="43045" name="Asfaylu n ugmuḍ n unadi"/>
+					<Item id="43046" name="Agmuḍ n unad ɣer sdat"/>
+					<Item id="43047" name="Agmuḍ n unad ɣer sdeffir"/>
+					<Item id="43048" name="Fren, af-d win ɣers"/>
+					<Item id="43049" name="Fren, af-d angarru"/>
+					<Item id="43050" name="Tti isɣalen"/>
+					<Item id="43051" name="Remove Unmarked Lines"/>
+					<Item id="43052" name="Find characters in range..."/>
+					<Item id="43053" name="Select All Between Matching Braces"/>
+					<Item id="44009" name="Post-It"/>
+					<Item id="44010" name="Ḍfes iḥedran merra"/>
+					<Item id="44011" name="User-Defined Dialogue..."/>
+					<Item id="44019" name="Beqqeḍ iskilen merra"/>
+					<Item id="44020" name="Beqqeḍ amnir n usiẓi"/>
+					<Item id="44022" name="Wrap"/>
+					<Item id="44023" name="Zoom ɣer sdat"/>
+					<Item id="44024" name="Zoom ɣer deffir"/>
+					<Item id="44025" name="Beqqeḍ iskilen imlalen aked trigliwin"/>
+					<Item id="44026" name="Beqqeḍ tagarra n ujerriḍ"/>
+					<Item id="44029" name="Fsi akk iḥedran"/>
+					<Item id="44030" name="Ḍfes aswir amiran"/>
+					<Item id="44031" name="Fsi aswir amiran"/>
+					<Item id="44032" name="Rmed/ssens askar n ugdil aččuran"/>
+					<Item id="44033" name="Err-d Zoom s lexṣas"/>
+					<Item id="44034" name="Ddima sdat "/>
+					<Item id="44035" name="Adrurem aratak yemtawan"/>
+					<Item id="44036" name="Adrurem aglawan yemtawan"/>
+					<Item id="44041" name="Beqqeḍ izamulen unegzum ujerriḍ"/>
+					<Item id="44042" name="Ffer ijerriḍen"/>
+					<Item id="44049" name="Agzul..."/>
+					<Item id="44072" name="Focus on Another View"/>
+					<Item id="44080" name="Document Map"/>
+					<Item id="44081" name="Agalis n usenfar #1"/>
+					<Item id="44082" name="Agalis n usenfar #2"/>
+					<Item id="44083" name="Agalis n usenfar #3"/>
+					<Item id="44084" name="Function List"/>
+					<Item id="44086" name="1st Tab"/>
+					<Item id="44087" name="2nd Tab"/>
+					<Item id="44088" name="3rd Tab"/>
+					<Item id="44089" name="4th Tab"/>
+					<Item id="44090" name="5th Tab"/>
+					<Item id="44091" name="6th Tab"/>
+					<Item id="44092" name="7th Tab"/>
+					<Item id="44093" name="8th Tab"/>
+					<Item id="44094" name="9th Tab"/>
+					<Item id="44095" name="Next Tab"/>
+					<Item id="44096" name="Previous Tab"/>
+					<Item id="45001" name="Selket ɣer Windows Format"/>
+					<Item id="45002" name="Selket ɣer UNIX Format"/>
+					<Item id="45003" name="Selket ɣer MAC Format"/>
+					<Item id="45004" name="Settengel s ANSI"/>
+					<Item id="45005" name="Settengel s UTF-8"/>
+					<Item id="45006" name="Settengel s UCS-2 Big Endian"/>
+					<Item id="45007" name="Settengel s UCS-2 Little Endian"/>
+					<Item id="45008" name="Settengel s UTF-8 without BOM"/>
+					<Item id="45009" name="Selket ɣer ANSI"/>
+					<Item id="45010" name="Selket ɣer UTF-8 without BOM"/>
+					<Item id="45011" name="Selket ɣer UTF-8"/>
+					<Item id="45012" name="Selket ɣer UCS-2 Big Endian"/>
+					<Item id="45013" name="Selket ɣer UCS-2 Little Endian"/>
+					<Item id="46250" name="Sbadu tameslayt-ik/im..."/>
+					<Item id="46001" name="Swel aɣanib..."/>
+					<Item id="46180" name="User-Defined"/>
+					<Item id="47000" name="About Notepad++..."/>
+					<Item id="47001" name="Notepad++ Home"/>
+					<Item id="47002" name="Asebter n usenfaṛ Notepad++"/>
+					<Item id="47003" name="Online Documentation"/>
+					<Item id="47004" name="Forum"/>
+					<Item id="47005" name="Get More Plugins"/>
+					<Item id="47006" name="Lqem Notepad++"/>
+					<Item id="47008" name="Tallalt"/>
+					<Item id="47009" name="Set Updater Proxy..."/>
+					<Item id="48005" name="Import Plugin(s) ..."/>
+					<Item id="48006" name="Import Theme(s) ..."/>
+					<Item id="48009" name="Inegzumen n unasiw..."/>
+					<Item id="48011" name="Iɣewwaren..."/>
+					<Item id="48016" name="Modify Shortcut/Delete Macro..."/>
+					<Item id="48017" name="Modify Shortcut/Delete Command..."/>
+					<Item id="48018" name="Edit Popup ContextMenu"/>
+					<Item id="49000" name="Selkem..."/>
+					<Item id="50000" name="Function Completion"/>
+					<Item id="50001" name="Word Completion"/>
+					<Item id="50002" name="Function Parameters Hint"/>
+					<Item id="50006" name="Path Completion"/>
+				</Commands>
+			</Main>
+			<Splitter>
+			</Splitter>
+			<TabBar>
+				<Item CMID="0" name="Mdel"/>
+				<Item CMID="1" name="Mdel kulec ala wagi"/>
+				<Item CMID="2" name="Sekles"/>
+				<Item CMID="3" name="Sekles daw..."/>
+				<Item CMID="4" name="Siggez"/>
+				<Item CMID="5" name="Move to Other View"/>
+				<Item CMID="6" name="Clone to Other View"/>
+				<Item CMID="7" name="Nɣel abrid ummid n ufaylu"/>
+				<Item CMID="8" name="Nɣel isem n ufaylu"/>
+				<Item CMID="9" name="Nɣel abrid n ukaram amiran"/>
+				<Item CMID="10" name="Beddel isem"/>
+				<Item CMID="11" name="Move to Recycle Bin"/>
+				<Item CMID="12" name="Zzmam i ttɣuri kan"/>
+				<Item CMID="13" name="Kkes askar i tɣuri kan"/>
+				<Item CMID="14" name="Smutti ɣer usfaylu amaynut"/>
+				<Item CMID="15" name="Lli deg usfaylu amaynut"/>
+				<Item CMID="16" name="Zedm-d tikkelt niḍen"/>
+				<Item CMID="17" name="Mdel kulec ɣer zelmaḍ"/>
+				<Item CMID="18" name="Mdel kulec ɣer yeffus"/>
+				<Item CMID="19" name="Open Containing Folder in Explorer"/>
+				<Item CMID="20" name="Open Containing Folder in cmd"/>
+			</TabBar>
+		</Menu>
+
+		<Dialog>
+			<Find title="Nadi" titleFind="Nadi" titleReplace="Semselsi" titleFindInFiles="Nadi semselsi" titleMark="Creḍ">
+				<Item id="1" name="Af-d win ɣerst"/>
+				<Item id="2" name="Mdel"/>
+				<Item id="1620" name="Nadi:"/>
+				<Item id="1603" name="Match &amp;whole word only"/>
+				<Item id="1604" name="Match &amp;case"/>
+				<Item id="1605" name="Regular &amp;expression"/>
+				<Item id="1606" name="Wrap aroun&amp;d"/>
+				<Item id="1614" name="Siḍen"/>
+				<Item id="1615" name="Af-d kulec"/>
+				<Item id="1616" name="Creḍ ijerrieḍn"/>
+				<Item id="1618" name="Purge for each search"/>
+				<Item id="1611" name="Semselsi s :"/>
+				<Item id="1608" name="Semselsi"/>
+				<Item id="1609" name="Semselsi kulec"/>
+				<Item id="1623" name="Transparency"/>
+				<Item id="1687" name="On losing focus"/>
+				<Item id="1688" name="Always"/>
+				<Item id="1632" name="Di tefrayt"/>
+				<Item id="1633" name="Clear"/>
+				<Item id="1635" name="Semselsi kulec deg ifuyla yellin"/>
+				<Item id="1636" name="Af-d kulec deg ifuyla yellin"/>
+				<Item id="1654" name="Filters:"/>
+				<Item id="1655" name="Directory:"/>
+				<Item id="1656" name="Af-d kulec "/>
+				<Item id="1658" name="In all sub-folders"/>
+				<Item id="1659" name="Deg yikaramen yeffren"/>
+				<Item id="1624" name="Askar n unadi"/>
+				<Item id="1625" name="Normal"/>
+				<Item id="1626" name="Extended (\n, \r, \t, \0, \x...)"/>
+				<Item id="1660" name="Semselsi deg yifuyla"/>
+				<Item id="1641" name="Af-d kulec di zzmam amiran"/>
+				<Item id="1686" name="Transparency"/>
+				<Item id="1703" name=". matches newline"/>
+			</Find>
+			<GoToLine title="Ruḥ ɣer...">
+				<Item id="1" name="Go"/>
+				<Item id="2" name="I'm going nowhere"/>
+				<Item id="2004" name="Aqla-k (kem) dagi :"/>
+				<Item id="2005" name="Ad truḥeḍ ɣer :"/>
+				<Item id="2006" name="Ur tezmireḍ ara ad tεeddiḍ i:"/>
+				<Item id="2007" name="Ajeriḍ"/>
+				<Item id="2008" name="Ideg"/>
+			</GoToLine>
+
+			<Run title="Run...">
+				<Item id="1" name="Selkem"/>
+				<Item id="2" name="Semmet"/>
+				<Item id="1903" name="Ahil ara tselkemeḍ"/>
+				<Item id="1904" name="Sekles..."/>
+			</Run>
+
+			<StyleConfig title="Aswel n uɣanib">
+				<Item id="2" name="Semmet "/>
+				<Item id="2301" name="Sekles&amp;&amp;mdel"/>
+				<Item id="2303" name="Transparency"/>
+				<Item id="2306" name="Select theme: "/>
+				<SubDialog>
+					<Item id="2204" name="Bold"/>
+					<Item id="2205" name="Italic"/>
+					<Item id="2206" name="Ini n uɣawas amezwaru"/>
+					<Item id="2207" name="Ini n ugilal"/>
+					<Item id="2208" name="Isem n tsefsit :"/>
+					<Item id="2209" name="Tiddi n tsefsit:"/>
+					<Item id="2211" name="-- Style:"/>
+					<Item id="2212" name="Colour Style"/>
+					<Item id="2213" name="Tasefsit"/>
+					<Item id="2214" name="Default ext.:"/>
+					<Item id="2216" name="User ext.:"/>
+					<Item id="2218" name="Yederrer"/>
+					<Item id="2219" name="Default keywords"/>
+					<Item id="2221" name="User-defined keywords"/>
+					<Item id="2225" name="Tameslayt:"/>
+					<Item id="2226" name="Snes aɣawas amezwaru ajemmal"/>
+					<Item id="2227" name="Snes agilal ajemmal"/>
+					<Item id="2228" name="Snes tasefsit tajemmalt"/>
+					<Item id="2229" name="Snes tiddi n tsefsit tajemmalt"/>
+					<Item id="2230" name="Snes aɣanib n tsefsit tazurant ajemmal"/>
+					<Item id="2231" name="Snes aɣanib n tsefsit imalen ajemmal"/>
+					<Item id="2232" name="Snes aɣanib n tsefsit yederrern ajemmal"/>
+				</SubDialog>
+
+			</StyleConfig>
+
+			<UserDefine title="User-Defined">
+				<Item id="20001" name="Dock"/>
+				<Item id="20002" name="Beddel isem"/>
+				<Item id="20003" name="Amaynut..."/>
+				<Item id="20004" name="Kkes"/>
+				<Item id="20005" name="Sekles daw..."/>
+				<Item id="20007" name="User language: "/>
+				<Item id="20009" name="Ext.:"/>
+				<Item id="20012" name="Ignore case"/>
+				<Item id="20011" name="Transparency"/>
+				<Item id="20015" name="Kter..."/>
+				<Item id="20016" name="Sifeḍ..."/>
+				<StylerDialog title="Styler Dialog">
+					<Item id="25030" name="Tixṭiriyin n tsefsit:"/>
+					<Item id="25006" name="Ini n uɣawas amezwaru"/>
+					<Item id="25007" name="Ini n ugilal"/>
+					<Item id="25031" name="Isem :"/>
+					<Item id="25032" name="Tiddi :"/>
+					<Item id="25001" name="Azuran"/>
+					<Item id="25002" name="Tira imalen"/>
+					<Item id="25003" name="Underline"/>
+					<Item id="25029" name="Nesting:"/>
+					<Item id="25008" name="Anabraz 1"/>
+					<Item id="25009" name="Anabraz 2"/>
+					<Item id="25010" name="Anabraz 3"/>
+					<Item id="25011" name="Anabraz 4"/>
+					<Item id="25012" name="Anabraz 5"/>
+					<Item id="25013" name="Anabraz 6"/>
+					<Item id="25014" name="Anabraz 7"/>
+					<Item id="25015" name="Anabraz 8"/>
+					<Item id="25018" name="Keyword 1"/>
+					<Item id="25019" name="Keyword 2"/>
+					<Item id="25020" name="Keyword 3"/>
+					<Item id="25021" name="Keyword 4"/>
+					<Item id="25022" name="Keyword 5"/>
+					<Item id="25023" name="Keyword 6"/>
+					<Item id="25024" name="Keyword 7"/>
+					<Item id="25025" name="Keyword 8"/>
+					<Item id="25016" name="Awennit"/>
+					<Item id="25017" name="Comment line"/>
+					<Item id="25026" name="Operator 1"/>
+					<Item id="25027" name="Operator 2"/>
+					<Item id="25028" name="Imḍanen"/>
+				</StylerDialog>
+				<Folder title="Folder &amp;&amp; Default">
+					<Item id="21101" name="Aɣbalu s lexṣas"/>
+					<Item id="21102" name="Styler"/>
+					<Item id="21105" name="Tumlin:"/>
+					<Item id="21104" name="Temporary doc site:"/>
+					<Item id="21106" name="Fold compact (fold empty lines too)"/>
+					<Item id="21220" name="Folding in code 1 style:"/>
+					<Item id="21224" name="Ldi:"/>
+					<Item id="21225" name="Middle:"/>
+					<Item id="21226" name="Mdel:"/>
+					<Item id="21227" name="Styler"/>
+					<Item id="21320" name="Folding in code 2 style (separators needed):"/>
+					<Item id="21324" name="Ldi:"/>
+					<Item id="21325" name="Middle:"/>
+					<Item id="21326" name="Mdel:"/>
+					<Item id="21327" name="Styler"/>
+					<Item id="21420" name="Folding in comment style:"/>
+					<Item id="21424" name="Ldi:"/>
+					<Item id="21425" name="Middle:"/>
+					<Item id="21426" name="Mdel:"/>
+					<Item id="21127" name="Styler"/>
+				</Folder>
+				<Keywords title="Keywords Lists">
+					<Item id="22101" name="Agraw 1u"/>
+					<Item id="22201" name="Agraw 2w"/>
+					<Item id="22301" name="Agraw 3w"/>
+					<Item id="22401" name="Agraw 4w"/>
+					<Item id="22451" name="Agraw 5w"/>
+					<Item id="22501" name="Agraw 6w"/>
+					<Item id="22551" name="Agraw 7w"/>
+					<Item id="22601" name="Agraw 8w"/>
+					<Item id="22121" name="Prefix mode"/>
+					<Item id="22221" name="Prefix mode"/>
+					<Item id="22321" name="Prefix mode"/>
+					<Item id="22421" name="Prefix mode"/>
+					<Item id="22471" name="Prefix mode"/>
+					<Item id="22521" name="Prefix mode"/>
+					<Item id="22571" name="Prefix mode"/>
+					<Item id="22621" name="Prefix mode"/>
+					<Item id="22122" name="Styler"/>
+					<Item id="22222" name="Styler"/>
+					<Item id="22322" name="Styler"/>
+					<Item id="22422" name="Styler"/>
+					<Item id="22472" name="Styler"/>
+					<Item id="22522" name="Styler"/>
+					<Item id="22572" name="Styler"/>
+					<Item id="22622" name="Styler"/>
+				</Keywords>
+				<Comment title="Comment &amp;&amp; Number">
+					<Item id="23003" name="Line comment position"/>
+					<Item id="23004" name="Allow anywhere"/>
+					<Item id="23005" name="Force at beginning of line"/>
+					<Item id="23006" name="Allow preceeding whitespace"/>
+					<Item id="23001" name="Allow folding of comments"/>
+					<Item id="23326" name="Styler"/>
+					<Item id="23323" name="Ldi"/>
+					<Item id="23324" name="Continue character"/>
+					<Item id="23325" name="Mdel"/>
+					<Item id="23301" name="Comment line style"/>
+					<Item id="23124" name="Styler"/>
+					<Item id="23122" name="Ldi"/>
+					<Item id="23123" name="Mdel"/>
+					<Item id="23101" name="Comment style"/>
+					<Item id="23201" name="Number style"/>
+					<Item id="23220" name="Styler"/>
+					<Item id="23230" name="Prefix 1"/>
+					<Item id="23232" name="Prefix 2"/>
+					<Item id="23234" name="Extras 1"/>
+					<Item id="23236" name="Extras 2"/>
+					<Item id="23238" name="Suffix 1"/>
+					<Item id="23240" name="Suffix 2"/>
+					<Item id="23242" name="Range:"/>
+					<Item id="23244" name="Decimal separator"/>
+					<Item id="23245" name="Dot"/>
+					<Item id="23246" name="Comma"/>
+					<Item id="23247" name="Both"/>
+				</Comment>
+				<Operator title="Operators &amp;&amp; Delimiter">
+					<Item id="24101" name="Operators style"/>
+					<Item id="24113" name="Styler"/>
+					<Item id="24116" name="Operators 1"/>
+					<Item id="24117" name="Operators 2 (separators required)"/>
+					<Item id="24201" name="Anabraz aɣanib 1"/>
+					<Item id="24220" name="Ldi:"/>
+					<Item id="24221" name="asekkil n usenser:"/>
+					<Item id="24222" name="Mdel:"/>
+					<Item id="24223" name="Styler"/>
+					<Item id="24301" name="Anabraz aɣanib 2"/>
+					<Item id="24320" name="Open:"/>
+					<Item id="24321" name="asekkil n usenser:"/>
+					<Item id="24322" name="Mdel:"/>
+					<Item id="24323" name="Styler"/>
+					<Item id="24401" name="Anabraz aɣanib 3"/>
+					<Item id="24420" name="Ldi:"/>
+					<Item id="24421" name="asekkil n usenser:"/>
+					<Item id="24422" name="Mdel:"/>
+					<Item id="24423" name="Styler"/>
+					<Item id="24451" name="Anabraz aɣanib 4"/>
+					<Item id="24470" name="Ldi:"/>
+					<Item id="24471" name="asekkil n usenser:"/>
+					<Item id="24472" name="Ldi:"/>
+					<Item id="24473" name="Styler"/>
+					<Item id="24501" name="Anabraz aɣanib 5"/>
+					<Item id="24520" name="Ldi:"/>
+					<Item id="24521" name="asekkil n usenser:"/>
+					<Item id="24522" name="Mdel:"/>
+					<Item id="24523" name="Styler"/>
+					<Item id="24551" name="Anabraz aɣanib 6"/>
+					<Item id="24570" name="Ldi:"/>
+					<Item id="24571" name="asekkil n usenser:"/>
+					<Item id="24572" name="Mdel:"/>
+					<Item id="24573" name="Styler"/>
+					<Item id="24601" name="Anabraz aɣanib 7"/>
+					<Item id="24620" name="Ldi:"/>
+					<Item id="24621" name="asekkil n usenser:"/>
+					<Item id="24622" name="Mdel:"/>
+					<Item id="24623" name="Styler"/>
+					<Item id="24651" name="Anabraz aɣanib 8"/>
+					<Item id="24670" name="Ldi:"/>
+					<Item id="24671" name="asekkil n usenser:"/>
+					<Item id="24672" name="Mdel:"/>
+					<Item id="24673" name="Styler"/>
+				</Operator>
+				<Item id="24001" name="Enable escape character:"/>
+			</UserDefine>
+			<Preference title="Preferences">
+				<Item id="6001" name="Mdel"/>
+				<Global title="Amatu">
+					<Item id="6102" name="Ffer"/>
+					<Item id="6103" name="Tignitin timectaḥ"/>
+					<Item id="6104" name="Tignitin timeqranin"/>
+					<Item id="6105" name="Standard icons"/>
+
+					<Item id="6107" name="Reduce"/>
+					<Item id="6108" name="Lock (no drag and drop)"/>
+					<Item id="6109" name="Darken inactive tabs"/>
+					<Item id="6110" name="Draw a coloured bar on active tab"/>
+
+					<Item id="6112" name="Show close button on each tab"/>
+					<Item id="6113" name="Double click to close document"/>
+					<Item id="6118" name="Ffer"/>
+					<Item id="6119" name="Multi-line"/>
+					<Item id="6120" name="Vertical"/>
+
+					<Item id="6121" name="Tafggagt n wumuɣen"/>
+					<Item id="6122" name="Hide (use Alt or F10 key to toggle)"/>
+					<Item id="6123" name="Localization"/>
+
+					<Item id="6125" name="Document List Panel"/>
+					<Item id="6126" name="Show"/>
+				</Global>
+				<Scintillas title="Taẓrigt">
+					<Item id="6216" name="Caret Settings"/>
+					<Item id="6217" name="Tehr :"/>
+					<Item id="6219" name="Blink Rate:"/>
+					<Item id="6221" name="F"/>
+					<Item id="6222" name="S"/>
+					<Item id="6224" name="Multi-Editing Settings"/>
+					<Item id="6201" name="Folder Margin Style"/>
+					<Item id="6202" name="Simple"/>
+					<Item id="6203" name="Arrow"/>
+					<Item id="6204" name="Circle tree"/>
+					<Item id="6205" name="Box tree"/>
+					<Item id="6226" name="None"/>
+
+					<Item id="6227" name="Line Wrap"/>
+					<Item id="6228" name="Default"/>
+					<Item id="6229" name="Aligned"/>
+					<Item id="6230" name="Asiẓi"/>
+
+					<Item id="6206" name="Beqqeḍ utunen n ijerriḍen"/>
+					<Item id="6207" name="Display bookmarks"/>
+					<Item id="6208" name="Show vertical edge"/>
+					<Item id="6209" name="Number of columns: "/>
+
+					<Item id="6211" name="Vertical Edge Settings"/>
+					<Item id="6212" name="Line mode"/>
+					<Item id="6213" name="Background mode"/>
+					<Item id="6214" name="Enable current line highlighting"/>
+
+					<Item id="6234" name="Disable advanced scrolling feature
+					(if you have touchpad problem)"/>
+				</Scintillas>
+				<NewDoc title="New Document/Default Directory">
+					<Item id="6401" name="Format"/>
+					<Item id="6402" name="Windows"/>
+					<Item id="6403" name="Unix"/>
+					<Item id="6404" name="Mac"/>
+					<Item id="6405" name="Encoding"/>
+					<Item id="6406" name="ANSI"/>
+					<Item id="6407" name="UTF-8 without BOM"/>
+					<Item id="6408" name="UTF-8"/>
+					<Item id="6409" name="UCS-2 Big Endian"/>
+					<Item id="6410" name="UCS-2 Little Endian"/>
+					<Item id="6411" name="Default language:"/>
+
+					<Item id="6419" name="Zzmam amaynut"/>
+					<Item id="6420" name="Apply to opened ANSI files"/>
+				</NewDoc>
+
+				<DefaultDir title="Default Directory">
+					<Item id="6413" name="Default Directory (Open/Save)"/>
+					<Item id="6414" name="Follow current document"/>
+					<Item id="6415" name="Remember last used directory"/>
+				</DefaultDir>
+
+				<FileAssoc title="File Association">
+					<Item id="4009" name="Supported exts:"/>
+					<Item id="4010" name="Registered exts:"/>
+				</FileAssoc>
+				<LangMenu title="Language Menu">
+					<Item id="6505" name="Available items"/>
+					<Item id="6506" name="Disabled items"/>
+					<Item id="6507" name="Make language menu compact"/>
+					<Item id="6508" name="Language Menu"/>
+				</LangMenu>
+
+				<TabSettings title="Tab Settings">
+					<Item id="6301" name="Tab Settings"/>
+					<Item id="6302" name="Replace by space"/>
+					<Item id="6303" name="Tab size: "/>
+					<Item id="6510" name="Use default value"/>
+				</TabSettings>
+
+				<Print title="Asiggez">
+					<Item id="6601" name="Ẓreg uṭṭunen n ijerriḍen"/>
+					<Item id="6602" name="Tixṭiriyin n yini"/>
+					<Item id="6603" name="WYSIWYG"/>
+					<Item id="6604" name="Tti"/>
+					<Item id="6605" name="Aberkan ɣef umlal"/>
+					<Item id="6606" name="Agilal war ini"/>
+					<Item id="6607" name="Iɣwarren n trigla (Aferdis:mm)"/>
+					<Item id="6612" name="Zelmaḍ"/>
+					<Item id="6613" name="Uksawen"/>
+					<Item id="6614" name="Yefus"/>
+					<Item id="6615" name="Uksar"/>
+					<Item id="6706" name="Azuran"/>
+					<Item id="6707" name="Tira imallen"/>
+					<Item id="6708" name="Tasentiḍt"/>
+					<Item id="6709" name="ɣer zelmaḍ"/>
+					<Item id="6710" name="Di tlemast"/>
+					<Item id="6711" name="ɣer yefus"/>
+					<Item id="6717" name="Azuran"/>
+					<Item id="6718" name="Tira imallen"/>
+					<Item id="6719" name="Footer"/>
+					<Item id="6720" name="ɣer zelmaḍ"/>
+					<Item id="6721" name="Di tlemast"/>
+					<Item id="6722" name="ɣer yefus"/>
+					<Item id="6723" name="Rnu"/>
+					<Item id="6725" name="Variable:"/>
+					<Item id="6727" name="Here display your variable settings"/>
+					<Item id="6728" name="Header and Footer"/>
+				</Print>
+				<RecentFilesHistory title="Recent Files History">
+					<Item id="6304" name="Recent Files History"/>
+					<Item id="6306" name="Max. number of entries:"/>
+					<Item id="6305" name="Don't check at launch time"/>
+					<Item id="6429" name="Display"/>
+					<Item id="6424" name="In Submenu"/>
+					<Item id="6425" name="Only File Name"/>
+					<Item id="6426" name="Full File Name Path"/>
+					<Item id="6427" name="Customize Maximum Length:"/>
+				</RecentFilesHistory>
+
+				<Backup title="Backup">
+					<Item id="6309" name="Remember current session for next launch"/>
+
+					<Item id="6801" name="Backup"/>
+					<Item id="6315" name="None"/>
+					<Item id="6316" name="Simple backup"/>
+					<Item id="6317" name="Verbose backup"/>
+					<Item id="6804" name="Custom Backup Directory"/>
+					<Item id="6803" name="Directory:"/>
+				</Backup>
+
+				<AutoCompletion title="Auto-Completion">
+					<Item id="6807" name="Auto-Completion"/>
+					<Item id="6808" name="Enable auto-completion on each input"/>
+					<Item id="6809" name="Function completion"/>
+					<Item id="6810" name="Word completion"/>
+					<Item id="6816" name="Function and word completion"/>
+					<Item id="6811" name="From"/>
+					<Item id="6813" name="th character"/>
+					<Item id="6814" name="Valid value: 1 - 9"/>
+					<Item id="6815" name="Function parameters hint on input"/>
+					<Item id="6851" name="Auto-Insert"/>
+					<Item id="6857" name=" html/xml close tag"/>
+					<Item id="6858" name="Open"/>
+					<Item id="6859" name="Close"/>
+					<Item id="6860" name="Matched pair 1:"/>
+					<Item id="6863" name="Matched pair 2:"/>
+					<Item id="6866" name="Matched pair 3:"/>
+				</AutoCompletion>
+
+				<MultiInstance title="Multi-Instance">
+					<Item id="6151" name="Multi-instance settings"/>
+					<Item id="6152" name="Open session in a new instance of Notepad++"/>
+					<Item id="6153" name="Always in multi-instance mode"/>
+					<Item id="6154" name="Default (mono-instance)"/>
+					<Item id="6155" name="* The modification of this setting needs to restart Notepad++"/>
+				</MultiInstance>
+
+				<Delimiter title="Delimiter">
+					<Item id="6251" name="Delimiter selection settings (Ctrl + Mouse double click)"/>
+					<Item id="6252" name="Open"/>
+					<Item id="6255" name="Close"/>
+					<Item id="6256" name="Allow on several lines"/>
+				</Delimiter>
+
+				<MISC title="MISC.">
+					<Item id="6304" name="Recent Files History"/>
+					<Item id="6305" name="Don't check at launch time"/>
+					<Item id="6312" name="File Status Auto-Detection"/>
+					<Item id="6313" name="Update silently"/>
+					<Item id="6318" name="Clickable Link Settings"/>
+					<Item id="6325" name="Scroll to the last line after update"/>
+					<Item id="6319" name="Enable"/>
+					<Item id="6320" name="No underline"/>
+					<Item id="6322" name="Session file ext.:"/>
+					<Item id="6323" name="Enable Notepad++ auto-updater"/>
+					<Item id="6324" name="Document Switcher (Ctrl+TAB)"/>
+					<Item id="6326" name="Enable smart highlighting"/>
+					<Item id="6329" name="Highlight Matching Tags"/>
+					<Item id="6327" name="Enable"/>
+					<Item id="6328" name="Highlight tag attributes"/>
+					<Item id="6330" name="Highlight comment/php/asp zone"/>
+
+					<Item id="6331" name="Show only filename in title bar"/>
+					<Item id="6332" name="Match case"/>
+					<Item id="6333" name="Smart Highlighting"/>
+					<Item id="6334" name="Autodetect character encoding"/>
+
+					<Item id="6114" name="Enable"/>
+					<Item id="6117" name="Enable MRU behaviour"/>
+
+				</MISC>
+
+			</Preference>
+			<MultiMacro title="Selkem a Macro atas n tikkal">
+				<Item id="1" name="Selkem"/>
+				<Item id="2" name="Semmet"/>
+				<Item id="8006" name="A macro ara yettuselkemen:"/>
+				<Item id="8001" name="Selkem"/>
+				<Item id="8005" name="n tikkal"/>
+				<Item id="8002" name="Arma d tagarra n ufaylu"/>
+			</MultiMacro>
+			<Window title="Isfuyla">
+				<Item id="1" name="Sermed"/>
+				<Item id="2" name="OK"/>
+				<Item id="7002" name="Sekles"/>
+				<Item id="7003" name="Mdel isfuyla"/>
+				<Item id="7004" name="Sort tabs"/>
+			</Window>
+			<ColumnEditor title="Amaẓrag n tgejda">
+				<Item id="2023" name="Aḍris ara tegreḍ"/>
+				<Item id="2033" name="Uttun ara tegreḍ"/>
+				<Item id="2030" name="Initial number:"/>
+				<Item id="2031" name="Increase by:"/>
+				<Item id="2035" name="Leading zeros"/>
+				<Item id="2032" name="Format"/>
+				<Item id="2024" name="Dec"/>
+				<Item id="2025" name="Oct"/>
+				<Item id="2026" name="Hex"/>
+				<Item id="2027" name="Bin"/>
+				<Item id="1" name="OK"/>
+				<Item id="2" name="Semmet"/>
+			</ColumnEditor>
+		</Dialog>
+		<MessageBox>
+			<ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
+			<NppHelpAbsentWarning title="File does not exist" message="\rdoesn't exist. Please download it on Notepad++ site."/>
+			<SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
+			<LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
+			<CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
+			<DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
+			<FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
+			<FileAlreadyOpenedInNpp title="" message="The file is already opened in Notepad++."/>
+			<DeleteFileFailed title="Delete File" message="Delete File failed"/>
+
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
+		</MessageBox>
+
+		<ClipboardHistory>
+			<PanelTitle name="Clipboard History"/>
+		</ClipboardHistory>
+		<DocList>
+			<PanelTitle name="Doc Switcher"/>
+			<ColumnName name="Name"/>
+			<ColumnExt name="Ext."/>
+		</DocList>
+		<AsciiInsertion>
+			<PanelTitle name="ASCII Insertion Panel"/>
+			<ColumnVal name="Value"/>
+			<ColumnHex name="Hex"/>
+			<ColumnChar name="Character"/>
+		</AsciiInsertion>
+		<DocumentMap>
+			<PanelTitle name="Document Map"/>
+		</DocumentMap>
+		<FunctionList>
+			<PanelTitle name="Function List"/>
+			<SortTip name="Sort"/>
+			<ReloadTip name="Reload"/>
+		</FunctionList>
+
+		<ProjectManager>
+			<PanelTitle name="Asenfar"/>
+			<WorkspaceRootName name="Workspace"/>
+			<NewProjectName name="Isem n usenfar"/>
+			<NewFolderName name="Isem n ukaram"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Workspace"/>
+					<Item id="1" name="Ẓreg"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="New Workspace"/>
+					<Item id="3123" name="Open Workspace"/>
+					<Item id="3124" name="Reload Workspace"/>
+					<Item id="3125" name="Sekles"/>
+					<Item id="3126" name="Sekles ddaw..."/>
+					<Item id="3127" name="Sekles anɣel ddaw..."/>
+					<Item id="3121" name="Rnu asenfar amaynut"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Beddel isem"/>
+					<Item id="3112" name="Rnu akaram"/>
+					<Item id="3113" name="Rnu ifuyla..."/>
+					<Item id="3117" name="Rnu ifuyla seg ukaram..."/>
+					<Item id="3114" name="Kkes"/>
+					<Item id="3118" name="Mutti d asawen"/>
+					<Item id="3119" name="Mutti d aksar"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Beddel isem"/>
+					<Item id="3112" name="Rnu akaram"/>
+					<Item id="3113" name="Rnu ifuyla..."/>
+					<Item id="3117" name="Rnu ifuyla seg ukaram..."/>
+					<Item id="3114" name="kkes"/>
+					<Item id="3118" name="Mutti d asawen"/>
+					<Item id="3119" name="Mutti d aksar"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Beddel isem"/>
+					<Item id="3115" name="Kkes"/>
+					<Item id="3116" name="Beddel abrid n ufaylu"/>
+					<Item id="3118" name="Mutti d asawen"/>
+					<Item id="3119" name="Mutti d aksar"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
+	</Native-Langue>
+</NotepadPlus>

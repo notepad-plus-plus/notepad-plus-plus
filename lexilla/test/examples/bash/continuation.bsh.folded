@@ -1,0 +1,16 @@
+ 2 400   0 + # Tests for line continuation.
+ 0 401   0 | # Issue #195.
+ 1 400   0   
+ 0 400   0   #backslash1\
+ 0 400   0   echo 1
+ 0 400   0   #backslash2\\
+ 0 400   0   echo 2
+ 1 400   0   
+ 2 400   0 + if [ 1 ]; then
+ 0 401   0 |     backslash1=A\
+ 0 401   0 | fi
+ 0 401   0 |     backslash2=B\\
+ 0 401   0 | fi
+ 1 400   0   
+ 0 400   0   echo $backslash1, $backslash2
+ 0 400   0   

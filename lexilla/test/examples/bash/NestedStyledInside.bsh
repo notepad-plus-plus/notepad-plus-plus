@@ -1,0 +1,77 @@
+# Nested elements and other complex cases
+
+# String with backtick inclusion
+"x`ls`"
+# Nested string
+"x`ls "*.c"`"
+# Not terminated at first "
+"x`ls" # "`" #
+
+# String with command inclusion
+"x$(ls)"
+
+# Nested command
+$(ls -la$(ls *.c))
+
+# Check strings and backticks in command
+echo $('ls' "." `ls` $'.' $".")
+
+# $( not terminated by ) if contains unterminated string
+$('x) # ') #
+$("x) # ") #
+$(`x) # `) # Bash doesn't like this
+$($'x) # ') #
+$($"x) # ") #
+
+# Parameter expansion
+var=abcdef
+sub=abc
+rep='& '
+echo ${var/$sub/"${rep}}"} #
+
+# '$' in variable
+echo $$PID
+echo $var${var}
+
+# Here-doc with internal elements
+cat <<EOF
+	$scalar
+	${var}
+	$((1+2))
+	$(pwd)
+	`pwd`
+EOF
+
+# Quoted delimiter treats here-doc as simple string
+cat <<"EOF"
+	$scalar
+	${var}
+	$((1+2))
+	$(pwd)
+	`pwd`
+EOF
+
+# Escaped same as quoted
+cat <<\EOF
+	$scalar
+EOF
+
+# Nesting
+echo "$((1 + 2))" #
+echo "$[1 + 2]" #
+
+# Multiple nesting levels
+$(ls -la$(ls $(c) $'*.c' ` $(${s})`))
+
+# Multi-line
+$(ls |
+more)
+
+$(
+`x`
+"x"
+`ls`
+$'x'
+$"x"
+)
+#end -- checks termination of previous

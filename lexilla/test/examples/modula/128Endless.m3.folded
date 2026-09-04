@@ -1,0 +1,16 @@
+ 0 400 400   (* This file caused an infinite loop in the folder before #128 was fixed.*)
+ 0 400 400   MODULE Form;
+ 0 400 400     IMPORT  
+ 1 400 400   
+ 0 400 400     PROCEDURE (bf: ButtonForm) InitializeComponent(), NEW;
+ 2 400 401 +   BEGIN
+ 0 401 401 |     bf.SuspendLayout();
+ 0 401 401 |     REGISTER(bf.button1.Click, bf.button1_Click);
+ 0 401 401 |     bf.get_Controls().Add(bf.button2);
+ 0 401 400 |   END InitializeComponent;
+ 1 400 400   
+ 2 400 401 + BEGIN
+ 0 401 401 |     NEW(bf);
+ 0 401 401 |     Wfm.Application.Run(bf);
+ 0 401 400 | END Form.
+ 1 400 400   

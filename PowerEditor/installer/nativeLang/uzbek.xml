@@ -1,0 +1,1237 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Uzbek translation made by:
+Orzu Samarqandiy <orzu at sourceforge.net>
+Abdurashid Muhitdinov <cool_zero at list.ru>
+Last update: 2009 July 07
+-->
+<!--
+Uzbek (Latin) translation for Notepad++
+Updated to v8.1.4:
+Updater: Shamsiddinov Zafar
+-->
+<NotepadPlus>
+	<Native-Langue name="Oʻzbekcha" filename="uzbek.xml" version="8.1.4">
+		<Menu>
+			<Main>
+
+				<Entries>
+					<Item menuId="file" name="&amp;Fayl"/>
+					<Item menuId="edit" name="&amp;Tahrirlamoq"/>
+					<Item menuId="search" name="&amp;Qidirmoq"/>
+					<Item menuId="view" name="&amp;Koʻrinish"/>
+					<Item menuId="encoding" name="&amp;Kodlashlar"/>
+					<Item menuId="language" name="&amp;Sintaksislar"/>
+					<Item menuId="settings" name="&amp;Tanlovlar"/>
+					<Item menuId="tools" name="Qoʻshimchalar"/>
+					<Item menuId="macro" name="&amp;Makroslar"/>
+					<Item menuId="run" name="&amp;Ishga tushirmoq"/>
+					<Item menuId="Plugins" name="&amp;Ilovalar"/>
+					<Item menuId="Window" name="&amp;Xatchoʻplar"/>
+				</Entries>
+
+				<SubEntries>
+					<Item subMenuId="file-openFolder" name="&amp;Fayl jildini ochmoq"/>
+					<Item subMenuId="file-closeMore" name="Xatchoʻplar boshqaruvi..."/>
+					<Item subMenuId="file-recentFiles" name="Soʻnggi fayllar"/>
+					<Item subMenuId="edit-copyToClipboard" name="&amp;Buferga nusxalamoq..."/>
+					<Item subMenuId="edit-indent" name="Chekinishlar (Tab)"/>
+					<Item subMenuId="edit-convertCaseTo" name="Registrlarni almashtirmoq"/>
+					<Item subMenuId="edit-lineOperations" name="Satrlar boʻyicha amallar"/>
+					<Item subMenuId="edit-comment" name="Sharhlamoq"/>
+					<Item subMenuId="edit-autoCompletion" name="Kiritishni avtotugallamoq"/>
+					<Item subMenuId="edit-eolConversion" name="Satr Oxiri Formati"/>
+					<Item subMenuId="edit-blankOperations" name="Probellar bilan amallar"/>
+					<Item subMenuId="edit-pasteSpecial" name="Maxsus joylashtirlash"/>
+					<Item subMenuId="edit-onSelection" name="Ajratmoq"/>
+					<Item subMenuId="search-markAll" name="&amp;Tokenning barcha hodisalari uslubi"/>
+					<Item subMenuId="search-markOne" name="Yagona &amp;token uslubi"/>
+					<Item subMenuId="search-markAll" name="Ajratishlarni belgilamoq"/>
+					<Item subMenuId="search-unmarkAll" name="Belgilarni olib tashlamoq"/>
+					<Item subMenuId="search-jumpUp" name="Yuqoriga oʻtmoq"/>
+					<Item subMenuId="search-jumpDown" name="Pastga oʻtmoq"/>
+					<Item subMenuId="search-copyStyledText" name="Uslubli matnni nusxalamoq"/>
+					<Item subMenuId="search-bookmark" name="&amp;Xatchoʻplar"/>
+					<Item subMenuId="view-currentFileIn" name="Joriy faylni quyidagida ochmoq"/>
+					<Item subMenuId="view-showSymbol" name="Belgilarni koʻrsatmoq"/>
+					<Item subMenuId="view-zoom" name="Matn miqyosi"/>
+					<Item subMenuId="view-moveCloneDocument" name="Fayl darchasi"/>
+					<Item subMenuId="view-tab" name="Xatchoʻplar tanlovi..."/>
+					<Item subMenuId="view-collapseLevel" name="Darajani yoymoq"/>
+					<Item subMenuId="view-uncollapseLevel" name="Darajani yigʻmoq"/>
+					<Item subMenuId="view-project" name="Loyiha (panel)"/>
+					<Item subMenuId="encoding-characterSets" name="Kodlashlar"/>
+					<Item subMenuId="encoding-arabic" name="Arabcha"/>
+					<Item subMenuId="encoding-baltic" name="Boltiq boʻyi tillarida"/>
+					<Item subMenuId="encoding-celtic" name="Keltcha"/>
+					<Item subMenuId="encoding-cyrillic" name="Kirillcha"/>
+					<Item subMenuId="encoding-centralEuropean" name="Markaziy Yevropa tillarida"/>
+					<Item subMenuId="encoding-chinese" name="Xitoycha"/>
+					<Item subMenuId="encoding-easternEuropean" name="Sharqiy Yevropa tillarida"/>
+					<Item subMenuId="encoding-greek" name="Grekcha"/>
+					<Item subMenuId="encoding-hebrew" name="Ivritcha"/>
+					<Item subMenuId="encoding-japanese" name="Yaponcha"/>
+					<Item subMenuId="encoding-korean" name="Koreyscha"/>
+					<Item subMenuId="encoding-northEuropean" name="Shimoliy Yevropa tillarida"/>
+					<Item subMenuId="encoding-thai" name="Taylandcha"/>
+					<Item subMenuId="encoding-turkish" name="Turkcha"/>
+					<Item subMenuId="encoding-westernEuropean" name="G‘arbiy Yevropa tillarida"/>
+					<Item subMenuId="encoding-vietnamese" name="Vetnamcha"/>
+					<Item subMenuId="language-userDefinedLanguage" name="Foydalanuvchi belgilagan til"/>
+					<Item subMenuId="settings-import" name="Import qilmoq"/>
+					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha256" name="SHA-256"/>
+				</SubEntries>
+
+				<Commands>
+					<Item id="1001" name="&amp;Pdf shaklida saqlamoq"/>
+					<Item id="41001" name="Yangi fayl"/>
+					<Item id="41002" name="Ochmoq"/>
+					<Item id="41019" name="&amp;Fayl jildini ochmoq"/>
+					<Item id="41020" name="Jildlarni &amp;cmd konsolida ochmoq"/>
+					<Item id="41025" name="Loyiha tarzidagi hujjat jildi"/>
+					<Item id="41003" name="Yopmoq"/>
+					<Item id="41004" name="&amp;Barini yopmoq"/>
+					<Item id="41005" name="Faoldan boshqa, barini yopmoq"/>
+					<Item id="41009" name="Chapdagilarni barini yopmoq"/>
+					<Item id="41018" name="Oʻngdagilarni barini yopmoq"/>
+					<Item id="41024" name="Barcha oʻzgarmaganlarini yopmoq"/>
+					<Item id="41006" name="Saqlamoq"/>
+					<Item id="41007" name="Barini saqlamoq"/>
+					<Item id="41008" name="Quyidagidek saqlamoq..."/>
+					<Item id="41010" name="&amp;Chop etmoq..."/>
+					<Item id="41011" name="Dasturdan chiqmoq"/>
+					<Item id="41012" name="&amp;Sessiyani yuklamoq..."/>
+					<Item id="41013" name="&amp;Sessiyani saqlamoq..."/>
+					<Item id="41014" name="&amp;Diskdan yangilamoq"/>
+					<Item id="41015" name="Quyidagi nusxada saqlamoq..."/>
+					<Item id="41016" name="&amp;Faylni olib tashlamoq (Savatga)"/>
+					<Item id="41017" name="Qayta nomlamoq..."/>
+					<Item id="41020" name="&amp;cmd konsolida jildni ochmoq"/>
+					<Item id="41021" name="Soʻnggi yopilgan faylni ochmoq"/>
+					<Item id="41022" name="Loyiha tarzidagi jildni ochmoq"/>
+					<Item id="41023" name="Standart ilovada ochmoq"/>
+					<Item id="41009" name="Chapdagi barini yopmoq"/>
+					<Item id="41018" name="Oʻngdagi barini yopmoq"/>
+					<Item id="42001" name="Qirqib olmoq"/>
+					<Item id="42002" name="Nusxa olmoq"/>
+					<Item id="42003" name="Bekor qilmoq"/>
+					<Item id="42004" name="Qayta tiklamoq"/>
+					<Item id="42005" name="Joylashtirmoq"/>
+					<Item id="42006" name="Olib tashlamoq"/>
+					<Item id="42007" name="Barini belgilamoq"/>
+					<Item id="42008" name="Chekinish qoʻymoq"/>
+					<Item id="42009" name="Chekinishni olib tashlamoq"/>
+					<Item id="42010" name="Joriy satrdan nusxa olmoq"/>
+					<Item id="42012" name="Satrlarni ajratmoq"/>
+					<Item id="42013" name="Satrlarni birlashtirmoq"/>
+					<Item id="42014" name="Satrni yuqoriga koʻchirmoq"/>
+					<Item id="42015" name="Satrni pastga koʻchirmoq"/>
+					<Item id="42016" name="BOSH HARFLARDA"/>
+					<Item id="42017" name="kichik harflarda"/>
+					<Item id="42018" name="Yozishni boshlamoq"/>
+					<Item id="42019" name="Yozishni toʻxtatmoq"/>
+					<Item id="42020" name="Belgilashni koʻrsatmoq (boshi/oxiri)"/>
+					<Item id="42021" name="Ijro etmoq"/>
+					<Item id="42022" name="Satrlarni sharhlashni yoq./oʻch."/>
+					<Item id="42023" name="Belgilangan qismni sharhlamoq"/>
+					<Item id="42024" name="Miltillovchi Probellarni olib tashlamoq"/>
+					<Item id="42025" name="Yozilgan makrosni saqlamoq.."/>
+					<Item id="42026" name="Matn oʻngdan chapga"/>
+					<Item id="42027" name="Matn chapdan oʻngga"/>
+					<Item id="42028" name="&quot;&amp;Faqat oʻqish&quot; rejimi"/>
+					<Item id="42029" name="&amp;Fayl nomi va yoʻlagi"/>
+					<Item id="42030" name="&amp;Fayl nomi"/>
+					<Item id="42031" name="&amp;Fayl yoʻlagi"/>
+					<Item id="42032" name="Koʻp marotabali kirish..."/>
+					<Item id="42034" name="Ustun yaratuvchi..."/>
+					<Item id="42035" name="Satrni sharhlamoq"/>
+					<Item id="42036" name="Satrni sharhlamaslik"/>
+					<Item id="42037" name="Ustunlarni belgilash..."/>
+					<Item id="42038" name="HTML tarzida joylashtirmoq"/>
+					<Item id="42039" name="RTF tarzida joylashtirmoq"/>
+					<Item id="42040" name="Barcha soʻnggi fayllarni ochmoq"/>
+					<Item id="42041" name="Soʻnggi fayllar roʻyxatini tozalamoq"/>
+					<Item id="42042" name="Boshlangʻich Probelni olib tashlamoq"/>
+					<Item id="42043" name="Boshlangʻich va Miltillovchi Probellarni olib tashlamoq"/>
+					<Item id="42044" name="Probel oxirida Satr Tugashi belgisi"/>
+					<Item id="42045" name="Ortiqcha Probellar / Probelda Satr Oxiri belgisini yoʻqotmoq"/>
+					<Item id="42046" name="Probelda Chekinish"/>
+					<Item id="42047" name="Belgilashni sharhlamaslik"/>
+					<Item id="42048" name="Ikkilik kodda nusxalamoq"/>
+					<Item id="42049" name="Ikkilik kodda qirqib olmoq"/>
+					<Item id="42050" name="Ikkilik kod tarzida qoʻymoq"/>
+					<Item id="42051" name="&amp;Belgilar jadvali"/>
+					<Item id="42052" name="&amp;Bufer tarixi paneli"/>
+					<Item id="42053" name="Chekinishda probel (satr boshida)"/>
+					<Item id="42054" name="Chekinishda probel (barchasida)"/>
+					<Item id="42055" name="Boʻsh satrlarni olib tashlamoq"/>
+					<Item id="42056" name="Boʻsh satrlarni olib tashlamoq (Probellar bilan birga)"/>
+					<Item id="42057" name="Joriydan oldinda boʻsh satr qoʻymoq"/>
+					<Item id="42058" name="Joriydan keyin boʻsh satr qoʻymoq"/>
+					<Item id="42059" name="Oʻsish boʻyicha saralamoq (Birinchi raqamda)"/>
+					<Item id="42060" name="Kamayuvchi boʻyicha saralamoq (Birinchi raqamda)"/>
+					<Item id="42061" name="Butun sonlarning oʻsishi boʻyicha saralamoq"/>
+					<Item id="42062" name="Butun sonlarning kamayishi boʻyicha saralamoq"/>
+					<Item id="42063" name="Oʻnlik sonlarning oʻsishi boʻyicha saralamoq (vergulli) "/>
+					<Item id="42064" name="Oʻnlik sonlarning kamayishi boʻyicha saralamoq (nuqtali)"/>
+					<Item id="42065" name="Oʻnlik sonlarning oʻsishi boʻyicha saralamoq (nuqtali)"/>
+					<Item id="42066" name="Oʻnlik sonlarning kamayishi boʻyicha saralamoq (nuqtali)"/>
+					<Item id="42067" name="Bari Bosh harflarda"/>
+					<Item id="42068" name="Bari Bosh harflarda (aralash)"/>
+					<Item id="42069" name="Gap tarzida"/>
+					<Item id="42070" name="Gap tarzida (aralash)"/>
+					<Item id="42071" name="tESKARI rEGISTR"/>
+					<Item id="42072" name="TasoDIFiY ReGisTr"/>
+					<Item id="42073" name="Faylni ochmoq"/>
+					<Item id="42074" name="Fayl jildini ochmoq"/>
+					<Item id="42075" name="Internetda izlamoq"/>
+					<Item id="42076" name="Qidiruv Tizimini almashtirmoq..."/>
+					<Item id="43001" name="Izlamoq..."/>
+					<Item id="43002" name="Izlashda davom etmoq"/>
+					<Item id="43003" name="Almashtirmoq..."/>
+					<Item id="43004" name="Satrga oʻtmoq..."/>
+					<Item id="43005" name="Xatchoʻp (qoʻymoq/olmoq)"/>
+					<Item id="43006" name="Keyingi xatchoʻpga"/>
+					<Item id="43007" name="Oldingi xatchoʻpga"/>
+					<Item id="43008" name="&amp;Barcha xatchoʻplarni yoʻqotmoq"/>
+					<Item id="43009" name="Juft qavsga oʻtmoq"/>
+					<Item id="43010" name="Oldingini izlamoq"/>
+					<Item id="43011" name="Tera boshlaganda, izlamoq..."/>
+					<Item id="43013" name="Faylni izlamoq"/>
+					<Item id="43014" name="Belgilangandan keyingisini Registr bilan izlamoq"/>
+					<Item id="43015" name="Belgilangandan oldingisini Registr bilan izlamoq"/>
+					<Item id="43018" name="Barcha xatchoʻpli satrlarni qirqib olmoq"/>
+					<Item id="43019" name="Barcha xatchoʻpli satrlardan nusxa olmoq"/>
+					<Item id="43020" name="Xatchoʻpli satrlarni qoʻymoq (almashtirish bilan)"/>
+					<Item id="43021" name="Barcha xatchoʻpli satrlarni oʻchirmoq"/>
+					<Item id="43022" name="1-uslubdan foydalanmoq"/>
+					<Item id="43023" name="1-uslubni olib tashlamoq"/>
+					<Item id="43024" name="2-uslubdan foydalanmoq"/>
+					<Item id="43025" name="2-uslubni olib tashlamoq"/>
+					<Item id="43026" name="3-uslubdan foydalanmoq"/>
+					<Item id="43027" name="3-uslubni olib tashlamoq"/>
+					<Item id="43028" name="4-uslubdan foydalanmoq"/>
+					<Item id="43029" name="4-uslubni olib tashlamoq"/>
+					<Item id="43030" name="5-uslubdan foydalanmoq"/>
+					<Item id="43031" name="5-uslubni olib tashlamoq"/>
+					<Item id="43032" name="Barcha uslublarni olib tashlamoq"/>
+					<Item id="43033" name="1-uslub"/>
+					<Item id="43034" name="2-uslub"/>
+					<Item id="43035" name="3-uslub"/>
+					<Item id="43036" name="4-uslub"/>
+					<Item id="43037" name="5-uslub"/>
+					<Item id="43038" name="Uslub izlamoq"/>
+					<Item id="43039" name="1-uslub"/>
+					<Item id="43040" name="2-uslub"/>
+					<Item id="43041" name="3-uslub"/>
+					<Item id="43042" name="4-uslub"/>
+					<Item id="43043" name="5-uslub"/>
+					<Item id="43044" name="Uslub izlamoq"/>
+					<Item id="43045" name="Qidiruv natijasi darchasi"/>
+					<Item id="43046" name="Keyingi qidiruv natijasi"/>
+					<Item id="43047" name="Oldingi qidiruv natijasi"/>
+					<Item id="43048" name="Belgilangandan keyingisini izlamoq"/>
+					<Item id="43049" name="Belgilangandan oldingisini izlamoq"/>
+					<Item id="43050" name="Xatchoʻplarni teskari qilmoq"/>
+					<Item id="43051" name="Barcha Xatchoʻpsiz satrlarni yoʻqotmoq"/>
+					<Item id="43052" name="Diapazonda belgilarni izlamoq..."/>
+					<Item id="43053" name="Barcha qavslar orasini belgilamoq"/>
+					<Item id="43054" name="Nishonchalar..."/>
+					<Item id="43055" name="1-uslub"/>
+					<Item id="43056" name="2-uslub"/>
+					<Item id="43057" name="3-uslub"/>
+					<Item id="43058" name="4-uslub"/>
+					<Item id="43059" name="5-uslub"/>
+					<Item id="43060" name="Barcha uslublar"/>
+					<Item id="43061" name="Uslubni izlamoq (Belgilangan)"/>
+					<Item id="44009" name="Matn butun Darcha boʻylab"/>
+					<Item id="44010" name="Barcha bloklarni yigʻmoq"/>
+					<Item id="44011" name="Chalgʻitmaslik rejimi"/>
+					<Item id="44019" name="Barcha belgilarni koʻrsatmoq"/>
+					<Item id="44020" name="Chekinishlarni koʻrsatmoq"/>
+					<Item id="44022" name="Satrga koʻchirish"/>
+					<Item id="44023" name="Keng    (Ctrl+Yuqoriga)"/>
+					<Item id="44024" name="Kichik    (Ctrl+Pastga)"/>
+					<Item id="44025" name="Probellar va Chekinishlarni koʻrsatmoq"/>
+					<Item id="44026" name="Satr Soʻnggi belgilarini koʻrsatmoq"/>
+					<Item id="44029" name="Barcha bloklarni yoymoq"/>
+					<Item id="44030" name="Joriy blokni yigʻmoq"/>
+					<Item id="44031" name="Joriy blokni yoymoq"/>
+					<Item id="44032" name="Matn butun Ekran boʻylab"/>
+					<Item id="44033" name="Miqyosni tiklamoq..."/>
+					<Item id="44034" name="&amp;Barcha darchadan yuqorida"/>
+					<Item id="44035" name="Vertikal harakatlantirishni sinxronlamoq"/>
+					<Item id="44036" name="Gorizontal harakatlantirishni sinxronlamoq"/>
+					<Item id="44041" name="Satr Koʻchirish belgisini koʻrsatmoq"/>
+					<Item id="44042" name="Belgilangan satrlarni berkitmoq"/>
+					<Item id="44049" name="Fayl haqida ma’lumot..."/>
+					<Item id="44070" name="Fayllar roʻyxati"/>
+					<Item id="44072" name="Boshqa Hududga oʻtkazmoq"/>
+					<Item id="44080" name="Fayl xaritasi"/>
+					<Item id="44081" name="1-loyiha paneli"/>
+					<Item id="44082" name="2-loyiha paneli"/>
+					<Item id="44083" name="3-loyiha paneli"/>
+					<Item id="44084" name="Funksiyalar roʻyxati"/>
+					<Item id="44085" name="Loyiha tarzidagi jild"/>
+					<Item id="44086" name="1-xatchoʻp"/>
+					<Item id="44087" name="2-xatchoʻp"/>
+					<Item id="44088" name="3-xatchoʻp"/>
+					<Item id="44089" name="4-xatchoʻp"/>
+					<Item id="44090" name="5-xatchoʻp"/>
+					<Item id="44091" name="6-xatchoʻp"/>
+					<Item id="44092" name="7-xatchoʻp"/>
+					<Item id="44093" name="8-xatchoʻp"/>
+					<Item id="44094" name="9-xatchoʻp"/>
+					<Item id="44095" name="Keyingi Xatchoʻp"/>
+					<Item id="44096" name="Oldingi Xatchoʻp"/>
+					<Item id="44097" name="Monitoring (tail -f)"/>
+					<Item id="44098" name="Xatchoʻpni Oldinga koʻchirmoq"/>
+					<Item id="44099" name="Xatchoʻpni Orqaga koʻchirmoq"/>
+					<Item id="44212" name="Satrlar raqamini berkitmoq"/>
+					<Item id="44213" name="Xatchoʻplar maydonini berkitmoq"/>
+					<Item id="44214" name="Bloklar Chegarasi maydonini berkitmoq"/>
+					<Item id="45001" name="Win-formatiga oʻtkazmoq (CRLF)"/>
+					<Item id="45002" name="UNIX-formatiga oʻtkazmoq (LF)"/>
+					<Item id="45003" name="MAC-formatiga oʻtkazmoq (CR)"/>
+					<Item id="45004" name="ANSI’da kodlamoq"/>
+					<Item id="45005" name="UTF-8 (BOMli)da kodlamoq"/>
+					<Item id="45006" name="UCS-2 BE (BOMli)da kodlamoq"/>
+					<Item id="45007" name="UCS-2 LE (BOMli)da kodlamoq"/>
+					<Item id="45008" name="UTF-8’da kodlamoq"/>
+					<Item id="45009" name="ANSI’ga oʻtkazmoq"/>
+					<Item id="45010" name="UTF-8’ga oʻtkazmoq"/>
+					<Item id="45011" name="UTF-8 (BOMli)ga oʻtkazmoq"/>
+					<Item id="45012" name="UCS-2 BE (BOMli)ga oʻtkazmoq"/>
+					<Item id="45013" name="UCS-2 LE (BOMli)ga oʻtkazmoq"/>
+					<Item id="46001" name="Uslubni aniqlamoq..."/>
+					<Item id="46019" name="INI fayl uslubida"/>
+					<Item id="46015" name="MS-DOS uslubida"/>
+					<Item id="46016" name="Oddiy matn"/>
+					<Item id="46180" name="Oʻz tanlovlaringiz"/>
+					<Item id="46250" name="Oʻz sintaksisingizni koʻrsating..."/>
+					<Item id="47000" name="Dastur haqida..."/>
+					<Item id="47001" name="Notepad++ veb-sahifasi"/>
+					<Item id="47002" name="Notepad++ loyihasi sahifasi"/>
+					<Item id="47003" name="Internet hujjati"/>
+					<Item id="47004" name="Forum"/>
+					<Item id="47005" name="Ilovalar..."/>
+					<Item id="47006" name="Dasturni yangilamoq"/>
+					<Item id="47009" name="Proksini yangilashni koʻrsatmoq..."/>
+					<Item id="47010" name="Buyruqlar satri parametrlari"/>
+					<Item id="47011" name="Onlayn Koʻmak"/>
+					<Item id="47012" name="Tuzatish haqida ma’lumot"/>
+					<Item id="48005" name="Ilova(lar) importi"/>
+					<Item id="48006" name="Tema(lar) importi"/>
+					<Item id="48009" name="Tezkor tugmalar..."/>
+					<Item id="48011" name="&amp;Tanlovlar..."/>
+					<Item id="48015" name="Ilovalar boshqaruvi..."/>
+					<Item id="48016" name="Tezkor tug. oʻzg./Makroni oʻchirmoq..."/>
+					<Item id="48017" name="Tezkor tug. oʻzg./Buyruqni oʻchirmoq..."/>
+					<Item id="48018" name="Kontekst Menyuni tahrirlamoq"/>
+					<Item id="48501" name="Tuzmoq..."/>
+					<Item id="48502" name="Fayldan tuzmoq..."/>
+					<Item id="48503" name="Buferdagi nusxadan tuzmoq"/>
+					<Item id="48504" name="Tuzmoq..."/>
+					<Item id="48505" name="Fayldan tuzmoq..."/>
+					<Item id="48506" name="Buferdagi nusxadan tuzmoq"/>
+					<Item id="49000" name="Ishga tushirmoq..."/>
+					<Item id="50000" name="Funksiyalarni tugallash"/>
+					<Item id="50001" name="Soʻzlarni tugallash"/>
+					<Item id="50002" name="Funksiyalar boʻyicha yordamchi"/>
+					<Item id="50006" name="Yoʻlaklarni tugallash"/>
+					<Item id="10001" name="Boshqa Hududga koʻchirmoq"/>
+					<Item id="10002" name="Boshqa Hududga nusxalamoq"/>
+					<Item id="10003" name="Yangi Namunada koʻchirmoq"/>
+					<Item id="10004" name="Yangi Namunada ochmoq"/>
+				</Commands>
+			</Main>
+			<Splitter>
+			</Splitter>
+			<TabBar>
+				<Item CMID="0" name="Yopmoq"/>
+				<Item CMID="1" name="Bundan boshqasini yopmoq"/>
+				<Item CMID="2" name="Saqlamoq"/>
+				<Item CMID="3" name="Quyidagidek saqlamoq..."/>
+				<Item CMID="4" name="Chop etmoq"/>
+				<Item CMID="5" name="Boshqa Hududga koʻchirmoq"/>
+				<Item CMID="6" name="Boshqa Hududga nusxalamoq"/>
+				<Item CMID="7" name="Fayl toʻliq yoʻlagi (buferda)"/>
+				<Item CMID="8" name="Fayl nomi (buferda)"/>
+				<Item CMID="9" name="Fayl jildiga yoʻl (buferda)"/>
+				<Item CMID="10" name="Qayta nomlamoq"/>
+				<Item CMID="11" name="Faylni olib tashlamoq (Savatga)"/>
+				<Item CMID="12" name="&quot;Faqat oʻqish&quot; rejimi"/>
+				<Item CMID="13" name="&quot;Faqat oʻqish&quot; rejimini olib tashlamoq"/>
+				<Item CMID="14" name="Yangi Namunada koʻchirmoq"/>
+				<Item CMID="15" name="Yangi Namunada ochmoq"/>
+				<Item CMID="16" name="Diskdan yangilamoq"/>
+				<Item CMID="17" name="Chapdagi barcha xatchoʻplarni yopmoq"/>
+				<Item CMID="18" name="Oʻngdagi barcha xatchoʻplarni yopmoq"/>
+				<Item CMID="19" name="Fayl jildini ochmoq"/>
+				<Item CMID="20" name="Jilddagi faylni cmd’da ochmoq"/>
+				<Item CMID="21" name="Standart ilovada ochmoq"/>
+			</TabBar>
+		</Menu>
+
+		<Dialog>
+			<Find title="" titleFind="Izlamoq" titleReplace="Almashtirmoq" titleFindInFiles="Faylda izlamoq" titleMark="Nishonchalar">
+				<Item id="1" name="Davom etmoq"/>
+				<Item id="2" name="Yopmoq"/>
+				<Item id="1603" name="Faqat butun soʻzlarni"/>
+				<Item id="1604" name="&amp;Registr hisobini olmoq"/>
+				<Item id="1605" name="Doimiy ifoda"/>
+				<Item id="1606" name="&amp;Toʻxtovsiz izlamoq"/>
+				<Item id="1608" name="Alishtirmoq"/>
+				<Item id="1609" name="&amp;Barini alishtirmoq"/>
+				<Item id="1611" name="Bunga:"/>
+				<Item id="1614" name="&amp;Hisoblab chiqmoq"/>
+				<Item id="1615" name="Barini belgilamoq"/>
+				<Item id="1616" name="Xatchoʻpni belgilamoq"/>
+				<Item id="1618" name="Oldingi nishonni yoʻqotmoq"/>
+				<Item id="1620" name="Izlash:"/>
+				<Item id="1624" name="Izlash rejimi"/>
+				<Item id="1625" name="Odatiy"/>
+				<Item id="1626" name="Kengaytirilgan (\n, \r, \t, \0, \x...)"/>
+				<Item id="1632" name="Belgilanganlarda"/>
+				<Item id="1633" name="&amp;Barini yoʻqotmoq"/>
+				<Item id="1635" name="Barcha ochilgan fayllarda &amp;alishtirmoq"/>
+				<Item id="1636" name="Barcha ochilgan faylllarda &amp;izlamoq"/>
+				<Item id="1641" name="Barini joriy faylda &amp;izlamoq"/>
+				<Item id="1654" name="Filtrlar:"/>
+				<Item id="1655" name="Jild:"/>
+				<Item id="1656" name="Barini izlamoq"/>
+				<Item id="1658" name="Barcha ostjildlardan"/>
+				<Item id="1659" name="Berkitilgan jildlardan"/>
+				<Item id="1660" name="Fayllarda alishtirmoq"/>
+				<Item id="1686" name="Shaffoflik"/>
+				<Item id="1687" name="Faol boʻlmaganda"/>
+				<Item id="1688" name="Doimoy"/>
+				<Item id="1703" name="va yangi satrlar"/>
+				<Item id="1722" name="Qayta izlashda davom etmoq"/>
+			</Find>
+
+			<FindCharsInRange title="Diapazonda belgilarni izlamoq....">
+				<Item id="2910" name="Izlamoq"/>
+				<Item id="2" name="Yopmoq"/>
+				<Item id="2901" name="ASCII belgilari emas (128-255)"/>
+				<Item id="2902" name="ASCII belgilari (0 - 127)"/>
+				<Item id="2903" name="Oʻz diapazoningiz:"/>
+				<Item id="2906" name="Yuqoriga"/>
+				<Item id="2907" name="Pastga"/>
+				<Item id="2908" name="Yoʻnalish"/>
+				<Item id="2909" name="Toʻxtovsiz izlamoq"/>
+			</FindCharsInRange>
+
+			<GoToLine title="Satrga oʻtmoq...">
+				<Item id="2007" name="Satr"/>
+				<Item id="2008" name="Belgi"/>
+				<Item id="1" name="Oʻtmoq!"/>
+				<Item id="2" name="Bekor qilmoq"/>
+				<Item id="2004" name="Joriy satr raqami:"/>
+				<Item id="2005" name="Oʻtish satrini kiriting:"/>
+				<Item id="2006" name="Jami satrlar soni:"/>
+			</GoToLine>
+
+			<Run title="Ishga tushirmoq...">
+				<Item id="1903" name="Dasturga kirish parametrini kiriting"/>
+				<Item id="1" name="Kirmoq"/>
+				<Item id="2" name="Bekor qilmoq"/>
+				<Item id="1904" name="Saqlamoq..."/>
+			</Run>
+
+			<MD5FromFilesDlg title="Fayldan MD5 tuzmoq">
+				<Item id="1922" name="MD5 tuzish uchun fayl tanlang..."/>
+				<Item id="1924" name="Buferdan nusxalamoq"/>
+				<Item id="2" name="Yopmoq"/>
+			</MD5FromFilesDlg>
+
+			<MD5FromTextDlg title="MD5 tuzmoq">
+				<Item id="1932" name="Har bir satrni alohida koʻrib chiqmoq"/>
+				<Item id="1934" name="Buferga nusxalamoq"/>
+				<Item id="2" name="Yopmoq"/>
+			</MD5FromTextDlg>
+
+			<SHA256FromFilesDlg title="Fayldan SHA-256 tuzmoq">
+				<Item id="1922" name="SHA-256 tuzish uchun fayl tanlang..."/>
+				<Item id="1924" name="Buferga nusxalamoq"/>
+				<Item id="2" name="Yopmoq"/>
+			</SHA256FromFilesDlg>
+
+			<SHA256FromTextDlg title="SHA-256 tuzmoq">
+				<Item id="1932" name="Har bir satrni alohida koʻrib chiqmoq"/>
+				<Item id="1934" name="Buferga nusxalamoq"/>
+				<Item id="2" name="Yopmoq"/>
+			</SHA256FromTextDlg>
+
+			<PluginsAdminDlg title="Ilovalar boshqaruvi" titleAvailable="Mavjudlari" titleUpdates="Yangilanganlari" titleInstalled="Oʻrnatilganlari">
+				<ColumnPlugin name="Ilova nomi"/>
+				<ColumnVersion name="Versiyasi"/>
+				<Item id="5501" name="Izlash:"/>
+				<Item id="5503" name="Oʻrnatmoq"/>
+				<Item id="5504" name="Yangilamoq"/>
+				<Item id="5505" name="Yoʻqotmoq"/>
+				<Item id="5508" name="Davom etmoq"/>
+				<Item id="2" name="Yopmoq"/>
+			</PluginsAdminDlg>
+
+			<StyleConfig title="Uslubni aniqlamoq">
+				<Item id="2" name="Bekor qilmoq"/>
+				<Item id="2301" name="ОК"/>
+				<Item id="2303" name="Shaffoflik"/>
+				<Item id="2306" name="Uslubni tanlang:"/>
+				<SubDialog>
+					<Item id="2204" name="Quyuq"/>
+					<Item id="2205" name="Ogʻma"/>
+					<Item id="2206" name="Matn rangi"/>
+					<Item id="2207" name="Matn foni rangi"/>
+					<Item id="2208" name="Shrift:"/>
+					<Item id="2209" name="Oʻlchami:"/>
+					<Item id="2211" name="Uslubi:"/>
+					<Item id="2212" name="Rang uslubi"/>
+					<Item id="2213" name="Shrift uslubi"/>
+					<Item id="2214" name="Standart kengayt.:"/>
+					<Item id="2216" name="Foydalan. kengayt.:"/>
+					<Item id="2218" name="Tagiga chizmoq"/>
+					<Item id="2219" name="Standart kalit soʻzlar"/>
+					<Item id="2221" name="Foydalanuvchi"/>
+					<Item id="2225" name="Til:"/>
+					<Item id="2226" name="Umumiy matn rangi"/>
+					<Item id="2227" name="Umumiy matn foni rangi"/>
+					<Item id="2228" name="Umumiy shrift"/>
+					<Item id="2229" name="Umumiy shrift oʻlchami"/>
+					<Item id="2230" name="Umumiy shrift quyuqligi"/>
+					<Item id="2231" name="Umumiy shrift ogʻmaligi"/>
+					<Item id="2232" name="Umumiy shrift tagiga chizilganligi"/>
+				</SubDialog>
+			</StyleConfig>
+
+			<ShortcutMapper title="Tezkor tugmalarni belgilamoq">
+				<Item id="2602" name="Oʻzgartirmoq"/>
+				<Item id="2603" name="Yoʻqotmoq"/>
+				<Item id="2606" name="Tozalamoq"/>
+				<Item id="2607" name="Filtr: "/>
+				<Item id="1" name="Yopmoq"/>
+				<ColumnName name="Nomi"/>
+				<ColumnShortcut name="Tugmasi"/>
+				<ColumnCategory name="Kategoriyasi"/>
+				<ColumnPlugin name="Ilovalar"/>
+				<MainMenuTab name="Asosiy"/>
+				<MacrosTab name="Makroslar"/>
+				<RunCommandsTab name="Buyrugʻi"/>
+				<PluginCommandsTab name="Ilovalar"/>
+				<ScintillaCommandsTab name="Scintilla"/>
+				<ConflictInfoOk name="Ushbu elementda tugmalar qarama-qarshiligi kuzatilmadi."/>
+				<ConflictInfoEditing name="Qarama-qarshilik yoʻq . . ."/>
+			</ShortcutMapper>
+			<ShortcutMapperSubDialg title="Tezkor Tugmalar">
+				<Item id="1" name="ОК"/>
+				<Item id="2" name="Bekor qilmoq"/>
+				<Item id="5006" name="Nomi"/>
+				<Item id="5008" name="Qoʻshmoq"/>
+				<Item id="5009" name="Yoʻqotmoq"/>
+				<Item id="5010" name="Qoʻllamoq"/>
+				<Item id="5007" name="Ushbu buyruq tezkor tugmasi oʻchirildi."/>
+				<Item id="5012" name="Qarama-qarshilik aniqlandi!"/>
+			</ShortcutMapperSubDialg>
+
+			<UserDefine title="Foydalanuvchi tilini aniqlamoq">
+				<Item id="20001" name="Stikerlamoq"/>
+				<Item id="20002" name="Yangi nomi"/>
+				<Item id="20003" name="Yaratmoq..."/>
+				<Item id="20004" name="Yoʻqotmoq"/>
+				<Item id="20005" name="Quyidagidek saqlamoq..."/>
+				<Item id="20007" name="Foydal. tili: "/>
+				<Item id="20009" name="Kengayt..:"/>
+				<Item id="20012" name="Istalgan registr"/>
+				<Item id="20011" name="Shaffoflik"/>
+				<Item id="20015" name="Import..."/>
+				<Item id="20016" name="Eksport..."/>
+				<StylerDialog title="Stilistika tanlovlari">
+					<Item id="1" name="ОК"/>
+					<Item id="2" name="Bekor qilmoq"/>
+					<Item id="25030" name="Shrift uslubi:"/>
+					<Item id="25006" name="Matn rangi"/>
+					<Item id="25007" name="Matn foni rangi"/>
+					<Item id="25031" name="Nomi:"/>
+					<Item id="25032" name="Oʻlchami:"/>
+					<Item id="25001" name="Quyuq"/>
+					<Item id="25002" name="Ogʻma"/>
+					<Item id="25003" name="Tagiga chizilgan"/>
+					<Item id="25029" name="Qoʻyish:"/>
+					<Item id="25008" name="Ajratkich 1"/>
+					<Item id="25009" name="Ajratkich 2"/>
+					<Item id="25010" name="Ajratkich 3"/>
+					<Item id="25011" name="Ajratkich 4"/>
+					<Item id="25012" name="Ajratkich 5"/>
+					<Item id="25013" name="Ajratkich 6"/>
+					<Item id="25014" name="Ajratkich 7"/>
+					<Item id="25015" name="Ajratkich 8"/>
+					<Item id="25018" name="Kalit soʻz 1"/>
+					<Item id="25019" name="Kalit soʻz 2"/>
+					<Item id="25020" name="Kalit soʻz 3"/>
+					<Item id="25021" name="Kalit soʻz 4"/>
+					<Item id="25022" name="Kalit soʻz 5"/>
+					<Item id="25023" name="Kalit soʻz 6"/>
+					<Item id="25024" name="Kalit soʻz 7"/>
+					<Item id="25025" name="Kalit soʻz 8"/>
+					<Item id="25016" name="Sharh"/>
+					<Item id="25017" name="Satrlar sharhi"/>
+					<Item id="25026" name="Operator 1"/>
+					<Item id="25027" name="Operator 2"/>
+					<Item id="25028" name="Sonlar"/>
+				</StylerDialog>
+				<Folder title="Standart">
+					<Item id="21101" name="Standart uslublar"/>
+					<Item id="21102" name="Moslamoq"/>
+					<Item id="21104" name="Hujjatlar sayti: "/>
+					<Item id="21105" name="Hujjatlar:"/>
+					<Item id="21106" name="Ixcham yoymoq (boʻsh varoqlarini ham)"/>
+					<Item id="21427" name="Uslub"/>
+					<Item id="21424" name="Ochilgan:"/>
+					<Item id="21425" name="Oʻrta: "/>
+					<Item id="21426" name="Yopilgan: "/>
+					<Item id="21227" name="Uslub"/>
+					<Item id="21224" name="Ochilgan: "/>
+					<Item id="21225" name="Oʻrta: "/>
+					<Item id="21226" name="Yopilgan: "/>
+					<Item id="21420" name="Sharhlarda yoyilgan: "/>
+					<Item id="21220" name="1-uslub kodida yoyilgan: "/>
+					<Item id="21320" name="2-uslub kodida yoyilgan (ajratkich kerak):"/>
+					<Item id="21327" name="Uslub"/>
+					<Item id="21324" name="Ochilgan: "/>
+					<Item id="21325" name="Oʻrta: "/>
+					<Item id="21326" name="Yopilgan: "/>
+				</Folder>
+				<Keywords title="Kalit soʻzlar">
+					<Item id="22101" name="1-guruh"/>
+					<Item id="22201" name="2-guruh"/>
+					<Item id="22301" name="3-guruh"/>
+					<Item id="22401" name="4-guruh"/>
+					<Item id="22451" name="5-guruh"/>
+					<Item id="22501" name="6-guruh"/>
+					<Item id="22551" name="7-guruh"/>
+					<Item id="22601" name="8-guruh"/>
+					<Item id="22122" name="Uslub"/>
+					<Item id="22222" name="Uslub"/>
+					<Item id="22322" name="Uslub"/>
+					<Item id="22422" name="Uslub"/>
+					<Item id="22472" name="Uslub"/>
+					<Item id="22522" name="Uslub"/>
+					<Item id="22572" name="Uslub"/>
+					<Item id="22622" name="Uslub"/>
+					<Item id="22121" name="Prefiksli rejim"/>
+					<Item id="22221" name="Prefiksli rejim"/>
+					<Item id="22321" name="Prefiksli rejim"/>
+					<Item id="22421" name="Prefiksli rejim"/>
+					<Item id="22471" name="Prefiksli rejim"/>
+					<Item id="22521" name="Prefiksli rejim"/>
+					<Item id="22571" name="Prefiksli rejim"/>
+					<Item id="22621" name="Prefiksli rejim"/>
+					<Item id="22113" name="Prefiksli rejim"/>
+					<Item id="22213" name="Prefiksli rejim"/>
+					<Item id="22313" name="Prefiksli rejim"/>
+					<Item id="22413" name="Prefiksli rejim"/>
+				</Keywords>
+				<Comment title="Sharhlar va Raqamlar">
+					<Item id="23003" name="Sharh satrlari joylashuvi"/>
+					<Item id="23004" name="Qulay joyga ruxsat bermoq"/>
+					<Item id="23005" name="Satr boshiga joylamoq"/>
+					<Item id="23006" name="Probel oldidan"/>
+					<Item id="23244" name="Oʻnlik ajratkich"/>
+					<Item id="23245" name="Nuqta"/>
+					<Item id="23246" name="Vergul"/>
+					<Item id="23247" name="Ikkalasi"/>
+					<Item id="23230" name="Prefiks 1:"/>
+					<Item id="23232" name="Prefiks 2:"/>
+					<Item id="23234" name="Qoʻshim. 1:"/>
+					<Item id="23236" name="Qoʻshim. 2:"/>
+					<Item id="23238" name="Suffiks 1:"/>
+					<Item id="23240" name="Suffiks 2:"/>
+					<Item id="23242" name="Diapazon : "/>
+					<Item id="23301" name="Satrlar sharhi"/>
+					<Item id="23101" name="Bloklar sharhi"/>
+					<Item id="23001" name="Sharhni yoyishga ruxsat bermoq"/>
+					<Item id="23002" name="Bosh sharh satri satrlar boshida"/>
+					<Item id="23326" name="Uslub"/>
+					<Item id="23323" name="Ochilgan"/>
+					<Item id="23324" name="Koʻchirish"/>
+					<Item id="23325" name="Yopilgan"/>
+					<Item id="23124" name="Uslub"/>
+					<Item id="23122" name="Ochilgan"/>
+					<Item id="23123" name="Yopilgan"/>
+					<Item id="23220" name="Uslub"/>
+					<Item id="23201" name="Raqamlar"/>
+				</Comment>
+				<Operator title="Operatorlar va Ajratkichlar">
+					<Item id="24113" name="Uslub"/>
+					<Item id="24116" name="1-operator"/>
+					<Item id="24117" name="2-operator (ajrat. k-k.)"/>
+					<Item id="24223" name="Uslub"/>
+					<Item id="24220" name="Ochilgan: "/>
+					<Item id="24221" name="Ekranlashtirilgan: "/>
+					<Item id="24222" name="Yopilgan: "/>
+					<Item id="24323" name="Uslub"/>
+					<Item id="24320" name="Ochilgan: "/>
+					<Item id="24321" name="Ekranlashtirilgan: "/>
+					<Item id="24322" name="Yopilgan: "/>
+					<Item id="24423" name="Uslub"/>
+					<Item id="24420" name="Ochilgan: "/>
+					<Item id="24421" name="Ekranlashtirilgan: "/>
+					<Item id="24422" name="Yopilgan: "/>
+					<Item id="24473" name="Uslub"/>
+					<Item id="24470" name="Ochilgan: "/>
+					<Item id="24471" name="Ekranlashtirilgan: "/>
+					<Item id="24472" name="Yopilgan: "/>
+					<Item id="24523" name="Uslub"/>
+					<Item id="24520" name="Ochilgan: "/>
+					<Item id="24521" name="Ekranlashtirilgan: "/>
+					<Item id="24522" name="Yopilgan: "/>
+					<Item id="24573" name="Uslub"/>
+					<Item id="24570" name="Ochilgan: "/>
+					<Item id="24571" name="Ekranlashtirilgan: "/>
+					<Item id="24572" name="Yopilgan: "/>
+					<Item id="24623" name="Uslub"/>
+					<Item id="24620" name="Ochilgan: "/>
+					<Item id="24621" name="Ekranlashtirilgan: "/>
+					<Item id="24622" name="Yopilgan: "/>
+					<Item id="24673" name="Uslub"/>
+					<Item id="24670" name="Ochilgan: "/>
+					<Item id="24671" name="Ekranlashtirilgan: "/>
+					<Item id="24672" name="Yopilgan: "/>
+					<Item id="24401" name="3-ajratkich"/>
+					<Item id="24451" name="4-ajratkich"/>
+					<Item id="24501" name="5-ajratkich"/>
+					<Item id="24551" name="6-ajratkich"/>
+					<Item id="24601" name="7-ajratkich"/>
+					<Item id="24651" name="8-ajratkich"/>
+					<Item id="24101" name="Faol operatorlar"/>
+					<Item id="24201" name="1-ajratkich"/>
+					<Item id="24301" name="2-ajratkich"/>
+				</Operator>
+			</UserDefine>
+			<Preference title="Tanlovlar">
+				<Item id="6001" name="Yopmoq"/>
+				<Global title="Asosiy">
+					<Item id="6102" name="Panelni berkitmoq"/>
+					<Item id="6103" name="Kichik yorliqlarda"/>
+					<Item id="6104" name="Katta yorliqlarda"/>
+					<Item id="6105" name="Standart yorliqlarda"/>
+					<Item id="6107" name="Kichraytirilgan oʻlchamda"/>
+					<Item id="6108" name="Siljitishni ta’qiqlamoq"/>
+					<Item id="6109" name="Faol boʻlmagan xatchoʻplar kul rangda"/>
+					<Item id="6110" name="Faoli ustidan sabzi rang chiziq"/>
+					<Item id="6112" name="Xatchoʻpda yopish tugmasi"/>
+					<Item id="6113" name="Ikki marta bosib yopmoq"/>
+					<Item id="6118" name="Berkitmoq"/>
+					<Item id="6119" name="Pogʻonasimon koʻrsatmoq"/>
+					<Item id="6120" name="Chap tomonda tik tarzda koʻrsatmoq"/>
+					<Item id="6121" name="Soʻnggi xatchoʻp yopilganda, chiqib ketmoq"/>
+					<Item id="6122" name="Bosh Menyuni berkitmoq (tanlov u-n Alt yoki F10)"/>
+					<Item id="6123" name="Dastur interfeysi tili"/>
+					<Item id="6125" name="Fayllar Roʻyxati paneli"/>
+					<Item id="6126" name="Koʻrsatmoq"/>
+					<Item id="6127" name="Kengaytirilgan ustunlarni berkitmoq"/>
+					<Item id="6128" name="Muqobil yorliqlar"/>
+				</Global>
+				<Scintillas title="Tahrirlash">
+					<Item id="6201" name="Matn-bloki tuzilishi"/>
+					<Item id="6202" name="Odatiy"/>
+					<Item id="6203" name="Strelkali"/>
+					<Item id="6204" name="Aylanasimon"/>
+					<Item id="6205" name="Toʻrt burchak"/>
+					<Item id="6206" name="Satrlar Raqamini koʻrsatmoq"/>
+					<Item id="6207" name="Xatchoʻplar maydonini koʻrsatmoq"/>
+					<Item id="6208" name="Chegarani koʻrsatmoq"/>
+					<Item id="6209" name="Ustunlar: "/>
+					<Item id="6211" name="Oʻng tomondagi vertikal chiziq"/>
+					<Item id="6212" name="Chiziq"/>
+					<Item id="6213" name="Matn foni chegara boʻylab"/>
+					<Item id="6214" name="Joriy satrni rang bilan ajratmoq"/>
+					<Item id="6215" name="Shriftlarni silliqlamoq"/>
+					<Item id="6216" name="Matnli Kursor"/>
+					<Item id="6217" name="Eni"/>
+					<Item id="6219" name="Chastotasi:"/>
+					<Item id="6221" name="S"/>
+					<Item id="6222" name="T"/>
+					<Item id="6224" name="Multitahrirlamoq"/>
+					<Item id="6226" name="Faol emas"/>
+					<Item id="6227" name="Satr Koʻchirish uslubi"/>
+					<Item id="6228" name="Standart"/>
+					<Item id="6229" name="Tekis"/>
+					<Item id="6230" name="Chekinishlar bilan"/>
+					<Item id="6231" name="Darcha  gardishi oʻlchami"/>
+					<Item id="6234" name="Yurgʻizish funksiyasini oʻchirib qoʻymoq&#x0A; (agar tapchadda probel boʻlsa)"/>
+					<Item id="6235" name="Gardishsiz"/>
+					<Item id="6236" name="Soʻnggi satrgacha yurgʻizmoq"/>
+					<Item id="6237" name="Oʻnlik sonda koʻrsatgan holda oʻz ustuningiz markerini qoʻshing.
+Siz bir necha marker ustunlarini probellar orqali belgilashingiz mumkin."/>
+					<Item id="6239" name="Sichqn. oʻng tugm. bosilmaganda ham belgilashni saqlamoq"/>
+				</Scintillas>
+				<DarkMode title="Qorongʻu tema">
+					<Item id="7101" name="Qorongʻu temani yoqish"/>
+					<Item id="7102" name="Qoramtir tusda"/>
+					<Item id="7103" name="Qizgʻish tusda"/>
+					<Item id="7104" name="Yashil tusda"/>
+					<Item id="7105" name="Koʻkimtir tusda"/>
+					<Item id="7107" name="Pushti tusda"/>
+					<Item id="7108" name="Toʻq koʻk tusda"/>
+					<Item id="7109" name="Toʻq yashil tusda"/>
+					<Item id="7115" name="Tanlovli tusda"/>
+					<Item id="7116" name="Yuqori qismi"/>
+					<Item id="7117" name="Menu hot track"/>
+					<Item id="7118" name="Faol qism"/>
+					<Item id="7119" name="Asosiy qism"/>
+					<Item id="7120" name="Xatoliklar matni"/>
+					<Item id="7121" name="Umumiy matn"/>
+					<Item id="7122" name="Toʻq qora matn"/>
+					<Item id="7123" name="Faol boʻlmagan matn"/>
+					<Item id="7124" name="Hoshiya tusi"/>
+					<Item id="7130" name="Asliga"/>
+				</DarkMode>
+				<MarginsBorderEdge title="Bloklar/Hoshiyalar/Maydonlar">
+					<Item id="6201" name="Blok uslubi"/>
+					<Item id="6202" name="Oddiy"/>
+					<Item id="6203" name="Strelkalar"/>
+					<Item id="6204" name="Aylana"/>
+					<Item id="6205" name="Toʻrtburchak"/>
+					<Item id="6226" name="Yoʻq"/>
+					<Item id="6291" name="Satr raqami"/>
+					<Item id="6206" name="Koʻrsatmoq"/>
+					<Item id="6292" name="Oʻzgaruvchan enli"/>
+					<Item id="6293" name="Oʻzgarmas enli"/>
+					<Item id="6207" name="Xatchoʻpni koʻrsatmoq"/>
+					<Item id="6211" name="Vertikal matn maydoni"/>
+					<Item id="6213" name="Matn fon uslubi"/>
+					<Item id="6237" name="Oʻz oʻrnini oʻnli raqam bilan koʻrsatib, ustun belgisini qoʻshing.
+					Turli raqamlarni ajratish uchun probel yordamida bir nechta ustun belgilarini belgilashingiz mumkin."/>
+					<Item id="6231" name="Hoshiya eni"/>
+					<Item id="6235" name="Hoshiyasiz"/>
+				</MarginsBorderEdge>
+				<NewDoc title="Yangi fayl">
+					<Item id="6401" name="Formati"/>
+					<Item id="6402" name="Windows"/>
+					<Item id="6403" name="Unix"/>
+					<Item id="6404" name="Mac"/>
+					<Item id="6405" name="Kodlashi"/>
+					<Item id="6406" name="ANSI"/>
+					<Item id="6407" name="UTF-8"/>
+					<Item id="6408" name="UTF-8 BOMli"/>
+					<Item id="6409" name="UCS-2 Big Endian BOMli"/>
+					<Item id="6410" name="UCS-2 Little Endian BOMli"/>
+					<Item id="6411" name="Standart sintak.:"/>
+					<Item id="6419" name="Yangi fayl"/>
+					<Item id="6420" name="ANSI faylni ochishda qoʻllamoq"/>
+				</NewDoc>
+				<DefaultDir title="Standart yoʻlak">
+					<Item id="6413" name="Standart Yoʻlak (Ochish/Saqlash)"/>
+					<Item id="6414" name="Joriy faylga oʻtish"/>
+					<Item id="6415" name="Soʻnggi jild yoʻlagini saqlab qolmoq"/>
+					<Item id="6431" name="Dasturga surib olib kelingan jilddagi barcha fayllarni ochmoq"/>
+				</DefaultDir>
+				<FileAssoc title="Fayllar birikuvi">
+					<Item id="4008" name="Notepad++ dasturiga Maʼmur (Admin) nomi bilan kirsangiz ushbu funksiya faollashadi."/>
+					<Item id="4009" name="Qoʻllovchi formatlar:"/>
+					<Item id="4010" name="Qayd etilgan formatlar:"/>
+				</FileAssoc>
+				<Print title="Chop etish">
+					<Item id="6601" name="Satrlar raqamini chop etmoq"/>
+					<Item id="6602" name="Rang tuzilmasi"/>
+					<Item id="6603" name="Qanday boʻlsa"/>
+					<Item id="6604" name="Teskari tarzda"/>
+					<Item id="6605" name="Oq-qora"/>
+					<Item id="6606" name="Fon rangisiz"/>
+					<Item id="6607" name="Chekinishlar (millimetrda)"/>
+					<Item id="6612" name="Chapdan"/>
+					<Item id="6613" name="Yuqoridan"/>
+					<Item id="6614" name="Oʻngdan"/>
+					<Item id="6615" name="Pastdan"/>
+					<Item id="6706" name="Quyuq"/>
+					<Item id="6707" name="Ogʻma"/>
+					<Item id="6708" name="Yuqori kolontitul"/>
+					<Item id="6709" name="Chap qismida"/>
+					<Item id="6710" name="Oʻrta qismida"/>
+					<Item id="6711" name="Oʻng qismida"/>
+					<Item id="6717" name="Quyuq"/>
+					<Item id="6718" name="Ogʻma"/>
+					<Item id="6719" name="Pastki kolontitul"/>
+					<Item id="6720" name="Chap qismida"/>
+					<Item id="6721" name="Oʻrta qismida"/>
+					<Item id="6722" name="Oʻng qismida"/>
+					<Item id="6723" name="Qoʻshmoq"/>
+					<Item id="6725" name="Oʻzgaruvchi:"/>
+					<Item id="6727" name="Qaysi qism..."/>
+					<Item id="6728" name="Kolontitullar"/>
+				</Print>
+				<Searching title="Izlash">
+					<Item id="6901" name="Izlash darchasidagi maydonni belgilangan soʻz bilan toʻldirmaslik"/>
+					<Item id="6902" name="Izlash darchasida monoenli shriftdan foydalanmoq (dasturga qayta kirish kerak)"/>
+					<Item id="6903" name="Izlash bajarilgandan soʻng ham Izlash darchasida qolmoq"/>
+					<Item id="6904" name="Almashtirish amalini barcha ochilgan oynalarda bajarmoq"/>
+				</Searching>
+				<RecentFilesHistory title="Ochish tarixi">
+					<Item id="6304" name="Soʻnggi Yopilgan Fayllar Tarixi"/>
+					<Item id="6305" name="Kirganda tekshirmaslik"/>
+					<Item id="6306" name="Soʻnggilarini eslab qolmoq:"/>
+					<Item id="6429" name="&quot;Fayl&quot; menyusida koʻrsatmoq"/>
+					<Item id="6424" name="Ostmenyuda"/>
+					<Item id="6425" name="Faqat fayl nomini"/>
+					<Item id="6426" name="Fayl toʻliq yoʻlagi"/>
+					<Item id="6427" name="Uzunlikni koʻrsatmoq:"/>
+				</RecentFilesHistory>
+				<Highlighting title="Rangli ajratkich">
+					<Item id="6351" name="Tokenning barcha hodisalari uslubi"/>
+					<Item id="6333" name="Oʻxshash soʻzlarni rang bilan ajratmoq"/>
+					<Item id="6326" name="Faollashtirmoq"/>
+					<Item id="6332" name="Registr hisobini olmoq"/>
+					<Item id="6338" name="Faqat butun soʻzlarni"/>
+					<Item id="6339" name="Izlash darchasi tanlovidan foyda."/>
+					<Item id="6340" name="Boshqa Hududda rang bilan ajratmoq"/>
+					<Item id="6329" name="Juft teglarni rang bilan ajratmoq"/>
+					<Item id="6327" name="Ruxsat bermoq"/>
+					<Item id="6328" name="Teg atributlarini ajratmoq"/>
+					<Item id="6330" name="comment/php/asp hududlarni ajratmoq"/>
+				</Highlighting>
+				<Language title="Sintaksislar">
+					<Item id="6505" name="Mavjudlari"/>
+					<Item id="6506" name="Faol boʻlmaganlari"/>
+					<Item id="6507" name="Sintaksislarning ixcham menyusi"/>
+					<Item id="6508" name="Sintaksislar menyusi"/>
+					<Item id="6301" name="Chekinish jadvali"/>
+					<Item id="6302" name="Probel bilan almashtirmoq"/>
+					<Item id="6303" name="Chekinish oʻlchami.:"/>
+					<Item id="6510" name="Odatiy qiymatdan foyd.."/>
+					<Item id="6335" name="Teskari tutuq belgisi (‘) SQL belgisi koʻrinishidir"/>
+				</Language>
+				<MISC title="Boshqalar">
+					<Item id="6312" name="Fayl oʻzgarishlarini kuzatmoq  (извне)"/>
+					<Item id="6313" name="Soʻrovsiz yangilamoq"/>
+					<Item id="6318" name="Veb-havolalar ishlovi"/>
+					<Item id="6325" name="Oxirigi satrgacha yangilamoq"/>
+					<Item id="6319" name="Faollashtirmoq"/>
+					<Item id="6320" name="Tagiga chizmaslik"/>
+					<Item id="6322" name="Kengaytirilgan fayl sessiyasi:"/>
+					<Item id="6323" name="Avtomatik yangilashni yoqmoq"/>
+					<Item id="6324" name="Fayllarga Oʻtmoq  (Ctrl+TAB)"/>
+					<Item id="6331" name="Sarlavhada faqat fayl nomi koʻrsatmoq"/>
+					<Item id="6114" name="Roʻyxatni koʻrsatmoq"/>
+					<Item id="6117" name="Qoʻllash darajasida roʻyxat tuzmoq"/>
+					<Item id="6334" name="Avtomatik belgilar kodini aniqlamoq"/>
+					<Item id="6337" name="Kengaytirilgan fayl loyihasi:"/>
+					<Item id="6344" name="Faylni Koʻrmoq"/>
+					<Item id="6345" name="Xatchoʻplar ostida miniatura"/>
+					<Item id="6346" name="Fayl xaritasida koʻrsatmoq"/>
+					<Item id="6350" name="Toʻldirish rejimini qoʻllamoq"/>
+					<Item id="6351" name="Saqlash darchasiga *.* filterini qoʻshmoq"/>
+					<Item id="6360" name="Barcha ovozlarni oʻchirib qoʻymoq"/>
+					<Element name="Qoʻllamoq"/>
+					<Element name="Barcha ochiq fayllarga qoʻllamoq"/>
+					<Element name="Oʻchirmoq"/>
+				</MISC>
+				<MultiInstance title="Kirish rejimi">
+					<Item id="6151" name="Fayl ochish rejimi"/>
+					<Item id="6152" name="Sessiya faqat yangi darchada ochilganda"/>
+					<Item id="6153" name="Har bir faylni yangi darchada ochmoq"/>
+					<Item id="6154" name="Barcha fayllarni bir darchada ochmoq (odatiy)"/>
+					<Item id="6155" name="* Oʻzgarishlar Notepad++ qayta yuklangach, ishga tushadi"/>
+				</MultiInstance>
+				<Delimiter title="Ajratkich">
+					<Item id="6251" name="Ajratkich parametrlari (Ctrl + 2 Sichq.ni bosish)"/>
+					<Item id="6252" name="Ochilgan"/>
+					<Item id="6255" name="Yopilgan"/>
+					<Item id="6256" name="Bir necha satrlarni belgilamoq"/>
+					<Item id="6257" name="falon falon falon"/>
+					<Item id="6258" name="falon falon falon falon falon falon"/>
+					<Item id="6161" name="Belgilar roʻyxati"/>
+					<Item id="6162" name="Odatiy belgilardan foydalanmoq"/>
+					<Item id="6163" name="Oʻz belgilaringizni soʻz boʻlagi kabi qoʻshmoq&#x0A;(agar nima qilishni bilmasangiz, foydalanmang)"/>
+				</Delimiter>
+				<Cloud title="Saqlama">
+					<Item id="6262" name="Saqlama tanlovlari"/>
+					<Item id="6263" name="Saqlamasiz"/>
+					<Item id="6267" name="Saqlov joyini koʻrsating:"/>
+					<Item id="6318" name="Havolalarga ishlov berish"/>
+					<Item id="6319" name="Yoqmoq"/>
+					<Item id="6320" name="Tagiga chizmaslik"/>
+					<Item id="6350" name="Sichqonchani yurgʻizganda fonni toʻldirmoq"/>
+					<Item id="6264" name="URI tanlovli tuzilishi:"/>
+				</Cloud>
+				<SearchEngine title="Qidiruv Tizimi">
+					<Item id="6271" name="Qidiruv Tizimi (&quot;Internetda izlash&quot; buyrugʻi u-n)"/>
+					<Item id="6272" name="DuckDuckGo"/>
+					<Item id="6273" name="Google"/>
+					<Item id="6274" name="Bing"/>
+					<Item id="6275" name="Yahoo!"/>
+					<Item id="6276" name="Oʻz qidiruv tizimingizni kiriting:"/>
+					<!-- Masalan’dan keyingi satr oʻzgartirilmaydi: -->
+					<Item id="6278" name="Masalan: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+				</SearchEngine>
+				<Backup title="Zaxira nusxasi">
+					<Item id="6801" name="Zaxira nusxasi (saqlash vaqtida)"/>
+					<Item id="6817" name="Sessiyalarni saqlab qoʻyish va davriy zaxira nusxasini yaratish"/>
+					<Item id="6309" name="Keyingi kirish uchun joriy sessiyani saqlab qoʻymoq"/>
+					<Item id="6818" name="Davriy zaxira nusxasini faolashtirmoq"/>
+					<Item id="6821" name="soniya"/>
+					<Item id="6315" name="Faol emas"/>
+					<Item id="6316" name="Odatiy (.bak tarzida yozmoq)"/>
+					<Item id="6317" name="Batafsil (sana va vaqt)"/>
+					<Item id="6804" name="Foydal. nusxalash jildi"/>
+					<Item id="6803" name="Jild:"/>
+					<Item id="6819" name="Har bir nusxa"/>
+					<Item id="6822" name="Nusxa yoʻlagi:"/>
+				</Backup>
+				<AutoCompletion title="Avtotugallash">
+					<Item id="6807" name="Avtotugallash"/>
+					<Item id="6808" name="Har bir kiritiganda, faolashtirmoq"/>
+					<Item id="6809" name="Funksiyani tugallash"/>
+					<Item id="6810" name="Soʻzlarni tugallash"/>
+					<Item id="6811" name="bilan boshlamoq"/>
+					<Item id="6813" name="-belgi"/>
+					<Item id="6814" name="Mavjud qiymat: 1-9"/>
+					<Item id="6815" name="Funksiyalarni kiritayotgandagi yordamchi darcha"/>
+					<Item id="6816" name="Funksiyalar va soʻzlarni tugallash"/>
+					<Item id="6824" name="Istisno raqamlar"/>
+					<Item id="6851" name="Avtoq‘oyuv"/>
+					<Item id="6857" name=" html/xml tegi yopmoq"/>
+					<Item id="6858" name="Och."/>
+					<Item id="6859" name="Yop."/>
+					<Item id="6860" name="1-buyurtma juft:"/>
+					<Item id="6863" name="2-buyurtma juft:"/>
+					<Item id="6866" name="3-buyurtma juft:"/>
+				</AutoCompletion>
+			</Preference>
+			<MultiMacro title="Koʻp marotaba kirish ...">
+				<Item id="1" name="Kirish"/>
+				<Item id="2" name="Bekor qilmoq"/>
+				<Item id="8006" name="Makros:"/>
+				<Item id="8001" name="Bajarmoq"/>
+				<Item id="8005" name="marta"/>
+				<Item id="8002" name="Fayl oxirigacha bajarmoq"/>
+			</MultiMacro>
+			<Window title="Fayllar xatchoʻpi">
+				<Item id="1" name="Ochmoq"/>
+				<Item id="2" name="ОК"/>
+				<Item id="7002" name="Saqlamoq"/>
+				<Item id="7003" name="Darcha(lar)ni Yopmoq"/>
+				<Item id="7004" name="Tekislamoq"/>
+			</Window>
+			<ColumnEditor title="Ustun tuzuvchi">
+				<Item id="2023" name="Qoʻyish uchun matn"/>
+				<Item id="2033" name="Qoʻyish uchun sonlar"/>
+				<Item id="2030" name="Boshlangʻich son:"/>
+				<Item id="2031" name="Koʻpayib borishi:"/>
+				<Item id="2035" name="Chapga 0 qoʻshmoq"/>
+				<Item id="2036" name="Takrorlamoq:"/>
+				<Item id="2032" name="Andazasi"/>
+				<Item id="2024" name="Oʻnlik"/>
+				<Item id="2025" name="Sakkizlik"/>
+				<Item id="2026" name="Oltilik"/>
+				<Item id="2027" name="Ikkilik"/>
+				<Item id="1" name="ОК"/>
+				<Item id="2" name="Bekor qilmoq"/>
+			</ColumnEditor>
+			<FindInFinder title="Topilganlarda izlash...">
+				<Item id="1" name="Barini Izlamoq"/>
+				<Item id="2" name="Yopmoq"/>
+				<Item id="1711" name="Izlash :"/>
+				<Item id="1713" name="Faqat topilganlardan izlamoq"/>
+				<Item id="1714" name="Faqat butun soʻzlarni"/>
+				<Item id="1715" name="Registr hisobini olmoq"/>
+				<Item id="1716" name="Izlash rejimi"/>
+				<Item id="1717" name="Odatiy"/>
+				<Item id="1719" name="Doimiy qiym."/>
+				<Item id="1718" name="Kengaytirilgan (\n, \r, \t, \0, \x...)"/>
+				<Item id="1720" name="va yangi satrlar"/>
+			</FindInFinder>
+		</Dialog>
+		<MessageBox>
+			<ContextMenuXmlEditWarning title="contextMenu tahriri" message="contextMenu.xml faylini tahrirlash orqali oʻzingizning Notepad++ qalquvchi menyusini tahrirlash imkonini beradi.&#x0A;Oʻzgarishlarni amalda qoʻllash uchun Notepad++ dasturini qayta ishga tushirasiz."/>
+			<NppHelpAbsentWarning title="Fayl mavjud emas" message="&#x0A;mavjud emas. Uni Notepad++ saytidan koʻchirib oling."/>
+			<SaveCurrentModifWarning title="Joriy oʻzgarishni saqlash" message="Joriy oʻzgarish saqlanishi kerak.&#x0A;Barcha saqlangan oʻzgarishlarni bekor qilib boʻlmaydi.&#x0A;&#x0A;Davom ettirilsinmi?"/>
+			<LoseUndoAbilityWarning title="Bekor qilish imkoniyati yoʻqotildi" message="Joriy oʻzgarish saqlanmogʻi lozim.&#x0A;Barcha saqlangan oʻzgarishlarni bekor qilib boʻlmaydi.&#x0A;&#x0A;Davom ettirilsinmi?"/>
+			<CannotMoveDoc title="Notepad++ dasturining yangi namunasiga oʻtish" message="Faylda oʻzgarish mavjud. Uni saqlang va qayta urinib koʻring."/>
+			<DocReloadWarning title="Qayta yuklash" message="Barcha kiritilgan oʻzgarishlar yoʻqotiladi!&#x0A;Davom ettirilsinmi?"/>
+			<FileLockedWarning title="Saqlashning imkoni yoʻq" message="Fayl boshqa dasturda ochilganligini tekshirib koʻring."/>
+			<FileAlreadyOpenedInNpp title="" message="Fayl allaqachon Notepad++ dasturida ochilgan."/>
+			<DeleteFileFailed title="Faylni olib tashlash" message="Faylni yoʻqotib boʻlmadi."/>
+
+			<NbFileToOpenImportantWarning title="Fayllar soni juda koʻp" message="$INT_REPLACE$ ta fayl ochiladi.&#x0A;Davom ettirilsinmi?"/>
+			<SettingsOnCloudError title="Saqlama Parametrlari" message="Saqlash uchun koʻrsatilgan disk yoki jild faqat oʻqish uchun moʻljallanganga oʻxshaydi.&#x0A;Siz yozish uchun kirish ruxsatini olmogʻingiz lozim.&#x0A;Saqlash parametri bekor qilinadi. Tanlovlar darchasidan oʻzgarishlarni bekor qiling..."/>
+			<FilePathNotFoundWarning title="Faylni ochish" message="Siz ochmoqchi boʻlgan fayl mavjud emas."/>
+			<SessionFileInvalidError title="Sessiyani yuklab boʻlmadi" message="Sessiya fayli mavjud emas yoki haqiqiy emas."/>
+			<DroppingFolderAsProjectModeWarning title="Yoʻnaltiruvchi amal" message="Siz faqat fayl yoki jildni qoʻlla olasiz, ikkovini emas, chunki Loyiha tarzidagi Jild qilib oʻtkazmoqdasiz.&#x0A;вы должны включить &quot;Открыть все файлы папки при перетаскивании, вместо запуска Папка как Рабочая Область&quot; в &quot;Директорию По Умолчанию&quot;, чтобы эта операция работала зайдите в Настройки."/>
+			<SortingError title="Saralash xatoligi" message="$INT_REPLACE$ satrlar tufayli saralab boʻlmaydi."/>
+			<ColumnModeTip title="Режим Столбца" message="Пожалуйста, используйте &quot;ALT+Выделение Мышкой&quot; или &quot;Alt+Shift+Клавиши Стрелок&quot; для переключения в режим столбца."/>
+			<BufferInvalidWarning title="Saqlash xatoligi" message="Saqlab boʻlmadi: Buferga ruxsat yoʻq."/>
+			<DoSaveOrNot title="Saqlash" message="&quot;$STR_REPLACE$&quot; fayli saqlansinmi?"/>
+			<DoCloseOrNot title="Удержание несуществующего файла" message="Файла &quot;$STR_REPLACE$&quot; больше не существует.&#x0A;Удержать этот файл в редакторе?"/>
+			<DoDeleteOrNot title="Faylni yoʻqotish" message="&quot;$STR_REPLACE$&quot;&#x0A; fayli yopiladi va Savatga joʻnatiladi.&#x0A;Davom ettirilsinmi?"/>
+			<NoBackupDoSaveFile title="Сохранение" message="Файл резервной копии не найден (удалён извне).&#x0A;Сохраните его, иначе ваши данные будут потеряны.&#x0A;Вы хотите сохранить файл &quot;$STR_REPLACE$&quot; ?"/>
+			<DoReloadOrNot title="Обновление файла" message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Этот файл был изменен другой программой.&#x0A;Вы хотите обновить его?"/>
+			<DoReloadOrNotAndLooseChange title="Обновление файла" message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Этот файл был изменен другой программой.&#x0A;Вы хотите обновить его?&#x0A;Но вы потеряете все внесенные изменения в Notepad++?"/>
+			<PrehistoricSystemDetected title="Обнаружена доисторическая система" message="Кажется, вы все еще используете доисторическую систему. Извините, но эта функция работает только на современных системах."/>
+			<XpUpdaterProblem title="Обновление Notepad++" message="Обновление Notepad++ не совместимо с XP из-за устаревшего уровня безопасности.&#x0A;Хотите перейти на страницу Notepad++, чтобы загрузить последнюю версию?"/>
+			<DocTooDirtyToMonitor title="Проблема Мониторинга" message="Документ в работе. Сохраните внесённые изменения перед его мониторингом."/>
+			<DocNoExistToMonitor title="Проблема Мониторинга" message="Для мониторинга файл должен существовать."/>
+			<FileTooBigToOpen title="Fayl hajmida muammo" message="Faylni Notepad++ dasturida ochish uchun judda kattalik qiladi"/>
+			<CreateNewFileOrNot title="Yangi fayl yaratish" message="&quot;$STR_REPLACE$&quot; mavjud emas. Yaratilsinmi?"/>
+			<CreateNewFileError title="Yangi fayl yaratish" message="&quot;$STR_REPLACE$&quot; faylini yaratib boʻlmadi."/>
+			<OpenFileError title="XATOLIK" message="&quot;$STR_REPLACE$&quot; nomli faylni ochib boʻlmadi."/>
+			<FileBackupFailed title="Ошибка файла Резервного Копирования" message="Предыдущая версия файла не может быть сохранена в каталоге резервного копирования &quot;$STR_REPLACE$&quot;.&#x0A;&#x0A;Вы хотите сохранить текущий файл так или иначе?"/>
+			<LoadStylersFailed title="Ошибка загрузки stylers.xml" message="Ошибка загрузки &quot;$STR_REPLACE$&quot;!"/>
+			<LoadLangsFailed title="Конфигуратор" message="Ошибка загрузки langs.xml!&#x0A;Вы хотите восстановить свой langs.xml?"/>
+			<LoadLangsFailedFinal title="Конфигуратор" message="Ошибка загрузки langs.xml!"/>
+			<FolderAsWorspaceSubfolderExists title="Проблема при добавлении &quot;Папка как Рабочая Область&quot;" message="Подпапка папки, которую вы хотите добавить, уже существует.&#x0A;Пожалуйста, удалите её корень, прежде чем добавить папку &quot;$STR_REPLACE$&quot;."/>
+
+			<ProjectPanelChanged title="$STR_REPLACE$" message="Oʻzgarish mavjud. Saqlashni xohlaysizmi?"/>
+			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Ishchi hududingiz saqlanmagan."/>
+			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Открытие Рабочей Области" message="Текущая рабочая область была изменена. Вы хотите сохранить текущий проект?"/>
+			<ProjectPanelNewDoSaveDirtyWsOrNot title="Новая Рабочая Область" message="Текущая рабочая область была изменена. Вы хотите сохранить текущий проект?"/>
+			<ProjectPanelOpenFailed title="Открытие Рабочей Области" message="Не удалось открыть рабочую область.&#x0A;Похоже файл, который нужно открыть, является недопустимым файлом проекта."/>
+			<ProjectPanelRemoveFolderFromProject title="Удаление папки из проекта" message="Все подэлементы будут удалены.&#x0A;Вы действительно хотите удалить эту папку из проекта?"/>
+			<ProjectPanelRemoveFileFromProject title="Удаление файла из проекта" message="Вы действительно хотите удалить этот файл из проекта?"/>
+			<ProjectPanelReloadError title="Перезагрузка Рабочей Области" message="Не удается найти файл для перезагрузки."/>
+			<ProjectPanelReloadDirty title="Перезагрузка Рабочей Области" message="Текущее рабочая область была изменена. Перезагрузка отменит все изменения.&#x0A;Вы хотите продолжить?"/>
+			<UDLNewNameError title="Ошибка Польз. Имени" message="Это имя используется другим языком.&#x0A;Пожалуйста, дайте ему другое имя."/>
+			<UDLRemoveCurrentLang title="Удаление текущего языка" message="Вы уверены?"/>
+			<SCMapperDoDeleteOrNot title="Ishonchingiz komilmi?" message="Haqiqatan ham ushbu tezkor tugma olib tashlansinmi?"/>
+			<FindCharRangeValueError title="Проблема со значением диапазона" message="Вы должны ввести от 0 и до 255."/>
+			<OpenInAdminMode title="Saqlash xatoligi" message="Faylni saqlab boʻlmaydi yoki himoyalangan.&#x0A;Notepad++ dasturiga administrator rejimida kirishni xohlaysizmi?"/>
+			<OpenInAdminModeWithoutCloseCurrent title="Saqlashda xatolik" message="Faylni saqlab boʻlmaydi va himoyalangan boʻlishi mumkin.&#x0A;Notepad++ dasturi Administrator rejimida ochishini xohlaysizmi?"/>
+			<OpenInAdminModeFailed title="Administrator rejimida ochishning imkoni yoʻq" message="Notepad++ Administrator rejimida ocha olmaydi."/>
+		</MessageBox>
+		<ClipboardHistory>
+			<PanelTitle name="Bufer tarixi"/>
+		</ClipboardHistory>
+		<DocList>
+			<PanelTitle name="Fayllar"/>
+			<ColumnName name="Nomi"/>
+			<ColumnExt name="Keng."/>
+		</DocList>
+		<WindowsDlg>
+			<ColumnName name="Nomi"/>
+			<ColumnPath name="Yoʻlagi"/>
+			<ColumnType name="Turi"/>
+		</WindowsDlg>
+		<AsciiInsertion>
+			<PanelTitle name="ASCII belgilari jadvali"/>
+			<ColumnVal name="Qiymati"/>
+			<ColumnHex name="Hex"/>
+			<ColumnChar name="Belgisi"/>
+		</AsciiInsertion>
+		<DocumentMap>
+			<PanelTitle name="Fayl Xaritasi"/>
+		</DocumentMap>
+		<FunctionList>
+			<PanelTitle name="Funksiyalar roʻyxati"/>
+			<SortTip name="Tartiblamoq"/>
+			<ReloadTip name="Yangilamoq"/>
+		</FunctionList>
+		<FolderAsWorkspace>
+			<PanelTitle name="Loyiha tarzidagi Jild"/>
+			<SelectFolderFromBrowserString name="Loyiha tarzidagi Jildga qoʻshish uchun jild tanlang"/>
+			<Menu>
+				<Item id="3511" name="Yoʻqotmoq"/>
+				<Item id="3512" name="Barini"/>
+				<Item id="3513" name="Qoʻshmoq"/>
+				<Item id="3514" name="Tizimga kirish"/>
+				<Item id="3515" name="Ochmoq"/>
+				<Item id="3516" name="Yoʻlakni nusxalamoq"/>
+				<Item id="3517" name="Fayllarda izlash..."/>
+				<Item id="3518" name="Obyekt joylashuvi"/>
+				<Item id="3519" name="CMDga kirmoq"/>
+			</Menu>
+		</FolderAsWorkspace>
+		<ProjectManager>
+			<PanelTitle name="Loyiha"/>
+			<WorkspaceRootName name="Ishchi maydon"/>
+			<NewProjectName name="Loyiha nomi"/>
+			<NewFolderName name="Jild nomi"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Loyiha"/>
+					<Item id="1" name="Tahrirlash"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="Yangi loyiha"/>
+					<Item id="3123" name="Loyihani ochmoq"/>
+					<Item id="3124" name="Loyihani yangilamoq"/>
+					<Item id="3125" name="Saqlamoq"/>
+					<Item id="3126" name="Quyidagidek saqlamoq..."/>
+					<Item id="3127" name="Nusxadek saqlamoq..."/>
+					<Item id="3121" name="Yangi loyiha qoʻshmoq"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Qayta nomlamoq"/>
+					<Item id="3112" name="Jild qoʻshmoq"/>
+					<Item id="3113" name="Fayllar qoʻshmoq..."/>
+					<Item id="3117" name="Jilddan fayllar qoʻshmoq..."/>
+					<Item id="3114" name="Yoʻqotmoq"/>
+					<Item id="3118" name="Yuqoriga"/>
+					<Item id="3119" name="Pastga"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Qayta nomlamoq"/>
+					<Item id="3112" name="Jild qoʻshmoq"/>
+					<Item id="3113" name="Fayl qoʻshmoq..."/>
+					<Item id="3117" name="Jilddan fayllar qoʻshmoq..."/>
+					<Item id="3114" name="Yoʻqotmoq"/>
+					<Item id="3118" name="Yuqoriga"/>
+					<Item id="3119" name="Pastga"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Qayta nomlamoq"/>
+					<Item id="3115" name="Yoʻqotmoq"/>
+					<Item id="3116" name="Fayl Yoʻlagini oʻzgartirmoq"/>
+					<Item id="3118" name="Yuqoriga koʻchirmoq"/>
+					<Item id="3119" name="Pastga koʻchirmoq"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
+		<MiscStrings>
+			<!-- $INT_REPLACE$ va $STR_REPLACE$ tarjima qilinmaydi -->
+			<word-chars-list-tip value="Bu joriy soʻz belgilariga qoʻshimcha belgi qoʻshish vaqtida belgilash uchun ikki marta bosish yoki &quot;Faqat butun soʻzlar&quot; tanlovi uchun imkonini beradi."/>
+			<word-chars-list-warning-begin value="Yodda saqlang: "/>
+			<word-chars-list-space-warning value="$INT_REPLACE$ ta probel"/>
+			<word-chars-list-tab-warning value="$INT_REPLACE$ ta TAB"/>
+			<word-chars-list-warning-end value="  roʻyxatingizdagi belgilar."/>
+			<cloud-invalid-warning value="Ruxsat etilmagan yoʻlak."/>
+			<cloud-restart-warning value="Faollashtirish uchun Notepad++ qayta yuklanishi lozim."/>
+			<cloud-select-folder value="Notepad++ oʻz tanlovlarini oʻqishi/yozishi uchun jild tanlang"/>
+			<shift-change-direction-tip value="Teskari tartibda izlash uchun Shift+Enter tugmalarini birdaniga bosing."/>
+			<two-find-buttons-tip value="2 tomonlama izlash"/>
+			<find-status-top-reached value="Izlash: Pastda bitta oʻxshashlik topildi. Fayl boshiga oʻtildi."/>
+			<find-status-end-reached value="Izlash: Yuqorida bitta oʻxshashlik topildi. Fayl oxiriga oʻtildi."/>
+			<find-status-replaceinfiles-1-replaced value="Almashtirish: 1 ta oʻxshashlik almashtirildi"/>
+			<find-status-replaceinfiles-nb-replaced value="Almashtirish: $INT_REPLACE$ tasi almashtirildi"/>
+			<find-status-replaceinfiles-re-malformed value="Ochilgan fayllarda almashtirish: Doimiy qiymat oʻzgardi"/>
+			<find-status-replaceinopenedfiles-1-replaced value="Ochilgan fayllarda almashtirish: 1 ta oʻxshashlik almashtirildi"/>
+			<find-status-replaceinopenedfiles-nb-replaced value="Ochilgan fayllarda almashtirish: $INT_REPLACE$ ta oʻxshashlik almashtirildi"/>
+			<find-status-mark-re-malformed value="Nishonchalar: Izlash uchun doimiy qiymat oʻzgardi"/>
+			<find-status-invalid-re value="Izlash: Mavjud boʻlmagan doimiy qiymat"/>
+			<find-status-mark-1-match value="Nishonchalar: 1 ta oʻxshashlik"/>
+			<find-status-mark-nb-matches value="Nishonchalar: $INT_REPLACE$ ta oʻxshashlik"/>
+			<find-status-count-re-malformed value="Hisoblab chiqish: Izlash uchun doimiy qiymat oʻzgardi"/>
+			<find-status-count-1-match value="Hisoblab chiqish: 1 ta oʻxshashlik"/>
+			<find-status-count-nb-matches value="Hisoblab chiqish: $INT_REPLACE$ ta oʻxshashlik"/>
+			<find-status-replaceall-re-malformed value="Barini almashtirish: Doimiy qiymat oʻzgardi"/>
+			<find-status-replaceall-1-replaced value="ЗBarini almashtirish: 1 ta oʻxshashlik almashtirildi"/>
+			<find-status-replaceall-nb-replaced value="Barini almashtirish: $INT_REPLACE$ tasi almashtirildi"/>
+			<find-status-replaceall-readonly value="Barini almashtirish: Matnni almashtirib boʻlmadi. Joriy fayl faqat oʻqish uchun"/>
+			<find-status-replace-end-reached value="Almashtirish: Yuqoridagi birinchi oʻxshashlik almashtirildi. Fayl oxiriga yetib kelindi"/>
+			<find-status-replace-top-reached value="Almashtirish: Pastdagi birinchi oʻxshashlik almashtirildi. Fayl boshiga oʻtildi"/>
+			<find-status-replaced-next-found value="Almashtirish: 1 ta oʻxshashlik almashtirildi. Keyingi oʻxshashlik topildi"/>
+			<find-status-replaced-next-not-found value="Almashtirish: 1 ta oʻxshashlik almashtirildi. Boshqa oʻxshashliklar topilmadi"/>
+			<find-status-replace-not-found value="Almashtirish: hech nima topilmadi"/>
+			<find-status-replace-readonly value="Almashtirish: Matnni almashtirishning imkoni yoʻq. Joriy fayl faqat oʻqish uchun ruxsat etilgan"/>
+			<find-status-cannot-find value="Izlash: &quot;$STR_REPLACE$&quot; matn topilmadi"/>
+			<finder-find-in-finder value="Topilganlardan izlamoq..."/>
+			<finder-close-this value="Ushbu qidiruvni yopmoq"/>
+			<finder-collapse-all value="Barini yigʻmoq"/>
+			<finder-uncollapse-all value="Barini yoymoq"/>
+			<finder-copy value="Nusxalamoq"/>
+			<finder-select-all value="Barini belgilamoq"/>
+			<finder-clear-all value="Barini tozalamoq"/>
+		</MiscStrings>
+	</Native-Langue>
+</NotepadPlus>

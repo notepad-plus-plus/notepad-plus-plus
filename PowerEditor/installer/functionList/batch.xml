@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ================================ [ Batch / Command Shell Script ] -->
+
+		<parser
+			displayName="Batch / Command Shell Script"
+			id         ="batch_label"
+			commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+							(?m-s:(?i:REM)(?:\h.+)?$)                       # Single Line Comment 1
+						|	(?m-s::{2}.*$)                                  # Single Line Comment 2
+						"
+		>
+			<function
+				mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						(?m-s)                                              # enforce strict line by line search
+						^                                                   # label starts at the beginning of a line,...
+						\h*                                                 # ...can be preceded by blank characters and
+						:                                                   # ...starts with a colon
+						\K                                                  # keep the text matched so far, out of the overall match
+						\w                                                  # a label name has to start with a word character,...
+						[\w.\-]+                                            # ...the remainder of the name can contain dots and minus signs and
+						\b                                                  # ...ends at a word boundary i.e. discard any trailing characters
+					"
+			/>
+		</parser>
+	</functionList>
+</NotepadPlus>

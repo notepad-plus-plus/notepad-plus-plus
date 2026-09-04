@@ -1,0 +1,10 @@
+ 0 400 400   #!/usr/bin/env perl
+ 0 400 400   use v5.38;
+ 0 400 400   use feature 'class';
+ 1 400 400   
+ 2 400 401 + class MyClass::SubClass {
+ 0 401 401 |     method inClass { return 1 }
+ 0 401 401 |     method inClassProto($) { return $_[0] }
+ 0 401 401 |     method inClassAttrib :prototype($) { return $_[0] }
+ 0 401 400 | }
+ 0 400   0   

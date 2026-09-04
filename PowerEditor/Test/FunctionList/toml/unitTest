@@ -1,0 +1,58 @@
+# This is a TOML document.
+
+title = "TOML Example"
+
+
+[owner]
+name = "Tom Preston-Werner"
+dob = 1979-05-27T07:32:00-08:00 # First class dates
+
+[database]
+server = "192.168.1.1"
+ports = [ 8000, 8001, 8002 ]
+connection_max = 5000
+enabled = true
+
+[servers]
+toto = "titi"
+
+  # Indentation (spaces) is allowed but not required
+  [servers.alpha]
+  ip = "10.0.0.1"
+  dc = "eqdc10"
+
+	# Indentation (tabs) is allowed but not required
+	[servers.beta]
+	ip = "10.0.0.2"
+	dc = "eqdc10"
+
+# No indentation is correct too
+[servers.gamma]
+ip = "10.0.0.3"
+dc = "eqdc10"
+
+[servers_underscore]
+ip = "10.0.0.4"
+dc = "eqdc10"
+
+[servers."double-quot"]
+ip = "10.0.0.4"
+dc = "eqdc10"
+
+[servers.'single-quot']
+ip = "10.0.0.4"
+dc = "eqdc10"
+
+
+[clients]
+data = [ ["gamma", "delta"], [1, 2] ]
+
+[clients-2nd-group]
+data2 = "Another data"
+
+
+# Line breaks are OK when inside arrays
+hosts = [
+  "alpha",
+  "omega"
+]

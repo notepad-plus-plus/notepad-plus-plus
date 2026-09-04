@@ -1,0 +1,61 @@
+# Enumerate all styles: 0 to 13
+
+# comment=2
+
+# whitespace=0
+	# w
+
+# error=1
+0#0000
+
+# number=3
+123
+
+# keyword=4
+set
+
+# double-quoted-string=5
+"string"
+
+# single-quoted-string=6
+'str'
+
+# operator=7
++
+
+# identifier=8
+identifier
+
+# scalar=9
+$scalar
+$?Status
+
+# parameter-expansion=10
+${parameter}
+
+# back-ticks=11
+`ls`
+
+# here-doc-delimiter=12, here-doc=13
+<<EOF
+  Here-doc.
+EOF
+
+# other quoted types are mapped to current classes
+
+# double-quoted-string=5
+$"string"
+$'str'
+
+# back-ticks=11
+`ls`
+$`ls`
+$(ls)
+
+# Use substyles
+
+# Substyled identifier=128
+map
+
+# Substyled scalar=129
+$CWD

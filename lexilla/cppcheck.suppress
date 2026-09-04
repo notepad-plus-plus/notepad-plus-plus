@@ -1,0 +1,306 @@
+// File to suppress cppcheck warnings for files that will not be fixed.
+// Does not suppress warnings where an additional occurrence of the warning may be of interest.
+// Configured for cppcheck 2.20
+
+// Just a report of how many checkers are run
+checkersReport
+
+// This just warns that cppcheck isn't exhaustive and it still appears in exhaustive mode
+normalCheckLevelMaxBranches
+
+// Coding style is to use assignments in constructor when there are many
+// members to initialize or the initialization is complex or has comments.
+useInitializationList
+
+// These may be interesting but its not clear without examining each instance closely
+// Would have to ensure that any_of/all_of has same early/late exits as current code and
+// produces same result on empty collections
+useStlAlgorithm
+
+// Common for lexer object destructors
+missingOverride
+
+// Some non-explicit constructors are used for conversions or are private to lexers
+noExplicitConstructor
+
+// The performance cost of by-value passing is often small and using a reference decreases
+// code legibility.
+passedByValue
+
+// cppcheck 2.11 can't find system headers on Win32.
+missingIncludeSystem
+
+// Passing temporary string into hidden object creator functions: they do not hold the argument
+returnDanglingLifetime:lexilla/access/LexillaAccess.cxx
+
+// Used from other projects
+unusedFunction:lexilla/access/LexillaAccess.cxx
+unusedFunction:lexilla/src/Lexilla.cxx
+
+// cppcheck 2.11 limits checking of complex functions unless --check-level=exhaustive but that
+// only finds one false issue in LexRuby
+checkLevelNormal:lexilla/lexers/LexBash.cxx
+checkLevelNormal:lexilla/lexers/LexCPP.cxx
+checkLevelNormal:lexilla/lexers/LexHTML.cxx
+checkLevelNormal:lexilla/lexers/LexPerl.cxx
+checkLevelNormal:lexilla/lexers/LexRuby.cxx
+
+// Physically but not logically const.
+constVariablePointer:lexilla/examples/CheckLexilla/CheckLexilla.c
+
+// cppcheck appears to be incorrectly determining control flow: target_end is used after write
+unreadVariable:lexilla/lexers/LexRuby.cxx
+
+// Suppress most lexer warnings since the lexers are maintained by others
+redundantCondition:lexilla/lexers/LexA68k.cxx
+constParameterReference:lexilla/lexers/LexAbaqus.cxx
+constParameterReference:lexilla/lexers/LexAda.cxx
+constParameterReference:lexilla/lexers/LexAsciidoc.cxx
+constParameterCallback:lexilla/lexers/LexAsn1.cxx
+knownConditionTrueFalse:lexilla/lexers/LexAU3.cxx
+shadowVariable:lexilla/lexers/LexAU3.cxx
+constParameterReference:lexilla/lexers/LexBaan.cxx
+unreadVariable:lexilla/lexers/LexBaan.cxx
+variableScope:lexilla/lexers/LexBaan.cxx
+constParameterPointer:lexilla/lexers/LexBaan.cxx
+constParameterReference:lexilla/lexers/LexBash.cxx
+variableScope:lexilla/lexers/LexBash.cxx
+constVariable:lexilla/lexers/LexBasic.cxx
+constParameterReference:lexilla/lexers/LexBullant.cxx
+constParameterReference:lexilla/lexers/LexCLW.cxx
+knownConditionTrueFalse:lexilla/lexers/LexCLW.cxx
+variableScope:lexilla/lexers/LexCmake.cxx
+knownConditionTrueFalse:lexilla/lexers/LexCmake.cxx
+constParameterReference:lexilla/lexers/LexCmake.cxx
+constParameterReference:lexilla/lexers/LexCOBOL.cxx
+constVariablePointer:lexilla/lexers/LexCOBOL.cxx
+constParameterReference:lexilla/lexers/LexCoffeeScript.cxx
+constParameterPointer:lexilla/lexers/LexCoffeeScript.cxx
+knownConditionTrueFalse:lexilla/lexers/LexCoffeeScript.cxx
+constVariableReference:lexilla/lexers/LexConf.cxx
+constParameterReference:lexilla/lexers/LexCPP.cxx
+knownConditionTrueFalse:lexilla/lexers/LexCPP.cxx
+variableScope:lexilla/lexers/LexCSS.cxx
+constVariablePointer:lexilla/lexers/LexCSS.cxx
+knownConditionTrueFalse:lexilla/lexers/LexDataflex.cxx
+constParameterReference:lexilla/lexers/LexDataflex.cxx
+variableScope:lexilla/lexers/LexDataflex.cxx
+constParameterReference:lexilla/lexers/LexDart.cxx
+functionStatic:lexilla/lexers/LexDart.cxx
+functionStatic:lexilla/lexers/LexDMIS.cxx
+knownConditionTrueFalse:lexilla/lexers/LexECL.cxx
+variableScope:lexilla/lexers/LexECL.cxx
+constParameter:lexilla/lexers/LexEDIFACT.cxx
+constParameterPointer:lexilla/lexers/LexEDIFACT.cxx
+functionStatic:lexilla/lexers/LexEDIFACT.cxx
+knownConditionTrueFalse:lexilla/lexers/LexEiffel.cxx
+variableScope:lexilla/lexers/LexErlang.cxx
+knownConditionTrueFalse:lexilla/lexers/LexErlang.cxx
+knownConditionTrueFalse:lexilla/lexers/LexEScript.cxx
+constParameter:lexilla/lexers/LexFortran.cxx
+constParameterReference:lexilla/lexers/LexFortran.cxx
+redundantContinue:lexilla/lexers/LexFortran.cxx
+knownConditionTrueFalse:lexilla/lexers/LexFSharp.cxx
+variableScope:lexilla/lexers/LexFSharp.cxx
+constParameterReference:lexilla/lexers/LexGAP.cxx
+constParameterReference:lexilla/lexers/LexGDScript.cxx
+variableScope:lexilla/lexers/LexGui4Cli.cxx
+constParameterReference:lexilla/lexers/LexHaskell.cxx
+constParameterReference:lexilla/lexers/LexHex.cxx
+knownConditionTrueFalse:lexilla/lexers/LexHex.cxx
+constVariable:lexilla/lexers/LexHollywood.cxx
+variableScope:lexilla/lexers/LexInno.cxx
+constVariableReference:lexilla/lexers/LexInno.cxx
+constParameterPointer:lexilla/lexers/LexJulia.cxx
+constParameterReference:lexilla/lexers/LexJulia.cxx
+knownConditionTrueFalse:lexilla/lexers/LexJulia.cxx
+unreadVariable:lexilla/lexers/LexJulia.cxx
+variableScope:lexilla/lexers/LexJulia.cxx
+variableScope:lexilla/lexers/LexLaTeX.cxx
+constParameterReference:lexilla/lexers/LexLisp.cxx
+constParameterPointer:lexilla/lexers/LexMagik.cxx
+constParameterReference:lexilla/lexers/LexMagik.cxx
+constParameterPointer:lexilla/lexers/LexMatlab.cxx
+constParameterReference:lexilla/lexers/LexMatlab.cxx
+unreadVariable:lexilla/lexers/LexMatlab.cxx
+variableScope:lexilla/lexers/LexMatlab.cxx
+variableScope:lexilla/lexers/LexMetapost.cxx
+constParameterReference:lexilla/lexers/LexModula.cxx
+constVariableReference:lexilla/lexers/LexModula.cxx
+duplicateBreak:lexilla/lexers/LexModula.cxx
+variableScope:lexilla/lexers/LexModula.cxx
+constParameterReference:lexilla/lexers/LexMPT.cxx
+variableScope:lexilla/lexers/LexMSSQL.cxx
+shadowArgument:lexilla/lexers/LexMySQL.cxx
+constParameterReference:lexilla/lexers/LexNim.cxx
+constParameterReference:lexilla/lexers/LexNimrod.cxx
+knownConditionTrueFalse:lexilla/lexers/LexNimrod.cxx
+variableScope:lexilla/lexers/LexNimrod.cxx
+functionStatic:lexilla/lexers/LexNix.cxx
+variableScope:lexilla/lexers/LexNsis.cxx
+constParameterReference:lexilla/lexers/LexNsis.cxx
+knownConditionTrueFalse:lexilla/lexers/LexNsis.cxx
+variableScope:lexilla/lexers/LexOpal.cxx
+constParameterReference:lexilla/lexers/LexOpal.cxx
+knownConditionTrueFalse:lexilla/lexers/LexOpal.cxx
+constParameterReference:lexilla/lexers/LexOScript.cxx
+constParameterReference:lexilla/lexers/LexPascal.cxx
+variableScope:lexilla/lexers/LexPB.cxx
+constParameterReference:lexilla/lexers/LexPerl.cxx
+constVariableReference:lexilla/lexers/LexPerl.cxx
+knownConditionTrueFalse:lexilla/lexers/LexPerl.cxx
+functionStatic:lexilla/lexers/LexPerl.cxx
+constParameterReference:lexilla/lexers/LexPLM.cxx
+constParameterReference:lexilla/lexers/LexPO.cxx
+variableScope:lexilla/lexers/LexPO.cxx
+constVariablePointer:lexilla/lexers/LexPOV.cxx
+constParameterReference:lexilla/lexers/LexPython.cxx
+shadowVariable:lexilla/lexers/LexPowerPro.cxx
+knownConditionTrueFalse:lexilla/lexers/LexPowerPro.cxx
+variableScope:lexilla/lexers/LexProgress.cxx
+constParameterReference:lexilla/lexers/LexProgress.cxx
+constParameterReference:lexilla/lexers/LexRaku.cxx
+variableScope:lexilla/lexers/LexRaku.cxx
+functionStatic:lexilla/lexers/LexRaku.cxx
+redundantInitialization:lexilla/lexers/LexRegistry.cxx
+constParameterReference:lexilla/lexers/LexRuby.cxx
+constParameterReference:lexilla/lexers/LexRust.cxx
+knownConditionTrueFalse:lexilla/lexers/LexScriptol.cxx
+constParameterReference:lexilla/lexers/LexScriptol.cxx
+constParameterReference:lexilla/lexers/LexSINEX.cxx
+variableScope:lexilla/lexers/LexSINEX.cxx
+constParameterPointer:lexilla/lexers/LexSmalltalk.cxx
+variableScope:lexilla/lexers/LexSpecman.cxx
+unreadVariable:lexilla/lexers/LexSpice.cxx
+constParameterReference:lexilla/lexers/LexSpice.cxx
+functionStatic:lexilla/lexers/LexSQL.cxx
+constParameterReference:lexilla/lexers/LexSTTXT.cxx
+constParameterReference:lexilla/lexers/LexTACL.cxx
+knownConditionTrueFalse:lexilla/lexers/LexTACL.cxx
+variableScope:lexilla/lexers/LexTACL.cxx
+clarifyCalculation:lexilla/lexers/LexTADS3.cxx
+constParameterReference:lexilla/lexers/LexTADS3.cxx
+constParameterReference:lexilla/lexers/LexTAL.cxx
+variableScope:lexilla/lexers/LexTAL.cxx
+constVariableReference:lexilla/lexers/LexTCL.cxx
+constParameterPointer:lexilla/lexers/LexTCMD.cxx
+invalidscanf:lexilla/lexers/LexTCMD.cxx
+constParameterReference:lexilla/lexers/LexTeX.cxx
+variableScope:lexilla/lexers/LexTeX.cxx
+knownConditionTrueFalse:lexilla/lexers/LexVB.cxx
+constParameterReference:lexilla/lexers/LexVerilog.cxx
+variableScope:lexilla/lexers/LexVerilog.cxx
+badBitmaskCheck:lexilla/lexers/LexVerilog.cxx
+uselessCallsSubstr:lexilla/lexers/LexVerilog.cxx
+duplicateCondition:lexilla/lexers/LexVerilog.cxx
+constParameterReference:lexilla/lexers/LexVHDL.cxx
+constVariable:lexilla/lexers/LexVHDL.cxx
+shadowVariable:lexilla/lexers/LexVHDL.cxx
+unreadVariable:lexilla/lexers/LexVHDL.cxx
+variableScope:lexilla/lexers/LexVHDL.cxx
+unreadVariable:lexilla/lexers/LexVisualProlog.cxx
+variableScope:lexilla/lexers/LexVisualProlog.cxx
+shiftTooManyBitsSigned:lexilla/lexers/LexVisualProlog.cxx
+bitwiseOnBoolean:lexilla/lexers/LexVisualProlog.cxx
+iterateByValue:lexilla/lexers/LexVisualProlog.cxx
+functionStatic:lexilla/lexers/LexVisualProlog.cxx
+unreadVariable:lexilla/lexers/LexX12.cxx
+constVariableReference:lexilla/lexers/LexX12.cxx
+constParameterPointer:lexilla/lexers/LexX12.cxx
+uselessCallsSubstr:lexilla/lexers/LexX12.cxx
+constParameterReference:lexilla/lexers/LexYAML.cxx
+knownConditionTrueFalse:lexilla/lexers/LexYAML.cxx
+
+// These are due to Accessor::IndentAmount not declaring the callback as taking a const.
+// Changing this could cause problems for downstream projects.
+constParameterCallback:lexilla/lexers/LexEiffel.cxx
+constParameterCallback:lexilla/lexers/LexGDScript.cxx
+constParameterCallback:lexilla/lexers/LexPython.cxx
+constParameterCallback:lexilla/lexers/LexScriptol.cxx
+constParameterCallback:lexilla/lexers/LexVB.cxx
+
+constVariableReference:lexilla/lexers/LexA68k.cxx
+constVariableReference:lexilla/lexers/LexAPDL.cxx
+constVariableReference:lexilla/lexers/LexASY.cxx
+constVariableReference:lexilla/lexers/LexAVE.cxx
+constVariableReference:lexilla/lexers/LexAVS.cxx
+constVariableReference:lexilla/lexers/LexAU3.cxx
+constVariableReference:lexilla/lexers/LexAsn1.cxx
+constVariableReference:lexilla/lexers/LexBibTeX.cxx
+constVariableReference:lexilla/lexers/LexCaml.cxx
+constVariableReference:lexilla/lexers/LexCLW.cxx
+constVariableReference:lexilla/lexers/LexCmake.cxx
+constVariableReference:lexilla/lexers/LexCOBOL.cxx
+constVariableReference:lexilla/lexers/LexCoffeeScript.cxx
+constVariableReference:lexilla/lexers/LexCsound.cxx
+constVariableReference:lexilla/lexers/LexCSS.cxx
+constVariableReference:lexilla/lexers/LexCrontab.cxx
+constVariableReference:lexilla/lexers/LexDataflex.cxx
+constVariableReference:lexilla/lexers/LexDMAP.cxx
+constVariableReference:lexilla/lexers/LexECL.cxx
+constVariableReference:lexilla/lexers/LexEiffel.cxx
+constVariableReference:lexilla/lexers/LexEScript.cxx
+constVariableReference:lexilla/lexers/LexErlang.cxx
+constVariableReference:lexilla/lexers/LexFlagship.cxx
+constVariableReference:lexilla/lexers/LexForth.cxx
+constVariableReference:lexilla/lexers/LexFortran.cxx
+constVariableReference:lexilla/lexers/LexGAP.cxx
+constVariableReference:lexilla/lexers/LexGui4Cli.cxx
+constVariableReference:lexilla/lexers/LexKix.cxx
+constVariableReference:lexilla/lexers/LexKVIrc.cxx
+constVariableReference:lexilla/lexers/LexLout.cxx
+constVariableReference:lexilla/lexers/LexMagik.cxx
+constVariableReference:lexilla/lexers/LexMatlab.cxx
+constVariableReference:lexilla/lexers/LexMetapost.cxx
+constVariableReference:lexilla/lexers/LexMMIXAL.cxx
+constVariableReference:lexilla/lexers/LexMSSQL.cxx
+constVariableReference:lexilla/lexers/LexNsis.cxx
+constVariableReference:lexilla/lexers/LexOpal.cxx
+constVariableReference:lexilla/lexers/LexPOV.cxx
+constVariableReference:lexilla/lexers/LexPB.cxx
+constVariableReference:lexilla/lexers/LexPowerPro.cxx
+constVariableReference:lexilla/lexers/LexPS.cxx
+constVariableReference:lexilla/lexers/LexRebol.cxx
+constVariableReference:lexilla/lexers/LexSAS.cxx
+constVariableReference:lexilla/lexers/LexSML.cxx
+constVariableReference:lexilla/lexers/LexSorcus.cxx
+constVariableReference:lexilla/lexers/LexSpecman.cxx
+constVariableReference:lexilla/lexers/LexStata.cxx
+constVariableReference:lexilla/lexers/LexTACL.cxx
+constVariableReference:lexilla/lexers/LexTADS3.cxx
+constVariableReference:lexilla/lexers/LexTAL.cxx
+constVariableReference:lexilla/lexers/LexTCMD.cxx
+constVariableReference:lexilla/lexers/LexTeX.cxx
+constVariableReference:lexilla/lexers/LexVHDL.cxx
+
+// Suppress everything in test example files
+*:lexilla/test/examples/*
+
+// Suppress everything in catch.hpp as won't be changing
+*:lexilla/test/unit/catch.hpp
+// cppcheck gives up inside catch.hpp
+*:lexilla/test/unit/UnitTester.cxx
+*:lexilla/test/unit/unitTest.cxx
+
+// cppcheck fails REQUIRE from Catch
+comparisonOfFuncReturningBoolError:lexilla/test/unit/*.cxx
+
+// cppcheck fails SECTION from Catch
+syntaxError:lexilla/test/unit/*.cxx
+
+// Tests often test things that are always true
+knownConditionTrueFalse:lexilla/test/unit/testCharacterSet.cxx
+
+// cppcheck appears to misinterpret && accumulation
+knownConditionTrueFalse:lexilla/test/TestLexers.cxx
+
+// unread/unused variables and overwritten without read in tests
+unreadVariable:lexilla/test/unit/*.cxx
+unusedVariable:lexilla/test/unit/*.cxx
+redundantInitialization:lexilla/test/unit/*.cxx
+
+// doesn't understand cppcheck generated functions
+unusedFunction:lexilla/test/unit/*.cxx
+
+// argv has a standardised type
+constParameter:lexilla/examples/CheckLexilla/CheckLexilla.c

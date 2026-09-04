@@ -1,0 +1,295 @@
+ 0 400 400   // coding:utf-8
+ 0 400 400   
+ 2 400 401 + /// A structure for storing a timestamp, with nanosecond precision (this is a
+ 0 401 400 | /// multiline doc comment).
+ 2 400 401 + const Timestamp = struct {
+ 0 401 401 |     /// The number of seconds since the epoch (this is also a doc comment).
+ 0 401 401 |     seconds: i64, // signed so we can represent pre-1970 (not a doc comment)
+ 0 401 401 |     /// The number of nanoseconds past the second (doc comment again).
+ 0 401 401 |     nanos: u32,
+ 0 401 401 | 
+ 2 401 402 +     /// Returns a `Timestamp` struct representing the Unix epoch; that is, the
+ 0 402 401 |     /// moment of 1970 Jan 1 00:00:00 UTC (this is a doc comment too).
+ 2 401 402 +     pub fn unixEpoch() Timestamp {
+ 2 402 403 +         return Timestamp{
+ 0 403 403 |             .seconds = 0,
+ 0 403 403 |             .nanos = 0,
+ 0 403 402 |         };
+ 0 402 401 |     }
+ 0 401 400 | };
+ 0 400 400   
+ 2 400 401 + //! This module provides functions for retrieving the current date and
+ 0 401 401 | //! time with varying degrees of precision and accuracy. It does not
+ 0 401 400 | //! depend on libc, but will use functions from it if available.
+ 0 400 400   
+ 2 400 401 + const S = struct {
+ 2 401 402 +     //! Top level comments are allowed inside a container other than a module,
+ 0 402 402 |     //! but it is not very useful.  Currently, when producing the package
+ 0 402 401 |     //! documentation, these comments are ignored.
+ 0 401 400 | };
+ 0 400 400   
+ 0 400 400   const std = @import("std");
+ 0 400 400   
+ 2 400 401 + pub fn main() !void {
+ 0 401 401 |     const stdout = std.io.getStdOut().writer();
+ 0 401 401 |     try stdout.print("Hello, {s}!\n", .{"world"});
+ 0 401 400 | }
+ 0 400 400   
+ 0 400 400   
+ 0 400 400   // Top-level declarations are order-independent:
+ 0 400 400   const print = std.debug.print;
+ 0 400 400   const std = @import("std");
+ 0 400 400   const os = std.os;
+ 0 400 400   const assert = std.debug.assert;
+ 0 400 400   
+ 2 400 401 + pub fn main() void {
+ 0 401 401 |     // integers
+ 0 401 401 |     const one_plus_one: i32 = 1 + 1;
+ 0 401 401 |     print("1 + 1 = {}\n", .{one_plus_one});
+ 0 401 401 | 
+ 0 401 401 |     // floats
+ 0 401 401 |     const seven_div_three: f32 = 7.0 / 3.0;
+ 0 401 401 |     print("7.0 / 3.0 = {}\n", .{seven_div_three});
+ 0 401 401 | 
+ 0 401 401 |     // boolean
+ 2 401 403 +     print("{}\n{}\n{}\n", .{
+ 0 403 403 |         true and false,
+ 0 403 403 |         true or false,
+ 0 403 403 |         !true,
+ 0 403 401 |     });
+ 0 401 401 | 
+ 0 401 401 |     // optional
+ 0 401 401 |     var optional_value: ?[]const u8 = null;
+ 0 401 401 |     assert(optional_value == null);
+ 0 401 401 | 
+ 2 401 403 +     print("\noptional 1\ntype: {}\nvalue: {?s}\n", .{
+ 0 403 403 |         @TypeOf(optional_value), optional_value,
+ 0 403 401 |     });
+ 0 401 401 | 
+ 0 401 401 |     optional_value = "hi";
+ 0 401 401 |     assert(optional_value != null);
+ 0 401 401 | 
+ 2 401 403 +     print("\noptional 2\ntype: {}\nvalue: {?s}\n", .{
+ 0 403 403 |         @TypeOf(optional_value), optional_value,
+ 0 403 401 |     });
+ 0 401 401 | 
+ 0 401 401 |     // error union
+ 0 401 401 |     var number_or_error: anyerror!i32 = error.ArgNotFound;
+ 0 401 401 | 
+ 2 401 403 +     print("\nerror union 1\ntype: {}\nvalue: {!}\n", .{
+ 0 403 403 |         @TypeOf(number_or_error),
+ 0 403 403 |         number_or_error,
+ 0 403 401 |     });
+ 0 401 401 | 
+ 0 401 401 |     number_or_error = 1234;
+ 0 401 401 | 
+ 2 401 403 +     print("\nerror union 2\ntype: {}\nvalue: {!}\n", .{
+ 0 403 403 |         @TypeOf(number_or_error), number_or_error,
+ 0 403 401 |     });
+ 0 401 400 | }
+ 0 400 400   
+ 0 400 400   const print = @import("std").debug.print;
+ 0 400 400   const mem = @import("std").mem; // will be used to compare bytes
+ 0 400 400   
+ 2 400 401 + pub fn main() void {
+ 0 401 401 |     const bytes = "hello\u{12345678}";
+ 0 401 401 |     print("{}\n", .{@TypeOf(bytes)}); // *const [5:0]u8
+ 0 401 401 |     print("{d}\n", .{bytes.len}); // 5
+ 0 401 401 |     print("{c}\n", .{bytes[1]}); // 'e'
+ 0 401 401 |     print("{d}\n", .{bytes[5]}); // 0
+ 0 401 401 |     print("{}\n", .{'e' == '\x65'}); // true
+ 0 401 401 |     print("{d}\n", .{'\u{1f4a9}'}); // 128169
+ 0 401 401 |     print("{d}\n", .{'💯'}); // 128175
+ 0 401 401 |     print("{u}\n", .{'⚡'});
+ 0 401 401 |     print("{}\n", .{mem.eql(u8, "hello", "h\x65llo")}); // true
+ 0 401 401 |     print("{}\n", .{mem.eql(u8, "💯", "\xf0\x9f\x92\xaf")}); // also true
+ 0 401 401 |     const invalid_utf8 = "\xff\xfe"; // non-UTF-8 strings are possible with \xNN notation.
+ 0 401 401 |     print("0x{x}\n", .{invalid_utf8[1]}); // indexing them returns individual bytes...
+ 0 401 401 |     print("0x{x}\n", .{"💯"[1]}); // ...as does indexing part-way through non-ASCII characters
+ 0 401 400 | }
+ 0 400 400   
+ 0 400 400   const hello_world_in_c =
+ 2 400 401 +     \\#include <stdio.h>
+ 0 401 401 |     \\
+ 0 401 401 |     \\int main(int argc, char **argv) {
+ 0 401 401 |     \\    printf("hello world\n");
+ 0 401 401 |     \\    return 0;
+ 0 401 400 |     \\}
+ 0 400 400   ;
+ 0 400 400   
+ 0 400 400   const std = @import("std");
+ 0 400 400   const assert = std.debug.assert;
+ 0 400 400   
+ 0 400 400   threadlocal var x: i32 = 1234;
+ 0 400 400   
+ 2 400 401 + test "thread local storage" {
+ 0 401 401 |     const thread1 = try std.Thread.spawn(.{}, testTls, .{});
+ 0 401 401 |     const thread2 = try std.Thread.spawn(.{}, testTls, .{});
+ 0 401 401 |     testTls();
+ 0 401 401 |     thread1.join();
+ 0 401 401 |     thread2.join();
+ 0 401 400 | }
+ 0 400 400   
+ 2 400 401 + fn testTls() void {
+ 0 401 401 |     assert(x == 1234);
+ 0 401 401 |     x += 1;
+ 0 401 401 |     assert(x == 1235);
+ 0 401 400 | }
+ 0 400 400   
+ 0 400 400   const decimal_int = 98222;
+ 0 400 400   const hex_int = 0xff;
+ 0 400 400   const another_hex_int = 0xFF;
+ 0 400 400   const octal_int = 0o755;
+ 0 400 400   const binary_int = 0b11110000;
+ 0 400 400   
+ 0 400 400   // underscores may be placed between two digits as a visual separator
+ 0 400 400   const one_billion = 1_000_000_000;
+ 0 400 400   const binary_mask = 0b1_1111_1111;
+ 0 400 400   const permissions = 0o7_5_5;
+ 0 400 400   const big_address = 0xFF80_0000_0000_0000;
+ 0 400 400   
+ 0 400 400   
+ 0 400 400   const floating_point = 123.0E+77;
+ 0 400 400   const another_float = 123.0;
+ 0 400 400   const yet_another = 123.0e+77;
+ 0 400 400   
+ 0 400 400   const hex_floating_point = 0x103.70p-5;
+ 0 400 400   const another_hex_float = 0x103.70;
+ 0 400 400   const yet_another_hex_float = 0x103.70P-5;
+ 0 400 400   
+ 0 400 400   // underscores may be placed between two digits as a visual separator
+ 0 400 400   const lightspeed = 299_792_458.000_000;
+ 0 400 400   const nanosecond = 0.000_000_001;
+ 0 400 400   const more_hex = 0x1234_5678.9ABC_CDEFp-10;
+ 0 400 400   
+ 2 400 401 + const Vec3 = struct {
+ 0 401 401 |     x: f32,
+ 0 401 401 |     y: f32,
+ 0 401 401 |     z: f32,
+ 0 401 401 | 
+ 2 401 402 +     pub fn init(x: f32, y: f32, z: f32) Vec3 {
+ 2 402 403 +         return Vec3{
+ 0 403 403 |             .x = x,
+ 0 403 403 |             .y = y,
+ 0 403 403 |             .z = z,
+ 0 403 402 |         };
+ 0 402 401 |     }
+ 0 401 401 | 
+ 2 401 402 +     pub fn dot(self: Vec3, other: Vec3) f32 {
+ 0 402 402 |         return self.x * other.x + self.y * other.y + self.z * other.z;
+ 0 402 401 |     }
+ 0 401 400 | };
+ 0 400 400   
+ 2 400 401 + fn LinkedList(comptime T: type) type {
+ 2 401 402 +     return struct {
+ 2 402 403 +         pub const Node = struct {
+ 0 403 403 |             prev: ?*Node,
+ 0 403 403 |             next: ?*Node,
+ 0 403 403 |             data: T,
+ 0 403 402 |         };
+ 0 402 402 | 
+ 0 402 402 |         first: ?*Node,
+ 0 402 402 |         last: ?*Node,
+ 0 402 402 |         len: usize,
+ 0 402 401 |     };
+ 0 401 400 | }
+ 0 400 400   
+ 2 400 401 + const Point = struct {
+ 0 401 401 |     x: f32,
+ 0 401 401 |     y: f32,
+ 0 401 400 | };
+ 0 400 400   
+ 2 400 401 + // Maybe we want to pass it to OpenGL so we want to be particular about
+ 0 401 400 | // how the bytes are arranged.
+ 2 400 401 + const Point2 = packed struct {
+ 0 401 401 |     x: f32,
+ 0 401 401 |     y: f32,
+ 0 401 400 | };
+ 0 400 400   
+ 0 400 400   
+ 0 400 400   const std = @import("std");
+ 0 400 400   const expect = std.testing.expect;
+ 0 400 400   
+ 2 400 401 + const Color = enum {
+ 0 401 401 |     auto,
+ 0 401 401 |     off,
+ 0 401 401 |     on,
+ 0 401 400 | };
+ 0 400 400   
+ 0 400 400   const std = @import("std");
+ 0 400 400   const builtin = @import("builtin");
+ 0 400 400   const expect = std.testing.expect;
+ 0 400 400   
+ 2 400 401 + test "switch simple" {
+ 0 401 401 |     const a: u64 = 10;
+ 0 401 401 |     const zz: u64 = 103;
+ 0 401 401 | 
+ 2 401 402 +     // All branches of a switch expression must be able to be coerced to a
+ 0 402 402 |     // common type.
+ 0 402 402 |     //
+ 0 402 402 |     // Branches cannot fallthrough. If fallthrough behavior is desired, combine
+ 0 402 401 |     // the cases and use an if.
+ 2 401 402 +     const b = switch (a) {
+ 0 402 402 |         // Multiple cases can be combined via a ','
+ 0 402 402 |         1, 2, 3 => 0,
+ 0 402 402 | 
+ 2 402 403 +         // Ranges can be specified using the ... syntax. These are inclusive
+ 0 403 402 |         // of both ends.
+ 0 402 402 |         5...100 => 1,
+ 0 402 402 | 
+ 0 402 402 |         // Branches can be arbitrarily complex.
+ 2 402 403 +         101 => blk: {
+ 0 403 403 |             const c: u64 = 5;
+ 0 403 403 |             break :blk c * 2 + 1;
+ 0 403 402 |         },
+ 0 402 402 | 
+ 2 402 403 +         // Switching on arbitrary expressions is allowed as long as the
+ 0 403 402 |         // expression is known at compile-time.
+ 0 402 402 |         zz => zz,
+ 2 402 403 +         blk: {
+ 0 403 403 |             const d: u32 = 5;
+ 0 403 403 |             const e: u32 = 100;
+ 0 403 403 |             break :blk d + e;
+ 0 403 402 |         } => 107,
+ 0 402 402 | 
+ 2 402 403 +         // The else branch catches everything not already captured.
+ 0 403 403 |         // Else branches are mandatory unless the entire range of values
+ 0 403 402 |         // is handled.
+ 0 402 402 |         else => 9,
+ 0 402 401 |     };
+ 0 401 401 | 
+ 0 401 401 |     try expect(b == 1);
+ 0 401 400 | }
+ 0 400 400   
+ 2 400 401 + fn charToDigit(c: u8) u8 {
+ 2 401 402 +     return switch (c) {
+ 0 402 402 |         '0'...'9' => c - '0',
+ 0 402 402 |         'A'...'Z' => c - 'A' + 10,
+ 0 402 402 |         'a'...'z' => c - 'a' + 10,
+ 0 402 402 |         else => maxInt(u8),
+ 0 402 401 |     };
+ 0 401 400 | }
+ 0 400 400   
+ 0 400 400   const optional_value: ?i32 = null;
+ 0 400 400   
+ 2 400 401 + //! This module provides functions for retrieving the current date and
+ 0 401 401 | //! time with varying degrees of precision and accuracy. It does not
+ 0 401 400 | //! depend on libc, but will use functions from it if available.
+ 0 400 400   
+ 0 400 400   const @"identifier with spaces in it" = 0xff;
+ 0 400 400   const @"1SmallStep4Man" = 112358;
+ 0 400 400   
+ 0 400 400   const c = @import("std").c;
+ 0 400 400   pub extern "c" fn @"error"() void;
+ 0 400 400   pub extern "c" fn @"fstat$INODE64"(fd: c.fd_t, buf: *c.Stat) c_int;
+ 0 400 400   
+ 2 400 401 + const Color = enum {
+ 0 401 401 |     red,
+ 0 401 401 |     @"really red",
+ 0 401 400 | };
+ 0 400 400   const color: Color = .@"really red";
+ 0 400 400   
+ 0 400 400   const s1 = "Unterminated string
+ 0 400 400   const s2 = 'Unterminated character
+ 0 400 400   const s3 = @"Unterminated identifier string
+ 0 400   0   

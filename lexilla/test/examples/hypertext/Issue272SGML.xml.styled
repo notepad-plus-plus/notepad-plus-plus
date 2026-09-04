@@ -1,0 +1,8 @@
+{21}<!{22}DOCTYPE{21} {23}root{21} [{31}
+{21}<!{22}ELEMENT{21} {23}root{21} (p)>{31}
+{21}<!{22}ELEMENT{21} {23}p{21} ({27}#PCDATA{21})>{31}
+{21}<!{29}-- Example 1 from XML spec 1.0 Appendix D --{21}>{31}
+{21}<!{22}ENTITY{21} {23}example{21} {24}"<p>An ampersand (&#38;#38;) may be escaped
+numerically (&#38;#38;#38) or with a general entity (&amp;amp;).</p>"{21} >{31}
+{21}]>{0}
+{2}<root>{10}&example;{2}</root>{0}

@@ -1,0 +1,49 @@
+{1}' coding: utf-8
+' Enumerate all styles: 0 .. 12
+{0}
+{1}' comment=1
+{0}
+{1}' whitespace=0
+{0}	{1}' w
+{0}
+{1}' number=2
+{2}37{0}
+{2}54.3345612e7{0}
+{2}&B01111100{0}
+{2}&O1163{0}
+{2}&H_E635_9A60{0}
+
+{1}' keyword=3
+{3}string{0}
+
+{1}' double-quoted-string=4
+{4}"str"{0}
+{4}"a"c{0}
+
+{1}' preprocessor=5
+{5}#Const preproc = True
+{0}
+{1}' operator=6
+{6}-{0} {2}1{0}
+
+{1}' identifier=7
+{7}identifier{0} {6}={0} {2}7{0}
+{1}' non-ASCII
+{7}π_is_pi_ω{0} {6}={0} {2}3.14{0}
+{1}' vb may add a type character like $ to identifiers; vbscript doesn't have this
+{7}identifier{0}$ {6}={0} {4}"s"{0}
+
+{1}' date=8
+{7}d{6}={8}#05/11/2003#{0}
+
+{1}' unclosed-string=9
+{9}" unclosed
+{0}
+{1}' keyword2=10
+{10}key2{0}
+
+{1}' keyword3=11
+{11}key3{0}
+
+{1}' keyword4=12
+{12}key4{0}

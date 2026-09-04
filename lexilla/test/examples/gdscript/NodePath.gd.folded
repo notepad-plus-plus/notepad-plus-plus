@@ -1,0 +1,34 @@
+ 0 400   0   # nodepath
+ 1 400   0   
+ 0 400   0   $Node
+ 1 400   0   
+ 0 400   0   %Node
+ 1 400   0   
+ 0 400   0   %node/"n o d e"/%'n o d e'
+ 1 400   0   
+ 0 400   0   %"No de"
+ 1 400   0   
+ 1 400   0   
+ 0 400   0   $/root/ThisNode/%Node % %test
+ 1 400   0   
+ 0 400   0   $MainMenuPanel/%Options % %test
+ 1 400   0   
+ 0 400   0   %Options % %test
+ 1 400   0   
+ 0 400   0   $Node % %test
+ 1 400   0   
+ 1 400   0   
+ 0 400   0   get_node("%Options") % %test
+ 1 400   0   
+ 0 400   0   $"Nod   se" % %test
+ 1 400   0   
+ 0 400   0   $/test/"No % de"/test % %test
+ 1 400   0   
+ 0 400   0   %node/"n o d e"/'n o d e' % %"No De"
+ 1 400   0   
+ 0 400   0   "%010d" % 12345
+ 1 400   0   
+ 0 400   0   1 % 1
+ 1 400   0   
+ 0 400   0   a % b
+ 1 400   0   

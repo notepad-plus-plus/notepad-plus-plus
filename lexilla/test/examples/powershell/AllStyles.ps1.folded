@@ -1,0 +1,63 @@
+ 0 400 400   # Enumerate all styles: 0 to 16
+ 1 400 400   
+ 0 400 400   # line comment = 1
+ 0 400 400   # more comment
+ 1 400 400   
+ 0 400 400   # whitespace = 0
+ 0 400 400       # spaces
+ 1 400 400   
+ 0 400 400   # string = 2
+ 0 400 400   "a string"
+ 1 400 400   
+ 0 400 400   # character = 3
+ 0 400 400   'c'
+ 1 400 400   
+ 0 400 400   # number = 4
+ 0 400 400   123
+ 1 400 400   
+ 0 400 400   # variable = 5
+ 0 400 400   $variable
+ 1 400 400   
+ 0 400 400   # operator = 6
+ 0 400 400   ();
+ 1 400 400   
+ 0 400 400   # identifier = 7
+ 0 400 400   identifier
+ 1 400 400   
+ 0 400 400   # keyword = 8
+ 0 400 400   break
+ 0 400 400   ;
+ 1 400 400   
+ 0 400 400   # cmdlet = 9
+ 0 400 400   Write-Output "test output"
+ 1 400 400   
+ 0 400 400   # alias = 10
+ 0 400 400   chdir C:\Temp\
+ 1 400 400   
+ 0 400 400   # function = 11
+ 0 400 400   Get-Verb -Group Security
+ 1 400 400   
+ 0 400 400   # user-defined keyword = 12
+ 0 400 400   lexilla
+ 1 400 400   
+ 0 400 400   # multi-line comment = 13
+ 0 400 400   <#
+ 0 400 400   multi-line comment
+ 0 400 400   #>
+ 1 400 400   
+ 0 400 400   # here string = 14
+ 0 400 400   @"
+ 0 400 400   here string double
+ 0 400 400   "@
+ 1 400 400   
+ 0 400 400   # here string single quote = 15
+ 0 400 400   @'
+ 0 400 400   here string single
+ 0 400 400   '@
+ 1 400 400   
+ 0 400 400   # comment keyword = 16
+ 0 400 400   <#
+ 0 400 400   .synopsis
+ 0 400 400   End of file.
+ 0 400 400   #>
+ 0 400   0   

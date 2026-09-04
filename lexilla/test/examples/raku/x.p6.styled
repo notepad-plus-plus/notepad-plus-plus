@@ -1,0 +1,55 @@
+{20}use{0} {16}v6{18};{0}
+
+{2}# Normal single line comment{0}
+{20}my{0} {22}Int{0} {23}$i{0} {18}={0} {16}0{18};{0}
+{20}my{0} {22}Rat{0} {23}$r{0} {18}={0} {16}3.142{18};{0}
+{20}my{0} {22}Str{0} {23}$backslash{0} {18}={0} {8}"\\"{18};{0}
+{20}my{0} {22}Str{0} {23}$s{0} {18}={0} {8}"Hello, world! \$i == {12}$i{8} and \$r == {12}$r{8}"{18};{0}
+{20}say{0} {23}$s{18};{0}
+
+{2}#`{3}{{
+*** This is a multi-line comment ***
+}}{0}
+
+{20}my{0} {24}@array{0} {18}={0} {2}#`{3}[[ inline comment ]]{0} {9}<f fo foo food>{18};{0}
+{20}my{0} {25}%hash{0} {18}={0} {18}({0} {21}AAA{0} {18}=>{0} {16}1{18},{0} {21}BBB{0} {18}=>{0} {16}2{0} {18});{0}
+
+{20}say{0} {9}q[This back\slash stays]{18};{0}
+{20}say{0} {9}q[This back\\slash stays]{18};{0} {2}# Identical output{0}
+{20}say{0} {11}Q{15}:q{11}!Just a literal "\n" here!{18};{0}
+
+{4}=begin pod
+POD Documentation...
+=end pod{0}
+
+{20}say{0} {10}qq{15}:to{10}/END/{18};{0}
+{7}A multi-line
+string with interpolated vars: {12}$i{7}, {12}$r{7}
+END{0}
+
+{20}sub{0} {21}function{0} {18}{{0}
+	{20}return{0} {9}q{15}:to{9}/END/{18};{0}
+{6}Here is
+some multi-line
+string
+END{0}
+{18}}{0}
+
+{20}my{0} {23}$func{0} {18}={0} {26}&function{18};{0}
+{20}say{0} {23}$func{18}();{0}
+
+{19}grammar{0} {27}Calculator{0} {18}{{0}
+	{19}token{0} {21}TOP{0}					{13}{ <calc-op> }{0}
+	{19}proto{0} {19}rule{0} {21}calc-op{0}			{13}{*}{0}
+		  {19}rule{0} {21}calc-op{15}:sym{18}<{21}add{18}>{0}	{13}{ <num> '+' <num> }{0}
+		  {19}rule{0} {21}calc-op{15}:sym{18}<{21}sub{18}>{0}	{13}{ <num> '-' <num> }{0}
+    {19}token{0} {21}num{0}					{13}{ \d+ }{0}
+{18}}{0}
+
+{19}class{0} {28}Calculations{0} {18}{{0}
+	{19}method{0} {21}TOP{0}              {18}({23}$/{18}){0} {18}{{0} {19}make{0} {23}${18}<{23}calc-op{18}>.{21}made{18};{0} {18}}{0}
+	{19}method{0} {21}calc-op{15}:sym{18}<{21}add{18}>{0} {18}({23}$/{18}){0} {18}{{0} {21}make{0} {18}[+]{0} {23}${18}<{23}num{18}>;{0} {18}}{0}
+	{19}method{0} {21}calc-op{15}:sym{18}<{21}sub{18}>{0} {18}({23}$/{18}){0} {18}{{0} {21}make{0} {18}[-]{0} {23}${18}<{23}num{18}>;{0} {18}}{0}
+{18}}{0}
+
+{20}say{0} {21}Calculator{18}.{21}parse{18}({8}'2 + 3'{18},{0} {21}actions{0} {18}=>{0} {21}Calculations{18}).{21}made{18};{0}

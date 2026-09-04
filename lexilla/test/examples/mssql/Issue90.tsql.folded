@@ -1,0 +1,5 @@
+ 0 400   0   CREATE TABLE TestTable (
+ 0 400   0       col
+ 0 400   0       CHAR(3)
+ 0 400   0   );
+ 0 400   0   

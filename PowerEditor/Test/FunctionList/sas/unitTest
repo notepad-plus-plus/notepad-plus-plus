@@ -1,0 +1,25 @@
+%macro printz/parmbuff;
+   %put Syspbuff contains: &syspbuff;
+   %let num=1;
+   %let dsname=%scan(&syspbuff,&num);
+   %do %while(&dsname ne);
+      proc print data=&dsname;
+      run;
+      %let num=%eval(&num+1);
+      %let dsname=%scan(&syspbuff,&num);
+   %end;
+%mend printz;
+%printz(purple,red,blue,teal)
+
+proc cas;
+   function SharedBday(days, number);
+      p = exp( lgamma(days+1) - lgamma(days-number+1) - number*log(days));
+      return (1-p);
+   end func;
+
+   do n over {3 10 22 23 50 75};
+      p = SharedBday(365,n);
+      print "Chance at least 2 out of " put(n,best3.) "
+             share the same birthday = " put(p,best6.2);
+   end;
+run;

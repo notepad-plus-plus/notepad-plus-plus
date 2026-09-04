@@ -1,0 +1,78 @@
+{1}% Enumerate all styles: 0..24 31{0}
+
+{1}% comment = 1{0}
+
+{1}% whitespace = 0{0}
+    {1}% 0{0}
+
+{1}% variable = 2{0}
+{2}A{0}
+
+{1}% number = 3{0}
+{3}3{0}
+
+{1}% keyword = 4{0}
+{4}let{0}
+
+{1}% string = 5{0}
+{5}"string"{0}
+
+{1}% operator = 6{0}
+{6}*{0}
+
+{1}% atom = 7{0}
+{7}atom{0}
+
+{1}% function_name = 8{0}
+{8}function{6}(){0}
+
+{1}% character = 9{0}
+{9}$a{0}
+
+{1}% macro = 10{0}
+{10}?macro{0}
+
+{1}% record = 11{0}
+{11}#record{0}
+
+{1}% preproc = 12{0}
+{12}-define{0}
+
+{1}% node_name = 13{0}
+{13}node@{0}
+
+{1}% comment_function = 14{0}
+{14}%% function{0}
+
+{1}% comment_module = 15{0}
+{15}%%% module{0}
+
+{1}% comment_doc = 16{0}
+{14}%% {16}@todo{0}
+ 
+{1}% comment_doc_macro = 17{0}
+{14}%% {{17}@module{14}}{0}
+
+{1}% atom_quoted = 18 (fails){0}
+{18}'fails'{0}
+
+{1}% macro_quoted = 19{0}
+{19}?'macro'{0}
+
+{1}% record_quoted = 20{0}
+{20}#'record'{0}
+
+{1}% node_name_quoted = 21{0}
+{21}'node@'{0}
+
+{1}% bifs = 22{0}
+{22}atom_to_binary{0}
+
+{1}% modules = 23{0}
+{23}io:{7}x{0}
+
+{1}% modules_att = 24{0}
+{24}-module{6}().{0}
+
+{1}% unknown = 31 (this is an internal state and should not be output){0}
+

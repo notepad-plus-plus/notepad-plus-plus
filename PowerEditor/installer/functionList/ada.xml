@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!--
+		|   Complies to ADA 2022
+		|       http://www.ada-auth.org/standards/overview22.html
+		|   Based on:
+		|       http://stackoverflow.com/questions/32126855/notepad-and-ada
+		\-->
+		<parser
+			displayName="ADA"
+			id         ="ada_syntax"
+			commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?m-s:-{2}.*?$)                                 # Single Line Comment
+						"
+		>
+			<function
+				mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+						^\h*                                                # optional leading whitespace at start-of-line
+						(?:
+							(?i:function)
+							\s+
+							(?'VALID_ID'                                    # valid identifier, use as subroutine
+								\b(?!(?i:                                   # keywords (case-insensitive), not to be used as identifier
+									a(?:b(?:ort|s(?:tract)?)|cce(?:pt|ss)|l(?:iased|l)|nd|rray|t)
+								|	b(?:egin|ody)
+								|	c(?:ase|onstant)
+								|	d(?:eclare|el(?:ay|ta)|igits|o)
+								|	e(?:ls(?:e|if)|n(?:d|try)|x(?:ception|it))
+								|	f(?:or|unction)
+								|	g(?:eneric|oto)
+								|	i(?:[fs]|n(?:terface)?)
+								|	l(?:imited|oop)
+								|	mod
+								|	n(?:ew|ot|ull)
+								|	o(?:[fr]|thers|ut|verriding)
+								|	p(?:a(?:ckage|rallel)|r(?:agma|ivate|o(?:cedure|tected)))
+								|	r(?:a(?:is|ng)e|e(?:cord|m|names|queue|turn|verse))
+								|	s(?:e(?:lect|parate)|ome|ubtype|ynchronized)
+								|	t(?:a(?:gged|sk)|erminate|hen|ype)
+								|	u(?:ntil|se)
+								|	w(?:h(?:en|ile)|ith)
+								|	xor
+								)\b)
+								[[:alpha:]](?:[\w.]*[[:alnum:]])?           # valid character combination for identifiers
+							)
+							(?'PARAMETERS'
+								\s*
+								\(                                          # start-of-parameters indicator
+								[^()]*                                      # parameters
+								\)                                          # end-of-parameters indicator
+							)?                                              # parentheses and parameters optional
+							\s*
+							(?:return                                       # function returns a value with...
+							\s+(?&amp;VALID_ID)                             # ...type-name
+							)?
+						|
+							(?i:procedure)
+							\s+(?&amp;VALID_ID)
+							(?&amp;PARAMETERS)?
+						)
+						\s*(?i:\bis\b|;)                                    # end-of-definition indicator
+					"
+			>
+				<functionName>
+					<nameExpr expr="(?x)                                    # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?:function|procedure)\s+
+							\K                                              # discard text matched so far
+							[[:alpha:]](?:[\w.]*[[:alnum:]])?
+							(?:\s*\([^()]*\))?                              # parentheses and parameters optional
+							(?=
+								\s*
+								(?:\breturn|\bis|;)
+							)
+						"
+					/>
+					<!-- comment out the following node to display the method with its parameters -->
+					<!-- <nameExpr expr="[[:alpha:]](?:[\w.]*[[:alnum:]])?" /> -->
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

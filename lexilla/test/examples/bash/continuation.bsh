@@ -1,0 +1,15 @@
+# Tests for line continuation.
+# Issue #195.
+
+#backslash1\
+echo 1
+#backslash2\\
+echo 2
+
+if [ 1 ]; then
+    backslash1=A\
+fi
+    backslash2=B\\
+fi
+
+echo $backslash1, $backslash2

@@ -1,0 +1,9 @@
+# Failure case for issue #326
+# SCE_YAML_TEXT should extend over empty line
+my_yaml_block: |+
+  This block is text
+
+  even if the line above is empty
+  these two text lines should also be highlighted as text.
+
+# End of example, should be the end of text rendering

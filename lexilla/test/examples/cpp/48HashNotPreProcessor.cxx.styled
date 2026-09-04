@@ -1,0 +1,11 @@
+{2}// Examples of JavaScript private elements that start with #
+{5}class{0} {11}C{0} {10}{{0}
+  {11}#x{10};{0}
+  {11}constructor{10}({11}x{10}){0} {10}{{0}
+    {11}this{10}.{11}#x{0} {10}={0} {11}x{10};{0}
+  {10}}{0}
+  {5}static{0} {11}getX{10}({11}obj{10}){0} {10}{{0}
+    {11}if{0} {10}({11}#x{0} {5}in{0} {11}obj{10}){0} {5}return{0} {11}obj{10}.{11}#x{10};{0}
+    {5}return{0} {6}"obj must be an instance of C"{10};{0}
+  {10}}{0}
+{10}}{0}

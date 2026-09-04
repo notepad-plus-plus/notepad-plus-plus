@@ -1,0 +1,90 @@
+{2}# Lexing numeric literals{0}
+
+{2}# From issue #199{0}
+
+{2}# UUIDs{0}
+
+{8}virsh{0} {8}start{0} {8}61a6a312-86d3-458c-824a-fa0adc2bd22c{0}
+{8}virsh{0} {8}start{0} {8}61969312-86d3-458c-8249-fa0adc2bd22c{0}
+{8}virsh{0} {8}restore{0} {7}/{8}opt{7}/{8}61a6a312-86d3-458c-824a-fa0adc2bd22c-suspend{0}
+
+{2}# Git items{0}
+
+{8}git{0} {8}checkout{0} {8}998d611b516b0e485803089ecd53fdf0ea707a8c{0}
+
+{8}git{0} {8}log{0} {8}--no-walk{0} {8}0e2ba9c{0}
+{8}git{0} {8}log{0} {8}--no-walk{0} {8}rel-5-2-4-97-g7405d4e7{0}
+
+{2}# Arithmetic and character ranges{0}
+
+{8}declare{0} {8}-i{0} {8}a{7}={3}1{7}+{3}1{7};{0} {4}echo{0} {9}$a{0}
+{7}[[{0} {9}$a{0} {7}=={0} {7}[{8}0-9{7}]{0} {7}]]{0} {7}&&{0} {4}echo{0} {3}1{0}
+
+{2}# Brace expansion{0}
+
+{4}for{0} {8}i{0} {4}in{0} {7}{{3}1{7}..{3}10{7}..{3}2{7}};{0} {4}do{0}
+	{4}echo{0} {9}$i{0}
+{4}done{0}
+{4}for{0} {8}a{0} {4}in{0} {7}{{8}A{7}..{8}Z{7}..{3}2{7}};{0} {4}do{0}
+	{4}echo{0} {9}$a{0}
+{4}done{0}
+
+{2}# From Kein-Hong Man{0}
+
+{2}#--------------------------------------------------------------------------{0}
+{2}# Bash number formats{0}
+{2}# (20070712){0}
+{2}# Octal lexing relaxed to allow hex digits to avoid flagging unnecessary{0}
+{2}# and misleading number errors; radix-prefixed lexing behaviour is unchanged,{0}
+{2}# as those cases are uncommon (to get strict lexing, define PEDANTIC_OCTAL).{0}
+
+{2}# NOTE: Some people may want an entire non-number to be lexed in the normal{0}
+{2}# style and not as part-number part-normal. If the user thinks there is a{0}
+{2}# better case for the former, please lobby for it on the SF issue tracker.{0}
+
+{3}0123{0} {3}0567{0}	{2}# octal good{0}
+{3}08{0} {3}0789{0} {8}077ABC{0}	{2}# octal bad (disabled 20070712, now lexed as numbers){0}
+{8}066XYZ{0}		{2}# octal bad{0}
+{3}0xDEAD{0} {3}0X1234{0}	{2}# hex good{0}
+{8}0xABCMNO{0} {8}0XGHI{0}	{2}# hex bad{0}
+
+{2}# extended "[base#]n" format where base is between 2-64{0}
+{2}# digits range are 0-9a-zA-Z@_{0}
+{2}# if base <= 36, then alphabets are case insensitive{0}
+{2}# this style isn't likely in non-number code, so the lexer currently{0}
+{2}# opts to colour the error in red -- send feedback if this is too{0}
+{2}# intrusive; 'invalid octals' (but valid text) in red proved annoying...{0}
+
+{3}2#10101{0}		{2}# binary{0}
+{1}2#23456{0}		{2}# error (in red){0}
+{1}8#0123456789{8}AB{0}	{2}# error (in red){0}
+{3}16#abcDEF123{0}
+{8}16#abcpqr{0}	{2}# bad{0}
+{3}64#xyzXYZ@_789{0}	{2}# full base-64{0}
+{1}99{8}#xyzXYZ{7}@{8}_789{0}	{2}# error (in red; invalid base){0}
+{1}111{8}#xyzXYZ{7}@{8}_789{0}	{2}# error (in red; invalid base){0}
+
+{3}567{7}+{3}0123{7}*{3}0xBCD{0}	{2}# with operators{0}
+{8}(4#0123-3#012){0}
+
+{2}# 20070712:{0}
+{2}# Octal lexing relaxed to avoid marking some number sequences as octal{0}
+{2}# errors. This is because the elements or apps controlled by bash may{0}
+{2}# have a different view of numbers, so we avoid flagging unnecessary{0}
+{2}# (and misleading) number errors. Radix-prefixed number lexing is{0}
+{2}# unchanged, as those cases are uncommon (no feedback on it yet.){0}
+
+{2}# In the following, red-flagged 'octals' should now be lexed as normal{0}
+{2}# numbers, allowing hex digits.{0}
+
+{2}# flightgear missing.sh{0}
+{8}scriptversion{7}={8}2004-09-07.08{0}
+
+{2}# git t/t0000/basic.sh{0}
+{8}P{7}={8}087704a96baf1c2d1c869a8b084481e121c88b5b{0}
+
+{2}# openssh config.guess{0}
+    {7}*:{8}procnto{7}*:*:*{0} {7}|{0} {7}*:{8}QNX{7}:[{3}0123456789{7}]*:*){0}
+
+{2}# with hex digits, the following will still be an invalid number{0}
+{8}066XYZ{0}

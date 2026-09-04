@@ -1,0 +1,48 @@
+{1}% All the examples here should yield folding{0}
+
+{4}classdef{0}
+    {1}% Some code{0}
+{4}end{0}
+
+{4}for{0}
+    {1}% Some code{0}
+{4}end{0}
+
+{4}function{0}
+    {1}% Some code{0}
+{4}end{0}
+
+{4}if{0}
+    {1}% Some code{0}
+{4}elseif{0}
+    {1}% Some code{0}
+{4}else{0}
+    {1}% Some code{0}
+{4}end{0}
+
+{4}parfor{0}
+    {1}% Some code{0}
+{4}end{0}
+
+{4}spmd{0}
+    {1}% Some code{0}
+{4}end{0}
+
+{4}switch{0}
+    {4}case{0}
+        {1}% Some code{0}
+    {4}case{0}
+        {1}% Some code{0}
+    {4}otherwise{0}
+        {1}% Some code{0}
+{4}end{0}
+
+{4}try{0}
+    {1}% Some code{0}
+{4}catch{0}
+    {1}% Some code{0}
+{4}end{0}
+
+{4}while{0}
+    {1}% Some code{0}
+{4}end{0}

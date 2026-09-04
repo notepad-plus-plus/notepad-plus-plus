@@ -1,0 +1,67 @@
+// This file is part of Notepad++ project
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+#include <windows.h>
+#include "shortcutRc.h"
+
+#ifndef IDC_STATIC
+#define IDC_STATIC -1
+#endif
+
+IDD_SHORTCUT_DLG DIALOGEX 0, 0, 180, 97
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
+CAPTION "Shortcut"
+FONT 8, L"MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    RTEXT           "&Name:",IDC_NAME_STATIC,10,9,43,8
+    EDITTEXT        IDC_NAME_EDIT,56,8,118,12,ES_AUTOHSCROLL
+    CONTROL         "&CTRL",IDC_CTRL_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,27,33,10
+    CONTROL         "&ALT",IDC_ALT_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,48,28,10
+    CONTROL         "&SHIFT",IDC_SHIFT_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,57,39,35,10
+    COMBOBOX        IDC_KEY_COMBO,110,37,64,270,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "OK",IDOK,39,66,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,95,66,50,14
+    LTEXT           "+",IDC_STATIC,45,39,8,8
+    LTEXT           "+",IDC_STATIC,96,39,8,8
+    LTEXT           "This will disable the accelerator",IDC_WARNING_STATIC,6,84,170,8
+    LTEXT           "CONFLICT FOUND!",IDC_CONFLICT_STATIC,6,84,170,8
+END
+
+IDD_SHORTCUTSCINT_DLG DIALOGEX 0, 0, 282, 115
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
+CAPTION "Shortcut"
+FONT 8, L"MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    RTEXT           "&Name:",IDC_NAME_STATIC,111,9,43,8
+    EDITTEXT        IDC_NAME_EDIT,158,8,118,12,ES_AUTOHSCROLL | ES_READONLY
+    CONTROL         "&CTRL",IDC_CTRL_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,114,27,33,10
+    CONTROL         "&ALT",IDC_ALT_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,114,48,28,10
+    CONTROL         "&SHIFT",IDC_SHIFT_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,159,39,35,10
+    COMBOBOX        IDC_KEY_COMBO,212,37,64,270,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Appl&y",IDC_BUTTON_APPLY,197,66,50,14
+    PUSHBUTTON      "OK",IDOK,141,84,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,197,84,50,14
+    LTEXT           "+",IDC_STATIC,147,39,8,8
+    LTEXT           "+",IDC_STATIC,198,39,8,8
+    LTEXT           "This will remove shortcut from this command",IDC_WARNING_STATIC,6,102,162,8
+    LTEXT           "CONFLICT FOUND!",IDC_CONFLICT_STATIC,6,102,162,8
+    LISTBOX         IDC_LIST_KEYS,6,6,90,72,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "A&dd",IDC_BUTTON_ADD,6,84,42,14
+    PUSHBUTTON      "Remo&ve",IDC_BUTTON_RMVE,54,84,42,14
+END

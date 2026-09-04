@@ -1,0 +1,21 @@
+hello="hello, "
+hello+=word
+echo $hello
+
+for ((i = 2; i > 0; i--)); do
+   echo postfix dec $i
+done
+for ((i = 2; i > 0; --i)); do
+   echo prefix dec $i
+done
+for ((i = 0; i < 2; i++)); do
+   echo postfix inc $i
+done
+for ((i = 0; i < 2; ++i)); do
+   echo prefix inc $i
+done
+
+# issue 215
+for ((i = 0; i < 2; i++)); do
+  echo $((((1)) << i))
+done

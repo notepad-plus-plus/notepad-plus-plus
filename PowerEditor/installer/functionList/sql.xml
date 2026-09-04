@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+   <functionList>
+      <!-- ========================================================= [ PL/SQL ] -->
+      <parser id="oracle_function" displayName="Oracle SQL" commentExpr="((?s)(\/\*.*?\*\/)|(?-s)(--.*?$))">
+         <classRange
+            mainExpr="(?isx)^\h*CREATE(\s+OR\s+REPLACE)?\s+                   # Declaration beginning
+                     ((NON)?EDITIONABLE\s+)?                                  # Optional editionable clause
+                     (PROCEDURE|FUNCTION|PACKAGE([\s]+BODY)?)                 # Object type
+                     ((((\s*\x22[^\x22]*?\x22)|(\s+[A-Z]\w*))\.)|\s*)         # Object owner (not mandatory)
+                     (?'PACKAGE_NAME'(([A-Z]\w*)|(\x22[^\x22]*?\x22)))(?!\.)  # Object name
+                     .*?\s+(IS|AS)\s                                          # It ends CREATE declaration
+                     .*?[\s\x22]((PROCEDURE)|(FUNCTION))[\s\x22]              # At least one containing procedure or function
+                     (?s:.*?)                                                 # source code
+                     [^\w]END (?(?=\x22)|\s+)(?:\k'PACKAGE_NAME')\s*;         # Named END (best practice)
+                     "
+            displayMode="$className->$functionName"
+         >
+            <className>
+               <nameExpr expr="(?isx)(PROCEDURE|(?'FUNCTION_TYPE'FUNCTION)|PACKAGE)(?(?=\s+BODY)\s+|\s*?)?(BODY)?(?(?=\s*\x22)\s*|\s+)  # Object type
+                     ((((\x22[^\x22]*?\x22)|([A-Z]\w*))\.)|\s*)                                    # Object owner (not mandatory)
+                     (?'PACKAGE_NAME'(([A-Z]\w*)|(\x22[^\x22]*?\x22)))(?!\.)                       # Object name
+                     (\s*\([^\)]*?\))?                                                             # Parameters
+                     (?('FUNCTION_TYPE')(.*?RETURN\s+[A-Z][\w\.%]*)|)                              # Return type for functions
+                     "/>
+            </className>
+            <function
+               mainExpr="(?isx)^\h*((PROCEDURE)|(?'FUNCTION_TYPE'FUNCTION))(?(?=\s*\x22)\s*|\s+) # Object type
+                        (([A-Z]\w*)|(\x22[^\x22]*?\x22))                            # Object name
+                        .*?                                                         # Everything between function name and AS|IS|;
+                        (?('FUNCTION_TYPE')(.*?RETURN\s+[A-Z][\w\.%]*)|)            # Return type for functions
+                        (?=(\s+IS\s|\s+AS\s|;))                                     # It ends CREATE declaration
+                        "
+            >
+               <functionName>
+                  <funcNameExpr expr="(?isx)((PROCEDURE)|(?'FUNCTION_TYPE'FUNCTION))(?(?=\s*\x22)\s*|\s+) # Object type
+                                 \K(([A-Z]\w*)|(\x22[^\x22]*?\x22))                                       # Object name
+                                 (\s*\([^\)]*?\))?                                                        # Parameters
+                                 (?('FUNCTION_TYPE')(.*?RETURN\s+[A-Z][\w\.%]*)|)                         # Return type for functions
+                                 "/>
+               </functionName>
+            </function>
+         </classRange>
+         <function
+            mainExpr="(?isx)^\h*CREATE(\s+OR\s+REPLACE)?\s+                # Declaration beginning
+                  ((NON)?EDITIONABLE\s+)?                                  # Optional editionable clause
+                  ((PROCEDURE)|(FUNCTION)|PACKAGE([\s]+BODY)?)             # Object type
+                  ((((\s*\x22[^\x22]*?\x22)|(\s+[A-Z]\w*))\.)|\s*)         # Object owner (not mandatory)
+                  (?'STORED_NAME'(([A-Z]\w*)|(\x22[^\x22]*?\x22)))(?!\.)   # Object name
+                  .*?\s+(IS|AS)\s                                          # It ends CREATE declaration
+                  (?s:.*?)                                                 # source code
+                  [^\w]END(?(?=\x22)|\s+)(?:\k'STORED_NAME')\s*;           # Named END (best practice)
+                  "
+            displayMode="$className->$functionName"
+         >
+            <functionName>
+               <nameExpr expr="(?isx)(PROCEDURE|(?'FUNCTION_TYPE'FUNCTION)|PACKAGE([\s]+BODY)?)(?(?=\s*\x22)\s*|\s+)   # Object type
+                  ((((\x22[^\x22]*?\x22)|([A-Z]\w*))\.)|\s*)                        # Object owner (not mandatory)
+                  (?'STORED_NAME'(([A-Z]\w*)|(\x22[^\x22]*?\x22)))(?!\.)            # Object name
+                  (\s*\([^\)]*?\))?                                                 # Parameters
+                  (?('FUNCTION_TYPE')(.*?RETURN\s+[A-Z][\w\.%]*)|)                  # Return type for functions
+                  "/>
+            </functionName>
+         </function>
+      </parser>
+   </functionList>
+</NotepadPlus>

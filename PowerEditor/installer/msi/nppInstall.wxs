@@ -1,0 +1,140 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+
+	<Package	Name="Notepad++ (x64)"
+				Manufacturer="Notepad++ team (MSI installer)"
+				Version="$(var.Version)"
+				UpgradeCode="{CDB13460-04DF-4708-A7FD-4CB4A0684605}">
+
+		<Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+		<!--
+		Icon for "Add/Remove Programs"
+		-->
+		<Icon Id="Icon.ico" SourceFile="..\images\npp_inst.ico"/>
+		<Property Id="ARPPRODUCTICON" Value="Icon.ico" />
+		
+		<!--
+		No reboot after the installation by default
+		-->
+		<Property Id="REBOOT" Value="Suppress" />
+
+		<!--
+		Write version information to Details' Comments field in Property of MSI file
+		-->
+		<SummaryInformation Comments="Notepad++ v$(var.Version) (x64)" />
+
+		<!--
+		Consider the 4th digit of version number for the updating, with AllowSameVersionUpgrades="yes"
+		-->
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." AllowSameVersionUpgrades="yes" />
+
+		<!--
+		Installation directory structure
+		-->
+		<StandardDirectory Id="ProgramFiles64Folder">
+			<Directory Id="INSTALLFOLDER" Name="Notepad++">
+				<Directory Id="ContextMenuFolder" Name="contextMenu" />
+				<Directory Id="UpdaterFolder" Name="updater" />
+				<Directory Id="AutoCompletionFolder" Name="autoCompletion" />
+
+				<Directory Id="PluginsFolder" Name="plugins" >
+					<Directory Id="PluginConfFolder" Name="config" />
+					<Directory Id="PluginMimeToolsFolder" Name="mimeTools" />
+					<Directory Id="PluginNppConverterFolder" Name="NppConverter" />
+					<Directory Id="PluginNppExportFolder" Name="NppExport" />
+				</Directory>
+
+				<Directory Id="FunctionListFolder" Name="functionList" />
+				<Directory Id="ThemesFolder" Name="themes" />
+				<Directory Id="LocalizationFolder" Name="localization" />
+			</Directory>
+		</StandardDirectory>
+
+		<StandardDirectory Id="ProgramMenuFolder">
+			<Directory Id="ApplicationProgramsFolder" Name="Notepad++" />
+		</StandardDirectory>
+
+	
+		<!--
+		Shortcut on Desktop
+		-->
+		<ComponentGroup Id="ShortcutComponentGroup" Directory="ApplicationProgramsFolder">
+			<Component Id="cmp_NppShortcut" Guid="{9DF5F816-BF4F-496B-9095-E1E8C01B89CE}"> 
+			<Shortcut	Id="startmenuShortcut"
+						Name="Notepad++"
+						Target="[INSTALLFOLDER]notepad++.exe"
+						WorkingDirectory="INSTALLFOLDER" />
+
+			<RegistryValue Root="HKCU" Key="Software\Notepad++" Name="StartMenuShortcut" Type="integer" Value="1"  KeyPath="yes"/>
+			<RemoveFolder Id="RemoveApplicationProgramsFolder" On="uninstall" />
+			</Component>
+		</ComponentGroup>
+
+		<!--
+		Context Menu
+		-->
+		<ComponentGroup Id="ContextMenuComponentGroup" Directory="ContextMenuFolder">
+			<Component Id="cmp_NppShellDll" Guid="{D6083500-DFD2-445D-B4FF-49EDF80A6A84}">
+				<File Source="..\..\bin64\NppShell.x64.dll" Name="NppShell.dll" KeyPath="yes" />
+			</Component>
+			<Component Id="cmp_NppShellMsix" Guid="{EB6E5606-60D1-4C69-8C9B-C0B12A19C6CE}">
+				<File Source="..\..\bin64\NppShell.msix" KeyPath="yes" />
+			</Component>
+
+			<Component Id="cmp_NppShellRegistry" Guid="{373DA2A0-EC23-41DC-A84D-48584FCC6619}">
+				<RegistryKey Root="HKCR" Key="*\shell\ANotepad++64">
+					<RegistryValue Type="string" Value="Notepad++ Context menu" KeyPath="yes" />
+					<RegistryValue Name="ExplorerCommandHandler" Type="string" Value="{B298D29A-A6ED-11DE-BA8C-A68E55D89593}" />
+					<RegistryValue Name="NeverDefault" Type="string" Value="" />
+				</RegistryKey>
+				<RegistryKey Root="HKCR" Key="CLSID\{B298D29A-A6ED-11DE-BA8C-A68E55D89593}">
+					<RegistryValue Type="string" Value="notepad++" />
+				</RegistryKey>
+				<RegistryKey Root="HKCR" Key="CLSID\{B298D29A-A6ED-11DE-BA8C-A68E55D89593}\InProcServer32">
+					<RegistryValue Type="string" Value="[ContextMenuFolder]NppShell.dll" />
+					<RegistryValue Name="ThreadingModel" Type="string" Value="Apartment" />
+				</RegistryKey>
+			</Component>
+			
+			<!--
+			Register sparse MSIX package after user next login for Windows 11 modern context menu
+			-->
+			<Component Id="cmp_RegSparsePackage" Guid="{02E790D5-3018-48E5-9B04-2C75925767AD}">
+				<RegistryKey Root="HKLM" Key="SOFTWARE\Notepad++">
+					<RegistryValue Name="ContextMenuFolder"
+						Type="string"
+						Value="[ContextMenuFolder]"
+						KeyPath="no" />
+				</RegistryKey>
+				<RegistryKey Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce">
+					<RegistryValue Name="RegisterNppShell"
+						Type="string"
+						Value="&quot;[System64Folder]WindowsPowerShell\v1.0\powershell.exe&quot; -NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy Bypass -Command &quot;$p = (Get-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Notepad++' -Name ContextMenuFolder).ContextMenuFolder.TrimEnd('\'); Add-AppxPackage -Path (Join-Path $p 'NppShell.msix') -ExternalLocation $p; Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Notepad++' -Name ContextMenuFolder -ErrorAction SilentlyContinue&quot;" />
+				</RegistryKey>
+			</Component>
+		</ComponentGroup>
+
+		<Feature Id="MainApplication" Title="Notepad++ Files" Level="1">
+			<ComponentGroupRef Id="CoreComponentGroup" />
+
+			<ComponentGroupRef Id="ShortcutComponentGroup" />
+			<ComponentGroupRef Id="ContextMenuComponentGroup" />
+
+			<Feature Id="AutoUpdaterFeature" Title="Auto Updater" Level="1">
+				<ComponentGroupRef Id="AutoUpdatorComponentGroup" />
+				<Level Value="0" Condition="NOUPDATER" />
+			</Feature>
+
+			<ComponentGroupRef Id="PluginAdminComponentGroup" />
+			<ComponentGroupRef Id="PluginMimeToolsComponentGroup" />
+			<ComponentGroupRef Id="PluginNppConverterComponentGroup" />
+			<ComponentGroupRef Id="PluginNppExportComponentGroup" />
+
+			<ComponentGroupRef Id="AutoCompletionComponentGroup" />
+			<ComponentGroupRef Id="FunctionListComponentGroup" />
+			<ComponentGroupRef Id="ThemesComponentGroup" />
+			<ComponentGroupRef Id="LocalizationComponentGroup" />
+		</Feature>
+
+	</Package>
+</Wix>

@@ -1,0 +1,166 @@
+// This file is part of Notepad++ project
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+#include "ListView.h"
+
+#include <windows.h>
+
+#include <commctrl.h>
+
+#include <stdexcept>
+#include <string>
+#include <vector>
+
+#include "Window.h"
+
+void ListView::init(HINSTANCE hInst, HWND parent)
+{
+	Window::init(hInst, parent);
+	INITCOMMONCONTROLSEX icex{};
+
+	// Ensure that the common control DLL is loaded.
+	icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
+	icex.dwICC  = ICC_LISTVIEW_CLASSES;
+	InitCommonControlsEx(&icex);
+
+	// Create the list-view window in report view with label editing enabled.
+	static constexpr DWORD listViewStyles = LVS_REPORT | LVS_NOSORTHEADER
+						| LVS_SINGLESEL | LVS_AUTOARRANGE
+						| LVS_SHAREIMAGELISTS | LVS_SHOWSELALWAYS;
+
+	_hSelf = ::CreateWindow(WC_LISTVIEW,
+                                L"",
+								WS_CHILD | WS_BORDER | listViewStyles,
+                                0,
+                                0,
+                                0,
+                                0,
+                                _hParent,
+                                nullptr,
+                                hInst,
+                                nullptr);
+	if (!_hSelf)
+	{
+		throw std::runtime_error("ListView::init : CreateWindowEx() function return null");
+	}
+
+	DWORD exStyle = ListView_GetExtendedListViewStyle(_hSelf);
+	exStyle |= LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT | LVS_EX_DOUBLEBUFFER | _extraStyle;
+	ListView_SetExtendedListViewStyle(_hSelf, exStyle);
+
+	if (!_columnInfos.empty())
+	{
+		LVCOLUMN lvColumn{};
+		lvColumn.mask = LVCF_TEXT | LVCF_WIDTH;
+
+		short i = 0;
+		for (auto& colInfo : _columnInfos)
+		{
+			lvColumn.cx = static_cast<int>(colInfo._width);
+			lvColumn.pszText = colInfo._label.data();
+			ListView_InsertColumn(_hSelf, ++i, &lvColumn);  // index is not 0 based but 1 based
+		}
+	}
+}
+
+void ListView::destroy()
+{
+	::DestroyWindow(_hSelf);
+	_hSelf = NULL;
+}
+
+void ListView::addLine(const std::vector<std::wstring>& values2Add, LPARAM lParam, int pos2insert)
+{
+	if (!values2Add.size())
+		return;
+
+	if (pos2insert == -1)
+		pos2insert = static_cast<int>(nbItem());
+
+	auto it = values2Add.begin();
+
+	LVITEM item{};
+	item.mask = LVIF_TEXT | LVIF_PARAM;
+
+	item.pszText = const_cast<wchar_t *>(it->c_str());
+	item.iItem = pos2insert;
+	item.iSubItem = 0;
+	item.lParam = lParam;
+	ListView_InsertItem(_hSelf, &item);
+	++it;
+
+	int j = 0;
+	for (; it != values2Add.end(); ++it)
+	{
+		ListView_SetItemText(_hSelf, pos2insert, ++j, const_cast<wchar_t *>(it->c_str()));
+	}
+}
+
+size_t ListView::findAlphabeticalOrderPos(const std::wstring& string2Cmp, SortDirection sortDir)
+{
+	const size_t itemCount = nbItem();
+	if (!itemCount)
+		return 0;
+
+	for (size_t i = 0; i < itemCount; ++i)
+	{
+		wchar_t str[MAX_PATH] = { '\0' };
+		ListView_GetItemText(_hSelf, i, 0, str, sizeof(str));
+
+		const int res = string2Cmp.compare(str);
+
+		if (res < 0) // string2Cmp < str
+		{
+			if (sortDir == sortEncrease)
+			{
+				return i;
+			}
+		}
+		else // str2Cmp >= str
+		{
+			if (sortDir == sortDecrease)
+			{
+				return i;
+			}
+		}
+	}
+	return itemCount;
+}
+
+
+LPARAM ListView::getLParamFromIndex(int itemIndex) const
+{
+	LVITEM item{};
+	item.mask = LVIF_PARAM;
+	item.iItem = itemIndex;
+	ListView_GetItem(_hSelf, &item);
+
+	return item.lParam;
+}
+
+std::vector<size_t> ListView::getCheckedIndexes() const
+{
+	std::vector<size_t> checkedIndexes;
+	const size_t itemCount = nbItem();
+	for (size_t i = 0; i < itemCount; ++i)
+	{
+		UINT st = ListView_GetItemState(_hSelf, i, LVIS_STATEIMAGEMASK);
+		if (st == INDEXTOSTATEIMAGEMASK(2)) // checked
+			checkedIndexes.push_back(i);
+	}
+	return checkedIndexes;
+}

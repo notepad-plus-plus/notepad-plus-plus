@@ -1,0 +1,9 @@
+ 0 400   0   # Test that final \n in indented heredoc (2nd example) is styled as SCE_RB_HERE_Q not SCE_RB_HERE_DELIM
+ 2 400   0 + <<T
+ 0 401   0 | X
+ 0 401   0 | T
+ 1 400   0   
+ 2 400   0 + <<-T
+ 0 401   0 | X
+ 0 401   0 | T
+ 0 400   0   

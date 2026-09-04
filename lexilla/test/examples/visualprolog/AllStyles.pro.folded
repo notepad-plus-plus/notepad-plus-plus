@@ -1,0 +1,71 @@
+ 0 400 400   % SCE_VISUALPROLOG_KEY_MAJOR (1)
+ 0 400 400   goal
+ 0 400 400   
+ 0 400 400   % SCE_VISUALPROLOG_KEY_MINOR (2)
+ 0 400 400   procedure
+ 0 400 400   
+ 0 400 400   % SCE_VISUALPROLOG_KEY_DIRECTIVE (3)
+ 0 400 400   #include
+ 0 400 400   
+ 0 400 400   % SCE_VISUALPROLOG_COMMENT_BLOCK (4)
+ 0 400 400   /**
+ 0 400 400      SCE_VISUALPROLOG_COMMENT_KEY (6)
+ 0 400 400      @detail
+ 0 400 400      SCE_VISUALPROLOG_COMMENT_KEY_ERROR (7)
+ 0 400 400      @unknown
+ 0 400 400    /* SCE_VISUALPROLOG_IDENTIFIER (8)
+ 0 400 400       SCE_VISUALPROLOG_VARIABLE (9)
+ 0 400 400       SCE_VISUALPROLOG_ANONYMOUS (10)
+ 0 400 400       SCE_VISUALPROLOG_NUMBER (11)
+ 0 400 400       SCE_VISUALPROLOG_OPERATOR (12) */ */
+ 2 400 401 + lambda = {
+ 0 401 401 |   (A) = { (B, _discard) = A*B+1 }
+ 0 401 400 | }.
+ 0 400 400   
+ 0 400 400   % SCE_VISUALPROLOG_COMMENT_LINE (5)
+ 0 400 400   % comment line
+ 0 400 400   
+ 0 400 400   % SCE_VISUALPROLOG_STRING_QUOTE (16)
+ 0 400 400   ""
+ 0 400 400   
+ 0 400 400   % SCE_VISUALPROLOG_STRING (20)
+ 0 400 400   "string"
+ 0 400 400   'string'
+ 0 400 400   @"verbatim string"
+ 0 400 400   @[<div class="test">]
+ 0 400 400   
+ 0 400 400   % SCE_VISUALPROLOG_STRING_ESCAPE (17)
+ 0 400 400   "\n"
+ 0 400 400   '\uAB12'
+ 0 400 400   
+ 0 400 400   % SCE_VISUALPROLOG_STRING_ESCAPE_ERROR (18)
+ 0 400 400   "\ "
+ 0 400 400   "open string
+ 0 400 400   
+ 0 400 400   % SCE_VISUALPROLOG_STRING_EOL (22)
+ 0 400 400   @#multi-line
+ 0 400 400     verbatim
+ 0 400 400     string#
+ 0 400 400   
+ 0 400 400   % SCE_VISUALPROLOG_EMBEDDED (23)
+ 0 400 400   [| |]
+ 0 400 400   % SCE_VISUALPROLOG_PLACEHOLDER (24)
+ 0 400 400   {| |}:test
+ 0 400 400   % line state & nesting
+ 0 400 400   [|
+ 0 400 400       {|
+ 0 400 400           /*
+ 0 400 400               % /* 
+ 0 400 400               */ 
+ 0 400 400           % */
+ 0 400 400           [|
+ 0 400 400               {|
+ 0 400 400                   @!string!
+ 0 400 400                   %
+ 0 400 400                   /*
+ 0 400 400                   */
+ 0 400 400               |}
+ 0 400 400           |]
+ 0 400 400       |}
+ 0 400 400   |]
+ 1 400 400   

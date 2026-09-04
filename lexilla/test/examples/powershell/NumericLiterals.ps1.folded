@@ -1,0 +1,36 @@
+ 0 400 400   # Treat any leading [-+] as default to reduce match complexity
+ 0 400 400   # https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_numeric_literals?view=powershell-7.3#examples
+ 0 400 400   100
+ 0 400 400   100u
+ 0 400 400   100D
+ 0 400 400   100l
+ 0 400 400   100uL
+ 0 400 400   100us
+ 0 400 400   100uy
+ 0 400 400   100y
+ 0 400 400   1e2
+ 0 400 400   1.e2
+ 0 400 400   0x1e2
+ 0 400 400   0x1e2L
+ 0 400 400   0x1e2D
+ 0 400 400   482D
+ 0 400 400   482gb
+ 0 400 400   482ngb
+ 0 400 400   0x1e2lgb
+ 0 400 400   0b1011011
+ 0 400 400   0xFFFFs
+ 0 400 400   0xFFFFFFFF
+ 0 400 400   -0xFFFFFFFF
+ 0 400 400   0xFFFFFFFFu
+ 1 400 400   
+ 0 400 400   # Float
+ 0 400 400   0.5
+ 0 400 400   .5
+ 1 400 400   
+ 0 400 400   # Range
+ 0 400 400   1..100
+ 1 400 400   
+ 0 400 400   # Issue118: 7d is numeric while 7z is user defined keyword
+ 0 400 400   7d
+ 0 400 400   7z
+ 0 400   0   

@@ -1,0 +1,2 @@
+This file (scintilla<version>.zip and lexilla<version>.zip) are the original Scintilla and Lexilla releases of current Scintilla and Lexilla.
+While updating a new version of scintilla or lexilla, the content of the zips will be compared with Notepad++'s scintilla or lexilla, in order to get the patch for adding it into new scintilla or lexilla release.

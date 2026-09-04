@@ -1,0 +1,58 @@
+/*
+This file is part of Notepad++ project
+Copyright (C)2021 Don HO <don.h@free.fr>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+at your option any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+
+#include <windows.h>
+#include "RunDlg_rc.h"
+
+#ifndef IDC_STATIC
+#define IDC_STATIC -1
+#endif
+
+IDD_RUN_DLG DIALOGEX 0, 0, 402, 80
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
+CAPTION "Run..."
+FONT 8, L"MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "The &Program to Run",IDC_MAINTEXT_STATIC,7,6,388,48,BS_CENTER
+    COMBOBOX        IDC_COMBO_RUN_PATH,14,26,338,71,CBS_DROPDOWN | CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "...",IDC_BUTTON_FILE_BROWSER,356,25,16,14
+    PUSHBUTTON      "&+",IDC_BUTTON_VARIABLES,372,25,16,14
+    DEFPUSHBUTTON   "&Run",IDOK,124,60,50,14
+    PUSHBUTTON      "&Save...",IDC_BUTTON_SAVE,177,60,50,14
+    PUSHBUTTON      "&Cancel",IDCANCEL,230,60,50,14
+END
+
+IDR_RUN_DLG_MENU_VARIABLES MENU
+BEGIN
+    POPUP "Variables menu"
+    BEGIN
+        MENUITEM "&FULL_CURRENT_PATH\tFull path to active file",      IDM_RUN_DLG_VARMENU_START + 0
+        MENUITEM "CURRENT_&DIRECTORY\tActive file's directory",       IDM_RUN_DLG_VARMENU_START + 1
+        MENUITEM "FILE_&NAME\tActive file's name",                    IDM_RUN_DLG_VARMENU_START + 2
+        MENUITEM "NAME_&PART\tFile name without extension",           IDM_RUN_DLG_VARMENU_START + 3
+        MENUITEM "E&XT_PART\tFile extension (with .)",                IDM_RUN_DLG_VARMENU_START + 4
+        MENUITEM "CURRENT_&WORD\tSelected word or word under caret",  IDM_RUN_DLG_VARMENU_START + 5
+        MENUITEM "NPP_&DIRECTORY\tnotepad++.exe directory",           IDM_RUN_DLG_VARMENU_START + 6
+        MENUITEM "NPP_F&ULL_FILE_PATH\tFull path of notepad++.exe",   IDM_RUN_DLG_VARMENU_START + 7
+        MENUITEM "CURRENT_&LINE\tLine number of caret",               IDM_RUN_DLG_VARMENU_START + 8
+        MENUITEM "CURRENT_&COLUMN\tColumn number of caret",           IDM_RUN_DLG_VARMENU_START + 9
+        MENUITEM "CURRENT_LINE&STR\tCurrent line text",               IDM_RUN_DLG_VARMENU_START + 10
+    END
+END

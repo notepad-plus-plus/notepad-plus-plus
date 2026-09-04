@@ -1,0 +1,22 @@
+{9}<!-- Check PHP start tags for issue 252 -->{0}
+
+{9}<!-- Full PHP tag: enabled -->{0}
+{18}<?php{118}
+{121}echo{118} {121}__FILE__{127}.{121}__LINE__{127};{118}
+{18}?>{0}
+
+{9}<!-- Short echo tag: enabled -->{0}
+{18}<?={118} {120}'echo'{118} {18}?>{0}
+
+{9}<!-- Short tag: disabled -->{0}
+{2}<?
+echo 'short'
+?>{0}
+
+{9}<!-- ASP language selection: disabled -->{0}
+{2}<%@language=JScript%>{0}
+
+{9}<!-- ASP tag: disabled -->{0}
+{2}<%
+Response.Write('short')
+%>{0}

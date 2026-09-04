@@ -1,0 +1,37 @@
+ 0 400 400   | A Baan nonsense example that produces all styles 0..24
+ 0 400 400   #pragma nowarnings
+ 0 400 400   #include <bic_desktop>
+ 0 400 400   #define BOB 17
+ 0 400 400   
+ 0 400 400   FunctionUsage
+ 0 400 400       Do the main thing
+ 0 400 400   EndFunctionUsage
+ 0 400 400   function main() {
+ 0 400 400       | Comment
+ 0 400 400       long a
+ 0 400 400       a = 0
+ 0 400 400       message("message")
+ 0 400 400       abort.io()
+ 0 400 400       "Unclosed string
+ 0 400 400       domain tcmcs.str50 err.msg
+ 0 400 400       actual.occ = 4
+ 0 400 400       rc = stpapi.enum.answer("tdilc4113s000","tdilc40062",tcyesno.yes)
+ 0 400 400       x = __FILE__
+ 0 400 400       | Table
+ 0 400 400       rcd.tabcde111
+ 0 400 400       | SQL
+ 0 400 400       abcde111.fghi
+ 0 400 400       | Function 
+ 0 400 400       abint.dllcdefg.h
+ 0 400 400       DALUPDATE("tccom100", true, err.msg)
+ 0 400 400   }
+ 0 400 400   
+ 0 400 400   x.is.mandatory() {
+ 0 400 400       return(true)
+ 0 400 400   }
+ 0 400 400   
+ 0 400 400   form.1:
+ 0 400 400   
+ 0 400 400   init.form:
+ 0 400 400       | ...
+ 0 400   0   

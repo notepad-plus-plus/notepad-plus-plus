@@ -1,0 +1,373 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM64">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM64">
+      <Configuration>Release</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>Notepad++</ProjectName>
+    <ProjectGuid>{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}</ProjectGuid>
+    <RootNamespace>Notepad++</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '18'">v145</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '17'">v143</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '18' and exists('$(MSBuildExtensionsPath32)\Microsoft\VC\v170\Platforms\$(Platform)\PlatformToolsets\v143\Toolset.props')">v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="notepadPlus.Cpp.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>x64\$(Configuration)\</OutDir>
+    <IntDir>x64\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <OutDir>arm64\$(Configuration)\</OutDir>
+    <IntDir>arm64\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\bin\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>..\bin64\</OutDir>
+    <IntDir>x64\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <OutDir>..\binarm64\</OutDir>
+    <IntDir>arm64\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\DarkMode\DarkMode.cpp" />
+    <ClCompile Include="..\src\MISC\Common\SortLocale.cpp" />
+    <ClCompile Include="..\src\MISC\Common\verifySignedfile.cpp" />
+    <ClCompile Include="..\src\MISC\md5\md5Dlgs.cpp" />
+    <ClCompile Include="..\src\MISC\sha1\calc_sha1.cpp" />
+    <ClCompile Include="..\src\MISC\sha1\sha1.cpp" />
+    <ClCompile Include="..\src\MISC\sha2\sha-256.cpp" />
+    <ClCompile Include="..\src\MISC\sha512\sha512.cpp" />
+    <ClCompile Include="..\src\NppDarkMode.cpp" />
+    <ClCompile Include="..\src\dpiManagerV2.cpp" />
+    <ClCompile Include="..\src\WinControls\AboutDlg\AboutDlg.cpp" />
+    <ClCompile Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\AutoCompletion.cpp" />
+    <ClCompile Include="..\src\WinControls\AnsiCharPanel\asciiListView.cpp" />
+    <ClCompile Include="..\src\WinControls\DocumentMap\documentSnapshot.cpp" />
+    <ClCompile Include="..\src\WinControls\DoubleBuffer\DoubleBuffer.cpp" />
+    <ClCompile Include="..\src\WinControls\Grid\BabyGrid.cpp" />
+    <ClCompile Include="..\src\WinControls\Grid\BabyGridWrapper.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\Buffer.cpp" />
+    <ClCompile Include="..\src\WinControls\ClipboardHistory\clipboardHistoryPanel.cpp" />
+    <ClCompile Include="..\src\WinControls\ColourPicker\ColourPicker.cpp" />
+    <ClCompile Include="..\src\WinControls\ColourPicker\ColourPopup.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\columnEditor.cpp" />
+    <ClCompile Include="..\src\MISC\Common\Common.cpp" />
+    <ClCompile Include="..\src\MISC\Common\FileInterface.cpp" />
+    <ClCompile Include="..\src\WinControls\ContextMenu\ContextMenu.cpp" />
+    <ClCompile Include="..\src\WinControls\OpenSaveFileDialog\CustomFileDialog.cpp" />
+    <ClCompile Include="..\src\WinControls\PluginsAdmin\pluginsAdmin.cpp" />
+    <ClCompile Include="..\src\WinControls\TabBar\ControlsTab.cpp" />
+    <ClCompile Include="..\src\WinControls\DockingWnd\DockingCont.cpp" />
+    <ClCompile Include="..\src\WinControls\DockingWnd\DockingManager.cpp" />
+    <ClCompile Include="..\src\WinControls\DockingWnd\DockingSplitter.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\DocTabView.cpp" />
+    <ClCompile Include="..\src\WinControls\DocumentMap\documentMap.cpp" />
+    <ClCompile Include="..\src\EncodingMapper.cpp" />
+    <ClCompile Include="..\src\WinControls\FindCharsInRange\FindCharsInRange.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\FindReplaceDlg.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\FunctionCallTip.cpp" />
+    <ClCompile Include="..\src\WinControls\FunctionList\functionListPanel.cpp" />
+    <ClCompile Include="..\src\WinControls\FunctionList\functionParser.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\GoToLineDlg.cpp" />
+    <ClCompile Include="..\src\WinControls\DockingWnd\Gripper.cpp" />
+    <ClCompile Include="..\src\WinControls\ImageListSet\ImageListSet.cpp" />
+    <ClCompile Include="..\src\lastRecentFileList.cpp" />
+    <ClCompile Include="..\src\lesDlgs.cpp" />
+    <ClCompile Include="..\src\WinControls\AnsiCharPanel\ListView.cpp" />
+    <ClCompile Include="..\src\localization.cpp" />
+    <ClCompile Include="..\src\MISC\Exception\MiniDumper.cpp" />
+    <ClCompile Include="..\src\Notepad_plus.cpp" />
+    <ClCompile Include="..\src\Notepad_plus_Window.cpp" />
+    <ClCompile Include="..\src\NppBigSwitch.cpp" />
+    <ClCompile Include="..\src\NppCommands.cpp" />
+    <ClCompile Include="..\src\NppIO.cpp" />
+    <ClCompile Include="..\src\NppNotification.cpp" />
+    <ClCompile Include="..\src\Parameters.cpp" />
+    <ClCompile Include="..\src\Misc\PluginsManager\PluginsManager.cpp" />
+    <ClCompile Include="..\src\WinControls\Preference\preferenceDlg.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\Printer.cpp" />
+    <ClCompile Include="..\src\MISC\Process\Processus.cpp" />
+    <ClCompile Include="..\src\WinControls\ProjectPanel\ProjectPanel.cpp" />
+    <ClCompile Include="..\src\MISC\RegExt\regExtDlg.cpp" />
+    <ClCompile Include="..\src\WinControls\StaticDialog\RunDlg\RunDlg.cpp" />
+    <ClCompile Include="..\src\WinControls\shortcut\RunMacroDlg.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\ScintillaCtrls.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\ScintillaEditView.cpp" />
+    <ClCompile Include="..\src\WinControls\shortcut\shortcut.cpp" />
+    <ClCompile Include="..\src\WinControls\Grid\ShortcutMapper.cpp" />
+    <ClCompile Include="..\src\WinControls\TreeView\TreeView.cpp" />
+    <ClCompile Include="..\src\WinControls\WindowsDlg\SizeableDlg.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\SmartHighlighter.cpp" />
+    <ClCompile Include="..\src\WinControls\SplitterContainer\Splitter.cpp" />
+    <ClCompile Include="..\src\WinControls\SplitterContainer\SplitterContainer.cpp" />
+    <ClCompile Include="..\src\WinControls\StaticDialog\StaticDialog.cpp" />
+    <ClCompile Include="..\src\WinControls\StatusBar\StatusBar.cpp" />
+    <ClCompile Include="..\src\WinControls\TabBar\TabBar.cpp" />
+    <ClCompile Include="..\src\WinControls\TaskList\TaskList.cpp" />
+    <ClCompile Include="..\src\WinControls\TaskList\TaskListDlg.cpp" />
+    <ClCompile Include="..\src\pugixml\pugixml.cpp" />
+    <ClCompile Include="..\src\WinControls\ToolBar\ToolBar.cpp" />
+    <ClCompile Include="..\src\WinControls\ToolTip\ToolTip.cpp" />
+    <ClCompile Include="..\src\WinControls\TrayIcon\trayIconControler.cpp" />
+    <ClCompile Include="..\src\WinControls\AboutDlg\URLCtrl.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\UserDefineDialog.cpp" />
+    <ClCompile Include="..\src\Utf8_16.cpp" />
+    <ClCompile Include="..\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcher.cpp" />
+    <ClCompile Include="..\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcherListView.cpp" />
+    <ClCompile Include="..\src\MISC\Exception\Win32Exception.cpp" />
+    <ClCompile Include="..\src\WinControls\WindowsDlg\WindowsDlg.cpp" />
+    <ClCompile Include="..\src\winmain.cpp" />
+    <ClCompile Include="..\src\WinControls\WindowsDlg\WinMgr.cpp" />
+    <ClCompile Include="..\src\WinControls\WindowsDlg\WinRect.cpp" />
+    <ClCompile Include="..\src\WinControls\ColourPicker\WordStyleDlg.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\xmlMatchedTagsHighlighter.cpp" />
+    <ClCompile Include="..\src\WinControls\FileBrowser\fileBrowser.cpp" />
+    <ClCompile Include="..\src\WinControls\ReadDirectoryChanges\ReadDirectoryChanges.cpp" />
+    <ClCompile Include="..\src\WinControls\ReadDirectoryChanges\ReadDirectoryChangesPrivate.cpp" />
+    <ClCompile Include="..\src\WinControls\ReadDirectoryChanges\ReadFileChanges.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\src\MISC\md5\md5Dlgs.rc" />
+    <ResourceCompile Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel.rc" />
+    <ResourceCompile Include="..\src\WinControls\ClipboardHistory\clipboardHistoryPanel.rc" />
+    <ResourceCompile Include="..\src\WinControls\ColourPicker\ColourPopup.rc" />
+    <ResourceCompile Include="..\src\ScintillaComponent\columnEditor.rc" />
+    <ResourceCompile Include="..\src\WinControls\DockingWnd\DockingGUIWidget.rc" />
+    <ResourceCompile Include="..\src\WinControls\DocumentMap\documentMap.rc" />
+    <ResourceCompile Include="..\src\WinControls\DocumentMap\documentSnapshot.rc" />
+    <ResourceCompile Include="..\src\WinControls\FindCharsInRange\findCharsInRange.rc" />
+    <ResourceCompile Include="..\src\ScintillaComponent\FindReplaceDlg.rc" />
+    <ResourceCompile Include="..\src\WinControls\FunctionList\functionListPanel.rc" />
+    <ResourceCompile Include="..\src\Notepad_plus.rc" />
+    <ResourceCompile Include="..\src\WinControls\PluginsAdmin\pluginsAdmin.rc" />
+    <ResourceCompile Include="..\src\WinControls\Preference\preference.rc" />
+    <ResourceCompile Include="..\src\WinControls\ProjectPanel\ProjectPanel.rc" />
+    <ResourceCompile Include="..\src\MISC\RegExt\regExtDlg.rc" />
+    <ResourceCompile Include="..\src\WinControls\StaticDialog\RunDlg\RunDlg.rc" />
+    <ResourceCompile Include="..\src\WinControls\shortcut\RunMacroDlg.rc" />
+    <ResourceCompile Include="..\src\WinControls\shortcut\shortcut.rc" />
+    <ResourceCompile Include="..\src\WinControls\Grid\ShortcutMapper.rc" />
+    <ResourceCompile Include="..\src\WinControls\TaskList\TaskListDlg.rc" />
+    <ResourceCompile Include="..\src\ScintillaComponent\UserDefineDialog.rc" />
+    <ResourceCompile Include="..\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcher.rc" />
+    <ResourceCompile Include="..\src\WinControls\WindowsDlg\WindowsDlg.rc" />
+    <ResourceCompile Include="..\src\WinControls\ColourPicker\WordStyleDlg.rc" />
+    <ResourceCompile Include="..\src\WinControls\FileBrowser\fileBrowser.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\clipboardFormats.h" />
+    <ClInclude Include="..\src\DarkMode\DarkMode.h" />
+    <ClInclude Include="..\src\DarkMode\IatHook.h" />
+    <ClInclude Include="..\src\DarkMode\UAHMenuBar.h" />
+    <ClInclude Include="..\src\dpiManagerV2.h" />
+    <ClInclude Include="..\src\NppXml.h" />
+    <ClInclude Include="..\src\keys.h" />
+    <ClInclude Include="..\src\localizationString.h" />
+    <ClInclude Include="..\src\MISC\Common\NppConstants.h" />
+    <ClInclude Include="..\src\MISC\Common\Sorters.h" />
+    <ClInclude Include="..\src\MISC\Common\SortLocale.h" />
+    <ClInclude Include="..\src\MISC\Common\verifySignedfile.h" />
+    <ClInclude Include="..\src\MISC\md5\md5.h" />
+    <ClInclude Include="..\src\MISC\md5\md5Dlgs.h" />
+    <ClInclude Include="..\src\MISC\md5\md5Dlgs_rc.h" />
+    <ClInclude Include="..\src\MISC\sha1\calc_sha1.h" />
+    <ClInclude Include="..\src\MISC\sha1\sha1.h" />
+    <ClInclude Include="..\src\MISC\sha2\sha-256.h" />
+    <ClInclude Include="..\src\MISC\sha512\sha512.h" />
+    <ClInclude Include="..\src\NppDarkMode.h" />
+    <ClInclude Include="..\src\ScintillaComponent\columnEditor_rc.h" />
+    <ClInclude Include="..\src\ScintillaComponent\FindReplaceDlg_rc.h" />
+    <ClInclude Include="..\src\Utf8.h" />
+    <ClInclude Include="..\src\WinControls\AboutDlg\AboutDlg.h" />
+    <ClInclude Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel.h" />
+    <ClInclude Include="..\src\ScintillaComponent\AutoCompletion.h" />
+    <ClInclude Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel_rc.h" />
+    <ClInclude Include="..\src\WinControls\AnsiCharPanel\asciiListView.h" />
+    <ClInclude Include="..\src\WinControls\ColourPicker\ColourPopupResource.h" />
+    <ClInclude Include="..\src\WinControls\ColourPicker\WordStyleDlgRes.h" />
+    <ClInclude Include="..\src\WinControls\DocumentMap\documentMap_rc.h" />
+    <ClInclude Include="..\src\WinControls\DocumentMap\documentSnapshot.h" />
+    <ClInclude Include="..\src\WinControls\DocumentMap\documentSnapshot_rc.h" />
+    <ClInclude Include="..\src\WinControls\FindCharsInRange\findCharsInRange_rc.h" />
+    <ClInclude Include="..\src\WinControls\Grid\BabyGrid.h" />
+    <ClInclude Include="..\src\WinControls\Grid\BabyGridWrapper.h" />
+    <ClInclude Include="..\src\ScintillaComponent\Buffer.h" />
+    <ClInclude Include="..\src\WinControls\ClipboardHistory\clipboardHistoryPanel.h" />
+    <ClInclude Include="..\src\WinControls\ClipboardHistory\clipboardHistoryPanel_rc.h" />
+    <ClInclude Include="..\src\ScintillaComponent\colors.h" />
+    <ClInclude Include="..\src\WinControls\ColourPicker\ColourPicker.h" />
+    <ClInclude Include="..\src\WinControls\ColourPicker\ColourPopup.h" />
+    <ClInclude Include="..\src\ScintillaComponent\columnEditor.h" />
+    <ClInclude Include="..\src\MISC\Common\Common.h" />
+    <ClInclude Include="..\src\MISC\Common\FileInterface.h" />
+    <ClInclude Include="..\src\WinControls\ContextMenu\ContextMenu.h" />
+    <ClInclude Include="..\src\WinControls\OpenSaveFileDialog\CustomFileDialog.h" />
+    <ClInclude Include="..\src\WinControls\PluginsAdmin\pluginsAdmin.h" />
+    <ClInclude Include="..\src\WinControls\PluginsAdmin\pluginsAdminRes.h" />
+    <ClInclude Include="..\src\WinControls\Preference\preference_rc.h" />
+    <ClInclude Include="..\src\WinControls\ReadDirectoryChanges\targetver.h" />
+    <ClInclude Include="..\src\WinControls\shortcut\shortcutRc.h" />
+    <ClInclude Include="..\src\WinControls\StaticDialog\RunDlg\RunDlg_rc.h" />
+    <ClInclude Include="..\src\WinControls\TabBar\ControlsTab.h" />
+    <ClInclude Include="..\src\WinControls\DockingWnd\Docking.h" />
+    <ClInclude Include="..\src\WinControls\DockingWnd\DockingCont.h" />
+    <ClInclude Include="..\src\WinControls\DockingWnd\DockingDlgInterface.h" />
+    <ClInclude Include="..\src\WinControls\DockingWnd\DockingManager.h" />
+    <ClInclude Include="..\src\WinControls\DockingWnd\dockingResource.h" />
+    <ClInclude Include="..\src\WinControls\DockingWnd\DockingSplitter.h" />
+    <ClInclude Include="..\src\ScintillaComponent\DocTabView.h" />
+    <ClInclude Include="..\src\WinControls\DocumentMap\documentMap.h" />
+    <ClInclude Include="..\src\WinControls\DoubleBuffer\DoubleBuffer.h" />
+    <ClInclude Include="..\src\EncodingMapper.h" />
+    <ClInclude Include="..\src\MISC\FileNameStringSplitter.h" />
+    <ClInclude Include="..\src\WinControls\FindCharsInRange\FindCharsInRange.h" />
+    <ClInclude Include="..\src\ScintillaComponent\FindReplaceDlg.h" />
+    <ClInclude Include="..\src\ScintillaComponent\FunctionCallTip.h" />
+    <ClInclude Include="..\src\WinControls\FunctionList\functionListPanel.h" />
+    <ClInclude Include="..\src\WinControls\FunctionList\functionListPanel_rc.h" />
+    <ClInclude Include="..\src\WinControls\FunctionList\functionParser.h" />
+    <ClInclude Include="..\src\ScintillaComponent\GoToLineDlg.h" />
+    <ClInclude Include="..\src\WinControls\DockingWnd\Gripper.h" />
+    <ClInclude Include="..\src\MISC\PluginsManager\IDAllocator.h" />
+    <ClInclude Include="..\src\WinControls\ImageListSet\ImageListSet.h" />
+    <ClInclude Include="..\src\lastRecentFileList.h" />
+    <ClInclude Include="..\src\lesDlgs.h" />
+    <ClInclude Include="..\src\WinControls\AnsiCharPanel\ListView.h" />
+    <ClInclude Include="..\src\localization.h" />
+    <ClInclude Include="..\src\menuCmdID.h" />
+    <ClInclude Include="..\src\MISC\Exception\MiniDumper.h" />
+    <ClInclude Include="..\src\Notepad_plus.h" />
+    <ClInclude Include="..\src\MISC\PluginsManager\Notepad_plus_msgs.h" />
+    <ClInclude Include="..\src\Notepad_plus_Window.h" />
+    <ClInclude Include="..\src\Parameters.h" />
+    <ClInclude Include="..\src\MISC\PluginsManager\PluginInterface.h" />
+    <ClInclude Include="..\src\MISC\PluginsManager\PluginsManager.h" />
+    <ClInclude Include="..\src\WinControls\Preference\preferenceDlg.h" />
+    <ClInclude Include="..\src\ScintillaComponent\Printer.h" />
+    <ClInclude Include="..\src\MISC\Process\Processus.h" />
+    <ClInclude Include="..\src\WinControls\ProjectPanel\ProjectPanel.h" />
+    <ClInclude Include="..\src\WinControls\ProjectPanel\ProjectPanel_rc.h" />
+    <ClInclude Include="..\src\MISC\RegExt\regExtDlg.h" />
+    <ClInclude Include="..\src\MISC\RegExt\regExtDlgRc.h" />
+    <ClInclude Include="..\src\resource.h" />
+    <ClInclude Include="..\src\WinControls\StaticDialog\RunDlg\RunDlg.h" />
+    <ClInclude Include="..\src\WinControls\shortcut\RunMacroDlg.h" />
+    <ClInclude Include="..\src\WinControls\shortcut\RunMacroDlg_rc.h" />
+    <ClInclude Include="..\src\ScintillaComponent\ScintillaCtrls.h" />
+    <ClInclude Include="..\src\ScintillaComponent\ScintillaEditView.h" />
+    <ClInclude Include="..\src\WinControls\shortcut\shortcut.h" />
+    <ClInclude Include="..\src\WinControls\Grid\ShortcutMapper.h" />
+    <ClInclude Include="..\src\WinControls\Grid\ShortcutMapper_rc.h" />
+    <ClInclude Include="..\src\WinControls\TreeView\TreeView.h" />
+    <ClInclude Include="..\src\WinControls\WindowsDlg\SizeableDlg.h" />
+    <ClInclude Include="..\src\ScintillaComponent\SmartHighlighter.h" />
+    <ClInclude Include="..\src\WinControls\SplitterContainer\Splitter.h" />
+    <ClInclude Include="..\src\WinControls\SplitterContainer\SplitterContainer.h" />
+    <ClInclude Include="..\src\WinControls\StaticDialog\StaticDialog.h" />
+    <ClInclude Include="..\src\WinControls\StatusBar\StatusBar.h" />
+    <ClInclude Include="..\src\WinControls\TabBar\TabBar.h" />
+    <ClInclude Include="..\src\WinControls\TaskList\TaskList.h" />
+    <ClInclude Include="..\src\WinControls\TaskList\TaskListDlg.h" />
+    <ClInclude Include="..\src\WinControls\TaskList\TaskListDlg_rc.h" />
+    <ClInclude Include="..\src\pugixml\pugiconfig.hpp" />
+    <ClInclude Include="..\src\pugixml\pugixml.hpp" />
+    <ClInclude Include="..\src\WinControls\ToolBar\ToolBar.h" />
+    <ClInclude Include="..\src\WinControls\ToolTip\ToolTip.h" />
+    <ClInclude Include="..\src\WinControls\TrayIcon\trayIconControler.h" />
+    <ClInclude Include="..\src\WinControls\AboutDlg\URLCtrl.h" />
+    <ClInclude Include="..\src\ScintillaComponent\UserDefineDialog.h" />
+    <ClInclude Include="..\src\ScintillaComponent\UserDefineResource.h" />
+    <ClInclude Include="..\src\Utf8_16.h" />
+    <ClInclude Include="..\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcher.h" />
+    <ClInclude Include="..\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcher_rc.h" />
+    <ClInclude Include="..\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcherListView.h" />
+    <ClInclude Include="..\src\MISC\Exception\Win32Exception.h" />
+    <ClInclude Include="..\src\WinControls\Window.h" />
+    <ClInclude Include="..\src\WinControls\WindowsDlg\WindowsDlg.h" />
+    <ClInclude Include="..\src\WinControls\WindowsDlg\WindowsDlgRc.h" />
+    <ClInclude Include="..\src\WinControls\WindowsDlg\WinMgr.h" />
+    <ClInclude Include="..\src\WinControls\ColourPicker\WordStyleDlg.h" />
+    <ClInclude Include="..\src\ScintillaComponent\xmlMatchedTagsHighlighter.h" />
+    <ClInclude Include="..\src\rgba_icons.h" />
+    <ClInclude Include="..\src\WinControls\FileBrowser\fileBrowser.h" />
+    <ClInclude Include="..\src\WinControls\FileBrowser\fileBrowser_rc.h" />
+    <ClInclude Include="..\src\WinControls\ReadDirectoryChanges\ReadDirectoryChanges.h" />
+    <ClInclude Include="..\src\WinControls\ReadDirectoryChanges\ReadDirectoryChangesPrivate.h" />
+    <ClInclude Include="..\src\WinControls\ReadDirectoryChanges\ThreadSafeQueue.h" />
+    <ClInclude Include="..\src\WinControls\ReadDirectoryChanges\ReadFileChanges.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="..\src\notepad++.exe.manifest" />
+  </ItemGroup>
+  <Import Project="notepadPlus.uchardet.targets" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

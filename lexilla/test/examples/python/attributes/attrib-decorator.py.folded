@@ -1,0 +1,10 @@
+ 0 400   0   # issue#294 also pointed out that decorator attributes behaved differently
+ 0 400   0   #   for left-justified decorators vs indented decorators
+ 1 400   0   
+ 0 400   0   @decorator.attribute
+ 2 400   0 + def foo():
+ 0 404   0 |     @decorator.attribute
+ 2 404   0 +     def bar():
+ 0 408   0 |         pass
+ 0 404   0 |     bar()
+ 1 404   0 | 

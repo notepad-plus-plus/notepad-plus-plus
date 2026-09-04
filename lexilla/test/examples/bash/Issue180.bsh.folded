@@ -1,0 +1,8 @@
+ 0 400   0   echo '$'
+ 0 400   0   echo "$"
+ 0 400   0   echo "$"
+ 0 400   0   echo "$"x""
+ 0 400   0   echo x$'\t'y
+ 0 400   0   echo "x$'\t'y"
+ 0 400   0   echo "x\ty"
+ 0 400   0   

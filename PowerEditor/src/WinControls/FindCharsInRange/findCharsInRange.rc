@@ -1,0 +1,43 @@
+// This file is part of Notepad++ project
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+#pragma code_page(65001)
+
+#include <windows.h>
+#include "findCharsInRange_rc.h"
+
+IDD_FINDCHARACTERS DIALOGEX 0, 0, 267, 99
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
+CAPTION "Find Characters in Range..."
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    CONTROL         "&Non-ASCII characters (128–255)",IDC_NONASCCI_RADIO,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,7,6,160,10
+    CONTROL         "&ASCII characters (0–127)",IDC_ASCCI_RADIO,"Button",BS_AUTORADIOBUTTON,7,21,160,10
+    CONTROL         "Custom &range (0–255):",IDC_MYRANGE_RADIO,"Button",BS_AUTORADIOBUTTON,7,36,110,10
+    EDITTEXT        IDC_RANGESTART_EDIT,120,35,20,12,ES_AUTOHSCROLL | ES_CENTER | ES_NUMBER
+    CTEXT           "–",IDC_STATIC,143,37,8,8
+    EDITTEXT        IDC_RANGEEND_EDIT,154,35,20,12,ES_AUTOHSCROLL | ES_CENTER | ES_NUMBER
+
+    GROUPBOX        "Direction",IDC_FINDCHAR_DIR_STATIC,7,56,74,36,WS_GROUP
+    CONTROL         "&Up",ID_FINDCHAR_DIRUP,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,13,68,64,10
+    CONTROL         "&Down",ID_FINDCHAR_DIRDOWN,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,13,80,63,10
+
+    CONTROL         "Wra&p around",ID_FINDCHAR_WRAP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,85,80,110,10
+
+    DEFPUSHBUTTON   "&Find",ID_FINDCHAR_NEXT,190,6,70,14
+    PUSHBUTTON      "&Close",IDCANCEL,190,24,70,14
+END

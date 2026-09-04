@@ -1,0 +1,1962 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Translation note:
+1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print" command.
+2. All the comments are for explanation, they are not for translation.
+-->
+<!--
+Additionnal information about Corsican localization:
+
+1. The latest update of Corsican translation file is available here:
+	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
+
+2. History of Corsican translation for Notepad++:
+
+	- Updated in 2026 by Patriccollu di Santa Maria è Sichè: Feb. 10th (v8.9.1+), Mar. 10th (v8.9.2+), May 17th (v8.9.5+),
+			  June 24th (v8.9.6.4+)
+	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8), Apr. 20th (v8.8),
+			  June 26th (v8.8.1+), July 24th (v8.8.3+), Sep. 30th (v8.8.5+), Dec. 12th (v8.8.9+)
+	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
+			  June 13th (v8.6.9), Sept. 8th (v8.7), Oct. 21st (v8.7.1), Nov. 20th (v8.7.2), Nov. 29th (v8.7.3)
+	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
+			  May 7th (v8.5.3), June 9th (v8.5.4), Aug. 1st (v8.5.5), Aug. 7th (v8.5.6), Oct. 7th (v8.5.8),
+			  Nov. 15th (v8.5.9), Nov. 22nd (v8.6), Dec. 19th (v8.6.1), Dec. 29th (v8.6.1)
+	- Updated in 2022 by Patriccollu di Santa Maria è Sichè: Jan. 11th (v8.2.1), Feb. 8th (v8.3.1), Feb. 21st (v8.3.2),
+			  Sep. 21st (v8.4.6), Apr. 7th (v8.3.4), Apr. 27th (v8.4.1), May 25th (v8.4.2), June 27th (v8.4.3),
+			  Aug. 24th (v8.4.5), Oct. 22nd (v8.4.7), Dec. 1st (v8.4.8), Dec. 31st (v8.4.9)
+	- Updated in 2021 by Patriccollu di Santa Maria è Sichè: Jan. 27th (v7.9.3), May 12th (v7.9.6), May 20th (v7.9.6),
+			  June 14th (v8.0.0), July 31st (v8.1.3), Aug. 20th (v8.1.4), Sep. 13th (v8.1.5), Dec. 4th (v8.1.9.3)
+	- Updated in 2020 by Patriccollu di Santa Maria è Sichè: Apr. 19th (v7.8.7), June 28th (v7.8.9), Sep. 16th (v7.9.1),
+			  Nov, 4th (v7.9.2)
+	- Updated in 2019 by Patriccollu di Santa Maria è Sichè: Mar. 29th (v7.6.5), July 7th (v7.7.2), Nov. 2nd (v7.8.1),
+			  Dec. 5th (v7.8.3)
+	- Updated on March 11th, 2018 for version 7.5.5 by Patriccollu di Santa Maria è Sichè
+	- Updated in 2017 by Patriccollu di Santa Maria è Sichè: April 30th (v7.3.3), August 19th (v7.5)
+	- Created on September 14th, 2016 for version 6.9.2 by Patriccollu di Santa Maria è Sichè
+
+3. An additionnal information about Corsican translation for Notepad++ is available here:
+	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
+-->
+<NotepadPlus>
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.9.6.4">
+		<Menu>
+			<Main>
+				<!-- Main Menu Entries -->
+				<Entries>
+					<Item menuId="file" name="&amp;Schedariu"/>
+					<Item menuId="edit" name="&amp;Mudificazione"/>
+					<Item menuId="search" name="&amp;Ricerca"/>
+					<Item menuId="view" name="&amp;Affissera"/>
+					<Item menuId="encoding" name="&amp;Cudificazione"/>
+					<Item menuId="language" name="&amp;Linguaghju"/>
+					<Item menuId="settings" name="&amp;Parametri"/>
+					<Item menuId="tools" name="A&amp;ttrezzi"/>
+					<Item menuId="macro" name="Pr&amp;ucedura"/>
+					<Item menuId="run" name="La&amp;ncià"/>
+					<Item menuId="Plugins" name="&amp;Estensioni"/>
+					<Item menuId="Window" name="&amp;Finestra"/>
+				</Entries>
+				<!-- Sub Menu Entries -->
+				<SubEntries>
+					<Item subMenuId="file-openFolder" name="A&amp;pre u cartulare cuntenendu u schedariu"/>
+					<Item subMenuId="file-closeMore" name="C&amp;hjode parechji ducumenti"/>
+					<Item subMenuId="file-recentFiles" name="Schedarii &amp;recenti"/>
+					<Item subMenuId="edit-insert" name="Framette"/>
+					<Item subMenuId="edit-copyToClipboard" name="Cupià in u &amp;preme’papei"/>
+					<Item subMenuId="edit-indent" name="I&amp;ndentazione"/>
+					<Item subMenuId="edit-convertCaseTo" name="Cun&amp;vertisce i caratteri"/>
+					<Item subMenuId="edit-lineOperations" name="Operazioni nant’à a &amp;linea"/>
+					<Item subMenuId="edit-comment" name="Cu&amp;mmentu o senza cummentu"/>
+					<Item subMenuId="edit-autoCompletion" name="&amp;Empiimentu autumaticu"/>
+					<Item subMenuId="edit-eolConversion" name="Cunversione di &amp;fine di linea"/>
+					<Item subMenuId="edit-blankOperations" name="&amp;Operazioni nant’à u spaziu"/>
+					<Item subMenuId="edit-pasteSpecial" name="Incullatura spe&amp;ziale"/>
+					<Item subMenuId="edit-onSelection" name="Per &amp;a selezzione"/>
+					<Item subMenuId="edit-multiSelectALL" name="Selezzione multiple di tuttu"/>
+					<Item subMenuId="edit-multiSelectNext" name="Selezzione multiple di a prossima"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Lettura sola in Notepad++"/>
+					<Item subMenuId="search-changeHistory" name="Cronolugia di i cambiamenti"/>
+					<Item subMenuId="search-markAll" name="Marcà &amp;tutte l’occurenze di testu"/>
+					<Item subMenuId="search-markOne" name="Stilizà una occu&amp;renza di testu"/>
+					<Item subMenuId="search-unmarkAll" name="Nettà tutti i stili"/>
+					<Item subMenuId="search-jumpUp" name="And&amp;à insù"/>
+					<Item subMenuId="search-jumpDown" name="Andà in&amp;ghjò"/>
+					<Item subMenuId="search-copyStyledText" name="Cupià u t&amp;estu di stilu"/>
+					<Item subMenuId="search-bookmark" name="In&amp;detta"/>
+					<Item subMenuId="view-currentFileIn" name="&amp;Fighjà u schedariu attuale in"/>
+					<Item subMenuId="view-showSymbol" name="Affissà i sim&amp;buli"/>
+					<Item subMenuId="view-zoom" name="In&amp;grandamentu"/>
+					<Item subMenuId="view-moveCloneDocument" name="Dispiazzà o duppià u ducume&amp;ntu attuale"/>
+					<Item subMenuId="view-tab" name="&amp;Unghjetta"/>
+					<Item subMenuId="view-collapseLevel" name="Ripiegà u livellu"/>
+					<Item subMenuId="view-uncollapseLevel" name="Spiegà u livellu"/>
+					<Item subMenuId="view-project" name="Prughjettu"/>
+					<Item subMenuId="encoding-characterSets" name="Inseme di caratteri"/>
+					<Item subMenuId="encoding-arabic" name="Arabu"/>
+					<Item subMenuId="encoding-baltic" name="Balticu"/>
+					<Item subMenuId="encoding-celtic" name="Celtu"/>
+					<Item subMenuId="encoding-cyrillic" name="Cirillicu"/>
+					<Item subMenuId="encoding-centralEuropean" name="Europeanu di u centru"/>
+					<Item subMenuId="encoding-chinese" name="Chinese"/>
+					<Item subMenuId="encoding-easternEuropean" name="Europeanu di u levante"/>
+					<Item subMenuId="encoding-greek" name="Grecu"/>
+					<Item subMenuId="encoding-hebrew" name="Ebreu"/>
+					<Item subMenuId="encoding-japanese" name="Giappunese"/>
+					<Item subMenuId="encoding-korean" name="Cureanu"/>
+					<Item subMenuId="encoding-northEuropean" name="Europeanu di u nordu"/>
+					<Item subMenuId="encoding-thai" name="Tailandese"/>
+					<Item subMenuId="encoding-turkish" name="Turcu"/>
+					<Item subMenuId="encoding-westernEuropean" name="Europeanu di u punente"/>
+					<Item subMenuId="encoding-vietnamese" name="Vietnamianu"/>
+					<Item subMenuId="language-userDefinedLanguage" name="Linguaghju definitu da l’utilizatore"/>
+					<Item subMenuId="settings-import" name="Impurtà"/>
+					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
+					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>
+					<Item subMenuId="window-sortby" name="Ordinà da"/>
+				</SubEntries>
+
+				<!-- all menu item -->
+				<Commands>
+					<Item id="41001" name="&amp;Novu"/>
+					<Item id="41002" name="&amp;Apre…"/>
+					<Item id="41019" name="Espluratore"/>
+					<Item id="41020" name="Invitu di cumanda"/>
+					<Item id="41027" name="PowerShell"/>
+					<Item id="41025" name="Cartulare cum’&amp;è spaziu di travagliu"/>
+					<Item id="41003" name="&amp;Chjode"/>
+					<Item id="41004" name="Chjodeli &amp;tutti"/>
+					<Item id="41005" name="Tuttu chjode FOR di u ducumentu attuale"/>
+					<Item id="41026" name="Tuttu chjode FOR di i ducumenti fissati"/>
+					<Item id="41009" name="Tuttu chjode ciò chì hè à manu manca"/>
+					<Item id="41018" name="Tuttu chjode ciò chì hè à manu diritta"/>
+					<Item id="41024" name="Tuttu chjode ciò ch’ùn hè micca cambiatu"/>
+					<Item id="41006" name="Arre&amp;gistrà"/>
+					<Item id="41007" name="Arregistra&amp;lli tutti"/>
+					<Item id="41008" name="Arregistrà cù &amp;u nome…"/>
+					<Item id="41010" name="Sta&amp;mpà…"/>
+					<Item id="1001" name="Stampà su&amp;bitu"/>
+					<Item id="41011" name="&amp;Esce"/>
+					<Item id="41012" name="Caricà una &amp;sessione…"/>
+					<Item id="41013" name="Arregistrà una sess&amp;ione…"/>
+					<Item id="41014" name="Ricaricà da u &amp;discu"/>
+					<Item id="41015" name="Arregistrà una c&amp;opia cù u nome…"/>
+					<Item id="41016" name="Dispia&amp;zzà in a curbella"/>
+					<Item id="41017" name="&amp;Rinuminà…"/>
+					<Item id="41021" name="Risturà u schedariu chjosu pocu fà"/>
+					<Item id="41022" name="Apre u cartulare cum’è spaziu di tra&amp;vagliu…"/>
+					<Item id="41023" name="Apre in l’appiecazione prede&amp;finita"/>
+					<Item id="42001" name="&amp;Taglià"/>
+					<Item id="42002" name="&amp;Cupià"/>
+					<Item id="42003" name="&amp;Disfà"/>
+					<Item id="42004" name="&amp;Rifà"/>
+					<Item id="42005" name="&amp;Incullà"/>
+					<Item id="42006" name="&amp;Squassà"/>
+					<Item id="42007" name="T&amp;uttu selezziunà"/>
+					<Item id="42020" name="Principiu è &amp;fine di a selezzione"/>
+					<Item id="42089" name="Principiu è fine di a selezzione in modu di culonna"/>
+					<Item id="42084" name="A data è l’ora (corta)"/>
+					<Item id="42085" name="A data è l’ora (longa)"/>
+					<Item id="42086" name="A data è l’ora (furmatu persunalizatu)"/>
+					<Item id="42008" name="Aghjunghje una tabulazione nant’à a linea"/>
+					<Item id="42009" name="Caccià una tabulazione da a linea"/>
+					<Item id="42010" name="Duppià a linea attuale"/>
+					<Item id="42079" name="Caccià e linee in doppiu"/>
+					<Item id="42077" name="Caccià e linee in doppiu chì si seguitanu"/>
+					<Item id="42012" name="Frazziunà in parechje linee"/>
+					<Item id="42013" name="Unisce parechje linee"/>
+					<Item id="42014" name="Dispiazzà insù a linea attuale"/>
+					<Item id="42015" name="Dispiazzà inghjò a linea attuale"/>
+					<Item id="42059" name="Ordinà e linee da manera lessicugrafica crescente"/>
+					<Item id="42060" name="Ordinà e linee da manera lessicugrafica discendente"/>
+					<Item id="42080" name="Ordinà e linee da manera less. crescente è rispittendu MAIU/minu"/>
+					<Item id="42081" name="Ordinà e linee da manera less. discendente è rispittendu MAIU/minu"/>
+					<Item id="42100" name="Ordinà e linee da manera linguistica crescente"/>
+					<Item id="42101" name="Ordinà e linee da manera linguistica discendente"/>
+					<Item id="42104" name="Ordinà e linee da a lunghezza crescente"/>
+					<Item id="42105" name="Ordinà e linee da a lunghezza discendente"/>
+					<Item id="42061" name="Ordinà e linee cum’è numeri interi crescente"/>
+					<Item id="42062" name="Ordinà e linee cum’è numeri interi discendente"/>
+					<Item id="42063" name="Ordinà e linee cum’è numeri decimali (virgula) crescente"/>
+					<Item id="42064" name="Ordinà e linee cum’è numeri decimali (virgula) discendente"/>
+					<Item id="42065" name="Ordinà e linee cum’è numeri decimali (puntu) crescente"/>
+					<Item id="42066" name="Ordinà e linee cum’è numeri decimali (puntu) discendente"/>
+					<Item id="42083" name="Arritrusà l’ordine di e linee"/>
+					<Item id="42078" name="Cambià à l’azardu l’ordine di e linee"/>
+					<Item id="42016" name="&amp;MAIUSCULA"/>
+					<Item id="42017" name="mi&amp;nuscula"/>
+					<Item id="42067" name="Maiuscula À &amp;Ogni Parolla"/>
+					<Item id="42068" name="Maiuscula À Ogni &amp;Parolla (IgnUrà L’altRi)"/>
+					<Item id="42069" name="Maiuscula in capu di &amp;frasa"/>
+					<Item id="42070" name="Maiuscula in capu di frasa (IgnUrà l’alTri)"/>
+					<Item id="42071" name="&amp;iNVERTISCE maiuscula è MINUSCULA"/>
+					<Item id="42072" name="À l’A&amp;zarDU"/>
+					<Item id="42073" name="Apre u schedariu"/>
+					<Item id="42074" name="Apre cù l’espluratore u cartulare cuntenendu u schedariu"/>
+					<Item id="42106" name="Anonimizà a selezzione da █ (Maiusc : ●)"/>
+					<Item id="42075" name="Circà nant’à Internet"/>
+					<Item id="42076" name="Cambià u mutore di ricerca…"/>
+					<Item id="42090" name="Ignurà a cassa è a parolla sana"/>
+					<Item id="42091" name="Currispundenza solu di a cassa"/>
+					<Item id="42092" name="Currispundenza solu di a parolla sana"/>
+					<Item id="42093" name="Currispundenza di a cassa è di a parolla sana"/>
+					<Item id="42094" name="Ignurà a cassa è a parolla sana"/>
+					<Item id="42095" name="Currispundenza solu di a cassa"/>
+					<Item id="42096" name="Currispundenza solu di a parolla sana"/>
+					<Item id="42097" name="Currispundenza di a cassa è di a parolla sana"/>
+					<Item id="42098" name="Disfà l’ultima selezzione multiple aghjunta"/>
+					<Item id="42099" name="Tralascià l’attuale è andà à a prossima selezzione multiple"/>
+					<Item id="42018" name="&amp;Principià u ricordu"/>
+					<Item id="42019" name="&amp;Fermà u ricordu"/>
+					<Item id="42021" name="&amp;Ripruduce"/>
+					<Item id="42022" name="Attivà o disattivà u cummentu di linea sola"/>
+					<Item id="42023" name="Mette in cummentu u bloccu selezziunatu"/>
+					<Item id="42047" name="Caccià u cummentu da u bloccu selezziunatu"/>
+					<Item id="42024" name="Ammuzzà i spazii di fine di linea"/>
+					<Item id="42042" name="Ammuzzà i spazii di principiu di linea"/>
+					<Item id="42043" name="Ammuzzà i spazii di principiu è di fine di linea"/>
+					<Item id="42044" name="Trasfurmà e fine di linea in spazii"/>
+					<Item id="42045" name="Ammuzzà i spazii è trasfurmà e fine in spazii"/>
+					<Item id="42046" name="Trasfurmà e tabulazioni in spazii"/>
+					<Item id="42054" name="Trasfurmà i spazii in tabulazioni (tutti)"/>
+					<Item id="42053" name="Trasfurmà i spazii in tabulazioni (principiu)"/>
+					<Item id="42038" name="Incullà cuntenutu HTML"/>
+					<Item id="42039" name="Incullà cuntenutu RTF"/>
+					<Item id="42048" name="Cupià cuntenutu binariu"/>
+					<Item id="42049" name="Taglià cuntenutu binariu"/>
+					<Item id="42050" name="Incullà cuntenutu binariu"/>
+					<Item id="42082" name="Cupià u liame"/>
+					<Item id="42037" name="Selezzione in modu culonna…"/>
+					<Item id="42034" name="&amp;Mudificazione in modu culonna…"/>
+					<Item id="42051" name="&amp;Pannellu di i caratteri"/>
+					<Item id="42052" name="Cr&amp;onolugia di u preme’papei"/>
+					<Item id="42025" name="&amp;Arregistrà a prucedura arricurdata…"/>
+					<Item id="42026" name="Testu da diritta à &amp;manca"/>
+					<Item id="42027" name="Testu da manca à &amp;diritta"/>
+					<Item id="42028" name="Lettura sola per u ducumentu attuale"/>
+					<Item id="42102" name="Lettura sola per tutti i ducumenti"/>
+					<Item id="42103" name="Caccià a lettura sola per tutti i ducumenti"/>
+					<Item id="42029" name="Cupià u chjassu cumpletu di u schedariu attuale"/>
+					<Item id="42030" name="Cupià u nome di schedariu di u schedariu attuale"/>
+					<Item id="42031" name="Cupià u chjassu cumpletu di u cartulare attuale"/>
+					<Item id="42087" name="Cupià tutti i nomi di schedariu"/>
+					<Item id="42088" name="Cupià tutti i chjassi di schedariu"/>
+					<Item id="42032" name="&amp;Lancià una prucedura parechje volte…"/>
+					<Item id="42033" name="Attributu di lettura sola in Windows"/>
+					<Item id="42035" name="Mette in cummentu a linea sola"/>
+					<Item id="42036" name="Caccià u cummentu da a linea sola"/>
+					<Item id="42055" name="Caccià e linee viote"/>
+					<Item id="42056" name="Caccià e linee viote (chì cuntenenu caratteri bianchi)"/>
+					<Item id="42057" name="Framette una linea bianca sopra a linea attuale"/>
+					<Item id="42058" name="Framette una linea bianca sottu a linea attuale"/>
+					<Item id="43001" name="&amp;Circà…"/>
+					<Item id="43002" name="Circà &amp;seguente"/>
+					<Item id="43003" name="&amp;Rimpiazzà…"/>
+					<Item id="43004" name="&amp;Andà à…"/>
+					<Item id="43005" name="Attivà o disattivà l’indetta"/>
+					<Item id="43006" name="Indetta seguente"/>
+					<Item id="43007" name="Indetta precedente"/>
+					<Item id="43008" name="Viutà tutte l’indette"/>
+					<Item id="43018" name="Taglià e linee indettate"/>
+					<Item id="43019" name="Cupià e linee indettate"/>
+					<Item id="43020" name="Incullà (per rimpiazzà) e linee indettate"/>
+					<Item id="43021" name="Caccià e linee indettate"/>
+					<Item id="43051" name="Caccià e linee senza indetta"/>
+					<Item id="43050" name="Invertisce l’indette"/>
+					<Item id="43052" name="Circà caratteri in &amp;una stesa…"/>
+					<Item id="43053" name="Tuttu selezziunà trà {} [] &amp;o ()"/>
+					<Item id="43009" name="A&amp;ndà à a parentesi chì currisponde"/>
+					<Item id="43010" name="Circà &amp;precedente"/>
+					<Item id="43011" name="Ricerca &amp;interattiva"/>
+					<Item id="43013" name="Circà in sc&amp;hedarii"/>
+					<Item id="43014" name="Ricerca (&amp;vulatile) seguente"/>
+					<Item id="43015" name="Ricerca (&amp;vulatile) precedente"/>
+					<Item id="43022" name="Impieghendu u 1ᵘ stilu"/>
+					<Item id="43023" name="Spurgulà u 1ᵘ stilu"/>
+					<Item id="43024" name="Impieghendu u 2ᵘ stilu"/>
+					<Item id="43025" name="Spurgulà u 2ᵘ stilu"/>
+					<Item id="43026" name="Impieghendu u 3ᵘ stilu"/>
+					<Item id="43027" name="Spurgulà u 3ᵘ stilu"/>
+					<Item id="43028" name="Impieghendu u 4ᵘ stilu"/>
+					<Item id="43029" name="Spurgulà u 4ᵘ stilu"/>
+					<Item id="43030" name="Impieghendu u 5ᵘ stilu"/>
+					<Item id="43031" name="Spurgulà u 5ᵘ stilu"/>
+					<Item id="43032" name="Spurgulà tutti i stili"/>
+					<Item id="43033" name="1ᵘ stilu"/>
+					<Item id="43034" name="2ᵘ stilu"/>
+					<Item id="43035" name="3ᵘ stilu"/>
+					<Item id="43036" name="4ᵘ stilu"/>
+					<Item id="43037" name="5ᵘ stilu"/>
+					<Item id="43038" name="Stilu di marca di ricerca"/>
+					<Item id="43039" name="1ᵘ stilu"/>
+					<Item id="43040" name="2ᵘ stilu"/>
+					<Item id="43041" name="3ᵘ stilu"/>
+					<Item id="43042" name="4ᵘ stilu"/>
+					<Item id="43043" name="5ᵘ stilu"/>
+					<Item id="43044" name="Stilu di marca di ricerca"/>
+					<Item id="43055" name="1ᵘ stilu"/>
+					<Item id="43056" name="2ᵘ stilu"/>
+					<Item id="43057" name="3ᵘ stilu"/>
+					<Item id="43058" name="4ᵘ stilu"/>
+					<Item id="43059" name="5ᵘ stilu"/>
+					<Item id="43060" name="Tutti i stili"/>
+					<Item id="43061" name="Stilu di marca di ricerca"/>
+					<Item id="43062" name="Impieghendu u 1ᵘ stilu"/>
+					<Item id="43063" name="Impieghendu u 2ᵘ stilu"/>
+					<Item id="43064" name="Impieghendu u 3ᵘ stilu"/>
+					<Item id="43065" name="Impieghendu u 4ᵘ stilu"/>
+					<Item id="43066" name="Impieghendu u 5ᵘ stilu"/>
+					<Item id="43067" name="Andà à u cambiamentu prossimu"/>
+					<Item id="43068" name="Andà à u cambiamentu precedente"/>
+					<Item id="43069" name="Squassà a cronolugia di i cambiamenti"/>
+					<Item id="43045" name="&amp;Finestra di risultatu di ricerca"/>
+					<Item id="43046" name="Prossimu risu&amp;ltatu di ricerca"/>
+					<Item id="43047" name="Precedente risu&amp;ltatu di ricerca"/>
+					<Item id="43048" name="Sele&amp;zzione è ricerca seguente"/>
+					<Item id="43049" name="Sele&amp;zzione è ricerca precedente"/>
+					<Item id="43054" name="&amp;Marcà…"/>
+					<Item id="43501" name="Chjode i ducumenti selezziunati"/>
+					<Item id="43502" name="Chjode l’altri ducumenti"/>
+					<Item id="43503" name="Cupià i nomi selezziunati"/>
+					<Item id="43504" name="Cupià i chjassi selezziunati"/>
+					<Item id="44009" name="&amp;Post-it"/>
+					<Item id="44010" name="Piegà tutti i livelli"/>
+					<Item id="44011" name="Modu s&amp;enza distrazzione"/>
+					<Item id="44019" name="Affissà tutti i caratteri"/>
+					<Item id="44020" name="Affissà a guida d’indentazione"/>
+					<Item id="44022" name="Ritornu autumaticu &amp;à a linea"/>
+					<Item id="44023" name="&amp;Ingrandà u testu (Ctrl+rutulella insù)"/>
+					<Item id="44024" name="&amp;Diminuì u testu (Ctrl+rutulella inghjò)"/>
+					<Item id="44025" name="Affissà i spazii è e tabulazioni"/>
+					<Item id="44026" name="Affissà i simbuli di fine di linea"/>
+					<Item id="44027" name="&amp;Sincrunizà trà e viste"/>
+					<Item id="44029" name="Spiegà tutti i livelli"/>
+					<Item id="44030" name="Ripiegà u livellu attuale"/>
+					<Item id="44031" name="Spiegà u livellu attuale"/>
+					<Item id="44049" name="&amp;Riassuntu…"/>
+					<Item id="44080" name="&amp;Cartugrafia di u ducumentu"/>
+					<Item id="44070" name="L&amp;ista di i ducumenti"/>
+					<Item id="44084" name="Lista di e fun&amp;zioni"/>
+					<Item id="44085" name="Cartulare cum’è spaziu di travagliu"/>
+					<Item id="44086" name="1ᵃ unghjetta"/>
+					<Item id="44087" name="2ᵃ unghjetta"/>
+					<Item id="44088" name="3ᵃ unghjetta"/>
+					<Item id="44089" name="4ᵃ unghjetta"/>
+					<Item id="44090" name="5ᵃ unghjetta"/>
+					<Item id="44091" name="6ᵃ unghjetta"/>
+					<Item id="44092" name="7ᵃ unghjetta"/>
+					<Item id="44093" name="8ᵃ unghjetta"/>
+					<Item id="44094" name="9ᵃ unghjetta"/>
+					<Item id="44116" name="Prima unghjetta"/>
+					<Item id="44117" name="Ultima unghjetta"/>
+					<Item id="44095" name="Unghjetta seguente"/>
+					<Item id="44096" name="Unghjetta precedente"/>
+					<Item id="44097" name="&amp;Appustamentu (tail -f)"/>
+					<Item id="44098" name="Dispiazzà à l’unghjetta davanti"/>
+					<Item id="44099" name="Dispiazzà à l’unghjetta dinanzu"/>
+					<Item id="44110" name="Caccià u culore"/>
+					<Item id="44111" name="Appiecà u culore 1"/>
+					<Item id="44112" name="Appiecà u culore 2"/>
+					<Item id="44113" name="Appiecà u culore 3"/>
+					<Item id="44114" name="Appiecà u culore 4"/>
+					<Item id="44115" name="Appiecà u culore 5"/>
+					<Item id="44130" name="Affissà i caratteri nonstampevule"/>
+					<Item id="44131" name="Affissà i caratteri di cuntrollu è e fine di linea Unicode"/>
+					<Item id="44032" name="A&amp;ttivà o disattivà u modu di screnu sanu"/>
+					<Item id="44033" name="&amp;Risturà l’ingrandamentu predefinitu"/>
+					<Item id="44034" name="&amp;Sempre in primu pianu"/>
+					<Item id="44035" name="Sincrunizà l’affissera &amp;verticalmente"/>
+					<Item id="44036" name="Sincrunizà l’affissera &amp;orizuntalmente"/>
+					<Item id="44041" name="Affissà i simbuli di ritornu à a linea"/>
+					<Item id="44072" name="Attivà un’altra vista"/>
+					<Item id="44081" name="Pannellu di prughjettu &amp;1"/>
+					<Item id="44082" name="Pannellu di prughjettu &amp;2"/>
+					<Item id="44083" name="Pannellu di prughjettu &amp;3"/>
+					<Item id="45001" name="Windows (CR LF)"/>
+					<Item id="45002" name="Unix (LF)"/>
+					<Item id="45003" name="Macintosh (CR)"/>
+					<Item id="45004" name="ANSI"/>
+					<Item id="45005" name="UTF-8 cù BOM"/>
+					<Item id="45006" name="UTF-16 Big Endian cù BOM"/>
+					<Item id="45007" name="UTF-16 Little Endian cù BOM"/>
+					<Item id="45008" name="UTF-8"/>
+					<Item id="45009" name="Cunvertisce in furmatu ANSI"/>
+					<Item id="45010" name="Cunvertisce in furmatu UTF-8"/>
+					<Item id="45011" name="Cunvertisce in furmatu UTF-8 cù BOM"/>
+					<Item id="45012" name="Cunvertisce in furmatu UTF-16 Big Endian cù BOM"/>
+					<Item id="45013" name="Cunvertisce in furmatu UTF-16 Little Endian cù BOM"/>
+					<Item id="45060" name="Big5 (Tradiziunale)"/>
+					<Item id="45061" name="GB2312 (Semplificatu)"/>
+					<Item id="45054" name="OEM 861 : Islandese"/>
+					<Item id="45057" name="OEM 865 : Nordicu"/>
+					<Item id="45053" name="OEM 860 : Purtughese"/>
+					<Item id="45056" name="OEM 863 : Francese"/>
+					<Item id="10001" name="Dispiazzà in l’altra &amp;vista"/>
+					<Item id="10002" name="&amp;Duppià in l’altra vista"/>
+					<Item id="10003" name="Dispiazzà in una &amp;finestra nova"/>
+					<Item id="10004" name="&amp;Apre in una finestra nova"/>
+					<Item id="10005" name="Dispiazzà à u principiu"/>
+					<Item id="10006" name="Dispiazzà à a fine"/>
+					<Item id="46001" name="&amp;Cunfiguratore di stilu…"/>
+					<Item id="46016" name="Nisunu (Testu nurmale)"/>
+					<Item id="46250" name="Definisce u vostru linguaghju…"/>
+					<Item id="46300" name="Apre u cartulare di i linguaghji definiti da l’utilizatore…"/>
+					<Item id="46301" name="Cullezzione di i linguaghji Notepad++ definiti da l’utilizatore"/>
+					<Item id="46180" name="Definitu da l’utilizatore"/>
+					<Item id="47000" name="Apprupositu di Notepad++"/>
+					<Item id="47010" name="Argumenti di linea di cumanda…"/>
+					<Item id="47001" name="Pagina d’accolta di Notepad++…"/>
+					<Item id="47002" name="Pagina di prughjettu Notepad++"/>
+					<Item id="47003" name="Manuale in linea di l’utilizatore"/>
+					<Item id="47004" name="Cumunità Notepad++ (Foru)"/>
+					<Item id="47012" name="Infurmazioni di diagnosticu…"/>
+					<Item id="47005" name="Ottene più d’estensioni"/>
+					<Item id="47006" name="Rinnovà Notepad++"/>
+					<Item id="47009" name="Parametri di u proxy di l’Updater…"/>
+					<Item id="48005" name="Impurtà l’estensione(i)…"/>
+					<Item id="48006" name="Impurtà u(i) tema(i) di stilu…"/>
+					<Item id="48018" name="&amp;Mudificà l’ozzioni di u listinu cuntestuale"/>
+					<Item id="48009" name="&amp;Definizione di l’accurtatoghji di tastera…"/>
+					<Item id="48011" name="&amp;Preferenze…"/>
+					<Item id="48014" name="Apre u cartulare di i moduli d’estensione…"/>
+					<Item id="48015" name="Ghjestione di i moduli d’estensione…"/>
+					<Item id="48501" name="Ingenerà…"/>
+					<Item id="48502" name="Ingenerà per certi schedarii…"/>
+					<Item id="48503" name="Ingenerà in u preme’papei per a selezzione"/>
+					<Item id="48504" name="Ingenerà…"/>
+					<Item id="48505" name="Ingenerà per certi schedarii…"/>
+					<Item id="48506" name="Ingenerà in u preme’papei per a selezzione"/>
+					<Item id="48507" name="Ingenerà…"/>
+					<Item id="48508" name="Ingenerà per certi schedarii…"/>
+					<Item id="48509" name="Ingenerà in u preme’papei per a selezzione"/>
+					<Item id="48510" name="Ingenerà…"/>
+					<Item id="48511" name="Ingenerà per certi schedarii…"/>
+					<Item id="48512" name="Ingenerà in u preme’papei per a selezzione"/>
+					<Item id="49000" name="&amp;Lancià…"/>
+					<Item id="49001" name="Cunvalidà shortcuts.xml"/>
+
+					<Item id="50000" name="Cumpiimentu di funzione"/>
+					<Item id="50001" name="Cumpiimentu di parolla"/>
+					<Item id="50002" name="Suggestione di parametri di funzione"/>
+					<Item id="50010" name="Suggestione precedente di parametri di funzione"/>
+					<Item id="50011" name="Suggestione seguente di parametri di funzione"/>
+					<Item id="50005" name="Attivà o disattivà l’arregistramentu d’una prucedura"/>
+					<Item id="50006" name="Cumpiimentu di chjassu"/>
+					<Item id="44042" name="&amp;Piattà e linee"/>
+					<Item id="42040" name="Apre tutti i schedarii recenti"/>
+					<Item id="42041" name="Viutà a lista di i schedarii recenti"/>
+					<Item id="48016" name="Ghjestione di l’accurtatoghji di tastera per e prucedure…"/>
+					<Item id="48017" name="Ghjestione di l’accurtatoghji di tastera per e cumande…"/>
+
+					<Item id="11001" name="&amp;Ducumenti…"/>
+					<Item id="11002" name="Nome da A à Z"/>
+					<Item id="11003" name="Nome da Z à A"/>
+					<Item id="11004" name="Chjassu d’accessu da A à Z"/>
+					<Item id="11005" name="Chjassu d’accessu da Z à A"/>
+					<Item id="11006" name="Tipu da A à Z"/>
+					<Item id="11007" name="Tipu da Z à A"/>
+					<Item id="11008" name="Lunghezza di cuntenutu crescente"/>
+					<Item id="11009" name="Lunghezza di cuntenutu discendente"/>
+					<Item id="11010" name="Ora di mudificazione d’anziana à recente"/>
+					<Item id="11011" name="Ora di mudificazione da recente à anziana"/>
+				</Commands>
+			</Main>
+			<TabBar>
+				<Item CMDID="41003" name="Chjode"/>
+				<Item CMDID="0" name="Chjode parechje unghjette"/>
+				<Item CMDID="41005" name="Tuttu chjode FOR di què"/>
+				<Item CMDID="41026" name="Tuttu chjode FOR di i ducumenti fissati"/>
+				<Item CMDID="41009" name="Tuttu chjode ciò chì hè à manu manca"/>
+				<Item CMDID="41018" name="Tuttu chjode ciò chì hè à manu diritta"/>
+				<Item CMDID="41024" name="Tuttu chjode ciò ch’ùn hè micca cambiatu"/>
+				<Item CMDID="44048" name="Fissà l’unghjetta" alternativeName="Liberà l’unghjetta"/>
+				<Item CMDID="41006" name="Arregistrà"/>
+				<Item CMDID="41008" name="Arregistrà cù u nome…"/>
+				<Item CMDID="1" name="Apre in"/>
+				<Item CMDID="41019" name="Apre cù l’espluratore u cartulare cuntenendu u schedariu"/>
+				<Item CMDID="41020" name="Apre cù l’invitu di cumanda u cartulare cuntenendu u schedariu"/>
+				<Item CMDID="41027" name="Apre cù PowerShell u cartulare cuntenendu u schedariu"/>
+				<Item CMDID="41025" name="Apre u cartulare cuntenendu u schedariu cum’è spaziu di travagliu"/>
+				<Item CMDID="41023" name="Apre in l’appiecazione predefinita"/>
+				<Item CMDID="41017" name="Rinuminà…"/>
+				<Item CMDID="41016" name="Dispiazzà in a curbella"/>
+				<Item CMDID="41014" name="Ricaricà"/>
+				<Item CMDID="41010" name="Stampà…"/>
+				<Item CMDID="42028" name="Lettura sola in Notepad++"/>
+				<Item CMDID="42033" name="Attributu di lettura sola in Windows"/>		  
+				<Item CMDID="2" name="Cupià in u preme’papei"/>
+				<Item CMDID="42029" name="Cupià u chjassu cumpletu di schedariu"/>
+				<Item CMDID="42030" name="Cupià u nome di schedariu"/>
+				<Item CMDID="42031" name="Cupià u chjassu cumpletu di u cartulare attuale"/>
+				<Item CMDID="3" name="Dispiazzà u ducumentu"/>
+				<Item CMDID="10005" name="Dispiazzà à u principiu"/>
+				<Item CMDID="10006" name="Dispiazzà à a fine"/>
+				<Item CMDID="10001" name="Dispiazzà in l’altra vista"/>
+				<Item CMDID="10002" name="Duppià in l’altra vista"/>
+				<Item CMDID="10003" name="Dispiazzà in una finestra nova"/>
+				<Item CMDID="10004" name="Apre in una finestra nova"/>
+				<Item CMDID="4" name="Appiecà un culore à l’unghjetta"/>
+				<Item CMDID="44111" name="Appiecà u culore 1"/>
+				<Item CMDID="44112" name="Appiecà u culore 2"/>
+				<Item CMDID="44113" name="Appiecà u culore 3"/>
+				<Item CMDID="44114" name="Appiecà u culore 4"/>
+				<Item CMDID="44115" name="Appiecà u culore 5"/>
+				<Item CMDID="44110" name="Caccià u culore"/>
+			</TabBar>
+			<TrayIcon>
+				<Item id="43101" name="Attivà l’appiecazione"/>
+				<Item id="43102" name="Creà un schedariu novu"/>
+				<Item id="43103" name="Incullà in un schedariu novu"/>
+				<Item id="43104" name="Apre un schedariu…"/>
+				<Item id="43013" name="Circà in schedarii…"/>
+				<Item id="43105" name="Chjode l’icona di nutificazione"/>
+			</TrayIcon>
+		</Menu>
+
+		<Dialog>
+			<Find title="" titleFind="Circà" titleReplace="Rimpiazzà" titleFindInFiles="Circà in schedarii" titleFindInProjects="Circà in prughjetti" titleMark="Marcà">
+				<Item id="1" name="Circà a seguente"/>
+				<Item id="1722" name="Circà à l’arritrosa"/>
+				<Item id="2" name="Chjode"/>
+				<Item id="1620" name="&amp;Cosa à circà :"/>
+				<Item id="1603" name="&amp;Parolla sana deve currisponde"/>
+				<Item id="1604" name="Rispettà a cassa (&amp;maiuscule è minuscule)"/>
+				<Item id="1605" name="Espressi&amp;one regulare"/>
+				<Item id="1606" name="Circun&amp;voglie"/>
+				<Item id="1614" name="Con&amp;tu"/>
+				<Item id="1615" name="Marcalle tutte"/>
+				<Item id="1616" name="Indettà a &amp;linea"/>
+				<Item id="1618" name="Spurgulà à ogni ricerca"/>
+				<Item id="1611" name="&amp;Rimpiazzà cù :"/>
+				<Item id="1608" name="Rimpia&amp;zzalla"/>
+				<Item id="1609" name="Rimpiazzalle &amp;tutte"/>
+				<Item id="1687" name="Finestra inattiva"/>
+				<Item id="1688" name="Sempre"/>
+				<Item id="1632" name="In a &amp;selezzione"/>
+				<Item id="1633" name="Squassà tutte e marche"/>
+				<Item id="1635" name="Rimpiazzalle tutte in tutti i ducumenti aperti"/>
+				<Item id="1636" name="Circalle tutte in tutti i &amp;ducumenti aperti"/>
+				<Item id="1654" name="&amp;Filtri :"/>
+				<Item id="1655" name="Cart&amp;ulare :"/>
+				<Item id="1656" name="Circalle tutte"/>
+				<Item id="1658" name="In i sottucartu&amp;lari"/>
+				<Item id="1659" name="In i sc&amp;hedarii piattati"/>
+				<Item id="1624" name="Modu di ricerca"/>
+				<Item id="1625" name="Modu &amp;nurmale"/>
+				<Item id="1626" name="Modu &amp;aumintatu (\n, \r, \t, \0, \x…)"/>
+				<Item id="1660" name="Rimpiazzà in schedarii"/>
+				<Item id="1665" name="Rimpiazzà in prughjetti"/>
+				<Item id="1662" name="Pannellu di prughjettu 1"/>
+				<Item id="1663" name="Pannellu di prughjettu 2"/>
+				<Item id="1664" name="Pannellu di prughjettu 3"/>
+				<Item id="1641" name="Circalle tutte in u ducumentu attuale"/>
+				<Item id="1686" name="Traspar&amp;enza"/>
+				<Item id="1703" name=". &amp;include fine di linea"/>
+				<Item id="1721" name="▲"/>
+				<Item id="1723" name="▼ Circà a seguente"/>
+				<Item id="1725" name="Cupià u testu marcatu"/>
+				<Menu>
+					<Item id="1726" name="⇅ Permutà trà Circà è Rimpiazzà"/>
+					<Item id="1727" name="⤵ Cupià da Circà à Rimpiazzà"/>
+					<Item id="1728" name="⤴ Cupià da Rimpiazzà à Circà"/>
+				</Menu>
+			</Find>
+			<IncrementalFind title="">
+				<Item id="1681" name="Circà :"/>
+				<Item id="1685" name="&amp;Rispettà a cassa"/>
+				<Item id="1690" name="&amp;Tuttu sopralineà"/>
+				<Item id="1691" name="&amp;Cuntera"/>
+			</IncrementalFind>
+			<FindCharsInRange title="Circà caratteri in una stesa…">
+				<Item id="2" name="C&amp;hjode"/>
+				<Item id="2901" name="Caratteri &amp;micca ASCII (128-255)"/>
+				<Item id="2902" name="Caratteri &amp;ASCII (0-127)"/>
+				<Item id="2903" name="Seria &amp;persunalizata (0-255) :"/>
+				<Item id="2906" name="In&amp;sù"/>
+				<Item id="2907" name="In&amp;ghjò"/>
+				<Item id="2908" name="Direzzione"/>
+				<Item id="2909" name="Circun&amp;voglie"/>
+				<Item id="2910" name="&amp;Circà"/>
+			</FindCharsInRange>
+
+			<GoToLine title="Andà à…">
+				<Item id="2007" name="&amp;Linea"/>
+				<Item id="2008" name="&amp;Spustime"/>
+				<Item id="1" name="&amp;Andà"/>
+				<Item id="2" name="Ùn vocu inlocu"/>
+				<Item id="2004" name="Site quì :"/>
+				<Item id="2005" name="Vulete andà à :"/>
+				<Item id="2006" name="Ùn pudete andà più chè :"/>
+			</GoToLine>
+
+			<Run title="Lancià…">
+				<Item id="1903" name="U prugramma à lancià"/>
+				<Item id="1" name="Lancià"/>
+				<Item id="2" name="Abbandunà"/>
+				<Item id="1904" name="Arregistrà…"/>
+			</Run>
+
+			<MD5FromFilesDlg title="Ingenerà l’impronta numerica MD5 per certi schedarii">
+				<Item id="1922" name="&amp;Sceglie i schedarii à trattà…"/>
+				<Item id="1924" name="&amp;Cupià in u preme’papei"/>
+				<Item id="2" name="C&amp;hjode"/>
+			</MD5FromFilesDlg>
+
+			<MD5FromTextDlg title="Ingenerà l’impronta numerica MD5 per un testu">
+				<Item id="1932" name="&amp;Trattà ogni linea cum’è una catena separata"/>
+				<Item id="1934" name="&amp;Cupià in u preme’papei"/>
+				<Item id="2" name="C&amp;hjode"/>
+			</MD5FromTextDlg>
+
+			<SHA256FromFilesDlg title="Ingenerà l’impronta numerica SHA-256 per certi schedarii">
+				<Item id="1922" name="&amp;Sceglie i schedarii à trattà…"/>
+				<Item id="1924" name="&amp;Cupià in u preme’papei"/>
+				<Item id="2" name="C&amp;hjode"/>
+			</SHA256FromFilesDlg>
+
+			<SHA256FromTextDlg title="Ingenerà l’impronta numerica SHA-256 per un testu">
+				<Item id="1932" name="&amp;Trattà ogni linea cum’è una catena separata"/>
+				<Item id="1934" name="&amp;Cupià in u preme’papei"/>
+				<Item id="2" name="C&amp;hjode"/>
+			</SHA256FromTextDlg>
+
+			<SHA1FromFilesDlg title="Ingenerà l’impronta numerica SHA-1 per certi schedarii">
+				<Item id="1922" name="&amp;Sceglie i schedarii à trattà…"/>
+				<Item id="1924" name="&amp;Cupià in u preme’papei"/>
+				<Item id="2" name="C&amp;hjode"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="Ingenerà l’impronta numerica SHA-1 per un testu">
+				<Item id="1932" name="&amp;Trattà ogni linea cum’è una catena separata"/>
+				<Item id="1934" name="&amp;Cupià in u preme’papei"/>
+				<Item id="2" name="C&amp;hjode"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="Ingenerà l’impronta numerica SHA-512 per certi schedarii">
+				<Item id="1922" name="&amp;Sceglie i schedarii à trattà…"/>
+				<Item id="1924" name="&amp;Cupià in u preme’papei"/>
+				<Item id="2" name="C&amp;hjode"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="Ingenerà l’impronta numerica SHA-512 per un testu">
+				<Item id="1932" name="&amp;Trattà ogni linea cum’è una catena separata"/>
+				<Item id="1934" name="&amp;Cupià in u preme’papei"/>
+				<Item id="2" name="C&amp;hjode"/>
+			</SHA512FromTextDlg>
+
+			<PluginsAdminDlg title="Ghjestione di i moduli d’estensione" titleAvailable="Dispunibule" titleUpdates="Rinnovi" titleInstalled="Installati" titleIncompatible="Incumpatibile">
+				<ColumnPlugin name="Moduli d’estensione"/>
+				<ColumnVersion name="Versione"/>
+				<Item id="5501" name="&amp;Circà :"/>
+				<Item id="5503" name="&amp;Installà"/>
+				<Item id="5504" name="&amp;Rinnovà"/>
+				<Item id="5505" name="C&amp;accià"/>
+				<Item id="5508" name="&amp;Seguente"/>
+				<Item id="5509" name="Versione di a lista di moduli :"/>
+				<Item id="5511" name="Dipositu di a lista di i moduli"/>
+				<Item id="2" name="Chjode"/>
+			</PluginsAdminDlg>
+
+			<StyleConfig title="Cunfiguratore di stilu">
+				<Item id="2" name="Abbandunà"/>
+				<Item id="2301" name="Arregistrà è chjode"/>
+				<Item id="2303" name="Trasparenza"/>
+				<Item id="2306" name="Selezziunà u tema : "/>
+				<SubDialog>
+					<Item id="2204" name="Grassu"/>
+					<Item id="2205" name="Italicu"/>
+					<Item id="2206" name="Culore 1ᵘ pianu"/>
+					<Item id="2207" name="Culore di fondu"/>
+					<Item id="2208" name="Nome :"/>
+					<Item id="2209" name="Dimensione :"/>
+					<Item id="2211" name="Stilu :"/>
+					<Item id="2212" name="Culori di u stilu"/>
+					<Item id="2213" name="Grafia di u stilu"/>
+					<Item id="2214" name="Est. predefinita :"/>
+					<Item id="2216" name="Est. utilizatore :"/>
+					<Item id="2218" name="Sottulineatu"/>
+					<Item id="2219" name="Parolle chjave predefinite"/>
+					<Item id="2221" name="Parolle chjave definite da l’utilizatore"/>
+					<Item id="2225" name="Linguaghju :"/>
+					<Item id="2226" name="Sfurzà u primu pianu à tutti i stili"/>
+					<Item id="2227" name="Sfurzà u sfondulu à tutti i stili"/>
+					<Item id="2228" name="Sfurzà a grafia à tutti i stili"/>
+					<Item id="2229" name="Sfurzà a dimens. di grafia à tutti i stili"/>
+					<Item id="2230" name="Sfurzà a grafia grassa à tutti i stili"/>
+					<Item id="2231" name="Sfurzà a grafia cursiva à tutti i stili"/>
+					<Item id="2232" name="Sfurzà a grafia sottulin. à tutti i stili"/>
+					<Item id="2234" name="Accede à u parametru"/>
+					<!-- Don't translate "Global override" -->
+					<Item id="2235" name="Cosa serà a « Global override » ?"/>
+				</SubDialog>
+			</StyleConfig>
+
+			<ColorPopup>
+				<Item id="1" name="D’altri culori…"/>
+			</ColorPopup>
+
+			<ShortcutMapper title="Definizione di l’accurtatoghji di tastera">
+				<Item id="2602" name="Mudificà"/>
+				<Item id="2603" name="Squassà"/>
+				<Item id="2606" name="Viutà"/>
+				<Item id="2607" name="Filtru : "/>
+				<Item id="1" name="Chjode"/>
+				<ColumnName name="Nome"/>
+				<ColumnShortcut name="Accurtatoghju"/>
+				<ColumnCategory name="Categuria"/>
+				<ColumnPlugin name="Estensione"/>
+				<MainMenuTab name="Listinu principale"/>
+				<MacrosTab name="Prucedure"/>
+				<RunCommandsTab name="Cumande di lanciu"/>
+				<PluginCommandsTab name="Cumande d’estensione"/>
+				<ScintillaCommandsTab name="Cumande Scintilla"/>
+				<ConflictInfoOk name="Nisunu cunflittu d’accurtatoghju per st’elementu."/>
+				<ConflictInfoEditing name="Nisunu cunflittu . . ."/>
+				<AboutCategory name="Apprupositu"/>
+				<ModifyContextMenu name="Mudificà"/>
+				<DeleteContextMenu name="Squassà"/>
+				<ClearContextMenu name="Viutà"/>
+				<MainCommandNames>
+					<Item id="41019" name="Apre cù l’espluratore u cartulare cuntenendu u schedariu"/>
+					<Item id="41020" name="Apre cù l’invitu di cumanda u cartulare cuntenendu u schedariu"/>
+					<Item id="41027" name="Apre cù PowerShell u cartulare cuntenendu u schedariu"/>
+					<Item id="41025" name="Apre u cartulare cuntenendu u schedariu cum’è spaziu di travagliu"/>
+					<Item id="41021" name="Risturà u schedariu chjosu pocu fà"/>
+					<Item id="45001" name="Cunversione di fine di linea à u furmatu Windows (CR LF)"/>
+					<Item id="45002" name="Cunversione di fine di linea à u furmatu Unix (LF)"/>
+					<Item id="45003" name="Cunversione di fine di linea à u furmatu Macintosh (CR)"/>
+					<Item id="43022" name="Stilizà tutte l’occurenze impieghendu u 1ᵘ stilu"/>
+					<Item id="43024" name="Stilizà tutte l’occurenze impieghendu u 2ᵘ stilu"/>
+					<Item id="43026" name="Stilizà tutte l’occurenze impieghendu u 3ᵘ stilu"/>
+					<Item id="43028" name="Stilizà tutte l’occurenze impieghendu u 4ᵘ stilu"/>
+					<Item id="43030" name="Stilizà tutte l’occurenze impieghendu u 5ᵘ stilu"/>
+					<Item id="43062" name="Stilizà una occurenza impieghendu u 1ᵘ stilu"/>
+					<Item id="43063" name="Stilizà una occurenza impieghendu u 2ᵘ stilu"/>
+					<Item id="43064" name="Stilizà una occurenza impieghendu u 3ᵘ stilu"/>
+					<Item id="43065" name="Stilizà una occurenza impieghendu u 4ᵘ stilu"/>
+					<Item id="43066" name="Stilizà una occurenza impieghendu u 5ᵘ stilu"/>
+					<Item id="43023" name="Nettà u 1ᵘ stilu"/>
+					<Item id="43025" name="Nettà u 2ᵘ stilu"/>
+					<Item id="43027" name="Nettà u 3ᵘ stilu"/>
+					<Item id="43029" name="Nettà u 4ᵘ stilu"/>
+					<Item id="43031" name="Nettà u 5ᵘ stilu"/>
+					<Item id="43032" name="Nettà tutti i stili"/>
+					<Item id="43033" name="Stilizazione precedente impieghendu u 1ᵘ stilu"/>
+					<Item id="43034" name="Stilizazione precedente impieghendu u 2ᵘ stilu"/>
+					<Item id="43035" name="Stilizazione precedente impieghendu u 3ᵘ stilu"/>
+					<Item id="43036" name="Stilizazione precedente impieghendu u 4ᵘ stilu"/>
+					<Item id="43037" name="Stilizazione precedente impieghendu u 5ᵘ stilu"/>
+					<Item id="43038" name="Stilizazione precedente impieghendu u stilu di marca di ricerca"/>
+					<Item id="43039" name="Stilizazione seguente impieghendu u 1ᵘ stilu"/>
+					<Item id="43040" name="Stilizazione seguente impieghendu u 2ᵘ stilu"/>
+					<Item id="43041" name="Stilizazione seguente impieghendu u 3ᵘ stilu"/>
+					<Item id="43042" name="Stilizazione seguente impieghendu u 4ᵘ stilu"/>
+					<Item id="43043" name="Stilizazione seguente impieghendu u 5ᵘ stilu"/>
+					<Item id="43044" name="Stilizazione seguente impieghendu u stilu di marca di ricerca"/>
+					<Item id="43055" name="Cupià u testu stilizatu da 1ᵘ stilu"/>
+					<Item id="43056" name="Cupià u testu stilizatu da 2ᵘ stilu"/>
+					<Item id="43057" name="Cupià u testu stilizatu da 3ᵘ stilu"/>
+					<Item id="43058" name="Cupià u testu stilizatu da 4ᵘ stilu"/>
+					<Item id="43059" name="Cupià u testu stilizatu da 5ᵘ stilu"/>
+					<Item id="43060" name="Cupià u testu stilizatu da tutti i stili"/>
+					<Item id="43061" name="Cupià u testu stilizatu da u stilu di marca di ricerca"/>
+					<Item id="44100" name="Fighjà u schedariu attuale cù &amp;Firefox"/>
+					<Item id="44101" name="Fighjà u schedariu attuale cù &amp;Chrome"/>
+					<Item id="44103" name="Fighjà u schedariu attuale cù &amp;Internet Explorer"/>
+					<Item id="44102" name="Fighjà u schedariu attuale cù &amp;Edge"/>
+					<Item id="50003" name="Passà à u ducumentu precedente"/>
+					<Item id="50004" name="Passà à u ducumentu seguente"/>
+					<Item id="44051" name="Ripiegà u livellu 1"/>
+					<Item id="44052" name="Ripiegà u livellu 2"/>
+					<Item id="44053" name="Ripiegà u livellu 3"/>
+					<Item id="44054" name="Ripiegà u livellu 4"/>
+					<Item id="44055" name="Ripiegà u livellu 5"/>
+					<Item id="44056" name="Ripiegà u livellu 6"/>
+					<Item id="44057" name="Ripiegà u livellu 7"/>
+					<Item id="44058" name="Ripiegà u livellu 8"/>
+					<Item id="44061" name="Spiegà u livellu 1"/>
+					<Item id="44062" name="Spiegà u livellu 2"/>
+					<Item id="44063" name="Spiegà u livellu 3"/>
+					<Item id="44064" name="Spiegà u livellu 4"/>
+					<Item id="44065" name="Spiegà u livellu 5"/>
+					<Item id="44066" name="Spiegà u livellu 6"/>
+					<Item id="44067" name="Spiegà u livellu 7"/>
+					<Item id="44068" name="Spiegà u livellu 8"/>
+					<Item id="44081" name="Attivà o disattivà u pannellu di prughjettu 1"/>
+					<Item id="44082" name="Attivà o disattivà u pannellu di prughjettu 2"/>
+					<Item id="44083" name="Attivà o disattivà u pannellu di prughjettu 3"/>
+					<Item id="44085" name="Attivà o disattivà u cartulare cum’è spaziu di travagliu"/>
+					<Item id="44080" name="Attivà o disattivà a cartugrafia di u ducumentu"/>
+					<Item id="44070" name="Attivà o disattivà a lista di i ducumenti"/>
+					<Item id="44084" name="Attivà o disattivà a lista di e funzioni"/>
+					<Item id="50005" name="Attivà o disattivà l’arregistramentu d’una prucedura"/>
+					<Item id="44104" name="Passà à u pannellu di prughjettu 1"/>
+					<Item id="44105" name="Passà à u pannellu di prughjettu 2"/>
+					<Item id="44106" name="Passà à u pannellu di prughjettu 3"/>
+					<Item id="44107" name="Passà à u cartulare cum’è spaziu di travagliu"/>
+					<Item id="44109" name="Passà à a lista di i ducumenti"/>
+					<Item id="44108" name="Passà à a lista di e funzioni"/>
+					<Item id="44110" name="Caccià u culore da l’unghjetta"/>
+					<Item id="44111" name="Appiecà u culore 1 à l’unghjetta"/>
+					<Item id="44112" name="Appiecà u culore 2 à l’unghjetta"/>
+					<Item id="44113" name="Appiecà u culore 3 à l’unghjetta"/>
+					<Item id="44114" name="Appiecà u culore 4 à l’unghjetta"/>
+					<Item id="44115" name="Appiecà u culore 5 à l’unghjetta"/>
+					<Item id="11002" name="Ordinà da nome da A à Z"/>
+					<Item id="11003" name="Ordinà da nome da Z à A"/>
+					<Item id="11004" name="Ordinà da chjassu d’accessu da A à Z"/>
+					<Item id="11005" name="Ordinà da chjassu d’accessu da Z à A"/>
+					<Item id="11006" name="Ordinà da tipu da A à Z"/>
+					<Item id="11007" name="Ordinà da tipu da Z à A"/>
+					<Item id="11008" name="Ordinà da lunghezza di cuntenutu crescente"/>
+					<Item id="11009" name="Ordinà da lunghezza di cuntenutu discendente"/>
+				</MainCommandNames>
+			</ShortcutMapper>
+			<ShortcutMapperSubDialg title="Accurtatoghju">
+				<Item id="1" name="Vai"/>
+				<Item id="2" name="Abbandunà"/>
+				<Item id="5006" name="Nome"/>
+				<Item id="5008" name="Aghjunghje"/>
+				<Item id="5009" name="Caccià"/>
+				<Item id="5010" name="Appiecà"/>
+				<Item id="5007" name="Què caccierà l’accurtatoghju per sta cumanda"/>
+				<Item id="5012" name="CUNFLITTU TROVU !"/>
+			</ShortcutMapperSubDialg>
+			<UserDefine title="Definitu da l’utilizatore">
+				<Item id="20001" name="Ancurà"/>
+				<Item id="20002" name="Rinuminà"/>
+				<Item id="20003" name="Creà novu…"/>
+				<Item id="20004" name="Caccià"/>
+				<Item id="20005" name="Arregistrà cù n…"/>
+				<Item id="20007" name="Linguaghju"/>
+				<Item id="20009" name="Est. :"/>
+				<Item id="20012" name="Rispettà MAIU/minu"/>
+				<Item id="20011" name="Trasparenza"/>
+				<Item id="20015" name="Impurtà…"/>
+				<Item id="20016" name="Espurtà…"/>
+				<Item id="20017" name="Staccà"/>
+				<StylerDialog title="Dialogu di u stilu">
+					<Item id="25030" name="Ozzioni di grafia"/>
+					<Item id="25006" name="Culore di primu pianu"/>
+					<Item id="25007" name="Culore di fondu"/>
+					<Item id="25031" name="Nome :"/>
+					<Item id="25032" name="Dimensione :"/>
+					<Item id="25001" name="Grassu"/>
+					<Item id="25002" name="Italicu"/>
+					<Item id="25003" name="Sottulineatu"/>
+					<Item id="25029" name="Incastramentu"/>
+					<Item id="25008" name="Delimitatore 1"/>
+					<Item id="25009" name="Delimitatore 2"/>
+					<Item id="25010" name="Delimitatore 3"/>
+					<Item id="25011" name="Delimitatore 4"/>
+					<Item id="25012" name="Delimitatore 5"/>
+					<Item id="25013" name="Delimitatore 6"/>
+					<Item id="25014" name="Delimitatore 7"/>
+					<Item id="25015" name="Delimitatore 8"/>
+					<Item id="25018" name="Parolla chjave 1"/>
+					<Item id="25019" name="Parolla chjave 2"/>
+					<Item id="25020" name="Parolla chjave 3"/>
+					<Item id="25021" name="Parolla chjave 4"/>
+					<Item id="25022" name="Parolla chjave 5"/>
+					<Item id="25023" name="Parolla chjave 6"/>
+					<Item id="25024" name="Parolla chjave 7"/>
+					<Item id="25025" name="Parolla chjave 8"/>
+					<Item id="25016" name="Cummentu"/>
+					<Item id="25017" name="Linea di cummentu"/>
+					<Item id="25026" name="Operatore 1"/>
+					<Item id="25027" name="Operatore 2"/>
+					<Item id="25028" name="Numeri"/>
+					<Item id="25033" name="Trasparenza"/>
+					<Item id="25034" name="Trasparenza"/>
+					<Item id="1" name="Vai"/>
+					<Item id="2" name="Abbandunà"/>
+				</StylerDialog>
+				<Folder title="Stilu di piegatura è predefinizione">
+					<Item id="21101" name="Stilu predefinitu"/>
+					<Item id="21102" name="Stilu"/>
+					<Item id="21103" name="Aiutu in linea di i linguaghji definiti da l’utilizatore"/>
+					<Item id="21105" name="Documentazione"/>
+					<Item id="21106" name="Piegatura &amp;cumpatta (piegà linee viote dinù)"/>
+					<Item id="21220" name="Stilu 1 di piegatura di codice"/>
+					<Item id="21224" name="Apertura :"/>
+					<Item id="21225" name="Mezu :"/>
+					<Item id="21226" name="Chjusura :"/>
+					<Item id="21227" name="Stilu"/>
+					<Item id="21320" name="Stilu 2 di piegatura di codice (separadori richiesti)"/>
+					<Item id="21324" name="Apertura :"/>
+					<Item id="21325" name="Mezu :"/>
+					<Item id="21326" name="Chjusura :"/>
+					<Item id="21327" name="Stilu"/>
+					<Item id="21420" name="Stilu di piegatura di cummentu"/>
+					<Item id="21424" name="Apertura :"/>
+					<Item id="21425" name="Mezu :"/>
+					<Item id="21426" name="Chjusura :"/>
+					<Item id="21427" name="Stilu"/>
+				</Folder>
+				<Keywords title="Liste di parolle chjave">
+					<Item id="22101" name="1ᵘ gruppu"/>
+					<Item id="22201" name="2ᵘ gruppu"/>
+					<Item id="22301" name="3ᵘ gruppu"/>
+					<Item id="22401" name="4ᵘ gruppu"/>
+					<Item id="22451" name="5ᵘ gruppu"/>
+					<Item id="22501" name="6ᵘ gruppu"/>
+					<Item id="22551" name="7ᵘ gruppu"/>
+					<Item id="22601" name="8ᵘ gruppu"/>
+					<Item id="22121" name="Modu di prefissu"/>
+					<Item id="22221" name="Modu di prefissu"/>
+					<Item id="22321" name="Modu di prefissu"/>
+					<Item id="22421" name="Modu di prefissu"/>
+					<Item id="22471" name="Modu di prefissu"/>
+					<Item id="22521" name="Modu di prefissu"/>
+					<Item id="22571" name="Modu di prefissu"/>
+					<Item id="22621" name="Modu di prefissu"/>
+					<Item id="22122" name="Stilu"/>
+					<Item id="22222" name="Stilu"/>
+					<Item id="22322" name="Stilu"/>
+					<Item id="22422" name="Stilu"/>
+					<Item id="22472" name="Stilu"/>
+					<Item id="22522" name="Stilu"/>
+					<Item id="22572" name="Stilu"/>
+					<Item id="22622" name="Stilu"/>
+				</Keywords>
+				<Comment title="Cummentu è numeru">
+					<Item id="23003" name="Pusizione di cummentu di linea"/>
+					<Item id="23004" name="Permette in ogni locu"/>
+					<Item id="23005" name="Furzà à u principiu di linea"/>
+					<Item id="23006" name="Permette spaziu biancu nanzu"/>
+					<Item id="23001" name="Permette a piegatura di cummentu"/>
+					<Item id="23326" name="Stilu"/>
+					<Item id="23323" name="Apertura"/>
+					<Item id="23324" name="Caratteru di seguita"/>
+					<Item id="23325" name="Chjusura"/>
+					<Item id="23301" name="Stilu di linea di cummentu"/>
+					<Item id="23124" name="Stilu"/>
+					<Item id="23122" name="Apertura"/>
+					<Item id="23123" name="Chjusura"/>
+					<Item id="23101" name="Stilu di cummentu"/>
+					<Item id="23201" name="Stilu di numeru"/>
+					<Item id="23220" name="Stilu"/>
+					<Item id="23230" name="Prefissu 1"/>
+					<Item id="23232" name="Prefissu 2"/>
+					<Item id="23234" name="Estrà 1"/>
+					<Item id="23236" name="Estrà 2"/>
+					<Item id="23238" name="Suffissu 1"/>
+					<Item id="23240" name="Suffissu 2"/>
+					<Item id="23242" name="Stesa :"/>
+					<Item id="23244" name="Separadore decimale"/>
+					<Item id="23245" name="Puntu"/>
+					<Item id="23246" name="Virgula"/>
+					<Item id="23247" name="Tramindui"/>
+				</Comment>
+				<Operator title="Operatori è delimitatore">
+					<Item id="24101" name="Stilu di l’operatori"/>
+					<Item id="24113" name="Stilu"/>
+					<Item id="24116" name="Operatore 1"/>
+					<Item id="24117" name="Operatore 2 (cù separadori richiesti)"/>
+					<Item id="24201" name="Stilu 1 di delimitatore"/>
+					<Item id="24220" name="Apertura :"/>
+					<Item id="24221" name="Scappamentu :"/>
+					<Item id="24222" name="Chjusura :"/>
+					<Item id="24223" name="Stilu"/>
+					<Item id="24301" name="Stilu 2 di delimitatore"/>
+					<Item id="24320" name="Apertura :"/>
+					<Item id="24321" name="Scappamentu :"/>
+					<Item id="24322" name="Chjusura :"/>
+					<Item id="24323" name="Stilu"/>
+					<Item id="24401" name="Stilu 3 di delimitatore"/>
+					<Item id="24420" name="Apertura :"/>
+					<Item id="24421" name="Scappamentu :"/>
+					<Item id="24422" name="Chjusura :"/>
+					<Item id="24423" name="Stilu"/>
+					<Item id="24451" name="Stilu 4 di delimitatore"/>
+					<Item id="24470" name="Apertura :"/>
+					<Item id="24471" name="Scappamentu :"/>
+					<Item id="24472" name="Chjusura :"/>
+					<Item id="24473" name="Stilu"/>
+					<Item id="24501" name="Stilu 5 di delimitatore"/>
+					<Item id="24520" name="Apertura :"/>
+					<Item id="24521" name="Scappamentu :"/>
+					<Item id="24522" name="Chjusura :"/>
+					<Item id="24523" name="Stilu"/>
+					<Item id="24551" name="Stilu 6 di delimitatore"/>
+					<Item id="24570" name="Apertura :"/>
+					<Item id="24571" name="Scappamentu :"/>
+					<Item id="24572" name="Chjusura :"/>
+					<Item id="24573" name="Stilu"/>
+					<Item id="24601" name="Stilu 7 di delimitatore"/>
+					<Item id="24620" name="Apertura :"/>
+					<Item id="24621" name="Scappamentu :"/>
+					<Item id="24622" name="Chjusura :"/>
+					<Item id="24623" name="Stilu"/>
+					<Item id="24651" name="Stilu 8 di delimitatore"/>
+					<Item id="24670" name="Apertura :"/>
+					<Item id="24671" name="Scappamentu :"/>
+					<Item id="24672" name="Chjusura :"/>
+					<Item id="24673" name="Stilu"/>
+				</Operator>
+			</UserDefine>
+			<Preference title="Preferenze">
+				<Item id="6001" name="Chjode"/>
+				<Global title="Generale">
+					<Item id="6123" name="Lingua di l’interfaccia"/>
+					<Item id="6131" name="Listinu"/>
+					<Item id="6122" name="Piattà (impiegà u tastu Alt o F10 per attivà o disattivà)"/>
+					<Item id="6132" name="Piattà l’accurtatoghji di diritta ＋ ▼ ✕"/>
+					<Item id="6133" name="Barra di statu"/>
+					<Item id="6134" name="Piattà"/>
+				</Global>
+
+				<Toolbar title="Barra d’attrezzi">
+					<Item id="6102" name="Piattà"/>
+					<Item id="6103" name="Fluent UI : icone chjuche"/>
+					<Item id="6104" name="Fluent UI : icone maiò"/>
+					<Item id="6129" name="Filled Fluent UI : icone chjuche"/>
+					<Item id="6130" name="Filled Fluent UI : icone maiò"/>
+					<Item id="6105" name="Classiche : icone chjuche"/>
+					<Item id="6011" name="Culurazione"/>
+					<Item id="6012" name="Sana"/>
+					<Item id="6013" name="Parziale"/>
+					<Item id="6014" name="Scelta di culore"/>
+					<Item id="6015" name="Predefinitu"/>
+					<Item id="6016" name="Rossu"/>
+					<Item id="6017" name="Verde"/>
+					<Item id="6018" name="Turchinu"/>
+					<Item id="6019" name="Purpura"/>
+					<Item id="6020" name="Cianu"/>
+					<Item id="6021" name="Verde aliva"/>
+					<Item id="6022" name="Ghjallu"/>
+					<Item id="6023" name="Culore d’accentuazione"/>
+					<Item id="6024" name="Persunalizà"/>
+				</Toolbar>
+
+				<Tabbar title="Barra d’unghjette">
+					<Item id="6107" name="Riduce"/>
+					<Item id="6108" name="Bluccà (senza sguillà è depone)"/>
+					<Item id="6109" name="Cambià u culore di l’unghjette inattive"/>
+					<Item id="6110" name="Barra culurita nant’à l’unghjetta attiva"/>
+					<Item id="6111" name="Affissà i buttoni nant’à l’unghjette inattive"/>
+					<Item id="6112" name="Affissà u buttone di chjusura"/>
+					<Item id="6113" name="Doppiu cliccu per chjode u ducumentu"/>
+					<Item id="6115" name="Attivà a funzione di fissazione di l’unghjetta"/>
+					<Item id="6135" name="Affissà solu u buttone fissatu"/>
+					<Item id="6118" name="Piattà"/>
+					<Item id="6119" name="Multilinea"/>
+					<Item id="6120" name="Verticale"/>
+					<Item id="6121" name="Esce quandu l’ultima unghjetta si chjode"/>
+					<Item id="6128" name="Icone alternative"/>
+					<Item id="6125" name="Cumpurtamentu"/>
+					<Item id="6126" name="Aspettu"/>
+					<Item id="6136" name="Lungh. massima di nome d’unghjetta :"/>
+				</Tabbar>
+
+				<Scintillas title="Mudificazione 1">
+					<Item id="6216" name="Parametri di cursore"/>
+					<Item id="6217" name="Larghezza :"/>
+					<Item id="6219" name="Cinnulamentu :"/>
+					<Item id="6221" name="10"/><!-- Prestu (3 caratteri à u più) -->
+					<Item id="6222" name="0"/><!-- Lentu (3 caratteri à u più) -->
+					<Item id="6246" name="Rende cummutevule e cumande di piegatura è spiegatura di u livellu attuale"/>
+					<Item id="6227" name="Ritornu à a linea"/>
+					<Item id="6228" name="Predefinitu"/>
+					<Item id="6229" name="Aliniatu"/>
+					<Item id="6230" name="Indentazione"/>
+					<Item id="6234" name="Disattivà u modu espertu d’affissera in casu di penseru cù u tappettu tattile"/>
+					<Item id="6215" name="Permette una grafia allisciata"/>
+					<Item id="6236" name="Permette l’affissera dopu à l’ultima linea"/>
+					<Item id="6239" name="Cunservà a selezzione in casu di cliccu dirittu fora di a selezzione"/>
+					<Item id="6245" name="Attivà u spaziu virtuale"/>
+					<Item id="6214" name="Attivà a copia o a tagliatura di linea senza selezzione"/>
+					<Item id="6266" name="Disattivà u sguillà è depone di u testu selezziunatu"/>
+					<Item id="6225" name="Appiecà u culore persunalizatu à u primu pianu di u testu selezziunatu"/>
+					<Item id="6651" name="Indicadore di linea currente"/>
+					<Item id="6652" name="Nisunu"/>
+					<Item id="6653" name="Culurisce u sfondulu"/>
+					<Item id="6654" name="Quadru"/>
+					<Item id="6655" name="Larghezza :"/>
+				</Scintillas>
+
+				<Scintillas2 title="Mudificazione 2">
+					<Item id="6521" name="Mudificazione multiple"/>
+					<Item id="6522" name="Attivà a mudificazione multiple (Ctrl+cliccu/selez. cù topu)"/>
+					<Item id="6523" name="Attivà a selezzione di culonna versu a mudificazione multiple"/>
+					<Item id="6247" name="Fine di linea (CRLF)"/><!-- Don't translate "(CRLF)" -->
+					<Item id="6248" name="Predefinitu"/>
+					<Item id="6249" name="Testu ordinariu"/>
+					<Item id="6250" name="Culore persunalizatu"/>
+					<Item id="6252" name="Caratteri nonstampevule"/>
+					<Item id="6260" name="Apparenza"/>
+					<Item id="6254" name="Abbreviamentu"/>
+					<Item id="6255" name="Puntu di codice"/>
+					<Item id="6256" name="Culore persunalizatu"/>
+					<Item id="6258" name="Appiecà i parametri  d’Apparenza à C0, C1 è e fine di linea Unicode"/>
+					<Item id="6259" name="Impedisce a stampittera di caratteru di cuntrollu (codice C0) in u ducumentu"/>
+				</Scintillas2>
+
+				<DarkMode title="Modu scuru">
+					<Item id="7131" name="Modu chjaru"/>
+					<Item id="7132" name="Modu scuru"/>
+					<Item id="7133" name="Seguità Windows"/>
+					<Item id="7102" name="Neru"/>
+					<Item id="7103" name="Rossu"/>
+					<Item id="7104" name="Verde"/>
+					<Item id="7105" name="Turchinu"/>
+					<Item id="7107" name="Purpura"/>
+					<Item id="7108" name="Cianu"/>
+					<Item id="7109" name="Aliva"/>
+					<Item id="7115" name="Persunalizatu"/>
+					<Item id="7116" name="Sfondulu di cuntenutu"/>
+					<Item id="7117" name="Messa in evidenza"/>
+					<Item id="7118" name="Sfondulu di cuntrollu"/>
+					<Item id="7119" name="Sfondulu di dialogu"/>
+					<Item id="7120" name="Sbagliu"/>
+					<Item id="7121" name="Testu"/>
+					<Item id="7122" name="Testu più oscuru"/>
+					<Item id="7123" name="Testu disattivatu"/>
+					<Item id="7124" name="Bordu"/>
+					<Item id="7125" name="Liame"/>
+					<Item id="7126" name="Bordu zeppu"/>
+					<Item id="7127" name="Bordu disattivatu"/>
+					<Item id="7130" name="Reinizià"/>
+					<Item id="7135" name="Toni"/>
+				</DarkMode>
+
+				<MarginsBorderEdge title="Margine è bordu">
+					<Item id="6201" name="Margine per piegatura"/>
+					<Item id="6202" name="Simplice"/>
+					<Item id="6203" name="Fleccia"/>
+					<Item id="6204" name="Linea è chjerchju"/>
+					<Item id="6205" name="Linea è quadratu"/>
+					<Item id="6226" name="Nisuna"/>
+					<Item id="6291" name="Numeru di linea"/>
+					<Item id="6206" name="Affissà"/>
+					<Item id="6292" name="Larghezza dinamica"/>
+					<Item id="6293" name="Larghezza custante"/>
+					<Item id="6207" name="Affissà a margine di l’indetta"/>
+					<Item id="6295" name="Cronolugia di i cambiamenti"/>
+					<Item id="6223" name="Affissà in a margine"/>
+					<Item id="6296" name="Affissà in u testu"/>
+					<Item id="6211" name="Marcatore di culonna"/>
+					<Item id="6213" name="Culurisce u fondu"/>
+					<Item id="6231" name="Larghezza di bordu"/>
+					<Item id="6235" name="Nisunu bordu"/>
+					<Item id="6208" name="Imburrera"/>
+					<Item id="6209" name="Manca"/>
+					<Item id="6210" name="Diritta"/>
+					<Item id="6212" name="Senza distrazzione"/>
+				</MarginsBorderEdge>
+
+				<NewDoc title="Ducumentu novu">
+					<Item id="6401" name="Furmatu (fine di linea)"/>
+					<Item id="6402" name="Windows (CR LF)"/>
+					<Item id="6403" name="Unix (LF)"/>
+					<Item id="6404" name="Macintosh (CR)"/>
+					<Item id="6405" name="Cudificazione"/>
+					<Item id="6406" name="ANSI"/>
+					<Item id="6407" name="UTF-8"/>
+					<Item id="6408" name="UTF-8 cù BOM"/>
+					<Item id="6409" name="UTF-16 Big Endian cù BOM"/>
+					<Item id="6410" name="UTF-16 Little Endian cù BOM"/>
+					<Item id="6411" name="Linguaghju predefinitu :"/>
+					<Item id="6419" name="Ducumentu novu"/>
+					<Item id="6420" name="Appiecà à i schedarii ANSI aperti"/>
+					<Item id="6432" name="Sempre apre un ducumentu novu di più à u lanciu"/>
+					<Item id="6433" name="Impiegà a prima linea di u ducumentu cum’è nome d’unghjetta senza titulu"/>
+				</NewDoc>
+
+				<DefaultDir title="Cartulare predefinitu">
+					<Item id="6413" name="Cartulare predefinitu per apre è arregistrà i schedarii"/>
+					<Item id="6414" name="Seguità u ducumentu attuale"/>
+					<Item id="6415" name="Arricurdassi di l’ultimu cartulare impiegatu"/>
+					<Item id="6431" name="À u depone d’un cartulare, apre tutti i schedarii invece d’impiegallu cum’è spaziu di travagliu"/>
+				</DefaultDir>
+
+				<FileAssoc title="Associu di schedariu">
+					<Item id="4008" name="Ci vole à piantà Notepad++ è rilancià Notepad++ in modu Amministratore per impiegà sta funzione."/>
+					<Item id="4009" name="Estensioni accettate :"/>
+					<Item id="4010" name="Estensioni inscritte :"/>
+				</FileAssoc>
+
+				<Language title="Linguaghju">
+					<Item id="6505" name="Elementi dispunibule"/>
+					<Item id="6506" name="Elementi piattati"/>
+					<Item id="6507" name="Cumpattà l’affissera di u listinu"/>
+					<Item id="6508" name="Listinu di i linguaghji affissati"/>
+					<Item id="6335" name="« \ » hè u caratteru di scappamentu per SQL"/>
+				</Language>
+
+				<Indentation title="Indentazione">
+					<Item id="7161" name="Indentazione autumatica"/>
+					<Item id="7162" name="Nisuna"/>
+					<Item id="7163" name="Basica"/>
+					<Item id="7164" name="Esperta"/>
+					<Item id="6301" name="Parametri d’indentazione"/>
+					<Item id="6302" name="Caratteru(i) di spaziu"/>
+					<Item id="6303" name="Dimensione d’indentazione :"/>
+					<Item id="6310" name="Indentazione impieghendu :"/>
+					<Item id="6311" name="Caratteru di tabulazione"/>
+					<Item id="6510" name="Impiegà valore predef."/>
+					<Item id="6512" name="U tastu di ritornu in daretu caccia un’indentazione invece di caccià un spaziu unicu"/>
+				</Indentation>
+
+				<Highlighting title="Sopralineamentu">
+					<Item id="6351" name="Stilizà tutte l’occurenze di testu"/>
+					<Item id="6352" name="Rispettà a cassa (maiuscule è minuscule)"/>
+					<Item id="6353" name="Parolla sana deve currisponde"/>
+					<Item id="6333" name="Sopralineamentu astutu"/>
+					<Item id="6326" name="Attivà"/>
+					<Item id="6354" name="Currispundenza"/>
+					<Item id="6332" name="Rispettà a cassa (maiuscule è minuscule)"/>
+					<Item id="6338" name="Parolla sana deve currisponde"/>
+					<Item id="6339" name="Impiegà i parametri di dialogu di ricerca"/>
+					<Item id="6340" name="Sopralineà dinù l’altra vista"/>
+					<Item id="6329" name="Sopralineà l’etichette chì currispondenu"/>
+					<Item id="6327" name="Attivà"/>
+					<Item id="6328" name="Sopralineà l’attributi d’etichetta"/>
+					<Item id="6330" name="Sopralineà a zona cummentu/php/asp"/>
+				</Highlighting>
+
+				<Print title="Stampà">
+					<Item id="6601" name="Stamp&amp;à u numeru di linea"/>
+					<Item id="6616" name="Stampà &amp;FF (FormFeed) cum’è saltu di pagina"/>
+					<Item id="6602" name="Ozzioni di culore"/>
+					<Item id="6603" name="Tale è quale (&amp;WYSIWYG)"/>
+					<Item id="6604" name="In&amp;vertisce"/>
+					<Item id="6605" name="Neru nant’à &amp;biancu"/>
+					<Item id="6606" name="Sen&amp;za culore di fondu"/>
+					<Item id="6607" name="Parametri di margine (Unita : mm)"/>
+					<Item id="6612" name="&amp;Manca"/>
+					<Item id="6613" name="In&amp;sù"/>
+					<Item id="6614" name="&amp;Diritta"/>
+					<Item id="6615" name="I&amp;nghjò"/>
+					<Item id="6706" name="&amp;Grassu"/>
+					<Item id="6707" name="&amp;Italicu"/>
+					<Item id="6708" name="Intestatura"/>
+					<Item id="6709" name="&amp;Parte à manu manca"/>
+					<Item id="6710" name="Par&amp;te à u mezu"/>
+					<Item id="6711" name="Part&amp;e à manu diritta"/>
+					<Item id="6717" name="Grass&amp;u"/>
+					<Item id="6718" name="Ita&amp;licu"/>
+					<Item id="6719" name="Bassu di pagina"/>
+					<Item id="6720" name="Parte à manu man&amp;ca"/>
+					<Item id="6721" name="Pa&amp;rte à u mezu"/>
+					<Item id="6722" name="P&amp;arte à manu diritta"/>
+					<Item id="6723" name="Ag&amp;hjunghje"/>
+					<ComboBox id="6724">
+						<Element name="Chjassu sanu di u nome di schedariu"/>
+						<Element name="Nome di schedariu"/>
+						<Element name="Cartulare"/>
+						<Element name="Pagina"/>
+						<Element name="Furmatu cortu di a data"/>
+						<Element name="Furmatu longu di a data"/>
+						<Element name="Ora"/>
+					</ComboBox>
+					<Item id="6725" name="&amp;Variabile :"/>
+					<Item id="6727" name="S’affissanu quì e vostre variabile"/>
+					<Item id="6728" name="Intestatura è bassu di pagina"/>
+				</Print>
+
+				<Searching title="Ricerche">
+					<Item id="6902" name="Impiegà a grafia à spaziamentu fissu in u dialogu di ricerca (Richiede di rilancià Notepad++)"/>
+					<Item id="6903" name="U dialogu di ricerca sta apertu dopu una ricerca chì s’affisseghja in a finestra di risultati"/>
+					<Item id="6904" name="Cunfirmà tutti i rimpiazzamenti in tutti i ducumenti aperti"/>
+					<Item id="6905" name="Rimpiazzà : ùn movesi micca à a prossima occurrenza"/>
+					<Item id="6906" name="Risultati di ricerca : affissà un elementu unicu à a linea trova, s’ella hè pussibule"/>
+					<Item id="6907" name="Quandu u dialogu di ricerca hè chjamatu"/>
+					<Item id="6908" name="Riempie u campu di ricerca cù u testu selezziunatu"/>
+					<Item id="6909" name="Selezziunà a parolla sottu à u cursore s’è nunda hè selezziunatu"/>
+					<Item id="6910" name="Dimensione minima per a verificazione autumatica di l’ozzione « In a selezzione »"/>
+					<Item id="6913" name="Riempie u campu Cartulare di « Circà in schedarii » cù u chjassu di u ducumentu attivu"/>
+					<Item id="6916" name=" : Numeru massimu di caratteri selezziunati à cupià in u campu di ricerca"/>
+					<Item id="6917" name="Circà in schedarii : Preferisce u cuntenutu nant’à u discu invece di i schedarii aperti"/>
+				</Searching>
+
+				<RecentFilesHistory title="Schedarii recenti">
+					<Item id="6304" name="Cronolugia di i schedarii recenti"/>
+					<Item id="6306" name="Numeru massimu d’elementi :"/>
+					<Item id="6305" name="Ùn verificà micca à u lanciu"/>
+					<Item id="6429" name="Affissera"/>
+					<Item id="6424" name="In sottulistinu"/>
+					<Item id="6425" name="Nome di schedariu solu"/>
+					<Item id="6426" name="Chjassu cumpletu di schedariu"/>
+					<Item id="6427" name="Persunalizà a lunghezza massima :"/>
+				</RecentFilesHistory>
+
+				<Backup title="Salvaguardia">
+					<Item id="6817" name="Fotò di sessione è salvaguardia periodica"/>
+					<Item id="6818" name="Permette a fotò di sessione è a salvaguardia periodica"/>
+					<Item id="6819" name="Scruchjà una salvaguardia, in casu di mudificazione, ogni"/>
+					<Item id="6821" name="seconde"/>
+					<Item id="6822" name="Chjassu :"/>
+					<Item id="6309" name="Arricurdassi di a sessione currente per u prossimu lanciu"/>
+					<Item id="6825" name="Arricurdassi di i schedarii inaccessibile d’una sessione anziana"/>
+					<Item id="6801" name="Salvaguardia à l’arregistramentu"/>
+					<Item id="6315" name="Alcuna"/>
+					<Item id="6316" name="Salvaguardia simplice"/>
+					<Item id="6317" name="Salvaguardia verbosa"/>
+					<Item id="6804" name="Cartulare persunalizatu di salvaguardia"/>
+					<Item id="6803" name="Cartulare :"/>
+				</Backup>
+
+				<AutoCompletion title="Empiimentu autumaticu">
+					<Item id="6807" name="Empiimentu autumaticu"/>
+					<Item id="6808" name="Attivà st’empiimentu à ogni entrata"/>
+					<Item id="6809" name="Cumpiimentu di funzione"/>
+					<Item id="6810" name="Cumpiimentu di parolla"/>
+					<Item id="6816" name="Cumpiimentu di funzione è di parolla"/>
+					<Item id="6869" name="Framette a selezzione"/>
+					<Item id="6870" name="TAB"/><!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+					<Item id="6871" name="ENTER"/><!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
+					<Item id="6824" name="Ignurà i numeri"/>
+					<Item id="6811" name="Da u"/>
+					<Item id="6813" name="u caratteru"/>
+					<Item id="6872" name="Accurtà a lista d’empiimentu autumaticu"/>
+					<Item id="6815" name="Sugerisce i parametri di funzione à l’entrata"/>
+					<Item id="6851" name="Inserzione autumatica"/>
+					<Item id="6857" name=" Chjusura html/xml"/>
+					<Item id="6858" name="Iniziu"/>
+					<Item id="6859" name="Fine"/>
+					<Item id="6860" name="Paghju 1 :"/>
+					<Item id="6863" name="Paghju 2 :"/>
+					<Item id="6866" name="Paghju 3 :"/>
+				</AutoCompletion>
+
+				<MultiInstance title="Finestre multiple è data">
+					<Item id="6151" name="Parametri di e finestre multiple *"/>
+					<Item id="6152" name="Apre una sessione in una finestra nova (è arregistralla autumaticamente à l’esce)"/>
+					<Item id="6153" name="Sempre in modu à finestre multiple"/>
+					<Item id="6154" name="Modu predefinitu (finestra unica)"/>
+					<Item id="6155" name="* A mudificazione di stu parametru richiede di rilancià Notepad++"/>
+					<Item id="6171" name="Persunalizazione d’inserzione di a data è l’ora"/>
+					<Item id="6175" name="Invertisce l’ordine predefinitu di a data è l’ora (furmatu cortu è longu)"/>
+					<Item id="6172" name="Furmatu persunalizatu :"/>
+					<Item id="6181" name="Statu di u pannellu è [-nosession] *"/>
+					<Item id="6182" name="Arricurdassi di u statu di u pannellu (pannellu hè apertu) in d’altre istanze (modu à finestre multiple) o quandu s’impiega u parametru di linea di cumanda [-nosession]"/>
+					<Item id="6183" name="Cronolugia di u preme’papei"/>
+					<Item id="6184" name="Lista di i ducumenti"/>
+					<Item id="6185" name="Pannellu di i caratteri"/>
+					<Item id="6186" name="Cartulare cum’è spaziu di travagliu"/>
+					<Item id="6187" name="Pannelli di prug&amp;hjettu"/>
+					<Item id="6188" name="Cartugrafia di u ducumentu"/>
+					<Item id="6189" name="Lista di e funzioni"/>
+					<Item id="6190" name="Pannelli di modulu d’estensione"/>
+				</MultiInstance>
+
+				<Delimiter title="Delimitatore">
+					<Item id="6251" name="Parametri di selezzione di delimitatore (Ctrl+doppiu cliccu di topu)"/>
+					<Item id="6252" name="Principiu"/>
+					<Item id="6255" name="Fine"/>
+					<Item id="6256" name="Permette nant’à parechje linee"/>
+					<Item id="6257" name="sta linea hè unica"/>
+					<Item id="6258" name="è avà ùn hè più sola, ci sò duie linee ;-)"/>
+					<Item id="6161" name="Lista di caratteri delimitatori di parolla"/>
+					<Item id="6162" name="Impiegà a lista predefinita di caratteri delimitatori di parolla tale è quale"/>
+					<Item id="6163" name="Aghjunghje u vostru caratteru cum’è una parte di parolla
+(sciglite què solu s’è vo sapete ciò chì vo fate)"/>
+				</Delimiter>
+
+				<Performance title="Perfurmenze">
+					<Item id="7141" name="Ristrizzione di i schedarii tamanti"/>
+					<Item id="7143" name="Attivà a ristrizzione di i schedarii tamanti (senza messa in evidenza di a sintassa)"/>
+					<Item id="7144" name="Definisce a dimensione d’un schedariu tamantu :"/>
+					<Item id="7146" name="Mo   (da 1 à 2046)"/>
+					<Item id="7147" name="Permette d’attivà a currispundenza trà e parentesi"/>
+					<Item id="7148" name="Permette d’attivà di l’empiimentu autumaticu"/>
+					<Item id="7149" name="Permette d’attivà u sopralineamentu astutu"/>
+					<Item id="7150" name="Disattivà di manera glubale u ritornu autumaticu à a linea"/>
+					<Item id="7151" name="Permette d’attivà u liame clicchevule"/>
+					<Item id="7152" name="Caccià l’avertimentu quandu s’aprenu schedarii più maiò chè 2Go"/>
+				</Performance>
+
+				<Cloud title="Nivulu è liame">
+					<Item id="6262" name="Parametri di u nivulu"/>
+					<Item id="6263" name="Senza nivulu"/>
+					<Item id="6267" name="Definisce quì u chjassu sanu di u vostru nivulu :"/>
+					<Item id="6318" name="Parametri di cliccu di liame"/>
+					<Item id="6319" name="Attivà sta funzione"/>
+					<Item id="6320" name="Ùn micca sottulineà"/>
+					<Item id="6350" name="Attivà u modu di sopralineamentu sanu per un liame"/>
+					<Item id="6264" name="Scheme persunalizate d’URI :"/>
+				</Cloud>
+
+				<SearchEngine title="Mutore di ricerca">
+					<Item id="6271" name="Mutore di ricerca (per a cumanda « Circà nant’à Internet »)"/>
+					<Item id="6272" name="DuckDuckGo"/>
+					<Item id="6273" name="Google"/>
+					<Item id="6274" name="Bing"/>
+					<Item id="6275" name="Yahoo!"/>
+					<Item id="6276" name="Definisce u vostru mutore di ricerca quì :"/>
+					<!-- Don’t change anything after Example: -->
+					<Item id="6278" name="Esempiu : https://www.google.com/search?q=$(CURRENT_WORD)"/>
+				</SearchEngine>
+
+				<MISC title="Diversi">
+					<ComboBox id="6347">
+						<Element name="Attivà per u schedariu attuale"/>
+						<Element name="Attivà per tutti i schedarii aperti"/>
+						<Element name="Disattivà"/>
+					</ComboBox>
+					<ComboBox id="6307">
+						<Element name="Nisuna azzione in"/>
+						<Element name="Impuculisce in"/>
+						<Element name="Chjode in"/>
+						<Element name="Impuculisce o chjode in"/>
+					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (u più cumpatibile)"/>
+						<Element name="DirectWrite (predefinitu)"/>
+						<Element name="DirectWrite (cunservà e sequenze)"/>
+						<Element name="DirectWrite (disegnà nant’à GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="Disattivà"/>
+						<Element name="Attivà à u lanciu di Notepad++"/>
+						<Element name="Attivà à l’esce di Notepad++"/>
+					</ComboBox>
+					<Item id="6308" name="u spaziu di nutificazione di u sistema"/>
+					<Item id="6363" name="modu di restituzione"/>
+					<Item id="6365" name="Messa à livellu autumatica :"/>
+					<Item id="6312" name="Detezione autumatica di statu di schedariu"/>
+					<Item id="6313" name="Mudificazione senza avertimentu"/>
+					<Item id="6325" name="Andà à l’ultima linea dopu a mudificazione"/>
+					<Item id="6322" name="Estensione di sched. di sessione :"/>
+					<Item id="6324" name="Cambiamentu di ducumentu (Ctrl+Tabul.)"/>
+					<Item id="6331" name="Affissà solu u nome di schedariu in a barra di titulu"/>
+					<Item id="6334" name="Detezione autumatica di cudificazione di caratteru"/>
+					<Item id="6337" name="Estensione di spaziu di travagliu :"/>
+					<Item id="6114" name="Attivà"/>
+					<Item id="6117" name="Impiegà a lista MRU recente di schedarii"/>
+					<Item id="6344" name="Fighjulata di u ducumentu"/>
+					<Item id="6345" name="Fighjulata à l’unghjetta"/>
+					<Item id="6346" name="Fighjulata à a cartugrafia di u ducumentu"/>
+					<Item id="6360" name="Ammutulisce tutti i soni"/>
+					<Item id="6361" name="Attivà u dialogu per cunfirmà l’arregistramentu di tutti i schedarii"/>
+				</MISC>
+			</Preference>
+			<MultiMacro title="Lancià una prucedura parechje volte">
+				<Item id="1" name="&amp;Lancià"/>
+				<Item id="2" name="&amp;Abbandunà"/>
+				<Item id="8006" name="Prucedura à lancià"/>
+				<Item id="8001" name="Lancià"/>
+				<Item id="8005" name="volte"/>
+				<Item id="8002" name="Lancià sin’à a &amp;fine di u schedariu"/>
+			</MultiMacro>
+			<Window title="Finestre">
+				<Item id="1" name="&amp;Attivà"/>
+				<Item id="2" name="&amp;Vai"/>
+				<Item id="7002" name="Arre&amp;gistrà"/>
+				<Item id="7003" name="&amp;Chjodela(e)"/>
+				<Item id="7004" name="Classi&amp;ficà"/>
+			</Window>
+			<ColumnEditor title="Mudificazione in modu culonna">
+				<Item id="2023" name="&amp;Testu à framette"/>
+				<Item id="2033" name="&amp;Numeru à framette"/>
+				<Item id="2030" name="Numeru &amp;iniziale :"/>
+				<Item id="2031" name="&amp;Cresce da :"/>
+				<Item id="2038" name="D&amp;avanti :"/>
+				<ComboBox id="2039">
+					<Element name="Nunda"/>
+					<Element name="Zeri"/>
+					<Element name="Spazii"/>
+				</ComboBox>
+				<Item id="2036" name="&amp;Ripete :"/>
+				<Item id="2032" name="Furmatu"/>
+				<Item id="2024" name="&amp;Decimale"/>
+				<Item id="2025" name="&amp;Ottale"/>
+				<Item id="2026" name="&amp;Esadecimale"/>
+				<Item id="2027" name="&amp;Binariu"/>
+				<Item id="1" name="Vai"/>
+				<Item id="2" name="Abbandunà"/>
+			</ColumnEditor>
+			<FindInFinder title="Circà in i risultati di ricerca">
+				<Item id="1" name="Circalle tutte"/>
+				<Item id="2" name="Chjode"/>
+				<Item id="1711" name="&amp;Cosa à circà :"/>
+				<Item id="1713" name="Circà solu in e linee &amp;truvate"/>
+				<Item id="1714" name="&amp;Parolla sana deve currisponde"/>
+				<Item id="1715" name="Rispettà a cassa (&amp;maiuscule è minuscule)"/>
+				<Item id="1716" name="Modu di ricerca"/>
+				<Item id="1717" name="Modu &amp;nurmale"/>
+				<Item id="1719" name="&amp;Espressione regulare"/>
+				<Item id="1718" name="Modu &amp;aumintatu (\n, \r, \t, \0, \x…)"/>
+				<Item id="1720" name=". &amp;include fine di linea"/>
+			</FindInFinder>
+			<DoSaveOrNot title="Arregistrà">
+				<Item id="1761" name="Arregistrà u schedariu « $STR_REPLACE$ » ?"/>
+				<Item id="6" name="&amp;Sì"/>
+				<Item id="7" name="&amp;Nò"/>
+				<Item id="2" name="&amp;Abbandunà"/>
+				<Item id="4" name="Sì per &amp;tutti"/>
+				<Item id="5" name="Nò &amp;per tutti"/>
+			</DoSaveOrNot>
+			<DoSaveAll title="Cunfirmazione di l’arregistramentu di tutti i schedarii">
+				<Item id="1766" name="Da veru, vulete arregistrà tutti i ducumenti mudificati ?
+
+Sciglite « Sempre sì » s’è ùn vulete più risponde à sta dumanda.
+Pudete attivà torna st’ozzione in u dialogu di e preferenze."/>
+				<Item id="6" name="&amp;Sì"/>
+				<Item id="7" name="&amp;Nò"/>
+				<Item id="4" name="S&amp;empre sì"/>
+			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+
+			<DebugInfo title="Infurmazioni di spannatura">
+				<Item id="1752" name="&amp;Cupià l’infurmazioni in u preme’papei"/>
+				<Item id="1" name="Vai"/>
+			</DebugInfo>
+		</Dialog>
+		<MessageBox>
+			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
+			<ContextMenuXmlEditWarning title="Mudificazione di u listinu cuntestuale" message="A mudificazione di contextMenu.xml vi permette di cambià l’ozzioni di u listinu cuntestuale di Notepad++.
+Ci vole à rilancià Notepad++ per piglià in contu e mudificazioni di contextMenu.xml."/>
+			<SaveCurrentModifWarning title="Arregistrà a mudificazione currente" message="Ci vuleria à arregistrà e mudificazioni currente.
+Tutte e mudificazioni arregistrate ùn pudenu micca esse disfatte.
+
+Cuntinuà ?"/><!-- HowToReproduce: when you opened file is modified but unsaved yet, and you are changing file encoding. -->
+			<LoseUndoAbilityWarning title="Perdita di a pussibilità di disfà" message="Ci vuleria à arregistrà e mudificazioni currente.
+Tutte e mudificazioni arregistrate ùn pudenu micca esse disfatte.
+
+Cuntinuà ?"/><!-- HowToReproduce: when you opened file is modified and saved, then you are changing file encoding. -->
+			<CannotMoveDoc title="Dispiazzà in una finestra Notepad++ nova" message="U ducumentu hè mudificatu, arregistratelu è pruvate torna."/><!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
+			<DocReloadWarning title="Ricaricà" message="Da veru, vulete ricaricà u schedariu currente è perde cusì i cambiamenti fatti cù Notepad++ ?"/>
+			<FileLockedWarning title="Arregistramentu fiascatu" message="Ci vole à verificà s’è stu schedariu hè dighjà apertu in un altru prugramma"/>
+			<FileAlreadyOpenedInNpp title="" message="U schedariu hè dighjà apertu in Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
+			<RenameTabTemporaryNameAlreadyInUse title="Rinuminazione fiascata" message="U nome specificatu hè dighjà impiegatu in un’altra unghjetta."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="Fiascu per cambià u nome" message="U nome specificatu ùn pò micca esse viotu, o ùn pò micca cuntene solu spaziu(i) o tabulazione(i)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white spaces. -->
+			<DeleteFileFailed title="Squassatura di schedariu" message="Fiascu di a squassatura di u schedariu"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+
+			<NbFileToOpenImportantWarning title="A quantità di schedarii à apre hè troppu maiò" message="$INT_REPLACE$ schedarii stanu per esse aperti.
+Da veru, vulete apreli ?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
+			<SettingsOnCloudError title="Parametri di u nivulu" message="Pare chì u chjassu di i parametri di u nivulu hè definitu nant’à un lettore in
+lettura sola, o in un cartulare chì richiede diritti d’accessu di scrittura.
+I vostri parametri di u nivulu anu da esse abbandunati. Ci vole à rimette un valore accetevule via u dialogu di Preferenze."/>
+			<FilePathNotFoundWarning title="Apre u chjassu" message="U chjassu chì vo pruvate à apre ùn esiste micca."/>
+			<SessionFileInvalidError title="Ùn si pò micca caricà una sessione" message="U schedariu di sessione hè sia alteratu, sia inaccettevule."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
+			<DroppingFolderAsProjectModeWarning title="Azzione inaccetevule" message="Pudete depone solu schedarii o cartulari ma micca tremindui, perchè site in u modu di dipositu Cartulare cum’è spaziu di travagliu.
+Ci vole à attivà l’ozzione « À u depone d’un cartulare, apre tutti i schedarii invece d’impiegallu cum’è spaziu di travagliu » in a sezzione « Cartulare predefinitu » di e Preferenze per fà què."/>
+			<SortingError title="Sbagliu di a messa in ordine" message="Impussibule di fà una messa in ordine numerica per via di a linea $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SortLocaleMultiple title="Messa in ordine micca realizata" message="A messa in ordine di parechje selezzioni ùn hè micca accettata."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleUnknown title="Fiascu di a messa in ordine" message="Ùn si pò micca determinà a ragione di u fiascu di a messa in ordine."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+			<SortLocaleExcept title="Fiascu di a messa in ordine" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<ColumnModeTip title="Minichichja di modu culonna" message="
+Ci hè 3 manere di passà à u modu di selezzione da a culonna :
+
+1. (Tastera è topu)  Mantene u tastu Alt quandu si trascineghja cù un cliccu mancu
+
+2. (Tastera solu)  Mantene i tasti Alt+Maius quandu s’impiegheghja e fleccie
+
+3. (Tastera o topu)
+      Piazzà a barra d’inserzione à u locu di principiu sceltu per
+	   a pusizione di u bloccu di culonna, eppò lancià a cumanda
+       « Principiu è fine di a selezzione in modu di culonna » ;
+      Dispiazzà a barra d’inserzione à u locu di fine sceltu per
+	   a pusizione di u bloccu di culonna, eppò lancià torna a cumanda
+       « Principiu è fine di a selezzione in modu di culonna »"/>
+			<BufferInvalidWarning title="Arregistramentu fiascatu" message="Ùn si pò micca arregistrà : U stampone hè inaccetevule."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<DoCloseOrNot title="Cunservà u schedariu inesistente" message="U schedariu « $STR_REPLACE$ » ùn esiste più.
+Cunservà stu schedariu in l’editore ?"/>
+			<DoDeleteOrNot title="Squassà u schedariu" message="U schedariu « $STR_REPLACE$ »
+serà dispiazzatu in a vostra curbella è stu ducumentu serà chjosu.
+Cuntinuà ?"/>
+			<NoBackupDoSaveFile title="Arregistrà" message="U vostru schedariu di salvaguardia ùn si trova più (squassatu da fora).
+Arregistratelu osinnò i vostri dati seranu persi
+Vulete arregistrà u schedariu « $STR_REPLACE$ » ?"/>
+			<DoReloadOrNot title="Ricaricà" message="« $STR_REPLACE$ »
+
+Stu schedariu hè statu mudificatu da un’altru prugramma.
+Vulete ricaricallu ?"/>
+			<DoReloadOrNotAndLooseChange title="Ricaricà" message="« $STR_REPLACE$ »
+
+Stu schedariu hè statu mudificatu da un’altru prugramma.
+Vulete ricaricallu è perde cusì i cambiamenti fatti cù Notepad++ ?"/>
+			<PrehistoricSystemDetected title="Sistema prestoricu identificatu" message="Pare chì voi impiegate sempre un sistema prestoricu. Per disgrazia, sta funzione funziuneghja solu cù un sistema mudernu."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
+			<XpUpdaterProblem title="Rinnovu di Notepad++" message="U rinnovu di Notepad++ ùn funziuneghja micca cù XP per via di u so livellu di sicurità à l’anticogna.
+Vulete andà nant’à a pagina di Notepad++ per scaricà l’ultima versione ?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
+			<DocTooDirtyToMonitor title="Penseru d’appustamentu" message="U ducumentu hè brutu. Ci vole à arregistrà a mudificazione nanzu à appustallu."/>
+			<DocNoExistToMonitor title="Penseru d’appustamentu" message="U schedariu deve esiste per esse appustatu."/>
+			<FileTooBigToOpen title="Penseru di dimensione di schedariu" message="U schedariu hè troppu maiò per esse apertu da Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+			<FileLoadingException title="Codice di sbagliu : $STR_REPLACE$" message="Un sbagliu hè accadutu durante u caricamentu di u schedariu !"/>
+			<WantToOpenHugeFile title="Avertimentu d’apertura di schedariu maiò" message="L’apertura d’un schedariu più maiò chè 2 Go pò piglià parechji minuti.
+Vulete aprelu ?"/>
+			<CreateNewFileOrNot title="Creà un schedariu novu" message="« $STR_REPLACE$ » ùn esiste. Creallu ?"/>
+			<CreateNewFileError title="Creà un schedariu novu" message="Ùn si pò micca creà u schedariu « $STR_REPLACE$ »."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<OpenFileError title="SBAGLIU" message="Ùn si pò micca apre u schedariu « $STR_REPLACE$ »."/>
+			<OpenFileNoFolderError title="Ùn si pò micca apre u schedariu" message="« $STR_REPLACE1$ » ùn pò micca esse apertu :
+U cartulare « $STR_REPLACE2$ » ùn esiste micca."/>
+			<FileBackupFailed title="Fiascu di salvaguardia di schedariu" message="A versione precedente di u schedariu ùn pò micca esse arregistrata in u cartulare di salvaguardia : « $STR_REPLACE$ ».
+
+Vulete arregistrà u schedariu attuale quantunque ?"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<LoadStylersFailed title="Caricamentu fiascatu di stylers.xml" message="Caricamentu fiascatu di « $STR_REPLACE$ » !"/>
+			<LoadLangsFailed title="Cunfiguratore" message="Caricamentu fiascatu di langs.xml !
+Vulete ricuperà u vostru langs.xml ?"/><!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
+			<LoadLangsFailedFinal title="Cunfiguratore" message="Caricamentu fiascatu di langs.xml !"/><!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
+			<FolderAsWorspaceSubfolderExists title="Penseru à l’aghjuntu di cartulare cum’è spaziu di travagliu" message="Un sottu-cartulare di u cartulare chì voi vulete aghjunghje esiste dighjà.
+Ci vole à caccià a so radica da u pannellu nanzu d’aghjunghje u cartulare « $STR_REPLACE$ »."/><!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
+
+			<ProjectPanelChanged title="$STR_REPLACE$" message="U spaziu di travagliu hè statu mudificatu. Vulete arregistrallu ?"/>
+			<ProjectPanelSaveError title="$STR_REPLACE$" message="Un sbagliu hè accadutu à a scrittura di u schedariu di u spaziu di travagliu.
+U vostru spaziu di travagliu ùn hè micca statu arregistratu."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Apre u spaziu di travagliu" message="U spaziu di travagliu attuale hè statu mudificatu. Vulete arregistrà u prughjettu attuale ?"/>
+			<ProjectPanelNewDoSaveDirtyWsOrNot title="Spaziu novu di travagliu" message="U spaziu di travagliu attuale hè statu mudificatu. Vulete arregistrà u prughjettu attuale ?"/>
+			<ProjectPanelOpenFailed title="Apre u spaziu di travagliu" message="U spaziu di travagliu ùn pò micca esse apertu.
+Pare chì u schedariu à apre ùn hè micca un schedariu di prughjettu accettevule."/>
+			<ProjectPanelRemoveFolderFromProject title="Caccià u cartulare da u prughjettu" message="Tutti i sottu-elementi seranu cacciati.
+Da veru, vulete caccià stu cartulare da u prughjettu ?"/>
+			<ProjectPanelRemoveFileFromProject title="Caccià u schedariu da u prughjettu" message="Da veru, vulete caccià stu schedariu da u prughjettu ?"/>
+			<ProjectPanelReloadError title="Ricaricà u spaziu di travagliu" message="Ùn si pò micca truvà u schedariu à ricaricà."/>
+			<ProjectPanelReloadDirty title="Ricaricà u spaziu di travagliu" message="U spaziu di travagliu attuale hè statu mudificatu. Un ricaricamentu scarterà tutte e mudificazioni.
+Vulete cuntinuà ?"/>
+			<UDLNewNameError title="Sbagliu UDL" message="Stu nome hè impiegatu da un altru linguaghju,
+ci vole à dà un altru."/>
+			<UDLRemoveCurrentLang title="Caccià u linguaghju attuale" message="Site sicuri ?"/>
+			<UDL_importSuccessful title="Linguaghju definitu da l’utilizatore" message="L’impurtazione hè riesciuta."/>
+			<UDL_importFails title="Linguaghju definitu da l’utilizatore" message="Fiascu à l’impurtazione."/>
+			<UDL_saveBeforeImport title="Linguaghju definitu da l’utilizatore" message="Prima d’espurtà, arregistrate a definizione di u vostru linguaghju via un cliccu nant’à u buttone « Arregistrà cù u nome… »."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_exportSuccessful title="Linguaghju definitu da l’utilizatore" message="L’espurtazione hè riesciuta."/>
+			<UDL_exportFails title="Linguaghju definitu da l’utilizatore" message="Fiascu à l’espurtazione."/>
+			<SCMapperDoDeleteOrNot title="Cunfirmazione" message="Da veru, vulete squassà st’accurtatoghju ?"/>
+			<FindCharRangeValueError title="Penseru di valore di stesa" message="Ci vole à stampittà trà 0 è 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
+			<OpenInAdminMode title="Arregistramentu fiascatu" message="U schedariu ùn pò micca esse arregistratu, forse hè prutettu.
+Vulete dimarrà Notepad++ in modu Amministratore ?"/>
+			<OpenInAdminModeWithoutCloseCurrent title="Arregistramentu fiascatu" message="U schedariu ùn pò micca esse arregistratu, forse hè prutettu.
+Vulete dimarrà Notepad++ in modu Amministratore ?"/>
+			<OpenInAdminModeFailed title="Apertura fiascata in modu Amministratore" message="Notepad++ ùn pò micca esse apertu in modu Amministratore."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
+			<ViewInBrowser title="Fighjà u schedariu attuale in u navigatore" message="L’appiecazione ùn si trova micca in u sistema."/>
+			<ExitToUpdatePlugins title="Notepad++ stà per esce" message="S’è vo fate un cliccu nant’à « Sì », Notepad++ hà da piantassi per cuntinuà l’operazioni.
+Notepad++ serà rilanciatu quandu st’operazioni seranu compie.
+Cuntinuà ?"/>
+			<NeedToRestartToLoadPlugins title="Notepad++ richiede d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per caricà l’estensioni chì sò state installate."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+			<ChangeHistoryEnabledWarning title="Notepad++ richiede d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per permette l’affissera di a cronolugia di i cambiamenti."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+			<WindowsSessionExit title="Notepad++ - Fine di a sessione Windows" message="A sessione Windows stà per piantassi ma ci hè qualchì datu chì ùn hè micca arregistratu. Vulete esce di Notepad++ subitu ?"/>
+			<LanguageMenuCompactWarning title="Cumpattà l’affissera di u listinu" message="St’ozzione serà cambiata à u prossimu lanciu."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="I cambiamenti micca arregistrati stanu per esse squassati !
+Vulete arregistrà i vostri cambiamenti nanzu di cambià di tema ?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+			<FullReadOnlySavingForbidden title="Fiascu di l’arregistramentu" message="Ùn si pò arregistrà u schedariu.
+U modu d’arregistramentu tutale in lettura sola di Notepad++ hà impeditu d’arregistrà u schedariu."/>
+			<NotEnoughRoom4Saving title="Fiascu di l’arregistramentu" message="Fiascu à l’arregistramentu di u schedariu.
+Pare ch’ella ùn ci sia abbastanza piazza nant’à u discu per arregistrà u schedariu. U vostru schedariu ùn hè micca arregistratu."/>
+			<FileInaccessibleUserSession title="Schedariu inaccessibile" message="Certi schedarii di a vostra sessione arregistrata manualmente « $STR_REPLACE$ » sò inaccessibile. Ponu esse aperti cum’è ducumenti vioti è in lettura sola tale spazii riservati.
+			
+Vulete creà sti spazii riservati per elli ?
+
+NOTA : S’è vo sciglite d’ùn micca creà i spazii riservati o di chjodeli dopu, a vostra sessione arregistrata manualmente ùn serà MICCA mudificata à l’esce."/>
+			<FileInaccessibleDefaultSessionXml title="Schedariu inaccessibile" message="Certi schedarii di a vostra sessione anziana sò inaccessibile. Ponu esse aperti cum’è ducumenti vioti è in lettura sola tale spazii riservati.
+			
+Vulete creà sti spazii riservati per elli ?
+
+NOTA : S’è vo sciglite d’ùn micca creà i spazii riservati o di chjodeli dopu, u vostru schedariu di sessione serà mudificatu à l’esce. Vi ricumandemu di fà subitu una salvaguardia di u vostru schedariu di sessione « session.xml »."/>
+			<RTLvsDirectWrite title="Ùn si pò lancià a cumanda « Testu da diritta à manca »" message="« Testu da diritta à manca » ùn hè micca cumpatibile cù u modu « DirectWrite ». Ci vole à disattivà stu modu in a sezzione « Diversi » di e Preferenze eppò rilancià Notepad++."/>
+			<FileMemoryAllocationFailed title="Sbagliu : fiascu d’attribuzione di memoria" message="Forse ùn ci hè abbastanza memoria quanciana libera per chì u schedariu sia caricatu da Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FindRegexBackwardDisabled title="Ricerca RegEx à l’arritrosa disattivata" message="Di regula, a ricerca RegEx à l’arritrosa hè disattivata per via di risultati imprevisti pussibule. Per effettuà una ricerca à l’arritrosa, aprite a finestra di dialogu di ricerca è selezziunate, sia u modu di ricerca nurmale, sia u modu espertu, invece chì l’espressione regulare.
+Appughjate nant’à u buttone Vai per apre a finestra di dialogu di ricerca o piazzateci u puntu fucale.
+			
+S’è vo avete bisognu di a funzione di ricerca RegEx à l’arritrosa, lighjite l’istruzzioni per attivalla in u manuale di l’utilizatore."/>
+			<PrintError title="0" message="Ùn si pò lancià u ducumentu di stampetta."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<FindAutoChangeOfInSelectionWarning title="Avertimentu di ricerca" message="U statu di l’ozzione « In a selezzione » hè statu mudificatu autumaticamente.
+Ci vole à verificà a cundizione di ricerca prima di fà l’azzione."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+			<Need2Restart2ShowMenuShortcuts title="Notepad++ richiede d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per affissà l’accurtatoghji di u listinu di diritta."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Fiascu di u cambiamentu d’attributu di lettura sola di u schedariu" message="Ci vole à lancià Notepad++ in modu Amministratore per cambià l’attributi di u schedariu."/>
+			<ReadOnlyFileCannotBeSaved title="Fiascu d’arregistramentu ; schedariu in lettura sola" message="« $STR_REPLACE$ »
+U schedariu hè in lettura sola è ùn pò micca esse arregistratu.
+Ci vole à caccià a lettura sola eppò arregistrà u vostru schedariu."/>
+			<ShortcutsXmlHMACMissing title="Avertimentu di sicurità" message="L’infurmazione di sicurità per shortcuts.xml hè assente in config.xml.
+
+Per raghjoni di sicurità, l’integrità di shortcuts.xml hà da esse verificata. Per lancià a vostra cumanda persunalizata, ci vole à esaminà u schedariu shortcuts.xml chì hè apertu. S’è u so cuntenutu hè currettu, impiegate l’ozzione « Cunvalidà shortcuts.xml » di u listinu « Lancià » per cunfirmallu."/>
+			<ShortcutsXmlTampered title="Avertimentu di sicurità" message="U schedariu shortcuts.xml pare esse statu mudificatu manualmente.
+
+Per raghjoni di sicurità, ci vole à esaminà u schedariu shortcuts.xml chì hè apertu. S’è u so cuntenutu hè currettu, impiegate l’ozzione « Cunvalidà shortcuts.xml » di u listinu « Lancià » per cunfirmallu."/>
+		</MessageBox>
+		<ClipboardHistory>
+			<PanelTitle name="Cronolugia di u preme’papei"/>
+		</ClipboardHistory>
+		<DocList>
+			<PanelTitle name="Lista di i ducumenti"/>
+			<ColumnName name="Nome"/>
+			<ColumnExt name="Est."/>
+			<ColumnPath name="Chjassu"/>
+			<ListGroups name="Gruppà da vista"/>
+		</DocList>
+		<WindowsDlg>
+			<ColumnName name="Nome"/>
+			<ColumnPath name="Chjassu"/>
+			<ColumnType name="Tipu"/>
+			<ColumnSize name="Dimensione"/>
+			<ColumnDateTime name="Ora di mudificazione"/>
+			<NbDocsTotal name="numeru di ducumenti :"/>
+			<MenuCopyName name="Cupià u(i) nome(i)"/>
+			<MenuCopyPath name="Cupià u(i) nome(i) di chjassu"/>
+		</WindowsDlg>
+		<AsciiInsertion>
+			<PanelTitle name="Pannellu d’inserzione di codice ASCII"/>
+			<ColumnVal name="Valore"/>
+			<ColumnHex name="Esadecimale"/>
+			<ColumnChar name="Caratteru"/>
+			<ColumnHtmlName name="Nome HTML"/>
+			<ColumnHtmlNumber name="Decimale HTML"/>
+			<ColumnHtmlHexNb name="Esadecimale HTML"/>
+		</AsciiInsertion>
+		<DocumentMap>
+			<PanelTitle name="Cartugrafia di u ducumentu"/>
+		</DocumentMap>
+		<FunctionList>
+			<PanelTitle name="Lista di e funzioni"/>
+			<SortTip name="Ordinà"/>
+			<ReloadTip name="Ricaricà"/>
+			<PreferencesTip name="Preferenze"/>
+			<PreferencesInitialSort name="Ordine predefinitu di e funzioni (da A à Z)"/>
+		</FunctionList>
+		<FolderAsWorkspace>
+			<PanelTitle name="Cartulare cum’è spaziu di travagliu"/>
+			<SelectFolderFromBrowserString name="Selezziunà un cartulare à aghjunghje à u pannellu Cartulare cum’è spaziu di travagliu"/>
+			<ExpandAllFoldersTip name="Spiegà tutti i cartulari"/>
+			<CollapseAllFoldersTip name="Ripiegà tutti i cartulari"/>
+			<LocateCurrentFileTip name="Lucalizà u schedariu currente"/>
+			<Menu>
+				<Item id="3511" name="Caccià"/>
+				<Item id="3512" name="Caccialli tutti"/>
+				<Item id="3513" name="Aghjunghje"/>
+				<Item id="3514" name="Lanciatu da u sistema"/>
+				<Item id="3515" name="Apre"/>
+				<Item id="3516" name="Cupià u chjassu"/>
+				<Item id="3517" name="Circà in schedarii…"/>
+				<Item id="3518" name="Espluratore quì"/>
+				<Item id="3519" name="CMD quì"/>
+				<Item id="3520" name="Cupià u nome di schedariu"/>
+				<Item id="3521" name="PowerShell quì"/>
+			</Menu>
+		</FolderAsWorkspace>
+		<ProjectManager>
+			<PanelTitle name="Prughjettu"/>
+			<WorkspaceRootName name="Spaziu di travagliu"/>
+			<NewProjectName name="Nome di prughjettu"/>
+			<NewFolderName name="Nome di cartulare"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Spaziu di travagliu"/>
+					<Item id="1" name="Mudificà"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="Spaziu novu di travagliu"/>
+					<Item id="3123" name="Apre u spaziu di travagliu"/>
+					<Item id="3124" name="Ricaricà u spaziu di travagliu"/>
+					<Item id="3125" name="Arregistrà"/>
+					<Item id="3126" name="Arregistrà cù u nome…"/>
+					<Item id="3127" name="Arregistrà una copia cù u nome…"/>
+					<Item id="3121" name="Aghjunghje un prughjettu novu"/>
+					<Item id="3128" name="Circà in i prughjetti…"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Rinuminà"/>
+					<Item id="3112" name="Aghjunghje un sfugliaghju"/>
+					<Item id="3113" name="Aghjunghje schedarii…"/>
+					<Item id="3117" name="Aghjunghje schedarii da u cartulare…"/>
+					<Item id="3114" name="Caccià"/>
+					<Item id="3118" name="Move insù"/>
+					<Item id="3119" name="Move inghjò"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Rinuminà"/>
+					<Item id="3112" name="Aghjunghje un sfugliaghju"/>
+					<Item id="3113" name="Aghjunghje schedarii…"/>
+					<Item id="3117" name="Aghjunghje schedarii da u cartulare…"/>
+					<Item id="3114" name="Caccià"/>
+					<Item id="3118" name="Move insù"/>
+					<Item id="3119" name="Move inghjò"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Rinuminà"/>
+					<Item id="3115" name="Caccià"/>
+					<Item id="3116" name="Mudificà chjassu di schedariu"/>
+					<Item id="3118" name="Move insù"/>
+					<Item id="3119" name="Move inghjò"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
+		<MiscStrings>
+			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
+			<word-chars-list-tip value="Què permette d’include caratteri addiziunali in i caratteri di parolle currente quandu ci hè un doppiu cliccu per selezziunà o una ricerca cù l’ozzione « Parolla sana deve currisponde » selezziunata."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+
+			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+			<eol-custom-color-tip value="Accede à u Cunfiguratore di stilu per persunalizà u culore predefinitu di fine di linea (&quot;EOL custom color&quot;)."/>
+
+			<word-chars-list-warning-begin value="Fate casu : "/>
+			<word-chars-list-space-warning value="$INT_REPLACE$ spaziu(i)"/>
+			<word-chars-list-tab-warning value="$INT_REPLACE$ tabulazione(i)"/>
+			<word-chars-list-warning-end value="  in a vostra lista di caratteri."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+			<backup-select-folder value="Selezziunà u cartulare induve arregistrà a salvaguardia"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
+			<cloud-invalid-warning value="Chjassu inaccettevule."/>
+			<cloud-restart-warning value="Ci vole à rilancià Notepad++ per piglià in contu stu cambiamentu."/>
+			<cloud-select-folder value="Selezziunà un cartulare induve Notepad++ leghje è scrive i so parametri"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+			<default-open-save-select-folder value="Selezziunà u cartulare chì serà quellu predefinitu"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
+			<shift-change-direction-tip value="Impiegà Maiusc+Entre per circà in a direzzione opposta."/>
+			<two-find-buttons-tip value="Modu di 2 buttoni per circà"/>
+			<find-in-files-filter-tip value="Circà tramezu cpp, cxx, h, hxx è hpp :
+*.cpp *.cxx *.h *.hxx *.hpp
+
+Circà in tutti i schedarii fora di exe, obj è log :
+*.* !*.exe !*.obj !*.log
+
+Circà in tutti i schedarii ma esclude i cartulari tests, bin è bin64 :
+*.* !\tests !\bin*
+
+Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o logs :
+*.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+			<find-in-files-select-folder value="Selezziunà u cartulare per facci a ricerca"/><!-- HowToReproduce: Search > Find in Files > [...] -->
+			<find-in-files-dir-from-active-doc-tip value="Riempie u campu Cartulare secondu à u ducumentu attivu"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
+			<find-status-top-reached value="Circà : U principiu di u ducumentu hè statu toccu, prima occurrenza trova da a fine."/>
+			<find-status-end-reached value="Circà : A fine di u ducumentu hè stata tocca, prima occurrenza trova da u principiu."/>
+			<find-status-replaceinfiles-1-replaced value="Rimpiazzà in schedarii : 1 occurrenza hè stata rimpiazzata"/>
+			<find-status-replaceinfiles-nb-replaced value="Rimpiazzà in schedarii : $INT_REPLACE$ occurrenze sò state rimpiazzate"/>
+			<find-status-replaceinopenedfiles-1-replaced value="Rimpiazzà in schedarii aperti : 1 occurrenza hè stata rimpiazzata"/>
+			<find-status-replaceinopenedfiles-nb-replaced value="Rimpiazzà in schedarii aperti : $INT_REPLACE$ occurrenze sò state rimpiazzate"/>
+			<find-status-invalid-re value="Circà : Espressione regulare inaccettevule"/>
+			<find-status-search-failed value="Circà : Ricerca fiascata"/>
+			<find-status-mark-1-match value="Marca : 1 cuncurdanza"/>
+			<find-status-mark-nb-matches value="Marca : $INT_REPLACE$ cuncurdanze"/>
+			<find-status-count-1-match value="Cuntà : 1 cuncurdanza"/>
+			<find-status-count-nb-matches value="Cuntà : $INT_REPLACE$ cuncurdanze"/>
+			<find-status-replaceall-1-replaced value="Rimpiazzalle tutte : 1 occurrenza hè stata rimpiazzata"/>
+			<find-status-replaceall-nb-replaced value="Rimpiazzalle tutte : $INT_REPLACE$ occurrenze sò state rimpiazzate"/>
+			<find-status-replaceall-readonly value="Rimpiazzalle tutte : Ùn si pò rimpiazzà u testu. U ducumentu attuale pò solu si leghje"/>
+			<find-status-replace-end-reached value="Rimpiazzà : A fine di u ducumentu hè stata tocca, principiatu da l’altu."/>
+			<find-status-replace-top-reached value="Rimpiazzà : U principiu di u ducumentu hè statu toccu, principiatu da u bassu."/>
+			<find-status-replaced-next-found value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata. A prossima occurrenza trova."/>
+			<find-status-replaced-without-continuing value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata."/>
+			<find-status-replaced-next-not-found value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata. Alcuna altra occurrenza trova."/>
+			<find-status-replace-not-found value="Rimpiazzà : alcuna occurrenza trova"/>
+			<find-status-replace-readonly value="Rimpiazzà : Ùn si pò rimpiazzà u testu. U ducumentu attuale pò solu si leghje"/>
+			<find-status-cannot-find value="Circà : Ùn si pò truvà u testu « $STR_REPLACE$ »"/>
+			<find-status-cannot-find-pebkac-maybe value="Ùn si pò truvà l’occurrenza pruvista. Forse vi site scurdati di selezziunà « Circunvoglie » (attivatu), « Rispettà a cassa (maiuscule è minuscule) » (disattivatu), o « Currispundenza solu di a parolla sana » (disattivatu)."/>
+			<find-status-scope-selection value="in u testu selezziunatu"/>
+			<find-status-scope-all value="in u schedariu sanu"/>
+			<find-status-scope-backward value="da u principiu di schedariu à u cursore"/>
+			<find-status-scope-forward value="da u cursore à a fine di schedariu"/>
+			<find-status-replace-invalid-replace-chars value="Rimpiazzà : In un ducumentu ANSI, ùn si pò rimpiazzà cù un testu non ANSI"/>
+			<find-status-invisible-chars-findWhat value="Caratteri invisibile in u cuntenutu incullatu di « Cosa à circà » o « Rimpiazzà cù »"/>
+			<find-status-invisible-chars-findWhat-tip value="Avertimentu : Caratteri invisibile in u campu di ricerca (o di rimpiazzamentu).
+U testu incullatu in stu campu cuntene caratteri invisibile (forse fine di linea). S’è vo cuntinuate senza squassalli, seranu inchjusi in u testu di ricerca (o di rimpiazzamentu)."/>
+			<finder-find-in-finder value="Circà in sti risultati di ricerca…"/>
+			<finder-close-this value="Chjode sti risultati di ricerca"/>
+			<finder-collapse-all value="Tuttu ripiegà"/>
+			<finder-uncollapse-all value="Tuttu spiegà"/>
+			<finder-copy value="Cupià a(e) linea(e) selezziunata(e)"/>
+			<finder-copy-selected-paths value="Cupià i nomi di chjassu selezziunati"/>
+			<finder-clear-all value="Tuttu viutà"/>
+			<finder-open-selected-paths value="Apre i nomi di chjassu selezziunati"/>
+			<finder-purge-for-every-search value="Spurgulà per ogni ricerca"/>
+			<finder-wrap-long-lines value="Ritornu autumaticu à a linea per e linee longhe"/>
+			<common-ok value="Vai"/>
+			<common-cancel value="Abbandunà"/>
+			<common-name value="Nome"/>
+			<common-error value="Sbagliu"/>
+			<tabrename-title value="Rinuminà l’unghjetta attuale"/>
+			<tabrename-newname value="Nome novu"/>
+			<splitter-rotate-left value="Girà à manca"/>
+			<splitter-rotate-right value="Girà à diritta"/>
+			<userdefined-title-new value="Creà un linguaghju novu…"/>
+			<userdefined-title-save value="Arregistrà u nome di u linguaghju attuale cum’è…"/>
+			<userdefined-title-rename value="Rinuminà u linguaghju attuale"/>
+			<summary value="Statistiche"/>
+			<summary-filepath value="Chjassu d’accessu : "/>
+			<summary-filecreatetime value="Data di creazione : "/>
+			<summary-filemodifytime value="Data di mudificazione : "/>
+			<summary-nbchar value="Caratteri (senza fine di linea) : "/>
+			<summary-nbword value="Parolle : "/>
+			<summary-nbline value="Linee : "/>
+			<summary-nbbyte value="Dimensione di u ducumentu : "/>
+			<summary-nbsel1 value=" caratteri selezziunati ("/>
+			<summary-nbsel2 value=" ottetti) in "/>
+			<summary-nbrange value=" selezzioni"/>
+			<progress-hits-title value="Occurrenze :"/>
+			<progress-cancel-info value="Abbandonu di l’operazione, aspittate per piacè…"/>
+			<find-in-files-progress-title value="Prugressione di a ricerca in i schedarii…"/>
+			<discover-file-candidates-title value="Scuperta di i schedarii candidati…"/>
+			<replace-in-files-confirm-title value="Cunfirmazione"/>
+			<replace-in-files-confirm-directory value="Da veru, vulete rimpiazzà tutte l’occurrenze in :"/>
+			<replace-in-files-confirm-filetype value="Per u(i) tipu(i) di schedariu :"/>
+			<replace-in-files-progress-title value="Prugressione di u rimpiazzamentu in i schedarii…"/>
+			<replace-in-projects-confirm-title value="Cunfirmazione"/>
+			<replace-in-projects-confirm-message value="Vulete rimpiazzà tutte l’occurrenze in tutti i ducumenti nant’à i pannelli di prughjetti selezziunati ?"/>
+			<replace-in-open-docs-confirm-title value="Cunfirmazione"/>
+			<replace-in-open-docs-confirm-message value="Vulete rimpiazzà tutte l’occurrenze in tutti i ducumenti aperti ?"/>
+			<find-result-caption value="Risultati di ricerca"/>
+			<find-result-title value="Circà"/><!-- Must not begin with space or tab character -->
+			<find-result-title-info value="($INT_REPLACE1$ risultati in $INT_REPLACE2$ ducumenti frà i $INT_REPLACE3$ ducumenti circati)"/>
+			<find-result-title-info-selections value="($INT_REPLACE1$ risultati in $INT_REPLACE2$ selezzioni frà i $INT_REPLACE3$ ducumenti circati)"/>
+			<find-result-title-info-options-searchmode-normal value="Nurmale"/>
+			<find-result-title-info-options-searchmode-extended value="Aumintatu"/>
+			<find-result-title-info-options-searchmode-regexp value="Espressione"/>
+			<find-result-title-info-options-case value="Cassa"/>
+			<find-result-title-info-options-word value="Parolla"/>
+			<find-result-title-info-extra value=" - Modu di filtru di linea : affisseghja solu i risultati filtrati"/>
+			<find-result-hits value="($INT_REPLACE$ risultati)"/>
+			<find-result-line-prefix value="Linea"/><!-- Must not begin with space or tab character -->
+			<find-regex-zero-length-match value="currispundenza di lunghezza à zeru"/>
+			<session-save-folder-as-workspace value="Arregistrà u cartulare cum’è spaziu di travagliu"/>
+			<tab-untitled-string value="novu "/>
+			<file-save-assign-type value="&amp;Aghjunghje un’estensione"/>
+			<close-panel-tip value="Chjode"/>
+			<IncrementalFind-FSNotFound value="Espressione micca trova"/>
+			<IncrementalFind-FSTopReached value="Principiu di pagina toccu, cuntinuatu partendu da u bassu"/>
+			<IncrementalFind-FSEndReached value="Bassu di pagina toccu, cuntinuatu partendu da u principiu"/>
+			<contextMenu-styleAlloccurrencesOfToken value="Stilizà tutte l’occurenze di testu"/>
+			<contextMenu-styleOneToken value="Stilizà l’occurenza unica di testu"/>
+			<contextMenu-clearStyle value="Spurgulà certi stili"/>
+			<contextMenu-PluginCommands value="Cumande d’estensione"/>
+			<largeFileRestriction-tip value="Certe funzioni ponu rallentà e perfurmenze durante l¹apertura di i schedarii tamanti. Quelle funzioni ponu esse disattivate autumaticamente à l’apertura d’un schedariu tamantu. Pudete persunalizalle quì.
+NOTA :
+1. Per funziunà bè, a mudificazione di quelle ozzioni richiede d’apre torna i schedarii tamanti chì sò dighjà aperti.
+2. S’è l’ozzione « Disattivà di manera glubale u ritornu autumaticu à a linea » hè attiva è chì un schedariu tamantu hè apertu, tandu u ritornu autumaticu à a linea serà disattivatu per tutti i schedarii. Pudete attivallu torna via l’ozzione di listinu Affissera > Ritornu autumaticu à a linea."/>
+			<npcNote-tip value="Riprisentanza di i spazii bianchi « nonASCII » selezziunati è di i caratteri (di cuntrollu) nonstampevule.
+NOTA :
+Impiegà a riprisentanza disattiverà l’effetti nant’à i caratteri in u testu.
+Per ottene a lista sana di i spazii bianchi selezziunati è di i caratteri nonstampevule, fighjate u Manuale di l’utilizatore.
+Impiegà stu buttone per apre u manuale di l’utilizatore nant’à u situ web."/>
+			<npcAbbreviation-tip value="Abbreviamentu : nome
+NBSP : spaziu nonspezzevule
+ZWSP : spaziu di larghezza nulla
+ZWNBSP : spaziu nonspezzevule di larghezza nulla
+Per ottene a lista sana, fighjate u Manuale di l’utilizatore.
+Impiegà u buttone « ? » à diritta per apre u manuale di l’utilizatore nant’à u situ web."/>
+			<npcCodepoint-tip value="Puntu di codice : nome
+U+00A0 : spaziu nonspezzevule
+U+200B : spaziu di larghezza nulla
+U+FEFF : spaziu nonspezzevule di larghezza nulla
+Per ottene a lista sana, fighjate u Manuale di l’utilizatore.
+Impiegà u buttone « ? » à diritta per apre u manuale di l’utilizatore nant’à u situ web."/>
+			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
+			<npcCustomColor-tip value="Accidite à u Cunfiguratore di stilu per persunalizà u culore predefinitu di i spazii bianchi selezziunati è di i caratteri nonstampevule (&quot;Non-printing characters custom color&quot;)."/>
+			<npcIncludeCcUniEol-tip value="Appiecate i parametri d’apparenza di caratteri nonstampevule à i caratteri di cuntrollu C0, C1 è quelli di fine di linea Unicode (linea seguente, separadore di linea è separadore di paragrafu)."/>
+			<searchingInSelThresh-tip value="Numeru minimu di caratteri selezziunati in l’area di mudificazione per attivà autumaticamente l’ozzione « In a selezzione » quandu u dialogu di ricerca hè attivatu. U valore massimu hè $INT_REPLACE$. Definite u valore à 0 per disattivà a verificazione autumatica."/>
+			<searchingFillFindWhat-tip value="Numeru massimu di caratteri selezziunati in l’area di testu à impiegà per riempie autumaticamente u campu « Cosa à circà » quandu a funzione di ricerca Ctrl-F hè affissata. U valore massimu hè $INT_REPLACE$ chì hè a dimensione massima di u campu « Cosa à circà », limitata da u sistema."/>
+			<verticalEdge-tip value="Aghjunghjite u vostru marcatore di culonna indichendu a so pusizione cù un numeru interu. Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà ogni numeru."/>
+			<fileSaveAsCopySaveButton-tip value="Mantinite u tastu Maius quandu s’appoghja nant’à u buttone Arregistà per apre a copia dopu à l’arregistramentu."/>
+			<autoIndentBasic-tip value="Assicurassi chì l’indentazione di a linea currente (i.e. a linea nova creata da u tastu ENTRÉE) currisponde à l’indentazione di a linea precedente."/>
+			<autoIndentAdvanced-tip value="Attivà l’indentazione astuta per i linguaghji di tipu C è Python. I linguaghji di tipu C includenu :
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell è JSON.
+
+S’è vo selezziunate u modu espertu ma ùn mudificate micca i schedarii in i linguaghji mintulati insù, l’indentazione sterà in modu basicu."/>
+
+			<!-- Don't translate "Global override" and "Default Style" -->
+			<global-override-tip value="Attivà quì l’ozzione « Global override » supranerà sti parametri à tutti i stili di tutti i linguaghji di prugrammazione. Preferiscerete di sicuru impiegà piuttostu i parametri « Default Style »"/>
+			<scintillaRenderingTechnology-tip value="Puderia amendà a trasfurmazione di i caratteri speziali o currege certi prublemi grafichi ; rilancià Notepad++ per piglià in contu i cambiamenti."/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="longh : $STR_REPLACE1$    linee : $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Ln : $STR_REPLACE1$    Cul : $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Pus : "/>
+			<statusbar-Sel value="Sel : "/>
+			<statusbar-Sel-number value="Sel"/>
+			<toolbar-accent-tip value="St’ozzione permette à l’icone di a vostra barra d’attrezzi d’aduttà u culore d’accentuazione di u sistema Windows. U culore d’accentuazione hè u culore di messa in evidenza impiegatu da Windows per i buttoni, i bordi è e musaiche di u listinu « Démarrer ». Per mudificallu, accidite à Parametri &gt; Persunalizà &gt; Culori, eppò selezziunate u vostru culore d’accentuazione preferitu."/>
+			<len-limit-exceeded-tip value="Limitu di lunghezza trapassatu : a vostra stampittera pò eccede u limitu permessu è pò esse stata truncata, dunque ùn serà micca arregistrata per a prossima sessione."/>
+			<max-len-on-search-tip value="A vostra stampittera pò eccede u limitu permessu è pò esse stata truncata, dunque ùn serà micca arregistrata per a prossima sessione."/>
+			<max-len-on-save-tip value="A lunghezza di a vostra stampittera hè longa longa è puderia ùn esse arregistrata per a prossima sessione."/>
+			<goto-setting-tip value="Mudificà u parametru quì"/>
+			<tabbar-tabcompactlabellen-tip value="Limiteghja a lunghezza visibule di i nomi longhi d’unghjetta. Stampittà per appiecà u valore datu. Intervallu di valori : 1-257 caratteri (0 disattiveghja a truncatura)."/>
+		</MiscStrings>
+	</Native-Langue>
+</NotepadPlus>

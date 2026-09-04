@@ -1,0 +1,13 @@
+{21}<!{22}DOCTYPE{21} {23}html{21}>{0}
+{1}<html>{0}
+{2}<foo>{0}
+  Here is a CDATA {21}<![{22}CDATA{21}[]]>{0} section: {21}<![{22}CDATA{21}[{17} < > & {21}]]>{0}
+with all kinds of unescaped text.
+{2}</foo>{0}
+{1}<example-code>{21}<![{22}CDATA{21}[{17}
+while (x < len && !done) {
+    print( "Still working, 'zzzz'." );
+    ++x;
+    }
+{21}]]>{1}</example-code>{0}
+{1}</html>{0}

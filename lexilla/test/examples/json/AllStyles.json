@@ -1,0 +1,43 @@
+// Enumerate all styles: 0 to 13
+
+// default=0
+   
+
+// number=1
+1
+
+// string=2
+"2"
+
+// stringeol=3
+"3
+
+// propertyname=4
+"4":
+
+// escapesequence=5
+"\n"
+
+// linecomment=6
+// 6 Line Comment
+
+// blockcomment=7
+/* 7 Block Comment */
+
+// operator=8
+{}
+
+// uri=9
+"http://9.org"
+
+// compactiri=10
+"x:y"
+
+// keyword=11
+true
+
+// ldkeyword=12
+"@id"
+
+// error=13
+# 13 error

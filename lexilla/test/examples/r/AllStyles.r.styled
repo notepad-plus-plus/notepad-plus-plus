@@ -1,0 +1,51 @@
+{1}# https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Reserved-words{0}
+{2}if{0}
+
+{1}# base keyword (3){0}
+{3}abbreviate{0}
+
+{1}# other keyword (4){0}
+{4}acme{0}
+
+{1}# infix operator{0}
+{1}# https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Special-operators{0}
+{10}%x%{0}
+
+{1}# https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Literal-constants{0}
+{1}# Valid integer constants{0}
+{5}1L{0}, {5}0x10L{0}, {5}1000000L{0}, {5}1e6L{0}
+
+{1}# Valid numeric constants{0}
+{5}1{0} {5}10{0} {5}0.1{0} {5}.2{0} {5}1e-7{0} {5}1.2e+7{0}
+{5}1.1L{0}, {5}1e-3L{0}, {5}0x1.1p-2{0}
+
+{1}# Valid complex constants{0}
+{5}2i{0} {5}4.1i{0} {5}1e-2i{0}
+
+{1}# https://search.r-project.org/R/refmans/base/html/Quotes.html{0}
+{1}# single quotes{0}
+{7}'"It{15}\'{7}s alive!", he screamed.'{0}
+
+{1}# double quotes{0}
+{6}"{15}\"{6}It's alive!{15}\"{6}, he screamed."{0}
+
+{1}# escape sequence{0}
+{6}"{15}\n{6}0{15}\r{6}1{15}\t{6}2{15}\b{6}3{15}\a{6}4{15}\f{6}5{15}\\{6}6{15}\'{6}7{15}\"{6}8{15}\`{6}9"{0}
+{6}"{15}\123{6}0{15}\x12{6}1{15}\u1234{6}2{15}\U00012345{6}3{15}\u{1234}{6}4{15}\U{00012345}{6}5{15}\{6}
+6{15}\ {6}7"{0}
+{1}# issue #206{0}
+{6}"{15}\n{6}"{0}
+{6}"{15}\r\n{6}"{0}
+
+{1}# Backticks{0}
+{9}d{8}${12}`1st column`{0}
+
+{1}# double quoted raw string{0}
+{13}r"---(\1--)-)---"{0}
+
+{1}# single quoted raw string{0}
+{14}R'---(\1--)-)---'{0}
+
+{1}# infix EOL (11){0}
+{11}%a
+{1}#back to comment{0}

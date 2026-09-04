@@ -1,0 +1,15 @@
+<script>
+/a|b/i.test("baby");
+// arrow function
+() => /a|b/i.test("baby");
+// Issue 289
+/a/g.test('a');
+/a/gm.test('a');
+'a'.replace(/a/g, 'b');
+'a'.replace(/a/gm, 'b');
+
+// No second / on line means first is operator, not start of regex
+re = /a|
+b/i.test("baby");
+
+</script>

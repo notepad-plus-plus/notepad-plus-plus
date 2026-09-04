@@ -1,0 +1,70 @@
+{12}//line comment
+{0}
+{10}/* block comment */{0}
+
+{10}/* block comment on 
+multiple lines */{0}
+
+{10}/* //line comment within block comment */{0}
+
+{12}// /*block comment within line comment */
+{0}
+{12}// using open-block-comment symbol alone on line comment /*
+{0}
+{10}/* /* nested block comment */ */{0}
+
+{2}DISPLAY{0} {3}"this line of code is a test"{6}.{0} 
+{2}DISPLAY{0} {3}"//this line of code is a test"{6}.{0}
+{2}DISPLAY{0} {3}"/* this line of code is a test */"{6}.{0}
+
+{12}// using close-block-comment symbol alone on line comment */
+{0}
+{12}// /* improperly closed block comment within line comment */ */
+{0}
+{10}/* 
+//line comment 1 in block comment
+//line comment 2 in block comment
+//line comment 3 in block comment
+*/{0}
+
+{10}/*
+block comment text
+//line comment text
+/* inner block comment text*/
+*/{0}
+
+{2}DISPLAY{0} {3}"This is a open-block-comment symbol /*"{6}.{0}
+{2}DISPLAY{0} {3}"This is a close-block-comment symbol */"{6}.{0}
+
+{12}//* line comment plus * looks like open-block-comment
+{0}
+
+{2}DISPLAY{0} {3}"this line of code is a test"{6}.{0}
+
+{10}/*display statement within block comment
+DISPLAY "this is a string".
+*/{0}
+
+{2}DISPLAY{0} {3}"//line comment within string"{6}.{0}
+
+{2}DISPLAY{0} {3}"/* //line comment within block comment within string */"{6}.{0}
+                                                                        
+{10}/* Improperly closed block comment */{0} {6}*/{0}
+
+{2}DISPLAY{0} {3}"this line of code is a test"{6}.{0}
+
+{2}DISPLAY{0} {3}"line comment with leading whitespace"{6}.{0} {12}// this is a line comment
+{2}DISPLAY{0} {3}"line comment without leading whitespace"{6}.//{0} {7}this{0} {7}is{0} {7}not{0} {7}a{0} {7}line{0} {7}comment{0}
+
+
+
+
+
+
+
+
+
+
+
+
+

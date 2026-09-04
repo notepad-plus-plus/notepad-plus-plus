@@ -1,0 +1,840 @@
+#include <iostream>
+using namespace std;
+
+/* -------------------- Namespaces -------------------- */
+
+namespace test {
+	typedef const int type;
+	static constexpr type n = 0;
+	
+	//Template functions
+	template <typename LType, typename RType> constexpr LType coalesce(const LType &left, const RType &right);
+	#if __cplusplus >= 201103L
+	template <typename LType, typename RType, typename ...Args>
+	constexpr LType coalesce(const LType &left, const RType &right, const Args &...args);
+	#endif
+	template <typename LType, typename RType> constexpr test::type compare(const LType &left, const RType &right);
+	template <typename Type> constexpr Type divide(const Type &left, const Type &right);
+	template <typename LType, typename RType> constexpr bool equals(const LType &left, const RType &right);
+	template <typename Return, typename Type> constexpr Return cast(const Type &val);
+	template <typename Type> constexpr Type minus(const Type &left, const Type &right);
+	template <typename Type> constexpr Type modulus(const Type &left, const Type &right);
+	template <typename Type> constexpr Type multiply(const Type &left, const Type &right);
+	template <typename Type> constexpr Type negate(const Type &val);
+	template <typename Type> constexpr bool isnot(const Type &val);
+	template <typename Type> constexpr bool isnull(const Type &val);
+	template <typename Type> constexpr Type plus(const Type &left, const Type &right);
+	template <typename Type> void print(const Type &val);
+	
+	//Classes
+	class TestA2;
+	class TestA12;
+	template <class Type> struct TestB3;
+	struct TestD3;
+	class TestH3;
+}
+using test::coalesce;
+
+/* -------------------- Template functions -------------------- */
+
+template <typename LType, typename RType> constexpr LType test::coalesce(const LType &left, const RType &right){
+	return (left)? left : right;
+}
+
+#if __cplusplus >= 201103L
+template <typename LType, typename RType, typename ...Args> constexpr LType test::coalesce(const LType &left, const RType &right, const Args &...args){
+	return (left)? left : coalesce<LType>(right,args...);
+}
+#endif
+
+template <typename LType, typename RType> constexpr test::type test::compare(const LType &left, const RType &right){
+	return (left<right)? -1 : (right<left)? 1 : 0;
+}
+
+template <typename Type> constexpr Type test::divide(const Type &left, const Type &right){ return left/right; }
+
+template <typename LType, typename RType> constexpr bool test::equals(const LType &left, const RType &right){ return (left==right); }
+
+template <typename Return, typename Type> constexpr Return test::cast(const Type &val){ return (Return)val; }
+
+template <typename Type> constexpr Type test::minus(const Type &left, const Type &right){ return left-right; }
+
+template <typename Type> constexpr Type test::modulus(const Type &left, const Type &right){ return left%right; }
+
+template <typename Type> constexpr Type test::multiply(const Type &left, const Type &right){ return left*right; }
+
+template <typename Type> constexpr Type test::negate(const Type &val){ return -val; }
+
+template <typename Type> constexpr bool test::isnot(const Type &val){ return !val; }
+
+template <typename Type> constexpr bool test::isnull(const Type &val){ return (val==NULL); }
+
+template <typename Type> constexpr Type test::plus(const Type &left, const Type &right){ return left+right; }
+
+template <typename Type> void test::print(const Type &val){ std::cout << val << std::endl; }
+
+template <typename Type = test::type, Type N = 42> constexpr Type test42() noexcept { return coalesce(N,42); }
+
+/* -------------------- Classes -------------------- */
+
+struct TestA1 {
+	int test(){ return 42; }
+};
+
+class test::TestA2 {
+	int test(){ return 42; }
+};
+
+struct TestA3 : TestA1 {
+	int test(){ return 42; }
+};
+
+class TestA4 : private TestA1 {
+	int test(){ return 42; }
+};
+
+struct TestA5 : protected TestA1 {
+	int test(){ return 42; }
+};
+
+class TestA6 : public TestA1 {
+	int test(){ return 42; }
+};
+
+struct TestA7 final : virtual TestA1 {
+	int test(){ return 42; }
+};
+
+class TestA8 : public virtual TestA1 {
+	int test(){ return 42; }
+};
+
+struct TestA9 final : virtual public TestA1 {
+	int test(){ return 42; }
+};
+
+class TestA10 : TestA1, test::TestA2, TestA3 {
+	int test(){ return 42; }
+};
+
+struct TestA11 : private TestA1, protected test::TestA2, public TestA3 {
+	int test(){ return 42; }
+};
+
+class test::TestA12 : TestA1, protected test::TestA2, public virtual TestA3 {
+	int test(){ return 42; }
+};
+
+struct TestA13 final : public virtual TestA1, protected test::TestA2, TestA3 {
+	int test(){ return 42; }
+};
+
+/* -------------------- Template classes -------------------- */
+
+template <typename Type> struct TestB1 {
+	int test(){ return 42; }
+};
+
+template <typename Type> class TestB2 {
+	int test(){ return 42; }
+};
+
+template <class Type> struct test::TestB3 {
+	int test(){ return 42; }
+};
+
+template <class Type> class TestB4 {
+	int test(){ return 42; }
+};
+
+template <typename Type = int> struct TestB5 {
+	int test(){ return 42; }
+};
+
+template <int N = coalesce(test::n,42)> struct TestB6 {
+	int test(){ return 42; }
+};
+
+template <class Type = std::pair<int,double> > struct TestB7 {
+	int test(){ return 42; }
+};
+
+template <class Type1, typename Type2, int N> class TestB8 {
+	int test(){ return 42; }
+};
+
+template <typename Type1 = int, class Type2 = double, int N = 42> struct TestB9 {
+	int test(){ return 42; }
+};
+
+template <template <typename> typename Type> class TestB10 {
+	int test(){ return 42; }
+};
+
+template <template <typename,typename> class Type> struct TestB11 {
+	int test(){ return 42; }
+};
+
+template <template <class,class> typename Type = std::pair> class TestB12 {
+	int test(){ return 42; }
+};
+
+template <template <typename> class Type1, template <class,class> typename Type2 = std::pair> struct TestB13 {
+	int test(){ return 42; }
+};
+
+/* -------------------- Template class specialization -------------------- */
+
+template <typename Type> struct TestC1 {
+	int test1(){ return 42; }
+};
+
+template <> struct TestC1<int> {
+	int test2(){ return 42; }
+};
+
+template <> struct TestC1< std::pair<int,double> > {
+	int test3(){ return 42; }
+};
+
+template <class Type1, typename Type2, int N> class TestC2 {
+	int test1(){ return 42; }
+};
+
+template <> class TestC2<int,double,42> {
+	int test2(){ return 42; }
+};
+
+template <typename Type> class TestC2<Type,double,42> {
+	int test3(){ return 42; }
+};
+
+template <typename Type1, class Type2> class TestC2<Type1,Type2,42> {
+	int test4(){ return 42; }
+};
+
+template <template <typename,typename> class Type, int N = 42> struct TestC3 {
+	int test1(){ return 42; }
+};
+
+template <> struct TestC3<std::pair,coalesce(test::n,42)> {
+	int test2(){ return 42; }
+};
+
+/* -------------------- Template class inheritance -------------------- */
+
+template <typename Type> struct TestD1 {
+	int test(){ return 42; }
+};
+
+template <typename Type> class TestD2 : public TestD1<Type> {
+	int test(){ return 42; }
+};
+
+struct test::TestD3 : public TestD1<int>, private TestD2< std::pair<int,double> > {
+	int test(){ return 42; }
+};
+
+template <template <typename> class Type, int N = 42> class TestD4 final : public virtual TestD1<int>, private TestD2< Type<int> > {
+	int test(){ return 42; }
+};
+
+/* -------------------- Class method inline definitions -------------------- */
+
+struct TestE1 {
+	int n;
+	
+	//Constructors
+	constexpr TestE1() noexcept : n(0) {}
+	
+	constexpr TestE1(int n) noexcept : n(n) {}
+	
+	explicit constexpr TestE1(double n) noexcept : n((int)n) {}
+	
+	explicit constexpr TestE1(int a, int b) noexcept : n(a+b) {}
+	
+	//Conversion operators
+	explicit constexpr operator bool() const noexcept { return !!n; }
+	
+	explicit constexpr operator double() const noexcept { return n; }
+	
+	explicit constexpr operator unsigned int() const noexcept { return (n<0)? -n : n; }
+	
+	//Assignment operators
+	friend void swap(TestE1 &left, TestE1 &right) noexcept {
+		using std::swap;
+		swap(left.n,right.n);
+	}
+	
+	TestE1& operator=(TestE1 test) noexcept {
+		swap(*this,test);
+		return *this;
+	}
+	
+	TestE1& operator+=(TestE1 test) noexcept {
+		n += test.n;
+		return *this;
+	}
+	
+	TestE1& operator-=(TestE1 test) noexcept {
+		n -= test.n;
+		return *this;
+	}
+	
+	TestE1& operator*=(TestE1 test) noexcept {
+		n *= test.n;
+		return *this;
+	}
+	
+	TestE1& operator/=(TestE1 test) noexcept {
+		n /= test.n;
+		return *this;
+	}
+	
+	TestE1& operator%=(TestE1 test) noexcept {
+		n %= test.n;
+		return *this;
+	}
+	
+	TestE1& operator^=(TestE1 test) noexcept {
+		n ^= test.n;
+		return *this;
+	}
+	
+	TestE1& operator&=(TestE1 test) noexcept {
+		n &= test.n;
+		return *this;
+	}
+	
+	TestE1& operator|=(TestE1 test) noexcept {
+		n |= test.n;
+		return *this;
+	}
+	
+	TestE1& operator<<=(TestE1 test) noexcept {
+		n <<= test.n;
+		return *this;
+	}
+	
+	TestE1& operator>>=(TestE1 test) noexcept {
+		n >>= test.n;
+		return *this;
+	}
+	
+	//Increment & decrement operators
+	TestE1& operator++() noexcept {
+		n++;
+		return *this;
+	}
+	
+	TestE1 operator++(int) noexcept {
+		TestE1 temp = *this;
+		n++;
+		return temp;
+	}
+	
+	TestE1& operator--() noexcept {
+		n--;
+		return *this;
+	}
+	
+	TestE1 operator--(int) noexcept {
+		TestE1 temp = *this;
+		n--;
+		return temp;
+	}
+	
+	//Arithmetic operators
+	friend constexpr TestE1 operator+(const TestE1 &test) noexcept { return +(test.n); }
+	
+	friend constexpr TestE1 operator-(const TestE1 &test) noexcept { return -(test.n); }
+	
+	friend constexpr TestE1 operator!(const TestE1 &test) noexcept { return !(test.n); }
+	
+	friend constexpr TestE1 operator~(const TestE1 &test) noexcept { return ~(test.n); }
+	
+	friend constexpr TestE1 operator+(const TestE1 &left, const TestE1 &right) noexcept { return (left.n + right.n); }
+	
+	friend constexpr TestE1 operator-(const TestE1 &left, const TestE1 &right) noexcept { return (left.n - right.n); }
+	
+	friend constexpr TestE1 operator*(const TestE1 &left, const TestE1 &right) noexcept { return (left.n * right.n); }
+	
+	friend constexpr TestE1 operator/(const TestE1 &left, const TestE1 &right) noexcept { return (left.n / right.n); }
+	
+	friend constexpr TestE1 operator%(const TestE1 &left, const TestE1 &right) noexcept { return (left.n % right.n); }
+	
+	friend constexpr TestE1 operator^(const TestE1 &left, const TestE1 &right) noexcept { return (left.n ^ right.n); }
+	
+	friend constexpr TestE1 operator&(const TestE1 &left, const TestE1 &right) noexcept { return (left.n & right.n); }
+	
+	friend constexpr TestE1 operator|(const TestE1 &left, const TestE1 &right) noexcept { return (left.n | right.n); }
+	
+	friend constexpr TestE1 operator<<(const TestE1 &left, const TestE1 &right) noexcept { return (left.n << right.n); }
+	
+	friend constexpr TestE1 operator>>(const TestE1 &left, const TestE1 &right) noexcept { return (left.n >> right.n); }
+	
+	friend constexpr TestE1 operator&&(const TestE1 &left, const TestE1 &right) noexcept { return (left.n && right.n); }
+	
+	friend constexpr TestE1 operator||(const TestE1 &left, const TestE1 &right) noexcept { return (left.n || right.n); }
+	
+	//Comparison operators
+	#if __cplusplus >= 202003L
+	friend constexpr bool operator<=>(const TestE1 &left, const TestE1 &right) noexcept {
+		return (left.n<right.n)? -1 : (right.n<left.n)? 1 : 0);
+	}
+	#else
+	friend constexpr bool operator==(const TestE1 &left, const TestE1 &right) noexcept { return (left.n == right.n); }
+	
+	friend constexpr bool operator!=(const TestE1 &left, const TestE1 &right) noexcept { return (left.n != right.n); }
+	
+	friend constexpr bool operator<(const TestE1 &left, const TestE1 &right) noexcept { return (left.n < right.n); }
+	
+	friend constexpr bool operator<=(const TestE1 &left, const TestE1 &right) noexcept { return (left.n <= right.n); }
+	
+	friend constexpr bool operator>(const TestE1 &left, const TestE1 &right) noexcept { return (left.n > right.n); }
+	
+	friend constexpr bool operator>=(const TestE1 &left, const TestE1 &right) noexcept { return (left.n >= right.n); }
+	#endif
+	
+	//Access operators
+	friend std::ostream& operator<<(std::ostream &out, const TestE1 &test){ return out << test.n; }
+	
+	friend std::istream& operator>>(std::istream &in, TestE1 &test){ return in >> test.n; }
+	
+	int& operator[](int) noexcept { return n; }
+	
+	const int& operator[](int) const noexcept { return n; }
+	
+	constexpr int operator()() const noexcept { return n; }
+	
+	int& operator*() noexcept { return n; }
+	
+	int* operator->() noexcept { return &n; }
+	
+	//Methods
+	inline constexpr const volatile long int test1() const volatile noexcept { return 42; }
+	
+	static inline constexpr const volatile long int test2() noexcept { return 42; }
+	
+	virtual int test3() const volatile noexcept { return coalesce(n,42); }
+	
+	virtual int test4() const volatile noexcept final { return coalesce(n,42); }
+};
+
+class TestE2 : public TestE1 {
+	virtual int test3() const volatile noexcept override final { return coalesce(n,42); }
+};
+
+/* -------------------- Class method outside definitions -------------------- */
+
+struct TestF1 {
+	int n;
+	
+	//Constructors
+	constexpr TestF1() noexcept;
+	
+	constexpr TestF1(int n) noexcept;
+	
+	explicit constexpr TestF1(double n) noexcept;
+	
+	explicit constexpr TestF1(int a, int b) noexcept;
+	
+	//Conversion operators
+	explicit constexpr operator bool() const noexcept;
+	
+	explicit constexpr operator double() const noexcept;
+	
+	explicit constexpr operator unsigned int() const noexcept;
+	
+	//Assignment operators
+	friend void swap(TestF1 &left, TestF1 &right) noexcept;
+	
+	TestF1& operator=(TestF1 test) noexcept;
+	
+	TestF1& operator+=(TestF1 test) noexcept;
+	
+	TestF1& operator-=(TestF1 test) noexcept;
+	
+	TestF1& operator*=(TestF1 test) noexcept;
+	
+	TestF1& operator/=(TestF1 test) noexcept;
+	
+	TestF1& operator%=(TestF1 test) noexcept;
+	
+	TestF1& operator^=(TestF1 test) noexcept;
+	
+	TestF1& operator&=(TestF1 test) noexcept;
+	
+	TestF1& operator|=(TestF1 test) noexcept;
+	
+	TestF1& operator<<=(TestF1 test) noexcept;
+	
+	TestF1& operator>>=(TestF1 test) noexcept;
+	
+	//Increment & decrement operators
+	TestF1& operator++() noexcept;
+	
+	TestF1 operator++(int) noexcept;
+	
+	TestF1& operator--() noexcept;
+	
+	TestF1 operator--(int) noexcept;
+	
+	//Arithmetic operators
+	friend constexpr TestF1 operator+(const TestF1 &test) noexcept;
+	
+	friend constexpr TestF1 operator-(const TestF1 &test) noexcept;
+	
+	friend constexpr TestF1 operator!(const TestF1 &test) noexcept;
+	
+	friend constexpr TestF1 operator~(const TestF1 &test) noexcept;
+	
+	friend constexpr TestF1 operator+(const TestF1 &left, const TestF1 &right) noexcept;
+	
+	friend constexpr TestF1 operator-(const TestF1 &left, const TestF1 &right) noexcept;
+	
+	friend constexpr TestF1 operator*(const TestF1 &left, const TestF1 &right) noexcept;
+	
+	friend constexpr TestF1 operator/(const TestF1 &left, const TestF1 &right) noexcept;
+	
+	friend constexpr TestF1 operator%(const TestF1 &left, const TestF1 &right) noexcept;
+	
+	friend constexpr TestF1 operator^(const TestF1 &left, const TestF1 &right) noexcept;
+	
+	friend constexpr TestF1 operator&(const TestF1 &left, const TestF1 &right) noexcept;
+	
+	friend constexpr TestF1 operator|(const TestF1 &left, const TestF1 &right) noexcept;
+	
+	friend constexpr TestF1 operator<<(const TestF1 &left, const TestF1 &right) noexcept;
+	
+	friend constexpr TestF1 operator>>(const TestF1 &left, const TestF1 &right) noexcept;
+	
+	friend constexpr TestF1 operator&&(const TestF1 &left, const TestF1 &right) noexcept;
+	
+	friend constexpr TestF1 operator||(const TestF1 &left, const TestF1 &right) noexcept;
+	
+	//Comparison operators
+	#if __cplusplus >= 202003L
+	friend constexpr bool operator<=>(const TestF1 &left, const TestF1 &right) noexcept;
+	#else
+	friend constexpr bool operator==(const TestF1 &left, const TestF1 &right) noexcept;
+	
+	friend constexpr bool operator!=(const TestF1 &left, const TestF1 &right) noexcept;
+	
+	friend constexpr bool operator<(const TestF1 &left, const TestF1 &right) noexcept;
+	
+	friend constexpr bool operator<=(const TestF1 &left, const TestF1 &right) noexcept;
+	
+	friend constexpr bool operator>(const TestF1 &left, const TestF1 &right) noexcept;
+	
+	friend constexpr bool operator>=(const TestF1 &left, const TestF1 &right) noexcept;
+	#endif
+	
+	//Access operators
+	friend std::ostream& operator<<(std::ostream &out, const TestF1 &test);
+	
+	friend std::istream& operator>>(std::istream &in, TestF1 &test);
+	
+	int& operator[](int) noexcept;
+	
+	const int& operator[](int) const noexcept;
+	
+	constexpr int operator()() const noexcept;
+	
+	int& operator*() noexcept;
+	
+	int* operator->() noexcept;
+	
+	//Methods
+	inline constexpr const volatile long int test1() const volatile noexcept;
+	
+	static inline constexpr const volatile long int test2() noexcept;
+	
+	virtual int test3() const volatile noexcept;
+	
+	virtual int test4() const volatile noexcept final;
+};
+
+//Constructors
+constexpr TestF1::TestF1() noexcept : n(0) {}
+
+constexpr TestF1::TestF1(int n) noexcept : n(n) {}
+
+constexpr TestF1::TestF1(double n) noexcept : n((int)n) {}
+
+constexpr TestF1::TestF1(int a, int b) noexcept : n(a+b) {}
+
+//Conversion operators
+constexpr TestF1::operator bool() const noexcept { return !!n; }
+
+constexpr TestF1::operator double() const noexcept { return n; }
+
+constexpr TestF1::operator unsigned int() const noexcept { return (n<0)? -n : n; }
+
+//Assignment operators
+void swap(TestF1 &left, TestF1 &right) noexcept {
+	using std::swap;
+	swap(left.n,right.n);
+}
+
+TestF1& TestF1::operator=(TestF1 test) noexcept {
+	swap(*this,test);
+	return *this;
+}
+
+TestF1& TestF1::operator+=(TestF1 test) noexcept {
+	n += test.n;
+	return *this;
+}
+
+TestF1& TestF1::operator-=(TestF1 test) noexcept {
+	n -= test.n;
+	return *this;
+}
+
+TestF1& TestF1::operator*=(TestF1 test) noexcept {
+	n *= test.n;
+	return *this;
+}
+
+TestF1& TestF1::operator/=(TestF1 test) noexcept {
+	n /= test.n;
+	return *this;
+}
+
+TestF1& TestF1::operator%=(TestF1 test) noexcept {
+	n %= test.n;
+	return *this;
+}
+
+TestF1& TestF1::operator^=(TestF1 test) noexcept {
+	n ^= test.n;
+	return *this;
+}
+
+TestF1& TestF1::operator&=(TestF1 test) noexcept {
+	n &= test.n;
+	return *this;
+}
+
+TestF1& TestF1::operator|=(TestF1 test) noexcept {
+	n |= test.n;
+	return *this;
+}
+
+TestF1& TestF1::operator<<=(TestF1 test) noexcept {
+	n <<= test.n;
+	return *this;
+}
+
+TestF1& TestF1::operator>>=(TestF1 test) noexcept {
+	n >>= test.n;
+	return *this;
+}
+
+//Increment & decrement operators
+TestF1& TestF1::operator++() noexcept {
+	n++;
+	return *this;
+}
+
+TestF1 TestF1::operator++(int) noexcept {
+	TestF1 temp = *this;
+	n++;
+	return temp;
+}
+
+TestF1& TestF1::operator--() noexcept {
+	n--;
+	return *this;
+}
+
+TestF1 TestF1::operator--(int) noexcept {
+	TestF1 temp = *this;
+	n--;
+	return temp;
+}
+
+//Arithmetic operators
+constexpr TestF1 operator+(const TestF1 &test) noexcept { return +(test.n); }
+
+constexpr TestF1 operator-(const TestF1 &test) noexcept { return -(test.n); }
+
+constexpr TestF1 operator!(const TestF1 &test) noexcept { return !(test.n); }
+
+constexpr TestF1 operator~(const TestF1 &test) noexcept { return ~(test.n); }
+
+constexpr TestF1 operator+(const TestF1 &left, const TestF1 &right) noexcept { return (left.n + right.n); }
+
+constexpr TestF1 operator-(const TestF1 &left, const TestF1 &right) noexcept { return (left.n - right.n); }
+
+constexpr TestF1 operator*(const TestF1 &left, const TestF1 &right) noexcept { return (left.n * right.n); }
+
+constexpr TestF1 operator/(const TestF1 &left, const TestF1 &right) noexcept { return (left.n / right.n); }
+
+constexpr TestF1 operator%(const TestF1 &left, const TestF1 &right) noexcept { return (left.n % right.n); }
+
+constexpr TestF1 operator^(const TestF1 &left, const TestF1 &right) noexcept { return (left.n ^ right.n); }
+
+constexpr TestF1 operator&(const TestF1 &left, const TestF1 &right) noexcept { return (left.n & right.n); }
+
+constexpr TestF1 operator|(const TestF1 &left, const TestF1 &right) noexcept { return (left.n | right.n); }
+
+constexpr TestF1 operator<<(const TestF1 &left, const TestF1 &right) noexcept { return (left.n << right.n); }
+
+constexpr TestF1 operator>>(const TestF1 &left, const TestF1 &right) noexcept { return (left.n >> right.n); }
+
+constexpr TestF1 operator&&(const TestF1 &left, const TestF1 &right) noexcept { return (left.n && right.n); }
+
+constexpr TestF1 operator||(const TestF1 &left, const TestF1 &right) noexcept { return (left.n || right.n); }
+
+//Comparison operators
+#if __cplusplus >= 202003L
+constexpr bool operator<=>(const TestF1 &left, const TestF1 &right) noexcept {
+	return (left.n<right.n)? -1 : (right.n<left.n)? 1 : 0);
+}
+#else
+constexpr bool operator==(const TestF1 &left, const TestF1 &right) noexcept { return (left.n == right.n); }
+
+constexpr bool operator!=(const TestF1 &left, const TestF1 &right) noexcept { return (left.n != right.n); }
+
+constexpr bool operator<(const TestF1 &left, const TestF1 &right) noexcept { return (left.n < right.n); }
+
+constexpr bool operator<=(const TestF1 &left, const TestF1 &right) noexcept { return (left.n <= right.n); }
+
+constexpr bool operator>(const TestF1 &left, const TestF1 &right) noexcept { return (left.n > right.n); }
+
+constexpr bool operator>=(const TestF1 &left, const TestF1 &right) noexcept { return (left.n >= right.n); }
+#endif
+
+//Access operators
+std::ostream& operator<<(std::ostream &out, const TestF1 &test){ return out << test.n; }
+
+std::istream& operator>>(std::istream &in, TestF1 &test){ return in >> test.n; }
+
+int& TestF1::operator[](int) noexcept { return n; }
+
+const int& TestF1::operator[](int) const noexcept { return n; }
+
+constexpr int TestF1::operator()() const noexcept { return n; }
+
+int& TestF1::operator*() noexcept { return n; }
+
+int* TestF1::operator->() noexcept { return &n; }
+
+//Methods
+inline constexpr const volatile long int TestF1::test1() const volatile noexcept { return 42; }
+
+inline constexpr const volatile long int TestF1::test2() noexcept { return 42; }
+
+int TestF1::test3() const volatile noexcept { return coalesce(n,42); }
+
+int TestF1::test4() const volatile noexcept { return coalesce(n,42); }
+
+/* -------------------- Template class method outside definitions -------------------- */
+
+template <typename Type> class TestG1 {
+	Type n;
+	
+	//Constructors
+	constexpr TestG1() noexcept;
+	
+	constexpr TestG1(Type n) noexcept;
+	
+	explicit constexpr TestG1(Type a, Type b) noexcept;
+	
+	//Conversion operators
+	explicit constexpr operator bool() const noexcept;
+	
+	explicit constexpr operator unsigned int() const noexcept;
+	
+	explicit constexpr operator Type() const noexcept;
+	
+	//Assignment operators
+	friend void swap<Type>(TestG1 &left, TestG1 &right) noexcept;
+	
+	TestG1& operator=(TestG1 test) noexcept;
+	
+	//Methods
+	inline constexpr const volatile Type test1() const volatile noexcept;
+	
+	static inline constexpr const volatile Type test2() noexcept;
+	
+	virtual Type test3() const volatile noexcept;
+	
+	virtual Type test4() const volatile noexcept final;
+};
+
+//Constructors
+template <typename Type> constexpr TestG1<Type>::TestG1() noexcept : n(0) {}
+
+template <typename Type> constexpr TestG1<Type>::TestG1(Type n) noexcept : n(n) {}
+
+template <typename Type> constexpr TestG1<Type>::TestG1(Type a, Type b) noexcept : n(a+b) {}
+
+//Conversion operators
+template <typename Type> constexpr TestG1<Type>::operator bool() const noexcept { return !!n; }
+
+template <typename Type> constexpr TestG1<Type>::operator unsigned int() const noexcept { return (n<0)? -n : n; }
+
+template <typename Type> constexpr TestG1<Type>::operator Type() const noexcept { return n; }
+
+//Assignment operators
+template <typename Type> void swap(TestG1<Type> &left, TestG1<Type> &right) noexcept {
+	using std::swap;
+	swap(left.n,right.n);
+}
+
+template <typename Type> TestG1<Type>& TestG1<Type>::operator=(TestG1<Type> test) noexcept {
+	swap(*this,test);
+	return *this;
+}
+
+//Methods
+template <typename Type> inline constexpr const volatile Type TestG1<Type>::test1() const volatile noexcept { return 42; }
+
+template <typename Type> inline constexpr const volatile Type TestG1<Type>::test2() noexcept { return 42; }
+
+template <typename Type> Type TestG1<Type>::test3() const volatile noexcept { return coalesce(n,42); }
+
+template <typename Type> Type TestG1<Type>::test4() const volatile noexcept { return coalesce(n,42); }
+
+/* -------------------- Type attributes -------------------- */
+
+#define DEPRECATED __attribute__((deprecated))
+class DEPRECATED TestH1 {
+	int test(){ return 42; }
+};
+
+#if __cplusplus >= 201402L
+struct [[deprecated]] TestH2 {
+	int test(){ return 42; }
+};
+
+class [[gnu::warn_unused]] test::TestH3 : TestH2 {
+	int test(){ return 42; }
+};
+
+struct [[deprecated("[DEPRECATED]")]] [[gnu::warn_unused]] TestH4 {
+	int test(){ return 42; }
+};
+
+class [[deprecated("[DEPRECATED]"), gnu::warn_unused]] TestH5 : TestH4 {
+	int test(){ return 42; }
+};
+#endif
+
+/* -------------------- Functors as parameter -------------------- */
+
+static inline constexpr const unsigned int test_with_functor(void (*functor)(unsigned int&, double)) noexcept {
+	unsigned int n = 42;
+	functor(n,3.14);
+	return n;
+}
+
+/* -------------------- Main -------------------- */
+
+int main(){
+	cout << "Hello World !" << endl;
+	cout << test42() << endl;
+}

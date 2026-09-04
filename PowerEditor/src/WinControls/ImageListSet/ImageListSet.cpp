@@ -1,0 +1,595 @@
+// This file is part of Notepad++ project
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+#include "ImageListSet.h"
+
+#include "windows.h"
+
+#include <cstdlib>
+#include <memory>
+#include <stdexcept>
+#include <string>
+#include <utility>
+#include <vector>
+
+#include "NppConstants.h"
+#include "NppDarkMode.h"
+#include "Parameters.h"
+#include "dpiManagerV2.h"
+#include "resource.h"
+
+void IconList::init(HINSTANCE hInst, int iconSize)
+{
+	InitCommonControls();
+	_hInst = hInst;
+	_iconSize = iconSize;
+	static constexpr int nbMore = 45;
+	_hImglst = ImageList_Create(iconSize, iconSize, ILC_COLOR32 | ILC_MASK, 0, nbMore);
+	if (!_hImglst)
+		throw std::runtime_error("IconList::create : ImageList_Create() function returns null");
+}
+
+
+void IconList::create(int iconSize, HINSTANCE hInst, const int* iconIDArray, int iconIDArraySize)
+{
+	init(hInst, iconSize);
+	_pIconIDArray = iconIDArray;
+	_iconIDArraySize = iconIDArraySize;
+
+	for (int i = 0; i < iconIDArraySize; ++i)
+		addIcon(iconIDArray[i], iconSize, iconSize);
+}
+
+void IconList::addIcon(int iconID, int cx, int cy, int failIconID, bool isToolbarNormal) const
+{
+	HICON hIcon = nullptr;
+	DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(iconID), cx, cy, &hIcon, LR_DEFAULTSIZE);
+
+	if (!hIcon)
+	{
+		static bool ignoreWarning = false;
+		int userAnswer = 0;
+		if (!ignoreWarning)
+		{
+			userAnswer = NppDarkMode::darkMessageBoxW(nullptr, L"IconList::addIcon : LoadIcon() function return null.\nIgnore the error?\n\n\"Yes\": ignore the error and launch Notepad++\n\"No\": Quit Notepad++\n\"Cancel\": display all errors", std::to_wstring(iconID).c_str(), MB_YESNOCANCEL | MB_ICONWARNING);
+			ignoreWarning = userAnswer == IDYES;
+		}
+
+		if (userAnswer == IDNO)
+		{
+			throw std::runtime_error("IconList::addIcon : LoadIcon() function returns null");
+		}
+		else
+		{
+			if (failIconID != -1)
+			{
+				HBITMAP hBmp = static_cast<HBITMAP>(::LoadImage(_hInst, MAKEINTRESOURCE(failIconID), IMAGE_BITMAP, cx, cy, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+				if (hBmp != nullptr)
+				{
+					::ImageList_AddMasked(_hImglst, hBmp, ::GetSysColor(COLOR_3DFACE));
+					::DeleteObject(hBmp);
+					return;
+				}
+			}
+			DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(IDI_ICONABSENT), cx, cy, &hIcon);
+		}
+	}
+
+	if (hIcon != nullptr)
+	{
+		if (isToolbarNormal)
+			IconList::changeFluentIconColor(&hIcon);
+		::ImageList_AddIcon(_hImglst, hIcon);
+		::DestroyIcon(hIcon);
+	}
+}
+
+void IconList::addIcon(HICON hIcon) const
+{
+	if (hIcon)
+		ImageList_AddIcon(_hImglst, hIcon);
+}
+
+bool IconList::changeIcon(size_t index, const wchar_t* iconLocation) const
+{
+	HICON hIcon = nullptr;
+	DPIManagerV2::loadIcon(nullptr, iconLocation, _iconSize, _iconSize, &hIcon, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+	if (!hIcon)
+		return false;
+	size_t i = ::ImageList_ReplaceIcon(_hImglst, static_cast<int>(index), hIcon);
+	::DestroyIcon(hIcon);
+	return (i == index);
+}
+
+
+bool IconList::changeFluentIconColor(HICON* phIcon, const std::vector<std::pair<COLORREF, COLORREF>>& colorMappings, int tolerance) const
+{
+	if (!*phIcon)
+	{
+		return false;
+	}
+
+	HDC hdcScreen = nullptr;
+	HDC hdcBitmap = nullptr;
+	BITMAP bm{};
+	ICONINFO ii{};
+	HBITMAP hbmNew = nullptr;
+	std::unique_ptr<RGBQUAD[]> pixels;
+
+	const bool changeEverything = colorMappings[0].first == 0;
+
+	auto cleanup = [&]()
+		{
+			if (hdcScreen) ::ReleaseDC(nullptr, hdcScreen);
+			if (hdcBitmap) ::DeleteDC(hdcBitmap);
+			if (ii.hbmColor) ::DeleteObject(ii.hbmColor);
+			if (ii.hbmMask) ::DeleteObject(ii.hbmMask);
+			if (hbmNew) ::DeleteObject(hbmNew);
+		};
+
+	hdcScreen = ::GetDC(nullptr);
+	hdcBitmap = ::CreateCompatibleDC(nullptr);
+
+	if (!hdcScreen || !hdcBitmap || !::GetIconInfo(*phIcon, &ii) || !ii.hbmColor || !::GetObject(ii.hbmColor, sizeof(BITMAP), &bm))
+	{
+		cleanup();
+		return false;
+	}
+
+	BITMAPINFO bmi{};
+	bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+	bmi.bmiHeader.biWidth = bm.bmWidth;
+	bmi.bmiHeader.biHeight = -bm.bmHeight; // Top-down bitmap
+	bmi.bmiHeader.biPlanes = 1;
+	bmi.bmiHeader.biBitCount = 32;
+	bmi.bmiHeader.biCompression = BI_RGB;
+
+	pixels = std::make_unique<RGBQUAD[]>(static_cast<size_t>(bm.bmWidth) * bm.bmHeight);
+	if (!::GetDIBits(hdcBitmap, ii.hbmColor, 0, bm.bmHeight, pixels.get(), &bmi, DIB_RGB_COLORS))
+	{
+		cleanup();
+		return false;
+	}
+
+	for (int i = 0; i < bm.bmWidth * bm.bmHeight; ++i)
+	{
+		if (pixels[i].rgbReserved != 0) // Modify non-transparent pixels
+		{
+			if (changeEverything)
+			{
+				COLORREF cNew = colorMappings[0].second == 0 ? NppDarkMode::getAccentColor() : colorMappings[0].second;
+				pixels[i].rgbRed = GetRValue(cNew);
+				pixels[i].rgbGreen = GetGValue(cNew);
+				pixels[i].rgbBlue = GetBValue(cNew);
+			}
+			else
+			{
+				for (const auto& [cToChange, cNew] : colorMappings)
+				{
+
+					if (std::abs(pixels[i].rgbRed - GetRValue(cToChange)) <= tolerance &&
+						std::abs(pixels[i].rgbGreen - GetGValue(cToChange)) <= tolerance &&
+						std::abs(pixels[i].rgbBlue - GetBValue(cToChange)) <= tolerance)
+					{
+						COLORREF finalNewColor = (cNew == 0) ? NppDarkMode::getAccentColor() : cNew;
+						pixels[i].rgbRed = GetRValue(finalNewColor);
+						pixels[i].rgbGreen = GetGValue(finalNewColor);
+						pixels[i].rgbBlue = GetBValue(finalNewColor);
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	hbmNew = ::CreateCompatibleBitmap(hdcScreen, bm.bmWidth, bm.bmHeight);
+	if (!hbmNew || !::SetDIBits(hdcBitmap, hbmNew, 0, bm.bmHeight, pixels.get(), &bmi, DIB_RGB_COLORS))
+	{
+		cleanup();
+		return false;
+	}
+
+	if (ii.hbmColor)
+	{
+		::DeleteObject(ii.hbmColor);
+		ii.hbmColor = nullptr;
+	}
+
+	ii.hbmColor = hbmNew;
+	HICON hIconNew = ::CreateIconIndirect(&ii);
+	if (!hIconNew)
+	{
+		cleanup();
+		return false;
+	}
+
+	::DestroyIcon(*phIcon);
+	*phIcon = hIconNew;
+
+	cleanup();
+	return true;
+}
+
+bool IconList::changeFluentIconColor(HICON* phIcon) const
+{
+	const auto cMain = NppDarkMode::isEnabled() ? g_cDefaultMainDark : g_cDefaultMainLight;
+	const auto cSecondary = NppDarkMode::isEnabled() ? g_cDefaultSecondaryDark : g_cDefaultSecondaryLight;
+	std::vector<std::pair<COLORREF, COLORREF>> colorMappings;
+
+	NppParameters& nppParams = NppParameters::getInstance();
+	const auto& tbInfo = nppParams.getNppGUI()._tbIconInfo;
+
+	COLORREF cOld = tbInfo._tbUseMono ? 0 : cSecondary;
+	COLORREF cNew = 0;
+
+	switch (tbInfo._tbColor)
+	{
+		case FluentColor::accent:
+		{
+			cNew = 0;
+			break;
+		}
+
+		case FluentColor::red:
+		{
+			cNew = RGB(0xE8, 0x11, 0x23);
+			break;
+		}
+
+		case FluentColor::green:
+		{
+			cNew = RGB(0x00, 0x8B, 0x00);
+			break;
+		}
+
+		case FluentColor::blue:
+		{
+			cNew = RGB(0x00, 0x78, 0xD4);
+			break;
+		}
+
+		case FluentColor::purple:
+		{
+			cNew = RGB(0xB1, 0x46, 0xC2);
+			break;
+		}
+
+		case FluentColor::cyan:
+		{
+			cNew = RGB(0x00, 0xB7, 0xC3);
+			break;
+		}
+
+		case FluentColor::olive:
+		{
+			cNew = RGB(0x49, 0x82, 0x05);
+			break;
+		}
+
+		case FluentColor::yellow:
+		{
+			cNew = RGB(0xFF, 0xB9, 0x00);
+			break;
+		}
+
+		case FluentColor::custom:
+		{
+			if (tbInfo._tbCustomColor != 0)
+			{
+				cNew = tbInfo._tbCustomColor;
+				break;
+			}
+			[[fallthrough]];
+		}
+
+		case FluentColor::defaultColor:
+		{
+			if (tbInfo._tbUseMono)
+			{
+				cNew = cMain;
+				break;
+			}
+			[[fallthrough]];
+		}
+
+		default:
+		{
+			return false;
+		}
+	}
+
+	colorMappings = { {cOld, cNew} };
+	return IconList::changeFluentIconColor(phIcon, colorMappings);
+}
+
+void ToolBarIcons::init(const ToolBarButtonUnit* buttonUnitArray, int arraySize, const std::vector<DynamicCmdIcoBmp>& cmds2add)
+{
+	for (int i = 0 ; i < arraySize ; ++i)
+		_tbiis.push_back(buttonUnitArray[i]);
+
+	_moreCmds = cmds2add;
+}
+
+void ToolBarIcons::reInit(int size)
+{
+	ImageList_SetIconSize(getDefaultLst(), size, size);
+	ImageList_SetIconSize(getDisableLst(), size, size);
+
+	ImageList_SetIconSize(getDefaultLstSet2(), size, size);
+	ImageList_SetIconSize(getDisableLstSet2(), size, size);
+
+	ImageList_SetIconSize(getDefaultLstDM(), size, size);
+	ImageList_SetIconSize(getDisableLstDM(), size, size);
+
+	ImageList_SetIconSize(getDefaultLstSetDM2(), size, size);
+	ImageList_SetIconSize(getDisableLstSetDM2(), size, size);
+
+	for (size_t i = 0; i < _iconListVector.size(); ++i)
+	{
+		_iconListVector[i].removeAll();
+	}
+
+	for (size_t i = 0, len = _tbiis.size(); i < len; ++i)
+	{
+		if (_tbiis[i]._defaultIcon != -1)
+		{
+			_iconListVector[HLIST_DEFAULT].addIcon(_tbiis[i]._defaultIcon, size, size, _tbiis[i]._stdIcon, true);
+			_iconListVector[HLIST_DISABLE].addIcon(_tbiis[i]._grayIcon, size, size, _tbiis[i]._stdIcon);
+			_iconListVector[HLIST_DEFAULT2].addIcon(_tbiis[i]._defaultIcon2, size, size, _tbiis[i]._stdIcon, true);
+			_iconListVector[HLIST_DISABLE2].addIcon(_tbiis[i]._grayIcon2, size, size, _tbiis[i]._stdIcon);
+
+			_iconListVector[HLIST_DEFAULT_DM].addIcon(_tbiis[i]._defaultDarkModeIcon, size, size, _tbiis[i]._stdIcon, true);
+			_iconListVector[HLIST_DISABLE_DM].addIcon(_tbiis[i]._grayDarkModeIcon, size, size, _tbiis[i]._stdIcon);
+			_iconListVector[HLIST_DEFAULT_DM2].addIcon(_tbiis[i]._defaultDarkModeIcon2, size, size, _tbiis[i]._stdIcon, true);
+			_iconListVector[HLIST_DISABLE_DM2].addIcon(_tbiis[i]._grayDarkModeIcon2, size, size, _tbiis[i]._stdIcon);
+		}
+	}
+
+	// Add dynamic icons (from plugins)
+	for (const auto& i : _moreCmds)
+	{
+		_iconListVector[HLIST_DEFAULT].addIcon(i._hIcon);
+		_iconListVector[HLIST_DISABLE].addIcon(i._hIcon);
+		_iconListVector[HLIST_DEFAULT2].addIcon(i._hIcon);
+		_iconListVector[HLIST_DISABLE2].addIcon(i._hIcon);
+
+		HICON hIcon = nullptr;
+
+		if (i._hIcon_DM)
+		{
+			hIcon = i._hIcon_DM;
+		}
+		else
+		{
+			ICONINFO iconinfoSrc;
+			GetIconInfo(i._hIcon, &iconinfoSrc);
+
+			HDC dcScreen = ::GetDC(NULL);
+
+			BITMAP bmp{};
+			int nbByteBmp = ::GetObject(iconinfoSrc.hbmColor, sizeof(BITMAP), &bmp);
+
+			if (!nbByteBmp)
+			{
+				hIcon = i._hIcon;
+			}
+			else
+			{
+				BITMAPINFO bi{};
+				bi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+				bi.bmiHeader.biWidth = bmp.bmWidth;
+				bi.bmiHeader.biHeight = bmp.bmHeight;
+				bi.bmiHeader.biPlanes = 1;
+				bi.bmiHeader.biBitCount = 32;
+				bi.bmiHeader.biCompression = BI_RGB;
+
+				const DWORD dwLineSize = ((bmp.bmWidth * bi.bmiHeader.biBitCount + 31) / 32) * 4;
+				const DWORD dwBmpSize = dwLineSize * bmp.bmHeight;
+
+				std::unique_ptr<BYTE[]> dibits = std::make_unique<BYTE[]>(dwBmpSize);
+
+				::GetDIBits(dcScreen, iconinfoSrc.hbmColor, 0, bi.bmiHeader.biHeight, dibits.get(), &bi, DIB_RGB_COLORS);
+
+				for (int scanLine = 0; scanLine < bi.bmiHeader.biHeight; ++scanLine)
+				{
+					BYTE* rawLine = dibits.get() + (dwLineSize * scanLine);
+					auto* pLine = reinterpret_cast<RGBQUAD*>(rawLine);
+
+					for (int pixel = 0; pixel < bi.bmiHeader.biWidth; ++pixel)
+					{
+						RGBQUAD rgba = pLine[pixel];
+
+						COLORREF c = RGB(rgba.rgbRed, rgba.rgbGreen, rgba.rgbBlue);
+						COLORREF invert = NppDarkMode::invertLightness(c);
+
+						rgba.rgbRed = GetRValue(invert);
+						rgba.rgbBlue = GetBValue(invert);
+						rgba.rgbGreen = GetGValue(invert);
+
+						pLine[pixel] = rgba;
+					}
+				}
+
+				HBITMAP hBmpNew = ::CreateCompatibleBitmap(dcScreen, bmp.bmWidth, bmp.bmHeight);
+
+				::SetDIBits(dcScreen, hBmpNew, 0, bi.bmiHeader.biHeight, dibits.get(), &bi, DIB_RGB_COLORS);
+
+				::ReleaseDC(NULL, dcScreen);
+
+				ICONINFO iconinfoDest = {};
+				iconinfoDest.fIcon = TRUE;
+				iconinfoDest.hbmColor = hBmpNew;
+				iconinfoDest.hbmMask = iconinfoSrc.hbmMask;
+
+				hIcon = ::CreateIconIndirect(&iconinfoDest);
+
+				::DeleteObject(hBmpNew);
+				::DeleteObject(iconinfoSrc.hbmColor);
+				::DeleteObject(iconinfoSrc.hbmMask);
+			}
+		}
+		_iconListVector[HLIST_DEFAULT_DM].addIcon(hIcon);
+		_iconListVector[HLIST_DISABLE_DM].addIcon(hIcon);
+		_iconListVector[HLIST_DEFAULT_DM2].addIcon(hIcon);
+		_iconListVector[HLIST_DISABLE_DM2].addIcon(hIcon);
+	}
+}
+
+void ToolBarIcons::create(HINSTANCE hInst, int iconSize)
+{
+	_iconListVector.push_back(IconList());
+	_iconListVector.push_back(IconList());
+	_iconListVector.push_back(IconList());
+	_iconListVector.push_back(IconList());
+	
+	_iconListVector.push_back(IconList());
+	_iconListVector.push_back(IconList());
+	_iconListVector.push_back(IconList());
+	_iconListVector.push_back(IconList());
+	
+
+	_iconListVector[HLIST_DEFAULT].init(hInst, iconSize);
+	_iconListVector[HLIST_DISABLE].init(hInst, iconSize);
+	_iconListVector[HLIST_DEFAULT2].init(hInst, iconSize);
+	_iconListVector[HLIST_DISABLE2].init(hInst, iconSize);
+
+	_iconListVector[HLIST_DEFAULT_DM].init(hInst, iconSize);
+	_iconListVector[HLIST_DISABLE_DM].init(hInst, iconSize);
+	_iconListVector[HLIST_DEFAULT_DM2].init(hInst, iconSize);
+	_iconListVector[HLIST_DISABLE_DM2].init(hInst, iconSize);
+
+	reInit(iconSize);
+}
+
+void ToolBarIcons::destroy()
+{
+	_iconListVector[HLIST_DEFAULT].destroy();
+	_iconListVector[HLIST_DEFAULT2].destroy();
+	_iconListVector[HLIST_DISABLE].destroy();
+	_iconListVector[HLIST_DISABLE2].destroy();
+}
+
+HBITMAP ToolBarIcons::resizeHBitmap(HBITMAP srcBmp, int destW, int destH)
+{
+	if (destW <= 0 || destH <= 0 || !srcBmp)
+		return nullptr;
+
+	BITMAP bm{};
+	if (::GetObject(srcBmp, sizeof(BITMAP), &bm) == 0)
+		return nullptr;
+
+	const int srcW = bm.bmWidth;
+	const int srcH = std::abs(bm.bmHeight);
+	if (srcW <= 0 || srcH <= 0 || (srcW == destW && srcH == destH))
+		return nullptr;
+
+	HDC hdcScreen = ::GetDC(nullptr);
+	if (!hdcScreen) return nullptr;
+
+	HDC hdcSrc = ::CreateCompatibleDC(hdcScreen);
+	HDC hdcDst = ::CreateCompatibleDC(hdcScreen);
+	if (!hdcSrc || !hdcDst)
+	{
+		if (hdcSrc) ::DeleteDC(hdcSrc);
+		if (hdcDst) ::DeleteDC(hdcDst);
+		::ReleaseDC(nullptr, hdcScreen);
+		return nullptr;
+	}
+
+	auto cleanup = [hdcScreen, hdcSrc, hdcDst](HBITMAP result)
+	{
+		::DeleteDC(hdcSrc);
+		::DeleteDC(hdcDst);
+		::ReleaseDC(nullptr, hdcScreen);
+		return result;
+	};
+
+	BITMAPINFO srcBmi{};
+	srcBmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+	srcBmi.bmiHeader.biWidth = srcW;
+	srcBmi.bmiHeader.biHeight = -srcH;
+	srcBmi.bmiHeader.biPlanes = 1;
+	srcBmi.bmiHeader.biBitCount = 32;
+	srcBmi.bmiHeader.biCompression = BI_RGB;
+
+	auto srcPixels = std::make_unique<RGBQUAD[]>(static_cast<size_t>(srcW) * static_cast<size_t>(srcH));
+	if (!::GetDIBits(hdcSrc, srcBmp, 0, srcH, srcPixels.get(), &srcBmi, DIB_RGB_COLORS))
+		return cleanup(nullptr);
+
+	BITMAPINFO dstBmi = srcBmi;
+	dstBmi.bmiHeader.biWidth = destW;
+	dstBmi.bmiHeader.biHeight = -destH;
+
+	void* dstBits = nullptr;
+	HBITMAP hbmDst = ::CreateDIBSection(hdcScreen, &dstBmi, DIB_RGB_COLORS, &dstBits, nullptr, 0);
+	if (!hbmDst)
+		return cleanup(nullptr);
+
+	auto hOldDst = static_cast<HBITMAP>(::SelectObject(hdcDst, hbmDst));
+
+	const COLORREF clrTopLeftPixel = RGB(srcPixels[0].rgbRed, srcPixels[0].rgbGreen, srcPixels[0].rgbBlue);
+	// For toolbar icons black is usually used as indicator of transparency.
+	// Checking for 1st top left pixel should work for most time.
+	if (srcPixels[0].rgbReserved == 0 && clrTopLeftPixel == 0)
+	{
+		auto hOldSrc = static_cast<HBITMAP>(::SelectObject(hdcSrc, srcBmp));
+
+		BLENDFUNCTION bf{};
+		bf.BlendOp = AC_SRC_OVER;
+		bf.BlendFlags = 0;
+		bf.SourceConstantAlpha = 255;
+		bf.AlphaFormat = AC_SRC_ALPHA;
+
+		const BOOL retVal = ::AlphaBlend(
+			hdcDst,
+			0, 0, destW, destH,
+			hdcSrc,
+			0, 0, srcW, srcH,
+			bf);
+
+		::SelectObject(hdcSrc, hOldSrc);
+		::SelectObject(hdcDst, hOldDst);
+
+		if (retVal == FALSE)
+		{
+			::DeleteObject(hbmDst);
+			return cleanup(nullptr);
+		}
+	}
+	else
+	{
+		::SetStretchBltMode(hdcDst, HALFTONE);
+		const int retVal = ::StretchDIBits(
+			hdcDst,
+			0, 0, destW, destH,
+			0, 0, srcW, srcH,
+			srcPixels.get(),
+			&srcBmi,
+			DIB_RGB_COLORS,
+			SRCCOPY);
+
+		::SelectObject(hdcDst, hOldDst);
+
+		if (retVal == 0 || (retVal > 0 && static_cast<UINT>(retVal) == GDI_ERROR))
+		{
+			::DeleteObject(hbmDst);
+			return cleanup(nullptr);
+		}
+	}
+
+	return cleanup(hbmDst);
+}

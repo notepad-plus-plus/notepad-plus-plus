@@ -1,0 +1,75 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+	<Fragment>
+		<!--
+		Themes
+		-->
+		<ComponentGroup Id="ThemesComponentGroup" Directory="ThemesFolder">
+			<Component Id="DarkModeDefault_THEME">
+				<File Source="..\..\installer\themes\DarkModeDefault.xml" />
+			</Component>
+			<Component Id="BlackBoard_THEME">
+				<File Source="..\..\installer\themes\Black board.xml" />
+			</Component>
+			<Component Id="Choco_THEME">
+				<File Source="..\..\installer\themes\Choco.xml" />
+			</Component>
+			<Component Id="HelloKitty_THEME">
+				<File Source="..\..\installer\themes\Hello Kitty.xml" />
+			</Component>
+			<Component Id="MonoIndustrial_THEME">
+				<File Source="..\..\installer\themes\Mono Industrial.xml" />
+			</Component>
+			<Component Id="Monokai_THEME">
+				<File Source="..\..\installer\themes\Monokai.xml" />
+			</Component>
+			<Component Id="obsidian_THEME">
+				<File Source="..\..\installer\themes\obsidian.xml" />
+			</Component>
+			<Component Id="PlasticCodeWrap_THEME">
+				<File Source="..\..\installer\themes\Plastic Code Wrap.xml" />
+			</Component>
+			<Component Id="RubyBlue_THEME">
+				<File Source="..\..\installer\themes\Ruby Blue.xml" />
+			</Component>
+			<Component Id="Twilight_THEME">
+				<File Source="..\..\installer\themes\Twilight.xml" />
+			</Component>
+			<Component Id="VibrantInk_THEME">
+				<File Source="..\..\installer\themes\Vibrant Ink.xml" />
+			</Component>
+			<Component Id="DeepBlack_THEME">
+				<File Source="..\..\installer\themes\Deep Black.xml" />
+			</Component>
+			<Component Id="vimDarkBlue_THEME">
+				<File Source="..\..\installer\themes\vim Dark Blue.xml" />
+			</Component>
+			<Component Id="Bespin_THEME">
+				<File Source="..\..\installer\themes\Bespin.xml" />
+			</Component>
+			<Component Id="Zenburn_THEME">
+				<File Source="..\..\installer\themes\Zenburn.xml" />
+			</Component>
+			<Component Id="Solarized_THEME">
+				<File Source="..\..\installer\themes\Solarized.xml" />
+			</Component>
+			<Component Id="SolarizedLight_THEME">
+				<File Source="..\..\installer\themes\Solarized-light.xml" />
+			</Component>
+			<Component Id="HotFudgeSundae_THEME">
+				<File Source="..\..\installer\themes\HotFudgeSundae.xml" />
+			</Component>
+			<Component Id="khaki_THEME">
+				<File Source="..\..\installer\themes\khaki.xml" />
+			</Component>
+			<Component Id="MossyLawn_THEME">
+				<File Source="..\..\installer\themes\MossyLawn.xml" />
+			</Component>
+			<Component Id="Navajo_THEME">
+				<File Source="..\..\installer\themes\Navajo.xml" />
+			</Component>
+			<Component Id="DansLeRuSHDark_THEME">
+				<File Source="..\..\installer\themes\DansLeRuSH-Dark.xml" />
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>

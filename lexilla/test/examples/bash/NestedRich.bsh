@@ -1,0 +1,26 @@
+# Use lexer.bash.command.substitution=2 to style command substitution
+# so that both the scope of the command and the internal structure are visible.
+
+# Nested command
+$(ls -la$(ls *.c))
+
+# Check strings and backticks in command
+echo $('ls' "." `ls` $'.' $".")
+
+PROJECT_DIR=$(rlwrap -S "Enter source path: " -e '' -i -o cat)
+
+# Multiple nesting levels
+$(ls -la$(ls $(c) $'*.c' ` $(${s})`))
+
+# Multi-line
+$(ls |
+more)
+
+$(
+`x`
+"x"
+`ls`
+$'x'
+$"x"
+)
+#end -- checks termination of previous

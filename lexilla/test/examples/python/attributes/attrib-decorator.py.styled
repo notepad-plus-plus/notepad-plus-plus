@@ -1,0 +1,9 @@
+{1}# issue#294 also pointed out that decorator attributes behaved differently{0}
+{1}#   for left-justified decorators vs indented decorators{0}
+
+{15}@decorator{10}.{15}attribute{0}
+{5}def{0} {9}foo{10}():{0}
+    {15}@decorator{10}.{15}attribute{0}
+    {5}def{0} {9}bar{10}():{0}
+        {5}pass{0}
+    {11}bar{10}(){0}

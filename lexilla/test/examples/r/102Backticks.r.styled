@@ -1,0 +1,10 @@
+{1}# ugly code to demonstrate multiline string.{0}
+{12}`Hello
+World`{0} {8}<-{0} {9}function{8}({9}x{0}, {9}y{0}, {9}z{8}){0} {8}{{0}
+	{9}print{8}({9}x{8}){0};
+	{9}print{8}({9}y{8}){0};
+	{9}print{8}({9}z{8}){0};
+{8}}{0}
+{12}`Hello\nWorld`{8}({6}"Hello\nMoon!"{0}, {6}"Hello
+Venus"{0}, {7}'Hello\
+Mars'{8}){0};

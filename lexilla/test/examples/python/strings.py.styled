@@ -1,0 +1,16 @@
+{1}# Simple raw string{0}
+{4}r''{0}
+
+{1}# Raw f-string{0}
+{17}rf''{0}
+{17}fr''{0}
+
+{1}# Raw byte string{0}
+{4}rb''{0}
+{4}br''{0}
+
+{1}# Raw unicode strings: ur'' is valid in 2.7 (but not in 3) -- always lexed as{0}
+{1}# valid; ru'' is never valid{0}
+{11}ru{4}''{0}
+{4}ur''{0}
+

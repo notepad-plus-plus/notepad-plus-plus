@@ -1,0 +1,52 @@
+{3}" File contains examples of all SCE_ST_* lexical states 0-16 "{0}
+{3}" Smalltalk code from the lexer that generates the character classification table."{0}
+{5}|{0} lexTable classificationBlock charClasses {5}|{0}
+charClasses {14}:={0} {12}#({4}#DecDigit{0} {4}#Letter{0} {4}#Special{0} {4}#Upper{0} {4}#BinSel{12}).{0}
+lexTable {14}:={0} {10}ByteArray{0} {13}new:{0} {2}128{12}.{0}
+classificationBlock {14}:={0} {12}[{0} {12}:{0}charClass {12}:{0}chars {5}|{0}
+    {5}|{0} flag {5}|{0}
+    flag {14}:={0} {2}1{0} {13}bitShift:{0} {12}({0}charClasses {13}indexOf:{0} charClass{12}){0} {5}-{0} {2}1{12}.{0}
+    chars {13}do:{0} {12}[{0} {12}:{0}char {5}|{0} lexTable {13}at:{0} char codePoint {5}+{0} {2}1{0} {13}put:{0} {12}(({0}lexTable {13}at:{0} char codePoint {5}+{0} {2}1{12}){0} {13}bitOr:{0} flag{12})]].{0}
+
+classificationBlock
+    {13}value:{0} {4}#DecDigit{0} {13}value:{0} {1}'0123456789'{12};{0}
+    {13}value:{0} {4}#Letter{0} {13}value:{0} {1}'_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'{12};{0}
+    {13}value:{0} {4}#Special{0} {13}value:{0} {1}'()[]{};.^:'{12};{0}
+    {13}value:{0} {4}#BinSel{0} {13}value:{0} {1}'~@%&*-+=|\/,<>?!'{12};{0}
+    {13}value:{0} {4}#Upper{0} {13}value:{0} {1}'ABCDEFGHIJKLMNOPQRSTUVWXYZ'{12}.{0}
+
+{12}(({10}String{0} {13}new:{0} {2}500{12}){0} {13}streamContents:{0} {12}[{0} {12}:{0}stream {5}|{0}
+    stream crLf{12};{0} {13}nextPutAll:{0} {1}'static int ClassificationTable[256] = {'{12}.{0}
+    lexTable {13}keysAndValuesDo:{0} {12}[{0} {12}:{0}index {12}:{0}value {5}|{0}
+        {12}(({0}index {5}-{0} {2}1{12}){0} {13}rem:{0} {2}16{12}){0} {5}=={0} {2}0{0} {16}ifTrue:{0} {12}[{0}
+            stream crLf{12};{0} tab{12}]{0}
+        {16}ifFalse:{0} {12}[{0}
+            stream space{12}].{0}
+        stream {13}print:{0} value{12}.{0}
+        index {5}~={0} {2}256{0} {16}ifTrue:{0} {12}[{0}
+            stream {13}nextPut:{0} {15}$,{12}]].{0}
+    stream crLf{12};{0} {13}nextPutAll:{0} {1}'};'{12};{0} crLf{12}.{0}
+
+    charClasses {13}keysAndValuesDo:{0} {12}[{0} {12}:{0}index {12}:{0}name {5}|{0}
+        stream
+            crLf{12};{0}
+            {13}nextPutAll:{0} {12}({0}
+                {12}({1}'static inline bool is<1s>(unsigned char ch) {return (ch %< 0x80) && ((ClassificationTable[ch] & <2p>) != 0);}'{12}){0}
+                    {13}expandMacrosWith:{0} name {13}with:{0} {12}({2}1{0} {13}bitShift:{0} {12}({0}index {5}-{0} {2}1{12}))){0}
+    {12}]]){0} edit
+
+{3}" Some more syntax examples:
+  ^ is return (SCE_ST_RETURN)
+  true or false is bool (SCE_ST_BOOL)
+  self (SCE_ST_SELF)
+  super (SCE_ST_SUPER)
+  nil (SCE_ST_NIL)
+"{0}
+foo
+  {11}^{0} {10}Array{0} {13}with:{0} {2}1{0} {13}with:{0} {2}2{0} {13}with:{0} {6}false{0} {13}with:{0} {7}self{0} {13}with:{0} {8}super{0} {13}with:{0} {9}nil{12}.{0}
+
+{3}" Issue 274: A decimal separator is not required for scaled decimal numbers"{0}
+{2}32.0s2{0}
+{2}4.0e3{0}
+{2}32s2{0}
+{2}4e3{0}

@@ -1,0 +1,32 @@
+{2}# heredoc method call, other argument{0}
+{11}puts{0} {10}<<{20}~EOT{10}.{11}chomp{22}
+	squiggly heredoc
+{20}EOT{0}
+
+{11}puts{0} {10}<<{20}ONE{10},{0} {5}__FILE__{10},{0} {5}__LINE__{22}
+content for heredoc one
+{20}ONE{0}
+
+{2}# heredoc prevStyle == SCE_RB_GLOBAL{0}
+{13}$stdout{10}.{11}puts{0} {10}<<{20}~EOT{10}.{11}chomp{22}
+	squiggly heredoc
+{20}EOT{0}
+
+{2}# Issue #236: modifier if, unless, while and until{0}
+{11}alias{0} {11}error{0} {11}puts{0}
+
+{11}error{0} {10}<<{20}EOF{0} {29}if{0} {5}true{22}
+heredoc if true
+{20}EOF{0}
+
+{11}error{0} {10}<<{20}EOF{0} {29}unless{0} {5}false{22}
+heredoc unless false
+{20}EOF{0}
+
+{11}error{0} {10}<<{20}EOF{0} {29}while{0} {5}false{22}
+heredoc while false
+{20}EOF{0}
+
+{11}error{0} {10}<<{20}EOF{0} {29}until{0} {5}true{22}
+heredoc until true
+{20}EOF{0}

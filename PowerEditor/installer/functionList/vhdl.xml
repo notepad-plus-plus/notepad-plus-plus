@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ======================================================== [ VHDL ] -->
+		<!--
+		|   Derived from :
+		|       https://community.notepad-plus-plus.org/topic/11554/function-list-for-vhdl
+		\-->
+		<parser
+			displayName="VHDL"
+			id         ="vhdl_syntax"
+		>
+			<function
+				mainExpr="(?x)                                          # free-spacing (see `RegEx - Pattern Modifiers`)
+					  ^                                             # match at beginning of line
+					  \h*                                           # optional leading whitespace
+					  (\w+\h*:)?                                    # ID of process
+					  (?:\h(?!END)\w+\h)*                           # make sure this is not the end of a module
+					  \h*
+					  (?(1)(?:ENTITY|BLOCK|PROCESS)|                # keywords if ':' was detected before
+					  (?:ENTITY|COMPONENT|ARCHITECTURE))            # keywords else
+					  [\h\(]+                                       # expect at least one blank or parentheses
+					  [A-Za-z0-9_\(\)., ]+                          # ID or sensitivity list
+					  (?!\;)"
+			>
+				<functionName>
+					<nameExpr expr=".*" />
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

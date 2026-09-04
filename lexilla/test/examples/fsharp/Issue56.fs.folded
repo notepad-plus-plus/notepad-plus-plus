@@ -1,0 +1,15 @@
+ 0 400 400   // not folded
+ 1 400 400   
+ 2 400 401 + // first line in comment fold
+ 0 401 401 | // second . . .
+ 0 401 400 | // third . . .
+ 0 400 400   namespace Issue56
+ 1 400 400   
+ 0 400 400   open System
+ 1 400 400   
+ 0 400 400   module LineBasedFoldingCheck =
+ 2 400 401 +     open FSharp.Quotations
+ 0 401 400 |     open FSharp.Reflection
+ 1 400 400   
+ 0 400 400       () |> ignore
+ 0 400   0   

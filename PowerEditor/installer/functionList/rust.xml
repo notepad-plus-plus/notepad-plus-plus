@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- =========================================================== [ C ] -->
+		<parser
+			displayName="Rust"
+			id         ="rust_function"
+			commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+							(?s:\x2F\x2A.*?\x2A\x2F)                        # Multi Line Comment
+						|	(?m-s:\x2F{2}.*$)                               # Single Line Comment
+						"
+		>
+			<function
+				mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+						^\h*                                                # optional leading whitespace at start-of-line
+						(?:
+							(?-i:
+								async
+							|	const
+							|	(?-i:extern\s+(?s:\x22(?:[^\x22\x5C]|\x5C.)*\x22))
+							|	unsafe
+							)
+							\s+
+						)*
+						(?-i:fn)\s+
+						\K                                                  # discard text matched so far
+						(?:[a-zA-Z][a-zA-Z0-9_]*|_[a-zA-Z0-9_]+)            # valid character combination for identifiers
+						(?:&lt;.*$gt;)?                                     # optional generic params
+						(?:\s*\([^()]*\))?                                  # optional parameter list
+					"
+			>
+				<!-- comment out the following node to display the method with its parameters -->
+				<functionName>
+					<nameExpr expr="\w+" />
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

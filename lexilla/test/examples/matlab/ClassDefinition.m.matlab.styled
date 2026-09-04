@@ -1,0 +1,74 @@
+{4}classdef{0} {7}Foo{0} {6}<{0} {7}handle{0}
+
+    {1}% A couple of properties blocks{0}
+    {4}properties{0} {6}({7}SetAccess{0} {6}={0} {7}private{6}){0}
+        {7}Var1{0}
+        {7}Var2{0}
+    {4}end{0}
+
+    {4}properties{0}
+        {7}Var3{0}
+        {7}Var4{0}
+    {4}end{0}
+
+    {4}methods{0} {6}({7}Static{6}){0}
+        {4}function{0} {7}y{0} {6}={0} {7}f1{6}({7}x{6}){0}
+            {1}% events, properties and methods are the valid idenifiers{0}
+            {1}% in the function scope{0}
+            {7}events{0} {6}={0} {3}1{6};{0}
+            {7}properties{0} {6}={0} {3}2{6};{0}
+            {7}y{0} {6}={0} {7}x{0} {6}+{0} {7}events{0} {6}*{0} {7}properties{6};{0}
+        {4}end{0}
+
+        {1}% Any of these words are also valid functions' names inside{0}
+        {1}% methods block{0}
+        {4}function{0} {7}y{0} {6}={0} {7}events{6}({7}x{6}){0}
+            
+            {4}arguments{0}
+                {7}x{0} {6}{{7}mustBeNegative{6}}{0}
+            {4}end{0}
+
+            {7}y{0} {6}={0} {7}f2{6}({7}x{6})*{3}100{6};{0}
+            {4}function{0} {7}b{0} {6}={0} {7}f2{6}({7}a{6}){0}
+                {7}b{0} {6}={0} {7}a{0} {6}+{0} {3}5{6};{0}
+            {4}end{0}
+        {4}end{0}
+    {4}end{0}
+
+    {1}% Example events block{0}
+    {4}events{0}
+        {7}Event1{0}
+        {7}Event2{0}
+    {4}end{0}
+{4}end{0}
+
+
+{1}% Now, let's break some stuff{0}
+{4}classdef{0} {7}Bar{0}
+
+    {4}properties{0}
+        {1}% Though MATLAB won't execute such a code, events, properties{0}
+        {1}% and methods are keywords here, because we're still in the class scope{0}
+        {4}events{0}
+        {4}end{0}
+
+        {4}methods{0}
+        {4}end{0}        
+    {4}end{0}
+    
+    {1}% Not allowed in MATLAB, but, technically, we're still in the class scope{0}
+    {4}if{0} {7}condition1{0}
+        {4}if{0} {7}condition2{0}
+            {1}% Though we're in the class scope, lexel will recognize no{0}
+            {1}% keywords here: to avoid the neccessaty to track nested scopes,{0}
+            {1}% it just considers everything beyond level 2 of folding to be{0}
+            {1}% a function scope{0}
+            {7}methods{0}
+            {7}events{0}
+            {7}properties{0}
+        {4}end{0}
+    {4}end{0}
+
+
+{4}end{0}
+

@@ -1,0 +1,32 @@
+ 0 400 400   // Test JavaScript template expressions for issue 94
+ 1 400 400   
+ 0 400 400   // Basic
+ 0 400 400   var basic = `${identifier}`;
+ 1 400 400   
+ 0 400 400   // Nested
+ 0 400 400   var nested = ` ${ ` ${ 1 } ` } `;
+ 1 400 400   
+ 0 400 400   // With escapes
+ 2 400 401 + var xxx = {
+ 0 401 401 |     '1': `\`\u0020\${a${1 + 1}b}`,
+ 0 401 401 |     '2': `\${a${ `b${1 + 2}c`.charCodeAt(2) }d}`,
+ 2 401 406 +     '3': `\${a${ `b${ `c${ JSON.stringify({
+ 0 406 406 |         '4': {},
+ 0 406 401 |         }) }d` }e` }f}`,
+ 0 401 400 | };
+ 1 400 400   
+ 0 400 400   // Original request
+ 0 400 400   fetchOptions.body = `
+ 0 400 400   {
+ 0 400 400   	"accountNumber" : "248796",
+ 0 400 400   	"customerType" : "Shipper",
+ 0 400 400   	"destinationCity" : "${order.destination.city}",
+ 0 400 400   	"destinationState" : "${order.destination.stateProvince}",
+ 0 400 400   	"destinationZip" : ${order.destination.postalCode},
+ 0 400 400   	"paymentType" : "Prepaid",
+ 0 400 400   	"shipmentInfo" :
+ 0 400 400   	{
+ 0 400 400   		"items" : [ { "shipmentClass" : "50", "shipmentWeight" : "${order.totalWeight.toString()}" } ]
+ 0 400 400   	}
+ 0 400 400   }`;
+ 1 400 400   

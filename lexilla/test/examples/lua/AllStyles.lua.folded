@@ -1,0 +1,70 @@
+ 0 400   0   -- Enumerate all styles: 0 to 20
+ 0 400   0   -- 3 (comment doc) is not currently produced by lexer
+ 1 400   0   
+ 0 400   0   --[[ comment=1 ]]
+ 1 400   0   
+ 0 400   0   --[[ whitespace=0 ]]
+ 0 400   0   	-- w
+ 1 400   0   
+ 0 400   0   -- comment line=2
+ 1 400   0   
+ 0 400   0   --- comment doc=3
+ 0 400   0   -- still comment doc
+ 1 400   0   
+ 0 400   0   -- still comment doc
+ 0 400   0   3	-- comment doc broken only by code
+ 1 400   0   
+ 0 400   0   -- number=4
+ 0 400   0   37
+ 1 400   0   
+ 0 400   0   -- keyword=5
+ 0 400   0   local a
+ 1 400   0   
+ 0 400   0   -- double-quoted-string=6
+ 0 400   0   "str"
+ 1 400   0   
+ 0 400   0   -- single-quoted-string=7
+ 0 400   0   'str'
+ 1 400   0   
+ 0 400   0   -- literal string=8
+ 0 400   0   [[ literal ]]
+ 1 400   0   
+ 0 400   0   -- unused preprocessor=9
+ 0 400   0   $if
+ 1 400   0   
+ 0 400   0   -- operator=10
+ 0 400   0   *
+ 1 400   0   
+ 0 400   0   -- identifier=11
+ 0 400   0   identifier=1
+ 1 400   0   
+ 0 400   0   -- string EOL=12
+ 0 400   0   "unclosed
+ 1 400   0   
+ 0 400   0   -- keyword 2=13
+ 0 400   0   print
+ 1 400   0   
+ 0 400   0   -- keyword 3=14
+ 0 400   0   keyword3
+ 1 400   0   
+ 0 400   0   -- keyword 4=15
+ 0 400   0   keyword4
+ 1 400   0   
+ 0 400   0   -- keyword 5=16
+ 0 400   0   keyword5
+ 1 400   0   
+ 0 400   0   -- keyword 6=17
+ 0 400   0   keyword6
+ 1 400   0   
+ 0 400   0   -- keyword 7=18
+ 0 400   0   keyword7
+ 1 400   0   
+ 0 400   0   -- keyword 8=19
+ 0 400   0   keyword8
+ 1 400   0   
+ 0 400   0   -- label=20
+ 0 400   0   ::label::
+ 1 400   0   
+ 0 400   0   -- identifier substyles.11.1=128
+ 0 400   0   moon
+ 0 400   0   

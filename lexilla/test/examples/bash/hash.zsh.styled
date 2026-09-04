@@ -1,0 +1,51 @@
+{2}#!/bin/zsh{0}
+{2}# Tests for zsh extensions{0}
+{2}# Can be executed by zsh with reasonable results{0}
+{2}# Some of these were implemented by commit [87286d] for Scintilla bug #1794{0}
+{2}# https://zsh.sourceforge.io/Doc/Release/Expansion.html{0}
+
+{2}# Where # does not start a comment{0}
+
+
+{2}## Formatting base{0}
+{4}print{0} {7}$(({0} {7}[{8}#8{7}]{0} {8}y{0} {7}={0} {3}33{0} {7})){0}
+{4}print{0} {7}$(({0} {7}[{8}##8{7}]{0} {3}32767{0} {7})){0}
+
+{2}# Formatting base and grouping{0}
+{4}print{0} {7}$(({0} {7}[{8}#16_4{7}]{0} {3}65536{0} {7}**{0} {3}2{0} {7})){0}
+
+
+{2}## Character values{0}
+{4}print{0} {7}$(({0} {8}##T{7}+{3}0{0} {7})){0}
+{4}print{0} {7}$(({0} {8}##^G{7}+{3}0{0} {7})){0}
+{2}# Failure: does not work when - included for bindkey syntax. \M-\C-x means Meta+Ctrl+x.{0}
+{4}print{0} {7}$(({0} {8}##\M{7}-{8}\C{7}-{8}x{7}+{3}0{0} {7})){0}
+
+{2}# Value of first character of variable in expression{0}
+{8}var{7}={8}Tree{0}
+{4}print{0} {7}$(({0} {8}#var{7}+{3}0{0} {7})){0}
+
+
+{2}## Extended glob{0}
+{4}setopt{0} {8}extended_glob{0}
+
+{2}# # is similar to *, ## similar to +{0}
+{4}echo{0} {7}[{8}A-Za-z{7}]{8}#.bsh{0}
+{4}echo{0} {7}[{8}A-Za-z{7}]{8}##.bsh{0}
+
+{2}# 13 character file names{0}
+{4}echo{0} {7}**/[{8}a-zA-Z.{7}]{8}(#c13){0}
+{2}# 13-15 character file names{0}
+{4}echo{0} {7}**/[{8}a-zA-Z.{7}]{8}(#c13,15){0}
+
+
+{2}## Glob flag{0}
+
+{2}# i=case-insensitive{0}
+{4}echo{0} {8}(#i)a{7}*{0}
+
+{2}# b=back-references{0}
+{8}foo{7}={5}"a_string_with_a_message"{0}
+{4}if{0} {7}[[{0} {9}$foo{0} {7}={0} {7}({8}a{7}|{8}an{7}){8}_(#b){7}(*){0} {7}]];{0} {4}then{0}
+  {4}print{0} {10}${foo[$mbegin[1],$mend[1]]}{0}
+{4}fi{0}

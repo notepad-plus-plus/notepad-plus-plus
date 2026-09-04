@@ -1,0 +1,21 @@
+ 2 400   0 + <head> <!-- About to script -->
+ 2 401   0 + <?php
+ 0 402   0 | decrypt "xyzzy";
+ 0 402   0 | echo __FILE__.__LINE__;
+ 0 402   0 | echo "<!-- -->\n";
+ 0 402   0 | /* ?> */
+ 0 402   0 | ?>
+ 0 401   0 | <strong>for</strong><b>if</b>
+ 0 401   0 | <?= 'short echo tag' ?>
+ 0 401   0 | <? echo 'short tag' ?>
+ 2 401   0 + <script>
+ 0 402   0 | 	alert("<?php echo "PHP" . ' Code'; ?>");
+ 0 402   0 | 	alert('<?= 'PHP' . "Code"; ?>');
+ 0 402   0 | 	var xml =
+ 0 402   0 | 	'<?xml version="1.0" encoding="iso-8859-1"?><SO_GL>' +
+ 0 402   0 | 	'<GLOBAL_LIST mode="complete"><NAME>SO_SINGLE_MULTIPLE_COMMAND_BUILDER</NAME>' +
+ 0 402   0 | 	'<LIST_ELEMENT><CODE>1</CODE><LIST_VALUE><![CDATA[RM QI WEB BOOKING]]></LIST_VALUE></LIST_ELEMENT>' +
+ 0 402   0 | 	'<LIST_ELEMENT><CODE>1</CODE><LIST_VALUE><![CDATA[RM *PCC]]></LIST_VALUE></LIST_ELEMENT>' +
+ 0 402   0 | 	'</GLOBAL_LIST></SO_GL>';
+ 0 402   0 | </script>
+ 0 401   0 | 

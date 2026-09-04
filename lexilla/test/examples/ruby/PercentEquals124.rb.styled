@@ -1,0 +1,8 @@
+{2}# Issue 124, disambiguating %= which may be a quote or modulo assignment{0}
+{2}# %-quoting with '=' as the quote{0}
+{11}s{0} {10}={0} {25}%=3={0}
+{11}puts{0} {11}s{0}
+{11}x{0} {10}={0} {4}7{0}
+{2}# Modulo assignment, equivalent to x = x % 2{0}
+{11}x{0} {10}%={4}2{0}
+{11}puts{0} {11}x{0}

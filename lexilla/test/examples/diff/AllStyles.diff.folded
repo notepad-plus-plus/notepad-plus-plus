@@ -1,0 +1,50 @@
+ 0 400   0   Default=0
+ 0 400   0    Default
+ 0 400   0   
+ 0 400   0   Comment=1
+ 0 400   0   Another comment
+ 0 400   0   
+ 0 400   0   Command=2 diff
+ 2 400   0 + diff -u a/cocoa/ScintillaCocoa.mm b/cocoa/ScintillaCocoa.mm
+ 0 401   0 | 
+ 0 401   0 | Header=3 ---
+ 2 401   0 + --- a/cocoa/ScintillaCocoa.mm	2016-12-30 14:38:22.000000000 -0600
+ 0 402   0 | 
+ 0 402   0 | Header=3 +++
+ 2 401   0 + +++ b/cocoa/ScintillaCocoa.mm	2017-02-15 08:20:12.000000000 -0600
+ 0 402   0 | 
+ 0 402   0 | Position=4 @@
+ 2 402   0 + @@ -388,7 +388,8 @@
+ 0 403   0 | 
+ 0 403   0 |  - (void) idleTriggered: (NSNotification*) notification
+ 0 403   0 |  {
+ 0 403   0 |  #pragma unused(notification)
+ 0 403   0 | 
+ 0 403   0 | Deleted=5 -
+ 0 403   0 | -  static_cast<ScintillaCocoa*>(mTarget)->IdleTimerFired();
+ 0 403   0 | 
+ 0 403   0 | Added=6 +
+ 0 403   0 | +  if (mTarget)
+ 0 403   0 | +    static_cast<ScintillaCocoa*>(mTarget)->IdleTimerFired();
+ 0 403   0 |  }
+ 0 403   0 |  
+ 0 403   0 |  @end
+ 0 403   0 | 
+ 0 403   0 | Changed=7 !
+ 0 403   0 | ! 		GdkColor white = { 0, 0xFFFF, 0xFFFF, 0xFFFF};
+ 0 403   0 | 
+ 0 403   0 | PatchAdd=8 ++
+ 0 403   0 | ++  styler.ColourTo(i - 1, StateToPrint);
+ 0 403   0 | 
+ 0 403   0 | PatchDelete=9 +-
+ 0 403   0 | +-  styler.ColourTo(i - 1, StateToPrint);
+ 0 403   0 | 
+ 0 403   0 | RemovedPatchAdd=10 -+
+ 0 403   0 | -+  styler.ColourTo(i - 1, StateToPrint);
+ 0 403   0 | 
+ 0 403   0 | RemovedPatchDelete=11 --
+ 0 403   0 | --  styler.ColourTo(i - 1, StateToPrint);
+ 0 403   0 | 
+ 2 400   0 + diff -u a/cocoa/ScintillaCocoa.h b/cocoa/ScintillaCocoa.h
+ 0 401   0 | 
+ 0 400   0   

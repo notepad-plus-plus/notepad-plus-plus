@@ -1,0 +1,39 @@
+% Examples of optional command arguments for issue #360
+
+\documentclass{article}
+\begin{document}
+
+% This is a set, not an optional argument: [0,1)
+$ x \in [0,1) $
+
+% This is an optional argument: [n]
+$\sqrt[n]{abc}$
+
+\twocolumn[{% inside this optional argument goes one-column text
+  \centering
+  \LARGE The Title \\[1.5em]
+  \large Author One\authormark{1},
+         Author Two\authormark{2},
+         Author Three\authormark{1} \\[1em]
+  \normalsize
+  \begin{tabular}{p{.2\textwidth}@{\hspace{2em}}p{.2\textwidth}}
+    \authormark{1}Department one  &\authormark{2}Department two \\ 
+     School one                   &School two 
+  \end{tabular}\\[3em] % space below title part
+  }]
+
+Two column text here.
+
+% 3 math mode syntaxes that start SCE_L_MATH
+
+% Lexed as optional command argument. Not correct as [0,1] is really a set but OK since it terminates.
+\( x \in [0,1] \)
+$ x \in [0,1] $
+\begin{math} x \in [0,1] \end{math}
+
+% Lexed as not optional command argument
+\( x \in [0,1) \)
+$ x \in [0,1) $
+\begin{math} x \in [0,1) \end{math}
+
+\end{document}

@@ -1,0 +1,28 @@
+ 0 400   0   # Checking resolution of bug 1216
+ 0 400   0   
+ 0 400   0   *This line is not emphasized
+ 0 400   0   
+ 0 400   0   This is plain text with *inline emphasis*
+ 0 400   0   
+ 0 400   0   _This, too, is not emphasized
+ 0 400   0   
+ 0 400   0   And this is plain text with _inline emphasis_
+ 0 400   0   
+ 0 400   0   **This line is not in bold
+ 0 400   0   
+ 0 400   0   But this is plain text with some words **in bold**
+ 0 400   0   
+ 0 400   0   __This line is also not in bold
+ 0 400   0   
+ 0 400   0   And this is plain text with __some words in bold__
+ 0 400   0   
+ 0 400   0   ~~This line is not crossed out
+ 0 400   0   
+ 0 400   0   This is plain text with ~~some words crossed out~~
+ 0 400   0   
+ 0 400   0   ~~~
+ 0 400   0   this is a code block
+ 0 400   0   ~~~
+ 0 400   0   
+ 0 400   0   This is a new paragraph
+ 0 400   0   

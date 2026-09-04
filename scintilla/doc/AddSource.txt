@@ -1,0 +1,30 @@
+Some of the build files adapt to adding and removing source code files but most
+must be modified by hand. Here is a list of directories and the build files that
+must be modified or possibly need to be modified.
+The Cocoa project.pbxproj file is complex and should be modified with Xcode.
+The other build files can be edited manually.
+
+src:
+	cocoa/ScintillaFramework/ScintillaFramework.xcodeproj/project.pbxproj
+	gtk/makefile
+	qt/ScintillaEdit/ScintillaEdit.pro
+	qt/ScintillaEditBase/ScintillaEditBase.pro
+	win32/makefile
+	win32/scintilla.mak
+	-- possibly:
+	test/unit/makefile
+	test/unit/test.mak
+
+cocoa:
+	cocoa/ScintillaFramework/ScintillaFramework.xcodeproj/project.pbxproj
+
+gtk:
+	gtk/makefile
+
+qt:
+	qt/ScintillaEdit/ScintillaEdit.pro
+	qt/ScintillaEditBase/ScintillaEditBase.pro
+
+win32:
+	win32/makefile
+	win32/scintilla.mak

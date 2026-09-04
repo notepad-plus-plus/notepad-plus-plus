@@ -1,0 +1,31 @@
+ 2 400   0 + <?php
+ 1 401   0 | 
+ 0 401   0 | $number = 1_234;
+ 0 401   0 | $var = 'variable value';
+ 0 401   0 | $test = [
+ 0 401   0 | 	<<<EOTEST
+ 0 401   0 | 	string $var string EOTEST
+ 0 401   0 | 	EOTEST_NOT
+ 0 401   0 | 	EOTEST,
+ 0 401   0 | 	0b00_01,
+ 0 401   0 | 	<<<"EOTEST"
+ 0 401   0 | 	"string" "$var" "string" EOTEST
+ 0 401   0 | 	EOTEST_NOT
+ 0 401   0 | 	EOTEST,
+ 0 401   0 | 	0x00_02,
+ 0 401   0 | 	<<<'EOTEST'
+ 0 401   0 | 	'string' '$var' 'string' EOTEST
+ 0 401   0 | 	EOTEST_NOT
+ 0 401   0 | 	EOTEST,
+ 0 401   0 | 	0x00_03,
+ 0 401   0 | ];
+ 0 401   0 | print_r($test);
+ 1 401   0 | 
+ 0 401   0 | # Attribute tests
+ 0 401   0 | #[SingleLineAnnotation('string', 1, null)]
+ 0 401   0 | #[
+ 0 401   0 | 	MultiLineAnnotation('string', 1, null)
+ 0 401   0 | ]
+ 1 401   0 | 
+ 0 401   0 | ?>
+ 0 400   0   

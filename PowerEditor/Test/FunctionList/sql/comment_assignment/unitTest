@@ -1,0 +1,154 @@
+create package CheckFunctionList_pck
+as
+
+function ctrlData(
+  po_severity        in out nocopy varchar2,
+  po_err_code        in out nocopy varchar2,
+  po_err_message     in out nocopy varchar2,
+  p_Data             in     ind_work_data_r
+) return boolean;
+
+    procedure INIT_DECODE_RULES1  (po_severity        in  out         varchar2
+                                  ,po_err_code        in  out         varchar2
+                                  ,po_err_message     in  out         varchar2
+                                  ,po_tabDecRules         out nocopy  report_utl_pck.tTabDecRules
+                                  );
+   
+
+
+    procedure INIT_DECODE_RULES2  (po_severity        in  out         varchar2
+                                  ,po_err_code        in  out         varchar2
+                                  ,po_err_message     in  out         varchar2
+                                  ,po_tabDecRules         out nocopy  report_utl_pck.tTabDecRules);
+   
+function GetEsecId
+return tab1.esec_id%type;
+    
+    procedure pippo;
+    
+    
+    
+    procedure INIT_DECODE_RULES3  (po_severity        in  out         varchar2
+                                  ,po_err_code        in  out         varchar2
+                                  ,po_err_message     in  out         varchar2
+                                  ,po_guid            in              guid_list_t := guid_list_t()
+                                  ,po_tabDecRules         out nocopy  report_utl_pck.tTabDecRules);
+  
+    
+    procedure INIT_DECODE_RULES4  (po_severity        in  out         varchar2
+                                  ,po_err_code        in  out         varchar2
+                                  ,po_err_message     in  out         varchar2
+                                  ,po_guid            in              guid_list_t := guid_list_t()
+                                  ,po_tabDecRules         out nocopy  report_utl_pck.tTabDecRules
+                                  );
+    
+    procedure INIT_DECODE_RULES5  (po_severity        in  out         varchar2
+                                  ,po_err_code        in  out         varchar2
+                                  ,po_err_message     in  out         varchar2 -- this is a comment with (brackets)
+                                  ,po_tabDecRules         out nocopy  report_utl_pck.tTabDecRules);
+    
+    
+    procedure INIT_DECODE_RULES6  (po_severity        in  out         varchar2
+                                  ,po_err_code        in  out         varchar2
+                                  ,po_err_message     in  out         varchar2 -- this is a comment with (brackets)
+                                  ,po_tabDecRules         out nocopy  report_utl_pck.tTabDecRules
+                                  );
+  
+end CheckFunctionList_pck;
+/
+
+
+
+create package body CheckFunctionList_pck
+as
+
+function ctrlData(
+  po_severity        in out nocopy varchar2,
+  po_err_code        in out nocopy varchar2,
+  po_err_message     in out nocopy varchar2,
+  p_Data             in     ind_work_data_r
+) return boolean
+is
+begin
+  return null;
+end ctrlData;
+
+    procedure INIT_DECODE_RULES1  (po_severity        in  out         varchar2
+                                  ,po_err_code        in  out         varchar2
+                                  ,po_err_message     in  out         varchar2
+                                  ,po_tabDecRules         out nocopy  report_utl_pck.tTabDecRules
+                                  )
+    as
+    begin
+      null;
+    end INIT_DECODE_RULES1;
+
+
+    procedure INIT_DECODE_RULES2  (po_severity        in  out         varchar2
+                                  ,po_err_code        in  out         varchar2
+                                  ,po_err_message     in  out         varchar2
+                                  ,po_tabDecRules         out nocopy  report_utl_pck.tTabDecRules)
+    as
+    begin
+      null;
+    end INIT_DECODE_RULES2;
+  
+  
+function GetEsecId
+return tab1.esec_id%type
+is
+begin
+  return null;
+end GetEsecId;
+  
+    
+    procedure pippo
+    is
+    begin
+      null;
+    end pippo;
+    
+    
+    procedure INIT_DECODE_RULES3  (po_severity        in  out         varchar2
+                                  ,po_err_code        in  out         varchar2
+                                  ,po_err_message     in  out         varchar2
+                                  ,po_guid            in              guid_list_t := guid_list_t()
+                                  ,po_tabDecRules         out nocopy  report_utl_pck.tTabDecRules)
+    as
+    begin
+      null;
+    end INIT_DECODE_RULES3;
+    
+    procedure INIT_DECODE_RULES4  (po_severity        in  out         varchar2
+                                  ,po_err_code        in  out         varchar2
+                                  ,po_err_message     in  out         varchar2
+                                  ,po_guid            in              guid_list_t := guid_list_t()
+                                  ,po_tabDecRules         out nocopy  report_utl_pck.tTabDecRules
+                                  )
+    as
+    begin
+      null;
+    end INIT_DECODE_RULES4;
+    
+    procedure INIT_DECODE_RULES5  (po_severity        in  out         varchar2
+                                  ,po_err_code        in  out         varchar2
+                                  ,po_err_message     in  out         varchar2 -- this is a comment with (brackets)
+                                  ,po_tabDecRules         out nocopy  report_utl_pck.tTabDecRules)
+    as
+    begin
+      null;
+    end INIT_DECODE_RULES5;
+    
+    procedure INIT_DECODE_RULES6  (po_severity        in  out         varchar2
+                                  ,po_err_code        in  out         varchar2
+                                  ,po_err_message     in  out         varchar2 -- this is a comment with (brackets)
+                                  ,po_tabDecRules         out nocopy  report_utl_pck.tTabDecRules
+                                  )
+    as
+    begin
+      null;
+    end INIT_DECODE_RULES6;
+
+end CheckFunctionList_pck;
+/
+

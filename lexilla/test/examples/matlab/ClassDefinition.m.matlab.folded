@@ -1,0 +1,75 @@
+ 2 400 401 + classdef Foo < handle
+ 1 401 401 | 
+ 0 401 401 |     % A couple of properties blocks
+ 2 401 402 +     properties (SetAccess = private)
+ 0 402 402 |         Var1
+ 0 402 402 |         Var2
+ 0 402 401 |     end
+ 1 401 401 | 
+ 2 401 402 +     properties
+ 0 402 402 |         Var3
+ 0 402 402 |         Var4
+ 0 402 401 |     end
+ 1 401 401 | 
+ 2 401 402 +     methods (Static)
+ 2 402 403 +         function y = f1(x)
+ 0 403 403 |             % events, properties and methods are the valid idenifiers
+ 0 403 403 |             % in the function scope
+ 0 403 403 |             events = 1;
+ 0 403 403 |             properties = 2;
+ 0 403 403 |             y = x + events * properties;
+ 0 403 402 |         end
+ 1 402 402 | 
+ 0 402 402 |         % Any of these words are also valid functions' names inside
+ 0 402 402 |         % methods block
+ 2 402 403 +         function y = events(x)
+ 1 403 403 |             
+ 2 403 404 +             arguments
+ 0 404 404 |                 x {mustBeNegative}
+ 0 404 403 |             end
+ 1 403 403 | 
+ 0 403 403 |             y = f2(x)*100;
+ 2 403 404 +             function b = f2(a)
+ 0 404 404 |                 b = a + 5;
+ 0 404 403 |             end
+ 0 403 402 |         end
+ 0 402 401 |     end
+ 1 401 401 | 
+ 0 401 401 |     % Example events block
+ 2 401 402 +     events
+ 0 402 402 |         Event1
+ 0 402 402 |         Event2
+ 0 402 401 |     end
+ 0 401 400 | end
+ 1 400 400   
+ 1 400 400   
+ 0 400 400   % Now, let's break some stuff
+ 2 400 401 + classdef Bar
+ 1 401 401 | 
+ 2 401 402 +     properties
+ 0 402 402 |         % Though MATLAB won't execute such a code, events, properties
+ 0 402 402 |         % and methods are keywords here, because we're still in the class scope
+ 2 402 403 +         events
+ 0 403 402 |         end
+ 1 402 402 | 
+ 2 402 403 +         methods
+ 0 403 402 |         end        
+ 0 402 401 |     end
+ 1 401 401 |     
+ 0 401 401 |     % Not allowed in MATLAB, but, technically, we're still in the class scope
+ 2 401 402 +     if condition1
+ 2 402 403 +         if condition2
+ 0 403 403 |             % Though we're in the class scope, lexel will recognize no
+ 0 403 403 |             % keywords here: to avoid the neccessaty to track nested scopes,
+ 0 403 403 |             % it just considers everything beyond level 2 of folding to be
+ 0 403 403 |             % a function scope
+ 0 403 403 |             methods
+ 0 403 403 |             events
+ 0 403 403 |             properties
+ 0 403 402 |         end
+ 0 402 401 |     end
+ 1 401 401 | 
+ 1 401 401 | 
+ 0 401 400 | end
+ 1 400 400   
+ 1 400 400   

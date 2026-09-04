@@ -1,0 +1,9 @@
+README for access directory.
+
+LexillaAccess is a module that simplifies using multiple libraries that follow the Lexilla protocol.
+
+It can be compiled into a Lexilla client application.
+
+Applications with complex needs can copy the code and customise it to meet their requirements.
+
+This module is not meant to be compiled into Lexilla.

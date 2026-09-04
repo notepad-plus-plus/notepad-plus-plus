@@ -1,0 +1,1167 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Lithuanian localization for Notepad++
+    =====================================
+    2012.11.05 - v. 6.2   - Dmitrijus Skunčikas (dmitrijus.skuncikas@gmail.com)
+    2018.07.11 - v. 7.5.7 - Andrius Burokas
+-->
+<NotepadPlus>
+	<Native-Langue name="Lithuanian" filename="Lithuanian.xml" version="7.5.5">
+		<Menu>
+			<Main>
+				<!-- Main Menu Entries -->
+				<Entries>
+					<Item menuId="file" name="&amp;Failas"/>
+					<Item menuId="edit" name="K&amp;eisti"/>
+					<Item menuId="search" name="Pa&amp;ieška"/>
+					<Item menuId="view" name="&amp;Vaizdas"/>
+					<Item menuId="encoding" name="&amp;Koduotė"/>
+					<Item menuId="language" name="Ka&amp;lba"/>
+					<Item menuId="settings" name="Nu&amp;statymai"/>
+					<Item menuId="tools" name="Į&amp;rankiai"/>
+					<Item menuId="macro" name="&amp;Makro"/>
+					<Item menuId="run" name="Palei&amp;dimas"/>
+					<Item menuId="Plugins" name="&amp;Papildiniai"/>
+					<Item menuId="Window" name="L&amp;angas"/>
+				</Entries>
+				<!-- Sub Menu Entries -->
+				<SubEntries>
+					<Item subMenuId="file-openFolder" name="Atidaryti failo katalogą"/>
+					<Item subMenuId="file-closeMore" name="Uždaryti..."/>
+					<Item subMenuId="file-recentFiles" name="&amp;Pastarieji failai"/>
+					<Item subMenuId="edit-copyToClipboard" name="Kopijuoti į mainų sritį"/>
+					<Item subMenuId="edit-indent" name="Įtrauka"/>
+					<Item subMenuId="edit-convertCaseTo" name="Konvertuoti registrą į"/>
+					<Item subMenuId="edit-lineOperations" name="Operacijos su eilutėmis"/>
+					<Item subMenuId="edit-comment" name="Komentarai"/>
+					<Item subMenuId="edit-autoCompletion" name="Automatinis užbaigimas"/>
+					<Item subMenuId="edit-eolConversion" name="Eilučių pabaigos formatas"/>
+					<Item subMenuId="edit-blankOperations" name="Operacijos su tarpais"/>
+					<Item subMenuId="edit-pasteSpecial" name="Specialus įklijavimas"/>
+					<Item subMenuId="edit-onSelection" name="Su žymėjimu"/>
+					<Item subMenuId="search-markAll" name="Žymėti viską"/>
+					<Item subMenuId="search-unmarkAll" name="Nežymėti visko"/>
+					<Item subMenuId="search-jumpUp" name="Nušokti į viršų"/>
+					<Item subMenuId="search-jumpDown" name="Nušokti į apačią"/>
+					<Item subMenuId="search-bookmark" name="Žymelės"/>
+					<Item subMenuId="view-showSymbol" name="Rodyti simbolius"/>
+					<Item subMenuId="view-zoom" name="Mastelis"/>
+					<Item subMenuId="view-moveCloneDocument" name="Kelti/Klonuoti dokumentą"/>
+					<Item subMenuId="view-tab" name="Kortelė"/>
+					<Item subMenuId="view-collapseLevel" name="Suskleidimo lygis"/>
+					<Item subMenuId="view-uncollapseLevel" name="Išskleidimo lygis"/>
+					<Item subMenuId="view-project" name="Projektas"/>
+					<Item subMenuId="encoding-characterSets" name="Nustatyti pobūdį"/>
+					<Item subMenuId="encoding-arabic" name="Arabų"/>
+					<Item subMenuId="encoding-baltic" name="Baltijos šalių"/>
+					<Item subMenuId="encoding-celtic" name="Keltų"/>
+					<Item subMenuId="encoding-cyrillic" name="Kirilica"/>
+					<Item subMenuId="encoding-centralEuropean" name="Vidurio Europos"/>
+					<Item subMenuId="encoding-chinese" name="Kinų"/>
+					<Item subMenuId="encoding-easternEuropean" name="Rytų Europos"/>
+					<Item subMenuId="encoding-greek" name="Graikų"/>
+					<Item subMenuId="encoding-hebrew" name="Hebrajų"/>
+					<Item subMenuId="encoding-japanese" name="Japonų"/>
+					<Item subMenuId="encoding-korean" name="Korėjiečių"/>
+					<Item subMenuId="encoding-northEuropean" name="Šiaurės Europos"/>
+					<Item subMenuId="encoding-thai" name="Tajų"/>
+					<Item subMenuId="encoding-turkish" name="Turkų"/>
+					<Item subMenuId="encoding-westernEuropean" name="Vakarų Europos"/>
+					<Item subMenuId="encoding-vietnamese" name="Vietnamiečių"/>
+					<Item subMenuId="settings-import" name="Importuoti"/>
+					<Item subMenuId="tools-md5" name="MD5"/>
+				</SubEntries>
+
+				<!-- all menu item -->
+				<Commands>
+					<Item id="41001" name="&amp;Naujas"/>
+					<Item id="41002" name="&amp;Atidaryti"/>
+					<Item id="41019" name="Naršyklė (Explorer)"/>
+					<Item id="41020" name="Komandų eilutė (cmd)"/>
+					<Item id="41003" name="Uždaryti"/>
+					<Item id="41004" name="&amp;Uždaryti viską"/>
+					<Item id="41005" name="Uždaryti visus dokumentus išskyrus šį "/>
+					<Item id="41009" name="Uždaryti visus kairėje"/>
+					<Item id="41018" name="Uždaryti visus dešinėje"/>
+					<Item id="41006" name="&amp;Išsaugoti"/>
+					<Item id="41007" name="Išsaugoti &amp;viską"/>
+					<Item id="41008" name="Išsaugoti &amp;kaip..."/>
+					<Item id="41010" name="Spausdinti..."/>
+					<Item id="1001" name="Spausdinti dabar"/>
+					<Item id="41011" name="&amp;Baigti darbą"/>
+					<Item id="41012" name="Įkelti sesiją..."/>
+					<Item id="41013" name="Išsaugoti sesiją..."/>
+					<Item id="41014" name="Iš naujo įkelti iš disko"/>
+					<Item id="41015" name="Išsaugoti kopiją kaip..."/>
+					<Item id="41016" name="Pašalinti iš disko"/>
+					<Item id="41017" name="Pervadinti..."/>
+					<Item id="41021" name="Atidaryti uždarytą failą"/>
+					<Item id="41022" name="Atidaryti katalogą kaip darbo aplinką..."/>
+					<Item id="41023" name="Atidaryti su numatyta peržiūros programa"/>
+					<Item id="42001" name="Iškirpti"/>
+					<Item id="42002" name="Kopijuoti"/>
+					<Item id="42003" name="Atšaukti"/>
+					<Item id="42004" name="Atstatyti"/>
+					<Item id="42005" name="Įklijuoti"/>
+					<Item id="42006" name="Pašalinti"/>
+					<Item id="42007" name="Pažymėti viską"/>
+					<Item id="42020" name="Pradėti/Baigti žymėjimą"/>
+					<Item id="42008" name="Didinti eilutės įtrauką"/>
+					<Item id="42009" name="Mažinti eilutės įtrauką"/>
+					<Item id="42010" name="Pakartoti dabartinę eilutę"/>
+					<Item id="42012" name="Dalinti eilutes"/>
+					<Item id="42013" name="Sujungti eilutes"/>
+					<Item id="42014" name="Perkelti dabartinę eilutę į viršų"/>
+					<Item id="42015" name="Perkelti dabartinę eilutę į apačią"/>
+					<Item id="42059" name="Rūšiuoti eilutes leksikografiškai didėjančiai"/>
+					<Item id="42060" name="Rūšiuoti eilutes leksikografiškai mažėjančiai"/>
+					<Item id="42061" name="Rūšiuoti eilutes kaip sveikus skaičius didėjančiai"/>
+					<Item id="42062" name="Rūšiuoti eilutes kaip sveikus skaičius mažėjančiai"/>
+					<Item id="42063" name="Rūšiuoti eilutes kaip dešimtainius skaičius (per kablelį) didėjančiai"/>
+					<Item id="42064" name="Rūšiuoti eilutes kaip dešimtainius skaičius (per kablelį) mažėjančiai"/>
+					<Item id="42065" name="Rūšiuoti eilutes kaip dešimtainius skaičius (per tašką) didėjančiai"/>
+					<Item id="42066" name="Rūšiuoti eilutes kaip dešimtainius skaičius (per tašką) mažėjančiai"/>
+					<Item id="42016" name="DIDŽIOSIOS"/>
+					<Item id="42017" name="mažosios"/>
+					<Item id="42067" name="Žodžiai Iš Didžiosios"/>
+					<Item id="42068" name="Žodžiai Iš Didžiosios (nekeičiant kitų raidžių)"/>
+					<Item id="42069" name="Sakiniai iš didžiosios"/>
+					<Item id="42070" name="Sakiniai iš didžiosios (nekeičiant kitų raidžių)"/>
+					<Item id="42071" name="aTVIRKŠTINIS REGISTRAS"/>
+					<Item id="42072" name="atSiTIKtiNIs reGisTRAs"/>
+					<Item id="42073" name="Atidaryti failą"/>
+					<Item id="42074" name="Atidaryti katalogą failų naršyklėje"/>
+					<Item id="42075" name="Ieškoti internete"/>
+					<Item id="42076" name="Keisti paieškos sistemą..."/>
+					<Item id="42018" name="&amp;Pradėti įrašymą"/>
+					<Item id="42019" name="&amp;Stabdyti įrašymą"/>
+					<Item id="42021" name="&amp;Atsukti atgal"/>
+					<Item id="42022" name="Perjungti eilutės komentavimą"/>
+					<Item id="42023" name="Komentuoti kas pažymėta"/>
+					<Item id="42047" name="Nekomentuoti kas pažymėta"/>
+					<Item id="42024" name="Šalinti pabaigos tarpus"/>
+					<Item id="42042" name="Šalinti pradžios tarpus"/>
+					<Item id="42043" name="Šalinti pradžios ir pabaigos tarpus"/>
+					<Item id="42044" name="Eilutės pabaigos simbolį į tarpą"/>
+					<Item id="42045" name="Šalinti nereikalingus tarpus ir eil. pabaigos simbolius"/>
+					<Item id="42046" name="Tabuliatorių į tarpą"/>
+					<Item id="42054" name="Tarpus į tabuliatorius (visus)"/>
+					<Item id="42053" name="Tarpus į tabuliatorius (pradžioje)"/>
+					<Item id="42038" name="Įklijuoti HTML turinį"/>
+					<Item id="42039" name="Įklijuoti RTF turinį"/>
+					<Item id="42048" name="Kopijuoti dvejetainį turinį"/>
+					<Item id="42049" name="Iškirpti dvejetainį turinį"/>
+					<Item id="42050" name="Įklijuoti dvejetainį turinį"/>
+					<Item id="42037" name="Stulpelių režimas..."/>
+					<Item id="42034" name="Stulpelių redaktorius..."/>
+					<Item id="42051" name="Simbolių skydelis"/>
+					<Item id="42052" name="Mainų srities istorija"/>
+					<Item id="42025" name="Iš&amp;saugoti dabartinį Makro įrašą..."/>
+					<Item id="42026" name="Teksto kryptis iš dešinės į kairę"/>
+					<Item id="42027" name="Teksto kryptis iš kairės į dešinę"/>
+					<Item id="42028" name="Tik skaitymas"/>
+					<Item id="42029" name="Dabartinio failo kelias į mainų sritį"/>
+					<Item id="42030" name="Dabartinio failo pavadinimas į mainų sritį"/>
+					<Item id="42031" name="Dabartinio katalogo kelias į mainų sritį"/>
+					<Item id="42032" name="Paleisti Makro daug kartų..."/>
+					<Item id="42035" name="Komentuoti eilutę"/>
+					<Item id="42036" name="Nekomentuoti eilutės"/>
+					<Item id="42055" name="Šalinti tuščias eilutes"/>
+					<Item id="42056" name="Šalinti tuščias eilutes (turinčias ne grafinių ženklų)"/>
+					<Item id="42057" name="Įterpti tuščią eilutę virš šios"/>
+					<Item id="42058" name="Įterpti tuščią eilutę po šia"/>
+					<Item id="43001" name="&amp;Rasti..."/>
+					<Item id="43002" name="Rasti &amp;kitą"/>
+					<Item id="43003" name="Keisti..."/>
+					<Item id="43004" name="Pereiti į..."/>
+					<Item id="43005" name="Perjungti žymelę"/>
+					<Item id="43006" name="Kita žymelė"/>
+					<Item id="43007" name="Ankstesnė žymelės"/>
+					<Item id="43008" name="Valyti visas žymeles"/>
+					<Item id="43018" name="Iškirpti eilutes su žymelėmis"/>
+					<Item id="43019" name="Kopijuoti eilutes su žymelėmis"/>
+					<Item id="43020" name="Įklijuoti į (Perrašyti) eilutes su žymelėmis"/>
+					<Item id="43021" name="Šalinti eilutes su žymelėmis"/>
+					<Item id="43051" name="Šalinti eilutes be žymelių"/>
+					<Item id="43050" name="Sukeisti eilučių žymeles"/>
+					<Item id="43052" name="Rasti ženklus iš sekos..."/>
+					<Item id="43053" name="Žymėti viską tarp riestinių skliaustų"/>
+					<Item id="43009" name="Pereiti prie atitinkančio skliausto"/>
+					<Item id="43010" name="Rasti ankstesnį"/>
+					<Item id="43011" name="Tęstinė paieška"/>
+					<Item id="43013" name="Rasti failuose"/>
+					<Item id="43014" name="Rasti kitą (Kintamas)"/>
+					<Item id="43015" name="Rasti ankstesnį (Kintamas)"/>
+					<Item id="43022" name="Naudoti 1ą stilių"/>
+					<Item id="43023" name="Valyti 1ą stilių"/>
+					<Item id="43024" name="Naudoti 2ą stilių"/>
+					<Item id="43025" name="Valyti 2ą stilių"/>
+					<Item id="43026" name="Naudoti 3ą stilių"/>
+					<Item id="43027" name="Valyti 3ą stilių"/>
+					<Item id="43028" name="Naudoti 4ą stilių"/>
+					<Item id="43029" name="Valyti 4ą stilių"/>
+					<Item id="43030" name="Naudoti 5ą stilių"/>
+					<Item id="43031" name="Valyti 5ą stilių"/>
+					<Item id="43032" name="Valyti visus stilius"/>
+					<Item id="43033" name="1as stilius"/>
+					<Item id="43034" name="2as stilius"/>
+					<Item id="43035" name="3as stilius"/>
+					<Item id="43036" name="4as stilius"/>
+					<Item id="43037" name="5as stilius"/>
+					<Item id="43038" name="Surasti stilių"/>
+					<Item id="43039" name="1as stilius"/>
+					<Item id="43040" name="2as stilius"/>
+					<Item id="43041" name="3as stilius"/>
+					<Item id="43042" name="4as stilius"/>
+					<Item id="43043" name="5as stilius"/>
+					<Item id="43044" name="Surasti stilių"/>
+					<Item id="43045" name="Paieškos rezultatų langas"/>
+					<Item id="43046" name="Kitas paieškos rezultatas"/>
+					<Item id="43047" name="Ankstesnis paieškos rezultatas"/>
+					<Item id="43048" name="Pažymėti ir rasti kitą"/>
+					<Item id="43049" name="Pažymėti ir rasti ankstesnį"/>
+					<Item id="43054" name="Žymėti..."/>
+					<Item id="44009" name="Tik tekstas (per visą langą)"/>
+					<Item id="44010" name="Suskleisti viską"/>
+					<Item id="44019" name="Rodyti visus simbolius"/>
+					<Item id="44020" name="Rodyti įtraukų vedlį"/>
+					<Item id="44022" name="Eilučių pernešimas"/>
+					<Item id="44023" name="&amp;Didinti (Ctrl+Pelės ratelis į viršų)"/>
+					<Item id="44024" name="&amp;Mažinti (Ctrl+Pelės ratelis į apačią)"/>
+					<Item id="44025" name="Rodyti tarpus ir tabuliaciją"/>
+					<Item id="44026" name="Rodyti eilučių pabaigą"/>
+					<Item id="44029" name="Išskleisti viską"/>
+					<Item id="44030" name="Suskleisti dabartinį lygį"/>
+					<Item id="44031" name="Išskleisti dabartinį lygį"/>
+					<Item id="44049" name="Santrauka..."/>
+					<Item id="44080" name="Detalus vaizdas"/>
+					<Item id="44084" name="Funkcijų sąrašas"/>
+					<Item id="44085" name="Katalogas kaip darbo aplinka"/>
+					<Item id="44086" name="1a kortelė"/>
+					<Item id="44087" name="2a kortelė"/>
+					<Item id="44088" name="3a kortelė"/>
+					<Item id="44089" name="4a kortelė"/>
+					<Item id="44090" name="5a kortelė"/>
+					<Item id="44091" name="6a kortelė"/>
+					<Item id="44092" name="7a kortelė"/>
+					<Item id="44093" name="8a kortelė"/>
+					<Item id="44094" name="9a kortelė"/>
+					<Item id="44095" name="Kita kortelė"/>
+					<Item id="44096" name="Ankstesnė kortelė"/>
+					<Item id="44097" name="Nuolatinis stebėjimas (tail -f)"/>
+					<Item id="44098" name="Perkelti kortelę į priekį"/>
+					<Item id="44099" name="Perkelti kortelę atgal"/>
+					<Item id="44032" name="Visas ekranas"/>
+					<Item id="44033" name="Atstatyti numatytą mastelį"/>
+					<Item id="44034" name="Visada viršuje"/>
+					<Item id="44035" name="Sinchnorizuoti vertikalų slinkimą"/>
+					<Item id="44036" name="Sinchnorizuoti horizontalų slinkimą"/>
+					<Item id="44041" name="Rodyti perneštų eilučių simbolį"/>
+					<Item id="44072" name="Perjungti į kitą vaizdą"/>
+					<Item id="44081" name="1a projekto kortelė"/>
+					<Item id="44082" name="2a projekto kortelė"/>
+					<Item id="44083" name="3a projekto kortelė"/>
+					<Item id="45001" name="Konvertuoti į Windows formatą (CR LF)"/>
+					<Item id="45002" name="Konvertuoti į UNIX formatą (LF)"/>
+					<Item id="45003" name="Konvertuoti į MAC formatą (CR)"/>
+					<Item id="45004" name="Šifruoti kaip ANSI"/>
+					<Item id="45005" name="Šifruoti kaip UTF-8-BOM"/>
+					<Item id="45006" name="Šifruoti kaip UCS-2 BE BOM"/>
+					<Item id="45007" name="Šifruoti kaip UCS-2 LE BOM"/>
+					<Item id="45008" name="Šifruoti kaip UTF-8"/>
+					<Item id="45009" name="Konvertuoti į ANSI"/>
+					<Item id="45010" name="Konvertuoti į UTF-8"/>
+					<Item id="45011" name="Konvertuoti į UTF-8-BOM"/>
+					<Item id="45012" name="Konvertuoti į UCS-2 BE BOM"/>
+					<Item id="45013" name="Konvertuoti į UCS-2 LE BOM"/>
+
+					<Item id="10001" name="Perkelti į kitą vaizdą"/>
+					<Item id="10002" name="Klonuoti į kitą vaizdą"/>
+					<Item id="10003" name="Perkelti į naują programos langą"/>
+					<Item id="10004" name="Atidaryti naujame programos lange"/>
+
+					<Item id="46001" name="Stilių redaktorius..."/>
+					<Item id="46250" name="Apibrėžti savo kalbą..."/>
+					<Item id="46180" name="Vartotojo apibrėžta"/>
+					<Item id="47000" name="Apie Notepad++..."/>
+					<Item id="47010" name="Komandų eilutės parametrai..."/>
+					<Item id="47001" name="Notepad++ tinklapis"/>
+					<Item id="47002" name="Notepad++ projekto puslapis"/>
+					<Item id="47003" name="Dokumentacija internete"/>
+					<Item id="47004" name="Forumas"/>
+					<Item id="47012" name="Derinimo informacija..."/>
+					<Item id="47005" name="Daugiau priedų"/>
+					<Item id="47006" name="Atnaujinti Notepad++"/>
+					<Item id="47009" name="Nustatyti įgaliotąjį serverį..."/>
+					<Item id="48005" name="Importuoti priedą(us) ..."/>
+					<Item id="48006" name="Importuoti temą(as) ..."/>
+					<Item id="48018" name="Keisti kontekstinį meniu"/>
+					<Item id="48009" name="Spartieji klavišai..."/>
+					<Item id="48011" name="Nustatymai..."/>
+					<Item id="48501" name="Generuoti..."/>
+					<Item id="48502" name="Generuoti failams..."/>
+					<Item id="48503" name="Generuoti į mainų sritį"/>
+					<Item id="49000" name="Palei&amp;dimas..."/>
+
+					<Item id="50000" name="Funkcijos užbaigimas"/>
+					<Item id="50001" name="Žodžio užbaigimas"/>
+					<Item id="50002" name="Funkcijos parametrų pasiūlymai"/>
+					<Item id="50006" name="Kelio užbaigimas"/>
+					<Item id="44042" name="Slėpti eilutes"/>
+					<Item id="42040" name="Atidaryti visus paskutinius failus"/>
+					<Item id="42041" name="Išvalyti paskutinių failų sąrašą"/>
+					<Item id="48016" name="Keisti sparčiuosius klavišus/Šalinti Makro..."/>
+					<Item id="48017" name="Keisti sparčiuosius klavišus/Šalinti komandą..."/>
+				</Commands>
+			</Main>
+			<Splitter>
+			</Splitter>
+			<TabBar>
+				<Item CMID="0" name="Uždaryti"/>
+				<Item CMID="1" name="Uždaryti visus dokumentus išskyrus šį"/>
+				<Item CMID="2" name="Išsaugoti"/>
+				<Item CMID="3" name="Išsaugoti kaip..."/>
+				<Item CMID="4" name="Spausdinti"/>
+				<Item CMID="5" name="Perkelti į kitą vaizdą"/>
+				<Item CMID="6" name="Klonuoti į kitą vaizdą"/>
+				<Item CMID="7" name="Pilnas failo kelias į mainų sritį"/>
+				<Item CMID="8" name="Failo pavadinimas į mainų sritį"/>
+				<Item CMID="9" name="Dabartinio katalogo kelias į mainų sritį"/>
+				<Item CMID="10" name="Pervadinti"/>
+				<Item CMID="11" name="Šalinti"/>
+				<Item CMID="12" name="Tik skaitymas"/>
+				<Item CMID="13" name="Išvalyti vėliavėlę 'Tik skaitymas'"/>
+				<Item CMID="14" name="Perkelti į naują programos langą"/>
+				<Item CMID="15" name="Atidaryti naujame programos lange"/>
+				<Item CMID="16" name="Iš naujo įkelti"/>
+				<Item CMID="17" name="Uždaryti visus kairėje"/>
+				<Item CMID="18" name="Uždaryti visus dešinėje"/>
+				<Item CMID="19" name="Atidaryti failo katalogą naršyklėje (Explorer)"/>
+				<Item CMID="20" name="Atidaryti failo katalogą komandų eil. (cmd)"/>
+				<Item CMID="21" name="Atidaryti su numatyta peržiūros programa"/>
+			</TabBar>
+		</Menu>
+
+		<Dialog>
+			<Find title="" titleFind="Rasti" titleReplace="Keisti" titleFindInFiles="Rasti failuose" titleMark="Žymėti">
+				<Item id="1" name="Rasti kitą"/>
+				<Item id="1722" name="Atvirkštine kryptimi"/>
+				<Item id="2" name="Uždaryti"/>
+				<Item id="1620" name="Ką rasti:"/>
+				<Item id="1603" name="Tik &amp;pilnus žodžius"/>
+				<Item id="1604" name="Įvertinti &amp;registrą"/>
+				<Item id="1605" name="&amp;Reguliarus reiškinys"/>
+				<Item id="1606" name="&amp;Ciklinė paieška"/>
+				<Item id="1614" name="Skaičiuoti"/>
+				<Item id="1615" name="Rasti viską"/>
+				<Item id="1616" name="Žymėti eilutę"/>
+				<Item id="1618" name="Išvalyti prieš paiešką"/>
+				<Item id="1611" name="&amp;Sukeisti su:"/>
+				<Item id="1608" name="&amp;Keisti"/>
+				<Item id="1609" name="Keisti &amp;viską"/>
+				<Item id="1687" name="Kai neaktyvus"/>
+				<Item id="1688" name="Visada"/>
+				<Item id="1632" name="Pažymėtuose"/>
+				<Item id="1633" name="Išvalyti visas žymes"/>
+				<Item id="1635" name="Pakeisti viską visuose atidarytuose dok."/>
+				<Item id="1636" name="Surasti viską visuose atidarytuose dok."/>
+				<Item id="1654" name="Filtrai:"/>
+				<Item id="1655" name="Katalogas:"/>
+				<Item id="1656" name="Surasti viską"/>
+				<Item id="1658" name="Visuose pokatalogiuose"/>
+				<Item id="1659" name="Paslėptuose kataloguose"/>
+				<Item id="1624" name="Paieškos režimas"/>
+				<Item id="1625" name="Įprastas"/>
+				<Item id="1626" name="Išplėstas (\n, \r, \t, \0, \x...)"/>
+				<Item id="1660" name="Keisti failuose"/>
+				<Item id="1641" name="Rasti viską dabartiniame dokumente"/>
+				<Item id="1686" name="Permatomumas"/>
+				<Item id="1703" name="&amp;. žymi naują eil."/>
+			</Find>
+
+			<FindCharsInRange title="Rasti ženklus iš sekos...">
+				<Item id="2" name="Uždaryti"/>
+				<Item id="2901" name="Ne-ASCII ženklai (128-255)"/>
+				<Item id="2902" name="ASCII ženklai (0-127)"/>
+				<Item id="2903" name="Mano seka:"/>
+				<Item id="2906" name="&amp;Aukštyn"/>
+				<Item id="2907" name="Ž&amp;emyn"/>
+				<Item id="2908" name="Kryptis"/>
+				<Item id="2909" name="Ciklinė paieška"/>
+				<Item id="2910" name="Rasti"/>
+			</FindCharsInRange>
+
+			<GoToLine title="Pereiti į...">
+				<Item id="2007" name="Eilutė"/>
+				<Item id="2008" name="Poslinkis"/>
+				<Item id="1" name="&amp;Pereiti"/>
+				<Item id="2" name="Atšaukti"/>
+				<Item id="2004" name="Esate čia:"/>
+				<Item id="2005" name="Pereiti į:"/>
+				<Item id="2006" name="Negalite pereiti toliau nei:"/>
+			</GoToLine>
+
+			<Run title="Paleisti...">
+				<Item id="1903" name="Paleisti programą"/>
+				<Item id="1" name="Paleisti"/>
+				<Item id="2" name="Atšaukti"/>
+				<Item id="1904" name="Išsaugoti..."/>
+			</Run>
+
+			<MD5FromFilesDlg title="Generuoti MD5 santrauką iš failų">
+				<Item id="1922" name="Pasirinkite failus..."/>
+				<Item id="1924" name="Kopijuoti į mainų sritį"/>
+				<Item id="2" name="Uždaryti"/>
+			</MD5FromFilesDlg>
+
+			<MD5FromTextDlg title="Generuoti MD5 santrauką">
+				<Item id="1932" name="Kiekvienai eilutei atskirai"/>
+				<Item id="1934" name="Kopijuoti į mainų sritį"/>
+				<Item id="2" name="Uždaryti"/>
+			</MD5FromTextDlg>
+
+			<StyleConfig title="Stilių Redaktorius">
+				<Item id="2" name="Atšaukti"/>
+				<Item id="2301" name="Išsaugoti &amp;&amp; Uždaryti"/>
+				<Item id="2303" name="Permatomumas"/>
+				<Item id="2306" name="Išrinkti Temą: "/>
+				<SubDialog>
+					<Item id="2204" name="Ryškus"/>
+					<Item id="2205" name="Kursyvas"/>
+					<Item id="2206" name="Pirmo plano spalva"/>
+					<Item id="2207" name="Antro plano spalva"/>
+					<Item id="2208" name="Pav.:"/>
+					<Item id="2209" name="Šrifto dydis:"/>
+					<Item id="2211" name="Stilius:"/>
+					<Item id="2212" name="Stiliaus spalva"/>
+					<Item id="2213" name="Stiliaus šriftas"/>
+					<Item id="2214" name="Numatytas plėt.:"/>
+					<Item id="2216" name="Vartotojo plėt.:"/>
+					<Item id="2218" name="Pabraukimas"/>
+					<Item id="2219" name="Numatytieji raktažodžiai"/>
+					<Item id="2221" name="Vartotojo sustatyti raktažodžiai"/>
+					<Item id="2225" name="Kalba:"/>
+					<Item id="2226" name="Įgalinti globalią girmo plano spalvą"/>
+					<Item id="2227" name="Įgalinti globalią antro plano spalvą"/>
+					<Item id="2228" name="Įgalinti globalų šriftą"/>
+					<Item id="2229" name="Įgalinti globalų šrifto dydį"/>
+					<Item id="2230" name="Įgalinti globalų ryškų šrifto stilių"/>
+					<Item id="2231" name="Įgalinti globalų kursyvinį šrifto stilių"/>
+					<Item id="2232" name="Įgalinti globalų pabrauktą šrifto stilių"/>
+				</SubDialog>
+			</StyleConfig>
+
+			<ShortcutMapper title="Spartieji klavišai">
+				<Item id="2602" name="Keisti"/>
+				<Item id="2603" name="Trinti"/>
+				<Item id="2606" name="Valyti"/>
+				<Item id="2607" name="Filtras:"/>
+				<Item id="1" name="Uždaryti"/>
+				<ColumnName name="Pavadinimas"/>
+				<ColumnShortcut name="Spartusis klavišas"/>
+				<ColumnCategory name="Grupė"/>
+				<ColumnPlugin name="Papildinys"/>
+				<MainMenuTab name="Pagrindinis meniu"/>
+				<MacrosTab name="Makro"/>
+				<RunCommandsTab name="Paleidimo komandos"/>
+				<PluginCommandsTab name="Papildinių komandos"/>
+				<ScintillaCommandsTab name="Scintilla komandos"/>
+				<ConflictInfoOk name="Nėra sparčiųjų klavišų konfliktų."/>
+				<ConflictInfoEditing name="Nėra konfliktų . . ."/>
+			</ShortcutMapper>
+			<ShortcutMapperSubDialg title="Spartusis klavišas">
+				<Item id="1" name="Gerai"/>
+				<Item id="2" name="Atšaukti"/>
+				<Item id="5006" name="Pavadinimas"/>
+				<Item id="5008" name="Pridėti"/>
+				<Item id="5009" name="Šalinti"/>
+				<Item id="5010" name="Taikyti"/>
+				<Item id="5007" name="Tai pašalins šios komandos spartujį klavišą"/>
+				<Item id="5012" name="RASTAS KONFLIKTAS!"/>
+			</ShortcutMapperSubDialg>
+			<UserDefine title="Vartotojo kalbos apibrėžimas">
+				<Item id="20001" name="Įstatyti"/>
+				<Item id="20002" name="Pervadinti"/>
+				<Item id="20003" name="Sukurti naują..."/>
+				<Item id="20004" name="Pašalinti"/>
+				<Item id="20005" name="Išsaugoti kaip..."/>
+				<Item id="20007" name="Vartotojo kalba: "/>
+				<Item id="20009" name="Išplėtimas:"/>
+				<Item id="20012" name="Ignoruoti registrą"/>
+				<Item id="20011" name="Permatomumas"/>
+				<Item id="20015" name="Importuoti..."/>
+				<Item id="20016" name="Eksportuoti..."/>
+				<StylerDialog title="Stiliaus redaktorius">
+					<Item id="25030" name="Šrifto nustatymai:"/>
+					<Item id="25006" name="Pirmo plano spalva"/>
+					<Item id="25007" name="Antro plano spalva"/>
+					<Item id="25031" name="Pav.:"/>
+					<Item id="25032" name="Dydis:"/>
+					<Item id="25001" name="Ryškus"/>
+					<Item id="25002" name="Kursyvas"/>
+					<Item id="25003" name="Pabraukimas"/>
+					<Item id="25029" name="Įdėjimas:"/>
+					<Item id="25008" name="Skyriklis 1"/>
+					<Item id="25009" name="Skyriklis 2"/>
+					<Item id="25010" name="Skyriklis 3"/>
+					<Item id="25011" name="Skyriklis 4"/>
+					<Item id="25012" name="Skyriklis 5"/>
+					<Item id="25013" name="Skyriklis 6"/>
+					<Item id="25014" name="Skyriklis 7"/>
+					<Item id="25015" name="Skyriklis 8"/>
+					<Item id="25018" name="Raktažodis 1"/>
+					<Item id="25019" name="Raktažodis 2"/>
+					<Item id="25020" name="Raktažodis 3"/>
+					<Item id="25021" name="Raktažodis 4"/>
+					<Item id="25022" name="Raktažodis 5"/>
+					<Item id="25023" name="Raktažodis 6"/>
+					<Item id="25024" name="Raktažodis 7"/>
+					<Item id="25025" name="Raktažodis 8"/>
+					<Item id="25016" name="Komentaras"/>
+					<Item id="25017" name="Komentaro eilutė"/>
+					<Item id="25026" name="Operatorius 1"/>
+					<Item id="25027" name="Operatorius 2"/>
+					<Item id="25028" name="Skaičiai"/>
+					<Item id="1" name="Gerai"/>
+					<Item id="2" name="Atšaukti"/>
+				</StylerDialog>
+				<Folder title="Suskleidimas &amp;&amp; Numatyta">
+					<Item id="21101" name="Numatytojo stiliaus nustatymai"/>
+					<Item id="21102" name="Stilius..."/>
+					<Item id="21105" name="Dokumentacija:"/>
+					<Item id="21104" name="Pagalba rasite adresu:"/>
+					<Item id="21106" name="Suskleisti glaustai (ir tuščias eilutes)"/>
+					<Item id="21220" name="Kodo suskleidimo 1as stilius:"/>
+					<Item id="21224" name="Prasideda:"/>
+					<Item id="21225" name="Viduryje:"/>
+					<Item id="21226" name="Baigiasi:"/>
+					<Item id="21227" name="Stilius..."/>
+					<Item id="21320" name="Kodo suskleidimo 2as stilius (Būtini tarpai):"/>
+					<Item id="21324" name="Prasideda:"/>
+					<Item id="21325" name="Viduryje:"/>
+					<Item id="21326" name="Baigiasi:"/>
+					<Item id="21327" name="Stilius..."/>
+					<Item id="21420" name="Komentarų suskleidimo stilius:"/>
+					<Item id="21424" name="Prasideda:"/>
+					<Item id="21425" name="Viduryje:"/>
+					<Item id="21426" name="Baigiasi:"/>
+					<Item id="21427" name="Stilius..."/>
+				</Folder>
+				<Keywords title="Raktažodžių sąrašai">
+					<Item id="22101" name="1a grupė"/>
+					<Item id="22201" name="2a grupė"/>
+					<Item id="22301" name="3a grupė"/>
+					<Item id="22401" name="4a grupė"/>
+					<Item id="22451" name="5a grupė"/>
+					<Item id="22501" name="6a grupė"/>
+					<Item id="22551" name="7a grupė"/>
+					<Item id="22601" name="8a grupė"/>
+					<Item id="22121" name="Priešdėlio režimas"/>
+					<Item id="22221" name="Priešdėlio režimas"/>
+					<Item id="22321" name="Priešdėlio režimas"/>
+					<Item id="22421" name="Priešdėlio režimas"/>
+					<Item id="22471" name="Priešdėlio režimas"/>
+					<Item id="22521" name="Priešdėlio režimas"/>
+					<Item id="22571" name="Priešdėlio režimas"/>
+					<Item id="22621" name="Priešdėlio režimas"/>
+					<Item id="22122" name="Stilius..."/>
+					<Item id="22222" name="Stilius..."/>
+					<Item id="22322" name="Stilius..."/>
+					<Item id="22422" name="Stilius..."/>
+					<Item id="22472" name="Stilius..."/>
+					<Item id="22522" name="Stilius..."/>
+					<Item id="22572" name="Stilius..."/>
+					<Item id="22622" name="Stilius..."/>
+				</Keywords>
+				<Comment title="Komentaras &amp;&amp; Skaičius">
+					<Item id="23003" name="Eilutės komentaro vieta"/>
+					<Item id="23004" name="Leidžiama visur"/>
+					<Item id="23005" name="Tik eilutės pradžioje"/>
+					<Item id="23006" name="Leisti tarpus priekyje"/>
+					<Item id="23001" name="Leidžiamas komentarų suskleidimas"/>
+					<Item id="23326" name="Stilius..."/>
+					<Item id="23323" name="Prasideda"/>
+					<Item id="23324" name="Tęsimo simbolis"/>
+					<Item id="23325" name="Baigiasi"/>
+					<Item id="23301" name="Eilutės komentaras"/>
+					<Item id="23124" name="Stilius..."/>
+					<Item id="23122" name="Prasideda"/>
+					<Item id="23123" name="Baigiasi"/>
+					<Item id="23101" name="Komentaras"/>
+					<Item id="23201" name="Skaičius"/>
+					<Item id="23220" name="Stilius..."/>
+					<Item id="23230" name="Priešdėlis 1"/>
+					<Item id="23232" name="Priešdėlis 2"/>
+					<Item id="23234" name="Papildomi 1"/>
+					<Item id="23236" name="Papildomi 2"/>
+					<Item id="23238" name="Priesaga 1"/>
+					<Item id="23240" name="Priesaga 2"/>
+					<Item id="23242" name="Rėžis:"/>
+					<Item id="23244" name="Dešimtainis skirtukas"/>
+					<Item id="23245" name="Taškas"/>
+					<Item id="23246" name="Kablelis"/>
+					<Item id="23247" name="Taškas arba kablelis"/>
+				</Comment>
+				<Operator title="Operatoriai &amp;&amp; Skyriklis">
+					<Item id="24101" name="Operatoriai"/>
+					<Item id="24113" name="Stilius..."/>
+					<Item id="24116" name="Operatoriai 1"/>
+					<Item id="24117" name="Operatoriai 2 (Būtini tarpai)"/>
+					<Item id="24201" name="Skyriklis 1"/>
+					<Item id="24220" name="Prasideda:"/>
+					<Item id="24221" name="Maskuoja:"/>
+					<Item id="24222" name="Baigiasi:"/>
+					<Item id="24223" name="Stilius..."/>
+					<Item id="24301" name="Skyriklis 2"/>
+					<Item id="24320" name="Prasideda:"/>
+					<Item id="24321" name="Maskuoja:"/>
+					<Item id="24322" name="Baigiasi:"/>
+					<Item id="24323" name="Stilius..."/>
+					<Item id="24401" name="Skyriklis 3"/>
+					<Item id="24420" name="Prasideda:"/>
+					<Item id="24421" name="Maskuoja:"/>
+					<Item id="24422" name="Baigiasi:"/>
+					<Item id="24423" name="Stilius..."/>
+					<Item id="24451" name="Skyriklis 4"/>
+					<Item id="24470" name="Prasideda:"/>
+					<Item id="24471" name="Maskuoja:"/>
+					<Item id="24472" name="Baigiasi:"/>
+					<Item id="24473" name="Stilius..."/>
+					<Item id="24501" name="Skyriklis 5"/>
+					<Item id="24520" name="Prasideda:"/>
+					<Item id="24521" name="Maskuoja:"/>
+					<Item id="24522" name="Baigiasi:"/>
+					<Item id="24523" name="Stilius..."/>
+					<Item id="24551" name="Skyriklis 6"/>
+					<Item id="24570" name="Prasideda:"/>
+					<Item id="24571" name="Maskuoja:"/>
+					<Item id="24572" name="Baigiasi:"/>
+					<Item id="24573" name="Stilius..."/>
+					<Item id="24601" name="Skyriklis 7"/>
+					<Item id="24620" name="Prasideda:"/>
+					<Item id="24621" name="Maskuoja:"/>
+					<Item id="24622" name="Baigiasi:"/>
+					<Item id="24623" name="Stilius..."/>
+					<Item id="24651" name="Skyriklis 8"/>
+					<Item id="24670" name="Prasideda:"/>
+					<Item id="24671" name="Maskuoja:"/>
+					<Item id="24672" name="Baigiasi:"/>
+					<Item id="24673" name="Stilius..."/>
+				</Operator>
+			</UserDefine>
+			<Preference title="Nustatymai">
+				<Item id="6001" name="Uždaryti"/>
+				<Global title="Pagrindiniai">
+					<Item id="6102" name="Slėpti"/>
+					<Item id="6103" name="Mažos piktogramos"/>
+					<Item id="6104" name="Didelės piktogramos"/>
+					<Item id="6105" name="Įprastinės piktogramos"/>
+
+					<Item id="6107" name="Sumažinti"/>
+					<Item id="6108" name="Užrakinti (negalimas perstatymas)"/>
+					<Item id="6109" name="Tamsinti neaktyvias korteles"/>
+					<Item id="6110" name="Spalvota juosta ant aktyvios kortelės"/>
+
+					<Item id="6112" name="Uždarymo mygtukas kiekv. kortelėje"/>
+					<Item id="6113" name="Dvigubas paspaudimas uždaro dok."/>
+					<Item id="6118" name="Slėpti"/>
+					<Item id="6119" name="Daugelių eilučių"/>
+					<Item id="6120" name="Vertikali"/>
+					<Item id="6121" name="Meniu juosta"/>
+
+					<Item id="6122" name="Slėpti meniu juostą (Naudokite Alt arba F10)"/>
+					<Item id="6123" name="Kalba"/>
+
+					<Item id="6125" name="Dokumentų sąrašas"/>
+					<Item id="6126" name="Rodyti"/>
+					<Item id="6127" name="Nerodyti išplėtimų"/>
+				</Global>
+				<Scintillas title="Redagavimas">
+					<Item id="6216" name="Intarpo ženklo nustatymai"/>
+					<Item id="6217" name="Plotis:"/>
+					<Item id="6219" name="Mirgėjimo dažnis:"/>
+					<Item id="6221" name="G"/>
+					<Item id="6222" name="L"/>
+					<Item id="6224" name="Daugybinis redagavimas"/>
+					<Item id="6201" name="Suskleidimo paraštė"/>
+					<Item id="6202" name="Paprasta"/>
+					<Item id="6203" name="Rodyklės"/>
+					<Item id="6204" name="Apskritimai"/>
+					<Item id="6205" name="Langeliai"/>
+					<Item id="6226" name="Išjungta"/>
+
+					<Item id="6227" name="Eilučių pernešimas"/>
+					<Item id="6228" name="Numatytasis"/>
+					<Item id="6229" name="Išlygintas"/>
+					<Item id="6230" name="Įtrauktas"/>
+
+					<Item id="6206" name="Rodyti eilutės numerį"/>
+					<Item id="6207" name="Rodyti žymeles"/>
+					<Item id="6208" name="Rodyti vertikalų kraštą"/>
+					<Item id="6209" name="Stulpelių skaičius: "/>
+					<Item id="6234" name="Išjungti slinkimo savybę
+(naudojant jutiklinį kilimėlį)"/>
+
+					<Item id="6211" name="Vertikalaus krašto nustatymai"/>
+					<Item id="6212" name="Linijos režimas"/>
+					<Item id="6213" name="Antro plano režimas"/>
+					<Item id="6214" name="Dabartinės eilutės paryškinimas"/>
+					<Item id="6215" name="Įgalinti registro gludinimą"/>
+					<Item id="6231" name="Briaunos storis"/>
+					<Item id="6235" name="Be briaunos"/>
+					<Item id="6236" name="Leisti slinkti po paskutinės eilutės"/>
+				</Scintillas>
+
+				<NewDoc title="Naujas dokumentas">
+					<Item id="6401" name="Formatas"/>
+					<Item id="6402" name="Windows"/>
+					<Item id="6403" name="Unix"/>
+					<Item id="6404" name="Mac"/>
+					<Item id="6405" name="Šifravimas"/>
+					<Item id="6406" name="ANSI"/>
+					<Item id="6407" name="UTF-8"/>
+					<Item id="6408" name="UTF-8 su BOM"/>
+					<Item id="6409" name="UCS-2 Big Endian su BOM"/>
+					<Item id="6410" name="UCS-2 Little Endian su BOM"/>
+					<Item id="6411" name="Numatyta Kalba:"/>
+					<Item id="6419" name="Naujas Dokumentas"/>
+					<Item id="6420" name="Pritaikyti atidarant ANSI failus"/>
+				</NewDoc>
+
+				<DefaultDir title="Numatytas katalogas">
+					<Item id="6413" name="Numatytas katalogas (Atidarymui/Išsaugojimui)"/>
+					<Item id="6414" name="Naudoti dokumento katalogą"/>
+					<Item id="6415" name="Įsiminti paskutinį naudotą katalogą"/>
+					<Item id="6431" name="Įvelkant katalogą, nekurti darbo aplinkos, bet atverti visus failus iš to katalogo"/>
+				</DefaultDir>
+
+				<FileAssoc title="Failų asociacija">
+					<Item id="4009" name="Palaikomi išplėtimai:"/>
+					<Item id="4010" name="Registruoti išplėtimai:"/>
+				</FileAssoc>
+				<Language title="Kalba">
+					<Item id="6505" name="Rodomi elementai"/>
+					<Item id="6506" name="Paslėpti elementai"/>
+					<Item id="6507" name="Glaustas kalbų meniu"/>
+					<Item id="6508" name="Kalbų meniu"/>
+					<Item id="6301" name="Tabuliatoriaus nustatymai"/>
+					<Item id="6302" name="Keisti į tarpus"/>
+					<Item id="6303" name="Tab. dydis: "/>
+					<Item id="6510" name="Naudoti numatytąją reikšmę"/>
+					<Item id="6335" name="Laikyti pasvirąjį kairinį brūkšnį maskavimo simboliu SQL kalboje"/>
+				</Language>
+
+				<Highlighting title="Paryškinimas">
+					<Item id="6333" name="Gudrus paryškinimas"/>
+					<Item id="6326" name="Įgalinti"/>
+					<Item id="6332" name="Sutapdinti registrą"/>
+					<Item id="6338" name="Sutapdinti tik pilnus žodžius"/>
+					<Item id="6339" name="Naudoti paieškos lango nustatymus"/>
+					<Item id="6340" name="Paryškinti ir kitame vaizde"/>
+					<Item id="6329" name="Sutampančių gairių paryškinimas"/>
+					<Item id="6327" name="Įgalinti"/>
+					<Item id="6328" name="Paryškinti gairės atributus"/>
+					<Item id="6330" name="Paryškinti Komentaro/php/asp plotą"/>
+				</Highlighting>
+
+				<Print title="Spauda">
+					<Item id="6601" name="Spausdinti eilučių numerius"/>
+					<Item id="6602" name="Spalvos pasirinkimas"/>
+					<Item id="6603" name="Taip kaip matoma taip ir yra"/>
+					<Item id="6604" name="Invertuota"/>
+					<Item id="6605" name="Juoda/balta"/>
+					<Item id="6606" name="Be pirmo plano spalvos"/>
+					<Item id="6607" name="Paraštės nustatymai (Dydis: mm)"/>
+					<Item id="6612" name="Kairėje"/>
+					<Item id="6613" name="Viršuje"/>
+					<Item id="6614" name="Dešinėje"/>
+					<Item id="6615" name="Apačioje"/>
+					<Item id="6706" name="Ryškus"/>
+					<Item id="6707" name="Kursyvas"/>
+					<Item id="6708" name="Viršutinė antraštė"/>
+					<Item id="6709" name="Kairioji dalis"/>
+					<Item id="6710" name="Vidurinioji dalis"/>
+					<Item id="6711" name="Dešinioji dalis"/>
+					<Item id="6717" name="Ryškus"/>
+					<Item id="6718" name="Kursyvas"/>
+					<Item id="6719" name="Apatinė antraštė"/>
+					<Item id="6720" name="Kairioji dalis"/>
+					<Item id="6721" name="Vidurinioji dalis"/>
+					<Item id="6722" name="Dešinioji dalis"/>
+					<Item id="6723" name="Pridėti"/>
+					<Item id="6725" name="Kintamasis:"/>
+					<Item id="6727" name="Nustatymo reikšmė"/>
+					<Item id="6728" name="Viršutinė ir apatinė antraštės"/>
+				</Print>
+
+				<RecentFilesHistory title="Paskutinių failų istorija">
+					<Item id="6304" name="Paskutinių failų istorija"/>
+					<Item id="6306" name="Didžiausias įsimintų failų skaičius:"/>
+					<Item id="6305" name="Netikrinti paleidimo metu"/>
+					<Item id="6429" name="Rodymo būdas"/>
+					<Item id="6424" name="Atskirame meniu"/>
+					<Item id="6425" name="Tik failo pavadinimas"/>
+					<Item id="6426" name="Pilnas failo kelias"/>
+					<Item id="6427" name="Didžiausias leistinas ilgis:"/>
+				</RecentFilesHistory>
+
+				<Backup title="Atsarginė kopija">
+					<Item id="6817" name="Sesijos kopija ir nuolatinis išsaugojimas"/>
+					<Item id="6818" name="Įgalinti sesijos kopijas ir nuolatinį išsaugojimą"/>
+					<Item id="6819" name="Išsaugoti kas"/>
+					<Item id="6821" name="sekundę(-des,-džių)"/>
+					<Item id="6822" name="Atsarginių kopijų kelias:"/>
+					<Item id="6309" name="Naudoti dabartinę sesiją kito paleidimo metu"/>
+					<Item id="6801" name="Atsarginė kopija išsaugojimo metu"/>
+					<Item id="6315" name="Išjungta"/>
+					<Item id="6316" name="Paprasta atsarginė kopija"/>
+					<Item id="6317" name="Detali atsarginė kopija"/>
+					<Item id="6804" name="Atsarginių kopijų katalogas"/>
+					<Item id="6803" name="Katalogas:"/>
+				</Backup>
+
+				<AutoCompletion title="Automatinis baigimas">
+					<Item id="6807" name="Automatinis baigimas"/>
+					<Item id="6808" name="Įgalinti automatinį baigimą"/>
+					<Item id="6809" name="Funkcijų baigimas"/>
+					<Item id="6810" name="Žodžių baigimas"/>
+					<Item id="6816" name="Funkcijų ir žodžių baigimas"/>
+					<Item id="6824" name="Ignoruoti skaičius"/>
+					<Item id="6811" name="Nuo"/>
+					<Item id="6813" name="-ojo ženklo"/>
+					<Item id="6814" name="Leidžiamos reikšmės : 1 - 9"/>
+					<Item id="6815" name="Rodyti funkcijos parametrų patarimus"/>
+					<Item id="6851" name="Automatinis įterpimas"/>
+					<Item id="6857" name=" html/xml gairės"/>
+					<Item id="6858" name="Pradžia"/>
+					<Item id="6859" name="Pabaiga"/>
+					<Item id="6860" name="Sutampanti pora 1:"/>
+					<Item id="6863" name="Sutampanti pora 2:"/>
+					<Item id="6866" name="Sutampanti pora 3:"/>
+				</AutoCompletion>
+
+				<MultiInstance title="Programos langai">
+					<Item id="6151" name="Programos langų nustatymai"/>
+					<Item id="6152" name="Atidayti sesiją naujame Notepad++ lange"/>
+					<Item id="6153" name="Daugelio programos langų režimas"/>
+					<Item id="6154" name="Pagal nutylėjimą (vieno lango režimas)"/>
+					<Item id="6155" name="* Nustatymų pakeitimai reikalauja paleisti Notepad++ iš naujo"/>
+				</MultiInstance>
+
+				<Delimiter title="Skirtukas">
+					<Item id="6251" name="Žymėjimo skirtukai (Ctrl + Pelės dvigubas paspaudimas)"/>
+					<Item id="6252" name="Pradžia"/>
+					<Item id="6255" name="Pabaiga"/>
+					<Item id="6256" name="Leisti pažymėti kelias eilutes"/>
+					<Item id="6161" name="Žodžių ženklai"/>
+					<Item id="6162" name="Naudoti numatytuosius žodžių ženklus"/>
+					<Item id="6163" name="Pridėkite savo ženklus kaip žodžio dalis
+(nesirinkite jų, nebent žinote ką darote)"/>
+				</Delimiter>
+
+				<Cloud title="Debesija">
+					<Item id="6262" name="Debesijos nustatymai"/>
+					<Item id="6263" name="Be debesijos"/>
+					<Item id="6267" name="Nurodykite debesijos kelią:"/>
+				</Cloud>
+
+				<SearchEngine title="Paieškos sistema">
+					<Item id="6271" name="Paieškos sistema (komandai &quot;Ieškoti internete&quot;)"/>
+					<Item id="6272" name="DuckDuckGo"/>
+					<Item id="6273" name="Google"/>
+					<Item id="6274" name="Bing"/>
+					<Item id="6275" name="Yahoo!"/>
+					<Item id="6276" name="Nurodykite savo paieškos sistemą:"/>
+					<!-- Don't change anything after Example: -->
+					<Item id="6278" name="Pavyzdys: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+				</SearchEngine>
+
+				<MISC title="Įvairūs">
+					<Item id="6312" name="Failų būsenos automatinis nustatymas"/>
+					<Item id="6313" name="Atnaujinti neklausiant"/>
+					<Item id="6318" name="Paspaudžiamų nuorodų nustatymai"/>
+					<Item id="6325" name="Slinkti prie paskut. eilutės po atnauj."/>
+					<Item id="6319" name="Įgalinti"/>
+					<Item id="6320" name="Nepabrauktas"/>
+					<Item id="6322" name="Sesijos failo išplėtimas:"/>
+					<Item id="6323" name="Įgalinti Notepad++ automatinį naujinimą"/>
+					<Item id="6324" name="Dokumentų perjungimas (Ctrl+TAB)"/>
+					<Item id="6331" name="Rodyti tik failo pavadinimą antraštės juostoje"/>
+					<Item id="6334" name="Automatiškai aptikti koduotę"/>
+					<Item id="6337" name="Darbo aplinkos failo išpl.:"/>
+					<Item id="6114" name="Įgalinti"/>
+					<Item id="6117" name="Naudoti perjungimų istoriją"/>
+					<Item id="6344" name="Turinio peržiūra"/>
+					<Item id="6345" name="Peržiūrėti kortelėje"/>
+					<Item id="6346" name="Peržiūrėti detaliame vaizde"/>
+				</MISC>
+			</Preference>
+			<MultiMacro title="Paleisti Makro daug kartų">
+				<Item id="1" name="Paleisti"/>
+				<Item id="2" name="Atšaukti"/>
+				<Item id="8006" name="Paleisti Makro:"/>
+				<Item id="8001" name="Paleisti"/>
+				<Item id="8005" name="Kartai(-ų)"/>
+				<Item id="8002" name="Vykdyti iki failo pabaigos"/>
+			</MultiMacro>
+			<Window title="Langai">
+				<Item id="1" name="Aktyvuoti"/>
+				<Item id="2" name="Gerai"/>
+				<Item id="7002" name="Išsaugoti"/>
+				<Item id="7003" name="Uždaryti langą"/>
+				<Item id="7004" name="Rikiuoti korteles"/>
+			</Window>
+			<ColumnEditor title="Stulpelių redaktorius">
+				<Item id="2023" name="Tekstas įterpimui"/>
+				<Item id="2033" name="Skaičius įterpimui"/>
+				<Item id="2030" name="Pradinis skaičius:"/>
+				<Item id="2031" name="Padidinti per:"/>
+				<Item id="2035" name="Priekyje nuliai"/>
+				<Item id="2036" name="Kartojimų skaičius:"/>
+				<Item id="2032" name="Formatas"/>
+				<Item id="2024" name="Dešimtainis"/>
+				<Item id="2025" name="Aštuntainis"/>
+				<Item id="2026" name="Šešioliktain."/>
+				<Item id="2027" name="Dvejetainis"/>
+				<Item id="1" name="Gerai"/>
+				<Item id="2" name="Atšaukti"/>
+			</ColumnEditor>
+			<FindInFinder title="Paieška rezultatuose">
+				<Item id="1" name="Rasti"/>
+				<Item id="2" name="Uždaryti"/>
+				<Item id="1711" name="Ką rasti:"/>
+				<Item id="1713" name="Tik paieškos rezultatuose"/>
+				<Item id="1714" name="Tik pilnus žodžius"/>
+				<Item id="1715" name="Įvertinti registrą"/>
+				<Item id="1716" name="Paieškos režimas"/>
+				<Item id="1717" name="Įprastas"/>
+				<Item id="1719" name="&amp;Reguliarus reiškinys"/>
+				<Item id="1718" name="Išplėstas (\n, \r, \t, \0, \x...)"/>
+				<Item id="1720" name="&amp;. žymi naują eil."/>
+			</FindInFinder>
+		</Dialog>
+		<MessageBox><!-- $INT_REPLACE$ saugo bylos vietą, jo neversti -->
+			<ContextMenuXmlEditWarning title="Kontekstinio meniu keitimas" message="contextMenu.xml redagavimas leidžia keisti Notepad++ išklylantį kontekstinį meniu.
+Jūs turite perkrauti Notepad++ tam, kad pakeitimas contextMenu.xml būtų veiksmingas."/>
+			<NppHelpAbsentWarning title="Failas neegzistuoja" message="
+neegzistuoja. Prašome ją įkelti iš Notepad++ puslapio."/>
+			<SaveCurrentModifWarning title="Išsaugoti dabartinius pakeitimus" message="Jūs turite išsaugoti dabartinius pakeitimus.
+Visi išsaugoti pakeitimai bus negrįžtami.
+
+Ar norite tęsti?"/>
+			<LoseUndoAbilityWarning title="Atšaukimo galimybės praradimas" message="Jūs turite išsaugoti dabartinius pakeitimus.
+Visi išsaugoti pakeitimai bus negrįžtami.
+
+Ar norite tęsti??"/>
+			<CannotMoveDoc title="Pereiti prie naujo Notepad++ programos lango" message="Dokumentas yra pakeistas, išsaugokite ir mėginkite dar kartą."/>
+			<DocReloadWarning title="Įkėlimas iš naujo" message="Ar jūs tikrai norite iš naujo įkelti dabartinę bylą ir prarasti visus pakeitimus atliktus su Notepad++?"/>
+			<FileLockedWarning title="Nepavyko išsaugoti" message="Prašome patikrinti ar šis failas nėra atidaryta kitoje programoje"/>
+			<FileAlreadyOpenedInNpp title="" message="Failas jau yra atidarytas su Notepad++."/>
+			<DeleteFileFailed title="Failo šalinimas" message="Nepavyko pašalinti failo"/>
+            
+			<NbFileToOpenImportantWarning title="Atidaromų failų kiekis yra per didelis" message="Atidaromų failų skaičius: $INT_REPLACE$.
+Ar jūs tikrai norite juos atidaryti?"/>
+			<SettingsOnCloudError title="Debesijos nustatymai" message="Debesijos nustatymų failas yra tik skaitymui skirtame diske,
+arba kataloge kuriam neturite rašymo teisių.
+Jūsų debesijos nustatymų pakeitimai bus atšaukti. Pakeiskite debesijos kelią nustatymuose."/>
+			<FilePathNotFoundWarning title="Failo atidarymas" message="Failas kurį norite atidaryti nerastas."/>
+			<SessionFileInvalidError title="Nepavyko įkelti sesijos" message="Sesijos failas yra sugadintas arba neteisingas."/>
+			<DroppingFolderAsProjectModeWarning title="Neleistinas veiksmas" message="Galite įtempti failus arba katalogus, bet ne juos abu iš karto. Dabar pasirinktas režimas &quot;Katalogas kaip darbo aplinka&quot;.
+Norėdami tai pakeisti, nustatymų lange &quot;Numatytas katalogas&quot; galite pažymėti langelį &quot;Įvelkant katalogą, nekurti darbo aplinkos, o atverti visus failus iš to katalogo&quot;."/>
+			<SortingError title="Rikiavimo klaida" message="Nepavyko atlikti skaičių rikiavimo. Klaida eilutėje $INT_REPLACE$."/>
+			<ColumnModeTip title="Stulpelių režimo patarimas" message="Naudokite &quot;ALT+Žymėjimą pele&quot; arba &quot;Alt+Shift+Rodyklės klavišą&quot; norėdami persijungtį į stulpelių režimą."/>
+			<BufferInvalidWarning title="Išsaugojimo klaida" message="Nepavyko išsaugoti: sugadinta buferinė atmintis."/>
+			<DoSaveOrNot title="Išsaugojimas" message="Išsaugoti failą &quot;$STR_REPLACE$&quot; ?"/>
+			<DoCloseOrNot title="Palikti neegzistuojantį failą" message="Failas &quot;$STR_REPLACE$&quot; nebeegzistuoja.
+Ar palikti šį failą redaktoriuje?"/>
+			<DoDeleteOrNot title="Failo šalinimas" message="Failas &quot;$STR_REPLACE$&quot;
+bus perkeltas į šiukšliadėžę ir uždarytas redaktoriuje.
+Ar norite tęsti?"/>
+			<NoBackupDoSaveFile title="Išsaugojimas" message="Atsarginė kopija nerasta (ištrinta).
+Išsaugokite ją, kitu atveju prarasite savo duomenis
+Ar norite išsaugoti failą &quot;$STR_REPLACE$&quot; ?"/>
+			<DoReloadOrNot title="Įkėlimas iš naujo" message="&quot;$STR_REPLACE$&quot;
+
+Šis failas buvo pakeistas kitoje programoje.
+Ar norite jį įkelti iš naujo?"/>
+			<DoReloadOrNotAndLooseChange title="Įkėlimas iš naujo" message="&quot;$STR_REPLACE$&quot;
+
+Šis failas buvo pakeistas kitoje programoje.
+Ar norite jį įkelti iš naujo ir prarasti pakeitimus atliktus su Notepad++?"/>
+			<PrehistoricSystemDetected title="Aptikta sena sistema" message="Naudojate seną sistemą. Ši savybė veikia tik naujesnėse sistemose."/>
+			<XpUpdaterProblem title="Notepad++ atnaujinimas" message="Notepad++ atnaujinimas negalimas XP sistemoje dėl mažo saugumo lygio.
+Ar norite parsisiųsti naujausią versiją iš Notepad++ puslapio?"/>
+			<DocTooDirtyToMonitor title="Nuolatinio stebėjimo klaida" message="Dokumentas turi pakeitimų. Išsaugokite juos prieš įjungdami nuolatinį stebėjimą."/>
+			<DocNoExistToMonitor title="Nuolatinio stebėjimo klaida" message="Failas turi egzistuoti."/>
+			<FileTooBigToOpen title="Failo dydžio problema" message="Failas yra per didelis ir negali būti atidarytas su Notepad++"/>
+			<CreateNewFileOrNot title="Naujas failas" message="&quot;$STR_REPLACE$&quot; neegzistuoja. Ar jį sukurti?"/>
+			<CreateNewFileError title="Naujas failas" message="Nepavyko sukurti failo &quot;$STR_REPLACE$&quot;."/>
+			<OpenFileError title="Klaida" message="Nepavyko atidaryti failo &quot;$STR_REPLACE$&quot;."/>
+			<FileBackupFailed title="Atsarginės kopijos klaida" message="Nepavyko išsaugoti ankstesnės failo versijos atsarginių kopijų kataloge &quot;$STR_REPLACE$&quot;.
+
+Ar visvien norite išsaugoti dabartinį failą?"/>
+			<LoadStylersFailed title="Nepavyko įkelti stylers.xml" message="Nepavyko įkelti &quot;$STR_REPLACE$&quot;!"/>
+			<LoadLangsFailed title="Redaktoriaus klaida" message="Nepavyko įkelti langs.xml!
+Ar norite pasirinkti savo langs.xml?"/>
+			<LoadLangsFailedFinal title="Redaktoriaus klaida" message="Nepavyko įkelti langs.xml!"/>
+			<FolderAsWorspaceSubfolderExists title="Nepavyko pridėti katalogo į darbo aplinką" message="Pridedamo katalogo pakatalogis jau yra darbo aplinkoje.
+Pašalinkite pakatalogį iš darbo aplinkos prieš pridedant katalogą &quot;$STR_REPLACE$&quot;."/>
+
+			<ProjectPanelChanged title="$STR_REPLACE$" message="Darbo aplinka turi pakeitimų. Ar norite juos išsaugoti?"/>
+			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Darbo aplinka neišsaugota."/>
+			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Darbo aplinkos atidarymas" message="Dabartinė darbo aplinka turi pakeitimų. Ar norite juos išsaugoti?"/>
+			<ProjectPanelNewDoSaveDirtyWsOrNot title="Darbo aplinkos kūrimas" message="Dabartinė darbo aplinka turi pakeitimų. Ar norite juos išsaugoti?"/>
+			<ProjectPanelOpenFailed title="Darbo aplinkos atidarymas" message="Nepavyko atidaryti darbo aplinkos.
+Pasirinktas failas neapibrėžia projekto."/>
+			<ProjectPanelRemoveFolderFromProject title="Katalogo šalinimas iš projekto" message="Visi kataloge esantys elementai bus pašalinti.
+Ar norite pašalinti šį katalogą iš projekto?"/>
+			<ProjectPanelRemoveFileFromProject title="Failo šalinimas iš projekto" message="Ar tikrai norite pašalinti šį failą iš projekto?"/>
+			<ProjectPanelReloadError title="Darbo aplinkos įkėlimas iš naujo" message="Nepavyko rasti failo įkėlimui iš naujo."/>
+			<ProjectPanelReloadDirty title="Darbo aplinkos įkėlimas iš naujo" message="Darbo aplinka turi pakeitimų. Įkėlimas iš naujo atšauks visus pakeitimus.
+Ar norite tęsti?"/>
+			<UDLNewNameError title="Vartotojo kalbos apibrėžimo klaida" message="Šis kalbos pavadinimas jau panaudotas,
+pakeiskite jį kitu."/>
+			<UDLRemoveCurrentLang title="Kalbos šalinimas" message="Ar norite pašalinti kalbą?"/>
+			<SCMapperDoDeleteOrNot title="Sparčiojo klavišo šalinimas" message="Ar norite pašalintį spartųjį klavišą?"/>
+			<FindCharRangeValueError title="Ženklų sekos klaida" message="Leidžiama reikšmės yra tarp 0 ir 255."/>
+			<OpenInAdminMode title="Išsaugojimo klaida" message="Failo nepavyko išsaugoti, gali trūkti teisių.
+Ar norite paleisti Notepad++ administratoriaus teisėmis?"/>
+			<OpenInAdminModeWithoutCloseCurrent title="Išsaugojimo klaida" message="Failo nepavyko išsaugoti, gali trūkti teisių.
+Ar norite paleisti Notepad++ administratoriaus teisėmis?"/>
+			<OpenInAdminModeFailed title="Notepad++ paleidimo klaida" message="Notepad++ negali būti paleistas administratoriaus teisėmis."/>
+		</MessageBox>
+		<ClipboardHistory>
+			<PanelTitle name="Mainų srities istorija"/>
+		</ClipboardHistory>
+		<DocList>
+			<PanelTitle name="Dok. perjungimas"/>
+			<ColumnName name="Pavadinimas"/>
+			<ColumnExt name="Išplėtimas"/>
+		</DocList>
+		<WindowsDlg>
+			<ColumnName name="Pavadinimas"/>
+			<ColumnPath name="Kelias"/>
+			<ColumnType name="Kalba"/>
+		</WindowsDlg>
+		<AsciiInsertion>
+			<PanelTitle name="ASCII ženklų įterpimas"/>
+			<ColumnVal name="Reikšmė"/>
+			<ColumnHex name="Šešioliktainis kodas"/>
+			<ColumnChar name="Ženklas"/>
+		</AsciiInsertion>
+		<DocumentMap>
+			<PanelTitle name="Detalus vaizdas"/>
+		</DocumentMap>
+		<FunctionList>
+			<PanelTitle name="Funkcijų sąrašas"/>
+			<SortTip name="Rikiuoti"/>
+			<ReloadTip name="Atnaujinti"/>
+		</FunctionList>
+		<FolderAsWorkspace>
+			<PanelTitle name="Katalogas kaip darbo aplinka"/>
+			<SelectFolderFromBrowserString name="Rinktis katalogą pridėjimui į darbo aplinką"/>
+			<Menu>
+				<Item id="3511" name="Šalinti"/>
+				<Item id="3512" name="Šalinti visus"/>
+				<Item id="3513" name="Pridėti"/>
+				<Item id="3514" name="Paleisti numatyta programa"/>
+				<Item id="3515" name="Atidaryti"/>
+				<Item id="3516" name="Kopijuoti kelią"/>
+				<Item id="3517" name="Rasti failuose..."/>
+				<Item id="3518" name="Naršyti čia (Explorer)"/>
+				<Item id="3519" name="Komandų eilutė čia (CMD)"/>
+			</Menu>
+		</FolderAsWorkspace>
+		<ProjectManager>
+			<PanelTitle name="Projektas"/>
+			<WorkspaceRootName name="Darbo aplinka"/>
+			<NewProjectName name="Projekto pavadinimas"/>
+			<NewFolderName name="Katalogas"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Darbo aplinka"/>
+					<Item id="1" name="Keisti"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="Nauja darbo aplinka"/>
+					<Item id="3123" name="Atidaryti darbo aplinką"/>
+					<Item id="3124" name="Iš naujo įkelti darbo aplinką"/>
+					<Item id="3125" name="Išsaugoti"/>
+					<Item id="3126" name="Išsaugoti kaip..."/>
+					<Item id="3127" name="Išsaugoti kopija kaip..."/>
+					<Item id="3121" name="Pridėti naują projektą"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Pervadinti"/>
+					<Item id="3112" name="Pridėti katalogą"/>
+					<Item id="3113" name="Pridėti failus..."/>
+					<Item id="3117" name="Pridėti naujus failus iš katalogo..."/>
+					<Item id="3114" name="Šalinti"/>
+					<Item id="3118" name="Perkelti aukščiau"/>
+					<Item id="3119" name="Perkelti žemiau"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Pervadinti"/>
+					<Item id="3112" name="Pridėti katalogą"/>
+					<Item id="3113" name="Pridėti failus..."/>
+					<Item id="3117" name="Pridėti naujus failus iš katalogo..."/>
+					<Item id="3114" name="Šalinti"/>
+					<Item id="3118" name="Perkelti aukščiau"/>
+					<Item id="3119" name="Perkelti žemiau"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Pervadinti"/>
+					<Item id="3115" name="Šalinti"/>
+					<Item id="3116" name="Keisti failo kelią"/>
+					<Item id="3118" name="Perkelti aukščiau"/>
+					<Item id="3119" name="Perkelti žemiau"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
+		<MiscStrings>
+			<!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
+			<word-chars-list-tip value="Tai leidžia pridėti papildomus žodžių ženklus kurie įtakos pažymėjimą dvigubu pelės paspaudimu ir paieškos rezultatus su parinktimi &quot;Rasti pilnus žodžius&quot;."/>
+			<word-chars-list-warning-begin value="Įsidėmėkite: "/>
+			<word-chars-list-space-warning value="$INT_REPLACE$ tarpas(ai)"/>
+			<word-chars-list-tab-warning value="$INT_REPLACE$ tabuliatorius(iai)"/>
+			<word-chars-list-warning-end value="  ženklų sąraše."/>
+			<cloud-invalid-warning value="Neteisingas kelias."/>
+			<cloud-restart-warning value="Norėdami pritaikyti pakeitimus, paleiskite Notepad++ iš naujo."/>
+			<cloud-select-folder value="Pasirinkite katalogą kuriame bus saugomi debesijos nustatymai"/>
+			<shift-change-direction-tip value="Naudokite Shift+Enter paieškai atvirkštine kryptimi"/>
+			<two-find-buttons-tip value="2 paieškos mygtukų režimas"/>
+			<find-status-top-reached value="Paieška: Rastas pirmas atitikmuo nuo galo. Buvo pasiekta dokumento pradžia"/>
+			<find-status-end-reached value="Paieška: Rastas pirmas atitikmuo nuo pradžios. Buvo pasiekta dokumento pabaiga"/>
+			<find-status-replaceinfiles-1-replaced value="Keitimas failuose: 1 atitikmuo buvo pakeistas"/>
+			<find-status-replaceinfiles-nb-replaced value="Keitimas failuose: $INT_REPLACE$ atitikmenys(ų) buvo pakeisti"/>
+			<find-status-replaceinfiles-re-malformed value="Keitimas atidarytuose failuose: Reguliari išraiška neteisinga"/>
+			<find-status-replaceinopenedfiles-1-replaced value="Keitimas atidarytuose failuose: 1 atitikmuo buvo pakeistas"/>
+			<find-status-replaceinopenedfiles-nb-replaced value="Keitimas atidarytuose failuose: $INT_REPLACE$ atitikmenys(ų) buvo pakeisti"/>
+			<find-status-mark-re-malformed value="Žymėjimas: Reguliari išraiška neteisinga"/>
+			<find-status-invalid-re value="Paieška: Reguliari išraiška neteisinga"/>
+			<find-status-mark-1-match value="1 atitikmuo"/>
+			<find-status-mark-nb-matches value="$INT_REPLACE$ atitikmenys(ų)"/>
+			<find-status-count-re-malformed value="Skaičiavimas: Reguliari išraiška neteisinga"/>
+			<find-status-count-1-match value="Skaičiavimas: 1 atitikmuo"/>
+			<find-status-count-nb-matches value="Skaičiavimas: $INT_REPLACE$ atitikmenys(ų)"/>
+			<find-status-replaceall-re-malformed value="Keitimas visų: Reguliari išraiška neteisinga"/>
+			<find-status-replaceall-1-replaced value="Keitimas visų: 1 atitikmuo buvo pakeistas"/>
+			<find-status-replaceall-nb-replaced value="Keitimas visų: $INT_REPLACE$ atitikmenys(ų) buvo pakeisti"/>
+			<find-status-replaceall-readonly value="Keitimas visų: Keitimas nepavyko. Dokumentas tik skaitomas"/>
+			<find-status-replace-end-reached value="Keitimas: Pakeistas pirmas atitikmuo nuo pradžios. Buvo pasiekta dokumento pabaiga"/>
+			<find-status-replace-top-reached value="Keitimas: Pakeistas pirmas atitikmuo nuo galo. Buvo pasiekta dokumento pradžia"/>
+			<find-status-replaced-next-found value="Keitimas: 1 atitikmuo buvo pakeistas. Rastas kitas atitikmuo"/>
+			<find-status-replaced-next-not-found value="Keitimas: 1 atitikmuo buvo pakeistas. Kitas atitikmuo nerastas"/>
+			<find-status-replace-not-found value="Keitimas: atitikimų nerasta"/>
+			<find-status-replace-readonly value="Keitimas: Keitimas nepavyko. Dokumentas tik skaitomas"/>
+			<find-status-cannot-find value="Paieška: Nepavyko rasti teksto &quot;$STR_REPLACE$&quot;"/>
+			<finder-find-in-finder value="Rasti paieškos rezultatuose..."/>
+			<finder-close-this value="Uždaryti paiešką"/>
+			<finder-collapse-all value="Suskleisti viską"/>
+			<finder-uncollapse-all value="Išskleisti viską"/>
+			<finder-copy value="Kopijuoti"/>
+			<finder-select-all value="Pažymėti viską"/>
+			<finder-clear-all value="Išvalyti viską"/>
+		</MiscStrings>
+	</Native-Langue>
+</NotepadPlus>

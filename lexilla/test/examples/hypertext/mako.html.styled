@@ -1,0 +1,76 @@
+{0}Mako examples extracted from https://docs.makotemplates.org/en/latest/syntax.html
+
+Expression
+{15}${{117}x{15}}{0}
+{15}${}{0}
+{15}${{117}pow{116}({117}x{116},{108}2{116}){106} {116}+{106} {117}pow{116}({117}y{116},{108}2{116}){15}}{0}
+
+Expression Escaping
+{15}${{109}"this is some text"{106} {116}|{106} {117}u{15}}{0}
+
+Control Structures
+{15}%{106} {117}if{106} {117}x{116}=={108}5{116}:{0}
+    this is some output
+{15}%{106} {117}endif{0}
+
+{15}%{106} {117}for{106} {117}a{106} {117}in{106} {116}[{110}'one'{116},{106} {110}'two'{116},{106} {110}'three'{116},{106} {110}'four'{116},{106} {110}'five'{116}]:{0}
+    {15}%{106} {117}if{106} {117}a{116}[{108}0{116}]{106} {116}=={106} {110}'t'{116}:{0}
+    its two or three
+    {15}%{106} {117}elif{106} {117}a{116}[{108}0{116}]{106} {116}=={106} {110}'f'{116}:{0}
+    four/five
+    {15}%{106} {117}else{116}:{0}
+    one
+    {15}%{106} {117}endif{0}
+{15}%{106} {117}endfor{0}
+
+The % sign can also be “escaped”, if you actually want to emit a percent sign as the first non whitespace character on a line, by escaping it as in %%:
+{15}%{116}%{106} {117}some{106} {117}text{0}
+    {15}%{116}%{106} {117}some{106} {117}more{106} {117}text{0}
+
+The Loop Context
+The loop context provides additional information about a loop while inside of a % for structure:
+
+{1}<ul>{0}
+{15}%{106} {117}for{106} {117}a{106} {117}in{106} {116}({109}"one"{116},{106} {109}"two"{116},{106} {109}"three"{116}):{0}
+    {1}<li>{0}Item {15}${{117}loop.index{15}}{0}: {15}${{117}a{15}}{1}</li>{0}
+{15}%{106} {117}endfor{0}
+{1}</ul>{0}
+
+A multiline version exists using {15}<%{2}doc{15}>{0} ...text... {15}</%{2}doc{15}>{0}:
+{15}<%{2}doc{15}>{0}
+    these are comments
+    more comments
+{15}</%{2}doc{15}>{0}
+
+Python Blocks
+Any arbitrary block of python can be dropped in using the {15}<%{106} {15}%>{0} tags:
+this is a template
+
+{15}<%{105}
+{106}    {117}x{106} {116}={106} {117}db.get_resource{116}({110}'foo'{116}){106}
+    {117}y{106} {116}={106} {116}[{117}z.element{106} {117}for{106} {117}z{106} {117}in{106} {117}x{106} {117}if{106} {117}x.frobnizzle{116}=={108}5{116}]{106}
+{15}%>{0}
+{15}%{106} {117}for{106} {117}elem{106} {117}in{106} {117}y{116}:{0}
+    element: {15}${{117}elem{15}}{0}
+{15}%{106} {117}endfor{0}
+Within {15}<%{106} {15}%>{0}, you’re writing a regular block of Python code. While the code can appear with an arbitrary level of preceding whitespace, it has to be consistently formatted with itself. Mako’s compiler will adjust the block of Python to be consistent with the surrounding generated Python code.
+
+Module-level Blocks
+A variant on {15}<%{106} {15}%>{0} is the module-level code block, denoted by {15}<%{116}!{106} {15}%>{0}. Code within these tags is executed at the module level of the template, and not within the rendering function of the template. Therefore, this code does not have access to the template’s context and is only executed when the template is loaded into memory (which can be only once per application, or more, depending on the runtime environment). Use the {15}<%{116}!{106} {15}%>{0} tags to declare your template’s imports, as well as any pure-Python functions you might want to declare:
+
+{15}<%{116}!{105}
+{106}    {111}import{106} {117}mylib{106}
+    {111}import{106} {117}re{106}
+
+    {117}def{106} {115}filter{116}({117}text{116}):{106}
+        {117}return{106} {117}re.sub{116}({117}r{110}'^@'{116},{106} {110}''{116},{106} {117}text{116}){106}
+{15}%>{0}
+
+Tags
+The rest of what Mako offers takes place in the form of tags. All tags use the same syntax, which is similar to an XML tag except that the first character of the tag name is a % character. The tag is closed either by a contained slash character, or an explicit closing tag:
+
+{15}<%{2}include{106} {117}file{116}={109}"foo.txt"{15}/>{0}
+
+{15}<%{2}def{106} {117}name{116}={109}"foo"{106} {117}buffered{116}={109}"True"{15}>{0}
+    this is a def
+{15}</%{2}def{15}>{0}

@@ -1,0 +1,193 @@
+{2}// Enumerate all primary styles: 0 to 27 and secondary styles 64 to 91
+{0}
+{2}// default=0
+{0}   
+
+{2}// comment=1
+{1}/* */{0}
+
+{1}/* commentline=2 */{0}
+{2}// example line
+{0}
+{2}// commentdoc=3
+{3}/** */{0}
+
+{2}// number=4
+{4}123{0}
+
+{2}// word=5
+{5}int{0}
+
+{2}// string=6
+{6}"string"{0}
+
+{2}// character=7
+{7}'c'{0}
+
+{2}// uuid=8
+{5}uuid{10}({8}3fd43029-1354-42f0-a5be-4a484c9c5250{10}){0}
+
+{2}// preprocessor=9
+{9}#define xxx 1
+{0}
+{2}// operator=10
+{10}{}{0}
+
+{2}// identifier=11
+{11}identifier{0}
+
+{2}// stringeol=12
+{12}"
+{0}
+{2}// verbatim=13
+{13}@"verbatim"{0}
+
+{2}// regex=14
+{10}({14}/regex/{10}){0}
+
+{2}// commentlinedoc=15
+{15}/// example
+{0}
+{2}// word2=16
+{16}second{0}
+
+{2}// commentdockeyword=17
+{3}/** {17}@file{3} */{0}
+
+{2}// commentdockeyworderror=18
+{3}/** {18}@wrongkey{3} */{0}
+
+{2}// globalclass=19
+{19}global{0}
+
+{2}// stringraw=20
+{20}R"( )"{0}
+
+{2}// tripleverbatim=21
+{21}""" xx """{0}
+
+{2}// hashquotedstring=22
+{22}#" xx "{0}
+
+{2}// preprocessorcomment=23
+{9}#define {23}/* comment */{9}
+{0}
+{2}// preprocessorcommentdoc=24
+{9}#define {24}/** comment */{9}
+{0}
+{2}// userliteral=25
+{25}1_date_{0}
+
+{2}// taskmarker=26
+{1}/* {26}TODO{1}: sleep */{0}
+
+{2}// escapesequence=27
+{6}"{27}\001{6} {27}\b{6}"{0}
+
+{2}// identifier substyles.11.1=128
+{128}vector{0}
+
+{2}// identifier substyles.11.2=129
+{129}std{0}
+
+{2}// commentdockeyword substyles.17.1=130
+{3}/** {130}@module{3} */{0}
+
+{2}// Secondary styles inside preprocessor excluded section
+{0}
+{9}#if 0
+{64}
+{66}// default=0
+{64}   
+
+{66}// comment=1
+{65}/* */{64}
+
+{65}/* commentline=2 */{64}
+{66}// example line
+{64}
+{66}// commentdoc=3
+{67}/** */{64}
+
+{66}// number=4
+{68}123{64}
+
+{66}// word=5
+{69}int{64}
+
+{66}// string=6
+{70}"string"{64}
+
+{66}// character=7
+{71}'c'{64}
+
+{66}// uuid=8
+{69}uuid{74}({72}3fd43029-1354-42f0-a5be-4a484c9c5250{74}){64}
+
+{66}// preprocessor=9
+{73}#define xxx 1
+{64}
+{66}// operator=10
+{74}{}{64}
+
+{66}// identifier=11
+{75}identifier{64}
+
+{66}// stringeol=12
+{76}"
+{64}
+{66}// verbatim=13
+{77}@"verbatim"{64}
+
+{66}// regex=14
+{74}({78}/regex/{74}){64}
+
+{66}// commentlinedoc=15
+{79}/// example
+{64}
+{66}// word2=16
+{80}second{64}
+
+{66}// commentdockeyword=17
+{67}/** {81}@file{67} */{64}
+
+{66}// commentdockeyworderror=18
+{67}/** {82}@wrongkey{67} */{64}
+
+{66}// globalclass=19
+{83}global{64}
+
+{66}// stringraw=20
+{84}R"( )"{64}
+
+{66}// tripleverbatim=21
+{85}""" xx """{64}
+
+{66}// hashquotedstring=22
+{86}#" xx "{64}
+
+{66}// preprocessorcomment=23
+{73}#define {87}/* comment */{73}
+{64}
+{66}// preprocessorcommentdoc=24
+{73}#define {88}/** comment */{73}
+{64}
+{66}// userliteral=25
+{89}1_date_{64}
+
+{66}// taskmarker=26
+{65}/* {90}TODO{65}: sleep */{64}
+
+{66}// escapesequence=27
+{70}"{91}\001{70} {91}\b{70}"{64}
+
+{66}// identifier substyles.75.1=192
+{192}vector{64}
+
+{66}// identifier substyles.75.2=193
+{193}std{64}
+
+{66}// commentdockeyword substyles.81.1=194
+{67}/** {194}@module{67} */{64}
+
+{9}#endif

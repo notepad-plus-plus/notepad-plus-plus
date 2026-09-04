@@ -1,0 +1,49 @@
+{12}(* Enumerate all styles: 0 to 15 *){0}
+{12}(* comment=12 *){0}
+
+{12}(* whitespace=0 *){0}
+	{12}(* w *){0}
+
+{12}(* identifier=1 *){0}
+{1}ident{0}
+
+{12}(* tagname=2 *){0}
+{2}`ident{0}
+
+{12}(* keyword=3 *){0}
+{3}and{0}
+
+{12}(* keyword2=4 *){0}
+{4}None{0}
+
+{12}(* keyword3=5 *){0}
+{5}char{0}
+
+{12}(* linenum=6 *){0}
+{6}#12{0}
+
+{12}(* operator=7 *){0}
+{7}*{0}
+
+{12}(* number=8 *){0}
+{8}12{0}
+
+{12}(* char=9 *){0}
+{9}'a'{0}
+
+{12}(* white=10 *){0}
+{12}(* this state can not be reached in caml mode, only SML mode but that stops other states *){0}
+{12}(* SML mode is triggered by "andalso" being in the keywords *){0}
+{11}"\ \x"{0}
+
+{12}(* string=11 *){0}
+{11}"string"{0}
+
+{12}(* comment1=13 *){0}
+{12}(* {13}(* comment 1 *){12} *){0}
+
+{12}(* comment2=14 *){0}
+{12}(* {13}(* {14}(* comment 2 *){13} *){12} *){0}
+
+{12}(* comment3=15 *){0}
+{12}(* {13}(* {14}(* {15}(* comment 1 *){14} *){13} *){12}  *){0}

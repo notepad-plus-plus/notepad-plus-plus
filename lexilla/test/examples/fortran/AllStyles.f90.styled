@@ -1,0 +1,47 @@
+{1}! Enumerate all styles: 0 to 14{0}
+{1}! This is not a viable source file, it just illustrates the different states in isolation.{0}
+
+{1}! comment=1{0}
+{1}! Comment{0}
+
+{1}! default=0{0}
+	{1}! w{0}
+
+{1}! number=2{0}
+{2}.37{0}
+
+{1}! string1=3{0}
+{3}'string'{0}
+
+{1}! string2=4{0}
+{4}"string"{0}
+
+{1}! stringeol=5{0}
+{5}" unclosed
+{0}
+{1}! operator=6{0}
+{6}+{0}
+
+{1}! identifier=7{0}
+{7}variable{0}
+
+{1}! word=8{0}
+{8}program{0}
+
+{1}! word2=9{0}
+{9}system_clock{0}
+
+{1}! word3=10{0}
+{10}doublecomplex{0}
+
+{1}! preprocessor=11{0}
+{11}!DEC$ ATTRIBUTES DLLEXPORT::sr1{0}
+
+{1}! operator2=12{0}
+{12}.lt.{0}
+
+{1}! label=13{0}
+{13}999{0}
+
+{1}! continuation=14{0}
+{14}&{0}

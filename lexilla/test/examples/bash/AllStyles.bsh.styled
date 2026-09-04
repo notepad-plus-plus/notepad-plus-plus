@@ -1,0 +1,61 @@
+{2}# Enumerate all styles: 0 to 13{0}
+
+{2}# comment=2{0}
+
+{2}# whitespace=0{0}
+	{2}# w{0}
+
+{2}# error=1{0}
+{1}0#0000{0}
+
+{2}# number=3{0}
+{3}123{0}
+
+{2}# keyword=4{0}
+{4}set{0}
+
+{2}# double-quoted-string=5{0}
+{5}"string"{0}
+
+{2}# single-quoted-string=6{0}
+{6}'str'{0}
+
+{2}# operator=7{0}
+{7}+{0}
+
+{2}# identifier=8{0}
+{8}identifier{0}
+
+{2}# scalar=9{0}
+{9}$scalar{0}
+{9}$?{8}Status{0}
+
+{2}# parameter-expansion=10{0}
+{10}${parameter}{0}
+
+{2}# back-ticks=11{0}
+{11}`ls`{0}
+
+{2}# here-doc-delimiter=12, here-doc=13{0}
+{12}<<EOF{13}
+  Here-doc.
+{12}EOF{0}
+
+{2}# other quoted types are mapped to current classes{0}
+
+{2}# double-quoted-string=5{0}
+{5}$"string"{0}
+{5}$'str'{0}
+
+{2}# back-ticks=11{0}
+{11}`ls`{0}
+${11}`ls`{0}
+{11}$(ls){0}
+
+{2}# Use substyles{0}
+
+{2}# Substyled identifier=128{0}
+{128}map{0}
+
+{2}# Substyled scalar=129{0}
+{129}$CWD{0}

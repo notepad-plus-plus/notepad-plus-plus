@@ -1,0 +1,32 @@
+// This file is part of Notepad++ project
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+#include <windows.h>
+#include "WindowsDlgRc.h"
+
+IDD_WINDOWS DIALOGEX 0, 0, 450, 300
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | DS_MODALFRAME
+CAPTION "Windows"
+FONT 8, L"MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "", IDC_WINDOWS_LIST, L"SysListView32", LVS_REPORT | LVS_OWNERDATA | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP, 7, 7, 206, 160
+    DEFPUSHBUTTON   "&Activate",IDOK,219,7,60,14
+    PUSHBUTTON      "&Save",IDC_WINDOWS_SAVE,219,26,60,14
+    PUSHBUTTON      "&Close window(s)",IDC_WINDOWS_CLOSE,219,44,60,14
+    PUSHBUTTON      "Sort &tabs",IDC_WINDOWS_SORT,219,60,60,14
+    PUSHBUTTON      "&OK",IDCANCEL,219,169,60,14
+END

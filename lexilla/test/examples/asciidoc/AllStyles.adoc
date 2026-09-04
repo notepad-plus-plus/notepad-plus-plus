@@ -1,0 +1,54 @@
+Text=0
+*Strong Emphasis (bold) 1=1*
+**Strong Emphasis (bold) 2=2**
+_Emphasis (italic) 1=3_
+__Emphasis (italic) 2=4__
+= Heading level 1=5
+== Heading level 2=6
+=== Heading level 3=7
+==== Heading level 4=8
+===== Heading level 5=9
+====== Heading level 6=10
+* Unordered list item=11
+. Ordered list item=12
+> Block quote=13
+https://14.com[Link=14]
+----
+Code block=15
+----
+++++
+Passthrough block=16
+++++
+// Comment=17
+////
+Comment Block=18
+////
++Literal=19+
+....
+Literal Block=20
+....
+:Attrib=21: Attrib Value=22
+ifdef::Macro=23
+ifeval::Macro=23
+ifndef::Macro=23
+endif::Macro=23
+audio::Macro=23
+include::Macro=23
+image::Macro=23
+video::Macro=23
+asciimath:Macro=23
+btn:Macro=23
+image:Macro=23
+kbd:Macro=23
+latexmath:Macro=23
+link:Macro=23
+mailto:Macro=23
+menu:Macro=23
+pass:Macro=23
+stem:Macro=23
+xref:Macro=23
+CAUTION:Macro=23
+IMPORTANT:Macro=23
+NOTE:Macro=23
+TIP:Macro=23
+WARNING:Macro=23

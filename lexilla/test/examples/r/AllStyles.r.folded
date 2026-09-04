@@ -1,0 +1,52 @@
+ 0 400 400   # https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Reserved-words
+ 0 400 400   if
+ 1 400 400   
+ 0 400 400   # base keyword (3)
+ 0 400 400   abbreviate
+ 1 400 400   
+ 0 400 400   # other keyword (4)
+ 0 400 400   acme
+ 1 400 400   
+ 0 400 400   # infix operator
+ 0 400 400   # https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Special-operators
+ 0 400 400   %x%
+ 1 400 400   
+ 0 400 400   # https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Literal-constants
+ 0 400 400   # Valid integer constants
+ 0 400 400   1L, 0x10L, 1000000L, 1e6L
+ 1 400 400   
+ 0 400 400   # Valid numeric constants
+ 0 400 400   1 10 0.1 .2 1e-7 1.2e+7
+ 0 400 400   1.1L, 1e-3L, 0x1.1p-2
+ 1 400 400   
+ 0 400 400   # Valid complex constants
+ 0 400 400   2i 4.1i 1e-2i
+ 1 400 400   
+ 0 400 400   # https://search.r-project.org/R/refmans/base/html/Quotes.html
+ 0 400 400   # single quotes
+ 0 400 400   '"It\'s alive!", he screamed.'
+ 1 400 400   
+ 0 400 400   # double quotes
+ 0 400 400   "\"It's alive!\", he screamed."
+ 1 400 400   
+ 0 400 400   # escape sequence
+ 0 400 400   "\n0\r1\t2\b3\a4\f5\\6\'7\"8\`9"
+ 0 400 400   "\1230\x121\u12342\U000123453\u{1234}4\U{00012345}5\
+ 0 400 400   6\ 7"
+ 0 400 400   # issue #206
+ 0 400 400   "\n"
+ 0 400 400   "\r\n"
+ 1 400 400   
+ 0 400 400   # Backticks
+ 0 400 400   d$`1st column`
+ 1 400 400   
+ 0 400 400   # double quoted raw string
+ 0 400 400   r"---(\1--)-)---"
+ 1 400 400   
+ 0 400 400   # single quoted raw string
+ 0 400 400   R'---(\1--)-)---'
+ 1 400 400   
+ 0 400 400   # infix EOL (11)
+ 0 400 400   %a
+ 0 400 400   #back to comment
+ 0 400   0   

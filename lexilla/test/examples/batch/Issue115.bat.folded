@@ -1,0 +1,40 @@
+ 0 400   0   rem remark and comment bug
+ 0 400   0   
+ 0 400   0   findstr /c:"rem this" "file"
+ 0 400   0   findstr /c:":: this" "file"
+ 0 400   0   
+ 0 400   0   :: SingleQuoted command string
+ 0 400   0   for /f %%A in ('rem this') do echo %%A
+ 0 400   0   
+ 0 400   0   :: DoubleQuoted string
+ 0 400   0   for /f %%A in ("rem this") do echo %%A
+ 0 400   0   
+ 0 400   0   :: BackQuote command string
+ 0 400   0   for /f "usebackq" %%A in (`rem this`) do echo %%A
+ 0 400   0   
+ 0 400   0   :: Test the handling of quotes ' and " and escape ^
+ 0 400   0   :: Comment
+ 0 400   0   
+ 0 400   0   :: With quotes
+ 0 400   0   ":: Text
+ 0 400   0   "":: Comment
+ 0 400   0   ':: Text
+ 0 400   0   '':: Comment
+ 0 400   0   :: Mixing quotes - likely incorrect as lexer tries ' and " separately, leaving an active quote
+ 0 400   0   "'":: Text
+ 0 400   0   
+ 0 400   0   :: With escapes
+ 0 400   0   ^:: Text
+ 0 400   0   ^":: Comment
+ 0 400   0   ^"":: Text
+ 0 400   0   ^""":: Comment
+ 0 400   0   ^^":: Text
+ 0 400   0   ^^"":: Comment
+ 0 400   0   ^^""":: Text
+ 0 400   0   
+ 0 400   0   :: With preceding command
+ 0 400   0   mkdir archive ":: Text
+ 0 400   0   mkdir archive "":: Comment
+ 0 400   0   mkdir archive ^":: Comment
+ 0 400   0   mkdir archive ^"":: Text
+ 0 400   0   

@@ -1,0 +1,75 @@
+ 0 400   0   % Demonstrate each possible style. Does not make sense as code.
+ 0 400   0   
+ 0 400   0   % A comment 1
+ 0 400   0   % Comment
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   % Whitespace 0
+ 0 400   0           
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   % Label 2
+ 0 400   0   label
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   % Not Validated Opcode 3 appears to always validate to either 5 or 6
+ 0 400   0   % so is never seen on screen.
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   % Division between Label and Opcode 4
+ 0 400   0   la      
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   % Valid Opcode 5
+ 0 400   0           TRAP
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   % Invalid Opcode 6
+ 0 400   0           UNKNOWN
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   % Division between Opcode and Operands 7
+ 0 400   0           LOC   
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   % Division of Operands 8
+ 0 400   0           LOC   0.
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   % Number 9
+ 0 400   0           BYTE  0
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   % Reference 10
+ 0 400   0           JMP @label
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   % Char 11
+ 0 400   0           BYTE 'a'
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   % String 12
+ 0 400   0           BYTE "Hello, world!"
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   % Register 13
+ 0 400   0           BYTE rA
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   % Hexadecimal Number 14
+ 0 400   0           BYTE #FF
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   % Operator 15
+ 0 400   0           BYTE  +
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   % Symbol 16
+ 0 400   0           TRAP  Fputs
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   % Preprocessor 17
+ 0 400   0   @include a.mms
+ 0 400   0   
+ 0 400   0   
+ 0 400   0   

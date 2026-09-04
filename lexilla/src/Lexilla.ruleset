@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="Lexilla Rules" Description="A set of rules for Lexilla. Don't check for owner, not_null, gsl::at, simple array access." ToolsVersion="17.0">
+  <IncludeAll Action="Warning" />
+  <Rules AnalyzerId="Microsoft.Analyzers.NativeCodeAnalysis" RuleNamespace="Microsoft.Rules.Native">
+    <Rule Id="C26400" Action="None" />
+    <Rule Id="C26429" Action="None" />
+    <Rule Id="C26446" Action="None" />
+    <Rule Id="C26455" Action="None" />
+    <Rule Id="C26481" Action="None" />
+    <Rule Id="C26482" Action="None" />
+    <Rule Id="C26485" Action="None" />
+  </Rules>
+</RuleSet>

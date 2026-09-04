@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ==================================================== [ Pascal ] -->
+
+		<parser
+			displayName="Pascal"
+			id         ="pascal_syntax"
+			commentExpr="(?x)                                                                      # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						   (?m-s:\x2F{2}.*$)                                                       # Single Line Comment
+						 | (?s:\x7B.*?\x7D)                                                        # Multi Line Comment 1st variant
+						 | (?s:\x28\x2A.*?\x2A\x29)                                                # Multi Line Comment 2nd variant
+						 | (?is:^\h*INTERFACE\h*$.*?^\h*IMPLEMENTATION\h*$)                        # Prevent matching procedure/function declarations in interface section of unit
+						"
+		>
+			<classRange
+				mainExpr="(?x)                                                                     # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						  (?im-s)                                                                  # multi-line mode on, single-line mode off
+						  ^\h*                                                                     # optional leading whitespace
+						  (?:                                                                      # indicator that following element exists on class level instead of instance level
+							 CLASS\s+
+						  )?
+						  (?:
+							   (?'CONSTRUCTOR_HEADER'                                              # constructor
+								 CONSTRUCTOR
+							   )
+							 | (?'DESTRUCTOR_HEADER'                                               # or destructor
+								 DESTRUCTOR
+							   )
+							 | (?'PROCEDURE_HEADER'                                                # or procedure
+								 PROCEDURE
+							   )
+							 | (?'FUNCTION_HEADER'                                                 # or function
+								 FUNCTION
+							   )
+							 | (?'OPERATOR_HEADER'                                                 # or operator
+								 OPERATOR
+							   )
+						  )\s+
+						  (?'CLASS_NAME'                                                           # class/interface name
+							(?:
+							   [A-Z_]\w*
+							   (?:                                                                   # match generic classes too
+								 \s*&lt;[^&gt;]+&gt;
+							   )?
+							   \s*\.\s*
+							)+                                                                       # match nested classes too
+						  )
+						  (?'METHOD_NAME'                                                          # method name
+							[A-Z_]\w*
+							(?:                                                                      # match generic methods too
+							  \s*&lt;[^&gt;]+&gt;
+							)?
+						  )
+						  (?'PARAM_LIST'                                                           # optional parameter list
+							\s*\(                                                                    # start-of-parameter-list indicator
+							[^()]*                                                                   # parameter list
+							\)                                                                       # end-of-parameter-list indicator
+						  )?
+						  (?('CONSTRUCTOR_HEADER')                                                 # constructors don't have a return type
+							\s*
+							;                                                                        # end-of-statement indicator
+						  )
+						  (?('DESTRUCTOR_HEADER')                                                  # destructors don't have a return type
+							\s*
+							;                                                                        # end-of-statement indicator
+						  )
+						  (?('PROCEDURE_HEADER')                                                   # procedures don't have a return type
+							\s*
+							;                                                                        # end-of-statement indicator
+						  )
+						  (?('FUNCTION_HEADER')                                                    # functions have a return type
+							\s*:                                                                     # return type indicator
+							\s*[^;]+                                                                 # return type identifier
+							;                                                                        # end-of-statement indicator
+						  )
+						  (?('OPERATOR_HEADER')                                                    # operators have a return type
+							\s*:                                                                     # type indicator
+							\s*[^;]+                                                                 # type identifier
+							;                                                                        # end-of-statement indicator
+						  )
+						 "
+			>
+				<className>
+					<nameExpr expr="(?i)(?:(CONSTRUCTOR|DESTRUCTOR|PROCEDURE|FUNCTION|OPERATOR)\s+)\K(?:(?:[A-Z_]\w*(?:\s*&lt;[^&gt;]+&gt;)?\s*\.\s*)+)(?:[A-Z_]\w*)" />
+					<nameExpr expr="(?i)(?:(?:[A-Z_]\w*(?:\s*&lt;[^&gt;]+&gt;)?\s*\.\s*)+)(?=[A-Z_])" />
+					<nameExpr expr="(?i)(?:(?:\s*\.\s*)?[A-Z_]\w*(?:\s*&lt;[^&gt;]+&gt;)?)+(?!\Z)" />
+				</className>
+				<function
+					mainExpr="(?x)                                                                 # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+							  (?im-s)                                                              # multi-line mode on, single-line mode off
+							  \s+
+							  (                                                                    # class/interface name
+								(?:
+								   [A-Z_]\w*
+								   (?:                                                               # match generic classes too
+									 \s*&lt;[^&gt;]+&gt;
+								   )?
+								   \s*\.\s*
+								)+                                                                   # match nested classes too
+							  )
+							  (                                                                    # method name
+								[A-Z_]\w*
+								(?:                                                                  # match generic methods too
+								   \s*&lt;[^&gt;]+&gt;
+								)?
+							  )
+							  (                                                                    # optional parameter list
+								\s*\(                                                                # start-of-parameter-list indicator
+								[^()]*                                                               # parameter list
+								\)                                                                   # end-of-parameter-list indicator
+							  )?
+							 "
+				>
+					<functionName>
+						<funcNameExpr expr="(?i)(?:(?:[A-Z_]\w*(?:\s*&lt;[^&gt;]+&gt;)?\s*\.\s*)+)\K(?:[A-Z_]\w*(?:\s*&lt;[^&gt;]+&gt;)?)(?:\s*\([^()]*\))*" />
+						<!-- comment out the following node to display the method with its parameters -->
+						<funcNameExpr expr="(?i)(?:[A-Z_]\w*(?:\s*&lt;[^&gt;]+&gt;)?)(?=\s*|\(|\Z)" />
+					</functionName>
+				</function>
+			</classRange>
+			<function
+				mainExpr="(?x)                                                                     # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						  (?im-s)                                                                  # multi-line mode on, single-line mode off
+						  ^\h*                                                                     # optional leading whitespace
+						  (?:
+							   (?:
+								  PROCEDURE\s+                                                     # procedure
+								  ([A-Z_]\w*)\s*                                                     #  name
+								  (?:                                                                #  optional parameter list
+									\([^()]*\)
+								  )?
+								  \s*;                                                               #  end-of-statement indicator
+							   )
+							 | (?:
+								  FUNCTION\s+                                                      # or function
+								  ([A-Z_]\w*)\s*                                                     # name
+								  (?:                                                                # optional parameter list
+									\([^()]*\)
+								  )?
+								  \s*:                                                               # return type indicator
+								  \s*[^;]+                                                           # return type identifier
+								  ;                                                                  # end-of-statement indicator
+							   )
+						  )
+						  (?:\s*OVERLOAD\s*;)?                                                     # function/procedure overloading
+						  (?:\s*INLINE\s*;)?                                                       # function/procedure inlining
+						  (?:\s*(?:REGISTER|PASCAL|CDECL|STDCALL|SAFECALL|WINAPI)\s*;)?            # calling convention
+						  (?:                                                                      # external function from object file
+							   (?:\s*(?:VARARGS)\s*;)                                                # variadic C function with cdecl calling convention
+							 | (?:\s*(?:EXTERNAL)\s+[^;]+;)                                          # or normal function
+						  )?
+						  (?!
+							 (?:\s*FORWARD\s*;)                                                    # prevent matching forward declarations in implementation section of unit
+						  )
+						  (?=                                                                      # only match function/procedure definitions
+							 (?:\s*
+								(?:                                                                  # optional comment
+									 (?s:\x7B.*?\x7D)                                                  #     multi line comment 1st variant
+								   | (?s:\x28\x2A.*?\x2A\x29)                                          # or  multi line comment 2nd variant
+								   | (?-s:\x2F{2}.*$)                                                  # or single line comment
+								)
+							 )*
+							 \s*(?:CONST|TYPE|VAR|LABEL|BEGIN|(?R))\s*                               # declaration block
+						  )
+						 "
+			>
+				<functionName>
+					<nameExpr expr="(?i)(?:(PROCEDURE|FUNCTION)\s+)\K(?:[A-Z_]\w*)(?:\s*\([^()]*\))*" />
+					<!-- comment out the following node to display the routine with its parameters -->
+					<nameExpr expr="(?i)(?:[A-Z_]\w*)(?=\s*|\(|$)" />
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

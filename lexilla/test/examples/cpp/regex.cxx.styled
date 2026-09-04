@@ -1,0 +1,21 @@
+{2}// regex.cxx Test Javascript regex literal support
+// Has .cxx extension but really JavaScript.
+{0}
+{2}// Basic
+{11}x{0} {10}={0} {14}/\d+/{0}
+
+{2}// Flags following
+{11}x{0} {10}={0} {14}/x_\w+/iu{0}
+
+{2}// Single character
+{11}x{0} {10}={0} {14}/a/{0}
+
+{2}// / inside set
+{11}x{0} {10}={0} {14}/\w+[+-*/]/{0}
+
+{2}// Empty -> Line comment
+//
+{0}
+{2}// Line end before terminating / so operator not regex.
+{11}x{0} {10}={0} {10}/{11}a{0}
+{10}/{0}

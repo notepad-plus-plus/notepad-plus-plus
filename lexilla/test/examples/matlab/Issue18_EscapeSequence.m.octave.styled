@@ -1,0 +1,14 @@
+{1}% Ensure escape sequences still work in octave{0}
+{1}% Octave terminates string at 3rd ", Matlab at 4th{0}
+{7}i{6}={8}"\" "{6};{0} {1}% " %{0}
+
+
+{1}% Octave allows string continuation with an escape{0}
+{7}b{0} {6}={0} {8}"multi\
+line"{0}
+
+{1}% No escape so string ends at line end {0}
+{7}c{0} {6}={0} {8}"multi{0}
+{7}line{8}"{0}
+
+{1}% end{0}

@@ -1,0 +1,22 @@
+ 0 400   0   <%@language=javas%>
+ 2 400   0 + <% 
+ 0 401   0 | #include 
+ 0 401   0 | serve x;
+ 2 401   0 + function x() {
+ 0 402   0 | }
+ 0 401   0 | %>
+ 0 400   0   <%@language=vbscript%>
+ 2 400   0 + <% 
+ 0 401   0 | sub x 'comment 
+ 0 401   0 | peek 1024
+ 0 401   0 | %>
+ 0 400   0   <!-- Folding for Python is incorrect. See #235. -->
+ 0 400   0   <%@language=python%>
+ 0 400   0   <% 
+ 0 400   0   import random
+ 0 400   0   x = 'comment'
+ 0 400   0   parse "x=8"
+ 0 400   0   %>
+ 2 3ff   0 + <head>
+ 0 400   0   <body></body>
+ 0 400   0   

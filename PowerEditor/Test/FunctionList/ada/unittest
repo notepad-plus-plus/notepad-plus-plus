@@ -1,0 +1,77 @@
+                                       -- Chapter 24 - Program 1 from https://perso.telecom-paristech.fr/pautet/Ada95/e_c24_p1.ada
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Sequential_IO;
+
+procedure BiSeqOut is
+
+   type MY_REC is
+      record
+         Age     : INTEGER;
+         Sex     : CHARACTER;
+         Initial : CHARACTER;
+      end record;
+
+   package Seq_IO is new Ada.Sequential_IO(MY_REC);
+   use Seq_IO;
+
+   Myself      : MY_REC;
+   My_Out_File : Seq_IO.FILE_TYPE;
+
+begin
+
+   Create(My_Out_File, Out_File, "NAMEFILE.TXT");
+
+   Myself.Sex := 'M';
+   Myself.Initial := 'X';
+
+   for Index in 1..100 loop
+      Myself.Age := Index;
+      Write(My_Out_File, Myself);
+   end loop;
+
+   Close(My_Out_File);
+
+end BiSeqOut;
+
+-- Result of Execution
+
+--   (The only output is a binary file named NAMEFILE.TXT)
+
+
+
+
+function Get_Idle
+return Boolean;
+
+
+function Get_State
+return Vt.State;
+
+
+procedure Update;
+
+function Int32_To_Byte_Array is
+new Unchecked_Conversion (Source => Vt.Int32, Target => Vt.Byte_Array);
+
+function Int8_To_U8 is new Unchecked_Conversion
+(Source => Vt.Int8, Target => Vt.U8);
+
+function Int32toInt8TwosComplement (value : Vt.Int32) return Vt.Int8 is
+begin
+-- body
+end Int32toInt8TwosComplement;
+
+function AproxU8 (n : Vt.U8; x : Vt.U8) return Boolean is
+eq : Boolean := False;
+begin
+-- code
+return eq;
+end AproxU8;
+
+function Read_I32 (Register : Vt.Address_Range) return Vt.Int_32 is
+Data : Vt.Int_32;
+begin
+-- code
+return Data;
+end Read_ I32;

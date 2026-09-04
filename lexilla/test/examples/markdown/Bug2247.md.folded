@@ -1,0 +1,31 @@
+ 0 400   0   # Checking resolution of bug 2247
+ 0 400   0   
+ 0 400   0   ~~~sql
+ 0 400   0   SELECT datetime() AS `date`;
+ 0 400   0   ~~~
+ 0 400   0   
+ 0 400   0   ```sql
+ 0 400   0   SELECT datetime() AS `date`;
+ 0 400   0   ```
+ 0 400   0   
+ 0 400   0   List of examples:
+ 0 400   0   
+ 0 400   0   -   example *one*
+ 0 400   0   
+ 0 400   0   -   example _two_
+ 0 400   0   
+ 0 400   0   -   example `inline code without end
+ 0 400   0   
+ 0 400   0       In case of **AAA**:
+ 0 400   0       
+ 0 400   0       ```sql
+ 0 400   0       SELECT strftime('%Y-%m-%d %H:%M:%S', 'now') AS `date`;
+ 0 400   0       ```
+ 0 400   0       
+ 0 400   0       or, in case of __BBB__:
+ 0 400   0       . . .
+ 0 400   0   
+ 0 400   0   -   example *three*
+ 0 400   0   
+ 0 400   0   Last paragraph.
+ 0 400   0   

@@ -1,0 +1,128 @@
+README for testing lexers with lexilla/test.
+
+The TestLexers application is run to test the lexing and folding of a set of example
+files and thus ensure that the lexers are working correctly.
+
+Lexers are accessed through the Lexilla shared library which must be built first
+in the lexilla/src directory.
+
+TestLexers works on Windows, Linux, or macOS and requires a C++20 compiler.
+MSVC 2019.4, GCC 9.0, Clang 9.0, and Apple Clang 11.0 are known to work.
+
+MSVC is only available on Windows.
+
+GCC and Clang work on Windows and Linux.
+
+On macOS, only Apple Clang is available.
+
+Lexilla requires some headers from Scintilla to build and expects a directory named
+"scintilla" containing a copy of Scintilla 5+ to be a peer of the Lexilla top level
+directory conventionally called "lexilla".
+
+To use GCC run lexilla/test/makefile:
+	make test
+
+To use Clang run lexilla/test/makefile:
+	make CLANG=1 test
+On macOS, CLANG is set automatically so this can just be
+	make test
+
+To use MSVC:
+	nmake -f testlexers.mak test
+There is also a project file TestLexers.vcxproj that can be loaded into the Visual
+C++ IDE.
+
+
+
+Adding or Changing Tests
+
+The lexilla/test/examples directory contains a set of tests located in a tree of
+subdirectories.
+
+Each directory contains example files along with control files called
+SciTE.properties and expected result files with .styled and .folded suffixes.
+If an unexpected result occurs then files with the additional suffix .new 
+(that is .styled.new or .folded.new) may be created.
+
+Each file in the examples tree that does not have an extension of .properties, .styled,
+.folded or .new is an example file that will be lexed and folded according to settings
+found in SciTE.properties.
+
+The results of the lex will be compared to the corresponding .styled file and if different
+the result will be saved to a .styled.new file for checking.
+So, if x.cxx is the example, its lexed form will be checked against x.cxx.styled and a
+x.cxx.styled.new file may be created. The .styled.new and .styled files contain the text
+of the original file along with style number changes in {} like:
+	{5}function{0} {11}first{10}(){0}
+After checking that the .styled.new file is correct, it can be promoted to .styled and
+committed to the repository.
+
+The results of the fold will be compared to the corresponding .folded file and if different
+the result will be saved to a .folded.new file for checking.
+So, if x.cxx is the example, its folded form will be checked against x.cxx.folded and a
+x.cxx.folded.new file may be created. The folded.new and .folded files contain the text
+of the original file along with fold information to the left like:
+
+ 2 400   0 + --[[ coding:UTF-8
+ 0 402   0 | comment ]]
+
+There are 4 columns before the file text representing the bits of the fold level:
+[flags (0xF000), level (0x0FFF), other (0xFFFF0000), picture].
+flags: may be 2 for header or 1 for whitespace.
+level: hexadecimal level number starting at 0x400. 'negative' level numbers like 0x3FF
+indicate errors in either the folder or in the input file, such as a C file that starts with #endif.
+other: can be used as the folder wants. Often used to hold the level of the next line.
+picture: gives a rough idea of the fold structure: '|' for level greater than 0x400,
+'+' for header, ' ' otherwise.
+After checking that the .folded.new file is correct, it can be promoted to .folded and
+committed to the repository.
+
+An interactive file comparison program like WinMerge (https://winmerge.org/) on
+Windows or meld (https://meldmerge.org/) on Linux can help examine differences
+between the .styled and .styled.new files or .folded and .folded.new files.
+
+On Windows, the scripts/PromoteNew.bat script can be run to promote all .new result
+files to their base names without .new.
+
+Styling and folding tests are first performed on the file as a whole, then the file is lexed
+and folded line-by-line. If there are differences between the whole file and line-by-line
+then a message with 'per-line is different' for styling or 'per-line has different folds' will be
+printed. Problems with line-by-line processing are often caused by local variables in the
+lexer or folder that are incorrectly initialised. Sometimes extra state can be inferred, but it
+may have to be stored between runs (possibly with SetLineState) or the code may have to
+backtrack to a previous safe line - often something like a line that starts with a character
+in the default style.
+
+The SciTE.properties file is similar to properties files used for SciTE but are simpler.
+The lexer to be run is defined with a lexer.{filepatterns} statement like:
+	lexer.*.d=d
+
+Keywords may be defined with keywords settings like:
+	keywords.*.cxx;*.c=int char
+	keywords2.*.cxx=open
+
+Substyles and substyle identifiers may be defined with settings like:
+	substyles.cpp.11=1
+	substylewords.11.1.*.cxx=map string vector
+
+Other settings are treated as lexer or folder properties and forwarded to the lexer/folder:
+	lexer.cpp.track.preprocessor=1
+	fold=1
+
+It is often necessary to set 'fold' in SciTE.properties to cause folding.
+
+Properties can be set for a particular file with an "if $(=" or "match" expression like so:
+if $(= $(FileNameExt);HeaderEOLFill_1.md)
+    lexer.markdown.header.eolfill=1
+match Header*1.md
+    lexer.markdown.header.eolfill=1
+
+More complex tests with additional configurations of keywords or properties can be performed
+by creating another subdirectory with the different settings in a new SciTE.properties.
+
+There is some support for running benchmarks on lexers and folders. The properties
+testlexers.repeat.lex and testlexers.repeat.fold specify the number of times example
+documents are lexed or folded. Set to a large number like testlexers.repeat.lex=10000
+then run with a profiler.
+
+A list of styles used in a lex can be displayed with testlexers.list.styles=1.

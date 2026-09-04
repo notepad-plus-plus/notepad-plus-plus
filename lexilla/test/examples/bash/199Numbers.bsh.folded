@@ -1,0 +1,91 @@
+ 0 400   0   # Lexing numeric literals
+ 1 400   0   
+ 0 400   0   # From issue #199
+ 1 400   0   
+ 0 400   0   # UUIDs
+ 1 400   0   
+ 0 400   0   virsh start 61a6a312-86d3-458c-824a-fa0adc2bd22c
+ 0 400   0   virsh start 61969312-86d3-458c-8249-fa0adc2bd22c
+ 0 400   0   virsh restore /opt/61a6a312-86d3-458c-824a-fa0adc2bd22c-suspend
+ 1 400   0   
+ 0 400   0   # Git items
+ 1 400   0   
+ 0 400   0   git checkout 998d611b516b0e485803089ecd53fdf0ea707a8c
+ 1 400   0   
+ 0 400   0   git log --no-walk 0e2ba9c
+ 0 400   0   git log --no-walk rel-5-2-4-97-g7405d4e7
+ 1 400   0   
+ 0 400   0   # Arithmetic and character ranges
+ 1 400   0   
+ 0 400   0   declare -i a=1+1; echo $a
+ 0 400   0   [[ $a == [0-9] ]] && echo 1
+ 1 400   0   
+ 0 400   0   # Brace expansion
+ 1 400   0   
+ 2 400   0 + for i in {1..10..2}; do
+ 0 401   0 | 	echo $i
+ 0 401   0 | done
+ 2 400   0 + for a in {A..Z..2}; do
+ 0 401   0 | 	echo $a
+ 0 401   0 | done
+ 1 400   0   
+ 0 400   0   # From Kein-Hong Man
+ 1 400   0   
+ 2 400   0 + #--------------------------------------------------------------------------
+ 0 401   0 | # Bash number formats
+ 0 401   0 | # (20070712)
+ 0 401   0 | # Octal lexing relaxed to allow hex digits to avoid flagging unnecessary
+ 0 401   0 | # and misleading number errors; radix-prefixed lexing behaviour is unchanged,
+ 0 401   0 | # as those cases are uncommon (to get strict lexing, define PEDANTIC_OCTAL).
+ 1 400   0   
+ 2 400   0 + # NOTE: Some people may want an entire non-number to be lexed in the normal
+ 0 401   0 | # style and not as part-number part-normal. If the user thinks there is a
+ 0 401   0 | # better case for the former, please lobby for it on the SF issue tracker.
+ 1 400   0   
+ 0 400   0   0123 0567	# octal good
+ 0 400   0   08 0789 077ABC	# octal bad (disabled 20070712, now lexed as numbers)
+ 0 400   0   066XYZ		# octal bad
+ 0 400   0   0xDEAD 0X1234	# hex good
+ 0 400   0   0xABCMNO 0XGHI	# hex bad
+ 1 400   0   
+ 2 400   0 + # extended "[base#]n" format where base is between 2-64
+ 0 401   0 | # digits range are 0-9a-zA-Z@_
+ 0 401   0 | # if base <= 36, then alphabets are case insensitive
+ 0 401   0 | # this style isn't likely in non-number code, so the lexer currently
+ 0 401   0 | # opts to colour the error in red -- send feedback if this is too
+ 0 401   0 | # intrusive; 'invalid octals' (but valid text) in red proved annoying...
+ 1 400   0   
+ 0 400   0   2#10101		# binary
+ 0 400   0   2#23456		# error (in red)
+ 0 400   0   8#0123456789AB	# error (in red)
+ 0 400   0   16#abcDEF123
+ 0 400   0   16#abcpqr	# bad
+ 0 400   0   64#xyzXYZ@_789	# full base-64
+ 0 400   0   99#xyzXYZ@_789	# error (in red; invalid base)
+ 0 400   0   111#xyzXYZ@_789	# error (in red; invalid base)
+ 1 400   0   
+ 0 400   0   567+0123*0xBCD	# with operators
+ 0 400   0   (4#0123-3#012)
+ 1 400   0   
+ 2 400   0 + # 20070712:
+ 0 401   0 | # Octal lexing relaxed to avoid marking some number sequences as octal
+ 0 401   0 | # errors. This is because the elements or apps controlled by bash may
+ 0 401   0 | # have a different view of numbers, so we avoid flagging unnecessary
+ 0 401   0 | # (and misleading) number errors. Radix-prefixed number lexing is
+ 0 401   0 | # unchanged, as those cases are uncommon (no feedback on it yet.)
+ 1 400   0   
+ 2 400   0 + # In the following, red-flagged 'octals' should now be lexed as normal
+ 0 401   0 | # numbers, allowing hex digits.
+ 1 400   0   
+ 0 400   0   # flightgear missing.sh
+ 0 400   0   scriptversion=2004-09-07.08
+ 1 400   0   
+ 0 400   0   # git t/t0000/basic.sh
+ 0 400   0   P=087704a96baf1c2d1c869a8b084481e121c88b5b
+ 1 400   0   
+ 0 400   0   # openssh config.guess
+ 0 400   0       *:procnto*:*:* | *:QNX:[0123456789]*:*)
+ 1 400   0   
+ 0 400   0   # with hex digits, the following will still be an invalid number
+ 0 400   0   066XYZ
+ 0 400   0   

@@ -1,0 +1,902 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<NotepadPlus>
+	<Native-Langue name="ಕನ್ನಡ" filename="kannada.xml" version="6.6.8">
+		<Menu>
+			<Main>
+				<!-- Main Menu Entries -->
+				<Entries>
+					<Item menuId="file" name="ಫೈಲ್"/>
+					<Item menuId="edit" name="ಎಡಿಟ್"/>
+					<Item menuId="search" name="ಸರ್ಚ್"/>
+					<Item menuId="view" name="ವ್ಯೂ"/>
+					<Item menuId="encoding" name="ಎನ್‌ಕೋಡಿಂಗ್"/>
+					<Item menuId="language" name="ಲ್ಯಾಂಗ್ವೇಜ್"/>
+					<Item menuId="settings" name="ಸೆಟ್ಟಿಂಗ್ಸ್"/>
+					<Item menuId="macro" name="ಮ್ಯಾಕ್ರೋ"/>
+					<Item menuId="run" name="ರನ್"/>
+					<Item menuId="Plugins" name="ಪ್ಲುಗೀನ್ಸ್"/>
+					<Item menuId="Window" name="ವಿಂಡೊ"/>
+				</Entries>
+				<!-- Sub Menu Entries -->
+				<SubEntries>
+					<Item subMenuId="file-openFolder" name="ಓಪನ್ ಕಂಟೇನಿಂಗ್ ಫೋಲ್ಡರ್"/>
+					<Item subMenuId="file-closeMore" name="ಕ್ಲೋಸ್ ಮೊರೆ"/>
+					<Item subMenuId="file-recentFiles" name="ರೀಸೆಂಟ್ ಫೈಲ್ಸ್"/>
+					<Item subMenuId="edit-copyToClipboard" name="ಕಾಪೀ ತೋ ಕ್ಲಿಪ್‌ಬೋರ್ಡ್"/>
+					<Item subMenuId="edit-indent" name="ಇನ್‌ಡೆಂಟ್"/>
+					<Item subMenuId="edit-convertCaseTo" name="ಕಾನ್‌ವರ್ಟ್ ಕೇಸ್ ತೋ"/>
+					<Item subMenuId="edit-lineOperations" name="ಲೈನ್ ಆಪರೇಶನ್ಸ್"/>
+					<Item subMenuId="edit-comment" name="ಕಾಮೆಂಟ್/ಉನ್ಕೊಮ್ಮೆಂಟ್"/>
+					<Item subMenuId="edit-autoCompletion" name="ಆಟೋ-ಕಂಪ್ಲೀಶನ್"/>
+					<Item subMenuId="edit-eolConversion" name="EOL ಕನ್ವರ್ಷನ್"/>
+					<Item subMenuId="edit-blankOperations" name="ಬ್ಲ್ಯಾಂಕ್ ಆಪರೇಶನ್ಸ್"/>
+					<Item subMenuId="edit-pasteSpecial" name="ಪೇಸ್ಟ್ ಸ್ಪೆಶಲ್"/>
+					<Item subMenuId="search-markAll" name="ಮಾರ್ಕ್ All"/>
+					<Item subMenuId="search-unmarkAll" name="ಉನ್ಮಾರ್ಕ್ ಆಲ್"/>
+					<Item subMenuId="search-jumpUp" name="ಜಂಪ್ ಅಪ್"/>
+					<Item subMenuId="search-jumpDown" name="ಜಂಪ್ ಡೌನ್"/>
+					<Item subMenuId="search-bookmark" name="ಬುಕ್‌ಮಾರ್ಕ್"/>
+					<Item subMenuId="view-showSymbol" name="ಶೋ ಸಿಂಬಲ್"/>
+					<Item subMenuId="view-zoom" name="ಸೂಮ್"/>
+					<Item subMenuId="view-moveCloneDocument" name="ಮೂವ್/ಕ್ಲೋನ್ ಕರೆಂಟ್ ಡಾಕ್ಯುಮೆಂಟ್"/>
+					<Item subMenuId="view-tab" name="Tab"/>
+					<Item subMenuId="view-collapseLevel" name="ಕೊಲ್ಯಾಪ್ಸ್ ಲೆವೆಲ್"/>
+					<Item subMenuId="view-uncollapseLevel" name="ಉನ್ಕೊಳ್ಲಾಪ್ಸೆ ಲೆವೆಲ್"/>
+					<Item subMenuId="view-project" name="ಪ್ರಾಜೆಕ್ಟ್"/>
+					<Item subMenuId="encoding-characterSets" name="ಕ್ಯಾರಕ್ಟರ್ ಸೆಟ್"/>
+					<Item subMenuId="encoding-arabic" name="ಅರಬಿಕ್"/>
+					<Item subMenuId="encoding-baltic" name="ಬಾಲ್ಟಿಕ್"/>
+					<Item subMenuId="encoding-celtic" name="ಸೆಲ್‌ಟಿಕ್"/>
+					<Item subMenuId="encoding-cyrillic" name="ಸರಿಲಿಕ್"/>
+					<Item subMenuId="encoding-centralEuropean" name="ಸೆಂಟ್ರಲ್ ಯುರೋಪಿಯನ್"/>
+					<Item subMenuId="encoding-chinese" name="ಚೈನೀಸ್"/>
+					<Item subMenuId="encoding-easternEuropean" name="ಈಸ್ಟರ್ನ್ ಯುರೋಪಿಯನ್"/>
+					<Item subMenuId="encoding-greek" name="ಗ್ರೀಕ್"/>
+					<Item subMenuId="encoding-hebrew" name="ಹಿಬ್ರ್ಯೂ"/>
+					<Item subMenuId="encoding-japanese" name="ಜಪಾನೀಸ್"/>
+					<Item subMenuId="encoding-korean" name="ಕೊರಿಯನ್"/>
+					<Item subMenuId="encoding-northEuropean" name="ನಾರ್ತ್ ಯುರೋಪಿಯನ್"/>
+					<Item subMenuId="encoding-thai" name="ಟೈ"/>
+					<Item subMenuId="encoding-turkish" name="ಟರ್ಕಿಶ್"/>
+					<Item subMenuId="encoding-westernEuropean" name="ವೆಸ್ಟರ್ನ್ ಯುರೋಪಿಯನ್"/>
+					<Item subMenuId="encoding-vietnamese" name="ವಿಯೆಟ್ನಾಮೀಸ್"/>
+					<Item subMenuId="settings-import" name="ಇಂಪಾರ್ಟ್"/>
+				</SubEntries>
+
+				<!-- all menu item -->
+				<Commands>
+					<Item id="41001" name="ನ್ಯೂ"/>
+					<Item id="41002" name="ಓಪನ್"/>
+					<Item id="41019" name="ಎಕ್ಸ್‌ಪ್ಲೋರರ್"/>
+					<Item id="41020" name="ಕ್ಮಡ್"/>
+					<Item id="41003" name="ಕ್ಲೋಸ್"/>
+					<Item id="41004" name="ಕ್ಲೋಸ್ ಆಲ್"/>
+					<Item id="41005" name="ಕ್ಲೋಸ್ ಆಲ್ ಬಟ್ ಕರೆಂಟ್ ಡಾಕ್ಯುಮೆಂಟ್"/>
+					<Item id="41009" name="ಕ್ಲೋಸ್ ಆಲ್ ತೋ ತೆ ಲೆಫ್ಟ್"/>
+					<Item id="41018" name="ಕ್ಲೋಸ್ ಆಲ್ ತೋ ತೆ ರೈಟ್"/>
+					<Item id="41006" name="ಸಾವೆ"/>
+					<Item id="41007" name="ಸಾವೆ ಆಲ್"/>
+					<Item id="41008" name="ಸಾವೆ ಆಸ್..."/>
+					<Item id="41010" name="ಪ್ರಿಂಟ್..."/>
+					<Item id="1001" name="ಪ್ರಿಂಟ್ ನೌ"/>
+					<Item id="41011" name="ಎಗ್ಸಿಟ್"/>
+					<Item id="41012" name="ಲೋಡ್ ಸೆಶನ್..."/>
+					<Item id="41013" name="ಸಾವೆ ಸೆಶನ್..."/>
+					<Item id="41014" name="ರಿಲೋಡ್ ಫ್ರಮ್ ಡಿಸ್ಕ್"/>
+					<Item id="41015" name="ಸಾವೆ ಆ ಕಾಪೀ ಆಸ್..."/>
+					<Item id="41016" name="ಡೆಲೀಟ್ ಫ್ರಮ್ ಡಿಸ್ಕ್"/>
+					<Item id="41017" name="ರಿನೇಮ್..."/>
+
+					<Item id="42001" name="ಕಟ್"/>
+					<Item id="42002" name="ಕಾಪೀ"/>
+					<Item id="42003" name="ಅಂಡೂ"/>
+					<Item id="42004" name="ರಿಡೂ"/>
+					<Item id="42005" name="ಪೇಸ್ಟ್"/>
+					<Item id="42006" name="ಡೆಲೀಟ್"/>
+					<Item id="42007" name="ಸೆಲೆಕ್ಟ್ ಆಲ್"/>
+					<Item id="42020" name="ಬಿಗಿನ್/ಎಂಡ್ ಸೆಲೆಕ್ಟ್"/>
+					<Item id="42008" name="ಇನ್‌ಕ್ರೀಸ್ ಲೈನ್ ಇನ್‌ಡೆಂಟ್"/>
+					<Item id="42009" name="ಡಿಕ್ರೀಸ್ ಲೈನ್ ಇನ್‌ಡೆಂಟ್"/>
+					<Item id="42010" name="ಡ್ಯೂಪ್ಲಿಕೇಟ್ ಕರೆಂಟ್ ಲೈನ್"/>
+					<Item id="42012" name="ಸ್ಪ್ಲಿಟ್ ಲೈನ್ಸ್"/>
+					<Item id="42013" name="ಜಾಯ್ನ್ ಲೈನ್ಸ್"/>
+					<Item id="42014" name="ಮೂವ್ ಅಪ್ ಕರೆಂಟ್ ಲೈನ್"/>
+					<Item id="42015" name="ಮೂವ್ ಡೌನ್ ಕರೆಂಟ್ ಲೈನ್"/>
+					<Item id="42016" name="ಉಪ್ಪೆರ್ಕಸೆ"/>
+					<Item id="42017" name="ಲೌಎರ್ಕಸೆ"/>
+					<Item id="42018" name="ಸ್ಟಾರ್ಟ್ ರೆಕಾರ್ಡಿಂಗ್"/>
+					<Item id="42019" name="ಸ್ಟಾಪ್ ರೆಕಾರ್ಡಿಂಗ್"/>
+					<Item id="42021" name="ಪ್ಲೇಬ್ಯಾಕ್"/>
+					<Item id="42022" name="ಟಾಗಲ್ ಸಿಂಗಲ್ ಲೈನ್ ಕಾಮೆಂಟ್"/>
+					<Item id="42023" name="ಬ್ಲಾಕ್ ಕಾಮೆಂಟ್"/>
+					<Item id="42047" name="ಬ್ಲಾಕ್ ಉನ್ಕೊಮ್ಮೆಂಟ್"/>
+					<Item id="42024" name="ಟ್ರಿಮ್ ಟ್ರೇಲಿಂಗ್ ಸ್ಪೇಸ್"/>
+					<Item id="42042" name="ಟ್ರಿಮ್ ಲೀಡಿಂಗ್ ಸ್ಪೇಸ್"/>
+					<Item id="42043" name="ಟ್ರಿಮ್ ಲೀಡಿಂಗ್ ಅಂಡ್ ಟ್ರೇಲಿಂಗ್ ಸ್ಪೇಸ್"/>
+					<Item id="42044" name="ಎಒಲ್ ತೋ ಸ್ಪೇಸ್"/>
+					<Item id="42045" name="ರಿಮೂವ್ ಅನ್ನೆಸೆಸರೀ ಬ್ಲ್ಯಾಂಕ್ ಅಂಡ್ EOL"/>
+					<Item id="42046" name="TAB ತೋ ಸ್ಪೇಸ್"/>
+					<Item id="42054" name="ಸ್ಪೇಸ್ ತೋ TAB (ಆಲ್)"/>
+					<Item id="42053" name="ಸ್ಪೇಸ್ ತೋ TAB (ಲೀಡಿಂಗ್)"/>
+					<Item id="42038" name="ಪೇಸ್ಟ್ HTML ಕಾಂಟೆಂಟ್"/>
+					<Item id="42039" name="ಪೇಸ್ಟ್ RTF ಕಾಂಟೆಂಟ್"/>
+					<Item id="42048" name="ಕಾಪೀ ಬೈನರೀ ಕಾಂಟೆಂಟ್"/>
+					<Item id="42049" name="ಕಟ್ ಬೈನರೀ ಕಾಂಟೆಂಟ್"/>
+					<Item id="42050" name="ಪೇಸ್ಟ್ ಬೈನರೀ ಕಾಂಟೆಂಟ್"/>
+					<Item id="42037" name="ಕಾಲಮ್ ಮೋಡ್..."/>
+					<Item id="42034" name="ಕಾಲಮ್ ಎಡಿಟರ್..."/>
+					<Item id="42051" name="ಕ್ಯಾರಕ್ಟರ್ ಪ್ಯಾನಲ್"/>
+					<Item id="42052" name="ಕ್ಲಿಪ್‌ಬೋರ್ಡ್ ಹಿಸ್ಟರೀ"/>
+					<Item id="42025" name="ಸಾವೆ ಕರೆಂಟ್ಲೀ ರೆಕಾರ್ಡೆಡ್ ಮ್ಯಾಕ್ರೋ"/>
+					<Item id="42026" name="ಟೆಕ್ಸ್ಟ್ ಡೈರೆಕ್ಶನ್ RTL"/>
+					<Item id="42027" name="ಟೆಕ್ಸ್ಟ್ ಡೈರೆಕ್ಶನ್ LTR"/>
+					<Item id="42028" name="ಸೆಟ್ ರೆಡ್-ಓನ್ಲೀ"/>
+					<Item id="42029" name="ಕರೆಂಟ್ ಫೈಲ್ ಪಾತ್ ತೋ ಕ್ಲಿಪ್‌ಬೋರ್ಡ್"/>
+					<Item id="42030" name="ಕರೆಂಟ್ ಫೈಲ್‌ನೇಮ್ ತೋ ಕ್ಲಿಪ್‌ಬೋರ್ಡ್"/>
+					<Item id="42031" name="ಕರೆಂಟ್ ಡಿರ್. ಪಾತ್ ತೋ ಕ್ಲಿಪ್‌ಬೋರ್ಡ್"/>
+					<Item id="42032" name="ರನ್ ಆ ಮ್ಯಾಕ್ರೋ ಮಲ್ಟಿಪಲ್ ಟೈಮ್ಸ್..."/>
+					<Item id="42035" name="ಸಿಂಗಲ್ ಲೈನ್ ಕಾಮೆಂಟ್"/>
+					<Item id="42036" name="ಸಿಂಗಲ್ ಲೈನ್ ಉನ್ಕೊಮ್ಮೆಂಟ್"/>
+					<Item id="42055" name="ರಿಮೂವ್ ಎಂಪ್ಟೀ ಲೈನ್ಸ್"/>
+					<Item id="42056" name="ರಿಮೂವ್ ಎಂಪ್ಟೀ ಲೈನ್ಸ್ (ಕಂಟೇನಿಂಗ್ ಬ್ಲ್ಯಾಂಕ್ ಕ್ಯಾರೆಕ್ಟರ್ಸ್)"/>
+					<Item id="42057" name="ಇನ್‌ಸರ್ಟ್ ಬ್ಲ್ಯಾಂಕ್ ಲೈನ್ ಅಬವ್ ಕರೆಂಟ್"/>
+					<Item id="42058" name="ಇನ್‌ಸರ್ಟ್ ಬ್ಲ್ಯಾಂಕ್ ಲೈನ್ ಬಿಲೋ ಕರೆಂಟ್"/>
+					<Item id="42059" name="ಸಾರ್ಟ್ ಲೈನ್ಸ್ ಇನ್ ಅಸೆಂಡಿಂಗ್ ಆರ್ಡರ್"/>
+					<Item id="42060" name="ಸಾರ್ಟ್ ಲೈನ್ಸ್ ಇನ್ ಡಿಸೆಂಡಿಂಗ್ ಆರ್ಡರ್"/>
+					<Item id="43001" name="ಫೈಂಡ್   (&amp;F)"/>
+					<Item id="43002" name="ಫೈಂಡ್ ನೆಕ್ಸ್ಟ್"/>
+					<Item id="43003" name="ರೀಪ್ಲೇಸ್..."/>
+					<Item id="43004" name="ಗೊ ತೋ..."/>
+					<Item id="43005" name="ಟಾಗಲ್ ಬುಕ್‌ಮಾರ್ಕ್"/>
+					<Item id="43006" name="ನೆಕ್ಸ್ಟ್ ಬುಕ್‌ಮಾರ್ಕ್"/>
+					<Item id="43007" name="ಪ್ರೀವಿಯಸ್ ಬುಕ್‌ಮಾರ್ಕ್"/>
+					<Item id="43008" name="ಕ್ಲಿಯರ್ ಆಲ್ ಬುಕ್‌ಮರ್ಕ್ಸ್"/>
+					<Item id="43018" name="ಕಟ್ ಬೂಕ್ಮಾರ್ಕೇಡ್ ಲೈನ್ಸ್"/>
+					<Item id="43019" name="ಕಾಪೀ ಬೂಕ್ಮಾರ್ಕೇಡ್ ಲೈನ್ಸ್"/>
+					<Item id="43020" name="ಪೇಸ್ಟ್ ತೋ (ರೀಪ್ಲೇಸ್) ಬೂಕ್ಮಾರ್ಕೇಡ್ ಲೈನ್ಸ್"/>
+					<Item id="43021" name="ರಿಮೂವ್ ಬೂಕ್ಮಾರ್ಕೇಡ್ ಲೈನ್ಸ್"/>
+					<Item id="43051" name="ರಿಮೂವ್ ಅನ್‌ಮಾರ್ಕ್ಡ್ ಲೈನ್ಸ್"/>
+					<Item id="43050" name="ಇನ್‌ವರ್ಸ್ ಬುಕ್‌ಮಾರ್ಕ್"/>
+					<Item id="43052" name="ಫೈಂಡ್ ಕ್ಯಾರೆಕ್ಟರ್ಸ್ ಇನ್ ರೇಂಜ್..."/>
+					<Item id="43053" name="ಸೆಲೆಕ್ಟ್ ಆಲ್ ಬಿಟ್ವೀನ್ ಮ್ಯಾಚಿಂಗ್ ಬ್ರೇಸಸ್"/>
+					<Item id="43009" name="ಗೊ ತೋ ಮ್ಯಾಚಿಂಗ್ ಬ್ರೇಸ್"/>
+					<Item id="43010" name="ಫೈಂಡ್ ಪ್ರೀವಿಯಸ್"/>
+					<Item id="43011" name="ಇಂಕ್ರಿಮೆಂಟಲ್ ಸರ್ಚ್"/>
+					<Item id="43013" name="ಫೈಂಡ್ ಇನ್ ಫೈಲ್ಸ್"/>
+					<Item id="43014" name="ಫೈಂಡ್ (ವೊಲಟೈಲ್) ನೆಕ್ಸ್ಟ್"/>
+					<Item id="43015" name="ಫೈಂಡ್ (ವೊಲಟೈಲ್) ಪ್ರೀವಿಯಸ್"/>
+					<Item id="43016" name="ಮಾರ್ಕ್ ಆಲ್"/>
+					<Item id="43017" name="ಉನ್ಮಾರ್ಕ್ ಆಲ್"/>
+					<Item id="43022" name="ಯೂಸಿಂಗ್ 1ಸ್ಟ್ರೀಟ್ ಸ್ಟೈಲ್"/>
+					<Item id="43023" name="ಕ್ಲಿಯರ್ 1ಸ್ಟ್ರೀಟ್ ಸ್ಟೈಲ್"/>
+					<Item id="43024" name="ಯೂಸಿಂಗ್ 2ನ್ಡ್ ಸ್ಟೈಲ್"/>
+					<Item id="43025" name="ಕ್ಲಿಯರ್ 2ನ್ಡ್ ಸ್ಟೈಲ್"/>
+					<Item id="43026" name="ಯೂಸಿಂಗ್ 3ರ್ಡ್ ಸ್ಟೈಲ್"/>
+					<Item id="43027" name="ಕ್ಲಿಯರ್ 3ರ್ಡ್ ಸ್ಟೈಲ್"/>
+					<Item id="43028" name="ಯೂಸಿಂಗ್ 4ತ್ ಸ್ಟೈಲ್"/>
+					<Item id="43029" name="ಕ್ಲಿಯರ್ 4ತ್ ಸ್ಟೈಲ್"/>
+					<Item id="43030" name="ಯೂಸಿಂಗ್ 5ತ್ ಸ್ಟೈಲ್"/>
+					<Item id="43031" name="ಕ್ಲಿಯರ್ 5ತ್ ಸ್ಟೈಲ್"/>
+					<Item id="43032" name="ಕ್ಲಿಯರ್ ಆಲ್ ಸ್ಟೈಲ್ಸ್"/>
+					<Item id="43033" name="1ಸ್ಟ್ರೀಟ್ ಸ್ಟೈಲ್"/>
+					<Item id="43034" name="2ನ್ಡ್ ಸ್ಟೈಲ್"/>
+					<Item id="43035" name="3ರ್ಡ್ ಸ್ಟೈಲ್"/>
+					<Item id="43036" name="4ತ್ ಸ್ಟೈಲ್"/>
+					<Item id="43037" name="5ತ್ ಸ್ಟೈಲ್"/>
+					<Item id="43038" name="ಫೈಂಡ್ ಸ್ಟೈಲ್"/>
+					<Item id="43039" name="1ಸ್ಟ್ರೀಟ್ ಸ್ಟೈಲ್"/>
+					<Item id="43040" name="2ನ್ಡ್ ಸ್ಟೈಲ್"/>
+					<Item id="43041" name="3ರ್ಡ್ ಸ್ಟೈಲ್"/>
+					<Item id="43042" name="4ತ್ ಸ್ಟೈಲ್"/>
+					<Item id="43043" name="5ತ್ ಸ್ಟೈಲ್"/>
+					<Item id="43044" name="ಫೈಂಡ್ ಸ್ಟೈಲ್"/>
+					<Item id="43045" name="ಸರ್ಚ್ ರಿಸಲ್ಟ್ಸ್ ವಿಂಡೊ"/>
+					<Item id="43046" name="ನೆಕ್ಸ್ಟ್ ಸರ್ಚ್ ರಿಸಲ್ಟ್"/>
+					<Item id="43047" name="ಪ್ರೀವಿಯಸ್ ಸರ್ಚ್ ರಿಸಲ್ಟ್"/>
+					<Item id="43048" name="ಸೆಲೆಕ್ಟ್ ಅಂಡ್ ಫೈಂಡ್ ನೆಕ್ಸ್ಟ್"/>
+					<Item id="43049" name="ಸೆಲೆಕ್ಟ್ ಅಂಡ್ ಫೈಂಡ್ ಪ್ರೀವಿಯಸ್"/>
+					<Item id="44009" name="ಪೋಸ್ಟ್-ಇಟ್"/>
+					<Item id="44010" name="ಫೋಲ್ಡ್ ಆಲ್"/>
+					<Item id="44019" name="ಶೋ ಆಲ್ ಕ್ಯಾರೆಕ್ಟರ್ಸ್"/>
+					<Item id="44020" name="ಶೋ ಇನ್‌ಡೆಂಟ್ ಗೈಡ್"/>
+					<Item id="44022" name="ರ್ಯಾಪ್"/>
+					<Item id="44023" name="ಸೂಮ್ ಇನ್ Ctrl + Mouse ವೀಲ್ ಅಪ್ (&amp;I)"/>
+					<Item id="44024" name="ಸೂಮ್ ಔಟ್ ಕ್ಟ್ರ್ಲ್ + ಮೌಸ್ ವೀಲ್ ಡೌನ್ (&amp;O)"/>
+					<Item id="44025" name="ಶೋ ವೈಟ್ ಸ್ಪೇಸ್ ಅಂಡ್ ಟ್ಯಾಬ್"/>
+					<Item id="44026" name="ಶೋ ಎಂಡ್ ಆಫ್ ಲೈನ್"/>
+					<Item id="44029" name="ಅನ್‌ಫೋಲ್ಡ್ ಆಲ್"/>
+					<Item id="44030" name="ಕೊಲ್ಯಾಪ್ಸ್ ಕರೆಂಟ್ ಲೆವೆಲ್"/>
+					<Item id="44031" name="ಉನ್ಕೊಳ್ಲಾಪ್ಸೆ ಕರೆಂಟ್ ಲೆವೆಲ್"/>
+					<Item id="44049" name="ಸಮ್ಮರೀ..."/>
+					<Item id="44080" name="ಡಾಕ್ಯುಮೆಂಟ್ ಮ್ಯಾಪ್"/>
+					<Item id="44084" name="ಫಂಕ್ಶನ್ ಲಿಸ್ಟ್"/>
+					<Item id="44086" name="1ಸ್ಟ್ರೀಟ್ ಟ್ಯಾಬ್"/>
+					<Item id="44087" name="2ನ್ಡ್ ಟ್ಯಾಬ್"/>
+					<Item id="44088" name="3ರ್ಡ್ ಟ್ಯಾಬ್"/>
+					<Item id="44089" name="4ತ್ ಟ್ಯಾಬ್"/>
+					<Item id="44090" name="5ತ್ ಟ್ಯಾಬ್"/>
+					<Item id="44091" name="6ತ್ ಟ್ಯಾಬ್"/>
+					<Item id="44092" name="7ತ್ ಟ್ಯಾಬ್"/>
+					<Item id="44093" name="8ತ್ ಟ್ಯಾಬ್"/>
+					<Item id="44094" name="9ತ್ ಟ್ಯಾಬ್"/>
+					<Item id="44095" name="ನೆಕ್ಸ್ಟ್ ಟ್ಯಾಬ್"/>
+					<Item id="44096" name="ಪ್ರೀವಿಯಸ್ ಟ್ಯಾಬ್"/>
+					<Item id="44032" name="ಟಾಗಲ್ ಫುಲ್ ಸ್ಕ್ರೀನ್ ಮೋಡ್"/>
+					<Item id="44033" name="ರಿಸ್ಟೋರ್ ಡಿಫಾಲ್ಟ್ ಸೂಮ್"/>
+					<Item id="44034" name="ಆಲ್ವೇಸ್ ಒನ್ ಟಾಪ್"/>
+					<Item id="44035" name="ಸೈಂಕ್‌ರನಿಸ್ ವರ್ಟಿಕಲ್ ಸ್ಕ್ರೋಲಿಂಗ್"/>
+					<Item id="44036" name="ಸೈಂಕ್‌ರನಿಸ್ ಹಾರಿಸಾಂಟಲ್ ಸ್ಕ್ರೋಲಿಂಗ್"/>
+					<Item id="44041" name="ಶೋ ರ್ಯಾಪ್ ಸಿಂಬಲ್"/>
+					<Item id="44072" name="ಫೋಕಸ್ ಒನ್ ಅನದರ್ ವ್ಯೂ"/>
+					<Item id="44081" name="ಪ್ರಾಜೆಕ್ಟ್ ಪ್ಯಾನಲ್ 1"/>
+					<Item id="44082" name="ಪ್ರಾಜೆಕ್ಟ್ ಪ್ಯಾನಲ್ 2"/>
+					<Item id="44083" name="ಪ್ರಾಜೆಕ್ಟ್ ಪ್ಯಾನಲ್ 3"/>
+					<Item id="45001" name="ಕಾನ್‌ವರ್ಟ್ ತೋ ವಿಂಡೊಸ್ ಫಾರ್ಮ್ಯಾಟ್"/>
+					<Item id="45002" name="ಕಾನ್‌ವರ್ಟ್ ತೋ ಯೂನಿಕ್ಸ್ ಫಾರ್ಮ್ಯಾಟ್"/>
+					<Item id="45003" name="ಕಾನ್‌ವರ್ಟ್ ತೋ ಮ್ಯಾಕ್ ಫಾರ್ಮ್ಯಾಟ್"/>
+					<Item id="45004" name="ಎನ್‌ಕೋಡ್ ಇನ್ ಆನ್ಸಿ"/>
+					<Item id="45005" name="ಎನ್‌ಕೋಡ್ ಇನ್ ಉತ್ಫ್-8"/>
+					<Item id="45006" name="ಎನ್‌ಕೋಡ್ ಇನ್ ಉಸ್-2 ಬಿಗ್ ಎಂಡಿಯನ್"/>
+					<Item id="45007" name="ಎನ್‌ಕೋಡ್ ಇನ್ ಉಸ್-2 ಲಿಟ್ಲ್ ಎಂಡಿಯನ್"/>
+					<Item id="45008" name="ಎನ್‌ಕೋಡ್ ಇನ್ UTF-8 ವಿದೌಟ್ ಬಾಮ್"/>
+					<Item id="45009" name="ಕಾನ್‌ವರ್ಟ್ ತೋ ಆನ್ಸಿ"/>
+					<Item id="45010" name="ಕಾನ್‌ವರ್ಟ್ ತೋ UTF-8 ವಿದೌಟ್ ಬಾಮ್"/>
+					<Item id="45011" name="ಕಾನ್‌ವರ್ಟ್ ತೋ UTF-8"/>
+					<Item id="45012" name="ಕಾನ್‌ವರ್ಟ್ ತೋ UCS-2 ಬಿಗ್ ಎಂಡಿಯನ್"/>
+					<Item id="45013" name="ಕಾನ್‌ವರ್ಟ್ ತೋ UCS-2 ಲಿಟ್ಲ್ ಎಂಡಿಯನ್"/>
+
+					<Item id="10001" name="ಮೂವ್ ತೋ ಅದರ್ ವ್ಯೂ"/>
+					<Item id="10002" name="ಕ್ಲೋನ್ ತೋ ಅದರ್ ವ್ಯೂ"/>
+					<Item id="10003" name="ಮೂವ್ ತೋ ನ್ಯೂ ಇನ್ಸ್ಟೆನ್ಸ್"/>
+					<Item id="10004" name="ಓಪನ್ ಇನ್ ನ್ಯೂ ಇನ್ಸ್ಟೆನ್ಸ್"/>
+
+					<Item id="46001" name="ಸ್ಟೈಲ್ ಕೋನ್ಫಿಗುರತೊರ್..."/>
+					<Item id="46250" name="ಡಿಫೈನ್ ಯುವರ್ ಲ್ಯಾಂಗ್ವೇಜ್..."/>
+					<Item id="46180" name="ಯೂಸರ್-ಡಿಫೈಂಡ್"/>
+					<Item id="47000" name="ಅಬೌಟ್ ನಾಟೆಪೇ++..."/>
+					<Item id="47010" name="ಕಮ್ಯಾಂಡ್ ಲೈನ್ ಆರ್ಗ್ಯುಮೆಂಟ್ಸ್..."/>
+					<Item id="47001" name="ನಾಟೆಪೇ++ ಹೋಮ್"/>
+					<Item id="47002" name="ನಾಟೆಪೇ++ ಪ್ರಾಜೆಕ್ಟ್ ಪೇಜ್"/>
+					<Item id="47003" name="ಆನ್‌ಲೈನ್ ಡಾಕ್ಯುಮೆಂಟೇಶನ್"/>
+					<Item id="47004" name="ಫೋರಮ್"/>
+					<Item id="47005" name="ಗೇಟ್ ಮೊರೆ ಪ್ಲುಗೀನ್ಸ್"/>
+					<Item id="47006" name="ಅಪ್‌ಡೇಟ್ ನಾಟೆಪೇ++"/>
+					<Item id="47008" name="ಹೆಲ್ಪ್ ಕಾಂಟೆಂಟ್ಸ್"/>
+					<Item id="47009" name="ಸೆಟ್ ಉಪ್ಡತೇರ್ ಪ್ರಾಕ್ಸೀ..."/>
+					<Item id="48005" name="ಇಂಪಾರ್ಟ್ ಪ್ಲುಗಿನ್(ಸ್) ..."/>
+					<Item id="48006" name="ಇಂಪಾರ್ಟ್ ಥೀಮ್(ಸ್) ..."/>
+					<Item id="48018" name="ಎಡಿಟ್ ಪೋಪುಪ್ ಕಾಂಟೆಕ್ಸ್ಟ್ ಮೆನೂ"/>
+					<Item id="48009" name="ಶಾರ್ಟ್‌ಕಟ್ ಮ್ಯಾಪರ್..."/>
+					<Item id="48011" name="ಪ್ರಿಫರೆನ್ಸಸ್..."/>
+					<Item id="49000" name="ರನ್...(&amp;R)"/>
+
+					<Item id="50000" name="ಫಂಕ್ಶನ್ ಕಂಪ್ಲೀಶನ್"/>
+					<Item id="50001" name="ವರ್ಡ್ ಕಂಪ್ಲೀಶನ್"/>
+					<Item id="50002" name="ಫಂಕ್ಶನ್ ಪ್ಯಾರಮೀಟರ್ಸ್ ಹಿಂಟ್"/>
+					<Item id="50006" name="ಪಾತ್ ಕಂಪ್ಲೀಶನ್"/>
+					<Item id="44042" name="ಹೈಡ್ ಲೈನ್ಸ್"/>
+					<Item id="42040" name="ಓಪನ್ ಆಲ್ ರೀಸೆಂಟ್ ಫೈಲ್ಸ್"/>
+					<Item id="42041" name="ಎಂಪ್ಟೀ ರೀಸೆಂಟ್ ಫೈಲ್ಸ್ ಲಿಸ್ಟ್"/>
+					<Item id="48016" name="ಮಾಡಿಫೈ ಶಾರ್ಟ್‌ಕಟ್/ಡೆಲೀಟ್ ಮ್ಯಾಕ್ರೋ..."/>
+					<Item id="48017" name="ಮಾಡಿಫೈ ಶಾರ್ಟ್‌ಕಟ್/ಡೆಲೀಟ್ ಕಮ್ಯಾಂಡ್..."/>
+				</Commands>
+			</Main>
+			<Splitter>
+			</Splitter>
+			<TabBar>
+				<Item CMID="0" name="ಕ್ಲೋಸ್"/>
+				<Item CMID="1" name="ಕ್ಲೋಸ್ ಆಲ್ ಬಟ್ ದಿಸ್"/>
+				<Item CMID="2" name="ಸಾವೆ"/>
+				<Item CMID="3" name="ಸಾವೆ ಆಸ್..."/>
+				<Item CMID="4" name="ಪ್ರಿಂಟ್"/>
+				<Item CMID="5" name="ಮೂವ್ ತೋ ಅದರ್ ವ್ಯೂ"/>
+				<Item CMID="6" name="ಕ್ಲೋನ್ ತೋ ಅದರ್ ವ್ಯೂ"/>
+				<Item CMID="7" name="ಫುಲ್ ಫೈಲ್ ಪಾತ್ ತೋ ಕ್ಲಿಪ್‌ಬೋರ್ಡ್"/>
+				<Item CMID="8" name="ಫೈಲ್‌ನೇಮ್ ತೋ ಕ್ಲಿಪ್‌ಬೋರ್ಡ್"/>
+				<Item CMID="9" name="ಕರೆಂಟ್ ಡಿರ್. ಪಾತ್ ತೋ ಕ್ಲಿಪ್‌ಬೋರ್ಡ್"/>
+				<Item CMID="10" name="ರಿನೇಮ್"/>
+				<Item CMID="11" name="ಮೂವ್ ತೋ ರಿಸೈಕಲ್ ಬಿನ್"/>
+				<Item CMID="12" name="ರೆಡ್-ಓನ್ಲೀ"/>
+				<Item CMID="13" name="ಕ್ಲಿಯರ್ ರೆಡ್-ಓನ್ಲೀ ಫ್ಲ್ಯಾಗ್"/>
+				<Item CMID="14" name="ಮೂವ್ ತೋ ನ್ಯೂ ಇನ್ಸ್ಟೆನ್ಸ್"/>
+				<Item CMID="15" name="ಓಪನ್ ಇನ್ ನ್ಯೂ ಇನ್ಸ್ಟೆನ್ಸ್"/>
+				<Item CMID="16" name="ರಿಲೋಡ್"/>
+				<Item CMID="17" name="ಕ್ಲೋಸ್ ಆಲ್ ತೋ ತೆ ಲೆಫ್ಟ್"/>
+				<Item CMID="18" name="ಕ್ಲೋಸ್ ಆಲ್ ತೋ ತೆ ರೈಟ್"/>
+				<Item CMID="19" name="ಓಪನ್ ಕಂಟೇನಿಂಗ್ ಫೋಲ್ಡರ್ ಇನ್ ಎಕ್ಸ್‌ಪ್ಲೋರರ್"/>
+				<Item CMID="20" name="ಓಪನ್ ಕಂಟೇನಿಂಗ್ ಫೋಲ್ಡರ್ ಇನ್ cmd"/>
+			</TabBar>
+		</Menu>
+
+		<Dialog>
+			<Find title="" titleFind="ಫೈಂಡ್" titleReplace="ರೀಪ್ಲೇಸ್" titleFindInFiles="ಫೈಂಡ್ ಇನ್ ಫೈಲ್ಸ್" titleMark="Mark">
+				<Item id="1" name="ಫೈಂಡ್ ನೆಕ್ಸ್ಟ್"/>
+				<Item id="2" name="ಕ್ಲೋಸ್"/>
+				<Item id="1620" name="ಫೈಂಡ್ ವಾಟ್:"/>
+				<Item id="1603" name="ಮ್ಯಾಚ್ ಹೋಲ್ ವರ್ಡ್ ಓನ್ಲೀ(&amp;W)"/>
+				<Item id="1604" name="ಮ್ಯಾಚ್ ಕೇಸ್(&amp;C)"/>
+				<Item id="1605" name="ರೆಗ್ಯುಲರ್ ಎಕ್ಸ್‌ಪ್ರೆಶನ್(&amp;E)"/>
+				<Item id="1606" name="ರ್ಯಾಪ್ ಅರೌಂಡ್(&amp;D)"/>
+				<Item id="1614" name="ಕೌಂಟ್"/>
+				<Item id="1615" name="ಫೈಂಡ್ ಆಲ್"/>
+				<Item id="1616" name="ಮಾರ್ಕ್ ಲೈನ್"/>
+				<Item id="1618" name="ಪರ್ಜ್ ಫಾರ್ ಈಚ್ ಸರ್ಚ್"/>
+				<Item id="1611" name="ರೀಪ್ಲೇಸ್ ವಿತ್:   (&amp;P)"/>
+				<Item id="1608" name="ರೀಪ್ಲೇಸ್   (&amp;R)"/>
+				<Item id="1609" name="ರೀಪ್ಲೇಸ್ ಆಲ್(&amp;A)"/>
+				<Item id="1623" name="ಟ್ರ್ಯಾನ್ಸ್ಪರೆನ್ಸೀ"/>
+				<Item id="1687" name="ಒನ್ ಲೂಸಿಂಗ್ ಫೋಕಸ್"/>
+				<Item id="1688" name="ಆಲ್ವೇಸ್"/>
+				<Item id="1632" name="ಇನ್ ಸೆಲೆಕ್ಶನ್"/>
+				<Item id="1633" name="ಕ್ಲಿಯರ್"/>
+				<Item id="1635" name="ರೀಪ್ಲೇಸ್ ಆಲ್ ಇನ್ ಆಲ್ ಓಪಂಡ್ ಡಾಕ್ಯುಮೆಂಟ್ಸ್"/>
+				<Item id="1636" name="ಫೈಂಡ್ ಆಲ್ ಇನ್ ಆಲ್ ಓಪಂಡ್ ಡಾಕ್ಯುಮೆಂಟ್ಸ್"/>
+				<Item id="1654" name="ಫಿಲ್‌ಟರ್ಸ್:"/>
+				<Item id="1655" name="ಡೈರೆಕ್ಟರೀ:"/>
+				<Item id="1656" name="ಫೈಂಡ್ ಆಲ್"/>
+				<Item id="1658" name="ಇನ್ ಆಲ್ ಸಬ್-ಫೋಲ್ಡರ್ಸ್"/>
+				<Item id="1659" name="ಇನ್ ಹಿಡನ್ ಫೋಲ್ಡರ್ಸ್"/>
+				<Item id="1624" name="ಸರ್ಚ್ ಮೋಡ್"/>
+				<Item id="1625" name="ನಾರ್ಮಲ್"/>
+				<Item id="1626" name="ಎಕ್ಸ್‌ಟೆಂಡೆಡ್ (\n, \r, \t, \0, \x...)"/>
+				<Item id="1660" name="ರೀಪ್ಲೇಸ್ ಇನ್ ಫೈಲ್ಸ್"/>
+				<Item id="1641" name="ಫೈಂಡ್ ಆಲ್ ಇನ್ ಕರೆಂಟ್ ಡಾಕ್ಯುಮೆಂಟ್"/>
+				<Item id="1686" name="ಟ್ರ್ಯಾನ್ಸ್ಪರೆನ್ಸೀ"/>
+				<Item id="1703" name="ಮ್ಯಾಚಸ್ ನೇವಲಿನೆ  (&amp;.)"/>
+			</Find>
+			<GoToLine title="ಗೊ ತೋ...">
+				<Item id="2007" name="ಲೈನ್"/>
+				<Item id="2008" name="ಆಫ್‌ಸೆಟ್"/>
+				<Item id="1" name="ಗೊ(&amp;G)"/>
+				<Item id="2" name="ಈ'ಮ್ ಗೋವಿಂಗ್ ನೋವೇರ್"/>
+				<Item id="2004" name="ಯೂ ಅರೆ ಹಿಯರ್:"/>
+				<Item id="2005" name="ಯೂ ವಾಂಟ್ ತೋ ಗೊ ತೋ:"/>
+				<Item id="2006" name="ಯೂ ಕ್ಯಾನ್'ಟ್ ಗೊ ಫರ್ದರ್ ತಾಣ:"/>
+			</GoToLine>
+
+			<Run title="ರನ್...">
+				<Item id="1903" name="ತೆ ಪ್ರೋಗ್ರಾಮ್ ತೋ ರನ್"/>
+				<Item id="1" name="ರನ್"/>
+				<Item id="2" name="ಕ್ಯಾನ್ಸಲ್"/>
+				<Item id="1904" name="ಸಾವೆ...ಸಾವೆ..."/>
+			</Run>
+
+			<StyleConfig title="ಸ್ಟೈಲ್ ಕೋನ್ಫಿಗುರತೊರ್">
+				<Item id="2" name="ಕ್ಯಾನ್ಸಲ್"/>
+				<Item id="2301" name="ಸಾವೆ &amp;&amp;ಕ್ಲೋಸ್"/>
+				<Item id="2303" name="ಟ್ರ್ಯಾನ್ಸ್ಪರೆನ್ಸೀ"/>
+				<Item id="2306" name="ಸೆಲೆಕ್ಟ್ ಥೀಮ್: "/>
+				<SubDialog>
+					<Item id="2204" name="ಬೋಲ್ಡ್"/>
+					<Item id="2205" name="ಐಟ್ಯಾಲಿಕ್"/>
+					<Item id="2206" name="ಫೋರ್‌ಗ್ರೌಂಡ್ ಕಲರ್"/>
+					<Item id="2207" name="ಬ್ಯಾಕ್‌ಗ್ರೌಂಡ್ ಕಲರ್"/>
+					<Item id="2208" name="ಫಾಂಟ್ ನೇಮ್:"/>
+					<Item id="2209" name="ಫಾಂಟ್ ಸೈಸ್:"/>
+					<Item id="2211" name="ಸ್ಟೈಲ್:"/>
+					<Item id="2212" name="ಕಲರ್ ಸ್ಟೈಲ್"/>
+					<Item id="2213" name="ಫಾಂಟ್ ಸ್ಟೈಲ್"/>
+					<Item id="2214" name="ಡಿಫಾಲ್ಟ್ ಎಕ್ಸ್ಟ್.:"/>
+					<Item id="2216" name="ಯೂಸರ್ ಎಕ್ಸ್ಟ್.:"/>
+					<Item id="2218" name="ಅಂಡರ್‌ಲೈನ್"/>
+					<Item id="2219" name="ಡಿಫಾಲ್ಟ್ ಕೀವರ್ಡ್ಸ್"/>
+					<Item id="2221" name="ಯೂಸರ್-ಡಿಫೈಂಡ್ ಕೀವರ್ಡ್ಸ್"/>
+					<Item id="2225" name="ಲ್ಯಾಂಗ್ವೇಜ್:"/>
+					<Item id="2226" name="ಎನೇಬಲ್ ಗ್ಲೋಬಲ್ ಫೋರ್‌ಗ್ರೌಂಡ್ ಕಲರ್"/>
+					<Item id="2227" name="ಎನೇಬಲ್ ಗ್ಲೋಬಲ್ ಬ್ಯಾಕ್‌ಗ್ರೌಂಡ್ ಕಲರ್"/>
+					<Item id="2228" name="ಎನೇಬಲ್ ಗ್ಲೋಬಲ್ ಫಾಂಟ್"/>
+					<Item id="2229" name="ಎನೇಬಲ್ ಗ್ಲೋಬಲ್ ಫಾಂಟ್ ಸೈಸ್"/>
+					<Item id="2230" name="ಎನೇಬಲ್ ಗ್ಲೋಬಲ್ ಬೋಲ್ಡ್ ಫಾಂಟ್ ಸ್ಟೈಲ್"/>
+					<Item id="2231" name="ಎನೇಬಲ್ ಗ್ಲೋಬಲ್ ಐಟ್ಯಾಲಿಕ್ ಫಾಂಟ್ ಸ್ಟೈಲ್"/>
+					<Item id="2232" name="ಎನೇಬಲ್ ಗ್ಲೋಬಲ್ ಅಂಡರ್‌ಲೈನ್ ಫಾಂಟ್ ಸ್ಟೈಲ್"/>
+				</SubDialog>
+
+			</StyleConfig>
+
+			<UserDefine title="ಯೂಸರ್-ಡಿಫೈಂಡ್">
+				<Item id="20001" name="ಡಾಕ್"/>
+				<Item id="20002" name="ರಿನೇಮ್"/>
+				<Item id="20003" name="ಕ್ರಿಯೇಟ್ ನ್ಯೂ..."/>
+				<Item id="20004" name="ರಿಮೂವ್"/>
+				<Item id="20005" name="ಸಾವೆ ಆಸ್..."/>
+				<Item id="20007" name="ಯೂಸರ್ ಲ್ಯಾಂಗ್ವೇಜ್: "/>
+				<Item id="20009" name="ಎಕ್ಸ್ಟ್.:"/>
+				<Item id="20012" name="ಇಗ್ನೋರ್ ಕೇಸ್"/>
+				<Item id="20011" name="ಟ್ರ್ಯಾನ್ಸ್ಪರೆನ್ಸೀ"/>
+				<Item id="20015" name="ಇಂಪಾರ್ಟ್..."/>
+				<Item id="20016" name="ಎಕ್ಸ್‌ಪೋರ್ಟ್..."/>
+				<StylerDialog title="ಸ್ಟೈಲರ್ ಡೈಯಲೋಗ್">
+					<Item id="25030" name="ಫಾಂಟ್ ಆಪ್ಶನ್ಸ್:"/>
+					<Item id="25006" name="ಫೋರ್‌ಗ್ರೌಂಡ್ ಕಲರ್"/>
+					<Item id="25007" name="ಬ್ಯಾಕ್‌ಗ್ರೌಂಡ್ ಕಲರ್"/>
+					<Item id="25031" name="ನೇಮ್:"/>
+					<Item id="25032" name="ಸೈಸ್:"/>
+					<Item id="25001" name="ಬೋಲ್ಡ್"/>
+					<Item id="25002" name="ಐಟ್ಯಾಲಿಕ್"/>
+					<Item id="25003" name="ಅಂಡರ್‌ಲೈನ್"/>
+					<Item id="25029" name="ನೆಸ್‌ಟಿಂಗ್:"/>
+					<Item id="25008" name="ಡೆಳಿಮೀಟೆರ್ 1"/>
+					<Item id="25009" name="ಡೆಳಿಮೀಟೆರ್ 2"/>
+					<Item id="25010" name="ಡೆಳಿಮೀಟೆರ್ 3"/>
+					<Item id="25011" name="ಡೆಳಿಮೀಟೆರ್ 4"/>
+					<Item id="25012" name="ಡೆಳಿಮೀಟೆರ್ 5"/>
+					<Item id="25013" name="ಡೆಳಿಮೀಟೆರ್ 6"/>
+					<Item id="25014" name="ಡೆಳಿಮೀಟೆರ್ 7"/>
+					<Item id="25015" name="ಡೆಳಿಮೀಟೆರ್ 8"/>
+					<Item id="25018" name="ಕೀವರ್ಡ್ 1"/>
+					<Item id="25019" name="ಕೀವರ್ಡ್ 2"/>
+					<Item id="25020" name="ಕೀವರ್ಡ್ 3"/>
+					<Item id="25021" name="ಕೀವರ್ಡ್ 4"/>
+					<Item id="25022" name="ಕೀವರ್ಡ್ 5"/>
+					<Item id="25023" name="ಕೀವರ್ಡ್ 6"/>
+					<Item id="25024" name="ಕೀವರ್ಡ್ 7"/>
+					<Item id="25025" name="ಕೀವರ್ಡ್ 8"/>
+					<Item id="25016" name="ಕಾಮೆಂಟ್"/>
+					<Item id="25017" name="ಕಾಮೆಂಟ್ ಲೈನ್"/>
+					<Item id="25026" name="ಆಪರೇಟರ್ 1"/>
+					<Item id="25027" name="ಆಪರೇಟರ್ 2"/>
+					<Item id="25028" name="ನಂಬರ್ಸ್"/>
+				</StylerDialog>
+				<Folder title="ಫೋಲ್ಡರ್ &amp;&amp; ಡಿಫಾಲ್ಟ್">
+					<Item id="21101" name="ಡಿಫಾಲ್ಟ್ ಸ್ಟೈಲ್"/>
+					<Item id="21102" name="ಸ್ಟೈಲರ್"/>
+					<Item id="21105" name="ಡಾಕ್ಯುಮೆಂಟೇಶನ್:"/>
+					<Item id="21104" name="ಟೆಂಪೋರರೀ ಡಾಕ್ ಸೀತೆ:"/>
+					<Item id="21106" name="ಫೋಲ್ಡ್ ಕಾಂಪ್ಯಾಕ್ಟ್ (ಫೋಲ್ಡ್ ಎಂಪ್ಟೀ ಲೈನ್ಸ್ ಟೂ)"/>
+					<Item id="21220" name="ಫೋಲ್ಡಿಂಗ್ ಇನ್ ಕೋಡ್ 1 ಸ್ಟೈಲ್:"/>
+					<Item id="21224" name="ಓಪನ್:"/>
+					<Item id="21225" name="ಮಿಡ್ಲ್:"/>
+					<Item id="21226" name="ಕ್ಲೋಸ್:"/>
+					<Item id="21227" name="ಸ್ಟೈಲರ್"/>
+					<Item id="21320" name="ಫೋಲ್ಡಿಂಗ್ ಇನ್ ಕೋಡ್ 2 ಸ್ಟೈಲ್ (ಸೆಪ್ಯಾರೇಟರ್ಸ್ ನೀಡೆಡ್):"/>
+					<Item id="21324" name="ಓಪನ್:"/>
+					<Item id="21325" name="ಮಿಡ್ಲ್:"/>
+					<Item id="21326" name="ಕ್ಲೋಸ್:"/>
+					<Item id="21327" name="ಸ್ಟೈಲರ್"/>
+					<Item id="21420" name="ಫೋಲ್ಡಿಂಗ್ ಇನ್ ಕಾಮೆಂಟ್ ಸ್ಟೈಲ್:"/>
+					<Item id="21424" name="ಓಪನ್:"/>
+					<Item id="21425" name="ಮಿಡ್ಲ್:"/>
+					<Item id="21426" name="ಕ್ಲೋಸ್:"/>
+					<Item id="21127" name="ಸ್ಟೈಲರ್"/>
+				</Folder>
+				<Keywords title="ಕೀವರ್ಡ್ಸ್ ಲಿಸ್ಟ್ಸ್">
+					<Item id="22101" name="1ಸ್ಟ್ರೀಟ್ ಗ್ರೂಪ್"/>
+					<Item id="22201" name="2ನ್ಡ್ ಗ್ರೂಪ್"/>
+					<Item id="22301" name="3ರ್ಡ್ ಗ್ರೂಪ್"/>
+					<Item id="22401" name="4ತ್ ಗ್ರೂಪ್"/>
+					<Item id="22451" name="5ತ್ ಗ್ರೂಪ್"/>
+					<Item id="22501" name="6ತ್ ಗ್ರೂಪ್"/>
+					<Item id="22551" name="7ತ್ ಗ್ರೂಪ್"/>
+					<Item id="22601" name="8ತ್ ಗ್ರೂಪ್"/>
+					<Item id="22121" name="ಪ್ರೀಫಿಕ್ಸ್ ಮೋಡ್"/>
+					<Item id="22221" name="ಪ್ರೀಫಿಕ್ಸ್ ಮೋಡ್"/>
+					<Item id="22321" name="ಪ್ರೀಫಿಕ್ಸ್ ಮೋಡ್"/>
+					<Item id="22421" name="ಪ್ರೀಫಿಕ್ಸ್ ಮೋಡ್"/>
+					<Item id="22471" name="ಪ್ರೀಫಿಕ್ಸ್ ಮೋಡ್"/>
+					<Item id="22521" name="ಪ್ರೀಫಿಕ್ಸ್ ಮೋಡ್"/>
+					<Item id="22571" name="ಪ್ರೀಫಿಕ್ಸ್ ಮೋಡ್"/>
+					<Item id="22621" name="ಪ್ರೀಫಿಕ್ಸ್ ಮೋಡ್"/>
+					<Item id="22122" name="ಸ್ಟೈಲರ್"/>
+					<Item id="22222" name="ಸ್ಟೈಲರ್"/>
+					<Item id="22322" name="ಸ್ಟೈಲರ್"/>
+					<Item id="22422" name="ಸ್ಟೈಲರ್"/>
+					<Item id="22472" name="ಸ್ಟೈಲರ್"/>
+					<Item id="22522" name="ಸ್ಟೈಲರ್"/>
+					<Item id="22572" name="ಸ್ಟೈಲರ್"/>
+					<Item id="22622" name="ಸ್ಟೈಲರ್"/>
+				</Keywords>
+				<Comment title="ಕಾಮೆಂಟ್  &amp;&amp; ನಂಬರ್">
+					<Item id="23003" name="ಲೈನ್ ಕಾಮೆಂಟ್ ಪೊಸಿಶನ್"/>
+					<Item id="23004" name="ಅಲೋ ಎನಿವೇರ್"/>
+					<Item id="23005" name="ಫೋರ್ಸ್ ಅಟ್ ಬಿಗಿನಿಂಗ್ ಆಫ್ ಲೈನ್"/>
+					<Item id="23006" name="ಅಲೋ ಪ್ರೆಸೀಡಿಂಗ್ ವ್ಹೀಟೆಸ್‌ಪಾಸೇ"/>
+					<Item id="23001" name="ಅಲೋ ಫೋಲ್ಡಿಂಗ್ ಆಫ್ ಕಾಮೆಂಟ್ಸ್"/>
+					<Item id="23326" name="ಸ್ಟೈಲರ್"/>
+					<Item id="23323" name="ಓಪನ್"/>
+					<Item id="23324" name="ಕಂಟಿನ್ಯೂ ಕ್ಯಾರಕ್ಟರ್"/>
+					<Item id="23325" name="ಕ್ಲೋಸ್"/>
+					<Item id="23301" name="ಕಾಮೆಂಟ್ ಲೈನ್ ಸ್ಟೈಲ್"/>
+					<Item id="23124" name="ಸ್ಟೈಲರ್"/>
+					<Item id="23122" name="ಓಪನ್"/>
+					<Item id="23123" name="ಕ್ಲೋಸ್"/>
+					<Item id="23101" name="ಕಾಮೆಂಟ್ ಸ್ಟೈಲ್"/>
+					<Item id="23201" name="ನಂಬರ್ ಸ್ಟೈಲ್"/>
+					<Item id="23220" name="ಸ್ಟೈಲರ್"/>
+					<Item id="23230" name="ಪ್ರೀಫಿಕ್ಸ್ 1"/>
+					<Item id="23232" name="ಪ್ರೀಫಿಕ್ಸ್ 2"/>
+					<Item id="23234" name="ಎಕ್ಸ್‌ಟ್ರಾಸ್ 1"/>
+					<Item id="23236" name="ಎಕ್ಸ್‌ಟ್ರಾಸ್ 2"/>
+					<Item id="23238" name="ಸಫಿಕ್ಸ್ 1"/>
+					<Item id="23240" name="ಸಫಿಕ್ಸ್ 2"/>
+					<Item id="23242" name="ರೇಂಜ್:"/>
+					<Item id="23244" name="ಡೆಸಿಮಲ್ ಸೆಪ್ಯಾರೇಟರ್"/>
+					<Item id="23245" name="ಡಾಟ್"/>
+					<Item id="23246" name="ಕಾಮ"/>
+					<Item id="23247" name="ಬೋತ್"/>
+				</Comment>
+				<Operator title="ಆಪರೇಟರ್ಸ್ &amp;&amp; ಡೆಳಿಮೀಟೆರ್ ">
+					<Item id="24101" name="ಆಪರೇಟರ್ಸ್ ಸ್ಟೈಲ್ "/>
+					<Item id="24113" name="ಸ್ಟೈಲರ್"/>
+					<Item id="24116" name="ಆಪರೇಟರ್ಸ್ 1"/>
+					<Item id="24117" name="ಆಪರೇಟರ್ಸ್2 (separators required)"/>
+					<Item id="24201" name="ಡೆಳಿಮೀಟೆರ್ 1 ಸ್ಟೈಲ್"/>
+					<Item id="24220" name="ಓಪನ್:"/>
+					<Item id="24221" name="ಎಸ್ಕೇಪ್:"/>
+					<Item id="24222" name="ಕ್ಲೋಸ್:"/>
+					<Item id="24223" name="ಸ್ಟೈಲರ್"/>
+					<Item id="24301" name="ಡೆಳಿಮೀಟೆರ್ 2 ಸ್ಟೈಲ್"/>
+					<Item id="24320" name="ಓಪನ್:"/>
+					<Item id="24321" name="ಎಸ್ಕೇಪ್:"/>
+					<Item id="24322" name="ಕ್ಲೋಸ್:"/>
+					<Item id="24323" name="ಸ್ಟೈಲರ್"/>
+					<Item id="24401" name="ಡೆಳಿಮೀಟೆರ್ 3 ಸ್ಟೈಲ್"/>
+					<Item id="24420" name="ಓಪನ್:"/>
+					<Item id="24421" name="ಎಸ್ಕೇಪ್:"/>
+					<Item id="24422" name="ಕ್ಲೋಸ್:"/>
+					<Item id="24423" name="ಸ್ಟೈಲರ್"/>
+					<Item id="24451" name="ಡೆಳಿಮೀಟೆರ್ 4 ಸ್ಟೈಲ್"/>
+					<Item id="24470" name="ಓಪನ್:"/>
+					<Item id="24471" name="ಎಸ್ಕೇಪ್:"/>
+					<Item id="24472" name="ಕ್ಲೋಸ್:"/>
+					<Item id="24473" name="ಸ್ಟೈಲರ್"/>
+					<Item id="24501" name="ಡೆಳಿಮೀಟೆರ್ 5 ಸ್ಟೈಲ್"/>
+					<Item id="24520" name="ಓಪನ್:"/>
+					<Item id="24521" name="ಎಸ್ಕೇಪ್:"/>
+					<Item id="24522" name="ಕ್ಲೋಸ್:"/>
+					<Item id="24523" name="ಸ್ಟೈಲರ್"/>
+					<Item id="24551" name="ಡೆಳಿಮೀಟೆರ್ 6 ಸ್ಟೈಲ್"/>
+					<Item id="24570" name="ಓಪನ್:"/>
+					<Item id="24571" name="ಎಸ್ಕೇಪ್:"/>
+					<Item id="24572" name="ಕ್ಲೋಸ್:"/>
+					<Item id="24573" name="ಸ್ಟೈಲರ್"/>
+					<Item id="24601" name="ಡೆಳಿಮೀಟೆರ್ 7 ಸ್ಟೈಲ್"/>
+					<Item id="24620" name="ಓಪನ್:"/>
+					<Item id="24621" name="ಎಸ್ಕೇಪ್:"/>
+					<Item id="24622" name="ಕ್ಲೋಸ್:"/>
+					<Item id="24623" name="ಸ್ಟೈಲರ್"/>
+					<Item id="24651" name="ಡೆಳಿಮೀಟೆರ್ 8 ಸ್ಟೈಲ್"/>
+					<Item id="24670" name="ಓಪನ್:"/>
+					<Item id="24671" name="ಎಸ್ಕೇಪ್:"/>
+					<Item id="24672" name="ಕ್ಲೋಸ್:"/>
+					<Item id="24673" name="ಸ್ಟೈಲರ್"/>
+				</Operator>
+				<Item id="24001" name="ಎನೇಬಲ್ ಎಸ್ಕೇಪ್ ಕ್ಯಾರಕ್ಟರ್:"/>
+			</UserDefine>
+			<Preference title="ಪ್ರಿಫರೆನ್ಸಸ್">
+				<Item id="6001" name="ಕ್ಲೋಸ್"/>
+				<Global title="ಜನರಲ್">
+					<Item id="6102" name="ಹೈಡ್"/>
+					<Item id="6103" name="ಸ್ಮಾಲ್ ಐಕಾನ್ಸ್"/>
+					<Item id="6104" name="ಬಿಗ್ ಐಕಾನ್ಸ್"/>
+					<Item id="6105" name="ಸ್ಟ್ಯಾಂಡರ್ಡ್ ಐಕಾನ್ಸ್"/>
+
+					<Item id="6107" name="ರೆಡ್ಯೂಸ್"/>
+					<Item id="6108" name="ಲಾಕ್ (ನೋ ಡ್ರಗ್ ಅಂಡ್ ಡ್ರಾಪ್)"/>
+					<Item id="6109" name="ಡಾರ್ಕನ್ ಇನ್ಯಾಕ್ಟಿವ್ ಟ್ಯಾಬ್ಸ್"/>
+					<Item id="6110" name="ಡ್ರಾ ಆ ಕಲರ್ಡ್ ಬಾರ್ ಒನ್ ಆಕ್ಟಿವ್ ಟ್ಯಾಬ್"/>
+
+					<Item id="6112" name="ಶೋ ಕ್ಲೋಸ್ ಬಟನ್ ಒನ್ ಈಚ್ ಟ್ಯಾಬ್"/>
+					<Item id="6113" name="ಡಬಲ್ ಕ್ಲಿಕ್ ತೋ ಕ್ಲೋಸ್ ಡಾಕ್ಯುಮೆಂಟ್"/>
+					<Item id="6118" name="ಹೈಡ್"/>
+					<Item id="6119" name="ಮಲ್ಟೀ-ಲೈನ್"/>
+					<Item id="6120" name="ವರ್ಟಿಕಲ್"/>
+
+					<Item id="6121" name="ಮೆನೂ ಬಾರ್"/>
+					<Item id="6122" name="ಹೈಡ್ (ಉಸೆ ಅಲ್ಟ್ ಆರ್ ಫ್10 ಕೀ ತೋ ಟಾಗಲ್)"/>
+					<Item id="6123" name="ಲೋಕಲೈಸೇಶನ್"/>
+
+					<Item id="6125" name="ಡಾಕ್ಯುಮೆಂಟ್ ಲಿಸ್ಟ್ ಪ್ಯಾನಲ್"/>
+					<Item id="6126" name="ಶೋ"/>
+					<Item id="6127" name="ಡಿಸೇಬಲ್ ಎಕ್ಸ್‌ಟೆನ್ಶನ್ ಕಾಲಮ್"/>
+				</Global>
+				<Scintillas title="ಎಡಿಟಿಂಗ್">
+					<Item id="6216" name="ಕರೆಟ್ ಸೆಟ್ಟಿಂಗ್ಸ್"/>
+					<Item id="6217" name="ವಿಡ್ತ್:"/>
+					<Item id="6219" name="ಬ್ಲಿಂಕ್ ರೇಟ್:"/>
+					<Item id="6221" name="F"/>
+					<Item id="6222" name="S"/>
+					<Item id="6224" name="ಮಲ್ಟೀ-ಎಡಿಟಿಂಗ್ ಸೆಟ್ಟಿಂಗ್ಸ್"/>
+					<Item id="6201" name="ಫೋಲ್ಡರ್ ಮಾರ್ಜಿನ್ ಸ್ಟೈಲ್"/>
+					<Item id="6202" name="ಸಿಂಪಲ್"/>
+					<Item id="6203" name="ಆರೋ"/>
+					<Item id="6204" name="ಸರ್ಕಲ್ ಟ್ರೀ"/>
+					<Item id="6205" name="ಬಾಕ್ಸ್ ಟ್ರೀ"/>
+					<Item id="6226" name="ನನ್"/>
+
+					<Item id="6227" name="ಲೈನ್ ರ್ಯಾಪ್"/>
+					<Item id="6228" name="ಡಿಫಾಲ್ಟ್"/>
+					<Item id="6229" name="ಅಲೈಂಡ್"/>
+					<Item id="6230" name="ಇನ್‌ಡೆಂಟ್"/>
+
+					<Item id="6206" name="ಡಿಸ್‌ಪ್ಲೇ ಲೈನ್ ನಂಬರ್ಸ್"/>
+					<Item id="6207" name="ಡಿಸ್‌ಪ್ಲೇ ಬುಕ್‌ಮರ್ಕ್ಸ್"/>
+					<Item id="6208" name="ಶೋ ವರ್ಟಿಕಲ್ ಎಡ್ಜ್"/>
+					<Item id="6209" name="ನಂಬರ್ ಆಫ್ ಕಾಲಮ್ಸ್: "/>
+					<Item id="6234" name="ಡಿಸೇಬಲ್ ಅಡ್ವ್ಯಾನ್ಸ್ಡ್ ಸ್ಕ್ರೋಲಿಂಗ್ ಫೀಚರ್
+(ಇಫ್ ಯೂ ಹವೆ ತೌಚ್ಪಾದ್ ಪ್ರಾಬ್ಲಮ್)"/>
+
+					<Item id="6211" name="ವರ್ಟಿಕಲ್ ಎಡ್ಜ್ ಸೆಟ್ಟಿಂಗ್ಸ್"/>
+					<Item id="6212" name="ಲೈನ್ ಮೋಡ್"/>
+					<Item id="6213" name="ಬ್ಯಾಕ್‌ಗ್ರೌಂಡ್ ಮೋಡ್"/>
+					<Item id="6214" name="ಎನೇಬಲ್ ಕರೆಂಟ್ ಲೈನ್ ಹೈಲೈಟಿಂಗ್"/>
+
+					<Item id="6231" name="ಬಾರ್ಡರ್ ವಿಡ್ತ್"/>
+				</Scintillas>
+
+				<NewDoc title="ನ್ಯೂ ಡಾಕ್ಯುಮೆಂಟ್">
+					<Item id="6401" name="ಫಾರ್ಮ್ಯಾಟ್"/>
+					<Item id="6402" name="ವಿಂಡೊಸ್"/>
+					<Item id="6403" name="ಯೂನಿಕ್ಸ್"/>
+					<Item id="6404" name="ಮ್ಯಾಕ್"/>
+					<Item id="6405" name="ಎನ್‌ಕೋಡಿಂಗ್"/>
+					<Item id="6406" name="ANSI"/>
+					<Item id="6407" name="UTF-8 ವಿದೌಟ್ BOM"/>
+					<Item id="6408" name="UTF-8"/>
+					<Item id="6409" name="UCS-2 Big Endian"/>
+					<Item id="6410" name="UCS-2 Little Endian"/>
+					<Item id="6411" name="ಡಿಫಾಲ್ಟ್ ಲ್ಯಾಂಗ್ವೇಜ್:"/>
+					<Item id="6419" name="ನ್ಯೂ ಡಾಕ್ಯುಮೆಂಟ್"/>
+					<Item id="6420" name="ಅಪ್ಲೈ ತೋ ಓಪಂಡ್ ಆನ್ಸಿ ಫೈಲ್ಸ್"/>
+				</NewDoc>
+
+				<DefaultDir title="ಡಿಫಾಲ್ಟ್ ಡೈರೆಕ್ಟರೀ">
+					<Item id="6413" name="ಡಿಫಾಲ್ಟ್ ಡೈರೆಕ್ಟರೀ (ಓಪನ್/ಸಾವೆ)"/>
+					<Item id="6414" name="ಫಾಲೊ ಕರೆಂಟ್ ಡಾಕ್ಯುಮೆಂಟ್"/>
+					<Item id="6415" name="ರಿಮೆಂಬರ್ ಲಾಸ್ಟ್ ಯೂಸ್ಡ್ ಡೈರೆಕ್ಟರೀ"/>
+				</DefaultDir>
+
+				<FileAssoc title="ಫೈಲ್ ಅಸೋಸಿಯೇಶನ್">
+					<Item id="4009" name="ಸಪೋರ್ಟೆಡ್ ಎಕ್ಷ್ಟ್ಸ್:"/>
+					<Item id="4010" name="ರಿಜಿಸ್ಟರ್ಡ್ ಎಕ್ಷ್ಟ್ಸ್:"/>
+				</FileAssoc>
+				<LangMenu title="ಲ್ಯಾಂಗ್ವೇಜ್ ಮೆನೂ">
+					<Item id="6505" name="ಅವೇಲಬಲ್ ಐಟಮ್ಸ್"/>
+					<Item id="6506" name="ಡಿಸೇಬಲ್ಡ್ ಐಟಮ್ಸ್"/>
+					<Item id="6507" name="ಮೇಕ್ ಲ್ಯಾಂಗ್ವೇಜ್ ಮೆನೂ ಕಾಂಪ್ಯಾಕ್ಟ್"/>
+					<Item id="6508" name="ಲ್ಯಾಂಗ್ವೇಜ್ ಮೆನೂ"/>
+				</LangMenu>
+
+				<TabSettings title="ಟ್ಯಾಬ್ ಸೆಟ್ಟಿಂಗ್ಸ್">
+					<Item id="6301" name="ಟ್ಯಾಬ್ ಸೆಟ್ಟಿಂಗ್ಸ್"/>
+					<Item id="6302" name="ರೀಪ್ಲೇಸ್ ಬೈ ಸ್ಪೇಸ್"/>
+					<Item id="6303" name=" ಟ್ಯಾಬ್ ಸೈಸ್:"/>
+					<Item id="6510" name="ಉಸೆ ಡಿಫಾಲ್ಟ್ ವ್ಯಾಲ್ಯೂ"/>
+				</TabSettings>
+
+				<Print title="Print">
+					<Item id="6601" name="ಪ್ರಿಂಟ್ ಲೈನ್ ನಂಬರ್"/>
+					<Item id="6602" name="ಕಲರ್ ಆಪ್ಶನ್ಸ್"/>
+					<Item id="6603" name="WYSIWYG"/>
+					<Item id="6604" name="ಇನ್‌ವರ್ಟ್"/>
+					<Item id="6605" name="ಬ್ಲ್ಯಾಕ್ ಒನ್ ವೈಟ್"/>
+					<Item id="6606" name="ನೋ ಬ್ಯಾಕ್‌ಗ್ರೌಂಡ್ ಕಲರ್"/>
+					<Item id="6607" name="ಮಾರ್ಜ್ ಸೆಟ್ಟಿಂಗ್ಸ್ (Unit:mm)"/>
+					<Item id="6612" name="ಲೆಫ್ಟ್"/>
+					<Item id="6613" name="ಟಾಪ್"/>
+					<Item id="6614" name="ರೈಟ್"/>
+					<Item id="6615" name="ಬಾಟಮ್"/>
+					<Item id="6706" name="ಬೋಲ್ಡ್"/>
+					<Item id="6707" name="ಐಟ್ಯಾಲಿಕ್"/>
+					<Item id="6708" name="ಹೆಡರ್"/>
+					<Item id="6709" name="ಲೆಫ್ಟ್ ಪಾರ್ಟ್"/>
+					<Item id="6710" name="ಮಿಡ್ಲ್ ಪಾರ್ಟ್"/>
+					<Item id="6711" name="ರೈಟ್ ಪಾರ್ಟ್"/>
+					<Item id="6717" name="ಬೋಲ್ಡ್"/>
+					<Item id="6718" name="ಐಟ್ಯಾಲಿಕ್"/>
+					<Item id="6719" name="ಫುಟರ್"/>
+					<Item id="6720" name="ಲೆಫ್ಟ್ ಪಾರ್ಟ್"/>
+					<Item id="6721" name="ಮಿಡ್ಲ್ ಪಾರ್ಟ್"/>
+					<Item id="6722" name="ರೈಟ್ ಪಾರ್ಟ್"/>
+					<Item id="6723" name="ಆಡ್"/>
+					<Item id="6725" name="ವೇರಿಯಬಲ್:"/>
+					<Item id="6727" name="ಹಿಯರ್ ಡಿಸ್‌ಪ್ಲೇ ಯುವರ್ ವೇರಿಯಬಲ್ ಸೆಟ್ಟಿಂಗ್ಸ್"/>
+					<Item id="6728" name="ಹೆಡರ್ ಅಂಡ್ ಫುಟರ್"/>
+				</Print>
+
+				<RecentFilesHistory title="ರೀಸೆಂಟ್ ಫೈಲ್ಸ್ ಹಿಸ್ಟರೀ">
+					<Item id="6304" name="ರೀಸೆಂಟ್ ಫೈಲ್ಸ್ ಹಿಸ್ಟರೀ"/>
+					<Item id="6306" name="ಮ್ಯಾಕ್ಸ್. ನಂಬರ್ ಆಫ್ ಎಂಟ್ರೀಸ್:"/>
+					<Item id="6305" name="ಡಾನ್'ಟ್ ಚೆಕ್ ಅಟ್ ಲಾಂಚ್ ಟೈಮ್"/>
+					<Item id="6429" name="ಡಿಸ್‌ಪ್ಲೇ"/>
+					<Item id="6424" name="ಇನ್ ಸುಬ್‌ಮೆನು"/>
+					<Item id="6425" name="ಓನ್ಲೀ ಫೈಲ್ ನೇಮ್"/>
+					<Item id="6426" name="ಫುಲ್ ಫೈಲ್ ನೇಮ್ ಪಾತ್"/>
+					<Item id="6427" name="ಕಸ್ಟಮೈಸ್ ಮ್ಯಾಗ್ಸಿಮಮ್ ಲೆಂಗ್ತ್:"/>
+				</RecentFilesHistory>
+
+				<Backup title="ಬ್ಯಾಕಪ್">
+					<Item id="6817" name="ಸೆಶನ್ ಸ್ನ್ಯಾಪ್‌ಶಾಟ್ ಅಂಡ್ ಪೀರಿಯಾಡಿಕ್ ಬ್ಯಾಕಪ್"/>
+					<Item id="6818" name="ಎನೇಬಲ್ ಸೆಶನ್ ಸ್ನ್ಯಾಪ್‌ಶಾಟ್ ಅಂಡ್ ಪೀರಿಯಾಡಿಕ್ ಬ್ಯಾಕಪ್"/>
+					<Item id="6819" name="ಬ್ಯಾಕಪ್ ಇನ್ ಎವೆರೀ"/>
+					<Item id="6821" name="ಸೆಕೆಂಡ್ಸ್"/>
+					<Item id="6822" name="ಬ್ಯಾಕಪ್ ಪಾತ್:"/>
+					<Item id="6309" name="ರಿಮೆಂಬರ್ ಕರೆಂಟ್ ಸೆಶನ್ ಫಾರ್ ನೆಕ್ಸ್ಟ್ ಲಾಂಚ್"/>
+					<Item id="6801" name="ಬ್ಯಾಕಪ್"/>
+					<Item id="6315" name="ನನ್"/>
+					<Item id="6316" name="ಸಿಂಪಲ್ ಬ್ಯಾಕಪ್"/>
+					<Item id="6317" name="ವ್ರ್ಬಸ್ ಬ್ಯಾಕಪ್"/>
+					<Item id="6804" name="ಕಸ್ಟಮ್ ಬ್ಯಾಕಪ್ ಡೈರೆಕ್ಟರೀ"/>
+					<Item id="6803" name="ಡೈರೆಕ್ಟರೀ:"/>
+				</Backup>
+
+				<AutoCompletion title="Auto-Completion">
+					<Item id="6807" name="Auto-Completion"/>
+					<Item id="6808" name="ಎನೇಬಲ್ auto-completion ಒನ್ ಈಚ್ ಇನ್‌ಪುಟ್"/>
+					<Item id="6809" name="ಫಂಕ್ಶನ್ ಕಂಪ್ಲೀಶನ್"/>
+					<Item id="6810" name="ವರ್ಡ್ ಕಂಪ್ಲೀಶನ್"/>
+					<Item id="6816" name="ಫಂಕ್ಶನ್ ಅಂಡ್ ವರ್ಡ್ ಕಂಪ್ಲೀಶನ್"/>
+					<Item id="6811" name="ಫ್ರಮ್"/>
+					<Item id="6813" name="ತ್ ಕ್ಯಾರಕ್ಟರ್"/>
+					<Item id="6814" name="ವ್ಯಾಲಿಡ್ ವ್ಯಾಲ್ಯೂ: 1 - 9"/>
+					<Item id="6815" name="ಫಂಕ್ಶನ್ ಪ್ಯಾರಮೀಟರ್ಸ್ ಹಿಂಟ್ ಒನ್ ಇನ್‌ಪುಟ್"/>
+					<Item id="6851" name="ಆಟೋ-ಇನ್‌ಸರ್ಟ್"/>
+					<Item id="6857" name="ಹ್ಟ್‌ಮ್‌ಲ್/ಕ್ಷ್ಮ್‌ಲ್ ಕ್ಲೋಸ್ ಟ್ಯಾಗ್ "/>
+					<Item id="6858" name="ಓಪನ್"/>
+					<Item id="6859" name="ಕ್ಲೋಸ್"/>
+					<Item id="6860" name="ಮ್ಯಾಚ್ಡ್ ಪೇರ್ 1:"/>
+					<Item id="6863" name="ಮ್ಯಾಚ್ಡ್ ಪೇರ್ 2:"/>
+					<Item id="6866" name="ಮ್ಯಾಚ್ಡ್ ಪೇರ್ 3:"/>
+				</AutoCompletion>
+
+				<MultiInstance title="ಮಲ್ಟೀ-ಇನ್ಸ್ಟೆನ್ಸ್">
+					<Item id="6151" name="ಮಲ್ಟೀ-ಇನ್ಸ್ಟೆನ್ಸ್ ಸೆಟ್ಟಿಂಗ್ಸ್"/>
+					<Item id="6152" name="ಓಪನ್ ಸೆಶನ್ ಇನ್ ಆ ನ್ಯೂ ಇನ್ಸ್ಟೆನ್ಸ್ ಆಫ್ ನಾಟೆಪೇ++"/>
+					<Item id="6153" name="ಆಲ್ವೇಸ್ ಇನ್ ಮಲ್ಟೀ-ಇನ್ಸ್ಟೆನ್ಸ್ ಮೋಡ್"/>
+					<Item id="6154" name="ಡಿಫಾಲ್ಟ್ (ಮೋನೋ-ಇನ್ಸ್ಟೆನ್ಸ್)"/>
+					<Item id="6155" name="* ತೆ ಮಾಡಿಫಿಕೇಶನ್ ಆಫ್ ದಿಸ್ ಸೆಟ್ಟಿಂಗ್ ನೀಡ್ಸ್ ತೋ ರಿಸ್‌ಟಾರ್ಟ್ ನಾಟೆಪೇ++"/>
+				</MultiInstance>
+
+				<Delimiter title="ಡೆಳಿಮೀಟೆರ್">
+					<Item id="6251" name="ಡೆಳಿಮೀಟೆರ್ ಸೆಲೆಕ್ಶನ್ ಸೆಟ್ಟಿಂಗ್ಸ್ (ಕ್ಟ್ರ್ಲ್ + ಮೌಸ್ ಡಬಲ್ ಕ್ಲಿಕ್)"/>
+					<Item id="6252" name="ಓಪನ್"/>
+					<Item id="6255" name="ಕ್ಲೋಸ್"/>
+					<Item id="6256" name="ಅಲೋ ಒನ್ ಸೆವರಲ್ ಲೈನ್ಸ್"/>
+				</Delimiter>
+
+				<Cloud title="Cloud">
+					<Item id="6262" name="ಸೆಟ್ಟಿಂಗ್ಸ್ ಒನ್ ಕ್ಲೌಡ್"/>
+					<Item id="6263" name="ನೋ ಕ್ಲೌಡ್"/>
+					<Item id="6264" name="ಡ್ೃೊಪ್‌ಬೊಕ್ಶ್‌"/>
+					<Item id="6265" name="ಓನೆಡ್ರಿವೆ"/>
+					<Item id="6266" name="ಗೂಗ್ಲೆ ಡ್ರೈವ್"/>
+					<!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
+				</Cloud>
+
+				<MISC title="MISC.">
+					<Item id="6312" name="ಫೈಲ್ ಸ್ಟೇಟಸ್ Auto-Detection"/>
+					<Item id="6313" name="ಅಪ್‌ಡೇಟ್ ಸೈಲೆಂಟ್ಲೀ"/>
+					<Item id="6318" name="ಕ್ಲಿಕ್ಕಬ್ಳೆ ಲಿಂಕ್ ಸೆಟ್ಟಿಂಗ್ಸ್"/>
+					<Item id="6325" name="ಸ್ಕ್ರೋಲ್ ತೋ ತೆ ಲಾಸ್ಟ್ ಲೈನ್ ಆಫ್ಟರ್ ಅಪ್‌ಡೇಟ್"/>
+					<Item id="6319" name="ಎನೇಬಲ್"/>
+					<Item id="6320" name="ನೋ ಅಂಡರ್‌ಲೈನ್"/>
+					<Item id="6322" name="ಸೆಶನ್ ಫೈಲ್ ext.:"/>
+					<Item id="6323" name="ಎನೇಬಲ್ ನಾಟೆಪೇ++ auto-updater"/>
+					<Item id="6324" name="ಡಾಕ್ಯುಮೆಂಟ್ ಸ್ವಿತ್ಚೇರ್ (Ctrl+TAB)"/>
+					<Item id="6326" name="ಎನೇಬಲ್ ಸ್ಮಾರ್ಟ್ ಹೈಲೈಟಿಂಗ್"/>
+					<Item id="6329" name="ಹೈಲೈಟ್ ಮ್ಯಾಚಿಂಗ್ ಟ್ಯಾಗ್ಸ್  "/>
+					<Item id="6327" name="ಎನೇಬಲ್"/>
+					<Item id="6328" name="ಹೈಲೈಟ್ ಟ್ಯಾಗ್ ಆಟ್ರಿಬ್ಯೂಟ್ಸ್"/>
+					<Item id="6330" name="ಹೈಲೈಟ್ ಕಾಮೆಂಟ್/ಫ್ಫ್/ಆಸ್ಪ್ ಸೋನ್"/>
+					<Item id="6331" name="ಶೋ ಓನ್ಲೀ ಫೈಲ್‌ನೇಮ್ ಇನ್ ಟೈಟಲ್ ಬಾರ್"/>
+					<Item id="6332" name="ಮ್ಯಾಚ್ ಕೇಸ್"/>
+					<Item id="6333" name="ಸ್ಮಾರ್ಟ್ ಹೈಲೈಟಿಂಗ್"/>
+					<Item id="6334" name="ಔಟೊಡೇತೆಕ್ಟ್ ಕ್ಯಾರಕ್ಟರ್ ಎನ್‌ಕೋಡಿಂಗ್"/>
+					<Item id="6335" name="ಟ್ರೀಟ್ ಬ್ಯಾಕ್‌ಸ್ಲ್ಯಾಶ್ ಆಸ್ ಎಸ್ಕೇಪ್ ಕ್ಯಾರಕ್ಟರ್ ಫಾರ್ ಸ್ಕ್ಲ್"/>
+					<Item id="6114" name="ಎನೇಬಲ್"/>
+					<Item id="6117" name="ಎನೇಬಲ್ ಮರ ಬಿಹೇವಿಯರ್"/>
+				</MISC>
+			</Preference>
+			<MultiMacro title="ರನ್ ಆ ಮ್ಯಾಕ್ರೋ ಮಲ್ಟಿಪಲ್ ಟೈಮ್ಸ್">
+				<Item id="1" name="ರನ್"/>
+				<Item id="2" name="ಕ್ಯಾನ್ಸಲ್"/>
+				<Item id="8006" name="ಮ್ಯಾಕ್ರೋ ತೋ ರನ್:"/>
+				<Item id="8001" name="ರನ್"/>
+				<Item id="8005" name="ಟೈಮ್ಸ್"/>
+				<Item id="8002" name="ರನ್ ಅಂಟಿಲ್ ತೆ ಎಂಡ್ ಆಫ್ ಫೈಲ್"/>
+			</MultiMacro>
+			<Window title="ವಿಂಡೊಸ್">
+				<Item id="1" name="ಆಕ್ಟೀವೇಟ್"/>
+				<Item id="2" name="ಓಕೇ"/>
+				<Item id="7002" name="ಸಾವೆ"/>
+				<Item id="7003" name="ಕ್ಲೋಸ್ ವಿಂಡೊ(ಸ್)"/>
+				<Item id="7004" name="ಸಾರ್ಟ್ ಟ್ಯಾಬ್ಸ್"/>
+			</Window>
+			<ColumnEditor title="ಕಾಲಮ್ ಎಡಿಟರ್">
+				<Item id="2023" name="ಟೆಕ್ಸ್ಟ್ ತೋ ಇನ್‌ಸರ್ಟ್"/>
+				<Item id="2033" name="ನಂಬರ್ ತೋ ಇನ್‌ಸರ್ಟ್"/>
+				<Item id="2030" name="ಇನಿಶಿಯಲ್ ನಂಬರ್:"/>
+				<Item id="2031" name="ಇನ್‌ಕ್ರೀಸ್ ಬೈ:"/>
+				<Item id="2035" name="ಲೀಡಿಂಗ್ ಸೀರೊಸ್"/>
+				<Item id="2032" name="ಫಾರ್ಮ್ಯಾಟ್"/>
+				<Item id="2024" name="ಡೆಕ್"/>
+				<Item id="2025" name="ಆಕ್ಟೋಬರ್"/>
+				<Item id="2026" name="ಹೆಕ್ಸ್"/>
+				<Item id="2027" name="ಬಿನ್"/>
+				<Item id="1" name="ಓಕೇ"/>
+				<Item id="2" name="ಕ್ಯಾನ್ಸಲ್"/>
+			</ColumnEditor>
+		</Dialog>
+		<MessageBox>
+			<ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
+			<NppHelpAbsentWarning title="File does not exist" message="\rdoesn't exist. Please download it on Notepad++ site."/>
+			<SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
+			<LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
+			<CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
+			<DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
+			<FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
+			<FileAlreadyOpenedInNpp title="" message="The file is already opened in Notepad++."/>
+			<DeleteFileFailed title="Delete File" message="Delete File failed"/>
+
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
+		</MessageBox>
+		<ClipboardHistory>
+			<PanelTitle name="ಕ್ಲಿಪ್‌ಬೋರ್ಡ್ ಹಿಸ್ಟರೀ"/>
+		</ClipboardHistory>
+		<DocList>
+			<PanelTitle name="ಡಾಕ್ ಸ್ವಿತ್ಚೇರ್"/>
+			<ColumnName name="ನೇಮ್"/>
+			<ColumnExt name="Ext."/>
+		</DocList>
+		<AsciiInsertion>
+			<PanelTitle name="ASCII ಇನ್ಸರ್‌ಶನ್ ಪ್ಯಾನಲ್"/>
+			<ColumnVal name="ವ್ಯಾಲ್ಯೂ"/>
+			<ColumnHex name="ಹೆಕ್ಸ್"/>
+			<ColumnChar name="ಕ್ಯಾರಕ್ಟರ್"/>
+		</AsciiInsertion>
+		<DocumentMap>
+			<PanelTitle name="ಡಾಕ್ಯುಮೆಂಟ್ ಮ್ಯಾಪ್"/>
+		</DocumentMap>
+		<FunctionList>
+			<PanelTitle name="Function List"/>
+			<SortTip name="ಸಾರ್ಟ್"/>
+			<ReloadTip name="ರಿಲೋಡ್"/>
+		</FunctionList>
+		<ProjectManager>
+			<PanelTitle name="ಪ್ರಾಜೆಕ್ಟ್"/>
+			<WorkspaceRootName name="ವರ್ಕ್‌ಸ್ಪೇಸ್"/>
+			<NewProjectName name="ಪ್ರಾಜೆಕ್ಟ್ ನೇಮ್"/>
+			<NewFolderName name="ಫೋಲ್ಡರ್ ನೇಮ್"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="ವರ್ಕ್‌ಸ್ಪೇಸ್"/>
+					<Item id="1" name="ಎಡಿಟ್"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="ನ್ಯೂ ವರ್ಕ್‌ಸ್ಪೇಸ್"/>
+					<Item id="3123" name="ಓಪನ್ ವರ್ಕ್‌ಸ್ಪೇಸ್"/>
+					<Item id="3124" name="ರಿಲೋಡ್ ವರ್ಕ್‌ಸ್ಪೇಸ್"/>
+					<Item id="3125" name="ಸಾವೆ"/>
+					<Item id="3126" name="ಸಾವೆ ಆಸ್..."/>
+					<Item id="3127" name="ಸಾವೆ ಆ ಕಾಪೀ ಆಸ್..."/>
+					<Item id="3121" name="ಆಡ್ ನ್ಯೂ ಪ್ರಾಜೆಕ್ಟ್"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="ರಿನೇಮ್"/>
+					<Item id="3112" name="ಆಡ್ ಫೋಲ್ಡರ್"/>
+					<Item id="3113" name="ಆಡ್ ಫೈಲ್ಸ್..."/>
+					<Item id="3117" name="ಆಡ್ ಫೈಲ್ಸ್ ಫ್ರಮ್ ಡೈರೆಕ್ಟರೀ..."/>
+					<Item id="3114" name="ರಿಮೂವ್"/>
+					<Item id="3118" name="ಮೂವ್ ಅಪ್"/>
+					<Item id="3119" name="ಮೂವ್ ಡೌನ್"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="ರಿನೇಮ್"/>
+					<Item id="3112" name="ಆಡ್ ಫೋಲ್ಡರ್"/>
+					<Item id="3113" name="ಆಡ್ ಫೈಲ್ಸ್..."/>
+					<Item id="3117" name="ಆಡ್ ಫೈಲ್ಸ್ ಫ್ರಮ್ ಡೈರೆಕ್ಟರೀ..."/>
+					<Item id="3114" name="ರಿಮೂವ್"/>
+					<Item id="3118" name="ಮೂವ್ ಅಪ್"/>
+					<Item id="3119" name="ಮೂವ್ ಡೌನ್"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="ರಿನೇಮ್"/>
+					<Item id="3115" name="ರಿಮೂವ್"/>
+					<Item id="3116" name="ಮಾಡಿಫೈ ಫೈಲ್ ಪಾತ್"/>
+					<Item id="3118" name="ಮೂವ್ ಅಪ್"/>
+					<Item id="3119" name="ಮೂವ್ ಡೌನ್"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
+	</Native-Langue>
+</NotepadPlus>

@@ -1,0 +1,7 @@
+{1}--[[ coding:UTF-8
+comment ]]{0}
+{5}function{0} {11}first{10}(){0}
+{20}::開::{0}
+   {2}-- Comment
+{0}   {11}func{10}({11}SCI_ANNOTATIONSETTEXT{10},{0} {7}'a'{10},{0} {4}0{10},{0} {6}"LINE1"{10}){0}
+{5}end{0}

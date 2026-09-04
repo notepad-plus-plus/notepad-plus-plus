@@ -1,0 +1,12 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+	<Fragment>
+	<!--
+	Plugin Admin
+	-->
+	<ComponentGroup Id="PluginAdminComponentGroup" Directory="PluginConfFolder">
+		<Component Id="PluginList">
+			<File Source="..\..\bin64\plugins\config\nppPluginList.dll" KeyPath="yes" />
+		</Component>
+	</ComponentGroup>
+	</Fragment>
+</Wix>

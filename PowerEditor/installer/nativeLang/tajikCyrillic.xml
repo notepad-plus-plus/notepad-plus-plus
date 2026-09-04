@@ -1,0 +1,923 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<NotepadPlus>
+	<Native-Langue name="Тоҷикӣ" filename="tajikCyrillic.xml">
+		<Menu>
+			<Main>
+				<!-- Main Menu Entries -->
+				<Entries>
+					<Item menuId="file" name="&amp;Файл"/>
+					<Item menuId="edit" name="&amp;Вироиш"/>
+					<Item menuId="search" name="&amp;Ҷустуҷӯ"/>
+					<Item menuId="view" name="&amp;Мушоҳида"/>
+					<Item menuId="encoding" name="&amp;Рамзгузорӣ"/>
+					<Item menuId="language" name="&amp;Забон"/>
+					<Item menuId="settings" name="&amp;Танзимот"/>
+					<Item menuId="macro" name="Макрос"/>
+					<Item menuId="run" name="Иҷро"/>
+					<Item menuId="Plugins" name="Афзунаҳо"/>
+					<Item menuId="Window" name="Панҷара"/>
+				</Entries>
+				<!-- Sub Menu Entries -->
+				<SubEntries>
+					<Item subMenuId="file-Боз карданFolder" name="Боз кардани пушаи санад"/>
+					<Item subMenuId="file-БастанMore" name="Бастани бештар"/>
+					<Item subMenuId="file-recentFiles" name="Файлҳои ахир"/>
+					<Item subMenuId="edit-copyToClipboard" name="Нусха ба миёнгири табодул"/>
+					<Item subMenuId="edit-indent" name="Лаба додан"/>
+					<Item subMenuId="edit-convertCaseTo" name="Табдил ба"/>
+					<Item subMenuId="edit-lineOperations" name="Амалкардҳои хат"/>
+					<Item subMenuId="edit-comment" name="Тавзеҳ/Бетавзеҳ"/>
+					<Item subMenuId="edit-autoCompletion" name="Такмили худкор"/>
+					<Item subMenuId="edit-eolConversion" name="Табдили охири сатр"/>
+					<Item subMenuId="edit-blankOperations" name="Амалкардҳои холӣ"/>
+					<Item subMenuId="edit-pasteSpecial" name="Часбондани вижа"/>
+					<Item subMenuId="search-markAll" name="Аломатгузории ҳама"/>
+					<Item subMenuId="search-unmarkAll" name="Беаломатгузории ҳама"/>
+					<Item subMenuId="search-jumpUp" name="Париши боло"/>
+					<Item subMenuId="search-jumpDown" name="Париши поин"/>
+					<Item subMenuId="search-bookmark" name="Чуби алиф"/>
+					<Item subMenuId="view-showSymbol" name="Намоиши аломат"/>
+					<Item subMenuId="view-zoom" name="Миқёс"/>
+					<Item subMenuId="view-moveCloneDocument" name="Амалиёт бо санад"/>
+					<Item subMenuId="view-tab" name="Интихоби забонаҳо"/>
+					<Item subMenuId="view-collapseLevel" name="Сатҳ бастан"/>
+					<Item subMenuId="view-uncollapseLevel" name="Сатҳ боз кардан"/>
+					<Item subMenuId="view-project" name="Пружа"/>
+					<Item subMenuId="encoding-characterSets" name="Танзими аломат"/>
+					<Item subMenuId="encoding-arabic" name="Арабӣ"/>
+					<Item subMenuId="encoding-baltic" name="Балтикӣ"/>
+					<Item subMenuId="encoding-celtic" name="Селтӣ"/>
+					<Item subMenuId="encoding-cyrillic" name="Кирилӣ"/>
+					<Item subMenuId="encoding-centralEuropean" name="Аврупои марказӣ"/>
+					<Item subMenuId="encoding-chinese" name="Чинӣ"/>
+					<Item subMenuId="encoding-easternEuropean" name="Аврупои шарқӣ"/>
+					<Item subMenuId="encoding-greek" name="Юнонӣ"/>
+					<Item subMenuId="encoding-hebrew" name="Ибрӣ"/>
+					<Item subMenuId="encoding-japanese" name="Японӣ"/>
+					<Item subMenuId="encoding-korean" name="Кореӣ"/>
+					<Item subMenuId="encoding-northEuropean" name="Аврупои шимолӣ"/>
+					<Item subMenuId="encoding-thai" name="Тойландӣ"/>
+					<Item subMenuId="encoding-turkish" name="Туркӣ"/>
+					<Item subMenuId="encoding-westernEuropean" name="Аврупои ғарбӣ"/>
+					<Item subMenuId="encoding-vietnamese" name="Ветнамӣ"/>
+					<Item subMenuId="settings-import" name="Ворид кардан"/>
+				</SubEntries>
+
+				<!-- all menu item -->
+				<Commands>
+					<Item id="41001" name="&amp;Ҷадид"/>
+					<Item id="41002" name="&amp;Боз кардан"/>
+					<Item id="41019" name="Мурургар"/>
+					<Item id="41020" name="Дар консоли cmd боз кардан"/>
+					<Item id="41003" name="Бастан"/>
+					<Item id="41004" name="&amp;Бастани ҳама"/>
+					<Item id="41005" name="Ҳамаро ба ҷуз санади феълӣ бастан"/>
+					<Item id="41009" name="Бастани ҳама аз чап"/>
+					<Item id="41018" name="Бастани ҳама аз рост"/>
+					<Item id="41006" name="&amp;Захира"/>
+					<Item id="41007" name="&amp;Захираи ҳама"/>
+					<Item id="41008" name="&amp;Захира ба унвон..."/>
+					<Item id="41010" name="Чоп..."/>
+					<Item id="1001" name="Ҳозир чоп кардан"/>
+					<Item id="41011" name="&amp;Хуруҷ"/>
+					<Item id="41012" name="Бозгирии ҷаласа..."/>
+					<Item id="41013" name="Захираи ҷаласа..."/>
+					<Item id="41014" name="Бозгирӣ аз диск"/>
+					<Item id="41015" name="Захираи як нусха ба унвони..."/>
+					<Item id="41016" name="Ҳазф аз диск"/>
+					<Item id="41017" name="Тағйири ном..."/>
+
+					<Item id="42001" name="&amp;Буридан"/>
+					<Item id="42002" name="&amp;Нусхагирӣ"/>
+					<Item id="42003" name="&amp;Лағв"/>
+					<Item id="42004" name="&amp;Аз нав"/>
+					<Item id="42005" name="&amp;Часбондан"/>
+					<Item id="42006" name="&amp;Ҳазф"/>
+					<Item id="42007" name="&amp;Интихоби ҳама"/>
+					<Item id="42020" name="Шурӯъ/Поёни интихоб"/>
+					<Item id="42008" name="Афзоиши лабаи хат"/>
+					<Item id="42009" name="Коҳиши лабаи хат"/>
+					<Item id="42010" name="Такрори хати ҷорӣ"/>
+					<Item id="42012" name="Тақсими хатҳо"/>
+					<Item id="42013" name="Пайвастани хатҳо"/>
+					<Item id="42014" name="Интиқоли хати феълӣ ба боло"/>
+					<Item id="42015" name="Интиқоли хати феълӣ ба поён"/>
+					<Item id="42016" name="Ҳуруфи бузург"/>
+					<Item id="42017" name="Ҳуруфи кучак"/>
+					<Item id="42018" name="&amp;Шурӯъи забт"/>
+					<Item id="42019" name="&amp;Таваққуфи забт"/>
+					<Item id="42021" name="&amp;Пахш"/>
+					<Item id="42022" name="Рӯшан/Хомӯш кардани хати тавзеҳ"/>
+					<Item id="42023" name="Қитъаи тавзеҳ"/>
+					<Item id="42047" name="Қитъаи бетавзеҳ"/>
+					<Item id="42024" name="Ҳазф фосилаи пуштӣ"/>
+					<Item id="42042" name="Ҳазф фосилаи пеш"/>
+					<Item id="42043" name="Ҳазф фосилаи пеш ва пуштӣ"/>
+					<Item id="42044" name="Аломати поёни хат чун фосила тайин шавад"/>
+					<Item id="42045" name="Бардоштани фосилаҳои ғайризарурӣ ва гузоштани фосила дар поёни хат"/>
+					<Item id="42046" name="Ба ҷойи лаба гузоштани фосила"/>
+					<Item id="42054" name="Ба ҷойи ҳама аломатҳои фосила гузоштани лаба"/>
+					<Item id="42053" name="Дар аввали сатр ба ҷойи фосила гузоштани лаба"/>
+					<Item id="42038" name="Дарҷ чун мӯҳтавои HTML"/>
+					<Item id="42039" name="Дарҷ чун мӯҳтавои RTF"/>
+					<Item id="42048" name="Нусхагирӣ чун мӯтавои дуӣ (код)"/>
+					<Item id="42049" name="Буридан чун мӯтавои дуӣ (код)"/>
+					<Item id="42050" name="Дарҷ чун мӯтавои дуӣ (код)"/>
+					<Item id="42037" name="Интихоби сутунӣ..."/>
+					<Item id="42034" name="Виростори сутун..."/>
+					<Item id="42051" name="Ҷадвали аломатҳо (намодҳо)"/>
+					<Item id="42052" name="Таърихи миёнгири табодул"/>
+					<Item id="42025" name="Захираи макроси забтшудаи феълӣ"/>
+					<Item id="42026" name="Самти матн рост ба чап"/>
+					<Item id="42027" name="Самти матн чап ба рост"/>
+					<Item id="42028" name="Танзим ба фақат-хонданӣ"/>
+					<Item id="42029" name="Масири файли феълӣ ба миёнгири табодул"/>
+					<Item id="42030" name="Номи файли феълӣ ба миёнгири табодул"/>
+					<Item id="42031" name="Масири феҳрити феълӣ ба миёнгири табодул"/>
+					<Item id="42032" name="Макросро дар чандин замон иҷро кун..."/>
+					<Item id="42035" name="Табдили сатр ба тавзеҳ"/>
+					<Item id="42036" name="Лағв кардани табдили сатр ба тавзеҳ"/>
+					<Item id="42055" name="Ҳазфи сатрҳои холӣ"/>
+					<Item id="42056" name="Ҳазфи хатҳои холии фосиладор"/>
+					<Item id="42057" name="Қарор додани сатри холӣ пеш аз кунунӣ"/>
+					<Item id="42058" name="Қарор додани сатри холӣ пас аз кунунӣ"/>
+					<Item id="42059" name="Мураттабсозии сатрҳо бо афзуншавӣ"/>
+					<Item id="42060" name="Мураттабсозии сатрҳо бо камшавӣ"/>
+					<Item id="43001" name="Ёфтан..."/>
+					<Item id="43002" name="Ёфтани &amp;баъдӣ"/>
+					<Item id="43003" name="Ҷойгузинӣ..."/>
+					<Item id="43004" name="Бирав ба..."/>
+					<Item id="43005" name="Чуби алиф (гузоштан/бардоштан)"/>
+					<Item id="43006" name="Чуби алифи баъдӣ"/>
+					<Item id="43007" name="Чуби алифи пешин"/>
+					<Item id="43008" name="Ҳазфи ҳама чуби алифҳо"/>
+					<Item id="43018" name="Буридани ҳама сатрҳои чуби алифдор"/>
+					<Item id="43019" name="Нусхагирии сатрҳои чуби алифдор"/>
+					<Item id="43020" name="Часбондан (бо ҷойгузинӣ) сатрҳои чуби алифдор"/>
+					<Item id="43021" name="Ҳазфи сатрҳои чуби алифдор"/>
+					<Item id="43051" name="Ҳазфи сатрҳои бечуби алифдор"/>
+					<Item id="43050" name="Ворунасозии ҳама сатрҳои чуби алифдор "/>
+					<Item id="43052" name="Ёфтани аломатҳо дар маҳдудаи..."/>
+					<Item id="43053" name="Интихоби ҳама чиз байни қавсҳои ҷуфт"/>
+					<Item id="43009" name="Гузариш ба қавсҳои ҷуфт"/>
+					<Item id="43010" name="Ёфтани қаблӣ"/>
+					<Item id="43011" name="&amp;Ёфтан бо мурури ҳуруфчинӣ"/>
+					<Item id="43013" name="Ёфтан дар файлҳо"/>
+					<Item id="43014" name="Ёфтани интихобшуда ба баъд"/>
+					<Item id="43015" name="Ёфтани интихобшуда ба қабл"/>
+					<Item id="43022" name="Истифодаи сабки 1-ум"/>
+					<Item id="43023" name="Поксозии сабк 1-ум"/>
+					<Item id="43024" name="Истифодаи сабки 2-ввум"/>
+					<Item id="43025" name="Поксозии сабк 2-ввум"/>
+					<Item id="43026" name="Истифодаи сабки 3-ввум"/>
+					<Item id="43027" name="Поксозии сабк 3-ввум"/>
+					<Item id="43028" name="Истифодаи сабки 4-ум"/>
+					<Item id="43029" name="Поксозии сабк 4-ум"/>
+					<Item id="43030" name="Истифодаи сабки 5-ум"/>
+					<Item id="43031" name="Поксозии сабк 5-ум"/>
+					<Item id="43032" name="Поксозии ҳама сабкҳо"/>
+					<Item id="43033" name="Сабки 1-ум"/>
+					<Item id="43034" name="Сабки 2-ввум"/>
+					<Item id="43035" name="Сабки 3-ввум"/>
+					<Item id="43036" name="Сабки 4-ум"/>
+					<Item id="43037" name="Сабки 5-ум"/>
+					<Item id="43038" name="Ёфтани сабк"/>
+					<Item id="43039" name="Сабки 1-ум"/>
+					<Item id="43040" name="Сабки 2-ввум"/>
+					<Item id="43041" name="Сабки 3-ввум"/>
+					<Item id="43042" name="Сабки 4-ум"/>
+					<Item id="43043" name="Сабки 5-ум"/>
+					<Item id="43044" name="Ёфтани сабк"/>
+					<Item id="43045" name="Панҷараи натоиҷи ҷустуҷӯ"/>
+					<Item id="43046" name="Натиҷаи ҷустуҷӯи баъдӣ"/>
+					<Item id="43047" name="Натиҷаи ҷустуҷӯи қаблӣ"/>
+					<Item id="43048" name="Интихоб ва ёфтани баъдӣ"/>
+					<Item id="43049" name="Интихоб ва ёфтани қаблӣ"/>
+					<Item id="44009" name="Танҳо матн (тамоми намоишгар)"/>
+					<Item id="44010" name="Бастани ҳама блокҳо"/>
+					<Item id="44019" name="Намоиши ҳама аломатҳо"/>
+					<Item id="44020" name="Намоши роҳнамои лаба"/>
+					<Item id="44022" name="Интиқоли хатҳо"/>
+					<Item id="44023" name="Миқёси бузургтар(Ctrl+Mouse теъдод ба боло)"/>
+					<Item id="44024" name="Миқёси кучактар (Ctrl+Mouse теъдод ба поён)"/>
+					<Item id="44025" name="Намоиши фосила ва лабаҳо"/>
+					<Item id="44026" name="Намоиши поёни сатр"/>
+					<Item id="44029" name="Боз кардани ҳама блокҳо"/>
+					<Item id="44030" name="Бастани сатҳи феълӣ"/>
+					<Item id="44031" name="Боз кардани сатҳи феълӣ"/>
+					<Item id="44049" name="Иттилоот оиди файл..."/>
+					<Item id="44080" name="Нақшаи санад"/>
+					<Item id="44084" name="Рӯйхати функсияҳо"/>
+					<Item id="44086" name="Гузоштаи 1-ум"/>
+					<Item id="44087" name="Гузоштаи 2-ввум"/>
+					<Item id="44088" name="Гузоштаи 3-ввум"/>
+					<Item id="44089" name="Гузоштаи 4-ум"/>
+					<Item id="44090" name="Гузоштаи 5-ум"/>
+					<Item id="44091" name="Гузоштаи 6-ум"/>
+					<Item id="44092" name="Гузоштаи 7-ум"/>
+					<Item id="44093" name="Гузоштаи 8-ум"/>
+					<Item id="44094" name="Гузоштаи 9-ум"/>
+					<Item id="44095" name="Гузоштаи баъдӣ"/>
+					<Item id="44096" name="Гузоштаи қаблӣ"/>
+					<Item id="44032" name="Матн дар тамоми намошгар"/>
+					<Item id="44033" name="Барқарор кардани миқёси пешфарз"/>
+					<Item id="44034" name="Ҳамеша боло"/>
+					<Item id="44035" name="Ҳамгомсозии паймоиши амудӣ"/>
+					<Item id="44036" name="Ҳамгомсозии паймоиши уфуқӣ"/>
+					<Item id="44041" name="Навмоиши аломати печидани хат"/>
+					<Item id="44072" name="Конун дар аломати дигар"/>
+					<Item id="44081" name="Лавҳаи пружаи 1"/>
+					<Item id="44082" name="Лавҳаи пружаи 2"/>
+					<Item id="44083" name="Лавҳаи пружаи 3"/>
+					<Item id="45001" name="Табдил ба формати Windows"/>
+					<Item id="45002" name="Табдил ба формати UNIX"/>
+					<Item id="45003" name="Табдил ба формати MAC"/>
+					<Item id="45004" name="Рамзгузорӣ дар ANSI"/>
+					<Item id="45005" name="Рамзгузорӣ дар UTF-8"/>
+					<Item id="45006" name="Рамзгузорӣ дар UCS-2 Big Endian"/>
+					<Item id="45007" name="Рамзгузорӣ дар UCS-2 Little Endian"/>
+					<Item id="45008" name="Рамзгузорӣ дар UTF-8 бе BOM"/>
+					<Item id="45009" name="Табдил ба ANSI"/>
+					<Item id="45010" name="Табдил ба UTF-8 бе BOM"/>
+					<Item id="45011" name="Табдил ба UTF-8"/>
+					<Item id="45012" name="Табдил ба UCS-2 Big Endian"/>
+					<Item id="45013" name="Табдил ба UCS-2 Little Endian"/>
+
+					<Item id="10001" name="Интиқол ба намои дигар"/>
+					<Item id="10002" name="Шабеҳсозӣ дар намои дигар"/>
+					<Item id="10003" name="Интиқол ба намунаи ҷадид"/>
+					<Item id="10004" name="Боз кардан дар намунаи ҷадид"/>
+
+					<Item id="45060" name="Big5 (Traditional)"/>
+					<Item id="45061" name="GB2312 (Simplified)"/>
+					<Item id="45054" name="OEM 861: Icelandic"/>
+					<Item id="45057" name="OEM 865: Nordic"/>
+					<Item id="45053" name="OEM 860: Portuguese"/>
+					<Item id="45056" name="OEM 863: French"/>
+
+					<Item id="46033" name="Assembly"/>
+					<Item id="46019" name="MS INI file"/>
+					<Item id="46015" name="MS-DOS Style"/>
+					<Item id="46016" name="Normal Text"/>
+					<Item id="46017" name="Resource file"/>
+
+					<Item id="46001" name="Пайкарабанди сабк..."/>
+					<Item id="46250" name="Забони худро интихоб намоед..."/>
+					<Item id="46180" name="Аз ҷониби корбар таърифшуда"/>
+					<Item id="47000" name="Дар бораи барнома..."/>
+					<Item id="47010" name="Аргументҳои хати фармон..."/>
+					<Item id="47001" name="Сафҳаи хонагӣ"/>
+					<Item id="47002" name="Сафҳаи пружаи барнома"/>
+					<Item id="47003" name="Асноди бархат"/>
+					<Item id="47004" name="Анҷуман"/>
+					<Item id="47005" name="Дарёфти афзунаҳо"/>
+					<Item id="47006" name="Барӯзсозии барнома"/>
+					<Item id="47008" name="Мӯҳтавиёти роҳнамо"/>
+					<Item id="47009" name="Масирдиҳии миёнбур..."/>
+					<Item id="48005" name="Ворид кардани афзунаҳо ..."/>
+					<Item id="48006" name="Ворид кардани пуста ..."/>
+					<Item id="48018" name="Вироиши панҷараи ContextMenu"/>
+					<Item id="48009" name="Масирдиҳии миёнбур..."/>
+					<Item id="48011" name="Танзимот..."/>
+					<Item id="49000" name="Иҷро..."/>
+
+					<Item id="50000" name="Такмили функсия"/>
+					<Item id="50001" name="Тамили вожа"/>
+					<Item id="50002" name="Функсияи параметрҳои ишора"/>
+					<Item id="50006" name="Такмили масир"/>
+					<Item id="44042" name="Махфӣ кардани хатҳо"/>
+					<Item id="42040" name="Боз кардани ҳама файлҳои ахир"/>
+					<Item id="42041" name="Поксозии рӯйхати файлҳои ахир"/>
+					<Item id="48016" name="Вироиши дакмаҳои миёнбур//Ҳазфи макрос..."/>
+					<Item id="48017" name="Вироиши дакмаҳои миёнбур//Ҳазфи фармон..."/>
+				</Commands>
+			</Main>
+			<Splitter>
+			</Splitter>
+			<TabBar>
+				<Item CMID="0" name="Бастан"/>
+				<Item CMID="1" name="Ҳамаро ҷуз ин бибанд"/>
+				<Item CMID="2" name="Захира"/>
+				<Item CMID="3" name="Захира ба унвон..."/>
+				<Item CMID="4" name="Чоп"/>
+				<Item CMID="5" name="Интиқол ба намои дигар"/>
+				<Item CMID="6" name="Шабеҳсозӣ дар намои дигар"/>
+				<Item CMID="7" name="Масири комил ба миёнбури табодул"/>
+				<Item CMID="8" name="Номи файл ба миёнбури табодул"/>
+				<Item CMID="9" name="Феҳрити феълӣ ба миёнбури табодул"/>
+				<Item CMID="10" name="Тағйири ном"/>
+				<Item CMID="11" name="Ҳазф"/>
+				<Item CMID="12" name="Фақат-хонданӣ"/>
+				<Item CMID="13" name="Поксозии нишонаи фақат-хонданӣ"/>
+				<Item CMID="14" name="Интиқол ба намунаи ҷадид"/>
+				<Item CMID="15" name="Боз кардан дар намунаи ҷадид"/>
+				<Item CMID="16" name="Боргирии муҷаддад"/>
+				<Item CMID="17" name="Бастани ҳама ба чап"/>
+				<Item CMID="18" name="Бастани ҳама ба рост"/>
+				<Item CMID="19" name="Боз кардани санад"/>
+				<Item CMID="20" name="Боз кардани санад дар cmd"/>
+			</TabBar>
+		</Menu>
+
+		<Dialog>
+			<Find title="" titleFind="Ёфтан" titleReplace="Ҷойгузинӣ" titleFindInFiles="Find in Files" titleMark="Mark">
+				<Item id="1" name="Ёфтани баъдӣ"/>
+				<Item id="2" name="Бастан"/>
+				<Item id="1620" name="Ёфтан:"/>
+				<Item id="1603" name="Фақат татбиқи луғати комил"/>
+				<Item id="1604" name="Бо назардошти ҳуруф (регистр)"/>
+				<Item id="1605" name="Иборати маъмулӣ"/>
+				<Item id="1606" name="Печидани пиромун"/>
+				<Item id="1614" name="Шумурдан"/>
+				<Item id="1615" name="Ёфтани ҳама"/>
+				<Item id="1616" name="Аломатгузории хат"/>
+				<Item id="1618" name="Барои ҳар ҷустуҷӯ холӣ шав"/>
+				<Item id="1611" name="Ҷойгузин бо:"/>
+				<Item id="1608" name="Ҷойгузин"/>
+				<Item id="1609" name="Ҷойгузини ҳама"/>
+				<Item id="1687" name="Дар хуруҷ аз конун"/>
+				<Item id="1688" name="Ҳамеша"/>
+				<Item id="1632" name="Дар интихоб"/>
+				<Item id="1633" name="Поксозӣ"/>
+				<Item id="1635" name="Ҷойгузинии ҳама дар ҳама асноди бозшуда"/>
+				<Item id="1636" name="Ёфтани ҳама дар ҳама асноди бозшуда"/>
+				<Item id="1654" name="Полоишгарҳо:"/>
+				<Item id="1655" name="Феҳрист:"/>
+				<Item id="1656" name="Ёфтани ҳама"/>
+				<Item id="1658" name="Дар ҳама зерпӯшаҳо"/>
+				<Item id="1659" name="Дар пӯшаҳои пинҳон"/>
+				<Item id="1624" name="Ҳолати ҷустуҷӯ"/>
+				<Item id="1625" name="Одӣ"/>
+				<Item id="1626" name="Тамдидшуда (\n, \r, \t, \0, \x...)"/>
+				<Item id="1660" name="Ҷойгузинӣ дар файлҳо"/>
+				<Item id="1641" name="Ёфтани ҳама дар санади феълӣ"/>
+				<Item id="1686" name="Шаффофият"/>
+				<Item id="1703" name="ва сатрҳои ҷадид"/>
+			</Find>
+
+			<FindCharsInRange title="Ёфтани аломат дар маҳдудаи...">
+				<Item id="2" name="Бастан"/>
+				<Item id="2901" name="Аломати ғайри-ASCII(128-255)"/>
+				<Item id="2902" name="Аломатҳои ASCII(0-127)"/>
+				<Item id="2903" name="Маҳдудаи ман:"/>
+				<Item id="2906" name="&amp;Боло"/>
+				<Item id="2907" name="&amp;Поин"/>
+				<Item id="2908" name="Ҷиҳат/Самт"/>
+				<Item id="2909" name="Ҷустуҷӯи сарбаст"/>
+				<Item id="2910" name="Ёфтан"/>
+			</FindCharsInRange>
+
+			<GoToLine title="Бирав ба...">
+				<Item id="2007" name="Хат/Сатр"/>
+				<Item id="2008" name="Мақеъи аломат"/>
+				<Item id="1" name="Ба пеш"/>
+				<Item id="2" name="Ҷое намеравам"/>
+				<Item id="2004" name="Шумо инҷо ҳастед:"/>
+				<Item id="2005" name="Шумо мехоҳед биравед ба:"/>
+				<Item id="2006" name="Шумо наметавонед пештар аз:"/>
+			</GoToLine>
+
+			<Run title="Иҷро...">
+				<Item id="1903" name="The Барнома барои иҷро"/>
+				<Item id="1" name="Иҷро"/>
+				<Item id="2" name="Лағв"/>
+				<Item id="1904" name="Захира..."/>
+			</Run>
+
+			<StyleConfig title="Пайкарабанди сабк">
+				<Item id="2" name="Cancel"/>
+				<Item id="2301" name="Захира &amp;&amp; Бастан"/>
+				<Item id="2303" name="Шаффофият"/>
+				<Item id="2306" name="Интихоби пуста: "/>
+				<SubDialog>
+					<Item id="2204" name="Пурранг"/>
+					<Item id="2205" name="Каҷ"/>
+					<Item id="2206" name="Ранги пешзамина"/>
+					<Item id="2207" name="Ранги пасзамина"/>
+					<Item id="2208" name="Номи қалам:"/>
+					<Item id="2209" name="Андозаи қалам:"/>
+					<Item id="2211" name="Сабк:"/>
+					<Item id="2212" name="Сабки ранг"/>
+					<Item id="2213" name="Сабки қалам"/>
+					<Item id="2214" name="Пасванди пешфарз.:"/>
+					<Item id="2216" name="Пасванди корбар:"/>
+					<Item id="2218" name="Зерхатдор"/>
+					<Item id="2219" name="Вожаи калидии пешфарз"/>
+					<Item id="2221" name="Вожаи калидии таърифшуда тавассути корбар"/>
+					<Item id="2225" name="Забон:"/>
+					<Item id="2226" name="Фаъолсозии ранги пешзаминаи саросарӣ"/>
+					<Item id="2227" name="Фаъолсозии ранги пасзаминаи саросарӣ"/>
+					<Item id="2228" name="Фаъолсозии қалами саросарӣ"/>
+					<Item id="2229" name="Фаъолсозии андозаи қалами саросарӣ"/>
+					<Item id="2230" name="Фаъолсозии сабки қалами пурранги саросарӣ"/>
+					<Item id="2231" name="Фаъолсозии қалами каҷи саросарӣ"/>
+					<Item id="2232" name="Фаъолсозии қалами зерхатдорӣ саросарӣ"/>
+				</SubDialog>
+
+			</StyleConfig>
+
+			<UserDefine title="Забони таърифшудаи корбар">
+				<Item id="20001" name="Пайвастан"/>
+				<Item id="20002" name="Тағйири ном"/>
+				<Item id="20003" name="Ҷадид эҷод кун..."/>
+				<Item id="20004" name="Ҳазф"/>
+				<Item id="20005" name="Захира баном..."/>
+				<Item id="20007" name="Забони корбар: "/>
+				<Item id="20009" name="Пасванд:"/>
+				<Item id="20012" name="Ҳар регистр (ҳуруфи кучак/бузург)"/>
+				<Item id="20011" name="Шаффофият"/>
+				<Item id="20015" name="Ворид кардан..."/>
+				<Item id="20016" name="Хуруҷигирӣ..."/>
+				<StylerDialog title="Панҷараи ҳолот">
+					<Item id="25030" name="Гузинаҳои қалам:"/>
+					<Item id="25006" name="Ранги пешзамина"/>
+					<Item id="25007" name="Ранги пасзамина"/>
+					<Item id="25031" name="Ном:"/>
+					<Item id="25032" name="Андоза:"/>
+					<Item id="25001" name="Пурранг"/>
+					<Item id="25002" name="Каҷ"/>
+					<Item id="25003" name="Зерхатдор"/>
+					<Item id="25029" name="Дохил дар дохил:"/>
+					<Item id="25008" name="Ҳоили 1"/>
+					<Item id="25009" name="Ҳоили 2"/>
+					<Item id="25010" name="Ҳоили 3"/>
+					<Item id="25011" name="Ҳоили 4"/>
+					<Item id="25012" name="Ҳоили 5"/>
+					<Item id="25013" name="Ҳоили 6"/>
+					<Item id="25014" name="Ҳоили 7"/>
+					<Item id="25015" name="Ҳоили 8"/>
+					<Item id="25018" name="Вожаи калидии 1"/>
+					<Item id="25019" name="Вожаи калидии 2"/>
+					<Item id="25020" name="Вожаи калидии 3"/>
+					<Item id="25021" name="Вожаи калидии 4"/>
+					<Item id="25022" name="Вожаи калидии 5"/>
+					<Item id="25023" name="Вожаи калидии 6"/>
+					<Item id="25024" name="Вожаи калидии 7"/>
+					<Item id="25025" name="Вожаи калидии 8"/>
+					<Item id="25016" name="Тавзеҳ"/>
+					<Item id="25017" name="Хати тавзеҳ"/>
+					<Item id="25026" name="Гардонандаи 1"/>
+					<Item id="25027" name="Гардонандаи 2"/>
+					<Item id="25028" name="Ададҳо"/>
+				</StylerDialog>
+				<Folder title="Пӯша &amp;&amp; Пешфарз">
+					<Item id="21101" name="Сабки пешфарз"/>
+					<Item id="21102" name="Танзим"/>
+					<Item id="21105" name="Мустанадот:"/>
+					<Item id="21104" name="Сайти муваққати тавзеҳот:"/>
+					<Item id="21106" name="Рехтани камҳаҷм (рехтани хатҳои холии аз ҳад зиёд)"/>
+					<Item id="21220" name="Рехтан  дар код бо сабки 1:"/>
+					<Item id="21224" name="Боз кардан"/>
+					<Item id="21225" name="Мобайн/Васат:"/>
+					<Item id="21226" name="Бастан:"/>
+					<Item id="21227" name="Сабкдиҳанда"/>
+					<Item id="21320" name="Рехтан  дар код бо сабки 2 (ҷудосози зарурӣ):"/>
+					<Item id="21324" name="Боз кардан:"/>
+					<Item id="21325" name="Мобайн:/Васат"/>
+					<Item id="21326" name="Бастан:"/>
+					<Item id="21327" name="Сабкдиҳанда"/>
+					<Item id="21420" name="Рехтан  бо сабки тавзеҳ"/>
+					<Item id="21424" name="Боз кардан:"/>
+					<Item id="21425" name="Мобайн/Васат:"/>
+					<Item id="21426" name="Бастан:"/>
+					<Item id="21127" name="Сабкдиҳанда"/>
+				</Folder>
+				<Keywords title="Рӯйхати вожаҳои калидӣ">
+					<Item id="22101" name="Гурӯҳи 1-ӯм"/>
+					<Item id="22201" name="Гурӯҳи 2-ввум"/>
+					<Item id="22301" name="Гурӯҳи 3-ввум"/>
+					<Item id="22401" name="Гурӯҳи 4-ум"/>
+					<Item id="22451" name="Гурӯҳи 5-ум"/>
+					<Item id="22501" name="Гурӯҳи 6-ум"/>
+					<Item id="22551" name="Гурӯҳи 7-ум"/>
+					<Item id="22601" name="Гурӯҳи 8-ум"/>
+					<Item id="22121" name="Ҳолати пешвандӣ"/>
+					<Item id="22221" name="Ҳолати пешвандӣ"/>
+					<Item id="22321" name="Ҳолати пешвандӣ"/>
+					<Item id="22421" name="Ҳолати пешвандӣ"/>
+					<Item id="22471" name="Ҳолати пешвандӣ"/>
+					<Item id="22521" name="Ҳолати пешвандӣ"/>
+					<Item id="22571" name="Ҳолати пешвандӣ"/>
+					<Item id="22621" name="Ҳолати пешвандӣ"/>
+					<Item id="22122" name="Сабкдиҳанда"/>
+					<Item id="22222" name="Сабкдиҳанда"/>
+					<Item id="22322" name="Сабкдиҳанда"/>
+					<Item id="22422" name="Сабкдиҳанда"/>
+					<Item id="22472" name="Сабкдиҳанда"/>
+					<Item id="22522" name="Сабкдиҳанда"/>
+					<Item id="22572" name="Сабкдиҳанда"/>
+					<Item id="22622" name="Сабкдиҳанда"/>
+				</Keywords>
+				<Comment title="Тавзеҳ &amp;&amp; Ададҳо">
+					<Item id="23003" name="Мавқеъи сатри тавзеҳ"/>
+					<Item id="23004" name="Иҷоза дар ҳама ҷо"/>
+					<Item id="23005" name="Дар аввали хат ҷой дода шавад"/>
+					<Item id="23006" name="Фосилаи қаблӣ"/>
+					<Item id="23001" name="Иҷоза додани бастани тавзеҳот"/>
+					<Item id="23326" name="Сабкдиҳанда"/>
+					<Item id="23323" name="боз кардан"/>
+					<Item id="23324" name="Аломати идомадиҳӣ"/>
+					<Item id="23325" name="Бастан"/>
+					<Item id="23301" name="Сабки хати тавзеҳот  "/>
+					<Item id="23124" name="Сабкдиҳанда"/>
+					<Item id="23122" name="Боз кардан"/>
+					<Item id="23123" name="Бастан"/>
+					<Item id="23101" name="Сабки тавзеҳ"/>
+					<Item id="23201" name="Шумораи сабк"/>
+					<Item id="23220" name="Сабкдиҳанда"/>
+					<Item id="23230" name="Пешванди 1"/>
+					<Item id="23232" name="Пешванди 2"/>
+					<Item id="23234" name="Афзунаҳои пешниҳодии 1"/>
+					<Item id="23236" name="Афзунаҳои пешниҳодии 2"/>
+					<Item id="23238" name="Пасванди 1"/>
+					<Item id="23240" name="Пасванди 2"/>
+					<Item id="23242" name="Маҳдуда:"/>
+					<Item id="23244" name="Ҷудокунандаи даҳӣ"/>
+					<Item id="23245" name="Нуқта"/>
+					<Item id="23246" name="Вергул"/>
+					<Item id="23247" name="Ҳар ду"/>
+				</Comment>
+				<Operator title="Гардонандаҳо ва Ҷудокунандаҳо">
+					<Item id="24101" name="Сабки гардонандаҳо"/>
+					<Item id="24113" name="Сабкдиҳанда"/>
+					<Item id="24116" name="Гардонандаҳои 1"/>
+					<Item id="24117" name="Гардонандаҳои 2 (ҷудокунандаҳои зарурӣ)"/>
+					<Item id="24201" name="Сабки 1 ҷудокунандаҳо"/>
+					<Item id="24220" name="Боз кардан:"/>
+					<Item id="24221" name="Гузариш"/>
+					<Item id="24222" name="Бастан:"/>
+					<Item id="24223" name="Сабкдиҳанда"/>
+					<Item id="24301" name="Сабки 2 ҷудокунандаҳо"/>
+					<Item id="24320" name="Боз кардан:"/>
+					<Item id="24321" name="Гузариш"/>
+					<Item id="24322" name="Бастан:"/>
+					<Item id="24323" name="Сабкдиҳанда"/>
+					<Item id="24401" name="Сабки 3 ҷудокунандаҳо"/>
+					<Item id="24420" name="Боз кардан:"/>
+					<Item id="24421" name="Гузариш"/>
+					<Item id="24422" name="Бастан:"/>
+					<Item id="24423" name="Сабкдиҳанда"/>
+					<Item id="24451" name="Сабки 4 ҷудокунандаҳо"/>
+					<Item id="24470" name="Боз кардан:"/>
+					<Item id="24471" name="Гузариш"/>
+					<Item id="24472" name="Бастан:"/>
+					<Item id="24473" name="Сабкдиҳанда"/>
+					<Item id="24501" name="Сабки 5 ҷудокунандаҳо"/>
+					<Item id="24520" name="Боз кардан:"/>
+					<Item id="24521" name="Гузариш"/>
+					<Item id="24522" name="Бастан:"/>
+					<Item id="24523" name="Сабкдиҳанда"/>
+					<Item id="24551" name="Сабки 6 ҷудокунандаҳо"/>
+					<Item id="24570" name="Боз кардан:"/>
+					<Item id="24571" name="Гузариш"/>
+					<Item id="24572" name="Бастан:"/>
+					<Item id="24573" name="Сабкдиҳанда"/>
+					<Item id="24601" name="Сабки 7 ҷудокунандаҳо"/>
+					<Item id="24620" name="Боз кардан:"/>
+					<Item id="24621" name="Гузариш"/>
+					<Item id="24622" name="Бастан:"/>
+					<Item id="24623" name="Сабкдиҳанда"/>
+					<Item id="24651" name="Сабки 8 ҷудокунандаҳо"/>
+					<Item id="24670" name="Боз кардан:"/>
+					<Item id="24671" name="Гузариш"/>
+					<Item id="24672" name="Бастан:"/>
+					<Item id="24673" name="Сабкдиҳанда"/>
+				</Operator>
+			</UserDefine>
+			<Preference title="Танзимот">
+				<Item id="6001" name="Бастан"/>
+				<Global title="Умумӣ">
+					<Item id="6102" name="Махфӣ кардан"/>
+					<Item id="6103" name="Айконҳои кучак"/>
+					<Item id="6104" name="Айконҳои бузург"/>
+					<Item id="6105" name="Айконҳои стандартӣ"/>
+
+					<Item id="6107" name="Хурд кардан"/>
+					<Item id="6108" name="Қуфл (бе кашидану раҳо кардан)"/>
+					<Item id="6109" name="Забонаи гузоштаҳои ғайрифаъоли тира"/>
+					<Item id="6110" name="Хати норинҷӣ болои забонаи гузоштаҳо"/>
+
+					<Item id="6112" name="Намоиши дакмаи бастан дар забонаи гузоштаҳо"/>
+					<Item id="6113" name="Бо ду клик бастани санад"/>
+					<Item id="6118" name="Махфӣ сохтан"/>
+					<Item id="6119" name="Чанд-хатӣ"/>
+					<Item id="6120" name="Амудӣ/Вертикалӣ"/>
+
+					<Item id="6122" name="Махфӣ кардан (барои интихоб Alt ё F10 тайин кунед)"/>
+					<Item id="6123" name="Маҳаллисозӣ"/>
+
+					<Item id="6125" name="Навори рӯйхати санадҳо"/>
+					<Item id="6126" name="Намоиш"/>
+					<Item id="6127" name="Сутуни пасванд ғфйрифаъол шавад"/>
+				</Global>
+				<Scintillas title="Вироиш">
+					<Item id="6216" name="Танзимоти ҳуштак"/>
+					<Item id="6217" name="Арз:"/>
+					<Item id="6219" name="Суръати чашмак:"/>
+					<Item id="6221" name="F"/>
+					<Item id="6222" name="S"/>
+					<Item id="6224" name="Танзимоти чанд-вироишӣ"/>
+					<Item id="6201" name="Сабки ҳошияи пӯша"/>
+					<Item id="6202" name="Сода"/>
+					<Item id="6203" name="Пайкон"/>
+					<Item id="6204" name="Доираи дарахтӣ"/>
+					<Item id="6205" name="Ҷаъбаи дарахтӣ"/>
+					<Item id="6226" name="Ҳечкадом"/>
+
+					<Item id="6227" name="печидани хат"/>
+					<Item id="6228" name="Пешфарз"/>
+					<Item id="6229" name="Aligned"/>
+					<Item id="6230" name="Лаба додан"/>
+
+					<Item id="6206" name="Намоиши шумориши хатҳо"/>
+					<Item id="6207" name="Намоиши лавҳаи гузоридаҳо"/>
+					<Item id="6208" name="Намоиши лабаи амудӣ/вертикалӣ"/>
+					<Item id="6209" name="Шумораи сутунҳо: "/>
+					<Item id="6234" name="Ғайрифаъол кардани паймоиши пешрафта
+(агар Шумо мушкили бадламсӣ дошта бошед)"/>
+
+					<Item id="6211" name="Танзимоти лабаи амудӣ/вертикалӣ"/>
+					<Item id="6212" name="Ҳолати (навъи) хат"/>
+					<Item id="6213" name="Ҳолати пасзамина"/>
+					<Item id="6214" name="Фаъолсозии пурнур кардани хати феълӣ"/>
+
+					<Item id="6231" name="Арзи марзӣ"/>
+				</Scintillas>
+
+				<NewDoc title="Санади ҷадид/нав">
+					<Item id="6401" name="Формат"/>
+					<Item id="6402" name="Виндовс"/>
+					<Item id="6403" name="Unix"/>
+					<Item id="6404" name="Mac"/>
+					<Item id="6405" name="Рамзгузорӣ"/>
+					<Item id="6406" name="ANSI"/>
+					<Item id="6407" name="UTF-8 бе BOM"/>
+					<Item id="6408" name="UTF-8"/>
+					<Item id="6409" name="UCS-2 Big Endian"/>
+					<Item id="6410" name="UCS-2 Little Endian"/>
+					<Item id="6411" name="Забони пешфарз:"/>
+					<Item id="6419" name="Санади ҷадид/нав"/>
+					<Item id="6420" name="Барои файлҳои ANSI истифода кардан"/>
+				</NewDoc>
+
+				<DefaultDir title="Феҳристи пешфарз">
+					<Item id="6413" name="Феҳристи пешфарз (боз кардан/захира)"/>
+					<Item id="6414" name="Пайгирии санади феълӣ"/>
+					<Item id="6415" name="Охирин феҳристи истифодашуда"/>
+				</DefaultDir>
+
+				<FileAssoc title="Вобастасозии файл">
+					<Item id="4009" name="Пасвандҳои пуштибонишуда:"/>
+					<Item id="4010" name="Пасвандҳои сабтшуда:"/>
+				</FileAssoc>
+				<LangMenu title="Менюи забон">
+					<Item id="6505" name="Забонҳои дастрас"/>
+					<Item id="6506" name="Ғайрифаъолшуда"/>
+					<Item id="6507" name="Менюи забонро кӯтоҳ кун"/>
+					<Item id="6508" name="Менюи забон"/>
+				</LangMenu>
+
+				<TabSettings title="Танзимоти забона">
+					<Item id="6301" name="Танзимоти забона"/>
+					<Item id="6302" name="Ҷойгузини забона бо фосила"/>
+					<Item id="6303" name="Андозаи забона: "/>
+					<Item id="6510" name="Қиматҳои пешфарз иҷро шаванд"/>
+				</TabSettings>
+
+				<Print title="Чоп">
+					<Item id="6601" name="Рақами/Шумораи хатҳо чоп шаванд"/>
+					<Item id="6602" name="Гузинаҳои ранг"/>
+					<Item id="6603" name="Чуноне ҳаст"/>
+					<Item id="6604" name="Воруна"/>
+					<Item id="6605" name="Чопи сиёҳ дар сафед"/>
+					<Item id="6606" name="Бе ранги пасзамина"/>
+					<Item id="6607" name="Танзимоти ҳошия (Воҳид милиметр:mm)"/>
+					<Item id="6612" name="Чап"/>
+					<Item id="6613" name="Боло"/>
+					<Item id="6614" name="Рост"/>
+					<Item id="6615" name="Поин"/>
+					<Item id="6706" name="Пурранг"/>
+					<Item id="6707" name="Каҷ"/>
+					<Item id="6708" name="Сарсафҳа"/>
+					<Item id="6709" name="Қисмати чап"/>
+					<Item id="6710" name="Қисмати миёнӣ"/>
+					<Item id="6711" name="Қисмати рост"/>
+					<Item id="6717" name="Пурранг"/>
+					<Item id="6718" name="Каҷ"/>
+					<Item id="6719" name="Посафҳа"/>
+					<Item id="6720" name="Қисмати чап"/>
+					<Item id="6721" name="Қисмати миёнӣ"/>
+					<Item id="6722" name="Қисмати рост"/>
+					<Item id="6723" name="Афзудан"/>
+					<Item id="6725" name="Тағйирёбанда:"/>
+					<Item id="6727" name="Дар инҷо танзимоти тағйирёбандаи худро намоиш диҳед"/>
+					<Item id="6728" name="Сарсафҳа ва посафҳа"/>
+				</Print>
+
+				<RecentFilesHistory title="Таърихчаи ахири файлҳо">
+					<Item id="6304" name="Таърихчаи ахири файлҳо"/>
+					<Item id="6306" name="Теъдоди бешинаи вурудӣ:"/>
+					<Item id="6305" name="Ҳангоми иҷро баррасӣ накун"/>
+					<Item id="6429" name="Инъикос/Намоиш"/>
+					<Item id="6424" name="Дар зерменю"/>
+					<Item id="6425" name="Танҳо номи файл"/>
+					<Item id="6426" name="Масири комили файл"/>
+					<Item id="6427" name="Тайини тули бешина:"/>
+				</RecentFilesHistory>
+
+				<Backup title="Пуштибон">
+					<Item id="6817" name="Акси фаврии ҷаласа ва пушибогирии даврӣ"/>
+					<Item id="6818" name="Фаол кардани акси фаврии ҷаласа ва пушибогирии даврӣ"/>
+					<Item id="6819" name="Пуштибонгирии ҳар/ҳама"/>
+					<Item id="6821" name="сония"/>
+					<Item id="6822" name="Масири пуштибон:"/>
+					<Item id="6309" name="Ёддошти ҷаласаи феълӣ барои иҷрои баъдӣ"/>
+					<Item id="6801" name="Пуштибон"/>
+					<Item id="6315" name="Катъшуда"/>
+					<Item id="6316" name="Пуштибонгирии сода"/>
+					<Item id="6317" name="Пуштибонгирии тулонӣ"/>
+					<Item id="6804" name="Феҳристи пуштибонгири корбар"/>
+					<Item id="6803" name="Феҳрист:"/>
+				</Backup>
+
+				<AutoCompletion title="Пуштибон/Такмили худкор">
+					<Item id="6807" name="Такмили худкор"/>
+					<Item id="6808" name="Фаъол кардани такмили худкор бар рӯи ҳар вурудӣ"/>
+					<Item id="6809" name="Такмили функсияҳо"/>
+					<Item id="6810" name="Такмили калимаҳо"/>
+					<Item id="6816" name="Такмили функсияҳо ва вожаҳо"/>
+					<Item id="6811" name="Шурӯъ аз"/>
+					<Item id="6813" name="-аломат"/>
+					<Item id="6814" name="Қиматҳои имконпазир: 1 - 9"/>
+					<Item id="6815" name="Ишораи кумакӣ дар вуруди параметрҳои функсия"/>
+					<Item id="6851" name="Часбондани худкор"/>
+					<Item id="6857" name=" html/xml бастани таг"/>
+					<Item id="6858" name="Боз кардан"/>
+					<Item id="6859" name="Бастан"/>
+					<Item id="6860" name="Ҷуфти ҳамсони 1:"/>
+					<Item id="6863" name="Ҷуфти ҳамсони 2:"/>
+					<Item id="6866" name="Ҷуфти ҳамсони 3:"/>
+				</AutoCompletion>
+
+				<MultiInstance title="Чанднамуна">
+					<Item id="6151" name="Танзимоти чанднамуна"/>
+					<Item id="6152" name="Боз кардани ҷаласа дар як намунаи нави Notepad++"/>
+					<Item id="6153" name="Ҳамеша дар ҳолати чанднамунаӣ"/>
+					<Item id="6154" name="Пешфарз (якнамунаӣ)"/>
+					<Item id="6155" name="* Ислоҳи ин танзимот ба роҳандозии нави Notepad++ ниёз дорад"/>
+				</MultiInstance>
+
+				<Delimiter title="Ҷудокунанда">
+					<Item id="6251" name="Танзимоти ҷудокунанда (Ctrl + Mouse double click)"/>
+					<Item id="6252" name="Боз кардан"/>
+					<Item id="6255" name="Бастан"/>
+					<Item id="6256" name="Фарогирии чанд хат"/>
+				</Delimiter>
+
+				<Cloud title="Захираи абрӣ">
+					<Item id="6262" name="Танзимоти захираи абрӣ"/>
+					<Item id="6263" name="Бедуни абр"/>
+					<Item id="6264" name="Dropbox"/>
+					<Item id="6265" name="OneDrive"/>
+					<Item id="6266" name="Google Drive"/>
+					<!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
+				</Cloud>
+
+				<MISC title="Мутафриқа">
+					<Item id="6312" name="Вазъияти файли худкори ташхис"/>
+					<Item id="6313" name="Барӯзгардонӣ бепурсиш"/>
+					<Item id="6318" name="Танзимоти павандҳои Веб"/>
+					<Item id="6325" name="Паймоиш ба хати охир баъди барӯзрасонӣ"/>
+					<Item id="6319" name="Фаъол кардан"/>
+					<Item id="6320" name="Бе зерхатдор"/>
+					<Item id="6322" name="Пасванди файли ҷаласа:"/>
+					<Item id="6323" name="Фаъол кардани Notepad++ auto-updater"/>
+					<Item id="6324" name="Таъвизкунандаи санадҳо (Ctrl+TAB)"/>
+					<Item id="6326" name="Фаъол кардани барҷастагии ҳушманд (smart highlighting)"/>
+					<Item id="6329" name="Татбиқи барҷастаи тагҳо"/>
+					<Item id="6327" name="Фаъол кардан"/>
+					<Item id="6328" name="Мушаххасаи таги барҷастагӣ"/>
+					<Item id="6330" name="Тавзеҳи барҷастагӣ/php/asp zone"/>
+					<Item id="6331" name="Дар навори унвон намоиш додани танҳо номи файл"/>
+					<Item id="6332" name="Регистри ҳуруф дар назар гирифта шавад"/>
+					<Item id="6333" name="Равшансозии калимаҳои якхела"/>
+					<Item id="6334" name="Ташхиси худкори рамзгузории аломатҳо"/>
+					<Item id="6335" name="Аломати \ барои баргашт ба SQL"/>
+					<Item id="6114" name="Фаъол кардан"/>
+					<Item id="6117" name="Фаъол кардани рӯйхат бо раванди истифодабарӣ (MRU behaviour)"/>
+				</MISC>
+			</Preference>
+			<MultiMacro title="Макрос дар чанд замон иҷро мешавад">
+				<Item id="1" name="Иҷро"/>
+				<Item id="2" name="Cancel"/>
+				<Item id="8006" name="Макрос ба иҷро:"/>
+				<Item id="8001" name="Иҷро"/>
+				<Item id="8005" name="маротиба"/>
+				<Item id="8002" name="То охири файл иҷро шавад"/>
+			</MultiMacro>
+			<Window title="Панҷара">
+				<Item id="1" name="Фаъолсозӣ"/>
+				<Item id="2" name="OK"/>
+				<Item id="7002" name="Захира"/>
+				<Item id="7003" name="Бастан панҷара(ҳо)"/>
+				<Item id="7004" name="Мураттабсозӣ"/>
+			</Window>
+			<ColumnEditor title="Виростори сутун">
+				<Item id="2023" name="Матн барои часбондан"/>
+				<Item id="2033" name="Адад барои часбондан"/>
+				<Item id="2030" name="Адади аввалия:"/>
+				<Item id="2031" name="Афзудан ба:"/>
+				<Item id="2035" name="Нули аввал"/>
+				<Item id="2032" name="Формат"/>
+				<Item id="2024" name="Даҳӣ"/>
+				<Item id="2025" name="Ҳаштӣ"/>
+				<Item id="2026" name="Шонздаҳӣ"/>
+				<Item id="2027" name="Дуӣ"/>
+				<Item id="1" name="Тайид"/>
+				<Item id="2" name="Лағв"/>
+			</ColumnEditor>
+		</Dialog>
+		<MessageBox>
+			<ContextMenuXmlEditWarning title="Вироиши contextMenu" message="Вироиши contextMenu.xml ба Шумо имкон медиҳад менюи бофтории худро дар Notepad++ мутобиқи ниёзҳооятон танзим кунет\rШумо баъди танзимотро дар менюи бофтории contextMenu.xml барномаи Notepad++ғро аз нав роҳандози намоед."/>
+			<NppHelpAbsentWarning title="Файл вуҷуд надорад" message="\rвуҷуд надорад. Лутфан, онро аз сайти Notepad++ дарёфт намоед."/>
+			<SaveCurrentModifWarning title="Захираи тағйироти феълӣ" message="Шумо бояд тағйироти феълиро захира намоед.\rҲама тағйироти захирашуда бекор шуда наметавонанд.\r\rИдома медиҳед?"/>
+			<LoseUndoAbilityWarning title="Аз даст додани имкони беасарсозӣ" message="Шумо бояд тағйироти феълиро захира намоед.\r.\r\rИдома медиҳед?"/>
+			<CannotMoveDoc title="Гузариш ба нусхаи нави Notepad++" message="Санад тағйир ёфтааст, онро захира намуда аз нав сайъ кунед."/>
+			<DocReloadWarning title="Бозгирии муҷаддад" message="Оё мехоҳед файли феълиро бозгирии муҷаддад карда ва тағйироти эҷодшуда тавассути барномаро аз даст диҳед?"/>
+			<FileLockedWarning title="Мувафақ ба захира нашуд" message="Лутфан, боз будани ин файро дар барномаи дигар баррасӣ кунед"/>
+			<FileAlreadyOpenedInNpp title="" message="Файл аз қабл дар барномаи Notepad++ боз шудааст."/>
+			<DeleteFileFailed title="Ҳазфи файл" message="Файл ҳазф нашуд"/>
+
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<NbFileToOpenImportantWarning title="Миқдори файлҳои мо барои боз шудан зиёд бузург аст" message="$INT_REPLACE$ файлҳо базудӣ боз мешаванд.\rОё мехоҳед онро боз кунед?"/>
+		</MessageBox>
+		<ClipboardHistory>
+			<PanelTitle name="Таърихи миёнгири табодул"/>
+		</ClipboardHistory>
+		<DocList>
+			<PanelTitle name="Таъвизи санад"/>
+			<ColumnName name="Ном"/>
+			<ColumnExt name="Пасв."/>
+		</DocList>
+		<AsciiInsertion>
+			<PanelTitle name="Ҷадвали аломатҳои ASCII"/>
+			<ColumnVal name="Арзиш"/>
+			<ColumnHex name="Шонздаҳӣ"/>
+			<ColumnChar name="Аломат"/>
+		</AsciiInsertion>
+		<DocumentMap>
+			<PanelTitle name="Нақшаи санад"/>
+		</DocumentMap>
+		<FunctionList>
+			<PanelTitle name="Рӯйхати функсияҳо"/>
+			<SortTip name="Мураттабсозӣ"/>
+			<ReloadTip name="Бозгирӣ"/>
+		</FunctionList>
+		<ProjectManager>
+			<PanelTitle name="Пружа"/>
+			<WorkspaceRootName name="Фазои корӣ"/>
+			<NewProjectName name="Номи пружа"/>
+			<NewFolderName name="Номи пӯша"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Фазои корӣ"/>
+					<Item id="1" name="Вироиш"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="Фазои кории нав"/>
+					<Item id="3123" name="Боз кардани фазои корӣ"/>
+					<Item id="3124" name="Бозгирии муҷаддаи фазои корӣ"/>
+					<Item id="3125" name="Захира"/>
+					<Item id="3126" name="Захира бо ном..."/>
+					<Item id="3127" name="Захираи як нусха бо ном..."/>
+					<Item id="3121" name="Афзудани пружаи ҷадид"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Тағйири ном"/>
+					<Item id="3112" name="Афзудани пӯша"/>
+					<Item id="3113" name="Афзудани файлҳо..."/>
+					<Item id="3117" name="Афзудани файлҳо аз феҳрист..."/>
+					<Item id="3114" name="Ҳазф"/>
+					<Item id="3118" name="Интиқол ба боло"/>
+					<Item id="3119" name="Интиқол ба поён"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Тағйири ном"/>
+					<Item id="3112" name="Афзудани пӯша"/>
+					<Item id="3113" name="Афзудани файлҳо..."/>
+					<Item id="3117" name="Афзудани файлҳо аз феҳрист..."/>
+					<Item id="3114" name="Ҳазф"/>
+					<Item id="3118" name="Интиқол ба боло"/>
+					<Item id="3119" name="Интиқол ба поён"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Тағйири ном"/>
+					<Item id="3115" name="Ҳазф"/>
+					<Item id="3116" name="Тағйири масири файл"/>
+					<Item id="3118" name="Интиқол ба боло"/>
+					<Item id="3119" name="Интиқол ба поён"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
+	</Native-Langue>
+</NotepadPlus>

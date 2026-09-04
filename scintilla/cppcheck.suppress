@@ -1,0 +1,138 @@
+// File to suppress cppcheck warnings for files that will not be fixed.
+// Does not suppress warnings where an additional occurrence of the warning may be of interest.
+// Configured for cppcheck 2.20
+
+// Just a report of how many checkers are run
+checkersReport
+
+// This just warns that cppcheck isn't exhaustive and it still appears in exhaustive mode
+normalCheckLevelMaxBranches
+
+// Coding style is to use assignments in constructor when there are many
+// members to initialize or the initialization is complex or has comments.
+useInitializationList
+
+// These may be interesting but its not clear without examining each instance closely
+// Would have to ensure that any_of/all_of has same early/late exits as current code and
+// produces same result on empty collections
+useStlAlgorithm
+
+// Written with variable for consistency
+knownArgument:scintilla/src/SparseVector.h
+
+// cppcheck 2.11 can't find system headers on Win32.
+missingIncludeSystem
+
+// Some non-explicit constructors are used for conversions or are private to lexers
+noExplicitConstructor
+
+// RangesCopy is deliberately returning a copy.
+// The copy is always mutated so returning a refererence just enables lifetime problems.
+returnByReference:scintilla/src/Selection.h
+
+// MarginView access to all bits is safe and is better defined in later versions of C++
+shiftTooManyBitsSigned:scintilla/src/MarginView.cxx
+
+// Doesn't understand changing dropWentOutside in Editor
+knownConditionTrueFalse:scintilla/win32/ScintillaWin.cxx
+
+// GetData is implementing interface so shouldn't add const
+constParameterPointer:scintilla/win32/ScintillaWin.cxx
+
+// Window::SetCursor could be static if only on Win32 but not on other platforms
+functionStatic:scintilla/win32/PlatWin.cxx
+
+// Doesn't handle intptr_t (long long) being signed
+knownConditionTrueFalse:scintilla/src/Editor.cxx
+knownConditionTrueFalse:scintilla/src/EditView.cxx
+
+// This makes no sense
+CastIntegerToAddressAtReturn:scintilla\src\DBCS.cxx
+
+// Preprocessor #if with *_CHECK_VERSION(...) *_VERSION_CHECK(...)
+syntaxError:scintilla/gtk/Wrappers.h
+syntaxError:scintilla/gtk/PlatGTK.cxx
+syntaxError:scintilla/gtk/ScintillaGTKAccessible.cxx
+syntaxError:scintilla/qt/ScintillaEditBase/PlatQt.cpp
+syntaxError:scintilla/qt/ScintillaEditBase/ScintillaEditBase.cpp
+syntaxError:scintilla/qt/ScintillaEditBase/ScintillaQt.cpp
+
+noValidConfiguration:scintilla/gtk/PlatGTK.cxx
+noValidConfiguration:scintilla/gtk/ScintillaGTKAccessible.cxx
+
+unmatchedSuppression:scintilla/gtk/PlatGTK.cxx
+unmatchedSuppression:scintilla/gtk/ScintillaGTKAccessible.cxx
+unmatchedSuppression:scintilla/qt/ScintillaEditBase/PlatQt.cpp
+unmatchedSuppression:scintilla/qt/ScintillaEditBase/ScintillaEditBase.cpp
+unmatchedSuppression:scintilla/qt/ScintillaEditBase/ScintillaQt.cpp
+
+// While ShowAssertionPopUps always returns false, it can be set to true for debugging
+knownConditionTrueFalse:scintilla/qt/ScintillaEditBase/PlatQt.cpp
+
+// G_DEFINE_TYPE is too complex to pass to cppcheck
+unknownMacro:scintilla/gtk/PlatGTK.cxx
+// G_END_DECLS
+unknownMacro:scintilla/gtk/scintilla-marshal.h
+
+// Marshaling hidden from cppcheck
+unusedFunction:scintilla/gtk/scintilla-marshal.c
+
+// Difficult to test accessibility so don't change
+constParameterPointer:scintilla/gtk/ScintillaGTKAccessible.cxx
+constVariableReference:scintilla/gtk/ScintillaGTKAccessible.cxx
+constVariablePointer:scintilla/gtk/ScintillaGTKAccessible.cxx
+
+// moc_ files show #error as they are not built with standard context
+preprocessorErrorDirective:scintilla/qt/**.cpp
+noValidConfiguration:scintilla/qt/ScintillaEditBase/build/**.cpp
+
+// Doesn't understand Qt slots macro
+unknownMacro:scintilla/qt/ScintillaEditBase/*.h
+
+// Provided for other projects
+unusedFunction:scintilla/qt/ScintillaEdit/ScintillaDocument.cpp
+
+// Provided for other projects
+unusedFunction:scintilla/call/ScintillaCall.cxx
+
+// Don't want to unnecessarily allow const pointers to be made mutable through reinterpret_cast
+constParameterPointer:scintilla/call/ScintillaCall.cxx
+constVariablePointer:scintilla/src/Editor.cxx
+
+// Code in ChangeCaseOfSelection works on two string_views in parallel to find shared prefix and suffix
+mismatchingContainers:scintilla/src/Editor.cxx
+
+// The performance cost of by-value passing is often small and using a reference decreases
+// code legibility.
+passedByValue
+
+// For conciseness, the testing code is much sloppier than the library
+
+// Suppress everything in catch.hpp as won't be changing
+*:scintilla/test/unit/catch.hpp
+
+// unread variables and overwritten without read in tests
+unreadVariable:scintilla/test/unit/*.cxx
+
+// Checks for moves move to variables that are not read but the moved from is checked
+accessMoved:scintilla/test/unit/*.cxx
+
+// 'obviously' true tests are still useful
+knownConditionTrueFalse:scintilla/test/unit/*.cxx
+
+// fields in TEST_CASE could be restricted to SECTION but not interesting
+variableScope:scintilla/test/unit/*.cxx
+
+// overwritten without read in tests
+redundantInitialization:scintilla/test/unit/*.cxx
+redundantAssignment:scintilla/test/unit/*.cxx
+unusedVariable:scintilla/test/unit/*.cxx
+
+// doesn't understand cppcheck TEST_CASE
+syntaxError:scintilla/test/unit/*.cxx
+
+// doesn't understand cppcheck generated functions
+unusedFunction:scintilla/test/unit/*.cxx
+
+// cppcheck fails REQUIRE from Catch
+comparisonOfFuncReturningBoolError:scintilla/test/unit/*.cxx

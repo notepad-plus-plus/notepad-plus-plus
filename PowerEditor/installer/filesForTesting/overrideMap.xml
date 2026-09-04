@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<associationMap>
+		<!--
+			This file is optional (can be removed).
+			Each functionlist parse rule links to a language ID ("langID").
+			The "id" is the parse rule's default file name, but users can override it.
+			Here are the default value they are using:
+
+			<association id= "php.xml"			 langID= "1" />
+			<association id= "c.xml"			 langID= "2" />	
+			<association id= "cpp.xml"			 langID= "3" />		(C++)
+			<association id= "cs.xml"			 langID= "4" />		(C#)
+			<association id= "objc.xml"			 langID= "5" />		(Obective-C)
+			<association id= "java.xml"			 langID= "6" />
+			<association id= "rc.xml"			 langID= "7" />		(Windows Resource file)
+			<association id= "html.xml"			 langID= "8" />
+			<association id= "xml.xml"			 langID= "9" />
+			<association id= "makefile.xml"		 langID= "10"/>
+			<association id= "pascal.xml"		 langID= "11"/>
+			<association id= "batch.xml"		 langID= "12"/>	
+			<association id= "ini.xml"			 langID= "13"/>
+			<association id= "asp.xml"			 langID= "16"/>
+			<association id= "sql.xml"			 langID= "17"/>
+			<association id= "vb.xml"			 langID= "18"/>
+			<association id= "css.xml"			 langID= "20"/>
+			<association id= "perl.xml"			 langID= "21"/>
+			<association id= "python.xml"		 langID= "22"/>
+			<association id= "lua.xml"			 langID= "23"/>
+			<association id= "tex.xml"			 langID= "24"/>		(TeX)
+			<association id= "fortran.xml"		 langID= "25"/>
+			<association id= "bash.xml"			 langID= "26"/>
+			<association id= "actionscript.xml"  langID= "27"/>
+			<association id= "nsis.xml"			 langID= "28"/>
+			<association id= "tcl.xml"			 langID= "29"/>
+			<association id= "lisp.xml"			 langID= "30"/>
+			<association id= "scheme.xml"		 langID= "31"/>
+			<association id= "asm.xml"			 langID= "32"/>		(Assembly)
+			<association id= "diff.xml"			 langID= "33"/>
+			<association id= "props.xml"		 langID= "34"/>	
+			<association id= "postscript.xml"	 langID= "35"/>
+			<association id= "ruby.xml"			 langID= "36"/>
+			<association id= "smalltalk.xml"	 langID= "37"/>	
+			<association id= "vhdl.xml"			 langID= "38"/>
+			<association id= "kix.xml"			 langID= "39"/>		(KiXtart)
+			<association id= "autoit.xml"		 langID= "40"/>
+			<association id= "caml.xml"			 langID= "41"/>
+			<association id= "ada.xml"			 langID= "42"/>
+			<association id= "verilog.xml"		 langID= "43"/>
+			<association id= "matlab.xml"		 langID= "44"/>
+			<association id= "haskell.xml"		 langID= "45"/>
+			<association id= "inno.xml"			 langID= "46"/>		(Inno Setup)
+			<association id= "cmake.xml"		 langID= "48"/>	
+			<association id= "yaml.xml"			 langID= "49"/>
+			<association id= "cobol.xml"		 langID= "50"/>	
+			<association id= "gui4cli.xml"		 langID= "51"/>
+			<association id= "d.xml"			 langID= "52"/>	
+			<association id= "powershell.xml"	 langID= "53"/>
+			<association id= "r.xml"			 langID= "54"/>	
+			<association id= "jsp.xml"			 langID= "55"/>
+			<association id= "coffeescript.xml"  langID= "56"/>
+			<association id= "json.xml"			 langID= "57"/>
+			<association id= "javascript.js.xml" langID= "58"/>
+			<association id= "fortran77.xml"	 langID= "59"/>	
+			<association id= "baanc.xml"		 langID= "60"/>		(BaanC)
+			<association id= "srec.xml"			 langID= "61"/>		(Motorola S-Record binary data)
+			<association id= "ihex.xml"			 langID= "62"/>		(Intel HEX binary data)
+			<association id= "tehex.xml"		 langID= "63"/>		(Tektronix extended HEX binary data)
+			<association id= "swift.xml"		 langID= "64"/>	
+			<association id= "asn1.xml"			 langID= "65"/>		(Abstract Syntax Notation One)
+			<association id= "avs.xml"			 langID= "66"/>		(AviSynth)
+			<association id= "blitzbasic.xml"	 langID= "67"/>		(BlitzBasic)
+			<association id= "purebasic.xml"	 langID= "68"/>	
+			<association id= "freebasic.xml"	 langID= "69"/>	
+			<association id= "csound.xml"		 langID= "70"/>
+			<association id= "erlang.xml"		 langID= "71"/>
+			<association id= "escript.xml"		 langID= "72"/>
+			<association id= "forth.xml"		 langID= "73"/>	
+			<association id= "latex.xml"		 langID= "74"/>	
+			<association id= "mmixal.xml"		 langID= "75"/>
+			<association id= "nimrod.xml"		 langID= "76"/>
+			<association id= "nncrontab.xml"	 langID= "77"/>		(extended crontab)
+			<association id= "oscript.xml"		 langID= "78"/>
+			<association id= "rebol.xml"		 langID= "79"/>	
+			<association id= "registry.xml"		 langID= "80"/>
+			<association id= "rust.xml"			 langID= "81"/>
+			<association id= "spice.xml"		 langID= "82"/>	
+			<association id= "txt2tags.xml"		 langID= "83"/>
+			<association id= "visualprolog.xml"  langID= "84"/>
+			<association id= "typescript.xml"	 langID= "85"/>
+			<association id= "mssql.xml"		 langID= "87"/>
+			<association id= "gdscript.xml"		 langID= "88"/>
+			<association id= "hollywood.xml"	 langID= "89"/>
+			
+			If you create your own parse rule of supported languages (above) for your specific need,
+			you can copy it without modifying the original one, and make it point to your rule.
+			
+			For example, you have created your php parse rule, named "myphp2.xml". You add the rule file
+			into the functionlist directory and add the following line in this file:
+			<association id= "myphp2.xml"		langID= "1" />
+			and that's it.
+		-->
+		
+
+		<!--
+		   As there is currently only one langID for COBOL:
+		   uncomment the following line to change to cobol-free.xml (cobol section free)
+		   if this is your favourite format
+		-->
+		<!--
+		<association id= "cobol-free.xml"		langID= "50"/>
+		-->
+		
+		<!--
+			For User Defined Languages (UDL's) use:
+			
+			<association id="my_parser.xml" userDefinedLangName="My UDL Name" />
+			
+			If "My UDL Name" doesn't exist yet, you can create it via UDL dialog.
+		-->
+			<!-- ==================== User Defined Languages ============================ -->
+			<association id= "krl.xml"				userDefinedLangName="KRL"/>
+			<association id= "nppexec.xml"			userDefinedLangName="NppExec"/>
+			<association id= "sinumerik.xml"		userDefinedLangName="Sinumerik"/>
+			<association id= "universe_basic.xml"	userDefinedLangName="UniVerse BASIC"/>
+			<association id= "regexGlobalTest.xml"	userDefinedLangName="regexGlobalTest"/>
+			<!-- ======================================================================== -->
+		</associationMap>
+	</functionList>
+</NotepadPlus>

@@ -1,0 +1,339 @@
+{1}// coding:utf-8
+{0}
+{24}void{0} {14}main{16}(){0} {16}{{0}
+  {14}print{16}({5}'Hello, World!'{16});{0}
+{16}}{0}
+
+{23}var{0} {14}name{0} {16}={0} {5}'Voyager I'{16};{0}
+{23}var{0} {14}url{0} {16}={0} {5}'url'{0}
+{23}var{0} {14}year{0} {16}={0} {20}1977{16};{0}
+{23}var{0} {14}antennaDiameter{0} {16}={0} {20}3.7{16};{0}
+{23}var{0} {14}flybyObjects{0} {16}={0} {16}[{5}'Jupiter'{16},{0} {5}'Saturn'{16},{0} {5}'Uranus'{16},{0} {5}'Neptune'{16}];{0}
+{23}var{0} {14}image{0} {16}={0} {16}{{0}
+  {5}'tags'{16}:{0} {16}[{5}'saturn'{16}],{0}
+  {21}url{16}:{0} {5}'//path/to/saturn.jpg'{0}
+{16}};{0}
+
+
+{23}if{0} {16}({14}year{0} {16}>={0} {20}2001{16}){0} {16}{{0}
+  {14}print{16}({5}'21st century'{16});{0}
+{16}}{0} {23}else{0} {23}if{0} {16}({14}year{0} {16}>={0} {20}1901{16}){0} {16}{{0}
+  {14}print{16}({5}'20th century'{16});{0}
+{16}}{0}
+
+{23}for{0} {16}({23}final{0} {14}object{0} {23}in{0} {14}flybyObjects{16}){0} {16}{{0}
+  {14}print{16}({14}object{16});{0}
+{16}}{0}
+
+{23}for{0} {16}({24}int{0} {14}month{0} {16}={0} {20}1{16};{0} {14}month{0} {16}<={0} {20}12{16};{0} {14}month{16}++){0} {16}{{0}
+  {14}print{16}({14}month{16});{0}
+{16}}{0}
+
+{23}while{0} {16}({14}year{0} {16}<{0} {20}2016{16}){0} {16}{{0}
+  {14}year{0} {16}+={0} {20}1{16};{0}
+{16}}{0}
+
+{14}flybyObjects{16}.{14}where{16}(({14}name{16}){0} {16}=>{0} {14}name{16}.{14}contains{16}({5}'turn'{16})).{14}forEach{16}({14}print{16});{0}
+
+{1}// This is a normal, one-line comment.
+{0}
+{2}/// This is a documentation comment, used to document libraries,
+/// classes, and their members. Tools like IDEs and dartdoc treat
+/// doc comments specially.
+{0}
+{3}/* Comments like these are also supported. */{0}
+
+{4}/** Comment 
+    block doc */{0}
+
+{1}// Importing core libraries
+{23}import{0} {5}'dart:math'{16};{0}
+
+{1}// Importing libraries from external packages
+{23}import{0} {5}'package:test/test.dart'{16};{0}
+
+{1}// Importing files
+{23}import{0} {5}'path/to/my_other_file.dart'{16};{0}
+
+{23}class{0} {26}Spacecraft{0} {16}{{0}
+  {25}String{0} {14}name{16};{0}
+  {25}DateTime{16}?{0} {14}launchDate{16};{0}
+
+  {1}// Read-only non-final property
+{0}  {24}int{16}?{0} {23}get{0} {14}launchYear{0} {16}=>{0} {14}launchDate{16}?.{14}year{16};{0}
+
+  {1}// Constructor, with syntactic sugar for assignment to members.
+{0}  {26}Spacecraft{16}({23}this{16}.{14}name{16},{0} {23}this{16}.{14}launchDate{16}){0} {16}{{0}
+    {1}// Initialization code goes here.
+{0}  {16}}{0}
+
+  {1}// Named constructor that forwards to the default one.
+{0}  {26}Spacecraft{16}.{14}unlaunched{16}({25}String{0} {14}name{16}){0} {16}:{0} {23}this{16}({14}name{16},{0} {23}null{16});{0}
+
+  {1}// Method.
+{0}  {24}void{0} {14}describe{16}(){0} {16}{{0}
+    {14}print{16}({5}'Spacecraft: {17}${15}name{5}'{16});{0}
+    {1}// Type promotion doesn't work on getters.
+{0}    {23}var{0} {14}launchDate{0} {16}={0} {23}this{16}.{14}launchDate{16};{0}
+    {23}if{0} {16}({14}launchDate{0} {16}!={0} {23}null{16}){0} {16}{{0}
+      {24}int{0} {14}years{0} {16}={0} {25}DateTime{16}.{14}now{16}().{14}difference{16}({14}launchDate{16}).{14}inDays{0} {16}~/{0} {20}365{16};{0}
+      {14}print{16}({5}'Launched: {17}${15}launchYear{5} ({17}${15}years{5} years ago)'{16});{0}
+    {16}}{0} {23}else{0} {16}{{0}
+      {14}print{16}({5}'Unlaunched'{16});{0}
+    {16}}{0}
+  {16}}{0}
+{16}}{0}
+
+{23}var{0} {14}voyager{0} {16}={0} {26}Spacecraft{16}({5}'Voyager I'{16},{0} {25}DateTime{16}({20}1977{16},{0} {20}9{16},{0} {20}5{16}));{0}
+{14}voyager{16}.{14}describe{16}();{0}
+
+{23}var{0} {14}voyager3{0} {16}={0} {26}Spacecraft{16}.{14}unlaunched{16}({5}'Voyager III'{16});{0}
+{14}voyager3{16}.{14}describe{16}();{0}
+
+{23}enum{0} {14}PlanetType{0} {16}{{0} {14}terrestrial{16},{0} {14}gas{16},{0} {14}ice{0} {16}}{0}
+
+{2}/// Enum that enumerates the different planets in our solar system
+/// and some of their properties.
+{23}enum{0} {14}Planet{0} {16}{{0}
+  {14}mercury{16}({21}planetType{16}:{0} {14}PlanetType{16}.{14}terrestrial{16},{0} {21}moons{16}:{0} {20}0{16},{0} {21}hasRings{16}:{0} {23}false{16}),{0}
+  {14}venus{16}({21}planetType{16}:{0} {14}PlanetType{16}.{14}terrestrial{16},{0} {21}moons{16}:{0} {20}0{16},{0} {21}hasRings{16}:{0} {23}false{16}),{0}
+  {1}// ···
+{0}  {14}uranus{16}({21}planetType{16}:{0} {14}PlanetType{16}.{14}ice{16},{0} {21}moons{16}:{0} {20}27{16},{0} {21}hasRings{16}:{0} {23}true{16}),{0}
+  {14}neptune{16}({21}planetType{16}:{0} {14}PlanetType{16}.{14}ice{16},{0} {21}moons{16}:{0} {20}14{16},{0} {21}hasRings{16}:{0} {23}true{16});{0}
+
+  {2}/// A constant generating constructor
+{0}  {23}const{0} {14}Planet{16}({0}
+      {16}{{23}required{0} {23}this{16}.{14}planetType{16},{0} {23}required{0} {23}this{16}.{14}moons{16},{0} {23}required{0} {23}this{16}.{14}hasRings{16}});{0}
+
+  {2}/// All instance variables are final
+{0}  {23}final{0} {14}PlanetType{0} {14}planetType{16};{0}
+  {23}final{0} {24}int{0} {14}moons{16};{0}
+  {23}final{0} {24}bool{0} {14}hasRings{16};{0}
+
+  {2}/// Enhanced enums support getters and other methods
+{0}  {24}bool{0} {23}get{0} {14}isGiant{0} {16}=>{0}
+      {14}planetType{0} {16}=={0} {14}PlanetType{16}.{14}gas{0} {16}||{0} {14}planetType{0} {16}=={0} {14}PlanetType{16}.{14}ice{16};{0}
+{16}}{0}
+
+{23}final{0} {14}yourPlanet{0} {16}={0} {14}Planet{16}.{14}earth{16};{0}
+
+{23}if{0} {16}(!{14}yourPlanet{16}.{14}isGiant{16}){0} {16}{{0}
+  {14}print{16}({5}'Your planet is not a "giant planet".'{16});{0}
+{16}}{0}
+
+{23}mixin{0} {14}Piloted{0} {16}{{0}
+  {24}int{0} {14}astronauts{0} {16}={0} {20}1{16};{0}
+
+  {24}void{0} {14}describeCrew{16}(){0} {16}{{0}
+    {14}print{16}({5}'Number of astronauts: {17}${15}astronauts{5}'{16});{0}
+  {16}}{0}
+{16}}{0}
+
+{23}const{0} {14}oneSecond{0} {16}={0} {25}Duration{16}({21}seconds{16}:{0} {20}1{16});{0}
+{1}// ···
+{25}Future{16}<{24}void{16}>{0} {14}printWithDelay{16}({25}String{0} {14}message{16}){0} {23}async{0} {16}{{0}
+  {23}await{0} {25}Future{16}.{14}delayed{16}({14}oneSecond{16});{0}
+  {14}print{16}({14}message{16});{0}
+{16}}{0}
+
+
+{25}Future{16}<{24}void{16}>{0} {14}printWithDelay{16}({25}String{0} {14}message{16}){0} {16}{{0}
+  {23}return{0} {25}Future{16}.{14}delayed{16}({14}oneSecond{16}).{14}then{16}(({14}_{16}){0} {16}{{0}
+    {14}print{16}({14}message{16});{0}
+  {16}});{0}
+{16}}{0}
+
+{25}Future{16}<{24}void{16}>{0} {14}createDescriptions{16}({25}Iterable{16}<{25}String{16}>{0} {14}objects{16}){0} {23}async{0} {16}{{0}
+  {23}for{0} {16}({23}final{0} {14}object{0} {23}in{0} {14}objects{16}){0} {16}{{0}
+    {23}try{0} {16}{{0}
+      {23}var{0} {14}file{0} {16}={0} {25}File{16}({5}'{17}${15}object{5}.txt'{16});{0}
+      {23}if{0} {16}({23}await{0} {14}file{16}.{14}exists{16}()){0} {16}{{0}
+        {23}var{0} {14}modified{0} {16}={0} {23}await{0} {14}file{16}.{14}lastModified{16}();{0}
+        {14}print{16}({0}
+            {5}'File for {17}${15}object{5} already exists. It was modified on {17}${15}modified{5}.'{16});{0}
+        {23}continue{16};{0}
+      {16}}{0}
+      {23}await{0} {14}file{16}.{14}create{16}();{0}
+      {23}await{0} {14}file{16}.{14}writeAsString{16}({5}'Start describing {17}${15}object{5} in this file.'{16});{0}
+    {16}}{0} {23}on{0} {25}IOException{0} {23}catch{0} {16}({14}e{16}){0} {16}{{0}
+      {14}print{16}({5}'Cannot create description for {17}${15}object{5}: {17}${15}e{5}'{16});{0}
+    {16}}{0}
+  {16}}{0}
+{16}}{0}
+
+{25}Stream{16}<{25}String{16}>{0} {14}report{16}({26}Spacecraft{0} {14}craft{16},{0} {25}Iterable{16}<{25}String{16}>{0} {14}objects{16}){0} {23}async{16}*{0} {16}{{0}
+  {23}for{0} {16}({23}final{0} {14}object{0} {23}in{0} {14}objects{16}){0} {16}{{0}
+    {23}await{0} {25}Future{16}.{14}delayed{16}({14}oneSecond{16});{0}
+    {23}yield{0} {5}'{17}${{14}craft{16}.{14}name{17}}{5} flies by {17}${15}object{5}'{16};{0}
+  {16}}{0}
+{16}}{0}
+
+{25}Future{16}<{24}void{16}>{0} {14}describeFlybyObjects{16}({25}List{16}<{25}String{16}>{0} {14}flybyObjects{16}){0} {23}async{0} {16}{{0}
+  {23}try{0} {16}{{0}
+    {23}for{0} {16}({23}final{0} {14}object{0} {23}in{0} {14}flybyObjects{16}){0} {16}{{0}
+      {23}var{0} {14}description{0} {16}={0} {23}await{0} {25}File{16}({5}'{17}${15}object{5}.txt'{16}).{14}readAsString{16}();{0}
+      {14}print{16}({14}description{16});{0}
+    {16}}{0}
+  {16}}{0} {23}on{0} {25}IOException{0} {23}catch{0} {16}({14}e{16}){0} {16}{{0}
+    {14}print{16}({5}'Could not describe object: {17}${15}e{5}'{16});{0}
+  {16}}{0} {23}finally{0} {16}{{0}
+    {14}flybyObjects{16}.{14}clear{16}();{0}
+  {16}}{0}
+{16}}{0}
+
+{23}class{0} {14}Television{0} {16}{{0}
+  {2}/// Use [turnOn] to turn the power on instead.
+{0}  {22}@Deprecated{16}({5}'Use turnOn instead'{16}){0}
+  {24}void{0} {14}activate{16}(){0} {16}{{0}
+    {14}turnOn{16}();{0}
+  {16}}{0}
+
+  {2}/// Turns the TV's power on.
+{0}  {24}void{0} {14}turnOn{16}(){0} {16}{...}{0}
+  {1}// ···
+{16}}{0}
+
+{25}String{16}?{0} {14}name{0}  {1}// Nullable type. Can be `null` or string.
+{0}
+{25}String{0} {14}name{0}   {1}// Non-nullable type. Cannot be `null` but can be string.
+{0}
+
+{2}/// A domesticated South American camelid (Lama glama).
+///
+/// Andean cultures have used llamas as meat and pack
+/// animals since pre-Hispanic times.
+///
+/// Just like any other animal, llamas need to eat,
+/// so don't forget to [feed] them some [Food].
+{23}class{0} {14}Llama{0} {16}{{0}
+  {25}String{16}?{0} {14}name{16};{0}
+
+  {4}/** Feeds your llama [food].
+  /
+  / The typical llama eats one bale of hay per week. **/{0}
+  {24}void{0} {14}feed{16}({14}Food{0} {14}food{16}){0} {16}{{0}
+    {1}// ...
+{0}  {16}}{0}
+
+  {2}/// Exercises your llama with an [activity] for
+{0}  {2}/// [timeLimit] minutes.
+{0}  {24}void{0} {14}exercise{16}({14}Activity{0} {14}activity{16},{0} {24}int{0} {14}timeLimit{16}){0} {16}{{0}
+    {1}// ...
+{0}  {16}}{0}
+{16}}{0}
+
+{23}import{0} {5}'package:lib1/lib1.dart'{16};{0}
+{23}import{0} {5}'package:lib2/lib2.dart'{0} {23}as{0} {14}lib2{16};{0}
+{1}// Import only foo.
+{23}import{0} {5}'package:lib1/lib1.dart'{0} {23}show{0} {14}foo{16};{0}
+{1}// Import all names EXCEPT foo.
+{23}import{0} {5}'package:lib2/lib2.dart'{0} {23}hide{0} {14}foo{16};{0}
+
+{14}print{16}({18}#mysymbol{16});{0}
+{25}Symbol{0} {14}symbol{0} {16}={0} {18}#myMethod{16};{0}
+{25}Symbol{0} {14}symbol2{0} {16}={0} {19}#<{16};{0}
+{25}Symbol{0} {14}symbol2{0} {16}={0} {18}#void{16};{0}
+
+{23}var{0} {14}x{0} {16}={0} {20}1{16};{0}
+{23}var{0} {14}hex{0} {16}={0} {20}0xDEADBEEF{16};{0}
+{23}var{0} {14}y{0} {16}={0} {20}1.1{16};{0}
+{23}var{0} {14}exponents{0} {16}={0} {20}1.42e5{16};{0}
+
+{23}var{0} {14}s1{0} {16}={0} {5}'Single quotes work well for string literals.'{16};{0}
+{23}var{0} {14}s2{0} {16}={0} {6}"Double quotes work just as well."{16};{0}
+{23}var{0} {14}s3{0} {16}={0} {5}'It{13}\'{5}s easy to escape the string delimiter.'{16};{0}
+{23}var{0} {14}s4{0} {16}={0} {6}"It's even easier to use the other delimiter."{16};{0}
+
+{23}var{0} {14}s{0} {16}={0} {5}'string interpolation'{16};{0}
+
+{23}assert{16}({5}'Dart has {17}${15}s{5}, which is very handy.'{0} {16}=={0}
+    {5}'Dart has string interpolation, '{0}
+        {5}'which is very handy.'{16});{0}
+{23}assert{16}({5}'That deserves all caps. '{0}
+        {5}'{17}${{14}s{16}.{14}toUpperCase{16}(){17}}{5} is very handy!'{0} {16}=={0}
+    {5}'That deserves all caps. '{0}
+        {5}'STRING INTERPOLATION is very handy!'{16});{0}
+        
+{23}var{0} {14}s1{0} {16}={0} {5}'String '{0}
+    {5}'concatenation'{0}
+    {6}" works even over line breaks."{16};{0}
+{23}assert{16}({14}s1{0} {16}=={0}
+    {5}'String concatenation works even over '{0}
+        {5}'line breaks.'{16});{0}
+
+{23}var{0} {14}s2{0} {16}={0} {5}'The + operator '{0} {16}+{0} {5}'works, as well.'{16};{0}
+{23}assert{16}({14}s2{0} {16}=={0} {5}'The + operator works, as well.'{16});{0}
+
+{23}var{0} {14}s1{0} {16}={0} {7}'''
+You can create
+multi-line strings like this one.
+'''{16};{0}
+
+{23}var{0} {14}s2{0} {16}={0} {8}"""This is also a
+multi-line string."""{16};{0}
+
+{23}var{0} {14}s{0} {16}={0} {9}r'In a raw string, not even \n gets special treatment.'{16};{0}
+{23}var{0} {20}2{0} {16}={0} {10}r"In a raw string, not even \n gets special treatment."{16};{0}
+
+{23}var{0} {14}s1{0} {16}={0} {11}r'''
+You can create
+multi-line strings like this one.
+'''{16};{0}
+
+{23}var{0} {14}s2{0} {16}={0} {12}r"""This is also a
+multi-line string."""{16};{0}
+
+{23}var{0} {14}record{0} {16}={0} {16}({5}'first'{16},{0} {21}a{16}:{0} {20}2{16},{0} {21}b{16}:{0} {23}true{16},{0} {5}'last'{16});{0}
+
+{23}var{0} {14}record{0} {16}={0} {16}({5}'first'{16},{0} {21}a{16}:{0} {20}2{16},{0} {21}b{16}:{0} {23}true{16},{0} {5}'last'{16});{0}
+
+{14}print{16}({14}record{16}.{14}$1{16});{0} {1}// Prints 'first'
+{14}print{16}({14}record{16}.{14}a{16});{0} {1}// Prints 2
+{14}print{16}({14}record{16}.{14}b{16});{0} {1}// Prints true
+{14}print{16}({14}record{16}.{14}$2{16});{0} {1}// Prints 'last'
+{0}
+{16}({{25}String{0} {14}name{16},{0} {24}int{0} {14}age{16}}){0} {14}userInfo{16}({25}Map{16}<{25}String{16},{0} {24}dynamic{16}>{0} {14}json{16}){0}
+{1}// ···
+// Destructures using a record pattern with named fields:
+{23}final{0} {16}(:{14}name{16},{0} {16}:{14}age{16}){0} {16}={0} {14}userInfo{16}({14}json{16});{0}
+
+{23}var{0} {14}list{0} {16}={0} {16}[{20}1{16},{0} {20}2{16},{0} {20}3{16}];{0}
+{23}var{0} {14}list{0} {16}={0} {16}[{0}
+  {5}'Car'{16},{0}
+  {5}'Boat'{16},{0}
+  {5}'Plane'{16},{0}
+{16}];{0}
+{23}var{0} {14}halogens{0} {16}={0} {16}{{5}'fluorine'{16},{0} {5}'chlorine'{16},{0} {5}'bromine'{16},{0} {5}'iodine'{16},{0} {5}'astatine'{16}};{0}
+
+{23}var{0} {14}nobleGases{0} {16}={0} {16}{{0}
+  {20}2{16}:{0} {5}'helium'{16},{0}
+  {20}10{16}:{0} {5}'neon'{16},{0}
+  {20}18{16}:{0} {5}'argon'{16},{0}
+{16}};{0}
+
+{23}var{0} {14}s{0} {16}={0} {8}"""This is also a
+{17}${{14}foo{16}({0}
+{6}"{17}${15}bar{6}"{0}
+{16}){17}}{8}
+multi-line string."""{16};{0}
+
+{23}var{0} {14}s1{0} {16}={0} {8}"""multi
+line
+{13}\n{8}
+strings
+"""{16};{0}
+
+{23}var{0} {14}s2{0} {16}={0} {8}"""multi-line
+{17}${15}x{8}
+strings
+"""{16};{0}
+
+{23}var{0} {14}s3{0} {16}={0} {8}"""multi-line
+{17}${{14}x{17}}{8}
+strings
+"""{16};{0}
+
+{23}var{0} {14}s1{0} {16}={0} {27}'Unterminated string;
+{23}var{0} {14}s2{0} {16}={0} {27}"Unterminated string;
+{23}var{0} {14}s3{0} {16}={0} {27}r'Unterminated raw string;
+{23}var{0} {14}s4{0} {16}={0} {27}r'Unterminated raw string;

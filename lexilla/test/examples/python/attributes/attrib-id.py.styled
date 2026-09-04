@@ -1,0 +1,18 @@
+{11}varname{0} {10}={0} {2}1{0}
+{1}# identifier in first line was mis-styled as attribute when bug existed{0}
+
+{1}# left comment ends with period.  this was okay before bug.{0}
+{11}varname{0} {10}={0} {2}2{0}
+
+{11}x{0} {10}={0} {2}1{0} {1}# comment after code ends with period. this failed when bug existed.{0}
+{11}varname{0} {10}={0} {2}3{0}
+
+{5}def{0} {9}dummy{10}():{0}
+    {1}# indented comment ends with period.this failed when bug existed.{0}
+    {11}varname{0} {10}={0} {2}4{0}
+
+{11}x{0} {10}={0} {2}2{0} {12}## comment block is the same.{0}
+{11}varname{0} {10}={0} {2}5{0}
+
+{1}# per issue#294, identifiers were mis-styled as attributes when at beginning of file{0}
+{1}# and when after a non-left-justifed comment{0}

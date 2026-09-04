@@ -1,0 +1,40 @@
+// This file is part of Notepad++ project
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+// created by Daniel Volk mordorpost@volkarts.com
+
+#include <windows.h>
+#include "RunMacroDlg_rc.h"
+
+IDD_RUN_MACRO_DLG DIALOGEX 0, 0, 168, 95
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
+CAPTION "Run a Macro Multiple Times"
+FONT 8, L"MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "&Macro to run",IDC_MACRO2RUN_STATIC,7,3,154,30,BS_CENTER
+    COMBOBOX        IDC_MACRO_COMBO,14,14,140,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+
+    CONTROL         "R&un",IDC_M_RUN_MULTI,"Button",BS_AUTORADIOBUTTON,18,42,47,10
+
+    CONTROL         "Run until the &end of file", IDC_M_RUN_EOF,"Button",BS_AUTORADIOBUTTON,18,57,140,10
+
+    EDITTEXT        IDC_M_RUN_TIMES,67,40,25,12, ES_CENTER | ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "times",IDC_TIMES_STATIC,97,42,65,10
+
+    DEFPUSHBUTTON   "&Run",IDOK,32,75,50,14
+    PUSHBUTTON      "&Cancel",IDCANCEL,86,75,50,14
+END

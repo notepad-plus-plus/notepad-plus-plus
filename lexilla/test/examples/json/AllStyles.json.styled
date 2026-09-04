@@ -1,0 +1,43 @@
+{6}// Enumerate all styles: 0 to 13{0}
+
+{6}// default=0{0}
+   
+
+{6}// number=1{0}
+{1}1{0}
+
+{6}// string=2{0}
+{2}"2"{0}
+
+{6}// stringeol=3{0}
+{3}"3
+{0}
+{6}// propertyname=4{0}
+{4}"4"{8}:{0}
+
+{6}// escapesequence=5{0}
+{2}"{5}\n{2}"{0}
+
+{6}// linecomment=6{0}
+{6}// 6 Line Comment{0}
+
+{6}// blockcomment=7{0}
+{7}/* 7 Block Comment */{0}
+
+{6}// operator=8{0}
+{8}{}{0}
+
+{6}// uri=9{0}
+{2}"{9}http://9.org{2}"{0}
+
+{6}// compactiri=10{0}
+{10}"x:y"{0}
+
+{6}// keyword=11{0}
+{11}true{0}
+
+{6}// ldkeyword=12{0}
+{2}"{12}@id{2}"{0}
+
+{6}// error=13{0}
+{13}# 13 error{0}

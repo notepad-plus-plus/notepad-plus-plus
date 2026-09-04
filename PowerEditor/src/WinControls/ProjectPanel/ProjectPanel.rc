@@ -1,0 +1,39 @@
+// This file is part of Notepad++ project
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+#include <windows.h>
+#include "ProjectPanel_rc.h"
+
+IDD_PROJECTPANEL DIALOGEX 0, 0, 142, 324
+STYLE DS_SETFONT | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW | WS_EX_WINDOWEDGE
+CAPTION "Project"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+
+END
+
+IDD_FILERELOCALIZER_DIALOG DIALOGEX 0, 0, 350, 45
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
+CAPTION "Change file full path name"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT_FILEFULLPATHNAME,7,7,336,12,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,124,25,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,177,25,50,14
+END

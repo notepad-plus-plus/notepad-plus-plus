@@ -1,0 +1,52 @@
+{2}#!/usr/bin/env bash{0}
+{4}set{0} {8}-e{0}
+{2}# -----------------------------------------------------------------------------{0}
+{2}# Voluptatem dolore magnam eius quisquam eius dolor labore. Porro dolor amet ut.{0}
+{2}# Numquam labore amet modi. Dolorem velit numquam porro est quiquia ipsum quisquam.{0}
+{2}# Magnam consectetur est voluptatem aliquam adipisci. Sed dolorem quaerat quiquia.{0}
+{2}# -----------------------------------------------------------------------------{0}
+{4}export{0} {8}PYTHONPATH{7}={5}"scripts:$PYTHONPATH"{0}
+
+{4}if{0} {7}[[{0} {4}-z{0} {5}"$1"{0} {7}]];{0} {4}then{0}
+  {8}PROJECT_DIR{7}={11}$(rlwrap -S "Enter source path: " -e '' -i -o cat){0}
+  {8}PROJECT_PATH{7}={5}"$(pwd)/$PROJECT_DIR"{0}
+{4}else{0}
+  {8}PROJECT_PATH{7}={5}"$(pwd)/${1}"{0}
+{4}fi{0}
+
+{8}OUT_FILE{7}={10}${PROJECT_PATH}{7}/{8}testing.txt{0}
+
+{7}({4}cat{12}<<EOF{13}
+  Last run $(date +'%Y-%m-%d') at $(date +'%H:%M:%S.%2N')
+{12}EOF{0}
+{7}){0} {7}>{0} {9}$OUT_FILE{0}
+
+{2}# Issue 188, keyword before redirection operator{0}
+{4}pwd{7}>>{9}$OUT_FILE{0}
+
+{4}find{0} {5}"$PROJECT_PATH/src"{0} {8}-maxdepth{0} {3}1{0} {8}-type{0} {8}f{0} {7}|\{0}
+{4}while{0} {8}read{0} {8}-r{0} {8}f{7};{0} {4}do{0}
+  {7}{{0}
+    {8}python3{0} {8}-c{0} {5}"print();print('='*50)"{7};\{0}
+    {4}echo{0} {11}`basename "$f"`{0} {7}|{0} {8}tr{0} {8}-d{0} {6}'x'{7};\{0}
+    {8}python3{0} {8}-c{0} {5}"print('='*50)"{7};\{0}
+    {8}python3{0} {5}"$f"{7};\{0}
+  {7}}{0} {7}>>{0} {9}$OUT_FILE{0}
+{4}done{0}
+
+{2}# Issue 137, should be shift but here-doc was detected{0}
+{4}echo{0} {7}$(({0} {8}x{0} {7}<<{0} {8}END{0} {7})){0}
+{4}pwd{0}
+{8}END{0}
+
+{2}# Issue 194, failed to understand character escaping so string unterminated{0}
+{4}echo{0} {5}"foo `echo foo \\" bar` bar"{0}
+{4}echo{0} {5}"xinput set-prop bla \"blub\" `grep bla $WRITE_APPENDIX/var/lib/path.txt | cut -d \\" -f 4`"{0} {7}>/{8}some_file.sh{0}
+
+{2}# Issue 194, $ before end of backticks is literal{0}
+{4}echo{0} {11}`echo \$`{0}
+{4}echo{0} {11}`echo \$bar\$`{0}
+{4}echo{0} {11}`echo $`{0}
+{4}echo{0} {11}`echo $bar$`{0}
+
+{8}INVALID_NUMBER{7}={1}0#0000{0}

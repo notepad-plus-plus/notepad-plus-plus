@@ -1,0 +1,240 @@
+ 2 400 401 + # -*- coding: utf-8 -*-
+ 0 401 401 | #--------------------------------------------------------------------------
+ 0 401 401 | # perl-test-sub-prototypes.pl
+ 0 401 401 | #--------------------------------------------------------------------------
+ 0 401 401 | # compiled all relevant subroutine prototype test cases
+ 0 401 401 | #
+ 0 401 401 | #--------------------------------------------------------------------------
+ 0 401 401 | # Kein-Hong Man <keinhong@gmail.com> Public Domain
+ 0 401 401 | #--------------------------------------------------------------------------
+ 0 401 401 | # 20151227	initial document
+ 0 401 400 | #--------------------------------------------------------------------------
+ 1 400 400   
+ 2 400 401 + #--------------------------------------------------------------------------
+ 0 401 401 | # test cases for sub syntax scanner
+ 0 401 401 | #--------------------------------------------------------------------------
+ 0 401 401 | # sub syntax: simple and with added module notation
+ 0 401 400 | #--------------------------------------------------------------------------
+ 1 400 400   
+ 0 400 400   sub fish($) { 123; }
+ 0 400 400   sub fish::chips($) { 123; }			# module syntax
+ 0 400 400   sub fish::chips::sauce($) { 123; }		# multiple module syntax
+ 1 400 400   
+ 0 400 400   sub fish :: chips  ::		sauce ($) { 123; }	# added whitespace
+ 1 400 400   
+ 0 400 400   sub fish :: # embedded comment
+ 0 400 400   chips 	# embedded comment
+ 0 400 400    :: sauce ($) { 123; }
+ 1 400 400   
+ 0 400 400   sub fish :: ($) { 123; }	# incomplete or bad syntax examples
+ 0 400 400   sub fish :: 123 ($) { 123; }
+ 0 400 400   sub fish :: chips 123 ($) { 123; }
+ 0 400 400   sub 123 ($) { 123; }
+ 1 400 400   
+ 2 400 401 + #--------------------------------------------------------------------------
+ 0 401 401 | # sub syntax: prototype attributes
+ 0 401 400 | #--------------------------------------------------------------------------
+ 1 400 400   
+ 0 400 400   sub fish:prototype($) { 123; }
+ 0 400 400   sub fish : prototype	($) { 123; }		# added whitespace
+ 1 400 400   
+ 0 400 400   sub fish:salted($) { 123; }	# wrong attribute example (must use 'prototype')
+ 0 400 400   sub fish :  123($) { 123; }	# illegal attribute
+ 0 400 400   sub fish:prototype:salted($) { 123; }	# wrong 'prototype' position
+ 0 400 400   sub fish:salted salt:prototype($) { 123; }	# wrong attribute syntax
+ 1 400 400   
+ 0 400 400   sub fish:const:prototype($) { 123; }		# extra attributes
+ 0 400 400   sub fish:const:lvalue:prototype($) { 123; }
+ 0 400 400   sub fish:const:prototype($):lvalue{ 123; }	# might be legal too
+ 0 400 400   sub fish  :const	:prototype($) { 123; }	# extra whitespace
+ 1 400 400   
+ 0 400 400   sub fish  :const	# embedded comment: a constant sub
+ 0 400 400   :prototype		# embedded comment
+ 0 400 400   ($) { 123; }
+ 1 400 400   
+ 2 400 401 + #--------------------------------------------------------------------------
+ 0 401 401 | # sub syntax: mixed
+ 0 401 400 | #--------------------------------------------------------------------------
+ 1 400 400   
+ 0 400 400   sub fish::chips:prototype($) { 123; }
+ 0 400 400   sub fish::chips::sauce:prototype($) { 123; }
+ 0 400 400   sub fish  ::chips  ::sauce	:prototype($) { 123; }	# +whitespace
+ 1 400 400   
+ 0 400 400   sub fish::chips::sauce:const:prototype($) { 123; }
+ 0 400 400   sub fish::chips::sauce	:const	:prototype($) { 123; }	# +whitespace
+ 1 400 400   
+ 0 400 400   sub fish		# embedded comment
+ 0 400 400   ::chips	::sauce		# embedded comment
+ 0 400 400     : const		# embedded comment
+ 0 400 400   	: prototype ($) { 123; }
+ 1 400 400   
+ 0 400 400   # wrong syntax examples, parentheses must follow ':prototype'
+ 0 400 400   sub fish :prototype :const ($) { 123;}
+ 0 400 400   sub fish :prototype ::chips ($) { 123;}
+ 1 400 400   
+ 2 400 401 + #--------------------------------------------------------------------------
+ 0 401 401 | # perl-test-5200delta.pl
+ 0 401 401 | #--------------------------------------------------------------------------
+ 0 401 401 | # More consistent prototype parsing
+ 0 401 401 | #--------------------------------------------------------------------------
+ 0 401 400 | # - whitespace now allowed, lexer now allows spaces or tabs
+ 1 400 400   
+ 0 400 400   sub foo ( $ $ ) {}
+ 0 400 400   sub foo ( 			 ) {}		# spaces/tabs empty
+ 0 400 400   sub foo (  *  ) {}
+ 0 400 400   sub foo (@	) {}
+ 0 400 400   sub foo (	%) {}
+ 1 400 400   
+ 0 400 400   # untested, should probably be \[ but scanner does not check this for now
+ 0 400 400   sub foo ( \ [ $ @ % & * ] ) {}
+ 1 400 400   
+ 2 400 401 + #--------------------------------------------------------------------------
+ 0 401 401 | # perl-test-5140delta.pl
+ 0 401 401 | #--------------------------------------------------------------------------
+ 0 401 401 | # new + prototype character, acts like (\[@%])
+ 0 401 400 | #--------------------------------------------------------------------------
+ 1 400 400   
+ 0 400 400   # these samples work as before
+ 0 400 400   sub mylink ($$)          # mylink $old, $new
+ 0 400 400   sub myvec ($$$)          # myvec $var, $offset, 1
+ 0 400 400   sub myindex ($$;$)       # myindex &getstring, "substr"
+ 0 400 400   sub mysyswrite ($$$;$)   # mysyswrite $buf, 0, length($buf) - $off, $off
+ 0 400 400   sub myreverse (@)        # myreverse $a, $b, $c
+ 0 400 400   sub myjoin ($@)          # myjoin ":", $a, $b, $c
+ 0 400 400   sub myopen (*;$)         # myopen HANDLE, $name
+ 0 400 400   sub mypipe (**)          # mypipe READHANDLE, WRITEHANDLE
+ 0 400 400   sub mygrep (&@)          # mygrep { /foo/ } $a, $b, $c
+ 0 400 400   sub myrand (;$)          # myrand 42
+ 0 400 400   sub mytime ()            # mytime
+ 1 400 400   
+ 0 400 400   # backslash group notation to specify more than one allowed argument type
+ 0 400 400   sub myref (\[$@%&*]) {}
+ 1 400 400   
+ 0 400 400   sub mysub (_)            # underscore can be optionally used FIXED 20151211
+ 1 400 400   
+ 0 400 400   # these uses the new '+' prototype character
+ 0 400 400   sub mypop (+)            # mypop @array
+ 0 400 400   sub mysplice (+$$@)      # mysplice @array, 0, 2, @pushme
+ 0 400 400   sub mykeys (+)           # mykeys %{$hashref}
+ 1 400 400   
+ 2 400 401 + #--------------------------------------------------------------------------
+ 0 401 401 | # perl-test-5200delta.pl
+ 0 401 401 | #--------------------------------------------------------------------------
+ 0 401 401 | # Experimental Subroutine signatures (mostly works)
+ 0 401 401 | #--------------------------------------------------------------------------
+ 0 401 401 | # INCLUDED FOR COMPLETENESS ONLY
+ 0 401 401 | # IMPORTANT NOTE the subroutine prototypes lexing implementation has
+ 0 401 400 | # no effect on subroutine signature syntax highlighting
+ 1 400 400   
+ 2 400 401 + # subroutine signatures mostly looks fine except for the @ and % slurpy
+ 0 401 401 | # notation which are highlighted as operators (all other parameters are
+ 0 401 400 | # highlighted as vars of some sort), a minor aesthetic issue
+ 1 400 400   
+ 0 400 400   use feature 'signatures';
+ 1 400 400   
+ 2 400 401 + sub foo ($left, $right) {		# mandatory positional parameters
+ 0 401 401 |     return $left + $right;
+ 0 401 400 | }
+ 2 400 401 + sub foo ($first, $, $third) {		# ignore second argument
+ 0 401 401 |     return "first=$first, third=$third";
+ 0 401 400 | }
+ 2 400 401 + sub foo ($left, $right = 0) {		# optional parameter with default value
+ 0 401 401 |     return $left + $right;
+ 0 401 400 | }
+ 0 400 400   my $auto_id = 0;			# default value expression, evaluated if default used only
+ 2 400 401 + sub foo ($thing, $id = $auto_id++) {
+ 0 401 401 |     print "$thing has ID $id";
+ 0 401 400 | }
+ 2 400 401 + sub foo ($first_name, $surname, $nickname = $first_name) {	# 3rd parm may depend on 1st parm
+ 0 401 401 |     print "$first_name $surname is known as \"$nickname\"";
+ 0 401 400 | }
+ 2 400 401 + sub foo ($thing, $ = 1) {		# nameless default parameter
+ 0 401 401 |     print $thing;
+ 0 401 400 | }
+ 2 400 401 + sub foo ($thing, $=) {			# (this does something, I'm not sure what...)
+ 0 401 401 |     print $thing;
+ 0 401 400 | }
+ 2 400 401 + sub foo ($filter, @inputs) {		# additional arguments (slurpy parameter)
+ 0 401 401 |     print $filter->($_) foreach @inputs;
+ 0 401 400 | }
+ 2 400 401 + sub foo ($thing, @) {			# nameless slurpy parameter FAILS for now
+ 0 401 401 |     print $thing;
+ 0 401 400 | }
+ 2 400 401 + sub foo ($filter, %inputs) {		# slurpy parameter, hash type
+ 0 401 401 |     print $filter->($_, $inputs{$_}) foreach sort keys %inputs;
+ 0 401 400 | }
+ 2 400 401 + sub foo ($thing, %) {			# nameless slurpy parm, hash type FAILS for now
+ 0 401 401 |     print $thing;
+ 0 401 400 | }
+ 2 400 401 + sub foo () {				# empty signature no arguments (styled as prototype)
+ 0 401 401 |     return 123;
+ 0 401 400 | }
+ 1 400 400   
+ 2 400 401 + #--------------------------------------------------------------------------
+ 0 401 401 | # perl-test-5200delta.pl
+ 0 401 401 | #--------------------------------------------------------------------------
+ 0 401 401 | # subs now take a prototype attribute
+ 0 401 400 | #--------------------------------------------------------------------------
+ 1 400 400   
+ 0 400 400   sub foo :prototype($) { $_[0] }
+ 1 400 400   
+ 2 400 401 + sub foo :prototype($$) ($left, $right) {
+ 0 401 401 |     return $left + $right;
+ 0 401 400 | }
+ 1 400 400   
+ 0 400 400   sub foo : prototype($$){}		# whitespace allowed
+ 1 400 400   
+ 0 400 400   # additional samples from perl-test-cases.pl with ':prototype' added:
+ 0 400 400   sub mylink :prototype($$) {}		sub myvec :prototype($$$) {}
+ 0 400 400   sub myindex :prototype($$;$) {}		sub mysyswrite :prototype($$$;$) {}
+ 0 400 400   sub myreverse :prototype(@) {}		sub myjoin :prototype($@) {}
+ 0 400 400   sub mypop :prototype(\@) {}		sub mysplice :prototype(\@$$@) {}
+ 0 400 400   sub mykeys :prototype(\%) {}		sub myopen :prototype(*;$) {}
+ 0 400 400   sub mypipe :prototype(**) {}		sub mygrep :prototype(&@) {}
+ 0 400 400   sub myrand :prototype($) {}		sub mytime :prototype() {}
+ 0 400 400   # backslash group notation to specify more than one allowed argument type
+ 0 400 400   sub myref :prototype(\[$@%&*]) {}
+ 1 400 400   
+ 2 400 401 + # additional attributes may complicate scanning for prototype syntax,
+ 0 401 401 | # for example (from https://metacpan.org/pod/perlsub):
+ 0 401 400 | # Lvalue subroutines
+ 1 400 400   
+ 0 400 400   my $val;
+ 2 400 401 + sub canmod : lvalue {
+ 0 401 401 |     $val;  # or:  return $val;
+ 0 401 400 | }
+ 0 400 400   canmod() = 5;   # assigns to $val
+ 1 400 400   
+ 2 400 401 + #--------------------------------------------------------------------------
+ 0 401 401 | # perl-test-5220delta.pl
+ 0 401 401 | #--------------------------------------------------------------------------
+ 0 401 401 | # New :const subroutine attribute
+ 0 401 400 | #--------------------------------------------------------------------------
+ 1 400 400   
+ 0 400 400   my $x = 54321;
+ 0 400 400   *INLINED = sub : const { $x };
+ 0 400 400   $x++;
+ 1 400 400   
+ 2 400 401 + # more examples of attributes
+ 0 401 401 | # (not 5.22 stuff, but some general examples for study, useful for
+ 0 401 400 | #  handling subroutine signature and subroutine prototype highlighting)
+ 1 400 400   
+ 0 400 400   sub foo : lvalue ;
+ 1 400 400   
+ 2 400 401 + package X;
+ 0 401 401 | sub Y::z : lvalue { 1 }
+ 1 401 401 | 
+ 2 400 401 + package X;
+ 0 401 401 | sub foo { 1 }
+ 2 400 401 + package Y;
+ 0 401 401 | BEGIN { *bar = \&X::foo; }
+ 2 400 401 + package Z;
+ 0 401 401 | sub Y::bar : lvalue ;
+ 1 401 401 | 
+ 0 401 401 | # built-in attributes for subroutines:
+ 0 401 401 | lvalue method prototype(..) locked const
+ 1 401 401 | 
+ 2 401 402 + #--------------------------------------------------------------------------
+ 0 402 402 | # end of test file
+ 0 402 401 | #--------------------------------------------------------------------------
+ 0 401   0 | 

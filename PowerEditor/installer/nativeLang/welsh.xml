@@ -1,0 +1,902 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Cyfieithiad | Translation
+19.12.2014
+gan/by Aled Powell
+-->
+<NotepadPlus>
+	<Native-Langue name="Cymraeg" filename="welsh.xml" version="6.6.8">
+		<Menu>
+			<Main>
+				<!-- Main Menu Entries -->
+				<Entries>
+					<Item menuId="file" name="&amp;Ffeil"/>
+					<Item menuId="edit" name="Golygu (&amp;E)"/>
+					<Item menuId="search" name="Chwilio (&amp;S)"/>
+					<Item menuId="view" name="Golwg (&amp;V)"/>
+					<Item menuId="encoding" name="Amgodiad (&amp;N)"/>
+					<Item menuId="language" name="Iaith (&amp;L)"/>
+					<Item menuId="settings" name="Gosodiadau (&amp;T)"/>
+					<Item menuId="macro" name="Macro"/>
+					<Item menuId="run" name="Rhedeg"/>
+					<Item menuId="Plugins" name="Ategolion"/>
+					<Item menuId="Window" name="Ffenestr"/>
+				</Entries>
+				<!-- Sub Menu Entries -->
+				<SubEntries>
+					<Item subMenuId="file-openFolder" name="Agor Ffolder Lleoliad"/>
+					<Item subMenuId="file-closeMore" name="Cau Mwy"/>
+					<Item subMenuId="file-recentFiles" name="Ffeilau Diweddar"/>
+					<Item subMenuId="edit-copyToClipboard" name="Copïo i'r Clipfwrdd"/>
+					<Item subMenuId="edit-indent" name="Mewnoli"/>
+					<Item subMenuId="edit-convertCaseTo" name="Newid llythrennau i"/>
+					<Item subMenuId="edit-lineOperations" name="Gweithrediadau Llinelloedd"/>
+					<Item subMenuId="edit-comment" name="Sylwi/Dadsylwi"/>
+					<Item subMenuId="edit-autoCompletion" name="Awto-cwblhau"/>
+					<Item subMenuId="edit-eolConversion" name="Trawsnewid Diwedd Llinell (DLl)"/>
+					<Item subMenuId="edit-blankOperations" name="Gweithredoedd Blanc"/>
+					<Item subMenuId="edit-pasteSpecial" name="Gludo Arbennig"/>
+					<Item subMenuId="search-markAll" name="Nodi'r Cyfan"/>
+					<Item subMenuId="search-unmarkAll" name="Dad-nodi'r Cyfan"/>
+					<Item subMenuId="search-jumpUp" name="Neidio Fyny"/>
+					<Item subMenuId="search-jumpDown" name="Neidio Lawr"/>
+					<Item subMenuId="search-bookmark" name="Llyfrnodi"/>
+					<Item subMenuId="view-showSymbol" name="Dangos Symbol"/>
+					<Item subMenuId="view-zoom" name="Chwyddiant"/>
+					<Item subMenuId="view-moveCloneDocument" name="Symud/Clonio'r Dogfen Bresennol"/>
+					<Item subMenuId="view-tab" name="Tab"/>
+					<Item subMenuId="view-collapseLevel" name="Ymgwympo Lefel"/>
+					<Item subMenuId="view-uncollapseLevel" name="Dadymgwympo Lefel"/>
+					<Item subMenuId="view-project" name="Prosiect"/>
+					<Item subMenuId="encoding-characterSets" name="Set Nodau"/>
+					<Item subMenuId="encoding-arabic" name="Arabaidd"/>
+					<Item subMenuId="encoding-baltic" name="Baltiaidd"/>
+					<Item subMenuId="encoding-celtic" name="Celtaidd"/>
+					<Item subMenuId="encoding-cyrillic" name="Syrilig"/>
+					<Item subMenuId="encoding-centralEuropean" name="Canol Ewropeaidd"/>
+					<Item subMenuId="encoding-chinese" name="Tsieineeg"/>
+					<Item subMenuId="encoding-easternEuropean" name="Dwyrain Ewropeaidd"/>
+					<Item subMenuId="encoding-greek" name="Groeg"/>
+					<Item subMenuId="encoding-hebrew" name="Hebraeg"/>
+					<Item subMenuId="encoding-japanese" name="Siapaneg"/>
+					<Item subMenuId="encoding-korean" name="Coreeg"/>
+					<Item subMenuId="encoding-northEuropean" name="Gogledd Ewropeaidd"/>
+					<Item subMenuId="encoding-thai" name="Thai"/>
+					<Item subMenuId="encoding-turkish" name="Tyrceg"/>
+					<Item subMenuId="encoding-westernEuropean" name="Gorllewin Ewropeaidd"/>
+					<Item subMenuId="encoding-vietnamese" name="Fietnameg"/>
+					<Item subMenuId="settings-import" name="Mewnforio"/>
+				</SubEntries>
+
+				<!-- all menu item -->
+				<Commands>
+					<Item id="41001" name="&amp;Newydd"/>
+					<Item id="41002" name="Ag&amp;or"/>
+					<Item id="41019" name="Porydd"/>
+					<Item id="41020" name="cmd"/>
+					<Item id="41003" name="Cau"/>
+					<Item id="41004" name="Cau'r CWB&amp;L"/>
+					<Item id="41005" name="Cau'r CWBL OND y Ddogfen Bresennol"/>
+					<Item id="41009" name="Cau'r CWBL i'r Chwith"/>
+					<Item id="41018" name="Cau'r CWBL i'r Dde"/>
+					<Item id="41006" name="Cadw (&amp;S)"/>
+					<Item id="41007" name="Cadw'r Cwbl (&amp;E)"/>
+					<Item id="41008" name="C&amp;adw Fel..."/>
+					<Item id="41010" name="Argraffu..."/>
+					<Item id="1001" name="Argraffu Nawr"/>
+					<Item id="41011" name="Gadael (&amp;X)"/>
+					<Item id="41012" name="Llwytho Sesiwn..."/>
+					<Item id="41013" name="Cadw Sesiwn..."/>
+					<Item id="41014" name="Ail-lwytho o Ddisg"/>
+					<Item id="41015" name="Cadw a Chopïo Fel..."/>
+					<Item id="41016" name="Dileu o Ddisg"/>
+					<Item id="41017" name="Ailenwi..."/>
+
+					<Item id="42001" name="&amp;Torri"/>
+					<Item id="42002" name="&amp;Copïo"/>
+					<Item id="42003" name="Dadwneud (&amp;U)"/>
+					<Item id="42004" name="Ailwneud (&amp;R)"/>
+					<Item id="42005" name="Gludo (&amp;P)"/>
+					<Item id="42006" name="&amp;Dileu"/>
+					<Item id="42007" name="Dewis y Cwb&amp;l"/>
+					<Item id="42020" name="Dechrau/Diwedd Dewis"/>
+					<Item id="42008" name="Cynyddu Mewnoliad Llinell"/>
+					<Item id="42009" name="Lleihau Mewnoliad Llinell"/>
+					<Item id="42010" name="Dyblygu'r Llinell Bresennol"/>
+					<Item id="42012" name="Hollti Llinellau"/>
+					<Item id="42013" name="Uno Llinellau"/>
+					<Item id="42014" name="Symud Llinell Bresennol Lawr"/>
+					<Item id="42015" name="Symud Llinell Bresennol Fyny"/>
+					<Item id="42016" name="PRIF LYTHRENNAU"/>
+					<Item id="42017" name="is lythrennau"/>
+					<Item id="42018" name="&amp;Dechrau Recordio"/>
+					<Item id="42019" name="&amp;Stopio Recordio"/>
+					<Item id="42021" name="&amp;Chwarae"/>
+					<Item id="42022" name="Toglo Sylw Llinell Sengl"/>
+					<Item id="42023" name="Blocio Sylw"/>
+					<Item id="42047" name="Blocio Dad-sylw"/>
+					<Item id="42024" name="Torri Bylchau ar Ddiwedd Llinell"/>
+					<Item id="42042" name="Torri Bylchau ar Ddechrau Llinell"/>
+					<Item id="42043" name="Torri Bylchau ar Ddechrau a Diwedd"/>
+					<Item id="42044" name="Diwedd Llinell (DLl) i Fwlch"/>
+					<Item id="42045" name="Tynnu Bylchau Gwacter a DLl Diangen"/>
+					<Item id="42046" name="TAB i Fwlch"/>
+					<Item id="42054" name="Bwlch i TAB (Y cwbl)"/>
+					<Item id="42053" name="Bwlch i TAB (Dechrau llinell)"/>
+					<Item id="42038" name="Gludo Cynnwys HTML"/>
+					<Item id="42039" name="Gludo Cynnwys RTF"/>
+					<Item id="42048" name="Copïo Cynnwys Deuaidd"/>
+					<Item id="42049" name="Torri Cynnwys Deuaidd"/>
+					<Item id="42050" name="Gludo Cynnwys Deuaidd"/>
+					<Item id="42037" name="Modd Colofn..."/>
+					<Item id="42034" name="Golygydd Colofnau..."/>
+					<Item id="42051" name="Panel Nodau"/>
+					<Item id="42052" name="Hanes Clipfwrdd"/>
+					<Item id="42025" name="Cadw'r Macro Recordiwyd ar Hyn o Bryd"/>
+					<Item id="42026" name="Cyfeiriad Testun DiCh"/>
+					<Item id="42027" name="Cyfeiriad Testun ChiDd"/>
+					<Item id="42028" name="Gosod yn Darllen-yn-Unig"/>
+					<Item id="42029" name="Llwybr Ffeil Presennol i Glipfwrdd"/>
+					<Item id="42030" name="Enw Ffeil Presennol i Glipfwrdd"/>
+					<Item id="42031" name="Llwybr Cyfeiriadur Pres. i Glipfwrdd"/>
+					<Item id="42032" name="Rhedeg Macro Nifer o Droeon..."/>
+					<Item id="42035" name="Sylw Llinell Sengl"/>
+					<Item id="42036" name="Dad-sylw Llinell Sengl"/>
+					<Item id="42055" name="Tynnu Llinellau Gweigion"/>
+					<Item id="42056" name="Tynnu Llinellau Gweigion (Gan gynnwys nodau gwacter)"/>
+					<Item id="42057" name="Mewnolosod Linell Wag Uwchben y Presennol"/>
+					<Item id="42058" name="Mewnolosod Linell Wag O Dan y Presennol"/>
+					<Item id="42059" name="Trefnu Llinellau mewn Trefn Esgynnol"/>
+					<Item id="42060" name="Trefnu Llinellau mewn Trefn Disgynnol"/>
+					<Item id="43001" name="Can&amp;fod..."/>
+					<Item id="43002" name="Canfod &amp;Nesaf"/>
+					<Item id="43003" name="Newid..."/>
+					<Item id="43004" name="Mynd i..."/>
+					<Item id="43005" name="Toglo Llyfrnod"/>
+					<Item id="43006" name="Llyfrnod Nesaf"/>
+					<Item id="43007" name="Llyfrnod Blaenorol"/>
+					<Item id="43008" name="Clirio Pob Llyfrnod"/>
+					<Item id="43018" name="Torri Llinellau wedi'u Llyfrnodi"/>
+					<Item id="43019" name="Copïo Llinellau wedi'u Llyfrnodi"/>
+					<Item id="43020" name="Gludo i (Newid) Llinellau wedi'u Llyfrnodi"/>
+					<Item id="43021" name="Tynnu Llinellau wedi'u Llyfrnodi"/>
+					<Item id="43051" name="Tynnu Llinellau heb eu Nodi"/>
+					<Item id="43050" name="Gwrthdroi Llyfrnodau"/>
+					<Item id="43052" name="Canfod nodau mewn ystod..."/>
+					<Item id="43053" name="Dewis y Cwbl Rhwng Cyplyswyr sy'n Cydweddu"/>
+
+					<Item id="43009" name="Mynd at Cyplyswr sy'n Cydweddu"/>
+					<Item id="43010" name="Canfod Blaenorol"/>
+					<Item id="43011" name="Chw&amp;ilio Cynyddol"/>
+					<Item id="43013" name="Canfod mewn Ffeilau"/>
+					<Item id="43014" name="Canfod (Cyfnewidiol) Nesaf"/>
+					<Item id="43015" name="Canfod (Cyfnewidiol) Blaenorol"/>
+					<Item id="43016" name="Nodi'r Cwbl"/>
+					<Item id="43017" name="Dadnodi'r Cwbl"/>
+					<Item id="43022" name="Gan ddefnyddio'r arddull 1af"/>
+					<Item id="43023" name="Clirio Arddull 1af"/>
+					<Item id="43024" name="Gan ddefnyddio'r 2ail Arddull"/>
+					<Item id="43025" name="Clirio 2ail Arddull"/>
+					<Item id="43026" name="Gan ddefnyddio'r 3ydd Arddull"/>
+					<Item id="43027" name="Clirio 3ydd Arddull"/>
+					<Item id="43028" name="Gan ddefnyddio'r 4ydd Arddull"/>
+					<Item id="43029" name="Clirio 4ydd Arddull"/>
+					<Item id="43030" name="Gan ddefnyddio'r 5ed Arddull"/>
+					<Item id="43031" name="Clirio 5ed Arddull"/>
+					<Item id="43032" name="Clirio Pob Arddull"/>
+					<Item id="43033" name="Arddull 1af"/>
+					<Item id="43034" name="2ail arddull"/>
+					<Item id="43035" name="3ydd arddull"/>
+					<Item id="43036" name="4ydd arddull"/>
+					<Item id="43037" name="5ed arddull"/>
+					<Item id="43038" name="Canfod arddull"/>
+					<Item id="43039" name="Arddull 1af"/>
+					<Item id="43040" name="2ail arddull"/>
+					<Item id="43041" name="3ydd arddull"/>
+					<Item id="43042" name="4ydd arddull"/>
+					<Item id="43043" name="5ed arddull"/>
+					<Item id="43044" name="Canfod arddull"/>
+					<Item id="43045" name="Ffenestr Canlyniadau Chwilio"/>
+					<Item id="43046" name="Canlyniad Chwilio Nesaf"/>
+					<Item id="43047" name="Canlyniad Chwilio Blaenorol"/>
+					<Item id="43048" name="Dewis a Chanfod Nesaf"/>
+					<Item id="43049" name="Dewis a Chanfod Blaenorol"/>
+					<Item id="44009" name="Post-It"/>
+					<Item id="44010" name="Plygu'r Cyfan"/>
+					<Item id="44019" name="Dangos Holl Nodau"/>
+					<Item id="44020" name="Dangos Canllaw Mewnoli"/>
+					<Item id="44022" name="Amlapio"/>
+					<Item id="44023" name="Chwyddo &amp;Mewn    Ctrl+Olwyn Llygoden Fyny"/>
+					<Item id="44024" name="Chwyddo &amp;Allan      Ctrl+Olwyn Llygoden Lawr"/>
+					<Item id="44025" name="Dangos Bylchau Gwyn a Thabiau"/>
+					<Item id="44026" name="Dangos Diwedd Llinellau"/>
+					<Item id="44029" name="Agor y Cyfan"/>
+					<Item id="44030" name="Dymchwel y Lefel Presennol"/>
+					<Item id="44031" name="Dad-ddymchwel y Lefel Presennol"/>
+					<Item id="44049" name="Crynodeb..."/>
+					<Item id="44080" name="Map Dogfen"/>
+					<Item id="44084" name="Rhestr Swyddogaethau"/>
+					<Item id="44086" name="Tab 1af"/>
+					<Item id="44087" name="2ail Tab"/>
+					<Item id="44088" name="3ydd Tab"/>
+					<Item id="44089" name="4ydd Tab"/>
+					<Item id="44090" name="5ed Tab"/>
+					<Item id="44091" name="6ed Tab"/>
+					<Item id="44092" name="7fed Tab"/>
+					<Item id="44093" name="8fed Tab"/>
+					<Item id="44094" name="9fed Tab"/>
+					<Item id="44095" name="Tab Nesaf"/>
+					<Item id="44096" name="Tab Blaenorol"/>
+					<Item id="44032" name="Toglo Modd Sgrin Lawn"/>
+					<Item id="44033" name="Ailosod Chwyddiant Arferol"/>
+					<Item id="44034" name="Ar y Brig o Hyd"/>
+					<Item id="44035" name="Cydleoli Sgrolio Fertigol"/>
+					<Item id="44036" name="Cydleoli Sgrolio Llorweddol"/>
+					<Item id="44041" name="Dangos Symbol Amlapio"/>
+					<Item id="44072" name="Ffocysu ar Golwg Arall"/>
+					<Item id="44081" name="Panel Prosiect 1"/>
+					<Item id="44082" name="Panel Prosiect 2"/>
+					<Item id="44083" name="Panel Prosiect 3"/>
+					<Item id="45001" name="Trawsnewid i Fformat Windows"/>
+					<Item id="45002" name="Trawsnewid i Fformat UNIX"/>
+					<Item id="45003" name="Trawsnewid i Fformat MAC"/>
+					<Item id="45004" name="Amgodio yn ANSI"/>
+					<Item id="45005" name="Amgodio yn UTF-8"/>
+					<Item id="45006" name="Amgodio yn UCS-2 Endian Fach"/>
+					<Item id="45007" name="Amgodio yn UCS-2 Endian Fawr"/>
+					<Item id="45008" name="Amgodio yn UTF-8 heb BOM"/>
+					<Item id="45009" name="Trawsnewid i ANSI"/>
+					<Item id="45010" name="Trawsnewid i UTF-8 heb BOM"/>
+					<Item id="45011" name="Trawsnewid i UTF-8"/>
+					<Item id="45012" name="Trawsnewid i UCS-2 Endian Fawr"/>
+					<Item id="45013" name="Trawsnewid i UCS-2 Endian Fach"/>
+
+					<Item id="10001" name="Symud i Olwg Arall"/>
+					<Item id="10002" name="Clonio i Olwg Arall"/>
+					<Item id="10003" name="Symud i Ystyr Newydd"/>
+					<Item id="10004" name="Agor mewn Ystyr Newydd"/>
+
+					<Item id="46001" name="Ffurfweddwr Arddull..."/>
+					<Item id="46250" name="Diffiniwch eich Iaith..."/>
+					<Item id="46180" name="Diffiniwyd gan y Defnyddiwr"/>
+					<Item id="47000" name="Ynghylch Notepad++..."/>
+					<Item id="47010" name="Argiau Llinell Gorchymyn..."/>
+					<Item id="47001" name="Hafan Notepad++"/>
+					<Item id="47002" name="Tudalen Prosiect Notepad++"/>
+					<Item id="47003" name="Dogfennau Arlein"/>
+					<Item id="47004" name="Fforwm"/>
+					<Item id="47005" name="Cael Mwy o Ategolion"/>
+					<Item id="47006" name="Diweddaru Notepad++"/>
+					<Item id="47008" name="Cynnwys Cymorth"/>
+					<Item id="47009" name="Gosod Diweddarwr Procsi..."/>
+					<Item id="48005" name="Mewnforio Ategolun(-ion) ..."/>
+					<Item id="48006" name="Mewnforio Thema(u) ..."/>
+					<Item id="48018" name="Golygu'r Naidlen ContextMenu"/>
+					<Item id="48009" name="Mapiwr Bysellau Brys..."/>
+					<Item id="48011" name="Dewisiadau..."/>
+					<Item id="49000" name="&amp;Rhedeg..."/>
+
+					<Item id="50000" name="Cwblhad Swyddogaethau"/>
+					<Item id="50001" name="Cwblhad Geiriau"/>
+					<Item id="50002" name="Hintiau Paramedrau Swyddogaethau"/>
+					<Item id="50006" name="Cwblhad Llwybrau"/>
+					<Item id="44042" name="Cuddio Llinellau"/>
+					<Item id="42040" name="Agor Pob Ffeil Diweddar"/>
+					<Item id="42041" name="Gwagio Rhestr Ffeiliau Diweddar"/>
+					<Item id="48016" name="Addasu Bysell Brys/Dileu Macro..."/>
+					<Item id="48017" name="Addasu Bysell Brys/Dileu Gorchymun..."/>
+				</Commands>
+			</Main>
+			<Splitter>
+			</Splitter>
+			<TabBar>
+				<Item CMID="0" name="Cau"/>
+				<Item CMID="1" name="Cau'r CWBL OND Hwn"/>
+				<Item CMID="2" name="Cadw"/>
+				<Item CMID="3" name="Cadw Fel..."/>
+				<Item CMID="4" name="Argraffu"/>
+				<Item CMID="5" name="Symud i Olwg Arall"/>
+				<Item CMID="6" name="Clonio i Olwg Arall"/>
+				<Item CMID="7" name="Llwybr Ffeil Llawn i Glipfwrdd"/>
+				<Item CMID="8" name="Enw Ffeil i Glipfwrdd"/>
+				<Item CMID="9" name="Llwybr Cyfeiriadur Pres. i Glipfwrdd"/>
+				<Item CMID="10" name="Ailenwi"/>
+				<Item CMID="11" name="Symud i'r Bin Ailgylchu"/>
+				<Item CMID="12" name="Darllen-yn-Unig"/>
+				<Item CMID="13" name="Clirio'r Fflag Darllen-yn-Unig"/>
+				<Item CMID="14" name="Symud i Ystyr Newydd`"/>
+				<Item CMID="15" name="Agor mewn Ystyr Newydd"/>
+				<Item CMID="16" name="Ail-lwytho"/>
+				<Item CMID="17" name="Cau'r CWBL i'r Chwith"/>
+				<Item CMID="18" name="Cau'r CWBL i'r Dde"/>
+				<Item CMID="19" name="Agor Ffolder Lleoliad yn Explorer"/>
+				<Item CMID="20" name="Agor Ffolder Lleoliad yn cmd"/>
+			</TabBar>
+		</Menu>
+
+		<Dialog>
+			<Find title="" titleFind="Canfod" titleReplace="Newid" titleFindInFiles="Canfod Mewn Ffeiliau" titleMark="Nodi">
+				<Item id="1" name="Canfod Nesaf"/>
+				<Item id="2" name="Cau"/>
+				<Item id="1620" name="Can&amp;fod:"/>
+				<Item id="1603" name="Gair cyfan yn unig (&amp;w)"/>
+				<Item id="1604" name="Yr un prif/is-lythrennau (&amp;c)"/>
+				<Item id="1605" name="Myne&amp;giad rheolaidd"/>
+				<Item id="1606" name="Amla&amp;pio o amgylch"/>
+				<Item id="1614" name="Cyfrif"/>
+				<Item id="1615" name="Canfod y Cwbl"/>
+				<Item id="1616" name="Nodi llinell"/>
+				<Item id="1618" name="Clirio ar gyfer pob chwiliad"/>
+				<Item id="1611" name="Newid gyda (&amp;p):"/>
+				<Item id="1608" name="&amp;Newid"/>
+				<Item id="1609" name="Newid y Cwbl (&amp;A)"/>
+				<Item id="1623" name="Tryloywder"/>
+				<Item id="1687" name="Ar golli ffocws"/>
+				<Item id="1688" name="O Hyd"/>
+				<Item id="1632" name="Yn y Dewis"/>
+				<Item id="1633" name="Clirio"/>
+				<Item id="1635" name="Newid y Cwbl ym Mhob Dogfen ar Agor"/>
+				<Item id="1636" name="Canfod y Cwbl ym Mhob Dogfen ar Agor"/>
+				<Item id="1654" name="Hidlyddion:"/>
+				<Item id="1655" name="Cyfeiriadur:"/>
+				<Item id="1656" name="Canfod y Cwbl"/>
+				<Item id="1658" name="Mewn pob is-ffolder"/>
+				<Item id="1659" name="Mewn ffolderi cudd"/>
+				<Item id="1624" name="Modd Chwilio"/>
+				<Item id="1625" name="Arferol"/>
+				<Item id="1626" name="Estynedig (\n, \r, \t, \0, \x...)"/>
+				<Item id="1660" name="Newid mewn Ffeilau"/>
+				<Item id="1641" name="Canfod y Cwbl yn y Ddogfen Presennol"/>
+				<Item id="1686" name="Tryloywder"/>
+				<Item id="1703" name="&amp;. yn llinell newydd"/>
+			</Find>
+			<GoToLine title="Mynd i...">
+				<Item id="2007" name="Llinell"/>
+				<Item id="2008" name="Atred"/>
+				<Item id="1" name="&amp;Mynd"/>
+				<Item id="2" name="Rwy'n mynd i nunlle"/>
+				<Item id="2004" name="Dyma chi:"/>
+				<Item id="2005" name="Rydych eisiau mynd i:"/>
+				<Item id="2006" name="Ni allech mynd bellach na(g):"/>
+			</GoToLine>
+
+			<Run title="Rhedeg...">
+				<Item id="1903" name="Y Rhaglen i'w Redeg"/>
+				<Item id="1" name="Rhedeg"/>
+				<Item id="2" name="Diddymu"/>
+				<Item id="1904" name="Cadw..."/>
+			</Run>
+
+			<StyleConfig title="Arddull Ffurfweddwr">
+				<Item id="2" name="Diddymu"/>
+				<Item id="2301" name="Cadw &amp;&amp; Cau"/>
+				<Item id="2303" name="Tryloywder"/>
+				<Item id="2306" name="Dewis thema: "/>
+				<SubDialog>
+					<Item id="2204" name="Bras"/>
+					<Item id="2205" name="Italig"/>
+					<Item id="2206" name="Lliw blaendir"/>
+					<Item id="2207" name="Lliw cefndir"/>
+					<Item id="2208" name="Enw ffont:"/>
+					<Item id="2209" name="Maint ffont:"/>
+					<Item id="2211" name="Arddull:"/>
+					<Item id="2212" name="Arddull Lliw"/>
+					<Item id="2213" name="Arddull Ffont"/>
+					<Item id="2214" name="Estyniad rhagosodedig:"/>
+					<Item id="2216" name="Estyniad defnyddiwr:"/>
+					<Item id="2218" name="Tanlinellu"/>
+					<Item id="2219" name="Allweddeiriau rhagosodedig"/>
+					<Item id="2221" name="Allweddeiriau defnyddiwr"/>
+					<Item id="2225" name="Iaith:"/>
+					<Item id="2226" name="Galluogi lliw blaendir byd-eang"/>
+					<Item id="2227" name="Galluogi lliw cefndir byd-eang"/>
+					<Item id="2228" name="Galluogi ffont byd-eang"/>
+					<Item id="2229" name="Galluogi maint ffont byd-eang"/>
+					<Item id="2230" name="Galluogi arddull ffont bras byd-eang"/>
+					<Item id="2231" name="Galluogi arddull ffont italig byd-eang"/>
+					<Item id="2232" name="Galluogi arddull ffont tanlinell byd-eang"/>
+				</SubDialog>
+
+			</StyleConfig>
+
+			<UserDefine title="User-Defined">
+				<Item id="20001" name="Doc"/>
+				<Item id="20002" name="Ailenwi"/>
+				<Item id="20003" name="Creu Newydd..."/>
+				<Item id="20004" name="Tynnu"/>
+				<Item id="20005" name="Cadw Fel..."/>
+				<Item id="20007" name="Iaith defnyddiwr: "/>
+				<Item id="20009" name="Est.:"/>
+				<Item id="20012" name="Anwybyddu prif/is-lythrennau"/>
+				<Item id="20011" name="Tryloywder"/>
+				<Item id="20015" name="Mewnforio..."/>
+				<Item id="20016" name="Allforio..."/>
+				<StylerDialog title="Deialog Arddullydd">
+					<Item id="25030" name="Dewisiadau Ffont:"/>
+					<Item id="25006" name="Lliw blaendir"/>
+					<Item id="25007" name="Lliw cefndir"/>
+					<Item id="25031" name="Enw:"/>
+					<Item id="25032" name="Maint:"/>
+					<Item id="25001" name="Bras"/>
+					<Item id="25002" name="Italig"/>
+					<Item id="25003" name="Tanlinellu"/>
+					<Item id="25029" name="Nythu:"/>
+					<Item id="25008" name="Amffinydd 1"/>
+					<Item id="25009" name="Amffinydd 2"/>
+					<Item id="25010" name="Amffinydd 3"/>
+					<Item id="25011" name="Amffinydd 4"/>
+					<Item id="25012" name="Amffinydd 5"/>
+					<Item id="25013" name="Amffinydd 6"/>
+					<Item id="25014" name="Amffinydd 7"/>
+					<Item id="25015" name="Amffinydd 8"/>
+					<Item id="25018" name="Allweddair 1"/>
+					<Item id="25019" name="Allweddair 2"/>
+					<Item id="25020" name="Allweddair 3"/>
+					<Item id="25021" name="Allweddair 4"/>
+					<Item id="25022" name="Allweddair 5"/>
+					<Item id="25023" name="Allweddair 6"/>
+					<Item id="25024" name="Allweddair 7"/>
+					<Item id="25025" name="Allweddair 8"/>
+					<Item id="25016" name="Sylw"/>
+					<Item id="25017" name="Llinell sylw"/>
+					<Item id="25026" name="Gweithredydd 1"/>
+					<Item id="25027" name="Gweithredydd 2"/>
+					<Item id="25028" name="Rhifau"/>
+				</StylerDialog>
+				<Folder title="Ffolder a Rhagosodedig">
+					<Item id="21101" name="Arddull Rhagosodedig"/>
+					<Item id="21102" name="Arddullydd"/>
+					<Item id="21105" name="Dogfennaeth:"/>
+					<Item id="21104" name="Lleoliad dogfennau dros dro:"/>
+					<Item id="21106" name="Plygu cryno (plygu llinellau gweigion hefyd)"/>
+					<Item id="21220" name="Plygu yn Arddyll Cod 1:"/>
+					<Item id="21224" name="Agor:"/>
+					<Item id="21225" name="Canol:"/>
+					<Item id="21226" name="Cau:"/>
+					<Item id="21227" name="Arddullydd"/>
+					<Item id="21320" name="Plygu yn Arddyll Cod 2 (angen gwahanwyr):"/>
+					<Item id="21324" name="Agor:"/>
+					<Item id="21325" name="Canol:"/>
+					<Item id="21326" name="Cau:"/>
+					<Item id="21327" name="Arddullydd"/>
+					<Item id="21420" name="Plygu yn Arddyll Sylwadau:"/>
+					<Item id="21424" name="Agor:"/>
+					<Item id="21425" name="Canol:"/>
+					<Item id="21426" name="Cau:"/>
+					<Item id="21127" name="Arddullydd"/>
+				</Folder>
+				<Keywords title="Rhestri Allweddeiriau">
+					<Item id="22101" name="Grwp 1af"/>
+					<Item id="22201" name="2ail Grwp"/>
+					<Item id="22301" name="3ydd Grwp"/>
+					<Item id="22401" name="4ydd Grwp"/>
+					<Item id="22451" name="5ed Grwp"/>
+					<Item id="22501" name="6ed Grwp"/>
+					<Item id="22551" name="7fed Grwp"/>
+					<Item id="22601" name="8fed Grwp"/>
+					<Item id="22121" name="Modd rhagddodiad"/>
+					<Item id="22221" name="Modd rhagddodiad"/>
+					<Item id="22321" name="Modd rhagddodiad"/>
+					<Item id="22421" name="Modd rhagddodiad"/>
+					<Item id="22471" name="Modd rhagddodiad"/>
+					<Item id="22521" name="Modd rhagddodiad"/>
+					<Item id="22571" name="Modd rhagddodiad"/>
+					<Item id="22621" name="Modd rhagddodiad"/>
+					<Item id="22122" name="Arddullydd"/>
+					<Item id="22222" name="Arddullydd"/>
+					<Item id="22322" name="Arddullydd"/>
+					<Item id="22422" name="Arddullydd"/>
+					<Item id="22472" name="Arddullydd"/>
+					<Item id="22522" name="Arddullydd"/>
+					<Item id="22572" name="Arddullydd"/>
+					<Item id="22622" name="Arddullydd"/>
+				</Keywords>
+				<Comment title="Sylwadau a Rhifau">
+					<Item id="23003" name="Lleoliad Llinell Sylw"/>
+					<Item id="23004" name="Caniatáu unrhyw le"/>
+					<Item id="23005" name="Gorfodi ar ddechrau llinell"/>
+					<Item id="23006" name="Caniatáu bwlch gwyn blaenorol"/>
+					<Item id="23001" name="Caniatáu plygu sylwadau"/>
+					<Item id="23326" name="Arddullydd"/>
+					<Item id="23323" name="Agor"/>
+					<Item id="23324" name="Nod parhau"/>
+					<Item id="23325" name="Cau"/>
+					<Item id="23301" name="Arddull Llinellau Sylw"/>
+					<Item id="23124" name="Arddullydd"/>
+					<Item id="23122" name="Agor"/>
+					<Item id="23123" name="Cau"/>
+					<Item id="23101" name="Arddull Sylwadau"/>
+					<Item id="23201" name="Arddull Rhifau"/>
+					<Item id="23220" name="Arddullydd"/>
+					<Item id="23230" name="Rhagddodiad 1"/>
+					<Item id="23232" name="Rhagddodiad 2"/>
+					<Item id="23234" name="Ychwanegion 1"/>
+					<Item id="23236" name="Ychwanegion 2"/>
+					<Item id="23238" name="Olddodiad 1"/>
+					<Item id="23240" name="Olddodiad 2"/>
+					<Item id="23242" name="Cyfres:"/>
+					<Item id="23244" name="Gwahanydd degol"/>
+					<Item id="23245" name="Dot"/>
+					<Item id="23246" name="Coma"/>
+					<Item id="23247" name="Y ddau"/>
+				</Comment>
+				<Operator title="Gweithredyddion">
+					<Item id="24101" name="Gweithredyddion Arddull"/>
+					<Item id="24113" name="Arddullydd"/>
+					<Item id="24116" name="Gweithredyddion 1"/>
+					<Item id="24117" name="Gweithredyddion 2 (angen gwahanwyr)"/>
+					<Item id="24201" name="Arddull Amffinydd 1"/>
+					<Item id="24220" name="Agor:"/>
+					<Item id="24221" name="Ymwared:"/>
+					<Item id="24222" name="Cau:"/>
+					<Item id="24223" name="Arddullydd"/>
+					<Item id="24301" name="Arddull Amffinydd 2"/>
+					<Item id="24320" name="Agor:"/>
+					<Item id="24321" name="Ymwared:"/>
+					<Item id="24322" name="Cau:"/>
+					<Item id="24323" name="Arddullydd"/>
+					<Item id="24401" name="Arddull Amffinydd 3"/>
+					<Item id="24420" name="Agor:"/>
+					<Item id="24421" name="Ymwared:"/>
+					<Item id="24422" name="Cau:"/>
+					<Item id="24423" name="Arddullydd"/>
+					<Item id="24451" name="Arddull Amffinydd 4"/>
+					<Item id="24470" name="Agor:"/>
+					<Item id="24471" name="Ymwared:"/>
+					<Item id="24472" name="Cau:"/>
+					<Item id="24473" name="Arddullydd"/>
+					<Item id="24501" name="Arddull Amffinydd 5"/>
+					<Item id="24520" name="Agor:"/>
+					<Item id="24521" name="Ymwared:"/>
+					<Item id="24522" name="Cau:"/>
+					<Item id="24523" name="Arddullydd"/>
+					<Item id="24551" name="Arddull Amffinydd 6"/>
+					<Item id="24570" name="Agor:"/>
+					<Item id="24571" name="Ymwared:"/>
+					<Item id="24572" name="Cau:"/>
+					<Item id="24573" name="Arddullydd"/>
+					<Item id="24601" name="Arddull Amffinydd 7"/>
+					<Item id="24620" name="Agor:"/>
+					<Item id="24621" name="Ymwared:"/>
+					<Item id="24622" name="Cau:"/>
+					<Item id="24623" name="Arddullydd"/>
+					<Item id="24651" name="Arddull Amffinydd 8"/>
+					<Item id="24670" name="Agor:"/>
+					<Item id="24671" name="Ymwared:"/>
+					<Item id="24672" name="Cau:"/>
+					<Item id="24673" name="Arddullydd"/>
+				</Operator>
+				<Item id="24001" name="Galluogi nod ymwared:"/>
+			</UserDefine>
+			<Preference title="Dewisiadau">
+				<Item id="6001" name="Cau"/>
+				<Global title="Cyffredin">
+					<Item id="6102" name="Cuddio"/>
+					<Item id="6103" name="Eiconau bach"/>
+					<Item id="6104" name="Eiconau mawr"/>
+					<Item id="6105" name="Eiconau safonol"/>
+					<Item id="6107" name="Lleihau"/>
+					<Item id="6108" name="Cloi (dim llusgo a disgyn)"/>
+					<Item id="6109" name="Tywyllu tabiau anweithredol"/>
+					<Item id="6110" name="Nodi'r tab weithredol gyda llinell lliw"/>
+					<Item id="6112" name="Dangos botwm cau ar bob tab"/>
+					<Item id="6113" name="Clic dwbl i gau dogfen"/>
+					<Item id="6118" name="Cuddio"/>
+					<Item id="6119" name="Aml-linell"/>
+					<Item id="6120" name="Fertigol"/>
+					<Item id="6121" name="Bar Dewislen"/>
+					<Item id="6122" name="Cuddio (defnyddio bysell Alt neu F10 i doglo)"/>
+					<Item id="6123" name="Lleoleiddiad"/>
+					<Item id="6125" name="Panel Rhestr Dogfennau"/>
+					<Item id="6126" name="Dangos"/>
+					<Item id="6127" name="Analluogi estyniad colofn"/>
+				</Global>
+
+				<Scintillas title="Golygu">
+					<Item id="6216" name="Gosodiadau Lleolnod"/>
+					<Item id="6217" name="Lled:"/>
+					<Item id="6219" name="Cyflymder Fflachio:"/>
+					<Item id="6221" name="F"/>
+					<Item id="6222" name="S"/>
+					<Item id="6224" name="Gosodiadau Aml-golygu"/>
+					<Item id="6201" name="Arddull Ymyl Ffolder"/>
+					<Item id="6202" name="Syml"/>
+					<Item id="6203" name="Saeth"/>
+					<Item id="6204" name="Coeden cylch"/>
+					<Item id="6205" name="Coeden bocs"/>
+					<Item id="6226" name="Dim"/>
+					<Item id="6227" name="Amlapiad Llinellau"/>
+					<Item id="6228" name="Rhagosdedig"/>
+					<Item id="6229" name="Aliniedig"/>
+					<Item id="6230" name="Mewnoli"/>
+					<Item id="6206" name="Dangos rhifau llinellau"/>
+					<Item id="6207" name="Dangos bookmarks"/>
+					<Item id="6208" name="Dangos ymyl fertigol"/>
+					<Item id="6209" name="Nifer colofnau: "/>
+					<Item id="6234" name="Anallugoi nodweddion sgrolio uwch
+(os oes problemau pad cyffwrdd)"/>
+					<Item id="6211" name="Gosodiadau Ymyl Fertigol"/>
+					<Item id="6212" name="Modd Llinell"/>
+					<Item id="6213" name="Modd Cefndir"/>
+					<Item id="6214" name="Galluogi amlygu'r llinell bresennol"/>
+					<Item id="6231" name="Lled Ffin"/>
+				</Scintillas>
+
+				<NewDoc title="Dogfen Newydd">
+					<Item id="6401" name="Fformat"/>
+					<Item id="6402" name="Windows"/>
+					<Item id="6403" name="Unix"/>
+					<Item id="6404" name="Mac"/>
+					<Item id="6405" name="Amgodiad"/>
+					<Item id="6406" name="ANSI"/>
+					<Item id="6407" name="UTF-8 heb BOM"/>
+					<Item id="6408" name="UTF-8"/>
+					<Item id="6409" name="UCS-2 Endian Fawr"/>
+					<Item id="6410" name="UCS-2 Endian Fach"/>
+					<Item id="6411" name="Iaith rhagosodedig:"/>
+					<Item id="6419" name="Dogfen Newydd"/>
+					<Item id="6420" name="Rhoi ar waith i'r ffeiliau ANSI ar agor"/>
+				</NewDoc>
+
+				<DefaultDir title="Cyfeiriadur Rhagosodedig">
+					<Item id="6413" name="Cyfeiriadur Rhagosodedig (Agor/Cadw)"/>
+					<Item id="6414" name="Dilyn y ddogfen presennol"/>
+					<Item id="6415" name="Cofio'r cyfeiriadur defnyddiwyd diwethaf"/>
+				</DefaultDir>
+
+				<FileAssoc title="Cydgysyllitiad Ffeiliau">
+					<Item id="4009" name="Estyniadau Cynalwyd:"/>
+					<Item id="4010" name="Estyniadau Cofrestredig:"/>
+				</FileAssoc>
+				<LangMenu title="Dewislen Ieithoedd">
+					<Item id="6505" name="Eitemau ar gael"/>
+					<Item id="6506" name="Eitemau analluogwyd"/>
+					<Item id="6507" name="Gwneud dewislen iaith yn gryno"/>
+					<Item id="6508" name="Dewislen Iaith"/>
+				</LangMenu>
+
+				<TabSettings title="Gosodiadau Tabiau">
+					<Item id="6301" name="Gosodiadau Tab"/>
+					<Item id="6302" name="Newid gyda bwlch"/>
+					<Item id="6303" name="Maint tabiau: "/>
+					<Item id="6510" name="Defnyddio gwerth rhagosodedig"/>
+				</TabSettings>
+
+				<Print title="Argraffu">
+					<Item id="6601" name="Argraffu rhifau llinellau"/>
+					<Item id="6602" name="Dewisiadau Lliw"/>
+					<Item id="6603" name="WYSIWYG"/>
+					<Item id="6604" name="Gwrthdroi"/>
+					<Item id="6605" name="Du ar gwyn"/>
+					<Item id="6606" name="Dim lliw cefndir"/>
+					<Item id="6607" name="Gosodiadau Ymylon (Uned:mm)"/>
+					<Item id="6612" name="Chwith"/>
+					<Item id="6613" name="Top"/>
+					<Item id="6614" name="De"/>
+					<Item id="6615" name="Gwaelod"/>
+					<Item id="6706" name="Bras"/>
+					<Item id="6707" name="Italig"/>
+					<Item id="6708" name="Pennyn"/>
+					<Item id="6709" name="Rhan chwith"/>
+					<Item id="6710" name="Rhan canol"/>
+					<Item id="6711" name="Rhan dde"/>
+					<Item id="6717" name="Bras`"/>
+					<Item id="6718" name="Italig"/>
+					<Item id="6719" name="Troedyn"/>
+					<Item id="6720" name="Rhan chwith"/>
+					<Item id="6721" name="Rhan canol"/>
+					<Item id="6722" name="Rhan dde"/>
+					<Item id="6723" name="Ychwanegu"/>
+					<Item id="6725" name="Newidiol:"/>
+					<Item id="6727" name="Yma dangosir eich gosodiadau newidiol"/>
+					<Item id="6728" name="Pennyn a Throedyn"/>
+				</Print>
+
+				<RecentFilesHistory title="Hanes Ffeilau Diweddar">
+					<Item id="6304" name="Hanes Ffeiliau Diweddar"/>
+					<Item id="6306" name="Nifer mwyaf i'w gofio:"/>
+					<Item id="6305" name="Peidio gwirio wrth lansio"/>
+					<Item id="6429" name="Dangos"/>
+					<Item id="6424" name="Mewn Is-ddewislen"/>
+					<Item id="6425" name="Enwau Ffeiliau yn Unig"/>
+					<Item id="6426" name="Llwybr Llawn y Ffeiliau"/>
+					<Item id="6427" name="Addasu Terfyn Hyd (nodau):"/>
+				</RecentFilesHistory>
+
+				<Backup title="Cadw Copïau wrth Gefn">
+					<Item id="6817" name="Ciplun Sesiwn a Chadw Copïau wrth Gefn"/>
+					<Item id="6818" name="Gallugoi cipluniau sesiwn a chadw copïau wrth gefn"/>
+					<Item id="6819" name="Copi wrth gefn pob"/>
+					<Item id="6821" name="eiliad"/>
+					<Item id="6822" name="Cyfeiriadur:"/>
+					<Item id="6309" name="Cofio'r sesiwn bresennol ar gyfer y lansiad nesaf"/>
+					<Item id="6801" name="Cadw Copïau wrth Gefn"/>
+					<Item id="6315" name="Dim"/>
+					<Item id="6316" name="Syml"/>
+					<Item id="6317" name="Geiriog"/>
+					<Item id="6804" name="Cyfeiriadur dewisedig"/>
+					<Item id="6803" name="Cyfeiriadur:"/>
+				</Backup>
+
+				<AutoCompletion title="Awto-cwblhau">
+					<Item id="6807" name="Awto-cwblhau"/>
+					<Item id="6808" name="Galluogi awto-cwblhau ar pob mewnbwn"/>
+					<Item id="6809" name="Cwblhau Swyddogaeth"/>
+					<Item id="6810" name="Cwblhau Geiriau"/>
+					<Item id="6816" name="Cwblhau Swyddogaeth a Geiriau"/>
+					<Item id="6811" name="O nod "/>
+					<Item id="6813" name="."/>
+					<Item id="6814" name="Gwerth dilys: 1 - 9"/>
+					<Item id="6815" name="Hintiau paramedrau swyddogaethau wrth mewnbynnu"/>
+					<Item id="6851" name="Awto-Mewnosod"/>
+					<Item id="6857" name=" tag cau html/xml"/>
+					<Item id="6858" name="Agor"/>
+					<Item id="6859" name="Cau"/>
+					<Item id="6860" name="Pâr cyfatebol 1:"/>
+					<Item id="6863" name="Pâr cyfatebol 2:"/>
+					<Item id="6866" name="Pâr cyfatebol 3:"/>
+				</AutoCompletion>
+
+				<MultiInstance title="Aml-ystyr">
+					<Item id="6151" name="Gosodiadau Aml-ystyr"/>
+					<Item id="6152" name="Agor sesiwn mewn ystyr newydd o Notepad++"/>
+					<Item id="6153" name="Mewn modd aml-ystyr o hyd"/>
+					<Item id="6154" name="Rhagosodedig (ystyr sengl)"/>
+					<Item id="6155" name="* Rhaid ail-ddechrau Notepad++ i roi'r newid ar waith."/>
+				</MultiInstance>
+
+				<Delimiter title="Amffinydd">
+					<Item id="6251" name="Gosodiadau Dewis Amffinydd (Ctrl + Dwbl clic llygoden)"/>
+					<Item id="6252" name="Agor"/>
+					<Item id="6255" name="Cau"/>
+					<Item id="6256" name="Galluogi ar nifer o linellau"/>
+				</Delimiter>
+
+				<Cloud title="Cwmwl">
+					<Item id="6262" name="Gosodiadau Cwmwl"/>
+					<Item id="6263" name="Dim Cwmwl"/>
+					<Item id="6264" name="Dropbox"/>
+					<Item id="6265" name="OneDrive"/>
+					<Item id="6266" name="Google Drive"/>
+					<!--Item id="6261" name="Cofiwch ail-ddechrau Notepad++ i roi newidiadau ar waith."/-->
+				</Cloud>
+
+
+				<MISC title="Eraill">
+					<Item id="6312" name="Awto-Synhwyro Statws Ffeiliau"/>
+					<Item id="6313" name="Diweddaru'n dawel"/>
+					<Item id="6318" name="Gosodiadau Dolenni Clicadwy"/>
+					<Item id="6325" name="Sgrolio i'r llinell diwethaf ar ôl diweddaru"/>
+					<Item id="6319" name="Galluogi"/>
+					<Item id="6320" name="Dim tanlinellu"/>
+					<Item id="6322" name="Estyniad ffeil sesiwn:"/>
+					<Item id="6323" name="Galluogi awto-diweddarwr Notepad++"/>
+					<Item id="6324" name="Newidydd Dogfennau (Ctrl+TAB)"/>
+					<Item id="6326" name="Galluogi lliwddangos clyfar"/>
+					<Item id="6329" name="Amlygu Tagiau Cydweddu"/>
+					<Item id="6327" name="Galluogi"/>
+					<Item id="6328" name="Amlygu tagiau priodoleddau"/>
+					<Item id="6330" name="Amlygu comment/php/asp zone"/>
+					<Item id="6331" name="Dangos dim ond enw'r ffeil yn y bar teitl"/>
+					<Item id="6332" name="Cydweddu prif/is-lythrennau"/>
+					<Item id="6333" name="Lliwddangos Clyfar"/>
+					<Item id="6334" name="Awto-synhwyro amgodiad nodau"/>
+					<Item id="6335" name="Trin ôl-slaes fel nod Escape ar gyfer SQL"/>
+					<Item id="6114" name="Galluogi"/>
+					<Item id="6117" name="Galluogi ymddygiad MRU"/>
+				</MISC>
+			</Preference>
+			<MultiMacro title="Rhedeg Macro Nifer o Droeon">
+				<Item id="1" name="Rhedeg"/>
+				<Item id="2" name="Diddymu"/>
+				<Item id="8006" name="Macro i'w redeg:"/>
+				<Item id="8001" name="Rhedeg"/>
+				<Item id="8005" name="tro"/>
+				<Item id="8002" name="Rhedeg hyd diwedd y ffeil"/>
+			</MultiMacro>
+			<Window title="Windows">
+				<Item id="1" name="Actifedu"/>
+				<Item id="2" name="Iawn"/>
+				<Item id="7002" name="Cadw"/>
+				<Item id="7003" name="Cau ffenestr(i)"/>
+				<Item id="7004" name="Trefnu tabiau"/>
+			</Window>
+			<ColumnEditor title="Golygydd Colfonau">
+				<Item id="2023" name="Testun i'w mewnosod"/>
+				<Item id="2033" name="Rhif i'w Mewnosod"/>
+				<Item id="2030" name="Rhif cyntaf:"/>
+				<Item id="2031" name="Cynyddu fesul:"/>
+				<Item id="2035" name="Seroau arweiniol"/>
+				<Item id="2032" name="Fformat"/>
+				<Item id="2024" name="Dec"/>
+				<Item id="2025" name="Oct"/>
+				<Item id="2026" name="Hex"/>
+				<Item id="2027" name="Bin"/>
+				<Item id="1" name="Iawn"/>
+				<Item id="2" name="Diddymu"/>
+			</ColumnEditor>
+		</Dialog>
+		<MessageBox>
+			<ContextMenuXmlEditWarning title="Golygu contextMenu" message="Mae golygu contextMenu.xml yn eich gallugoi i addasu eich naidlen cyd-destun Notepad++.\rRhaid ail-ddechrau Notepad++ i newidiadau i contextMenu.xml ddod ar waith."/>
+			<NppHelpAbsentWarning title="Ffeil ddim yn bodoli" message="\rdim yn bodoli. Gallech ei lawrlwytho o wefan Notepad++."/>
+			<SaveCurrentModifWarning title="Cadw Newidiadau Presennol" message="Dylech gadw'r newidiadau presennol.\rNid yw'n bosib dad-wneud newidiadau ar ôl eu cadw.\r\rParhau?"/>
+			<LoseUndoAbilityWarning title="Rhybydd Collli Gallu Dadwneud" message="Dylech gadw'r newidiadau presennol.\rNid yw'n bosib dad-wneud newidiadau ar ôl eu cadw.\r\rParhau?"/>
+			<CannotMoveDoc title="Symud i Ystyr Notepad++ Newydd" message="Mae'r Dogfen wedi ei addasu. Cadwch y ddogfen, yna ceisiwch eto."/>
+			<DocReloadWarning title="Ail-lwytho" message="Ydych yn sicr eich bod eisiau ail-agor y ffeil bresennol a cholli'r newidiadau gwnaed yn Notepad++?"/>
+			<FileLockedWarning title="Methwyd Cadw" message="Gwiriwch nad yw'r ffeil ar agor mewn rhaglen arall."/>
+			<FileAlreadyOpenedInNpp title="" message="Mae'r ffeil eisoes ar agor yn Notepad++."/>
+			<DeleteFileFailed title="Dileu Ffeil" message="Methwyd dileu'r ffeil"/>
+
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<NbFileToOpenImportantWarning title="Gormod o ffeiliau i'w hagor" message="Mae $INT_REPLACE$ ffeil ar fin cael eu hagor.\rYdych yn sicr eisiau agor nhw i gyd?"/>
+		</MessageBox>
+		<ClipboardHistory>
+			<PanelTitle name="Hanes Clipfwrdd"/>
+		</ClipboardHistory>
+		<DocList>
+			<PanelTitle name="Newidydd Dogfennau"/>
+			<ColumnName name="Enw"/>
+			<ColumnExt name="Est."/>
+		</DocList>
+		<AsciiInsertion>
+			<PanelTitle name="Panel Mewnosod ASCII"/>
+			<ColumnVal name="Gwerth"/>
+			<ColumnHex name="Hex"/>
+			<ColumnChar name="Nod"/>
+		</AsciiInsertion>
+		<DocumentMap>
+			<PanelTitle name="Map Dogfen"/>
+		</DocumentMap>
+		<FunctionList>
+			<PanelTitle name="Rhestr Swyddogaethau"/>
+			<SortTip name="Trefnu"/>
+			<ReloadTip name="Ail-lwytho"/>
+		</FunctionList>
+		<ProjectManager>
+			<PanelTitle name="Prosiect"/>
+			<WorkspaceRootName name="Gweithle"/>
+			<NewProjectName name="Enw Prosiect"/>
+			<NewFolderName name="Enw Ffolder"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Gweithle"/>
+					<Item id="1" name="Golygu"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="Gweithle Newydd"/>
+					<Item id="3123" name="Agor Gweithle"/>
+					<Item id="3124" name="Ail-lwytho Gweithle"/>
+					<Item id="3125" name="Cadw"/>
+					<Item id="3126" name="Cadw Fel..."/>
+					<Item id="3127" name="Cadw a Chopïo Fel..."/>
+					<Item id="3121" name="Ychwanegu Prosiect Newydd"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Ailenwi"/>
+					<Item id="3112" name="Ychwanegu Ffolder"/>
+					<Item id="3113" name="Ychwanegu Ffeilau..."/>
+					<Item id="3117" name="Ychwanegu Ffeilau o Gyfeiriadur..."/>
+					<Item id="3114" name="Tynnu"/>
+					<Item id="3118" name="Symud Fyny"/>
+					<Item id="3119" name="Symud Lawr"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Ailenwi"/>
+					<Item id="3112" name="Ychwanegu Ffolder"/>
+					<Item id="3113" name="Ychwanegu Ffeilau..."/>
+					<Item id="3117" name="Ychwanegu Ffeilau o Gyfeiriadur..."/>
+					<Item id="3114" name="Tynnu"/>
+					<Item id="3118" name="Symud Fyny"/>
+					<Item id="3119" name="Symud Lawr"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Ailenwi"/>
+					<Item id="3115" name="Tynnu"/>
+					<Item id="3116" name="Newid Llwybr Ffeil"/>
+					<Item id="3118" name="Symud Fyny"/>
+					<Item id="3119" name="Symud Lawr"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
+	</Native-Langue>
+</NotepadPlus>

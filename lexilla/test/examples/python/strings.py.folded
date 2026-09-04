@@ -1,0 +1,17 @@
+ 0 400   0   # Simple raw string
+ 0 400   0   r''
+ 1 400   0   
+ 0 400   0   # Raw f-string
+ 0 400   0   rf''
+ 0 400   0   fr''
+ 1 400   0   
+ 0 400   0   # Raw byte string
+ 0 400   0   rb''
+ 0 400   0   br''
+ 1 400   0   
+ 0 400   0   # Raw unicode strings: ur'' is valid in 2.7 (but not in 3) -- always lexed as
+ 0 400   0   # valid; ru'' is never valid
+ 0 400   0   ru''
+ 0 400   0   ur''
+ 1 400   0   
+ 1 400   0   

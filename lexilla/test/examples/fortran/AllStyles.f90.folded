@@ -1,0 +1,48 @@
+ 0 400   0   ! Enumerate all styles: 0 to 14
+ 0 400   0   ! This is not a viable source file, it just illustrates the different states in isolation.
+ 1 400   0   
+ 0 400   0   ! comment=1
+ 0 400   0   ! Comment
+ 1 400   0   
+ 0 400   0   ! default=0
+ 0 400   0   	! w
+ 1 400   0   
+ 0 400   0   ! number=2
+ 0 400   0   .37
+ 1 400   0   
+ 0 400   0   ! string1=3
+ 0 400   0   'string'
+ 1 400   0   
+ 0 400   0   ! string2=4
+ 0 400   0   "string"
+ 1 400   0   
+ 0 400   0   ! stringeol=5
+ 0 400   0   " unclosed
+ 1 400   0   
+ 0 400   0   ! operator=6
+ 0 400   0   +
+ 1 400   0   
+ 0 400   0   ! identifier=7
+ 0 400   0   variable
+ 1 400   0   
+ 0 400   0   ! word=8
+ 2 400   0 + program
+ 1 401   0 | 
+ 0 401   0 | ! word2=9
+ 0 401   0 | system_clock
+ 1 401   0 | 
+ 0 401   0 | ! word3=10
+ 0 401   0 | doublecomplex
+ 1 401   0 | 
+ 0 401   0 | ! preprocessor=11
+ 0 401   0 | !DEC$ ATTRIBUTES DLLEXPORT::sr1
+ 1 401   0 | 
+ 0 401   0 | ! operator2=12
+ 0 401   0 | .lt.
+ 1 401   0 | 
+ 0 401   0 | ! label=13
+ 0 401   0 | 999
+ 1 401   0 | 
+ 0 401   0 | ! continuation=14
+ 0 401   0 | &
+ 0 400   0   

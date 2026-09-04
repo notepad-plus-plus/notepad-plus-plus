@@ -1,0 +1,13 @@
+ 0 400   0   % Some example code
+ 0 400   0   
+ 0 400   0           % Set the address of the program initially to 0x100.
+ 0 400   0           LOC   #100
+ 0 400   0   
+ 0 400   0   Main    GETA  $255,string
+ 0 400   0   
+ 0 400   0           TRAP  0,Fputs,StdOut
+ 0 400   0   
+ 0 400   0           TRAP  0,Halt,0
+ 0 400   0   
+ 0 400   0   string  BYTE  "Hello, world!",#a,0
+ 0 400   0   

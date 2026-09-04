@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|   To learn how to make your own language parser, please check the following
+|   link:    https://npp-user-manual.org/docs/function-list/
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<parser
+			displayName="TeX Syntax"
+			id         ="tex_function"
+			commentExpr="(?x)
+							(%.*?$)                                 # Comment
+						"
+
+		>
+			<function
+				mainExpr="(?x)                 # free-spacing (see `RegEx - Pattern Modifiers`)
+						  (?im-s)              # ignore case, ^ and $ match start/end of line, dot doesn't match newline
+						  \\(begin|
+							 part\*?|
+							 chapter\*?|
+							 section\*?|
+							 subsection\*?|
+							 subsubsection\*?|
+							 paragraph\*?|
+							 subparagraph\*?)
+							 {.*}"
+			>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

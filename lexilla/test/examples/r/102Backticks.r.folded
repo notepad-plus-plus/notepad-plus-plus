@@ -1,0 +1,11 @@
+ 0 400 400   # ugly code to demonstrate multiline string.
+ 0 400 400   `Hello
+ 2 400 401 + World` <- function(x, y, z) {
+ 0 401 401 | 	print(x);
+ 0 401 401 | 	print(y);
+ 0 401 401 | 	print(z);
+ 0 401 400 | }
+ 0 400 400   `Hello\nWorld`("Hello\nMoon!", "Hello
+ 0 400 400   Venus", 'Hello\
+ 0 400 400   Mars');
+ 0 400   0   

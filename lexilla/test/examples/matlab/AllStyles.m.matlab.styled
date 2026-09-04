@@ -1,0 +1,44 @@
+{1}% Examples of each style 0..8 except for SCE_MATLAB_COMMAND(2) which has a line ending bug{0}
+
+{1}% White space=0{0}
+   {1}%{0}
+
+{1}% Comment=1{0}
+{1}% Line comment{0}
+
+{1}% Next line is comment in Ocatve but not Matlab{0}
+# {7}Octave{0} {7}comment{0}
+
+{1}%{
+Block comment.
+%}{0}
+
+{1}% Command=2{0}
+
+{1}%{
+Omitted as this places a style transiton between \r and \n
+!rmdir oldtests
+%}{0}
+
+{1}% Number=3{0}
+{3}33.3{0}
+
+{1}% Keyword=4{0}
+{4}global{0} {7}x{0}
+
+{1}% Single Quoted String=5{0}
+{5}'string'{0}
+
+{1}% Operator=6{0}
+{6}[{7}X{6},{7}Y{6}]{0} {6}={0} {7}meshgrid{6}(-{3}10{6}:{3}0.25{6}:{3}10{6},-{3}10{6}:{3}0.25{6}:{3}10{6});{0}
+
+{1}% Identifier=7{0}
+{7}identifier{0} {6}={0} {3}2{0}
+
+{1}% Double Quoted String=8{0}
+{8}"string"{0}
+
+{1}% This loop should fold{0}
+{4}for{0} {7}i{0} {6}={0} {3}1{6}:{3}5{0}
+    {7}x{6}({7}i{6}){0} {6}={0} {3}3{0} {6}*{0} {7}i{6};{0}
+{4}end{0}

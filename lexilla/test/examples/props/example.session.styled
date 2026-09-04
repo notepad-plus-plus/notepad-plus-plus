@@ -1,0 +1,19 @@
+{1}# Default=0
+{0}a
+
+{1}# Comment=1
+{0}
+
+{1}# Heading=2
+{2}[heading]
+{0}
+
+{1}# Assignment=3
+{3}={0}
+
+{1}# Default Value=4
+{4}@{0}
+
+{1}# Key=5
+{5}key{3}={0}
+

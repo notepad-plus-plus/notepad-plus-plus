@@ -1,0 +1,104 @@
+/* This file contains snippets of Transact-SQL that exercise various aspects of the language. */
+/**
+ /*
+  AllStyles.tsql
+  /*
+    /****** Object:  Database [AllStyles]    Script Date: 06/16/2022 10:56:35 PM ******/
+   */
+  */
+ */
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+BEGIN
+    EXEC sp_fulltext_database @action = 'enable';
+END
+USE AllStyles;
+GO
+SELECT *
+FROM Production.Product
+ORDER BY Name ASC;
+-- Alternate way.
+USE AllStyles;
+GO
+SELECT p.*
+FROM Production.Product AS p
+ORDER BY Name ASC;
+GO
+
+SELECT "COLUMN" FROM "TABLE"
+SELECT "COLUMN" int FROM "TABLE"
+
+SELECT schema_name
+    (tab.schema_id) AS schema_name
+    -- retrieve the name, too
+    ,tab.name
+FROM sys.tables AS tab;
+
+SELECT DISTINCT Name
+FROM Production.Product AS p
+WHERE EXISTS
+    (SELECT *
+     FROM Production.ProductModel AS pm
+     WHERE p.ProductModelID = pm.ProductModelID
+           AND pm.Name LIKE 'Long-Sleeve Logo Jersey%');
+
+SELECT DISTINCT p.LastName, p.FirstName
+FROM Person.Person AS p
+JOIN HumanResources.Employee AS e
+    ON e.BusinessEntityID = p.BusinessEntityID WHERE 5000.00 IN
+    (SELECT Bonus
+     FROM Sales.SalesPerson AS sp
+     WHERE e.BusinessEntityID = sp.BusinessEntityID);
+
+CREATE PROCEDURE findjobs @nm sysname = NULL
+AS
+IF @nm IS NULL
+    BEGIN
+        PRINT 'You must give a user name'
+        RETURN
+    END
+ELSE
+    BEGIN
+        SELECT o.name, o.id, o.uid
+        FROM sysobjects o INNER JOIN master.syslogins l
+            ON o.uid = l.sid
+        WHERE l.name = @nm
+    END;
+
+CREATE TABLE TestTable (cola INT, colb CHAR(3));
+-- Declare the variable to be used.
+DECLARE @MyCounter INT;
+
+-- Initialize the variable.
+SET @MyCounter = 0;
+WHILE (@MyCounter < 26)
+BEGIN;
+   -- Insert a row into the table.
+   INSERT INTO TestTable VALUES
+       -- Use the variable to provide the integer value
+       -- for cola. Also use it to generate a unique letter
+       -- for each row. Use the ASCII function to get the
+       -- integer value of 'a'. Add @MyCounter. Use CHAR to
+       -- convert the sum back to the character @MyCounter
+       -- characters after 'a'.
+       (@MyCounter,
+        CHAR( ( @MyCounter + ASCII('a') ) )
+       );
+   -- Increment the variable to count this iteration
+   -- of the loop.
+   SET @MyCounter = @MyCounter + 1;
+END;
+
+IF @@ERROR = 547
+    BEGIN
+    PRINT N'A check constraint violation occurred.';
+    END
+GO
+
+USE [AllStyles].[dbo].[test]
+GO
+
+SELECT ProductID
+FROM Production.Product
+INTERSECT
+SELECT ProductID
+FROM Production.WorkOrder ;

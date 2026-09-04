@@ -1,0 +1,8 @@
+{2}# Test that final \n in indented heredoc (2nd example) is styled as SCE_RB_HERE_Q not SCE_RB_HERE_DELIM{0}
+{10}<<{20}T{22}
+X
+{20}T{0}
+
+{10}<<{20}-T{22}
+X
+{20}T{0}

@@ -1,0 +1,12 @@
+ 2 400 401 + /**
+ 0 401 401 |  * SCE_RUST_COMMENTBLOCKDOC
+ 0 401 400 |  */
+ 2 400 401 + fn main() {
+ 0 401 401 |     /// SCE_RUST_COMMENTLINEDOC
+ 0 401 401 |     println!("Hello, World!");
+ 0 401 400 | }
+ 0 400 400   // SCE_RUST_COMMENTLINE
+ 2 400 401 + /*
+ 0 401 401 |  * SCE_RUST_COMMENTBLOCK
+ 0 401 400 |  */
+ 1 400 400   

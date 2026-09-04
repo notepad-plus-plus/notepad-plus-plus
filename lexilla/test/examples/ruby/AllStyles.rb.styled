@@ -1,0 +1,124 @@
+{2}# Enumerate all styles where possible: 0..31,40..45{0}
+{2}# 30,31,40,45 are never set and 1 switches rest of file to error state{0}
+
+{2}#0 whitespace{0}
+    {2}#{0}
+	{2}#{0}
+
+{2}#1:error, can be set with a heredoc delimiter >256 characters but that can't be recovered from{0}
+{2}#<<ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789{0}
+
+{2}#2:comment line{0}
+
+{2}#3:POD{0}
+{3}=begin
+3:POD
+=end{0}
+
+{2}#4:number{0}
+{4}4{0}
+
+{2}#5:word{0}
+{5}super{0}
+
+{2}#6:string{0}
+{6}"6:double quotes"{0}
+
+{2}#7:single quoted string{0}
+{7}'7:single quotes'{0}
+
+{2}#8:class name{0}
+{5}class{0} {8}ClassName{0} {5}end{0}
+
+{2}#9:def name{0}
+{5}def{0} {9}Function{0} {5}end{0}
+
+{2}#10:operator{0}
+{10}&{0}
+
+{2}#11:identifier{0}
+{11}identifier{0}
+
+{2}#12:regex{0}
+{12}/[12a-z]/{0}
+
+{2}#13:global{0}
+{13}$global13{0}
+
+{2}#14:symbol{0}
+{14}:symbol14{0}
+
+{2}#15:module name{0}
+{5}module{0} {15}Module15{0} {5}end{0}
+
+{2}#16:instance var{0}
+{16}@instance16{0}
+
+{2}#17:class var{0}
+{17}@@class17{0}
+
+{2}#18:back ticks{0}
+{18}`18`{0}
+
+{2}#19:data section at end of file{0}
+
+{2}#20:here delimiter{0}
+{10}<<{20}DELIMITER20{22}
+{20}DELIMITER20{0}
+
+{2}#21:single quoted heredoc{0}
+{10}<<{20}'D'{21}
+21:here doc #{1 + 1}
+{20}D{0}
+
+{2}#22:double quoted heredoc{0}
+{10}<<{20}"D"{22}
+22:here doc {10}#{{4}1{0} {10}+{0} {4}1{10}}{22}
+{20}D{0}
+
+{2}#23:back tick quoted heredoc{0}
+{10}<<{20}`D`{23}
+23:here doc {10}#{{4}1{0} {10}+{0} {4}1{10}}{23}
+{20}D{0}
+
+{2}#24:q quoted string{0}
+{24}%q!24:quotes's!{0}
+
+{2}#25:Q quoted string{0}
+{25}%Q!25:quotes"s!{0}
+
+{2}#26:executed string{0}
+{26}%x(echo 26){0}
+
+{2}#27:regex{0}
+{27}%r(27[a-z]/[A-Z]+){0}
+
+{2}#28:interpolable string array{0}
+{28}%W(28 cgi.rb complex.rb date.rb {10}#{{4}1{10}}{28} ){0}
+
+{2}#29:demoted keyword do{0}
+{5}while{0} {4}1{0} {29}do{0} {5}end{0}
+
+{2}# 30,31,40,45 never set{0}
+
+{2}#41:non-interpolable string array{0}
+{41}%w(#{1 + 1}){0}
+
+{2}#42:non-interpolable symbol array{0}
+{42}%i(#{1 + 1}){0}
+
+{2}#43:interpolable symbol array{0}
+{43}%I({10}#{{4}1{0} {10}+{0} {4}1{10}}{43}){0}
+
+{2}#44:symbol{0}
+{44}%s(#{1 + 1}){0}
+
+{2}#128:user keywords 1{0}
+{128}decrypt{0}
+
+{2}#129:user keywords 2{0}
+{129}encrypt{0}
+
+{2}#19:data section{0}
+{19}__END__
+

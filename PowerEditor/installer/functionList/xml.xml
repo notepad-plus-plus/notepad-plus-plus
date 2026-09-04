@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ========================================================= [ XML ] -->
+		<!-- XML - eXtensible Markup Language                                  -->
+
+		<parser
+			displayName="XML Node"
+			id         ="xml_node"
+			commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+							(?:\x3C!--(?:[^\-]|-(?!-\x3E))*--\x3E)          # Multi Line Comment
+						"
+		>
+			<function
+				mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						\x3C                                                # begin of node
+						(?:
+							(?-i:\?XML)                                     # only name of root node is allowed to start with a question mark
+						|	\w+(?::\w+)?                                    # a node name can contain a colon e.g. `xs:schema`
+						)
+						(?:                                                 # match attributes
+							\s+                                             # at least one whitespace before attribute-name
+							\w+(?::\w+)?                                    # an attribute name can contain a colon e.g. `xmlns:xs`
+							\h*=\h*                                         # name-value separator can be surrounded by blanks
+							(?:                                             # quoted attribute value, embedded escaped quotes allowed...
+								\x22(?:[^\x22\x5C]|\x5C.)*?\x22             # ...double quoted...
+							|	\x27(?:[^\x27\x5C]|\x5C.)*?\x27             # ...single quoted
+							)
+						)+                                                  # only match nodes with at least one attribute
+					"
+			>
+				<functionName>
+					<nameExpr expr="[^\x3C]*" />
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

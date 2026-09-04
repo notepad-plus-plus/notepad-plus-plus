@@ -1,0 +1,55 @@
+{1}# Enumerate all styles: 0 to 15{0}
+{1}# comment=1{0}
+
+{1}# whitespace=0{0}
+	{1}# w{0}
+
+{1}# number=2{0}
+{2}37{0}
+
+{1}# double-quoted-string=3{0}
+{3}"str"{0}
+
+{1}# single-quoted-string=4{0}
+{4}'str'{0}
+
+{1}# keyword=5{0}
+{5}pass{0}
+
+{1}# triple-quoted-string=6{0}
+{6}'''str'''{0}
+
+{1}# triple-double-quoted-string=7{0}
+{7}"""str"""{0}
+
+{1}# class-name=8{0}
+{5}class{0} {8}ClassName{10}:{0}
+	{5}pass{0}
+
+{1}# function-name=9{0}
+{5}func{0} {9}function_name{10}():{0}
+	{5}pass{0}
+
+{1}# operator=10{0}
+{2}1{0} {10}+{0} {2}3{0}
+
+{1}# identifier=11{0}
+{5}var{0} {11}identifier{0} {10}={0} {2}2{0}
+
+{1}# comment-block=12{0}
+{12}## block{0}
+
+{1}# unclosed-string=13{0}
+{13}" unclosed
+{0}
+{1}# highlighted-identifier=14{0}
+{5}var{0} {14}hilight{0} {10}={0} {2}2{0}
+
+{1}# annotation=15{0}
+{15}@onready{0}
+{5}var{0} {11}a{0} {10}={0} {2}3{0}
+{15}@onready{0} {5}var{0} {11}b{0} {10}={0} {2}3{0}
+
+{1}# node-identifier=16{0}
+{16}%node{0}
+{16}$node{0}

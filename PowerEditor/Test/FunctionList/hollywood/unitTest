@@ -1,0 +1,258 @@
+/****************************************************************
+**                                                             **
+** Name:        AsyncFX                                        **
+** Author:      Andreas Falkenhahn                             **
+** Version:     1.2                                            **
+** Date:        17.01.19                                       **
+** Interpreter: Hollywood 8.0                                  **
+** Licence:     Sample program for Hollywood                   **
+** Function:    Demonstrates asynchronous transition effects   **
+**                                                             **
+** History:                                                    **
+**                                                             **
+** 1.2: (07.01.19)                                             **
+**                                                             **
+** - uses the new @DIRECTORY preprocessor command now which    **
+**   will automatically link all pics when compiling           **
+**                                                             **
+** 1.1: (29.03.13)                                             **
+**                                                             **
+** - added BeginRefresh()/EndRefresh() section for optimized   **
+**   drawing on supported systems                              **
+**                                                             **
+** 1.0: (17.09.08)                                             **
+**                                                             **
+** - initial release                                           **
+**                                                             **
+****************************************************************/
+
+/*
+** Important! Check if the used Hollywood version is at least
+** version 8.0!
+*/
+@VERSION 8,0
+
+@DIRECTORY 1, "pics"
+
+@SPRITE 1, "buttons.png", {Frames = 2, Width = 137, Height = 24, Transparency = $ff0000}
+
+/*
+** Initial display dimensions
+*/
+@DISPLAY {Width = 800, Height = 600}
+
+/* check if a picture is already on screen */
+Function p_CheckPic(x)
+
+	For Local k = 0 To 15
+		If p[k].brush = x Then Return(True)
+	Next
+	
+	Return(False)	
+
+EndFunction
+
+/* select a random effect */
+Function p_ChooseFX(use_globfx)
+
+	Local found = False
+	Local type
+	
+	; do we want a global effect or a new effect for every object?
+	If (use_globfx = True) And (bstate = 2) Then Return(globfx)
+	 
+	While found = False
+	
+		type = GetRandomFX(True)
+		
+		; no #SCROLL effects please! They'd corrupt the display because we aren't using layers!
+		Switch type
+		Case #SCROLLWEST
+		Case #SCROLLEAST
+		Case #SCROLLNORTH
+		Case #SCROLLSOUTH
+		Case #SCROLLNORTHEAST
+		Case #SCROLLSOUTHEAST
+		Case #SCROLLSOUTHWEST
+		Case #SCROLLNORTHWEST
+		Default
+			found = True
+		EndSwitch
+			
+	Wend
+
+	Return(type)
+						
+EndFunction
+
+/* start new transition effect */
+Function p_TOFunc(msg)
+
+	Local t
+	Local k = msg.userdata	
+	
+	; choose a new global effect if we're in static mode!
+	If (k = 0) And (bstate = 2) Then globfx = p_ChooseFX(False)
+
+	; randomly choose a new picture but it must not be on screen!							
+	Repeat
+		t = Rnd(num)
+	Until p_CheckPic(t) = False
+	
+	; remember picture		
+	p[k].brush = t
+	
+	; go!	
+	p[k].drawfunc = DisplayBrushFX(p[k].brush + 1, p[k].x * 200, p[k].y * 150, {Async = True, Type = p_ChooseFX(True), Parameter = #WHITE})
+	p[k].active = True
+	
+EndFunction
+
+Function p_SyncedRestart()
+
+	For Local k = 0 To 15 Do p_TOFunc({userdata = k})
+
+EndFunction
+
+/* our main loop */
+Function p_MainLoop()
+
+	BeginRefresh
+	
+	For Local k = 0 To 15
+	
+		If p[k].active = True
+		
+			If AsyncDrawFrame(p[k].drawfunc) = True
+
+				p[k].active = False
+			
+                                If bstate = 2
+
+                                	; We're in static mode --> make sure our FX are absolutely sync'ed
+
+                                        If k = 15 Then SetTimeout(Nil, p_SyncedRestart, 1000)
+
+                                        p[k].cleartimeout = False
+
+                                Else
+
+					; FX has finished!
+					; --> wait 1 second and then display next pic
+					; note that we have to use SetTimeout() because we are in a callback and must
+					; not call functions that block the system (e.g. do not use Wait() in a callback!)
+
+					p[k].timeout = SetTimeout(Nil, p_TOFunc, 1000, k)
+                                        p[k].cleartimeout = True
+				EndIf
+			EndIf
+		EndIf	
+	Next
+	
+	EndRefresh
+		
+EndFunction
+
+/* start all effects */
+Function p_Start16FX()
+
+	; start from new!
+	For Local k = 0 To 15
+		p[k].drawfunc = DisplayBrushFX(p[k].brush + 1, p[k].x * 200, p[k].y * 150, {Async = True, Type = p_ChooseFX(True), Parameter = #WHITE})
+		p[k].active = True
+	Next
+
+EndFunction
+
+/* scan files and start the transition effects */
+Function p_Init()
+
+	Local t
+
+	; count files
+	num = CountDirectoryEntries(1)
+
+	; load brushes
+	For Local k = 1 to num Do LoadBrush(k, GetDirectoryEntry(1, PadNum(k, 2) .. ".jpg"))
+	
+	p = {}
+
+	For Local k = 0 To 15 Do p[k] = {brush = -1}
+
+        ; generate initial picture layout
+	For Local k = 0 To 15
+		Repeat
+			t = Rnd(num)
+		Until p_CheckPic(t) = False
+		p[k].brush = t
+	Next
+
+	Local k = 0
+
+        ; generate x & y coordinates for our FX
+	For Local y = 0 To 3
+
+		For Local x = 0 To 3
+
+			p[k].x = x
+			p[k].y = y
+		       
+			k = k + 1
+		Next
+	Next
+
+        ; start all FX at once
+        p_Start16FX()
+
+EndFunction
+
+/* this function gets called when the user presses a button */
+Function p_EventFunc(msg)
+
+	If msg.id = bstate Then Return
+	
+	bstate = msg.id
+	
+	; update button state
+	DisplaySprite(1, 654, 570, bstate)
+	
+	; cancel all async drawings or clear timeouts
+	For Local k = 0 To 15
+	
+		If p[k].active = True
+			CancelAsyncDraw(p[k].drawfunc)
+			p[k].active = False
+		Else
+			If p[k].cleartimeout = True Then ClearTimeout(p[k].timeout)
+		EndIf
+	Next
+	
+	; clear screen
+	Box(0, 0, 800, 600, #BLACK)	
+	
+	; choose a new global effect if we're in static mode
+	If bstate = 2 Then globfx = p_ChooseFX(False)
+	
+        p_Start16FX()
+
+EndFunction
+
+p_Init()
+
+SetFillStyle(#FILLCOLOR)
+
+SetInterval(Nil, p_MainLoop, 1000 \ 50)  ; 50 fps
+
+bstate = 1
+
+MakeButton(1, #SIMPLEBUTTON, 654, 570, 64, 24, {OnMouseUp = p_EventFunc})
+MakeButton(2, #SIMPLEBUTTON, 727, 570, 64, 24, {OnMouseUp = p_EventFunc})
+
+DisplaySprite(1, 654, 570)
+
+EscapeQuit(True)
+
+Repeat
+	WaitEvent
+Forever
+	

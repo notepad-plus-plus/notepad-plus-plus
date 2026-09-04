@@ -1,0 +1,90 @@
+# Lexing numeric literals
+
+# From issue #199
+
+# UUIDs
+
+virsh start 61a6a312-86d3-458c-824a-fa0adc2bd22c
+virsh start 61969312-86d3-458c-8249-fa0adc2bd22c
+virsh restore /opt/61a6a312-86d3-458c-824a-fa0adc2bd22c-suspend
+
+# Git items
+
+git checkout 998d611b516b0e485803089ecd53fdf0ea707a8c
+
+git log --no-walk 0e2ba9c
+git log --no-walk rel-5-2-4-97-g7405d4e7
+
+# Arithmetic and character ranges
+
+declare -i a=1+1; echo $a
+[[ $a == [0-9] ]] && echo 1
+
+# Brace expansion
+
+for i in {1..10..2}; do
+	echo $i
+done
+for a in {A..Z..2}; do
+	echo $a
+done
+
+# From Kein-Hong Man
+
+#--------------------------------------------------------------------------
+# Bash number formats
+# (20070712)
+# Octal lexing relaxed to allow hex digits to avoid flagging unnecessary
+# and misleading number errors; radix-prefixed lexing behaviour is unchanged,
+# as those cases are uncommon (to get strict lexing, define PEDANTIC_OCTAL).
+
+# NOTE: Some people may want an entire non-number to be lexed in the normal
+# style and not as part-number part-normal. If the user thinks there is a
+# better case for the former, please lobby for it on the SF issue tracker.
+
+0123 0567	# octal good
+08 0789 077ABC	# octal bad (disabled 20070712, now lexed as numbers)
+066XYZ		# octal bad
+0xDEAD 0X1234	# hex good
+0xABCMNO 0XGHI	# hex bad
+
+# extended "[base#]n" format where base is between 2-64
+# digits range are 0-9a-zA-Z@_
+# if base <= 36, then alphabets are case insensitive
+# this style isn't likely in non-number code, so the lexer currently
+# opts to colour the error in red -- send feedback if this is too
+# intrusive; 'invalid octals' (but valid text) in red proved annoying...
+
+2#10101		# binary
+2#23456		# error (in red)
+8#0123456789AB	# error (in red)
+16#abcDEF123
+16#abcpqr	# bad
+64#xyzXYZ@_789	# full base-64
+99#xyzXYZ@_789	# error (in red; invalid base)
+111#xyzXYZ@_789	# error (in red; invalid base)
+
+567+0123*0xBCD	# with operators
+(4#0123-3#012)
+
+# 20070712:
+# Octal lexing relaxed to avoid marking some number sequences as octal
+# errors. This is because the elements or apps controlled by bash may
+# have a different view of numbers, so we avoid flagging unnecessary
+# (and misleading) number errors. Radix-prefixed number lexing is
+# unchanged, as those cases are uncommon (no feedback on it yet.)
+
+# In the following, red-flagged 'octals' should now be lexed as normal
+# numbers, allowing hex digits.
+
+# flightgear missing.sh
+scriptversion=2004-09-07.08
+
+# git t/t0000/basic.sh
+P=087704a96baf1c2d1c869a8b084481e121c88b5b
+
+# openssh config.guess
+    *:procnto*:*:* | *:QNX:[0123456789]*:*)
+
+# with hex digits, the following will still be an invalid number
+066XYZ

@@ -1,0 +1,58 @@
+ 0 400 400   library ieee;
+ 0 400 400   use ieee.std_logic_1164.all;
+ 0 400 400   use ieee.std_logic_arith.all;
+ 1 400 400   
+ 2 400 401 + entity x is
+ 2 401 402 +     port(
+ 0 402 402 |         rst  : in  std_logic;
+ 0 402 402 |         clk  : in  std_logic;
+ 0 402 402 |         d    : in  std_logic;
+ 0 402 402 |         q    : out std_logic_vector;
+ 0 402 402 |         a, b : in  std_logic;
+ 0 402 402 |         v    : out std_logic
+ 0 402 401 |     );
+ 0 401 400 | end x;
+ 1 400 400   
+ 2 400 401 + architecture behavioral of x is
+ 0 401 401 |     signal q_i : std_logic_vector(q'range);
+ 2 400 401 + begin
+ 1 401 401 | 
+ 0 401 401 |     v	<= a when b = '1' else '0';
+ 1 401 401 | 
+ 2 401 402 +     gen: for j in q'low to q'high generate
+ 2 402 403 +         gen_first: if j = q'low generate
+ 0 403 403 |             variable foo : boolean := false;
+ 2 402 403 +         begin
+ 2 403 404 +             stage1: process (rst, clk) begin
+ 2 404 405 +                 if rst = '1' then
+ 0 405 405 |                     q_i(j) <= '0';
+ 2 404 405 +                 elsif rising_edge(clk) then
+ 0 405 405 |                     q_i(j) <= d;
+ 2 405 406 +                     case a is
+ 0 406 406 |                     when 1 =>
+ 0 406 406 |                     when 2 =>
+ 0 406 406 |                     when others =>
+ 0 406 405 |                     end case;
+ 0 405 404 |                 end if;
+ 0 404 403 |             end process;
+ 2 402 403 +         else generate
+ 2 403 404 +             stages: process (rst, clk)
+ 0 404 404 |             begin
+ 2 404 405 +                 if rst = '1' then
+ 0 405 405 |                     q_i(j) <= '0';
+ 2 404 405 +                 elsif rising_edge(clk) then
+ 2 405 406 +                     for u in 0 to 7 loop
+ 0 406 406 |                         q_i(j) <= q_i(j - 1);
+ 0 406 405 |                     end loop;
+ 0 405 404 |                 end if;
+ 0 404 403 |             end process;
+ 0 403 402 |         end generate;
+ 0 402 401 |     end generate;
+ 1 401 401 | 
+ 2 401 402 +     L: case expression generate
+ 0 402 402 |     when choice1 =>
+ 0 402 402 |     when choice2 =>
+ 0 402 401 |     end generate L;
+ 1 401 401 | 
+ 0 401 400 | end behavioral;
+ 0 400   0   

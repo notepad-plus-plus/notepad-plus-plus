@@ -1,0 +1,194 @@
+ 0 400 400   // Enumerate all primary styles: 0 to 27 and secondary styles 64 to 91
+ 1 400 400   
+ 0 400 400   // default=0
+ 1 400 400      
+ 1 400 400   
+ 0 400 400   // comment=1
+ 0 400 400   /* */
+ 1 400 400   
+ 0 400 400   /* commentline=2 */
+ 0 400 400   // example line
+ 1 400 400   
+ 0 400 400   // commentdoc=3
+ 0 400 400   /** */
+ 1 400 400   
+ 0 400 400   // number=4
+ 0 400 400   123
+ 1 400 400   
+ 0 400 400   // word=5
+ 0 400 400   int
+ 1 400 400   
+ 0 400 400   // string=6
+ 0 400 400   "string"
+ 1 400 400   
+ 0 400 400   // character=7
+ 0 400 400   'c'
+ 1 400 400   
+ 0 400 400   // uuid=8
+ 0 400 400   uuid(3fd43029-1354-42f0-a5be-4a484c9c5250)
+ 1 400 400   
+ 0 400 400   // preprocessor=9
+ 0 400 400   #define xxx 1
+ 1 400 400   
+ 0 400 400   // operator=10
+ 0 400 400   {}
+ 1 400 400   
+ 0 400 400   // identifier=11
+ 0 400 400   identifier
+ 1 400 400   
+ 0 400 400   // stringeol=12
+ 0 400 400   "
+ 1 400 400   
+ 0 400 400   // verbatim=13
+ 0 400 400   @"verbatim"
+ 1 400 400   
+ 0 400 400   // regex=14
+ 0 400 400   (/regex/)
+ 1 400 400   
+ 0 400 400   // commentlinedoc=15
+ 0 400 400   /// example
+ 1 400 400   
+ 0 400 400   // word2=16
+ 0 400 400   second
+ 1 400 400   
+ 0 400 400   // commentdockeyword=17
+ 0 400 400   /** @file */
+ 1 400 400   
+ 0 400 400   // commentdockeyworderror=18
+ 0 400 400   /** @wrongkey */
+ 1 400 400   
+ 0 400 400   // globalclass=19
+ 0 400 400   global
+ 1 400 400   
+ 0 400 400   // stringraw=20
+ 0 400 400   R"( )"
+ 1 400 400   
+ 0 400 400   // tripleverbatim=21
+ 0 400 400   """ xx """
+ 1 400 400   
+ 0 400 400   // hashquotedstring=22
+ 0 400 400   #" xx "
+ 1 400 400   
+ 0 400 400   // preprocessorcomment=23
+ 0 400 400   #define /* comment */
+ 1 400 400   
+ 0 400 400   // preprocessorcommentdoc=24
+ 0 400 400   #define /** comment */
+ 1 400 400   
+ 0 400 400   // userliteral=25
+ 0 400 400   1_date_
+ 1 400 400   
+ 0 400 400   // taskmarker=26
+ 0 400 400   /* TODO: sleep */
+ 1 400 400   
+ 0 400 400   // escapesequence=27
+ 0 400 400   "\001 \b"
+ 1 400 400   
+ 0 400 400   // identifier substyles.11.1=128
+ 0 400 400   vector
+ 1 400 400   
+ 0 400 400   // identifier substyles.11.2=129
+ 0 400 400   std
+ 1 400 400   
+ 0 400 400   // commentdockeyword substyles.17.1=130
+ 0 400 400   /** @module */
+ 1 400 400   
+ 0 400 400   // Secondary styles inside preprocessor excluded section
+ 1 400 400   
+ 2 400 401 + #if 0
+ 1 401 401 | 
+ 0 401 401 | // default=0
+ 1 401 401 |    
+ 1 401 401 | 
+ 0 401 401 | // comment=1
+ 0 401 401 | /* */
+ 1 401 401 | 
+ 0 401 401 | /* commentline=2 */
+ 0 401 401 | // example line
+ 1 401 401 | 
+ 0 401 401 | // commentdoc=3
+ 0 401 401 | /** */
+ 1 401 401 | 
+ 0 401 401 | // number=4
+ 0 401 401 | 123
+ 1 401 401 | 
+ 0 401 401 | // word=5
+ 0 401 401 | int
+ 1 401 401 | 
+ 0 401 401 | // string=6
+ 0 401 401 | "string"
+ 1 401 401 | 
+ 0 401 401 | // character=7
+ 0 401 401 | 'c'
+ 1 401 401 | 
+ 0 401 401 | // uuid=8
+ 0 401 401 | uuid(3fd43029-1354-42f0-a5be-4a484c9c5250)
+ 1 401 401 | 
+ 0 401 401 | // preprocessor=9
+ 0 401 401 | #define xxx 1
+ 1 401 401 | 
+ 0 401 401 | // operator=10
+ 0 401 401 | {}
+ 1 401 401 | 
+ 0 401 401 | // identifier=11
+ 0 401 401 | identifier
+ 1 401 401 | 
+ 0 401 401 | // stringeol=12
+ 0 401 401 | "
+ 1 401 401 | 
+ 0 401 401 | // verbatim=13
+ 0 401 401 | @"verbatim"
+ 1 401 401 | 
+ 0 401 401 | // regex=14
+ 0 401 401 | (/regex/)
+ 1 401 401 | 
+ 0 401 401 | // commentlinedoc=15
+ 0 401 401 | /// example
+ 1 401 401 | 
+ 0 401 401 | // word2=16
+ 0 401 401 | second
+ 1 401 401 | 
+ 0 401 401 | // commentdockeyword=17
+ 0 401 401 | /** @file */
+ 1 401 401 | 
+ 0 401 401 | // commentdockeyworderror=18
+ 0 401 401 | /** @wrongkey */
+ 1 401 401 | 
+ 0 401 401 | // globalclass=19
+ 0 401 401 | global
+ 1 401 401 | 
+ 0 401 401 | // stringraw=20
+ 0 401 401 | R"( )"
+ 1 401 401 | 
+ 0 401 401 | // tripleverbatim=21
+ 0 401 401 | """ xx """
+ 1 401 401 | 
+ 0 401 401 | // hashquotedstring=22
+ 0 401 401 | #" xx "
+ 1 401 401 | 
+ 0 401 401 | // preprocessorcomment=23
+ 0 401 401 | #define /* comment */
+ 1 401 401 | 
+ 0 401 401 | // preprocessorcommentdoc=24
+ 0 401 401 | #define /** comment */
+ 1 401 401 | 
+ 0 401 401 | // userliteral=25
+ 0 401 401 | 1_date_
+ 1 401 401 | 
+ 0 401 401 | // taskmarker=26
+ 0 401 401 | /* TODO: sleep */
+ 1 401 401 | 
+ 0 401 401 | // escapesequence=27
+ 0 401 401 | "\001 \b"
+ 1 401 401 | 
+ 0 401 401 | // identifier substyles.75.1=192
+ 0 401 401 | vector
+ 1 401 401 | 
+ 0 401 401 | // identifier substyles.75.2=193
+ 0 401 401 | std
+ 1 401 401 | 
+ 0 401 401 | // commentdockeyword substyles.81.1=194
+ 0 401 401 | /** @module */
+ 1 401 401 | 
+ 0 401 400 | #endif
+ 1 400 400   

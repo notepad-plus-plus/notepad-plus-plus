@@ -1,0 +1,26 @@
+/* Comment (2), followed by Default (0) */
+
+/* File does not include Line Comment (1) as that causes \r\n failures in test runner */
+
+/* Global (3) 'G4C' */
+G4C MyGui
+
+/* String (8) */
+Window 10 10 200 300 "My window"
+
+/* Event (4) */
+xOnLoad
+     /* Command (7) */
+     GuiOpen MyGui
+
+xButton 10 10 100 20 "Double it!"
+     /* Attribute (5) */
+     attr frame sunk
+     Input "Enter a number" var
+     /* Control (6) 'if', Operator (9) '$', '>', '=' */
+     if $var > 9999
+          var = 9999
+     endif
+     var2 = $($var * 2)
+     MsgBox "$var times 2 equals $var2" OK/INFO
+     GuiQuit #this

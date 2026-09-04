@@ -1,0 +1,36 @@
+| A Baan nonsense example that produces all styles 0..24
+#pragma nowarnings
+#include <bic_desktop>
+#define BOB 17
+
+FunctionUsage
+    Do the main thing
+EndFunctionUsage
+function main() {
+    | Comment
+    long a
+    a = 0
+    message("message")
+    abort.io()
+    "Unclosed string
+    domain tcmcs.str50 err.msg
+    actual.occ = 4
+    rc = stpapi.enum.answer("tdilc4113s000","tdilc40062",tcyesno.yes)
+    x = __FILE__
+    | Table
+    rcd.tabcde111
+    | SQL
+    abcde111.fghi
+    | Function 
+    abint.dllcdefg.h
+    DALUPDATE("tccom100", true, err.msg)
+}
+
+x.is.mandatory() {
+    return(true)
+}
+
+form.1:
+
+init.form:
+    | ...

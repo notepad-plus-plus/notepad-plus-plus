@@ -1,0 +1,39 @@
+{4}% Examples of optional command arguments for issue #360{0}
+
+{1}\documentclass{0}{article}
+{1}\begin{2}{document}{0}
+
+{4}% This is a set, not an optional argument: [0,1){0}
+{9}${3} x {1}\in{3} [0,1) {9}${0}
+
+{4}% This is an optional argument: [n]{0}
+{9}${1}\sqrt{11}[n]{3}{abc}{9}${0}
+
+{1}\twocolumn{0}[{{4}% inside this optional argument goes one-column text{0}
+  {1}\centering{0}
+  {1}\LARGE{0} The Title {9}\\{0}[1.5em]
+  {1}\large{0} Author One{1}\authormark{0}{1},
+         Author Two{1}\authormark{0}{2},
+         Author Three{1}\authormark{0}{1} {9}\\{0}[1em]
+  {1}\normalsize{0}
+  {1}\begin{2}{tabular}{0}{p{.2{1}\textwidth{0}}@{{1}\hspace{0}{2em}}p{.2{1}\textwidth{0}}}
+    {1}\authormark{0}{1}Department one  &{1}\authormark{0}{2}Department two {9}\\{0} 
+     School one                   &School two 
+  {1}\end{5}{tabular}{9}\\{0}[3em] {4}% space below title part{0}
+  }]
+
+Two column text here.
+
+{4}% 3 math mode syntaxes that start SCE_L_MATH{0}
+
+{4}% Lexed as optional command argument. Not correct as [0,1] is really a set but OK since it terminates.{0}
+{9}\({3} x {1}\in{11} [0,1]{3} {9}\){0}
+{9}${3} x {1}\in{11} [0,1]{3} {9}${0}
+{1}\begin{2}{math}{3} x {1}\in{11} [0,1]{3} {1}\end{5}{math}{0}
+
+{4}% Lexed as not optional command argument{0}
+{9}\({3} x {1}\in{3} [0,1) {9}\){0}
+{9}${3} x {1}\in{3} [0,1) {9}${0}
+{1}\begin{2}{math}{3} x {1}\in{3} [0,1) {1}\end{5}{math}{0}
+
+{1}\end{5}{document}{0}

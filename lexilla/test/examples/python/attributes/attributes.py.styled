@@ -1,0 +1,17 @@
+{1}# attributes=20{0}
+{11}s{0} {10}={0} {3}"thing thing"{10}.{20}findall{10}({3}"thing"{10}){0}
+{11}a{10}.{20}very{10}.{20}complicated{10}.{20}expression{10}.{20}findall{10}({3}"test"{10}){0}
+{1}# fake out.{0}
+{11}b{10}.{20}very{10}.{20}complicated{10}.{20}expression{10}.{0}
+    {20}findall{10}({3}"test2"{10}){0}
+{11}c{10}.{20}very{10}.{20}complicated{10}.{20}expression{10}.{0} \
+    {20}findall{10}({3}"test3"{10}){0}
+{11}d{10}.{20}very{10}.{20}complicated{10}.{20}expression{10}.{0}\
+    {20}findall{10}({3}"test4"{10}){0}
+{15}@staticmethod{10}.{15}attrtest{0}
+{15}@staticmethod{10}.{0}
+{15}attrtest{0}
+{15}@staticmethod{10}.{0} \
+{15}attrtest{0}
+{15}@staticmethod{10}.{0}\
+{15}attrtest{0}

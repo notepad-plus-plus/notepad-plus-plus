@@ -1,0 +1,52 @@
+{2}-- Enumerate all styles: 0 to 16{0}
+
+{1}/* block comment = 1*/{0}
+
+{2}-- whitespace = 0{0}
+    {2}-- spaces{0}
+
+{2}-- line comment = 2{0}
+
+{2}-- number = 3{0}
+{3}376{0}
+
+{2}-- string = 4{0}
+{4}'a string'{0}
+
+{2}-- operator = 5{0}
+{5}(){0}
+{5}INTERSECT{0}
+
+{2}-- identifier = 6{0}
+{6}ProductID{5};{0}
+
+{2}-- variable = 7{0}
+{7}@Variable{5};{0}
+
+{2}-- column name = 8{0}
+{8}"COLUMN"{5};{0}
+
+{2}-- statement = 9{0}
+{9}PRINT{0}
+
+{2}-- datatype = 10{0}
+{10}int{0}
+
+{2}-- systable = 11{0}
+{11}sysobjects{0}
+
+{2}-- global variable = 12{0}
+{12}@@ERROR{0}
+
+{2}-- function = 13{0}
+{13}object_id{0}
+
+{2}-- stored procedure = 14{0}
+{14}sp_fulltext_database{0}
+
+{2}-- default (preferencing data type) = 15{0}
+{6}x{15} {2}--{0}
+
+{2}-- column name 2 = 16{0}
+{16}[COLUMN]{5};{0}
+

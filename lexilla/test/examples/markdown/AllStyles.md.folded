@@ -1,0 +1,30 @@
+ 0 400   0   Text=0
+ 0 400   0   Line end characters=1
+ 0 400   0   **Strong Emphasis (bold) 1=2**
+ 0 400   0   __Strong Emphasis (bold) 2=3__
+ 0 400   0   *Emphasis (italic) 1=4*
+ 0 400   0   _Emphasis (italic) 2=5_
+ 0 400   0   # Heading level 1=6
+ 0 400   0   ## Heading level 2=7
+ 0 400   0   ### Heading level 3=8
+ 0 400   0   #### Heading level 4=9
+ 0 400   0   ##### Heading level 5=10
+ 0 400   0   ###### Heading level 6=11
+ 0 400   0      PreChar=12
+ 0 400   0   * Unordered list item=13
+ 0 400   0   1. Ordered list item=14
+ 0 400   0   >Block Quote=15
+ 0 400   0   ~~Strike-out=16~~
+ 0 400   0   
+ 0 400   0   ***
+ 0 400   0   Previous line was horizontal rule=17
+ 0 400   0   [Link=18](https://18.com)
+ 0 400   0   `Inline Code=19`
+ 0 400   0   ``Inline Code=20``
+ 0 400   0   
+ 0 400   0   ~~~
+ 0 400   0   Block code=21
+ 0 400   0   ~~~
+ 0 400   0   
+ 0 400   0   ## Issue 23
+ 0 400   0   `

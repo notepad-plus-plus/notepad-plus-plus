@@ -1,0 +1,26 @@
+{2}# Use lexer.bash.command.substitution=2 to style command substitution{0}
+{2}# so that both the scope of the command and the internal structure are visible.{0}
+
+{2}# Nested command{0}
+{71}$({72}ls{64} {72}-la{71}$({72}ls{64} {71}*.{72}c{71})){0}
+
+{2}# Check strings and backticks in command{0}
+{4}echo{0} {71}$({70}'ls'{64} {69}"."{64} {75}`ls`{64} {69}$'.'{64} {69}$"."{71}){0}
+
+{8}PROJECT_DIR{7}={71}$({72}rlwrap{64} {72}-S{64} {69}"Enter source path: "{64} {72}-e{64} {70}''{64} {72}-i{64} {72}-o{64} {72}cat{71}){0}
+
+{2}# Multiple nesting levels{0}
+{71}$({72}ls{64} {72}-la{71}$({72}ls{64} {71}$({72}c{71}){64} {69}$'*.c'{64} {75}` $(${s})`{71})){0}
+
+{2}# Multi-line{0}
+{71}$({72}ls{64} {71}|{64}
+{72}more{71}){0}
+
+{71}$({64}
+{75}`x`{64}
+{69}"x"{64}
+{75}`ls`{64}
+{69}$'x'{64}
+{69}$"x"{64}
+{71}){0}
+{2}#end -- checks termination of previous{0}

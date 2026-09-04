@@ -1,0 +1,1 @@
+{"leaves":["entity ent1 is","architecture rtl of ent1 is","\tcomponent compo1 is","    component reset_controller is       ","proc1: process (reset_reset_n, clk_clk)","    block1: block is","comp_per_entity : entity work.doing_so port map ( Reset_s "],"root":"unitTest"}

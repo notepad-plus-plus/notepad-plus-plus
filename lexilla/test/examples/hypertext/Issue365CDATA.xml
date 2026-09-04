@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<foo>
+  Here is a CDATA <![CDATA[]]> section: <![CDATA[ < > & ]]>
+with all kinds of unescaped text.
+</foo>
+<example-code><![CDATA[
+while (x < len && !done) {
+    print( "Still working, 'zzzz'." );
+    ++x;
+    }
+]]></example-code>
+</html>

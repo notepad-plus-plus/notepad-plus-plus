@@ -1,0 +1,296 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta name="generator" content="SciTE" />
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Scintilla and SciTE Code Style Preferences
+    </title>
+	<style>
+	.S0 {
+		color: #808080;
+	}
+	.S1 {
+		font-family: Comic Sans MS;
+		color: #007F00;
+		font-size: 9pt;
+	}
+	.S2 {
+		font-family: Comic Sans MS;
+		color: #007F00;
+		font-size: 9pt;
+	}
+	.S3 {
+		font-family: Comic Sans MS;
+		color: #3F703F;
+		font-size: 9pt;
+	}
+	.S4 {
+		color: #007F7F;
+	}
+	.S5 {
+		font-weight: bold;
+		color: #00007F;
+	}
+	.S6 {
+		color: #7F007F;
+	}
+	.S7 {
+		color: #7F007F;
+	}
+	.S8 {
+		color: #804080;
+	}
+	.S9 {
+		color: #7F7F00;
+	}
+	.S10 {
+		font-weight: bold;
+		color: #000000;
+	}
+	.S12 {
+		font-family: Courier New;
+		color: #000000;
+		background: #E0C0E0;
+		font-size: 10pt;
+	}
+	.S13 {
+		font-family: Courier New;
+		color: #007F00;
+		background: #E0FFE0;
+		font-size: 10pt;
+	}
+	.S14 {
+		font-family: Courier New;
+		color: #3F7F3F;
+		background: #E0F0FF;
+		font-size: 10pt;
+	}
+	.S15 {
+		font-family: Comic Sans MS;
+		color: #3F703F;
+		font-size: 9pt;
+	}
+	SPAN {
+		font-family: Verdana;
+		font-size: 10pt;
+	}
+	</style>
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <table bgcolor="#000000" width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tr>
+        <td>
+          <img src="SciTEIco.png" border="3" height="64" width="64" alt="Scintilla icon" />
+        </td>
+        <td>
+          <a href="index.html" style="color:white;text-decoration:none"><font size="5">Scintilla
+          and SciTE</font></a>
+        </td>
+      </tr>
+    </table>
+    <h2>
+       Code Style
+    </h2>
+    <h3>
+       Introduction
+    </h3>
+	<p>
+	The source code of Scintilla and SciTE follow my preferences.
+	Some of these decisions are arbitrary and based on my sense of aesthetics
+	but its good to have all the code look the same even if its not exactly how
+	everyone would prefer.
+	</p>
+	<p>
+	Code that does not follow these conventions will be accepted, but will be modified
+	as time goes by to fit the conventions. Scintilla code follows the conventions more
+	closely than SciTE except for lexers which are relatively independent modules.
+	Lexers that are maintained by others are left as they are submitted except that
+	warnings will be fixed so the whole project can compile cleanly.
+	</p>
+	<p>
+	The <a href="http://astyle.sourceforge.net/">AStyle</a> formatting
+	program with '--style=attach --indent=force-tab=8 --keep-one-line-blocks
+--pad-header --unpad-paren --pad-comma --indent-cases --align-pointer=name --pad-method-prefix
+--pad-return-type --pad-param-type --align-method-colon --pad-method-colon=after' arguments formats code in much the right way although
+	there are a few bugs in AStyle.
+	</p>
+    <h3>
+       Language features
+    </h3>
+	<p>
+	Design goals for Scintilla and SciTE include portability to currently available C++
+	compilers on diverse platforms with high performance and low resource usage.
+	Scintilla has stricter portability requirements to SciTE as it may be ported to
+	low capability platforms.
+	Scintilla code must build with C++17 which can be checked with "g++ --std=c++17".
+	SciTE can use C++17 features that are widely available from g++ 7.1, MSVC 2017.6 and Clang 5.0 compilers.
+	</p>
+	<p>
+	To achieve portability, only a subset of C++ features are used.
+	Exceptions and templates may be used but, since Scintilla can be used from C as well as
+	C++, exceptions may not be thrown out of Scintilla and all exceptions should be caught
+	before returning from Scintilla.
+	A 'Scintilla' name space is used. This helps with name clashes on macOS.
+	</p>
+	<p>
+	The goto statement is not used because of bad memories from my first job
+	maintaining FORTRAN programs. The union feature is not used as it can lead to
+	non-type-safe value access.
+	</p>
+	<p>
+	The SCI_METHOD preprocessor definition should be used when implementing
+	interfaces which include it like ILexer and only there.
+	</p>
+	<p>
+	Headers should always be included in the same order as given by the
+	scripts/HeaderOrder.txt file.
+	</p>
+    <h3>
+       Casting
+    </h3>
+	<p>
+	Do not use old C style casts like (char *)s. Instead use the most strict form of C++
+	cast possible like const_cast&lt;char *&gt;(s). Use static_cast and const_cast
+	where possible rather than reinterpret_cast.
+	</p>
+	<p>
+	The benefit to using the new style casts is that they explicitly detail what evil is
+	occurring and act as signals that something potentially unsafe is being done.
+	</p>
+	<p>
+	Code that treats const seriously is easier to reason about both for humans
+	and compilers, so use const parameters and avoid const_cast.
+	</p>
+    <h3>
+       Warnings
+    </h3>
+	<p>
+	To help ensure code is well written and portable, it is compiled with almost all
+	warnings turned on. This sometimes results in warnings about code that is
+	completely good (false positives) but changing the code to avoid the warnings
+	is generally fast and has little impact on readability.
+	</p>
+	<p>
+	Initialise all variables and minimise the scope of variables. If a variable is defined
+	just before its use then it can't be misused by code before that point.
+	Use loop declarations that are compatible with both the C++ standard and currently
+	available compilers.
+	</p>
+    <h3>
+       Allocation
+    </h3>
+	<p>
+	Memory exhaustion can occur in many Scintilla methods.
+	This should be checked for and handled but once it has happened, it is very difficult to do
+	anything as Scintilla's data structures may be in an inconsistent state.
+	Fixed length buffers are often used as these are simple and avoid the need to
+	worry about memory exhaustion but then require that buffer lengths are
+	respected.
+	</p>
+	<p>
+	The C++ new and delete operators are preferred over C's malloc and free
+	as new and delete are type safe.
+	</p>
+    <h3>
+       Bracketing
+    </h3>
+	<p>
+	Start brackets, '{', should be located on the line of the control structure they
+	start and end brackets, '}', should be at the indented start of a line. When there is
+	an else clause, this occurs on the same line as the '}'.
+	This format uses less lines than alternatives, allowing more code to be seen on screen.
+	Fully bracketed control
+	structures are preferred because this makes it more likely that modifications will
+	be correct and it allows Scintilla's folder to work. No braces on returned
+	expressions as return is a keyword, not a function call.
+	</p>
+<SPAN class=S0></SPAN><SPAN class=S5>bool</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S11>fn</SPAN><SPAN class=S10>(</SPAN><SPAN class=S5>int</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S11>a</SPAN><SPAN class=S10>)</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S10>{</SPAN><SPAN class=S0><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class=S5>if</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S10>(</SPAN><SPAN class=S11>a</SPAN><SPAN class=S10>)</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S10>{</SPAN><SPAN class=S0><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class=S11>s</SPAN><SPAN class=S10>();</SPAN><SPAN class=S0><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class=S11>t</SPAN><SPAN class=S10>();</SPAN><SPAN class=S0><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class=S10>}</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S5>else</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S10>{</SPAN><SPAN class=S0><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class=S11>u</SPAN><SPAN class=S10>();</SPAN><SPAN class=S0><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class=S10>}</SPAN><SPAN class=S0><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class=S5>return</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S10>!</SPAN><SPAN class=S11>a</SPAN><SPAN class=S10>;</SPAN><SPAN class=S0><BR>
+</SPAN><SPAN class=S10>}</SPAN><SPAN class=S0><BR>
+</SPAN>    <h3>
+       Spacing
+    </h3>
+	<p>
+	Spaces on both sides of '=' and comparison operators and no attempt to line up '='.
+	No space before or after '(', when used in calls, but a space after every ','.
+	No spaces between tokens in short expressions but may be present in
+	longer expressions. Space before '{'. No space before ';'.
+	No space after '*' when used to mean pointer and no space after '[' or ']'.
+	One space between keywords and '('.
+	</p>
+<SPAN class=S0></SPAN><SPAN class=S5>void</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S11>StoreConditionally</SPAN><SPAN class=S10>(</SPAN><SPAN class=S5>int</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S11>c</SPAN><SPAN class=S10>,</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S5>const</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S5>char</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S10>*</SPAN><SPAN class=S11>s</SPAN><SPAN class=S10>)</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S10>{</SPAN><SPAN class=S0><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class=S5>if</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S10>(</SPAN><SPAN class=S11>c</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S10>&amp;&amp;</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S10>(</SPAN><SPAN class=S11>baseSegment</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S10>==</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S11>trustSegment</SPAN><SPAN class=S10>[</SPAN><SPAN class=S6>"html"</SPAN><SPAN class=S10>]))</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S10>{</SPAN><SPAN class=S0><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class=S11>baseSegment</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S10>=</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S11>s</SPAN><SPAN class=S10>+</SPAN><SPAN class=S4>1</SPAN><SPAN class=S10>;</SPAN><SPAN class=S0><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class=S11>Store</SPAN><SPAN class=S10>(</SPAN><SPAN class=S11>s</SPAN><SPAN class=S10>,</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S11>baseSegment</SPAN><SPAN class=S10>,</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S6>"html"</SPAN><SPAN class=S10>);</SPAN><SPAN class=S0><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class=S10>}</SPAN><SPAN class=S0><BR>
+</SPAN><SPAN class=S10>}</SPAN>
+    <h3>
+       Names
+    </h3>
+	<p>
+	Identifiers use mixed case and no underscores.
+	Class, function and method names start with an uppercase letter and use
+	further upper case letters to distinguish words. Variables start with a lower
+	case letter and use upper case letters to distinguish words.
+	Loop counters and similar variables can have simple names like 'i'.
+	Function calls should be differentiated from method calls with an initial '::'
+	global scope modifier.
+	</p>
+<SPAN class=S0></SPAN><SPAN class=S5>class</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S11>StorageZone</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S10>{</SPAN><SPAN class=S0><BR>
+</SPAN><SPAN class=S5>public</SPAN><SPAN class=S10>:</SPAN><SPAN class=S0><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class=S5>void</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S11>Store</SPAN><SPAN class=S10>(</SPAN><SPAN class=S5>const</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S5>char</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S10>*</SPAN><SPAN class=S11>s</SPAN><SPAN class=S10>)</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S10>{</SPAN><SPAN class=S0><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class=S11>Media</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S10>*</SPAN><SPAN class=S11>mediaStore</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S10>=</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S10>::</SPAN><SPAN class=S11>GetBaseMedia</SPAN><SPAN class=S10>(</SPAN><SPAN class=S11>zoneDefault</SPAN><SPAN class=S10>);</SPAN><SPAN class=S0><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class=S5>for</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S10>(</SPAN><SPAN class=S5>int</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S11>i</SPAN><SPAN class=S10>=</SPAN><SPAN class=S11>mediaStore</SPAN><SPAN class=S10>-&gt;</SPAN><SPAN class=S11>cursor</SPAN><SPAN class=S10>;</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S11>mediaStore</SPAN><SPAN class=S10>[</SPAN><SPAN class=S11>i</SPAN><SPAN class=S10>],</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S11>i</SPAN><SPAN class=S10>++)</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S10>{</SPAN><SPAN class=S0><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class=S11>mediaStore</SPAN><SPAN class=S10>-&gt;</SPAN><SPAN class=S11>Persist</SPAN><SPAN class=S10>(</SPAN><SPAN class=S11>s</SPAN><SPAN class=S10>[</SPAN><SPAN class=S11>i</SPAN><SPAN class=S10>]);</SPAN><SPAN class=S0><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class=S10>}</SPAN><SPAN class=S0><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class=S10>}</SPAN><SPAN class=S0><BR>
+</SPAN><SPAN class=S10>};</SPAN>
+    <h3>
+       Submitting a lexer
+    </h3>
+
+	<p>Lexers have been moved to the separate <a href="https://www.scintilla.org/Lexilla.html">Lexilla</a> project
+	which is on GitHub which may have updated instructions.</p>
+	<p>Add an issue or pull request on the <a href="https://github.com/ScintillaOrg/lexilla">Lexilla project page</a>.</p>
+	<p>Define all of the lexical states in a modified LexicalStyles.iface.</p>
+	<p>Ensure there are no warnings under the compiler you use. Warnings from other compilers
+	will be noted on the feature request.</p>
+	<p>sc.ch is an int: do not pass this around as a char.</p>
+	<p>The ctype functions like isalnum and isdigit only work on ASCII (0..127) and may cause
+	undefined behaviour including crashes if used on other values. Check with IsASCII before calling is*.</p>
+	<p>Functions, structs and classes in lexers should be in an unnamed namespace (see LexCPP)
+	or be marked "static" so they will not leak into other lexers.</p>
+	<p>If you copy from an existing lexer, remove any code that is not needed since it makes it
+	more difficult to maintain and review.</p>
+	<p>When modifying an existing lexer, try to maintain as much compatibility as possible.
+	Do not renumber lexical styles as current client code may be built against the earlier values.</p>
+    <h4>
+       Properties
+    </h4>
+	<p>
+	Properties provided by a new lexer should follow the naming conventions
+	and should include a comment suitable for showing to end users.
+	The convention is for properties that control styling to be named
+	lexer.&lt;lexername&gt;.* and those that control folding to be named
+	fold.&lt;lexername&gt;.*.
+	Examples are "lexer.python.literals.binary" and "fold.haskell.imports".
+	</p>
+	<p>
+	The properties "fold" and "fold.comment" are generic and can be used by
+	any lexer.
+	</p>
+	<p>
+	See LexPython for examples of properties in an object lexer and LexHTML for a functional lexer.
+	</p>
+  </body>
+</html>

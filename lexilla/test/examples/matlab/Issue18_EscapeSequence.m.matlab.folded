@@ -1,0 +1,22 @@
+ 0 400 400   a="""";
+ 0 400 400   b=1;
+ 0 400 400   c='\';
+ 0 400 400   d=2;
+ 0 400 400   e="\";
+ 0 400 400   f=3;
+ 0 400 400   %" this should be a comment (colored as such), instead it closes the string
+ 0 400 400   g="
+ 0 400 400   h=123;
+ 0 400 400   %" this is a syntax error in Matlab (about 'g'),
+ 0 400 400   % followed by a valid assignment (of 'h')
+ 0 400 400   % Instead, 'h' is colored as part of the string
+ 1 400 400   
+ 0 400 400   % Octave terminates string at 3rd ", Matlab at 4th
+ 0 400 400   i="\" "; % " %
+ 1 400 400   
+ 0 400 400   % Matlab (unlike Octave) does not allow string continuation with an escape
+ 0 400 400   b = "multi\
+ 0 400 400   line"
+ 1 400 400   
+ 0 400 400   % end
+ 1 400 400   

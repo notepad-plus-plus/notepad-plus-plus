@@ -1,0 +1,70 @@
+{5}% SCE_VISUALPROLOG_KEY_MAJOR (1){0}
+{1}goal{0}
+
+{5}% SCE_VISUALPROLOG_KEY_MINOR (2){0}
+{2}procedure{0}
+
+{5}% SCE_VISUALPROLOG_KEY_DIRECTIVE (3){0}
+{3}#include{0}
+
+{5}% SCE_VISUALPROLOG_COMMENT_BLOCK (4){0}
+{4}/**
+   SCE_VISUALPROLOG_COMMENT_KEY (6)
+   {6}@detail{4}
+   SCE_VISUALPROLOG_COMMENT_KEY_ERROR (7)
+   {7}@unknown{4}
+ /* SCE_VISUALPROLOG_IDENTIFIER (8)
+    SCE_VISUALPROLOG_VARIABLE (9)
+    SCE_VISUALPROLOG_ANONYMOUS (10)
+    SCE_VISUALPROLOG_NUMBER (11)
+    SCE_VISUALPROLOG_OPERATOR (12) */ */{0}
+{8}lambda{0} {12}={0} {12}{{0}
+  {12}({9}A{12}){0} {12}={0} {12}{{0} {12}({9}B{12},{0} {10}_discard{12}){0} {12}={0} {9}A{12}*{9}B{12}+{11}1{0} {12}}{0}
+{12}}.{0}
+
+{5}% SCE_VISUALPROLOG_COMMENT_LINE (5){0}
+{5}% comment line{0}
+
+{5}% SCE_VISUALPROLOG_STRING_QUOTE (16){0}
+{16}""{0}
+
+{5}% SCE_VISUALPROLOG_STRING (20){0}
+{16}"{20}string{16}"{0}
+{16}'{20}string{16}'{0}
+{16}@"{20}verbatim string{16}"{0}
+{16}@[{20}<div class="test">{16}]{0}
+
+{5}% SCE_VISUALPROLOG_STRING_ESCAPE (17){0}
+{16}"{17}\n{16}"{0}
+{16}'{17}\uAB12{16}'{0}
+
+{5}% SCE_VISUALPROLOG_STRING_ESCAPE_ERROR (18){0}
+{16}"{18}\ {16}"{0}
+{16}"{20}open string{18}
+{0}
+{5}% SCE_VISUALPROLOG_STRING_EOL (22){0}
+{16}@#{20}multi-line{22}
+{20}  verbatim{22}
+{20}  string{16}#{0}
+
+{5}% SCE_VISUALPROLOG_EMBEDDED (23){0}
+{23}[| |]{0}
+{5}% SCE_VISUALPROLOG_PLACEHOLDER (24){0}
+{24}{|{0} {24}|}:test{0}
+{5}% line state & nesting{0}
+{23}[|
+    {24}{|{0}
+        {4}/*
+            % /* 
+            */ 
+        % */{0}
+        {23}[|
+            {24}{|{0}
+                {16}@!{20}string{16}!{0}
+                {5}%{0}
+                {4}/*
+                */{0}
+            {24}|}{23}
+        |]{0}
+    {24}|}{23}
+|]{0}

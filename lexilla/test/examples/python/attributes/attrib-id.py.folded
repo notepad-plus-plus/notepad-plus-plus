@@ -1,0 +1,19 @@
+ 0 400   0   varname = 1
+ 0 400   0   # identifier in first line was mis-styled as attribute when bug existed
+ 1 400   0   
+ 0 400   0   # left comment ends with period.  this was okay before bug.
+ 0 400   0   varname = 2
+ 1 400   0   
+ 0 400   0   x = 1 # comment after code ends with period. this failed when bug existed.
+ 0 400   0   varname = 3
+ 1 400   0   
+ 2 400   0 + def dummy():
+ 0 404   0 |     # indented comment ends with period.this failed when bug existed.
+ 0 404   0 |     varname = 4
+ 1 400   0   
+ 0 400   0   x = 2 ## comment block is the same.
+ 0 400   0   varname = 5
+ 1 400   0   
+ 0 400   0   # per issue#294, identifiers were mis-styled as attributes when at beginning of file
+ 0 400   0   # and when after a non-left-justifed comment
+ 1 400   0   

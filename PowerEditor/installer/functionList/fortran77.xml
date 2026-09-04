@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<parser
+			displayName="Fortran Fixed Form style - FORmula TRANslation"
+			id         ="fortran_fixedform"
+			commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?m-s:(?:!|^[Cc*].*$)                           # Single Line Comment 1..3
+						"
+		>
+			<function
+				mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+						(?im-s)                                             # case-insensitive, ^ and $ match at line breaks, dot does not
+						^\h*                                                # optional leading whitespace at start-of-line
+						(?:FUNCTION|SUBROUTINE)\s+
+						\K                                                  # discard text matched so far
+						[A-Z]\w{0,62}                                       # valid character combination for identifiers
+						(?:\s*\([^()]*\))?                                  # optional paramater list
+					"
+			>
+				<!-- comment out the following node to display the method with its parameters -->
+				<functionName>
+					<nameExpr expr="\w+" />
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

@@ -1,0 +1,5 @@
+ 0 400 400   use strict;
+ 2 400 401 + while ( $r ) {
+ 0 401 401 |   printf ( "Example text \n" );
+ 0 401 401 |   sleep 1;
+ 0 401   0 | }

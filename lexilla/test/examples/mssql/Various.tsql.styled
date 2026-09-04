@@ -1,0 +1,104 @@
+{1}/* This file contains snippets of Transact-SQL that exercise various aspects of the language. */{0}
+{1}/**
+ /*
+  AllStyles.tsql
+  /*
+    /****** Object:  Database [AllStyles]    Script Date: 06/16/2022 10:56:35 PM ******/
+   */
+  */
+ */{0}
+{9}IF{0} {5}({3}1{0} {5}={0} {6}FULLTEXTSERVICEPROPERTY{5}({4}'IsFullTextInstalled'{5})){0}
+{9}BEGIN{0}
+    {6}EXEC{15} {14}sp_fulltext_database{0} {7}@action{15} {5}={0} {4}'enable'{5};{0}
+{9}END{0}
+{9}USE{0} {6}AllStyles{5};{0}
+{9}GO{0}
+{9}SELECT{0} {5}*{0}
+{9}FROM{0} {6}Production.Product{15}
+{9}ORDER{0} {9}BY{0} {6}Name{15} {6}ASC{5};{0}
+{2}-- Alternate way.{0}
+{9}USE{0} {6}AllStyles{5};{0}
+{9}GO{0}
+{9}SELECT{0} {6}p.{5}*{0}
+{9}FROM{0} {6}Production.Product{15} {9}AS{0} {6}p{15}
+{9}ORDER{0} {9}BY{0} {6}Name{15} {6}ASC{5};{0}
+{9}GO{0}
+
+{9}SELECT{0} {8}"COLUMN"{15} {9}FROM{0} {8}"TABLE"{15}
+{9}SELECT{0} {8}"COLUMN"{15} {10}int{0} {9}FROM{0} {8}"TABLE"{15}
+
+{9}SELECT{0} {6}schema_name{15}
+    {5}({6}tab.schema_id{5}){0} {9}AS{0} {6}schema_name{15}
+    {2}-- retrieve the name, too{0}
+    {5},{6}tab.name{15}
+{9}FROM{0} {6}sys.tables{15} {9}AS{0} {6}tab{5};{0}
+
+{9}SELECT{0} {9}DISTINCT{0} {6}Name{15}
+{9}FROM{0} {6}Production.Product{15} {9}AS{0} {6}p{15}
+{9}WHERE{0} {9}EXISTS{0}
+    {5}({9}SELECT{0} {5}*{0}
+     {9}FROM{0} {6}Production.ProductModel{15} {9}AS{0} {6}pm{15}
+     {9}WHERE{0} {6}p.ProductModelID{15} {5}={0} {6}pm.ProductModelID{15}
+           {9}AND{0} {6}pm.Name{15} {9}LIKE{0} {4}'Long-Sleeve Logo Jersey%'{5});{0}
+
+{9}SELECT{0} {9}DISTINCT{0} {6}p.LastName{5},{0} {6}p.FirstName{15}
+{9}FROM{0} {6}Person.Person{15} {9}AS{0} {6}p{15}
+{9}JOIN{0} {6}HumanResources.Employee{15} {9}AS{0} {6}e{15}
+    {9}ON{0} {6}e.BusinessEntityID{15} {5}={0} {6}p.BusinessEntityID{15} {9}WHERE{0} {3}5000.00{0} {9}IN{0}
+    {5}({9}SELECT{0} {6}Bonus{15}
+     {9}FROM{0} {6}Sales.SalesPerson{15} {9}AS{0} {6}sp{15}
+     {9}WHERE{0} {6}e.BusinessEntityID{15} {5}={0} {6}sp.BusinessEntityID{5});{0}
+
+{9}CREATE{0} {9}PROCEDURE{0} {6}findjobs{0} {7}@nm{15} {6}sysname{15} {5}={0} {9}NULL{0}
+{9}AS{0}
+{9}IF{0} {7}@nm{15} {9}IS{0} {9}NULL{0}
+    {9}BEGIN{0}
+        {9}PRINT{0} {4}'You must give a user name'{0}
+        {9}RETURN{0}
+    {9}END{0}
+{9}ELSE{0}
+    {9}BEGIN{0}
+        {9}SELECT{0} {6}o.name{5},{0} {6}o.id{5},{0} {6}o.uid{15}
+        {9}FROM{0} {11}sysobjects{0} {6}o{15} {9}INNER{0} {9}JOIN{0} {6}master.syslogins{15} {6}l{15}
+            {9}ON{0} {6}o.uid{15} {5}={0} {6}l.sid{15}
+        {9}WHERE{0} {6}l.name{15} {5}={0} {7}@nm{15}
+    {9}END{5};{0}
+
+{9}CREATE{0} {9}TABLE{0} {6}TestTable{15} {5}({6}cola{15} {10}INT{5},{0} {6}colb{15} {10}CHAR{5}({3}3{5}));{0}
+{2}-- Declare the variable to be used.{0}
+{9}DECLARE{0} {7}@MyCounter{15} {10}INT{5};{0}
+
+{2}-- Initialize the variable.{0}
+{9}SET{0} {7}@MyCounter{15} {5}={0} {3}0{5};{0}
+{9}WHILE{0} {5}({7}@MyCounter{15} {5}<{0} {3}26{5}){0}
+{9}BEGIN{5};{0}
+   {2}-- Insert a row into the table.{0}
+   {9}INSERT{0} {9}INTO{0} {6}TestTable{15} {9}VALUES{0}
+       {2}-- Use the variable to provide the integer value{0}
+       {2}-- for cola. Also use it to generate a unique letter{0}
+       {2}-- for each row. Use the ASCII function to get the{0}
+       {2}-- integer value of 'a'. Add @MyCounter. Use CHAR to{0}
+       {2}-- convert the sum back to the character @MyCounter{0}
+       {2}-- characters after 'a'.{0}
+       {5}({7}@MyCounter{5},{0}
+        {13}CHAR{5}({0} {5}({0} {7}@MyCounter{15} {5}+{0} {13}ASCII{5}({4}'a'{5}){0} {5}){0} {5}){0}
+       {5});{0}
+   {2}-- Increment the variable to count this iteration{0}
+   {2}-- of the loop.{0}
+   {9}SET{0} {7}@MyCounter{15} {5}={0} {7}@MyCounter{15} {5}+{0} {3}1{5};{0}
+{9}END{5};{0}
+
+{9}IF{0} {12}@@ERROR{0} {5}={0} {3}547{0}
+    {9}BEGIN{0}
+    {9}PRINT{0} {6}N{4}'A check constraint violation occurred.'{5};{0}
+    {9}END{0}
+{9}GO{0}
+
+{9}USE{0} {16}[AllStyles]{5}.{16}[dbo]{5}.{16}[test]{15}
+{9}GO{0}
+
+{9}SELECT{0} {6}ProductID{15}
+{9}FROM{0} {6}Production.Product{15}
+{5}INTERSECT{0}
+{9}SELECT{0} {6}ProductID{15}
+{9}FROM{0} {6}Production.WorkOrder{15} {5};{0}

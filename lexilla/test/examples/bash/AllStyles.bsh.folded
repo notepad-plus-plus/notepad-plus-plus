@@ -1,0 +1,62 @@
+ 0 400   0   # Enumerate all styles: 0 to 13
+ 1 400   0   
+ 0 400   0   # comment=2
+ 1 400   0   
+ 2 400   0 + # whitespace=0
+ 0 401   0 | 	# w
+ 1 400   0   
+ 0 400   0   # error=1
+ 0 400   0   0#0000
+ 1 400   0   
+ 0 400   0   # number=3
+ 0 400   0   123
+ 1 400   0   
+ 0 400   0   # keyword=4
+ 0 400   0   set
+ 1 400   0   
+ 0 400   0   # double-quoted-string=5
+ 0 400   0   "string"
+ 1 400   0   
+ 0 400   0   # single-quoted-string=6
+ 0 400   0   'str'
+ 1 400   0   
+ 0 400   0   # operator=7
+ 0 400   0   +
+ 1 400   0   
+ 0 400   0   # identifier=8
+ 0 400   0   identifier
+ 1 400   0   
+ 0 400   0   # scalar=9
+ 0 400   0   $scalar
+ 0 400   0   $?Status
+ 1 400   0   
+ 0 400   0   # parameter-expansion=10
+ 0 400   0   ${parameter}
+ 1 400   0   
+ 0 400   0   # back-ticks=11
+ 0 400   0   `ls`
+ 1 400   0   
+ 0 400   0   # here-doc-delimiter=12, here-doc=13
+ 2 400   0 + <<EOF
+ 0 401   0 |   Here-doc.
+ 0 401   0 | EOF
+ 1 400   0   
+ 0 400   0   # other quoted types are mapped to current classes
+ 1 400   0   
+ 0 400   0   # double-quoted-string=5
+ 0 400   0   $"string"
+ 0 400   0   $'str'
+ 1 400   0   
+ 0 400   0   # back-ticks=11
+ 0 400   0   `ls`
+ 0 400   0   $`ls`
+ 0 400   0   $(ls)
+ 1 400   0   
+ 0 400   0   # Use substyles
+ 1 400   0   
+ 0 400   0   # Substyled identifier=128
+ 0 400   0   map
+ 1 400   0   
+ 0 400   0   # Substyled scalar=129
+ 0 400   0   $CWD
+ 0 400   0   

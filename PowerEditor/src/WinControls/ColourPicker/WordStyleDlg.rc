@@ -1,0 +1,83 @@
+// This file is part of Notepad++ project
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+#include "windows.h"
+#include "WordStyleDlgRes.h"
+
+#ifndef IDC_STATIC 
+#define IDC_STATIC -1
+#endif
+
+IDD_STYLER_DLG DIALOGEX 0, 0, 500, 246
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
+CAPTION "Style Configurator"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    RTEXT           "Select theme:",IDC_SWITCH2THEME_STATIC,6,9,83,8
+    COMBOBOX        IDC_SWITCH2THEME_COMBO,95,7,104,78,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+
+    GROUPBOX        "",IDC_STATIC,7,24,166,212
+    LTEXT           "Language:",IDC_LANGDESC_STATIC,20,35,137,8
+    COMBOBOX        IDC_LANGUAGES_COMBO,17,46,146,36, CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Style:",IDC_STYLEDESC_STATIC,20,63,137,8
+    LISTBOX         IDC_STYLES_LIST,17,74,146,118,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+    LTEXT           "Default ext.:",IDC_DEF_EXT_STATIC,20,203,61,8
+    EDITTEXT        IDC_DEF_EXT_EDIT,17,214,59,12,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "+",IDC_PLUSSYMBOL2_STATIC,82,216,8,8
+    LTEXT           "User ext.:",IDC_USER_EXT_STATIC,96,203,71,8
+    EDITTEXT        IDC_USER_EXT_EDIT,93,214,70,12,ES_AUTOHSCROLL
+
+    GROUPBOX        "",IDC_STATIC,181,24,312,184
+    LTEXT           "                                                                                                                      ",IDC_STYLEDESCRIPTION_STATIC,190,30,295,22
+
+    GROUPBOX        "Colour Style",IDC_COLOURGROUP_STATIC,191,52,111,77,BS_CENTER
+    RTEXT           "Foreground colour",IDC_FG_STATIC,203,72,59,8
+    RTEXT           "Background colour",IDC_BG_STATIC,203,99,59,8
+
+    GROUPBOX        "Font Style",IDC_FONTGROUP_STATIC,312,52,171,77,BS_CENTER
+    RTEXT           "Font name:",IDC_FONTNAME_STATIC,315,71,52,8
+    COMBOBOX        IDC_FONT_COMBO,371,68,104,78,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    RTEXT           "Font size:",IDC_FONTSIZE_STATIC,388,97,51,8
+    COMBOBOX        IDC_FONTSIZE_COMBO,442,95,33,82,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Bold",IDC_BOLD_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,88,63,10
+    CONTROL         "Italic",IDC_ITALIC_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,101,62,10
+    CONTROL         "Underline",IDC_UNDERLINE_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,114,80,10
+
+    LTEXT           "Default keywords",IDC_DEF_KEYWORDS_STATIC,194,135,122,8
+    EDITTEXT        IDC_DEF_KEYWORDS_EDIT,191,146,136,52,ES_MULTILINE | ES_READONLY | WS_VSCROLL
+    LTEXT           "+",IDC_PLUSSYMBOL_STATIC,334,168,8,8
+    LTEXT           "User-defined keywords",IDC_USER_KEYWORDS_STATIC,350,135,126,8
+    EDITTEXT        IDC_USER_KEYWORDS_EDIT,347,146,136,52,ES_MULTILINE | WS_VSCROLL
+
+    CONTROL         "Force foreground color for all styles",IDC_GLOBAL_FG_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,191,134,153,10
+    CONTROL         "Force background color for all styles",IDC_GLOBAL_BG_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,191,149,153,10
+    CONTROL         "Force font choice for all styles",IDC_GLOBAL_FONT_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,134,153,10
+    CONTROL         "Force font size choice for all styles",IDC_GLOBAL_FONTSIZE_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,149, 153,10
+    CONTROL         "Force bold choice for all styles",IDC_GLOBAL_BOLD_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,164,153,10
+    CONTROL         "Force italic choice for all styles",IDC_GLOBAL_ITALIC_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,179,153,10
+    CONTROL         "Force underline choice for all styles",IDC_GLOBAL_UNDERLINE_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,194,153,10
+
+    LTEXT           "Go to settings",IDC_GLOBAL_GOTOSETTINGS_LINK,210,153,131,10,WS_TABSTOP
+    LTEXT           "What is Global override?",IDC_GLOBAL_WHATISGLOBALOVERRIDE_LINK,191,173,132,10,WS_TABSTOP
+    
+    PUSHBUTTON      "Save && Close",IDC_SAVECLOSE_BUTTON,264,222,69,14
+    PUSHBUTTON      "Cancel",IDCANCEL,337,222,50,14
+
+    CONTROL         "Transparency",IDC_SC_TRANSPARENT_CHECK,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,431,221,63,10
+    CONTROL         "",IDC_SC_PERCENTAGE_SLIDER,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | TBS_TRANSPARENTBKGND | NOT WS_VISIBLE | WS_TABSTOP,441,235,53,10
+END

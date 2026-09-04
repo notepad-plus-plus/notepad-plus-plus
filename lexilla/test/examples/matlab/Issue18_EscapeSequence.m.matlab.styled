@@ -1,0 +1,21 @@
+{7}a{6}={8}""""{6};{0}
+{7}b{6}={3}1{6};{0}
+{7}c{6}={5}'\'{6};{0}
+{7}d{6}={3}2{6};{0}
+{7}e{6}={8}"\"{6};{0}
+{7}f{6}={3}3{6};{0}
+{1}%" this should be a comment (colored as such), instead it closes the string{0}
+{7}g{6}={8}"{0}
+{7}h{6}={3}123{6};{0}
+{1}%" this is a syntax error in Matlab (about 'g'),{0}
+{1}% followed by a valid assignment (of 'h'){0}
+{1}% Instead, 'h' is colored as part of the string{0}
+
+{1}% Octave terminates string at 3rd ", Matlab at 4th{0}
+{7}i{6}={8}"\"{0} {8}"; % "{0} {1}%{0}
+
+{1}% Matlab (unlike Octave) does not allow string continuation with an escape{0}
+{7}b{0} {6}={0} {8}"multi\{0}
+{7}line{8}"{0}
+
+{1}% end{0}

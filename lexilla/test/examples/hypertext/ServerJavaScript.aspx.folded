@@ -1,0 +1,21 @@
+ 0 400   0   <!DOCTYPE html>
+ 2 400   0 + <html>
+ 0 401   0 | <%@language=JScript%>
+ 0 401   0 | <%-- comment --%>
+ 2 401   0 + <script type="text/javascript">
+ 0 402   0 | //%>
+ 0 402   0 | //?>
+ 0 402   0 | </script>
+ 2 401   0 + <script type="text/javascript">
+ 0 402   0 | e="%>";
+ 0 402   0 | f="?>";
+ 0 402   0 | </script>
+ 0 401   0 | Start
+ 0 401   0 | <%Response.Write("1")%>
+ 0 401   0 | <%var x=3;//comment%>
+ 0 401   0 | <%x=3;//comment ?> %>
+ 0 401   0 | <%Response.Write(x)%>
+ 0 401   0 | <%Response.Write(`template ${2+2}`)%>
+ 0 401   0 | End
+ 0 401   0 | </html>
+ 0 400   0   

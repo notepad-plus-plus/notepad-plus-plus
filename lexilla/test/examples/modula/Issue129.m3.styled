@@ -1,0 +1,8 @@
+{4}INTERFACE{0} Test{16};{0}
+
+{4}TYPE{0}
+  {1}(* Opaque types *){0}
+  HANDLE                  {16}={0} {5}ADDRESS{16};{0}
+  HMOD{1}(* Module handle *){0} {16}={0} HANDLE{16};{0}
+
+{4}END{0} Test{16}.{0}

@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Ligurian translation for Notepad++ 5.8.6
+	Last modified Sat, February 26th, 2011 01:00 GMT by GENOVES.com.ar
+	Please e-mail errors, suggestions etc. to info(at)genoves.com.ar
+
+-->
+<NotepadPlus>
+	<Native-Langue name="Zeneize" filename="ligurian.xml">
+		<Menu>
+			<Main>
+				<!-- Main Menu Entries -->
+				<Entries>
+					<Item menuId="file" name="&amp;File"/>
+					<Item menuId="edit" name="&amp;Modifica"/>
+					<Item menuId="search" name="Ç&amp;erca"/>
+					<Item menuId="view" name="&amp;Veddi"/>
+					<Item menuId="encoding" name="For&amp;mato"/>
+					<Item menuId="language" name="&amp;Lengoaggio"/>
+					<Item menuId="settings" name="I&amp;npostaçion"/>
+					<Item menuId="macro" name="Macro"/>
+					<Item menuId="run" name="Ezegoi"/>
+					<Item menuId="Plugins" name="Plugins"/>
+					<Item menuId="Window" name="Barcon"/>
+				</Entries>
+				<!-- Sub Menu Entries -->
+				<SubEntries>
+					<Item subMenuId="edit-copyToClipboard" name="Còpia inti aponti"/>
+					<Item subMenuId="edit-indent" name="Indenta"/>
+					<Item subMenuId="edit-convertCaseTo" name="Converti carateri"/>
+					<Item subMenuId="edit-lineOperations" name="Operaçioin in scê linee"/>
+					<Item subMenuId="edit-comment" name="Comenta/Decomenta"/>
+					<Item subMenuId="edit-autoCompletion" name="Outo-conpletamento"/>
+					<Item subMenuId="edit-eolConversion" name="Converti caratere de fin de linea"/>
+					<Item subMenuId="edit-blankOperations" name="Operaçioin in scî spaççi"/>
+					<Item subMenuId="search-markAll" name="Segna tutti"/>
+					<Item subMenuId="search-unmarkAll" name="Leva marcatua"/>
+					<Item subMenuId="search-jumpUp" name="Sata in sce"/>
+					<Item subMenuId="search-jumpDown" name="Sata zu"/>
+					<Item subMenuId="search-bookmark" name="Segnalibri"/>
+					<Item subMenuId="view-showSymbol" name="Mostra scinboli"/>
+					<Item subMenuId="view-zoom" name="Ingrandimento"/>
+					<Item subMenuId="view-moveCloneDocument" name="Spòsta/Clöna documento atoale"/>
+					<Item subMenuId="view-collapseLevel" name="Colassa livello"/>
+					<Item subMenuId="view-uncollapseLevel" name="No colasâ livello"/>
+					<Item subMenuId="encoding-characterSets" name="Set de carateri"/>
+					<Item subMenuId="encoding-arabic" name="Arabo"/>
+					<Item subMenuId="encoding-baltic" name="Baltico"/>
+					<Item subMenuId="encoding-celtic" name="Celtico"/>
+					<Item subMenuId="encoding-cyrillic" name="Cirilico"/>
+					<Item subMenuId="encoding-centralEuropean" name="Ouröpa Çentrale"/>
+					<Item subMenuId="encoding-chinese" name="Cineize"/>
+					<Item subMenuId="encoding-easternEuropean" name="Ouröpa Orientale"/>
+					<Item subMenuId="encoding-greek" name="Grego"/>
+					<Item subMenuId="encoding-hebrew" name="Ebraico"/>
+					<Item subMenuId="encoding-japanese" name="Giaponeize"/>
+					<Item subMenuId="encoding-korean" name="Corean"/>
+					<Item subMenuId="encoding-northEuropean" name="Ouröpa do Nòrd"/>
+					<Item subMenuId="encoding-thai" name="Tailandeize"/>
+					<Item subMenuId="encoding-turkish" name="Turco"/>
+					<Item subMenuId="encoding-westernEuropean" name="Ouröpa Oçidentale"/>
+					<Item subMenuId="encoding-vietnamese" name="Vietnamita"/>
+					<Item subMenuId="settings-import" name="Inpòrta"/>
+				</SubEntries>
+				<!-- all menu item -->
+				<Commands>
+					<Item id="41001" name="&amp;Neuvo"/>
+					<Item id="41002" name="&amp;Arvi..."/>
+					<Item id="41003" name="Særa"/>
+					<Item id="41004" name="S&amp;æra tutti"/>
+					<Item id="41005" name="Særa tutti levòu o documento atoale"/>
+					<Item id="41006" name="&amp;Sarva"/>
+					<Item id="41007" name="Sarva t&amp;utto"/>
+					<Item id="41008" name="S&amp;arva comme..."/>
+					<Item id="41010" name="Stanpa..."/>
+					<Item id="1001" name="Stanpa subito!"/>
+					<Item id="41011" name="&amp;Sciòrti"/>
+					<Item id="41012" name="Arvi sescion..."/>
+					<Item id="41013" name="Sarva sescion..."/>
+					<Item id="41014" name="Ricarega da-o disco"/>
+					<Item id="41015" name="Sarva còpia comme..."/>
+					<Item id="41016" name="Elimina da-o disco"/>
+					<Item id="41017" name="Rinomina..."/>
+					<Item id="42001" name="Tag&amp;gia"/>
+					<Item id="42002" name="&amp;Còpia"/>
+					<Item id="42003" name="An&amp;ulla"/>
+					<Item id="42004" name="&amp;Repiggia"/>
+					<Item id="42005" name="&amp;Incòlla"/>
+					<Item id="42006" name="&amp;Elimina"/>
+					<Item id="42007" name="Seleçionn-a t&amp;utto"/>
+					<Item id="42008" name="Introduxi tabulaçion (indent)"/>
+					<Item id="42009" name="Leva tabulaçion (outdent)"/>
+					<Item id="42010" name="Duplica a riga atoale"/>
+					<Item id="42012" name="Dividi righe"/>
+					<Item id="42013" name="Unisci righe"/>
+					<Item id="42014" name="Spòsta in sciù a riga atoale"/>
+					<Item id="42015" name="Spòsta in zu a riga atoale"/>
+					<Item id="42016" name="Tutto maiuscole"/>
+					<Item id="42017" name="Tutto minuscole"/>
+					<Item id="42018" name="&amp;Iniçia registraçion"/>
+					<Item id="42019" name="&amp;Ferma registraçion"/>
+					<Item id="42021" name="&amp;Ezegoî a macro"/>
+					<Item id="42022" name="Comenta / Decomenta seleçion"/>
+					<Item id="42023" name="Comenta seleçion"/>
+					<Item id="42024" name="Elimina spaççi veui sensa inportansa"/>
+					<Item id="42025" name="Sarva a macro registrâ"/>
+					<Item id="42026" name="Direçion do tèsto RTL"/>
+					<Item id="42027" name="Direçion do tèsto LTR"/>
+					<Item id="42028" name="File in sola letua"/>
+					<Item id="42029" name="Percorso do file atoale"/>
+					<Item id="42030" name="Nomme do file atoale"/>
+					<Item id="42031" name="Cartèlla atoale"/>
+					<Item id="42032" name="Ezegoi 'na macro ciù vòtte..."/>
+					<Item id="42034" name="Editô a colònne..."/>
+					<Item id="42035" name="Comenta blòcco (riga pe riga)"/>
+					<Item id="42036" name="Decommenta blòcco (riga pe riga)"/>
+					<Item id="42040" name="Arvi tutti i file reçenti"/>
+					<Item id="42041" name="Netezza o listin de file reçenti"/>
+					<Item id="42042" name="Elimina spaççi iniçiali"/>
+					<Item id="42043" name="Elimina spaççi iniçiali e finali"/>
+					<Item id="42044" name="Converti EOL in Spaçio"/>
+					<Item id="42045" name="Leva spaççi e EOL no necesai"/>
+					<Item id="42046" name="Converti TAB in spaççi"/>
+					<Item id="42047" name="Converti spaçio in TAB"/>
+					<Item id="43001" name="&amp;Atreuva..."/>
+					<Item id="43002" name="Atreuva &amp;sucescivo"/>
+					<Item id="43003" name="Sostito&amp;isci..."/>
+					<Item id="43004" name="Vanni a-a riga..."/>
+					<Item id="43005" name="Segnalibbro"/>
+					<Item id="43006" name="Segnalibbro segoente"/>
+					<Item id="43007" name="Segnalibbro precedente"/>
+					<Item id="43008" name="Elimina tutti i segnalibbri"/>
+					<Item id="43009" name="Vanni a-a parentexi corispondente"/>
+					<Item id="43010" name="Atreuva precedente"/>
+					<Item id="43011" name="Riçerca incrementale"/>
+					<Item id="43013" name="Atreuva nei file..."/>
+					<Item id="43014" name="Atreuva (volatile) sucescivo"/>
+					<Item id="43015" name="Atreuva (volatile) precedente"/>
+					<Item id="43016" name="Marca tutto"/>
+					<Item id="43017" name="Leva marcatua"/>
+					<Item id="43018" name="Taggia righe con segnalibbri"/>
+					<Item id="43019" name="Copia righe con segnalibbri"/>
+					<Item id="43020" name="Incòlla (sostitoisci) righe con segnalibbri "/>
+					<Item id="43021" name="Elimina righe con segnalibbri"/>
+					<Item id="43022" name="Deuvia 1° stile"/>
+					<Item id="43024" name="Deuvia 2° stile"/>
+					<Item id="43026" name="Deuvia 3° stile"/>
+					<Item id="43028" name="Deuvia 4° stile"/>
+					<Item id="43030" name="Deuvia 5° stile"/>
+					<Item id="43023" name="Scancella 1° stile"/>
+					<Item id="43025" name="Scancella 2° stile"/>
+					<Item id="43027" name="Scancella 3° stile"/>
+					<Item id="43029" name="Scancella 4° stile"/>
+					<Item id="43031" name="Scancella 5° stile"/>
+					<Item id="43032" name="Scancella tutti i stili"/>
+					<Item id="43033" name="1° stile"/>
+					<Item id="43034" name="2° stile"/>
+					<Item id="43035" name="3° stile"/>
+					<Item id="43036" name="4° stile"/>
+					<Item id="43037" name="5° stile"/>
+					<Item id="43038" name="Atreuva stile"/>
+					<Item id="43039" name="1° stile"/>
+					<Item id="43040" name="2° stile"/>
+					<Item id="43041" name="3° stile"/>
+					<Item id="43042" name="4° stile"/>
+					<Item id="43043" name="5° stile"/>
+					<Item id="43044" name="Atreuva stile"/>
+					<Item id="43045" name="Barcon di dæti de riçerca"/>
+					<Item id="43046" name="Dæto de riçerca sucescivo"/>
+					<Item id="43047" name="Dæto de riçerca precedente"/>
+					<Item id="43048" name="Seleçionn-a e atreuva sucescivo"/>
+					<Item id="43049" name="Seleçionn-a e atreuva precedente"/>
+					<Item id="43050" name="Inverti segnalibbri"/>
+					<Item id="44009" name="Modalitæ Post-it"/>
+					<Item id="44010" name="Conprimmi tutte e strutue"/>
+					<Item id="44011" name="Barcon d'inpostaçioin personalizæ"/>
+					<Item id="44019" name="Mostra tutti i carateri"/>
+					<Item id="44020" name="Mostra goidde d'indentaçion"/>
+					<Item id="44022" name="A cappo outomatico"/>
+					<Item id="44023" name="&amp;Ingrandisci tèsto"/>
+					<Item id="44024" name="&amp;Riduxi tèsto"/>
+					<Item id="44025" name="Mostra spaççi gianchi e tabulaçioin"/>
+					<Item id="44026" name="Mostra fin da riga"/>
+					<Item id="44029" name="Espandi tutti i livelli"/>
+					<Item id="44030" name="Contranni a-o livello atoale"/>
+					<Item id="44031" name="Espandi o livello atoale"/>
+					<Item id="44032" name="Vista a tutto schermo"/>
+					<Item id="44033" name="Repiggia o zoom predefinio"/>
+					<Item id="44034" name="Senpre in primmo cian"/>
+					<Item id="44035" name="Sincronizza scorimento verticale"/>
+					<Item id="44036" name="Sincronizza scorimento orizontale"/>
+					<Item id="44041" name="Mostra scinbolo a cappo outomatico"/>
+					<Item id="44042" name="Ascondi righe"/>
+					<Item id="44049" name="Somaio..."/>
+					<Item id="44072" name="Ativa atra vista"/>
+					<Item id="45001" name="Formato Windows"/>
+					<Item id="45002" name="Formato UNIX"/>
+					<Item id="45003" name="Formato MAC"/>
+					<Item id="45004" name="Codifica inte ANSI"/>
+					<Item id="45005" name="Codifica inte UTF-8"/>
+					<Item id="45006" name="Codifica inte UCS-2 Big Endian"/>
+					<Item id="45007" name="Codifica inte UCS-2 Little Endian"/>
+					<Item id="45008" name="Codifica inte UTF-8 (sensa BOM)"/>
+					<Item id="45009" name="Converti inte ANSI"/>
+					<Item id="45010" name="Converti inte UTF-8 sensa BOM"/>
+					<Item id="45011" name="Converti inte UTF-8"/>
+					<Item id="45012" name="Converti inte UCS-2 Big Endian"/>
+					<Item id="45013" name="Converti inte UCS-2 Little Endian"/>
+					<Item id="10001" name="Spòsta inte l&apos;atra vista"/>
+					<Item id="10002" name="Còpia inte l&apos;atra vista"/>
+					<Item id="10003" name="Spòsta inte 'n neuvo barcon"/>
+					<Item id="10004" name="Còpia inte 'n neuvo barcon"/>
+					<Item id="46001" name="Inpòsta i stili..."/>
+					<Item id="46015" name="Stile MS-DOS"/>
+					<Item id="46016" name="Tèsto normale"/>
+					<Item id="46017" name="Archivio de risorse"/>
+					<Item id="46019" name="Archivio MS INI"/>
+					<Item id="46180" name="Definio da l&apos;utente"/>
+					<Item id="47000" name="Informaçioin in sce..."/>
+					<Item id="47001" name="Pagina prinçipale Notepad++"/>
+					<Item id="47002" name="Pagina do progetto Notepad++"/>
+					<Item id="47003" name="Agiutto in linea"/>
+					<Item id="47004" name="Forum"/>
+					<Item id="47005" name="Òtêgni atri conplementi"/>
+					<Item id="47006" name="Agiorna Notepad++"/>
+					<Item id="47008" name="Goidda..."/>
+					<Item id="48005" name="Inpòrta conplementi..."/>
+					<Item id="48006" name="Inpòrta Tema/i ..."/>
+					<Item id="48009" name="Tasti de mòddo veloce..."/>
+					<Item id="48011" name="Preferense..."/>
+					<Item id="48016" name="Modifica Scorsaieu/Elimina Macro..."/>
+					<Item id="48017" name="Modifica Scorsaieu/Elimina Comando..."/>
+					<Item id="48018" name="Modifica Menù Contestoale..."/>
+					<Item id="49000" name="E&amp;zegoi..."/>
+					<Item id="50000" name="Conpleta fonsion"/>
+					<Item id="50001" name="Conpleta paròlla"/>
+					<Item id="50002" name="Parametri fonsion"/>
+				</Commands>
+			</Main>
+			<Splitter/>
+			<TabBar>
+				<Item CMID="0" name="Særa"/>
+				<Item CMID="1" name="Særa tutte levòu questa chi"/>
+				<Item CMID="2" name="Sarva"/>
+				<Item CMID="3" name="Sarva comme..."/>
+				<Item CMID="4" name="Stanpa"/>
+				<Item CMID="5" name="Spòsta inte l&apos;atra vista"/>
+				<Item CMID="6" name="Còpia inte l&apos;atra vista"/>
+				<Item CMID="7" name="Còpia percorso de file"/>
+				<Item CMID="8" name="Còpia nomme do file"/>
+				<Item CMID="9" name="Còpia percorso da cartèlla"/>
+				<Item CMID="10" name="Rinomina file"/>
+				<Item CMID="11" name="Elimina file"/>
+				<Item CMID="12" name="Sola letua"/>
+				<Item CMID="13" name="Reinpòsta bandea de sola letua"/>
+				<Item CMID="14" name="Spòsta inte 'n neuvo barcon"/>
+				<Item CMID="15" name="Còpia inte 'n neuvo barcon"/>
+			</TabBar>
+		</Menu>
+		<Dialog>
+			<Find title="Çerca..." titleFind="Atreuva" titleReplace="Sostitoisci" titleFindInFiles="Çerca inti file">
+				<Item id="1" name="Atreuva sucescivo"/>
+				<Item id="2" name="Særa"/>
+				<Item id="1603" name="Solo &amp;paròlle intreghe"/>
+				<Item id="1604" name="Distingoi tra ma&amp;iuscole e minuscole"/>
+				<Item id="1605" name="Esprescion regolare"/>
+				<Item id="1606" name="Torna sciù se arivòu a-a fin"/>
+				<Item id="1608" name="&amp;Sostitoisci"/>
+				<Item id="1609" name="Sostitoisci &amp;tutti"/>
+				<Item id="1611" name="S&amp;ostitoisci con: "/>
+				<Item id="1614" name="Conta ocorense"/>
+				<Item id="1615" name="Atreuva tutti"/>
+				<Item id="1616" name="Inpòsta segnalibbro in sciâ riga"/>
+				<Item id="1618" name="Netezza pe ògni riçerca"/>
+				<Item id="1620" name="Atreuva:"/>
+				<Item id="1624" name="Tipo de riçerca"/>
+				<Item id="1625" name="Normale"/>
+				<Item id="1626" name="Esteiza (\n, \r, \t, \0, \x...)"/>
+				<Item id="1632" name="Inta seleçion"/>
+				<Item id="1633" name="Netezza"/>
+				<Item id="1635" name="Sostitoisci tutto inti documenti averti"/>
+				<Item id="1636" name="Çerca inte tutti i documenti averti"/>
+				<Item id="1641" name="Atreuva tutto into documento atoale"/>
+				<Item id="1654" name="Filtri:"/>
+				<Item id="1655" name="Cartèlla:"/>
+				<Item id="1656" name="Atreuva tutti"/>
+				<Item id="1658" name="Inte sotocartèlle"/>
+				<Item id="1659" name="Inte cartèlle ascoze"/>
+				<Item id="1660" name="&amp;Sostitoisci inti file"/>
+				<Item id="1686" name="T&amp;rasparensa"/>
+				<Item id="1687" name="Se perde o focus"/>
+				<Item id="1688" name="Senpre"/>
+			</Find>
+			<GoToLine title="Vanni a-a riga #">
+				<Item id="1" name="&amp;Vanni !"/>
+				<Item id="2" name="Anulla"/>
+				<Item id="2004" name="Ti ê inta riga:"/>
+				<Item id="2005" name="Vanni a-a riga:"/>
+				<Item id="2006" name="Urtima riga disponibile:"/>
+				<Item id="2007" name="Riga"/>
+				<Item id="2008" name="Offset"/>
+			</GoToLine>
+			<Run title="Ezegoi...">
+				<Item id="1903" name="Programma da ezegoî"/>
+				<Item id="1" name="Ezegoi!"/>
+				<Item id="2" name="Anulla"/>
+				<Item id="1904" name="Sarva..."/>
+			</Run>
+			<StyleConfig title="Configuratô de stili">
+				<Item id="2" name="Anulla"/>
+				<Item id="2301" name="Sarva &amp;&amp; Særa"/>
+				<Item id="2303" name="Trasparensa"/>
+				<Item id="2306" name="Seleçionn-a tema: "/>
+				<SubDialog>
+					<Item id="2204" name="Grascetto"/>
+					<Item id="2205" name="Corscivo"/>
+					<Item id="2206" name="Primmo cian: "/>
+					<Item id="2207" name="Sfondo: "/>
+					<Item id="2208" name="Tipo: "/>
+					<Item id="2209" name="Dimenscion: "/>
+					<Item id="2211" name="Stile:"/>
+					<Item id="2212" name="Cô"/>
+					<Item id="2213" name="Caratere"/>
+					<Item id="2214" name="Est. predefinie:"/>
+					<Item id="2216" name="Estensioin d'utente:"/>
+					<Item id="2218" name="Sotolineou"/>
+					<Item id="2219" name="Paròlle ciave predefinie"/>
+					<Item id="2221" name="Paròlle ciave definie da l&apos;utente"/>
+					<Item id="2225" name="Lengoaggio: "/>
+					<Item id="2226" name="Abilita cô globale in primmo cian"/>
+					<Item id="2227" name="Abilita cô globale pe-o sfondo"/>
+					<Item id="2228" name="Abilita stile globale do caratere"/>
+					<Item id="2229" name="Abilita dimenscion globale"/>
+					<Item id="2230" name="Abilita stile globale pe-o grascetto"/>
+					<Item id="2231" name="Abilita stile globale pe-o corscivo"/>
+					<Item id="2232" name="Abilita stile globale pe-o sotolineòu"/>
+				</SubDialog>
+			</StyleConfig>
+			<UserDefine title="Inpostaçioin personalizæ">
+				<Item id="20001" name="Torna"/>
+				<Item id="20002" name="Rinomina"/>
+				<Item id="20003" name="Crea neuvo..."/>
+				<Item id="20004" name="Leva"/>
+				<Item id="20005" name="Sarva comme..."/>
+				<Item id="20007" name="Lengoaggio personalizòu: "/>
+				<Item id="20009" name="Estension:"/>
+				<Item id="20011" name="Trasparensa"/>
+				<Item id="20012" name="Ignora maiuscole/minuscole"/>
+				<Item id="20015" name="Inpòrta..."/>
+				<Item id="20016" name="Espòrta..."/>
+				<Item id="0" name="Cô"/>
+				<Item id="1" name="Caratere"/>
+				<Item id="2" name="Sfondo"/>
+				<Item id="3" name="Stile do caratere"/>
+				<Item id="4" name="Caratere:"/>
+				<Item id="5" name="Mezua:"/>
+				<Item id="6" name="Grascetto"/>
+				<Item id="7" name="Corscivo"/>
+				<Item id="8" name="Sotolineòu"/>
+				<Folder title="Cartèlle &amp;&amp; Predefinii">
+					<Item id="21101" name="Inpostaçioin de stile predefinio"/>
+					<Item id="21201" name="Inpostaçioin de paròlle ciave d'avertua blòcco"/>
+					<Item id="21301" name="Inpostaçioin de paròlle ciave de seratua blòcco"/>
+				</Folder>
+				<Keywords title="Lista Parole Chiave">
+					<Item id="22101" name="1° Gruppo"/>
+					<Item id="22201" name="2° Gruppo"/>
+					<Item id="22301" name="3° Gruppo"/>
+					<Item id="22401" name="4° Gruppo"/>
+					<Item id="22113" name="Prefisso"/>
+					<Item id="22213" name="Prefisso"/>
+					<Item id="22313" name="Prefisso"/>
+					<Item id="22413" name="Prefisso"/>
+				</Keywords>
+				<Comment title="Commenti &amp;&amp; Numeri">
+					<Item id="23301" name="Riga comentâ"/>
+					<Item id="23101" name="Blòcco di comenti"/>
+					<Item id="23113" name="Iniçio do comento:"/>
+					<Item id="23115" name="Fin do comento:"/>
+					<Item id="23116" name="Paròlla ciave comme scinbolo"/>
+					<Item id="23117" name="Paròlle ciave comme scinboli"/>
+					<Item id="23201" name="Numero"/>
+				</Comment>
+				<Operator title="Operatori">
+					<Item id="24001" name="Abilita caratere di escape:"/>
+					<Item id="24107" name="Operatô"/>
+					<Item id="24103" name="Scinboli disponibili"/>
+					<Item id="24101" name="Operatoî ativæ"/>
+					<Item id="24201" name="Delimitatô 1"/>
+					<Item id="24211" name="Delimitaçion averta:"/>
+					<Item id="24214" name="Delimitaçion serâ:"/>
+					<Item id="24301" name="Delimitatô 2"/>
+					<Item id="24311" name="Delimitaçion averta:"/>
+					<Item id="24314" name="Delimitaçion serâ:"/>
+				</Operator>
+			</UserDefine>
+			<Preference title="Preferense">
+				<Item id="6001" name="Særa"/>
+				<Global title="Generale">
+					<Item id="6102" name="Ascondi"/>
+					<Item id="6103" name="Figue picinn-e"/>
+					<Item id="6104" name="Figue grende"/>
+					<Item id="6105" name="Figue standard"/>
+					<Item id="6107" name="Mostra schede picinn-e"/>
+					<Item id="6108" name="Blòcca (dizabilitou o rebelâ)"/>
+					<Item id="6109" name="Ascuisci e schede inative"/>
+					<Item id="6110" name="&apos;Evidensia in colori a scheda ativa"/>
+					<Item id="6112" name="Pomello pe serâ in sce ògni scheda"/>
+					<Item id="6113" name="O sciacâ doe vòtte o særa 'na scheda"/>
+					<Item id="6118" name="Ascondi"/>
+					<Item id="6119" name="Deuvia ciù righe"/>
+					<Item id="6120" name="Verticale"/>
+					<Item id="6121" name="Bara di menù"/>
+					<Item id="6122" name="Ascondi (Alt ò F10 pe mostrâ)"/>
+					<Item id="6123" name="Seleçionn-a lengoa"/>
+				</Global>
+				<Scintillas title="Personalizaçion de conponenti">
+					<Item id="6216" name="Inpostaçioin do cursô"/>
+					<Item id="6217" name="Larghessa:"/>
+					<Item id="6219" name="Velocitæ:"/>
+					<Item id="6221" name="V"/>
+					<Item id="6222" name="L"/>
+
+					<Item id="6303" name="Mezua: "/>
+
+					<Item id="6201" name="Stile do ragrupamento"/>
+					<Item id="6202" name="Sencio"/>
+					<Item id="6203" name="Freccia"/>
+					<Item id="6204" name="Çercio"/>
+					<Item id="6205" name="Quadrato"/>
+
+					<Item id="6206" name="Vixoalizza i numeri de riga"/>
+					<Item id="6207" name="Vixoalizza i segnalibbri"/>
+					<Item id="6208" name="Vixoalizza o limite da colònna"/>
+					<Item id="6209" name="Numero de colònna: "/>
+
+					<Item id="6211" name="Inpostaçion do limite da colònna"/>
+					<Item id="6212" name="Modalitæ &apos;linea&apos;"/>
+					<Item id="6213" name="Modalitæ &apos;sfondo&apos;"/>
+					<Item id="6214" name="Evidensia a riga atoale"/>
+					<Item id="6224" name="Inpostaçioin seleçion multipla"/>
+					<Item id="6226" name="Nisciun"/>
+					<Item id="6227" name="A cappo outomatico"/>
+					<Item id="6228" name="Predefinio"/>
+					<Item id="6229" name="Alineòu"/>
+					<Item id="6230" name="Indentòu"/>
+				</Scintillas>
+				<NewDoc title="Neuvo documento/cartèlla predefinia">
+					<Item id="6401" name="Formato"/>
+					<Item id="6402" name="Windows"/>
+					<Item id="6403" name="Unix"/>
+					<Item id="6404" name="Mac"/>
+					<Item id="6405" name="Codifica"/>
+					<Item id="6406" name="ANSI"/>
+					<Item id="6407" name="UTF-8 sensa BOM"/>
+					<Item id="6408" name="UTF-8"/>
+					<Item id="6409" name="UCS-2 Big endian"/>
+					<Item id="6410" name="UCS-2 Little endian"/>
+					<Item id="6411" name="Lengoaggio predefinio:"/>
+					<Item id="6413" name="Arvi file/Sarva cartèlla"/>
+					<Item id="6414" name="Segondo o documento atoale"/>
+					<Item id="6415" name="Aregòrda l&apos;urtima cartèlla deuviâ"/>
+					<Item id="6419" name="Neuvo documento"/>
+					<Item id="6420" name="Aplica a l'avertura di file ANSI"/>
+				</NewDoc>
+				<FileAssoc title="Asociaçion tipi de file">
+					<Item id="4009" name="Estensioin soportæ:"/>
+					<Item id="4010" name="Estensioin registræ:"/>
+				</FileAssoc>
+				<LangMenu title="Menù Lengoaggio/Inpostaçioin de tabulaçioin">
+					<Item id="6505" name="Lengoaggi disponibili"/>
+					<Item id="6506" name="Lengoaggi dizabilitæ"/>
+					<Item id="6507" name="Conpatta o menù"/>
+					<Item id="6508" name="Menù &quot;Lengoaggio&quot;"/>
+					<Item id="6510" name="Deuvia predefinio"/>
+					<Item id="6301" name="Inpostaçioin de Tabulaçioin"/>
+					<Item id="6302" name="Sostitoisci con di spaççi"/>
+					<Item id="6303" name="Mezua de tabulaçioin:"/>
+				</LangMenu>
+				<Print title="Stanpa">
+					<Item id="6601" name="Numeri de riga"/>
+					<Item id="6602" name="Òpsioìn de cô"/>
+					<Item id="6603" name="WYSIWYG"/>
+					<Item id="6604" name="Inverti"/>
+					<Item id="6605" name="Gianco e neigro"/>
+					<Item id="6606" name="No stanpâ i coî do sfondo"/>
+					<Item id="6607" name="Inpostaçion di margini (unitæ: mm)"/>
+					<Item id="6612" name="A mancinn-a"/>
+					<Item id="6613" name="Supeiô"/>
+					<Item id="6614" name="A drita"/>
+					<Item id="6615" name="Inferiô"/>
+					<Item id="6706" name="Grascetto"/>
+					<Item id="6707" name="Corscivo"/>
+					<Item id="6708" name="Intestaçion"/>
+					<Item id="6709" name="Seçion da mancinn-a"/>
+					<Item id="6710" name="Seçion çentrale"/>
+					<Item id="6711" name="Seçion de drita"/>
+					<Item id="6717" name="Grascetto"/>
+					<Item id="6718" name="Corscivo"/>
+					<Item id="6719" name="Pê de pagina"/>
+					<Item id="6720" name="Seçion da mancinn-a"/>
+					<Item id="6721" name="Seçion çentrale"/>
+					<Item id="6722" name="Seçion da drita"/>
+					<Item id="6723" name="Azonzi"/>
+					<Item id="6725" name="Variabile:"/>
+					<Item id="6727" name="Seleçionn-a parte"/>
+					<Item id="6728" name="Intestaçion e pê de pagina"/>
+				</Print>
+				<MISC title="Varie">
+					<Item id="6304" name="Documenti reçenti"/>
+					<Item id="6305" name="No controlâ a l&apos;iniçio"/>
+					<Item id="6306" name="Elementi dêuviæ de reçente:"/>
+					<Item id="6309" name="Aregòrda a sescion atoale a-o proscimo iniçio"/>
+					<Item id="6312" name="Outorilevamento do stato do file"/>
+					<Item id="6313" name="Agiorna sensa notifica"/>
+					<Item id="6114" name="Abilita"/>
+					<!--<Item id = "6117" name = "Abilita o conportamento MRU"/>-->
+					<Item id="6117" name="Precedensa a-i file ciù reçenti"/>
+					<Item id="6318" name="Inpostaçioin de colegamenti da sciacâ"/>
+					<Item id="6319" name="Abilita"/>
+					<Item id="6320" name="No disegnâ sotolineatua"/>
+					<Item id="6322" name="Est. file de sescion:"/>
+					<Item id="6323" name="Agiorna outomaticamente Notepad++"/>
+					<Item id="6324" name="Cangia documento (CTRL+TAB)"/>
+					<Item id="6325" name="Vanni a l&apos;urtima riga dòppo l&apos;agiornamento"/>
+					<Item id="6326" name="Evidensiaçion inteligente"/>
+					<Item id="6327" name="Abilita"/>
+					<Item id="6328" name="Evidensia atributi"/>
+					<Item id="6329" name="Evidensia tag corispondenti"/>
+					<Item id="6330" name="Evidensia zöne php/asp"/>
+					<Item id="6331" name="Mostra solo nomme do file in sciâ bara do titolo"/>
+				</MISC>
+				<Backup title="Backup/Outo-conpletamento">
+					<Item id="6801" name="Backup"/>
+					<Item id="6803" name="Cartèlla:"/>
+					<Item id="6804" name="Cartèlla de backup personalizâ:"/>
+					<Item id="6807" name="Outo-conpletamento"/>
+					<Item id="6808" name="Ativa l&apos;outo-conpletamento in sce ògni input"/>
+					<Item id="6809" name="Conpletamento fonsion"/>
+					<Item id="6810" name="Conletamento paròlla"/>
+					<Item id="6811" name="Da"/>
+					<Item id="6813" name="° caratere"/>
+					<Item id="6814" name="Valoî validi: 1 - 9"/>
+					<Item id="6815" name="Mostra parametri fonsioin durante l&apos;imiscion"/>
+					<Item id="6315" name="Nisciun"/>
+					<Item id="6316" name="Backup sencio"/>
+					<Item id="6317" name="Backup verbozo"/>
+				</Backup>
+			</Preference>
+			<MultiMacro title="Ezegoî macro ciù vòtte">
+				<Item id="1" name="Ezegoî"/>
+				<Item id="2" name="Anulla"/>
+				<Item id="8006" name="Macro da ezegoî: "/>
+				<Item id="8001" name="Ezegoî"/>
+				<Item id="8005" name="vòtte"/>
+				<Item id="8002" name="Ezegoî fin a-a fin do file"/>
+			</MultiMacro>
+			<Window title="Windows">
+				<Item id="1" name="Ativa"/>
+				<Item id="2" name="D'acòrdio"/>
+				<Item id="7002" name="Sarva"/>
+				<Item id="7003" name="Særa i barcoin"/>
+				<Item id="7004" name="Ordina e schede"/>
+			</Window>
+			<ColumnEditor title="Editô a colònne">
+				<Item id="2023" name="Tèsto da introdue"/>
+				<Item id="2033" name="Numero da introdue"/>
+				<Item id="2030" name="Numero iniçiale: "/>
+				<Item id="2031" name="Incrementa de: "/>
+				<Item id="2035" name="Zeri iniçiali"/>
+				<Item id="2032" name="Formato"/>
+				<Item id="2024" name="Deximale"/>
+				<Item id="2025" name="Òtâle"/>
+				<Item id="2026" name="Ezadeximale"/>
+				<Item id="2027" name="Binario"/>
+				<Item id="1" name="D'acòrdio"/>
+				<Item id="2" name="Anulla"/>
+			</ColumnEditor>
+		</Dialog>
+	</Native-Langue>
+</NotepadPlus>

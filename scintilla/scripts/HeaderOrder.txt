@@ -1,0 +1,195 @@
+// Define the standard order in which to include header files
+// All platform headers should be included before Scintilla headers
+// and each of these groups are then divided into directory groups.
+
+// Qt platform layer not handled as it doesn't define a strong ordering of headers.
+
+// Base of the repository relative to this file
+
+//base:..
+
+// File patterns to check:
+//source:include/*.h
+//source:src/*.cxx
+//source:lexlib/*.cxx
+//source:lexers/*.cxx
+//source:win32/*.cxx
+//source:gtk/*.cxx
+//source:cocoa/*.mm
+//source:cocoa/*.h
+//source:test/unit/*.cxx
+
+// C standard library
+#include <stddef.h>
+#include <stdint.h>
+
+// C++ wrappers of C standard library
+#include <cstddef>
+#include <cstdlib>
+#include <cstdint>
+#include <cassert>
+#include <cstring>
+#include <cstdio>
+#include <cstdarg>
+#include <ctime>
+#include <cmath>
+#include <climits>
+
+// C++ standard library
+#include <stdexcept>
+#include <system_error>
+#include <new>
+#include <utility>
+#include <string>
+#include <string_view>
+#include <vector>
+#include <array>
+#include <map>
+#include <set>
+#include <forward_list>
+#include <optional>
+#include <algorithm>
+#include <iterator>
+#include <functional>
+#include <memory>
+#include <numeric>
+#include <chrono>
+#include <charconv>
+#include <regex>
+#include <ios>
+#include <ostream>
+#include <iostream>
+#include <sstream>
+#include <fstream>
+#include <iomanip>
+#include <atomic>
+#include <mutex>
+#include <thread>
+#include <future>
+#include <type_traits>
+#include <locale>
+
+// GTK headers
+#include <glib.h>
+#include <gmodule.h>
+#include <gdk/gdk.h>
+#include <gtk/gtk.h>
+#include <gdk/gdkkeysyms.h>
+#include <gdk/gdkwayland.h>
+#include <gtk/gtk-a11y.h>
+#include <cairo/cairo-gobject.h>
+
+// Windows headers
+#include <windows.h>
+#include <commctrl.h>
+#include <richedit.h>
+#include <windowsx.h>
+#include <shellscalingapi.h>
+#include <zmouse.h>
+#include <ole2.h>
+#include <wrl.h>
+#include <d2d1_1.h>
+#include <d3d11_1.h>
+#include <dwrite_1.h>
+
+// Cocoa headers
+#include <Cocoa/Cocoa.h>
+#import <Foundation/NSGeometry.h>
+#import <QuartzCore/CAGradientLayer.h>
+#import <QuartzCore/CAAnimation.h>
+#import <QuartzCore/CATransaction.h>
+
+// Scintilla headers
+
+// Non-platform-specific headers
+
+// Exported headers
+
+#include "Sci_Position.h"
+#include "ScintillaTypes.h"
+#include "ScintillaMessages.h"
+#include "ScintillaStructures.h"
+#include "ILoader.h"
+#include "ILexer.h"
+
+// src platform interface
+#include "Debugging.h"
+#include "Geometry.h"
+#include "Platform.h"
+
+#include "Scintilla.h"
+#include "ScintillaWidget.h"
+
+// src
+#include "CharacterType.h"
+#include "CharacterCategoryMap.h"
+#include "Position.h"
+#include "UniqueString.h"
+#include "SplitVector.h"
+#include "Partitioning.h"
+#include "RunStyles.h"
+#include "SparseVector.h"
+#include "ContractionState.h"
+#include "ChangeHistory.h"
+#include "CellBuffer.h"
+#include "UndoHistory.h"
+#include "PerLine.h"
+#include "CallTip.h"
+#include "KeyMap.h"
+#include "Indicator.h"
+#include "XPM.h"
+#include "LineMarker.h"
+#include "Style.h"
+#include "ViewStyle.h"
+#include "CharClassify.h"
+#include "Decoration.h"
+#include "CaseFolder.h"
+#include "Document.h"
+#include "RESearch.h"
+#include "CaseConvert.h"
+#include "UniConversion.h"
+#include "DBCS.h"
+#include "Selection.h"
+#include "PositionCache.h"
+#include "EditModel.h"
+#include "MarginView.h"
+#include "EditView.h"
+#include "Editor.h"
+#include "ElapsedPeriod.h"
+#include "RunThreads.h"
+
+#include "AutoComplete.h"
+#include "ScintillaBase.h"
+
+// Platform-specific headers
+
+// win32
+#include "WinTypes.h"
+#include "PlatWin.h"
+#include "ListBox.h"
+#include "SurfaceGDI.h"
+#include "SurfaceD2D.h"
+#include "HanjaDic.h"
+#include "ScintillaWin.h"
+
+// gtk
+#include "Wrappers.h"
+#include "ScintillaGTK.h"
+#include "scintilla-marshal.h"
+#include "ScintillaGTKAccessible.h"
+#include "Converter.h"
+
+// cocoa
+#include "QuartzTextStyle.h"
+#include "QuartzTextStyleAttribute.h"
+#include "DictionaryForCF.h"
+#include "QuartzTextLayout.h"
+#import "InfoBarCommunicator.h"
+#include "InfoBar.h"
+#import "ScintillaView.h"
+#import "ScintillaCocoa.h"
+#import "PlatCocoa.h"
+
+// Catch testing framework
+#include "catch.hpp"
+

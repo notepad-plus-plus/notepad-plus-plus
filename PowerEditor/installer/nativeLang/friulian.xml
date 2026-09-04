@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<NotepadPlus>
+	<Native-Langue name="Furlan" filename="friulian.xml">
+		<Menu>
+			<Main>
+				<!-- Main Menu Entries -->
+				<Entries>
+					<Item menuId="file" name="&amp;File"/>
+					<Item menuId="edit" name="Mo&amp;difiche"/>
+					<Item menuId="search" name="&amp;Cîr"/>
+					<Item menuId="view" name="&amp;Viodude"/>
+					<Item menuId="encoding" name="For&amp;mât"/>
+					<Item menuId="language" name="&amp;Lengaç"/>
+					<Item menuId="settings" name="&amp;Impostazions"/>
+					<Item menuId="macro" name="Macro"/>
+					<Item menuId="run" name="Invie"/>
+					<Item menuId="Plugins" name="Plugins"/>
+					<Item menuId="Window" name="Barcon"/>
+				</Entries>
+
+				<!-- Sub Menu Entries -->
+				<SubEntries>
+					<Item subMenuId="edit-copyToClipboard" name="Copie tai Aponts"/>
+					<Item subMenuId="edit-indent" name="Indentazion"/>
+					<Item subMenuId="edit-convertCaseTo" name="Conversion Maiuscul/Minuscul"/>
+					<Item subMenuId="edit-lineOperations" name="Operazions su lis riis"/>
+					<Item subMenuId="edit-comment" name="Comente/Scomente"/>
+					<Item subMenuId="edit-autoCompletion" name="Auto completament"/>
+					<Item subMenuId="edit-eolConversion" name="Conversion caratars di fin rie"/>
+					<Item subMenuId="edit-blankOperations" name="Operazions sui spazis blancs"/>
+					<Item subMenuId="search-markAll" name="Segne dut"/>
+					<Item subMenuId="search-unmarkAll" name="Gjave ducj i segns"/>
+					<Item subMenuId="search-jumpUp" name="Salte sù"/>
+					<Item subMenuId="search-jumpDown" name="Salte jù"/>
+					<Item subMenuId="search-bookmark" name="Segnelibri"/>
+					<Item subMenuId="view-showSymbol" name="Mostre simbul"/>
+					<Item subMenuId="view-zoom" name="Zoom"/>
+					<Item subMenuId="view-moveCloneDocument" name="Môf/Clone il document atuâl"/>
+					<Item subMenuId="view-collapseLevel" name="Espant il nivel"/>
+					<Item subMenuId="view-uncollapseLevel" name="Sclace il nivel"/>
+					<Item subMenuId="encoding-characterSets" name="Set di caratars"/>
+					<Item subMenuId="encoding-arabic" name="Arap"/>
+					<Item subMenuId="encoding-baltic" name="Baltic"/>
+					<Item subMenuId="encoding-celtic" name="Celtic"/>
+					<Item subMenuId="encoding-cyrillic" name="Cirilic"/>
+					<Item subMenuId="encoding-centralEuropean" name="European centrâl"/>
+					<Item subMenuId="encoding-chinese" name="Cinês"/>
+					<Item subMenuId="encoding-easternEuropean" name="European orientâl"/>
+					<Item subMenuId="encoding-greek" name="Grêc"/>
+					<Item subMenuId="encoding-hebrew" name="Ebreu"/>
+					<Item subMenuId="encoding-japanese" name="Gjaponês"/>
+					<Item subMenuId="encoding-korean" name="Corean"/>
+					<Item subMenuId="encoding-northEuropean" name="European setentrionâl"/>
+					<Item subMenuId="encoding-thai" name="Tailandês"/>
+					<Item subMenuId="encoding-turkish" name="Turc"/>
+					<Item subMenuId="encoding-westernEuropean" name="European ocidentâl"/>
+					<Item subMenuId="encoding-vietnamese" name="Vietnamite"/>
+					<Item subMenuId="settings-import" name="Impuarte"/>
+				</SubEntries>
+
+				<!-- all menu item -->
+				<Commands>
+					<Item id="41001" name="G&amp;nûf"/>
+					<Item id="41002" name="&amp;Vierç"/>
+					<Item id="41003" name="Siere"/>
+					<Item id="41004" name="Sie&amp;re dut"/>
+					<Item id="41005" name="Siere dut fûr che il document atuâl"/>
+					<Item id="41006" name="&amp;Salve"/>
+					<Item id="41007" name="Salv&amp;e dut"/>
+					<Item id="41008" name="Salve &amp;cul non..."/>
+					<Item id="41010" name="Stampe..."/>
+					<Item id="1001" name="Stampe cumò"/>
+					<Item id="41011" name="&amp;Va fûr"/>
+					<Item id="41012" name="Cjame session..."/>
+					<Item id="41013" name="Salve session..."/>
+					<Item id="41014" name="Torne a cjamâ dal disc"/>
+					<Item id="41015" name="Salve une copie come..."/>
+					<Item id="41016" name="Elimine dal disc"/>
+					<Item id="41017" name="Cambie non..."/>
+
+					<Item id="42001" name="&amp;Taie"/>
+					<Item id="42002" name="&amp;Copie"/>
+					<Item id="42003" name="&amp;Anule"/>
+					<Item id="42004" name="To&amp;rne a fâ"/>
+					<Item id="42005" name="Tac&amp;he"/>
+					<Item id="42006" name="&amp;Elimine"/>
+					<Item id="42007" name="Selezione d&amp;ut"/>
+					<Item id="42008" name="Inserìs TAB (Pare dentri)"/>
+					<Item id="42009" name="Gjave TAB (Pare fûr)"/>
+					<Item id="42010" name="Dupliche rie atuâl"/>
+					<Item id="42012" name="Divît riis"/>
+					<Item id="42013" name="Unìs riis"/>
+					<Item id="42014" name="Pare sù la rie atuâl"/>
+					<Item id="42015" name="Pare jù la rie atuâl"/>
+					<Item id="42016" name="in MAIUSCUL"/>
+					<Item id="42017" name="in minuscul"/>
+					<Item id="42018" name="&amp;Scomence a regjistrâ"/>
+					<Item id="42019" name="Ferme di regji&amp;strâ"/>
+					<Item id="42021" name="Ri&amp;produzion"/>
+					<Item id="42022" name="Gjave/Zonte coment al bloc"/>
+					<Item id="42023" name="Fâs fluî il coment"/>
+					<Item id="42042" name="Gjave i spazis che a vegnin prime"/>
+					<Item id="42043" name="Gjave i spazis che a vegnin prime e chei dopo"/>
+					<Item id="42044" name="EOL in Spazi"/>
+					<Item id="42045" name="Gjave i spazis che no coventin e EOL"/>
+					<Item id="42046" name="TAB in Spazi"/>
+					<Item id="42047" name="Spazi in TAB"/>
+					<Item id="42024" name="Gjave i spazis che a vegnin dopo"/>
+					<Item id="42025" name="Salve la macro in regjistrazion"/>
+					<Item id="42026" name="Direzion dal test RTL"/>
+					<Item id="42027" name="Direzion dal test LTR"/>
+					<Item id="42028" name="Impueste Dome in leture"/>
+					<Item id="42029" name="Percors complet dal file atuâl tai Aponts"/>
+					<Item id="42030" name="Non dal file atuâl tai Aponts"/>
+					<Item id="42031" name="Cartele dal percors atuâl tai Aponts"/>
+					<Item id="42032" name="Riprodûs une macro plui voltis..."/>
+					<Item id="42035" name="Comente bloc"/>
+					<Item id="42036" name="Gjave coment al bloc"/>
+
+					<Item id="43001" name="&amp;Cjate..."/>
+					<Item id="43002" name="Cjate c&amp;hel dopo"/>
+					<Item id="43003" name="Sostituìs..."/>
+					<Item id="43004" name="Va ae rie..."/>
+					<Item id="43005" name="Impueste segnelibri"/>
+					<Item id="43006" name="Segnelibri sucessîf"/>
+					<Item id="43007" name="Segnelibri precedent"/>
+					<Item id="43008" name="Nete ducj i segnelibris"/>
+					<Item id="43009" name="Va ae parentesi corispuindinte"/>
+					<Item id="43010" name="Cjate chel prime"/>
+					<Item id="43011" name="Ricercje &amp;incrementâl..."/>
+					<Item id="43013" name="Cjate files"/>
+					<Item id="43014" name="Cjate (volatil) chel dopo"/>
+					<Item id="43015" name="Cjate (volatil) chel prime"/>
+					<Item id="43016" name="Segne ducj"/>
+					<Item id="43017" name="Gjave segn a ducj"/>
+					<Item id="43018" name="Taie riis salvadis tai segnelibris"/>
+					<Item id="43019" name="Copie riis salvadis tai segnelibris"/>
+					<Item id="43020" name="Tache (Sostituìs) tes riis salvadis tai segnelibris"/>
+					<Item id="43021" name="Elimine riis salvadis tai segnelibris"/>
+					<Item id="43022" name="Doprant il prin stîl"/>
+					<Item id="43023" name="Nete il prin stîl"/>
+					<Item id="43024" name="Doprant il secont stîl"/>
+					<Item id="43025" name="Nete il secont stîl"/>
+					<Item id="43026" name="Doprant il tierç stîl"/>
+					<Item id="43027" name="Nete il tierç stîl"/>
+					<Item id="43028" name="Doprant il cuart stîl"/>
+					<Item id="43029" name="Nete il cuart stîl"/>
+					<Item id="43030" name="Doprant il cuint stîl"/>
+					<Item id="43031" name="Nete il cuint stîl"/>
+					<Item id="43032" name="Nete ducj i stîi"/>
+					<Item id="43033" name="Prin stîl"/>
+					<Item id="43034" name="Secont stîl"/>
+					<Item id="43035" name="Tierç stîl"/>
+					<Item id="43036" name="Cuart stîl"/>
+					<Item id="43037" name="Cuint stîl"/>
+					<Item id="43038" name="Cjate stîl"/>
+					<Item id="43039" name="Prin stîl"/>
+					<Item id="43040" name="Secont stîl"/>
+					<Item id="43041" name="Tierç stîl"/>
+					<Item id="43042" name="Cuart stîl"/>
+					<Item id="43043" name="Cuint stîl"/>
+					<Item id="43044" name="Cjate stîl"/>
+					<Item id="43045" name="Barcon dai risultâts de ricercje"/>
+					<Item id="43046" name="Prossim risultât de ricercje"/>
+					<Item id="43047" name="Precedent risultât de ricercje"/>
+					<Item id="43048" name="Selezione e cjate il prossim"/>
+					<Item id="43049" name="Selezione e cjate il precedent"/>
+					<Item id="43050" name="Segnelibri invertît"/>
+					<Item id="44009" name="Post-It"/>
+					<Item id="44010" name="Sclace dut"/>
+					<Item id="44011" name="Definizion dai lengaçs dal utent"/>
+					<Item id="44019" name="Mostre ducj i caratars"/>
+					<Item id="44020" name="Mostre vuidis par fâ viodi il rientri"/>
+					<Item id="44022" name="Comede riis lungjis"/>
+					<Item id="44023" name="Zoom &amp;in	Ctrl-Mouse Ravuedute sù"/>
+					<Item id="44024" name="Zoom &amp;out	Ctrl-Mouse Ravuedute jù"/>
+					<Item id="44025" name="Mostre spazis blancs e TAB"/>
+					<Item id="44026" name="Mostre fin de rie"/>
+					<Item id="44029" name="Espant dut"/>
+					<Item id="44030" name="Sclace il nivel atuâl"/>
+					<Item id="44031" name="Espant il nivel atuâl"/>
+					<Item id="44032" name="Modalitât a dut il visôr"/>
+					<Item id="44033" name="Torne al zoom predeterminât	Ctrl+/(tastierute numeriche)"/>
+					<Item id="44034" name="Simpri in prin plan"/>
+					<Item id="44049" name="Somari..."/>
+					<Item id="44035" name="Sincronize scoriment verticâl"/>
+					<Item id="44036" name="Sincronize scoriment orizontâl"/>
+					<Item id="44041" name="Mostre simbul di tai"/>
+					<Item id="44072" name="Focus suntune altre viodude"/>
+
+					<Item id="45001" name="Convertìs tal formât Windows"/>
+					<Item id="45002" name="Convertìs tal formât UNIX"/>
+					<Item id="45003" name="Convertìs tal formât MAC"/>
+					<Item id="45004" name="Codifiche in ANSI"/>
+					<Item id="45005" name="Codifiche in UTF-8"/>
+					<Item id="45006" name="Codifiche in UCS-2 Big Endian"/>
+					<Item id="45007" name="Codifiche in UCS-2 Little Endian"/>
+					<Item id="45008" name="Codifiche in UTF-8 cence BOM"/>
+					<Item id="45009" name="Convertìs in ANSI"/>
+					<Item id="45010" name="Convertìs in UTF-8 cence BOM"/>
+					<Item id="45011" name="Convertìs in UTF-8"/>
+					<Item id="45012" name="Convertìs in UCS-2 Big Endian"/>
+					<Item id="45013" name="Convertìs in UCS-2 Little Endian"/>
+
+					<Item id="10001" name="Va a une altre viodude"/>
+					<Item id="10002" name="Clone intune altre viodude"/>
+					<Item id="10003" name="Môf intune gnove istance"/>
+					<Item id="10004" name="Vierç intune gnove istance"/>
+
+
+					<Item id="46001" name="Configurazion dai stîi..."/>
+					<Item id="46180" name="Definît dal utent"/>
+					<Item id="47000" name="Informazions su..."/>
+					<Item id="47001" name="Sît di Notepad++"/>
+					<Item id="47002" name="Pagjine dal progjet di Notepad++"/>
+					<Item id="47003" name="Jutori in linee"/>
+					<Item id="47004" name="Forum"/>
+					<Item id="47005" name="Cjate altris plugins"/>
+					<Item id="47006" name="Inzorne Notepad++"/>
+					<Item id="47008" name="Contignûts dal jutori"/>
+					<Item id="48005" name="Impuarte plugins..."/>
+					<Item id="48006" name="Impuarte temis..."/>
+					<Item id="48009" name="Configurazion des scurtis..."/>
+					<Item id="48011" name="Preferencis..."/>
+					<Item id="49000" name="&amp;Invie..."/>
+
+					<Item id="50000" name="Completament funzions"/>
+					<Item id="50001" name="Completament peraulis"/>
+					<Item id="50002" name="Sugjeriment parametris funzions"/>
+					<Item id="42034" name="Editôr des colonis..."/>
+					<Item id="44042" name="Plate riis"/>
+					<Item id="42040" name="Vierç ducj i ultins files"/>
+					<Item id="42041" name="Nete la liste dai ultins files"/>
+					<Item id="48016" name="Modifiche scurte/Elimine macro..."/>
+					<Item id="48017" name="Modifiche scurte/Elimine comant..."/>
+					<Item id="48018" name="Personalize il menù contestuâl"/>
+				</Commands>
+			</Main>
+			<Splitter>
+			</Splitter>
+			<TabBar>
+				<Item CMID="0" name="Siere"/>
+				<Item CMID="1" name="Siere dut fûr che chest"/>
+				<Item CMID="2" name="Salve"/>
+				<Item CMID="3" name="Salve cul non..."/>
+				<Item CMID="4" name="Stampe"/>
+				<Item CMID="5" name="Va a une altre viodude"/>
+				<Item CMID="6" name="Clone intune altre viodude"/>
+				<Item CMID="7" name="Percors complet dal file tai Aponts"/>
+				<Item CMID="8" name="Non dal file tai Aponts"/>
+				<Item CMID="9" name="Percors de cartele atuâl tai Aponts"/>
+				<Item CMID="10" name="Cambie non"/>
+				<Item CMID="11" name="Elimine"/>
+				<Item CMID="12" name="Dome in leture"/>
+				<Item CMID="13" name="Gjave l'atribût Dome in leture"/>
+				<Item CMID="14" name="Môf intune gnove istance"/>
+				<Item CMID="15" name="Vierç intune gnove istance"/>
+			</TabBar>
+		</Menu>
+
+		<Dialog>
+			<Find title="" titleFind="Cjate" titleReplace="Sostituìs" titleFindInFiles="Cjate tai files">
+				<Item id="1" name="Cjate prossim"/>
+				<Item id="2" name="Siere"/>
+				<Item id="1620" name="Ce cjatâ:"/>
+				<Item id="1603" name="C&amp;jate dome peraulis intiris"/>
+				<Item id="1604" name="Maiusc&amp;ul/Minuscul"/>
+				<Item id="1605" name="&amp;Espression regolâr"/>
+				<Item id="1606" name="Wrap aroun&amp;d"/>
+				<Item id="1614" name="Conte"/>
+				<Item id="1615" name="Cjate dut"/>
+				<Item id="1616" name="Segne la rie"/>
+				<Item id="1618" name="Nete a ogni ricercje"/>
+				<Item id="1611" name="Sost&amp;ituìs cun:"/>
+				<Item id="1608" name="&amp;Sostituìs"/>
+				<Item id="1609" name="Sostituìs &amp;dut"/>
+				<Item id="1623" name="Trasparence"/>
+				<Item id="1687" name="Ae pierdite dal focus"/>
+				<Item id="1688" name="Simpri"/>
+				<Item id="1632" name="Te selezion"/>
+				<Item id="1633" name="Nete"/>
+				<Item id="1635" name="Sostituìs dut in ducj i documents vierts"/>
+				<Item id="1636" name="Cjate dut in ducj i documents vierts"/>
+				<Item id="1654" name="Filtris:"/>
+				<Item id="1655" name="Cartele:"/>
+				<Item id="1656" name="Cjatiju ducj"/>
+				<Item id="1658" name="In dutis lis sot cartelis"/>
+				<Item id="1659" name="Tes cartelis platadis"/>
+				<Item id="1624" name="Mût ricercje"/>
+				<Item id="1625" name="Normâl"/>
+				<Item id="1626" name="Estindût (\n, \r, \t, \0, \x...)"/>
+				<Item id="1660" name="Sostituìs tai files"/>
+				<Item id="1641" name="Cjate dut tal document atuâl"/>
+				<Item id="1686" name="Trasparence"/>
+			</Find>
+			<GoToLine title="Va ae rie #">
+				<Item id="2007" name="Rie"/>
+				<Item id="2008" name="Offset"/>
+				<Item id="1" name="&amp;Va!"/>
+				<Item id="2" name="NoVoiDiNissuneBande"/>
+				<Item id="2004" name="Tu sês ca:"/>
+				<Item id="2005" name="Tu vuelis lâ:"/>
+				<Item id="2006" name="No tu puedis lâ oltri di:"/>
+			</GoToLine>
+
+			<Run title="Invie...">
+				<Item id="1903" name="Scrîf culì il program di inviâ"/>
+				<Item id="1" name="Invie"/>
+				<Item id="2" name="Scancele"/>
+				<Item id="1904" name="Salve..."/>
+			</Run>
+
+			<StyleConfig title="Configurazions dai stîi">
+				<Item id="2" name="Scancele"/>
+				<Item id="2301" name="Salve e siere"/>
+				<Item id="2303" name="Trasparence"/>
+				<Item id="2306" name="Sielç teme: "/>
+				<SubDialog>
+					<Item id="2204" name="Gruessut"/>
+					<Item id="2205" name="Corsîf"/>
+					<Item id="2206" name="Colôr devant"/>
+					<Item id="2207" name="Colôr daûr"/>
+					<Item id="2208" name="Non caratar:"/>
+					<Item id="2209" name="Dimension caratar:"/>
+					<Item id="2212" name="Stîl colôr"/>
+					<Item id="2213" name="Stîl caratar"/>
+					<Item id="2214" name="Est. predeterminade:"/>
+					<Item id="2216" name="Est. utent:"/>
+					<Item id="2218" name="Sotlinie"/>
+					<Item id="2219" name="Keywords predeterminadis"/>
+					<Item id="2221" name="Keywords personalizadis"/>
+					<Item id="2225" name="Lengaç:"/>
+					<Item id="2226" name="Ative colôr globâl in prin plan"/>
+					<Item id="2227" name="Ative colôr globâl daûr"/>
+					<Item id="2228" name="Ative caratar globâl"/>
+					<Item id="2229" name="Ative dimensions caratar globâl"/>
+					<Item id="2230" name="Ative stîl gruessut dal caratar globâl"/>
+					<Item id="2231" name="Ative stîl corsîf dal caratar globâl"/>
+					<Item id="2232" name="Ative stîl sotlineât dal caratar globâl"/>
+				</SubDialog>
+
+			</StyleConfig>
+
+			<UserDefine title="Definît dal utent">
+				<Item id="20002" name="Cambie non"/>
+				<Item id="20003" name="Cree gnûf..."/>
+				<Item id="20004" name="Gjave"/>
+				<Item id="20005" name="Salve cul non..."/>
+				<Item id="20007" name="Lengaç utent: "/>
+				<Item id="20009" name="Est.:"/>
+				<Item id="20012" name="Ignore maiusc/minusc"/>
+				<Item id="20011" name="Trasparence"/>
+				<Item id="20016" name="Impuarte..."/>
+				<Item id="20015" name="Espuarte..."/>
+				<Item id="0" name="Stîl colôr"/>
+				<Item id="1" name="Color devant"/>
+				<Item id="2" name="Colôr daûr"/>
+				<Item id="3" name="Stîl caratar"/>
+				<Item id="4" name="Non caratar:"/>
+				<Item id="5" name="Dimension caratar:"/>
+				<Item id="6" name="Gruessut"/>
+				<Item id="7" name="Corsîf"/>
+				<Item id="8" name="Sotlinie"/>
+				<Folder title="Cartele &amp;&amp; predeterminât">
+					<Item id="21101" name="Impostazion stîl predeterminât"/>
+					<Item id="21201" name="Vierzidure bloc di codiç"/>
+					<Item id="21301" name="Sieradure bloc di codiç"/>
+				</Folder>
+				<Keywords title="Liste di peraulis clâfs">
+					<Item id="22101" name="Prin grup"/>
+					<Item id="22201" name="Secont grup"/>
+					<Item id="22301" name="Tierç grup"/>
+					<Item id="22401" name="Cuart grup"/>
+					<Item id="22113" name="Mode prefix"/>
+					<Item id="22213" name="Mode prefix"/>
+					<Item id="22313" name="Mode prefix"/>
+					<Item id="22413" name="Mode prefix"/>
+				</Keywords>
+				<Comment title="Coment &amp;&amp; Numar">
+					<Item id="23301" name="Rie di coment"/>
+					<Item id="23101" name="Bloc di coment"/>
+					<Item id="23113" name="Coment vierzût:"/>
+					<Item id="23115" name="Coment sierât:"/>
+					<Item id="23116" name="Considere keyword come simbul"/>
+					<Item id="23117" name="Considere keywords come simbui"/>
+					<Item id="23201" name="Numar"/>
+				</Comment>
+				<Operator title="Operatôr">
+					<Item id="24107" name="Operatôr"/>
+					<Item id="24103" name="Simbui disponibii"/>
+					<Item id="24101" name="Operatôrs ativâts"/>
+					<Item id="24201" name="Delimitatôr 1"/>
+					<Item id="24211" name="Delimitazion vierte:"/>
+					<Item id="24214" name="Delimitazion sierade:"/>
+					<Item id="24301" name="Delimitatôr 2"/>
+					<Item id="24311" name="Delimitazion vierte:"/>
+					<Item id="24314" name="Delimitazion sierade:"/>
+				</Operator>
+				<Item id="24001" name="Ative caratar di escape:"/>
+			</UserDefine>
+			<Preference title="Preferencis">
+				<Item id="6001" name="Siere"/>
+				<Global title="Globâl">
+					<Item id="6102" name="Plate"/>
+					<Item id="6103" name="Iconis piçulis"/>
+					<Item id="6104" name="Iconis grandis"/>
+					<Item id="6105" name="Iconis standard piçulis"/>
+
+					<Item id="6107" name="Dimensions piçulis"/>
+					<Item id="6108" name="Bloche (No Drag &amp;&amp; Drop)"/>
+					<Item id="6109" name="Scurìs lis lengutis no ativis"/>
+					<Item id="6110" name="Piture une sbare colorade su lis lengutis ativis"/>
+
+					<Item id="6112" name="Ative boton par sierâ su ogni lengute"/>
+					<Item id="6113" name="Dopli clic par sierâ il document"/>
+					<Item id="6118" name="Plate"/>
+					<Item id="6119" name="Su plui riis"/>
+					<Item id="6120" name="Verticâl"/>
+
+					<Item id="6121" name="Sbare dai menù"/>
+					<Item id="6122" name="Plate (dopre Alt o F10 par mostrâle)"/>
+					<Item id="6123" name="Traduzion"/>
+				</Global>
+				<Scintillas title="Modifiche components">
+					<Item id="6216" name="Impostazions cursôr"/>
+					<Item id="6217" name="Largjece: "/>
+					<Item id="6219" name="Velocitât lampade:"/>
+					<Item id="6221" name="V"/>
+					<Item id="6222" name="P"/>
+					<Item id="6224" name="Impostazions multi editing"/>
+					<Item id="6201" name="Stîl margjin cartele"/>
+					<Item id="6202" name="Sempliç"/>
+					<Item id="6203" name="Frece"/>
+					<Item id="6204" name="Arbul + cercli"/>
+					<Item id="6205" name="Arbul + cuadrât"/>
+					<Item id="6226" name="Nissun"/>
+
+					<Item id="6227" name="Cemût comedâ lis riis lungjis"/>
+					<Item id="6228" name="Predeterminât"/>
+					<Item id="6229" name="Alineât"/>
+					<Item id="6230" name="Indentât"/>
+
+					<Item id="6206" name="Mostre numars di rie sul margjin"/>
+					<Item id="6207" name="Mostre segnelibris sul margjin"/>
+					<Item id="6208" name="Mostre ôr verticâl"/>
+					<Item id="6209" name="Numar di colonis:"/>
+
+					<Item id="6211" name="Impostazion ôr verticâl"/>
+					<Item id="6212" name="Modalitât linee"/>
+					<Item id="6213" name="Modalitât sfont"/>
+					<Item id="6214" name="Ative evidenziazion rie atuâl"/>
+				</Scintillas>
+				<NewDoc title="Gnûf document/Cartele predeterminade">
+					<Item id="6401" name="Formât"/>
+					<Item id="6402" name="Windows"/>
+					<Item id="6403" name="Unix"/>
+					<Item id="6404" name="Mac"/>
+					<Item id="6405" name="Codifiche"/>
+					<Item id="6406" name="ANSI"/>
+					<Item id="6407" name="UTF-8 cence BOM"/>
+					<Item id="6408" name="UTF-8"/>
+					<Item id="6409" name="UCS-2 Big endian"/>
+					<Item id="6410" name="UCS-2 Small endian"/>
+					<Item id="6411" name="Lengaç predeterminât:"/>
+					<Item id="6413" name="Cartele predeterminate (Vierç/Salve)"/>
+					<Item id="6414" name="Va daûr dal document atuâl"/>
+					<Item id="6415" name="Visiti la ultime cartele doprade"/>
+					<Item id="6419" name="Gnûf document"/>
+					<Item id="6420" name="Apliche ai files ANSI vierzûts"/>
+				</NewDoc>
+				<FileAssoc title="Associazions files">
+					<Item id="4009" name="Est. supuartadis:"/>
+					<Item id="4010" name="Est. regjistradis:"/>
+				</FileAssoc>
+				<LangMenu title="Menù Lengaç/Impostazions Tab">
+					<Item id="6301" name="Impostazions Tab"/>
+					<Item id="6302" name="Sostituìs cun spazi"/>
+					<Item id="6303" name="Dimension Tab: "/>
+					<Item id="6505" name="Elements disponibii"/>
+					<Item id="6506" name="Elements disativâts"/>
+					<Item id="6507" name="Scurtilu"/>
+					<Item id="6508" name="Menu Lengaç"/>
+					<Item id="6510" name="Dopre valôr predeterminât"/>
+				</LangMenu>
+				<Print title="Stampe">
+					<Item id="6601" name="Stampe numar di rie"/>
+					<Item id="6602" name="Opzion colôr"/>
+					<Item id="6603" name="WYSIWYG"/>
+					<Item id="6604" name="Invertìs"/>
+					<Item id="6605" name="Neri su blanc"/>
+					<Item id="6606" name="Nissun colôr di sfont"/>
+					<Item id="6607" name="Impostazion margjins (Unitât:mm)"/>
+					<Item id="6612" name="Çampe"/>
+					<Item id="6613" name="Alt"/>
+					<Item id="6614" name="Diestre"/>
+					<Item id="6615" name="Bas"/>
+					<Item id="6706" name="Gruessut"/>
+					<Item id="6707" name="Corsîf"/>
+					<Item id="6708" name="Intestazion"/>
+					<Item id="6709" name="Toc a çampe"/>
+					<Item id="6710" name="Toc tal mieç"/>
+					<Item id="6711" name="Toc a diestre"/>
+					<Item id="6717" name="Gruessut"/>
+					<Item id="6718" name="Corsîf"/>
+					<Item id="6719" name="Fin"/>
+					<Item id="6720" name="Toc a çampe"/>
+					<Item id="6721" name="Toc tal mieç"/>
+					<Item id="6722" name="Toc a diestre"/>
+					<Item id="6723" name="Zonte"/>
+					<Item id="6725" name="Variabil:"/>
+					<Item id="6728" name="Intestazion e Fin"/>
+				</Print>
+				<MISC title="Variis">
+					<Item id="6304" name="Impostazions file cronologjie"/>
+					<Item id="6305" name="No stâ controlâ al inviament"/>
+					<Item id="6306" name="Numar massim files te cronologjie:"/>
+					<Item id="6309" name="Visiti la session atuâl al prossim inviament"/>
+					<Item id="6312" name="Rilevament automatic stât file"/>
+					<Item id="6313" name="Inzorne cidin"/>
+					<Item id="6318" name="Impostazions leams cjalcjabii"/>
+					<Item id="6325" name="Va ae ultime rie dopo dal inzornament"/>
+					<Item id="6319" name="Ative"/>
+					<Item id="6320" name="No stâ piturâ une rie sot"/>
+					<Item id="6322" name="Est. files de session:"/>
+					<Item id="6323" name="Ative auto inzornament di Notepad++"/>
+					<Item id="6324" name="Cambi di document cun Ctrl+TAB"/>
+					<Item id="6326" name="Ative evidenziazion inteligjente"/>
+					<Item id="6329" name="Evidenzie i tags che a corispuindin"/>
+					<Item id="6327" name="Ative"/>
+					<Item id="6328" name="Evidenzie i atribûts dai tags"/>
+					<Item id="6330" name="Evidenzie la zone Coment/Php/Asp"/>
+
+					<Item id="6331" name="Mostre dome il non dal file te sbare dal titul"/>
+					<Item id="6114" name="Ative"/>
+					<Item id="6117" name="Ative compuartament MRU"/>
+
+				</MISC>
+				<Backup title="Backup/Auto completament">
+					<Item id="6801" name="Backup"/>
+					<Item id="6315" name="Nissun"/>
+					<Item id="6316" name="Backup sempliç"/>
+					<Item id="6317" name="Backup verbôs"/>
+					<Item id="6804" name="Cartele personalizade pal backup"/>
+					<Item id="6803" name="Cartele:"/>
+					<Item id="6807" name="Auto completament"/>
+					<Item id="6808" name="Ative auto completament par ogni input"/>
+					<Item id="6809" name="Completament funzions"/>
+					<Item id="6810" name="Completament peraulis"/>
+					<Item id="6811" name="Dal"/>
+					<Item id="6813" name="° caratar"/>
+					<Item id="6814" name="Valôrs valits: 1 - 9"/>
+					<Item id="6815" name="Sugjeriment parametris funzions in input"/>
+				</Backup>
+			</Preference>
+			<MultiMacro title="Riprodûs une macro plui voltis">
+				<Item id="1" name="Riprodûs"/>
+				<Item id="2" name="Scancele"/>
+				<Item id="8006" name="Macro di riprodusi:"/>
+				<Item id="8001" name="Riprodûs"/>
+				<Item id="8005" name="voltis"/>
+				<Item id="8002" name="Riprodûs fin ae fin dal file"/>
+			</MultiMacro>
+			<Window title="Barcons">
+				<Item id="1" name="Ative"/>
+				<Item id="2" name="Va ben"/>
+				<Item id="7002" name="Salve"/>
+				<Item id="7003" name="Siere barcon(s)"/>
+				<Item id="7004" name="MetLengutisInOrdin"/>
+			</Window>
+			<ColumnEditor title="Editôr des colonis">
+				<Item id="2023" name="Test di inserî"/>
+				<Item id="2033" name="Numar di inserî"/>
+				<Item id="2030" name="Numar iniziâl:"/>
+				<Item id="2031" name="Aumente di:"/>
+				<Item id="2035" name="Zeros iniziâi"/>
+				<Item id="2032" name="Formât"/>
+				<Item id="2024" name="Dec"/>
+				<Item id="2025" name="Oct"/>
+				<Item id="2026" name="Hex"/>
+				<Item id="2027" name="Bin"/>
+				<Item id="1" name="Va ben"/>
+				<Item id="2" name="Scancele"/>
+			</ColumnEditor>
+		</Dialog>
+	</Native-Langue>
+</NotepadPlus>

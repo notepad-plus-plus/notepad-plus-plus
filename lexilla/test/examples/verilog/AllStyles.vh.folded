@@ -1,0 +1,98 @@
+ 0 400 400   // Examples drawn from https://verilogams.com/refman/basics/index.html
+ 0 400 400   
+ 0 400 400   // SCE_V_DEFAULT {0}
+ 0 400 400   
+ 2 400 401 + /*
+ 0 401 401 |  * SCE_V_COMMENT {1}
+ 0 401 400 |  */
+ 0 400 400   
+ 2 400 401 + // SCE_V_COMMENTLINE {2}
+ 0 401 401 | // multiple
+ 0 401 401 | // comment lines
+ 0 401 400 | // are folded
+ 0 400 400   
+ 2 400 402 + //{ explicit folds
+ 0 402 402 | //  are folded,
+ 0 402 400 | //} too
+ 0 400 400   
+ 2 400 401 + //! SCE_V_COMMENTLINEBANG {3}
+ 0 401 401 | //! multiple
+ 0 401 401 | //! bang comments
+ 0 401 400 | //! are folded
+ 0 400 400   
+ 0 400 400   // SCE_V_NUMBER {4}
+ 0 400 400   1'b0
+ 0 400 400   8'hx
+ 0 400 400   8'hfffx
+ 0 400 400   12'hfx
+ 0 400 400   64'o0
+ 0 400 400   0x7f
+ 0 400 400   0o23
+ 0 400 400   0b1011
+ 0 400 400   42_839
+ 0 400 400   0.1
+ 0 400 400   1.3u
+ 0 400 400   5.46K
+ 0 400 400   1.2E12
+ 0 400 400   1.30e-2
+ 0 400 400   236.123_763e-12
+ 0 400 400   
+ 0 400 400   // SCE_V_WORD {5}
+ 0 400 400   always
+ 0 400 400   
+ 0 400 400   // SCE_V_STRING {6}
+ 0 400 400   "\tsome\ttext\r\n"
+ 0 400 400   
+ 0 400 400   // SCE_V_WORD2 {7}
+ 0 400 400   special
+ 0 400 400   
+ 0 400 400   // SCE_V_WORD3 {8}
+ 0 400 400   $async$and$array
+ 0 400 400   
+ 0 400 400   // SCE_V_PREPROCESSOR {9}
+ 0 400 400   `define __VAMS_ENABLE__
+ 2 400 401 + `ifdef __VAMS_ENABLE__
+ 0 401 401 |     parameter integer del = 1 from [1:100];
+ 2 400 401 + `else
+ 0 401 401 |     parameter del = 1;
+ 0 401 400 | `endif
+ 0 400 400   
+ 0 400 400   // SCE_V_OPERATOR {10}
+ 0 400 400   +-/=!@#%^&*()[]{}<|>~
+ 0 400 400   
+ 0 400 400   // SCE_V_IDENTIFIER {11}
+ 0 400 400   q
+ 0 400 400   x$z
+ 0 400 400   \my_var
+ 0 400 400   \/x1/n1
+ 0 400 400   \\x1\n1
+ 0 400 400   \{a,b}
+ 0 400 400   \V(p,n)
+ 0 400 400   
+ 0 400 400   // SCE_V_STRINGEOL {12}
+ 0 400 400   "\n
+ 0 400 400   
+ 0 400 400   // SCE_V_USER {19}
+ 0 400 400   my_var
+ 0 400 400   
+ 2 400 401 + // SCE_V_COMMENT_WORD {20}
+ 0 401 400 | // TODO write a comment
+ 0 400 400   
+ 2 400 401 + module mod(clk, q, reset) // folded when fold.verilog.flags=1
+ 0 401 401 | // SCE_V_INPUT {21}
+ 0 401 401 |   input clk;
+ 0 401 401 | 
+ 0 401 401 | // SCE_V_OUTPUT {22}
+ 0 401 401 |   output q;
+ 0 401 401 | 
+ 0 401 401 | // SCE_V_INOUT {23}
+ 0 401 401 |   inout reset;
+ 0 401 400 | endmodule
+ 0 400 400   
+ 0 400 400   // SCE_V_PORT_CONNECT {24}
+ 2 400 401 + mod m1(
+ 0 401 401 |   .clk(clk),
+ 0 401 401 |   .q(q),
+ 0 401 401 |   .reset(reset)
+ 0 401 400 | );
+ 0 400   0   

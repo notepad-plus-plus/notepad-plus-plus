@@ -1,0 +1,6 @@
+ 0 400   0   ; comment
+ 0 400   0   [empty section]
+ 2 400   0 + [normal section]
+ 0 401   0 | @=default
+ 0 401   0 | key=value
+ 0 401   0 | 

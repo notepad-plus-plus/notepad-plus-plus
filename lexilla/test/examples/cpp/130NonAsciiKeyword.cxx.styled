@@ -1,0 +1,9 @@
+{2}// coding: utf-8
+// All three following symbols should highlight as keywords
+{5}cheese{0}
+{5}käse{0}
+{5}сыр{0}
+
+{2}// Lookalikes with ASCII so should not highlight:
+{11}сыp{0}
+{11}cыp{0}

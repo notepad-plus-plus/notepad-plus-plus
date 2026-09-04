@@ -1,0 +1,194 @@
+::StartupScript
+npp_console keep
+
+npp_exec "SetSingleEdgeLine"
+
+
+
+::MultipleSelectAddNext
+npp_console keep
+
+sci_sendmsg SCI_SETSEARCHFLAGS SCFIND_WHOLEWORD
+sci_sendmsg SCI_TARGETWHOLEDOCUMENT
+sci_sendmsg SCI_MULTIPLESELECTADDNEXT
+
+
+
+::MultipleSelectAddEach
+npp_console keep
+
+sci_sendmsg SCI_SETSEARCHFLAGS SCFIND_WHOLEWORD
+sci_sendmsg SCI_TARGETWHOLEDOCUMENT
+
+sci_sendmsg SCI_GETSELECTIONEMPTY
+
+if $(MSG_RESULT) == 1 then
+  sci_sendmsg SCI_MULTIPLESELECTADDNEXT
+endif
+
+sci_sendmsg SCI_MULTIPLESELECTADDEACH
+
+
+
+::SetSingleEdgeLine
+npp_console keep
+sci_sendmsg SCI_SETEDGECOLUMN 80
+sci_sendmsg SCI_SETEDGEMODE EDGE_LINE
+
+
+
+::ConfigSingleEdgeLine
+npp_console keep
+sci_sendmsg SCI_GETEDGECOLUMN
+inputbox "Input edge column" : "Edge column" : $(MSG_RESULT)
+sci_sendmsg SCI_SETEDGECOLUMN $(INPUT)
+sci_sendmsg SCI_SETEDGEMODE EDGE_LINE
+
+
+
+::SingleEdgeLineOn
+npp_console keep
+sci_sendmsg SCI_SETEDGEMODE EDGE_LINE
+
+
+
+::MultipleEdgeLinesOn
+npp_console keep
+sci_sendmsg SCI_SETEDGEMODE EDGE_MULTILINE
+
+
+
+::BackgroundEdgeOn
+npp_console keep
+sci_sendmsg SCI_SETEDGEMODE EDGE_BACKGROUND
+
+
+
+::EdgesOff
+npp_console keep
+sci_sendmsg SCI_SETEDGEMODE EDGE_NONE
+
+
+
+::WrapSelectedLinesAtEdge
+npp_console keep
+
+sci_sendmsg SCI_GETEDGEMODE
+
+if~ $(MSG_RESULT) != EDGE_LINE then
+  set local $(LinePixelWidth) = 0
+  goto :DoWrap
+endif
+  
+sci_sendmsg SCI_GETEDGECOLUMN
+set local $(LineCharWidth) ~ $(MSG_RESULT) + 1
+
+set local $(TemplateStr) = W
+set local $(Cnt) = 2
+
+:ForLoopStart
+  if $(Cnt) > $(LineCharWidth) goto :ForLoopEnd
+  set local $(TemplateStr) = $(TemplateStr)W
+  set local $(Cnt) ~ $(Cnt) + 1
+goto :ForLoopStart
+
+:ForLoopEnd
+sci_sendmsg SCI_TEXTWIDTH STYLE_DEFAULT "$(TemplateStr)"
+set local $(LinePixelWidth) = $(MSG_RESULT)
+
+:DoWrap
+sci_sendmsg SCI_TARGETFROMSELECTION
+sci_sendmsg SCI_LINESSPLIT $(LinePixelWidth)
+
+
+
+::DeleteLinesFrom2ndView
+npp_console keep
+npp_console disable
+npe_console -- m-
+
+sci_sendmsg SCI_DOCUMENTSTART
+npp_sendmsg NPPM_MENUCOMMAND 0 IDM_VIEW_SWITCHTO_OTHER_VIEW
+sci_sendmsg SCI_DOCUMENTSTART
+
+npp_sendmsg NPPM_GETCURRENTVIEW
+
+if $(MSG_RESULT) == 0 then
+  npp_sendmsg NPPM_MENUCOMMAND 0 IDM_VIEW_SWITCHTO_OTHER_VIEW
+endif
+
+sci_sendmsg SCI_GETLINECOUNT
+set local $(LineCount) = $(MSG_RESULT)
+set local $(LineIdx) = 0
+
+:ProcessSearchTerms
+if $(LineIdx) >= $(LineCount) goto :End
+  sci_sendmsg SCI_GETLINE $(LineIdx) @""
+  set local $(CurLine) = $(MSG_LPARAM)
+
+  if "$(CurLine)" == "" goto :AdvanceToNextLine
+
+  npp_sendmsg NPPM_MENUCOMMAND 0 IDM_VIEW_SWITCHTO_OTHER_VIEW
+
+  sci_sendmsg SCI_GETCURRENTPOS
+  sci_sendmsg SCI_LINEFROMPOSITION $(MSG_RESULT)
+  set local $(StartLineIdx) = $(MSG_RESULT)
+
+  set local $(Flags) ~ NPE_SF_SETPOS
+
+  :ReplaceLoop
+    sci_find $(Flags) "$(CurLine)"
+    if $(MSG_RESULT) == -1 goto :ReplaceLoopEnd
+
+    sci_sendmsg SCI_LINEFROMPOSITION $(MSG_RESULT)
+    set local $(FoundLineIdx) = $(MSG_RESULT)
+
+    sci_sendmsg SCI_GETLINE $(FoundLineIdx) @""
+    set local $(FoundLine) = $(MSG_LPARAM)
+
+    set local $(FoundLineLC) ~ strlower "$(FoundLine)"
+    set local $(CurLineLC) ~ strlower "$(CurLine)"
+
+    if "$(FoundLineLC)" == "$(CurLineLC)" then
+      sci_sendmsg SCI_GOTOLINE $(FoundLineIdx)
+      sci_sendmsg SCI_LINEDELETE
+    endif
+
+    set local $(Flags) ~ $(Flags) | NPE_SF_NEXT
+  goto :ReplaceLoop
+
+  :ReplaceLoopEnd
+  sci_sendmsg SCI_GOTOLINE $(StartLineIdx)
+  npp_sendmsg NPPM_MENUCOMMAND 0 IDM_VIEW_SWITCHTO_OTHER_VIEW
+
+  :AdvanceToNextLine
+  set local $(LineIdx) ~ $(LineIdx) + 1
+goto :ProcessSearchTerms
+
+:End
+sci_sendmsg SCI_DOCUMENTSTART
+npp_sendmsg NPPM_MENUCOMMAND 0 IDM_VIEW_SWITCHTO_OTHER_VIEW
+sci_sendmsg SCI_DOCUMENTSTART
+
+npp_sendmsg NPPM_GETCURRENTVIEW
+
+if $(MSG_RESULT) == 1 then
+  npp_sendmsg NPPM_MENUCOMMAND 0 IDM_VIEW_SWITCHTO_OTHER_VIEW
+endif
+
+npp_console enable
+
+
+
+::ReadLongText
+npp_console keep
+
+npp_sendmsg WM_COMMAND IDM_VIEW_CLONE_TO_ANOTHER_VIEW
+sci_sendmsg SCI_PAGEDOWN
+npp_sendmsg WM_COMMAND IDM_VIEW_SYNSCROLLV
+
+
+
+::TrimTrailingSpace
+npp_console keep
+npp_sendmsg WM_COMMAND IDM_EDIT_TRIMTRAILING

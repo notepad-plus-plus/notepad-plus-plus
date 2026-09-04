@@ -1,0 +1,40 @@
+ 0 400   0   % Examples of optional command arguments for issue #360
+ 0 400   0   
+ 0 400   0   \documentclass{article}
+ 2 400   0 + \begin{document}
+ 0 401   0 | 
+ 0 401   0 | % This is a set, not an optional argument: [0,1)
+ 0 401   0 | $ x \in [0,1) $
+ 0 401   0 | 
+ 0 401   0 | % This is an optional argument: [n]
+ 0 401   0 | $\sqrt[n]{abc}$
+ 0 401   0 | 
+ 0 401   0 | \twocolumn[{% inside this optional argument goes one-column text
+ 0 401   0 |   \centering
+ 0 401   0 |   \LARGE The Title \\[1.5em]
+ 0 401   0 |   \large Author One\authormark{1},
+ 0 401   0 |          Author Two\authormark{2},
+ 0 401   0 |          Author Three\authormark{1} \\[1em]
+ 0 401   0 |   \normalsize
+ 2 401   0 +   \begin{tabular}{p{.2\textwidth}@{\hspace{2em}}p{.2\textwidth}}
+ 0 402   0 |     \authormark{1}Department one  &\authormark{2}Department two \\ 
+ 0 402   0 |      School one                   &School two 
+ 0 402   0 |   \end{tabular}\\[3em] % space below title part
+ 0 401   0 |   }]
+ 0 401   0 | 
+ 0 401   0 | Two column text here.
+ 0 401   0 | 
+ 0 401   0 | % 3 math mode syntaxes that start SCE_L_MATH
+ 0 401   0 | 
+ 0 401   0 | % Lexed as optional command argument. Not correct as [0,1] is really a set but OK since it terminates.
+ 0 401   0 | \( x \in [0,1] \)
+ 0 401   0 | $ x \in [0,1] $
+ 2 401   0 + \begin{math} x \in [0,1] \end{math}
+ 0 401   0 | 
+ 0 401   0 | % Lexed as not optional command argument
+ 0 401   0 | \( x \in [0,1) \)
+ 0 401   0 | $ x \in [0,1) $
+ 2 401   0 + \begin{math} x \in [0,1) \end{math}
+ 0 401   0 | 
+ 0 401   0 | \end{document}
+ 0 400   0   

@@ -1,0 +1,49 @@
+Default=0
+ Default
+
+Comment=1
+Another comment
+
+Command=2 diff
+diff -u a/cocoa/ScintillaCocoa.mm b/cocoa/ScintillaCocoa.mm
+
+Header=3 ---
+--- a/cocoa/ScintillaCocoa.mm	2016-12-30 14:38:22.000000000 -0600
+
+Header=3 +++
++++ b/cocoa/ScintillaCocoa.mm	2017-02-15 08:20:12.000000000 -0600
+
+Position=4 @@
+@@ -388,7 +388,8 @@
+
+ - (void) idleTriggered: (NSNotification*) notification
+ {
+ #pragma unused(notification)
+
+Deleted=5 -
+-  static_cast<ScintillaCocoa*>(mTarget)->IdleTimerFired();
+
+Added=6 +
++  if (mTarget)
++    static_cast<ScintillaCocoa*>(mTarget)->IdleTimerFired();
+ }
+ 
+ @end
+
+Changed=7 !
+! 		GdkColor white = { 0, 0xFFFF, 0xFFFF, 0xFFFF};
+
+PatchAdd=8 ++
+++  styler.ColourTo(i - 1, StateToPrint);
+
+PatchDelete=9 +-
++-  styler.ColourTo(i - 1, StateToPrint);
+
+RemovedPatchAdd=10 -+
+-+  styler.ColourTo(i - 1, StateToPrint);
+
+RemovedPatchDelete=11 --
+--  styler.ColourTo(i - 1, StateToPrint);
+
+diff -u a/cocoa/ScintillaCocoa.h b/cocoa/ScintillaCocoa.h
+

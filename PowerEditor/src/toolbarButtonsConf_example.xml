@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<NotepadPlus>
+
+<!--
+This file allows you to:
+1. Hide any toolbar buttons you don't need.
+2. Change the appearance of (replace) any or all toolbar icons.
+
+To achieve one or both of above goals, you need to move and rename the "toolbarButtonsConf_example.xml" to "%APPDATA%\Notepad++\toolbarButtonsConf.xml" (or place it in the same folder as "notepad++.exe" if you're using the portable package).
+Edit the relevant sections, save your changes, then relaunch Notepad++ for the modifications to take effect. 
+-->
+
+	<ToolbarButtons>
+<!--
+The "Standard" section allows your toolbar's standard buttons (those that come with Notepad++) to be hidden.
+
+Usage: Modify the "hideAll" or "hide" attributes of the items by settings their values to "yes" or "no".
+
+Notes:
+1. The "index" and "id" attributes values must not be modified, as they are used to synchronize with internal data for maintaining the file's coherence.
+2. The "name" attribute is for informational purposes only, so its values can be modified for the user's convenience.
+3. Setting the "hideAll" attribute's value to "yes" will override all "hide" attribute values.
+-->
+		<Standard hideAll="no">
+			<Button hide="no" index="0"  id="41001" name="New" />
+			<Button hide="no" index="1"  id="41002" name="Open..." />
+			<Button hide="no" index="2"  id="41006" name="Save" />
+			<Button hide="no" index="3"  id="41007" name="Save All" />
+			<Button hide="no" index="4"  id="41003" name="Close" />
+			<Button hide="no" index="5"  id="41004" name="Close All" />
+			<Button hide="no" index="6"  id="41010" name="Print..." />
+			<Button hide="no" index="7"  id="0"     name="SEPARATOR" />
+			<Button hide="no" index="8"  id="42001" name="Cut" />
+			<Button hide="no" index="9"  id="42002" name="Copy" />
+			<Button hide="no" index="10" id="42005" name="Paste" />
+			<Button hide="no" index="11" id="0"     name="SEPARATOR" />
+			<Button hide="no" index="12" id="42003" name="Undo" />
+			<Button hide="no" index="13" id="42004" name="Redo" />
+			<Button hide="no" index="14" id="0"     name="SEPARATOR" />
+			<Button hide="no" index="15" id="43001" name="Find..." />
+			<Button hide="no" index="16" id="43003" name="Replace..." />
+			<Button hide="no" index="17" id="0"     name="SEPARATOR" />
+			<Button hide="no" index="18" id="44023" name="Zoom In (Ctrl+Mouse Wheel Up)" />
+			<Button hide="no" index="19" id="44024" name="Zoom Out (Ctrl+Mouse Wheel Down)" />
+			<Button hide="no" index="20" id="0"     name="SEPARATOR" />
+			<Button hide="no" index="21" id="44035" name="Synchronize Vertical Scrolling" />
+			<Button hide="no" index="22" id="44036" name="Synchronize Horizontal Scrolling" />
+			<Button hide="no" index="23" id="0"     name="SEPARATOR" />
+			<Button hide="no" index="24" id="44022" name="Word wrap" />
+			<Button hide="no" index="25" id="44019" name="Show All Characters" />
+			<Button hide="no" index="26" id="44020" name="Show Indent Guide" />
+			<Button hide="no" index="27" id="0"     name="SEPARATOR" />
+			<Button hide="no" index="28" id="46250" name="Define your language..." />
+			<Button hide="no" index="29" id="44080" name="Document Map" />
+			<Button hide="no" index="30" id="44070" name="Document List" />
+			<Button hide="no" index="31" id="44084" name="Function List" />
+			<Button hide="no" index="32" id="44085" name="Folder as Workspace" />
+			<Button hide="no" index="33" id="0"     name="SEPARATOR" />
+			<Button hide="no" index="34" id="44097" name="Monitoring (tail -f)" />
+			<Button hide="no" index="35" id="0"     name="SEPARATOR" />
+			<Button hide="no" index="36" id="42018" name="Start Recording" />
+			<Button hide="no" index="37" id="42019" name="Stop Recording" />
+			<Button hide="no" index="38" id="42021" name="Playback" />
+			<Button hide="no" index="39" id="42032" name="Run a Macro Multiple Times..." />
+			<Button hide="no" index="40" id="42025" name="Save Current Recorded Macro..." />
+		</Standard>
+<!--
+In this section we can hide toolbar buttons for installed plugins based on their order in the toolbar (including separators).
+"Name" attribute has no effect, use it as a reminder.
+When installing/uninstalling plugins, add/remove button entries as necessary so your button settings correspond to the changed toolbar button order.
+-->
+		<Plugin hideAll="no">
+			<Button hide="no" name="SEPARATOR" />        <!-- The 1st button -->
+			<Button hide="no" name="Plugin button 1" />  <!-- The 2nd button -->
+			<Button hide="no" name="Plugin button 2" />  <!-- The 3rd button -->
+			<Button hide="no" name="Plugin button 3" />  <!-- The 4th button -->
+			<!--Button hide="no" name="Plugin button 4" /-->  <!-- uncomment "Button" tags if need -->
+			<!--Button hide="no" name="Plugin button 5" /-->  <!-- uncomment "Button" tags if need -->
+			<!-- Add more "Button" tags here... -->
+		</Plugin>
+	</ToolbarButtons>
+	
+<!--
+The "ToolBarIcons" section (tag) is for customizing your toolbar icons, by using an alternative set of icons.
+
+To override the current toolbar icons, you need 2 things: this file and your icons set.
+You can get a sample icons set here:
+https://notepad-plus-plus.org/assets/data/nppLegacyIconSet.zip
+
+To customize your toolbar icons:
+
+1. Create a new folder named "toolbarIcons" in the directory where the "toolbarButtonsConf.xml" file is located.
+2. Edit the "icoFolderName" attribute value of the "ToolBarIcons" tag in the "toolbarButtonsConf.xml" file. Specify the name of the icon set you want in the "icoFolderName" attribute. For example: <ToolBarIcons icoFolderName="myAwesomeIcons" />
+3. Navigate to the "toolbarIcons" folder and create a new folder named exactly as the icon set name you specified in the "icoFolderName" attribute.
+4. Place all your customized icons in the folder "[toolbarButtonsConf.xml's folder]\toolbarIcons\[folder created in step #3]\".
+5. Relaunch Notepad++ to see your icon set replace the default icons.
+
+Note: If the "icoFolderName" value is an empty string, the icons will be located in "[toolbarButtonsConf.xml's folder]\toolbarIcons\default\".
+
+Replacing icons: Each icon (45 in total) has a fixed and specific name. Please ignore the unused numbers - they are the separators.
+Naming convention:
+
+ 0    new.ico
+ 1    open.ico
+ 2    save.ico                    save_disabled.ico
+ 3    save-all.ico                save-all_disabled.ico
+ 4    close.ico
+ 5    close-all.ico
+ 6    print.ico
+ 7  
+ 8    cut.ico                     cut_disabled.ico
+ 9    copy.ico                    copy_disabled.ico
+10    paste.ico                   paste_disabled.ico
+11  
+12    undo.ico                    undo_disabled.ico
+13    redo.ico                    redo_disabled.ico
+14  
+15    find.ico
+16    replace.ico
+17  
+18    zoom-in.ico
+19    zoom-out.ico
+20  
+21    sync-vertical.ico
+22    sync-horizontal.ico
+23  
+24    word-wrap.ico
+25    all-chars.ico
+26    indent-guide.ico
+27  
+28    udl-dlg.ico
+29    doc-map.ico
+30    doc-list.ico
+31    function-list.ico
+32    folder-as-workspace.ico
+33  
+34    monitoring.ico              monitoring_disabled.ico
+35  
+36    record.ico                  record_disabled.ico
+37    stop-record.ico             stop-record_disabled.ico
+38    playback.ico                playback_disabled.ico
+39    playback-multiple.ico       playback-multiple_disabled.ico
+40    save-macro.ico              save-macro_disabled.ico
+
+It's not necessary to have a complete set of icons (45 icons). Any missing icons will simply remain unchanged.
+-->
+
+	<ToolBarIcons icoFolderName="" />
+</NotepadPlus>

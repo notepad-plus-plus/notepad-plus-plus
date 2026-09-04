@@ -1,0 +1,6 @@
+<!--
+Place "disableNppAutoUpdate.xml" in the same directory as notepad++.exe
+to disable the Notepad++ auto-update feature, even if WinGUp (GUP.exe) is present.
+
+This file can be empty; its contents are ignored.
+-->

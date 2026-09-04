@@ -1,0 +1,24 @@
+ 2 400   0 + a = {r: /\w+/, h: <<EOF
+ 0 402   0 | heredoc
+ 0 402   0 | EOF
+ 0 401   0 | }
+ 1 400   0   
+ 0 400   0   puts a
+ 1 400   0   
+ 2 400   0 + def b # :nodoc:
+ 2 401   0 + <<EOF
+ 0 402   0 | heredoc
+ 0 402   0 | EOF
+ 0 401   0 | end
+ 1 400   0   
+ 2 400   0 + def c # :nodoc:
+ 0 401   0 | /\w+/
+ 0 401   0 | end
+ 1 400   0   
+ 0 400   0   puts b
+ 0 400   0   puts c
+ 1 400   0   
+ 2 400   0 + $stdout . puts <<EOF
+ 0 401   0 | heredoc
+ 0 401   0 | EOF
+ 0 400   0   

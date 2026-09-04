@@ -1,0 +1,7 @@
+<!--
+Place "doLocalConf.xml" in the same directory as notepad++.exe
+to make the Notepad++ read & write its configuration files (config.xml, langs.xml, styles.xml...etc)
+from & to the same directory instead of the "%APPDATA%\Notepad++\" directory.
+
+This file can be empty; its contents are ignored."
+-->

@@ -1,0 +1,12 @@
+ 2 400   0 + <?php
+ 0 401   0 | # Test that currently fails as comment style not started in a number.
+ 0 401   0 | # line-comment
+ 0 401   0 | // line-comment
+ 0 401   0 | /* comment */
+ 0 401   0 | $foo = 0#comment
+ 0 401   0 | $foo = 0//comment
+ 0 401   0 | $foo = 0/*'*/;
+ 0 401   0 | ?>
+ 1 400   0   
+ 0 400   0   <br />
+ 0 400   0   

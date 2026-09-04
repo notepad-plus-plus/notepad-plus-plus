@@ -1,0 +1,1140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<NotepadPlus>
+	<Native-Langue name="Occitan" filename="occitan.xml" version="7.5.5">
+		<Menu>
+			<Main>
+				<!-- Main Menu Entries -->
+				<Entries>
+					<Item menuId="file" name="&amp;Fichièr"/>
+					<Item menuId="edit" name="&amp;Edicion"/>
+					<Item menuId="search" name="&amp;Recercar"/>
+					<Item menuId="view" name="&amp;Visualizacion"/>
+					<Item menuId="encoding" name="For&amp;mat"/>
+					<Item menuId="language" name="&amp;Lengatge"/>
+					<Item menuId="settings" name="Paramè&amp;tres"/>
+					<Item menuId="tools" name="&amp;Aisinas"/>
+					<Item menuId="macro" name="Macrò"/>
+					<Item menuId="run" name="Executar"/>
+					<Item menuId="Plugins" name="Ajustons"/>
+					<Item menuId="Window" name="Fenèstra"/>
+				</Entries>
+
+				<!-- Sub Menu Entries -->
+				<SubEntries>
+					<Item subMenuId="file-openFolder" name="Dobrir lo dorsièr parent"/>
+					<Item subMenuId="file-closeMore" name="Tampar mai"/>
+					<Item subMenuId="file-recentFiles" name="Fichièrs recents"/>
+					<Item subMenuId="edit-copyToClipboard" name="Copiar dins lo quichapapièrs"/>
+					<Item subMenuId="edit-indent" name="Indentacion"/>
+					<Item subMenuId="edit-convertCaseTo" name="MAJUSCULA/minuscula"/>
+					<Item subMenuId="edit-lineOperations" name="Operacions de linhas"/>
+					<Item subMenuId="edit-comment" name="Comentar/Descomentar"/>
+					<Item subMenuId="edit-autoCompletion" name="Auto-complecion"/>
+					<Item subMenuId="edit-eolConversion" name="Convertir los sauts de linha"/>
+					<Item subMenuId="edit-blankOperations" name="Operacions suls espacis"/>
+					<Item subMenuId="edit-pasteSpecial" name="Pegatge espacial"/>
+					<Item subMenuId="edit-onSelection" name="Amb lo tèxte seleccionat"/>
+					<Item subMenuId="search-markAll" name="Marcar tot"/>
+					<Item subMenuId="search-unmarkAll" name="Desmarcar tot"/>
+					<Item subMenuId="search-jumpUp" name="Anar al precedent"/>
+					<Item subMenuId="search-jumpDown" name="Anar al seguent"/>
+					<Item subMenuId="search-bookmark" name="Marca-paginas"/>
+					<Item subMenuId="view-showSymbol" name="Mostrar los simbòls"/>
+					<Item subMenuId="view-zoom" name="Zoom"/>
+					<Item subMenuId="view-moveCloneDocument" name="Desplaçar/Clonar lo document actual"/>
+					<Item subMenuId="view-tab" name="Onglet"/>
+					<Item subMenuId="view-collapseLevel" name="Plegar lo nivèl"/>
+					<Item subMenuId="view-uncollapseLevel" name="Desplegar lo nivèl"/>
+					<Item subMenuId="view-project" name="Projècte"/>
+					<Item subMenuId="encoding-characterSets" name="Codatge de caractèrs"/>
+					<Item subMenuId="encoding-arabic" name="Arab"/>
+					<Item subMenuId="encoding-baltic" name="Baltic"/>
+					<Item subMenuId="encoding-celtic" name="Celtic"/>
+					<Item subMenuId="encoding-cyrillic" name="Cirillic"/>
+					<Item subMenuId="encoding-centralEuropean" name="Europèu central"/>
+					<Item subMenuId="encoding-chinese" name="Chinés"/>
+					<Item subMenuId="encoding-easternEuropean" name="Europèu oriental"/>
+					<Item subMenuId="encoding-greek" name="Grèc"/>
+					<Item subMenuId="encoding-hebrew" name="Ebrèu"/>
+					<Item subMenuId="encoding-japanese" name="Japonés"/>
+					<Item subMenuId="encoding-korean" name="Corean"/>
+					<Item subMenuId="encoding-northEuropean" name="Europèu del nòrd"/>
+					<Item subMenuId="encoding-thai" name="Tai"/>
+					<Item subMenuId="encoding-turkish" name="Turc"/>
+					<Item subMenuId="encoding-westernEuropean" name="Europèu occidental"/>
+					<Item subMenuId="encoding-vietnamese" name="Vietnamian"/>
+					<Item subMenuId="settings-import" name="Importar"/>
+					<Item subMenuId="tools-md5" name="MD5"/>
+				</SubEntries>
+
+				<!-- all menu item -->
+				<Commands>
+					<Item id="41001" name="&amp;Novèl"/>
+					<Item id="41002" name="&amp;Dobrir"/>
+					<Item id="41003" name="Tampar"/>
+					<Item id="41004" name="Tam&amp;par tot"/>
+					<Item id="41005" name="Tampar tot LEVAT lo document actiu"/>
+					<Item id="41006" name="&amp;Salvar"/>
+					<Item id="41007" name="Salvar &amp;tot"/>
+					<Item id="41008" name="Salvar com&amp;a..."/>
+					<Item id="41009" name="Tampar tot a esquèrra"/>
+					<Item id="41010" name="Estampar..."/>
+					<Item id="1001" name="Estampar ara"/>
+					<Item id="41011" name="Sor&amp;tir"/>
+					<Item id="41012" name="Cargar la sesilha..."/>
+					<Item id="41013" name="Salvar la sesilha..."/>
+					<Item id="41014" name="Tornar cargar dempuèi lo disc"/>
+					<Item id="41015" name="Salvar una còpia coma..."/>
+					<Item id="41016" name="Suprimir del disc"/>
+					<Item id="41017" name="Tornar nomemar..."/>
+					<Item id="41018" name="Tampar tot a drecha"/>
+					<Item id="41019" name="Explorator"/>
+					<Item id="41020" name="cmd"/>
+					<Item id="41021" name="Tornar dobrir lo darrièr fichièr tampat"/>
+					<Item id="41022" name="Obrir un dorsièr coma espaci de trabalh"/>
+					<Item id="41023" name="Dobrir amb lo visualizador per defaut"/>
+					
+					<Item id="42001" name="Co&amp;par"/>
+					<Item id="42002" name="&amp;Copiar"/>
+					<Item id="42003" name="&amp;Anullar"/>
+					<Item id="42004" name="&amp;Tornar far"/>
+					<Item id="42005" name="&amp;Pegar"/>
+					<Item id="42006" name="&amp;Suprimir"/>
+					<Item id="42007" name="Se&amp;leccionar tot"/>
+					<Item id="42008" name="Inserir una tabulacion"/>
+					<Item id="42009" name="Suprimir una tabulacion"/>
+					<Item id="42010" name="Duplicar la linha activa"/>
+					<Item id="42012" name="Duplicar la linha activa"/>
+					<Item id="42013" name="Jónher mai d'una linha"/>
+					<Item id="42014" name="Montar la linha activa"/>
+					<Item id="42015" name="Davalar la linha activar"/>
+					<Item id="42016" name="EN MAJUSCULA"/>
+					<Item id="42017" name="en minuscula"/>
+					<Item id="42018" name="Començar l'&amp;enregistrament"/>
+					<Item id="42019" name="&amp;Arrestar l'enregistrament"/>
+					<Item id="42020" name="Començar/Acabar la seleccion"/>
+					<Item id="42021" name="&amp;Playback"/>
+					<Item id="42022" name="Comentar/descomentar la linha"/>
+					<Item id="42023" name="Comentari de blòc"/>
+					<Item id="42024" name="Tirar espacis/tabulacions en fin de linha"/>
+					<Item id="42025" name="Salvar la macrò qu'es a s'enregistrar"/>
+					<Item id="42026" name="Tèxt de drecha a esquèrra"/>
+					<Item id="42027" name="Tèxt d'esquèrra a drecha"/>
+					<Item id="42028" name="Passar en Lectura-Sola"/>
+					<Item id="42029" name="Copiar lo camin complet del fichièr actiu"/>
+					<Item id="42030" name="Copiar lo nom del fichièr actiu"/>
+					<Item id="42031" name="Copiar lo camin complet del repertòri actiu"/>
+					<Item id="42032" name="Aviar la macrò mai d'un còp..."/>
+					<Item id="42034" name="Editor colomna..."/>
+					<Item id="42035" name="Comentar la linha"/>
+					<Item id="42036" name="Descomentar la linha"/>
+					<Item id="42037" name="Mòde colomna..."/>
+					<Item id="42038" name="Pegar de contengut HTML"/>
+					<Item id="42039" name="Pegar de contengut RTF"/>
+					<Item id="42040" name="Dobrir totes los fichièrs recents"/>
+					<Item id="42041" name="Voidar la tièra dels fichièrs recents"/>
+					<Item id="42042" name="Tirar espacis/tabulacions en debuta de linha"/>
+					<Item id="42043" name="Tirar espacis/tabulacions en debuta/fin de linha"/>
+					<Item id="42044" name="Cambiar los sauts de linha en espacis"/>
+					<Item id="42045" name="Tirar espacis e sauts de linha inutils"/>
+					<Item id="42046" name="Cambiar las tabulacions en espacis"/>
+					<Item id="42047" name="Descomentar lo blòc"/>
+					<Item id="42048" name="Copiar de contengut binari"/>
+					<Item id="42049" name="Copar de contengut binari"/>
+					<Item id="42050" name="Pegar de contengut binari"/>
+					<Item id="42051" name="Panèl de caractèrs"/>
+					<Item id="42052" name="Istoric del quichapapièrs"/>
+					<Item id="42053" name="Cambiar los espacis de debuta de linha en tabulacions"/>
+					<Item id="42054" name="Cambiar totes los espacis en tabulacions"/>
+					<Item id="42055" name="Tirar las linhas voidas"/>
+					<Item id="42056" name="Tirar las linhas voidas (amb caractèrs blancs)"/>
+					<Item id="42057" name="Inserir une linha blanca al dessús"/>
+					<Item id="42058" name="Inserir une linha blanca al dejós"/>
+					<Item id="42059" name="Ordenar las linhas dins l'òrdre lexicografic creissent"/>
+					<Item id="42060" name="Ordenar las linhas dins l'òrdre lexicografic descreissent"/>
+					<Item id="42061" name="Ordenar las linhas d'entièrs creissent"/>
+					<Item id="42062" name="Ordenar las linhas d'entièrs descreissent"/>
+					<Item id="42063" name="Ordenar las linhas de decimals (virgula) creissent"/>
+					<Item id="42064" name="Ordenar las linhas de decimals (virgula) descreissent"/>
+					<Item id="42065" name="Ordenar las linhas de decimals (punt) creissent"/>
+					<Item id="42066" name="Ordenar las linhas de decimals (punt) descreissent"/>
+					<Item id="42067" name="Majusculas Inicialas Pels Mots"/>
+					<Item id="42068" name="Majusculas inicialas pels mots (mesclar amb l'original)"/>
+					<Item id="42069" name="Majusculas inicialas per las frasas"/>
+					<Item id="42070" name="majusculas inicialas per las frasas (mesclar amb l'original)"/>
+					<Item id="42071" name="iNTERVERTIR mAJUSCULAS/mINUSCULAS"/>
+					<Item id="42072" name="MInuSculas/MAJUSCUlAs AleAtòRiaS"/>
+					<Item id="42073" name="Dobrir coma fichièr"/>
+					<Item id="42074" name="Dobrir lo dorsièr parent dins l'explorator"/>
+					<Item id="42075" name="Cercar sus Internet"/>
+					<Item id="42076" name="Cambiar lo motor de recèrca..."/>
+					
+					<Item id="43001" name="&amp;Recercar..."/>
+					<Item id="43002" name="Recercar lo &amp;seguent"/>
+					<Item id="43003" name="Remplaçar..."/>
+					<Item id="43004" name="Anar a la linha..."/>
+					<Item id="43005" name="Apondre/levar un marca-paginas"/>
+					<Item id="43006" name="Marca-paginas seguent"/>
+					<Item id="43007" name="Marca-paginas precedent"/>
+					<Item id="43008" name="Suprimir totes los marca-paginas"/>
+					<Item id="43009" name="Anar a l'acolada correspondenta"/>
+					<Item id="43010" name="Recercar lo precedent"/>
+					<Item id="43011" name="&amp;Recèrca incremenciala..."/>
+					<Item id="43013" name="Recercar dins los fichièrs"/>
+					<Item id="43014" name="Recèrca volatila seguenta"/>
+					<Item id="43015" name="Recèrca volatila precedenta"/>
+					<Item id="43018" name="Copar las linhas marcadas"/>
+					<Item id="43019" name="Copiar las linhas marcadas"/>
+					<Item id="43020" name="Pegar per remplaçar las linhas marcadas"/>
+					<Item id="43021" name="Suprimir las linhas marcadas"/>
+					<Item id="43022" name="Amb lo 1èr estil"/>
+					<Item id="43023" name="Levar lo 1èr estil"/>
+					<Item id="43024" name="Amb lo 2nd estil"/>
+					<Item id="43025" name="Levar lo 2nd estil"/>
+					<Item id="43026" name="Amb lo 3en estil"/>
+					<Item id="43027" name="Levar lo 3en estil"/>
+					<Item id="43028" name="Amb lo 4en estil"/>
+					<Item id="43029" name="Levar lo 4en estil"/>
+					<Item id="43030" name="Amb lo 5en estil"/>
+					<Item id="43031" name="Levar lo 5en estil"/>
+					<Item id="43032" name="Levar totes los estils"/>
+					<Item id="43033" name="1èr estil"/>
+					<Item id="43034" name="2nd estil"/>
+					<Item id="43035" name="3en estil"/>
+					<Item id="43036" name="4en estil"/>
+					<Item id="43037" name="5en estil"/>
+					<Item id="43038" name="Trobar un estil"/>
+					<Item id="43039" name="1er estil"/>
+					<Item id="43040" name="2nd estil"/>
+					<Item id="43041" name="3en estil"/>
+					<Item id="43042" name="4en estil"/>
+					<Item id="43043" name="5en estil"/>
+					<Item id="43044" name="Trobar un estil"/>
+					<Item id="43045" name="Fenèstra de resultats de recèrca"/>
+					<Item id="43046" name="Resultat de recèrca seguent"/>
+					<Item id="43047" name="Resultat de recèrca precedent"/>
+					<Item id="43048" name="Seleccionar e cercar lo seguent"/>
+					<Item id="43049" name="Seleccionar e cercar lo precedent"/>
+					<Item id="43050" name="Intervertir los marca-paginas"/>
+					<Item id="43051" name="Tirar las linhas sens marca-paginas"/>
+					<Item id="43052" name="Cercar un interval de caractèrs..."/>
+					<Item id="43053" name="Seleccionar tot entremièg las acoladas"/>
+					<Item id="43054" name="Marcar..."/>
+					
+					<Item id="44009" name="Mòde Post-It"/>
+					<Item id="44010" name="Plegar tot"/>
+					<Item id="44019" name="Mostrar totes los caractèrs"/>
+					<Item id="44020" name="Mostrar la guida d'indentacion"/>
+					<Item id="44022" name="Tornar a la linha automaticament"/>
+					<Item id="44023" name="Zoom &amp;+ Ctrl-ròda de mirga naut"/>
+					<Item id="44024" name="Zoom &amp;6 Ctrl-ròda de mirga bas"/>
+					<Item id="44025" name="Mostrar los espacis e las tabulacions"/>
+					<Item id="44026" name="Mostrar las fins de linhas"/>
+					<Item id="44029" name="Desplegar tot"/>
+					<Item id="44030" name="Plegar lo nivèl actual"/>
+					<Item id="44031" name="Desplegar lo nivèl actual"/>
+					<Item id="44032" name="Activar/desactivar lo mòde ecran complet"/>
+					<Item id="44033" name="Restaurar lo zoom per defaut"/>
+					<Item id="44034" name="Totjorn ensús"/>
+					<Item id="44035" name="Sincronizar lo desfilament vertical"/>
+					<Item id="44036" name="Sincronizar lo desfilament orizontal"/>
+					<Item id="44041" name="Mostrar lo simbòl de linha novèla"/>
+					<Item id="44042" name="Amagar las linhas"/>
+					<Item id="44049" name="Ensenhador..."/>
+					<Item id="44072" name="Anar a una autra visualizacion"/>
+					<Item id="44080" name="Mapa del document"/>
+					<Item id="44081" name="Panèl de projècte 1"/>
+					<Item id="44082" name="Panèl de projècte 2"/>
+					<Item id="44083" name="Panèl de projècte 3"/>
+					<Item id="44084" name="Tièra de fonccions"/>
+					<Item id="44085" name="Dorsièr coma espaci de trabalh"/>
+					<Item id="44086" name="1èr onglet"/>
+					<Item id="44087" name="2nd onglet"/>
+					<Item id="44088" name="3en onglet"/>
+					<Item id="44089" name="4en onglet"/>
+					<Item id="44090" name="5en onglet"/>
+					<Item id="44091" name="6en onglet"/>
+					<Item id="44092" name="7en onglet"/>
+					<Item id="44093" name="8en onglet"/>
+					<Item id="44094" name="9en onglet"/>
+					<Item id="44095" name="Onglet seguent"/>
+					<Item id="44096" name="Onglet precedent"/>
+					<Item id="44097" name="Seguir los cambis de fchièrs (tail -f)"/>
+					<Item id="44098" name="Desplaçar endavant"/>
+					<Item id="44099" name="Desplaçar enrè"/>
+
+					<Item id="45001" name="Convertir al format Windows"/>
+					<Item id="45002" name="Convertir al format UNIX"/>
+					<Item id="45003" name="Convertir al format MAC"/>
+					<Item id="45004" name="Codar en ANSI"/>
+					<Item id="45005" name="Codar en UTF-8"/>
+					<Item id="45006" name="Codar en UCS-2 Big Endian"/>
+					<Item id="45007" name="Codar en UCS-2 Little Endian"/>
+					<Item id="45008" name="Codar en UTF-8 sens BOM"/>
+					<Item id="45009" name="Convertir en ANSI"/>
+					<Item id="45010" name="Convertir en UTF-8 sens BOM"/>
+					<Item id="45011" name="Convertir en UTF-8"/>
+					<Item id="45012" name="Convertir en UCS-2 Big Endian"/>
+					<Item id="45013" name="Convertir en UCS-2 Little Endian"/>
+
+					<Item id="10001" name="Anar a una autra visualizacion"/>
+					<Item id="10002" name="Clonar dins una autra visualizacion"/>
+					<Item id="10003" name="Desplaçar dins una novèla fenèstra"/>
+					<Item id="10004" name="Dobrir dinc una novèla fenèstra"/>
+
+					<Item id="46001" name="Configurator d'estil..."/>
+					<Item id="46250" name="Definís lo lengage..."/>
+					<Item id="46180" name="Definit per l'utilizaire"/>
+					
+					<Item id="47000" name="A prepaus de Notepad++..."/>
+					<Item id="47001" name="Pagina web de Notepad++"/>
+					<Item id="47002" name="Pagina del projècte Notepad++"/>
+					<Item id="47003" name="Documentacion en linha"/>
+					<Item id="47004" name="Comunautat Notepad++ (Forum)"/>
+					<Item id="47005" name="Obténer mai d'ajustons"/>
+					<Item id="47006" name="Actualizar Notepad++"/>
+					<Item id="47009" name="Configurar lo proxy d'actualizacion..."/>
+					<Item id="47010" name="Arguments en linha de comandas..."/>
+					<Item id="47012" name="Informacions de debug..."/>
+					
+					<Item id="48005" name="Importar d'ajustons ..."/>
+					<Item id="48006" name="Importar de tèmas..."/>
+					<Item id="48009" name="Gestionari d'acorchis..."/>
+					<Item id="48011" name="Preferéncias..."/>
+					<Item id="48016" name="Modificar acorchi/Suprimir macro..."/>
+					<Item id="48017" name="Modificar acorchi/Suprimir comanda..."/>
+					<Item id="48018" name="Modificar lo menú contextual"/>
+					<Item id="48501" name="Generar..."/>
+					<Item id="48502" name="Generar dempuèi los fochièrs..."/>
+					<Item id="48503" name="Generar dins lo quichapapièrs"/>
+					
+					<Item id="49000" name="&amp;Executar..."/>
+
+					<Item id="50000" name="Complecion de fonccion"/>
+					<Item id="50001" name="Complecion de mot"/>
+					<Item id="50002" name="Informacion suls paramètres de fonccions"/>
+					<Item id="50006" name="Complecion de camin"/>
+
+				</Commands>
+			</Main>
+			
+			<Splitter>
+			</Splitter>
+			
+			<TabBar>
+				<Item CMID="0" name="Tampar"/>
+				<Item CMID="1" name="Tampar totes levat aqueste"/>
+				<Item CMID="2" name="Salvar"/>
+				<Item CMID="3" name="Salvar coma..."/>
+				<Item CMID="4" name="estampar"/>
+				<Item CMID="5" name="Anar a una autra visualizacion"/>
+				<Item CMID="6" name="Clonar dins una autra visualizacion"/>
+				<Item CMID="7" name="Salvar lo camin de fichièr complet dins lo quichapapièrs"/>
+				<Item CMID="8" name="Salvar lo nom de fichièr dins lo quichapapièrs"/>
+				<Item CMID="9" name="Salvar lo camin del dorsièr dins lo quichapapièrs"/>
+				<Item CMID="10" name="Tornar nomenar"/>
+				<Item CMID="11" name="Suprimir"/>
+				<Item CMID="12" name="Lectura-Sola"/>
+				<Item CMID="13" name="Suprimir l'atribut Lectura-Sola"/>
+				<Item CMID="14" name="Desplaçar dins una novèla fenèstra"/>
+				<Item CMID="15" name="Dobrir dins una novèla fenèstra"/>
+				<Item CMID="16" name="Tornar cargar"/>
+				<Item CMID="17" name="Tampar tot a esquèrra"/>
+				<Item CMID="18" name="Tampar tot a dreita"/>
+				<Item CMID="19" name="Dobrir lo dorsièr parent dins l'explorator"/>
+				<Item CMID="20" name="Dobrir lo dorsièr parent dins cmd"/>
+				<Item CMID="21" name="Dobrir dins la visualizacion per defaut"/>
+			</TabBar>
+		</Menu>
+		
+		<Dialog>
+			<Find title="" titleFind="Recercar" titleReplace="Remplaçar" titleFindInFiles="Recercar dins de fichièrs" titleMark="Marca">
+				<Item id="1" name="Seguent"/>
+				<Item id="2" name="Tampar"/>
+				<Item id="1722" name="Cercar enrè"/>
+				<Item id="1620" name="Recercar :"/>
+				<Item id="1603" name="Sonque los mots e&amp;ntièrs"/>
+				<Item id="1604" name="Diferenciar &amp;majusculas e minusculas"/>
+				<Item id="1605" name="&amp;Expression regulara"/>
+				<Item id="1606" name="En boc&amp;la"/>
+				<Item id="1614" name="Comptar"/>
+				<Item id="1615" name="Recercar tot"/>
+				<Item id="1616" name="Marcar las linhas"/>
+				<Item id="1618" name="Voidar a cada recèrca"/>
+				<Item id="1611" name="Rem&amp;plaçar per :"/>
+				<Item id="1608" name="&amp;Remplaçar"/>
+				<Item id="1609" name="Remplaçar &amp;tot"/>
+				<Item id="1687" name="A la pèrda del focus"/>
+				<Item id="1688" name="Totjorn"/>
+				<Item id="1632" name="Dins la seleccion"/>
+				<Item id="1633" name="Voidar"/>
+				<Item id="1635" name="Remplaçar dins totes los documents dobèrts"/>
+				<Item id="1636" name="Recercar dins totes los documents dobèrts"/>
+				<Item id="1654" name="Filtres :"/>
+				<Item id="1655" name="Dorsièr :"/>
+				<Item id="1656" name="Los recercar totes"/>
+				<Item id="1658" name="Amb los sos-dorsièrs"/>
+				<Item id="1659" name="Dorsièrs amagats"/>
+				<Item id="1624" name="Mòde de recèrca"/>
+				<Item id="1625" name="Normal"/>
+				<Item id="1626" name="Espandit (\n, \r, \t, \0, \x...)"/>
+				<Item id="1660" name="Remplaçar dins los fichièrs"/>
+				<Item id="1641" name="Trobar tot dins lo document actiu"/>
+				<Item id="1686" name="Transparéncia"/>
+				<Item id="1703" name="&amp;. cerca linhas novèlas"/>
+			</Find>
+			
+			
+			<FindCharsInRange title="Trobar un interval de caractèrs...">
+				<Item id="2" name="Tampar"/>
+				<Item id="2901" name="Caractèrs non-ASCII (128-255)"/>
+				<Item id="2902" name="Caractèrs ASCII (0-127)"/>
+				<Item id="2903" name="Mon interval :"/>
+				<Item id="2906" name="&amp;naut"/>
+				<Item id="2907" name="&amp;Bas"/>
+				<Item id="2908" name="Direccion"/>
+				<Item id="2909" name="B&amp;oclar"/>
+				<Item id="2910" name="Cercar"/>
+			</FindCharsInRange>
+			
+			<GoToLine title="Anar a la linha...">
+				<Item id="2007" name="Linha"/>
+				<Item id="2008" name="Desfasament"/>
+				<Item id="1" name="&amp;Anar !"/>
+				<Item id="2" name="Vau endacòm"/>
+				<Item id="2004" name="Sètz aicí :"/>
+				<Item id="2005" name="Volètz anar a :"/>
+				<Item id="2006" name="N° max. de linha :"/>
+			</GoToLine>
+
+			<Run title="Aviar...">
+				<Item id="1903" name="Picatz aicí lo programa que volètz aviar"/>
+				<Item id="1" name="Aviar !"/>
+				<Item id="2" name="Anullar"/>
+				<Item id="1904" name="Salvar..."/>
+			</Run>
+			
+			<MD5FromFilesDlg title="Generar MD5 dempuèi los fichièrs">
+				<Item id="1922" name="Causir los fichièrs per generar lo MD5..."/>
+				<Item id="1924" name="Copiar dins lo quichapapièrs"/>
+				<Item id="2" name="Tampar"/>
+			</MD5FromFilesDlg>
+
+			<MD5FromTextDlg title="Generar MD5">
+				<Item id="1932" name="Tractar cada linha coma una cadena de caractèrs diferenta"/>
+				<Item id="1934" name="Copiar dins la quichapapièrs"/>
+				<Item id="2" name="Tampar"/>
+			</MD5FromTextDlg>
+
+			<StyleConfig title="Configurator d'estil">
+				<Item id="2" name="Anullar"/>
+				<Item id="2301" name="Salvar &amp;&amp; tampar"/>
+				<Item id="2303" name="Transparéncia"/>
+				<Item id="2306" name="Seleccionar un tèma : "/>
+				<SubDialog>
+					<Item id="2204" name="Gras"/>
+					<Item id="2205" name="Italic"/>
+					<Item id="2206" name="Primièr plan"/>
+					<Item id="2207" name="Fons"/>
+					<Item id="2208" name="Nom de poliça :"/>
+					<Item id="2209" name="Talha de poliça :"/>
+					<Item id="2211" name="Poliça :"/>
+					<Item id="2212" name="Estil de color"/>
+					<Item id="2213" name="Estil de poliça"/>
+					<Item id="2214" name="Ext. per defaut :"/>
+					<Item id="2216" name="Ext. utilizaire :"/>
+					<Item id="2218" name="Soslinhar"/>
+					<Item id="2219" name="Mots clau per defaut"/>
+					<Item id="2221" name="Mots clau personalizats"/>
+					<Item id="2225" name="Lengatge :"/>
+					<Item id="2226" name="Activar la color de primièr plan globala"/>
+					<Item id="2227" name="Activar la color de fons globala"/>
+					<Item id="2228" name="Activar la poliça globala"/>
+					<Item id="2229" name="Activar la talha de poliça globala"/>
+					<Item id="2230" name="Activar l'estil de poliça en gras global"/>
+					<Item id="2231" name="Activar l'estil de poliça en italic global"/>
+					<Item id="2232" name="Activar l'estil de poliça soslinhat global"/>
+				</SubDialog>
+			</StyleConfig>
+			
+			<ShortcutMapper title="gestionari d'acorchis">
+				<Item id="2602" name="Mofificar"/>
+				<Item id="2603" name="Suprimir"/>
+				<Item id="2606" name="Voidar"/>
+				<Item id="2607" name="Filtre : "/>
+				<Item id="1" name="Tampar"/>
+				<ColumnName name="Nom"/>
+				<ColumnShortcut name="Acorchi"/>
+				<ColumnCategory name="Categoria"/>
+				<ColumnPlugin name="Ajuston"/>
+				<MainMenuTab name="Menú màger"/>
+				<MacrosTab name="Macròs"/>
+				<RunCommandsTab name="Comandas execucion"/>
+				<PluginCommandsTab name="Comandas ajustons"/>
+				<ScintillaCommandsTab name="Comandas Scintilla"/>
+				<ConflictInfoOk name="Pas cap de conflicte d'acorchis per aquel element"/>
+				<ConflictInfoEditing name="Pas cap de conflicte . . ."/>
+			</ShortcutMapper>
+			<ShortcutMapperSubDialg title="Acorchi">
+				<Item id="1" name="OK"/>
+				<Item id="2" name="Anullar"/>
+				<Item id="5006" name="Nom"/>
+				<Item id="5008" name="Ajustar"/>
+				<Item id="5009" name="Tirar"/>
+				<Item id="5010" name="Aplicar"/>
+				<Item id="5007" name="Aquò levarà l'acorchi d'aquela comanda"/>
+				<Item id="5012" name="CONFLICTE TRAPAT !"/>
+			</ShortcutMapperSubDialg>
+
+			<UserDefine title="Lengatge definit per l'utilizaire">
+				<Item id="20001" name="Ancorar"/>
+				<Item id="20002" name="Tornar nomemar"/>
+				<Item id="20003" name="Crear un novèl..."/>
+				<Item id="20004" name="Suprimir"/>
+				<Item id="20005" name="Salvar coma..."/>
+				<Item id="20007" name="Lengatge : "/>
+				<Item id="20009" name="Ext. :"/>
+				<Item id="20012" name="Diferenciar pas min./maj."/>
+				<Item id="20011" name="Transparéncia"/>
+				<Item id="20015" name="Importar..."/>
+				<Item id="20016" name="Exportar..."/>
+				<StylerDialog title="Styler Dialog">
+					<Item id="25030" name="Options de poliça :"/>
+					<Item id="25006" name="Color de primièr plan"/>
+					<Item id="25007" name="Color de fons"/>
+					<Item id="25031" name="Nom :"/>
+					<Item id="25032" name="Talha :"/>
+					<Item id="25001" name="Gras"/>
+					<Item id="25002" name="Italic"/>
+					<Item id="25003" name="Soslinhament"/>
+					<Item id="25029" name="Inclusion :"/>
+					<Item id="25008" name="Delimitador 1"/>
+					<Item id="25009" name="Delimitador 2"/>
+					<Item id="25010" name="Delimitador 3"/>
+					<Item id="25011" name="Delimitador 4"/>
+					<Item id="25012" name="Delimitdador 5"/>
+					<Item id="25013" name="Delimitador 6"/>
+					<Item id="25014" name="Delimitador 7"/>
+					<Item id="25015" name="Delimitador 8"/>
+					<Item id="25018" name="Mot clau 1"/>
+					<Item id="25019" name="Mot clau 2"/>
+					<Item id="25020" name="Mot clau 3"/>
+					<Item id="25021" name="Mot clau 4"/>
+					<Item id="25022" name="Mot clau 5"/>
+					<Item id="25023" name="Mot clau 6"/>
+					<Item id="25024" name="Mot clau 7"/>
+					<Item id="25025" name="Mot clau 8"/>
+					<Item id="25016" name="Comentari de blòc"/>
+					<Item id="25017" name="Comentari de linha"/>
+					<Item id="25026" name="Operator 1"/>
+					<Item id="25027" name="Operator 2"/>
+					<Item id="25028" name="Nombres"/>
+					<Item id="1" name="OK"/>
+					<Item id="2" name="Anullar"/>
+				</StylerDialog>
+				<Folder title="Dorsièr &amp;&amp; defaut">
+					<Item id="21101" name="Estil per defaut"/>
+					<Item id="21102" name="Estilador"/>
+					<Item id="21105" name="Documentacion :"/>
+					<Item id="21104" name="Site web de documentacion temporari:"/>
+					<Item id="21106" name="Plegament compacte (linhas voides tanben)"/>
+					<Item id="21220" name="Plegamentde estil de còde 1 :"/>
+					<Item id="21224" name="Dobertura :"/>
+					<Item id="21225" name="Mièg :"/>
+					<Item id="21226" name="Tampadura :"/>
+					<Item id="21227" name="Estilador"/>
+					<Item id="21320" name="Plegamentde estil de còde 1 (necessita separator) :"/>
+					<Item id="21324" name="Dobertura :"/>
+					<Item id="21325" name="Mièg :"/>
+					<Item id="21326" name="Tampadura :"/>
+					<Item id="21327" name="Estilador"/>
+					<Item id="21420" name="Plagement de comentaris :"/>
+					<Item id="21424" name="Dobertura :"/>
+					<Item id="21425" name="Mièg:"/>
+					<Item id="21426" name="Tampadura:"/>
+					<Item id="21427" name="Estilador"/>
+				</Folder>
+				<Keywords title="Tièras de mots clau">
+					<Item id="22101" name="1èr grop"/>
+					<Item id="22201" name="2nd grop"/>
+					<Item id="22301" name="3en grop"/>
+					<Item id="22401" name="4en grop"/>
+					<Item id="22451" name="5th Group"/>
+					<Item id="22501" name="6en Grop"/>
+					<Item id="22551" name="7en Grop"/>
+					<Item id="22601" name="8en Grop"/>
+					<Item id="22113" name="Mòde prefix"/>
+					<Item id="22213" name="Mòde prefix"/>
+					<Item id="22313" name="Mòde prefix"/>
+					<Item id="22413" name="Mòde prefix"/>
+					<Item id="22471" name="Mòde prefix"/>
+					<Item id="22521" name="Mòde prefix"/>
+					<Item id="22571" name="Mòde prefix"/>
+					<Item id="22621" name="Mòde prefix"/>
+					<Item id="22122" name="Estilador"/>
+					<Item id="22222" name="Estilador"/>
+					<Item id="22322" name="Estilador"/>
+					<Item id="22422" name="Estilador"/>
+					<Item id="22472" name="Estilador"/>
+					<Item id="22522" name="Estilador"/>
+					<Item id="22572" name="Estilador"/>
+					<Item id="22622" name="Estilador"/>
+				</Keywords>
+				<Comment title="Comentari &amp;&amp; nombre">
+					<Item id="23003" name="Posicion de comentari de linha"/>
+					<Item id="23004" name="Autorizar pertot"/>
+					<Item id="23005" name="Totjorn en debuta de linha"/>
+					<Item id="23006" name="Autorizar abans d'espacis"/>
+					<Item id="23001" name="Autorizar lo plegament de comentaris"/>
+					<Item id="23326" name="Estilador"/>
+					<Item id="23323" name="Dobrir"/>
+					<Item id="23324" name="Caractèr de continuacion"/>
+					<Item id="23325" name="Tampar"/>
+					<Item id="23301" name="Estil comentaris de linha"/>
+					<Item id="23124" name="Estilador"/>
+					<Item id="23122" name="Dobrir"/>
+					<Item id="23123" name="Tampar"/>
+					<Item id="23101" name="Estil comentaris de blòc"/>
+					<Item id="23201" name="Estil nombres"/>
+					<Item id="23220" name="Estilador"/>
+					<Item id="23230" name="Prefix 1"/>
+					<Item id="23232" name="Prefix 2"/>
+					<Item id="23234" name="Extras 1"/>
+					<Item id="23236" name="Extras 2"/>
+					<Item id="23238" name="Sufix 1"/>
+					<Item id="23240" name="Sufix 2"/>
+					<Item id="23242" name="Interval :"/>
+					<Item id="23244" name="Separator decimal"/>
+					<Item id="23245" name="Punt"/>
+					<Item id="23246" name="Virgula"/>
+					<Item id="23247" name="Totes dos"/>
+				</Comment>
+				<Operator title="Operators">
+					<Item id="24101" name="Estil d'operators"/>
+					<Item id="24113" name="Estilador"/>
+					<Item id="24116" name="Operators 1"/>
+					<Item id="24117" name="Operators 2 (necessita separators)"/>
+					<Item id="24201" name="Estil delimitador 1"/>
+					<Item id="24220" name="Dobertura :"/>
+					<Item id="24221" name="Escapament :"/>
+					<Item id="24222" name="Tanpadura :"/>
+					<Item id="24223" name="Estilador"/>
+					<Item id="24301" name="Estil delimitador 2"/>
+					<Item id="24320" name="Dobertura :"/>
+					<Item id="24321" name="Escapament:"/>
+					<Item id="24322" name="Tanpadura :"/>
+					<Item id="24323" name="Estilador"/>
+					<Item id="24401" name="Estil delimitador 3"/>
+					<Item id="24420" name="Dobertura :"/>
+					<Item id="24421" name="Escapament :"/>
+					<Item id="24422" name="Tanpadura :"/>
+					<Item id="24423" name="Estilador"/>
+					<Item id="24451" name="Estil delimitador 4"/>
+					<Item id="24470" name="Dobertura :"/>
+					<Item id="24471" name="Escapement :"/>
+					<Item id="24472" name="Tanpadura :"/>
+					<Item id="24473" name="Estilador"/>
+					<Item id="24501" name="Estil delimitador 5"/>
+					<Item id="24520" name="Dobertura :"/>
+					<Item id="24521" name="Escapament :"/>
+					<Item id="24522" name="Tampadura :"/>
+					<Item id="24523" name="Estilador"/>
+					<Item id="24551" name="Estil delimitador 6"/>
+					<Item id="24570" name="Dobertura :"/>
+					<Item id="24571" name="Escapament :"/>
+					<Item id="24572" name="Tanpadura :"/>
+					<Item id="24573" name="Estilador"/>
+					<Item id="24601" name="Estil delimitador 7"/>
+					<Item id="24620" name="Dobertura :"/>
+					<Item id="24621" name="Escapament :"/>
+					<Item id="24622" name="Tanpadura :"/>
+					<Item id="24623" name="Estilador"/>
+					<Item id="24651" name="Estil delimitador 8"/>
+					<Item id="24670" name="Dobertura :"/>
+					<Item id="24671" name="Escapament :"/>
+					<Item id="24672" name="Tanpadura :"/>
+					<Item id="24673" name="Estilador"/>
+				</Operator>
+			</UserDefine>
+			<Preference title="Preferéncia">
+				<Item id="6001" name="Tampar"/>
+				<Global title="Global">
+					<Item id="6102" name="Amagar"/>
+					<Item id="6103" name="Icònas pichonas"/>
+					<Item id="6104" name="Icònas bèlas"/>
+					<Item id="6105" name="Icònas pichonas estandard"/>
+
+					<Item id="6107" name="Redusir"/>
+					<Item id="6108" name="Verrolhar (pas de rebalar-depausar)"/>
+					<Item id="6109" name="Mostrar los onglets inactius"/>
+					<Item id="6110" name="Barra colorada sus l'onglet actiu"/>
+
+					<Item id="6112" name="Boton per tampar sus cada onglet"/>
+					<Item id="6113" name="Doble clic per tampar lo document"/>
+					<Item id="6118" name="Amagar"/>
+					<Item id="6119" name="Multi-linha"/>
+					<Item id="6120" name="Vertical"/>
+
+					<Item id="6121" name="Quitar en tampant lo darrièr onglet"/>
+					<Item id="6122" name="Amagar la barra d'estat (utilizar Alt o F10 per Mostrar)"/>
+					<Item id="6123" name="Lenga"/>
+
+					<Item id="6125" name="Panèl Lista de documents"/>
+					<Item id="6126" name="Mostrar"/>
+					<Item id="6127" name="Desactivar la colomna d'extension"/>
+				</Global>
+				
+				<Scintillas title="Editor">
+					<Item id="6216" name="Cursor"/>
+					<Item id="6217" name="Largor :"/>
+					<Item id="6219" name="Parpalhejament :"/>
+					<Item id="6221" name="R"/>
+					<Item id="6222" name="L"/>
+					<Item id="6224" name="Paramètres de multi-edicion"/>
+					<Item id="6201" name="Estil d'agropament"/>
+					<Item id="6202" name="Simple"/>
+					<Item id="6203" name="Sageta"/>
+					<Item id="6204" name="Cercle"/>
+					<Item id="6205" name="Carrat"/>
+					<Item id="6226" name="Cap"/>
+
+					<Item id="6227" name="Linha plegada"/>
+					<Item id="6228" name="Defaut"/>
+					<Item id="6229" name="Alinhat"/>
+					<Item id="6230" name="Indentar"/>
+
+					<Item id="6206" name="Mostrar los numèros de linha"/>
+					<Item id="6207" name="Mostrar lo marge de marca-paginas"/>
+					<Item id="6208" name="Mostrar la linha verticala"/>
+					<Item id="6209" name="Nombre de colomnas :"/>
+					<Item id="6234" name="Desactivar lo desfilament avançat
+					(se i a un problèma amb lo touchpad)"/>
+
+					<Item id="6211" name="Linha verticala de fin de linha"/>
+					<Item id="6212" name="Mòde linha"/>
+					<Item id="6213" name="Mòde fons"/>
+					<Item id="6214" name="Colorar la linha activa"/>
+					<Item id="6215" name="Activar la poliça doça"/>
+					<Item id="6231" name="Largor de bordadura"/>
+					<Item id="6235" name="Cap bordadura"/>
+					<Item id="6236" name="Activar lo desfilament aprèp la darrièra linha"/>
+				</Scintillas>
+				
+				<NewDoc title="Document novèl">
+					<Item id="6401" name="Format"/>
+					<Item id="6402" name="Windows"/>
+					<Item id="6403" name="Unix"/>
+					<Item id="6404" name="Mac"/>
+					<Item id="6405" name="Codatge"/>
+					<Item id="6406" name="ANSI"/>
+					<Item id="6407" name="UTF-8 sens BOM"/>
+					<Item id="6408" name="UTF-8"/>
+					<Item id="6409" name="UCS-2 Big Endian"/>
+					<Item id="6410" name="UCS-2 Little Endian"/>
+					<Item id="6411" name="Lengatge per defaut :"/>
+					<Item id="6414" name="Seguir lo document dobèrt"/>
+					<Item id="6419" name="Document novèl"/>
+					<Item id="6420" name="Aplicar als fichièrs ANSI dobèrts"/>
+				</NewDoc>
+				
+				<DefaultDir title="Dorsièr per defaut">
+					<Item id="6413" name="Dorsièr per default (Dobertura/Enregistrament)"/>
+					<Item id="6414" name="Seguir lo document actiu"/>
+					<Item id="6415" name="Remembrar lo darrièr dorsièr utilizat"/>
+					<Item id="6431" name="Dobrir totes los fichièrs del dorsièr al moment del rebalar-depausar"/>
+				</DefaultDir>
+				
+				<RecentFilesHistory title="Ictoric fichièrs recents">
+					<Item id="6304" name="Istoric de fichièrs recents"/>
+					<Item id="6306" name="Nombre max. d'entradas :"/>
+					<Item id="6305" name="Verificar pas al lançament"/>
+					<Item id="6429" name="Afichatge"/>
+					<Item id="6424" name="Dins lo sos-menú"/>
+					<Item id="6425" name="Sonque lo nom del fichièr"/>
+					<Item id="6426" name="Camin de fichièr entièr"/>
+					<Item id="6427" name="Persolanizar la longor maximala :"/>
+				</RecentFilesHistory>
+				
+				<FileAssoc title="Associacion de fichièrs">
+					<Item id="4009" name="Extensions geridas :"/>
+					<Item id="4010" name="Extensions enregistradas :"/>
+				</FileAssoc>
+				
+				<Language title="Lengatge">
+					<Item id="6505" name="Elements disponibles"/>
+					<Item id="6506" name="Elements desactivats"/>
+					<Item id="6507" name="Compactar lo menú de lengatges"/>
+					<Item id="6508" name="Menú de lengatges"/>
+					<Item id="6301" name="Caractèr de tabulacion"/>
+					<Item id="6302" name="Remplaçar per d'espacis"/>
+					<Item id="6303" name="Talha de tabulacion : "/>
+					<Item id="6510" name="Utilizar la valor per dafaut"/>
+					<Item id="6335" name="Considerar backslash coma caractèr d'escapament per SQL"/>
+				</Language>
+				
+				<Highlighting title="Coloracion sintaxica">
+					<Item id="6333" name="Coloracion sintaxica intelligenta"/>
+					<Item id="6326" name="Activa la coloracion sintaxica intelligenta"/>
+					<Item id="6332" name="Diferenciar majusculas/minusculas"/>
+					<Item id="6338" name="Sonque mots entièrs"/>
+					<Item id="6339" name="Utilizar las opcions de Recèrca"/>
+					<Item id="6340" name="Colorar dins una autra vista"/>
+					<Item id="6329" name="Coloracion tags de doberture/tampadura"/>
+					<Item id="6327" name="Activar"/>
+					<Item id="6328" name="Colorar los atributs dels tags"/>
+					<Item id="6330" name="Colorar a zòna comentari/php/asp"/>
+				</Highlighting>
+				
+				<Print title="Estampadura">
+					<Item id="6601" name="Estampar los numèros de linha"/>
+					<Item id="6602" name="Opcions de color"/>
+					<Item id="6603" name="WYSIWYG"/>
+					<Item id="6604" name="Intervertir"/>
+					<Item id="6605" name="Negre sus blanc"/>
+					<Item id="6606" name="Pas de color de fons"/>
+					<Item id="6607" name="Paramètres de marge (unitat : mm)"/>
+					<Item id="6612" name="Esquèrra"/>
+					<Item id="6613" name="Naut"/>
+					<Item id="6614" name="Drecha"/>
+					<Item id="6615" name="Bas"/>
+					<Item id="6706" name="Gras"/>
+					<Item id="6707" name="Italic"/>
+					<Item id="6708" name="Entèsta"/>
+					<Item id="6709" name="Partida esquèrra"/>
+					<Item id="6710" name="Partida mejana"/>
+					<Item id="6711" name="Partida drecha"/>
+					<Item id="6717" name="Gras"/>
+					<Item id="6718" name="Italic"/>
+					<Item id="6719" name="Pè de pagina"/>
+					<Item id="6720" name="Partida esquèrra"/>
+					<Item id="6721" name="Partida mejana"/>
+					<Item id="6722" name="Partida drecha"/>
+					<Item id="6723" name="Apondre"/>
+					<Item id="6725" name="Variabla :"/>
+					<Item id="6727" name="Aquí s'aficha la configuracion de vòstra variabla"/>
+					<Item id="6728" name="Header and Footer"/>
+				</Print>
+				
+				<Backup title="Salvagarda">
+					<Item id="6817" name="Captura de session e salvagarda periodica"/>
+					<Item id="6818" name="Activar la captura de session e la salvagarda periodica"/>
+					<Item id="6819" name="Salvagardar cada"/>
+					<Item id="6821" name="segonda(s)"/>
+					<Item id="6822" name="Dorsièr de salvagarda :"/>
+					<Item id="6309" name="Remembrar la session activa pel lançament seguent"/>
+					<Item id="6801" name="Salvagarda"/>
+					<Item id="6315" name="Cap"/>
+					<Item id="6316" name="Salvagarda simpla"/>
+					<Item id="6317" name="Salvagarda detalhada"/>
+					<Item id="6804" name="Dorsièr de salvagarda personalizat"/>
+					<Item id="6803" name="Dorsièr :"/>
+				</Backup>
+				
+				<AutoCompletion title="Auto-complecion">
+					<Item id="6807" name="Auto-compleion"/>
+					<Item id="6808" name="Activar l'auto-complecion per cada entrada"/>
+					<Item id="6809" name="Complecion de fonccion"/>
+					<Item id="6810" name="Complecion de mot"/>
+					<Item id="6816" name="Complecion de fonccion e de mot"/>
+					<Item id="6824" name="Ignorar los nombres"/>
+					<Item id="6811" name="Amb"/>
+					<Item id="6813" name="caractèr(s)"/>
+					<Item id="6814" name="Valors validas : 1 - 9"/>
+					<Item id="6815" name="Informacion suls paramètres de fonccions quand picatz"/>
+					<Item id="6851" name="Insercion automatica"/>
+					<Item id="6857" name="Tag de tancadura html/xml"/>
+					<Item id="6858" name="Dobrís"/>
+					<Item id="6859" name="Tanca"/>
+					<Item id="6860" name="Parelh 1 :"/>
+					<Item id="6863" name="Parelh 2 :"/>
+					<Item id="6866" name="Parelh 3 :"/>
+				</AutoCompletion>
+				
+				<MultiInstance title="Multi-instància">
+					<Item id="6151" name="Paramètres de multi-instància"/>
+					<Item id="6152" name="Dobrir la session dins una nòva instància de Notepad++"/>
+					<Item id="6153" name="Totjorn en mòde multi-instància"/>
+					<Item id="6154" name="Defaut (mono-instància)"/>
+					<Item id="6155" name="La modificacion d'aquel paramètre necessita de tornar lançar Notepad++"/>
+				</MultiInstance>
+				
+				<Delimiter title="Delimitador">
+					<Item id="6251" name="Paramètres de seleccion del delimitador (Ctrl + clic doble)"/>
+					<Item id="6252" name="Dobrís"/>
+					<Item id="6255" name="Tanca"/>
+					<Item id="6256" name="Autorizar mantunas linhas"/>
+					<Item id="6161" name="Lista de caractèrs de mot"/>
+					<Item id="6162" name="Utilizar la lista de caractèrs de mot per defaut tal coma es"/>
+					<Item id="6163" name="Apondre un caractèr coma apartenant a un mot
+					(de pas causir se sabètz pas çò qu fasètz)"/>
+				</Delimiter>
+				
+				<SearchEngine title="Motor de recèrca">
+					<Item id="6271" name="Motor de recèrca (Per la comanda &quot;Cercar sus Internet&quot;)"/>
+					<Item id="6272" name="DuckDuckGo"/>
+					<Item id="6273" name="Google"/>
+					<Item id="6274" name="Bing"/>
+					<Item id="6275" name="Yahoo!"/>
+					<Item id="6276" name="Definiscatz lo vòstre motor de recèrca aicí :"/>
+					<!-- Don't change anything after Example: -->
+					<Item id="6278" name="Exemple : https://www.google.com/search?q=$(CURRENT_WORD)"/>
+				</SearchEngine>
+				
+				<MISC title="Autres">
+					<Item id="6312" name="Auto-deteccion de l'estatut de fichièr"/>
+					<Item id="6313" name="Actualizacion discreta"/>
+					<Item id="6318" name="Paramètre de ligam clicable"/>
+					<Item id="6325" name="Davalar a la darrièra linha aprèp l'actualizacion"/>
+					<Item id="6319" name="Activar"/>
+					<Item id="6320" name="Soslinhar pas"/>
+					<Item id="6322" name="Ext. fichièr sesilha :"/>
+					<Item id="6323" name="Activar la mesa a jorn automatica"/>
+					<Item id="6324" name="Cambiaire de documents (Ctrl+TAB)"/>
+					<Item id="6331" name="Mostrar sonque lo nom del fichièr dins la barra de títol"/>
+					<Item id="6334" name="Detectar automaticament lo codage de caractèrs"/>
+					<Item id="6337" name="Ext. de fichièr de l'espaci de trabalh :"/>
+					<Item id="6114" name="Activar (Ctrl+Tab)"/>
+					<Item id="6117" name="Activar lo comportament MRU"/>
+					<Item id="6344" name="Previsualizacion de document"/>
+					<Item id="6345" name="Previsualizar dins l'onglet"/>
+					<Item id="6346" name="Previsualizar dins la mapa del document"/>
+				</MISC>
+			</Preference>
+			<MultiMacro title="Aviar una macrò mantun còp">
+				<Item id="1" name="Aviar"/>
+				<Item id="2" name="Anullar"/>
+				<Item id="8006" name="Macrò d'aviar :"/>
+				<Item id="8001" name="Aviar"/>
+				<Item id="8005" name="còp(s)"/>
+				<Item id="8002" name="Duscas a la fin del fichièr"/>
+			</MultiMacro>
+			<Window title="Windows">
+				<Item id="1" name="Activar"/>
+				<Item id="2" name="Validar"/>
+				<Item id="7002" name="Salvar"/>
+				<Item id="7003" name="Tampar fenèstras"/>
+				<Item id="7004" name="Ordenar onglets"/>
+			</Window>
+			<ColumnEditor title="Editor de colomna">
+				<Item id="2023" name="Tèxt a inserir"/>
+				<Item id="2033" name="Nombre a inserir"/>
+				<Item id="2030" name="Nombre inicial :"/>
+				<Item id="2031" name="Aumentar de :"/>
+				<Item id="2035" name="Zerò inicials"/>
+				<Item id="2036" name="Repetir :"/>
+				<Item id="2032" name="Format"/>
+				<Item id="2024" name="Dec"/>
+				<Item id="2025" name="Oct"/>
+				<Item id="2026" name="Exa"/>
+				<Item id="2027" name="Bin"/>
+				<Item id="1" name="Validar"/>
+				<Item id="2" name="Anullar"/>
+			</ColumnEditor>
+		</Dialog>
+		<MessageBox><!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<ContextMenuXmlEditWarning title="Modificacion de contextMenu.xml" message="Modificar contextMenu.xml vos permet de modificar lo menú contextual de Notepad++.
+Deuretz tornar lançar Notepad++ per que siá efectiu."/>
+			<NppHelpAbsentWarning title="Lo fichièr exista pas" message="
+			exista pas. Mercés de lo descargar sul site de Notepad++."/>
+			<SaveCurrentModifWarning title="Salvar las modificacions" message="Deuriatz salvar la modificacion actuala.
+			Podètz desfar totas las modificacions salvadas.
+			Contunhar ?"/>
+			<LoseUndoAbilityWarning title="Avertiment : pèrda de possibilitat de desfar" message="Deuriatz salvar la modificacion actuala.
+			Las modificacions salvadas pòdon pas èsser desfachas.
+			Contunhar ?"/>
+			<CannotMoveDoc title="Desplaçar dins una nòva instància de Notepad++" message="Lo document es estat modificat, salvatz e tornatz ensajar."/>
+			<DocReloadWarning title="Tornar cargar" message="Sètz segur(a) de voler tornar cargar lo document actiu e pèrdre los cambiaments efectuats dins Notepad++ ?"/>
+			<FileLockedWarning title="Salvar lo fichièr" message="Mercés de verificar s'aquel fichièr es dobèrt dins un autre programa"/>
+			<FileAlreadyOpenedInNpp title="" message="Aqueste fichièr es dejà dobèrt dins Notepad++."/>
+			<DeleteFileFailed title="Suprimir lo fichièr" message="La supression del fichièr a pas capitat"/>
+
+			<NbFileToOpenImportantWarning title="I a tròp de fichièrs de dobrir" message="$INT_REPLACE$ fichièrs son a mand d'èsser dobèrts
+			Sètz segur(a) de voler los dobrir ?"/>
+			<SettingsOnCloudError title="Paramètres del Cloud" message="Sembla que lo paramètre de camin del Cloud mena a un fichièr en lectura sola
+			o dins un dorsièr que necessita de privilègis per i accedir en ecritura.
+			Los vòstres paramètres de Cloud van èsser reïnicializats. Mercés de tornar metre una valor coerenta per la fenèstra Preferéncias."/>
+			<FilePathNotFoundWarning title="Dobertura de fichièr" message="Lo fichièr qu'ensajatz de dobrir exista pas."/>
+			<SessionFileInvalidError title="Impossible de cargar la session" message="Lo fichièr de session es siá compromés, siá invalid."/>
+			<DroppingFolderAsProjectModeWarning title="Accion invalida" message="Podètz depausar sonque de fichièrs o de dorsièrs, mas pas los dos perqué sètz dins lo mòde Dorsièr coma espaci de trabalh.
+			devètz activar &quot;Dobrir totes los fichièrs del dorsièr al moment del rebalar-depausar&quot; dins la seccion &quot;Dorsièr per defaut&quot; de la fenèstra Preferéncias per que fonccione."/>
+			<SortingError title="Error de triada" message="Impossible d'ordenar numericament a causa de la linha $INT_REPLACE$."/>
+			<ColumnModeTip title="Astúcias per mòde colomna" message="Utilisatz &quot;ALT + Seleccion&quot; o &quot;Alt+Maj.+Sageta&quot; per passar en mòde colomna."/>
+			<BufferInvalidWarning title="L'enregistrament poguèt pas capitar" message="Es impossible de salvar : Lo buffer es invalid."/>
+			<DoSaveOrNot title="Salvar" message="Salvar lo fichièr &quot;$STR_REPLACE$&quot; ?"/>
+			<DoCloseOrNot title="Gardar un fichièr inexistant" message="Lo fichièr &quot;$STR_REPLACE$&quot; exista pas mai.
+			Lo volètz gardar dins l'editor ?"/>
+			<DoDeleteOrNot title="Suprimir un fichièr" message="Lo fichièr &quot;$STR_REPLACE$&quot;
+			serà suprimit e aquel document tampat.
+			Contunhar ?"/>
+			<NoBackupDoSaveFile title="Salvar" message="Lo vòstre fichièr de salvagarda a pas estat trobat (suprimit del defòra).
+			Salvatz-lo, o las donadas seràn perdudas
+			Volètz salvar lo fichièr &quot;$STR_REPLACE$&quot; ?"/>
+			<DoReloadOrNot title="Tornar cargar" message="&quot;$STR_REPLACE$&quot;
+			Aquel fichièr a estat modificat per un autre programa.
+			Lo volètz tornar cargar ?"/>
+			<DoReloadOrNotAndLooseChange title="Tornar cargar" message="&quot;$STR_REPLACE$&quot;
+			Aquel fichièr a estat modificat per un autre programa.
+			Lo volètz tornar cargar e pèrdre los cambiaments efectuats dins Notepad++ ?"/>
+			<PrehistoricSystemDetected title="Sistèma preistoric detectat" message="Semblariá qu'utilizetz encara un sistèma preistoric. Aquela fonccionalitat marcha pas que sus un sistèma modèrne, excusatz."/>
+			<XpUpdaterProblem title="Actualizador Notepad++" message="L'actualizador Notepad++ es pas compatible amb XP a causa que lo jaç de seguretat jos XP es obsolèt.
+			Volètz anar a la pagina d'acuèlh de Notepad++ per descargar la darrièra version ?"/>
+			<DocTooDirtyToMonitor title="Problèma de susvelhança" message="Aqueste document a pas estat salvat. Mercés de salvar las modificacions abans de lo susvelhar."/>
+			<DocNoExistToMonitor title="Problèma de susvelhança" message="Lo fichièr deu existar per èsser susvelhat."/>
+			<FileTooBigToOpen title="Problèma de talha de fichièr" message="Lo fichièr es tròp voluminós per èsser dobèrt amb Notepad++"/>
+			<CreateNewFileOrNot title="Crear un fichièr novèl" message="&quot;$INT_REPLACE$&quot; exista pas. Lo volètz crear ?"/>
+			<CreateNewFileError title="Crear un fichièr novèl" message="Impossible de crear lo fichièr &quot;$INT_REPLACE$&quot;."/>
+			<OpenFileError title="ERROR" message="Impossible de dobrir lo fichièr &quot;$INT_REPLACE$&quot;."/>
+			<FileBackupFailed title="La recuperacion de fichièr a pas capitat" message="La version precedenta del fichièr poguèt pas èsser salvada dins lo dorsièr de salvagarda a &quot;$INT_REPLACE$&quot;.
+			Volètz salvar lo fichièr actiu çaquelà ?"/>
+			<LoadStylersFailed title="Lo cargament de stylers.xml a pas capitat" message="Lo cargament de &quot;$INT_REPLACE$&quot; a pas capitat !"/>
+			<LoadLangsFailed title="Configurator" message="Lo cargament de langs.xml a pas capitat !
+			Volètz recuperar lo vòstre langs.xml ?"/>
+			<LoadLangsFailedFinal title="Configurator" message="Lo cargament de langs.xml a pas capitat !"/>
+			<FolderAsWorspaceSubfolderExists title="Problèma de Dorsièr coma espaci de trabalh" message="Un sos-dorsièr del dorsièr que volètz apondre exista.
+			Mercés de tirar son dorsièr racina del panèl abans d'apondre &quot;$STR_REPLACE$&quot;."/>
+
+			<ProjectPanelChanged title="$STR_REPLACE$" message="L'espaci de trabalh a estat modificat. Lo volètz salvar ?"/>
+			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Lo vòstre espaci de trabalh foguèt pas salvat."/>
+			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Dobrir espaci de trabalh" message="L'espaci de trabalh actual a estat modificat. Volètz salvar lo projècte actual ?"/>
+			<ProjectPanelNewDoSaveDirtyWsOrNot title="Novèl espaci de trabalh" message="L'espaci de trabalh actual a estat modificat. Volètz salvar lo projècte actual ?"/>
+			<ProjectPanelOpenFailed title="Dobrir espaci de trabalh" message="L'espaci de trabalh poguèt pas èsser dobèrt.
+			Semblariá que lo fichièr de dobrir foguèsse pas un fichièr de projècte valid."/>
+			<ProjectPanelRemoveFolderFromProject title="Tirar lo dorsièr del projècte" message="Totes los sos-elements seràn tirats.
+			Sètz segur(a) de voler tirar aquel dorsièr del projècte ?"/>
+			<ProjectPanelRemoveFileFromProject title="Tirar aquel fichièr del projècte" message="Sètz segur(a) de voler tirar aquel fichièr del projècte ?"/>
+			<ProjectPanelReloadError title="Tornar cargar l'espaci de trabalh" message="Impossible de trobar lo fichièr de tornar cargar."/>
+			<ProjectPanelReloadDirty title="Tornar cargar l'espaci de trabalh" message="L'espaci de trabalh actual a estat modificat. Lo tornar cargar anullarà totas las modificacions.
+			Contunhar ?"/>
+			<UDLNewNameError title="Error UDL" message="Aqueste nom es utilizat per un autre lengatge,
+			mercés de ne donar un autre."/>
+			<UDLRemoveCurrentLang title="Tirar lo lengatge actual" message="Sètz segur(a) ?"/>
+			<SCMapperDoDeleteOrNot title="Sètz segur(a) ?" message="Sètz segur(a) de voler suprimir aquel acorchi ?"/>
+			<FindCharRangeValueError title="Marrida valor d'interval" message="Devètz picar una valor entre 0 e 255."/>
+		</MessageBox>
+		<ClipboardHistory>
+			<PanelTitle name="Istoric del quichapapièrs"/>
+		</ClipboardHistory>
+		<DocList>
+			<PanelTitle name="Cambiaire de documents"/>
+			<ColumnName name="Nom"/>
+			<ColumnExt name="Ext."/>
+		</DocList>
+		<AsciiInsertion>
+			<PanelTitle name="Panèl d'insercion ASCII"/>
+			<ColumnVal name="Valor"/>
+			<ColumnHex name="Exa"/>
+			<ColumnChar name="Caractèr"/>
+		</AsciiInsertion>
+		<DocumentMap>
+			<PanelTitle name="Mapa del document"/>
+		</DocumentMap>
+		<FunctionList>
+			<PanelTitle name="Tièra de fonccions"/>
+			<SortTip name="Ordenar"/>
+			<ReloadTip name="Tornar cargar"/>
+		</FunctionList>
+		<FolderAsWorkspace>
+			<PanelTitle name="Dorsièr coma espaci de trabalh"/>
+			<SelectFolderFromBrowserString name="Seleccionar un dorsièr d'ajustar dins lo panèl Select a folder to add in Dorsièr coma espaci de trabalh"/>
+			<Menu>
+				<Item id="3511" name="Tirar"/>
+				<Item id="3512" name="Tirar tot"/>
+				<Item id="3513" name="Ajustar"/>
+				<Item id="3514" name="Aviar per sistèma"/>
+				<Item id="3515" name="Dobrir"/>
+				<Item id="3516" name="Copiar lo camin"/>
+				<Item id="3517" name="Cercar dins los fichièrs..."/>
+				<Item id="3518" name="Explorador aicí"/>
+				<Item id="3519" name="CMD aicí"/>
+			</Menu>
+		</FolderAsWorkspace>
+		<ProjectManager>
+			<PanelTitle name="Projècte"/>
+			<WorkspaceRootName name="Espaci de trabalh"/>
+			<NewProjectName name="Nom del projècte"/>
+			<NewFolderName name="Nom del dorsièr"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Espaci de trabalh"/>
+					<Item id="1" name="Modificar"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="Nòu espaci de trabalh"/>
+					<Item id="3123" name="Dobrir espaci de trabalh"/>
+					<Item id="3124" name="Tornar cargar espaci de trabalh"/>
+					<Item id="3125" name="Salvar"/>
+					<Item id="3126" name="Salvar coma..."/>
+					<Item id="3127" name="Salvar una còpia coma..."/>
+					<Item id="3121" name="Apondre un nòu projècte"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Tornar nomenar"/>
+					<Item id="3112" name="Apondre un dorsièr"/>
+					<Item id="3113" name="Apondre de fichièrs..."/>
+					<Item id="3117" name="Apondre de fichièrs dempuèi lo dorsièr..."/>
+					<Item id="3114" name="Tirar"/>
+					<Item id="3118" name="Montar"/>
+					<Item id="3119" name="Davalar"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Tornar nomenar"/>
+					<Item id="3112" name="Apondre un dorsièr"/>
+					<Item id="3113" name="Apondre de fichièrs..."/>
+					<Item id="3117" name="Apondre de fichièrs dempuèi lo dorsièr..."/>
+					<Item id="3114" name="Tirar"/>
+					<Item id="3118" name="Montar"/>
+					<Item id="3119" name="Davalar"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Tornar nomenar"/>
+					<Item id="3115" name="Tirar"/>
+					<Item id="3116" name="Modificar lo camin del fichièr"/>
+					<Item id="3118" name="Montar"/>
+					<Item id="3119" name="Davalar"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
+		<MiscStrings>
+			<word-chars-list-tip value="Aquò vos permet d'apondre un autre caractèr dins lo caractèr de mot actual en fasent un clic doble per seleccionar o cercar amb l'opcion &quot;Sonque mots entièrs&quot; entalhada."/>
+			<word-chars-list-warning-begin value="Mèfi : "/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<word-chars-list-space-warning value="$INT_REPLACE$ espaci(s)"/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<word-chars-list-tab-warning value="$INT_REPLACE$ tabulacion(s)"/>
+			<word-chars-list-warning-end value="  dins la vòstra tièra de caractèrs."/>
+			<cloud-invalid-warning value="Camin invalid."/>
+			<cloud-restart-warning value="Mercés de tornar lançar Notepad++ per que siá efectiu."/>
+			<cloud-select-folder value="Seleccionar un dorsièr d'ont Notepad++ escriu/legís sos paramètres"/>
+			<shift-change-direction-tip value="Utilizar Maj. + Entradaper cercar dins l'autre sens"/>
+			<two-find-buttons-tip value="2 mòdes de boton Cercar"/>
+
+			<find-status-top-reached value="Recèrca : 1èra ocurréncia dempuèi lo bas trobada. Debuta del document atenguda."/>
+			<find-status-end-reached value="Recèrca : 1èra ocurréncia dempuèi lo naut trobada. Fin del document atenguda."/>
+			<find-status-find-from-top-end-reached value="Recèrca : 1èra ocurréncia dempuèi lo naut trobada. Fin del document atenguda"/>
+			<find-status-find-from-bottom-begin-reached value="Recèrca : 1èra ocurréncia dempuèi lo bas trobada. Debuta del document atenguda"/>
+			<find-status-replaceinfiles-1-replaced value="Remplaçar dins los fichièrs : 1 ocurréncia remplaçada"/>
+			<find-status-replaceinfiles-nb-replaced value="Remplaçar dins los fichièrs : $INT_REPLACE$ ocurréncias remplaçadas"/>
+			<find-status-replaceinfiles-re-malformed value="Remplaçar dins los fichièrs dobèrts : l'expression regulara es mal formada"/>
+			<find-status-replaceinopenedfiles-1-replaced value="Remplaçar dins los fichièrs dobèrts : 1 ocurréncia remplaçada"/>
+			<find-status-replaceinopenedfiles-nb-replaced value="Remplaçar dins los fichièrs dobèrts : $INT_REPLACE$ ocurréncias remplaçadas"/>
+			<find-status-mark-re-malformed value="Marca-paginas : L'expression regulara de cercar es mal formada"/>
+			<find-status-invalid-re value="Recèrca : Expression regulara invalida"/>
+			<find-status-mark-1-match value="1 ocurréncia"/>
+			<find-status-mark-nb-matches value="$INT_REPLACE$ ocurréncias"/>
+			<find-status-count-re-malformed value="Comptar : Expression regulara invalida"/>
+			<find-status-count-1-match value="Comptar : 1 ocurréncia"/>
+			<find-status-count-nb-matches value="Comptar : $INT_REPLACE$ ocurréncias"/>
+			<find-status-replaceall-re-malformed value="Remplaçar tot : Expression regulara invalida"/>
+			<find-status-replaceall-1-replaced value="Remplaçar tot : 1 ocurréncia remplaçada"/>
+			<find-status-replaceall-nb-replaced value="Remplaçar tot : $INT_REPLACE$ ocurréncias remplaçadas"/>
+			<find-status-replaceall-readonly value="Remplaçar tot : Impossible de remplaçar lo tèxt. Lo document actiu es en lectura sola"/>
+			<find-status-replace-end-reached value="Remplaçar : 1èra ocurréncia dempuèi lo naut remplaçada. Fin del document atenguda"/>
+			<find-status-replace-top-reached value="Remplaçar : 1èra ocurréncia dempuèi lo bas remplaçada. Debuta del document atenguda."/>
+			<find-status-replaced-next-found value="Remplaçar : 1 occurrence was replaced. Ocurréncia seguenta trobada"/>
+			<find-status-replaced-next-not-found value="Remplaçar : 1 occurrence was replaced. Ocurréncia seguenta pas trobada"/>
+			<find-status-replace-not-found value="Remplaçar : cap d'ocurrénia trobada"/>
+			<find-status-replace-readonly value="Remplaçar : Impossible de remplaçar lo tèxt. Lo document actiu es en lectura sola"/>
+			<find-status-cannot-find value="Recèrca : Impossible de trobar lo tèxt &quot;$STR_REPLACE$&quot;"/>
+		</MiscStrings>
+	</Native-Langue>
+</NotepadPlus>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- =========================================================== [ SAS ] -->
+		<parser
+			displayName="SAS"
+			id         ="sas_function"
+			commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+							(?s:\x2F\x2A.*?\x2A\x2F)                        # Multi Line Comment
+						|	(?m-s:\x2F{2}.*$)                               # Single Line Comment
+						"
+		>
+			<function
+				mainExpr="(?x-s)                                            # free-spacing (see `RegEx - Pattern Modifiers`)
+						^\h*\K                                              # optional leading whitespace at start-of-line
+						(?:                                                 # pick either %macro or function defintions
+							%macro
+							|
+							function
+						)
+						\h+                                                 # need a space between
+                        #\K                                                 # uncomment this line to strip out the leading %macro or function prefix
+						\w+                                                 # the macro or function name
+						#.*$                                                # uncomment this line to include optional parameters
+					"
+			>
+				<!-- ORIGINALLY: comment out the following node to display the method with its parameters -->
+				<!-- unfortunately, I could not get it `function` lines working if I uncomment this, even if the expr is identical to the mainExpr above -->
+				<!--functionName>
+					<nameExpr expr="(?x-s)                                  # free-spacing (see `RegEx - Pattern Modifiers`)
+						^\h*\K                                              # optional leading whitespace at start-of-line
+						(?:                                                 # pick either %macro or function defintions
+							%macro
+							|
+							function
+						)
+						\h+                                                 # need a space between
+						\w+                                                 # the macro or function name
+					" />
+				</functionName-->
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ======================================================= [ BaanC ] -->
+		
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		|	Based on:
+		|		https://notepad-plus-plus.org/community/topic/14494/functionlist-classrange-question
+		|
+		|	Note(s):
+		|	1.	Boost::Regex 1.58-1.59 do not correctly handle quantifiers on subroutine calls
+		|		therefore the additional non-capturing group i.e. "(?:(?&amp;COMMENT))?" instead
+		|		of simply "(?&amp;COMMENT)?"
+		\-->
+		<parser
+			displayName="BaanC Sections"
+			id         ="baanc_section"
+		>
+			<classRange
+				mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+						(?im)                                               # case-insensitive, ^ and $ match at line breaks
+						(?(DEFINE)                                          # definition of sub-routines
+							(?'SECTION'
+								^\h*                                        # optional leading whitespace at start-of-line
+								(?:                                         # known section names
+									(?:after|before)\.(?:report\.\d+|\w+(?:\.\w+)*\.\d+)
+								|	(?:field|zoom\.from)\.(?:all|other|\w+(?:\.\w+)*)
+								|	(?:footer|group|header)\.\d+
+								|	choice\.\w+(?:\.\w+)*
+								|	detail\.\d+
+								|	form\.(?:all|other|\d+)
+								|	functions
+								|	main\.table\.io
+								):                                          # end-of-section-header indicator
+							)
+							(?'SECTION_EMPTY'
+								^\h*                                        # optional leading whitespace at start-of-line
+								(?:                                         # known `empty` section names
+									after\.(?:form\.read|program|receive\.data|update\.db\.commit)
+								|	before\.(?:(?:display|new)\.object|program)
+								|	declaration
+								|	on\.(?:display\.total\.line|error)
+								):                                          # end-of-section-header indicator
+							)
+						)
+						(?&amp;SECTION)                                     # section header
+						(?s:.*?)                                            # whatever,
+						(?=                                                 # ...up till
+							\s*
+							(?:
+								(?&amp;SECTION)                             # ...next section header,
+							|   (?&amp;SECTION_EMPTY)                       # ...next `empty` section header
+							|   \Z                                          # ...or end-of-text
+							)
+						)
+					"
+			>
+				<className>
+					<nameExpr expr="^\h*\K\w+(?:\.\w+)*:" />
+				</className>
+				<function
+					mainExpr="(?x)                                          # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?im)                                           # case-insensitive, ^ and $ match at line breaks
+							(?(DEFINE)                                      # definition of sub-routines
+								(?'COMMENT'
+									\s*\x7C[^\r\n]*                         # trailing comment
+									(?:                                     # optional subsequent comment
+										(?:\r?\n|\n?\r)                     # - mandatory line-break
+										\s*\x7C[^\r\n]*                     # - `trailing` comment
+									)*
+								)
+							)
+							^\h*                                            # optional leading whitespace at start-of-line
+							(?:
+								\K                                          # discard text matched so far
+								(?:                                         # known sub-section names
+									after\.(?:choice|d(?:elete|isplay)|f(?:ield|orm)|group|input|layout|re(?:ad|write)|skip\.(?:delete|(?:re)?write)|write|zoom)
+								|	before\.(?:ch(?:ecks|oice)|d(?:elete|isplay)|f(?:ield|orm)|group|input|layout|print|re(?:ad|write)|write|zoom)
+								|	check\.input
+								|	domain\.error
+								|	init\.(?:f(?:ield|orm)|group)
+								|	on\.(?:choice|e(?:ntry|xit)|input)
+								|	read\.view
+								|	ref\.(?:display|input)
+								|	selection\.filter
+								|	when\.field\.changes
+								):                                          # end-of-sub-section-header indicator
+							|
+								function                                    # keyword, start-of-function-header indicator
+								(?:(?&amp;COMMENT))?                        # optional `embedded` comment
+								(?:                                         # optional storage-class specifier
+									\s+extern
+									(?:(?&amp;COMMENT))?                    # ...with optional `embedded` comment
+								)?
+								(?:                                         # optional function type specifier
+									\s+(?:
+										boolean
+									|	double
+									|	long
+									|	string
+									|	void
+									|	domain
+										(?:(?&amp;COMMENT))?                # ...with optional `embedded` comment
+										\s+\w+(?:\.\w+)*
+									)
+									(?:(?&amp;COMMENT))?                    # ...with optional `embedded` comment
+								)?
+								\s+
+								\K                                          # discard text matched so far
+								\w+(?:\.\w+)*                               # function identifier
+								(?:(?&amp;COMMENT)(?:\r?\n|\n?\r))?         # optional `embedded` comment
+								\s*\(                                       # start-of-parameter-list indicator
+							)
+						"
+				>
+					<functionName>
+						<funcNameExpr expr="\w+(?:\.\w+)*(?:\h*:)?" />
+					</functionName>
+				</function>
+			</classRange>
+			<function
+				mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+						(?im)                                               # case-insensitive, ^ and $ match at line breaks
+						(?(DEFINE)                                          # definition of sub-routines
+							(?'COMMENT'
+								\s*\x7C[^\r\n]*                             # trailing comment
+								(?:                                         # optional subsequent comment
+									(?:\r?\n|\n?\r)                         # - mandatory line-break
+									\s*\x7C[^\r\n]*                         # - `trailing` comment
+								)*
+							)
+						)
+						^\h*                                                # optional leading whitespace at start-of-line
+						(?:
+							\K                                              # discard text matched so far
+							(?:                                             # known `empty` section names
+								after\.(?:form\.read|program|receive\.data|update\.db\.commit)
+							|	before\.(?:display\.object|new\.object|program)
+							|	declaration
+							|	on\.(?:display\.total\.line|error)
+							):                                              # end-of-section-header indicator
+						|
+							function                                        # keyword, start-of-function-header indicator
+							(?:(?&amp;COMMENT))?                            # optional `embedded` comment
+							(?:                                             # optional storage-class specifier
+								\s+extern
+								(?:(?&amp;COMMENT))?                        # ...with optional `embedded` comment
+							)?
+							(?:                                             # optional function type specifier
+								\s+(?:
+									boolean
+								|	double
+								|	long
+								|	string
+								|	void
+								|	domain
+									(?:(?&amp;COMMENT))?                    # ...with optional `embedded` comment
+									\s+\w+(?:\.\w+)*
+								)
+								(?:(?&amp;COMMENT))?                        # ...with optional `embedded` comment
+							)?
+							\s+
+							\K                                              # discard text matched so far
+							\w+(?:\.\w+)*                                   # function identifier
+							(?:(?&amp;COMMENT)(?:\r?\n|\n?\r))?             # optional `embedded` comment
+							\s*\(                                           # start-of-parameter-list indicator
+						)
+					"
+			>
+				<functionName>
+					<nameExpr expr="\w+(?:\.\w+)*(?:\h*:)?" />
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

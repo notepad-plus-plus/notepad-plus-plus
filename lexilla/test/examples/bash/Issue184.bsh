@@ -1,0 +1,11 @@
+echo $*
+echo $@
+echo $?
+echo $-
+echo $$
+echo $!
+echo $_
+echo $%
+echo $<
+
+ifeth=$(ls /sys/class/net | grep ^"$intf" | grep "$intf"$)

@@ -1,0 +1,78 @@
+ 0 400 400   module FormatSpecifiersTest
+ 1 400 400   
+ 0 400 400   let x = List.fold (*) 24.5 [ 1.; 2.; 3. ]
+ 1 400 400   
+ 0 400 400   let template =
+ 2 400 401 +     $"""<html>
+ 0 401 401 |   <%%@language=VBScript%%>
+ 0 401 401 |   <%%-- comment --%%>
+ 0 401 401 |   <script type="text/javascript">
+ 0 401 401 |     console.info(`Access time: ${{new Date().toLocaleTimeString()}}`);
+ 0 401 401 |   </script>
+ 0 401 401 |   <script type="text/vbscript">dim e="%.9g{System.Math.Exp 1.}>"</script>
+ 0 401 401 |   <%%response.write("Last mod time: %A{System.DateTime.Now.ToString("yyyy-MM-dd h:mm:ss tt")}")%%>
+ 0 401 401 |   <%% 'comment%%>
+ 0 401 401 |   <%%dim pi="{System.Math.PI,-16}"'comment%%>
+ 0 401 400 | </html>"""
+ 1 400 400   
+ 0 400 400   let template' (date: System.DateTime) =
+ 2 400 401 +     $@"""<html>
+ 0 401 401 |   <%%@language=VBScript%%>
+ 0 401 401 |   <%%-- comment --%%>
+ 0 401 401 |   <script type=""text/javascript"">
+ 0 401 401 |     console.info(`Access time: ${{new Date().toLocaleTimeString()}}`);
+ 0 401 401 |   </script>
+ 0 401 401 |   <script type=""text/vbscript"">dim e=""%.9g{System.Math.Exp 1.}>""</script>
+ 0 401 401 |   <%%response.write(""Last mod time: %A{date}"")%%>
+ 0 401 401 |   <%% 'comment%%>
+ 0 401 401 |   <%%dim pi=""{System.Math.PI,-16}""'comment%%>
+ 0 401 400 | </html>"""
+ 1 400 400   
+ 0 400 400   // expect "147.00"
+ 0 400 400   printfn "Speed: %.2f m/s" x
+ 0 400 400   printfn $"Speed: %.2f{x} m/s"
+ 0 400 400   printfn $"Speed: {x:f2} m/s"
+ 0 400 400   printfn $@"Speed: %.2f{x} m/s"
+ 0 400 400   printfn @$"Speed: {x:f2} m/s"
+ 1 400 400   
+ 0 400 400   // expect " 147%"
+ 0 400 400   printfn """%% increase:% .0F%% over last year""" x
+ 0 400 400   printfn $"""%% increase:% .0F{x}%% over last year"""
+ 0 400 400   printfn $"""%% increase:{x / 100.,5:P0} over last year"""
+ 0 400 400   printfn $@"""%% increase:% .0F{x}%% over last year"""
+ 0 400 400   printfn @$"""%% increase:{x / 100.,5:P0} over last year"""
+ 1 400 400   
+ 2 400 401 + // expect "1.5E+002"
+ 0 401 400 | // NB: units should look like text even without a space
+ 0 400 400   printfn @"Time: %-0.1Esecs" x
+ 0 400 400   printfn $"Time: %-0.1E{x}secs"
+ 0 400 400   printfn $"Time: {x:E1}secs"
+ 0 400 400   printfn $@"Time: %-0.1E{x}secs"
+ 0 400 400   printfn @$"Time: {x:E1}secs"
+ 1 400 400   
+ 0 400 400   // expect "\"         +147\""
+ 0 400 400   printfn @"""Temp: %+12.3g K""" x
+ 0 400 400   printfn $"""{'"'}Temp: %+12.3g{x} K{'"'}"""
+ 0 400 400   printfn $"""{'"'}Temp: {'+',9}{x:g3} K{'"'}"""
+ 0 400 400   printfn $@"""Temp: %+12.3g{x} K"""
+ 0 400 400   printfn @$"""Temp: {'+',9}{x:g3} K"""
+ 1 400 400   
+ 0 400 400   // Since F# 6.0
+ 0 400 400   printfn @"%B" 0b1_000_000
+ 0 400 400   printfn "%B" "\x40"B.[0]
+ 0 400 400   printfn $"""%B{'\064'B}"""
+ 0 400 400   printfn $@"""%B{0b1_000_000}"""
+ 0 400 400   printfn @$"""%B{'\064'B}"""
+ 1 400 400   
+ 0 400 400   // These don't work
+ 0 400 400   printfn ``%.2f`` x
+ 0 400 400   printfn $"%.2f" x
+ 0 400 400   printfn $@"%.2f" x
+ 0 400 400   printfn @$"%.2f" x
+ 0 400 400   printfn $"%.2f {x}"
+ 0 400 400   printfn $@"%.2f {x}"
+ 0 400 400   printfn @$"%.2f {x}"
+ 0 400 400   printfn $"""%.2f {x}"""
+ 0 400 400   printfn $@"""%.2f {x}"""
+ 0 400 400   printfn @$"""%.2f {x}"""
+ 0 400   0   

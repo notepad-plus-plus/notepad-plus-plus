@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Francesco Costanzo: invincibile(ĉe)users.sourceforge.net
+	Unua traduko: decembro 2010 (v5.8.6) - unua publikigo: v5.8.7
+	Lasta ĝisdatigo: la 9an de majo 2014, v6.6.2
+	Korajn dankojn al tiuj, kiuj konigis rimarkojn kaj erarojn.
+	Pli da informoj ĉe la fino de la dokumento
+	*********** BONAN LABORADON KUN NP++! :) ***********
+-->
+<NotepadPlus>
+	<Native-Langue name="Esperanto" filename="esperanto.xml">
+		<Menu>
+			<Main>
+				<!-- Ĉefaj menuoj -->
+				<Entries>
+					<Item menuId="file" name="&amp;Dosiero"/>
+					<Item menuId="edit" name="&amp;Redaktado"/>
+					<Item menuId="search" name="&amp;Serĉado"/>
+					<Item menuId="view" name="&amp;Vido"/>
+					<Item menuId="encoding" name="Signar&amp;kodo"/>
+					<Item menuId="language" name="&amp;Lingvaĵo"/>
+					<Item menuId="settings" name="&amp;Agordoj"/>
+					<Item menuId="macro" name="&amp;Makroo"/>
+					<Item menuId="run" name="&amp;Lanĉado"/>
+					<Item menuId="Plugins" name="Kromaĵoj"/>
+					<Item menuId="Window" name="Fenestro"/>
+				</Entries>
+
+				<!-- Subĉefaj menuoj -->
+				<SubEntries>
+					<Item subMenuId="file-openFolder" name="Malfermu aktualan dosierujon"/>
+					<Item subMenuId="file-closeMore" name="Fermu ..."/>
+					<Item subMenuId="file-recentFiles" name="PLU (Plej Laste Uzitaj)"/>
+					<Item subMenuId="edit-copyToClipboard" name="Kopiu en la tondejon"/>
+					<Item subMenuId="edit-indent" name="Krommarĝeno"/>
+					<Item subMenuId="edit-convertCaseTo" name="Uskleco"/>
+					<Item subMenuId="edit-lineOperations" name="Operacioj pri linioj"/>
+					<Item subMenuId="edit-comment" name="Komentigu/malkomentigu"/>
+					<Item subMenuId="edit-autoCompletion" name="Kompletigo"/>
+					<Item subMenuId="edit-eolConversion" name="Konvertu linifinojn"/>
+					<Item subMenuId="edit-blankOperations" name="Operacioj pri blanksignoj"/>
+					<Item subMenuId="edit-pasteSpecial" name="Speciala algluo"/>
+					<Item subMenuId="search-markAll" name="Marku ĉiujn trovitaĵojn"/>
+					<Item subMenuId="search-unmarkAll" name="Forigu markon"/>
+					<Item subMenuId="search-jumpUp" name="Saltu supren"/>
+					<Item subMenuId="search-jumpDown" name="Saltu suben"/>
+					<Item subMenuId="search-bookmark" name="Legosignoj"/>
+					<Item subMenuId="view-showSymbol" name="Montru signojn..."/>
+					<Item subMenuId="view-zoom" name="Zomo (tekstogrando)..."/>
+					<Item subMenuId="view-moveCloneDocument" name="Deloku/Montru la aktivan dokumenton..."/><!-- Laŭ hVortaro (bazita sur vort. de Carlo Minnaja, bazita sur PIV) "movi" = "igi ne-senmova", "doni" movon al ion. Do se iu manĝas, tiu movas sian buŝon, tamen la buŝo restas ĉiam en la sama loko; deloku = ŝanĝi lokon al io; do openoffice eraras(?) -->
+					<Item subMenuId="view-tab" name="Langeto..."/>
+					<Item subMenuId="view-collapseLevel" name="[-] Faldu blokojn je nivelo..."/>
+					<Item subMenuId="view-uncollapseLevel" name="[+]Malfaldu blokojn je nivelo..."/>
+					<Item subMenuId="view-project" name="Projektoj"/>
+					<Item subMenuId="encoding-characterSets" name="Regionaj signaroj"/>
+					<Item subMenuId="encoding-arabic" name="Araba"/>
+					<Item subMenuId="encoding-baltic" name="Balta"/>
+					<Item subMenuId="encoding-celtic" name="Kelta"/>
+					<Item subMenuId="encoding-cyrillic" name="Cirila"/>
+					<Item subMenuId="encoding-centralEuropean" name="Centreŭropa"/>
+					<Item subMenuId="encoding-chinese" name="Ĉina"/>
+					<Item subMenuId="encoding-easternEuropean" name="Orienteŭropa"/>
+					<Item subMenuId="encoding-greek" name="Greka"/>
+					<Item subMenuId="encoding-hebrew" name="Hebrea"/>
+					<Item subMenuId="encoding-japanese" name="Japana"/>
+					<Item subMenuId="encoding-korean" name="Korea"/>
+					<Item subMenuId="encoding-northEuropean" name="Nordeŭropa"/>
+					<Item subMenuId="encoding-thai" name="Tajlanda"/>
+					<Item subMenuId="encoding-turkish" name="Turka"/>
+					<Item subMenuId="encoding-westernEuropean" name="Okcidenteŭropa"/>
+					<Item subMenuId="encoding-vietnamese" name="Vjetnama"/>
+					<Item subMenuId="settings-import" name="Importu"/>
+				</SubEntries>
+
+				<!-- Ĉiuj menueroj -->
+				<Commands>
+					<Item id="41001" name="&amp;Nova"/>
+					<Item id="41002" name="&amp;Malfermu..."/>
+					<Item id="41019" name="Esplorilo"/>
+					<Item id="41020" name="cmd.exe"/>
+
+					<Item id="41003" name="Fermu"/>
+					<Item id="41004" name="Fermu &amp;ĉiujn dokumentojn"/>
+					<Item id="41005" name="Fermu ĉiujn dokumentojn KROM tiu ĉi"/>
+					<Item id="41009" name="Fermu ĉiujn maldekstre"/>
+					<Item id="41018" name="Fermu ĉiujn dekstre"/>
+
+					<Item id="41006" name="Kon&amp;servu"/>
+					<Item id="41007" name="Kons&amp;ervu ĉiujn"/>
+					<Item id="41008" name="Konservu &amp;kiel..."/>
+					<Item id="41010" name="Presu..."/>
+					<Item id="1001" name="Presu nun!"/>
+					<Item id="41011" name="Eli&amp;ro"/><!-- Kial ne "eliru"? Ĉar uzanto ne volas peti al Np++ eliri: la uzanto mem volas eliri de programo -->
+					<Item id="41012" name="Malfermu dosierojn de konservita seanco..."/>
+					<Item id="41013" name="Konservu la dosierliston de tiu ĉi seanco..."/>
+					<Item id="41014" name="Reŝargu el la disko"/>
+					<Item id="41015" name="Konservu kopion kiel..."/>
+					<Item id="41016" name="Forigu de la disko"/>
+					<Item id="41017" name="Alinomu..."/>
+
+					<Item id="42001" name="El&amp;tondu"/>
+					<Item id="42002" name="&amp;Kopiu"/>
+					<Item id="42003" name="&amp;Malfaru"/>
+					<Item id="42004" name="&amp;Refaru"/>
+					<Item id="42005" name="&amp;Algluu"/>
+					<Item id="42006" name="&amp;Forigu"/>
+					<Item id="42007" name="&amp;Elektu ĉion"/>
+					<Item id="42020" name="Komencu/Finu elektado"/>
+					<Item id="42008" name="Pli da krommarĝeno"/>
+					<Item id="42009" name="Malpli da krommarĝeno"/>
+					<Item id="42010" name="Duobligu la aktualan linion"/>
+					<Item id="42012" name="Dividu liniojn"/>
+					<Item id="42013" name="Kunligu liniojn"/>
+					<Item id="42014" name="Deloku supren la aktualan linion"/>
+					<Item id="42015" name="Deloku suben la aktualan linion"/>
+					<Item id="42016" name="MAJUSKLIGU"/>
+					<Item id="42017" name="minuskligu"/>
+					<Item id="42018" name="&amp;Ekregistru"/>
+					<Item id="42019" name="&amp;Finu registradon"/>
+					<Item id="42021" name="&amp;Lanĉu makroon"/>
+					<Item id="42022" name="(Mal)komentigu la linion"/>
+					<Item id="42023" name="Komentigu la elektaĵon"/>
+					<Item id="42047" name="Malkomentigu la elektaĵon"/><!--<Item id="42047" name="Transformu spacojn en TABojn"/>-->
+					<Item id="42024" name="Forigu finajn blanksignojn"/>
+					<Item id="42042" name="Forigu komencajn blanksignojn"/>
+					<Item id="42043" name="Forigu blanksignojn kaj komencajn kaj finajn"/>
+					<Item id="42044" name="Transformu linifinan signon en spacon"/>
+					<Item id="42045" name="Forigu nenecesajn blanksignojn kaj linifinojn"/>
+					<Item id="42046" name="Transformu TABojn en spacojn"/>
+					<Item id="42054" name="Spacoj iĝu TABoj (ĉiuj)"/>
+					<Item id="42053" name="Spacoj iĝu TABoj (komencaj)"/>
+					<Item id="42038" name="Algluu HTML-an enhavon"/>
+					<Item id="42039" name="Algluu RTF-an enhavon"/>
+					<Item id="42048" name="Kopiu duuman enhavon"/>
+					<Item id="42049" name="Eltondu duuman enhavon"/>
+					<Item id="42050" name="Algluu duuman enhavon"/>
+					<Item id="42037" name="Kolumna maniero..."/>
+					<Item id="42034" name="Kolumna redaktilo..."/>
+					<Item id="42051" name="Tabelo de signoj"/>
+					<Item id="42052" name="Montru historion de la tondejo"/>
+					<Item id="42025" name="Konservu la registritan makroon"/>
+					<Item id="42026" name="Teksta direkto: DM (&lt;-) "/>
+					<Item id="42027" name="Teksta direkto: MD (->)"/>
+					<Item id="42028" name="Nurlegigu la dosieron"/>
+					<Item id="42029" name="... la vojon de la aktiva dosiero"/>
+					<Item id="42030" name="... la nomon de la aktiva dosiero"/>
+					<Item id="42031" name="... la vojon de la dosierujo de la aktiva dosiero"/>
+					<Item id="42032" name="Lanĉu makroon plurfoje..."/>
+					<Item id="42035" name="Komentigu blokon"/>
+					<Item id="42036" name="Malkomentigu blokon"/>
+					<Item id="42055" name="Forigu maplenajn liniojn"/>
+					<Item id="42056" name="Forigu maplenajn liniojn (kun nevideblaj signoj)"/>
+					<Item id="42057" name="Aldonu malplenan linion sur tiu ĉi"/>
+					<Item id="42058" name="Aldonu malplenan linion sub tiu ĉi"/>
+					<!--dividiloj necesaj-->
+					<Item id="42059" name="Ordigu liniojn kreske"/>
+					<Item id="42060" name="Ordigu liniojn malkreske"/>
+
+					<Item id="43001" name="&amp;Serĉu..."/>
+					<Item id="43002" name="Serĉu la sekva&amp;ntan"/>
+					<Item id="43003" name="Anstataŭigu..."/>
+					<Item id="43004" name="Atingu..."/>
+					<Item id="43005" name="Aldonu/forigu legosignon ĉe aktuala linio"/>
+					<Item id="43006" name="Al la sekvanta legosigno"/>
+					<Item id="43007" name="Al la antaŭa legosigno"/>
+					<Item id="43008" name="Forigu ĉiujn legosignojn"/>
+					<Item id="43018" name="Eltondi liniojn kun legosigno"/>
+					<Item id="43019" name="Kopiu liniojn kun legosigno"/>
+					<Item id="43020" name="Algluu en linioj kun legosigno (anstataŭigu)"/>
+					<Item id="43021" name="Forigu legosignitajn liniojn"/>
+					<Item id="43051" name="Forigu nelegosignitajn liniojn"/>
+					<Item id="43050" name="Inversigu legosignojn"/>
+					<Item id="43052" name="Serĉu signojn en intervalo..."/>
+					<Item id="43053" name="Elektu ĉion inter kongruajn krampojn"/>
+					<Item id="43009" name="Al la kongrua krampo"/>
+					<Item id="43010" name="Serĉu la antaŭan"/>
+					<Item id="43011" name="&amp;Dumtajpa serĉo"/>
+					<Item id="43013" name="Serĉu en dosierujo"/>
+					<Item id="43014" name="Serĉu (nepermanente) la sekvantan"/>
+					<Item id="43015" name="Serĉu (nepermanente) la antaŭan"/>
+					<Item id="43016" name="Marku ĉiujn"/>
+					<Item id="43017" name="Senmarkigu ĉiujn"/>
+					<Item id="43022" name="Uzu 1-an stilon"/>
+					<Item id="43023" name="Forigu 1-an stilon"/>
+					<Item id="43024" name="Uzu 2-an stilon"/>
+					<Item id="43025" name="Forigu 2-an stilon"/>
+					<Item id="43026" name="Uzu 3-an stilon"/>
+					<Item id="43027" name="Forigu 3-an stilon"/>
+					<Item id="43028" name="Uzu 4-an stilon"/>
+					<Item id="43029" name="Forigu 4-an stilon"/>
+					<Item id="43030" name="Uzu 5-an stilon"/>
+					<Item id="43031" name="Forigu 5-an stilon"/>
+					<Item id="43032" name="Forigu ĉiujn stilojn"/>
+					<Item id="43033" name="1-a stilo"/>
+					<Item id="43034" name="2-a stilo"/>
+					<Item id="43035" name="3-a stilo"/>
+					<Item id="43036" name="4-a stilo"/>
+					<Item id="43037" name="5-a stilo"/>
+					<Item id="43038" name="Serĉu stilon"/>
+					<Item id="43039" name="1-a stilo"/>
+					<Item id="43040" name="2-a stilo"/>
+					<Item id="43041" name="3-a stilo"/>
+					<Item id="43042" name="4-a stilo"/>
+					<Item id="43043" name="5-a stilo"/>
+					<Item id="43044" name="Serĉu stilon"/>
+					<Item id="43045" name="Fenestro de serĉrezultoj"/>
+					<Item id="43046" name="Al sekvanta trovitaĵo"/>
+					<Item id="43047" name="Al antaŭa trovitaĵo"/>
+					<Item id="43048" name="Elektu kaj serĉu la sekvantan"/>
+					<Item id="43049" name="Elektu kaj serĉu la antaŭan"/>
+					<Item id="44009" name="Montru la aktivan dosieron tutfenestre"/>
+					<Item id="44010" name="[-] Faldu la tutan strukturon"/>
+					<Item id="44019" name="Montru ĉiujn signojn"/>
+					<Item id="44020" name="Montru krommarĝenan gvidilon"/>
+					<Item id="44022" name="Rompu la liniojn (laŭ la fenestra larĝo)"/><!-- Rompi kontraŭ faldi: "faldi" estas uzata por alia celo (en menuo "vido") -->
+					<Item id="44023" name="Pligrandigu  (Ctrl + Musrulumilo Antaŭen)"/>
+					<Item id="44024" name="Malpligrandigu  (Ctrl + Musrulumilo Malantaŭen)"/>
+					<Item id="44025" name="Montru blanksignojn"/>
+					<Item id="44026" name="Montru linifinojn"/>
+					<Item id="44029" name="[+]Malfaldu la tutan strukturon"/>
+					<Item id="44030" name="[-] Faldu la aktualan blokon"/>
+					<Item id="44031" name="[+]Malfaldu la aktualan blokon"/>
+					<Item id="44049" name="Informoj kaj statistikoj pri la dosiero..."/>
+					<Item id="44080" name="Dosiermapo"/>
+					<Item id="44084" name="Listo de funkcioj"/>
+					<Item id="44086" name="Al 1a langeto"/>
+					<Item id="44087" name="Al 2a langeto"/>
+					<Item id="44088" name="Al 3a langeto"/>
+					<Item id="44089" name="Al 4a langeto"/>
+					<Item id="44090" name="Al 5a langeto"/>
+					<Item id="44091" name="Al 6a langeto"/>
+					<Item id="44092" name="Al 7a langeto"/>
+					<Item id="44093" name="Al 8a langeto"/>
+					<Item id="44094" name="Al 9a langeto"/>
+					<Item id="44095" name="Al sekvanta langeto"/>
+					<Item id="44096" name="Al antaŭa langeto"/>
+					<Item id="44032" name="Tutekrane"/>
+					<Item id="44033" name="Restaŭru la defaŭltan tekstograndon"/>
+					<Item id="44034" name="Ĉiamvidebla"/>
+
+					<Item id="44035" name="Sinkronigu vertikalan rulumadon"/>
+					<Item id="44036" name="Sinkronigu horizontalan rulumadon"/>
+					<Item id="44041" name="Montru linifinajn signojn"/>
+					<Item id="44072" name="Fokuso al la alia vido"/>
+					<Item id="44081" name="Projektpanelo 1"/>
+					<Item id="44082" name="Projektpanelo 2"/>
+					<Item id="44083" name="Projektpanelo 3"/>
+					<Item id="45001" name="Konvertu al Vindoza formo"/>
+					<Item id="45002" name="Konvertu al Uniksa formo"/>
+					<Item id="45003" name="Konvertu al Makintoŝa formo"/>
+					<Item id="45004" name="Signokodo ANSI"/>
+					<Item id="45005" name="Signokodo UTF-8"/>
+					<Item id="45006" name="Signokodo UCS-2 pezkomenca"/>
+					<Item id="45007" name="Signokodo UCS-2 pezfina"/>
+					<Item id="45008" name="Signokodo UTF-8 sen BOM"/>
+					<Item id="45009" name="Konvertu al ANSI"/>
+					<Item id="45010" name="Konvertu al UTF-8 sen BOM"/>
+					<Item id="45011" name="Konvertu al UTF-8"/>
+					<Item id="45012" name="Konvertu al UCS-2 pezkomenca"/>
+					<Item id="45013" name="Konvertu al UCS-2 pezfina"/>
+
+					<Item id="10001" name="Deloku al alia vido"/>
+					<Item id="10002" name="Montru ankaŭ en alia vido"/>
+					<Item id="10003" name="Deloku al nova ekzemplo de Notepad++"/>
+					<Item id="10004" name="Montru ankaŭ en nova ekzemplo de Notepad++"/>
+
+					<Item id="46001" name="Stilakordilo..."/>
+					<Item id="46250" name="Difinu vian lingvaĵon..."/><!--estis: 44011-->
+					<Item id="46180" name="Propre difinita lingvaĵo"/>
+					<Item id="47000" name="Pri Notepad++..."/>
+					<Item id="47001" name="Hejmpaĝo de Notepad++"/>
+					<Item id="47002" name="Projektpaĝo de Notepad++"/>
+					<Item id="47003" name="NpVikio++ (enreta helpo)"/>
+					<Item id="47004" name="Forumo"/>
+					<Item id="47005" name="Akiru pli da kromaĵoj"/>
+					<Item id="47006" name="Ĝisdatigo de Notepad++"/>
+					<Item id="47008" name="Loka helpo"/>
+					<Item id="47009" name="Agordu ĝisdatiga prokurilo..."/>
+					<Item id="47010" name="Argumentoj de komandlinio"/>
+					<Item id="48005" name="Importu kromaĵo(j)n..."/>
+					<Item id="48006" name="Importu etoso(j)n..."/>
+					<Item id="48018" name="Modifu kuntekstan menuon..."/>
+					<Item id="48009" name="Klavkombinoj..."/>
+					<Item id="48011" name="Agordoj..."/>
+					<Item id="49000" name="&amp;Lanĉu..."/>
+
+					<!-- aldonaj, ne estas en la angla dosiero -->
+					<Item id="46015" name="MS-DOS-a komanddosiero"/>
+					<Item id="46016" name="Normala tekstdosiero"/>
+					<Item id="46017" name="Risurca dosiero"/>
+					<Item id="46019" name="MS INI-a dosiero"/>
+
+					<Item id="50000" name="Kompletigu funkcion"/>
+					<Item id="50001" name="Kompletigu vorton"/>
+					<Item id="50002" name="Kompletigu parametrojn de funkcio"/>
+
+					<Item id="50006" name="Kompletigu vojon"/><!--dividiloj necesaj -->
+					<Item id="44042" name="Kaŝu la liniojn kun elektaĵo"/>
+					<Item id="42040" name="Malfermu ĉiujn plejlaste uzitajn dosierojn"/>
+					<Item id="42041" name="Forgesu la liston de plejlaste uzitaj dosieroj"/>
+					<Item id="48016" name="Modifu klavkombinon/Forigu makroon..."/>
+					<Item id="48017" name="Modifu klavkombinon/Forigu komandon..."/>
+				</Commands>
+			</Main>
+			<Splitter>
+			</Splitter>
+			<TabBar>
+				<Item CMID="0" name="Fermu"/>
+				<Item CMID="1" name="Fermu ĉiujn KROM tiu ĉi"/>
+				<Item CMID="2" name="Konservu"/>
+				<Item CMID="3" name="Konservu kiel..."/>
+				<Item CMID="4" name="Presu"/>
+				<Item CMID="5" name="Deloku al alia vido"/>
+				<Item CMID="6" name="Montru ankaŭ en alia vido"/>
+				<Item CMID="7" name="Kopiu la vojon de tiu ĉi dosiero"/>
+				<Item CMID="8" name="Kopiu la nomon de tiu ĉi dosiero"/>
+				<Item CMID="9" name="Kopiu la vojon de la dosierujo kun tiu ĉi dosiero"/>
+				<Item CMID="10" name="Alinomu"/>
+				<Item CMID="11" name="Forigu"/>
+				<Item CMID="12" name="Nurlegigu"/>
+				<Item CMID="13" name="Purigu la indikilon de nurlego"/>
+				<Item CMID="14" name="Deloku al nova ekzemplo de Notepad++"/>
+				<Item CMID="15" name="Montru ankaŭ en nova ekzemplo de Notepad++"/>
+				<Item CMID="16" name="Reŝargu"/>
+				<Item CMID="17" name="Fermu ĉiujn maldekstre"/>
+				<Item CMID="18" name="Fermu ĉiujn dekstre"/>
+			</TabBar>
+		</Menu>
+
+		<Dialog>
+			<Find title="Serĉado" titleFind="Serĉu" titleReplace="Anstataŭigu" titleFindInFiles="Serĉu en dosierujo" titleMark="Marku">
+				<Item id="1" name="Serĉu la sekvantan"/>
+				<Item id="2" name="Fermu"/>
+				<Item id="1620" name="Serĉu:"/>
+				<Item id="1603" name="&amp;Tutaj vortoj"/>
+				<Item id="1604" name="&amp;Uskleca kongruo"/>
+				<Item id="1605" name="Regula esprimo"/>
+				<Item id="1606" name="Al&amp;komenciĝu se fino atingitas"/>
+				<Item id="1614" name="Nombru"/>
+				<Item id="1615" name="Serĉu ĉiujn"/>
+				<Item id="1616" name="Marku liniojn kun trovitaĵoj"/>
+				<Item id="1618" name="Malmarku antaŭ ĉiu serĉo"/>
+				<Item id="1611" name="Ansta&amp;taŭigu per:"/>
+				<Item id="1608" name="&amp;Anstataŭigu"/>
+				<Item id="1609" name="Ansta&amp;taŭigu ĉiujn"/>
+				<Item id="1623" name="Travidebla:"/>
+				<Item id="1687" name="Perdinte fokuson"/>
+				<Item id="1688" name="Ĉiam"/>
+				<Item id="1632" name="En la elektaĵo"/>
+				<Item id="1633" name="Malmarku"/>
+				<Item id="1635" name="Anstataŭigu ĉiujn en la malfermitaj dosieroj"/>
+				<Item id="1636" name="Serĉu ĉiujn en la malfermitaj dosieroj"/>
+				<Item id="1654" name="Filtriloj:"/>
+				<Item id="1655" name="Dosierujo:"/>
+				<Item id="1656" name="Serĉu ĉiujn"/>
+				<Item id="1658" name="En ĉiuj subdosierujoj"/>
+				<Item id="1659" name="En kaŝitaj dosierujoj"/>
+				<Item id="1624" name="Serĉmaniero"/>
+				<Item id="1625" name="Normala"/>
+				<Item id="1626" name="Speciala (\n, \r, \t, \0, \x...)"/>
+				<Item id="1660" name="Anstataŭigu en la dosieroj"/>
+				<Item id="1641" name="Serĉu ĉiujn en la aktiva dosiero"/>
+				<Item id="1686" name="Travidebla"/>
+				<Item id="1703" name="&amp;. kaptas linifinon"/>
+			</Find>
+
+			<FindCharsInRange title="Serĉu signojn...">
+				<Item id="2910" name="Serĉu"/>
+				<Item id="2" name="Fermu"/>
+				<Item id="2901" name="Ne-ASCII-aj signoj (128-255)"/>
+				<Item id="2902" name="ASCII-aj signoj (0-127)"/>
+				<Item id="2903" name="Intervalo:"/>
+				<Item id="2906" name="Supren"/>
+				<Item id="2907" name="Malsupren"/>
+				<Item id="2908" name="Direkto"/>
+				<Item id="2909" name="Alkomenciĝu se fino atingitas"/>
+			</FindCharsInRange>
+
+			<GoToLine title="Al linio...">
+				<Item id="2007" name="Linion"/>
+				<Item id="2008" name="Deŝovo"/>
+				<Item id="1" name="E&amp;k!"/>
+				<Item id="2" name="Rezignu"/>
+				<Item id="2004" name="Vi estas ĉi tie:"/>
+				<Item id="2005" name="Vi volas atingi:"/>
+				<Item id="2006" name="Vi ne rajtas transpasi:"/>
+			</GoToLine>
+
+			<Run title="Lanĉu...">
+				<Item id="1903" name="Lanĉenda programo:"/>
+				<Item id="1" name="Lanĉu"/>
+				<Item id="2" name="Rezignu"/>
+				<Item id="1904" name="Kunservu..."/>
+			</Run>
+
+			<StyleConfig title="Stilagordilo">
+				<Item id="2" name="Rezignu"/>
+				<Item id="2301" name="Konservu"/>
+				<Item id="2303" name="Travidebla"/>
+				<Item id="2306" name="Elektu etoson:"/>
+				<SubDialog>
+					<Item id="2204" name="Grasa"/>
+					<Item id="2205" name="Kursiva"/>
+					<Item id="2206" name="Malfona koloro"/>
+					<Item id="2207" name="Fona koloro"/>
+					<Item id="2208" name="Tiparo:"/>
+					<Item id="2209" name="Grando:"/>
+					<Item id="2211" name="Stilo:"/>
+					<Item id="2212" name="Kolorstilo"/>
+					<Item id="2213" name="Tiparstilo"/>
+					<Item id="2214" name="Defaŭlta dosiersufikso:"/>
+					<Item id="2216" name="Propre difinitaj dosiersufiksoj:"/>
+					<Item id="2218" name="Substrekita"/>
+					<Item id="2219" name="Defaŭltaj ŝlosilvortoj"/>
+					<Item id="2221" name="Propre difinitaj ŝlosilvortoj"/>
+					<Item id="2225" name="Lingvaĵo:"/>
+					<Item id="2226" name="Ŝaltu ĝeneralan malfonan koloron"/>
+					<Item id="2227" name="Ŝaltu ĝeneralan fonan koloron"/>
+					<Item id="2228" name="Ŝaltu ĝeneralan tiparon"/>
+					<Item id="2229" name="Ŝaltu ĝeneralan tiparGrandon"/>
+					<Item id="2230" name="Ŝaltu ĝeneralan grasan tiparStilon"/>
+					<Item id="2231" name="Ŝaltu ĝeneralan kursivan tiparStilon"/>
+					<Item id="2232" name="Ŝaltu ĝeneralan substrekitan tiparStilon"/>
+				</SubDialog>
+
+			</StyleConfig>
+
+			<UserDefine title="Propre difinita lingvaĵo">
+				<Item id="20001" name="Enfinestrigu"/>
+				<Item id="20002" name="Alinomu"/>
+				<Item id="20003" name="Kreu novan..."/>
+				<Item id="20004" name="Forigu"/>
+				<Item id="20005" name="Konservu kiel..."/>
+				<Item id="20007" name="Propre difinita lingvaĵo:"/>
+				<Item id="20009" name="Sufiks.:"/>
+				<Item id="20012" name="Ne zorgu usklecon"/>
+				<Item id="20011" name="Travidebleco"/>
+				<Item id="20015" name="Importu..."/>
+				<Item id="20016" name="Eksportu..."/>
+				<StylerDialog title="Stilo">
+					<Item id="25030" name="Tipara agordilo:"/>
+					<Item id="25006" name="Koloro ĉe unua plano"/>
+					<Item id="25007" name="Koloro de fono"/>
+					<Item id="25031" name="Nomo:"/>
+					<Item id="25032" name="Grando:"/>
+					<Item id="25001" name="Grasa"/>
+					<Item id="25002" name="Kursiva"/>
+					<Item id="25003" name="substrekita"/>
+					<Item id="25029" name="Greftado:"/>
+					<Item id="25008" name="Limmarko 1"/>
+					<Item id="25009" name="Limmarko 2"/>
+					<Item id="25010" name="Limmarko 3"/>
+					<Item id="25011" name="Limmarko 4"/>
+					<Item id="25012" name="Limmarko 5"/>
+					<Item id="25013" name="Limmarko 6"/>
+					<Item id="25014" name="Limmarko 7"/>
+					<Item id="25015" name="Limmarko 8"/>
+					<Item id="25018" name="Ŝlosilvorto 1"/>
+					<Item id="25019" name="Ŝlosilvorto 2"/>
+					<Item id="25020" name="Ŝlosilvorto 3"/>
+					<Item id="25021" name="Ŝlosilvorto 4"/>
+					<Item id="25022" name="Ŝlosilvorto 5"/>
+					<Item id="25023" name="Ŝlosilvorto 6"/>
+					<Item id="25024" name="Ŝlosilvorto 7"/>
+					<Item id="25025" name="Ŝlosilvorto 8"/>
+					<Item id="25016" name="Komento"/>
+					<Item id="25017" name="Komentita linio"/>
+					<Item id="25026" name="Operatoro 1"/>
+					<Item id="25027" name="Operatoro 2"/>
+					<Item id="25028" name="Numeroj"/>
+				</StylerDialog>
+				<Folder title="Dosierujoj kaj defaŭltaĵoj">
+					<Item id="21101" name="Defaŭlta stilo"/><!--ATT!!	<Item id="21201" name="Blok-malfermantaj ŝlosilvortoj"/>		<Item id="21301" name="Blok-fermantaj ŝlosilvortoj"/>-->
+					<Item id="21102" name="Stildefino"/>
+					<Item id="21105" name="Dokumentaro:"/>
+					<Item id="21104" name="Dumtempa dokumentretejo:"/>
+					<Item id="21106" name="Faldado kompakta (ankaŭ malplenaj linioj)"/>
+					<Item id="21220" name="Faldado en kodo, 1a stilo:"/>
+					<Item id="21224" name="Malfermu:"/>
+					<Item id="21225" name="Meza:"/>
+					<Item id="21226" name="Fermu:"/>
+					<Item id="21320" name="Faldado en kodo, 2a stilo (dividiloj necesaj):"/>
+					<Item id="21324" name="Malfermu:"/>
+					<Item id="21325" name="Meza:"/>
+					<Item id="21326" name="Fermu:"/>
+					<Item id="21127" name="Stildefino"/>
+					<Item id="21227" name="Stildefino"/>
+					<Item id="21327" name="Stildefino"/>
+					<Item id="21427" name="Stildefino"/>
+					<Item id="21420" name="Stilo de faldado por komentoj:"/>
+					<Item id="21424" name="Malfermu:"/>
+					<Item id="21425" name="Meza:"/>
+					<Item id="21426" name="Fermu:"/>
+				</Folder>
+				<Keywords title="Ŝlosilvortaro">
+					<Item id="22101" name="1-a aro"/>
+					<Item id="22201" name="2-a aro"/>
+					<Item id="22301" name="3-a aro"/>
+					<Item id="22401" name="4-a aro"/>
+					<Item id="22451" name="5-a aro"/>
+					<Item id="22501" name="6-a aro"/>
+					<Item id="22551" name="7-a aro"/>
+					<Item id="22601" name="8-a aro"/>
+					<Item id="22121" name="Prefiksa maniero"/>
+					<Item id="22221" name="Prefiksa maniero"/>
+					<Item id="22321" name="Prefiksa maniero"/>
+					<Item id="22421" name="Prefiksa maniero"/>
+					<Item id="22471" name="Prefiksa maniero"/>
+					<Item id="22521" name="Prefiksa maniero"/>
+					<Item id="22571" name="Prefiksa maniero"/>
+					<Item id="22621" name="Prefiksa maniero"/>
+					<Item id="22122" name="Stildefino"/>
+					<Item id="22222" name="Stildefino"/>
+					<Item id="22322" name="Stildefino"/>
+					<Item id="22422" name="Stildefino"/>
+					<Item id="22472" name="Stildefino"/>
+					<Item id="22522" name="Stildefino"/>
+					<Item id="22572" name="Stildefino"/>
+					<Item id="22622" name="Stildefino"/>
+				</Keywords>
+				<Comment title="Komentoj kaj numeroj">
+					<Item id="23003" name="Line comment position"/>
+					<Item id="23004" name="Permesu ĉie"/>
+					<Item id="23005" name="Devigu ĉe komenco de linio"/>
+					<Item id="23006" name="Permesu antaŭan blankspacon"/>
+					<Item id="23001" name="Permesu faldo de komentoj"/>
+					<Item id="23326" name="Stildefino"/>
+					<Item id="23323" name="Malfermu"/>
+					<Item id="23324" name="Signo por daŭrigo"/>
+					<Item id="23325" name="Fermu"/>
+					<Item id="23301" name="Stilo de komentita linio"/>
+					<Item id="23124" name="Stildefino"/>
+					<Item id="23122" name="Malfermu"/>
+					<Item id="23123" name="Fermu"/>
+					<Item id="23101" name="Stilo de komentoj"/>
+					<Item id="23201" name="Stilo de Numeroj"/>
+					<Item id="23220" name="Stildefino"/>
+					<Item id="23230" name="Prefikso 1"/>
+					<Item id="23232" name="Prefikso 2"/>
+					<Item id="23234" name="Aldonoj 1"/>
+					<Item id="23236" name="Aldonoj 2"/>
+					<Item id="23238" name="Suffikso 1"/>
+					<Item id="23240" name="Suffikso 2"/>
+					<Item id="23242" name="Intervalo:"/>
+					<Item id="23244" name="Decimala dividilo"/>
+					<Item id="23245" name="Punkto"/>
+					<Item id="23246" name="Komo"/>
+					<Item id="23247" name="Ambaŭ"/><!-- <Item id="23113" name="KomentKomenco:"/>					<Item id="23115" name="KomentFino:"/> ATT!	<Item id="23116" name="Traktu slosilvorton kiel simbolon"/>					<Item id="23117" name="Traktu slosilvortojn kiel simbolojn"/>-->
+				</Comment>
+				<Operator title="Operatoroj &amp;&amp; limmarkoj">
+					<Item id="24101" name="Stilo de operatoroj"/>
+					<Item id="24113" name="Stildefino"/>
+					<Item id="24116" name="Operatoroj 1"/>
+					<Item id="24117" name="Operatoroj 2 (dividiloj necesaj)"/>
+					<Item id="24201" name="Stilo de limmarko 1"/>
+					<Item id="24220" name="Malfermu:"/>
+					<Item id="24221" name="Kodŝanĝa signo:"/>
+					<Item id="24222" name="Fermu:"/>
+					<Item id="24223" name="Stildefino"/>
+					<Item id="24301" name="Stilo de limmarko 2"/>
+					<Item id="24320" name="Malfermu:"/>
+					<Item id="24321" name="Kodŝanĝa signo:"/>
+					<Item id="24322" name="Fermu:"/>
+					<Item id="24323" name="Stildefino"/>
+					<Item id="24401" name="Stilo de limmarko 3"/>
+					<Item id="24420" name="Malfermu:"/>
+					<Item id="24421" name="Kodŝanĝa signo:"/>
+					<Item id="24422" name="Fermu:"/>
+					<Item id="24423" name="Stildefino"/>
+					<Item id="24451" name="Stilo de limmarko 4"/>
+					<Item id="24470" name="Malfermu:"/>
+					<Item id="24471" name="Kodŝanĝa signo:"/>
+					<Item id="24472" name="Fermu:"/>
+					<Item id="24473" name="Stildefino"/>
+					<Item id="24501" name="Stilo de limmarko 5"/>
+					<Item id="24520" name="Malfermu:"/>
+					<Item id="24521" name="Kodŝanĝa signo:"/>
+					<Item id="24522" name="Fermu:"/>
+					<Item id="24523" name="Stildefino"/>
+					<Item id="24551" name="Stilo de limmarko 6"/>
+					<Item id="24570" name="Malfermu:"/>
+					<Item id="24571" name="Kodŝanĝa signo:"/>
+					<Item id="24572" name="Fermu:"/>
+					<Item id="24573" name="Stildefino"/>
+					<Item id="24601" name="Stilo de limmarko 7"/>
+					<Item id="24620" name="Malfermu:"/>
+					<Item id="24621" name="Kodŝanĝa signo:"/>
+					<Item id="24622" name="Fermu:"/>
+					<Item id="24623" name="Stildefino"/>
+					<Item id="24651" name="Stilo de limmarko 8"/>
+					<Item id="24670" name="Malfermu:"/>
+					<Item id="24671" name="Kodŝanĝa signo:"/>
+					<Item id="24672" name="Fermu:"/>
+					<Item id="24673" name="Stildefino"/>
+				</Operator>
+				<Item id="24001" name="Ŝaltu kodŝanĝan signon:"/><!--enable escape character -->
+			</UserDefine>
+			<Preference title="Agordoj">
+				<Item id="6001" name="Bone"/>
+				<Global title="Ĝeneralaĵoj">
+					<Item id="6102" name="Kaŝu"/>
+					<Item id="6103" name="Malgrandaj bildsimboloj"/>
+					<Item id="6104" name="Grandaj bildsimboloj"/>
+					<Item id="6105" name="Klasikaj bildsimboloj"/>
+
+					<Item id="6107" name="Malprigrandigu"/>
+					<Item id="6108" name="Bloku (sen ŝovado)"/>
+					<Item id="6109" name="Malheligu neaktivajn langetojn"/>
+					<Item id="6110" name="Kolora strio ĉe la aktiva langeto"/>
+
+					<Item id="6112" name="Montru fermobutonon ĉe ĉiu langeto"/>
+					<Item id="6113" name="Duobla klako fermas dokumenton"/>
+					<Item id="6118" name="Kaŝu"/>
+					<Item id="6119" name="Plurlinia"/>
+					<Item id="6120" name="Vertikala"/>
+
+					<Item id="6121" name="Menubreto"/>
+					<Item id="6122" name="Kaŝu (por montri: Alt aŭ F10)"/>
+					<Item id="6123" name="Elektu lingvon"/>
+
+					<Item id="6125" name="Panelo de malfermitaj dosieroj"/>
+					<Item id="6126" name="Montru"/>
+					<Item id="6127" name="Sen kolumno de dosiersufiksoj"/>
+				</Global>
+				<Scintillas title="Redaktado">
+					<Item id="6216" name="Agordoj pri tajpmontrilo"/>
+					<Item id="6217" name="Larĝo:"/>
+					<Item id="6219" name="Rapido:"/>
+					<Item id="6221" name="R"/>
+					<Item id="6222" name="M"/>
+					<Item id="6224" name="Agordoj pri plurredaktado"/>
+					<Item id="6201" name="Simbolo de blokgrupoj"/>
+					<Item id="6202" name="Simpla"/>
+					<Item id="6203" name="Sagforma"/>
+					<Item id="6204" name="Cirkla"/>
+					<Item id="6205" name="Kvadrata"/>
+					<Item id="6226" name="Nenia"/>
+
+					<Item id="6227" name="Aŭtomata linirompo"/>
+					<Item id="6228" name="Defaŭlta"/>
+					<Item id="6229" name="Ĝisrandigita"/>
+					<Item id="6230" name="Kun krommarĝeno"/>
+
+					<Item id="6206" name="Montru numerojn de linioj"/>
+					<Item id="6207" name="Montru legosignojn"/>
+					<Item id="6208" name="Montru kolumnlimon"/>
+					<Item id="6209" name="Nombro de kolumnoj: "/>
+					<Item id="6234" name="Malŝaltu specialan rulumadon (se vi havas problemojn kun tuŝplato)"/>
+					<Item id="6211" name="Agordoj pri kolumnlimo"/>
+					<Item id="6212" name="Linia maniero"/>
+					<Item id="6213" name="Fona maniero"/>
+					<Item id="6214" name="Evidentigu la aktualan linion"/>
+
+					<Item id="6231" name="Larĝo de bordero de redaktejo:"/>
+				</Scintillas>
+
+				<NewDoc title="Nova dokumento">
+					<Item id="6401" name="Dosierformo"/>
+					<Item id="6402" name="Vindoza"/>
+					<Item id="6403" name="Uniksa"/>
+					<Item id="6404" name="Makintoŝa"/>
+					<Item id="6405" name="Signokodaro"/>
+					<Item id="6406" name="ANSI"/>
+					<Item id="6407" name="UTF-8 sen BOM (Bitoka Ord-Marko)"/>
+					<Item id="6408" name="UTF-8"/>
+					<Item id="6409" name="UCS-2 pezkomenca"/>
+					<Item id="6410" name="UCS-2 pezfina"/>
+					<Item id="6411" name="Defaŭlta lingvaĵo:"/>
+					<Item id="6419" name="Nova dokumento"/>
+					<Item id="6420" name="Uzu malfermante ANSI-dosierojn"/>
+				</NewDoc>
+
+				<DefaultDir title="Defaŭlta dosierujo">
+					<Item id="6413" name="Defaŭlta dosierujo (malfermu/konservu)"/>
+					<Item id="6414" name="Dosierujo de la aktiva dosiero"/>
+					<Item id="6415" name="Memoru la lastan dosierujon"/>
+				</DefaultDir>
+
+				<FileAssoc title="Dosieraj rilatoj">
+					<Item id="4009" name="Konataj sufiksoj:"/>
+					<Item id="4010" name="Registritaj sufiksoj:"/>
+				</FileAssoc>
+				<LangMenu title="Menuo Lingvaĵo">
+					<Item id="6505" name="Disponeblaj lingvaĵoj"/>
+					<Item id="6506" name="Malŝaltitaj lingvaĵoj"/>
+					<Item id="6507" name="Grupigu erojn de menuo «Lingvaĵo»"/>
+					<Item id="6508" name="Menuo «Lingvaĵo»"/>
+					<Item id="6510" name="Uzu defaŭltan valoron"/>
+				</LangMenu>
+
+				<TabSettings title="TABa klavo"><!-- Tie ĉi temas pri la Taba klavo, ne pri la Taba signo -->
+					<Item id="6301" name="TABklavaj Agordoj"/>
+					<Item id="6302" name="Anstataŭigu per spacetoj"/>
+					<Item id="6303" name="TABlongo:"/>
+					<Item id="6510" name="Uzu defaŭltan"/>
+				</TabSettings>
+
+				<Print title="Presado">
+					<Item id="6601" name="Presu numerojn de linioj"/>
+					<Item id="6602" name="Agordoj pri koloroj"/>
+					<Item id="6603" name="Vidate-vidote (kiel vidatas)"/>
+					<Item id="6604" name="Inversaj"/>
+					<Item id="6605" name="Blanka/nigra"/>
+					<Item id="6606" name="Ne presu fona(j)n koloro(j)n"/>
+					<Item id="6607" name="Agordoj pri paĝmarĝenoj (unuo: mm)"/>
+					<Item id="6612" name="Maldeks."/>
+					<Item id="6613" name="Supra"/>
+					<Item id="6614" name="Dekstra"/>
+					<Item id="6615" name="Suba"/>
+					<Item id="6706" name="Grasa"/>
+					<Item id="6707" name="Kursiva"/>
+					<Item id="6708" name="Paĝokapo"/>
+					<Item id="6709" name="Maldekstra parto"/>
+					<Item id="6710" name="Centra parto"/>
+					<Item id="6711" name="Dekstra parto"/>
+					<Item id="6717" name="Grasa"/>
+					<Item id="6718" name="Kursiva"/>
+					<Item id="6719" name="Paĝopiedo"/>
+					<Item id="6720" name="Maldekstra parto"/>
+					<Item id="6721" name="Centra parto"/>
+					<Item id="6722" name="Dekstra parto"/>
+					<Item id="6723" name="Aldonu"/>
+					<Item id="6725" name="Variablo:"/>
+					<Item id="6727" name="Elektu parton"/>
+					<Item id="6728" name="Paĝokapo kaj Paĝopiedo"/>
+				</Print>
+
+				<RecentFilesHistory title="Historio de PLUdosieroj">
+					<Item id="6304" name="Historio de PlejLaste Uzitaj dosieroj"/>
+					<Item id="6306" name="Nombro de memorataj dosieroj:"/>
+					<Item id="6305" name="Ne serĉu dumlanĉe"/>
+					<Item id="6429" name="Montru PLUajn dosierojn"/>
+					<Item id="6424" name="En submenuo"/>
+					<Item id="6425" name="Montru dosiernomojn"/>
+					<Item id="6426" name="Montru la tutajn vojojn"/>
+					<Item id="6427" name="Maksimuma longo de vojoj:"/>
+				</RecentFilesHistory>
+
+				<MISC title="Diversaĵoj">
+					<Item id="6309" name="Memoru la seancdosierojn por estonta lanĉo"/>
+					<Item id="6312" name="Aŭtomata rekono de dosierstato"/>
+					<Item id="6313" name="Ĝisdatigu sen rimarkigo"/>
+					<Item id="6318" name="Agordoj pri alklakeblaj ligiloj"/>
+					<Item id="6325" name="Ĝisdatiginte, atingu la lastan linion"/>
+					<Item id="6319" name="Ŝaltu"/>
+					<Item id="6320" name="Sen substreko"/>
+					<Item id="6322" name="Sufiksoj de seancdosieroj:"/>
+					<Item id="6323" name="Aŭtomata ĝisdatigo de Notepad++"/>
+					<Item id="6324" name="Ŝanĝo de dokumento (Ctrl+Tab)"/>
+					<Item id="6326" name="Inteligenta evidentigo"/>
+					<Item id="6329" name="Evidentigo de kongruaj markoj"/>
+					<Item id="6327" name="Ŝaltu"/>
+					<Item id="6328" name="Evidentigu atributojn de markojn"/>
+					<Item id="6330" name="Evid. regionojn kun komentoj/php/asp"/>
+
+					<Item id="6331" name="Montru nur dosiernomon en titola breto"/>
+					<Item id="6332" name="Uskleca kongruo"/>
+					<Item id="6333" name="Inteligenta evidentigo"/>
+					<Item id="6334" name="Aŭtomata rekono de signarkodo"/>
+					<Item id="6335" name="Malsuprenstreko estas kodŝanĝa signo de SQL"/>FCO -->
+					<Item id="6114" name="Ŝaltu"/>
+					<Item id="6117" name="Ordigu laŭ lasta uzo"/>
+
+				</MISC>
+
+				<Backup title="Sekurkopiado">
+					<Item id="6817" name="Perioda sekurkopiado kaj Ekkonservado"/>
+					<Item id="6309" name="Memoru la seancdosierojn por estonta lanĉo"/>
+					<Item id="6818" name="Ŝaltu sekurkopiadon"/>
+					<Item id="6819" name="... ĉiun"/>
+					<Item id="6821" name="-an sekundon"/>
+
+					<Item id="6801" name="Sekurkopiado"/>
+					<Item id="6315" name="Nenia sekurkopio"/>
+					<Item id="6316" name="Simpla sekurkopio"/>
+					<Item id="6317" name="Nova kopio je ĉiu konservo"/>
+					<Item id="6804" name="Elektu dosierujon por sekurkopioj:"/>
+					<Item id="6803" name="Dosierujo:"/>
+					<Item id="6219" name="Dosierujo de sekurkopioj"/>
+				</Backup>
+
+				<AutoCompletion title="Vortkompletigo">
+					<Item id="6807" name="Aŭtomata vortkompletiĝo"/>
+					<Item id="6808" name="Ŝaltu vortkompletiĝon por ĉiu enigo"/>
+					<Item id="6809" name="Kompletigu funkciojn"/>
+					<Item id="6810" name="Kompletigu vortojn"/>
+					<Item id="6811" name="De la"/>
+					<Item id="6813" name="-a signo"/>
+					<Item id="6814" name="(validaj valoroj: 1-9)"/>
+					<Item id="6815" name="Montru dumtajpe parametrojn de funkcio"/>
+					<Item id="6851" name="Aŭtomata enmeto"/>
+					<Item id="6857" name="XML-a malfermmarko"/>
+					<Item id="6858" name="Malfer."/>
+					<Item id="6859" name="Fermo"/>
+					<Item id="6860" name="Kongrua duopo 1:"/>
+					<Item id="6863" name="Kongrua duopo 2:"/>
+					<Item id="6866" name="Kongrua duopo 3:"/>
+				</AutoCompletion>
+
+				<MultiInstance title="Plurekzempleco">
+					<Item id="6151" name="Agordoj de plurekzempla maniero"/>
+					<Item id="6152" name="Malfermu seancon en nova ekzemplo de Notepadu++"/>
+					<Item id="6153" name="Ĉiam en plurekzempla maniero"/>
+					<Item id="6154" name="Defaŭlte (unu ekzemplo)"/>
+					<Item id="6155" name="* Modifo de ĉi agordoj postulos restartigon de Notepad++"/>
+				</MultiInstance>
+
+				<Delimiter title="Limmarkoj">
+					<Item id="6251" name="Elekto de teksto limmarkita (Ctrl + duobla musklako)"/>
+					<Item id="6252" name="Malf."/>
+					<Item id="6255" name="Fermo"/>
+					<Item id="6256" name="Permesu plurlinie"/>
+					<Item id="6257" name="bla bla bla bla bla bla"/>
+					<Item id="6258" name="bla bla bla bla bla bla bla bla bla bla bla bla"/>
+				</Delimiter>
+
+			</Preference>
+			<MultiMacro title="Lanĉu makroon plurfoje">
+				<Item id="1" name="Lanĉu"/>
+				<Item id="2" name="Rezignu"/>
+				<Item id="8006" name="Lanĉenda makroo:"/>
+				<Item id="8001" name="Lanĉu"/>
+				<Item id="8005" name="-foje"/>
+				<Item id="8002" name="Funkciigu ĝis la fino de dosieroj"/>
+			</MultiMacro>
+			<Window title="Fenestroj">
+				<Item id="1" name="Aktivigu"/>
+				<Item id="2" name="Akceptu"/>
+				<Item id="7002" name="Konservu"/>
+				<Item id="7003" name="Fermu fenestro(j)n"/>
+				<Item id="7004" name="Ordigu la langetojn"/>
+			</Window>
+			<ColumnEditor title="Kolumna redaktilo">
+				<Item id="2023" name="Enmetenda teksto"/>
+				<Item id="2033" name="Enmetenda(j) numero(j)"/>
+				<Item id="2030" name="Unua numero:"/>
+				<Item id="2031" name="Kreskigu je:"/>
+				<Item id="2035" name="Antaŭaj nuloj"/>
+				<Item id="2032" name="Bazo de nombradsistemo"/>
+				<Item id="2024" name="Dekuma"/>
+				<Item id="2025" name="Okuma"/>
+				<Item id="2026" name="Deksesuma"/>
+				<Item id="2027" name="Duuma"/>
+				<Item id="1" name="Akceptu"/>
+				<Item id="2" name="Rezignu"/>
+			</ColumnEditor>
+		</Dialog>
+		<MessageBox>
+			<ContextMenuXmlEditWarning title="Redaktu kuntekstan menuon" message="Modifo de contextMenu.xml ebligas modifon de kunteksta menuo de Notepad++.&#x0A;Necesas restarti Notepad++ -n por ke modifoj faritaj en contextMenu.xml efikos."/>
+			<NppHelpAbsentWarning title="La dosiero ne ekzistas" message="&#x0A;ne ekzistas. Elŝutu ĝin el la retpaĝaro de Notepad++."/>
+			<SaveCurrentModifWarning title="Konservu faritajn modifiojn" message="Vi devas konservi faritajn modifiojn.&#x0A;Ne eblas malfari iun konservitan modifion.&#x0A;&#x0A;Ĉu vi volas daŭrigi?"/>
+			<LoseUndoAbilityWarning title="Atentu: perdo de ebleco malfari" message="Vi devas konservi faritajn modifiojn.&#x0A;Ne eblas malfari iun konservitan modifion.&#x0A;&#x0A;Ĉu vi volas daŭrigi?"/>
+			<CannotMoveDoc title="Malfermo en alia ekzemplo de Notepad++" message="La dokumento estas modifita, konservu antaŭ daŭrigi."/>
+			<DocReloadWarning title="Reŝargo" message="Ĉu vi certe volas reŝargi la dosieron? Ĉiuj modifioj faritaj estos perditaj."/>
+			<FileLockedWarning title="Nesukcesa konservo" message="Kontrolu ĉu la dosiero estas malfermita en alia programo."/>
+			<FileAlreadyOpenedInNpp title="Dosiero malfermita" message="La dosiero estas jam malfermita en Notepad++."/>
+			<DeleteFileFailed title="Forigo de dosiero" message="La forigo de la dosiero ne sukcesis."/>
+
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<NbFileToOpenImportantWarning title="Tro da malfermendaj dosieroj" message="$INT_REPLACE$ dosieroj malfermendaj.\rĈu vi certas, ke vi volas malfermi ilin?"/>
+		</MessageBox>
+		<ProjectManager>
+			<PanelTitle name="Projektoj"/>
+			<WorkspaceRootName name="Laborspaco"/>
+			<NewProjectName name="Nomo de projekto"/>
+			<NewFolderName name="Dosierujo"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Laborspaco"/>
+					<Item id="1" name="Redaktu"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="Nova laborspaco"/>
+					<Item id="3123" name="Malfermu laborspacon"/>
+					<Item id="3124" name="Reŝargu laborspacon"/>
+					<Item id="3125" name="Konservu"/>
+					<Item id="3126" name="Konservu kiel..."/>
+					<Item id="3127" name="Konservu kopion kiel..."/>
+					<Item id="3121" name="Aldonu novan projekton"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Alinomu"/>
+					<Item id="3112" name="Aldonu dosierujon"/>
+					<Item id="3113" name="Aldonu dosierojn..."/>
+					<Item id="3117" name="Aldonu dosierojn de dosierujo..."/>
+					<Item id="3114" name="Forigu"/>
+					<Item id="3118" name="Supren"/>
+					<Item id="3119" name="Suben"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Alinomu"/>
+					<Item id="3112" name="Aldonu dosierujon"/>
+					<Item id="3113" name="Aldonu dosierojn..."/>
+					<Item id="3117" name="Aldonu dosierojn de dosierujo..."/>
+					<Item id="3114" name="Forigu"/>
+					<Item id="3118" name="Supren"/>
+					<Item id="3119" name="Suben"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Alinomu"/>
+					<Item id="3115" name="Forigu"/>
+					<Item id="3116" name="Modifu la dosiervojon"/>
+					<Item id="3118" name="Supren"/>
+					<Item id="3119" name="Suben"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
+	</Native-Langue>
+</NotepadPlus>
+<!--
+ne plu uzataj (?)
+
+
+					<operators><Item id="24103" name="Disponeblaj simboloj"/>
+					<Item id="24101" name="Aktivaj operatoroj"/>
+					<Item id="24201" name="Limmarko 1"/>
+					<Item id="24211" name="Komenclima simbolo:"/>
+					<Item id="24214" name="Finlima simbolo:"/>
+					<Item id="24301" name="Limmarko 2"/>
+					<Item id="24311" name="Komenclima simbolo:"/>
+					<Item id="24314" name="Finlima simbolo:"/>
+					<Item id="24107" name="Stilo de operatoroj"/>
+-->
+<!--
+
+
+Fontoj: Komputeko kaj la traduko de OpenOffice estis uzitaj por elekti radikojn, kiuj estas uzataj ankaŭ en aliaj programoj.
+Ankaŭ la vortaro de Carlo Minnaja (ITA-EO) en ĝia ĝisdatigata versio hVortaro (hvortaro.altervista.org) estis tre utila, por klarigi signifojn kaj rekoni la  Fundamentajn vortojn kaj la aldonojn de "Baza Radikaro Oficiala", kiujn mi preferas antastaŭ la postaj aldonoj kaj "novaj vortoj" (kiam eblas elekti).
+
+Ne estas facile kontentigi ĉiujn, certe al iuj ne plaĉos ion; por ekspliki iujn elektojn ie mi skribis komentojn, kaj longan komenton ĉe la fino de tiu ĉi dokumento.
+Mi klopodis fari bonlingvan tradukon, klara ankaŭ al homoj kiuj unuafoje vidas programon en Esperanto, tamen ne timu: mi ne estas "radikala" bonlingvisto.
+
+Eble iu volus scii kial mi elektis volitivon (u-finaĵo) por verboj, kaj eble tiu demandas, ĉar en OpenOffice estas uzata la i-finaĵon. Tre simple, ĉar tio laŭ mi plej bone taŭgas al la gramatiko de la Lingvo Internacia (ankaŭ aliaj programoj/retpaĝaroj uzas ĝin).
+Mi scias ke en OOo kaj Fajrovulpo estas "serĉi" anstataŭ "serĉu"; mi tute respektas la programojn, kies tradukantoj elektis i-finaĵojn. Sed kial oni devus uzi i-finaĵojn?
+	Ĉu "serĉi" estas anstataŭ "(bonvolu) serĉi"? Tio ĉi estas senlogika ĉar komputilo ne havas volo (ne kapablas bon"voli").
+	Ĉu estas anstataŭ "(Mi volas) serĉi"? Tio ĉi estas senlogika ĉar oni ne volas esprimi sian "volon serĉi", sed oni volas ke la komputilo "serĉu", ili volas diri al sia komputilo "serĉu X".
+	Ĉu estas tiel pro nacia(j) lingo(j)? Tradukante al Esperanto oni devas liberigi sian menson de aliaj lingvoj tiom, kiom eblas.
+	(...) Longa afero, kion mi looonge pripensis; estas grave ke la radikoj estas bone elektitaj, al aliaj tiaj aferoj oni rapide alkutimiĝas, aŭ oni eĉ ne pripensas.
+
+Mi preferis traduki ĉiun komandon laŭ ĝia efiko anstataŭ traduki laŭ la vortoj uzataj en aliaj lingvoj. Pro tio, mi ankaŭ devis pli bone lerni Np++n. Ekzemple "serĉu en dosierujo" anstataŭ "serĉu en dosieroj"; ankaŭ la tradukojn de OO kaj aliajn fontojn mi uzis kritike: "deloku" anstataŭ "movu" (mi skribis komenton ĉe ĝia traduko: "movi" = "igi ne-senmova", "doni" movon al ion; do se iu manĝas, tiu movas sian buŝon, tamen la buŝo restas ĉiam en la sama loko).
+Ne eblis al mi kontakti iun el komputeko.net por diskuti pri mankantaj vortoj ĉe tiu vortaro. Ekz. spaceto = blank (ĉiuj nevideblaj spaciaĵoj: " ", "	"), sed ankaŭ la signo de "normala" spaco: " ".
+Tamen mi estas kontenta pri la rezulto ĉar mi plispertiĝis post ĉi laboro, kiun mi plibonigos kaj ĝisdatigos; mi esperas, ke ankaŭ vi estos kontentaj.
+
+Mi ne volas plue enuigis vin (demando: se vi ne volas enui, kial vi estas leganta tion ĉi? ;) )
+Amike,
+Francesco
+-->
+

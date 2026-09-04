@@ -1,0 +1,340 @@
+ 0 400 400   // coding:utf-8
+ 0 400 400   
+ 2 400 401 + void main() {
+ 0 401 401 |   print('Hello, World!');
+ 0 401 400 | }
+ 0 400 400   
+ 0 400 400   var name = 'Voyager I';
+ 0 400 400   var url = 'url'
+ 0 400 400   var year = 1977;
+ 0 400 400   var antennaDiameter = 3.7;
+ 0 400 400   var flybyObjects = ['Jupiter', 'Saturn', 'Uranus', 'Neptune'];
+ 2 400 401 + var image = {
+ 0 401 401 |   'tags': ['saturn'],
+ 0 401 401 |   url: '//path/to/saturn.jpg'
+ 0 401 400 | };
+ 0 400 400   
+ 0 400 400   
+ 2 400 401 + if (year >= 2001) {
+ 0 401 401 |   print('21st century');
+ 0 401 401 | } else if (year >= 1901) {
+ 0 401 401 |   print('20th century');
+ 0 401 400 | }
+ 0 400 400   
+ 2 400 401 + for (final object in flybyObjects) {
+ 0 401 401 |   print(object);
+ 0 401 400 | }
+ 0 400 400   
+ 2 400 401 + for (int month = 1; month <= 12; month++) {
+ 0 401 401 |   print(month);
+ 0 401 400 | }
+ 0 400 400   
+ 2 400 401 + while (year < 2016) {
+ 0 401 401 |   year += 1;
+ 0 401 400 | }
+ 0 400 400   
+ 0 400 400   flybyObjects.where((name) => name.contains('turn')).forEach(print);
+ 0 400 400   
+ 0 400 400   // This is a normal, one-line comment.
+ 0 400 400   
+ 2 400 401 + /// This is a documentation comment, used to document libraries,
+ 0 401 401 | /// classes, and their members. Tools like IDEs and dartdoc treat
+ 0 401 400 | /// doc comments specially.
+ 0 400 400   
+ 0 400 400   /* Comments like these are also supported. */
+ 0 400 400   
+ 2 400 401 + /** Comment 
+ 0 401 400 |     block doc */
+ 0 400 400   
+ 0 400 400   // Importing core libraries
+ 0 400 400   import 'dart:math';
+ 0 400 400   
+ 0 400 400   // Importing libraries from external packages
+ 0 400 400   import 'package:test/test.dart';
+ 0 400 400   
+ 0 400 400   // Importing files
+ 0 400 400   import 'path/to/my_other_file.dart';
+ 0 400 400   
+ 2 400 401 + class Spacecraft {
+ 0 401 401 |   String name;
+ 0 401 401 |   DateTime? launchDate;
+ 0 401 401 | 
+ 0 401 401 |   // Read-only non-final property
+ 0 401 401 |   int? get launchYear => launchDate?.year;
+ 0 401 401 | 
+ 0 401 401 |   // Constructor, with syntactic sugar for assignment to members.
+ 2 401 402 +   Spacecraft(this.name, this.launchDate) {
+ 0 402 402 |     // Initialization code goes here.
+ 0 402 401 |   }
+ 0 401 401 | 
+ 0 401 401 |   // Named constructor that forwards to the default one.
+ 0 401 401 |   Spacecraft.unlaunched(String name) : this(name, null);
+ 0 401 401 | 
+ 0 401 401 |   // Method.
+ 2 401 402 +   void describe() {
+ 0 402 402 |     print('Spacecraft: $name');
+ 0 402 402 |     // Type promotion doesn't work on getters.
+ 0 402 402 |     var launchDate = this.launchDate;
+ 2 402 403 +     if (launchDate != null) {
+ 0 403 403 |       int years = DateTime.now().difference(launchDate).inDays ~/ 365;
+ 0 403 403 |       print('Launched: $launchYear ($years years ago)');
+ 0 403 403 |     } else {
+ 0 403 403 |       print('Unlaunched');
+ 0 403 402 |     }
+ 0 402 401 |   }
+ 0 401 400 | }
+ 0 400 400   
+ 0 400 400   var voyager = Spacecraft('Voyager I', DateTime(1977, 9, 5));
+ 0 400 400   voyager.describe();
+ 0 400 400   
+ 0 400 400   var voyager3 = Spacecraft.unlaunched('Voyager III');
+ 0 400 400   voyager3.describe();
+ 0 400 400   
+ 0 400 400   enum PlanetType { terrestrial, gas, ice }
+ 0 400 400   
+ 2 400 401 + /// Enum that enumerates the different planets in our solar system
+ 0 401 400 | /// and some of their properties.
+ 2 400 401 + enum Planet {
+ 0 401 401 |   mercury(planetType: PlanetType.terrestrial, moons: 0, hasRings: false),
+ 0 401 401 |   venus(planetType: PlanetType.terrestrial, moons: 0, hasRings: false),
+ 0 401 401 |   // ···
+ 0 401 401 |   uranus(planetType: PlanetType.ice, moons: 27, hasRings: true),
+ 0 401 401 |   neptune(planetType: PlanetType.ice, moons: 14, hasRings: true);
+ 0 401 401 | 
+ 0 401 401 |   /// A constant generating constructor
+ 2 401 402 +   const Planet(
+ 0 402 401 |       {required this.planetType, required this.moons, required this.hasRings});
+ 0 401 401 | 
+ 0 401 401 |   /// All instance variables are final
+ 0 401 401 |   final PlanetType planetType;
+ 0 401 401 |   final int moons;
+ 0 401 401 |   final bool hasRings;
+ 0 401 401 | 
+ 0 401 401 |   /// Enhanced enums support getters and other methods
+ 0 401 401 |   bool get isGiant =>
+ 0 401 401 |       planetType == PlanetType.gas || planetType == PlanetType.ice;
+ 0 401 400 | }
+ 0 400 400   
+ 0 400 400   final yourPlanet = Planet.earth;
+ 0 400 400   
+ 2 400 401 + if (!yourPlanet.isGiant) {
+ 0 401 401 |   print('Your planet is not a "giant planet".');
+ 0 401 400 | }
+ 0 400 400   
+ 2 400 401 + mixin Piloted {
+ 0 401 401 |   int astronauts = 1;
+ 0 401 401 | 
+ 2 401 402 +   void describeCrew() {
+ 0 402 402 |     print('Number of astronauts: $astronauts');
+ 0 402 401 |   }
+ 0 401 400 | }
+ 0 400 400   
+ 0 400 400   const oneSecond = Duration(seconds: 1);
+ 0 400 400   // ···
+ 2 400 401 + Future<void> printWithDelay(String message) async {
+ 0 401 401 |   await Future.delayed(oneSecond);
+ 0 401 401 |   print(message);
+ 0 401 400 | }
+ 0 400 400   
+ 0 400 400   
+ 2 400 401 + Future<void> printWithDelay(String message) {
+ 2 401 403 +   return Future.delayed(oneSecond).then((_) {
+ 0 403 403 |     print(message);
+ 0 403 401 |   });
+ 0 401 400 | }
+ 0 400 400   
+ 2 400 401 + Future<void> createDescriptions(Iterable<String> objects) async {
+ 2 401 402 +   for (final object in objects) {
+ 2 402 403 +     try {
+ 0 403 403 |       var file = File('$object.txt');
+ 2 403 404 +       if (await file.exists()) {
+ 0 404 404 |         var modified = await file.lastModified();
+ 2 404 405 +         print(
+ 0 405 404 |             'File for $object already exists. It was modified on $modified.');
+ 0 404 404 |         continue;
+ 0 404 403 |       }
+ 0 403 403 |       await file.create();
+ 0 403 403 |       await file.writeAsString('Start describing $object in this file.');
+ 0 403 403 |     } on IOException catch (e) {
+ 0 403 403 |       print('Cannot create description for $object: $e');
+ 0 403 402 |     }
+ 0 402 401 |   }
+ 0 401 400 | }
+ 0 400 400   
+ 2 400 401 + Stream<String> report(Spacecraft craft, Iterable<String> objects) async* {
+ 2 401 402 +   for (final object in objects) {
+ 0 402 402 |     await Future.delayed(oneSecond);
+ 0 402 402 |     yield '${craft.name} flies by $object';
+ 0 402 401 |   }
+ 0 401 400 | }
+ 0 400 400   
+ 2 400 401 + Future<void> describeFlybyObjects(List<String> flybyObjects) async {
+ 2 401 402 +   try {
+ 2 402 403 +     for (final object in flybyObjects) {
+ 0 403 403 |       var description = await File('$object.txt').readAsString();
+ 0 403 403 |       print(description);
+ 0 403 402 |     }
+ 0 402 402 |   } on IOException catch (e) {
+ 0 402 402 |     print('Could not describe object: $e');
+ 0 402 402 |   } finally {
+ 0 402 402 |     flybyObjects.clear();
+ 0 402 401 |   }
+ 0 401 400 | }
+ 0 400 400   
+ 2 400 401 + class Television {
+ 0 401 401 |   /// Use [turnOn] to turn the power on instead.
+ 0 401 401 |   @Deprecated('Use turnOn instead')
+ 2 401 402 +   void activate() {
+ 0 402 402 |     turnOn();
+ 0 402 401 |   }
+ 0 401 401 | 
+ 0 401 401 |   /// Turns the TV's power on.
+ 0 401 401 |   void turnOn() {...}
+ 0 401 401 |   // ···
+ 0 401 400 | }
+ 0 400 400   
+ 0 400 400   String? name  // Nullable type. Can be `null` or string.
+ 0 400 400   
+ 0 400 400   String name   // Non-nullable type. Cannot be `null` but can be string.
+ 0 400 400   
+ 0 400 400   
+ 2 400 401 + /// A domesticated South American camelid (Lama glama).
+ 0 401 401 | ///
+ 0 401 401 | /// Andean cultures have used llamas as meat and pack
+ 0 401 401 | /// animals since pre-Hispanic times.
+ 0 401 401 | ///
+ 0 401 401 | /// Just like any other animal, llamas need to eat,
+ 0 401 400 | /// so don't forget to [feed] them some [Food].
+ 2 400 401 + class Llama {
+ 0 401 401 |   String? name;
+ 0 401 401 | 
+ 2 401 402 +   /** Feeds your llama [food].
+ 0 402 402 |   /
+ 0 402 401 |   / The typical llama eats one bale of hay per week. **/
+ 2 401 402 +   void feed(Food food) {
+ 0 402 402 |     // ...
+ 0 402 401 |   }
+ 0 401 401 | 
+ 2 401 402 +   /// Exercises your llama with an [activity] for
+ 0 402 401 |   /// [timeLimit] minutes.
+ 2 401 402 +   void exercise(Activity activity, int timeLimit) {
+ 0 402 402 |     // ...
+ 0 402 401 |   }
+ 0 401 400 | }
+ 0 400 400   
+ 2 400 401 + import 'package:lib1/lib1.dart';
+ 0 401 400 | import 'package:lib2/lib2.dart' as lib2;
+ 0 400 400   // Import only foo.
+ 0 400 400   import 'package:lib1/lib1.dart' show foo;
+ 0 400 400   // Import all names EXCEPT foo.
+ 0 400 400   import 'package:lib2/lib2.dart' hide foo;
+ 0 400 400   
+ 0 400 400   print(#mysymbol);
+ 0 400 400   Symbol symbol = #myMethod;
+ 0 400 400   Symbol symbol2 = #<;
+ 0 400 400   Symbol symbol2 = #void;
+ 0 400 400   
+ 0 400 400   var x = 1;
+ 0 400 400   var hex = 0xDEADBEEF;
+ 0 400 400   var y = 1.1;
+ 0 400 400   var exponents = 1.42e5;
+ 0 400 400   
+ 0 400 400   var s1 = 'Single quotes work well for string literals.';
+ 0 400 400   var s2 = "Double quotes work just as well.";
+ 0 400 400   var s3 = 'It\'s easy to escape the string delimiter.';
+ 0 400 400   var s4 = "It's even easier to use the other delimiter.";
+ 0 400 400   
+ 0 400 400   var s = 'string interpolation';
+ 0 400 400   
+ 2 400 401 + assert('Dart has $s, which is very handy.' ==
+ 0 401 401 |     'Dart has string interpolation, '
+ 0 401 400 |         'which is very handy.');
+ 2 400 401 + assert('That deserves all caps. '
+ 0 401 401 |         '${s.toUpperCase()} is very handy!' ==
+ 0 401 401 |     'That deserves all caps. '
+ 0 401 400 |         'STRING INTERPOLATION is very handy!');
+ 0 400 400           
+ 0 400 400   var s1 = 'String '
+ 0 400 400       'concatenation'
+ 0 400 400       " works even over line breaks.";
+ 2 400 401 + assert(s1 ==
+ 0 401 401 |     'String concatenation works even over '
+ 0 401 400 |         'line breaks.');
+ 0 400 400   
+ 0 400 400   var s2 = 'The + operator ' + 'works, as well.';
+ 0 400 400   assert(s2 == 'The + operator works, as well.');
+ 0 400 400   
+ 2 400 401 + var s1 = '''
+ 0 401 401 | You can create
+ 0 401 401 | multi-line strings like this one.
+ 0 401 400 | ''';
+ 0 400 400   
+ 2 400 401 + var s2 = """This is also a
+ 0 401 400 | multi-line string.""";
+ 0 400 400   
+ 0 400 400   var s = r'In a raw string, not even \n gets special treatment.';
+ 0 400 400   var 2 = r"In a raw string, not even \n gets special treatment.";
+ 0 400 400   
+ 2 400 401 + var s1 = r'''
+ 0 401 401 | You can create
+ 0 401 401 | multi-line strings like this one.
+ 0 401 400 | ''';
+ 0 400 400   
+ 2 400 401 + var s2 = r"""This is also a
+ 0 401 400 | multi-line string.""";
+ 0 400 400   
+ 0 400 400   var record = ('first', a: 2, b: true, 'last');
+ 0 400 400   
+ 0 400 400   var record = ('first', a: 2, b: true, 'last');
+ 0 400 400   
+ 0 400 400   print(record.$1); // Prints 'first'
+ 0 400 400   print(record.a); // Prints 2
+ 0 400 400   print(record.b); // Prints true
+ 0 400 400   print(record.$2); // Prints 'last'
+ 0 400 400   
+ 0 400 400   ({String name, int age}) userInfo(Map<String, dynamic> json)
+ 2 400 401 + // ···
+ 0 401 400 | // Destructures using a record pattern with named fields:
+ 0 400 400   final (:name, :age) = userInfo(json);
+ 0 400 400   
+ 0 400 400   var list = [1, 2, 3];
+ 2 400 401 + var list = [
+ 0 401 401 |   'Car',
+ 0 401 401 |   'Boat',
+ 0 401 401 |   'Plane',
+ 0 401 400 | ];
+ 0 400 400   var halogens = {'fluorine', 'chlorine', 'bromine', 'iodine', 'astatine'};
+ 0 400 400   
+ 2 400 401 + var nobleGases = {
+ 0 401 401 |   2: 'helium',
+ 0 401 401 |   10: 'neon',
+ 0 401 401 |   18: 'argon',
+ 0 401 400 | };
+ 0 400 400   
+ 2 400 401 + var s = """This is also a
+ 2 401 403 + ${foo(
+ 0 403 403 | "$bar"
+ 0 403 401 | )}
+ 0 401 400 | multi-line string.""";
+ 0 400 400   
+ 2 400 401 + var s1 = """multi
+ 0 401 401 | line
+ 0 401 401 | \n
+ 0 401 401 | strings
+ 0 401 400 | """;
+ 0 400 400   
+ 2 400 401 + var s2 = """multi-line
+ 0 401 401 | $x
+ 0 401 401 | strings
+ 0 401 400 | """;
+ 0 400 400   
+ 2 400 401 + var s3 = """multi-line
+ 0 401 401 | ${x}
+ 0 401 401 | strings
+ 0 401 400 | """;
+ 0 400 400   
+ 0 400 400   var s1 = 'Unterminated string;
+ 0 400 400   var s2 = "Unterminated string;
+ 0 400 400   var s3 = r'Unterminated raw string;
+ 0 400 400   var s4 = r'Unterminated raw string;
+ 0 400   0   

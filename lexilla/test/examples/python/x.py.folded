@@ -1,0 +1,20 @@
+ 0 400   0   # Convert all punctuation characters except '_', '*', and '.' into spaces.
+ 2 400   0 + def depunctuate(s):
+ 0 408   0 | 	'''A docstring'''
+ 0 408   0 | 	"""Docstring 2"""
+ 0 408   0 | 	d = ""
+ 2 408   0 + 	for ch in s:
+ 2 410   0 + 		if ch in 'abcde':
+ 0 418   0 | 			d = d + ch
+ 2 410   0 + 		else:
+ 0 418   0 | 			d = d + " "
+ 0 408   0 | 	return d
+ 1 400   0   
+ 0 400   0   import contextlib
+ 1 400   0   
+ 0 400   0   @contextlib.contextmanager
+ 2 400   0 + def singleuse():
+ 0 408   0 | 	print("Before")
+ 0 408   0 | 	yield
+ 0 400   0   with singleuse(): pass
+ 1 400   0   

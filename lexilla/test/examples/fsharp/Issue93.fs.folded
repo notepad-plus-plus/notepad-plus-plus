@@ -1,0 +1,47 @@
+ 2 400 401 + (*
+ 0 401 401 |     (**  nested comment 1 **)
+ 2 401 402 +     (*
+ 0 402 402 |         nested comment 2
+ 2 402 403 +         (*
+ 0 403 403 |             nested comment 3
+ 2 403 404 +             (*
+ 0 404 404 |                 nested comment 4
+ 2 404 405 +                 (*
+ 0 405 405 |                     nested comment 5
+ 0 405 404 |                 *)
+ 0 404 403 |             *)
+ 0 403 402 |         *)
+ 0 402 401 |     *)
+ 0 401 400 | *)
+ 2 400 401 + // declare a namespace
+ 0 401 400 | // for the module
+ 0 400 400   namespace Issue93
+ 1 400 400   
+ 0 400 400   module NestedComments =
+ 2 400 401 +     open FSharp.Quotations
+ 0 401 400 |     open FSharp.Quotations.Patterns
+ 2 400 401 +     // print the arguments
+ 0 401 400 |     // of an evaluated expression
+ 2 400 401 +     (* Example:
+ 2 401 402 +         (*
+ 0 402 402 |             printArgs <@ 1 + 2 @> ;;
+ 0 402 402 |             // 1
+ 0 402 402 |             // 2
+ 0 402 401 |         *)
+ 0 401 400 |     *)
+ 0 400 400       let printArgs expr =
+ 0 400 400           let getVal = function Value (v, _) -> downcast v | _ -> null
+ 0 400 400           match expr with
+ 0 400 400           | Call (_, _, args) ->
+ 0 400 400               List.map getVal args |> List.iter (printfn "%A")
+ 0 400 400           | _ ->
+ 0 400 400               printfn "not an evaluated expression"
+ 2 400 401 +     (* Example:
+ 2 401 402 +         (*
+ 0 402 402 |             let constExpr = <@ true @> ;;
+ 0 402 402 |             printArgs constExpr ;;
+ 0 402 401 |         *)
+ 0 401 400 |     *)
+ 2 400 401 +     // Prints:
+ 0 401 400 |     // "not an evaluated expression"
+ 0 400   0   

@@ -1,0 +1,4 @@
+ 0 400   0   # Bad folding when single character ')' in SCE_RB_STRING_QW #132
+ 0 400   0   %W(#{1 + 1})
+ 1 400   0   
+ 0 400   0   

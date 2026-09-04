@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+  <Type Name="Scintilla::Internal::SplitVector&lt;*&gt;">
+    <DisplayString>{{size = {lengthBody}}}</DisplayString>
+    <Expand>
+      <Item Name="[size]">lengthBody</Item>
+      <Item Name="[part1Length]">part1Length</Item>
+      <Item Name="[gap]">gapLength</Item>
+      <IndexListItems>
+        <Size>lengthBody</Size>
+        <ValueNode>body[($i&lt;part1Length)?$i:$i+gapLength]</ValueNode>
+      </IndexListItems>
+    </Expand>
+  </Type>
+  <Type Name="Scintilla::Internal::XSparseVector&lt;*&gt;">
+    <DisplayString>{{size = {values->lengthBody}}}</DisplayString>
+    <Expand>
+      <IndexListItems>
+        <Size>values->lengthBody</Size>
+        <ValueNode>starts->body->body[($i&lt;starts->body->part1Length)?$i:$i+starts->body->gapLength]+($i&gt;starts->stepPartition?starts->stepLength:0)</ValueNode>
+      </IndexListItems>
+      <IndexListItems>
+        <Size>values->lengthBody</Size>
+        <ValueNode>values->body->body[($i&lt;values->body->part1Length)?$i:$i+values->body->gapLength]+($i&gt;values->stepPartition?values->stepLength:0)</ValueNode>
+      </IndexListItems>
+    </Expand>
+  </Type>
+  <Type Name="Scintilla::Internal::Partitioning&lt;*&gt;">
+    <DisplayString>{{size = {body->lengthBody}}}</DisplayString>
+    <Expand>
+      <IndexListItems>
+        <Size>body->lengthBody</Size>
+        <ValueNode>body->body[($i&lt;body->part1Length)?$i:$i+body->gapLength]+($i&gt;stepPartition?stepLength:0)</ValueNode>
+      </IndexListItems>
+    </Expand>
+  </Type>
+  <Type Name="std::unique_ptr&lt;*&gt;">
+    <SmartPointer Usage="Minimal">_Mypair._Myval2</SmartPointer>
+    <DisplayString Condition="_Mypair._Myval2 == 0">empty</DisplayString>
+    <DisplayString Condition="_Mypair._Myval2 != 0">unique_ptr {*_Mypair._Myval2}</DisplayString>
+    <Expand>
+      <ExpandedItem Condition="_Mypair._Myval2 != 0">_Mypair._Myval2</ExpandedItem>
+      <ExpandedItem Condition="_Mypair._Myval2 != 0">_Mypair</ExpandedItem>
+    </Expand>
+  </Type>
+</AutoVisualizer>

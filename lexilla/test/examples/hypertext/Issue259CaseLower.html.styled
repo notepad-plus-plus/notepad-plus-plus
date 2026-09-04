@@ -1,0 +1,15 @@
+{12}<?{1}xml{8} {3}version{8}={6}"1.0"{8} {3}encoding{8}={6}"UTF-8"{13}?>{0}
+{9}<!-- Check that HTML elements and attributes and VB keywords are matched case-insensitively -->{0}
+{15}<%@{16}language=vbscript{15}%>{0}
+{15}<%{81} 
+{84}sub{81} {86}x{81} {82}'comment {81}
+{196}peek{81} {83}1024{81}
+{15}%>{0}
+{1}<html{8} {3}xmlns{8}={6}"http://www.w3.org/1999/xhtml"{1}>{0}
+{1}<head>{0}
+    {2}<UNKNOWN>{0}SinkWorld - Portability{2}</unknown>{0}
+    {1}<img{8} {3}src{8}={6}"SciTEIco.png"{8} {193}height{8}={5}64{8} {193}WIDTH{8}={5}64{8} {11}/>{0}
+    {1}<LINK{8} {3}rel{8}={6}"stylesheet"{8} {3}TYPE{8}={6}"text/css"{8} {193}from{8}={6}"SW.css"{1}>{0}
+    {192}<DESTINATION{8} {3}href{8}={6}"SW.css"{8} {4}height{8}={5}64{8} {4}width{8}={5}64{1}>{192}</destination>{0}
+{1}</head>{0}
+{1}</html>{0}

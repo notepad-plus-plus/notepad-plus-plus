@@ -1,0 +1,1172 @@
+// This file is part of Notepad++ project
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+#include <format>
+#include "AboutDlg.h"
+#include "Parameters.h"
+#include "localization.h"
+#include "json.hpp"
+#if defined __has_include
+#if __has_include ("NppLibsVersion.h")
+#include "NppLibsVersion.h"
+#endif
+#endif
+
+using namespace std;
+
+#ifdef _MSC_VER
+#pragma warning(disable : 4996) // for GetVersion()
+#endif
+
+
+// local DebugInfo helper
+void AppendDisplayAdaptersInfo(wstring& strOut, const unsigned int maxAdaptersIn)
+{
+	strOut += L"\r\n    installed Display Class adapters: ";
+
+	const wchar_t wszRegDisplayClassWinNT[] = L"SYSTEM\\CurrentControlSet\\Control\\Class\\{4D36E968-E325-11CE-BFC1-08002BE10318}";
+	HKEY hkDisplayClass = nullptr;
+	LSTATUS lStatus = ::RegOpenKeyExW(HKEY_LOCAL_MACHINE, wszRegDisplayClassWinNT, 0,
+		KEY_ENUMERATE_SUB_KEYS | KEY_QUERY_VALUE, &hkDisplayClass);
+	if ((lStatus != ERROR_SUCCESS) || !hkDisplayClass)
+	{
+		strOut += L"\r\n    - error, failed to open the Registry Display Class key!";
+		return;
+	}
+
+	DWORD dwSubkeysCount = 0;
+	lStatus = ::RegQueryInfoKeyW(hkDisplayClass, nullptr, nullptr, nullptr, &dwSubkeysCount,
+		nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
+	if ((lStatus == ERROR_SUCCESS) && (dwSubkeysCount > 0))
+	{
+		DWORD dwAdapterSubkeysFound = 0;
+		for (DWORD i = 0; i < dwSubkeysCount; ++i)
+		{
+			if (dwAdapterSubkeysFound >= maxAdaptersIn)
+			{
+				strOut += L"\r\n    - warning, search has been limited to maximum number of adapter records: "
+					+ std::to_wstring(maxAdaptersIn);
+				break;
+			}
+
+			wstring strAdapterNo = std::format(L"{:#04d}", i); // 0000, 0001, 0002, etc...
+			wstring strAdapterSubKey = wszRegDisplayClassWinNT;
+			strAdapterSubKey += L'\\' + strAdapterNo;
+			HKEY hkAdapterSubKey = nullptr;
+			lStatus = ::RegOpenKeyExW(HKEY_LOCAL_MACHINE, strAdapterSubKey.c_str(), 0, KEY_READ, &hkAdapterSubKey);
+			if ((lStatus == ERROR_SUCCESS) && hkAdapterSubKey)
+			{
+				strAdapterNo.insert(0, L"\r\n        "); // doubling the output indentation
+				const unsigned int nKeyValMaxLen = 127;
+				const DWORD dwKeyValMaxSize = nKeyValMaxLen * sizeof(wchar_t);
+				wchar_t wszKeyVal[nKeyValMaxLen + 1]{}; // +1 ... to ensure NUL termination
+				DWORD dwType = REG_SZ;
+				DWORD dwSize = dwKeyValMaxSize;
+				if (::RegQueryValueExW(hkAdapterSubKey, L"DriverDesc", nullptr, &dwType, (LPBYTE)wszKeyVal, &dwSize)
+					== ERROR_SUCCESS)
+				{
+					dwAdapterSubkeysFound++;
+					strOut += strAdapterNo + L": Description - ";
+					strOut += wszKeyVal;
+				}
+				// for exact HW identification, query about the "MatchingDeviceId"
+				dwSize = dwKeyValMaxSize;
+				if (::RegQueryValueExW(hkAdapterSubKey, L"DriverVersion", nullptr, &dwType, (LPBYTE)wszKeyVal, &dwSize)
+					== ERROR_SUCCESS)
+				{
+					strOut += strAdapterNo + L": DriverVersion - ";
+					strOut += wszKeyVal;
+				}
+				// to obtain also the above driver date, query about the "DriverDate"
+				::RegCloseKey(hkAdapterSubKey);
+				hkAdapterSubKey = nullptr;
+			}
+		}
+	}
+
+	::RegCloseKey(hkDisplayClass);
+	hkDisplayClass = nullptr;
+}
+
+
+intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+		case WM_INITDIALOG:
+		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
+			HWND compileDateHandle = ::GetDlgItem(_hSelf, IDC_BUILD_DATETIME);
+			wstring buildTime = L"Build time: ";
+
+			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+			buildTime +=  wmc.char2wchar(__DATE__, CP_ACP);
+			buildTime += L" - ";
+			buildTime +=  wmc.char2wchar(__TIME__, CP_ACP);
+
+			NppParameters& nppParam = NppParameters::getInstance();
+			LPCTSTR bitness = nppParam.archType() == IMAGE_FILE_MACHINE_I386 ? L"(32-bit)" : nppParam.archType() == IMAGE_FILE_MACHINE_AMD64 ? L"(64-bit)" : L"(ARM 64-bit)";
+			::SetDlgItemText(_hSelf, IDC_VERSION_BIT, bitness);
+
+			::SendMessage(compileDateHandle, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(buildTime.c_str()));
+			::EnableWindow(compileDateHandle, FALSE);
+
+            HWND licenceEditHandle = ::GetDlgItem(_hSelf, IDC_LICENCE_EDIT);
+			::SendMessage(licenceEditHandle, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(LICENCE_TXT));
+
+            //_emailLink.init(_hInst, _hSelf);
+			//_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), L"mailto:don.h@free.fr";
+			//_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), L"https://notepad-plus-plus.org/news/v781-free-uyghur-edition/";
+			//_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), L"https://notepad-plus-plus.org/news/v792-stand-with-hong-kong/";
+			//_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), L"https://notepad-plus-plus.org/news/v791-pour-samuel-paty/";
+			//_pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), L"https://notepad-plus-plus.org/news/v843-unhappy-users-edition/";
+			//_pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), L"https://notepad-plus-plus.org/news/v844-happy-users-edition/";
+            //_pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), L"https://notepad-plus-plus.org/news/v86-20thyearanniversary";
+            //_pageLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), L"https://notepad-plus-plus.org/news/v87-about-taiwan/");
+			//_pageLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), L"https://notepad-plus-plus.org/news/v881-we-are-with-ukraine/");
+			//_pageLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), L"https://notepad-plus-plus.org/news/v8964-released/");
+			//_pageLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), L"https://notepad-plus-plus.org/news/v897-slava-ukraini/");
+            
+			_pageLink.init(_hInst, _hSelf);
+			_pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), L"https://notepad-plus-plus.org/");
+
+			return TRUE;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
+			if (_hIcon != nullptr)
+			{
+				::DestroyIcon(_hIcon);
+				_hIcon = nullptr;
+			}
+			return TRUE;
+		}
+
+		case WM_DPICHANGED:
+		{
+			_dpiManager.setDpiWP(wParam);
+			destroy();
+			//setPositionDpi(lParam);
+			getWindowRect(_rc);
+
+			return TRUE;
+		}
+
+		case WM_DRAWITEM:
+		{
+			const int iconSize = _dpiManager.scale(80);
+			if (_hIcon == nullptr)
+			{
+				DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(NppDarkMode::isEnabled() ? IDI_CHAMELEON_DM : IDI_CHAMELEON), iconSize, iconSize, &_hIcon);
+				//DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(IDI_WITHUKRAINE), iconSize, iconSize, &_hIcon);
+				//DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(NppDarkMode::isEnabled() ? IDI_TAIWANSSOVEREIGNTY_DM : IDI_TAIWANSSOVEREIGNTY), iconSize, iconSize, &_hIcon);
+			}
+
+			//HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_JESUISCHARLIE), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
+			//HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_GILETJAUNE), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
+			//HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_SAMESEXMARRIAGE), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
+
+			auto pdis = reinterpret_cast<DRAWITEMSTRUCT*>(lParam);
+			::DrawIconEx(pdis->hDC, 0, 0, _hIcon, iconSize, iconSize, 0, nullptr, DI_NORMAL);
+
+			return TRUE;
+		}
+
+		case WM_COMMAND:
+		{
+			switch (wParam)
+			{
+				case IDCANCEL :
+				case IDOK :
+					display(false);
+					return TRUE;
+
+				default :
+					break;
+			}
+			break;
+		}
+
+		case WM_DESTROY:
+		{
+			destroy();
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+void AboutDlg::doDialog()
+{
+	if (!isCreated())
+		create(IDD_ABOUTBOX);
+
+	// Adjust the position of AboutBox
+	moveForDpiChange();
+	goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
+}
+
+intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+		case WM_INITDIALOG:
+		{
+			NppParameters& nppParam = NppParameters::getInstance();
+			NppGUI& nppGui = nppParam.getNppGUI();
+
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
+			// Notepad++ version
+			_debugInfoStr = NOTEPAD_PLUS_VERSION;
+			_debugInfoStr += nppParam.archType() == IMAGE_FILE_MACHINE_I386 ? L"   (32-bit)" : nppParam.archType() == IMAGE_FILE_MACHINE_AMD64 ? L"   (64-bit)" : L"   (ARM 64-bit)";
+			_debugInfoStr += L"\r\n";
+
+			// Build time
+			_debugInfoStr += L"Build time: ";
+			wstring buildTime;
+			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+			buildTime += wmc.char2wchar(__DATE__, CP_ACP);
+			buildTime += L" - ";
+			buildTime += wmc.char2wchar(__TIME__, CP_ACP);
+			_debugInfoStr += buildTime;
+			_debugInfoStr += L"\r\n";
+
+#if defined(__clang__)
+			_debugInfoStr += L"Built with: Clang ";
+			_debugInfoStr += wmc.char2wchar(__clang_version__, CP_ACP);
+			_debugInfoStr += L"\r\n";
+#elif defined(__GNUC__)
+			_debugInfoStr += L"Built with: GCC ";
+			_debugInfoStr += wmc.char2wchar(__VERSION__, CP_ACP);
+			_debugInfoStr += L"\r\n";
+#elif !defined(_MSC_VER)
+			_debugInfoStr += L"Built with: (unknown)\r\n";
+#endif
+
+			// Scintilla/Lexilla version
+			_debugInfoStr += L"Scintilla/Lexilla included: ";
+			{
+				string strSciLexVer = NPP_SCINTILLA_VERSION;
+				strSciLexVer += "/";
+				strSciLexVer += NPP_LEXILLA_VERSION;
+				_debugInfoStr += wmc.char2wchar(strSciLexVer.c_str(), CP_ACP);
+			}
+			_debugInfoStr += L"\r\n";
+
+			// Boost Regex version
+			_debugInfoStr += L"Boost Regex included: ";
+			_debugInfoStr += wmc.char2wchar(NPP_BOOST_REGEX_VERSION, CP_ACP);
+			_debugInfoStr += L"\r\n";
+
+#if defined(PUGIXML_VERSION)
+			// pugixml version
+			_debugInfoStr += L"pugixml included: ";
+			_debugInfoStr += std::to_wstring(PUGIXML_VERSION / 1000) + L"." + std::to_wstring((PUGIXML_VERSION % 1000) / 10);
+			_debugInfoStr += L"\r\n";
+#endif
+
+			// JSON version
+			_debugInfoStr += L"nlohmann JSON included: ";
+			_debugInfoStr += to_wstring(NLOHMANN_JSON_VERSION_MAJOR) + L"." + to_wstring(NLOHMANN_JSON_VERSION_MINOR) + L"." + to_wstring(NLOHMANN_JSON_VERSION_PATCH);
+			_debugInfoStr += L"\r\n";
+
+			// Binary path
+			_debugInfoStr += L"Path: ";
+			wchar_t nppFullPath[MAX_PATH]{};
+			::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
+			_debugInfoStr += nppFullPath;
+			_debugInfoStr += L"\r\n";
+
+			// Command line as specified for program launch
+			// The _cmdLinePlaceHolder will be replaced later by refreshDebugInfo()
+			_debugInfoStr += L"Command Line: ";
+			_debugInfoStr += _cmdLinePlaceHolder;
+			_debugInfoStr += L"\r\n";
+
+			// Administrator mode
+			_debugInfoStr += L"Admin mode: ";
+			_debugInfoStr += _isAdmin ? L"ON" : L"OFF";
+			_debugInfoStr += L"\r\n";
+
+			// local conf
+			_debugInfoStr += L"Local Conf mode: ";
+			bool doLocalConf = (NppParameters::getInstance()).isLocal();
+			_debugInfoStr += doLocalConf ? L"ON" : L"OFF";
+			_debugInfoStr += L"\r\n";
+
+			// Cloud config directory
+			_debugInfoStr += L"Cloud Config: ";
+			const wstring& cloudPath = nppParam.getNppGUI()._cloudPath;
+			_debugInfoStr += cloudPath.empty() ? L"OFF" : cloudPath;
+			_debugInfoStr += L"\r\n";
+
+			//  Auto-Update:
+			// 
+			//  WinGUp  | disableNppAutoUpdate.xml || Auto-Update status
+			//  ========================================================
+			//  present |         present          ||      OFF
+			//  --------------------------------------------------------
+			//  absent  |         present          ||      OFF
+			//  --------------------------------------------------------
+			//  present |         absent           ||      ON
+			//  --------------------------------------------------------
+			//  absent  |         absent           ||      OFF
+			//
+			_debugInfoStr += L"WinGUp: ";
+			_debugInfoStr += nppGui._doesExistUpdater ? L"present" : L"absent";
+			_debugInfoStr += L"\r\n";
+			_debugInfoStr += L"disableNppAutoUpdate.xml: ";
+			_debugInfoStr += nppParam.isNppAutoUpdateDisabled() ? L"present" : L"absent";
+			_debugInfoStr += L"\r\n";
+
+			// Periodic Backup
+			_debugInfoStr += L"Periodic Backup: ";
+			_debugInfoStr += nppGui.isSnapshotMode() ? L"ON" : L"OFF";
+			_debugInfoStr += L"\r\n";
+
+			// Placeholders
+			_debugInfoStr += L"Placeholders: ";
+			_debugInfoStr += nppGui._keepSessionAbsentFileEntries ? L"ON" : L"OFF";
+			_debugInfoStr += L"\r\n";
+
+			// SC_TECHNOLOGY
+			_debugInfoStr += L"Scintilla Rendering Mode: ";
+			switch (nppGui._writeTechnologyEngine)
+			{
+				case defaultTechnology:
+					_debugInfoStr += L"SC_TECHNOLOGY_DEFAULT (0)";
+					break;
+				case directWriteTechnology:
+					_debugInfoStr += L"SC_TECHNOLOGY_DIRECTWRITE (1)";
+					break;
+				case directWriteRetainTechnology:
+					_debugInfoStr += L"SC_TECHNOLOGY_DIRECTWRITERETAIN (2)";
+					break;
+				case directWriteDcTechnology:
+					_debugInfoStr += L"SC_TECHNOLOGY_DIRECTWRITEDC (3)";
+					break;
+				case directWriteDX11Technology:
+					_debugInfoStr += L"SC_TECHNOLOGY_DIRECT_WRITE_1 (4)";
+					break;
+				case directWriteTechnologyUnavailable:
+					_debugInfoStr += L"DirectWrite Technology Unavailable (5, same as SC_TECHNOLOGY_DEFAULT)";
+					break;
+				default:
+					_debugInfoStr += L"unknown (" + std::to_wstring(nppGui._writeTechnologyEngine) + L")";
+			}
+			_debugInfoStr += L"\r\n";
+
+			// Multi-instance
+			_debugInfoStr += L"Multi-instance Mode: ";
+			switch (nppGui._multiInstSetting)
+			{
+				case monoInst:
+					_debugInfoStr += L"monoInst";
+					break;
+				case multiInstOnSession:
+					_debugInfoStr += L"multiInstOnSession";
+					break;
+				case multiInst:
+					_debugInfoStr += L"multiInst";
+					break;
+				default:
+					_debugInfoStr += L"unknown(" + std::to_wstring(nppGui._multiInstSetting) + L")";
+			}
+			_debugInfoStr += L"\r\n";
+
+			// asNotepad
+			_debugInfoStr += L"asNotepad: ";
+			_debugInfoStr += nppParam.isAsNotepadStyle() ? L"ON" : L"OFF";
+			_debugInfoStr += L"\r\n";
+
+			// File Status Auto-Detection
+			_debugInfoStr += L"File Status Auto-Detection: ";
+			if (nppGui._fileAutoDetection == cdDisabled)
+			{
+				_debugInfoStr += L"cdDisabled";
+			}
+			else
+			{
+				if (nppGui._fileAutoDetection & cdEnabledOld)
+					_debugInfoStr += L"cdEnabledOld (for all opened files/tabs)";
+				else if (nppGui._fileAutoDetection & cdEnabledNew)
+					_debugInfoStr += L"cdEnabledNew (for current file/tab only)";
+				else
+					_debugInfoStr += L"cdUnknown (?!)";
+
+				if (nppGui._fileAutoDetection & cdAutoUpdate)
+					_debugInfoStr += L" + cdAutoUpdate";
+				if (nppGui._fileAutoDetection & cdGo2end)
+					_debugInfoStr += L" + cdGo2end";
+			}
+			_debugInfoStr += L"\r\n";
+
+			// Dark Mode
+			_debugInfoStr += L"Dark Mode: ";
+			_debugInfoStr += nppGui._darkmode._isEnabled ? L"ON" : L"OFF";
+			_debugInfoStr += L"\r\n";
+
+			// Display Info
+			_debugInfoStr += L"Display Info:";
+			{
+				HDC hdc = ::GetDC(nullptr); // desktop DC
+				if (hdc)
+				{
+					_debugInfoStr += L"\r\n    primary monitor: " + std::to_wstring(::GetDeviceCaps(hdc, HORZRES));
+					_debugInfoStr += L"x" + std::to_wstring(::GetDeviceCaps(hdc, VERTRES));
+					_debugInfoStr += L", scaling " + std::to_wstring(::GetDeviceCaps(hdc, LOGPIXELSX) * 100 / 96);
+					_debugInfoStr += L"%";
+					::ReleaseDC(nullptr, hdc);
+				}
+				_debugInfoStr += L"\r\n    visible monitors count: " + std::to_wstring(::GetSystemMetrics(SM_CMONITORS));
+				AppendDisplayAdaptersInfo(_debugInfoStr, 4); // survey up to 4 potential graphics card Registry records
+			}
+			_debugInfoStr += L"\r\n";
+
+			// OS information
+			HKEY hKey = nullptr;
+			DWORD dataSize = 0;
+
+			constexpr size_t bufSize = 96;
+			wchar_t szProductName[bufSize] = {'\0'};
+			constexpr size_t bufSizeBuildNumber = 32;
+			wchar_t szCurrentBuildNumber[bufSizeBuildNumber] = {'\0'};
+			wchar_t szReleaseId[32] = {'\0'};
+			DWORD dwUBR = 0;
+			constexpr size_t bufSizeUBR = 12;
+			wchar_t szUBR[bufSizeUBR] = L"0";
+
+			// NOTE: RegQueryValueExW is not guaranteed to return null-terminated strings
+			if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", 0, KEY_READ, &hKey) == ERROR_SUCCESS)
+			{
+				dataSize = sizeof(szProductName);
+				RegQueryValueExW(hKey, L"ProductName", NULL, NULL, reinterpret_cast<LPBYTE>(szProductName), &dataSize);
+				szProductName[sizeof(szProductName) / sizeof(wchar_t) - 1] = '\0';
+
+				dataSize = sizeof(szReleaseId);
+				if(RegQueryValueExW(hKey, L"DisplayVersion", NULL, NULL, reinterpret_cast<LPBYTE>(szReleaseId), &dataSize) != ERROR_SUCCESS)
+				{
+					dataSize = sizeof(szReleaseId);
+					RegQueryValueExW(hKey, L"ReleaseId", NULL, NULL, reinterpret_cast<LPBYTE>(szReleaseId), &dataSize);
+				}
+				szReleaseId[sizeof(szReleaseId) / sizeof(wchar_t) - 1] = '\0';
+
+				dataSize = sizeof(szCurrentBuildNumber);
+				RegQueryValueExW(hKey, L"CurrentBuildNumber", NULL, NULL, reinterpret_cast<LPBYTE>(szCurrentBuildNumber), &dataSize);
+				szCurrentBuildNumber[sizeof(szCurrentBuildNumber) / sizeof(wchar_t) - 1] = '\0';
+
+				dataSize = sizeof(DWORD);
+				if (RegQueryValueExW(hKey, L"UBR", NULL, NULL, reinterpret_cast<LPBYTE>(&dwUBR), &dataSize) == ERROR_SUCCESS)
+				{
+					swprintf(szUBR, bufSizeUBR, L"%u", dwUBR);
+				}
+
+				RegCloseKey(hKey);
+			}
+
+			// Get alternative OS information
+			if (szProductName[0] == '\0')
+			{
+				swprintf(szProductName, bufSize, L"%s", (NppParameters::getInstance()).getWinVersionStr().c_str());
+			}
+			else if (NppDarkMode::isWindows11())
+			{
+				wstring tmpProductName = szProductName;
+				constexpr size_t strLen = 10U;
+				const wchar_t strWin10[strLen + 1U] = L"Windows 10";
+				const size_t pos = tmpProductName.find(strWin10);
+				if (pos < (bufSize - strLen - 1U))
+				{
+					tmpProductName.replace(pos, strLen, L"Windows 11");
+					swprintf(szProductName, bufSize, L"%s", tmpProductName.c_str());
+				}
+			}
+
+			if (szCurrentBuildNumber[0] == '\0')
+			{
+				DWORD dwVersion = GetVersion();
+				if (dwVersion < 0x80000000)
+				{
+					swprintf(szCurrentBuildNumber, bufSizeBuildNumber, L"%u", HIWORD(dwVersion));
+				}
+			}
+
+			_debugInfoStr += L"OS Name: ";
+			_debugInfoStr += szProductName;
+			_debugInfoStr += L" (";
+			_debugInfoStr += (NppParameters::getInstance()).getWinVerBitStr();
+			_debugInfoStr += L")";
+			_debugInfoStr += L"\r\n";
+
+			if (szReleaseId[0] != '\0')
+			{
+				_debugInfoStr += L"OS Version: ";
+				_debugInfoStr += szReleaseId;
+				_debugInfoStr += L"\r\n";
+			}
+
+			if (szCurrentBuildNumber[0] != '\0')
+			{
+				_debugInfoStr += L"OS Build: ";
+				_debugInfoStr += szCurrentBuildNumber;
+				_debugInfoStr += L".";
+				_debugInfoStr += szUBR;
+				_debugInfoStr += L"\r\n";
+			}
+
+			{
+				constexpr size_t bufSizeACP = 32;
+				wchar_t szACP[bufSizeACP] = { '\0' };
+				swprintf(szACP, bufSizeACP, L"%u", nppParam.currentSystemCodepage());
+				_debugInfoStr += L"Current ANSI codepage: ";
+ 				_debugInfoStr += szACP;
+				_debugInfoStr += L"\r\n";
+			}
+
+			// Detect WINE
+			PWINEGETVERSION pWGV = nullptr;
+			HMODULE hNtdllModule = GetModuleHandle(L"ntdll.dll");
+			if (hNtdllModule)
+			{
+				pWGV = reinterpret_cast<PWINEGETVERSION>(GetProcAddress(hNtdllModule, "wine_get_version"));
+			}
+
+			if (pWGV != nullptr)
+			{
+				constexpr size_t bufSizeWineVer = 32;
+				wchar_t szWINEVersion[bufSizeWineVer] = { '\0' };
+				swprintf(szWINEVersion, bufSizeWineVer, L"%hs", pWGV());
+
+				_debugInfoStr += L"WINE : ";
+				_debugInfoStr += szWINEVersion;
+				_debugInfoStr += L"\r\n";
+			}
+
+			// Plugins
+			_debugInfoStr += L"Plugins: ";
+			_debugInfoStr += _loadedPlugins.length() == 0 ? L"none" : _loadedPlugins;
+			_debugInfoStr += L"\r\n";
+
+			return TRUE;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
+			return TRUE;
+		}
+
+		case WM_DPICHANGED:
+		{
+			_dpiManager.setDpiWP(wParam);
+			setPositionDpi(lParam);
+			getWindowRect(_rc);
+
+			return TRUE;
+		}
+
+		case WM_COMMAND:
+		{
+			switch (wParam)
+			{
+				case IDCANCEL:
+				case IDOK:
+					display(false);
+					return TRUE;
+
+				case IDC_DEBUGINFO_COPYLINK:
+				{
+					// Visual effect
+					::SendDlgItemMessage(_hSelf, IDC_DEBUGINFO_EDIT, EM_SETSEL, 0, _debugInfoDisplay.length() - 1);
+
+					// Copy to clipboard
+					str2Clipboard(_debugInfoDisplay, _hSelf);
+
+					// Set focus to edit control
+					::SendMessage(_hSelf, WM_NEXTDLGCTL, reinterpret_cast<WPARAM>(::GetDlgItem(_hSelf, IDC_DEBUGINFO_EDIT)), TRUE);
+
+					return TRUE;
+				}
+				default:
+					break;
+			}
+			break;
+		}
+
+		case WM_DESTROY:
+		{
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+void DebugInfoDlg::doDialog()
+{
+	if (!isCreated())
+		create(IDD_DEBUGINFOBOX);
+
+	// Refresh the Debug Information.
+	// For example, the command line parameters may have changed since this dialog was last opened during this session.
+	refreshDebugInfo();
+
+	// Adjust the position of DebugBox
+	moveForDpiChange();
+	goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
+}
+
+void DebugInfoDlg::refreshDebugInfo()
+{
+	_debugInfoDisplay = _debugInfoStr;
+
+	size_t replacePos = _debugInfoDisplay.find(_cmdLinePlaceHolder);
+	if (replacePos != std::string::npos)
+	{
+		_debugInfoDisplay.replace(replacePos, _cmdLinePlaceHolder.length(), NppParameters::getInstance().getCmdLineString());
+	}
+
+	// Set Debug Info text and leave the text in selected state
+	::SetDlgItemText(_hSelf, IDC_DEBUGINFO_EDIT, _debugInfoDisplay.c_str());
+	::SendDlgItemMessage(_hSelf, IDC_DEBUGINFO_EDIT, EM_SETSEL, 0, _debugInfoDisplay.length() - 1);
+	::SetFocus(::GetDlgItem(_hSelf, IDC_DEBUGINFO_EDIT));
+}
+
+
+const wchar_t COMMAND_ARG_HELP[] = L"Usage:\r\n\
+\r\n\
+notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-udl=\"My UDL Name\"]\r\n\
+[-LlangCode] [-nLineNumber] [-cColumnNumber] [-pPosition] [-xLeftPos] [-yTopPos]\r\n\
+[-monitor] [-monitoringMode] [-nosession] [-notabbar] [-systemtray] [-loadingTime]\r\n\
+[-alwaysOnTop] [-ro] [-fullReadOnly] [-fullReadOnlySavingForbidden] [-openSession] [-r]\r\n\
+[-qn=\"Easter egg name\" | -qt=\"a text to display.\" | -qf=\"D:\\my quote.txt\"]\r\n\
+[-qSpeed1|2|3] [-quickPrint] [-settingsDir=\"d:\\your settings dir\\\"]\r\n\
+[-openFoldersAsWorkspace]  [-titleAdd=\"additional title bar text\"]\r\n\
+[filePath]\r\n\
+\r\n\
+--help: This help message\r\n\
+-multiInst: Launch another Notepad++ instance\r\n\
+-noPlugin: Launch Notepad++ without loading any plugin\r\n\
+-l: Open file or Ghost type with syntax highlighting of choice\r\n\
+-udl=\"My UDL Name\": Open file by applying User Defined Language\r\n\
+-L: Apply indicated localization, langCode is browser language code\r\n\
+-n: Scroll to indicated line on filePath\r\n\
+-c: Scroll to indicated column on filePath\r\n\
+-p: Scroll to indicated position on filePath\r\n\
+-x: Move Notepad++ to indicated left side position on the screen\r\n\
+-y: Move Notepad++ to indicated top position on the screen\r\n\
+-monitor: Open files given in arguments with file monitoring enabled\r\n\
+-monitoringMode: Monitoring all files opened in Notepad++\r\n\
+-nosession: Launch Notepad++ without previous session\r\n\
+-notabbar: Launch Notepad++ without tab bar\r\n\
+-ro: Make the filePath read-only\r\n\
+-fullReadOnly: Open all files read-only by default, toggling the R/O off and saving is allowed\r\n\
+-fullReadOnlySavingForbidden: Open all files read-only by default, toggling the R/O off and saving is disabled\r\n\
+-systemtray: Launch Notepad++ directly in system tray\r\n\
+-loadingTime: Display Notepad++ loading time\r\n\
+-alwaysOnTop: Make Notepad++ always on top\r\n\
+-openSession: Open a session. filePath must be a session file\r\n\
+-r: Open files recursively. This argument will be ignored if filePath contains no wildcard character\r\n\
+-qn=\"Easter egg name\": Ghost type easter egg via its name\r\n\
+-qt=\"text to display.\": Ghost type the given text\r\n\
+-qf=\"D:\\my quote.txt\": Ghost type a file content via the file path\r\n\
+-qSpeed: Ghost typing speed. Value from 1 to 3 for slow, fast and fastest\r\n\
+-quickPrint: Print the file given as argument then quit Notepad++\r\n\
+-settingsDir=\"d:\\your settings dir\\\": Override the default settings dir\r\n\
+-openFoldersAsWorkspace: open filePath of folder(s) as workspace\r\n\
+-titleAdd=\"string\": add string to Notepad++ title bar\r\n\
+filePath: file or folder name to open (absolute or relative path name)\r\n\
+";
+
+void CmdLineArgsDlg::doDialog()
+{
+	if (!isCreated())
+		create(IDD_COMMANDLINEARGSBOX);
+
+	::SetDlgItemText(_hSelf, IDC_COMMANDLINEARGS_EDIT, COMMAND_ARG_HELP);
+
+	// Create DPI-aware monospace font
+	NONCLIENTMETRICS ncm{};
+	ncm.cbSize = sizeof(NONCLIENTMETRICS);
+	SystemParametersInfo(SPI_GETNONCLIENTMETRICS, sizeof(NONCLIENTMETRICS), &ncm, 0);
+
+	// Use the system font height but change to monospace
+	hCmdLineEditFont = CreateFont(
+		ncm.lfMessageFont.lfHeight,  // DPI-aware height from system
+		0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+		DEFAULT_QUALITY, FIXED_PITCH | FF_MODERN,
+		L"Lucida Console");
+
+	if (hCmdLineEditFont)
+		SendDlgItemMessage(_hSelf, IDC_COMMANDLINEARGS_EDIT, WM_SETFONT, (WPARAM)hCmdLineEditFont, TRUE);
+
+	moveForDpiChange();
+	goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
+}
+
+intptr_t CALLBACK CmdLineArgsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+		case WM_INITDIALOG:
+		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+			return TRUE;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHDARKMODE:
+		{
+			NppDarkMode::autoThemeChildControls(_hSelf);
+			return TRUE;
+		}
+
+		case WM_DPICHANGED:
+		{
+			_dpiManager.setDpiWP(wParam);
+			setPositionDpi(lParam);
+			getWindowRect(_rc);
+
+			return TRUE;
+		}
+
+		case WM_COMMAND:
+		{
+			switch (wParam)
+			{
+				case IDCANCEL:
+				case IDOK:
+					display(false);
+					return TRUE;
+
+				default:
+					break;
+			}
+			break;
+		}
+
+		case WM_DESTROY:
+		{
+			if (hCmdLineEditFont)
+			{
+				DeleteObject(hCmdLineEditFont);
+				hCmdLineEditFont = nullptr;
+			}
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+void DoSaveOrNotBox::doDialog(bool isRTL)
+{
+	StaticDialog::myCreateDialogBoxIndirectParam(IDD_DOSAVEORNOTBOX, isRTL);
+}
+
+void DoSaveOrNotBox::changeLang()
+{
+	wstring msg;
+	wstring defaultMessage = L"Save file \"$STR_REPLACE$\" ?";
+	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+
+	if (nativeLangSpeaker && nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveOrNot"))
+	{
+		constexpr unsigned char len = 255;
+		wchar_t text[len]{};
+		::GetDlgItemText(_hSelf, IDC_DOSAVEORNOTTEXT, text, len);
+		msg = text;
+	}
+
+	if (msg.empty())
+		msg = defaultMessage;
+
+	msg = stringReplace(msg, L"$STR_REPLACE$", _fn);
+	::SetDlgItemText(_hSelf, IDC_DOSAVEORNOTTEXT, msg.c_str());
+}
+
+intptr_t CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+		case WM_INITDIALOG :
+		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
+			changeLang();
+			::EnableWindow(::GetDlgItem(_hSelf, IDRETRY), _isMulti);
+			::EnableWindow(::GetDlgItem(_hSelf, IDIGNORE), _isMulti);
+			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
+			return TRUE;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case WM_DPICHANGED:
+		{
+			_dpiManager.setDpiWP(wParam);
+			setPositionDpi(lParam);
+
+			return TRUE;
+		}
+
+		case WM_COMMAND:
+		{
+			switch (LOWORD(wParam))
+			{
+				case IDCANCEL:
+				{
+					::EndDialog(_hSelf, -1);
+					_clickedButtonId = IDCANCEL;
+					return TRUE;
+				}
+
+				case IDYES:
+				{
+					::EndDialog(_hSelf, 0);
+					_clickedButtonId = IDYES;
+					return TRUE;
+				}
+
+				case IDNO:
+				{
+					::EndDialog(_hSelf, 0);
+					_clickedButtonId = IDNO;
+					return TRUE;
+				}
+
+				case IDIGNORE:
+				{
+					::EndDialog(_hSelf, 0);
+					_clickedButtonId = IDIGNORE;
+					return TRUE;
+				}
+
+				case IDRETRY:
+				{
+					::EndDialog(_hSelf, 0);
+					_clickedButtonId = IDRETRY;
+					return TRUE;
+				}
+			}
+			break;
+		}
+		default:
+			return FALSE;
+	}
+	return FALSE;
+}
+
+
+void DoSaveAllBox::doDialog(bool isRTL)
+{
+	StaticDialog::myCreateDialogBoxIndirectParam(IDD_DOSAVEALLBOX, isRTL);
+}
+
+void DoSaveAllBox::changeLang()
+{
+	wstring msg;
+	wstring defaultMessage = L"Are you sure you want to save all modified documents?\r\rChoose \"Always Yes\" if you don't want to see this dialog again.\rYou can re-activate this dialog in Preferences later.";
+	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+
+	if (nativeLangSpeaker && nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveAll"))
+	{
+		constexpr size_t len = 1024;
+		wchar_t text[len]{};
+		::GetDlgItemText(_hSelf, IDC_DOSAVEALLTEXT, text, len);
+		msg = text;
+	}
+
+	if (msg.empty())
+		msg = defaultMessage;
+
+	::SetDlgItemText(_hSelf, IDC_DOSAVEALLTEXT, msg.c_str());
+}
+
+intptr_t CALLBACK DoSaveAllBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+	case WM_INITDIALOG:
+	{
+		NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
+		changeLang();
+		goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
+		return TRUE;
+	}
+
+	case WM_CTLCOLORDLG:
+	case WM_CTLCOLORSTATIC:
+	{
+		return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
+	}
+
+	case WM_PRINTCLIENT:
+	{
+		if (NppDarkMode::isEnabled())
+		{
+			return TRUE;
+		}
+		break;
+	}
+
+	case WM_DPICHANGED:
+	{
+		_dpiManager.setDpiWP(wParam);
+		setPositionDpi(lParam);
+
+		return TRUE;
+	}
+
+	case WM_COMMAND:
+	{
+		switch (LOWORD(wParam))
+		{
+			case IDCANCEL:
+			{
+				::EndDialog(_hSelf, -1);
+				_clickedButtonId = IDCANCEL;
+				return TRUE;
+			}
+
+			case IDYES:
+			{
+				::EndDialog(_hSelf, 0);
+				_clickedButtonId = IDYES;
+				return TRUE;
+			}
+
+			case IDNO:
+			{
+				::EndDialog(_hSelf, 0);
+				_clickedButtonId = IDNO;
+				return TRUE;
+			}
+
+			case IDRETRY:
+			{
+				::EndDialog(_hSelf, 0);
+				_clickedButtonId = IDRETRY;
+				return TRUE;
+			}
+		}
+		break;
+	}
+	default:
+		return FALSE;
+	}
+	return FALSE;
+}
+
+
+void NetworkPathWarningBox::doDialog(bool isRTL)
+{
+	StaticDialog::myCreateDialogBoxIndirectParam(IDD_NETWORKPATHWARNINGBOX, isRTL);
+}
+
+void NetworkPathWarningBox::changeLang()
+{
+	wstring msg;
+	wstring defaultMessage = L"Network Path Warning:\r\r$STR_REPLACE$\r\rLoading it will cause Windows to automatically authenticate to that server, potentially exposing your Windows login information.\rLoad anyway?";
+	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+
+	if (nativeLangSpeaker)
+	{
+		bool isLangChanged = false;
+
+		if (!_titleTag.empty()) // override the title with the 2nd one manually if the title tag is not empty
+		{
+			static constexpr size_t titreMaxSize = 128;
+			char titre2[titreMaxSize] {};
+			isLangChanged = nativeLangSpeaker->changeDlgLang(_hSelf, "NetworkPathWarning", titre2, titreMaxSize, _titleTag.c_str());
+			if (titre2[0])
+			{
+				wstring wTitre2 = WcharMbcsConvertor::getInstance().char2wchar(titre2, nativeLangSpeaker->getLangEncoding());
+				::SetWindowText(_hSelf, wTitre2.c_str());
+			}
+			else
+			{
+				if (_titleTag == "title2")
+					::SetWindowText(_hSelf, L"Clickable file:// link");
+				else if (_titleTag == "title3")
+					::SetWindowText(_hSelf, L"Loading toolbarButtonsConf.xml");
+				else if (_titleTag == "title4")
+					::SetWindowText(_hSelf, L"Loading Project Panel XML file");
+			}
+		}
+		else
+		{
+			isLangChanged = nativeLangSpeaker->changeDlgLang(_hSelf, "NetworkPathWarning");
+		}
+
+		if (isLangChanged)
+		{
+			constexpr size_t len = 1024;
+			wchar_t text[len]{};
+			::GetDlgItemText(_hSelf, IDC_NETWORKPATHWARNINGTEXT, text, len);
+			msg = text;
+		}
+	}
+
+	if (msg.empty())
+		msg = defaultMessage;
+
+	msg = stringReplace(msg, L"$STR_REPLACE$", _networkPath);
+
+	::SetDlgItemText(_hSelf, IDC_NETWORKPATHWARNINGTEXT, msg.c_str());
+}
+
+intptr_t CALLBACK NetworkPathWarningBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+		case WM_INITDIALOG:
+		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
+			changeLang();
+			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
+			return TRUE;
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case WM_DPICHANGED:
+		{
+			_dpiManager.setDpiWP(wParam);
+			setPositionDpi(lParam);
+
+			return TRUE;
+		}
+
+		case WM_COMMAND:
+		{
+			NppParameters& nppParam = NppParameters::getInstance();
+			NppGUI& nppGUI = nppParam.getNppGUI();
+			switch (LOWORD(wParam))
+			{
+				case IDCANCEL:
+				{
+					::EndDialog(_hSelf, -1);
+					_clickedButtonId = IDCANCEL;
+					return TRUE;
+				}
+
+				case IDYES:
+				{
+					::EndDialog(_hSelf, 0);
+					_clickedButtonId = IDYES;
+					return TRUE;
+				}
+
+				case IDNO:
+				{
+					::EndDialog(_hSelf, 0);
+					_clickedButtonId = IDNO;
+					nppGUI._networkPathWarningMethod = NppGUI::networkPathAlwaysSkip;
+					return TRUE;
+				}
+
+				case IDRETRY:
+				{
+					::EndDialog(_hSelf, 0);
+					_clickedButtonId = IDRETRY;
+					nppGUI._networkPathWarningMethod = NppGUI::networkPathAlwaysLoad;
+					return TRUE;
+				}
+			}
+			break;
+		}
+		default:
+			return FALSE;
+	}
+	return FALSE;
+}

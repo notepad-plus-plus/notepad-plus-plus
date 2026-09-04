@@ -1,0 +1,17 @@
+ 0 400   0   # Simple nesting
+ 0 400   0   f" { "" } "
+ 1 400   0   
+ 0 400   0   # Multi-line field with comment
+ 0 400   0   f" {
+ 1 400   0   
+ 0 400   0   "" # comment
+ 1 400   0   
+ 0 400   0   } "
+ 1 400   0   
+ 0 400   0   # Single quoted continued with \
+ 0 400   0   f" \
+ 0 400   0   "
+ 1 400   0   
+ 0 400   0   # 4 nested f-strings
+ 0 400   0   f'Outer {f"nested {1} {f"nested {2} {f"nested {3} {f"nested {4}"}"}"}"}'
+ 1 400   0   

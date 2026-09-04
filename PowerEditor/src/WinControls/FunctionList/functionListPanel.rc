@@ -1,0 +1,29 @@
+// This file is part of Notepad++ project
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+#include <windows.h>
+#include "functionListPanel_rc.h"
+
+IDD_FUNCLIST_PANEL DIALOGEX 26, 41, 142, 324
+STYLE DS_SETFONT | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW | WS_EX_WINDOWEDGE
+CAPTION "Function List"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    //PUSHBUTTON      "Reload",IDC_RELOADBUTTON_FUNCLIST, 3,3,38,14
+	//LISTBOX         IDC_LIST_FUNCLIST,50,44,78,120,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+END

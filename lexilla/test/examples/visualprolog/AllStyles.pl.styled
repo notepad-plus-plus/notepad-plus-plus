@@ -1,0 +1,65 @@
+{5}% SCE_VISUALPROLOG_KEY_MAJOR (1){0}
+{5}% No keywords in ISO/SWI-Prolog{0}
+{1}goal{0}
+
+{5}% SCE_VISUALPROLOG_KEY_MINOR (2){0}
+{5}% No minor keywords in ISO/SWI-Prolog{0}
+{2}procedure{0}
+
+{5}% SCE_VISUALPROLOG_KEY_DIRECTIVE (3){0}
+{5}% No directives in ISO/SWI-Prolog{0}
+{3}#include{0}
+
+{5}% SCE_VISUALPROLOG_COMMENT_BLOCK (4){0}
+{4}/**
+   SCE_VISUALPROLOG_COMMENT_KEY (6)
+   {6}@detail{4}
+   SCE_VISUALPROLOG_COMMENT_KEY_ERROR (7)
+   {7}@unknown{4}
+ /* SCE_VISUALPROLOG_IDENTIFIER (8)
+    SCE_VISUALPROLOG_VARIABLE (9)
+    SCE_VISUALPROLOG_ANONYMOUS (10)
+    SCE_VISUALPROLOG_NUMBER (11)
+    SCE_VISUALPROLOG_OPERATOR (12) */ */{0}
+{8}singleton{0} {12}-->{0}
+    {12}[{9}S{12}],{0}
+    {12}{{0}
+        {1}string_lower{12}({9}S{12},{0} {9}L{12}),{0}
+        {1}atom_codes{12}({9}L{12},{0} {9}Bytes{12}),{0}
+        {1}sort{12}({11}0{12},{0} {12}@=<,{0} {9}Bytes{12},{0} {12}[{11}95{12},{0} {10}_discard{12}]){0}
+    {12}}.{0}
+
+{5}% SCE_VISUALPROLOG_COMMENT_LINE (5){0}
+{5}% comment line{0}
+
+{5}% SCE_VISUALPROLOG_STRING_QUOTE (16){0}
+{16}""{0}
+
+{5}% SCE_VISUALPROLOG_STRING (20){0}
+{16}"{20}string{16}"{0}
+{16}'{20}string{16}'{0}
+
+{5}% ISO Prolog back-quoted string{0}
+{16}`{20}string{16}`{0}
+
+{5}% SCE_VISUALPROLOG_STRING_ESCAPE (17){0}
+{16}"{17}\n{16}"{0}
+{16}'{17}\uAB12{16}'{0}
+
+{5}% SCE_VISUALPROLOG_STRING_ESCAPE_ERROR (18){0}
+{16}"{18}\ {16}"{0}
+{16}"{20}open string{18}
+{0}
+{5}% Not implemented for ISO/SWI-Prolog:{0}
+{12}@{16}"{20}verbatim string{16}"{0}
+{12}@[<{2}div{0} {1}class{12}={16}"{20}test{16}"{12}>]{0}
+
+{5}% SCE_VISUALPROLOG_STRING_EOL (22){0}
+{12}@{8}#multi{12}-{8}line{0}
+  {8}verbatim{0}
+  {8}string#{0}
+
+{5}% SCE_VISUALPROLOG_EMBEDDED (23){0}
+{23}[| |]{0}
+{5}% SCE_VISUALPROLOG_PLACEHOLDER (24){0}
+{24}{|{0} {24}|}:test{0}

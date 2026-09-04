@@ -1,0 +1,39 @@
+{1}rem remark and comment bug
+{0}
+{5}findstr{0} /c:"rem this" "file"
+{5}findstr{0} /c:":: this" "file"
+
+{1}:: SingleQuoted command string
+{2}for{0} /f {6}%%A{2} in{0} ('rem this'){2} do echo{0} {6}%%A{0}
+
+{1}:: DoubleQuoted string
+{2}for{0} /f {6}%%A{2} in{0} ("rem this"){2} do echo{0} {6}%%A{0}
+
+{1}:: BackQuote command string
+{2}for{0} /f "usebackq" {6}%%A{2} in{0} (`rem this`){2} do echo{0} {6}%%A{0}
+
+{1}:: Test the handling of quotes ' and " and escape ^
+:: Comment
+{0}
+{1}:: With quotes
+{0}":: Text
+""{1}:: Comment
+{0}':: Text
+''{1}:: Comment
+:: Mixing quotes - likely incorrect as lexer tries ' and " separately, leaving an active quote
+{0}"'":: Text
+
+{1}:: With escapes
+{5}^::{0} Text
+{5}^{0}"{1}:: Comment
+{5}^{0}"":: Text
+{5}^{0}"""{1}:: Comment
+{5}^^{0}":: Text
+{5}^^{0}""{1}:: Comment
+{5}^^{0}""":: Text
+
+{1}:: With preceding command
+{5}mkdir{0} archive ":: Text
+{5}mkdir{0} archive ""{1}:: Comment
+{5}mkdir{0} archive ^"{1}:: Comment
+{5}mkdir{0} archive ^"":: Text

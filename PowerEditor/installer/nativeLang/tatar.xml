@@ -1,0 +1,960 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<NotepadPlus>
+	<Native-Langue name="Татарча" filename="tatar.xml">
+		<Menu>
+			<Main>
+				<!-- Main Menu Entries -->
+				<Entries>
+					<Item menuId="file" name="&amp;Файл"/>
+					<Item menuId="edit" name="&amp;Төзәтү"/>
+					<Item menuId="search" name="&amp;Эзләү"/>
+					<Item menuId="view" name="&amp;Шәкел"/>
+					<Item menuId="encoding" name="&amp;Кодлау"/>
+					<Item menuId="language" name="&amp;Синтакслар"/>
+					<Item menuId="settings" name="&amp;Көйләүләр"/>
+					<Item menuId="tools" name="&amp;Кораллар"/>
+					<Item menuId="macro" name="&amp;Макрослар"/>
+					<Item menuId="run" name="&amp;Җибәрү"/>
+					<Item menuId="Plugins" name="&amp;Плагиннар"/>
+					<Item menuId="Window" name="&amp;Тәрәзәләр"/>
+				</Entries>
+				<!-- Sub Menu Entries -->
+				<SubEntries>
+					<Item subMenuId="file-openFolder" name="Документ папкасын ачарга"/>
+					<Item subMenuId="file-closeMore" name="Битләр белән идарә..."/>
+					<Item subMenuId="file-recentFiles" name="Соңгы файллар"/>
+					<Item subMenuId="edit-copyToClipboard" name="Буферга күчермә ясарга..."/>
+					<Item subMenuId="edit-indent" name="Буш урын (табуляция)"/>
+					<Item subMenuId="edit-convertCaseTo" name="Регистрны үзгәртергә"/>
+					<Item subMenuId="edit-lineOperations" name="Юллар"/>
+					<Item subMenuId="edit-comment" name="Аңлатмалар"/>
+					<Item subMenuId="edit-autoCompletion" name="Авто-Тәмамлау"/>
+					<Item subMenuId="edit-eolConversion" name="Яңа юл билгесен үзгәртү"/>
+					<Item subMenuId="edit-blankOperations" name="Аралар"/>
+					<Item subMenuId="edit-pasteSpecial" name="Махсус Кую"/>
+					<Item subMenuId="edit-onSelection" name="Билгеләнелгән"/>
+					<Item subMenuId="search-markAll" name="Аерылганны тамгаларга"/>
+					<Item subMenuId="search-unmarkAll" name="Тамгаларны бетрергә"/>
+					<Item subMenuId="search-jumpUp" name="Өскә күчәргә"/>
+					<Item subMenuId="search-jumpDown" name="Аска күчәргә"/>
+					<Item subMenuId="search-bookmark" name="Билгеләр"/>
+					<Item subMenuId="view-showSymbol" name="Символлар күренеше"/>
+					<Item subMenuId="view-zoom" name="Масштаб"/>
+					<Item subMenuId="view-moveCloneDocument" name="Документ белән гамәлләр"/>
+					<Item subMenuId="view-tab" name="Битне сайлау..."/>
+					<Item subMenuId="view-collapseLevel" name="Дәрәҗәне җыярга"/>
+					<Item subMenuId="view-uncollapseLevel" name="Дәрәҗәне җәергә"/>
+					<Item subMenuId="view-project" name="Проект"/>
+					<Item subMenuId="encoding-characterSets" name="Кодлау"/>
+					<Item subMenuId="encoding-arabic" name="Гарәп"/>
+					<Item subMenuId="encoding-baltic" name="Балтик"/>
+					<Item subMenuId="encoding-celtic" name="Кельт"/>
+					<Item subMenuId="encoding-cyrillic" name="Кириллик"/>
+					<Item subMenuId="encoding-centralEuropean" name="Үзәк Европа"/>
+					<Item subMenuId="encoding-chinese" name="Кытай"/>
+					<Item subMenuId="encoding-easternEuropean" name="Көнчыгыш Европа"/>
+					<Item subMenuId="encoding-greek" name="Грек"/>
+					<Item subMenuId="encoding-hebrew" name="Иврит"/>
+					<Item subMenuId="encoding-japanese" name="Япон"/>
+					<Item subMenuId="encoding-korean" name="Корея"/>
+					<Item subMenuId="encoding-northEuropean" name="Төньяк Европа"/>
+					<Item subMenuId="encoding-thai" name="Тай"/>
+					<Item subMenuId="encoding-turkish" name="Төрек"/>
+					<Item subMenuId="encoding-westernEuropean" name="Көнбатыш Европа"/>
+					<Item subMenuId="encoding-vietnamese" name="Вьетнам"/>
+					<Item subMenuId="settings-import" name="Импортларга"/>
+					<Item subMenuId="tools-md5" name="MD5"/>
+				</SubEntries>
+
+				<!-- all menu item -->
+				<Commands>
+					<Item id="1001" name="Бастырырга"/>
+					<Item id="41001" name="&amp;Яңа"/>
+					<Item id="41002" name="&amp;Ачарга"/>
+					<Item id="41019" name="Документ папкасын ачарга"/>
+					<Item id="41003" name="Ябарга"/>
+					<Item id="41004" name="Бөтенесен ябарга"/>
+					<Item id="41005" name="Активыннан кала бөтенесен ябарга"/>
+					<Item id="41006" name="Сакларга"/>
+					<Item id="41007" name="Бөтенесен сакларга"/>
+					<Item id="41008" name="Саклау рәвеше..."/>
+					<Item id="41010" name="Бастыру..."/>
+					<Item id="41011" name="Чыгу"/>
+					<Item id="41012" name="Сессияны йөкләргә..."/>
+					<Item id="41013" name="Сессияны сакларга..."/>
+					<Item id="41014" name="Дисктан яңабаштан йөкләргә"/>
+					<Item id="41015" name="Күчермәне саклау рәвеше..."/>
+					<Item id="41016" name="Файлны бетерергә (кәрзингә)"/>
+					<Item id="41017" name="Исемен үзгәртергә..."/>
+					<Item id="41020" name="cmd консолендә ачарга"/>
+					<Item id="41021" name="Соңгы ябылган файлны ачарга"/>
+					<Item id="41022" name="Папканы Проект буларак ачарга"/>
+					<Item id="41009" name="Бөтен Сулдагыларын ябарга"/>
+					<Item id="41018" name="Бөтен Уңдагыларын ябарга"/>
+					<Item id="42001" name="Кисеп алырга"/>
+					<Item id="42002" name="Күчермә алырга"/>
+					<Item id="42003" name="Кире үзгәртергә"/>
+					<Item id="42004" name="Кайтарырга"/>
+					<Item id="42005" name="Куярга"/>
+					<Item id="42006" name="Бетерергә"/>
+					<Item id="42007" name="Бөтенесен аерырга"/>
+					<Item id="42008" name="Табуляцияны куярга"/>
+					<Item id="42009" name="Табуляцияны бетерергә"/>
+					<Item id="42010" name="Хәзерге юлны кабатларга"/>
+					<Item id="42012" name="Юлларны бүләргә"/>
+					<Item id="42013" name="Юлларны берләштерергә"/>
+					<Item id="42014" name="Юлны өскә күчерергә"/>
+					<Item id="42015" name="Юлны аска күчерергә"/>
+					<Item id="42016" name="БАШ ХӘРЕФЛӘР"/>
+					<Item id="42017" name="юл хәрефләр"/>
+					<Item id="42018" name="Язуны башлау"/>
+					<Item id="42019" name="Язуны туктату"/>
+					<Item id="42020" name="Аеруны куярга (башы/ахыры)"/>
+					<Item id="42021" name="Язманы кабатларга"/>
+					<Item id="42022" name="Юл аңлатмасын Сүн./Каб."/>
+					<Item id="42023" name="Аерылганнан аңлатма ясарга"/>
+					<Item id="42024" name="Ахыргы Араларны Бетерү"/>
+					<Item id="42025" name="Язманы макрос итеп сакларга..."/>
+					<Item id="42026" name="Текст уңнан Сулга"/>
+					<Item id="42027" name="Текст сулдан Уңга"/>
+					<Item id="42028" name="Уку гына"/>
+					<Item id="42029" name="Файлның Юлын һәм Исемен буферга"/>
+					<Item id="42030" name="Файлның Исемен буферга"/>
+					<Item id="42031" name="Файлның Юлын буферга"/>
+					<Item id="42032" name="Макросларны берничә тапкыр җибәрергә..."/>
+					<Item id="42034" name="Багана генераторы..."/>
+					<Item id="42035" name="Юлдан аңлатма ясарга"/>
+					<Item id="42036" name="Юлдан аңлатманы бетрергә"/>
+					<Item id="42037" name="Баганалап аеру..."/>
+					<Item id="42038" name="HTML кебек куярга"/>
+					<Item id="42039" name="RTF кебек куярга"/>
+					<Item id="42040" name="Бөтен соңгы файлларны ачарга"/>
+					<Item id="42041" name="Соңгы файлларның исемлеген бетерергә"/>
+					<Item id="42042" name="Башлангыч араларны бетерергә"/>
+					<Item id="42043" name="Башлангыч һәм Ахыргы араларны бетерергә"/>
+					<Item id="42044" name="Яңа юл билгесен Арага үзгәртергә"/>
+					<Item id="42045" name="Артык Араларны бетерергә һәм Яңа юлны Арага үзгәртергә"/>
+					<Item id="42046" name="Табуляцияны Арага үзгәртергә"/>
+					<Item id="42047" name="Аерылганнан аңлатманы бетерергә"/>
+					<Item id="42048" name="Икеле код итеп күчермә алырга"/>
+					<Item id="42049" name="Икеле код итеп кисеп алырга"/>
+					<Item id="42050" name="Икеле код итеп куярга"/>
+					<Item id="42051" name="Символлар җәдвәле"/>
+					<Item id="42052" name="Алмашыну буферының тарихы панеле"/>
+					<Item id="42053" name="Араны Табуляцияга (юл башында)"/>
+					<Item id="42054" name="Араны Табуляцияга (бөтенесе)"/>
+					<Item id="42055" name="Буш юлларны бетерергә"/>
+					<Item id="42056" name="Буш юлларны бетерергә (Ара симв. булган)"/>
+					<Item id="42057" name="Хәзерге юлга кадәр буш юл куярга"/>
+					<Item id="42058" name="Хәзерге юлдан соң буш юл куярга"/>
+					<Item id="42059" name="Юлларны Арту тәртибендә санау"/>
+					<Item id="42060" name="Юлларны Кимү тәртибендә санау"/>
+					<Item id="42061" name="Тулы саннар Үсү буенча Урнаштыру"/>
+					<Item id="42062" name="Тулы саннар Кимү буенча Урнаштыру"/>
+					<Item id="42063" name="Унарлы саннар Үсү буенча Урнаштыру (Өтер)"/>
+					<Item id="42064" name="Унарлы саннар Кимү буенча Урнаштыру (Өтер)"/>
+					<Item id="42065" name="Унарлы саннар Үсү буенча Урнаштыру (Нокта)"/>
+					<Item id="42066" name="Унарлы саннар Кимү буенча Урнаштыру (Нокта)"/>
+					<Item id="42067" name="Бөтенесе Баш хәрефтән"/>
+					<Item id="42068" name="Бөтенесе Баш хәрефтән (катнаш)"/>
+					<Item id="42069" name="Җөмлә"/>
+					<Item id="42070" name="Җөмлә (катнаш)"/>
+					<Item id="42071" name="рЕГИСТРНЫ иНВЕРТЛАШТЫРЫРГА"/>
+					<Item id="42072" name="ОчрАкЛы РегиСТр"/>
+					<Item id="42073" name="Файлны Ачарга"/>
+					<Item id="42074" name="Документның папкасын Ачарга"/>
+					<Item id="42075" name="Интернетта Эзләү"/>
+					<Item id="42076" name="Эзләү Системасын Алыштыру..."/>
+					<Item id="43001" name="Табарга..."/>
+					<Item id="43002" name="Алга эзләргә"/>
+					<Item id="43003" name="Алыштыру..."/>
+					<Item id="43004" name="Күчәргә монда..."/>
+					<Item id="43005" name="Билге (куярга/алырга)"/>
+					<Item id="43006" name="Киләсе Билгегә"/>
+					<Item id="43007" name="Үткән Билгегә"/>
+					<Item id="43008" name="Бөтен Билгеләрне алырга"/>
+					<Item id="43009" name="Парлы җәягә күчәргә"/>
+					<Item id="43010" name="Элеккене эзләргә"/>
+					<Item id="43011" name="&amp;Җыя бару белән эзләү..."/>
+					<Item id="43013" name="Файлларда табарга"/>
+					<Item id="43014" name="Алдагы билгеләнгәннәрне Регистр белән эзләргә"/>
+					<Item id="43015" name="Элекке билгеләнгәннәрне Регистр белән эзләргә"/>
+					<Item id="43016" name="Бөтенесен билгеләргә"/>
+					<Item id="43017" name="Бөтен билгеләүләрне бетерергә"/>
+					<Item id="43018" name="Бөтен Билгеле юлларны кисеп алырга"/>
+					<Item id="43019" name="Бөтен Билгеле юллардан күчермә алырга"/>
+					<Item id="43020" name="Билгеләр булган юлларга куярга (алмаштыру белән)"/>
+					<Item id="43021" name="Бөтен Билгеләр булган юлларны бетерергә"/>
+					<Item id="43022" name="1-нче стильне кулланып"/>
+					<Item id="43023" name="1-нче стильне бетерергә"/>
+					<Item id="43024" name="2-нче стильне кулланып"/>
+					<Item id="43025" name="2-нче стильне бетерергә"/>
+					<Item id="43026" name="3-нче стильне кулланып"/>
+					<Item id="43027" name="3-нче стильне бетерергә"/>
+					<Item id="43028" name="4-нче стильне кулланып"/>
+					<Item id="43029" name="4-нче стильне бетерергә"/>
+					<Item id="43030" name="5-нче стильне кулланып"/>
+					<Item id="43031" name="5-нче стильне бетерергә"/>
+					<Item id="43032" name="Бөтен стильләрне бетерергә"/>
+					<Item id="43033" name="1-нче стиль"/>
+					<Item id="43034" name="2-нче стиль"/>
+					<Item id="43035" name="3-нче стиль"/>
+					<Item id="43036" name="4-нче стиль"/>
+					<Item id="43037" name="5-нче стиль"/>
+					<Item id="43038" name="Стильне табарга"/>
+					<Item id="43039" name="1-нче стиль"/>
+					<Item id="43040" name="2-нче стиль"/>
+					<Item id="43041" name="3-нче стиль"/>
+					<Item id="43042" name="4-нче стиль"/>
+					<Item id="43043" name="5-нче стиль"/>
+					<Item id="43044" name="Стильне табарга"/>
+					<Item id="43045" name="Эзләү нәтиҗәсенең тәрәзәсе"/>
+					<Item id="43046" name="Эзләүнең киләсе нәтиҗәсе"/>
+					<Item id="43047" name="Эзләүнең үткән нәтиҗәсе"/>
+					<Item id="43048" name="Алдагы аерылганны эзләргә"/>
+					<Item id="43049" name="Элек аерылганны эзләргә"/>
+					<Item id="43050" name="Билгеләрне инвертлаштырырга (бөтен юллар)"/>
+					<Item id="43051" name="Бөтен Билгесез юлларны бетерергә"/>
+					<Item id="43052" name="Арада символларны табарга..."/>
+					<Item id="43053" name="Парлы җәяләр арасында бөтенесен аерырга"/>
+					<Item id="43054" name="Тамгалар..."/>
+					<Item id="44009" name="Текст кына (бөтен тәрәзәгә)"/>
+					<Item id="44010" name="Бөтен блокларны җыярга"/>
+					<Item id="44012" name="Юллар санын яшерергә"/>
+					<Item id="44013" name="Билгеләр кырын яшерергә"/>
+					<Item id="44014" name="Блоклар Чиге кырын яшерергә"/>
+					<Item id="44019" name="Бөтен символларны күрсәтергә"/>
+					<Item id="44020" name="Кызыл юлларны күрсәтергә"/>
+					<Item id="44022" name="Юлларны күчерү"/>
+					<Item id="44023" name="Эрерәк (Ctrl+Тәг. Өскә)"/>
+					<Item id="44024" name="Ваграк (Ctrl+Тәг. Аска)"/>
+					<Item id="44025" name="Араларны һәм Табуляцияларны күрсәтергә"/>
+					<Item id="44026" name="Яңа юл символын күрсәтергә"/>
+					<Item id="44029" name="Бөтен блокларны җәергә"/>
+					<Item id="44030" name="Хәзерге блокны җыярга"/>
+					<Item id="44031" name="Хәзерге блокны җәергә"/>
+					<Item id="44032" name="Тулы экран режимы"/>
+					<Item id="44033" name="Масштабны кайтарырга..."/>
+					<Item id="44034" name="Бөтен тәрәзәләрдән өстен"/>
+					<Item id="44035" name="Вертикаль күчерүне синхронлаштырырга"/>
+					<Item id="44036" name="Горизонталь күчерүне синхронлаштырырга"/>
+					<Item id="44041" name="Юлларны күчерү билгесен күрсәтергә"/>
+					<Item id="44042" name="Сайланган юлларны яшерергә"/>
+					<Item id="44049" name="Файл турында мәгълүмат..."/>
+					<Item id="44072" name="Башка өлкәгә күчәргә"/>
+					<Item id="44080" name="Документ Картасы"/>
+					<Item id="44081" name="Проект Панеле 1"/>
+					<Item id="44082" name="Проект Панеле 2"/>
+					<Item id="44083" name="Проект Панеле 3"/>
+					<Item id="44084" name="Функцияләр исемлеге"/>
+					<Item id="44085" name="Папка Проект буларак"/>
+					<Item id="44086" name="1-нче Бит"/>
+					<Item id="44087" name="2-нче Бит"/>
+					<Item id="44088" name="3-нче Бит"/>
+					<Item id="44089" name="4-нче Бит "/>
+					<Item id="44090" name="5-нче Бит"/>
+					<Item id="44091" name="6-нче Бит"/>
+					<Item id="44092" name="7-нче Бит"/>
+					<Item id="44093" name="8-нче Бит"/>
+					<Item id="44094" name="9-нче Бит"/>
+					<Item id="44095" name="Киләсе Бит"/>
+					<Item id="44096" name="Элекке Бит"/>
+					<Item id="44097" name="Мониторинг (tail -f)"/>
+					<Item id="44098" name="Салынманы Алга Күчерергә"/>
+					<Item id="44099" name="Салынманы Артка Күчерергә"/>
+					<Item id="45001" name="Win-форматка үзгәртергә (CRLF)"/>
+					<Item id="45002" name="UNIX-форматка үзгәртергә (LF)"/>
+					<Item id="45003" name="MAC-форматка үзгәртергә (CR)"/>
+					<Item id="45004" name="ANSI -га кодларга"/>
+					<Item id="45005" name="UTF-8 -га кодларга"/>
+					<Item id="45006" name="UCS-2 Big Endian -га кодларга"/>
+					<Item id="45007" name="UCS-2 Little Endian -га кодларга"/>
+					<Item id="45008" name="UTF-8 (BOM -сыз)"/>
+					<Item id="45009" name="ANSI -га үзгәртергә"/>
+					<Item id="45010" name="UTF-8 BOM -сызга үзгәртергә"/>
+					<Item id="45011" name="UTF-8 -гә үзгәртергә"/>
+					<Item id="45012" name="UCS-2 Big Endian -га үзгәртергә"/>
+					<Item id="45013" name="UCS-2 Little Endian -га үзгәртергә"/>
+					<Item id="46001" name="Стильләрне билгеләү..."/>
+					<Item id="46019" name="MS INI файлы"/>
+					<Item id="46015" name="MS-DOS стиле"/>
+					<Item id="46016" name="Гади Текст"/>
+					<Item id="46180" name="Үземнең көйләүләрем"/>
+					<Item id="46250" name="Үземнең синтаксисны бирергә..."/>
+					<Item id="47000" name="Программа турында..."/>
+					<Item id="47001" name="Notepad++ -ның Өй бите"/>
+					<Item id="47002" name="Notepad++ проектының бите"/>
+					<Item id="47003" name="Интернет документация"/>
+					<Item id="47004" name="Форум"/>
+					<Item id="47005" name="Тагын плагиннар..."/>
+					<Item id="47006" name="Notepad++ -ны яңартырга"/>
+					<Item id="47008" name="Белешмә"/>
+					<Item id="47009" name="Яңарту проксиларын бирергә..."/>
+					<Item id="47010" name="Команда Юлының параметрлары"/>
+					<Item id="47012" name="Хаталар мәгълүматы"/>
+					<Item id="48005" name="Плагин(нар)ны импортларга"/>
+					<Item id="48006" name="Шәкел(ләр)не импортларга"/>
+					<Item id="48009" name="Кайнар төймәләр..."/>
+					<Item id="48011" name="Көйләүләр..."/>
+					<Item id="48016" name="Кайнар төймәләрне үзгәртергә/Макросны бетерергә..."/>
+					<Item id="48017" name="Кайнар төймәләрне үзгәртергә/Биремне бетерергә..."/>
+					<Item id="48018" name="Контекст Менюны үзгәртергә"/>
+					<Item id="48501" name="Ясарга..."/>
+					<Item id="48502" name="Файллардан ясарга..."/>
+					<Item id="48503" name="Алмашыну буферына ясарга"/>
+					<Item id="49000" name="Җибәрү..."/>
+					<Item id="50000" name="Функцияны тәмамлау"/>
+					<Item id="50001" name="Сүзләрне тәмамлау"/>
+					<Item id="50002" name="Функцияләр буенча өстәмә мәгълүмат"/>
+					<Item id="50006" name="Юлны тәмамлау"/>
+					<Item id="10001" name="Башка Өлкәгә күчерергә"/>
+					<Item id="10002" name="Башка Өлкәдә кабатларга"/>
+					<Item id="10003" name="Яңа Нөсхәгә күчерергә"/>
+					<Item id="10004" name="Яңа Нөсхәдә ачарга"/>
+				</Commands>
+			</Main>
+			<Splitter>
+			</Splitter>
+			<TabBar>
+				<Item CMID="0" name="Ябарга"/>
+				<Item CMID="1" name="Бусыннан кала бөтенесен ябарга"/>
+				<Item CMID="2" name="Сакларга"/>
+				<Item CMID="3" name="Ничек сакларга..."/>
+				<Item CMID="4" name="Бастыру"/>
+				<Item CMID="5" name="Башка Өлкәгә күчерергә"/>
+				<Item CMID="6" name="Башка Өлкәдә кабатларга"/>
+				<Item CMID="7" name="Файлга тулы юлны буферга"/>
+				<Item CMID="8" name="Файл исемен буферга"/>
+				<Item CMID="9" name="Файл урнашкан җиргә юлны буферга"/>
+				<Item CMID="10" name="Исемен үзгәртергә"/>
+				<Item CMID="11" name="Файлны бетерергә (кәрзингә)"/>
+				<Item CMID="12" name="Уку гына"/>
+				<Item CMID="13" name="&quot;Уку гына&quot; атрибутын бетерергә"/>
+				<Item CMID="14" name="Яңа Нөсхәгә күчерергә"/>
+				<Item CMID="15" name="Яңа Нөсхәдә ачарга"/>
+				<Item CMID="16" name="Дисктан яңабаштан йөкләргә"/>
+				<Item CMID="17" name="Бөтен сул яктагы битләрне ябарга"/>
+				<Item CMID="18" name="Бөтен уң яктагы битләрне ябарга"/>
+				<Item CMID="19" name="Документ папкасын ачарга"/>
+				<Item CMID="20" name="cmd -да документ папкасын ачарга"/>
+			</TabBar>
+		</Menu>
+
+		<Dialog>
+			<Find title="" titleFind="Табарга" titleReplace="Алыштырырга" titleFindInFiles="Файлларда табарга" titleMark="Тамгалар">
+				<Item id="1" name="Алга эзләргә"/>
+				<Item id="2" name="Ябарга"/>
+				<Item id="1603" name="&amp;Тулы сүзләрне генә"/>
+				<Item id="1604" name="Регистрны исәптә тотарга"/>
+				<Item id="1605" name="Даими аңлатма"/>
+				<Item id="1606" name="Эзләүне әйләнмә итәргә"/>
+				<Item id="1608" name="&amp;Алыштырырга"/>
+				<Item id="1609" name="&amp;Бөтенесен алыштыру"/>
+				<Item id="1611" name="Алыштырырга моңа:"/>
+				<Item id="1614" name="&amp;Санап чыгарырга"/>
+				<Item id="1615" name="Бөтенесен тамгаларга"/>
+				<Item id="1616" name="Билге белән тамгаларга"/>
+				<Item id="1618" name="Элекке тамгаларны бетерергә"/>
+				<Item id="1620" name="Табарга:"/>
+				<Item id="1624" name="Эзләү режимы"/>
+				<Item id="1625" name="Гади"/>
+				<Item id="1626" name="&amp;Киңәйтелгән (\n, \r, \t, \0, \x...)"/>
+				<Item id="1632" name="Аер. җирдә"/>
+				<Item id="1633" name="Тамгаларны бетерергә"/>
+				<Item id="1635" name="Ачык документларда бөтенесен алыштыру"/>
+				<Item id="1636" name="Ачык документларда бөтенесен табарга"/>
+				<Item id="1641" name="Хәзерге Документта&#x0A;Бөтенесен табарга"/>
+				<Item id="1654" name="Фильтрлар:"/>
+				<Item id="1655" name="Папка:"/>
+				<Item id="1656" name="Бөтенесен табарга"/>
+				<Item id="1658" name="Бөтен эчке папкаларда"/>
+				<Item id="1659" name="Яшерен папкаларда"/>
+				<Item id="1660" name="&amp;Файлларда алыштыру"/>
+				<Item id="1686" name="Үтә-күренмәлек"/>
+				<Item id="1687" name="Актив булмаганда"/>
+				<Item id="1688" name="Гел"/>
+				<Item id="1703" name="һәм &amp;яңа юллар"/>
+			</Find>
+			<GoToLine title="Күчәргә...">
+				<Item id="2007" name="Юл"/>
+				<Item id="2008" name="Символ"/>
+				<Item id="1" name="Алга"/>
+				<Item id="2" name="Баш тарту"/>
+				<Item id="2004" name="Хәзер сез монда:"/>
+				<Item id="2005" name="Монда күчәсез:"/>
+				<Item id="2006" name="Максималь билге:"/>
+			</GoToLine>
+
+			<Run title="Җибәрү...">
+				<Item id="1903" name="Программа җибәрүнең параметрын кертегез"/>
+				<Item id="1" name="Җибәрергә"/>
+				<Item id="2" name="Баш тарту"/>
+				<Item id="1904" name="Сакларга..."/>
+			</Run>
+
+			<StyleConfig title="Стильләрне билгеләү">
+				<Item id="2" name="Баш тарту"/>
+				<Item id="2301" name="Әйе"/>
+				<Item id="2303" name="Үтә-күренмәлек"/>
+				<Item id="2306" name="Стильне сайларга:"/>
+				<SubDialog>
+					<Item id="2204" name="Ярым-калын"/>
+					<Item id="2205" name="Авыш"/>
+					<Item id="2206" name="Текст төсе"/>
+					<Item id="2207" name="Текст фонының төсе"/>
+					<Item id="2208" name="Шрифт:"/>
+					<Item id="2209" name="Зурлык:"/>
+					<Item id="2211" name="Стиль:"/>
+					<Item id="2212" name="Төс Стилье"/>
+					<Item id="2213" name="Шрифт Стилье"/>
+					<Item id="2214" name="Стандарт формат:"/>
+					<Item id="2216" name="Кулланучы форматы:"/>
+					<Item id="2218" name="Ассызыкланган"/>
+					<Item id="2219" name="Стандарт төп сүзләр"/>
+					<Item id="2221" name="Кулланучыныкы"/>
+					<Item id="2225" name="Тел:"/>
+					<Item id="2226" name="Текстның гомуми төсе"/>
+					<Item id="2227" name="Текст фонының гомуми төсе"/>
+					<Item id="2228" name="Гомуми шрифт"/>
+					<Item id="2229" name="Шрифтның гомуми зурлыгы"/>
+					<Item id="2230" name="Шрифтл. гомуми ярым-калынлыгы"/>
+					<Item id="2231" name="Шрифтларның гомуми авышлыгы"/>
+					<Item id="2232" name="Шрифтларның гомуми ассызыгы"/>
+				</SubDialog>
+			</StyleConfig>
+
+			<UserDefine title="Кулланучы көйләүләре">
+				<Item id="20001" name="Ялгарга"/>
+				<Item id="20002" name="Яңа исем"/>
+				<Item id="20003" name="Ясарга..."/>
+				<Item id="20004" name="Бетерергә"/>
+				<Item id="20005" name="Ничек саклау..."/>
+				<Item id="20007" name="Кулланучы теле: "/>
+				<Item id="20009" name="Формат:"/>
+				<Item id="20012" name="Һәртөрле регистр"/>
+				<Item id="20011" name="Үтә-күренмәлек"/>
+				<Item id="20015" name="Импортларга..."/>
+				<Item id="20016" name="Экспортларга..."/>
+				<StylerDialog title="Стилистика көйләүләре">
+					<Item id="1" name="Әйе"/>
+					<Item id="2" name="Баш тарту"/>
+					<Item id="25030" name="Шрифт стиле:"/>
+					<Item id="25006" name="Текст төсе"/>
+					<Item id="25007" name="Текст фонының төсе"/>
+					<Item id="25031" name="Исем:"/>
+					<Item id="25032" name="Зурлыгы:"/>
+					<Item id="25001" name="Ярым-калын"/>
+					<Item id="25002" name="Курсив"/>
+					<Item id="25003" name="Ассызыкланган"/>
+					<Item id="25029" name="Өстәмәләр:"/>
+					<Item id="25008" name="Аергыч 1"/>
+					<Item id="25009" name="Аергыч 2"/>
+					<Item id="25010" name="Аергыч 3"/>
+					<Item id="25011" name="Аергыч 4"/>
+					<Item id="25012" name="Аергыч 5"/>
+					<Item id="25013" name="Аергыч 6"/>
+					<Item id="25014" name="Аергыч 7"/>
+					<Item id="25015" name="Аергыч 8"/>
+					<Item id="25018" name="Төп сүз 1"/>
+					<Item id="25019" name="Төп сүз 2"/>
+					<Item id="25020" name="Төп сүз 3"/>
+					<Item id="25021" name="Төп сүз 4"/>
+					<Item id="25022" name="Төп сүз 5"/>
+					<Item id="25023" name="Төп сүз 6"/>
+					<Item id="25024" name="Төп сүз 7"/>
+					<Item id="25025" name="Төп сүз 8"/>
+					<Item id="25016" name="Аңлатма"/>
+					<Item id="25017" name="Юл аңлатмасы"/>
+					<Item id="25026" name="Оператор 1"/>
+					<Item id="25027" name="Оператор 2"/>
+					<Item id="25028" name="Саннар"/>
+				</StylerDialog>
+				<Folder title="Стандарт">
+					<Item id="21101" name="Гадәттәгечә стиль"/>
+					<Item id="21102" name="Көйләргә"/>
+					<Item id="21104" name="Вакытлыча документлар сайты:"/>
+					<Item id="21105" name="Документлар:"/>
+					<Item id="21106" name="Компакт җыю (буш юлларны да)"/>
+					<Item id="21427" name="Стиль"/>
+					<Item id="21424" name="Ачу:"/>
+					<Item id="21425" name="Урта: "/>
+					<Item id="21426" name="Ябу: "/>
+					<Item id="21227" name="Стиль"/>
+					<Item id="21224" name="Ачу: "/>
+					<Item id="21225" name="Урта: "/>
+					<Item id="21226" name="Ябу: "/>
+					<Item id="21420" name="Аңлатмаларда җыю: "/>
+					<Item id="21220" name="1-нче стиль кодында җыю: "/>
+					<Item id="21320" name="2-нче стиль кодында җыю (аергыч кирәк):"/>
+					<Item id="21327" name="Стиль"/>
+					<Item id="21324" name="Ачу: "/>
+					<Item id="21325" name="Урта: "/>
+					<Item id="21326" name="Ябу: "/>
+				</Folder>
+				<Keywords title="Төп сүзләр">
+					<Item id="22101" name="1-нче группа"/>
+					<Item id="22201" name="2-нче группа"/>
+					<Item id="22301" name="3-нче группа"/>
+					<Item id="22401" name="4-нче группа"/>
+					<Item id="22451" name="5-нче группа"/>
+					<Item id="22501" name="6-нче группа"/>
+					<Item id="22551" name="7-нче группа"/>
+					<Item id="22601" name="8-нче группа"/>
+					<Item id="22122" name="Стиль"/>
+					<Item id="22222" name="Стиль"/>
+					<Item id="22322" name="Стиль"/>
+					<Item id="22422" name="Стиль"/>
+					<Item id="22472" name="Стиль"/>
+					<Item id="22522" name="Стиль"/>
+					<Item id="22572" name="Стиль"/>
+					<Item id="22622" name="Стиль"/>
+					<Item id="22121" name="Префикс режим"/>
+					<Item id="22221" name="Префикс режим"/>
+					<Item id="22321" name="Префикс режим"/>
+					<Item id="22421" name="Префикс режим"/>
+					<Item id="22471" name="Префикс режим"/>
+					<Item id="22521" name="Префикс режим"/>
+					<Item id="22571" name="Префикс режим"/>
+					<Item id="22621" name="Префикс режим"/>
+					<Item id="22113" name="Префикс режим"/>
+					<Item id="22213" name="Префикс режим"/>
+					<Item id="22313" name="Префикс режим"/>
+					<Item id="22413" name="Префикс режим"/>
+				</Keywords>
+				<Comment title="Аңлатмалар &amp;һәм Саннар">
+					<Item id="23003" name="Аңлатмалар сызыгы торышы"/>
+					<Item id="23004" name="Теләсә кайда рөхсәт итәргә"/>
+					<Item id="23005" name="Юл башында урнаштырырга"/>
+					<Item id="23006" name="Үткән ара"/>
+					<Item id="23244" name="Унлы аергыч"/>
+					<Item id="23245" name="Нокта"/>
+					<Item id="23246" name="Өтер"/>
+					<Item id="23247" name="Икесе дә"/>
+					<Item id="23230" name="Префикс 1:"/>
+					<Item id="23232" name="Префикс 2:"/>
+					<Item id="23234" name="Экстрас 1:"/>
+					<Item id="23236" name="Экстрас 2:"/>
+					<Item id="23238" name="Суффикс 1:"/>
+					<Item id="23240" name="Суффикс 2:"/>
+					<Item id="23242" name="Диапазон : "/>
+					<Item id="23301" name="Юл Аңлатмасы"/>
+					<Item id="23101" name="Блок Аңлатмасы"/>
+					<Item id="23001" name="Аңлатманы җыюны рөхсәт итәргә"/>
+					<Item id="23002" name="Юл башындагы алып баручы аңлатмалар юлы"/>
+					<Item id="23326" name="Стиль"/>
+					<Item id="23323" name="Ачылу"/>
+					<Item id="23324" name="Дәвам итү символы"/>
+					<Item id="23325" name="Ябылу"/>
+					<Item id="23124" name="Стиль"/>
+					<Item id="23122" name="Ачылу"/>
+					<Item id="23123" name="Ябылу"/>
+					<Item id="23220" name="Стиль"/>
+					<Item id="23201" name="Саннар"/>
+				</Comment>
+				<Operator title="Операторлар һәм бүлгечләр">
+					<Item id="24113" name="Стиль"/>
+					<Item id="24116" name="Операторлар 1"/>
+					<Item id="24117" name="Операторлар 2 (аергычлар кирәк)"/>
+					<Item id="24223" name="Стиль"/>
+					<Item id="24220" name="Ачылу: "/>
+					<Item id="24221" name="Экранлау: "/>
+					<Item id="24222" name="Ябылу: "/>
+					<Item id="24323" name="Стиль"/>
+					<Item id="24320" name="Ачылу: "/>
+					<Item id="24321" name="Экранлау: "/>
+					<Item id="24322" name="Ябылу: "/>
+					<Item id="24423" name="Стиль"/>
+					<Item id="24420" name="Ачылу: "/>
+					<Item id="24421" name="Экранлау: "/>
+					<Item id="24422" name="Ябылу: "/>
+					<Item id="24473" name="Стиль"/>
+					<Item id="24470" name="Ачылу: "/>
+					<Item id="24471" name="Экранлау: "/>
+					<Item id="24472" name="Ябылу: "/>
+					<Item id="24523" name="Стиль"/>
+					<Item id="24520" name="Ачылу: "/>
+					<Item id="24521" name="Экранлау: "/>
+					<Item id="24522" name="Ябылу: "/>
+					<Item id="24573" name="Стиль"/>
+					<Item id="24570" name="Ачылу: "/>
+					<Item id="24571" name="Экранлау: "/>
+					<Item id="24572" name="Ябылу: "/>
+					<Item id="24623" name="Стиль"/>
+					<Item id="24620" name="Ачылу: "/>
+					<Item id="24621" name="Экранлау: "/>
+					<Item id="24622" name="Ябылу: "/>
+					<Item id="24673" name="Стиль"/>
+					<Item id="24670" name="Ачылу: "/>
+					<Item id="24671" name="Экранлау: "/>
+					<Item id="24672" name="Ябылу: "/>
+					<Item id="24401" name="Аергыч 3"/>
+					<Item id="24451" name="Аергыч 4"/>
+					<Item id="24501" name="Аергыч 5"/>
+					<Item id="24551" name="Аергыч 6"/>
+					<Item id="24601" name="Аергыч 7"/>
+					<Item id="24651" name="Аергыч 8"/>
+					<Item id="24101" name="Актив операторлар"/>
+					<Item id="24201" name="Аергыч 1"/>
+					<Item id="24301" name="Аергыч 2"/>
+				</Operator>
+				<Item id="24001" name="Күчү билгесен кабызырга:"/>
+			</UserDefine>
+			<Preference title="Көйләүләр">
+				<Item id="6001" name="Ябарга"/>
+				<Global title="Гомуми">
+					<Item id="6102" name="Яшерергә"/>
+					<Item id="6103" name="Кечкенә билгеләр"/>
+					<Item id="6104" name="Зур билгеләр"/>
+					<Item id="6105" name="Стандарт билгеләр"/>
+					<Item id="6107" name="Кечерәйтелгән зурлык"/>
+					<Item id="6108" name="Тотып күчерүне тыярга"/>
+					<Item id="6109" name="Актив булмаган битләр соры төстә"/>
+					<Item id="6110" name="Бит өстендә сары сызык"/>
+					<Item id="6112" name="Биттә ябу төймәсе"/>
+					<Item id="6113" name="Икеле чиртү белән ябарга"/>
+					<Item id="6118" name="Яшерергә"/>
+					<Item id="6119" name="Каскад күренеш"/>
+					<Item id="6120" name="Сул яктан вертикаль"/>
+					<Item id="6121" name="Меню панеле"/>
+					<Item id="6122" name="Яшерергә (сайлау өчен Alt яки F10)"/>
+					<Item id="6123" name="Интерфейс теле"/>
+					<Item id="6125" name="Документлар исемлеге"/>
+					<Item id="6126" name="Күрсәтергә"/>
+					<Item id="6127" name="Формат баганасын сүндерергә"/>
+				</Global>
+				<Scintillas title="Төзәтү">
+					<Item id="6201" name="Текст бүлекләрен аеру"/>
+					<Item id="6202" name="Гади"/>
+					<Item id="6203" name="Уклар"/>
+					<Item id="6204" name="Түгәрәкләр"/>
+					<Item id="6205" name="Шакмаклар"/>
+					<Item id="6206" name="Юллар Санын күрсәтергә"/>
+					<Item id="6207" name="Билгеләр кырын күрсәтергә"/>
+					<Item id="6208" name="Чикне күрсәтергә"/>
+					<Item id="6209" name="Багана: "/>
+					<Item id="6211" name="Вертикаль чик көйләүләре"/>
+					<Item id="6212" name="Сызык"/>
+					<Item id="6213" name="Текст фоны"/>
+					<Item id="6214" name="Хәзерге юлны яктырту"/>
+					<Item id="6215" name="Шрифтларны тигезләү"/>
+					<Item id="6216" name="Текст Курсоры"/>
+					<Item id="6217" name="Киңлек"/>
+					<Item id="6219" name="Җемелдәү ешлыгы:"/>
+					<Item id="6221" name="Еш"/>
+					<Item id="6222" name="Сир"/>
+					<Item id="6224" name="Мульти-үзгәртү"/>
+					<Item id="6226" name="Сүндерелгән"/>
+					<Item id="6227" name="Юлларны Күчерү стиле"/>
+					<Item id="6228" name="Стандарт"/>
+					<Item id="6229" name="Тигезләнгән"/>
+					<Item id="6230" name="Ара белән"/>
+					<Item id="6231" name="Тәрәзә рамкасының зурлыгы"/>
+					<Item id="6234" name="Әйләндерүнең киңәйтелгән функцияләрен сүндерергә"/>
+					<Item id="6235" name="Рамкасыз"/>
+					<Item id="6236" name="Соңгы юл чигенә кадәр әйләндерү"/>
+				</Scintillas>
+				<NewDoc title="Яңа Документ">
+					<Item id="6401" name="Формат"/>
+					<Item id="6402" name="Windows"/>
+					<Item id="6403" name="Unix"/>
+					<Item id="6404" name="Mac"/>
+					<Item id="6405" name="Кодлау"/>
+					<Item id="6406" name="ANSI"/>
+					<Item id="6407" name="UTF-8 BOM тамгасыннан башка"/>
+					<Item id="6408" name="UTF-8"/>
+					<Item id="6409" name="UCS2 Big Endian"/>
+					<Item id="6410" name="UCS2 Small Endian"/>
+					<Item id="6411" name="Синтаксис гадәттәгечә:"/>
+					<Item id="6419" name="Яңа Документ"/>
+					<Item id="6420" name="Ачык ANSI файлларны үзгәртү"/>
+					<Item id="-1" name="Күрсәтелү"/>
+				</NewDoc>
+				<DefaultDir title="Гадәттәгечә Юл">
+					<Item id="6413" name="Гадәттәгечә Директория (Ачарга/Сакларга)"/>
+					<Item id="6414" name="Хәзерге документ юлы буенча"/>
+					<Item id="6415" name="Соңгы директорияны сакларга"/>
+					<Item id="6431" name="Np++ тәрәзәсенә тотып күчергәндә папканың бөтен файлларын ачарга"/>
+				</DefaultDir>
+
+				<FileAssoc title="Файллар бәйләнеше">
+					<Item id="4009" name="Кулланыла ала торган:"/>
+					<Item id="4010" name="Теркәлгәннәр:"/>
+				</FileAssoc>
+                
+				<Language title="Синтаксис">
+					<Item id="6505" name="Кулланып булган телләр"/>
+					<Item id="6506" name="Сүндерелгән"/>
+					<Item id="6507" name="Синтакс менюсын компакт итәргә"/>
+					<Item id="6508" name="Синтаксислар менюсы"/>
+					<Item id="6301" name="Табуляция көйләүләре"/>
+					<Item id="6302" name="Ара белән алыштырырга"/>
+					<Item id="6303" name="Табуляция зурлыгы: "/>
+					<Item id="6510" name="Гадәттәгечә күрсәткеч"/>
+					<Item id="6335" name="Кире слэш SQL өчен escape символ"/>
+				</Language>
+				
+				<Highlighting title="Яктырту">
+					<Item id="6333" name="Cүзләрне яктырту"/>
+					<Item id="6326" name="Cүзләр яктыртуны кабызырга"/>
+					<Item id="6332" name="Регистрны исәптә тотарга"/>
+					<Item id="6338" name="Тулы сүзне генә"/>
+					<Item id="6339" name="Эзләү көйләүләрен кулланырга"/>
+					<Item id="6340" name="Төрле төстә"/>
+					<Item id="6329" name="Парлы тегларны яктырту"/>
+					<Item id="6327" name="Кабызылган"/>
+					<Item id="6328" name="Тег билгеләрен яктырту"/>
+					<Item id="6330" name="Кырларны яктырту: comment/php/asp"/>
+				</Highlighting>
+                
+				<Print title="Бастыру">
+					<Item id="6601" name="Юллар санын бастырырга"/>
+					<Item id="6602" name="Төс схемасы"/>
+					<Item id="6603" name="Ничек бар"/>
+					<Item id="6604" name="Инвертларга"/>
+					<Item id="6605" name="Акка кара белән"/>
+					<Item id="6606" name="Фон төсеннән башка"/>
+					<Item id="6607" name="Аралар (Миллиметрларда)"/>
+					<Item id="6612" name="Сул яктан"/>
+					<Item id="6613" name="Өстән"/>
+					<Item id="6614" name="Уң яктан"/>
+					<Item id="6615" name="Астан"/>
+					<Item id="6706" name="Калын"/>
+					<Item id="6707" name="Авыш"/>
+					<Item id="6708" name="Өске колонтитул"/>
+					<Item id="6709" name="Сул як өлеш"/>
+					<Item id="6710" name="Урта өлеш"/>
+					<Item id="6711" name="Уң як өлеш"/>
+					<Item id="6717" name="Калын"/>
+					<Item id="6718" name="Авыш"/>
+					<Item id="6719" name="Аскы колонтитул"/>
+					<Item id="6720" name="Сул як өлеш"/>
+					<Item id="6721" name="Урта өлеш"/>
+					<Item id="6722" name="Уң як өлеш"/>
+					<Item id="6723" name="Өстәргә"/>
+					<Item id="6725" name="Үзгәрүче:"/>
+					<Item id="6727" name="Кайсы өлеше..."/>
+					<Item id="6728" name="Колонтитуллар"/>
+				</Print>
+				<RecentFilesHistory title="Ачылу тарихы">
+					<Item id="6304" name="Соңгы файллар тарихы"/>
+					<Item id="6305" name="Җибәргәндә тикшермәскә"/>
+					<Item id="6306" name="Ничәсен сакларга:"/>
+					<Item id="6429" name="Күрсәтелеш"/>
+					<Item id="6424" name="Ас менюда"/>
+					<Item id="6425" name="Файл исеме генә"/>
+					<Item id="6426" name="Файлга тулы юл"/>
+					<Item id="6427" name="Максималь озынлык:"/>
+				</RecentFilesHistory>
+				<MISC title="Төрле">
+					<Item id="6309" name="Соңгы эштән соң ябылмаган файлларны ачарга"/>
+					<Item id="6312" name="Файлның үзгәрүен ачыклау (читтән)"/>
+					<Item id="6313" name="Сорамыйча яңартырга"/>
+					<Item id="6318" name="Веб-сылтамаларны эшкәртү"/>
+					<Item id="6325" name="Яңартудан соң соңгы юлга күчәргә"/>
+					<Item id="6319" name="Кабызырга"/>
+					<Item id="6320" name="Астына сызмаска"/>
+					<Item id="6322" name="Сессия файлының форматы:"/>
+					<Item id="6323" name="Авто-яңартуны кабызырга"/>
+					<Item id="6324" name="Документлар арасында күчү (Ctrl+TAB)"/>
+					<Item id="6331" name="Башламда файл исемен генә күрсәтергә"/>
+					<Item id="6114" name="Исемлек буенча"/>
+					<Item id="6117" name="Куллану буенча исемлек төзергә"/>
+					<Item id="6334" name="Символларның кодлануын автоматик рәвештә билгеләргә"/>
+					<Item id="6337" name="Проект файлының форматы:"/>
+				</MISC>
+				<MultiInstance title="Тәрәзәләр режимы">
+					<Item id="6151" name="Файллар ачылу режимы"/>
+					<Item id="6152" name="Сессияларны Notepad++ның яңа нөсхәсендә ачарга"/>
+					<Item id="6153" name="Һәр файлны яңа тәрәзәдә ачарга"/>
+					<Item id="6154" name="Бөтенесе бер тәрәзәдә (гадәттәгечә)"/>
+					<Item id="6155" name="* Үзгәрешләр Notepad++ны яңабаштан җибәргәч эшләячәкләр"/>
+				</MultiInstance>
+				<Delimiter title="Аергыч">
+					<Item id="6251" name="Аергыч көйләүләре (Ctrl + 2 Тычкан чиртүе)"/>
+					<Item id="6252" name="Ачылу"/>
+					<Item id="6255" name="Ябылу"/>
+					<Item id="6256" name="Берничә юлны кертүне рөхсәт итәргә"/>
+					<Item id="6257" name="эчендәге текст"/>
+					<Item id="6258" name="текст берничә юлга сузыла ала"/>
+				</Delimiter>
+				<Cloud title="Болытлы Саклау">
+					<Item id="6262" name="Болытка көйләүләр"/>
+					<Item id="6263" name="Болытсыз"/>
+					<Item id="6264" name="Dropbox"/>
+					<Item id="6265" name="OneDrive"/>
+					<Item id="6266" name="Google Drive"/>
+					<Item id="6267" name="Болытлы саклау өчен үз юлыңны күрсәтергә:"/>
+					<Item id="6261" name="Үзгәрешләр Notepad++ны яңабаштан җибәргәч эшләячәкләр."/>
+				</Cloud>
+				<SearchEngine title="Эзләү Системасы">
+					<Item id="6271" name="Эзләү Системасы (&quot;Интернетта Эзләү&quot; командасы өчен)"/>
+					<Item id="6272" name="DuckDuckGo"/>
+					<Item id="6273" name="Google"/>
+					<Item id="6274" name="Bing"/>
+					<Item id="6275" name="Yahoo!"/>
+					<Item id="6276" name="Үз эзләү системаңны бирергә"/>
+					<!-- Don't change anything after Example: -->
+					<Item id="6278" name="Мисал: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+				</SearchEngine>
+				<Backup title="Резерв Күчермәләү">
+					<Item id="6801" name="Резерв Күчермәләү (саклаганда)"/>
+					<Item id="6817" name="Сессия рәсеме һәм вакыт-вакыт резерв күчермәләү"/>
+					<Item id="6309" name="Хәзерге сессияны киләсе җибәрү өчен сакларга"/>
+					<Item id="6818" name="Сессия рәсемен һәм вакыт-вакыт резерв күчермәләүне кабызырга"/>
+					<Item id="6821" name="секунд"/>
+					<Item id="6315" name="Сүндерелгән"/>
+					<Item id="6316" name="Гади (яңадан язу .bak)"/>
+					<Item id="6317" name="Һәр саклау аерым"/>
+					<Item id="6804" name="Кулланучы сайлаган күчермәләү юлы"/>
+					<Item id="6803" name="Юл:"/>
+					<Item id="6819" name="Күчермә һәр"/>
+					<Item id="6822" name="Күчермә юлы:"/>
+				</Backup>
+				<AutoCompletion title="Авто-тәмамлау">
+					<Item id="6807" name="Авто-тәмамлау"/>
+					<Item id="6808" name="Һәр кертү саен кабызырга"/>
+					<Item id="6809" name="Функцияләрне тәмамлау"/>
+					<Item id="6810" name="Сүзләрне тәмамлау"/>
+					<Item id="6811" name="башлау"/>
+					<Item id="6813" name="-нче символдан"/>
+					<Item id="6814" name="Мөмкин булган билгеләр: 1-9"/>
+					<Item id="6815" name="Функция параметрларын кертүдә ярдәм"/>
+					<Item id="6816" name="Функцияләрне һәм сүзләрне тәмамлау"/>
+					<Item id="6824" name="Цифрларга игътибар итмәскә"/>
+					<Item id="6851" name="Авто-кую"/>
+					<Item id="6857" name="html/xml тегны ябарга"/>
+					<Item id="6858" name="Ачарга"/>
+					<Item id="6859" name="Ябарга"/>
+					<Item id="6860" name="Килешенгән пар 1:"/>
+					<Item id="6863" name="Килешенгән пар 2:"/>
+					<Item id="6866" name="Килешенгән пар 3:"/>
+				</AutoCompletion>
+			</Preference>
+			<MultiMacro title="Күп тапкыр җибәрергә...">
+				<Item id="1" name="Җибәрергә"/>
+				<Item id="2" name="Баш тарту"/>
+				<Item id="8006" name="Макрос:"/>
+				<Item id="8001" name="Җибәрергә"/>
+				<Item id="8005" name="тапкыр"/>
+				<Item id="8002" name="Файл ахырына кадәр башкарырга"/>
+			</MultiMacro>
+			<Window title="Тәрәзәләр">
+				<Item id="1" name="Ачарга"/>
+				<Item id="2" name="ОК"/>
+				<Item id="7002" name="Сакларга"/>
+				<Item id="7003" name="Тәрәзә(ләр)не ябарга"/>
+				<Item id="7004" name="Тәртипләргә"/>
+			</Window>
+			<ColumnEditor title="Багана генераторы">
+				<Item id="2023" name="Кую өчен текст"/>
+				<Item id="2033" name="Кую өчен саннар"/>
+				<Item id="2030" name="Чыгыш сан:"/>
+				<Item id="2031" name="Зурайту:"/>
+				<Item id="2035" name="Сулдан 0 өстәргә"/>
+				<Item id="2036" name="Кабатларга:"/>
+				<Item id="2032" name="Формат"/>
+				<Item id="2024" name="Унлы"/>
+				<Item id="2025" name="Сигезле"/>
+				<Item id="2026" name="Уналтылы"/>
+				<Item id="2027" name="Икеле"/>
+				<Item id="1" name="ОК"/>
+				<Item id="2" name="Баш тарту"/>
+			</ColumnEditor>
+			<FindCharsInRange title="Диапазонда символлар табарга....">
+				<Item id="2910" name="Табарга"/>
+				<Item id="2" name="Ябарга"/>
+				<Item id="2901" name="ASCII булман символлар (128-255)"/>
+				<Item id="2902" name="ASCII символлар (0 - 127)"/>
+				<Item id="2903" name="Минем диапазон:"/>
+				<Item id="2906" name="Өскә"/>
+				<Item id="2907" name="Аска"/>
+				<Item id="2908" name="Юнәлеш"/>
+				<Item id="2909" name="Эзләүне әйләнмә итәргә"/>
+			</FindCharsInRange>
+		</Dialog>
+		<MessageBox>
+			<ContextMenuXmlEditWarning title="contextMenu -ны үзгәртү" message="contextMenu.xml -ны үзгәртү Notepad++ -та контекст менюларны көйләргә мөмкинлек бирә.&#x0A;Үзгәрешләр гамәлгә керсен өчен, Notepad++ -ны яңабаштан җибәрергә кирәк."/>
+			<NppHelpAbsentWarning title="Файл юк" message="&#x0A;юк. Аны Notepad++ сайтыннан йөкләвегез сорала."/>
+			<SaveCurrentModifWarning title="Хәзерге үзгәрешләрне саклау" message="Хәзерге үзгәрешләрне сакларга кирәк.&#x0A;Сакланган үзгәрешләр кире үзгәртелә алмаячаклар.&#x0A;&#x0A;Дәвам итәргәме?"/>
+			<LoseUndoAbilityWarning title="Кайтару мөмкинлеге югалды" message="Хәзерге үзгәрешләрне саклагыз.&#x0A;Бөтен сакланган үзгәрешләр кире үзгәртелә алмаячаклар.&#x0A;&#x0A;Дәвам итәргәме?"/>
+			<CannotMoveDoc title="Notepad++ -ның яңа нөсхәсенә күчү" message="Документ үзгәртелгән иде, аны саклагыз һәм яңадан башкарып карагыз."/>
+			<DocReloadWarning title="Яңабаштан җибәрү" message="Бөтен кертелгән үзгәрешләр югалачак!&#x0A;Дәвам итәргәме?"/>
+			<FileLockedWarning title="Саклап булмады" message="Бу файл башка кушымтада ачылмаганын тикшерүегез сорала."/>
+			<FileAlreadyOpenedInNpp title="" message="Файл инде Notepad++ -та ачылган."/>
+			<DeleteFileFailed title="Файлны бетерү" message="Файлны бетереп булмады"/>
+
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<NbFileToOpenImportantWarning title="Файллар саны артык күп" message="$INT_REPLACE$ файл тиздән ачылачак.&#x0A;Дәвам итәргәме?"/>
+			<SettingsOnCloudError title="Болыт Көйләүләре" message="Болыт өчен юл уку өчен генә булган билгеле дискка яки папкага күрсәтә ахрысы.&#x0A;Сезгә керү мөмкинлеген ачарга яки язуга рөхсәт алырга кирәк.&#x0A;Сезнең болыт көйләүләрегез кире кагылачак. Зинһар, көйләүне Көйләүләр тәрәзәсендә бетерегез..."/>
+			<FilePathNotFoundWarning title="Файл ачылу" message="Ачарга теләгән файлыгыз юк."/>
+		</MessageBox>
+		<ClipboardHistory>
+			<PanelTitle name="Буфер тарихы"/>
+		</ClipboardHistory>
+		<DocList>
+			<PanelTitle name="Документны алыштыру"/>
+			<ColumnName name="Исем"/>
+			<ColumnExt name="Төре"/>
+		</DocList>
+		<AsciiInsertion>
+			<PanelTitle name="ASCII символлар җәдвәле"/>
+			<ColumnVal name="Билге"/>
+			<ColumnHex name="Hex"/>
+			<ColumnChar name="Символ"/>
+		</AsciiInsertion>
+		<DocumentMap>
+			<PanelTitle name="Документ картасы"/>
+		</DocumentMap>
+		<FunctionList>
+			<PanelTitle name="Функцияләр исемлеге"/>
+			<SortTip name="Тәртипләргә"/>
+			<ReloadTip name="Яңартырга"/>
+		</FunctionList>
+		<ProjectManager>
+			<PanelTitle name="Проект"/>
+			<WorkspaceRootName name="Эш өлкәсе"/>
+			<NewProjectName name="Проект исеме"/>
+			<NewFolderName name="Папка исеме"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Проект"/>
+					<Item id="1" name="Төзәтү"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="Яңа проект"/>
+					<Item id="3123" name="Проектны ачарга"/>
+					<Item id="3124" name="Проектны яңабаштан җибәрергә"/>
+					<Item id="3125" name="Сакларга"/>
+					<Item id="3126" name="Саклау рәвеше..."/>
+					<Item id="3127" name="Күчермәне саклау рәвеше..."/>
+					<Item id="3121" name="Яңа проект өстәргә"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Исемен үзгәртергә"/>
+					<Item id="3112" name="Папка өстәргә"/>
+					<Item id="3113" name="Файллар өстәргә..."/>
+					<Item id="3117" name="Директориядан файллар өстәргә..."/>
+					<Item id="3114" name="Бетерергә"/>
+					<Item id="3118" name="Өскә күчерергә"/>
+					<Item id="3119" name="Аска күчерергә"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Исемен үзгәртергә"/>
+					<Item id="3112" name="Папка өстәргә"/>
+					<Item id="3113" name="Файллар өстәргә..."/>
+					<Item id="3117" name="Директориядан файллар өстәргә..."/>
+					<Item id="3114" name="Бетерергә"/>
+					<Item id="3118" name="Өскә күчерергә"/>
+					<Item id="3119" name="Аска күчерергә"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Исемен үзгәртергә"/>
+					<Item id="3115" name="Бетерергә"/>
+					<Item id="3116" name="Файл юлын үзгәртергә"/>
+					<Item id="3118" name="Өскә күчерергә"/>
+					<Item id="3119" name="Аска күчерергә"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
+	</Native-Langue>
+</NotepadPlus>

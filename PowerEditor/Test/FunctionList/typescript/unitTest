@@ -1,0 +1,374 @@
+var crypto = require('crypto'),
+    Friends,
+    User,
+    Post,
+    WallPost,
+    Comment,
+    LoginToken;
+
+function extractKeywords(text) {
+  if (!text) return [];
+
+  return text.
+    split(/\s+/).
+    filter(function(v) { return v.length > 2; }).
+    filter(function(v, i, a) { return a.lastIndexOf(v) === i; });
+}
+
+/*
+function commentedFunc(text) {
+  if (!text) return [];
+
+  return text.
+    split(/\s+/).
+    filter(function(v) { return v.length > 2; }).
+    filter(function(v, i, a) { return a.lastIndexOf(v) === i; });
+}
+*/
+
+function convertBasicMarkup(input, allowHtml) {
+  var strongRe = /[*]{2}([^*]+)[*]{2}/gm;
+  var emRe = /[*]{1}([^*]+)[*]{1}/gm;
+  var linkRe = /\[([^\]]*)\]\(([^\)]*?)\)/gm;
+  var nlRe = /\r\n/gm;
+  var crRe = /\r/gm;
+  
+  // special re's to revert linebreaks from <br />
+  var codeRe = /(<code\b[^>]*>(.*?)<\/code>)/gm;
+  
+  // cleanup newlines
+  input = input.replace(nlRe, "\n");
+  input = input.replace(crRe, "\n");
+  
+  // strip existing html before inserting breaks/markup
+  if (!allowHtml) {
+    // strip html
+    input = input
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+  
+  // convert newlines to breaks
+  input = input.replace(/\n/gm, '<br />');
+  
+  // replace basic markup
+  input = input.replace(strongRe, function(whole, m1, m2, m3) {
+    return '<strong>' + m1 + '</strong>';
+  });
+  
+  input = input.replace(emRe, function(whole, m1, m2, m3) {
+    return '<em>' + m1 + '</em>';
+  });
+  
+  input = input.replace(linkRe, function(whole, m1, m2) {
+    // fix up protocol
+    if (!m2.match(/(http(s?)|ftp(s?)):\/\//gm))
+      // prepend http as default
+      m2 = 'http://' + m2;
+    return '<a href=\"' + m2 + '\" target=\"_blank\">' + m1 + '</a>';
+  });
+  
+  // revert code blocks
+  input = input.replace(codeRe, function(whole, m1) {
+    return m1.replace(/<br \/>/gm, '\n');
+  });
+    
+  return input;
+}
+
+
+
+
+function defineModels(mongoose, fn) {
+  var Schema = mongoose.Schema,
+      ObjectId = Schema.ObjectId;
+
+
+ /**
+   * Comment model
+   * 
+   * Used for persisting user comments
+   */
+  var Comment = new Schema({
+    user_id: ObjectId,
+    //photo:String,
+    date: Date,
+    body: String,
+    post_id:ObjectId,
+  });
+  
+  // register virtual members
+  Comment.virtual('readableday')
+    .get(function() {
+      var day = this.date.getDate();      
+      return (day < 10 ? '0' + day : day);
+    });
+
+  Comment.virtual('readablemonth')
+    .get(function() {
+      return monthNamesShort[this.date.getMonth()];
+    });
+  
+  Comment.virtual('readabletime')
+    .get(function() {
+      var hour = this.date.getHours();
+      var minute = this.date.getMinutes();
+      return (hour < 10 ? '0' +  hour : hour) + ':' + (minute < 10 ? '0' +  minute : minute);
+    });
+  
+  Comment.virtual('bodyParsed')
+    .get(function() {
+      return convertBasicMarkup(this.body, false);
+    });
+  
+  // register validators
+  /*Comment.path('author').validate(function(val) {
+    return val.length > 0;
+  }, 'AUTHOR_MISSING');*/
+  
+  Comment.path('body').validate(function(val) {
+    return val.length > 0;
+  }, 'BODY_MISSING');
+
+
+/**
+    * Model: WallPost
+    */
+
+
+var WallPost = new Schema({
+    friend_id: String,
+    preview: String,
+    body: String,
+    //rsstext: String,
+    slug: String,
+    created: Date,
+    modified: Date,
+    //tags: [String],
+    user_id:ObjectId,
+    posted_on_user_id : ObjectId,
+    //comments: [Comment]
+  });
+    
+  var monthNames = [ 'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli',
+                     'August', 'September', 'Oktober', 'November', 'Dezember' ];
+  var monthNamesShort = [ 'Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul',
+                          'Aug', 'Sep', 'Okt', 'Nov', 'Dez' ];
+    
+  // define virtual getter method for id (readable string)
+  WallPost.virtual('id')
+    .get(function() {
+      return this._id.toHexString();
+    });
+  
+  WallPost.virtual('url')
+    .get(function() {
+      // build url for current post
+      var year = this.created.getFullYear();
+      var month = this.created.getMonth() + 1;
+      var day = this.created.getDate();      
+      return '/' + year + '/' + (month < 10 ? '0' + month : month) + '/' + (day < 10 ? '0' + day : day) + '/' + this.slug + '/';
+    });
+  
+  WallPost.virtual('rfc822created')
+    .get(function() {
+      return this.created.toGMTString();
+    });
+    
+  WallPost.virtual('readabledate')
+    .get(function() {
+      var year = this.created.getFullYear();
+      var month = monthNames[this.created.getMonth()];
+      var day = this.created.getDate();      
+      return (day < 10 ? '0' + day : day) + '. ' + month + ' ' + year;
+    });
+  
+  WallPost.virtual('readableday')
+    .get(function() {
+      var day = this.created.getDate();      
+      return (day < 10 ? '0' + day : day);
+    });
+  
+  WallPost.virtual('readablemonth')
+    .get(function() {
+      return monthNamesShort[this.created.getMonth()];
+    });
+  
+  WallPost.virtual('previewParsed')
+    .get(function() {
+      return convertBasicMarkup(this.preview, true);
+    });
+
+  WallPost.virtual('bodyParsed')
+    .get(function() {
+      return convertBasicMarkup(this.body, true);
+    });
+  
+  // register validators
+  /*WallPost.path('title').validate(function(val) {
+    return val.length > 0;
+  }, 'TITLE_MISSING');
+  
+  WallPost.path('preview').validate(function(val) {
+    return val.length > 0;
+  }, 'PREVIEW_MISSING');
+  
+  WallPost.path('rsstext').validate(function(val) {
+    return val.length > 0;
+  }, 'RSSTEXT_MISSING');*/
+  
+  WallPost.path('body').validate(function(val) {
+    return val.length > 0;
+  }, 'BODY_MISSING');
+  
+  // generate a proper slug value for Wallpost
+  function slugGenerator (options){
+    options = options || {};
+    var key = options.key || 'body';
+    return function slugGenerator(schema){
+      schema.path(key).set(function(v){
+        this.slug = v.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/\++/g, '');
+        return v;
+      });
+    };
+  };
+  
+  // attach slugGenerator plugin to Wallpost schema
+  WallPost.plugin(slugGenerator());
+
+
+
+/**
+    * Model: User
+    */
+function validatePresenceOf(value) {
+  return value && value.length;
+}
+var User = new Schema({
+    'first_name': { type: String, validate: /[a-z]/ },
+    'last_name':{ type: String, validate: /[a-z]/ },
+    'age':Number,
+    'sex':{ type: String},
+    'photo':String,
+    'location':{ type: String, validate: /[a-z]/ },
+    'latitude' : String,
+    'longitude' : String,
+    'keywords': [String],
+    'username':String,
+    'email': { type: String, validate: [validatePresenceOf, 'an email is required'], index: { unique: true }, required:true },
+    'hashed_password': { type: String},
+    'salt': String,
+  });
+
+  User.virtual('id')
+    .get(function() {
+      return this._id.toHexString();
+    });
+
+  User.virtual('password')
+    .set(function(password) {
+      this._password = password;
+      this.salt = this.makeSalt();
+      this.hashed_password = this.encryptPassword(password);
+    })
+    .get(function() { return this._password; });
+
+  User.method('authenticate', function(plainText) {
+    return this.encryptPassword(plainText) === this.hashed_password;
+  });
+  
+  User.method('makeSalt', function() {
+    return Math.round((new Date().valueOf() * Math.random())) + '';
+  });
+
+  User.method('encryptPassword', function(password) {
+    return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
+  });
+
+  User.pre('save', function(next) {
+    this.keywords = extractKeywords(this.first_name);
+    next();
+    if (!validatePresenceOf(this.password)) {
+      next(new Error('Invalid password'));
+    } else {
+      next();
+    }
+    
+  });
+
+
+var Friends = new Schema({
+    requestor : String
+  , acceptor : String 
+  , date_requested : Date
+  , status:Number
+});
+
+Friends.virtual('id')
+    .get(function() {
+      return this._id.toHexString();
+    });
+ 
+var Post = new Schema({
+    filename : { type: String, index: true }
+  , file : String
+  , created_at : Date
+  , user_id: ObjectId
+});
+
+Post.virtual('id')
+    .get(function() {
+      return this._id.toHexString();
+    });
+
+/**
+    * Model: LoginToken
+    *
+    * Used for session persistence.
+    */
+var LoginToken = new Schema({
+    email: { type: String, index: true },
+    series: { type: String, index: true },
+    token: { type: String, index: true }
+  });
+
+  LoginToken.method('randomToken', function() {
+    return Math.round((new Date().valueOf() * Math.random())) + '';
+  });
+
+  LoginToken.pre('save', function(next) {
+    // Automatically create the tokens
+    this.token = this.randomToken();
+
+    if (this.isNew)
+      this.series = this.randomToken();
+
+    next();
+  });
+
+  LoginToken.virtual('id')
+    .get(function() {
+      return this._id.toHexString();
+    });
+
+  LoginToken.virtual('cookieValue')
+    .get(function() {
+      return JSON.stringify({ email: this.email, token: this.token, series: this.series });
+    });
+
+
+ 
+  mongoose.model('User', User);
+  mongoose.model('Post', Post);
+  mongoose.model('Friends', Friends);
+  mongoose.model('LoginToken', LoginToken);
+  mongoose.model('WallPost', WallPost);
+  mongoose.model('Comment', Comment);
+  fn();
+}
+
+exports.defineModels = defineModels;
+ 

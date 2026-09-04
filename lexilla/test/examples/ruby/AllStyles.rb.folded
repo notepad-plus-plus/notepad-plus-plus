@@ -1,0 +1,125 @@
+ 0 400   0   # Enumerate all styles where possible: 0..31,40..45
+ 0 400   0   # 30,31,40,45 are never set and 1 switches rest of file to error state
+ 1 400   0   
+ 0 400   0   #0 whitespace
+ 0 400   0       #
+ 0 400   0   	#
+ 1 400   0   
+ 0 400   0   #1:error, can be set with a heredoc delimiter >256 characters but that can't be recovered from
+ 0 400   0   #<<ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789
+ 1 400   0   
+ 0 400   0   #2:comment line
+ 1 400   0   
+ 0 400   0   #3:POD
+ 0 400   0   =begin
+ 0 400   0   3:POD
+ 0 400   0   =end
+ 1 400   0   
+ 0 400   0   #4:number
+ 0 400   0   4
+ 1 400   0   
+ 0 400   0   #5:word
+ 0 400   0   super
+ 1 400   0   
+ 0 400   0   #6:string
+ 0 400   0   "6:double quotes"
+ 1 400   0   
+ 0 400   0   #7:single quoted string
+ 0 400   0   '7:single quotes'
+ 1 400   0   
+ 0 400   0   #8:class name
+ 0 400   0   class ClassName end
+ 1 400   0   
+ 0 400   0   #9:def name
+ 0 400   0   def Function end
+ 1 400   0   
+ 0 400   0   #10:operator
+ 0 400   0   &
+ 1 400   0   
+ 0 400   0   #11:identifier
+ 0 400   0   identifier
+ 1 400   0   
+ 0 400   0   #12:regex
+ 0 400   0   /[12a-z]/
+ 1 400   0   
+ 0 400   0   #13:global
+ 0 400   0   $global13
+ 1 400   0   
+ 0 400   0   #14:symbol
+ 0 400   0   :symbol14
+ 1 400   0   
+ 0 400   0   #15:module name
+ 0 400   0   module Module15 end
+ 1 400   0   
+ 0 400   0   #16:instance var
+ 0 400   0   @instance16
+ 1 400   0   
+ 0 400   0   #17:class var
+ 0 400   0   @@class17
+ 1 400   0   
+ 0 400   0   #18:back ticks
+ 0 400   0   `18`
+ 1 400   0   
+ 0 400   0   #19:data section at end of file
+ 1 400   0   
+ 0 400   0   #20:here delimiter
+ 2 400   0 + <<DELIMITER20
+ 0 401   0 | DELIMITER20
+ 1 400   0   
+ 0 400   0   #21:single quoted heredoc
+ 2 400   0 + <<'D'
+ 0 401   0 | 21:here doc #{1 + 1}
+ 0 401   0 | D
+ 1 400   0   
+ 0 400   0   #22:double quoted heredoc
+ 2 400   0 + <<"D"
+ 0 401   0 | 22:here doc #{1 + 1}
+ 0 401   0 | D
+ 1 400   0   
+ 0 400   0   #23:back tick quoted heredoc
+ 2 400   0 + <<`D`
+ 0 401   0 | 23:here doc #{1 + 1}
+ 0 401   0 | D
+ 1 400   0   
+ 0 400   0   #24:q quoted string
+ 0 400   0   %q!24:quotes's!
+ 1 400   0   
+ 0 400   0   #25:Q quoted string
+ 0 400   0   %Q!25:quotes"s!
+ 1 400   0   
+ 0 400   0   #26:executed string
+ 0 400   0   %x(echo 26)
+ 1 400   0   
+ 0 400   0   #27:regex
+ 0 400   0   %r(27[a-z]/[A-Z]+)
+ 1 400   0   
+ 0 400   0   #28:interpolable string array
+ 0 400   0   %W(28 cgi.rb complex.rb date.rb #{1} )
+ 1 400   0   
+ 0 400   0   #29:demoted keyword do
+ 0 400   0   while 1 do end
+ 1 400   0   
+ 0 400   0   # 30,31,40,45 never set
+ 1 400   0   
+ 0 400   0   #41:non-interpolable string array
+ 0 400   0   %w(#{1 + 1})
+ 1 400   0   
+ 0 400   0   #42:non-interpolable symbol array
+ 0 400   0   %i(#{1 + 1})
+ 1 400   0   
+ 0 400   0   #43:interpolable symbol array
+ 0 400   0   %I(#{1 + 1})
+ 1 400   0   
+ 0 400   0   #44:symbol
+ 0 400   0   %s(#{1 + 1})
+ 1 400   0   
+ 0 400   0   #128:user keywords 1
+ 0 400   0   decrypt
+ 1 400   0   
+ 0 400   0   #129:user keywords 2
+ 0 400   0   encrypt
+ 1 400   0   
+ 0 400   0   #19:data section
+ 0 400   0   __END__
+ 1 400   0   
+ 0 400   0   

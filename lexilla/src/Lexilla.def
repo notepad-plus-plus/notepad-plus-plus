@@ -1,0 +1,9 @@
+EXPORTS
+	GetLexerCount
+	GetLexerName
+	GetLexerFactory
+	CreateLexer
+	LexerNameFromID
+	GetLibraryPropertyNames
+	SetLibraryProperty
+	GetNameSpace

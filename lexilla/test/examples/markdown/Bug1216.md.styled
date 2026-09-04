@@ -1,0 +1,27 @@
+{6}#{0} Checking resolution of bug 1216{1}
+
+{0}*This line is not emphasized{1}
+
+{0}This is plain text with {4}*inline emphasis*{1}
+
+{0}_This, too, is not emphasized{1}
+
+{0}And this is plain text with {5}_inline emphasis_{1}
+
+{0}**This line is not in bold{1}
+
+{0}But this is plain text with some words {2}**in bold**{1}
+
+{0}__This line is also not in bold{1}
+
+{0}And this is plain text with {3}__some words in bold__{1}
+
+{0}~~This line is not crossed out{1}
+
+{0}This is plain text with {16}~~some words crossed out~~{1}
+
+{21}~~~
+this is a code block
+~~~{1}
+
+{0}This is a new paragraph{1}

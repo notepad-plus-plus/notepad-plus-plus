@@ -1,0 +1,97 @@
+{2}// Examples drawn from https://verilogams.com/refman/basics/index.html
+{0}
+{2}// SCE_V_DEFAULT {0}
+{0}
+{1}/*
+ * SCE_V_COMMENT {1}
+ */{0}
+
+{2}// SCE_V_COMMENTLINE {2}
+// multiple
+// comment lines
+// are folded
+{0}
+{2}//{ explicit folds
+//  are folded,
+//} too
+{0}
+{3}//! SCE_V_COMMENTLINEBANG {3}
+//! multiple
+//! bang comments
+//! are folded
+{0}
+{2}// SCE_V_NUMBER {4}
+{4}1'b0{0}
+{4}8'hx{0}
+{4}8'hfffx{0}
+{4}12'hfx{0}
+{4}64'o0{0}
+{4}0x7f{0}
+{4}0o23{0}
+{4}0b1011{0}
+{4}42_839{0}
+{4}0.1{0}
+{4}1.3u{0}
+{4}5.46K{0}
+{4}1.2E12{0}
+{4}1.30e{10}-{4}2{0}
+{4}236.123_763e{10}-{4}12{0}
+
+{2}// SCE_V_WORD {5}
+{5}always{0}
+
+{2}// SCE_V_STRING {6}
+{6}"\tsome\ttext\r\n"{0}
+
+{2}// SCE_V_WORD2 {7}
+{7}special{0}
+
+{2}// SCE_V_WORD3 {8}
+{8}$async$and$array{0}
+
+{2}// SCE_V_PREPROCESSOR {9}
+{9}`define{0} {11}__VAMS_ENABLE__{0}
+{9}`ifdef{0} {11}__VAMS_ENABLE__{0}
+    {5}parameter{0} {5}integer{0} {11}del{0} {10}={0} {4}1{0} {11}from{0} {10}[{4}1{10}:{4}100{10}];{0}
+{9}`else{64}
+    {69}parameter{64} {75}del{64} {74}={64} {68}1{74};{64}
+{9}`endif{0}
+
+{2}// SCE_V_OPERATOR {10}
+{10}+-/=!@#%^&*()[]{}<|>~{0}
+
+{2}// SCE_V_IDENTIFIER {11}
+{11}q{0}
+{11}x$z{0}
+{11}\my_var{0}
+{11}\/x1/n1{0}
+{11}\\x1\n1{0}
+{11}\{a,b}{0}
+{11}\V(p,n){0}
+
+{2}// SCE_V_STRINGEOL {12}
+{12}"\n
+{0}
+{2}// SCE_V_USER {19}
+{19}my_var{0}
+
+{2}// SCE_V_COMMENT_WORD {20}
+// {20}TODO{2} write a comment
+{0}
+{5}module{0} {11}mod{10}({11}clk{10},{0} {11}q{10},{0} {11}reset{10}){0} {2}// folded when fold.verilog.flags=1
+// SCE_V_INPUT {21}
+{0}  {21}input{0} {21}clk{10};{0}
+
+{2}// SCE_V_OUTPUT {22}
+{0}  {22}output{0} {22}q{10};{0}
+
+{2}// SCE_V_INOUT {23}
+{0}  {23}inout{0} {23}reset{10};{0}
+{5}endmodule{0}
+
+{2}// SCE_V_PORT_CONNECT {24}
+{11}mod{0} {11}m1{10}({0}
+  {10}.{24}clk{10}({11}clk{10}),{0}
+  {10}.{24}q{10}({11}q{10}),{0}
+  {10}.{24}reset{10}({11}reset{10}){0}
+{10});{0}

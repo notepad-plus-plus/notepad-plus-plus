@@ -1,0 +1,29 @@
+ 1   0   0   # Tests for Nim
+ 0 400   0   let s = "foobar"
+ 1 400   0   
+ 1 400   0   # Feature #1260
+ 0 400   0   {.ident.}
+ 0 400   0   stdin.readLine.split.map(parseInt).max.`$`.echo(" is the maximum!")
+ 1 400   0   
+ 1 400   0   # Feature #1261
+ 1 400   0   # IsFuncName("proc") so style ticks as SCE_NIM_FUNCNAME:
+ 0 400   0   proc `$` (x: myDataType): string = ...
+ 1 400   0   # Style ticks as SCE_NIM_BACKTICKS:
+ 0 400   0   if `==`( `+`(3,4),7): echo "True"
+ 1 400   0   
+ 1 400   0   # Feature #1262
+ 1 400   0   # Standard raw string identifier:
+ 0 400   0   let standardDoubleLitRawStr = R"A raw string\"
+ 0 400   0   let standardTripleLitRawStr = R"""A triple-double raw string\""""
+ 1 400   0   # Style of 'customIdent' is determined by lexer.nim.raw.strings.highlight.ident. 16 if false, 6 or 10 if true
+ 0 400   0   let customDoubleLitRawStr = customIdent"A string\"
+ 0 400   0   let customTripleLitRawStr = customIdent"""A triple-double raw string\""""
+ 1 400   0   
+ 1 400   0   # Feature #1268
+ 0 400   0   10_000
+ 0 400   0   10__000
+ 0 400   0   10_
+ 0 400   0   1....5
+ 0 400   0   1.ident
+ 0 400   0   1._ident
+ 1 400   0   

@@ -1,0 +1,12 @@
+{1}# comment
+{0}
+{2}key{9}:{0} value {1}# comment
+{0}
+{2}colon:in:key{9}:{0} value
+
+{2}hanging_value{9}:{0}
+  value
+
+{2}1{9}:{4} 1
+{0}
+{2}true{9}:{3} true

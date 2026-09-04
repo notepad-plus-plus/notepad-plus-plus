@@ -1,0 +1,53 @@
+// This file is part of Notepad++ project
+// Copyright (C)2021 Don HO <don.h@free.fr>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// at your option any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+#include <windows.h>
+#include "columnEditor_rc.h"
+
+
+IDD_COLUMNEDIT DIALOGEX 0, 0, 220, 214
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
+CAPTION "Column / Multi-Selection Editor"
+FONT 8, L"MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    CONTROL         "&Text to Insert",IDC_COL_TEXT_RADIO,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,13,6,124,10
+    CONTROL         "&Number to Insert",IDC_COL_NUM_RADIO,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,13,68,204,10
+
+    GROUPBOX        "",IDC_COL_TEXT_GRP_STATIC,8,14,124,46
+    EDITTEXT        IDC_COL_TEXT_EDIT,20,32,97,12,ES_AUTOHSCROLL
+
+    GROUPBOX        "Format",IDC_COL_FORMAT_GRP_STATIC,16,86,188,44,BS_CENTER
+    CONTROL         "&Dec",IDC_COL_DEC_RADIO,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,27,99,50,10
+    CONTROL         "&Hex",IDC_COL_HEX_RADIO,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,110,99,50,10
+    CONTROL         "&Oct",IDC_COL_OCT_RADIO,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,27,114,50,10
+    CONTROL         "&Bin",IDC_COL_BIN_RADIO,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,110,114,50,10
+    COMBOBOX        IDC_COL_HEXUC_COMBO,150,97,40,10,CBS_DROPDOWNLIST | WS_TABSTOP
+
+    GROUPBOX        "",IDC_COL_NUM_GRP_STATIC,8,77,204,130
+    RTEXT           "&Initial number:",IDC_COL_INITNUM_STATIC,10,140,76,8
+    EDITTEXT        IDC_COL_INITNUM_EDIT,90,138,38,12
+    RTEXT           "Increase b&y:",IDC_COL_INCRNUM_STATIC,10,157,75,8
+    EDITTEXT        IDC_COL_INCREASENUM_EDIT,90,155,38,12
+    RTEXT           "&Repeat:",IDC_COL_REPEATNUM_STATIC,10,174,75,8
+    EDITTEXT        IDC_COL_REPEATNUM_EDIT,90,172,38,12
+    RTEXT           "&Leading:",IDC_COL_LEADING_STATIC,10,191,75,8
+    COMBOBOX        IDC_COL_LEADING_COMBO,90,189,100,30,CBS_DROPDOWNLIST | WS_TABSTOP
+
+    DEFPUSHBUTTON   "OK",IDOK,142,18,70,14
+    PUSHBUTTON      "Cancel",IDCANCEL,142,36,70,14
+END

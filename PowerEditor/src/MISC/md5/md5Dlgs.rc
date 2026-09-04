@@ -1,0 +1,46 @@
+/*
+This file is part of Notepad++ project
+Copyright (C)2021 Don HO <don.h@free.fr>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+at your option any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+#include <windows.h>
+#include "md5Dlgs_rc.h"
+
+IDD_HASHFROMFILES_DLG DIALOGEX 0, 0, 353, 196
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
+CAPTION "Generate MD5 digest from files"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "Choose files to &generate MD5...",IDC_HASH_FILEBROWSER_BUTTON,7,4,131,14
+    EDITTEXT        IDC_HASH_PATH_EDIT,7,21,340,64,ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | WS_VSCROLL | WS_HSCROLL
+    EDITTEXT        IDC_HASH_RESULT_EDIT,7,91,340,64,ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | WS_VSCROLL | WS_HSCROLL
+    PUSHBUTTON      "Co&py to Clipboard",IDC_HASH_TOCLIPBOARD_BUTTON,257,158,90,14
+    PUSHBUTTON      "&Close",IDCANCEL,146,176,60,14
+END
+
+IDD_HASHFROMTEXT_DLG DIALOGEX 0, 0, 353, 196
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
+CAPTION "Generate MD5 digest"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "Treat each line as a &separate string",IDC_HASH_EACHLINE_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,6,179,10
+    EDITTEXT        IDC_HASH_TEXT_EDIT,7,21,340,64,ES_MULTILINE | ES_AUTOVSCROLL | WS_VSCROLL | WS_HSCROLL | ES_WANTRETURN
+    EDITTEXT        IDC_HASH_RESULT_FOMTEXT_EDIT,7,91,340,64,ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | WS_VSCROLL | WS_HSCROLL
+    PUSHBUTTON      "Co&py to Clipboard",IDC_HASH_FROMTEXT_TOCLIPBOARD_BUTTON,257,158,90,14
+    PUSHBUTTON      "&Close",IDCANCEL,146,176,60,14
+END

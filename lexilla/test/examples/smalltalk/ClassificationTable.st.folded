@@ -1,0 +1,53 @@
+ 0 400   0   " File contains examples of all SCE_ST_* lexical states 0-16 "
+ 0 400   0   " Smalltalk code from the lexer that generates the character classification table."
+ 0 400   0   | lexTable classificationBlock charClasses |
+ 0 400   0   charClasses := #(#DecDigit #Letter #Special #Upper #BinSel).
+ 0 400   0   lexTable := ByteArray new: 128.
+ 0 400   0   classificationBlock := [ :charClass :chars |
+ 0 400   0       | flag |
+ 0 400   0       flag := 1 bitShift: (charClasses indexOf: charClass) - 1.
+ 0 400   0       chars do: [ :char | lexTable at: char codePoint + 1 put: ((lexTable at: char codePoint + 1) bitOr: flag)]].
+ 0 400   0   
+ 0 400   0   classificationBlock
+ 0 400   0       value: #DecDigit value: '0123456789';
+ 0 400   0       value: #Letter value: '_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+ 0 400   0       value: #Special value: '()[]{};.^:';
+ 0 400   0       value: #BinSel value: '~@%&*-+=|\/,<>?!';
+ 0 400   0       value: #Upper value: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.
+ 0 400   0   
+ 0 400   0   ((String new: 500) streamContents: [ :stream |
+ 0 400   0       stream crLf; nextPutAll: 'static int ClassificationTable[256] = {'.
+ 0 400   0       lexTable keysAndValuesDo: [ :index :value |
+ 0 400   0           ((index - 1) rem: 16) == 0 ifTrue: [
+ 0 400   0               stream crLf; tab]
+ 0 400   0           ifFalse: [
+ 0 400   0               stream space].
+ 0 400   0           stream print: value.
+ 0 400   0           index ~= 256 ifTrue: [
+ 0 400   0               stream nextPut: $,]].
+ 0 400   0       stream crLf; nextPutAll: '};'; crLf.
+ 0 400   0   
+ 0 400   0       charClasses keysAndValuesDo: [ :index :name |
+ 0 400   0           stream
+ 0 400   0               crLf;
+ 0 400   0               nextPutAll: (
+ 0 400   0                   ('static inline bool is<1s>(unsigned char ch) {return (ch %< 0x80) && ((ClassificationTable[ch] & <2p>) != 0);}')
+ 0 400   0                       expandMacrosWith: name with: (1 bitShift: (index - 1)))
+ 0 400   0       ]]) edit
+ 0 400   0   
+ 0 400   0   " Some more syntax examples:
+ 0 400   0     ^ is return (SCE_ST_RETURN)
+ 0 400   0     true or false is bool (SCE_ST_BOOL)
+ 0 400   0     self (SCE_ST_SELF)
+ 0 400   0     super (SCE_ST_SUPER)
+ 0 400   0     nil (SCE_ST_NIL)
+ 0 400   0   "
+ 0 400   0   foo
+ 0 400   0     ^ Array with: 1 with: 2 with: false with: self with: super with: nil.
+ 0 400   0   
+ 0 400   0   " Issue 274: A decimal separator is not required for scaled decimal numbers"
+ 0 400   0   32.0s2
+ 0 400   0   4.0e3
+ 0 400   0   32s2
+ 0 400   0   4e3
+ 0 400   0   

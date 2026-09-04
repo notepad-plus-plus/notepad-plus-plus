@@ -1,0 +1,294 @@
+{1}// coding:utf-8
+{0}
+{2}/// A structure for storing a timestamp, with nanosecond precision (this is a
+/// multiline doc comment).
+{13}const{0} {15}Timestamp{0} {5}={0} {13}struct{0} {5}{{0}
+    {2}/// The number of seconds since the epoch (this is also a doc comment).
+{0}    {10}seconds{5}:{0} {14}i64{5},{0} {1}// signed so we can represent pre-1970 (not a doc comment)
+{0}    {2}/// The number of nanoseconds past the second (doc comment again).
+{0}    {10}nanos{5}:{0} {14}u32{5},{0}
+
+    {2}/// Returns a `Timestamp` struct representing the Unix epoch; that is, the
+{0}    {2}/// moment of 1970 Jan 1 00:00:00 UTC (this is a doc comment too).
+{0}    {13}pub{0} {13}fn{0} {11}unixEpoch{5}(){0} {15}Timestamp{0} {5}{{0}
+        {13}return{0} {15}Timestamp{5}{{0}
+            {5}.{10}seconds{0} {5}={0} {4}0{5},{0}
+            {5}.{10}nanos{0} {5}={0} {4}0{5},{0}
+        {5}};{0}
+    {5}}{0}
+{5}};{0}
+
+{3}//! This module provides functions for retrieving the current date and
+//! time with varying degrees of precision and accuracy. It does not
+//! depend on libc, but will use functions from it if available.
+{0}
+{13}const{0} {10}S{0} {5}={0} {13}struct{0} {5}{{0}
+    {3}//! Top level comments are allowed inside a container other than a module,
+{0}    {3}//! but it is not very useful.  Currently, when producing the package
+{0}    {3}//! documentation, these comments are ignored.
+{5}};{0}
+
+{13}const{0} {10}std{0} {5}={0} {12}@import{5}({7}"std"{5});{0}
+
+{13}pub{0} {13}fn{0} {11}main{5}(){0} {5}!{14}void{0} {5}{{0}
+    {13}const{0} {10}stdout{0} {5}={0} {10}std{5}.{10}io{5}.{10}getStdOut{5}().{10}writer{5}();{0}
+    {13}try{0} {10}stdout{5}.{10}print{5}({7}"Hello, {s}!{9}\n{7}"{5},{0} {5}.{{7}"world"{5}});{0}
+{5}}{0}
+
+
+{1}// Top-level declarations are order-independent:
+{13}const{0} {10}print{0} {5}={0} {10}std{5}.{10}debug{5}.{10}print{5};{0}
+{13}const{0} {10}std{0} {5}={0} {12}@import{5}({7}"std"{5});{0}
+{13}const{0} {10}os{0} {5}={0} {10}std{5}.{10}os{5};{0}
+{13}const{0} {13}assert{0} {5}={0} {10}std{5}.{10}debug{5}.{13}assert{5};{0}
+
+{13}pub{0} {13}fn{0} {11}main{5}(){0} {14}void{0} {5}{{0}
+    {1}// integers
+{0}    {13}const{0} {10}one_plus_one{5}:{0} {14}i32{0} {5}={0} {4}1{0} {5}+{0} {4}1{5};{0}
+    {10}print{5}({7}"1 + 1 = {}{9}\n{7}"{5},{0} {5}.{{10}one_plus_one{5}});{0}
+
+    {1}// floats
+{0}    {13}const{0} {10}seven_div_three{5}:{0} {14}f32{0} {5}={0} {4}7.0{0} {5}/{0} {4}3.0{5};{0}
+    {10}print{5}({7}"7.0 / 3.0 = {}{9}\n{7}"{5},{0} {5}.{{10}seven_div_three{5}});{0}
+
+    {1}// boolean
+{0}    {10}print{5}({7}"{}{9}\n{7}{}{9}\n{7}{}{9}\n{7}"{5},{0} {5}.{{0}
+        {13}true{0} {13}and{0} {13}false{5},{0}
+        {13}true{0} {13}or{0} {13}false{5},{0}
+        {5}!{13}true{5},{0}
+    {5}});{0}
+
+    {1}// optional
+{0}    {13}var{0} {10}optional_value{5}:{0} {5}?[]{13}const{0} {14}u8{0} {5}={0} {13}null{5};{0}
+    {13}assert{5}({10}optional_value{0} {5}=={0} {13}null{5});{0}
+
+    {10}print{5}({7}"{9}\n{7}optional 1{9}\n{7}type: {}{9}\n{7}value: {?s}{9}\n{7}"{5},{0} {5}.{{0}
+        {12}@TypeOf{5}({10}optional_value{5}),{0} {10}optional_value{5},{0}
+    {5}});{0}
+
+    {10}optional_value{0} {5}={0} {7}"hi"{5};{0}
+    {13}assert{5}({10}optional_value{0} {5}!={0} {13}null{5});{0}
+
+    {10}print{5}({7}"{9}\n{7}optional 2{9}\n{7}type: {}{9}\n{7}value: {?s}{9}\n{7}"{5},{0} {5}.{{0}
+        {12}@TypeOf{5}({10}optional_value{5}),{0} {10}optional_value{5},{0}
+    {5}});{0}
+
+    {1}// error union
+{0}    {13}var{0} {10}number_or_error{5}:{0} {14}anyerror{5}!{14}i32{0} {5}={0} {13}error{5}.{10}ArgNotFound{5};{0}
+
+    {10}print{5}({7}"{9}\n{7}error union 1{9}\n{7}type: {}{9}\n{7}value: {!}{9}\n{7}"{5},{0} {5}.{{0}
+        {12}@TypeOf{5}({10}number_or_error{5}),{0}
+        {10}number_or_error{5},{0}
+    {5}});{0}
+
+    {10}number_or_error{0} {5}={0} {4}1234{5};{0}
+
+    {10}print{5}({7}"{9}\n{7}error union 2{9}\n{7}type: {}{9}\n{7}value: {!}{9}\n{7}"{5},{0} {5}.{{0}
+        {12}@TypeOf{5}({10}number_or_error{5}),{0} {10}number_or_error{5},{0}
+    {5}});{0}
+{5}}{0}
+
+{13}const{0} {10}print{0} {5}={0} {12}@import{5}({7}"std"{5}).{10}debug{5}.{10}print{5};{0}
+{13}const{0} {10}mem{0} {5}={0} {12}@import{5}({7}"std"{5}).{10}mem{5};{0} {1}// will be used to compare bytes
+{0}
+{13}pub{0} {13}fn{0} {11}main{5}(){0} {14}void{0} {5}{{0}
+    {13}const{0} {10}bytes{0} {5}={0} {7}"hello{9}\u{12345678}{7}"{5};{0}
+    {10}print{5}({7}"{}{9}\n{7}"{5},{0} {5}.{{12}@TypeOf{5}({10}bytes{5})});{0} {1}// *const [5:0]u8
+{0}    {10}print{5}({7}"{d}{9}\n{7}"{5},{0} {5}.{{10}bytes{5}.{10}len{5}});{0} {1}// 5
+{0}    {10}print{5}({7}"{c}{9}\n{7}"{5},{0} {5}.{{10}bytes{5}[{4}1{5}]});{0} {1}// 'e'
+{0}    {10}print{5}({7}"{d}{9}\n{7}"{5},{0} {5}.{{10}bytes{5}[{4}5{5}]});{0} {1}// 0
+{0}    {10}print{5}({7}"{}{9}\n{7}"{5},{0} {5}.{{6}'e'{0} {5}=={0} {6}'{9}\x65{6}'{5}});{0} {1}// true
+{0}    {10}print{5}({7}"{d}{9}\n{7}"{5},{0} {5}.{{6}'{9}\u{1f4a9}{6}'{5}});{0} {1}// 128169
+{0}    {10}print{5}({7}"{d}{9}\n{7}"{5},{0} {5}.{{6}'💯'{5}});{0} {1}// 128175
+{0}    {10}print{5}({7}"{u}{9}\n{7}"{5},{0} {5}.{{6}'⚡'{5}});{0}
+    {10}print{5}({7}"{}{9}\n{7}"{5},{0} {5}.{{10}mem{5}.{10}eql{5}({14}u8{5},{0} {7}"hello"{5},{0} {7}"h{9}\x65{7}llo"{5})});{0} {1}// true
+{0}    {10}print{5}({7}"{}{9}\n{7}"{5},{0} {5}.{{10}mem{5}.{10}eql{5}({14}u8{5},{0} {7}"💯"{5},{0} {7}"{9}\xf0\x9f\x92\xaf{7}"{5})});{0} {1}// also true
+{0}    {13}const{0} {10}invalid_utf8{0} {5}={0} {7}"{9}\xff\xfe{7}"{5};{0} {1}// non-UTF-8 strings are possible with \xNN notation.
+{0}    {10}print{5}({7}"0x{x}{9}\n{7}"{5},{0} {5}.{{10}invalid_utf8{5}[{4}1{5}]});{0} {1}// indexing them returns individual bytes...
+{0}    {10}print{5}({7}"0x{x}{9}\n{7}"{5},{0} {5}.{{7}"💯"{5}[{4}1{5}]});{0} {1}// ...as does indexing part-way through non-ASCII characters
+{5}}{0}
+
+{13}const{0} {10}hello_world_in_c{0} {5}={0}
+    {8}\\#include <stdio.h>
+{0}    {8}\\
+{0}    {8}\\int main(int argc, char **argv) {
+{0}    {8}\\    printf("hello world\n");
+{0}    {8}\\    return 0;
+{0}    {8}\\}
+{5};{0}
+
+{13}const{0} {10}std{0} {5}={0} {12}@import{5}({7}"std"{5});{0}
+{13}const{0} {13}assert{0} {5}={0} {10}std{5}.{10}debug{5}.{13}assert{5};{0}
+
+{13}threadlocal{0} {13}var{0} {10}x{5}:{0} {14}i32{0} {5}={0} {4}1234{5};{0}
+
+{13}test{0} {7}"thread local storage"{0} {5}{{0}
+    {13}const{0} {10}thread1{0} {5}={0} {13}try{0} {10}std{5}.{10}Thread{5}.{10}spawn{5}(.{},{0} {10}testTls{5},{0} {5}.{});{0}
+    {13}const{0} {10}thread2{0} {5}={0} {13}try{0} {10}std{5}.{10}Thread{5}.{10}spawn{5}(.{},{0} {10}testTls{5},{0} {5}.{});{0}
+    {10}testTls{5}();{0}
+    {10}thread1{5}.{10}join{5}();{0}
+    {10}thread2{5}.{10}join{5}();{0}
+{5}}{0}
+
+{13}fn{0} {11}testTls{5}(){0} {14}void{0} {5}{{0}
+    {13}assert{5}({10}x{0} {5}=={0} {4}1234{5});{0}
+    {10}x{0} {5}+={0} {4}1{5};{0}
+    {13}assert{5}({10}x{0} {5}=={0} {4}1235{5});{0}
+{5}}{0}
+
+{13}const{0} {10}decimal_int{0} {5}={0} {4}98222{5};{0}
+{13}const{0} {10}hex_int{0} {5}={0} {4}0xff{5};{0}
+{13}const{0} {10}another_hex_int{0} {5}={0} {4}0xFF{5};{0}
+{13}const{0} {10}octal_int{0} {5}={0} {4}0o755{5};{0}
+{13}const{0} {10}binary_int{0} {5}={0} {4}0b11110000{5};{0}
+
+{1}// underscores may be placed between two digits as a visual separator
+{13}const{0} {10}one_billion{0} {5}={0} {4}1_000_000_000{5};{0}
+{13}const{0} {10}binary_mask{0} {5}={0} {4}0b1_1111_1111{5};{0}
+{13}const{0} {10}permissions{0} {5}={0} {4}0o7_5_5{5};{0}
+{13}const{0} {10}big_address{0} {5}={0} {4}0xFF80_0000_0000_0000{5};{0}
+
+
+{13}const{0} {10}floating_point{0} {5}={0} {4}123.0E+77{5};{0}
+{13}const{0} {10}another_float{0} {5}={0} {4}123.0{5};{0}
+{13}const{0} {10}yet_another{0} {5}={0} {4}123.0e+77{5};{0}
+
+{13}const{0} {10}hex_floating_point{0} {5}={0} {4}0x103.70p{5}-{4}5{5};{0}
+{13}const{0} {10}another_hex_float{0} {5}={0} {4}0x103.70{5};{0}
+{13}const{0} {10}yet_another_hex_float{0} {5}={0} {4}0x103.70P{5}-{4}5{5};{0}
+
+{1}// underscores may be placed between two digits as a visual separator
+{13}const{0} {10}lightspeed{0} {5}={0} {4}299_792_458.000_000{5};{0}
+{13}const{0} {10}nanosecond{0} {5}={0} {4}0.000_000_001{5};{0}
+{13}const{0} {10}more_hex{0} {5}={0} {4}0x1234_5678.9ABC_CDEFp{5}-{4}10{5};{0}
+
+{13}const{0} {16}Vec3{0} {5}={0} {13}struct{0} {5}{{0}
+    {10}x{5}:{0} {14}f32{5},{0}
+    {10}y{5}:{0} {14}f32{5},{0}
+    {10}z{5}:{0} {14}f32{5},{0}
+
+    {13}pub{0} {13}fn{0} {11}init{5}({10}x{5}:{0} {14}f32{5},{0} {10}y{5}:{0} {14}f32{5},{0} {10}z{5}:{0} {14}f32{5}){0} {16}Vec3{0} {5}{{0}
+        {13}return{0} {16}Vec3{5}{{0}
+            {5}.{10}x{0} {5}={0} {10}x{5},{0}
+            {5}.{10}y{0} {5}={0} {10}y{5},{0}
+            {5}.{10}z{0} {5}={0} {10}z{5},{0}
+        {5}};{0}
+    {5}}{0}
+
+    {13}pub{0} {13}fn{0} {11}dot{5}({10}self{5}:{0} {16}Vec3{5},{0} {10}other{5}:{0} {16}Vec3{5}){0} {14}f32{0} {5}{{0}
+        {13}return{0} {10}self{5}.{10}x{0} {5}*{0} {10}other{5}.{10}x{0} {5}+{0} {10}self{5}.{10}y{0} {5}*{0} {10}other{5}.{10}y{0} {5}+{0} {10}self{5}.{10}z{0} {5}*{0} {10}other{5}.{10}z{5};{0}
+    {5}}{0}
+{5}};{0}
+
+{13}fn{0} {11}LinkedList{5}({13}comptime{0} {10}T{5}:{0} {14}type{5}){0} {14}type{0} {5}{{0}
+    {13}return{0} {13}struct{0} {5}{{0}
+        {13}pub{0} {13}const{0} {10}Node{0} {5}={0} {13}struct{0} {5}{{0}
+            {10}prev{5}:{0} {5}?*{10}Node{5},{0}
+            {10}next{5}:{0} {5}?*{10}Node{5},{0}
+            {10}data{5}:{0} {10}T{5},{0}
+        {5}};{0}
+
+        {10}first{5}:{0} {5}?*{10}Node{5},{0}
+        {10}last{5}:{0} {5}?*{10}Node{5},{0}
+        {10}len{5}:{0} {14}usize{5},{0}
+    {5}};{0}
+{5}}{0}
+
+{13}const{0} {10}Point{0} {5}={0} {13}struct{0} {5}{{0}
+    {10}x{5}:{0} {14}f32{5},{0}
+    {10}y{5}:{0} {14}f32{5},{0}
+{5}};{0}
+
+{1}// Maybe we want to pass it to OpenGL so we want to be particular about
+// how the bytes are arranged.
+{13}const{0} {10}Point2{0} {5}={0} {13}packed{0} {13}struct{0} {5}{{0}
+    {10}x{5}:{0} {14}f32{5},{0}
+    {10}y{5}:{0} {14}f32{5},{0}
+{5}};{0}
+
+
+{13}const{0} {10}std{0} {5}={0} {12}@import{5}({7}"std"{5});{0}
+{13}const{0} {10}expect{0} {5}={0} {10}std{5}.{10}testing{5}.{10}expect{5};{0}
+
+{13}const{0} {10}Color{0} {5}={0} {13}enum{0} {5}{{0}
+    {10}auto{5},{0}
+    {10}off{5},{0}
+    {10}on{5},{0}
+{5}};{0}
+
+{13}const{0} {10}std{0} {5}={0} {12}@import{5}({7}"std"{5});{0}
+{13}const{0} {10}builtin{0} {5}={0} {12}@import{5}({7}"builtin"{5});{0}
+{13}const{0} {10}expect{0} {5}={0} {10}std{5}.{10}testing{5}.{10}expect{5};{0}
+
+{13}test{0} {7}"switch simple"{0} {5}{{0}
+    {13}const{0} {10}a{5}:{0} {14}u64{0} {5}={0} {4}10{5};{0}
+    {13}const{0} {10}zz{5}:{0} {14}u64{0} {5}={0} {4}103{5};{0}
+
+    {1}// All branches of a switch expression must be able to be coerced to a
+{0}    {1}// common type.
+{0}    {1}//
+{0}    {1}// Branches cannot fallthrough. If fallthrough behavior is desired, combine
+{0}    {1}// the cases and use an if.
+{0}    {13}const{0} {10}b{0} {5}={0} {13}switch{0} {5}({10}a{5}){0} {5}{{0}
+        {1}// Multiple cases can be combined via a ','
+{0}        {4}1{5},{0} {4}2{5},{0} {4}3{0} {5}=>{0} {4}0{5},{0}
+
+        {1}// Ranges can be specified using the ... syntax. These are inclusive
+{0}        {1}// of both ends.
+{0}        {4}5{5}..{4}.100{0} {5}=>{0} {4}1{5},{0}
+
+        {1}// Branches can be arbitrarily complex.
+{0}        {4}101{0} {5}=>{0} {10}blk{5}:{0} {5}{{0}
+            {13}const{0} {10}c{5}:{0} {14}u64{0} {5}={0} {4}5{5};{0}
+            {13}break{0} {5}:{10}blk{0} {10}c{0} {5}*{0} {4}2{0} {5}+{0} {4}1{5};{0}
+        {5}},{0}
+
+        {1}// Switching on arbitrary expressions is allowed as long as the
+{0}        {1}// expression is known at compile-time.
+{0}        {10}zz{0} {5}=>{0} {10}zz{5},{0}
+        {10}blk{5}:{0} {5}{{0}
+            {13}const{0} {10}d{5}:{0} {14}u32{0} {5}={0} {4}5{5};{0}
+            {13}const{0} {10}e{5}:{0} {14}u32{0} {5}={0} {4}100{5};{0}
+            {13}break{0} {5}:{10}blk{0} {10}d{0} {5}+{0} {10}e{5};{0}
+        {5}}{0} {5}=>{0} {4}107{5},{0}
+
+        {1}// The else branch catches everything not already captured.
+{0}        {1}// Else branches are mandatory unless the entire range of values
+{0}        {1}// is handled.
+{0}        {13}else{0} {5}=>{0} {4}9{5},{0}
+    {5}};{0}
+
+    {13}try{0} {10}expect{5}({10}b{0} {5}=={0} {4}1{5});{0}
+{5}}{0}
+
+{13}fn{0} {11}charToDigit{5}({10}c{5}:{0} {14}u8{5}){0} {14}u8{0} {5}{{0}
+    {13}return{0} {13}switch{0} {5}({10}c{5}){0} {5}{{0}
+        {6}'0'{5}...{6}'9'{0} {5}=>{0} {10}c{0} {5}-{0} {6}'0'{5},{0}
+        {6}'A'{5}...{6}'Z'{0} {5}=>{0} {10}c{0} {5}-{0} {6}'A'{0} {5}+{0} {4}10{5},{0}
+        {6}'a'{5}...{6}'z'{0} {5}=>{0} {10}c{0} {5}-{0} {6}'a'{0} {5}+{0} {4}10{5},{0}
+        {13}else{0} {5}=>{0} {10}maxInt{5}({14}u8{5}),{0}
+    {5}};{0}
+{5}}{0}
+
+{13}const{0} {10}optional_value{5}:{0} {5}?{14}i32{0} {5}={0} {13}null{5};{0}
+
+{3}//! This module provides functions for retrieving the current date and
+//! time with varying degrees of precision and accuracy. It does not
+//! depend on libc, but will use functions from it if available.
+{0}
+{13}const{0} {17}@"identifier with spaces in it"{0} {5}={0} {4}0xff{5};{0}
+{13}const{0} {17}@"1SmallStep4Man"{0} {5}={0} {4}112358{5};{0}
+
+{13}const{0} {10}c{0} {5}={0} {12}@import{5}({7}"std"{5}).{10}c{5};{0}
+{13}pub{0} {13}extern{0} {7}"c"{0} {13}fn{0} {17}@"error"{5}(){0} {11}void{5};{0}
+{13}pub{0} {13}extern{0} {7}"c"{0} {13}fn{0} {17}@"fstat$INODE64"{5}({11}fd{5}:{0} {10}c{5}.{10}fd_t{5},{0} {10}buf{5}:{0} {5}*{10}c{5}.{10}Stat{5}){0} {10}c_int{5};{0}
+
+{13}const{0} {10}Color{0} {5}={0} {13}enum{0} {5}{{0}
+    {10}red{5},{0}
+    {17}@"really red"{5},{0}
+{5}};{0}
+{13}const{0} {10}color{5}:{0} {10}Color{0} {5}={0} {5}.{17}@"really red"{5};{0}
+
+{13}const{0} {10}s1{0} {5}={0} {18}"Unterminated string
+{13}const{0} {10}s2{0} {5}={0} {18}'Unterminated character
+{13}const{0} {10}s3{0} {5}={0} {18}@"Unterminated identifier string

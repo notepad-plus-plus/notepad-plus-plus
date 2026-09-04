@@ -1,0 +1,86 @@
+ 0 400 400   namespace Literals
+ 1 400 400   
+ 0 400 400   module Issue110 =
+ 0 400 400       let hexA = +0xA1B2C3D4
+ 0 400 400       let hexB = -0xCC100000
+ 1 400 400   
+ 0 400 400       // regression checks
+ 0 400 400       let hexC = 0xCC100000
+ 0 400 400       let binA = +0b0000_1010
+ 0 400 400       let binB = -0b1010_0000
+ 0 400 400       let binC = 0b1010_0000
+ 0 400 400       let octA = +0o1237777700
+ 0 400 400       let octB = -0o1237777700
+ 0 400 400       let octC = 0o1237777700
+ 0 400 400       let i8a = +0001y
+ 0 400 400       let i8b = -0001y
+ 0 400 400       let u8 = 0001uy
+ 0 400 400       let f32a = +0.001e-003
+ 0 400 400       let f32b = -0.001E+003
+ 0 400 400       let f32c = 0.001e-003
+ 0 400 400       let f128a = +0.001m
+ 0 400 400       let f128b = -0.001m
+ 0 400 400       let f128c = 0.001m
+ 1 400 400   
+ 0 400 400       // invalid literals
+ 0 400 400       let hexD = 0xa0bcde0o
+ 0 400 400       let hexE = +0xa0bcd0o
+ 0 400 400       let hexF = -0xa0bcd0o
+ 0 400 400       let binD = 0b1010_1110xf000
+ 0 400 400       let binE = +0b1010_1110xf000
+ 0 400 400       let binF = -0b1010_1110xf000
+ 0 400 400       let binG = 0b1010_1110o
+ 0 400 400       let binH = +0b1010_1110o
+ 0 400 400       let binI = -0b1010_1110o
+ 0 400 400       let octD = 0o3330xaBcDeF
+ 0 400 400       let octE = +0o3330xaBcDe
+ 0 400 400       let octF = -0o3330xaBcDe
+ 0 400 400       let octG = 0o3330b
+ 0 400 400       let octH = 0o3330b
+ 0 400 400       let octI = 0o3330b
+ 1 400 400   
+ 0 400 400   module Issue111 =
+ 0 400 400       // invalid literals
+ 0 400 400       let a = 0000_123abc
+ 0 400 400       let b = +000_123abc
+ 0 400 400       let c = -0001_23abc
+ 0 400 400       let d = 00123_000b
+ 0 400 400       let e = +0123_000o
+ 0 400 400       let f = -0123_000xcd
+ 1 400 400   
+ 0 400 400   module Issue112 =
+ 0 400 400       let i64 = 0001L
+ 0 400 400       let u64 = 001UL
+ 0 400 400       let f32a = 001.F
+ 0 400 400       let f32b = +01.0F
+ 0 400 400       let f32c = -01.00000F
+ 0 400 400       let f32d = 0b0000_0010lf
+ 0 400 400       let f32e = 0o000_010lf
+ 0 400 400       let f32f = 0x0000000000000010lf
+ 0 400 400       let f64a = 0b0000_0010LF
+ 0 400 400       let f64b = 0o000_010LF
+ 0 400 400       let f64c = 0x0000000000000010LF
+ 0 400 400       let f128a = 001.M
+ 0 400 400       let f128b = +01.0M
+ 0 400 400       let f128c = -01.00000M
+ 1 400 400   
+ 0 400 400       // regression checks
+ 0 400 400       let i32 = -0001l
+ 0 400 400       let u32 = +001ul
+ 0 400 400       let i128 = 9999999999999999999999999999I
+ 0 400 400       let f32g = 001.f
+ 0 400 400       let f32h = +01.0f
+ 0 400 400       let f32i = -01.00000f
+ 0 400 400       let f64d = 010000e+009
+ 0 400 400       let f64e = +001.0e-009
+ 0 400 400       let f64f = -001.e+009
+ 0 400 400       let f128d = 001.m
+ 0 400 400       let f128e = +01.0m
+ 0 400 400       let f128f = -01.00000m
+ 1 400 400   
+ 0 400 400       // arithmetic expressions
+ 0 400 400       let a = -001.f+01.0F
+ 0 400 400       let b = +0b0111_111UL-0x100UL
+ 0 400 400       let c = -01.0F + +001.f
+ 0 400 400       let d = -0x100UL - +0b0111_111UL
+ 0 400   0   

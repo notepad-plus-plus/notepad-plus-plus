@@ -1,0 +1,24 @@
+ 0 400   0   # '# comment' comment=1
+ 0 400   0   # comment
+ 0 400   0   
+ 0 400   0   # '.SUFFIXES' target=5, ':' operator=4
+ 0 400   0   .SUFFIXES:
+ 0 400   0   
+ 0 400   0   # 'LD' identifier=3, '=' operator=4, 'link' default=0
+ 0 400   0   LD=link
+ 0 400   0   
+ 0 400   0   # '!IFDEF DEBUG' NMAKE preprocessor=2
+ 0 400   0   !IFDEF DEBUG
+ 0 400   0   
+ 0 400   0   # 'ifdef DEBUG' GNI make directive default=0
+ 0 400   0   ifdef DEBUG
+ 0 400   0   
+ 0 400   0   # '$(' ID EOL=9
+ 0 400   0   X=$(
+ 0 400   0   
+ 0 400   0   # Recipe with variable reference $(CXX)
+ 0 400   0   cake.o: cake.cxx
+ 0 400   0   	$(CXX) -c $< -o $@
+ 0 400   0   
+ 0 400   0   # End of file
+ 0 400   0   

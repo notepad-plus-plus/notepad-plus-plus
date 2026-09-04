@@ -1,0 +1,15 @@
+ 0 400 400   % Ensure escape sequences still work in octave
+ 0 400 400   % Octave terminates string at 3rd ", Matlab at 4th
+ 0 400 400   i="\" "; % " %
+ 1 400 400   
+ 1 400 400   
+ 0 400 400   % Octave allows string continuation with an escape
+ 0 400 400   b = "multi\
+ 0 400 400   line"
+ 1 400 400   
+ 0 400 400   % No escape so string ends at line end 
+ 0 400 400   c = "multi
+ 0 400 400   line"
+ 1 400 400   
+ 0 400 400   % end
+ 1 400 400   

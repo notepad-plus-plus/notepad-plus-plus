@@ -1,0 +1,82 @@
+ 0 400   0   # Nested elements and other complex cases
+ 1 400   0   
+ 0 400   0   # String with backtick inclusion
+ 0 400   0   "x`ls`"
+ 0 400   0   # Nested string
+ 0 400   0   "x`ls "*.c"`"
+ 0 400   0   # Not terminated at first "
+ 0 400   0   "x`ls" # "`" #
+ 1 400   0   
+ 0 400   0   # String with command inclusion
+ 0 400   0   "x$(ls)"
+ 1 400   0   
+ 0 400   0   # Nested command
+ 0 400   0   $(ls -la$(ls *.c))
+ 1 400   0   
+ 0 400   0   # Check strings and backticks in command
+ 0 400   0   echo $('ls' "." `ls` $'.' $".")
+ 1 400   0   
+ 0 400   0   # $( not terminated by ) if contains unterminated string
+ 0 400   0   $('x) # ') #
+ 0 400   0   $("x) # ") #
+ 0 400   0   $(`x) # `) # Bash doesn't like this
+ 0 400   0   $($'x) # ') #
+ 0 400   0   $($"x) # ") #
+ 1 400   0   
+ 0 400   0   # Parameter expansion
+ 0 400   0   var=abcdef
+ 0 400   0   sub=abc
+ 0 400   0   rep='& '
+ 0 400   0   echo ${var/$sub/"${rep}}"} #
+ 0 400   0   # issue 216
+ 0 400   0   option="no[foo]"
+ 0 400   0   option=${option%%[<{().[]*}
+ 0 400   0   echo $option
+ 1 400   0   
+ 0 400   0   # '$' in variable
+ 0 400   0   echo $$PID
+ 0 400   0   echo $var${var}
+ 1 400   0   
+ 0 400   0   # Here-doc with internal elements
+ 2 400   0 + cat <<EOF
+ 0 401   0 | 	$scalar
+ 0 401   0 | 	${var}
+ 0 401   0 | 	$((1+2))
+ 0 401   0 | 	$(pwd)
+ 0 401   0 | 	`pwd`
+ 0 401   0 | EOF
+ 1 400   0   
+ 0 400   0   # Quoted delimiter treats here-doc as simple string
+ 2 400   0 + cat <<"EOF"
+ 0 401   0 | 	$scalar
+ 0 401   0 | 	${var}
+ 0 401   0 | 	$((1+2))
+ 0 401   0 | 	$(pwd)
+ 0 401   0 | 	`pwd`
+ 0 401   0 | EOF
+ 1 400   0   
+ 0 400   0   # Escaped same as quoted
+ 2 400   0 + cat <<\EOF
+ 0 401   0 | 	$scalar
+ 0 401   0 | EOF
+ 1 400   0   
+ 0 400   0   # Nesting
+ 0 400   0   echo "$((1 + 2))" #
+ 0 400   0   echo "$[1 + 2]" #
+ 1 400   0   
+ 0 400   0   # Multiple nesting levels
+ 0 400   0   $(ls -la$(ls $(c) $'*.c' ` $(${s})`))
+ 1 400   0   
+ 0 400   0   # Multi-line
+ 0 400   0   $(ls |
+ 0 400   0   more)
+ 1 400   0   
+ 0 400   0   $(
+ 0 400   0   `x`
+ 0 400   0   "x"
+ 0 400   0   `ls`
+ 0 400   0   $'x'
+ 0 400   0   $"x"
+ 0 400   0   )
+ 0 400   0   #end -- checks termination of previous
+ 0 400   0   

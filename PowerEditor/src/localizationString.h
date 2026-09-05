@@ -29,6 +29,7 @@ LocalizationSwitcher::LocalizationDefinition localizationDefs[] =
 	{L"Italiano",               L"italian.xml"},
 	{L"Português",              L"portuguese.xml"},
 	{L"Português (Brasil)",     L"brazilian_portuguese.xml"},
+	{L"Malayalam", L"malayalam.xml"},
 	{L"Nederlands",             L"dutch.xml"},
 	{L"Русский",                L"russian.xml"},
 	{L"Polski",                 L"polish.xml"},

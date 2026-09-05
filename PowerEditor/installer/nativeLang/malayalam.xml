@@ -1701,8 +1701,7 @@ Find ഡയലോഗ് തുറക്കുന്നതിനോ അതില�
 				</FileMenu>
 			</Menus>
 		</ProjectManager>
-		```xml
-<MiscStrings>
+		<MiscStrings>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ എന്നിവ placeholder-കളാണ്; ഇവ വിവർത്തനം ചെയ്യരുത്. -->
 			<word-chars-list-tip value="തിരഞ്ഞെടുക്കുന്നതിനായി ഡബിൾ ക്ലിക്ക് ചെയ്യുമ്പോഴോ &quot;Match whole word only&quot; ഓപ്ഷൻ തിരഞ്ഞെടുക്കുമ്പോഴോ നിലവിലെ വാക്കിലെ അക്ഷരങ്ങളിലേക്ക് അധിക അക്ഷരങ്ങൾ ഉൾപ്പെടുത്താൻ ഇത് അനുവദിക്കുന്നു."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 

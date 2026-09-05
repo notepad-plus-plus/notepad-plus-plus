@@ -1530,7 +1530,7 @@ contextMenu.xml-ൽ മാറ്റങ്ങൾ വരുത്തിയ ശേ�
 
 3. (കീബോർഡോ മൗസോ ഉപയോഗിച്ച്)
       കോളം ബ്ലോക്ക് തുടങ്ങേണ്ട സ്ഥാനത്ത് കഴ്സർ (caret) വെക്കുക, തുടർന്ന്
-       "Begin/End Select in Column Mode" എന്ന കമാൻഡ് നൽകുക;
+       &quot;Begin/End Select in Column Mode&quot; എന്ന കമാൻഡ് നൽകുക;
       കോളം ബ്ലോക്ക് അവസാനിക്കേണ്ട സ്ഥാനത്തേക്ക് കഴ്സർ മാറ്റുക, തുടർന്ന്
        വീണ്ടും "Begin/End Select in Column Mode" എന്ന കമാൻഡ് നൽകുക."/>
 			<BufferInvalidWarning title="സംരക്ഷണം പരാജയപ്പെട്ടു" message="സേവ് ചെയ്യാൻ കഴിയില്ല: ബഫർ അസാധുവാണ്."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->

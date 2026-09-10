@@ -3329,6 +3329,15 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 					sfi._individualTabColour = NppXml::intAttribute(childNode, "tabColourId", -1);
 					sfi._isRTL = getBoolAttribute(childNode, "RTL");
 
+					const char* wrapMode = NppXml::attribute(childNode, "wrapMode");
+					if (wrapMode)
+					{
+						if (std::strcmp(wrapMode, "off") == 0)
+							sfi._wrapMode = DocumentWrapMode::off;
+						else if (std::strcmp(wrapMode, "on") == 0)
+							sfi._wrapMode = DocumentWrapMode::on;
+					}
+
 					for (NppXml::Element markNode = NppXml::firstChildElement(childNode, "Mark");
 						markNode;
 						markNode = NppXml::nextSiblingElement(markNode, "Mark"))
@@ -4584,6 +4593,11 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 				NppXml::setAttribute(fileNameNode, "originalFileLastModifTimestampHigh", vsFile._originalFileLastModifTimestamp.dwHighDateTime);
 				NppXml::setAttribute(fileNameNode, "tabColourId", vsFile._individualTabColour);
 				setBoolAttribute(fileNameNode, "RTL", vsFile._isRTL);
+
+				const char* wrapMode = vsFile._wrapMode == DocumentWrapMode::off ? "off" :
+					vsFile._wrapMode == DocumentWrapMode::on ? "on" : "global";
+				NppXml::setAttribute(fileNameNode, "wrapMode", wrapMode);
+
 				setBoolAttribute(fileNameNode, "tabPinned", vsFile._isPinned);
 
 				// Save this info only when it's an untitled entry

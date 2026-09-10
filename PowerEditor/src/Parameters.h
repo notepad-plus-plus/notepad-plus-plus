@@ -138,6 +138,7 @@ struct sessionFileInfo : public Position
 	bool _isMonitoring = false;
 	int _individualTabColour = -1;
 	bool _isRTL = false;
+	DocumentWrapMode _wrapMode = DocumentWrapMode::useGlobal;
 	bool _isPinned = false;
 	bool _isUntitledTabRenamed = false;
 	std::wstring _backupFilePath;

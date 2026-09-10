@@ -399,6 +399,9 @@
     #define    IDM_VIEW_TAB_COLOUR_5              (IDM_VIEW + 115)
     #define    IDM_VIEW_TAB_START                 (IDM_VIEW + 116)
     #define    IDM_VIEW_TAB_END                   (IDM_VIEW + 117)
+    #define    IDM_VIEW_TAB_WRAP_GLOBAL           (IDM_VIEW + 118)
+    #define    IDM_VIEW_TAB_WRAP_OFF              (IDM_VIEW + 119)
+    #define    IDM_VIEW_TAB_WRAP_ON               (IDM_VIEW + 120)
 
     #define    IDM_VIEW_NPC                       (IDM_VIEW + 130)
     #define    IDM_VIEW_NPC_CCUNIEOL              (IDM_VIEW + 131)

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: August 10, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: August 28, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.9.7">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.9.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1416,6 +1416,7 @@ umjesto brisanja jednog razmaka"/>
 					<Item id="6346" name="Pogled na mapu dokumenta"/>
 					<Item id="6360" name="Isključi sve zvukove"/>
 					<Item id="6361" name="Omogući dijalog za potvrdu spremanja svih datoteka"/>
+					<Item id="6366" name="Dopusti učitavanje symlinkova u panelu Mapa kao radni prostor"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Makro pokrenuti više puta">
@@ -1483,7 +1484,7 @@ Ovaj dijalog možete kasnije ponovo aktivirati u Postavkama."/>
 				<Item id="7" name="&amp;Ne"/>
 				<Item id="4" name="&amp;Uvijek da"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
-			<NetworkPathWarning title="Učitavanje sesije Notepad++" title2="Klikabilna datoteka:// link">
+			<NetworkPathWarning title="Učitavanje sesije Notepad++" title2="Klikabilna datoteka:// link" title3="Učitavanje toolbarButtonsConf.xml" title4="Učitavanje XML datoteke projektnog panela">
 				<Item id="1771" name="Upozorenje o mrežnoj putanji:
 
 $STR_REPLACE$
@@ -1661,6 +1662,9 @@ Iz sigurnosnih razloga, provjerit će se integritet datoteke shortcuts.xml. Kako
 			<ShortcutsXmlTampered title="Sigurnosno upozorenje" message="Čini se da je datoteka shortcuts.xml ručno izmijenjena.
 
 Iz sigurnosnih razloga, pregledajte otvorenu datoteku shortcuts.xml. Ako je sadržaj datoteke u redu, upotrijebite &quot;Validiraj shortcuts.xml&quot; iz izbornika &quot;Pokretanje&quot; kako biste to potvrdili."/>
+			<SymlinkLoadingWarning title="Upozorenje: Učitavanje simlinka može uzrokovati zamrzavanje" message="Omogućavanje učitavanja symlinka u Mapi kao radnom prostoru može uzrokovati da Notepad++ uđe u beskonačnu petlju i zamrzne.
+To se može dogoditi kada se simlinkovi direktorija razriješe u nadređene mape ili formiraju kružne reference.
+Nastavite samo ako razumijete rizik."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Povijest međuspremnika"/>

@@ -53,9 +53,6 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Brazilian Portuguese" brazilian_portuguese
 		CopyFiles "$PLUGINSDIR\nppLocalization\brazilian_portuguese.xml" "$INSTDIR\localization\brazilian_portuguese.xml"
 	${MementoSectionEnd}
-	${MementoUnselectedSection} "Malayalam" malayalam
-        CopyFiles "$PLUGINSDIR\nppLocalization\malayalam.xml" "$INSTDIR\localization\malayalam.xml"
-    ${MementoSectionEnd}
 	${MementoUnselectedSection} "Breton" breton
 		CopyFiles "$PLUGINSDIR\nppLocalization\breton.xml" "$INSTDIR\localization\breton.xml"
 	${MementoSectionEnd}
@@ -182,6 +179,9 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Malay" malay
 		CopyFiles "$PLUGINSDIR\nppLocalization\malay.xml" "$INSTDIR\localization\malay.xml"
 	${MementoSectionEnd}
+	${MementoUnselectedSection} "Malayalam" malayalam
+        CopyFiles "$PLUGINSDIR\nppLocalization\malayalam.xml" "$INSTDIR\localization\malayalam.xml"
+    ${MementoSectionEnd}
 	${MementoUnselectedSection} "Marathi" marathi
 		CopyFiles "$PLUGINSDIR\nppLocalization\marathi.xml" "$INSTDIR\localization\marathi.xml"
 	${MementoSectionEnd}
@@ -339,9 +339,6 @@ SectionGroup un.localization
 	Section un.brazilian_portuguese
 		Delete "$INSTDIR\localization\brazilian_portuguese.xml"
 	SectionEnd
-	Section un.malayalam
-        Delete "$INSTDIR\localization\malayalam.xml"
-    SectionEnd
 	Section un.breton
 		Delete "$INSTDIR\localization\breton.xml"
 	SectionEnd
@@ -463,6 +460,9 @@ SectionGroup un.localization
 	Section un.malay
 		Delete "$INSTDIR\localization\malay.xml"
 	SectionEnd
+	Section un.malayalam
+        Delete "$INSTDIR\localization\malayalam.xml"
+    SectionEnd
 	Section un.marathi
 		Delete "$INSTDIR\localization\marathi.xml"
 	SectionEnd

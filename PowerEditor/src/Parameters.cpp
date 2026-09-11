@@ -5487,8 +5487,6 @@ std::wstring NppParameters::getLocPathFromStr(const std::wstring & localizationC
 		return L"bosnian.xml";
 	if (localizationCode == L"pt-br")
 		return L"brazilian_portuguese.xml";
-	if (localizationCode == L"ml")
-        return L"malayalam.xml";
 	if (localizationCode == L"br-fr")
 		return L"breton.xml";
 	if (localizationCode == L"bg")
@@ -5563,6 +5561,8 @@ std::wstring NppParameters::getLocPathFromStr(const std::wstring & localizationC
 		return L"macedonian.xml";
 	if (localizationCode == L"ms")
 		return L"malay.xml";
+	if (localizationCode == L"ml")
+        return L"malayalam.xml";
 	if (localizationCode == L"mr")
 		return L"marathi.xml";
 	if (localizationCode == L"mn")

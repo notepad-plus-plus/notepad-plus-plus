@@ -40,9 +40,7 @@
 			<Component Id="brazilian_portuguese_LANG">
 				<File Source="..\..\installer\nativeLang\brazilian_portuguese.xml" />
 			</Component>
-			<Component Id="malayalam_LANG">
-               <File Source="..\..\installer\nativeLang\malayalam.xml" />
-            </Component>
+			
 			<Component Id="breton_LANG">
 				<File Source="..\..\installer\nativeLang\breton.xml" />
 			</Component>
@@ -172,6 +170,9 @@
 			<Component Id="malay_LANG">
 				<File Source="..\..\installer\nativeLang\malay.xml" />
 			</Component>
+			<Component Id="malayalam_LANG">
+               <File Source="..\..\installer\nativeLang\malayalam.xml" />
+            </Component>
 			<Component Id="marathi_LANG">
 				<File Source="..\..\installer\nativeLang\marathi.xml" />
 			</Component>

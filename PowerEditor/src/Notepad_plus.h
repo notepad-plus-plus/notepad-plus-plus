@@ -238,11 +238,11 @@ public:
 	void notifyBufferChanged(Buffer* buffer, int mask);
 	bool findInFinderFiles(FindersInfo* findInFolderInfo);
 
-	bool createFilelistForFiles(std::vector<std::wstring>& fileNames);
+	bool createFilelistForFiles(std::vector<SearchCandidate>& fileNames);
 	bool createFilelistForProjects(std::vector<std::wstring>& fileNames);
 	bool findInFiles();
 	bool findInProjects();
-	bool findInFilelist(std::vector<std::wstring>& fileList);
+	bool findInFilelist(std::vector<SearchCandidate>& fileList);
 	bool replaceInFiles();
 	bool replaceInProjects();
 	bool replaceInFilelist(std::vector<std::wstring>& fileList);
@@ -597,11 +597,13 @@ private:
 
 	//void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
 	void setCodePageForInvisibleView(Buffer const* pBuffer);
+	void setCodePageForInvisibleView(UniMode unicodeMode);
 	bool replaceInOpenedFiles();
 	bool findInOpenedFiles();
 	bool findInCurrentFile(bool isEntireDoc);
 
 	void getMatchedFileNames(const wchar_t *dir, size_t level, const std::vector<std::wstring> & patterns, std::vector<std::wstring> & fileNames, bool isRecursive, bool isInHiddenDir, MatchedFileNameProgress* progress = nullptr);
+	void getMatchedFileNames(const wchar_t *dir, size_t level, const std::vector<std::wstring> & patterns, std::vector<SearchCandidate> & fileNames, bool isRecursive, bool isInHiddenDir, MatchedFileNameProgress* progress = nullptr);
 	void doSynScroll(HWND hW);
 	void setWorkingDir(const wchar_t *dir);
 

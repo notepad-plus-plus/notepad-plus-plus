@@ -31,7 +31,20 @@ SetCompressor /SOLID lzma	; This reduces installer size by approx 30~35%
 ; Installer is DPI-aware: not scaled by the DWM, no blurry text
 ManifestDPIAware true
 
+; Never request elevation at startup, so the installer can run for any user without UAC.
+; If the user picks the "all users" install mode on the InstallModePage, we relaunch
+; ourselves with ExecShell "runas" (which triggers UAC) and pass /AllUsers so the
+; elevated instance remembers the choice. See InstallModePageLeave for the relaunch logic.
+RequestExecutionLevel user
+
 Var winSysDir
+
+; Per-user vs all-users install support.
+; Declared here (before the includes below) because tools.nsh and uninstall.nsh use them.
+Var MultiUserInstallMode	; "AllUsers" or "CurrentUser"
+Var IsElevated			; "true" if the installer process runs elevated (admin)
+Var InstModeRadioAllUsers
+Var InstModeRadioCurrentUser
 
 !include "nsisInclude\winVer.nsh"
 !include "nsisInclude\globalDef.nsh"
@@ -82,6 +95,7 @@ Var runningNppDetected
 
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_LICENSE "..\..\LICENSE"
+Page custom InstallModePageCreate InstallModePageLeave
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_COMPONENTS
 page Custom ExtraOptions
@@ -123,39 +137,156 @@ InstType "Minimalist"
 
 
 
-!ifdef ARCH64 || ARCHARM64
-; this is needed for the 64-bit InstallDirRegKey patch
+; StrStr is used in .onInit to detect a user-provided "/D=" on the command line
 !include "StrFunc.nsh"
 ${StrStr} # Supportable for Install Sections and Functions
+
+; Apply the shell-var context (all/current) and registry view that match $MultiUserInstallMode.
+; SHCTX-based registry access and $LOCALAPPDATA/$APPDATA then resolve to the right place.
+Function applyInstallModeContext
+	${If} $MultiUserInstallMode == "AllUsers"
+		SetShellVarContext all
+	${Else}
+		SetShellVarContext current
+	${EndIf}
+!ifdef ARCH64 || ARCHARM64
+	${If} ${RunningX64}
+		SetRegView 64 ; 64-bit components: always use the non-redirected hive
+	${EndIf}
 !endif
+FunctionEnd
+
+; Decide the initial install mode from the elevation state, with optional /AllUsers and
+; /CurrentUser command-line overrides (mostly useful for silent installations).
+Function initInstallMode
+	UserInfo::GetAccountType
+	Pop $0
+	${If} $0 == "Admin"
+		StrCpy $IsElevated "true"
+		StrCpy $MultiUserInstallMode "AllUsers"
+	${Else}
+		StrCpy $IsElevated "false"
+		StrCpy $MultiUserInstallMode "CurrentUser"
+	${EndIf}
+
+	${GetParameters} $R0
+	ClearErrors
+	${GetOptions} $R0 "/CurrentUser" $R1
+	${IfNot} ${Errors}
+		StrCpy $MultiUserInstallMode "CurrentUser"
+	${EndIf}
+	ClearErrors
+	${GetOptions} $R0 "/AllUsers" $R1
+	${IfNot} ${Errors}
+		${If} $IsElevated == "true"
+			StrCpy $MultiUserInstallMode "AllUsers"
+		${ElseIf} ${Silent}
+			; A silent install has no page on which to offer the elevation that the GUI
+			; does, so honouring /AllUsers here would quietly turn into a per-user install
+			; while still reporting success. Fail with ERROR_ELEVATION_REQUIRED instead, so
+			; deployment scripts that only check the exit code do not get a false positive.
+			SetErrorLevel 740
+			Quit
+		${EndIf}
+	${EndIf}
+
+	Call applyInstallModeContext
+FunctionEnd
+
+; When the user switches mode, swap $INSTDIR to the new mode's default - but only if it still
+; holds the other mode's default path (a /D= or restored previous path is left untouched).
+Function updateDefaultInstDir
+!ifdef ARCH64 || ARCHARM64
+	StrCpy $R8 "$PROGRAMFILES64\${APPNAME}"
+!else
+	StrCpy $R8 "$PROGRAMFILES\${APPNAME}"
+!endif
+	StrCpy $R9 "$LOCALAPPDATA\${APPNAME}"
+	${If} $MultiUserInstallMode == "CurrentUser"
+		${If} "$INSTDIR" == "$R8"
+			StrCpy $INSTDIR "$R9"
+		${EndIf}
+	${Else}
+		${If} "$INSTDIR" == "$R9"
+			StrCpy $INSTDIR "$R8"
+		${EndIf}
+	${EndIf}
+FunctionEnd
+
+; Custom page: let the user pick all-users vs per-user installation.
+Function InstallModePageCreate
+	!insertmacro MUI_HEADER_TEXT "Choose Installation Type" "Choose for which users you want to install Notepad++."
+	nsDialogs::Create 1018
+	Pop $0
+	${If} $0 == error
+		Abort
+	${EndIf}
+
+	${NSD_CreateLabel} 0 0 100% 24u "Install Notepad++ for all users of this computer (requires administrator rights), or only for you (no administrator rights needed)."
+	Pop $0
+
+	${NSD_CreateRadioButton} 10u 34u 100% 12u "Install for &all users (requires administrator rights)"
+	Pop $InstModeRadioAllUsers
+	${NSD_CreateRadioButton} 10u 50u 100% 12u "Install just for &me (into %LOCALAPPDATA%, no administrator rights needed)"
+	Pop $InstModeRadioCurrentUser
+
+	${If} $MultiUserInstallMode == "AllUsers"
+		${NSD_Check} $InstModeRadioAllUsers
+	${Else}
+		${NSD_Check} $InstModeRadioCurrentUser
+	${EndIf}
+
+	; Both options are always selectable. If the user picks "for all users" from a
+	; non-elevated process, InstallModePageLeave triggers a UAC prompt via
+	; ExecShell "runas" and relaunches the installer elevated. Windows handles
+	; the case where the account has no admin rights at all (will prompt for an
+	; admin password) - which is friendlier than disabling the option outright.
+
+	nsDialogs::Show
+FunctionEnd
+
+Function InstallModePageLeave
+	${NSD_GetState} $InstModeRadioAllUsers $0
+	${If} $0 == ${BST_CHECKED}
+		StrCpy $MultiUserInstallMode "AllUsers"
+		; All-users install needs admin rights. If this process is not elevated, relaunch
+		; ourselves elevated (UAC prompt) and pass /AllUsers so the new instance picks up
+		; the same choice. initInstallMode applies /AllUsers AFTER /CurrentUser, so a
+		; pre-existing /CurrentUser on the cmdline is harmlessly overridden in the new
+		; (elevated) process. The current (non-elevated) process then quits.
+		${If} $IsElevated != "true"
+			${GetParameters} $R0
+			ExecShell "runas" "$EXEPATH" "/AllUsers $R0"
+			Quit	; if the user cancels UAC, the install simply aborts (standard NSIS pattern)
+		${EndIf}
+	${Else}
+		StrCpy $MultiUserInstallMode "CurrentUser"
+	${EndIf}
+	Call applyInstallModeContext
+	Call updateDefaultInstDir
+FunctionEnd
 
 Function .onInit
 
-	; --- PATCH BEGIN (it can be deleted without side-effects, when the NSIS N++ x64 installer binary becomes x64 too)---
-	;
-	; 64-bit patch for the NSIS attribute InstallDirRegKey (used in globalDef.nsh)
-	; - this is needed because of the NSIS binary, generated for 64-bit Notepad++ installations, is still a 32-bit app,
-	;   so the InstallDirRegKey checks for the irrelevant HKLM\SOFTWARE\WOW6432Node\Notepad++, explanation:
-	;   https://nsis.sourceforge.io/Reference/SetRegView
-	;
-!ifdef ARCH64 || ARCHARM64	; installation of 64 bits Notepad++ & its 64 bits components
-	${If} ${RunningX64} ; Windows 64 bits
-		System::Call kernel32::GetCommandLine()t.r0 ; get the original cmdline (where a possible "/D=..." is not hidden from us by NSIS)
-		${StrStr} $1 $0 "/D="
-		${If} "$1" == ""
-			; "/D=..." was NOT used for sure, so we can continue in this InstallDirRegKey x64 patch 
-			SetRegView 64 ; disable registry redirection
-			ReadRegStr $0 HKLM "Software\${APPNAME}" ""
-			${If} "$0" != ""
-				; a previous installation path has been detected, so offer that as the $INSTDIR
-				StrCpy $INSTDIR "$0"
-			${EndIf}
-			SetRegView 32 ; restore the original state
+	; Decide whether we install for all users (HKLM, Program Files) or just for the
+	; current user (HKCU, %LOCALAPPDATA%). This sets $MultiUserInstallMode, the shell-var
+	; context and the registry view, so all the SHCTX-based registry writes land in the
+	; right hive and no admin rights are required for a per-user install.
+	Call initInstallMode
+
+	; Read back a previous installation directory (replaces the former InstallDirRegKey).
+	; The root follows the install mode via SHCTX, and is skipped when the user passes "/D=".
+	; (The NSIS x64 installer binary is still a 32-bit app, so SetRegView - done in
+	;  initInstallMode - is required to read the non-redirected hive.)
+	System::Call kernel32::GetCommandLine()t.r0 ; original cmdline ("/D=..." is not hidden from us by NSIS here)
+	${StrStr} $1 $0 "/D="
+	${If} "$1" == ""
+		ReadRegStr $0 SHCTX "Software\${APPNAME}" ""
+		${If} "$0" != ""
+			; a previous installation path has been detected, so offer that as the $INSTDIR
+			StrCpy $INSTDIR "$0"
 		${EndIf}
 	${EndIf}
-!endif
-	;
-	; --- PATCH END ---
 
 	StrCpy $runningNppDetected "false" ; reset
 
@@ -175,7 +306,12 @@ closeRunningNppCheckDone:
 	${EndIf}
 
 	; handle the possible Silent Mode (/S) & already running Notepad++ (without this an incorrect partial installation is possible)
+	; A per-user install writes only into $LOCALAPPDATA\Notepad++ and never touches an
+	; all-users notepad++.exe, so this mutex check only matters for an all-users install.
 	IfSilent 0 notInSilentMode
+	${If} $MultiUserInstallMode != "AllUsers"
+		Goto notInSilentMode
+	${EndIf}
 	System::Call 'kernel32::OpenMutex(i 0x100000, b 0, t "nppInstance") i .R0'
 	IntCmp $R0 0 nppNotRunning
 	StrCpy $runningNppDetected "true"
@@ -240,10 +376,10 @@ relaunchNppDone:
 	InitPluginsDir			; Initializes the plug-ins dir ($PLUGINSDIR) if not already initialized.
 	Call checkCompatibility		; check unsupported OSes and CPUs
 		
-	; look for previously selected language
+	; look for previously selected language (SHCTX follows the install mode: HKLM all-users / HKCU per-user)
 	ClearErrors
 	Var /GLOBAL tempLng
-	ReadRegStr $tempLng HKLM "SOFTWARE\${APPNAME}" 'InstallerLanguage'
+	ReadRegStr $tempLng SHCTX "SOFTWARE\${APPNAME}" 'InstallerLanguage'
 	${IfNot} ${Errors}
 		StrCpy $LANGUAGE "$tempLng" ; set default language
 	${EndIf}
@@ -251,7 +387,7 @@ relaunchNppDone:
 	!insertmacro MUI_LANGDLL_DISPLAY
 
 	; save selected language to registry
-	WriteRegStr HKLM "SOFTWARE\${APPNAME}" 'InstallerLanguage' '$Language'
+	WriteRegStr SHCTX "SOFTWARE\${APPNAME}" 'InstallerLanguage' '$Language'
 
 !ifdef ARCH64 || ARCHARM64 ; x64 or ARM64 : installation of 64 bits Notepad++ & its 64 bits components
 	StrCpy $winSysDir $WINDIR\System32
@@ -261,15 +397,16 @@ relaunchNppDone:
 		; we disable registry redirection (enable access to 64-bit portion of registry)
 		; regView value is set to 64 once for all.
 		SetRegView 64
-		
-		; change to x64 install dir if needed
-		${If} "$InstDir" != ""
-			${If} "$InstDir" == "$PROGRAMFILES\${APPNAME}"
+
+		; Pick the default install dir for the chosen mode, but only when $INSTDIR is still
+		; the generic globalDef.nsh default (i.e. neither /D= nor a restored previous path).
+		${If} "$InstDir" == "$PROGRAMFILES\${APPNAME}"
+		${OrIf} "$InstDir" == ""
+			${If} $MultiUserInstallMode == "CurrentUser"
+				StrCpy $INSTDIR "$LOCALAPPDATA\${APPNAME}"
+			${Else}
 				StrCpy $INSTDIR "$PROGRAMFILES64\${APPNAME}"
 			${EndIf}
-			; else /D was used or last installation is not "$PROGRAMFILES\${APPNAME}"
-		${Else}
-			StrCpy $INSTDIR "$PROGRAMFILES64\${APPNAME}"
 		${EndIf}
 		
 		; check if 32-bit version has been installed if yes, ask user to remove it
@@ -286,6 +423,13 @@ noDelete32:
 
 !else ; installation of 32 bits Notepad++ & its 32 bits components
 	StrCpy $winSysDir $WINDIR\SysWOW64
+	; For a per-user install, default to a writable location instead of Program Files.
+	${If} $MultiUserInstallMode == "CurrentUser"
+		${If} "$InstDir" == "$PROGRAMFILES\${APPNAME}"
+		${OrIf} "$InstDir" == ""
+			StrCpy $INSTDIR "$LOCALAPPDATA\${APPNAME}"
+		${EndIf}
+	${EndIf}
 	${If} ${RunningX64}  ; Windows 64 bits
 		; check if 64-bit version has been installed if yes, ask user to remove it
 		IfFileExists $PROGRAMFILES64\${APPNAME}\notepad++.exe 0 noDelete64
@@ -364,21 +508,28 @@ ${MementoSection} "Context Menu Entry" explorerContextMenu
 !endif
 
 	; Shell context menu entry
-	WriteRegStr HKCR "*\shell\ANotepad++64" "" "Notepad++ Context menu"
-	WriteRegStr HKCR "*\shell\ANotepad++64" "ExplorerCommandHandler" "{B298D29A-A6ED-11DE-BA8C-A68E55D89593}"
-	WriteRegStr HKCR "*\shell\ANotepad++64" "NeverDefault" ""
+	; HKCR == HKLM\Software\Classes; using SHCTX\Software\Classes routes to HKLM for an
+	; all-users install and to HKCU\Software\Classes for a per-user install (no admin needed).
+	WriteRegStr SHCTX "Software\Classes\*\shell\ANotepad++64" "" "Notepad++ Context menu"
+	WriteRegStr SHCTX "Software\Classes\*\shell\ANotepad++64" "ExplorerCommandHandler" "{B298D29A-A6ED-11DE-BA8C-A68E55D89593}"
+	WriteRegStr SHCTX "Software\Classes\*\shell\ANotepad++64" "NeverDefault" ""
 
 	; CLSID registration
-	WriteRegStr HKCR "CLSID\{B298D29A-A6ED-11DE-BA8C-A68E55D89593}" "" "notepad++"
-	WriteRegStr HKCR "CLSID\{B298D29A-A6ED-11DE-BA8C-A68E55D89593}\InProcServer32" "" "$INSTDIR\contextMenu\NppShell.dll"
-	WriteRegStr HKCR "CLSID\{B298D29A-A6ED-11DE-BA8C-A68E55D89593}\InProcServer32" "ThreadingModel" "Apartment"
+	WriteRegStr SHCTX "Software\Classes\CLSID\{B298D29A-A6ED-11DE-BA8C-A68E55D89593}" "" "notepad++"
+	WriteRegStr SHCTX "Software\Classes\CLSID\{B298D29A-A6ED-11DE-BA8C-A68E55D89593}\InProcServer32" "" "$INSTDIR\contextMenu\NppShell.dll"
+	WriteRegStr SHCTX "Software\Classes\CLSID\{B298D29A-A6ED-11DE-BA8C-A68E55D89593}\InProcServer32" "ThreadingModel" "Apartment"
 
 	; Register MSIX for Windows 11 modern context menu
 	; Skip only for x86 Notepad++ installation on Windows 32 system
 !ifdef ARCH64 || ARCHARM64 ; x64 installer
 	Call RegisterMSIX
 !else ; 32 bits installer
-	ExecWait '"$winSysDir\regsvr32.exe" /s "$INSTDIR\contextMenu\NppShell.dll"'
+	; NppShell's DllRegisterServer writes its keys under HKLM, so regsvr32 needs admin
+	; rights and can only be used for an all-users install. A per-user install does not
+	; need it: the entries above are written through SHCTX, which routes them to HKCU.
+	${If} $MultiUserInstallMode == "AllUsers"
+		ExecWait '"$winSysDir\regsvr32.exe" /s "$INSTDIR\contextMenu\NppShell.dll"'
+	${EndIf}
 !endif
 
 ${MementoSectionEnd}

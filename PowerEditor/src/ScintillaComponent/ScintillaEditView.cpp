@@ -199,6 +199,7 @@ LanguageNameInfo ScintillaEditView::_langNameInfoArray[L_EXTERNAL + 1] = {
 	{L"sas",              L"SAS",                    L"SAS file",                                          L_SAS,             "sas"},
 	{L"errorlist",        L"ErrorList",              L"ErrorList file",                                    L_ERRORLIST,       "errorlist"},
 	{L"escseq",           L"EscapeSequence (ANSI)",  L"Escape Sequence (ANSI) file",                       L_ESCSEQ,          "escseq"},
+	{L"fcST",             L"Structured Text",         L"IEC 61131-3 Structured Text file",                  L_STTXT,           "fcST"},
 	{L"ext",              L"External",               L"External",                                          L_EXTERNAL,        "null"}
 };
 
@@ -2136,6 +2137,9 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 		case L_ESCSEQ:
 			setEscSeqLexer(); break;
+
+		case L_STTXT:
+			setSTTXTLexer(); break;
 
 		case L_TEXT :
 		default :

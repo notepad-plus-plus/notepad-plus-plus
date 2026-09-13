@@ -1042,7 +1042,7 @@ void NetworkPathWarningBox::doDialog(bool isRTL)
 void NetworkPathWarningBox::changeLang()
 {
 	wstring msg;
-	wstring defaultMessage = L"Network Path Warning:\r\r$STR_REPLACE$\r\rLoading it will cause Windows to automatically authenticate to that server, potentially exposing your Windows login information.\rLoad anyway?";
+	wstring defaultMessage = L"Network Path Warning:\n\n$STR_REPLACE$\n\nLoading that file will cause Windows to automatically authenticate to its server, potentially exposing your Windows login information.\n\nLoad anyway?";
 	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 
 	if (nativeLangSpeaker)
@@ -1099,6 +1099,17 @@ intptr_t CALLBACK NetworkPathWarningBox::run_dlgProc(UINT message, WPARAM wParam
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
+			std::wstring strServerWhiteListBtnTip = L"Puts the server of the current file into Notepad++ serverWhitelist.xml.\n\nFor more info, click on this button to open website with relevant User Manual section.";;
+			NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+			if (pNativeSpeaker)
+			{
+				strServerWhiteListBtnTip = pNativeSpeaker->getLocalizedStrFromID("networkpathwarning-serverwhitelist-tip",
+					strServerWhiteListBtnTip.c_str());
+			}
+
+			_hwndServerWhiteListTip = createToolTip(IDC_BUTTON_SERVERWHITELIST_NOTE,
+				_hSelf, _hInst, strServerWhiteListBtnTip.data(), pNativeSpeaker ? pNativeSpeaker->isRTL() : false);
+
 			changeLang();
 			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 			return TRUE;
@@ -1124,6 +1135,16 @@ intptr_t CALLBACK NetworkPathWarningBox::run_dlgProc(UINT message, WPARAM wParam
 			_dpiManager.setDpiWP(wParam);
 			setPositionDpi(lParam);
 
+			return TRUE;
+		}
+
+		case WM_DESTROY:
+		{
+			if (_hwndServerWhiteListTip)
+			{
+				::DestroyWindow(_hwndServerWhiteListTip);
+				_hwndServerWhiteListTip = nullptr;
+			}
 			return TRUE;
 		}
 
@@ -1160,6 +1181,12 @@ intptr_t CALLBACK NetworkPathWarningBox::run_dlgProc(UINT message, WPARAM wParam
 					::EndDialog(_hSelf, 0);
 					_clickedButtonId = IDRETRY;
 					nppGUI._networkPathWarningMethod = NppGUI::networkPathAlwaysLoad;
+					return TRUE;
+				}
+
+				case IDC_BUTTON_SERVERWHITELIST_NOTE:
+				{
+					::ShellExecuteW(NULL, L"open", L"https://npp-user-manual.org/docs/session/#session-network-security", NULL, NULL, SW_SHOWNORMAL);
 					return TRUE;
 				}
 			}

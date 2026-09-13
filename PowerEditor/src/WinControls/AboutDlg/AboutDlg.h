@@ -189,4 +189,5 @@ private:
 	int _clickedButtonId = -1;
 	std::wstring _networkPath;
 	std::string _titleTag;
+	HWND _hwndServerWhiteListTip = nullptr;
 };

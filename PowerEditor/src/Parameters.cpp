@@ -1756,6 +1756,27 @@ bool NppParameters::load()
 		_pXmlTabContextMenuDoc = nullptr;
 	}
 
+	//-----------------------------------------------------------------------//
+	// serverWhiteList.xml : for per-user                                    //
+	// This xml file is optional - Notepad++ app or a user creates this file //
+	// in order to automatically allow  files loading for predefined set     //
+	// of safe net-servers, without asking for confirmation.                 //
+	// This has to precede the session.xml loading.                          //
+	//-----------------------------------------------------------------------//
+	_serverWhiteListPath = _userPath;
+	const std::wstring serverWhiteListFile = L"serverWhiteList.xml";
+	pathAppend(_serverWhiteListPath, serverWhiteListFile);
+	if (doesFileExist(_serverWhiteListPath.c_str()))
+	{
+		_pXmlServerWhiteListDoc = new NppXml::NewDocument();
+		loadOkay = NppXml::loadFile(_pXmlServerWhiteListDoc, _serverWhiteListPath.c_str());
+		if (!loadOkay)
+		{
+			delete _pXmlServerWhiteListDoc;
+			_pXmlServerWhiteListDoc = nullptr;
+		}
+	}
+
 	//----------------------------//
 	// session.xml : for per-user //
 	//----------------------------//
@@ -3136,6 +3157,143 @@ bool NppParameters::loadSession(Session& session, const wchar_t* sessionFileName
 	return loadOkay;
 }
 
+bool NppParameters::isServerAllowed(const char* path2check, bool bCaseSensitive)
+{
+	if (!path2check || !_pXmlServerWhiteListDoc)
+		return false;
+
+	std::string path2checkServerName;
+	if (!getServerName(path2check, path2checkServerName))
+		return false;
+
+	NppXml::Element root = NppXml::firstChildElement(_pXmlServerWhiteListDoc, "NotepadPlus");
+	if (!root)
+		return false;
+
+	for (NppXml::Element childNode = NppXml::firstChildElement(root, "ServerAllowed");
+		childNode;
+		childNode = NppXml::nextSiblingElement(childNode, "ServerAllowed"))
+	{
+		const std::string allowedItem = NppXml::attribute(childNode, "name");
+		if (allowedItem.empty())
+			continue;
+
+		size_t allowedItemLen = allowedItem.length();
+		if (allowedItemLen == 1)
+		{
+			if (allowedItem[0] == '*')
+				return true; // any server allowed
+			if (allowedItem[0] == '!')
+				return false; // no other server allowed after this item in the whitelist
+		}
+
+		if (bCaseSensitive)
+		{
+			if (path2checkServerName == allowedItem)
+				return true;
+		}
+		else
+		{
+			// Windows default
+			if (_stricmp(path2checkServerName.c_str(), allowedItem.c_str()) == 0)
+				return true;
+		}
+	}
+
+	return false;
+}
+
+bool NppParameters::getServerName(const std::string& path2check, std::string& serverNameOutput)
+{
+	serverNameOutput.clear();
+
+	if (path2check.length() < 3)
+		return false; // cannot be a net-path with server name
+
+	std::string path2checkNormStrip = path2check;
+	std::replace(path2checkNormStrip.begin(), path2checkNormStrip.end(), '/', '\\'); // 1st normalize to backslashes
+	if (path2checkNormStrip.starts_with("\\\\?\\"))
+	{
+		// strip to \\Server\...
+		if (path2checkNormStrip.starts_with("\\\\?\\UNC\\"))
+			path2checkNormStrip = "\\\\" + path2checkNormStrip.substr(8);
+		else
+			path2checkNormStrip = path2checkNormStrip.substr(4);
+	}
+
+	// a valid net-path starting with double-backslash?
+	if ((path2checkNormStrip.length() < 3) || (path2checkNormStrip[0] != L'\\') || (path2checkNormStrip[1] != L'\\'))
+		return false;
+
+	// extract the server name between the prefix and the next backslash
+	const size_t serverStartPos = 2;
+	size_t serverEndPos = path2checkNormStrip.find('\\', serverStartPos);
+	if ((serverEndPos == std::wstring::npos) || (serverEndPos == serverStartPos))
+		return false; // invalid, missing a share file specification after
+
+	serverNameOutput = path2checkNormStrip.substr(serverStartPos, serverEndPos - serverStartPos);
+
+	return true;
+}
+
+bool NppParameters::addServerToWhiteList(const char* netpath, bool bCaseSensitive)
+{
+	if (!netpath)
+		return false;
+
+	std::string netpathServerName;
+	if (!getServerName(netpath, netpathServerName))
+		return false;
+
+	if (!_pXmlServerWhiteListDoc)
+	{
+		// create new list
+		_pXmlServerWhiteListDoc = new NppXml::NewDocument();
+		if (!_pXmlServerWhiteListDoc)
+			return false;
+
+		NppXml::createNewDeclaration(_pXmlServerWhiteListDoc);
+		NppXml::createChildElement(_pXmlServerWhiteListDoc, "NotepadPlus");
+	}
+
+	NppXml::Element root = NppXml::firstChildElement(_pXmlServerWhiteListDoc, "NotepadPlus");
+	if (!root)
+		return false;
+
+	for (NppXml::Element childNode = NppXml::firstChildElement(root, "ServerAllowed");
+		childNode;
+		childNode = NppXml::nextSiblingElement(childNode, "ServerAllowed"))
+	{
+		std::string allowedItem = NppXml::attribute(childNode, "name");
+
+		if (allowedItem.length() == 1)
+		{
+			if (allowedItem[0] == '*')
+				::MessageBoxW(NULL, L"Warning: There is the 'any' wildcard (*) item set in the serverWhiteList.xml file.\n\nThis effectively allows the use of any server name, so there is no point in adding a new specific entry to the list.", L"Notepad++ addServerToWhiteList", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
+			if (allowedItem[0] == '!')
+				::MessageBoxW(NULL, L"Warning: There is the 'no-one' wildcard (!) item set in the serverWhiteList.xml file.\n\nThis makes any server name record following it useless, so there is no point in adding a new specific item to the end of the list.", L"Notepad++ addServerToWhiteList", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
+		}
+
+		if (bCaseSensitive)
+		{
+			if (netpathServerName == allowedItem)
+				return true; // already there
+		}
+		else
+		{
+			// Windows default
+			if (_stricmp(netpathServerName.c_str(), allowedItem.c_str()) == 0)
+				return true; // already there
+		}
+	}
+
+	// add new record
+	NppXml::Element elementServerAllowed = NppXml::createChildElement(root, "ServerAllowed");
+	NppXml::setAttribute(elementServerAllowed, "name", netpathServerName.c_str());
+
+	return _pXmlServerWhiteListDoc->save_file(_serverWhiteListPath.c_str(), "    ", pugi::format_indent | pugi::format_no_declaration | pugi::format_save_file_text);
+}
+
 bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, Session& session)
 {
 	if (!pSessionDoc)
@@ -3166,6 +3324,10 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 	HINSTANCE hInst = ::GetModuleHandle(nullptr);
 	HWND nppHwnd = ::FindWindow(Notepad_plus_Window::getClassName(), NULL);
 
+	bool isNppExit = false;
+	if (g_bNppExitFlag.load())
+		isNppExit = true; // NetworkPathWarning should not be shown at the Notepad++ exit
+
 	for (size_t k = 0; k < nbView; ++k)
 	{
 		if (viewRoots[k])
@@ -3185,30 +3347,38 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 				const char* fileName = NppXml::attribute(childNode, "filename");
 				if (fileName)
 				{
-					std::wstring wstrFileName = string2wstring(fileName);
+					const std::wstring wstrFileName = string2wstring(fileName);
 
-					if (isUncPath(wstrFileName))
+					if (!isNppExit && isUncPath(wstrFileName))
 					{
-						if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysAsk)
+						if (!isServerAllowed(fileName)) // is in the serverWhiteList.xml ?
 						{
-							NetworkPathWarningBox networkPathWarningBox;
-							networkPathWarningBox.init(hInst, nppHwnd, wstrFileName);
-							networkPathWarningBox.doDialog(_pNativeLangSpeaker ? _pNativeLangSpeaker->isRTL() : false);
-							int buttonID = networkPathWarningBox.getClickedButtonId();
-							networkPathWarningBox.destroy();
+							if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysAsk)
+							{
+								NetworkPathWarningBox networkPathWarningBox;
+								networkPathWarningBox.init(hInst, nppHwnd, wstrFileName);
+								networkPathWarningBox.doDialog(_pNativeLangSpeaker ? _pNativeLangSpeaker->isRTL() : false);
+								int buttonID = networkPathWarningBox.getClickedButtonId();
+								networkPathWarningBox.destroy();
 
-							if (buttonID == IDCANCEL || buttonID == IDNO) // Skip once or Always skip
+								if (buttonID == IDCANCEL || buttonID == IDNO) // Skip once or Always skip
+								{
+									continue;
+								}
+								else if (buttonID == IDYES)
+								{
+									// add to whitelist for the future and continue to load the file
+									addServerToWhiteList(fileName);
+								}
+							}
+							else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysSkip)
 							{
 								continue;
 							}
-						}
-						else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysSkip)
-						{
-							continue;
-						}
-						else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysLoad)
-						{
-							// do nothing, continue to load the file
+							else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysLoad)
+							{
+								// do nothing, continue to load the file
+							}
 						}
 					}
 
@@ -3237,57 +3407,65 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 					};
 
 					const char* langName = NppXml::attribute(childNode, "lang");
+					const std::wstring wstrLangName = langName ? string2wstring(langName) : L"";
 
-					std::wstring wstrLangName = langName ? string2wstring(langName) : L"";
+					const char* backupFilePath = NppXml::attribute(childNode, "backupFilePath");
+					const std::wstring wstrBackupFilePath = wmc.char2wchar(backupFilePath ? backupFilePath : "", CP_UTF8);
 
-					const wchar_t* pBackupFilePath = wmc.char2wchar(NppXml::attribute(childNode, "backupFilePath"), CP_UTF8);
-
-					if (isUncPath(pBackupFilePath))
+					if (!isNppExit && isUncPath(wstrBackupFilePath))
 					{
-						if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysAsk)
+						if (!isServerAllowed(backupFilePath)) // is in the serverWhiteList.xml ?
 						{
-							NetworkPathWarningBox networkPathWarningBox;
-							networkPathWarningBox.init(hInst, nppHwnd, pBackupFilePath);
-							networkPathWarningBox.doDialog(_pNativeLangSpeaker ? _pNativeLangSpeaker->isRTL() : false);
-							int buttonID = networkPathWarningBox.getClickedButtonId();
-							networkPathWarningBox.destroy();
+							if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysAsk)
+							{
+								NetworkPathWarningBox networkPathWarningBox;
+								networkPathWarningBox.init(hInst, nppHwnd, wstrBackupFilePath);
+								networkPathWarningBox.doDialog(_pNativeLangSpeaker ? _pNativeLangSpeaker->isRTL() : false);
+								int buttonID = networkPathWarningBox.getClickedButtonId();
+								networkPathWarningBox.destroy();
 
-							if (buttonID == IDCANCEL || buttonID == IDNO) // Skip once or Always skip
+								if (buttonID == IDCANCEL || buttonID == IDNO) // Skip once or Always skip
+								{
+									continue;
+								}
+								else if (buttonID == IDYES)
+								{
+									// add to whitelist for the future and continue to load the file
+									addServerToWhiteList(backupFilePath);
+								}
+							}
+							else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysSkip)
 							{
 								continue;
 							}
-						}
-						else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysSkip)
-						{
-							continue;
-						}
-						else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysLoad)
-						{
-							// do nothing, continue to load the file
+							else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysLoad)
+							{
+								// do nothing, continue to load the file
+							}
 						}
 					}
 
 					wchar_t normalizedBackupFilePath[MAX_PATH]{};
 
-					if (pBackupFilePath && wcslen(pBackupFilePath) < MAX_PATH)
+					if (!wstrBackupFilePath.empty() && (wstrBackupFilePath.length() < MAX_PATH))
 					{
-						std::wstring sanitizedPath = pBackupFilePath;
+						std::wstring sanitizedPath = wstrBackupFilePath;
 						std::replace(sanitizedPath.begin(), sanitizedPath.end(), L'/', L'\\');
 
 						if (!::PathCanonicalize(normalizedBackupFilePath, sanitizedPath.c_str()))
 							normalizedBackupFilePath[0] = L'\0'; // treat failure as "no path" -> falls through to reconstruction below
 					}
-					else if (pBackupFilePath)
+					else if (!wstrBackupFilePath.empty())
 					{
-						wchar_t* fn = ::PathFindFileNameW(pBackupFilePath);
-						StringCchCopyW(normalizedBackupFilePath, MAX_PATH, fn);
+						wchar_t* fn = ::PathFindFileNameW(wstrBackupFilePath.c_str());
+						::StringCchCopyW(normalizedBackupFilePath, MAX_PATH, fn);
 					}
 
 					std::wstring currentBackupFilePath = NppParameters::getInstance().getUserPath() + L"\\backup\\";
 
-					wchar_t normalizedBackupDir[MAX_PATH] {};
+					wchar_t normalizedBackupDir[MAX_PATH]{};
 					if (::GetFullPathNameW(currentBackupFilePath.c_str(), MAX_PATH, normalizedBackupDir, NULL) == 0)
-						StringCchCopyW(normalizedBackupDir, MAX_PATH, currentBackupFilePath.c_str());
+						::StringCchCopyW(normalizedBackupDir, MAX_PATH, currentBackupFilePath.c_str());
 
 					if (normalizedBackupFilePath[0])
 					{
@@ -3307,7 +3485,7 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 
 							std::wstring safePath = normalizedBackupDir;
 							safePath += fn;
-							StringCchCopyW(normalizedBackupFilePath, MAX_PATH, safePath.c_str());
+							::StringCchCopyW(normalizedBackupFilePath, MAX_PATH, safePath.c_str());
 						}
 					}
 
@@ -3378,28 +3556,36 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 			{
 				std::wstring rootFolder = string2wstring(fileName);
 
-				if (isUncPath(rootFolder))
+				if (!isNppExit && isUncPath(rootFolder))
 				{
-					if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysAsk)
+					if (!isServerAllowed(fileName)) // is in the serverWhiteList.xml ?
 					{
-						NetworkPathWarningBox networkPathWarningBox;
-						networkPathWarningBox.init(hInst, nppHwnd, rootFolder);
-						networkPathWarningBox.doDialog(_pNativeLangSpeaker ? _pNativeLangSpeaker->isRTL() : false);
-						int buttonID = networkPathWarningBox.getClickedButtonId();
-						networkPathWarningBox.destroy();
+						if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysAsk)
+						{
+							NetworkPathWarningBox networkPathWarningBox;
+							networkPathWarningBox.init(hInst, nppHwnd, rootFolder);
+							networkPathWarningBox.doDialog(_pNativeLangSpeaker ? _pNativeLangSpeaker->isRTL() : false);
+							int buttonID = networkPathWarningBox.getClickedButtonId();
+							networkPathWarningBox.destroy();
 
-						if (buttonID == IDCANCEL || buttonID == IDNO) // Skip once or Always skip
+							if (buttonID == IDCANCEL || buttonID == IDNO) // Skip once or Always skip
+							{
+								continue;
+							}
+							else if (buttonID == IDYES)
+							{
+								// add to whitelist for the future and continue to load the file
+								addServerToWhiteList(fileName);
+							}
+						}
+						else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysSkip)
 						{
 							continue;
 						}
-					}
-					else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysSkip)
-					{
-						continue;
-					}
-					else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysLoad)
-					{
-						// do nothing, continue to load the file
+						else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysLoad)
+						{
+							// do nothing, continue to load the file
+						}
 					}
 				}
 

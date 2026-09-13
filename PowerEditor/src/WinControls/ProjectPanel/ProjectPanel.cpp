@@ -570,30 +570,39 @@ bool ProjectPanel::buildTreeFrom(const NppXml::Element& projectRoot, HTREEITEM h
 
 			if (isUncPath(fullPath))
 			{
+				const std::string fullPathUTF8 = wstring2string(fullPath, CP_UTF8);
 				NppParameters& nppParams = NppParameters::getInstance();
-				NppGUI& nppGUI = nppParams.getNppGUI();
-				if (nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysAsk)
+				if (!nppParams.isServerAllowed(fullPathUTF8.c_str())) // is in the serverWhiteList.xml ?
 				{
-					const NativeLangSpeaker* pNativeLangSpeaker = nppParams.getNativeLangSpeaker();
+					NppGUI& nppGUI = nppParams.getNppGUI();
+					if (nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysAsk)
+					{
+						const NativeLangSpeaker* pNativeLangSpeaker = nppParams.getNativeLangSpeaker();
 
-					NetworkPathWarningBox networkPathWarningBox;
-					networkPathWarningBox.init(_hInst, _hParent, fullPath, "title4");
-					networkPathWarningBox.doDialog(pNativeLangSpeaker ? pNativeLangSpeaker->isRTL() : false);
-					int buttonID = networkPathWarningBox.getClickedButtonId();
-					networkPathWarningBox.destroy();
+						NetworkPathWarningBox networkPathWarningBox;
+						networkPathWarningBox.init(_hInst, _hParent, fullPath, "title4");
+						networkPathWarningBox.doDialog(pNativeLangSpeaker ? pNativeLangSpeaker->isRTL() : false);
+						int buttonID = networkPathWarningBox.getClickedButtonId();
+						networkPathWarningBox.destroy();
 
-					if (buttonID == IDCANCEL || buttonID == IDNO) // Skip once or Always skip
+						if (buttonID == IDCANCEL || buttonID == IDNO) // Skip once or Always skip
+						{
+							continue;
+						}
+						else if (buttonID == IDYES)
+						{
+							// add to whitelist for the future and continue to load the file
+							nppParams.addServerToWhiteList(fullPathUTF8.c_str());
+						}
+					}
+					else if (nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysSkip)
 					{
 						continue;
 					}
-				}
-				else if (nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysSkip)
-				{
-					continue;
-				}
-				else if (nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysLoad)
-				{
-					// do nothing, continue to load the file
+					else if (nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysLoad)
+					{
+						// do nothing, continue to load the file
+					}
 				}
 			}
 

@@ -191,29 +191,32 @@ void ToolBar::initTheme(NppXml::Document toolIconsDocRoot)
 
 			if (isUncPath(iconFolderDir))
 			{
-				NppGUI& nppGUI = nppParams.getNppGUI();
-				if (nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysAsk)
+				const std::string iconFolderDirUTF8 = wstring2string(iconFolderDir, CP_UTF8);
+				if (!nppParams.isServerAllowed(iconFolderDirUTF8.c_str())) // is in the serverWhiteList.xml ?
 				{
-					const NativeLangSpeaker* pNativeLangSpeaker = nppParams.getNativeLangSpeaker();
+					if (nppParams.networkPathAlwaysAction() == NppParameters::networkPathAlwaysAsk)
+					{
+						const NativeLangSpeaker* pNativeLangSpeaker = nppParams.getNativeLangSpeaker();
 
-					NetworkPathWarningBox networkPathWarningBox;
-					networkPathWarningBox.init(_hInst, _hParent, iconFolderDir, "title3");
-					networkPathWarningBox.doDialog(pNativeLangSpeaker ? pNativeLangSpeaker->isRTL() : false);
-					int buttonID = networkPathWarningBox.getClickedButtonId();
-					networkPathWarningBox.destroy();
+						NetworkPathWarningBox networkPathWarningBox;
+						networkPathWarningBox.init(_hInst, _hParent, iconFolderDir, "title3");
+						networkPathWarningBox.doDialog(pNativeLangSpeaker ? pNativeLangSpeaker->isRTL() : false);
+						int buttonID = networkPathWarningBox.getClickedButtonId();
+						networkPathWarningBox.destroy();
 
-					if (buttonID == IDCANCEL || buttonID == IDNO) // Skip once or Always skip
+						if (buttonID == IDCANCEL || buttonID == IDNO) // Skip once or Always skip
+						{
+							return;
+						}
+					}
+					else if (nppParams.networkPathAlwaysAction() == NppParameters::networkPathAlwaysSkip)
 					{
 						return;
 					}
-				}
-				else if (nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysSkip)
-				{
-					return;
-				}
-				else if (nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysLoad)
-				{
-					// do nothing, continue to load the file
+					else if (nppParams.networkPathAlwaysAction() == NppParameters::networkPathAlwaysLoad)
+					{
+						// do nothing, continue to load the file
+					}
 				}
 			}
 

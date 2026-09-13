@@ -224,7 +224,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		{
 			if (!notifyView) return FALSE;
 
-			NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+			NppParameters& nppParam = NppParameters::getInstance();
+			NppGUI& nppGUI = nppParam.getNppGUI();
+
 			if (notification->modifiers == SCMOD_CTRL)
 			{
 				std::string bufstring;
@@ -396,27 +398,31 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 				if (isUncFileUrl(url))
 				{
-					if (nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysAsk)
+					const std::string urlUTF8 = wstring2string(url, CP_UTF8);
+					if (!nppParam.isServerAllowed(urlUTF8.c_str())) // is in the serverWhiteList.xml ?
 					{
-						NetworkPathWarningBox networkPathWarningBox;
-						networkPathWarningBox.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), url, "title2");
-						networkPathWarningBox.doDialog(_nativeLangSpeaker.isRTL());
-						int buttonID = networkPathWarningBox.getClickedButtonId();
+						if (nppParam.networkPathAlwaysAction() == NppParameters::networkPathAlwaysAsk)
+						{
+							NetworkPathWarningBox networkPathWarningBox;
+							networkPathWarningBox.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), url, "title2");
+							networkPathWarningBox.doDialog(_nativeLangSpeaker.isRTL());
+							int buttonID = networkPathWarningBox.getClickedButtonId();
 
-						networkPathWarningBox.destroy();
+							networkPathWarningBox.destroy();
 
-						if (buttonID == IDCANCEL || buttonID == IDNO) // Skip once or Always skip
+							if (buttonID == IDCANCEL || buttonID == IDNO) // Skip once or Always skip
+							{
+								return FALSE;
+							}
+						}
+						else if (nppParam.networkPathAlwaysAction() == NppParameters::networkPathAlwaysSkip)
 						{
 							return FALSE;
 						}
-					}
-					else if (nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysSkip)
-					{
-						return FALSE;
-					}
-					else if (nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysLoad)
-					{
-						// do nothing, continue to load the file
+						else if (nppParam.networkPathAlwaysAction() == NppParameters::networkPathAlwaysLoad)
+						{
+							// do nothing, continue to load the file
+						}
 					}
 				}
 				::ShellExecute(_pPublicInterface->getHSelf(), L"open", url.c_str(), NULL, NULL, SW_SHOW);

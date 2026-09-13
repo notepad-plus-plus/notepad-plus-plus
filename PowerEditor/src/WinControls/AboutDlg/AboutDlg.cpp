@@ -1099,7 +1099,7 @@ intptr_t CALLBACK NetworkPathWarningBox::run_dlgProc(UINT message, WPARAM wParam
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
-			std::wstring strServerWhiteListBtnTip = L"Puts the server of the current file into Notepad++ serverWhitelist.xml.\n\nFor more info, click on this button to open website with relevant User Manual section.";;
+			std::wstring strServerWhiteListBtnTip = L"Puts the server of the current file into Notepad++ serverWhiteList.xml.\n\nFor more info, click on this button to open website with relevant User Manual section.";;
 			NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 			if (pNativeSpeaker)
 			{

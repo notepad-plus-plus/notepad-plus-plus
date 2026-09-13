@@ -3178,8 +3178,7 @@ bool NppParameters::isServerAllowed(const char* path2check, bool bCaseSensitive)
 		if (allowedItem.empty())
 			continue;
 
-		size_t allowedItemLen = allowedItem.length();
-		if (allowedItemLen == 1)
+		if (allowedItem.length() == 1)
 		{
 			if (allowedItem[0] == '*')
 				return true; // any server allowed

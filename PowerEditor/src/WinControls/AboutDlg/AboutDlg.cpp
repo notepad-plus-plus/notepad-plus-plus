@@ -1151,36 +1151,38 @@ intptr_t CALLBACK NetworkPathWarningBox::run_dlgProc(UINT message, WPARAM wParam
 		case WM_COMMAND:
 		{
 			NppParameters& nppParam = NppParameters::getInstance();
-			NppGUI& nppGUI = nppParam.getNppGUI();
+
 			switch (LOWORD(wParam))
 			{
 				case IDCANCEL:
 				{
 					::EndDialog(_hSelf, -1);
-					_clickedButtonId = IDCANCEL;
+					_clickedButtonId = IDCANCEL; // "Skip" - loading of the current net-file will be skipped
 					return TRUE;
 				}
 
 				case IDYES:
 				{
 					::EndDialog(_hSelf, 0);
-					_clickedButtonId = IDYES;
+					_clickedButtonId = IDYES; // "Always load from this server" - loading of the current net-file will continue
+					const std::string netPathUTF8 = wstring2string(_networkPath, CP_UTF8);
+					nppParam.addServerToWhiteList(netPathUTF8.c_str()); // add the current net-file server to whitelist for the future
 					return TRUE;
 				}
 
 				case IDNO:
 				{
 					::EndDialog(_hSelf, 0);
-					_clickedButtonId = IDNO;
-					nppGUI._networkPathWarningMethod = NppGUI::networkPathAlwaysSkip;
+					_clickedButtonId = IDNO; // "Always skip network paths" - loading of the current net-file and any subsequent ones will be skipped
+					nppParam.setNetworkPathAlwaysActionMode(NppGUI::networkPathAlwaysSkip);
 					return TRUE;
 				}
 
 				case IDRETRY:
 				{
 					::EndDialog(_hSelf, 0);
-					_clickedButtonId = IDRETRY;
-					nppGUI._networkPathWarningMethod = NppGUI::networkPathAlwaysLoad;
+					_clickedButtonId = IDRETRY; // "Always load network paths" - loading of the current net-file and any subsequent ones will continue
+					nppParam.setNetworkPathAlwaysActionMode(NppGUI::networkPathAlwaysLoad);
 					return TRUE;
 				}
 

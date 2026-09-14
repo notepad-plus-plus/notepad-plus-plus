@@ -575,7 +575,7 @@ bool ProjectPanel::buildTreeFrom(const NppXml::Element& projectRoot, HTREEITEM h
 				if (!nppParams.isServerAllowed(fullPathUTF8.c_str())) // is in the serverWhiteList.xml ?
 				{
 					NppGUI& nppGUI = nppParams.getNppGUI();
-					if (nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysAsk)
+					if (nppGUI._networkPathAlwaysAction == NppGUI::networkPathAlwaysAsk)
 					{
 						const NativeLangSpeaker* pNativeLangSpeaker = nppParams.getNativeLangSpeaker();
 
@@ -589,17 +589,12 @@ bool ProjectPanel::buildTreeFrom(const NppXml::Element& projectRoot, HTREEITEM h
 						{
 							continue;
 						}
-						else if (buttonID == IDYES)
-						{
-							// add to whitelist for the future and continue to load the file
-							nppParams.addServerToWhiteList(fullPathUTF8.c_str());
-						}
 					}
-					else if (nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysSkip)
+					else if (nppGUI._networkPathAlwaysAction == NppGUI::networkPathAlwaysSkip)
 					{
 						continue;
 					}
-					else if (nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysLoad)
+					else if (nppGUI._networkPathAlwaysAction == NppGUI::networkPathAlwaysLoad)
 					{
 						// do nothing, continue to load the file
 					}

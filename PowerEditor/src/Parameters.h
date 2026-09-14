@@ -889,8 +889,8 @@ struct NppGUI final
 	std::string _shortcutsXmlHmacInConfig;
 	std::string _shortcutsOnDiskHmac;
 
-	enum NetworkPathWarningMethod { networkPathAlwaysAsk, networkPathAlwaysSkip, networkPathAlwaysLoad};
-	NetworkPathWarningMethod _networkPathWarningMethod = networkPathAlwaysAsk;
+	enum NetworkPathAlwaysAction { networkPathAlwaysAsk, networkPathAlwaysSkip, networkPathAlwaysLoad};
+	NetworkPathAlwaysAction _networkPathAlwaysAction = networkPathAlwaysAsk; // for security reason, this setting is not in the common config.xml but in serverWhiteList.xml
 
 	bool _isFawSymlinkAllowed = false; // allow to open symlink files in FaW (Folder as Workspace) panel.
 };
@@ -1967,7 +1967,9 @@ public:
 
 	bool isServerAllowed(const char* path2check, bool bCaseSensitive = false);
 	bool getServerName(const std::string& path2check, std::string& serverNameOutput);
+	bool makeDefaultServerWhiteList(bool bSave2File);
 	bool addServerToWhiteList(const char* netpath, bool bCaseSensitive = false);
+	bool setNetworkPathAlwaysActionMode(NppGUI::NetworkPathAlwaysAction mode);
 
 private:
 	unsigned long _sintillaModEventMask = SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT | SC_PERFORMED_UNDO | SC_PERFORMED_REDO | SC_MOD_CHANGEINDICATOR;

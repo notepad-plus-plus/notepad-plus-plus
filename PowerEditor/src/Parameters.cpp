@@ -1775,6 +1775,42 @@ bool NppParameters::load()
 			delete _pXmlServerWhiteListDoc;
 			_pXmlServerWhiteListDoc = nullptr;
 		}
+		else
+		{
+			bool isFileContentOk = false;
+			NppXml::Element root = NppXml::firstChildElement(_pXmlServerWhiteListDoc, "NotepadPlus");
+			if (root)
+			{
+				NppXml::Element childNode = NppXml::firstChildElement(root, "NetworkPathsAlwaysAction");
+				if (childNode)
+				{
+					const std::string strValue = NppXml::attribute(childNode, "value");
+					if (strValue.length() == 1)
+					{
+						switch (strValue[0])
+						{
+							case '-':
+								_nppGUI._networkPathAlwaysAction = NppGUI::networkPathAlwaysAsk;
+								isFileContentOk = true;
+								break;
+							case '!':
+								_nppGUI._networkPathAlwaysAction = NppGUI::networkPathAlwaysSkip;
+								isFileContentOk = true;
+								break;
+							case '*':
+								_nppGUI._networkPathAlwaysAction = NppGUI::networkPathAlwaysLoad;
+								isFileContentOk = true;
+								break;
+							default:
+								// invalid, will be reset to default
+								break;
+						}
+					}
+				}
+			}
+			if (!isFileContentOk)
+				makeDefaultServerWhiteList(true); // invalid content, reset to safe default
+		}
 	}
 
 	//----------------------------//
@@ -3162,6 +3198,17 @@ bool NppParameters::isServerAllowed(const char* path2check, bool bCaseSensitive)
 	if (!path2check || !_pXmlServerWhiteListDoc)
 		return false;
 
+	switch (_nppGUI._networkPathAlwaysAction)
+	{
+		case NppGUI::networkPathAlwaysSkip:
+			return false;
+		case NppGUI::networkPathAlwaysLoad:
+			return true;
+		case NppGUI::networkPathAlwaysAsk:
+		default:
+			break;
+	}
+
 	std::string path2checkServerName;
 	if (!getServerName(path2check, path2checkServerName))
 		return false;
@@ -3177,14 +3224,6 @@ bool NppParameters::isServerAllowed(const char* path2check, bool bCaseSensitive)
 		const std::string allowedItem = NppXml::attribute(childNode, "name");
 		if (allowedItem.empty())
 			continue;
-
-		if (allowedItem.length() == 1)
-		{
-			if (allowedItem[0] == '*')
-				return true; // any server allowed
-			if (allowedItem[0] == '!')
-				return false; // no other server allowed after this item in the whitelist
-		}
 
 		if (bCaseSensitive)
 		{
@@ -3209,15 +3248,26 @@ bool NppParameters::getServerName(const std::string& path2check, std::string& se
 	if (path2check.length() < 3)
 		return false; // cannot be a net-path with server name
 
+	// case insensitive starts_with
+	auto starts_with_ci = [](std::string_view str, std::string_view prefix) {
+		if (str.size() < prefix.size()) return false;
+		return std::equal(prefix.begin(), prefix.end(), str.begin(), [](char a, char b) {
+			return std::tolower(static_cast<unsigned char>(a)) == std::tolower(static_cast<unsigned char>(b));
+		});
+	};
+
 	std::string path2checkNormStrip = path2check;
 	std::replace(path2checkNormStrip.begin(), path2checkNormStrip.end(), '/', '\\'); // 1st normalize to backslashes
-	if (path2checkNormStrip.starts_with("\\\\?\\"))
+	if (starts_with_ci(path2checkNormStrip, "\\\\?\\"))
 	{
-		// strip to \\Server\...
-		if (path2checkNormStrip.starts_with("\\\\?\\UNC\\"))
+		if (starts_with_ci(path2checkNormStrip, "\\\\?\\UNC\\"))
 			path2checkNormStrip = "\\\\" + path2checkNormStrip.substr(8);
 		else
 			path2checkNormStrip = path2checkNormStrip.substr(4);
+	}
+	else if (starts_with_ci(path2checkNormStrip, "file:\\\\"))
+	{
+		path2checkNormStrip = path2checkNormStrip.substr(5);
 	}
 
 	// a valid net-path starting with double-backslash?
@@ -3235,6 +3285,30 @@ bool NppParameters::getServerName(const std::string& path2check, std::string& se
 	return true;
 }
 
+bool NppParameters::makeDefaultServerWhiteList(bool bSave2File)
+{
+	if (_pXmlServerWhiteListDoc)
+	{
+		_pXmlServerWhiteListDoc->reset();
+	}
+	else
+	{
+		_pXmlServerWhiteListDoc = new NppXml::NewDocument();
+		if (!_pXmlServerWhiteListDoc)
+			return false;
+	}
+
+	NppXml::createNewDeclaration(_pXmlServerWhiteListDoc);
+	NppXml::Element root = NppXml::createChildElement(_pXmlServerWhiteListDoc, "NotepadPlus");
+
+	NppXml::Element childElement = NppXml::createChildElement(root, "NetworkPathsAlwaysAction");
+	NppXml::setAttribute(childElement, "value", "-"); // default (networkPathAlwaysAsk)
+
+	return bSave2File ?
+		_pXmlServerWhiteListDoc->save_file(_serverWhiteListPath.c_str(), "    ", pugi::format_indent | pugi::format_no_declaration | pugi::format_save_file_text) 
+		: true;
+}
+
 bool NppParameters::addServerToWhiteList(const char* netpath, bool bCaseSensitive)
 {
 	if (!netpath)
@@ -3246,13 +3320,8 @@ bool NppParameters::addServerToWhiteList(const char* netpath, bool bCaseSensitiv
 
 	if (!_pXmlServerWhiteListDoc)
 	{
-		// create new list
-		_pXmlServerWhiteListDoc = new NppXml::NewDocument();
-		if (!_pXmlServerWhiteListDoc)
+		if (!makeDefaultServerWhiteList(false))
 			return false;
-
-		NppXml::createNewDeclaration(_pXmlServerWhiteListDoc);
-		NppXml::createChildElement(_pXmlServerWhiteListDoc, "NotepadPlus");
 	}
 
 	NppXml::Element root = NppXml::firstChildElement(_pXmlServerWhiteListDoc, "NotepadPlus");
@@ -3264,15 +3333,6 @@ bool NppParameters::addServerToWhiteList(const char* netpath, bool bCaseSensitiv
 		childNode = NppXml::nextSiblingElement(childNode, "ServerAllowed"))
 	{
 		std::string allowedItem = NppXml::attribute(childNode, "name");
-
-		if (allowedItem.length() == 1)
-		{
-			if (allowedItem[0] == '*')
-				::MessageBoxW(NULL, L"Warning: There is the 'any' wildcard (*) item set in the serverWhiteList.xml file.\n\nThis effectively allows the use of any server name, so there is no point in adding a new specific entry to the list.", L"Notepad++ addServerToWhiteList", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
-			if (allowedItem[0] == '!')
-				::MessageBoxW(NULL, L"Warning: There is the 'no-one' wildcard (!) item set in the serverWhiteList.xml file.\n\nThis makes any server name record following it useless, so there is no point in adding a new specific item to the end of the list.", L"Notepad++ addServerToWhiteList", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
-		}
-
 		if (bCaseSensitive)
 		{
 			if (netpathServerName == allowedItem)
@@ -3291,6 +3351,45 @@ bool NppParameters::addServerToWhiteList(const char* netpath, bool bCaseSensitiv
 	NppXml::setAttribute(elementServerAllowed, "name", netpathServerName.c_str());
 
 	return _pXmlServerWhiteListDoc->save_file(_serverWhiteListPath.c_str(), "    ", pugi::format_indent | pugi::format_no_declaration | pugi::format_save_file_text);
+}
+
+bool NppParameters::setNetworkPathAlwaysActionMode(NppGUI::NetworkPathAlwaysAction mode)
+{
+	if (!_pXmlServerWhiteListDoc)
+	{
+		if (!makeDefaultServerWhiteList(false))
+			return false;
+	}
+
+	NppXml::Element root = NppXml::firstChildElement(_pXmlServerWhiteListDoc, "NotepadPlus");
+	if (root)
+	{
+		NppXml::Element childNode = NppXml::firstChildElement(root, "NetworkPathsAlwaysAction");
+		if (childNode)
+		{
+			switch (mode)
+			{
+				case NppGUI::networkPathAlwaysAsk:
+					NppXml::setAttribute(childNode, "value", "-");
+					break;
+				case NppGUI::networkPathAlwaysSkip:
+					NppXml::setAttribute(childNode, "value", "!");
+					break;
+				case NppGUI::networkPathAlwaysLoad:
+					NppXml::setAttribute(childNode, "value", "*");
+					break;
+				default:
+					assert(false);
+					return false; // unknown
+			}
+
+			_nppGUI._networkPathAlwaysAction = mode;
+
+			return _pXmlServerWhiteListDoc->save_file(_serverWhiteListPath.c_str(), "    ", pugi::format_indent | pugi::format_no_declaration | pugi::format_save_file_text);
+		}
+	}
+
+	return false;
 }
 
 bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, Session& session)
@@ -3352,7 +3451,7 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 					{
 						if (!isServerAllowed(fileName)) // is in the serverWhiteList.xml ?
 						{
-							if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysAsk)
+							if (_nppGUI._networkPathAlwaysAction == NppGUI::networkPathAlwaysAsk)
 							{
 								NetworkPathWarningBox networkPathWarningBox;
 								networkPathWarningBox.init(hInst, nppHwnd, wstrFileName);
@@ -3364,17 +3463,12 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 								{
 									continue;
 								}
-								else if (buttonID == IDYES)
-								{
-									// add to whitelist for the future and continue to load the file
-									addServerToWhiteList(fileName);
-								}
 							}
-							else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysSkip)
+							else if (_nppGUI._networkPathAlwaysAction == NppGUI::networkPathAlwaysSkip)
 							{
 								continue;
 							}
-							else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysLoad)
+							else if (_nppGUI._networkPathAlwaysAction == NppGUI::networkPathAlwaysLoad)
 							{
 								// do nothing, continue to load the file
 							}
@@ -3415,7 +3509,7 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 					{
 						if (!isServerAllowed(backupFilePath)) // is in the serverWhiteList.xml ?
 						{
-							if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysAsk)
+							if (_nppGUI._networkPathAlwaysAction == NppGUI::networkPathAlwaysAsk)
 							{
 								NetworkPathWarningBox networkPathWarningBox;
 								networkPathWarningBox.init(hInst, nppHwnd, wstrBackupFilePath);
@@ -3427,17 +3521,12 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 								{
 									continue;
 								}
-								else if (buttonID == IDYES)
-								{
-									// add to whitelist for the future and continue to load the file
-									addServerToWhiteList(backupFilePath);
-								}
 							}
-							else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysSkip)
+							else if (_nppGUI._networkPathAlwaysAction == NppGUI::networkPathAlwaysSkip)
 							{
 								continue;
 							}
-							else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysLoad)
+							else if (_nppGUI._networkPathAlwaysAction == NppGUI::networkPathAlwaysLoad)
 							{
 								// do nothing, continue to load the file
 							}
@@ -3559,7 +3648,7 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 				{
 					if (!isServerAllowed(fileName)) // is in the serverWhiteList.xml ?
 					{
-						if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysAsk)
+						if (_nppGUI._networkPathAlwaysAction == NppGUI::networkPathAlwaysAsk)
 						{
 							NetworkPathWarningBox networkPathWarningBox;
 							networkPathWarningBox.init(hInst, nppHwnd, rootFolder);
@@ -3571,17 +3660,12 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 							{
 								continue;
 							}
-							else if (buttonID == IDYES)
-							{
-								// add to whitelist for the future and continue to load the file
-								addServerToWhiteList(fileName);
-							}
 						}
-						else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysSkip)
+						else if (_nppGUI._networkPathAlwaysAction == NppGUI::networkPathAlwaysSkip)
 						{
 							continue;
 						}
-						else if (_nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysLoad)
+						else if (_nppGUI._networkPathAlwaysAction == NppGUI::networkPathAlwaysLoad)
 						{
 							// do nothing, continue to load the file
 						}
@@ -6876,7 +6960,6 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 			_nppGUI._muteSounds = getBoolAttribute(childNode, "muteSounds");
 			_nppGUI._enableFoldCmdToggable = getBoolAttribute(childNode, "enableFoldCmdToggable");
 			_nppGUI._hideMenuRightShortcuts = getBoolAttribute(childNode, "hideMenuRightShortcuts");
-			_nppGUI._networkPathWarningMethod = static_cast<NppGUI::NetworkPathWarningMethod>(NppXml::intAttribute(childNode, "networkPathWarningMethod", _nppGUI._networkPathWarningMethod));
 			_nppGUI._isFawSymlinkAllowed = getBoolAttribute(childNode, "isFawSymlinkAllowed", _nppGUI._isFawSymlinkAllowed);
 		}
 		// <GUIConfig name="DarkMode" enable="no" colorTone="0" customColorTop="2105376" customColorMenuHotTrack="4539717" customColorActive="3684408"
@@ -7996,7 +8079,6 @@ void NppParameters::createXmlTreeFromGUIParams()
 		setBoolAttribute(GUIConfigElement, "muteSounds", _nppGUI._muteSounds);
 		setBoolAttribute(GUIConfigElement, "enableFoldCmdToggable", _nppGUI._enableFoldCmdToggable);
 		setBoolAttribute(GUIConfigElement, "hideMenuRightShortcuts", _nppGUI._hideMenuRightShortcuts);
-		NppXml::setAttribute(GUIConfigElement, "networkPathWarningMethod", _nppGUI._networkPathWarningMethod);
 		setBoolAttribute(GUIConfigElement, "isFawSymlinkAllowed", _nppGUI._isFawSymlinkAllowed);
 	}
 

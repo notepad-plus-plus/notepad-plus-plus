@@ -195,7 +195,7 @@ void ToolBar::initTheme(NppXml::Document toolIconsDocRoot)
 				if (!nppParams.isServerAllowed(iconFolderDirUTF8.c_str())) // is in the serverWhiteList.xml ?
 				{
 					NppGUI& nppGUI = nppParams.getNppGUI();
-					if (nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysAsk)
+					if (nppGUI._networkPathAlwaysAction == NppGUI::networkPathAlwaysAsk)
 					{
 						const NativeLangSpeaker* pNativeLangSpeaker = nppParams.getNativeLangSpeaker();
 
@@ -209,17 +209,12 @@ void ToolBar::initTheme(NppXml::Document toolIconsDocRoot)
 						{
 							return;
 						}
-						else if (buttonID == IDYES)
-						{
-							// add to whitelist for the future and continue to load the file
-							nppParams.addServerToWhiteList(iconFolderDirUTF8.c_str());
-						}
 					}
-					else if (nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysSkip)
+					else if (nppGUI._networkPathAlwaysAction == NppGUI::networkPathAlwaysSkip)
 					{
 						return;
 					}
-					else if (nppGUI._networkPathWarningMethod == NppGUI::networkPathAlwaysLoad)
+					else if (nppGUI._networkPathAlwaysAction == NppGUI::networkPathAlwaysLoad)
 					{
 						// do nothing, continue to load the file
 					}

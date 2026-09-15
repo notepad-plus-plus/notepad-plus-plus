@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Galego" filename="galician.xml" version="8.9.3">
+	<Native-Langue name="Galego" filename="galician.xml" version="8.9.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -29,7 +29,7 @@ Translation note:
 					<Item subMenuId="file-closeMore" name="Pechado especia&amp;l"/>
 					<Item subMenuId="file-recentFiles" name="Arquivos &amp;recentes"/>
 					<Item subMenuId="edit-insert" name="Insertar"/>
-					<Item subMenuId="edit-copyToClipboard" name="Copiar ao &amp;portapapeis"/>
+					<Item subMenuId="edit-copyToClipboard" name="Copiar ao &amp;Portapapeis"/>
 					<Item subMenuId="edit-indent" name="Tab&amp;ulación"/>
 					<Item subMenuId="edit-convertCaseTo" name="Conversión de &amp;maiúsculas e minúsculas"/>
 					<Item subMenuId="edit-lineOperations" name="Operacións con li&amp;ñas"/>
@@ -90,6 +90,7 @@ Translation note:
 					<Item id="41002" name="&amp;Abrir"/>
 					<Item id="41019" name="Explorador de arquivos"/>
 					<Item id="41020" name="CMD"/>
+					<Item id="41027" name="PowerShell"/>
 					<Item id="41025" name="Carpeta como espazo de trabal&amp;lo"/>
 					<Item id="41003" name="&amp;Pechar pestana activa"/>
 					<Item id="41004" name="P&amp;echar tódalas pestanas"/>
@@ -196,9 +197,9 @@ Translation note:
 					<Item id="42037" name="Modo de columna..."/>
 					<Item id="42034" name="&amp;Editor de columna..."/>
 					<Item id="42051" name="Pane&amp;l de caracteres"/>
-					<Item id="42052" name="&amp;Historial do portapapeis"/>
+					<Item id="42052" name="&amp;Historial do Portapapeis"/>
 					<Item id="42025" name="&amp;Gardar macro actualmente gravada"/>
-					<Item id="42026" name="Texto dereita-es&amp;querda"/>
+					<Item id="42026" name="Texto dereita-é&amp;querda"/>
 					<Item id="42027" name="Te&amp;xto esquerda-dereita"/>
 					<Item id="42028" name="Atributo só lectura no documento actual"/>
 					<Item id="42102" name="Atributo só lectura para tódolos documentos"/>
@@ -296,6 +297,7 @@ Translation note:
 					<Item id="44024" name="&amp;Diminuír zoom (Ctrl + roda do rato atrás)"/>
 					<Item id="44025" name="Mostrar espazos e tabulacións"/>
 					<Item id="44026" name="Mostrar fin de liña"/>
+					<Item id="44027" name="&amp;Sincronizar entre vistas"/>
 					<Item id="44029" name="Expandir todo"/>
 					<Item id="44030" name="Contraer nivel actual"/>
 					<Item id="44031" name="Expandir nivel actual"/>
@@ -388,17 +390,18 @@ Translation note:
 					<Item id="48015" name="Administrar complementos..."/>
 					<Item id="48501" name="Xerar..."/>
 					<Item id="48502" name="Xerar desde arquivos..."/>
-					<Item id="48503" name="Xerar desde a selección do portapapeis"/>
+					<Item id="48503" name="Xerar desde a selección do Portapapeis"/>
 					<Item id="48504" name="Xerar..."/>
 					<Item id="48505" name="Xerar desde arquivos..."/>
-					<Item id="48506" name="Xerar desde a selección do portapapeis"/>
+					<Item id="48506" name="Xerar desde a selección do Portapapeis"/>
 					<Item id="48507" name="Xerar..."/>
 					<Item id="48508" name="Xerar desde arquivos..."/>
-					<Item id="48509" name="Xerar desde a selección do portapapeis"/>
+					<Item id="48509" name="Xerar desde a selección do Portapapeis"/>
 					<Item id="48510" name="Xerar..."/>
 					<Item id="48511" name="Xerar desde arquivos..."/>
-					<Item id="48512" name="Xerar desde a selección do portapapeis"/>
+					<Item id="48512" name="Xerar desde a selección do Portapapeis"/>
 					<Item id="49000" name="E&amp;xecutar..."/>
+					<Item id="49001" name="Validar shortcuts.xml"/>
 
 					<Item id="50000" name="Completar función"/>
 					<Item id="50001" name="Completar palabra"/>
@@ -440,6 +443,7 @@ Translation note:
 				<Item CMDID="1" name="Abrir en"/>
 				<Item CMDID="41019" name="Abrir carpeta contedora no Explorador"/>
 				<Item CMDID="41020" name="Abrir carpeta contedora en CMD"/>
+				<Item CMDID="41027" name="Abrir carpeta contedora en PowerShell"/>
 				<Item CMDID="41025" name="Abrir carpeta contedora como espazo de traballo"/>
 				<Item CMDID="41023" name="Abrir no visualizador predeterminado"/>
 				<Item CMDID="41017" name="Renomear..."/>
@@ -448,7 +452,7 @@ Translation note:
 				<Item CMDID="41010" name="Imprimir..."/>
 				<Item CMDID="42028" name="Só lectura en Notepad++"/>
 				<Item CMDID="42033" name="Atributo de só lectura en Windows"/>
-				<Item CMDID="2" name="Copiar ao portapapeis"/>
+				<Item CMDID="2" name="Copiar ao Portapapeis"/>
 				<Item CMDID="42029" name="Copiar ruta completa do arquivo"/>
 				<Item CMDID="42030" name="Copiar nome do arquivo"/>
 				<Item CMDID="42031" name="Copiar ruta actual"/>
@@ -530,6 +534,7 @@ Translation note:
 				<Item id="1681" name="Buscar:"/>
 				<Item id="1685" name="&amp;Coincidir MAIÚS/minús"/>
 				<Item id="1690" name="&amp;Marcar todo"/>
+				<Item id="1691" name="C&amp;ontar"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Rango de busca de caracteres">
@@ -563,52 +568,52 @@ Translation note:
 
 			<MD5FromFilesDlg title="Xerar resumo MD5 desde os arquivos">
 				<Item id="1922" name="Seleccione os arquivos para &amp;xerar MD5..."/>
-				<Item id="1924" name="Co&amp;piar ao portapapeis"/>
+				<Item id="1924" name="Co&amp;piar ao Portapapeis"/>
 				<Item id="2" name="Pe&amp;char"/>
 			</MD5FromFilesDlg>
 
 			<MD5FromTextDlg title="Xerar resumo MD5">
 				<Item id="1932" name="Tratar cada liña coma unha cadea &amp;separada"/>
-				<Item id="1934" name="Co&amp;piar ao portapapeis"/>
+				<Item id="1934" name="Co&amp;piar ao Portapapeis"/>
 				<Item id="2" name="Pe&amp;char"/>
 			</MD5FromTextDlg>
 
 			<SHA256FromFilesDlg title="Xerar resumo SHA-256 desde os arquivos">
 				<Item id="1922" name="Seleccione os arquivos para &amp;xerar SHA-256..."/>
-				<Item id="1924" name="Co&amp;piar ao portapapeis"/>
+				<Item id="1924" name="Co&amp;piar ao Portapapeis"/>
 				<Item id="2" name="Pe&amp;char"/>
 			</SHA256FromFilesDlg>
 
 			<SHA256FromTextDlg title="Xerar resumo SHA-256">
 				<Item id="1932" name="Tratar cada liña coma unha cadea &amp;separada"/>
-				<Item id="1934" name="Co&amp;piar ao portapapeis"/>
+				<Item id="1934" name="Co&amp;piar ao Portapapeis"/>
 				<Item id="2" name="Pe&amp;char"/>
 			</SHA256FromTextDlg>
 
 			<SHA1FromFilesDlg title="Xerar resumo SHA-1 desde os arquivos">
 				<Item id="1922" name="Seleccione os arquivos para &amp;xerar SHA-1..."/>
-				<Item id="1924" name="Co&amp;piar ao portapapeis"/>
+				<Item id="1924" name="Co&amp;piar ao Portapapeis"/>
 				<Item id="2" name="Pe&amp;char"/>
 			</SHA1FromFilesDlg>
 
 			<SHA1FromTextDlg title="Xerar resumo SHA-1">
 				<Item id="1932" name="Tratar cada liña coma unha cadea &amp;separada"/>
-				<Item id="1934" name="Co&amp;piar ao portapapeis"/>
+				<Item id="1934" name="Co&amp;piar ao Portapapeis"/>
 				<Item id="2" name="Pe&amp;char"/>
 			</SHA1FromTextDlg>
 
 			<SHA512FromFilesDlg title="Xerar resumo SHA-512 desde os arquivos">
 				<Item id="1922" name="Seleccione os arquivos para &amp;xerar SHA-512..."/>
-				<Item id="1924" name="Co&amp;piar ao portapapeis"/>
+				<Item id="1924" name="Co&amp;piar ao Portapapeis"/>
 				<Item id="2" name="Pe&amp;char"/>
 			</SHA512FromFilesDlg>
 
 			<SHA512FromTextDlg title="Xerar resumo SHA-512">
 				<Item id="1932" name="Tratar cada liña coma unha cadea &amp;separada"/>
-				<Item id="1934" name="Co&amp;piar ao portapapeis"/>
+				<Item id="1934" name="Co&amp;piar ao Portapapeis"/>
 				<Item id="2" name="Pe&amp;char"/>
 			</SHA512FromTextDlg>
-			<PluginsAdminDlg title="Administrar complementos" titleAvailable="Dispoñibles" titleUpdates="Actualizar" titleInstalled="Instalados" titleIncompatible="Incompatibles">
+			<PluginsAdminDlg title="Administrar complementos" titleAvailable="Dispoñibles" titleUpdates="Actualizar" titleInstalled="Instalados" titleIncompatible="Incompatibles" titleDisabled="Desactivados">
 				<ColumnPlugin name="Complementos"/>
 				<ColumnVersion name="Versión"/>
 				<Item id="5501" name="&amp;Buscar:"/>
@@ -618,6 +623,8 @@ Translation note:
 				<Item id="5508" name="&amp;Seguinte"/>
 				<Item id="5509" name="Versión da listaxe de complementos:"/>
 				<Item id="5511" name="Repositorio lista de complementos"/>
+				<Item id="5512" name="D&amp;esactivar"/>
+				<Item id="5513" name="&amp;Activar"/>
 				<Item id="2" name="Pechar"/>
 			</PluginsAdminDlg>
 
@@ -655,6 +662,10 @@ Translation note:
 				</SubDialog>
 			</StyleConfig>
 
+			<ColorPopup>
+				<Item id="1" name="Máis cores..."/>
+			</ColorPopup>
+
 			<ShortcutMapper title="Configurador de accesos directos">
 				<Item id="2602" name="Modificar"/>
 				<Item id="2603" name="Borrar"/>
@@ -679,6 +690,8 @@ Translation note:
 				<MainCommandNames>
 					<Item id="41019" name="Abrir carpeta contedora no Explorador de arquivos"/>
 					<Item id="41020" name="Abrir carpeta contedora no Símbolo do sistema"/>
+					<Item id="41027" name="Abrir carpeta contedora en PowerShell"/>
+					<Item id="41025" name="Abrir carpeta contedora como espazo de traballo"/>
 					<Item id="41021" name="Restaurar arquivo pechado recentemente"/>
 					<Item id="45001" name="Conversión EOL a Windows (CR LF)"/>
 					<Item id="45002" name="Conversión EOL a Unix (LF)"/>
@@ -771,7 +784,7 @@ Translation note:
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Acceso directo">
-				<Item id="1" name="OK"/>
+				<Item id="1" name="Aceptar"/>
 				<Item id="2" name="Cancelar"/>
 				<Item id="5006" name="Nome"/>
 				<Item id="5008" name="Engadir"/>
@@ -826,7 +839,7 @@ Translation note:
 					<Item id="25028" name="Números"/>
 					<Item id="25033" name="Transparente"/>
 					<Item id="25034" name="Transparente"/>
-					<Item id="1" name="OK"/>
+					<Item id="1" name="Aceptar"/>
 					<Item id="2" name="Cancelar"/>
 				</StylerDialog>
 				<Folder title="Carpeta &amp;&amp; Predeterminado">
@@ -1134,6 +1147,7 @@ Translation note:
 					<Item id="4010" name="Extensións rexistradas:"/>
 				</FileAssoc>
 
+
 				<Language title="Linguaxes">
 					<Item id="6505" name="Dispoñibles"/>
 					<Item id="6506" name="Desactivadas"/>
@@ -1175,6 +1189,7 @@ Translation note:
 
 				<Print title="Impresión">
 					<Item id="6601" name="Imprimir número de li&amp;ña"/>
+					<Item id="6616" name="Imprimir o &amp;salto de páxina nunha páxina nova"/>
 					<Item id="6602" name="Opcións de cor"/>
 					<Item id="6603" name="Sen &amp;modificar"/>
 					<Item id="6604" name="In&amp;vertir"/>
@@ -1194,7 +1209,7 @@ Translation note:
 					<Item id="6717" name="Gros&amp;a"/>
 					<Item id="6718" name="C&amp;ursiva"/>
 					<Item id="6719" name="Pé de páxina"/>
-					<Item id="6720" name="Parte es&amp;querda"/>
+					<Item id="6720" name="Parte é&amp;querda"/>
 					<Item id="6721" name="Parte cen&amp;tral"/>
 					<Item id="6722" name="Pa&amp;rte dereita"/>
 					<Item id="6723" name="Engad&amp;ir"/>
@@ -1288,7 +1303,7 @@ Translation note:
 					<Item id="6172" name="Formato personalizado:"/>
 					<Item id="6181" name="Estado do panel e [-nosesión] *"/>
 					<Item id="6182" name="Recordar o estado do panel (se está aberto) en outras instancias (modo múltiples instancias) ou cando use o comando [-nosession]"/>
-					<Item id="6183" name="Historial do portapapeis"/>
+					<Item id="6183" name="Historial do Portapapeis"/>
 					<Item id="6184" name="Listaxe de documentos"/>
 					<Item id="6185" name="Panel de caracteres"/>
 					<Item id="6186" name="Carpeta como espazo de traballo"/>
@@ -1386,6 +1401,7 @@ Translation note:
 					<Item id="6346" name="Ver no mapa do documento"/>
 					<Item id="6360" name="Silenciar tódolos sons"/>
 					<Item id="6361" name="Habilitar o cadro de diálogo de confirmación &quot;Gardar todo&quot;"/>
+					<Item id="6366" name="Permitir a carga de ligazóns simbólicas no panel da carpeta como espazo de traballo"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Executar macro múltiples veces">
@@ -1452,11 +1468,22 @@ Pode reactivalo en Preferencias se o desexa."/>
 				<Item id="6" name="&amp;Si"/>
 				<Item id="7" name="&amp;Non"/>
 				<Item id="4" name="Sem&amp;pre si"/>
-			</DoSaveAll><!-- HowToReproduce: Check the &quot;Enable Save All confirm dialog&quot; checkbox in Preference->MISC, now click &quot;Save all&quot; -->
+			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+			<NetworkPathWarning title="Cargar sesión de Notepad++" title2="Clic no arquivo:// link" title3="Cargar toolbarButtonsConf.xml" title4="Cargar arquivo Project Panel XML">
+				<Item id="1771" name="Advertencia sobre a ruta de rede:
 
+$STR_REPLACE$
+
+Ao cargar, Windows autenticarase automáticamente nese servidor, o que podería expoñer os sus datos de inicio de sesión de Windows.
+¿Desexa cargalo de todos modos?"/>
+				<Item id="2" name="O&amp;mitir"/>
+				<Item id="6" name="Car&amp;gar"/>
+				<Item id="7" name="Omitir sempre a ruta de re&amp;de"/>
+				<Item id="4" name="Cargar sem&amp;pre a ruta de rede"/>
+			</NetworkPathWarning>
 			<DebugInfo title="Información de depuración">
-				<Item id="1752" name="&amp;Copiar información ao portapapeis"/>
-				<Item id="1" name="OK"/>
+				<Item id="1752" name="&amp;Copiar información ao Portapapeis"/>
+				<Item id="1" name="Aceptar"/>
 			</DebugInfo>
 		</Dialog>
 		<MessageBox>
@@ -1487,7 +1514,7 @@ A súa configuración na nube cancelarase. Reinicie cun valor coherente usando o
 			<FilePathNotFoundWarning title="Abrir arquivo" message="O arquivo que está intentando abrir non existe."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SessionFileInvalidError title="Non se puido cargar a sesión" message="O arquivo de sesión está danado ou non é válido."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Acción non válida" message="Só pode soltar arquivos ou carpetas, pero non ambos, porque está soltando Carpeta como modo Proxecto.
-Debe habilitar &quot;Abrir tódolos arquivos da carpeta&quot; en vez de iniciar &quot;Carpeta como espazo de traballo&quot; na carpeta que se solta en &quot;Carpeta por defecto&quot; no cadro de diálogo de Preferencias para que esta operación funcione."/>
+Debe habilitar &quot;Abrir tódolos arquivos da carpeta en vez de abrila como espazo de traballo ao soltar a carpeta&quot; en &quot;Carpeta predeterminada&quot; no cadro de diálogo de Preferencias para que esta operación funcione."/>
 			<SortingError title="Erro de clasificación" message="Non se pode realizar a ordenación numérica debido á liña $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SortLocaleMultiple title="Ordenación non realizada" message="Non é posible ordenar seleccións múltiples."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<SortLocaleUnknown title="Ordenación fallida" message="Non se pode determinar a causa pola que fallou a ordenación."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
@@ -1596,7 +1623,7 @@ NOTA: Se elixe non crear os marcadores de posición ou cerrarlos máis tarde, a 
 
 ¿Quere crear eses marcadores de posición?
 
-NOTA: ¡Se elixe non crear os marcadores de posición ou cerrarlos máis tarde, a súa sesión SERÁ MODIFICADA AO SAÍR! Suxerímoslle que faga unha copia de seguridade do seu &quot;session.xml&quot; agora."/>
+NOTA: ¡Se elixe non crear os marcadores de posición ou pechalos máis tarde, a súa sesión SERÁ MODIFICADA AO SAÍR! Suxerímoslle que faga unha copia de seguridade da seu &quot;session.xml&quot; agora."/>
 			<RTLvsDirectWrite title="Non se pode executar RTL" message="RTL non é compatible co modo DirectWrite. Desactíveo en Configuración -> Preferencias -> Varios e reinicie Notepad++."/>
 			<FileMemoryAllocationFailed title="Excepción: fallo na asignación de memoria para os arquivos" message="É posible que non haxa memoria dabondo dispoñible para os arquivos que quere abrir con Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 			<FindRegexBackwardDisabled title="Busca regex cara atrás desactivada" message="Por defecto, a busca regex cara atrás está desactivada debido aos resultados potencialmente inesperados. Para realizar unha busca cara atrás, abra o cadro de diálogo Buscar e seleccione o modo de busca normal ou ampliado en lugar da expresión regular.
@@ -1608,9 +1635,21 @@ Se necesita a función de busca regex cara atrás, consulte o manual do usuario 
 Por favor, comprobe a condición da busca antes de realizar a acción."/><!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="É necesario reiniciar Notepad++" message="Debe reiniciar Notepad++ para mostrar os accesos directos da dereita no menú."/>
 			<NoAdminRight2ChangeReadOnlyFileAttribute title="Non se pode cambiar o atributo de só lectura do arquivo" message="Reinicie Notepad++ como administrador para poder cambialo."/>
+			<ReadOnlyFileCannotBeSaved title="Erro ao gardar: o arquivo é de só lectura" message="&quot;$STR_REPLACE$&quot;
+O arquivo é de só lectura e non permite gardar cambios.
+Desactive a opción de só lectura e garde o arquivo."/>
+			<ShortcutsXmlHMACMissing title="Aviso de seguridade" message="Falta a información de seguridade de shortcuts.xml en config.xml.
+
+Por motivos de seguridade, comprobarase a integridade do arquivo shortcuts.xml. Para executar o seu comando personalizado, revise o arquivo shortcuts.xml aberto. Se o contido do arquivo é correcto, utilice a opción &quot;Validar shortcuts.xml&quot; do menú &quot;Executar&quot; para confirmalo."/>
+			<ShortcutsXmlTampered title="Aviso de seguridade" message="Parece que o arquivo shortcuts.xml modificouse de forma manual.
+
+Por motivos de seguridade, revise o arquivo shortcuts.xml aberto. Se o contido do arquivo é correcto, utilice a opción &quot;Validar shortcuts.xml&quot; do menú &quot;Executar&quot; para confirmalo."/>
+			<SymlinkLoadingWarning title="Advertencia: a carga de ligazóns simbólicas pode bloquear o sistema" message="Habilitar a carga de ligazóns simbólicas en Carpeta como espazo de traballo pode facer que Notepad++ entre nun bucle infinito bloqueándose.
+Isto pode ocurrer cando as ligazóns simbólicas dos directorios apuntan a carpetas superiores ou forman referencias circulares.
+Continúe só se comprende os riscos."/>
 		</MessageBox>
 		<ClipboardHistory>
-			<PanelTitle name="Historial do portapapeis"/>
+			<PanelTitle name="Historial do Portapapeis"/>
 		</ClipboardHistory>
 		<DocList>
 			<PanelTitle name="Listaxe de documentos"/>
@@ -1662,9 +1701,10 @@ Por favor, comprobe a condición da busca antes de realizar a acción."/><!-- Ho
 				<Item id="3515" name="Abrir"/>
 				<Item id="3516" name="Copiar ruta"/>
 				<Item id="3517" name="Encontrar en arquivos..."/>
-				<Item id="3518" name="Abrir Explorador de arquivos"/>
+				<Item id="3518" name="Abrir en Explorador de arquivos"/>
 				<Item id="3519" name="Abrir en CMD"/>
 				<Item id="3520" name="Copiar nome de arquivo"/>
+				<Item id="3521" name="Abrir en PowerShell"/>
 			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>
@@ -1773,6 +1813,7 @@ Buscar en tódolos arquivos pero excluir tódalas carpetas de rexistro ou rexist
 			<find-status-scope-all value="en todo o arquivo."/>
 			<find-status-scope-backward value="desde o inicio do arquivo até o cursor."/>
 			<find-status-scope-forward value="desde o cursor até a final do arquivo."/>
+			<find-status-replace-invalid-replace-chars value="Sustituír: nun documento ANSI non se pode sustituír texto non ANSI"/>
 			<find-status-invisible-chars-findWhat value="Caracteres non visibles no contido pegado en &quot;Buscar&quot; ou &quot;Substituir con&quot;."/>
 			<find-status-invisible-chars-findWhat-tip value="Aviso: Caracteres non visibles no campo de busca (ou substitución).
 O texto pegado neste campo inclúe caracteres non visibles (quizais de fin de liña). Se continúa sen eliminalos, incluiranse no texto de busca (ou substitución)."/>
@@ -1786,9 +1827,10 @@ O texto pegado neste campo inclúe caracteres non visibles (quizais de fin de li
 			<finder-open-selected-paths value="Abrir ruta(s) seleccionada(s)"/>
 			<finder-purge-for-every-search value="Depurar para cada busca"/>
 			<finder-wrap-long-lines value="Axustar lonxitude do texto"/>
-			<common-ok value="OK"/>
+			<common-ok value="Aceptar"/>
 			<common-cancel value="Cancelar"/>
 			<common-name value="Nome"/>
+			<common-error value="Error"/>
 			<tabrename-title value="Renomear pestana actual"/>
 			<tabrename-newname value="Nome novo"/>
 			<splitter-rotate-left value="Xirar á esquerda"/>
@@ -1835,6 +1877,7 @@ O texto pegado neste campo inclúe caracteres non visibles (quizais de fin de li
 			<tab-untitled-string value="novo"/>
 			<file-save-assign-type value="Eng&amp;adir extensión"/>
 			<close-panel-tip value="Pechar"/>
+			<IncrementalFind-FSFound value="$INT_REPLACE$ coinciden"/>
 			<IncrementalFind-FSNotFound value="Frase non encontrada"/>
 			<IncrementalFind-FSTopReached value="Chegouse ao inicio da páxina, continúa desde o final"/>
 			<IncrementalFind-FSEndReached value="Chegouse ao final da páxina, continúa desde o principio"/>

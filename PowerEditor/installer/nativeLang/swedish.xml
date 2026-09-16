@@ -1471,11 +1471,12 @@ Du kan aktivera denna dialogruta i inställningarna senare."/>
 
 $STR_REPLACE$
 
-Om den läses in kommer Windows automatiskt att autentisera mot servern, vilket potentiellt kan exponera din inloggningsinformation för Windows.
+Om den här filen läses in kommer Windows automatiskt att autentisera mot dess server, vilket potentiellt kan exponera din inloggningsinformation för Windows.
 Vill du läsa in den ändå?"/>
 				<Item id="2" name="Hoppa öve&amp;r"/>
+				<Item id="6" name="&amp;Läs alltid in från denna server"/>
 				<Item id="7" name="Hoppa &amp;alltid över "/>
-				<Item id="4" name="Läsa alltid in &amp;nätverkssökvägar"/>
+				<Item id="4" name="Läs alltid in &amp;nätverkssökvägar"/>
 			</NetworkPathWarning>
 
 			<DebugInfo title="Felsökningsinformation">
@@ -1950,6 +1951,9 @@ Om du väljer avancerat läge men inte redigerar filer i de omfattande språken 
 			<max-len-on-save-tip value="Din inmatning är riktigt lång och kanske inte kommer att sparas till nästa session."/>
 			<goto-setting-tip value="Hitta din inställning här"/>
 			<tabbar-tabcompactlabellen-tip value="Begränsar längden som syns på långa flikar. Tryck på Enter för att verkställa angivet värde. Värdesintervall: 1-257 tecken (0 inaktiverar trunkering)."/>
+			<networkpathwarning-serverwhitelist-tip value="Lägger till servern för den aktuella filen i Notepad++:s serverWhiteList.xml.
+
+Klicka på knappen för att öppna webbplatsen med relevant användarhandboksavsnitt för mer information."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

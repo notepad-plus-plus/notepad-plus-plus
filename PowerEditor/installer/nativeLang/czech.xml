@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.9.7  10/Aug/2026  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.9.8 16/Sep/2026  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.9.7">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.9.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1318,6 +1318,7 @@
 					<Item id="6361" name="Povolit potvrzovací dialog &quot;Uložit všechny&quot;"/>
 					<Item id="6363" name="vykreslovací režim"/>
 					<Item id="6365" name="Automat. aktualizace:"/>
+					<Item id="6366" name="Povolit načítání symbolických odkazů v panelu Složka jako pracovní plocha"/>
 				</MISC>
 				<Backup title="Zálohování">
 					<Item id="6219" name="Uživatelsky definovaný adresář pro zálohování"/>
@@ -1494,16 +1495,18 @@ Potvrzovací dialog můžete kdykoliv reaktivovat v &quot;Nastavení&quot;."/>
 				<Item id="4" name="&amp;Pokaždé ano"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
 
-			<NetworkPathWarning title="Načtení relace Notepadu++" title2="Klikatelný odkaz file://">
-				<Item id="1771" name="Varování před uloženou síťovou cestou:
+			<NetworkPathWarning title="Načítání relace Notepadu++" title2="Klikatelný odkaz file://" title3="Načítání toolbarButtonsConf.xml" title4="Načítání XML-souboru panelu Projektů">
+				<Item id="1771" name="Varování před síťovou cestou:
 
 $STR_REPLACE$
 
-Načtení způsobí, že se systém Windows automaticky ověří danému serveru, což může vést k odhalení vašich přihlašovacích údajů do systému Windows.
+Načtení tohoto souboru způsobí, že se systém Windows automaticky ověří příslušnému serveru, což může vést k odhalení Vašich přihlašovacích údajů do systému Windows.
+
 Přesto načíst?"/>
 				<Item id="2" name="&amp;Přeskočit"/>
-				<Item id="7" name="&amp;Vždy přeskočit síťovou cestu"/>
-				<Item id="4" name="Vždy načíst &amp;síťovou cestu"/>
+				<Item id="6" name="Vždy &amp;načítat z tohoto serveru"/>
+				<Item id="7" name="Vždy přeskakovat &amp;síťové cesty"/>
+				<Item id="4" name="Vždy načítat síťové &amp;cesty"/>
 			</NetworkPathWarning>
 
 			<DebugInfo title="Informace k ladění">
@@ -1639,6 +1642,11 @@ Z bezpečnostních důvodů musí být nejprve ověřena integrita souboru short
 			<ShortcutsXmlTampered title="Bezpečnostní upozornění" message="Soubor shortcuts.xml byl pravděpodobně manuálně upraven nebo poškozen.
 
 Z bezpečnostních důvodů musí být nejprve ověřena jeho integrita. Pokud chcete spustit vlastní příkaz(y), nejprve zkontrolujte otevřený soubor shortcuts.xml. Jestliže bude jeho obsah v pořádku, použijte příkaz &quot;Ověřit soubor shortcuts.xml&quot; v menu 'Spustit'."/>
+			<SymlinkLoadingWarning title="Varování: Načítání symbolických odkazů může způsobit zamrznutí." message="Povolení načítání symbolických odkazů pro panel Složka jako pracovní plocha může způsobit, že Notepad++ přejde do nekonečné smyčky a zamrzne.
+
+K tomu může dojít, pokud symbolické odkazy na adresáře odkazují na nadřazené složky nebo vytvářejí cyklické odkazy.
+
+Pokračujte pouze tehdy, pokud rozumíte rizikům."/>
 		</MessageBox>
 		
 		<ClipboardHistory>
@@ -1945,6 +1953,9 @@ Pokud zvolíte Pokročilý režim, ale nebudete upravovat soubory výše zmíně
 			<max-len-on-save-tip value="Délka Vámi zadaného textu je příliš dlouhá a nemusí být uložena pro příští relaci(e)."/>
 			<goto-setting-tip value="Nastavení najdete zde"/>
 			<tabbar-tabcompactlabellen-tip value="Omezuje viditelnou délku dlouhých názvů karet. Stisknutím klávesy Enter použijete zde zadanou hodnotu okamžitě. Rozsah hodnot: 1–257 znaků (0 zakáže zkracování)."/>
+			<networkpathwarning-serverwhitelist-tip value="Přidá server aktuálního souboru na seznam povolených v Notepadu++ (serverWhiteList.xml).
+
+Pro více informací klikněte na toto tlačítko a otevře se Vám webová stránka s příslušnou částí Uživatelské příručky."/>
 		</MiscStrings>
 
 	</Native-Langue>

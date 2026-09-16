@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 28 Aug 2026 for 8.9.8+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 16 Sep 2026 for 8.9.8+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -1474,9 +1474,10 @@ Você pode reativar esta janela de confirmação em Preferências depois."/>
 
 $STR_REPLACE$
 
-Efetuar a carga vai fazer com que o Windows automaticamente autentique neste servidor, potencialmente expondo suas informações de login no Windows.
+Efetuar a carga deste arquivo vai fazer com que o Windows automaticamente autentique neste servidor, potencialmente expondo suas informações de login no Windows.
 Carrega assim mesmo?"/>
 				<Item id="2" name="&amp;Ignorar"/>
+				<Item id="6" name="Sempre &amp;carregar deste servidor"/>
 				<Item id="7" name="&amp;Sempre ignore caminho de rede"/>
 				<Item id="4" name="Sempre carregue caminho de &amp;rede"/>
 			</NetworkPathWarning>
@@ -1945,7 +1946,10 @@ Se você ativar o modo avançado mas não editar arquivos destas linguagens, a i
 			<max-len-on-search-tip value="São permitidos apenas $INT_REPLACE$ caracteres para tamanho de texto de localização/substituição - o seu texto pode ser truncado, e não será salvo para a próxima sessão."/>
 			<max-len-on-save-tip value="Este texto de localização (> $INT_REPLACE$ caracteres) não será salvo para a próxima sessão."/>
 			<goto-setting-tip value="Encontre sua configuração aqui"/>
-			<!-- <tabbar-tabcompactlabellen-tip value="Limita o tamanho visível de nomes longos em abas. Use para aplicar o tamanho desejado. Faixa de valores: 1-257 caracteres (0 desabilita a limitação)."/> -->
+			<tabbar-tabcompactlabellen-tip value="Limita o tamanho visível de nomes longos em abas. Use para aplicar o tamanho desejado. Faixa de valores: 1-257 caracteres (0 desabilita a limitação)."/>
+			<networkpathwarning-serverwhitelist-tip value="Colocar o servidor do arquivo atual no arquivo serverWhiteList.xml do Notepad++.
+
+Para mais informações, clique neste botão para abrir o site com o capítulo relevante do Manual do Usuário."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

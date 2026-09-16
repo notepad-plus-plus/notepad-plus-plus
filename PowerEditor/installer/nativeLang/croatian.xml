@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: August 28, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: September 16, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
@@ -1489,9 +1489,10 @@ Ovaj dijalog možete kasnije ponovo aktivirati u Postavkama."/>
 
 $STR_REPLACE$
 
-Učitavanje će uzrokovati automatsku autentifikaciju sustava Windows na tom poslužitelju, što potencijalno otkriva vaše podatke za prijavu u sustav Windows.
+Učitavanje ove datoteke će uzrokovati automatsku autentifikaciju sustava Windows na njenom poslužitelju, što potencijalno otkriva vaše podatke za prijavu u sustav Windows.
 Učitaj svejedno?"/>
 				<Item id="2" name="&amp;Preskoči"/>
+				<Item id="6" name="&amp;Uvijek učitaj s ovog servera"/>
 				<Item id="7" name="Uvijek p&amp;reskoči mrežnu putanju"/>
 				<Item id="4" name="Uvijek u&amp;čitaj mrežnu putanju"/>
 			</NetworkPathWarning>
@@ -1964,6 +1965,9 @@ Ako odaberete napredni način, ali ne uređujete datoteke na gore navedenim jezi
 			<max-len-on-save-tip value="Vaš unos je vrlo dugačak i neće biti spremljen za sljedeću sesiju."/>
 			<goto-setting-tip value="Pronađite svoju postavku ovdje"/>
 			<tabbar-tabcompactlabellen-tip value="Ograničava vidljivu duljinu dugih naziva na jezičcima kartica. Pritisnite Enter za primjenu zadane vrijednosti. Raspon vrijednosti: 1-257 znakova (0 onemogućuje skraćivanje)."/>
+			<networkpathwarning-serverwhitelist-tip value="Upisuje poslužitelj trenutne datoteke u Notepad++ serverWhiteList.xml.
+
+Za više informacija, kliknite ovaj gumb kako biste otvorili web stranicu s odgovarajućim dijelom korisničkog priručnika."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

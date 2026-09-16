@@ -1480,7 +1480,6 @@ $STR_REPLACE$
 Yüklenmesi, Windows'un o sunucuya otomatik olarak kimlik doğrulamasına neden olacak, bu da Windows giriş bilginizin potansiyel olarak ifşa olmasına sebep olacaktır.
 Yine de yüklensin mi?"/>
 				<Item id="2" name="&amp;Atla"/>
-				<Item id="6" name="Yük&amp;le"/>
 				<Item id="7" name="&amp;Ağ Yolunu Her Zaman Atla"/>
 				<Item id="4" name="Ağ Yolunu Her Zaman Yükl&amp;e"/>
 			</NetworkPathWarning>

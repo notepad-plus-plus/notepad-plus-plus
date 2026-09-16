@@ -1406,7 +1406,7 @@ $STR_REPLACE$
 載入該檔案會導致 Windows 自動向該伺服器進行身份驗證，這可能會洩露您的 Windows 登入資訊。
 仍然加載嗎？"/>
 				<Item id="2" name="略過"/>
-				<Item id="6" name="載入"/>
+				<Item id="6" name="一律從此伺服器載入"/>
 				<Item id="7" name="一律略過網路路徑"/>
 				<Item id="4" name="一律載入網路路徑"/>
 			</NetworkPathWarning>
@@ -1769,6 +1769,9 @@ C、C++、Java、C#、Objective-C、PHP、JavaScript、JSP、CSS、Perl、Rust�
 			<max-len-on-save-tip value="輸入內容過長，可能無法保存以供下次 Notepad++ 啟動時使用。"/>
 			<goto-setting-tip value="相關的偏好設定在此"/>
 			<tabbar-tabcompactlabellen-tip value="限制頁籤名稱的可見長度。按 Enter 鍵套用設定值。設定值範圍：1-257 個字元（0 取消截斷頁籤名稱功能）。"/>
+			<networkpathwarning-serverwhitelist-tip value="將目前檔案所屬的伺服器加入 Notepad++ 的 serverWhiteList.xml。
+
+如需更多資訊，請點擊此按鈕以開啟使用者手冊中相關的章節"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

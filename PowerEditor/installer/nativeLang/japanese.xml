@@ -1482,7 +1482,6 @@ $STR_REPLACE$
 この読み込みを続けると、Windowsが自動的にこのサーバーと認証を行うため、Windowsのログイン情報が漏洩する恐れがあります。
 読み込みを続けますか？"/>
 				<Item id="2" name="スキップ(&amp;S)"/>
-				<Item id="6" name="読み込む(&amp;L)"/>
 				<Item id="7" name="常にネットワークパスをスキップ(&amp;A)"/>
 				<Item id="4" name="常にネットワークパスを読み込む(&amp;E)"/>
 			</NetworkPathWarning>

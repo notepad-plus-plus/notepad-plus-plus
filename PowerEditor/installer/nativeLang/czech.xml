@@ -1502,7 +1502,6 @@ $STR_REPLACE$
 Načtení způsobí, že se systém Windows automaticky ověří danému serveru, což může vést k odhalení vašich přihlašovacích údajů do systému Windows.
 Přesto načíst?"/>
 				<Item id="2" name="&amp;Přeskočit"/>
-				<Item id="6" name="&amp;Načíst"/>
 				<Item id="7" name="&amp;Vždy přeskočit síťovou cestu"/>
 				<Item id="4" name="Vždy načíst &amp;síťovou cestu"/>
 			</NetworkPathWarning>

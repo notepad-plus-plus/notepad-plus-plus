@@ -3302,7 +3302,7 @@ bool NppParameters::makeDefaultServerWhiteList(bool bSave2File)
 	NppXml::Element root = NppXml::createChildElement(_pXmlServerWhiteListDoc, "NotepadPlus");
 
 	NppXml::Element childElement = NppXml::createChildElement(root, "NetworkPathsAlwaysAction");
-	NppXml::setAttribute(childElement, "value", "-"); // default (networkPathAlwaysAsk)
+	NppXml::setAttribute(childElement, "value", "?"); // default (networkPathAlwaysAsk)
 
 	return bSave2File ?
 		_pXmlServerWhiteListDoc->save_file(_serverWhiteListPath.c_str(), "    ", pugi::format_indent | pugi::format_no_declaration | pugi::format_save_file_text) 

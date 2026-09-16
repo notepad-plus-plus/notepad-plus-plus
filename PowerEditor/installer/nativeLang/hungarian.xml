@@ -1477,7 +1477,6 @@ $STR_REPLACE$
 A fájl betöltése esetén a Windows automatikusan hitelesíti magát az adott szerveren, ami potenciálisan felfedheti a Windows-bejelentkezési adatait.
 Mindenképpen betölti?"/>
 				<Item id="7" name="&amp;Kihagyás"/>
-				<Item id="6" name="&amp;Betöltés"/>
 				<Item id="2" name="&amp;Mindegyik hálózati út kihagyása"/>
 				<Item id="4" name="M&amp;indegyik hálózati út betöltése"/>
 			</NetworkPathWarning>

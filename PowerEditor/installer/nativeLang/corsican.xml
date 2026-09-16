@@ -1510,7 +1510,6 @@ $STR_REPLACE$
 Caricallu sfurzerà Windows à autenticassi autumaticamente à stu servitore, ciò chì risicheghja à espone e vostre identificazioni di cunnessione Windows.
 Caricallu quantunque ?"/>
 				<Item id="2" name="&amp;Tralascià"/>
-				<Item id="6" name="&amp;Caricà"/>
 				<Item id="7" name="&amp;Sempre tralascià u chjassu di reta"/>
 				<Item id="4" name="S&amp;empre caricà u chjassu di reta"/>
 			</NetworkPathWarning>

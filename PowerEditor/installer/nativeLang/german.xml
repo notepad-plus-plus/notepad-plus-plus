@@ -1486,7 +1486,6 @@ $STR_REPLACE$
 Wenn Sie die Datei laden, authentifiziert sich Windows automatisch bei diesem Server. Eventuell werden dadurch die Windows-Anmeldedaten offengelegt.
 Mit dem Laden fortfahren?"/>
 				<Item id="2" name="Über&amp;springen"/>
-				<Item id="6" name="&amp;Laden"/>
 				<Item id="7" name="Netzwerkpf&amp;ad immer überspringen"/>
 				<Item id="4" name="&amp;Netzwerkpfad immer laden"/>
 			</NetworkPathWarning>

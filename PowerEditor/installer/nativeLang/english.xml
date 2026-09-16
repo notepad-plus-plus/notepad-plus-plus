@@ -1474,10 +1474,10 @@ You can re-activate this dialog in Preferences later."/>
 
 $STR_REPLACE$
 
-Loading it will cause Windows to automatically authenticate to that server, potentially exposing your Windows login information.
+Loading this file will cause Windows to automatically authenticate to its server, potentially exposing your Windows login information.
 Load anyway?"/>
 				<Item id="2" name="&amp;Skip"/>
-				<Item id="6" name="&amp;Load"/>
+				<Item id="6" name="Always &amp;load from this server"/>
 				<Item id="7" name="&amp;Always skip network path"/>
 				<Item id="4" name="Always load n&amp;etwork path"/>
 			</NetworkPathWarning>
@@ -1947,6 +1947,9 @@ If you select advanced mode but do not edit files in the aforementioned language
 			<max-len-on-save-tip value="The length of your input is very long and may not be saved for your next session."/>
 			<goto-setting-tip value="Find your setting here"/>
 			<tabbar-tabcompactlabellen-tip value="Limits the visible length of long tab names. Enter to apply the given value. Value range: 1-257 characters (0 disables the truncation)."/>
+			<networkpathwarning-serverwhitelist-tip value="Puts the server of the current file into Notepad++ serverWhiteList.xml.
+
+For more info, click on this button to open website with relevant User Manual section."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -1474,7 +1474,6 @@ $STR_REPLACE$
 Jej načítaním sa systém Windows automaticky prihlási na tento server, čo môže viesť k odhaleniu vašich prihlasovacích údajov do systému Windows.
 Načítať aj tak?"/>
 				<Item id="2" name="&amp;Preskočiť"/>
-				<Item id="6" name="&amp;Načítať"/>
 				<Item id="7" name="&amp;Vždy preskočiť sieťovú cestu"/>
 				<Item id="4" name="Vždy načítať &amp;sieťovú cestu"/>
 			</NetworkPathWarning>

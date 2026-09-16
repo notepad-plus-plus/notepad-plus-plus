@@ -1481,7 +1481,6 @@ $STR_REPLACE$
 Il caricamento farà sì che Windows si autentichi automaticamente a quel server, esponendo potenzialmente le tue informazioni di accesso a Windows.
 Caricare comunque?"/>
 				<Item id="2" name="&amp;Salta"/>
-				<Item id="6" name="&amp;Carica"/>
 				<Item id="7" name="&amp;Ignora sempre il percorso di rete"/>
 				<Item id="4" name="Carica sempre il percorso di r&amp;ete"/>
 			</NetworkPathWarning>

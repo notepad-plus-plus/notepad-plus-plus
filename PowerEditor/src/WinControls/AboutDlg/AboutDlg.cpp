@@ -1042,7 +1042,7 @@ void NetworkPathWarningBox::doDialog(bool isRTL)
 void NetworkPathWarningBox::changeLang()
 {
 	wstring msg;
-	wstring defaultMessage = L"Network Path Warning:\n\n$STR_REPLACE$\n\nLoading that file will cause Windows to automatically authenticate to its server, potentially exposing your Windows login information.\n\nLoad anyway?";
+	wstring defaultMessage = L"Network Path Warning:\n\n$STR_REPLACE$\n\nLoading this file will cause Windows to automatically authenticate to its server, potentially exposing your Windows login information.\n\nLoad anyway?";
 	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 
 	if (nativeLangSpeaker)

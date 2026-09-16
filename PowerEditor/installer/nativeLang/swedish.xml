@@ -1474,7 +1474,6 @@ $STR_REPLACE$
 Om den läses in kommer Windows automatiskt att autentisera mot servern, vilket potentiellt kan exponera din inloggningsinformation för Windows.
 Vill du läsa in den ändå?"/>
 				<Item id="2" name="Hoppa öve&amp;r"/>
-				<Item id="6" name="&amp;Läs in"/>
 				<Item id="7" name="Hoppa &amp;alltid över "/>
 				<Item id="4" name="Läsa alltid in &amp;nätverkssökvägar"/>
 			</NetworkPathWarning>

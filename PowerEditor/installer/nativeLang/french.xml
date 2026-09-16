@@ -1476,7 +1476,7 @@ $STR_REPLACE$
 Le charger amènera Windows à s'authentifier automatiquement auprès de ce serveur, ce qui risque d'exposer vos informations de connexion Windows.
 Charger quand même ?"/>
 				<Item id="2" name="&amp;Ignorer"/>
-				<Item id="6" name="&amp;Charger"/>
+				<Item id="6" name="Toujours &amp;charger depuis ce serveur"/>
 				<Item id="7" name="&amp;Toujours ignorer les chemins réseau"/>
 				<Item id="4" name="Toujours charger les chemins &amp;réseau"/>
 			</NetworkPathWarning>
@@ -1947,6 +1947,9 @@ Si vous sélectionnez le mode avancé sans modifier les fichiers des langues men
 			<max-len-on-save-tip value="La longueur de votre saisie est très longue et il se peut qu'elle ne soit pas enregistrée pour votre prochaine session."/>
 			<goto-setting-tip value="Réglage du paramètre ici"/>
 			<tabbar-tabcompactlabellen-tip value="Limiter la longueur du libellé pour compacter l'onglet. Appuyez sur Entrée pour appliquer la valeur indiquée. Valeurs possibles : 1 à 257 caractères (0 désactive la troncature)."/>
+			<networkpathwarning-serverwhitelist-tip value="Ajoute le serveur du fichier actuel dans serverWhiteList.xml de Notepad++.
+
+Pour plus d'informations, cliquez sur ce bouton pour ouvrir la section correspondante du manuel utilisateur."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

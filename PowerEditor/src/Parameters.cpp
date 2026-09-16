@@ -1943,6 +1943,12 @@ void NppParameters::destroyInstance()
 		delete l._udlXmlDoc;
 	}
 
+	if (_pXmlServerWhiteListDoc)
+	{
+		delete _pXmlServerWhiteListDoc;
+		_pXmlServerWhiteListDoc = nullptr;
+	}
+
 	delete _pXmlNativeLangDoc;
 	delete _pXmlToolButtonsConfDoc;
 	delete _pXmlShortcutDoc;

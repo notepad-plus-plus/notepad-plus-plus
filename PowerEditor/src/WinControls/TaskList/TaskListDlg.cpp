@@ -30,9 +30,19 @@ static winVer windowsVersion = WV_UNKNOWN;
 static LRESULT CALLBACK hookProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	if ((nCode >= 0) && (wParam == WM_RBUTTONUP))
-    {
+	{
 		::PostMessage(hWndServer, WM_RBUTTONUP, 0, 0);
-    }
+	}
+	else if ((nCode >= 0) && (wParam == WM_LBUTTONDOWN))
+	{
+		auto* pMD = reinterpret_cast<MSLLHOOKSTRUCT*>(lParam);
+		RECT rCtrl{};
+		GetWindowRect(hWndServer, &rCtrl);
+		if (false == PtInRect(&rCtrl, pMD->pt))
+		{
+			::PostMessage(hWndServer, WM_CLOSE, 0, 0);
+		}
+	}
 	else if ((nCode >= 0) && (wParam == WM_MOUSEWHEEL) && windowsVersion >= WV_WIN10)
 	{
 		auto* pMD = reinterpret_cast<MSLLHOOKSTRUCT*>(lParam);
@@ -111,6 +121,21 @@ intptr_t CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			return TRUE;
 		}
 
+		case WM_ACTIVATE :
+		{
+			if (LOWORD(wParam) == WA_INACTIVE)
+			{
+				::EndDialog(_hSelf, -1);
+				return TRUE;
+			}
+			break;
+		}
+
+		case WM_CLOSE:
+		{
+			::EndDialog(_hSelf, -1);
+			return TRUE;
+		}
 
 		case WM_RBUTTONUP:
 		{

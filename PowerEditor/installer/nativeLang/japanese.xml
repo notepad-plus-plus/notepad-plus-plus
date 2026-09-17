@@ -1479,9 +1479,10 @@ Translation note:
 
 $STR_REPLACE$
 
-この読み込みを続けると、Windowsが自動的にこのサーバーと認証を行うため、Windowsのログイン情報が漏洩する恐れがあります。
+このファイルを読み込むと、Windowsが自動的にサーバーと認証を行うため、Windowsのログイン情報が漏洩する恐れがあります。
 読み込みを続けますか？"/>
 				<Item id="2" name="スキップ(&amp;S)"/>
+				<Item id="6" name="このサーバーからは常に読み込む(&amp;L)"/>
 				<Item id="7" name="常にネットワークパスをスキップ(&amp;A)"/>
 				<Item id="4" name="常にネットワークパスを読み込む(&amp;E)"/>
 			</NetworkPathWarning>
@@ -1940,6 +1941,9 @@ C、C++、Java、C#、Objective-C、PHP、JavaScript、JSP、CSS、Perl、Rust�
 			<max-len-on-save-tip value="入力された文字列が非常に長いため、次回のセッションに引き継がれない可能性があります。"/>
 			<goto-setting-tip value="関連する設定はこちら"/>
 			<tabbar-tabcompactlabellen-tip value="タブの名称が長いときに、表示する文字数を制限します。Enterキーを押すと反映されます。設定可能な値: 1-257 文字 (無効にするには 0 を入力)。"/>
+			<networkpathwarning-serverwhitelist-tip value="このファイルのサーバー名を、Notepad++ の serverWhiteList.xml に保存します。
+
+詳しくは、このボタンを押すと開く、オンラインマニュアルをご確認ください。"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.8"><!-- Datum: 03.09.2026, basiert auf english.xml 8.9.8 vom 28.08.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.8"><!-- Datum: 18.09.2026, basiert auf english.xml 8.9.8 vom 16.09.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -98,7 +98,7 @@ Translation note:
 					<Item id="41001" name="&amp;Neu"/>
 					<Item id="41002" name="&amp;Öffnen …"/>
 					<Item id="41019" name="E&amp;xplorer"/>
-					<Item id="41020" name="&amp;Eingabeaufforderung (cmd)"/>
+					<Item id="41020" name="&amp;Eingabeaufforderung/Kommandozeile"/>
 					<Item id="41027" name="PowerShell"/>
 					<Item id="41025" name="Ordner als Arbeitsbereich"/>
 					<Item id="41003" name="S&amp;chließen"/>
@@ -410,7 +410,7 @@ Translation note:
 					<Item id="48511" name="Aus &amp;Dateien erstellen …"/>
 					<Item id="48512" name="Aus Auswahl in der &amp;Zwischenablage erstellen"/>
 					<Item id="49000" name="Externes Programm &amp;ausführen …"/>
-					<Item id="49001" name="Überprüfe shortcuts.xml"/>
+					<Item id="49001" name="Datei 'shortcuts.xml' prüfen"/>
 
 					<Item id="50000" name="&amp;Funktionsvervollständigung"/>
 					<Item id="50001" name="&amp;Wortvervollständigung"/>
@@ -450,10 +450,10 @@ Translation note:
 				<Item CMDID="41006" name="&amp;Speichern"/>
 				<Item CMDID="41008" name="Speichern &amp;unter …"/>
 				<Item CMDID="1" name="Öffne in"/>
-				<Item CMDID="41019" name="Ordner im E&amp;xplorer öffnen"/>
-				<Item CMDID="41020" name="Kommandozeile im aktuellen &amp;Ordner öffnen"/>
-				<Item CMDID="41027" name="Ordner in PowerShell öffnen"/>
-				<Item CMDID="41025" name="Enthaltenden Ordner als Arbeitsbereich öffnen"/>
+				<Item CMDID="41019" name="Aktuellen Ordner im E&amp;xplorer öffnen"/>
+				<Item CMDID="41020" name="Aktuellen &amp;Ordner in der Kommandozeile öffnen"/>
+				<Item CMDID="41027" name="Aktuellen Ordner in PowerShell öffnen"/>
+				<Item CMDID="41025" name="Aktuellen Ordner als Arbeitsbereich öffnen"/>
 				<Item CMDID="41023" name="Im Standard-Betrachter öffnen"/>
 				<Item CMDID="41017" name="Um&amp;benennen …"/>
 				<Item CMDID="41016" name="L&amp;öschen"/>
@@ -622,15 +622,15 @@ Translation note:
 				<Item id="1934" name="&amp;Kopiere in Zwischenablage"/>
 				<Item id="2" name="S&amp;chließen"/>
 			</SHA512FromTextDlg>
-			<PluginsAdminDlg title="Plugin-Verwaltung" titleAvailable="Verfügbar" titleUpdates="Aktualisierungen" titleInstalled="Installiert" titleIncompatible="Deaktiviert">
+			<PluginsAdminDlg title="Plugin-Verwaltung" titleAvailable="Verfügbar" titleUpdates="Aktualisierungen" titleInstalled="Installiert" titleIncompatible="Inkompatibel" titleDisabled="Deaktiviert">
 				<ColumnPlugin name="Plugin"/>
 				<ColumnVersion name="Version"/>
-				<Item id="5501" name="&amp;Suchen:"/>
+				<Item id="5501" name="&amp;Suche:"/>
 				<Item id="5503" name="&amp;Installieren"/>
 				<Item id="5504" name="&amp;Aktualisieren"/>
 				<Item id="5505" name="&amp;Entfernen"/>
 				<Item id="5508" name="&amp;Nächstes finden"/>
-				<Item id="5509" name="&amp;Version der Plugin-Liste: "/>
+				<Item id="5509" name="&amp;Version der Plugin-Liste:"/>
 				<Item id="5511" name="Speicherort der &amp;Plugin-Liste"/>
 				<Item id="5512" name="&amp;Deaktivieren"/>
 				<Item id="5513" name="A&amp;ktivieren"/>
@@ -697,10 +697,10 @@ Translation note:
 				<DeleteContextMenu name="Löschen"/>
 				<ClearContextMenu name="Entfernen"/>
 				<MainCommandNames>
-					<Item id="41019" name="Ordner im Explorer öffnen"/>
-					<Item id="41020" name="Ordner in der Kommandozeile öffnen"/>
-					<Item id="41027" name="Ordner in PowerShell öffnen"/>
-					<Item id="41025" name="Ordner im Arbeitsbereich öffnen"/>
+					<Item id="41019" name="Aktuellen Ordner im Explorer öffnen"/>
+					<Item id="41020" name="Aktuellen Ordner in der Kommandozeile öffnen"/>
+					<Item id="41027" name="Aktuellen Ordner in PowerShell öffnen"/>
+					<Item id="41025" name="Aktuellen Ordner als Arbeitsbereich öffnen"/>
 					<Item id="41021" name="Zuletzt geschlossene Datei wieder öffnen"/>
 					<Item id="45001" name="Zeilenende umwandeln zu Windows (CR LF)"/>
 					<Item id="45002" name="Zeilenende umwandeln zu Unix (LF)"/>
@@ -1197,8 +1197,8 @@ Translation note:
 				</Highlighting>
 
 				<Print title="Drucken">
-					<Item id="6601" name="Zeilennu&amp;mmern mitdrucken"/>
-					<Item id="6616" name="Formfeed &amp;als Seitenumbruch drucken"/>
+					<Item id="6601" name="Zeilennu&amp;mmern drucken"/>
+					<Item id="6616" name="Seitenvorschub &amp;als Seitenumbruch drucken"/>
 					<Item id="6602" name="Farbo&amp;ptionen"/>
 					<Item id="6603" name="Wie angezeigt (W&amp;YSIWYG)"/>
 					<Item id="6604" name="I&amp;nvertieren"/>
@@ -1410,7 +1410,7 @@ Translation note:
 					<Item id="6346" name="Momentaufnahme in Miniaturansicht"/>
 					<Item id="6360" name="Alle Klänge stummschalten"/>
 					<Item id="6361" name="Dialogfeld 'Alle Dateien speichern' aktivieren"/>
-					<Item id="6366" name="Das Laden von Symlinks im Bereich 'Ordner als Arbeitsbereich' zulassen"/>
+					<Item id="6366" name="Laden von symbolischen Links in 'Ordner als Arbeitsbereich' zulassen"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Makro mehrfach ausführen">
@@ -1478,14 +1478,15 @@ Diese Wahl kann jederzeit in den Einstellungen angepasst werden."/>
 				<Item id="7" name="&amp;Nein"/>
 				<Item id="4" name="&amp;Immer Ja"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
-			<NetworkPathWarning title="Lade Notepad++ Sitzung" title2="Wählbare Datei:// link" title3="Lade toolbarButtonsConf.xml" title4="XML-Datei des Projektbereichs wird geladen">
-				<Item id="1771" name="Netzwerkpfad Warnung:
+			<NetworkPathWarning title="Laden der Notepad++-Sitzung" title2="Anklickbarer file://-Link" title3="Laden von toolbarButtonsConf.xml" title4="Laden der Projekt-Panel-XML-Datei">
+				<Item id="1771" name="Warnung vor Netzwerkpfad:
 
 $STR_REPLACE$
 
-Wenn Sie die Datei laden, authentifiziert sich Windows automatisch bei diesem Server. Eventuell werden dadurch die Windows-Anmeldedaten offengelegt.
-Mit dem Laden fortfahren?"/>
+Das Laden dieser Datei veranlasst Windows dazu, sich automatisch am Server zu authentifizieren, wodurch die Windows-Anmeldedaten möglicherweise offengelegt werden.
+Dennoch laden?"/>
 				<Item id="2" name="Über&amp;springen"/>
+				<Item id="6" name="Immer von diesem Server &amp;laden"/>
 				<Item id="7" name="Netzwerkpf&amp;ad immer überspringen"/>
 				<Item id="4" name="&amp;Netzwerkpfad immer laden"/>
 			</NetworkPathWarning>
@@ -1631,7 +1632,7 @@ HINWEIS: Wenn die Platzhalter nicht erstellt oder später geschlossen werden, wi
 
 Sollen diese Dateil-Platzhalter erstellt werden?
 
-HINWEIS: Wenn die Platzhalter nicht erstellt oder später geschlossen werden, wird die Sitzung beim Beenden MODIFIZIERT! Es wird empfohlen jetzt eine Sicherung der Sitzung &quot;session.xml&quot; zu machen."/>
+HINWEIS: Wenn die Platzhalter nicht erstellt oder später geschlossen werden, wird die Sitzung beim Beenden MODIFIZIERT! Es wird empfohlen jetzt eine Sicherung der Sitzung 'session.xml' zu machen."/>
 			<RTLvsDirectWrite title="Kann nicht auf 'Schreibrichtung von rechts nach links' (RTL) schalten" message="'RTL' ist nicht kompatibel mit dem 'DirectWrite' Modus. Bitte dazu 'DirectWrite' unter 'Diverses' in den Einstellungen deaktivieren und danach Notepad++ neu starten."/>
 			<FileMemoryAllocationFailed title="Ausnahmefehler: Dateispeicherzuweisung fehlgeschlagen" message="Eventuell gibt es nicht genügend zusammenhängenden freien Speicher für die von Notepad++ geladene Datei."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 			<FindRegexBackwardDisabled title="Regex-Rückwärtssuche nicht aktiv" message="Standardmäßig ist die Regex-Rückwärtssuche deaktiviert da möglicherweise unerwartete Ergebnisse auftreten. Um dennoch eine Regex-Rückwärtssuche durchzuführen, ist in der Suche entweder die normale oder erweiterte Suche statt regulärer Ausdrucke auszuwählen.
@@ -1648,13 +1649,13 @@ Die Datei ist schreibgeschützt und kann nicht gespeichert werden.
 Entferne den Schreibschutz, um die Datei zu speichern."/>
 			<ShortcutsXmlHMACMissing title="Sicherheitswarnung" message="Die Sicherheitsinformationen für 'shortcuts.xml' fehlen in 'config.xml'.
 
-Aus Sicherheitsgründen wird die Integrität der Datei 'shortcuts.xml' überprüft. Um das angepasste Kommando zu starten, bitte die geöffnete Datei 'shortcuts.xml' überprüfen. Wenn der Dateiinhalt in Ordnung ist, verwende 'Überprüfe shortcuts' aus dem Menü 'Ausführen' um das zu bestätigen."/>
-			<ShortcutsXmlTampered title="Sicherheitswarnung" message="Die Datei 'shortcuts.xml' dürfte manuell verändert worden sein.
+Aus Sicherheitsgründen wird die Integrität der Datei 'shortcuts.xml' überprüft. Um den benutzerdefinierten Befehl auszuführen, bitte die geöffnete Datei 'shortcuts.xml' durchsehen. Wenn der Dateiinhalt in Ordnung ist, verwende 'Datei shortcuts.xml prüfen' im Menü 'Ausführen', um dies zu bestätigen."/>
+			<ShortcutsXmlTampered title="Sicherheitswarnung" message="Die Datei 'shortcuts.xml' wurde anscheinend manuell verändert.
 
-Aus Sicherheitsgründen bitte die geöffnete Datei 'shortcuts.xml' überprüfen. Wenn der Dateiinhalt in Ordnung ist, verwende 'Überprüfe shortcuts' aus dem Menü 'Ausführen' um das zu bestätigen."/>
-			<SymlinkLoadingWarning title="Warnung: Das Laden von Symlinks kann zu einem Systemabsturz führen" message="Das Aktivieren des Ladens von Symlinks in 'Ordner als Arbeitsbereich' kann dazu führen, dass Notepad++ in eine Endlosschleife gerät und abstürzt.
-Das kann passieren, wenn Verzeichnis-Symlinks auf übergeordnete Ordner verweisen oder zirkuläre Verweise bilden.
-Nur fortfahren, wenn man sich der Risiken bewusst ist."/>
+Aus Sicherheitsgründen bitte die geöffnete Datei 'shortcuts.xml' durchsehen. Wenn der Dateiinhalt in Ordnung ist, verwende 'Datei shortcuts.xml prüfen' im Menü 'Ausführen', um dies zu bestätigen."/>
+			<SymlinkLoadingWarning title="Warnung: Laden von symbolischen Links kann zum Einfrieren führen" message="Das Aktivieren des Ladens symbolischer Links in 'Ordner als Arbeitsbereich' kann dazu führen, dass Notepad++ in eine Endlosschleife gerät und einfriert.
+Dies kann geschehen, wenn symbolische Links von Verzeichnissen auf übergeordnete Ordner verweisen oder zirkuläre Verweise bilden.
+Nur fortfahren, wenn man sich dieser Risiken bewusst ist."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>
@@ -1696,16 +1697,16 @@ Nur fortfahren, wenn man sich der Risiken bewusst ist."/>
 			<PreferencesInitialSort name="Funktionen standardmäßig nach Namen sortieren"/>
 		</FunctionList>
 		<FolderAsWorkspace>
-			<PanelTitle name="Verzeichnis als Arbeitsbereich"/>
-			<SelectFolderFromBrowserString name="Wähle ein Verzeichnis zum Hinzufügen zum Arbeitsbereich"/>
-			<ExpandAllFoldersTip name="Alle Verzeichnisse aufklappen"/>
-			<CollapseAllFoldersTip name="Alle Verzeichnisse zuklappen"/>
+			<PanelTitle name="Ordner als Arbeitsbereich"/>
+			<SelectFolderFromBrowserString name="Wähle einen Ordner um ihn zum Arbeitsbereich hinzuzufügen"/>
+			<ExpandAllFoldersTip name="Alle Ordner ausklappen"/>
+			<CollapseAllFoldersTip name="Alle Ordner einklappen"/>
 			<LocateCurrentFileTip name="Aktuelle Datei lokalisieren"/>
 			<Menu>
 				<Item id="3511" name="Entfernen"/>
 				<Item id="3512" name="Alle entfernen"/>
 				<Item id="3513" name="Hinzufügen …"/>
-				<Item id="3514" name="Vom System gestartet"/>
+				<Item id="3514" name="Durch System starten"/>
 				<Item id="3515" name="Öffnen"/>
 				<Item id="3516" name="Pfad kopieren"/>
 				<Item id="3517" name="In Dateien suchen …"/>
@@ -1837,10 +1838,10 @@ Der in diese Felder eingefügte Text enthält unsichtbare Zeichen (möglicherwei
 			<finder-wrap-long-lines value="Zeilenumbruch bei langen Zeilen"/>
 			<common-ok value="OK"/>
 			<common-cancel value="Abbruch"/>
-			<common-name value="Name: "/>
+			<common-name value="Name"/>
 			<common-error value="Fehler"/>
 			<tabrename-title value="Akt. Register umbenennen"/>
-			<tabrename-newname value="Neuer Name: "/>
+			<tabrename-newname value="Neuer Name"/>
 			<splitter-rotate-left value="Nach links drehen"/>
 			<splitter-rotate-right value="Nach rechts drehen"/>
 			<userdefined-title-new value="Neue Sprache erstellen …"/>
@@ -1860,7 +1861,7 @@ Der in diese Felder eingefügte Text enthält unsichtbare Zeichen (möglicherwei
 			<progress-hits-title value="Treffer:"/>
 			<progress-cancel-info value="Aktion wird abgebrochen, bitte warten …"/>
 			<find-in-files-progress-title value="Fortschritt für die Suche in Dateien …"/>
-			<discover-file-candidates-title value="Entdecke Dateikandidaten …"/>
+			<discover-file-candidates-title value="Suche nach Dateikandidaten …"/>
 			<replace-in-files-confirm-title value="Sind Sie sicher?"/>
 			<replace-in-files-confirm-directory value="Sind Sie sicher, dass alle Treffer ersetzt werden sollen in: "/>
 			<replace-in-files-confirm-filetype value="Für Dateityp: "/>
@@ -1955,6 +1956,9 @@ Wenn diese 'Intelligente Einrückung' gewählt wird, aber keine Dateien in den o
 			<max-len-on-save-tip value="Die Eingabe ist sehr lang und wird möglicherweise nicht für die nächste Sitzung gespeichert."/>
 			<goto-setting-tip value="Gehe zu den Einstellungen"/>
 			<tabbar-tabcompactlabellen-tip value="Beschränkt die sichtbare Länge von Tab-Namen. Enter-Taste drücken, um den Eingabewert anzuwenden. Wertebereich: 1-257 Zeichen (0 deaktiviert das Kürzen)."/>
+			<networkpathwarning-serverwhitelist-tip value="Fügt den Server der aktuellen Datei zur Datei 'serverWhiteList.xml' von Notepad++ hinzu.
+
+Für weitere Informationen: Klicke auf diese Schaltfläche, um die Website mit dem entsprechenden Abschnitt des Benutzerhandbuchs zu öffnen."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

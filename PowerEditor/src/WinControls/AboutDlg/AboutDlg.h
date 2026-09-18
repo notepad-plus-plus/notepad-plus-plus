@@ -186,6 +186,8 @@ protected:
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private:
+	bool normalizeText2CRLF(std::wstring& text);
+
 	int _clickedButtonId = -1;
 	std::wstring _networkPath;
 	std::string _titleTag;

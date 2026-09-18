@@ -1042,7 +1042,7 @@ void NetworkPathWarningBox::doDialog(bool isRTL)
 void NetworkPathWarningBox::changeLang()
 {
 	wstring msg;
-	wstring defaultMessage = L"Network Path Warning:\n\n$STR_REPLACE$\n\nLoading this file will cause Windows to automatically authenticate to its server, potentially exposing your Windows login information.\n\nLoad anyway?";
+	wstring defaultMessage = L"Network Path Warning:\r\n\r\n$STR_REPLACE$\r\n\r\nLoading this file will cause Windows to automatically authenticate to its server, potentially exposing your Windows login information.\r\n\r\nLoad anyway?";
 	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 
 	if (nativeLangSpeaker)
@@ -1078,7 +1078,7 @@ void NetworkPathWarningBox::changeLang()
 		{
 			constexpr size_t len = 1024;
 			wchar_t text[len]{};
-			::GetDlgItemText(_hSelf, IDC_NETWORKPATHWARNINGTEXT, text, len);
+			::GetDlgItemText(_hSelf, IDC_NETWORKPATHWARNINGTEXT_EDIT, text, len);
 			msg = text;
 		}
 	}
@@ -1088,7 +1088,9 @@ void NetworkPathWarningBox::changeLang()
 
 	msg = stringReplace(msg, L"$STR_REPLACE$", _networkPath);
 
-	::SetDlgItemText(_hSelf, IDC_NETWORKPATHWARNINGTEXT, msg.c_str());
+	normalizeText2CRLF(msg); // Windows edit-controls correctly handles only complete \r\n newlines
+
+	::SetDlgItemText(_hSelf, IDC_NETWORKPATHWARNINGTEXT_EDIT, msg.c_str());
 }
 
 intptr_t CALLBACK NetworkPathWarningBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
@@ -1099,7 +1101,7 @@ intptr_t CALLBACK NetworkPathWarningBox::run_dlgProc(UINT message, WPARAM wParam
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
-			std::wstring strServerWhiteListBtnTip = L"Puts the server of the current file into Notepad++ serverWhiteList.xml.\n\nFor more info, click on this button to open website with relevant User Manual section.";;
+			std::wstring strServerWhiteListBtnTip = L"Puts the server of the current file into Notepad++ serverWhiteList.xml.\r\n\r\nFor more info, click on this button to open website with relevant User Manual section.";;
 			NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 			if (pNativeSpeaker)
 			{
@@ -1112,6 +1114,12 @@ intptr_t CALLBACK NetworkPathWarningBox::run_dlgProc(UINT message, WPARAM wParam
 
 			changeLang();
 			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
+
+			// to clear the default edit-control whole text selection, needs to be after the whole dlg initialization completes
+			::PostMessageW(::GetDlgItem(_hSelf, IDC_NETWORKPATHWARNINGTEXT_EDIT), EM_SETSEL, (WPARAM)-1, (LPARAM)0);
+			// then we need to change focus back from the edit-control to the dlg default "Skip" button
+			::PostMessageW(_hSelf, WM_NEXTDLGCTL, (WPARAM)::GetDlgItem(_hSelf, IDCANCEL), TRUE);
+
 			return TRUE;
 		}
 
@@ -1198,4 +1206,52 @@ intptr_t CALLBACK NetworkPathWarningBox::run_dlgProc(UINT message, WPARAM wParam
 			return FALSE;
 	}
 	return FALSE;
+}
+
+// normalize EOLs in a multi-line string to Windows CRLF
+bool NetworkPathWarningBox::normalizeText2CRLF(std::wstring& text)
+{
+	if (text.empty())
+		return false;
+
+	std::wstring textNormalized;
+	textNormalized.reserve(text.size() * 2); // reserve for potential expansions
+	bool bChanged = false;
+
+	for (size_t i = 0; i < text.size(); ++i)
+	{
+		if (text[i] == L'\r')
+		{
+			if (((i + 1) < text.size()) && (text[i + 1] == L'\n'))
+			{
+				// already a valid Windows CRLF pair
+				textNormalized.push_back(L'\r');
+				textNormalized.push_back(L'\n');
+				i++; // skip the following \n
+			}
+			else
+			{
+				// isolated CR -> convert to CRLF
+				textNormalized.push_back(L'\r');
+				textNormalized.push_back(L'\n');
+				bChanged = true;
+			}
+		}
+		else if (text[i] == L'\n')
+		{
+			// isolated LF -> convert to CRLF
+			textNormalized.push_back(L'\r');
+			textNormalized.push_back(L'\n');
+			bChanged = true;
+		}
+		else
+		{
+			textNormalized.push_back(text[i]);
+		}
+	}
+
+	if (bChanged)
+		text = std::move(textNormalized);
+
+	return bChanged;
 }

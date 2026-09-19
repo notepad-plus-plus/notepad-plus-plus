@@ -61,7 +61,8 @@
 !define APPWEBSITE "https://notepad-plus-plus.org/"
 
 !define UNINSTALL_REG_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}"
-!define MEMENTO_REGISTRY_ROOT HKLM
+; SHCTX follows SetShellVarContext: HKLM for an all-users install, HKCU for a per-user install.
+!define MEMENTO_REGISTRY_ROOT SHCTX
 !define MEMENTO_REGISTRY_KEY ${UNINSTALL_REG_KEY}
 
 ; Main Install settings
@@ -69,4 +70,6 @@ Name "${APPNAMEANDVERSION}"
 
 InstallDir "$PROGRAMFILES\${APPNAME}"
 
-InstallDirRegKey HKLM "Software\${APPNAME}" ""
+; NB: InstallDirRegKey is intentionally not used here.
+; The previous installation directory is read back manually in .onInit (initInstallMode),
+; because the registry root depends on the chosen install mode (HKLM all-users / HKCU per-user).

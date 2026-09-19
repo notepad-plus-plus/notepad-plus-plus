@@ -149,6 +149,15 @@ void ContextMenu::destroy()
 {
 	if (isCreated())
 	{
+		for (int i = 0; i < TAB_COLORS_COUNT; ++i)
+		{
+			if (_tabColorBitmaps[i])
+			{
+				::DeleteObject(_tabColorBitmaps[i]);
+				_tabColorBitmaps[i] = nullptr;
+			}
+		}
+
 		for (size_t i = 0, len = _subMenus.size(); i < len; ++i)
 		{
 			::DestroyMenu(_subMenus[i]);

@@ -889,9 +889,6 @@ struct NppGUI final
 	std::string _shortcutsXmlHmacInConfig;
 	std::string _shortcutsOnDiskHmac;
 
-	enum NetworkPathWarningMethod { networkPathAlwaysAsk, networkPathAlwaysSkip, networkPathAlwaysLoad};
-	NetworkPathWarningMethod _networkPathWarningMethod = networkPathAlwaysAsk;
-
 	bool _isFawSymlinkAllowed = false; // allow to open symlink files in FaW (Folder as Workspace) panel.
 };
 
@@ -1793,6 +1790,8 @@ private:
 	NppXml::Document _pXmlContextMenuDoc = nullptr; // contextMenu.xml
 	NppXml::Document _pXmlTabContextMenuDoc = nullptr; // tabContextMenu.xml
 
+	NppXml::Document _pXmlServerWhiteListDoc = nullptr; // serverWhiteList.xml
+
 	std::vector<XmlDocPath> _pXmlExternalLexerDoc; // External lexer plugins' XMLs
 
 	NppGUI _nppGUI;
@@ -1838,8 +1837,8 @@ private:
 
 	std::wstring _loadedSessionFullFilePath;
 
-	std::array<HLSColour, 5> individualTabHuesFor_Dark{ { HLSColour{37, 60, 60}, HLSColour{70, 60, 60}, HLSColour{144, 70, 60}, HLSColour{255, 60, 60}, HLSColour{195, 60, 60} } };
-	std::array<HLSColour, 5> individualTabHues{ { HLSColour{37, 210, 150}, HLSColour{70, 210, 150}, HLSColour{144, 210, 150}, HLSColour{255, 210, 150}, HLSColour{195, 210, 150}} };
+	std::array<HLSColour, TAB_COLORS_COUNT> individualTabHuesFor_Dark{ { HLSColour{37, 60, 60}, HLSColour{70, 60, 60}, HLSColour{144, 70, 60}, HLSColour{255, 60, 60}, HLSColour{195, 60, 60} } };
+	std::array<HLSColour, TAB_COLORS_COUNT> individualTabHues{ { HLSColour{37, 210, 150}, HLSColour{70, 210, 150}, HLSColour{144, 210, 150}, HLSColour{255, 210, 150}, HLSColour{195, 210, 150}} };
 
 	std::array<COLORREF, 4> findDlgStatusMessageColor{ red, blue, darkGreen, orange };
 
@@ -1881,6 +1880,7 @@ private:
 	std::wstring _shortcutsPath;
 	std::wstring _contextMenuPath;
 	std::wstring _tabContextMenuPath;
+	std::wstring _serverWhiteListPath;
 	std::wstring _sessionPath;
 	std::wstring _nppPath;
 	std::wstring _userPath;
@@ -1932,6 +1932,18 @@ private:
 	int _currentSystemCodepage = -1;
 
 public:
+	enum NetworkPathAlwaysAction { networkPathAlwaysAsk, networkPathAlwaysSkip, networkPathAlwaysLoad };
+private:
+	NetworkPathAlwaysAction _networkPathAlwaysAction = networkPathAlwaysAsk; // for security reason, this setting is not in the common config.xml but in serverWhiteList.xml
+public:
+	NetworkPathAlwaysAction networkPathAlwaysAction() const { return _networkPathAlwaysAction; }
+
+	bool makeDefaultServerWhiteList(bool bSave2File);
+	bool addServerToWhiteList(const char* netpath, bool bCaseSensitive = false);
+	bool setNetworkPathAlwaysActionInServerWhitelist(NetworkPathAlwaysAction mode);
+
+
+public:
 	const std::wstring& getWingupFullPath() const { return _wingupFullPath; }
 	const std::wstring& getWingupParams() const { return _wingupParams; }
 	const std::wstring& getWingupDir() const { return _wingupDir; }
@@ -1961,6 +1973,9 @@ public:
 	void initFindDlgStatusMsgCustomColors();
 	void setFindDlgStatusMsgIndexColor(COLORREF colour2Set, int colourIndex);
 	COLORREF getFindDlgStatusMsgColor(int colourIndex);
+
+	bool isServerAllowed(const char* path2check, bool bCaseSensitive = false);
+	bool getServerName(const std::string& path2check, std::string& serverNameOutput);
 
 private:
 	unsigned long _sintillaModEventMask = SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT | SC_PERFORMED_UNDO | SC_PERFORMED_REDO | SC_MOD_CHANGEINDICATOR;

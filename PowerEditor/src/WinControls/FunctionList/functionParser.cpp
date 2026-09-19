@@ -282,7 +282,9 @@ bool FunctionParsersManager::getOverrideMapFromXmlTree(const std::wstring& xmlDi
 
 			const int langID = NppXml::intAttribute(childNode, "langID", -1);
 			const char* userDefinedLangName = NppXml::attribute(childNode, "userDefinedLangName");
-			if (langID >= 0)
+			int parserSize = static_cast<int>(std::size(_parsers));
+
+			if (langID >= 0 && langID < parserSize)
 			{
 				_parsers[langID] = std::make_unique<ParserInfo>(string2wstring(id));
 			}
@@ -290,7 +292,7 @@ bool FunctionParsersManager::getOverrideMapFromXmlTree(const std::wstring& xmlDi
 			{
 				++_currentUDIndex;
 
-				if (_currentUDIndex < L_EXTERNAL + nbMaxUserDefined)
+				if (_currentUDIndex < parserSize)
 				{
 					_parsers[_currentUDIndex] = std::make_unique<ParserInfo>(string2wstring(id), string2wstring(userDefinedLangName));
 				}

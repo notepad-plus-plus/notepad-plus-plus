@@ -128,17 +128,17 @@ bool SetOSAppRestart()
 static bool isSenderTrusted(WPARAM wParam)
 {
 	HWND hSenderWnd = reinterpret_cast<HWND>(wParam);
-	if (hSenderWnd == NULL || !IsWindow(hSenderWnd))
+	if (hSenderWnd == NULL || !::IsWindow(hSenderWnd))
 		return false; // no real window handle presented -> reject
 
 	DWORD dwProcessId = 0;
-	if (GetWindowThreadProcessId(hSenderWnd, &dwProcessId) == 0 || dwProcessId == 0)
+	if (::GetWindowThreadProcessId(hSenderWnd, &dwProcessId) == 0 || dwProcessId == 0)
 		return false;
 
-	if (dwProcessId == GetCurrentProcessId())
+	if (dwProcessId == ::GetCurrentProcessId())
 		return false; // same-process - the same Notepad++ instance never send itself WM_COPYDATA - could be fake -> reject
 
-	HANDLE hProcess = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, dwProcessId);
+	HANDLE hProcess = ::OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, dwProcessId);
 	if (!hProcess)
 		return false;
 
@@ -146,32 +146,33 @@ static bool isSenderTrusted(WPARAM wParam)
 
 	// Integrity level: require Medium or higher (blocks Low-IL sandboxes)
 	HANDLE hToken = NULL;
-	if (OpenProcessToken(hProcess, TOKEN_QUERY, &hToken))
+	if (::OpenProcessToken(hProcess, TOKEN_QUERY, &hToken))
 	{
-		BYTE tokenBuffer[sizeof(TOKEN_MANDATORY_LABEL) + SECURITY_MAX_SID_SIZE] = { 0 };
+		BYTE tokenBuffer[sizeof(TOKEN_MANDATORY_LABEL) + SECURITY_MAX_SID_SIZE]{};
 		DWORD dwLength = 0;
-		if (GetTokenInformation(hToken, TokenIntegrityLevel, tokenBuffer, sizeof(tokenBuffer), &dwLength))
+		if (::GetTokenInformation(hToken, TokenIntegrityLevel, tokenBuffer, sizeof(tokenBuffer), &dwLength))
 		{
 			PTOKEN_MANDATORY_LABEL pTIL = reinterpret_cast<PTOKEN_MANDATORY_LABEL>(tokenBuffer);
-			DWORD dwIntegrityLevel = *GetSidSubAuthority(
+			DWORD dwIntegrityLevel = *::GetSidSubAuthority(
 				pTIL->Label.Sid,
-				(DWORD)(UCHAR)(*GetSidSubAuthorityCount(pTIL->Label.Sid) - 1));
+				(DWORD)(UCHAR)(*::GetSidSubAuthorityCount(pTIL->Label.Sid) - 1));
 
 			if (dwIntegrityLevel >= SECURITY_MANDATORY_MEDIUM_RID)
 				isTrusted = true;
 		}
-		CloseHandle(hToken);
+		::CloseHandle(hToken);
 	}
 
 	// Executable identity: require it to be this same binary (another Notepad++ instance with the same path)
 	if (isTrusted)
 	{
-		wchar_t senderImagePath[MAX_PATH] = { 0 };
-		DWORD dwSize = MAX_PATH;
-		wchar_t selfImagePath[MAX_PATH] = { 0 };
+		wchar_t senderImagePath[MAX_PATH]{};
+		DWORD dwSizeSender = MAX_PATH;
+		wchar_t selfImagePath[MAX_PATH]{};
+		DWORD dwSizeSelf = MAX_PATH;
 
-		if (QueryFullProcessImageNameW(hProcess, 0, senderImagePath, &dwSize) &&
-			GetModuleFileNameW(NULL, selfImagePath, MAX_PATH) > 0)
+		if (::QueryFullProcessImageNameW(hProcess, 0, senderImagePath, &dwSizeSender) &&
+			::QueryFullProcessImageNameW(::GetCurrentProcess(), 0, selfImagePath, &dwSizeSelf))
 		{
 			isTrusted = (_wcsicmp(senderImagePath, selfImagePath) == 0);
 		}
@@ -181,7 +182,7 @@ static bool isSenderTrusted(WPARAM wParam)
 		}
 	}
 
-	CloseHandle(hProcess);
+	::CloseHandle(hProcess);
 	return isTrusted;
 }
 
@@ -998,7 +999,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (message == NPPM_GETCURRENTWORD)
 			{
 				auto txtW = _pEditView->getSelectedTextToWChar();
-				wcscpy_s(str.get(), strSize, txtW.c_str());
+				wcsncpy_s(str.get(), strSize, txtW.c_str(), _TRUNCATE);
 			}
 			else if (message == NPPM_GETCURRENTLINESTR)
 			{
@@ -1034,7 +1035,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			int hasSlash = 0;
 
 			auto txtW = _pEditView->getSelectedTextToWChar(); // this is either the selected text, or the word under the cursor if there is no selection
-			wcscpy_s(str.get(), strSize, txtW.c_str());
+			wcsncpy_s(str.get(), strSize, txtW.c_str(), _TRUNCATE);
 
 			hasSlash = FALSE;
 			for (int i = 0; str[i] != 0; i++)

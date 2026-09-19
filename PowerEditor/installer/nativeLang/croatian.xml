@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: August 10, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: September 16, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.9.7">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.9.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1416,6 +1416,7 @@ umjesto brisanja jednog razmaka"/>
 					<Item id="6346" name="Pogled na mapu dokumenta"/>
 					<Item id="6360" name="Isključi sve zvukove"/>
 					<Item id="6361" name="Omogući dijalog za potvrdu spremanja svih datoteka"/>
+					<Item id="6366" name="Dopusti učitavanje symlinkova u panelu Mapa kao radni prostor"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Makro pokrenuti više puta">
@@ -1483,15 +1484,15 @@ Ovaj dijalog možete kasnije ponovo aktivirati u Postavkama."/>
 				<Item id="7" name="&amp;Ne"/>
 				<Item id="4" name="&amp;Uvijek da"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
-			<NetworkPathWarning title="Učitavanje sesije Notepad++" title2="Klikabilna datoteka:// link">
+			<NetworkPathWarning title="Učitavanje sesije Notepad++" title2="Klikabilna datoteka:// link" title3="Učitavanje toolbarButtonsConf.xml" title4="Učitavanje XML datoteke projektnog panela">
 				<Item id="1771" name="Upozorenje o mrežnoj putanji:
 
 $STR_REPLACE$
 
-Učitavanje će uzrokovati automatsku autentifikaciju sustava Windows na tom poslužitelju, što potencijalno otkriva vaše podatke za prijavu u sustav Windows.
+Učitavanje ove datoteke će uzrokovati automatsku autentifikaciju sustava Windows na njenom poslužitelju, što potencijalno otkriva vaše podatke za prijavu u sustav Windows.
 Učitaj svejedno?"/>
 				<Item id="2" name="&amp;Preskoči"/>
-				<Item id="6" name="&amp;Učitaj"/>
+				<Item id="6" name="&amp;Uvijek učitaj s ovog servera"/>
 				<Item id="7" name="Uvijek p&amp;reskoči mrežnu putanju"/>
 				<Item id="4" name="Uvijek u&amp;čitaj mrežnu putanju"/>
 			</NetworkPathWarning>
@@ -1661,6 +1662,9 @@ Iz sigurnosnih razloga, provjerit će se integritet datoteke shortcuts.xml. Kako
 			<ShortcutsXmlTampered title="Sigurnosno upozorenje" message="Čini se da je datoteka shortcuts.xml ručno izmijenjena.
 
 Iz sigurnosnih razloga, pregledajte otvorenu datoteku shortcuts.xml. Ako je sadržaj datoteke u redu, upotrijebite &quot;Validiraj shortcuts.xml&quot; iz izbornika &quot;Pokretanje&quot; kako biste to potvrdili."/>
+			<SymlinkLoadingWarning title="Upozorenje: Učitavanje simlinka može uzrokovati zamrzavanje" message="Omogućavanje učitavanja symlinka u Mapi kao radnom prostoru može uzrokovati da Notepad++ uđe u beskonačnu petlju i zamrzne.
+To se može dogoditi kada se simlinkovi direktorija razriješe u nadređene mape ili formiraju kružne reference.
+Nastavite samo ako razumijete rizik."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Povijest međuspremnika"/>
@@ -1961,6 +1965,9 @@ Ako odaberete napredni način, ali ne uređujete datoteke na gore navedenim jezi
 			<max-len-on-save-tip value="Vaš unos je vrlo dugačak i neće biti spremljen za sljedeću sesiju."/>
 			<goto-setting-tip value="Pronađite svoju postavku ovdje"/>
 			<tabbar-tabcompactlabellen-tip value="Ograničava vidljivu duljinu dugih naziva na jezičcima kartica. Pritisnite Enter za primjenu zadane vrijednosti. Raspon vrijednosti: 1-257 znakova (0 onemogućuje skraćivanje)."/>
+			<networkpathwarning-serverwhitelist-tip value="Upisuje poslužitelj trenutne datoteke u Notepad++ serverWhiteList.xml.
+
+Za više informacija, kliknite ovaj gumb kako biste otvorili web stranicu s odgovarajućim dijelom korisničkog priručnika."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

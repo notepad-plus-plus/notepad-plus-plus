@@ -1018,7 +1018,11 @@ bool PluginsAdminDlg::initDisabledPluginList()
 
 			// same mechanism as the Installed tab: if the on-disk version is older
 			// than the one in the plugin list, surface it on the Updates tab too
-			if (foundInAvailable && pui->_version < foundInAvailable->_version)
+			// but only if this plugin has no active (loaded) copy in _installedList.
+			int installedListIndex = 0;
+			bool hasActiveInstalledCopy = (_installedList.findPluginInfoFromFolderName(folderName, installedListIndex) != nullptr);
+
+			if (!hasActiveInstalledCopy && foundInAvailable && pui->_version < foundInAvailable->_version)
 			{
 				PluginUpdateInfo* pui2 = new PluginUpdateInfo(*foundInAvailable);
 				_updateList.pushBack(pui2);

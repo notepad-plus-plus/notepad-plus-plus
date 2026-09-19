@@ -184,7 +184,7 @@
 					<Item id="42042" name="Sondaki Boşluğu Kırp"/>
 					<Item id="42043" name="Baştaki ve Sondaki Boşluğu Kırp"/>
 					<Item id="42044" name="Satır Sonunu Boşluğa Çevir"/>
-					<Item id="42045" name="Baştaki, Sondaki ve Satır Sonu Boşluğunu Kırp"/>
+					<Item id="42045" name="Baştaki ve Sondaki Boşlukları Kırp, Satır Sonunu Boşluğa Çevir"/>
 					<Item id="42046" name="Sekmeyi Boşluğa Çevir"/>
 					<Item id="42054" name="Sekme Boşluğu (Tümünde)"/>
 					<Item id="42053" name="Sekme Boşluğu (Sonda)"/>
@@ -1480,7 +1480,6 @@ $STR_REPLACE$
 Yüklenmesi, Windows'un o sunucuya otomatik olarak kimlik doğrulamasına neden olacak, bu da Windows giriş bilginizin potansiyel olarak ifşa olmasına sebep olacaktır.
 Yine de yüklensin mi?"/>
 				<Item id="2" name="&amp;Atla"/>
-				<Item id="6" name="Yük&amp;le"/>
 				<Item id="7" name="&amp;Ağ Yolunu Her Zaman Atla"/>
 				<Item id="4" name="Ağ Yolunu Her Zaman Yükl&amp;e"/>
 			</NetworkPathWarning>

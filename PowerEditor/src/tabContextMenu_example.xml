@@ -18,17 +18,20 @@ https://npp-user-manual.org/docs/config-files/#the-context-menu-tabcontextmenu-x
 		<!--
 		Use FolderName (optional) to create sub-menu. FolderName value can be in any language (French, Japanese...).
 		-->
-		<Item FolderName="Close Multiple Tabs" MenuEntryName="File" MenuItemName="Close All but Active Document"/>
+		<Item FolderName="Close Multiple Tabs" MenuEntryName="File" MenuItemName="Close All but Active Document" ItemNameAs="Close All BUT This"/>
+		<Item FolderName="Close Multiple Tabs" MenuEntryName="File" MenuItemName="Close All but Pinned Documents" ItemNameAs="Close All BUT Pinned"/>
 		<Item FolderName="Close Multiple Tabs" MenuEntryName="File" MenuItemName="Close All to the Left"/>
 		<Item FolderName="Close Multiple Tabs" MenuEntryName="File" MenuItemName="Close All to the Right"/>
 		<Item FolderName="Close Multiple Tabs" MenuEntryName="File" MenuItemName="Close All Unchanged"/>
 
+		<Item id="44048"/><!-- Pin Tab / Unpin Tab; must be by id="44048", because name is not constant nor in File menu -->
 		<Item MenuEntryName="File" MenuItemName="Save"/>
 		<Item MenuEntryName="File" MenuItemName="Save As..."/>
 
-		<Item FolderName="Open into" MenuEntryName="File" MenuItemName="Explorer"/>
-		<Item FolderName="Open into" MenuEntryName="File" MenuItemName="cmd"/>
-		<Item FolderName="Open into" MenuEntryName="File" MenuItemName="Folder as Workspace"/>
+		<Item FolderName="Open into" MenuEntryName="File" MenuItemName="Explorer" ItemNameAs="Open Containing Folder in Explorer"/>
+		<Item FolderName="Open into" MenuEntryName="File" MenuItemName="cmd" ItemNameAs="Open Containing Folder in cmd"/>
+		<Item FolderName="Open into" MenuEntryName="File" MenuItemName="PowerShell" ItemNameAs="Open Containing Folder in PowerShell"/>
+		<Item FolderName="Open into" MenuEntryName="File" MenuItemName="Folder as Workspace" ItemNameAs="Open Containing Folder as Workspace"/>
 		<Item FolderName="Open into" id="0"/>
 		<Item FolderName="Open into" MenuEntryName="File" MenuItemName="Open in Default Viewer"/>
 
@@ -40,8 +43,8 @@ https://npp-user-manual.org/docs/config-files/#the-context-menu-tabcontextmenu-x
 		<!-- id="0" is the separator -->
 		<Item id="0"/>
 
-		<Item MenuEntryName="Edit" MenuItemName="Set Read-Only"/>
-		<Item MenuEntryName="Edit" MenuItemName="Clear Read-Only Flag"/>
+		<Item MenuEntryName="Edit" MenuItemName="Read-Only on Current Document" ItemNameAs="Read-Only in Notepad++"/>
+		<Item MenuEntryName="Edit" MenuItemName="Read-Only Attribute in Windows"/>
 
 		<Item id="0"/>
 

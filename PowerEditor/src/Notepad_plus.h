@@ -43,6 +43,7 @@
 #include "localization.h"
 #include "documentSnapshot.h"
 #include "md5Dlgs.h"
+#include "menuCmdID.h"
 #include <vector>
 #include <iso646.h>
 #include <chrono>
@@ -150,8 +151,8 @@ struct QuoteParams;
 
 class Notepad_plus final
 {
-friend class Notepad_plus_Window;
-friend class FileManager;
+	friend class Notepad_plus_Window;
+	friend class FileManager;
 
 public:
 	Notepad_plus();
@@ -161,24 +162,24 @@ public:
 	LRESULT process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	void killAllChildren();
 
-	enum comment_mode {cm_comment, cm_uncomment, cm_toggle};
+	enum comment_mode { cm_comment, cm_uncomment, cm_toggle };
 
 	void setTitle();
-	void getTaskListInfo(TaskListInfo *tli);
+	void getTaskListInfo(TaskListInfo* tli);
 	size_t getNbDirtyBuffer(int view);
 
 
 	// The following functions apply to a single buffer and don't need to worry about views, with the exception of doClose,
 	// since closing one view doesn't have to mean the document is gone
-	BufferID doOpen(const std::wstring& fileName, bool isRecursive = false, bool isReadOnly = false, int encoding = -1, const wchar_t *backupFileName = NULL, FILETIME fileNameTimestamp = {});
+	BufferID doOpen(const std::wstring& fileName, bool isRecursive = false, bool isReadOnly = false, int encoding = -1, const wchar_t* backupFileName = NULL, FILETIME fileNameTimestamp = {});
 	bool doReload(BufferID id, bool alert = true);
-	bool doSave(BufferID, const wchar_t * filename, bool isSaveCopy = false);
+	bool doSave(BufferID, const wchar_t* filename, bool isSaveCopy = false);
 	void doClose(BufferID, int whichOne, bool doDeleteBackup = false);
 
 
 	void fileOpen();
 	void fileNew();
-    bool fileReload();
+	bool fileReload();
 	bool fileClose(BufferID id = BUFFER_INVALID, int curView = -1);	//use curView to override view to close from
 	bool fileCloseAll(bool doDeleteBackup, bool isSnapshotMode = false);
 	bool fileCloseAllButCurrent();
@@ -201,8 +202,8 @@ public:
 	bool switchToFile(BufferID buffer);			//find buffer in active view then in other view.
 	//@}
 
-	bool isFileSession(const wchar_t * filename);
-	bool isFileWorkspace(const wchar_t * filename);
+	bool isFileSession(const wchar_t* filename);
+	bool isFileWorkspace(const wchar_t* filename);
 	void filePrint(bool showDialog);
 	void saveScintillasZoom();
 
@@ -211,17 +212,17 @@ public:
 	bool saveFileBrowserParam();
 	bool saveColumnEditorParams();
 	void saveDockingParams();
-    void saveUserDefineLangs();
-    void saveShortcuts();
-	void saveSession(const Session & session);
+	void saveUserDefineLangs();
+	void saveShortcuts();
+	void saveSession(const Session& session);
 	void saveCurrentSession();
 	void saveFindHistory();
 
 	void getCurrentOpenedFiles(Session& session, bool includeUntitledDoc = false);
 
 	bool fileLoadSession(const wchar_t* fn = nullptr);
-	const wchar_t * fileSaveSession(size_t nbFile, wchar_t ** fileNames, const wchar_t *sessionFile2save, bool includeFileBrowser = false);
-	const wchar_t * fileSaveSession(size_t nbFile = 0, wchar_t** fileNames = nullptr);
+	const wchar_t* fileSaveSession(size_t nbFile, wchar_t** fileNames, const wchar_t* sessionFile2save, bool includeFileBrowser = false);
+	const wchar_t* fileSaveSession(size_t nbFile = 0, wchar_t** fileNames = nullptr);
 
 	bool doBlockComment(comment_mode currCommentMode);
 	bool doStreamComment();
@@ -230,26 +231,26 @@ public:
 	bool addCurrentMacro();
 	void macroPlayback(Macro macro, std::vector<Document>* pDocs4EndUAIn = nullptr);
 
-    void loadLastSession();
-	bool loadSession(Session & session, bool isSnapshotMode = false, const wchar_t* userCreatedSessionName = nullptr);
+	void loadLastSession();
+	bool loadSession(Session& session, bool isSnapshotMode = false, const wchar_t* userCreatedSessionName = nullptr);
 
-	void prepareBufferChangedDialog(Buffer * buffer);
-	void notifyBufferChanged(Buffer * buffer, int mask);
-	bool findInFinderFiles(FindersInfo *findInFolderInfo);
+	void prepareBufferChangedDialog(Buffer* buffer);
+	void notifyBufferChanged(Buffer* buffer, int mask);
+	bool findInFinderFiles(FindersInfo* findInFolderInfo);
 
-	bool createFilelistForFiles(std::vector<std::wstring> & fileNames);
-	bool createFilelistForProjects(std::vector<std::wstring> & fileNames);
+	bool createFilelistForFiles(std::vector<std::wstring>& fileNames);
+	bool createFilelistForProjects(std::vector<std::wstring>& fileNames);
 	bool findInFiles();
 	bool findInProjects();
-	bool findInFilelist(std::vector<std::wstring> & fileList);
+	bool findInFilelist(std::vector<std::wstring>& fileList);
 	bool replaceInFiles();
 	bool replaceInProjects();
-	bool replaceInFilelist(std::vector<std::wstring> & fileList);
+	bool replaceInFilelist(std::vector<std::wstring>& fileList);
 
-	void setFindReplaceFolderFilter(const wchar_t *dir, const wchar_t *filters);
-	std::vector<std::wstring> addNppComponents(const wchar_t *destDir, const wchar_t *extFilterName, const wchar_t *extFilter);
-	std::vector<std::wstring> addNppPlugins(const wchar_t *extFilterName, const wchar_t *extFilter);
-    int getHtmlXmlEncoding(const wchar_t *fileName) const;
+	void setFindReplaceFolderFilter(const wchar_t* dir, const wchar_t* filters);
+	std::vector<std::wstring> addNppComponents(const wchar_t* destDir, const wchar_t* extFilterName, const wchar_t* extFilter);
+	std::vector<std::wstring> addNppPlugins(const wchar_t* extFilterName, const wchar_t* extFilter);
+	int getHtmlXmlEncoding(const wchar_t* fileName) const;
 
 	HACCEL getAccTable() const {
 		return _accelerator.getAccTable();
@@ -257,7 +258,7 @@ public:
 
 	bool emergency(const std::wstring& emergencySavedDir);
 
-	Buffer* getCurrentBuffer()	{
+	Buffer* getCurrentBuffer() {
 		return _pEditView->getCurrentBuffer();
 	}
 
@@ -278,6 +279,12 @@ public:
 	void refreshInternalPanelIcons();
 
 	void changeReadOnlyUserModeForAllOpenedTabs(const bool ro);
+
+	bool isInternalPanel(int id) const {
+		return (id == IDM_VIEW_FUNC_LIST || id == IDM_VIEW_FILEBROWSER || id == IDM_VIEW_DOCLIST ||
+			id == IDM_VIEW_PROJECT_PANEL_1 || id == IDM_VIEW_PROJECT_PANEL_2 || id == IDM_VIEW_PROJECT_PANEL_3 ||
+			id == IDM_VIEW_DOC_MAP || id == IDM_EDIT_CHAR_PANEL || id == IDM_EDIT_CLIPBOARDHISTORY_PANEL);
+	}
 
 private:
 	Notepad_plus_Window* _pPublicInterface = nullptr;

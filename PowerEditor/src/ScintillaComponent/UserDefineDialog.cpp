@@ -40,6 +40,7 @@
 #include "NppXml.h"
 #include "Parameters.h"
 #include "ScintillaEditView.h"
+#include "StaticDialog.h"
 #include "UserDefineResource.h"
 #include "colors.h"
 #include "dpiManagerV2.h"
@@ -1050,32 +1051,24 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
             _symbolsStyleDlg.create(IDD_SYMBOL_STYLE_DLG);
             _symbolsStyleDlg.display(false);
 
-            _wVector.push_back(DlgInfo(&_folderStyleDlg,    L"Folder && Default"));
-            _wVector.push_back(DlgInfo(&_keyWordsStyleDlg,  L"Keywords Lists"));
-            _wVector.push_back(DlgInfo(&_commentStyleDlg,   L"Comment && Number"));
-            _wVector.push_back(DlgInfo(&_symbolsStyleDlg,   L"Operators && Delimiters"));
+			_wVector.emplace_back(&_folderStyleDlg, L"Folder && Default");
+			_wVector.emplace_back(&_keyWordsStyleDlg, L"Keywords Lists");
+			_wVector.emplace_back(&_commentStyleDlg, L"Comment && Number");
+			_wVector.emplace_back(&_symbolsStyleDlg, L"Operators && Delimiters");
 
-            _ctrlTab.createTabs(_wVector);
-            _ctrlTab.display();
+			_ctrlTab.createTabs(_wVector);
+			_ctrlTab.display();
 
-            RECT arc{};
-            ::GetWindowRect(::GetDlgItem(_hSelf, IDC_IMPORT_BUTTON), &arc);
+			RECT rcOffset{};
+			StaticDialog::getMappedChildRect(IDC_IMPORT_BUTTON, rcOffset);
 
-            POINT p{};
-            p.x = arc.left;
-            p.y = arc.bottom;
-            ::ScreenToClient(_hSelf, &p);
+			RECT rc{};
+			getClientRect(rc);
+			const LONG padding = _dpiManager.scale(6);
+			::InflateRect(&rc, -padding, -padding);
+			rc.top += rcOffset.bottom;
 
-            RECT rc{};
-            getClientRect(rc);
-            rc.top = p.y + 10;
-            rc.bottom -= 20;
-            _ctrlTab.reSizeTo(rc);
-
-            _folderStyleDlg.reSizeTo(rc);
-            _keyWordsStyleDlg.reSizeTo(rc);
-            _commentStyleDlg.reSizeTo(rc);
-            _symbolsStyleDlg.reSizeTo(rc);
+			_ctrlTab.reSizeToWH(rc);
 
             reloadLangCombo();
             ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_SETCURSEL, 0, 0);

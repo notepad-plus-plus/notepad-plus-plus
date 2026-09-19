@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.9.7">
+	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.9.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1334,6 +1334,7 @@
 					<Item id="6346" name="於文件導覽窺視檔案"/>
 					<Item id="6360" name="靜音"/>
 					<Item id="6361" name="啟動全部儲存確認"/>
+					<Item id="6366" name="允許在「資料夾工作區」中載入符號連結"/>
 				</MISC>
 			</Preference>
 
@@ -1397,7 +1398,7 @@
 				<Item id="7" name="不要(&amp;N)"/>
 				<Item id="4" name="始終確定"/>
 			</DoSaveAll>
-			<NetworkPathWarning title="Notepad++ 文件群組載入" title2="可點擊的 file:// 鏈接">
+			<NetworkPathWarning title="Notepad++ 文件群組載入" title2="可點擊的 file:// 鏈接" title3="toolbarButtonsConf.xml 載入中" title4="專案管理員 XML 文件載入中">
 				<Item id="1771" name="網路路徑警告：
 
 $STR_REPLACE$
@@ -1405,7 +1406,7 @@ $STR_REPLACE$
 載入該檔案會導致 Windows 自動向該伺服器進行身份驗證，這可能會洩露您的 Windows 登入資訊。
 仍然加載嗎？"/>
 				<Item id="2" name="略過"/>
-				<Item id="6" name="載入"/>
+				<Item id="6" name="一律從此伺服器載入"/>
 				<Item id="7" name="一律略過網路路徑"/>
 				<Item id="4" name="一律載入網路路徑"/>
 			</NetworkPathWarning>
@@ -1518,6 +1519,9 @@ $STR_REPLACE$
 
 基於安全考量，請檢視已開啟的 shortcuts.xml。
 如果內容正確，請從「執行」選單中使用「驗證 shortcuts.xml 檔案」來確認。"/>
+			<SymlinkLoadingWarning title="警告：載入符號連結可能導致程式凍結" message="啟用「資料夾工作區」中的符號連結載入功能可能會使 Notepad++ 進入無限循環並造成程式凍結。
+當目錄符號連結指向父層資料夾或形成循環引用時，就可能發生此問題。
+請在充分了解風險後再繼續操作。"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="剪貼簿記錄"/>
@@ -1765,6 +1769,9 @@ C、C++、Java、C#、Objective-C、PHP、JavaScript、JSP、CSS、Perl、Rust�
 			<max-len-on-save-tip value="輸入內容過長，可能無法保存以供下次 Notepad++ 啟動時使用。"/>
 			<goto-setting-tip value="相關的偏好設定在此"/>
 			<tabbar-tabcompactlabellen-tip value="限制頁籤名稱的可見長度。按 Enter 鍵套用設定值。設定值範圍：1-257 個字元（0 取消截斷頁籤名稱功能）。"/>
+			<networkpathwarning-serverwhitelist-tip value="將目前檔案所屬的伺服器加入 Notepad++ 的 serverWhiteList.xml。
+
+如需更多資訊，請點擊此按鈕以開啟使用者手冊中相關的章節"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

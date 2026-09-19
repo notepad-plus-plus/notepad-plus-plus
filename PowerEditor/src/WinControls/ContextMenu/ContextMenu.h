@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #pragma once
+#include "NppConstants.h"
 #include "Common.h"
 
 
@@ -64,6 +65,8 @@ public:
 	}
 
 	void destroy();
+
+	HBITMAP _tabColorBitmaps[TAB_COLORS_COUNT]{};
 
 private:
 	HWND _hParent = NULL;

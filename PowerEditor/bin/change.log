@@ -1,37 +1,39 @@
-Notepad++ v8.9.7 vulnerability fixes, regression fix & bug-fixes:
+Notepad++ v8.9.8 vulnerability fixes, bug-fixes & new enhancements:
 
- 1. Vulnerability: Fix Stack Buffer Overflow in expandNppEnvironmentStrs.
- 2. Vulnerability: Enhance loading session.xml security by normalizing the file paths.
- 3. Vulnerability: Fix updater (WinGUp) path traversal (Zip Slip) issue.
- 4. Vulnerability: Fix shortcuts.xml macro HMAC bypass issue.
- 5. Vulnerability: Improve robustness of Powershell command in installer.
- 6. Fix "Find in Files" unresponsive issue.
- 7. Fix regression where opening relative paths as file & in Explorer didn't work.
- 8. Fix disappearing or duplicated file items in Folder as Workspace.
- 9. Fix freeze caused by directory symbolic links in Folder as Workspace root.
-10. Update to Scintilla 5.6.4 & Lexilla 5.5.1.
-11. Fix undo in cloned document not scrolling to undone change in original document.
-12. Fix crash issue caused by LexBaan.
-13. Make XML CDATA color different from the enclosed elements.
-14. Update pugixml to v1.16.
-15. Remember Folder as Workspace expand/collapse state across sessions.
-16. Add "Count" option to improve Incremental Search performance.
-17. Add "nth of count" information to Incremental Search.
-18. Improve "Count" performance in Incremental Search.
-19. Add full ANSI EscapeSequence lexing.
-20. Fix plugin toolbar icon not scaling correctly on high DPI displays.
-21. Fix incorrectly disabled Paste command.
-22. Add "Print FormFeed as Page Break" option.
-23. Make message boxes dark via task dialogs.
-24. Enhance color picker to remember custom colors across sessions.
-25. Ensure searchResult stays last after styles XML merge.
-26. Update PHP keywords / auto-completion.
-27. Update CSS keywords / auto-completion.
-28. Fix truncted INS/OVR indicator on Status bar.
+ 1. Vulnerabilty: Fix an eventual crash while loading UDL.
+ 2. Vulnerabilty: Fix an eventual crash when loading a UTF-16 file.
+ 3. Vulnerabilty: Fix out-of-bounds array write.
+ 4. Vulnerabilty: Fix authenticode verification bypass.
+ 5. Vulnerabilty: Fix a TOCTOU issue in the Notepad++ Updater (WinGUp).
+ 6. Vulnerabilty: Fix session backup path-traversal allowing deletiion outside backup directory.
+ 7. Vulnerabilty: Fix potential exposure of Windows login info (SMB/NTLM) via UNC path.
+ 8. Vulnerabilty: Fix shortcuts.xml HMAC bypass via the “Run a Macro Multiple Times”.
+ 9. Vulnerabilty: Fix Null pointer in NPPM_SAVESESSION handler causing crash.
+10. Vulnerabilty: Fix stack buffer overflow caused by overlong session paths.
+11. Vulnerabilty: Fix Folder as Workspace "Run by system" target hijacking issue.
+12. Vulnerabilty: Fix install-path injection possibility with PowerShell.
+13. Vulnerabilty: Fix lower IL (Integrity Level) process sends WM_COMMAND to higher IL Notepad++.
+14. Vulnerabilty: Fix Notepad++ UIPI Bypass via WM_COPYDATA.
+15. Fix crash in WM_COPYDATA COPYDATA_PARAMS for invalid payload.
+16. Fix crash in API NPPM_ALLOCATE* calls.
+17. Add an option to allow loading symlinks in Folder as Workspace.
+18. Regression: Fix loading session for alone subview and doc/tab with untitle name.
+19. Fix CJK IME issues in Save As dialog.
+20. Update to Scintilla 5.6.6 & Lexilla 5.5.3.
+21. Add plugin deactivation capability.
+22. Add "-monitoringMode" command line argument to open files with monitoring enabled.
+23. Fix Proxy Settings issue in portable mode.
+24. Fix langs.xml model update not not applying file extension fields.
+25. Fix luminosity slider in ChooseColor not visible in dark mode.
+26. Fix empty sub-menus in compact language menu.
+27. Fix Search Results vertical scrolling not matching with OS mouse settings.
+28. Use modern question mark icon in dark message box.
+29. Format count numbers using current locale separators when needed.
+
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.9.7/
+https://notepad-plus-plus.org/downloads/v8.9.8/
 
 
 Included plugins:
@@ -43,4 +45,4 @@ Included plugins:
 
 Updater (Installer only):
 
-* WinGUp (for Notepad++) v5.4.2
+* WinGUp (for Notepad++) v5.4.3

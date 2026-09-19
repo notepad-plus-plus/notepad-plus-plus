@@ -26,6 +26,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
+#include <tlhelp32.h>
 
 #include "Common.h"
 #include "FileInterface.h"
@@ -48,13 +49,15 @@ namespace
 {
 
 
-void allowPrivilegeMessages(const Notepad_plus_Window& notepad_plus_plus, winVer winVer)
+void allowForbidPrivilegeMessages(const Notepad_plus_Window& notepad_plus_plus, winVer winVer)
 {
 	#ifndef MSGFLT_ADD
 	const DWORD MSGFLT_ADD = 1;
+	const DWORD MSGFLT_REMOVE = 2;
 	#endif
 	#ifndef MSGFLT_ALLOW
 	const DWORD MSGFLT_ALLOW = 1;
+	const DWORD MSGFLT_DISALLOW = 2;
 	#endif
 	// Tell UAC that lower integrity processes are allowed to send WM_COPYDATA (or other) messages to this process (or window)
 	// This (WM_COPYDATA) allows opening new files to already opened elevated Notepad++ process via explorer context menu.
@@ -75,6 +78,8 @@ void allowPrivilegeMessages(const Notepad_plus_Window& notepad_plus_plus, winVer
 				{
 					func(WM_COPYDATA, MSGFLT_ADD);
 					func(NPPM_INTERNAL_RESTOREFROMMINIMIZED, MSGFLT_ADD);
+
+					func(WM_COMMAND, MSGFLT_REMOVE); // Disallow WM_COMMAND messages from lower integrity processes (for security reasons)
 				}
 			}
 			else
@@ -87,6 +92,8 @@ void allowPrivilegeMessages(const Notepad_plus_Window& notepad_plus_plus, winVer
 				{
 					funcEx(notepad_plus_plus.getHSelf(), WM_COPYDATA, MSGFLT_ALLOW, NULL);
 					funcEx(notepad_plus_plus.getHSelf(), NPPM_INTERNAL_RESTOREFROMMINIMIZED, MSGFLT_ALLOW, NULL);
+
+					funcEx(notepad_plus_plus.getHSelf(), WM_COMMAND, MSGFLT_DISALLOW, NULL); // Disallow WM_COMMAND messages from lower integrity processes (for security reasons)
 				}
 			}
 		}
@@ -515,6 +522,59 @@ DWORD nppUacCreateEmptyFile(const wchar_t* wszNewEmptyFilePath)
 	return ERROR_SUCCESS;
 }
 
+// Returns true only if this process's immediate parent is an unelevated
+// notepad++.exe located at the same path as the currently running binary.
+bool isParentProcessThisNotepadPlusPlus()
+{
+	DWORD currentPid = ::GetCurrentProcessId();
+	DWORD parentPid = 0;
+
+	HANDLE hSnap = ::CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+	if (hSnap == INVALID_HANDLE_VALUE)
+		return false;
+
+	PROCESSENTRY32W pe32{};
+	pe32.dwSize = sizeof(pe32);
+
+	bool found = false;
+	if (::Process32FirstW(hSnap, &pe32))
+	{
+		do
+		{
+			if (pe32.th32ProcessID == currentPid)
+			{
+				parentPid = pe32.th32ParentProcessID;
+				found = true;
+				break;
+			}
+		} while (::Process32NextW(hSnap, &pe32));
+	}
+	::CloseHandle(hSnap);
+
+	if (!found || parentPid == 0)
+		return false;
+
+	HANDLE hParent = ::OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, parentPid);
+	if (hParent == nullptr)
+		return false; // parent gone or inaccessible — fail closed
+
+	wchar_t parentPath[MAX_PATH] = {};
+	DWORD parentPathLen = MAX_PATH;
+	bool gotPath = ::QueryFullProcessImageNameW(hParent, 0, parentPath, &parentPathLen) != 0;
+	::CloseHandle(hParent);
+
+	if (!gotPath)
+		return false;
+
+	wchar_t selfImagePath[MAX_PATH] = {};
+	DWORD dwSizeSelf = MAX_PATH;
+	if (!::QueryFullProcessImageNameW(::GetCurrentProcess(), 0, selfImagePath, &dwSizeSelf))
+		return false;
+
+	return (_wcsicmp(parentPath, selfImagePath) == 0);
+}
+
+
 } // namespace
 
 
@@ -528,16 +588,23 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	// Notepad++ UAC OPS /////////////////////////////////////////////////////////////////////////////////////////////
 	if ((lstrlenW(pCmdLine) > 0) && (__argc >= 2)) // safe (if pCmdLine is NULL, lstrlen returns 0)
 	{
-		const wchar_t* wszNppUacOpSign = __wargv[1];
-		if (lstrlenW(wszNppUacOpSign) > lstrlenW(L"#UAC-#"))
+		const std::wstring nppUacOpSign = __wargv[1];
+		if (nppUacOpSign.starts_with(NPP_UAC_OP_PREFIX))
 		{
-			if ((__argc == 4) && (wcscmp(wszNppUacOpSign, NPP_UAC_SAVE_SIGN) == 0))
+			// Check the parent caller to ensure it is Notepad++ and not some other process
+			if (!isParentProcessThisNotepadPlusPlus())
+			{
+				::MessageBox(Notepad_plus_Window::gNppHWND, L"The parent process is not Notepad++. Aborting the operation for security reasons.", L"Notepad++ UAC OPS Warning", MB_OK | MB_ICONERROR);
+				return static_cast<int>(ERROR_ACCESS_DENIED);
+			}
+
+			if ((__argc == 4) && (nppUacOpSign == NPP_UAC_SAVE_SIGN))
 			{
 				// __wargv[x]: 2 ... tempFilePath, 3  ...  protectedFilePath2Save
 				return static_cast<int>(nppUacSave(__wargv[2], __wargv[3]));
 			}
 
-			if ((__argc == 4) && (wcscmp(wszNppUacOpSign, NPP_UAC_SETFILEATTRIBUTES_SIGN) == 0))
+			if ((__argc == 4) && (nppUacOpSign == NPP_UAC_SETFILEATTRIBUTES_SIGN))
 			{
 				// __wargv[x]: 2 ... dwFileAttributes (string), 3  ...  filePath
 				try {
@@ -549,13 +616,13 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 				}
 			}
 
-			if ((__argc == 4) && (wcscmp(wszNppUacOpSign, NPP_UAC_MOVEFILE_SIGN) == 0))
+			if ((__argc == 4) && (nppUacOpSign == NPP_UAC_MOVEFILE_SIGN))
 			{
 				// __wargv[x]: 2 ... originalFilePath, 3  ...  newFilePath
 				return static_cast<int>(nppUacMoveFile(__wargv[2], __wargv[3]));
 			}
 
-			if ((__argc == 3) && (wcscmp(wszNppUacOpSign, NPP_UAC_CREATEEMPTYFILE_SIGN) == 0))
+			if ((__argc == 3) && (nppUacOpSign == NPP_UAC_CREATEEMPTYFILE_SIGN))
 			{
 				// __wargv[x]: 2 ... newEmptyFilePath
 				return static_cast<int>(nppUacCreateEmptyFile(__wargv[2]));
@@ -831,7 +898,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	bool isException = false;
 	try {
 		notepad_plus_plus.init(hInstance, NULL, quotFileName.c_str(), &cmdLineParams);
-		allowPrivilegeMessages(notepad_plus_plus, ver);
+		allowForbidPrivilegeMessages(notepad_plus_plus, ver);
 		bool going = true;
 		while (going)
 		{

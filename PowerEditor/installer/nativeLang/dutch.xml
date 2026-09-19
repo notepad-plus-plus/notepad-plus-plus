@@ -630,6 +630,8 @@ Last modified on 2026-07-11 by BdR76.
 				<Item id="5508" name="&amp;Volgende"/>
 				<Item id="5509" name="Plugin-lijst versie:"/>
 				<Item id="5511" name="Plugin-lijst repository"/>
+				<Item id="5512" name="D&amp;eactiveren"/>
+				<Item id="5513" name="&amp;Activeren"/>
 				<Item id="2" name="Sluiten"/>
 			</PluginsAdminDlg>
 
@@ -1406,6 +1408,7 @@ Last modified on 2026-07-11 by BdR76.
 					<Item id="6346" name="Kort weergeven bij overzichtskaart"/>
 					<Item id="6360" name="Alle geluiden dempen"/>
 					<Item id="6361" name="Bevestigingsvenster inschakelen voor alles opslaan"/>
+					<Item id="6366" name="Symlinks laden in paneel 'Map als Werkruimte' toegestaan"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Macro meerdere keren uitvoeren">
@@ -1473,7 +1476,18 @@ U kunt dit dialoogvenster later terug inschakelen via voorkeuren."/>
 				<Item id="7" name="&amp;Nee"/>
 				<Item id="4" name="&amp;Altijd ja"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+			<NetworkPathWarning title="Notepad++-sessie laden" title2="Klikbare file:// link" title3="Laden toolbarButtonsConf.xml" title4="Laden projectpaneel XML file">
+				<Item id="1771" name="Waarschuwing voor netwerkpad:
 
+$STR_REPLACE$
+
+Bij het laden zal Windows automatisch verifiëren bij die server, waardoor uw Windows-inloggegevens mogelijk worden blootgesteld.
+Toch laden?"/>
+				<Item id="2" name="&amp;Overslaan"/>
+				<Item id="6" name="&amp;Laden"/>
+				<Item id="7" name="Netwerkpad &amp;altijd overslaan"/>
+				<Item id="4" name="N&amp;etwerkpad altijd laden"/>
+			</NetworkPathWarning>
 			<DebugInfo title="Debug-info">
 				<Item id="1752" name="&amp;Debug-info naar klembord kopiëren"/>
 				<Item id="1" name="OK"/>
@@ -1637,6 +1651,9 @@ Om veiligheidsredenen wordt de integriteit van shortcuts.xml gecontroleerd. Als 
 			<ShortcutsXmlTampered title="Beveiligingswaarschuwing" message="Het bestand shortcuts.xml lijkt handmatig te zijn gewijzigd.
 
 Om veiligheidsredenen wordt u aangeraden het geopende bestand shortcuts.xml te controleren. Als de inhoud van het bestand in orde is, gebruikt u &quot;shortcuts.xml valideren&quot; in het menu om dit te bevestigen."/>
+			<SymlinkLoadingWarning title="Waarschuwing: Laden symlinks kan soms vastlopen" message="Het inschakelen van het laden van symlinks in 'Map als werkruimte' kan ertoe leiden dat Notepad++ in een oneindige lus terechtkomt en vastloopt.
+Dit kan gebeuren wanneer symlinks naar mappen verwijzen naar bovenliggende mappen of circulaire verwijzingen vormen.
+Ga alleen door als u de risico's begrijpt."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Geschiedenis van klembord"/>

@@ -304,7 +304,7 @@ Last modified on 2026-07-11 by BdR76.
 					<Item id="44024" name="&amp;Uitzoomen (Ctrl + Omlaag scrollen)"/>
 					<Item id="44025" name="Spaties en tabs weergeven"/>
 					<Item id="44026" name="Regeleindemarkering weergeven"/>
-					<Item id="44027" name="&amp;Deelvensters synchronisere"/>
+					<Item id="44027" name="&amp;Deelvensters synchroniseren"/>
 					<Item id="44029" name="Alles uitvouwen"/>
 					<Item id="44030" name="Huidig niveau samenvouwen"/>
 					<Item id="44031" name="Huidig niveau uitvouwen"/>
@@ -630,6 +630,8 @@ Last modified on 2026-07-11 by BdR76.
 				<Item id="5508" name="&amp;Volgende"/>
 				<Item id="5509" name="Plugin-lijst versie:"/>
 				<Item id="5511" name="Plugin-lijst repository"/>
+				<Item id="5512" name="D&amp;eactiveren"/>
+				<Item id="5513" name="&amp;Activeren"/>
 				<Item id="2" name="Sluiten"/>
 			</PluginsAdminDlg>
 
@@ -1406,6 +1408,7 @@ Last modified on 2026-07-11 by BdR76.
 					<Item id="6346" name="Kort weergeven bij overzichtskaart"/>
 					<Item id="6360" name="Alle geluiden dempen"/>
 					<Item id="6361" name="Bevestigingsvenster inschakelen voor alles opslaan"/>
+					<Item id="6366" name="Symlinks laden in paneel 'Map als Werkruimte' toegestaan"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Macro meerdere keren uitvoeren">
@@ -1473,7 +1476,18 @@ U kunt dit dialoogvenster later terug inschakelen via voorkeuren."/>
 				<Item id="7" name="&amp;Nee"/>
 				<Item id="4" name="&amp;Altijd ja"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+			<NetworkPathWarning title="Notepad++-sessie laden" title2="Klikbare file:// link" title3="Laden toolbarButtonsConf.xml" title4="Laden projectpaneel XML file">
+				<Item id="1771" name="Waarschuwing voor netwerkpad:
 
+$STR_REPLACE$
+
+Bij het laden zal Windows automatisch verifiëren bij die server, waardoor uw Windows-inloggegevens mogelijk worden blootgesteld.
+Toch laden?"/>
+				<Item id="2" name="&amp;Overslaan"/>
+				<Item id="6" name="&amp;Laden"/>
+				<Item id="7" name="Netwerkpad &amp;altijd overslaan"/>
+				<Item id="4" name="N&amp;etwerkpad altijd laden"/>
+			</NetworkPathWarning>
 			<DebugInfo title="Debug-info">
 				<Item id="1752" name="&amp;Debug-info naar klembord kopiëren"/>
 				<Item id="1" name="OK"/>
@@ -1541,7 +1555,7 @@ Wilt u het opnieuw laden?"/>
 
 Dit bestand is gewijzigd door een ander programma.
 Wilt u het opnieuw laden en de wijzigingen gemaakt in Notepad++ verliezen?"/>
-			<PrehistoricSystemDetected title="Prehistorisch systeem gedetecteerd" message="Het lijkt erop dat u nog steeds een prehistorisch systeem gebruikt.Deze functie werkt alleen op een modern systeem, sorry."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
+			<PrehistoricSystemDetected title="Prehistorisch systeem gedetecteerd" message="Het lijkt erop dat u nog steeds een prehistorisch systeem gebruikt. Deze functie werkt alleen op een modern systeem, sorry."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Notepad++ updater" message="Notepad++ updater is niet compatibel met XP vanwege de verouderde beveiligingslaag onder XP.
 Wilt u naar de Notepad++-pagina gaan om de laatste versie te downloaden?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
 			<DocTooDirtyToMonitor title="Monitoring-probleem" message="Het document is vervuild. Sla de wijziging op voordat u het monitort."/>
@@ -1565,7 +1579,7 @@ Wilt u uw langs.xml herstellen?"/><!-- HowToReproduce: Close Notepad++. Use anot
 			<FolderAsWorspaceSubfolderExists title="Probleem met toevoegen van map bij map als werkruimte" message="Er bestaat een submap van de map die u wilt toevoegen.
 Verwijder zijn hoofdmap van het venster voordat u map &quot;$STR_REPLACE$&quot; toevoegt."/><!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
-			<ProjectPanelChanged title="$STR_REPLACE$" message="De werkruimte is gewijzigd. Wilt u ze opslaan?"/>
+			<ProjectPanelChanged title="$STR_REPLACE$" message="De werkruimte is gewijzigd. Wilt u deze opslaan?"/>
 			<ProjectPanelSaveError title="$STR_REPLACE$" message="Er is een fout opgetreden tijdens het schrijven van uw werkruimtebestand.
 Uw werkruimte is niet opgeslagen."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Werkruimte openen" message="De huidige werkruimte is gewijzigd. Wilt u het huidige project opslaan?"/>
@@ -1594,19 +1608,19 @@ Wilt u Notepad++ starten in beheerdersmodus?"/>
 Wilt u Notepad++ starten in beheerdersmodus?"/>
 			<OpenInAdminModeFailed title="Openen in beheerdersmodus mislukt" message="Notepad++ kan niet geopend worden in beheerdersmodus."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
 			<ViewInBrowser title="Huidig bestand in browser weergeven" message="Toepassing kan niet op uw systeem worden teruggevonden."/>
-			<ExitToUpdatePlugins title="Notepad++ staat op het punt om af te sluiten" message="Als u op 'ja' klikt, zal u Notepad++ afsluiten om de acties verder te zetten.
+			<ExitToUpdatePlugins title="Notepad++ staat op het punt om af te sluiten" message="Als u op 'ja' klikt, zult u Notepad++ afsluiten om de acties verder te zetten.
 Notepad++ zal opnieuw starten nadat alle acties afgewerkt zijn.
 Doorgaan?"/>
 			<NeedToRestartToLoadPlugins title="Notepad++ moet opnieuw gestart worden" message="U moet Notepad++ opnieuw starten om de geïnstalleerde plug-ins te laden."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
 			<ChangeHistoryEnabledWarning title="Notepad++ moet opnieuw gestart worden" message="U moet Notepad++ opnieuw starten om geschiedenis van wijzigingen in te schakelen."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
-			<WindowsSessionExit title="Notepad++ - Windows-session afsluiten" message="De Windows sessie staat op het punt beëindigd te worden, maar u heeft nog wat niet-opgeslagen gegevens. Wilt u Notepad++ nu afsluiten?"/>
+			<WindowsSessionExit title="Notepad++ - Windows-sessie afsluiten" message="De Windows-sessie staat op het punt beëindigd te worden, maar u heeft nog wat niet-opgeslagen gegevens. Wilt u Notepad++ nu afsluiten?"/>
 			<LanguageMenuCompactWarning title="Compact taalmenu" message="Deze optie zal bij de volgende start worden gewijzigd."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Niet opgeslagen wijzigingen worden weggegooid!
 Wilt u uw wijzigingen opslaan voordat u van thema wisselt?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
 			<FullReadOnlySavingForbidden title="Opslaan mislukt" message="Bestand opslaan is mislukt.
 De schrijfbeveiliging van Notepad++ verhindert het opslaan van dit bestand."/>
 			<NotEnoughRoom4Saving title="Opslaan mislukt" message="Bestand opslaan is mislukt.
-Er lijkt niet voldoende ruimte op de schijf te zijn om het bestand op te slaan. Uw bestand is niet opgeslagen."/>
+Er lijkt onvoldoende ruimte op de schijf te zijn om het bestand op te slaan. Uw bestand is niet opgeslagen."/>
 			<FileInaccessibleUserSession title="Bestand niet toegankelijk" message="Sommige bestanden van uw handmatig opgeslagen sessie &quot;$STR_REPLACE$&quot; zijn niet toegankelijk. Ze kunnen worden geopend als lege en alleen-lezen-documenten als plaatshouders.
 
 Wilt u deze plaatshouders aanmaken?
@@ -1618,15 +1632,15 @@ Wilt u deze plaatshouders aanmaken?
 
 Opmerking: als u ervoor kiest om de plaatshouders niet aan te maken of ze later te sluiten, zal uw sessie worden GEWIJZIGD BIJ HET AFSLUITEN! We raden u aan nu een back-up te maken van uw &quot;session.xml&quot;."/>
 			<RTLvsDirectWrite title="Kan tekstrichting rechts-links niet uitvoeren" message="Tekstrichting rechts-links is niet compatibel met de modus DirectWrite. Schakel de DirectWrite-modus uit in de overige-sectie van het voorkeurenvenster en start Notepad++ opnieuw."/>
-			<FileMemoryAllocationFailed title="Uitzondering: toewijzing van bestandsgeheugen mislukt" message="Er is vermoedelijk onvoldoende aaneensluitend vrij geheugen voor het bestand om geladen te worden door Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
-			<FindRegexBackwardDisabled title="Regex achterwaarts zoeken uitgeschakeld" message="Achterwaarts regex zoeken is standaard uitgeschakeld omwille van potentieel onverwachte resultaten. Om een achterwaartse zoekopdracht uit te voeren, opent u het zoekvenster en selecteert u ofwel normale of uitgebreide zoekmodus in plaats van reguliere expressie.
+			<FileMemoryAllocationFailed title="Uitzondering: toewijzing van bestandsgeheugen mislukt" message="Er is vermoedelijk onvoldoende aaneengesloten vrij geheugen voor het bestand om geladen te worden door Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FindRegexBackwardDisabled title="Regex achterwaarts zoeken uitgeschakeld" message="Achterwaarts regex zoeken is standaard uitgeschakeld vanwege mogelijk onverwachte resultaten. Om een achterwaartse zoekopdracht uit te voeren, opent u het zoekvenster en selecteert u ofwel normale of uitgebreide zoekmodus in plaats van reguliere expressie.
 Druk op OK om het zoekvenster te openen en de focus erop te zetten.
 
 Als u de functie voor achterwaarts regex-zoeken nodig hebt, raadpleegt u de gebruikershandleiding voor instructies om ze in te schakelen."/>
 			<PrintError title="0" message="Kan printer-document niet starten."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 			<FindAutoChangeOfInSelectionWarning title="Zoeken-waarschuwing" message="De status van het vakje &quot;In selectie&quot; is automatisch gewijzigd.
 Verifieer de zoekvoorwaarden voordat u de handeling uitvoert."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
-			<Need2Restart2ShowMenuShortcuts title="Notepad++ moet opnieuw gestart worden" message="Notepad++ nmoet opnieuw gestart worden om snelkoppelingen in het rechter menu weer te geven."/>
+			<Need2Restart2ShowMenuShortcuts title="Notepad++ moet opnieuw gestart worden" message="Notepad++ moet opnieuw gestart worden om snelkoppelingen in het rechter menu weer te geven."/>
 			<NoAdminRight2ChangeReadOnlyFileAttribute title="Wijzigen van alleen-lezen kenmerk van bestand is mislukt" message="Start Notepad++ in de beheerdersmodus om bestandskenmerken te wijzigen."/>
 			<ReadOnlyFileCannotBeSaved title="Opslaan mislukt - Bestand is alleen-lezen" message="&quot;$STR_REPLACE$&quot;
 Het bestand is alleen-lezen en kan niet worden opgeslagen.
@@ -1637,6 +1651,9 @@ Om veiligheidsredenen wordt de integriteit van shortcuts.xml gecontroleerd. Als 
 			<ShortcutsXmlTampered title="Beveiligingswaarschuwing" message="Het bestand shortcuts.xml lijkt handmatig te zijn gewijzigd.
 
 Om veiligheidsredenen wordt u aangeraden het geopende bestand shortcuts.xml te controleren. Als de inhoud van het bestand in orde is, gebruikt u &quot;shortcuts.xml valideren&quot; in het menu om dit te bevestigen."/>
+			<SymlinkLoadingWarning title="Waarschuwing: Laden symlinks kan soms vastlopen" message="Het inschakelen van het laden van symlinks in 'Map als werkruimte' kan ertoe leiden dat Notepad++ in een oneindige lus terechtkomt en vastloopt.
+Dit kan gebeuren wanneer symlinks naar mappen verwijzen naar bovenliggende mappen of circulaire verwijzingen vormen.
+Ga alleen door als u de risico's begrijpt."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Geschiedenis van klembord"/>
@@ -1906,7 +1923,7 @@ Klik op de knop &quot;?&quot; rechts om de website met gebruikershandleiding te 
 
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Ga naar de stijlconfigurator om de standaard aangepaste kleur voor geselecteerde witruimte en niet-afdrukbare tekens te wijzigen (&quot;Non-printing characters custom color&quot;)."/>
-			<npcIncludeCcUniEol-tip value="Instellingen voor weergave van niet-afdrukbare tekens toepassen op C0, C1 stuurtekens and Unicode-regeleindes (nieuwe regel, regelscheidingsteken en alinea-scheidingsteken)."/>
+			<npcIncludeCcUniEol-tip value="Instellingen voor weergave van niet-afdrukbare tekens toepassen op C0, C1 stuurtekens en Unicode-regeleindes (nieuwe regel, regelscheidingsteken en alinea-scheidingsteken)."/>
 			<searchingInSelThresh-tip value="Minimaal aantal geselecteerde tekens in het bewerkingsgebied om het vakje &quot;In selectie&quot; automatisch aan te vinken wanneer het zoekvenster geactiveerd wordt. De maximale waarde is $INT_REPLACE$. Stel de waarde in op 0 om automatisch aanvinken uit te schakelen."/>
 			<searchingFillFindWhat-tip value="Maximaal aantal geselecteerde tekens in het bewerkingsgebied om het zoekveld automatisch te vullen wanneer Ctrl-F wordt geactiveerd. De maximale waarde is $INT_REPLACE$, dit is de maximale grootte van het zoekveld, beperkt door het systeem."/>
 			<verticalEdge-tip value="Voeg uw kolommarkering toe door de positie ervan aan te geven met een decimaal getal. U kunt meerdere kolommarkeringen definiëren door witruimte te gebruiken om de verschillende getallen van elkaar te scheiden.."/>
@@ -1919,7 +1936,7 @@ Als u de geavanceerde modus selecteert maar geen bestanden in de bovengenoemde t
 
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Als u hier &quot;Global override&quot; inschakelt, wordt die parameter in alle taalstijlen overschreven. Wat u waarschijnlijk echt wilt, is de &quot;Default Style&quot;-instellingen gebruiken"/>
-			<scintillaRenderingTechnology-tip value="Kan het rendere nvan speciale tekens verbeteren of sommige grafische problemen oplossen. Start Notepad++ opnieuw om de wijzigingen toe te passen."/>
+			<scintillaRenderingTechnology-tip value="Kan het renderen van speciale tekens verbeteren of sommige grafische problemen oplossen. Start Notepad++ opnieuw om de wijzigingen toe te passen."/>
 
 			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
 			<statusbar-length-lines value="lengte: $STR_REPLACE1$    regels: $STR_REPLACE2$"/>

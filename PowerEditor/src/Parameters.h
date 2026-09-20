@@ -2002,7 +2002,7 @@ private:
 	bool getUserCmdsFromXmlTree();
 	bool getPluginCmdsFromXmlTree();
 	bool getScintKeysFromXmlTree();
-	bool getSessionFromXmlTree(const NppXml::Document& pSessionDoc, const wchar_t* wszSessionDocFileName, Session& session);
+	bool getSessionFromXmlTree(const NppXml::Document& pSessionDoc, const wchar_t* wszSessionDocFileName, Session& session, const bool bTest = false);
 
 	void feedGUIParameters(const NppXml::Element& element);
 	void feedKeyWordsParameters(const NppXml::Element& element);

@@ -3398,7 +3398,7 @@ bool NppParameters::setNetworkPathAlwaysActionInServerWhitelist(NetworkPathAlway
 	return false;
 }
 
-bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, const wchar_t* wszSessionDocFileName, Session& session)
+bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, const wchar_t* wszSessionDocFileName, Session& session, const bool bTest)
 {
 	if (!pSessionDoc)
 		return false;
@@ -3459,7 +3459,7 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, c
 				{
 					const std::wstring wstrFileName = string2wstring(fileName);
 
-					if (!isNppExit && isUncPath(wstrFileName))
+					if (!isNppExit && !bTest && isUncPath(wstrFileName))
 					{
 						if (!isServerAllowed(fileName)) // is in the serverWhiteList.xml ?
 						{
@@ -3525,7 +3525,7 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, c
 					const char* backupFilePath = NppXml::attribute(childNode, "backupFilePath");
 					const std::wstring wstrBackupFilePath = wmc.char2wchar(backupFilePath ? backupFilePath : "", CP_UTF8);
 
-					if (!isNppExit && isUncPath(wstrBackupFilePath))
+					if (!isNppExit && !bTest && isUncPath(wstrBackupFilePath))
 					{
 						if (!isServerAllowed(backupFilePath)) // is in the serverWhiteList.xml ?
 						{
@@ -3671,7 +3671,7 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, c
 			{
 				std::wstring rootFolder = string2wstring(fileName);
 
-				if (!isNppExit && isUncPath(rootFolder))
+				if (!isNppExit && !bTest && isUncPath(rootFolder))
 				{
 					if (!isServerAllowed(fileName)) // is in the serverWhiteList.xml ?
 					{
@@ -3732,7 +3732,7 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, c
 			}
 		}
 	}
-	
+
 	if (wszSessionDocFileName)
 		pSessionDoc->save_file(wszSessionDocFileName);
 
@@ -4953,7 +4953,7 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 		if (sessionSaveOK)
 		{
 			Session sessionCheck;
-			sessionSaveOK = getSessionFromXmlTree(pXmlSessionCheck, nullptr, sessionCheck);
+			sessionSaveOK = getSessionFromXmlTree(pXmlSessionCheck, nullptr, sessionCheck, true); // test only
 		}
 		delete pXmlSessionCheck;
 	}

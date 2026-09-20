@@ -1827,7 +1827,7 @@ bool NppParameters::load()
 		loadOkay = NppXml::loadFile(pXmlSessionDoc, _sessionPath.c_str());
 		if (loadOkay)
 		{
-			loadOkay = getSessionFromXmlTree(pXmlSessionDoc, _session);
+			loadOkay = getSessionFromXmlTree(pXmlSessionDoc, _sessionPath.c_str(), _session);
 		}
 
 		if (!loadOkay)
@@ -1855,7 +1855,7 @@ bool NppParameters::load()
 					NppXml::Document pXmlSessionBackupDoc = new NppXml::NewDocument();
 					loadOkay = NppXml::loadFile(pXmlSessionBackupDoc, _sessionPath.c_str());
 					if (loadOkay)
-						loadOkay = getSessionFromXmlTree(pXmlSessionBackupDoc, _session);
+						loadOkay = getSessionFromXmlTree(pXmlSessionBackupDoc, _sessionPath.c_str(), _session);
 
 					delete pXmlSessionBackupDoc;
 				}
@@ -3184,7 +3184,7 @@ bool NppParameters::loadSession(Session& session, const wchar_t* sessionFileName
 	NppXml::Document pXmlSessionDocument = new NppXml::NewDocument();
 	bool loadOkay = NppXml::loadFile(pXmlSessionDocument, sessionFileName);
 	if (loadOkay)
-		loadOkay = getSessionFromXmlTree(pXmlSessionDocument, session);
+		loadOkay = getSessionFromXmlTree(pXmlSessionDocument, sessionFileName, session);
 
 	if (!loadOkay && !bSuppressErrorMsg)
 	{
@@ -3398,7 +3398,7 @@ bool NppParameters::setNetworkPathAlwaysActionInServerWhitelist(NetworkPathAlway
 	return false;
 }
 
-bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, Session& session)
+bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, const wchar_t* wszSessionDocFileName, Session& session)
 {
 	if (!pSessionDoc)
 		return false;
@@ -3410,6 +3410,8 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 	NppXml::Element sessionRoot = NppXml::firstChildElement(root, "Session");
 	if (!sessionRoot)
 		return false;
+
+	bool bNeedsSessionXmlFileUpdateAfter = false;
 
 	const int index = NppXml::intAttribute(sessionRoot, "activeView", -1);
 	if (index >= 0)
@@ -3444,10 +3446,14 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 				else // k == 1
 					session._activeSubIndex = index2;
 			}
-			for (NppXml::Element childNode = NppXml::firstChildElement(viewRoots[k], "File");
+
+			for (NppXml::Element childNode = NppXml::firstChildElement(viewRoots[k], "File"), nextNode;
 				childNode;
-				childNode = NppXml::nextSiblingElement(childNode, "File"))
+				childNode = nextNode)
 			{
+				// cache the possible next sibling before doing anything else (nodes can be removed further in the cycle...)
+				nextNode = NppXml::nextSiblingElement(childNode, "File");
+
 				const char* fileName = NppXml::attribute(childNode, "filename");
 				if (fileName)
 				{
@@ -3467,11 +3473,19 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 
 								if (buttonID == IDCANCEL || buttonID == IDNO) // Skip once or Always skip
 								{
+									// as the Skip or AlwaysSkip causes the current filename will not be in the Notepad++ session anymore,
+									// it is important to update also the current session.xml content on disk accordingly,
+									// otherwise any subsequent indirect Notepad++ app launching (e.g. via the NppShell context menu)
+									// causes this getSessionFromXmlTree will check old out-of-date session.xml content
+									bNeedsSessionXmlFileUpdateAfter = true;
+									viewRoots[k].remove_child(childNode);
 									continue;
 								}
 							}
 							else if (_networkPathAlwaysAction == networkPathAlwaysSkip)
 							{
+								bNeedsSessionXmlFileUpdateAfter = true;
+								viewRoots[k].remove_child(childNode);
 								continue;
 							}
 							else if (_networkPathAlwaysAction == networkPathAlwaysLoad)
@@ -3525,11 +3539,15 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 
 								if (buttonID == IDCANCEL || buttonID == IDNO) // Skip once or Always skip
 								{
+									bNeedsSessionXmlFileUpdateAfter = true;
+									viewRoots[k].remove_child(childNode);
 									continue;
 								}
 							}
 							else if (_networkPathAlwaysAction == networkPathAlwaysSkip)
 							{
+								bNeedsSessionXmlFileUpdateAfter = true;
+								viewRoots[k].remove_child(childNode);
 								continue;
 							}
 							else if (_networkPathAlwaysAction == networkPathAlwaysLoad)
@@ -3641,10 +3659,13 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 			session._fileBrowserSelectedItem = string2wstring(selectedItemPath);
 		}
 
-		for (NppXml::Element childNode = NppXml::firstChildElement(fileBrowserRoot, "root");
+		for (NppXml::Element childNode = NppXml::firstChildElement(fileBrowserRoot, "root"), nextNode;
 			childNode;
-			childNode = NppXml::nextSiblingElement(childNode, "root"))
+			childNode = nextNode)
 		{
+			// cache the possible next sibling before doing anything else (nodes can be removed further in the cycle...)
+			nextNode = NppXml::nextSiblingElement(childNode, "root");
+
 			const char* fileName = NppXml::attribute(childNode, "foldername");
 			if (fileName && fileName[0])
 			{
@@ -3664,11 +3685,15 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 
 							if (buttonID == IDCANCEL || buttonID == IDNO) // Skip once or Always skip
 							{
+								bNeedsSessionXmlFileUpdateAfter = true;
+								fileBrowserRoot.remove_child(childNode);
 								continue;
 							}
 						}
 						else if (_networkPathAlwaysAction == networkPathAlwaysSkip)
 						{
+							bNeedsSessionXmlFileUpdateAfter = true;
+							fileBrowserRoot.remove_child(childNode);
 							continue;
 						}
 						else if (_networkPathAlwaysAction == networkPathAlwaysLoad)
@@ -3707,6 +3732,9 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 			}
 		}
 	}
+	
+	if (wszSessionDocFileName)
+		pSessionDoc->save_file(wszSessionDocFileName);
 
 	return true;
 }
@@ -4925,7 +4953,7 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 		if (sessionSaveOK)
 		{
 			Session sessionCheck;
-			sessionSaveOK = getSessionFromXmlTree(pXmlSessionCheck, sessionCheck);
+			sessionSaveOK = getSessionFromXmlTree(pXmlSessionCheck, nullptr, sessionCheck);
 		}
 		delete pXmlSessionCheck;
 	}

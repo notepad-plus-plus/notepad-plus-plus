@@ -982,25 +982,14 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 		ownDoc = true;
 	}
 
-	wchar_t fullpath[MAX_PATH] = { 0 };
-	if (isWin32NamespacePrefixedFileName(filename)) // This function checks for the \\?\ prefix
-	{
-		// use directly the raw file name, skip the GetFullPathName WINAPI
-		wcsncpy_s(fullpath, _countof(fullpath), filename, _TRUNCATE);
-	}
-	else
-	{
-		::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
-		if (wcschr(fullpath, '~'))
-		{
-			::GetLongPathName(fullpath, fullpath, MAX_PATH);
-		}
-	}
+	std::wstring fullpath = getFullPathNameForFileIO(filename);
+	if (fullpath.empty())
+		return BUFFER_INVALID;
 
 	bool isSnapshotMode = (backupFileName != NULL) && doesFileExist(backupFileName);
-	if (isSnapshotMode && !doesFileExist(fullpath)) // if backup mode and fullpath doesn't exist, we guess is UNTITLED
+	if (isSnapshotMode && !doesFileExist(fullpath.c_str())) // if backup mode and fullpath doesn't exist, we guess is UNTITLED
 	{
-		wcscpy_s(fullpath, MAX_PATH, filename); // we restore fullpath with filename, in our case is "new  #"
+		fullpath = filename; // we restore fullpath with filename, in our case is "new  #"
 	}
 
 	Utf8_16_Read UnicodeConvertor;	//declare here so we can get information after loading is done
@@ -1012,20 +1001,20 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 	loadedFileFormat._eolFormat = EolType::unknown;
 	loadedFileFormat._language = L_TEXT;
 
-	bool loadRes = loadFileData(doc, fileSize, backupFileName ? backupFileName : fullpath, data, &UnicodeConvertor, loadedFileFormat);
+	bool loadRes = loadFileData(doc, fileSize, backupFileName ? backupFileName : fullpath.c_str(), data, &UnicodeConvertor, loadedFileFormat);
 
 	delete[] data;
 
 	if (loadRes)
 	{
-		Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath, isLargeFile);
+		Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath.c_str(), isLargeFile);
 		BufferID id = newBuf;
 		newBuf->_id = id;
 
 		if (backupFileName != NULL)
 		{
 			newBuf->_backupFileName = backupFileName;
-			if (!doesFileExist(fullpath))
+			if (!doesFileExist(fullpath.c_str()))
 			{
 				newBuf->_currentStatus = DOC_UNNAMED;
 				newBuf->setTabCreatedTimeStringFromBakFile();
@@ -1441,33 +1430,21 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 	Buffer* buffer = getBufferByID(id);
 	bool isHiddenOrSys = false;
 
-	wchar_t fullpath[MAX_PATH]{};
-	if (isWin32NamespacePrefixedFileName(filename))
-	{
-		// use directly the raw file name, skip the GetFullPathName WINAPI
-		wcsncpy_s(fullpath, _countof(fullpath), filename, _TRUNCATE);
-	}
-	else
-	{
-		::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
-		if (wcschr(fullpath, '~'))
-		{
-			::GetLongPathName(fullpath, fullpath, MAX_PATH);
-		}
-	}
-	
-	wchar_t dirDest[MAX_PATH]{};
-	wcscpy_s(dirDest, MAX_PATH, fullpath);
-	::PathRemoveFileSpecW(dirDest);
+	std::wstring fullpath = getFullPathNameForFileIO(filename);
+	if (fullpath.empty())
+		return SavingStatus::SaveOpenFailed;
+
+	std::wstring dirDest = fullpath;
+	pathRemoveFileSpec(dirDest);
 
 	const wchar_t* currentBufFilePath = buffer->getFullPathName();
 	ULARGE_INTEGER freeBytesForUser;
 	 
-	BOOL getFreeSpaceSuccessful = getDiskFreeSpaceWithTimeout(dirDest, &freeBytesForUser);
+	BOOL getFreeSpaceSuccessful = getDiskFreeSpaceWithTimeout(dirDest.c_str(), &freeBytesForUser);
 	if (getFreeSpaceSuccessful)
 	{
 		int64_t fileSize = buffer->getFileLength();
-		if (fileSize >= 0 && lstrcmp(fullpath, currentBufFilePath) == 0) // if file to save does exist, and it's an operation "Save" but not "Save As"
+		if (fileSize >= 0 && lstrcmp(fullpath.c_str(), currentBufFilePath) == 0) // if file to save does exist, and it's an operation "Save" but not "Save As"
 		{
 			// if file exists and the operation "Save" but not "Save As", its current length should be considered as part of free room space since the file itself will be overrrided 
 			freeBytesForUser.QuadPart += fileSize;
@@ -1480,12 +1457,12 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
 	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
-	getFileAttributesExWithTimeout(fullpath, &attributes);
+	getFileAttributesExWithTimeout(fullpath.c_str(), &attributes);
 	if (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES && !(attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 	{
 		isHiddenOrSys = (attributes.dwFileAttributes & (FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM)) != 0;
 		if (isHiddenOrSys)
-			::SetFileAttributes(filename, attributes.dwFileAttributes & ~(FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM));
+			::SetFileAttributes(fullpath.c_str(), attributes.dwFileAttributes & ~(FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM));
 	}
 
 	UniMode mode = buffer->getUnicodeMode();
@@ -1498,7 +1475,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 	int encoding = buffer->getEncoding();
 
 	wstring strTempFile = L"";
-	if (!UnicodeConvertor.openFile(fullpath))
+	if (!UnicodeConvertor.openFile(fullpath.c_str()))
 	{
 		if (NppParameters::getInstance().isEndSessionCritical())
 			return SavingStatus::SaveOpenFailed; // cannot continue to the UAC-prompt at the Windows logoff/reboot/shutdown time
@@ -1558,7 +1535,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 	UnicodeConvertor.closeFile();
 
 	if (isHiddenOrSys && strTempFile.empty())
-		::SetFileAttributes(fullpath, attributes.dwFileAttributes);
+		::SetFileAttributes(fullpath.c_str(), attributes.dwFileAttributes);
 
 	// Error, we didn't write the entire document to disk.
 	if (!isWrittenSuccessful)
@@ -1595,7 +1572,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 		return SavingStatus::SaveOK;	//all done - we don't change the current buffer's path to "fullpath", since it's "Save a Copy As..." action.
 	}
 
-	buffer->setFileName(fullpath);
+	buffer->setFileName(fullpath.c_str());
 
 	// if not a large file and language is normal text (not defined)
 	// we may try determine its language from its content 
@@ -1938,10 +1915,9 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 	bool isNetworkDirDisconnected = false;
 	if (PathIsNetworkPath(filename))
 	{
-		wchar_t dir[MAX_PATH]{};
-		wcscpy_s(dir,filename);
-		PathRemoveFileSpec(dir);
-		isNetworkDirDisconnected = !doesDirectoryExist(dir);
+		std::wstring dir(filename);
+		pathRemoveFileSpec(dir);
+		isNetworkDirDisconnected = !doesDirectoryExist(dir.c_str());
 	}
 
 	if (isNetworkDirDisconnected)

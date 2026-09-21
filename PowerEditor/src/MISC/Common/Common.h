@@ -133,6 +133,7 @@ protected:
 
 std::wstring pathRemoveFileSpec(std::wstring & path);
 std::wstring pathAppend(std::wstring &strDest, const std::wstring & str2append);
+std::wstring getFullPathNameForFileIO(const std::wstring& path);
 COLORREF getCtrlBgColor(HWND hWnd);
 std::wstring stringToUpper(std::wstring strToConvert);
 std::wstring stringToLower(std::wstring strToConvert);

@@ -212,10 +212,6 @@ static bool resolveLinkFile(std::wstring& linkFilePath)
 
 BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool isReadOnly, int encoding, const wchar_t *backupFileName, FILETIME fileNameTimestamp)
 {
-	const rsize_t longFileNameBufferSize = MAX_PATH;
-	if (fileName.size() >= longFileNameBufferSize - 1)
-		return BUFFER_INVALID;
-
 	wstring targetFileName = fileName;
 	bool isResolvedLinkFileName = resolveLinkFile(targetFileName);
 
@@ -225,7 +221,11 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 	else
 		isRawFileName = isWin32NamespacePrefixedFileName(fileName);
 
-	if (isUnsupportedFileName(isResolvedLinkFileName ? targetFileName : fileName))
+	wstring longFileName = isRawFileName ? fileName : getFullPathNameForFileIO(targetFileName);
+	if (longFileName.empty())
+		return BUFFER_INVALID;
+
+	if (isUnsupportedFileName(isResolvedLinkFileName ? targetFileName : longFileName))
 	{
 		// TODO:
 		// for the raw filenames we can allow even the usually unsupported filenames in the future,
@@ -261,40 +261,14 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 	//If [GetFullPathName] fails for any other reason, the return value is zero.
 
 	NppParameters& nppParam = NppParameters::getInstance();
-	wchar_t longFileName[longFileNameBufferSize] = { 0 };
-
-	if (isRawFileName)
-	{
-		// use directly the raw file name, skip the GetFullPathName WINAPI and alike...)
-		wcsncpy_s(longFileName, _countof(longFileName), fileName.c_str(), _TRUNCATE);
-	}
-	else
-	{
-		const DWORD getFullPathNameResult = ::GetFullPathName(targetFileName.c_str(), longFileNameBufferSize, longFileName, NULL);
-		if (getFullPathNameResult == 0)
-		{
-			return BUFFER_INVALID;
-		}
-		if (getFullPathNameResult > longFileNameBufferSize)
-		{
-			return BUFFER_INVALID;
-		}
-		assert(wcslen(longFileName) == getFullPathNameResult);
-
-		if (wcschr(longFileName, '~'))
-		{
-			// ignore the returned value of function due to win64 redirection system
-			::GetLongPathName(longFileName, longFileName, longFileNameBufferSize);
-		}
-	}
 
 	bool isSnapshotMode = (backupFileName != NULL) && doesFileExist(backupFileName);
-	bool longFileNameExists = doesFileExist(longFileName);
+	bool longFileNameExists = doesFileExist(longFileName.c_str());
 	if (isSnapshotMode && !longFileNameExists) // UNTITLED
 	{
-		wcscpy_s(longFileName, targetFileName.c_str());
+		longFileName = targetFileName;
 	}
-    _lastRecentFileList.remove(longFileName);
+	_lastRecentFileList.remove(longFileName.c_str());
 
 
 	// "fileName" could be:
@@ -329,15 +303,15 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
         return foundBufID;
     }
 
-    if (isFileSession(longFileName) && longFileNameExists)
+	if (isFileSession(longFileName.c_str()) && longFileNameExists)
     {
-        fileLoadSession(longFileName);
+		fileLoadSession(longFileName.c_str());
         return BUFFER_INVALID;
     }
 
-	if (isFileWorkspace(longFileName) && longFileNameExists)
+	if (isFileWorkspace(longFileName.c_str()) && longFileNameExists)
 	{
-		nppParam.setWorkSpaceFilePath(0, longFileName);
+		nppParam.setWorkSpaceFilePath(0, longFileName.c_str());
 		// This line switches to Project Panel 1 while starting up Npp
 		// and after dragging a workspace file to Npp:
 		launchProjectPanel(IDM_VIEW_PROJECT_PANEL_1, &_pProjectPanel_1, 0);
@@ -355,13 +329,13 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 
 	bool globbing;
 	if (isRawFileName)
-		globbing = (wcsrchr(longFileName, wchar_t('*')) || (abs(longFileName - wcsrchr(longFileName, wchar_t('?'))) > 3));
+		globbing = (wcsrchr(longFileName.c_str(), wchar_t('*')) || (abs(longFileName.c_str() - wcsrchr(longFileName.c_str(), wchar_t('?'))) > 3));
 	else
-		globbing = (wcsrchr(longFileName, wchar_t('*')) || wcsrchr(longFileName, wchar_t('?')));
+		globbing = (wcsrchr(longFileName.c_str(), wchar_t('*')) || wcsrchr(longFileName.c_str(), wchar_t('?')));
 
 	if (!isSnapshotMode) // if not backup mode, or backupfile path is invalid
 	{
-		if (!doesPathExist(longFileName) && !globbing)
+		if (!doesPathExist(longFileName.c_str()) && !globbing)
 		{
 			wstring longFileDir(longFileName);
 			pathRemoveFileSpec(longFileDir);
@@ -375,11 +349,11 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 					L"Create new file",
 					MB_YESNO,
 					0,
-					longFileName);
+					longFileName.c_str());
 
 				if (res == IDYES)
 				{
-					bool isOK = MainFileManager.createEmptyFile(longFileName);
+					bool isOK = MainFileManager.createEmptyFile(longFileName.c_str());
 					if (isOK)
 					{
 						isCreateFileSuccessful = true;
@@ -392,7 +366,7 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 							L"Create new file",
 							MB_OK,
 							0,
-							longFileName);
+							longFileName.c_str());
 					}
 				}
 			}
@@ -440,13 +414,13 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 
     if (encoding == -1)
     {
-		encoding = getHtmlXmlEncoding(longFileName);
+		encoding = getHtmlXmlEncoding(longFileName.c_str());
     }
 
 	BufferID buffer;
 	if (isSnapshotMode)
 	{
-		buffer = MainFileManager.loadFile(longFileName, static_cast<Document>(NULL), encoding, backupFileName, fileNameTimestamp);
+		buffer = MainFileManager.loadFile(longFileName.c_str(), static_cast<Document>(NULL), encoding, backupFileName, fileNameTimestamp);
 
 		if (buffer != BUFFER_INVALID)
 		{
@@ -462,7 +436,7 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 	}
 	else
 	{
-		buffer = MainFileManager.loadFile(longFileName, static_cast<Document>(NULL), encoding);
+		buffer = MainFileManager.loadFile(longFileName.c_str(), static_cast<Document>(NULL), encoding);
 		if (buffer != BUFFER_INVALID && nppParam.isMonitoringMode())
 		{
 			monitoringStartOrStopAndUpdateUI(buffer, true);
@@ -498,7 +472,7 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
                 ::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
             }
         }
-        PathRemoveFileSpec(longFileName);
+		pathRemoveFileSpec(longFileName);
         _linkTriggered = true;
         _isFileOpening = false;
 
@@ -567,7 +541,7 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 				L"ERROR",
 				MB_OK,
 				0,
-				longFileName);
+				longFileName.c_str());
 
             _isFileOpening = false;
 

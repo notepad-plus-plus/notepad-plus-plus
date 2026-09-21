@@ -25,27 +25,20 @@ public:
 	{
 		wchar_t *pStr = NULL;
 		bool isInsideQuotes = false;
-		const int filePathLength = MAX_PATH;
-
-		wchar_t str[filePathLength];
-		int i = 0;
+		std::wstring str;
         bool fini = false;
 
 		for (pStr = (wchar_t *)fileNameStr ; !fini ; )
 		{
-			if (i >= filePathLength)
-				break;
-
 			switch (*pStr)
 			{
 				case '"':
 				{
 					if (isInsideQuotes)
 					{
-						str[i] = '\0';
-                        if (str[0])
-							_fileNames.push_back(std::wstring(str));
-						i = 0;
+						if (!str.empty())
+							_fileNames.push_back(str);
+						str.clear();
 					}
 					isInsideQuotes = !isInsideQuotes;
 					pStr++;
@@ -56,15 +49,13 @@ public:
 				{
 					if (isInsideQuotes)
 					{
-						str[i] = *pStr;
-						i++;
+						str += *pStr;
 					}
 					else
 					{
-						str[i] = '\0';
-                        if (str[0])
-							_fileNames.push_back(std::wstring(str));
-						i = 0;
+						if (!str.empty())
+							_fileNames.push_back(str);
+						str.clear();
 					}
                     pStr++;
 					break;
@@ -72,17 +63,16 @@ public:
 
                 case '\0':
 				{
-                    str[i] = *pStr;
-                    if (str[0])
-						_fileNames.push_back(std::wstring(str));
+					if (!str.empty())
+						_fileNames.push_back(str);
                     fini = true;
 					break;
 				}
 
 				default :
 				{
-					str[i] = *pStr;
-					i++; pStr++;
+					str += *pStr;
+					pStr++;
 					break;
 				}
 			}

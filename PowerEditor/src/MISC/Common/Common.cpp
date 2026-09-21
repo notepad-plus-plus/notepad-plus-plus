@@ -1793,7 +1793,7 @@ bool isUnsupportedFileName(const wstring& fileName)
 
 	// until the Notepad++ (and its plugins) will not be prepared for filenames longer than the MAX_PATH,
 	// we have to limit also the maximum supported length below
-	if ((fileName.size() > 0) && (fileName.size() < MAX_PATH))
+	if ((fileName.size() > 0) && (fileName.size() < MAX_PATH || isWin32NamespacePrefixedFileName(fileName)))
 	{
 		// possible raw filenames can contain space(s) or dot(s) at its end (e.g. "\\?\C:\file."), but the Notepad++ advanced
 		// Open/SaveAs IFileOpenDialog/IFileSaveDialog COM-interface based dialogs currently do not handle this well
@@ -1892,6 +1892,42 @@ bool isUncPath(const std::wstring& path)
 
 	// Plain UNC: \\server\share\...  or  //server/share/...
 	return (path.starts_with(L"\\\\") || path.starts_with(L"//"));
+}
+
+std::wstring getFullPathNameForFileIO(const std::wstring& path)
+{
+	if (path.empty() || isWin32NamespacePrefixedFileName(path))
+		return path;
+
+	std::wstring fullPath = path;
+	if (::PathIsRelativeW(path.c_str()))
+	{
+		DWORD bufferLength = MAX_PATH;
+		for (;;)
+		{
+			std::vector<wchar_t> buffer(bufferLength);
+			DWORD result = ::GetFullPathNameW(path.c_str(), bufferLength, buffer.data(), nullptr);
+			if (result == 0)
+				return std::wstring();
+			if (result < bufferLength)
+			{
+				fullPath.assign(buffer.data(), result);
+				break;
+			}
+			bufferLength = result + 1;
+		}
+	}
+
+	if (fullPath.size() < MAX_PATH)
+		return fullPath;
+
+	if (fullPath.size() >= 2 && fullPath[1] == L':')
+		return L"\\\\?\\" + fullPath;
+
+	if (isUncPath(fullPath))
+		return L"\\\\?\\UNC\\" + fullPath.substr(2);
+
+	return fullPath;
 }
 
 bool isUncFileUrl(const std::wstring& url)

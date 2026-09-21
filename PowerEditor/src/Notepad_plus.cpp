@@ -4571,23 +4571,26 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 			// do not change the current Notepad++ edit-view
 
 		int filesDropped = ::DragQueryFileW(hdrop, 0xffffffff, NULL, 0);
+		auto getDroppedPath = [hdrop](int index) {
+			UINT pathLength = ::DragQueryFileW(hdrop, index, NULL, 0);
+			if (pathLength == 0)
+				return wstring();
+			wstring path(pathLength + 1, L'\0');
+			::DragQueryFileW(hdrop, index, path.data(), pathLength + 1);
+			path.resize(pathLength);
+			return path;
+		};
 
 		vector<wstring> folderPaths;
 		vector<wstring> filePaths;
 		for (int i = 0; i < filesDropped; ++i)
 		{
-			wchar_t pathDropped[MAX_PATH]{};
-			::DragQueryFileW(hdrop, i, pathDropped, MAX_PATH);
-			if (doesDirectoryExist(pathDropped))
+			wstring pathDropped = getDroppedPath(i);
+			if (doesDirectoryExist(pathDropped.c_str()))
 			{
-				size_t len = lstrlenW(pathDropped);
+				size_t len = pathDropped.length();
 				if ((len > 0) && (pathDropped[len - 1] != wchar_t('\\')))
-				{
-					if (len + 1 >= MAX_PATH)
-						continue; // not enough space for the trailing backslash, try next
-					pathDropped[len] = wchar_t('\\');
-					pathDropped[len + 1] = wchar_t('\0');
-				}
+					pathDropped += wchar_t('\\');
 				folderPaths.push_back(pathDropped);
 			}
 			else
@@ -4608,9 +4611,8 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 			BufferID lastOpened = BUFFER_INVALID;
 			for (int i = 0; i < filesDropped; ++i)
 			{
-				wchar_t pathDropped[MAX_PATH]{};
-				::DragQueryFileW(hdrop, i, pathDropped, MAX_PATH);
-				BufferID test = doOpen(pathDropped);
+				wstring pathDropped = getDroppedPath(i);
+				BufferID test = doOpen(pathDropped.c_str());
 				if (test != BUFFER_INVALID)
 					lastOpened = test;
 			}

@@ -1834,9 +1834,19 @@ intptr_t CALLBACK StylerDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
             dlg = static_cast<StylerDlg*>(::GetProp(_hSelf, L"Styler dialog prop"));
             Style & style = SharedParametersDialog::_pUserLang->_styles.getStyler(dlg->_stylerIndex);
 
-            ::SendDlgItemMessage(_hSelf, IDC_STYLER_CHECK_UNDERLINE, BM_SETCHECK, style._fontStyle & FONTSTYLE_UNDERLINE, 0);
-            ::SendDlgItemMessage(_hSelf, IDC_STYLER_CHECK_ITALIC,    BM_SETCHECK, style._fontStyle & FONTSTYLE_ITALIC, 0);
-            ::SendDlgItemMessage(_hSelf, IDC_STYLER_CHECK_BOLD,      BM_SETCHECK, style._fontStyle & FONTSTYLE_BOLD, 0);
+            // if it's a new styler (not yet any styles set), use the theme's default fg colors and transparent background
+            if (SharedParametersDialog::_pUserLang->_isUnset)
+            {
+                SharedParametersDialog::_pUserLang->startAtTheme();
+
+                // also needs to update dlg->_initialStyle, which was set wrong, above
+                dlg->_initialStyle = SharedParametersDialog::_pUserLang->_styles.getStyler(dlg->_stylerIndex);
+            }
+
+            int sfs = (style._fontStyle == STYLE_NOT_USED) ? FONTSTYLE_NONE : style._fontStyle; // STYLE_NOT_USED=1, so STYLE_NOT_USED & FONTSTYLE_UNDERLINE is 1 (etc); we don't want underline/italic/bold for STYLE_NOT_USED
+            ::SendDlgItemMessage(_hSelf, IDC_STYLER_CHECK_UNDERLINE, BM_SETCHECK, sfs & FONTSTYLE_UNDERLINE, 0);
+            ::SendDlgItemMessage(_hSelf, IDC_STYLER_CHECK_ITALIC,    BM_SETCHECK, sfs & FONTSTYLE_ITALIC, 0);
+            ::SendDlgItemMessage(_hSelf, IDC_STYLER_CHECK_BOLD,      BM_SETCHECK, sfs & FONTSTYLE_BOLD, 0);
 
             // for the font size combo
             HWND hFontSizeCombo = ::GetDlgItem(_hSelf, IDC_STYLER_COMBO_FONT_SIZE);

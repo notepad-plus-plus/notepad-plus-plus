@@ -3733,7 +3733,7 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, c
 		}
 	}
 
-	if (wszSessionDocFileName)
+	if (bNeedsSessionXmlFileUpdateAfter && (wszSessionDocFileName != nullptr))
 		pSessionDoc->save_file(wszSessionDocFileName);
 
 	return true;

@@ -1827,7 +1827,7 @@ bool NppParameters::load()
 		loadOkay = NppXml::loadFile(pXmlSessionDoc, _sessionPath.c_str());
 		if (loadOkay)
 		{
-			loadOkay = getSessionFromXmlTree(pXmlSessionDoc, _sessionPath.c_str(), _session);
+			loadOkay = getSessionFromXmlTree(pXmlSessionDoc, _session, _sessionPath, true);
 		}
 
 		if (!loadOkay)
@@ -1855,7 +1855,7 @@ bool NppParameters::load()
 					NppXml::Document pXmlSessionBackupDoc = new NppXml::NewDocument();
 					loadOkay = NppXml::loadFile(pXmlSessionBackupDoc, _sessionPath.c_str());
 					if (loadOkay)
-						loadOkay = getSessionFromXmlTree(pXmlSessionBackupDoc, _sessionPath.c_str(), _session);
+						loadOkay = getSessionFromXmlTree(pXmlSessionBackupDoc, _session, _sessionPath, true);
 
 					delete pXmlSessionBackupDoc;
 				}
@@ -3184,7 +3184,7 @@ bool NppParameters::loadSession(Session& session, const wchar_t* sessionFileName
 	NppXml::Document pXmlSessionDocument = new NppXml::NewDocument();
 	bool loadOkay = NppXml::loadFile(pXmlSessionDocument, sessionFileName);
 	if (loadOkay)
-		loadOkay = getSessionFromXmlTree(pXmlSessionDocument, sessionFileName, session);
+		loadOkay = getSessionFromXmlTree(pXmlSessionDocument, session, sessionFileName, true);
 
 	if (!loadOkay && !bSuppressErrorMsg)
 	{
@@ -3398,7 +3398,7 @@ bool NppParameters::setNetworkPathAlwaysActionInServerWhitelist(NetworkPathAlway
 	return false;
 }
 
-bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, const wchar_t* wszSessionDocFileName, Session& session, const bool bTest)
+bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, Session& session, const std::wstring& sessionDocFileName, bool detectNetworkPath)
 {
 	if (!pSessionDoc)
 		return false;
@@ -3459,7 +3459,7 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, c
 				{
 					const std::wstring wstrFileName = string2wstring(fileName);
 
-					if (!isNppExit && !bTest && isUncPath(wstrFileName))
+					if (!isNppExit && detectNetworkPath && isUncPath(wstrFileName))
 					{
 						if (!isServerAllowed(fileName)) // is in the serverWhiteList.xml ?
 						{
@@ -3525,7 +3525,7 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, c
 					const char* backupFilePath = NppXml::attribute(childNode, "backupFilePath");
 					const std::wstring wstrBackupFilePath = wmc.char2wchar(backupFilePath ? backupFilePath : "", CP_UTF8);
 
-					if (!isNppExit && !bTest && isUncPath(wstrBackupFilePath))
+					if (!isNppExit && detectNetworkPath && isUncPath(wstrBackupFilePath))
 					{
 						if (!isServerAllowed(backupFilePath)) // is in the serverWhiteList.xml ?
 						{
@@ -3671,7 +3671,7 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, c
 			{
 				std::wstring rootFolder = string2wstring(fileName);
 
-				if (!isNppExit && !bTest && isUncPath(rootFolder))
+				if (!isNppExit && detectNetworkPath && isUncPath(rootFolder))
 				{
 					if (!isServerAllowed(fileName)) // is in the serverWhiteList.xml ?
 					{
@@ -3733,8 +3733,8 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, c
 		}
 	}
 
-	if (bNeedsSessionXmlFileUpdateAfter && (wszSessionDocFileName != nullptr))
-		pSessionDoc->save_file(wszSessionDocFileName);
+	if (bNeedsSessionXmlFileUpdateAfter && !sessionDocFileName.empty())
+		pSessionDoc->save_file(sessionDocFileName.c_str());
 
 	return true;
 }
@@ -4953,7 +4953,7 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 		if (sessionSaveOK)
 		{
 			Session sessionCheck;
-			sessionSaveOK = getSessionFromXmlTree(pXmlSessionCheck, nullptr, sessionCheck, true); // test only
+			sessionSaveOK = getSessionFromXmlTree(pXmlSessionCheck, sessionCheck); // test only
 		}
 		delete pXmlSessionCheck;
 	}

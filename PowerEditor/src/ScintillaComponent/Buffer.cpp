@@ -163,6 +163,10 @@ void Buffer::setUnicodeMode(UniMode mode)
 
 void Buffer::setLangType(LangType lang, const wchar_t* userLangName)
 {
+	auto langVal = static_cast<int>(lang);
+	if (langVal < L_TEXT)
+		return;
+
 	if (lang == _lang && lang != L_USER)
 		return;
 

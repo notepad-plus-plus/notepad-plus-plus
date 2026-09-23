@@ -544,20 +544,25 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			if (!wParam)
 				return -1;
+
 			BufferID id = (BufferID)wParam;
+			if (MainFileManager.getBufferIndexByID(id) == -1)
+				return -1;
+
 			Buffer * b = MainFileManager.getBufferByID(id);
 			return b->getLangType();
 		}
 
 		case NPPM_SETBUFFERLANGTYPE:
 		{
-			if (!wParam)
-				return FALSE;
-			if (lParam < L_TEXT || lParam >= L_EXTERNAL || lParam == L_USER)
+			if (!wParam || lParam < L_TEXT || lParam >= L_EXTERNAL || lParam == L_USER)
 				return FALSE;
 
 			BufferID id = (BufferID)wParam;
-			Buffer * b = MainFileManager.getBufferByID(id);
+			if (MainFileManager.getBufferIndexByID(id) == -1)
+				return FALSE;
+
+			Buffer* b = MainFileManager.getBufferByID(id);
 			b->setLangType((LangType)lParam);
 			return TRUE;
 		}
@@ -566,8 +571,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			if (!wParam)
 				return -1;
+
 			BufferID id = (BufferID)wParam;
-			Buffer * b = MainFileManager.getBufferByID(id);
+			if (MainFileManager.getBufferIndexByID(id) == -1)
+				return -1;
+
+			Buffer* b = MainFileManager.getBufferByID(id);
 			return b->getUnicodeMode();
 		}
 
@@ -579,6 +588,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				return FALSE;
 
 			BufferID id = (BufferID)wParam;
+			if (MainFileManager.getBufferIndexByID(id) == -1)
+				return FALSE;
+
 			Buffer * b = MainFileManager.getBufferByID(id);
 			if (b->getStatus() != DOC_UNNAMED || b->isDirty())	//do not allow to change the encoding if the file has any content
 				return FALSE;
@@ -590,7 +602,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			if (!wParam)
 				return -1;
+
 			BufferID id = (BufferID)wParam;
+			if (MainFileManager.getBufferIndexByID(id) == -1)
+				return -1;
+
 			Buffer * b = MainFileManager.getBufferByID(id);
 			return static_cast<LRESULT>(b->getEolFormat());
 		}
@@ -608,6 +624,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			}
 
 			BufferID id = (BufferID)wParam;
+			if (MainFileManager.getBufferIndexByID(id) == -1)
+				return FALSE;
+
 			Buffer * b = MainFileManager.getBufferByID(id);
 			b->setEolFormat(newFormat);
 			return TRUE;
@@ -638,11 +657,19 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			if (!wParam)
 				return FALSE;
-			return doReload(reinterpret_cast<BufferID>(wParam), lParam != 0);
+
+			BufferID id = (BufferID)wParam;
+			if (MainFileManager.getBufferIndexByID(id) == -1)
+				return FALSE;
+
+			return doReload(id, lParam != 0);
 		}
 
 		case NPPM_RELOADFILE:
 		{
+			if (!lParam)
+				return FALSE;
+
 			wchar_t longNameFullpath[MAX_PATH]{};
 			const wchar_t* pFilePath = reinterpret_cast<const wchar_t*>(lParam);
 			wcscpy_s(longNameFullpath, MAX_PATH, pFilePath);
@@ -1123,7 +1150,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETCURRENTSCINTILLA:
 		{
-			int *id = reinterpret_cast<int *>(lParam);
+			int* id = reinterpret_cast<int *>(lParam);
+			if (!id)
+				return FALSE;
+
 			if (_pEditView == &_mainEditView)
 				*id = MAIN_VIEW;
 			else if (_pEditView == &_subEditView)
@@ -1135,6 +1165,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETCURRENTLANGTYPE:
 		{
+			if (!lParam)
+				return FALSE;
+
 			*(reinterpret_cast<LangType *>(lParam)) = _pEditView->getCurrentBuffer()->getLangType();
 			return TRUE;
 		}
@@ -2430,7 +2463,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETFULLPATHFROMBUFFERID:
 		{
-			return MainFileManager.getFileNameFromBuffer(reinterpret_cast<BufferID>(wParam), reinterpret_cast<wchar_t *>(lParam));
+			BufferID id = (BufferID)wParam;
+			if (MainFileManager.getBufferIndexByID(id) == -1)
+				return FALSE;
+
+			return MainFileManager.getFileNameFromBuffer(id, reinterpret_cast<wchar_t *>(lParam));
 		}
 
 		case WM_ACTIVATE:

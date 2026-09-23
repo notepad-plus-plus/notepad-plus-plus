@@ -1477,8 +1477,9 @@ $STR_REPLACE$
 A fájl betöltése esetén a Windows automatikusan hitelesíti magát az adott szerveren, ami potenciálisan felfedheti a Windows-bejelentkezési adatait.
 Mindenképpen betölti?"/>
 				<Item id="7" name="&amp;Kihagyás"/>
-				<Item id="2" name="&amp;Mindegyik hálózati út kihagyása"/>
-				<Item id="4" name="M&amp;indegyik hálózati út betöltése"/>
+				<Item id="6" name="&amp;Erről a szerverről betöltés mindig"/>
+				<Item id="2" name="&amp;A hálózati utak kihagyása mindig"/>
+				<Item id="4" name="A &amp;hálózati utak betöltése mindig"/>
 			</NetworkPathWarning>
 			<DebugInfo title="Hibakeresési adatok">
 				<Item id="1752" name="&amp;Adatok másolása a vágólapra"/>
@@ -1946,6 +1947,9 @@ Ha a „Haladó szintű” módot választja, de nem a fenti nyelvek fájljait s
 			<max-len-on-save-tip value="A felvett szöveg rendkívül hosszú, emiatt előfordulhat, hogy nem lehet teljesen menteni a következő munkamenethez"/>
 			<goto-setting-tip value="Keresés a beállítások között"/>
 			<tabbar-tabcompactlabellen-tip value="A terjedelmes lapnevek hosszának korlátozása. A megadott érték alkalmazásához nyomjon Entert. Értéktartomány: 1–257 karakter (a 0 kikapcsolja a levágást)"/>
+			<networkpathwarning-serverwhitelist-tip value="Az aktuális fájl szerverének hozzáadása a Notepad++ serverWhiteList.xml fájljához.
+
+További információkért kattintson a gombra az online Felhasználói kézikönyv kapcsolódó szakaszának megnyitásához"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

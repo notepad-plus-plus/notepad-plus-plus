@@ -80,4 +80,17 @@ private:
 	bool isAdditionalWordChar(char ch) const {
 		return _additionalWordChar.find(ch) != std::string::npos;
 	}
+	//lineData[i] is the opening quote; returns the index of its matching closing quote
+	//(or of "offset", if the string is left unterminated up to that point)
+	static int skipStringLiteral(const char* lineData, int i, intptr_t offset) {
+		char quote = lineData[i];
+		++i;
+		while (i < offset && lineData[i] != quote)
+		{
+			if (lineData[i] == '\\' && i + 1 < offset)
+				++i; //skip escaped character, e.g. the quote in "\""
+			++i;
+		}
+		return i;
+	}
 };

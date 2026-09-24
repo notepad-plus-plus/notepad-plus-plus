@@ -1,3 +1,23 @@
+Notepad++ v8.9.8.1 vulnerability fixes, regression fix, bug-fixes & new enhancements:
+
+ 1. Vulnerability: Fix crash caused by "Open file" & "Search on Internet" commands.
+ 2. Vulnerability: Fix Function List array out-of-bounds risks when parsing functions.
+ 3. Vulnerability: Fix UAC operations performed without verifying the caller.
+ 4. Vulnerability: Fix incomplete UNC detection allowing NTLM leak bypass.
+ 5. Vulnerability: Fix crash of NPPM_* API when invalid value passed as argument.
+ 6. Regression: Fix failure to open files via Notepad++ symlink paths.
+ 7. Fix a crash after canceling UAC saving operation.
+ 8. Fix Network Path Warning dialog usability problem.
+ 9. Fix symlinks setting for Folder as Workspace not remembered across sessions.
+10. Fix continous validation of the same server when loading network path files.
+11. Fix UDL line comments not being correctely detected.
+12. Fix Unicode text alternation in clipboard by Notepad++ encoding conversion.
+13. Fix incorrect paste behaviour in column mode.
+14. Fix visual glitch in the UDL dialog when main window uses vertical tabs.
+15. Fix GDI leaks of tab context menu.
+16. Fix inaccurate display information in PluginAdmin "Updates" tab.
+
+
 Notepad++ v8.9.8 vulnerability fixes, bug-fixes & new enhancements:
 
  1. Vulnerabilty: Fix an eventual crash while loading UDL.
@@ -33,7 +53,7 @@ Notepad++ v8.9.8 vulnerability fixes, bug-fixes & new enhancements:
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.9.8/
+https://notepad-plus-plus.org/downloads/v8.9.8.1/
 
 
 Included plugins:

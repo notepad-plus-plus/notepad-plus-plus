@@ -43,12 +43,12 @@ Translation note:
 					<Item subMenuId="edit-multiSelectNext" name="Multi-sélection Suivant"/>
 					<Item subMenuId="edit-readonlyInNotepad++" name="Lecture seule dans Notepad++"/>
 					<Item subMenuId="search-changeHistory" name="Historique de modification"/>
-					<Item subMenuId="search-markAll" name="Marquer tout"/>
-					<Item subMenuId="search-markOne" name="Marquer uniquement la sélection"/>
-					<Item subMenuId="search-unmarkAll" name="Enlever toutes les marques"/>
-					<Item subMenuId="search-jumpUp" name="Aller vers le haut"/>
-					<Item subMenuId="search-jumpDown" name="Aller vers le bas"/>
-					<Item subMenuId="search-copyStyledText" name="Copier le texte marqué"/>
+					<Item subMenuId="search-markAll" name="Styler toutes les occurrences"/>
+					<Item subMenuId="search-markOne" name="Styler uniquement la sélection"/>
+					<Item subMenuId="search-unmarkAll" name="Enlever les styles"/>
+					<Item subMenuId="search-jumpUp" name="Monter vers style ou marque"/>
+					<Item subMenuId="search-jumpDown" name="Descendre vers style ou marque"/>
+					<Item subMenuId="search-copyStyledText" name="Copier le texte stylé ou marqué"/>
 					<Item subMenuId="search-bookmark" name="Signet"/>
 					<Item subMenuId="view-currentFileIn" name="Afficher le fichier dans"/>
 					<Item subMenuId="view-showSymbol" name="Symboles spéciaux"/>
@@ -240,35 +240,35 @@ Translation note:
 					<Item id="43014" name="Recherche volatile suivante"/>
 					<Item id="43015" name="Recherche volatile précédente"/>
 					<Item id="43022" name="Appliquer le style 1"/>
-					<Item id="43023" name="Dégager le style 1"/>
+					<Item id="43023" name="Enlever le style 1"/>
 					<Item id="43024" name="Appliquer le style 2"/>
-					<Item id="43025" name="Dégager le style 2"/>
+					<Item id="43025" name="Enlever le style 2"/>
 					<Item id="43026" name="Appliquer le style 3"/>
-					<Item id="43027" name="Dégager le style 3"/>
+					<Item id="43027" name="Enlever le style 3"/>
 					<Item id="43028" name="Appliquer le style 4"/>
-					<Item id="43029" name="Dégager le style 4"/>
+					<Item id="43029" name="Enlever le style 4"/>
 					<Item id="43030" name="Appliquer le style 5"/>
-					<Item id="43031" name="Dégager le style 5"/>
-					<Item id="43032" name="Dégager tous les styles"/>
+					<Item id="43031" name="Enlever le style 5"/>
+					<Item id="43032" name="Enlever tous les styles"/>
 					<Item id="43033" name="Style 1"/>
 					<Item id="43034" name="Style 2"/>
 					<Item id="43035" name="Style 3"/>
 					<Item id="43036" name="Style 4"/>
 					<Item id="43037" name="Style 5"/>
-					<Item id="43038" name="Style de recherche"/>
+					<Item id="43038" name="Marque de recherche"/>
 					<Item id="43039" name="Style 1"/>
 					<Item id="43040" name="Style 2"/>
 					<Item id="43041" name="Style 3"/>
 					<Item id="43042" name="Style 4"/>
 					<Item id="43043" name="Style 5"/>
-					<Item id="43044" name="Style de recherche"/>
+					<Item id="43044" name="Marque de recherche"/>
 					<Item id="43055" name="Style 1"/>
 					<Item id="43056" name="Style 2"/>
 					<Item id="43057" name="Style 3"/>
 					<Item id="43058" name="Style 4"/>
 					<Item id="43059" name="Style 5"/>
-					<Item id="43060" name="Tous"/>
-					<Item id="43061" name="Style de Marquer tout"/>
+					<Item id="43060" name="Styles 1 à 5"/>
+					<Item id="43061" name="Marque de recherche"/>
 					<Item id="43062" name="Appliquer le style 1"/>
 					<Item id="43063" name="Appliquer le style 2"/>
 					<Item id="43064" name="Appliquer le style 3"/>

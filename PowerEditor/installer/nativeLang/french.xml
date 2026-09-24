@@ -225,11 +225,11 @@ Translation note:
 					<Item id="43006" name="Signet suivant"/>
 					<Item id="43007" name="Signet précédent"/>
 					<Item id="43008" name="Enlever tous les signets"/>
-					<Item id="43018" name="Couper les lignes marquées"/>
-					<Item id="43019" name="Copier les lignes marquées"/>
-					<Item id="43020" name="Coller pour remplacer les lignes marquées"/>
-					<Item id="43021" name="Supprimer les lignes marquées"/>
-					<Item id="43051" name="Supprimer les lignes non marquées"/>
+					<Item id="43018" name="Couper les lignes avec signet"/>
+					<Item id="43019" name="Copier les lignes avec signet"/>
+					<Item id="43020" name="Coller pour remplacer les lignes avec signet"/>
+					<Item id="43021" name="Supprimer les lignes avec signet"/>
+					<Item id="43051" name="Supprimer les lignes sans signet"/>
 					<Item id="43050" name="Inverser les signets"/>
 					<Item id="43052" name="Rechercher des caractères dans une plage..."/>
 					<Item id="43053" name="Sélectionner tout entre les 2   { } ou [ ] ou ( )"/>

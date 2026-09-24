@@ -502,10 +502,15 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 	else if (_currentStatus != DOC_DELETED && !fileExists)	//document has been deleted
 	{
 		_currentStatus = DOC_DELETED;
-		_isFileReadOnly = false;
+		int mask = BufferChangeStatus | BufferChangeTimestamp;
+		if (_isFileReadOnly)	//readonly status only actually changes if it was readonly before
+		{
+			_isFileReadOnly = false;
+			mask |= BufferChangeReadonly;
+		}
 		_isDirty = true;	//dirty since no match with filesystem
 		_timeStamp = {};
-		doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
+		doNotify(mask);
 		isOK = true;
 	}
 	else if (_currentStatus == DOC_DELETED && fileExists) //document has returned from its grave

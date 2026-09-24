@@ -1128,22 +1128,8 @@ bool FileManager::reloadBuffer(BufferID id)
 void FileManager::setLoadedBufferEncodingAndEol(Buffer* buf, const Utf8_16_Read& UnicodeConvertor, int encoding, EolType bkformat)
 {
 	int encoding2Set = encoding;
-	UniMode unimode2Set = UnicodeConvertor.getEncoding();
-
-	if (encoding2Set == -1)
-	{
-		NppParameters& nppParamInst = NppParameters::getInstance();
-		const NewDocDefaultSettings & ndds = (nppParamInst.getNppGUI()).getNewDocDefaultSettings();
-		
-		if (unimode2Set == uni7Bit)
-			unimode2Set = (ndds._openAnsiAsUtf8) ? uniUTF8_NoBOM : uni8Bit;
-	}
-	else
-	{
-		// Test if encoding is set to UTF8 w/o BOM (usually for utf8 indicator of xml or html)
-		encoding2Set = ((encoding2Set == SC_CP_UTF8) ? -1 : encoding2Set);
-		unimode2Set = uniUTF8_NoBOM;
-	}
+	UniMode unimode2Set = uni8Bit;
+	resolveLoadedEncoding(UnicodeConvertor, encoding, encoding2Set, unimode2Set);
 
 	buf->setEncoding(encoding2Set);
 	buf->setUnicodeMode(unimode2Set);
@@ -1152,6 +1138,27 @@ void FileManager::setLoadedBufferEncodingAndEol(Buffer* buf, const Utf8_16_Read&
 	// Since the buffer will be reloaded from the disk, EOL might have been changed
 	if (bkformat != EolType::unknown)
 		buf->setEolFormat(bkformat);
+}
+
+void FileManager::resolveLoadedEncoding(const Utf8_16_Read& unicodeConvertor, int encoding, int& encodingOut, UniMode& unicodeModeOut) const
+{
+	encodingOut = encoding;
+	unicodeModeOut = unicodeConvertor.getEncoding();
+
+	if (encodingOut == -1)
+	{
+		NppParameters& nppParamInst = NppParameters::getInstance();
+		const NewDocDefaultSettings & ndds = (nppParamInst.getNppGUI()).getNewDocDefaultSettings();
+
+		if (unicodeModeOut == uni7Bit)
+			unicodeModeOut = (ndds._openAnsiAsUtf8) ? uniUTF8_NoBOM : uni8Bit;
+	}
+	else
+	{
+		// Test if encoding is set to UTF8 w/o BOM (usually for utf8 indicator of xml or html)
+		encodingOut = ((encodingOut == SC_CP_UTF8) ? -1 : encodingOut);
+		unicodeModeOut = uniUTF8_NoBOM;
+	}
 }
 
 
@@ -1996,131 +2003,8 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 		if ((sciStatus > SC_STATUS_OK) && (sciStatus < SC_STATUS_WARN_START))
 			throw std::runtime_error("Scintilla error");
 
-		size_t lenFile = 0;
-		size_t lenConvert = 0;	//just in case conversion results in 0, but file not empty
-		bool isFirstTime = true;
-		int incompleteMultibyteChar = 0;
-		bool hasBOM = false;
-
-		do
-		{
-			lenFile = fread(data + incompleteMultibyteChar, 1, blockSize - incompleteMultibyteChar, fp) + incompleteMultibyteChar;
-			if (ferror(fp) != 0)
-			{
-				success = false;
-				break;
-			}
-
-			if (lenFile == 0) break;
-
-			if (isFirstTime)
-			{
-				NppParameters& nppParamInst = NppParameters::getInstance();
-				const NppGUI& nppGui = nppParamInst.getNppGUI();
-
-				//
-				// Detect encoding
-				//
-
-				// check if file contain any BOM
-				if (Utf8_16_Read::determineEncodingFromBOM((unsigned char*)data, lenFile) != uni8Bit)
-				{
-					// if file contains any BOM, then encoding will be erased,
-					// and the document will be interpreted as UTF
-					fileFormat._encoding = -1;
-					hasBOM = true;
-				}
-				else if (fileFormat._encoding == -1)
-				{
-					if (nppGui._detectEncoding && !isAutoDetectEncodingDisabled4Loading)
-						fileFormat._encoding = detectCodepage(data, lenFile);
-				}
-
-				//
-				// Detect programming language
-				//
-
-				bool isLargeFile = fileSize >= nppGui._largeFileRestriction._largeFileSizeDefInByte;
-				if (!isLargeFile && fileFormat._language == L_TEXT)
-				{
-					// check the language du fichier
-					fileFormat._language = detectLanguageFromTextBeginning((unsigned char *)data, lenFile);
-				}
-
-				isFirstTime = false;
-			}
-
-
-			if (fileFormat._encoding != -1)
-			{
-				if (fileFormat._encoding == SC_CP_UTF8)
-				{
-					// Pass through UTF-8 (this does not check validity of characters, thus inserting a multi-byte character in two halfs is working)
-					_pscratchTilla->execute(SCI_APPENDTEXT, lenFile, reinterpret_cast<LPARAM>(data));
-				}
-				else
-				{
-					WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-					int newDataLen = 0;
-					const char* newData = wmc.encode(fileFormat._encoding, SC_CP_UTF8, data, static_cast<int32_t>(lenFile), &newDataLen, &incompleteMultibyteChar);
-					_pscratchTilla->execute(SCI_APPENDTEXT, newDataLen, reinterpret_cast<LPARAM>(newData));
-				}
-
-				if (format == EolType::unknown)
-					format = getEOLFormatForm(data, lenFile, EolType::unknown);
-			}
-			else // (fileFormat._encoding == -1) => encoding not found yet or BOM found
-			{
-				NppParameters& nppParamInst = NppParameters::getInstance();
-				lenConvert = unicodeConvertor->convert(data, lenFile);
-
-				if (!nppParamInst.isCurrentSystemCodepageUTF8()) // Default mode: all other encodings
-				{
-					_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, reinterpret_cast<LPARAM>(unicodeConvertor->getNewBuf()));
-					if (format == EolType::unknown)
-						format = getEOLFormatForm(unicodeConvertor->getNewBuf(), unicodeConvertor->getNewSize(), EolType::unknown);
-				}
-				else // "Use Unicode UTF-8 for worldwide language support" option is enabled 
-				{
-					UniMode uniMode = unicodeConvertor->getEncoding();
-
-					if (hasBOM || // uniUTF8, uni16BE, uni16LE
-						uniMode == uni16BE_NoBOM || uniMode == uni16LE_NoBOM || uniMode == uniUTF8_NoBOM || uniMode == uni7Bit)
-					{
-						if (uniMode == uni7Bit)
-							fileFormat._encoding = nppParamInst.currentSystemCodepage();
-
-						_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, reinterpret_cast<LPARAM>(unicodeConvertor->getNewBuf()));
-
-						if (format == EolType::unknown)
-							format = getEOLFormatForm(unicodeConvertor->getNewBuf(), unicodeConvertor->getNewSize(), EolType::unknown);
-					}
-					else // if (uniMode == uni8Bit)
-					{
-						WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-						int newDataLen = 0;
-						fileFormat._encoding = nppParamInst.defaultCodepage();
-
-						const char* newData = wmc.encode(fileFormat._encoding, SC_CP_UTF8, data, static_cast<int32_t>(lenFile), &newDataLen, &incompleteMultibyteChar);
-						_pscratchTilla->execute(SCI_APPENDTEXT, newDataLen, reinterpret_cast<LPARAM>(newData));
-
-						if (format == EolType::unknown)
-							format = getEOLFormatForm(data, lenFile, EolType::unknown);
-					}
-				}
-			}
-
-			sciStatus = static_cast<int>(_pscratchTilla->execute(SCI_GETSTATUS));
-			if ((sciStatus > SC_STATUS_OK) && (sciStatus < SC_STATUS_WARN_START))
-				throw std::runtime_error("Scintilla error");
-
-			if (incompleteMultibyteChar != 0)
-			{
-				// copy bytes to next buffer
-				memcpy(data, data + blockSize - incompleteMultibyteChar, incompleteMultibyteChar);
-			}
-		}
-		while (lenFile > 0);
+		if (!appendFileStreamToDocument(_pscratchTilla, fp, data, fileSize, unicodeConvertor, fileFormat, format, sciStatus, DocumentFillPolicy::forEditing()))
+			success = false;
 	}
 	__except (EXCEPTION_EXECUTE_HANDLER)
 	{
@@ -2196,6 +2080,242 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 
 	return success;
+}
+
+bool FileManager::appendFileStreamToDocument(ScintillaEditView* ingestView, FILE* fp, char* data, int64_t fileSize, Utf8_16_Read* unicodeConvertor, LoadedFileFormat& fileFormat, EolType& format, int& sciStatus, const DocumentFillPolicy& policy)
+{
+	size_t lenFile = 0;
+	size_t lenConvert = 0;	//just in case conversion results in 0, but file not empty
+	bool isFirstTime = true;
+	int incompleteMultibyteChar = 0;
+	bool hasBOM = false;
+
+	do
+	{
+		lenFile = fread(data + incompleteMultibyteChar, 1, blockSize - incompleteMultibyteChar, fp) + incompleteMultibyteChar;
+		if (ferror(fp) != 0)
+		{
+			return false;
+		}
+
+		if (lenFile == 0) break;
+
+		if (isFirstTime)
+		{
+			NppParameters& nppParamInst = NppParameters::getInstance();
+			const NppGUI& nppGui = nppParamInst.getNppGUI();
+
+			//
+			// Detect encoding
+			//
+
+			// check if file contain any BOM
+			if (Utf8_16_Read::determineEncodingFromBOM((unsigned char*)data, lenFile) != uni8Bit)
+			{
+				// if file contains any BOM, then encoding will be erased,
+				// and the document will be interpreted as UTF
+				fileFormat._encoding = -1;
+				hasBOM = true;
+			}
+			else if (fileFormat._encoding == -1)
+			{
+				if (nppGui._detectEncoding && !isAutoDetectEncodingDisabled4Loading)
+					fileFormat._encoding = detectCodepage(data, lenFile);
+			}
+
+			//
+			// Detect programming language
+			//
+
+			bool isLargeFile = fileSize >= nppGui._largeFileRestriction._largeFileSizeDefInByte;
+			if (policy.detectLanguageFromContent && !isLargeFile && fileFormat._language == L_TEXT)
+			{
+				// check the language du fichier
+				fileFormat._language = detectLanguageFromTextBeginning((unsigned char *)data, lenFile);
+			}
+
+			isFirstTime = false;
+		}
+
+
+		if (fileFormat._encoding != -1)
+		{
+			if (fileFormat._encoding == SC_CP_UTF8)
+			{
+				// Pass through UTF-8 (this does not check validity of characters, thus inserting a multi-byte character in two halfs is working)
+				ingestView->execute(SCI_APPENDTEXT, lenFile, reinterpret_cast<LPARAM>(data));
+			}
+			else
+			{
+				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+				int newDataLen = 0;
+				const char* newData = wmc.encode(fileFormat._encoding, SC_CP_UTF8, data, static_cast<int32_t>(lenFile), &newDataLen, &incompleteMultibyteChar);
+				ingestView->execute(SCI_APPENDTEXT, newDataLen, reinterpret_cast<LPARAM>(newData));
+			}
+
+			if (format == EolType::unknown)
+				format = getEOLFormatForm(data, lenFile, EolType::unknown);
+		}
+		else // (fileFormat._encoding == -1) => encoding not found yet or BOM found
+		{
+			NppParameters& nppParamInst = NppParameters::getInstance();
+			lenConvert = unicodeConvertor->convert(data, lenFile);
+
+			if (!nppParamInst.isCurrentSystemCodepageUTF8()) // Default mode: all other encodings
+			{
+				ingestView->execute(SCI_APPENDTEXT, lenConvert, reinterpret_cast<LPARAM>(unicodeConvertor->getNewBuf()));
+				if (format == EolType::unknown)
+					format = getEOLFormatForm(unicodeConvertor->getNewBuf(), unicodeConvertor->getNewSize(), EolType::unknown);
+			}
+			else // "Use Unicode UTF-8 for worldwide language support" option is enabled 
+			{
+				UniMode uniMode = unicodeConvertor->getEncoding();
+
+				if (hasBOM || // uniUTF8, uni16BE, uni16LE
+					uniMode == uni16BE_NoBOM || uniMode == uni16LE_NoBOM || uniMode == uniUTF8_NoBOM || uniMode == uni7Bit)
+				{
+					if (uniMode == uni7Bit)
+						fileFormat._encoding = nppParamInst.currentSystemCodepage();
+
+					ingestView->execute(SCI_APPENDTEXT, lenConvert, reinterpret_cast<LPARAM>(unicodeConvertor->getNewBuf()));
+
+					if (format == EolType::unknown)
+						format = getEOLFormatForm(unicodeConvertor->getNewBuf(), unicodeConvertor->getNewSize(), EolType::unknown);
+				}
+				else // if (uniMode == uni8Bit)
+				{
+					WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+					int newDataLen = 0;
+					fileFormat._encoding = nppParamInst.defaultCodepage();
+
+					const char* newData = wmc.encode(fileFormat._encoding, SC_CP_UTF8, data, static_cast<int32_t>(lenFile), &newDataLen, &incompleteMultibyteChar);
+					ingestView->execute(SCI_APPENDTEXT, newDataLen, reinterpret_cast<LPARAM>(newData));
+
+					if (format == EolType::unknown)
+						format = getEOLFormatForm(data, lenFile, EolType::unknown);
+				}
+			}
+		}
+
+		sciStatus = static_cast<int>(ingestView->execute(SCI_GETSTATUS));
+		if ((sciStatus > SC_STATUS_OK) && (sciStatus < SC_STATUS_WARN_START))
+			throw std::runtime_error("Scintilla error");
+
+		if (incompleteMultibyteChar != 0)
+		{
+			// copy bytes to next buffer
+			memcpy(data, data + blockSize - incompleteMultibyteChar, incompleteMultibyteChar);
+		}
+	}
+	while (lenFile > 0);
+
+	return true;
+}
+
+Document FileManager::createSearchDocument()
+{
+	if (!_pscratchTilla)
+		return static_cast<Document>(NULL);
+
+	return static_cast<Document>(_pscratchTilla->execute(SCI_CREATEDOCUMENT, 0,
+		SC_DOCUMENTOPTION_STYLES_NONE | SC_DOCUMENTOPTION_TEXT_LARGE));
+}
+
+void FileManager::releaseSearchDocument(Document doc)
+{
+	if (!_pscratchTilla || !doc)
+		return;
+
+	_pscratchTilla->execute(SCI_RELEASEDOCUMENT, 0, doc);
+}
+
+SearchLoadResult FileManager::fillDocument(const SearchFillRequest& request)
+{
+	SearchLoadResult result;
+	if (!request.scratchDoc || !request.path || !request.ingestView)
+		return result;
+
+	ScintillaEditView* ingestView = request.ingestView;
+
+	int64_t fileSize = request.knownSize;
+	if (fileSize < 0)
+	{
+		WIN32_FILE_ATTRIBUTE_DATA attributes{};
+		attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
+		if (!::GetFileAttributesExW(request.path, GetFileExInfoStandard, &attributes)
+			|| (attributes.dwFileAttributes == INVALID_FILE_ATTRIBUTES)
+			|| (attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+		{
+			return result;
+		}
+
+		LARGE_INTEGER size{};
+		size.LowPart = attributes.nFileSizeLow;
+		size.HighPart = attributes.nFileSizeHigh;
+		fileSize = size.QuadPart;
+	}
+
+	NppParameters& nppParam = NppParameters::getInstance();
+	if ((fileSize + std::min<int64_t>(1LL << 20, fileSize / 6)) > INT_MAX)
+	{
+		if (nppParam.archType() == IMAGE_FILE_MACHINE_I386)
+			return result;
+	}
+
+	FILE* fp = _wfopen(request.path, L"rb");
+	if (!fp)
+		return result;
+
+	char* data = new char[blockSize + 8]; // +8 for incomplete multibyte char
+
+	Utf8_16_Read unicodeConvertor;
+	LoadedFileFormat loadedFileFormat;
+	loadedFileFormat._encoding = -1;
+	loadedFileFormat._eolFormat = EolType::unknown;
+	loadedFileFormat._language = L_TEXT;
+
+	if (ingestView->execute(SCI_GETDOCPOINTER) != request.scratchDoc)
+		ingestView->execute(SCI_SETDOCPOINTER, 0, request.scratchDoc);
+
+	ingestView->execute(SCI_SETSTATUS, SC_STATUS_OK);
+	if (ingestView->execute(SCI_GETREADONLY) != 0)
+		ingestView->execute(SCI_SETREADONLY, false);
+
+	ingestView->execute(SCI_CLEARALL);
+	ingestView->execute(SCI_SETUNDOCOLLECTION, false);
+
+	bool success = true;
+	EolType format = EolType::unknown;
+	int sciStatus = SC_STATUS_OK;
+
+	ingestView->execute(SCI_ALLOCATE, WPARAM(fileSize));
+	sciStatus = static_cast<int>(ingestView->execute(SCI_GETSTATUS));
+	if ((sciStatus > SC_STATUS_OK) && (sciStatus < SC_STATUS_WARN_START))
+	{
+		success = false;
+	}
+	else
+	{
+		try
+		{
+			if (!appendFileStreamToDocument(ingestView, fp, data, fileSize, &unicodeConvertor, loadedFileFormat, format, sciStatus, DocumentFillPolicy::forSearching()))
+				success = false;
+		}
+		catch (...)
+		{
+			success = false;
+		}
+	}
+
+	fclose(fp);
+	delete[] data;
+
+	if (!success)
+		return result;
+
+	resolveLoadedEncoding(unicodeConvertor, loadedFileFormat._encoding, result.encoding, result.unicodeMode);
+	result.ok = true;
+	return result;
 }
 
 

@@ -66,6 +66,10 @@ enum FBCmd
 	FB_CMD_EXPANDALL
 };
 
+// WM_COMMAND HIWORD notification code the subclassed filter edit sends on Enter to request an
+// apply. Must be distinct from EN_CHANGE (0x0300), which now signals only "text changed".
+constexpr WORD FB_FILTER_APPLY = 0xFB01;
+
 
 FileBrowser::~FileBrowser()
 {
@@ -126,6 +130,245 @@ static bool isRelatedRootFolder(const std::wstring& relatedRoot, const std::wstr
 	return relatedRootArray[index2Compare] == subFolderArray[index2Compare];
 }
 
+static LRESULT CALLBACK fileBrowserToolbarProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR /*dwRefData*/)
+{
+	switch (message)
+	{
+		case WM_NCDESTROY:
+			::RemoveWindowSubclass(hwnd, fileBrowserToolbarProc, uIdSubclass);
+			break;
+
+		case WM_CTLCOLOREDIT:
+			return ::SendMessage(::GetParent(hwnd), WM_CTLCOLOREDIT, wParam, lParam);
+	}
+	return ::DefSubclassProc(hwnd, message, wParam, lParam);
+}
+
+struct FilterEditState
+{
+	bool isHovering = false;
+	bool hasFocus = false;
+	int glyphWidth = 0;
+};
+
+static RECT getGlyphRect(HWND hwnd, int glyphWidth)
+{
+	RECT rc{};
+	::GetClientRect(hwnd, &rc);
+	rc.left = rc.right - glyphWidth;
+	return rc;
+}
+
+static LRESULT CALLBACK fileBrowserFilterEditProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
+{
+	auto* state = reinterpret_cast<FilterEditState*>(dwRefData);
+
+	switch (message)
+	{
+		case WM_NCDESTROY:
+			::RemoveWindowSubclass(hwnd, fileBrowserFilterEditProc, uIdSubclass);
+			delete state;
+			break;
+
+		case WM_PAINT:
+		{
+			LRESULT result = ::DefSubclassProc(hwnd, message, wParam, lParam);
+			int textLen = ::GetWindowTextLength(hwnd);
+			if (textLen > 0 && state)
+			{
+				HDC hdc = ::GetDC(hwnd);
+				RECT glyphRc = getGlyphRect(hwnd, state->glyphWidth);
+
+				bool active = state->hasFocus || state->isHovering;
+				COLORREF color;
+				if (NppDarkMode::isEnabled())
+					color = active ? NppDarkMode::getHotEdgeColor() : NppDarkMode::getTextColor();
+				else
+					color = active ? ::GetSysColor(COLOR_BTNTEXT) : ::GetSysColor(COLOR_GRAYTEXT);
+
+				::SetTextColor(hdc, color);
+				::SetBkMode(hdc, TRANSPARENT);
+
+				HFONT hFont = reinterpret_cast<HFONT>(::SendMessage(hwnd, WM_GETFONT, 0, 0));
+				HFONT hOldFont = nullptr;
+				if (hFont)
+					hOldFont = static_cast<HFONT>(::SelectObject(hdc, hFont));
+
+				::DrawText(hdc, L"×", 1, &glyphRc, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+				if (hOldFont)
+					::SelectObject(hdc, hOldFont);
+				::ReleaseDC(hwnd, hdc);
+			}
+			return result;
+		}
+
+		case WM_LBUTTONDOWN:
+		case WM_LBUTTONDBLCLK:
+		{
+			if (state)
+			{
+				int textLen = ::GetWindowTextLength(hwnd);
+				if (textLen > 0)
+				{
+					POINT pt = { GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam) };
+					RECT glyphRc = getGlyphRect(hwnd, state->glyphWidth);
+					if (message == WM_LBUTTONDOWN && ::PtInRect(&glyphRc, pt))
+					{
+						::SetWindowText(hwnd, L"");
+						::SetFocus(hwnd);
+						return 0;
+					}
+				}
+			}
+			LRESULT result = ::DefSubclassProc(hwnd, message, wParam, lParam);
+			if (state)
+			{
+				RECT glyphRc = getGlyphRect(hwnd, state->glyphWidth);
+				::InvalidateRect(hwnd, &glyphRc, TRUE);
+			}
+			return result;
+		}
+
+		case WM_SETCURSOR:
+		{
+			if (state && LOWORD(lParam) == HTCLIENT)
+			{
+				POINT pt{};
+				::GetCursorPos(&pt);
+				::ScreenToClient(hwnd, &pt);
+				RECT glyphRc = getGlyphRect(hwnd, state->glyphWidth);
+				if (::GetWindowTextLength(hwnd) > 0 && ::PtInRect(&glyphRc, pt))
+				{
+					::SetCursor(::LoadCursor(nullptr, IDC_ARROW));
+					return TRUE;
+				}
+			}
+			break;
+		}
+
+		case WM_MOUSEMOVE:
+		{
+			if (state)
+			{
+				int textLen = ::GetWindowTextLength(hwnd);
+				if (textLen > 0)
+				{
+					POINT pt = { GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam) };
+					RECT glyphRc = getGlyphRect(hwnd, state->glyphWidth);
+					bool hovering = ::PtInRect(&glyphRc, pt) != 0;
+					if (hovering != state->isHovering)
+					{
+						state->isHovering = hovering;
+						::InvalidateRect(hwnd, &glyphRc, TRUE);
+					}
+
+					TRACKMOUSEEVENT tme{};
+					tme.cbSize = sizeof(tme);
+					tme.dwFlags = TME_LEAVE;
+					tme.hwndTrack = hwnd;
+					::TrackMouseEvent(&tme);
+				}
+			}
+			break;
+		}
+
+		case WM_MOUSELEAVE:
+		{
+			if (state && state->isHovering)
+			{
+				state->isHovering = false;
+				RECT glyphRc = getGlyphRect(hwnd, state->glyphWidth);
+				::InvalidateRect(hwnd, &glyphRc, TRUE);
+			}
+			break;
+		}
+
+		case WM_SETFOCUS:
+		{
+			if (state)
+			{
+				state->hasFocus = true;
+				RECT glyphRc = getGlyphRect(hwnd, state->glyphWidth);
+				::InvalidateRect(hwnd, &glyphRc, TRUE);
+			}
+			break;
+		}
+
+		case WM_KILLFOCUS:
+		{
+			if (state)
+			{
+				state->hasFocus = false;
+				RECT glyphRc = getGlyphRect(hwnd, state->glyphWidth);
+				::InvalidateRect(hwnd, &glyphRc, TRUE);
+			}
+			break;
+		}
+
+		case WM_CHAR:
+		{
+			if (wParam == VK_TAB)
+			{
+				::SendMessage(::GetParent(::GetParent(hwnd)), WM_COMMAND, VK_TAB, 1);
+				return 0;
+			}
+			if (wParam == VK_RETURN)
+			{
+				// Handle Enter here (not WM_KEYDOWN) so the single-line edit never receives the
+				// Return character and beeps; mirrors the VK_TAB handling above.
+				::SendMessage(::GetParent(::GetParent(hwnd)), WM_COMMAND,
+					MAKEWPARAM(IDC_FILEBROWSER_FILTEREDIT, FB_FILTER_APPLY), 0);
+				return 0;
+			}
+			if (wParam == VK_ESCAPE)
+			{
+				// Clear the box; the resulting EN_CHANGE (empty) restores the full tree via
+				// clearFilter() - one clear path. Handled here (not WM_KEYDOWN) so the edit does
+				// not beep on the Escape character, and swallowed so Esc does not dismiss the panel.
+				::SetWindowText(hwnd, L"");
+				return 0;
+			}
+			LRESULT result = ::DefSubclassProc(hwnd, message, wParam, lParam);
+			if (state)
+			{
+				RECT glyphRc = getGlyphRect(hwnd, state->glyphWidth);
+				::InvalidateRect(hwnd, &glyphRc, TRUE);
+			}
+			return result;
+		}
+
+		case WM_KEYDOWN:
+		{
+			if (wParam == VK_DELETE || wParam == VK_BACK)
+			{
+				LRESULT result = ::DefSubclassProc(hwnd, message, wParam, lParam);
+				if (state)
+				{
+					RECT glyphRc = getGlyphRect(hwnd, state->glyphWidth);
+					::InvalidateRect(hwnd, &glyphRc, TRUE);
+				}
+				return result;
+			}
+			break;
+		}
+
+		case WM_CUT:
+		case WM_PASTE:
+		case WM_CLEAR:
+		{
+			LRESULT result = ::DefSubclassProc(hwnd, message, wParam, lParam);
+			if (state)
+			{
+				RECT glyphRc = getGlyphRect(hwnd, state->glyphWidth);
+				::InvalidateRect(hwnd, &glyphRc, TRUE);
+			}
+			return result;
+		}
+	}
+	return ::DefSubclassProc(hwnd, message, wParam, lParam);
+}
+
 intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
@@ -133,9 +376,11 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 		case WM_INITDIALOG:
 		{
 			NppParameters& nppParam = NppParameters::getInstance();
+			NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
 
 			constexpr DWORD style = WS_CHILD | WS_VISIBLE | TBSTYLE_FLAT | TBSTYLE_LIST | TBSTYLE_TRANSPARENT | TBSTYLE_TOOLTIPS | TBSTYLE_CUSTOMERASE;
-			_hToolbarMenu = CreateWindowEx(WS_EX_LAYOUTRTL, TOOLBARCLASSNAME, NULL, style, 0, 0, 0, 0, _hSelf, nullptr, _hInst, NULL);
+			const DWORD winExStyle = pNativeSpeaker->isRTL() ? WS_EX_LAYOUTRTL : 0;
+			_hToolbarMenu = CreateWindowEx(winExStyle, TOOLBARCLASSNAME, NULL, style, 0, 0, 0, 0, _hSelf, nullptr, _hInst, NULL);
 
 			const DWORD tbExStyle = static_cast<DWORD>(::SendMessage(_hToolbarMenu, TB_GETEXTENDEDSTYLE, 0, 0));
 			::SendMessage(_hToolbarMenu, TB_SETEXTENDEDSTYLE, 0, tbExStyle | TBSTYLE_EX_DOUBLEBUFFER);
@@ -170,37 +415,72 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			// Attach the image list to the toolbar
 			::SendMessage(_hToolbarMenu, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_iconListVector.at(NppDarkMode::isEnabled() ? 1 : 0)));
 
-			TBBUTTON tbButtons[nbIcons]{};
+			const int editWidth    = _dpiManager.scale(110);
+			const int editHeight   = _dpiManager.scale(20);
+			const int glyphWidth   = iconSizeDyn;
+			const int editWidthSep = editWidth + _dpiManager.scale(6);
 
-			tbButtons[0].idCommand = FB_CMD_AIMFILE;
-			tbButtons[0].iBitmap = 0;
-			tbButtons[0].fsState = TBSTATE_ENABLED;
-			tbButtons[0].fsStyle = BTNS_BUTTON;
-			tbButtons[0].iString = 0;
+			// SEP placeholder (index 0) reserves space for the filter edit + clear button.
+			// Icon buttons follow at indices 1-3.
+			TBBUTTON tbButtons[nbIcons + 1]{};
 
-			tbButtons[1].idCommand = FB_CMD_FOLDALL;
-			tbButtons[1].iBitmap = 1;
+			tbButtons[0].idCommand   = 0;
+			tbButtons[0].iBitmap     = editWidthSep;
+			tbButtons[0].fsState     = TBSTATE_ENABLED;
+			tbButtons[0].fsStyle     = BTNS_SEP;
+
+			tbButtons[1].idCommand = FB_CMD_AIMFILE;
+			tbButtons[1].iBitmap = 0;
 			tbButtons[1].fsState = TBSTATE_ENABLED;
 			tbButtons[1].fsStyle = BTNS_BUTTON;
 			tbButtons[1].iString = 0;
 
-			tbButtons[2].idCommand = FB_CMD_EXPANDALL;
-			tbButtons[2].iBitmap = 2;
+			tbButtons[2].idCommand = FB_CMD_FOLDALL;
+			tbButtons[2].iBitmap = 1;
 			tbButtons[2].fsState = TBSTATE_ENABLED;
 			tbButtons[2].fsStyle = BTNS_BUTTON;
 			tbButtons[2].iString = 0;
 
+			tbButtons[3].idCommand = FB_CMD_EXPANDALL;
+			tbButtons[3].iBitmap = 2;
+			tbButtons[3].fsState = TBSTATE_ENABLED;
+			tbButtons[3].fsStyle = BTNS_BUTTON;
+			tbButtons[3].iString = 0;
+
 			// tips text for toolbar buttons
-			NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 			_expandAllFolders = pNativeSpeaker->getAttrNameStr(_expandAllFolders.c_str(), FOLDERASWORKSPACE_NODE, "ExpandAllFoldersTip");
 			_collapseAllFolders = pNativeSpeaker->getAttrNameStr(_collapseAllFolders.c_str(), FOLDERASWORKSPACE_NODE, "CollapseAllFoldersTip");
 			_locateCurrentFile = pNativeSpeaker->getAttrNameStr(_locateCurrentFile.c_str(), FOLDERASWORKSPACE_NODE, "LocateCurrentFileTip");
+			_filterTip = pNativeSpeaker->getAttrNameStr(_filterTip.c_str(), FOLDERASWORKSPACE_NODE, "FilterTip");
 
 			::SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
 			::SendMessage(_hToolbarMenu, TB_SETBUTTONSIZE, 0, MAKELONG(iconSizeDyn, iconSizeDyn));
 			::SendMessage(_hToolbarMenu, TB_ADDBUTTONS, sizeof(tbButtons) / sizeof(TBBUTTON), reinterpret_cast<LPARAM>(&tbButtons));
 			::SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0);
-			
+
+			::SetWindowSubclass(_hToolbarMenu, fileBrowserToolbarProc, 0, 0);
+
+			// Filter edit control (child of toolbar, positioned over the SEP placeholder)
+			_hFilterEdit = ::CreateWindowEx(WS_EX_CLIENTEDGE, WC_EDIT, nullptr,
+				WS_CHILD | WS_VISIBLE | ES_AUTOHSCROLL,
+				2, 2, editWidth, editHeight,
+				_hToolbarMenu, reinterpret_cast<HMENU>(IDC_FILEBROWSER_FILTEREDIT), _hInst, nullptr);
+
+			auto* filterEditState = new FilterEditState();
+			filterEditState->glyphWidth = glyphWidth;
+			::SetWindowSubclass(_hFilterEdit, fileBrowserFilterEditProc, 0, reinterpret_cast<DWORD_PTR>(filterEditState));
+
+			if (_hFontFilterEdit == nullptr)
+			{
+				LOGFONT lf{ _dpiManager.getDefaultGUIFontForDpi() };
+				_hFontFilterEdit = ::CreateFontIndirect(&lf);
+			}
+			if (_hFontFilterEdit)
+				::SendMessage(_hFilterEdit, WM_SETFONT, reinterpret_cast<WPARAM>(_hFontFilterEdit), MAKELPARAM(TRUE, 0));
+
+			::SendMessage(_hFilterEdit, EM_SETMARGINS, EC_RIGHTMARGIN, MAKELPARAM(0, glyphWidth));
+			::SendMessage(_hFilterEdit, EM_SETCUEBANNER, FALSE, reinterpret_cast<LPARAM>(_filterTip.c_str()));
+
 			ShowWindow(_hToolbarMenu, SW_SHOW);
 
 			FileBrowser::initPopupMenus();
@@ -229,6 +509,11 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			_treeView.makeLabelEditable(false);
 			_treeView.display();
 
+			_treeViewSearchResult.init(_hInst, _hSelf, ID_FILEBROWSERTREEVIEW_AUX);
+			_treeViewSearchResult.setImageList(imgIds);
+			_treeViewSearchResult.makeLabelEditable(false);
+			// aux tree starts hidden; shown when filter is active
+
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 			NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
 
@@ -245,6 +530,7 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			else
 			{
 				NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
+				NppDarkMode::setTreeViewStyle(_treeViewSearchResult.getHSelf());
 			}
 
 			std::vector<int> imgIds = _treeView.getImageIds(
@@ -254,6 +540,7 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			);
 
 			_treeView.setImageList(imgIds);
+			_treeViewSearchResult.setImageList(imgIds);
 
 			return TRUE;
 		}
@@ -287,9 +574,16 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 			::MoveWindow(_hToolbarMenu, 0, 0, width, toolbarMenuRect.bottom, TRUE);
 
+			const int treeTop = toolbarMenuRect.bottom + extraValue;
+			const int treeHeight = height - toolbarMenuRect.bottom - extraValue;
+
 			HWND hwnd = _treeView.getHSelf();
 			if (hwnd)
-				::MoveWindow(hwnd, 0, toolbarMenuRect.bottom + extraValue, width, height - toolbarMenuRect.bottom - extraValue, TRUE);
+				::MoveWindow(hwnd, 0, treeTop, width, treeHeight, TRUE);
+
+			HWND hwndAux = _treeViewSearchResult.getHSelf();
+			if (hwndAux)
+				::MoveWindow(hwndAux, 0, treeTop, width, treeHeight, TRUE);
 			break;
 		}
 
@@ -300,6 +594,24 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 		case WM_COMMAND:
 		{
+			if (HIWORD(wParam) == EN_CHANGE && LOWORD(wParam) == IDC_FILEBROWSER_FILTEREDIT)
+			{
+				// Typing never rebuilds. Only an emptied box restores the full tree (FR-001/FR-002).
+				if (::GetWindowTextLength(_hFilterEdit) == 0)
+					clearFilter();
+				return TRUE;
+			}
+			if (HIWORD(wParam) == FB_FILTER_APPLY && LOWORD(wParam) == IDC_FILEBROWSER_FILTEREDIT)
+			{
+				applyFilter();
+				return TRUE;
+			}
+			if (wParam == VK_TAB)
+			{
+				::SetFocus(_pActiveTreeView->getHSelf());
+				return TRUE;
+			}
+
 			switch (LOWORD(wParam))
 			{
 				case FB_CMD_AIMFILE:
@@ -330,7 +642,37 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 		{
 			::DestroyWindow(_hToolbarMenu);
 			_treeView.destroy();
+			_treeViewSearchResult.destroy();
+			if (_hFontFilterEdit)
+			{
+				::DeleteObject(_hFontFilterEdit);
+				_hFontFilterEdit = nullptr;
+			}
 			destroyMenus();
+			break;
+		}
+
+		case WM_CTLCOLOREDIT:
+		{
+			// Color the filter edit red only when a filter search has actually been performed and yielded no results.
+			// Using _pActiveTreeView (set by applyFilter/clearFilter) instead of inspecting the edit text avoids spurious
+			// red coloring during dialog init, where paint can fire before the aux tree is fully realized.
+			if (reinterpret_cast<HWND>(lParam) == _hFilterEdit)
+			{
+				auto hdc = reinterpret_cast<HDC>(wParam);
+				const bool noMatch = (_pActiveTreeView == &_treeViewSearchResult) && (_treeViewSearchResult.getRoot() == nullptr);
+				if (noMatch)
+				{
+					if (NppDarkMode::isEnabled())
+						return NppDarkMode::onCtlColorError(hdc);
+					static HBRUSH hBrushNoMatch = ::CreateSolidBrush(RGB(255, 102, 102));
+					::SetTextColor(hdc, RGB(255, 255, 255));
+					::SetBkColor(hdc, RGB(255, 102, 102));
+					return reinterpret_cast<LRESULT>(hBrushNoMatch);
+				}
+				if (NppDarkMode::isEnabled())
+					return NppDarkMode::onCtlColorCtrl(hdc);
+			}
 			break;
 		}
 
@@ -344,6 +686,7 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 				addToTree(group, nullptr);
 			}
 
+			reapplyFilterIfActive(); // FR-009: keep the shown result consistent after a workspace change
 			break;
 		}
 
@@ -357,6 +700,7 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 				deleteFromTree(group);
 			}
 
+			reapplyFilterIfActive(); // FR-009: keep the shown result consistent after a workspace change
 			break;
 		}
 
@@ -388,6 +732,8 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			{
 				//MessageBox(NULL, file2Change[0].c_str(), L"file/folder is not removed", MB_OK);
 			}
+
+			reapplyFilterIfActive(); // FR-009: keep the shown result consistent after a workspace change
 			break;
 		}
 
@@ -477,6 +823,14 @@ bool FileBrowser::selectItemFromPath(const wstring& itemPath) const
 
 			if (foundItem)
 			{
+				// A path lookup targets the full tree. If a filter is active,
+				// _treeView is hidden and _pActiveTreeView points at the (possibly
+				// empty) search-result tree; selecting here would auto-expand
+				// ancestors and drive that wrong tree with a foreign HTREEITEM.
+				// Clearing the filter restores _treeView as the active view (via
+				// the empty-box EN_CHANGE -> clearFilter path) so the file is actually shown.
+				::SetWindowText(_hFilterEdit, L"");
+
 				_treeView.selectItem(foundItem);
 				_treeView.grabFocus();
 				return true;
@@ -503,6 +857,63 @@ void FileBrowser::destroyMenus()
 	::DestroyMenu(_hFileMenu);
 }
 
+void FileBrowser::applyFilter()
+{
+	wchar_t text2search[MAX_PATH] = { '\0' };
+	::SendMessage(_hFilterEdit, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(text2search));
+
+	if (text2search[0] == L'\0')
+	{
+		clearFilter();
+		return;
+	}
+
+	if (_treeView.getRoot() == nullptr)
+		return;
+
+	const HWND hSearchResult = _treeViewSearchResult.getHSelf();
+	// Batch the build (inserts plus the reveal expands) into a single repaint to avoid flicker.
+	::SendMessage(hSearchResult, WM_SETREDRAW, FALSE, 0);
+	_treeViewSearchResult.removeAllItems();
+	auto nameExtractor = [](const TVITEM& item) -> std::wstring
+	{
+		const SortingData4lParam* data = reinterpret_cast<const SortingData4lParam*>(item.lParam);
+		if (data != nullptr && !data->_label.empty())
+			return data->_label;            // non-root: in-memory name (FR-006), no text re-query
+		return item.pszText != nullptr ? std::wstring(item.pszText) : std::wstring(); // root: basename
+	};
+	_treeView.searchAndBuildTreeWithAncestors(_treeViewSearchResult, text2search, INDEX_LEAF, nameExtractor);
+	::SendMessage(hSearchResult, WM_SETREDRAW, TRUE, 0);
+	::InvalidateRect(hSearchResult, nullptr, TRUE);
+
+	_treeView.display(false);
+	_treeViewSearchResult.display(true);
+	_pActiveTreeView = &_treeViewSearchResult;
+	_appliedFilter = text2search;
+
+	// Repaint filter edit to update no-match color.
+	::InvalidateRect(_hFilterEdit, nullptr, TRUE);
+}
+
+void FileBrowser::clearFilter()
+{
+	_treeViewSearchResult.display(false);
+	_treeView.display(true);
+	_pActiveTreeView = &_treeView;
+	_appliedFilter.clear();
+
+	// Repaint filter edit to update no-match color.
+	::InvalidateRect(_hFilterEdit, nullptr, TRUE);
+}
+
+void FileBrowser::reapplyFilterIfActive()
+{
+	// Rare workspace-level event (add/remove/rename): the box still holds the applied text,
+	// so applyFilter() re-reads it and rebuilds against the updated _treeView (FR-009).
+	if (!_appliedFilter.empty())
+		applyFilter();
+}
+
 wstring FileBrowser::getNodePath(HTREEITEM node) const
 {
 	if (!node) return L"";
@@ -514,18 +925,18 @@ wstring FileBrowser::getNodePath(HTREEITEM node) const
 	HTREEITEM parent = node;
 	for (; parent != nullptr;)
 	{
-		wstring folderName = _treeView.getItemDisplayName(parent);
-	
-		HTREEITEM temp = _treeView.getParent(parent);
+		wstring folderName = _pActiveTreeView->getItemDisplayName(parent);
+
+		HTREEITEM temp = _pActiveTreeView->getParent(parent);
 		if (temp == nullptr)
 		{
-			const SortingData4lParam* customData = reinterpret_cast<SortingData4lParam*>(_treeView.getItemParam(parent));
-			folderName = customData->_rootPath;
+			const SortingData4lParam* customData = reinterpret_cast<SortingData4lParam*>(_pActiveTreeView->getItemParam(parent));
+			if (customData)
+				folderName = customData->_rootPath;
 		}
 		parent = temp;
 		fullPathArray.push_back(folderName);
 	}
-
 
 	for (int i = int(fullPathArray.size()) - 1; i >= 0; --i)
 	{
@@ -545,7 +956,7 @@ wstring FileBrowser::getNodeName(HTREEITEM node) const
 void FileBrowser::openSelectFile()
 {
 	// Get the selected item
-	HTREEITEM selectedNode = _treeView.getSelection();
+	HTREEITEM selectedNode = _pActiveTreeView->getSelection();
 	if (!selectedNode) return;
 
 	_selectedNodeFullPath = getNodePath(selectedNode);
@@ -582,7 +993,8 @@ void FileBrowser::notified(LPNMHDR notification)
 			wcscpy_s(lpttt->szText, _expandAllFolders.c_str());
 		}
 	}
-	else if (notification->hwndFrom == _treeView.getHSelf())
+	else if (notification->hwndFrom == _treeView.getHSelf()
+	      || notification->hwndFrom == _treeViewSearchResult.getHSelf())
 	{
 		wchar_t textBuffer[MAX_PATH] = { '\0' };
 		TVITEM tvItem{};
@@ -669,17 +1081,17 @@ void FileBrowser::notified(LPNMHDR notification)
 			case TVN_KEYDOWN:
 			{
 				LPNMTVKEYDOWN ptvkd = (LPNMTVKEYDOWN)notification;
-				
+
 				if (ptvkd->wVKey == VK_RETURN)
 				{
-					HTREEITEM hItem = _treeView.getSelection();
+					HTREEITEM hItem = _pActiveTreeView->getSelection();
 					BrowserNodeType nType = getNodeType(hItem);
 					if (nType == browserNodeType_file)
 						openSelectFile();
 					else
-						_treeView.toggleExpandCollapse(hItem);
+						_pActiveTreeView->toggleExpandCollapse(hItem);
 				}
-				else if (ptvkd->wVKey == VK_DELETE)
+				else if (ptvkd->wVKey == VK_DELETE && _pActiveTreeView == &_treeView)
 				{
 					HTREEITEM hItem = _treeView.getSelection();
 					BrowserNodeType nType = getNodeType(hItem);
@@ -710,29 +1122,38 @@ void FileBrowser::notified(LPNMHDR notification)
 			case TVN_ITEMEXPANDED:
 			{
 				LPNMTREEVIEW nmtv = (LPNMTREEVIEW)notification;
+
+				// Act on the tree that raised the notification, not on
+				// _pActiveTreeView. They differ when a _treeView item is expanded
+				// while the filtered search-result view is active; using
+				// _pActiveTreeView there drives the wrong control with a foreign
+				// HTREEITEM and crashes when that control is empty.
+				TreeView& srcTree = (notification->hwndFrom == _treeViewSearchResult.getHSelf())
+					? _treeViewSearchResult : _treeView;
+
 				tvItem.hItem = nmtv->itemNew.hItem;
 				tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
 
-				if (getNodeType(nmtv->itemNew.hItem) == browserNodeType_folder)
+				if (getNodeType(nmtv->itemNew.hItem, srcTree.getHSelf()) == browserNodeType_folder)
 				{
 					if (nmtv->action == TVE_COLLAPSE)
 					{
-						_treeView.setItemImage(nmtv->itemNew.hItem, INDEX_CLOSE_NODE, INDEX_CLOSE_NODE);
+						srcTree.setItemImage(nmtv->itemNew.hItem, INDEX_CLOSE_NODE, INDEX_CLOSE_NODE);
 					}
 					else if (nmtv->action == TVE_EXPAND)
 					{
-						_treeView.setItemImage(nmtv->itemNew.hItem, INDEX_OPEN_NODE, INDEX_OPEN_NODE);
+						srcTree.setItemImage(nmtv->itemNew.hItem, INDEX_OPEN_NODE, INDEX_OPEN_NODE);
 					}
 				}
-				else if (getNodeType(nmtv->itemNew.hItem) == browserNodeType_root)
+				else if (getNodeType(nmtv->itemNew.hItem, srcTree.getHSelf()) == browserNodeType_root)
 				{
 					if (nmtv->action == TVE_COLLAPSE)
 					{
-						_treeView.setItemImage(nmtv->itemNew.hItem, INDEX_CLOSE_ROOT, INDEX_CLOSE_ROOT);
+						srcTree.setItemImage(nmtv->itemNew.hItem, INDEX_CLOSE_ROOT, INDEX_CLOSE_ROOT);
 					}
 					else if (nmtv->action == TVE_EXPAND)
 					{
-						_treeView.setItemImage(nmtv->itemNew.hItem, INDEX_OPEN_ROOT, INDEX_OPEN_ROOT);
+						srcTree.setItemImage(nmtv->itemNew.hItem, INDEX_OPEN_ROOT, INDEX_OPEN_ROOT);
 					}
 				}
 			}
@@ -740,19 +1161,23 @@ void FileBrowser::notified(LPNMHDR notification)
 
 			case TVN_BEGINDRAG:
 			{
-				_treeView.beginDrag((LPNMTREEVIEW)notification);
+				if (notification->hwndFrom == _treeView.getHSelf())
+					_treeView.beginDrag((LPNMTREEVIEW)notification);
 			}
 			break;
 		}
 	}
 }
 
-BrowserNodeType FileBrowser::getNodeType(HTREEITEM hItem)
+BrowserNodeType FileBrowser::getNodeType(HTREEITEM hItem, HWND hTreeView)
 {
 	TVITEM tvItem{};
 	tvItem.hItem = hItem;
 	tvItem.mask = TVIF_IMAGE | TVIF_PARAM;
-	SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
+	// Query the tree the item actually belongs to. Defaults to the active tree,
+	// but callers handling a notification must pass notification->hwndFrom so we
+	// never read an item through the wrong control.
+	SendMessage(hTreeView ? hTreeView : _pActiveTreeView->getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
 	// File
 	if (tvItem.iImage == INDEX_LEAF)
@@ -953,6 +1378,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 
 				_folderUpdaters.erase(_folderUpdaters.begin() + i);
 			}
+			::SetWindowText(_hFilterEdit, L"");
 		}
 		break;
 
@@ -1070,7 +1496,12 @@ void FileBrowser::addRootFolder(wstring rootFolderPath, std::unordered_set<std::
 				
 				HTREEITEM foundItem = findInTree(rootPath, nullptr, linarPathArray);
 				if (foundItem)
+				{
+					// Same as selectItemFromPath: reveal in the full tree so the
+					// active view matches the control being selected/expanded.
+					::SetWindowText(_hFilterEdit, L"");
 					_treeView.selectItem(foundItem);
+				}
 				return;
 			}
 			
@@ -1117,6 +1548,7 @@ void FileBrowser::addRootFolder(wstring rootFolderPath, std::unordered_set<std::
 
 	_folderUpdaters.push_back(new FolderUpdater(directoryStructure, this));
 	_folderUpdaters[_folderUpdaters.size() - 1]->startWatcher();
+	applyFilter();
 }
 
 HTREEITEM FileBrowser::createFolderItemsFromDirStruct(HTREEITEM hParentItem, const FolderInfo & directoryStructure)
@@ -1224,7 +1656,7 @@ vector<wstring> FileBrowser::getRoots() const
 wstring FileBrowser::getSelectedItemPath() const
 {
 	wstring itemPath;
-	HTREEITEM hItemNode = _treeView.getSelection();
+	HTREEITEM hItemNode = _pActiveTreeView->getSelection();
 	if (hItemNode)
 	{
 		itemPath = getNodePath(hItemNode);

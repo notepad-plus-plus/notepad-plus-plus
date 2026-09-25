@@ -1049,6 +1049,14 @@
 					<Item id="6653" name="Arka Planı Vurgula"/>
 					<Item id="6654" name="Çerçeve"/>
 					<Item id="6655" name="Genişlik:"/>
+					<ComboBox id="6362">
+						<Element name="GDI (En Uyumlu)"/>
+						<Element name="DirectWrite (Varsayılan)"/>
+						<Element name="DirectWrite (Çerçeveleri Koru)"/>
+						<Element name="DirectWrite (GDI DC Üzerine Çiz)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<Item id="6363" name="Görselleştirme Modu"/>
 				</Scintillas>
 
 				<Scintillas2 title="Düzenleme 2">
@@ -1376,20 +1384,12 @@
 						<Element name="Kapat"/>
 						<Element name="Küçült / Kapat"/>
 					</ComboBox>
-					<ComboBox id="6362">
-						<Element name="GDI (En Uyumlu)"/>
-						<Element name="DirectWrite (Varsayılan)"/>
-						<Element name="DirectWrite (Çerçeveleri Koru)"/>
-						<Element name="DirectWrite (GDI DC Üzerine Çiz)"/>
-						<Element name="DirectWrite (DirectX 11)"/>
-					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Etkisizleştir"/>
 						<Element name="Notepad++ başlangıcında etkinleştir"/>
 						<Element name="Notepad++ kapatışında etkinleştir"/>
 					</ComboBox>
 					<Item id="6308" name="Görev Çubuğu"/>
-					<Item id="6363" name="Görselleştirme Modu"/>
 					<Item id="6365" name="Oto-Güncelleyici:"/>
 					<Item id="6312" name="Dosya Durumunu Otomatik Algıla"/>
 					<Item id="6313" name="Sessiz güncelle"/>

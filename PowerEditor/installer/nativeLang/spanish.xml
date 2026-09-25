@@ -1044,6 +1044,14 @@ Translation note:
 					<Item id="6653" name="Fondo resaltado"/>
 					<Item id="6654" name="Marco"/>
 					<Item id="6655" name="Anchura"/>
+					<ComboBox id="6362">
+						<Element name="GDI (más compatible)"/>
+						<Element name="DirectWrite (por defecto)"/>
+						<Element name="DirectWrite(conservar cuadros)"/>
+						<Element name="DirectWrite (dibujar a GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<Item id="6363" name="modo de representación"/>
 				</Scintillas>
 
 				<Scintillas2 title="Edición 2">
@@ -1371,20 +1379,12 @@ Translation note:
 						<Element name="Cerrar en"/>
 						<Element name="Minimizar / Cerrar en"/>
 					</ComboBox>
-					<ComboBox id="6362">
-						<Element name="GDI (más compatible)"/>
-						<Element name="DirectWrite (por defecto)"/>
-						<Element name="DirectWrite(conservar cuadros)"/>
-						<Element name="DirectWrite (dibujar a GDI DC)"/>
-						<Element name="DirectWrite (DirectX 11)"/>
-					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Desactivar"/>
 						<Element name="Activar al iniciar Notepad++"/>
 						<Element name="Activar al salir de Notepad++"/>
 					</ComboBox>
 					<Item id="6308" name="la barra de notificaciones"/>
-					<Item id="6363" name="modo de representación"/>
 					<Item id="6365" name="Actualizador:"/>
 					<Item id="6312" name="Autodetectar estado del archivo"/>
 					<Item id="6313" name="Actualizar sin notificar"/>

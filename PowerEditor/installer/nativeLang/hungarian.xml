@@ -1044,6 +1044,14 @@
 					<Item id="6653" name="&amp;Háttérkiemelés"/>
 					<Item id="6654" name="&amp;Keret"/>
 					<Item id="6655" name="S&amp;zélesség:"/>
+					<ComboBox id="6362">
+						<Element name="GDI (legjobb kompatibilitás)"/>
+						<Element name="DirectWrite (alapértelmezett)"/>
+						<Element name="DirectWrite (képkockamegőrző)"/>
+						<Element name="DirectWrite (GDI DC-be rajzolva)"/>
+						<Element name="DirectWrite (DirectX 11-gyel)"/>
+					</ComboBox>
+					<Item id="6363" name="renderelési mód"/>
 				</Scintillas>
 
 				<Scintillas2 title="További szerkesztés">
@@ -1371,20 +1379,12 @@
 						<Element name="Bezárás"/>
 						<Element name="Kicsinyítés / Bezárás"/>
 					</ComboBox>
-					<ComboBox id="6362">
-						<Element name="GDI (legjobb kompatibilitás)"/>
-						<Element name="DirectWrite (alapértelmezett)"/>
-						<Element name="DirectWrite (képkockamegőrző)"/>
-						<Element name="DirectWrite (GDI DC-be rajzolva)"/>
-						<Element name="DirectWrite (DirectX 11-gyel)"/>
-					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Kikapcsolva"/>
 						<Element name="Engedélyezve Notepad++-indításkor"/>
 						<Element name="Engedélyezve Notepad++-bezáráskor"/>
 					</ComboBox>
 					<Item id="6308" name="az értesítési területre"/>
-					<Item id="6363" name="renderelési mód"/>
 					<Item id="6365" name="Aut&amp;omatikus frissítés:"/>
 					<Item id="6312" name="&amp;Automatikus fájlállapot-felismerés"/>
 					<Item id="6313" name="&amp;Figyelmeztetés nélküli fájlfrissítés"/>

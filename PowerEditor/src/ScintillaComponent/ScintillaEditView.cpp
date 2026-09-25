@@ -65,6 +65,7 @@ static constexpr int MAX_FOLD_LINES_MORE_THAN = 99;
 // initialize the static variable
 bool ScintillaEditView::_SciInit = false;
 int ScintillaEditView::_refCount = 0;
+std::vector<ScintillaEditView*> ScintillaEditView::_liveViews;
 UserDefineDialog ScintillaEditView::_userDefineDlg;
 
 const int ScintillaEditView::_SC_MARGE_LINENUMBER = 0;
@@ -488,7 +489,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	}
 	else
 	{
-		// allow IDC_COMBO_SC_TECHNOLOGY_CHOICE to be set in Preferences > MISC. again
+		// allow IDC_COMBO_SC_TECHNOLOGY_CHOICE to be set in Preferences > Editing 1 again
 		if (nppGui._writeTechnologyEngine == directWriteTechnologyUnavailable)
 			nppGui._writeTechnologyEngine = defaultTechnology;
 	}
@@ -500,9 +501,12 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 		// so that existing plugins using SCI_SETTECHNOLOGY behave like before
 	}
 
+	applyTextRenderingSettings();
+
 	_codepage = nppParams.currentSystemCodepage();
 
 	::SetWindowSubclass(_hSelf, ScintillaEditView::ScintillaProc, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(this));
+	registerLiveView(this); // unregistered on WM_NCDESTROY (see ScintillaProc), destroy() or destruction
 
 	if (_defaultCharList.empty())
 	{
@@ -525,6 +529,140 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	attachDefaultDoc();
 }
 
+// DirectWrite font quality matching the Windows "Smooth edges of screen fonts" & ClearType settings
+static int getSystemFontQuality()
+{
+	BOOL isFontSmoothingOn = FALSE;
+	if (!::SystemParametersInfo(SPI_GETFONTSMOOTHING, 0, &isFontSmoothingOn, 0))
+		return SC_EFF_QUALITY_DEFAULT;
+
+	if (!isFontSmoothingOn)
+		return SC_EFF_QUALITY_NON_ANTIALIASED;
+
+	UINT fontSmoothingType = 0;
+	if (!::SystemParametersInfo(SPI_GETFONTSMOOTHINGTYPE, 0, &fontSmoothingType, 0))
+		return SC_EFF_QUALITY_DEFAULT;
+
+	// DirectWrite's default quality draws ClearType with the monitor's parameters, as Notepad++ always did
+	// (SC_EFF_QUALITY_LCD_OPTIMIZED would use the ClearType Tuner gamma of GDI: the "ClearType" setting)
+	return (fontSmoothingType == FE_FONTSMOOTHINGCLEARTYPE) ? SC_EFF_QUALITY_DEFAULT : SC_EFF_QUALITY_ANTIALIASED;
+}
+
+void ScintillaEditView::applyTextRenderingSettings() const
+{
+	const ScintillaViewParams& svp = NppParameters::getInstance().getSVP();
+
+	int fontQuality = SC_EFF_QUALITY_DEFAULT;
+	switch (svp._textAntialiasing)
+	{
+		case textAntialiasingClearType:
+		case textAntialiasingClearTypeLessColor:
+			fontQuality = SC_EFF_QUALITY_LCD_OPTIMIZED;
+			break;
+
+		case textAntialiasingGrayscale:
+			fontQuality = SC_EFF_QUALITY_ANTIALIASED;
+			break;
+
+		case textAntialiasingNone:
+			fontQuality = SC_EFF_QUALITY_NON_ANTIALIASED;
+			break;
+
+		default: // textAntialiasingFollowWindows
+			// GDI's default quality already follows the Windows font smoothing, DirectWrite's default antialiasing
+			// ignores it (smoothing off or Standard), so DirectWrite gets the Windows setting explicitly
+			fontQuality = (execute(SCI_GETTECHNOLOGY) == SC_TECHNOLOGY_DEFAULT) ? SC_EFF_QUALITY_DEFAULT : getSystemFontQuality();
+	}
+	execute(SCI_SETFONTQUALITY, fontQuality);
+
+	// The following parameters are used only by DirectWrite, SC_FONTRENDERING_DEFAULT (-1) removes the override.
+	// They are sent even with GDI, so they are ready if the technology is switched to DirectWrite (by a plugin for example).
+
+	int renderingMode = SC_FONTRENDERING_DEFAULT;
+	switch (svp._textRenderingMode)
+	{
+		case textRenderingModeNatural:
+			renderingMode = SC_RENDERINGMODE_NATURAL;
+			break;
+
+		case textRenderingModeSymmetric:
+			renderingMode = SC_RENDERINGMODE_NATURALSYMMETRIC;
+			break;
+
+		case textRenderingModeGdiClassic:
+			renderingMode = SC_RENDERINGMODE_GDICLASSIC;
+			break;
+
+		case textRenderingModeAdaptive:
+			renderingMode = SC_RENDERINGMODE_ADAPTIVE;
+			break;
+
+		default: // textRenderingModeAutomatic
+			break;
+	}
+
+	// a rendering mode override is incompatible with aliased text (it would put the DirectWrite render target in an error state)
+	if (fontQuality == SC_EFF_QUALITY_NON_ANTIALIASED)
+		renderingMode = SC_FONTRENDERING_DEFAULT;
+
+	// DirectWrite's enhanced contrast only darkens dark text (it's reduced to nothing for light text),
+	// light text (on dark themes) gets heavier with a higher gamma, which would make dark text lighter:
+	// so the higher contrasts give light text its own gamma
+	struct TextContrastParams
+	{
+		int _enhancedContrast = SC_FONTRENDERING_DEFAULT;          // in hundredths, for ClearType
+		int _grayscaleEnhancedContrast = SC_FONTRENDERING_DEFAULT; // in hundredths, for grayscale antialiasing
+		int _lightTextGamma = SC_FONTRENDERING_DEFAULT;            // in thousandths
+	};
+	static constexpr TextContrastParams textContrastParams[]{ // indexed by textContrast
+		{},                 // textContrastWindows: the Windows parameters, as Notepad++ always did
+		{ 100, 150, 2000 }, // textContrastMedium
+		{ 200, 250, 2200 }, // textContrastHigh
+		{ 300, 350, 2200 }  // textContrastVeryHigh (2.2: the highest gamma DirectWrite's text blending uses)
+	};
+	const TextContrastParams& contrast = textContrastParams[svp._textContrast];
+
+	// ClearType level in percent: 50% reduces the color fringes while keeping ClearType horizontal resolution
+	static constexpr int clearTypeLessColorLevel = 50;
+	const int clearTypeLevel = (svp._textAntialiasing == textAntialiasingClearTypeLessColor) ? clearTypeLessColorLevel : SC_FONTRENDERING_DEFAULT;
+
+	// the advanced overrides of config.xml (SC_FONTRENDERING_DEFAULT: not set) take precedence over the values derived from the settings
+	auto overriddenBy = [](int value, int overrideValue) -> int { return (overrideValue != SC_FONTRENDERING_DEFAULT) ? overrideValue : value; };
+
+	execute(SCI_SETFONTRENDERINGPARAMETER, SC_FONTRENDERING_GAMMA, overriddenBy(SC_FONTRENDERING_DEFAULT, svp._fontGamma));
+	execute(SCI_SETFONTRENDERINGPARAMETER, SC_FONTRENDERING_ENHANCEDCONTRAST, overriddenBy(contrast._enhancedContrast, svp._fontEnhancedContrast));
+	execute(SCI_SETFONTRENDERINGPARAMETER, SC_FONTRENDERING_GRAYSCALEENHANCEDCONTRAST, overriddenBy(contrast._grayscaleEnhancedContrast, svp._fontGrayscaleEnhancedContrast));
+	execute(SCI_SETFONTRENDERINGPARAMETER, SC_FONTRENDERING_CLEARTYPELEVEL, overriddenBy(clearTypeLevel, svp._fontClearTypeLevel));
+	execute(SCI_SETFONTRENDERINGPARAMETER, SC_FONTRENDERING_PIXELGEOMETRY, overriddenBy(SC_FONTRENDERING_DEFAULT, svp._fontPixelGeometry));
+	execute(SCI_SETFONTRENDERINGPARAMETER, SC_FONTRENDERING_RENDERINGMODE, renderingMode);
+	execute(SCI_SETFONTRENDERINGPARAMETER, SC_FONTRENDERING_LIGHTTEXTGAMMA, overriddenBy(contrast._lightTextGamma, svp._fontLightTextGamma));
+}
+
+void ScintillaEditView::applyTextRenderingSettingsToAll()
+{
+	// index based loop: the list must not be invalidated if it's modified meanwhile
+	for (size_t i = 0; i < _liveViews.size(); ++i)
+		_liveViews[i]->applyTextRenderingSettings();
+}
+
+void ScintillaEditView::sendMessageToAll(UINT Msg, WPARAM wParam, LPARAM lParam)
+{
+	// index based loop: the list must not be invalidated if it's modified meanwhile
+	for (size_t i = 0; i < _liveViews.size(); ++i)
+		::SendMessage(_liveViews[i]->getHSelf(), Msg, wParam, lParam);
+}
+
+void ScintillaEditView::registerLiveView(ScintillaEditView* pView)
+{
+	if (pView && std::find(_liveViews.begin(), _liveViews.end(), pView) == _liveViews.end())
+		_liveViews.push_back(pView);
+}
+
+void ScintillaEditView::unregisterLiveView(const ScintillaEditView* pView)
+{
+	std::erase(_liveViews, pView);
+}
+
 LRESULT CALLBACK ScintillaEditView::ScintillaProc(
 	HWND hWnd,
 	UINT uMsg,
@@ -540,6 +678,8 @@ LRESULT CALLBACK ScintillaEditView::ScintillaProc(
 	{
 		case WM_NCDESTROY:
 		{
+			// the window can also be destroyed together with its parent, without destroy() being called
+			unregisterLiveView(pScint);
 			::RemoveWindowSubclass(hWnd, ScintillaEditView::ScintillaProc, uIdSubclass);
 			break;
 		}

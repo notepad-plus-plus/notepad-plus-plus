@@ -1076,6 +1076,14 @@ Additionnal information about Corsican localization:
 					<Item id="6653" name="Culurisce u sfondulu"/>
 					<Item id="6654" name="Quadru"/>
 					<Item id="6655" name="Larghezza :"/>
+					<ComboBox id="6362">
+						<Element name="GDI (u più cumpatibile)"/>
+						<Element name="DirectWrite (predefinitu)"/>
+						<Element name="DirectWrite (cunservà e sequenze)"/>
+						<Element name="DirectWrite (disegnà nant’à GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<Item id="6363" name="modu di restituzione"/>
 				</Scintillas>
 
 				<Scintillas2 title="Mudificazione 2">
@@ -1404,20 +1412,12 @@ Additionnal information about Corsican localization:
 						<Element name="Chjode in"/>
 						<Element name="Impuculisce o chjode in"/>
 					</ComboBox>
-					<ComboBox id="6362">
-						<Element name="GDI (u più cumpatibile)"/>
-						<Element name="DirectWrite (predefinitu)"/>
-						<Element name="DirectWrite (cunservà e sequenze)"/>
-						<Element name="DirectWrite (disegnà nant’à GDI DC)"/>
-						<Element name="DirectWrite (DirectX 11)"/>
-					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Disattivà"/>
 						<Element name="Attivà à u lanciu di Notepad++"/>
 						<Element name="Attivà à l’esce di Notepad++"/>
 					</ComboBox>
 					<Item id="6308" name="u spaziu di nutificazione di u sistema"/>
-					<Item id="6363" name="modu di restituzione"/>
 					<Item id="6365" name="Messa à livellu autumatica :"/>
 					<Item id="6312" name="Detezione autumatica di statu di schedariu"/>
 					<Item id="6313" name="Mudificazione senza avertimentu"/>

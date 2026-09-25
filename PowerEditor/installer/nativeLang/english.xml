@@ -1032,7 +1032,6 @@ Translation note:
 					<Item id="6229" name="Aligned"/>
 					<Item id="6230" name="Indent"/>
 					<Item id="6234" name="Disable advanced scrolling feature due to touchpad issue"/>
-					<Item id="6215" name="Enable smooth font"/>
 					<Item id="6236" name="Enable scrolling beyond last line"/>
 					<Item id="6239" name="Keep selection when right-click outside of selection"/>
 					<Item id="6245" name="Enable virtual space"/>
@@ -1044,6 +1043,38 @@ Translation note:
 					<Item id="6653" name="Highlight Background"/>
 					<Item id="6654" name="Frame"/>
 					<Item id="6655" name="Width:"/>
+					<Item id="6280" name="Text Rendering"/>
+					<Item id="6363" name="Rendering mode:"/>
+					<Item id="6281" name="Antialiasing:"/>
+					<Item id="6283" name="DirectWrite mode:"/>
+					<Item id="6285" name="Text contrast:"/>
+					<ComboBox id="6362">
+						<Element name="GDI (most compatible)"/>
+						<Element name="DirectWrite (default)"/>
+						<Element name="DirectWrite (retain frames)"/>
+						<Element name="DirectWrite (draw to GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<ComboBox id="6282">
+						<Element name="Follow Windows"/>
+						<Element name="ClearType"/>
+						<Element name="ClearType (less color fringing)"/>
+						<Element name="Grayscale"/>
+						<Element name="None"/>
+					</ComboBox>
+					<ComboBox id="6284">
+						<Element name="Automatic"/>
+						<Element name="Natural (sharper small text)"/>
+						<Element name="Symmetric (smoother)"/>
+						<Element name="GDI classic (pixel-aligned)"/>
+						<Element name="Adaptive (Natural for small text)"/>
+					</ComboBox>
+					<ComboBox id="6286">
+						<Element name="Follow Windows"/>
+						<Element name="Medium"/>
+						<Element name="High"/>
+						<Element name="Very high"/>
+					</ComboBox>
 				</Scintillas>
 
 				<Scintillas2 title="Editing 2">
@@ -1371,20 +1402,12 @@ Translation note:
 						<Element name="Close to"/>
 						<Element name="Minimize / Close to"/>
 					</ComboBox>
-					<ComboBox id="6362">
-						<Element name="GDI (most compatible)"/>
-						<Element name="DirectWrite (default)"/>
-						<Element name="DirectWrite (retain frames)"/>
-						<Element name="DirectWrite (draw to GDI DC)"/>
-						<Element name="DirectWrite (DirectX 11)"/>
-					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Disable"/>
 						<Element name="Enable on Notepad++ startup"/>
 						<Element name="Enable on Notepad++ exit"/>
 					</ComboBox>
 					<Item id="6308" name="system tray"/>
-					<Item id="6363" name="rendering mode"/>
 					<Item id="6365" name="Auto-updater:"/>
 					<Item id="6312" name="File Status Auto-Detection"/>
 					<Item id="6313" name="Update silently"/>
@@ -1930,6 +1953,10 @@ If you select advanced mode but do not edit files in the aforementioned language
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Enabling &quot;Global override&quot; here will override that parameter in all language styles. What you probably really want is to use the &quot;Default Style&quot; settings instead"/>
 			<scintillaRenderingTechnology-tip value="May improve rendering of special characters or resolve some graphics issues, restart Notepad++ to apply the changes."/>
+			<!-- Don't translate "ClearType", "DirectWrite", "GDI" and "DPI" in the 3 following tips -->
+			<textAntialiasing-tip value="Grayscale is recommended for OLED screens and for rotated (portrait) screens, where ClearType color fringes are more visible."/>
+			<textRenderingMode-tip value="Natural avoids the vertical blur of small text. GDI classic snaps the glyphs to whole pixels like GDI rendering (the crispest on standard-DPI screens). Adaptive uses Natural for small text (up to 20 pixels) and the automatic mode for larger text."/>
+			<textContrast-tip value="DirectWrite only. Makes the strokes heavier: darkens dark text on light backgrounds and thickens light text on dark themes."/>
 
 			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
 			<statusbar-length-lines value="length: $STR_REPLACE1$    lines: $STR_REPLACE2$"/>

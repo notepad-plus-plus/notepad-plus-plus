@@ -1032,6 +1032,14 @@ Translation note:
 					<Item id="6653" name="Podświetlane tło"/>
 					<Item id="6654" name="Ramka"/>
 					<Item id="6655" name="Szerokość:"/>
+					<ComboBox id="6362">
+						<Element name="GDI (najbardziej kompatybilny)"/>
+						<Element name="DirectWrite (domyślny)"/>
+						<Element name="DirectWrite (zachowaj ramki)"/>
+						<Element name="DirectWrite (rysuj do GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<Item id="6363" name="tryb renderowania"/>
 				</Scintillas>
 
 				<Scintillas2 title="Edycja 2">
@@ -1356,20 +1364,12 @@ Translation note:
 						<Element name="Zamykaj do"/>
 						<Element name="Minimalizuj / Zamykaj do"/>
 					</ComboBox>
-					<ComboBox id="6362">
-						<Element name="GDI (najbardziej kompatybilny)"/>
-						<Element name="DirectWrite (domyślny)"/>
-						<Element name="DirectWrite (zachowaj ramki)"/>
-						<Element name="DirectWrite (rysuj do GDI DC)"/>
-						<Element name="DirectWrite (DirectX 11)"/>
-					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Wyłączona"/>
 						<Element name="Włączona przy uruchamianiu Notepad++"/>
 						<Element name="Włączona przy zamykaniu Notepad++"/>
 					</ComboBox>
 					<Item id="6308" name="zasobnika systemowego"/>
-					<Item id="6363" name="tryb renderowania"/>
 					<Item id="6365" name="Auto aktualizacja:"/>
 					<Item id="6312" name="Autowykrywanie stanu pliku"/>
 					<Item id="6313" name="Uaktualniaj po cichu"/>

@@ -1031,6 +1031,14 @@
 					<Item id="6653" name="Istakni pozadinu"/>
 					<Item id="6654" name="Okvir"/>
 					<Item id="6655" name="Širina:"/>
+					<ComboBox id="6362">
+						<Element name="GDI (najkompatibilniji)"/>
+						<Element name="DirectWrite (podrazumevano)"/>
+						<Element name="DirectWrite (zadržava okvire)"/>
+						<Element name="DirectWrite (crtaj na GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<Item id="6363" name="režim renderovanja"/>
 				</Scintillas>
 
 				<Scintillas2 title="Uređivanje 2">
@@ -1357,20 +1365,12 @@
 						<Element name="Blizu"/>
 						<Element name="Minimiziraj / Blizu"/>
 					</ComboBox>
-					<ComboBox id="6362">
-						<Element name="GDI (najkompatibilniji)"/>
-						<Element name="DirectWrite (podrazumevano)"/>
-						<Element name="DirectWrite (zadržava okvire)"/>
-						<Element name="DirectWrite (crtaj na GDI DC)"/>
-						<Element name="DirectWrite (DirectX 11)"/>
-					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Onemogući"/>
 						<Element name="Omogući pri pokretanju Notepad++"/>
 						<Element name="Omogući pri zatvaranju Notepad++"/>
 					</ComboBox>
 					<Item id="6308" name="sistemska traka"/>
-					<Item id="6363" name="režim renderovanja"/>
 					<Item id="6365" name="Samoažuriranje:"/>
 					<Item id="6312" name="Samoprepoznavanje statusa datoteke"/>
 					<Item id="6313" name="Tiho ažuriranje"/>

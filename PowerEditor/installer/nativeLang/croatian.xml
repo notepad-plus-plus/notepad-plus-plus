@@ -1053,6 +1053,14 @@
 					<Item id="6653" name="Istaknuta pozadina"/>
 					<Item id="6654" name="Okvir"/>
 					<Item id="6655" name="Širina:"/>
+					<ComboBox id="6362">
+						<Element name="GDI (najkompatibilniji)"/>
+						<Element name="DirectWrite (zadano)"/>
+						<Element name="DirectWrite (zadržati okvire)"/>
+						<Element name="DirectWrite (povući u GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<Item id="6363" name="način iscrtavanja"/>
 				</Scintillas>
 
 				<Scintillas2 title="Uređivanje 2">
@@ -1386,20 +1394,12 @@ umjesto brisanja jednog razmaka"/>
 						<Element name="Zatvori u"/>
 						<Element name="Minimiziraj / Zatvori u"/>
 					</ComboBox>
-					<ComboBox id="6362">
-						<Element name="GDI (najkompatibilniji)"/>
-						<Element name="DirectWrite (zadano)"/>
-						<Element name="DirectWrite (zadržati okvire)"/>
-						<Element name="DirectWrite (povući u GDI DC)"/>
-						<Element name="DirectWrite (DirectX 11)"/>
-					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Isključi"/>
 						<Element name="Omogući pri pokretanju Notepada++"/>
 						<Element name="Omogući pri zatvaranju Notepada++"/>
 					</ComboBox>
 					<Item id="6308" name="sistemsku traku"/>
-					<Item id="6363" name="način iscrtavanja"/>
 					<Item id="6365" name="Automatsko ažuriranje:"/>
 					<Item id="6312" name="Automatsko prepoznavanje stanja datoteke"/>
 					<Item id="6313" name="Tiho ažuriranje"/>

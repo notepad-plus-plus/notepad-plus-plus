@@ -973,6 +973,14 @@ $STR_REPLACE$
 					<Item id="6236" name="Превъртане след последният ред"/>
 					<Item id="6234" name="Без разширени функции за превъртане"/>
 					<Item id="6266" name="Без влачене и пускане на избран текст"/>
+					<ComboBox id="6362">
+						<Element name="GDI (най-съвместим)"/>
+						<Element name="DirectWrite (по подразбиране)"/>
+						<Element name="DirectWrite (запазване на рамки)"/>
+						<Element name="DirectWrite (рисуване в GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<Item id="6363" name="режим на изобразяване"/>
 				</Scintillas>
 				<!-- Редактиране 2 -->
 				<Scintillas2 title="Редактиране 2">
@@ -1308,14 +1316,6 @@ $STR_REPLACE$
 						<Element name="Минимизиране и затваряне"/>
 					</ComboBox>
 					<Item id="6308" name="в системната област"/>
-					<ComboBox id="6362">
-						<Element name="GDI (най-съвместим)"/>
-						<Element name="DirectWrite (по подразбиране)"/>
-						<Element name="DirectWrite (запазване на рамки)"/>
-						<Element name="DirectWrite (рисуване в GDI DC)"/>
-						<Element name="DirectWrite (DirectX 11)"/>
-					</ComboBox>
-					<Item id="6363" name="режим на изобразяване"/>
 					<Item id="6365" name="Авто-обновяване:"/>
 					<ComboBox id="6364">
 						<Element name="Изключено"/>

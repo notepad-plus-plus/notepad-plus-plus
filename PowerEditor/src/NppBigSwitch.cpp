@@ -334,14 +334,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				}
 			}
 
-			// let the Scintilla to update according to the possible changed OS settings
+			// let all the Scintilla views (edit views, Finders, Document Map, Peeker...) update according to the possible changed OS settings
 			// (mouse wheel vertical & horizontal scroll amount, DirectWrite rendering params, base elements, style etc.)
-			::SendMessage(_mainEditView.getHSelf(), WM_SETTINGCHANGE, wParam, lParam);
-			::SendMessage(_subEditView.getHSelf(), WM_SETTINGCHANGE, wParam, lParam);
-			HWND hFindResults = _findReplaceDlg.getHFindResults();
-			if (hFindResults != NULL)
+			ScintillaEditView::sendMessageToAll(WM_SETTINGCHANGE, wParam, lParam);
+
+			// keep the "Follow Windows" text antialiasing in sync with the Windows font smoothing (Scintilla updates the other parameters)
+			if ((wParam == SPI_SETFONTSMOOTHING || wParam == SPI_SETFONTSMOOTHINGTYPE) &&
+				(nppParam.getSVP()._textAntialiasing == textAntialiasingFollowWindows))
 			{
-				::SendMessage(hFindResults, WM_SETTINGCHANGE, wParam, lParam);
+				ScintillaEditView::applyTextRenderingSettingsToAll();
 			}
 
 			return ::DefWindowProc(hwnd, message, wParam, lParam);

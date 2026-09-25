@@ -1044,6 +1044,14 @@ Translation note:
 					<Item id="6653" name="배경 강조"/>
 					<Item id="6654" name="틀"/>
 					<Item id="6655" name="너비:"/>
+					<ComboBox id="6362">
+						<Element name="GDI (호환성 가장 좋음)"/>
+						<Element name="DirectWrite (기본값)"/>
+						<Element name="DirectWrite (프레임 유지)"/>
+						<Element name="DirectWrite (GDI DC에 그리기)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<Item id="6363" name="렌더링 모드"/>
 				</Scintillas>
 
 				<Scintillas2 title="편집 2">
@@ -1370,20 +1378,12 @@ Translation note:
 						<Element name="창을 닫을 시"/>
 						<Element name="최소화 시 / 창을 닫을 시"/>
 					</ComboBox>
-					<ComboBox id="6362">
-						<Element name="GDI (호환성 가장 좋음)"/>
-						<Element name="DirectWrite (기본값)"/>
-						<Element name="DirectWrite (프레임 유지)"/>
-						<Element name="DirectWrite (GDI DC에 그리기)"/>
-						<Element name="DirectWrite (DirectX 11)"/>
-					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="사용 안함"/>
 						<Element name="Notepad++ 시작 시 실행"/>
 						<Element name="Notepad++ 종료 시 실행"/>
 					</ComboBox>
 					<Item id="6308" name="시스템 트레이"/>
-					<Item id="6363" name="렌더링 모드"/>
 					<Item id="6365" name="자동 업데이트:"/>
 					<Item id="6312" name="파일 상태 자동 확인"/>
 					<Item id="6313" name="경고 없이 업데이트"/>

@@ -150,7 +150,11 @@ struct LBGraphics {
 
 }
 
-class ListBoxX : public ListBox {
+class ListBoxX : public ListBox
+#if defined(USE_D2D)
+	, public ISetRenderingParams	// N++: text drawn with the editor's DirectWrite rendering parameters
+#endif
+{
 	int lineHeight = commonLineHeight;
 	HFONT fontCopy {};
 	std::unique_ptr<FontWin> fontWin;
@@ -182,6 +186,9 @@ class ListBoxX : public ListBox {
 	}
 
 	LBGraphics graphics;
+#if defined(USE_D2D)
+	std::shared_ptr<RenderingParams> renderingParams;	// N++
+#endif
 
 	HWND GetHWND() const noexcept;
 	void AppendListItem(const char *text, const char *numword);
@@ -240,6 +247,9 @@ public:
 	void SetDelegate(IListBoxDelegate *lbDelegate) override;
 	void SetList(const char *list, char separator, char typesep) override;
 	void SetOptions(ListOptions options_) override;
+#if defined(USE_D2D)
+	void SetRenderingParams(std::shared_ptr<RenderingParams> renderingParams_) override;	// N++
+#endif
 	void Draw(DRAWITEMSTRUCT *pDrawItem);
 	LRESULT WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
 	static LRESULT CALLBACK StaticWndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
@@ -549,6 +559,14 @@ void ListBoxX::SetOptions(ListOptions options_) {
 	frameStyle = FlagSet(options.options, AutoCompleteOption::FixedSize) ? WS_BORDER : WS_THICKFRAME;
 }
 
+#if defined(USE_D2D)
+// N++: the editor's rendering parameters (none: drawn as upstream), applied when the line surface is next allocated
+void ListBoxX::SetRenderingParams(std::shared_ptr<RenderingParams> renderingParams_) {
+	renderingParams = std::move(renderingParams_);
+	graphics.Release();
+}
+#endif
+
 void ListBoxX::AdjustWindowRect(PRectangle *rc, UINT dpiAdjust) const noexcept {
 	RECT rcw = RectFromPRectangle(*rc);
 	AdjustWindowRectForDpi(&rcw, frameStyle, dpiAdjust);
@@ -782,9 +800,11 @@ void ListBoxX::AllocateBitMap() {
 
 		const FLOAT dpiTarget = dpiDefault * static_cast<float>(integralDeviceScaleFactor);
 
+		// N++: opaque (alpha ignored) with the editor's rendering parameters so text can be ClearType.
+		// Draw fills every pixel that is copied to the list before drawing text and the bitmap is only copied with SRCCOPY.
 		const D2D1_RENDER_TARGET_PROPERTIES drtp = D2D1::RenderTargetProperties(
 			D2D1_RENDER_TARGET_TYPE_DEFAULT,
-			{ DXGI_FORMAT_B8G8R8A8_UNORM, D2D1_ALPHA_MODE_PREMULTIPLIED },
+			{ DXGI_FORMAT_B8G8R8A8_UNORM, renderingParams ? D2D1_ALPHA_MODE_IGNORE : D2D1_ALPHA_MODE_PREMULTIPLIED },
 			dpiTarget, dpiTarget);
 
 		HRESULT hr = CreateDCRenderTarget(&drtp, graphics.pBMDCTarget);
@@ -796,6 +816,10 @@ void ListBoxX::AllocateBitMap() {
 		hr = graphics.pBMDCTarget->BindDC(graphics.bm.DC(), &rcExtent);
 		if (SUCCEEDED(hr)) {
 			graphics.pixmapLine->Init(graphics.pBMDCTarget.Get(), GetID());
+			// N++: draw text with the editor's rendering parameters
+			if (ISetRenderingParams *setRenderingParams = dynamic_cast<ISetRenderingParams *>(graphics.pixmapLine.get())) {
+				setRenderingParams->SetRenderingParams(renderingParams);
+			}
 		}
 		return;
 	}

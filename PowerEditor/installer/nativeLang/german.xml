@@ -1053,6 +1053,14 @@ Translation note:
 					<Item id="6653" name="Hintergrund hervorheben"/>
 					<Item id="6654" name="Rahmen"/>
 					<Item id="6655" name="Breite:"/>
+					<ComboBox id="6362">
+						<Element name="GDI (am kompatibelsten)"/>
+						<Element name="DirectWrite (Standard)"/>
+						<Element name="DirectWrite (Frames beibehalten)"/>
+						<Element name="DirectWrite (zeichnen in GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<Item id="6363" name="Darstellungsmodus"/>
 				</Scintillas>
 
 				<Scintillas2 title="Bearbeiten 2">
@@ -1380,20 +1388,12 @@ Translation note:
 						<Element name="Schließen in den"/>
 						<Element name="Minimieren / Schließen in den"/>
 					</ComboBox>
-					<ComboBox id="6362">
-						<Element name="GDI (am kompatibelsten)"/>
-						<Element name="DirectWrite (Standard)"/>
-						<Element name="DirectWrite (Frames beibehalten)"/>
-						<Element name="DirectWrite (zeichnen in GDI DC)"/>
-						<Element name="DirectWrite (DirectX 11)"/>
-					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="deaktivieren"/>
 						<Element name="beim Start von Notepad++"/>
 						<Element name="beim Beenden von Notepad++"/>
 					</ComboBox>
 					<Item id="6308" name="Infobereich (Tray)"/>
-					<Item id="6363" name="Darstellungsmodus"/>
 					<Item id="6365" name="Autom. Aktualisierung"/>
 					<Item id="6312" name="Automatische Änderungserkennung"/>
 					<Item id="6313" name="Ohne Rückfrage aktualisieren"/>

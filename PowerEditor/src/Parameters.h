@@ -935,7 +935,25 @@ struct ScintillaViewParams
 	bool _rightClickKeepsSelection = false;
 	bool _selectedTextForegroundSingleColor = false;
 	bool _disableAdvancedScrolling = false;
-	bool _doSmoothFont = false;
+
+	// text rendering (antialiasing applies to both GDI & DirectWrite, rendering mode & contrast to DirectWrite only)
+	textAntialiasing _textAntialiasing = textAntialiasingFollowWindows;
+	textRenderingMode _textRenderingMode = textRenderingModeAutomatic;
+	textContrast _textContrast = textContrastWindows;
+
+	// advanced DirectWrite text rendering overrides (config.xml only), SC_FONTRENDERING_DEFAULT: not set
+	// a set value overrides the one derived from the settings above
+	int _fontGamma = SC_FONTRENDERING_DEFAULT;                     // 1000-2200, in thousandths (1800 = gamma 1.8)
+	int _fontEnhancedContrast = SC_FONTRENDERING_DEFAULT;          // 0-1000, in hundredths (100 = 1.0)
+	int _fontGrayscaleEnhancedContrast = SC_FONTRENDERING_DEFAULT; // 0-1000, in hundredths (100 = 1.0)
+	int _fontClearTypeLevel = SC_FONTRENDERING_DEFAULT;            // 0-100, in percent (0 = grayscale-like, 100 = full ClearType color)
+	int _fontPixelGeometry = SC_FONTRENDERING_DEFAULT;             // SC_PIXELGEOMETRY_FLAT, _RGB or _BGR
+	int _fontLightTextGamma = SC_FONTRENDERING_DEFAULT;            // 1000-2200, in thousandths: the minimum gamma of light text
+
+	bool isClearTypeAntialiasing() const {
+		return (_textAntialiasing == textAntialiasingClearType) || (_textAntialiasing == textAntialiasingClearTypeLessColor);
+	}
+
 	bool _showBorderEdge = true;
 
 	unsigned char _paddingLeft = 0;  // 0-9 pixel

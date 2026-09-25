@@ -1029,6 +1029,14 @@ Translation note:
 					<Item id="6653" name="Tô sáng nền"/>
 					<Item id="6654" name="Khung"/>
 					<Item id="6655" name="Chiều rộng"/>
+					<ComboBox id="6362">
+						<Element name="GDI (tương thích tốt nhất)"/>
+						<Element name="DirectWrite (mặc định)"/>
+						<Element name="DirectWrite (giữ lại khung)"/>
+						<Element name="DirectWrite (vẽ vào GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<Item id="6363" name="chế độ kết xuất"/>
 				</Scintillas>
 
 				<Scintillas2 title="Chỉnh sửa 2">
@@ -1354,20 +1362,12 @@ Translation note:
 						<Element name="Đóng vào"/>
 						<Element name="Thu nhỏ / đóng vào"/>
 					</ComboBox>
-					<ComboBox id="6362">
-						<Element name="GDI (tương thích tốt nhất)"/>
-						<Element name="DirectWrite (mặc định)"/>
-						<Element name="DirectWrite (giữ lại khung)"/>
-						<Element name="DirectWrite (vẽ vào GDI DC)"/>
-						<Element name="DirectWrite (DirectX 11)"/>
-					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Vô hiệu hoá"/>
 						<Element name="Kích hoạt khi khởi động Notepad++"/>
 						<Element name="Kích hoạt khi thoát Notepad++"/>
 					</ComboBox>
 					<Item id="6308" name="khay hệ thống"/>
-					<Item id="6363" name="chế độ kết xuất"/>
 					<Item id="6365" name="Trình tự cập nhật:"/>
 					<Item id="6312" name="Tự phát hiện trạng thái tệp"/>
 					<Item id="6313" name="Lặng lẽ cập nhật"/>

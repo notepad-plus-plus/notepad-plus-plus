@@ -1102,6 +1102,14 @@ Updated to :
 					<Item id="6225" name="Применить пользоват. цвет к переднему плану выбранного текста"/>
 					<Item id="6236" name="Прокрутка за пределы последней строки документа"/>
 					<Item id="6234" name="Отключить расширенные функции прокрутки при проблеме с Тачпадом"/>
+					<ComboBox id="6362">
+						<Element name="GDI (наиболее совмест.)"/>
+						<Element name="DirectWrite (по умолч.)"/>
+						<Element name="DirectWrite (сохр. кадры)"/>
+						<Element name="DirectWrite (отобр. GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<Item id="6363" name="режим визуализации"/>
 				</Scintillas>
 				<Scintillas2 title="Правка 2">
 					<Item id="6521" name="Мультиредактирование"/>
@@ -1314,13 +1322,6 @@ Updated to :
 						<Element name="Закрыть"/>
 						<Element name="Свернуть / Закрыть"/>
 					</ComboBox>
-					<ComboBox id="6362">
-						<Element name="GDI (наиболее совмест.)"/>
-						<Element name="DirectWrite (по умолч.)"/>
-						<Element name="DirectWrite (сохр. кадры)"/>
-						<Element name="DirectWrite (отобр. GDI DC)"/>
-						<Element name="DirectWrite (DirectX 11)"/>
-					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Отключено"/>
 						<Element name="При запуске Notepad++"/>
@@ -1342,7 +1343,6 @@ Updated to :
 					<Item id="6346" name="Отображать в Карте Документа"/>
 					<Item id="6360" name="Отключить все звуки"/>
 					<Item id="6361" name="Запрашивать подтверждение для команды 'Сохранить Все'"/>
-					<Item id="6363" name="режим визуализации"/>
 					<Item id="6365" name="Авто-обновление:"/>
 					<Item id="6366" name="Разрешить загрузку символ. ссылок в панели Папка как Проект"/>
 				</MISC>

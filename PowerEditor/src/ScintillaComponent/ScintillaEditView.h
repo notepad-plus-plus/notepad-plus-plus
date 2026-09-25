@@ -253,6 +253,8 @@ public:
 	}
 
 	~ScintillaEditView() override {
+		unregisterLiveView(this);
+
 		--_refCount;
 
 		if (!_refCount && _SciInit)
@@ -262,6 +264,8 @@ public:
 	}
 
 	void destroy() override {
+		unregisterLiveView(this);
+
 		if (_hSelf)
 		{
 			::DestroyWindow(_hSelf);
@@ -271,6 +275,13 @@ public:
 	}
 
 	void init(HINSTANCE hInst, HWND hPere) override;
+
+	// Apply the text rendering settings (antialiasing, DirectWrite rendering mode, contrast & advanced overrides)
+	void applyTextRenderingSettings() const;
+	// Apply them to every live Notepad++ Scintilla (edit views, Finders, Document Map, Peeker, plugins' Scintillas...)
+	static void applyTextRenderingSettingsToAll();
+	// Send a message to every live Notepad++ Scintilla window
+	static void sendMessageToAll(UINT Msg, WPARAM wParam = 0, LPARAM lParam = 0);
 
 	LRESULT execute(UINT Msg, WPARAM wParam=0, LPARAM lParam=0) const {
 		try {
@@ -697,6 +708,11 @@ protected:
 	static bool _SciInit;
 
 	static int _refCount;
+
+	// initialized views whose Scintilla window is not destroyed yet
+	static std::vector<ScintillaEditView*> _liveViews;
+	static void registerLiveView(ScintillaEditView* pView);
+	static void unregisterLiveView(const ScintillaEditView* pView);
 
     static UserDefineDialog _userDefineDlg;
 

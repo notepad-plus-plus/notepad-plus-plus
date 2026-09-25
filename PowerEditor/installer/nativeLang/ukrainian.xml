@@ -1031,6 +1031,14 @@ Translation note:
 					<Item id="6653" name="Підсвічувати тло"/>
 					<Item id="6654" name="Рамка"/>
 					<Item id="6655" name="Ширина:"/>
+					<ComboBox id="6362">
+						<Element name="GDI (найбільш сумісний)"/>
+						<Element name="DirectWrite (типово)"/>
+						<Element name="DirectWrite (зберігати фрейми)"/>
+						<Element name="DirectWrite (записування до GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<Item id="6363" name="режим рендерингу"/>
 				</Scintillas>
 
 				<Scintillas2 title="Редагування 2">
@@ -1356,20 +1364,12 @@ Translation note:
 						<Element name="Закрити до"/>
 						<Element name="Згорнути / Закрити до"/>
 					</ComboBox>
-					<ComboBox id="6362">
-						<Element name="GDI (найбільш сумісний)"/>
-						<Element name="DirectWrite (типово)"/>
-						<Element name="DirectWrite (зберігати фрейми)"/>
-						<Element name="DirectWrite (записування до GDI DC)"/>
-						<Element name="DirectWrite (DirectX 11)"/>
-					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Вимкнути"/>
 						<Element name="Вмикати під час запуску Notepad++"/>
 						<Element name="Вмикати під час виходу з Notepad++"/>
 					</ComboBox>
 					<Item id="6308" name="системного лотка"/>
-					<Item id="6363" name="режим рендерингу"/>
 					<Item id="6365" name="Автооновлення:"/>
 					<Item id="6312" name="Автовизначення стану файлу"/>
 					<Item id="6313" name="Оновлювати без запиту"/>

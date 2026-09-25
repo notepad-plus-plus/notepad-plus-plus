@@ -39,17 +39,9 @@ class MiscSubDlg : public StaticDialog
 friend class PreferenceDlg;
 public :
 	MiscSubDlg() = default;
-	~MiscSubDlg() override {
-		if (_tipScintillaRenderingTechnology)
-		{
-			::DestroyWindow(_tipScintillaRenderingTechnology);
-			_tipScintillaRenderingTechnology = nullptr;
-		}
-	}
 
 private :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
-	HWND _tipScintillaRenderingTechnology = nullptr;
 };
 
 class GeneralSubDlg : public StaticDialog
@@ -95,12 +87,43 @@ class EditingSubDlg : public StaticDialog
 friend class PreferenceDlg;
 public :
 	EditingSubDlg() = default;
-	~EditingSubDlg() override = default;
-	
+	~EditingSubDlg() override {
+		if (_tipScintillaRenderingTechnology != nullptr)
+		{
+			::DestroyWindow(_tipScintillaRenderingTechnology);
+			_tipScintillaRenderingTechnology = nullptr;
+		}
+
+		if (_tipTextAntialiasing != nullptr)
+		{
+			::DestroyWindow(_tipTextAntialiasing);
+			_tipTextAntialiasing = nullptr;
+		}
+
+		if (_tipTextRenderingMode != nullptr)
+		{
+			::DestroyWindow(_tipTextRenderingMode);
+			_tipTextRenderingMode = nullptr;
+		}
+
+		if (_tipTextContrast != nullptr)
+		{
+			::DestroyWindow(_tipTextContrast);
+			_tipTextContrast = nullptr;
+		}
+	}
+
 private :
+	HWND _tipScintillaRenderingTechnology = nullptr;
+	HWND _tipTextAntialiasing = nullptr;
+	HWND _tipTextRenderingMode = nullptr;
+	HWND _tipTextContrast = nullptr;
+
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	void initScintParam();
 	void changeLineHiliteMode(bool enableSlider);
+	void initTextRenderingParam();
+	void enableDirectWriteTextRendering() const;
 };
 
 class Editing2SubDlg : public StaticDialog

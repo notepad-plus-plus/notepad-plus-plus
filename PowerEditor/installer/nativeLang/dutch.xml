@@ -1051,6 +1051,14 @@ Last modified on 2026-07-11 by BdR76.
 					<Item id="6653" name="Achtergrond markeren"/>
 					<Item id="6654" name="Kader"/>
 					<Item id="6655" name="Breedte:"/>
+					<ComboBox id="6362">
+						<Element name="GDI (meest compatibel)"/>
+						<Element name="DirectWrite (standaard)"/>
+						<Element name="DirectWrite (frames behouden)"/>
+						<Element name="DirectWrite (tekenen naar GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<Item id="6363" name="rendermodus"/>
 				</Scintillas>
 
 				<Scintillas2 title="Bewerken 2">
@@ -1378,20 +1386,12 @@ Last modified on 2026-07-11 by BdR76.
 						<Element name="Sluiten naar"/>
 						<Element name="Minimaliseren/sluiten naar"/>
 					</ComboBox>
-					<ComboBox id="6362">
-						<Element name="GDI (meest compatibel)"/>
-						<Element name="DirectWrite (standaard)"/>
-						<Element name="DirectWrite (frames behouden)"/>
-						<Element name="DirectWrite (tekenen naar GDI DC)"/>
-						<Element name="DirectWrite (DirectX 11)"/>
-					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Uitschakelen"/>
 						<Element name="Inschakelen bij opstarten van Notepad++"/>
 						<Element name="Inschakelen bij afsluiten van Notepad++"/>
 					</ComboBox>
 					<Item id="6308" name="Naar systeemvak minimaliseren"/>
-					<Item id="6363" name="rendermodus"/>
 					<Item id="6365" name="Auto-updater:"/>
 					<Item id="6312" name="Bestandswijziging detecteren"/>
 					<Item id="6313" name="In stilte bijwerken"/>

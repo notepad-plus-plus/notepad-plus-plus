@@ -136,7 +136,6 @@
 #define IDC_DISTRACTIONFREE_STATIC                     6212
 #define IDC_CHECK_EDGEBGMODE                           6213
 #define IDC_CHECK_LINECUTCOPYWITHOUTSELECTION          6214
-#define IDC_CHECK_SMOOTHFONT                           6215
 
 #define IDC_CARETSETTING_STATIC                        6216
 #define IDC_WIDTH_STATIC                               6217
@@ -225,6 +224,14 @@
 #define IDC_SEARCHENGINE_EDIT                          6277
 #define IDD_SEARCHENGINE_NOTE_STATIC                   6278
 #define IDC_SEARCHENGINE_STACKOVERFLOW_RADIO           6279
+
+#define IDC_TEXTRENDERING_GB_STATIC                    6280
+#define IDC_TEXTANTIALIASING_STATIC                    6281
+#define IDC_COMBO_TEXTANTIALIASING                     6282
+#define IDC_TEXTRENDERINGMODE_STATIC                   6283
+#define IDC_COMBO_TEXTRENDERINGMODE                    6284
+#define IDC_TEXTCONTRAST_STATIC                        6285
+#define IDC_COMBO_TEXTCONTRAST                         6286
 
 #define IDD_PREFERENCE_SUB_MARGING_BORDER_EDGE         6290
 #define IDC_LINENUMBERMARGE_GB_STATIC                  6291

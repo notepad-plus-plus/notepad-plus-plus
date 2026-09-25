@@ -1041,6 +1041,14 @@ Translation note:
 					<Item id="6653" name="Highlight Background"/>
 					<Item id="6654" name="Frame"/>
 					<Item id="6655" name="Width:"/>
+					<ComboBox id="6362">
+						<Element name="GDI (most compatible)"/>
+						<Element name="DirectWrite (இயல்புநிலை)"/>
+						<Element name="DirectWrite (retain frames)"/>
+						<Element name="DirectWrite (draw க்கு GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<Item id="6363" name="rendering mode"/>
 				</Scintillas>
 
 				<Scintillas2 title="Editing 2">
@@ -1368,20 +1376,12 @@ Translation note:
 						<Element name="மூடு க்கு"/>
 						<Element name="Minimize / மூடு க்கு"/>
 					</ComboBox>
-					<ComboBox id="6362">
-						<Element name="GDI (most compatible)"/>
-						<Element name="DirectWrite (இயல்புநிலை)"/>
-						<Element name="DirectWrite (retain frames)"/>
-						<Element name="DirectWrite (draw க்கு GDI DC)"/>
-						<Element name="DirectWrite (DirectX 11)"/>
-					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="முடக்கு"/>
 						<Element name="செயல்படுத்து on Notepad++ startup"/>
 						<Element name="செயல்படுத்து on Notepad++ exit"/>
 					</ComboBox>
 					<Item id="6308" name="system tray"/>
-					<Item id="6363" name="rendering mode"/>
 					<Item id="6365" name="Auto-updater:"/>
 					<Item id="6312" name="கோப்பு நிலை தானி-கண்டறிதல்"/>
 					<Item id="6313" name="அமைதியாக இற்றைபடுத்து"/>

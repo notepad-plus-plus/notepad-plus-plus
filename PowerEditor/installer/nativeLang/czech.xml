@@ -1080,6 +1080,14 @@
 					<Item id="6653" name="Zvýrazněné pozadí"/>
 					<Item id="6654" name="Orámování"/>
 					<Item id="6655" name="tloušťka:"/>
+					<ComboBox id="6362">
+						<Element name="GDI (nejkompatibilnější)"/>
+						<Element name="DirectWrite (výchozí)"/>
+						<Element name="DirectWrite (zachovávat snímky)"/>
+						<Element name="DirectWrite (vykreslovat do GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<Item id="6363" name="vykreslovací režim"/>
 				</Scintillas>
 				<Scintillas2 title="Editace 2">
 					<Item id="6247" name="EOL - konce řádků (CRLF)"/><!-- Don't translate "(CRLF)" -->
@@ -1288,13 +1296,6 @@
 						<Element name="Zavírat do"/>
 						<Element name="Minimalizovat a Zavírat do"/>
 					</ComboBox>
-					<ComboBox id="6362">
-						<Element name="GDI (nejkompatibilnější)"/>
-						<Element name="DirectWrite (výchozí)"/>
-						<Element name="DirectWrite (zachovávat snímky)"/>
-						<Element name="DirectWrite (vykreslovat do GDI DC)"/>
-						<Element name="DirectWrite (DirectX 11)"/>
-					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Zakázat"/>
 						<Element name="Povolit při startu Notepadu++"/>
@@ -1316,7 +1317,6 @@
 					<Item id="6346" name="Na přehledné mapě dokumentu"/>
 					<Item id="6360" name="Ztlumit všechny zvuky"/>
 					<Item id="6361" name="Povolit potvrzovací dialog &quot;Uložit všechny&quot;"/>
-					<Item id="6363" name="vykreslovací režim"/>
 					<Item id="6365" name="Automat. aktualizace:"/>
 					<Item id="6366" name="Povolit načítání symbolických odkazů v panelu Složka jako pracovní plocha"/>
 				</MISC>

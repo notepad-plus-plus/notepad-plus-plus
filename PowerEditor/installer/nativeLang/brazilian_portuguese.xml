@@ -1044,6 +1044,14 @@ Translation note:
 					<Item id="6653" name="Destacar fundo"/>
 					<Item id="6654" name="Enquadrado"/>
 					<Item id="6655" name="Largura:"/>
+					<ComboBox id="6362">
+						<Element name="GDI (mais compatível)"/>
+						<Element name="DirectWrite (padrão)"/>
+						<Element name="DirectWrite (mantém estrutura)"/>
+						<Element name="DirectWrite (estendendo a GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<Item id="6363" name="modo renderização"/>
 				</Scintillas>
 
 				<Scintillas2 title="Edição 2">
@@ -1371,20 +1379,12 @@ Translation note:
 						<Element name="Fechar para"/>
 						<Element name="Minimizar / Fechar para"/>
 					</ComboBox>
-					<ComboBox id="6362">
-						<Element name="GDI (mais compatível)"/>
-						<Element name="DirectWrite (padrão)"/>
-						<Element name="DirectWrite (mantém estrutura)"/>
-						<Element name="DirectWrite (estendendo a GDI DC)"/>
-						<Element name="DirectWrite (DirectX 11)"/>
-					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Desabilitar"/>
 						<Element name="Habilitar ao iniciar o Notepad++"/>
 						<Element name="Habilitar ao encerrar o Notepad++"/>
 					</ComboBox>
 					<Item id="6308" name="bandeja"/>
-					<Item id="6363" name="modo renderização"/>
 					<Item id="6365" name="Auto-atualizar:"/>
 					<Item id="6312" name="Autodetectar estado de arquivos"/>
 					<Item id="6313" name="Atualizar silenciosamente"/>

@@ -1042,6 +1042,14 @@ Translation note:
 					<Item id="6653" name="Markerad bakgrund"/>
 					<Item id="6654" name="Kontur"/>
 					<Item id="6655" name="Bredd:"/>
+					<ComboBox id="6362">
+						<Element name="GDI (mest kompatibel)"/>
+						<Element name="DirectWrite (standard)"/>
+						<Element name="DirectWrite (behåll bildrutor)"/>
+						<Element name="DirectWrite (rita till GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<Item id="6363" name="som renderingsläge"/>
 				</Scintillas>
 
 				<Scintillas2 title="Redigering 2">
@@ -1368,20 +1376,12 @@ Translation note:
 						<Element name="Stäng till"/>
 						<Element name="Minimera/Stäng till"/>
 					</ComboBox>
-					<ComboBox id="6362">
-						<Element name="GDI (mest kompatibel)"/>
-						<Element name="DirectWrite (standard)"/>
-						<Element name="DirectWrite (behåll bildrutor)"/>
-						<Element name="DirectWrite (rita till GDI DC)"/>
-						<Element name="DirectWrite (DirectX 11)"/>
-					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Inaktivera"/>
 						<Element name="Aktivera när Notepad++ startar"/>
 						<Element name="Aktivera när Notepad++ avslutas"/>
 					</ComboBox>
 					<Item id="6308" name="systemfältet"/>
-					<Item id="6363" name="som renderingsläge"/>
 					<Item id="6365" name="Uppdatera automatiskt:"/>
 					<Item id="6312" name="Identifiera filstatus automatiskt"/>
 					<Item id="6313" name="Tyst uppdatering"/>

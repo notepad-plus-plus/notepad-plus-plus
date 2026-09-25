@@ -1044,6 +1044,14 @@ Translation note:
 					<Item id="6653" name="Colorer l’arrière-plan"/>
 					<Item id="6654" name="Tracer la bordure"/>
 					<Item id="6655" name="Épaisseur :"/>
+					<ComboBox id="6362">
+						<Element name="GDI (le plus compatible)"/>
+						<Element name="DirectWrite (défaut)"/>
+						<Element name="DirectWrite (mode de rétention)"/>
+						<Element name="DirectWrite (rendu sur GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<Item id="6363" name="mode de rendu"/>
 				</Scintillas>
 
 				<Scintillas2 title="Zones d’édition 2">
@@ -1370,20 +1378,12 @@ Translation note:
 						<Element name="Fermer dans"/>
 						<Element name="Réduire / Fermer dans"/>
 					</ComboBox>
-					<ComboBox id="6362">
-						<Element name="GDI (le plus compatible)"/>
-						<Element name="DirectWrite (défaut)"/>
-						<Element name="DirectWrite (mode de rétention)"/>
-						<Element name="DirectWrite (rendu sur GDI DC)"/>
-						<Element name="DirectWrite (DirectX 11)"/>
-					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Désactiver"/>
 						<Element name="Activer au démarage de Notepad++"/>
 						<Element name="Activer à la fermeture de Notepad++"/>
 					</ComboBox>
 					<Item id="6308" name="la barre de notifications"/>
-					<Item id="6363" name="mode de rendu"/>
 					<Item id="6365" name="Mise à jour automatique :"/>
 					<Item id="6312" name="Surveillance de l’état des fichiers"/>
 					<Item id="6313" name="Mise à jour sans alerte"/>

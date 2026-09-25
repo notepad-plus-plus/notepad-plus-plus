@@ -1040,6 +1040,14 @@ Translation note:
 					<Item id="6653" name="背景高亮"/>
 					<Item id="6654" name="边框高亮"/>
 					<Item id="6655" name="宽度:"/>
+					<ComboBox id="6362">
+						<Element name="GDI (最大兼容性)"/>
+						<Element name="DirectWrite (默认)"/>
+						<Element name="DirectWrite (保留帧)"/>
+						<Element name="DirectWrite (绘制到 GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<Item id="6363" name="渲染模式"/>
 				</Scintillas>
 
 				<Scintillas2 title="编辑2">
@@ -1366,20 +1374,12 @@ Translation note:
 						<Element name="关闭时到"/>
 						<Element name="最小化时/关闭时到"/>
 					</ComboBox>
-					<ComboBox id="6362">
-						<Element name="GDI (最大兼容性)"/>
-						<Element name="DirectWrite (默认)"/>
-						<Element name="DirectWrite (保留帧)"/>
-						<Element name="DirectWrite (绘制到 GDI DC)"/>
-						<Element name="DirectWrite (DirectX 11)"/>
-					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="禁用"/>
 						<Element name="在 Notepad++ 启动时启用"/>
 						<Element name="在 Notepad++ 退出时启用"/>
 					</ComboBox>
 					<Item id="6308" name="系统托盘"/>
-					<Item id="6363" name="渲染模式"/>
 					<Item id="6365" name="自动更新:"/>
 					<Item id="6312" name="自动检测文件状态"/>
 					<Item id="6313" name="自动更新文件内容"/>

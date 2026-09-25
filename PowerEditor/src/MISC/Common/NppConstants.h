@@ -228,6 +228,35 @@ enum writeTechnologyEngine
 	directWriteTechnologyUnavailable
 };
 
+// the order has to match the Preferences > Editing 1 "Antialiasing" combo box items
+enum textAntialiasing
+{
+	textAntialiasingFollowWindows,
+	textAntialiasingClearType,
+	textAntialiasingClearTypeLessColor,
+	textAntialiasingGrayscale,
+	textAntialiasingNone
+};
+
+// the order has to match the Preferences > Editing 1 "DirectWrite mode" combo box items
+enum textRenderingMode
+{
+	textRenderingModeAutomatic,
+	textRenderingModeNatural,
+	textRenderingModeSymmetric,
+	textRenderingModeGdiClassic,
+	textRenderingModeAdaptive
+};
+
+// the order has to match the Preferences > Editing 1 "Text contrast" combo box items
+enum textContrast
+{
+	textContrastWindows,
+	textContrastMedium,
+	textContrastHigh,
+	textContrastVeryHigh
+};
+
 enum urlMode
 {
 	urlDisable,

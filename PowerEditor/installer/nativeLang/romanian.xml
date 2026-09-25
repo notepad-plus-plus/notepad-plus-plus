@@ -1043,6 +1043,14 @@
                     <Item id="6653" name="Fundal evidențiat"/>
                     <Item id="6654" name="Cadru"/>
                     <Item id="6655" name="Lățime"/>			
+					<ComboBox id="6362">
+						<Element name="GDI (cel mai comapitibil)"/>
+						<Element name="DirectWrite (implicit)"/>
+						<Element name="DirectWrite (reține cadrele)"/>
+						<Element name="DirectWrite (desenează în GDI DC)"/>
+						<Element name="DirectWrite (cu DirectX 11)"/>
+					</ComboBox>
+					<Item id="6363" name="modul de randare"/>
                 </Scintillas>
 				
 				<Scintillas2 title="Editare 2">
@@ -1373,20 +1381,12 @@
 						<Element name="Închide în"/>
 						<Element name="Minimizează / Închide în"/>
 					</ComboBox>
-					<ComboBox id="6362">
-						<Element name="GDI (cel mai comapitibil)"/>
-						<Element name="DirectWrite (implicit)"/>
-						<Element name="DirectWrite (reține cadrele)"/>
-						<Element name="DirectWrite (desenează în GDI DC)"/>
-						<Element name="DirectWrite (cu DirectX 11)"/>
-					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Dezactivare"/>
 						<Element name="Activează la pornirea Notepad++"/>
 						<Element name="Activează la ieșirea din Notepad++"/>
 					</ComboBox>
 					<Item id="6308" name="bara de sistem"/>
-					<Item id="6363" name="modul de randare"/>
 					<Item id="6365" name="Actualizare automată:"/>
 					<Item id="6362" name="Închide în bara de sistem"/>
                     <Item id="6312" name="Detectează automat starea fișierului"/>

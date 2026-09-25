@@ -1032,6 +1032,14 @@
 					<Item id="6653" name="Истакни позадину"/>
 					<Item id="6654" name="Оквир"/>
 					<Item id="6655" name="Ширина:"/>
+					<ComboBox id="6362">
+						<Element name="GDI (најкомпатибилнији)"/>
+						<Element name="DirectWrite (подразумевано)"/>
+						<Element name="DirectWrite (задржава оквире)"/>
+						<Element name="DirectWrite (цртај на GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<Item id="6363" name="режим рендеровања"/>
 				</Scintillas>
 
 				<Scintillas2 title="Уређивање 2">
@@ -1358,20 +1366,12 @@
 						<Element name="Близу"/>
 						<Element name="Минимизирај / Близу"/>
 					</ComboBox>
-					<ComboBox id="6362">
-						<Element name="GDI (најкомпатибилнији)"/>
-						<Element name="DirectWrite (подразумевано)"/>
-						<Element name="DirectWrite (задржава оквире)"/>
-						<Element name="DirectWrite (цртај на GDI DC)"/>
-						<Element name="DirectWrite (DirectX 11)"/>
-					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Онемогући"/>
 						<Element name="Омогући при покретању Notepad++"/>
 						<Element name="Омогући при затварању Notepad++"/>
 					</ComboBox>
 					<Item id="6308" name="системска трака"/>
-					<Item id="6363" name="режим рендеровања"/>
 					<Item id="6365" name="Самоажурирање:"/>
 					<Item id="6312" name="Самопрепознавање статуса датотеке"/>
 					<Item id="6313" name="Тихо ажурирање"/>

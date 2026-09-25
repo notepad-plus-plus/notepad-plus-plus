@@ -215,6 +215,58 @@ constexpr bool KeyboardIsNumericKeypadFunction(uptr_t wParam, sptr_t lParam) {
 	}
 }
 
+// N++: SCI_SETFONTRENDERINGPARAMETER parameters and values, the same as SC_FONTRENDERING_*,
+// SC_PIXELGEOMETRY_* and SC_RENDERINGMODE_* of Scintilla.h. That header is not included by
+// Scintilla's sources as its global sptr_t and uptr_t duplicate those of namespace Scintilla.
+constexpr int fontRenderingDefault = -1;	// No override, the monitor's value is used
+constexpr int fontRenderingGamma = 0;
+constexpr int fontRenderingEnhancedContrast = 1;
+constexpr int fontRenderingGrayscaleEnhancedContrast = 2;
+constexpr int fontRenderingClearTypeLevel = 3;
+constexpr int fontRenderingPixelGeometry = 4;
+constexpr int fontRenderingRenderingMode = 5;
+constexpr int fontRenderingLightTextGamma = 6;
+constexpr size_t fontRenderingParameters = 7;
+constexpr int pixelGeometryFlat = 0;
+constexpr int pixelGeometryBGR = 2;
+constexpr int renderingModeDefault = 0;
+constexpr int renderingModeGdiClassic = 2;
+constexpr int renderingModeGdiNatural = 3;
+constexpr int renderingModeNatural = 4;
+constexpr int renderingModeNaturalSymmetric = 5;
+constexpr int renderingModeAdaptive = 100;	// Natural for small text, else the monitor's (usually automatic) mode
+
+// N++: whether SCI_SETFONTRENDERINGPARAMETER accepts value for a valid parameter
+constexpr bool ValidFontRenderingValue(uptr_t parameter, sptr_t value) noexcept {
+	if (value == fontRenderingDefault) {
+		return true;
+	}
+	switch (parameter) {
+	case fontRenderingGamma:
+		// Thousandths like SPI_GETFONTSMOOTHINGCONTRAST
+		return value >= 1000 && value <= 2200;
+	case fontRenderingEnhancedContrast:
+	case fontRenderingGrayscaleEnhancedContrast:
+		// Hundredths
+		return value >= 0 && value <= 1000;
+	case fontRenderingClearTypeLevel:
+		// Percent
+		return value >= 0 && value <= 100;
+	case fontRenderingPixelGeometry:
+		// DWRITE_PIXEL_GEOMETRY
+		return value >= pixelGeometryFlat && value <= pixelGeometryBGR;
+	case fontRenderingRenderingMode:
+		// DWRITE_RENDERING_MODE except the aliased and outline modes, plus the adaptive mode
+		return value == renderingModeDefault || value == renderingModeGdiClassic || value == renderingModeGdiNatural ||
+			value == renderingModeNatural || value == renderingModeNaturalSymmetric || value == renderingModeAdaptive;
+	case fontRenderingLightTextGamma:
+		// 0: at least the monitor's gamma (or the overridden gamma), else at least this gamma in thousandths
+		return value == 0 || (value >= 1000 && value <= 2200);
+	default:
+		return false;
+	}
+}
+
 /**
  */
 class FormatEnumerator final : public IEnumFORMATETC {
@@ -588,12 +640,19 @@ class ScintillaWin :
 	HMONITOR hCurrentMonitor;
 	std::shared_ptr<RenderingParams> renderingParams;
 #endif
+	// N++: SCI_SETFONTRENDERINGPARAMETER overrides of the DirectWrite rendering parameters indexed
+	// by parameter, fontRenderingDefault when the monitor's value is used
+	std::array<int, fontRenderingParameters> fontRenderingOverrides {};
 
 	explicit ScintillaWin(HWND hwnd);
 
 	void Finalise() override;
 #if defined(USE_D2D)
 	bool UpdateRenderingParams(bool force) noexcept;
+	void SetListRenderingParams() noexcept;	// N++
+	[[nodiscard]] bool FontRenderingOverridden() const noexcept;	// N++
+	[[nodiscard]] WriteRenderingParams OverriddenRenderingParams(IDWriteRenderingParams1 *monitorParams, FLOAT gamma, DWRITE_RENDERING_MODE renderingMode) const noexcept;	// N++
+	bool UpdateMeasuringMode() noexcept;	// N++
 	HRESULT Create3D() noexcept;
 	void CreateRenderTarget();
 	HRESULT SetBackBuffer(HWND hwnd, IDXGISwapChain1 *pSwapChain);
@@ -714,6 +773,7 @@ class ScintillaWin :
 	sptr_t IMEMessage(unsigned int iMessage, uptr_t wParam, sptr_t lParam);
 	sptr_t EditMessage(unsigned int iMessage, uptr_t wParam, sptr_t lParam);
 	sptr_t IdleMessage(unsigned int iMessage, uptr_t wParam, sptr_t lParam);
+	void SetFontRenderingParameter(uptr_t parameter, sptr_t value);	// N++
 	sptr_t SciMessage(Message iMessage, uptr_t wParam, sptr_t lParam);
 
 public:
@@ -811,6 +871,7 @@ ScintillaWin::ScintillaWin(HWND hwnd) {
 #if defined(USE_D2D)
 	hCurrentMonitor = {};
 #endif
+	fontRenderingOverrides.fill(fontRenderingDefault);	// N++
 
 	caret.period = ::GetCaretBlinkTime();
 	if (caret.period < 0)
@@ -887,21 +948,66 @@ bool ScintillaWin::UpdateRenderingParams(bool force) noexcept {
 	WriteRenderingParams monitorRenderingParams{};
 	hr = upMrp.As(&monitorRenderingParams);
 
+	// N++: SCI_SETFONTRENDERINGPARAMETER overrides replace the monitor's values in the default and
+	// ClearType parameters. Without overrides, the monitor's parameters are the default ones.
+	WriteRenderingParams defaultRenderingParams = monitorRenderingParams;
 	WriteRenderingParams customClearTypeRenderingParams;
+	WriteRenderingParams defaultVariants[renderingVariants];	// N++
+	WriteRenderingParams customVariants[renderingVariants];	// N++
 	UINT clearTypeContrast = 0;
-	if (SUCCEEDED(hr) && monitorRenderingParams &&
-		::SystemParametersInfo(SPI_GETFONTSMOOTHINGCONTRAST, 0, &clearTypeContrast, 0) != 0) {
-		constexpr UINT minContrast = 1000;
-		constexpr UINT maxContrast = 2200;
-		if (clearTypeContrast >= minContrast && clearTypeContrast <= maxContrast) {
-			const FLOAT gamma = static_cast<FLOAT>(clearTypeContrast) / 1000.0f;
-			pIDWriteFactory->CreateCustomRenderingParams(gamma,
-				monitorRenderingParams->GetEnhancedContrast(),
-				monitorRenderingParams->GetGrayscaleEnhancedContrast(),
-				monitorRenderingParams->GetClearTypeLevel(),
-				monitorRenderingParams->GetPixelGeometry(),
-				monitorRenderingParams->GetRenderingMode(),
-				customClearTypeRenderingParams.GetAddressOf());
+	if (SUCCEEDED(hr) && monitorRenderingParams) {
+		const bool overridden = FontRenderingOverridden();
+		bool customClearType = overridden;
+		const FLOAT monitorGamma = monitorRenderingParams->GetGamma();
+		const int gammaOverride = fontRenderingOverrides[fontRenderingGamma];
+		const FLOAT defaultGamma = (gammaOverride == fontRenderingDefault) ?
+			monitorGamma : static_cast<FLOAT>(gammaOverride) / 1000.0f;
+		FLOAT clearTypeGamma = defaultGamma;
+		if (::SystemParametersInfo(SPI_GETFONTSMOOTHINGCONTRAST, 0, &clearTypeContrast, 0) != 0) {
+			constexpr UINT minContrast = 1000;
+			constexpr UINT maxContrast = 2200;
+			if (clearTypeContrast >= minContrast && clearTypeContrast <= maxContrast) {
+				if (gammaOverride == fontRenderingDefault) {
+					clearTypeGamma = static_cast<FLOAT>(clearTypeContrast) / 1000.0f;
+				}
+				customClearType = true;
+			}
+		}
+		// The adaptive mode uses the monitor's rendering mode except for small text
+		const int renderingModeOverride = fontRenderingOverrides[fontRenderingRenderingMode];
+		const DWRITE_RENDERING_MODE renderingMode =
+			(renderingModeOverride == fontRenderingDefault || renderingModeOverride == renderingModeAdaptive) ?
+			monitorRenderingParams->GetRenderingMode() : static_cast<DWRITE_RENDERING_MODE>(renderingModeOverride);
+		if (overridden) {
+			if (WriteRenderingParams overriddenRenderingParams = OverriddenRenderingParams(
+				monitorRenderingParams.Get(), defaultGamma, renderingMode)) {
+				defaultRenderingParams = std::move(overriddenRenderingParams);
+			}
+		}
+		if (customClearType) {
+			customClearTypeRenderingParams = OverriddenRenderingParams(monitorRenderingParams.Get(), clearTypeGamma, renderingMode);
+		}
+		// N++: light text is drawn with the highest of its base gamma, the requested one and, unless the gamma
+		// is overridden, the monitor's one as a higher gamma makes light text heavier;
+		// small text in the adaptive mode has no vertical antialiasing.
+		const int lightTextGamma = fontRenderingOverrides[fontRenderingLightTextGamma];
+		const FLOAT lightTextMinGamma = std::max((gammaOverride == fontRenderingDefault) ? monitorGamma : 0.0f,
+			static_cast<FLOAT>(lightTextGamma) / 1000.0f);
+		const auto variantGamma = [lightTextMinGamma](FLOAT baseGamma, bool lightText) noexcept {
+			return lightText ? std::max(baseGamma, lightTextMinGamma) : baseGamma;
+		};
+		for (int variant = 1; variant < renderingVariants; variant++) {
+			// not named small as rpcndr.h defines it as a macro
+			const bool lightText = (variant & renderingVariantLight) != 0;
+			const bool smallText = (variant & renderingVariantSmall) != 0;
+			if ((lightText && lightTextGamma == fontRenderingDefault) || (smallText && renderingModeOverride != renderingModeAdaptive)) {
+				continue;
+			}
+			const DWRITE_RENDERING_MODE variantMode = smallText ? DWRITE_RENDERING_MODE_NATURAL : renderingMode;
+			defaultVariants[variant] = OverriddenRenderingParams(monitorRenderingParams.Get(), variantGamma(defaultGamma, lightText), variantMode);
+			if (customClearTypeRenderingParams) {
+				customVariants[variant] = OverriddenRenderingParams(monitorRenderingParams.Get(), variantGamma(clearTypeGamma, lightText), variantMode);
+			}
 		}
 	}
 
@@ -911,9 +1017,61 @@ bool ScintillaWin::UpdateRenderingParams(bool force) noexcept {
 		deviceScaleFactor = newDeviceScaleFactor;
 		targets.valid = false;
 	}
-	renderingParams->defaultRenderingParams = std::move(monitorRenderingParams);
+	renderingParams->defaultRenderingParams = std::move(defaultRenderingParams);
 	renderingParams->customRenderingParams = std::move(customClearTypeRenderingParams);
+	renderingParams->monitorRenderingParams = std::move(monitorRenderingParams);	// N++
+	for (int variant = 0; variant < renderingVariants; variant++) {	// N++
+		renderingParams->defaultVariants[variant] = std::move(defaultVariants[variant]);
+		renderingParams->customVariants[variant] = std::move(customVariants[variant]);
+	}
+	SetListRenderingParams();	// N++
 	return true;
+}
+
+// N++: the autocompletion list draws its text with the editor's parameters once the text rendering is
+// customised (font quality or overrides), else as upstream (without parameters, grayscale antialiasing)
+void ScintillaWin::SetListRenderingParams() noexcept {
+	ISetRenderingParams *setListParams = dynamic_cast<ISetRenderingParams *>(ac.lb.get());
+	if (!setListParams) {
+		return;
+	}
+	const bool defaultQuality = (static_cast<int>(vs.extraFontFlag) & static_cast<int>(FontQuality::QualityMask)) ==
+		static_cast<int>(FontQuality::QualityDefault);
+	setListParams->SetRenderingParams((defaultQuality && !FontRenderingOverridden()) ? nullptr : renderingParams);
+}
+
+// N++: whether any SCI_SETFONTRENDERINGPARAMETER override is set
+bool ScintillaWin::FontRenderingOverridden() const noexcept {
+	return std::any_of(fontRenderingOverrides.cbegin(), fontRenderingOverrides.cend(),
+		[](int value) noexcept { return value != fontRenderingDefault; });
+}
+
+// N++: rendering parameters with each overridden value in DirectWrite units, else the monitor's value,
+// with the gamma and rendering mode given by the caller
+WriteRenderingParams ScintillaWin::OverriddenRenderingParams(IDWriteRenderingParams1 *monitorParams, FLOAT gamma, DWRITE_RENDERING_MODE renderingMode) const noexcept {
+	const auto valueOf = [this](size_t parameter, FLOAT divisor, FLOAT monitorValue) noexcept {
+		const int value = fontRenderingOverrides[parameter];
+		return (value == fontRenderingDefault) ? monitorValue : static_cast<FLOAT>(value) / divisor;
+	};
+	// Pixel geometry and rendering mode values are those of DirectWrite
+	static_assert(DWRITE_PIXEL_GEOMETRY_FLAT == pixelGeometryFlat && DWRITE_PIXEL_GEOMETRY_BGR == pixelGeometryBGR);
+	static_assert(DWRITE_RENDERING_MODE_CLEARTYPE_GDI_CLASSIC == renderingModeGdiClassic &&
+		DWRITE_RENDERING_MODE_CLEARTYPE_NATURAL_SYMMETRIC == renderingModeNaturalSymmetric);
+	const int pixelGeometry = fontRenderingOverrides[fontRenderingPixelGeometry];
+	WriteRenderingParams params;
+	const HRESULT hr = pIDWriteFactory->CreateCustomRenderingParams(
+		gamma,
+		valueOf(fontRenderingEnhancedContrast, 100.0f, monitorParams->GetEnhancedContrast()),
+		valueOf(fontRenderingGrayscaleEnhancedContrast, 100.0f, monitorParams->GetGrayscaleEnhancedContrast()),
+		valueOf(fontRenderingClearTypeLevel, 100.0f, monitorParams->GetClearTypeLevel()),
+		(pixelGeometry == fontRenderingDefault) ?
+			monitorParams->GetPixelGeometry() : static_cast<DWRITE_PIXEL_GEOMETRY>(pixelGeometry),
+		renderingMode,
+		params.GetAddressOf());
+	if (FAILED(hr)) {
+		return {};
+	}
+	return params;
 }
 
 HRESULT ScintillaWin::Create3D() noexcept {
@@ -2249,6 +2407,51 @@ sptr_t ScintillaWin::IdleMessage(unsigned int iMessage, uptr_t wParam, sptr_t lP
 	return 0;
 }
 
+#if defined(USE_D2D)
+// N++: GDI rendering modes also measure text like GDI so glyphs are on whole pixels when measured and drawn.
+// GDI-compatible layouts use 1 pixel per DIP, so not while GDI scaling renders at a larger integral scale.
+// Returns whether the measuring changed: fonts must then be realised again and cached layouts dropped.
+bool ScintillaWin::UpdateMeasuringMode() noexcept {
+	int measuring = 0;
+	if (deviceScaleFactor == 1.f) {
+		const int renderingMode = fontRenderingOverrides[fontRenderingRenderingMode];
+		if (renderingMode == renderingModeGdiClassic) {
+			measuring = fontQualityMeasuringGdiClassic;
+		} else if (renderingMode == renderingModeGdiNatural) {
+			measuring = fontQualityMeasuringGdiNatural;
+		}
+	}
+	const FontQuality extraFontFlag = static_cast<FontQuality>(
+		(static_cast<int>(vs.extraFontFlag) & ~fontQualityMeasuringMask) | measuring);
+	if (extraFontFlag == vs.extraFontFlag) {
+		return false;
+	}
+	vs.extraFontFlag = extraFontFlag;
+	return true;
+}
+#endif
+
+// N++: overrides are kept whatever the technology and take effect while DirectWrite is used
+void ScintillaWin::SetFontRenderingParameter(uptr_t parameter, sptr_t value) {
+	if ((parameter >= fontRenderingOverrides.size()) || !ValidFontRenderingValue(parameter, value) ||
+		(fontRenderingOverrides[parameter] == value)) {
+		return;
+	}
+	fontRenderingOverrides[parameter] = static_cast<int>(value);
+#if defined(USE_D2D)
+	if (technology != Technology::Default) {
+		UpdateRenderingParams(true);
+	}
+	if (UpdateMeasuringMode()) {
+		// Realise fonts again with the new measuring and drop cached layouts
+		InvalidateStyleRedraw();
+	} else if (technology != Technology::Default) {
+		DropGraphics();
+		Redraw();
+	}
+#endif
+}
+
 sptr_t ScintillaWin::SciMessage(Message iMessage, uptr_t wParam, sptr_t lParam) {
 	switch (iMessage) {
 	case Message::GetDirectFunction:
@@ -2303,6 +2506,7 @@ sptr_t ScintillaWin::SciMessage(Message iMessage, uptr_t wParam, sptr_t lParam) 
 						return 0;
 					}
 					UpdateRenderingParams(true);
+					UpdateMeasuringMode();	// N++: layouts are invalidated below
 #else
 					return 0;
 #endif
@@ -2327,6 +2531,22 @@ sptr_t ScintillaWin::SciMessage(Message iMessage, uptr_t wParam, sptr_t lParam) 
 		// Invalidate all cached information including layout.
 		InvalidateStyleRedraw();
 		break;
+
+	// N++: the autocompletion list follows the font quality (see SetListRenderingParams)
+	case Message::SetFontQuality:
+		ScintillaBase::WndProc(iMessage, wParam, lParam);
+#if defined(USE_D2D)
+		SetListRenderingParams();
+#endif
+		break;
+
+	// N++: DirectWrite text rendering overrides
+	case Message::SetFontRenderingParameter:
+		SetFontRenderingParameter(wParam, lParam);
+		break;
+
+	case Message::GetFontRenderingParameter:
+		return (wParam < fontRenderingOverrides.size()) ? fontRenderingOverrides[wParam] : fontRenderingDefault;
 
 	case Message::TargetAsUTF8:
 		return TargetAsUTF8(CharPtrFromSPtr(lParam));
@@ -2434,6 +2654,7 @@ sptr_t ScintillaWin::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 #if defined(USE_D2D)
 			if (technology != Technology::Default) {
 				UpdateRenderingParams(true);
+				UpdateMeasuringMode();	// N++: layouts are invalidated below
 			}
 #endif
 			UpdateBaseElements();
@@ -2511,6 +2732,10 @@ sptr_t ScintillaWin::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 					reverseArrowCursor.Invalidate();
 					DropGraphics();
 					Redraw();
+					// N++: the device scale factor may have changed which can enable or disable GDI-compatible measuring
+					if (UpdateMeasuringMode()) {
+						InvalidateStyleRedraw();
+					}
 				}
 			}
 #endif
@@ -2552,6 +2777,9 @@ sptr_t ScintillaWin::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 #endif
 		case Message::GrabFocus:
 		case Message::SetTechnology:
+		case Message::SetFontQuality:	// N++
+		case Message::SetFontRenderingParameter:	// N++
+		case Message::GetFontRenderingParameter:	// N++
 		case Message::SetBidirectional:
 		case Message::TargetAsUTF8:
 		case Message::EncodedFromUTF8:

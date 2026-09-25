@@ -317,12 +317,6 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_mainEditView.execute(SCI_SETENDATLASTLINE, !svp._scrollBeyondLastLine);
 	_subEditView.execute(SCI_SETENDATLASTLINE, !svp._scrollBeyondLastLine);
 
-	if (svp._doSmoothFont)
-	{
-		_mainEditView.execute(SCI_SETFONTQUALITY, SC_EFF_QUALITY_LCD_OPTIMIZED);
-		_subEditView.execute(SCI_SETFONTQUALITY, SC_EFF_QUALITY_LCD_OPTIMIZED);
-	}
-
 	_mainEditView.setBorderEdge(svp._showBorderEdge);
 	_subEditView.setBorderEdge(svp._showBorderEdge);
 

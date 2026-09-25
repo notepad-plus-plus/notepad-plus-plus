@@ -1049,6 +1049,14 @@ Translation note:
 					<Item id="6653" name="Evidenzia sfondo"/>
 					<Item id="6654" name="Cornice"/>
 					<Item id="6655" name="Larghezza:"/>
+					<ComboBox id="6362">
+						<Element name="GDI (compatibilità)"/>
+						<Element name="DirectWrite (predefinito)"/>
+						<Element name="DirectWrite (retain frames)"/>
+						<Element name="DirectWrite (draw to GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<Item id="6363" name="modalità rendering"/>
 				</Scintillas>
 
 				<Scintillas2 title="Modifica 2">
@@ -1376,20 +1384,12 @@ Translation note:
 						<Element name="Chiudi"/>
 						<Element name="Minimizza / Chiudi"/>
 					</ComboBox>
-					<ComboBox id="6362">
-						<Element name="GDI (compatibilità)"/>
-						<Element name="DirectWrite (predefinito)"/>
-						<Element name="DirectWrite (retain frames)"/>
-						<Element name="DirectWrite (draw to GDI DC)"/>
-						<Element name="DirectWrite (DirectX 11)"/>
-					</ComboBox>
 					<ComboBox id="6364">
 						<Element name="Disabilita"/>
 						<Element name="Abilita all'avvio di Notepad++"/>
 						<Element name="Abilita all'uscita da Notepad++"/>
 					</ComboBox>
 					<Item id="6308" name="Area di notifica"/>
-					<Item id="6363" name="modalità rendering"/>
 					<Item id="6365" name="Aggiornamento automatico:"/>
 					<Item id="6312" name="Rilevamento Stato File"/>
 					<Item id="6313" name="Aggiorna senza notifica"/>

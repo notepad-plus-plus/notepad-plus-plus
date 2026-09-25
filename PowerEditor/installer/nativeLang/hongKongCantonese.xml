@@ -1120,6 +1120,14 @@
 					<Item id="6255" name="Codepoint"/><!-- #legacy v8.6.4 #review commit aaab190 -->
 					<Item id="6256" name="自訂顏色"/><!-- #legacy v8.6.4 -->
 					<Item id="6258" name="套用 C0、C1 同埋 Unicode EOL"/><!-- #legacy v8.6.4 -->
+					<ComboBox id="6362"><!-- #new v8.7.8 -->
+						<Element name="GDI（兼容度最高）"/><!-- #new v8.7.8 -->
+						<Element name="DirectWrite（預設）"/><!-- #new v8.7.8 -->
+						<Element name="DirectWrite（保留框架）"/><!-- #new v8.7.8 -->
+						<Element name="DirectWrite（繪製到 GDI DC）"/><!-- #new v8.7.8 -->
+						<Element name="DirectWrite (DirectX 11)"/><!-- #new v8.7.9 -->
+					</ComboBox>
+					<Item id="6363" name="渲染模式"/><!-- #new v8.7.8 -->
 				</Scintillas>
 
 				<Scintillas2 title="編輯（二）"><!-- #new v8.6.5 -->
@@ -1454,20 +1462,12 @@
 						<Element name="閂程式嗰陣縮去"/><!-- #new v8.7.1 -->
 						<Element name="最小化或者閂程式都縮去"/><!-- #new v8.7.2 -->
 					</ComboBox>
-					<ComboBox id="6362"><!-- #new v8.7.8 -->
-						<Element name="GDI（兼容度最高）"/><!-- #new v8.7.8 -->
-						<Element name="DirectWrite（預設）"/><!-- #new v8.7.8 -->
-						<Element name="DirectWrite（保留框架）"/><!-- #new v8.7.8 -->
-						<Element name="DirectWrite（繪製到 GDI DC）"/><!-- #new v8.7.8 -->
-						<Element name="DirectWrite (DirectX 11)"/><!-- #new v8.7.9 -->
-					</ComboBox>
 					<ComboBox id="6364"><!-- #new v8.8.2 -->
 						<Element name="唔搞"/><!-- #new v8.8.2 -->
 						<Element name="啟動 Notepad++ 嗰陣"/><!-- #new v8.8.2 -->
 						<Element name="閂 Notepad++ 嗰陣"/><!-- #new v8.8.2 -->
 					</ComboBox>
 					<Item id="6308" name="系統匣"/>
-					<Item id="6363" name="渲染模式"/><!-- #new v8.7.8 -->
 					<Item id="6365" name="自動更新："/><!-- #new v8.8.2 -->
 					<Item id="6312" name="自動偵測檔案狀態"/>
 					<Item id="6313" name="靜靜雞喺背景更新"/>

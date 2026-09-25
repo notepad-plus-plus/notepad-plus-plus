@@ -1292,7 +1292,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	{
 		wchar_t intStr[intStrLen]{};
 		wsprintf(intStr, L"%d", style._fontSize);
-		iFontSize = ::SendMessage(_hFontSizeCombo, CB_FINDSTRING, 1, reinterpret_cast<LPARAM>(intStr));
+		iFontSize = ::SendMessage(_hFontSizeCombo, CB_FINDSTRINGEXACT, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(intStr)); // exact: "1" isn't "10"
 	}
 	::SendMessage(_hFontSizeCombo, CB_SETCURSEL, iFontSize, 0);
 	::EnableWindow(_hFontSizeCombo, style._isFontEnabled);

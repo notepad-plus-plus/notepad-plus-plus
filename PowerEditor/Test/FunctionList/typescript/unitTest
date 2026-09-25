@@ -371,4 +371,12 @@ var LoginToken = new Schema({
 }
 
 exports.defineModels = defineModels;
- 
+
+// TypeScript-typed function declarations (return type annotation between ")" and "{")
+function toNameCase(str: string): string {
+  return str;
+}
+
+function sumValues(a: number, b: number): number {
+  return a + b;
+}

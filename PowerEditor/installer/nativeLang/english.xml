@@ -470,6 +470,10 @@ Translation note:
 				<Item CMDID="44114" name="Apply Color 4"/>
 				<Item CMDID="44115" name="Apply Color 5"/>
 				<Item CMDID="44110" name="Remove Color"/>
+				<Item CMDID="5" name="Word Wrap"/>
+				<Item CMDID="44118" name="Use Global Setting"/>
+				<Item CMDID="44119" name="Off"/>
+				<Item CMDID="44120" name="On"/>
 			</TabBar>
 			<TrayIcon>
 				<Item id="43101" name="Activate"/>

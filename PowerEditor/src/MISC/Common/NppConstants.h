@@ -297,7 +297,7 @@ inline constexpr int FINDREPLACE_MAXLENGTH = 16384; // the maximum length of the
 inline constexpr int FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT = 1024;
 inline constexpr int FILL_FINDWHAT_THRESHOLD_DEFAULT = 1024;
 
-inline constexpr const wchar_t fontSizeStrs[][3]{ L"", L"5", L"6", L"7", L"8", L"9", L"10", L"11", L"12", L"14", L"16", L"18", L"20", L"22", L"24", L"26", L"28" };
+inline constexpr const wchar_t fontSizeStrs[][3]{ L"", L"1", L"2", L"3", L"4", L"5", L"6", L"7", L"8", L"9", L"10", L"11", L"12", L"14", L"16", L"18", L"20", L"22", L"24", L"26", L"28" };
 
 enum FontStyle
 {

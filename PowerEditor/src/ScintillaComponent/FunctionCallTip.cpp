@@ -181,6 +181,11 @@ bool FunctionCallTip::getCursorFunction()
 			{
 				//do nothing
 			}
+			else if (ch == '"' || ch == '\'') //string literal: its content shouldn't affect param/scope counting
+			{
+				i = skipStringLiteral(lineData, i, offset);
+				//the outer loop's ++i moves past the closing quote (or past the unterminated end)
+			}
 			else
 			{
 				tokenVector.push_back(Token(lineData + i, 1, false));

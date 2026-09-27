@@ -2617,8 +2617,12 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 				buf->setDirty(true);
 
 			buf->setRTL(session._mainViewFiles[i]._isRTL);
+			buf->setWrapMode(session._mainViewFiles[i]._wrapMode);
 			if (i == 0 && session._activeMainIndex == 0)
+			{
 				_mainEditView.changeTextDirection(buf->isRTL());
+				_mainEditView.wrap(buf->isWrapEnabled());
+			}
 
 			_mainDocTab.setIndividualTabColour(lastOpened, session._mainViewFiles[i]._individualTabColour);
 
@@ -2759,6 +2763,9 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 				buf->setDirty(true);
 
 			buf->setRTL(session._subViewFiles[k]._isRTL);
+			buf->setWrapMode(session._subViewFiles[k]._wrapMode);
+			if (k == 0 && session._activeSubIndex == 0)
+				_subEditView.wrap(buf->isWrapEnabled());
 
 			_subDocTab.setIndividualTabColour(lastOpened, session._subViewFiles[k]._individualTabColour);
 

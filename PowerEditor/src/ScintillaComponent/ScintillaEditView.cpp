@@ -2359,6 +2359,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 	execute(SCI_SETDOCPOINTER, 0, _currentBuffer->getDocument());
 	execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+	wrap(_currentBuffer->isWrapEnabled());
 
 	defineDocType(_currentBuffer->getLangType());
 

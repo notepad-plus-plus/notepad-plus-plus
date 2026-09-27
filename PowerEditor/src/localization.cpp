@@ -479,6 +479,7 @@ static constexpr int tabCmSubMenuEntryPos[]{
     14,   // 2  Copy to Clipboard
     15,   // 3  Move Document
     16,   // 4  Apply Color to Tab
+    17,   // 5  Word Wrap
 };
 
 

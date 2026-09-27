@@ -80,6 +80,36 @@ using namespace std;
 
 std::mutex command_mutex;
 
+
+void Notepad_plus::applyWrapToBuffer(Buffer* buffer)
+{
+	const bool isWrapped = buffer->isWrapEnabled();
+	auto applyWrapToView = [buffer, isWrapped](ScintillaEditView& view)
+	{
+		if (view.getCurrentBuffer() != buffer || view.isWrap() == isWrapped)
+			return;
+
+		// ViewMoveAtWrappingDisableFix: Disabling wrapping messes up visible lines.
+		// Save the view position now and restore it after SCN_PAINTED, as Scintilla documentation says.
+		if (!isWrapped)
+		{
+			view.saveCurrentPos();
+			view.setWrapRestoreNeeded(true);
+		}
+		view.wrap(isWrapped);
+	};
+
+	applyWrapToView(_mainEditView);
+	applyWrapToView(_subEditView);
+
+	if (_pDocMap && _pEditView->getCurrentBuffer() == buffer)
+	{
+		_pDocMap->initWrapMap();
+		_pDocMap->wrapMap();
+	}
+}
+
+
 void Notepad_plus::macroPlayback(Macro macro, std::vector<Document>* pDocs4EndUAIn)
 {
 	_playingBackMacro = true;
@@ -2717,30 +2747,39 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_WRAP:
 		{
-			bool isWrapped = !_pEditView->isWrap();
-			// ViewMoveAtWrappingDisableFix: Disable wrapping messes up visible lines. Therefore save view position before in IDM_VIEW_WRAP and restore after SCN_PAINTED, as Scintilla-Doc. says
-			if (!isWrapped)
-			{
-				_mainEditView.saveCurrentPos();
-				_mainEditView.setWrapRestoreNeeded(true);
-				_subEditView.saveCurrentPos();
-				_subEditView.setWrapRestoreNeeded(true);
-			}
-			_mainEditView.wrap(isWrapped);
-			_subEditView.wrap(isWrapped);
+			ScintillaViewParams& svp = (ScintillaViewParams&)(NppParameters::getInstance()).getSVP();
+			const bool isWrapped = !svp._doWrap;
+			svp._doWrap = isWrapped;
+
+			Buffer* mainBuffer = _mainEditView.getCurrentBuffer();
+			if (mainBuffer->getWrapMode() == DocumentWrapMode::useGlobal)
+				applyWrapToBuffer(mainBuffer);
+
+			Buffer* subBuffer = _subEditView.getCurrentBuffer();
+			if (subBuffer != mainBuffer && subBuffer->getWrapMode() == DocumentWrapMode::useGlobal)
+				applyWrapToBuffer(subBuffer);
+
 			_toolBar.setCheck(IDM_VIEW_WRAP, isWrapped);
 			checkMenuItem(IDM_VIEW_WRAP, isWrapped);
-
-			ScintillaViewParams & svp1 = (ScintillaViewParams &)(NppParameters::getInstance()).getSVP();
-			svp1._doWrap = isWrapped;
-
-			if (_pDocMap)
-			{
-				_pDocMap->initWrapMap();
-				_pDocMap->wrapMap();
-			}
 			break;
 		}
+
+		case IDM_VIEW_TAB_WRAP_GLOBAL:
+		case IDM_VIEW_TAB_WRAP_OFF:
+		case IDM_VIEW_TAB_WRAP_ON:
+		{
+			DocumentWrapMode wrapMode = DocumentWrapMode::useGlobal;
+			if (id == IDM_VIEW_TAB_WRAP_OFF)
+				wrapMode = DocumentWrapMode::off;
+			else if (id == IDM_VIEW_TAB_WRAP_ON)
+				wrapMode = DocumentWrapMode::on;
+
+			Buffer* buf = _pEditView->getCurrentBuffer();
+			buf->setWrapMode(wrapMode);
+			applyWrapToBuffer(buf);
+			break;
+		}
+
 		case IDM_VIEW_WRAP_SYMBOL:
 		{
 			_mainEditView.showWrapSymbol(!_pEditView->isWrapSymbolVisible());

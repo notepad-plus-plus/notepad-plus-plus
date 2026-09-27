@@ -17,6 +17,7 @@
 #pragma once
 
 #include <mutex>
+#include "NppConstants.h"
 #include "Utf8_16.h"
 
 
@@ -391,6 +392,10 @@ public:
 	bool isRTL() const { return _isRTL; }
 	void setRTL(bool isRTL) { _isRTL = isRTL; }
 
+	DocumentWrapMode getWrapMode() const { return _wrapMode; }
+	void setWrapMode(DocumentWrapMode wrapMode) { _wrapMode = wrapMode; }
+	bool isWrapEnabled() const;
+
 	bool isPinned() const { return _isPinned; }
 	void setPinned(bool isPinned) { _isPinned = isPinned; }
 
@@ -484,5 +489,6 @@ private:
 	bool _isInaccessible = false;
 
 	bool _isRTL = false;
+	DocumentWrapMode _wrapMode = DocumentWrapMode::useGlobal;
 	bool _isPinned = false;
 };

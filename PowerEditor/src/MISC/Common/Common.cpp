@@ -21,6 +21,9 @@
 
 #include <commctrl.h>
 #include <excpt.h>
+#include <filesystem>
+#include <shellapi.h>
+#include <shlobj.h>
 #include <shlwapi.h>
 
 #include <algorithm>
@@ -45,12 +48,9 @@
 #include "FileInterface.h"
 #include "NppConstants.h"
 #include "NppDarkMode.h"
+#include "Parameters.h"
 #include "Utf8.h"
 #include "dpiManagerV2.h"
-
-#include <shlobj.h>
-#include <shellapi.h>
-#include <filesystem>
 
 using namespace std;
 
@@ -1702,8 +1702,14 @@ wstring getDateTimeStrFrom(const wstring& dateTimeFormat, const SYSTEMTIME& st)
 // Don't forget to use DeleteObject(createdFont) before leaving the program
 HFONT createFont(const wchar_t* fontName, int fontSize, bool isBold, HWND hDestParent)
 {
+	auto dlgFontSize = static_cast<WORD>(fontSize);
+	if (dlgFontSize == 0)
+	{
+		dlgFontSize = NppParameters::getInstance().getDlgFontSize();
+	}
+
 	LOGFONT logFont{};
-	const int fontSizeScaled = DPIManagerV2::scaleFontForFactor(fontSize);
+	const int fontSizeScaled = DPIManagerV2::scaleFontForFactor(dlgFontSize);
 	logFont.lfHeight = DPIManagerV2::scaleFont(fontSizeScaled, hDestParent);
 	if (isBold)
 		logFont.lfWeight = FW_BOLD;

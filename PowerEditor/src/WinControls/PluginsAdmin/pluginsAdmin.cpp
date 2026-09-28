@@ -198,6 +198,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent, WORD 
 	const size_t szColVer = _dpiManager.scale(100);
 	const size_t szColName = szColVer * 2;
 
+	auto hFont = reinterpret_cast<HFONT>(::SendMessage(_hSelf, WM_GETFONT, 0, 0));
 	auto initListView = [&](PluginViewList& list) -> void {
 		list.addColumn(columnInfo(pluginStr, szColName));
 		list.addColumn(columnInfo(vesionStr, szColVer));
@@ -211,6 +212,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent, WORD 
 		::SetWindowLongPtr(hList, GWL_STYLE, style | WS_TABSTOP);
 		::SetWindowPos(hList, ::GetDlgItem(_hSelf, IDC_PLUGINADM_RESEARCH_NEXT), 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE); // to allow tab switch
 		list.reSizeView(listRect);
+		::SendMessage(list.getViewHwnd(), WM_SETFONT, reinterpret_cast<WPARAM>(hFont), MAKELPARAM(TRUE, 0));
 	};
 
 	initListView(_availableList);
@@ -1473,6 +1475,7 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		case WM_DPICHANGED:
 		{
 			_dpiManager.setDpiWP(wParam);
+			auto hFont = reinterpret_cast<HFONT>(::SendMessage(_hSelf, WM_GETFONT, 0, 0));
 
 			const size_t szColVer = _dpiManager.scale(100);
 			const size_t szColName = szColVer * 2;
@@ -1480,7 +1483,8 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			auto setListViewSize = [&](PluginViewList& list) -> void {
 				ListView_SetColumnWidth(list.getViewHwnd(), 0, szColName);
 				ListView_SetColumnWidth(list.getViewHwnd(), 1, szColVer);
-				};
+				::SendMessage(list.getViewHwnd(), WM_SETFONT, reinterpret_cast<WPARAM>(hFont), MAKELPARAM(TRUE, 0));
+			};
 			
 			setListViewSize(_availableList);
 			setListViewSize(_updateList);

@@ -16,21 +16,49 @@
 
 
 #include "FindReplaceDlg.h"
-#include "ScintillaEditView.h"
-#include "Notepad_plus_msgs.h"
-#include "localization.h"
-#include "Common.h"
-#include "Utf8.h"
 
 #include <windows.h>
 
-#include <commctrl.h>
-
+#include <algorithm>
+#include <cassert>
+#include <cstdint>
+#include <cstdio>
+#include <cstdlib>
 #include <cstring>
+#include <cwchar>
 #include <memory>
+#include <mutex>
+#include <stdexcept>
 #include <string>
+#include <utility>
+#include <vector>
 
+#include <BoostRegexSearch.h>
+#include <SciLexer.h>
+#include <Sci_Position.h>
+#include <Scintilla.h>
+
+#include "Buffer.h"
+#include "Common.h"
+#include "ContextMenu.h"
+#include "Docking.h"
+#include "DockingCont.h"
+#include "DockingDlgInterface.h"
+#include "FindReplaceDlg_rc.h"
+#include "Notepad_plus_msgs.h"
 #include "NppConstants.h"
+#include "NppDarkMode.h"
+#include "Parameters.h"
+#include "ScintillaEditView.h"
+#include "StaticDialog.h"
+#include "ToolBar.h"
+#include "Utf8.h"
+#include "Window.h"
+#include "colors.h"
+#include "dpiManagerV2.h"
+#include "localization.h"
+#include "menuCmdID.h"
+#include "resource.h"
 
 using namespace std;
 
@@ -1597,11 +1625,13 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			
 			setDpi();
 
+			const WORD fontSizeBase = NppParameters::getInstance().getDlgFontSize();
+
 			HFONT hFont = nullptr;
 			const bool isMonospaced = NppParameters::getInstance().getNppGUI()._monospacedFontFindDlg;
 			if (isMonospaced)
 			{
-				hFont = createFont(L"Courier New", 8, false, _hSelf);
+				hFont = createFont(L"Courier New", fontSizeBase, false, _hSelf);
 			}
 			else
 			{
@@ -1615,7 +1645,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 			LOGFONT lf{};
 			::GetObject(hFont, sizeof(lf), &lf);
-			static const int fontSize = DPIManagerV2::scaleFontForFactor(16);
+			static const int fontSize = DPIManagerV2::scaleFontForFactor(fontSizeBase + 7);
 			static const int fontSizeCorrection = DPIManagerV2::scaleFontForFactor(5);
 			lf.lfHeight = -(_dpiManager.scale(fontSize) - fontSizeCorrection);
 			_hComboBoxFont = ::CreateFontIndirect(&lf);
@@ -1651,11 +1681,11 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDD_RESIZE_TOGGLE_BUTTON), L"˄");
 
 			// "⇅" enlargement
-			_hLargerBolderFont = createFont(L"Courier New", 14, true, _hSelf);
+			_hLargerBolderFont = createFont(L"Courier New", fontSizeBase + 5, true, _hSelf);
 			::SendMessage(_hSwapButton, WM_SETFONT, reinterpret_cast<WPARAM>(_hLargerBolderFont), MAKELPARAM(TRUE, 0));
 
 			// Make "˄" & "˅" look better
-			_hCourrierNewFont = createFont(L"Courier New", 12, false, _hSelf);
+			_hCourrierNewFont = createFont(L"Courier New", fontSizeBase + 3, false, _hSelf);
 			::SendDlgItemMessage(_hSelf, IDD_RESIZE_TOGGLE_BUTTON, WM_SETFONT, reinterpret_cast<WPARAM>(_hCourrierNewFont), MAKELPARAM(TRUE, 0));
 
 			return TRUE;
@@ -1894,16 +1924,18 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			if (_hComboBoxFont)
 				::DeleteObject(_hComboBoxFont);
 
-			_hLargerBolderFont = createFont(L"Courier New", 14, true, _hSelf);
+			static const WORD fontSizeBase = NppParameters::getInstance().getDlgFontSize();
+
+			_hLargerBolderFont = createFont(L"Courier New", fontSizeBase + 5, true, _hSelf);
 			::SendMessage(_hSwapButton, WM_SETFONT, reinterpret_cast<WPARAM>(_hLargerBolderFont), MAKELPARAM(TRUE, 0));
 
-			_hCourrierNewFont = createFont(L"Courier New", 12, false, _hSelf);
+			_hCourrierNewFont = createFont(L"Courier New", fontSizeBase + 3, false, _hSelf);
 			::SendDlgItemMessage(_hSelf, IDD_RESIZE_TOGGLE_BUTTON, WM_SETFONT, reinterpret_cast<WPARAM>(_hCourrierNewFont), MAKELPARAM(TRUE, 0));
 
 			LOGFONT lf{};
 			HFONT font = reinterpret_cast<HFONT>(::SendDlgItemMessage(_hSelf, IDFINDWHAT, WM_GETFONT, 0, 0));
 			::GetObject(font, sizeof(lf), &lf);
-			static const int fontSize = DPIManagerV2::scaleFontForFactor(16);
+			static const int fontSize = DPIManagerV2::scaleFontForFactor(fontSizeBase + 7);
 			static const int fontSizeCorrection = DPIManagerV2::scaleFontForFactor(5);
 			lf.lfHeight = -(_dpiManager.scale(fontSize) - fontSizeCorrection);
 			_hComboBoxFont = ::CreateFontIndirect(&lf);

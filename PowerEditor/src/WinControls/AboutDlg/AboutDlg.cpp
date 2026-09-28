@@ -15,11 +15,26 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-#include <format>
 #include "AboutDlg.h"
+
+#include <windows.h>
+
+#include <cstdio>
+#include <format>
+#include <string>
+
+#include <json.hpp>
+#include <pugixml.hpp>
+
+#include "Common.h"
+#include "NppConstants.h"
+#include "NppDarkMode.h"
 #include "Parameters.h"
+#include "StaticDialog.h"
+#include "dpiManagerV2.h"
 #include "localization.h"
-#include "json.hpp"
+#include "resource.h"
+
 #if defined __has_include
 #if __has_include ("NppLibsVersion.h")
 #include "NppLibsVersion.h"
@@ -732,21 +747,11 @@ void CmdLineArgsDlg::doDialog()
 
 	::SetDlgItemText(_hSelf, IDC_COMMANDLINEARGS_EDIT, COMMAND_ARG_HELP);
 
-	// Create DPI-aware monospace font
-	NONCLIENTMETRICS ncm{};
-	ncm.cbSize = sizeof(NONCLIENTMETRICS);
-	SystemParametersInfo(SPI_GETNONCLIENTMETRICS, sizeof(NONCLIENTMETRICS), &ncm, 0);
-
 	// Use the system font height but change to monospace
-	hCmdLineEditFont = CreateFont(
-		ncm.lfMessageFont.lfHeight,  // DPI-aware height from system
-		0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
-		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-		DEFAULT_QUALITY, FIXED_PITCH | FF_MODERN,
-		L"Lucida Console");
+	hCmdLineEditFont = createFont(L"Lucida Console", 0, false, nullptr);
 
 	if (hCmdLineEditFont)
-		SendDlgItemMessage(_hSelf, IDC_COMMANDLINEARGS_EDIT, WM_SETFONT, (WPARAM)hCmdLineEditFont, TRUE);
+		SendDlgItemMessage(_hSelf, IDC_COMMANDLINEARGS_EDIT, WM_SETFONT, reinterpret_cast<WPARAM>(hCmdLineEditFont), TRUE);
 
 	moveForDpiChange();
 	goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);

@@ -80,10 +80,11 @@ struct TargetRange {
 
 enum SearchIncrementalType { NotIncremental, FirstIncremental, NextIncremental };
 enum SearchType { FindNormal, FindExtended, FindRegex };
-enum ProcessOperation { ProcessFindAll, ProcessReplaceAll, ProcessCountAll, ProcessMarkAll, ProcessMarkAll_2, ProcessMarkAll_IncSearch, ProcessMarkAllExt, ProcessFindInFinder };
+enum ProcessOperation { ProcessFindAll, ProcessReplaceAll, ProcessCountAll, ProcessMarkAll, ProcessHighLightAll, ProcessMarkAll_IncSearch, ProcessMarkAllExt, ProcessFindInFinder };
 
 struct FindOption
 {
+	// In
 	bool _isWholeWord = true;
 	bool _isMatchCase = true;
 	bool _isWrapAround = true;
@@ -104,6 +105,9 @@ struct FindOption
 	bool _isProjectPanel_3 = false;
 	bool _dotMatchesNewline = false;
 	bool _isMatchLineNumber = false; // always false for main search
+
+	// Out
+	bool _regexEmptyStringFound = false; // used only for status bar tooltip display on countAll & markAll operations
 };
 
 struct MatchPosition
@@ -304,12 +308,12 @@ public :
 	bool processReplace(const wchar_t* txt2find, const wchar_t* txt2replace, const FindOption* options = nullptr);
 
 	int markAll(const wchar_t* txt2find, int styleID);
-	int markAllInc(const FindOption* opt);
+	int markAllInc(FindOption* opt);
 
-	int processAll(ProcessOperation op, const FindOption* opt,
+	int processAll(ProcessOperation op, FindOption* opt,
 		bool isEntire = false, const FindersInfo *pFindersInfo = nullptr, int colourStyleID = -1, std::vector<MatchPosition>* pMatches = nullptr);
 	int processRange(ProcessOperation op, FindReplaceInfo& findReplaceInfo, const FindersInfo* pFindersInfo,
-		const FindOption* opt = nullptr, int colourStyleID = -1, ScintillaEditView* view2Process = nullptr, std::vector<MatchPosition>* pMatches = nullptr);
+		FindOption* opt = nullptr, int colourStyleID = -1, ScintillaEditView* view2Process = nullptr, std::vector<MatchPosition>* pMatches = nullptr);
 
 	void replaceAllInOpenedDocs();
 	void findAllIn(InWhat op);

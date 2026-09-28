@@ -1811,6 +1811,7 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
 			<find-status-replace-readonly value="Remplacer : l’opération a échoué. Le fichier est en lecture seule"/>
 			<find-status-cannot-find value="Rechercher : « $STR_REPLACE$ » n’a pas été trouvé"/>
 			<find-status-cannot-find-pebkac-maybe value="L’occurrence donnée n’a pas été trouvée. Vous avez peut-être oublié de cocher « Boucler » (activé), « Respecter la casse » (désactivé), ou « Mot entier uniquement » (désactivé)."/>
+			<find-status-regex-find-empty-string value="La expression régulière donnée correspond aux chaînes vides."/>
 			<find-status-scope-selection value="dans le texte sélectionné"/>
 			<find-status-scope-all value="dans le fichier"/>
 			<find-status-scope-backward value="du début du fichier au curseur"/>

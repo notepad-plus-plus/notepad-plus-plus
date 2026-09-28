@@ -68,6 +68,7 @@ FindOption FindReplaceDlg::_options;
 #define SHIFTED 0x8000
 
 const wstring noFoundPotentialReason = L"The given occurrence cannot be found. You may have forgotten to check \"Wrap around\" (to ON), \"Match case\" (to OFF), or \"Match whole word only\" (to OFF).";
+const wstring regexEmptyFoundReason = L"The given regular expression matches empty strings.";
 
 static void addText2Combo(const wchar_t* txt2add, HWND hCombo)
 {
@@ -2596,6 +2597,11 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							{
 								reasonMsg = pNativeSpeaker->getLocalizedStrFromID("find-status-cannot-find-pebkac-maybe", noFoundPotentialReason);
 							}
+							else if (_options._regexEmptyStringFound)
+							{
+								reasonMsg = pNativeSpeaker->getLocalizedStrFromID("find-status-regex-find-empty-string", regexEmptyFoundReason);
+							}
+
 
 							setStatusbarMessage(result, FSMessage, reasonMsg);
 						}
@@ -2648,6 +2654,10 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							if (nbMarked == 0 && !isTheMostLaxMode)
 							{
 								reasonMsg = pNativeSpeaker->getLocalizedStrFromID("find-status-cannot-find-pebkac-maybe", noFoundPotentialReason);
+							}
+							else if (_options._regexEmptyStringFound)
+							{
+								reasonMsg = pNativeSpeaker->getLocalizedStrFromID("find-status-regex-find-empty-string", regexEmptyFoundReason);
 							}
 
 							setStatusbarMessage(result, FSMessage, reasonMsg);
@@ -3280,13 +3290,13 @@ int FindReplaceDlg::markAll(const wchar_t *txt2find, int styleID)
 }
 
 
-int FindReplaceDlg::markAllInc(const FindOption *opt)
+int FindReplaceDlg::markAllInc(FindOption *opt)
 {
 	int nbFound = processAll(ProcessMarkAll_IncSearch, opt,  true);
 	return nbFound;
 }
 
-int FindReplaceDlg::processAll(ProcessOperation op, const FindOption* opt,
+int FindReplaceDlg::processAll(ProcessOperation op, FindOption* opt,
 	bool isEntire, const FindersInfo* pFindersInfo, int colourStyleID, std::vector<MatchPosition>* pMatches)
 {
 	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
@@ -3297,7 +3307,7 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption* opt,
 		return 0;
 	}
 
-	const FindOption* pOptions = opt ? opt : _env;
+	FindOption* pOptions = opt ? opt : _env;
 	const wchar_t* txt2find = pOptions->_str2Search.c_str();
 	const wchar_t* txt2replace = pOptions->_str4Replace.c_str();
 
@@ -3410,7 +3420,7 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption* opt,
 }
 
 int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo& findReplaceInfo, const FindersInfo* pFindersInfo,
-	const FindOption* opt, int colourStyleID, ScintillaEditView* view2Process, std::vector<MatchPosition>* pMatches)
+	FindOption* opt, int colourStyleID, ScintillaEditView* view2Process, std::vector<MatchPosition>* pMatches)
 {
 	int nbProcessed = 0;
 
@@ -3487,9 +3497,9 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo& findRepla
 	bool isRegExp = pOptions->_searchType == FindRegex;
 	int flags = Searching::buildSearchFlags(pOptions) | SCFIND_REGEXP_SKIPCRLFASONE;
 
-	// Allow empty matches, but not immediately after previous match for replace all or find all.
-	// Other search types should ignore empty matches completely.
-	if (op == ProcessReplaceAll || op == ProcessFindAll)
+	// Allow empty matches, but not immediately after previous match, so Count and Mark All
+	// (like Replace All and Find All already do) don't silently skip zero-length matches.
+	if (op == ProcessReplaceAll || op == ProcessFindAll || op == ProcessCountAll || op == ProcessMarkAll)
 		flags |= SCFIND_REGEXP_EMPTYMATCH_NOTAFTERMATCH;
 
 
@@ -3664,8 +3674,8 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo& findRepla
 
 			case ProcessMarkAll:
 			{
-				// In theory, we can't have empty matches for a ProcessMarkAll, but because scintilla
-				// gets upset if we call INDICATORFILLRANGE with a length of 0, we protect against it here.
+				// Zero-length matches are possible (e.g. "^$"), but scintilla gets upset if we call
+				// INDICATORFILLRANGE with a length of 0, so we protect against it here.
 				// At least in version 2.27, after calling INDICATORFILLRANGE with length 0, further indicators
 				// on the same line would simply not be shown.  This may have been fixed in later version of Scintilla.
 				if (foundTextLen > 0)
@@ -3673,11 +3683,17 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo& findRepla
 					pEditView->execute(SCI_SETINDICATORCURRENT, SCE_UNIVERSAL_FOUND_STYLE);
 					pEditView->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
 				}
+				else if (foundTextLen == 0 && opt->_searchType == FindRegex)
+				{
+					opt->_regexEmptyStringFound = true;
+				}
 
 				if (_env->_doMarkLine)
 				{
 					auto lineNumber = pEditView->execute(SCI_LINEFROMPOSITION, targetStart);
-					auto lineNumberEnd = pEditView->execute(SCI_LINEFROMPOSITION, targetEnd - 1);
+					// For a zero-length match, "targetEnd - 1" would be the line *before* targetStart
+					// (or even underflow at document start), so fall back to lineNumber in that case.
+					auto lineNumberEnd = (foundTextLen > 0) ? pEditView->execute(SCI_LINEFROMPOSITION, targetEnd - 1) : lineNumber;
 
 					for (auto i = lineNumber; i <= lineNumberEnd; ++i)
 					{
@@ -3687,6 +3703,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo& findRepla
 							pEditView->execute(SCI_MARKERADD, i, MARK_BOOKMARK);
 					}
 				}
+
 				break;
 			}
 
@@ -3701,7 +3718,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo& findRepla
 				break;
 			}
 
-			case ProcessMarkAll_2:
+			case ProcessHighLightAll:
 			{
 				// See comment by ProcessMarkAll
 				if (foundTextLen > 0)
@@ -3725,7 +3742,9 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo& findRepla
 
 			case ProcessCountAll:
 			{
-				//Nothing to do
+				if (foundTextLen == 0 && opt->_searchType == FindRegex)
+					opt->_regexEmptyStringFound = true;
+
 				break;
 			}
 

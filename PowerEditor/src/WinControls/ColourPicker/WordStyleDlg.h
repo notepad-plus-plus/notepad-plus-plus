@@ -43,7 +43,7 @@ public :
 			::DestroyWindow(_globalOverrideTip);
 	}
 
-	void create(int dialogID, bool isRTL = false, bool msgDestParent = true, WORD fontSize = 8) override;
+	void create(int dialogID, bool isRTL = false, bool msgDestParent = true, WORD fontSize = 0) override;
 	void doDialog(bool isRTL = false);
 	void destroy() override;
 	void prepare2Cancel();

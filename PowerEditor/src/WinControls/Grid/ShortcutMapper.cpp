@@ -16,8 +16,26 @@
 
 
 #include "ShortcutMapper.h"
-#include "Notepad_plus.h"
 
+#include <windows.h>
+
+#include <cstdint>
+#include <string>
+#include <vector>
+
+#include "BabyGrid.h"
+#include "Common.h"
+#include "ContextMenu.h"
+#include "NppDarkMode.h"
+#include "Parameters.h"
+#include "PluginInterface.h"
+#include "ShortcutMapper_rc.h"
+#include "Window.h"
+#include "dpiManagerV2.h"
+#include "localization.h"
+#include "menuCmdID.h"
+#include "resource.h"
+#include "shortcut.h"
 
 using namespace std;
 
@@ -98,11 +116,13 @@ void ShortcutMapper::initBabyGrid()
 	_lastHomeRow.resize(5, 1);
 	_lastCursorRow.resize(5, 1);
 
+	static const auto fontSize = NppParameters::getInstance().getDlgFontSize();
+
 	_hGridFonts.resize(MAX_GRID_FONTS);
 	LOGFONT lf{ _dpiManager.getDefaultGUIFontForDpi() };
-	lf.lfHeight = _dpiManager.scaleFont(10);
+	lf.lfHeight = _dpiManager.scaleFont(DPIManagerV2::scaleFontForFactor(fontSize + 1));
 	_hGridFonts.at(GFONT_ROWS) = ::CreateFontIndirect(&lf);
-	lf.lfHeight = _dpiManager.scaleFont(12);
+	lf.lfHeight = _dpiManager.scaleFont(DPIManagerV2::scaleFontForFactor(fontSize + 4));
 	lf.lfWeight = FW_BOLD;
 	_hGridFonts.at(GFONT_HEADER) = ::CreateFontIndirect(&lf);
 	
@@ -749,10 +769,12 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				}
 			}
 
+			static const auto fontSize = NppParameters::getInstance().getDlgFontSize();
+
 			LOGFONT lf{ _dpiManager.getDefaultGUIFontForDpi() };
-			lf.lfHeight = _dpiManager.scaleFont(10);
+			lf.lfHeight = _dpiManager.scaleFont(DPIManagerV2::scaleFontForFactor(fontSize + 1));
 			_hGridFonts.at(GFONT_ROWS) = ::CreateFontIndirect(&lf);
-			lf.lfHeight = _dpiManager.scaleFont(12);
+			lf.lfHeight = _dpiManager.scaleFont(DPIManagerV2::scaleFontForFactor(fontSize + 3));
 			lf.lfWeight = FW_BOLD;
 			_hGridFonts.at(GFONT_HEADER) = ::CreateFontIndirect(&lf);
 

@@ -54,7 +54,7 @@ class StaticDialog : public Window
 public :
 	~StaticDialog() override;
 
-	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true, WORD fontSize = 8);
+	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true, WORD fontSize = 0);
 
 	virtual bool isCreated() const {
 		return (_hSelf != nullptr);
@@ -104,5 +104,5 @@ protected:
 	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) = 0;
 
 	HWND myCreateDialogIndirectParam(int dialogID, bool isRTL, WORD fontSize, DLGPROC myDlgProc = StaticDialog::dlgProc);
-	INT_PTR myCreateDialogBoxIndirectParam(int dialogID, bool isRTL, WORD fontSize = 8);
+	INT_PTR myCreateDialogBoxIndirectParam(int dialogID, bool isRTL, WORD fontSize = 0);
 };

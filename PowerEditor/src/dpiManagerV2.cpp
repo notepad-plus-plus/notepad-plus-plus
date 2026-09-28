@@ -224,6 +224,14 @@ LOGFONT DPIManagerV2::getDefaultGUIFontForDpi(UINT dpi, FontType type)
 	return lf;
 }
 
+LOGFONT DPIManagerV2::getDefaultGUIFontForDpi(HWND hWnd, WORD fontSize, FontType type)
+{
+	const UINT dpi = getDpiForWindow(hWnd);
+	auto lf = getDefaultGUIFontForDpi(dpi, type);
+	lf.lfHeight = scaleFont(fontSize, dpi);
+	return lf;
+}
+
 void DPIManagerV2::loadIcon(HINSTANCE hinst, const wchar_t* pszName, int cx, int cy, HICON* phico, UINT fuLoad)
 {
 	if (::LoadIconWithScaleDown(hinst, pszName, cx, cy, phico) != S_OK)

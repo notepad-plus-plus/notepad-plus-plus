@@ -17,11 +17,14 @@
 
 #include "URLCtrl.h"
 
+#include <windows.h>
+
 #include <commctrl.h>
 
 #include "Common.h"
 #include "NppConstants.h"
 #include "NppDarkMode.h"
+#include "Parameters.h"
 #include "dpiManagerV2.h"
 
 
@@ -171,7 +174,8 @@ LRESULT CALLBACK URLCtrl::URLCtrlProc(
 			if (pRefData->_hfUnderlined == nullptr)
 			{
 				// Get the default GUI font
-				LOGFONT lf{ DPIManagerV2::getDefaultGUIFontForDpi(::GetParent(hwnd)) };
+				auto lf = DPIManagerV2::getDefaultGUIFontForDpi(::GetParent(hwnd), NppParameters::getInstance().getDlgFontSize());
+				lf.lfHeight = DPIManagerV2::scaleFontForFactor(lf.lfHeight);
 				lf.lfUnderline = TRUE;
 
 				// Create a new font

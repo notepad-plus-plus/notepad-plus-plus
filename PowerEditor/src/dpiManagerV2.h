@@ -134,6 +134,8 @@ public:
 	static LOGFONT getDefaultGUIFontForDpi(HWND hWnd, FontType type = FontType::message) {
 		return getDefaultGUIFontForDpi(getDpiForWindow(hWnd), type);
 	}
+	static LOGFONT getDefaultGUIFontForDpi(HWND hWnd, WORD fontSize, FontType type = FontType::message);
+
 	LOGFONT getDefaultGUIFontForDpi(FontType type = FontType::message) const {
 		return getDefaultGUIFontForDpi(_dpi, type);
 	}

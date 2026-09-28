@@ -890,6 +890,8 @@ struct NppGUI final
 	std::string _shortcutsOnDiskHmac;
 
 	bool _isFawSymlinkAllowed = false; // allow to open symlink files in FaW (Folder as Workspace) panel.
+
+	WORD _fontDlgSize = 8;
 };
 
 
@@ -1094,7 +1096,7 @@ public:
 		return *this;
 	}
 
-	void startAtTheme(void);
+	void startAtTheme();
 
 	const wchar_t* getName() const { return _name.c_str(); }
 	const wchar_t* getExtention() const { return _ext.c_str(); }
@@ -1421,6 +1423,10 @@ public:
 
 	NppGUI & getNppGUI() {
 		return _nppGUI;
+	}
+
+	WORD getDlgFontSize() const noexcept {
+		return std::clamp<WORD>(_nppGUI._fontDlgSize, 8U, 24U);
 	}
 
 	const char* getWordList(LangType langID, int typeIndex) const {

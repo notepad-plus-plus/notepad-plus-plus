@@ -543,3 +543,6 @@
 #define IDC_RADIO_AUTOINDENT_NONE                      7162
 #define IDC_RADIO_AUTOINDENT_BASIC                     7163
 #define IDC_RADIO_AUTOINDENT_ADVANCED                  7164
+
+#define IDC_DIALOG_FONT_GB_STATIC                      7165
+#define IDC_COMBO_DIALOG_FONT_SIZE                     7166

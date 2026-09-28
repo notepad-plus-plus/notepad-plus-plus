@@ -38,6 +38,7 @@
 #include "CustomFileDialog.h"
 #include "NppConstants.h"
 #include "NppDarkMode.h"
+#include "Parameters.h"
 #include "md5Dlgs_rc.h"
 #include "resource.h"
 
@@ -51,7 +52,7 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
-			_hFont = createFont(L"Courier New", 9, false, _hSelf);
+			_hFont = createFont(L"Courier New", NppParameters::getInstance().getDlgFontSize() + 1, false, _hSelf);
 
 			const HWND hHashPathEdit = ::GetDlgItem(_hSelf, IDC_HASH_PATH_EDIT);
 			const HWND hHashResult = ::GetDlgItem(_hSelf, IDC_HASH_RESULT_EDIT);
@@ -100,7 +101,7 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 			_dpiManager.setDpiWP(wParam);
 
 			destroy();
-			_hFont = createFont(L"Courier New", 9, false, _hSelf);
+			_hFont = createFont(L"Courier New", NppParameters::getInstance().getDlgFontSize() + 1, false, _hSelf);
 
 			::SendDlgItemMessageW(_hSelf, IDC_HASH_PATH_EDIT, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), TRUE);
 			::SendDlgItemMessageW(_hSelf, IDC_HASH_RESULT_EDIT, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), TRUE);
@@ -507,7 +508,7 @@ intptr_t CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
-			_hFont = createFont(L"Courier New", 9, false, _hSelf);
+			_hFont = createFont(L"Courier New", NppParameters::getInstance().getDlgFontSize() + 1, false, _hSelf);
 
 			const HWND hHashTextEdit = ::GetDlgItem(_hSelf, IDC_HASH_TEXT_EDIT);
 			const HWND hHashResult = ::GetDlgItem(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT);
@@ -561,7 +562,7 @@ intptr_t CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			_dpiManager.setDpiWP(wParam);
 
 			destroy();
-			_hFont = createFont(L"Courier New", 9, false, _hSelf);
+			_hFont = createFont(L"Courier New", NppParameters::getInstance().getDlgFontSize() + 1, false, _hSelf);
 
 			::SendDlgItemMessageW(_hSelf, IDC_HASH_TEXT_EDIT, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), TRUE);
 			::SendDlgItemMessageW(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), TRUE);

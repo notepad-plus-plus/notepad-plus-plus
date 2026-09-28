@@ -975,6 +975,7 @@ Translation note:
 					<Item id="6132" name="Hide right shortcuts ＋ ▼ ✕"/>
 					<Item id="6133" name="Status Bar"/>
 					<Item id="6134" name="Hide"/>
+					<Item id="7165" name="Dialog Font Size (Need to restart Notepad++)"/>
 				</Global>
 
 				<Toolbar title="Toolbar">

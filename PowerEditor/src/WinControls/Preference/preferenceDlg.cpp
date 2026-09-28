@@ -762,7 +762,7 @@ void ToolbarSubDlg::enableIconColorPicker(bool enable, bool useDark)
 	_pIconColorPicker->redraw();
 }
 
-intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI& nppGUI = nppParam.getNppGUI();
@@ -795,7 +795,23 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			}
 			auto index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_FINDSTRINGEXACT, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(lang.c_str()));
 			if (index != CB_ERR)
-                ::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_SETCURSEL, index, 0);
+				::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_SETCURSEL, index, 0);
+
+			static constexpr const wchar_t* fontSizes[]{ L"8", L"9", L"10", L"11", L"12", L"14", L"16", L"18", L"20", L"22", L"24" };
+
+			HWND hFontSizeCombo = ::GetDlgItem(_hSelf, IDC_COMBO_DIALOG_FONT_SIZE);
+			for (const auto& fontSize : fontSizes)
+			{
+				::SendMessage(hFontSizeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(fontSize));
+			}
+
+			const std::wstring currentFontSize = std::to_wstring(NppParameters::getInstance().getDlgFontSize());
+
+			const auto cbFontSzIdx = ::SendMessage(hFontSizeCombo, CB_FINDSTRINGEXACT, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(currentFontSize.c_str()));
+			if (cbFontSzIdx != CB_ERR)
+			{
+				::SendMessage(hFontSizeCombo, CB_SETCURSEL, cbFontSzIdx, 0);
+			}
 
 			return TRUE;
 		}
@@ -897,6 +913,31 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 											::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RELOADNATIVELANG, TRUE, 0);
 											::InvalidateRect(_hParent, NULL, TRUE);
 										}
+									}
+									return TRUE;
+								}
+
+								case IDC_COMBO_DIALOG_FONT_SIZE:
+								{
+									auto* hCombo = reinterpret_cast<HWND>(lParam);
+
+									const LRESULT idx = ::SendMessage(hCombo, CB_GETCURSEL, 0, 0);
+									if (idx == CB_ERR)
+									{
+										return TRUE;
+									}
+
+									wchar_t buffer[8]{};
+									if (const LRESULT length = ::SendMessage(hCombo, CB_GETLBTEXT, static_cast<WPARAM>(idx), reinterpret_cast<LPARAM>(buffer));
+										length == CB_ERR)
+									{
+										return TRUE;
+									}
+
+									if (const int fontSize = std::wcstol(buffer, nullptr, 10);
+										fontSize > 0)
+									{
+										NppParameters::getInstance().getNppGUI()._fontDlgSize = static_cast<WORD>(fontSize);
 									}
 									return TRUE;
 								}

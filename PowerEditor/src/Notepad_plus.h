@@ -526,6 +526,7 @@ private:
 
 	bool isConditionExprLine(intptr_t lineNumber);
 	intptr_t findMachedBracePos(size_t startPos, size_t endPos, char targetSymbol, char matchedSymbol);
+	bool isOnlyWhiteSpaceBeforeTypedChar(intptr_t lineNumber);
 	void maintainIndentation(wchar_t ch);
 
 	void addHotSpot(ScintillaEditView* view = nullptr);

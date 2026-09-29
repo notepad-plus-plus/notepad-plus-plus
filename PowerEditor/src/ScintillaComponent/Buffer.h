@@ -73,13 +73,13 @@ const wchar_t UNTITLED_STR[] = L"new ";
 
 // File discovered for Find in Files (size comes from FindFirstFile; -1 if unknown)
 struct SearchCandidate {
-	std::wstring path;
-	int64_t size = -1;
+	std::wstring _path;
+	int64_t _size = -1;
 };
 
 // Ingest-kernel policy: editor load detects language from content; Find in Files does not (no lexer).
 struct DocumentFillPolicy {
-	bool detectLanguageFromContent = true;
+	bool _detectLanguageFromContent = true;
 
 	static DocumentFillPolicy forEditing() { return { true }; }
 	static DocumentFillPolicy forSearching() { return { false }; }
@@ -87,16 +87,16 @@ struct DocumentFillPolicy {
 
 // Caller-owned scratch Scintilla document used only by Find in Files (not an editor Buffer)
 struct SearchFillRequest {
-	Document scratchDoc = static_cast<Document>(NULL);
-	const wchar_t* path = nullptr;
-	int64_t knownSize = -1;
-	ScintillaEditView* ingestView = nullptr; // already showing scratchDoc; fillDocument does not detach it
+	Document _scratchDoc = static_cast<Document>(NULL);
+	const wchar_t* _path = nullptr;
+	int64_t _knownSize = -1;
+	ScintillaEditView* _ingestView = nullptr; // already showing scratchDoc; loadFileContentForSearch does not detach it
 };
 
 struct SearchLoadResult {
-	bool ok = false;
-	UniMode unicodeMode = uni8Bit;
-	int encoding = -1;
+	bool _ok = false;
+	UniMode _unicodeMode = uni8Bit;
+	int _encoding = -1;
 };
 
 //File manager class maintains all buffers
@@ -123,7 +123,7 @@ public:
 	// Find in Files only: fill a reused document without creating a Buffer or touching editor session state
 	Document createSearchDocument();
 	void releaseSearchDocument(Document doc);
-	SearchLoadResult fillDocument(const SearchFillRequest& request);
+	SearchLoadResult loadFileContentForSearch(const SearchFillRequest& request);
 
 	BufferID newEmptyDocument();
 	// create an empty placeholder for a missing file when loading session
@@ -181,8 +181,8 @@ private:
 	bool isAutoDetectEncodingDisabled4Loading = false;
 
 	bool loadFileData(Document doc, int64_t fileSize, const wchar_t* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LoadedFileFormat& fileFormat);
-	bool appendFileStreamToDocument(ScintillaEditView* ingestView, FILE* fp, char* data, int64_t fileSize, Utf8_16_Read* unicodeConvertor, LoadedFileFormat& fileFormat, EolType& format, int& sciStatus, const DocumentFillPolicy& policy);
-	void resolveLoadedEncoding(const Utf8_16_Read& unicodeConvertor, int encoding, int& encodingOut, UniMode& unicodeModeOut) const;
+	bool copyFileContentToScintilla(ScintillaEditView* ingestView, FILE* fp, char* data, int64_t fileSize, Utf8_16_Read* unicodeConvertor, LoadedFileFormat& fileFormat, EolType& format, int& sciStatus, const DocumentFillPolicy& policy);
+	void resolveLoadedEncoding(const Utf8_16_Read& unicodeConvertor, int& encodingOut, UniMode& unicodeModeOut) const;
 	LangType detectLanguageFromTextBeginning(const unsigned char *data, size_t dataLen);
 
 	Notepad_plus* _pNotepadPlus = nullptr;

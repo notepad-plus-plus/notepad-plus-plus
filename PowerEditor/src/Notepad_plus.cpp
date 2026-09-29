@@ -1875,7 +1875,7 @@ void Notepad_plus::getMatchedFileNames(const wchar_t *dir, size_t level, const v
 	fileNames.reserve(fileNames.size() + files.size());
 	for (auto&& file : files)
 	{
-		fileNames.push_back(std::move(file.path));
+		fileNames.push_back(std::move(file._path));
 	}
 }
 
@@ -1995,7 +1995,7 @@ bool Notepad_plus::replaceInFiles()
 	std::vector<wstring> fileNames;
 	fileNames.reserve(fileList.size());
 	for (const auto& file : fileList)
-		fileNames.push_back(file.path);
+		fileNames.push_back(file._path);
 
 	return replaceInFilelist(fileNames);
 }
@@ -2168,11 +2168,11 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 			if (_invisibleEditView.execute(SCI_GETDOCPOINTER) != scratchDoc)
 				_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, scratchDoc);
 
-			SearchLoadResult loaded = MainFileManager.fillDocument({ scratchDoc, filePath, -1, &_invisibleEditView });
-			if (loaded.ok)
+			SearchLoadResult loaded = MainFileManager.loadFileContentForSearch({ scratchDoc, filePath, -1, &_invisibleEditView });
+			if (loaded._ok)
 			{
 				_invisibleEditView.execute(SCI_SETCODEPAGE, 0);
-				setCodePageForInvisibleView(loaded.unicodeMode);
+				setCodePageForInvisibleView(loaded._unicodeMode);
 
 				nb = _findReplaceDlg.processAll(ProcessFindInFinder, &(findInFolderInfo->_findOption), true, findInFolderInfo);
 			}
@@ -2256,7 +2256,7 @@ bool Notepad_plus::findInFilelist(std::vector<SearchCandidate> & fileNames)
 	{
 		if (progress.isCancelled()) break;
 
-		const wchar_t* filePath = fileNames.at(i).path.c_str();
+		const wchar_t* filePath = fileNames.at(i)._path.c_str();
 
 		BufferID id = nppGui._fif_ignoreunsavedChangesInOpenedFiles ? BUFFER_INVALID : MainFileManager.getBufferFromName(filePath);
 
@@ -2285,12 +2285,12 @@ bool Notepad_plus::findInFilelist(std::vector<SearchCandidate> & fileNames)
 			if (_invisibleEditView.execute(SCI_GETDOCPOINTER) != scratchDoc)
 				_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, scratchDoc);
 
-			SearchLoadResult loaded = MainFileManager.fillDocument({ scratchDoc, filePath, fileNames.at(i).size, &_invisibleEditView });
-			if (loaded.ok)
+			SearchLoadResult loaded = MainFileManager.loadFileContentForSearch({ scratchDoc, filePath, fileNames.at(i)._size, &_invisibleEditView });
+			if (loaded._ok)
 			{
 				// New documents start at code page 0; a reused doc may still have the previous file's code page
 				_invisibleEditView.execute(SCI_SETCODEPAGE, 0);
-				setCodePageForInvisibleView(loaded.unicodeMode);
+				setCodePageForInvisibleView(loaded._unicodeMode);
 
 				FindersInfo findersInfo;
 				findersInfo._pFileName = filePath;

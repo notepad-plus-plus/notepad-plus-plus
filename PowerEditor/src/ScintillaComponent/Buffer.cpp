@@ -1125,7 +1125,7 @@ void FileManager::setLoadedBufferEncodingAndEol(Buffer* buf, const Utf8_16_Read&
 {
 	int encoding2Set = encoding;
 	UniMode unimode2Set = uni8Bit;
-	resolveLoadedEncoding(UnicodeConvertor, encoding, encoding2Set, unimode2Set);
+	resolveLoadedEncoding(UnicodeConvertor, encoding2Set, unimode2Set);
 
 	buf->setEncoding(encoding2Set);
 	buf->setUnicodeMode(unimode2Set);
@@ -1136,9 +1136,8 @@ void FileManager::setLoadedBufferEncodingAndEol(Buffer* buf, const Utf8_16_Read&
 		buf->setEolFormat(bkformat);
 }
 
-void FileManager::resolveLoadedEncoding(const Utf8_16_Read& unicodeConvertor, int encoding, int& encodingOut, UniMode& unicodeModeOut) const
+void FileManager::resolveLoadedEncoding(const Utf8_16_Read& unicodeConvertor, int& encodingOut, UniMode& unicodeModeOut) const
 {
-	encodingOut = encoding;
 	unicodeModeOut = unicodeConvertor.getEncoding();
 
 	if (encodingOut == -1)
@@ -2001,7 +2000,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 		if ((sciStatus > SC_STATUS_OK) && (sciStatus < SC_STATUS_WARN_START))
 			throw std::runtime_error("Scintilla error");
 
-		if (!appendFileStreamToDocument(_pscratchTilla, fp, data, fileSize, unicodeConvertor, fileFormat, format, sciStatus, DocumentFillPolicy::forEditing()))
+		if (!copyFileContentToScintilla(_pscratchTilla, fp, data, fileSize, unicodeConvertor, fileFormat, format, sciStatus, DocumentFillPolicy::forEditing()))
 			success = false;
 	}
 	__except (EXCEPTION_EXECUTE_HANDLER)
@@ -2080,7 +2079,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 	return success;
 }
 
-bool FileManager::appendFileStreamToDocument(ScintillaEditView* ingestView, FILE* fp, char* data, int64_t fileSize, Utf8_16_Read* unicodeConvertor, LoadedFileFormat& fileFormat, EolType& format, int& sciStatus, const DocumentFillPolicy& policy)
+bool FileManager::copyFileContentToScintilla(ScintillaEditView* ingestView, FILE* fp, char* data, int64_t fileSize, Utf8_16_Read* unicodeConvertor, LoadedFileFormat& fileFormat, EolType& format, int& sciStatus, const DocumentFillPolicy& policy)
 {
 	size_t lenFile = 0;
 	size_t lenConvert = 0;	//just in case conversion results in 0, but file not empty
@@ -2126,7 +2125,7 @@ bool FileManager::appendFileStreamToDocument(ScintillaEditView* ingestView, FILE
 			//
 
 			bool isLargeFile = fileSize >= nppGui._largeFileRestriction._largeFileSizeDefInByte;
-			if (policy.detectLanguageFromContent && !isLargeFile && fileFormat._language == L_TEXT)
+			if (policy._detectLanguageFromContent && !isLargeFile && fileFormat._language == L_TEXT)
 			{
 				// check the language du fichier
 				fileFormat._language = detectLanguageFromTextBeginning((unsigned char *)data, lenFile);
@@ -2227,20 +2226,20 @@ void FileManager::releaseSearchDocument(Document doc)
 	_pscratchTilla->execute(SCI_RELEASEDOCUMENT, 0, doc);
 }
 
-SearchLoadResult FileManager::fillDocument(const SearchFillRequest& request)
+SearchLoadResult FileManager::loadFileContentForSearch(const SearchFillRequest& request)
 {
 	SearchLoadResult result;
-	if (!request.scratchDoc || !request.path || !request.ingestView)
+	if (!request._scratchDoc || !request._path || !request._ingestView)
 		return result;
 
-	ScintillaEditView* ingestView = request.ingestView;
+	ScintillaEditView* ingestView = request._ingestView;
 
-	int64_t fileSize = request.knownSize;
+	int64_t fileSize = request._knownSize;
 	if (fileSize < 0)
 	{
 		WIN32_FILE_ATTRIBUTE_DATA attributes{};
 		attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
-		if (!::GetFileAttributesExW(request.path, GetFileExInfoStandard, &attributes)
+		if (!::GetFileAttributesExW(request._path, GetFileExInfoStandard, &attributes)
 			|| (attributes.dwFileAttributes == INVALID_FILE_ATTRIBUTES)
 			|| (attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 		{
@@ -2260,7 +2259,7 @@ SearchLoadResult FileManager::fillDocument(const SearchFillRequest& request)
 			return result;
 	}
 
-	FILE* fp = _wfopen(request.path, L"rb");
+	FILE* fp = _wfopen(request._path, L"rb");
 	if (!fp)
 		return result;
 
@@ -2272,8 +2271,8 @@ SearchLoadResult FileManager::fillDocument(const SearchFillRequest& request)
 	loadedFileFormat._eolFormat = EolType::unknown;
 	loadedFileFormat._language = L_TEXT;
 
-	if (ingestView->execute(SCI_GETDOCPOINTER) != request.scratchDoc)
-		ingestView->execute(SCI_SETDOCPOINTER, 0, request.scratchDoc);
+	if (ingestView->execute(SCI_GETDOCPOINTER) != request._scratchDoc)
+		ingestView->execute(SCI_SETDOCPOINTER, 0, request._scratchDoc);
 
 	ingestView->execute(SCI_SETSTATUS, SC_STATUS_OK);
 	if (ingestView->execute(SCI_GETREADONLY) != 0)
@@ -2296,7 +2295,7 @@ SearchLoadResult FileManager::fillDocument(const SearchFillRequest& request)
 	{
 		try
 		{
-			if (!appendFileStreamToDocument(ingestView, fp, data, fileSize, &unicodeConvertor, loadedFileFormat, format, sciStatus, DocumentFillPolicy::forSearching()))
+			if (!copyFileContentToScintilla(ingestView, fp, data, fileSize, &unicodeConvertor, loadedFileFormat, format, sciStatus, DocumentFillPolicy::forSearching()))
 				success = false;
 		}
 		catch (...)
@@ -2311,8 +2310,9 @@ SearchLoadResult FileManager::fillDocument(const SearchFillRequest& request)
 	if (!success)
 		return result;
 
-	resolveLoadedEncoding(unicodeConvertor, loadedFileFormat._encoding, result.encoding, result.unicodeMode);
-	result.ok = true;
+	result._encoding = loadedFileFormat._encoding;
+	resolveLoadedEncoding(unicodeConvertor, result._encoding, result._unicodeMode);
+	result._ok = true;
 	return result;
 }
 

@@ -157,6 +157,14 @@ TEST_CASE("CellBuffer") {
 			REQUIRE(sLength2 == cb.LineEnd(1));
 			cb.DeleteChars(0, sLength2, startSequence);
 		}
+		{
+			// Return -1 before start
+			constexpr std::string_view sText2 = "Two\nLines";
+			constexpr Sci::Position sLength2 = sText2.length();
+			cb.InsertString(0, sText2.data(), sLength2, startSequence);
+			REQUIRE(cb.LineEnd(-1) < 0);
+			cb.DeleteChars(0, sLength2, startSequence);
+		}
 		cb.SetLineEndTypes(LineEndType::Default);
 	}
 
@@ -273,7 +281,7 @@ bool EqualContainerAction(const Action &a, Sci::Position token) noexcept {
 void TentativeUndo(UndoHistory &uh) noexcept {
 	const int steps = uh.TentativeSteps();
 	for (int step = 0; step < steps; step++) {
-		/* const Action &actionStep = */ uh.GetUndoStep();
+		[[maybe_unused]] const Action actionStep = uh.GetUndoStep();
 		uh.CompletedUndoStep();
 	}
 	uh.TentativeCommit();
@@ -413,10 +421,10 @@ TEST_CASE("UndoHistory") {
 		// Undoing
 		const int steps = uh.StartUndo();
 		REQUIRE(steps == 2);
-		uh.GetUndoStep();
+		[[maybe_unused]] const Action actionStep = uh.GetUndoStep();
 		uh.CompletedUndoStep();
 		REQUIRE(uh.Actions() == 2);	// Not truncated until forward action
-		uh.GetUndoStep();
+		[[maybe_unused]] const Action actionStep2 = uh.GetUndoStep();
 		uh.CompletedUndoStep();
 		REQUIRE(uh.Actions() == 2);
 

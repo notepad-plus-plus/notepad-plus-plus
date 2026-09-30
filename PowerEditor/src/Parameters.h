@@ -1094,7 +1094,7 @@ public:
 		return *this;
 	}
 
-	void startAtTheme(void);
+	void startAtTheme();
 
 	const wchar_t* getName() const { return _name.c_str(); }
 	const wchar_t* getExtention() const { return _ext.c_str(); }

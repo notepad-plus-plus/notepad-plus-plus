@@ -9488,7 +9488,7 @@ void NppParameters::buildGupParams(std::wstring& params)
 	params += L"\"%LOCALAPPDATA%\\Notepad++\\log\\securityError.log\"";
 }
 
-void UserLangContainer::startAtTheme(void)
+void UserLangContainer::startAtTheme()
 {
 	// don't reset to the theme colors if it's already been set
 	if (!_isUnset)

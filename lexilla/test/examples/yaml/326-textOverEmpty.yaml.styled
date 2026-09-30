@@ -2,7 +2,7 @@
 # SCE_YAML_TEXT should extend over empty line
 {2}my_yaml_block{9}:{0} |+
 {7}  This block is text
-{0}
+
   even if the line above is empty
   these two text lines should also be highlighted as text.
 

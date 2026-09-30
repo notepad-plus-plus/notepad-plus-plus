@@ -1,0 +1,19 @@
+{2}// Test JavaScript line continuation option for issue 55.
+// JavaScript, unlike C++, only allows line continuation inside string literals.
+{0}
+{11}if{10}({0} {11}test{0} {10}){0} {2}// toto \
+{10}{{0}
+	{11}alert{10}();{0}
+{10}}{0}
+{11}else{0}
+{10}{{0}
+{10}}{0}
+
+{2}// Multi-line string literals usin \ to continue to next line
+// string=6
+{6}"str\
+ing"{0}
+
+{2}// character=7
+{7}'c\
+d'{0}

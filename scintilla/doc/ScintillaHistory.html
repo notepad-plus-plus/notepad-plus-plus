@@ -597,9 +597,36 @@
 	<td>Stephan T. Lavavej</td>
 	<td>RealMalWare</td>
 	<td>Schreiner</td>
+	<td>Masayuki HINO</td>
     </tr>
     </table>
     <h2 id="Releases">Releases</h2>
+    <h3>
+       <a href="https://www.scintilla.org/scintilla567.zip">Release 5.6.7</a>
+    </h3>
+    <ul>
+	<li>
+	Released 28 September 2026.
+	</li>
+	<li>
+	Reduce memory used by line layouts by storing positions as 32-bit floats instead of 64-bit.
+	</li>
+	<li>
+	Reduce temporary memory use during layout of wide lines with many control characters.
+	</li>
+	<li>
+	Fix style ending inside character after deleting last character of document.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2471/">Bug #2471</a>.
+	</li>
+	<li>
+	Fix SCI_VERTICALCENTRECARET to not scroll past end.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2518/">Bug #2518</a>.
+	</li>
+	<li>
+	For SCI_GETCOLUMN and SCI_FINDCOLUMN treat Unicode line ends similar to ASCII line ends.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2516/">Bug #2516</a>.
+	</li>
+    </ul>
     <h3>
        <a href="https://www.scintilla.org/scintilla566.zip">Release 5.6.6</a>
     </h3>

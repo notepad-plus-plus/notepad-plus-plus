@@ -4673,7 +4673,7 @@ void ScintillaEditView::changeTextDirection(bool isRTL)
 		{
 			(nppParamInst.getNativeLangSpeaker())->messageBox("RTLvsDirectWrite",
 				getHSelf(),
-				L"RTL is not compatible with Direct Write mode. Please disable DirectWrite mode in MISC. section of Preferences dialog, and restart Notepad++.",
+				L"RTL is not compatible with Direct Write mode. Please choose the GDI rendering mode in Editing 1 section of Preferences dialog, and restart Notepad++.",
 				L"Cannot run RTL",
 				MB_OK | MB_APPLMODAL);
 

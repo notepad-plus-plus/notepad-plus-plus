@@ -16,7 +16,7 @@
 			commentExpr="(?s:/\*.*?\*/)|(?m-s://.*?$)"
 		>
 			<function
-				mainExpr="((^|\s+|[;\}\.])([A-Za-z_$][\w$]*\.)*[A-Za-z_$][\w$]*\s*[=:]|^|[\s;\}]+)\s*function(\s+[A-Za-z_$][\w$]*)?\s*\([^\)\(]*\)[\n\s]*\{"
+				mainExpr="((^|\s+|[;\}\.])([A-Za-z_$][\w$]*\.)*[A-Za-z_$][\w$]*\s*[=:]|^|[\s;\}]+)\s*function(\s+[A-Za-z_$][\w$]*)?\s*\([^\)\(]*\)(\s*:\s*[^{()]+)?[\n\s]*\{"
 			>
 				<functionName>
 					<nameExpr expr="[A-Za-z_$][\w$]*\s*[=:]|[A-Za-z_$][\w$]*\s*\(" />

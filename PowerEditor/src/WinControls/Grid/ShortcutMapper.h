@@ -17,10 +17,18 @@
 
 #pragma once
 
+#include <windows.h>
+
+#include <cstdint>
+#include <string>
+#include <vector>
+
 #include "BabyGridWrapper.h"
-#include "ShortcutMapper_rc.h"
-#include "shortcut.h"
 #include "ContextMenu.h"
+#include "ShortcutMapper_rc.h"
+#include "StaticDialog.h"
+#include "Window.h"
+#include "shortcut.h"
 
 enum GridState {STATE_MENU, STATE_MACRO, STATE_USER, STATE_PLUGIN, STATE_SCINTILLA};
 
@@ -99,4 +107,6 @@ private:
 				 (lhs._isShift == rhs._isShift) &&
 				 (lhs._key	   == rhs._key	  ) );
 	}
+
+	void setFontColRowMetrics(bool clearFirst = true);
 };

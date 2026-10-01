@@ -419,6 +419,13 @@ void TabBar::setFont()
 	_hVerticalLargeFont = CreateFontIndirect(&lfVer);
 }
 
+HFONT TabBar::setFontFromParent()
+{
+	auto* hFont = reinterpret_cast<HFONT>(::SendMessage(_hParent, WM_GETFONT, 0, 0));
+	::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(hFont), MAKELPARAM(TRUE, 0));
+
+	return hFont;
+}
 
 void TabBarPlus::triggerOwnerDrawTabbar(DPIManagerV2* pDPIManager)
 {

@@ -98,12 +98,14 @@ public:
 	CmdLineArgsDlg() = default;
 
 	void doDialog();
-	void destroy() override {}
+	void destroy() override;
 
 protected:
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
-	HFONT hCmdLineEditFont = nullptr;
+	HFONT _hCmdLineEditFont = nullptr;
+
+	void setFont();
 };
 
 class DoSaveOrNotBox : public StaticDialog

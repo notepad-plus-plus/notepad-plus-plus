@@ -538,6 +538,8 @@ private:
 	ContextMenu _swapPopupMenu;
 	enum SwapButtonStatus {swap, down, up} _swapButtonStatus = swap;
 	HWND _hSwapButton = nullptr;
+
+	void setFont(bool isInit = false);
 };
 
 //FindIncrementDlg: incremental search dialog, docked in rebar

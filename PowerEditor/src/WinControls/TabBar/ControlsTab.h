@@ -46,6 +46,7 @@ public :
 	void init(HINSTANCE hInst, HWND hwnd) override
 	{
 		TabBar::init(hInst, hwnd, false, false);
+		TabBar::setFontFromParent();
 	}
 
 	void createTabs(WindowVector & winVector);

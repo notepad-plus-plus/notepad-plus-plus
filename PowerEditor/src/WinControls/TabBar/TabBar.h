@@ -81,6 +81,7 @@ public:
 	void destroyFonts();
 
 	void setFont();
+	HFONT setFontFromParent();
 
 	HFONT& getFont(bool isReduced = true) {
 		return isReduced ? _hFont : _hLargeFont;

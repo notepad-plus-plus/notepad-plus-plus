@@ -51,7 +51,7 @@ class OptionSet : public OptionSetInterface {
 		Option() :
 			opType(SC_TYPE_BOOLEAN), pb(nullptr) {
 		}
-		Option(plcob pb_, std::string_view description_="") :
+		explicit Option(plcob pb_, std::string_view description_="") :
 			opType(SC_TYPE_BOOLEAN), pb(pb_), description(description_) {
 		}
 		Option(plcoi pi_, std::string_view description_) :
@@ -122,7 +122,7 @@ public:
 	}
 	template <typename E>
 	void DefineProperty(const char *name, E T::*pe, std::string_view description="") {
-		static_assert(std::is_enum<E>::value);
+		static_assert(std::is_enum_v<E>);
 		plcoi pi {};
 		static_assert(sizeof(pe) == sizeof(pi));
 		memcpy(&pi, &pe, sizeof(pe));

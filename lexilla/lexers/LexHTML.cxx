@@ -746,10 +746,9 @@ Sci_Position FindPhpStringDelimiter(std::string &phpStringDelimiter, Sci_Positio
 				isQuoted = false;
 				j++;
 				break;
-			} else {
-				phpStringDelimiter.clear();
-				return beginning;
 			}
+			phpStringDelimiter.clear();
+			return beginning;
 		}
 		phpStringDelimiter.push_back(styler[j]);
 	}
@@ -1083,8 +1082,7 @@ public:
 		osHTML(isPHPScript_),
 		nonFoldingTags(std::begin(tagsThatDoNotFold), std::end(tagsThatDoNotFold)) {
 	}
-	~LexerHTML() override {
-	}
+	~LexerHTML() override = default;
 	void SCI_METHOD Release() override {
 		delete this;
 	}
@@ -1787,7 +1785,7 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 
 		// handle the end of a pre-processor = Non-HTML
 		else if ((!isMako && !isDjango && ((inScriptType == eNonHtmlPreProc) || (inScriptType == eNonHtmlScriptPreProc)) &&
-				  (((scriptLanguage != eScriptNone) && stateAllowsTermination(state))) &&
+				  ((scriptLanguage != eScriptNone) && stateAllowsTermination(state)) &&
 				  ((chNext == '>') && isPreProcessorEndTag(state, ch))) ||
 		         ((scriptLanguage == eScriptSGML) && (ch == '>') && !AnyOf(state, SCE_H_SGML_COMMENT, SCE_H_SGML_DOUBLESTRING, SCE_H_SGML_SIMPLESTRING))) {
 			if (state == SCE_H_ASPAT) {

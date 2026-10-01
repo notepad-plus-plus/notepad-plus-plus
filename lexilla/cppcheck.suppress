@@ -104,6 +104,7 @@ knownConditionTrueFalse:lexilla/lexers/LexFSharp.cxx
 variableScope:lexilla/lexers/LexFSharp.cxx
 constParameterReference:lexilla/lexers/LexGAP.cxx
 constParameterReference:lexilla/lexers/LexGDScript.cxx
+knownConditionTrueFalse:lexilla/lexers/LexGDScript.cxx
 variableScope:lexilla/lexers/LexGui4Cli.cxx
 constParameterReference:lexilla/lexers/LexHaskell.cxx
 constParameterReference:lexilla/lexers/LexHex.cxx
@@ -148,13 +149,13 @@ constParameterReference:lexilla/lexers/LexPascal.cxx
 variableScope:lexilla/lexers/LexPB.cxx
 constParameterReference:lexilla/lexers/LexPerl.cxx
 constVariableReference:lexilla/lexers/LexPerl.cxx
-knownConditionTrueFalse:lexilla/lexers/LexPerl.cxx
 functionStatic:lexilla/lexers/LexPerl.cxx
 constParameterReference:lexilla/lexers/LexPLM.cxx
 constParameterReference:lexilla/lexers/LexPO.cxx
 variableScope:lexilla/lexers/LexPO.cxx
 constVariablePointer:lexilla/lexers/LexPOV.cxx
 constParameterReference:lexilla/lexers/LexPython.cxx
+knownConditionTrueFalse:lexilla/lexers/LexPython.cxx
 shadowVariable:lexilla/lexers/LexPowerPro.cxx
 knownConditionTrueFalse:lexilla/lexers/LexPowerPro.cxx
 variableScope:lexilla/lexers/LexProgress.cxx

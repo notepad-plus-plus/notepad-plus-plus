@@ -892,6 +892,7 @@ struct NppGUI final
 	bool _isFawSymlinkAllowed = false; // allow to open symlink files in FaW (Folder as Workspace) panel.
 
 	WORD _fontDlgSize = 8;
+	std::wstring _fontDlgName;
 };
 
 
@@ -1425,8 +1426,12 @@ public:
 		return _nppGUI;
 	}
 
-	WORD getDlgFontSize() const noexcept {
+	[[nodiscard]] WORD getDlgFontSize() const noexcept {
 		return std::clamp<WORD>(_nppGUI._fontDlgSize, 8U, 24U);
+	}
+
+	[[nodiscard]] const std::wstring& getDlgFontName() const noexcept {
+		return _nppGUI._fontDlgName;
 	}
 
 	const char* getWordList(LangType langID, int typeIndex) const {

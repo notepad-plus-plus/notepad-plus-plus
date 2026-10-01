@@ -14,9 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 #pragma once
 
+#include <windows.h>
+
+#include "Common.h"
+#include "Parameters.h"
 #include "StaticDialog.h"
+#include "md5Dlgs_rc.h"
 
 enum hashType {hash_md5 = 16, hash_sha1 = 20, hash_sha256 = 32, hash_sha512 = 64};
 
@@ -38,6 +44,8 @@ protected :
 
 private :
 	HFONT _hFont = nullptr;
+
+	void setFont();
 };
 
 class HashFromTextDlg : public StaticDialog
@@ -57,4 +65,6 @@ protected :
 
 private :
 	HFONT _hFont = nullptr;
+
+	void setFont();
 };

@@ -153,7 +153,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent, WORD 
 
 	RECT rect{};
 	getClientRect(rect);
-	_tab.init(_hInst, _hSelf, false, true);
+	_tab.init(_hInst, _hSelf, false, false);
 
 	const wchar_t *available = L"Available";
 	const wchar_t *updates = L"Updates";
@@ -198,7 +198,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent, WORD 
 	const size_t szColVer = _dpiManager.scale(100);
 	const size_t szColName = szColVer * 2;
 
-	auto hFont = reinterpret_cast<HFONT>(::SendMessage(_hSelf, WM_GETFONT, 0, 0));
+	const auto* hFont = _tab.setFontFromParent();
 	auto initListView = [&](PluginViewList& list) -> void {
 		list.addColumn(columnInfo(pluginStr, szColName));
 		list.addColumn(columnInfo(vesionStr, szColVer));

@@ -52,16 +52,10 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
-			_hFont = createFont(L"Courier New", NppParameters::getInstance().getDlgFontSize() + 1, false, _hSelf);
+			setFont();
 
-			const HWND hHashPathEdit = ::GetDlgItem(_hSelf, IDC_HASH_PATH_EDIT);
-			const HWND hHashResult = ::GetDlgItem(_hSelf, IDC_HASH_RESULT_EDIT);
-
-			::SendMessage(hHashPathEdit, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), TRUE);
-			::SendMessage(hHashResult, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), TRUE);
-
-			::SetWindowSubclass(hHashPathEdit, TextEditSelectAllProc, static_cast<UINT_PTR>(SubclassID::first), 0);
-			::SetWindowSubclass(hHashResult, TextEditSelectAllProc, static_cast<UINT_PTR>(SubclassID::first), 0);
+			::SetWindowSubclass(::GetDlgItem(_hSelf, IDC_HASH_PATH_EDIT), TextEditSelectAllProc, static_cast<UINT_PTR>(SubclassID::first), 0);
+			::SetWindowSubclass(::GetDlgItem(_hSelf, IDC_HASH_RESULT_EDIT), TextEditSelectAllProc, static_cast<UINT_PTR>(SubclassID::first), 0);
 		}
 		return TRUE;
 
@@ -100,11 +94,7 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 		{
 			_dpiManager.setDpiWP(wParam);
 
-			destroy();
-			_hFont = createFont(L"Courier New", NppParameters::getInstance().getDlgFontSize() + 1, false, _hSelf);
-
-			::SendDlgItemMessageW(_hSelf, IDC_HASH_PATH_EDIT, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), TRUE);
-			::SendDlgItemMessageW(_hSelf, IDC_HASH_RESULT_EDIT, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), TRUE);
+			setFont();
 
 			setPositionDpi(lParam);
 
@@ -345,6 +335,15 @@ void HashFromFilesDlg::destroy()
 	}
 }
 
+void HashFromFilesDlg::setFont()
+{
+	destroy();
+	_hFont = createFont(L"Courier New", NppParameters::getInstance().getDlgFontSize() + 1, false, _hSelf);
+
+	::SendMessage(::GetDlgItem(_hSelf, IDC_HASH_PATH_EDIT), WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), MAKELPARAM(TRUE, 0));
+	::SendMessage(::GetDlgItem(_hSelf, IDC_HASH_RESULT_EDIT), WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), MAKELPARAM(TRUE, 0));
+}
+
 void HashFromTextDlg::generateHash()
 {
 	if (_ht != hash_md5 && _ht != hash_sha1 && _ht != hash_sha256 && _ht != hash_sha512)
@@ -508,16 +507,10 @@ intptr_t CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
-			_hFont = createFont(L"Courier New", NppParameters::getInstance().getDlgFontSize() + 1, false, _hSelf);
+			setFont();
 
-			const HWND hHashTextEdit = ::GetDlgItem(_hSelf, IDC_HASH_TEXT_EDIT);
-			const HWND hHashResult = ::GetDlgItem(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT);
-
-			::SendMessage(hHashTextEdit, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), TRUE);
-			::SendMessage(hHashResult, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), TRUE);
-
-			::SetWindowSubclass(hHashTextEdit, TextEditSelectAllProc, static_cast<UINT_PTR>(SubclassID::first), 0);
-			::SetWindowSubclass(hHashResult, TextEditSelectAllProc, static_cast<UINT_PTR>(SubclassID::first), 0);
+			::SetWindowSubclass(::GetDlgItem(_hSelf, IDC_HASH_TEXT_EDIT), TextEditSelectAllProc, static_cast<UINT_PTR>(SubclassID::first), 0);
+			::SetWindowSubclass(::GetDlgItem(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT), TextEditSelectAllProc, static_cast<UINT_PTR>(SubclassID::first), 0);
 		}
 		return TRUE;
 
@@ -561,11 +554,7 @@ intptr_t CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		{
 			_dpiManager.setDpiWP(wParam);
 
-			destroy();
-			_hFont = createFont(L"Courier New", NppParameters::getInstance().getDlgFontSize() + 1, false, _hSelf);
-
-			::SendDlgItemMessageW(_hSelf, IDC_HASH_TEXT_EDIT, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), TRUE);
-			::SendDlgItemMessageW(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), TRUE);
+			setFont();
 
 			setPositionDpi(lParam);
 
@@ -696,4 +685,13 @@ void HashFromTextDlg::destroy()
 		::DeleteObject(_hFont);
 		_hFont = nullptr;
 	}
+}
+
+void HashFromTextDlg::setFont()
+{
+	destroy();
+	_hFont = createFont(L"Courier New", NppParameters::getInstance().getDlgFontSize() + 1, false, _hSelf);
+
+	::SendMessage(::GetDlgItem(_hSelf, IDC_HASH_TEXT_EDIT), WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), MAKELPARAM(TRUE, 0));
+	::SendMessage(::GetDlgItem(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT), WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), MAKELPARAM(TRUE, 0));
 }

@@ -747,14 +747,30 @@ void CmdLineArgsDlg::doDialog()
 
 	::SetDlgItemText(_hSelf, IDC_COMMANDLINEARGS_EDIT, COMMAND_ARG_HELP);
 
-	// Use the system font height but change to monospace
-	hCmdLineEditFont = createFont(L"Lucida Console", 0, false, nullptr);
-
-	if (hCmdLineEditFont)
-		SendDlgItemMessage(_hSelf, IDC_COMMANDLINEARGS_EDIT, WM_SETFONT, reinterpret_cast<WPARAM>(hCmdLineEditFont), TRUE);
+	setFont();
 
 	moveForDpiChange();
 	goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
+}
+
+void CmdLineArgsDlg::destroy()
+{
+	if (_hCmdLineEditFont != nullptr)
+	{
+		::DeleteObject(_hCmdLineEditFont);
+		_hCmdLineEditFont = nullptr;
+	}
+}
+
+void CmdLineArgsDlg::setFont()
+{
+	destroy();
+	_hCmdLineEditFont = createFont(L"Lucida Console", 0, false, nullptr);
+
+	if (_hCmdLineEditFont != nullptr)
+	{
+		::SendMessage(::GetDlgItem(_hSelf, IDC_COMMANDLINEARGS_EDIT), WM_SETFONT, reinterpret_cast<WPARAM>(_hCmdLineEditFont), MAKELPARAM(TRUE, 0));
+	}
 }
 
 intptr_t CALLBACK CmdLineArgsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
@@ -791,6 +807,7 @@ intptr_t CALLBACK CmdLineArgsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		case WM_DPICHANGED:
 		{
 			_dpiManager.setDpiWP(wParam);
+			setFont();
 			setPositionDpi(lParam);
 			getWindowRect(_rc);
 
@@ -814,11 +831,7 @@ intptr_t CALLBACK CmdLineArgsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_DESTROY:
 		{
-			if (hCmdLineEditFont)
-			{
-				DeleteObject(hCmdLineEditFont);
-				hCmdLineEditFont = nullptr;
-			}
+			destroy();
 			return TRUE;
 		}
 	}

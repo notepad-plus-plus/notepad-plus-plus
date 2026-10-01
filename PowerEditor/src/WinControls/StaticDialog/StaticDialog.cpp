@@ -294,9 +294,123 @@ RECT StaticDialog::getViewablePositionRect(RECT testPositionRc) const
 	return reinterpret_cast<std::byte*>(ptrElement);
 }
 
-[[nodiscard]] static int setFontResource(std::vector<std::byte>& dlgTemplateData, WORD fontSize)
+[[nodiscard]] static constexpr size_t alignToDWORD(size_t offset) noexcept
 {
-	enum result { failed = -1, noFont, success };
+	return (offset + 3U) & ~static_cast<size_t>(3U);
+}
+
+[[nodiscard]] static std::wstring getDefaultGUIFontFaceName()
+{
+	NONCLIENTMETRICS ncm{};
+	ncm.cbSize = sizeof(NONCLIENTMETRICS);
+	if (::SystemParametersInfoW(SPI_GETNONCLIENTMETRICS, sizeof(NONCLIENTMETRICS), &ncm, 0) == TRUE)
+	{
+		return ncm.lfMessageFont.lfFaceName;
+	}
+	return L"MS Shell Dlg";
+}
+
+static int CALLBACK EnumFontProc(
+	[[maybe_unused]] const LOGFONTW* /*lpelfe*/,
+	[[maybe_unused]] const TEXTMETRICW* /*lpntme*/,
+	[[maybe_unused]] DWORD /*FontType*/,
+	LPARAM lParam
+)
+{
+	*reinterpret_cast<bool*>(lParam) = true;
+	return 0;
+}
+
+[[nodiscard]] static bool isFontValid(const std::wstring& faceName)
+{
+	if (faceName.empty() || faceName.length() >= LF_FACESIZE)
+	{
+		return false;
+	}
+
+	if (::_wcsicmp(faceName.c_str(), L"MS Shell Dlg") == 0
+		|| ::_wcsicmp(faceName.c_str(), L"MS Shell Dlg 2") == 0)
+	{
+		return true;
+	}
+
+	LOGFONTW lf{};
+	lf.lfCharSet = DEFAULT_CHARSET;
+	::wcscpy_s(lf.lfFaceName, faceName.c_str());
+
+	HDC hdc = ::GetDC(nullptr);
+
+	bool found = false;
+	::EnumFontFamiliesExW(hdc, &lf, EnumFontProc, reinterpret_cast<LPARAM>(&found), 0);
+
+	::ReleaseDC(nullptr, hdc);
+
+	return found;
+}
+
+[[nodiscard]] static bool replaceDlgFontFace(
+	std::vector<std::byte>& dlgTemplateData,
+	std::byte* pTypefaceData,
+	const std::wstring& newTypeface
+)
+{
+	static const std::wstring newFontFace = isFontValid(newTypeface) ? newTypeface : getDefaultGUIFontFaceName();
+
+	auto* pData = dlgTemplateData.data();
+	const auto* typeface = reinterpret_cast<WCHAR*>(pTypefaceData);
+
+	// Everything before typeface
+	const size_t offset = pTypefaceData - pData;
+
+	const size_t oldLen = (std::wcslen(typeface) + 1) * sizeof(WCHAR);
+	const size_t newLen = (newFontFace.length() + 1) * sizeof(WCHAR);
+
+	const size_t oldOffset = alignToDWORD(offset + oldLen);
+	const size_t newOffset = alignToDWORD(offset + newLen);
+
+	if (oldOffset > dlgTemplateData.size())
+	{
+		return false;
+	}
+
+	const size_t oldSize = dlgTemplateData.size();
+	const size_t tmpltDataSize = oldSize - oldOffset;
+	const size_t newSize = tmpltDataSize + newOffset;
+
+	if (newSize > oldSize)
+	{
+		dlgTemplateData.resize(newSize);
+	}
+
+	// Move dialog item data if needed
+	if (oldOffset != newOffset && tmpltDataSize != 0)
+	{
+		std::memmove(pData + newOffset, pData + oldOffset, tmpltDataSize);
+	}
+
+	std::memcpy(pData + offset, newFontFace.c_str(), newLen);
+
+	// Clear DWORD boundary padding between typeface and first dialog item.
+	if (const size_t padding = newOffset - (offset + newLen);
+		padding != 0)
+	{
+		std::memset(pData + offset + newLen, 0, padding);
+	}
+
+	if (newSize < oldSize)
+	{
+		dlgTemplateData.resize(newSize);
+	}
+	return true;
+}
+
+[[nodiscard]] static int setFontResource(
+	std::vector<std::byte>& dlgTemplateData,
+	WORD fontSize,
+	const std::wstring& newTypeface
+)
+{
+	enum result { faceFailed = -2, failed, noFont, success };
 
 	auto* pMyDlgTemplateEx = reinterpret_cast<DLGTEMPLATEEX*>(dlgTemplateData.data());
 	if (!pMyDlgTemplateEx || pMyDlgTemplateEx->signature != 0xFFFF || pMyDlgTemplateEx->dlgVer != 1)
@@ -320,6 +434,30 @@ RECT StaticDialog::getViewablePositionRect(RECT testPositionRc) const
 	{
 		*pointSize = static_cast<WORD>(DPIManagerV2::scaleFontForFactor(fontSize));
 	}
+	pData += sizeof(WORD);
+
+	// WORD weight;
+	//auto* weight = reinterpret_cast<WORD*>(pData);
+	//*weight = FW_NORMAL;
+	pData += sizeof(WORD);
+
+	// BYTE italic;
+	//auto* italic = reinterpret_cast<BYTE*>(pData);
+	//*italic = FALSE;
+	pData += sizeof(BYTE);
+
+	// BYTE charset;
+	//auto* charset = reinterpret_cast<BYTE*>(pData);
+	//*charset = DEFAULT_CHARSET;
+	pData += sizeof(BYTE);
+
+	// WCHAR typeface[stringLen];
+	//auto* typeface = reinterpret_cast<WCHAR*>(pData);
+
+	if (!replaceDlgFontFace(dlgTemplateData, pData, newTypeface))
+	{
+		return faceFailed;
+	}
 
 	return success;
 }
@@ -329,7 +467,9 @@ RECT StaticDialog::getViewablePositionRect(RECT testPositionRc) const
 	int dialogID,
 	std::vector<std::byte>& dlgTemplateData,
 	bool isRTL,
-	WORD fontSize)
+	WORD fontSize,
+	const std::wstring& newTypeface
+)
 {
 	if (!dupDlgTemplate(hInst, dialogID, dlgTemplateData))
 		return false;
@@ -337,7 +477,7 @@ RECT StaticDialog::getViewablePositionRect(RECT testPositionRc) const
 	if (isRTL && !setRTLResource(dlgTemplateData))
 		return false;
 
-	if (fontSize != 0 && setFontResource(dlgTemplateData, fontSize) < 0)
+	if (fontSize != 0 && setFontResource(dlgTemplateData, fontSize, newTypeface) < 0)
 		return false;
 
 	return true;
@@ -353,7 +493,9 @@ HWND StaticDialog::myCreateDialogIndirectParam(int dialogID, bool isRTL, WORD fo
 		dlgFontSize = NppParameters::getInstance().getDlgFontSize();
 	}
 
-	if (!modifyResource(_hInst, dialogID, dlgTemplateData, isRTL, dlgFontSize))
+	const std::wstring dlgFontName = NppParameters::getInstance().getDlgFontName();
+
+	if (!modifyResource(_hInst, dialogID, dlgTemplateData, isRTL, dlgFontSize, dlgFontName))
 		return ::CreateDialogParam(_hInst, MAKEINTRESOURCE(dialogID), _hParent, myDlgProc, reinterpret_cast<LPARAM>(this));
 
 	return ::CreateDialogIndirectParam(_hInst, reinterpret_cast<DLGTEMPLATE*>(dlgTemplateData.data()), _hParent, myDlgProc, reinterpret_cast<LPARAM>(this));
@@ -369,7 +511,9 @@ INT_PTR StaticDialog::myCreateDialogBoxIndirectParam(int dialogID, bool isRTL, W
 		dlgFontSize = NppParameters::getInstance().getDlgFontSize();
 	}
 
-	if (!modifyResource(_hInst, dialogID, dlgTemplateData, isRTL, dlgFontSize))
+	const std::wstring dlgFontName = NppParameters::getInstance().getDlgFontName();
+
+	if (!modifyResource(_hInst, dialogID, dlgTemplateData, isRTL, dlgFontSize, dlgFontName))
 		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(dialogID), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
 
 	return ::DialogBoxIndirectParam(_hInst, reinterpret_cast<DLGTEMPLATE*>(dlgTemplateData.data()), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));

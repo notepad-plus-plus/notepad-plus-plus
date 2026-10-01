@@ -45,6 +45,7 @@
 #include "NppXml.h"
 #include "Parameters.h"
 #include "ScintillaEditView.h"
+#include "StaticDialog.h"
 #include "ToolBar.h"
 #include "dpiManagerV2.h"
 #include "localization.h"
@@ -813,7 +814,14 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				::SendMessage(hFontSizeCombo, CB_SETCURSEL, cbFontSzIdx, 0);
 			}
 
+			::SetWindowTextW(::GetDlgItem(_hSelf, IDC_EDIT_DIALOG_FONT_NAME), StaticDialog::getDlgTypeface().c_str());
+
 			return TRUE;
+		}
+
+		case WM_CTLCOLOREDIT:
+		{
+			return NppDarkMode::onCtlColorCtrl(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORLISTBOX:

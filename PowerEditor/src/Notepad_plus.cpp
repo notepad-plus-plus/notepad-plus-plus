@@ -3699,21 +3699,6 @@ intptr_t Notepad_plus::findMachedBracePos(size_t startPos, size_t endPos, char t
 	return -1;
 }
 
-// Check if the just typed character (right before the caret) is preceded only by spaces or tabs on its line
-bool Notepad_plus::isOnlyWhiteSpaceBeforeTypedChar(intptr_t lineNumber)
-{
-	auto startPos = _pEditView->execute(SCI_POSITIONFROMLINE, lineNumber);
-	auto endPos = _pEditView->execute(SCI_GETCURRENTPOS);
-
-	for (auto i = endPos - 2; i >= startPos; --i)
-	{
-		UCHAR aChar = static_cast<UCHAR>(_pEditView->execute(SCI_GETCHARAT, i));
-		if (aChar != ' ' && aChar != '\t')
-			return false;
-	}
-	return true;
-}
-
 void Notepad_plus::maintainIndentation(wchar_t ch)
 {
 	const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
@@ -3836,8 +3821,15 @@ void Notepad_plus::maintainIndentation(wchar_t ch)
 		else if (ch == '{')
 		{
 			// if no character in front of {, aligned with prev line's indentation
-			if (!isOnlyWhiteSpaceBeforeTypedChar(curLine))
-				return;
+			auto startPos = _pEditView->execute(SCI_POSITIONFROMLINE, curLine);
+			LRESULT endPos = _pEditView->execute(SCI_GETCURRENTPOS);
+
+			for (LRESULT i = endPos - 2; i > 0 && i >= startPos; --i)
+			{
+				UCHAR aChar = (UCHAR)_pEditView->execute(SCI_GETCHARAT, i);
+				if (aChar != ' ' && aChar != '\t')
+					return;
+			}
 
 			// Search the non-empty previous line
 			while (prevLine >= 0 && _pEditView->getLineLength(prevLine) == 0)
@@ -3869,8 +3861,15 @@ void Notepad_plus::maintainIndentation(wchar_t ch)
 		}
 		else if (ch == '}')
 		{
-			if (!isOnlyWhiteSpaceBeforeTypedChar(curLine))
-				return;
+			auto lineStartPos = _pEditView->execute(SCI_POSITIONFROMLINE, curLine);
+			auto curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+
+			for (auto i = curPos - 2; i >= lineStartPos; --i)
+			{
+				UCHAR aChar = static_cast<UCHAR>(_pEditView->execute(SCI_GETCHARAT, i));
+				if (aChar != ' ' && aChar != '\t')
+					return;
+			}
 
 			// Look backward for the pair {
 			intptr_t startPos = _pEditView->execute(SCI_GETCURRENTPOS);

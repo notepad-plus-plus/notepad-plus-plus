@@ -46,7 +46,7 @@ public:
 		TabBar::setImageList(_pIconListVector[_iconListIndexChoice]->getHandle());
 	}
 
-	void addBuffer(BufferID buffer);
+	void addBuffer(BufferID buffer, bool lazy = false);
 	void closeBuffer(BufferID buffer);
 	void bufferUpdated(const Buffer* buffer, int mask);
 
@@ -55,10 +55,11 @@ public:
 	BufferID activeBuffer();
 	BufferID findBufferByName(const wchar_t * fullfilename);	//-1 if not found, something else otherwise
 
+	std::vector<BufferID> getBuffersByIndex();
 	int getIndexByBuffer(BufferID id);
 	BufferID getBufferByIndex(size_t index);
 
-	void setBuffer(size_t index, BufferID id);
+	void setBuffer(size_t index, BufferID id, bool lazy = false);
 
 	void reSizeTo(RECT & rc) override;
 
@@ -89,7 +90,6 @@ public:
 			index = 0;
 		return _pIconListVector[index]->getHandle();
 	}
-
 private :
 	ScintillaEditView *_pView = nullptr;
 

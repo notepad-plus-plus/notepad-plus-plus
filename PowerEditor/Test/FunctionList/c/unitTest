@@ -136,3 +136,35 @@ int main()
     test();
     return 0;
 }
+
+/* Regression test: control-flow statements whose condition is a bare call,
+ * e.g. "switch(WaitForSingleObject()) {", must not be mistaken for a
+ * parenthesized function declarator (issue #10162). Covers no space, one
+ * space and several spaces between the keyword and "(". */
+int controlFlowNotAFunction(int state)
+{
+    switch(WaitForSingleObject())
+    {
+        case 0:
+            break;
+        default:
+            break;
+    }
+
+    if (checkState())
+    {
+        state = 1;
+    }
+
+    while(pollState())
+    {
+        state = 2;
+    }
+
+    for   (resetState())
+    {
+        state = 3;
+    }
+
+    return state;
+}

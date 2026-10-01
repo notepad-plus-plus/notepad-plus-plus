@@ -81,7 +81,8 @@
 								)
 							|	\s*\(
 								(?&amp;DECLARATOR)
-								\)
+								(?&lt;!\))\)                                  # a real wrapped declarator never ends on its own
+								                                            # closing paren; rejects e.g. switch(fn()) { (issue #10162)
 							|	\s*(?&amp;VALID_ID)
 								\s*\[
 								[^[\];{]*?

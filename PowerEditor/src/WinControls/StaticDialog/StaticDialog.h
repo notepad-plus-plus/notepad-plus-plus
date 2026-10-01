@@ -19,6 +19,8 @@
 
 #include <windows.h>
 
+#include <string>
+
 #include "Window.h"
 #include "dpiManagerV2.h"
 
@@ -95,6 +97,8 @@ public :
 	void destroy() override;
 
 	DPIManagerV2& dpiManager() { return _dpiManager; }
+
+	[[nodiscard]] std::wstring getDlgTypeface();
 
 protected:
 	RECT _rc{};

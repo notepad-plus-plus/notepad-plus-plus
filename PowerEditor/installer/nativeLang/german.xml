@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.8"><!-- Datum: 18.09.2026, basiert auf english.xml 8.9.8 vom 16.09.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.8"><!-- Datum: 02.10.2026, basiert auf english.xml 8.9.8 vom 01.10.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -984,6 +984,7 @@ Translation note:
 					<Item id="6132" name="Schaltflächen '＋ ▼ ✕' ausblenden"/>
 					<Item id="6133" name="Statusleiste"/>
 					<Item id="6134" name="Ausblenden"/>
+					<Item id="7165" name="Schriftgröße im Dialogfeld (Neustart von Notepad++ erforderlich)"/>
 				</Global>
 
 				<Toolbar title="Symbolleiste">

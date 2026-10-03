@@ -246,7 +246,11 @@ intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 void AboutDlg::doDialog()
 {
 	if (!isCreated())
+	{
+		const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 		create(IDD_ABOUTBOX);
+		DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
+	}
 
 	// Adjust the position of AboutBox
 	moveForDpiChange();
@@ -475,13 +479,13 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			HKEY hKey = nullptr;
 			DWORD dataSize = 0;
 
-			constexpr size_t bufSize = 96;
+			static constexpr size_t bufSize = 96;
 			wchar_t szProductName[bufSize] = {'\0'};
-			constexpr size_t bufSizeBuildNumber = 32;
+			static constexpr size_t bufSizeBuildNumber = 32;
 			wchar_t szCurrentBuildNumber[bufSizeBuildNumber] = {'\0'};
 			wchar_t szReleaseId[32] = {'\0'};
 			DWORD dwUBR = 0;
-			constexpr size_t bufSizeUBR = 12;
+			static constexpr size_t bufSizeUBR = 12;
 			wchar_t szUBR[bufSizeUBR] = L"0";
 
 			// NOTE: RegQueryValueExW is not guaranteed to return null-terminated strings
@@ -520,7 +524,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			else if (NppDarkMode::isWindows11())
 			{
 				wstring tmpProductName = szProductName;
-				constexpr size_t strLen = 10U;
+				static constexpr size_t strLen = 10U;
 				const wchar_t strWin10[strLen + 1U] = L"Windows 10";
 				const size_t pos = tmpProductName.find(strWin10);
 				if (pos < (bufSize - strLen - 1U))
@@ -563,7 +567,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			}
 
 			{
-				constexpr size_t bufSizeACP = 32;
+				static constexpr size_t bufSizeACP = 32;
 				wchar_t szACP[bufSizeACP] = { '\0' };
 				swprintf(szACP, bufSizeACP, L"%u", nppParam.currentSystemCodepage());
 				_debugInfoStr += L"Current ANSI codepage: ";
@@ -581,7 +585,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 			if (pWGV != nullptr)
 			{
-				constexpr size_t bufSizeWineVer = 32;
+				static constexpr size_t bufSizeWineVer = 32;
 				wchar_t szWINEVersion[bufSizeWineVer] = { '\0' };
 				swprintf(szWINEVersion, bufSizeWineVer, L"%hs", pWGV());
 
@@ -667,7 +671,11 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 void DebugInfoDlg::doDialog()
 {
 	if (!isCreated())
+	{
+		const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 		create(IDD_DEBUGINFOBOX);
+		DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
+	}
 
 	// Refresh the Debug Information.
 	// For example, the command line parameters may have changed since this dialog was last opened during this session.
@@ -695,7 +703,7 @@ void DebugInfoDlg::refreshDebugInfo()
 }
 
 
-const wchar_t COMMAND_ARG_HELP[] = L"Usage:\r\n\
+static constexpr const wchar_t COMMAND_ARG_HELP[] = L"Usage:\r\n\
 \r\n\
 notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-udl=\"My UDL Name\"]\r\n\
 [-LlangCode] [-nLineNumber] [-cColumnNumber] [-pPosition] [-xLeftPos] [-yTopPos]\r\n\
@@ -743,18 +751,45 @@ filePath: file or folder name to open (absolute or relative path name)\r\n\
 void CmdLineArgsDlg::doDialog()
 {
 	if (!isCreated())
+	{
+		const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 		create(IDD_COMMANDLINEARGSBOX);
+		DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
+	}
 
 	::SetDlgItemText(_hSelf, IDC_COMMANDLINEARGS_EDIT, COMMAND_ARG_HELP);
 
-	// Use the system font height but change to monospace
-	hCmdLineEditFont = createFont(L"Lucida Console", 0, false, nullptr);
+	setFont();
 
-	if (hCmdLineEditFont)
-		SendDlgItemMessage(_hSelf, IDC_COMMANDLINEARGS_EDIT, WM_SETFONT, reinterpret_cast<WPARAM>(hCmdLineEditFont), TRUE);
+	// Hide the vertical scrollbar of the edit control if it is disabled
+	HWND hEdit = ::GetDlgItem(_hSelf, IDC_COMMANDLINEARGS_EDIT);
+	SCROLLBARINFO sbi{};
+	sbi.cbSize = sizeof(sbi);
+	if (::GetScrollBarInfo(hEdit, OBJID_VSCROLL, &sbi) && (sbi.rgstate[0] & STATE_SYSTEM_UNAVAILABLE))
+		::ShowScrollBar(hEdit, SB_VERT, FALSE);
 
 	moveForDpiChange();
 	goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
+}
+
+void CmdLineArgsDlg::destroyFont() noexcept
+{
+	if (_hCmdLineEditFont != nullptr)
+	{
+		::DeleteObject(_hCmdLineEditFont);
+		_hCmdLineEditFont = nullptr;
+	}
+}
+
+void CmdLineArgsDlg::setFont()
+{
+	destroyFont();
+	_hCmdLineEditFont = createFont(L"Lucida Console", NppParameters::getInstance().getDlgFontSize() + 1, false, _hSelf);
+
+	if (_hCmdLineEditFont != nullptr)
+	{
+		::SendMessage(::GetDlgItem(_hSelf, IDC_COMMANDLINEARGS_EDIT), WM_SETFONT, reinterpret_cast<WPARAM>(_hCmdLineEditFont), MAKELPARAM(TRUE, 0));
+	}
 }
 
 intptr_t CALLBACK CmdLineArgsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
@@ -791,6 +826,7 @@ intptr_t CALLBACK CmdLineArgsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		case WM_DPICHANGED:
 		{
 			_dpiManager.setDpiWP(wParam);
+			setFont();
 			setPositionDpi(lParam);
 			getWindowRect(_rc);
 
@@ -814,11 +850,7 @@ intptr_t CALLBACK CmdLineArgsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_DESTROY:
 		{
-			if (hCmdLineEditFont)
-			{
-				DeleteObject(hCmdLineEditFont);
-				hCmdLineEditFont = nullptr;
-			}
+			destroyFont();
 			return TRUE;
 		}
 	}
@@ -827,7 +859,9 @@ intptr_t CALLBACK CmdLineArgsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 void DoSaveOrNotBox::doDialog(bool isRTL)
 {
+	const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 	StaticDialog::myCreateDialogBoxIndirectParam(IDD_DOSAVEORNOTBOX, isRTL);
+	DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
 }
 
 void DoSaveOrNotBox::changeLang()
@@ -838,7 +872,7 @@ void DoSaveOrNotBox::changeLang()
 
 	if (nativeLangSpeaker && nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveOrNot"))
 	{
-		constexpr unsigned char len = 255;
+		static constexpr unsigned char len = 255;
 		wchar_t text[len]{};
 		::GetDlgItemText(_hSelf, IDC_DOSAVEORNOTTEXT, text, len);
 		msg = text;
@@ -939,7 +973,9 @@ intptr_t CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 void DoSaveAllBox::doDialog(bool isRTL)
 {
+	const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 	StaticDialog::myCreateDialogBoxIndirectParam(IDD_DOSAVEALLBOX, isRTL);
+	DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
 }
 
 void DoSaveAllBox::changeLang()
@@ -950,7 +986,7 @@ void DoSaveAllBox::changeLang()
 
 	if (nativeLangSpeaker && nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveAll"))
 	{
-		constexpr size_t len = 1024;
+		static constexpr size_t len = 1024;
 		wchar_t text[len]{};
 		::GetDlgItemText(_hSelf, IDC_DOSAVEALLTEXT, text, len);
 		msg = text;
@@ -1041,7 +1077,9 @@ intptr_t CALLBACK DoSaveAllBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 void NetworkPathWarningBox::doDialog(bool isRTL)
 {
+	const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 	StaticDialog::myCreateDialogBoxIndirectParam(IDD_NETWORKPATHWARNINGBOX, isRTL);
+	DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
 }
 
 void NetworkPathWarningBox::changeLang()
@@ -1081,7 +1119,7 @@ void NetworkPathWarningBox::changeLang()
 
 		if (isLangChanged)
 		{
-			constexpr size_t len = 1024;
+			static constexpr size_t len = 1024;
 			wchar_t text[len]{};
 			::GetDlgItemText(_hSelf, IDC_NETWORKPATHWARNINGTEXT, text, len);
 			msg = text;

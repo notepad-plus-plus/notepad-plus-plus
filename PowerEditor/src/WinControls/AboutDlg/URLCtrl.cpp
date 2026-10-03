@@ -173,9 +173,20 @@ LRESULT CALLBACK URLCtrl::URLCtrlProc(
 			// Create an underline font
 			if (pRefData->_hfUnderlined == nullptr)
 			{
-				// Get the default GUI font
-				auto lf = DPIManagerV2::getDefaultGUIFontForDpi(::GetParent(hwnd), NppParameters::getInstance().getDlgFontSize());
-				lf.lfHeight = DPIManagerV2::scaleFontForFactor(lf.lfHeight);
+				HWND hParent = ::GetParent(hwnd);
+				const int fontSize = DPIManagerV2::scaleFontForFactor(NppParameters::getInstance().getDlgFontSize() + 1);
+
+				LOGFONT lf{};
+				if (auto* hFont = reinterpret_cast<HFONT>(::SendMessage(hParent, WM_GETFONT, 0, 0));
+					hFont != nullptr && ::GetObjectW(hFont, sizeof(LOGFONT), &lf) != sizeof(LOGFONT))
+				{
+					lf = DPIManagerV2::getDefaultGUIFontForDpi(hParent, static_cast<WORD>(fontSize));
+				}
+				else
+				{
+					lf.lfHeight = DPIManagerV2::scaleFont(fontSize, hParent);
+				}
+
 				lf.lfUnderline = TRUE;
 
 				// Create a new font

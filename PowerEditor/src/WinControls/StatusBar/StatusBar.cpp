@@ -32,6 +32,7 @@
 #include "DoubleBuffer/DoubleBuffer.h"
 #include "NppConstants.h"
 #include "NppDarkMode.h"
+#include "Parameters.h"
 #include "Window.h"
 #include "dpiManagerV2.h"
 
@@ -42,61 +43,20 @@ static constexpr int defaultPartWidth = 5;
 StatusBar::~StatusBar()
 {
 	_lpParts.reset();
+	closeTheme();
+	destroyFont();
 }
 
-struct StatusBarSubclassInfo
+LRESULT CALLBACK StatusBar::StatusBarSubclass(
+	HWND hWnd,
+	UINT uMsg,
+	WPARAM wParam,
+	LPARAM lParam,
+	UINT_PTR uIdSubclass,
+	DWORD_PTR dwRefData
+)
 {
-	HTHEME hTheme = nullptr;
-	HFONT _hFont = nullptr;
-
-	StatusBarSubclassInfo() = default;
-	explicit StatusBarSubclassInfo(const HFONT& hFont) noexcept
-		: _hFont(hFont) {}
-
-	~StatusBarSubclassInfo()
-	{
-		closeTheme();
-		destroyFont();
-	}
-
-	bool ensureTheme(HWND hwnd)
-	{
-		if (!hTheme)
-		{
-			hTheme = ::OpenThemeData(hwnd, VSCLASS_STATUS);
-		}
-		return hTheme != nullptr;
-	}
-
-	void closeTheme()
-	{
-		if (hTheme)
-		{
-			CloseThemeData(hTheme);
-			hTheme = nullptr;
-		}
-	}
-
-	void setFont(const HFONT& hFont)
-	{
-		destroyFont();
-		_hFont = hFont;
-	}
-
-	void destroyFont()
-	{
-		if (_hFont != nullptr)
-		{
-			::DeleteObject(_hFont);
-			_hFont = nullptr;
-		}
-	}
-};
-
-
-static LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
-{
-	StatusBarSubclassInfo* pStatusBarInfo = reinterpret_cast<StatusBarSubclassInfo*>(dwRefData);
+	auto pStatusBar = reinterpret_cast<StatusBar*>(dwRefData);
 
 	switch (uMsg)
 	{
@@ -137,7 +97,7 @@ static LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, L
 
 			auto holdPen = static_cast<HPEN>(::SelectObject(hdc, NppDarkMode::getEdgePen()));
 
-			auto holdFont = static_cast<HFONT>(::SelectObject(hdc, pStatusBarInfo->_hFont));
+			auto holdFont = static_cast<HFONT>(::SelectObject(hdc, pStatusBar->_hFont));
 
 			int nParts = static_cast<int>(SendMessage(hWnd, SB_GETPARTS, 0, 0));
 			std::wstring str;
@@ -150,7 +110,7 @@ static LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, L
 					continue;
 				}
 
-				if (nParts > 2) //to not apply on status bar in find dialog
+				if (!pStatusBar->_partWidthArray.empty()) // to not apply on status bar in find dialog
 				{
 					POINT edges[] = {
 						{rcPart.right - 2, rcPart.top + 1},
@@ -204,14 +164,14 @@ static LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, L
 
 			if (isSizeGrip)
 			{
-				pStatusBarInfo->ensureTheme(hWnd);
+				pStatusBar->ensureTheme();
 				SIZE gripSize{};
 				RECT rc{};
 				::GetClientRect(hWnd, &rc);
-				GetThemePartSize(pStatusBarInfo->hTheme, hdc, SP_GRIPPER, 0, &rc, TS_DRAW, &gripSize);
+				::GetThemePartSize(pStatusBar->_hTheme, hdc, SP_GRIPPER, 0, &rc, TS_DRAW, &gripSize);
 				rc.left = rc.right - gripSize.cx;
 				rc.top = rc.bottom - gripSize.cy;
-				DrawThemeBackground(pStatusBarInfo->hTheme, hdc, SP_GRIPPER, 0, &rc, nullptr);
+				::DrawThemeBackground(pStatusBar->_hTheme, hdc, SP_GRIPPER, 0, &rc, nullptr);
 			}
 
 			::SelectObject(hdc, holdFont);
@@ -230,16 +190,22 @@ static LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, L
 			break;
 		}
 
-		case WM_DPICHANGED:
 		case WM_THEMECHANGED:
 		{
-			pStatusBarInfo->closeTheme();
-			LOGFONT lf{ DPIManagerV2::getDefaultGUIFontForDpi(::GetParent(hWnd), DPIManagerV2::FontType::status) };
-			pStatusBarInfo->setFont(::CreateFontIndirect(&lf));
-			
-			if (uMsg != WM_THEMECHANGED)
+			pStatusBar->closeTheme();
+			return 0;
+		}
+
+		case WM_DPICHANGED:
+		{
+			const UINT dpi = LOWORD(wParam);
+
+			pStatusBar->closeTheme();
+			pStatusBar->resetFont(dpi);
+
+			if (pStatusBar->_partWidthArray.empty())
 			{
-				return 0;
+				pStatusBar->setFontAndHeight();
 			}
 			break;
 		}
@@ -265,17 +231,28 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 	if (!_hSelf)
 		throw std::runtime_error("StatusBar::init : CreateWindowEx() function return null");
 
-	LOGFONT lf{ DPIManagerV2::getDefaultGUIFontForDpi(_hParent, DPIManagerV2::FontType::status) };
-	StatusBarSubclassInfo* pStatusBarInfo = new StatusBarSubclassInfo(::CreateFontIndirect(&lf));
-	_pStatusBarInfo = pStatusBarInfo;
+	LOGFONT lf{};
+	if (nbParts == 0)
+	{
+		lf = DPIManagerV2::getDefaultGUIFontForDpi(_hParent, NppParameters::getInstance().getDlgFontSize(), DPIManagerV2::FontType::status);
+	}
+	else
+	{
+		lf = DPIManagerV2::getDefaultGUIFontForDpi(_hParent, DPIManagerV2::FontType::status);
+	}
+	_hFont = ::CreateFontIndirectW(&lf);
 
-	SetWindowSubclass(_hSelf, StatusBarSubclass, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(pStatusBarInfo));
+	::SetWindowSubclass(_hSelf, StatusBarSubclass, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(this));
 
 	DoubleBuffer::subclass(_hSelf);
 
 	_partWidthArray.clear();
 	if (nbParts > 0)
 		_partWidthArray.resize(nbParts, defaultPartWidth);
+	else
+	{
+		setFontAndHeight();
+	}
 
 	// Allocate an array for holding the right edge coordinates.
 	if (!_partWidthArray.empty())
@@ -302,7 +279,6 @@ bool StatusBar::setPartWidth(int whichPart, int width)
 void StatusBar::destroy()
 {
 	::DestroyWindow(_hSelf);
-	delete _pStatusBarInfo;
 }
 
 int StatusBar::getHeight() const
@@ -357,4 +333,60 @@ bool StatusBar::setOwnerDrawText(const wchar_t* str)
 		_lastSetText.clear();
 
 	return (::SendMessage(_hSelf, SB_SETTEXT, SBT_OWNERDRAW, reinterpret_cast<LPARAM>(_lastSetText.c_str())) == TRUE);
+}
+
+bool StatusBar::ensureTheme() noexcept
+{
+	if (_hTheme == nullptr)
+	{
+		_hTheme = ::OpenThemeData(_hSelf, VSCLASS_STATUS);
+	}
+	return _hTheme != nullptr;
+}
+
+void StatusBar::closeTheme() noexcept
+{
+	if (_hTheme != nullptr)
+	{
+		::CloseThemeData(_hTheme);
+		_hTheme = nullptr;
+	}
+}
+
+void StatusBar::resetFont(UINT dpi) noexcept
+{
+	destroyFont();
+
+	LOGFONT lf{};
+	if (_partWidthArray.empty())
+	{
+		lf = DPIManagerV2::getDefaultGUIFontForDpi(dpi, DPIManagerV2::FontType::status);
+		lf.lfHeight = DPIManagerV2::scaleFont(NppParameters::getInstance().getDlgFontSize(), dpi);
+	}
+	else
+	{
+		lf = DPIManagerV2::getDefaultGUIFontForDpi(dpi, DPIManagerV2::FontType::status);
+	}
+	_hFont = ::CreateFontIndirectW(&lf);
+}
+
+void StatusBar::destroyFont() noexcept
+{
+	if (_hFont != nullptr)
+	{
+		::DeleteObject(_hFont);
+		_hFont = nullptr;
+	}
+}
+
+void StatusBar::setFontAndHeight() noexcept
+{
+	::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), MAKELPARAM(TRUE, 0));
+
+	if (_partWidthArray.empty()) // it is owner draw status bar for Find dialog
+	{
+		const int height = DPIManagerV2::getFontAdjustedHeight(_hSelf, _hFont);
+		::SendMessage(_hSelf, SB_SETMINHEIGHT, static_cast<WPARAM>(height), 0);
+		::SendMessage(_hSelf, WM_SIZE, 0, 0);
+	}
 }

@@ -226,9 +226,8 @@ LOGFONT DPIManagerV2::getDefaultGUIFontForDpi(UINT dpi, FontType type)
 	return lf;
 }
 
-LOGFONT DPIManagerV2::getDefaultGUIFontForDpi(HWND hWnd, WORD fontSize, FontType type)
+LOGFONT DPIManagerV2::getDefaultGUIFontForDpi(UINT dpi, WORD fontSize, FontType type)
 {
-	const UINT dpi = getDpiForWindow(hWnd);
 	auto lf = getDefaultGUIFontForDpi(dpi, type);
 	lf.lfHeight = scaleFont(fontSize, dpi);
 	return lf;

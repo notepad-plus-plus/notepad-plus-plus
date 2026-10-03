@@ -1909,22 +1909,27 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 			const bool isLessModeOn = NppParameters::getInstance().getNppGUI()._findWindowLessMode;
 
-			RECT rcStatusBar{};
-			::GetWindowRect(_statusBar.getHSelf(), &rcStatusBar);
+			const LONG cyFrame = DPIManagerV2::getSystemMetricsForDpi(SM_CYFRAME, newDpi);
 
-			rcClient.right = _dpiManager.scale(rcClient.right - rcClient.left, newDpi, prevDpi);
-			rcClient.bottom = _dpiManager.scale((isLessModeOn ? _lesssModeHeight : _szMinDialog.cy) + (rcStatusBar.bottom - rcStatusBar.top), newDpi, prevDpi);
+			auto lf = DPIManagerV2::getDefaultGUIFontForDpi(newDpi, NppParameters::getInstance().getDlgFontSize(), DPIManagerV2::FontType::status);
+			HFONT hFont = ::CreateFontIndirectW(&lf);
+			const LONG sbHeight = DPIManagerV2::getFontAdjustedHeight(_statusBar.getHSelf(), hFont) + cyFrame * 2;
+			::DeleteObject(hFont);
+
+			rcClient.right = DPIManagerV2::scale(rcClient.right - rcClient.left, newDpi, prevDpi);
+			rcClient.bottom = DPIManagerV2::scale((isLessModeOn ? _lesssModeHeight : _szMinDialog.cy), newDpi, prevDpi) + sbHeight;
 
 			LONG xBorder = 0;
 			LONG yBorder = 0;
 
+			const auto padding = static_cast<LONG>(DPIManagerV2::getSystemMetricsForDpi(SM_CXPADDEDBORDER, newDpi));
+
 			const auto style = static_cast<DWORD>(::GetWindowLongPtr(_hSelf, GWL_STYLE));
 			const auto exStyle = static_cast<DWORD>(::GetWindowLongPtr(_hSelf, GWL_EXSTYLE));
-			if (!_dpiManager.adjustWindowRectExForDpi(&rcClient, style, FALSE, exStyle, newDpi))
+			if (!DPIManagerV2::adjustWindowRectExForDpi(&rcClient, style, FALSE, exStyle, newDpi))
 			{
-				const LONG padding = _dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER, newDpi);
-				xBorder = (_dpiManager.getSystemMetricsForDpi(SM_CXFRAME, newDpi) + padding) * 2;
-				yBorder = (_dpiManager.getSystemMetricsForDpi(SM_CYFRAME, newDpi) + padding) * 2 + _dpiManager.getSystemMetricsForDpi(SM_CYCAPTION, newDpi);
+				xBorder = (DPIManagerV2::getSystemMetricsForDpi(SM_CXFRAME, newDpi) + padding) * 2;
+				yBorder = (cyFrame + padding) * 2 + DPIManagerV2::getSystemMetricsForDpi(SM_CYCAPTION, newDpi);
 			}
 
 			newSize->cx = (rcClient.right - rcClient.left) + xBorder;
@@ -1932,7 +1937,6 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 			if (prevDpi > newDpi)
 			{
-				const auto padding = static_cast<LONG>(_dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER, newDpi));
 				newSize->cx += padding;
 				newSize->cy += padding;
 			}
@@ -4956,7 +4960,9 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 	if (!isCreated())
 	{
 		_isRTL = isRTL;
+		const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 		create(IDD_FIND_REPLACE_DLG, isRTL, true, toShow);
+		DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
 
 		::EnableMenuItem(::GetMenu(_hParent), IDM_SEARCH_FINDNEXT, MF_BYCOMMAND | MF_ENABLED);
 		::EnableMenuItem(::GetMenu(_hParent), IDM_SEARCH_FINDPREV, MF_BYCOMMAND | MF_ENABLED);

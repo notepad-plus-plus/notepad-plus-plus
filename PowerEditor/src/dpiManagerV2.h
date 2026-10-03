@@ -54,6 +54,7 @@ public:
 	[[nodiscard]] static bool isValidDpiAwarenessContext(DPI_AWARENESS_CONTEXT value);
 	// includes check for `DPI_AWARENESS_CONTEXT dpiContext` via `isValidDpiAwarenessContext`
 	static DPI_AWARENESS_CONTEXT setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT dpiContext);
+	static DPI_AWARENESS_CONTEXT getWindowDpiAwarenessContext(HWND hWnd);
 
 	static bool adjustWindowRectExForDpi(LPRECT lpRect, DWORD dwStyle, BOOL bMenu, DWORD dwExStyle, UINT dpi);
 
@@ -134,7 +135,10 @@ public:
 	static LOGFONT getDefaultGUIFontForDpi(HWND hWnd, FontType type = FontType::message) {
 		return getDefaultGUIFontForDpi(getDpiForWindow(hWnd), type);
 	}
-	static LOGFONT getDefaultGUIFontForDpi(HWND hWnd, WORD fontSize, FontType type = FontType::message);
+	static LOGFONT getDefaultGUIFontForDpi(UINT dpi, WORD fontSize, FontType type = FontType::message);
+	static LOGFONT getDefaultGUIFontForDpi(HWND hWnd, WORD fontSize, FontType type = FontType::message) {
+		return getDefaultGUIFontForDpi(getDpiForWindow(hWnd), fontSize, type);
+	}
 
 	LOGFONT getDefaultGUIFontForDpi(FontType type = FontType::message) const {
 		return getDefaultGUIFontForDpi(_dpi, type);

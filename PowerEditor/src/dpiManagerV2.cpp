@@ -75,6 +75,11 @@ inline auto LoadFn(HMODULE handle, P& pointer, const char* name) noexcept -> boo
 	return nullptr;
 }
 
+[[nodiscard]] static DPI_AWARENESS_CONTEXT WINAPI DummyGetWindowDpiAwarenessContext([[maybe_unused]] HWND hwnd)
+{
+	return nullptr;
+}
+
 static BOOL WINAPI DummyAdjustWindowRectExForDpi(
 	[[maybe_unused]] LPRECT lpRect,
 	[[maybe_unused]] DWORD dwStyle,
@@ -92,6 +97,7 @@ using fnGetSystemMetricsForDpi = int (WINAPI*)(int nIndex, UINT dpi);
 using fnSystemParametersInfoForDpi = BOOL (WINAPI*)(UINT uiAction, UINT uiParam, PVOID pvParam, UINT fWinIni, UINT dpi);
 using fnIsValidDpiAwarenessContext = BOOL (WINAPI*)(DPI_AWARENESS_CONTEXT value);
 using fnSetThreadDpiAwarenessContext = DPI_AWARENESS_CONTEXT (WINAPI*)(DPI_AWARENESS_CONTEXT dpiContext);
+using fnGetWindowDpiAwarenessContext = DPI_AWARENESS_CONTEXT (WINAPI*)(HWND hwnd);
 using fnAdjustWindowRectExForDpi = BOOL (WINAPI*)(LPRECT lpRect, DWORD dwStyle, BOOL bMenu, DWORD dwExStyle, UINT dpi);
 
 static fnGetDpiForSystem _fnGetDpiForSystem = DummyGetDpiForSystem;
@@ -100,6 +106,7 @@ static fnGetSystemMetricsForDpi _fnGetSystemMetricsForDpi = DummyGetSystemMetric
 static fnSystemParametersInfoForDpi _fnSystemParametersInfoForDpi = DummySystemParametersInfoForDpi;
 static fnIsValidDpiAwarenessContext _fnIsValidDpiAwarenessContext = DummyIsValidDpiAwarenessContext;
 static fnSetThreadDpiAwarenessContext _fnSetThreadDpiAwarenessContext = DummySetThreadDpiAwarenessContext;
+static fnGetWindowDpiAwarenessContext _fnGetWindowDpiAwarenessContext = DummyGetWindowDpiAwarenessContext;
 static fnAdjustWindowRectExForDpi _fnAdjustWindowRectExForDpi = DummyAdjustWindowRectExForDpi;
 
 void DPIManagerV2::initDpiAPI()
@@ -115,6 +122,7 @@ void DPIManagerV2::initDpiAPI()
 			LoadFn(hUser32, _fnSystemParametersInfoForDpi, "SystemParametersInfoForDpi");
 			LoadFn(hUser32, _fnIsValidDpiAwarenessContext, "IsValidDpiAwarenessContext");
 			LoadFn(hUser32, _fnSetThreadDpiAwarenessContext, "SetThreadDpiAwarenessContext");
+			LoadFn(hUser32, _fnGetWindowDpiAwarenessContext, "GetWindowDpiAwarenessContext");
 			LoadFn(hUser32, _fnAdjustWindowRectExForDpi, "AdjustWindowRectExForDpi");
 
 		}
@@ -136,6 +144,15 @@ DPI_AWARENESS_CONTEXT DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_C
 	if (DPIManagerV2::isValidDpiAwarenessContext(dpiContext))
 	{
 		return _fnSetThreadDpiAwarenessContext(dpiContext);
+	}
+	return nullptr;
+}
+
+DPI_AWARENESS_CONTEXT DPIManagerV2::getWindowDpiAwarenessContext(HWND hWnd)
+{
+	if (hWnd != nullptr)
+	{
+		return _fnGetWindowDpiAwarenessContext(hWnd);
 	}
 	return nullptr;
 }
@@ -226,9 +243,8 @@ LOGFONT DPIManagerV2::getDefaultGUIFontForDpi(UINT dpi, FontType type)
 	return lf;
 }
 
-LOGFONT DPIManagerV2::getDefaultGUIFontForDpi(HWND hWnd, WORD fontSize, FontType type)
+LOGFONT DPIManagerV2::getDefaultGUIFontForDpi(UINT dpi, WORD fontSize, FontType type)
 {
-	const UINT dpi = getDpiForWindow(hWnd);
 	auto lf = getDefaultGUIFontForDpi(dpi, type);
 	lf.lfHeight = scaleFont(fontSize, dpi);
 	return lf;

@@ -14,7 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 #pragma once
+
+#include <windows.h>
 
 #include "StaticDialog.h"
 
@@ -26,9 +29,8 @@ enum hashType {hash_md5 = 16, hash_sha1 = 20, hash_sha256 = 32, hash_sha512 = 64
 class HashFromFilesDlg : public StaticDialog
 {
 public :
-	HashFromFilesDlg() = default;
-
 	void doDialog(bool isRTL = false);
+	void destroyFont();
 	void destroy() override;
 	void setHashType(hashType hashType2set);
 
@@ -38,15 +40,16 @@ protected :
 
 private :
 	HFONT _hFont = nullptr;
+
+	void setFont();
 };
 
 class HashFromTextDlg : public StaticDialog
 {
 public :
-	HashFromTextDlg() = default;
-
 	void doDialog(bool isRTL = false);
 	void destroy() override;
+	void destroyFont();
 	void generateHash();
 	void generateHashPerLine();
 	void setHashType(hashType hashType2set);
@@ -57,4 +60,6 @@ protected :
 
 private :
 	HFONT _hFont = nullptr;
+
+	void setFont();
 };

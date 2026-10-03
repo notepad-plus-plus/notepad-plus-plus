@@ -39,6 +39,7 @@
 #include "NppConstants.h"
 #include "NppDarkMode.h"
 #include "Parameters.h"
+#include "dpiManagerV2.h"
 #include "md5Dlgs_rc.h"
 #include "resource.h"
 
@@ -52,18 +53,13 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
-			_hFont = createFont(L"Courier New", NppParameters::getInstance().getDlgFontSize() + 1, false, _hSelf);
+			setFont();
 
-			const HWND hHashPathEdit = ::GetDlgItem(_hSelf, IDC_HASH_PATH_EDIT);
-			const HWND hHashResult = ::GetDlgItem(_hSelf, IDC_HASH_RESULT_EDIT);
+			::SetWindowSubclass(::GetDlgItem(_hSelf, IDC_HASH_PATH_EDIT), TextEditSelectAllProc, static_cast<UINT_PTR>(SubclassID::first), 0);
+			::SetWindowSubclass(::GetDlgItem(_hSelf, IDC_HASH_RESULT_EDIT), TextEditSelectAllProc, static_cast<UINT_PTR>(SubclassID::first), 0);
 
-			::SendMessage(hHashPathEdit, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), TRUE);
-			::SendMessage(hHashResult, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), TRUE);
-
-			::SetWindowSubclass(hHashPathEdit, TextEditSelectAllProc, static_cast<UINT_PTR>(SubclassID::first), 0);
-			::SetWindowSubclass(hHashResult, TextEditSelectAllProc, static_cast<UINT_PTR>(SubclassID::first), 0);
+			return TRUE;
 		}
-		return TRUE;
 
 		case WM_CTLCOLORDLG:
 		{
@@ -100,11 +96,7 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 		{
 			_dpiManager.setDpiWP(wParam);
 
-			destroy();
-			_hFont = createFont(L"Courier New", NppParameters::getInstance().getDlgFontSize() + 1, false, _hSelf);
-
-			::SendDlgItemMessageW(_hSelf, IDC_HASH_PATH_EDIT, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), TRUE);
-			::SendDlgItemMessageW(_hSelf, IDC_HASH_RESULT_EDIT, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), TRUE);
+			setFont();
 
 			setPositionDpi(lParam);
 
@@ -249,7 +241,7 @@ static LRESULT CALLBACK TextEditSelectAllProc(
 	WPARAM wParam,
 	LPARAM lParam,
 	UINT_PTR uIdSubclass,
-	[[maybe_unused]] DWORD_PTR /*dwRefData*/
+	[[maybe_unused]] DWORD_PTR dwRefData
 )
 {
 	switch (uMsg)
@@ -290,7 +282,10 @@ void HashFromFilesDlg::doDialog(bool isRTL)
 {
 	if (!isCreated())
 	{
+		const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 		create(IDD_HASHFROMFILES_DLG, isRTL);
+		DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
+
 		std::wstring title;
 		std::wstring buttonText;
 
@@ -338,11 +333,26 @@ void HashFromFilesDlg::doDialog(bool isRTL)
 
 void HashFromFilesDlg::destroy()
 {
+	StaticDialog::destroy();
+	destroyFont();
+}
+
+void HashFromFilesDlg::destroyFont()
+{
 	if (_hFont != nullptr)
 	{
 		::DeleteObject(_hFont);
 		_hFont = nullptr;
 	}
+}
+
+void HashFromFilesDlg::setFont()
+{
+	destroyFont();
+	_hFont = createFont(L"Courier New", NppParameters::getInstance().getDlgFontSize() + 1, false, _hSelf);
+
+	::SendMessage(::GetDlgItem(_hSelf, IDC_HASH_PATH_EDIT), WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), MAKELPARAM(TRUE, 0));
+	::SendMessage(::GetDlgItem(_hSelf, IDC_HASH_RESULT_EDIT), WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), MAKELPARAM(TRUE, 0));
 }
 
 void HashFromTextDlg::generateHash()
@@ -433,7 +443,7 @@ void HashFromTextDlg::generateHashPerLine()
 				// getline() detect only '\n' but not "\r\n" under Windows
 				// this hack is to walk around such bug
 				if (aLine.back() == '\r')
-					aLine = aLine.substr(0, aLine.size() - 1);
+					aLine.pop_back();
 
 				if (aLine.empty()) // Windows EOL, both \n & \r are removed
 				{
@@ -508,18 +518,13 @@ intptr_t CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
-			_hFont = createFont(L"Courier New", NppParameters::getInstance().getDlgFontSize() + 1, false, _hSelf);
+			setFont();
 
-			const HWND hHashTextEdit = ::GetDlgItem(_hSelf, IDC_HASH_TEXT_EDIT);
-			const HWND hHashResult = ::GetDlgItem(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT);
+			::SetWindowSubclass(::GetDlgItem(_hSelf, IDC_HASH_TEXT_EDIT), TextEditSelectAllProc, static_cast<UINT_PTR>(SubclassID::first), 0);
+			::SetWindowSubclass(::GetDlgItem(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT), TextEditSelectAllProc, static_cast<UINT_PTR>(SubclassID::first), 0);
 
-			::SendMessage(hHashTextEdit, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), TRUE);
-			::SendMessage(hHashResult, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), TRUE);
-
-			::SetWindowSubclass(hHashTextEdit, TextEditSelectAllProc, static_cast<UINT_PTR>(SubclassID::first), 0);
-			::SetWindowSubclass(hHashResult, TextEditSelectAllProc, static_cast<UINT_PTR>(SubclassID::first), 0);
+			return TRUE;
 		}
-		return TRUE;
 
 		case WM_CTLCOLOREDIT:
 		{
@@ -561,11 +566,7 @@ intptr_t CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		{
 			_dpiManager.setDpiWP(wParam);
 
-			destroy();
-			_hFont = createFont(L"Courier New", NppParameters::getInstance().getDlgFontSize() + 1, false, _hSelf);
-
-			::SendDlgItemMessageW(_hSelf, IDC_HASH_TEXT_EDIT, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), TRUE);
-			::SendDlgItemMessageW(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), TRUE);
+			setFont();
 
 			setPositionDpi(lParam);
 
@@ -649,7 +650,10 @@ void HashFromTextDlg::doDialog(bool isRTL)
 {
 	if (!isCreated())
 	{
+		const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 		create(IDD_HASHFROMTEXT_DLG, isRTL);
+		DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
+
 		std::wstring title;
 		switch (_ht)
 		{
@@ -691,9 +695,24 @@ void HashFromTextDlg::doDialog(bool isRTL)
 
 void HashFromTextDlg::destroy()
 {
+	StaticDialog::destroy();
+	destroyFont();
+}
+
+void HashFromTextDlg::destroyFont()
+{
 	if (_hFont != nullptr)
 	{
 		::DeleteObject(_hFont);
 		_hFont = nullptr;
 	}
+}
+
+void HashFromTextDlg::setFont()
+{
+	destroy();
+	_hFont = createFont(L"Courier New", NppParameters::getInstance().getDlgFontSize() + 1, false, _hSelf);
+
+	::SendMessage(::GetDlgItem(_hSelf, IDC_HASH_TEXT_EDIT), WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), MAKELPARAM(TRUE, 0));
+	::SendMessage(::GetDlgItem(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT), WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), MAKELPARAM(TRUE, 0));
 }

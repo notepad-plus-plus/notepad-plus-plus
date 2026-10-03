@@ -17,13 +17,16 @@
 
 #pragma once
 
-#include "Window.h"
+#include <windows.h>
+
 #include <string>
+
+#include "Window.h"
 
 class URLCtrl : public Window {
 public:
-    void create(HWND itemHandle, const wchar_t * link, COLORREF linkColor = RGB(0,0,255));
-	void create(HWND itemHandle, int cmd, HWND msgDest = NULL);
+	void create(HWND itemHandle, const wchar_t* link, COLORREF linkColor = RGB(0, 0, 255));
+	void create(HWND itemHandle, int cmd, HWND msgDest = nullptr);
 	void destroy() override;
 private:
 	HCURSOR& loadHandCursor();
@@ -41,5 +44,4 @@ protected :
     bool  _clicking = false;
 
 	static LRESULT CALLBACK URLCtrlProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
-	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 };

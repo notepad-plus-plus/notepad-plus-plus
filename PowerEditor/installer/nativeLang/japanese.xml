@@ -980,6 +980,7 @@ Translation note:
 					<Item id="6132" name="右端の ＋ ▼ ✕ ボタンを非表示にする"/>
 					<Item id="6133" name="ステータスバー"/>
 					<Item id="6134" name="隠す"/>
+					<Item id="7165" name="ダイアログの文字サイズ (Notepad++の再起動が必要)"/>
 				</Global>
 
 				<Toolbar title="ツールバー">

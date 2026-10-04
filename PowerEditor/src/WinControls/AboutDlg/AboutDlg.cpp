@@ -765,7 +765,7 @@ void CmdLineArgsDlg::doDialog()
 	goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 }
 
-void CmdLineArgsDlg::destroy()
+void CmdLineArgsDlg::destroyFont() noexcept
 {
 	if (_hCmdLineEditFont != nullptr)
 	{
@@ -776,8 +776,8 @@ void CmdLineArgsDlg::destroy()
 
 void CmdLineArgsDlg::setFont()
 {
-	destroy();
-	_hCmdLineEditFont = createFont(L"Lucida Console", NppParameters::getInstance().getDlgFontSize() + 1, false, nullptr);
+	destroyFont();
+	_hCmdLineEditFont = createFont(L"Lucida Console", NppParameters::getInstance().getDlgFontSize() + 1, false, _hSelf);
 
 	if (_hCmdLineEditFont != nullptr)
 	{
@@ -843,7 +843,7 @@ intptr_t CALLBACK CmdLineArgsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_DESTROY:
 		{
-			destroy();
+			destroyFont();
 			return TRUE;
 		}
 	}

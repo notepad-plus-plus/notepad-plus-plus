@@ -153,7 +153,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent, WORD 
 
 	RECT rect{};
 	getClientRect(rect);
-	_tab.init(_hInst, _hSelf, false, true);
+	_tab.init(_hInst, _hSelf, false, false);
 
 	const wchar_t *available = L"Available";
 	const wchar_t *updates = L"Updates";

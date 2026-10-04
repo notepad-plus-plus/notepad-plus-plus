@@ -367,8 +367,7 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent, bool t
 	_szMinDialog.cx = rcClient.right - rcClient.left;
 	_szMinDialog.cy = rcTransGrpb.bottom + gap;
 
-	_tab.init(_hInst, _hSelf, false, true);
-	NppDarkMode::subclassTabControl(_tab.getHSelf());
+	_tab.init(_hInst, _hSelf, false, false);
 
 	const wchar_t *find = L"Find";
 	const wchar_t *replace = L"Replace";

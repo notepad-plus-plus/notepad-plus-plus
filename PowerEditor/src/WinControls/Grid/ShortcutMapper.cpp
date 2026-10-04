@@ -107,6 +107,48 @@ wstring ShortcutMapper::getTabString(size_t i) const
 	}
 }
 
+void ShortcutMapper::setFontColRowMetrics()
+{
+	destroyFont();
+
+	const auto fontSize = NppParameters::getInstance().getDlgFontSize();
+
+	LOGFONT lf{};
+	if (auto* hFont = reinterpret_cast<HFONT>(::SendMessage(_hSelf, WM_GETFONT, 0, 0));
+		hFont != nullptr && ::GetObjectW(hFont, sizeof(LOGFONT), &lf) != sizeof(LOGFONT))
+	{
+		lf = _dpiManager.getDefaultGUIFontForDpi();
+	}
+
+	lf.lfHeight = _dpiManager.scaleFont(DPIManagerV2::scaleFontForFactor(fontSize + 1));
+	_hGridFonts.at(GFONT_ROWS) = ::CreateFontIndirectW(&lf);
+	lf.lfHeight = _dpiManager.scaleFont(DPIManagerV2::scaleFontForFactor(fontSize + 3));
+	lf.lfWeight = FW_BOLD;
+	_hGridFonts.at(GFONT_HEADER) = ::CreateFontIndirectW(&lf);
+
+	_babygrid.setHeaderFont(_hGridFonts.at(GFONT_HEADER));
+	_babygrid.setRowFont(_hGridFonts.at(GFONT_ROWS));
+
+	const int padding = _dpiManager.scale(3);
+	const int width = DPIManagerV2::getFontDigitWidth(_babygrid.getHSelf(), _hGridFonts.at(GFONT_HEADER));
+	const size_t height = DPIManagerV2::getFontAdjustedHeight(_babygrid.getHSelf(), _hGridFonts.at(GFONT_HEADER));
+
+	_babygrid.setColWidth(0, width * 3 + padding); // Force the first col to be small, others col will be automatically sized
+	_babygrid.setHeaderHeight(height);
+	_babygrid.setRowHeight(height);
+}
+
+void ShortcutMapper::destroyFont() noexcept
+{
+	for (auto& hFont : _hGridFonts)
+	{
+		if (hFont != nullptr)
+		{
+			::DeleteObject(hFont);
+			hFont = nullptr;
+		}
+	}
+}
 
 void ShortcutMapper::initBabyGrid()
 {
@@ -116,31 +158,19 @@ void ShortcutMapper::initBabyGrid()
 	_lastHomeRow.resize(5, 1);
 	_lastCursorRow.resize(5, 1);
 
-	static const auto fontSize = NppParameters::getInstance().getDlgFontSize();
-
 	_hGridFonts.resize(MAX_GRID_FONTS);
-	LOGFONT lf{ _dpiManager.getDefaultGUIFontForDpi() };
-	lf.lfHeight = _dpiManager.scaleFont(DPIManagerV2::scaleFontForFactor(fontSize + 1));
-	_hGridFonts.at(GFONT_ROWS) = ::CreateFontIndirect(&lf);
-	lf.lfHeight = _dpiManager.scaleFont(DPIManagerV2::scaleFontForFactor(fontSize + 4));
-	lf.lfWeight = FW_BOLD;
-	_hGridFonts.at(GFONT_HEADER) = ::CreateFontIndirect(&lf);
 	
 	_babygrid.init(_hInst, _hSelf, IDD_BABYGRID_ID1);
 
 	NppDarkMode::setDarkScrollBar(_babygrid.getHSelf());
 
-	_babygrid.setHeaderFont(_hGridFonts.at(GFONT_HEADER));
-	_babygrid.setRowFont(_hGridFonts.at(GFONT_ROWS));
-	
 	_babygrid.reSizeToWH(rect);
 	_babygrid.hideCursor();
 	_babygrid.makeColAutoWidth(true);
 	_babygrid.setAutoRow(true);
 	_babygrid.setColsNumbered(false);
-	_babygrid.setColWidth(0, _dpiManager.scale(30));  // Force the first col to be small, others col will be automatically sized
-	_babygrid.setHeaderHeight(_dpiManager.scale(21));
-	_babygrid.setRowHeight(_dpiManager.scale(21));
+
+	setFontColRowMetrics();
 
 	if (NppDarkMode::isEnabled())
 	{
@@ -680,8 +710,7 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_DESTROY:
 		{
-			for (const HFONT & hFont : _hGridFonts)
-				::DeleteObject(hFont);
+			destroyFont();
 
 			_hGridFonts.clear();
 			_hGridFonts.shrink_to_fit();
@@ -760,30 +789,7 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			const UINT prevDpi = _dpiManager.getDpi();
 			_dpiManager.setDpiWP(wParam);
 
-			for (auto& hFont : _hGridFonts)
-			{
-				if (hFont != nullptr)
-				{
-					::DeleteObject(hFont);
-					hFont = nullptr;
-				}
-			}
-
-			static const auto fontSize = NppParameters::getInstance().getDlgFontSize();
-
-			LOGFONT lf{ _dpiManager.getDefaultGUIFontForDpi() };
-			lf.lfHeight = _dpiManager.scaleFont(DPIManagerV2::scaleFontForFactor(fontSize + 1));
-			_hGridFonts.at(GFONT_ROWS) = ::CreateFontIndirect(&lf);
-			lf.lfHeight = _dpiManager.scaleFont(DPIManagerV2::scaleFontForFactor(fontSize + 3));
-			lf.lfWeight = FW_BOLD;
-			_hGridFonts.at(GFONT_HEADER) = ::CreateFontIndirect(&lf);
-
-			_babygrid.setHeaderFont(_hGridFonts.at(GFONT_HEADER));
-			_babygrid.setRowFont(_hGridFonts.at(GFONT_ROWS));
-
-			_babygrid.setColWidth(0, _dpiManager.scale(30));
-			_babygrid.setHeaderHeight(_dpiManager.scale(21));
-			_babygrid.setRowHeight(_dpiManager.scale(21));
+			setFontColRowMetrics();
 
 			const LONG padding = _dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER);
 			_szBorder.cx = (_dpiManager.getSystemMetricsForDpi(SM_CXFRAME) + padding) * 2;

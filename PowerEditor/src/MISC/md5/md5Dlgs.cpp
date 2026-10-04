@@ -39,6 +39,7 @@
 #include "NppConstants.h"
 #include "NppDarkMode.h"
 #include "Parameters.h"
+#include "StaticDialog.h"
 #include "dpiManagerV2.h"
 #include "md5Dlgs_rc.h"
 #include "resource.h"
@@ -710,7 +711,7 @@ void HashFromTextDlg::destroyFont()
 
 void HashFromTextDlg::setFont()
 {
-	destroy();
+	destroyFont();
 	_hFont = createFont(L"Courier New", NppParameters::getInstance().getDlgFontSize() + 1, false, _hSelf);
 
 	::SendMessage(::GetDlgItem(_hSelf, IDC_HASH_TEXT_EDIT), WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), MAKELPARAM(TRUE, 0));

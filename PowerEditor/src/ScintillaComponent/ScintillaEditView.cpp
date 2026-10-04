@@ -496,6 +496,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	if ((nppGui._writeTechnologyEngine > defaultTechnology) && (nppGui._writeTechnologyEngine < directWriteTechnologyUnavailable))
 	{
 		execute(SCI_SETTECHNOLOGY, nppGui._writeTechnologyEngine);
+		execute(SCI_SETBIDIRECTIONAL, SC_BIDIRECTIONAL_L2R);
 		// If useDirectWrite is turned off, leave the technology setting untouched,
 		// so that existing plugins using SCI_SETTECHNOLOGY behave like before
 	}
@@ -4514,6 +4515,8 @@ void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, ISorter* pSort
 
 bool ScintillaEditView::isTextDirectionRTL() const
 {
+	if (execute(SCI_GETTECHNOLOGY) != defaultTechnology)
+		return execute(SCI_GETBIDIRECTIONAL) == SC_BIDIRECTIONAL_R2L;
 	long exStyle = static_cast<long>(::GetWindowLongPtr(_hSelf, GWL_EXSTYLE));
 	return (exStyle & WS_EX_LAYOUTRTL) != 0;
 }
@@ -4523,30 +4526,15 @@ void ScintillaEditView::changeTextDirection(bool isRTL)
 	if (isTextDirectionRTL() == isRTL)
 		return;
 
-	NppParameters& nppParamInst = NppParameters::getInstance();
-	if (isRTL && (nppParamInst.getNppGUI()._writeTechnologyEngine > defaultTechnology)
-		&& (nppParamInst.getNppGUI()._writeTechnologyEngine < directWriteTechnologyUnavailable)) // RTL is not compatible with DirectWrite
-	{
-		static bool theWarningIsGiven = false;
-
-		if (!theWarningIsGiven)
-		{
-			(nppParamInst.getNativeLangSpeaker())->messageBox("RTLvsDirectWrite",
-				getHSelf(),
-				L"RTL is not compatible with Direct Write mode. Please disable DirectWrite mode in MISC. section of Preferences dialog, and restart Notepad++.",
-				L"Cannot run RTL",
-				MB_OK | MB_APPLMODAL);
-
-			theWarningIsGiven = true;
-		}
-		return;
-	}
+	const bool nativeBidi = execute(SCI_GETTECHNOLOGY) != defaultTechnology;
+	if (nativeBidi)
+		execute(SCI_SETBIDIRECTIONAL, isRTL ? SC_BIDIRECTIONAL_R2L : SC_BIDIRECTIONAL_L2R);
 
 	long exStyle = static_cast<long>(::GetWindowLongPtr(_hSelf, GWL_EXSTYLE));
-	exStyle = isRTL ? (exStyle | WS_EX_LAYOUTRTL) : (exStyle & (~WS_EX_LAYOUTRTL));
+	exStyle = isRTL && !nativeBidi ? (exStyle | WS_EX_LAYOUTRTL) : (exStyle & (~WS_EX_LAYOUTRTL));
 	::SetWindowLongPtr(_hSelf, GWL_EXSTYLE, exStyle);
 
-	if (isRTL)
+	if (isRTL && !nativeBidi)
 	{
 		execute(SCI_ASSIGNCMDKEY, SCK_RIGHT, SCI_CHARLEFT);
 		execute(SCI_ASSIGNCMDKEY, SCK_RIGHT + (SCMOD_SHIFT << 16), SCI_CHARLEFTEXTEND);

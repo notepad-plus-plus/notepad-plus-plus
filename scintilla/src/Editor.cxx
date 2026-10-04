@@ -3646,6 +3646,19 @@ Sci::Position Editor::LineEndWrapPosition(Sci::Position position) {
 }
 
 SelectionPosition Editor::PositionMove(Message iMessage, SelectionPosition spCaret) {
+	if (BidirectionalEnabled() && !spCaret.VirtualSpace() &&
+		AnyOf(iMessage, Message::CharLeft, Message::CharLeftExtend, Message::CharRight, Message::CharRightExtend)) {
+		const int direction = AnyOf(iMessage, Message::CharLeft, Message::CharLeftExtend) ? -1 : 1;
+		RefreshStyleData();
+		AutoSurface surface(this);
+		if (surface) {
+			const Sci::Position position = view.PositionRelative(surface, *this, spCaret.Position(),
+				direction, vs, GetTextRectangle());
+			if (position != Sci::invalidPosition) {
+				return SelectionPosition(position);
+			}
+		}
+	}
 	switch (iMessage) {
 	case Message::CharLeft:
 	case Message::CharLeftExtend:
@@ -3731,6 +3744,14 @@ SelectionRange Editor::SelectionMove(Scintilla::Message iMessage, size_t r) {
 	case Message::CharRight:
 		if (sel.Range(r).Empty()) {
 			return SelectionRange(spCaret);
+		}
+		if (BidirectionalEnabled()) {
+			const Point start = LocationFromPosition(sel.Range(r).Start());
+			const Point end = LocationFromPosition(sel.Range(r).End());
+			if (start.y == end.y) {
+				const bool toStart = (iMessage == Message::CharLeft) == (start.x < end.x);
+				return SelectionRange(toStart ? sel.Range(r).Start() : sel.Range(r).End());
+			}
 		}
 		if (iMessage == Message::CharLeft) {
 			return SelectionRange(sel.Range(r).Start());

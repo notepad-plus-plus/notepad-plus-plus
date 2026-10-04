@@ -19,6 +19,7 @@
 #include <utility>
 #include <string>
 #include <string_view>
+#include <limits>
 #include <vector>
 #include <map>
 #include <optional>
@@ -62,6 +63,7 @@ using Microsoft::WRL::ComPtr;
 #include "Platform.h"
 #include "XPM.h"
 #include "UniConversion.h"
+#include "BidiClass.h"
 #include "DBCS.h"
 
 #include "WinTypes.h"
@@ -372,6 +374,7 @@ public:
 	void Copy(PRectangle rc, Point from, Surface &surfaceSource) override;
 
 	std::unique_ptr<IScreenLineLayout> Layout(const IScreenLine *screenLine) override;
+	void DrawLayout(IDWriteTextLayout *layout, Point origin, const std::vector<Interval> &intervals, ColourRGBA fore);
 
 	void DrawTextCommon(PRectangle rc, const Font *font_, XYPOSITION ybase, std::string_view text, int codePageOverride, UINT fuOptions);
 
@@ -1014,6 +1017,8 @@ COM_DECLSPEC_NOTHROW HRESULT STDMETHODCALLTYPE BlobInline::GetBreakConditions(
 }
 
 class ScreenLineLayout : public IScreenLineLayout {
+	XYPOSITION emptyCaret = 0;
+	bool readingR2L = false;
 	std::string text;
 	std::wstring buffer;
 	std::vector<BlobInline> blobs;
@@ -1023,7 +1028,7 @@ class ScreenLineLayout : public IScreenLineLayout {
 	static std::wstring ReplaceRepresentation(std::string_view text);
 	static UINT32 GetPositionInLayout(std::string_view text, size_t position);
 public:
-	explicit ScreenLineLayout(const IScreenLine *screenLine);
+	explicit ScreenLineLayout(const IScreenLine *screenLine, bool rightToLeft);
 	// Deleted so ScreenLineLayout objects can not be copied
 	ScreenLineLayout(const ScreenLineLayout &) = delete;
 	ScreenLineLayout(ScreenLineLayout &&) = delete;
@@ -1033,6 +1038,10 @@ public:
 	size_t PositionFromX(XYPOSITION xDistance, bool charPosition) override;
 	XYPOSITION XFromPosition(size_t caretPosition) override;
 	std::vector<Interval> FindRangeIntervals(size_t start, size_t end) override;
+	bool SupportsDrawing() const noexcept override { return true; }
+	bool ReadingDirectionR2L() const noexcept override { return readingR2L; }
+	size_t PositionRelative(size_t position, int direction) override;
+	bool Draw(Surface *surface, Point origin, size_t start, size_t end, ColourRGBA fore) override;
 };
 
 // Each char can have its own style, so we fill the textLayout with the textFormat of each char
@@ -1046,6 +1055,7 @@ void ScreenLineLayout::FillTextLayoutFormats(const IScreenLine *screenLine, IDWr
 	blobs.reserve(numRepresentations + numTabs);
 
 	UINT32 layoutPosition = 0;
+	const FontDirectWrite *previousFont = nullptr;
 
 	for (size_t bytePosition = 0; bytePosition < screenLine->Length();) {
 		const unsigned char uch = screenLine->Text()[bytePosition];
@@ -1065,8 +1075,12 @@ void ScreenLineLayout::FillTextLayoutFormats(const IScreenLine *screenLine, IDWr
 				&realCaretMetrics
 			);
 
-			const XYPOSITION nextTab = screenLine->TabPositionAfter(realPt.x);
-			representationWidth = nextTab - realPt.x;
+			DWRITE_TEXT_METRICS metrics {};
+			textLayout->GetMetrics(&metrics);
+			const XYPOSITION distance = textLayout->GetReadingDirection() == DWRITE_READING_DIRECTION_RIGHT_TO_LEFT ?
+				metrics.left + metrics.widthIncludingTrailingWhitespace - realPt.x : realPt.x - metrics.left;
+			const XYPOSITION nextTab = screenLine->TabPositionAfter(distance);
+			representationWidth = nextTab - distance;
 		}
 		if (representationWidth > 0.0f) {
 			blobs.emplace_back(representationWidth);
@@ -1078,30 +1092,42 @@ void ScreenLineLayout::FillTextLayoutFormats(const IScreenLine *screenLine, IDWr
 		if (!pfm) {
 			throw std::runtime_error("FillTextLayoutFormats: wrong Font type.");
 		}
+		if (pfm != previousFont) {
+			size_t fontEnd = bytePosition + byteCount;
+			while (fontEnd < text.size() && screenLine->FontOfPosition(fontEnd) == pfm) {
+				fontEnd += UTF8BytesOfLead[static_cast<unsigned char>(text[fontEnd])];
+			}
+			const DWRITE_TEXT_RANGE fontRange = {layoutPosition,
+				static_cast<UINT32>(UTF16Length(text.substr(bytePosition, fontEnd - bytePosition)))};
 
-		const unsigned int fontFamilyNameSize = pfm->pTextFormat->GetFontFamilyNameLength();
-		std::wstring fontFamilyName(fontFamilyNameSize, 0);
-		const HRESULT hrFamily = pfm->pTextFormat->GetFontFamilyName(fontFamilyName.data(), fontFamilyNameSize + 1);
-		if (SUCCEEDED(hrFamily)) {
-			textLayout->SetFontFamilyName(fontFamilyName.c_str(), textRange);
-		}
+			const unsigned int fontFamilyNameSize = pfm->pTextFormat->GetFontFamilyNameLength();
+			std::wstring fontFamilyName(fontFamilyNameSize, 0);
+			const HRESULT hrFamily = pfm->pTextFormat->GetFontFamilyName(fontFamilyName.data(), fontFamilyNameSize + 1);
+			if (SUCCEEDED(hrFamily)) {
+				textLayout->SetFontFamilyName(fontFamilyName.c_str(), fontRange);
+			}
 
-		textLayout->SetFontSize(pfm->pTextFormat->GetFontSize(), textRange);
-		textLayout->SetFontWeight(pfm->pTextFormat->GetFontWeight(), textRange);
-		textLayout->SetFontStyle(pfm->pTextFormat->GetFontStyle(), textRange);
+			textLayout->SetFontSize(pfm->pTextFormat->GetFontSize(), fontRange);
+			textLayout->SetFontWeight(pfm->pTextFormat->GetFontWeight(), fontRange);
+			textLayout->SetFontStyle(pfm->pTextFormat->GetFontStyle(), fontRange);
 
-		const unsigned int localeNameSize = pfm->pTextFormat->GetLocaleNameLength();
-		std::wstring localeName(localeNameSize, 0);
-		const HRESULT hrLocale = pfm->pTextFormat->GetLocaleName(localeName.data(), localeNameSize + 1);
-		if (SUCCEEDED(hrLocale)) {
-			textLayout->SetLocaleName(localeName.c_str(), textRange);
-		}
+			const unsigned int localeNameSize = pfm->pTextFormat->GetLocaleNameLength();
+			std::wstring localeName(localeNameSize, 0);
+			const HRESULT hrLocale = pfm->pTextFormat->GetLocaleName(localeName.data(), localeNameSize + 1);
+			if (SUCCEEDED(hrLocale)) {
+				textLayout->SetLocaleName(localeName.c_str(), fontRange);
+			}
 
-		textLayout->SetFontStretch(pfm->pTextFormat->GetFontStretch(), textRange);
+			textLayout->SetFontStretch(pfm->pTextFormat->GetFontStretch(), fontRange);
 
-		IDWriteFontCollection *fontCollection = nullptr;
-		if (SUCCEEDED(pfm->pTextFormat->GetFontCollection(&fontCollection))) {
-			textLayout->SetFontCollection(fontCollection, textRange);
+			IDWriteFontCollection *fontCollection = nullptr;
+			if (SUCCEEDED(pfm->pTextFormat->GetFontCollection(&fontCollection))) {
+				textLayout->SetFontCollection(fontCollection, fontRange);
+				if (fontCollection) {
+					fontCollection->Release();
+				}
+			}
+			previousFont = pfm;
 		}
 
 		bytePosition += byteCount;
@@ -1126,7 +1152,11 @@ UINT32 ScreenLineLayout::GetPositionInLayout(std::string_view text, size_t posit
 	return static_cast<UINT32>(UTF16Length(textUptoPosition));
 }
 
-ScreenLineLayout::ScreenLineLayout(const IScreenLine *screenLine) {
+ScreenLineLayout::ScreenLineLayout(const IScreenLine *screenLine, bool rightToLeft) {
+	readingR2L = screenLine ? ParagraphIsRightToLeft(screenLine->ParagraphText(), rightToLeft) : rightToLeft;
+	if (screenLine && rightToLeft) {
+		emptyCaret = std::max<XYPOSITION>(0, screenLine->Width() - 1);
+	}
 	// If the text is empty, then no need to go through this function
 	if (!screenLine || !screenLine->Length())
 		return;
@@ -1146,11 +1176,18 @@ ScreenLineLayout::ScreenLineLayout(const IScreenLine *screenLine) {
 	textLayout = LayoutCreate(
 		buffer,
 		pfm->pTextFormat.Get(),
-		static_cast<FLOAT>(screenLine->Width()),
+		static_cast<FLOAT>(rightToLeft ? emptyCaret : screenLine->Width()),
 		static_cast<FLOAT>(screenLine->Height()));
 	if (!textLayout) {
 		return;
 	}
+
+	textLayout->SetReadingDirection(readingR2L ? DWRITE_READING_DIRECTION_RIGHT_TO_LEFT :
+		DWRITE_READING_DIRECTION_LEFT_TO_RIGHT);
+	// The document command controls alignment. Text order follows the
+	// paragraph's first strong character, even when aligned to the other edge.
+	textLayout->SetTextAlignment(readingR2L == rightToLeft ? DWRITE_TEXT_ALIGNMENT_LEADING :
+		DWRITE_TEXT_ALIGNMENT_TRAILING);
 
 	// Fill the textLayout chars with their own formats
 	FillTextLayoutFormats(screenLine, textLayout.Get(), blobs);
@@ -1213,7 +1250,7 @@ size_t ScreenLineLayout::PositionFromX(XYPOSITION xDistance, bool charPosition) 
 
 XYPOSITION ScreenLineLayout::XFromPosition(size_t caretPosition) {
 	if (!textLayout) {
-		return 0.0;
+		return emptyCaret;
 	}
 	// Convert byte positions to wchar_t positions
 	const UINT32 position = GetPositionInLayout(text, caretPosition);
@@ -1295,7 +1332,66 @@ std::vector<Interval> ScreenLineLayout::FindRangeIntervals(size_t start, size_t 
 }
 
 std::unique_ptr<IScreenLineLayout> SurfaceD2D::Layout(const IScreenLine *screenLine) {
-	return std::make_unique<ScreenLineLayout>(screenLine);
+	return std::make_unique<ScreenLineLayout>(screenLine, mode.bidiR2L);
+}
+
+size_t ScreenLineLayout::PositionRelative(size_t position, int direction) {
+	if (!textLayout) {
+		return position;
+	}
+	UINT32 count = 0;
+	textLayout->GetClusterMetrics(nullptr, 0, &count);
+	std::vector<DWRITE_CLUSTER_METRICS> clusters(count);
+	textLayout->GetClusterMetrics(clusters.data(), count, &count);
+	const XYPOSITION x = XFromPosition(position);
+	XYPOSITION bestDistance = std::numeric_limits<XYPOSITION>::max();
+	UINT32 result = GetPositionInLayout(text, position);
+	UINT32 clusterPosition = 0;
+	for (size_t index = 0; index <= clusters.size(); index++) {
+		FLOAT caretX = 0;
+		FLOAT caretY = 0;
+		DWRITE_HIT_TEST_METRICS metrics {};
+		textLayout->HitTestTextPosition(clusterPosition, FALSE, &caretX, &caretY, &metrics);
+		const XYPOSITION distance = (caretX - x) * direction;
+		if (distance > 0.01 && distance < bestDistance) {
+			bestDistance = distance;
+			result = clusterPosition;
+		}
+		if (index < clusters.size()) {
+			clusterPosition += clusters[index].length;
+		}
+	}
+	return UTF8PositionFromUTF16Position(text, result);
+}
+
+bool ScreenLineLayout::Draw(Surface *surface, Point origin, size_t start, size_t end, ColourRGBA fore) {
+	SurfaceD2D *surfaceD2D = dynamic_cast<SurfaceD2D *>(surface);
+	if (!surfaceD2D || !textLayout) {
+		return false;
+	}
+	DWRITE_LINE_METRICS metrics {};
+	UINT32 count = 0;
+	textLayout->GetLineMetrics(&metrics, 1, &count);
+	origin.y -= metrics.baseline;
+	surfaceD2D->DrawLayout(textLayout.Get(), origin, FindRangeIntervals(start, end), fore);
+	return true;
+}
+
+void SurfaceD2D::DrawLayout(IDWriteTextLayout *layout, Point origin,
+	const std::vector<Interval> &intervals, ColourRGBA fore) {
+	if (!pRenderTarget) {
+		return;
+	}
+	D2DPenColourAlpha(fore);
+	DWRITE_TEXT_METRICS metrics {};
+	layout->GetMetrics(&metrics);
+	for (const Interval &interval : intervals) {
+		const PRectangle clip(origin.x + interval.left, origin.y,
+			origin.x + interval.right, origin.y + metrics.height);
+		pRenderTarget->PushAxisAlignedClip(RectangleFromPRectangle(clip), D2D1_ANTIALIAS_MODE_ALIASED);
+		pRenderTarget->DrawTextLayout(DPointFromPoint(origin), layout, pBrush.Get(), d2dDrawTextOptions);
+		pRenderTarget->PopAxisAlignedClip();
+	}
 }
 
 void SurfaceD2D::DrawTextCommon(PRectangle rc, const Font *font_, XYPOSITION ybase, std::string_view text, int codePageOverride, UINT fuOptions) {

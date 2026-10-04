@@ -82,6 +82,8 @@ $(DIR_O)/ScintillaWin.o: \
 	ScintillaWin.h
 $(DIR_O)/SurfaceD2D.o: \
 	SurfaceD2D.cxx \
+	../src/BidiClass.h \
+	../src/BidiClassData.h \
 	../include/ScintillaTypes.h \
 	../src/Debugging.h \
 	../src/Geometry.h \

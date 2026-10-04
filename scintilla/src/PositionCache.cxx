@@ -378,8 +378,9 @@ ScreenLine::ScreenLine(
 	int tabWidthMinimumPixels_) :
 	ll(ll_),
 	start(ll->LineStart(subLine)),
-	len(ll->LineLength(subLine)),
-	width(width_),
+	len(ll->LineLastVisible(subLine, LineLayout::Scope::visibleOnly) - start),
+	width(std::max<XYPOSITION>(1.0, width_ - vs.textStart -
+		(subLine ? ll->wrapIndent : 0))),
 	height(static_cast<float>(vs.lineHeight)),
 	ctrlCharPadding(vs.ctrlCharPadding),
 	tabWidth(vs.tabWidth),
@@ -390,6 +391,10 @@ ScreenLine::~ScreenLine() = default;
 
 std::string_view ScreenLine::Text() const {
 	return std::string_view(&ll->chars[start], len);
+}
+
+std::string_view ScreenLine::ParagraphText() const {
+	return std::string_view(ll->chars.get(), ll->numCharsBeforeEOL);
 }
 
 size_t ScreenLine::Length() const {

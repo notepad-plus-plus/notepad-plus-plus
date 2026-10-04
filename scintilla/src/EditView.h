@@ -131,6 +131,8 @@ public:
 	SelectionPosition SPositionFromLineX(Surface *surface, const EditModel &model, Sci::Line lineDoc, int x, const ViewStyle &vs);
 	Sci::Line DisplayFromPosition(Surface *surface, const EditModel &model, Sci::Position pos, const ViewStyle &vs);
 	Sci::Position StartEndDisplayLine(Surface *surface, const EditModel &model, Sci::Position pos, bool start, const ViewStyle &vs);
+	Sci::Position PositionRelative(Surface *surface, const EditModel &model, Sci::Position pos,
+		int direction, const ViewStyle &vs, PRectangle rcClient);
 
 private:
 	void UpdateMaxWidth(XYPOSITION width) noexcept;

@@ -151,6 +151,8 @@ public:
 class IScreenLine {
 public:
 	virtual std::string_view Text() const = 0;
+	// The full logical paragraph supplies direction for every wrapped row.
+	virtual std::string_view ParagraphText() const { return Text(); }
 	virtual size_t Length() const = 0;
 	virtual size_t RepresentationCount() const = 0;
 	virtual XYPOSITION Width() const = 0;
@@ -162,12 +164,19 @@ public:
 	virtual XYPOSITION TabPositionAfter(XYPOSITION xPosition) const = 0;
 };
 
+class Surface;
+
 class IScreenLineLayout {
 public:
 	virtual ~IScreenLineLayout() noexcept = default;
 	virtual size_t PositionFromX(XYPOSITION xDistance, bool charPosition) = 0;
 	virtual XYPOSITION XFromPosition(size_t caretPosition) = 0;
 	virtual std::vector<Interval> FindRangeIntervals(size_t start, size_t end) = 0;
+	virtual bool SupportsDrawing() const noexcept { return false; }
+	virtual bool ReadingDirectionR2L() const noexcept { return false; }
+	virtual size_t PositionRelative(size_t position, int) { return position; }
+	// Draw a range using the same complete line layout used for hit-testing.
+	virtual bool Draw(Surface *, Point, size_t, size_t, ColourRGBA) { return false; }
 };
 
 /**

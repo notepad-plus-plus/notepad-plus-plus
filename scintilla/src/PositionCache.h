@@ -125,6 +125,7 @@ struct ScreenLine : public IScreenLine {
 	virtual ~ScreenLine();
 
 	std::string_view Text() const override;
+	std::string_view ParagraphText() const override;
 	size_t Length() const override;
 	size_t RepresentationCount() const override;
 	XYPOSITION Width() const override;

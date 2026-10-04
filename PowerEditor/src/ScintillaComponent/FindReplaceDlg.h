@@ -17,12 +17,30 @@
 
 #pragma once
 
+#include <windows.h>
+
 #include <map>
-#include "FindReplaceDlg_rc.h"
-#include "ScintillaEditView.h"
+#include <stdexcept>
+#include <string>
+#include <utility>
+#include <vector>
+
+#include <BoostRegexSearch.h>
+#include <Scintilla.h>
+
+#include "Common.h"
+#include "ContextMenu.h"
 #include "DockingDlgInterface.h"
-#include "BoostRegexSearch.h"
+#include "FindReplaceDlg_rc.h"
+#include "Notepad_plus_msgs.h"
+#include "Parameters.h"
+#include "ScintillaEditView.h"
+#include "StaticDialog.h"
 #include "StatusBar.h"
+#include "TabBar.h"
+#include "ToolBar.h"
+#include "Window.h"
+#include "dpiManagerV2.h"
 
 #define FIND_RECURSIVE 1
 #define FIND_INHIDDENDIR 2
@@ -134,7 +152,7 @@ public:
 	void addFileNameTitle(const wchar_t * fileName);
 	void addFileHitCount(int count);
 	void addSearchResultInfo(int count, int countSearched, bool searchedEntireNotSelection, const FindOption *pFindOpt);
-	std::string foundLine(FoundInfo fi, SearchResultMarkingLine mi, const wchar_t* foundline, size_t foundLineLen, size_t totalLineNumber);
+	std::string foundLine(FoundInfo fi, SearchResultMarkingLine miLine, const wchar_t* foundline, size_t foundLineLen, size_t totalLineNumber);
 	void setFinderStyle();
 	void setFinderStyleForNpc(bool onlyColor = false);
 	void removeAll();
@@ -199,7 +217,7 @@ private:
 		_scintView.execute(SCI_SETREADONLY, isReadOnly);
 	}
 
-	bool isLineActualSearchResult(const std::wstring & s) const;
+	static bool isLineActualSearchResult(const std::wstring& s);
 	std::wstring & prepareStringForClipboard(std::wstring & s) const;
 
 	static FoundInfo EmptyFoundInfo;
@@ -310,7 +328,7 @@ public :
 	void getAndValidatePatterns(std::vector<std::wstring> & patternVect);
 
 	void setFindInFilesDirFilter(const wchar_t *dir, const wchar_t *filters);
-	void setProjectCheckmarks(FindHistory *findHistory, int Msk);
+	void setProjectCheckmarks(FindHistory* findHistory, int msk);
 	void enableProjectCheckmarks();
 
 	const std::wstring& getText2search() const {
@@ -422,7 +440,7 @@ public :
 	std::wstring getScopeInfoForStatusBar(FindOption const *pFindOpt) const;
 	Finder * createFinder();
 	bool removeFinder(Finder *finder2remove);
-	DIALOG_TYPE getCurrentStatus() { return _currentStatus; }
+	DIALOG_TYPE getCurrentStatus() const { return _currentStatus; }
 	Finder* getFinderFrom(HWND hwnd);
 	int regexBackwardMsgBox();
 	std::wstring setSearchText();
@@ -513,7 +531,7 @@ private:
 			_tab.activateAt(_currentStatus);
 	}
 	
-	FindStatus getFindStatus() {
+	FindStatus getFindStatus() const {
 		return _statusbarFindStatus;
 	}
 
@@ -556,7 +574,7 @@ public :
 
 	void setFindStatus(FindStatus iStatus, size_t nbCounted, int nth);
 
-	FindStatus getFindStatus() { return _findStatus; }
+	FindStatus getFindStatus() const { return _findStatus; }
 
 	void addToRebar(ReBar* rebar);
 

@@ -17,7 +17,10 @@
 
 #pragma once
 
-#include "Parameters.h"
+#include <windows.h>
+
+#include <cstdint>
+
 #include "BabyGrid.h"
 #include "Window.h"
 
@@ -51,8 +54,8 @@ public:
 
 	void setText(size_t row, size_t col, const wchar_t* text) {
 		BGCELL cell;
-		cell.row = int(row);
-		cell.col = int(col);
+		cell.row = static_cast<int>(row);
+		cell.col = static_cast<int>(col);
 		::SendMessage(_hSelf, BGM_SETCELLDATA, reinterpret_cast<WPARAM>(&cell), reinterpret_cast<LPARAM>(text));
 	}
 
@@ -61,7 +64,7 @@ public:
 	}
 
 	int getSelectedRow() {
-		return (int)::SendMessage(_hSelf, BGM_GETROW, 0, 0);
+		return static_cast<int>(::SendMessage(_hSelf, BGM_GETROW, 0, 0));
 	}
 
 	void deleteCell(int row, int col) {
@@ -80,11 +83,11 @@ public:
 	}
 
 	int getNumberRows() const {
-		return (int)::SendMessage(_hSelf, BGM_GETROWS, 0, 0);
+		return static_cast<int>(::SendMessage(_hSelf, BGM_GETROWS, 0, 0));
 	}
 
 	int getHomeRow() const {
-		return (int)::SendMessage(_hSelf, BGM_GETHOMEROW, 0, 0);
+		return static_cast<int>(::SendMessage(_hSelf, BGM_GETHOMEROW, 0, 0));
 	}
 
 	void setLastView(const size_t homeRow, const size_t cursorRow) const {
@@ -178,6 +181,6 @@ public:
 
 private:
 	static bool _isRegistered;
+
+	using Window::init;
 };
-
-

@@ -69,7 +69,7 @@ FindOption FindReplaceDlg::_options;
 
 const wstring noFoundPotentialReason = L"The given occurrence cannot be found. You may have forgotten to check \"Wrap around\" (to ON), \"Match case\" (to OFF), or \"Match whole word only\" (to OFF).";
 
-void addText2Combo(const wchar_t * txt2add, HWND hCombo)
+static void addText2Combo(const wchar_t* txt2add, HWND hCombo)
 {
 	if (!hCombo) return;
 	if (!lstrcmp(txt2add, L"")) return;
@@ -84,7 +84,7 @@ void addText2Combo(const wchar_t * txt2add, HWND hCombo)
 	::SendMessage(hCombo, CB_SETCURSEL, i, 0);
 }
 
-wstring getTextFromCombo(HWND hCombo)
+static std::wstring getTextFromCombo(HWND hCombo)
 {
 	const int strSize = FINDREPLACE_MAXLENGTH;
 	auto str = std::make_unique<wchar_t[]>(strSize);
@@ -94,7 +94,7 @@ wstring getTextFromCombo(HWND hCombo)
 	return wstring(str.get());
 }
 
-void delLeftWordInEdit(HWND hEdit)
+static void delLeftWordInEdit(HWND hEdit)
 {
 	const int strSize = FINDREPLACE_MAXLENGTH;
 	auto str = std::make_unique<wchar_t[]>(strSize);
@@ -102,7 +102,7 @@ void delLeftWordInEdit(HWND hEdit)
 
 	::SendMessage(hEdit, WM_GETTEXT, FINDREPLACE_MAXLENGTH, reinterpret_cast<LPARAM>(str.get()));
 	WORD cursor = 0;
-	::SendMessage(hEdit, EM_GETSEL, (WPARAM)&cursor, 0);
+	::SendMessage(hEdit, EM_GETSEL, reinterpret_cast<WPARAM>(&cursor), 0);
 	WORD wordstart = cursor;
 	while (wordstart > 0)
 	{
@@ -122,8 +122,8 @@ void delLeftWordInEdit(HWND hEdit)
 
 	if (wordstart < cursor)
 	{
-		::SendMessage(hEdit, EM_SETSEL, (WPARAM)wordstart, (LPARAM)cursor);
-		::SendMessage(hEdit, EM_REPLACESEL, (WPARAM)TRUE, reinterpret_cast<LPARAM>(L""));
+		::SendMessage(hEdit, EM_SETSEL, static_cast<WPARAM>(wordstart), static_cast<LPARAM>(cursor));
+		::SendMessage(hEdit, EM_REPLACESEL, static_cast<WPARAM>(TRUE), reinterpret_cast<LPARAM>(L""));
 	}
 }
 
@@ -3211,7 +3211,6 @@ bool FindReplaceDlg::processReplace(const wchar_t *txt2find, const wchar_t *txt2
 	}
 	else if (isSearchUnicodeCharOnAnsi(txt2replace))
 	{
-		NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 		wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-invalid-replace-chars", L"Replace: can't replace with non-ANSI text in ANSI document");
 		setStatusbarMessage(msg, FSNotFound);
 		return false;
@@ -5458,7 +5457,7 @@ void FindReplaceDlg::drawStatusBarItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
 	//printStr(L"OK"));
 	COLORREF fgColor = black; // black by default
-	PCTSTR ptStr =(PCTSTR)lpDrawItemStruct->itemData;
+	auto ptStr = reinterpret_cast<const wchar_t*>(lpDrawItemStruct->itemData);
 	NppParameters& nppParamInst = NppParameters::getInstance();
 	
 	if (_statusbarFindStatus == FSNotFound)
@@ -5519,12 +5518,13 @@ void FindReplaceDlg::drawStatusBarItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		rect.left += 2;
 	}
 
-	::DrawText(lpDrawItemStruct->hDC, ptStr, lstrlen(ptStr), &rect, DT_SINGLELINE | DT_VCENTER | DT_LEFT);
+	const auto len = static_cast<int>(std::wcslen(ptStr));
+	::DrawTextW(lpDrawItemStruct->hDC, ptStr, len, &rect, DT_SINGLELINE | DT_VCENTER | DT_LEFT);
 
 	if (_statusbarTooltipMsg.empty()) return;
 
 	SIZE size{};
-	::GetTextExtentPoint32(lpDrawItemStruct->hDC, ptStr, lstrlen(ptStr), &size);
+	::GetTextExtentPoint32W(lpDrawItemStruct->hDC, ptStr, len, &size);
 	int s = (rect.bottom - rect.top) & 0x70; // limit s to available icon sizes and avoid uneven scalings
 	if (s > 0)
 	{
@@ -5535,14 +5535,14 @@ void FindReplaceDlg::drawStatusBarItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		}
 
 		if (!_statusbarTooltipIcon)
-			_statusbarTooltipIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_GET_INFO_FROM_TOOLTIP), IMAGE_ICON, s, s, 0);
+			DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(IDI_GET_INFO_FROM_TOOLTIP), s, s, &_statusbarTooltipIcon);
 
 		if (_statusbarTooltipIcon)
 		{
 			_statusbarTooltipIconSize = s;
 			rect.left = rect.left + size.cx + s / 2;
 			rect.top  = (rect.top + rect.bottom - s) / 2;
-			DrawIconEx (lpDrawItemStruct->hDC, rect.left, rect.top, _statusbarTooltipIcon, s, s, 0, NULL, DI_NORMAL);
+			::DrawIconEx(lpDrawItemStruct->hDC, rect.left, rect.top, _statusbarTooltipIcon, s, s, 0, nullptr, DI_NORMAL);
 			if (!_statusbarTooltipWnd)
 			{
 				rect.right = rect.left + s;
@@ -5968,7 +5968,7 @@ void Finder::purgeToggle()
 	}
 }
 
-bool Finder::isLineActualSearchResult(const wstring & s) const
+bool Finder::isLineActualSearchResult(const wstring& s)
 {
 	// actual-search-result lines are the only type that start with a tab character
 	// sample: "\tLine 123: xxxxxxHITxxxxxx"

@@ -5457,7 +5457,7 @@ void FindReplaceDlg::drawStatusBarItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
 	//printStr(L"OK"));
 	COLORREF fgColor = black; // black by default
-	auto* ptStr = reinterpret_cast<const wchar_t*>(lpDrawItemStruct->itemData);
+	auto ptStr = reinterpret_cast<const wchar_t*>(lpDrawItemStruct->itemData);
 	NppParameters& nppParamInst = NppParameters::getInstance();
 	
 	if (_statusbarFindStatus == FSNotFound)

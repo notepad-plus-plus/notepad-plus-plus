@@ -42,6 +42,8 @@ public:
 		}
 	}
 
+	BOOL getColorResult(COLORREF& rgbResult);
+
 private:
 	COLORREF _colour = RGB(0xFF, 0xFF, 0xFF);
 

@@ -25,6 +25,7 @@
 #include <algorithm>
 #include <cassert>
 #include <cstdlib>
+#include <memory>
 #include <stdexcept>
 #include <string>
 
@@ -36,24 +37,12 @@
 
 //#define IDC_STATUSBAR 789
 
-
-enum
-{
-	defaultPartWidth = 5,
-};
-
+static constexpr int defaultPartWidth = 5;
 
 StatusBar::~StatusBar()
 {
-	delete[] _lpParts;
+	_lpParts.reset();
 }
-
-
-void StatusBar::init(HINSTANCE, HWND)
-{
-	assert(false and "should never be called");
-}
-
 
 struct StatusBarSubclassInfo
 {
@@ -172,24 +161,20 @@ static LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, L
 
 				RECT rcDivider = { rcPart.right - borders.vertical, rcPart.top, rcPart.right, rcPart.bottom };
 
-				DWORD cchText = 0;
-				cchText = LOWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, i, 0));
-				str.resize(size_t{ cchText } + 1); // technically the std::wstring might not have an internal null character at the end of the buffer, so add one
-				LRESULT lr = ::SendMessage(hWnd, SB_GETTEXT, i, reinterpret_cast<LPARAM>(str.data()));
-				str.resize(cchText); // remove the extra NULL character
-				bool ownerDraw = false;
-				if (cchText == 0 && (lr & ~(SBT_NOBORDERS | SBT_POPOUT | SBT_RTLREADING)) != 0)
-				{
-					// this is a pointer to the text
-					ownerDraw = true;
-				}
 				SetBkMode(hdc, TRANSPARENT);
 				SetTextColor(hdc, NppDarkMode::getTextColor());
 
 				rcPart.left += borders.between;
 				rcPart.right -= borders.vertical;
 
-				if (ownerDraw)
+				const auto retVal = ::SendMessage(hWnd, SB_GETTEXTLENGTH, i, 0);
+				const WORD cchText = LOWORD(retVal);
+				str.resize(size_t{ cchText } + 1); // technically the std::wstring might not have an internal null character at the end of the buffer, so add one
+				const LRESULT lr = ::SendMessage(hWnd, SB_GETTEXT, i, reinterpret_cast<LPARAM>(str.data()));
+				str.resize(cchText); // remove the extra NULL character
+
+				if (const bool ownerDraw = (cchText == 0 && (HIWORD(retVal) & SBT_OWNERDRAW) != 0);
+					ownerDraw)
 				{
 					UINT id = GetDlgCtrlID(hWnd);
 					DRAWITEMSTRUCT dis = {
@@ -204,7 +189,7 @@ static LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, L
 						, static_cast<ULONG_PTR>(lr)
 					};
 
-					SendMessage(GetParent(hWnd), WM_DRAWITEM, id, (LPARAM)&dis);
+					::SendMessage(::GetParent(hWnd), WM_DRAWITEM, id, reinterpret_cast<LPARAM>(&dis));
 				}
 				else
 				{
@@ -246,7 +231,6 @@ static LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, L
 		}
 
 		case WM_DPICHANGED:
-		case WM_DPICHANGED_AFTERPARENT:
 		case WM_THEMECHANGED:
 		{
 			pStatusBarInfo->closeTheme();
@@ -274,7 +258,7 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 		0,
 		STATUSCLASSNAME,
 		L"",
-		WS_CHILD | SBARS_SIZEGRIP ,
+		WS_CHILD | SBARS_SIZEGRIP,
 		0, 0, 0, 0,
 		_hParent, nullptr, _hInst, 0);
 
@@ -294,8 +278,8 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 		_partWidthArray.resize(nbParts, defaultPartWidth);
 
 	// Allocate an array for holding the right edge coordinates.
-	if (_partWidthArray.size())
-		_lpParts = new int[_partWidthArray.size()];
+	if (!_partWidthArray.empty())
+		_lpParts = std::make_unique<int[]>(_partWidthArray.size());
 
 	RECT rc{};
 	::GetClientRect(_hParent, &rc);
@@ -305,12 +289,12 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 
 bool StatusBar::setPartWidth(int whichPart, int width)
 {
-	if ((size_t) whichPart < _partWidthArray.size())
+	if (static_cast<size_t>(whichPart) < _partWidthArray.size())
 	{
 		_partWidthArray[whichPart] = width;
 		return true;
 	}
-	assert(false and "invalid status bar index");
+	assert(false && "invalid status bar index");
 	return false;
 }
 
@@ -321,20 +305,16 @@ void StatusBar::destroy()
 	delete _pStatusBarInfo;
 }
 
-
-void StatusBar::reSizeTo(RECT& rc)
-{
-	::MoveWindow(_hSelf, rc.left, rc.top, rc.right, rc.bottom, TRUE);
-	adjustParts(rc.right);
-	redraw();
-}
-
-
 int StatusBar::getHeight() const
 {
-	return (FALSE != ::IsWindowVisible(_hSelf)) ? Window::getHeight() : 0;
+	if (_partWidthArray.empty()) // It is Find dialog status bar
+	{
+		RECT rc{};
+		::GetWindowRect(_hSelf, &rc);
+		return (rc.bottom - rc.top);
+	}
+	return Window::getHeight();
 }
-
 
 void StatusBar::adjustParts(int clientWidth)
 {
@@ -349,13 +329,13 @@ void StatusBar::adjustParts(int clientWidth)
 	}
 
 	// Tell the status bar to create the window parts.
-	::SendMessage(_hSelf, SB_SETPARTS, _partWidthArray.size(), reinterpret_cast<LPARAM>(_lpParts));
+	::SendMessage(_hSelf, SB_SETPARTS, _partWidthArray.size(), reinterpret_cast<LPARAM>(_lpParts.get()));
 }
 
 
 bool StatusBar::setText(const wchar_t* str, int whichPart)
 {
-	if ((size_t) whichPart < _partWidthArray.size())
+	if (static_cast<size_t>(whichPart) < _partWidthArray.size())
 	{
 		if (str != nullptr)
 			_lastSetText = str;
@@ -364,7 +344,7 @@ bool StatusBar::setText(const wchar_t* str, int whichPart)
 
 		return (TRUE == ::SendMessage(_hSelf, SB_SETTEXT, whichPart, reinterpret_cast<LPARAM>(_lastSetText.c_str())));
 	}
-	assert(false and "invalid status bar index");
+	assert(false && "invalid status bar index");
 	return false;
 }
 

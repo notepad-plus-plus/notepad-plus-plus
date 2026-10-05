@@ -342,30 +342,9 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent, bool t
 	RECT rcClient{};
 	getClientRect(rcClient);
 
-	RECT rcCount{};
-	getMappedChildRect(IDCCOUNTALL, rcCount);
-
-	RECT rcOk{};
-	getMappedChildRect(IDOK, rcOk);
-
-	RECT rcTransGrpb{};
-	getMappedChildRect(IDC_TRANSPARENT_GRPBOX, rcTransGrpb);
-
-	RECT rcStatusBar{};
-	::GetWindowRect(_statusBar.getHSelf(), &rcStatusBar);
-
-	const LONG gap = (rcCount.top - rcOk.bottom);
-	_lesssModeHeight = (rcCount.bottom + gap);
-
-	const LONG padding = _dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER);
-	_szBorder.cx = (_dpiManager.getSystemMetricsForDpi(SM_CXFRAME) + padding) * 2;
-	_szBorder.cy = (_dpiManager.getSystemMetricsForDpi(SM_CYFRAME) + padding) * 2
-		+ _dpiManager.getSystemMetricsForDpi(SM_CYCAPTION)
-		+ (rcStatusBar.bottom - rcStatusBar.top);
-
 	//fill min dialog size info
 	_szMinDialog.cx = rcClient.right - rcClient.left;
-	_szMinDialog.cy = rcTransGrpb.bottom + gap;
+	setMinHeightAndBordersMetrics();
 
 	_tab.init(_hInst, _hSelf, false, false);
 
@@ -1447,6 +1426,29 @@ void FindReplaceDlg::resizeDialogElements()
 	::SetWindowPos(::GetDlgItem(_hSelf, IDFINDWHAT), nullptr, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_FRAMECHANGED | flags);
 }
 
+void FindReplaceDlg::setMinHeightAndBordersMetrics() noexcept
+{
+	RECT rcCount{};
+	getMappedChildRect(IDCCOUNTALL, rcCount);
+
+	RECT rcOk{};
+	getMappedChildRect(IDOK, rcOk);
+
+	RECT rcTransGrpb{};
+	getMappedChildRect(IDC_TRANSPARENT_GRPBOX, rcTransGrpb);
+
+	const LONG gap = (rcCount.top - rcOk.bottom);
+
+	_szMinDialog.cy = rcTransGrpb.bottom + gap;
+	_lesssModeHeight = (rcCount.bottom + gap);
+
+	const LONG padding = _dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER);
+	_szBorder.cx = ((_dpiManager.getSystemMetricsForDpi(SM_CXFRAME) + padding) * 2);
+	_szBorder.cy = ((_dpiManager.getSystemMetricsForDpi(SM_CYFRAME) + padding) * 2
+		+ _dpiManager.getSystemMetricsForDpi(SM_CYCAPTION)
+		+ _statusBar.getHeight());
+}
+
 void FindReplaceDlg::setMonospaceFont()
 {
 	if (_hComboBoxFont != nullptr)
@@ -1940,31 +1942,24 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_DPICHANGED:
 		{
+			::SendMessage(_statusBar.getHSelf(), WM_DPICHANGED, wParam, lParam);
+
 			const UINT prevDpi = _dpiManager.getDpi();
 			_dpiManager.setDpiWP(wParam);
 			const UINT dpi = _dpiManager.getDpi();
 
 			setFont();
 
-			RECT rcStatusBar{};
-			::GetWindowRect(_statusBar.getHSelf(), &rcStatusBar);
-
-			LONG padding = _dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER);
-			_szBorder.cx = ((_dpiManager.getSystemMetricsForDpi(SM_CXFRAME) + padding) * 2);
-			_szBorder.cy = ((_dpiManager.getSystemMetricsForDpi(SM_CYFRAME) + padding) * 2
-				+ _dpiManager.getSystemMetricsForDpi(SM_CYCAPTION)
-				+ (rcStatusBar.bottom - rcStatusBar.top));
+			setMinHeightAndBordersMetrics();
 
 			if (prevDpi > dpi)
 			{
-				padding = static_cast<LONG>(_dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER));
+				const auto padding = static_cast<LONG>(_dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER));
 				_szBorder.cx += padding;
 				_szBorder.cy += padding;
 			}
 
 			_szMinDialog.cx = _dpiManager.scale(_szMinDialog.cx, dpi, prevDpi);
-			_szMinDialog.cy = _dpiManager.scale(_szMinDialog.cy, dpi, prevDpi);
-			_lesssModeHeight = _dpiManager.scale(_lesssModeHeight, dpi, prevDpi);
 
 			setPositionDpi(lParam, SWP_NOZORDER | SWP_NOACTIVATE);
 

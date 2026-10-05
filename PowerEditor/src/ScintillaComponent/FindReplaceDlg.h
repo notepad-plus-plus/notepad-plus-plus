@@ -448,6 +448,7 @@ public :
 
 protected :
 	void resizeDialogElements();
+	void setMinHeightAndBordersMetrics() noexcept;
 
 	void setMonospaceFont();
 	void setFont();

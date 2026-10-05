@@ -430,6 +430,10 @@ public :
 
 protected :
 	void resizeDialogElements();
+
+	void setMonospaceFont();
+	void setFont();
+
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 	static LRESULT CALLBACK ComboEditProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);

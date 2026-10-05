@@ -198,7 +198,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent, WORD 
 	const size_t szColVer = _dpiManager.scale(100);
 	const size_t szColName = szColVer * 2;
 
-	auto* hFont = reinterpret_cast<HFONT>(::SendMessage(_hSelf, WM_GETFONT, 0, 0));
+	auto hFont = reinterpret_cast<HFONT>(::SendMessage(_hSelf, WM_GETFONT, 0, 0));
 	auto initListView = [&](PluginViewList& list) -> void {
 		list.addColumn(columnInfo(pluginStr, szColName));
 		list.addColumn(columnInfo(vesionStr, szColVer));

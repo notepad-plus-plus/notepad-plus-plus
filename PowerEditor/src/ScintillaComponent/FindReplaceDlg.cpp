@@ -3847,8 +3847,13 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->init(_hInst, (*_ppEditView)->getHParent(), _ppEditView);
 		_pFinder->setVolatiled(false);
 
-		DockedWidgetData	data{};
+		DockedWidgetData data{};
+
+		// must have same context as main window, or it will glitch (show on other screen, ...)
+		const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPIManagerV2::getWindowDpiAwarenessContext(_hParent));
 		_pFinder->create(&data, { IDI_FIND_RESULT_ICON, IDR_FIND_RESULT_ICO_DM, IDR_FIND_RESULT_ICO2 });
+		DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
+
 		::SendMessage(_hParent, NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFinder->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_BOTTOM | DWS_ICONTAB | DWS_ADDINFO | DWS_USEOWNDARKMODE;

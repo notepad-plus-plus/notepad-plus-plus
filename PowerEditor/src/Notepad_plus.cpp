@@ -884,6 +884,10 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	activateBuffer(_mainEditView.getCurrentBufferID(), MAIN_VIEW);
 	activateBuffer(_subEditView.getCurrentBufferID(), SUB_VIEW);
 
+	// in an RTL UI the views start mirrored, but their first document may be LTR (editZoneRTL="no")
+	_mainEditView.changeTextDirection(_mainEditView.getCurrentBuffer()->isRTL());
+	_subEditView.changeTextDirection(_subEditView.getCurrentBuffer()->isRTL());
+
 	_mainEditView.grabFocus();
 
 	return TRUE;

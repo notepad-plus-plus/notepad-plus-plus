@@ -26,6 +26,7 @@
 #include <algorithm>
 #include <array>
 #include <cassert>
+#include <cctype>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -38,14 +39,18 @@
 #include <sstream>
 #include <stdexcept>
 #include <string>
+#include <string_view>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
 #include <SciLexer.h>
 #include <Scintilla.h>
 
+#include "AboutDlg.h"
 #include "Common.h"
 #include "ContextMenu.h"
+#include "Notepad_plus.h"
 #include "Notepad_plus_Window.h"
 #include "Notepad_plus_msgs.h"
 #include "NppConstants.h"
@@ -3295,7 +3300,7 @@ bool NppParameters::makeDefaultServerWhiteList(bool bSave2File)
 {
 	if (_pXmlServerWhiteListDoc)
 	{
-		_pXmlServerWhiteListDoc->reset();
+		NppXml::reset(_pXmlServerWhiteListDoc);
 	}
 	else
 	{
@@ -3310,9 +3315,7 @@ bool NppParameters::makeDefaultServerWhiteList(bool bSave2File)
 	NppXml::Element childElement = NppXml::createChildElement(root, "NetworkPathsAlwaysAction");
 	NppXml::setAttribute(childElement, "value", "?"); // default (networkPathAlwaysAsk)
 
-	return bSave2File ?
-		_pXmlServerWhiteListDoc->save_file(_serverWhiteListPath.c_str(), "    ", pugi::format_indent | pugi::format_no_declaration | pugi::format_save_file_text) 
-		: true;
+	return bSave2File ? NppXml::saveServerWhiteList(_pXmlServerWhiteListDoc, _serverWhiteListPath) : true;
 }
 
 bool NppParameters::addServerToWhiteList(const char* netpath, bool bCaseSensitive)
@@ -3354,9 +3357,9 @@ bool NppParameters::addServerToWhiteList(const char* netpath, bool bCaseSensitiv
 
 	// add new record
 	NppXml::Element elementServerAllowed = NppXml::createChildElement(root, "ServerAllowed");
-	NppXml::setAttribute(elementServerAllowed, "name", netpathServerName.c_str());
+	NppXml::setAttribute(elementServerAllowed, "name", netpathServerName);
 
-	return _pXmlServerWhiteListDoc->save_file(_serverWhiteListPath.c_str(), "    ", pugi::format_indent | pugi::format_no_declaration | pugi::format_save_file_text);
+	return NppXml::saveServerWhiteList(_pXmlServerWhiteListDoc, _serverWhiteListPath);
 }
 
 bool NppParameters::setNetworkPathAlwaysActionInServerWhitelist(NetworkPathAlwaysAction mode)
@@ -3391,7 +3394,7 @@ bool NppParameters::setNetworkPathAlwaysActionInServerWhitelist(NetworkPathAlway
 
 			_networkPathAlwaysAction = mode;
 
-			return _pXmlServerWhiteListDoc->save_file(_serverWhiteListPath.c_str(), "    ", pugi::format_indent | pugi::format_no_declaration | pugi::format_save_file_text);
+			return NppXml::saveServerWhiteList(_pXmlServerWhiteListDoc, _serverWhiteListPath);
 		}
 	}
 
@@ -3478,14 +3481,14 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 									// otherwise any subsequent indirect Notepad++ app launching (e.g. via the NppShell context menu)
 									// causes this getSessionFromXmlTree will check old out-of-date session.xml content
 									bNeedsSessionXmlFileUpdateAfter = true;
-									viewRoots[k].remove_child(childNode);
+									NppXml::deleteChild(viewRoots[k], childNode);
 									continue;
 								}
 							}
 							else if (_networkPathAlwaysAction == networkPathAlwaysSkip)
 							{
 								bNeedsSessionXmlFileUpdateAfter = true;
-								viewRoots[k].remove_child(childNode);
+								NppXml::deleteChild(viewRoots[k], childNode);
 								continue;
 							}
 							else if (_networkPathAlwaysAction == networkPathAlwaysLoad)
@@ -3540,14 +3543,14 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 								if (buttonID == IDCANCEL || buttonID == IDNO) // Skip once or Always skip
 								{
 									bNeedsSessionXmlFileUpdateAfter = true;
-									viewRoots[k].remove_child(childNode);
+									NppXml::deleteChild(viewRoots[k], childNode);
 									continue;
 								}
 							}
 							else if (_networkPathAlwaysAction == networkPathAlwaysSkip)
 							{
 								bNeedsSessionXmlFileUpdateAfter = true;
-								viewRoots[k].remove_child(childNode);
+								NppXml::deleteChild(viewRoots[k], childNode);
 								continue;
 							}
 							else if (_networkPathAlwaysAction == networkPathAlwaysLoad)
@@ -3569,24 +3572,24 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 					}
 					else if (!wstrBackupFilePath.empty())
 					{
-						wchar_t* fn = ::PathFindFileNameW(wstrBackupFilePath.c_str());
-						::StringCchCopyW(normalizedBackupFilePath, MAX_PATH, fn);
+						const wchar_t* fn = ::PathFindFileNameW(wstrBackupFilePath.c_str());
+						static_cast<void>(::StringCchCopyW(normalizedBackupFilePath, MAX_PATH, fn));
 					}
 
 					std::wstring currentBackupFilePath = NppParameters::getInstance().getUserPath() + L"\\backup\\";
 
 					wchar_t normalizedBackupDir[MAX_PATH]{};
 					if (::GetFullPathNameW(currentBackupFilePath.c_str(), MAX_PATH, normalizedBackupDir, NULL) == 0)
-						::StringCchCopyW(normalizedBackupDir, MAX_PATH, currentBackupFilePath.c_str());
+						static_cast<void>(::StringCchCopyW(normalizedBackupDir, MAX_PATH, currentBackupFilePath.c_str()));
 
 					if (normalizedBackupFilePath[0])
 					{
-						std::wstring backupFilePath = normalizedBackupFilePath;
+						const std::wstring backupFilePathW = normalizedBackupFilePath;
 						bool isConfined = false;
 						size_t normalizedBackupDirLen = wcslen(normalizedBackupDir);
-						if (backupFilePath.size() >= normalizedBackupDirLen)
+						if (backupFilePathW.size() >= normalizedBackupDirLen)
 						{
-							int res = ::CompareStringOrdinal(backupFilePath.c_str(), static_cast<int>(normalizedBackupDirLen), normalizedBackupDir, static_cast<int>(normalizedBackupDirLen), TRUE);
+							int res = ::CompareStringOrdinal(backupFilePathW.c_str(), static_cast<int>(normalizedBackupDirLen), normalizedBackupDir, static_cast<int>(normalizedBackupDirLen), TRUE);
 							isConfined = res == CSTR_EQUAL;
 						}
 
@@ -3597,7 +3600,7 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 
 							std::wstring safePath = normalizedBackupDir;
 							safePath += fn;
-							::StringCchCopyW(normalizedBackupFilePath, MAX_PATH, safePath.c_str());
+							static_cast<void>(::StringCchCopyW(normalizedBackupFilePath, MAX_PATH, safePath.c_str()));
 						}
 					}
 
@@ -3686,14 +3689,14 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 							if (buttonID == IDCANCEL || buttonID == IDNO) // Skip once or Always skip
 							{
 								bNeedsSessionXmlFileUpdateAfter = true;
-								fileBrowserRoot.remove_child(childNode);
+								NppXml::deleteChild(fileBrowserRoot, childNode);
 								continue;
 							}
 						}
 						else if (_networkPathAlwaysAction == networkPathAlwaysSkip)
 						{
 							bNeedsSessionXmlFileUpdateAfter = true;
-							fileBrowserRoot.remove_child(childNode);
+							NppXml::deleteChild(fileBrowserRoot, childNode);
 							continue;
 						}
 						else if (_networkPathAlwaysAction == networkPathAlwaysLoad)
@@ -3734,7 +3737,7 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 	}
 
 	if (bNeedsSessionXmlFileUpdateAfter && !sessionDocFileName.empty())
-		pSessionDoc->save_file(sessionDocFileName.c_str());
+		static_cast<void>(NppXml::saveFile(pSessionDoc, sessionDocFileName));
 
 	return true;
 }
@@ -8972,6 +8975,10 @@ void NppParameters::writeStyle2Element(const Style& style2Write, Style& style2Sy
 	{
 		NppXml::setAttribute(element, "colorStyle", style2Write._colorStyle);
 	}
+	else
+	{
+		NppXml::removeAttribute(element, "colorStyle");
+	}
 
 	if (!style2Write._fontName.empty())
 	{
@@ -9073,6 +9080,10 @@ void NppParameters::insertUserLang2Tree(NppXml::Element& node, const UserLangCon
 		if (style2Write._colorStyle != COLORSTYLE_ALL)
 		{
 			NppXml::setAttribute(styleElement, "colorStyle", style2Write._colorStyle);
+		}
+		else
+		{
+			NppXml::removeAttribute(styleElement, "colorStyle");
 		}
 
 		if (!style2Write._fontName.empty())

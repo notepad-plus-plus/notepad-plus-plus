@@ -1986,7 +1986,7 @@ public:
 	COLORREF getFindDlgStatusMsgColor(int colourIndex);
 
 	bool isServerAllowed(const char* path2check, bool bCaseSensitive = false);
-	bool getServerName(const std::string& path2check, std::string& serverNameOutput);
+	static bool getServerName(const std::string& path2check, std::string& serverNameOutput);
 
 private:
 	unsigned long _sintillaModEventMask = SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT | SC_PERFORMED_UNDO | SC_PERFORMED_REDO | SC_MOD_CHANGEINDICATOR;

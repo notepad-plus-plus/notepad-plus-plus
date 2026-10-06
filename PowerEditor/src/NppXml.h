@@ -40,8 +40,16 @@ namespace NppXml
 		return doc->load_file(filename, pugi::parse_default | pugi::parse_comments | pugi::parse_declaration);
 	}
 
+	[[nodiscard]] inline bool loadFile(Document doc, const std::wstring& filename) {
+		return doc->load_file(filename.c_str(), pugi::parse_default | pugi::parse_comments | pugi::parse_declaration);
+	}
+
 	[[nodiscard]] inline bool saveFile(const Document doc, const wchar_t* filename) {
 		return doc->save_file(filename, "    ", pugi::format_indent | pugi::format_save_file_text);
+	}
+
+	[[nodiscard]] inline bool saveFile(const Document doc, const std::wstring& filename) {
+		return doc->save_file(filename.c_str(), "    ", pugi::format_indent | pugi::format_save_file_text);
 	}
 
 	[[nodiscard]] inline bool loadFileNativeLang(Document doc, const wchar_t* filename) {
@@ -84,6 +92,10 @@ namespace NppXml
 
 	[[nodiscard]] inline bool saveFileProject(const Document doc, const wchar_t* filename) {
 		return doc->save_file(filename, "    ", pugi::format_indent | pugi::format_no_declaration | pugi::format_save_file_text);
+	}
+
+	[[nodiscard]] inline bool saveServerWhiteList(const Document doc, const std::wstring& filename) {
+		return doc->save_file(filename.c_str(), "    ", pugi::format_indent | pugi::format_no_declaration | pugi::format_save_file_text);
 	}
 
 	[[nodiscard]] inline bool loadFileUDL(Document doc, const wchar_t* filename)
@@ -202,6 +214,10 @@ namespace NppXml
 		return elem.ensure_attribute(name).set_value(pugi::as_utf8(value));
 	}
 
+	inline bool removeAttribute(Element& elem, const char* name) {
+		return elem.remove_attribute(name);
+	}
+
 	inline void createNewDeclaration(Document& doc) {
 		auto decl = doc->prepend_child(pugi::node_declaration);
 		decl.append_attribute("version") = "1.0";
@@ -242,6 +258,10 @@ namespace NppXml
 
 	inline bool clear(Node& parent) {
 		return parent.remove_children();
+	}
+
+	inline void reset(Document& doc) {
+		doc->reset();
 	}
 
 	[[nodiscard]] inline Attribute firstAttribute(const Element& elem) {

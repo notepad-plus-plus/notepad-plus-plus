@@ -139,8 +139,10 @@ void DockingManager::init(HINSTANCE hInst, HWND hWnd, Window ** ppWin)
 	for (int iCont = 0; iCont < DOCKCONT_MAX; ++iCont)
 	{
 		_vContainer[iCont]->init(_hInst, _hSelf);
-		_vContainer[iCont]->doDialog(false);
-		::SetParent(_vContainer[iCont]->getHSelf(), _hParent);
+
+		// Initialize docking containers and splitters without eagerly creating dialog windows
+		//_vContainer[iCont]->doDialog(false);
+		//::SetParent(_vContainer[iCont]->getHSelf(), _hParent);
 
 		if ((iCont == CONT_TOP) || (iCont == CONT_BOTTOM))
 			_vSplitter[iCont]->init(_hInst, _hParent, _hSelf, DMS_HORIZONTAL);

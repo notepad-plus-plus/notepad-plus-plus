@@ -110,6 +110,19 @@ void DockingCont::doDialog(bool willBeShown, bool isFloating)
 
 DockedWidgetData* DockingCont::createDockedWidget(const DockedWidgetData& data)
 {
+	// Lazily instantiate the container dialog window on first use
+	if (!isCreated())
+	{
+		doDialog(false, _isFloating);
+		if (!_isFloating)
+		{
+			HWND hMainWnd = ::GetParent(_hParent);
+			if (!hMainWnd)
+				hMainWnd = _hParent;
+			::SetParent(_hSelf, hMainWnd);
+		}
+	}
+
 	DockedWidgetData *pTbData = new DockedWidgetData;
 
 	*pTbData = data;

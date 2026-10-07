@@ -34,7 +34,7 @@ public:
 	DockingManager();
 	~DockingManager() override;
 
-	void init(HINSTANCE hInst, HWND hWnd, Window ** ppWin);
+	void init(HINSTANCE hInst, HWND hParent, Window ** ppWin);
 	void reSizeTo(RECT & rc) override;
 
 	void setClientWnd(Window ** ppWin) {

@@ -974,6 +974,7 @@ Translation note:
 					<Item id="6132" name="Dölj knapparna ＋ ▼ ✕ på högersidan"/>
 					<Item id="6133" name="Statusfält"/>
 					<Item id="6134" name="Dölj"/>
+					<Item id="7165" name="Teckenstorlek för dialogrutor (kräver omstart av Notepad++)"/>
 				</Global>
 
 				<Toolbar title="Verktygsfält">
@@ -1226,7 +1227,7 @@ Translation note:
 				</Print>
 
 				<Searching title="Sökning">
-					<Item id="6902" name="Använd typsnitt med fast bredd i sökdialogen (kräver omstart av Notepad++)"/>
+					<Item id="6902" name="Använd teckensnitt med fast bredd i sökdialogen (kräver omstart av Notepad++)"/>
 					<Item id="6903" name="Låt sökdialogen förbli öppen efter sökningar som visas i resultatfönstret"/>
 					<Item id="6904" name="Visa bekräftelsedialog för &quot;Ersätt alla i alla öppna dokument&quot;"/>
 					<Item id="6905" name="Ersätt: Hoppa inte till nästa förekomst"/>

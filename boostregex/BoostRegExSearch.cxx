@@ -9,14 +9,15 @@
  *
  */
 
-#include <stdlib.h>
-#include <vector>
-#include <memory>
-#include <string_view>
-#include <stdexcept>
-#include <optional>
-#include <map>
 #include <algorithm>
+#include <cstdlib>
+#include <map>
+#include <memory>
+#include <optional>
+#include <stdexcept>
+#include <string>
+#include <string_view>
+#include <vector>
 
 #include "Scintilla.h"
 #include "ScintillaTypes.h"

@@ -25,7 +25,6 @@
 #include <algorithm>
 #include <cassert>
 #include <cstdlib>
-#include <memory>
 #include <stdexcept>
 #include <string>
 
@@ -36,13 +35,12 @@
 #include "Window.h"
 #include "dpiManagerV2.h"
 
-//#define IDC_STATUSBAR 789
+#define IDC_STATUSBAR 789
 
 static constexpr int defaultPartWidth = 5;
 
 StatusBar::~StatusBar()
 {
-	_lpParts.reset();
 	closeTheme();
 	destroyFont();
 }
@@ -81,8 +79,10 @@ LRESULT CALLBACK StatusBar::StatusBarSubclass(
 				break;  // Let the control paint itself the default way
 			}
 
+			const bool isPaint = uMsg == WM_PAINT;
+
 			PAINTSTRUCT ps{};
-			HDC hdc = (uMsg == WM_PAINT) ? ::BeginPaint(hWnd, &ps) : reinterpret_cast<HDC>(wParam);
+			HDC hdc = isPaint ? ::BeginPaint(hWnd, &ps) : reinterpret_cast<HDC>(wParam);
 
 			struct {
 				int horizontal = 0;
@@ -136,17 +136,17 @@ LRESULT CALLBACK StatusBar::StatusBarSubclass(
 				if (const bool ownerDraw = (cchText == 0 && (HIWORD(retVal) & SBT_OWNERDRAW) != 0);
 					ownerDraw)
 				{
-					UINT id = GetDlgCtrlID(hWnd);
-					DRAWITEMSTRUCT dis = {
-						0
-						, 0
-						, static_cast<UINT>(i)
-						, ODA_DRAWENTIRE
-						, id
-						, hWnd
-						, hdc
-						, rcPart
-						, static_cast<ULONG_PTR>(lr)
+					const UINT id = ::GetDlgCtrlID(hWnd);
+					DRAWITEMSTRUCT dis{
+						.CtlType = 0,
+						.CtlID = id,
+						.itemID = static_cast<UINT>(i),
+						.itemAction = 0,
+						.itemState = 0,
+						.hwndItem = hWnd,
+						.hDC = hdc,
+						.rcItem = rcPart,
+						.itemData = static_cast<ULONG_PTR>(lr)
 					};
 
 					::SendMessage(::GetParent(hWnd), WM_DRAWITEM, id, reinterpret_cast<LPARAM>(&dis));
@@ -162,9 +162,8 @@ LRESULT CALLBACK StatusBar::StatusBarSubclass(
 				}
 			}
 
-			if (isSizeGrip)
+			if (isSizeGrip && pStatusBar->ensureTheme())
 			{
-				pStatusBar->ensureTheme();
 				SIZE gripSize{};
 				RECT rc{};
 				::GetClientRect(hWnd, &rc);
@@ -177,7 +176,7 @@ LRESULT CALLBACK StatusBar::StatusBarSubclass(
 			::SelectObject(hdc, holdFont);
 			::SelectObject(hdc, holdPen);
 
-			if (uMsg == WM_PAINT)
+			if (isPaint)
 			{
 				::EndPaint(hWnd, &ps);
 			}
@@ -193,7 +192,7 @@ LRESULT CALLBACK StatusBar::StatusBarSubclass(
 		case WM_THEMECHANGED:
 		{
 			pStatusBar->closeTheme();
-			return 0;
+			break;
 		}
 
 		case WM_DPICHANGED:
@@ -207,6 +206,13 @@ LRESULT CALLBACK StatusBar::StatusBarSubclass(
 			{
 				pStatusBar->setFontAndHeight();
 			}
+
+			break;
+		}
+
+		case WM_DPICHANGED_AFTERPARENT:
+		{
+			::RedrawWindow(hWnd, nullptr, nullptr, RDW_INVALIDATE);
 			break;
 		}
 	}
@@ -220,13 +226,13 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 	InitCommonControls();
 
 	// _hSelf = CreateStatusWindow(WS_CHILD | WS_CLIPSIBLINGS, NULL, _hParent, IDC_STATUSBAR);
-	_hSelf = ::CreateWindowEx(
+	_hSelf = ::CreateWindowExW(
 		0,
 		STATUSCLASSNAME,
 		L"",
 		WS_CHILD | SBARS_SIZEGRIP,
 		0, 0, 0, 0,
-		_hParent, nullptr, _hInst, 0);
+		_hParent, reinterpret_cast<HMENU>(IDC_STATUSBAR), _hInst, 0);
 
 	if (!_hSelf)
 		throw std::runtime_error("StatusBar::init : CreateWindowEx() function return null");
@@ -248,7 +254,9 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 
 	_partWidthArray.clear();
 	if (nbParts > 0)
+	{
 		_partWidthArray.resize(nbParts, defaultPartWidth);
+	}
 	else
 	{
 		setFontAndHeight();
@@ -256,7 +264,7 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 
 	// Allocate an array for holding the right edge coordinates.
 	if (!_partWidthArray.empty())
-		_lpParts = std::make_unique<int[]>(_partWidthArray.size());
+		_parts.resize(_partWidthArray.size());
 
 	RECT rc{};
 	::GetClientRect(_hParent, &rc);
@@ -298,14 +306,14 @@ void StatusBar::adjustParts(int clientWidth)
 	// copy the coordinates to the array.
 	int nWidth = std::max<int>(clientWidth - 20, 0);
 
-	for (int i = static_cast<int>(_partWidthArray.size()) - 1; i >= 0; i--)
+	for (int i = static_cast<int>(_partWidthArray.size()) - 1; i >= 0; --i)
 	{
-		_lpParts[i] = nWidth;
+		_parts[i] = nWidth;
 		nWidth -= _partWidthArray[i];
 	}
 
 	// Tell the status bar to create the window parts.
-	::SendMessage(_hSelf, SB_SETPARTS, _partWidthArray.size(), reinterpret_cast<LPARAM>(_lpParts.get()));
+	::SendMessage(_hSelf, SB_SETPARTS, _parts.size(), reinterpret_cast<LPARAM>(_parts.data()));
 }
 
 

@@ -21,7 +21,6 @@
 
 #include <uxtheme.h>
 
-#include <memory>
 #include <string>
 #include <vector>
 
@@ -48,7 +47,7 @@ public:
 
 private:
 	std::vector<int> _partWidthArray;
-	std::unique_ptr<int[]> _lpParts = nullptr;
+	std::vector<int> _parts;
 	std::wstring _lastSetText;
 	HTHEME _hTheme = nullptr;
 	HFONT _hFont = nullptr;

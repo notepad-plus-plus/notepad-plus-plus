@@ -1897,53 +1897,6 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		case NPPM_MODELESSDIALOG :
 			return ::SendMessage(_hParent, NPPM_MODELESSDIALOG, wParam, lParam);
 
-		case WM_GETDPISCALEDSIZE:
-		{
-			auto newSize = reinterpret_cast<SIZE*>(lParam);
-
-			RECT rcClient{};
-			getClientRect(rcClient);
-
-			const UINT newDpi = static_cast<UINT>(wParam);
-			const UINT prevDpi = _dpiManager.getDpi();
-
-			const bool isLessModeOn = NppParameters::getInstance().getNppGUI()._findWindowLessMode;
-
-			const LONG cyFrame = DPIManagerV2::getSystemMetricsForDpi(SM_CYFRAME, newDpi);
-
-			auto lf = DPIManagerV2::getDefaultGUIFontForDpi(newDpi, NppParameters::getInstance().getDlgFontSize(), DPIManagerV2::FontType::status);
-			HFONT hFont = ::CreateFontIndirectW(&lf);
-			const LONG sbHeight = DPIManagerV2::getFontAdjustedHeight(_statusBar.getHSelf(), hFont) + cyFrame * 2;
-			::DeleteObject(hFont);
-
-			rcClient.right = DPIManagerV2::scale(rcClient.right - rcClient.left, newDpi, prevDpi);
-			rcClient.bottom = DPIManagerV2::scale((isLessModeOn ? _lesssModeHeight : _szMinDialog.cy), newDpi, prevDpi) + sbHeight;
-
-			LONG xBorder = 0;
-			LONG yBorder = 0;
-
-			const auto padding = static_cast<LONG>(DPIManagerV2::getSystemMetricsForDpi(SM_CXPADDEDBORDER, newDpi));
-
-			const auto style = static_cast<DWORD>(::GetWindowLongPtr(_hSelf, GWL_STYLE));
-			const auto exStyle = static_cast<DWORD>(::GetWindowLongPtr(_hSelf, GWL_EXSTYLE));
-			if (!DPIManagerV2::adjustWindowRectExForDpi(&rcClient, style, FALSE, exStyle, newDpi))
-			{
-				xBorder = (DPIManagerV2::getSystemMetricsForDpi(SM_CXFRAME, newDpi) + padding) * 2;
-				yBorder = (cyFrame + padding) * 2 + DPIManagerV2::getSystemMetricsForDpi(SM_CYCAPTION, newDpi);
-			}
-
-			newSize->cx = (rcClient.right - rcClient.left) + xBorder;
-			newSize->cy = (rcClient.bottom - rcClient.top) + yBorder;
-
-			if (prevDpi > newDpi)
-			{
-				newSize->cx += padding;
-				newSize->cy += padding;
-			}
-
-			return TRUE;
-		}
-
 		case WM_DPICHANGED:
 		{
 			::SendMessage(_statusBar.getHSelf(), WM_DPICHANGED, wParam, lParam);
@@ -4965,9 +4918,9 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 	if (!isCreated())
 	{
 		_isRTL = isRTL;
-		const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+		//const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 		create(IDD_FIND_REPLACE_DLG, isRTL, true, toShow);
-		DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
+		//DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
 
 		::EnableMenuItem(::GetMenu(_hParent), IDM_SEARCH_FINDNEXT, MF_BYCOMMAND | MF_ENABLED);
 		::EnableMenuItem(::GetMenu(_hParent), IDM_SEARCH_FINDPREV, MF_BYCOMMAND | MF_ENABLED);
@@ -5515,6 +5468,11 @@ void FindReplaceDlg::drawStatusBarItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 	SetTextColor(lpDrawItemStruct->hDC, fgColor);
 	::SetBkMode(lpDrawItemStruct->hDC, TRANSPARENT);
+
+	if (NppDarkMode::isEnabled())
+	{
+		::FillRect(lpDrawItemStruct->hDC, &lpDrawItemStruct->rcItem, NppDarkMode::getBackgroundBrush());
+	}
 
 	RECT rect{};
 	_statusBar.getClientRect(rect);

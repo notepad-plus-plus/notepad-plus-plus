@@ -972,6 +972,7 @@
 					<Item id="6132" name="Skryť ovládacie prvky ＋ ▼ ✕"/>
 					<Item id="6133" name="Stavový riadok"/>
 					<Item id="6134" name="Skryť"/>
+					<Item id="7165" name="Veľkosť písma v dialógovom okne (vyžaduje sa reštart Notepad++)"/>
 				</Global>
 
 				<Toolbar title="Panel nástrojov">
@@ -1225,7 +1226,7 @@
 				</Print>
 
 				<Searching title="Vyhľadávanie">
-					<Item id="6902" name="Použiť neproporcionálne písmo v dialógovom okne Hľadať (Vyžaduje reštart Notepad++)"/>
+					<Item id="6902" name="Použiť neproporcionálne písmo v dialógovom okne Hľadať (Vyžaduje sa reštart Notepad++)"/>
 					<Item id="6903" name="Dialógové okno Hľadať zostáva otvorené po vyhľadaní s výstupom do okna s výsledkami hľadania"/>
 					<Item id="6904" name="Potvrdiť Nahradiť všetko vo všetkých otvorených dokumentoch"/>
 					<Item id="6905" name="Nahradiť: Neprechádzať na nasledujúci výskyt"/>

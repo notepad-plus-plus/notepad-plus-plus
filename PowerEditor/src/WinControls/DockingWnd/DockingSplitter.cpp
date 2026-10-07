@@ -23,31 +23,37 @@
 BOOL DockingSplitter::_isVertReg = FALSE;
 BOOL DockingSplitter::_isHoriReg = FALSE;
 
-void DockingSplitter::init(HINSTANCE hInst, HWND hWnd, HWND hMessage, UINT flags)
+void DockingSplitter::init(HINSTANCE hInst, HWND hParent, HWND hMessage, UINT flags)
 {
-	Window::init(hInst, hWnd);
+	Window::init(hInst, hParent);
 	_hMessage = hMessage;
 	_flags = flags;
+}
+
+void DockingSplitter::create()
+{
+	if (_hSelf != nullptr)
+		return;
 
 	WNDCLASS wc{};
-	DWORD hwndExStyle = (DWORD)GetWindowLongPtr(hWnd, GWL_EXSTYLE);
+	DWORD hwndExStyle = static_cast<DWORD>(::GetWindowLongPtr(_hParent, GWL_EXSTYLE));
 	_isRTL = hwndExStyle & WS_EX_LAYOUTRTL;
 
-	if (flags & DMS_HORIZONTAL)
+	if (_flags & DMS_HORIZONTAL)
 	{
 		//double sided arrow pointing north-south as cursor
-		wc.hCursor			= ::LoadCursor(NULL,IDC_SIZENS);
-		wc.lpszClassName	= L"nsdockspliter";
+		wc.hCursor = ::LoadCursor(NULL, IDC_SIZENS);
+		wc.lpszClassName = L"nsdockspliter";
 	}
 	else
 	{
 		// double sided arrow pointing east-west as cursor
-		wc.hCursor			= ::LoadCursor(NULL,IDC_SIZEWE);
-		wc.lpszClassName	= L"wedockspliter";
+		wc.hCursor = ::LoadCursor(NULL, IDC_SIZEWE);
+		wc.lpszClassName = L"wedockspliter";
 	}
 
-	if (((_isHoriReg == FALSE) && (flags & DMS_HORIZONTAL)) ||
-		((_isVertReg == FALSE) && (flags & DMS_VERTICAL)))
+	if (((_isHoriReg == FALSE) && (_flags & DMS_HORIZONTAL)) ||
+		((_isVertReg == FALSE) && (_flags & DMS_VERTICAL)))
 	{
 		wc.style = CS_HREDRAW | CS_VREDRAW;
 		wc.lpfnWndProc = staticWinProc;
@@ -60,30 +66,39 @@ void DockingSplitter::init(HINSTANCE hInst, HWND hWnd, HWND hMessage, UINT flags
 
 		if (!::RegisterClass(&wc))
 		{
-			throw std::runtime_error("DockingSplitter::init : RegisterClass() function failed");
+			throw std::runtime_error("DockingSplitter::create : RegisterClass() function failed");
 		}
-		else if (flags & DMS_HORIZONTAL)
+		else if (_flags & DMS_HORIZONTAL)
 		{
-			_isHoriReg	= TRUE;
+			_isHoriReg = TRUE;
 		}
 		else
 		{
-			_isVertReg	= TRUE;
+			_isVertReg = TRUE;
 		}
 	}
 
 	/* create splitter windows and initialize it */
-	_hSelf = ::CreateWindowEx( 0, wc.lpszClassName, L"", WS_CHILD | WS_VISIBLE,
-								CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-								_hParent, NULL, _hInst, (LPVOID)this);
+	// Create without WS_VISIBLE to avoid initial flashing before positioning
+	_hSelf = ::CreateWindowEx(0, wc.lpszClassName, L"", WS_CHILD,
+		CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
+		_hParent, NULL, _hInst, static_cast<LPVOID>(this));
 
 	if (!_hSelf)
 	{
-		throw std::runtime_error("DockingSplitter::init : CreateWindowEx() function return null");
+		throw std::runtime_error("DockingSplitter::create : CreateWindowEx() function return null");
 	}
 }
 
-
+void DockingSplitter::reSizeTo(RECT& rc)
+{
+	// Lazily create the window when positioning for an active container
+	if (_hSelf == nullptr)
+	{
+		create();
+	}
+	Window::reSizeTo(rc);
+}
 
 LRESULT CALLBACK DockingSplitter::staticWinProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {

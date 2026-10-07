@@ -90,9 +90,9 @@ DockingManager::~DockingManager()
 	}
 }
 
-void DockingManager::init(HINSTANCE hInst, HWND hWnd, Window ** ppWin)
+void DockingManager::init(HINSTANCE hInst, HWND hParent, Window ** ppWin)
 {
-	Window::init(hInst, hWnd);
+	Window::init(hInst, hParent);
 
 	if (!_isRegistered)
 	{
@@ -626,6 +626,10 @@ void DockingManager::createDockableDlg(DockedWidgetData data, int iCont, bool is
         // test if current container is in floating state
 		if (iCont >= DOCKCONT_MAX)
 		{
+			// Safe guard: exceed array capacity, reject gracefully without crashing the app
+			if (iCont >= CONT_MAP_MAX)
+				return;
+
 			// no mapping for available store mapping
 			if (_iContMap[iCont] == -1)
 			{
@@ -645,20 +649,28 @@ void DockingManager::createDockableDlg(DockedWidgetData data, int iCont, bool is
 		// previous container is in floating state
 		else
 		{
-			// no mapping for available store mapping
-			if (_iContMap[data.iPrevCont] == -1)
+			// Safe guard: if previous container state is out of range, reset to -1 (no previous floating state) without creating dummy windows
+			if (data.iPrevCont >= CONT_MAP_MAX)
 			{
-				// create new container
-				pCont = new DockingCont;
-				_vContainer.push_back(pCont);
-
-				// initialize and map container id
-				pCont->init(_hInst, _hSelf);
-				pCont->doDialog(false, true);
-				pCont->reSizeToWH(data.rcFloat);
-				_iContMap[data.iPrevCont] = static_cast<int32_t>(_vContainer.size()) - 1;
+				data.iPrevCont = -1;
 			}
-			data.iPrevCont = _iContMap[data.iPrevCont];
+			else
+			{
+				// no mapping for available store mapping
+				if (_iContMap[data.iPrevCont] == -1)
+				{
+					// create new container
+					pCont = new DockingCont;
+					_vContainer.push_back(pCont);
+
+					// initialize and map container id
+					pCont->init(_hInst, _hSelf);
+					pCont->doDialog(false, true);
+					pCont->reSizeToWH(data.rcFloat);
+					_iContMap[data.iPrevCont] = static_cast<int32_t>(_vContainer.size()) - 1;
+				}
+				data.iPrevCont = _iContMap[data.iPrevCont];
+			}
 		}
 	}
 
@@ -692,7 +704,9 @@ void DockingManager::createDockableDlg(DockedWidgetData data, int iCont, bool is
 
 void DockingManager::setActiveTab(int iCont, int iItem)
 {
-	if ((iCont == -1) || (_iContMap[iCont] == -1))
+	// Ensure iCont is within [0, CONT_MAP_MAX) before accessing _iContMap
+	// Bail out early if iItem is invalid (-1) to avoid redundant no-op calls
+	if ((iCont == -1) || (iCont >= CONT_MAP_MAX) || (_iContMap[iCont] == -1) || (iItem == -1))
 		return;
 
 	_vContainer[_iContMap[iCont]]->setActiveTb(iItem);

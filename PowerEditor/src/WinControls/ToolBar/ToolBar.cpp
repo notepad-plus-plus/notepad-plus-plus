@@ -617,7 +617,9 @@ void ToolBar::registerDynBtn(UINT message, toolbarIcons* iconHandles, HICON abse
 			}
 			else
 			{
-				HBITMAP hbmMask = ::CreateCompatibleBitmap(::GetDC(nullptr), bmp.bmWidth, bmp.bmHeight);
+				HDC hdcScreen = ::GetDC(nullptr);
+				HBITMAP hbmMask = ::CreateCompatibleBitmap(hdcScreen, bmp.bmWidth, bmp.bmHeight);
+				::ReleaseDC(nullptr, hdcScreen);
 
 				ICONINFO iconinfoDest = {};
 				iconinfoDest.fIcon = TRUE;

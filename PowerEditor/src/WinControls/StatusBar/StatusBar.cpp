@@ -29,7 +29,6 @@
 #include <stdexcept>
 #include <string>
 
-#include "DoubleBuffer/DoubleBuffer.h"
 #include "NppConstants.h"
 #include "NppDarkMode.h"
 #include "Parameters.h"
@@ -248,7 +247,6 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 	if (nbParts > 0)
 	{
 		_partWidthArray.resize(nbParts, defaultPartWidth);
-		DoubleBuffer::subclass(_hSelf);
 	}
 	else
 	{

@@ -2126,7 +2126,12 @@ void NppParameters::setFontList(HWND hWnd)
 	lf.lfFaceName[0]='\0';
 	lf.lfPitchAndFamily = 0;
 	HDC hDC = ::GetDC(hWnd);
-	::EnumFontFamiliesEx(hDC, &lf, EnumFontFamExProc, reinterpret_cast<LPARAM>(&_fontlist), 0);
+	if (hDC)
+	{
+		::EnumFontFamiliesEx(hDC, &lf, EnumFontFamExProc, reinterpret_cast<LPARAM>(&_fontlist), 0);
+		// Release the device context to prevent GDI resource leaks
+		::ReleaseDC(hWnd, hDC);
+	}
 }
 
 bool NppParameters::isInFontList(const std::wstring& fontName2Search) const

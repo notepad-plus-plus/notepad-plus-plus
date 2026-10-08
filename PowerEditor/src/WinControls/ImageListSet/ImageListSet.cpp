@@ -386,6 +386,8 @@ void ToolBarIcons::reInit(int size)
 			if (!nbByteBmp)
 			{
 				hIcon = i._hIcon;
+				if (iconinfoSrc.hbmColor) ::DeleteObject(iconinfoSrc.hbmColor);
+				if (iconinfoSrc.hbmMask) ::DeleteObject(iconinfoSrc.hbmMask);
 			}
 			else
 			{
@@ -428,8 +430,6 @@ void ToolBarIcons::reInit(int size)
 
 				::SetDIBits(dcScreen, hBmpNew, 0, bi.bmiHeader.biHeight, dibits.get(), &bi, DIB_RGB_COLORS);
 
-				::ReleaseDC(NULL, dcScreen);
-
 				ICONINFO iconinfoDest = {};
 				iconinfoDest.fIcon = TRUE;
 				iconinfoDest.hbmColor = hBmpNew;
@@ -441,6 +441,8 @@ void ToolBarIcons::reInit(int size)
 				::DeleteObject(iconinfoSrc.hbmColor);
 				::DeleteObject(iconinfoSrc.hbmMask);
 			}
+
+			::ReleaseDC(nullptr, dcScreen);
 		}
 		_iconListVector[HLIST_DEFAULT_DM].addIcon(hIcon);
 		_iconListVector[HLIST_DISABLE_DM].addIcon(hIcon);

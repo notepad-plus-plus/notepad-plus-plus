@@ -209,15 +209,6 @@ LRESULT CALLBACK StatusBar::StatusBarSubclass(
 			}
 			break;
 		}
-
-		case WM_DPICHANGED_AFTERPARENT:
-		{
-			if (pStatusBar->_partWidthArray.empty())
-			{
-				::RedrawWindow(hWnd, nullptr, nullptr, RDW_INVALIDATE);
-			}
-			break;
-		}
 	}
 	return DefSubclassProc(hWnd, uMsg, wParam, lParam);
 }
@@ -253,11 +244,12 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 
 	::SetWindowSubclass(_hSelf, StatusBarSubclass, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(this));
 
-	DoubleBuffer::subclass(_hSelf);
-
 	_partWidthArray.clear();
 	if (nbParts > 0)
+	{
 		_partWidthArray.resize(nbParts, defaultPartWidth);
+		DoubleBuffer::subclass(_hSelf);
+	}
 	else
 	{
 		setFontAndHeight();
@@ -397,6 +389,5 @@ void StatusBar::setFontAndHeight() noexcept
 		const int height = DPIManagerV2::getFontAdjustedHeight(_hSelf, _hFont);
 		::SendMessage(_hSelf, SB_SETMINHEIGHT, static_cast<WPARAM>(height), 0);
 		::SendMessage(_hSelf, WM_SIZE, 0, 0);
-		::RedrawWindow(_hSelf, nullptr, nullptr, RDW_INVALIDATE);
 	}
 }

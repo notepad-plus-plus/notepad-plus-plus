@@ -428,8 +428,6 @@ void ToolBarIcons::reInit(int size)
 
 				::SetDIBits(dcScreen, hBmpNew, 0, bi.bmiHeader.biHeight, dibits.get(), &bi, DIB_RGB_COLORS);
 
-				::ReleaseDC(NULL, dcScreen);
-
 				ICONINFO iconinfoDest = {};
 				iconinfoDest.fIcon = TRUE;
 				iconinfoDest.hbmColor = hBmpNew;
@@ -441,6 +439,10 @@ void ToolBarIcons::reInit(int size)
 				::DeleteObject(iconinfoSrc.hbmColor);
 				::DeleteObject(iconinfoSrc.hbmMask);
 			}
+
+			// Ensure the screen device context is always released regardless of whether
+			// GetObject succeeded, preventing a GDI handle leak on failure.
+			::ReleaseDC(nullptr, dcScreen);
 		}
 		_iconListVector[HLIST_DEFAULT_DM].addIcon(hIcon);
 		_iconListVector[HLIST_DISABLE_DM].addIcon(hIcon);

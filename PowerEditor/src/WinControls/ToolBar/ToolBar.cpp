@@ -617,7 +617,11 @@ void ToolBar::registerDynBtn(UINT message, toolbarIcons* iconHandles, HICON abse
 			}
 			else
 			{
-				HBITMAP hbmMask = ::CreateCompatibleBitmap(::GetDC(nullptr), bmp.bmWidth, bmp.bmHeight);
+				// Acquire screen DC to generate mask bitmap and ensure paired ReleaseDC
+				// to prevent GDI device context handle leak.
+				HDC hdcScreen = ::GetDC(nullptr);
+				HBITMAP hbmMask = ::CreateCompatibleBitmap(hdcScreen, bmp.bmWidth, bmp.bmHeight);
+				::ReleaseDC(nullptr, hdcScreen);
 
 				ICONINFO iconinfoDest = {};
 				iconinfoDest.fIcon = TRUE;

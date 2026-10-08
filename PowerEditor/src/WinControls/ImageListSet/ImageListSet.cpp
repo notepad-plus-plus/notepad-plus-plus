@@ -386,6 +386,8 @@ void ToolBarIcons::reInit(int size)
 			if (!nbByteBmp)
 			{
 				hIcon = i._hIcon;
+				if (iconinfoSrc.hbmColor) ::DeleteObject(iconinfoSrc.hbmColor);
+				if (iconinfoSrc.hbmMask) ::DeleteObject(iconinfoSrc.hbmMask);
 			}
 			else
 			{
@@ -440,8 +442,6 @@ void ToolBarIcons::reInit(int size)
 				::DeleteObject(iconinfoSrc.hbmMask);
 			}
 
-			// Ensure the screen device context is always released regardless of whether
-			// GetObject succeeded, preventing a GDI handle leak on failure.
 			::ReleaseDC(nullptr, dcScreen);
 		}
 		_iconListVector[HLIST_DEFAULT_DM].addIcon(hIcon);

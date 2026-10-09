@@ -39,6 +39,9 @@ inline constexpr int NPP_CP_BIG5 = 950;
 #define WCSTOK wcstok_s
 #endif
 
+#define MAX_UNICODE_PATH 32767
+#define LONG_PREFIX      LR"(\\?\)"
+#define LONG_PREFIX_LEN  4
 
 #define NPP_INTERNAL_FUNCTION_STR L"Notepad++::InternalFunction"
 

@@ -55,9 +55,9 @@ static constexpr MenuPosition g_menuFolderPositions[]{
 	{ 10, -1, -1, "Plugins" },
 	{ 11, -1, -1, "Window" },
 
-	{ 0,   2, -1, "file-openFolder" },
-	{ 0,  13, -1, "file-closeMore" },
-	{ 0,  22, -1, "file-recentFiles" },
+	{ 0,   3, -1, "file-openFolder" },
+	{ 0,  14, -1, "file-closeMore" },
+	{ 0,  23, -1, "file-recentFiles" },
 
 	{ 1,  11, -1, "edit-insert" },
 	{ 1,  12, -1, "edit-copyToClipboard" },

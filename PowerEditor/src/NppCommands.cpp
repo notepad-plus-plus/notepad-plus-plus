@@ -220,8 +220,9 @@ void Notepad_plus::command(int id)
 		break;
 
 		case IDM_FILE_OPEN:
+		case IDM_FILE_OPEN_SIMILAR:
 		{
-			fileOpen();
+			fileOpen(id == IDM_FILE_OPEN_SIMILAR);
 		}
 		break;
 

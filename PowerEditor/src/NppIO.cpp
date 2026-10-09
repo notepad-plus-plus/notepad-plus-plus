@@ -2387,23 +2387,162 @@ bool Notepad_plus::fileDelete(BufferID id)
 	return false;
 }
 
-void Notepad_plus::fileOpen()
+// Checks whether candidateName is similar to baseName.
+// Returns true if candidate shares a common substring with baseName of at least half its length.
+static bool isSimilarName(const std::wstring& baseName, const std::wstring& candidateName)
+{
+	const size_t baseLen = baseName.length();
+	if (baseLen < 3)
+		return false;
+
+	// Minimum required substring match length: ceil(baseLen / 2)
+	const size_t requiredMatchLen = (baseLen + 1) / 2;
+	const size_t candidateLen = candidateName.length();
+
+	if (candidateLen < requiredMatchLen || candidateLen > baseLen * 2)
+		return false;
+
+	const wchar_t* const pBase = baseName.c_str();
+	const wchar_t* const pCand = candidateName.c_str();
+
+	const size_t maxBaseIdx = baseLen - requiredMatchLen;
+	const size_t maxCandIdx = candidateLen - requiredMatchLen;
+
+	// Checking any substring of length == requiredMatchLen is sufficient
+	// to determine if a common substring of length >= requiredMatchLen exists.
+	for (size_t i = 0; i <= maxBaseIdx; ++i)
+	{
+		for (size_t j = 0; j <= maxCandIdx; ++j)
+		{
+			if (_wcsnicmp(pBase + i, pCand + j, requiredMatchLen) == 0)
+			{
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+// Checks whether candidateName is similar to baseName.
+// Returns true if candidate shares a common substring with baseName of at least half its length.
+static void getSimilarFileNames(const wchar_t* filePath, std::vector<std::wstring>& fileNames, size_t maxFiles = 100)
+{
+	if (!filePath || !*filePath || maxFiles == 0)
+		return;
+
+	const wchar_t* fullPath = stripLongPathPrefix(filePath);
+
+	std::wstring fileNameOnly(fullPath);
+	pathRemoveDirectory(fileNameOnly);
+
+	// Extract base name and extension from the file name
+	wchar_t targetName[_MAX_FNAME]{};
+	wchar_t targetExt[_MAX_EXT]{};
+	_wsplitpath_s(fileNameOnly.c_str(), nullptr, 0, nullptr, 0, targetName, _MAX_FNAME, targetExt, _MAX_EXT);
+
+	// Extract directory path and ensure trailing backslash
+	std::wstring targetDir(fullPath);
+	pathRemoveFileSpec(targetDir);
+	if (!targetDir.empty() && targetDir.back() != L'\\')
+		targetDir += L'\\';
+
+	// Reserve 1 slot for fullPath at the end, so collect at most (maxFiles - 1) candidates
+	const size_t maxSimilarFiles = (maxFiles > 1) ? (maxFiles - 1) : 0;
+
+	// Search for all files in the directory
+	std::wstring searchPattern(targetDir);
+	searchPattern += L"*.*";
+	WIN32_FIND_DATA findData{};
+	HANDLE hFind = ::FindFirstFile(searchPattern.c_str(), &findData);
+
+	if (hFind != INVALID_HANDLE_VALUE)
+	{
+		do
+		{
+			if (!(findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+			{
+				wchar_t candName[_MAX_FNAME]{};
+				wchar_t candExt[_MAX_EXT]{};
+				_wsplitpath_s(findData.cFileName, nullptr, 0, nullptr, 0, candName, _MAX_FNAME, candExt, _MAX_EXT);
+
+				// Must match extension (case-insensitive)
+				if (_wcsicmp(candExt, targetExt) != 0)
+					continue;
+
+				// Skip the target file itself
+				if (_wcsicmp(candName, targetName) == 0)
+					continue;
+
+				// Check similarity heuristic
+				if (!isSimilarName(targetName, candName))
+					continue;
+
+				std::wstring matchedPath = targetDir + findData.cFileName;
+				if (_wcsicmp(matchedPath.c_str(), fullPath) != 0)
+				{
+					fileNames.emplace_back(std::move(matchedPath));
+					if (fileNames.size() >= maxSimilarFiles)
+						break;
+				}
+			}
+		} while (::FindNextFile(hFind, &findData));
+
+		::FindClose(hFind);
+	}
+
+	// Guarantee that the original file is always included at the end and cap within maxFiles
+	if (!fileNames.empty() && fileNames.size() >= maxFiles)
+		fileNames.back() = filePath;
+	else
+		fileNames.push_back(filePath);
+}
+
+void Notepad_plus::fileOpen(bool isSimilar/* = false*/)
 {
 	CustomFileDialog fDlg(_pPublicInterface->getHSelf());
-	wstring localizedTitle = _nativeLangSpeaker.getNativeLangMenuString(IDM_FILE_OPEN, L"Open", true);
+
+	const int menuCmdID = isSimilar ? IDM_FILE_OPEN_SIMILAR : IDM_FILE_OPEN;
+	const wchar_t* const defaultTitle = isSimilar ? L"Open Similar..." : L"Open...";
+	const std::wstring localizedTitle = _nativeLangSpeaker.getNativeLangMenuString(menuCmdID, defaultTitle, true);
+
 	fDlg.setTitle(localizedTitle.c_str());
 	fDlg.setExtFilter(L"All types", L".*");
-
 	setFileOpenSaveDlgFilters(fDlg, true);
 
-	BufferID lastOpened = BUFFER_INVALID;
 	const auto& fns = fDlg.doOpenMultiFilesDlg();
-	size_t sz = fns.size();
-	for (size_t i = 0 ; i < sz ; ++i)
+	if (fns.empty())
+		return;
+
+	BufferID lastOpened = BUFFER_INVALID;
+
+	if (isSimilar)
 	{
-		BufferID test = doOpen(fns.at(i).c_str());
-		if (test != BUFFER_INVALID)
-			lastOpened = test;
+		// Maximum number of similar files to collect per selected file
+		constexpr size_t maxFiles = 60;
+
+		for (const auto& fn : fns)
+		{
+			std::vector<std::wstring> fileNames;
+			getSimilarFileNames(fn.c_str(), fileNames, maxFiles);
+
+			for (const auto& fileName : fileNames)
+			{
+				BufferID test = doOpen(fileName);
+				if (test != BUFFER_INVALID)
+					lastOpened = test;
+			}
+		}
+	}
+	else
+	{
+		// Standard open: open selected files directly without auxiliary vector allocations
+		for (const auto& fn : fns)
+		{
+			BufferID test = doOpen(fn);
+			if (test != BUFFER_INVALID)
+				lastOpened = test;
+		}
 	}
 
 	if (lastOpened != BUFFER_INVALID)

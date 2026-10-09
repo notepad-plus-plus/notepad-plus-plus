@@ -23,6 +23,7 @@
 // IMPORTANT: If list below is modified, you have to change the value of IDM_FILEMENU_LASTONE and IDM_FILEMENU_EXISTCMDPOSITION
     #define    IDM_FILE_NEW                              (IDM_FILE + 1)
     #define    IDM_FILE_OPEN                             (IDM_FILE + 2)
+    #define    IDM_FILE_OPEN_SIMILAR                     (IDM_FILE + 65)
     #define    IDM_FILE_CLOSE                            (IDM_FILE + 3)
     #define    IDM_FILE_CLOSEALL                         (IDM_FILE + 4)
     #define    IDM_FILE_CLOSEALL_BUT_CURRENT             (IDM_FILE + 5)
@@ -59,28 +60,29 @@
 
 // 0  New
 // 1  Open...
-// 2  Open Containing Folder
-// 3  Open Folder as Workspace
-// 4  Open in Default Viewer
-// 5  Reload from Disk
-// 6  Save
-// 7  Save As...
-// 8  Save a Copy As...
-// 9  Save All
-//10  Rename...
-//11  Close
-//12  Close All
-//13  Close Multiple Documents
-//14  Move to Recycle Bin
-//15  --------
-//16  Load Session...
-//17  Save Session...
-//18  --------
-//19  Print...
-//20  Print Now
-//21  --------
-//22  Exit
-    #define    IDM_FILEMENU_EXISTCMDPOSITION    22
+// 2  Open Similar...
+// 3  Open Containing Folder
+// 4  Open Folder as Workspace
+// 5  Open in Default Viewer
+// 6  Reload from Disk
+// 7  Save
+// 8  Save As...
+// 9  Save a Copy As...
+//10  Save All
+//11  Rename...
+//12  Close
+//13  Close All
+//14  Close Multiple Documents
+//15  Move to Recycle Bin
+//16  --------
+//17  Load Session...
+//18  Save Session...
+//19  --------
+//20  Print...
+//21  Print Now
+//22  --------
+//23  Exit
+    #define    IDM_FILEMENU_EXISTCMDPOSITION    23
 
 
 #define    IDM_EDIT       (IDM + 2000)

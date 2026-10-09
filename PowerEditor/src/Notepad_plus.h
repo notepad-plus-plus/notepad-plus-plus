@@ -177,7 +177,7 @@ public:
 	void doClose(BufferID, int whichOne, bool doDeleteBackup = false);
 
 
-	void fileOpen();
+	void fileOpen(bool isSimilar = false);
 	void fileNew();
 	bool fileReload();
 	bool fileClose(BufferID id = BUFFER_INVALID, int curView = -1);	//use curView to override view to close from

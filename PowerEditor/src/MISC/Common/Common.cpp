@@ -757,6 +757,14 @@ wstring pathRemoveFileSpec(wstring& path)
 	return path;
 }
 
+void pathRemoveDirectory(std::wstring& path)
+{
+	// Strips directory prefix from path, leaving only the file name.
+	size_t pos = path.find_last_of(L"\\/");
+
+	if (pos != std::wstring::npos)
+		path.erase(0, pos + 1);
+}
 
 wstring pathAppend(wstring& strDest, const wstring& str2append)
 {
@@ -2653,4 +2661,12 @@ bool needsElevation4Access(const std::wstring& path2check, bool bWriteAccess)
 
 	// an elevation will not help us here (HW R/O, file-in-use locks, complex restrictive ACLs, etc.)
 	return false;
+}
+
+const wchar_t* stripLongPathPrefix(const wchar_t* path) noexcept
+{
+	if (path && wcsncmp(path, LONG_PREFIX, LONG_PREFIX_LEN) == 0)
+		return path + LONG_PREFIX_LEN;
+
+	return path;
 }

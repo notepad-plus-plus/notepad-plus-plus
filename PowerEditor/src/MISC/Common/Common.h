@@ -132,6 +132,7 @@ protected:
 };
 
 std::wstring pathRemoveFileSpec(std::wstring & path);
+void pathRemoveDirectory(std::wstring& path);
 std::wstring pathAppend(std::wstring &strDest, const std::wstring & str2append);
 COLORREF getCtrlBgColor(HWND hWnd);
 std::wstring stringToUpper(std::wstring strToConvert);
@@ -351,3 +352,4 @@ private:
 
 
 bool needsElevation4Access(const std::wstring& path2check, bool bWriteAccess);
+const wchar_t* stripLongPathPrefix(const wchar_t* path) noexcept;

@@ -2387,10 +2387,80 @@ bool Notepad_plus::fileDelete(BufferID id)
 	return false;
 }
 
-// Checks whether candidateName is similar to baseName.
-// Returns true if candidate shares a common substring with baseName of at least half its length.
+// Checks whether two filenames belong to the same numeric sequence.
+// Matches patterns like [Prefix] + [Number] + [Suffix], e.g.:
+// - "1" vs "2", "01" vs "02"
+// - "a1000" vs "a2000", "a1" vs "a2"
+// - "file" vs "file1", "data_01" vs "data_02"
+static bool isSequenceSimilar(const std::wstring& baseName, const std::wstring& candidateName)
+{
+	const size_t len1 = baseName.length();
+	const size_t len2 = candidateName.length();
+	if (len1 == 0 || len2 == 0)
+		return false;
+
+	// Longest common prefix (case-insensitive)
+	size_t lcp = 0;
+	while (lcp < len1 && lcp < len2 && std::towlower(baseName[lcp]) == std::towlower(candidateName[lcp]))
+	{
+		++lcp;
+	}
+
+	// Longest common suffix without overlapping with prefix
+	size_t lcs = 0;
+	while (lcs < (len1 - lcp) && lcs < (len2 - lcp) &&
+		std::towlower(baseName[len1 - 1 - lcs]) == std::towlower(candidateName[len2 - 1 - lcs]))
+	{
+		++lcs;
+	}
+
+	const size_t midLen1 = len1 - lcp - lcs;
+	const size_t midLen2 = len2 - lcp - lcs;
+
+	// Both middle parts are empty (identical names, handled outside)
+	if (midLen1 == 0 && midLen2 == 0)
+		return false;
+
+	auto isAllDigits = [](const wchar_t* str, size_t length) noexcept {
+		if (length == 0)
+			return false;
+		for (size_t i = 0; i < length; ++i)
+		{
+			if (!std::iswdigit(str[i]))
+				return false;
+		}
+		return true;
+	};
+
+	const bool mid1IsDigits = isAllDigits(baseName.c_str() + lcp, midLen1);
+	const bool mid2IsDigits = isAllDigits(candidateName.c_str() + lcp, midLen2);
+
+	// Case A: Both differing middle parts are numeric (e.g. "1" vs "2", "a1000" vs "a2000")
+	if (mid1IsDigits && mid2IsDigits)
+		return true;
+
+	// Case B: One middle part is empty and the other is numeric, with a shared prefix or suffix
+	// (e.g. "file" vs "file1", "test" vs "test_01")
+	if ((midLen1 == 0 && mid2IsDigits) || (midLen2 == 0 && mid1IsDigits))
+	{
+		if (lcp > 0 || lcs > 0)
+			return true;
+	}
+
+	return false;
+}
+
+// Determines if candidateName is similar to baseName.
+// Returns true if:
+// 1. They follow a sequential naming pattern (varying only by numeric segments).
+// 2. Or they share a common continuous substring of at least half the base name's length.
 static bool isSimilarName(const std::wstring& baseName, const std::wstring& candidateName)
 {
+	// Priority 1: Check for sequential file patterns
+	if (isSequenceSimilar(baseName, candidateName))
+		return true;
+
+	// Priority 2: General continuous substring heuristic
 	const size_t baseLen = baseName.length();
 	if (baseLen < 3)
 		return false;

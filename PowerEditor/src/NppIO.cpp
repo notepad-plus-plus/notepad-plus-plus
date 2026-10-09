@@ -2495,72 +2495,53 @@ static bool isSimilarName(const std::wstring& baseName, const std::wstring& cand
 }
 
 // Retrieves files in the same directory sharing a similar base name and identical extension.
-static void getSimilarFileNames(const wchar_t* filePath, std::vector<std::wstring>& fileNames, size_t maxFiles = 100)
+static void getSimilarFileNames(const wchar_t* filePath, const std::vector<std::wstring>& targetFiles, std::vector<std::wstring>& fileNames, size_t maxFiles/* = 100*/)
 {
-	if (!filePath || !*filePath || maxFiles == 0)
+	if (!filePath || !*filePath || targetFiles.empty() || maxFiles == 0)
 		return;
 
 	const wchar_t* fullPath = stripLongPathPrefix(filePath);
 
-	std::wstring fileNameOnly(fullPath);
-	pathRemoveDirectory(fileNameOnly);
-
-	// Extract base name and extension from the file name
+	// Extract base name and extension from the target file
 	wchar_t targetName[_MAX_FNAME]{};
 	wchar_t targetExt[_MAX_EXT]{};
-	_wsplitpath_s(fileNameOnly.c_str(), nullptr, 0, nullptr, 0, targetName, _MAX_FNAME, targetExt, _MAX_EXT);
-
-	// Extract directory path and ensure trailing backslash
-	std::wstring targetDir(fullPath);
-	pathRemoveFileSpec(targetDir);
-	if (!targetDir.empty() && targetDir.back() != L'\\')
-		targetDir += L'\\';
+	_wsplitpath_s(fullPath, nullptr, 0, nullptr, 0, targetName, _MAX_FNAME, targetExt, _MAX_EXT);
 
 	// Reserve 1 slot for fullPath at the end, so collect at most (maxFiles - 1) candidates
 	const size_t maxSimilarFiles = (maxFiles > 1) ? (maxFiles - 1) : 0;
 
-	// Search for all files in the directory
-	std::wstring searchPattern(targetDir);
-	searchPattern += L"*.*";
-	WIN32_FIND_DATA findData{};
-	HANDLE hFind = ::FindFirstFile(searchPattern.c_str(), &findData);
-
-	if (hFind != INVALID_HANDLE_VALUE)
+	for (const auto& fn : targetFiles)
 	{
-		do
+		const wchar_t* fnW = stripLongPathPrefix(fn.c_str());
+
+		// Extract candidate base name and extension
+		wchar_t candName[_MAX_FNAME]{};
+		wchar_t candExt[_MAX_EXT]{};
+		_wsplitpath_s(fnW, nullptr, 0, nullptr, 0, candName, _MAX_FNAME, candExt, _MAX_EXT);
+
+		// Must match extension (case-insensitive)
+		if (_wcsicmp(candExt, targetExt) != 0)
+			continue;
+
+		// Skip the target file itself
+		if (_wcsicmp(candName, targetName) == 0)
+			continue;
+
+		// Check similarity heuristic
+		if (!isSimilarName(targetName, candName))
+			continue;
+
+		// Add candidate path if distinct from the target path
+		std::wstring matchedPath = fnW;
+		if (_wcsicmp(matchedPath.c_str(), fullPath) != 0)
 		{
-			if (!(findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
-			{
-				wchar_t candName[_MAX_FNAME]{};
-				wchar_t candExt[_MAX_EXT]{};
-				_wsplitpath_s(findData.cFileName, nullptr, 0, nullptr, 0, candName, _MAX_FNAME, candExt, _MAX_EXT);
-
-				// Must match extension (case-insensitive)
-				if (_wcsicmp(candExt, targetExt) != 0)
-					continue;
-
-				// Skip the target file itself
-				if (_wcsicmp(candName, targetName) == 0)
-					continue;
-
-				// Check similarity heuristic
-				if (!isSimilarName(targetName, candName))
-					continue;
-
-				std::wstring matchedPath = targetDir + findData.cFileName;
-				if (_wcsicmp(matchedPath.c_str(), fullPath) != 0)
-				{
-					fileNames.emplace_back(std::move(matchedPath));
-					if (fileNames.size() >= maxSimilarFiles)
-						break;
-				}
-			}
-		} while (::FindNextFile(hFind, &findData));
-
-		::FindClose(hFind);
+			fileNames.emplace_back(std::move(matchedPath));
+			if (fileNames.size() >= maxSimilarFiles)
+				break;
+		}
 	}
 
-	// Guarantee that the original file is always included at the end and cap within maxFiles
+	// Guarantee that the original file is always included at the end and capped within maxFiles
 	if (!fileNames.empty() && fileNames.size() >= maxFiles)
 		fileNames.back() = filePath;
 	else
@@ -2590,10 +2571,20 @@ void Notepad_plus::fileOpen(bool isSimilar/* = false*/)
 		// Maximum number of similar files to collect per selected file
 		constexpr size_t maxFiles = 60;
 
+		// Extract parent directory from the first selected file
+		std::wstring inFolder = fns[0];
+		pathRemoveFileSpec(inFolder);
+		if (!inFolder.empty() && inFolder.back() == L'\\')
+			inFolder.pop_back();
+
+		// Query folder contents once for all selected files
+		std::vector<std::wstring> targetFiles;
+		getFilesInFolder(targetFiles, L"*.*", inFolder);
+
 		for (const auto& fn : fns)
 		{
 			std::vector<std::wstring> fileNames;
-			getSimilarFileNames(fn.c_str(), fileNames, maxFiles);
+			getSimilarFileNames(fn.c_str(), targetFiles, fileNames, maxFiles);
 
 			for (const auto& fileName : fileNames)
 			{
@@ -2605,7 +2596,7 @@ void Notepad_plus::fileOpen(bool isSimilar/* = false*/)
 	}
 	else
 	{
-		// Standard open: open selected files directly without auxiliary vector allocations
+		// Standard open: process selected files directly
 		for (const auto& fn : fns)
 		{
 			BufferID test = doOpen(fn);

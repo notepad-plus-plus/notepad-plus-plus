@@ -2424,8 +2424,7 @@ static bool isSimilarName(const std::wstring& baseName, const std::wstring& cand
 	return false;
 }
 
-// Checks whether candidateName is similar to baseName.
-// Returns true if candidate shares a common substring with baseName of at least half its length.
+// Retrieves files in the same directory sharing a similar base name and identical extension.
 static void getSimilarFileNames(const wchar_t* filePath, std::vector<std::wstring>& fileNames, size_t maxFiles = 100)
 {
 	if (!filePath || !*filePath || maxFiles == 0)

@@ -259,26 +259,34 @@ LRESULT CALLBACK TaskList::TaskListSelectProc(
 
 			if (msg != nullptr)
 			{
-				if ((msg->message == WM_KEYDOWN) && (0x80 & GetKeyState(VK_CONTROL)))
+				if (msg->message == WM_KEYDOWN)
 				{
-					// Shift+Tab is cool but I think VK_UP and VK_LEFT are also cool :-)
-					if (((msg->wParam == VK_TAB) && (0x80 & GetKeyState(VK_SHIFT)))
-						|| (msg->wParam == VK_UP)
-						|| (msg->wParam == VK_LEFT))
+					if (msg->wParam == VK_ESCAPE)
 					{
-						pRefData->moveSelection(-1);
+						::PostMessage(pRefData->_hParent, WM_CLOSE, 0, 0);
+						return 1;
 					}
-					// VK_DOWN and VK_RIGHT do the same as VK_TAB does
-					else if ((msg->wParam == VK_TAB)
-						|| (msg->wParam == VK_DOWN)
-						|| (msg->wParam == VK_RIGHT))
+					if (0x80 & GetKeyState(VK_CONTROL))
 					{
-						pRefData->moveSelection(1);
+						// Shift+Tab is cool but I think VK_UP and VK_LEFT are also cool :-)
+						if (((msg->wParam == VK_TAB) && (0x80 & GetKeyState(VK_SHIFT)))
+							|| (msg->wParam == VK_UP)
+							|| (msg->wParam == VK_LEFT))
+						{
+							pRefData->moveSelection(-1);
+						}
+						// VK_DOWN and VK_RIGHT do the same as VK_TAB does
+						else if ((msg->wParam == VK_TAB)
+							|| (msg->wParam == VK_DOWN)
+							|| (msg->wParam == VK_RIGHT))
+						{
+							pRefData->moveSelection(1);
+						}
 					}
-				}
-				else
-				{
-					return 0;
+					else
+					{
+						return 0;
+					}
 				}
 			}
 			return DLGC_WANTALLKEYS;

@@ -1,0 +1,20 @@
+ 0 400 400   // Test JavaScript line continuation option for issue 55.
+ 0 400 400   // JavaScript, unlike C++, only allows line continuation inside string literals.
+ 1 400 400   
+ 0 400 400   if( test ) // toto \
+ 2 400 401 + {
+ 0 401 401 | 	alert();
+ 0 401 400 | }
+ 0 400 400   else
+ 2 400 401 + {
+ 0 401 400 | }
+ 1 400 400   
+ 0 400 400   // Multi-line string literals usin \ to continue to next line
+ 0 400 400   // string=6
+ 0 400 400   "str\
+ 0 400 400   ing"
+ 1 400 400   
+ 0 400 400   // character=7
+ 0 400 400   'c\
+ 0 400 400   d'
+ 1 400 400   

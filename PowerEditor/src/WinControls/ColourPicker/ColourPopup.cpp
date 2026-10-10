@@ -79,21 +79,9 @@ intptr_t CALLBACK ColourPopup::dlgClrPopupProc(HWND hwnd, UINT message, WPARAM w
 			return TRUE;
 		}
 
-		case WM_INITDIALOG :
-		{
-			ColourPopup *pColourPopup = reinterpret_cast<ColourPopup *>(lParam);
-			pColourPopup->_hSelf = hwnd;
-			::SetWindowLongPtr(hwnd, GWLP_USERDATA, static_cast<LONG_PTR>(lParam));
-			pColourPopup->run_dlgProc(message, wParam, lParam);
-			return TRUE;
-		}
-
 		default :
 		{
-			ColourPopup *pColourPopup = reinterpret_cast<ColourPopup *>(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
-			if (!pColourPopup)
-				return FALSE;
-			return pColourPopup->run_dlgProc(message, wParam, lParam);
+			return StaticDialog::dlgProc(hwnd, message, wParam, lParam);
 		}
 	}
 }
@@ -223,27 +211,9 @@ intptr_t CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			{
 				case IDOK:
 				{
-					// The 16 custom color slots are persisted across restarts (issue #4782):
-					// ChooseColorW reads/writes this array in place, and it is saved to
-					// config.xml on exit.
-					auto& customColors = NppParameters::getInstance().getNppGUI()._colorPickerCustomColors;
-
-					CHOOSECOLOR cc{};
-					cc.lStructSize = sizeof(CHOOSECOLOR);
-					cc.hwndOwner = _hParent;
-
-					cc.lpCustColors = customColors.data();
-					cc.rgbResult = _colour;
-					cc.lpfnHook = chooseColorDlgProc;
-					cc.Flags = CC_FULLOPEN | CC_RGBINIT | CC_ENABLEHOOK;
-
-					Window::display(false);
-
-					const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED);
-					NppDarkMode::darkChooseColorW(&cc);
-					DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
-
-					::SendMessage(_hParent, WM_PICKUP_COLOR, cc.rgbResult, 0);
+					COLORREF rgbResult = _colour;
+					if (getColorResult(rgbResult))
+						::SendMessage(_hParent, WM_PICKUP_COLOR, rgbResult, 0);
 
 					return TRUE;
 				}
@@ -330,4 +300,30 @@ UINT_PTR CALLBACK ColourPopup::chooseColorDlgProc(HWND hwnd, UINT message, WPARA
 		}
 	}
 	return FALSE;
+}
+
+BOOL ColourPopup::getColorResult(COLORREF& rgbResult)
+{
+	// The 16 custom color slots are persisted across restarts (issue #4782):
+	// ChooseColorW reads/writes this array in place, and it is saved to
+	// config.xml on exit.
+	auto& customColors = NppParameters::getInstance().getNppGUI()._colorPickerCustomColors;
+
+	CHOOSECOLOR cc{};
+	cc.lStructSize = sizeof(CHOOSECOLOR);
+	cc.hwndOwner = _hParent;
+
+	cc.lpCustColors = customColors.data();
+	cc.rgbResult = _colour;
+	cc.lpfnHook = chooseColorDlgProc;
+	cc.Flags = CC_FULLOPEN | CC_RGBINIT | CC_ENABLEHOOK;
+
+	Window::display(false);
+
+	const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED);
+	auto isOK = NppDarkMode::darkChooseColorW(&cc);
+	DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
+	if (isOK)
+		rgbResult = cc.rgbResult;
+	return isOK;
 }

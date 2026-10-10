@@ -17,9 +17,11 @@
 #ifndef UTF8DOCUMENTITERATOR_H_3452843291318441149
 #define UTF8DOCUMENTITERATOR_H_3452843291318441149
 
-#include <stdlib.h>
-#include <vector>
+#include <cstdlib>
 #include <memory>
+#include <string>
+#include <vector>
+
 #include "Position.h"
 
 namespace Scintilla::Internal {

@@ -4918,9 +4918,9 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 	if (!isCreated())
 	{
 		_isRTL = isRTL;
-		const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+		//const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 		create(IDD_FIND_REPLACE_DLG, isRTL, true, toShow);
-		DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
+		//DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
 
 		::EnableMenuItem(::GetMenu(_hParent), IDM_SEARCH_FINDNEXT, MF_BYCOMMAND | MF_ENABLED);
 		::EnableMenuItem(::GetMenu(_hParent), IDM_SEARCH_FINDPREV, MF_BYCOMMAND | MF_ENABLED);
@@ -5468,6 +5468,11 @@ void FindReplaceDlg::drawStatusBarItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 	SetTextColor(lpDrawItemStruct->hDC, fgColor);
 	::SetBkMode(lpDrawItemStruct->hDC, TRANSPARENT);
+
+	if (NppDarkMode::isEnabled())
+	{
+		::FillRect(lpDrawItemStruct->hDC, &lpDrawItemStruct->rcItem, NppDarkMode::getBackgroundBrush());
+	}
 
 	RECT rect{};
 	_statusBar.getClientRect(rect);

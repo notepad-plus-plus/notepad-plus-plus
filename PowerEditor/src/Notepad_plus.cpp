@@ -3914,6 +3914,16 @@ void Notepad_plus::maintainIndentation(wchar_t ch)
 		}
 		else if (ch == '}')
 		{
+			auto lineStartPos = _pEditView->execute(SCI_POSITIONFROMLINE, curLine);
+			auto curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+
+			for (auto i = curPos - 2; i >= lineStartPos; --i)
+			{
+				UCHAR aChar = static_cast<UCHAR>(_pEditView->execute(SCI_GETCHARAT, i));
+				if (aChar != ' ' && aChar != '\t')
+					return;
+			}
+
 			// Look backward for the pair {
 			intptr_t startPos = _pEditView->execute(SCI_GETCURRENTPOS);
 			if (startPos != 0)

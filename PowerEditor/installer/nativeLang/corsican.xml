@@ -13,7 +13,7 @@ Additionnal information about Corsican localization:
 2. History of Corsican translation for Notepad++:
 
 	- Updated in 2026 by Patriccollu di Santa Maria è Sichè: Feb. 10th (v8.9.1+), Mar. 10th (v8.9.2+), May 17th (v8.9.5+),
-			  June 24th (v8.9.6.4+), Aug. 28th (v8.9.8+)
+			  June 24th (v8.9.6.4+), Aug. 28th (v8.9.8+), Oct. 3rd (v8.9.8.1+)
 	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8), Apr. 20th (v8.8),
 			  June 26th (v8.8.1+), July 24th (v8.8.3+), Sep. 30th (v8.8.5+), Dec. 12th (v8.8.9+)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
@@ -38,7 +38,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.9.8">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.9.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -414,8 +414,8 @@ Additionnal information about Corsican localization:
 					<Item id="47005" name="Ottene più d’estensioni"/>
 					<Item id="47006" name="Rinnovà Notepad++"/>
 					<Item id="47009" name="Parametri di u proxy di l’Updater…"/>
-					<Item id="48005" name="Impurtà l’estensione(i)…"/>
-					<Item id="48006" name="Impurtà u(i) tema(i) di stilu…"/>
+					<Item id="48005" name="Impurtà unu o parechji moduli d’estensione…"/>
+					<Item id="48006" name="Impurtà unu o parechji temi di stilu…"/>
 					<Item id="48018" name="&amp;Mudificà l’ozzioni di u listinu cuntestuale"/>
 					<Item id="48009" name="&amp;Definizione di l’accurtatoghji di tastera…"/>
 					<Item id="48011" name="&amp;Preferenze…"/>
@@ -666,18 +666,18 @@ Additionnal information about Corsican localization:
 				<Item id="2303" name="Trasparenza"/>
 				<Item id="2306" name="Selezziunà u tema : "/>
 				<SubDialog>
-					<Item id="2204" name="Grassu"/>
-					<Item id="2205" name="Italicu"/>
-					<Item id="2206" name="Culore 1ᵘ pianu"/>
-					<Item id="2207" name="Culore di fondu"/>
+					<Item id="2204" name="Grassa"/>
+					<Item id="2205" name="Cursiva"/>
+					<Item id="2206" name="Primu pianu"/><!-- Spaziu appena cortu, 15 car. -->
+					<Item id="2207" name="Sfondulu"/><!-- Spaziu appena cortu, 15 car. -->
 					<Item id="2208" name="Nome :"/>
 					<Item id="2209" name="Dimensione :"/>
 					<Item id="2211" name="Stilu :"/>
 					<Item id="2212" name="Culori di u stilu"/>
 					<Item id="2213" name="Grafia di u stilu"/>
-					<Item id="2214" name="Est. predefinita :"/>
-					<Item id="2216" name="Est. utilizatore :"/>
-					<Item id="2218" name="Sottulineatu"/>
+					<Item id="2214" name="Est. predefinite :"/><!-- Spaziu appena cortu, 18 car. -->
+					<Item id="2216" name="Estensioni utilizatore :"/><!-- Spaziu appena cortu, 25 car. -->
+					<Item id="2218" name="Sottulineata"/>
 					<Item id="2219" name="Parolle chjave predefinite"/>
 					<Item id="2221" name="Parolle chjave definite da l’utilizatore"/>
 					<Item id="2225" name="Linguaghju :"/>
@@ -839,14 +839,14 @@ Additionnal information about Corsican localization:
 				<Item id="20016" name="Espurtà…"/>
 				<Item id="20017" name="Staccà"/>
 				<StylerDialog title="Dialogu di u stilu">
-					<Item id="25030" name="Ozzioni di grafia"/>
+					<Item id="25030" name="Ozzioni di a grafia"/>
 					<Item id="25006" name="Culore di primu pianu"/>
-					<Item id="25007" name="Culore di fondu"/>
+					<Item id="25007" name="Culore di u sfondulu"/>
 					<Item id="25031" name="Nome :"/>
-					<Item id="25032" name="Dimensione :"/>
-					<Item id="25001" name="Grassu"/>
-					<Item id="25002" name="Italicu"/>
-					<Item id="25003" name="Sottulineatu"/>
+					<Item id="25032" name="Dimensio. :"/><!-- Spaziu appena cortu, 11 car. -->
+					<Item id="25001" name="Grassa"/>
+					<Item id="25002" name="Cursiva"/>
+					<Item id="25003" name="Sottulineata"/>
 					<Item id="25029" name="Incastramentu"/>
 					<Item id="25008" name="Delimitatore 1"/>
 					<Item id="25009" name="Delimitatore 2"/>
@@ -1007,6 +1007,7 @@ Additionnal information about Corsican localization:
 					<Item id="6132" name="Piattà l’accurtatoghji di diritta ＋ ▼ ✕"/>
 					<Item id="6133" name="Barra di statu"/>
 					<Item id="6134" name="Piattà"/>
+					<Item id="7165" name="Dimensione di a grafia di u dialogu (Richiede di rilancià Notepad++)"/>
 				</Global>
 
 				<Toolbar title="Barra d’attrezzi">
@@ -1139,7 +1140,7 @@ Additionnal information about Corsican localization:
 					<Item id="6223" name="Affissà in a margine"/>
 					<Item id="6296" name="Affissà in u testu"/>
 					<Item id="6211" name="Marcatore di culonna"/>
-					<Item id="6213" name="Culurisce u fondu"/>
+					<Item id="6213" name="Culurisce u sfondulu"/>
 					<Item id="6231" name="Larghezza di bordu"/>
 					<Item id="6235" name="Nisunu bordu"/>
 					<Item id="6208" name="Imburrera"/>
@@ -1225,7 +1226,7 @@ Additionnal information about Corsican localization:
 					<Item id="6603" name="Tale è quale (&amp;WYSIWYG)"/>
 					<Item id="6604" name="In&amp;vertisce"/>
 					<Item id="6605" name="Neru nant’à &amp;biancu"/>
-					<Item id="6606" name="Sen&amp;za culore di fondu"/>
+					<Item id="6606" name="Sen&amp;za culore di sfondulu"/>
 					<Item id="6607" name="Parametri di margine (Unita : mm)"/>
 					<Item id="6612" name="&amp;Manca"/>
 					<Item id="6613" name="In&amp;sù"/>
@@ -1416,7 +1417,7 @@ Additionnal information about Corsican localization:
 						<Element name="Attivà à u lanciu di Notepad++"/>
 						<Element name="Attivà à l’esce di Notepad++"/>
 					</ComboBox>
-					<Item id="6308" name="u spaziu di nutificazione di u sistema"/>
+					<Item id="6308" name="u spaziu di nutific. sistema"/><!-- Spaziu appena cortu, 28 car. -->
 					<Item id="6363" name="modu di restituzione"/>
 					<Item id="6365" name="Messa à livellu autumatica :"/>
 					<Item id="6312" name="Detezione autumatica di statu di schedariu"/>
@@ -1507,11 +1508,12 @@ Pudete attivà torna st’ozzione in u dialogu di e preferenze."/>
 
 $STR_REPLACE$
 
-Caricallu sfurzerà Windows à autenticassi autumaticamente à stu servitore, ciò chì risicheghja à espone e vostre identificazioni di cunnessione Windows.
+Caricà stu schedariu sfurzerà Windows à autenticassi autumaticamente à u so servitore, ciò chì risicheghja d’espone e vostre identificazioni di cunnessione Windows.
 Caricallu quantunque ?"/>
 				<Item id="2" name="&amp;Tralascià"/>
+				<Item id="6" name="Sempre &amp;caricà da stu servitore"/>
 				<Item id="7" name="&amp;Sempre tralascià u chjassu di reta"/>
-				<Item id="4" name="S&amp;empre caricà u chjassu di reta"/>
+				<Item id="4" name="Sempre caricà u chjassu di &amp;reta"/>
 			</NetworkPathWarning>
 
 			<DebugInfo title="Infurmazioni di spannatura">
@@ -1871,7 +1873,7 @@ U testu incullatu in stu campu cuntene caratteri invisibile (forse fine di linea
 			<splitter-rotate-left value="Girà à manca"/>
 			<splitter-rotate-right value="Girà à diritta"/>
 			<userdefined-title-new value="Creà un linguaghju novu…"/>
-			<userdefined-title-save value="Arregistrà u nome di u linguaghju attuale cum’è…"/>
+			<userdefined-title-save value="Arreg. linguaghju attuale cum’è…"/><!-- Spaziu appena cortu, 32 car. -->
 			<userdefined-title-rename value="Rinuminà u linguaghju attuale"/>
 			<summary value="Statistiche"/>
 			<summary-filepath value="Chjassu d’accessu : "/>
@@ -1974,6 +1976,9 @@ S’è vo selezziunate u modu espertu ma ùn mudificate micca i schedarii in i l
 			<max-len-on-save-tip value="A lunghezza di a vostra stampittera hè longa longa è puderia ùn esse arregistrata per a prossima sessione."/>
 			<goto-setting-tip value="Mudificà u parametru quì"/>
 			<tabbar-tabcompactlabellen-tip value="Limiteghja a lunghezza visibule di i nomi longhi d’unghjetta. Stampittà per appiecà u valore datu. Intervallu di valori : 1-257 caratteri (0 disattiveghja a truncatura)."/>
+			<networkpathwarning-serverwhitelist-tip value="Aghjunghje u servitore di u schedariu attuale in serverWhiteList.xml di Notepad++.
+
+Per sapene di più, cliccu nant’à stu buttone per apre u situ web è fighjà a sezzione chì currisponde in u manuale di l’utilizatore."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

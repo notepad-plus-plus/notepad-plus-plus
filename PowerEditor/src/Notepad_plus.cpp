@@ -7020,6 +7020,11 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 		// If enabled for current buffer
 		buf->checkFileState();
 	}
+	else if (nppGui._fileAutoDetection & cdEnabledOld)
+	{
+		// Also check on activation, not just when the app itself regains focus
+		checkModifiedDocument(false);
+	}
 
 	_linkTriggered = true;
 

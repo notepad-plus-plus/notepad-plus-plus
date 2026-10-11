@@ -975,6 +975,7 @@
 					<Item id="6132" name="&amp;A jobb oldali parancsikonok (＋ ▼ ✕) elrejtése"/>
 					<Item id="6133" name="Állapotsor"/>
 					<Item id="6134" name="El&amp;rejtés"/>
+					<Item id="7165" name="&amp;Párbeszédablak-betűméret (Notepad++-újraindítás után)"/>
 				</Global>
 
 				<Toolbar title="Eszköztár">
@@ -1809,6 +1810,7 @@ Keresés minden fájlban – kivéve rekurzívan a log vagy logs mappákat:
 			<find-status-replace-readonly value="Csere: nem végezhető csere a szövegen; a dokumentum írásvédett"/>
 			<find-status-cannot-find value="Keresés: nem található a(z) „$STR_REPLACE$” szöveg"/>
 			<find-status-cannot-find-pebkac-maybe value="Nem található az adott kifejezés – előfordulhat, hogy elfelejtette: BEKAPCSOLNI a „Körkörös keresés”-t; KIKAPCSOLNI a „Teljes szóegyezés”-t; KIKAPCSOLNI a „Kis- és nagybetűk megkülönböztetésé”-t"/>
+			<find-status-regex-find-empty-string value="A megadott reguláris kifejezés üres karakterláncokra illeszkedik"/>
 			<find-status-scope-selection value="a kijelölésben"/>
 			<find-status-scope-all value="az egész fájlban"/>
 			<find-status-scope-backward value="a fájl eleje és a kurzor között"/>

@@ -1807,6 +1807,7 @@ Hľadať vo všetkých súboroch okrem všetkých priečinkov log alebo logs rek
 			<find-status-replace-readonly value="Nahradiť: Text nie je možné nahradiť. Aktuálny dokument je iba na čítanie"/>
 			<find-status-cannot-find value="Hľadať: Text &quot;$STR_REPLACE$&quot; sa nepodarilo nájsť"/>
 			<find-status-cannot-find-pebkac-maybe value="Uvedený výskyt sa nedá nájsť. Možno ste zabudli skontrolovať &quot;Cyklicky&quot; (začiarknuté), &quot;Rozlišovať malé/VEĽKÉ písmená&quot; (nezačiarknuté), alebo &quot;Hľadať iba celé slová&quot; (nezačiarknuté)."/>
+			<find-status-regex-find-empty-string value="Uvedený regulárny výraz zodpovedá prázdnym reťazcom."/>
 			<find-status-scope-selection value="v označenom texte"/>
 			<find-status-scope-all value="v celom súbore"/>
 			<find-status-scope-backward value="od začiatku súboru po kurzor"/>

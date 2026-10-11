@@ -238,7 +238,7 @@ RECT StaticDialog::getViewablePositionRect(RECT testPositionRc) const
 	if (!hDlgTemplate)
 		return false;
 
-	const auto* pDlgTemplate = static_cast<DLGTEMPLATE*>(::LockResource(hDlgTemplate));
+	const auto pDlgTemplate = static_cast<DLGTEMPLATE*>(::LockResource(hDlgTemplate));
 	if (!pDlgTemplate)
 		return false;
 
@@ -252,7 +252,7 @@ RECT StaticDialog::getViewablePositionRect(RECT testPositionRc) const
 
 [[nodiscard]] static bool setRTLResource(std::vector<std::byte>& dlgTemplateData)
 {
-	auto* pMyDlgTemplateEx = reinterpret_cast<DLGTEMPLATEEX*>(dlgTemplateData.data());
+	auto pMyDlgTemplateEx = reinterpret_cast<DLGTEMPLATEEX*>(dlgTemplateData.data());
 	if (!pMyDlgTemplateEx)
 		return false;
 
@@ -262,7 +262,7 @@ RECT StaticDialog::getViewablePositionRect(RECT testPositionRc) const
 	}
 	else
 	{
-		auto* pMyDlgTemplate = reinterpret_cast<DLGTEMPLATE*>(dlgTemplateData.data());
+		auto pMyDlgTemplate = reinterpret_cast<DLGTEMPLATE*>(dlgTemplateData.data());
 		pMyDlgTemplate->dwExtendedStyle |= WS_EX_LAYOUTRTL;
 	}
 
@@ -272,14 +272,14 @@ RECT StaticDialog::getViewablePositionRect(RECT testPositionRc) const
 // inspired by https://stackoverflow.com/questions/14370238
 [[nodiscard]] static std::byte* skipSz(std::byte* pData)
 {
-	auto* str = reinterpret_cast<WCHAR*>(pData); // string
+	auto str = reinterpret_cast<WCHAR*>(pData); // string
 	const size_t length = std::wcslen(str);
 	return reinterpret_cast<std::byte*>(str + length + 1);
 }
 
 [[nodiscard]] static std::byte* skipSzOrOrd(std::byte* pData)
 {
-	auto* ptrElement = reinterpret_cast<WORD*>(pData);
+	auto ptrElement = reinterpret_cast<WORD*>(pData);
 
 	if (*ptrElement == 0xFFFF) // ordinal
 	{
@@ -287,7 +287,7 @@ RECT StaticDialog::getViewablePositionRect(RECT testPositionRc) const
 	}
 	else // string or no element, same as skipSz
 	{
-		const auto* str = reinterpret_cast<WCHAR*>(ptrElement);
+		const auto str = reinterpret_cast<WCHAR*>(ptrElement);
 		ptrElement += (std::wcslen(str) + 1);
 	}
 
@@ -356,8 +356,8 @@ static int CALLBACK EnumFontProc(
 {
 	const std::wstring& newFontFace = newTypeface;
 
-	auto* pData = dlgTemplateData.data();
-	const auto* typeface = reinterpret_cast<WCHAR*>(pTypefaceData);
+	auto pData = dlgTemplateData.data();
+	const auto typeface = reinterpret_cast<WCHAR*>(pTypefaceData);
 
 	// Everything before typeface
 	const size_t offset = pTypefaceData - pData;
@@ -412,7 +412,7 @@ static int CALLBACK EnumFontProc(
 {
 	enum result { faceFailed = -2, failed, noFont, success };
 
-	auto* pMyDlgTemplateEx = reinterpret_cast<DLGTEMPLATEEX*>(dlgTemplateData.data());
+	auto pMyDlgTemplateEx = reinterpret_cast<DLGTEMPLATEEX*>(dlgTemplateData.data());
 	if (!pMyDlgTemplateEx || pMyDlgTemplateEx->signature != 0xFFFF || pMyDlgTemplateEx->dlgVer != 1)
 		return failed;
 
@@ -420,7 +420,7 @@ static int CALLBACK EnumFontProc(
 	if ((pMyDlgTemplateEx->style & DS_SETFONT) != DS_SETFONT)
 		return noFont; // allow RTL set before
 
-	auto* pData = reinterpret_cast<std::byte*>(pMyDlgTemplateEx);
+	auto pData = reinterpret_cast<std::byte*>(pMyDlgTemplateEx);
 	pData += sizeof(DLGTEMPLATEEX);
 	// sz_Or_Ord menu
 	pData = skipSzOrOrd(pData);
@@ -429,30 +429,30 @@ static int CALLBACK EnumFontProc(
 	// WCHAR title[titleLen]
 	pData = skipSz(pData);
 	// WORD pointSize;
-	auto* pointSize = reinterpret_cast<WORD*>(pData);
+	auto pointSize = *(reinterpret_cast<WORD*>(pData));
 	if (fontSize > 0)
 	{
-		*pointSize = static_cast<WORD>(DPIManagerV2::scaleFontForFactor(fontSize));
+		pointSize = static_cast<WORD>(DPIManagerV2::scaleFontForFactor(fontSize));
 	}
 	pData += sizeof(WORD);
 
 	// WORD weight;
-	//auto* weight = reinterpret_cast<WORD*>(pData);
-	//*weight = FW_NORMAL;
+	//auto weight = *(reinterpret_cast<WORD*>(pData));
+	//weight = FW_NORMAL;
 	pData += sizeof(WORD);
 
 	// BYTE italic;
-	//auto* italic = reinterpret_cast<BYTE*>(pData);
-	//*italic = FALSE;
+	//auto italic = *(reinterpret_cast<BYTE*>(pData));
+	//italic = FALSE;
 	pData += sizeof(BYTE);
 
 	// BYTE charset;
-	//auto* charset = reinterpret_cast<BYTE*>(pData);
-	//*charset = DEFAULT_CHARSET;
+	//auto charset = *(reinterpret_cast<BYTE*>(pData));
+	//charset = DEFAULT_CHARSET;
 	pData += sizeof(BYTE);
 
 	// WCHAR typeface[stringLen];
-	//auto* typeface = reinterpret_cast<WCHAR*>(pData);
+	//auto typeface = reinterpret_cast<WCHAR*>(pData);
 
 	if (!replaceDlgFontFace(dlgTemplateData, pData, newTypeface))
 	{

@@ -1031,6 +1031,8 @@ Updated to :
 					<Item id="6133" name="Строка Статуса"/>
 					<Item id="6134" name="Скрыть"/>
 					<Item id="7165" name="Размер шрифта диалоговых окон (треб. перез.)"/>
+					<Item id="7166" name="Размер:"/>
+					<Item id="7168" name="Имя:"/>
 				</Global>
 				<Toolbar title="Панель Инструментов">
 					<Item id="6102" name="Скрыть"/>

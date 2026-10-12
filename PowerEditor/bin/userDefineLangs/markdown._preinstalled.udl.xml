@@ -29,7 +29,7 @@ https://github.com/Edditoria/markdown-plus-plus/blob/master/LICENSE.txt
             <Keywords name="Numbers, suffix1">.</Keywords>
             <Keywords name="Numbers, suffix2">.</Keywords>
             <Keywords name="Numbers, range"></Keywords>
-            <Keywords name="Operators1">@ &lt; &gt; \&lt; \&gt; \\ \` \* \_ \{ \} \[ \] \( \) \# \+ \- \. \! \~ \| |:-: |:--: |:---: | :-: :--: :---: :|: |: :|</Keywords>
+            <Keywords name="Operators1">&lt; &gt; \&lt; \&gt; \\ \` \* \_ \{ \} \[ \] \( \) \# \+ \- \. \! \~ \| |:-: |:--: |:---: | :-: :--: :---: :|: |: :|</Keywords>
             <Keywords name="Operators2">- + :- :-- :--- :</Keywords>
             <Keywords name="Folders in code1, open"></Keywords>
             <Keywords name="Folders in code1, middle"></Keywords>

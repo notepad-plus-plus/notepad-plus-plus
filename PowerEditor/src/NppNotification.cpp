@@ -51,24 +51,26 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			if (notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT))  // SC_PERFORMED_UNDO | SC_PERFORMED_REDO are also included in SC_MOD_DELETETEXT and SC_MOD_INSERTTEXT
 			{
-				// Make temporary tab name automatically by using the 1st line of content for untitled documents
+				// Buffer of the document being modified
 				Buffer* buffer = notifyView->getCurrentBuffer();
+
+				// Make temporary tab name automatically by using the 1st line of content for untitled documents
 				const NewDocDefaultSettings& ndds = NppParameters::getInstance().getNppGUI().getNewDocDefaultSettings();
-				intptr_t curLineIndex = _pEditView->execute(SCI_LINEFROMPOSITION, notification->position);
+				intptr_t curLineIndex = notifyView->execute(SCI_LINEFROMPOSITION, notification->position);
 				if (curLineIndex == 0 && ndds._useContentAsTabName && buffer->isUntitled() && !buffer->isUntitledTabRenamed())
 				{
 					useFirstLineAsTabName(buffer);
 				}
 
 				// Hold the correct position for "Begin/End &Select" or "Begin/End Select in Column Mode" commands
-				_pEditView->updateBeginEndSelectPosition(notification->modificationType & SC_MOD_INSERTTEXT, notification->position, notification->length);
+				notifyView->updateBeginEndSelectPosition(notification->modificationType & SC_MOD_INSERTTEXT, notification->position, notification->length);
 
 				// While the text modification, we make sure the link beblow the modification will be reprocessed
 				_linkTriggered = true;
 				::InvalidateRect(notifyView->getHSelf(), NULL, TRUE);
 
 				// for the backup system
-				_pEditView->getCurrentBuffer()->setModifiedStatus(true);
+				buffer->setModifiedStatus(true);
 
 				// check if possible IncrementalSearch does not need reset
 				if (_incrementFindDlg.isCreated() && _incrementFindDlg.isVisible())

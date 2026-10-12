@@ -1919,7 +1919,7 @@ License:             GPL2
             <WordsStyle name="File Header" styleID="2" fgColor="E3CEAB" bgColor="3F3F3F" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="Line Number" styleID="3" fgColor="8CD0D3" bgColor="3F3F3F" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="Hit Word" styleID="4" fgColor="CCE08C" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" />
-            <WordsStyle name="Current line background colour" styleID="6" bgColor="585858" />
+            <WordsStyle name="Current line background colour" styleID="6" bgColor="101010" />
         </LexerType>
         <LexerType name="gdscript" desc="GDScript" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />

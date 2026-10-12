@@ -324,7 +324,10 @@ intptr_t CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam
 		case WM_CTLCOLORLISTBOX:
 		{
 			if (_lbBgColor != -1)
-				return reinterpret_cast<LRESULT>(::CreateSolidBrush(_lbBgColor));
+			{
+				::SetDCBrushColor(reinterpret_cast<HDC>(wParam), _lbBgColor);
+				return reinterpret_cast<LRESULT>(::GetStockObject(DC_BRUSH));
+			}
 			break;
 		}
 

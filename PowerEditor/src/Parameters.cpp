@@ -6089,11 +6089,11 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 		{
 			_nppGUI._menuBarShow = getBoolChildTextNode(childNode, _nppGUI._menuBarShow, STR_BOOL_SHOWHIDE);
 		}
-		// <GUIConfig name="DialogFont" size="8" fontName="" />
+		// <GUIConfig name="DialogFont" size="8" fontName="MS Shell Dlg" />
 		else if (std::strcmp(nm, "DialogFont") == 0)
 		{
 			_nppGUI._fontDlgSize = static_cast<WORD>(NppXml::uintAttribute(childNode, "size", _nppGUI._fontDlgSize));
-			_nppGUI._fontDlgName = NppXml::attributeW(childNode, "fontName", "");
+			_nppGUI._fontDlgName = NppXml::attributeW(childNode, "fontName", "MS Shell Dlg");
 		}
 		// <GUIConfig name="TabBar" dragAndDrop="yes" drawTopBar="yes" drawInactiveTab="yes" reduce="yes" closeButton="yes"
 		// pinButton="yes" showOnlyPinnedButton="no" buttonsOninactiveTabs="no" doubleClick2Close="no"
@@ -8029,7 +8029,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		NppXml::createChildText(GUIConfigElement, _nppGUI._menuBarShow ? "show" : "hide");
 	}
 
-	// <GUIConfig name="DialogFont" size="8" fontName="" />
+	// <GUIConfig name="DialogFont" size="8" fontName="MS Shell Dlg" />
 	{
 		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
 		NppXml::setAttribute(GUIConfigElement, "name", "DialogFont");

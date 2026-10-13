@@ -548,4 +548,4 @@
 #define IDC_STATIC_DIALOG_FONT_SIZE                    7166
 #define IDC_COMBO_DIALOG_FONT_SIZE                     7167
 #define IDC_STATIC_DIALOG_FONT_NAME                    7168
-#define IDC_EDIT_DIALOG_FONT_NAME                      7169
+#define IDC_COMBO_DIALOG_FONT_NAME                     7169

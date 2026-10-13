@@ -2131,6 +2131,7 @@ void NppParameters::setFontList(HWND hWnd)
 		::EnumFontFamiliesEx(hDC, &lf, EnumFontFamExProc, reinterpret_cast<LPARAM>(&_fontlist), 0);
 		::ReleaseDC(hWnd, hDC);
 	}
+	_fontlist.push_back(DEFAULT_DLG_FONT);
 }
 
 bool NppParameters::isInFontList(const std::wstring& fontName2Search) const

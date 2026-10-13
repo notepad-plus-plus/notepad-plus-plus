@@ -158,6 +158,7 @@
 				mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
 						(?m-i)                                              # ^ and $ match at line-breaks, case-sensitive
 						^\h*                                                # optional leading white-space at start-of-line
+						(?:(?-i:async)\s+)?                                 # optional async keyword (JS embedded in .php files)
 						(?-i:function)\s+
 						\K                                                  # discard text matched so far
 						(?:\x26\s*)?                                        # optionally a reference

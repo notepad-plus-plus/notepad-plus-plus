@@ -128,3 +128,7 @@ readonly class ValueObject
 }
 
 NotificationListener::main();
+
+async function asyncTask(){
+    return 1;
+}

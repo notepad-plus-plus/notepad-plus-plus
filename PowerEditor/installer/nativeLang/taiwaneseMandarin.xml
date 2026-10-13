@@ -927,6 +927,9 @@
 					<Item id="6123" name="語言"/>
 					<Item id="6133" name="狀態列"/>
 					<Item id="6134" name="隱藏"/>
+					<Item id="7165" name="對話框字體（需要重新啟動 Notepad++）"/>
+					<Item id="7166" name="字型名稱："/>
+					<Item id="7168" name="字型大小："/>
 				</Global>
 
 				<Toolbar title="工具列">

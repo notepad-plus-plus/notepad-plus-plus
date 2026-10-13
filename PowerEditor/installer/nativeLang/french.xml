@@ -975,6 +975,9 @@ Translation note:
 					<Item id="6132" name="Cacher ＋ ▼ ✕"/>
 					<Item id="6133" name="Barre d’état"/>
 					<Item id="6134" name="Masquer"/>
+					<Item id="7165" name="Police de boîte de dialogue (nécessité de redémarrage)"/>
+					<Item id="7166" name="Famille :"/>
+					<Item id="7168" name="Taille :"/>
 				</Global>
 
 				<Toolbar title="Barre d’outils">

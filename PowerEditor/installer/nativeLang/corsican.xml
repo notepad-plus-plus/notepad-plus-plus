@@ -13,7 +13,7 @@ Additionnal information about Corsican localization:
 2. History of Corsican translation for Notepad++:
 
 	- Updated in 2026 by Patriccollu di Santa Maria è Sichè: Feb. 10th (v8.9.1+), Mar. 10th (v8.9.2+), May 17th (v8.9.5+),
-			  June 24th (v8.9.6.4+), Aug. 28th (v8.9.8+), Oct. 3rd (v8.9.8.1+)
+			  June 24th (v8.9.6.4+), Aug. 28th (v8.9.8+), Oct. 13th (v8.9.8.1+)
 	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8), Apr. 20th (v8.8),
 			  June 26th (v8.8.1+), July 24th (v8.8.3+), Sep. 30th (v8.8.5+), Dec. 12th (v8.8.9+)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
@@ -1001,13 +1001,15 @@ Additionnal information about Corsican localization:
 			<Preference title="Preferenze">
 				<Item id="6001" name="Chjode"/>
 				<Global title="Generale">
-					<Item id="6123" name="Lingua di l’interfaccia"/>
+					<Item id="6123" name="&amp;Lingua di l’interfaccia"/>
 					<Item id="6131" name="Listinu"/>
-					<Item id="6122" name="Piattà (impiegà u tastu Alt o F10 per attivà o disattivà)"/>
-					<Item id="6132" name="Piattà l’accurtatoghji di diritta ＋ ▼ ✕"/>
+					<Item id="6122" name="&amp;Piattà (impiegà u tastu Alt o F10 per attivà o disattivà)"/>
+					<Item id="6132" name="Piattà l’&amp;accurtatoghji di diritta ＋ ▼ ✕"/>
 					<Item id="6133" name="Barra di statu"/>
-					<Item id="6134" name="Piattà"/>
-					<Item id="7165" name="Dimensione di a grafia di u dialogu (Richiede di rilancià Notepad++)"/>
+					<Item id="6134" name="P&amp;iattà"/>
+					<Item id="7165" name="Grafia di u dialogu (Richiede di rilancià Notepad++)"/>
+					<Item id="7166" name="&amp;Dimensione :"/>
+					<Item id="7168" name="Nome :"/>
 				</Global>
 
 				<Toolbar title="Barra d’attrezzi">
@@ -1846,6 +1848,7 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
 			<find-status-replace-readonly value="Rimpiazzà : Ùn si pò rimpiazzà u testu. U ducumentu attuale pò solu si leghje"/>
 			<find-status-cannot-find value="Circà : Ùn si pò truvà u testu « $STR_REPLACE$ »"/>
 			<find-status-cannot-find-pebkac-maybe value="Ùn si pò truvà l’occurrenza pruvista. Forse vi site scurdati di selezziunà « Circunvoglie » (attivatu), « Rispettà a cassa (maiuscule è minuscule) » (disattivatu), o « Currispundenza solu di a parolla sana » (disattivatu)."/>
+			<find-status-regex-find-empty-string value="L’espressione regulare specificata currisponde à catene viote."/>
 			<find-status-scope-selection value="in u testu selezziunatu"/>
 			<find-status-scope-all value="in u schedariu sanu"/>
 			<find-status-scope-backward value="da u principiu di schedariu à u cursore"/>

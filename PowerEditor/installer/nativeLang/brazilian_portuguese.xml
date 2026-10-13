@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 10 Oct 2026 for 8.9.8.1+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 12 Oct 2026 for 8.9.8.1+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -969,13 +969,15 @@ Translation note:
 			<Preference title="Preferências">
 				<Item id="6001" name="Fechar"/>
 				<Global title="Geral">
-					<Item id="6123" name="Localização"/>
+					<Item id="6123" name="&amp;Localização"/>
 					<Item id="6131" name="Menu"/>
-					<Item id="6122" name="Ocultar (use teclas Alt ou F10 para alternar)"/>
-					<Item id="6132" name="Ocultar atalhos à direita ＋ ▼ ✕"/>
+					<Item id="6122" name="O&amp;cultar (use teclas Alt ou F10 para alternar)"/>
+					<Item id="6132" name="Oculta&amp;r atalhos à direita ＋ ▼ ✕"/>
 					<Item id="6133" name="Barra de Status"/>
-					<Item id="6134" name="Ocultar"/>
-					<Item id="7165" name="Tamanho da fonte de Diálogo (Necessário reiniciar o Notepad++)"/>
+					<Item id="6134" name="Ocul&amp;tar"/>
+					<Item id="7165" name="Fonte de Diálogo (Necessário reiniciar o Notepad++)"/>
+					<Item id="7166" name="Ta&amp;manho:"/>
+					<Item id="7168" name="Nome:"/>
 				</Global>
 
 				<Toolbar title="Ferramentas">

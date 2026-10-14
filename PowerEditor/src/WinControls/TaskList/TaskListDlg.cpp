@@ -117,6 +117,15 @@ intptr_t CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			return TRUE;
 		}
 
+		case WM_ACTIVATE:
+		{
+			if (LOWORD(wParam) == WA_INACTIVE)
+			{
+				::EndDialog(_hSelf, -1);
+				return TRUE;
+			}
+			break;
+		}
 
 		case WM_RBUTTONUP:
 		{

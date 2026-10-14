@@ -14,33 +14,31 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 #include "DoubleBuffer.h"
-#include "NppConstants.h"
+
+#include <windows.h>
+
 #include <commctrl.h>
+
 #include <cassert>
 #include <memory>
+
+#include "NppConstants.h"
+#include "dpiManagerV2.h"
 
 void DoubleBuffer::subclass(HWND hWnd)
 {
 	std::unique_ptr<DoubleBuffer> self(new DoubleBuffer);
-	if (::SetWindowSubclass(hWnd, s_subclassWndProc, static_cast<UINT_PTR>(SubclassID::second), reinterpret_cast<DWORD_PTR>(self.get())))
+	if (::SetWindowSubclass(hWnd, s_subclassWndProc, static_cast<UINT_PTR>(SubclassID::second), reinterpret_cast<DWORD_PTR>(self.get())) == TRUE)
 	{
-		self.release();
+		static_cast<void>(self.release());
 	}
 }
 
 DoubleBuffer::~DoubleBuffer()
 {
-	if (_hBufferBitmap)
-	{
-		::SelectObject(_hMemoryDC, _hDefaultBitmap);
-		::DeleteObject(_hBufferBitmap);
-	}
-
-	if (_hMemoryDC)
-	{
-		::DeleteDC(_hMemoryDC);
-	}
+	destroyBuffer();
 }
 
 void DoubleBuffer::prepareBuffer(HDC hOriginalDC, const RECT& clientRc)
@@ -68,12 +66,12 @@ void DoubleBuffer::prepareBuffer(HDC hOriginalDC, const RECT& clientRc)
 	}
 }
 
-LRESULT CALLBACK DoubleBuffer::s_subclassWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR, DWORD_PTR dwRefData)
+LRESULT CALLBACK DoubleBuffer::s_subclassWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
 {
-	return reinterpret_cast<DoubleBuffer*>(dwRefData)->subclassWndProc(hWnd, uMsg, wParam, lParam);
+	return reinterpret_cast<DoubleBuffer*>(dwRefData)->subclassWndProc(hWnd, uMsg, wParam, lParam, uIdSubclass);
 }
 
-LRESULT DoubleBuffer::subclassWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT DoubleBuffer::subclassWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass)
 {
 	switch (uMsg)
 	{
@@ -140,11 +138,35 @@ LRESULT DoubleBuffer::subclassWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 
 		case WM_NCDESTROY:
 		{
-			::RemoveWindowSubclass(hWnd, s_subclassWndProc, 0);
-			delete this;
+			::RemoveWindowSubclass(hWnd, s_subclassWndProc, uIdSubclass);
+			auto pData = std::unique_ptr<DoubleBuffer>(this);
+			pData.reset();
+			break;
+		}
+
+		case WM_DPICHANGED_AFTERPARENT:
+		{
+			destroyBuffer();
+			::RedrawWindow(hWnd, nullptr, nullptr, RDW_INVALIDATE | RDW_INTERNALPAINT);
 			break;
 		}
 	}
 
 	return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+}
+
+void DoubleBuffer::destroyBuffer() noexcept
+{
+	if (_hBufferBitmap != nullptr)
+	{
+		::SelectObject(_hMemoryDC, _hDefaultBitmap);
+		::DeleteObject(_hBufferBitmap);
+		_hBufferBitmap = nullptr;
+	}
+
+	if (_hMemoryDC != nullptr)
+	{
+		::DeleteDC(_hMemoryDC);
+		_hMemoryDC = nullptr;
+	}
 }

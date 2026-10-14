@@ -48,8 +48,10 @@ private:
 	DoubleBuffer& operator=(const DoubleBuffer&) = delete;
 
 	void prepareBuffer(HDC hOriginalDC, const RECT& clientRc);
-	static LRESULT CALLBACK s_subclassWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR, DWORD_PTR dwRefData);
-	LRESULT subclassWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK s_subclassWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
+	LRESULT subclassWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass);
+
+	void destroyBuffer() noexcept;
 
 private:
 	SIZE _size{};

@@ -7012,13 +7012,20 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	}
 
 	const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
-	bool isCurrBuffDetection = (nppGui._fileAutoDetection & cdEnabledNew) ? true : false;
+	bool isCurrBuffDetection = (nppGui._fileAutoDetection & cdEnabledNew) != 0;
+	bool isAllBuffDetection = (nppGui._fileAutoDetection & cdEnabledOld) != 0;
 	bool reload = buf->getNeedReload();
+
 	if (!reload && isCurrBuffDetection)
 	{
 		// Buffer has been activated, now check for file modification
 		// If enabled for current buffer
 		buf->checkFileState();
+	}
+	else if (isAllBuffDetection)
+	{
+		// Also check on activation, not just when the app itself regains focus
+		checkModifiedDocument(false);
 	}
 
 	_linkTriggered = true;

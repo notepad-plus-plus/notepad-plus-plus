@@ -6691,7 +6691,7 @@ void FindIncrementDlg::addToRebar(ReBar * rebar)
 	_rbBand.fMask   = RBBIM_STYLE | RBBIM_CHILD | RBBIM_CHILDSIZE |
 					  RBBIM_SIZE | RBBIM_ID;
 
-	_rbBand.fStyle = RBBS_HIDDEN | RBBS_NOGRIPPER;
+	_rbBand.fStyle = RBBS_HIDDEN | RBBS_NOGRIPPER | RBBS_BREAK; // RBBS_BREAK: in the top rebar, a row of its own below the toolbar
 	_rbBand.hwndChild	= getHSelf();
 	_rbBand.wID			= REBAR_BAR_SEARCH;	//ID REBAR_BAR_SEARCH for search dialog
 	_rbBand.cxMinChild	= 0;

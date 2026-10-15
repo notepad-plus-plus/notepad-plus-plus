@@ -1243,6 +1243,7 @@ Translation note:
 					<Item id="6913" name="Fill Find in Files Directory Field Based On Active Document"/>
 					<Item id="6916" name=": Max Characters to Auto-Fill Find Field from Selection"/>
 					<Item id="6917" name="Find in Files: Prefer on‑disk file content over open buffers"/>
+					<Item id="6918" name="Incremental Search: show the bar at the top"/>
 				</Searching>
 
 				<RecentFilesHistory title="Recent Files History">

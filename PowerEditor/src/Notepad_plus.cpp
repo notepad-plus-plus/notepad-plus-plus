@@ -742,7 +742,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_findReplaceDlg.init(_pPublicInterface->getHinst(), hwnd, &_pEditView);
 	_findInFinderDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_incrementFindDlg.init(_pPublicInterface->getHinst(), hwnd, &_findReplaceDlg, _nativeLangSpeaker.isRTL());
-	_incrementFindDlg.addToRebar(&_rebarBottom);
+	_incrementFindDlg.addToRebar(nppGUI._incrementalSearchBarAtTop ? &_rebarTop : &_rebarBottom);
 	_goToLineDlg.init(_pPublicInterface->getHinst(), hwnd, &_pEditView);
 	_findCharsInRangeDlg.init(_pPublicInterface->getHinst(), hwnd, &_pEditView);
 	_colEditorDlg.init(_pPublicInterface->getHinst(), hwnd, &_pEditView);

@@ -7259,6 +7259,7 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_REPLACEANDSTOP, BM_SETCHECK, nppGUI._replaceStopsWithoutFindingNext, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SHOWONCEPERFOUNDLINE, BM_SETCHECK, nppGUI._finderShowOnlyOneEntryPerFoundLine, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_FIF_IGNOREOPENEDFILES, BM_SETCHECK, nppGUI._fif_ignoreunsavedChangesInOpenedFiles, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_INCSEARCHBAR_ATTOP, BM_SETCHECK, nppGUI._incrementalSearchBarAtTop, 0);
 			::SetDlgItemInt(_hSelf, IDC_INSELECTION_THRESHOLD_EDIT, nppGUI._inSelectionAutocheckThreshold, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_FILL_DIR_FIELD_FROM_ACTIVE_DOC, BM_SETCHECK, nppGUI._fillDirFieldFromActiveDoc, 0);
 
@@ -7437,6 +7438,13 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				case IDC_CHECK_FIF_IGNOREOPENEDFILES:
 				{
 					nppGUI._fif_ignoreunsavedChangesInOpenedFiles = isCheckedOrNot(IDC_CHECK_FIF_IGNOREOPENEDFILES);
+					return TRUE;
+				}
+
+				case IDC_CHECK_INCSEARCHBAR_ATTOP:
+				{
+					nppGUI._incrementalSearchBarAtTop = isCheckedOrNot(IDC_CHECK_INCSEARCHBAR_ATTOP);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_INCSEARCHBARPOSITION, 0, 0);
 					return TRUE;
 				}
 

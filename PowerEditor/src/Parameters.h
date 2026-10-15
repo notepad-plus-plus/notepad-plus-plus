@@ -1189,6 +1189,10 @@ struct FindHistory final
 	bool _isBookmarkLine = false;
 	bool _isPurge = false;
 
+	bool _isIncrementalMatchCase = false;
+	bool _isIncrementalHighlightAll = false;
+	bool _isIncrementalCount = true;
+
 	// Allow regExpr backward search: this option is not present in UI, only to modify in config.xml
 	bool _regexBackward4PowerUser = false;
 };

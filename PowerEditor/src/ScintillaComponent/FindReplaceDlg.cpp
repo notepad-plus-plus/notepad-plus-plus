@@ -6427,7 +6427,11 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 		case WM_INITDIALOG:
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(getHSelf());
-			::SendDlgItemMessage(_hSelf, IDC_INCFINDCOUNT, BM_SETCHECK, TRUE, 0);
+
+			const FindHistory& findHistory = NppParameters::getInstance().getFindHistory();
+			setChecked(IDC_INCFINDMATCHCASE, findHistory._isIncrementalMatchCase);
+			setChecked(IDC_INCFINDHILITEALL, findHistory._isIncrementalHighlightAll);
+			setChecked(IDC_INCFINDCOUNT, findHistory._isIncrementalCount);
 			return TRUE;
 		}
 
@@ -6472,6 +6476,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 					break;
 
 				case IDC_INCFINDMATCHCASE:
+					NppParameters::getInstance().getFindHistory()._isIncrementalMatchCase = isCheckedOrNot(IDC_INCFINDMATCHCASE);
 					updateSearch = true;
 					updateCase = true;
 					updateHiLight = true;
@@ -6479,10 +6484,12 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 					break;
 
 				case IDC_INCFINDHILITEALL:
+					NppParameters::getInstance().getFindHistory()._isIncrementalHighlightAll = isCheckedOrNot(IDC_INCFINDHILITEALL);
 					updateHiLight = true;
 					break;
 
 				case IDC_INCFINDCOUNT:
+					NppParameters::getInstance().getFindHistory()._isIncrementalCount = isCheckedOrNot(IDC_INCFINDCOUNT);
 					_matches.clear();
 					break;
 

@@ -4033,6 +4033,10 @@ void NppParameters::feedFindHistoryParameters(const NppXml::Element& element)
 	_findHistory._regexBackward4PowerUser = getBoolAttribute(findHistoryRoot, "regexBackward4PowerUser");
 	_findHistory._isBookmarkLine = getBoolAttribute(findHistoryRoot, "bookmarkLine");
 	_findHistory._isPurge = getBoolAttribute(findHistoryRoot, "purge");
+
+	_findHistory._isIncrementalMatchCase = getBoolAttribute(findHistoryRoot, "incrementalMatchCase", _findHistory._isIncrementalMatchCase);
+	_findHistory._isIncrementalHighlightAll = getBoolAttribute(findHistoryRoot, "incrementalHighlightAll", _findHistory._isIncrementalHighlightAll);
+	_findHistory._isIncrementalCount = getBoolAttribute(findHistoryRoot, "incrementalCount", _findHistory._isIncrementalCount);
 }
 
 void NppParameters::feedShortcut(const NppXml::Element& element)
@@ -8341,6 +8345,10 @@ bool NppParameters::writeFindHistory()
 
 	setBoolAttribute(findHistoryRoot, "bookmarkLine", _findHistory._isBookmarkLine);
 	setBoolAttribute(findHistoryRoot, "purge", _findHistory._isPurge);
+
+	setBoolAttribute(findHistoryRoot, "incrementalMatchCase", _findHistory._isIncrementalMatchCase);
+	setBoolAttribute(findHistoryRoot, "incrementalHighlightAll", _findHistory._isIncrementalHighlightAll);
+	setBoolAttribute(findHistoryRoot, "incrementalCount", _findHistory._isIncrementalCount);
 
 	for (const auto& path : _findHistory._findHistoryPaths)
 	{

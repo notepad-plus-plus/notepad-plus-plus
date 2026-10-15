@@ -1297,7 +1297,7 @@
 
 				<MISC title="其他">
 					<ComboBox id="6347">
-						<Element name="啟用"/>
+						<Element name="啟用於現行文件"/>
 						<Element name="啟用於所有開啟文件"/>
 						<Element name="停止啟用"/>
 					</ComboBox>

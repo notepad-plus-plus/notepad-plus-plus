@@ -1364,7 +1364,7 @@ Translation note:
 
 				<MISC title="MISC.">
 					<ComboBox id="6347">
-						<Element name="Enable for current file"/>
+						<Element name="Enable for current file(s)"/>
 						<Element name="Enable for all opened files"/>
 						<Element name="Disable"/>
 					</ComboBox>

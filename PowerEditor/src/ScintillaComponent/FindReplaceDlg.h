@@ -450,6 +450,10 @@ public :
 	std::wstring setSearchText();
 	std::wstring setSearchTextWithSettings();
 
+	void updateMatchHighlighting();
+	void updateMatchHighlightingLater() const;
+	void clearMatchHighlighting();
+
 protected :
 	void resizeDialogElements();
 	void setMinHeightAndBordersMetrics() noexcept;
@@ -473,6 +477,7 @@ private:
 	DIALOG_TYPE _currentStatus = DIALOG_TYPE::FIND_DLG;
 
 	ScintillaEditView** _ppEditView = nullptr;
+	ScintillaEditView* _pMatchHighlightView = nullptr; // view of the last updateMatchHighlighting()
 	Finder  *_pFinder = nullptr;
 	std::wstring _findResTitle;
 

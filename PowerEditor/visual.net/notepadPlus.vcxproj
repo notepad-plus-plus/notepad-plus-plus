@@ -165,6 +165,7 @@
     <ClCompile Include="..\src\WinControls\TreeView\TreeView.cpp" />
     <ClCompile Include="..\src\WinControls\WindowsDlg\SizeableDlg.cpp" />
     <ClCompile Include="..\src\ScintillaComponent\SmartHighlighter.cpp" />
+    <ClCompile Include="..\src\ScintillaComponent\SmoothScrolling.cpp" />
     <ClCompile Include="..\src\WinControls\SplitterContainer\Splitter.cpp" />
     <ClCompile Include="..\src\WinControls\SplitterContainer\SplitterContainer.cpp" />
     <ClCompile Include="..\src\WinControls\StaticDialog\StaticDialog.cpp" />
@@ -328,6 +329,7 @@
     <ClInclude Include="..\src\WinControls\TreeView\TreeView.h" />
     <ClInclude Include="..\src\WinControls\WindowsDlg\SizeableDlg.h" />
     <ClInclude Include="..\src\ScintillaComponent\SmartHighlighter.h" />
+    <ClInclude Include="..\src\ScintillaComponent\SmoothScrolling.h" />
     <ClInclude Include="..\src\WinControls\SplitterContainer\Splitter.h" />
     <ClInclude Include="..\src\WinControls\SplitterContainer\SplitterContainer.h" />
     <ClInclude Include="..\src\WinControls\StaticDialog\StaticDialog.h" />

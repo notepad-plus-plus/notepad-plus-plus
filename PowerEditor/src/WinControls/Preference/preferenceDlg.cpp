@@ -5031,6 +5031,7 @@ intptr_t CALLBACK HighlightingSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITEWHOLEWORDONLY, BM_SETCHECK, nppGUI._smartHiliteWordOnly, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITEUSEFINDSETTINGS, BM_SETCHECK, nppGUI._smartHiliteUseFindSettings, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITEANOTHERRVIEW, BM_SETCHECK, nppGUI._smartHiliteOnAnotherView, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_FINDDLGHIGHLIGHT, BM_SETCHECK, nppGUI._findDlgHighlightMatches, 0);
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLTAGSMATCHHILITE, BM_SETCHECK, nppGUI._enableTagsMatchHilite, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLTAGATTRHILITE, BM_SETCHECK, nppGUI._enableTagAttrsHilite, 0);
@@ -5158,6 +5159,13 @@ intptr_t CALLBACK HighlightingSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 
 					HWND grandParent = ::GetParent(_hParent);
 					::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
+					return TRUE;
+				}
+
+				case IDC_CHECK_FINDDLGHIGHLIGHT:
+				{
+					nppGUI._findDlgHighlightMatches = isCheckedOrNot(IDC_CHECK_FINDDLGHIGHLIGHT);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_FINDDLGHIGHLIGHT, 0, 0);
 					return TRUE;
 				}
 

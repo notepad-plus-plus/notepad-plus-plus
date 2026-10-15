@@ -5432,6 +5432,10 @@ void NppParameters::addDefaultStyles(const NppXml::Element& element)
 
 	addStyleDefaultColors(globalStyleRoot, L"EOL custom color", "DADADA");
 	addStyleDefaultColors(globalStyleRoot, g_npcStyleName, "DADADA", "", L"White space symbol");
+
+	// native colors of Windows 11 (light): thumb, track; thumb under the mouse
+	addStyleDefaultColors(globalStyleRoot, g_editorScrollbarStyleName, "858585", "F0F0F0");
+	addStyleDefaultColors(globalStyleRoot, g_editorScrollbarHoverStyleName, "666666");
 }
 
 void LexerStylerArray::addLexerStyler(const char* lexerName, const char* lexerDesc, const char* lexerUserExt, const NppXml::Element& lexerNode)
@@ -6054,22 +6058,6 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 				const std::string attrName = "color" + std::to_string(i++);
 				cc = static_cast<COLORREF>(NppXml::intAttribute(childNode, attrName.c_str(), static_cast<int>(cc)));
 			}
-		}
-		// <GUIConfig name="EditorScrollbars" customColours="no" lightThumb="8750469" lightTrack="15790320" lightThumbHover="6710886"
-		// darkThumb="9803157" darkTrack="1513239" darkThumbHover="13487565" />
-		else if (std::strcmp(nm, "EditorScrollbars") == 0)
-		{
-			_nppGUI._editorScrollbarCustomColours = getBoolAttribute(childNode, "customColours");
-
-			ScrollbarColours& light = _nppGUI._editorScrollbarLight;
-			light._thumb = static_cast<COLORREF>(NppXml::intAttribute(childNode, "lightThumb", static_cast<int>(light._thumb)));
-			light._track = static_cast<COLORREF>(NppXml::intAttribute(childNode, "lightTrack", static_cast<int>(light._track)));
-			light._thumbHover = static_cast<COLORREF>(NppXml::intAttribute(childNode, "lightThumbHover", static_cast<int>(light._thumbHover)));
-
-			ScrollbarColours& dark = _nppGUI._editorScrollbarDark;
-			dark._thumb = static_cast<COLORREF>(NppXml::intAttribute(childNode, "darkThumb", static_cast<int>(dark._thumb)));
-			dark._track = static_cast<COLORREF>(NppXml::intAttribute(childNode, "darkTrack", static_cast<int>(dark._track)));
-			dark._thumbHover = static_cast<COLORREF>(NppXml::intAttribute(childNode, "darkThumbHover", static_cast<int>(dark._thumbHover)));
 		}
 		// <GUIConfig name="ToolBar" visible="yes" fluentColor="0" fluentCustomColor="0" fluentMono="no">standard</GUIConfig>
 		else if (std::strcmp(nm, "ToolBar") == 0)
@@ -7342,6 +7330,7 @@ void NppParameters::feedScintillaParam(const NppXml::Element& element)
 	_svp._npcCustomColor = getBoolAttribute(element, "npcCustomColor");
 	_svp._npcIncludeCcUniEol = getBoolAttribute(element, "npcIncludeCcUniEOL");
 	_svp._npcNoInputC0 = getBoolAttribute(element, "npcNoInputC0", _svp._npcNoInputC0);
+	_svp._scrollbarCustomColor = getBoolAttribute(element, "scrollbarCustomColor");
 
 	// C0, C1 control and Unicode EOL visibility state
 	_svp._ccUniEolShow = getBoolAttribute(element, "ccShow", _svp._ccUniEolShow);
@@ -7619,6 +7608,7 @@ bool NppParameters::writeScintillaParams()
 	setBoolAttribute(scintNode, "npcCustomColor", _svp._npcCustomColor);
 	setBoolAttribute(scintNode, "npcIncludeCcUniEOL", _svp._npcIncludeCcUniEol);
 	setBoolAttribute(scintNode, "npcNoInputC0", _svp._npcNoInputC0);
+	setBoolAttribute(scintNode, "scrollbarCustomColor", _svp._scrollbarCustomColor);
 	setBoolAttribute(scintNode, "ccShow", _svp._ccUniEolShow);
 	NppXml::setAttribute(scintNode, "borderWidth", _svp._borderWidth);
 	setBoolAttribute(scintNode, "smoothFont", _svp._doSmoothFont);
@@ -8293,24 +8283,6 @@ void NppParameters::createXmlTreeFromGUIParams()
 			const std::string attrName = "color" + std::to_string(i++);
 			NppXml::setAttribute(GUIConfigElement, attrName.c_str(), static_cast<int>(cc));
 		}
-	}
-
-	// <GUIConfig name="EditorScrollbars" customColours="no" lightThumb="8750469" lightTrack="15790320" lightThumbHover="6710886"
-	// darkThumb="9803157" darkTrack="1513239" darkThumbHover="13487565" />
-	{
-		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
-		NppXml::setAttribute(GUIConfigElement, "name", "EditorScrollbars");
-		setBoolAttribute(GUIConfigElement, "customColours", _nppGUI._editorScrollbarCustomColours);
-
-		const ScrollbarColours& light = _nppGUI._editorScrollbarLight;
-		NppXml::setAttribute(GUIConfigElement, "lightThumb", static_cast<int>(light._thumb));
-		NppXml::setAttribute(GUIConfigElement, "lightTrack", static_cast<int>(light._track));
-		NppXml::setAttribute(GUIConfigElement, "lightThumbHover", static_cast<int>(light._thumbHover));
-
-		const ScrollbarColours& dark = _nppGUI._editorScrollbarDark;
-		NppXml::setAttribute(GUIConfigElement, "darkThumb", static_cast<int>(dark._thumb));
-		NppXml::setAttribute(GUIConfigElement, "darkTrack", static_cast<int>(dark._track));
-		NppXml::setAttribute(GUIConfigElement, "darkThumbHover", static_cast<int>(dark._thumbHover));
 	}
 
 	// <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" lineNumberDynamicWidth="yes" bookMarkMargin="show" indentGuideLine="show"

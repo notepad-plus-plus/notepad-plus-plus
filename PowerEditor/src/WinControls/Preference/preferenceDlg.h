@@ -19,7 +19,6 @@
 
 #include <windows.h>
 
-#include <array>
 #include <memory>
 #include <string>
 #include <vector>
@@ -133,16 +132,10 @@ private:
 	HWND _tipCodepoint = nullptr;
 	HWND _tipNpcColor = nullptr;
 	HWND _tipNpcInclude = nullptr;
+	HWND _tipScrollbarColor = nullptr;
 
 	std::vector<HWND> _tips;
-
-	// editor scrollbars: light thumb, track, thumb hover, then dark thumb, track, thumb hover
-	std::array<std::unique_ptr<ColourPicker>, 6> _pScrollbarColourPickers{};
-
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
-	void move2CtrlLeft(int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight);
-	void placeScrollbarColourPickers();
-	void enableScrollbarColourCtrls(bool doEnable);
 };
 
 class DarkModeSubDlg : public StaticDialog

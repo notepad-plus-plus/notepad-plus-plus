@@ -24,7 +24,8 @@
 //     nobody else uses (their DPI + 1), so that their drawing can be told apart from the other scrollbars;
 //   - DrawThemeBackground: the parts drawn with such a handle are drawn by the original function into a bitmap,
 //     then recoloured, so they keep the native look (shape, arrows, rounded ends, thumb growing under the mouse)
-//     with the colours of the option. Everything else goes to the original functions;
+//     with the colours of the styles "Editor scrollbar" and "Editor scrollbar hover" of the current theme
+//     (Style Configurator > Global Styles). Everything else goes to the original functions;
 // - the corner between the two scrollbars is not a theme part: it is painted after WM_NCPAINT, by a subclass of
 //   the editor windows;
 // - the native behaviour (dragging, page up/down, "Scroll Here" menu, hover states) is not touched;
@@ -46,6 +47,7 @@
 #include <utility>
 #include <vector>
 
+#include "NppConstants.h"
 #include "NppDarkMode.h"
 #include "Parameters.h"
 #include "dpiManagerV2.h"
@@ -371,10 +373,31 @@ namespace
 		return RGB((GetRValue(a) + GetRValue(b)) / 2, (GetGValue(a) + GetGValue(b)) / 2, (GetBValue(a) + GetBValue(b)) / 2);
 	}
 
-	const ScrollbarColours& currentColours()
+	struct Colours
 	{
-		const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
-		return NppDarkMode::isEnabled() ? nppGui._editorScrollbarDark : nppGui._editorScrollbarLight;
+		COLORREF _thumb = RGB(0x85, 0x85, 0x85);
+		COLORREF _track = RGB(0xF0, 0xF0, 0xF0);
+		COLORREF _thumbHover = RGB(0x66, 0x66, 0x66); // thumb under the mouse or dragged, arrow under the mouse or pressed
+	};
+	Colours g_colours;
+
+	// The colours of the styles of the current theme (a colour missing in the style: the native one)
+	void loadColours()
+	{
+		g_colours = Colours{};
+		StyleArray& stylers = NppParameters::getInstance().getMiscStylerArray();
+		if (const Style* pStyle = stylers.findByName(g_editorScrollbarStyleName))
+		{
+			if (pStyle->_fgColor != static_cast<COLORREF>(STYLE_NOT_USED))
+				g_colours._thumb = pStyle->_fgColor;
+			if (pStyle->_bgColor != static_cast<COLORREF>(STYLE_NOT_USED))
+				g_colours._track = pStyle->_bgColor;
+		}
+		if (const Style* pStyle = stylers.findByName(g_editorScrollbarHoverStyleName))
+		{
+			if (pStyle->_fgColor != static_cast<COLORREF>(STYLE_NOT_USED))
+				g_colours._thumbHover = pStyle->_fgColor;
+		}
 	}
 
 	// Paints one part of an editor scrollbar. False: not a scrollbar part, or it cannot be recoloured: the original
@@ -428,7 +451,7 @@ namespace
 		if (part == SBP_GRIPPERHORZ || part == SBP_GRIPPERVERT)
 			return true; // drawn over the thumb, it could not be recoloured: none (Windows 11 has none)
 
-		const ScrollbarColours& colours = currentColours();
+		const Colours& colours = g_colours;
 		const int savedDC = ::SaveDC(hdc);
 		if (clip)
 			::IntersectClipRect(hdc, clip->left, clip->top, clip->right, clip->bottom);
@@ -495,7 +518,7 @@ namespace
 
 		if (HDC hdc = ::GetWindowDC(hwnd))
 		{
-			fillRect(hdc, corner, currentColours()._track);
+			fillRect(hdc, corner, g_colours._track);
 			::ReleaseDC(hwnd, hdc);
 		}
 	}
@@ -582,19 +605,26 @@ namespace EditorScrollbars
 {
 	void init()
 	{
-		if (NppParameters::getInstance().getNppGUI()._editorScrollbarCustomColours && install())
+		if (NppParameters::getInstance().getSVP()._scrollbarCustomColor && install())
+		{
+			loadColours();
 			g_active = true;
+		}
 	}
 
 	void apply(HWND mainEditor, HWND subEditor)
 	{
-		const bool isOn = NppParameters::getInstance().getNppGUI()._editorScrollbarCustomColours;
+		const bool isOn = NppParameters::getInstance().getSVP()._scrollbarCustomColor;
 		if (isOn && !install())
 			return; // the imports of this version of Windows are not the expected ones: native colours
 		if (!g_openNcSlot)
 			return; // never switched on: nothing to undo
 
+		loadColours();
 		const bool isSwitched = g_active.exchange(isOn) != isOn;
+		if (!isOn && !isSwitched)
+			return; // off, and already off: nothing to repaint
+
 		for (HWND editor : { mainEditor, subEditor })
 		{
 			if (!editor)

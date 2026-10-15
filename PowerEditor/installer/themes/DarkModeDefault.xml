@@ -2035,6 +2035,8 @@ License:             GPL2
         <WidgetStyle name="Document map" styleID="0" fgColor="000000" bgColor="FFFFFF"></WidgetStyle>
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080"></WidgetStyle>
         <WidgetStyle name="Non-printing characters custom color" styleID="0" fgColor="5F5F5F"></WidgetStyle>
+        <WidgetStyle name="Editor scrollbar" styleID="0" fgColor="959595" bgColor="171717"></WidgetStyle>
+        <WidgetStyle name="Editor scrollbar hover" styleID="0" fgColor="CDCDCD"></WidgetStyle>
         <WidgetStyle name="Global override" styleID="0" fgColor="DCDCCC" bgColor="3F3F3F" fontName="Consolas" fontStyle="0" fontSize=""></WidgetStyle>
     </GlobalStyles>
 </NotepadPlus>

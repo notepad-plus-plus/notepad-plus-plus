@@ -18,7 +18,8 @@
 
 #include <windows.h>
 
-// Custom colours of the scrollbars of the two editors (Preferences > Editing 2 > Editor Scrollbars).
+// Custom colours of the scrollbars of the two editors (Preferences > Editing 2 > Editor Scrollbars > Custom Colors),
+// set in Style Configurator > Global Styles: "Editor scrollbar" and "Editor scrollbar hover".
 // The scrollbars keep their native look and behaviour: only their colours change.
 namespace EditorScrollbars
 {
@@ -26,7 +27,7 @@ namespace EditorScrollbars
 	// coloured from their first paint
 	void init();
 
-	// The option or a colour has changed:
+	// The option, a colour or the theme has changed:
 	// - option on: the editor scrollbars get the colours (the hooks are installed the first time);
 	// - option off: the editor scrollbars get their original theme back (the hooks stay, inactive).
 	void apply(HWND mainEditor, HWND subEditor);

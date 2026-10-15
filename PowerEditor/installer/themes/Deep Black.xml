@@ -2034,6 +2034,8 @@ https://notepad-plus-plus.org/donate/
         <WidgetStyle name="Document map" styleID="0" fgColor="FF8000" bgColor="FFFFFF"></WidgetStyle>
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080"></WidgetStyle>
         <WidgetStyle name="Non-printing characters custom color" styleID="0" fgColor="FF8080"></WidgetStyle>
+        <WidgetStyle name="Editor scrollbar" styleID="0" fgColor="959595" bgColor="171717"></WidgetStyle>
+        <WidgetStyle name="Editor scrollbar hover" styleID="0" fgColor="CDCDCD"></WidgetStyle>
         <WidgetStyle name="Global override" styleID="0" fgColor="FFFFFF" bgColor="000000" fontName="Courier New" fontStyle="0" fontSize=""></WidgetStyle>
     </GlobalStyles>
 </NotepadPlus>

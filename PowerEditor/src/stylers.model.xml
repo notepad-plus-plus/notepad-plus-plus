@@ -2030,6 +2030,8 @@
         <WidgetStyle name="Document map" styleID="0" fgColor="FF8000" bgColor="FFFFFF" />
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="DADADA" />
         <WidgetStyle name="Non-printing characters custom color" styleID="0" fgColor="FFB56A" />
+        <WidgetStyle name="Editor scrollbar" styleID="0" fgColor="858585" bgColor="F0F0F0" />
+        <WidgetStyle name="Editor scrollbar hover" styleID="0" fgColor="666666" />
         <WidgetStyle name="Global override" styleID="0" fgColor="FFFF80" bgColor="FF8000" fontName="Courier New" fontStyle="0" fontSize="" />
     </GlobalStyles>
 </NotepadPlus>

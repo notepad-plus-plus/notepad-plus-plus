@@ -1363,7 +1363,7 @@ Translation note:
 
 				<MISC title="Divers">
 					<ComboBox id="6347">
-						<Element name="Activer"/>
+						<Element name="Activer pour onglet(s) courant(s)"/>
 						<Element name="Activer avec tous les onglets"/>
 						<Element name="Désactiver"/>
 					</ComboBox>

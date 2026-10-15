@@ -471,6 +471,10 @@ private:
 
 	int switchEditViewTo(int gid);	//activate other view (set focus etc)
 
+	ScintillaEditView* getInactiveScintView() {
+		return (_activeView == MAIN_VIEW ? &_subEditView : &_mainEditView);
+	}
+
 	void docGotoAnotherEditView(FileTransferMode mode);	//TransferMode
 	void docOpenInNewInstance(FileTransferMode mode, int x = 0, int y = 0);
 

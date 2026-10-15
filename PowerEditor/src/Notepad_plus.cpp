@@ -5104,20 +5104,8 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 	{
 		if (_pDocTab->nbItem() == 1)
 		{
-			ScintillaEditView *pOtherView = NULL;
-			if (_pEditView == &_mainEditView)
-			{
-				pOtherView = &_subEditView;
-			}
-			else if (_pEditView == &_subEditView)
-			{
-				pOtherView = &_mainEditView;
-			}
-			else
-				return;
-
-			if (!pOtherView->isVisible())
-				return;
+			ScintillaEditView* pOtherView = getInactiveScintView();
+			if (!pOtherView->isVisible()) return;
 		}
 	}
 

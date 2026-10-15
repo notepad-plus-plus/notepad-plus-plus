@@ -853,6 +853,17 @@ void FileManager::checkFilesystemChanges(bool bCheckOnlyCurrentBuffer)
 	{
 		Buffer* buffer = _pNotepadPlus->getCurrentBuffer();
 		buffer->checkFileState();
+
+		// If the 2nd view is visible, check for current file modification in the 2nd view as well
+		if (_pNotepadPlus->viewVisible(_pNotepadPlus->otherView()))
+		{
+			ScintillaEditView* pOtherView = _pNotepadPlus->getInactiveScintView();
+
+			Buffer* bufOnOtherView = pOtherView->getCurrentBuffer();
+			bool reload = bufOnOtherView->getNeedReload();
+			if (!reload)
+				bufOnOtherView->checkFileState();
+		}
 	}
 	else
 	{

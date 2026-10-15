@@ -353,6 +353,16 @@
 #define IDC_GB_STATIC_MULTIEDITING                     6521
 #define IDC_CHECK_MULTISELECTION                       6522
 #define IDC_CHECK_COLUMN2MULTIEDITING                  6523
+#define IDC_GB_STATIC_SCROLLBARS                       6524
+#define IDC_CHECK_SCROLLBARCOLOURS                     6525
+#define IDC_SCROLLBARLIGHT_STATIC                      6526
+#define IDC_SCROLLBARDARK_STATIC                       6527
+#define IDC_SCROLLBARLIGHTTHUMB_STATIC                 6528
+#define IDC_SCROLLBARLIGHTTRACK_STATIC                 6529
+#define IDC_SCROLLBARLIGHTHOVER_STATIC                 6530
+#define IDC_SCROLLBARDARKTHUMB_STATIC                  6531
+#define IDC_SCROLLBARDARKTRACK_STATIC                  6532
+#define IDC_SCROLLBARDARKHOVER_STATIC                  6533
 
 #define IDD_PREFERENCE_SUB_HIGHLIGHTING                6550
 

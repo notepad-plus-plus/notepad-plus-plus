@@ -44,6 +44,7 @@
 #include "NppDarkMode.h"
 #include "dpiManagerV2.h"
 #include "ImageListSet.h"
+#include "EditorScrollbars.h"
 
 using namespace std;
 
@@ -211,6 +212,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = nppParam.getNppGUI();
 	const UINT dpi = DPIManagerV2::getDpiForWindow(hwnd);
+
+	EditorScrollbars::init(); // before the editor windows are created
 
 	// Menu
 	_mainMenuHandle = ::GetMenu(hwnd);

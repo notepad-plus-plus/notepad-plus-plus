@@ -33,6 +33,7 @@
 #include "fileBrowser.h"
 #include "NppDarkMode.h"
 #include "NppConstants.h"
+#include "EditorScrollbars.h"
 
 using namespace std;
 
@@ -349,6 +350,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
+			EditorScrollbars::onDarkModeChanging(); // its comctl32 hook may have been replaced by FixDarkScrollBar()
 			refreshDarkMode(static_cast<bool>(wParam));
 			// Notify plugins that Dark Mode changed
 			SCNotification scnN{};
@@ -2692,6 +2694,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				rebar.setIDVisible(REBAR_BAR_SEARCH, true);
 
 			::SendMessage(hwnd, WM_SIZE, 0, 0);
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_EDITORSCROLLBARS:
+		{
+			EditorScrollbars::apply(_mainEditView.getHSelf(), _subEditView.getHSelf());
 			return TRUE;
 		}
 

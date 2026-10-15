@@ -3753,6 +3753,7 @@ intptr_t CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 			}
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), isEnableAnsiAsUTF);
 
+			// Add lexer languages to the Default Language dropdown
 			for (int i = L_TEXT + 1 ; i < nppParam.L_END ; ++i) // Skip L_TEXT
 			{
 				LangType lt = static_cast<LangType>(i);
@@ -3772,6 +3773,17 @@ intptr_t CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 				}
 			}
 
+			// Add UDL languages to the Default Language dropdown
+			for (size_t u = 0; u < static_cast<size_t>(nppParam.getNbUserLang()); u++)
+			{
+				const UserLangContainer* ulc = nppParam.getULCFromIndex(u);
+				const wchar_t* lName = ulc->getName();
+				const LangType lt = L_USER;
+
+				auto index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(lName));
+				::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_SETITEMDATA, index, lt);
+			}
+
 			// Insert L_TEXT to the 1st position
 			int normalTextCmdID = nppParam.langTypeToCommandID(L_TEXT);
 			getNameStrFromCmd(normalTextCmdID, str);
@@ -3785,7 +3797,18 @@ intptr_t CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 			{
 				l = static_cast<LangType>(::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_GETITEMDATA, j, 0));
 				if (ndds._lang == l)
-					break;
+				{
+					if (l == L_USER)
+					{
+						auto txtlen = ::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_GETLBTEXTLEN, j, 0);
+						std::wstring wsUdlName(txtlen, L'\0');
+						::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_GETLBTEXT, j, reinterpret_cast<LPARAM>(wsUdlName.data()));
+						if (ndds._udl == wsUdlName)
+							break;
+					}
+					else
+						break;
+				}
 			}
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_SETCURSEL, j, 0);
 
@@ -3904,6 +3927,15 @@ intptr_t CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 						{
 							auto index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_GETCURSEL, 0, 0);
 							ndds._lang = static_cast<LangType>(::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_GETITEMDATA, index, 0));
+							if (ndds._lang == L_USER)
+							{
+								auto txtlen = ::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_GETLBTEXTLEN, index, 0);
+								std::wstring wsUdlName(txtlen, L'\0');
+								::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_GETLBTEXT, index, reinterpret_cast<LPARAM>(wsUdlName.data()));
+								ndds._udl = wsUdlName;
+							}
+							else
+								ndds._udl = L"";
 							return TRUE;
 						}
 						else if (LOWORD(wParam) == IDC_COMBO_OTHERCP)

@@ -499,6 +499,7 @@ struct NewDocDefaultSettings final
 	UniMode _unicodeMode = uniUTF8_NoBOM;
 	bool _openAnsiAsUtf8 = true;
 	LangType _lang = L_TEXT;
+	std::wstring _udl;
 	int _codepage = -1; // -1 when not using
 	bool _addNewDocumentOnStartup = false;
 	bool _useContentAsTabName = false;

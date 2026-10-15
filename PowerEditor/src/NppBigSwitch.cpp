@@ -33,6 +33,7 @@
 #include "fileBrowser.h"
 #include "NppDarkMode.h"
 #include "NppConstants.h"
+#include "SmoothScrolling.h"
 
 using namespace std;
 
@@ -2671,6 +2672,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			_mainEditView.execute(SCI_SETDRAGDROPENABLED, !nppParam.getSVP()._disableSelectedTextDragDrop);
 			_subEditView.execute(SCI_SETDRAGDROPENABLED, !nppParam.getSVP()._disableSelectedTextDragDrop);
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_SMOOTHSCROLLING:
+		{
+			SmoothScrolling::apply(_mainEditView.getHSelf(), _subEditView.getHSelf());
 			return TRUE;
 		}
 

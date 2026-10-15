@@ -320,6 +320,9 @@ FindReplaceDlg::~FindReplaceDlg()
 	if (_dirFromActiveDocTip)
 		::DestroyWindow(_dirFromActiveDocTip);
 
+	if (_hiliteModeTip)
+		::DestroyWindow(_hiliteModeTip);
+
 	if (_filterTip)
 		::DestroyWindow(_filterTip);
 
@@ -431,9 +434,12 @@ void FindReplaceDlg::fillFindHistory()
 
 	::SendDlgItemMessage(_hSelf, IDC_2_BUTTONS_MODE, BM_SETCHECK, findHistory._isSearch2ButtonsMode, 0);
 
+
 	const NppGUI&	nppGUI = nppParams.getNppGUI();
 	::SendDlgItemMessage(_hSelf, IDC_CONFIRMREPLACEOPENDOCS, BM_SETCHECK, nppGUI._confirmReplaceInAllOpenDocs, 0);
 	::SendDlgItemMessage(_hSelf, IDC_REPLACEANDSTOP, BM_SETCHECK, nppGUI._replaceStopsWithoutFindingNext, 0);
+
+	::SendDlgItemMessage(_hSelf, IDC_HIGHLIGHT_MODE, BM_SETCHECK, findHistory._findDlgHighlightMatches, 0);
 
 	if (findHistory._searchMode == FindHistory::regExpr)
 	{
@@ -1242,7 +1248,7 @@ void FindReplaceDlg::resizeDialogElements()
 {
 	auto getRcWidth = [](const RECT& rc) -> int {
 		return rc.right - rc.left;
-		};
+	};
 
 	auto setOrDeferWindowPos = [](HDWP hWinPosInfo, HWND hWnd, HWND hWndInsertAfter, int x, int y, int cx, int cy, UINT uFlags) -> HDWP {
 		if (hWinPosInfo != nullptr)
@@ -1251,7 +1257,7 @@ void FindReplaceDlg::resizeDialogElements()
 		}
 		::SetWindowPos(hWnd, hWndInsertAfter, x, y, cx, cy, uFlags);
 		return nullptr;
-		};
+	};
 
 	const bool isLessModeOn = NppParameters::getInstance().getNppGUI()._findWindowLessMode;
 
@@ -1444,6 +1450,10 @@ void FindReplaceDlg::resizeDialogElements()
 			::SendMessage(resizeHwnd, CB_SETEDITSEL, 0, 0);
 		}
 	}
+
+	layoutFindWhatAndHighlight();
+
+	::SetWindowPos(::GetDlgItem(_hSelf, IDFINDWHAT), nullptr, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_FRAMECHANGED | flags);
 }
 
 void FindReplaceDlg::setMinHeightAndBordersMetrics() noexcept
@@ -1662,6 +1672,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			NppDarkMode::setDarkTooltips(_replaceAndStopTip, NppDarkMode::ToolTipsType::tooltip);
 			NppDarkMode::setDarkTooltips(_filterTip, NppDarkMode::ToolTipsType::tooltip);
 			NppDarkMode::setDarkTooltips(_dirFromActiveDocTip, NppDarkMode::ToolTipsType::tooltip);
+			NppDarkMode::setDarkTooltips(_hiliteModeTip, NppDarkMode::ToolTipsType::tooltip);
 			
 			if (_statusbarTooltipWnd)
 			{
@@ -1711,7 +1722,10 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			
 			setDpi();
 
-			 NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+			NppParameters& nppParams = NppParameters::getInstance();
+			const NppGUI& nppGUI = nppParams.getNppGUI();
+
+			 NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 
 			 wstring searchButtonTip = pNativeSpeaker->getLocalizedStrFromID("shift-change-direction-tip", L"Use Shift+Enter to search in the opposite direction.");
 			 _shiftTrickUpTip = createToolTip(IDOK, _hSelf, _hInst, searchButtonTip.data(), _isRTL);
@@ -1731,6 +1745,9 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			 wstring dirFromActiveDocTip = pNativeSpeaker->getLocalizedStrFromID("find-in-files-dir-from-active-doc-tip", L"Fill directory field based on active document");
 			 _dirFromActiveDocTip = createToolTip(IDD_FINDINFILES_SETDIRFROMDOC_BUTTON, _hSelf, _hInst, dirFromActiveDocTip.data(), _isRTL);
 
+			 wstring hiliteModeTip = pNativeSpeaker->getLocalizedStrFromID("find-highlight-mode-tip", L"Highlight all matches of the current search in the active document while typing");
+			 _hiliteModeTip = createToolTip(IDC_HIGHLIGHT_MODE, _hSelf, _hInst, hiliteModeTip.data(), _isRTL);
+
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDC_FINDPREV), L"▲");
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDC_FINDNEXT), L"▼ Find Next");
 
@@ -1739,7 +1756,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDD_RESIZE_TOGGLE_BUTTON), L"˄");
 
-			if (NppParameters::getInstance().getNppGUI()._monospacedFontFindDlg)
+			if (nppGUI._monospacedFontFindDlg)
 			{
 				setMonospaceFont();
 			}
@@ -1768,6 +1785,27 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				}
 			}
 			return TRUE;
+		}
+
+		case WM_TIMER:
+		{
+			if (wParam == IDT_FINDDLG_HIGHLIGHT_TIMER)
+			{
+				::KillTimer(_hSelf, IDT_FINDDLG_HIGHLIGHT_TIMER);
+				updateMatchHighlighting();
+				return TRUE;
+			}
+			return FALSE;
+		}
+
+		case WM_SHOWWINDOW:
+		{
+			// sent before the dialog is hidden, however it is closed, and when it is shown again with its owner
+			if (wParam)
+				updateMatchHighlightingLater();
+			else
+				clearMatchHighlighting();
+			return FALSE;
 		}
 
 		case WM_NOTIFY:
@@ -1975,6 +2013,9 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				case IDFINDWHAT:
 				case IDREPLACEWITH:
 				{
+					if (LOWORD(wParam) == IDFINDWHAT && (HIWORD(wParam) == CBN_EDITUPDATE || HIWORD(wParam) == CBN_SELCHANGE))
+						updateMatchHighlightingLater();
+
 					if (HIWORD(wParam) == CBN_EDITUPDATE)
 					{
 						HWND hComboBox = ::GetDlgItem(_hSelf, LOWORD(wParam));
@@ -2083,6 +2124,13 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					showFindDlgItem(IDOK, !is2ButtonsMode);
 				}
 				break;
+
+				case IDC_HIGHLIGHT_MODE:
+				{
+					findHistory._findDlgHighlightMatches = isCheckedOrNot(IDC_HIGHLIGHT_MODE);
+					::SendMessage(_hParent, NPPM_INTERNAL_FINDDLGHIGHLIGHT, 0, 0);
+					return TRUE;
+				}
 
 				case IDCANCEL:
 					(*_ppEditView)->execute(SCI_CALLTIPCANCEL);
@@ -2729,14 +2777,17 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 //Option actions
 				case IDREDOTMATCHNL:
 					findHistory._dotMatchesNewline = _options._dotMatchesNewline = isCheckedOrNot(IDREDOTMATCHNL);
+					updateMatchHighlighting();
 					return TRUE;
 
 				case IDWHOLEWORD :
 					findHistory._isMatchWord = _options._isWholeWord = isCheckedOrNot(IDWHOLEWORD);
+					updateMatchHighlighting();
 					return TRUE;
 
 				case IDMATCHCASE :
 					findHistory._isMatchCase = _options._isMatchCase = isCheckedOrNot(IDMATCHCASE);
+					updateMatchHighlighting();
 					return TRUE;
 
 				case IDNORMAL:
@@ -2788,6 +2839,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					enableFindDlgItem(IDC_BACKWARDDIRECTION, doEnable);
 					enableFindDlgItem(IDC_FINDPREV, doEnable);
 
+					updateMatchHighlighting();
 					return TRUE;
 				}
 
@@ -4265,6 +4317,8 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	showFindDlgItem(IDC_FINDPREV, is2ButtonMode);
 	showFindDlgItem(IDC_FINDNEXT, is2ButtonMode);
 
+	showFindDlgItem(IDC_HIGHLIGHT_MODE, true);
+	layoutFindWhatAndHighlight();
 
 	// find controls
 	showFindDlgItem(IDC_FINDALL_OPENEDFILES, !isEnable && isLessModeOff);
@@ -4281,6 +4335,32 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	setDefaultButton(IDOK);
 
 	hideOrShowCtrl4reduceOrNormalMode(_currentStatus);
+}
+
+void FindReplaceDlg::layoutFindWhatAndHighlight()
+{
+	HWND hFind = ::GetDlgItem(_hSelf, IDFINDWHAT);
+	HWND hChk = ::GetDlgItem(_hSelf, IDC_HIGHLIGHT_MODE);
+	if (!hFind || !hChk)
+		return;
+
+	RECT rcFind{}, rcReplace{}, rcCheckbox{};
+	getMappedChildRect(hFind, rcFind);
+	getMappedChildRect(IDREPLACEWITH, rcReplace);
+	getMappedChildRect(hChk, rcCheckbox);
+
+	const int gap = _dpiManager.scale(8);
+	const int chkW = rcCheckbox.right - rcCheckbox.left;
+	const int chkH = rcCheckbox.bottom - rcCheckbox.top;
+	const bool isReplace = (_currentStatus == REPLACE_DLG);
+
+	const int chkLeft = isReplace ? (rcReplace.right - chkW) : (rcReplace.right + gap);
+	const int findRight = isReplace ? (chkLeft - gap) : rcReplace.right;
+
+	constexpr UINT flags = SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE;
+
+	::SetWindowPos(hFind, nullptr, 0, 0, findRight - rcFind.left, rcFind.bottom - rcFind.top, SWP_NOMOVE | flags);
+	::SetWindowPos(hChk, nullptr, chkLeft, rcCheckbox.top, chkW, chkH, flags);
 }
 
 void FindReplaceDlg::enableMarkAllControls(bool isEnable)
@@ -4302,6 +4382,7 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable, bool projectPanels
 	// Hide Items
 	showFindDlgItem(IDC_BACKWARDDIRECTION, !isEnable && isLessModeOff);
 	showFindDlgItem(IDWRAP, !isEnable && isLessModeOff);
+	showFindDlgItem(IDC_HIGHLIGHT_MODE, !isEnable);
 	showFindDlgItem(IDCCOUNTALL, !isEnable);
 	showFindDlgItem(IDC_FINDALL_OPENEDFILES, !isEnable && isLessModeOff);
 	showFindDlgItem(IDC_FINDALL_CURRENTFILE, !isEnable && isLessModeOff);
@@ -5010,6 +5091,76 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 
 	::SetFocus(toShow ? ::GetDlgItem(_hSelf, IDFINDWHAT) : (*_ppEditView)->getHSelf());
 	StaticDialog::displayEnhanced(toShow);
+
+	updateMatchHighlighting(); // shown, or another tab
+}
+
+// "Highlight all matches while the dialog is open" (Preferences > Highlighting): while the dialog is shown on
+// the Find or Replace tab, all the matches of "Find what" are highlighted, with the options of the dialog.
+// Like Smart Highlighting, only the visible lines and one screen below are searched: the highlighting follows
+// the view when it scrolls, so its cost does not depend on the document size.
+void FindReplaceDlg::updateMatchHighlighting()
+{
+	clearMatchHighlighting();
+
+	const FindHistory& findHistory = NppParameters::getInstance().getFindHistory();
+	if (!findHistory._findDlgHighlightMatches || !isVisible())
+		return;
+
+	if (_currentStatus != FIND_DLG && _currentStatus != REPLACE_DLG)
+		return;
+
+	ScintillaEditView* pEditView = *_ppEditView;
+	if (!pEditView->getCurrentBuffer()->allowSmartHilite()) // large file restriction
+		return;
+
+	wstring str2Search = getTextFromCombo(::GetDlgItem(_hSelf, IDFINDWHAT));
+	if (str2Search.empty())
+		return;
+
+	FindOption options = *_env;
+	options._str2Search = str2Search;
+	options._isInSelection = false;
+	options._incrementalType = NotIncremental;
+
+	const intptr_t firstVisibleLine = pEditView->execute(SCI_GETFIRSTVISIBLELINE);
+	const intptr_t nbLinesOnScreen = pEditView->execute(SCI_LINESONSCREEN);
+	const intptr_t firstLine = pEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleLine);
+	const intptr_t lastLine = pEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleLine + 2 * nbLinesOnScreen + 1);
+	const intptr_t endPos = pEditView->execute(SCI_POSITIONFROMLINE, lastLine + 1);
+
+	FindReplaceInfo frInfo;
+	frInfo._txt2find = options._str2Search.c_str();
+	frInfo._startRange = pEditView->execute(SCI_POSITIONFROMLINE, firstLine);
+	frInfo._endRange = (endPos < 0) ? static_cast<intptr_t>(pEditView->getCurrentDocLen()) : endPos;
+
+	// keep the target of the other search functions, like SmartHighlighter does
+	const auto originalStartPos = pEditView->execute(SCI_GETTARGETSTART);
+	const auto originalEndPos = pEditView->execute(SCI_GETTARGETEND);
+	processRange(ProcessMarkAllExt, frInfo, nullptr, &options, FINDDLG_HIGHLIGHT_INDIC, pEditView);
+	pEditView->execute(SCI_SETTARGETRANGE, originalStartPos, originalEndPos);
+
+	_pMatchHighlightView = pEditView;
+}
+
+// While typing in "Find what" or after an edit: updateMatchHighlighting() a moment after the last change
+void FindReplaceDlg::updateMatchHighlightingLater() const
+{
+	constexpr UINT updateDelay = 250; // ms
+	::SetTimer(_hSelf, IDT_FINDDLG_HIGHLIGHT_TIMER, updateDelay, nullptr);
+}
+
+void FindReplaceDlg::clearMatchHighlighting()
+{
+	::KillTimer(_hSelf, IDT_FINDDLG_HIGHLIGHT_TIMER);
+
+	// the current view, and the view highlighted last time if the other view has become the current one
+	(*_ppEditView)->clearIndicator(FINDDLG_HIGHLIGHT_INDIC);
+
+	if (_pMatchHighlightView && _pMatchHighlightView != *_ppEditView)
+		_pMatchHighlightView->clearIndicator(FINDDLG_HIGHLIGHT_INDIC);
+
+	_pMatchHighlightView = nullptr;
 }
 
 LRESULT CALLBACK FindReplaceDlg::FinderProc(
@@ -5467,6 +5618,7 @@ void FindReplaceDlg::enableFindInFilesFunc()
 {
 	enableFindInFilesControls(true, false);
 	_currentStatus = FINDINFILES_DLG;
+	layoutFindWhatAndHighlight();
 	gotoCorrectTab();
 	calcAndSetCtrlsPos(_currentStatus);
 	wchar_t label[MAX_PATH]{};
@@ -5481,6 +5633,7 @@ void FindReplaceDlg::enableFindInProjectsFunc()
 {
 	enableFindInFilesControls(true, true);
 	_currentStatus = FINDINPROJECTS_DLG;
+	layoutFindWhatAndHighlight();
 	gotoCorrectTab();
 	calcAndSetCtrlsPos(_currentStatus);
 	wchar_t label[MAX_PATH]{};
@@ -5497,6 +5650,7 @@ void FindReplaceDlg::enableMarkFunc()
 {
 	enableFindInFilesControls(false, false);
 	enableMarkAllControls(true);
+	showFindDlgItem(IDC_HIGHLIGHT_MODE, false);
 
 	// Replace controls to hide
 	showFindDlgItem(ID_STATICTEXT_REPLACE, false);
@@ -5518,6 +5672,7 @@ void FindReplaceDlg::enableMarkFunc()
 	showFindDlgItem(IDC_FINDNEXT, false);
 
 	_currentStatus = MARK_DLG;
+	layoutFindWhatAndHighlight();
 	gotoCorrectTab();
 	calcAndSetCtrlsPos(_currentStatus);
 

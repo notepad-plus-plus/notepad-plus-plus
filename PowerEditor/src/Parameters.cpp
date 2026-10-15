@@ -4031,6 +4031,7 @@ void NppParameters::feedFindHistoryParameters(const NppXml::Element& element)
 	_findHistory._dotMatchesNewline = getBoolAttribute(findHistoryRoot, "dotMatchesNewline");
 	_findHistory._isSearch2ButtonsMode = getBoolAttribute(findHistoryRoot, "isSearch2ButtonsMode");
 	_findHistory._regexBackward4PowerUser = getBoolAttribute(findHistoryRoot, "regexBackward4PowerUser");
+	_findHistory._findDlgHighlightMatches = getBoolAttribute(findHistoryRoot, "findDlgHighlightMatches");
 	_findHistory._isBookmarkLine = getBoolAttribute(findHistoryRoot, "bookmarkLine");
 	_findHistory._isPurge = getBoolAttribute(findHistoryRoot, "purge");
 
@@ -8346,6 +8347,7 @@ bool NppParameters::writeFindHistory()
 	setBoolAttribute(findHistoryRoot, "dotMatchesNewline", _findHistory._dotMatchesNewline);
 	setBoolAttribute(findHistoryRoot, "isSearch2ButtonsMode", _findHistory._isSearch2ButtonsMode);
 	setBoolAttribute(findHistoryRoot, "regexBackward4PowerUser", _findHistory._regexBackward4PowerUser);
+	setBoolAttribute(findHistoryRoot, "findDlgHighlightMatches", _findHistory._findDlgHighlightMatches);
 
 	setBoolAttribute(findHistoryRoot, "bookmarkLine", _findHistory._isBookmarkLine);
 	setBoolAttribute(findHistoryRoot, "purge", _findHistory._isPurge);

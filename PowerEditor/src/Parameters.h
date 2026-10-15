@@ -1196,6 +1196,8 @@ struct FindHistory final
 
 	// Allow regExpr backward search: this option is not present in UI, only to modify in config.xml
 	bool _regexBackward4PowerUser = false;
+
+	bool _findDlgHighlightMatches = false;
 };
 
 struct ColumnEditorParam final

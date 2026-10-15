@@ -237,6 +237,7 @@ struct LanguageNameInfo {
 };
 
 #define URL_INDIC 8
+#define FINDDLG_HIGHLIGHT_INDIC 30 // matches of "Find what" while the Find dialog is open (same look as SCE_UNIVERSAL_FOUND_STYLE_INC)
 class ISorter;
 
 class ScintillaEditView : public Window

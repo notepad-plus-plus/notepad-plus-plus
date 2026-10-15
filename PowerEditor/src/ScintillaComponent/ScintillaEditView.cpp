@@ -450,6 +450,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	execute(SCI_INDICSETSTYLE, SCE_UNIVERSAL_FOUND_STYLE_EXT3, INDIC_ROUNDBOX);
 	execute(SCI_INDICSETSTYLE, SCE_UNIVERSAL_FOUND_STYLE_EXT4, INDIC_ROUNDBOX);
 	execute(SCI_INDICSETSTYLE, SCE_UNIVERSAL_FOUND_STYLE_EXT5, INDIC_ROUNDBOX);
+	execute(SCI_INDICSETSTYLE, FINDDLG_HIGHLIGHT_INDIC, INDIC_ROUNDBOX);
 
 	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_FOUND_STYLE_SMART, 100);
 	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_FOUND_STYLE, 100);
@@ -461,6 +462,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_FOUND_STYLE_EXT3, 100);
 	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_FOUND_STYLE_EXT4, 100);
 	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_FOUND_STYLE_EXT5, 100);
+	execute(SCI_INDICSETALPHA, FINDDLG_HIGHLIGHT_INDIC, 100);
 
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE_SMART, true);
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE, true);
@@ -472,6 +474,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE_EXT3, true);
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE_EXT4, true);
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE_EXT5, true);
+	execute(SCI_INDICSETUNDER, FINDDLG_HIGHLIGHT_INDIC, true);
 
 	NppParameters& nppParams = NppParameters::getInstance();
 	NppGUI& nppGui = nppParams.getNppGUI();
@@ -1776,6 +1779,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 	defaultIndicatorStyle._bgColor = blue;
 	pStyle = stylers.findByID(defaultIndicatorStyle._styleID);
 	setSpecialIndicator(pStyle ? *pStyle : defaultIndicatorStyle);
+	execute(SCI_INDICSETFORE, FINDDLG_HIGHLIGHT_INDIC, (pStyle ? *pStyle : defaultIndicatorStyle)._bgColor); // same colour
 
 	defaultIndicatorStyle._styleID = SCE_UNIVERSAL_TAGMATCH;
 	defaultIndicatorStyle._bgColor = RGB(0x80, 0x00, 0xFF);

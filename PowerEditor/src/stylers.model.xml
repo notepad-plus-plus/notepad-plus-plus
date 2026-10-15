@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<NotepadPlus modelDate="20260525">
+<NotepadPlus modelDate="20261106">
     <LexerStyles>
         <LexerType name="actionscript" desc="ActionScript" ext="">
             <WordsStyle name="DEFAULT" styleID="11" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
@@ -2009,7 +2009,7 @@
         <WidgetStyle name="Mark Style 3" styleID="23" bgColor="FFFF00" />
         <WidgetStyle name="Mark Style 4" styleID="22" bgColor="8000FF" />
         <WidgetStyle name="Mark Style 5" styleID="21" bgColor="008000" />
-        <WidgetStyle name="Incremental highlight all" styleID="28" bgColor="0080FF" />
+        <WidgetStyle name="Find matches highlight all" styleID="28" bgColor="0080FF" />
         <WidgetStyle name="Tags match highlighting" styleID="27" bgColor="8000FF" />
         <WidgetStyle name="Tags attribute" styleID="26" bgColor="FFFF00" />
         <WidgetStyle name="Active tab focused indicator" styleID="0" fgColor="FAAA3C" />

@@ -429,6 +429,9 @@ public:
 	bool isRTL() const { return _isRTL; }
 	void setRTL(bool isRTL) { _isRTL = isRTL; }
 
+	bool isWordWrap() const { return _isWordWrap; }
+	void setWordWrap(bool isWordWrap) { _isWordWrap = isWordWrap; }
+
 	bool isPinned() const { return _isPinned; }
 	void setPinned(bool isPinned) { _isPinned = isPinned; }
 
@@ -522,5 +525,6 @@ private:
 	bool _isInaccessible = false;
 
 	bool _isRTL = false;
+	bool _isWordWrap = false;
 	bool _isPinned = false;
 };

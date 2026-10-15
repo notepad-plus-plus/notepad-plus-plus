@@ -140,6 +140,7 @@ struct sessionFileInfo : public Position
 	bool _isMonitoring = false;
 	int _individualTabColour = -1;
 	bool _isRTL = false;
+	bool _isWordWrap = false;
 	bool _isPinned = false;
 	bool _isUntitledTabRenamed = false;
 	std::wstring _backupFilePath;
@@ -916,7 +917,7 @@ struct ScintillaViewParams
 	lineHiliteMode _currentLineHiliteMode = LINEHILITE_HILITE;
 	unsigned char _currentLineFrameWidth = 1; // 1-6 pixel
 	bool _wrapSymbolShow = false;
-	bool _doWrap = false;
+	bool _doWrapByDefault = false;
 	bool _isEdgeBgMode = false;
 
 	std::vector<size_t> _edgeMultiColumnPos;

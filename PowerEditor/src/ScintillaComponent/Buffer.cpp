@@ -133,6 +133,9 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 
 	if (nppParamInst.getNativeLangSpeaker()->isRTL() && nppParamInst.getNativeLangSpeaker()->isEditZoneRTL())
 		_isRTL = true;
+
+	// default word wrap, except for a large file: due to the performance issue, the Word Wrap feature will be disabled
+	_isWordWrap = nppParamInst.getSVP()._doWrapByDefault && !(isLargeFile && nppParamInst.getNppGUI()._largeFileRestriction._deactivateWordWrap);
 }
 
 
@@ -988,16 +991,6 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 	bool isLargeFile = false;
 	if (nppGui._largeFileRestriction._isEnabled)
 		isLargeFile = fileSize >= nppGui._largeFileRestriction._largeFileSizeDefInByte;
-
-	// Due to the performance issue, the Word Wrap feature will be disabled if it's ON
-	if (isLargeFile && nppGui._largeFileRestriction._deactivateWordWrap)
-	{
-		bool isWrap = _pNotepadPlus->_pEditView->isWrap();
-		if (isWrap)
-		{
-			_pNotepadPlus->command(IDM_VIEW_WRAP);
-		}
-	}
 
 	bool ownDoc = false;
 	if (!doc)

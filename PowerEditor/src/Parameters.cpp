@@ -3633,6 +3633,7 @@ bool NppParameters::getSessionFromXmlTree(const NppXml::Document& pSessionDoc, S
 
 					sfi._individualTabColour = NppXml::intAttribute(childNode, "tabColourId", -1);
 					sfi._isRTL = getBoolAttribute(childNode, "RTL");
+					sfi._isWordWrap = getBoolAttribute(childNode, "wordWrap", _svp._doWrapByDefault);
 
 					for (NppXml::Element markNode = NppXml::firstChildElement(childNode, "Mark");
 						markNode;
@@ -4909,6 +4910,7 @@ void NppParameters::writeSession(const Session& session, const wchar_t* fileName
 				NppXml::setAttribute(fileNameNode, "originalFileLastModifTimestampHigh", vsFile._originalFileLastModifTimestamp.dwHighDateTime);
 				NppXml::setAttribute(fileNameNode, "tabColourId", vsFile._individualTabColour);
 				setBoolAttribute(fileNameNode, "RTL", vsFile._isRTL);
+				setBoolAttribute(fileNameNode, "wordWrap", vsFile._isWordWrap);
 				setBoolAttribute(fileNameNode, "tabPinned", vsFile._isPinned);
 
 				// Save this info only when it's an untitled entry
@@ -7296,7 +7298,7 @@ void NppParameters::feedScintillaParam(const NppXml::Element& element)
 	_svp._wrapSymbolShow = getBoolAttribute(element, "wrapSymbolShow", _svp._wrapSymbolShow, STR_BOOL_SHOWHIDE);
 
 	// Do Wrap
-	_svp._doWrap = getBoolAttribute(element, "Wrap");
+	_svp._doWrapByDefault = getBoolAttribute(element, "Wrap");
 
 	// Do Edge
 	_svp._isEdgeBgMode = getBoolAttribute(element, "isEdgeBgMode");
@@ -7591,7 +7593,7 @@ bool NppParameters::writeScintillaParams()
 	setBoolAttribute(scintNode, "selectedTextForegroundSingleColor", _svp._selectedTextForegroundSingleColor);
 	setBoolAttribute(scintNode, "disableAdvancedScrolling", _svp._disableAdvancedScrolling);
 	setBoolAttribute(scintNode, "wrapSymbolShow", _svp._wrapSymbolShow, STR_BOOL_SHOWHIDE);
-	setBoolAttribute(scintNode, "Wrap", _svp._doWrap);
+	setBoolAttribute(scintNode, "Wrap", _svp._doWrapByDefault);
 	setBoolAttribute(scintNode, "borderEdge", _svp._showBorderEdge);
 
 	std::string edgeColumnPosStr;

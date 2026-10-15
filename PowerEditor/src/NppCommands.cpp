@@ -2726,21 +2726,26 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_WRAP:
 		{
 			bool isWrapped = !_pEditView->isWrap();
+			// only the current document (in both views if it is cloned)
+			Buffer* buf = _pEditView->getCurrentBuffer();
+			buf->setWordWrap(isWrapped);
+
 			// ViewMoveAtWrappingDisableFix: Disable wrapping messes up visible lines. Therefore save view position before in IDM_VIEW_WRAP and restore after SCN_PAINTED, as Scintilla-Doc. says
-			if (!isWrapped)
+			std::vector<ScintillaEditView*> pViews{ &_mainEditView, &_subEditView };
+			for (auto pView : pViews)
 			{
-				_mainEditView.saveCurrentPos();
-				_mainEditView.setWrapRestoreNeeded(true);
-				_subEditView.saveCurrentPos();
-				_subEditView.setWrapRestoreNeeded(true);
+				if (pView->getCurrentBuffer() != buf)
+					continue;
+
+				if (!isWrapped)
+				{
+					pView->saveCurrentPos();
+					pView->setWrapRestoreNeeded(true);
+				}
+				pView->wrap(isWrapped);
 			}
-			_mainEditView.wrap(isWrapped);
-			_subEditView.wrap(isWrapped);
 			_toolBar.setCheck(IDM_VIEW_WRAP, isWrapped);
 			checkMenuItem(IDM_VIEW_WRAP, isWrapped);
-
-			ScintillaViewParams & svp1 = (ScintillaViewParams &)(NppParameters::getInstance()).getSVP();
-			svp1._doWrap = isWrapped;
 
 			if (_pDocMap)
 			{

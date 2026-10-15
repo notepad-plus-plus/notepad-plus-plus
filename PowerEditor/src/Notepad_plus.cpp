@@ -391,8 +391,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_mainEditView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
 	_subEditView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
 
-	_mainEditView.wrap(svp._doWrap);
-	_subEditView.wrap(svp._doWrap);
+	_mainEditView.wrap(svp._doWrapByDefault);
+	_subEditView.wrap(svp._doWrapByDefault);
 
 	::SendMessage(hwnd, NPPM_INTERNAL_EDGEMULTISETSIZE, 0, 0);
 
@@ -6644,6 +6644,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includeUntitled
 			sfi._isMonitoring = buf->isMonitoringOn();
 			sfi._individualTabColour = docTab[k]->getIndividualTabColourId(static_cast<int>(i));
 			sfi._isRTL = buf->isRTL();
+			sfi._isWordWrap = buf->isWordWrap();
 
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
 
@@ -7075,6 +7076,10 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 		_pDocMap->reloadMap();
 		_pDocMap->setSyntaxHiliting();
 	}
+
+	// the menu and the toolbar follow the word wrap of the current document
+	checkMenuItem(IDM_VIEW_WRAP, _pEditView->isWrap());
+	_toolBar.setCheck(IDM_VIEW_WRAP, _pEditView->isWrap());
 
 	if (_pFuncList && (!_pFuncList->isClosed()) && _pFuncList->isVisible())
 	{

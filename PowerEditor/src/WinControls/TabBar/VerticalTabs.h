@@ -32,4 +32,8 @@ namespace VerticalTabs
 	// Called at the start of TabBar::reSizeTo(): in list mode lays the column out, adjusts rc2Adjust for the
 	// editor and returns true; otherwise restores the original styles if needed and returns false.
 	bool reSizeTo(TabBar& tabBar, RECT& rc2Adjust);
+
+	// Called at the end of TabBar::reSizeTo() (original layout): when list mode has just ended, a single-line
+	// tab bar gets its scroll position back, and shows the active tab
+	void afterOriginalReSize(const TabBar& tabBar);
 }

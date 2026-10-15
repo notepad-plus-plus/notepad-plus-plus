@@ -246,6 +246,8 @@ void TabBar::reSizeTo(RECT & rc2Adjust)
 		rc2Adjust.top += tabsHight;
 		rc2Adjust.bottom -= tabsHight;
 	}
+
+	VerticalTabs::afterOriginalReSize(*this);
 }
 
 

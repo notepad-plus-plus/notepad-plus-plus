@@ -2674,6 +2674,27 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_INCSEARCHBARPOSITION:
+		{
+			ReBar& rebar = nppParam.getNppGUI()._incrementalSearchBarAtTop ? _rebarTop : _rebarBottom;
+			if (::GetParent(_incrementFindDlg.getHSelf()) == rebar.getHSelf()) // already there: a rebar is the parent of its band windows
+				return TRUE;
+
+			// hide the band before removing it: a rebar would keep the height of a visible band
+			bool isShown = _incrementFindDlg.isVisible();
+			if (isShown)
+				_incrementFindDlg.display(false);
+
+			_incrementFindDlg.destroy(); // removes the band only
+			_incrementFindDlg.addToRebar(&rebar);
+
+			if (isShown)
+				rebar.setIDVisible(REBAR_BAR_SEARCH, true);
+
+			::SendMessage(hwnd, WM_SIZE, 0, 0);
+			return TRUE;
+		}
+
 		case WM_QUERYENDSESSION:
 		{
 			// app should return TRUE or FALSE immediately upon receiving this message,

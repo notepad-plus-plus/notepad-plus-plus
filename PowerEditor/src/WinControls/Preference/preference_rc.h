@@ -484,6 +484,7 @@
 #define IDC_FILLFINDWHAT_THRESHOLD_EDIT                6915
 #define IDC_FILLFINDWHAT_THRESHOLD_STATIC              6916
 #define IDC_CHECK_FIF_IGNOREOPENEDFILES                6917
+#define IDC_CHECK_INCSEARCHBAR_ATTOP                   6918
 
 #define IDD_PREFERENCE_SUB_DARKMODE                    7100
 

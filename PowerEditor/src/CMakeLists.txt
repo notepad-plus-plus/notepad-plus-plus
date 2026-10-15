@@ -165,6 +165,7 @@ SET(src_files
 			./WinControls/TreeView/TreeView.cpp
 			./WinControls/WindowsDlg/SizeableDlg.cpp
 			./ScintillaComponent/SmartHighlighter.cpp
+			./ScintillaComponent/SmoothScrolling.cpp
 			./WinControls/SplitterContainer/Splitter.cpp
 			./WinControls/SplitterContainer/SplitterContainer.cpp
 			./WinControls/StaticDialog/StaticDialog.cpp
@@ -320,6 +321,7 @@ SET(include_files
 			./WinControls/TreeView/TreeView.h
 			./WinControls/WindowsDlg/SizeableDlg.h
 			./ScintillaComponent/SmartHighlighter.h
+			./ScintillaComponent/SmoothScrolling.h
 			./WinControls/SplitterContainer/Splitter.h
 			./WinControls/SplitterContainer/SplitterContainer.h
 			./WinControls/StaticDialog/StaticDialog.h

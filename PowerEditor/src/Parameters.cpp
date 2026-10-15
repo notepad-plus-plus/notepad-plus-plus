@@ -7282,6 +7282,10 @@ void NppParameters::feedScintillaParam(const NppXml::Element& element)
 	// Disable Advanced Scrolling
 	_svp._disableAdvancedScrolling = getBoolAttribute(element, "disableAdvancedScrolling");
 
+	// Smooth Scrolling (by pixels)
+	_svp._smoothScrolling = getBoolAttribute(element, "smoothScrolling");
+	_svp._smoothScrollingDuration = getRangeDefaultAttribute(element, "smoothScrollingDuration", 1, 1000, _svp._smoothScrollingDuration);
+
 	// Current wrap symbol visibility State
 	_svp._wrapSymbolShow = getBoolAttribute(element, "wrapSymbolShow", _svp._wrapSymbolShow, STR_BOOL_SHOWHIDE);
 
@@ -7580,6 +7584,8 @@ bool NppParameters::writeScintillaParams()
 	setBoolAttribute(scintNode, "rightClickKeepsSelection", _svp._rightClickKeepsSelection);
 	setBoolAttribute(scintNode, "selectedTextForegroundSingleColor", _svp._selectedTextForegroundSingleColor);
 	setBoolAttribute(scintNode, "disableAdvancedScrolling", _svp._disableAdvancedScrolling);
+	setBoolAttribute(scintNode, "smoothScrolling", _svp._smoothScrolling);
+	NppXml::setAttribute(scintNode, "smoothScrollingDuration", _svp._smoothScrollingDuration);
 	setBoolAttribute(scintNode, "wrapSymbolShow", _svp._wrapSymbolShow, STR_BOOL_SHOWHIDE);
 	setBoolAttribute(scintNode, "Wrap", _svp._doWrap);
 	setBoolAttribute(scintNode, "borderEdge", _svp._showBorderEdge);

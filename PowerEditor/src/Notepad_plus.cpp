@@ -70,6 +70,7 @@
 #include "ProjectPanel.h"
 #include "RunDlg.h"
 #include "ScintillaEditView.h"
+#include "SmoothScrolling.h"
 #include "Splitter.h"
 #include "SplitterContainer.h"
 #include "StaticDialog.h"
@@ -7093,6 +7094,9 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	// check if possible IncrementalSearch does not need reset
 	if (_incrementFindDlg.isCreated() && _incrementFindDlg.isVisible())
 		_incrementFindDlg.reInitCount();
+
+	// "Smooth scrolling": the editors exist now
+	SmoothScrolling::apply(_mainEditView.getHSelf(), _subEditView.getHSelf());
 }
 
 std::vector<wstring> Notepad_plus::loadCommandlineParams(const wchar_t * commandLine, const CmdLineParamsDTO * pCmdParams)

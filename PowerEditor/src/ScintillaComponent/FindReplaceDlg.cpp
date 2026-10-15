@@ -6431,6 +6431,17 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 			return TRUE;
 		}
 
+		case WM_TIMER:
+		{
+			if (wParam == IDT_INCFINDHILITEALL_TIMER)
+			{
+				::KillTimer(_hSelf, IDT_INCFINDHILITEALL_TIMER);
+				refreshHighlightAll();
+				return TRUE;
+			}
+			return FALSE;
+		}
+
 		case WM_COMMAND :
 		{
 			bool updateSearch = false;
@@ -6602,6 +6613,37 @@ void FindIncrementDlg::markSelectedTextInc(bool enable, FindOption *opt)
 
 	opt->_str2Search = text2Find;
 	_pFRDlg->markAllInc(opt);
+}
+
+// Called when another document is activated, when the document is edited and when the bar is shown again:
+// with "Highlight all" checked, highlights all the matches of the text of the bar. The text of the bar is used,
+// not the selection like in markSelectedTextInc(): the selection may be anything by now.
+// When the bar is hidden, removes the highlighting that an earlier search left in the document.
+void FindIncrementDlg::refreshHighlightAll()
+{
+	ScintillaEditView* pEditView = *(_pFRDlg->_ppEditView);
+	pEditView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_INC);
+
+	wstring str2Search = getTextFromCombo(::GetDlgItem(_hSelf, IDC_INCFINDTEXT));
+	if (!isVisible() || !isCheckedOrNot(IDC_INCFINDHILITEALL) || str2Search.empty())
+		return;
+
+	// like Smart Highlighting, nothing is highlighted automatically in a large file
+	if (!pEditView->getCurrentBuffer()->allowSmartHilite())
+		return;
+
+	FindOption fo;
+	fo._isWholeWord = false;
+	fo._isMatchCase = isCheckedOrNot(IDC_INCFINDMATCHCASE);
+	fo._str2Search = str2Search;
+	_pFRDlg->markAllInc(&fo);
+}
+
+// After an edit: refreshHighlightAll() a moment after the last change, not at each key stroke
+void FindIncrementDlg::refreshHighlightAllLater() const
+{
+	constexpr UINT refreshDelay = 300; // ms
+	::SetTimer(_hSelf, IDT_INCFINDHILITEALL_TIMER, refreshDelay, nullptr);
 }
 
 void FindIncrementDlg::setFindStatus(FindStatus iStatus, size_t nbCounted, int nth)

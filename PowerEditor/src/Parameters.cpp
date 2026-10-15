@@ -6549,6 +6549,7 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 			{
 				using enum LangType;
 				_nppGUI._newDocDefaultSettings._lang = static_cast<LangType>(NppXml::intAttribute(childNode, "lang", static_cast<int>(L_TEXT)));
+				_nppGUI._newDocDefaultSettings._udl = NppXml::attributeW(childNode, "udl");
 				_nppGUI._newDocDefaultSettings._codepage = NppXml::intAttribute(childNode, "codepage", _nppGUI._newDocDefaultSettings._codepage);
 			}
 
@@ -7900,6 +7901,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		NppXml::setAttribute(GUIConfigElement, "format", static_cast<int>(_nppGUI._newDocDefaultSettings._format));
 		NppXml::setAttribute(GUIConfigElement, "encoding", _nppGUI._newDocDefaultSettings._unicodeMode);
 		NppXml::setAttribute(GUIConfigElement, "lang", _nppGUI._newDocDefaultSettings._lang);
+		NppXml::setAttribute(GUIConfigElement, "udl", _nppGUI._newDocDefaultSettings._udl);
 		NppXml::setAttribute(GUIConfigElement, "codepage", _nppGUI._newDocDefaultSettings._codepage);
 		setBoolAttribute(GUIConfigElement, "openAnsiAsUTF8", _nppGUI._newDocDefaultSettings._openAnsiAsUtf8);
 		setBoolAttribute(GUIConfigElement, "addNewDocumentOnStartup", _nppGUI._newDocDefaultSettings._addNewDocumentOnStartup);

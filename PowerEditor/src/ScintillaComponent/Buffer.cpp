@@ -1705,7 +1705,12 @@ BufferID FileManager::newEmptyDocument()
 	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str(), false);
 
 	const NewDocDefaultSettings& ndds = (nppParams.getNppGUI()).getNewDocDefaultSettings();
-	newBuf->_lang = ndds._lang;
+	if (ndds._lang == L_USER && !ndds._udl.empty())
+	{
+		newBuf->setLangType(L_USER, ndds._udl.c_str());
+	}
+	else
+		newBuf->_lang = ndds._lang;
 
 	BufferID id = newBuf;
 	newBuf->_id = id;

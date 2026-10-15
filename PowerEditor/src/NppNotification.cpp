@@ -76,7 +76,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				if (_incrementFindDlg.isCreated() && _incrementFindDlg.isVisible())
 				{
 					if (_incrementFindDlg.getAssociatedScintillaView() == notifyView)
+					{
 						_incrementFindDlg.reInitCount();
+						_incrementFindDlg.refreshHighlightAllLater();
+					}
 				}
 
 				// the highlighting of the matches of the Find dialog follows the changes

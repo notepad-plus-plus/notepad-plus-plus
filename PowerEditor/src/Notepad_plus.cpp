@@ -7097,6 +7097,10 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	// the highlighting of the matches of the Find dialog follows the current document
 	if (_findReplaceDlg.isCreated())
 		_findReplaceDlg.updateMatchHighlighting();
+
+	// "Highlight all" of the incremental search follows the current document
+	if (_incrementFindDlg.isCreated())
+		_incrementFindDlg.refreshHighlightAll();
 }
 
 std::vector<wstring> Notepad_plus::loadCommandlineParams(const wchar_t * commandLine, const CmdLineParamsDTO * pCmdParams)

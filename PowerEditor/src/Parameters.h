@@ -730,6 +730,8 @@ struct NppGUI final
 	int _tabStatus = (TAB_DRAWTOPBAR | TAB_DRAWINACTIVETAB | TAB_DRAGNDROP | TAB_REDUCE | TAB_CLOSEBUTTON | TAB_PINBUTTON);
 	bool _forceTabbarVisible = false;
 	UINT _tabCompactLabelLen = 0; // 0 ... no compacting
+	bool _isVerticalTabListMode = false; // vertical tab bar with horizontal titles
+	int _verticalTabListWidth = VERTICAL_TAB_LIST_WIDTH_DEFAULT;
 
 	bool _splitterPos = POS_VERTICAL;
 	int _userDefineDlgStatus = UDD_DOCKED;

@@ -2695,6 +2695,35 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_WORDWRAPPERDOCUMENT:
+		{
+			// "Word wrap per document" switched on or off: the documents shown get their own word wrap or the global one
+			std::vector<ScintillaEditView*> pViews{ &_mainEditView, &_subEditView };
+			for (auto pView : pViews)
+			{
+				bool isWrapped = pView->getDocumentWordWrap();
+				if (pView->isWrap() == isWrapped)
+					continue;
+
+				if (!isWrapped)
+				{
+					// ViewMoveAtWrappingDisableFix: see IDM_VIEW_WRAP
+					pView->saveCurrentPos();
+					pView->setWrapRestoreNeeded(true);
+				}
+				pView->wrap(isWrapped);
+			}
+
+			checkMenuItem(IDM_VIEW_WRAP, _pEditView->isWrap());
+			_toolBar.setCheck(IDM_VIEW_WRAP, _pEditView->isWrap());
+			if (_pDocMap)
+			{
+				_pDocMap->initWrapMap();
+				_pDocMap->wrapMap();
+			}
+			return TRUE;
+		}
+
 		case WM_QUERYENDSESSION:
 		{
 			// app should return TRUE or FALSE immediately upon receiving this message,

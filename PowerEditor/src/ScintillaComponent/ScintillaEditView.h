@@ -491,6 +491,8 @@ public:
 		return (execute(SCI_GETWRAPMODE) == SC_WRAP_WORD);
 	}
 
+	bool getDocumentWordWrap() const;
+
 	bool isWrapSymbolVisible() const {
 		return (execute(SCI_GETWRAPVISUALFLAGS) != SC_WRAPVISUALFLAG_NONE);
 	}

@@ -210,6 +210,7 @@
 #define IDC_URISCHEMES_EDIT                            6265
 
 #define IDC_CHECK_DISABLESELECTEDTEXTDRAGDROP          6266
+#define IDC_CHECK_WORDWRAPPERDOCUMENT                  6280
 
 #define IDC_WITHCLOUD_RADIO                            6267
 #define IDC_CLOUDPATH_EDIT                             6268

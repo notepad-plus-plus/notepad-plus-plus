@@ -439,10 +439,10 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			}
 			else
 			{
-				if (nppGui._fileAutoDetection & cdEnabledOld)
-					_debugInfoStr += L"cdEnabledOld (for all opened files/tabs)";
-				else if (nppGui._fileAutoDetection & cdEnabledNew)
-					_debugInfoStr += L"cdEnabledNew (for current file/tab only)";
+				if (nppGui._fileAutoDetection & cdEnabled4AllFiles)
+					_debugInfoStr += L"cdEnabled4AllFiles";
+				else if (nppGui._fileAutoDetection & cdEnabled4CurrentFile)
+					_debugInfoStr += L"cdEnabled4CurrentFile";
 				else
 					_debugInfoStr += L"cdUnknown (?!)";
 

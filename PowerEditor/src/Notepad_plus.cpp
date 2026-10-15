@@ -7012,7 +7012,7 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	}
 
 	const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
-	bool isCurrBuffDetection = (nppGui._fileAutoDetection & cdEnabledNew) ? true : false;
+	bool isCurrBuffDetection = (nppGui._fileAutoDetection & cdEnabled4CurrentFile) ? true : false;
 	bool reload = buf->getNeedReload();
 	if (!reload && isCurrBuffDetection)
 	{

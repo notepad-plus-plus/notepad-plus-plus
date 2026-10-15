@@ -6162,22 +6162,22 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 				const char* val = NppXml::getValue(n);
 				if (val)
 				{
-					if (std::strcmp(val, "yesOld") == 0)
-						_nppGUI._fileAutoDetection = cdEnabledOld;
+					if (std::strcmp(val, "yesOld") == 0) // Enable auto-detection for all files (old default behavior)
+						_nppGUI._fileAutoDetection = cdEnabled4AllFiles;
 					else if (std::strcmp(val, "autoOld") == 0)
-						_nppGUI._fileAutoDetection = (cdEnabledOld | cdAutoUpdate);
+						_nppGUI._fileAutoDetection = (cdEnabled4AllFiles | cdAutoUpdate);
 					else if (std::strcmp(val, "Update2EndOld") == 0)
-						_nppGUI._fileAutoDetection = (cdEnabledOld | cdGo2end);
+						_nppGUI._fileAutoDetection = (cdEnabled4AllFiles | cdGo2end);
 					else if (std::strcmp(val, "autoUpdate2EndOld") == 0)
-						_nppGUI._fileAutoDetection = (cdEnabledOld | cdAutoUpdate | cdGo2end);
-					else if (std::strcmp(val, "yes") == 0)
-						_nppGUI._fileAutoDetection = cdEnabledNew;
+						_nppGUI._fileAutoDetection = (cdEnabled4AllFiles | cdAutoUpdate | cdGo2end);
+					else if (std::strcmp(val, "yes") == 0) // Enable auto-detection for the current file only (new default behavior)
+						_nppGUI._fileAutoDetection = cdEnabled4CurrentFile;
 					else if (std::strcmp(val, "auto") == 0)
-						_nppGUI._fileAutoDetection = (cdEnabledNew | cdAutoUpdate);
+						_nppGUI._fileAutoDetection = (cdEnabled4CurrentFile | cdAutoUpdate);
 					else if (std::strcmp(val, "Update2End") == 0)
-						_nppGUI._fileAutoDetection = (cdEnabledNew | cdGo2end);
+						_nppGUI._fileAutoDetection = (cdEnabled4CurrentFile | cdGo2end);
 					else if (std::strcmp(val, "autoUpdate2End") == 0)
-						_nppGUI._fileAutoDetection = (cdEnabledNew | cdAutoUpdate | cdGo2end);
+						_nppGUI._fileAutoDetection = (cdEnabled4CurrentFile | cdAutoUpdate | cdGo2end);
 					else //(std::strcmp(val, "no") == 0)
 						_nppGUI._fileAutoDetection = cdDisabled;
 				}
@@ -7798,7 +7798,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 	{
 		const char* pStr = nullptr;
 
-		if (_nppGUI._fileAutoDetection & cdEnabledOld)
+		if (_nppGUI._fileAutoDetection & cdEnabled4AllFiles)
 		{
 			if ((_nppGUI._fileAutoDetection & cdAutoUpdate) && (_nppGUI._fileAutoDetection & cdGo2end))
 			{
@@ -7817,7 +7817,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 				pStr = "yesOld";
 			}
 		}
-		else if (_nppGUI._fileAutoDetection & cdEnabledNew)
+		else if (_nppGUI._fileAutoDetection & cdEnabled4CurrentFile)
 		{
 			if ((_nppGUI._fileAutoDetection & cdAutoUpdate) && (_nppGUI._fileAutoDetection & cdGo2end))
 			{

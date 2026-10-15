@@ -3356,11 +3356,11 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 
 			int selIndex = -1;
 			
-			if (nppGUI._fileAutoDetection & cdEnabledOld)
+			if (nppGUI._fileAutoDetection & cdEnabled4AllFiles)
 			{
 				selIndex = fileUpdateChoiceEnable4All;
 			}
-			else if (nppGUI._fileAutoDetection & cdEnabledNew)
+			else if (nppGUI._fileAutoDetection & cdEnabled4CurrentFile)
 			{				
 				selIndex = fileUpdateChoiceEnable;
 			}
@@ -3505,9 +3505,9 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					if (index == fileUpdateChoiceEnable || index == fileUpdateChoiceEnable4All)
 					{
 						if (index == fileUpdateChoiceEnable4All)
-							cd |= cdEnabledOld;
+							cd |= cdEnabled4AllFiles;
 						else
-							cd |= cdEnabledNew;
+							cd |= cdEnabled4CurrentFile;
 
 						if (isSilent)
 							cd |= cdAutoUpdate;
@@ -3610,9 +3610,9 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 								int cd = cdDisabled;
 
 								if (index == fileUpdateChoiceEnable4All)
-									cd |= cdEnabledOld;
+									cd |= cdEnabled4AllFiles;
 								else
-									cd |= cdEnabledNew;
+									cd |= cdEnabled4CurrentFile;
 
 								if (isSilent)
 									cd |= cdAutoUpdate;

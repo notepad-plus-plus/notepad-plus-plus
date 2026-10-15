@@ -371,6 +371,7 @@ FunctionEnd
 
 Function shortcutLinkManagement
 	; remove all the npp shortcuts from current user
+	SetShellVarContext current
 	Delete "$DESKTOP\Notepad++.lnk"
 	Delete "$SMPROGRAMS\Notepad++.lnk"
 	Delete "$SMPROGRAMS\${APPNAME}\Notepad++.lnk"
@@ -378,11 +379,11 @@ Function shortcutLinkManagement
 	Delete "$SMPROGRAMS\${APPNAME}\Uninstall.lnk"
 	RMDir "$SMPROGRAMS\${APPNAME}"
 		
-	; detect the right of 
-	UserInfo::GetAccountType
-	Pop $1
-	StrCmp $1 "Admin" 0 +2
-	SetShellVarContext all
+	; create the shortcuts in the scope that matches the install mode
+	; (all users for an all-users install, current user for a per-user install)
+	${If} $MultiUserInstallMode == "AllUsers"
+		SetShellVarContext all
+	${EndIf}
 	
 	; set the shortcuts working directory
 	; http://nsis.sourceforge.net/Docs/Chapter4.html#createshortcut

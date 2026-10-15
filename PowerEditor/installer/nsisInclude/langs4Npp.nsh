@@ -179,6 +179,9 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Malay" malay
 		CopyFiles "$PLUGINSDIR\nppLocalization\malay.xml" "$INSTDIR\localization\malay.xml"
 	${MementoSectionEnd}
+	${MementoUnselectedSection} "Malayalam" malayalam
+        CopyFiles "$PLUGINSDIR\nppLocalization\malayalam.xml" "$INSTDIR\localization\malayalam.xml"
+    ${MementoSectionEnd}
 	${MementoUnselectedSection} "Marathi" marathi
 		CopyFiles "$PLUGINSDIR\nppLocalization\marathi.xml" "$INSTDIR\localization\marathi.xml"
 	${MementoSectionEnd}
@@ -457,6 +460,9 @@ SectionGroup un.localization
 	Section un.malay
 		Delete "$INSTDIR\localization\malay.xml"
 	SectionEnd
+	Section un.malayalam
+        Delete "$INSTDIR\localization\malayalam.xml"
+    SectionEnd
 	Section un.marathi
 		Delete "$INSTDIR\localization\marathi.xml"
 	SectionEnd

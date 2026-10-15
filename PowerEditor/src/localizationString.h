@@ -67,6 +67,7 @@ LocalizationSwitcher::LocalizationDefinition localizationDefs[] =
 	{L"Srpski",                 L"serbian.xml"},
 	{L"Cрпски",                 L"serbianCyrillic.xml"},
 	{L"Bahasa Melayu",          L"malay.xml"},
+	{L"Malayalam",              L"malayalam.xml"},
 	{L"Lëtzebuergesch",         L"luxembourgish.xml"},
 	{L"Tagalog",                L"tagalog.xml"},
 	{L"Afrikaans",              L"afrikaans.xml"},

@@ -20,6 +20,8 @@
 //   column, so there is one tab per row and the titles are horizontal. Click, close/pin buttons, tooltips,
 //   drag and drop and dark mode painting keep using the native geometry, so they keep working;
 // - TCS_BUTTONS keeps the rows in order (no row shuffling when a tab is selected);
+// - the styles of the tab bar are saved when list mode starts and put back as they were when it ends.
+//   Meanwhile "Vertical" and "Multi-line" (WM_TABSETSTYLE) change the saved styles, not the column;
 // - the control is as tall as all its tabs, moved up by the scroll offset and clipped to the visible column
 //   with a window region (no reparenting: the notifications are unchanged);
 // - the column width comes from the Preferences and can be changed by dragging the right edge: the strip
@@ -46,9 +48,16 @@ namespace
 	constexpr UINT_PTR subclassID = 1;
 	constexpr UINT_PTR editorSubclassID = 1;
 
+	// the styles changed by list mode, and the ones it uses
+	constexpr LONG_PTR listModeStyleMask = TCS_VERTICAL | TCS_RIGHTJUSTIFY | TCS_MULTILINE | TCS_FIXEDWIDTH | TCS_BUTTONS;
+	constexpr LONG_PTR listModeStyles = TCS_MULTILINE | TCS_FIXEDWIDTH | TCS_BUTTONS;
+
 	struct TabState
 	{
 		bool listMode = false;     // list mode applied to the control
+		LONG_PTR savedStyles = 0;  // the listModeStyleMask styles of the tab bar, put back when list mode ends
+		int firstShownTab = 0;     // single-line tab bar: the tab at its start (scroll position) when list mode started
+		bool isScrollToRestore = false; // list mode has just ended: see VerticalTabs::afterOriginalReSize()
 		RECT slot{};               // area given by the layout, Notepad++ convention: left, top, width, height
 		int width = 0;             // column width (pixels): the space taken from the editor
 		int gap = 0;               // space DocTabView leaves before the editor (border width): covered by the column
@@ -87,29 +96,44 @@ namespace
 		return scaled(hwnd, 22);
 	}
 
-	void setListStyle(HWND hwnd, bool listMode)
+	// Sets the listModeStyleMask styles of the control
+	void setStyles(HWND hwnd, LONG_PTR styles)
 	{
-		LONG_PTR style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
-		const LONG_PTR oldStyle = style;
-		if (listMode)
-		{
-			style &= ~static_cast<LONG_PTR>(TCS_VERTICAL | TCS_RIGHTJUSTIFY);
-			style |= TCS_MULTILINE | TCS_FIXEDWIDTH | TCS_BUTTONS;
-		}
-		else
-		{
-			// the styles of the original code (TabBarPlus::init, doVertical, doMultiLine);
-			// TCS_BUTTONS is managed by the original TabBar::reSizeTo()
-			const int tabStatus = NppParameters::getInstance().getNppGUI()._tabStatus;
-			style &= ~static_cast<LONG_PTR>(TCS_FIXEDWIDTH | TCS_VERTICAL | TCS_RIGHTJUSTIFY | TCS_MULTILINE);
-			if (tabStatus & TAB_VERTICAL)
-				style |= TCS_VERTICAL | TCS_MULTILINE | TCS_RIGHTJUSTIFY;
-			if (tabStatus & TAB_MULTILINE)
-				style |= TCS_MULTILINE;
-		}
+		const LONG_PTR style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
+		const LONG_PTR newStyle = (style & ~listModeStyleMask) | styles;
+		if (newStyle != style)
+			::SetWindowLongPtr(hwnd, GWL_STYLE, newStyle);
+	}
 
-		if (style != oldStyle)
-			::SetWindowLongPtr(hwnd, GWL_STYLE, style);
+	// Single-line tab bar (with arrows): the first tab shown, the ones before it are scrolled out (negative coordinates)
+	int getFirstShownTab(HWND hwnd)
+	{
+		const bool isVertical = (::GetWindowLongPtr(hwnd, GWL_STYLE) & TCS_VERTICAL) != 0;
+		const int count = TabCtrl_GetItemCount(hwnd);
+		for (int i = 0; i < count; ++i)
+		{
+			RECT rc{};
+			if (TabCtrl_GetItemRect(hwnd, i, &rc) && (isVertical ? rc.top : rc.left) >= 0)
+				return i;
+		}
+		return 0;
+	}
+
+	bool isTabShown(HWND hwnd, int index)
+	{
+		RECT rcTab{};
+		RECT rcClient{};
+		if (!TabCtrl_GetItemRect(hwnd, index, &rcTab) || !::GetClientRect(hwnd, &rcClient))
+			return false;
+		const bool isVertical = (::GetWindowLongPtr(hwnd, GWL_STYLE) & TCS_VERTICAL) != 0;
+		return isVertical ? (rcTab.top >= 0 && rcTab.bottom <= rcClient.bottom) : (rcTab.left >= 0 && rcTab.right <= rcClient.right);
+	}
+
+	// Scrolls a single-line tab bar: the given tab first, as its arrows do (see also TabBar::deletItemAt())
+	void scrollToTab(HWND hwnd, int index)
+	{
+		::SendMessage(hwnd, WM_HSCROLL, MAKEWPARAM(SB_THUMBPOSITION, index), 0);
+		::SendMessage(hwnd, WM_HSCROLL, MAKEWPARAM(SB_ENDSCROLL, index), 0);
 	}
 
 	// Moves the (tall) control by the scroll offset and clips it to the visible column
@@ -181,7 +205,10 @@ namespace
 	{
 		st.listMode = true;
 		st.scroll = 0;
-		setListStyle(hwnd, true);
+		st.savedStyles = ::GetWindowLongPtr(hwnd, GWL_STYLE) & listModeStyleMask;
+		st.firstShownTab = (st.savedStyles & TCS_MULTILINE) ? 0 : getFirstShownTab(hwnd);
+		st.isScrollToRestore = false;
+		setStyles(hwnd, listModeStyles);
 	}
 
 	void leaveListMode(HWND hwnd, TabState& st)
@@ -190,7 +217,8 @@ namespace
 		st.scroll = 0;
 		st.resizing = false;
 		::SetWindowRgn(hwnd, nullptr, TRUE);
-		setListStyle(hwnd, false);
+		setStyles(hwnd, st.savedStyles); // the tab bar as it was (TCS_BUTTONS: then set by TabBar::reSizeTo())
+		st.isScrollToRestore = true;
 		if (st.requestedCx > 0 && st.requestedCy > 0)
 			::SendMessage(hwnd, TCM_SETITEMSIZE, 0, MAKELPARAM(st.requestedCx, st.requestedCy));
 	}
@@ -219,6 +247,21 @@ namespace
 				st.requestedCy = HIWORD(lParam);
 				if (st.listMode)
 					lParam = MAKELPARAM(itemWidthFor(hwnd, st), st.requestedCy);
+				break;
+			}
+
+			case WM_TABSETSTYLE:
+			{
+				// doVertical(), doMultiLine(): in list mode they change the styles put back when it ends
+				const auto styles = static_cast<LONG_PTR>(lParam);
+				if (st.listMode && (styles & ~listModeStyleMask) == 0)
+				{
+					if (wParam)
+						st.savedStyles |= styles;
+					else
+						st.savedStyles &= ~styles;
+					return TRUE;
+				}
 				break;
 			}
 
@@ -486,8 +529,6 @@ namespace VerticalTabs
 		st.slot = rc2Adjust;
 		st.gap = std::max(0, NppParameters::getInstance().getSVP()._borderWidth); // DocTabView leaves it before the editor
 
-		// doVertical() / doMultiLine() may have changed the styles meanwhile
-		setListStyle(hwnd, true);
 		if (st.requestedCy > 0)
 			::SendMessage(hwnd, TCM_SETITEMSIZE, 0, MAKELPARAM(st.requestedCx, st.requestedCy)); // width replaced by the subclass
 
@@ -500,5 +541,25 @@ namespace VerticalTabs
 		rc2Adjust.left += st.width;
 		rc2Adjust.right -= st.width;
 		return true;
+	}
+
+	void afterOriginalReSize(const TabBar& tabBar)
+	{
+		const HWND hwnd = tabBar.getHSelf();
+		auto it = g_states.find(hwnd);
+		if (it == g_states.end() || !it->second.isScrollToRestore)
+			return;
+
+		TabState& st = it->second;
+		st.isScrollToRestore = false;
+		if (::GetWindowLongPtr(hwnd, GWL_STYLE) & TCS_MULTILINE)
+			return; // all the tabs are shown
+
+		// the multi-line column has reset the scroll position of the tab bar: the one of before, then the active tab
+		// shown, as after the other layout changes of the tab bar
+		scrollToTab(hwnd, st.firstShownTab);
+		const int activeTab = TabCtrl_GetCurSel(hwnd);
+		if (activeTab >= 0 && !isTabShown(hwnd, activeTab))
+			scrollToTab(hwnd, activeTab);
 	}
 }

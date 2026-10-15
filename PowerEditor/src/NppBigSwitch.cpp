@@ -4185,6 +4185,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			break;
 		}
 
+		case NPPM_INTERNAL_VERTICALTABWIDTHCHANGED: // vertical tab bar with horizontal titles resized by dragging its edge
+		{
+			if (_preference.isCreated())
+				_preference._tabbarSubDlg.showVerticalTabListWidth();
+			break;
+		}
+
 		case NPPM_INTERNAL_MULTILINETABBAR:
 		{
 			TabBarPlus::doMultiLine();

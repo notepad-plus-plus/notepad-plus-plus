@@ -698,6 +698,14 @@ struct DarkModeConf final
 	AdvancedOptions _advOptions{};
 };
 
+// Colours of the editor scrollbars (Preferences > Editing 2)
+struct ScrollbarColours final
+{
+	COLORREF _thumb = 0;
+	COLORREF _track = 0;
+	COLORREF _thumbHover = 0;
+};
+
 
 struct LargeFileRestriction final
 {
@@ -885,6 +893,11 @@ struct NppGUI final
 	bool _shouldSortFunctionList = false;
 
 	DarkModeConf _darkmode;
+
+	// defaults: the native colours of Windows 11
+	bool _editorScrollbarCustomColours = false;
+	ScrollbarColours _editorScrollbarLight{ RGB(0x85, 0x85, 0x85), RGB(0xF0, 0xF0, 0xF0), RGB(0x66, 0x66, 0x66) };
+	ScrollbarColours _editorScrollbarDark{ RGB(0x95, 0x95, 0x95), RGB(0x17, 0x17, 0x17), RGB(0xCD, 0xCD, 0xCD) };
 
 	LargeFileRestriction _largeFileRestriction;
 

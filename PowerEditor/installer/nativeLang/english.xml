@@ -1064,6 +1064,16 @@ Translation note:
 					<Item id="6256" name="Custom Color"/>
 					<Item id="6258" name="Apply Appearance settings to C0, C1 &amp;&amp; Unicode EOL"/>
 					<Item id="6259" name="Prevent control character (C0 code) typing into document"/>
+					<Item id="6524" name="Editor Scrollbars"/>
+					<Item id="6525" name="Custom colors"/>
+					<Item id="6526" name="Light mode"/>
+					<Item id="6527" name="Dark mode"/>
+					<Item id="6528" name="Thumb"/>
+					<Item id="6529" name="Track"/>
+					<Item id="6530" name="Hover"/>
+					<Item id="6531" name="Thumb"/>
+					<Item id="6532" name="Track"/>
+					<Item id="6533" name="Hover"/>
 				</Scintillas2>
 
 				<DarkMode title="Dark Mode">

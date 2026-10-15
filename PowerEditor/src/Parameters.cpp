@@ -6044,6 +6044,22 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 				cc = static_cast<COLORREF>(NppXml::intAttribute(childNode, attrName.c_str(), static_cast<int>(cc)));
 			}
 		}
+		// <GUIConfig name="EditorScrollbars" customColours="no" lightThumb="8750469" lightTrack="15790320" lightThumbHover="6710886"
+		// darkThumb="9803157" darkTrack="1513239" darkThumbHover="13487565" />
+		else if (std::strcmp(nm, "EditorScrollbars") == 0)
+		{
+			_nppGUI._editorScrollbarCustomColours = getBoolAttribute(childNode, "customColours");
+
+			ScrollbarColours& light = _nppGUI._editorScrollbarLight;
+			light._thumb = static_cast<COLORREF>(NppXml::intAttribute(childNode, "lightThumb", static_cast<int>(light._thumb)));
+			light._track = static_cast<COLORREF>(NppXml::intAttribute(childNode, "lightTrack", static_cast<int>(light._track)));
+			light._thumbHover = static_cast<COLORREF>(NppXml::intAttribute(childNode, "lightThumbHover", static_cast<int>(light._thumbHover)));
+
+			ScrollbarColours& dark = _nppGUI._editorScrollbarDark;
+			dark._thumb = static_cast<COLORREF>(NppXml::intAttribute(childNode, "darkThumb", static_cast<int>(dark._thumb)));
+			dark._track = static_cast<COLORREF>(NppXml::intAttribute(childNode, "darkTrack", static_cast<int>(dark._track)));
+			dark._thumbHover = static_cast<COLORREF>(NppXml::intAttribute(childNode, "darkThumbHover", static_cast<int>(dark._thumbHover)));
+		}
 		// <GUIConfig name="ToolBar" visible="yes" fluentColor="0" fluentCustomColor="0" fluentMono="no">standard</GUIConfig>
 		else if (std::strcmp(nm, "ToolBar") == 0)
 		{
@@ -8262,6 +8278,24 @@ void NppParameters::createXmlTreeFromGUIParams()
 			const std::string attrName = "color" + std::to_string(i++);
 			NppXml::setAttribute(GUIConfigElement, attrName.c_str(), static_cast<int>(cc));
 		}
+	}
+
+	// <GUIConfig name="EditorScrollbars" customColours="no" lightThumb="8750469" lightTrack="15790320" lightThumbHover="6710886"
+	// darkThumb="9803157" darkTrack="1513239" darkThumbHover="13487565" />
+	{
+		NppXml::Element GUIConfigElement = NppXml::createChildElement(newGUIRoot, "GUIConfig");
+		NppXml::setAttribute(GUIConfigElement, "name", "EditorScrollbars");
+		setBoolAttribute(GUIConfigElement, "customColours", _nppGUI._editorScrollbarCustomColours);
+
+		const ScrollbarColours& light = _nppGUI._editorScrollbarLight;
+		NppXml::setAttribute(GUIConfigElement, "lightThumb", static_cast<int>(light._thumb));
+		NppXml::setAttribute(GUIConfigElement, "lightTrack", static_cast<int>(light._track));
+		NppXml::setAttribute(GUIConfigElement, "lightThumbHover", static_cast<int>(light._thumbHover));
+
+		const ScrollbarColours& dark = _nppGUI._editorScrollbarDark;
+		NppXml::setAttribute(GUIConfigElement, "darkThumb", static_cast<int>(dark._thumb));
+		NppXml::setAttribute(GUIConfigElement, "darkTrack", static_cast<int>(dark._track));
+		NppXml::setAttribute(GUIConfigElement, "darkThumbHover", static_cast<int>(dark._thumbHover));
 	}
 
 	// <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" lineNumberDynamicWidth="yes" bookMarkMargin="show" indentGuideLine="show"

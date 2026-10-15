@@ -2144,7 +2144,75 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 	return FALSE;
 }
 
-intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+// labels of the editor scrollbar colour pickers, in the order of Editing2SubDlg::_pScrollbarColourPickers
+static constexpr int scrollbarColourLabelIDs[] = {
+	IDC_SCROLLBARLIGHTTHUMB_STATIC, IDC_SCROLLBARLIGHTTRACK_STATIC, IDC_SCROLLBARLIGHTHOVER_STATIC,
+	IDC_SCROLLBARDARKTHUMB_STATIC, IDC_SCROLLBARDARKTRACK_STATIC, IDC_SCROLLBARDARKHOVER_STATIC
+};
+
+static COLORREF& scrollbarColour(NppGUI& nppGUI, size_t pickerIndex)
+{
+	ScrollbarColours& colours = (pickerIndex < 3) ? nppGUI._editorScrollbarLight : nppGUI._editorScrollbarDark;
+	switch (pickerIndex % 3)
+	{
+		case 0:
+			return colours._thumb;
+
+		case 1:
+			return colours._track;
+
+		default:
+			return colours._thumbHover;
+	}
+}
+
+void Editing2SubDlg::move2CtrlLeft(int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight)
+{
+	POINT p{};
+	RECT rc{};
+	::GetWindowRect(::GetDlgItem(_hSelf, ctrlID), &rc);
+
+	NppParameters& nppParam = NppParameters::getInstance();
+
+	if (nppParam.getNativeLangSpeaker()->isRTL())
+		p.x = rc.right + _dpiManager.scale(5) + handle2MoveWidth;
+	else
+		p.x = rc.left - _dpiManager.scale(5) - handle2MoveWidth;
+
+	p.y = rc.top + ((rc.bottom - rc.top) / 2) - handle2MoveHeight / 2;
+
+	::ScreenToClient(_hSelf, &p);
+	::MoveWindow(handle2Move, p.x, p.y, handle2MoveWidth, handle2MoveHeight, TRUE);
+}
+
+void Editing2SubDlg::placeScrollbarColourPickers()
+{
+	const int cpDynamicalSize = _dpiManager.scale(25);
+	for (size_t i = 0; i < _pScrollbarColourPickers.size(); ++i)
+		move2CtrlLeft(scrollbarColourLabelIDs[i], _pScrollbarColourPickers[i]->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+}
+
+void Editing2SubDlg::enableScrollbarColourCtrls(bool doEnable)
+{
+	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+	for (size_t i = 0; i < _pScrollbarColourPickers.size(); ++i)
+	{
+		const HWND hPicker = _pScrollbarColourPickers[i]->getHSelf();
+		::EnableWindow(hPicker, doEnable); // a disabled picker shows the background colour
+		if (doEnable)
+		{
+			_pScrollbarColourPickers[i]->setColour(scrollbarColour(nppGUI, i));
+			::InvalidateRect(hPicker, nullptr, TRUE);
+		}
+	}
+
+	for (int labelID : scrollbarColourLabelIDs)
+		::EnableWindow(::GetDlgItem(_hSelf, labelID), doEnable);
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_SCROLLBARLIGHT_STATIC), doEnable);
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_SCROLLBARDARK_STATIC), doEnable);
+}
+
+intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -2246,6 +2314,26 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					::SendMessage(tip, TTM_SETMAXTIPWIDTH, 0, 260);
 				}
 			}
+
+			NppGUI& nppGUI = nppParam.getNppGUI();
+			setChecked(IDC_CHECK_SCROLLBARCOLOURS, nppGUI._editorScrollbarCustomColours);
+
+			for (size_t i = 0; i < _pScrollbarColourPickers.size(); ++i)
+			{
+				auto& pPicker = _pScrollbarColourPickers[i];
+				pPicker = std::make_unique<ColourPicker>();
+				pPicker->init(_hInst, _hSelf);
+				pPicker->disableRightClick();
+				pPicker->setColour(scrollbarColour(nppGUI, i));
+			}
+
+			_dpiManager.setDpi(_hSelf);
+			placeScrollbarColourPickers();
+
+			for (const auto& pPicker : _pScrollbarColourPickers)
+				pPicker->display();
+
+			enableScrollbarColourCtrls(nppGUI._editorScrollbarCustomColours);
 		}
 		return TRUE;
 
@@ -2269,10 +2357,27 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			break;
 		}
 
+		case WM_DPICHANGED_AFTERPARENT:
+		{
+			placeScrollbarColourPickers();
+			return TRUE;
+		}
+
+		case WM_DESTROY:
+		{
+			for (const auto& pPicker : _pScrollbarColourPickers)
+			{
+				if (pPicker)
+					pPicker->destroy();
+			}
+			return TRUE;
+		}
+
 		case WM_COMMAND:
 		{
 			NppParameters& nppParam = NppParameters::getInstance();
 			ScintillaViewParams& svp = const_cast<ScintillaViewParams&>(nppParam.getSVP());
+
 			switch (wParam)
 			{
 				case IDC_CHECK_MULTISELECTION:
@@ -2384,6 +2489,32 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				{
 					svp._npcNoInputC0 = isCheckedOrNot(IDC_CHECK_NPC_NOINPUTC0);
 					return TRUE;
+				}
+
+				case IDC_CHECK_SCROLLBARCOLOURS:
+				{
+					NppGUI& nppGUI = nppParam.getNppGUI();
+					nppGUI._editorScrollbarCustomColours = isCheckedOrNot(IDC_CHECK_SCROLLBARCOLOURS);
+					enableScrollbarColourCtrls(nppGUI._editorScrollbarCustomColours);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_EDITORSCROLLBARS, 0, 0);
+					return TRUE;
+				}
+
+				default:
+				{
+					if (HIWORD(wParam) == CPN_COLOURPICKED) // a colour picker (its control ID is 0)
+					{
+						for (size_t i = 0; i < _pScrollbarColourPickers.size(); ++i)
+						{
+							if (reinterpret_cast<HWND>(lParam) == _pScrollbarColourPickers[i]->getHSelf())
+							{
+								scrollbarColour(nppParam.getNppGUI(), i) = _pScrollbarColourPickers[i]->getColour();
+								::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_EDITORSCROLLBARS, 0, 0);
+								return TRUE;
+							}
+						}
+					}
+					break;
 				}
 			}
 		}

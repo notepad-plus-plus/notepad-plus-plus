@@ -2022,5 +2022,7 @@
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080"></WidgetStyle>
         <WidgetStyle name="Global override" styleID="0" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize=""></WidgetStyle>
         <WidgetStyle name="Non-printing characters custom color" styleID="0" fgColor="004040"></WidgetStyle>
+        <WidgetStyle name="Editor scrollbar" styleID="0" fgColor="959595" bgColor="171717"></WidgetStyle>
+        <WidgetStyle name="Editor scrollbar hover" styleID="0" fgColor="CDCDCD"></WidgetStyle>
     </GlobalStyles>
 </NotepadPlus>

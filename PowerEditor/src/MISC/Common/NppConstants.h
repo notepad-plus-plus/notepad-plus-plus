@@ -401,6 +401,8 @@ inline constexpr const wchar_t FINDDLG_STAUSMESSAGE_COLOR[] = L"Find status: Mes
 inline constexpr const wchar_t FINDDLG_STAUSREACHED_COLOR[] = L"Find status: Search end reached";
 
 inline constexpr const wchar_t g_npcStyleName[] = L"Non-printing characters custom color";
+inline constexpr const wchar_t g_editorScrollbarStyleName[] = L"Editor scrollbar"; // foreground: thumb, background: track
+inline constexpr const wchar_t g_editorScrollbarHoverStyleName[] = L"Editor scrollbar hover"; // foreground: thumb under the mouse
 
 // Style names
 

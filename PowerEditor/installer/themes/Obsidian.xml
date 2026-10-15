@@ -2031,5 +2031,7 @@ Notepad++ Custom Style
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080"></WidgetStyle>
         <WidgetStyle name="Global override" styleID="0" fgColor="E0E2E4" bgColor="293134" fontName="Courier New" fontStyle="0" fontSize=""></WidgetStyle>
         <WidgetStyle name="Non-printing characters custom color" styleID="0" fgColor="343F43"></WidgetStyle>
+        <WidgetStyle name="Editor scrollbar" styleID="0" fgColor="959595" bgColor="171717"></WidgetStyle>
+        <WidgetStyle name="Editor scrollbar hover" styleID="0" fgColor="CDCDCD"></WidgetStyle>
     </GlobalStyles>
 </NotepadPlus>

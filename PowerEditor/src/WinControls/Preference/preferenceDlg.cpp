@@ -2144,75 +2144,7 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 	return FALSE;
 }
 
-// labels of the editor scrollbar colour pickers, in the order of Editing2SubDlg::_pScrollbarColourPickers
-static constexpr int scrollbarColourLabelIDs[] = {
-	IDC_SCROLLBARLIGHTTHUMB_STATIC, IDC_SCROLLBARLIGHTTRACK_STATIC, IDC_SCROLLBARLIGHTHOVER_STATIC,
-	IDC_SCROLLBARDARKTHUMB_STATIC, IDC_SCROLLBARDARKTRACK_STATIC, IDC_SCROLLBARDARKHOVER_STATIC
-};
-
-static COLORREF& scrollbarColour(NppGUI& nppGUI, size_t pickerIndex)
-{
-	ScrollbarColours& colours = (pickerIndex < 3) ? nppGUI._editorScrollbarLight : nppGUI._editorScrollbarDark;
-	switch (pickerIndex % 3)
-	{
-		case 0:
-			return colours._thumb;
-
-		case 1:
-			return colours._track;
-
-		default:
-			return colours._thumbHover;
-	}
-}
-
-void Editing2SubDlg::move2CtrlLeft(int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight)
-{
-	POINT p{};
-	RECT rc{};
-	::GetWindowRect(::GetDlgItem(_hSelf, ctrlID), &rc);
-
-	NppParameters& nppParam = NppParameters::getInstance();
-
-	if (nppParam.getNativeLangSpeaker()->isRTL())
-		p.x = rc.right + _dpiManager.scale(5) + handle2MoveWidth;
-	else
-		p.x = rc.left - _dpiManager.scale(5) - handle2MoveWidth;
-
-	p.y = rc.top + ((rc.bottom - rc.top) / 2) - handle2MoveHeight / 2;
-
-	::ScreenToClient(_hSelf, &p);
-	::MoveWindow(handle2Move, p.x, p.y, handle2MoveWidth, handle2MoveHeight, TRUE);
-}
-
-void Editing2SubDlg::placeScrollbarColourPickers()
-{
-	const int cpDynamicalSize = _dpiManager.scale(25);
-	for (size_t i = 0; i < _pScrollbarColourPickers.size(); ++i)
-		move2CtrlLeft(scrollbarColourLabelIDs[i], _pScrollbarColourPickers[i]->getHSelf(), cpDynamicalSize, cpDynamicalSize);
-}
-
-void Editing2SubDlg::enableScrollbarColourCtrls(bool doEnable)
-{
-	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
-	for (size_t i = 0; i < _pScrollbarColourPickers.size(); ++i)
-	{
-		const HWND hPicker = _pScrollbarColourPickers[i]->getHSelf();
-		::EnableWindow(hPicker, doEnable); // a disabled picker shows the background colour
-		if (doEnable)
-		{
-			_pScrollbarColourPickers[i]->setColour(scrollbarColour(nppGUI, i));
-			::InvalidateRect(hPicker, nullptr, TRUE);
-		}
-	}
-
-	for (int labelID : scrollbarColourLabelIDs)
-		::EnableWindow(::GetDlgItem(_hSelf, labelID), doEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDC_SCROLLBARLIGHT_STATIC), doEnable);
-	::EnableWindow(::GetDlgItem(_hSelf, IDC_SCROLLBARDARK_STATIC), doEnable);
-}
-
-intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
 {
 	switch (message)
 	{
@@ -2265,6 +2197,7 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			setChecked(IDC_CHECK_NPC_COLOR, svp._npcCustomColor);
 			setChecked(IDC_CHECK_NPC_INCLUDECCUNIEOL, svp._npcIncludeCcUniEol);
 			setChecked(IDC_CHECK_NPC_NOINPUTC0, svp._npcNoInputC0);
+			setChecked(IDC_CHECK_SCROLLBAR_COLOR, svp._scrollbarCustomColor);
 
 			wstring tipNote2Show = pNativeSpeaker->getLocalizedStrFromID("npcNote-tip",
 				L"Representation of selected \"non-ASCII\" whitespace and non-printing (control) characters.\n\n"\
@@ -2295,17 +2228,22 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			wstring tipNpcInc2show = pNativeSpeaker->getLocalizedStrFromID("npcIncludeCcUniEol-tip",
 				L"Apply non-printing characters appearance settings to C0, C1 control and Unicode EOL (next line, line separator and paragraph separator) characters.");
 
+			wstring tipScrollbarCol2show = pNativeSpeaker->getLocalizedStrFromID("scrollbarCustomColor-tip",
+				L"Go to Style Configurator to change the colors of the editor scrollbars (\"Editor scrollbar\" and \"Editor scrollbar hover\").");
+
 			_tipNote = createToolTip(IDC_BUTTON_NPC_NOTE, _hSelf, _hInst, tipNote2Show.data(), pNativeSpeaker->isRTL());
 			_tipAbb = createToolTip(IDC_RADIO_NPC_ABBREVIATION, _hSelf, _hInst, tipAb2Show.data(), pNativeSpeaker->isRTL());
 			_tipCodepoint = createToolTip(IDC_RADIO_NPC_CODEPOINT, _hSelf, _hInst, tipCp2Show.data(), pNativeSpeaker->isRTL());
 			_tipNpcColor = createToolTip(IDC_BUTTON_NPC_LAUNCHSTYLECONF, _hSelf, _hInst, tipNpcCol2show.data(), pNativeSpeaker->isRTL());
 			_tipNpcInclude = createToolTip(IDC_CHECK_NPC_INCLUDECCUNIEOL, _hSelf, _hInst, tipNpcInc2show.data(), pNativeSpeaker->isRTL());
+			_tipScrollbarColor = createToolTip(IDC_BUTTON_SCROLLBAR_LAUNCHSTYLECONF, _hSelf, _hInst, tipScrollbarCol2show.data(), pNativeSpeaker->isRTL());
 
 			_tips.push_back(_tipNote);
 			_tips.push_back(_tipAbb);
 			_tips.push_back(_tipCodepoint);
 			_tips.push_back(_tipNpcColor);
 			_tips.push_back(_tipNpcInclude);
+			_tips.push_back(_tipScrollbarColor);
 
 			for (const auto& tip : _tips)
 			{
@@ -2314,26 +2252,6 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					::SendMessage(tip, TTM_SETMAXTIPWIDTH, 0, 260);
 				}
 			}
-
-			NppGUI& nppGUI = nppParam.getNppGUI();
-			setChecked(IDC_CHECK_SCROLLBARCOLOURS, nppGUI._editorScrollbarCustomColours);
-
-			for (size_t i = 0; i < _pScrollbarColourPickers.size(); ++i)
-			{
-				auto& pPicker = _pScrollbarColourPickers[i];
-				pPicker = std::make_unique<ColourPicker>();
-				pPicker->init(_hInst, _hSelf);
-				pPicker->disableRightClick();
-				pPicker->setColour(scrollbarColour(nppGUI, i));
-			}
-
-			_dpiManager.setDpi(_hSelf);
-			placeScrollbarColourPickers();
-
-			for (const auto& pPicker : _pScrollbarColourPickers)
-				pPicker->display();
-
-			enableScrollbarColourCtrls(nppGUI._editorScrollbarCustomColours);
 		}
 		return TRUE;
 
@@ -2357,27 +2275,10 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			break;
 		}
 
-		case WM_DPICHANGED_AFTERPARENT:
-		{
-			placeScrollbarColourPickers();
-			return TRUE;
-		}
-
-		case WM_DESTROY:
-		{
-			for (const auto& pPicker : _pScrollbarColourPickers)
-			{
-				if (pPicker)
-					pPicker->destroy();
-			}
-			return TRUE;
-		}
-
 		case WM_COMMAND:
 		{
 			NppParameters& nppParam = NppParameters::getInstance();
 			ScintillaViewParams& svp = const_cast<ScintillaViewParams&>(nppParam.getSVP());
-
 			switch (wParam)
 			{
 				case IDC_CHECK_MULTISELECTION:
@@ -2491,30 +2392,17 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					return TRUE;
 				}
 
-				case IDC_CHECK_SCROLLBARCOLOURS:
+				case IDC_CHECK_SCROLLBAR_COLOR:
 				{
-					NppGUI& nppGUI = nppParam.getNppGUI();
-					nppGUI._editorScrollbarCustomColours = isCheckedOrNot(IDC_CHECK_SCROLLBARCOLOURS);
-					enableScrollbarColourCtrls(nppGUI._editorScrollbarCustomColours);
+					svp._scrollbarCustomColor = isCheckedOrNot(IDC_CHECK_SCROLLBAR_COLOR);
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_EDITORSCROLLBARS, 0, 0);
 					return TRUE;
 				}
 
-				default:
+				case IDC_BUTTON_SCROLLBAR_LAUNCHSTYLECONF:
 				{
-					if (HIWORD(wParam) == CPN_COLOURPICKED) // a colour picker (its control ID is 0)
-					{
-						for (size_t i = 0; i < _pScrollbarColourPickers.size(); ++i)
-						{
-							if (reinterpret_cast<HWND>(lParam) == _pScrollbarColourPickers[i]->getHSelf())
-							{
-								scrollbarColour(nppParam.getNppGUI(), i) = _pScrollbarColourPickers[i]->getColour();
-								::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_EDITORSCROLLBARS, 0, 0);
-								return TRUE;
-							}
-						}
-					}
-					break;
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SCROLLBARLAUNCHSTYLECONF, 0, 0);
+					return TRUE;
 				}
 			}
 		}

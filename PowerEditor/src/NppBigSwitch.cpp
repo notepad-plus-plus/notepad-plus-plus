@@ -2526,6 +2526,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			drawDocumentMapColoursFromStylerArray();
 
+			EditorScrollbars::apply(_mainEditView.getHSelf(), _subEditView.getHSelf()); // their colors are styles too
+
 			// Update default fg/bg colors in Parameters for both internal/plugins docking dialog
 			const Style* pStyle = nppParam.getGlobalStylers().findByID(STYLE_DEFAULT);
 			if (pStyle)
@@ -3589,6 +3591,19 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			wstring npcStr = L"Global Styles:";
 			npcStr += g_npcStyleName;
 			_configStyleDlg.goToSection(npcStr.c_str());
+
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_SCROLLBARLAUNCHSTYLECONF:
+		{
+			// Launch _configStyleDlg (create or display it)
+			command(IDM_LANGSTYLE_CONFIG_DLG);
+
+			// go into the section we need
+			wstring scrollbarStr = L"Global Styles:";
+			scrollbarStr += g_editorScrollbarStyleName;
+			_configStyleDlg.goToSection(scrollbarStr.c_str());
 
 			return TRUE;
 		}

@@ -3802,7 +3802,7 @@ intptr_t CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 					{
 						auto txtlen = ::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_GETLBTEXTLEN, j, 0);
 						std::wstring wsUdlName(txtlen, L'\0');
-						txtlen = ::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_GETLBTEXT, j, reinterpret_cast<LPARAM>(wsUdlName.data()));
+						::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_GETLBTEXT, j, reinterpret_cast<LPARAM>(wsUdlName.data()));
 						if (ndds._udl == wsUdlName)
 							break;
 					}
@@ -3931,7 +3931,7 @@ intptr_t CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 							{
 								auto txtlen = ::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_GETLBTEXTLEN, index, 0);
 								std::wstring wsUdlName(txtlen, L'\0');
-								txtlen = ::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_GETLBTEXT, index, reinterpret_cast<LPARAM>(wsUdlName.data()));
+								::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_GETLBTEXT, index, reinterpret_cast<LPARAM>(wsUdlName.data()));
 								ndds._udl = wsUdlName;
 							}
 							else

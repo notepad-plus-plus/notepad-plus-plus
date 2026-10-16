@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.8"><!-- Datum: 13.10.2026, basiert auf english.xml 8.9.8 vom 12.10.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.8"><!-- Datum: 16.10.2026, basiert auf english.xml 8.9.8 vom 15.10.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -213,11 +213,11 @@ Translation note:
 					<Item id="42028" name="Schreibsch&amp;utz für aktuelles Dokument"/>
 					<Item id="42102" name="Schreibschutz für &amp;alle Dokumente"/>
 					<Item id="42103" name="Schreibschutz für alle Dokumente &amp;entfernen"/>
-					<Item id="42029" name="Vollständigen Datei&amp;pfad kopieren"/>
-					<Item id="42030" name="Nur Datei&amp;namen kopieren"/>
-					<Item id="42031" name="Nur &amp;Verzeichnispfad kopieren"/>
-					<Item id="42087" name="Alle &amp;Dateinamen kopieren"/>
-					<Item id="42088" name="Alle &amp;vollständigen Dateipfade kopieren"/>
+					<Item id="42029" name="Aktuellen Datei&amp;pfad kopieren"/>
+					<Item id="42030" name="Aktuellen Datei&amp;namen kopieren"/>
+					<Item id="42031" name="Aktuellen &amp;Verzeichnispfad kopieren"/>
+					<Item id="42087" name="Alle Datein&amp;amen kopieren"/>
+					<Item id="42088" name="Alle Dateip&amp;fade kopieren"/>
 					<Item id="42032" name="Makro &amp;mehrfach ausführen …"/>
 					<Item id="42033" name="Schreibschutz-Attribut in &amp;Windows"/>
 					<Item id="42035" name="Zeilen aus&amp;kommentieren"/>
@@ -463,8 +463,8 @@ Translation note:
 				<Item CMDID="42033" name="Schreibschutz-Attribut in &amp;Windows"/>
 				<Item CMDID="2" name="In Zwischenablage kopieren"/>
 				<Item CMDID="42029" name="Vollständigen Dateipfad &amp;kopieren"/>
-				<Item CMDID="42030" name="Nur Datei&amp;namen kopieren"/>
-				<Item CMDID="42031" name="Nur Verzeichnis&amp;pfad kopieren"/>
+				<Item CMDID="42030" name="Aktuellen Datei&amp;namen kopieren"/>
+				<Item CMDID="42031" name="Aktuellen &amp;Verzeichnispfad kopieren"/>
 				<Item CMDID="3" name="Dokument verschieben"/>
 				<Item CMDID="10005" name="Zum Anfang verschieben"/>
 				<Item CMDID="10006" name="Ans Ende verschieben"/>
@@ -1373,7 +1373,7 @@ Translation note:
 
 				<MISC title="Diverses">
 					<ComboBox id="6347">
-						<Element name="Für aktuelle Datei aktivieren"/>
+						<Element name="Für aktuelle Datei(en) aktivieren"/>
 						<Element name="Für alle offenen Dateien aktivieren"/>
 						<Element name="Deaktivieren"/>
 					</ComboBox>

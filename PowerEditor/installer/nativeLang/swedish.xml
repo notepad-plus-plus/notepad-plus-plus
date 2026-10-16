@@ -968,12 +968,15 @@ Translation note:
 			<Preference title="Inställningar">
 				<Item id="6001" name="Stäng"/>
 				<Global title="Allmänt">
-					<Item id="6123" name="Gränssnittsspråk"/>
+					<Item id="6123" name="&amp;Gränssnittsspråk"/>
 					<Item id="6131" name="Meny"/>
-					<Item id="6122" name="Dölj (använd Alt eller F10 för att visa)"/>
-					<Item id="6132" name="Dölj knapparna ＋ ▼ ✕ på högersidan"/>
+					<Item id="6122" name="D&amp;ölj (använd Alt eller F10 för att visa)"/>
+					<Item id="6132" name="Dölj knappa&amp;rna ＋ ▼ ✕ på högersidan"/>
 					<Item id="6133" name="Statusfält"/>
-					<Item id="6134" name="Dölj"/>
+					<Item id="6134" name="&amp;Dölj"/>
+					<Item id="7165" name="Teckenstorlek för dialogrutor (kräver omstart av Notepad++)"/>
+					<Item id="7166" name="&amp;Storlek:"/>
+					<Item id="7168" name="Namn:"/>
 				</Global>
 
 				<Toolbar title="Verktygsfält">
@@ -1226,7 +1229,7 @@ Translation note:
 				</Print>
 
 				<Searching title="Sökning">
-					<Item id="6902" name="Använd typsnitt med fast bredd i sökdialogen (kräver omstart av Notepad++)"/>
+					<Item id="6902" name="Använd teckensnitt med fast bredd i sökdialogen (kräver omstart av Notepad++)"/>
 					<Item id="6903" name="Låt sökdialogen förbli öppen efter sökningar som visas i resultatfönstret"/>
 					<Item id="6904" name="Visa bekräftelsedialog för &quot;Ersätt alla i alla öppna dokument&quot;"/>
 					<Item id="6905" name="Ersätt: Hoppa inte till nästa förekomst"/>
@@ -1813,6 +1816,7 @@ Sök i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot; 
 			<find-status-replace-readonly value="Ersätt: Kan inte ersätta text. Aktuellt dokument är skrivskyddat"/>
 			<find-status-cannot-find value="Sök: Kan inte hitta texten &quot;$STR_REPLACE$&quot;"/>
 			<find-status-cannot-find-pebkac-maybe value="Kan inte hitta förekomsten. Du kanske har glömt att markera &quot;Loopa&quot; eller avmarkera antingen &quot;Matcha skiftläge&quot; eller &quot;Matcha hela ord&quot;."/>
+			<find-status-regex-find-empty-string value="Det givna reguljära uttrycket matchar tomma strängar."/>
 			<find-status-scope-selection value="inom den markerade texten"/>
 			<find-status-scope-all value="i hela filen"/>
 			<find-status-scope-backward value="från början av filen till textmarkören"/>

@@ -974,12 +974,15 @@ Translation note:
 			<Preference title="環境設定">
 				<Item id="6001" name="閉じる"/>
 				<Global title="全般設定">
-					<Item id="6123" name="言語"/>
+					<Item id="6123" name="言語(&amp;L)"/>
 					<Item id="6131" name="メニュー"/>
-					<Item id="6122" name="隠す(表示するには Alt か F10 を押す)"/>
-					<Item id="6132" name="右端の ＋ ▼ ✕ ボタンを非表示にする"/>
+					<Item id="6122" name="隠す(表示するには Alt か F10 を押す)(&amp;H)"/>
+					<Item id="6132" name="右端の ＋ ▼ ✕ ボタンを非表示にする(&amp;R)"/>
 					<Item id="6133" name="ステータスバー"/>
-					<Item id="6134" name="隠す"/>
+					<Item id="6134" name="隠す(&amp;D)"/>
+					<Item id="7165" name="ダイアログのフォント (Notepad++の再起動が必要)"/>
+					<Item id="7166" name="サイズ(&amp;S)"/>
+					<Item id="7168" name="フォント名:"/>
 				</Global>
 
 				<Toolbar title="ツールバー">
@@ -1808,6 +1811,7 @@ OKボタンを押すと検索ダイアログが開きます。
 			<find-status-replace-readonly value="置換：置換できません。この文書は読み取り専用です"/>
 			<find-status-cannot-find value="検索：見つかりません。&quot;$STR_REPLACE$&quot;"/>
 			<find-status-cannot-find-pebkac-maybe value="一致するものはありません。「先頭/末尾から再検索」をオンにし忘れたり、「大/小文字を区別」をオフにし忘れたり、「単語単位」をオフにし忘れたりしていませんか？"/>
+			<find-status-regex-find-empty-string value="正規表現が空の文字列に一致しました"/>
 			<find-status-scope-selection value="（選択範囲内）"/>
 			<find-status-scope-all value="（ファイル全体）"/>
 			<find-status-scope-backward value="（ファイル先頭から カーソル位置まで）"/>

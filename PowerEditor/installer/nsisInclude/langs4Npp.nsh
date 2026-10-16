@@ -155,6 +155,9 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Korean" korean
 		CopyFiles "$PLUGINSDIR\nppLocalization\korean.xml" "$INSTDIR\localization\korean.xml"
 	${MementoSectionEnd}
+	${MementoUnselectedSection} "Lao" lao
+    CopyFiles "$PLUGINSDIR\nppLocalization\lao.xml" "$INSTDIR\localization\lao.xml"
+	${MementoSectionEnd}
 	${MementoUnselectedSection} "Kurdish" kurdish
 		CopyFiles "$PLUGINSDIR\nppLocalization\kurdish.xml" "$INSTDIR\localization\kurdish.xml"
 	${MementoSectionEnd}
@@ -435,6 +438,9 @@ SectionGroup un.localization
 	SectionEnd
 	Section un.korean
 		Delete "$INSTDIR\localization\korean.xml"
+	SectionEnd
+	Section un.lao
+    Delete "$INSTDIR\localization\lao.xml"
 	SectionEnd
 	Section un.kyrgyz
 		Delete "$INSTDIR\localization\kyrgyz.xml"

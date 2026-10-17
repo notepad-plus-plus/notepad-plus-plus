@@ -140,6 +140,67 @@ jobs:
             Write-Output "`nSome XML files are invalid.`n"
             $host.SetShouldExit($LastExitCode)
         }
+    - name: Check modelDate in changed model XML files
+      shell: pwsh
+      run: |
+        $files = @('PowerEditor/src/stylers.model.xml', 'PowerEditor/src/langs.model.xml', 'PowerEditor/installer/themes/DarkModeDefault.xml')
+        $foundTargetChange = $false
+
+        foreach ($file in $files) {
+          # Compare the file at the PR base and head; skip files not changed.
+          if("${{ github.event_name }}" -eq "workflow_dispatch") {
+            #Write-Output "non-push: use HEAD~1..HEAD, which isn't as specific, but better than nothing"
+            $before = "HEAD~1"
+            $after = "HEAD"
+          } else {
+            #Write-Output "for-push: use before/after"
+            $before = "${{ github.event.before }}"
+            $after = "${{ github.event.after }}"
+          }
+          #Write-Output "git diff --quiet HEAD~1 HEAD -- $file"
+          git diff --quiet $before $after -- $file 2>$null
+
+          if ($LASTEXITCODE -eq 0) {
+            #Write-Host "$file was not changed; skipping."
+            continue
+          }
+          if ($LASTEXITCODE -ne 1) {
+            #throw "FAILED modelDate CHECK: git diff failed for $file (exit code $LASTEXITCODE)."
+            # ignore such errors; I only want to FAIL if there's a real difference
+            continue
+          }
+
+          $foundTargetChange = $true
+          #Write-Host "$file changed; checking modelDate."
+
+          $oldText = (git show "${before}:$file" 2>$null) -join "`n"
+          if ($LASTEXITCODE -ne 0) {
+            #throw "FAILED modelDate CHECK: Could not read $file from the PR base."
+            # ignore such errors; I only want to FAIL if there's a real difference
+            continue
+          }
+
+          $newText = Get-Content -Raw -LiteralPath $file
+          [xml]$oldXml = $oldText
+          [xml]$newXml = $newText
+
+          $oldDate = $oldXml.SelectSingleNode('//@modelDate')
+          $newDate = $newXml.SelectSingleNode('//@modelDate')
+
+          if ($null -eq $oldDate -or $null -eq $newDate) {
+            #throw "FAILED modelDate CHECK: $file must have a modelDate attribute in both the base and PR versions."
+            # ignore such errors; I only want to FAIL if there's a real difference
+            continue
+          }
+
+          if ($oldDate.Value -eq $newDate.Value) {
+            throw "FAILED modelDate CHECK: $file changed, but modelDate did not change (value: $($newDate.Value))."
+          }
+
+          Write-Host "$file modelDate changed: '$($oldDate.Value)' -> '$($newDate.Value)'"
+        }
+        # want it to exit passing, even if there was an ignored error
+        exit 0
 
   build_windows:
 

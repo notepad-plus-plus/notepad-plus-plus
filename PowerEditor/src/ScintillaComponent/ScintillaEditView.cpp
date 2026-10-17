@@ -495,7 +495,10 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 
 	if ((nppGui._writeTechnologyEngine > defaultTechnology) && (nppGui._writeTechnologyEngine < directWriteTechnologyUnavailable))
 	{
-		execute(SCI_SETTECHNOLOGY, nppGui._writeTechnologyEngine);
+		if (isTextDirectionRTL()) // mirrored like its window (RTL UI language): GDI until LTR, see changeTextDirection
+			_technologyIfLTR = nppGui._writeTechnologyEngine;
+		else
+			execute(SCI_SETTECHNOLOGY, nppGui._writeTechnologyEngine);
 		// If useDirectWrite is turned off, leave the technology setting untouched,
 		// so that existing plugins using SCI_SETTECHNOLOGY behave like before
 	}
@@ -4523,31 +4526,16 @@ void ScintillaEditView::changeTextDirection(bool isRTL)
 	if (isTextDirectionRTL() == isRTL)
 		return;
 
-	NppParameters& nppParamInst = NppParameters::getInstance();
-	if (isRTL && (nppParamInst.getNppGUI()._writeTechnologyEngine > defaultTechnology)
-		&& (nppParamInst.getNppGUI()._writeTechnologyEngine < directWriteTechnologyUnavailable)) // RTL is not compatible with DirectWrite
-	{
-		static bool theWarningIsGiven = false;
-
-		if (!theWarningIsGiven)
-		{
-			(nppParamInst.getNativeLangSpeaker())->messageBox("RTLvsDirectWrite",
-				getHSelf(),
-				L"RTL is not compatible with Direct Write mode. Please disable DirectWrite mode in MISC. section of Preferences dialog, and restart Notepad++.",
-				L"Cannot run RTL",
-				MB_OK | MB_APPLMODAL);
-
-			theWarningIsGiven = true;
-		}
-		return;
-	}
-
 	long exStyle = static_cast<long>(::GetWindowLongPtr(_hSelf, GWL_EXSTYLE));
 	exStyle = isRTL ? (exStyle | WS_EX_LAYOUTRTL) : (exStyle & (~WS_EX_LAYOUTRTL));
 	::SetWindowLongPtr(_hSelf, GWL_EXSTYLE, exStyle);
 
+	// DirectWrite ignores WS_EX_LAYOUTRTL: an RTL view is drawn with GDI, then gets its own technology back
 	if (isRTL)
 	{
+		_technologyIfLTR = static_cast<int>(execute(SCI_GETTECHNOLOGY));
+		execute(SCI_SETTECHNOLOGY, SC_TECHNOLOGY_DEFAULT);
+
 		execute(SCI_ASSIGNCMDKEY, SCK_RIGHT, SCI_CHARLEFT);
 		execute(SCI_ASSIGNCMDKEY, SCK_RIGHT + (SCMOD_SHIFT << 16), SCI_CHARLEFTEXTEND);
 		execute(SCI_ASSIGNCMDKEY, SCK_RIGHT + ((SCMOD_SHIFT + SCMOD_ALT) << 16), SCI_CHARLEFTRECTEXTEND);
@@ -4562,6 +4550,8 @@ void ScintillaEditView::changeTextDirection(bool isRTL)
 	}
 	else
 	{
+		execute(SCI_SETTECHNOLOGY, _technologyIfLTR);
+
 		execute(SCI_ASSIGNCMDKEY, SCK_RIGHT, SCI_CHARRIGHT);
 		execute(SCI_ASSIGNCMDKEY, SCK_RIGHT + (SCMOD_SHIFT << 16), SCI_CHARRIGHTEXTEND);
 		execute(SCI_ASSIGNCMDKEY, SCK_RIGHT + ((SCMOD_SHIFT + SCMOD_ALT) << 16), SCI_CHARRIGHTRECTEXTEND);

@@ -714,6 +714,7 @@ protected:
 	Buffer* _currentBuffer = nullptr;
 
 	int _codepage = CP_ACP;
+	int _technologyIfLTR = SC_TECHNOLOGY_DEFAULT; // given back by changeTextDirection: an RTL view is drawn with GDI
 
 	bool _wrapRestoreNeeded = false;
 	bool _positionRestoreNeeded = false;

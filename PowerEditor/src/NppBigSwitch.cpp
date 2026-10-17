@@ -33,6 +33,7 @@
 #include "fileBrowser.h"
 #include "NppDarkMode.h"
 #include "NppConstants.h"
+#include "EditorScrollbars.h"
 
 using namespace std;
 
@@ -349,6 +350,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
+			EditorScrollbars::onDarkModeChanging(); // its comctl32 hook may have been replaced by FixDarkScrollBar()
 			refreshDarkMode(static_cast<bool>(wParam));
 			// Notify plugins that Dark Mode changed
 			SCNotification scnN{};
@@ -2524,6 +2526,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			drawDocumentMapColoursFromStylerArray();
 
+			EditorScrollbars::apply(_mainEditView.getHSelf(), _subEditView.getHSelf()); // their colors are styles too
+
 			// Update default fg/bg colors in Parameters for both internal/plugins docking dialog
 			const Style* pStyle = nppParam.getGlobalStylers().findByID(STYLE_DEFAULT);
 			if (pStyle)
@@ -2671,6 +2675,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			_mainEditView.execute(SCI_SETDRAGDROPENABLED, !nppParam.getSVP()._disableSelectedTextDragDrop);
 			_subEditView.execute(SCI_SETDRAGDROPENABLED, !nppParam.getSVP()._disableSelectedTextDragDrop);
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_EDITORSCROLLBARS:
+		{
+			EditorScrollbars::apply(_mainEditView.getHSelf(), _subEditView.getHSelf());
 			return TRUE;
 		}
 
@@ -3581,6 +3591,19 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			wstring npcStr = L"Global Styles:";
 			npcStr += g_npcStyleName;
 			_configStyleDlg.goToSection(npcStr.c_str());
+
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_SCROLLBARLAUNCHSTYLECONF:
+		{
+			// Launch _configStyleDlg (create or display it)
+			command(IDM_LANGSTYLE_CONFIG_DLG);
+
+			// go into the section we need
+			wstring scrollbarStr = L"Global Styles:";
+			scrollbarStr += g_editorScrollbarStyleName;
+			_configStyleDlg.goToSection(scrollbarStr.c_str());
 
 			return TRUE;
 		}

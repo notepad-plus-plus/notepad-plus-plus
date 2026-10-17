@@ -5432,6 +5432,10 @@ void NppParameters::addDefaultStyles(const NppXml::Element& element)
 
 	addStyleDefaultColors(globalStyleRoot, L"EOL custom color", "DADADA");
 	addStyleDefaultColors(globalStyleRoot, g_npcStyleName, "DADADA", "", L"White space symbol");
+
+	// native colors of Windows 11 (light): thumb, track; thumb under the mouse
+	addStyleDefaultColors(globalStyleRoot, g_editorScrollbarStyleName, "858585", "F0F0F0");
+	addStyleDefaultColors(globalStyleRoot, g_editorScrollbarHoverStyleName, "666666");
 }
 
 void LexerStylerArray::addLexerStyler(const char* lexerName, const char* lexerDesc, const char* lexerUserExt, const NppXml::Element& lexerNode)
@@ -7325,6 +7329,7 @@ void NppParameters::feedScintillaParam(const NppXml::Element& element)
 	_svp._npcCustomColor = getBoolAttribute(element, "npcCustomColor");
 	_svp._npcIncludeCcUniEol = getBoolAttribute(element, "npcIncludeCcUniEOL");
 	_svp._npcNoInputC0 = getBoolAttribute(element, "npcNoInputC0", _svp._npcNoInputC0);
+	_svp._scrollbarCustomColor = getBoolAttribute(element, "scrollbarCustomColor");
 
 	// C0, C1 control and Unicode EOL visibility state
 	_svp._ccUniEolShow = getBoolAttribute(element, "ccShow", _svp._ccUniEolShow);
@@ -7602,6 +7607,7 @@ bool NppParameters::writeScintillaParams()
 	setBoolAttribute(scintNode, "npcCustomColor", _svp._npcCustomColor);
 	setBoolAttribute(scintNode, "npcIncludeCcUniEOL", _svp._npcIncludeCcUniEol);
 	setBoolAttribute(scintNode, "npcNoInputC0", _svp._npcNoInputC0);
+	setBoolAttribute(scintNode, "scrollbarCustomColor", _svp._scrollbarCustomColor);
 	setBoolAttribute(scintNode, "ccShow", _svp._ccUniEolShow);
 	NppXml::setAttribute(scintNode, "borderWidth", _svp._borderWidth);
 	setBoolAttribute(scintNode, "smoothFont", _svp._doSmoothFont);

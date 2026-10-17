@@ -1177,6 +1177,11 @@ std::pair<intptr_t, intptr_t> WordStyleDlg::goToPreferencesSettings()
 		result.first = edit2;
 		result.second = IDC_CHECK_NPC_COLOR;
 	}
+	else if (style._styleDesc == g_editorScrollbarStyleName || style._styleDesc == g_editorScrollbarHoverStyleName)
+	{
+		result.first = edit2;
+		result.second = IDC_CHECK_SCROLLBAR_COLOR;
+	}
 
 	return result;
 }

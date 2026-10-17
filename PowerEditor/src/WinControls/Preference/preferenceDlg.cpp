@@ -2197,6 +2197,7 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			setChecked(IDC_CHECK_NPC_COLOR, svp._npcCustomColor);
 			setChecked(IDC_CHECK_NPC_INCLUDECCUNIEOL, svp._npcIncludeCcUniEol);
 			setChecked(IDC_CHECK_NPC_NOINPUTC0, svp._npcNoInputC0);
+			setChecked(IDC_CHECK_SCROLLBAR_COLOR, svp._scrollbarCustomColor);
 
 			wstring tipNote2Show = pNativeSpeaker->getLocalizedStrFromID("npcNote-tip",
 				L"Representation of selected \"non-ASCII\" whitespace and non-printing (control) characters.\n\n"\
@@ -2227,17 +2228,22 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			wstring tipNpcInc2show = pNativeSpeaker->getLocalizedStrFromID("npcIncludeCcUniEol-tip",
 				L"Apply non-printing characters appearance settings to C0, C1 control and Unicode EOL (next line, line separator and paragraph separator) characters.");
 
+			wstring tipScrollbarCol2show = pNativeSpeaker->getLocalizedStrFromID("scrollbarCustomColor-tip",
+				L"Go to Style Configurator to change the colors of the editor scrollbars (\"Editor scrollbar\" and \"Editor scrollbar hover\").");
+
 			_tipNote = createToolTip(IDC_BUTTON_NPC_NOTE, _hSelf, _hInst, tipNote2Show.data(), pNativeSpeaker->isRTL());
 			_tipAbb = createToolTip(IDC_RADIO_NPC_ABBREVIATION, _hSelf, _hInst, tipAb2Show.data(), pNativeSpeaker->isRTL());
 			_tipCodepoint = createToolTip(IDC_RADIO_NPC_CODEPOINT, _hSelf, _hInst, tipCp2Show.data(), pNativeSpeaker->isRTL());
 			_tipNpcColor = createToolTip(IDC_BUTTON_NPC_LAUNCHSTYLECONF, _hSelf, _hInst, tipNpcCol2show.data(), pNativeSpeaker->isRTL());
 			_tipNpcInclude = createToolTip(IDC_CHECK_NPC_INCLUDECCUNIEOL, _hSelf, _hInst, tipNpcInc2show.data(), pNativeSpeaker->isRTL());
+			_tipScrollbarColor = createToolTip(IDC_BUTTON_SCROLLBAR_LAUNCHSTYLECONF, _hSelf, _hInst, tipScrollbarCol2show.data(), pNativeSpeaker->isRTL());
 
 			_tips.push_back(_tipNote);
 			_tips.push_back(_tipAbb);
 			_tips.push_back(_tipCodepoint);
 			_tips.push_back(_tipNpcColor);
 			_tips.push_back(_tipNpcInclude);
+			_tips.push_back(_tipScrollbarColor);
 
 			for (const auto& tip : _tips)
 			{
@@ -2383,6 +2389,19 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				case IDC_CHECK_NPC_NOINPUTC0:
 				{
 					svp._npcNoInputC0 = isCheckedOrNot(IDC_CHECK_NPC_NOINPUTC0);
+					return TRUE;
+				}
+
+				case IDC_CHECK_SCROLLBAR_COLOR:
+				{
+					svp._scrollbarCustomColor = isCheckedOrNot(IDC_CHECK_SCROLLBAR_COLOR);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_EDITORSCROLLBARS, 0, 0);
+					return TRUE;
+				}
+
+				case IDC_BUTTON_SCROLLBAR_LAUNCHSTYLECONF:
+				{
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SCROLLBARLAUNCHSTYLECONF, 0, 0);
 					return TRUE;
 				}
 			}

@@ -2027,5 +2027,7 @@ so your enhanced file can be included in Notepad++ future release.
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080"></WidgetStyle>
         <WidgetStyle name="Global override" styleID="0" fgColor="FFFF80" bgColor="FFB0FF" fontName="Courier New" fontStyle="0" fontSize=""></WidgetStyle>
         <WidgetStyle name="Non-printing characters custom color" styleID="0" fgColor="FFB56A"></WidgetStyle>
+        <WidgetStyle name="Editor scrollbar" styleID="0" fgColor="858585" bgColor="F0F0F0"></WidgetStyle>
+        <WidgetStyle name="Editor scrollbar hover" styleID="0" fgColor="666666"></WidgetStyle>
     </GlobalStyles>
 </NotepadPlus>

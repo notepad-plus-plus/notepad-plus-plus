@@ -353,6 +353,9 @@
 #define IDC_GB_STATIC_MULTIEDITING                     6521
 #define IDC_CHECK_MULTISELECTION                       6522
 #define IDC_CHECK_COLUMN2MULTIEDITING                  6523
+#define IDC_GB_STATIC_SCROLLBARS                       6524
+#define IDC_CHECK_SCROLLBAR_COLOR                      6525
+#define IDC_BUTTON_SCROLLBAR_LAUNCHSTYLECONF           6526
 
 #define IDD_PREFERENCE_SUB_HIGHLIGHTING                6550
 

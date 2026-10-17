@@ -934,6 +934,7 @@ struct ScintillaViewParams
 	bool _npcIncludeCcUniEol = false;
 	bool _ccUniEolShow = true;
 	bool _npcNoInputC0 = true;
+	bool _scrollbarCustomColor = false; // colors: g_editorScrollbarStyleName and g_editorScrollbarHoverStyleName
 
 	int _borderWidth = 2;
 	bool _virtualSpace = false;

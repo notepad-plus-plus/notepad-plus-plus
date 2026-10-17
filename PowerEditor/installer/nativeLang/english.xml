@@ -1064,6 +1064,8 @@ Translation note:
 					<Item id="6256" name="Custom Color"/>
 					<Item id="6258" name="Apply Appearance settings to C0, C1 &amp;&amp; Unicode EOL"/>
 					<Item id="6259" name="Prevent control character (C0 code) typing into document"/>
+					<Item id="6524" name="Editor Scrollbars"/>
+					<Item id="6525" name="Custom Colors"/>
 				</Scintillas2>
 
 				<DarkMode title="Dark Mode">
@@ -1921,6 +1923,8 @@ Click on &quot;?&quot; button on right to open website with User Manual."/>
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Apply non-printing characters appearance settings to C0, C1 control and Unicode EOL (next line, line separator and paragraph separator) characters."/>
+			<!-- Don't translate "(&quot;Editor scrollbar&quot; and &quot;Editor scrollbar hover&quot;)" -->
+			<scrollbarCustomColor-tip value="Go to Style Configurator to change the colors of the editor scrollbars (&quot;Editor scrollbar&quot; and &quot;Editor scrollbar hover&quot;)."/>
 			<searchingInSelThresh-tip value="Minimum number of selected characters in edit zone to automatically check the &quot;In selection&quot; checkbox when the Find dialog is activated. The maximum value is $INT_REPLACE$. Set the value to 0 to disable auto-checking."/>
 			<searchingFillFindWhat-tip value="Maximum number of selected characters in edit zone to fill automatically the &quot;Find what&quot; field when the Ctrl-F is triggered. The maximum value is $INT_REPLACE$, which is the maximum size of &quot;Find what&quot; field, limited by the system."/>
 			<verticalEdge-tip value="Add your column marker by indicating its position with a decimal number. You can define several column markers by using white space to separate the different numbers."/>

@@ -1952,7 +1952,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 			<max-len-on-save-tip value="您输入的内容过长，可能无法保存至下次会话。"/>
 			<goto-setting-tip value="在此处找到您的设置"/>
 			<tabbar-tabcompactlabellen-tip value="限制过长标签名的可见长度。输入以应用指定值。范围：1-257个字符（0表示禁用截断）。"/>
-			<networkpathwarning-serverwhitelist-tip value="将当前文件所属的服务器放在 Notepad++ 的 serverWhiteList.xml中。
+			<networkpathwarning-serverwhitelist-tip value="将当前文件所属的服务器放在 Notepad++ 的 serverWhiteList.xml 中。
 
 如需了解更多信息，请点击此按钮以打开包含有关内容的用户手册网站。"/>
 		</MiscStrings>

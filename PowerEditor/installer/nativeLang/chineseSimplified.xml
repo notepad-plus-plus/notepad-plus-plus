@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="简体中文" filename="chineseSimplified.xml" version="8.9.6.2">
+	<Native-Langue name="简体中文" filename="chineseSimplified.xml" version="8.9.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -622,6 +622,8 @@ Translation note:
 				<Item id="5508" name="下一个(&amp;N)"/>
 				<Item id="5509" name="插件列表版本: "/>
 				<Item id="5511" name="插件列表仓库"/>
+				<Item id="5512" name="停用(&amp;D)"/>
+				<Item id="5513" name="激活(&amp;A)"/>
 				<Item id="2" name="关闭"/>
 			</PluginsAdminDlg>
 
@@ -965,12 +967,15 @@ Translation note:
 			<Preference title="首选项">
 				<Item id="6001" name="关闭"/>
 				<Global title="常用">
-					<Item id="6123" name="界面语言"/>
+					<Item id="6123" name="界面语言(&amp;L)"/>
 					<Item id="6131" name="菜单栏"/>
-					<Item id="6122" name="隐藏菜单栏 (按下 Alt 或 F10 显示)"/>
-					<Item id="6132" name="隐藏菜单栏右侧的 ＋ ▼ ✕ 快捷按钮"/>
+					<Item id="6122" name="隐藏菜单栏 (按下 Alt 或 F10 显示)(&amp;H)"/>
+					<Item id="6132" name="隐藏菜单栏右侧的 ＋ ▼ ✕ 快捷按钮(&amp;R)"/>
 					<Item id="6133" name="状态栏"/>
-					<Item id="6134" name="隐藏状态栏"/>
+					<Item id="6134" name="隐藏状态栏(&amp;D)"/>
+					<Item id="7165" name="对话框字体（需要重启Notepad++）"/>
+					<Item id="7166" name="大小(&amp;S)："/>
+					<Item id="7168" name="名称："/>
 				</Global>
 
 				<Toolbar title="工具栏">
@@ -1396,6 +1401,7 @@ Translation note:
 					<Item id="6346" name="在文档结构图中启用速览"/>
 					<Item id="6360" name="全部静音"/>
 					<Item id="6361" name="全部保存时，弹出确认对话框"/>
+					<Item id="6366" name="允许作为工作区面板的文件夹加载符号链接"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="重复运行宏">
@@ -1463,7 +1469,18 @@ Translation note:
 				<Item id="7" name="否(&amp;N)"/>
 				<Item id="4" name="始终允许(&amp;A)"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+			<NetworkPathWarning title="正在加载 Notepad++ 会话" title2="可点击的 file:// 链接" title3="正在加载 toolbarButtonsConf.xml" title4="正在加载项目面板 XML 文件">
+				<Item id="1771" name="网络路径警告：
 
+$STR_REPLACE$
+
+加载此文件会导致 Windows 自动认证到其服务器，可能会暴露您的 Windows 登录信息。
+仍要加载吗？"/>
+				<Item id="2" name="跳过(&amp;S)"/>
+				<Item id="6" name="始终从该服务器加载(&amp;L)"/>
+				<Item id="7" name="始终跳过网络路径(&amp;A)"/>
+				<Item id="4" name="始终加载网络路径(&amp;E)"/>
+			</NetworkPathWarning>
 			<DebugInfo title="调试信息">
 				<Item id="1752" name="复制调试信息到剪贴板(&amp;C)"/>
 				<Item id="1" name="确定"/>
@@ -1573,11 +1590,11 @@ Translation note:
 			<UDLRemoveCurrentLang title="移除当前语言" message="您确定吗？"/>
 			<UDL_importSuccessful title="自定义语言格式" message="导入成功。"/>
 			<UDL_importFails title="自定义语言格式" message="导入失败。"/>
-			<UDL_saveBeforeImport title="自定义语言格式" message="导出前，请单击“另存为...”按钮保存语言定义。"/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_saveBeforeImport title="自定义语言格式" message="导出前，请单击“另存为...”按钮保存语言定义。"/><!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
 			<UDL_exportSuccessful title="自定义语言格式" message="导出成功。"/>
 			<UDL_exportFails title="自定义语言格式" message="导出失败。"/>
 			<SCMapperDoDeleteOrNot title="您确定吗？" message="您确定要删除此快捷键吗？"/>
-			<FindCharRangeValueError title="阈值问题" message="您应当输入 0-255 之间的数字。"/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
+			<FindCharRangeValueError title="阈值问题" message="您应当输入 0-255 之间的数字。"/><!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="保存失败" message="文件无法保存，它可能受到保护。
 是否要以管理员模式启动 Notepad++？"/>
 			<OpenInAdminModeWithoutCloseCurrent title="保存失败" message="文件无法保存，它可能受到保护。
@@ -1621,9 +1638,21 @@ Notepad++ 会备份您旧的 “shortcuts.xml” 文件，并将其保存为 “
 如果您确实需要正则表达式反向查找功能，请查阅用户手册以获取启用该功能的说明。"/>
 			<PrintError title="0" message="无法启动打印机文档。"/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 			<FindAutoChangeOfInSelectionWarning title="搜索警告" message="“选取范围内”复选框状态已自动修改。
-在执行操作之前，请确认搜索条件。"/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+在执行操作之前，请确认搜索条件。"/><!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Notepad++ 需要重启" message="需要重新启动 Notepad++ 才能显示菜单右侧的快捷方式。"/>
 			<NoAdminRight2ChangeReadOnlyFileAttribute title="修改文件只读属性失败" message="请以管理员身份运行 Notepad++ 来修改文件属性。"/>
+			<ReadOnlyFileCannotBeSaved title="保存失败 - 该文件为只读" message="&quot;$STR_REPLACE$&quot;
+该文件为只读状态，无法保存。
+请移除只读状态后保存。"/>
+			<ShortcutsXmlHMACMissing title="安全警告" message="shortcuts.xml 在 config.xml 中的安全信息缺失。
+
+出于安全原因，shortcuts.xml 的完整性会被检查。要运行您的自定义命令，请审阅已打开的 shortcuts.xml文件。如果内容无误，使用&quot;运行&quot;菜单中的&quot;验证shortcuts.xml文件&quot;以确认。"/>
+			<ShortcutsXmlTampered title="安全警告" message="shortcuts.xml 文件似乎已经被手动更改。
+
+出于安全原因，请审阅已打开的 shortcuts.xml文件。如果内容无误，使用&quot;运行&quot;菜单中的&quot;验证shortcuts.xml文件&quot;以确认。"/>
+			<SymlinkLoadingWarning title="警告：符号链接加载可能会造成程序冻结" message="在作为工作区的文件夹中启用符号链接加载可能会导致 Notepad++ 陷入死循环并且冻结。
+当目录符号链接指向父文件夹或形成循环引用时，可能会发生这种情况。
+仅在您理解风险时继续。"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="剪贴板历史"/>
@@ -1786,6 +1815,7 @@ Notepad++ 会备份您旧的 “shortcuts.xml” 文件，并将其保存为 “
 			<find-status-replace-readonly value="替换: 无法替换文本，当前文件只读。"/>
 			<find-status-cannot-find value="查找: 无法找到文本 “$STR_REPLACE$”"/>
 			<find-status-cannot-find-pebkac-maybe value="找不到指定的内容。您可能忘记设置 “循环查找”(打开)、“匹配大小写”(关闭) 或 “全词匹配”(关闭)。"/>
+			<find-status-regex-find-empty-string value="给定的正则表达式匹配空字符串。"/>
 			<find-status-scope-selection value="(在选区范围内)"/>
 			<find-status-scope-all value="(在整个文件范围内)"/>
 			<find-status-scope-backward value="(从文件头到光标范围内)"/>
@@ -1922,6 +1952,9 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 			<max-len-on-save-tip value="您输入的内容过长，可能无法保存至下次会话。"/>
 			<goto-setting-tip value="在此处找到您的设置"/>
 			<tabbar-tabcompactlabellen-tip value="限制过长标签名的可见长度。输入以应用指定值。范围：1-257个字符（0表示禁用截断）。"/>
+			<networkpathwarning-serverwhitelist-tip value="将当前文件所属的服务器放在 Notepad++ 的 serverWhiteList.xml 中。
+
+如需了解更多信息，请点击此按钮以打开包含有关内容的用户手册网站。"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

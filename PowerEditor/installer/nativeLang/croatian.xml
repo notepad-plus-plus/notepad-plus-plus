@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: September 16, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: October 16, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
@@ -978,12 +978,15 @@
 			<Preference title="Postavke">
 				<Item id="6001" name="Zatvori"/>
 				<Global title="Općenito">
-					<Item id="6123" name="Lokalizacija:"/>
+					<Item id="6123" name="&amp;Lokalizacija"/>
 					<Item id="6131" name="Glavni izbornik"/>
-					<Item id="6122" name="Sakrij (za prikaz koristite Alt ili F10)"/>
-					<Item id="6132" name="Sakrij prečace ＋ ▼ ✕ s desne strane"/>
+					<Item id="6122" name="&amp;Sakrij (za prikaz koristite Alt ili F10)"/>
+					<Item id="6132" name="Sakrij &amp;prečace ＋ ▼ ✕ s desne strane"/>
 					<Item id="6133" name="Statusna vrpca"/>
-					<Item id="6134" name="Sakrij"/>
+					<Item id="6134" name="S&amp;akrij"/>
+					<Item id="7165" name="Font u dijalozima (potreban je restart Notepada++)"/>
+					<Item id="7166" name="&amp;Veličina:"/>
+					<Item id="7168" name="Ime:"/>
 				</Global>
 
 				<Toolbar title="Alatna vrpca">
@@ -1376,7 +1379,7 @@ umjesto brisanja jednog razmaka"/>
 
 				<MISC title="Razno">
 					<ComboBox id="6347">
-						<Element name="Omogući za aktivnu datoteku"/>
+						<Element name="Omogući za aktivne datoteke"/>
 						<Element name="Omogući za sve otvorene datoteke"/>
 						<Element name="Isključi"/>
 					</ComboBox>
@@ -1827,6 +1830,7 @@ Nađi u svim datotekama s izuzetkom svih mapa log ili logs rekurzivno:
 			<find-status-replace-readonly value="Zamijeni: Ne mogu zamijeniti tekst. Trenutni dokument je samo za čitanje"/>
 			<find-status-cannot-find value="Pronađi: Ne mogu pronaći tekst &quot;$STR_REPLACE$&quot;"/>
 			<find-status-cannot-find-pebkac-maybe value="Navedeno pojavljivanje nije moguće pronaći. Možda ste zaboravili označiti &quot;Na kraju opet od početka&quot; (na UKLJUČENO), &quot;Razlikuj velika i mala slova&quot; (na ISKLJUČENO), ili &quot;Traži samo cijele riječi&quot; (na ISKLJUČENO)."/>
+			<find-status-regex-find-empty-string value="Zadani regularni izraz podudara se s praznim nizovima."/>
 			<find-status-scope-selection value="u odabranom tekstu"/>
 			<find-status-scope-all value="u cijeloj datoteci"/>
 			<find-status-scope-backward value="od početka datoteke do kursora"/>

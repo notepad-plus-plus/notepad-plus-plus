@@ -6987,6 +6987,7 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 			_nppGUI._findDlgAlwaysVisible = getBoolAttribute(childNode, "findDlgAlwaysVisible");
 			_nppGUI._confirmReplaceInAllOpenDocs = getBoolAttribute(childNode, "confirmReplaceInAllOpenDocs", _nppGUI._confirmReplaceInAllOpenDocs);
 			_nppGUI._replaceStopsWithoutFindingNext = getBoolAttribute(childNode, "replaceStopsWithoutFindingNext");
+			_nppGUI._findDlgHighlightMatches = getBoolAttribute(childNode, "findDlgHighlightMatches");
 
 			_nppGUI._inSelectionAutocheckThreshold = getRangeDefaultAttribute(childNode, "inSelectionAutocheckThreshold", 0, FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT, _nppGUI._inSelectionAutocheckThreshold);
 			_nppGUI._fillFindWhatThreshold = getRangeDefaultAttribute(childNode, "fillFindWhatThreshold", 1, FINDREPLACE_MAXLENGTH - 1, _nppGUI._fillFindWhatThreshold);
@@ -8170,6 +8171,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		setBoolAttribute(GUIConfigElement, "findDlgAlwaysVisible", _nppGUI._findDlgAlwaysVisible);
 		setBoolAttribute(GUIConfigElement, "confirmReplaceInAllOpenDocs", _nppGUI._confirmReplaceInAllOpenDocs);
 		setBoolAttribute(GUIConfigElement, "replaceStopsWithoutFindingNext", _nppGUI._replaceStopsWithoutFindingNext);
+		setBoolAttribute(GUIConfigElement, "findDlgHighlightMatches", _nppGUI._findDlgHighlightMatches);
 		NppXml::setAttribute(GUIConfigElement, "inSelectionAutocheckThreshold", _nppGUI._inSelectionAutocheckThreshold);
 		NppXml::setAttribute(GUIConfigElement, "fillFindWhatThreshold", _nppGUI._fillFindWhatThreshold);
 		setBoolAttribute(GUIConfigElement, "fillDirFieldFromActiveDoc", _nppGUI._fillDirFieldFromActiveDoc);

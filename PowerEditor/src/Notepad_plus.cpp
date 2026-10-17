@@ -7014,6 +7014,10 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	// check if possible IncrementalSearch does not need reset
 	if (_incrementFindDlg.isCreated() && _incrementFindDlg.isVisible())
 		_incrementFindDlg.reInitCount();
+
+	// the highlighting of the matches of the Find dialog follows the current document
+	if (_findReplaceDlg.isCreated())
+		_findReplaceDlg.updateMatchHighlighting();
 }
 
 std::vector<wstring> Notepad_plus::loadCommandlineParams(const wchar_t * commandLine, const CmdLineParamsDTO * pCmdParams)

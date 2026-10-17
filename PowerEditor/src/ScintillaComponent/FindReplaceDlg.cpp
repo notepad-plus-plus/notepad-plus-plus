@@ -1743,6 +1743,27 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			return TRUE;
 		}
 
+		case WM_TIMER:
+		{
+			if (wParam == IDT_FINDDLG_HIGHLIGHT_TIMER)
+			{
+				::KillTimer(_hSelf, IDT_FINDDLG_HIGHLIGHT_TIMER);
+				updateMatchHighlighting();
+				return TRUE;
+			}
+			return FALSE;
+		}
+
+		case WM_SHOWWINDOW:
+		{
+			// sent before the dialog is hidden, however it is closed, and when it is shown again with its owner
+			if (wParam)
+				updateMatchHighlightingLater();
+			else
+				clearMatchHighlighting();
+			return FALSE;
+		}
+
 		case WM_NOTIFY:
 		{
 			auto lpnmhdr = reinterpret_cast<LPNMHDR>(lParam);
@@ -1948,6 +1969,9 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				case IDFINDWHAT:
 				case IDREPLACEWITH:
 				{
+					if (LOWORD(wParam) == IDFINDWHAT && (HIWORD(wParam) == CBN_EDITUPDATE || HIWORD(wParam) == CBN_SELCHANGE))
+						updateMatchHighlightingLater();
+
 					if (HIWORD(wParam) == CBN_EDITUPDATE)
 					{
 						HWND hComboBox = ::GetDlgItem(_hSelf, LOWORD(wParam));
@@ -2687,14 +2711,17 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 //Option actions
 				case IDREDOTMATCHNL:
 					findHistory._dotMatchesNewline = _options._dotMatchesNewline = isCheckedOrNot(IDREDOTMATCHNL);
+					updateMatchHighlighting();
 					return TRUE;
 
 				case IDWHOLEWORD :
 					findHistory._isMatchWord = _options._isWholeWord = isCheckedOrNot(IDWHOLEWORD);
+					updateMatchHighlighting();
 					return TRUE;
 
 				case IDMATCHCASE :
 					findHistory._isMatchCase = _options._isMatchCase = isCheckedOrNot(IDMATCHCASE);
+					updateMatchHighlighting();
 					return TRUE;
 
 				case IDNORMAL:
@@ -2746,6 +2773,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					enableFindDlgItem(IDC_BACKWARDDIRECTION, doEnable);
 					enableFindDlgItem(IDC_FINDPREV, doEnable);
 
+					updateMatchHighlighting();
 					return TRUE;
 				}
 
@@ -4956,6 +4984,74 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 
 	::SetFocus(toShow ? ::GetDlgItem(_hSelf, IDFINDWHAT) : (*_ppEditView)->getHSelf());
 	StaticDialog::displayEnhanced(toShow);
+
+	updateMatchHighlighting(); // shown, or another tab
+}
+
+// "Highlight all matches while the dialog is open" (Preferences > Highlighting): while the dialog is shown on
+// the Find or Replace tab, all the matches of "Find what" are highlighted, with the options of the dialog.
+// Like Smart Highlighting, only the visible lines and one screen below are searched: the highlighting follows
+// the view when it scrolls, so its cost does not depend on the document size.
+void FindReplaceDlg::updateMatchHighlighting()
+{
+	clearMatchHighlighting();
+
+	const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+	if (!nppGui._findDlgHighlightMatches || !isVisible())
+		return;
+
+	if (_currentStatus != FIND_DLG && _currentStatus != REPLACE_DLG)
+		return;
+
+	ScintillaEditView* pEditView = *_ppEditView;
+	if (!pEditView->getCurrentBuffer()->allowSmartHilite()) // large file restriction
+		return;
+
+	wstring str2Search = getTextFromCombo(::GetDlgItem(_hSelf, IDFINDWHAT));
+	if (str2Search.empty())
+		return;
+
+	FindOption options = *_env;
+	options._str2Search = str2Search;
+	options._isInSelection = false;
+	options._incrementalType = NotIncremental;
+
+	const intptr_t firstVisibleLine = pEditView->execute(SCI_GETFIRSTVISIBLELINE);
+	const intptr_t nbLinesOnScreen = pEditView->execute(SCI_LINESONSCREEN);
+	const intptr_t firstLine = pEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleLine);
+	const intptr_t lastLine = pEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleLine + 2 * nbLinesOnScreen + 1);
+	const intptr_t endPos = pEditView->execute(SCI_POSITIONFROMLINE, lastLine + 1);
+
+	FindReplaceInfo frInfo;
+	frInfo._txt2find = options._str2Search.c_str();
+	frInfo._startRange = pEditView->execute(SCI_POSITIONFROMLINE, firstLine);
+	frInfo._endRange = (endPos < 0) ? static_cast<intptr_t>(pEditView->getCurrentDocLen()) : endPos;
+
+	// keep the target of the other search functions, like SmartHighlighter does
+	const auto originalStartPos = pEditView->execute(SCI_GETTARGETSTART);
+	const auto originalEndPos = pEditView->execute(SCI_GETTARGETEND);
+	processRange(ProcessMarkAllExt, frInfo, nullptr, &options, FINDDLG_HIGHLIGHT_INDIC, pEditView);
+	pEditView->execute(SCI_SETTARGETRANGE, originalStartPos, originalEndPos);
+
+	_pMatchHighlightView = pEditView;
+}
+
+// While typing in "Find what" or after an edit: updateMatchHighlighting() a moment after the last change
+void FindReplaceDlg::updateMatchHighlightingLater() const
+{
+	constexpr UINT updateDelay = 250; // ms
+	::SetTimer(_hSelf, IDT_FINDDLG_HIGHLIGHT_TIMER, updateDelay, nullptr);
+}
+
+void FindReplaceDlg::clearMatchHighlighting()
+{
+	::KillTimer(_hSelf, IDT_FINDDLG_HIGHLIGHT_TIMER);
+
+	// the current view, and the view highlighted last time if the other view has become the current one
+	(*_ppEditView)->clearIndicator(FINDDLG_HIGHLIGHT_INDIC);
+	if (_pMatchHighlightView && _pMatchHighlightView != *_ppEditView)
+		_pMatchHighlightView->clearIndicator(FINDDLG_HIGHLIGHT_INDIC);
+	_pMatchHighlightView = nullptr;
 }
 
 LRESULT CALLBACK FindReplaceDlg::FinderProc(

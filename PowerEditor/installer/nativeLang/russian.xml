@@ -1030,6 +1030,9 @@ Updated to :
 					<Item id="6132" name="Скрыть кнопки ＋ ▼ ✕ в строке меню"/>
 					<Item id="6133" name="Строка Статуса"/>
 					<Item id="6134" name="Скрыть"/>
+					<Item id="7165" name="Размер шрифта диалоговых окон (треб. перез.)"/>
+					<Item id="7166" name="Размер:"/>
+					<Item id="7168" name="Имя:"/>
 				</Global>
 				<Toolbar title="Панель Инструментов">
 					<Item id="6102" name="Скрыть"/>
@@ -1255,6 +1258,7 @@ Updated to :
 					<Item id="6913" name="Заполнять поле поиска в Папке на основе текущего документа"/>
 					<Item id="6916" name=": Макс. кол-во символов из Выделенного для Авто-заполнения поля Поиска"/>
 					<Item id="6917" name="Найти в файлах: Предпочтительнее использовать содержимое файлов на диске, а не буферные изменения."/>
+					<Item id="6918" name="Поиск по мере набора: разместить панель вверху"/>
 				</Searching>
 				<RecentFilesHistory title="История Открытия">
 					<Item id="6304" name="История Последних Закрытых Файлов"/>
@@ -1806,6 +1810,7 @@ $STR_REPLACE$
 			<find-status-replace-invalid-replace-chars value="Замена: нельзя заменить текст в ANSI документе, который не соответствующий стандарту ANSI."/>
 			<find-status-cannot-find value="Поиск: Не удается найти текст &quot;$STR_REPLACE$&quot;"/>
 			<find-status-cannot-find-pebkac-maybe value="Данное совпадение не может быть найдено. Возможно, вы забыли установить флажок &quot;Зациклить поиск&quot; (на ВКЛ), &quot;Учитывать регистр&quot; (на ВЫКЛ), или &quot;Только целые слова&quot; (на ВЫКЛ)."/>
+			<find-status-regex-find-empty-string value="Данное регулярное выражение соответствует пустым строкам."/>
 			<find-status-scope-selection value="в выделенном тексте"/>
 			<find-status-scope-all value="во всем файле"/>
 			<find-status-scope-backward value="от начала файла до знак вставки"/>

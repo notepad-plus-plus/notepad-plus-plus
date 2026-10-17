@@ -784,6 +784,9 @@ DockingCont* Gripper::contHitTest(POINT pt)
 
 	for (size_t iCont = 0, len = vCont.size(); iCont < len; ++iCont)
 	{
+		if (!vCont[iCont]->isCreated())
+			continue;
+
 		/* test if within caption */
 		if (hWnd == vCont[iCont]->getCaptionWnd())
 		{

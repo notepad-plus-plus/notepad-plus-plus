@@ -59,13 +59,7 @@ static LRESULT CALLBACK hookProcMouse(int nCode, WPARAM wParam, LPARAM lParam)
 DockingCont::DockingCont()
 {
 	setDpi();
-	_captionHeightDynamic = _dpiManager.scale(HIGH_CAPTION);
-	_captionGapDynamic = _dpiManager.scale(CAPTION_GAP);
-	_closeButtonPosLeftDynamic = _dpiManager.scale(CLOSEBTN_POS_LEFT);
-	_closeButtonPosTopDynamic = _dpiManager.scale(CLOSEBTN_POS_TOP);
-
-	_closeButtonWidth = _dpiManager.scale(g_dockingContCloseBtnSize);
-	_closeButtonHeight = _dpiManager.scale(g_dockingContCloseBtnSize);
+	updateDpiMetrics();
 }
 
 DockingCont::~DockingCont()
@@ -79,7 +73,7 @@ void DockingCont::doDialog(bool willBeShown, bool isFloating)
 	if (!isCreated())
 	{
 		NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
-		create(IDD_CONTAINER_DLG, pNativeSpeaker->isRTL(), true, 0);
+		create(IDD_CONTAINER_DLG, pNativeSpeaker->isRTL(), true, 8);
 
 		_isFloating  = isFloating;
 
@@ -91,10 +85,13 @@ void DockingCont::doDialog(bool willBeShown, bool isFloating)
 		}
 		else
 		{
+			::SetParent(_hSelf, ::GetParent(_hParent));
 			::SetWindowLongPtr(_hSelf, GWL_STYLE, CHILD_STYLES);
 			::SetWindowLongPtr(_hSelf, GWL_EXSTYLE, CHILD_EXSTYLES);
 			::ShowWindow(_hCaption, SW_SHOW);
 		}
+
+		destroyFonts();
 
 		//If you want default GUI font
 		LOGFONT lfTab{ DPIManagerV2::getDefaultGUIFontForDpi(_hParent) };
@@ -110,6 +107,12 @@ void DockingCont::doDialog(bool willBeShown, bool isFloating)
 
 DockedWidgetData* DockingCont::createDockedWidget(const DockedWidgetData& data)
 {
+	// Lazily instantiate the container dialog window on first use
+	if (!isCreated())
+	{
+		doDialog(false, _isFloating);
+	}
+
 	DockedWidgetData *pTbData = new DockedWidgetData;
 
 	*pTbData = data;
@@ -1144,20 +1147,18 @@ intptr_t CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 		}
 		case WM_INITDIALOG:
 		{
+			setDpi();
+
 			_hContTab = ::GetDlgItem(_hSelf, IDC_TAB_CONT);
 			_hCaption = ::GetDlgItem(_hSelf, IDC_BTN_CAPTION);
+
+			updateDpiMetrics();
 
 			// intial subclassing of caption
 			::SetWindowSubclass(_hCaption, DockingCaptionSubclass, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(this));
 
 			// intial subclassing of tab
 			::SetWindowSubclass(_hContTab, DockingTabSubclass, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(this));
-
-			// set min tab width
-			const int tabDpiPadding = _dpiManager.scale(g_dockingContTabIconSize + g_dockingContTabIconPadding * 2);
-			::SendMessage(_hContTab, TCM_SETMINTABWIDTH, 0, tabDpiPadding);
-			TabCtrl_SetPadding(_hContTab, tabDpiPadding / 2, 0);
-			TabCtrl_SetItemSize(_hContTab, 2 * tabDpiPadding, tabDpiPadding);
 
 			return TRUE;
 		}
@@ -1269,22 +1270,12 @@ intptr_t CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 		}
 		case WM_DPICHANGED_AFTERPARENT:
 		{
-			if (Message != WM_DPICHANGED)
+			if (Message == WM_DPICHANGED_AFTERPARENT)
 			{
-				_dpiManager.setDpi(_hParent);
+				setDpi();
 			}
-			_captionHeightDynamic = _dpiManager.scale(HIGH_CAPTION);
-			_captionGapDynamic = _dpiManager.scale(CAPTION_GAP);
-			_closeButtonPosLeftDynamic = _dpiManager.scale(CLOSEBTN_POS_LEFT);
-			_closeButtonPosTopDynamic = _dpiManager.scale(CLOSEBTN_POS_TOP);
 
-			_closeButtonWidth = _dpiManager.scale(g_dockingContCloseBtnSize);
-			_closeButtonHeight = _dpiManager.scale(g_dockingContCloseBtnSize);
-
-			const int tabDpiPadding = _dpiManager.scale(g_dockingContTabIconSize + g_dockingContTabIconPadding * 2);
-			::SendMessage(_hContTab, TCM_SETMINTABWIDTH, 0, tabDpiPadding);
-			TabCtrl_SetPadding(_hContTab, tabDpiPadding / 2, 0);
-			TabCtrl_SetItemSize(_hContTab, 2 * tabDpiPadding, tabDpiPadding);
+			updateDpiMetrics();
 
 			destroyFonts();
 
@@ -1815,4 +1806,23 @@ void DockingCont::focusClient()
 LPARAM DockingCont::NotifyParent(UINT message)
 {
 	return ::SendMessage(_hParent, message, 0, reinterpret_cast<LPARAM>(this));
+}
+
+void DockingCont::updateDpiMetrics()
+{
+	_captionHeightDynamic = _dpiManager.scale(HIGH_CAPTION);
+	_captionGapDynamic = _dpiManager.scale(CAPTION_GAP);
+	_closeButtonPosLeftDynamic = _dpiManager.scale(CLOSEBTN_POS_LEFT);
+	_closeButtonPosTopDynamic = _dpiManager.scale(CLOSEBTN_POS_TOP);
+
+	_closeButtonWidth = _dpiManager.scale(g_dockingContCloseBtnSize);
+	_closeButtonHeight = _dpiManager.scale(g_dockingContCloseBtnSize);
+
+	if (_hContTab)
+	{
+		const int tabDpiPadding = _dpiManager.scale(g_dockingContTabIconSize + g_dockingContTabIconPadding * 2);
+		::SendMessage(_hContTab, TCM_SETMINTABWIDTH, 0, tabDpiPadding);
+		TabCtrl_SetPadding(_hContTab, tabDpiPadding / 2, 0);
+		TabCtrl_SetItemSize(_hContTab, 2 * tabDpiPadding, tabDpiPadding);
+	}
 }

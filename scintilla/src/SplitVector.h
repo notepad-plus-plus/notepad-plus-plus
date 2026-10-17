@@ -13,13 +13,15 @@ namespace Scintilla::Internal {
 
 template <typename T>
 class SplitVector {
+	static constexpr size_t growthPortion = 6;
+	static constexpr size_t initialGrowSize = 8;
 protected:
 	std::vector<T> body;
 	T empty;	/// Returned as the result of out-of-bounds access.
-	ptrdiff_t lengthBody;
-	ptrdiff_t part1Length;
-	ptrdiff_t gapLength;	/// invariant: gapLength == body.size() - lengthBody
-	size_t growSize;
+	ptrdiff_t lengthBody = 0;
+	ptrdiff_t part1Length = 0;
+	ptrdiff_t gapLength = 0;	/// invariant: gapLength == body.size() - lengthBody
+	size_t growSize = initialGrowSize;
 
 	/// Move the gap to a particular position so that insertion and
 	/// deletion at that point will not require much copying and
@@ -54,7 +56,7 @@ protected:
 	/// reallocating if more space needed.
 	void RoomFor(ptrdiff_t insertionLength) {
 		if (gapLength < insertionLength) {
-			while (growSize < body.size() / 6)
+			while (growSize < (body.size() / growthPortion))
 				growSize *= 2;
 			ReAllocate(body.size() + insertionLength + growSize);
 		}
@@ -66,15 +68,15 @@ protected:
 		lengthBody = 0;
 		part1Length = 0;
 		gapLength = 0;
-		growSize = 8;
+		growSize = initialGrowSize;
 	}
 
 public:
 	/// Construct a split buffer.
-	SplitVector(size_t growSize_=8) : empty(), lengthBody(0), part1Length(0), gapLength(0), growSize(growSize_) {
+	explicit SplitVector(size_t growSize_=initialGrowSize) : empty(), growSize(growSize_) {
 	}
 
-	size_t GetGrowSize() const noexcept {
+	[[nodiscard]] size_t GetGrowSize() const noexcept {
 		return growSize;
 	}
 
@@ -100,20 +102,17 @@ public:
 
 	/// Retrieve the element at a particular position.
 	/// Retrieving positions outside the range of the buffer returns empty or 0.
-	const T& ValueAt(ptrdiff_t position) const noexcept {
+	[[nodiscard]] const T& ValueAt(ptrdiff_t position) const noexcept {
 		if (position < part1Length) {
 			if (position < 0) {
 				return empty;
-			} else {
-				return body[position];
 			}
-		} else {
-			if (position >= lengthBody) {
-				return empty;
-			} else {
-				return body[gapLength + position];
-			}
+			return body[position];
 		}
+		if (position >= lengthBody) {
+			return empty;
+		}
+		return body[gapLength + position];
 	}
 
 	/// Set the element at a particular position.
@@ -144,9 +143,8 @@ public:
 		PLATFORM_ASSERT(position >= 0 && position < lengthBody);
 		if (position < part1Length) {
 			return body[position];
-		} else {
-			return body[gapLength + position];
 		}
+		return body[gapLength + position];
 	}
 
 	/// Retrieve reference to the element at a particular position.
@@ -156,13 +154,12 @@ public:
 		PLATFORM_ASSERT(position >= 0 && position < lengthBody);
 		if (position < part1Length) {
 			return body[position];
-		} else {
-			return body[gapLength + position];
 		}
+		return body[gapLength + position];
 	}
 
 	/// Retrieve the length of the buffer.
-	ptrdiff_t Length() const noexcept {
+	[[nodiscard]] ptrdiff_t Length() const noexcept {
 		return lengthBody;
 	}
 
@@ -231,7 +228,7 @@ public:
 	}
 
 	/// Insert text into the buffer from an array.
-	void InsertFromArray(ptrdiff_t positionToInsert, const T s[], ptrdiff_t positionFrom, ptrdiff_t insertLength) {
+	void InsertFromArray(ptrdiff_t positionToInsert, const T *arr, ptrdiff_t positionFrom, ptrdiff_t insertLength) {
 		PLATFORM_ASSERT((positionToInsert >= 0) && (positionToInsert <= lengthBody));
 		if (insertLength > 0) {
 			if ((positionToInsert < 0) || (positionToInsert > lengthBody)) {
@@ -239,7 +236,7 @@ public:
 			}
 			RoomFor(insertLength);
 			GapTo(positionToInsert);
-			std::copy_n(s + positionFrom, insertLength, body.data() + part1Length);
+			std::copy_n(arr + positionFrom, insertLength, body.data() + part1Length);
 			lengthBody += insertLength;
 			part1Length += insertLength;
 			gapLength -= insertLength;
@@ -311,26 +308,23 @@ public:
 				// Range overlaps gap, so move gap to start of range.
 				GapTo(position);
 				return body.data() + position + gapLength;
-			} else {
-				return body.data() + position;
 			}
-		} else {
-			return body.data() + position + gapLength;
+			return body.data() + position;
 		}
+		return body.data() + position + gapLength;
 	}
 
 	/// Return a pointer to a single element.
 	/// Does not rearrange the buffer.
-	const T *ElementPointer(ptrdiff_t position) const noexcept {
+	[[nodiscard]] const T *ElementPointer(ptrdiff_t position) const noexcept {
 		if (position < part1Length) {
 			return body.data() + position;
-		} else {
-			return body.data() + position + gapLength;
 		}
+		return body.data() + position + gapLength;
 	}
 
 	/// Return the position of the gap within the buffer.
-	ptrdiff_t GapPosition() const noexcept {
+	[[nodiscard]] ptrdiff_t GapPosition() const noexcept {
 		return part1Length;
 	}
 };

@@ -516,6 +516,8 @@ Lexer cpp
                Set how to highlighting back-quoted strings. 0 (the default) no highlighting. 1 highlighted as Go raw string. 2 highlighted as JavaScript template literal.
         bool   lexer.cpp.escape.sequence
                Set to 1 to enable highlighting of escape sequences in strings
+        bool   lexer.cpp.continuation.only.in.strings
+               Set to 1 to only handle line continuation inside string literals
         bool   fold
         bool   fold.cpp.syntax.based
                Set this property to 0 to disable syntax based folding.
@@ -631,6 +633,8 @@ Lexer cppnocase
                Set how to highlighting back-quoted strings. 0 (the default) no highlighting. 1 highlighted as Go raw string. 2 highlighted as JavaScript template literal.
         bool   lexer.cpp.escape.sequence
                Set to 1 to enable highlighting of escape sequences in strings
+        bool   lexer.cpp.continuation.only.in.strings
+               Set to 1 to only handle line continuation inside string literals
         bool   fold
         bool   fold.cpp.syntax.based
                Set this property to 0 to disable syntax based folding.

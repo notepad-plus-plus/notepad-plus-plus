@@ -59,13 +59,7 @@ static LRESULT CALLBACK hookProcMouse(int nCode, WPARAM wParam, LPARAM lParam)
 DockingCont::DockingCont()
 {
 	setDpi();
-	_captionHeightDynamic = _dpiManager.scale(HIGH_CAPTION);
-	_captionGapDynamic = _dpiManager.scale(CAPTION_GAP);
-	_closeButtonPosLeftDynamic = _dpiManager.scale(CLOSEBTN_POS_LEFT);
-	_closeButtonPosTopDynamic = _dpiManager.scale(CLOSEBTN_POS_TOP);
-
-	_closeButtonWidth = _dpiManager.scale(g_dockingContCloseBtnSize);
-	_closeButtonHeight = _dpiManager.scale(g_dockingContCloseBtnSize);
+	updateDpiMetrics();
 }
 
 DockingCont::~DockingCont()

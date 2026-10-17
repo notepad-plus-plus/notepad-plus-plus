@@ -6,11 +6,11 @@ Notepad++ v8.9.8.1 vulnerability fixes, regression fix, bug-fixes & new enhancem
  4. Vulnerability: Fix incomplete UNC detection allowing NTLM leak bypass.
  5. Vulnerability: Fix crash of NPPM_* API when invalid value passed as argument.
  6. Regression: Fix failure to open files via Notepad++ symlink paths.
- 7. Fix a crash after canceling UAC saving operation.
+ 7. Fix a crash after cancelling UAC saving operation.
  8. Fix Network Path Warning dialog usability problem.
  9. Fix symlinks setting for Folder as Workspace not remembered across sessions.
-10. Fix continous validation of the same server when loading network path files.
-11. Fix UDL line comments not being correctely detected.
+10. Fix continuous validation of the same server when loading network path files.
+11. Fix UDL line comments not being correctly detected.
 12. Fix Unicode text alternation in clipboard by Notepad++ encoding conversion.
 13. Fix incorrect paste behaviour in column mode.
 14. Fix visual glitch in the UDL dialog when main window uses vertical tabs.
@@ -25,7 +25,7 @@ Notepad++ v8.9.8 vulnerability fixes, bug-fixes & new enhancements:
  3. Vulnerabilty: Fix out-of-bounds array write.
  4. Vulnerabilty: Fix authenticode verification bypass.
  5. Vulnerabilty: Fix a TOCTOU issue in the Notepad++ Updater (WinGUp).
- 6. Vulnerabilty: Fix session backup path-traversal allowing deletiion outside backup directory.
+ 6. Vulnerabilty: Fix session backup path-traversal allowing deletion outside backup directory.
  7. Vulnerabilty: Fix potential exposure of Windows login info (SMB/NTLM) via UNC path.
  8. Vulnerabilty: Fix shortcuts.xml HMAC bypass via the “Run a Macro Multiple Times”.
  9. Vulnerabilty: Fix Null pointer in NPPM_SAVESESSION handler causing crash.
@@ -37,7 +37,7 @@ Notepad++ v8.9.8 vulnerability fixes, bug-fixes & new enhancements:
 15. Fix crash in WM_COPYDATA COPYDATA_PARAMS for invalid payload.
 16. Fix crash in API NPPM_ALLOCATE* calls.
 17. Add an option to allow loading symlinks in Folder as Workspace.
-18. Regression: Fix loading session for alone subview and doc/tab with untitle name.
+18. Regression: Fix loading session for alone subview and doc/tab with untitled name.
 19. Fix CJK IME issues in Save As dialog.
 20. Update to Scintilla 5.6.6 & Lexilla 5.5.3.
 21. Add plugin deactivation capability.

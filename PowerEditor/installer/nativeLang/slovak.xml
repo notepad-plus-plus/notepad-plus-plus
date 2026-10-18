@@ -1240,6 +1240,7 @@
 					<Item id="6913" name="Vyplniť pole Priečinok v Hľadať v súboroch z aktívneho dokumentu"/>
 					<Item id="6916" name=": Maximálny počet znakov na automatické vloženie do poľa Hľadať"/>
 					<Item id="6917" name="Hľadať v súboroch: Uprednostniť obsah súboru na disku pred otvorenými vyrovnávacími pamäťami"/>
+					<Item id="6918" name="Postupné vyhľadávanie: zobraziť panel hore"/>
 				</Searching>
 
 				<RecentFilesHistory title="História súborov">

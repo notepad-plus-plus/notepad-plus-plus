@@ -93,6 +93,11 @@ protected:
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private:
+	void destroyListBoxFont() noexcept;
+	void createListBoxFontAndHeight();
+
+	const std::wstring& getDisplayString(HDC hdc, const ClipboardDataInfo& cbd, int maxPixelWidth) const;
+
 	ScintillaEditView **_ppEditView = nullptr;
 	std::vector<ClipboardDataInfo> _clipboardDataInfos;
 	HWND _hwndNextCbViewer = nullptr;

@@ -14,17 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include <stdexcept>
+
 #include "TaskList.h"
 #include "TaskListDlg_rc.h"
 #include "colors.h"
 
+#include <windows.h>
+
 #include <commctrl.h>
 
 #include <cwchar>
+#include <stdexcept>
 
 #include "NppConstants.h"
 #include "NppDarkMode.h"
+#include "Window.h"
 #include "dpiManagerV2.h"
 
 void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem, int index2set)
@@ -34,14 +38,14 @@ void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem
 	_currentIndex = index2set;
 
 	INITCOMMONCONTROLSEX icex{};
-    
+
     // Ensure that the common control DLL is loaded. 
     icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
     icex.dwICC  = ICC_LISTVIEW_CLASSES;
     InitCommonControlsEx(&icex);
 
 	_nbItem = nbItem;
-    
+
     // Create the list-view window in report view with label editing enabled.
 	int listViewStyles = LVS_REPORT | LVS_OWNERDATA | LVS_NOCOLUMNHEADER | LVS_NOSORTHEADER\
 						| /*LVS_NOSCROLL |*/ LVS_SINGLESEL | LVS_AUTOARRANGE | LVS_OWNERDRAWFIXED\
@@ -261,8 +265,13 @@ LRESULT CALLBACK TaskList::TaskListSelectProc(
 			{
 				if ((msg->message == WM_KEYDOWN) && (0x80 & GetKeyState(VK_CONTROL)))
 				{
+					// Ctrl+A will dismiss document switcher
+					if (msg->wParam == 'A')
+					{
+						::SendMessage(pRefData->_hParent, WM_COMMAND, ID_PICKEDUP, 0);
+					}
 					// Shift+Tab is cool but I think VK_UP and VK_LEFT are also cool :-)
-					if (((msg->wParam == VK_TAB) && (0x80 & GetKeyState(VK_SHIFT)))
+					else if (((msg->wParam == VK_TAB) && (0x80 & GetKeyState(VK_SHIFT)))
 						|| (msg->wParam == VK_UP)
 						|| (msg->wParam == VK_LEFT))
 					{

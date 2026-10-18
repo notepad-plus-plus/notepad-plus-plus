@@ -18,12 +18,10 @@
 #pragma once
 
 #include <windows.h>
-#include <commctrl.h>
-#include "Window.h"
 
-#ifndef WM_MOUSEWHEEL
-#define WM_MOUSEWHEEL 0x020A
-#endif //WM_MOUSEWHEEL
+#include <commctrl.h>
+
+#include "Window.h"
 
 class TaskList : public Window
 {
@@ -36,7 +34,7 @@ public:
 	}
 
 	~TaskList() override = default;
-	using Window::init;
+
 	void init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem, int index2set);
 	void destroy() override;
 	void setFont(int fontSize, const wchar_t* fontName = nullptr);
@@ -59,6 +57,8 @@ protected:
 	RECT _rc = {};
 
 private:
+	using Window::init;
+
 	void moveSelection(int direction);
 	static LRESULT CALLBACK TaskListSelectProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 };

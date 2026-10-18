@@ -973,8 +973,8 @@
 					<Item id="6133" name="Stavový riadok"/>
 					<Item id="6134" name="Sk&amp;ryť"/>
 					<Item id="7165" name="Veľkosť písma v dialógovom okne (vyžaduje sa reštart Notepad++)"/>
-					<Item id="7166" name="Si&amp;ze:"/>
-					<Item id="7168" name="Name:"/>
+					<Item id="7166" name="Veľ&amp;kosť:"/>
+					<Item id="7168" name="Názov:"/>
 				</Global>
 
 				<Toolbar title="Panel nástrojov">

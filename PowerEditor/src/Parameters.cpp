@@ -6164,7 +6164,7 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 
 			_nppGUI._tabCompactLabelLen = getRangeClampAttribute<UINT>(childNode, "tabCompactLabelLen", 0U, static_cast<UINT>(NB_MAX_TAB_COMPACT_LABEL_LEN), _nppGUI._tabCompactLabelLen);
 
-			_nppGUI._isVerticalTabListMode = getBoolAttribute(childNode, "verticalHorizontalTitles");
+			_nppGUI._isVerticalTabListMode = getBoolAttribute(childNode, "verticalHorizontalTitles", _nppGUI._isVerticalTabListMode);
 			_nppGUI._verticalTabListWidth = getRangeClampAttribute<int>(childNode, "verticalWidth", VERTICAL_TAB_LIST_WIDTH_MIN, VERTICAL_TAB_LIST_WIDTH_MAX, _nppGUI._verticalTabListWidth);
 		}
 		// <GUIConfig name="Auto-detection">yes</GUIConfig>

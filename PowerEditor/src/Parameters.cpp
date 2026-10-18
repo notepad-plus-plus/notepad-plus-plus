@@ -7294,7 +7294,7 @@ void NppParameters::feedScintillaParam(const NppXml::Element& element)
 
 	// Do Wrap
 	_svp._doWrap = getBoolAttribute(element, "Wrap");
-	_svp._isWordWrapPerDocument = getBoolAttribute(element, "wordWrapPerDocument");
+	_svp._isWordWrapPerDocument = getBoolAttribute(element, "wordWrapPerDocument", _svp._isWordWrapPerDocument);
 
 	// Do Edge
 	_svp._isEdgeBgMode = getBoolAttribute(element, "isEdgeBgMode");

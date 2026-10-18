@@ -117,16 +117,6 @@ intptr_t CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			return TRUE;
 		}
 
-		case WM_ACTIVATE:
-		{
-			if (LOWORD(wParam) == WA_INACTIVE)
-			{
-				::EndDialog(_hSelf, -1);
-				return TRUE;
-			}
-			break;
-		}
-
 		case WM_RBUTTONUP:
 		{
 			::SendMessage(_hSelf, WM_COMMAND, ID_PICKEDUP, _taskList.getCurrentIndex());
@@ -174,7 +164,7 @@ intptr_t CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			break;
 		}
 
-		case WM_COMMAND : 
+		case WM_COMMAND:
 		{
 			switch (wParam)
 			{
@@ -184,6 +174,12 @@ intptr_t CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 					int view2set = _taskListInfo._tlfsLst[listIndex]._iView;
 					int index2Switch = _taskListInfo._tlfsLst[listIndex]._docIndex;
 					::SendMessage(_hParent, NPPM_ACTIVATEDOC, view2set, index2Switch);
+					::EndDialog(_hSelf, -1);
+					return TRUE;
+				}
+
+				case IDCANCEL:
+				{
 					::EndDialog(_hSelf, -1);
 					return TRUE;
 				}

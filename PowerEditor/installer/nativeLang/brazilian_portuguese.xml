@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 17 Oct 2026 for 8.9.8.1+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 18 Oct 2026 for 8.9.8.1+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -1233,7 +1233,6 @@ Translation note:
 				<Searching title="Pesquisa">
 					<Item id="6902" name="Usar fonte monoespaçada na caixa de diálogo Localizar (é necessário reiniciar o Notepad++)"/>
 					<Item id="6903" name="A caixa de diálogo Localizar permanece aberta após a pesquisa que resulta na janela de resultados"/>
-					<Item id="6904" name="Confirmar Substituir todos em todos os documentos abertos"/>
 					<Item id="6905" name="Substituir: não mova para a ocorrência seguinte"/>
 					<Item id="6906" name="Janela de resultados da busca: mostre apenas uma ocorrência por linha, se for possível"/>
 					<Item id="6907" name="Quando a caixa de diálogo de localização for acionada"/>
@@ -1776,6 +1775,7 @@ Continue apenas se você compreender os riscos."/>
 			<default-open-save-select-folder value="Selecione uma pasta como pasta padrão"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Usar Shift+Enter para pesquisar na direção oposta."/>
 			<two-find-buttons-tip value="Modo 2 botões"/>
+			<confirm-replace-in-all-open-docs-tip value="Confirmar ação &quot;Substituir Todos em Todos os Documentos Abertos&quot;"/>
 			<find-in-files-filter-tip value="Procurar em cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 

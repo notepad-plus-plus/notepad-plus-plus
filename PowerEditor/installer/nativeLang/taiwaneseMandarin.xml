@@ -94,7 +94,7 @@
 					<Item id="41007" name="全部儲存(&amp;E)"/>
 					<Item id="41008" name="另存新檔(&amp;A)..."/>
 					<Item id="41010" name="列印(&amp;P)..."/>
-					<Item id="1001" name="立即列印(&amp;W)"/>
+					<Item id="1001"  name="立即列印(&amp;W)"/>
 					<Item id="41011" name="結束(&amp;X)"/>
 					<Item id="41012" name="載入文件群組(&amp;I)..."/>
 					<Item id="41013" name="儲存文件群組(&amp;I)..."/>
@@ -1180,7 +1180,6 @@
 				<Searching title="尋找">
 					<Item id="6902" name="在尋找與取代對話方塊中使用等寬字型（需要重新啟動 Notepad++）"/>
 					<Item id="6903" name="搜尋結果輸出到結果視窗後，尋找與取代對話方塊繼續保持打開狀態"/>
-					<Item id="6904" name="確認「在所有開啟的文件中取代」"/>
 					<Item id="6905" name="替換：不要移動到下一個匹配項"/>
 					<Item id="6906" name="搜尋結果視窗：在可能的情況下每個找到的行只顯示一個條目"/>
 					<Item id="6907" name="當尋找對話方塊被觸發引出時"/>
@@ -1637,6 +1636,7 @@ $STR_REPLACE$
 			<default-open-save-select-folder value="選擇一個你要設定為內定資料夾的資料夾"/>
 			<shift-change-direction-tip value="使用「Shift + Enter」以相反方向進行搜尋"/>
 			<two-find-buttons-tip value="顯示「找上一個」按鈕"/>
+			<confirm-replace-in-all-open-docs-tip value="確認「在所有開啟的文件中取代」"/>
 			<find-in-files-filter-tip value="只在 cpp, cxx, h, hxx &amp;&amp; hpp 中找尋:
 *.cpp *.cxx *.h *.hxx *.hpp
 

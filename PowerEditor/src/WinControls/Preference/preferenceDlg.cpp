@@ -7255,7 +7255,6 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_FILLFINDWHAT_THRESHOLD_STATIC), nppGUI._fillFindFieldWithSelected ? TRUE : FALSE);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET), nppGUI._fillFindFieldWithSelected ? TRUE : FALSE);
 
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_CONFIRMREPLOPENDOCS, BM_SETCHECK, nppGUI._confirmReplaceInAllOpenDocs, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_REPLACEANDSTOP, BM_SETCHECK, nppGUI._replaceStopsWithoutFindingNext, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SHOWONCEPERFOUNDLINE, BM_SETCHECK, nppGUI._finderShowOnlyOneEntryPerFoundLine, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_FIF_IGNOREOPENEDFILES, BM_SETCHECK, nppGUI._fif_ignoreunsavedChangesInOpenedFiles, 0);
@@ -7414,12 +7413,6 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				case IDC_CHECK_FINDDLG_ALWAYS_VISIBLE:
 				{
 					nppGUI._findDlgAlwaysVisible = isCheckedOrNot(IDC_CHECK_FINDDLG_ALWAYS_VISIBLE);
-					return TRUE;
-				}
-
-				case IDC_CHECK_CONFIRMREPLOPENDOCS:
-				{
-					nppGUI._confirmReplaceInAllOpenDocs = isCheckedOrNot(IDC_CHECK_CONFIRMREPLOPENDOCS);
 					return TRUE;
 				}
 

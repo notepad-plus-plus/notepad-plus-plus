@@ -80,7 +80,7 @@ struct TargetRange {
 
 enum SearchIncrementalType { NotIncremental, FirstIncremental, NextIncremental };
 enum SearchType { FindNormal, FindExtended, FindRegex };
-enum ProcessOperation { ProcessFindAll, ProcessReplaceAll, ProcessCountAll, ProcessMarkAll, ProcessHighLightAll, ProcessMarkAll_IncSearch, ProcessMarkAllExt, ProcessFindInFinder };
+enum ProcessOperation { ProcessFindAll, ProcessReplaceAll, ProcessCountAll, ProcessMarkAll, ProcessHighLightAll, ProcessMarkAll_IncSearch, ProcessMarkAllExt, ProcessFindInFinder, ProcessGrep, ProcessUngrep };
 
 struct FindOption
 {
@@ -107,7 +107,7 @@ struct FindOption
 	bool _isMatchLineNumber = false; // always false for main search
 
 	// Out
-	bool _regexEmptyStringFound = false; // used only for status bar tooltip display on countAll & markAll operations
+	bool _regexEmptyStringFound = false; // used only for status bar tooltip display on countAll, markAll, Grep & Ungrep operations
 };
 
 struct MatchPosition

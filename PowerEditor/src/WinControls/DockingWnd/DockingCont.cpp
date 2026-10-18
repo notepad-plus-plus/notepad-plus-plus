@@ -59,13 +59,7 @@ static LRESULT CALLBACK hookProcMouse(int nCode, WPARAM wParam, LPARAM lParam)
 DockingCont::DockingCont()
 {
 	setDpi();
-	_captionHeightDynamic = _dpiManager.scale(HIGH_CAPTION);
-	_captionGapDynamic = _dpiManager.scale(CAPTION_GAP);
-	_closeButtonPosLeftDynamic = _dpiManager.scale(CLOSEBTN_POS_LEFT);
-	_closeButtonPosTopDynamic = _dpiManager.scale(CLOSEBTN_POS_TOP);
-
-	_closeButtonWidth = _dpiManager.scale(g_dockingContCloseBtnSize);
-	_closeButtonHeight = _dpiManager.scale(g_dockingContCloseBtnSize);
+	updateDpiMetrics();
 }
 
 DockingCont::~DockingCont()
@@ -1144,6 +1138,8 @@ intptr_t CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 		}
 		case WM_INITDIALOG:
 		{
+			setDpi();
+
 			_hContTab = ::GetDlgItem(_hSelf, IDC_TAB_CONT);
 			_hCaption = ::GetDlgItem(_hSelf, IDC_BTN_CAPTION);
 
@@ -1154,10 +1150,7 @@ intptr_t CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			::SetWindowSubclass(_hContTab, DockingTabSubclass, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(this));
 
 			// set min tab width
-			const int tabDpiPadding = _dpiManager.scale(g_dockingContTabIconSize + g_dockingContTabIconPadding * 2);
-			::SendMessage(_hContTab, TCM_SETMINTABWIDTH, 0, tabDpiPadding);
-			TabCtrl_SetPadding(_hContTab, tabDpiPadding / 2, 0);
-			TabCtrl_SetItemSize(_hContTab, 2 * tabDpiPadding, tabDpiPadding);
+			updateDpiMetrics();
 
 			return TRUE;
 		}
@@ -1273,18 +1266,8 @@ intptr_t CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			{
 				_dpiManager.setDpi(_hParent);
 			}
-			_captionHeightDynamic = _dpiManager.scale(HIGH_CAPTION);
-			_captionGapDynamic = _dpiManager.scale(CAPTION_GAP);
-			_closeButtonPosLeftDynamic = _dpiManager.scale(CLOSEBTN_POS_LEFT);
-			_closeButtonPosTopDynamic = _dpiManager.scale(CLOSEBTN_POS_TOP);
 
-			_closeButtonWidth = _dpiManager.scale(g_dockingContCloseBtnSize);
-			_closeButtonHeight = _dpiManager.scale(g_dockingContCloseBtnSize);
-
-			const int tabDpiPadding = _dpiManager.scale(g_dockingContTabIconSize + g_dockingContTabIconPadding * 2);
-			::SendMessage(_hContTab, TCM_SETMINTABWIDTH, 0, tabDpiPadding);
-			TabCtrl_SetPadding(_hContTab, tabDpiPadding / 2, 0);
-			TabCtrl_SetItemSize(_hContTab, 2 * tabDpiPadding, tabDpiPadding);
+			updateDpiMetrics();
 
 			destroyFonts();
 
@@ -1815,4 +1798,23 @@ void DockingCont::focusClient()
 LPARAM DockingCont::NotifyParent(UINT message)
 {
 	return ::SendMessage(_hParent, message, 0, reinterpret_cast<LPARAM>(this));
+}
+
+void DockingCont::updateDpiMetrics()
+{
+	_captionHeightDynamic = _dpiManager.scale(HIGH_CAPTION);
+	_captionGapDynamic = _dpiManager.scale(CAPTION_GAP);
+	_closeButtonPosLeftDynamic = _dpiManager.scale(CLOSEBTN_POS_LEFT);
+	_closeButtonPosTopDynamic = _dpiManager.scale(CLOSEBTN_POS_TOP);
+
+	_closeButtonWidth = _dpiManager.scale(g_dockingContCloseBtnSize);
+	_closeButtonHeight = _dpiManager.scale(g_dockingContCloseBtnSize);
+
+	if (_hContTab)
+	{
+		const int tabDpiPadding = _dpiManager.scale(g_dockingContTabIconSize + g_dockingContTabIconPadding * 2);
+		::SendMessage(_hContTab, TCM_SETMINTABWIDTH, 0, tabDpiPadding);
+		TabCtrl_SetPadding(_hContTab, tabDpiPadding / 2, 0);
+		TabCtrl_SetItemSize(_hContTab, 2 * tabDpiPadding, tabDpiPadding);
+	}
 }

@@ -175,6 +175,8 @@ protected:
 	bool updateCaption();
 	LPARAM NotifyParent(UINT message);
 
+	void updateDpiMetrics();
+
 private:
 	// handles
 	BOOL _isActive = FALSE;

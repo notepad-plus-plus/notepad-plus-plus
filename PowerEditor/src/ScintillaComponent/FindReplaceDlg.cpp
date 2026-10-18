@@ -6448,6 +6448,9 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 			setChecked(IDC_INCFINDMATCHCASE, findHistory._isIncrementalMatchCase);
 			setChecked(IDC_INCFINDHILITEALL, findHistory._isIncrementalHighlightAll);
 			setChecked(IDC_INCFINDCOUNT, findHistory._isIncrementalCount);
+
+			NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+			::SetDlgItemText(_hSelf, IDC_GOUPDOWN_TOGGLE_BUTTON, nppGUI._incrementalSearchBarAtTop ? L"˅" : L"˄");
 			return TRUE;
 		}
 
@@ -6461,6 +6464,15 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 
 			switch (LOWORD(wParam))
 			{
+				case IDC_GOUPDOWN_TOGGLE_BUTTON:
+				{
+					NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+					nppGUI._incrementalSearchBarAtTop = !nppGUI._incrementalSearchBarAtTop;
+					::SetDlgItemText(_hSelf, IDC_GOUPDOWN_TOGGLE_BUTTON, nppGUI._incrementalSearchBarAtTop ? L"˅" : L"˄");
+					::SendMessage(_hParent, NPPM_INTERNAL_INCSEARCHBARPOSITION, 0, 0);
+					return TRUE;
+				}
+
 				case IDCANCEL :
 					(*(_pFRDlg->_ppEditView))->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_INC);
 					(*(_pFRDlg->_ppEditView))->grabFocus();

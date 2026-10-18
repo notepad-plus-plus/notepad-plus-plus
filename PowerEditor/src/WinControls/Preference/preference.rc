@@ -448,10 +448,9 @@ BEGIN
 
     CONTROL         "Use Monospaced font in Find dialog (Need to restart Notepad++)",IDC_CHECK_MONOSPACEDFONT_FINDDLG,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,106,350,10
     CONTROL         "Find dialog remains open after search that outputs to results window",IDC_CHECK_FINDDLG_ALWAYS_VISIBLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,121,350,10
-    CONTROL         "Incremental Search: show the bar at the top",IDC_CHECK_INCSEARCHBAR_ATTOP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,136,350,10
-    CONTROL         "Replace: Don't move to the following occurrence",IDC_CHECK_REPLACEANDSTOP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,151,350,10
-    CONTROL         "Search Result window: show only one entry per found line if possible",IDC_CHECK_SHOWONCEPERFOUNDLINE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,166,350,10
-    CONTROL         "Find in Files: Prefer on‑disk file content over open buffers",IDC_CHECK_FIF_IGNOREOPENEDFILES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,181,350,10
+    CONTROL         "Replace: Don't move to the following occurrence",IDC_CHECK_REPLACEANDSTOP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,136,350,10
+    CONTROL         "Search Result window: show only one entry per found line if possible",IDC_CHECK_SHOWONCEPERFOUNDLINE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,151,350,10
+    CONTROL         "Find in Files: Prefer on‑disk file content over open buffers",IDC_CHECK_FIF_IGNOREOPENEDFILES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,166,350,10
 END
 
 IDD_PREFERENCE_SUB_BACKUP DIALOGEX 115, 10, 460, 205

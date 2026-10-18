@@ -404,6 +404,9 @@ namespace
 	// function draws it
 	bool paintPart(HTHEME theme, HDC hdc, int part, int state, const RECT& rc, LPCRECT clip)
 	{
+#ifdef __GNUC__
+		constexpr int SBP_SIZEBOXBKGND = 11; // not in the mingw headers
+#endif
 		bool vertical = true;
 		Arrow arrow = Arrow::up;
 		enum class Look { normal, hot, pressed, disabled } look = Look::normal;
@@ -499,8 +502,10 @@ namespace
 	// The square between the two scrollbars, in the track colour
 	void paintCorner(HWND hwnd)
 	{
-		SCROLLBARINFO vertical{ sizeof(SCROLLBARINFO) };
-		SCROLLBARINFO horizontal{ sizeof(SCROLLBARINFO) };
+		SCROLLBARINFO vertical{};
+		vertical.cbSize = sizeof(SCROLLBARINFO);
+		SCROLLBARINFO horizontal{};
+		horizontal.cbSize = sizeof(SCROLLBARINFO);
 		if (!::GetScrollBarInfo(hwnd, OBJID_VSCROLL, &vertical) || !::GetScrollBarInfo(hwnd, OBJID_HSCROLL, &horizontal))
 			return;
 		if ((vertical.rgstate[0] | horizontal.rgstate[0]) & (STATE_SYSTEM_INVISIBLE | STATE_SYSTEM_OFFSCREEN))

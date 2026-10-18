@@ -152,9 +152,6 @@ bool buf2Clipboard(const std::vector<Buffer*>& buffers, bool isFullPath, HWND hw
 
 std::wstring GetLastErrorAsString(DWORD errorCode = 0);
 
-std::wstring intToString(int val);
-std::wstring uintToString(unsigned int val);
-
 HWND createToolTip(int toolID, HWND hDlg, HINSTANCE hInst, wchar_t* pszText, bool isRTL);
 HWND createToolTipRect(int toolID, HWND hWnd, HINSTANCE hInst, wchar_t* pszText, const RECT rc);
 

@@ -314,7 +314,7 @@ void Notepad_plus::command(int id)
 				errorMsg += L"\nCommand: ";
 				errorMsg += buf->getFullPathName();
 				errorMsg += L"\nError Code: ";
-				errorMsg += intToString(retResult);
+				errorMsg += std::to_wstring(retResult);
 				errorMsg += L"\n----------------------------------------------------------";
 				
 				NppDarkMode::darkMessageBoxW(_pPublicInterface->getHSelf(), errorMsg.c_str(), L"ShellExecute - ERROR", MB_ICONINFORMATION | MB_APPLMODAL);

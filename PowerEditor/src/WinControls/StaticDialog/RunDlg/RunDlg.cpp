@@ -252,7 +252,7 @@ HINSTANCE Command::run(HWND hWnd, const wchar_t* cwd)
 		errorMsg += L"\nArguments: ";
 		errorMsg += args2Exec;
 		errorMsg += L"\nError Code: ";
-		errorMsg += intToString(retResult);
+		errorMsg += std::to_wstring(retResult);
 		errorMsg += L"\n----------------------------------------------------------";
 
 		NppDarkMode::darkMessageBoxW(hWnd, errorMsg.c_str(), L"ShellExecute - ERROR", MB_ICONINFORMATION | MB_APPLMODAL);

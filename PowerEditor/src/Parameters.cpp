@@ -7283,7 +7283,7 @@ void NppParameters::feedScintillaParam(const NppXml::Element& element)
 	_svp._disableAdvancedScrolling = getBoolAttribute(element, "disableAdvancedScrolling");
 
 	// Smooth Scrolling (by pixels)
-	_svp._smoothScrolling = getBoolAttribute(element, "smoothScrolling");
+	_svp._smoothScrolling = getBoolAttribute(element, "smoothScrolling", _svp._smoothScrolling);
 	_svp._smoothScrollingDuration = getRangeDefaultAttribute(element, "smoothScrollingDuration", 1, 1000, _svp._smoothScrollingDuration);
 
 	// Current wrap symbol visibility State

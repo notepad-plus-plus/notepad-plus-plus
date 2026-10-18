@@ -85,13 +85,10 @@ void DockingCont::doDialog(bool willBeShown, bool isFloating)
 		}
 		else
 		{
-			::SetParent(_hSelf, ::GetParent(_hParent));
 			::SetWindowLongPtr(_hSelf, GWL_STYLE, CHILD_STYLES);
 			::SetWindowLongPtr(_hSelf, GWL_EXSTYLE, CHILD_EXSTYLES);
 			::ShowWindow(_hCaption, SW_SHOW);
 		}
-
-		destroyFonts();
 
 		//If you want default GUI font
 		LOGFONT lfTab{ DPIManagerV2::getDefaultGUIFontForDpi(_hParent) };
@@ -1152,13 +1149,14 @@ intptr_t CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			_hContTab = ::GetDlgItem(_hSelf, IDC_TAB_CONT);
 			_hCaption = ::GetDlgItem(_hSelf, IDC_BTN_CAPTION);
 
-			updateDpiMetrics();
-
 			// intial subclassing of caption
 			::SetWindowSubclass(_hCaption, DockingCaptionSubclass, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(this));
 
 			// intial subclassing of tab
 			::SetWindowSubclass(_hContTab, DockingTabSubclass, static_cast<UINT_PTR>(SubclassID::first), reinterpret_cast<DWORD_PTR>(this));
+
+			// set min tab width
+			updateDpiMetrics();
 
 			return TRUE;
 		}

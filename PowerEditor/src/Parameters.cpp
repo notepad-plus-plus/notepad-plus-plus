@@ -7330,7 +7330,7 @@ void NppParameters::feedScintillaParam(const NppXml::Element& element)
 	_svp._npcCustomColor = getBoolAttribute(element, "npcCustomColor");
 	_svp._npcIncludeCcUniEol = getBoolAttribute(element, "npcIncludeCcUniEOL");
 	_svp._npcNoInputC0 = getBoolAttribute(element, "npcNoInputC0", _svp._npcNoInputC0);
-	_svp._scrollbarCustomColor = getBoolAttribute(element, "scrollbarCustomColor");
+	_svp._scrollbarCustomColor = getBoolAttribute(element, "scrollbarCustomColor", _svp._scrollbarCustomColor);
 
 	// C0, C1 control and Unicode EOL visibility state
 	_svp._ccUniEolShow = getBoolAttribute(element, "ccShow", _svp._ccUniEolShow);

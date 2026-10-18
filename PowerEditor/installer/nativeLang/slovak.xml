@@ -1230,7 +1230,6 @@
 				<Searching title="Vyhľadávanie">
 					<Item id="6902" name="Použiť neproporcionálne písmo v dialógovom okne Hľadať (Vyžaduje sa reštart Notepad++)"/>
 					<Item id="6903" name="Dialógové okno Hľadať zostáva otvorené po vyhľadaní s výstupom do okna s výsledkami hľadania"/>
-					<Item id="6904" name="Potvrdiť Nahradiť všetko vo všetkých otvorených dokumentoch"/>
 					<Item id="6905" name="Nahradiť: Neprechádzať na nasledujúci výskyt"/>
 					<Item id="6906" name="Okno s výsledkami hľadania: zobraziť len jednu položku na nájdený riadok, ak je to možné"/>
 					<Item id="6907" name="Pri vyvolaní dialógového okna Hľadať"/>
@@ -1773,6 +1772,7 @@ Pokračujte len vtedy, ak rozumiete rizikám."/>
 			<default-open-save-select-folder value="Vyberte predvolený priečinok"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Na vyhľadávanie v opačnom smere použite Shift+Enter"/>
 			<two-find-buttons-tip value="Režim dvoch tlačidiel"/>
+			<confirm-replace-in-all-open-docs-tip value="Potvrdiť akciu &quot;Nahradiť všetko vo všetkých otvorených dokumentoch&quot;"/>
 			<find-in-files-filter-tip value="Hľadať v cpp, cxx, h, hxx a hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 

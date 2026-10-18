@@ -1247,7 +1247,6 @@ Updated to :
 				<Searching title="Поиск">
 					<Item id="6902" name="Моноширинный шрифт в окне поиска (необходим перезапуск Notepad++)"/>
 					<Item id="6903" name="Оставлять окно Поиска открытым после окончания поиска"/>
-					<Item id="6904" name="Запрашивать подтверждение операции &quot;Заменить все во Всех Открытых Документах&quot;"/>
 					<Item id="6905" name="Замена: не переходить к следующему совпадению, только при повторном нажатии"/>
 					<Item id="6906" name="Результаты поиска: все совпадения в строке отображать одной записью если это возможно"/>
 
@@ -1772,6 +1771,7 @@ $STR_REPLACE$
 			<default-open-save-select-folder value="Выберите папку в качестве директории по умолчанию"/>
 			<shift-change-direction-tip value="Используйте Shift+Enter для поиска в обратном направлении."/>
 			<two-find-buttons-tip value="2 направления поиска"/>
+			<confirm-replace-in-all-open-docs-tip value="Подтвердите действие &quot;Заменить всё во всех открытых документах&quot;"/>
 			<find-in-files-filter-tip value="Искать в cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 

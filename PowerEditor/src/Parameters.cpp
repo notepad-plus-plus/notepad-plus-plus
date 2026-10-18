@@ -6987,7 +6987,7 @@ void NppParameters::feedGUIParameters(const NppXml::Element& element)
 			_nppGUI._findDlgAlwaysVisible = getBoolAttribute(childNode, "findDlgAlwaysVisible");
 			_nppGUI._confirmReplaceInAllOpenDocs = getBoolAttribute(childNode, "confirmReplaceInAllOpenDocs", _nppGUI._confirmReplaceInAllOpenDocs);
 			_nppGUI._replaceStopsWithoutFindingNext = getBoolAttribute(childNode, "replaceStopsWithoutFindingNext");
-			_nppGUI._findDlgHighlightMatches = getBoolAttribute(childNode, "findDlgHighlightMatches");
+			_nppGUI._findDlgHighlightMatches = getBoolAttribute(childNode, "findDlgHighlightMatches", _nppGUI._findDlgHighlightMatches);
 
 			_nppGUI._inSelectionAutocheckThreshold = getRangeDefaultAttribute(childNode, "inSelectionAutocheckThreshold", 0, FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT, _nppGUI._inSelectionAutocheckThreshold);
 			_nppGUI._fillFindWhatThreshold = getRangeDefaultAttribute(childNode, "fillFindWhatThreshold", 1, FINDREPLACE_MAXLENGTH - 1, _nppGUI._fillFindWhatThreshold);

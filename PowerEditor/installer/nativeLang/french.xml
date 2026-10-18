@@ -1192,6 +1192,7 @@ Translation note:
 
 				<Print title="Impression">
 					<Item id="6601" name="Imprimer les numéros de lignes"/>
+					<Item id="6616" name="Imprimer les sauts de page"/>
 					<Item id="6602" name="Couleur"/>
 					<Item id="6603" name="Impression telle qu’à l’écran"/>
 					<Item id="6604" name="Inverser"/>
@@ -1836,6 +1837,7 @@ Le texte collé dans ce champ contient des caractères invisibles (peut-être de
 			<common-ok value="OK"/>
 			<common-cancel value="Annuler"/>
 			<common-name value="Nom"/>
+			<common-error value="Erreur"/>
 			<tabrename-title value="Renommer onglet actuel"/>
 			<tabrename-newname value="Nouveau nom"/>
 			<splitter-rotate-left value="Tourner vers la gauche"/>
@@ -1857,6 +1859,7 @@ Le texte collé dans ce champ contient des caractères invisibles (peut-être de
 			<progress-hits-title value="Résultats :"/>
 			<progress-cancel-info value="Annulation de l’opération, veuillez patienter..."/>
 			<find-in-files-progress-title value="Rechercher dans les fichiers en cours..."/>
+			<discover-file-candidates-title value="Découverte des fichiers candidats..."/>
 			<replace-in-files-confirm-title value="Confirmation"/>
 			<replace-in-files-confirm-directory value="Voulez-vous remplacer toutes les occurrences dans :"/>
 			<replace-in-files-confirm-filetype value="Pour le(s) type(s) de fichier :"/>

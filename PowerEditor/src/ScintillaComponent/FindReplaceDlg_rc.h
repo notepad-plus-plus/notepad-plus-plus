@@ -146,4 +146,7 @@
 #define IDC_COPY_FIND2REPLACE			1727
 #define IDC_COPY_REPLACE2FIND			1728
 
+#define IDC_GREP						1729
+#define IDC_UNGREP						1730
+
 #endif //FINDREPLACE_DLG_H

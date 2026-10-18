@@ -1259,7 +1259,7 @@ void FindReplaceDlg::resizeDialogElements()
 	constexpr std::array moveBtnIDs{
 		IDCMARKALL, IDC_CLEAR_ALL, IDCCOUNTALL, IDC_FINDALL_OPENEDFILES, IDC_FINDALL_CURRENTFILE,
 		IDREPLACE, IDREPLACEALL, IDC_REPLACE_OPENEDFILES, IDD_FINDINFILES_FIND_BUTTON, IDD_FINDINFILES_REPLACEINFILES, IDCANCEL,
-		IDC_FINDPREV, IDC_COPY_MARKED_TEXT, IDD_FINDINFILES_REPLACEINPROJECTS
+		IDC_FINDPREV, IDC_COPY_MARKED_TEXT, IDD_FINDINFILES_REPLACEINPROJECTS, IDC_GREP, IDC_UNGREP
 	};
 
 	constexpr std::array moveOtherCtrlsIDs{
@@ -1362,6 +1362,11 @@ void FindReplaceDlg::resizeDialogElements()
 	HWND hFPrevBtn = ::GetDlgItem(_hSelf, IDC_FINDPREV);
 	getMappedChildRect(hFPrevBtn, rcFPrevBtn);
 	hdwp = setOrDeferWindowPos(hdwp, ::GetDlgItem(_hSelf, IDC_FINDNEXT), nullptr, rcFPrevBtn.right + gap, rcOkBtn.top, 0, 0, SWP_NOSIZE | flags);
+
+	RECT rcUngrepBtn{};
+	HWND hUngrepBtn = ::GetDlgItem(_hSelf, IDC_UNGREP);
+	getMappedChildRect(hUngrepBtn, rcUngrepBtn);
+	hdwp = setOrDeferWindowPos(hdwp, hUngrepBtn, nullptr, rcOkBtn.right - getRcWidth(rcUngrepBtn), rcUngrepBtn.top, 0, 0, SWP_NOSIZE | flags);
 
 	RECT rcFilterTipStatic{};
 	HWND FilterTipStatic = ::GetDlgItem(_hSelf, IDC_FIF_FILTER_TIP_STATIC);
@@ -1845,7 +1850,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				*/
 				if (inSelChecked != origInSelChecked)
 				{
-					const std::vector<int> inSelActionIds = { IDCCOUNTALL, IDC_FINDALL_CURRENTFILE, IDREPLACEALL, IDCMARKALL, IDC_CLEAR_ALL };
+					const std::vector<int> inSelActionIds = { IDCCOUNTALL, IDC_FINDALL_CURRENTFILE, IDREPLACEALL, IDCMARKALL, IDC_CLEAR_ALL, IDC_GREP, IDC_UNGREP };
 					for (const auto& id : inSelActionIds)
 					{
 						MSG msg;
@@ -4236,6 +4241,8 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	showFindDlgItem(IDC_FINDALL_OPENEDFILES, !isEnable);
 	showFindDlgItem(IDCCOUNTALL, !isEnable);
 	showFindDlgItem(IDC_FINDALL_CURRENTFILE, !isEnable);
+	showFindDlgItem(IDC_GREP, !isEnable);
+	showFindDlgItem(IDC_UNGREP, !isEnable);
 
 	gotoCorrectTab();
 	calcAndSetCtrlsPos(_currentStatus);
@@ -5307,10 +5314,10 @@ void FindReplaceDlg::calcAndSetCtrlsPos(DIALOG_TYPE dlgT, bool fromColBtn)
 			{
 				getMappedChildRect(IDC_FINDALL_OPENEDFILES, closeNewRc);
 
-				RECT rcBtn3rdPosLarge{};
-				getMappedChildRect(IDC_FINDALL_CURRENTFILE, rcBtn3rdPosLarge);
+				RECT rcBtn4thPosLarge{};
+				getMappedChildRect(IDC_FINDALL_CURRENTFILE, rcBtn4thPosLarge);
 				yFrame += rcBtn2ndPos.top;
-				hFrame += (rcBtn3rdPosLarge.bottom - rcBtn2ndPos.top);
+				hFrame += (rcBtn4thPosLarge.bottom - rcBtn2ndPos.top);
 				break;
 			}
 
@@ -5434,6 +5441,8 @@ void FindReplaceDlg::enableMarkFunc()
 	showFindDlgItem(IDC_2_BUTTONS_MODE, false);
 	showFindDlgItem(IDC_FINDPREV, false);
 	showFindDlgItem(IDC_FINDNEXT, false);
+	showFindDlgItem(IDC_GREP, false);
+	showFindDlgItem(IDC_UNGREP, false);
 
 	_currentStatus = MARK_DLG;
 	gotoCorrectTab();

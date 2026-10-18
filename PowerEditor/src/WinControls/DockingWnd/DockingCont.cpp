@@ -1270,9 +1270,9 @@ intptr_t CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 		}
 		case WM_DPICHANGED_AFTERPARENT:
 		{
-			if (Message == WM_DPICHANGED_AFTERPARENT)
+			if (Message != WM_DPICHANGED)
 			{
-				setDpi();
+				_dpiManager.setDpi(_hParent);
 			}
 
 			updateDpiMetrics();

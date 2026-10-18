@@ -639,38 +639,12 @@ wstring convertFileName(T beg, T end)
 
 wstring intToString(int val)
 {
-	std::vector<wchar_t> vt;
-	bool isNegative = val < 0;
-	// can't use abs here because std::numeric_limits<int>::min() has no positive representation
-	//val = std::abs(val);
-
-	vt.push_back('0' + static_cast<wchar_t>(std::abs(val % 10)));
-	val /= 10;
-	while (val != 0)
-	{
-		vt.push_back('0' + static_cast<wchar_t>(std::abs(val % 10)));
-		val /= 10;
-	}
-
-	if (isNegative)
-		vt.push_back('-');
-
-	return wstring(vt.rbegin(), vt.rend());
+	return std::to_wstring(val);
 }
 
 wstring uintToString(unsigned int val)
 {
-	std::vector<wchar_t> vt;
-
-	vt.push_back('0' + static_cast<wchar_t>(val % 10));
-	val /= 10;
-	while (val != 0)
-	{
-		vt.push_back('0' + static_cast<wchar_t>(val % 10));
-		val /= 10;
-	}
-
-	return wstring(vt.rbegin(), vt.rend());
+	return std::to_wstring(val);
 }
 
 // Build Recent File menu entries from given

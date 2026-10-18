@@ -20,6 +20,7 @@
 #include "DockingDlgInterface.h"
 #include "clipboardHistoryPanel_rc.h"
 #include <vector>
+#include <string>
 
 #define CH_PROJECTPANELTITLE		L"Clipboard History"
 
@@ -28,6 +29,16 @@ class ScintillaEditView;
 struct ClipboardDataInfo {
 	std::vector<unsigned char> _data;
 	bool _isBinaryContained = false;
+
+	mutable std::wstring _cleanedFullStr;
+	mutable bool _isCleaned = false;
+	mutable int _cachedWidth = -1;
+	mutable std::wstring _cachedDisplayStr;
+
+	void clearDisplayCache() noexcept {
+		_cachedWidth = -1;
+		_cachedDisplayStr.clear();
+	}
 };
 
 class ByteArray {
@@ -44,11 +55,6 @@ public:
 protected:
 	unsigned char *_pBytes = nullptr;
 	size_t _length = 0;
-};
-
-class StringArray : public ByteArray {
-public:
-	StringArray(const ClipboardDataInfo& cd, size_t maxLen);
 };
 
 class ClipboardHistoryPanel : public DockingDlgInterface {
@@ -90,7 +96,9 @@ private:
 	ScintillaEditView **_ppEditView = nullptr;
 	std::vector<ClipboardDataInfo> _clipboardDataInfos;
 	HWND _hwndNextCbViewer = nullptr;
+	HFONT _hListBoxFont = nullptr;
 	int _lbBgColor = -1;
 	int _lbFgColor= -1;
 	bool _isTrackingClipboardOps = true; // false when we do not want to track & show some Clipboard operations
+	int _lastClientWidth = -1;
 };

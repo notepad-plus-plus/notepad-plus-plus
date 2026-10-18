@@ -5544,8 +5544,6 @@ void FindReplaceDlg::drawStatusBarItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 bool FindReplaceDlg::replaceInFilesConfirmCheck(const wstring& directory, const wstring& fileTypes)
 {
-	bool confirmed = false;
-
 	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
 	wstring title = pNativeSpeaker->getLocalizedStrFromID("replace-in-files-confirm-title", L"Are you sure?");
@@ -5562,50 +5560,29 @@ bool FindReplaceDlg::replaceInFilesConfirmCheck(const wstring& directory, const 
 
 	msg += msg2;
 
-	int res = ::MessageBox(NULL, msg.c_str(), title.c_str(), MB_OKCANCEL | MB_DEFBUTTON2 | MB_TASKMODAL);
-
-	if (res == IDOK)
-	{
-		confirmed = true;
-	}
-
+	const bool confirmed = NppDarkMode::darkMessageBoxW(nullptr, msg.c_str(), title.c_str(), MB_OKCANCEL | MB_DEFBUTTON2 | MB_TASKMODAL) == IDOK;
 	return confirmed;
 }
 
 bool FindReplaceDlg::replaceInProjectsConfirmCheck()
 {
-	bool confirmed = false;
-
 	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
 	wstring title = pNativeSpeaker->getLocalizedStrFromID("replace-in-projects-confirm-title", L"Are you sure?");
 
 	wstring msg = pNativeSpeaker->getLocalizedStrFromID("replace-in-projects-confirm-message", L"Do you want to replace all occurrences in all documents in the selected Project Panel(s)?");
-	int res = ::MessageBox(NULL, msg.c_str(), title.c_str(), MB_OKCANCEL | MB_DEFBUTTON2 | MB_TASKMODAL);
 
-	if (res == IDOK)
-	{
-		confirmed = true;
-	}
-
+	const bool confirmed = NppDarkMode::darkMessageBoxW(nullptr, msg.c_str(), title.c_str(), MB_OKCANCEL | MB_DEFBUTTON2 | MB_TASKMODAL) == IDOK;
 	return confirmed;
 }
 
 bool FindReplaceDlg::replaceInOpenDocsConfirmCheck()
 {
-	bool confirmed = false;
-
 	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 	wstring title = pNativeSpeaker->getLocalizedStrFromID("replace-in-open-docs-confirm-title", L"Are you sure?");
 	wstring msg = pNativeSpeaker->getLocalizedStrFromID("replace-in-open-docs-confirm-message", L"Are you sure you want to replace all occurrences in all open documents?");
 
-	int res = ::MessageBox(NULL, msg.c_str(), title.c_str(), MB_OKCANCEL | MB_DEFBUTTON2 | MB_TASKMODAL);
-
-	if (res == IDOK)
-	{
-		confirmed = true;
-	}
-
+	const bool confirmed = NppDarkMode::darkMessageBoxW(nullptr, msg.c_str(), title.c_str(), MB_OKCANCEL | MB_DEFBUTTON2 | MB_TASKMODAL) == IDOK;
 	return confirmed;
 }
 

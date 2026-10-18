@@ -35,17 +35,26 @@ static winVer windowsVersion = WV_UNKNOWN;
 
 static LRESULT CALLBACK hookProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
-	if ((nCode >= 0) && (wParam == WM_RBUTTONUP))
-    {
+	// only when list control has focus
+	const bool shouldPostMsg = (nCode >= 0)
+		&& (::GetFocus() == hWndServer
+			|| ::IsChild(hWndServer, ::GetFocus()) == TRUE);
+	if (shouldPostMsg && (wParam == WM_RBUTTONUP))
+	{
 		::PostMessage(hWndServer, WM_RBUTTONUP, 0, 0);
-    }
-	else if ((nCode >= 0) && (wParam == WM_MOUSEWHEEL) && windowsVersion >= WV_WIN10)
+	}
+	else if (shouldPostMsg && (wParam == WM_MOUSEWHEEL) && windowsVersion >= WV_WIN10)
 	{
 		auto* pMD = reinterpret_cast<MSLLHOOKSTRUCT*>(lParam);
 		RECT rCtrl{};
-		GetWindowRect(hWndServer, &rCtrl);
-		//to avoid duplicate messages, only send this message to the list control if it comes from outside the control window. if the message occurs whilst the mouse is inside the control, the control will have receive the mouse wheel message itself
-		if (false == PtInRect(&rCtrl, pMD->pt))
+		::GetWindowRect(hWndServer, &rCtrl);
+
+		RECT rcNpp{};
+		::GetWindowRect(::GetParent(hWndServer), &rcNpp);
+		// To avoid duplicate messages, only send this message to the list control if it comes from outside the control window,
+		// and it is still inside Notepad++ window. To avoid affecting both list control and other "app".
+		// If the message occurs while the mouse is inside the control, the control will have receive the mouse wheel message itself.
+		if (::PtInRect(&rCtrl, pMD->pt) == FALSE && ::PtInRect(&rcNpp, pMD->pt) == TRUE)
 		{
 			::PostMessage(hWndServer, WM_MOUSEWHEEL, WPARAM{ pMD->mouseData }, MAKELPARAM(pMD->pt.x, pMD->pt.y));
 		}
@@ -119,7 +128,10 @@ intptr_t CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 
 		case WM_ACTIVATE:
 		{
-			if (LOWORD(wParam) == WA_INACTIVE)
+			// Dismiss it if window became active again while not pressing ctrl key.
+			// But allow mouse clicking to change document.
+			if (LOWORD(wParam) == WA_ACTIVE
+				&& ::GetKeyState(VK_CONTROL) >= 0)
 			{
 				::EndDialog(_hSelf, -1);
 				return TRUE;
@@ -174,7 +186,7 @@ intptr_t CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			break;
 		}
 
-		case WM_COMMAND : 
+		case WM_COMMAND:
 		{
 			switch (wParam)
 			{
@@ -184,6 +196,13 @@ intptr_t CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 					int view2set = _taskListInfo._tlfsLst[listIndex]._iView;
 					int index2Switch = _taskListInfo._tlfsLst[listIndex]._docIndex;
 					::SendMessage(_hParent, NPPM_ACTIVATEDOC, view2set, index2Switch);
+					::EndDialog(_hSelf, -1);
+					return TRUE;
+				}
+
+				// fallback in case window is not dismissed automatically, pressing Esc key should dismiss it
+				case IDCANCEL:
+				{
 					::EndDialog(_hSelf, -1);
 					return TRUE;
 				}

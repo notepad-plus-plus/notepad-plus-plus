@@ -1180,7 +1180,6 @@
 				<Searching title="尋找">
 					<Item id="6902" name="在尋找與取代對話方塊中使用等寬字型（需要重新啟動 Notepad++）"/>
 					<Item id="6903" name="搜尋結果輸出到結果視窗後，尋找與取代對話方塊繼續保持打開狀態"/>
-					<Item id="6905" name="替換：不要移動到下一個匹配項"/>
 					<Item id="6906" name="搜尋結果視窗：在可能的情況下每個找到的行只顯示一個條目"/>
 					<Item id="6907" name="當尋找對話方塊被觸發引出時"/>
 					<Item id="6908" name="用選取詞填充尋找與取代對話方塊中的尋找內容"/>
@@ -1637,6 +1636,7 @@ $STR_REPLACE$
 			<shift-change-direction-tip value="使用「Shift + Enter」以相反方向進行搜尋"/>
 			<two-find-buttons-tip value="顯示「找上一個」按鈕"/>
 			<confirm-replace-in-all-open-docs-tip value="確認「在所有開啟的文件中取代」"/>
+			<replace-and-stop-tip value="替換後不要移動到下一個匹配項"/>
 			<find-in-files-filter-tip value="只在 cpp, cxx, h, hxx &amp;&amp; hpp 中找尋:
 *.cpp *.cxx *.h *.hxx *.hpp
 

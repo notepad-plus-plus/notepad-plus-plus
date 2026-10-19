@@ -310,6 +310,12 @@ FindReplaceDlg::~FindReplaceDlg()
 	if (_2ButtonsTip)
 		::DestroyWindow(_2ButtonsTip);
 
+	if (_confirmDlgTip)
+		::DestroyWindow(_confirmDlgTip);
+
+	if (_replaceAndStopTip)
+		::DestroyWindow(_replaceAndStopTip);
+
 	if (_dirFromActiveDocTip)
 		::DestroyWindow(_dirFromActiveDocTip);
 
@@ -423,8 +429,9 @@ void FindReplaceDlg::fillFindHistory()
 
 	::SendDlgItemMessage(_hSelf, IDC_2_BUTTONS_MODE, BM_SETCHECK, findHistory._isSearch2ButtonsMode, 0);
 
-	NppGUI&	nppGUI = nppParams.getNppGUI();
+	const NppGUI&	nppGUI = nppParams.getNppGUI();
 	::SendDlgItemMessage(_hSelf, IDC_CONFIRMREPLACEOPENDOCS, BM_SETCHECK, nppGUI._confirmReplaceInAllOpenDocs, 0);
+	::SendDlgItemMessage(_hSelf, IDC_REPLACEANDSTOP, BM_SETCHECK, nppGUI._replaceStopsWithoutFindingNext, 0);
 
 	if (findHistory._searchMode == FindHistory::regExpr)
 	{
@@ -1642,6 +1649,8 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		{
 			NppDarkMode::setDarkTooltips(_shiftTrickUpTip, NppDarkMode::ToolTipsType::tooltip);
 			NppDarkMode::setDarkTooltips(_2ButtonsTip, NppDarkMode::ToolTipsType::tooltip);
+			NppDarkMode::setDarkTooltips(_confirmDlgTip, NppDarkMode::ToolTipsType::tooltip);
+			NppDarkMode::setDarkTooltips(_replaceAndStopTip, NppDarkMode::ToolTipsType::tooltip);
 			NppDarkMode::setDarkTooltips(_filterTip, NppDarkMode::ToolTipsType::tooltip);
 			NppDarkMode::setDarkTooltips(_dirFromActiveDocTip, NppDarkMode::ToolTipsType::tooltip);
 			
@@ -1702,7 +1711,10 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			 _2ButtonsTip = createToolTip(IDC_2_BUTTONS_MODE, _hSelf, _hInst, checkbox2ModeTip.data(), _isRTL);
 
 			 wstring checkboxConfirmDlgTip = pNativeSpeaker->getLocalizedStrFromID("confirm-replace-in-all-open-docs-tip", L"Confirm \"Replace All in All Opened Documents\" action");
-			 _2ButtonsTip = createToolTip(IDC_CONFIRMREPLACEOPENDOCS, _hSelf, _hInst, checkboxConfirmDlgTip.data(), _isRTL);
+			 _confirmDlgTip = createToolTip(IDC_CONFIRMREPLACEOPENDOCS, _hSelf, _hInst, checkboxConfirmDlgTip.data(), _isRTL);
+
+			 wstring checkboxReplaceAndStopTip = pNativeSpeaker->getLocalizedStrFromID("replace-and-stop-tip", L"After replacing, don't move to the following occurrence");
+			 _replaceAndStopTip = createToolTip(IDC_REPLACEANDSTOP, _hSelf, _hInst, checkboxReplaceAndStopTip.data(), _isRTL);
 
 			 wstring findInFilesFilterTip = pNativeSpeaker->getLocalizedStrFromID("find-in-files-filter-tip", L"Find in cpp, cxx, h, hxx && hpp:\r*.cpp *.cxx *.h *.hxx *.hpp\r\rFind in all files except exe, obj && log:\r*.* !*.exe !*.obj !*.log\r\rFind in all files but exclude folders tests, bin && bin64:\r*.* !\\tests !\\bin*\r\rFind in all files but exclude all folders log or logs recursively:\r*.* !+\\log*");
 			 _filterTip = createToolTip(IDC_FIF_FILTER_TIP_STATIC, _hSelf, _hInst, findInFilesFilterTip.data(), _isRTL);
@@ -2322,6 +2334,14 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					}
 				}
 				return TRUE;
+
+				case IDC_REPLACEANDSTOP:
+				{
+					NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+					nppGUI._replaceStopsWithoutFindingNext = isCheckedOrNot(IDC_REPLACEANDSTOP);
+				}
+				return TRUE;
+
 //Process actions
 				case IDC_FINDALL_OPENEDFILES :
 				{
@@ -4218,6 +4238,7 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	// replace controls
 	showFindDlgItem(ID_STATICTEXT_REPLACE, isEnable);
 	showFindDlgItem(IDREPLACE, isEnable);
+	showFindDlgItem(IDC_REPLACEANDSTOP, isEnable);
 	showFindDlgItem(IDREPLACEWITH, isEnable);
 	showFindDlgItem(IDD_FINDREPLACE_SWAP_BUTTON, isEnable);
 	showFindDlgItem(IDREPLACEALL, isEnable);
@@ -4292,6 +4313,7 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable, bool projectPanels
 	showFindDlgItem(IDC_COPY_MARKED_TEXT, !isEnable);
 
 	showFindDlgItem(IDREPLACE, !isEnable);
+	showFindDlgItem(IDC_REPLACEANDSTOP, !isEnable);
 	showFindDlgItem(IDC_REPLACEINSELECTION, !isEnable);
 	showFindDlgItem(IDREPLACEALL, !isEnable);
 	showFindDlgItem(IDC_REPLACE_OPENEDFILES, !isEnable);
@@ -5420,6 +5442,7 @@ void FindReplaceDlg::enableMarkFunc()
 	// Replace controls to hide
 	showFindDlgItem(ID_STATICTEXT_REPLACE, false);
 	showFindDlgItem(IDREPLACE, false);
+	showFindDlgItem(IDC_REPLACEANDSTOP, false);
 	showFindDlgItem(IDREPLACEWITH, false);
 	showFindDlgItem(IDD_FINDREPLACE_SWAP_BUTTON, false);
 	showFindDlgItem(IDREPLACEALL, false);

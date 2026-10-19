@@ -1233,7 +1233,6 @@ Translation note:
 				<Searching title="Searching">
 					<Item id="6902" name="Use monospaced font in Find dialog (Need to restart Notepad++)"/>
 					<Item id="6903" name="Find dialog remains open after search that outputs to results window"/>
-					<Item id="6905" name="Replace: Don't move to the following occurrence"/>
 					<Item id="6906" name="Search Result window: show only one entry per found line if possible"/>
 					<Item id="6907" name="When Find Dialog is Invoked"/>
 					<Item id="6908" name="Fill Find Field with Selected Text"/>
@@ -1775,6 +1774,7 @@ Proceed only if you understand the risks."/>
 			<shift-change-direction-tip value="Use Shift+Enter to search in the opposite direction"/>
 			<two-find-buttons-tip value="2 find buttons mode"/>
 			<confirm-replace-in-all-open-docs-tip value="Confirm &quot;Replace All in All Opened Documents&quot; action"/>
+			<replace-and-stop-tip value="After replacing, don't move to the following occurrence"/>
 			<find-in-files-filter-tip value="Find in cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 

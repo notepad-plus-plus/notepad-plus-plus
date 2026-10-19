@@ -1232,7 +1232,6 @@ Translation note:
 				<Searching title="Recherche">
 					<Item id="6902" name="Activer la police à espacement fixe dans la boîte de dialogue &quot;Rechercher&quot; (nécessité de redémarrage)"/>
 					<Item id="6903" name="La boîte de dialogue &quot;Rechercher&quot; reste ouverte après la recherche qui affiche la fenêtre de résultats"/>
-					<Item id="6905" name="&quot;Remplacer&quot; : ne pas passer à l'occurrence suivante"/>
 					<Item id="6906" name="Résultats de recherche : afficher une seule entrée par ligne trouvée si possible"/>
 					<Item id="6907" name="Quand la boîte de dialogue de recherche est invoquée"/>
 					<Item id="6908" name="Remplir le champ de recherche avec le texte sélectionné"/>
@@ -1777,6 +1776,7 @@ N’avancez que si vous comprenez les risques."/>
 			<shift-change-direction-tip value="Utilisez Maj + Entrée pour rechercher dans le sens inverse"/>
 			<two-find-buttons-tip value="2 boutons Recherche"/>
 			<confirm-replace-in-all-open-docs-tip value="Confirmer l'opération « Remplacer dans tous les documents ouverts »"/>
+			<replace-and-stop-tip value="Ne pas passer à l'occurrence suivante après le remplacement"/>
 			<find-in-files-filter-tip value="Rechercher dans cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 

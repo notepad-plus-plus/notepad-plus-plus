@@ -480,6 +480,8 @@ private:
 
 	HWND _shiftTrickUpTip = nullptr;
 	HWND _2ButtonsTip = nullptr;
+	HWND _confirmDlgTip = nullptr;
+	HWND _replaceAndStopTip = nullptr;
 	HWND _filterTip = nullptr;
 	HWND _dirFromActiveDocTip = nullptr;
 

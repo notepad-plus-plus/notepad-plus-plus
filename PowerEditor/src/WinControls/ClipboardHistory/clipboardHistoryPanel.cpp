@@ -281,15 +281,22 @@ intptr_t CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam
 								else
 								{
 									ByteArray ba(_clipboardDataInfos[i]);
-									int nbChar = WideCharToMultiByte(codepage, 0, (wchar_t*)ba.getPointer(), static_cast<int32_t>(ba.getLength()), NULL, 0, NULL, NULL);
+									// ba.getLength() is in bytes; convert to wchar_t count and exclude null terminator
+									int wideLen = static_cast<int>(ba.getLength() / sizeof(wchar_t)) - 1;
+									if (wideLen > 0)
+									{
+										int nbChar = WideCharToMultiByte(codepage, 0, (wchar_t*)ba.getPointer(), wideLen, NULL, 0, NULL, NULL);
 
-									c = new char[nbChar + 1];
-									WideCharToMultiByte(codepage, 0, (wchar_t*)ba.getPointer(), static_cast<int32_t>(ba.getLength()), c, nbChar + 1, NULL, NULL);
+										c = new char[nbChar + 1];
+										WideCharToMultiByte(codepage, 0, (wchar_t*)ba.getPointer(), wideLen, c, nbChar + 1, NULL, NULL);
+										c[nbChar] = '\0';
 
-									(*_ppEditView)->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
-									(*_ppEditView)->execute(SCI_ADDTEXT, strlen(c), reinterpret_cast<LPARAM>(c));
-									(*_ppEditView)->grabFocus();
-									delete[] c;
+										(*_ppEditView)->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
+										(*_ppEditView)->execute(SCI_ADDTEXT, nbChar, reinterpret_cast<LPARAM>(c));
+										(*_ppEditView)->grabFocus();
+										delete[] c;
+										c = nullptr;
+									}
 								}
 							}
 							catch (...)

@@ -242,6 +242,11 @@ LRESULT CALLBACK TaskList::TaskListSelectProc(
 			{
 				::SendMessage(pRefData->_hParent, WM_COMMAND, ID_PICKEDUP, pRefData->_currentIndex);
 			}
+			else if (wParam == 'W' && ::GetKeyState(VK_CONTROL) < 0)
+			{
+				// Ctrl+W will dismiss document switcher on releasing 'W' key to avoid accidently closing newly focused editor
+				::SendMessage(pRefData->_hParent, WM_COMMAND, IDCANCEL, 0);
+			}
 			return 0;
 		}
 
@@ -265,13 +270,8 @@ LRESULT CALLBACK TaskList::TaskListSelectProc(
 			{
 				if ((msg->message == WM_KEYDOWN) && (0x80 & GetKeyState(VK_CONTROL)))
 				{
-					// Ctrl+A will dismiss document switcher
-					if (msg->wParam == 'A')
-					{
-						::SendMessage(pRefData->_hParent, WM_COMMAND, ID_PICKEDUP, 0);
-					}
 					// Shift+Tab is cool but I think VK_UP and VK_LEFT are also cool :-)
-					else if (((msg->wParam == VK_TAB) && (0x80 & GetKeyState(VK_SHIFT)))
+					if (((msg->wParam == VK_TAB) && (0x80 & GetKeyState(VK_SHIFT)))
 						|| (msg->wParam == VK_UP)
 						|| (msg->wParam == VK_LEFT))
 					{

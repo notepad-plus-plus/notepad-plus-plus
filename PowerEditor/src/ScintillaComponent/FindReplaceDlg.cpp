@@ -1266,7 +1266,7 @@ void FindReplaceDlg::resizeDialogElements()
 	constexpr std::array moveBtnIDs{
 		IDCMARKALL, IDC_CLEAR_ALL, IDCCOUNTALL, IDC_FINDALL_OPENEDFILES, IDC_FINDALL_CURRENTFILE,
 		IDREPLACE, IDREPLACEALL, IDC_REPLACE_OPENEDFILES, IDD_FINDINFILES_FIND_BUTTON, IDD_FINDINFILES_REPLACEINFILES, IDCANCEL,
-		IDC_FINDPREV, IDC_COPY_MARKED_TEXT, IDD_FINDINFILES_REPLACEINPROJECTS
+		IDC_FINDPREV, IDC_COPY_MARKED_TEXT, IDD_FINDINFILES_REPLACEINPROJECTS, IDC_GREP, IDC_UNGREP
 	};
 
 	constexpr std::array moveOtherCtrlsIDs{
@@ -1369,6 +1369,11 @@ void FindReplaceDlg::resizeDialogElements()
 	HWND hFPrevBtn = ::GetDlgItem(_hSelf, IDC_FINDPREV);
 	getMappedChildRect(hFPrevBtn, rcFPrevBtn);
 	hdwp = setOrDeferWindowPos(hdwp, ::GetDlgItem(_hSelf, IDC_FINDNEXT), nullptr, rcFPrevBtn.right + gap, rcOkBtn.top, 0, 0, SWP_NOSIZE | flags);
+
+	RECT rcUngrepBtn{};
+	HWND hUngrepBtn = ::GetDlgItem(_hSelf, IDC_UNGREP);
+	getMappedChildRect(hUngrepBtn, rcUngrepBtn);
+	hdwp = setOrDeferWindowPos(hdwp, hUngrepBtn, nullptr, rcOkBtn.right - getRcWidth(rcUngrepBtn), rcUngrepBtn.top, 0, 0, SWP_NOSIZE | flags);
 
 	RECT rcFilterTipStatic{};
 	HWND FilterTipStatic = ::GetDlgItem(_hSelf, IDC_FIF_FILTER_TIP_STATIC);
@@ -1857,7 +1862,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				*/
 				if (inSelChecked != origInSelChecked)
 				{
-					const std::vector<int> inSelActionIds = { IDCCOUNTALL, IDC_FINDALL_CURRENTFILE, IDREPLACEALL, IDCMARKALL, IDC_CLEAR_ALL };
+					const std::vector<int> inSelActionIds = { IDCCOUNTALL, IDC_FINDALL_CURRENTFILE, IDREPLACEALL, IDCMARKALL, IDC_CLEAR_ALL, IDC_GREP, IDC_UNGREP };
 					for (const auto& id : inSelActionIds)
 					{
 						MSG msg;
@@ -2647,6 +2652,116 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				}
 				return TRUE;
 
+				case IDC_GREP:
+				{
+					if (_currentStatus == FIND_DLG)
+					{
+						setStatusbarMessage(L"grep run_dlgProc", FSWarning);
+
+						setStatusbarMessage(L"", FSNoMessage);
+						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+						_options._str2Search = getTextFromCombo(hFindCombo);
+						updateCombo(IDFINDWHAT);
+
+						if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND);
+						nppParamInst._isFindReplacing = true;
+						int nbMarked = processAll(ProcessGrep, &_options);
+						nppParamInst._isFindReplacing = false;
+
+						NativeLangSpeaker* pNativeSpeaker = nppParamInst.getNativeLangSpeaker();
+						if (nbMarked == FIND_INVALID_REGULAR_EXPRESSION)
+						{
+							setStatusbarMessageWithRegExprErr(*_ppEditView);
+						}
+						else
+						{
+							std::wstring result;
+							if (nbMarked == 1)
+							{
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-grep-1-match", L"Grep: 1 line removed");
+							}
+							else //if (nbMarked == 0 || nbMarked > 1)
+							{
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-grep-nb-matches", L"Grep: $INT_REPLACE$ lines removed");
+								result = stringReplace(result, L"$INT_REPLACE$", std::to_wstring(nbMarked));
+							}
+							result += L" ";
+							result += getScopeInfoForStatusBar(&_options);
+
+							wstring reasonMsg;
+							bool isTheMostLaxMode = _options._isWrapAround && !_options._isMatchCase && !_options._isWholeWord;
+							if (nbMarked == 0 && !isTheMostLaxMode)
+							{
+								reasonMsg = pNativeSpeaker->getLocalizedStrFromID("find-status-cannot-find-pebkac-maybe", noFoundPotentialReason);
+							}
+							else if (_options._regexEmptyStringFound)
+							{
+								reasonMsg = pNativeSpeaker->getLocalizedStrFromID("find-status-regex-find-empty-string", regexEmptyFoundReason);
+							}
+
+							setStatusbarMessage(result, FSMessage, reasonMsg);
+						}
+
+						grabFocus();
+					}
+				}
+				return TRUE;
+
+				case IDC_UNGREP:
+				{
+					if (_currentStatus == FIND_DLG)
+					{
+						setStatusbarMessage(L"ungrep run_dlgProc", FSWarning);
+
+						setStatusbarMessage(L"", FSNoMessage);
+						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+						_options._str2Search = getTextFromCombo(hFindCombo);
+						updateCombo(IDFINDWHAT);
+
+						if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND);
+						nppParamInst._isFindReplacing = true;
+						int nbMarked = processAll(ProcessUngrep, &_options);
+						nppParamInst._isFindReplacing = false;
+
+						NativeLangSpeaker* pNativeSpeaker = nppParamInst.getNativeLangSpeaker();
+						if (nbMarked == FIND_INVALID_REGULAR_EXPRESSION)
+						{
+							setStatusbarMessageWithRegExprErr(*_ppEditView);
+						}
+						else
+						{
+							std::wstring result;
+							if (nbMarked == 1)
+							{
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-ungrep-1-match", L"Ungrep: 1 line removed");
+							}
+							else //if (nbMarked == 0 || nbMarked > 1)
+							{
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-ungrep-nb-matches", L"Ungrep: $INT_REPLACE$ lines removed");
+								result = stringReplace(result, L"$INT_REPLACE$", std::to_wstring(nbMarked));
+							}
+							result += L" ";
+							result += getScopeInfoForStatusBar(&_options);
+
+							wstring reasonMsg;
+							bool isTheMostLaxMode = _options._isWrapAround && !_options._isMatchCase && !_options._isWholeWord;
+							if (nbMarked == 0 && !isTheMostLaxMode)
+							{
+								reasonMsg = pNativeSpeaker->getLocalizedStrFromID("find-status-cannot-find-pebkac-maybe", noFoundPotentialReason);
+							}
+							else if (_options._regexEmptyStringFound)
+							{
+								reasonMsg = pNativeSpeaker->getLocalizedStrFromID("find-status-regex-find-empty-string", regexEmptyFoundReason);
+							}
+
+							setStatusbarMessage(result, FSMessage, reasonMsg);
+						}
+
+						grabFocus();
+					}
+				}
+				return TRUE;
+
 				case IDCMARKALL :
 				{
 					if (_currentStatus == MARK_DLG)
@@ -3399,8 +3514,8 @@ int FindReplaceDlg::processAll(ProcessOperation op, FindOption* opt,
 	}
 
 	//then readjust scope if the selection override is active and allowed
-	if ((pOptions->_isInSelection) && ((op == ProcessMarkAll) || ((op == ProcessReplaceAll || op == ProcessFindAll) && (!isEntire))))
-		//if selection limiter and either mark all or replace all or find all w/o entire document override
+	if ((pOptions->_isInSelection) && ((op == ProcessMarkAll) || (op == ProcessUngrep) || ((op == ProcessReplaceAll || op == ProcessFindAll) && (!isEntire))))
+		//if selection limiter and either mark all or ungrep or replace all or find all w/o entire document override
 	{
 		startPosition = cr.cpMin;
 		endPosition = cr.cpMax;
@@ -3532,7 +3647,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo& findRepla
 
 	// Allow empty matches, but not immediately after previous match, so Count and Mark All
 	// (like Replace All and Find All already do) don't silently skip zero-length matches.
-	if (op == ProcessReplaceAll || op == ProcessFindAll || op == ProcessCountAll || op == ProcessMarkAll)
+	if (op == ProcessReplaceAll || op == ProcessFindAll || op == ProcessCountAll || op == ProcessMarkAll || op == ProcessGrep || op == ProcessUngrep)
 		flags |= SCFIND_REGEXP_EMPTYMATCH_NOTAFTERMATCH;
 
 
@@ -3545,6 +3660,16 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo& findRepla
 		}
 	}
 
+	const auto deleteRange = [pEditView](const Sci_Position start, const Sci_Position end) -> Sci_Position {
+		if ((0 <= start) && (start <= end))
+		{
+			const auto replacedLength = end - start;
+			pEditView->execute(SCI_DELETERANGE, start, replacedLength);
+			return replacedLength;
+		}
+		return 0;
+	};
+
 	intptr_t targetStart = 0;
 
 	//Initial range for searching
@@ -3552,6 +3677,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo& findRepla
 
 
 	bool findAllFileNameAdded = false;
+	Sci_Position lineDeletionStart = 0;
 
 	// A temporary string which is used to populate the search result window
 	std::unique_ptr<std::string> text2AddUtf8(new std::string());
@@ -3705,6 +3831,57 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo& findRepla
 				break;
 			}
 
+			case ProcessGrep:
+			{
+				if (foundTextLen == 0 && opt->_searchType == FindRegex)
+				{
+					opt->_regexEmptyStringFound = true;
+				}
+
+				const auto lineNumber = pEditView->execute(SCI_LINEFROMPOSITION, targetStart);
+				// For a zero-length match, "targetEnd - 1" would be the line *before* targetStart
+				// (or even underflow at document start), so fall back to lineNumber in that case.
+				const auto lineNumberEnd = (foundTextLen > 0) ? pEditView->execute(SCI_LINEFROMPOSITION, targetEnd - 1) : lineNumber;
+
+				const Sci_Position start = pEditView->execute(SCI_POSITIONFROMLINE, lineDeletionStart);
+				const Sci_Position end = (lineNumber < pEditView->execute(SCI_GETLINECOUNT))
+					? pEditView->execute(SCI_POSITIONFROMLINE, lineNumber)
+					: pEditView->execute(SCI_GETLENGTH);
+
+				// for multiple matches in same line, lineDeletionStart may be larger than lineNumber, but we do not want to delete a negative range
+				if (start <= end)
+				{
+					replaceDelta = -deleteRange(start, end);
+					nbProcessed += static_cast<int>(lineNumber - lineDeletionStart);
+					lineDeletionStart += (lineNumberEnd - lineNumber + 1);
+				}
+
+				break;
+			}
+
+			case ProcessUngrep:
+			{
+				if (foundTextLen == 0 && opt->_searchType == FindRegex)
+				{
+					opt->_regexEmptyStringFound = true;
+				}
+
+				const auto lineNumber = pEditView->execute(SCI_LINEFROMPOSITION, targetStart);
+				// For a zero-length match, "targetEnd - 1" would be the line *before* targetStart
+				// (or even underflow at document start), so fall back to lineNumber in that case.
+				const auto lineNumberEnd = (foundTextLen > 0) ? pEditView->execute(SCI_LINEFROMPOSITION, targetEnd - 1) : lineNumber;
+
+				const Sci_Position start = pEditView->execute(SCI_POSITIONFROMLINE, lineNumber);
+
+				const auto nextLineAfterEnd = lineNumberEnd + 1;
+				const Sci_Position end = (nextLineAfterEnd < pEditView->execute(SCI_GETLINECOUNT))
+					? pEditView->execute(SCI_POSITIONFROMLINE, nextLineAfterEnd)
+					: pEditView->execute(SCI_GETLENGTH);
+
+				replaceDelta = -deleteRange(start, end);
+				break;
+			}
+
 			case ProcessMarkAll:
 			{
 				// Zero-length matches are possible (e.g. "^$"), but scintilla gets upset if we call
@@ -3790,7 +3967,8 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo& findRepla
 			}
 
 		}
-		if (processed) ++nbProcessed;
+		// ProcessGrep does its own counting of nbProcessed
+		if (processed && (op != ProcessGrep)) ++nbProcessed;
 
 		// After the processing of the last string occurrence the search loop should be stopped
 		// This helps to avoid the endless replacement during the EOL ("$") searching
@@ -3799,6 +3977,23 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo& findRepla
 
 		findReplaceInfo._startRange = targetStart + foundTextLen + replaceDelta;		//search from result onwards
 		findReplaceInfo._endRange += replaceDelta;									//adjust end of range in case of replace
+	}
+
+	if (op == ProcessGrep)
+	{
+		// After all matches have been processed, remove non-matching lines until EOF
+		// by starting at
+		const Sci_Position start = (lineDeletionStart > 0)
+			// previous line's end before EOL, to prevent empty trailing line
+			? pEditView->execute(SCI_GETLINEENDPOSITION, lineDeletionStart - 1)
+			// start of document
+			: pEditView->execute(SCI_POSITIONFROMLINE, lineDeletionStart);
+		// until EOF
+		const Sci_Position end = pEditView->execute(SCI_GETLENGTH);
+
+		nbProcessed += static_cast<int>(pEditView->execute(SCI_GETLINECOUNT) - lineDeletionStart);
+
+		std::ignore = deleteRange(start, end);
 	}
 
 	delete[] pTextFind;
@@ -4257,6 +4452,8 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	showFindDlgItem(IDC_FINDALL_OPENEDFILES, !isEnable);
 	showFindDlgItem(IDCCOUNTALL, !isEnable);
 	showFindDlgItem(IDC_FINDALL_CURRENTFILE, !isEnable);
+	showFindDlgItem(IDC_GREP, !isEnable);
+	showFindDlgItem(IDC_UNGREP, !isEnable);
 
 	gotoCorrectTab();
 	calcAndSetCtrlsPos(_currentStatus);
@@ -4282,12 +4479,14 @@ void FindReplaceDlg::enableMarkAllControls(bool isEnable)
 
 void FindReplaceDlg::enableFindInFilesControls(bool isEnable, bool projectPanels)
 {
-	// Hide Items
+	// Hide Items or unhide them if not isEnable
 	showFindDlgItem(IDC_BACKWARDDIRECTION, !isEnable);
 	showFindDlgItem(IDWRAP, !isEnable);
 	showFindDlgItem(IDCCOUNTALL, !isEnable);
 	showFindDlgItem(IDC_FINDALL_OPENEDFILES, !isEnable);
 	showFindDlgItem(IDC_FINDALL_CURRENTFILE, !isEnable);
+	showFindDlgItem(IDC_GREP, !isEnable);
+	showFindDlgItem(IDC_UNGREP, !isEnable);
 
 	if (isEnable)
 	{
@@ -4758,6 +4957,68 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const wstring& s
 							{
 								result = pNativeSpeaker->getLocalizedStrFromID("find-status-count-nb-matches", L"Count: $INT_REPLACE$ matches");
 								result = stringReplace(result, L"$INT_REPLACE$", std::to_wstring(nbCounted));
+							}
+							result += L" ";
+							result += getScopeInfoForStatusBar(_env);
+
+							setStatusbarMessage(result, FSMessage);
+						}
+						break;
+					}
+
+					case IDC_GREP:
+					{
+						nppParamInst._isFindReplacing = true;
+						int nbGrepped = processAll(ProcessGrep, _env);
+						nppParamInst._isFindReplacing = false;
+
+						if (nbGrepped == FIND_INVALID_REGULAR_EXPRESSION)
+						{
+							setStatusbarMessageWithRegExprErr(*_ppEditView);
+						}
+						else
+						{
+							std::wstring result;
+							NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+							if (nbGrepped == 1)
+							{
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-grep-1-match", L"Grep: 1 line removed");
+							}
+							else
+							{
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-grep-nb-matches", L"Grep: $INT_REPLACE$ lines removed");
+								result = stringReplace(result, L"$INT_REPLACE$", std::to_wstring(nbGrepped));
+							}
+							result += L" ";
+							result += getScopeInfoForStatusBar(_env);
+
+							setStatusbarMessage(result, FSMessage);
+						}
+						break;
+					}
+
+					case IDC_UNGREP:
+					{
+						nppParamInst._isFindReplacing = true;
+						int nbUngrepped = processAll(ProcessUngrep, _env);
+						nppParamInst._isFindReplacing = false;
+
+						if (nbUngrepped == FIND_INVALID_REGULAR_EXPRESSION)
+						{
+							setStatusbarMessageWithRegExprErr(*_ppEditView);
+						}
+						else
+						{
+							std::wstring result;
+							NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+							if (nbUngrepped == 1)
+							{
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-ungrep-1-match", L"Ungrep: 1 line removed");
+							}
+							else
+							{
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-ungrep-nb-matches", L"Ungrep: $INT_REPLACE$ lines removed");
+								result = stringReplace(result, L"$INT_REPLACE$", std::to_wstring(nbUngrepped));
 							}
 							result += L" ";
 							result += getScopeInfoForStatusBar(_env);
@@ -5329,10 +5590,10 @@ void FindReplaceDlg::calcAndSetCtrlsPos(DIALOG_TYPE dlgT, bool fromColBtn)
 			{
 				getMappedChildRect(IDC_FINDALL_OPENEDFILES, closeNewRc);
 
-				RECT rcBtn3rdPosLarge{};
-				getMappedChildRect(IDC_FINDALL_CURRENTFILE, rcBtn3rdPosLarge);
+				RECT rcBtn4thPosLarge{};
+				getMappedChildRect(IDC_FINDALL_CURRENTFILE, rcBtn4thPosLarge);
 				yFrame += rcBtn2ndPos.top;
-				hFrame += (rcBtn3rdPosLarge.bottom - rcBtn2ndPos.top);
+				hFrame += (rcBtn4thPosLarge.bottom - rcBtn2ndPos.top);
 				break;
 			}
 
@@ -5457,6 +5718,8 @@ void FindReplaceDlg::enableMarkFunc()
 	showFindDlgItem(IDC_2_BUTTONS_MODE, false);
 	showFindDlgItem(IDC_FINDPREV, false);
 	showFindDlgItem(IDC_FINDNEXT, false);
+	showFindDlgItem(IDC_GREP, false);
+	showFindDlgItem(IDC_UNGREP, false);
 
 	_currentStatus = MARK_DLG;
 	gotoCorrectTab();

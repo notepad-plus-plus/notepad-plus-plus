@@ -80,7 +80,7 @@ struct TargetRange {
 
 enum SearchIncrementalType { NotIncremental, FirstIncremental, NextIncremental };
 enum SearchType { FindNormal, FindExtended, FindRegex };
-enum ProcessOperation { ProcessFindAll, ProcessReplaceAll, ProcessCountAll, ProcessMarkAll, ProcessHighLightAll, ProcessMarkAll_IncSearch, ProcessMarkAllExt, ProcessFindInFinder };
+enum ProcessOperation { ProcessFindAll, ProcessReplaceAll, ProcessCountAll, ProcessMarkAll, ProcessHighLightAll, ProcessMarkAll_IncSearch, ProcessMarkAllExt, ProcessFindInFinder, ProcessGrep, ProcessUngrep };
 
 struct FindOption
 {
@@ -107,7 +107,7 @@ struct FindOption
 	bool _isMatchLineNumber = false; // always false for main search
 
 	// Out
-	bool _regexEmptyStringFound = false; // used only for status bar tooltip display on countAll & markAll operations
+	bool _regexEmptyStringFound = false; // used only for status bar tooltip display on countAll, markAll, Grep & Ungrep operations
 };
 
 struct MatchPosition
@@ -509,7 +509,7 @@ private:
 
 	std::map<int, bool> _controlEnableMap;
 
-	std::vector<int> _reduce2hide_find = { IDC_IN_SELECTION_CHECK, IDC_REPLACEINSELECTION, IDC_FINDALL_CURRENTFILE, IDCANCEL };
+	std::vector<int> _reduce2hide_find = { IDC_IN_SELECTION_CHECK, IDC_REPLACEINSELECTION, IDC_GREP, IDC_UNGREP, IDC_FINDALL_CURRENTFILE, IDCANCEL };
 	std::vector<int> _reduce2hide_findReplace = { IDC_IN_SELECTION_CHECK, IDC_REPLACEINSELECTION, IDREPLACEALL, IDCANCEL };
 	std::vector<int> _reduce2hide_fif = { IDD_FINDINFILES_FILTERS_STATIC, IDD_FINDINFILES_FILTERS_COMBO, IDCANCEL };
 	std::vector<int> _reduce2hide_fip = { IDD_FINDINFILES_FILTERS_STATIC, IDD_FINDINFILES_FILTERS_COMBO, IDCANCEL };

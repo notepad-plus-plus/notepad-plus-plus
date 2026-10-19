@@ -1231,8 +1231,6 @@ Translation note:
 				<Searching title="Sökning">
 					<Item id="6902" name="Använd teckensnitt med fast bredd i sökdialogen (kräver omstart av Notepad++)"/>
 					<Item id="6903" name="Låt sökdialogen förbli öppen efter sökningar som visas i resultatfönstret"/>
-					<Item id="6904" name="Visa bekräftelsedialog för &quot;Ersätt alla i alla öppna dokument&quot;"/>
-					<Item id="6905" name="Ersätt: Hoppa inte till nästa förekomst"/>
 					<Item id="6906" name="Sökresultatsfönstret: Visa endast en post per funnen rad om det är möjligt"/>
 					<Item id="6907" name="När sökdialogen öppnas"/>
 					<Item id="6908" name="Fyll sökfältet med markerad text"/>
@@ -1240,6 +1238,7 @@ Translation note:
 					<Item id="6910" name="Minimal storlek för att markera &quot;I markering&quot; automatiskt"/>
 					<Item id="6913" name="Fyll mappfältet i &quot;Sök i filer&quot; med aktivt dokument"/>
 					<Item id="6916" name=": Max antal tecken för att automatiskt fylla i sökfältet med markerad text"/>
+					<Item id="6917" name="Sök i filer: Föredra filinnehåll på disk framför öppna buffertar"/>
 				</Searching>
 
 				<RecentFilesHistory title="Senast öppnade filer">
@@ -1361,7 +1360,7 @@ Translation note:
 
 				<MISC title="Övrigt">
 					<ComboBox id="6347">
-						<Element name="Aktivera för aktuell fil"/>
+						<Element name="Aktivera för aktuell(a) fil(er)"/>
 						<Element name="Aktivera för alla öppnade filer"/>
 						<Element name="Inaktivera"/>
 					</ComboBox>
@@ -1779,6 +1778,8 @@ Fortsätt endast om du förstår riskerna."/>
 			<default-open-save-select-folder value="Välj en standardmapp"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Använd Shift + Enter för att söka i omvänd riktning"/>
 			<two-find-buttons-tip value="Sök med två knappar"/>
+			<confirm-replace-in-all-open-docs-tip value="Visa bekräftelsedialog för &quot;Ersätt alla i alla öppna dokument&quot;"/>
+			<replace-and-stop-tip value="Hoppa inte till nästa förekomst efter ersättning"/>
 			<find-in-files-filter-tip value="Sök i cpp, cxx, h, hxx och hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 

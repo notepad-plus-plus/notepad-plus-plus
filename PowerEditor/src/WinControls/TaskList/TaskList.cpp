@@ -270,8 +270,13 @@ LRESULT CALLBACK TaskList::TaskListSelectProc(
 			{
 				if ((msg->message == WM_KEYDOWN) && (0x80 & GetKeyState(VK_CONTROL)))
 				{
+					// Ctrl+F4 will dismiss document switcher
+					if (msg->wParam == VK_F4)
+					{
+						::SendMessage(pRefData->_hParent, WM_COMMAND, IDCANCEL, 0);
+					}
 					// Shift+Tab is cool but I think VK_UP and VK_LEFT are also cool :-)
-					if (((msg->wParam == VK_TAB) && (0x80 & GetKeyState(VK_SHIFT)))
+					else if (((msg->wParam == VK_TAB) && (0x80 & GetKeyState(VK_SHIFT)))
 						|| (msg->wParam == VK_UP)
 						|| (msg->wParam == VK_LEFT))
 					{

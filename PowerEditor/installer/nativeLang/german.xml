@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.8"><!-- Datum: 18.10.2026, basiert auf english.xml 8.9.8 vom 17.10.2026 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.9.8"><!-- Datum: 19.10.2026, basiert auf english.xml 8.9.8 vom 19.10.2026 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1242,8 +1242,6 @@ Translation note:
 				<Searching title="Suche">
 					<Item id="6902" name="Festbreitenschrift im Dialogfeld 'Suchen' verwenden (Neustart von Notepad++ erforderlich)."/>
 					<Item id="6903" name="Der Suchdialog bleibt nach der Suche geöffnet, die im Ergebnisfenster ausgegeben wird"/>
-					<Item id="6904" name="Bestätigung für 'Alle Ersetzen' in allen offenen Dokumenten"/>
-					<Item id="6905" name="Ersetzen: Nach Ersetzung nicht zum nächsten Treffer springen"/>
 					<Item id="6906" name="Suchergebnisfenster: Zeige wenn möglich nur einen Eintrag pro gefundener Zeile"/>
 					<Item id="6907" name="Wenn der Suchdialog aufgerufen wird"/>
 					<Item id="6908" name="Im Suchfeld gewählten Text einsetzen"/>
@@ -1252,7 +1250,6 @@ Translation note:
 					<Item id="6913" name="Suche im Dateiverzeichnisfeld basierend auf dem aktiven Dokument ausfüllen"/>
 					<Item id="6916" name=": Max. Zeichen für automatisches Ausfüllen des Suchfelds mit der Auswahl"/>
 					<Item id="6917" name="In Dateien suchen: Dateiinhalte auf Festplatte gegenüber offenen Puffern bevorzugen"/>
-					<Item id="6918" name="Inkrementelle Suche: die Leiste oben anzeigen"/>
 				</Searching>
 
 				<RecentFilesHistory title="Zuletzt geöffn. Dateien">
@@ -1785,6 +1782,8 @@ Nur fortfahren, wenn man sich dieser Risiken bewusst ist."/>
 			<default-open-save-select-folder value="Wählen Sie ein Standardverzeichnis"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Shift+Enter verwenden um die Suchrichtung umzudrehen."/>
 			<two-find-buttons-tip value="Modus mit 2 Suchknöpfen"/>
+			<confirm-replace-in-all-open-docs-tip value="Bestätigung für 'Alle Ersetzen' in allen offenen Dokumenten"/>
+			<replace-and-stop-tip value="Nach dem Ersetzen nicht zum nächsten Treffer springen"/>
 			<find-in-files-filter-tip value="Suche in cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 

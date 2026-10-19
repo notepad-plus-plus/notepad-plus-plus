@@ -139,39 +139,6 @@ ByteArray::ByteArray(const ClipboardDataInfo& cd)
 	}
 }
 
-StringArray::StringArray(const ClipboardDataInfo& cd, size_t maxLen)
-{
-	size_t len = cd._data.size();
-
-	if (!len)
-	{
-		_pBytes = NULL;
-		return;
-	}
-
-	bool isCompleted = (len <= maxLen);
-	_length = isCompleted?len:maxLen;
-
-	
-	_pBytes = new unsigned char[_length+(isCompleted?0:2)];
-	size_t i = 0;
-	for ( ; i < _length ; ++i)
-	{
-		if (!isCompleted && (i == _length-5 || i == _length-3 || i == _length-1))
-			_pBytes[i] = 0;
-		else if (!isCompleted && (i == _length-6 || i == _length-4 || i == _length-2))
-			_pBytes[i] = '.';
-		else
-			_pBytes[i] = cd._data[i];
-	}
-
-	if (!isCompleted)
-	{
-		_pBytes[i++] = 0;
-		_pBytes[i] = 0;
-	}
-}
-
 // Search clipboard data in internal storage
 // return -1 if not found, else return the index of internal array
 int ClipboardHistoryPanel::getClipboardDataIndex(const ClipboardDataInfo& cbd)

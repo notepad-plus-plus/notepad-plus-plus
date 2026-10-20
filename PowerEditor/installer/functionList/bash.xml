@@ -15,7 +15,7 @@
 			displayName="Bash"
 			id         ="bash_function"
 			commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-							(?-s:(?:^\x23[^!]|^\h*\x23|\h+\x23).*$)         # Single Line Comment
+							(?-s:(?:^\x23(?!!)|^\h*\x23|\h+\x23).*$)        # Single Line Comment
 						|	(?s:\x22(?:[^\x22\x5C]|\x5C.)*\x22)             # String Literal - Double Quoted
 						|	(?s:\x27[^\x27]*\x27)                           # String Literal - Single Quoted
 						|	(?s:                                            # Here Document (Type 1) and Here String

@@ -1281,6 +1281,10 @@ void FindReplaceDlg::resizeDialogElements()
 		IDC_TRANSPARENT_CHECK, IDC_TRANSPARENT_LOSSFOCUS_RADIO, IDC_TRANSPARENT_ALWAYS_RADIO, IDC_PERCENTAGE_SLIDER
 	};
 
+	static constexpr std::array moveReplaceBoxesIDs{
+		IDC_REPLACEANDSTOP, IDC_CONFIRMREPLACEOPENDOCS
+	};
+
 	constexpr UINT flags = SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_NOCOPYBITS;
 
 	RECT rcClient{};
@@ -1312,7 +1316,7 @@ void FindReplaceDlg::resizeDialogElements()
 	::SetWindowPos(hSelCheck, nullptr, rcOkBtn.left - posSelCheck, rcSelCheck.top, 0, 0, SWP_NOSIZE | flags);
 	getMappedChildRect(hSelCheck, rcSelCheck);
 
-	size_t nCtrls = moveCheckIds.size() + moveBtnIDs.size() + moveOtherCtrlsIDs.size();
+	size_t nCtrls = moveCheckIds.size() + moveBtnIDs.size() + moveOtherCtrlsIDs.size() + moveReplaceBoxesIDs.size();
 	auto hdwp = ::BeginDeferWindowPos(static_cast<int>(nCtrls));
 
 	RECT rcSelGrpb{};
@@ -1332,6 +1336,13 @@ void FindReplaceDlg::resizeDialogElements()
 		HWND moveHwnd = ::GetDlgItem(_hSelf, moveWndID);
 		getMappedChildRect(moveHwnd, rcTmp);
 		hdwp = setOrDeferWindowPos(hdwp, moveHwnd, nullptr, rcOkBtn.left, rcTmp.top, 0, 0, SWP_NOSIZE | flags);
+	}
+
+	for (int moveWndID : moveReplaceBoxesIDs)
+	{
+		HWND moveHwnd = ::GetDlgItem(_hSelf, moveWndID);
+		getMappedChildRect(moveHwnd, rcTmp);
+		hdwp = setOrDeferWindowPos(hdwp, moveHwnd, nullptr, rc2ModeCheck.left, rcTmp.top, 0, 0, SWP_NOSIZE | flags);
 	}
 
 	RECT rcRszBtn{};
@@ -4233,12 +4244,14 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 {
 	_currentStatus = isEnable ? REPLACE_DLG : FIND_DLG;
 
+	const bool isLessModeOff = !NppParameters::getInstance().getNppGUI()._findWindowLessMode;
+
 	enableFindInFilesControls(false, false);
 	enableMarkAllControls(false);
 	// replace controls
 	showFindDlgItem(ID_STATICTEXT_REPLACE, isEnable);
 	showFindDlgItem(IDREPLACE, isEnable);
-	showFindDlgItem(IDC_REPLACEANDSTOP, isEnable);
+	showFindDlgItem(IDC_REPLACEANDSTOP, isEnable && isLessModeOff);
 	showFindDlgItem(IDREPLACEWITH, isEnable);
 	showFindDlgItem(IDD_FINDREPLACE_SWAP_BUTTON, isEnable);
 	showFindDlgItem(IDREPLACEALL, isEnable);
@@ -4282,6 +4295,7 @@ void FindReplaceDlg::enableMarkAllControls(bool isEnable)
 
 void FindReplaceDlg::enableFindInFilesControls(bool isEnable, bool projectPanels)
 {
+	const bool isLessModeOff = !NppParameters::getInstance().getNppGUI()._findWindowLessMode;
 	// Hide Items
 	showFindDlgItem(IDC_BACKWARDDIRECTION, !isEnable);
 	showFindDlgItem(IDWRAP, !isEnable);
@@ -4313,7 +4327,7 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable, bool projectPanels
 	showFindDlgItem(IDC_COPY_MARKED_TEXT, !isEnable);
 
 	showFindDlgItem(IDREPLACE, !isEnable);
-	showFindDlgItem(IDC_REPLACEANDSTOP, !isEnable);
+	showFindDlgItem(IDC_REPLACEANDSTOP, !isEnable && isLessModeOff);
 	showFindDlgItem(IDC_REPLACEINSELECTION, !isEnable);
 	showFindDlgItem(IDREPLACEALL, !isEnable);
 	showFindDlgItem(IDC_REPLACE_OPENEDFILES, !isEnable);
@@ -5271,32 +5285,20 @@ LRESULT CALLBACK FindReplaceDlg::ComboEditProc(
 
 void FindReplaceDlg::hideOrShowCtrl4reduceOrNormalMode(DIALOG_TYPE dlgT)
 {
-	bool isLessModeOn = NppParameters::getInstance().getNppGUI()._findWindowLessMode;
-	if (dlgT == FIND_DLG)
+	const bool isLessModeOn = NppParameters::getInstance().getNppGUI()._findWindowLessMode;
+
+	const std::vector<int>* ids = nullptr;
+	switch (dlgT)
 	{
-		for (int id : _reduce2hide_find)
-			::ShowWindow(::GetDlgItem(_hSelf, id), isLessModeOn ? SW_HIDE : SW_SHOW);
+		case FIND_DLG:           ids = &_reduce2hide_find;        break;
+		case REPLACE_DLG:        ids = &_reduce2hide_findReplace; break;
+		case FINDINFILES_DLG:    ids = &_reduce2hide_fif;         break;
+		case FINDINPROJECTS_DLG: ids = &_reduce2hide_fip;         break;
+		default:                 ids = &_reduce2hide_mark;        break; // MARK_DLG
 	}
-	else if (dlgT == REPLACE_DLG)
-	{
-		for (int id : _reduce2hide_findReplace)
-			::ShowWindow(::GetDlgItem(_hSelf, id), isLessModeOn ? SW_HIDE : SW_SHOW);
-	}
-	else if (dlgT == FINDINFILES_DLG)
-	{
-		for (int id : _reduce2hide_fif)
-			::ShowWindow(::GetDlgItem(_hSelf, id), isLessModeOn ? SW_HIDE : SW_SHOW);
-	}
-	else if (dlgT == FINDINPROJECTS_DLG)
-	{
-		for (int id : _reduce2hide_fip)
-			::ShowWindow(::GetDlgItem(_hSelf, id), isLessModeOn ? SW_HIDE : SW_SHOW);
-	}
-	else // MARK_DLG
-	{
-		for (int id : _reduce2hide_mark)
-			::ShowWindow(::GetDlgItem(_hSelf, id), isLessModeOn ? SW_HIDE : SW_SHOW);
-	}
+
+	for (int id : *ids)
+		showFindDlgItem(id, !isLessModeOn); // keeps the enabled/disabled bookkeeping
 }
 
 void FindReplaceDlg::calcAndSetCtrlsPos(DIALOG_TYPE dlgT, bool fromColBtn)

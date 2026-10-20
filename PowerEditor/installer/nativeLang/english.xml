@@ -507,6 +507,7 @@ Translation note:
 				<Item id="1654" name="Filter&amp;s:"/>
 				<Item id="1655" name="Dir&amp;ectory:"/>
 				<Item id="1656" name="Find All"/>
+				<Item id="1657" name="Purge for every search"/>
 				<Item id="1658" name="In all su&amp;b-folders"/>
 				<Item id="1659" name="In &amp;hidden folders"/>
 				<Item id="1624" name="Search mode"/>

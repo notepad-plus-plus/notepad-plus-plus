@@ -432,6 +432,7 @@ void FindReplaceDlg::fillFindHistory()
 	const NppGUI&	nppGUI = nppParams.getNppGUI();
 	::SendDlgItemMessage(_hSelf, IDC_CONFIRMREPLACEOPENDOCS, BM_SETCHECK, nppGUI._confirmReplaceInAllOpenDocs, 0);
 	::SendDlgItemMessage(_hSelf, IDC_REPLACEANDSTOP, BM_SETCHECK, nppGUI._replaceStopsWithoutFindingNext, 0);
+	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_PURGE_CHECK, BM_SETCHECK, nppGUI._finderPurgeBeforeEverySearch, 0);
 
 	if (findHistory._searchMode == FindHistory::regExpr)
 	{
@@ -1312,13 +1313,18 @@ void FindReplaceDlg::resizeDialogElements()
 	::SetWindowPos(hSelCheck, nullptr, rcOkBtn.left - posSelCheck, rcSelCheck.top, 0, 0, SWP_NOSIZE | flags);
 	getMappedChildRect(hSelCheck, rcSelCheck);
 
-	size_t nCtrls = moveCheckIds.size() + moveBtnIDs.size() + moveOtherCtrlsIDs.size();
+	size_t nCtrls = moveCheckIds.size() + moveBtnIDs.size() + moveOtherCtrlsIDs.size() + 1;
 	auto hdwp = ::BeginDeferWindowPos(static_cast<int>(nCtrls));
 
 	RECT rcSelGrpb{};
 	HWND hSelGrpb = ::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION);
 	getMappedChildRect(hSelGrpb, rcSelGrpb);
 	hdwp = setOrDeferWindowPos(hdwp, hSelGrpb, nullptr, rcSelCheck.left - (gap * 3) / 2, rcSelGrpb.top, 0, 0, SWP_NOSIZE | flags);
+
+	RECT rcPurgeCheck{};
+	HWND hPurgeCheck = ::GetDlgItem(_hSelf, IDD_FINDINFILES_PURGE_CHECK);
+	getMappedChildRect(hPurgeCheck, rcPurgeCheck);
+	hdwp = setOrDeferWindowPos(hdwp, hPurgeCheck, nullptr, rcOkBtn.left - getRcWidth(rcPurgeCheck) - gap / 2, rcPurgeCheck.top, 0, 0, SWP_NOSIZE | flags);
 
 	for (int moveWndID : moveCheckIds)
 	{
@@ -1837,6 +1843,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				bool origInSelChecked = inSelChecked;
 
 				const NppGUI& nppGui = (NppParameters::getInstance()).getNppGUI();
+				setChecked(IDD_FINDINFILES_PURGE_CHECK, nppGui._finderPurgeBeforeEverySearch);
 				if (nppGui._inSelectionAutocheckThreshold != 0)
 				{
 					// code is allowed to change checkmark status of In-selection checkbox
@@ -2339,6 +2346,19 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				{
 					NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 					nppGUI._replaceStopsWithoutFindingNext = isCheckedOrNot(IDC_REPLACEANDSTOP);
+				}
+				return TRUE;
+
+				case IDD_FINDINFILES_PURGE_CHECK:
+				{
+					if (_currentStatus == FINDINFILES_DLG)
+					{
+						const bool doPurge = isCheckedOrNot(IDD_FINDINFILES_PURGE_CHECK);
+						nppParamInst.getNppGUI()._finderPurgeBeforeEverySearch = doPurge;
+
+						if (_pFinder)
+							_pFinder->_purgeBeforeEverySearch = doPurge;
+					}
 				}
 				return TRUE;
 
@@ -4335,6 +4355,7 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable, bool projectPanels
 	showFindDlgItem(IDD_FINDINFILES_DIR_COMBO, isEnable && (!projectPanels));
 	showFindDlgItem(IDD_FINDINFILES_BROWSE_BUTTON, isEnable && (!projectPanels));
 	showFindDlgItem(IDD_FINDINFILES_FIND_BUTTON, isEnable);
+	showFindDlgItem(IDD_FINDINFILES_PURGE_CHECK, isEnable && (!projectPanels));
 	showFindDlgItem(IDD_FINDINFILES_RECURSIVE_CHECK, isEnable && (!projectPanels));
 	showFindDlgItem(IDD_FINDINFILES_INHIDDENDIR_CHECK, isEnable && (!projectPanels));
 	showFindDlgItem(IDD_FINDINFILES_PROJECT1_CHECK, isEnable && projectPanels);

@@ -368,10 +368,9 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent, bool t
 	_tab.insertAtEnd(findInProjects);
 	_tab.insertAtEnd(mark);
 
+	rcClient.bottom -= _statusBar.getHeight();
 	_tab.reSizeTo(rcClient);
 	_tab.display();
-
-	::SetWindowPos(_statusBar.getHSelf(), _tab.getHSelf(), 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOREDRAW | SWP_NOACTIVATE | SWP_NOCOPYBITS);
 
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI& nppGUI = nppParam.getNppGUI();
@@ -1432,9 +1431,7 @@ void FindReplaceDlg::resizeDialogElements()
 		hdwp = setOrDeferWindowPos(hdwp, hTransSlider, nullptr, rcTransGrpb.left + gapTransS, rcTransSlider.top, 0, 0, SWP_NOSIZE | flags);
 	}
 
-	auto hTab = _tab.getHSelf();
-	::GetClientRect(hTab, &rcTmp);
-	hdwp = setOrDeferWindowPos(hdwp, hTab, nullptr, 0, 0, rcClient.right, rcTmp.bottom, SWP_NOMOVE | flags);
+	hdwp = setOrDeferWindowPos(hdwp, _tab.getHSelf(), nullptr, 0, 0, rcClient.right, rcClient.bottom - _statusBar.getHeight(), SWP_NOMOVE | flags);
 
 	if (hdwp)
 		::EndDeferWindowPos(hdwp);

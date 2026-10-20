@@ -257,3 +257,13 @@ versioned_copy()
             -e "s/@LIBCURL_TIMESTAMP@/${LIBCURL_TIMESTAMP}/g"           \
                 < "${1}" > "${2}"
 }
+
+
+#
+#	Exit with an error message.
+#
+error_exit()
+{
+	echo "${1}" >&2
+	exit 1
+}

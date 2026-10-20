@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: October 16, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: October 20, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
@@ -983,10 +983,10 @@
 					<Item id="6122" name="&amp;Sakrij (za prikaz koristite Alt ili F10)"/>
 					<Item id="6132" name="Sakrij &amp;prečace ＋ ▼ ✕ s desne strane"/>
 					<Item id="6133" name="Statusna vrpca"/>
-					<Item id="6134" name="S&amp;akrij"/>
+					<Item id="6134" name="Sa&amp;krij"/>
 					<Item id="7165" name="Font u dijalozima (potreban je restart Notepada++)"/>
 					<Item id="7166" name="&amp;Veličina:"/>
-					<Item id="7168" name="Ime:"/>
+					<Item id="7168" name="Naziv:"/>
 				</Global>
 
 				<Toolbar title="Alatna vrpca">
@@ -1244,8 +1244,6 @@ umjesto brisanja jednog razmaka"/>
 				<Searching title="Pretraživanje">
 					<Item id="6902" name="Koristi font fiksne širine u dijalogu pretraživanja (potreban je restart Notepada++)"/>
 					<Item id="6903" name="Dijalog pretraživanja ostaje otvoren nakon pretraživanja koje otvara prozor s rezultatima"/>
-					<Item id="6904" name="Traži potvrdu za Zamijeni sve u svim otvorenim dokumentima"/>
-					<Item id="6905" name="Pri zamjeni ne prelazi na sljedeće pojavljivanje"/>
 					<Item id="6906" name="U prozoru rezultata pretraživanja prikaži samo jedan redak s rezultatima u tom retku (ako stanu u redak)"/>
 					<Item id="6907" name="Kad se pozove dijaloški okvir za pretraživanje"/>
 					<Item id="6908" name="Ispunite polje za pretraživanje označenim tekstom"/>

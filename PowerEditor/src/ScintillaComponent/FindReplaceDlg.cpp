@@ -4212,11 +4212,14 @@ void FindReplaceDlg::showFindDlgItem(int dlgItemID, bool isShow /* = true*/)
 	// but that causes trouble when unhiding it; we don't know if it should be enabled or disabled,
 	// so used the remembered state when we last enabled/disabled this control to determine it
 
-	if (dlgItemID == IDOK)
+	if (dlgItemID == IDOK || dlgItemID == IDCANCEL)
 	{
 		// do not disable the standard Find-Next button (IDOK);
 		// keeping it enabled allows Enter (and Shift+Enter) to work when in 2-button-find-mode
 		// and IDC_FINDNEXT does not have focus
+		// 
+		// do not disable IDCANCEL either: it is hidden in the reduced (less) mode,
+		// but must stay enabled so that Esc can still close the dialog
 		return;
 	}
 

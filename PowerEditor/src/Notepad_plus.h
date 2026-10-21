@@ -14,40 +14,59 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 #pragma once
 
-#include "ScintillaEditView.h"
-#include "DocTabView.h"
-#include "SplitterContainer.h"
-#include "FindReplaceDlg.h"
+#include <windows.h>
+
+#include <atomic>
+#include <cstdlib>
+#include <chrono>
+#include <string>
+#include <unordered_map>
+#include <utility>
+#include <vector>
+
+#include <Scintilla.h>
+
 #include "AboutDlg.h"
-#include "RunDlg.h"
-#include "StatusBar.h"
-#include "lastRecentFileList.h"
-#include "GoToLineDlg.h"
-#include "FindCharsInRange.h"
-#include "columnEditor.h"
-#include "WordStyleDlg.h"
-#include "trayIconControler.h"
-#include "PluginsManager.h"
-#include "preferenceDlg.h"
-#include "WindowsDlg.h"
-#include "RunMacroDlg.h"
-#include "DockingManager.h"
-#include "Processus.h"
 #include "AutoCompletion.h"
-#include "SmartHighlighter.h"
+#include "Buffer.h"
+#include "ContextMenu.h"
+#include "DocTabView.h"
+#include "Docking.h"
+#include "DockingCont.h"
+#include "DockingDlgInterface.h"
+#include "DockingManager.h"
+#include "FindCharsInRange.h"
+#include "FindReplaceDlg.h"
+#include "GoToLineDlg.h"
+#include "Notepad_plus_msgs.h"
+#include "NppConstants.h"
+#include "Parameters.h"
+#include "PluginsManager.h"
+#include "RunDlg.h"
+#include "RunMacroDlg.h"
 #include "ScintillaCtrls.h"
-#include "lesDlgs.h"
-#include "pluginsAdmin.h"
-#include "localization.h"
+#include "ScintillaEditView.h"
+#include "SmartHighlighter.h"
+#include "SplitterContainer.h"
+#include "StatusBar.h"
+#include "ToolBar.h"
+#include "Window.h"
+#include "WindowsDlg.h"
+#include "WordStyleDlg.h"
+#include "columnEditor.h"
 #include "documentSnapshot.h"
+#include "lastRecentFileList.h"
+#include "lesDlgs.h"
+#include "localization.h"
 #include "md5Dlgs.h"
 #include "menuCmdID.h"
-#include <vector>
-#include <iso646.h>
-#include <chrono>
-#include <atomic>
+#include "pluginsAdmin.h"
+#include "preferenceDlg.h"
+#include "shortcut.h"
+#include "trayIconControler.h"
 
 extern std::chrono::steady_clock::time_point g_nppStartTimePoint;
 extern std::chrono::steady_clock::duration g_pluginsLoadingTime;
@@ -430,6 +449,8 @@ private:
 	FunctionListPanel* _pFuncList = nullptr;
 
 	std::vector<HWND> _sysTrayHiddenHwnd;
+
+	std::unordered_map<COLORREF, HBITMAP> _menuItemClrBitmaps;
 
 	BOOL notify(SCNotification *notification);
 	void command(int id);

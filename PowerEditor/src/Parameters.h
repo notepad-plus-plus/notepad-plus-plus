@@ -942,6 +942,8 @@ struct ScintillaViewParams
 	bool _rightClickKeepsSelection = false;
 	bool _selectedTextForegroundSingleColor = false;
 	bool _disableAdvancedScrolling = false;
+	bool _smoothScrolling = false;
+	int _smoothScrollingDuration = 150; // ms
 	bool _doSmoothFont = false;
 	bool _showBorderEdge = true;
 

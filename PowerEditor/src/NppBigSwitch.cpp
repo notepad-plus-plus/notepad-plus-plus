@@ -33,6 +33,7 @@
 #include "fileBrowser.h"
 #include "NppDarkMode.h"
 #include "NppConstants.h"
+#include "SmoothScrolling.h"
 
 using namespace std;
 
@@ -2692,6 +2693,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				rebar.setIDVisible(REBAR_BAR_SEARCH, true);
 
 			::SendMessage(hwnd, WM_SIZE, 0, 0);
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_SMOOTHSCROLLING:
+		{
+			SmoothScrolling::apply(_mainEditView.getHSelf(), _subEditView.getHSelf());
 			return TRUE;
 		}
 

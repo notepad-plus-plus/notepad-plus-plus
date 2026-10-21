@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: October 20, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: October 21, 2026 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
@@ -1497,7 +1497,6 @@ Učitaj svejedno?"/>
 				<Item id="7" name="Uvijek p&amp;reskoči mrežnu putanju"/>
 				<Item id="4" name="Uvijek u&amp;čitaj mrežnu putanju"/>
 			</NetworkPathWarning>
-
 			<DebugInfo title="Debug informacije">
 				<Item id="1752" name="&amp;Kopiraj podatke u međuspremnik"/>
 				<Item id="1" name="U redu"/>
@@ -1791,6 +1790,8 @@ Nastavite samo ako razumijete rizik."/>
 			<default-open-save-select-folder value="Odaberite zadanu mapu"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Upotrijebite Shift + Enter za pretraživanje u suprotnom smjeru."/>
 			<two-find-buttons-tip value="Dva gumba za pretraživanje"/>
+			<confirm-replace-in-all-open-docs-tip value="Potvrdi &quot;Zamijeni sve u svim otvorenim dokumentima&quot; action"/>
+			<replace-and-stop-tip value="Nakon zamjene, ne idi na sljedeće podudaranje"/>
 			<find-in-files-filter-tip value="Nađi u datotekama cpp, cxx, h, hxx i hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 

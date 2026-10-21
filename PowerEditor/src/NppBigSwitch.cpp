@@ -33,6 +33,7 @@
 #include "fileBrowser.h"
 #include "NppDarkMode.h"
 #include "NppConstants.h"
+#include "Processus.h"
 
 using namespace std;
 

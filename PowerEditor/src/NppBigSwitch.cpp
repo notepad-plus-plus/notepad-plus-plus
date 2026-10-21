@@ -2573,7 +2573,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				{
 					_pClipboardHistoryPanel->setBackgroundColor(pStyle->_bgColor);
 					_pClipboardHistoryPanel->setForegroundColor(pStyle->_fgColor);
-					_pClipboardHistoryPanel->redraw(true);
 				}
 
 				if (pStyle && _pProjectPanel_1)

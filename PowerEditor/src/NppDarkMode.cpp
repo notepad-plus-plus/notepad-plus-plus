@@ -2363,9 +2363,12 @@ namespace NppDarkMode
 		return DefSubclassProc(hWnd, uMsg, wParam, lParam);
 	}
 
-	static void subclassListViewControl(HWND hwnd)
+	void subclassListViewControl(HWND hwnd)
 	{
-		SetWindowSubclass(hwnd, ListViewSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), 0);
+		if (::GetWindowSubclass(hwnd, ListViewSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), nullptr) == FALSE)
+		{
+			::SetWindowSubclass(hwnd, ListViewSubclass, static_cast<UINT_PTR>(SubclassID::darkMode), 0);
+		}
 	}
 
 	struct ProgressBarData

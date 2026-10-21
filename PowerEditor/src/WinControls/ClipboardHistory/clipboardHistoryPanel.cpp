@@ -16,9 +16,29 @@
 
 
 #include "clipboardHistoryPanel.h"
-#include "ScintillaEditView.h"
-#include "clipboardFormats.h"
 
+#include <windows.h>
+
+#include <commctrl.h>
+
+#include <algorithm>
+#include <cstring>
+#include <cwchar>
+#include <string>
+
+#include <Scintilla.h>
+
+#include "Common.h"
+#include "DockingDlgInterface.h"
+#include "ListView.h"
+#include "NppDarkMode.h"
+#include "ScintillaEditView.h"
+#include "Window.h"
+#include "clipboardFormats.h"
+#include "clipboardHistoryPanel_rc.h"
+#include "dockingResource.h"
+#include "menuCmdID.h"
+#include "resource.h"
 
 #define MAX_DISPLAY_LENGTH 64
 
@@ -32,7 +52,7 @@ ClipboardDataInfo ClipboardHistoryPanel::getClipboadData()
 		return clipboardData;
 	 
 	HGLOBAL hglb = GetClipboardData(CF_UNICODETEXT);
-	if (hglb != NULL) 
+	if (hglb != NULL)
 	{ 
 		unsigned char* pData = static_cast<unsigned char*>(GlobalLock(hglb));
 		if (pData != NULL)
@@ -49,7 +69,7 @@ ClipboardDataInfo ClipboardHistoryPanel::getClipboadData()
 						unsigned char* pData_bin = static_cast<unsigned char*>(GlobalLock(hglb_binText));
 						if (pData_bin != NULL)
 						{
-							const unsigned long* lpLen = (unsigned long*)GlobalLock(hglbLen);
+							const unsigned long* lpLen = static_cast<unsigned long*>(::GlobalLock(hglbLen));
 							if (lpLen != NULL) // Special copy-paste: Binary data
 							{
 								SIZE_T availableBytes = GlobalSize(hglb_binText);
@@ -69,8 +89,8 @@ ClipboardDataInfo ClipboardHistoryPanel::getClipboadData()
 			}
 			else // Not internal binary clipboard data
 			{
-				wchar_t* lpwchar = (wchar_t*)pData;
-				size_t nbBytes = (lstrlenW(lpwchar) + 1) * sizeof(wchar_t);
+				const wchar_t* lpwchar = reinterpret_cast<wchar_t*>(pData);
+				const size_t nbBytes = (std::wcslen(lpwchar) + 1) * sizeof(wchar_t);
 				for (size_t i = 0 ; i < nbBytes ; ++i)
 				{
 					clipboardData._data.push_back(static_cast<unsigned char>(pData[i]));
@@ -131,9 +151,43 @@ StringArray::StringArray(const ClipboardDataInfo& cd, size_t maxLen)
 	}
 }
 
+void CBHListView::init(HINSTANCE hInst, HWND hParent)
+{
+	if (_hSelf != nullptr)
+	{
+		return;
+	}
+
+	ListViewBase::init(hInst, hParent, IDC_LIST_CLIPBOARD,
+		LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_NOCOLUMNHEADER,
+		LVS_EX_FULLROWSELECT | LVS_EX_LABELTIP | LVS_EX_BORDERSELECT | LVS_EX_DOUBLEBUFFER);
+
+	if (_hSelf == nullptr)
+	{
+		return;
+	}
+
+	RECT rcList{};
+	::GetClientRect(_hSelf, &rcList);
+
+	LVCOLUMN column{};
+	column.mask = LVCF_WIDTH;
+	column.cx = rcList.right - rcList.left;
+	ListView_InsertColumn(_hSelf, 0, &column);
+}
+
+void CBHListView::reSizeToWH(int width, int height)
+{
+	::SetWindowPos(_hSelf, nullptr, 0, 0, width, height, SWP_NOZORDER | SWP_NOACTIVATE); // SWP_NOMOVE must not be used due to RTL
+
+	RECT rcList{};
+	::GetClientRect(_hSelf, &rcList);
+	ListView_SetColumnWidth(_hSelf, 0, rcList.right - rcList.left);
+}
+
 // Search clipboard data in internal storage
 // return -1 if not found, else return the index of internal array
-int ClipboardHistoryPanel::getClipboardDataIndex(const ClipboardDataInfo& cbd)
+int ClipboardHistoryPanel::getClipboardDataIndex(const ClipboardDataInfo& cbd) const
 {
 	int iFound = -1;
 	bool found = false; 
@@ -154,7 +208,7 @@ int ClipboardHistoryPanel::getClipboardDataIndex(const ClipboardDataInfo& cbd)
 
 			if (found)
 			{
-				iFound = static_cast<int32_t>(i);
+				iFound = static_cast<int>(i);
 				break;
 			}
 		}
@@ -162,49 +216,97 @@ int ClipboardHistoryPanel::getClipboardDataIndex(const ClipboardDataInfo& cbd)
 	return iFound;
 }
 
-void ClipboardHistoryPanel::addToClipboadHistory(ClipboardDataInfo cbd)
+void ClipboardHistoryPanel::addToClipboadHistory(const ClipboardDataInfo& cbd)
 {
-	int i = getClipboardDataIndex(cbd);
-	if (i == 0) return;
-	if (i != -1)
-	{
-		_clipboardDataInfos.erase(_clipboardDataInfos.begin() + i);
-		::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_DELETESTRING, i, 0);
-	}
-	_clipboardDataInfos.insert(_clipboardDataInfos.begin(), cbd);
-
-	::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_INSERTSTRING, 0, reinterpret_cast<LPARAM>(L"")); // String will be added in drawItem()
-}
-
-
-void ClipboardHistoryPanel::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
-{
-	UINT i = lpDrawItemStruct->itemID;
-	if (i >= _clipboardDataInfos.size())
+	const int idx = getClipboardDataIndex(cbd);
+	if (idx == 0)
 		return;
 
-	//printStr(L"OK");
-	COLORREF fgColor = _lbFgColor == -1?black:_lbFgColor; // fg black by default
-	COLORREF bgColor = _lbBgColor == -1?white:_lbBgColor; // bg white by default
-	
-	ClipboardDataInfo& cbd = _clipboardDataInfos[i];
-	StringArray sa(cbd, MAX_DISPLAY_LENGTH);
-	wchar_t* displayStr = nullptr;
-	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-	if (cbd._isBinaryContained)
+	// WM_DRAWCLIPBOARD can happen before WM_INITDIALOG
+	// so include init here to have current buffer shown in listview
+	_listView.init(_hInst, _hSelf);
+
+	if (auto it = _clipboardDataInfos.begin();
+		idx != -1)
 	{
-		char* displayStrA = (char*)sa.getPointer();
-		displayStr = (wchar_t*)wmc.char2wchar(displayStrA, SC_CP_UTF8);
+		std::rotate(it, it + idx, it + idx + 1);
+		ListView_DeleteItem(_listView, idx);
 	}
 	else
 	{
-		displayStr = (wchar_t*)sa.getPointer();
+		_clipboardDataInfos.insert(it, cbd);
 	}
 
-	::SetTextColor(lpDrawItemStruct->hDC, fgColor);
-	::SetBkColor(lpDrawItemStruct->hDC, bgColor);
-	
-	::DrawText(lpDrawItemStruct->hDC, displayStr, lstrlen(displayStr), &(lpDrawItemStruct->rcItem), DT_SINGLELINE | DT_VCENTER | DT_LEFT);
+	StringArray sa(cbd, MAX_DISPLAY_LENGTH);
+	std::wstring displayStr;
+	if (cbd._isBinaryContained)
+	{
+		const char* displayStrA = reinterpret_cast<const char*>(sa.getPointer());
+		displayStr = string2wstring(displayStrA);
+	}
+	else
+	{
+		displayStr = reinterpret_cast<const wchar_t*>(sa.getPointer());
+	}
+
+	LVITEM item{};
+	item.mask = LVIF_TEXT;
+	item.iItem = 0;
+	item.pszText = displayStr.data();
+	ListView_InsertItem(_listView, &item);
+}
+
+void ClipboardHistoryPanel::onDoubleClick(HWND hList)
+{
+	const int i = ListView_GetNextItem(hList, -1, LVNI_SELECTED);
+	if (i < 0 || static_cast<size_t>(i) >= _clipboardDataInfos.size())
+	{
+		return;
+	}
+
+	int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
+	if (codepage == -1)
+	{
+		const auto cp = (*_ppEditView)->execute(SCI_GETCODEPAGE);
+		codepage = (cp == SC_CP_UTF8) ? SC_CP_UTF8 : 0;
+	}
+	else
+	{
+		codepage = SC_CP_UTF8;
+	}
+
+	char* c = nullptr;
+	try
+	{
+		const auto& data = _clipboardDataInfos[i];
+		if (data._isBinaryContained)
+		{
+			(*_ppEditView)->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
+			(*_ppEditView)->execute(SCI_ADDTEXT, static_cast<WPARAM>(data._data.size()), reinterpret_cast<LPARAM>(data._data.data()));
+		}
+		else
+		{
+			ByteArray ba(data);
+			const int nbChar = ::WideCharToMultiByte(codepage, 0, reinterpret_cast<const wchar_t*>(ba.getPointer()), static_cast<int>(ba.getLength()), nullptr, 0, nullptr, nullptr);
+
+			c = new char[nbChar + 1];
+
+			::WideCharToMultiByte(codepage, 0, reinterpret_cast<const wchar_t*>(ba.getPointer()), static_cast<int>(ba.getLength()), c, nbChar + 1, nullptr, nullptr);
+
+			c[nbChar] = '\0';
+
+			(*_ppEditView)->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
+			(*_ppEditView)->execute(SCI_ADDTEXT, static_cast<WPARAM>(std::strlen(c)), reinterpret_cast<LPARAM>(c));
+			delete[] c;
+		}
+		(*_ppEditView)->grabFocus();
+	}
+	catch (...)
+	{
+		NppDarkMode::darkMessageBoxW(_hSelf, L"Cannot process this clipboard data in the history:\nThe data is too large to be treated.", L"Clipboard problem", MB_OK | MB_APPLMODAL);
+		if (c)
+			delete[] c;
+	}
 }
 
 intptr_t CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
@@ -214,22 +316,27 @@ intptr_t CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam
 		case WM_INITDIALOG:
 		{
 			_hwndNextCbViewer = ::SetClipboardViewer(_hSelf);
-			NppDarkMode::setDarkScrollBar(::GetDlgItem(_hSelf, IDC_LIST_CLIPBOARD));
+
+			_listView.init(_hInst, _hSelf);
+			_listView.display();
+
 			return TRUE;
 		}
 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
-			NppDarkMode::setDarkScrollBar(GetDlgItem(_hSelf, IDC_LIST_CLIPBOARD));
+			_listView.setDarkTheme();
 			return TRUE;
 		}
 
 		case WM_CHANGECBCHAIN:
+		{
 			if (_hwndNextCbViewer == reinterpret_cast<HWND>(wParam))
 				_hwndNextCbViewer = reinterpret_cast<HWND>(lParam);
 			else if (_hwndNextCbViewer)
 				::SendMessage(_hwndNextCbViewer, message, wParam, lParam);
 			return TRUE;
+		}
 
 		case WM_DRAWCLIPBOARD:
 		{
@@ -248,98 +355,40 @@ intptr_t CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam
 		}
 
 		case WM_DESTROY:
-			::ChangeClipboardChain(_hSelf, _hwndNextCbViewer);
-			break;
-
-		case WM_COMMAND : 
 		{
-			switch (LOWORD(wParam))
-            {
-                case IDC_LIST_CLIPBOARD:
-				{
-					if (HIWORD(wParam) == LBN_DBLCLK)
-					{
-						auto i = ::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_GETCURSEL, 0, 0);
-						if (i != LB_ERR)
-						{
-							int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
-							if (codepage == -1)
-							{
-								auto cp = (*_ppEditView)->execute(SCI_GETCODEPAGE);
-								codepage = cp == SC_CP_UTF8 ? SC_CP_UTF8 : 0;
-							}
-							else
-								codepage = SC_CP_UTF8;
-
-							
-							char* c = nullptr;
-							try {
-								if (_clipboardDataInfos[i]._isBinaryContained)
-								{
-									(*_ppEditView)->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
-									(*_ppEditView)->execute(SCI_ADDTEXT, _clipboardDataInfos[i]._data.size(), reinterpret_cast<LPARAM>(&(_clipboardDataInfos[i]._data[0])));
-								}
-								else
-								{
-									ByteArray ba(_clipboardDataInfos[i]);
-									int nbChar = WideCharToMultiByte(codepage, 0, (wchar_t*)ba.getPointer(), static_cast<int32_t>(ba.getLength()), NULL, 0, NULL, NULL);
-
-									c = new char[nbChar + 1];
-									WideCharToMultiByte(codepage, 0, (wchar_t*)ba.getPointer(), static_cast<int32_t>(ba.getLength()), c, nbChar + 1, NULL, NULL);
-
-									(*_ppEditView)->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
-									(*_ppEditView)->execute(SCI_ADDTEXT, strlen(c), reinterpret_cast<LPARAM>(c));
-									(*_ppEditView)->grabFocus();
-									delete[] c;
-								}
-							}
-							catch (...)
-							{
-								NppDarkMode::darkMessageBoxW(_hSelf, L"Cannot process this clipboard data in the history:\nThe data is too large to be treated.", L"Clipboard problem", MB_OK | MB_APPLMODAL);
-								if (c)
-									delete[] c;
-							}
-						}
-					}
-					return TRUE;
-				}
-			}
+			::ChangeClipboardChain(_hSelf, _hwndNextCbViewer);
+			_listView.destroy();
+			break;
 		}
-		break;
 
 		case WM_NOTIFY:
 		{
-			if (((LPNMHDR)lParam)->code == DMN_CLOSE)
-				::SendMessage(_hParent, WM_COMMAND, IDM_EDIT_CLIPBOARDHISTORY_PANEL, 0);
-			break;
-		}
-		
-        case WM_SIZE:
-        {
-            int width = LOWORD(lParam);
-            int height = HIWORD(lParam);
-			::MoveWindow(::GetDlgItem(_hSelf, IDC_LIST_CLIPBOARD), 0, 0, width, height, TRUE);
-            break;
-        }
+			const auto nmhdr = reinterpret_cast<LPNMHDR>(lParam);
 
-		case WM_CTLCOLORLISTBOX:
-		{
-			if (_lbBgColor != -1)
+			if (nmhdr->idFrom == IDC_LIST_CLIPBOARD && nmhdr->code == NM_DBLCLK)
 			{
-				::SetDCBrushColor(reinterpret_cast<HDC>(wParam), _lbBgColor);
-				return reinterpret_cast<LRESULT>(::GetStockObject(DC_BRUSH));
+				onDoubleClick(nmhdr->hwndFrom);
+				return TRUE;
+			}
+
+			if (nmhdr->code == DMN_CLOSE)
+			{
+				::SendMessage(_hParent, WM_COMMAND, IDM_EDIT_CLIPBOARDHISTORY_PANEL, 0);
+				return TRUE;
 			}
 			break;
 		}
-
-		case WM_DRAWITEM:
+		
+		case WM_SIZE:
 		{
-			drawItem(reinterpret_cast<DRAWITEMSTRUCT *>(lParam));
+			const int width = LOWORD(lParam);
+			const int height = HIWORD(lParam);
+			_listView.reSizeToWH(width, height);
 			break;
 		}
-        default :
-            return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
-    }
+
+		default:
+			break;
+	}
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 }
-

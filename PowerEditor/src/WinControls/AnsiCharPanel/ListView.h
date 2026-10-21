@@ -24,6 +24,7 @@
 #include <string>
 #include <vector>
 
+#include "NppDarkMode.h"
 #include "Window.h"
 
 struct columnInfo {
@@ -31,6 +32,32 @@ struct columnInfo {
 	std::wstring _label;
 
 	columnInfo(const std::wstring& label, size_t width) : _width(width), _label(label) {}
+};
+
+class ListViewBase : public Window
+{
+public:
+	ListViewBase() = default;
+	~ListViewBase() override = default;
+
+	void init(HINSTANCE hInst, HWND hParent, UINT_PTR listViewID,
+		DWORD style = LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_NOSORTHEADER,
+		DWORD exStyle = LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT | LVS_EX_DOUBLEBUFFER);
+
+	void destroy() override;
+
+	void setDarkTheme() {
+		NppDarkMode::setDarkListView(_hSelf);
+		NppDarkMode::setDarkTooltips(_hSelf, NppDarkMode::ToolTipsType::listview);
+	}
+
+	static void subclassParentNotifyListViewCustomDraw(HWND hParent, UINT_PTR listViewID);
+
+private:
+	using Window::init;
+
+	static LRESULT listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) noexcept;
+	static LRESULT CALLBACK ListViewParentNotifyCustomDrawSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData) noexcept;
 };
 
 class ListView : public Window
@@ -62,7 +89,7 @@ public:
 
 	size_t findAlphabeticalOrderPos(const std::wstring& string2Cmp, SortDirection sortDir);
 
-	void addLine(const std::vector<std::wstring> & values2Add, LPARAM lParam = 0, int pos2insert = -1);
+	void addLine(std::vector<std::wstring>& values2Add, LPARAM lParam = 0, int pos2insert = -1);
 	
 	size_t nbItem() const {
 		return ListView_GetItemCount(_hSelf);

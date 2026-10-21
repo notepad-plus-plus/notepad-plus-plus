@@ -193,7 +193,7 @@ namespace NppDarkMode
 	void subclassGroupboxControl(HWND hwnd);
 	void subclassTabControl(HWND hwnd);
 	void subclassComboBoxControl(HWND hwnd);
-
+	void subclassListViewControl(HWND hwnd);
 	bool subclassTabUpDownControl(HWND hwnd);
 
 	void subclassAndThemeButton(HWND hwnd, NppDarkModeParams p);

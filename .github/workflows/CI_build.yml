@@ -17,7 +17,7 @@ jobs:
 
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 0 }}
 
@@ -96,7 +96,7 @@ jobs:
 
     - name: (cache) Lookup Python modules
       if: env.PYTHON_ALLOW_CACHE == 'true'
-      uses: actions/cache/restore@v5
+      uses: actions/cache/restore@v6
       id: cache-lookup
       with:
         path: ${{ env.PYTHON_DIR_CACHE }}
@@ -105,7 +105,7 @@ jobs:
 
     - name: (cache) Restore Python modules
       if: env.PYTHON_ALLOW_CACHE == 'true' && steps.filter.outputs.result == 'XML' && steps.cache-lookup.outputs.cache-hit == 'true'
-      uses: actions/cache/restore@v5
+      uses: actions/cache/restore@v6
       with:
         path: ${{ env.PYTHON_DIR_CACHE }}
         key: ${{ steps.filter.outputs.python }}
@@ -117,7 +117,7 @@ jobs:
 
     - name: (cache) Save Python modules
       if: env.PYTHON_ALLOW_CACHE == 'true' && steps.cache-lookup.outputs.cache-hit != 'true' && github.event_name == 'push'
-      uses: actions/cache/save@v5
+      uses: actions/cache/save@v6
       with:
         path: ${{ env.PYTHON_DIR_CACHE }}
         key: ${{ steps.filter.outputs.python }}
@@ -213,7 +213,7 @@ jobs:
 
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v3
@@ -266,7 +266,7 @@ jobs:
 
     - name: (cache) Restore Python modules for Win32 / Debug
       if: matrix.build_platform == 'Win32' && matrix.build_configuration == 'Debug' && env.PYTHON_ALLOW_CACHE == 'true' && contains(needs.before_build.outputs.title, '[force nopythoncache]') != true
-      uses: actions/cache/restore@v5
+      uses: actions/cache/restore@v6
       with:
         path: ${{ env.PYTHON_DIR_CACHE }}
         key: ${{ needs.before_build.outputs.python }}
@@ -316,7 +316,7 @@ jobs:
 
     # steps:
     # - name: Checkout repo
-      # uses: actions/checkout@v6
+      # uses: actions/checkout@v7
 
     # - name: Add msbuild to PATH
       # uses: microsoft/setup-msbuild@v3
@@ -347,7 +347,7 @@ jobs:
 
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v3
@@ -406,13 +406,13 @@ jobs:
             arch: i686
             configuration: Debug
             compiler: gcc
-          - msys: MINGW64
-            env: x86_64
+          - msys: UCRT64
+            env: ucrt-x86_64
             arch: x86_64
             configuration: Release
             compiler: gcc
-          - msys: MINGW64
-            env: x86_64
+          - msys: UCRT64
+            env: ucrt-x86_64
             arch: x86_64
             configuration: Debug
             compiler: gcc
@@ -426,7 +426,7 @@ jobs:
 
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Modify resource.h N++ version to avoid confusion
       working-directory: PowerEditor\src\

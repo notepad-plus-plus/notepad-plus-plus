@@ -167,6 +167,8 @@ static bool isSenderTrusted(WPARAM wParam)
 	// Executable identity: require it to be this same binary (another Notepad++ instance with the same path)
 	if (isTrusted)
 	{
+		isTrusted = false; // reset
+
 		wchar_t senderImagePath[MAX_PATH]{};
 		DWORD dwSizeSender = MAX_PATH;
 		wchar_t selfImagePath[MAX_PATH]{};
@@ -175,11 +177,16 @@ static bool isSenderTrusted(WPARAM wParam)
 		if (::QueryFullProcessImageNameW(hProcess, 0, senderImagePath, &dwSizeSender) &&
 			::QueryFullProcessImageNameW(::GetCurrentProcess(), 0, selfImagePath, &dwSizeSelf))
 		{
-			isTrusted = (_wcsicmp(senderImagePath, selfImagePath) == 0);
-		}
-		else
-		{
-			isTrusted = false;
+			// unfortunately, while the QueryFullProcessImageName translates a symlink image module path stored in the process PEB to the original fullpath,
+			// it OTOH leaves the possibly used short 8.3 path there intact (e.g. Notepad++ launched via CMD "C:\Progra~1\Notepad++\notepad++.exe"),
+			// so we have to ensure the final consistency in-between the compared paths ourselves
+			wchar_t senderImageLongPath[MAX_PATH]{};
+			wchar_t selfImageLongPath[MAX_PATH]{};
+			if ((::GetLongPathNameW(senderImagePath, senderImageLongPath, MAX_PATH) > 0) &&
+				(::GetLongPathNameW(selfImagePath, selfImageLongPath, MAX_PATH) > 0))
+			{
+				isTrusted = (_wcsicmp(senderImageLongPath, selfImageLongPath) == 0);
+			}
 		}
 	}
 

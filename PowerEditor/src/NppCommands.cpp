@@ -686,8 +686,11 @@ void Notepad_plus::command(int id)
 							unsigned long *lpLen = (unsigned long *)GlobalLock(hglbLen);
 							if (lpLen != NULL)
 							{
+								SIZE_T actualSize = GlobalSize(hglb);
+								unsigned long safeLen = (*lpLen <= actualSize) ? *lpLen : static_cast<unsigned long>(actualSize);
+
 								_pEditView->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
-								_pEditView->execute(SCI_ADDTEXT, *lpLen, reinterpret_cast<LPARAM>(lpchar));
+								_pEditView->execute(SCI_ADDTEXT, safeLen, reinterpret_cast<LPARAM>(lpchar));
 
 								GlobalUnlock(hglbLen);
 							}

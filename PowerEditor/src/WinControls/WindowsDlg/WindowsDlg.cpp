@@ -718,7 +718,7 @@ void WindowsDlg::doColumnSort()
 	for (i = 0; i < n; ++i)
 		ListView_SetItemState(_hList, i, sortMap[_idxMap[i]] ? LVIS_SELECTED : 0, LVIS_SELECTED);
 
-	::InvalidateRect(_hList, &_rc, FALSE);
+	::InvalidateRect(_hList, nullptr, FALSE);
 	updateButtonState();
 }
 
@@ -989,7 +989,7 @@ void WindowsDlg::doRefresh(bool invalidate /*= false*/)
 			}
 			LPARAM lp = invalidate ? LVSICF_NOSCROLL|LVSICF_NOINVALIDATEALL : LVSICF_NOSCROLL;
 			::SendMessage(_hList, LVM_SETITEMCOUNT, count, lp);
-			::InvalidateRect(_hList, &_rc, FALSE);
+			::InvalidateRect(_hList, nullptr, FALSE);
 
 			resetSelection();
 			updateButtonState();
@@ -1054,7 +1054,7 @@ void WindowsDlg::doSave()
 	}
 	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
 	delete[] nmdlg.Items;
-	::InvalidateRect(_hList, &_rc, FALSE);
+	::InvalidateRect(_hList, nullptr, FALSE);
 	ListView_RedrawItems(_hList, 0, ListView_GetSelectedCount(_hList));
 }
 

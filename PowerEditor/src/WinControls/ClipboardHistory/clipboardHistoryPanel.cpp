@@ -256,6 +256,59 @@ void ClipboardHistoryPanel::addToClipboadHistory(const ClipboardDataInfo& cbd)
 	ListView_InsertItem(_listView, &item);
 }
 
+void ClipboardHistoryPanel::onDoubleClick(HWND hList)
+{
+	const int i = ListView_GetNextItem(hList, -1, LVNI_SELECTED);
+	if (i < 0 || static_cast<size_t>(i) >= _clipboardDataInfos.size())
+	{
+		return;
+	}
+
+	int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
+	if (codepage == -1)
+	{
+		const auto cp = (*_ppEditView)->execute(SCI_GETCODEPAGE);
+		codepage = (cp == SC_CP_UTF8) ? SC_CP_UTF8 : 0;
+	}
+	else
+	{
+		codepage = SC_CP_UTF8;
+	}
+
+	char* c = nullptr;
+	try
+	{
+		const auto& data = _clipboardDataInfos[i];
+		if (data._isBinaryContained)
+		{
+			(*_ppEditView)->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
+			(*_ppEditView)->execute(SCI_ADDTEXT, static_cast<WPARAM>(data._data.size()), reinterpret_cast<LPARAM>(data._data.data()));
+		}
+		else
+		{
+			ByteArray ba(data);
+			const int nbChar = ::WideCharToMultiByte(codepage, 0, reinterpret_cast<const wchar_t*>(ba.getPointer()), static_cast<int>(ba.getLength()), nullptr, 0, nullptr, nullptr);
+
+			c = new char[nbChar + 1];
+
+			::WideCharToMultiByte(codepage, 0, reinterpret_cast<const wchar_t*>(ba.getPointer()), static_cast<int>(ba.getLength()), c, nbChar + 1, nullptr, nullptr);
+
+			c[nbChar] = '\0';
+
+			(*_ppEditView)->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
+			(*_ppEditView)->execute(SCI_ADDTEXT, static_cast<WPARAM>(std::strlen(c)), reinterpret_cast<LPARAM>(c));
+			delete[] c;
+		}
+		(*_ppEditView)->grabFocus();
+	}
+	catch (...)
+	{
+		NppDarkMode::darkMessageBoxW(_hSelf, L"Cannot process this clipboard data in the history:\nThe data is too large to be treated.", L"Clipboard problem", MB_OK | MB_APPLMODAL);
+		if (c)
+			delete[] c;
+	}
+}
+
 intptr_t CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
@@ -277,11 +330,13 @@ intptr_t CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam
 		}
 
 		case WM_CHANGECBCHAIN:
+		{
 			if (_hwndNextCbViewer == reinterpret_cast<HWND>(wParam))
 				_hwndNextCbViewer = reinterpret_cast<HWND>(lParam);
 			else if (_hwndNextCbViewer)
 				::SendMessage(_hwndNextCbViewer, message, wParam, lParam);
 			return TRUE;
+		}
 
 		case WM_DRAWCLIPBOARD:
 		{
@@ -312,55 +367,7 @@ intptr_t CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam
 
 			if (nmhdr->idFrom == IDC_LIST_CLIPBOARD && nmhdr->code == NM_DBLCLK)
 			{
-				HWND hList = nmhdr->hwndFrom;
-				const int i = ListView_GetNextItem(hList, -1, LVNI_SELECTED);
-
-				if (i >= 0)
-				{
-					if (static_cast<size_t>(i) < _clipboardDataInfos.size())
-					{
-						int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
-						if (codepage == -1)
-						{
-							auto cp = (*_ppEditView)->execute(SCI_GETCODEPAGE);
-							codepage = cp == SC_CP_UTF8 ? SC_CP_UTF8 : 0;
-						}
-						else
-							codepage = SC_CP_UTF8;
-
-						char* c = nullptr;
-						try
-						{
-							if (_clipboardDataInfos[i]._isBinaryContained)
-							{
-								(*_ppEditView)->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
-								(*_ppEditView)->execute(SCI_ADDTEXT, static_cast<WPARAM>(_clipboardDataInfos[i]._data.size()), reinterpret_cast<LPARAM>(_clipboardDataInfos[i]._data.data()));
-							}
-							else
-							{
-								ByteArray ba(_clipboardDataInfos[i]);
-								const int nbChar = ::WideCharToMultiByte(codepage, 0, reinterpret_cast<const wchar_t*>(ba.getPointer()), static_cast<int>(ba.getLength()), nullptr, 0, nullptr, nullptr);
-
-								c = new char[nbChar + 1];
-
-								::WideCharToMultiByte(codepage, 0, reinterpret_cast<const wchar_t*>(ba.getPointer()), static_cast<int>(ba.getLength()), c, nbChar + 1, nullptr, nullptr);
-
-								c[nbChar] = '\0';
-
-								(*_ppEditView)->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
-								(*_ppEditView)->execute(SCI_ADDTEXT, static_cast<WPARAM>(std::strlen(c)), reinterpret_cast<LPARAM>(c));
-								(*_ppEditView)->grabFocus();
-								delete[] c;
-							}
-						}
-						catch (...)
-						{
-							NppDarkMode::darkMessageBoxW(_hSelf, L"Cannot process this clipboard data in the history:\nThe data is too large to be treated.", L"Clipboard problem", MB_OK | MB_APPLMODAL);
-							if (c)
-								delete[] c;
-						}
-					}
-				}
+				onDoubleClick(nmhdr->hwndFrom);
 				return TRUE;
 			}
 

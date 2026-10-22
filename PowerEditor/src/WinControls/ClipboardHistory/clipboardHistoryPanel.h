@@ -131,4 +131,6 @@ private:
 	bool _isTrackingClipboardOps = true; // false when we do not want to track & show some Clipboard operations
 
 	using DockingDlgInterface::init;
+
+	void onDoubleClick(HWND hList);
 };

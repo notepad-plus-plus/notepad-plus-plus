@@ -4379,12 +4379,14 @@ void Notepad_plus::command(int id)
 				{
 					int i = id - ID_MACRO;
 					vector<MacroShortcut>& theMacros = nppParams.getMacroList();
+					if (i >= theMacros.size()) return;
 					macroPlayback(theMacros[i].getMacro());
 				}
 				else if ((id >= ID_USER_CMD) && (id < ID_USER_CMD_LIMIT))
 				{
 					int i = id - ID_USER_CMD;
 					const vector<UserCommand>& theUserCommands = nppParams.getUserCommandList();
+					if (i >= theUserCommands.size()) return;
 					UserCommand ucmd = theUserCommands[i];
 
 					Command cmd(string2wstring(ucmd.getCmd(), CP_UTF8));

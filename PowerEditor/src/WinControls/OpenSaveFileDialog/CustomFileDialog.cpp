@@ -99,7 +99,14 @@ namespace // anonymous
 
 	bool hasExt(const wstring& name)
 	{
-		return name.find_last_of('.') != wstring::npos;
+		// Ensure that hasExt only checks for a dot after the last path separator (\ or /)
+		size_t lastDot = name.find_last_of(L'.');
+		if (lastDot == wstring::npos)
+			return false;
+		size_t lastSlash = name.find_last_of(L"\\/");
+		if (lastSlash == wstring::npos)
+			return true;
+		return lastDot > lastSlash;
 	}
 
 

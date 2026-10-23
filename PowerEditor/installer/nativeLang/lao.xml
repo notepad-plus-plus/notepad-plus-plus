@@ -1,0 +1,1934 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Translation note:
+1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
+2. All the comments are for explanation, they are not for translation.
+-->
+<NotepadPlus>
+	<Native-Langue name="ລາວ" filename="lao.xml" version="8.9.6.4">
+		<Menu>
+			<Main>
+				<!-- Main Menu Entries -->
+				<Entries>
+					<Item menuId="file" name="&amp;ແຟ້ມ"/>
+					<Item menuId="edit" name="&amp;ແກ້ໄຂ"/>
+					<Item menuId="search" name="&amp;ຄົ້ນຫາ"/>
+					<Item menuId="view" name="&amp;ມຸມມອງ"/>
+					<Item menuId="encoding" name="&amp;ລະຫັດຕົວອັກສອນ"/>
+					<Item menuId="language" name="&amp;ພາສາ"/>
+					<Item menuId="settings" name="ການ&amp;ຕັ້ງຄ່າ"/>
+					<Item menuId="tools" name="ເຄື່ອງ&amp;ມື"/>
+					<Item menuId="macro" name="&amp;ມາກໂຄຣ"/>
+					<Item menuId="run" name="&amp;ເອີ້ນໃຊ້"/>
+					<Item menuId="Plugins" name="&amp;ປລັກອິນ"/>
+					<Item menuId="Window" name="&amp;ປ່ອງຢ້ຽມ"/>
+				</Entries>
+				<!-- Sub Menu Entries -->
+				<SubEntries>
+					<Item subMenuId="file-openFolder" name="ເປີດໂຟນເດີທີ່&amp;ບັນຈຸຢູ່ນີ້"/>
+					<Item subMenuId="file-closeMore" name="ປິດ&amp;ຫຼາຍເອກະສານ"/>
+					<Item subMenuId="file-recentFiles" name="ແຟ້ມທີ່ເປີດ&amp;ຫວ່າງກາງນີ້"/>
+					<Item subMenuId="edit-insert" name="ແຊກ"/>
+					<Item subMenuId="edit-copyToClipboard" name="ສຳເນົາໄປທີ່&amp;ຄລິບບອດ"/>
+					<Item subMenuId="edit-indent" name="&amp;ຍັບຍໍ້ໜ້າ"/>
+					<Item subMenuId="edit-convertCaseTo" name="ປ່ຽນ&amp;ໂຕພິມເປັນ"/>
+					<Item subMenuId="edit-lineOperations" name="ການຈັດການ&amp;ແຖວ"/>
+					<Item subMenuId="edit-comment" name="ໝາຍ&amp;ເຫດ/ຍົກເລີກໝາຍເຫດ"/>
+					<Item subMenuId="edit-autoCompletion" name="ການ&amp;ເຕີມຄຳອັດຕະໂນມັດ"/>
+					<Item subMenuId="edit-eolConversion" name="ການແປງ&amp;ຈົບແຖວ (EOL)"/>
+					<Item subMenuId="edit-blankOperations" name="ຈັດການ&amp;ຊ່ອງວ່າງ"/>
+					<Item subMenuId="edit-pasteSpecial" name="&amp;ວາງແບບພິເສດ"/>
+					<Item subMenuId="edit-onSelection" name="&amp;ສ່ວນທີ່ເລືອກ"/>
+					<Item subMenuId="edit-multiSelectALL" name="ເລືອກຫຼາຍຈຸດທັງໝົດ"/>
+					<Item subMenuId="edit-multiSelectNext" name="ເລືອກຫຼາຍຈຸດຖັດໄປ"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="ອ່ານຢ່າງດຽວໃນ Notepad++"/>
+					<Item subMenuId="search-changeHistory" name="ປະຫວັດການປ່ຽນແປງ"/>
+					<Item subMenuId="search-markAll" name="ເນັ້ນຮູບແບບຄຳທີ່ກົງກັນ&amp;ທັງໝົດ"/>
+					<Item subMenuId="search-markOne" name="ເນັ້ນຮູບແບບຄຳທີ່ກົງກັນ&amp;ຈຸດດຽວ"/>
+					<Item subMenuId="search-unmarkAll" name="ລ້າງການເນັ້ນຮູບແບບ"/>
+					<Item subMenuId="search-jumpUp" name="&amp;ໂດດຂຶ້ນເທິງ"/>
+					<Item subMenuId="search-jumpDown" name="ໂດດ&amp;ລົງລຸ່ມ"/>
+					<Item subMenuId="search-copyStyledText" name="&amp;ສຳເນົາຂໍ້ຄວາມທີ່ເນັ້ນ"/>
+					<Item subMenuId="search-bookmark" name="&amp;ບຸກມາກ"/>
+					<Item subMenuId="view-currentFileIn" name="&amp;ເບິ່ງແຟ້ມປັດຈຸບັນໃນ"/>
+					<Item subMenuId="view-showSymbol" name="ສະແດງສັນ&amp;ຍະລັກ"/>
+					<Item subMenuId="view-zoom" name="&amp;ຊູມ"/>
+					<Item subMenuId="view-moveCloneDocument" name="&amp;ຍ້າຍ/ໂຄລນ ເອກະສານປັດຈຸບັນ"/>
+					<Item subMenuId="view-tab" name="ແທັບ"/>
+					<Item subMenuId="view-collapseLevel" name="ຍຸບລະດັບ"/>
+					<Item subMenuId="view-uncollapseLevel" name="ຂະຫຍາຍລະດັບ"/>
+					<Item subMenuId="view-project" name="ໂຄງການ"/>
+					<Item subMenuId="encoding-characterSets" name="ຊຸດຕົວອັກສອນ"/>
+					<Item subMenuId="encoding-arabic" name="ອາຣັບ"/>
+					<Item subMenuId="encoding-baltic" name="ບານຕິກ"/>
+					<Item subMenuId="encoding-celtic" name="ເຊລຕິກ"/>
+					<Item subMenuId="encoding-cyrillic" name="ຊີຣິລິກ"/>
+					<Item subMenuId="encoding-centralEuropean" name="ຢູໂຣບກາງ"/>
+					<Item subMenuId="encoding-chinese" name="ຈີນ"/>
+					<Item subMenuId="encoding-easternEuropean" name="ຢູໂຣບຕາເວັນອອກ"/>
+					<Item subMenuId="encoding-greek" name="ກຣີກ"/>
+					<Item subMenuId="encoding-hebrew" name="ຮີບຣູ"/>
+					<Item subMenuId="encoding-japanese" name="ຍີ່ປຸ່ນ"/>
+					<Item subMenuId="encoding-korean" name="ເກົາຫຼີ"/>
+					<Item subMenuId="encoding-northEuropean" name="ຢູໂຣບເໜືອ"/>
+					<Item subMenuId="encoding-thai" name="ໄທ"/>
+					<Item subMenuId="encoding-turkish" name="ຕວກກີ"/>
+					<Item subMenuId="encoding-westernEuropean" name="ຢູໂຣບຕາເວັນຕົກ"/>
+					<Item subMenuId="encoding-vietnamese" name="ຫວຽດນາມ"/>
+					<Item subMenuId="language-userDefinedLanguage" name="ພາສາທີ່ກຳນົດເອງ"/>
+					<Item subMenuId="settings-import" name="ນຳເຂົ້າ"/>
+					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
+					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>
+					<Item subMenuId="window-sortby" name="ຈັດລຽງຕາມ"/>
+				</SubEntries>
+
+				<!-- all menu item -->
+				<Commands>
+					<Item id="41001" name="&amp;ໃໝ່"/>
+					<Item id="41002" name="&amp;ເປີດ..."/>
+					<Item id="41019" name="ເປີດໃນ Explorer"/>
+					<Item id="41020" name="ເປີດໃນ cmd"/>
+					<Item id="41027" name="ເປີດໃນ PowerShell"/>
+					<Item id="41025" name="ເປີດໂຟນເດີເປັນ&amp;ພື້ນທີ່ເຮັດວຽກ"/>
+					<Item id="41003" name="&amp;ປິດ"/>
+					<Item id="41004" name="ປິດທັງ&amp;ໝົດ"/>
+					<Item id="41005" name="ປິດທັງໝົດ ຍົກເວັ້ນເອກະສານປັດຈຸບັນ"/>
+					<Item id="41026" name="ປິດທັງໝົດ ຍົກເວັ້ນທີ່ປັກໝຸດໄວ້"/>
+					<Item id="41009" name="ປິດທັງໝົດທາງດ້ານຊ້າຍ"/>
+					<Item id="41018" name="ປິດທັງໝົດທາງດ້ານຂວາ"/>
+					<Item id="41024" name="ປິດທັງໝົດທີ່ບໍ່ມີການປ່ຽນແປງ"/>
+					<Item id="41006" name="&amp;ບັນທຶກ"/>
+					<Item id="41007" name="ບັນ&amp;ທຶກທັງໝົດ"/>
+					<Item id="41008" name="ບັນທຶກ&amp;ເປັນ..."/>
+					<Item id="41010" name="&amp;ພິມ..."/>
+					<Item id="1001" name="ພິມທັນ&amp;ທີ"/>
+					<Item id="41011" name="&amp;ອອກຈາກໂປຣແກຣມ"/>
+					<Item id="41012" name="ໂຫຼດເຊດ&amp;ຊັນ..."/>
+					<Item id="41013" name="ບັນທຶກເຊດ&amp;ຊັນ..."/>
+					<Item id="41014" name="ໂຫຼດ&amp;ໃໝ່ຈາກດິສກ໌"/>
+					<Item id="41015" name="ບັນທຶກ&amp;ສຳເນົາເປັນ..."/>
+					<Item id="41016" name="ຍ້າຍໄປທີ່&amp;ຖັງຂີ້ເຫຍື້ອ"/>
+					<Item id="41017" name="&amp;ປ່ຽນຊື່..."/>
+					<Item id="41021" name="ກູ້ຄືນແຟ້ມທີ່ຫາກໍ່ປິດໄປ"/>
+					<Item id="41022" name="ເປີດໂຟນເດີເປັນ&amp;ພື້ນທີ່ເຮັດວຽກ..."/>
+					<Item id="41023" name="ເປີດໃນ&amp;ໂປຣແກຣມເບິ່ງເລີ່ມຕົ້ນ"/>
+					<Item id="42001" name="&amp;ຕັດ"/>
+					<Item id="42002" name="&amp;ສຳເນົາ"/>
+					<Item id="42003" name="&amp;ຍົກເລີກການເຮັດ"/>
+					<Item id="42004" name="&amp;ເຮັດຄືນ"/>
+					<Item id="42005" name="&amp;ວາງ"/>
+					<Item id="42006" name="&amp;ລຶບ"/>
+					<Item id="42007" name="&amp;ເລືອກທັງໝົດ"/>
+					<Item id="42020" name="ເລີ່ມ/ສິ້ນສຸດ ການ&amp;ເລືອກ"/>
+					<Item id="42089" name="ເລີ່ມ/ສິ້ນສຸດ ການເລືອກໃນໂໝດຖັນ"/>
+					<Item id="42084" name="ວັນທີ ແລະ ເວລາ (ແບບສັ້ນ)"/>
+					<Item id="42085" name="ວັນທີ ແລະ ເວລາ (ແບບຍາວ)"/>
+					<Item id="42086" name="ວັນທີ ແລະ ເວລາ (ກຳນົດເອງ)"/>
+					<Item id="42008" name="ເພີ່ມການຍໍ້ໜ້າ"/>
+					<Item id="42009" name="ຫຼຸດການຍໍ້ໜ້າ"/>
+					<Item id="42010" name="ເຮັດຊ້ຳແຖວປັດຈຸບັນ"/>
+					<Item id="42079" name="ລຶບແຖວທີ່ຊ້ຳກັນ"/>
+					<Item id="42077" name="ລຶບແຖວທີ່ຊ້ຳກັນຕໍ່ເນື່ອງ"/>
+					<Item id="42012" name="ແຍກແຖວ"/>
+					<Item id="42013" name="ລວມແຖວ"/>
+					<Item id="42014" name="ຍ້າຍແຖວຂຶ້ນ"/>
+					<Item id="42015" name="ຍ້າຍແຖວລົງ"/>
+					<Item id="42059" name="ຈັດລຽງແຖວຕາມຕົວອັກສອນ (ນ້ອຍໄປຫາຫຼາຍ)"/>
+					<Item id="42060" name="ຈັດລຽງແຖວຕາມຕົວອັກສອນ (ຫຼາຍໄປຫານ້ອຍ)"/>
+					<Item id="42080" name="ຈັດລຽງແຖວຕາມຕົວອັກສອນ ໂດຍບໍ່ສົນໂຕພິມ (ນ້ອຍໄປຫາຫຼາຍ)"/>
+					<Item id="42081" name="ຈັດລຽງແຖວຕາມຕົວອັກສອນ ໂດຍບໍ່ສົນໂຕພິມ (ຫຼາຍໄປຫານ້ອຍ)"/>
+					<Item id="42100" name="ຈັດລຽງແຖວຕາມທ້ອງຖິ່ນ (ນ້ອຍໄປຫາຫຼາຍ)"/>
+					<Item id="42101" name="ຈັດລຽງແຖວຕາມທ້ອງຖິ່ນ (ຫຼາຍໄປຫານ້ອຍ)"/>
+					<Item id="42104" name="ຈັດລຽງແຖວຕາມຄວາມຍາວ (ນ້ອຍໄປຫາຫຼາຍ)"/>
+					<Item id="42105" name="ຈັດລຽງແຖວຕາມຄວາມຍາວ (ຫຼາຍໄປຫານ້ອຍ)"/>
+					<Item id="42061" name="ຈັດລຽງແຖວຕາມຕົວເລກຈຳນວນຖ້ວນ (ນ້ອຍໄປຫາຫຼາຍ)"/>
+					<Item id="42062" name="ຈັດລຽງແຖວຕາມຕົວເລກຈຳນວນຖ້ວນ (ຫຼາຍໄປຫານ້ອຍ)"/>
+					<Item id="42063" name="ຈັດລຽງແຖວຕາມທົດສະນິຍົມ (ຈຸດຈຸດພາກ) (ນ້ອຍໄປຫາຫຼາຍ)"/>
+					<Item id="42064" name="ຈັດລຽງແຖວຕາມທົດສະນິຍົມ (ຈຸດຈຸດພາກ) (ຫຼາຍໄປຫານ້ອຍ)"/>
+					<Item id="42065" name="ຈັດລຽງແຖວຕາມທົດສະນິຍົມ (ຈຸດ) (ນ້ອຍໄປຫາຫຼາຍ)"/>
+					<Item id="42066" name="ຈັດລຽງແຖວຕາມທົດສະນິຍົມ (ຈຸດ) (ຫຼາຍໄປຫານ້ອຍ)"/>
+					<Item id="42083" name="ປີ້ນລຳດັບແຖວ"/>
+					<Item id="42078" name="ສຸ່ມລຳດັບແຖວ"/>
+					<Item id="42016" name="&amp;ໂຕພິມໃຫຍ່ທັງໝົດ"/>
+					<Item id="42017" name="&amp;ໂຕພິມນ້ອຍທັງໝົດ"/>
+					<Item id="42067" name="&amp;ໂຕພິມໃຫຍ່ສະເພາະຕົວໜ້າ"/>
+					<Item id="42068" name="ໂຕພິມໃຫຍ່ສະເພາະຕົວໜ້າ (ປະສົມ)"/>
+					<Item id="42069" name="&amp;ໂຕພິມໃຫຍ່ຕົ້ນປະໂຫຍກ"/>
+					<Item id="42070" name="ໂຕພິມໃຫຍ່ຕົ້ນປະໂຫຍກ (ປະສົມ)"/>
+					<Item id="42071" name="&amp;ປີ້ນໂຕພິມ ໃຫຍ່-ນ້ອຍ"/>
+					<Item id="42072" name="&amp;ສຸ່ມໂຕພິມ ໃຫຍ່-ນ້ອຍ"/>
+					<Item id="42073" name="ເປີດແຟ້ມ"/>
+					<Item id="42074" name="ເປີດໂຟນເດີໃນ Explorer"/>
+					<Item id="42106" name="ຖົມດຳສ່ວນທີ່ເລືອກ █ (Shift: ●)"/>
+					<Item id="42075" name="ຄົ້ນຫາໃນອິນເຕີເນັດ"/>
+					<Item id="42076" name="ປ່ຽນເຄື່ອງມືຄົ້ນຫາ..."/>
+					<Item id="42090" name="ບໍ່ສົນໂຕພິມ &amp;&amp; ກົງກັນທັງຄຳ"/>
+					<Item id="42091" name="ກົງກັບໂຕພິມເທົ່ານັ້ນ"/>
+					<Item id="42092" name="ກົງກັນທັງຄຳເທົ່ານັ້ນ"/>
+					<Item id="42093" name="ກົງກັບໂຕພິມ &amp;&amp; ທັງຄຳ"/>
+					<Item id="42094" name="ບໍ່ສົນໂຕພິມ &amp;&amp; ກົງກັນທັງຄຳ"/>
+					<Item id="42095" name="ກົງກັບໂຕພິມເທົ່ານັ້ນ"/>
+					<Item id="42096" name="ກົງກັນທັງຄຳເທົ່ານັ້ນ"/>
+					<Item id="42097" name="ກົງກັບໂຕພິມ &amp;&amp; ທັງຄຳ"/>
+					<Item id="42098" name="ຍົກເລີກການເລືອກຫຼາຍຈຸດຫຼ້າສຸດ"/>
+					<Item id="42099" name="ຂ້າມຈຸດນີ້ &amp;&amp; ໄປຫາຈຸດຖັດໄປ"/>
+					<Item id="42018" name="ເລີ່ມບັນ&amp;ທຶກມາກໂຄຣ"/>
+					<Item id="42019" name="ຢຸດ&amp;ການບັນທຶກ"/>
+					<Item id="42021" name="&amp;ຫຼິ້ນຄືນ"/>
+					<Item id="42022" name="ສະຫຼັບໝາຍເຫດແຖວດຽວ"/>
+					<Item id="42023" name="ໝາຍເຫດແບບບລັອກ"/>
+					<Item id="42047" name="ຍົກເລີກໝາຍເຫດແບບບລັອກ"/>
+					<Item id="42024" name="ລຶບຊ່ອງວ່າງທ້າຍແຖວ"/>
+					<Item id="42042" name="ລຶບຊ່ອງວ່າງຕົ້ນແຖວ"/>
+					<Item id="42043" name="ລຶບຊ່ອງວ່າງຕົ້ນ ແລະ ທ້າຍແຖວ"/>
+					<Item id="42044" name="ປ່ຽນ EOL ເປັນຊ່ອງວ່າງ"/>
+					<Item id="42045" name="ລຶບທັງສອງ ແລະ EOL ເປັນຊ່ອງວ່າງ"/>
+					<Item id="42046" name="ປ່ຽນ TAB ເປັນຊ່ອງວ່າງ"/>
+					<Item id="42054" name="ປ່ຽນຊ່ອງວ່າງເປັນ TAB (ທັງໝົດ)"/>
+					<Item id="42053" name="ປ່ຽນຊ່ອງວ່າງເປັນ TAB (ຕົ້ນແຖວ)"/>
+					<Item id="42038" name="ວາງເນື້ອຫາ HTML"/>
+					<Item id="42039" name="ວາງເນື້ອຫາ RTF"/>
+					<Item id="42048" name="ສຳເນົາເນື້ອຫາ Binary"/>
+					<Item id="42049" name="ຕັດເນື້ອຫາ Binary"/>
+					<Item id="42050" name="ວາງເນື້ອຫາ Binary"/>
+					<Item id="42082" name="ສຳເນົາລິ້ງ"/>
+					<Item id="42037" name="ໂໝດຖັນ..."/>
+					<Item id="42034" name="ແກ້ໄຂແບບ&amp;ຖັນ..."/>
+					<Item id="42051" name="ແຜງຕົວ&amp;ອັກສອນ"/>
+					<Item id="42052" name="ປະ&amp;ຫວັດຄລິບບອດ"/>
+					<Item id="42025" name="&amp;ບັນທຶກມາກໂຄຣທີ່ກຳລັງບັນທຶກຢູ່..."/>
+					<Item id="42026" name="ທິດທາງຂໍ້ຄວາມ ຂວາຫາຊ້າຍ"/>
+					<Item id="42027" name="ທິດທາງຂໍ້ຄວາມ ຊ້າຍຫາຂວາ"/>
+					<Item id="42028" name="ອ່ານຢ່າງດຽວສຳລັບເອກະສານປັດຈຸບັນ"/>
+					<Item id="42102" name="ອ່ານຢ່າງດຽວສຳລັບທຸກເອກະສານ"/>
+					<Item id="42103" name="ຍົກເລີກອ່ານຢ່າງດຽວສຳລັບທຸກເອກະສານ"/>
+					<Item id="42029" name="ສຳເນົາເສັ້ນທາງແຟ້ມປັດຈຸບັນ"/>
+					<Item id="42030" name="ສຳເນົາຊື່ແຟ້ມປັດຈຸບັນ"/>
+					<Item id="42031" name="ສຳເນົາເສັ້ນທາງໂຟນເດີປັດຈຸບັນ"/>
+					<Item id="42087" name="ສຳເນົາຊື່ແຟ້ມທັງໝົດ"/>
+					<Item id="42088" name="ສຳເນົາເສັ້ນທາງແຟ້ມທັງໝົດ"/>
+					<Item id="42032" name="&amp;ເອີ້ນໃຊ້ມາກໂຄຣຫຼາຍຄັ້ງ..."/>
+					<Item id="42033" name="ຄຸນສົມບັດອ່ານຢ່າງດຽວໃນ Windows"/>
+					<Item id="42035" name="ໝາຍເຫດແຖວດຽວ"/>
+					<Item id="42036" name="ຍົກເລີກໝາຍເຫດແຖວດຽວ"/>
+					<Item id="42055" name="ລຶບແຖວວ່າງ"/>
+					<Item id="42056" name="ລຶບແຖວວ່າງ (ທີ່ມີແຕ່ຊ່ອງວ່າງ)"/>
+					<Item id="42057" name="ແຊກແຖວວ່າງທາງເທິງ"/>
+					<Item id="42058" name="ແຊກແຖວວ່າງທາງລຸ່ມ"/>
+					<Item id="43001" name="&amp;ຄົ້ນຫາ..."/>
+					<Item id="43002" name="ຄົ້ນຫາ&amp;ຖັດໄປ"/>
+					<Item id="43003" name="&amp;ແທນທີ່..."/>
+					<Item id="43004" name="&amp;ໄປຫາ..."/>
+					<Item id="43005" name="ສະຫຼັບບຸກມາກ"/>
+					<Item id="43006" name="ບຸກມາກຖັດໄປ"/>
+					<Item id="43007" name="ບຸກມາກກ່ອນໜ້າ"/>
+					<Item id="43008" name="ລ້າງບຸກມາກທັງໝົດ"/>
+					<Item id="43018" name="ຕັດແຖວທີ່ມີບຸກມາກ"/>
+					<Item id="43019" name="ສຳເນົາແຖວທີ່ມີບຸກມາກ"/>
+					<Item id="43020" name="ວາງເພື່ອ (ແທນທີ່) ແຖວທີ່ມີບຸກມາກ"/>
+					<Item id="43021" name="ລຶບແຖວທີ່ມີບຸກມາກ"/>
+					<Item id="43051" name="ລຶບແຖວທີ່ບໍ່ມີບຸກມາກ"/>
+					<Item id="43050" name="ປີ້ນການເລືອກບຸກມາກ"/>
+					<Item id="43052" name="ຄົ້ນຫາຕົວອັກສອນໃນຊ່ວງ..."/>
+					<Item id="43053" name="ເລືອກຂໍ້ຄວາມພາຍໃນ {} [] ຫຼື ()"/>
+					<Item id="43009" name="ໄປຫາວົງເລັບທີ່ຄູ່ກັນ"/>
+					<Item id="43010" name="ຄົ້ນຫາ&amp;ກ່ອນໜ້າ"/>
+					<Item id="43011" name="&amp;ຄົ້ນຫາແບບລະອຽດ"/>
+					<Item id="43013" name="ຄົ້ນຫາໃນແຟ້ມ"/>
+					<Item id="43014" name="ຄົ້ນຫາຖັດໄປ (ແບບໄວ)"/>
+					<Item id="43015" name="ຄົ້ນຫາກ່ອນໜ້າ (ແບບໄວ)"/>
+					<Item id="43022" name="ໃຊ້ຮູບແບບທີ 1"/>
+					<Item id="43023" name="ລ້າງຮູບແບບທີ 1"/>
+					<Item id="43024" name="ໃຊ້ຮູບແບບທີ 2"/>
+					<Item id="43025" name="ລ້າງຮູບແບບທີ 2"/>
+					<Item id="43026" name="ໃຊ້ຮູບແບບທີ 3"/>
+					<Item id="43027" name="ລ້າງຮູບແບບທີ 3"/>
+					<Item id="43028" name="ໃຊ້ຮູບແບບທີ 4"/>
+					<Item id="43029" name="ລ້າງຮູບແບບທີ 4"/>
+					<Item id="43030" name="ໃຊ້ຮູບແບບທີ 5"/>
+					<Item id="43031" name="ລ້າງຮູບແບບທີ 5"/>
+					<Item id="43032" name="ລ້າງຮູບແບບທັງໝົດ"/>
+					<Item id="43033" name="ຮູບແບບທີ 1"/>
+					<Item id="43034" name="ຮູບແບບທີ 2"/>
+					<Item id="43035" name="ຮູບແບບທີ 3"/>
+					<Item id="43036" name="ຮູບແບບທີ 4"/>
+					<Item id="43037" name="ຮູບແບບທີ 5"/>
+					<Item id="43038" name="ຄົ້ນຫາຮູບແບບ Mark"/>
+					<Item id="43039" name="ຮູບແບບທີ 1"/>
+					<Item id="43040" name="ຮູບແບບທີ 2"/>
+					<Item id="43041" name="ຮູບແບບທີ 3"/>
+					<Item id="43042" name="ຮູບແບບທີ 4"/>
+					<Item id="43043" name="ຮູບແບບທີ 5"/>
+					<Item id="43044" name="ຄົ້ນຫາຮູບແບບ Mark"/>
+					<Item id="43055" name="ຮູບແບບທີ 1"/>
+					<Item id="43056" name="ຮູບແບບທີ 2"/>
+					<Item id="43057" name="ຮູບແບບທີ 3"/>
+					<Item id="43058" name="ຮູບແບບທີ 4"/>
+					<Item id="43059" name="ຮູບແບບທີ 5"/>
+					<Item id="43060" name="ທຸກຮູບແບບ"/>
+					<Item id="43061" name="ຄົ້ນຫາຮູບແບບ Mark"/>
+					<Item id="43062" name="ໃຊ້ຮູບແບບທີ 1"/>
+					<Item id="43063" name="ໃຊ້ຮູບແບບທີ 2"/>
+					<Item id="43064" name="ໃຊ້ຮູບແບບທີ 3"/>
+					<Item id="43065" name="ໃຊ້ຮູບແບບທີ 4"/>
+					<Item id="43066" name="ໃຊ້ຮູບແບບທີ 5"/>
+					<Item id="43067" name="ໄປຫາການປ່ຽນແປງຖັດໄປ"/>
+					<Item id="43068" name="ໄປຫາການປ່ຽນແປງກ່ອນໜ້າ"/>
+					<Item id="43069" name="ລ້າງປະຫວັດການປ່ຽນແປງ"/>
+					<Item id="43045" name="&amp;ປ່ອງຢ້ຽມຜົນການຄົ້ນຫາ"/>
+					<Item id="43046" name="ຜົນການຄົ້ນຫາ&amp;ຖັດໄປ"/>
+					<Item id="43047" name="ຜົນການຄົ້ນຫາ&amp;ກ່ອນໜ້າ"/>
+					<Item id="43048" name="&amp;ເລືອກ ແລະ ຄົ້ນຫາຖັດໄປ"/>
+					<Item id="43049" name="&amp;ເລືອກ ແລະ ຄົ້ນຫາກ່ອນໜ້າ"/>
+					<Item id="43054" name="&amp;ເນັ້ນ (Mark)..."/>
+					<Item id="43501" name="ປິດອັນທີ່ເລືອກ"/>
+					<Item id="43502" name="ປິດອັນອື່ນ"/>
+					<Item id="43503" name="ສຳເນົາຊື່ອັນທີ່ເລືອກ"/>
+					<Item id="43504" name="ສຳເນົາເສັ້ນທາງອັນທີ່ເລືອກ"/>
+					<Item id="44009" name="&amp;ໂໝດ Post-It"/>
+					<Item id="44010" name="ຍຸບທັງໝົດ"/>
+					<Item id="44011" name="ໂໝດ&amp;ໄຮ້ສິ່ງລົບກວນ"/>
+					<Item id="44019" name="ສະແດງທຸກຕົວອັກສອນ"/>
+					<Item id="44020" name="ສະແດງເສັ້ນນຳການຍໍ້ໜ້າ"/>
+					<Item id="44022" name="&amp;ຕັດແຖວອັດຕະໂນມັດ"/>
+					<Item id="44023" name="ຊູມ&amp;ເຂົ້າ (Ctrl+ລູກກິ້ງຂຶ້ນ)"/>
+					<Item id="44024" name="ຊູມ&amp;ອອກ (Ctrl+ລູກກິ້ງລົງ)"/>
+					<Item id="44025" name="ສະແດງຊ່ອງວ່າງ ແລະ TAB"/>
+					<Item id="44026" name="ສະແດງຈຸດຈົບແຖວ"/>
+					<Item id="44027" name="&amp;ເລື່ອນໄປພ້ອມກັນທຸກມຸມມອງ"/>
+					<Item id="44029" name="ຂະຫຍາຍທັງໝົດ"/>
+					<Item id="44030" name="ຍຸບລະດັບປັດຈຸບັນ"/>
+					<Item id="44031" name="ຂະຫຍາຍລະດັບປັດຈຸບັນ"/>
+					<Item id="44049" name="&amp;ສະຫຼຸບຂໍ້ມູນ..."/>
+					<Item id="44080" name="ແຜນຜັງເອກະສານ"/>
+					<Item id="44070" name="ລາຍຊື່ເອກະສານ"/>
+					<Item id="44084" name="ລາຍຊື່ຟັງຊັນ"/>
+					<Item id="44085" name="ໂຟນເດີພື້ນທີ່ເຮັດວຽກ"/>
+					<Item id="44086" name="ແທັບທີ 1"/>
+					<Item id="44087" name="ແທັບທີ 2"/>
+					<Item id="44088" name="ແທັບທີ 3"/>
+					<Item id="44089" name="ແທັບທີ 4"/>
+					<Item id="44090" name="ແທັບທີ 5"/>
+					<Item id="44091" name="ແທັບທີ 6"/>
+					<Item id="44092" name="ແທັບທີ 7"/>
+					<Item id="44093" name="ແທັບທີ 8"/>
+					<Item id="44094" name="ແທັບທີ 9"/>
+					<Item id="44116" name="ແທັບທຳອິດ"/>
+					<Item id="44117" name="ແທັບສຸດທ້າຍ"/>
+					<Item id="44095" name="ແທັບຖັດໄປ"/>
+					<Item id="44096" name="ແທັບກ່ອນໜ້າ"/>
+					<Item id="44097" name="ຕິດຕາມການປ່ຽນແປງ (tail -f)"/>
+					<Item id="44098" name="ຍ້າຍແທັບໄປທາງໜ້າ"/>
+					<Item id="44099" name="ຍ້າຍແທັບໄປທາງຫຼັງ"/>
+					<Item id="44110" name="ລຶບສີ"/>
+					<Item id="44111" name="ໃຊ້ສີ 1"/>
+					<Item id="44112" name="ໃຊ້ສີ 2"/>
+					<Item id="44113" name="ໃຊ້ສີ 3"/>
+					<Item id="44114" name="ໃຊ້ສີ 4"/>
+					<Item id="44115" name="ໃຊ້ສີ 5"/>
+					<Item id="44130" name="ສະແດງຕົວອັກສອນທີ່ພິມບໍ່ໄດ້"/>
+					<Item id="44131" name="ສະແດງຕົວອັກສອນຄວບຄຸມ &amp;&amp; Unicode EOL"/>
+					<Item id="44032" name="ສະຫຼັບໂໝດເຕັມຈໍ"/>
+					<Item id="44033" name="&amp;ຄືນຄ່າການຊູມເລີ່ມຕົ້ນ"/>
+					<Item id="44034" name="ຢູ່ເທິງສຸດສະເໝີ"/>
+					<Item id="44035" name="ເລື່ອນແນວຕັ້ງໄປພ້ອມກັນ"/>
+					<Item id="44036" name="ເລື່ອນແນວນອນໄປພ້ອມກັນ"/>
+					<Item id="44041" name="ສະແດງສັນຍະລັກການຕັດແຖວ"/>
+					<Item id="44072" name="ໂຟກັດໄປອີກມຸມມອງໜຶ່ງ"/>
+					<Item id="44081" name="ແຜງໂຄງການ &amp;1"/>
+					<Item id="44082" name="ແຜງໂຄງການ &amp;2"/>
+					<Item id="44083" name="ແຜງໂຄງການ &amp;3"/>
+					<Item id="45001" name="Windows (CR LF)"/>
+					<Item id="45002" name="Unix (LF)"/>
+					<Item id="45003" name="Macintosh (CR)"/>
+					<Item id="45004" name="ANSI"/>
+					<Item id="45005" name="UTF-8-BOM"/>
+					<Item id="45006" name="UTF-16 BE BOM"/>
+					<Item id="45007" name="UTF-16 LE BOM"/>
+					<Item id="45008" name="UTF-8"/>
+					<Item id="45009" name="ແປງເປັນ ANSI"/>
+					<Item id="45010" name="ແປງເປັນ UTF-8"/>
+					<Item id="45011" name="ແປງເປັນ UTF-8-BOM"/>
+					<Item id="45012" name="ແປງເປັນ UTF-16 BE BOM"/>
+					<Item id="45013" name="ແປງເປັນ UTF-16 LE BOM"/>
+					<Item id="45060" name="Big5 (ຈີນຕົວເຕັມ)"/>
+					<Item id="45061" name="GB2312 (ຈີນຕົວຫຍໍ້)"/>
+					<Item id="45054" name="OEM 861: ໄອສ໌ແລນດິກ"/>
+					<Item id="45057" name="OEM 865: ນໍດິກ"/>
+					<Item id="45053" name="OEM 860: ປອກຕຸຍການ"/>
+					<Item id="45056" name="OEM 863: ຝຣັ່ງ"/>
+					<Item id="10001" name="&amp;ຍ້າຍໄປອີກມຸມມອງໜຶ່ງ"/>
+					<Item id="10002" name="&amp;ໂຄລນໄປອີກມຸມມອງໜຶ່ງ"/>
+					<Item id="10003" name="ຍ້າຍໄປທີ່ Instance ໃໝ່"/>
+					<Item id="10004" name="&amp;ເປີດໃນ Instance ໃໝ່"/>
+					<Item id="10005" name="ຍ້າຍໄປໄວ້ທາງໜ້າ"/>
+					<Item id="10006" name="ຍ້າຍໄປໄວ້ທາງຫຼັງ"/>
+					<Item id="46001" name="ການຕັ້ງຄ່າຮູບແບບ..."/>
+					<Item id="46016" name="ບໍ່ມີ (ຂໍ້ຄວາມທຳມະດອ)"/>
+					<Item id="46250" name="ກຳນົດພາສາຂອງທ່ານເອງ..."/>
+					<Item id="46300" name="ເປີດໂຟນເດີພາສາທີ່ກຳນົດເອງ..."/>
+					<Item id="46301" name="ຄໍເລັກຊັນພາສາທີ່ກຳນົດເອງຂອງ Notepad++"/>
+					<Item id="46180" name="ກຳນົດເອງ"/>
+					<Item id="47000" name="ກ່ຽວກັບ Notepad++"/>
+					<Item id="47010" name="ພາຣາມິເຕີ Command Line..."/>
+					<Item id="47001" name="ເວັບໄຊ Notepad++"/>
+					<Item id="47002" name="ໜ້າໂຄງການ Notepad++"/>
+					<Item id="47003" name="ຄູ່ມືການໃຊ້ງານອອນໄລນ໌"/>
+					<Item id="47004" name="ຊຸມຊົນ (ຟໍຣຳ)"/>
+					<Item id="47012" name="ຂໍ້ມູນການດີບັກ..."/>
+					<Item id="47005" name="ຫາປລັກອິນເພີ່ມເຕີມ"/>
+					<Item id="47006" name="ອັບເດດ Notepad++"/>
+					<Item id="47009" name="ຕັ້ງຄ່າ Proxy ສຳລັບອັບເດດ..."/>
+					<Item id="48005" name="ນຳເຂົ້າ ປລັກອິນ..."/>
+					<Item id="48006" name="ນຳເຂົ້າ ຮູບແບບ (Theme)..."/>
+					<Item id="48018" name="ແກ້ໄຂເມນູຄລິກຂວາ (ContextMenu)"/>
+					<Item id="48009" name="ແຜນຜັງປຸ່ມລັດ..."/>
+					<Item id="48011" name="ປັບແຕ່ງ..."/>
+					<Item id="48014" name="ເປີດໂຟນເດີປລັກອິນ..."/>
+					<Item id="48015" name="ຈັດການປລັກອິນ..."/>
+					<Item id="48501" name="ສ້າງ..."/>
+					<Item id="48502" name="ສ້າງຈາກແຟ້ມ..."/>
+					<Item id="48503" name="ສ້າງຈາກສ່ວນທີ່ເລືອກໄປທີ່ຄລິບບອດ"/>
+					<Item id="48504" name="ສ້າງ..."/>
+					<Item id="48505" name="ສ້າງຈາກແຟ້ມ..."/>
+					<Item id="48506" name="ສ້າງຈາກສ່ວນທີ່ເລືອກໄປທີ່ຄລິບບອດ"/>
+					<Item id="48507" name="ສ້າງ..."/>
+					<Item id="48508" name="ສ້າງຈາກແຟ້ມ..."/>
+					<Item id="48509" name="ສ້າງຈາກສ່ວນທີ່ເລືອກໄປທີ່ຄລິບບອດ"/>
+					<Item id="48510" name="ສ້າງ..."/>
+					<Item id="48511" name="ສ້າງຈາກແຟ້ມ..."/>
+					<Item id="48512" name="ສ້າງຈາກສ່ວນທີ່ເລືອກໄປທີ່ຄລິບບອດ"/>
+					<Item id="49000" name="&amp;ເອີ້ນໃຊ້ (Run)..."/>
+					<Item id="49001" name="ກວດສອບ shortcuts.xml"/>
+
+					<Item id="50000" name="ການເຕີມຟັງຊັນໃຫ້ສົມບູນ"/>
+					<Item id="50001" name="ການເຕີມຄຳໃຫ້ສົມບູນ"/>
+					<Item id="50002" name="ຄຳແນະນຳພາຣາມິເຕີຟັງຊັນ"/>
+					<Item id="50010" name="ຄຳແນະນຳພາຣາມິເຕີຟັງຊັນ ກ່ອນໜ້າ"/>
+					<Item id="50011" name="ຄຳແນະນຳພາຣາມິເຕີຟັງຊັນ ຖັດໄປ"/>
+					<Item id="50005" name="ສະຫຼັບການບັນທຶກມາກໂຄຣ"/>
+					<Item id="50006" name="ການເຕີມເສັ້ນທາງໃຫ້ສົມບູນ"/>
+					<Item id="44042" name="&amp;ເຊື່ອງແຖວ"/>
+					<Item id="42040" name="ເປີດທຸກແຟ້ມທີ່ຫາກໍ່ເປີດຫວ່າງນີ້"/>
+					<Item id="42041" name="ລ້າງລາຍຊື່ແຟ້ມທີ່ຫາກໍ່ເປີດ"/>
+					<Item id="48016" name="ແກ້ໄຂປຸ່ມລັດ/ລຶບມາກໂຄຣ..."/>
+					<Item id="48017" name="ແກ້ໄຂປຸ່ມລັດ/ລຶບຄຳສັ່ງ..."/>
+
+					<Item id="11001" name="&amp;ປ່ອງຢ້ຽມ..."/>
+					<Item id="11002" name="ຊື່ A ຫາ Z"/>
+					<Item id="11003" name="ຊື່ Z ຫາ A"/>
+					<Item id="11004" name="ເສັ້ນທາງ A ຫາ Z"/>
+					<Item id="11005" name="ເສັ້ນທາງ Z ຫາ A"/>
+					<Item id="11006" name="ປະເພດ A ຫາ Z"/>
+					<Item id="11007" name="ປະເພດ Z ຫາ A"/>
+					<Item id="11008" name="ຄວາມຍາວເນື້ອຫາ (ນ້ອຍໄປຫຼາຍ)"/>
+					<Item id="11009" name="ຄວາມຍາວເນື້ອຫາ (ຫຼາຍໄປນ້ອຍ)"/>
+					<Item id="11010" name="ເວລາແກ້ໄຂ (ເກົ່າໄປໃໝ່)"/>
+					<Item id="11011" name="ເວລາແກ້ໄຂ (ໃໝ່ໄປເກົ່າ)"/>
+				</Commands>
+			</Main>
+			<TabBar>
+				<Item CMDID="41003" name="ປິດ"/>
+				<Item CMDID="0" name="ປິດຫຼາຍແທັບ"/>
+				<Item CMDID="41005" name="ປິດທັງໝົດ ຍົກເວັ້ນອັນນີ້"/>
+				<Item CMDID="41026" name="ປິດທັງໝົດ ຍົກເວັ້ນທີ່ປັກໝຸດ"/>
+				<Item CMDID="41009" name="ປິດທັງໝົດທາງຊ້າຍ"/>
+				<Item CMDID="41018" name="ປິດທັງໝົດທາງຂວາ"/>
+				<Item CMDID="41024" name="ປິດທັງໝົດທີ່ບໍ່ມີການປ່ຽນແປງ"/>
+				<Item CMDID="44048" name="ປັກໝຸດແທັບ" alternativeName="ຍົກເລີກປັກໝຸດແທັບ"/>
+				<Item CMDID="41006" name="ບັນທຶກ"/>
+				<Item CMDID="41008" name="ບັນທຶກເປັນ..."/>
+				<Item CMDID="1" name="ເປີດໃນ"/>
+				<Item CMDID="41019" name="ເປີດໂຟນເດີໃນ Explorer"/>
+				<Item CMDID="41020" name="ເປີດໂຟນເດີໃນ cmd"/>
+				<Item CMDID="41027" name="ເປີດໂຟນເດີໃນ PowerShell"/>
+				<Item CMDID="41025" name="ເປີດໂຟນເດີເປັນພື້ນທີ່ເຮັດວຽກ"/>
+				<Item CMDID="41023" name="ເປີດໃນໂປຣແກຣມເບິ່ງເລີ່ມຕົ້ນ"/>
+				<Item CMDID="41017" name="ປ່ຽນຊື່..."/>
+				<Item CMDID="41016" name="ຍ້າຍໄປຖັງຂີ້ເຫຍື້ອ"/>
+				<Item CMDID="41014" name="ໂຫຼດໃໝ່"/>
+				<Item CMDID="41010" name="ພິມ..."/>
+				<Item CMDID="42028" name="ອ່ານຢ່າງດຽວໃນ Notepad++"/>
+				<Item CMDID="42033" name="ຄຸນສົມບັດອ່ານຢ່າງດຽວໃນ Windows"/>
+				<Item CMDID="2" name="ສຳເນົາໄປທີ່ຄລິບບອດ"/>
+				<Item CMDID="42029" name="ສຳເນົາເສັ້ນທາງແຟ້ມເຕັມ"/>
+				<Item CMDID="42030" name="ສຳເນົາຊື່ແຟ້ມ"/>
+				<Item CMDID="42031" name="ສຳເນົາເສັ້ນທາງໂຟນເດີປັດຈຸບັນ"/>
+				<Item CMDID="3" name="ຍ້າຍເອກະສານ"/>
+				<Item CMDID="10005" name="ຍ້າຍໄປໄວ້ທາງໜ້າ"/>
+				<Item CMDID="10006" name="ຍ້າຍໄປໄວ້ທາງຫຼັງ"/>
+				<Item CMDID="10001" name="ຍ້າຍໄປອີກມຸມມອງໜຶ່ງ"/>
+				<Item CMDID="10002" name="ໂໂຄລນໄປອີກມຸມມອງໜຶ່ງ"/>
+				<Item CMDID="10003" name="ຍ້າຍໄປ Instance ໃໝ່"/>
+				<Item CMDID="10004" name="ເປີດໃນ Instance ໃໝ່"/>
+				<Item CMDID="4" name="ໃສ່ສີໃຫ້ແທັບ"/>
+				<Item CMDID="44111" name="ໃຊ້ສີ 1"/>
+				<Item CMDID="44112" name="ໃຊ້ສີ 2"/>
+				<Item CMDID="44113" name="ໃຊ້ສີ 3"/>
+				<Item CMDID="44114" name="ໃຊ້ສີ 4"/>
+				<Item CMDID="44115" name="ໃຊ້ສີ 5"/>
+				<Item CMDID="44110" name="ລຶບສີ"/>
+			</TabBar>
+			<TrayIcon>
+				<Item id="43101" name="ເປີດໃຊ້ງານ"/>
+				<Item id="43102" name="ໃໝ່"/>
+				<Item id="43103" name="ໃໝ່ ແລະ ວາງ"/>
+				<Item id="43104" name="ເປີດ..."/>
+				<Item id="43013" name="ຄົ້ນຫາໃນໄຟລ໌..."/>
+				<Item id="43105" name="ປິດໄອຄອນຖາດລະບົບ"/>
+			</TrayIcon>
+		</Menu>
+
+		<Dialog>
+			<Find title="" titleFind="ຄົ້ນຫາ" titleReplace="ແທັນທີ່" titleFindInFiles="ຄົ້ນຫາໃນໄຟລ໌" titleFindInProjects="ຄົ້ນຫາໃນໂປຣເຈັກ" titleMark="ເນັ້ນຂໍ້ຄວາມ">
+				<Item id="1" name="ຄົ້ນຫາຖັດໄປ"/>
+				<Item id="1722" name="ທິດທາງຖອຍຫຼັງ"/>
+				<Item id="2" name="ປິດ"/>
+				<Item id="1620" name="&amp;ຄົ້ນຫາຫຍັງ:"/>
+				<Item id="1603" name="ກົງກັນ&amp;ທຸກຄຳເທົ່ານັ້ນ"/>
+				<Item id="1604" name="ກົງກັນ&amp;ຕົວພິມໃຫຍ່ນ້ອຍ"/>
+				<Item id="1605" name="&amp;ນິພົດເຣກູລາ (Regular expression)"/>
+				<Item id="1606" name="ຄົ້ນຫາ&amp;ວົນຮອບ"/>
+				<Item id="1614" name="&amp;ນັບ"/>
+				<Item id="1615" name="ເນັ້ນທັງໝົດ"/>
+				<Item id="1616" name="ຄັ່ນ&amp;ໜ້າແຖວ"/>
+				<Item id="1618" name="ລ້າງຂໍ້ມູນເກົ່າທຸກຄັ້ງທີ່ຄົ້ນຫາ"/>
+				<Item id="1611" name="ແທນ&amp;ທີ່ດ້ວຍ:"/>
+				<Item id="1608" name="&amp;ແທນທີ່"/>
+				<Item id="1609" name="ແທນທີ່&amp;ທັງໝົດ"/>
+				<Item id="1687" name="ເມື່ອຫຼຸດໂຟກັດ"/>
+				<Item id="1688" name="ຕະຫຼອດເວລາ"/>
+				<Item id="1632" name="ໃນສ່ວນທີ່ເ&amp;ລືອກ"/>
+				<Item id="1633" name="ລ້າງການເນັ້ນທັງໝົດ"/>
+				<Item id="1635" name="ແທນທີ່ທັງໝົດໃນທຸກເອກະສານທີ່&amp;ເປີດ"/>
+				<Item id="1636" name="ຄົ້ນຫາທັງໝົດໃນທຸກເອກະສານທີ່&amp;ເປີດ"/>
+				<Item id="1654" name="ຕົວກັ&amp;ນ:"/>
+				<Item id="1655" name="ໄດເຣັກທໍ&amp;ຣີ:"/>
+				<Item id="1656" name="ຄົ້ນຫາທັງໝົດ"/>
+				<Item id="1658" name="ໃນທຸກໂຟນເດີ&amp;ຍ່ອຍ"/>
+				<Item id="1659" name="ໃນໂຟນເດີທີ່&amp;ເຊື່ອງຢູ່"/>
+				<Item id="1624" name="ໂໝດການຄົ້ນຫາ"/>
+				<Item id="1625" name="&amp;ປົກກະຕິ"/>
+				<Item id="1626" name="ແບບ&amp;ຂະຫຍາຍ (\n, \r, \t, \0, \x...)"/>
+				<Item id="1660" name="ແທັນທີ່ໃນໄຟລ໌"/>
+				<Item id="1665" name="ແທັນທີ່ໃນໂປຣເຈັກ"/>
+				<Item id="1662" name="ແຜງໂປຣເຈັກ 1"/>
+				<Item id="1663" name="ແຜງໂປຣເຈັກ 2"/>
+				<Item id="1664" name="ແຜງໂປຣເຈັກ 3"/>
+				<Item id="1641" name="ຄົ້ນຫາທັງໝົດໃນເອກະສານປັດຈຸບັນ"/>
+				<Item id="1686" name="ຄວາມໂປ່ງໃ&amp;ສ"/>
+				<Item id="1703" name="&amp;. ກົງກັບແຖວໃໝ່"/>
+				<Item id="1721" name="▲"/>
+				<Item id="1723" name="▼ ຄົ້ນຫາຖັດໄປ"/>
+				<Item id="1725" name="ສຳເນົາຂໍ້ຄວາມທີ່ເນັ້ນ"/>
+				<Menu>
+					<Item id="1726" name="⇅ ສະຫຼັບ ຄົ້ນຫາ ກັບ ແທນທີ່"/>
+					<Item id="1727" name="⤵ ສຳເນົາຈາກ ຄົ້ນຫາ ໄປ ແທນທີ່"/>
+					<Item id="1728" name="⤴ ສຳເນົາຈາກ ແທນທີ່ ໄປ ຄົ້ນຫາ"/>
+				</Menu>
+			</Find>
+
+			<IncrementalFind title="">
+				<Item id="1681" name="ຄົ້ນຫາ:"/>
+				<Item id="1685" name="ກົງກັນ&amp;ຕົວພິມໃຫຍ່ນ້ອຍ"/>
+				<Item id="1690" name="&amp;ເນັ້ນທັງໝົດ"/>
+				<Item id="1691" name="&amp;ນັບ"/>
+			</IncrementalFind>
+
+			<FindCharsInRange title="ຄົ້ນຫາຕົວອັກສອນໃນຊ່ວງ...">
+				<Item id="2" name="&amp;ປິດ"/>
+				<Item id="2901" name="ຕົວອັກສອນທີ່ບໍ່ແມ່ນ &amp;ASCII (128–255)"/>
+				<Item id="2902" name="ຕົວອັກສອນ &amp;ASCII (0–127)"/>
+				<Item id="2903" name="ກຳນົດ&amp;ຊ່ວງເອງ (0–255):"/>
+				<Item id="2906" name="ຂຶ້ນ&amp;ເທິງ"/>
+				<Item id="2907" name="ລົງ&amp;ລຸ່ມ"/>
+				<Item id="2908" name="ທິດທາງ"/>
+				<Item id="2909" name="ຄົ້ນຫາ&amp;ວົນຮອບ"/>
+				<Item id="2910" name="&amp;ຄົ້ນຫາ"/>
+			</FindCharsInRange>
+
+			<GoToLine title="ໄປທີ່...">
+				<Item id="2007" name="&amp;ແຖວ"/>
+				<Item id="2008" name="&amp;ຕຳແໜ່ງອັກສອນ (Offset)"/>
+				<Item id="1" name="ໄປ"/>
+				<Item id="2" name="ຂ້ອຍບໍ່ໄປໃສ"/>
+				<Item id="2004" name="ເຈົ້າຢູ່ທີ່ນີ້:"/>
+				<Item id="2005" name="ເຈົ້າຕ້ອງການໄປທີ່:"/>
+				<Item id="2006" name="ເຈົ້າບໍ່ສາມາດໄປໄກກວ່າ:"/>
+			</GoToLine>
+
+			<Run title="ຣັນ...">
+				<Item id="1903" name="ໂປຣແກຣມທີ່ຈະຣັນ"/>
+				<Item id="1" name="ຣັນ"/>
+				<Item id="2" name="ຍົກເລີກ"/>
+				<Item id="1904" name="ບັນທຶກ..."/>
+			</Run>
+
+			<MD5FromFilesDlg title="ສ້າງຄ່າ MD5 ຈາກໄຟລ໌">
+				<Item id="1922" name="ເລືອກໄຟລ໌ເພື່ອ&amp;ສ້າງ MD5..."/>
+				<Item id="1924" name="ສຳເ&amp;ນາໄປທີ່ຄລິບບອດ"/>
+				<Item id="2" name="&amp;ປິດ"/>
+			</MD5FromFilesDlg>
+
+			<MD5FromTextDlg title="ສ້າງຄ່າ MD5">
+				<Item id="1932" name="ໃຫ້ແຕ່ລະແຖວເປັນ&amp;ຂໍ້ຄວາມແຍກກັນ"/>
+				<Item id="1934" name="ສຳເ&amp;ນາໄປທີ່ຄລິບບອດ"/>
+				<Item id="2" name="&amp;ປິດ"/>
+			</MD5FromTextDlg>
+
+			<SHA256FromFilesDlg title="ສ້າງຄ່າ SHA-256 ຈາກໄຟລ໌">
+				<Item id="1922" name="ເລືອກໄຟລ໌ເພື່ອ&amp;ສ້າງ SHA-256..."/>
+				<Item id="1924" name="ສຳເ&amp;ນາໄປທີ່ຄລິບບອດ"/>
+				<Item id="2" name="&amp;ປິດ"/>
+			</SHA256FromFilesDlg>
+
+			<SHA256FromTextDlg title="ສ້າງຄ່າ SHA-256">
+				<Item id="1932" name="ໃຫ້ແຕ່ລະແຖວເປັນ&amp;ຂໍ້ຄວາມແຍກກັນ"/>
+				<Item id="1934" name="ສຳເ&amp;ນາໄປທີ່ຄລິບບອດ"/>
+				<Item id="2" name="&amp;ປິດ"/>
+			</SHA256FromTextDlg>
+
+			<SHA1FromFilesDlg title="ສ້າງຄ່າ SHA-1 ຈາກໄຟລ໌">
+				<Item id="1922" name="ເລືອກໄຟລ໌ເພື່ອ&amp;ສ້າງ SHA-1..."/>
+				<Item id="1924" name="ສຳເ&amp;ນາໄປທີ່ຄລິບບອດ"/>
+				<Item id="2" name="&amp;ປິດ"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="ສ້າງຄ່າ SHA-1">
+				<Item id="1932" name="ໃຫ້ແຕ່ລະແຖວເປັນ&amp;ຂໍ້ຄວາມແຍກກັນ"/>
+				<Item id="1934" name="ສຳເ&amp;ນາໄປທີ່ຄລິບບອດ"/>
+				<Item id="2" name="&amp;ປິດ"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="ສ້າງຄ່າ SHA-512 ຈາກໄຟລ໌">
+				<Item id="1922" name="ເລືອກໄຟລ໌ເພື່ອ&amp;ສ້າງ SHA-512..."/>
+				<Item id="1924" name="ສຳເ&amp;ນາໄປທີ່ຄລິບບອດ"/>
+				<Item id="2" name="&amp;ປິດ"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="ສ້າງຄ່າ SHA-512">
+				<Item id="1932" name="ໃຫ້ແຕ່ລະແຖວເປັນ&amp;ຂໍ້ຄວາມແຍກກັນ"/>
+				<Item id="1934" name="ສຳເ&amp;ນາໄປທີ່ຄລິບບອດ"/>
+				<Item id="2" name="&amp;ປິດ"/>
+			</SHA512FromTextDlg>
+			<PluginsAdminDlg title="ຕົວຈັດການປັກອິນ" titleAvailable="ທີ່ມີ" titleUpdates="ອັບເດດ" titleInstalled="ຕິດຕັ້ງແລ້ວ" titleIncompatible="ບໍ່ເຂົ້າກັນ">
+				<ColumnPlugin name="ປັກອິນ"/>
+				<ColumnVersion name="ເວີຊັນ"/>
+				<Item id="5501" name="&amp;ຄົ້ນຫາ:"/>
+				<Item id="5503" name="&amp;ຕິດຕັ້ງ"/>
+				<Item id="5504" name="&amp;ອັບເດດ"/>
+				<Item id="5505" name="&amp;ລຶບອອກ"/>
+				<Item id="5508" name="&amp;ຖັດໄປ"/>
+				<Item id="5509" name="ເວີຊັນຂອງລາຍການປັກອິນ:"/>
+				<Item id="5511" name="ແຫຼ່ງເກັບລາຍການປັກອິນ"/>
+				<Item id="2" name="ປິດ"/>
+			</PluginsAdminDlg>
+
+			<StyleConfig title="ຕົວຕັ້ງຄ່າຮູບແບບ">
+				<Item id="2" name="ຍົກເລີກ"/>
+				<Item id="2301" name="ບັນທຶກ &amp;&amp; ປິດ"/>
+				<Item id="2303" name="ຄວາມໂປ່ງໃສ"/>
+				<Item id="2306" name="ເລືອກຮູບແບບ (Theme): "/>
+				<SubDialog>
+					<Item id="2204" name="ຕົວເຂັ້ມ"/>
+					<Item id="2205" name="ຕົວອຽງ"/>
+					<Item id="2206" name="ສີຕົວອັກສອນ"/>
+					<Item id="2207" name="ສີພື້ນຫຼັງ"/>
+					<Item id="2208" name="ຊື່ຟອນ:"/>
+					<Item id="2209" name="ຂະໜາດຟອນ:"/>
+					<Item id="2211" name="ຮູບແບບ:"/>
+					<Item id="2212" name="ຮູບແບບສີ"/>
+					<Item id="2213" name="ຮູບແບບຟອນ"/>
+					<Item id="2214" name="ນາມສະກຸນໄຟລ໌ເບື້ອງຕົ້ນ:"/>
+					<Item id="2216" name="ນາມສະກຸນໄຟລ໌ກຳນົດເອງ:"/>
+					<Item id="2218" name="ຂີດກ້ອງ"/>
+					<Item id="2219" name="ຄຳສຳຄັນເບື້ອງຕົ້ນ"/>
+					<Item id="2221" name="ຄຳສຳຄັນກຳນົດເອງ"/>
+					<Item id="2225" name="ພາສາ:"/>
+					<Item id="2226" name="ບັງຄັບສີຕົວອັກສອນທຸກຮູບແບບ"/>
+					<Item id="2227" name="ບັງຄັບສີພື້ນຫຼັງທຸກຮູບແບບ"/>
+					<Item id="2228" name="ບັງຄັບໃຊ້ຟອນດຽວກັນທຸກຮູບແບບ"/>
+					<Item id="2229" name="ບັງຄັບໃຊ້ຂະໜາດຟອນດຽວກັນທຸກຮູບແບບ"/>
+					<Item id="2230" name="ບັງຄັບໃຊ້ຕົວເຂັ້ມທຸກຮູບແບບ"/>
+					<Item id="2231" name="ບັງຄັບໃຊ້ຕົວອຽງທຸກຮູບແບບ"/>
+					<Item id="2232" name="ບັງຄັບໃຊ້ການຂີດກ້ອງທຸກຮູບແບບ"/>
+					<Item id="2234" name="ໄປທີ່ການຕັ້ງຄ່າ"/>
+					<!-- Don't translate "Global override" -->
+					<Item id="2235" name="Global override ແມ່ນຫຍັງ?"/>
+				</SubDialog>
+			</StyleConfig>
+
+			<ColorPopup>
+				<Item id="1" name="ສີເພີ່ມເຕີມ..."/>
+			</ColorPopup>
+
+			<ShortcutMapper title="ຕົວຈັດການຄີລັດ (Shortcut Mapper)">
+				<Item id="2602" name="ແກ້ໄຂ (Modify)"/>
+				<Item id="2603" name="ລຶບ (Delete)"/>
+				<Item id="2606" name="ລ້າງ (Clear)"/>
+				<Item id="2607" name="ຕົວຕອງ (Filter): "/>
+				<Item id="1" name="ປິດ (Close)"/>
+				<ColumnName name="ຊື່ (Name)"/>
+				<ColumnShortcut name="ຄີລັດ (Shortcut)"/>
+				<ColumnCategory name="ໝວດໝູ່ (Category)"/>
+				<ColumnPlugin name="ປລັກອິນ (Plugin)"/>
+				<MainMenuTab name="ເມນູຫຼັກ (Main menu)"/>
+				<MacrosTab name="ມາກໂຄ (Macros)"/>
+				<RunCommandsTab name="ຄຳສັ່ງ Run (Run commands)"/>
+				<PluginCommandsTab name="ຄຳສັ່ງປລັກອິນ (Plugin commands)"/>
+				<ScintillaCommandsTab name="ຄຳສັ່ງ Scintilla (Scintilla commands)"/>
+				<ConflictInfoOk name="ບໍ່ມີຄີລັດທີ່ຊ້ຳກັນສຳລັບລາຍການນີ້."/>
+				<ConflictInfoEditing name="ບໍ່ມີການຊ້ຳກັນ . . ."/>
+				<AboutCategory name="ກ່ຽວກັບ (About)"/>
+				<ModifyContextMenu name="ແກ້ໄຂ (Modify)"/>
+				<DeleteContextMenu name="ລຶບ (Delete)"/>
+				<ClearContextMenu name="ລ້າງ (Clear)"/>
+				<MainCommandNames>
+					<Item id="41019" name="ເປີດໂຟນເດີທີ່ເກັບໄຟລ໌ໃນ Explorer"/>
+					<Item id="41020" name="ເປີດໂຟນເດີທີ່ເກັບໄຟລ໌ໃນ Command Prompt"/>
+					<Item id="41027" name="ເປີດໂຟນເດີທີ່ເກັບໄຟລ໌ໃນ PowerShell"/>
+					<Item id="41025" name="ເປີດໂຟນເດີທີ່ເກັບໄຟລ໌ເປັນ Workspace"/>
+					<Item id="41021" name="ກູ້ຄືນໄຟລ໌ທີ່ຫາປິດໄປຫຼ້າສຸດ"/>
+					<Item id="45001" name="ປ່ຽນ EOL ເປັນ Windows (CR LF)"/>
+					<Item id="45002" name="ປ່ຽນ EOL ເປັນ Unix (LF)"/>
+					<Item id="45003" name="ປ່ຽນ EOL ເປັນ Macintosh (CR)"/>
+					<Item id="43022" name="ໃສ່ສີທັງໝົດໂດຍໃຊ້ຮູບແບບທີ 1"/>
+					<Item id="43024" name="ໃສ່ສີທັງໝົດໂດຍໃຊ້ຮູບແບບທີ 2"/>
+					<Item id="43026" name="ໃສ່ສີທັງໝົດໂດຍໃຊ້ຮູບແບບທີ 3"/>
+					<Item id="43028" name="ໃສ່ສີທັງໝົດໂດຍໃຊ້ຮູບແບບທີ 4"/>
+					<Item id="43030" name="ໃສ່ສີທັງໝົດໂດຍໃຊ້ຮູບແບບທີ 5"/>
+					<Item id="43062" name="ໃສ່ສີອັນດຽວໂດຍໃຊ້ຮູບແບບທີ 1"/>
+					<Item id="43063" name="ໃສ່ສີອັນດຽວໂດຍໃຊ້ຮູບແບບທີ 2"/>
+					<Item id="43064" name="ໃສ່ສີອັນດຽວໂດຍໃຊ້ຮູບແບບທີ 3"/>
+					<Item id="43065" name="ໃສ່ສີອັນດຽວໂດຍໃຊ້ຮູບແບບທີ 4"/>
+					<Item id="43066" name="ໃສ່ສີອັນດຽວໂດຍໃຊ້ຮູບແບບທີ 5"/>
+					<Item id="43023" name="ລ້າງຮູບແບບທີ 1"/>
+					<Item id="43025" name="ລ້າງຮູບແບບທີ 2"/>
+					<Item id="43027" name="ລ້າງຮູບແບບທີ 3"/>
+					<Item id="43029" name="ລ້າງຮູບແບບທີ 4"/>
+					<Item id="43031" name="ລ້າງຮູບແບບທີ 5"/>
+					<Item id="43032" name="ລ້າງຮູບແບບທັງໝົດ"/>
+					<Item id="43033" name="ຮູບແບບກ່ອນໜ້າຂອງຮູບແບບທີ 1"/>
+					<Item id="43034" name="ຮູບແບບກ່ອນໜ້າຂອງຮູບແບບທີ 2"/>
+					<Item id="43035" name="ຮູບແບບກ່ອນໜ້າຂອງຮູບແບບທີ 3"/>
+					<Item id="43036" name="ຮູບແບບກ່ອນໜ້າຂອງຮູບແບບທີ 4"/>
+					<Item id="43037" name="ຮູບແບບກ່ອນໜ້າຂອງຮູບແບບທີ 5"/>
+					<Item id="43038" name="ຮູບແບບກ່ອນໜ້າຂອງຮູບແບບ Find Mark"/>
+					<Item id="43039" name="ຮູບແບບຖັດໄປຂອງຮູບແບບທີ 1"/>
+					<Item id="43040" name="ຮູບແບບຖັດໄປຂອງຮູບແບບທີ 2"/>
+					<Item id="43041" name="ຮູບແບບຖັດໄປຂອງຮູບແບບທີ 3"/>
+					<Item id="43042" name="ຮູບແບບຖັດໄປຂອງຮູບແບບທີ 4"/>
+					<Item id="43043" name="ຮູບແບບຖັດໄປຂອງຮູບແບບທີ 5"/>
+					<Item id="43044" name="ຮູບແບບຖັດໄປຂອງຮູບແບບ Find Mark"/>
+					<Item id="43055" name="ຄັດລອກຂໍ້ຄວາມທີ່ມີສີຂອງຮູບແບບທີ 1"/>
+					<Item id="43056" name="ຄັດລອກຂໍ້ຄວາມທີ່ມີສີຂອງຮູບແບບທີ 2"/>
+					<Item id="43057" name="ຄັດລອກຂໍ້ຄວາມທີ່ມີສີຂອງຮູບແບບທີ 3"/>
+					<Item id="43058" name="ຄັດລອກຂໍ້ຄວາມທີ່ມີສີຂອງຮູບແບບທີ 4"/>
+					<Item id="43059" name="ຄັດລອກຂໍ້ຄວາມທີ່ມີສີຂອງຮູບແບບທີ 5"/>
+					<Item id="43060" name="ຄັດລອກຂໍ້ຄວາມທີ່ມີສີຂອງທຸກຮູບແບບ"/>
+					<Item id="43061" name="ຄັດລອກຂໍ້ຄວາມທີ່ມີສີຂອງຮູບແບບ Find Mark"/>
+					<Item id="44100" name="ເບິ່ງໄຟລ໌ປັດຈຸບັນໃນ Firefox"/>
+					<Item id="44101" name="ເບິ່ງໄຟລ໌ປັດຈຸບັນໃນ Chrome"/>
+					<Item id="44103" name="ເບິ່ງໄຟລ໌ປັດຈຸບັນໃນ IE"/>
+					<Item id="44102" name="ເບິ່ງໄຟລ໌ປັດຈຸບັນໃນ Edge"/>
+					<Item id="50003" name="ສະຫຼັບໄປເອກະສານກ່ອນໜ້າ"/>
+					<Item id="50004" name="ສະຫຼັບໄປເອກະສານຖັດໄປ"/>
+					<Item id="44051" name="ພັບລະດັບ 1"/>
+					<Item id="44052" name="ພັບລະດັບ 2"/>
+					<Item id="44053" name="ພັບລະດັບ 3"/>
+					<Item id="44054" name="ພັບລະດັບ 4"/>
+					<Item id="44055" name="ພັບລະດັບ 5"/>
+					<Item id="44056" name="ພັບລະດັບ 6"/>
+					<Item id="44057" name="ພັບລະດັບ 7"/>
+					<Item id="44058" name="ພັບລະດັບ 8"/>
+					<Item id="44061" name="ຂະຫຍາຍລະດັບ 1"/>
+					<Item id="44062" name="ຂະຫຍາຍລະດັບ 2"/>
+					<Item id="44063" name="ຂະຫຍາຍລະດັບ 3"/>
+					<Item id="44064" name="ຂະຫຍາຍລະດັບ 4"/>
+					<Item id="44065" name="ຂະຫຍາຍລະດັບ 5"/>
+					<Item id="44066" name="ຂະຫຍາຍລະດັບ 6"/>
+					<Item id="44067" name="ຂະຫຍາຍລະດັບ 7"/>
+					<Item id="44068" name="ຂະຫຍາຍລະດັບ 8"/>
+					<Item id="44081" name="ເປີດ/ປິດ ແຜງໂຄງການ 1"/>
+					<Item id="44082" name="ເປີດ/ປິດ ແຜງໂຄງການ 2"/>
+					<Item id="44083" name="ເປີດ/ປິດ ແຜງໂຄງການ 3"/>
+					<Item id="44085" name="ເປີດ/ປິດ ໂຟນເດີເປັນ Workspace"/>
+					<Item id="44080" name="ເປີດ/ປິດ ແຜນຜັງເອກະສານ"/>
+					<Item id="44070" name="ເປີດ/ປິດ ລາຍຊື່ເອກະສານ"/>
+					<Item id="44084" name="ເປີດ/ປິດ ລາຍຊື່ຟັງຊັນ"/>
+					<Item id="50005" name="ເປີດ/ປິດ ການບັນທຶກມາກໂຄ"/>
+					<Item id="44104" name="ສະຫຼັບໄປແຜງໂຄງການ 1"/>
+					<Item id="44105" name="ສະຫຼັບໄປແຜງໂຄງການ 2"/>
+					<Item id="44106" name="ສະຫຼັບໄປແຜງໂຄງການ 3"/>
+					<Item id="44107" name="ສະຫຼັບໄປໂຟນເດີເປັນ Workspace"/>
+					<Item id="44109" name="ສະຫຼັບໄປລາຍຊື່ເອກະສານ"/>
+					<Item id="44108" name="ສະຫຼັບໄປລາຍຊື່ຟັງຊັນ"/>
+					<Item id="44110" name="ລຶບສີຂອງແທັບ"/>
+					<Item id="44111" name="ໃສ່ສີແທັບ 1"/>
+					<Item id="44112" name="ໃສ່ສີແທັບ 2"/>
+					<Item id="44113" name="ໃສ່ສີແທັບ 3"/>
+					<Item id="44114" name="ໃສ່ສີແທັບ 4"/>
+					<Item id="44115" name="ໃສ່ສີແທັບ 5"/>
+					<Item id="11002" name="ຮຽງຕາມຊື່ A ຫາ Z"/>
+					<Item id="11003" name="ຮຽງຕາມຊື່ Z ຫາ A"/>
+					<Item id="11004" name="ຮຽງຕາມທີ່ຢູ່ໄຟລ໌ A ຫາ Z"/>
+					<Item id="11005" name="ຮຽງຕາມທີ່ຢູ່ໄຟລ໌ Z ຫາ A"/>
+					<Item id="11006" name="ຮຽງຕາມປະເພດ A ຫາ Z"/>
+					<Item id="11007" name="ຮຽງຕາມປະເພດ Z ຫາ A"/>
+					<Item id="11008" name="ຮຽງຕາມຂະໜາດເນື້ອໃນ ໜ້ອຍຫາຫຼາຍ"/>
+					<Item id="11009" name="ຮຽງຕາມຂະໜາດເນື້ອໃນ ຫຼາຍຫາໜ້ອຍ"/>
+				</MainCommandNames>
+			</ShortcutMapper>
+			<ShortcutMapperSubDialg title="Shortcut">
+				<Item id="1" name="ຕົກລົງ (OK)"/>
+				<Item id="2" name="ຍົກເລີກ (Cancel)"/>
+				<Item id="5006" name="ຊື່ (Name)"/>
+				<Item id="5008" name="ເພີ່ມ (Add)"/>
+				<Item id="5009" name="ລຶບອອກ (Remove)"/>
+				<Item id="5010" name="ນຳໃຊ້ (Apply)"/>
+				<Item id="5007" name="ນີ້ຈະລຶບຄີລັດອອກຈາກຄຳສັ່ງນີ້"/>
+				<Item id="5012" name="ພົບການຊ້ຳກັນ! (CONFLICT FOUND!)"/>
+			</ShortcutMapperSubDialg>
+			<UserDefine title="User-Defined">
+				<Item id="20001" name="ຕິດໄວ້ (Dock)"/>
+				<Item id="20002" name="ປ່ຽນຊື່ (Rename)"/>
+				<Item id="20003" name="ສ້າງໃໝ່..."/>
+				<Item id="20004" name="ລຶບອອກ (Remove)"/>
+				<Item id="20005" name="ບັນທຶກເປັນ..."/>
+				<Item id="20007" name="ພາສາຜູ້ໃຊ້"/>
+				<Item id="20009" name="ນາມສະກຸນ:"/>
+				<Item id="20012" name="ບໍ່ສົນໃຈຕົວພິມໃຫຍ່-ນ້ອຍ"/>
+				<Item id="20011" name="ຄວາມໂປ່ງໃສ"/>
+				<Item id="20015" name="ນຳເຂົ້າ..."/>
+				<Item id="20016" name="ສົ່ງອອກ..."/>
+				<Item id="20017" name="ແຍກອອກ (Undock)"/>
+				<StylerDialog title="ໜ້າຕ່າງຈັດຮູບແບບ">
+					<Item id="25030" name="ຕົວເລືອກຕົວອັກສອນ"/>
+					<Item id="25006" name="ສີຂໍ້ຄວາມ"/>
+					<Item id="25007" name="ສີພື້ນຫຼັງ"/>
+					<Item id="25031" name="ຊື່:"/>
+					<Item id="25032" name="ຂະໜາດ:"/>
+					<Item id="25001" name="ໂຕເຂັ້ມ"/>
+					<Item id="25002" name="ໂຕອຽງ"/>
+					<Item id="25003" name="ຂີດກ້ອງ"/>
+					<Item id="25029" name="ການຊ້ອນຊັ້ນ (Nesting)"/>
+					<Item id="25008" name="ຕົວຂັ້ນ 1"/>
+					<Item id="25009" name="ຕົວຂັ້ນ 2"/>
+					<Item id="25010" name="ຕົວຂັ້ນ 3"/>
+					<Item id="25011" name="ຕົວຂັ້ນ 4"/>
+					<Item id="25012" name="ຕົວຂັ້ນ 5"/>
+					<Item id="25013" name="ຕົວຂັ້ນ 6"/>
+					<Item id="25014" name="ຕົວຂັ້ນ 7"/>
+					<Item id="25015" name="ຕົວຂັ້ນ 8"/>
+					<Item id="25018" name="ຄຳສຳຄັນ 1"/>
+					<Item id="25019" name="ຄຳສຳຄັນ 2"/>
+					<Item id="25020" name="ຄຳສຳຄັນ 3"/>
+					<Item id="25021" name="ຄຳສຳຄັນ 4"/>
+					<Item id="25022" name="ຄຳສຳຄັນ 5"/>
+					<Item id="25023" name="ຄຳສຳຄັນ 6"/>
+					<Item id="25024" name="ຄຳສຳຄັນ 7"/>
+					<Item id="25025" name="ຄຳສຳຄັນ 8"/>
+					<Item id="25016" name="ຄຳອະທິບາຍ (Comment)"/>
+					<Item id="25017" name="ຄຳອະທິບາຍແຖວ (Comment line)"/>
+					<Item id="25026" name="ຕົວດຳເນີນການ 1"/>
+					<Item id="25027" name="ຕົວດຳເນີນການ 2"/>
+					<Item id="25028" name="ຕົວເລກ"/>
+					<Item id="25033" name="ໂປ່ງໃສ"/>
+					<Item id="25034" name="ໂປ່ງໃສ"/>
+					<Item id="1" name="ຕົກລົງ"/>
+					<Item id="2" name="ຍົກເລີກ"/>
+				</StylerDialog>
+				<Folder title="ໂຟນເດີ &amp;&amp; ເລີ່ມຕົ້ນ">
+					<Item id="21101" name="ຮູບແບບເລີ່ມຕົ້ນ"/>
+					<Item id="21102" name="ຕົວຈັດຮູບແບບ"/>
+					<Item id="21103" name="ຊ່ວຍເຫຼືອອອນໄລນ໌ພາສາທີ່ກຳນົດເອງ"/>
+					<Item id="21105" name="ເອກະສານອ້າງອີງ"/>
+					<Item id="21106" name="ພັບແບບກະທັດຮັດ (ພັບແຖວວ່າງນຳ)"/>
+					<Item id="21220" name="ການພັບໃນຮູບແບບ Code 1"/>
+					<Item id="21224" name="ເປີດ:"/>
+					<Item id="21225" name="ກາງ:"/>
+					<Item id="21226" name="ປິດ:"/>
+					<Item id="21227" name="ຕົວຈັດຮູບແບບ"/>
+					<Item id="21320" name="ການພັບໃນຮູບແບບ Code 2 (ຕ້ອງມີຕົວຂັ້ນ)"/>
+					<Item id="21324" name="ເປີດ:"/>
+					<Item id="21325" name="ກາງ:"/>
+					<Item id="21326" name="ປິດ:"/>
+					<Item id="21327" name="ຕົວຈັດຮູບແບບ"/>
+					<Item id="21420" name="ການພັບໃນຮູບແບບຄຳອະທິບາຍ"/>
+					<Item id="21424" name="ເປີດ:"/>
+					<Item id="21425" name="ກາງ:"/>
+					<Item id="21426" name="ປິດ:"/>
+					<Item id="21427" name="ຕົວຈັດຮູບແບບ"/>
+				</Folder>
+				<Keywords title="ລາຍຊື່ຄຳສຳຄັນ">
+					<Item id="22101" name="ກຸ່ມທີ 1"/>
+					<Item id="22201" name="ກຸ່ມທີ 2"/>
+					<Item id="22301" name="ກຸ່ມທີ 3"/>
+					<Item id="22401" name="ກຸ່ມທີ 4"/>
+					<Item id="22451" name="ກຸ່ມທີ 5"/>
+					<Item id="22501" name="ກຸ່ມທີ 6"/>
+					<Item id="22551" name="ກຸ່ມທີ 7"/>
+					<Item id="22601" name="ກຸ່ມທີ 8"/>
+					<Item id="22121" name="ໂໝດຄຳນຳໜ້າ (Prefix)"/>
+					<Item id="22221" name="ໂໝດຄຳນຳໜ້າ (Prefix)"/>
+					<Item id="22321" name="ໂໝດຄຳນຳໜ້າ (Prefix)"/>
+					<Item id="22421" name="ໂໝດຄຳນຳໜ້າ (Prefix)"/>
+					<Item id="22471" name="ໂໝດຄຳນຳໜ້າ (Prefix)"/>
+					<Item id="22521" name="ໂໝດຄຳນຳໜ້າ (Prefix)"/>
+					<Item id="22571" name="ໂໝດຄຳນຳໜ້າ (Prefix)"/>
+					<Item id="22621" name="ໂໝດຄຳນຳໜ້າ (Prefix)"/>
+					<Item id="22122" name="ຕົວຈັດຮູບແບບ"/>
+					<Item id="22222" name="ຕົວຈັດຮູບແບບ"/>
+					<Item id="22322" name="ຕົວຈັດຮູບແບບ"/>
+					<Item id="22422" name="ຕົວຈັດຮູບແບບ"/>
+					<Item id="22472" name="ຕົວຈັດຮູບແບບ"/>
+					<Item id="22522" name="ຕົວຈັດຮູບແບບ"/>
+					<Item id="22572" name="ຕົວຈັດຮູບແບບ"/>
+					<Item id="22622" name="ຕົວຈັດຮູບແບບ"/>
+				</Keywords>
+				<Comment title="ຄຳອະທິບາຍ &amp;&amp; ຕົວເລກ">
+					<Item id="23003" name="ຕຳແໜ່ງຄຳອະທິບາຍແຖວ"/>
+					<Item id="23004" name="ອະນຸຍາດທຸກບ່ອນ"/>
+					<Item id="23005" name="ບັງຄັບຢູ່ຕົ້ນແຖວ"/>
+					<Item id="23006" name="ອະນຸຍາດໃຫ້ມີຊ່ອງວ່າງທາງໜ້າ"/>
+					<Item id="23001" name="ອະນຸຍາດໃຫ້ພັບຄຳອະທິບາຍ"/>
+					<Item id="23326" name="ຕົວຈັດຮູບແບບ"/>
+					<Item id="23323" name="ເປີດ"/>
+					<Item id="23324" name="ຕົວອັກສອນຕໍ່ເນື່ອງ"/>
+					<Item id="23325" name="ປິດ"/>
+					<Item id="23301" name="ຮູບແບບຄຳອະທິບາຍແຖວ"/>
+					<Item id="23124" name="ຕົວຈັດຮູບແບບ"/>
+					<Item id="23122" name="ເປີດ"/>
+					<Item id="23123" name="ປິດ"/>
+					<Item id="23101" name="ຮູບແບບຄຳອະທິບາຍ"/>
+					<Item id="23201" name="ຮູບແບບຕົວເລກ"/>
+					<Item id="23220" name="ຕົວຈັດຮູບແບບ"/>
+					<Item id="23230" name="ຄຳນຳໜ້າ 1"/>
+					<Item id="23232" name="ຄຳນຳໜ້າ 2"/>
+					<Item id="23234" name="ພິເສດ 1"/>
+					<Item id="23236" name="ພິເສດ 2"/>
+					<Item id="23238" name="ຄຳລົງທ້າຍ 1"/>
+					<Item id="23240" name="ຄຳລົງທ້າຍ 2"/>
+					<Item id="23242" name="ໄລຍະ:"/>
+					<Item id="23244" name="ຕົວຂັ້ນທົດສະນິຍົມ"/>
+					<Item id="23245" name="ຈ້ຳ (Dot)"/>
+					<Item id="23246" name="ຈຸດ (Comma)"/>
+					<Item id="23247" name="ທັງສອງ"/>
+				</Comment>
+				<Operator title="ຕົວດຳເນີນການ &amp;&amp; ຕົວຂັ້ນ">
+					<Item id="24101" name="ຮູບແບບຕົວດຳເນີນການ"/>
+					<Item id="24113" name="ຕົວຈັດຮູບແບບ"/>
+					<Item id="24116" name="ຕົວດຳເນີນການ 1"/>
+					<Item id="24117" name="ຕົວດຳເນີນການ 2 (ຕ້ອງມີຕົວຂັ້ນ)"/>
+					<Item id="24201" name="ຮູບແບບຕົວຂັ້ນ 1"/>
+					<Item id="24220" name="ເປີດ:"/>
+					<Item id="24221" name="ຕົວຫຼີກ (Escape):"/>
+					<Item id="24222" name="ປິດ:"/>
+					<Item id="24223" name="ຕົວຈັດຮູບແບບ"/>
+					<Item id="24301" name="ຮູບແບບຕົວຂັ້ນ 2"/>
+					<Item id="24320" name="ເປີດ:"/>
+					<Item id="24321" name="ຕົວຫຼີກ (Escape):"/>
+					<Item id="24322" name="ປິດ:"/>
+					<Item id="24323" name="ຕົວຈັດຮູບແບບ"/>
+					<Item id="24401" name="ຮູບແບບຕົວຂັ້ນ 3"/>
+					<Item id="24420" name="ເປີດ:"/>
+					<Item id="24421" name="ຕົວຫຼີກ (Escape):"/>
+					<Item id="24422" name="ປິດ:"/>
+					<Item id="24423" name="ຕົວຈັດຮູບແບບ"/>
+					<Item id="24451" name="ຮູບແບບຕົວຂັ້ນ 4"/>
+					<Item id="24470" name="ເປີດ:"/>
+					<Item id="24471" name="ຕົວຫຼີກ (Escape):"/>
+					<Item id="24472" name="ປິດ:"/>
+					<Item id="24473" name="ຕົວຈັດຮູບແບບ"/>
+					<Item id="24501" name="ຮູບແບບຕົວຂັ້ນ 5"/>
+					<Item id="24520" name="ເປີດ:"/>
+					<Item id="24521" name="ຕົວຫຼີກ (Escape):"/>
+					<Item id="24522" name="ປິດ:"/>
+					<Item id="24523" name="ຕົວຈັດຮູບແບບ"/>
+					<Item id="24551" name="ຮູບແບບຕົວຂັ້ນ 6"/>
+					<Item id="24570" name="ເປີດ:"/>
+					<Item id="24571" name="ຕົວຫຼີກ (Escape):"/>
+					<Item id="24572" name="ປິດ:"/>
+					<Item id="24573" name="ຕົວຈັດຮູບແບບ"/>
+					<Item id="24601" name="ຮູບແບບຕົວຂັ້ນ 7"/>
+					<Item id="24620" name="ເປີດ:"/>
+					<Item id="24621" name="ຕົວຫຼີກ (Escape):"/>
+					<Item id="24622" name="ປິດ:"/>
+					<Item id="24623" name="ຕົວຈັດຮູບແບບ"/>
+					<Item id="24651" name="ຮູບແບບຕົວຂັ້ນ 8"/>
+					<Item id="24670" name="ເປີດ:"/>
+					<Item id="24671" name="ຕົວຫຼີກ (Escape):"/>
+					<Item id="24672" name="ປິດ:"/>
+					<Item id="24673" name="ຕົວຈັດຮູບແບບ"/>
+				</Operator>
+			</UserDefine>
+			<Preference title="ການຕັ້ງຄ່າ">
+				<Item id="6001" name="ປິດ (Close)"/>
+				<Global title="ທົ່ວໄປ (General)">
+					<Item id="6123" name="ພາສາ (Localization)"/>
+					<Item id="6131" name="ເມນູ (Menu)"/>
+					<Item id="6122" name="ເຊື່ອງ (ໃຊ້ປຸ່ມ Alt ຫຼື F10 ເພື່ອສະຫຼັບ)"/>
+					<Item id="6132" name="ເຊື່ອງຄີລັດດ້ານຂວາ ＋ ▼ ✕"/>
+					<Item id="6133" name="ແຖບສະຖານະ (Status Bar)"/>
+					<Item id="6134" name="ເຊື່ອງ (Hide)"/>
+				</Global>
+
+				<Toolbar title="ແຖບເຄື່ອງມື (Toolbar)">
+					<Item id="6102" name="ເຊື່ອງ (Hide)"/>
+					<Item id="6103" name="Fluent UI: ນ້ອຍ"/>
+					<Item id="6104" name="Fluent UI: ໃຫຍ່"/>
+					<Item id="6129" name="Filled Fluent UI: ນ້ອຍ"/>
+					<Item id="6130" name="Filled Fluent UI: ໃຫຍ່"/>
+					<Item id="6105" name="ໄອຄອນມາດຕະຖານ: ນ້ອຍ"/>
+					<Item id="6011" name="ການປັບສີ (Colorization)"/>
+					<Item id="6012" name="ທັງໝົດ"/>
+					<Item id="6013" name="ບາງສ່ວນ"/>
+					<Item id="6014" name="ເລືອກສີ"/>
+					<Item id="6015" name="ເລີ່ມຕົ້ນ"/>
+					<Item id="6016" name="ແດງ"/>
+					<Item id="6017" name="ຂຽວ"/>
+					<Item id="6018" name="ຟ້າ"/>
+					<Item id="6019" name="ມ່ວງ"/>
+					<Item id="6020" name="ຟ້າອ່ອນ (Cyan)"/>
+					<Item id="6021" name="ຂຽວໝາກກອກ"/>
+					<Item id="6022" name="ເຫຼືອງ"/>
+					<Item id="6023" name="ສີເນັ້ນຂອງລະບົບ"/>
+					<Item id="6024" name="ກຳນົດເອງ"/>
+				</Toolbar>
+
+				<Tabbar title="ແຖບແທັບ (Tab Bar)">
+					<Item id="6107" name="ຫຼຸດຂະໜາດ"/>
+					<Item id="6108" name="ລັອກ (ຫ້າມລາກ ແລະ ວາງ)"/>
+					<Item id="6109" name="ປ່ຽນສີແທັບທີ່ບໍ່ໄດ້ໃຊ້"/>
+					<Item id="6110" name="ແຕ້ມແຖບສີໃສ່ແທັບທີ່ກຳລັງໃຊ້"/>
+					<Item id="6111" name="ສະແດງປຸ່ມປິດໃນແທັບທີ່ບໍ່ໄດ້ໃຊ້"/>
+					<Item id="6112" name="ສະແດງປຸ່ມປິດ"/>
+					<Item id="6113" name="ດັບເບິລຄລິກເພື່ອປິດເອກະສານ"/>
+					<Item id="6115" name="ເປີດໃຊ້ການປັກໝຸດແທັບ"/>
+					<Item id="6135" name="ສະແດງສະເພາະປຸ່ມປັກໝຸດ"/>
+					<Item id="6118" name="ເຊື່ອງ (Hide)"/>
+					<Item id="6119" name="ຫຼາຍແຖວ (Multi-line)"/>
+					<Item id="6120" name="ແນວຕັ້ງ (Vertical)"/>
+					<Item id="6121" name="ອອກຈາກໂປຣແກຣມເມື່ອປິດແທັບສຸດທ້າຍ"/>
+					<Item id="6128" name="ໄອຄອນທາງເລືອກ"/>
+					<Item id="6125" name="ພຶດຕິກຳ (Behavior)"/>
+					<Item id="6126" name="ຮູບລັກສະນະ (Look &amp;&amp; feel)"/>
+					<Item id="6136" name="ຄວາມຍາວສູງສຸດຂອງຊື່ແທັບ:"/>
+				</Tabbar>
+
+				<Scintillas title="ການແກ້ໄຂ 1">
+					<Item id="6216" name="ຕັ້ງຄ່າ Caret"/>
+					<Item id="6217" name="ຄວາມກວ້າງ:"/>
+					<Item id="6219" name="ອັດຕາການກະພິບ:"/>
+					<Item id="6221" name="ໄວ (F)"/>
+					<Item id="6222" name="ຊ້າ (S)"/>
+					<Item id="6246" name="ເຮັດໃຫ້ຄຳສັ່ງພັບ/ຂະຫຍາຍລະດັບປັດຈຸບັນສາມາດສະຫຼັບໄດ້"/>
+					<Item id="6227" name="ການຕັດແຖວ (Line Wrap)"/>
+					<Item id="6228" name="ເລີ່ມຕົ້ນ"/>
+					<Item id="6229" name="ຈັດແຖວ"/>
+					<Item id="6230" name="ຍໍ້ໜ້າ"/>
+					<Item id="6234" name="ປິດການໃຊ້ງານການເລື່ອນຂັ້ນສູງເນື່ອງຈາກບັນຫາທັດແພດ (touchpad)"/>
+					<Item id="6215" name="ເປີດໃຊ້ຕົວອັກສອນແບບລຽບ (smooth font)"/>
+					<Item id="6236" name="ອະນຸຍາດໃຫ້ເລື່ອນກາຍແຖວສຸດທ້າຍ"/>
+					<Item id="6239" name="ຮັກສາການເລືອກໄວ້ເມື່ອຄລິກຂວານອກບໍລິເວນທີ່ເລືອກ"/>
+					<Item id="6245" name="ເປີດໃຊ້ພື້ນທີ່ສະເືອນ (virtual space)"/>
+					<Item id="6214" name="ເປີດໃຊ້ການ ຄັດລອກ/ຕັດ ແຖວໂດຍບໍ່ຕ້ອງເລືອກ"/>
+					<Item id="6266" name="ປິດການລາກ ແລະ ວາງ ຂໍ້ຄວາມທີ່ເລືອກ"/>
+					<Item id="6225" name="ໃຊ້ສີທີ່ກຳນົດເອງສຳລັບຂໍ້ຄວາມທີ່ເລືອກ"/>
+					<Item id="6651" name="ຕົວຊີ້ບອກແຖວປັດຈຸບັນ"/>
+					<Item id="6652" name="ບໍ່ມີ"/>
+					<Item id="6653" name="ເນັ້ນພື້ນຫຼັງ"/>
+					<Item id="6654" name="ຂອບ (Frame)"/>
+					<Item id="6655" name="ຄວາມກວ້າງ:"/>
+				</Scintillas>
+
+				<Scintillas2 title="ການແກ້ໄຂ 2">
+					<Item id="6521" name="ການແກ້ໄຂຫຼາຍຈຸດ (Multi-Editing)"/>
+					<Item id="6522" name="ເປີດໃຊ້ການແກ້ໄຂຫຼາຍຈຸດ (Ctrl+Mouse click/selection)"/>
+					<Item id="6523" name="ເປີດໃຊ້ການເລືອກແບບຖັນໃນການແກ້ໄຂຫຼາຍຈຸດ"/>
+					<Item id="6247" name="EOL (CRLF)"/>
+					<Item id="6248" name="ເລີ່ມຕົ້ນ"/>
+					<Item id="6249" name="ຂໍ້ຄວາມທຳມະດາ"/>
+					<Item id="6250" name="ສີທີ່ກຳນົດເອງ"/>
+					<Item id="6252" name="ຕົວອັກສອນທີ່ບໍ່ສະແດງຜົນການພິມ"/>
+					<Item id="6260" name="ຮູບລັກສະນະ"/>
+					<Item id="6254" name="ຕົວຫຍໍ້ (Abbreviation)"/>
+					<Item id="6255" name="Codepoint"/>
+					<Item id="6256" name="ສີທີ່ກຳນົດເອງ"/>
+					<Item id="6258" name="ນຳໃຊ້ການຕັ້ງຄ່າຮູບລັກສະນະໃຫ້ກັບ C0, C1 &amp;&amp; Unicode EOL"/>
+					<Item id="6259" name="ປ້ອງກັນການພິມຕົວອັກສອນຄວບຄຸມ (C0 code) ລົງໃນເອກະສານ"/>
+				</Scintillas2>
+
+				<DarkMode title="ໂໝດມືດ (Dark Mode)">
+					<Item id="7131" name="ໂໝດສະຫວ່າງ"/>
+					<Item id="7132" name="ໂໝດມືດ"/>
+					<Item id="7133" name="ຕາມ Windows"/>
+					<Item id="7102" name="ດຳ"/>
+					<Item id="7103" name="ແດງ"/>
+					<Item id="7104" name="ຂຽວ"/>
+					<Item id="7105" name="ຟ້າ"/>
+					<Item id="7107" name="ມ່ວງ"/>
+					<Item id="7108" name="ຟ້າອ່ອນ"/>
+					<Item id="7109" name="ຂຽວໝາກກອກ"/>
+					<Item id="7115" name="ກຳນົດເອງ"/>
+					<Item id="7116" name="ພື້ນຫຼັງເນື້ອໃນ"/>
+					<Item id="7117" name="ລາຍການທີ່ກຳລັງຊີ້"/>
+					<Item id="7118" name="ພື້ນຫຼັງຕົວຄວບຄຸມ"/>
+					<Item id="7119" name="ພື້ນຫຼັງໜ້າຕ່າງ"/>
+					<Item id="7120" name="ຂໍ້ຜິດພາດ"/>
+					<Item id="7121" name="ຂໍ້ຄວາມ"/>
+					<Item id="7122" name="ຂໍ້ຄວາມທີ່ເຂັ້ມກວ່າ"/>
+					<Item id="7123" name="ຂໍ້ຄວາມທີ່ປິດໃຊ້ງານ"/>
+					<Item id="7124" name="ຂອບ"/>
+					<Item id="7125" name="ລິງກ໌"/>
+					<Item id="7126" name="ເນັ້ນຂອບ"/>
+					<Item id="7127" name="ຂອບທີ່ປິດໃຊ້ງານ"/>
+					<Item id="7130" name="ຣີເຊັດ (Reset)"/>
+					<Item id="7135" name="ໂທນສີ (Tones)"/>
+				</DarkMode>
+
+				<MarginsBorderEdge title="ຂອບ/ເສັ້ນຂອບ/ຂອບແຖວ">
+					<Item id="6201" name="ຮູບແບບຂອບການພັບ"/>
+					<Item id="6202" name="ທຳມະດາ"/>
+					<Item id="6203" name="ລູກສອນ"/>
+					<Item id="6204" name="ວົງມົນ"/>
+					<Item id="6205" name="ສີ່ຫຼ່ຽມ"/>
+					<Item id="6226" name="ບໍ່ມີ"/>
+					<Item id="6291" name="ເລກແຖວ"/>
+					<Item id="6206" name="ສະແດງ"/>
+					<Item id="6292" name="ຄວາມກວ້າງແບບໄດນາມິກ"/>
+					<Item id="6293" name="ຄວາມກວ້າງຄົງທີ່"/>
+					<Item id="6207" name="ສະແດງບຸກມາກ (Bookmark)"/>
+					<Item id="6295" name="ປະຫວັດການປ່ຽນແປງ"/>
+					<Item id="6223" name="ສະແດງໃນຂອບ"/>
+					<Item id="6296" name="ສະແດງໃນຂໍ້ຄວາມ"/>
+					<Item id="6211" name="ຕັ້ງຄ່າຂອບແນວຕັ້ງ"/>
+					<Item id="6213" name="ໂໝດພື້ນຫຼັງ"/>
+					<Item id="6231" name="ຄວາມກວ້າງເສັ້ນຂອບ"/>
+					<Item id="6235" name="ບໍ່ມີຂອບ"/>
+					<Item id="6208" name="ໄລຍະຫ່າງ (Padding)"/>
+					<Item id="6209" name="ຊ້າຍ"/>
+					<Item id="6210" name="ຂວາ"/>
+					<Item id="6212" name="ໂໝດບໍ່ມີສິ່ງລົບກວນ"/>
+				</MarginsBorderEdge>
+
+				<NewDoc title="ເອກະສານໃໝ່">
+					<Item id="6401" name="ຮູບແບບ (ຕົວຈົບແຖວ)"/>
+					<Item id="6402" name="Windows (CR LF)"/>
+					<Item id="6403" name="Unix (LF)"/>
+					<Item id="6404" name="Macintosh (CR)"/>
+					<Item id="6405" name="ການເຂົ້າລະຫັດ (Encoding)"/>
+					<Item id="6406" name="ANSI"/>
+					<Item id="6407" name="UTF-8"/>
+					<Item id="6408" name="UTF-8 ພ້ອມ BOM"/>
+					<Item id="6409" name="UTF-16 Big Endian ພ້ອມ BOM"/>
+					<Item id="6410" name="UTF-16 Little Endian ພ້ອມ BOM"/>
+					<Item id="6411" name="ພາສາເລີ່ມຕົ້ນ:"/>
+					<Item id="6419" name="ເອກະສານໃໝ່"/>
+					<Item id="6420" name="ນຳໃຊ້ກັບໄຟລ໌ ANSI ທີ່ເປີດຢູ່"/>
+					<Item id="6432" name="ເປີດເອກະສານໃໝ່ເພີ່ມທຸກຄັ້ງເມື່ອເລີ່ມໂປຣແກຣມ"/>
+					<Item id="6433" name="ໃຊ້ແຖວທຳອິດຂອງເອກະສານເປັນຊື່ແທັບ"/>
+				</NewDoc>
+
+				<DefaultDir title="ໂຟນເດີເລີ່ມຕົ້ນ">
+					<Item id="6413" name="ໂຟນເດີ ເປີດ/ບັນທຶກ ໄຟລ໌ ເລີ່ມຕົ້ນ"/>
+					<Item id="6414" name="ຕາມເອກະສານປັດຈຸບັນ"/>
+					<Item id="6415" name="ຈື່ໂຟນເດີທີ່ໃຊ້ຫຼ້າສຸດ"/>
+					<Item id="6431" name="ເປີດທຸກໄຟລ໌ໃນໂຟນເດີແທນການເປີດເປັນ Workspace ເມື່ອລາກໂຟນເດີມາໃສ່"/>
+				</DefaultDir>
+
+				<FileAssoc title="ການເຊື່ອມໂຍງໄຟລ໌">
+					<Item id="4008" name="ກະລຸນາອອກຈາກ Notepad++ ແລະ ເປີດໃໝ່ດ້ວຍສິດ Administrator ເພື່ອໃຊ້ງານຄຸນສົມບັດນີ້."/>
+					<Item id="4009" name="ນາມສະກຸນທີ່ຮອງຮັບ:"/>
+					<Item id="4010" name="ນາມສະກຸນທີ່ລົງທະບຽນແລ້ວ:"/>
+				</FileAssoc>
+
+
+				<Language title="Language">
+					<Item id="6505" name="Available items"/>
+					<Item id="6506" name="Disabled items"/>
+					<Item id="6507" name="Make language menu compact"/>
+					<Item id="6508" name="Language Menu"/>
+					<Item id="6335" name="Treat backslash as escape character for SQL"/>
+				</Language>
+
+				<Indentation title="Indentation">
+					<Item id="7161" name="Auto-indent"/>
+					<Item id="7162" name="None"/>
+					<Item id="7163" name="Basic"/>
+					<Item id="7164" name="Advanced"/>
+					<Item id="6301" name="Indent Settings"/>
+					<Item id="6302" name="Space character(s)"/>
+					<Item id="6303" name="Indent size:"/>
+					<Item id="6310" name="Indent using:"/>
+					<Item id="6311" name="Tab character"/>
+					<Item id="6510" name="Use default value"/>
+					<Item id="6512" name="Backspace key unindents instead of removing single space"/>
+				</Indentation>
+
+				<Highlighting title="Highlighting">
+					<Item id="6351" name="Style All Occurrences of Token"/>
+					<Item id="6352" name="Match case"/>
+					<Item id="6353" name="Match whole word only"/>
+					<Item id="6333" name="Smart Highlighting"/>
+					<Item id="6326" name="Enable"/>
+					<Item id="6354" name="Matching"/>
+					<Item id="6332" name="Match case"/>
+					<Item id="6338" name="Match whole word only"/>
+					<Item id="6339" name="Use Find dialog settings"/>
+					<Item id="6340" name="Highlight another view"/>
+					<Item id="6329" name="Highlight Matching Tags"/>
+					<Item id="6327" name="Enable"/>
+					<Item id="6328" name="Highlight tag attributes"/>
+					<Item id="6330" name="Highlight comment/php/asp zone"/>
+				</Highlighting>
+
+				<Print title="Print">
+					<Item id="6601" name="Print line n&amp;umber"/>
+					<Item id="6616" name="Print formfeed a&amp;s page break"/>
+					<Item id="6602" name="Color Options"/>
+					<Item id="6603" name="W&amp;YSIWYG"/>
+					<Item id="6604" name="I&amp;nvert"/>
+					<Item id="6605" name="Black on &amp;white"/>
+					<Item id="6606" name="No bac&amp;kground color"/>
+					<Item id="6607" name="Margin Settings (Unit:mm)"/>
+					<Item id="6612" name="&amp;Left"/>
+					<Item id="6613" name="&amp;Top"/>
+					<Item id="6614" name="&amp;Right"/>
+					<Item id="6615" name="Botto&amp;m"/>
+					<Item id="6706" name="&amp;Bold"/>
+					<Item id="6707" name="&amp;Italic"/>
+					<Item id="6708" name="Header"/>
+					<Item id="6709" name="L&amp;eft part"/>
+					<Item id="6710" name="&amp;Middle part"/>
+					<Item id="6711" name="Ri&amp;ght part"/>
+					<Item id="6717" name="Bol&amp;d"/>
+					<Item id="6718" name="Itali&amp;c"/>
+					<Item id="6719" name="Footer"/>
+					<Item id="6720" name="Le&amp;ft part"/>
+					<Item id="6721" name="Middle &amp;part"/>
+					<Item id="6722" name="Rig&amp;ht part"/>
+					<Item id="6723" name="&amp;Add"/>
+					<ComboBox id="6724">
+						<Element name="Full file name path"/>
+						<Element name="File name"/>
+						<Element name="File directory"/>
+						<Element name="Page"/>
+						<Element name="Short date format"/>
+						<Element name="Long date format"/>
+						<Element name="Time"/>
+					</ComboBox>
+					<Item id="6725" name="&amp;Variable:"/>
+					<Item id="6727" name="Here display your variable settings"/>
+					<Item id="6728" name="Header and Footer"/>
+				</Print>
+
+				<Searching title="Searching">
+					<Item id="6902" name="Use monospaced font in Find dialog (Need to restart Notepad++)"/>
+					<Item id="6903" name="Find dialog remains open after search that outputs to results window"/>
+					<Item id="6904" name="Confirm Replace All in All Opened Documents"/>
+					<Item id="6905" name="Replace: Don't move to the following occurrence"/>
+					<Item id="6906" name="Search Result window: show only one entry per found line if possible"/>
+					<Item id="6907" name="When Find Dialog is Invoked"/>
+					<Item id="6908" name="Fill Find Field with Selected Text"/>
+					<Item id="6909" name="Select Word Under Caret when Nothing Selected"/>
+					<Item id="6910" name="Minimum Size for Auto-Checking &quot;In selection&quot;:"/>
+					<Item id="6913" name="Fill Find in Files Directory Field Based On Active Document"/>
+					<Item id="6916" name=": Max Characters to Auto-Fill Find Field from Selection"/>
+					<Item id="6917" name="Find in Files: Prefer on‑disk file content over open buffers"/>
+				</Searching>
+
+				<RecentFilesHistory title="Recent Files History">
+					<Item id="6304" name="Recent Files History"/>
+					<Item id="6306" name="Max. number of entries:"/>
+					<Item id="6305" name="Don't check at launch time"/>
+					<Item id="6429" name="Display"/>
+					<Item id="6424" name="In Submenu"/>
+					<Item id="6425" name="Only File Name"/>
+					<Item id="6426" name="Full File Name Path"/>
+					<Item id="6427" name="Customize Maximum Length:"/>
+				</RecentFilesHistory>
+
+				<Backup title="Backup">
+					<Item id="6817" name="Session snapshot and periodic backup"/>
+					<Item id="6818" name="Enable session snapshot and periodic backup"/>
+					<Item id="6819" name="Trigger backup on modification in every"/>
+					<Item id="6821" name="seconds"/>
+					<Item id="6822" name="Backup path:"/>
+					<Item id="6309" name="Remember current session for next launch"/>
+					<Item id="6825" name="Remember inaccessible files from past session"/>
+					<Item id="6801" name="Backup on save"/>
+					<Item id="6315" name="None"/>
+					<Item id="6316" name="Simple backup"/>
+					<Item id="6317" name="Verbose backup"/>
+					<Item id="6804" name="Custom Backup Directory"/>
+					<Item id="6803" name="Directory:"/>
+				</Backup>
+
+				<AutoCompletion title="Auto-Completion">
+					<Item id="6807" name="Auto-Completion"/>
+					<Item id="6808" name="Enable auto-completion on each input"/>
+					<Item id="6809" name="Function completion"/>
+					<Item id="6810" name="Word completion"/>
+					<Item id="6816" name="Function and word completion"/>
+					<Item id="6869" name="Insert Selection"/>
+					<Item id="6870" name="TAB"/><!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+					<Item id="6871" name="ENTER"/><!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
+					<Item id="6824" name="Ignore numbers"/>
+					<Item id="6811" name="From"/>
+					<Item id="6813" name="th character"/>
+					<Item id="6872" name="Make auto-completion list brief"/>
+					<Item id="6815" name="Function parameters hint on input"/>
+					<Item id="6851" name="Auto-Insert"/>
+					<Item id="6857" name=" html/xml close tag"/>
+					<Item id="6858" name="Open"/>
+					<Item id="6859" name="Close"/>
+					<Item id="6860" name="Matched pair 1:"/>
+					<Item id="6863" name="Matched pair 2:"/>
+					<Item id="6866" name="Matched pair 3:"/>
+				</AutoCompletion>
+
+				<MultiInstance title="Multi-Instance &amp; Date">
+					<Item id="6151" name="Multi-instance settings *"/>
+					<Item id="6152" name="Open session in a new instance (and save session automatically on exit)"/>
+					<Item id="6153" name="Always in multi-instance mode"/>
+					<Item id="6154" name="Default (mono-instance)"/>
+					<Item id="6155" name="* The modification of this setting needs to restart Notepad++"/>
+					<Item id="6171" name="Customize insert Date Time"/>
+					<Item id="6175" name="Reverse default date time order (short &amp;&amp; long formats)"/>
+					<Item id="6172" name="Custom format:"/>
+					<Item id="6181" name="Panel State and [-nosession] *"/>
+					<Item id="6182" name="Remember panel state (panel is open) in other instances (multi-instance mode) or when using command line parameter [-nosession]"/>
+					<Item id="6183" name="Clipboard History"/>
+					<Item id="6184" name="Document List"/>
+					<Item id="6185" name="Character Panel"/>
+					<Item id="6186" name="Folder as Workspace"/>
+					<Item id="6187" name="Pro&amp;ject Panels"/>
+					<Item id="6188" name="Document Map"/>
+					<Item id="6189" name="Function List"/>
+					<Item id="6190" name="Plugin Panels"/>
+				</MultiInstance>
+
+				<Delimiter title="ຕົວຂັ້ນ (Delimiter)">
+					<Item id="6251" name="ຕັ້ງຄ່າການເລືອກດ້ວຍຕົວຂັ້ນ (Ctrl + Mouse double click)"/>
+					<Item id="6252" name="ເປີດ"/>
+					<Item id="6255" name="ປິດ"/>
+					<Item id="6256" name="ອະນຸຍາດໃຫ້ມີຫຼາຍແຖວ"/>
+					<Item id="6161" name="ລາຍຊື່ຕົວອັກສອນຂອງຄຳສັບ"/>
+					<Item id="6162" name="ໃຊ້ລາຍຊື່ຕົວອັກສອນຄຳສັບເລີ່ມຕົ້ນຕາມທີ່ເປັນຢູ່"/>
+					<Item id="6163" name="ເພີ່ມຕົວອັກສອນຂອງທ່ານເປັນສ່ວນໜຶ່ງຂອງຄຳສັບ (ຢ່າເລືອກຖ້າທ່ານບໍ່ຮູ້ວ່າກຳລັງເຮັດຫຍັງ)"/>
+				</Delimiter>
+
+				<Performance title="ປະສິດທິພາບ">
+					<Item id="7141" name="ການຈຳກັດໄຟລ໌ຂະໜາດໃຫຍ່"/>
+					<Item id="7143" name="ເປີດໃຊ້ການຈຳກັດໄຟລ໌ຂະໜາດໃຫຍ່ (ບໍ່ມີການເນັ້ນ Syntax)"/>
+					<Item id="7144" name="ກຳນົດຂະໜາດໄຟລ໌ໃຫຍ່:"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
+					<Item id="7147" name="ອະນຸຍາດໃຫ້ຈັບຄູ່ວົງເລັບ (Brace Match)"/>
+					<Item id="7148" name="ອະນຸຍາດໃຫ້ເຕີມຄຳອັດຕະໂນມັດ"/>
+					<Item id="7149" name="ອະນຸຍາດໃຫ້ເນັ້ນອັດສະລິຍະ"/>
+					<Item id="7150" name="ປິດການຕັດແຖວທົ່ວໂລກ"/>
+					<Item id="7151" name="ອະນຸຍາດໃຫ້ລິງກ໌ URL ຄລິກໄດ້"/>
+					<Item id="7152" name="ບໍ່ຕ້ອງແຈ້ງເຕືອນເມື່ອເປີດໄຟລ໌ທີ່ໃຫຍ່ກວ່າ 2GB"/>
+				</Performance>
+
+				<Cloud title="ຄລາວ &amp; ລິງກ໌">
+					<Item id="6262" name="ຕັ້ງຄ່າເທິງຄລາວ"/>
+					<Item id="6263" name="ບໍ່ໃຊ້ຄລາວ"/>
+					<Item id="6267" name="ຕັ້ງຄ່າທີ່ຢູ່ຄລາວຂອງທ່ານຢູ່ນີ້:"/>
+					<Item id="6318" name="ຕັ້ງຄ່າລິງກ໌ທີ່ຄລິກໄດ້"/>
+					<Item id="6319" name="ເປີດໃຊ້ງານ"/>
+					<Item id="6320" name="ບໍ່ມີຂີດກ້ອງ"/>
+					<Item id="6350" name="ເປີດໃຊ້ໂໝດ fullbox"/>
+					<Item id="6264" name="ຮູບແບບ URI ທີ່ກຳນົດເອງ:"/>
+				</Cloud>
+
+				<SearchEngine title="ເຄື່ອງມືຄົ້ນຫາ">
+					<Item id="6271" name="ເຄື່ອງມືຄົ້ນຫາ (ສຳລັບຄຳສັ່ງ &quot;ຄົ້ນຫາໃນອິນເຕີເນັດ&quot;)"/>
+					<Item id="6272" name="DuckDuckGo"/>
+					<Item id="6273" name="Google"/>
+					<Item id="6274" name="Bing"/>
+					<Item id="6275" name="Yahoo!"/>
+					<Item id="6276" name="ຕັ້ງຄ່າເຄື່ອງມືຄົ້ນຫາຂອງທ່ານຢູ່ນີ້:"/>
+					<!-- Don't change anything after Example: -->
+					<Item id="6278" name="ຕົວຢ່າງ: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+				</SearchEngine>
+
+				<MISC title="ອື່ນໆ (MISC.)">
+					<ComboBox id="6347">
+						<Element name="ເປີດໃຊ້ສຳລັບໄຟລ໌ປັດຈຸບັນ"/>
+						<Element name="ເປີດໃຊ້ສຳລັບທຸກໄຟລ໌ທີ່ເປີດຢູ່"/>
+						<Element name="ປິດໃຊ້ງານ"/>
+					</ComboBox>
+					<ComboBox id="6307">
+						<Element name="ບໍ່ມີການກະທຳ"/>
+						<Element name="ຍໍ້ລົງໄປທີ່"/>
+						<Element name="ປິດໄປທີ່"/>
+						<Element name="ຍໍ້ / ປິດ ໄປທີ່"/>
+					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (ເຂົ້າກັນໄດ້ດີທີ່ສຸດ)"/>
+						<Element name="DirectWrite (ເລີ່ມຕົ້ນ)"/>
+						<Element name="DirectWrite (ຮັກສາຂອບ)"/>
+						<Element name="DirectWrite (ແຕ້ມລົງ GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="ປິດໃຊ້ງານ"/>
+						<Element name="ເປີດເມື່ອເລີ່ມ Notepad++"/>
+						<Element name="ເປີດເມື່ອປິດ Notepad++"/>
+					</ComboBox>
+					<Item id="6308" name="ຖາດລະບົບ (system tray)"/>
+					<Item id="6363" name="ໂໝດການສະແດງຜົນ (rendering mode)"/>
+					<Item id="6365" name="ຕົວອັບເດດອັດຕະໂນມັດ:"/>
+					<Item id="6312" name="ກວດສອບສະຖານະໄຟລ໌ອັດຕະໂນມັດ"/>
+					<Item id="6313" name="ອັບເດດແບບງຽບໆ"/>
+					<Item id="6325" name="ເລື່ອນໄປແຖວສຸດທ້າຍຫຼັງຈາກອັບເດດ"/>
+					<Item id="6322" name="ນາມສະກຸນໄຟລ໌ເຊດຊັນ:"/>
+					<Item id="6324" name="ຕົວສະຫຼັບເອກະສານ (Ctrl+TAB)"/>
+					<Item id="6331" name="ສະແດງສະເພາະຊື່ໄຟລ໌ໃນແຖບຫົວຂໍ້"/>
+					<Item id="6334" name="ກວດສອບການເຂົ້າລະຫັດຕົວອັກສອນອັດຕະໂນມັດ"/>
+					<Item id="6337" name="ນາມສະກຸນໄຟລ໌ Workspace:"/>
+					<Item id="6114" name="ເປີດໃຊ້ງານ"/>
+					<Item id="6117" name="ເປີດໃຊ້ພຶດຕິກຳ MRU"/>
+					<Item id="6344" name="ຕົວຢ່າງເອກະສານ (Document Peeker)"/>
+					<Item id="6345" name="ເບິ່ງຕົວຢ່າງເມື່ອຊີ້ແທັບ"/>
+					<Item id="6346" name="ເບິ່ງຕົວຢ່າງເມື່ອຊີ້ແຜນຜັງເອກະສານ"/>
+					<Item id="6360" name="ປິດສຽງທັງໝົດ"/>
+					<Item id="6361" name="ເປີດໃຊ້ໜ້າຕ່າງຢືນຢັນ 'ບັນທຶກທັງໝົດ'"/>
+				</MISC>
+			</Preference>
+			<MultiMacro title="ຣັນມາກໂຄຫຼາຍຄັ້ງ">
+				<Item id="1" name="ຣັນ (&amp;Run)"/>
+				<Item id="2" name="ຍົກເລີກ (&amp;Cancel)"/>
+				<Item id="8006" name="ມາກໂຄທີ່ຈະຣັນ"/>
+				<Item id="8001" name="ຣັນ"/>
+				<Item id="8005" name="ຄັ້ງ"/>
+				<Item id="8002" name="ຣັນຈົນກວ່າຈະຈົບໄຟລ໌"/>
+			</MultiMacro>
+			<Window title="ໜ້າຕ່າງ">
+				<Item id="1" name="ເປີດໃຊ້ງານ (&amp;Activate)"/>
+				<Item id="2" name="ຕົກລົງ (&amp;OK)"/>
+				<Item id="7002" name="ບັນທຶກ (&amp;Save)"/>
+				<Item id="7003" name="ປິດໜ້າຕ່າງ (&amp;Close window(s))"/>
+				<Item id="7004" name="ຮຽງແທັບ (&amp;Sort tabs)"/>
+			</Window>
+			<ColumnEditor title="ຕົວແກ້ໄຂແບບຖັນ">
+				<Item id="2023" name="ຂໍ້ຄວາມທີ່ຈະໃສ່ (&amp;Text to Insert)"/>
+				<Item id="2033" name="ຕົວເລກທີ່ຈະໃສ່ (&amp;Number to Insert)"/>
+				<Item id="2030" name="ຕົວເລກເລີ່ມຕົ້ນ (&amp;Initial number):"/>
+				<Item id="2031" name="ເພີ່ມຂຶ້ນເທື່ອລະ (&amp;Increase by):"/>
+				<Item id="2038" name="ຕົວນຳໜ້າ (&amp;Leading):"/>
+				<ComboBox id="2039">
+					<Element name="ບໍ່ມີ"/>
+					<Element name="ເລກສູນ"/>
+					<Element name="ຊ່ອງວ່າງ"/>
+				</ComboBox>
+				<Item id="2036" name="ເຮັດຊ້ຳ (&amp;Repeat):"/>
+				<Item id="2032" name="ຮູບແບບ"/>
+				<Item id="2024" name="ເລກຖານສິບ (&amp;Dec)"/>
+				<Item id="2025" name="ເລກຖານແປດ (&amp;Oct)"/>
+				<Item id="2026" name="ເລກຖານສິບຫົກ (&amp;Hex)"/>
+				<Item id="2027" name="ເລກຖານສອງ (&amp;Bin)"/>
+				<Item id="1" name="ຕົກລົງ"/>
+				<Item id="2" name="ຍົກເລີກ"/>
+			</ColumnEditor>
+			<FindInFinder title="ຄົ້ນຫາໃນຜົນການຄົ້ນຫາ">
+				<Item id="1" name="ຄົ້ນຫາທັງໝົດ"/>
+				<Item id="2" name="ປິດ"/>
+				<Item id="1711" name="ຄົ້ນຫາຫຍັງ (&amp;Find what):"/>
+				<Item id="1713" name="ຄົ້ນຫາສະເພາະໃນແຖວທີ່ພົບ (&amp;Search only in found lines)"/>
+				<Item id="1714" name="ກົງກັນທັງຄຳເທົ່ານັ້ນ (&amp;Match whole word only)"/>
+				<Item id="1715" name="ຕົວພິມໃຫຍ່-ນ້ອຍຕ້ອງກົງກັນ (&amp;Match case)"/>
+				<Item id="1716" name="ໂໝດການຄົ້ນຫາ"/>
+				<Item id="1717" name="ທຳມະດາ (&amp;Normal)"/>
+				<Item id="1719" name="Regular expression"/>
+				<Item id="1718" name="ແບບຂະຫຍາຍ (&amp;Extended \n, \r, \t, \0, \x...)"/>
+				<Item id="1720" name="&amp;. ກົງກັບການຂຶ້ນແຖວໃໝ່"/>
+			</FindInFinder>
+			<DoSaveOrNot title="ບັນທຶກ">
+				<Item id="1761" name="ບັນທຶກໄຟລ໌ &quot;$STR_REPLACE$&quot; ບໍ່?"/>
+				<Item id="6" name="ແມ່ນ (&amp;Yes)"/>
+				<Item id="7" name="ບໍ່ (&amp;No)"/>
+				<Item id="2" name="ຍົກເລີກ (&amp;Cancel)"/>
+				<Item id="4" name="ແມ່ນທັງໝົດ (Yes to &amp;all)"/>
+				<Item id="5" name="ບໍ່ທັງໝົດ (N&amp;o to all)"/>
+			</DoSaveOrNot>
+<DoSaveAll title="ຢືນຢັນການບັນທຶກທັງໝົດ">
+				<Item id="1766" name="ທ່ານແນ່ໃຈຫຼືບໍ່ວ່າຕ້ອງການບັນທຶກເອກະສານທັງໝົດທີ່ຖືກແກ້ໄຂ?
+
+ເລືອກ &quot;ແມ່ນສະເໝີ&quot; ຖ້າທ່ານບໍ່ຕ້ອງການໃຫ້ກ່ອງຂໍ້ຄວາມນີ້ສະແດງຂຶ້ນມາອີກ.
+ທ່ານສາມາດເປີດໃຊ້ງານຄືນໃໝ່ໄດ້ໃນສ່ວນ ການຕັ້ງຄ່າ ພາຍຫຼັງ."/>
+				<Item id="6" name="&amp;ແມ່ນ"/>
+				<Item id="7" name="&amp;ບໍ່"/>
+				<Item id="4" name="&amp;ແມ່ນສະເໝີ"/>
+			</DoSaveAll>
+
+			<DebugInfo title="ຂໍ້ມູນການດີບັກ">
+				<Item id="1752" name="&amp;ສຳເນົາຂໍ້ມູນການດີບັກໄປທີ່ຄລິບບອດ"/>
+				<Item id="1" name="ຕົກລົງ"/>
+			</DebugInfo>
+		</Dialog>
+		<MessageBox>
+			<ContextMenuXmlEditWarning title="ການແກ້ໄຂ contextMenu" message="ການແກ້ໄຂ contextMenu.xml ຊ່ວຍໃຫ້ທ່ານສາມາດປັບແຕ່ງເມນູຄລິກຂວາຂອງ Notepad++.
+ທ່ານຕ້ອງເລີ່ມ Notepad++ ໃໝ່ ເພື່ອໃຫ້ການປ່ຽນແປງມີຜົນ ຫຼັງຈາກແກ້ໄຂ contextMenu.xml."/>
+			<SaveCurrentModifWarning title="ບັນທຶກການແກ້ໄຂປັດຈຸບັນ" message="ທ່ານຄວນບັນທຶກການແກ້ໄຂປັດຈຸບັນ.
+ທຸກການແກ້ໄຂທີ່ບັນທຶກໄປແລ້ວຈະບໍ່ສາມາດຍົກເລີກ (Undo) ໄດ້.
+
+ຕ້ອງການຕໍ່ໄປຫຼືບໍ່?"/>
+			<LoseUndoAbilityWarning title="ຄຳເຕືອນການສູນເສຍຄວາມສາມາດໃນການຍົກເລີກ" message="ທ່ານຄວນບັນທຶກການແກ້ໄຂປັດຈຸບັນ.
+ທຸກການແກ້ໄຂທີ່ບັນທຶກໄປແລ້ວຈະບໍ່ສາມາດຍົກເລີກ (Undo) ໄດ້.
+
+ຕ້ອງການຕໍ່ໄປຫຼືບໍ່?"/>
+			<CannotMoveDoc title="ຍ້າຍໄປຍັງ Notepad++ ຕົວໃໝ່" message="ເອກະສານຖືກແກ້ໄຂ, ກະລຸນາບັນທຶກກ່ອນແລ້ວລອງໃໝ່ອີກຄັ້ງ."/>
+			<DocReloadWarning title="ໂຫຼດໃໝ່" message="ທ່ານແນ່ໃຈຫຼືບໍ່ວ່າຕ້ອງການໂຫຼດໄຟລ໌ປັດຈຸບັນໃໝ່ ແລະ ຍອມຮັບການສູນເສຍການປ່ຽນແປງທີ່ເຮັດໃນ Notepad++?"/>
+			<FileLockedWarning title="ການບັນທຶກຫຼົ້ມເຫຼວ" message="ກະລຸນາກວດສອບເບິ່ງວ່າໄຟລ໌ນີ້ຖືກເປີດໃຊ້ງານຢູ່ໃນໂປຣແກຣມອື່ນຫຼືບໍ່"/>
+			<FileAlreadyOpenedInNpp title="" message="ໄຟລ໌ນີ້ຖືກເປີດຢູ່ໃນ Notepad++ ແລ້ວ."/>
+			<RenameTabTemporaryNameAlreadyInUse title="ການປ່ຽນຊື່ຫຼົ້ມເຫຼວ" message="ຊື່ທີ່ລະບຸຖືກນຳໃຊ້ແລ້ວໃນແຖບອື່ນ."/>
+			<RenameTabTemporaryNameIsEmpty title="ການປ່ຽນຊື່ຫຼົ້ມເຫຼວ" message="ຊື່ທີ່ລະບຸຈະວ່າງເປົ່າບໍ່ໄດ້, ຫຼື ຈະມີພຽງແຕ່ຍະວ່າງ ຫຼື TAB ບໍ່ໄດ້."/>
+			<DeleteFileFailed title="ລົບໄຟລ໌" message="ການລົບໄຟລ໌ຫຼົ້ມເຫຼວ"/>
+
+			<NbFileToOpenImportantWarning title="ຈຳນວນໄຟລ໌ທີ່ຈະເປີດມີຫຼາຍເກີນໄປ" message="ໄຟລ໌ຈຳນວນ $INT_REPLACE$ ໄຟລ໌ກຳລັງຈະຖືກເປີດ.
+ທ່ານແນ່ໃຈຫຼືບໍ່ວ່າຕ້ອງການເປີດພວກມັນ?"/>
+			<SettingsOnCloudError title="ການຕັ້ງຄ່າໃນຄລາວ" message="ເບິ່ງຄືວ່າເສັ້ນທາງຂອງການຕັ້ງຄ່າໃນຄລາວຖືກຕັ້ງໄວ້ໃນໄດຣຟ໌ທີ່ອ່ານໄດ້ຢ່າງດຽວ,
+ຫຼື ໃນໂຟນເດີທີ່ຕ້ອງມີສິດໃນການຂຽນ.
+ການຕັ້ງຄ່າໃນຄລາວຂອງທ່ານຈະຖືກຍົກເລີກ. ກະລຸນາຕັ້ງຄ່າໃໝ່ຜ່ານທາງກ່ອງການຕັ້ງຄ່າ."/>
+			<FilePathNotFoundWarning title="ເປີດເສັ້ນທາງ" message="ເສັ້ນທາງທີ່ທ່ານພະຍາຍາມຈະເປີດແມ່ນບໍ່ມີຢູ່."/>
+			<SessionFileInvalidError title="ບໍ່ສາມາດໂຫຼດເຊດຊັນໄດ້" message="ໄຟລ໌ເຊດຊັນອາດຈະເສຍຫາຍ ຫຼື ບໍ່ຖືກຕ້ອງ."/>
+			<DroppingFolderAsProjectModeWarning title="ການກະທຳບໍ່ຖືກຕ້ອງ" message="ທ່ານສາມາດລາກວາງໄດ້ພຽງແຕ່ໄຟລ໌ ຫຼື ໂຟນເດີຢ່າງໃດຢ່າງໜຶ່ງເທົ່ານັ້ນ, ເພາະວ່າທ່ານຢູ່ໃນໂໝດລາກວາງໂຟນເດີເປັນໂຄງການ.
+ທ່ານຕ້ອງເປີດໃຊ້ງານ &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; ໃນສ່ວນ &quot;Default Directory&quot; ຂອງການຕັ້ງຄ່າ ເພື່ອໃຫ້ການເຮັດວຽກນີ້ໃຊ້ໄດ້."/>
+			<SortingError title="ການຈັດລຽງຜິດພາດ" message="ບໍ່ສາມາດຈັດລຽງຕາມຕົວເລກໄດ້ເນື່ອງຈາກແຖວທີ $INT_REPLACE$."/>
+			<SortLocaleMultiple title="ການຈັດລຽງບໍ່ໄດ້ຖືກດຳເນີນການ" message="ບໍ່ຮອງຮັບການຈັດລຽງແບບເລືອກຫຼາຍລາຍການ."/>
+			<SortLocaleUnknown title="ການຈັດລຽງຫຼົ້ມເຫຼວ" message="ບໍ່ສາມາດລະບຸສາເຫດທີ່ການຈັດລຽງຫຼົ້ມເຫຼວໄດ້."/>
+			<SortLocaleExcept title="ການຈັດລຽງຫຼົ້ມເຫຼວ" message="$STR_REPLACE$"/>
+			<ColumnModeTip title="ຄຳແນະນຳໂໝດຄໍລຳ" message="
+ມີ 3 ວິທີໃນການປ່ຽນເປັນໂໝດເລືອກແບບຄໍລຳ:
+
+1. (ຄີບອດ ແລະ ເມົາສ໌) ກົດ Alt ຄ້າງໄວ້ໃນຂະນະທີ່ລາກດ້ວຍຄລິກຊ້າຍ
+
+2. (ຄີບອດຢ່າງດຽວ) ກົດ Alt+Shift ຄ້າງໄວ້ໃນຂະນະທີ່ໃຊ້ປຸ່ມລູກສອນ
+
+3. (ຄີບອດ ຫຼື ເມົາສ໌)
+      ວາງເຄີເຊີໄວ້ໃນຕຳແໜ່ງເລີ່ມຕົ້ນຂອງຄໍລຳທີ່ຕ້ອງການ, ແລ້ວ
+       ສັ່ງງານ &quot;ເລີ່ມຕົ້ນ/ສິ້ນສຸດ ການເລືອກໃນໂໝດຄໍລຳ&quot;;
+      ຍ້າຍເຄີເຊີໄປຍັງຕຳແໜ່ງສິ້ນສຸດຂອງຄໍລຳທີ່ຕ້ອງການ, ແລ້ວ
+       ສັ່ງງານ &quot;ເລີ່ມຕົ້ນ/ສິ້ນສຸດ ການເລືອກໃນໂໝດຄໍລຳ&quot; ອີກຄັ້ງ"/>
+			<BufferInvalidWarning title="ການບັນທຶກຫຼົ້ມເຫຼວ" message="ບໍ່ສາມາດບັນທຶກ: ບັບເຟີ (Buffer) ບໍ່ຖືກຕ້ອງ."/>
+			<DoCloseOrNot title="ເກັບໄຟລ໌ທີ່ບໍ່ມີຢູ່ແລ້ວໄວ້" message="ໄຟລ໌ &quot;$STR_REPLACE$&quot; ບໍ່ມີຢູ່ແລ້ວ.
+ຕ້ອງການເກັບໄຟລ໌ນີ້ໄວ້ໃນຕົວແກ້ໄຂ (Editor) ຫຼືບໍ່?"/>
+			<DoDeleteOrNot title="ລົບໄຟລ໌" message="ໄຟລ໌ &quot;$STR_REPLACE$&quot;
+ຈະຖືກຍ້າຍໄປທີ່ຖັງຂີ້ເຫຍື້ອ (Recycle Bin) ແລະ ເອກະສານນີ້ຈະຖືກປິດລົງ.
+ຕ້ອງການຕໍ່ໄປຫຼືບໍ່?"/>
+			<NoBackupDoSaveFile title="ບັນທຶກ" message="ບໍ່ພົບໄຟລ໌ສຳຮອງຂອງທ່ານ (ອາດຖືກລົບຈາກພາຍນອກ).
+ກະລຸນາບັນທຶກ ບໍ່ດັ່ງນັ້ນຂໍ້ມູນຂອງທ່ານຈະສູນຫາຍ
+ທ່ານຕ້ອງການບັນທຶກໄຟລ໌ &quot;$STR_REPLACE$&quot; ຫຼືບໍ່?"/>
+			<DoReloadOrNot title="ໂຫຼດໃໝ່" message="&quot;$STR_REPLACE$&quot;
+
+ໄຟລ໌ນີ້ຖືກແກ້ໄຂໂດຍໂປຣແກຣມອື່ນ.
+ທ່ານຕ້ອງການໂຫຼດມັນໃໝ່ຫຼືບໍ່?"/>
+			<DoReloadOrNotAndLooseChange title="ໂຫຼດໃໝ່" message="&quot;$STR_REPLACE$&quot;
+
+ໄຟລ໌ນີ້ຖືກແກ້ໄຂໂດຍໂປຣແກຣມອື່ນ.
+ທ່ານຕ້ອງການໂຫຼດມັນໃໝ່ ແລະ ຍອມຮັບການສູນເສຍການປ່ຽນແປງທີ່ເຮັດໃນ Notepad++ ຫຼືບໍ່?"/>
+			<PrehistoricSystemDetected title="ກວດພົບລະບົບທີ່ເກົ່າແກ່ເກີນໄປ" message="ເບິ່ງຄືວ່າທ່ານຍັງໃຊ້ລະບົບທີ່ເກົ່າແກ່ຫຼາຍ. ຄຸນສົມບັດນີ້ໃຊ້ໄດ້ສະເພາະໃນລະບົບທີ່ທັນສະໄໝເທົັ້ນັ້ນ, ຂໍອະໄພ."/>
+			<XpUpdaterProblem title="ຕົວອັບເດດ Notepad++" message="ຕົວອັບເດດ Notepad++ ບໍ່ຮອງຮັບກັບ XP ເນື່ອງຈາກລະບົບຄວາມປອດໄພທີ່ຫຼ້າສະໄໝຂອງ XP.
+ທ່ານຕ້ອງການໄປທີ່ໜ້າເວັບ Notepad++ ເພື່ອດາວໂຫຼດເວີຊັນຫຼ້າສຸດຫຼືບໍ່?"/>
+			<GUpProxyConfNeedAdminMode title="ການຕັ້ງຄ່າພຣັອກຊີ" message="ກະລຸນາເປີດ Notepad++ ຄືນໃໝ່ໃນໂໝດຜູ້ດູແລລະບົບ (Admin) ເພື່ອຕັ້ງຄ່າພຣັອກຊີ."/>
+			<DocTooDirtyToMonitor title="ບັນຫາການຕິດຕາມ" message="ເອກະສານມີການປ່ຽນແປງ. ກະລຸນາບັນທຶກການແກ້ໄຂກ່ອນທີ່ຈະເຮັດການຕິດຕາມ (Monitoring)."/>
+			<DocNoExistToMonitor title="ບັນຫາການຕິດຕາມ" message="ໄຟລ໌ຕ້ອງມີຢູ່ຈິງເພື່ອທີ່ຈະຕິດຕາມໄດ້."/>
+			<FileTooBigToOpen title="ບັນຫາຂະໜາດໄຟລ໌" message="ໄຟລ໌ມີຂະໜາດໃຫຍ່ເກີນໄປທີ່ຈະເປີດດ້ວຍ Notepad++"/>
+			<FileLoadingException title="ລະຫັດຂໍ້ຜິດພາດ: $STR_REPLACE$" message="ເກີດຂໍ້ຜິດພາດໃນຂະນະທີ່ກຳລັງໂຫຼດໄຟລ໌!"/>
+			<WantToOpenHugeFile title="ຄຳເຕືອນການເປີດໄຟລ໌ຂະໜາດໃຫຍ່" message="ການເປີດໄຟລ໌ຂະໜາດໃຫຍ່ກວ່າ 2GB ອາດຈະໃຊ້ເວລາຫຼາຍນາທີ.
+ທ່ານຕ້ອງການເປີດມັນຫຼືບໍ່?"/>
+			<CreateNewFileOrNot title="ສ້າງໄຟລ໌ໃໝ່" message="&quot;$STR_REPLACE$&quot; ບໍ່ມີຢູ່. ຕ້ອງການສ້າງໃໝ່ຫຼືບໍ່?"/>
+			<CreateNewFileError title="ສ້າງໄຟລ໌ໃໝ່" message="ບໍ່ສາມາດສ້າງໄຟລ໌ &quot;$STR_REPLACE$&quot; ໄດ້."/>
+			<OpenFileError title="ຂໍ້ຜິດພາດ" message="ບໍ່ສາມາດເປີດໄຟລ໌ &quot;$STR_REPLACE$&quot; ໄດ້."/>
+			<OpenFileNoFolderError title="ບໍ່ສາມາດເປີດໄຟລ໌" message="&quot;$STR_REPLACE1$&quot; ບໍ່ສາມາດເປີດໄດ້:
+ໂຟນເດີ &quot;$STR_REPLACE2$&quot; ບໍ່ມີຢູ່."/>
+			<FileBackupFailed title="ການສຳຮອງໄຟລ໌ຫຼົ້ມເຫຼວ" message="ເວີຊັນກ່ອນໜ້າຂອງໄຟລ໌ບໍ່ສາມາດບັນທຶກລົງໃນໂຟນເດີສຳຮອງທີ່ &quot;$STR_REPLACE$&quot; ໄດ້.
+
+ທ່ານຕ້ອງການບັນທຶກໄຟລ໌ປັດຈຸບັນຕໍ່ໄປຫຼືບໍ່?"/>
+			<LoadStylersFailed title="ໂຫຼດ stylers.xml ຫຼົ້ມເຫຼວ" message="ໂຫຼດ &quot;$STR_REPLACE$&quot; ຫຼົ້ມເຫຼວ!"/>
+			<LoadLangsFailed title="ຕົວຕັ້ງຄ່າ" message="ໂຫຼດ langs.xml ຫຼົ້ມເຫຼວ!
+ທ່ານຕ້ອງການກູ້ຄືນ langs.xml ຂອງທ່ານຫຼືບໍ່?"/>
+			<LoadLangsFailedFinal title="ຕົວຕັ້ງຄ່າ" message="ໂຫຼດ langs.xml ຫຼົ້ມເຫຼວ!"/>
+			<FolderAsWorspaceSubfolderExists title="ບັນຫາການເພີ່ມໂຟນເດີໃນ Folder as Workspace" message="ມີໂຟນເດີຍ່ອຍຂອງໂຟນເດີທີ່ທ່ານຕ້ອງການເພີ່ມຢູ່ແລ້ວ.
+ກະລຸນາລົບໂຟນເດີຮາກຂອງມັນອອກຈາກແຖບກ່ອນທີ່ທ່ານຈະເພີ່ມໂຟນເດີ &quot;$STR_REPLACE$&quot;."/>
+
+			<ProjectPanelChanged title="$STR_REPLACE$" message="ພື້ນທີ່ເຮັດວຽກ (Workspace) ຖືກແກ້ໄຂ. ທ່ານຕ້ອງການບັນທຶກມັນຫຼືບໍ່?"/>
+			<ProjectPanelSaveError title="$STR_REPLACE$" message="ເກີດຂໍ້ຜິດພາດໃນຂະນະທີ່ກຳລັງຂຽນໄຟລ໌ພື້ນທີ່ເຮັດວຽກຂອງທ່ານ.
+ພື້ນທີ່ເຮັດວຽກຂອງທ່ານບໍ່ໄດ້ຖືກບັນທຶກ."/>
+			<ProjectPanelOpenDoSaveDirtyWsOrNot title="ເປີດພື້ນທີ່ເຮັດວຽກ" message="ພື້ນທີ່ເຮັດວຽກປັດຈຸບັນຖືກແກ້ໄຂ. ທ່ານຕ້ອງການບັນທຶກໂຄງການປັດຈຸບັນຫຼືບໍ່?"/>
+			<ProjectPanelNewDoSaveDirtyWsOrNot title="ພື້ນທີ່ເຮັດວຽກໃໝ່" message="ພື້ນທີ່ເຮັດວຽກປັດຈຸບັນຖືກແກ້ໄຂ. ທ່ານຕ້ອງການບັນທຶກໂຄງການປັດຈຸບັນຫຼືບໍ່?"/>
+			<ProjectPanelOpenFailed title="ເປີດພື້ນທີ່ເຮັດວຽກ" message="ບໍ່ສາມາດເປີດພື້ນທີ່ເຮັດວຽກໄດ້.
+ເບິ່ງຄືວ່າໄຟລ໌ທີ່ຈະເປີດນັ້ນບໍ່ແມ່ນໄຟລ໌ໂຄງການທີ່ຖືກຕ້ອງ."/>
+			<ProjectPanelRemoveFolderFromProject title="ລົບໂຟນເດີອອກຈາກໂຄງການ" message="ລາຍການຍ່ອຍທັງໝົດຈະຖືກລົບອອກ.
+ທ່ານແນ່ໃຈຫຼືບໍ່ວ່າຕ້ອງການລົບໂຟນເດີນີ້ອອກຈາກໂຄງການ?"/>
+			<ProjectPanelRemoveFileFromProject title="ລົບໄຟລ໌ອອກຈາກໂຄງການ" message="ທ່ານແນ່ໃຈຫຼືບໍ່ວ່າຕ້ອງການລົບໄຟລ໌ນີ້ອອກຈາກໂຄງການ?"/>
+			<ProjectPanelReloadError title="ໂຫຼດພື້ນທີ່ເຮັດວຽກໃໝ່" message="ບໍ່ພົບໄຟລ໌ທີ່ຈະໂຫຼດໃໝ່."/>
+			<ProjectPanelReloadDirty title="ໂຫຼດພື້ນທີ່ເຮັດວຽກໃໝ່" message="ພື້ນທີ່ເຮັດວຽກປັດຈຸບັນຖືກແກ້ໄຂ. ການໂຫຼດໃໝ່ຈະເຮັດໃຫ້ການແກ້ໄຂທັງໝົດສູນຫາຍ.
+ທ່ານຕ້ອງການຕໍ່ໄປຫຼືບໍ່?"/>
+			<UDLNewNameError title="ຂໍ້ຜິດພາດ UDL" message="ຊື່ນີ້ຖືກໃຊ້ໂດຍພາສາອື່ນແລ້ວ,
+ກະລຸນາຕັ້ງຊື່ອື່ນ."/>
+			<UDLRemoveCurrentLang title="ລົບພາສາປັດຈຸບັນ" message="ທ່ານແນ່ໃຈຫຼືບໍ່?"/>
+			<UDL_importSuccessful title="ພາສາທີ່ກຳນົດໂດຍຜູ້ໃຊ້" message="ນຳເຂົ້າສຳເລັດ."/>
+			<UDL_importFails title="ພາສາທີ່ກຳນົດໂດຍຜູ້ໃຊ້" message="ນຳເຂົ້າຫຼົ້ມເຫຼວ."/>
+			<UDL_saveBeforeImport title="ພາສາທີ່ກຳນົດໂດຍຜູ້ໃຊ້" message="ກ່ອນທີ່ຈະສົ່ງອອກ, ກະລຸນາບັນທຶກການກຳນົດຄ່າພາສາຂອງທ່ານໂດຍການຄລິກປຸ່ມ &quot;Save As...&quot;."/>
+			<UDL_exportSuccessful title="ພາສາທີ່ກຳນົດໂດຍຜູ້ໃຊ້" message="ສົ່ງອອກສຳເລັດ."/>
+			<UDL_exportFails title="ພາສາທີ່ກຳນົດໂດຍຜູ້ໃຊ້" message="ສົ່ງອອກຫຼົ້ມເຫຼວ."/>
+			<SCMapperDoDeleteOrNot title="ທ່ານແນ່ໃຈຫຼືບໍ່?" message="ທ່ານແນ່ໃຈຫຼືບໍ່ວ່າຕ້ອງການລົບປຸ່ມລັດນີ້?"/>
+			<FindCharRangeValueError title="ບັນຫາຄ່າຂອງຊ່ວງ" message="ທ່ານຄວນພິມຄ່າລະຫວ່າງ 0 ຫາ 255."/>
+			<OpenInAdminMode title="ການບັນທຶກຫຼົ້ມເຫຼວ" message="ໄຟລ໌ບໍ່ສາມາດບັນທຶກໄດ້ ແລະ ອາດຈະຖືກປ້ອງກັນໄວ້.
+ທ່ານຕ້ອງການເປີດ Notepad++ ໃນໂໝດຜູ້ດູແລລະບົບ (Administrator) ຫຼືບໍ່?"/>
+			<OpenInAdminModeWithoutCloseCurrent title="ການບັນທຶກຫຼົ້ມເຫຼວ" message="ໄຟລ໌ບໍ່ສາມາດບັນທຶກໄດ້ ແລະ ອາດຈະຖືກປ້ອງກັນໄວ້.
+ທ່ານຕ້ອງການເປີດ Notepad++ ໃນໂໝດຜູ້ດູແລລະບົບ (Administrator) ຫຼືບໍ່?"/>
+			<OpenInAdminModeFailed title="ການເປີດໃນໂໝດຜູ້ດູແລລະບົບຫຼົ້ມເຫຼວ" message="Notepad++ ບໍ່ສາມາດເປີດໃນໂໝດຜູ້ດູແລລະບົບໄດ້."/>
+			<ViewInBrowser title="ເບິ່ງໄຟລ໌ປັດຈຸບັນໃນບຣາວເຊີ" message="ບໍ່ພົບແອັບພລິເຄຊັນໃນລະບົບຂອງທ່ານ."/>
+			<ExitToUpdatePlugins title="Notepad++ ກຳລັງຈະປິດລົງ" message="ຖ້າທ່ານຄລິກ &quot;ແມ່ນ&quot;, ທ່ານຈະອອກຈາກ Notepad++ ເພື່ອດຳເນີນການຕໍ່.
+Notepad++ ຈະຖືກເລີ່ມໃໝ່ຫຼັງຈາກການດຳເນີນການທັງໝົດສິ້ນສຸດລົງ.
+ຕ້ອງການຕໍ່ໄປຫຼືບໍ່?"/>
+			<NeedToRestartToLoadPlugins title="ຕ້ອງເລີ່ມ Notepad++ ໃໝ່" message="ທ່ານຕ້ອງເລີ່ມ Notepad++ ໃໝ່ ເພື່ອໂຫຼດປລັກອິນທີ່ທ່ານຕິດຕັ້ງ."/>
+			<ChangeHistoryEnabledWarning title="ຕ້ອງເລີ່ມ Notepad++ ໃໝ່" message="ທ່ານຕ້ອງເລີ່ມ Notepad++ ໃໝ່ ເພື່ອເປີດໃຊ້ງານ ປະຫວັດການປ່ຽນແປງ (Change History)."/>
+			<WindowsSessionExit title="Notepad++ - ອອກຈາກເຊດຊັນ Windows" message="ເຊດຊັນ Windows ກຳລັງຈະສິ້ນສຸດລົງ ແຕ່ທ່ານຍັງມີຂໍ້ມູນທີ່ບໍ່ໄດ້ບັນທຶກ. ທ່ານຕ້ອງການອອກຈາກ Notepad++ ດຽວນີ້ຫຼືບໍ່?"/>
+			<LanguageMenuCompactWarning title="ເມນູພາສາແບບກະທັດຮັດ" message="ຕົວເລືອກນີ້ຈະຖືກປ່ຽນແປງໃນການເປີດໃຊ້ງານຄັ້ງຕໍ່ໄປ."/>
+			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="ການປ່ຽນແປງທີ່ບໍ່ໄດ້ບັນທຶກກຳລັງຈະຖືກຍົກເລີກ!
+ທ່ານຕ້ອງການບັນທຶກການປ່ຽນແປງກ່ອນທີ່ຈະປ່ຽນທີມ (Theme) ຫຼືບໍ່?"/>
+			<FullReadOnlySavingForbidden title="ການບັນທຶກຫຼົ້ມເຫຼວ" message="ບໍ່ສາມາດບັນທຶກໄຟລ໌ໄດ້.
+ໂໝດຫ້າມບັນທຶກແບບອ່ານຢ່າງດຽວຂອງ Notepad++ ໄດ້ປ້ອງກັນບໍ່ໃຫ້ໄຟລ໌ຖືກບັນທຶກ."/>
+			<NotEnoughRoom4Saving title="ການບັນທຶກຫຼົ້ມເຫຼວ" message="ບັນທຶກໄຟລ໌ຫຼົ້ມເຫຼວ.
+ເບິ່ງຄືວ່າພື້ນທີ່ໃນດິສກ໌ບໍ່ພຽງພໍທີ່ຈະບັນທຶກໄຟລ໌. ໄຟລ໌ຂອງທ່ານບໍ່ໄດ້ຖືກບັນທຶກ."/>
+			<FileInaccessibleUserSession title="ໄຟລ໌ເຂົ້າເຖິງບໍ່ໄດ້" message="ບາງໄຟລ໌ຈາກເຊດຊັນທີ່ທ່ານບັນທຶກໄວ້ດ້ວຍຕົນເອງ &quot;$STR_REPLACE$&quot; ເຂົ້າເຖິງບໍ່ໄດ້. ພວກມັນສາມາດເປີດເປັນເອກະສານວ່າງ ແລະ ອ່ານຢ່າງດຽວເພື່ອເປັນຕົວແທນຊົ່ວຄາວ.
+
+ທ່ານຕ້ອງການສ້າງຕົວແທນຊົ່ວຄາວເຫຼົ່ານັ້ນຫຼືບໍ່?
+
+ໝາຍເຫດ: ຖ້າເລືອກບໍ່ສ້າງ ຫຼື ປິດພວກມັນພາຍຫຼັງ, ເຊດຊັນທີ່ທ່ານບັນທຶກໄວ້ຈະບໍ່ຖືກແກ້ໄຂເມື່ອປິດໂປຣແກຣມ."/>
+			<FileInaccessibleDefaultSessionXml title="ໄຟລ໌ເຂົ້າເຖິງບໍ່ໄດ້" message="ບາງໄຟລ໌ຈາກເຊດຊັນທີ່ຜ່ານມາຂອງທ່ານເຂົ້າເຖິງບໍ່ໄດ້. ພວກມັນສາມາດເປີດເປັນເອກະສານວ່າງ ແລະ ອ່ານຢ່າງດຽວເພື່ອເປັນຕົວແທນຊົ່ວຄາວ.
+
+ທ່ານຕ້ອງການສ້າງຕົວແທນຊົ່ວຄາວເຫຼົ່ານັ້ນຫຼືບໍ່?
+
+ໝາຍເຫດ: ຖ້າເລືອກບໍ່ສ້າງ ຫຼື ປິດພວກມັນພາຍຫຼັງ, ເຊດຊັນຂອງທ່ານຈະຖືກແກ້ໄຂເມື່ອປິດໂປຣແກຣມ! ພວກເຮົາແນະນຳໃຫ້ທ່ານສຳຮອງ &quot;session.xml&quot; ຂອງທ່ານໄວ້ດຽວນີ້."/>
+			<RTLvsDirectWrite title="ບໍ່ສາມາດລັນ RTL ໄດ້" message="RTL ບໍ່ຮອງຮັບກັບໂໝດ DirectWrite. ກະລຸນາປິດໂໝດ DirectWrite ໃນສ່ວນ MISC ຂອງກ່ອງການຕັ້ງຄ່າ, ແລະ ເລີ່ມ Notepad++ ໃໝ່."/>
+			<FileMemoryAllocationFailed title="ຂໍ້ຜິດພາດ: ການຈັດສັນໜ່ວຍຄວາມຈຳໄຟລ໌ຫຼົ້ມເຫຼວ" message="ອາດຈະມີໜ່ວຍຄວາມຈຳວ່າງທີ່ຕໍ່ເນື່ອງກັນບໍ່ພຽງພໍສຳລັບໄຟລ໌ທີ່ Notepad++ ກຳລັງໂຫຼດ."/>
+			<FindRegexBackwardDisabled title="ປິດການຄົ້ນຫາ Regex ແບບຖອຍຫຼັງ" message="ໂດຍມາດຕະຖານ, ການຄົ້ນຫາແບບ Regex ຖອຍຫຼັງຈະຖືກປິດໄວ້ເນື່ອງຈາກອາດຈະໄດ້ຜົນລັດທີ່ບໍ່ຄາດຄິດ. ເພື່ອເຮັດການຄົ້ນຫາແບບຖອຍຫຼັງ, ໃຫ້ເປີດກ່ອງ Find ແລະ ເລືອກໂໝດການຄົ້ນຫາແບບ normal ຫຼື extended ແທນ regular expression.
+ກົດປຸ່ມ OK ເພື່ອເປີດກ່ອງ Find ຫຼື ເນັ້ນໃສ່ມັນ.
+			
+ຖ້າທ່ານຕ້ອງການໃຊ້ຄຸນສົມບັດການຄົ້ນຫາ Regex ແບບຖອຍຫຼັງ, ກະລຸນາເບິ່ງຄູ່ມືຜູ້ໃຊ້ສຳລັບວິທີການເປີດໃຊ້ງານ."/>
+			<PrintError title="0" message="ບໍ່ສາມາດເລີ່ມພິມເອກະສານໄດ້."/>
+			<FindAutoChangeOfInSelectionWarning title="ຄຳເຕືອນການຄົ້ນຫາ" message="ສະຖານະຂອງຊ່ອງໝາຍ &quot;In selection&quot; ຖືກປ່ຽນແປງໂດຍອັດຕະໂນມັດ.
+ກະລຸນາກວດສອບເງື່ອນໄຂການຄົ້ນຫາກ່ອນທີ່ຈະດຳເນີນການ."/>
+			<Need2Restart2ShowMenuShortcuts title="ຕ້ອງເລີ່ມ Notepad++ ໃໝ່" message="ຕ້ອງເລີ່ມ Notepad++ ໃໝ່ ເພື່ອສະແດງປຸ່ມລັດໃນເມນູຄລິກຂວາ."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="ການປ່ຽນຄຸນລັກສະນະອ່ານຢ່າງດຽວຂອງໄຟລ໌ຫຼົ້ມເຫຼວ" message="ກະລຸນາລັນ Notepad++ ໃນຖານະຜູ້ດູແລລະບົບ (Administrator) ເພື່ອປ່ຽນຄຸນລັກສະນະຂອງໄຟລ໌."/>
+			<ReadOnlyFileCannotBeSaved title="ການບັນທຶກຫຼົ້ມເຫຼວ - ໄຟລ໌ແມ່ນ Read-Only" message="&quot;$STR_REPLACE$&quot;
+ໄຟລ໌ນີ້ແມ່ນແບບອ່ານຢ່າງດຽວ ແລະ ບໍ່ສາມາດບັນທຶກໄດ້.
+ກະລຸນາຍົກເລີກຄຸນລັກສະນະອ່ານຢ່າງດຽວອອກກ່ອນ ແລ້ວຈຶ່ງບັນທຶກໄຟລ໌ຂອງທ່ານ."/>
+			<ShortcutsXmlHMACMissing title="ຄຳເຕືອນຄວາມປອດໄພ" message="ຂໍ້ມູນຄວາມປອດໄພສຳລັບ shortcuts.xml ຫາຍໄປໃນ config.xml.
+
+ເພື່ອເຫດຜົນດ້ານຄວາມປອດໄພ, ຈະມີການກວດສອບຄວາມຖືກຕ້ອງຂອງ shortcuts.xml. ເພື່ອລັນຄຳສັ່ງທີ່ທ່ານປັບແຕ່ງ, ກະລຸນາກວດສອບ shortcuts.xml ທີ່ເປີດຢູ່. ຖ້າເນື້ອໃນໄຟລ໌ຖືກຕ້ອງ, ໃຫ້ໃຊ້ &quot;Validate shortcuts.xml&quot; ຈາກເມນູເພື່ອຢືນຢັນ."/>
+			<ShortcutsXmlTampered title="ຄຳເຕືອນຄວາມປອດໄພ" message="ໄຟລ໌ shortcuts.xml ເບິ່ງຄືວ່າຖືກແກ້ໄຂດ້ວຍຕົນເອງ.
+
+ເພື່ອເຫດຜົນດ້ານຄວາມປອດໄພ, ກະລຸນາກວດສອບ shortcuts.xml ທີ່ເປີດຢູ່. ຖ້າເນື້ອໃນໄຟລ໌ຖືກຕ້ອງ, ໃຫ້ໃຊ້ &quot;Validate shortcuts.xml&quot; ຈາກເມນູເພື່ອຢືນຢັນ."/>
+		</MessageBox>
+		<ClipboardHistory>
+			<PanelTitle name="ປະຫວັດຄລິບບອດ"/>
+		</ClipboardHistory>
+		<DocList>
+			<PanelTitle name="ລາຍການເອກະສານ"/>
+			<ColumnName name="ຊື່"/>
+			<ColumnExt name="ນາມສະກຸນ"/>
+			<ColumnPath name="ເສັ້ນທາງ"/>
+			<ListGroups name="ຈັດກຸ່ມຕາມມຸມມອງ"/>
+		</DocList>
+		<WindowsDlg>
+			<ColumnName name="ຊື່"/>
+			<ColumnPath name="ເສັ້ນທາງ"/>
+			<ColumnType name="ປະເພດ"/>
+			<ColumnSize name="ຂະໜາດ"/>
+			<ColumnDateTime name="ເວລາແກ້ໄຂ"/>
+			<NbDocsTotal name="ລວມເອກະສານ:"/>
+			<MenuCopyName name="ຄັດລອກຊື່"/>
+			<MenuCopyPath name="ຄັດລອກເສັ້ນທາງ"/>
+		</WindowsDlg>
+		<AsciiInsertion>
+			<PanelTitle name="ແຜງແຊກລະຫັດ ASCII"/>
+			<ColumnVal name="ຄ່າ"/>
+			<ColumnHex name="ເລກຖານສິບຫົກ"/>
+			<ColumnChar name="ອັກສອນ"/>
+			<ColumnHtmlName name="ຊື່ HTML"/>
+			<ColumnHtmlNumber name="ເລກຖານສິບ HTML"/>
+			<ColumnHtmlHexNb name="ເລກຖານສິບຫົກ HTML"/>
+		</AsciiInsertion>
+		<DocumentMap>
+			<PanelTitle name="ແຜນຜັງເອກະສານ"/>
+		</DocumentMap>
+		<FunctionList>
+			<PanelTitle name="ລາຍການຟັງຊັນ"/>
+			<SortTip name="ຮຽງລໍາດັບ"/>
+			<ReloadTip name="ໂຫຼດໃໝ່"/>
+			<PreferencesTip name="ຕັ້ງຄ່າ"/>
+			<PreferencesInitialSort name="ຮຽງລໍາດັບຟັງຊັນ (A ຫາ Z) ໂດຍເລີ່ມຕົ້ນ"/>
+		</FunctionList>
+		<FolderAsWorkspace>
+			<PanelTitle name="ໂຟນເດີເປັນພື້ນທີ່ເຮັດວຽກ"/>
+			<SelectFolderFromBrowserString name="ເລືອກໂຟນເດີເພື່ອເພີ່ມເຂົ້າໃນແຜງພື້ນທີ່ເຮັດວຽກ"/>
+			<ExpandAllFoldersTip name="ຂະຫຍາຍທັງໝົດ"/>
+			<CollapseAllFoldersTip name="ຫຍໍ້ທັງໝົດ"/>
+			<LocateCurrentFileTip name="ຄົ້ນຫາໄຟລ໌ປັດຈຸບັນ"/>
+			<Menu>
+				<Item id="3511" name="ຍ້າຍອອກ"/>
+				<Item id="3512" name="ຍ້າຍອອກທັງໝົດ"/>
+				<Item id="3513" name="ເພີ່ມ"/>
+				<Item id="3514" name="ເປີດໂດຍລະບົບ"/>
+				<Item id="3515" name="ເປີດ"/>
+				<Item id="3516" name="ຄັດລອກເສັ້ນທາງ"/>
+				<Item id="3517" name="ຄົ້ນຫາໃນໄຟລ໌..."/>
+				<Item id="3518" name="Explorer ຢູ່ບ່ອນນີ້"/>
+				<Item id="3519" name="CMD ຢູ່ບ່ອນນີ້"/>
+				<Item id="3520" name="ຄັດລອກຊື່ໄຟລ໌"/>
+				<Item id="3521" name="PowerShell ຢູ່ບ່ອນນີ້"/>
+			</Menu>
+		</FolderAsWorkspace>
+		<ProjectManager>
+			<PanelTitle name="ໂຄງການ"/>
+			<WorkspaceRootName name="ພື້ນທີ່ເຮັດວຽກ"/>
+			<NewProjectName name="ຊື່ໂຄງການ"/>
+			<NewFolderName name="ຊື່ໂຟນເດີ"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="ພື້ນທີ່ເຮັດວຽກ"/>
+					<Item id="1" name="ແກ້ໄຂ"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="ພື້ນທີ່ເຮັດວຽກໃໝ່"/>
+					<Item id="3123" name="ເປີດພື້ນທີ່ເຮັດວຽກ"/>
+					<Item id="3124" name="ໂຫຼດພື້ນທີ່ເຮັດວຽກໃໝ່"/>
+					<Item id="3125" name="ບັນທຶກ"/>
+					<Item id="3126" name="ບັນທຶກເປັນ..."/>
+					<Item id="3127" name="ບັນທຶກສຳເນົາເປັນ..."/>
+					<Item id="3121" name="ເພີ່ມໂຄງການໃໝ່"/>
+					<Item id="3128" name="ຄົ້ນຫາໃນໂຄງການ..."/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="ປ່ຽນຊື່"/>
+					<Item id="3112" name="ເພີ່ມໂຟນເດີ"/>
+					<Item id="3113" name="ເພີ່ມໄຟລ໌..."/>
+					<Item id="3117" name="ເພີ່ມໄຟລ໌ຈາກໄດເຣັກທໍຣີ..."/>
+					<Item id="3114" name="ຍ້າຍອອກ"/>
+					<Item id="3118" name="ຍ້າຍຂຶ້ນ"/>
+					<Item id="3119" name="ຍ້າຍລົງ"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="ປ່ຽນຊື່"/>
+					<Item id="3112" name="ເພີ່ມໂຟນເດີ"/>
+					<Item id="3113" name="ເພີ່ມໄຟລ໌..."/>
+					<Item id="3117" name="ເພີ່ມໄຟລ໌ຈາກໄດເຣັກທໍຣີ..."/>
+					<Item id="3114" name="ຍ້າຍອອກ"/>
+					<Item id="3118" name="ຍ້າຍຂຶ້ນ"/>
+					<Item id="3119" name="ຍ້າຍລົງ"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="ປ່ຽນຊື່"/>
+					<Item id="3115" name="ຍ້າຍອອກ"/>
+					<Item id="3116" name="ແກ້ໄຂເສັ້ນທາງໄຟລ໌"/>
+					<Item id="3118" name="ຍ້າຍຂຶ້ນ"/>
+					<Item id="3119" name="ຍ້າຍລົງ"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
+		<MiscStrings>
+			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
+			<word-chars-list-tip value="ສິ່ງນີ້ຊ່ວຍໃຫ້ທ່ານສາມາດເພີ່ມອັກສອນອື່ນໆເຂົ້າໃນກຸ່ມອັກສອນຂອງຄຳສັບປັດຈຸບັນ ໃນຂະນະທີ່ດັບເບິລຄລິກເພື່ອເລືອກ ຫຼື ຄົ້ນຫາດ້ວຍຕົວເລືອກ &quot;ກົງກັບທັງໝົດຄຳສັບ&quot;."/>
+
+			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+			<eol-custom-color-tip value="ໄປທີ່ ຕົວຕັ້ງຄ່າຮູບແບບ ເພື່ອປ່ຽນສີ EOL ທີ່ກຳນົດເອງ (&quot;EOL custom color&quot;).."/>
+
+			<word-chars-list-warning-begin value="ຂໍ້ຄວນລະວັງ: "/>
+			<word-chars-list-space-warning value="$INT_REPLACE$ ຍະຫວ່າງ"/>
+			<word-chars-list-tab-warning value="$INT_REPLACE$ ແທັບ (TAB)"/>
+			<word-chars-list-warning-end value="  ໃນລາຍການອັກສອນຂອງທ່ານ."/>
+			<backup-select-folder value="ເລືອກໂຟນເດີສຳລັບເກັບຂໍ້ມູນສຳຮອງ"/>
+			<cloud-invalid-warning value="ເສັ້ນທາງບໍ່ຖືກຕ້ອງ."/>
+			<cloud-restart-warning value="ກະລຸນາເລີ່ມລະບົບ Notepad++ ໃໝ່ເພື່ອໃຫ້ມີຜົນນຳໃຊ້."/>
+			<cloud-select-folder value="ເລືອກໂຟນເດີທີ່ Notepad++ ຈະໃຊ້ອ່ານ/ຂຽນການຕັ້ງຄ່າ"/>
+			<default-open-save-select-folder value="ເລືອກໂຟນເດີເປັນໄດເຣັກທໍຣີເລີ່ມຕົ້ນ"/>
+			<shift-change-direction-tip value="ໃຊ້ Shift+Enter ເພື່ອຄົ້ນຫາໃນທິດທາງກົງກັນຂ້າມ"/>
+			<two-find-buttons-tip value="ໂໝດປຸ່ມຄົ້ນຫາ 2 ປຸ່ມ"/>
+			<find-in-files-filter-tip value="ຄົ້ນຫາໃນ cpp, cxx, h, hxx &amp;&amp; hpp:
+*.cpp *.cxx *.h *.hxx *.hpp
+
+ຄົ້ນຫາໃນທຸກໄຟລ໌ຍົກເວັ້ນ exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log
+
+ຄົ້ນຫາໃນທຸກໄຟລ໌ແຕ່ບໍ່ລວມໂຟນເດີ tests, bin &amp;&amp; bin64:
+*.* !\tests !\bin*
+
+ຄົ້ນຫາໃນທຸກໄຟລ໌ແຕ່ບໍ່ລວມທຸກໂຟນເດີ log ຫຼື logs ແບບຕໍ່ເນື່ອງ:
+*.* !+\log*"/>
+			<find-in-files-select-folder value="ເລືອກໂຟນເດີທີ່ຈະຄົ້ນຫາ"/>
+			<find-in-files-dir-from-active-doc-tip value="ດຶງຂໍ້ມູນໄດເຣັກທໍຣີຈາກເອກະສານທີ່ກຳລັງເປີດຢູ່"/>
+			<find-status-top-reached value="ຄົ້ນຫາ: ຮອດສ່ວນຕົ້ນຂອງເອກະສານແລ້ວ, ພົບຈຸດທີ່ກົງກັນອັນທຳອິດຈາກທາງລຸ່ມ."/>
+			<find-status-end-reached value="ຄົ້ນຫາ: ຮອດສ່ວນທ້າຍຂອງເອກະສານແລ້ວ, ພົບຈຸດທີ່ກົງກັນອັນທຳອິດຈາກທາງເທິງ."/>
+			<find-status-replaceinfiles-1-replaced value="ແທນທີ່ໃນໄຟລ໌: ແທນທີ່ແລ້ວ 1 ແຫ່ງ"/>
+			<find-status-replaceinfiles-nb-replaced value="ແທນທີ່ໃນໄຟລ໌: ແທນທີ່ແລ້ວ $INT_REPLACE$ ແຫ່ງ"/>
+			<find-status-replaceinopenedfiles-1-replaced value="ແທນທີ່ໃນໄຟລ໌ທີ່ເປີດຢູ່: ແທນທີ່ແລ້ວ 1 ແຫ່ງ"/>
+			<find-status-replaceinopenedfiles-nb-replaced value="ແທນທີ່ໃນໄຟລ໌ທີ່ເປີດຢູ່: ແທນທີ່ແລ້ວ $INT_REPLACE$ ແຫ່ງ"/>
+			<find-status-invalid-re value="ຄົ້ນຫາ: Regular expression ບໍ່ຖືກຕ້ອງ"/>
+			<find-status-search-failed value="ຄົ້ນຫາ: ການຄົ້ນຫາລົ້ມເຫຼວ"/>
+			<find-status-mark-1-match value="ໝາຍ: ພົບ 1 ແຫ່ງ"/>
+			<find-status-mark-nb-matches value="ໝາຍ: ພົບ $INT_REPLACE$ ແຫ່ງ"/>
+			<find-status-count-1-match value="ນັບ: ພົບ 1 ແຫ່ງ"/>
+			<find-status-count-nb-matches value="ນັບ: ພົບ $INT_REPLACE$ ແຫ່ງ"/>
+			<find-status-replaceall-1-replaced value="ແທນທີ່ທັງໝົດ: ແທນທີ່ແລ້ວ 1 ແຫ່ງ"/>
+			<find-status-replaceall-nb-replaced value="ແທນທີ່ທັງໝົດ: ແທນທີ່ແລ້ວ $INT_REPLACE$ ແຫ່ງ"/>
+			<find-status-replaceall-readonly value="ແທນທີ່ທັງໝົດ: ບໍ່ສາມາດແທນທີ່ຂໍ້ຄວາມໄດ້. ເອກະສານປັດຈຸບັນເປັນແບບ ອ່ານຢ່າງດຽວ"/>
+			<find-status-replace-end-reached value="ແທນທີ່: ຮອດສ່ວນທ້າຍຂອງເອກະສານ, ເລີ່ມຈາກທາງເທິງ."/>
+			<find-status-replace-top-reached value="ແທນທີ່: ຮອດສ່ວນຕົ້ນຂອງເອກະສານ, ເລີ່ມຈາກທາງລຸ່ມ."/>
+			<find-status-replaced-next-found value="ແທນທີ່: ແທນທີ່ແລ້ວ 1 ແຫ່ງ. ພົບຈຸດທີ່ກົງກັນຖັດໄປ."/>
+			<find-status-replaced-without-continuing value="ແທນທີ່: ແທນທີ່ແລ້ວ 1 ແຫ່ງ."/>
+			<find-status-replaced-next-not-found value="ແທນທີ່: ແທນທີ່ແລ້ວ 1 ແຫ່ງ. ບໍ່ພົບຈຸດທີ່ກົງກັນເພີ່ມເຕີມ."/>
+			<find-status-replace-not-found value="ແທນທີ່: ບໍ່ພົບຈຸດທີ່ກົງກັນ"/>
+			<find-status-replace-readonly value="ແທນທີ່: ບໍ່ສາມາດແທນທີ່ຂໍ້ຄວາມໄດ້. ເອກະສານປັດຈຸບັນເປັນແບບ ອ່ານຢ່າງດຽວ"/>
+			<find-status-cannot-find value="ຄົ້ນຫາ: ບໍ່ພົບຂໍ້ຄວາມ &quot;$STR_REPLACE$&quot;"/>
+			<find-status-cannot-find-pebkac-maybe value="ບໍ່ພົບຂໍ້ຄວາມທີ່ລະບຸ. ທ່ານອາດຈະລືມໝາຍເລືອກ &quot;ຄົ້ນຫາຮອບໃໝ່&quot;, &quot;ກົງກັບຕົວພິມໃຫຍ່-ນ້ອຍ&quot; ຫຼື &quot;ກົງກັບທັງໝົດຄຳສັບ&quot;."/>
+			<find-status-scope-selection value="ໃນຂໍ້ຄວາມທີ່ເລືອກ"/>
+			<find-status-scope-all value="ໃນທັງໝົດໄຟລ໌"/>
+			<find-status-scope-backward value="ຈາກຕົ້ນໄຟລ໌ຫາຕຳແໜ່ງເຄີເຊີ"/>
+			<find-status-scope-forward value="ຈາກຕຳແໜ່ງເຄີເຊີຫາທ້າຍໄຟລ໌"/>
+			<find-status-replace-invalid-replace-chars value="ແທນທີ່: ບໍ່ສາມາດແທນທີ່ດ້ວຍຂໍ້ຄວາມທີ່ບໍ່ແມ່ນ ANSI ໃນເອກະສານແບບ ANSI"/>
+			<find-status-invisible-chars-findWhat value="ພົບອັກສອນທີ່ເບິ່ງບໍ່ເຫັນໃນຂໍ້ຄວາມ &quot;ຄົ້ນຫາ&quot; ຫຼື &quot;ແທນທີ່ດ້ວຍ&quot;"/>
+			<find-status-invisible-chars-findWhat-tip value="ຄຳເຕືອນ: ມີອັກສອນທີ່ເບິ່ງບໍ່ເຫັນໃນຊ່ອງຄົ້ນຫາ (ຫຼື ແທນທີ່).
+ຂໍ້ຄວາມທີ່ວາງລົງມີອັກສອນທີ່ເບິ່ງບໍ່ເຫັນ (ອາດເປັນອັກສອນຈົບແຖວ). ຖ້າທ່ານດຳເນີນການຕໍ່, ພວກມັນຈະຖືກລວມເຂົ້າໃນການຄົ້ນຫາ."/>
+			<finder-find-in-finder value="ຄົ້ນຫາໃນຜົນການຄົ້ນຫານີ້..."/>
+			<finder-close-this value="ປິດຜົນການຄົ້ນຫານີ້"/>
+			<finder-collapse-all value="ຫຍໍ້ທັງໝົດ"/>
+			<finder-uncollapse-all value="ຂະຫຍາຍທັງໝົດ"/>
+			<finder-copy value="ຄັດລອກແຖວທີ່ເລືອກ"/>
+			<finder-copy-selected-paths value="ຄັດລອກເສັ້ນທາງທີ່ເລືອກ"/>
+			<finder-clear-all value="ລ້າງທັງໝົດ"/>
+			<finder-open-selected-paths value="ເປີດເສັ້ນທາງທີ່ເລືອກ"/>
+			<finder-purge-for-every-search value="ລ້າງຂໍ້ມູນເກົ່າທຸກຄັ້ງທີ່ຄົ້ນຫາ"/>
+			<finder-wrap-long-lines value="ຕັດແຖວຂໍ້ຄວາມຍາວ"/>
+			<common-ok value="ຕົກລົງ"/>
+			<common-cancel value="ຍົກເລີກ"/>
+			<common-name value="ຊື່"/>
+			<common-error value="ຂໍ້ຜິດພາດ"/>
+			<tabrename-title value="ປ່ຽນຊື່ແທັບປັດຈຸບັນ"/>
+			<tabrename-newname value="ຊື່ໃໝ່"/>
+			<splitter-rotate-left value="ໝູນໄປທາງຊ້າຍ"/>
+			<splitter-rotate-right value="ໝູນໄປທາງຂວາ"/>
+			<userdefined-title-new value="ສ້າງພາສາໃໝ່..."/>
+			<userdefined-title-save value="ບັນທຶກຊື່ພາສາປັດຈຸບັນເປັນ..."/>
+			<userdefined-title-rename value="ປ່ຽນຊື່ພາສາປັດຈຸບັນ"/>
+			<summary value="ສະຫຼຸບຂໍ້ມູນ"/>
+			<summary-filepath value="ເສັ້ນທາງໄຟລ໌ເຕັມ: "/>
+			<summary-filecreatetime value="ສ້າງເມື່ອ: "/>
+			<summary-filemodifytime value="ແກ້ໄຂເມື່ອ: "/>
+			<summary-nbchar value="ຈຳນວນອັກສອນ (ບໍ່ລວມອັກສອນຈົບແຖວ): "/>
+			<summary-nbword value="ຈຳນວນຄຳສັບ: "/>
+			<summary-nbline value="ຈຳນວນແຖວ: "/>
+			<summary-nbbyte value="ຄວາມຍາວເອກະສານ: "/>
+			<summary-nbsel1 value=" ອັກສອນທີ່ເລືອກ ("/>
+			<summary-nbsel2 value=" ໄບຕ໌) ໃນ "/>
+			<summary-nbrange value=" ຊ່ວງ"/>
+			<progress-hits-title value="ຈຳນວນທີ່ພົບ:"/>
+			<progress-cancel-info value="ກຳລັງຍົກເລີກການເຮັດວຽກ, ກະລຸນາລໍຖ້າ..."/>
+			<find-in-files-progress-title value="ກຳລັງຄົ້ນຫາໃນໄຟລ໌..."/>
+			<discover-file-candidates-title value="ກຳລັງກວດສອບໄຟລ໌ທີ່ກ່ຽວຂ້ອງ..."/>
+			<replace-in-files-confirm-title value="ທ່ານແນ່ໃຈຫຼືບໍ່?"/>
+			<replace-in-files-confirm-directory value="ທ່ານແນ່ໃຈຫຼືບໍ່ວ່າຕ້ອງການແທນທີ່ທຸກແຫ່ງໃນ:"/>
+			<replace-in-files-confirm-filetype value="ສຳລັບປະເພດໄຟລ໌:"/>
+			<replace-in-files-progress-title value="ກຳລັງແທນທີ່ໃນໄຟລ໌..."/>
+			<replace-in-projects-confirm-title value="ທ່ານແນ່ໃຈຫຼືບໍ່?"/>
+			<replace-in-projects-confirm-message value="ທ່ານຕ້ອງການແທນທີ່ທຸກແຫ່ງໃນທຸກເອກະສານໃນແຜງໂຄງການທີ່ເລືອກຫຼືບໍ່?"/>
+			<replace-in-open-docs-confirm-title value="ທ່ານແນ່ໃຈຫຼືບໍ່?"/>
+			<replace-in-open-docs-confirm-message value="ທ່ານແນ່ໃຈຫຼືບໍ່ວ່າຕ້ອງການແທນທີ່ທຸກແຫ່ງໃນທຸກເອກະສານທີ່ເປີດຢູ່?"/>
+			<find-result-caption value="ຜົນການຄົ້ນຫາ"/>
+			<find-result-title value="ຄົ້ນຫາ"/>
+			<find-result-title-info value="($INT_REPLACE1$ ແຫ່ງໃນ $INT_REPLACE2$ ໄຟລ໌ ຈາກທັງໝົດ $INT_REPLACE3$ ທີ່ຄົ້ນຫາ)"/>
+			<find-result-title-info-selections value="($INT_REPLACE1$ ແຫ່ງໃນ $INT_REPLACE2$ ສ່ວນທີ່ເລືອກ ຈາກທັງໝົດ $INT_REPLACE3$ ທີ່ຄົ້ນຫາ)"/>
+			<find-result-title-info-options-searchmode-normal value="ປົກກະຕິ"/>
+			<find-result-title-info-options-searchmode-extended value="ແບບຂະຫຍາຍ"/>
+			<find-result-title-info-options-searchmode-regexp value="RegEx"/>
+			<find-result-title-info-options-case value="ຕົວພິມໃຫຍ່-ນ້ອຍ"/>
+			<find-result-title-info-options-word value="ຄຳສັບ"/>
+			<find-result-title-info-extra value=" - ໂໝດກອງແຖວ: ສະແດງສະເພາະຜົນການຄົ້ນຫາທີ່ຖືກກອງ"/>
+			<find-result-hits value="($INT_REPLACE$ ແຫ່ງ)"/>
+			<find-result-line-prefix value="ແຖວ"/>
+			<find-regex-zero-length-match value="ພົບຂໍ້ຄວາມທີ່ມີຄວາມຍາວເປັນສູນ"/>
+			<session-save-folder-as-workspace value="ບັນທຶກໂຟນເດີເປັນພື້ນທີ່ເຮັດວຽກ"/>
+			<tab-untitled-string value="ໃໝ່ "/>
+			<file-save-assign-type value="&amp;ຕື່ມນາມສະກຸນໄຟລ໌"/>
+			<close-panel-tip value="ປິດ"/>
+			<IncrementalFind-FSNotFound value="ບໍ່ພົບຂໍ້ຄວາມ"/>
+			<IncrementalFind-FSTopReached value="ຮອດສ່ວນເທິງຂອງໜ້າ, ຕໍ່ຈາກທາງລຸ່ມ"/>
+			<IncrementalFind-FSEndReached value="ຮອດສ່ວນທ້າຍຂອງໜ້າ, ຕໍ່ຈາກທາງເທິງ"/>
+			<contextMenu-styleAlloccurrencesOfToken value="ກຳນົດຮູບແບບທຸກແຫ່ງທີ່ກົງກັນ"/>
+			<contextMenu-styleOneToken value="ກຳນົດຮູບແບບແຫ່ງດຽວ"/>
+			<contextMenu-clearStyle value="ລ້າງຮູບແບບ"/>
+			<contextMenu-PluginCommands value="ຄຳສັ່ງປລັກອິນ"/>
+			<largeFileRestriction-tip value="ບາງຄຸນສົມບັດອາດເຮັດໃຫ້ປະສິດທິພາບຊ້າລົງໃນໄຟລ໌ຂະໜາດໃຫຍ່. ຄຸນສົມບັດເຫຼົ່ານີ້ສາມາດປິດການນຳໃຊ້ໂດຍອັດຕະໂນມັດເມື່ອເປີດໄຟລ໌ໃຫຍ່. ທ່ານສາມາດປັບແຕ່ງໄດ້ທີ່ນີ້.
+
+ໝາຍເຫດ:
+1. ການແກ້ໄຂຕົວເລືອກທີ່ນີ້ຕ້ອງເປີດໄຟລ໌ໃຫຍ່ຄືນໃໝ່ເພື່ອໃຫ້ມີຜົນ.
+
+2. ຖ້າໝາຍເລືອກ &quot;ປິດການຕັດແຖວທົ່ວລະບົບ&quot; ແລະ ທ່ານເປີດໄຟລ໌ໃຫຍ່, &quot;ການຕັດແຖວ&quot; ຈະຖືກປິດສຳລັບທຸກໄຟລ໌. ທ່ານສາມາດເປີດມັນຄືນໄດ້ຜ່ານເມນູ &quot;ມຸມມອງ-&gt;ຕັດແຖວ&quot;."/>
+			<npcNote-tip value="ການສະແດງອັກສອນຍະຫວ່າງທີ່ບໍ່ແມ່ນ ASCII ແລະ ອັກສອນຄວບຄຸມທີ່ເບິ່ງບໍ່ເຫັນ.
+
+ໝາຍເຫດ:
+ການໃຊ້ການສະແດງຜົນຈະປິດເອັບເຟັກຂອງອັກສອນໃນຂໍ້ຄວາມ.
+
+ສຳລັບລາຍຊື່ອັກສອນທັງໝົດ ສາມາດເບິ່ງໄດ້ໃນຄູ່ມືຜູ້ໃຊ້.
+
+ຄລິກປຸ່ມນີ້ເພື່ອເປີດເວັບໄຊຄູ່ມືຜູ້ໃຊ້."/>
+			<npcAbbreviation-tip value="ຕົວຫຍໍ້ : ຊື່
+NBSP : no-break space
+ZWSP : zero-width space
+ZWNBSP : zero-width no-break space
+
+ເບິ່ງລາຍຊື່ທັງໝົດໄດ້ໃນຄູ່ມືຜູ້ໃຊ້.
+ຄລິກປຸ່ມ &quot;?&quot; ທາງດ້ານຂວາເພື່ອເປີດເວັບໄຊຄູ່ມືຜູ້ໃຊ້."/>
+			<npcCodepoint-tip value="ລະຫັດອັກສອນ : ຊື່
+U+00A0 : no-break space
+U+200B : zero-width space
+U+FEFF : zero-width no-break space
+
+ເບິ່ງລາຍຊື່ທັງໝົດໄດ້ໃນຄູ່ມືຜູ້ໃຊ້.
+ຄລິກປຸ່ມ &quot;?&quot; ທາງດ້ານຂວາເພື່ອເປີດເວັບໄຊຄູ່ມືຜູ້ໃຊ້."/>
+
+			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
+			<npcCustomColor-tip value="ໄປທີ່ ຕົວຕັ້ງຄ່າຮູບແບບ ເພື່ອປ່ຽນສີທີ່ກຳນົດເອງສຳລັບອັກສອນຍະຫວ່າງ ແລະ ອັກສອນທີ່ເບິ່ງບໍ່ເຫັນ (&quot;Non-printing characters custom color&quot;)."/>
+			<npcIncludeCcUniEol-tip value="ນຳໃຊ້ການຕັ້ງຄ່າຮູບແບບອັກສອນທີ່ເບິ່ງບໍ່ເຫັນກັບອັກສອນຄວບຄຸມ C0, C1 ແລະ Unicode EOL (ແຖວຖັດໄປ, ຕົວແຍກແຖວ ແລະ ຕົວແຍກຫຍໍ້ໜ້າ)."/>
+			<searchingInSelThresh-tip value="ຈຳນວນອັກສອນຕໍ່າສຸດທີ່ເລືອກເພື່ອໃຫ້ໝາຍເລືອກ &quot;ໃນສ່ວນທີ່ເລືອກ&quot; ໂດຍອັດຕະໂນມັດເມື່ອເປີດປ່ອງຢ້ຽມຄົ້ນຫາ. ຄ່າສູງສຸດແມ່ນ $INT_REPLACE$. ຕັ້ງເປັນ 0 ເພື່ອປິດການໃຊ້ງານນີ້."/>
+			<searchingFillFindWhat-tip value="ຈຳນວນອັກສອນຕໍ່າສຸດທີ່ເລືອກເພື່ອໃຫ້ໃສ່ໃນຊ່ອງ &quot;ຄົ້ນຫາ&quot; ໂດຍອັດຕະໂນມັດເມື່ອໃຊ້ Ctrl-F. ຄ່າສູງສຸດແມ່ນ $INT_REPLACE$, ເຊິ່ງເປັນຂະໜາດສູງສຸດຂອງຊ່ອງຄົ້ນຫາທີ່ລະບົບກຳນົດ."/>
+			<verticalEdge-tip value="ເພີ່ມຕົວໝາຍແຖວຕັ້ງຂອງທ່ານໂດຍລະບຸຕຳແໜ່ງດ້ວຍຕົວເລກ. ທ່ານສາມາດກຳນົດໄດ້ຫຼາຍເສັ້ນໂດຍໃຊ້ຍະຫວ່າງແຍກຕົວເລກ."/>
+			<fileSaveAsCopySaveButton-tip value="ກົດ Shift ຄ້າງໄວ້ໃນຂະນະທີ່ກົດ ບັນທຶກ ເພື່ອເປີດໄຟລ໌ສຳເນົາຫຼັງຈາກບັນທຶກແລ້ວ."/>
+			<autoIndentBasic-tip value="ໃຫ້ແນ່ໃຈວ່າການຍໍ້ໜ້າຂອງແຖວປັດຈຸບັນ (ແຖວໃໝ່ທີ່ສ້າງໂດຍການກົດ Enter) ກົງກັບການຍໍ້ໜ້າຂອງແຖວກ່ອນໜ້າ."/>
+			<autoIndentAdvanced-tip value="ເປີດໃຊ້ການຍໍ້ໜ້າອັດສະລິຍະສຳລັບພາສາຕະກຸນ &quot;C&quot; ແລະ Python. ພາສາຕະກຸນ &quot;C&quot; ລວມມີ:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell ແລະ JSON.
+
+ຖ້າທ່ານເລືອກໂໝດຂັ້ນສູງແຕ່ບໍ່ໄດ້ແກ້ໄຂໄຟລ໌ໃນພາສາທີ່ກ່າວມາ, ການຍໍ້ໜ້າຈະຍັງຄົງເປັນແບບພື້ນຖານ."/>
+
+			<!-- Don't translate "Global override" and "Default Style" -->
+			<global-override-tip value="ການເປີດໃຊ້ &quot;Global override&quot; ທີ່ນີ້ຈະຂ້າມຜ່ານຄ່າພາລາມິເຕີໃນທຸກຮູບແບບພາສາ. ສິ່ງທີ່ທ່ານອາດຈະຕ້ອງການແທ້ໆແມ່ນການໃຊ້ການຕັ້ງຄ່າ &quot;Default Style&quot; ແທນ"/>
+			<scintillaRenderingTechnology-tip value="ອາດຈະຊ່ວຍປັບປຸງການສະແດງຜົນຂອງອັກສອນພິເສດ ຫຼື ແກ້ໄຂບັນຫາດ້ານກຣາບຟິກບາງຢ່າງ, ເລີ່ມ Notepad++ ໃໝ່ເພື່ອໃຫ້ມີຜົນ."/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="ຄວາມຍາວ: $STR_REPLACE1$    ແຖວ: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="ແຖວ: $STR_REPLACE1$    ຄໍລຳ: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="ຕຳແໜ່ງ: "/>
+			<statusbar-Sel value="ເລືອກ: "/>
+			<statusbar-Sel-number value="ເລືອກ"/>
+			<toolbar-accent-tip value="ຕົວເລືອກນີ້ເຮັດໃຫ້ໄອຄອນແຖບເຄື່ອງມືຂອງທ່ານປ່ຽນຕາມສີເນັ້ນ (accent color) ຂອງລະບົບ Windows. ສີເນັ້ນແມ່ນສີທີ່ໃຊ້ໃນປຸ່ມ, ຂອບ ແລະ ເມນູເລີ່ມຕົ້ນ. ເພື່ອປ່ຽນມັນ, ໄປທີ່ Settings &gt; Personalization &gt; Colors ແລ້ວເລືອກສີທີ່ທ່ານຕ້ອງການ."/>
+			<len-limit-exceeded-tip value="ເກີນຂີດຈຳກັດຄວາມຍາວ: ຂໍ້ມູນທີ່ທ່ານປ້ອນອາດເກີນຂີດຈຳກັດ ແລະ ອາດຖືກຕັດອອກ, ແລະ ມັນຈະບໍ່ຖືກບັນທຶກສຳລັບການໃຊ້ງານຄັ້ງຕໍ່ໄປ."/>
+			<max-len-on-search-tip value="ຂໍ້ມູນທີ່ທ່ານປ້ອນອາດເກີນຂີດຈຳກັດ ແລະ ອາດຖືກຕັດອອກ, ແລະ ມັນຈະບໍ່ຖືກບັນທຶກສຳລັບການໃຊ້ງານຄັ້ງຕໍ່ໄປ."/>
+			<max-len-on-save-tip value="ຄວາມຍາວຂອງຂໍ້ມູນທີ່ທ່ານປ້ອນນັ້ນຍາວຫຼາຍ ແລະ ອາດຈະບໍ່ຖືກບັນທຶກສຳລັບການໃຊ້ງານຄັ້ງຕໍ່ໄປ."/>
+			<goto-setting-tip value="ຄົ້ນຫາການຕັ້ງຄ່າຂອງທ່ານທີ່ນີ້"/>
+			<tabbar-tabcompactlabellen-tip value="ຈຳກັດຄວາມຍາວຂອງຊື່ແທັບທີ່ສະແດງ. ກົດ Enter ເພື່ອນຳໃຊ້ຄ່າທີ່ລະບຸ. ຊ່ວງຄ່າ: 1-257 ອັກສອນ (0 ແມ່ນປິດການຕັດຊື່)."/>
+		</MiscStrings>
+	</Native-Langue>
+</NotepadPlus>

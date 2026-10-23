@@ -990,7 +990,7 @@ void WindowsDlg::doRefresh(bool invalidate /*= false*/)
 			::SendMessage(_hList, LVM_SETITEMCOUNT, count, lp);
 			::InvalidateRect(_hList, nullptr, FALSE);
 
-			resetSelection(invalidate);
+			resetSelection();
 			updateButtonState();
 			doCount();
 		}
@@ -1014,7 +1014,7 @@ void WindowsDlg::fitColumnsToSize()
 	}
 }
 
-void WindowsDlg::resetSelection(bool bEnsureVisibility)
+void WindowsDlg::resetSelection()
 {
 	if (!_pTab)
 		return;
@@ -1026,8 +1026,7 @@ void WindowsDlg::resetSelection(bool bEnsureVisibility)
 		if (*itr == curSel)
 		{
 			ListView_SetItemState(_hList, pos, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
-			if (bEnsureVisibility)
-				ListView_EnsureVisible(_hList, pos, FALSE);
+			ListView_EnsureVisible(_hList, pos, FALSE);
 		}
 		else
 		{

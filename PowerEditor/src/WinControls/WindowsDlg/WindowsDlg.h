@@ -94,7 +94,7 @@ protected :
 	void destroy() override;
 	void updateColumnNames();
 	void fitColumnsToSize();
-	void resetSelection(bool bEnsureVisibility = false);
+	void resetSelection();
 	void doSave();
 	void doClose();
 	void updateButtonState();

@@ -8715,6 +8715,24 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_SETEDITORBORDEREDGE, 0, nppParams.getSVP()._showBorderEdge);
 
+		// Re-pick the UDL for already-open documents: a User Defined Language with
+		// separate dark/light mode variants is otherwise only re-selected when the
+		// file is closed and reopened, not when the mode is switched (issue #18388).
+		for (size_t i = 0; i < MainFileManager.getNbBuffers(); ++i)
+		{
+			Buffer* buf = MainFileManager.getBufferByIndex(i);
+			if (buf->getLangType() == L_USER)
+			{
+				const wchar_t* ext = PathFindExtension(buf->getFullPathName());
+				if (*ext == L'.')
+				{
+					const wchar_t* langName = nppParams.getUserDefinedLangNameFromExt(ext + 1, buf->getFileName());
+					if (langName && wcscmp(langName, buf->getUserDefineLangName()) != 0)
+						buf->setLangType(L_USER, langName);
+				}
+			}
+		}
+
 		::SendMessage(_subEditView.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 		::SendMessage(_mainEditView.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 

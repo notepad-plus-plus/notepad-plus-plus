@@ -87,9 +87,13 @@ namespace // anonymous
 		if (!name.empty() && !ext.empty())
 		{
 			// Remove an existing extension from the name.
-			size_t posNameExt = name.find_last_of('.');
-			if (posNameExt != wstring::npos)
-				name.erase(posNameExt);
+			size_t lastDot = name.find_last_of(L'.');
+			size_t lastSlash = name.find_last_of(L"\\/");
+			if (lastDot != wstring::npos && (lastSlash == wstring::npos || lastDot > lastSlash))
+			{
+				name.erase(lastDot);
+			}
+
 			// Append a new extension.
 			name += ext;
 			return true;

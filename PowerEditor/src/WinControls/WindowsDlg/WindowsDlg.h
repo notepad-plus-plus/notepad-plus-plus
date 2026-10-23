@@ -67,7 +67,7 @@ public :
 	void sortFileSizeDSC();
 	void sortDateTimeASC();
 	void sortDateTimeDSC();
-	void doRefresh(bool invalidate = false);
+	void doRefresh();
 
 public:
 	// for message hook

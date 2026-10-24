@@ -842,7 +842,11 @@ Finder::CurrentPosInLineInfo Finder::getCurrentPosInLineInfo(intptr_t currentPos
 		
 		if (range.first <= currentPosInLine && currentPosInLine <= range.second)
 		{
-			if (currentPosInLine == range.first && !hasSel)
+			if (currentPosInLine == range.first && !hasSel && count == 1)
+			{
+				cpili._status = pos_infront;     // I[   ]  : there is no occurrence before c1
+			}
+			else if (currentPosInLine == range.first && !hasSel)
 			{
 				cpili._status = pos_between;
 				cpili.auxiliaryInfo = count - 1; //  c1      c2

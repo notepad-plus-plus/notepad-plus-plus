@@ -1814,6 +1814,7 @@ void EditingSubDlg::initScintParam()
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_DISABLEADVANCEDSCROLL, BM_SETCHECK, svp._disableAdvancedScrolling, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_LINECUTCOPYWITHOUTSELECTION, BM_SETCHECK, svp._lineCopyCutWithoutSelection, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_DISABLESELECTEDTEXTDRAGDROP, BM_SETCHECK, svp._disableSelectedTextDragDrop, 0);
+	::SendDlgItemMessage(_hSelf, IDC_CHECK_WORDWRAPPERDOCUMENT, BM_SETCHECK, svp._isWordWrapPerDocument, 0);
 }
 
 void EditingSubDlg::changeLineHiliteMode(bool enableSlider)
@@ -2089,6 +2090,13 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					bool isChecked = isCheckedOrNot(IDC_CHECK_DISABLESELECTEDTEXTDRAGDROP);
 					svp._disableSelectedTextDragDrop = isChecked;
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_DISABLESELECTEDTEXTDRAGDROP, 0, 0);
+					return TRUE;
+				}
+
+				case IDC_CHECK_WORDWRAPPERDOCUMENT:
+				{
+					svp._isWordWrapPerDocument = isCheckedOrNot(IDC_CHECK_WORDWRAPPERDOCUMENT);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_WORDWRAPPERDOCUMENT, 0, 0);
 					return TRUE;
 				}
 

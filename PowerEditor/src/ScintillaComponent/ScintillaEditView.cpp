@@ -2334,6 +2334,17 @@ bool ScintillaEditView::setLexerFromLangID(int langID) const // Internal lexer o
 }
 
 
+// Word wrap of the current document: its own one with "Word wrap per document" (Preferences > Editing 1),
+// otherwise the global one
+bool ScintillaEditView::getDocumentWordWrap() const
+{
+	const ScintillaViewParams& svp = NppParameters::getInstance().getSVP();
+	if (svp._isWordWrapPerDocument && _currentBuffer->isWordWrapSet())
+		return _currentBuffer->isWordWrap();
+	return svp._doWrap;
+}
+
+
 void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 {
 	if (buffer == BUFFER_INVALID) return;
@@ -2375,6 +2386,10 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	// restore the collapsed info
 	const std::vector<size_t> & lineStateVectorNew = newBuf->getHeaderLineState(this);
 	syncFoldStateWith(lineStateVectorNew);
+
+	// "Word wrap per document": the word wrap has to be set before the position is restored
+	if (NppParameters::getInstance().getSVP()._isWordWrapPerDocument)
+		wrap(getDocumentWordWrap());
 
 	restoreCurrentPosPreStep();
 	restoreHiddenLines();

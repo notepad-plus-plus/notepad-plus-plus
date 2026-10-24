@@ -20,6 +20,7 @@
 #include "DockingDlgInterface.h"
 #include "clipboardHistoryPanel_rc.h"
 #include <vector>
+#include <string>
 
 #define CH_PROJECTPANELTITLE		L"Clipboard History"
 
@@ -28,6 +29,17 @@ class ScintillaEditView;
 struct ClipboardDataInfo {
 	std::vector<unsigned char> _data;
 	bool _isBinaryContained = false;
+
+	// Two-level cache: cleaned text cache & view-level truncated string cache
+	mutable std::wstring _cleanedFullStr;
+	mutable bool _isCleaned = false;
+	mutable int _cachedWidth = -1;
+	mutable std::wstring _cachedDisplayStr;
+
+	void clearDisplayCache() noexcept {
+		_cachedWidth = -1;
+		_cachedDisplayStr.clear();
+	}
 };
 
 class ByteArray {
@@ -44,11 +56,6 @@ public:
 protected:
 	unsigned char *_pBytes = nullptr;
 	size_t _length = 0;
-};
-
-class StringArray : public ByteArray {
-public:
-	StringArray(const ClipboardDataInfo& cd, size_t maxLen);
 };
 
 class ClipboardHistoryPanel : public DockingDlgInterface {
@@ -87,9 +94,16 @@ protected:
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private:
+	void destroyListBoxFont() noexcept;
+	void createListBoxFontAndHeight();
+
+	const std::wstring& getDisplayString(HDC hdc, const ClipboardDataInfo& cbd, int maxPixelWidth) const;
+
 	ScintillaEditView **_ppEditView = nullptr;
 	std::vector<ClipboardDataInfo> _clipboardDataInfos;
 	HWND _hwndNextCbViewer = nullptr;
+	HFONT _hListBoxFont = nullptr;
+	int _lastClientWidth = -1;
 	int _lbBgColor = -1;
 	int _lbFgColor= -1;
 	bool _isTrackingClipboardOps = true; // false when we do not want to track & show some Clipboard operations

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <NotepadPlus>
-	<Native-Langue name="Pig Latin" filename="piglatin.xml" version="7.5.5">
+	<Native-Langue name="Pig Latin" filename="piglatin.xml" version="8.9.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -20,30 +20,38 @@
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item subMenuId="file-openFolder" name="Openyay Ontainingcay Olderfay"/>
-					<Item subMenuId="file-closeMore" name="Oseclay Oremay"/>
+					<Item subMenuId="file-openFolder" name="Openyay Ontainingcay Older&amp;fay"/>
+					<Item subMenuId="file-closeMore" name="Oseclay Ultiple&amp;may Ocumentsday"/>
 					<Item subMenuId="file-recentFiles" name="Ecent&amp;ray Ilesfay"/>
-					<Item subMenuId="edit-copyToClipboard" name="Opycay otay Ipboardclay"/>
-					<Item subMenuId="edit-indent" name="Indentyay"/>
-					<Item subMenuId="edit-convertCaseTo" name="Onvertcay Asecay otay"/>
-					<Item subMenuId="edit-lineOperations" name="Inelay Operationsyay"/>
-					<Item subMenuId="edit-comment" name="Ommentcay/Uncommentyay"/>
-					<Item subMenuId="edit-autoCompletion" name="Autoyay-Ompletioncay"/>
-					<Item subMenuId="edit-eolConversion" name="EOL Onversioncay"/>
-					<Item subMenuId="edit-blankOperations" name="Ankblay Operationsyay"/>
-					<Item subMenuId="edit-pasteSpecial" name="Astepay Ecialspay"/>
-					<Item subMenuId="edit-onSelection" name="Onyay Electionsay"/>
-					<Item subMenuId="search-markAll" name="Arkmay Allyay"/>
-					<Item subMenuId="search-unmarkAll" name="Unmarkyay Allyay"/>
-					<Item subMenuId="search-jumpUp" name="Umpjay Upyay"/>
-					<Item subMenuId="search-jumpDown" name="Umpjay Ownday"/>
-					<Item subMenuId="search-bookmark" name="Ookmarkbay"/>
-					<Item subMenuId="view-showSymbol" name="Owshay Ymbolsay"/>
-					<Item subMenuId="view-zoom" name="Oomzay"/>
-					<Item subMenuId="view-moveCloneDocument" name="Ovemay/Oneclay Urrentcay Ocumentday"/>
-					<Item subMenuId="view-tab" name="Abtay"/>
-					<Item subMenuId="view-collapseLevel" name="Ollapsecay Evellay"/>
-					<Item subMenuId="view-uncollapseLevel" name="Uncollapseyay Evellay"/>
+					<Item subMenuId="edit-insert" name="Insertyay"/>
+					<Item subMenuId="edit-copyToClipboard" name="Op&amp;ycay otay Ipboardclay"/>
+					<Item subMenuId="edit-indent" name="&amp;Indentyay"/>
+					<Item subMenuId="edit-convertCaseTo" name="On&amp;vertcay Asecay otay"/>
+					<Item subMenuId="edit-lineOperations" name="Ine&amp;lay Operationsyay"/>
+					<Item subMenuId="edit-comment" name="O&amp;mmentcay/Uncommentyay"/>
+					<Item subMenuId="edit-autoCompletion" name="&amp;Autoyay-Ompletioncay"/>
+					<Item subMenuId="edit-eolConversion" name="&amp;EOL Onversioncay"/>
+					<Item subMenuId="edit-blankOperations" name="Ank&amp;blay Operationsyay"/>
+					<Item subMenuId="edit-pasteSpecial" name="Aste&amp;pay Ecialspay"/>
+					<Item subMenuId="edit-onSelection" name="&amp;Onyay Electionsay"/>
+					<Item subMenuId="edit-multiSelectALL" name="Ultimay-electsay ALLYAY"/>
+					<Item subMenuId="edit-multiSelectNext" name="Ultimay-electsay Extnay"/>
+					<Item subMenuId="edit-readonlyInNotepad++" name="Eadray-Onlyyay inyay Notepad++"/>
+					<Item subMenuId="search-changeHistory" name="Angechay Istoryhay"/>
+					<Item subMenuId="search-markAll" name="Ylestay &amp;Allyay Occurrencesyay ofyay Okentay"/>
+					<Item subMenuId="search-markOne" name="Ylestay &amp;Oneyay Okentay"/>
+					<Item subMenuId="search-unmarkAll" name="Earclay Ylestay"/>
+					<Item subMenuId="search-jumpUp" name="Ump&amp;jay Upyay"/>
+					<Item subMenuId="search-jumpDown" name="Umpjay Own&amp;day"/>
+					<Item subMenuId="search-copyStyledText" name="Opy&amp;cay Yledstay Exttay"/>
+					<Item subMenuId="search-bookmark" name="Ookmark&amp;bay"/>
+					<Item subMenuId="view-currentFileIn" name="Iew&amp;vay Urrentcay Ilefay inyay"/>
+					<Item subMenuId="view-showSymbol" name="Owshay &amp;Ymbolsay"/>
+					<Item subMenuId="view-zoom" name="Oom&amp;zay"/>
+					<Item subMenuId="view-moveCloneDocument" name="Ove&amp;may/Oneclay Urrentcay Ocumentday"/>
+					<Item subMenuId="view-tab" name="A&amp;btay"/>
+					<Item subMenuId="view-collapseLevel" name="Oldfay Evellay"/>
+					<Item subMenuId="view-uncollapseLevel" name="Unfoldyay Evellay"/>
 					<Item subMenuId="view-project" name="Ojectpray"/>
 					<Item subMenuId="encoding-characterSets" name="Aracterchay Etsay"/>
 					<Item subMenuId="encoding-arabic" name="Arabicyay"/>
@@ -62,9 +70,13 @@
 					<Item subMenuId="encoding-turkish" name="Urkishtay"/>
 					<Item subMenuId="encoding-westernEuropean" name="Esternway Europeanyay"/>
 					<Item subMenuId="encoding-vietnamese" name="Ietnamesevay"/>
+					<Item subMenuId="language-userDefinedLanguage" name="Useryay Efinedday Anguagelay"/>
 					<Item subMenuId="settings-import" name="Importyay"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="ASHAY-1"/>
 					<Item subMenuId="tools-sha256" name="ASHAY-256"/>
+					<Item subMenuId="tools-sha512" name="ASHAY-512"/>
+					<Item subMenuId="window-sortby" name="Ortsay Ybay"/>
 				</SubEntries>
 
 				<!-- all menu item -->
@@ -73,26 +85,30 @@
 					<Item id="41002" name="&amp;Openyay"/>
 					<Item id="41019" name="Exploreryay"/>
 					<Item id="41020" name="cmd"/>
+					<Item id="41027" name="OwerpayEllshay"/>
+					<Item id="41025" name="Olderfay asyay Or&amp;kspaceway"/>
 					<Item id="41003" name="Ose&amp;clay"/>
 					<Item id="41004" name="Os&amp;eclay Allyay"/>
 					<Item id="41005" name="Oseclay Allyay UTBAY Urrentcay Ocumentday"/>
+					<Item id="41026" name="Oseclay Allyay UTBAY Innedoay Ocumentsday"/>
 					<Item id="41009" name="Oseclay Allyay otay ethay Eftlay"/>
 					<Item id="41018" name="Oseclay Allyay otay ethay Ightray"/>
+					<Item id="41024" name="Oseclay Allyay Unchangedyay"/>
 					<Item id="41006" name="Ave&amp;say"/>
 					<Item id="41007" name="Av&amp;esay Allyay"/>
 					<Item id="41008" name="Avesay &amp;Asyay..."/>
 					<Item id="41010" name="Intpray..."/>
-					<Item id="1001" name="Intpray Ownay"/>
+					<Item id="1001" name="Int&amp;pray Ownay"/>
 					<Item id="41011" name="E&amp;xityay"/>
-					<Item id="41012" name="Oadlay Essionsay..."/>
+					<Item id="41012" name="Oadlay Ess&amp;ionsay..."/>
 					<Item id="41013" name="Avesay Essionsay..."/>
 					<Item id="41014" name="E&amp;loadray omfray Iskday"/>
 					<Item id="41015" name="Avesay ayay Opycay Asyay..."/>
 					<Item id="41016" name="Ovemay otay Ecycleray Bin"/>
-					<Item id="41017" name="Enameray..."/>
+					<Item id="41017" name="Ename&amp;ray..."/>
 					<Item id="41021" name="Estoreray Ecentray Osedclay Ilefay"/>
-					<Item id="41022" name="Openyay Olderfay asyay Orkspaceway..."/>
-					<Item id="41023" name="Openyay inyay Efaultday Iewervay"/>
+					<Item id="41022" name="Openyay Olderfay asyay Orkspace&amp;way..."/>
+					<Item id="41023" name="Openyay inyay Efault&amp;day Iewervay"/>
 					<Item id="42001" name="U&amp;tcay"/>
 					<Item id="42002" name="Opy&amp;cay"/>
 					<Item id="42003" name="&amp;Undoyay"/>
@@ -101,21 +117,35 @@
 					<Item id="42006" name="Elete&amp;day"/>
 					<Item id="42007" name="Electsay A&amp;llyay"/>
 					<Item id="42020" name="Eginbay/Endyay Electsay"/>
+					<Item id="42089" name="Eginbay/Endyay Electsay inyay Olumncay Odemay"/>
+					<Item id="42084" name="Ateday Imetay (ortshay)"/>
+					<Item id="42085" name="Ateday Imetay (onglay)"/>
+					<Item id="42086" name="Ateday Imetay (ustomizedcay)"/>
 					<Item id="42008" name="Increaseyay Inelay Indentyay"/>
 					<Item id="42009" name="Ecreaseday Inelay Indentyay"/>
 					<Item id="42010" name="Uplicateday Urrentcay Inelay"/>
+					<Item id="42079" name="Emoveray Uplicateday Ineslay"/>
+					<Item id="42077" name="Emoveray Onsecutivecay Uplicateday Ineslay"/>
 					<Item id="42012" name="Itsplay Ineslay"/>
 					<Item id="42013" name="Oinjay Ineslay"/>
 					<Item id="42014" name="Ovemay Upyay Urrentcay Inelay"/>
 					<Item id="42015" name="Ovemay Ownday Urrentcay Inelay"/>
 					<Item id="42059" name="Ortsay Ineslay Exicographicallylay Ascendingyay"/>
 					<Item id="42060" name="Ortsay Ineslay Exicographicallylay Escendingday"/>
+					<Item id="42080" name="Ortsay Ineslay Exlay. Ascendingyay Ignoringyay Asecay"/>
+					<Item id="42081" name="Ortsay Ineslay Exlay. Escendingday Ignoringyay Asecay"/>
+					<Item id="42100" name="Ortsay Ineslay In Locale Order Ascending"/>
+					<Item id="42101" name="Ortsay Ineslay In Locale Order Descending"/>
+					<Item id="42104" name="Ortsay Ineslay By Length Ascending"/>
+					<Item id="42105" name="Ortsay Ineslay By Length Descending"/>
 					<Item id="42061" name="Ortsay Ineslay Asyay Integersyay Ascendingyay"/>
 					<Item id="42062" name="Ortsay Ineslay Asyay Integersyay Escendingday"/>
 					<Item id="42063" name="Ortsay Ineslay Asyay Ecimalsday (Ommacay) Ascendingyay"/>
 					<Item id="42064" name="Ortsay Ineslay Asyay Ecimalsday (Ommacay) Escendingday"/>
 					<Item id="42065" name="Ortsay Ineslay Asyay Ecimalsday (Otday) Ascendingyay"/>
 					<Item id="42066" name="Ortsay Ineslay Asyay Ecimalsday (Otday) Escendingday"/>
+					<Item id="42083" name="Everseray Inelay Orderyay"/>
+					<Item id="42078" name="Andomizeray Inelay Orderyay"/>
 					<Item id="42016" name="&amp;UPPERCASEYAY"/>
 					<Item id="42017" name="owercase&amp;lay"/>
 					<Item id="42067" name="O&amp;perpray Asecay"/>
@@ -126,8 +156,19 @@
 					<Item id="42072" name="Andom&amp;ray Asecay"/>
 					<Item id="42073" name="Openyay Ilefay"/>
 					<Item id="42074" name="Openyay Ontainingcay Olderfay inyay Exploreryay"/>
+					<Item id="42106" name="Edactray Electionsay █ (Iftshay: ●)"/>
 					<Item id="42075" name="Earchsay onyay Internetyay"/>
 					<Item id="42076" name="Angechay Earchsay Engineyay..."/>
+					<Item id="42090" name="Ignoreyay Asecay &amp;&amp; Olewhay Ordway"/>
+					<Item id="42091" name="Atchmay Asecay Onlyyay"/>
+					<Item id="42092" name="Atchmay Olewhay Ordway Onlyyay"/>
+					<Item id="42093" name="Atchmay Asecay &amp;&amp; Olewhay Ordway"/>
+					<Item id="42094" name="Ignore Asecay &amp;&amp; Olewhay Ordway"/>
+					<Item id="42095" name="Atchmay Asecay Onlyyay"/>
+					<Item id="42096" name="Atchmay Olewhay Ordway Onlyyay"/>
+					<Item id="42097" name="Atchmay Asecay &amp;&amp; Olewhay Ordway"/>
+					<Item id="42098" name="Undoyay ethay Atestlay Addedyay Ultimay-Electsay"/>
+					<Item id="42099" name="Ipskay Urrentcay &amp;&amp; Ogay otay Extnay Ultimay-Electsay"/>
 					<Item id="42018" name="Artstay E&amp;cordingray"/>
 					<Item id="42019" name="Ops&amp;tay Ecordingray"/>
 					<Item id="42021" name="Ayback&amp;play"/>
@@ -147,18 +188,24 @@
 					<Item id="42048" name="Opycay Inarybay Ontentcay"/>
 					<Item id="42049" name="Utcay Inarybay Ontentcay"/>
 					<Item id="42050" name="Astepay Inarybay Ontentcay"/>
+					<Item id="42082" name="Opycay inklay"/>
 					<Item id="42037" name="Olumncay Odemay..."/>
-					<Item id="42034" name="Olumncay Editoryay..."/>
-					<Item id="42051" name="Aracterchay Anelpay"/>
-					<Item id="42052" name="Ipboardclay Istoryhay"/>
+					<Item id="42034" name="Olum&amp;ncay Editoryay..."/>
+					<Item id="42051" name="Aracterchay Anel&amp;pay"/>
+					<Item id="42052" name="Ipboardclay Istory&amp;hay"/>
 					<Item id="42025" name="Ave&amp;say Urrentlycay Ecordedray Acromay..."/>
-					<Item id="42026" name="Exttay Irectionday RTL"/>
-					<Item id="42027" name="Exttay Irectionday LTR"/>
+					<Item id="42026" name="&amp;Exttay Irectionday RTL"/>
+					<Item id="42027" name="E&amp;xttay Irectionday LTR"/>
 					<Item id="42028" name="Etsay Eadray-Onlyyay"/>
+					<Item id="42102" name="Eadray-Onlyyay orfay Allyay Ocumentsday"/>
+					<Item id="42103" name="Earclay Eadray-Onlyyay orfay Allyay Ocumentsday"/>
 					<Item id="42029" name="Urrentcay Ilefay Athpay otay Ipboardclay"/>
 					<Item id="42030" name="Urrentcay Ilenamefay otay Ipboardclay"/>
 					<Item id="42031" name="Urrentcay Irday. Athpay otay Ipboardclay"/>
+					<Item id="42087" name="Opycay Allyay Ilenamesfay"/>
+					<Item id="42088" name="Opycay Allyay Ilefay Athspay"/>
 					<Item id="42032" name="Un&amp;ray ayay Acromay Ultiplemay Imestay..."/>
+					<Item id="42033" name="Eadray-Onlyyay Attributeyay inyay Indowsway"/>
 					<Item id="42035" name="Inglesay Inelay Ommentcay"/>
 					<Item id="42036" name="Inglesay Inelay Uncommentyay"/>
 					<Item id="42055" name="Emoveray Emptyyay Ineslay"/>
@@ -179,9 +226,9 @@
 					<Item id="43021" name="Emoveray Ookmarkedbay Ineslay"/>
 					<Item id="43051" name="Emoveray Unmarkedyay Ineslay"/>
 					<Item id="43050" name="Inverseyay Ookmarkbay"/>
-					<Item id="43052" name="Indfay aracterschay inyay angeray..."/>
-					<Item id="43053" name="Electsay Allyay Etweenbay Atchingmay Acesbray"/>
-					<Item id="43009" name="Ogay otay Atchingmay Acebray"/>
+					<Item id="43052" name="Indfay aracterschay inyay ang&amp;eray..."/>
+					<Item id="43053" name="Electsay Allyay Etw&amp;eenbay Atchingmay Acesbray"/>
+					<Item id="43009" name="Ogay otay Atching&amp;may Acebray"/>
 					<Item id="43010" name="Indfay Evious&amp;pray"/>
 					<Item id="43011" name="&amp;Incrementalyay Earchsay"/>
 					<Item id="43013" name="Indfay inyay Ilesfay"/>
@@ -203,34 +250,56 @@
 					<Item id="43035" name="3rd ylestay"/>
 					<Item id="43036" name="4th ylestay"/>
 					<Item id="43037" name="5th ylestay"/>
-					<Item id="43038" name="Indfay ylestay"/>
+					<Item id="43038" name="Indfay Arkmay Ylestay"/>
 					<Item id="43039" name="1st ylestay"/>
 					<Item id="43040" name="2nd ylestay"/>
 					<Item id="43041" name="3rd ylestay"/>
 					<Item id="43042" name="4th ylestay"/>
 					<Item id="43043" name="5th ylestay"/>
-					<Item id="43044" name="Indfay ylestay"/>
-					<Item id="43045" name="Earchsay Esultsray Indowway"/>
-					<Item id="43046" name="Extnay Earchsay Esultray"/>
-					<Item id="43047" name="Eviouspray Earchsay Esultray"/>
-					<Item id="43048" name="Electsay andyay Indfay Extnay"/>
-					<Item id="43049" name="Electsay andyay Indfay Eviouspray"/>
+					<Item id="43044" name="Indfay Arkmay Ylestay"/>
+					<Item id="43055" name="1st Ylestay"/>
+					<Item id="43056" name="2nd Ylestay"/>
+					<Item id="43057" name="3rd Ylestay"/>
+					<Item id="43058" name="4th Ylestay"/>
+					<Item id="43059" name="5th Ylestay"/>
+					<Item id="43060" name="Allyay Ylestay"/>
+					<Item id="43061" name="Indfay Arkmay Ylestay"/>
+					<Item id="43062" name="Usingyay 1st Ylestay"/>
+					<Item id="43063" name="Usingyay 2nd Ylestay"/>
+					<Item id="43064" name="Usingyay 3rd Ylestay"/>
+					<Item id="43065" name="Usingyay 4th Ylestay"/>
+					<Item id="43066" name="Usingyay 5th Ylestay"/>
+					<Item id="43067" name="Ogay otay Extnay Angechay"/>
+					<Item id="43068" name="Ogay otay Eviouspray Angechay"/>
+					<Item id="43069" name="Earclay Angechay Istoryhay"/>
+					<Item id="43045" name="Earchsay Esultsray Indow&amp;way"/>
+					<Item id="43046" name="Extnay Earchsay Esul&amp;tray"/>
+					<Item id="43047" name="Eviouspray Earchsay Esul&amp;tray"/>
+					<Item id="43048" name="Elect&amp;say andyay Indfay Extnay"/>
+					<Item id="43049" name="Elect&amp;say andyay Indfay Eviouspray"/>
 					<Item id="43054" name="Ar&amp;kmay..."/>
-					<Item id="44009" name="Ostpay-Ityay"/>
+					<Item id="43501" name="Oseclay Electedslay"/>
+					<Item id="43502" name="Oseclay Othersyay"/>
+					<Item id="43503" name="Opycay Electedslay Amesnay"/>
+					<Item id="43504" name="Opycay Electedslay Athnamespay"/>
+					<Item id="44009" name="Ost&amp;pay-Ityay"/>
 					<Item id="44010" name="Oldfay Allyay"/>
+					<Item id="44011" name="&amp;Istractionday Eefray Odemay"/>
 					<Item id="44019" name="Owshay Allyay Aracterschay"/>
 					<Item id="44020" name="Owshay Indentyay Uidegay"/>
-					<Item id="44022" name="Ordway apwray"/>
-					<Item id="44023" name="Oomzay &amp;Inyay (Ctrl+mouse Eelwhay Upyay)"/>
-					<Item id="44024" name="Oomzay &amp;Outyay (Ctrl+mouse Eelwhay Ownday)"/>
+					<Item id="44022" name="Ord&amp;way apwray"/>
+					<Item id="44023" name="Oomzay &amp;Inyay (Ctrl+Mouse Eelwhay Upyay)"/>
+					<Item id="44024" name="Oomzay &amp;Outyay (Ctrl+Mouse Eelwhay Ownday)"/>
 					<Item id="44025" name="Owshay Itewhay Acespay andyay ABTAY"/>
 					<Item id="44026" name="Owshay Endyay ofyay Inelay"/>
+					<Item id="44027" name="Ynchronize&amp;say Acrossyay Iewsvay"/>
 					<Item id="44029" name="Unfoldyay Allyay"/>
 					<Item id="44030" name="Ollapsecay Urrentcay Evellay"/>
 					<Item id="44031" name="Uncollapseyay Urrentcay Evellay"/>
-					<Item id="44049" name="Ummarysay..."/>
-					<Item id="44080" name="Ocumentday Apmay"/>
-					<Item id="44084" name="Unctionfay Istlay"/>
+					<Item id="44049" name="Ummary&amp;say..."/>
+					<Item id="44080" name="Ocument&amp;day Apmay"/>
+					<Item id="44070" name="&amp;Ocumentday Istlay"/>
+					<Item id="44084" name="Unctionfay Ist&amp;lay"/>
 					<Item id="44085" name="Olderfay asyay Orkspaceway"/>
 					<Item id="44086" name="1st Abtay"/>
 					<Item id="44087" name="2nd Abtay"/>
@@ -241,40 +310,61 @@
 					<Item id="44092" name="7th Abtay"/>
 					<Item id="44093" name="8th Abtay"/>
 					<Item id="44094" name="9th Abtay"/>
+					<Item id="44116" name="Irstfay Abtay"/>
+					<Item id="44117" name="Astlay Abtay"/>
 					<Item id="44095" name="Extnay Abtay"/>
 					<Item id="44096" name="Eviouspray Abtay"/>
 					<Item id="44097" name="Onitoringmay (ailtay -f)"/>
 					<Item id="44098" name="Ovemay Abtay Orwardfay"/>
 					<Item id="44099" name="Ovemay Abtay Ackwardbay"/>
-					<Item id="44032" name="Oggletay Ullfay Eenscray Odemay"/>
-					<Item id="44033" name="Estoreray Efaultday Oomzay"/>
-					<Item id="44034" name="Alwaysyay onyay Optay"/>
-					<Item id="44035" name="Ynchronisesay Erticalvay Ollingscray"/>
-					<Item id="44036" name="Ynchronisesay Orizontalhay Ollingscray"/>
+					<Item id="44110" name="Emoveray Olorcay"/>
+					<Item id="44111" name="Applyyay Olorcay 1"/>
+					<Item id="44112" name="Applyyay Olorcay 2"/>
+					<Item id="44113" name="Applyyay Olorcay 3"/>
+					<Item id="44114" name="Applyyay Olorcay 4"/>
+					<Item id="44115" name="Applyyay Olorcay 5"/>
+					<Item id="44130" name="Owshay Onnay-Intingpray Aracterschay"/>
+					<Item id="44131" name="Owshay Ontrolcay Aracterschhay &amp;&amp; Unicodeyay EOL"/>
+					<Item id="44032" name="O&amp;ggletay Ullfay Eenscray Odemay"/>
+					<Item id="44033" name="Estore&amp;ray Efaultday Oomzay"/>
+					<Item id="44034" name="Alwaysyay onyay Op&amp;tay"/>
+					<Item id="44035" name="Y&amp;nchronisesay Erticalvay Ollingscray"/>
+					<Item id="44036" name="Yn&amp;chronisesay Orizontalhay Ollingscray"/>
 					<Item id="44041" name="Owshay Apwray Ymbolsay"/>
-					<Item id="44072" name="Ocusfay onyay Anotheryay Iewvay"/>
-					<Item id="44081" name="Ojectpray Anelpay 1"/>
-					<Item id="44082" name="Ojectpray Anelpay 2"/>
-					<Item id="44083" name="Ojectpray Anelpay 3"/>
+					<Item id="44072" name="Ocusfay onyay &amp;Anotheryay Iewvay"/>
+					<Item id="44081" name="Ojectpray Anelpay &amp;1"/>
+					<Item id="44082" name="Ojectpray Anelpay &amp;2"/>
+					<Item id="44083" name="Ojectpray Anelpay &amp;3"/>
 					<Item id="45001" name="Indowsway (CR LF)"/>
 					<Item id="45002" name="Unixyay (LF)"/>
 					<Item id="45003" name="Acintoshmay (CR)"/>
-					<Item id="45004" name="Encodeyay inyay ANSI"/>
-					<Item id="45005" name="Encodeyay inyay UTFYAY-8"/>
-					<Item id="45006" name="Encodeyay inyay UCSYAY-2 BE BOM"/>
-					<Item id="45007" name="Encodeyay inyay UCSYAY-2 LE BOM"/>
-					<Item id="45008" name="Encodeyay inyay UTFYAY-8"/>
+					<Item id="45004" name="ANSI"/>
+					<Item id="45005" name="UTF-8"/>
+					<Item id="45006" name="UCS-2 BE BOM"/>
+					<Item id="45007" name="UCS-2 LE BOM"/>
+					<Item id="45008" name="UTF-8"/>
 					<Item id="45009" name="Onvertcay otay ANSI"/>
 					<Item id="45010" name="Onvertcay otay UTFYAY-8"/>
 					<Item id="45011" name="Onvertcay otay UTFYAY-8"/>
 					<Item id="45012" name="Onvertcay otay UCSYAY-2 BE BOM"/>
 					<Item id="45013" name="Onvertcay otay UCSYAY-2 LE BOM"/>
+					<Item id="45060" name="Big5 (Traditional)"/>
+					<Item id="45061" name="GB2312 (Simplified)"/>
+					<Item id="45054" name="OEM 861: Icelandicyay"/>
+					<Item id="45057" name="OEM 865: Ordicnay"/>
+					<Item id="45053" name="OEM 860: Ortuguesepay"/>
+					<Item id="45056" name="OEM 863: Enchfray"/>
 					<Item id="10001" name="Ovemay otay Otheryay Iewvay"/>
 					<Item id="10002" name="Oneclay otay Otheryay Iewvay"/>
 					<Item id="10003" name="Ovemay otay Ewnay Instanceyay"/>
 					<Item id="10004" name="Openyay inyay Ewnay Instanceyay"/>
+					<Item id="10005" name="Ovemay otay Artstay"/>
+					<Item id="10006" name="Ovemay otay Endyay"/>
 					<Item id="46001" name="Ylestay Onfiguratorcay..."/>
+					<Item id="46016" name="Onenay (Ormalnat Exttay)"/>
 					<Item id="46250" name="Efineday youryay anguagelay..."/>
+					<Item id="46300" name="Openyay Useryay Efinedday Anguagelay olderfay..."/>
+					<Item id="46301" name="Notepad++ Useryay Efinedday Anguageslay Ollectioncay"/>
 					<Item id="46180" name="Useryay-Efinedday"/>
 					<Item id="47000" name="Aboutyay Notepad++"/>
 					<Item id="47010" name="Ommandcay Inelay Argumentsyay..."/>
@@ -291,6 +381,7 @@
 					<Item id="48018" name="Edityay Opuppay Ontextmenucay"/>
 					<Item id="48009" name="Ortcutshay Appermay..."/>
 					<Item id="48011" name="Eferencespray..."/>
+					<Item id="48014" name="Openyay Uginsplay Olderfay..."/>
 					<Item id="48015" name="Uginsplay Adminyay..."/>
 					<Item id="48501" name="Enerategay..."/>
 					<Item id="48502" name="Enerategay omfray ilesfay..."/>
@@ -298,47 +389,95 @@
 					<Item id="48504" name="Enerategay..."/>
 					<Item id="48505" name="Enerategay omfray ilesfay..."/>
 					<Item id="48506" name="Enerategay omfray electionsay intoyay ipboardclay"/>
+					<Item id="48507" name="Enerategay..."/>
+					<Item id="48508" name="Enerategay omfray ilesfay..."/>
+					<Item id="48509" name="Enerategay omfray electionsay intoyay ipboardclay"/>
+					<Item id="48510" name="Enerategay..."/>
+					<Item id="48511" name="Enerategay omfray ilesfay..."/>
+					<Item id="48512" name="Enerategay omfray electionsay intoyay ipboardclay"/>
 					<Item id="49000" name="Un&amp;ray..."/>
+					<Item id="49001" name="Alidatevay shortcuts.xml"/>
+
 					<Item id="50000" name="Unctionfay Ompletioncay"/>
 					<Item id="50001" name="Ordway Ompletioncay"/>
 					<Item id="50002" name="Unctionfay Arameterspay Inthay"/>
+					<Item id="50010" name="Unctionfay Arameterspay Eviouspray Inthay"/>
+					<Item id="50011" name="Unctionfay Arameterspay Extnay Inthay"/>
+					<Item id="50005" name="Oggletay Acromay ecordray"/>
 					<Item id="50006" name="Athpay Ompletioncay"/>
-					<Item id="44042" name="Idehay Ineslay"/>
+					<Item id="44042" name="Ide&amp;hay Ineslay"/>
 					<Item id="42040" name="Openyay Allyay Ecentray Ilesfay"/>
 					<Item id="42041" name="Emptyyay Ecentray Ilesfay Istlay"/>
 					<Item id="48016" name="Odifymay Ortcutshay/Eleteday Acromay..."/>
 					<Item id="48017" name="Odifymay Ortcutshay/Eleteday Ommandcay..."/>
+
+					<Item id="11001" name="Indows&amp;way..."/>
+					<Item id="11002" name="Amenay A otay Z"/>
+					<Item id="11003" name="Amenay Z otay A"/>
+					<Item id="11004" name="Athpay A otay Z"/>
+					<Item id="11005" name="Athpay Z otay A"/>
+					<Item id="11006" name="Ypetay A otay Z"/>
+					<Item id="11007" name="Ypetay Z otay A"/>
+					<Item id="11008" name="Ontentcay Engthlay Ascendingyay"/>
+					<Item id="11009" name="Ontentcay Engthlay Escendingday"/>
+					<Item id="11010" name="Odifiedmay Imetay Ascendingyay"/>
+					<Item id="11011" name="Odifiedmay Imetay Escendingday"/>
 				</Commands>
 			</Main>
-			<Splitter/>
 			<TabBar>
-				<Item CMID="0" name="Oseclay"/>
-				<Item CMID="1" name="Oseclay Allyay UTBAY Isthay"/>
-				<Item CMID="2" name="Avesay"/>
-				<Item CMID="3" name="Avesay Asyay..."/>
-				<Item CMID="4" name="Intpray"/>
-				<Item CMID="5" name="Ovemay otay Otheryay Iewvay"/>
-				<Item CMID="6" name="Oneclay otay Otheryay Iewvay"/>
-				<Item CMID="7" name="Ullfay Ilefay Athpay otay Ipboardclay"/>
-				<Item CMID="8" name="Ilenamefay otay Ipboardclay"/>
-				<Item CMID="9" name="Urrentcay Irday. Athpay otay Ipboardclay"/>
-				<Item CMID="10" name="Enameray"/>
-				<Item CMID="11" name="Ovemay otay Ecycleray Bin"/>
-				<Item CMID="12" name="Eadray-Onlyyay"/>
-				<Item CMID="13" name="Earclay Eadray-Onlyyay Agflay"/>
-				<Item CMID="14" name="Ovemay otay Ewnay Instanceyay"/>
-				<Item CMID="15" name="Openyay inyay Ewnay Instanceyay"/>
-				<Item CMID="16" name="Eloadray"/>
-				<Item CMID="17" name="Oseclay Allyay otay ethay Eftlay"/>
-				<Item CMID="18" name="Oseclay Allyay otay ethay Ightray"/>
-				<Item CMID="19" name="Openyay Ontainingcay Olderfay inyay Exploreryay"/>
-				<Item CMID="20" name="Openyay Ontainingcay Olderfay inyay cmd"/>
-				<Item CMID="21" name="Openyay inyay Efaultday Iewervay"/>
+				<Item CMDID="41003" name="Oseclay"/>
+				<Item CMDID="0" name="Oseclay Multiple Tabs"/>
+				<Item CMDID="41005" name="Oseclay Allyay UTBAY Isthay"/>
+				<Item CMDID="41026" name="Oseclay Allyay UTBAY Innedpay"/>
+				<Item CMDID="41009" name="Oseclay Allyay otay ethay Eftlay"/>
+				<Item CMDID="41018" name="Oseclay Allyay otay ethay Ightray"/>
+				<Item CMDID="41024" name="Oseclay Allyay Unchanged"/>
+				<Item CMDID="44048" name="Inpay Abtay" alternativeName="Unpinyay Abtay"/>
+				<Item CMDID="41006" name="Avesay"/>
+				<Item CMDID="41008" name="Avesay Asyay..."/>
+				<Item CMDID="1" name="Openyay intoyay"/>
+				<Item CMDID="41019" name="Openyay Ontainingcay Olderfay inyay Exploreryay"/>
+				<Item CMDID="41020" name="Openyay Ontainingcay Olderfay inyay cmd"/>
+				<Item CMDID="41027" name="Openyay Ontainingcay Olderfay inyay OwerpayEllshay"/>
+				<Item CMDID="41025" name="Openyay Ontainingcay Olderfay asyay Orkspaceway"/>
+				<Item CMDID="41023" name="Openyay inyay Efaultday Iewervay"/>
+				<Item CMDID="41017" name="Enameray..."/>
+				<Item CMDID="41016" name="Ovemay otay Ecycleray Inbay"/>
+				<Item CMDID="41014" name="Eloadray"/>
+				<Item CMDID="41010" name="Intpray..."/>
+				<Item CMDID="42028" name="Eadray-Onlyyay inyay Notepa++"/>
+				<Item CMDID="42033" name="Eadray-Onlyyay Attributeyay inyay Indowsway"/>
+				<Item CMDID="2" name="Opycay otay Ipboardclay"/>
+				<Item CMDID="42029" name="Opycay Ullfay Ilefay Athpay"/>
+				<Item CMDID="42030" name="Opycay Ilenamefay"/>
+				<Item CMDID="42031" name="Opycay Urrentcay Irday. Athpay"/>
+				<Item CMDID="3" name="Ovemay Ocumentday"/>
+				<Item CMDID="10005" name="Ovemay otay Artstay"/>
+				<Item CMDID="10006" name="Ovemay otay Endyay"/>
+				<Item CMDID="10001" name="Ovemay otay Otheryay Iewvay"/>
+				<Item CMDID="10002" name="Oneclay otay Otheryay Iewvay"/>
+				<Item CMDID="10003" name="Ovemay otay Ewnay Instanceyay"/>
+				<Item CMDID="10004" name="Openyay inyay Ewnay Instanceyay"/>
+				<Item CMDID="4" name="Applyyay Olorcay otay Tab"/>
+				<Item CMDID="44111" name="Applyyay Olorcay 1"/>
+				<Item CMDID="44112" name="Applyyay Olorcay 2"/>
+				<Item CMDID="44113" name="Applyyay Olorcay 3"/>
+				<Item CMDID="44114" name="Applyyay Olorcay 4"/>
+				<Item CMDID="44115" name="Applyyay Olorcay 5"/>
+				<Item CMDID="44110" name="Emoveray Olorcay"/>
 			</TabBar>
+			<TrayIcon>
+				<Item id="43101" name="Activateyay"/>
+				<Item id="43102" name="Ewnay"/>
+				<Item id="43103" name="Ewnay andyay Astepay"/>
+				<Item id="43104" name="Openyay..."/>
+				<Item id="43013" name="Indfay inyay Ilesfay..."/>
+				<Item id="43105" name="Oseclay Aytray Iconyay"/>
+			</TrayIcon>
 		</Menu>
 
 		<Dialog>
-			<Find title="" titleFind="Find" titleReplace="Replace" titleFindInFiles="Find in Files" titleMark="Mark">
+			<Find title="" titleFind="Indfay" titleReplace="Eplaceray" titleFindInFiles="Indfay inyay Ilesfay" titleMark="Arkmay">
 				<Item id="1" name="Indfay Extnay"/>
 				<Item id="1722" name="Ackwardbay irectionday"/>
 				<Item id="2" name="Oseclay"/>
@@ -369,32 +508,31 @@
 				<Item id="1625" name="Ormal&amp;nay"/>
 				<Item id="1626" name="E&amp;xtendedyay (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="Eplace&amp;ray inyay Ilesfay"/>
+				<Item id="1665" name="Eplaceray inyay Ojectspray"/>
+				<Item id="1662" name="Ojectpray Anelpay 1"/>
+				<Item id="1663" name="Ojectpray Anelpay 2"/>
+				<Item id="1664" name="Ojectpray Anelpay 3"/>
 				<Item id="1641" name="Indfay Allyay inyay Urrentcay Ocumentday"/>
 				<Item id="1686" name="Ansparenc&amp;ytray"/>
 				<Item id="1703" name="&amp;. atchesmay ewlinenay"/>
-				<Item id="2" name="Oseclay"/>
-				<Item id="2901" name="Onnay-ASCII Aracterschay (128-255)"/>
-				<Item id="2902" name="ASCII Aracterschay (0-127)"/>
-				<Item id="2903" name="Ymay angeray:"/>
-				<Item id="2906" name="&amp;Upyay"/>
-				<Item id="2907" name="Own&amp;day"/>
-				<Item id="2908" name="Irectionday"/>
-				<Item id="2909" name="A&amp;pwray aroundyay"/>
-				<Item id="2910" name="Indfay"/>
-				<Item id="1" name="Indfay Allyay"/>
-				<Item id="2" name="Oseclay"/>
-				<Item id="1711" name="Ind&amp;fay atwhay :"/>
-				<Item id="1713" name="Earchsay onlyyay inyay oundfay ineslay"/>
-				<Item id="1714" name="Atchmay ole&amp;whay ordway onlyyay"/>
-				<Item id="1715" name="Atchmay ase&amp;cay"/>
-				<Item id="1716" name="Earchsay Odemay"/>
-				<Item id="1717" name="Ormal&amp;nay"/>
-				<Item id="1719" name="E&amp;gularray expressionyay"/>
-				<Item id="1718" name="E&amp;xtendedyay (\n, \r, \t, \0, \x...)"/>
-				<Item id="1720" name="&amp;. atchesmay ewlinenay"/>
+				<Item id="1721" name="▲"/>
+				<Item id="1723" name="▼ Indfay Extnay"/>
+				<Item id="1725" name="Opycay Arkedmay Exttay"/>
+				<Menu>
+					<Item id="1726" name="⇅ Apsway Indfay ithway Eplaceray"/>
+					<Item id="1727" name="⤵ Opycay omfray Indfay otay Eplaceray"/>
+					<Item id="1728" name="⤴ Opycay omfray Eplaceray otay Indfay"/>
+				</Menu>
 			</Find>
 
-			<FindCharsInRange>
+			<IncrementalFind title="">
+				<Item id="1681" name="Indfay:"/>
+				<Item id="1685" name="Atchmay ase&amp;cay"/>
+				<Item id="1690" name="Ighlight&amp;hay allyay"/>
+				<Item id="1691" name="&amp;Ountcay"/>
+			</IncrementalFind>
+
+			<FindCharsInRange title="Indfay Aracterschay inyay Angeray...">
 				<Item id="2" name="Oseclay"/>
 				<Item id="2901" name="Onnay-ASCII Aracterschay (128-255)"/>
 				<Item id="2902" name="ASCII Aracterschay (0-127)"/>
@@ -406,7 +544,7 @@
 				<Item id="2910" name="Indfay"/>
 			</FindCharsInRange>
 
-			<GoToLine>
+			<GoToLine title="Ogay otay...">
 				<Item id="2007" name="Ine&amp;lay"/>
 				<Item id="2008" name="&amp;Offsetyay"/>
 				<Item id="1" name="Ogay"/>
@@ -416,40 +554,78 @@
 				<Item id="2006" name="Youyay an'tcay ogay urtherfay anthay:"/>
 			</GoToLine>
 
-			<Run>
+			<Run title="Unray...">
 				<Item id="1903" name="Ethay Ogrampray otay Unray"/>
 				<Item id="1" name="Unray"/>
 				<Item id="2" name="Ancelcay"/>
 				<Item id="1904" name="Avesay..."/>
 			</Run>
 
-			<MD5FromFilesDlg>
-				<Item id="1922" name="Oosechay ilesfay otay enerategay MD5..."/>
-				<Item id="1924" name="Opycay otay Ipboardclay"/>
-				<Item id="2" name="Oseclay"/>
+			<MD5FromFilesDlg title="Enerategay MD5 igestday omfray ilesfay">
+				<Item id="1922" name="Oosechay ilesfay otay enerate&amp;gay MD5..."/>
+				<Item id="1924" name="Opy&amp;cay otay Ipboardclay"/>
+				<Item id="2" name="Ose&amp;clay"/>
 			</MD5FromFilesDlg>
 
-			<MD5FromTextDlg>
-				<Item id="1932" name="Eattray eachyay inelay asyay ayay eparatesay ingstray"/>
-				<Item id="1934" name="Opycay otay Ipboardclay"/>
-				<Item id="2" name="Oseclay"/>
+			<MD5FromTextDlg title="Enerategay MD5 igestday">
+				<Item id="1932" name="Eattray eachyay inelay asyay ayay eparate&amp;say ingstray"/>
+				<Item id="1934" name="O&amp;pycay otay Ipboardclay"/>
+				<Item id="2" name="Ose&amp;clay"/>
 			</MD5FromTextDlg>
 
-			<SHA256FromFilesDlg>
-				<Item id="1922" name="Oosechay ilesfay otay enerategay ASHAY-256..."/>
-				<Item id="1924" name="Opycay otay Ipboardclay"/>
-				<Item id="2" name="Oseclay"/>
+			<SHA256FromFilesDlg title="Enerategay SHA-256 igestday omfray ilesfay">
+				<Item id="1922" name="Oosechay ilesfay otay enerate&amp;gay SHA-256..."/>
+				<Item id="1924" name="O&amp;pycay otay Ipboardclay"/>
+				<Item id="2" name="Ose&amp;clay"/>
 			</SHA256FromFilesDlg>
 
-			<SHA256FromTextDlg>
-				<Item id="1932" name="Eattray eachyay inelay asyay ayay eparatesay ingstray"/>
-				<Item id="1934" name="Opycay otay Ipboardclay"/>
-				<Item id="2" name="Oseclay"/>
+			<SHA256FromTextDlg title="Enerategay SHA-256 igestday">
+				<Item id="1932" name="Eattray eachyay inelay asyay ayay eparate&amp;say ingstray"/>
+				<Item id="1934" name="O&amp;pycay otay Ipboardclay"/>
+				<Item id="2" name="Ose&amp;clay"/>
 			</SHA256FromTextDlg>
 
-			<StyleConfig>
+			<SHA1FromFilesDlg title="Enerategay SHA-1 igestday omfray ilesfay">
+				<Item id="1922" name="Oosechay ilesfay otay enerate&amp;gay SHA-256..."/>
+				<Item id="1924" name="O&amp;pycay otay Ipboardclay"/>
+				<Item id="2" name="Ose&amp;clay"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="Enerategay SHA-1 igestday">
+				<Item id="1932" name="Eattray eachyay inelay asyay ayay eparate&amp;say ingstray"/>
+				<Item id="1934" name="O&amp;pycay otay Ipboardclay"/>
+				<Item id="2" name="Ose&amp;clay"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="Enerategay SHA-512 igestday omfray ilesfay">
+				<Item id="1922" name="Oosechay ilesfay otay enerate&amp;gay SHA-256..."/>
+				<Item id="1924" name="O&amp;pycay otay Ipboardclay"/>
+				<Item id="2" name="Ose&amp;clay"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="Enerategay SHA-512 igestday">
+				<Item id="1932" name="Eattray eachyay inelay asyay ayay eparate&amp;say ingstray"/>
+				<Item id="1934" name="O&amp;pycay otay Ipboardclay"/>
+				<Item id="2" name="Ose&amp;clay"/>
+			</SHA512FromTextDlg>
+			<PluginsAdminDlg title="Uginsplay Adminyay" titleAvailable="Availableyay" titleUpdates="Updatesyay" titleInstalled="Installedyay" titleIncompatible="Incompatibleyay" titleDisabled="Eactivatedday">
+				<ColumnPlugin name="Uginplay"/>
+				<ColumnVersion name="Ersionvay"/>
+				<Item id="5501" name="Earch&amp;say:"/>
+				<Item id="5503" name="&amp;Installyay"/>
+				<Item id="5504" name="&amp;Updateyay"/>
+				<Item id="5505" name="emove&amp;ray"/>
+				<Item id="5508" name="Ext&amp;nay"/>
+				<Item id="5509" name="Uginplay istlay ersionvay:"/>
+				<Item id="5511" name="Uginplay istlay epositoryray"/>
+				<Item id="5512" name="&amp;Eactivateday"/>
+				<Item id="5513" name="&amp;Activateyay"/>
+				<Item id="2" name="Close"/>
+			</PluginsAdminDlg>
+
+			<StyleConfig title="Ylestay Onfiguratorcay">
 				<Item id="2" name="Ancelcay"/>
-				<Item id="2301" name="Avesay - Oseclay"/>
+				<Item id="2301" name="Avesay &amp;&amp; Oseclay"/>
 				<Item id="2303" name="Ansparencytray"/>
 				<Item id="2306" name="Electsay emethay: "/>
 				<SubDialog>
@@ -475,10 +651,17 @@
 					<Item id="2230" name="Enableyay obalglay oldbay ontfay ylestay"/>
 					<Item id="2231" name="Enableyay obalglay italicyay ontfay ylestay"/>
 					<Item id="2232" name="Enableyay obalglay underlineyay ontfay ylestay"/>
+					<Item id="2234" name="Ogay otay ettingssay"/>
+					<!-- Don't translate "Global override" -->
+					<Item id="2235" name="Atwhay isyay Global override?"/>
 				</SubDialog>
 			</StyleConfig>
 
-			<ShortcutMapper>
+			<ColorPopup>
+				<Item id="1" name="Oremay Olorscay..."/>
+			</ColorPopup>
+
+			<ShortcutMapper title="Ortcutshay Appermay">
 				<Item id="2602" name="Odifymay"/>
 				<Item id="2603" name="Eleteday"/>
 				<Item id="2606" name="Earclay"/>
@@ -491,11 +674,111 @@
 				<MainMenuTab name="Ainmay enumay"/>
 				<MacrosTab name="Acrosmay"/>
 				<RunCommandsTab name="Unray ommandscay"/>
+				<PluginCommandsTab name="Uginplay ommandscay"/>
 				<ScintillaCommandsTab name="Intillascay ommandscay"/>
 				<ConflictInfoOk name="Onay ortcutshay onflictscay orfay isthay itemyay."/>
 				<ConflictInfoEditing name="Onay onflictscay . . ."/>
+				<AboutCategory name="Aboutyay"/>
+				<ModifyContextMenu name="Odifymay"/>
+				<DeleteContextMenu name="Eleteday"/>
+				<ClearContextMenu name="Earclay"/>
+				<MainCommandNames>
+					<Item id="41019" name="Openyay Ontainingcay Olderfay inyay Exploreryay"/>
+					<Item id="41020" name="Openyay Ontainingcay Olderfay inyay cmd"/>
+					<Item id="41027" name="Openyay Ontainingcay Olderfay inyay OwerpayEllshay"/>
+					<Item id="41025" name="Openyay Ontainingcay Olderfay asyay Orkspaceway"/>
+					<Item id="41021" name="Estoreray Ecentray Osedclay Ilefay"/>
+					<Item id="45001" name="EOL Onversioncay otay Indowsway (CR LF)"/>
+					<Item id="45002" name="EOL Onversioncay otay Unixyay (LF)"/>
+					<Item id="45003" name="EOL Onversioncay otay Acintoshmay (CR)"/>
+					<Item id="43022" name="Ylestay allyay usingyay 1st ylestay"/>
+					<Item id="43024" name="Ylestay allyay usingyay 2nd ylestay"/>
+					<Item id="43026" name="Ylestay allyay usingyay 3rd ylestay"/>
+					<Item id="43028" name="Ylestay allyay usingyay 4th ylestay"/>
+					<Item id="43030" name="Ylestay allyay usingyay 5th ylestay"/>
+					<Item id="43062" name="Ylestay oneyay usingyay 1st ylestay"/>
+					<Item id="43063" name="Ylestay oneyay usingyay 2nd ylestay"/>
+					<Item id="43064" name="Ylestay oneyay usingyay 3rd ylestay"/>
+					<Item id="43065" name="Ylestay oneyay usingyay 4th ylestay"/>
+					<Item id="43066" name="Ylestay oneyay usingyay 5th ylestay"/>
+					<Item id="43023" name="Earclay 1st ylestay"/>
+					<Item id="43025" name="Earclay 2nd ylestay"/>
+					<Item id="43027" name="Earclay 3rd ylestay"/>
+					<Item id="43029" name="Earclay 4th ylestay"/>
+					<Item id="43031" name="Earclay 5th ylestay"/>
+					<Item id="43032" name="Earclay all ylesstay"/>
+					<Item id="43033" name="Eviouspray ylestay ofyay 1st ylestay"/>
+					<Item id="43034" name="Eviouspray ylestay ofyay 2nd ylestay"/>
+					<Item id="43035" name="Eviouspray ylestay ofyay 3rd ylestay"/>
+					<Item id="43036" name="Eviouspray ylestay ofyay 4th ylestay"/>
+					<Item id="43037" name="Eviouspray ylestay ofyay 5th ylestay"/>
+					<Item id="43038" name="Eviouspray ylestay ofyay Indfay Arkmay ylestay"/>
+					<Item id="43039" name="Extnay ylestay ofyay 1st ylestay"/>
+					<Item id="43040" name="Extnay ylestay ofyay 2nd ylestay"/>
+					<Item id="43041" name="Extnay ylestay ofyay 3rd ylestay"/>
+					<Item id="43042" name="Extnay ylestay ofyay 4th ylestay"/>
+					<Item id="43043" name="Extnay ylestay ofyay 5th ylestay"/>
+					<Item id="43044" name="Extnay ylestay ofyay Indfay Arkmay ylestay"/>
+					<Item id="43055" name="Opycay Yledstay Exttay ofyay 1st Ylestay"/>
+					<Item id="43056" name="Opycay Yledstay Exttay ofyay 2nd Ylestay"/>
+					<Item id="43057" name="Opycay Yledstay Exttay ofyay 3rd Ylestay"/>
+					<Item id="43058" name="Opycay Yledstay Exttay ofyay 4th Ylestay"/>
+					<Item id="43059" name="Opycay Yledstay Exttay ofyay 5th Ylestay"/>
+					<Item id="43060" name="Opycay Yledstay Exttay ofyay Allyay Ylesstay"/>
+					<Item id="43061" name="Opycay Yledstay Exttay ofyay Indfay Arkmay ylestay"/>
+					<Item id="44100" name="Iewvay urrentcay ilefay inyay &amp;Firefox"/>
+					<Item id="44101" name="Iewvay urrentcay ilefay inyay &amp;Chrome"/>
+					<Item id="44103" name="Iewvay urrentcay ilefay inyay &amp;IE"/>
+					<Item id="44102" name="Iewvay urrentcay ilefay inyay &amp;Edge"/>
+					<Item id="50003" name="Itchsway otay eviouspray ocumentday"/>
+					<Item id="50004" name="Itchsway otay extnay ocumentday"/>
+					<Item id="44051" name="Oldfay Evellay 1"/>
+					<Item id="44052" name="Oldfay Evellay 2"/>
+					<Item id="44053" name="Oldfay Evellay 3"/>
+					<Item id="44054" name="Oldfay Evellay 4"/>
+					<Item id="44055" name="Oldfay Evellay 5"/>
+					<Item id="44056" name="Oldfay Evellay 6"/>
+					<Item id="44057" name="Oldfay Evellay 7"/>
+					<Item id="44058" name="Oldfay Evellay 8"/>
+					<Item id="44061" name="Unfoldyay Evellay 1"/>
+					<Item id="44062" name="Unfoldyay Evellay 2"/>
+					<Item id="44063" name="Unfoldyay Evellay 3"/>
+					<Item id="44064" name="Unfoldyay Evellay 4"/>
+					<Item id="44065" name="Unfoldyay Evellay 5"/>
+					<Item id="44066" name="Unfoldyay Evellay 6"/>
+					<Item id="44067" name="Unfoldyay Evellay 7"/>
+					<Item id="44068" name="Unfoldyay Evellay 8"/>
+					<Item id="44081" name="Oggletay Ojectpray Anelpay 1"/>
+					<Item id="44082" name="Oggletay Ojectpray Anelpay 2"/>
+					<Item id="44083" name="Oggletay Ojectpray Anelpay 3"/>
+					<Item id="44085" name="Oggletay Olderfay asyay Orkspaceway"/>
+					<Item id="44080" name="Oggletay Ocumentday Apmay"/>
+					<Item id="44070" name="Oggletay Ocumentday Istlay"/>
+					<Item id="44084" name="Oggletay Unctionfay Istlay"/>
+					<Item id="50005" name="Oggletay macro recording"/>
+					<Item id="44104" name="Itchsway otay Ojectpray Anelpay 1"/>
+					<Item id="44105" name="Itchsway otay Ojectpray Anelpay 2"/>
+					<Item id="44106" name="Itchsway otay Ojectpray Anelpay 3"/>
+					<Item id="44107" name="Itchsway otay Olderfay asyay Orkspaceway"/>
+					<Item id="44109" name="Itchsway otay Ocumentday Istlay"/>
+					<Item id="44108" name="Itchsway otay Unctionfay Istlay"/>
+					<Item id="44110" name="Emoveray Abtay Olorcay"/>
+					<Item id="44111" name="Applyyay Abtay Olorcay 1"/>
+					<Item id="44112" name="Applyyay Abtay Olorcay 2"/>
+					<Item id="44113" name="Applyyay Abtay Olorcay 3"/>
+					<Item id="44114" name="Applyyay Abtay Olorcay 4"/>
+					<Item id="44115" name="Applyyay Abtay Olorcay 5"/>
+					<Item id="11002" name="Ortsay ybay Amenay A otay Z"/>
+					<Item id="11003" name="Ortsay ybay Amenay Z otay A"/>
+					<Item id="11004" name="Ortsay ybay Athpay A otay Z"/>
+					<Item id="11005" name="Ortsay ybay Athpay Z otay A"/>
+					<Item id="11006" name="Ortsay ybay Ypetay A otay Z"/>
+					<Item id="11007" name="Ortsay ybay Ypetay Z otay A"/>
+					<Item id="11008" name="Ortsay ybay Ontentcay Engthlay Ascendingyay"/>
+					<Item id="11009" name="Ortsay ybay Ontentcay Engthlay Escendingday"/>
+				</MainCommandNames>
 			</ShortcutMapper>
-			<ShortcutMapperSubDialg>
+			<ShortcutMapperSubDialg title="Ortcutshay">
 				<Item id="1" name="OKYAY"/>
 				<Item id="2" name="Ancelcay"/>
 				<Item id="5006" name="Amenay"/>
@@ -505,7 +788,7 @@
 				<Item id="5007" name="Isthay illway emoveray ortcutshay omfray isthay ommandcay"/>
 				<Item id="5012" name="ONFLICTCAY OUNDFAY!"/>
 			</ShortcutMapperSubDialg>
-			<UserDefine>
+			<UserDefine title="Useryay-Efinedday">
 				<Item id="20001" name="Ockday"/>
 				<Item id="20002" name="Enameray"/>
 				<Item id="20003" name="Eatecray Ewnay..."/>
@@ -517,6 +800,7 @@
 				<Item id="20011" name="Ansparencytray"/>
 				<Item id="20015" name="Importyay..."/>
 				<Item id="20016" name="Exportyay..."/>
+				<Item id="20017" name="Undockyay"/>
 				<StylerDialog>
 					<Item id="25030" name="Ontfay optionsyay:"/>
 					<Item id="25006" name="Oregroundfay olourcay"/>
@@ -548,10 +832,12 @@
 					<Item id="25026" name="Operatoryay 1"/>
 					<Item id="25027" name="Operatoryay 2"/>
 					<Item id="25028" name="Umbersnay"/>
+					<Item id="25033" name="Ansparenttray"/>
+					<Item id="25034" name="Ansparenttray"/>
 					<Item id="1" name="OKYAY"/>
 					<Item id="2" name="Ancelcay"/>
 				</StylerDialog>
-				<Folder>
+				<Folder title="Olderfay &amp;&amp; Efaultday">
 					<Item id="21101" name="Efaultday ylestay"/>
 					<Item id="21102" name="Ylerstay"/>
 					<Item id="21105" name="Ocumentationday:"/>
@@ -573,7 +859,7 @@
 					<Item id="21426" name="Oseclay:"/>
 					<Item id="21427" name="Ylerstay"/>
 				</Folder>
-				<Keywords>
+				<Keywords title="Eywordskay Istslay">
 					<Item id="22101" name="1st Oupgray"/>
 					<Item id="22201" name="2nd Oupgray"/>
 					<Item id="22301" name="3rd Oupgray"/>
@@ -599,7 +885,7 @@
 					<Item id="22572" name="Ylerstay"/>
 					<Item id="22622" name="Ylerstay"/>
 				</Keywords>
-				<Comment>
+				<Comment title="Ommentcay &amp;&amp; Umbernay">
 					<Item id="23003" name="Inelay ommentcay ositionpay"/>
 					<Item id="23004" name="Allowyay anywhereyay"/>
 					<Item id="23005" name="Orcefay atyay eginningbay ofyay inelay"/>
@@ -628,7 +914,7 @@
 					<Item id="23246" name="Ommacay"/>
 					<Item id="23247" name="Othbay"/>
 				</Comment>
-				<Operator>
+				<Operator title="Operatorsyay &amp;&amp; Elimiterday">
 					<Item id="24101" name="Operatorsyay ylestay"/>
 					<Item id="24113" name="Ylerstay"/>
 					<Item id="24116" name="Operatorsyay 1"/>
@@ -675,103 +961,218 @@
 					<Item id="24673" name="Ylerstay"/>
 				</Operator>
 			</UserDefine>
-			<Preference title="Preferences">
+			<Preference title="Eferencesprayy">
 				<Item id="6001" name="Oseclay"/>
-				<Global title="General">
+				<Global title="Eneralgay">
+					<Item id="6123" name="Ocalizationlay"/>
+					<Item id="6131" name="Enumay"/>
+					<Item id="6122" name="Idehay (useyay Alt oryay F10 eykay otay oggletay)"/>
+					<Item id="6132" name="Idehay ightray ortcutsshay ＋ ▼ ✕"/>
+					<Item id="6133" name="Atusstay Arbay"/>
+					<Item id="6134" name="Idehay"/>
+					<Item id="7165" name="Ialogday Ontfay Izesay (Eednay otay estartray Notepad++)"/>
+				</Global>
+
+				<Toolbar title="Oolbartay">
 					<Item id="6102" name="Idehay"/>
-					<Item id="6103" name="Allsmay iconsyay"/>
-					<Item id="6104" name="Igbay iconsyay"/>
-					<Item id="6105" name="Andardstay iconsyay"/>
+					<Item id="6103" name="Uentflay UI: allsmay"/>
+					<Item id="6104" name="Uentflay UI: argelay"/>
+					<Item id="6129" name="Illedfay Uentflay UI: allsmay"/>
+					<Item id="6130" name="Illedfay Uentflay UI: argelay"/>
+					<Item id="6105" name="Andardstay iconsyay: allsmay"/>
+					<Item id="6011" name="Olorizationcay"/>
+					<Item id="6012" name="Ompletecay"/>
+					<Item id="6013" name="Artialpay"/>
+					<Item id="6014" name="Olorcay Oicechay"/>
+					<Item id="6015" name="Efaultday"/>
+					<Item id="6016" name="Edray"/>
+					<Item id="6017" name="Eengray"/>
+					<Item id="6018" name="Ueblay"/>
+					<Item id="6019" name="Urplepay"/>
+					<Item id="6020" name="Yancay"/>
+					<Item id="6021" name="Oliveyay"/>
+					<Item id="6022" name="Yellowyay"/>
+					<Item id="6023" name="Ystemsay Accentyay"/>
+					<Item id="6024" name="Ustomcay"/>
+				</Toolbar>
+
+				<Tabbar title="Abtay Arbay">
 					<Item id="6107" name="Educeray"/>
 					<Item id="6108" name="Ocklay (onay agdray andyay opdray)"/>
 					<Item id="6109" name="Arkenday inactiveyay abstay"/>
 					<Item id="6110" name="Awdray ayay olouredcay arbay onyay activeyay abtay"/>
-					<Item id="6112" name="Owshay oseclay uttonbay onyay eachyay abtay"/>
+					<Item id="6111" name="Owshay uttonsbay onyay inactiveyay abstay"/>
+					<Item id="6112" name="Owshay oseclay uttonbay"/>
 					<Item id="6113" name="Oubleday ickclay otay oseclay ocumentday"/>
+					<Item id="6115" name="Enableyay inpay abtay eaturefay"/>
+					<Item id="6135" name="Owshay onlyyay innedpay uttonbay"/>
 					<Item id="6118" name="Idehay"/>
 					<Item id="6119" name="Ultimay-inelay"/>
 					<Item id="6120" name="Erticalvay"/>
 					<Item id="6121" name="Exityay onyay oseclay ethay astlay abtay"/>
-					<Item id="6122" name="Idehay enumay arbay (useyay Alt oryay F10 eykay otay oggletay)"/>
-					<Item id="6123" name="Ocalizationlay"/>
-					<Item id="6125" name="Ocumentday Istlay Anelpay"/>
-					<Item id="6126" name="Owshay"/>
-					<Item id="6127" name="Isableday extensionyay olumncay"/>
-				</Global>
-				<Scintillas title="Editing">
+					<Item id="6128" name="Alternateyay iconsyay"/>
+					<Item id="6125" name="Ehaviorbay"/>
+					<Item id="6126" name="Ooklay &amp;&amp; eelfay"/>
+					<Item id="6136" name="Asmay. abtay abellay engthlay:"/>
+				</Tabbar>
+
+				<Scintillas title="Editingyay 1">
 					<Item id="6216" name="Aretcay Ettingssay"/>
 					<Item id="6217" name="Idthway :"/>
 					<Item id="6219" name="Inkblay ateray :"/>
 					<Item id="6221" name="F"/>
 					<Item id="6222" name="S"/>
-					<Item id="6224" name="Ultimay-Editingyay Ettingssay"/>
-					<Item id="6201" name="Olderfay Arginmay Ylestay"/>
+					<Item id="6246" name="Akemay urrentcay evellay oldingfay/unfoldingyay ommandscay oggleabletay"/>
+					<Item id="6227" name="Inelay Apwray"/>
+					<Item id="6228" name="Efaultday"/>
+					<Item id="6229" name="Alignedyay"/>
+					<Item id="6230" name="Indentyay"/>
+					<Item id="6234" name="Isableday advancedyay ollingscray eaturefay (ifyay youyay avehay ouchpadtay oblempray)"/>
+					<Item id="6215" name="Enableyay oothsmay ontfay"/>
+					<Item id="6236" name="Enableyay ollingscray eyondbay astlay inelay"/>
+					<Item id="6239" name="Eepkay electionsay enwhay ightray-ickclay outsideyay ofyay electionsay"/>
+					<Item id="6245" name="Enableyay irtualvay acespay"/>
+					<Item id="6214" name="Enableyay urrentcay inelay ighlightinghay"/>
+					<Item id="6266" name="Isableday electedsay exttay ragday-andyay-opdray"/>
+					<Item id="6225" name="Applyyay ustomcay olorcay otay electedsay exttay oregroundfay"/>
+					<Item id="6651" name="Urrentcay Inelay Indicatoryay"/>
+					<Item id="6652" name="Onenay"/>
+					<Item id="6653" name="Ighlighthay Ackgroundbay"/>
+					<Item id="6654" name="Amefray"/>
+					<Item id="6655" name="Idthway:"/>
+				</Scintillas>
+
+				<Scintillas2 title="Editingyay 2">
+					<Item id="6521" name="Ultimay-Editingyay"/>
+					<Item id="6522" name="Enableyay Ultimay-Editingyay (Ctrl+Mouse click/selection)"/>
+					<Item id="6523" name="Enableyay Olumncay Electionsay otay Ultimay-Editingyay"/>
+					<Item id="6247" name="EOL (CRLF)"/><!-- Don't translate "(CRLF)" -->
+					<Item id="6248" name="Efaultday"/>
+					<Item id="6249" name="Ainplay Exttay"/>
+					<Item id="6250" name="Ustomcay Olorcay"/>
+					<Item id="6252" name="Onnay-Intingpray Aracterschay"/>
+					<Item id="6260" name="Appearanceyay"/>
+					<Item id="6254" name="Abbreviationyay"/>
+					<Item id="6255" name="Odepointcay"/>
+					<Item id="6256" name="Ustomcay Olorcay"/>
+					<Item id="6258" name="Applyyay Appearanceyay ettingssay otay C0, C1 &amp;&amp; Unicodeyay EOL"/>
+					<Item id="6259" name="Eventpray ontrolcay aracterchay (C0 odecay) ypingtay intoyay ocumentday"/>
+				</Scintillas2>
+
+				<DarkMode title="Arkday Odemay">
+					<Item id="7131" name="Ightlay odemay"/>
+					<Item id="7132" name="Arkday Odemay"/>
+					<Item id="7133" name="Ollowfay Indowsway"/>
+					<Item id="7102" name="Ackblay"/>
+					<Item id="7103" name="Edray"/>
+					<Item id="7104" name="Eengray"/>
+					<Item id="7105" name="Ueblay"/>
+					<Item id="7107" name="Urplepay"/>
+					<Item id="7108" name="Yancay"/>
+					<Item id="7109" name="Oliveyay"/>
+					<Item id="7115" name="Ustomizedcay"/>
+					<Item id="7116" name="Ontentcay ackgroundbay"/>
+					<Item id="7117" name="Othay acktray itemyay"/>
+					<Item id="7118" name="Ontrolcay ackgroundbay"/>
+					<Item id="7119" name="Ialogday ackgroundbay"/>
+					<Item id="7120" name="Erroryay"/>
+					<Item id="7121" name="Exttay"/>
+					<Item id="7122" name="Arkerday exttay"/>
+					<Item id="7123" name="Isabledday exttay"/>
+					<Item id="7124" name="Edgeyay"/>
+					<Item id="7125" name="Inklay"/>
+					<Item id="7126" name="Edgeyay ighlighthay"/>
+					<Item id="7127" name="Edgeyay isabledday"/>
+					<Item id="7130" name="Esetray"/>
+					<Item id="7135" name="Onestay"/>
+				</DarkMode>
+
+				<MarginsBorderEdge title="Arginsmay/Orderbay/Edgeyay">
+					<Item id="6201" name="Oldfay Arginmay ylestay"/>
 					<Item id="6202" name="Implesay"/>
 					<Item id="6203" name="Arrowyay"/>
 					<Item id="6204" name="Irclecay eetray"/>
 					<Item id="6205" name="Oxbay eetray"/>
 					<Item id="6226" name="Onenay"/>
-					<Item id="6227" name="Inelay Apwray"/>
-					<Item id="6228" name="Efaultday"/>
-					<Item id="6229" name="Alignedyay"/>
-					<Item id="6230" name="Indentyay"/>
-					<Item id="6206" name="Isplayday inelay umbernay"/>
+					<Item id="6291" name="Inelay Umbernay"/>
+					<Item id="6206" name="Isplayday"/>
+					<Item id="6292" name="Ynamicday idthway"/>
+					<Item id="6293" name="Onstantcay idthway"/>
 					<Item id="6207" name="Isplayday ookmarkbay"/>
-					<Item id="6208" name="Owshay erticalvay edgeyay"/>
-					<Item id="6209" name="Umbernay ofyay olumnscay :"/>
-					<Item id="6234" name="Isableday advancedyay ollingscray eaturefay (ifyay youyay avehay ouchpadtay oblempray)"/>
+					<Item id="6295" name="Angechay Istoryhay"/>
+					<Item id="6223" name="Owshay inyay ethay arginmay"/>
+					<Item id="6296" name="Owshay inyay ethay exttay"/>
 					<Item id="6211" name="Erticalvay Edgeyay Ettingssay"/>
-					<Item id="6212" name="Inelay odemay"/>
 					<Item id="6213" name="Ackgroundbay odemay"/>
-					<Item id="6214" name="Enableyay urrentcay inelay ighlightinghay"/>
-					<Item id="6215" name="Enableyay oothsmay ontfay"/>
 					<Item id="6231" name="Orderbay Idthway"/>
 					<Item id="6235" name="Onay edgeyay"/>
-					<Item id="6236" name="Enableyay ollingscray eyondbay astlay inelay"/>
-				</Scintillas>
+					<Item id="6208" name="Addingpay"/>
+					<Item id="6209" name="Eftlay"/>
+					<Item id="6210" name="Ightray"/>
+					<Item id="6212" name="Istractionday Eefray"/>
+				</MarginsBorderEdge>
 
-				<NewDoc title="New Document">
+				<NewDoc title="Ewnay Ocumentday">
 					<Item id="6401" name="Ormatfay (Inelay endingyay)"/>
 					<Item id="6402" name="Indowsway (CR LF)"/>
 					<Item id="6403" name="Unixyay (LF)"/>
 					<Item id="6404" name="Acintoshmay (CR)"/>
 					<Item id="6405" name="Encodingyay"/>
 					<Item id="6406" name="ANSI"/>
-					<Item id="6407" name="UTFYAY-8"/>
-					<Item id="6408" name="UTFYAY-8 ithway BOM"/>
-					<Item id="6409" name="UCSYAY-2 Igbay Endianyay ithway BOM"/>
-					<Item id="6410" name="UCSYAY-2 Ittlelay Endianyay ithway BOM"/>
-					<Item id="6411" name="Efaultday anguagelay :"/>
+					<Item id="6407" name="UTF-8"/>
+					<Item id="6408" name="UTF-8 ithway BOM"/>
+					<Item id="6409" name="UTF-2 Igbay Endianyay ithway BOM"/>
+					<Item id="6410" name="UTF-2 Ittlelay Endianyay ithway BOM"/>
+					<Item id="6411" name="Efaultday anguagelay:"/>
 					<Item id="6419" name="Ewnay Ocumentday"/>
 					<Item id="6420" name="Applyyay otay openedyay ANSI ilesfay"/>
+					<Item id="6432" name="Alwaysyay openya ayay ewnay ocumentday inyay additionyay atyay artupstay"/>
+					<Item id="6433" name="Useyay ethay irstfay inelay ofyay ocumentday asyay untitledyay abtay amenay"/>
 				</NewDoc>
 
-				<DefaultDir title="Default Directory">
+				<DefaultDir title="Efaultday Irectoryday">
 					<Item id="6413" name="Efaultday Irectoryday (Openyay/Avesay)"/>
 					<Item id="6414" name="Ollowfay urrentcay ocumentday"/>
 					<Item id="6415" name="Ememberray astlay usedyay irectoryday"/>
 					<Item id="6431" name="Openyay allyay ilesfay ofyay olderfay insteadyay ofyay aunchinglay Olderfay asyay Orkspaceway onyay olderfay oppingdray"/>
 				</DefaultDir>
 
-				<FileAssoc title="File Association">
+				<FileAssoc title="Ilefay Associationyay">
+					<Item id="4009" name="Easeplay exityay Notepad++ andyay elaunchray Notepad++ inyay Administratoryay odemay otay useyay isthay eaturefay."/>
 					<Item id="4009" name="Upportedsay extensionsyay:"/>
 					<Item id="4010" name="Egisteredray extensionsyay:"/>
 				</FileAssoc>
-				<Language title="Language">
+
+
+				<Language title="Anguagelay">
 					<Item id="6505" name="Availableyay itemsyay"/>
 					<Item id="6506" name="Isabledday itemsyay"/>
 					<Item id="6507" name="Akemay anguagelay enumay ompactcay"/>
 					<Item id="6508" name="Anguagelay Enumay"/>
-					<Item id="6301" name="Abtay Ettingssay"/>
-					<Item id="6302" name="Eplaceray ybay acespay"/>
-					<Item id="6303" name="Abtay izesay: "/>
-					<Item id="6510" name="Useyay efaultday aluevay"/>
 					<Item id="6335" name="Eattray ackslashbay asyay escapeyay aracterchay orfay SQL"/>
 				</Language>
 
-				<Highlighting title="Highlighting">
+				<Indentation title="Indentationyay">
+					<Item id="7161" name="Autoyay-indentyay"/>
+					<Item id="7162" name="Onenay"/>
+					<Item id="7163" name="Asicbay"/>
+					<Item id="7164" name="Advancedyay"/>
+					<Item id="6301" name="Indentyay Ettingssay"/>
+					<Item id="6302" name="Acespay aracter(s)chay"/>
+					<Item id="6303" name="Indentyay izesay:"/>
+					<Item id="6310" name="Indentyay usingyay:"/>
+					<Item id="6311" name="Abtay aracterchay"/>
+					<Item id="6510" name="Useyay efaultday aluevay"/>
+					<Item id="6512" name="Ackspacebay eykay unindentsyay insteadyay ofyay emovingray inglesay acespay"/>
+				</Indentation>
+
+				<Highlighting title="Ighlightinghay">
+					<Item id="6351" name="Ylestay Allyay Occurrencesyay ofyay Okentay"/>
+					<Item id="6352" name="Atchmay case"/>
+					<Item id="6353" name="Atchmay olewhay ordway onlyyay"/>
 					<Item id="6333" name="Artsmay Ighlightinghay"/>
 					<Item id="6326" name="Enableyay"/>
+					<Item id="6354" name="Atchingmay"/>
 					<Item id="6332" name="Atchmay asecay"/>
 					<Item id="6338" name="Atchmay olewhay ordway onlyyay"/>
 					<Item id="6339" name="Useyay Indfay ialogday ettingssay"/>
@@ -782,38 +1183,62 @@
 					<Item id="6330" name="Ighlighthay ommentcay/php onezay"/>
 				</Highlighting>
 
-				<Print title="Print">
-					<Item id="6601" name="Intpray inelay umbernay"/>
-					<Item id="6616" name="Intpray ormfeedfay asay agepay eakbray"/>
+				<Print title="Intpray">
+					<Item id="6601" name="Intpray inelay &amp;umbernay"/>
+					<Item id="6616" name="Intpray ormfeedfay a&amp;say agepay eakbray"/>
 					<Item id="6602" name="Olourcay Optionsyay"/>
-					<Item id="6603" name="WYSIWYG"/>
-					<Item id="6604" name="Invertyay"/>
-					<Item id="6605" name="Ackblay onyay itewhay"/>
-					<Item id="6606" name="Onay ackgroundbay olourcay"/>
+					<Item id="6603" name="W&amp;YSIWYG"/>
+					<Item id="6604" name="I&amp;nvertyay"/>
+					<Item id="6605" name="Ackblay onyay ite&amp;whay"/>
+					<Item id="6606" name="Onay ac&amp;kgroundbay olourcay"/>
 					<Item id="6607" name="Arginmay Ettingssay (Unitmmyay:)"/>
-					<Item id="6612" name="Eftlay"/>
-					<Item id="6613" name="Optay"/>
-					<Item id="6614" name="Ightray"/>
-					<Item id="6615" name="Ottombay"/>
-					<Item id="6706" name="Oldbay"/>
-					<Item id="6707" name="Italicyay"/>
+					<Item id="6612" name="Eft&amp;lay"/>
+					<Item id="6613" name="Op&amp;tay"/>
+					<Item id="6614" name="Ight&amp;ray"/>
+					<Item id="6615" name="Otto&amp;mbay"/>
+					<Item id="6706" name="Old&amp;bay"/>
+					<Item id="6707" name="&amp;Italicyay"/>
 					<Item id="6708" name="Eaderhay"/>
-					<Item id="6709" name="Eftlay artpay"/>
-					<Item id="6710" name="Iddlemay artpay"/>
-					<Item id="6711" name="Ightray artpay"/>
-					<Item id="6717" name="Oldbay"/>
-					<Item id="6718" name="Italicyay"/>
+					<Item id="6709" name="&amp;Eftlay artpay"/>
+					<Item id="6710" name="Iddle&amp;may artpay"/>
+					<Item id="6711" name="I&amp;ghtray artpay"/>
+					<Item id="6717" name="Ol&amp;dbay"/>
+					<Item id="6718" name="Itali&amp;cyay"/>
 					<Item id="6719" name="Ooterfay"/>
-					<Item id="6720" name="Eftlay artpay"/>
-					<Item id="6721" name="Iddlemay artpay"/>
-					<Item id="6722" name="Ightray artpay"/>
-					<Item id="6723" name="Addyay"/>
-					<Item id="6725" name="Ariablevay:"/>
+					<Item id="6720" name="E&amp;ftlay artpay"/>
+					<Item id="6721" name="Iddlemay art&amp;pay"/>
+					<Item id="6722" name="Ig&amp;htray artpay"/>
+					<Item id="6723" name="&amp;Addyay"/>
+					<ComboBox id="6724">
+						<Element name="Ullfay ilefay amenay athpay"/>
+						<Element name="Ilefay amenay"/>
+						<Element name="Ilefay irectoryday"/>
+						<Element name="Agepay"/>
+						<Element name="Ortshay ateday ormatfay"/>
+						<Element name="Onglay ateday ormatfay"/>
+						<Element name="Imetay"/>
+					</ComboBox>
+					<Item id="6725" name="Ariable&amp;vay:"/>
 					<Item id="6727" name="Erehay isplayday youryay ariablevay ettingssay"/>
 					<Item id="6728" name="Eaderhay andyay Ooterfay"/>
 				</Print>
 
-				<RecentFilesHistory title="Recent Files History">
+				<Searching title="Earchingsay">
+					<Item id="6902" name="Useyay onospacedmay ontfay inyay Indfay ialogday (Eednay otay estartray Notepad++)"/>
+					<Item id="6903" name="Indfay ialogday emainsray openyay afteryay earchsay atthay outputsyay otay esultsray indowway"/>
+					<Item id="6904" name="Onfirmcay Eplaceray Allyay inyay Allyay Openedyay Ocumentsday"/>
+					<Item id="6905" name="Eplaceray: On'tday ovemay otay ethay ollowingfay occurrenceyay"/>
+					<Item id="6906" name="Earchsay Esultray indowway: owshay onlyyay oneyay entryyay erpay oundfay inelay ifyay ossiblepay"/>
+					<Item id="6907" name="Enwhay Indfay Ialogday isyay Invokedyay"/>
+					<Item id="6908" name="Illfay Indfay Ieldfay ithway Electedsay Exttay"/>
+					<Item id="6909" name="Electsay Ordway Underyay Aretcay enwhay Othingnay Electedsay"/>
+					<Item id="6910" name="Inimummay Izesay orfay Autoyay-Eckingchay &quot;Inyay electionsay&quot;:"/>
+					<Item id="6913" name="Illfay Indfay inyay Ilesfay Irectoryday Ieldfay Asedbay Onyay Activeyay Ocumentday"/>
+					<Item id="6916" name=": Axmay Aracterschay otay Autoyay-Illfay Indfay Ieldfay omfray Electionsay"/>
+					<Item id="6917" name="Indfay inyay Ilesfay: Eferpray onyay‑iskday ilefay ontentcay overyay openyay uffersbay"/>
+				</Searching>
+
+				<RecentFilesHistory title="Ecentray Ilesfay Istoryhay">
 					<Item id="6304" name="Ecentray Ilesfay Istoryhay"/>
 					<Item id="6306" name="Axmay. umbernay ofyay entriesyay :"/>
 					<Item id="6305" name="On'tday eckchay atyay aunchlay imetay"/>
@@ -824,27 +1249,31 @@
 					<Item id="6427" name="Ustomizecay Aximummay Engthlay:"/>
 				</RecentFilesHistory>
 
-				<Backup title="Backup">
+				<Backup title="Ackupbay">
 					<Item id="6817" name="Essionsay apshotsnay andyay eriodicpay ackupbay"/>
 					<Item id="6818" name="Enableyay essionsay apshotsnay andyay eriodicpay ackupbay"/>
 					<Item id="6819" name="Ackupbay inyay everyyay"/>
 					<Item id="6821" name="econdssay"/>
 					<Item id="6822" name="Ackupbay athpay:"/>
 					<Item id="6309" name="Ememberray urrentcay essionsay orfay extnay aunchlay"/>
+					<Item id="6825" name="Ememberray inaccessibleyay ilesfay omfray astpay essionsay"/>
 					<Item id="6801" name="Ackupbay onyay avesay"/>
 					<Item id="6315" name="Onenay"/>
 					<Item id="6316" name="Implesay ackupbay"/>
 					<Item id="6317" name="Erbosevay ackupbay"/>
 					<Item id="6804" name="Ustomcay Ackupbay Irectoryday"/>
-					<Item id="6803" name="Irectoryday :"/>
+					<Item id="6803" name="Irectoryday:"/>
 				</Backup>
 
-				<AutoCompletion title="Auto-Completion">
+				<AutoCompletion title="Autoyay-Ompletioncay">
 					<Item id="6807" name="Autoyay-Ompletioncay"/>
 					<Item id="6808" name="Enableyay autoyay-ompletioncay onyay eachyay inputyay"/>
 					<Item id="6809" name="Unctionfay ompletioncay"/>
 					<Item id="6810" name="Ordway ompletioncay"/>
 					<Item id="6816" name="Unctionfay andyay ordway ompletioncay"/>
+					<Item id="6869" name="Insertyay Electionsay"/>
+					<Item id="6870" name="TAB"/><!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+					<Item id="6871" name="ENTER"/><!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
 					<Item id="6824" name="Ignoreyay umbersnay"/>
 					<Item id="6811" name="Omfray"/>
 					<Item id="6813" name="th aracterchay"/>
@@ -859,12 +1288,25 @@
 					<Item id="6866" name="Atchedmay airpay 3:"/>
 				</AutoCompletion>
 
-				<MultiInstance title="Multi-Instance">
+				<MultiInstance title="Ultimay-Instanceyay &amp; Ateday">
 					<Item id="6151" name="Ultimay-instanceyay ettingssay"/>
 					<Item id="6152" name="Openyay essionsay inyay ayay ewnay instanceyay ofyay Notepad++"/>
 					<Item id="6153" name="Alwaysyay inyay ultimay-instanceyay odemay"/>
 					<Item id="6154" name="Efaultday (onomay-instanceyay)"/>
 					<Item id="6155" name="* Ethay odificationmay ofyay isthay ettingsay eedsnay otay estartray Notepad++"/>
+					<Item id="6171" name="Ustomizecay insertyay Ateday Imetay"/>
+					<Item id="6175" name="Everseray efaultday ateday imetay orderyay (ortshay &amp;&amp; onglay ormatsfay)"/>
+					<Item id="6172" name="Ustomcay ormatfay:"/>
+					<Item id="6181" name="Anelpay Atestay andyay [-nosession] *"/>
+					<Item id="6182" name="Ememberray anelpay atestay (anelpay isyay openyay) inyay otheryay instancesyay (ultimay-instanceyay odemay) oryay enwhay usingyay ommandcay inelay arameterpay [-nosession]"/>
+					<Item id="6183" name="Ipboardclay Istoryhay"/>
+					<Item id="6184" name="Ocumentday Istlay"/>
+					<Item id="6185" name="Aracterchay Anelpay"/>
+					<Item id="6186" name="Olderfay asyay Orkspaceway"/>
+					<Item id="6187" name="Ro&amp;jectpay Anelspay"/>
+					<Item id="6188" name="Ocumentday Apmay"/>
+					<Item id="6189" name="Unctionfay Istlay"/>
+					<Item id="6190" name="Uginplay Anelspay"/>
 				</MultiInstance>
 
 				<Delimiter title="Delimiter">
@@ -874,13 +1316,32 @@
 					<Item id="6256" name="Allowyay onyay everalsay ineslay"/>
 					<Item id="6161" name="Ordway aracterchay istlay"/>
 					<Item id="6162" name="Useyay efaultday Ordway aracterchay istlay asyay ityay isyay"/>
-					<Item id="6163" name="Addyay youryay aracterchay asyay artpay ofyay ordway (on'tday oosechay ityay unlessyay youyay owknay atwhay you'reyay oingday)"/>
+					<Item id="6163" name="Addyay youryay aracterchay asyay artpay ofyay ordway
+(on'tday oosechay ityay unlessyay youyay owknay atwhay you'reyay oingday)"/>
 				</Delimiter>
 
-				<Cloud title="Cloud">
+				<Performance title="Erformancepay">
+					<Item id="7141" name="Argelay Ilefay Estrictionray"/>
+					<Item id="7143" name="Enableyay Argelay Ilefay Estrictionray (onay yntaxsay ighlightinghay)"/>
+					<Item id="7144" name="Efineday Argelay Ilefay Izesay:"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
+					<Item id="7147" name="Allowyay Acebray Atchmay"/>
+					<Item id="7148" name="Allowyay Autoyay-Ompletioncay"/>
+					<Item id="7149" name="Allowyay Artsmay Ighlightinghay"/>
+					<Item id="7150" name="Eactivateday Ordway Apwray oballyglay"/>
+					<Item id="7151" name="Allowyay URL Ickableclay Inklay"/>
+					<Item id="7152" name="Uppresssay arningway enwhay openingyay ≥2GB ilesfay"/>
+				</Performance>
+
+				<Cloud title="Oudclay &amp; Inklay">
 					<Item id="6262" name="Ettingssay onyay oudclay"/>
 					<Item id="6263" name="Onay Oudclay"/>
 					<Item id="6267" name="Etsay youryay oudclay ocationlay athpay erehay:"/>
+					<Item id="6318" name="Ickableclay Inklay Ettingssay"/>
+					<Item id="6319" name="Enableyay"/>
+					<Item id="6320" name="Onay underlineyay"/>
+					<Item id="6350" name="Enableyay ullboxfay odemay"/>
+					<Item id="6264" name="URI ustomizedcay emesschay:"/>
 				</Cloud>
 
 				<SearchEngine title="Search Engine">
@@ -890,18 +1351,41 @@
 					<Item id="6274" name="Ingbay"/>
 					<Item id="6275" name="Yahooyay!"/>
 					<Item id="6276" name="Etsay youryay earchsay engineyay erehay:"/>
-					<Item id="6278" name="Example: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+					<!-- Don't change anything after Example: -->
+					<Item id="6278" name="Exampleyay: https://www.google.com/search?q=$(CURRENT_WORD)"/>
 				</SearchEngine>
 
-				<MISC title="MISC.">
+				<MISC title="ISCMAY.">
+					<ComboBox id="6347">
+						<Element name="Enableyay orfay urrentcay ilefay"/>
+						<Element name="Enableyay orfay allyay openedyay ilesfay"/>
+						<Element name="Isableday"/>
+					</ComboBox>
+					<ComboBox id="6307">
+						<Element name="Onay actionyay onyay"/>
+						<Element name="Inimizemay otay"/>
+						<Element name="Oseclay otay"/>
+						<Element name="Inimizemay / Oseclay otay"/>
+					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (ostmay ompatiblecay)"/>
+						<Element name="IrectdayItewray (efaultday)"/>
+						<Element name="IrectdayItewray (etainray amesfray)"/>
+						<Element name="IrectdayItewray (awdray otay GDI DC)"/>
+						<Element name="IrectdayItewray (DirectX 11)"/>
+					</ComboBox>
+					<ComboBox id="6364">
+						<Element name="Isableday"/>
+						<Element name="Enableyay onyay Notepad++ artupstay"/>
+						<Element name="Enableyay onyay Notepad++ exityay"/>
+					</ComboBox>
+					<Item id="6308" name="ystemsay aytray"/>
+					<Item id="6363" name="enderingray odemay"/>
+					<Item id="6365" name="Autoyay-updateryay:"/>
 					<Item id="6312" name="Ilefay Atusstay Autoyay-Etectionday"/>
 					<Item id="6313" name="Updateyay ilentlysay"/>
-					<Item id="6318" name="Ickableclay Inklay Ettingssay"/>
 					<Item id="6325" name="Ollscray otay ethay astlay inelay afteryay updateyay"/>
-					<Item id="6319" name="Enableyay"/>
-					<Item id="6320" name="Onay underlineyay"/>
 					<Item id="6322" name="Essionsay ilefay extyay:."/>
-					<Item id="6323" name="Enableyay Notepad++ autoyay-updateryay"/>
 					<Item id="6324" name="Ocumentday Itchersway (Abctrl+tay)"/>
 					<Item id="6331" name="Owshay onlyyay ilenamefay inyay itletay arbay"/>
 					<Item id="6334" name="Autodetectyay aracterchay encodingyay"/>
@@ -911,9 +1395,12 @@
 					<Item id="6344" name="Ocumentday Eekerpay"/>
 					<Item id="6345" name="Eekpay onyay abtay"/>
 					<Item id="6346" name="Eekpay onyay ocumentday apmay"/>
+					<Item id="6360" name="Utemay allyay oundssay"/>
+					<Item id="6361" name="Enableyay Avesay Allyay onfirmcay ialogday"/>
+					<Item id="6366" name="Allowyay oadinglay ymlinkssay inyay Olderfay asyay Orkspaceway anelpay"/>
 				</MISC>
 			</Preference>
-			<MultiMacro title="Run a Macro Multiple Times">
+			<MultiMacro title="Unray ayay Acromay Ultiplemay Imestay">
 				<Item id="1" name="Un&amp;ray"/>
 				<Item id="2" name="An&amp;celcay"/>
 				<Item id="8006" name="Acromay otay unray :"/>
@@ -921,29 +1408,34 @@
 				<Item id="8005" name="imestay"/>
 				<Item id="8002" name="Unray untilyay ethay &amp;endyay ofyay ilefay"/>
 			</MultiMacro>
-			<Window title="Windows">
+			<Window title="Indowsway">
 				<Item id="1" name="&amp;Activateyay"/>
 				<Item id="2" name="&amp;OKYAY"/>
 				<Item id="7002" name="Ave&amp;say"/>
 				<Item id="7003" name="Ose&amp;clay indow(s)way"/>
 				<Item id="7004" name="Ortsay abs&amp;tay"/>
 			</Window>
-			<ColumnEditor title="Column Editor">
+			<ColumnEditor title="Olumncay Editoryay">
 				<Item id="2023" name="Exttay otay Insertyay"/>
 				<Item id="2033" name="Umbernay otay Insertyay"/>
 				<Item id="2030" name="Initialyay umbernay :"/>
 				<Item id="2031" name="Increaseyay ybay :"/>
-				<Item id="2035" name="Eadinglay eroszay"/>
-				<Item id="2036" name="Epeatray :"/>
+				<Item id="2038" name="Eading&amp;lay:"/>
+				<ComboBox id="2039">
+					<Element name="Onenay"/>
+					<Element name="Eroszay"/>
+					<Element name="Acesspay"/>
+				</ComboBox>
+				<Item id="2036" name="Epeat&amp;ray:"/>
 				<Item id="2032" name="Ormatfay"/>
-				<Item id="2024" name="Dec"/>
-				<Item id="2025" name="Oct"/>
-				<Item id="2026" name="Exhay"/>
-				<Item id="2027" name="Bin"/>
+				<Item id="2024" name="Ec&amp;day"/>
+				<Item id="2025" name="&amp;Octyay"/>
+				<Item id="2026" name="Ex&amp;hay"/>
+				<Item id="2027" name="In&amp;bay"/>
 				<Item id="1" name="OKYAY"/>
 				<Item id="2" name="Ancelcay"/>
 			</ColumnEditor>
-			<FindInFinder title="Find in finder">
+			<FindInFinder title="Indfay inyay earchsay esultsray">
 				<Item id="1" name="Indfay Allyay"/>
 				<Item id="2" name="Oseclay"/>
 				<Item id="1711" name="Ind&amp;fay atwhay :"/>
@@ -956,80 +1448,230 @@
 				<Item id="1718" name="E&amp;xtendedyay (\n, \r, \t, \0, \x...)"/>
 				<Item id="1720" name="&amp;. atchesmay ewlinenay"/>
 			</FindInFinder>
+			<DoSaveOrNot title="Avesay">
+				<Item id="1761" name="Avesay ilefay &quot;$STR_REPLACE$&quot; ?"/>
+				<Item id="6" name="&amp;Yesyay"/>
+				<Item id="7" name="O&amp;nay"/>
+				<Item id="2" name="Ancel&amp;cay"/>
+				<Item id="4" name="Yesyay otay &amp;allyay"/>
+				<Item id="5" name="&amp;Onay otay allyay"/>
+			</DoSaveOrNot>
+			<DoSaveAll title="Avesay Allyay Onfirmationcay">
+				<Item id="1766" name="Areyay youyay uresay youyay antway otay avesay allyay odifiedmay ocumentsday?
+
+Oosechay &quot;Alwaysyay yesyay&quot; ifyay youyay on'tday antway otay eesay isthay ialogday againyay.
+Youyay ancay eactivateray isthay ialogday inyay Eferencespray aterlay."/>
+				<Item id="6" name="&amp;Yesyay"/>
+				<Item id="7" name="O&amp;nay"/>
+				<Item id="4" name="&amp;Alwaysyay yesyay"/>
+			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+			<NetworkPathWarning title="Notepad++ essionsay oadinglay" title2="Ickableclay file:// inklay" title3="Oadinglay toolbarButtonsConf.xml" title4="Oadinglay Ojectpray Anelpay XML ilefay">
+				<Item id="1771" name="Etworknay Athpay Arningway:
+
+$STR_REPLACE$
+
+Oadinglay isthay ilefay illway ausecay Indowsway otay automaticallyyay authenticateyay otay itsyay erversay, otentiallypay exposingyay youryay Indowsway oginlay informationyay.
+Oadlay anywayyay?"/>
+				<Item id="2" name="&amp;Ipskay"/>
+				<Item id="6" name="Alwaysyay oad&amp;lay omfray isthay erversay"/>
+				<Item id="7" name="&amp;Alwaysyay ipskay etworknay athpay"/>
+				<Item id="4" name="Alwaysyay oadlay &amp;etworknay athpay"/>
+			</NetworkPathWarning>
+			<DebugInfo title="Debug Info">
+				<Item id="1752" name="Opy&amp;cay ebugday infoyay otay ipboardclay"/>
+				<Item id="1" name="OKYAY"/>
+			</DebugInfo>
 		</Dialog>
 		<MessageBox>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
-			<ContextMenuXmlEditWarning title="Editingyay ontextMenucay" message="Editingyay contextMenuxml. allowsyay youyay otay odifymay youryay Notepad++ opuppay ontextcay enumay. Youyay avehay otay estartray youryay Notepad++ otay aketay effectyay afteryay odifyingmay contextMenuxml."/>
-			<NppHelpAbsentWarning title="Ilefay oesday otnay existyay" message=" oesn'tday existyay. Easeplay ownloadday ityay onyay Notepad++ itesay."/>
-			<SaveCurrentModifWarning title="Avesay Urrentcay Odificationmay" message="Youyay ouldshay avesay ethay urrentcay odificationmay. Allyay ethay avedsay odificationsmay ancay otnay ebay undoneyay.  Ontinuecay?"/>
-			<LoseUndoAbilityWarning title="Oselay Undoyay Abilityyay Arningway" message="Youyay ouldshay avesay ethay urrentcay odificationmay. Allyay ethay avedsay odificationsmay ancay otnay ebay undoneyay.  Ontinuecay?"/>
-			<CannotMoveDoc title="Ovemay otay ewnay Notepad++ Instanceyay" message="Ocumentday isyay odified,may avesay ityay enthay ytray againyay."/>
-			<DocReloadWarning title="Eloadray" message="Areyay youyay uresay youyay antway otay eloadray ethay urrentcay ilefay andyay oselay ethay angeschay ademay inyay Otepad++nay?"/>
+			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
+			<ContextMenuXmlEditWarning title="Editingyay contextMenu" message="Editingyay contextMenu.xml allowsyay youyay otay odifymay youryay Notepad++ opuppay ontextcay enumay.
+Youyay avehay otay estartray youryay Notepad++ otay aketay effectyay afteryay odifyingmay contextMenu.xml."/>
+			<SaveCurrentModifWarning title="Avesay Urrentcay Odificationmay" message="Youyay ouldshay avesay ethay urrentcay odificationmay.
+Allyay ethay avedsay odificationsmay annotcay ebay undoneyay.
+
+Ontinuecay?"/><!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
+			<LoseUndoAbilityWarning title="Oselay Undoyay Abilityyay Arningway" message="Youyay ouldshay avesay ethay urrentcay odificationmay.
+Allyay ethay avedsay odificationsmay annotcay ebay undoneyay.
+
+Ontinuecay?"/><!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
+			<CannotMoveDoc title="Ovemay otay ewnay Notepad++ Instanceyay" message="Ocumentday isyay odifiedmay, avesay ityay enthay ytray againyay."/><!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
+			<DocReloadWarning title="Eloadray" message="Areyay youyay uresay youyay antway otay eloadray ethay urrentcay ilefay andyay oselay ethay angeschay ademay inyay Notepad++?"/>
 			<FileLockedWarning title="Avesay ailedfay" message="Easeplay eckchay etherwhay ifyay isthay ilefay isyay openedyay inyay anotheryay ogrampray"/>
-			<FileAlreadyOpenedInNpp title="" message="Ethay ilefay isyay alreadyyay openedyay inyay ethay Otepad++nay."/>
-			<DeleteFileFailed title="Eleteday Ilefay" message="Eleteday Ilefay ailedfay"/>
-			<NbFileToOpenImportantWarning title="Amountyay ofyay ilesfay otay openyay isyay ootay argelay" message="$INT_REPLACE$ ilesfay areyay aboutyay otay ebay openedyay. Areyay youyay uresay otay openyay emthay?"/>
-			<SettingsOnCloudError title="Ettingssay onyay Oudclay" message="Ityay eemssay ethay athpay ofyay ettingssay onyay oudclay isyay etsay onyay ayay eadray onlyyay ive,dray oryay onyay ayay olderfay eedednay ivilegepray ightray orfay itingwray accessyay. Youryay ettingssay onyay oudclay illway ebay anceledcay. Easeplay esetray ayay oherentcay aluevay iavay Eferencepray ialogday."/>
-			<FilePathNotFoundWarning title="Ilefay Openyay" message="Ethay ilefay you'reyay yingtray otay openyay oesn'tday existyay."/>
-			<SessionFileInvalidError title="Ouldcay otnay Oadlay Essionsay" message="Essionsay ilefay isyay eitheryay orruptedcay oryay otnay alidvay."/>
-			<DroppingFolderAsProjectModeWarning title="Invalidyay actionyay" message="Youyay ancay onlyyay opdray ilesfay oryay oldersfay utbay otnay oth,bay ecausebay you'reyay inyay oppingdray Olderfay asyay Ojectpray odemay. youyay avehay otay enableyay Open&quot;ay allyay ilesfay ofyay olderfay insteadyay ofyay aunchinglay Olderfay asyay Orkspaceway onyay olderfay opping&quot;dray inyay Efault&quot;day Irectory&quot;day ectionsay ofyay Eferencespray ialogday otay akemay isthay operationyay orkway."/>
-			<SortingError title="Ortingsay Erroryay" message="Unableyay otay erformpay umericnay ortingsay ueday otay inelay INT_REPLACE$$AY."/>
-			<ColumnModeTip title="Olumncay Odemay Iptay" message="Easeplay useyay &quot;alt+mouse Selection&quot; oryay &quot;alt+shift+arrow key&quot; otay itchsway otay olumncay odemay."/>
-			<BufferInvalidWarning title="Avesay ailedfay" message="Annotcay avesay: Ufferbay isyay invalidyay."/>
-			<DoSaveOrNot title="Avesay" message="Avesay ilefay &quot;$STR_REPLACE$&quot; ?"/>
-			<DoCloseOrNot title="Eepkay onnay existingyay ilefay" message="Ethay ilefay &quot;$STR_REPLACE$&quot; oesn'tday existyay anymoreyay. Eepkay isthay ilefay inyay editoryay?"/>
-			<DoDeleteOrNot title="Eleteday ilefay" message="Ethay ilefay &quot;$STR_REPLACE$&quot; illway ebay ovedmay otay youryay Ecycleray Bin andyay isthay ocumentday illway ebay osedclay. Ontinuecay?"/>
-			<NoBackupDoSaveFile title="Avesay" message="Youryay ackupbay ilefay annotcay ebay oundfay (eletedday omfray outside)yay. Avesay ityay otherwiseyay youryay ataday illway ebay ostlay Oday youyay antway otay avesay ilefay &quot;$STR_REPLACE$&quot; ?"/>
-			<DoReloadOrNot title="Eloadray" message="&quot;$STR_REPLACE$&quot;  Isthay ilefay ashay eenbay odifiedmay ybay anotheryay ogrampray. Oday youyay antway otay eloadray ityay?"/>
-			<DoReloadOrNotAndLooseChange title="Eloadray" message="&quot;$STR_REPLACE$&quot;  Isthay ilefay ashay eenbay odifiedmay ybay anotheryay ogrampray. Oday youyay antway otay eloadray ityay andyay oselay ethay angeschay ademay inyay Otepad++nay?"/>
-			<PrehistoricSystemDetected title="Ehistoricpray ystemsay etectedday" message="Ityay eemssay youyay illstay useyay ayay ehistoricpray ystemsay. Isthay eaturefay orksway onlyyay onyay ayay odernmay ystem,say orrysay."/>
-			<XpUpdaterProblem title="Notepad++ Updateryay" message="Notepad++ updateryay isyay otnay ompatiblecay ithway XP ueday otay ethay obsoleteyay ecuritysay ayerlay underyay XP. Oday youyay antway otay ogay otay Notepad++ agepay otay ownloadday ethay atestlay ersionvay?"/>
+			<FileAlreadyOpenedInNpp title="" message="Ethay ilefay isyay alreadyyay openedyay inyay Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
+			<RenameTabTemporaryNameAlreadyInUse title="Enameray ailedfay" message="Ethay ecifiedspay amenay isyay alreadyyay inyay useyay onyay anotheryay abtay."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="Enameray ailedfay" message="Ethay ecifiedspay amenay annotcay ebay emptyyay, oryay ityay annotcay ontaincay onlyyay ace(s)spay oryay AB(s)TAY."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
+			<DeleteFileFailed title="Eleteday Ilefay" message="Eleteday Ilefay ailedfay"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+
+			<NbFileToOpenImportantWarning title="Amountyay ofyay ilesfay otay openyay isyay ootay argelay" message="$INT_REPLACE$ ilesfay areyay aboutyay otay ebay openedyay.
+Areyay youyay uresay youyay antway otay openyay emthay?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
+			<SettingsOnCloudError title="Ettingssay onyay Oudclay" message="Ityay eemssay ethay athpay ofyay ettingssay onyay oudclay isyay etsay onyay ayay eadray onlyyay ivedray,
+oryay onyay ayay olderfay eedednay ivilegepray ightray orfay itingwray accessyay.
+Youryay ettingssay onyay oudclay illway ebay anceledcay. Easeplay esetray ayay oherentcay aluevay iavay Eferencepray ialogday."/>
+			<FilePathNotFoundWarning title="Openyay Athpay" message="Ethay athpay youyay'eray yingtray otay openyay oesn'tday existyay."/>
+			<SessionFileInvalidError title="Ouldcay otnay Oadlay Essionsay" message="Essionsay ilefay isyay eitheryay orruptedcay oryay otnay alidvay."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
+			<DroppingFolderAsProjectModeWarning title="Invalidyay actionyay" message="Youyay ancay onlyyay opdray ilesfay oryay oldersfay utbay otnay othbay, ecausebay you'reyay inyay oppingdray Olderfay asyay Ojectpray odemay.
+Youyay avehay otay enableyay &quot;Openyay allyay ilesfay ofyay olderfay insteadyay ofyay aunchinglay Olderfay asyay Orkspaceway onyay olderfay oppingdray&quot; inyay &quot;Efaultday Irectoryday&quot; ectionsay ofyay Eferencespray ialogday otay akemay isthay operationyay orkway."/>
+			<SortingError title="Ortingsay Erroryay" message="Unableyay otay erformpay umericnay ortingsay ueday otay inelay $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SortLocaleMultiple title="Ortsay otnay erformedpay" message="Ortingsay ultiplemay electionssay isyay otnay upportedsay."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleUnknown title="Ortsay Ailedfay" message="Ethay easonray ethay ortsay ailedfay annotcay ebay eterminedday."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+			<SortLocaleExcept title="Ortsay Ailedfay" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<ColumnModeTip title="Olumncay Odemay Iptay" message="
+Erethay areyay 3 aysway otay itchsway otay olumncay-electsay odemay:
+
+1. (Eyboardkay andyay Ousemay)  Oldhay Altyay ilewhay eftlay-ickclay aggingdray
+
+2. (Eyboardkay onlyyay)  Oldhay Altyay+Iftshay ilewhay usingyay arrowyay eyskay
+
+3. (Eyboardkay oryay Ousemay)
+      Utpay aretcay atyay esiredday artstay ofyay olumncay ockblay ositionpay, enthay
+       executeyay &quot;Eginbay/Endyay Electsay inyay Olumncay Odemay&quot; ommandcay;
+      Ovemay aretcay otay esiredday endyay ofyay olumncay ockblay ositionpay, enthay
+       executeyay &quot;Eginbay/Endyay Electsay inyay Olumncay Odemay&quot; ommandcay againyay"/>
+			<BufferInvalidWarning title="Avesay ailedfay" message="Annotcay avesay: Ufferbay isyay invalidyay."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<DoCloseOrNot title="Eepkay onnay existingyay ilefay" message="Ethay ilefay &quot;$STR_REPLACE$&quot; oesn'tday existyay anymoreyay.
+Eepkay isthay ilefay inyay editoryay?"/>
+			<DoDeleteOrNot title="Eleteday ilefay" message="Ethay ilefay &quot;$STR_REPLACE$&quot;
+illway ebay ovedmay otay youryay Ecycleray Inbay andyay isthay ocumentday illway ebay osedclay.
+Ontinuecay?"/>
+			<NoBackupDoSaveFile title="Avesay" message="Youryay ackupbay ilefay annotcay ebay oundfay (eletedday omfray outsideyay).
+Avesay ityay otherwiseyay youryay ataday illway ebay ostlay
+Oday youyay antway otay avesay ilefay &quot;$STR_REPLACE$&quot; ?"/>
+			<DoReloadOrNot title="Eloadray" message="&quot;$STR_REPLACE$&quot;
+
+Isthay ilefay ashay eenbay odifiedmay ybay anotheryay ogrampray.
+Oday youyay antway otay eloadray ityay?"/>
+			<DoReloadOrNotAndLooseChange title="Eloadray" message="&quot;$STR_REPLACE$&quot;
+
+Isthay ilefay ashay eenbay odifiedmay ybay anotheryay ogrampray.
+Oday youyay antway otay eloadray ityay andyay oselay ethay angeschay ademay inyay Notepad++?"/>
+			<PrehistoricSystemDetected title="Ehistoricpray ystemsay etectedday" message="Ityay eemssay youyay illstay useyay ayay ehistoricpray ystemsay. Isthay eaturefay orksway onlyyay onyay ayay odernmay ystemsay, orrysay."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
+			<XpUpdaterProblem title="Notepad++ Updateryay" message="Notepad++ updateryay isyay otnay ompatiblecay ithway XP ueday otay ethay obsoleteyay ecuritysay ayerlay underyay XP.
+Oday youyay antway otay ogay otay Notepad++ agepay otay ownloadday ethay atestlay ersionvay?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
 			<DocTooDirtyToMonitor title="Onitoringmay oblempray" message="Ethay ocumentday isyay irtyday. Easeplay avesay ethay odificationmay eforebay onitoringmay ityay."/>
 			<DocNoExistToMonitor title="Onitoringmay oblempray" message="Ethay ilefay ouldshay existyay otay ebay onitoredmay."/>
-			<FileTooBigToOpen title="Ilefay izesay oblempray" message="Ilefay isyay ootay igbay otay ebay openedyay ybay Notepad++"/>
+			<FileTooBigToOpen title="Ilefay izesay oblempray" message="Ilefay isyay ootay igbay otay ebay openedyay ybay Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+			<FileLoadingException title="Exceptionyay odecay: $STR_REPLACE$" message="Anyay erroryay occurredyay ilewhay oadinglay ethay ilefay!"/>
+			<WantToOpenHugeFile title="Openingyay ugehay ilefay arningway" message="Openingyay ayay ugehay ilefay ofyay 2GB+ ouldcay aketay everalsay inutesmay.
+Oday youyay antway otay openyay ityay?"/>
 			<CreateNewFileOrNot title="Eatecray ewnay ilefay" message="&quot;$STR_REPLACE$&quot; oesn'tday existyay. Eatecray ityay?"/>
-			<CreateNewFileError title="Eatecray ewnay ilefay" message="Annotcay eatecray ethay ilefay &quot;$STR_REPLACE$&quot;."/>
-			<OpenFileError title="ERRORYAY" message="Ancay otnay openyay ilefay &quot;$STR_REPLACE$&quot;."/>
-			<FileBackupFailed title="Ilefay Ackupbay Ailedfay" message="Ethay eviouspray ersionvay ofyay ethay ilefay ouldcay otnay ebay avedsay intoyay ethay ackupbay irectoryday atyay &quot;$STR_REPLACE$&quot;.  Oday youyay antway otay avesay ethay urrentcay ilefay anywaysyay?"/>
-			<LoadStylersFailed title="Oadlay ylersxmlstay. ailedfay" message="Oadlay &quot;$STR_REPLACE$&quot; ailedfay!"/>
-			<LoadLangsFailed title="Onfiguratorcay" message="Oadlay langsxml. ailedfay! Oday youyay antway otay ecoverray youryay angsxmllay.?"/>
-			<LoadLangsFailedFinal title="Onfiguratorcay" message="Oadlay langsxml. ailedfay!"/>
-			<FolderAsWorspaceSubfolderExists title="Olderfay asyay Orkspaceway addingyay olderfay oblempray" message="AYAY ubsay-olderfay ofyay ethay olderfay youyay antway otay addyay existsyay. Easeplay emoveray itsyay ootray omfray ethay anelpay eforebay youyay addyay olderfay &quot;$STR_REPLACE$&quot;."/>
-			<ProjectPanelChanged title="EPLACE$$STR_RAY" message="Ethay orkspaceway asway odifiedmay. Oday youyay antway otay avesay ityay?"/>
-			<ProjectPanelChangedSaveError title="EPLACE$$STR_RAY" message="Youryay orkspaceway ashay otnay eenbay avedsay."/>
+			<CreateNewFileError title="Eatecray ewnay ilefay" message="Annotcay eatecray ethay ilefay &quot;$STR_REPLACE$&quot;."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<OpenFileError title="ERRORYAY" message="Annotcay openyay ilefay &quot;$STR_REPLACE$&quot;."/>
+			<OpenFileNoFolderError title="Annotcay openyay ilefay" message="&quot;$STR_REPLACE1$&quot; annotcay ebay openedyay:
+Olderfay &quot;$STR_REPLACE2$&quot; oesn'tday existyay."/>
+			<FileBackupFailed title="Ilefay Ackupbay Ailedfay" message="Ethay eviouspray ersionvay ofyay ethay ilefay ouldcay otnay ebay avedsay intoyay ethay ackupbay irectoryday atyay &quot;$STR_REPLACE$&quot;.
+
+Oday youyay antway otay avesay ethay urrentcay ilefay anywayyay?"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<LoadStylersFailed title="Oadlay stylers.xml ailedfay" message="Oadlay &quot;$STR_REPLACE$&quot; ailedfay!"/>
+			<LoadLangsFailed title="Onfiguratorcay" message="Oadlay langs.xml ailedfay!
+Oday youyay antway otay ecoverray youryay langs.xml?"/><!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
+			<LoadLangsFailedFinal title="Onfiguratorcay" message="Oadlay langs.xml ailedfay!"/><!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
+			<FolderAsWorspaceSubfolderExists title="Olderfay asyay Orkspaceway addingyay olderfay oblempray" message="Ayay ubsay-olderfay ofyay ethay olderfay youyay antway otay addyay existsyay.
+Easeplay emoveray itsyay ootray omfray ethay anelpay eforebay youyay addyay olderfay &quot;$STR_REPLACE$&quot;."/><!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
+
+			<ProjectPanelChanged title="$STR_REPLACE$" message="Ethay orkspaceway asway odifiedmay. Oday youyay antway otay avesay ityay?"/>
+			<ProjectPanelSaveError title="$STR_REPLACE$" message="Anyay erroryay occurredyay ilewhay itingwray youryay orkspaceway ilefay.
+Youryay orkspaceway ashay otnay eenbay avedsay."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Openyay Orkspaceway" message="Ethay urrentcay orkspaceway asway odifiedmay. Oday youyay antway otay avesay ethay urrentcay ojectpray?"/>
 			<ProjectPanelNewDoSaveDirtyWsOrNot title="Ewnay Orkspaceway" message="Ethay urrentcay orkspaceway asway odifiedmay. Oday youyay antway otay avesay ethay urrentcay ojectpray?"/>
-			<ProjectPanelOpenFailed title="Openyay Orkspaceway" message="Ethay orkspaceway ouldcay otnay ebay openedyay. Ityay eemssay ethay ilefay otay openyay isyay otnay ayay alidvay ojectpray ilefay."/>
-			<ProjectPanelRemoveFolderFromProject title="Emoveray olderfay omfray ojectpray" message="Allyay ethay ubsay-itemsyay illway ebay emovedray. Areyay youyay uresay youyay antway otay emoveray isthay olderfay omfray ethay ojectpray?"/>
+			<ProjectPanelOpenFailed title="Openyay Orkspaceway" message="Ethay orkspaceway ouldcay otnay ebay openedyay.
+Ityay eemssay ethay ilefay otay openyay isyay otnay ayay alidvay ojectpray ilefay."/>
+			<ProjectPanelRemoveFolderFromProject title="Emoveray olderfay omfray ojectpray" message="Allyay ethay ubsay-itemsyay illway ebay emovedray.
+Areyay youyay uresay youyay antway otay emoveray isthay olderfay omfray ethay ojectpray?"/>
 			<ProjectPanelRemoveFileFromProject title="Emoveray ilefay omfray ojectpray" message="Areyay youyay uresay youyay antway otay emoveray isthay ilefay omfray ethay ojectpray?"/>
 			<ProjectPanelReloadError title="Eloadray Orkspaceway" message="Annotcay indfay ethay ilefay otay eloadray."/>
-			<ProjectPanelReloadDirty title="Eloadray Orkspaceway" message="Ethay urrentcay orkspaceway asway odifiedmay. Eloadingray illway iscardday allyay odificationsmay. Oday youyay antway otay ontinuecay?"/>
-			<UDLNewNameError title="UDLYAY Erroryay" message="Isthay amenay isyay usedyay ybay anotheryay anguage,lay easeplay ivegay anotheryay oneyay."/>
+			<ProjectPanelReloadDirty title="Eloadray Orkspaceway" message="Ethay urrentcay orkspaceway asway odifiedmay. Eloadingray illway iscardday allyay odificationsmay.
+Oday youyay antway otay ontinuecay?"/>
+			<UDLNewNameError title="UDL Erroryay" message="Isthay amenay isyay usedyay ybay anotheryay anguagelay,
+easeplay ivegay anotheryay one."/>
 			<UDLRemoveCurrentLang title="Emoveray ethay urrentcay anguagelay" message="Areyay youyay uresay?"/>
+			<UDL_importSuccessful title="Useryay Efinedday Anguagelay" message="Importyay uccessfulsay."/>
+			<UDL_importFails title="Useryay Efinedday Anguagelay" message="Ailedfay otay importyay."/>
+			<UDL_saveBeforeImport title="Useryay Efinedday Anguagelay" message="Eforebay exportingyay, avesay youryay anguagelay efinitionday ybay ickingclay &quot;Avesay Asyay...&quot; uttonbay."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_exportSuccessful title="Useryay Efinedday Anguagelay" message="Exportyay uccessfulsay."/>
+			<UDL_exportFails title="Useryay Efinedday Anguagelay" message="Ailedfay otay exportyay."/>
 			<SCMapperDoDeleteOrNot title="Areyay youyay uresay?" message="Areyay youyay uresay youyay antway otay eleteday isthay ortcutshay?"/>
-			<FindCharRangeValueError title="Angeray Aluevay oblempray" message="Youyay ouldshay ypetay etweenbay 0 andyay 255."/>
-			<OpenInAdminMode title="Avesay ailedfay" message="Ethay ilefay annotcay ebay avedsay andyay ityay aymay ebay otectedpray. Oday youyay antway otay aunchlay Notepad++ inyay Administratoryay odemay?"/>
-			<OpenInAdminModeWithoutCloseCurrent title="Avesay ailedfay" message="Ethay ilefay annotcay ebay avedsay andyay ityay aymay ebay otectedpray. Oday youyay antway otay aunchlay Notepad++ inyay Administratoryay odemay?"/>
-			<OpenInAdminModeFailed title="Openyay inyay Administratoryay odemay ailedfay" message="Notepad++ annotcay ebay openedyay inyay Administratoryay odemay."/>
+			<FindCharRangeValueError title="Angeray Aluevay oblempray" message="Youyay ouldshay ypetay etweenbay 0 andyay 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
+			<OpenInAdminMode title="Avesay ailedfay" message="Ethay ilefay annotcay ebay avedsay andyay ityay aymay ebay otectedpray.
+Oday youyay antway otay aunchlay Notepad++ inyay Administratoryay odemay?"/>
+			<OpenInAdminModeWithoutCloseCurrent title="Avesay ailedfay" message="Ethay ilefay annotcay ebay avedsay andyay ityay aymay ebay otectedpray.
+Oday youyay antway otay aunchlay Notepad++ inyay Administratoryay odemay?"/>
+			<OpenInAdminModeFailed title="Openyay inyay Administratoryay odemay ailedfay" message="Notepad++ annotcay ebay openedyay inyay Administratoryay odemay."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
+			<ViewInBrowser title="Iewvay Urrentcay Ilefay inyay Owserbray" message="Applicationyay annotcay ebay oundfay inyay youryay ystemsay."/>
+			<ExitToUpdatePlugins title="Notepad++ isyay aboutyay otay exityay" message="Ifyay youyay ickclay YESYAY, youyay illway uitqay Notepad++ otay ontinuecay ethay operationsyay.
+Notepad++ illway ebay estartedray afteryay allyay ethay operationsyay areyay erminatedtay.
+Ontinuecay?"/>
+			<NeedToRestartToLoadPlugins title="Notepad++ eedsnay otay ebay elaunchedray" message="Youyay avehay otay estartray Notepad++ otay oadlay uginsplay youyay installedyay."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+			<ChangeHistoryEnabledWarning title="Notepad++ eedsnay otay ebay elaunchedray" message="Youyay avehay otay estartray Notepad++ otay enableyay Angechay Istoryhay."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+			<WindowsSessionExit title="Notepad++ - Indowsway essionsay exityay" message="Indowsway essionsay isyay aboutyay otay ebay erminatedtay utbay youyay avehay omesay ataday unsavedyay. Oday youyay antway otay exityay Notepad++ ownay?"/>
+			<LanguageMenuCompactWarning title="Ompactcay Anguagelay Enumay" message="Isthay optionyay illway ebay angedchay onyay ethay extnay aunchlay."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Unsavedyay angeschay areyay aboutyay otay ebay iscardedday!
+Oday youyay antway otay avesay youryay angeschay eforebay itchingsway emesthay?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+			<FullReadOnlySavingForbidden title="Avesay ailedfay" message="Annotcay avesay ilefay.
+Ethay Notepad++ ullfay eadray-onlyyay avingsay orbiddenfay odemay eventedpray ethay ilefay omfray eingbay avedsay."/>
+			<NotEnoughRoom4Saving title="Avesay ailedfay" message="Ailedfay otay avesay ilefay.
+Ityay eemssay ere'sthay otnay enoughyay acespay onyay iskday otay avesay ilefay. Youryay ilefay isyay otnay avedsay."/>
+			<FileInaccessibleUserSession title="Ilefay inaccessibleyay" message="Omesay ilesfay omfray youryay anuallymay-avedsay essionsay &quot;$STR_REPLACE$&quot; areyay inaccessibleyay. Eythay ancay ebay openedyay asyay emptyyay andyay eadray-onlyyay ocumentsday asyay aceholdersplay.
+
+Ouldway youyay ikelay otay eatecray osethay aceholdersplay?
+
+OTENAY: Oosingchay otnay otay eatecray ethay aceholdersplay oryay osingclay emthay aterlay, youryay anuallymay-avedsay essionsay illway OTNAY ebay odifiedmay onyay exityay."/>
+			<FileInaccessibleDefaultSessionXml title="Ilefay inaccessibleyay" message="Omesay ilesfay omfray youryay astpay essionsay areyay inaccessibleyay. Eythay ancay ebay openedyay asyay emptyyay andyay eadray-onlyyay ocumentsday asyay aceholdersplay.
+
+Ouldway youyay ikelay otay eatecray osethay aceholdersplay?
+
+OTENAY: Oosingchay otnay otay eatecray ethay aceholdersplay oryay osingclay emthay aterlay, youryay essionsay ILLWAY EBAY ODIFIEDMAY ONYAY EXITYAY! Eway uggestsay youyay ackupbay youryay &quot;session.xml&quot; ownay."/>
+			<RTLvsDirectWrite title="Annotcay unray RTL" message="RTL isyay otnay ompatiblecay ithway IrectdayItewray odemay. Easeplay isableday IrectdayItewray odemay inyay ISCMAY. ectionsay ofyay Eferencespray ialogday, andyay estartray Notepad++."/>
+			<FileMemoryAllocationFailed title="Exceptionyay: Ilefay emorymay allocationyay ailedfay" message="Erethay isyay obablypray otnay enoughyay ontiguouscay eefray emorymay orfay ethay ilefay eingbay oadedlay ybay Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FindRegexBackwardDisabled title="Egexray ackwardbay earchsay isabledday" message="Ybay efaultday, ackwardbay egexray earchingsay isyay isabledday ueday otay otentiallypay unexpectedyay esultsray. Otay erformpay ayay ackwardbay earchsay, openyay ethay Indfay ialogday andyay electsay eitheryay ormalnay oryay extendedyay earchsay odemay insteadyay ofyay egularray expressionyay.
+Esspray ethay OKYAY uttonbay otay openyay ethay Indfay ialogday oryay etsay ocusfay onyay ityay.
+
+Ifyay youyay equireray ethay ackwardbay egexray earchingsay eaturefay, onsultcay ethay useryay anualmay orfay instructionsyay onyay enablingyay ityay."/>
+			<PrintError title="0" message="Annotcay artstay interpray ocumentday."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<FindAutoChangeOfInSelectionWarning title="Earchsay arningway" message="Ethay &quot;Inyay electionsay&quot; eckboxchay atestay ashay eenbay automaticallyyay odifiedmay.
+Easeplay erifyvay ethay earchsay onditioncay eforebay erformingpay ethay actionyay."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+			<Need2Restart2ShowMenuShortcuts title="Notepad++ eedsnay otay ebay estartedray" message="Notepad++ eedsnay otay ebay estartedray otay owshay ightray enumay ortcutsshay."/>
+			<NoAdminRight2ChangeReadOnlyFileAttribute title="Angingchay ilefay eadray-onlyyay attributeyay ailedfay" message="Easeplay unray Notepad++ asyay administratoryay otay angechay ethay ilefay attributesyay."/>
+			<ReadOnlyFileCannotBeSaved title="Avesay ailedfay - Ilefay isyay Eadray-Onlyyay" message="&quot;$STR_REPLACE$&quot;
+Ethay ilefay isyay eadray-onlyyay andyay annotcay ebay avedsay.
+Easeplay emoveray eadray-onlyyay enthay avesay youryay ilefay."/>
+			<ShortcutsXmlHMACMissing title="Ecuritysay Arningway" message="Ethay ecuritysay informationyay orfay shortcuts.xml isyay issingmay inyay config.xml.
+
+Orfay ecuritysay easonsray, ethay integrityyay ofyay shortcuts.xml illway ebay eckedchay. Otay unray youryay ustomizedcay ommandcay, easeplay eviewray ethay openedyay shortcuts.xml. Ifyay ethay ilefay ontentcay isyay OKYAY, useyay &quot;Alidatevay shortcuts.xml&quot; omfray ethay &quot;Unray&quot; enumay otay onfirmcay ityay."/>
+			<ShortcutsXmlTampered title="Ecuritysay Arningway" message="Ethay shortcuts.xml ilefay appearsyay otay avehay eenbay odifiedmay anuallymay.
+
+Orfay ecuritysay easonsray, easeplay eviewray ethay openedyay shortcuts.lxmay. Ifyay ethay ilefay ontentcay isyay OKYAY, useyay &quot;Alidatevay shortcuts.xml&quot; omfray ethay &quot;Unray&quot; enumay otay onfirmcay ityay."/>
+			<SymlinkLoadingWarning title="Arningway: Ymlinksay Oadinglay Aymay Ausecay Eezefray" message="Enablingyay ymlinksay oadinglay inyay Olderfay asyay Orkspaceway aymay ausecay Notepad++ otay enteryay anyay infiniteyay ooplay andyay eezefray.
+Isthay ancay appenhay enwhay irectoryday ymlinkssay esolveray otay arentpay oldersfay oryay ormfay ircularcay eferencesray.
+Oceedpray onlyyay ifyay youyay understandyay ethay isksray."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Ipboardclay Istoryhay"/>
 		</ClipboardHistory>
 		<DocList>
-			<PanelTitle name="Ocday Itchersway"/>
+			<PanelTitle name="Ocumentday Istlay"/>
 			<ColumnName name="Amenay"/>
 			<ColumnExt name="Extyay."/>
+			<ColumnPath name="Athpay"/>
+			<ListGroups name="Oupgray ybay Iewvay"/>
 		</DocList>
 		<WindowsDlg>
 			<ColumnName name="Amenay"/>
 			<ColumnPath name="Athpay"/>
 			<ColumnType name="Ypetay"/>
+			<ColumnSize name="Izesay"/>
+			<ColumnDateTime name="Odifiedmay imetay"/>
+			<NbDocsTotal name="otaltay ocumentsday:"/>
+			<MenuCopyName name="Opycay Ame(s)nay"/>
+			<MenuCopyPath name="Opycay Athname(s)pay"/>
 		</WindowsDlg>
 		<AsciiInsertion>
-			<PanelTitle name="ASCII Insertionyay Anelpay"/>
+			<PanelTitle name="ASCII Odescay Insertionyay Anelpay"/>
 			<ColumnVal name="Aluevay"/>
 			<ColumnHex name="Exhay"/>
 			<ColumnChar name="Aracterchay"/>
+			<ColumnHtmlName name="HTML Amenay"/>
+			<ColumnHtmlNumber name="HTML Ecimalday"/>
+			<ColumnHtmlHexNb name="HTML Exadecimalhay"/>
 		</AsciiInsertion>
 		<DocumentMap>
 			<PanelTitle name="Ocumentday Apmay"/>
@@ -1038,91 +1680,139 @@
 			<PanelTitle name="Unctionfay Istlay"/>
 			<SortTip name="Ortsay"/>
 			<ReloadTip name="Eloadray"/>
+			<PreferencesTip name="Eferencespray"/>
+			<PreferencesInitialSort name="Ortsay unctionsfay (A otay Z) ybay efaultday"/>
 		</FunctionList>
 		<FolderAsWorkspace>
 			<PanelTitle name="Olderfay asyay Orkspaceway"/>
 			<SelectFolderFromBrowserString name="Electsay ayay olderfay otay addyay inyay Olderfay asyay Orkspaceway anelpay"/>
-			<Item id="3511" name="Emoveray"/>
-			<Item id="3512" name="Emoveray Allyay"/>
-			<Item id="3513" name="Addyay"/>
-			<Item id="3514" name="Unray ybay ystemsay"/>
-			<Item id="3515" name="Openyay"/>
-			<Item id="3516" name="Opycay athpay"/>
-			<Item id="3517" name="Indfay inyay Ilesfay..."/>
-			<Item id="3518" name="Exploreryay erehay"/>
-			<Item id="3519" name="CMD erehay"/>
+			<ExpandAllFoldersTip name="Unfoldyay allyay"/>
+			<CollapseAllFoldersTip name="Oldfay allyay"/>
+			<LocateCurrentFileTip name="Ocatelay urrentcay ilefay"/>
+			<Menu>
+				<Item id="3511" name="Emoveray"/>
+				<Item id="3512" name="Emoveray Allyay"/>
+				<Item id="3513" name="Addyay"/>
+				<Item id="3514" name="Unray ybay ystemsay"/>
+				<Item id="3515" name="Openyay"/>
+				<Item id="3516" name="Opycay athpay"/>
+				<Item id="3517" name="Indfay inyay Ilesfay..."/>
+				<Item id="3518" name="Exploreryay erehay"/>
+				<Item id="3519" name="CMD erehay"/>
+				<Item id="3520" name="Copy file name"/>
+				<Item id="3521" name="PowerShell here"/>
+			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>
 			<PanelTitle name="Ojectpray"/>
 			<WorkspaceRootName name="Orkspaceway"/>
 			<NewProjectName name="Ojectpray Amenay"/>
 			<NewFolderName name="Olderfay Amenay"/>
-			<Item id="0" name="Orkspaceway"/>
-			<Item id="1" name="Edityay"/>
-			<Item id="3122" name="Ewnay Orkspaceway"/>
-			<Item id="3123" name="Openyay Orkspaceway"/>
-			<Item id="3124" name="Eloadray Orkspaceway"/>
-			<Item id="3125" name="Avesay"/>
-			<Item id="3126" name="Avesay Asyay..."/>
-			<Item id="3127" name="Avesay ayay Opycay Asyay..."/>
-			<Item id="3121" name="Addyay Ewnay Ojectpray"/>
-			<Item id="3111" name="Enameray"/>
-			<Item id="3112" name="Addyay Olderfay"/>
-			<Item id="3113" name="Addyay Ilesfay..."/>
-			<Item id="3117" name="Addyay Ilesfay omfray Irectoryday..."/>
-			<Item id="3114" name="Emoveray"/>
-			<Item id="3118" name="Ovemay Upyay"/>
-			<Item id="3119" name="Ovemay Ownday"/>
-			<Item id="3111" name="Enameray"/>
-			<Item id="3112" name="Addyay Olderfay"/>
-			<Item id="3113" name="Addyay Ilesfay..."/>
-			<Item id="3117" name="Addyay Ilesfay omfray Irectoryday..."/>
-			<Item id="3114" name="Emoveray"/>
-			<Item id="3118" name="Ovemay Upyay"/>
-			<Item id="3119" name="Ovemay Ownday"/>
-			<Item id="3111" name="Enameray"/>
-			<Item id="3115" name="Emoveray"/>
-			<Item id="3116" name="Odifymay Ilefay Athpay"/>
-			<Item id="3118" name="Ovemay Upyay"/>
-			<Item id="3119" name="Ovemay Ownday"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Orkspaceway"/>
+					<Item id="1" name="Edityay"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="Ewnay Orkspaceway"/>
+					<Item id="3123" name="Openyay Orkspaceway"/>
+					<Item id="3124" name="Eloadray Orkspaceway"/>
+					<Item id="3125" name="Avesay"/>
+					<Item id="3126" name="Avesay Asyay..."/>
+					<Item id="3127" name="Avesay ayay Opycay Asyay..."/>
+					<Item id="3121" name="Addyay Ewnay Ojectpray"/>
+					<Item id="3128" name="Indfay inyay Ojectspray..."/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Enameray"/>
+					<Item id="3112" name="Addyay Olderfay"/>
+					<Item id="3113" name="Addyay Ilesfay..."/>
+					<Item id="3117" name="Addyay Ilesfay omfray Irectoryday..."/>
+					<Item id="3114" name="Emoveray"/>
+					<Item id="3118" name="Ovemay Upyay"/>
+					<Item id="3119" name="Ovemay Ownday"/>
+				</ProjectMenu>
+					<Item id="3111" name="Enameray"/>
+					<Item id="3112" name="Addyay Olderfay"/>
+					<Item id="3113" name="Addyay Ilesfay..."/>
+					<Item id="3117" name="Addyay Ilesfay omfray Irectoryday..."/>
+					<Item id="3114" name="Emoveray"/>
+					<Item id="3118" name="Ovemay Upyay"/>
+					<Item id="3119" name="Ovemay Ownday"/>
+				<FolderMenu>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Enameray"/>
+					<Item id="3115" name="Emoveray"/>
+					<Item id="3116" name="Odifymay Ilefay Athpay"/>
+					<Item id="3118" name="Ovemay Upyay"/>
+					<Item id="3119" name="Ovemay Ownday"/>
+				</FileMenu>
+			</Menus>
 		</ProjectManager>
-		<!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
 		<MiscStrings>
+			<!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
 			<word-chars-list-tip value="Isthay allowsyay youyay otay includeyay additionalyay aracterchay intoyay urrentcay ordway aracterschay ilewhay oubleday ickingclay orfay electionsay oryay earchingsay ithway Atch&quot;may olewhay ordway only&quot;yay optionyay eckedchay."/>
+
+			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+			<eol-custom-color-tip value="Ogay otay Ylestay Onfiguratorcay otay angechay ethay efaultday EOL ustomcay olorcay (&quot;EOL ustomcay olorcay&quot;).."/>
+
 			<word-chars-list-warning-begin value="Ebay awareyay: "/>
 			<word-chars-list-space-warning value="$INT_REPLACE$ ace(s)(s)pay"/>
 			<word-chars-list-tab-warning value="$INT_REPLACE$ Ab(s)tay"/>
 			<word-chars-list-warning-end value="  inyay youryay aracterchay istlay."/>
+			<backup-select-folder value="Electsay ayay olderfay asyay ackupbay irectoryday"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value="Invalidyay athpay."/>
 			<cloud-restart-warning value="Easeplay estartray Notepad++ otay aketay effectyay."/>
 			<cloud-select-folder value="Electsay ayay olderfay omfray/otay erewhay Notepad++ eadsray/iteswray itsyay ettingssay"/>
+			<default-open-save-select-folder value="Electsay ayay olderfay asyay efaultday irectoryday"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Useyay Ift+entershay otay earchsay inyay ethay oppositeyay irectionday"/>
 			<two-find-buttons-tip value="2 indfay uttonsbay odemay"/>
+			<find-in-files-filter-tip value="Indfay inyay cpp, cxx, h, hxx &amp;&amp; hpp:
+*.cpp *.cxx *.h *.hxx *.hpp
+
+Indfay inyay allyay ilesfay exceptyay exe, obj &amp;&amp; log:
+*.* !*.exe !*.obj !*.log
+
+Indfay inyay allyay ilesfay utbay excludeyay oldersfay tests, bin &amp;&amp; bin64:
+*.* !\tests !\bin*
+
+Indfay inyay allyay ilesfay utbay excludeyay allyay oldersfay log oryay logs ecursivelyray:
+*.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+			<find-in-files-select-folder value="Select a folder to search from"/><!-- HowToReproduce: Search > Find in Files > [...] -->
+			<find-in-files-dir-from-active-doc-tip value="Fill Directory field based on active document"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
 			<find-status-top-reached value="Indfay: Oundfay ethay 1st occurrenceyay omfray ethay ottombay. Ethay eginningbay ofyay ethay ocumentday ashay eenbay eachedray."/>
 			<find-status-end-reached value="Indfay: Oundfay ethay 1st occurrenceyay omfray ethay optay. Ethay endyay ofyay ethay ocumentday ashay eenbay eachedray."/>
 			<find-status-replaceinfiles-1-replaced value="Eplaceray inyay Ilesfay: 1 occurrenceyay asway eplacedray"/>
 			<find-status-replaceinfiles-nb-replaced value="Eplaceray inyay Ilesfay: $INT_REPLACE$ occurrencesyay ereway eplacedray"/>
-			<find-status-replaceinfiles-re-malformed value="Eplaceray inyay Openedyay Ilesfay: Ethay egularray expressionyay isyay alformedmay"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Eplaceray inyay Openedyay Ilesfay: 1 occurrenceyay asway eplacedray"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Eplaceray inyay Openedyay Ilesfay: $INT_REPLACE$ occurrencesyay ereway eplacedray"/>
-			<find-status-mark-re-malformed value="Arkmay: Ethay egularray expressionyay otay earchsay isyay alformedmay"/>
 			<find-status-invalid-re value="Indfay: Invalidyay egularray expressionyay"/>
-			<find-status-mark-1-match value="1 atchmay"/>
-			<find-status-mark-nb-matches value="$INT_REPLACE$ atchesmay"/>
-			<find-status-count-re-malformed value="Ountcay: Ethay egularray expressionyay otay earchsay isyay alformedmay"/>
+			<find-status-search-failed value="Indfay: Earchsay ailedfay"/>
+			<find-status-mark-1-match value="Arkmay: 1 atchmay"/>
+			<find-status-mark-nb-matches value="Arkmay: $INT_REPLACE$ atchesmay"/>
 			<find-status-count-1-match value="Ountcay: 1 atchmay"/>
 			<find-status-count-nb-matches value="Ountcay: $INT_REPLACE$ atchesmay"/>
-			<find-status-replaceall-re-malformed value="Eplaceray Allyay: Ethay egularray expressionyay isyay alformedmay"/>
 			<find-status-replaceall-1-replaced value="Eplaceray Allyay: 1 occurrenceyay asway eplacedray"/>
 			<find-status-replaceall-nb-replaced value="Eplaceray Allyay: $INT_REPLACE$ occurrencesyay ereway eplacedray"/>
 			<find-status-replaceall-readonly value="Eplaceray Allyay: Annotcay eplaceray exttay. Ethay urrentcay ocumentday isyay eadray onlyyay"/>
 			<find-status-replace-end-reached value="Eplaceray: Eplacedray ethay 1st occurrenceyay omfray ethay optay. Ethay endyay ofyay ocumentday ashay eenbay eachedray"/>
 			<find-status-replace-top-reached value="Eplaceray: Eplacedray ethay 1st occurrenceyay omfray ethay ottombay. Ethay eginbay ofyay ocumentday ashay eenbay eachedray"/>
 			<find-status-replaced-next-found value="Eplaceray: 1 occurrenceyay asway eplacedray. Ethay extnay occurrenceyay oundfay"/>
+			<find-status-replaced-without-continuing value="Eplaceray: 1 occurrenceyay asway eplacedray."/>
 			<find-status-replaced-next-not-found value="Eplaceray: 1 occurrenceyay asway eplacedray. Ethay extnay occurrenceyay otnay oundfay"/>
 			<find-status-replace-not-found value="Eplaceray: onay occurrenceyay asway oundfay"/>
 			<find-status-replace-readonly value="Eplaceray: Annotcay eplaceray exttay. Ethay urrentcay ocumentday isyay eadray onlyyay"/>
 			<find-status-cannot-find value="Indfay: An'tcay indfay ethay exttay &quot;$STR_REPLACE$&quot;"/>
+			<find-status-cannot-find-pebkac-maybe value="Ethay ivengay occurrenceyay annotcay ebay oundfay. Youyay aymay avehay orgottenfay otay eckchay &quot;Apwray aroundyay&quot; (otay ONYAY), &quot;Atchmay asecay&quot; (otay OFFYAY), oryay &quot;Atchmay olewhay ordway onlyyay&quot; (otay OFFYAY)."/>
+			<find-status-scope-selection value="inyay electedsay exttay"/>
+			<find-status-scope-all value="inyay entireyay ilefay"/>
+			<find-status-scope-backward value="omfray artstay-ofyay-ilefay otay aretcay"/>
+			<find-status-scope-forward value="omfray aretcay otay endyay-ofyay-ilefay"/>
+			<find-status-replace-invalid-replace-chars value="Eplaceray: an'tcay eplaceray ithway onnay-ANSI exttay inyay ANSI ocumentday"/>
+			<find-status-invisible-chars-findWhat value="Invisibleyay aracterschay inyay astedpay &quot;Indfay atwhay&quot; oryay &quot;Eplaceray ithway&quot; ontentcay"/>
+			<find-status-invisible-chars-findWhat-tip value="Arningway: Invisibleyay aracterschay inyay earchsay (oryay eplaceray) ieldfay.
+Ethay exttay astedpay intoyay isthay ieldfay includesyay invisibleyay (aybemay inelay-endingyay) aracterschay. Ifyay youyay oceedpray ithoutway eletingday emthay, eythay illway ebay includedyay inyay ethay earchsay (oryay eplaceray) exttay."/>
 			<finder-find-in-finder value="Indfay inyay isthay oundfay esultsray..."/>
 			<finder-close-this value="Oseclay isthay inderfay"/>
 			<finder-collapse-all value="Ollapsecay allyay"/>
@@ -1130,6 +1820,132 @@
 			<finder-copy value="Opycay"/>
 			<finder-select-all value="Electsay allyay"/>
 			<finder-clear-all value="Earclay allyay"/>
+			<finder-open-selected-paths value="Openyay Electedsay Athname(s)pay"/>
+			<finder-purge-for-every-search value="Urgepay orfay everyyay earchsay"/>
+			<finder-wrap-long-lines value="Ordway apwray onglay ineslay"/>
+			<common-ok value="OKYAY"/>
+			<common-cancel value="Ancelcay"/>
+			<common-name value="Amenay"/>
+			<common-error value="Erroryay"/>
+			<tabrename-title value="Enameray Urrentcay Abtay"/>
+			<tabrename-newname value="Ewnay amenay"/>
+			<splitter-rotate-left value="Otateray otay eftlay"/>
+			<splitter-rotate-right value="Otateray otay ightray"/>
+			<userdefined-title-new value="Eatecray Ewnay Anguagelay..."/>
+			<userdefined-title-save value="Avesay Urrentcay Anguagelay Amenay Asyay..."/>
+			<userdefined-title-rename value="Enameray Urrentcay Anguagelay Amenay"/>
+			<summary value="Ummarysay"/>
+			<summary-filepath value="Ullfay ilefay athpay: "/>
+			<summary-filecreatetime value="Eatedcray: "/>
+			<summary-filemodifytime value="Odifiedmay: "/>
+			<summary-nbchar value="Aracterschay (ithoutway inelay endingsyay): "/>
+			<summary-nbword value="Ordsway: "/>
+			<summary-nbline value="Ineslay: "/>
+			<summary-nbbyte value="Ocumentday engthlay: "/>
+			<summary-nbsel1 value=" electedsay aracterschay ("/>
+			<summary-nbsel2 value=" ytesbay) inyay "/>
+			<summary-nbrange value=" angesray"/>
+			<progress-hits-title value="Itshay:"/>
+			<progress-cancel-info value="Ancellingcay operationyay, easeplay aitway..."/>
+			<find-in-files-progress-title value="Indfay Inyay Ilesfay ogresspray..."/>
+			<discover-file-candidates-title value="Iscoveringday ilefay andidatescay..."/>
+			<replace-in-files-confirm-title value="Areyay youyay uresay?"/>
+			<replace-in-files-confirm-directory value="Areyay youyay uresay youyay antway otay eplaceray allyay occurrencesyay inyay:"/>
+			<replace-in-files-confirm-filetype value="Orfay ilefay ypetay:"/>
+			<replace-in-files-progress-title value="Eplaceray Inyay Ilesfay ogresspray..."/>
+			<replace-in-projects-confirm-title value="Areyay youyay uresay?"/>
+			<replace-in-projects-confirm-message value="Oday youyay antway otay eplaceray allyay occurrencesyay inyay allyay ocumentsday inyay ethay electedsay Ojectpray Anel(s)pay?"/>
+			<replace-in-open-docs-confirm-title value="Areyay youyay uresay?"/>
+			<replace-in-open-docs-confirm-message value="Areyay youyay uresay youyay antway otay eplaceray allyay occurrencesyay inyay allyay openyay ocumentsday?"/>
+			<find-result-caption value="Earchsay esultsray"/>
+			<find-result-title value="Earchsay"/><!-- Must not begin with space or tab character -->
+			<find-result-title-info value="($INT_REPLACE1$ itshay inyay $INT_REPLACE2$ ilesfay ofyay $INT_REPLACE3$ earchedsay)"/>
+			<find-result-title-info-selections value="($INT_REPLACE1$ itshay inyay $INT_REPLACE2$ electionssay ofyay $INT_REPLACE3$ earchedsay)"/>
+			<find-result-title-info-options-searchmode-normal value="Ormalnay"/>
+			<find-result-title-info-options-searchmode-extended value="Extendedyay"/>
+			<find-result-title-info-options-searchmode-regexp value="EgExray"/>
+			<find-result-title-info-options-case value="Asecay"/>
+			<find-result-title-info-options-word value="Ordway"/>
+			<find-result-title-info-extra value=" - Inelay Ilterfay Odemay: onlyyay isplayday ethay ilteredfay esultsray"/>
+			<find-result-hits value="($INT_REPLACE$ hits)"/>
+			<find-result-line-prefix value="Inelay"/><!-- Must not begin with space or tab character -->
+			<find-regex-zero-length-match value="erozay engthlay atchmay"/>
+			<session-save-folder-as-workspace value="Avesay Olderfay asyay Orkspaceway"/>
+			<tab-untitled-string value="ewnay "/>
+			<file-save-assign-type value="&amp;Appendyay extensionyay"/>
+			<close-panel-tip value="Oseclay"/>
+			<IncrementalFind-FSNotFound value="Asephray otnay oundfay"/>
+			<IncrementalFind-FSTopReached value="Eachedray optay ofyay agepay, ontinuedcay omfray ottombay"/>
+			<IncrementalFind-FSEndReached value="Eachedray endyay ofyay agepay, ontinuedcay omfray optay"/>
+			<contextMenu-styleAlloccurrencesOfToken value="Ylestay allyay occurrencesyay ofyay okentay"/>
+			<contextMenu-styleOneToken value="Ylestay oneyay okentay"/>
+			<contextMenu-clearStyle value="Earclay ylestay"/>
+			<contextMenu-PluginCommands value="Uginplay ommandscay"/>
+			<largeFileRestriction-tip value="Omesay eaturesfay aymay owslay erformancepay inyay argelay ilesfay. Esethay eaturesfay ancay ebay autoyay-isabledday onyay openingyay ayay argelay ilefay. Youyay ancay ustomizecay emthay erehay.
+
+OTENAY:
+1. Odifyingmay optionsyay erehay equiresray eray-openyay urrentlycay openedyay argelay ilesfay otay etgay operpray ehaviorbay.
+
+2. Ifyay &quot;Eactivateday Ordway Apwray oballyglay&quot; isyay eckedchay andyay youyay openyay ayay argelay ilefay, &quot;Ordway Apwray&quot; illway ebay isabledday orfay allyay ilesfay. Youyay ancay eray-enableyay ityay iavay enumay &quot;Iewvay-&gt;Ordway Apwray&quot;."/>
+			<npcNote-tip value="Epresentationray ofyay electedsay &quot;onnay-ASCII&quot; itespacewhay andyay onnay-intingpray (ontrolcay) aracterschay.
+
+OTENAY:
+Usingyay epresentationray illway isableday aracterchay effectsyay onyay exttay.
+
+Orfay ethay ullfay istlay ofyay electedsay itespacewhay andyay onnay-intingpray aracterschay eckchay Useryay Anualmay.
+
+Ickclay onyay isthay uttonbay otay openyay ebsiteway ithway Useryay Anualmay."/>
+			<npcAbbreviation-tip value="Abbreviationyay : amenay
+NBSP : onay-eakbray acespay
+ZWSP : erozay-idthway acespay
+ZWNBSP : erozay-idthway onay-eakbray acespay
+
+Orfay ethay ullfay istlay eckchay Useryay Anualmay.
+Ickclay onyay &quot;?&quot; uttonbay onyay ightray otay openyay ebsiteway ithway Useryay Anualmay."/>
+			<npcCodepoint-tip value="Odepointcay : amenay
+U+00A0 : onay-eakbray acespay
+U+200B : erozay-idthway acespay
+U+FEFF : erozay-idthway onay-eakbray acespay
+
+Orfay ethay ullfay istlay eckchay Useryay Anualmay.
+Ickclay onyay &quot;?&quot; uttonbay onyay ightray otay openyay ebsiteway ithway Useryay Anualmay."/>
+
+			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
+			<npcCustomColor-tip value="Ogay otay Ylestay Onfiguratorcay otay angechay ethay efaultday ustomcay olorcay orfay electedsay itespacewhay andyay onnay-intingpray aracterschay (&quot;Non-printing characters custom color&quot;)."/>
+			<npcIncludeCcUniEol-tip value="Applyyay onnay-intingpray aracterschay appearanceyay ettingssay otay C0, C1 ontrolcay andyay Unicodeyay EOL (extnay inelay, inelay eparatorsay andyay aragraphpay eparatorsay) aracterschay."/>
+			<searchingInSelThresh-tip value="Inimummay umbernay ofyay electedsay aracterschay inyay edityay onezay otay automaticallyyay eckchay ethay &quot;Inyay electionsay&quot; eckboxchay enwhay ethay Indfay ialogday isyay activatedyay. Ethay aximummay aluevay isyay $INT_REPLACE$. Etsay ethay aluevay otay 0 otay isableday autoyay-eckingchay."/>
+			<searchingFillFindWhat-tip value="Aximummay umbernay ofyay electedsay aracterschay inyay edityay onezay otay illfay automaticallyyay ethay &quot;Indfay atwhay&quot; ieldfay enwhay ethay Ctrl-F isyay iggeredtray. Ethay aximummay aluevay isyay $INT_REPLACE$, ichwhay isyay ethay aximummay izesay ofyay &quot;Indfay atwhay&quot; ieldfay, imitedlay ybay ethay ystemsay."/>
+			<verticalEdge-tip value="Addyay youryay olumncay arkermay ybay indicatingyay itsyay ositionpay ithway ayay ecimalday umbernay. Youyay ancay efineday everalsay olumncay arkersmay ybay usingyay itewhay acespay otay eparatesay ethay ifferentday umbersnay."/>
+			<fileSaveAsCopySaveButton-tip value="Oldhay Iftshay ilewhay essingpray Avesay otay openyay ethay opycay afteryay avingsay."/>
+			<autoIndentBasic-tip value="Ensureyay atthay ethay indentationyay ofyay ethay urrentcay inelay (i.e. ethay ewnay inelay eatedcray ybay essingpray ethay ENTERYAY eykay) atchesmay ethay indentationyay ofyay ethay eviouspray inelay."/>
+			<autoIndentAdvanced-tip value="Enableyay artsmay indentationyay orfay &quot;C-ikelay&quot; anguageslay andyay Ythonpay. Ethay &quot;C-ikelay&quot; anguageslay includeyay:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell andyay JSON.
+
+Ifyay youyay electsay advancedyay odemay utbay oday otnay edityay ilesfay inyay ethay aforementionedyay anguageslay, ethay indentationyay illway emainray inyay asicbay odemay."/>
+
+			<!-- Don't translate "Global override" and "Default Style" -->
+			<global-override-tip value="Enablingyay &quot;Global override&quot; erehay illway overrideyay atthay arameterpay inyay allyay anguagelay ylesstay. Atwhay youyay obablypray eallyray antway isyay otay useyay ethay &quot;Default Style&quot; ettingssay insteadyay"/>
+			<scintillaRenderingTechnology-tip value="Aymay improveyay enderingray ofyay ecialspay aracterschay oryay esolveray omesay aphicsgray issuesyay, estartray Notepad++ otay applyyay ethay angeschay."/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="length: $STR_REPLACE1$    lines: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Ln: $STR_REPLACE1$    Col: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Pos: "/>
+			<statusbar-Sel value="Sel: "/>
+			<statusbar-Sel-number value="Sel"/>
+			<toolbar-accent-tip value="Isthay optionyay akesmay youryay oolbartay iconsyay ollowfay Indowsway ystemsay accentyay olorcay. Accentyay olorcay isyay ethay ighlighthay olorcay usedyay inyay uttonsbay, ordersbay, andyay Artstay enumay ilestay inyay Indowsway. Otay angechay ityay, ogay otay Ettingssay &gt; Ersonalizationpay &gt; Olorscay, enthay electsay youryay eferredpray accentyay olorcay."/>
+			<len-limit-exceeded-tip value="Engthlay imitlay exceededyay: Youryay inputyay aymay exceedyay ethay imitlay allowedyay andyay ouldcay avehay eenbay uncatedtray, andyay ityay on'tway ebay avedsay orfay ethay extnay essionsay."/>
+			<max-len-on-search-tip value="Youryay inputyay aymay exceedyay ethay imitlay allowedyay andyay ouldcay avehay eenbay uncatedtray, andyay ityay on'tway ebay avedsay orfay ethay extnay essionsay."/>
+			<max-len-on-save-tip value="Ethay engthlay ofyay youryay inputyay isyay eryvay onglay andyay aymay otnay ebay avedsay orfay youryay extnay essionsay."/>
+			<goto-setting-tip value="Indfay youryay ettingsay erehay"/>
+			<tabbar-tabcompactlabellen-tip value="Imitslay ethay isiblevay engthlay ofyay onglay abtay amesnay. Enteryay otay applyyay ethay ivengay aluevay. Aluevay angeray: 1-257 aracterschay (0 isablesday ethay uncationtray)."/>
+			<networkpathwarning-serverwhitelist-tip value="Utspay ethay erversay ofyay ethay urrentcay ilefay intoyay Notepad++ serverWhiteList.xml.
+
+Orfay oremay infoyay, ickclay onyay isthay uttonbay otay openyay ebsiteway ithway elevantray Useryay Anualmay ectionsay."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

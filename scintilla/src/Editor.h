@@ -348,6 +348,7 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	void RedrawSelMargin(Sci::Line line=-1, bool allAfter=false);
 	PRectangle RectangleFromRange(Range r, int overlap);
 	void InvalidateRange(Sci::Position start, Sci::Position end);
+	void InvalidateRange(ForwardRange range);
 
 	bool UserVirtualSpace() const noexcept {
 		return (FlagSet(virtualSpaceOptions, Scintilla::VirtualSpace::UserAccessible));
@@ -626,7 +627,8 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 
 	bool PositionIsHotspot(Sci::Position position) const noexcept;
 	bool PointIsHotspot(Point pt);
-	void SetHotSpotRange(const Point *pt);
+	void ClearHotSpotRange();
+	void SetHotSpotRange(Point pt);
 	void SetHoverIndicatorPosition(Sci::Position position);
 	void SetHoverIndicatorPoint(Point pt);
 

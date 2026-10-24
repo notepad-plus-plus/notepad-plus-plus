@@ -75,7 +75,7 @@ public:
 	UniqueString defaultFoldDisplayText;
 	std::unique_ptr<IContractionState> pcs;
 	// Hotspot support
-	Range hotspot;
+	ForwardRange hotspot;
 	bool hotspotSingleLine;
 	Sci::Position hoverIndicatorPos;
 

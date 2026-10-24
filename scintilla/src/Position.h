@@ -16,8 +16,8 @@
 
 namespace Sci {
 
-typedef ptrdiff_t Position;
-typedef ptrdiff_t Line;
+using Position = ptrdiff_t;
+using Line = ptrdiff_t;
 
 inline constexpr Position invalidPosition = -1;
 

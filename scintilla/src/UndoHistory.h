@@ -91,7 +91,7 @@ class UndoHistory {
 	struct actPos { int act; size_t position; };
 	std::optional<actPos> memory;
 
-	int PreviousAction() const noexcept;
+	[[nodiscard]] int PreviousAction() const noexcept;
 
 public:
 	UndoHistory();
@@ -101,8 +101,8 @@ public:
 
 	void BeginUndoAction(bool mayCoalesce=false) noexcept;
 	void EndUndoAction() noexcept;
-	int UndoSequenceDepth() const noexcept;
-	bool AfterUndoSequenceStart() const noexcept;
+	[[nodiscard]] int UndoSequenceDepth() const noexcept;
+	[[nodiscard]] bool AfterUndoSequenceStart() const noexcept;
 	void DropUndoSequence() noexcept;
 	void DeleteUndoHistory() noexcept;
 
@@ -113,17 +113,17 @@ public:
 	void SetSavePoint(int action) noexcept;
 	[[nodiscard]] int SavePoint() const noexcept;
 	void SetSavePoint() noexcept;
-	bool IsSavePoint() const noexcept;
-	bool BeforeSavePoint() const noexcept;
-	bool PreviousBeforeSavePoint() const noexcept;
-	bool BeforeReachableSavePoint() const noexcept;
-	bool AfterSavePoint() const noexcept;
+	[[nodiscard]] bool IsSavePoint() const noexcept;
+	[[nodiscard]] bool BeforeSavePoint() const noexcept;
+	[[nodiscard]] bool PreviousBeforeSavePoint() const noexcept;
+	[[nodiscard]] bool BeforeReachableSavePoint() const noexcept;
+	[[nodiscard]] bool AfterSavePoint() const noexcept;
 
 	/// The detach point is the last action that was before an inaccessible missing save point.
 	void SetDetachPoint(int action) noexcept;
 	[[nodiscard]] int DetachPoint() const noexcept;
-	bool AfterDetachPoint() const noexcept;
-	bool AfterOrAtDetachPoint() const noexcept;
+	[[nodiscard]] bool AfterDetachPoint() const noexcept;
+	[[nodiscard]] bool AfterOrAtDetachPoint() const noexcept;
 
 	[[nodiscard]] intptr_t Delta(int action) const noexcept;
 	[[nodiscard]] bool Validate(intptr_t lengthDocument) const noexcept;
@@ -141,18 +141,18 @@ public:
 	[[nodiscard]] int TentativePoint() const noexcept;
 	void TentativeStart() noexcept;
 	void TentativeCommit() noexcept;
-	bool TentativeActive() const noexcept;
-	int TentativeSteps() const noexcept;
+	[[nodiscard]] bool TentativeActive() const noexcept;
+	[[nodiscard]] int TentativeSteps() const noexcept;
 
 	/// To perform an undo, StartUndo is called to retrieve the number of steps, then UndoStep is
 	/// called that many times. Similarly for redo.
-	bool CanUndo() const noexcept;
-	int StartUndo() const noexcept;
-	Action GetUndoStep() const noexcept;
+	[[nodiscard]] bool CanUndo() const noexcept;
+	[[nodiscard]] int StartUndo() const noexcept;
+	[[nodiscard]] Action GetUndoStep() const noexcept;
 	void CompletedUndoStep() noexcept;
-	bool CanRedo() const noexcept;
-	int StartRedo() const noexcept;
-	Action GetRedoStep() const noexcept;
+	[[nodiscard]] bool CanRedo() const noexcept;
+	[[nodiscard]] int StartRedo() const noexcept;
+	[[nodiscard]] Action GetRedoStep() const noexcept;
 	void CompletedRedoStep() noexcept;
 };
 

@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# A single quote inside a here-document with a quoted delimiter ('EOF', "EOF",
+# \EOF or <<-'EOF') must not hide the functions that follow it.
+
+: <<'EOF'
+HEREDOC with a single ' quote
+EOF
+
+function unlisted_function1 { :
+}
+
+function break_listing1 { :
+	echo 'Text in single quotes breaks listing all functions between HEREDOC and here.'
+}
+
+cat <<"END"
+Double quoted delimiter with a single ' quote
+END
+
+function after_double_quoted { :
+	echo 'single quotes'
+}
+
+cat <<\END
+Backslash quoted delimiter with a single ' quote
+END
+
+function after_backslash_quoted { :
+	echo 'single quotes'
+}
+
+	cat <<-'END'
+	Indented here-document with a single ' quote
+	END
+
+function after_indented { :
+	echo 'single quotes'
+}

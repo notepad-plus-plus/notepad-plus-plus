@@ -101,7 +101,7 @@ using namespace std;
 
 chrono::steady_clock::duration g_pluginsLoadingTime{};
 
-enum tb_stat {tb_saved, tb_unsaved, tb_ro, tb_monitored};
+enum tb_stat {tb_saved, tb_unsaved, tb_ro, tb_rosys, tb_monitored};
 #define DIR_LEFT true
 #define DIR_RIGHT false
 
@@ -6031,7 +6031,7 @@ void Notepad_plus::getTaskListInfo(TaskListInfo* tli)
 	{
 		BufferID bufID = _pDocTab->getBufferByIndex(i);
 		Buffer * b = MainFileManager.getBufferByID(bufID);
-		int status = b->isMonitoringOn()?tb_monitored:(b->isReadOnly()?tb_ro:(b->isDirty()?tb_unsaved:tb_saved));
+		int status = b->isMonitoringOn() ? tb_monitored : (b->getFileReadOnly() ? tb_rosys : b->getUserReadOnly() ? tb_ro : (b->isDirty() ? tb_unsaved : tb_saved));
 		tli->_openedDocInfoList.push_back(OpenedDocInfo(currentView(), i, b->getFullPathName(), status, (void *)bufID, b->getDocColorId()));
 	}
 
@@ -6039,7 +6039,7 @@ void Notepad_plus::getTaskListInfo(TaskListInfo* tli)
 	{
 		BufferID bufID = _pNonDocTab->getBufferByIndex(i);
 		Buffer * b = MainFileManager.getBufferByID(bufID);
-		int status = b->isMonitoringOn()?tb_monitored:(b->isReadOnly()?tb_ro:(b->isDirty()?tb_unsaved:tb_saved));
+		int status = b->isMonitoringOn()?tb_monitored:(b->getFileReadOnly() ? tb_rosys : b->getUserReadOnly() ? tb_ro : (b->isDirty() ? tb_unsaved : tb_saved));
 		tli->_openedDocInfoList.push_back(OpenedDocInfo(otherView(), i, b->getFullPathName(), status, (void *)bufID, b->getDocColorId()));
 	}
 }

@@ -48,6 +48,10 @@ public:
 		return write(str.c_str(), str.length());
 	}
 
+	bool writeStr(const char *str, size_t length) {
+		return write(str, length);
+	}
+
 	DWORD getLastErrorCode() const {
 		return _dwErrorCode;
 	}

@@ -427,21 +427,46 @@ bool launchUpdater(const std::wstring& updaterFullPath, const std::wstring& upda
 	return true;
 }
 
-DWORD nppUacSave(const wchar_t* wszTempFilePath, const wchar_t* wszProtectedFilePath2Save)
-{
-	if ((lstrlenW(wszTempFilePath) == 0) || (lstrlenW(wszProtectedFilePath2Save) == 0)) // safe check (lstrlen returns 0 for possible nullptr)
-		return ERROR_INVALID_PARAMETER;
-	if (!doesFileExist(wszTempFilePath))
-		return ERROR_FILE_NOT_FOUND;
 
-	DWORD dwRetCode = ERROR_SUCCESS;
+DWORD nppUacSave(const wchar_t* protectedFilePath2Save, HANDLE hParent, HANDLE remote, size_t size)
+{
+	if (lstrlenW(protectedFilePath2Save) == 0) // safe check (lstrlen returns 0 for possible nullptr)
+		return ERROR_INVALID_PARAMETER;
+
+	// remote = handle VALUE in the parent process: get our own read-only, non-inheritable handle on that section
+	HANDLE hLocal = NULL;
+	const BOOL isDup = ::DuplicateHandle(hParent, remote, ::GetCurrentProcess(), &hLocal, FILE_MAP_READ, FALSE, 0);
+	DWORD dwRetCode = isDup ? NO_ERROR : ::GetLastError();
+
+	if (!isDup)
+		return dwRetCode;
+
+	// copy the content out of the section, then release it
+	std::string content;
+	void* p = ::MapViewOfFile(hLocal, FILE_MAP_READ, 0, 0, size);
+	if (!p)
+	{
+		dwRetCode = ::GetLastError();
+	}
+	else
+	{
+		try {
+			content.assign(static_cast<const char*>(p), size);
+		}
+		catch (const std::exception&) { dwRetCode = ERROR_NOT_ENOUGH_MEMORY; }
+		::UnmapViewOfFile(p);
+	}
+	::CloseHandle(hLocal);
+
+	if (dwRetCode != NO_ERROR)
+		return dwRetCode;
 
 	bool isOutputReadOnly = false;
 	bool isOutputHidden = false;
 	bool isOutputSystem = false;
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
 	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
-	if (getFileAttributesExWithTimeout(wszProtectedFilePath2Save, &attributes))
+	if (getFileAttributesExWithTimeout(protectedFilePath2Save, &attributes))
 	{
 		if (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES && !(attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 		{
@@ -452,21 +477,11 @@ DWORD nppUacSave(const wchar_t* wszTempFilePath, const wchar_t* wszProtectedFile
 			if (isOutputHidden) attributes.dwFileAttributes &= ~FILE_ATTRIBUTE_HIDDEN;
 			if (isOutputSystem) attributes.dwFileAttributes &= ~FILE_ATTRIBUTE_SYSTEM;
 			if (isOutputReadOnly || isOutputHidden || isOutputSystem)
-				::SetFileAttributes(wszProtectedFilePath2Save, attributes.dwFileAttributes); // temporarily remove the problematic ones
+				::SetFileAttributes(protectedFilePath2Save, attributes.dwFileAttributes); // temporarily remove the problematic ones
 		}
 	}
 
-	// cannot use simple MoveFile here as it retains the tempfile permissions when on the same volume...
-	if (!::CopyFileW(wszTempFilePath, wszProtectedFilePath2Save, FALSE))
-	{
-		// fails if the destination file exists and has the R/O and/or Hidden attribute set
-		dwRetCode = ::GetLastError();
-	}
-	else
-	{
-		// ok, now dispose of the tempfile used
-		::DeleteFileW(wszTempFilePath);
-	}
+	writeFileContent(protectedFilePath2Save, content.data(), content.size());
 
 	// set back the possible original file attributes
 	if (isOutputReadOnly || isOutputHidden || isOutputSystem)
@@ -474,7 +489,7 @@ DWORD nppUacSave(const wchar_t* wszTempFilePath, const wchar_t* wszProtectedFile
 		if (isOutputReadOnly) attributes.dwFileAttributes |= FILE_ATTRIBUTE_READONLY;
 		if (isOutputHidden) attributes.dwFileAttributes |= FILE_ATTRIBUTE_HIDDEN;
 		if (isOutputSystem) attributes.dwFileAttributes |= FILE_ATTRIBUTE_SYSTEM;
-		::SetFileAttributes(wszProtectedFilePath2Save, attributes.dwFileAttributes);
+		::SetFileAttributes(protectedFilePath2Save, attributes.dwFileAttributes);
 	}
 
 	return dwRetCode;
@@ -522,16 +537,16 @@ DWORD nppUacCreateEmptyFile(const wchar_t* wszNewEmptyFilePath)
 	return ERROR_SUCCESS;
 }
 
-// Returns true only if this process's immediate parent is an unelevated
-// notepad++.exe located at the same path as the currently running binary.
-bool isParentProcessThisNotepadPlusPlus()
+// Returns a handle to the parent process if (and only if) it's this very notepad++.exe image,
+// otherwise NULL. Caller must CloseHandle() it.
+HANDLE getParentProcessOfThisNotepadPlusPlus()
 {
 	DWORD currentPid = ::GetCurrentProcessId();
 	DWORD parentPid = 0;
 
 	HANDLE hSnap = ::CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 	if (hSnap == INVALID_HANDLE_VALUE)
-		return false;
+		return nullptr;
 
 	PROCESSENTRY32W pe32{};
 	pe32.dwSize = sizeof(pe32);
@@ -552,26 +567,39 @@ bool isParentProcessThisNotepadPlusPlus()
 	::CloseHandle(hSnap);
 
 	if (!found || parentPid == 0)
-		return false;
+		return nullptr;
 
-	HANDLE hParent = ::OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, parentPid);
+	HANDLE hParent = ::OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION | PROCESS_DUP_HANDLE, FALSE, parentPid);
 	if (hParent == nullptr)
-		return false; // parent gone or inaccessible — fail closed
+		return nullptr; // parent gone or inaccessible — fail closed
 
-	wchar_t parentPath[MAX_PATH] = {};
+	wchar_t parentPath[MAX_PATH] {};
 	DWORD parentPathLen = MAX_PATH;
 	bool gotPath = ::QueryFullProcessImageNameW(hParent, 0, parentPath, &parentPathLen) != 0;
-	::CloseHandle(hParent);
 
 	if (!gotPath)
-		return false;
+	{
+		::CloseHandle(hParent);
+		return nullptr;
+	}
 
 	wchar_t selfImagePath[MAX_PATH] = {};
 	DWORD dwSizeSelf = MAX_PATH;
 	if (!::QueryFullProcessImageNameW(::GetCurrentProcess(), 0, selfImagePath, &dwSizeSelf))
-		return false;
+	{
+		::CloseHandle(hParent);
+		return nullptr;
+	}
 
-	return (_wcsicmp(parentPath, selfImagePath) == 0);
+	if (_wcsicmp(parentPath, selfImagePath) == 0)
+	{
+		return hParent;
+	}
+	else
+	{
+		::CloseHandle(hParent);
+		return nullptr; // parent is not this notepad++.exe image
+	}
 }
 
 
@@ -592,17 +620,32 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 		if (nppUacOpSign.starts_with(NPP_UAC_OP_PREFIX))
 		{
 			// Check the parent caller to ensure it is Notepad++ and not some other process
-			if (!isParentProcessThisNotepadPlusPlus())
+			HANDLE hParent = getParentProcessOfThisNotepadPlusPlus();
+			if (!hParent)
 			{
 				::MessageBox(Notepad_plus_Window::gNppHWND, L"The parent process is not Notepad++. Aborting the operation for security reasons.", L"Notepad++ UAC OPS Warning", MB_OK | MB_ICONERROR);
 				return static_cast<int>(ERROR_ACCESS_DENIED);
 			}
 
-			if ((__argc == 4) && (nppUacOpSign == NPP_UAC_SAVE_SIGN))
+			if ((__argc == 5) && (nppUacOpSign == NPP_UAC_SAVE_SIGN))
 			{
-				// __wargv[x]: 2 ... tempFilePath, 3  ...  protectedFilePath2Save
-				return static_cast<int>(nppUacSave(__wargv[2], __wargv[3]));
+				// __wargv[x]: 2 ... protectedFilePath2Save, 3 ... section handle value (valid in the parent process), 4 ... content size in bytes
+				DWORD dwError = NO_ERROR;
+				try {
+					const uintptr_t remoteHandle = static_cast<uintptr_t>(std::stoull(std::wstring(__wargv[3])));
+					const size_t contentSize = static_cast<size_t>(std::stoull(std::wstring(__wargv[4])));
+					dwError = nppUacSave(__wargv[2], hParent, reinterpret_cast<HANDLE>(remoteHandle), contentSize);
+				}
+				catch ([[maybe_unused]] const std::exception& e)
+				{
+					dwError = ERROR_INVALID_PARAMETER; // conversion error (check e.what() for details)
+				}
+
+				::CloseHandle(hParent);
+				return static_cast<int>(dwError);
 			}
+
+			::CloseHandle(hParent);
 
 			if ((__argc == 4) && (nppUacOpSign == NPP_UAC_SETFILEATTRIBUTES_SIGN))
 			{

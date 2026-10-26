@@ -238,7 +238,7 @@ void VerticalFileSwitcherListView::setItemIconStatus(BufferID bufferID)
 	LVITEM item{};
 	item.pszText = fn;
 	item.iSubItem = 0;
-	item.iImage = buf->isMonitoringOn()?3:(buf->isReadOnly()?2:(buf->isDirty()?1:0));
+	item.iImage = buf->isMonitoringOn()?4:(buf->getFileReadOnly()?3:buf->getUserReadOnly()?2:(buf->isDirty()?1:0)); // same order as the tab bar icons (DocTabView.cpp)
 
 	int nbItem = ListView_GetItemCount(_hSelf);
 
@@ -356,7 +356,7 @@ int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)
 	item.pszText = fn;
 	item.iItem = _currentIndex;
 	item.iSubItem = 0;
-	item.iImage = buf->isMonitoringOn()?3:(buf->isReadOnly()?2:(buf->isDirty()?1:0));
+	item.iImage = buf->isMonitoringOn()?4:(buf->getFileReadOnly()?3:buf->getUserReadOnly()?2:(buf->isDirty()?1:0));
 	item.lParam = reinterpret_cast<LPARAM>(tl);
 	item.iGroupId = (iView == MAIN_VIEW) ? _groupID : _group2ID;
 	ListView_InsertItem(_hSelf, &item);

@@ -19,8 +19,8 @@
 #include <cassert>
 #include <climits>
 
-static constexpr SIZE SIZEZERO = { 0, 0 };
-static constexpr SIZE SIZEMAX = { SHRT_MAX, SHRT_MAX };
+inline constexpr SIZE SIZEZERO = { 0, 0 };
+inline constexpr SIZE SIZEMAX = { SHRT_MAX, SHRT_MAX };
 
 inline SIZE GetSize(LONG w, LONG h) { 
 	SIZE sz = {w, h}; return sz; 

@@ -553,16 +553,16 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				else if (pNMHDR->code == LVN_KEYDOWN)
 				{
 					const NMLVKEYDOWN* lvkd = reinterpret_cast<NMLVKEYDOWN*>(pNMHDR);
-					short ctrl = GetKeyState(VK_CONTROL);
-					short alt = GetKeyState(VK_MENU);
-					short shift = GetKeyState(VK_SHIFT);
-					if (lvkd->wVKey == 'A' && ctrl<0 && alt>=0 && shift>=0)
+					const bool ctrl = ::GetKeyState(VK_CONTROL) < 0;
+					const bool alt = ::GetKeyState(VK_MENU) < 0;
+					const bool shift = ::GetKeyState(VK_SHIFT) < 0;
+					if (lvkd->wVKey == 'A' && ctrl && !alt && !shift)
 					{
 						// Ctrl + A
 						for (int i=0, n=ListView_GetItemCount(_hList); i<n; ++i)
 							ListView_SetItemState(_hList, i, LVIS_SELECTED, LVIS_SELECTED);
 					}
-					else if (lvkd->wVKey == 'C' && ctrl & 0x80)
+					else if (lvkd->wVKey == 'C' && ctrl)
 					{
 						// Ctrl + C
 						if (ListView_GetSelectedCount(_hList) != 0)
@@ -785,30 +785,30 @@ BOOL WindowsDlg::onInitDialog()
 	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
 	columnText = L"⇵ " + pNativeSpeaker->getAttrNameStr(L"Name", WD_ROOTNODE, WD_CLMNNAME);
-	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
+	lvColumn.pszText = columnText.data();
 	lvColumn.cx = width / 4;
-	SendMessage(_hList, LVM_INSERTCOLUMN, 0, LPARAM(&lvColumn));
+	::SendMessage(_hList, LVM_INSERTCOLUMN, 0, reinterpret_cast<LPARAM>(&lvColumn));
 
 	columnText = L"⇵ " + pNativeSpeaker->getAttrNameStr(L"Path", WD_ROOTNODE, WD_CLMNPATH);
-	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
+	lvColumn.pszText = columnText.data();
 	lvColumn.cx = 300;
-	SendMessage(_hList, LVM_INSERTCOLUMN, 1, LPARAM(&lvColumn));
+	::SendMessage(_hList, LVM_INSERTCOLUMN, 1, reinterpret_cast<LPARAM>(&lvColumn));
 
 	lvColumn.fmt = LVCFMT_CENTER;
 	columnText = L"⇵ " + pNativeSpeaker->getAttrNameStr(L"Type", WD_ROOTNODE, WD_CLMNTYPE);
-	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
+	lvColumn.pszText = columnText.data();
 	lvColumn.cx = 100;
-	SendMessage(_hList, LVM_INSERTCOLUMN, 2, LPARAM(&lvColumn));
+	::SendMessage(_hList, LVM_INSERTCOLUMN, 2, reinterpret_cast<LPARAM>(&lvColumn));
 
 	columnText = L"⇵ " + pNativeSpeaker->getAttrNameStr(L"Size", WD_ROOTNODE, WD_CLMNSIZE);
-	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
+	lvColumn.pszText = columnText.data();
 	lvColumn.cx = 100;
-	SendMessage(_hList, LVM_INSERTCOLUMN, 3, LPARAM(&lvColumn));
+	::SendMessage(_hList, LVM_INSERTCOLUMN, 3, reinterpret_cast<LPARAM>(&lvColumn));
 
 	columnText = L"⇵ " + pNativeSpeaker->getAttrNameStr(L"Modified time", WD_ROOTNODE, WD_CLMNDT);
-	lvColumn.pszText = const_cast<wchar_t*>(columnText.c_str());
+	lvColumn.pszText = columnText.data();
 	lvColumn.cx = 120;
-	SendMessage(_hList, LVM_INSERTCOLUMN, 4, LPARAM(&lvColumn));
+	::SendMessage(_hList, LVM_INSERTCOLUMN, 4, reinterpret_cast<LPARAM>(&lvColumn));
 
 	fitColumnsToSize();
 
@@ -848,9 +848,9 @@ void WindowsDlg::updateColumnNames() const
 	{
 		columnText = L"▽ " + columnText;
 	}
-	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
+	lvColumn.pszText = columnText.data();
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 0, 0));
-	SendMessage(_hList, LVM_SETCOLUMN, 0, LPARAM(&lvColumn));
+	::SendMessage(_hList, LVM_SETCOLUMN, 0, reinterpret_cast<LPARAM>(&lvColumn));
 
 	columnText = pNativeSpeaker->getAttrNameStr(L"Path", WD_ROOTNODE, WD_CLMNPATH);
 	if (_currentColumn != 1)
@@ -865,9 +865,9 @@ void WindowsDlg::updateColumnNames() const
 	{
 		columnText = L"▽ " + columnText;
 	}
-	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
+	lvColumn.pszText = columnText.data();
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 1, 0));
-	SendMessage(_hList, LVM_SETCOLUMN, 1, LPARAM(&lvColumn));
+	::SendMessage(_hList, LVM_SETCOLUMN, 1, reinterpret_cast<LPARAM>(&lvColumn));
 
 	lvColumn.fmt = LVCFMT_CENTER;
 	columnText = pNativeSpeaker->getAttrNameStr(L"Type", WD_ROOTNODE, WD_CLMNTYPE);
@@ -883,9 +883,9 @@ void WindowsDlg::updateColumnNames() const
 	{
 		columnText = L"▽ " + columnText;
 	}
-	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
+	lvColumn.pszText = columnText.data();
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 2, 0));
-	SendMessage(_hList, LVM_SETCOLUMN, 2, LPARAM(&lvColumn));
+	::SendMessage(_hList, LVM_SETCOLUMN, 2, reinterpret_cast<LPARAM>(&lvColumn));
 
 	columnText = pNativeSpeaker->getAttrNameStr(L"Size", WD_ROOTNODE, WD_CLMNSIZE);
 	if (_currentColumn != 3)
@@ -900,9 +900,9 @@ void WindowsDlg::updateColumnNames() const
 	{
 		columnText = L"▽ " + columnText;
 	}
-	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
+	lvColumn.pszText = columnText.data();
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 3, 0));
-	SendMessage(_hList, LVM_SETCOLUMN, 3, LPARAM(&lvColumn));
+	::SendMessage(_hList, LVM_SETCOLUMN, 3, reinterpret_cast<LPARAM>(&lvColumn));
 
 	// Modified time
 	lvColumn.fmt = LVCFMT_LEFT;
@@ -919,9 +919,9 @@ void WindowsDlg::updateColumnNames() const
 	{
 		columnText = L"▽ " + columnText;
 	}
-	lvColumn.pszText = const_cast<wchar_t*>(columnText.c_str());
+	lvColumn.pszText = columnText.data();
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 4, 0));
-	SendMessage(_hList, LVM_SETCOLUMN, 4, LPARAM(&lvColumn));
+	::SendMessage(_hList, LVM_SETCOLUMN, 4, reinterpret_cast<LPARAM>(&lvColumn));
 }
 
 void WindowsDlg::onSize(UINT nType, int cx, int cy)
@@ -966,15 +966,13 @@ void WindowsDlg::doRefresh()
 			if (count == oldSize)
 				return;
 
-			if (count != oldSize)
-			{
-				size_t lo = 0;
-				_idxMap.resize(count);
-				if (oldSize < count)
-					lo = oldSize;
-				for (size_t i = lo; i < count; ++i)
-					_idxMap[i] = static_cast<int>(i);
-			}
+			size_t lo = 0;
+			_idxMap.resize(count);
+			if (oldSize < count)
+				lo = oldSize;
+			for (size_t i = lo; i < count; ++i)
+				_idxMap[i] = static_cast<int>(i);
+
 			::SendMessage(_hList, LVM_SETITEMCOUNT, count, LVSICF_NOSCROLL | LVSICF_NOINVALIDATEALL);
 			::InvalidateRect(_hList, nullptr, FALSE);
 

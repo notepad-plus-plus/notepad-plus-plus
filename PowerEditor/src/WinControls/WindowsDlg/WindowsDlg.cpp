@@ -17,6 +17,8 @@
 
 #include "WindowsDlg.h"
 
+#include <windows.h>
+
 #include <algorithm>
 #include <cassert>
 #include <cctype>
@@ -43,14 +45,6 @@
 #include "resource.h"
 
 using namespace std;
-
-#ifndef _countof
-#define _countof(x) (sizeof(x)/sizeof((x)[0]))
-#endif
-
-#ifndef LVS_EX_DOUBLEBUFFER
-#define LVS_EX_DOUBLEBUFFER     0x00010000
-#endif
 
 #define WD_ROOTNODE					"WindowsDlg"
 #define WD_CLMNNAME					"ColumnName"
@@ -439,7 +433,7 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				NMHDR* pNMHDR = reinterpret_cast<NMHDR*>(lParam);
 				if (pNMHDR->code == LVN_GETDISPINFO)
 				{
-					NMLVDISPINFO *pLvdi = (NMLVDISPINFO *)pNMHDR;
+					auto pLvdi = reinterpret_cast<NMLVDISPINFOW*>(pNMHDR);
 
 					if (pLvdi->item.mask & LVIF_TEXT)
 					{
@@ -464,13 +458,13 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						{
 							const wchar_t *fullName = buf->getFullPathName();
 							const wchar_t *fileName = buf->getFileName();
-							int len = lstrlen(fullName)-lstrlen(fileName);
-							if (!len) 
+							auto len = static_cast<intptr_t>(std::wcslen(fullName) - std::wcslen(fileName));
+							if (len <= 0)
 							{
 								len = 1;
 								fullName = L"";
 							}
-							text.assign(fullName, len);
+							text.assign(fullName, static_cast<size_t>(len));
 						}
 						else if (pLvdi->item.iSubItem == 2) // Type
 						{
@@ -525,7 +519,7 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				}
 				else if (pNMHDR->code == LVN_COLUMNCLICK) // sort columns with stable sort
 				{
-					const NMLISTVIEW *pNMLV = (NMLISTVIEW *)pNMHDR;
+					const NMLISTVIEW* pNMLV = reinterpret_cast<NMLISTVIEW*>(pNMHDR);
 					if (pNMLV->iItem == -1)
 					{
 						_currentColumn = pNMLV->iSubItem;
@@ -558,7 +552,7 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				}
 				else if (pNMHDR->code == LVN_KEYDOWN)
 				{
-					const NMLVKEYDOWN *lvkd = (NMLVKEYDOWN *)pNMHDR;
+					const NMLVKEYDOWN* lvkd = reinterpret_cast<NMLVKEYDOWN*>(pNMHDR);
 					short ctrl = GetKeyState(VK_CONTROL);
 					short alt = GetKeyState(VK_MENU);
 					short shift = GetKeyState(VK_SHIFT);
@@ -832,7 +826,7 @@ BOOL WindowsDlg::onInitDialog()
 	return TRUE;
 }
 
-void WindowsDlg::updateColumnNames()
+void WindowsDlg::updateColumnNames() const
 {
 	LVCOLUMN lvColumn{};
 	lvColumn.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM | LVCF_FMT;
@@ -936,11 +930,6 @@ void WindowsDlg::onSize(UINT nType, int cx, int cy)
 	fitColumnsToSize();
 }
 
-void WindowsDlg::onGetMinMaxInfo(MINMAXINFO* lpMMI)
-{
-	MyBaseClass::onGetMinMaxInfo(lpMMI);
-}
-
 LRESULT WindowsDlg::onWinMgr(WPARAM wp, LPARAM lp)
 {
 	NMWINMGR &nmw = *reinterpret_cast<NMWINMGR *>(lp);
@@ -984,7 +973,7 @@ void WindowsDlg::doRefresh()
 				if (oldSize < count)
 					lo = oldSize;
 				for (size_t i = lo; i < count; ++i)
-					_idxMap[i] = int(i);
+					_idxMap[i] = static_cast<int>(i);
 			}
 			::SendMessage(_hList, LVM_SETITEMCOUNT, count, LVSICF_NOSCROLL | LVSICF_NOINVALIDATEALL);
 			::InvalidateRect(_hList, nullptr, FALSE);
@@ -996,7 +985,7 @@ void WindowsDlg::doRefresh()
 	}
 }
 
-void WindowsDlg::fitColumnsToSize()
+void WindowsDlg::fitColumnsToSize() const
 {
 	// perhaps make the path column auto size
 	RECT rc{};
@@ -1042,7 +1031,8 @@ void WindowsDlg::doSave()
 	nmdlg.hwndFrom = _hSelf;
 	nmdlg.code = WDN_NOTIFY;
 	nmdlg.nItems = ListView_GetSelectedCount(_hList);
-	nmdlg.Items = new UINT[nmdlg.nItems];
+	std::vector<UINT> items(nmdlg.nItems);
+	nmdlg.Items = items.data();
 
 	int i = -1;
 	for (UINT j = 0; j < nmdlg.nItems; ++j)
@@ -1051,8 +1041,7 @@ void WindowsDlg::doSave()
 		if (i == -1) break;
 		nmdlg.Items[j] = _idxMap[i];
 	}
-	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
-	delete[] nmdlg.Items;
+	::SendMessage(_hParent, WDN_NOTIFY, 0, reinterpret_cast<LPARAM>(&nmdlg));
 	::InvalidateRect(_hList, nullptr, FALSE);
 	ListView_RedrawItems(_hList, 0, ListView_GetSelectedCount(_hList));
 }
@@ -1075,7 +1064,7 @@ void WindowsDlg::activateCurrent()
 		nmdlg.curSel = _idxMap[ListView_GetNextItem(_hList, -1, LVNI_ALL|LVNI_SELECTED)];
 		nmdlg.hwndFrom = _hSelf;
 		nmdlg.code = WDN_NOTIFY;
-		SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
+		::SendMessage(_hParent, WDN_NOTIFY, 0, reinterpret_cast<LPARAM>(&nmdlg));
 
 		::GetWindowRect(_hSelf, &_lastKnownLocation);
 		EndDialog(_hSelf, IDOK);
@@ -1093,7 +1082,8 @@ void WindowsDlg::doClose()
 	nmdlg.hwndFrom = _hSelf;
 	nmdlg.code = WDN_NOTIFY;
 	UINT n = nmdlg.nItems = ListView_GetSelectedCount(_hList);
-	nmdlg.Items = new UINT[nmdlg.nItems];
+	std::vector<UINT> items(nmdlg.nItems);
+	nmdlg.Items = items.data();
 	vector<int> key;
 	key.resize(n, 0x7fffffff);
 
@@ -1106,30 +1096,32 @@ void WindowsDlg::doClose()
 		nmdlg.Items[j] = _idxMap[i];
 		key[j] = i;
 	}
-	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
+	::SendMessage(_hParent, WDN_NOTIFY, 0, reinterpret_cast<LPARAM>(&nmdlg));
 	if (nmdlg.processed)
 	{
 		// Trying to retain sort order. fairly sure there is a much better algorithm for this
-		vector<int>::iterator kitr = key.begin();
+		auto kitr = key.begin();
 		for (UINT k = 0; k < n; ++k, ++kitr)
 		{
-			if (nmdlg.Items[k] == ((UINT)-1))
+			if (nmdlg.Items[k] == static_cast<UINT>(-1))
 			{
 				int oldVal = _idxMap[*kitr];
 				_idxMap[*kitr] = -1;
-				for (vector<int>::iterator itr = _idxMap.begin(), end = _idxMap.end(); itr != end; ++itr)
+				for (auto itr = _idxMap.begin(), end = _idxMap.end(); itr != end; ++itr)
 					if (*itr > oldVal)
 						--(*itr);
 			}
 		}
-		_idxMap.erase(remove_if(_idxMap.begin(), _idxMap.end(), bind(equal_to<int>(), placeholders::_1, -1)), _idxMap.end());
+		_idxMap.erase(std::remove_if(_idxMap.begin(), _idxMap.end(), [](int x) { return x == -1; }), _idxMap.end());
 	}
-	delete[] nmdlg.Items;
 
 	if (_idxMap.size() < 1)
 		::SendMessage(_hSelf, WM_CLOSE, 0, 0);
 	else if (_pTab->nbItem() != _idxMap.size())
+	{
 		doRefresh();
+		::SetFocus(::GetDlgItem(_hSelf, IDC_WINDOWS_CLOSE));
+	}
 	else
 	{
 		// select first previously selected item (or last one if only the last one was removed)
@@ -1142,6 +1134,7 @@ void WindowsDlg::doClose()
 			ListView_RedrawItems(_hList, 0, _idxMap.size() - 1);
 		}
 		ListView_SetItemCount(_hList, _idxMap.size());
+		::SetFocus(::GetDlgItem(_hSelf, IDC_WINDOWS_CLOSE));
 	}
 	doCount();
 }
@@ -1179,7 +1172,7 @@ void WindowsDlg::doSort()
 	{
 		nmdlg.Items[i] = _idxMap[i];
 	}
-	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
+	::SendMessage(_hParent, WDN_NOTIFY, 0, reinterpret_cast<LPARAM>(&nmdlg));
 	if (nmdlg.processed)
 	{
 		_idxMap.clear();
@@ -1198,7 +1191,7 @@ void WindowsDlg::doSort()
 	nmdlg.curSel = static_cast<UINT>(newPosition);
 	nmdlg.hwndFrom = _hSelf;
 	nmdlg.code = WDN_NOTIFY;
-	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
+	::SendMessage(_hParent, WDN_NOTIFY, 0, reinterpret_cast<LPARAM>(&nmdlg));
 }
 
 void WindowsDlg::sort(int columnID, bool reverseSort)
@@ -1272,7 +1265,7 @@ void WindowsDlg::refreshMap()
 		lo = oldSize;
 
 	for (size_t i = lo; i < count; ++i)
-		_idxMap[i] = int(i);
+		_idxMap[i] = static_cast<int>(i);
 }
 
 void WindowsDlg::doSortToTabs()
@@ -1288,7 +1281,8 @@ void WindowsDlg::doSortToTabs()
 	nmdlg.curSel = _idxMap[curSel];
 	nmdlg.code = WDN_NOTIFY;
 	nmdlg.nItems = ListView_GetItemCount(_hList);
-	nmdlg.Items = new UINT[nmdlg.nItems];
+	std::vector<UINT> items(nmdlg.nItems);
+	nmdlg.Items = items.data();
 
 	int i = -1;
 	for (UINT j = 0; j < nmdlg.nItems; ++j)
@@ -1301,13 +1295,12 @@ void WindowsDlg::doSortToTabs()
 			nmdlg.curSel = j;
 	}
 
-	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
+	::SendMessage(_hParent, WDN_NOTIFY, 0, reinterpret_cast<LPARAM>(&nmdlg));
 	if (nmdlg.processed)
 	{
 		_idxMap.clear();
 		doRefresh();
 	}
-	delete[] nmdlg.Items;
 }
 
 void WindowsDlg::putItemsToClipboard(bool isFullPath)

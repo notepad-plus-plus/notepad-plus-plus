@@ -17,9 +17,10 @@
 
 #pragma once
 
-#include "WindowsDlgRc.h"
-#include "WinMgr.h"
+#include <windows.h>
+
 #include "StaticDialog.h"
+#include "WinMgr.h"
 
 class SizeableDlg : public StaticDialog {
 	typedef StaticDialog MyBaseClass;
@@ -29,10 +30,11 @@ public:
 protected:
 	CWinMgr _winMgr;	  // window manager
 
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	virtual BOOL onInitDialog();
 	virtual void onSize(UINT nType, int cx, int cy);
 	virtual void onGetMinMaxInfo(MINMAXINFO* lpMMI);
-	virtual LRESULT onWinMgr(WPARAM wp, LPARAM lp);
+	virtual LRESULT onWinMgr([[maybe_unused]] WPARAM wp, [[maybe_unused]] LPARAM lp) {
+		return 0;
+	}
 };
-

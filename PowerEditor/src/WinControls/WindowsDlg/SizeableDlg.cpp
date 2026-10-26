@@ -15,8 +15,11 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-#include "WindowsDlg.h"
-#include "WindowsDlgRc.h"
+#include "SizeableDlg.h"
+
+#include <windows.h>
+
+#include "WinMgr.h"
 
 SizeableDlg::SizeableDlg(WINRECT* pWinMap)
 	: MyBaseClass(), _winMgr(pWinMap)
@@ -32,7 +35,7 @@ BOOL SizeableDlg::onInitDialog()
 	return TRUE;
 }
 
-void SizeableDlg::onSize(UINT, int cx, int cy)
+void SizeableDlg::onSize([[maybe_unused]] UINT nType, int cx, int cy)
 {
 	_winMgr.CalcLayout(cx,cy,_hSelf);
 	_winMgr.SetWindowPositions(_hSelf);
@@ -41,11 +44,6 @@ void SizeableDlg::onSize(UINT, int cx, int cy)
 void SizeableDlg::onGetMinMaxInfo(MINMAXINFO* lpMMI)
 {
 	_winMgr.GetMinMaxInfo(_hSelf, lpMMI);
-}
-
-LRESULT SizeableDlg::onWinMgr(WPARAM, LPARAM)
-{
-	return 0;
 }
 
 intptr_t CALLBACK SizeableDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
@@ -58,7 +56,7 @@ intptr_t CALLBACK SizeableDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 		}
 		case WM_GETMINMAXINFO:
 		{
-			onGetMinMaxInfo((MINMAXINFO*)lParam);
+			onGetMinMaxInfo(reinterpret_cast<MINMAXINFO*>(lParam));
 			return TRUE;
 		}
 		case WM_SIZE:
@@ -70,7 +68,7 @@ intptr_t CALLBACK SizeableDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 		default:
 		{
 			if (message == WM_WINMGR)
-				return (BOOL)onWinMgr(wParam, lParam);
+				return static_cast<BOOL>(onWinMgr(wParam, lParam));
 
 			break;
 		}

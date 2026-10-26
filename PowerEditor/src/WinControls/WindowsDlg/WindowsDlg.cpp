@@ -17,6 +17,8 @@
 
 #include "WindowsDlg.h"
 
+#include <windows.h>
+
 #include <algorithm>
 #include <cassert>
 #include <cctype>
@@ -43,14 +45,6 @@
 #include "resource.h"
 
 using namespace std;
-
-#ifndef _countof
-#define _countof(x) (sizeof(x)/sizeof((x)[0]))
-#endif
-
-#ifndef LVS_EX_DOUBLEBUFFER
-#define LVS_EX_DOUBLEBUFFER     0x00010000
-#endif
 
 #define WD_ROOTNODE					"WindowsDlg"
 #define WD_CLMNNAME					"ColumnName"
@@ -439,7 +433,7 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				NMHDR* pNMHDR = reinterpret_cast<NMHDR*>(lParam);
 				if (pNMHDR->code == LVN_GETDISPINFO)
 				{
-					NMLVDISPINFO *pLvdi = (NMLVDISPINFO *)pNMHDR;
+					auto pLvdi = reinterpret_cast<NMLVDISPINFOW*>(pNMHDR);
 
 					if (pLvdi->item.mask & LVIF_TEXT)
 					{
@@ -464,13 +458,13 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						{
 							const wchar_t *fullName = buf->getFullPathName();
 							const wchar_t *fileName = buf->getFileName();
-							int len = lstrlen(fullName)-lstrlen(fileName);
-							if (!len) 
+							auto len = static_cast<intptr_t>(std::wcslen(fullName) - std::wcslen(fileName));
+							if (len <= 0)
 							{
 								len = 1;
 								fullName = L"";
 							}
-							text.assign(fullName, len);
+							text.assign(fullName, static_cast<size_t>(len));
 						}
 						else if (pLvdi->item.iSubItem == 2) // Type
 						{
@@ -525,7 +519,7 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				}
 				else if (pNMHDR->code == LVN_COLUMNCLICK) // sort columns with stable sort
 				{
-					const NMLISTVIEW *pNMLV = (NMLISTVIEW *)pNMHDR;
+					const NMLISTVIEW* pNMLV = reinterpret_cast<NMLISTVIEW*>(pNMHDR);
 					if (pNMLV->iItem == -1)
 					{
 						_currentColumn = pNMLV->iSubItem;
@@ -558,17 +552,17 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				}
 				else if (pNMHDR->code == LVN_KEYDOWN)
 				{
-					const NMLVKEYDOWN *lvkd = (NMLVKEYDOWN *)pNMHDR;
-					short ctrl = GetKeyState(VK_CONTROL);
-					short alt = GetKeyState(VK_MENU);
-					short shift = GetKeyState(VK_SHIFT);
-					if (lvkd->wVKey == 'A' && ctrl<0 && alt>=0 && shift>=0)
+					const NMLVKEYDOWN* lvkd = reinterpret_cast<NMLVKEYDOWN*>(pNMHDR);
+					const bool ctrl = ::GetKeyState(VK_CONTROL) < 0;
+					const bool alt = ::GetKeyState(VK_MENU) < 0;
+					const bool shift = ::GetKeyState(VK_SHIFT) < 0;
+					if (lvkd->wVKey == 'A' && ctrl && !alt && !shift)
 					{
 						// Ctrl + A
 						for (int i=0, n=ListView_GetItemCount(_hList); i<n; ++i)
 							ListView_SetItemState(_hList, i, LVIS_SELECTED, LVIS_SELECTED);
 					}
-					else if (lvkd->wVKey == 'C' && ctrl & 0x80)
+					else if (lvkd->wVKey == 'C' && ctrl)
 					{
 						// Ctrl + C
 						if (ListView_GetSelectedCount(_hList) != 0)
@@ -791,30 +785,30 @@ BOOL WindowsDlg::onInitDialog()
 	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
 	columnText = L"⇵ " + pNativeSpeaker->getAttrNameStr(L"Name", WD_ROOTNODE, WD_CLMNNAME);
-	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
+	lvColumn.pszText = columnText.data();
 	lvColumn.cx = width / 4;
-	SendMessage(_hList, LVM_INSERTCOLUMN, 0, LPARAM(&lvColumn));
+	::SendMessage(_hList, LVM_INSERTCOLUMN, 0, reinterpret_cast<LPARAM>(&lvColumn));
 
 	columnText = L"⇵ " + pNativeSpeaker->getAttrNameStr(L"Path", WD_ROOTNODE, WD_CLMNPATH);
-	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
+	lvColumn.pszText = columnText.data();
 	lvColumn.cx = 300;
-	SendMessage(_hList, LVM_INSERTCOLUMN, 1, LPARAM(&lvColumn));
+	::SendMessage(_hList, LVM_INSERTCOLUMN, 1, reinterpret_cast<LPARAM>(&lvColumn));
 
 	lvColumn.fmt = LVCFMT_CENTER;
 	columnText = L"⇵ " + pNativeSpeaker->getAttrNameStr(L"Type", WD_ROOTNODE, WD_CLMNTYPE);
-	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
+	lvColumn.pszText = columnText.data();
 	lvColumn.cx = 100;
-	SendMessage(_hList, LVM_INSERTCOLUMN, 2, LPARAM(&lvColumn));
+	::SendMessage(_hList, LVM_INSERTCOLUMN, 2, reinterpret_cast<LPARAM>(&lvColumn));
 
 	columnText = L"⇵ " + pNativeSpeaker->getAttrNameStr(L"Size", WD_ROOTNODE, WD_CLMNSIZE);
-	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
+	lvColumn.pszText = columnText.data();
 	lvColumn.cx = 100;
-	SendMessage(_hList, LVM_INSERTCOLUMN, 3, LPARAM(&lvColumn));
+	::SendMessage(_hList, LVM_INSERTCOLUMN, 3, reinterpret_cast<LPARAM>(&lvColumn));
 
 	columnText = L"⇵ " + pNativeSpeaker->getAttrNameStr(L"Modified time", WD_ROOTNODE, WD_CLMNDT);
-	lvColumn.pszText = const_cast<wchar_t*>(columnText.c_str());
+	lvColumn.pszText = columnText.data();
 	lvColumn.cx = 120;
-	SendMessage(_hList, LVM_INSERTCOLUMN, 4, LPARAM(&lvColumn));
+	::SendMessage(_hList, LVM_INSERTCOLUMN, 4, reinterpret_cast<LPARAM>(&lvColumn));
 
 	fitColumnsToSize();
 
@@ -832,7 +826,7 @@ BOOL WindowsDlg::onInitDialog()
 	return TRUE;
 }
 
-void WindowsDlg::updateColumnNames()
+void WindowsDlg::updateColumnNames() const
 {
 	LVCOLUMN lvColumn{};
 	lvColumn.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM | LVCF_FMT;
@@ -854,9 +848,9 @@ void WindowsDlg::updateColumnNames()
 	{
 		columnText = L"▽ " + columnText;
 	}
-	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
+	lvColumn.pszText = columnText.data();
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 0, 0));
-	SendMessage(_hList, LVM_SETCOLUMN, 0, LPARAM(&lvColumn));
+	::SendMessage(_hList, LVM_SETCOLUMN, 0, reinterpret_cast<LPARAM>(&lvColumn));
 
 	columnText = pNativeSpeaker->getAttrNameStr(L"Path", WD_ROOTNODE, WD_CLMNPATH);
 	if (_currentColumn != 1)
@@ -871,9 +865,9 @@ void WindowsDlg::updateColumnNames()
 	{
 		columnText = L"▽ " + columnText;
 	}
-	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
+	lvColumn.pszText = columnText.data();
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 1, 0));
-	SendMessage(_hList, LVM_SETCOLUMN, 1, LPARAM(&lvColumn));
+	::SendMessage(_hList, LVM_SETCOLUMN, 1, reinterpret_cast<LPARAM>(&lvColumn));
 
 	lvColumn.fmt = LVCFMT_CENTER;
 	columnText = pNativeSpeaker->getAttrNameStr(L"Type", WD_ROOTNODE, WD_CLMNTYPE);
@@ -889,9 +883,9 @@ void WindowsDlg::updateColumnNames()
 	{
 		columnText = L"▽ " + columnText;
 	}
-	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
+	lvColumn.pszText = columnText.data();
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 2, 0));
-	SendMessage(_hList, LVM_SETCOLUMN, 2, LPARAM(&lvColumn));
+	::SendMessage(_hList, LVM_SETCOLUMN, 2, reinterpret_cast<LPARAM>(&lvColumn));
 
 	columnText = pNativeSpeaker->getAttrNameStr(L"Size", WD_ROOTNODE, WD_CLMNSIZE);
 	if (_currentColumn != 3)
@@ -906,9 +900,9 @@ void WindowsDlg::updateColumnNames()
 	{
 		columnText = L"▽ " + columnText;
 	}
-	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
+	lvColumn.pszText = columnText.data();
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 3, 0));
-	SendMessage(_hList, LVM_SETCOLUMN, 3, LPARAM(&lvColumn));
+	::SendMessage(_hList, LVM_SETCOLUMN, 3, reinterpret_cast<LPARAM>(&lvColumn));
 
 	// Modified time
 	lvColumn.fmt = LVCFMT_LEFT;
@@ -925,20 +919,15 @@ void WindowsDlg::updateColumnNames()
 	{
 		columnText = L"▽ " + columnText;
 	}
-	lvColumn.pszText = const_cast<wchar_t*>(columnText.c_str());
+	lvColumn.pszText = columnText.data();
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 4, 0));
-	SendMessage(_hList, LVM_SETCOLUMN, 4, LPARAM(&lvColumn));
+	::SendMessage(_hList, LVM_SETCOLUMN, 4, reinterpret_cast<LPARAM>(&lvColumn));
 }
 
 void WindowsDlg::onSize(UINT nType, int cx, int cy)
 {
 	MyBaseClass::onSize(nType, cx, cy);
 	fitColumnsToSize();
-}
-
-void WindowsDlg::onGetMinMaxInfo(MINMAXINFO* lpMMI)
-{
-	MyBaseClass::onGetMinMaxInfo(lpMMI);
 }
 
 LRESULT WindowsDlg::onWinMgr(WPARAM wp, LPARAM lp)
@@ -977,15 +966,13 @@ void WindowsDlg::doRefresh()
 			if (count == oldSize)
 				return;
 
-			if (count != oldSize)
-			{
-				size_t lo = 0;
-				_idxMap.resize(count);
-				if (oldSize < count)
-					lo = oldSize;
-				for (size_t i = lo; i < count; ++i)
-					_idxMap[i] = int(i);
-			}
+			size_t lo = 0;
+			_idxMap.resize(count);
+			if (oldSize < count)
+				lo = oldSize;
+			for (size_t i = lo; i < count; ++i)
+				_idxMap[i] = static_cast<int>(i);
+
 			::SendMessage(_hList, LVM_SETITEMCOUNT, count, LVSICF_NOSCROLL | LVSICF_NOINVALIDATEALL);
 			::InvalidateRect(_hList, nullptr, FALSE);
 
@@ -996,7 +983,7 @@ void WindowsDlg::doRefresh()
 	}
 }
 
-void WindowsDlg::fitColumnsToSize()
+void WindowsDlg::fitColumnsToSize() const
 {
 	// perhaps make the path column auto size
 	RECT rc{};
@@ -1042,7 +1029,8 @@ void WindowsDlg::doSave()
 	nmdlg.hwndFrom = _hSelf;
 	nmdlg.code = WDN_NOTIFY;
 	nmdlg.nItems = ListView_GetSelectedCount(_hList);
-	nmdlg.Items = new UINT[nmdlg.nItems];
+	std::vector<UINT> items(nmdlg.nItems);
+	nmdlg.Items = items.data();
 
 	int i = -1;
 	for (UINT j = 0; j < nmdlg.nItems; ++j)
@@ -1051,8 +1039,7 @@ void WindowsDlg::doSave()
 		if (i == -1) break;
 		nmdlg.Items[j] = _idxMap[i];
 	}
-	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
-	delete[] nmdlg.Items;
+	::SendMessage(_hParent, WDN_NOTIFY, 0, reinterpret_cast<LPARAM>(&nmdlg));
 	::InvalidateRect(_hList, nullptr, FALSE);
 	ListView_RedrawItems(_hList, 0, ListView_GetSelectedCount(_hList));
 }
@@ -1075,7 +1062,7 @@ void WindowsDlg::activateCurrent()
 		nmdlg.curSel = _idxMap[ListView_GetNextItem(_hList, -1, LVNI_ALL|LVNI_SELECTED)];
 		nmdlg.hwndFrom = _hSelf;
 		nmdlg.code = WDN_NOTIFY;
-		SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
+		::SendMessage(_hParent, WDN_NOTIFY, 0, reinterpret_cast<LPARAM>(&nmdlg));
 
 		::GetWindowRect(_hSelf, &_lastKnownLocation);
 		EndDialog(_hSelf, IDOK);
@@ -1093,7 +1080,8 @@ void WindowsDlg::doClose()
 	nmdlg.hwndFrom = _hSelf;
 	nmdlg.code = WDN_NOTIFY;
 	UINT n = nmdlg.nItems = ListView_GetSelectedCount(_hList);
-	nmdlg.Items = new UINT[nmdlg.nItems];
+	std::vector<UINT> items(nmdlg.nItems);
+	nmdlg.Items = items.data();
 	vector<int> key;
 	key.resize(n, 0x7fffffff);
 
@@ -1106,30 +1094,32 @@ void WindowsDlg::doClose()
 		nmdlg.Items[j] = _idxMap[i];
 		key[j] = i;
 	}
-	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
+	::SendMessage(_hParent, WDN_NOTIFY, 0, reinterpret_cast<LPARAM>(&nmdlg));
 	if (nmdlg.processed)
 	{
 		// Trying to retain sort order. fairly sure there is a much better algorithm for this
-		vector<int>::iterator kitr = key.begin();
+		auto kitr = key.begin();
 		for (UINT k = 0; k < n; ++k, ++kitr)
 		{
-			if (nmdlg.Items[k] == ((UINT)-1))
+			if (nmdlg.Items[k] == static_cast<UINT>(-1))
 			{
 				int oldVal = _idxMap[*kitr];
 				_idxMap[*kitr] = -1;
-				for (vector<int>::iterator itr = _idxMap.begin(), end = _idxMap.end(); itr != end; ++itr)
+				for (auto itr = _idxMap.begin(), end = _idxMap.end(); itr != end; ++itr)
 					if (*itr > oldVal)
 						--(*itr);
 			}
 		}
-		_idxMap.erase(remove_if(_idxMap.begin(), _idxMap.end(), bind(equal_to<int>(), placeholders::_1, -1)), _idxMap.end());
+		_idxMap.erase(std::remove_if(_idxMap.begin(), _idxMap.end(), [](int x) { return x == -1; }), _idxMap.end());
 	}
-	delete[] nmdlg.Items;
 
 	if (_idxMap.size() < 1)
 		::SendMessage(_hSelf, WM_CLOSE, 0, 0);
 	else if (_pTab->nbItem() != _idxMap.size())
+	{
 		doRefresh();
+		::SetFocus(::GetDlgItem(_hSelf, IDC_WINDOWS_CLOSE));
+	}
 	else
 	{
 		// select first previously selected item (or last one if only the last one was removed)
@@ -1142,6 +1132,7 @@ void WindowsDlg::doClose()
 			ListView_RedrawItems(_hList, 0, _idxMap.size() - 1);
 		}
 		ListView_SetItemCount(_hList, _idxMap.size());
+		::SetFocus(::GetDlgItem(_hSelf, IDC_WINDOWS_CLOSE));
 	}
 	doCount();
 }
@@ -1179,7 +1170,7 @@ void WindowsDlg::doSort()
 	{
 		nmdlg.Items[i] = _idxMap[i];
 	}
-	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
+	::SendMessage(_hParent, WDN_NOTIFY, 0, reinterpret_cast<LPARAM>(&nmdlg));
 	if (nmdlg.processed)
 	{
 		_idxMap.clear();
@@ -1198,7 +1189,7 @@ void WindowsDlg::doSort()
 	nmdlg.curSel = static_cast<UINT>(newPosition);
 	nmdlg.hwndFrom = _hSelf;
 	nmdlg.code = WDN_NOTIFY;
-	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
+	::SendMessage(_hParent, WDN_NOTIFY, 0, reinterpret_cast<LPARAM>(&nmdlg));
 }
 
 void WindowsDlg::sort(int columnID, bool reverseSort)
@@ -1272,7 +1263,7 @@ void WindowsDlg::refreshMap()
 		lo = oldSize;
 
 	for (size_t i = lo; i < count; ++i)
-		_idxMap[i] = int(i);
+		_idxMap[i] = static_cast<int>(i);
 }
 
 void WindowsDlg::doSortToTabs()
@@ -1288,7 +1279,8 @@ void WindowsDlg::doSortToTabs()
 	nmdlg.curSel = _idxMap[curSel];
 	nmdlg.code = WDN_NOTIFY;
 	nmdlg.nItems = ListView_GetItemCount(_hList);
-	nmdlg.Items = new UINT[nmdlg.nItems];
+	std::vector<UINT> items(nmdlg.nItems);
+	nmdlg.Items = items.data();
 
 	int i = -1;
 	for (UINT j = 0; j < nmdlg.nItems; ++j)
@@ -1301,13 +1293,12 @@ void WindowsDlg::doSortToTabs()
 			nmdlg.curSel = j;
 	}
 
-	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
+	::SendMessage(_hParent, WDN_NOTIFY, 0, reinterpret_cast<LPARAM>(&nmdlg));
 	if (nmdlg.processed)
 	{
 		_idxMap.clear();
 		doRefresh();
 	}
-	delete[] nmdlg.Items;
 }
 
 void WindowsDlg::putItemsToClipboard(bool isFullPath)

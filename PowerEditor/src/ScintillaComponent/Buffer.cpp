@@ -1664,7 +1664,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 			 return SavingStatus::SaveOpenFailed;
 		}
 
-		void* p = ::MapViewOfFile(hMap, FILE_MAP_WRITE, 0, 0, fileContentSaveUAC.size());
+		void* p = ::MapViewOfFile(hMap, FILE_MAP_WRITE, 0, 0, mapSize);
 		if (!p)
 		{
 			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
@@ -1677,13 +1677,11 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 
 		// from here on, nobody (including a same-user attacker) can obtain write access to the section
 		HANDLE hMapRO = NULL;
-		if (!::DuplicateHandle(::GetCurrentProcess(), hMap, ::GetCurrentProcess(), &hMapRO, FILE_MAP_READ, FALSE, 0))
+		if (!::DuplicateHandle(::GetCurrentProcess(), hMap, ::GetCurrentProcess(), &hMapRO, FILE_MAP_READ, FALSE, DUPLICATE_CLOSE_SOURCE)) // DUPLICATE_CLOSE_SOURCE: destroy the writable handle hMap
 		{
 			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
-			::CloseHandle(hMap);
 			return SavingStatus::SaveOpenFailed;
 		}
-		::CloseHandle(hMap);   // destroy the writable handle
 
 		// elevated saving/overwriting of the original file by the help of Memory Mapped File and UAC prompt
 		// (notepad++.exe #UAC-SAVE# dest_file_path mapHandle fileContent2SaveLength)

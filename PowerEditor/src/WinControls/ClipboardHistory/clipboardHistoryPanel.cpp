@@ -40,8 +40,6 @@
 #include "menuCmdID.h"
 #include "resource.h"
 
-#define MAX_DISPLAY_LENGTH 64
-
 ClipboardDataInfo ClipboardHistoryPanel::getClipboadData()
 {
 	ClipboardDataInfo clipboardData;
@@ -101,54 +99,6 @@ ClipboardDataInfo ClipboardHistoryPanel::getClipboadData()
 	}
 	CloseClipboard();
 	return clipboardData;
-}
-
-ByteArray::ByteArray(const ClipboardDataInfo& cd)
-{
-	_length = cd._data.size();
-	if (!_length)
-	{
-		_pBytes = NULL;
-		return;
-	}
-	_pBytes = new unsigned char[_length];
-	for (size_t i = 0 ; i < _length ; ++i)
-	{
-		_pBytes[i] = cd._data[i];
-	}
-}
-
-StringArray::StringArray(const ClipboardDataInfo& cd, size_t maxLen)
-{
-	size_t len = cd._data.size();
-
-	if (!len)
-	{
-		_pBytes = NULL;
-		return;
-	}
-
-	bool isCompleted = (len <= maxLen);
-	_length = isCompleted?len:maxLen;
-
-	
-	_pBytes = new unsigned char[_length+(isCompleted?0:2)];
-	size_t i = 0;
-	for ( ; i < _length ; ++i)
-	{
-		if (!isCompleted && (i == _length-5 || i == _length-3 || i == _length-1))
-			_pBytes[i] = 0;
-		else if (!isCompleted && (i == _length-6 || i == _length-4 || i == _length-2))
-			_pBytes[i] = '.';
-		else
-			_pBytes[i] = cd._data[i];
-	}
-
-	if (!isCompleted)
-	{
-		_pBytes[i++] = 0;
-		_pBytes[i] = 0;
-	}
 }
 
 void CBHListView::init(HINSTANCE hInst, HWND hParent)
@@ -216,6 +166,53 @@ int ClipboardHistoryPanel::getClipboardDataIndex(const ClipboardDataInfo& cbd) c
 	return iFound;
 }
 
+std::wstring ClipboardHistoryPanel::getDisplayStr(const ClipboardDataInfo& cbd)
+{
+	const auto& data = cbd._data;
+	static constexpr size_t maxLen = MAX_PATH - 3; // list view label hard limit
+	const size_t nBytes = data.size();
+	std::wstring displayStr;
+	bool truncated = false;
+
+	if (cbd._isBinaryContained)
+	{
+		const auto len = std::min<size_t>(nBytes, maxLen);
+		truncated = nBytes > len;
+
+		const auto raw = std::string(data.begin(), data.begin() + len);
+		displayStr = string2wstring(raw);
+	}
+	else if (nBytes % sizeof(wchar_t) == 0)
+	{
+		size_t wLen = nBytes / sizeof(wchar_t);
+		auto wStr = reinterpret_cast<const wchar_t*>(data.data());
+
+		// Remove extra null terminator
+		if (wLen > 0 && wStr[wLen - 1] == L'\0')
+		{
+			--wLen;
+		}
+
+		const size_t len = std::min<size_t>(wLen, maxLen - 1);
+		truncated = wLen > len;
+
+		displayStr.assign(wStr, len);
+	}
+	else
+	{
+		// Cannot display this clipboard data.
+		displayStr = L"";
+	}
+
+	if (truncated)
+	{
+		// this will be over maxLen, but it is already accounted
+		displayStr += L"...";
+	}
+
+	return displayStr;
+}
+
 void ClipboardHistoryPanel::addToClipboadHistory(const ClipboardDataInfo& cbd)
 {
 	const int idx = getClipboardDataIndex(cbd);
@@ -237,17 +234,7 @@ void ClipboardHistoryPanel::addToClipboadHistory(const ClipboardDataInfo& cbd)
 		_clipboardDataInfos.insert(it, cbd);
 	}
 
-	StringArray sa(cbd, MAX_DISPLAY_LENGTH);
-	std::wstring displayStr;
-	if (cbd._isBinaryContained)
-	{
-		const char* displayStrA = reinterpret_cast<const char*>(sa.getPointer());
-		displayStr = string2wstring(displayStrA);
-	}
-	else
-	{
-		displayStr = reinterpret_cast<const wchar_t*>(sa.getPointer());
-	}
+	std::wstring displayStr = getDisplayStr(cbd);
 
 	LVITEM item{};
 	item.mask = LVIF_TEXT;
@@ -278,20 +265,19 @@ void ClipboardHistoryPanel::onDoubleClick(HWND hList)
 	char* c = nullptr;
 	try
 	{
-		const auto& data = _clipboardDataInfos[i];
-		if (data._isBinaryContained)
+		if (const auto& data = _clipboardDataInfos[i]._data;
+			_clipboardDataInfos[i]._isBinaryContained)
 		{
 			(*_ppEditView)->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
-			(*_ppEditView)->execute(SCI_ADDTEXT, static_cast<WPARAM>(data._data.size()), reinterpret_cast<LPARAM>(data._data.data()));
+			(*_ppEditView)->execute(SCI_ADDTEXT, static_cast<WPARAM>(data.size()), reinterpret_cast<LPARAM>(data.data()));
 		}
 		else
 		{
-			ByteArray ba(data);
-			const int nbChar = ::WideCharToMultiByte(codepage, 0, reinterpret_cast<const wchar_t*>(ba.getPointer()), static_cast<int>(ba.getLength()), nullptr, 0, nullptr, nullptr);
+			const int nbChar = ::WideCharToMultiByte(codepage, 0, reinterpret_cast<const wchar_t*>(data.data()), static_cast<int>(data.size()), nullptr, 0, nullptr, nullptr);
 
 			c = new char[nbChar + 1];
 
-			::WideCharToMultiByte(codepage, 0, reinterpret_cast<const wchar_t*>(ba.getPointer()), static_cast<int>(ba.getLength()), c, nbChar + 1, nullptr, nullptr);
+			::WideCharToMultiByte(codepage, 0, reinterpret_cast<const wchar_t*>(data.data()), static_cast<int>(data.size()), c, nbChar + 1, nullptr, nullptr);
 
 			c[nbChar] = '\0';
 

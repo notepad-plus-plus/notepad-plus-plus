@@ -21,6 +21,7 @@
 
 #include <commctrl.h>
 
+#include <string>
 #include <vector>
 
 #include "DockingDlgInterface.h"
@@ -35,27 +36,6 @@ class ScintillaEditView;
 struct ClipboardDataInfo {
 	std::vector<unsigned char> _data;
 	bool _isBinaryContained = false;
-};
-
-class ByteArray {
-public:
-	ByteArray() = default;
-	explicit ByteArray(const ClipboardDataInfo& cd);
-	
-	~ByteArray() {
-		if (_pBytes)
-			delete [] _pBytes;
-	}
-	const unsigned char* getPointer() const { return _pBytes; }
-	size_t getLength() const { return _length; }
-protected:
-	unsigned char *_pBytes = nullptr;
-	size_t _length = 0;
-};
-
-class StringArray : public ByteArray {
-public:
-	StringArray(const ClipboardDataInfo& cd, size_t maxLen);
 };
 
 class CBHListView : public ListViewBase
@@ -91,6 +71,8 @@ public:
 	}
 
 	ClipboardDataInfo getClipboadData();
+
+	[[nodiscard]] std::wstring getDisplayStr(const ClipboardDataInfo& cbd);
 	void addToClipboadHistory(const ClipboardDataInfo& cbd);
 	int getClipboardDataIndex(const ClipboardDataInfo& cbd) const;
 

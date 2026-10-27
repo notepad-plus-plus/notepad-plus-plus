@@ -44,10 +44,6 @@ public:
 	CBHListView() = default;
 	~CBHListView() override = default;
 
-	operator HWND() const noexcept {
-		return _hSelf;
-	}
-
 	void init(HINSTANCE hInst, HWND hParent) override;
 	void reSizeToWH(int width, int height);
 
@@ -77,13 +73,13 @@ public:
 	int getClipboardDataIndex(const ClipboardDataInfo& cbd) const;
 
 	void setBackgroundColor(COLORREF bgColour) override {
-		ListView_SetBkColor(_listView, bgColour);
-		ListView_SetTextBkColor(_listView, bgColour);
-		::RedrawWindow(_listView, nullptr, nullptr, RDW_INVALIDATE);
+		ListView_SetBkColor(_listView.getHSelf(), bgColour);
+		ListView_SetTextBkColor(_listView.getHSelf(), bgColour);
+		::RedrawWindow(_listView.getHSelf(), nullptr, nullptr, RDW_INVALIDATE);
 	}
 	void setForegroundColor(COLORREF fgColour) override {
-		ListView_SetTextColor(_listView, fgColour);
-		::RedrawWindow(_listView, nullptr, nullptr, RDW_INVALIDATE);
+		ListView_SetTextColor(_listView.getHSelf(), fgColour);
+		::RedrawWindow(_listView.getHSelf(), nullptr, nullptr, RDW_INVALIDATE);
 	}
 
 	bool trackClipboardOps(bool bTrack) {

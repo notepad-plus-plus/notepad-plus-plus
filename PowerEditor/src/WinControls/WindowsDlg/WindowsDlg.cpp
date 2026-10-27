@@ -26,7 +26,6 @@
 #include <cstdlib>
 #include <cwchar>
 #include <cwctype>
-#include <functional>
 #include <string>
 #include <utility>
 #include <vector>
@@ -35,6 +34,7 @@
 #include "Common.h"
 #include "ContextMenu.h"
 #include "DocTabView.h"
+#include "ListView.h"
 #include "NppDarkMode.h"
 #include "Parameters.h"
 #include "StaticDialog.h"
@@ -323,7 +323,7 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			pNativeSpeaker->changeDlgLang(_hSelf, "Window");
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
-			NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
+			ListViewBase::subclassParentNotifyListViewCustomDraw(_hSelf, IDC_WINDOWS_LIST);
 
 			// install message hook to intercept WM_CHAR
 			_hThisDlg = _hSelf;

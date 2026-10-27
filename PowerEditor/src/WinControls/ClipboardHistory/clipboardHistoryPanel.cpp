@@ -235,7 +235,7 @@ void ClipboardHistoryPanel::addToClipboadHistory(const ClipboardDataInfo& cbd)
 		idx != -1)
 	{
 		std::rotate(it, it + idx, it + idx + 1);
-		ListView_DeleteItem(_listView, idx);
+		ListView_DeleteItem(_listView.getHSelf(), idx);
 	}
 	else
 	{
@@ -248,7 +248,7 @@ void ClipboardHistoryPanel::addToClipboadHistory(const ClipboardDataInfo& cbd)
 	item.mask = LVIF_TEXT;
 	item.iItem = 0;
 	item.pszText = displayStr.data();
-	ListView_InsertItem(_listView, &item);
+	ListView_InsertItem(_listView.getHSelf(), &item);
 }
 
 void ClipboardHistoryPanel::onDoubleClick(HWND hList)

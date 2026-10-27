@@ -126,74 +126,6 @@ bool SetOSAppRestart()
 	return bRet;
 }
 
-static bool isSenderTrusted(WPARAM wParam)
-{
-	HWND hSenderWnd = reinterpret_cast<HWND>(wParam);
-	if (hSenderWnd == NULL || !::IsWindow(hSenderWnd))
-		return false; // no real window handle presented -> reject
-
-	DWORD dwProcessId = 0;
-	if (::GetWindowThreadProcessId(hSenderWnd, &dwProcessId) == 0 || dwProcessId == 0)
-		return false;
-
-	if (dwProcessId == ::GetCurrentProcessId())
-		return false; // same-process - the same Notepad++ instance never send itself WM_COPYDATA - could be fake -> reject
-
-	HANDLE hProcess = ::OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, dwProcessId);
-	if (!hProcess)
-		return false;
-
-	bool isTrusted = false;
-
-	// Integrity level: require Medium or higher (blocks Low-IL sandboxes)
-	HANDLE hToken = NULL;
-	if (::OpenProcessToken(hProcess, TOKEN_QUERY, &hToken))
-	{
-		BYTE tokenBuffer[sizeof(TOKEN_MANDATORY_LABEL) + SECURITY_MAX_SID_SIZE]{};
-		DWORD dwLength = 0;
-		if (::GetTokenInformation(hToken, TokenIntegrityLevel, tokenBuffer, sizeof(tokenBuffer), &dwLength))
-		{
-			PTOKEN_MANDATORY_LABEL pTIL = reinterpret_cast<PTOKEN_MANDATORY_LABEL>(tokenBuffer);
-			DWORD dwIntegrityLevel = *::GetSidSubAuthority(
-				pTIL->Label.Sid,
-				(DWORD)(UCHAR)(*::GetSidSubAuthorityCount(pTIL->Label.Sid) - 1));
-
-			if (dwIntegrityLevel >= SECURITY_MANDATORY_MEDIUM_RID)
-				isTrusted = true;
-		}
-		::CloseHandle(hToken);
-	}
-
-	// Executable identity: require it to be this same binary (another Notepad++ instance with the same path)
-	if (isTrusted)
-	{
-		isTrusted = false; // reset
-
-		wchar_t senderImagePath[MAX_PATH]{};
-		DWORD dwSizeSender = MAX_PATH;
-		wchar_t selfImagePath[MAX_PATH]{};
-		DWORD dwSizeSelf = MAX_PATH;
-
-		if (::QueryFullProcessImageNameW(hProcess, 0, senderImagePath, &dwSizeSender) &&
-			::QueryFullProcessImageNameW(::GetCurrentProcess(), 0, selfImagePath, &dwSizeSelf))
-		{
-			// unfortunately, while the QueryFullProcessImageName translates a symlink image module path stored in the process PEB to the original fullpath,
-			// it OTOH leaves the possibly used short 8.3 path there intact (e.g. Notepad++ launched via CMD "C:\Progra~1\Notepad++\notepad++.exe"),
-			// so we have to ensure the final consistency in-between the compared paths ourselves
-			wchar_t senderImageLongPath[MAX_PATH]{};
-			wchar_t selfImageLongPath[MAX_PATH]{};
-			if ((::GetLongPathNameW(senderImagePath, senderImageLongPath, MAX_PATH) > 0) &&
-				(::GetLongPathNameW(selfImagePath, selfImageLongPath, MAX_PATH) > 0))
-			{
-				isTrusted = (_wcsicmp(senderImageLongPath, selfImageLongPath) == 0);
-			}
-		}
-	}
-
-	::CloseHandle(hProcess);
-	return isTrusted;
-}
-
 LRESULT CALLBACK Notepad_plus_Window::Notepad_plus_Proc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (hwnd == NULL)
@@ -828,9 +760,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			if (lParam == 0)
 				return TRUE; // invalid
-
-			if (!isSenderTrusted(wParam))
-				return TRUE; // reject: not another trusted instance of this same binary
 
 			COPYDATASTRUCT* pCopyData = reinterpret_cast<COPYDATASTRUCT*>(lParam);
 			if (pCopyData->lpData == nullptr)

@@ -76,7 +76,7 @@ void allowForbidPrivilegeMessages(const Notepad_plus_Window& notepad_plus_plus, 
 
 				if (func)
 				{
-					func(WM_COPYDATA, MSGFLT_ADD);
+					//func(WM_COPYDATA, MSGFLT_ADD);
 					func(NPPM_INTERNAL_RESTOREFROMMINIMIZED, MSGFLT_ADD);
 
 					func(WM_COMMAND, MSGFLT_REMOVE); // Disallow WM_COMMAND messages from lower integrity processes (for security reasons)
@@ -90,7 +90,7 @@ void allowForbidPrivilegeMessages(const Notepad_plus_Window& notepad_plus_plus, 
 
 				if (funcEx)
 				{
-					funcEx(notepad_plus_plus.getHSelf(), WM_COPYDATA, MSGFLT_ALLOW, NULL);
+					//funcEx(notepad_plus_plus.getHSelf(), WM_COPYDATA, MSGFLT_ALLOW, NULL);
 					funcEx(notepad_plus_plus.getHSelf(), NPPM_INTERNAL_RESTOREFROMMINIMIZED, MSGFLT_ALLOW, NULL);
 
 					funcEx(notepad_plus_plus.getHSelf(), WM_COMMAND, MSGFLT_DISALLOW, NULL); // Disallow WM_COMMAND messages from lower integrity processes (for security reasons)

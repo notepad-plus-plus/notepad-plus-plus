@@ -94,13 +94,14 @@ LRESULT ListViewBase::listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wPar
 
 		case CDDS_ITEMPREPAINT:
 		{
+			const HWND hList = lplvcd->nmcd.hdr.hwndFrom;
 			const RECT& rcRow = lplvcd->nmcd.rc;
 
 			const bool isThemeDark = NppDarkMode::isThemeDark();
-			const bool isSelected = ListView_GetItemState(lplvcd->nmcd.hdr.hwndFrom, lplvcd->nmcd.dwItemSpec, LVIS_SELECTED) == LVIS_SELECTED;
+			const bool isSelected = ListView_GetItemState(hList, lplvcd->nmcd.dwItemSpec, LVIS_SELECTED) == LVIS_SELECTED;
 			const bool isHot = (lplvcd->nmcd.uItemState & CDIS_HOT) == CDIS_HOT;
 
-			const auto style = ::GetWindowLongPtrW(lplvcd->nmcd.hdr.hwndFrom, GWL_STYLE);
+			const auto style = ::GetWindowLongPtrW(hList, GWL_STYLE);
 			const bool hasHeader = ((style & LVS_REPORT) != 0) && ((style & LVS_NOCOLUMNHEADER) == 0);
 
 			if (isThemeDark && (isSelected || isHot))
@@ -119,11 +120,11 @@ LRESULT ListViewBase::listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wPar
 				}
 				else
 				{
-					const auto hHeader = ListView_GetHeader(lplvcd->nmcd.hdr.hwndFrom);
+					const auto hHeader = ListView_GetHeader(hList);
 					const auto colCount = Header_GetItemCount(hHeader);
 
-					const LONG paddingLeft = isThemeDark ? 1 : 0;
-					const LONG paddingRight = isThemeDark ? 2 : 1;
+					const LONG paddingLeft = 1;
+					const LONG paddingRight = 2;
 
 					for (int i = 0; i < colCount; ++i)
 					{
@@ -132,15 +133,21 @@ LRESULT ListViewBase::listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wPar
 						if (i > 0)
 						{
 							RECT rcColumn{};
-							Header_GetItemRect(hHeader, i, &rcColumn);
-							rcSubItem.left = rcColumn.left - paddingLeft;
+							if (Header_GetItemRect(hHeader, i, &rcColumn) == TRUE)
+							{
+								::MapWindowPoints(hHeader, hList, reinterpret_cast<POINT*>(&rcColumn), 2);
+								rcSubItem.left = rcColumn.left - paddingLeft;
+							}
 						}
 
 						if (i + 1 < colCount)
 						{
 							RECT rcNextColumn{};
-							Header_GetItemRect(hHeader, i + 1, &rcNextColumn);
-							rcSubItem.right = rcNextColumn.left - paddingRight;
+							if (Header_GetItemRect(hHeader, i + 1, &rcNextColumn) == TRUE)
+							{
+								::MapWindowPoints(hHeader, hList, reinterpret_cast<POINT*>(&rcNextColumn), 2);
+								rcSubItem.right = rcNextColumn.left - paddingRight;
+							}
 						}
 						else
 						{
@@ -204,40 +211,9 @@ LRESULT CALLBACK ListViewBase::ListViewParentNotifyCustomDrawSubclass(
 	return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
 }
 
-void ListView::init(HINSTANCE hInst, HWND parent)
+void ListView::init(HINSTANCE hInst, HWND parent, UINT_PTR listViewID, DWORD style, DWORD exStyle)
 {
-	Window::init(hInst, parent);
-	INITCOMMONCONTROLSEX icex{};
-
-	// Ensure that the common control DLL is loaded.
-	icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
-	icex.dwICC  = ICC_LISTVIEW_CLASSES;
-	InitCommonControlsEx(&icex);
-
-	// Create the list-view window in report view with label editing enabled.
-	static constexpr DWORD listViewStyles = LVS_REPORT | LVS_NOSORTHEADER
-						| LVS_SINGLESEL | LVS_AUTOARRANGE
-						| LVS_SHAREIMAGELISTS | LVS_SHOWSELALWAYS;
-
-	_hSelf = ::CreateWindow(WC_LISTVIEW,
-                                L"",
-								WS_CHILD | WS_BORDER | listViewStyles,
-                                0,
-                                0,
-                                0,
-                                0,
-                                _hParent,
-                                nullptr,
-                                hInst,
-                                nullptr);
-	if (!_hSelf)
-	{
-		throw std::runtime_error("ListView::init : CreateWindowEx() function return null");
-	}
-
-	DWORD exStyle = ListView_GetExtendedListViewStyle(_hSelf);
-	exStyle |= LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT | LVS_EX_DOUBLEBUFFER | _extraStyle;
-	ListView_SetExtendedListViewStyle(_hSelf, exStyle);
+	ListViewBase::init(hInst, parent, listViewID, style, exStyle);
 
 	if (!_columnInfos.empty())
 	{
@@ -252,12 +228,6 @@ void ListView::init(HINSTANCE hInst, HWND parent)
 			ListView_InsertColumn(_hSelf, ++i, &lvColumn);  // index is not 0 based but 1 based
 		}
 	}
-}
-
-void ListView::destroy()
-{
-	::DestroyWindow(_hSelf);
-	_hSelf = NULL;
 }
 
 void ListView::addLine(std::vector<std::wstring>& values2Add, LPARAM lParam, int pos2insert)

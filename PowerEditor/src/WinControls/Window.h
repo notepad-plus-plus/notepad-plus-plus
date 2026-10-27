@@ -82,9 +82,12 @@ public:
 		return 0;
 	}
 
-	virtual bool isVisible() const
-	{
-    	return (::IsWindowVisible(_hSelf)?true:false);
+	virtual bool isVisible() const {
+		return (::IsWindowVisible(_hSelf) == TRUE);
+	}
+
+	operator HWND() const noexcept {
+		return _hSelf;
 	}
 
 	HWND getHSelf() const {
@@ -103,12 +106,10 @@ public:
 		return _hInst;
 	}
 
-
 	Window& operator = (const Window&) = delete;
 
-
 protected:
-	HINSTANCE _hInst = NULL;
-	HWND _hParent = NULL;
-	HWND _hSelf = NULL;
+	HINSTANCE _hInst = nullptr;
+	HWND _hParent = nullptr;
+	HWND _hSelf = nullptr;
 };

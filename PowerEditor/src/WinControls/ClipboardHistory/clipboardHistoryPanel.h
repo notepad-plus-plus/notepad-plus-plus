@@ -44,10 +44,6 @@ public:
 	CBHListView() = default;
 	~CBHListView() override = default;
 
-	operator HWND() const noexcept {
-		return _hSelf;
-	}
-
 	void init(HINSTANCE hInst, HWND hParent) override;
 	void reSizeToWH(int width, int height);
 

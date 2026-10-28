@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# The delimiter of a here-document can be quoted: <<'EOF', <<"EOF", <<\EOF or
+# <<-'EOF'. A lone quote (' or ") inside such a here-document must not start
+# a string literal that hides the functions that follow it.
+
+# Example from issue #13849: delimiter in single quotes, lone ' in the body
+: <<'EOF'
+HEREDOC with a single ' quote
+EOF
+
+function unlisted_function1 { :
+}
+
+function break_listing1 { :
+	echo 'Text in single quotes breaks listing all functions between HEREDOC and here.'
+}
+
+cat <<"END"
+Delimiter in double quotes; a lone ' or " in here must not start a string
+END
+
+function after_double_quoted { :
+	echo 'text in single quotes' "text in double quotes"
+}
+
+cat <<\END
+Delimiter quoted with a backslash; a lone ' or " in here must not start a string
+END
+
+function after_backslash_quoted { :
+	echo 'text in single quotes' "text in double quotes"
+}
+
+	cat <<-'END'
+	Indented here-document, delimiter in single quotes; a lone ' or " in here must not start a string
+	END
+
+function after_indented { :
+	echo 'text in single quotes' "text in double quotes"
+}

@@ -78,6 +78,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					if (_incrementFindDlg.getAssociatedScintillaView() == notifyView)
 						_incrementFindDlg.reInitCount();
 				}
+
+				// the highlighting of the matches of the Find dialog follows the changes
+				if (NppParameters::getInstance().getNppGUI()._findDlgHighlightMatches && _findReplaceDlg.isCreated() && _findReplaceDlg.isVisible() && notifyView == _pEditView)
+					_findReplaceDlg.updateMatchHighlightingLater();
 			}
 
 			if (notification->modificationType & SC_MOD_CHANGEINDICATOR)
@@ -485,6 +489,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				}
 			}
 
+			// the highlighting of the matches of the Find dialog follows the visible lines
+			if ((notification->updated & SC_UPDATE_V_SCROLL) && nppGui._findDlgHighlightMatches && _findReplaceDlg.isCreated() && _findReplaceDlg.isVisible())
+				_findReplaceDlg.updateMatchHighlighting();
+
 			bool selectionIsChanged = (notification->updated & SC_UPDATE_SELECTION) != 0;
 			// note: changing insert/overwrite mode will cause Scintilla to notify with SC_UPDATE_SELECTION
 			bool contentIsChanged = (notification->updated & SC_UPDATE_CONTENT) != 0;
@@ -507,6 +515,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			ScintillaEditView* unfocusView = isFromPrimary ? &_subEditView : &_mainEditView;
 			_smartHighlighter.highlightView(notifyView, unfocusView);
+
+			if (NppParameters::getInstance().getNppGUI()._findDlgHighlightMatches && _findReplaceDlg.isCreated() && _findReplaceDlg.isVisible())
+				_findReplaceDlg.updateMatchHighlighting();
 
 			if (!_isSyncingZoom)
 			{

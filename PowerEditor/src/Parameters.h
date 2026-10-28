@@ -790,6 +790,7 @@ struct NppGUI final
 	bool _findDlgAlwaysVisible = false;
 	bool _confirmReplaceInAllOpenDocs = true;
 	bool _replaceStopsWithoutFindingNext = false;
+	bool _findDlgHighlightMatches = false;
 	int _inSelectionAutocheckThreshold = FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT;
 	int _fillFindWhatThreshold = FILL_FINDWHAT_THRESHOLD_DEFAULT;
 	bool _fillDirFieldFromActiveDoc = false;

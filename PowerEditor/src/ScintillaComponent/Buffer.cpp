@@ -984,7 +984,9 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 		isLargeFile = fileSize >= nppGui._largeFileRestriction._largeFileSizeDefInByte;
 
 	// Due to the performance issue, the Word Wrap feature will be disabled if it's ON
-	if (isLargeFile && nppGui._largeFileRestriction._deactivateWordWrap)
+	// (with "Word wrap per document", only for this document: see below)
+	bool isWordWrapPerDocument = NppParameters::getInstance().getSVP()._isWordWrapPerDocument;
+	if (isLargeFile && nppGui._largeFileRestriction._deactivateWordWrap && !isWordWrapPerDocument)
 	{
 		bool isWrap = _pNotepadPlus->_pEditView->isWrap();
 		if (isWrap)
@@ -1041,6 +1043,9 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 		Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath, isLargeFile);
 		BufferID id = newBuf;
 		newBuf->_id = id;
+
+		if (isLargeFile && nppGui._largeFileRestriction._deactivateWordWrap && isWordWrapPerDocument)
+			newBuf->setWordWrap(false);
 
 		if (backupFileName != NULL)
 		{

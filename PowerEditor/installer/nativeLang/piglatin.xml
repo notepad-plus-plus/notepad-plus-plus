@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
+
+
 <NotepadPlus>
 	<Native-Langue name="Pig Latin" filename="piglatin.xml" version="8.9.8.1">
 		<Menu>
@@ -964,13 +969,15 @@
 			<Preference title="Eferencesprayy">
 				<Item id="6001" name="Oseclay"/>
 				<Global title="Eneralgay">
-					<Item id="6123" name="Ocalizationlay"/>
+					<Item id="6123" name="Ocalization&amp;lay"/>
 					<Item id="6131" name="Enumay"/>
-					<Item id="6122" name="Idehay (useyay Alt oryay F10 eykay otay oggletay)"/>
-					<Item id="6132" name="Idehay ightray ortcutsshay ＋ ▼ ✕"/>
+					<Item id="6122" name="Ide&amp;hay (useyay Alt oryay F10 eykay otay oggletay)"/>
+					<Item id="6132" name="Idehay ight&amp;ray ortcutsshay ＋ ▼ ✕"/>
 					<Item id="6133" name="Atusstay Arbay"/>
 					<Item id="6134" name="Idehay"/>
-					<Item id="7165" name="Ialogday Ontfay Izesay (Eednay otay estartray Notepad++)"/>
+					<Item id="7165" name="Ialogday Ontfay (Eednay otay estartray Notepad++)"/>
+					<Item id="7166" name="Ize&amp;say:"/>
+					<Item id="7168" name="Amenay:"/>
 				</Global>
 
 				<Toolbar title="Oolbartay">
@@ -1226,8 +1233,6 @@
 				<Searching title="Earchingsay">
 					<Item id="6902" name="Useyay onospacedmay ontfay inyay Indfay ialogday (Eednay otay estartray Notepad++)"/>
 					<Item id="6903" name="Indfay ialogday emainsray openyay afteryay earchsay atthay outputsyay otay esultsray indowway"/>
-					<Item id="6904" name="Onfirmcay Eplaceray Allyay inyay Allyay Openedyay Ocumentsday"/>
-					<Item id="6905" name="Eplaceray: On'tday ovemay otay ethay ollowingfay occurrenceyay"/>
 					<Item id="6906" name="Earchsay Esultray indowway: owshay onlyyay oneyay entryyay erpay oundfay inelay ifyay ossiblepay"/>
 					<Item id="6907" name="Enwhay Indfay Ialogday isyay Invokedyay"/>
 					<Item id="6908" name="Illfay Indfay Ieldfay ithway Electedsay Exttay"/>
@@ -1357,7 +1362,7 @@
 
 				<MISC title="ISCMAY.">
 					<ComboBox id="6347">
-						<Element name="Enableyay orfay urrentcay ilefay"/>
+						<Element name="Enableyay orfay urrentcay ile(s)fay"/>
 						<Element name="Enableyay orfay allyay openedyay ilesfay"/>
 						<Element name="Isableday"/>
 					</ComboBox>
@@ -1768,6 +1773,8 @@ Oceedpray onlyyay ifyay youyay understandyay ethay isksray."/>
 			<default-open-save-select-folder value="Electsay ayay olderfay asyay efaultday irectoryday"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Useyay Ift+entershay otay earchsay inyay ethay oppositeyay irectionday"/>
 			<two-find-buttons-tip value="2 indfay uttonsbay odemay"/>
+			<confirm-replace-in-all-open-docs-tip value="Onfirmcay &quot;Eplaceray Allyay inyay Allyay Openedyay Ocumentsday&quot; actionyay"/>
+			<replace-and-stop-tip value="Afteryay eplacingray, on'tday ovemay otay ethay ollowingfay occurrenceyay"/>
 			<find-in-files-filter-tip value="Indfay inyay cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1805,6 +1812,7 @@ Indfay inyay allyay ilesfay utbay excludeyay allyay oldersfay log oryay logs ecu
 			<find-status-replace-readonly value="Eplaceray: Annotcay eplaceray exttay. Ethay urrentcay ocumentday isyay eadray onlyyay"/>
 			<find-status-cannot-find value="Indfay: An'tcay indfay ethay exttay &quot;$STR_REPLACE$&quot;"/>
 			<find-status-cannot-find-pebkac-maybe value="Ethay ivengay occurrenceyay annotcay ebay oundfay. Youyay aymay avehay orgottenfay otay eckchay &quot;Apwray aroundyay&quot; (otay ONYAY), &quot;Atchmay asecay&quot; (otay OFFYAY), oryay &quot;Atchmay olewhay ordway onlyyay&quot; (otay OFFYAY)."/>
+			<find-status-regex-find-empty-string value="Ethay ivengay egularray expressionyay atchesmay emptyyay ingsstray."/>
 			<find-status-scope-selection value="inyay electedsay exttay"/>
 			<find-status-scope-all value="inyay entireyay ilefay"/>
 			<find-status-scope-backward value="omfray artstay-ofyay-ilefay otay aretcay"/>

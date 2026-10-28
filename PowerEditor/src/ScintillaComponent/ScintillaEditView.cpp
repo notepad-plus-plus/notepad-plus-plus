@@ -2319,8 +2319,13 @@ void ScintillaEditView::restyleBuffer()
 
 void ScintillaEditView::styleChange()
 {
+	// SCI_CLEARDOCUMENTSTYLE resets wrapped line heights: keep the same document line on top
+	const intptr_t firstVisibleDocLine = execute(SCI_DOCLINEFROMVISIBLE, execute(SCI_GETFIRSTVISIBLELINE));
+
 	defineDocType(_currentBuffer->getLangType());
 	restyleBuffer();
+
+	execute(SCI_SETFIRSTVISIBLELINE, execute(SCI_VISIBLEFROMDOCLINE, firstVisibleDocLine));
 }
 
 bool ScintillaEditView::setLexerFromLangID(int langID) const // Internal lexer only

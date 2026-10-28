@@ -193,8 +193,16 @@ std::wstring ClipboardHistoryPanel::getDisplayStr(const ClipboardDataInfo& cbd)
 			--wLen;
 		}
 
-		const size_t len = std::min<size_t>(wLen, maxLen - 1);
+		auto len = std::min<size_t>(wLen, maxLen - 1);
 		truncated = wLen > len;
+
+		// truncation happen on UTF 16 surrogate pairs
+		if (truncated && len > 0
+			&& wStr[len - 1] >= 0xD800 && wStr[len - 1] <= 0xDBFF
+			&& wStr[len] >= 0xDC00 && wStr[len] <= 0xDFFF)
+		{
+			--len;
+		}
 
 		displayStr.assign(wStr, len);
 	}

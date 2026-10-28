@@ -121,40 +121,26 @@ LRESULT ListViewBase::listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wPar
 				else
 				{
 					const auto hHeader = ListView_GetHeader(hList);
-					const auto colCount = Header_GetItemCount(hHeader);
+					const auto nCol = Header_GetItemCount(hHeader);
 
-					const LONG paddingLeft = 1;
-					const LONG paddingRight = 2;
+					static constexpr LONG paddingLeft = 1;
+					static constexpr LONG paddingRight = 2;
 
-					for (int i = 0; i < colCount; ++i)
+					const auto lvii = LVITEMINDEX{ .iItem= static_cast<int>(lplvcd->nmcd.dwItemSpec), .iGroup = -1 };
+					RECT rcSubitem{
+						rcRow.left
+						, rcRow.top
+						, rcRow.left + ListView_GetColumnWidth(hList, 0) - paddingRight
+						, rcRow.bottom
+					};
+					::FillRect(lplvcd->nmcd.hdc, &rcSubitem, hBrush);
+
+					for (int i = 1; i < nCol; ++i)
 					{
-						RECT rcSubItem{ rcRow };
-
-						if (i > 0)
-						{
-							RECT rcColumn{};
-							if (Header_GetItemRect(hHeader, i, &rcColumn) == TRUE)
-							{
-								::MapWindowPoints(hHeader, hList, reinterpret_cast<POINT*>(&rcColumn), 2);
-								rcSubItem.left = rcColumn.left - paddingLeft;
-							}
-						}
-
-						if (i + 1 < colCount)
-						{
-							RECT rcNextColumn{};
-							if (Header_GetItemRect(hHeader, i + 1, &rcNextColumn) == TRUE)
-							{
-								::MapWindowPoints(hHeader, hList, reinterpret_cast<POINT*>(&rcNextColumn), 2);
-								rcSubItem.right = rcNextColumn.left - paddingRight;
-							}
-						}
-						else
-						{
-							rcSubItem.right -= paddingRight;
-						}
-
-						::FillRect(lplvcd->nmcd.hdc, &rcSubItem, hBrush);
+						ListView_GetItemIndexRect(hList, &lvii, i, LVIR_BOUNDS, &rcSubitem);
+						rcSubitem.left -= paddingLeft;
+						rcSubitem.right -= paddingRight;
+						::FillRect(lplvcd->nmcd.hdc, &rcSubitem, hBrush);
 					}
 				}
 

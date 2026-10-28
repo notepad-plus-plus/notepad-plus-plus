@@ -974,7 +974,7 @@ Translation note:
 					<Item id="6132" name="Dölj knappa&amp;rna ＋ ▼ ✕ på högersidan"/>
 					<Item id="6133" name="Statusfält"/>
 					<Item id="6134" name="&amp;Dölj"/>
-					<Item id="7165" name="Teckenstorlek för dialogrutor (kräver omstart av Notepad++)"/>
+					<Item id="7165" name="Teckensnitt för dialogrutor (kräver omstart av Notepad++)"/>
 					<Item id="7166" name="&amp;Storlek:"/>
 					<Item id="7168" name="Namn:"/>
 				</Global>

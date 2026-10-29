@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.9.8 16/Sep/2026  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.9.8.1 29/Oct/2026  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.9.8">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.9.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1008,12 +1008,15 @@
 			<Preference title="Volby">
 				<Item id="6001" name="Zavřít"/>
 				<Global title="Obecné">
-					<Item id="6122" name="Skrýt (klávesa Alt nebo F10 slouží jako přepínač)"/>
-					<Item id="6123" name="Lokalizace"/>
+					<Item id="6122" name="&amp;Skrýt (klávesa Alt nebo F10 slouží jako přepínač)"/>
+					<Item id="6123" name="&amp;Lokalizace"/>
 					<Item id="6131" name="Hlavní menu"/>
-					<Item id="6132" name="Skrýt ovládací prvky ＋ ▼ ✕"/>
+					<Item id="6132" name="Skrýt &amp;ovládací prvky ＋ ▼ ✕"/>
 					<Item id="6133" name="Stavový řádek"/>
-					<Item id="6134" name="Skrýt"/>
+					<Item id="6134" name="S&amp;krýt"/>
+					<Item id="7165" name="Font dialogů (vyžadován restart Notepadu++)"/>
+					<Item id="7166" name="&amp;Velikost:"/>
+					<Item id="7168" name="&amp;Název:"/>
 				</Global>
 				<Toolbar title="Lišta nástrojových ikon">
 					<Item id="6102" name="Skrýt"/>
@@ -1255,8 +1258,6 @@
 				<Searching title="Vyhledávání">
 					<Item id="6902" name="Použít monospace font v dialogu Najít (vyžadován restart Notepadu++)"/>
 					<Item id="6903" name="Dialog Najít zůstane otevřen po vyhledávání s výstupem do okna s výsledky"/>
-					<Item id="6904" name="Potvrzovat příkaz Zaměnit vše ve všech otevřených dokumentech"/>
-					<Item id="6905" name="Nahradit: Nepřesunovat se při nahrazení výrazu k následujícímu výskytu"/>
 					<Item id="6906" name="Okno s výsledky vyhledávání: zobrazovat pouze jeden záznam s nálezy na řádku, pokud je to možné"/>
 					<Item id="6907" name="Při vyvolání dialogového okna &quot;Najít&quot;"/>
 					<Item id="6908" name="Předvyplnit vyhledávací políčko &quot;Najít&quot; označeným textem"/>
@@ -1278,7 +1279,7 @@
 				</RecentFilesHistory>
 				<MISC title="Různé">
 					<ComboBox id="6347">
-						<Element name="Povoleno (pro aktivní tab/soubor)"/>
+						<Element name="Povoleno pro aktivní taby/soubory"/>
 						<Element name="Povoleno pro všechny otevřené soubory"/>
 						<Element name="Zakázáno"/>
 					</ComboBox>
@@ -1779,6 +1780,8 @@ Pokračujte pouze tehdy, pokud rozumíte rizikům."/>
 			<default-open-save-select-folder value="Vyberte výchozí složku"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Pro změnu směru vyhledávání použijte Shift + Enter."/>
 			<two-find-buttons-tip value="Mód se dvěma vyhledávacími tlačítky"/>
+			<confirm-replace-in-all-open-docs-tip value="Potvrzovat akci &quot;Nahradit vše ve všech otevřených dokumentech&quot;"/>
+			<replace-and-stop-tip value="Při nahrazování nepřecházet automaticky k následujícímu výskytu"/>
 			<find-in-files-filter-tip value="Hledat v cpp, cxx, h, hxx &amp;&amp; hpp souborech:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1816,6 +1819,7 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 			<find-status-replace-readonly value="Nahrazování: Nemohu nahradit text. Současný dokument je pouze pro čtení"/>
 			<find-status-cannot-find value="Vyhledávání: Nemohu nalézt text &quot;$STR_REPLACE$&quot;"/>
 			<find-status-cannot-find-pebkac-maybe value="Zadaný výskyt nelze najít. Možná jste zapomněli zkontrolovat nastavení &quot;Na konci znovu od začátku&quot; (zaškrtnuto), &quot;Rozlišovat malá a VELKÁ písmena&quot; (nezaškrtnuto) nebo &quot;Hledat pouze celá slova&quot; (nezaškrtnuto)."/>
+			<find-status-regex-find-empty-string value="Uvedený regulární výraz odpovídá prázdným řetězcům."/>
 			<find-status-scope-selection value="ve vybraném textu"/>
 			<find-status-scope-all value="v celém souboru"/>
 			<find-status-scope-backward value="od začátku souboru až ke kurzoru"/>

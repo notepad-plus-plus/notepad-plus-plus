@@ -822,7 +822,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 			cmdLineParams._isNoSession = true;
 	}
 
-	std::wstring quotFileName = L"";
+	std::wstring quotFileNames = L"";
     // tell the running instance the FULL path to the new files to load
 	size_t nbFilesToOpen = params.size();
 
@@ -833,9 +833,9 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 		{
 			//check if relative or full path. Relative paths don't have a colon for driveletter
 
-			quotFileName += L"\"";
-			quotFileName += relativeFilePathToFullFilePath(currentFile);
-			quotFileName += L"\" ";
+			quotFileNames += L"\"";
+			quotFileNames += relativeFilePathToFullFilePath(currentFile);
+			quotFileNames += L"\" ";
 		}
 	}
 
@@ -902,8 +902,8 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 
 				COPYDATASTRUCT fileNamesData{};
 				fileNamesData.dwData = COPYDATA_FILENAMESW;
-				fileNamesData.lpData = (void *)quotFileName.c_str();
-				fileNamesData.cbData = static_cast<DWORD>((quotFileName.length() + 1) * sizeof(wchar_t));
+				fileNamesData.lpData = (void *)quotFileNames.c_str();
+				fileNamesData.cbData = static_cast<DWORD>((quotFileNames.length() + 1) * sizeof(wchar_t));
 				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hIpcSender), reinterpret_cast<LPARAM>(&fileNamesData));
 
 				::DestroyWindow(hIpcSender);
@@ -940,7 +940,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	MiniDumper mdump;	//for debugging purposes.
 	bool isException = false;
 	try {
-		notepad_plus_plus.init(hInstance, NULL, quotFileName.c_str(), &cmdLineParams);
+		notepad_plus_plus.init(hInstance, NULL, quotFileNames.c_str(), &cmdLineParams);
 		allowForbidPrivilegeMessages(notepad_plus_plus, ver);
 		bool going = true;
 		while (going)

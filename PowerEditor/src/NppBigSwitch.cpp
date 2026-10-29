@@ -833,25 +833,32 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				return TRUE; // reject: not another trusted instance of this same binary
 
 			COPYDATASTRUCT* pCopyData = reinterpret_cast<COPYDATASTRUCT*>(lParam);
-			if (pCopyData->lpData == nullptr)
+			if (pCopyData->lpData == nullptr || pCopyData->cbData == 0)
 				return TRUE; // invalid
+
 
 			switch (pCopyData->dwData)
 			{
 				case COPYDATA_FULL_CMDLINE:
 				{
-					wchar_t* str2set = static_cast<wchar_t*>(pCopyData->lpData);
-					nppParam.setCmdLineString(str2set);
+					if (!_isAdministrator)
+					{
+						wchar_t* str2set = static_cast<wchar_t*>(pCopyData->lpData);
+						nppParam.setCmdLineString(str2set);
+					}
 					break;
 				}
 
 				case COPYDATA_PARAMS:
 				{
-					const CmdLineParamsDTO* cmdLineParam = static_cast<const CmdLineParamsDTO*>(pCopyData->lpData); // CmdLineParams object from another instance, but the same binary
+					CmdLineParamsDTO* cmdLineParam = static_cast<CmdLineParamsDTO*>(pCopyData->lpData); // CmdLineParams object from another instance, but the same binary
 					const DWORD cmdLineParamsSize = pCopyData->cbData; // CmdLineParams size from another instance
 					if (sizeof(CmdLineParamsDTO) == cmdLineParamsSize) // make sure the structure is the same
 					{
-						nppParam.setCmdlineParam(*cmdLineParam); // need to be guarded for possible invalid ptr passed
+						if (_isAdministrator)
+							cmdLineParam->_pluginMessage[0] = L'\0';
+
+						nppParam.setCmdlineParam(*cmdLineParam);
 
 						wstring pluginMessage{ nppParam.getCmdLineParams()._pluginMessage };
 						if (!pluginMessage.empty())
@@ -864,7 +871,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 						}
 
 						NppGUI& nppGui = nppParam.getNppGUI();
-						nppGui._isCmdlineNosessionActivated = cmdLineParam->_isNoSession; // need to be guarded for possible invalid ptr passed
+						nppGui._isCmdlineNosessionActivated = cmdLineParam->_isNoSession;
 					}
 					break;
 				}
@@ -872,6 +879,18 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				case COPYDATA_FILENAMESW:
 				{
 					wchar_t* fileNamesW = static_cast<wchar_t*>(pCopyData->lpData);
+
+					size_t maxChars = pCopyData->cbData / sizeof(wchar_t);
+					size_t stringLen = wcsnlen_s(fileNamesW, maxChars);
+
+					// If stringLen equals maxChars, wcsnlen_s hit the limit 
+					// without finding a L'\0', meaning it is NOT properly null-terminated
+					if (stringLen >= maxChars)
+					{
+						// Malformed or malicious input: drop/reject the message
+						break;
+					}
+
 					const CmdLineParamsDTO& cmdLineParams = nppParam.getCmdLineParams();
 					loadCommandlineParams(fileNamesW, &cmdLineParams);
 					break;

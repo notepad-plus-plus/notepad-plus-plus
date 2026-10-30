@@ -45,7 +45,7 @@ static constexpr std::array<COLORREF, 48> colorItems{ {
 
 void ColourPopup::createColorPopup()
 {
-	_hSelf = StaticDialog::myCreateDialogIndirectParam(IDD_COLOUR_POPUP, false, 0, ColourPopup::dlgClrPopupProc);
+	_hSelf = StaticDialog::myCreateDialogIndirectParam(IDD_COLOUR_POPUP, false, 0, L"", ColourPopup::dlgClrPopupProc);
 
 	if (!_hSelf)
 	{

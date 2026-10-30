@@ -126,11 +126,10 @@ bool SetOSAppRestart()
 	return bRet;
 }
 
-static bool isSenderTrusted(WPARAM wParam)
+static bool isSenderTrusted(HWND hSenderWnd)
 {
-	HWND hSenderWnd = reinterpret_cast<HWND>(wParam);
 	if (hSenderWnd == NULL || !::IsWindow(hSenderWnd))
-		return false; // no real window handle presented -> reject
+		return false;
 
 	DWORD dwProcessId = 0;
 	if (::GetWindowThreadProcessId(hSenderWnd, &dwProcessId) == 0 || dwProcessId == 0)
@@ -829,13 +828,31 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (lParam == 0)
 				return TRUE; // invalid
 
-			if (!isSenderTrusted(wParam))
+			HWND claimed = reinterpret_cast<HWND>(wParam);
+
+			// Enshre the binary identity (full path) via recieved HWND 
+			if (!isSenderTrusted(claimed))
 				return TRUE; // reject: not another trusted instance of this same binary
 
 			COPYDATASTRUCT* pCopyData = reinterpret_cast<COPYDATASTRUCT*>(lParam);
 			if (pCopyData->lpData == nullptr || pCopyData->cbData == 0)
 				return TRUE; // invalid
 
+			if (pCopyData->dwData == NPP_COPYDATA_CONFIRM)
+				return TRUE;
+
+			// Ensure the data integrity via digest check
+			NppDigest dg;
+			if (!nppCopyDataDigest(pCopyData->dwData, pCopyData->lpData, pCopyData->cbData, dg))
+				return TRUE;
+
+			// Send back a confirmation message to the sender, so it can verify the integrity of the data
+			// Note: we will wait for the response NPP_CONFIRM_MAGIC for 1 second, then we will give up and ignore the data
+			COPYDATASTRUCT q { NPP_COPYDATA_CONFIRM, static_cast<DWORD>(dg.size()), dg.data() };
+			DWORD_PTR res = 0;
+			if (!::SendMessageTimeoutW(claimed, WM_COPYDATA, reinterpret_cast<WPARAM>(hwnd), reinterpret_cast<LPARAM>(&q), SMTO_ABORTIFHUNG | SMTO_BLOCK, 1000, &res)
+				|| res != static_cast<DWORD_PTR>(NPP_CONFIRM_MAGIC))
+				return TRUE;
 
 			switch (pCopyData->dwData)
 			{

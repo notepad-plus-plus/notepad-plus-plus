@@ -42,6 +42,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
+#include <array>
 
 #include "Buffer.h"
 #include "CustomFileDialog.h"
@@ -51,6 +52,7 @@
 #include "Parameters.h"
 #include "Utf8.h"
 #include "dpiManagerV2.h"
+#include "sha-256.h"
 
 using namespace std;
 
@@ -2624,4 +2626,24 @@ bool needsElevation4Access(const std::wstring& path2check, bool bWriteAccess)
 
 	// an elevation will not help us here (HW R/O, file-in-use locks, complex restrictive ACLs, etc.)
 	return false;
+}
+
+bool nppCopyDataDigest(ULONG_PTR dwData, const void* data, DWORD cb, NppDigest& out)
+{
+	if (cb != 0 && data == nullptr)
+		return false;
+
+	// calc_sha_256 hashes one contiguous buffer, so build "tag | length | data" first
+	const uint64_t tag = dwData;
+	const uint32_t len = cb;
+
+	std::vector<uint8_t> buf(sizeof(tag) + sizeof(len) + cb);
+	memcpy(buf.data(), &tag, sizeof(tag));
+	memcpy(buf.data() + sizeof(tag), &len, sizeof(len));
+	if (cb != 0)
+		memcpy(buf.data() + sizeof(tag) + sizeof(len), data, cb);
+
+	calc_sha_256(out.data(), buf.data(), buf.size());
+
+	return true;
 }

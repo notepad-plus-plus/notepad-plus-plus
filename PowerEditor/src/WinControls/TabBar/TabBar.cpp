@@ -32,6 +32,7 @@
 #include "NppConstants.h"
 #include "NppDarkMode.h"
 #include "Parameters.h"
+#include "VerticalTabs.h"
 #include "Window.h"
 #include "colors.h"
 #include "dpiManagerV2.h"
@@ -195,6 +196,9 @@ void TabBar::setImageList(HIMAGELIST himl)
 
 void TabBar::reSizeTo(RECT & rc2Adjust)
 {
+	if (VerticalTabs::reSizeTo(*this, rc2Adjust)) // vertical tab bar with horizontal titles: its own layout
+		return;
+
 	RECT rowRect{};
 	int rowCount = 0, tabsHight = 0;
 
@@ -242,6 +246,8 @@ void TabBar::reSizeTo(RECT & rc2Adjust)
 		rc2Adjust.top += tabsHight;
 		rc2Adjust.bottom -= tabsHight;
 	}
+
+	VerticalTabs::afterOriginalReSize(*this);
 }
 
 
@@ -360,6 +366,8 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMult
 
 	setCloseBtnImageList();
 	setPinBtnImageList();
+
+	VerticalTabs::attach(_hSelf);
 }
 
 void TabBar::destroyFonts()
@@ -739,7 +747,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 			bool doDragNDrop = nppGUI._tabStatus & TAB_DRAGNDROP;
 			bool isMultiLine = nppGUI._tabStatus & TAB_MULTILINE;
-			bool isVertical = nppGUI._tabStatus & TAB_VERTICAL;
+			bool isVertical = (nppGUI._tabStatus & TAB_VERTICAL) && !VerticalTabs::isListMode();
 			
 			if ((wParam & MK_CONTROL) && (wParam & MK_SHIFT))
 			{
@@ -843,7 +851,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			}
 
 			NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
-			bool isVertical = nppGUI._tabStatus & TAB_VERTICAL;
+			bool isVertical = (nppGUI._tabStatus & TAB_VERTICAL) && !VerticalTabs::isListMode();
 			bool drawTabCloseButton = nppGUI._tabStatus & TAB_CLOSEBUTTON;
 			bool drawTabPinButton = nppGUI._tabStatus & TAB_PINBUTTON;
 			bool isPinSimplest = nppGUI._tabStatus & TAB_SHOWONLYPINNEDBUTTON;
@@ -990,7 +998,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				}
 
 				NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
-				bool isVertical = nppGUI._tabStatus & TAB_VERTICAL;
+				bool isVertical = (nppGUI._tabStatus & TAB_VERTICAL) && !VerticalTabs::isListMode();
 				bool drawTabCloseButton = nppGUI._tabStatus & TAB_CLOSEBUTTON;
 				bool drawTabPinButton = nppGUI._tabStatus & TAB_PINBUTTON;
 
@@ -1120,7 +1128,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			}
 
 			NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
-			bool isVertical = nppGUI._tabStatus & TAB_VERTICAL;
+			bool isVertical = (nppGUI._tabStatus & TAB_VERTICAL) && !VerticalTabs::isListMode();
 			bool drawTabCloseButton = nppGUI._tabStatus & TAB_CLOSEBUTTON;
 			bool drawTabPinButton = nppGUI._tabStatus & TAB_PINBUTTON;
 			bool isPinSimplest = nppGUI._tabStatus & TAB_SHOWONLYPINNEDBUTTON;
@@ -1217,7 +1225,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			NppParameters& nppParam = NppParameters::getInstance();
 			NppGUI& nppGUI = nppParam.getNppGUI();
 
-			bool isVertical = nppGUI._tabStatus & TAB_VERTICAL;
+			bool isVertical = (nppGUI._tabStatus & TAB_VERTICAL) && !VerticalTabs::isListMode();
 			bool isDbClk2Close = nppGUI._tabStatus & TAB_DBCLK2CLOSE;
 
 			int xPos = LOWORD(lParam);
@@ -1292,7 +1300,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			int nSelTab = TabCtrl_GetCurSel(hwnd);
 
 			NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
-			bool isVertical = nppGUI._tabStatus & TAB_VERTICAL;
+			bool isVertical = (nppGUI._tabStatus & TAB_VERTICAL) && !VerticalTabs::isListMode();
 
 			for (int i = 0; i < nTabs; ++i)
 			{
@@ -1473,7 +1481,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 	::DeleteObject(static_cast<HGDIOBJ>(hBrush));
 
 	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
-	bool isVertical = nppGUI._tabStatus & TAB_VERTICAL;
+	bool isVertical = (nppGUI._tabStatus & TAB_VERTICAL) && !VerticalTabs::isListMode();
 	bool drawTopBar = nppGUI._tabStatus & TAB_DRAWTOPBAR;
 	bool drawTabCloseButton = nppGUI._tabStatus & TAB_CLOSEBUTTON;
 	bool drawTabPinButton = nppGUI._tabStatus & TAB_PINBUTTON;

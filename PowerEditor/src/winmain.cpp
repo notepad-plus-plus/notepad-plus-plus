@@ -907,6 +907,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 
 				// HWND_MESSAGE: message-only window, never visible, no taskbar entry
 				HWND hIpcSender = CreateWindowExW(0, className, L"", 0, 0, 0, 0, 0,	HWND_MESSAGE, NULL, hInstance, NULL);
+				::ChangeWindowMessageFilterEx(hIpcSender, WM_COPYDATA, MSGFLT_ALLOW, nullptr);
 
 				CmdLineParamsDTO dto = CmdLineParamsDTO::FromCmdLineParams(cmdLineParams);
 

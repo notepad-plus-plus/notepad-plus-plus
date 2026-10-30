@@ -27,7 +27,6 @@
 #include <unordered_set>
 #include <vector>
 
-
 std::wstring folderBrowser(HWND parent, const std::wstring & title = L"", int outputCtrlID = 0, const wchar_t *defaultStr = NULL);
 std::wstring getFolderName(HWND parent, const wchar_t *defaultDir = NULL);
 
@@ -349,3 +348,12 @@ private:
 
 
 bool needsElevation4Access(const std::wstring& path2check, bool bWriteAccess);
+
+
+
+constexpr DWORD   NPP_COPYDATA_CONFIRM = 0x4E50C0DE;   // must differ from the COPYDATA_* values
+constexpr LRESULT NPP_CONFIRM_MAGIC = 0x4E504F4B;   // "yes, I sent exactly that"; TRUE/1 is not accepted as a yes
+using NppDigest = std::array<uint8_t, 32>;
+
+// SHA-256 over (dwData, cbData, bytes): binds the message type and length as well as the content
+bool nppCopyDataDigest(ULONG_PTR dwData, const void* data, DWORD cb, NppDigest& out);

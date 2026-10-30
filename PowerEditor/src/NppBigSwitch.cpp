@@ -836,6 +836,22 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (pCopyData->lpData == nullptr || pCopyData->cbData == 0)
 				return TRUE; // invalid
 
+			if (pCopyData->dwData == NPP_COPYDATA_CONFIRM)
+				return TRUE;
+
+			NppDigest dg;
+			if (!nppCopyDataDigest(pCopyData->dwData, pCopyData->lpData, pCopyData->cbData, dg))
+				return TRUE;
+
+			HWND claimed = reinterpret_cast<HWND>(wParam);
+			DWORD senderPid = 0;
+			::GetWindowThreadProcessId(claimed, &senderPid);
+
+			COPYDATASTRUCT q { NPP_COPYDATA_CONFIRM, static_cast<DWORD>(dg.size()), dg.data() };
+			DWORD_PTR res = 0;
+			if (!::SendMessageTimeoutW(claimed, WM_COPYDATA, reinterpret_cast<WPARAM>(hwnd), reinterpret_cast<LPARAM>(&q), SMTO_ABORTIFHUNG | SMTO_BLOCK, 1000, &res)
+				|| res != static_cast<DWORD_PTR>(NPP_CONFIRM_MAGIC))
+				return TRUE;
 
 			switch (pCopyData->dwData)
 			{

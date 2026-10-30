@@ -608,6 +608,28 @@ HANDLE getParentProcessOfThisNotepadPlusPlus()
 
 std::chrono::steady_clock::time_point g_nppStartTimePoint{};
 
+static std::vector<NppDigest> g_pendingIpcDigests;
+static LRESULT CALLBACK IpcSenderProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+{
+	if (msg == WM_COPYDATA)
+	{
+		const auto* c = reinterpret_cast<const COPYDATASTRUCT*>(lp);
+		if (c && c->lpData && c->dwData == NPP_COPYDATA_CONFIRM && c->cbData == sizeof(NppDigest))
+		{
+			for (auto it = g_pendingIpcDigests.begin(); it != g_pendingIpcDigests.end(); ++it)
+			{
+				if (memcmp(it->data(), c->lpData, sizeof(NppDigest)) == 0)
+				{
+					g_pendingIpcDigests.erase(it);     // one-shot: a confirmation can't be replayed
+					return NPP_CONFIRM_MAGIC;
+				}
+			}
+		}
+
+		return 0;
+	}
+	return ::DefWindowProcW(hwnd, msg, wp, lp);
+}
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance*/, _In_ PWSTR pCmdLine, _In_ int /*nShowCmd*/)
 {
@@ -878,7 +900,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 			{
 				static const wchar_t* className = L"NppIpcSenderWnd";
 				WNDCLASSW wc{};
-				wc.lpfnWndProc = DefWindowProcW;
+				wc.lpfnWndProc = IpcSenderProc;
 				wc.hInstance = hInstance;
 				wc.lpszClassName = className;
 				RegisterClassW(&wc);
@@ -892,20 +914,30 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 				paramData.dwData = COPYDATA_PARAMS;
 				paramData.lpData = &dto;
 				paramData.cbData = sizeof(dto);
-				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hIpcSender), reinterpret_cast<LPARAM>(&paramData));
 
 				COPYDATASTRUCT cmdLineData{};
 				cmdLineData.dwData = COPYDATA_FULL_CMDLINE;
 				cmdLineData.lpData = (void*)cmdLineString.c_str();
 				cmdLineData.cbData = static_cast<DWORD>((cmdLineString.length() + 1) * sizeof(wchar_t));
-				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hIpcSender), reinterpret_cast<LPARAM>(&cmdLineData));
 
 				COPYDATASTRUCT fileNamesData{};
 				fileNamesData.dwData = COPYDATA_FILENAMESW;
 				fileNamesData.lpData = (void *)quotFileNames.c_str();
 				fileNamesData.cbData = static_cast<DWORD>((quotFileNames.length() + 1) * sizeof(wchar_t));
+
+				g_pendingIpcDigests.clear();
+				for (const COPYDATASTRUCT* c : { &paramData, &cmdLineData, &fileNamesData })
+				{
+					NppDigest d;
+					if (nppCopyDataDigest(c->dwData, c->lpData, c->cbData, d))
+						g_pendingIpcDigests.push_back(d);
+				}
+
+				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hIpcSender), reinterpret_cast<LPARAM>(&paramData));
+				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hIpcSender), reinterpret_cast<LPARAM>(&cmdLineData));
 				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hIpcSender), reinterpret_cast<LPARAM>(&fileNamesData));
 
+				g_pendingIpcDigests.clear();
 				::DestroyWindow(hIpcSender);
 			}
 			return 0;

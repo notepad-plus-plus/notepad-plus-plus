@@ -1353,9 +1353,9 @@ void WordStyleDlg::setVisualFromStyleList()
 }
 
 
-void WordStyleDlg::create(int dialogID, bool isRTL, bool msgDestParent, WORD fontSize)
+void WordStyleDlg::create(int dialogID, bool isRTL, bool msgDestParent, WORD fontSize, const std::wstring& fontFace)
 {
-	StaticDialog::create(dialogID, isRTL, msgDestParent, fontSize);
+	StaticDialog::create(dialogID, isRTL, msgDestParent, fontSize, fontFace);
 
 	if ((NppParameters::getInstance()).isTransparentAvailable())
 	{

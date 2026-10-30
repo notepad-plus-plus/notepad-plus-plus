@@ -101,4 +101,8 @@ private:
 	using DockingDlgInterface::init;
 
 	void onDoubleClick(HWND hList);
+
+	void onDpiChanged() override {
+		setFontForChild(_listView.getHSelf());
+	}
 };

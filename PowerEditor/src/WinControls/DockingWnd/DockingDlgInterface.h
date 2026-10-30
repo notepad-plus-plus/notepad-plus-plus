@@ -46,7 +46,7 @@ public:
 
 	virtual void create(DockedWidgetData* data, bool isRTL = false) {
 		assert(data != nullptr);
-		StaticDialog::create(_dlgID, isRTL);
+		StaticDialog::create(_dlgID, isRTL, false, 9, StaticDialog::getSystemFontFaceName());
 		wchar_t temp[MAX_PATH];
 		::GetWindowText(_hSelf, temp, MAX_PATH);
 		_pluginName = temp;
@@ -94,6 +94,19 @@ public:
 		return _iconIDs;
 	}
 
+	static void setFontForChild(HWND hChild, HFONT hFont) noexcept {
+		if (hChild != nullptr)
+		{
+			::SendMessage(hChild, WM_SETFONT, reinterpret_cast<WPARAM>(hFont), MAKELPARAM(TRUE, 0));
+		}
+	}
+
+	HFONT setFontForChild(HWND hChild) const noexcept {
+		const auto hFont = reinterpret_cast<HFONT>(::SendMessage(_hSelf, WM_GETFONT, 0, 0));
+		setFontForChild(hChild, hFont);
+		return hFont;
+	}
+
 protected :
 	int	_dlgID = -1;
 	int _iDockedPos = 0;
@@ -104,6 +117,8 @@ protected :
 	bool _isClosed = false;
 
 	using StaticDialog::create;
+
+	virtual void onDpiChanged() {}
 
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override {
 		switch (message)
@@ -120,6 +135,14 @@ protected :
 				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDlgBackgroundBrush());
 				return TRUE;
 			}
+
+			case WM_DPICHANGED:
+			{
+				_dpiManager.setDpiWP(wParam);
+				onDpiChanged();
+				return TRUE;
+			}
+
 			case WM_NOTIFY:
 			{
 				auto* pnmh = reinterpret_cast<LPNMHDR>(lParam);

@@ -614,10 +614,14 @@ static LRESULT CALLBACK IpcSenderProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 	if (msg == WM_COPYDATA)
 	{
 		const auto* c = reinterpret_cast<const COPYDATASTRUCT*>(lp);
+
+		// Check if the message is a confirmation of a previously sent IPC message
 		if (c && c->lpData && c->dwData == NPP_COPYDATA_CONFIRM && c->cbData == sizeof(NppDigest))
 		{
+			// Find the digest matches any of the pending IPC digests
 			for (auto it = g_pendingIpcDigests.begin(); it != g_pendingIpcDigests.end(); ++it)
 			{
+				// If the digest matches, remove it from the pending list and return a confirmation code
 				if (memcmp(it->data(), c->lpData, sizeof(NppDigest)) == 0)
 				{
 					g_pendingIpcDigests.erase(it);     // one-shot: a confirmation can't be replayed
@@ -926,6 +930,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 				fileNamesData.lpData = (void *)quotFileNames.c_str();
 				fileNamesData.cbData = static_cast<DWORD>((quotFileNames.length() + 1) * sizeof(wchar_t));
 
+				// store the digests of the data to be sent, so that we can verify the confirmation messages
 				g_pendingIpcDigests.clear();
 				for (const COPYDATASTRUCT* c : { &paramData, &cmdLineData, &fileNamesData })
 				{

@@ -18,6 +18,7 @@
 #pragma once
 
 #include <windows.h>
+
 #include <commctrl.h>
 
 #include "DockingDlgInterface.h"
@@ -62,4 +63,6 @@ protected:
 private:
 	ScintillaEditView **_ppEditView = nullptr;
 	AsciiListView _listView;
+
+	using DockingDlgInterface::init;
 };

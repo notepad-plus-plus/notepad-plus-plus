@@ -16,8 +16,25 @@
 
 
 #include "ansiCharPanel.h"
+
+#include <windows.h>
+
+#include <cstdlib>
+#include <string>
+#include <string.h>
+
+#include <Scintilla.h>
+
+#include "DockingDlgInterface.h"
+#include "ListView.h"
+#include "Parameters.h"
 #include "ScintillaEditView.h"
+#include "ansiCharPanel_rc.h"
+#include "dockingResource.h"
+#include "dpiManagerV2.h"
 #include "localization.h"
+#include "menuCmdID.h"
+#include "resource.h"
 
 using namespace std;
 
@@ -42,8 +59,6 @@ intptr_t CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			wstring htmlNumberStr = pNativeSpeaker->getAttrNameStr(L"HTML Decimal", "AsciiInsertion", "ColumnHtmlNumber");
 			wstring htmlHexNbStr = pNativeSpeaker->getAttrNameStr(L"HTML Hexadecimal", "AsciiInsertion", "ColumnHtmlHexNb");
 
-			StaticDialog::setDpi();
-
 			_listView.addColumn(columnInfo(valStr, _dpiManager.scale(45)));
 			_listView.addColumn(columnInfo(hexStr, _dpiManager.scale(45)));
 			_listView.addColumn(columnInfo(charStr, _dpiManager.scale(70)));
@@ -51,20 +66,17 @@ intptr_t CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_listView.addColumn(columnInfo(htmlNumberStr, _dpiManager.scale(100)));
 			_listView.addColumn(columnInfo(htmlHexNbStr, _dpiManager.scale(120)));
 
-			_listView.init(_hInst, _hSelf);
+			_listView.init(_hInst, _hSelf, IDC_LIST_ANSICHAR);
 			int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
 			_listView.setValues(codepage==-1?0:codepage);
 			_listView.display();
-
-			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
-			NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
 
 			return TRUE;
 		}
 
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
-			NppDarkMode::autoThemeChildControls(_hSelf);
+			_listView.setDarkTheme();
 			return TRUE;
 		}
 
@@ -81,7 +93,7 @@ intptr_t CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case NM_DBLCLK:
 				{
-					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;
+					const auto lpnmitem = reinterpret_cast<LPNMITEMACTIVATE>(lParam);
 					LVHITTESTINFO pInfo{};
 					pInfo.pt = lpnmitem->ptAction;
 					ListView_SubItemHitTest(_listView.getHSelf(), &pInfo);
@@ -90,7 +102,7 @@ intptr_t CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					int j = pInfo.iSubItem;
 					wchar_t buffer[10]{};
 					LVITEM item{};
-					item.mask = LVIF_TEXT | LVIF_PARAM;
+					item.mask = LVIF_TEXT;
 					item.iItem = i;
 					item.iSubItem = j;
 					item.cchTextMax = 10;
@@ -110,7 +122,7 @@ intptr_t CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case LVN_KEYDOWN:
 				{
-					switch (((LPNMLVKEYDOWN)lParam)->wVKey)
+					switch (reinterpret_cast<LPNMLVKEYDOWN>(lParam)->wVKey)
 					{
 						case VK_RETURN:
 						{

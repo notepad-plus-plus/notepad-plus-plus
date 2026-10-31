@@ -16,7 +16,15 @@
 
 
 #include "asciiListView.h"
-#include "Parameters.h"
+
+#include <windows.h>
+
+#include <commctrl.h>
+
+#include <cstdio>
+#include <cstdlib>
+#include <string>
+#include <vector>
 
 using namespace std;
 
@@ -32,7 +40,7 @@ void AsciiListView::resetValues(int codepage)
 	setValues(codepage);
 }
 
-wstring AsciiListView::getAscii(unsigned char value)
+std::wstring AsciiListView::getAscii(unsigned char value) const
 {
 	switch (value)
 	{

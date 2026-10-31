@@ -86,10 +86,6 @@ public:
 		return (::IsWindowVisible(_hSelf) == TRUE);
 	}
 
-	operator HWND() const noexcept {
-		return _hSelf;
-	}
-
 	HWND getHSelf() const {
 		return _hSelf;
 	}

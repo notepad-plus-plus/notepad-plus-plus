@@ -699,13 +699,9 @@ void FunctionParser::getInvertZones(std::vector<std::pair<size_t, size_t>>& dest
 
 void FunctionZoneParser::parse(std::vector<foundInfo>& foundInfos, size_t begin, size_t end, ScintillaEditView** ppEditView, const std::string& classStructName)
 {
-	std::vector<std::pair<size_t, size_t>> classZones, commentZones, nonCommentZones;
+	std::vector<std::pair<size_t, size_t>> classZones, commentZones;
 	getCommentZones(commentZones, begin, end, ppEditView);
-	getInvertZones(nonCommentZones, commentZones, begin, end);
-	for (size_t i = 0, len = nonCommentZones.size(); i < len; ++i)
-	{
-		classParse(foundInfos, classZones, commentZones, nonCommentZones[i].first, nonCommentZones[i].second, ppEditView, classStructName);
-	}
+	classParse(foundInfos, classZones, commentZones, begin, end, ppEditView, classStructName); // comment zones are skipped inside classParse
 }
 
 void FunctionUnitParser::parse(std::vector<foundInfo>& foundInfos, size_t begin, size_t end, ScintillaEditView** ppEditView, const std::string& classStructName)

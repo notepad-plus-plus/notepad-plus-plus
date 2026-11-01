@@ -6,6 +6,7 @@
 // Modified for Nix and Scintilla by Jiri Techet, 2024
 // The License.txt file describes the conditions under which this software may be distributed.
 
+#include <cstdlib>
 #include <cassert>
 #include <cstring>
 
@@ -33,11 +34,6 @@ using namespace Lexilla;
 
 namespace {
 // Use an unnamed namespace to protect the functions and classes from name conflicts
-
-constexpr bool IsAGraphic(int ch) noexcept {
-	// excludes C0 control characters and whitespace
-	return ch > 32 && ch < 127;
-}
 
 constexpr bool IsIdentifierChar(int ch) noexcept {
 	return IsAlphaNumeric(ch) || ch == '_' || ch == '\'' || ch == '-';

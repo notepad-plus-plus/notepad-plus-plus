@@ -260,6 +260,15 @@ void SelectionRange::MinimizeVirtualSpace() noexcept {
 	}
 }
 
+bool SelectionRange::BackSpaceVirtual() noexcept {
+	const Sci::Position virtualSpace = caret.VirtualSpace();
+	if (virtualSpace) {
+		caret.SetVirtualSpace(virtualSpace - 1);
+		anchor.SetVirtualSpace(virtualSpace - 1);
+	}
+	return virtualSpace;
+}
+
 std::string SelectionRange::ToString() const {
 	std::string result = anchor.ToString();
 	if (!(caret == anchor)) {

@@ -1,0 +1,47 @@
+ 2 400   0 + <script>
+ 0 401   0 | var a=`${}`;//1
+ 0 401   0 | var b=`${1}`;//2
+ 0 401   0 | var c=`${1}\${2}`;//3
+ 1 401   0 | 
+ 0 401   0 | const generateUserCard = (user) => `
+ 0 401   0 |     <div class="card">
+ 0 401   0 |         <h2>${user.name}</h2>
+ 0 401   0 |         <p>Age: ${user.age}</p>
+ 0 401   0 |         <ul>
+ 0 401   0 |             ${user.interests.map(interest => `<li>${interest}</li>`).join('')}
+ 0 401   0 |         </ul>
+ 0 401   0 |     </div>
+ 0 401   0 | `;
+ 1 401   0 | 
+ 0 401   0 | // ../cpp/94Template.cxx
+ 0 401   0 | // Basic
+ 0 401   0 | var basic = `${identifier}`;
+ 1 401   0 | 
+ 0 401   0 | // Nested
+ 0 401   0 | var nested = ` ${ ` ${ 1 } ` } `;
+ 1 401   0 | 
+ 0 401   0 | // With escapes
+ 2 401   0 + var xxx = {
+ 0 402   0 |     '1': `\`\u0020\${a${1 + 1}b}`,
+ 0 402   0 |     '2': `\${a${ `b${1 + 2}c`.charCodeAt(2) }d}`,
+ 2 402   0 +     '3': `\${a${ `b${ `c${ JSON.stringify({
+ 0 406   0 |         '4': {},
+ 0 406   0 |         }) }d` }e` }f}`,
+ 0 402   0 | };
+ 1 401   0 | 
+ 0 401   0 | // Original request
+ 0 401   0 | fetchOptions.body = `
+ 0 401   0 | {
+ 0 401   0 | 	"accountNumber" : "248796",
+ 0 401   0 | 	"customerType" : "Shipper",
+ 0 401   0 | 	"destinationCity" : "${order.destination.city}",
+ 0 401   0 | 	"destinationState" : "${order.destination.stateProvince}",
+ 0 401   0 | 	"destinationZip" : ${order.destination.postalCode},
+ 0 401   0 | 	"paymentType" : "Prepaid",
+ 0 401   0 | 	"shipmentInfo" :
+ 0 401   0 | 	{
+ 0 401   0 | 		"items" : [ { "shipmentClass" : "50", "shipmentWeight" : "${order.totalWeight.toString()}" } ]
+ 0 401   0 | 	}
+ 0 401   0 | }`;
+ 0 401   0 | </script>
+ 0 400   0   

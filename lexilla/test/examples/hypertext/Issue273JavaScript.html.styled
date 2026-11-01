@@ -9,7 +9,7 @@
 <!doctype>
 */{41}
 {47}var{41} {46}template{41} {50}={41} {53}`
-<?xml encoding='${encoding}'>
+<?xml encoding='{50}${{46}encoding{50}}{53}'>
 <!doctype>
 `{50};{41}
 {52}/<?xml>/{50}.{46}test{50}({49}'<?xml>'{50});{41}

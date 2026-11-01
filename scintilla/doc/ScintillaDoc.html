@@ -130,7 +130,7 @@
 
     <h1>Scintilla Documentation</h1>
 
-    <p>Last edited 22 July 2026 NH</p>
+    <p>Last edited 1 October 2026 NH</p>
 
     <p style="background:#90F0C0">Scintilla 5 has moved the lexers from Scintilla into a new
     <a href="Lexilla.html">Lexilla</a> project.<br />
@@ -229,6 +229,14 @@
 
           <td>A line number in the document.
           Equivalent to <code>intptr_t</code>.</td>
+        </tr>
+
+        <tr>
+          <th align="left"><code>pixels</code></th>
+
+          <td>A graphical position or dimension in pixels.
+          Equivalent to <code>int</code>,
+          Depending on platform and settings, may be physical pixels or scaled logical pixels.</td>
         </tr>
 
         <tr>
@@ -760,14 +768,14 @@ struct Sci_TextRangeFull {
      <a class="message" href="#SCI_FINDCOLUMN">SCI_FINDCOLUMN(line line, position column) &rarr; position</a><br />
      <a class="message" href="#SCI_POSITIONBEFORE">SCI_POSITIONBEFORE(position pos) &rarr; position</a><br />
      <a class="message" href="#SCI_POSITIONAFTER">SCI_POSITIONAFTER(position pos) &rarr; position</a><br />
-     <a class="message" href="#SCI_TEXTWIDTH">SCI_TEXTWIDTH(int style, const char *text) &rarr; int</a><br />
-     <a class="message" href="#SCI_TEXTHEIGHT">SCI_TEXTHEIGHT(line line) &rarr; int</a><br />
-     <a class="message" href="#SCI_POSITIONFROMPOINT">SCI_POSITIONFROMPOINT(int x, int y) &rarr; position</a><br />
-     <a class="message" href="#SCI_POSITIONFROMPOINTCLOSE">SCI_POSITIONFROMPOINTCLOSE(int x, int y) &rarr; position</a><br />
-     <a class="message" href="#SCI_CHARPOSITIONFROMPOINT">SCI_CHARPOSITIONFROMPOINT(int x, int y) &rarr; position</a><br />
-     <a class="message" href="#SCI_CHARPOSITIONFROMPOINTCLOSE">SCI_CHARPOSITIONFROMPOINTCLOSE(int x, int y) &rarr; position</a><br />
-     <a class="message" href="#SCI_POINTXFROMPOSITION">SCI_POINTXFROMPOSITION(&lt;unused&gt;, position pos) &rarr; int</a><br />
-     <a class="message" href="#SCI_POINTYFROMPOSITION">SCI_POINTYFROMPOSITION(&lt;unused&gt;, position pos) &rarr; int</a><br />
+     <a class="message" href="#SCI_TEXTWIDTH">SCI_TEXTWIDTH(int style, const char *text) &rarr; pixels</a><br />
+     <a class="message" href="#SCI_TEXTHEIGHT">SCI_TEXTHEIGHT(line line) &rarr; pixels</a><br />
+     <a class="message" href="#SCI_POSITIONFROMPOINT">SCI_POSITIONFROMPOINT(pixels x, pixels y) &rarr; position</a><br />
+     <a class="message" href="#SCI_POSITIONFROMPOINTCLOSE">SCI_POSITIONFROMPOINTCLOSE(pixels x, pixels y) &rarr; position</a><br />
+     <a class="message" href="#SCI_CHARPOSITIONFROMPOINT">SCI_CHARPOSITIONFROMPOINT(pixels x, pixels y) &rarr; position</a><br />
+     <a class="message" href="#SCI_CHARPOSITIONFROMPOINTCLOSE">SCI_CHARPOSITIONFROMPOINTCLOSE(pixels x, pixels y) &rarr; position</a><br />
+     <a class="message" href="#SCI_POINTXFROMPOSITION">SCI_POINTXFROMPOSITION(&lt;unused&gt;, position pos) &rarr; pixels</a><br />
+     <a class="message" href="#SCI_POINTYFROMPOSITION">SCI_POINTYFROMPOSITION(&lt;unused&gt;, position pos) &rarr; pixels</a><br />
 
     <p>
      <b id="SCI_GETTEXTLENGTH">SCI_GETTEXTLENGTH &rarr; position</b><br />
@@ -842,30 +850,30 @@ struct Sci_TextRangeFull {
      If called with a position within a multi byte character will return the position
      of the start/end of that character.</p>
 
-    <p><b id="SCI_TEXTWIDTH">SCI_TEXTWIDTH(int style, const char *text) &rarr; int</b><br />
+    <p><b id="SCI_TEXTWIDTH">SCI_TEXTWIDTH(int style, const char *text) &rarr; pixels</b><br />
      This returns the pixel width of a string drawn in the given <code class="parameter">style</code> which can
     be used, for example, to decide how wide to make the line number margin in order to display a
     given number of numerals.</p>
 
-    <p><b id="SCI_TEXTHEIGHT">SCI_TEXTHEIGHT(line line) &rarr; int</b><br />
+    <p><b id="SCI_TEXTHEIGHT">SCI_TEXTHEIGHT(line line) &rarr; pixels</b><br />
      This returns the height in pixels of a particular line. Currently all lines are the same
     height.</p>
 
-    <p><b id="SCI_POSITIONFROMPOINT">SCI_POSITIONFROMPOINT(int x, int y) &rarr; position</b><br />
-     <b id="SCI_POSITIONFROMPOINTCLOSE">SCI_POSITIONFROMPOINTCLOSE(int x, int y) &rarr; position</b><br />
+    <p><b id="SCI_POSITIONFROMPOINT">SCI_POSITIONFROMPOINT(pixels x, pixels y) &rarr; position</b><br />
+     <b id="SCI_POSITIONFROMPOINTCLOSE">SCI_POSITIONFROMPOINTCLOSE(pixels x, pixels y) &rarr; position</b><br />
      <code>SCI_POSITIONFROMPOINT</code> finds the closest character position to a point and
     <code>SCI_POSITIONFROMPOINTCLOSE</code> is similar but returns -1 if the point is outside the
     window or not close to any characters.</p>
 
-    <p><b id="SCI_CHARPOSITIONFROMPOINT">SCI_CHARPOSITIONFROMPOINT(int x, int y) &rarr; position</b><br />
-     <b id="SCI_CHARPOSITIONFROMPOINTCLOSE">SCI_CHARPOSITIONFROMPOINTCLOSE(int x, int y) &rarr; position</b><br />
+    <p><b id="SCI_CHARPOSITIONFROMPOINT">SCI_CHARPOSITIONFROMPOINT(pixels x, pixels y) &rarr; position</b><br />
+     <b id="SCI_CHARPOSITIONFROMPOINTCLOSE">SCI_CHARPOSITIONFROMPOINTCLOSE(pixels x, pixels y) &rarr; position</b><br />
      <code>SCI_CHARPOSITIONFROMPOINT</code> finds the closest character to a point and
     <code>SCI_CHARPOSITIONFROMPOINTCLOSE</code> is similar but returns -1 if the point is outside the
     window or not close to any characters. This is similar to the previous methods but finds characters rather than
     inter-character positions.</p>
 
-    <p><b id="SCI_POINTXFROMPOSITION">SCI_POINTXFROMPOSITION(&lt;unused&gt;, position pos) &rarr; int</b><br />
-     <b id="SCI_POINTYFROMPOSITION">SCI_POINTYFROMPOSITION(&lt;unused&gt;, position pos) &rarr; int</b><br />
+    <p><b id="SCI_POINTXFROMPOSITION">SCI_POINTXFROMPOSITION(&lt;unused&gt;, position pos) &rarr; pixels</b><br />
+     <b id="SCI_POINTYFROMPOSITION">SCI_POINTYFROMPOSITION(&lt;unused&gt;, position pos) &rarr; pixels</b><br />
      These messages return the x and y display pixel location of text at position <code class="parameter">pos</code>
     in the document.</p>
 
@@ -1225,7 +1233,7 @@ struct Sci_TextRangeFull {
      <a class="message" href="#SCI_CLEARSELECTIONS">SCI_CLEARSELECTIONS</a><br />
      <a class="message" href="#SCI_SETSELECTION">SCI_SETSELECTION(position caret, position anchor)</a><br />
      <a class="message" href="#SCI_ADDSELECTION">SCI_ADDSELECTION(position caret, position anchor)</a><br />
-     <a class="message" href="#SCI_SELECTIONFROMPOINT">SCI_SELECTIONFROMPOINT(int x, int y) &rarr; int</a><br />
+     <a class="message" href="#SCI_SELECTIONFROMPOINT">SCI_SELECTIONFROMPOINT(pixels x, pixels y) &rarr; int</a><br />
      <a class="message" href="#SCI_DROPSELECTIONN">SCI_DROPSELECTIONN(int selection)</a><br />
      <a class="message" href="#SCI_SETMAINSELECTION">SCI_SETMAINSELECTION(int selection)</a><br />
      <a class="message" href="#SCI_GETMAINSELECTION">SCI_GETMAINSELECTION &rarr; int</a><br />
@@ -1404,7 +1412,7 @@ struct Sci_TextRangeFull {
      added with <code>SCI_SETSELECTION</code> and later selections added with <code>SCI_ADDSELECTION</code></p>
 
     <p>
-    <b id="SCI_SELECTIONFROMPOINT">SCI_SELECTIONFROMPOINT(int x, int y) &rarr; int</b><br />
+    <b id="SCI_SELECTIONFROMPOINT">SCI_SELECTIONFROMPOINT(pixels x, pixels y) &rarr; int</b><br />
      Return the index of the selection at the point. If there is no selection at the point, return -1.
      This can be used to drop a selection or make it the main selection.</p>
 
@@ -2414,24 +2422,22 @@ struct Sci_TextToFindFull {
     <code>
      <a class="message" href="#SCI_SETFIRSTVISIBLELINE">SCI_SETFIRSTVISIBLELINE(line displayLine)</a><br />
      <a class="message" href="#SCI_GETFIRSTVISIBLELINE">SCI_GETFIRSTVISIBLELINE &rarr; line</a><br />
-     <a class="message" href="#SCI_SETXOFFSET">SCI_SETXOFFSET(int xOffset)</a><br />
-     <a class="message" href="#SCI_GETXOFFSET">SCI_GETXOFFSET &rarr; int</a><br />
+     <a class="message" href="#SCI_SETXOFFSET">SCI_SETXOFFSET(pixels xOffset)</a><br />
+     <a class="message" href="#SCI_GETXOFFSET">SCI_GETXOFFSET &rarr; pixels</a><br />
      <a class="message" href="#SCI_SCROLLVERTICAL">SCI_SCROLLVERTICAL(line docLine, line subLine)</a><br />
      <a class="message" href="#SCI_LINESCROLL">SCI_LINESCROLL(position columns, line lines)</a><br />
      <a class="message" href="#SCI_SCROLLCARET">SCI_SCROLLCARET</a><br />
      <a class="message" href="#SCI_SCROLLRANGE">SCI_SCROLLRANGE(position secondary, position primary)</a><br />
-     <a class="message" href="#SCI_SETXCARETPOLICY">SCI_SETXCARETPOLICY(int caretPolicy, int
-    caretSlop)</a><br />
-     <a class="message" href="#SCI_SETYCARETPOLICY">SCI_SETYCARETPOLICY(int caretPolicy, int
-    caretSlop)</a><br />
+     <a class="message" href="#SCI_SETXCARETPOLICY">SCI_SETXCARETPOLICY(int caretPolicy, pixels caretSlop)</a><br />
+     <a class="message" href="#SCI_SETYCARETPOLICY">SCI_SETYCARETPOLICY(int caretPolicy, int caretSlop)</a><br />
      <a class="message" href="#SCI_SETVISIBLEPOLICY">SCI_SETVISIBLEPOLICY(int visiblePolicy, int
     visibleSlop)</a><br />
      <a class="message" href="#SCI_SETHSCROLLBAR">SCI_SETHSCROLLBAR(bool visible)</a><br />
      <a class="message" href="#SCI_GETHSCROLLBAR">SCI_GETHSCROLLBAR &rarr; bool</a><br />
      <a class="message" href="#SCI_SETVSCROLLBAR">SCI_SETVSCROLLBAR(bool visible)</a><br />
      <a class="message" href="#SCI_GETVSCROLLBAR">SCI_GETVSCROLLBAR &rarr; bool</a><br />
-     <a class="message" href="#SCI_SETSCROLLWIDTH">SCI_SETSCROLLWIDTH(int pixelWidth)</a><br />
-     <a class="message" href="#SCI_GETSCROLLWIDTH">SCI_GETSCROLLWIDTH &rarr; int</a><br />
+     <a class="message" href="#SCI_SETSCROLLWIDTH">SCI_SETSCROLLWIDTH(pixels pixelWidth)</a><br />
+     <a class="message" href="#SCI_GETSCROLLWIDTH">SCI_GETSCROLLWIDTH &rarr; pixels</a><br />
      <a class="message" href="#SCI_SETSCROLLWIDTHTRACKING">SCI_SETSCROLLWIDTHTRACKING(bool tracking)</a><br />
      <a class="message" href="#SCI_GETSCROLLWIDTHTRACKING">SCI_GETSCROLLWIDTHTRACKING &rarr; bool</a><br />
      <a class="message" href="#SCI_SETENDATLASTLINE">SCI_SETENDATLASTLINE(bool
@@ -2444,8 +2450,8 @@ struct Sci_TextToFindFull {
      These messages retrieve and set the line number of the first visible line in the Scintilla view. The first line
     in the document is numbered 0. The value is a visible line rather than a document line.</p>
 
-    <p><b id="SCI_SETXOFFSET">SCI_SETXOFFSET(int xOffset)</b><br />
-     <b id="SCI_GETXOFFSET">SCI_GETXOFFSET &rarr; int</b><br />
+    <p><b id="SCI_SETXOFFSET">SCI_SETXOFFSET(pixels xOffset)</b><br />
+     <b id="SCI_GETXOFFSET">SCI_GETXOFFSET &rarr; pixels</b><br />
      The <code class="parameter">xOffset</code> is the horizontal scroll position in pixels of the start of the text
     view. A value of 0 is the normal position with the first text column visible at the left of the
     view.</p>
@@ -2493,7 +2499,7 @@ struct Sci_TextToFindFull {
      position and range between are also visible.
      This may be used to make a search match visible.</p>
 
-    <p><b id="SCI_SETXCARETPOLICY">SCI_SETXCARETPOLICY(int caretPolicy, int caretSlop)</b><br />
+    <p><b id="SCI_SETXCARETPOLICY">SCI_SETXCARETPOLICY(int caretPolicy, pixels caretSlop)</b><br />
      <b id="SCI_SETYCARETPOLICY">SCI_SETYCARETPOLICY(int caretPolicy, int caretSlop)</b><br />
      These set the caret policy. The value of <code class="parameter">caretPolicy</code> is a combination of
     <code>CARET_SLOP</code>, <code>CARET_STRICT</code>, <code>CARET_JUMPS</code> and
@@ -2769,8 +2775,8 @@ struct Sci_TextToFindFull {
 
     <p>See also: <a class="message" href="#SCI_LINESCROLL"><code>SCI_LINESCROLL</code></a></p>
 
-    <p><b id="SCI_SETSCROLLWIDTH">SCI_SETSCROLLWIDTH(int pixelWidth)</b><br />
-     <b id="SCI_GETSCROLLWIDTH">SCI_GETSCROLLWIDTH &rarr; int</b><br />
+    <p><b id="SCI_SETSCROLLWIDTH">SCI_SETSCROLLWIDTH(pixels pixelWidth)</b><br />
+     <b id="SCI_GETSCROLLWIDTH">SCI_GETSCROLLWIDTH &rarr; pixels</b><br />
      For performance, Scintilla does not measure the display width of the document to determine
      the properties of the horizontal scroll bar. Instead, an assumed width is used.
      These messages set and get the document width in pixels assumed by Scintilla.
@@ -2798,15 +2804,14 @@ struct Sci_TextToFindFull {
      <a class="element" href="#SC_ELEMENT_WHITE_SPACE_BACK">SC_ELEMENT_WHITE_SPACE_BACK : colouralpha</a><br />
      <a class="discouraged message" href="#SCI_SETWHITESPACEBACK">SCI_SETWHITESPACEBACK(bool
     useSetting, colour back)</a><br />
-     <a class="message" href="#SCI_SETWHITESPACESIZE">SCI_SETWHITESPACESIZE(int
-    size)</a><br />
-     <a class="message" href="#SCI_GETWHITESPACESIZE">SCI_GETWHITESPACESIZE &rarr; int</a><br />
+     <a class="message" href="#SCI_SETWHITESPACESIZE">SCI_SETWHITESPACESIZE(pixels size)</a><br />
+     <a class="message" href="#SCI_GETWHITESPACESIZE">SCI_GETWHITESPACESIZE &rarr; pixels</a><br />
      <a class="message" href="#SCI_SETTABDRAWMODE">SCI_SETTABDRAWMODE(int tabDrawMode)</a><br />
      <a class="message" href="#SCI_GETTABDRAWMODE">SCI_GETTABDRAWMODE &rarr; int</a><br />
-     <a class="message" href="#SCI_SETEXTRAASCENT">SCI_SETEXTRAASCENT(int extraAscent)</a><br />
-     <a class="message" href="#SCI_GETEXTRAASCENT">SCI_GETEXTRAASCENT &rarr; int</a><br />
-     <a class="message" href="#SCI_SETEXTRADESCENT">SCI_SETEXTRADESCENT(int extraDescent)</a><br />
-     <a class="message" href="#SCI_GETEXTRADESCENT">SCI_GETEXTRADESCENT &rarr; int</a><br />
+     <a class="message" href="#SCI_SETEXTRAASCENT">SCI_SETEXTRAASCENT(pixels extraAscent)</a><br />
+     <a class="message" href="#SCI_GETEXTRAASCENT">SCI_GETEXTRAASCENT &rarr; pixels</a><br />
+     <a class="message" href="#SCI_SETEXTRADESCENT">SCI_SETEXTRADESCENT(pixels extraDescent)</a><br />
+     <a class="message" href="#SCI_GETEXTRADESCENT">SCI_GETEXTRADESCENT &rarr; pixels</a><br />
     </code>
 
     <p><b id="SCI_SETVIEWWS">SCI_SETVIEWWS(int viewWS)</b><br />
@@ -2871,8 +2876,8 @@ struct Sci_TextToFindFull {
     change the white space colours but the element APIs are preferred with <code>SC_ELEMENT_WHITE_SPACE</code>
     allowing translucency.</p>
 
-     <p><b id="SCI_SETWHITESPACESIZE">SCI_SETWHITESPACESIZE(int size)</b><br />
-     <b id="SCI_GETWHITESPACESIZE">SCI_GETWHITESPACESIZE &rarr; int</b><br />
+     <p><b id="SCI_SETWHITESPACESIZE">SCI_SETWHITESPACESIZE(pixels size)</b><br />
+     <b id="SCI_GETWHITESPACESIZE">SCI_GETWHITESPACESIZE &rarr; pixels</b><br />
      <code>SCI_SETWHITESPACESIZE</code> sets the size of the dots used for mark space characters.
      The <code>SCI_GETWHITESPACESIZE</code> message retrieves the current size.
      The value 0 is valid and makes the dots invisible.
@@ -2916,10 +2921,10 @@ struct Sci_TextToFindFull {
     <p>The effect of using any other <code class="parameter">tabDrawMode</code> value is undefined.</p>
 
     <p>
-     <b id="SCI_SETEXTRAASCENT">SCI_SETEXTRAASCENT(int extraAscent)</b><br />
-     <b id="SCI_GETEXTRAASCENT">SCI_GETEXTRAASCENT &rarr; int</b><br />
-     <b id="SCI_SETEXTRADESCENT">SCI_SETEXTRADESCENT(int extraDescent)</b><br />
-     <b id="SCI_GETEXTRADESCENT">SCI_GETEXTRADESCENT &rarr; int</b><br />
+     <b id="SCI_SETEXTRAASCENT">SCI_SETEXTRAASCENT(pixels extraAscent)</b><br />
+     <b id="SCI_GETEXTRAASCENT">SCI_GETEXTRAASCENT &rarr; pixels</b><br />
+     <b id="SCI_SETEXTRADESCENT">SCI_SETEXTRADESCENT(pixels extraDescent)</b><br />
+     <b id="SCI_GETEXTRADESCENT">SCI_GETEXTRADESCENT &rarr; pixels</b><br />
      Text is drawn with the base of each character on a 'baseline'. The height of a line is found from the maximum
      that any style extends above the baseline (its 'ascent'), added to the maximum that any style extends below the
      baseline (its 'descent').
@@ -4185,8 +4190,8 @@ struct Sci_TextToFindFull {
     <a class="discouraged message" href="#SCI_GETCARETLINEBACK">SCI_GETCARETLINEBACK &rarr; colour</a><br />
     <a class="discouraged message" href="#SCI_SETCARETLINEBACKALPHA">SCI_SETCARETLINEBACKALPHA(alpha alpha)</a><br />
     <a class="discouraged message" href="#SCI_GETCARETLINEBACKALPHA">SCI_GETCARETLINEBACKALPHA &rarr; int</a><br />
-    <a class="message" href="#SCI_SETCARETLINEFRAME">SCI_SETCARETLINEFRAME(int width)</a><br />
-    <a class="message" href="#SCI_GETCARETLINEFRAME">SCI_GETCARETLINEFRAME &rarr; int</a><br />
+    <a class="message" href="#SCI_SETCARETLINEFRAME">SCI_SETCARETLINEFRAME(pixels width)</a><br />
+    <a class="message" href="#SCI_GETCARETLINEFRAME">SCI_GETCARETLINEFRAME &rarr; pixels</a><br />
     <a class="message" href="#SCI_SETCARETLINEVISIBLEALWAYS">SCI_SETCARETLINEVISIBLEALWAYS(bool alwaysVisible)</a><br />
     <a class="message" href="#SCI_GETCARETLINEVISIBLEALWAYS">SCI_GETCARETLINEVISIBLEALWAYS &rarr; bool</a><br />
     <a class="message" href="#SCI_SETCARETLINEHIGHLIGHTSUBLINE">SCI_SETCARETLINEHIGHLIGHTSUBLINE(bool subLine)</a><br />
@@ -4196,8 +4201,8 @@ struct Sci_TextToFindFull {
     <a class="message" href="#SCI_GETCARETPERIOD">SCI_GETCARETPERIOD &rarr; int</a><br />
     <a class="message" href="#SCI_SETCARETSTYLE">SCI_SETCARETSTYLE(int caretStyle)</a><br />
     <a class="message" href="#SCI_GETCARETSTYLE">SCI_GETCARETSTYLE &rarr; int</a><br />
-    <a class="message" href="#SCI_SETCARETWIDTH">SCI_SETCARETWIDTH(int pixelWidth)</a><br />
-    <a class="message" href="#SCI_GETCARETWIDTH">SCI_GETCARETWIDTH &rarr; int</a><br />
+    <a class="message" href="#SCI_SETCARETWIDTH">SCI_SETCARETWIDTH(pixels pixelWidth)</a><br />
+    <a class="message" href="#SCI_GETCARETWIDTH">SCI_GETCARETWIDTH &rarr; pixels</a><br />
      <a class="message" href="#SCI_SETCARETSTICKY">SCI_SETCARETSTICKY(int useCaretStickyBehaviour)</a><br />
      <a class="message" href="#SCI_GETCARETSTICKY">SCI_GETCARETSTICKY &rarr; int</a><br />
      <a class="message" href="#SCI_TOGGLECARETSTICKY">SCI_TOGGLECARETSTICKY</a><br />
@@ -4373,8 +4378,8 @@ struct Sci_TextToFindFull {
           </p>
 
      <p>
-     <b id="SCI_SETCARETLINEFRAME">SCI_SETCARETLINEFRAME(int width)</b><br />
-     <b id="SCI_GETCARETLINEFRAME">SCI_GETCARETLINEFRAME &rarr; int</b><br />
+     <b id="SCI_SETCARETLINEFRAME">SCI_SETCARETLINEFRAME(pixels width)</b><br />
+     <b id="SCI_GETCARETLINEFRAME">SCI_GETCARETLINEFRAME &rarr; pixels</b><br />
            <code>SCI_SETCARETLINEFRAME</code> can be used to display the caret line framed
            instead of filling the whole background. Set width != 0 to enable this option and width = 0 to disable it.
      </p>
@@ -4452,8 +4457,8 @@ struct Sci_TextToFindFull {
     the cursor is positioned at these characters, which may result in only drawing a part of the
     cursor character sequence. This is most notable on Windows platforms.</p>
 
-    <p><b id="SCI_SETCARETWIDTH">SCI_SETCARETWIDTH(int pixelWidth)</b><br />
-     <b id="SCI_GETCARETWIDTH">SCI_GETCARETWIDTH &rarr; int</b><br />
+    <p><b id="SCI_SETCARETWIDTH">SCI_SETCARETWIDTH(pixels pixelWidth)</b><br />
+     <b id="SCI_GETCARETWIDTH">SCI_GETCARETWIDTH &rarr; pixels</b><br />
      The width of the line caret can be set with <code>SCI_SETCARETWIDTH</code> to a value of
     between 0 and 20 pixels. The default width is 1 pixel. You can read back the current width with
     <code>SCI_GETCARETWIDTH</code>. A width of 0 makes the caret invisible,
@@ -4639,9 +4644,8 @@ struct Sci_TextToFindFull {
      <a class="message" href="#SCI_GETMARGINS">SCI_GETMARGINS &rarr; int</a><br />
      <a class="message" href="#SCI_SETMARGINTYPEN">SCI_SETMARGINTYPEN(int margin, int marginType)</a><br />
      <a class="message" href="#SCI_GETMARGINTYPEN">SCI_GETMARGINTYPEN(int margin) &rarr; int</a><br />
-     <a class="message" href="#SCI_SETMARGINWIDTHN">SCI_SETMARGINWIDTHN(int margin, int
-    pixelWidth)</a><br />
-     <a class="message" href="#SCI_GETMARGINWIDTHN">SCI_GETMARGINWIDTHN(int margin) &rarr; int</a><br />
+     <a class="message" href="#SCI_SETMARGINWIDTHN">SCI_SETMARGINWIDTHN(int margin, pixels pixelWidth)</a><br />
+     <a class="message" href="#SCI_GETMARGINWIDTHN">SCI_GETMARGINWIDTHN(int margin) &rarr; pixels</a><br />
      <a class="message" href="#SCI_SETMARGINMASKN">SCI_SETMARGINMASKN(int margin, int
     mask)</a><br />
      <a class="message" href="#SCI_GETMARGINMASKN">SCI_GETMARGINMASKN(int margin) &rarr; int</a><br />
@@ -4653,12 +4657,10 @@ struct Sci_TextToFindFull {
      <a class="message" href="#SCI_GETMARGINCURSORN">SCI_GETMARGINCURSORN(int margin) &rarr; int</a><br />
      <a class="message" href="#SCI_SETMARGINBACKN">SCI_SETMARGINBACKN(int margin, colour back)</a><br />
      <a class="message" href="#SCI_GETMARGINBACKN">SCI_GETMARGINBACKN(int margin) &rarr; colour</a><br />
-     <a class="message" href="#SCI_SETMARGINLEFT">SCI_SETMARGINLEFT(&lt;unused&gt;, int
-    pixelWidth)</a><br />
-     <a class="message" href="#SCI_GETMARGINLEFT">SCI_GETMARGINLEFT &rarr; int</a><br />
-     <a class="message" href="#SCI_SETMARGINRIGHT">SCI_SETMARGINRIGHT(&lt;unused&gt;, int
-    pixelWidth)</a><br />
-     <a class="message" href="#SCI_GETMARGINRIGHT">SCI_GETMARGINRIGHT &rarr; int</a><br />
+     <a class="message" href="#SCI_SETMARGINLEFT">SCI_SETMARGINLEFT(&lt;unused&gt;, pixels pixelWidth)</a><br />
+     <a class="message" href="#SCI_GETMARGINLEFT">SCI_GETMARGINLEFT &rarr; pixels</a><br />
+     <a class="message" href="#SCI_SETMARGINRIGHT">SCI_SETMARGINRIGHT(&lt;unused&gt;, pixels pixelWidth)</a><br />
+     <a class="message" href="#SCI_GETMARGINRIGHT">SCI_GETMARGINRIGHT &rarr; pixels</a><br />
      <a class="message" href="#SCI_SETFOLDMARGINCOLOUR">SCI_SETFOLDMARGINCOLOUR(bool useSetting, colour back)</a><br />
      <a class="message" href="#SCI_SETFOLDMARGINHICOLOUR">SCI_SETFOLDMARGINHICOLOUR(bool useSetting, colour fore)</a><br />
      <a class="message" href="#SCI_MARGINSETTEXT">SCI_MARGINSETTEXT(line line, const char *text)</a><br />
@@ -4691,8 +4693,8 @@ struct Sci_TextToFindFull {
     symbol margins that set their background colour to match the STYLE_DEFAULT background and
     foreground colours or a specified colour.</p>
 
-    <p><b id="SCI_SETMARGINWIDTHN">SCI_SETMARGINWIDTHN(int margin, int pixelWidth)</b><br />
-     <b id="SCI_GETMARGINWIDTHN">SCI_GETMARGINWIDTHN(int margin) &rarr; int</b><br />
+    <p><b id="SCI_SETMARGINWIDTHN">SCI_SETMARGINWIDTHN(int margin, pixels pixelWidth)</b><br />
+     <b id="SCI_GETMARGINWIDTHN">SCI_GETMARGINWIDTHN(int margin) &rarr; pixels</b><br />
      These routines set and get the width of a margin in pixels. A margin with zero width is
     invisible. By default, Scintilla sets margin 1 for symbols with a width of 16 pixels, so this
     is a reasonable guess if you are not sure what would be appropriate. Line number margins widths
@@ -4752,10 +4754,10 @@ struct Sci_TextToFindFull {
      A margin of type <code>SC_MARGIN_COLOUR</code>
      may have its colour set with <code>SCI_SETMARGINBACKN</code>.</p>
 
-    <p><b id="SCI_SETMARGINLEFT">SCI_SETMARGINLEFT(&lt;unused&gt;, int pixelWidth)</b><br />
-     <b id="SCI_GETMARGINLEFT">SCI_GETMARGINLEFT &rarr; int</b><br />
-     <b id="SCI_SETMARGINRIGHT">SCI_SETMARGINRIGHT(&lt;unused&gt;, int pixelWidth)</b><br />
-     <b id="SCI_GETMARGINRIGHT">SCI_GETMARGINRIGHT &rarr; int</b><br />
+    <p><b id="SCI_SETMARGINLEFT">SCI_SETMARGINLEFT(&lt;unused&gt;, pixels pixelWidth)</b><br />
+     <b id="SCI_GETMARGINLEFT">SCI_GETMARGINLEFT &rarr; pixels</b><br />
+     <b id="SCI_SETMARGINRIGHT">SCI_SETMARGINRIGHT(&lt;unused&gt;, pixels pixelWidth)</b><br />
+     <b id="SCI_GETMARGINRIGHT">SCI_GETMARGINRIGHT &rarr; pixels</b><br />
      These messages set and get the width of the blank margin on both sides of the text in pixels.
     The default is to one pixel on each side.</p>
 
@@ -5547,8 +5549,8 @@ struct Sci_TextToFindFull {
     <code>
      <a class="message" href="#SCI_SETTABWIDTH">SCI_SETTABWIDTH(int tabWidth)</a><br />
      <a class="message" href="#SCI_GETTABWIDTH">SCI_GETTABWIDTH &rarr; int</a><br />
-     <a class="message" href="#SCI_SETTABMINIMUMWIDTH">SCI_SETTABMINIMUMWIDTH(int pixels)</a><br />
-     <a class="message" href="#SCI_GETTABMINIMUMWIDTH">SCI_GETTABMINIMUMWIDTH &rarr; int</a><br />
+     <a class="message" href="#SCI_SETTABMINIMUMWIDTH">SCI_SETTABMINIMUMWIDTH(pixels pixels)</a><br />
+     <a class="message" href="#SCI_GETTABMINIMUMWIDTH">SCI_GETTABMINIMUMWIDTH &rarr; pixels</a><br />
      <a class="message" href="#SCI_CLEARTABSTOPS">SCI_CLEARTABSTOPS(line line)</a><br />
      <a class="message" href="#SCI_ADDTABSTOP">SCI_ADDTABSTOP(line line, int x)</a><br />
      <a class="message" href="#SCI_GETNEXTTABSTOP">SCI_GETNEXTTABSTOP(line line, int x) &rarr; int</a><br />
@@ -5571,8 +5573,8 @@ struct Sci_TextToFindFull {
      <a class="message" href="#SCI_GETHIGHLIGHTGUIDE">SCI_GETHIGHLIGHTGUIDE &rarr; position</a><br />
     </code>
 
-    <p><b id="SCI_SETTABMINIMUMWIDTH">SCI_SETTABMINIMUMWIDTH(int pixels)</b><br />
-     <b id="SCI_GETTABMINIMUMWIDTH">SCI_GETTABMINIMUMWIDTH &rarr; int</b><br />
+    <p><b id="SCI_SETTABMINIMUMWIDTH">SCI_SETTABMINIMUMWIDTH(pixels pixels)</b><br />
+     <b id="SCI_GETTABMINIMUMWIDTH">SCI_GETTABMINIMUMWIDTH &rarr; pixels</b><br />
      <code>SCI_SETTABMINIMUMWIDTH</code> sets the minimum size of a tab in pixels to ensure that the tab
      can be seen. The default value is 2. This is particularly useful with proportional fonts with fractional widths where
      the character before the tab may end a fraction of a pixel before a tab stop, causing the tab to only be a fraction of
@@ -5721,11 +5723,10 @@ struct Sci_TextToFindFull {
      <a class="message" href="#SCI_MARKERSETFORETRANSLUCENT">SCI_MARKERSETFORETRANSLUCENT(int markerNumber, colouralpha fore)</a><br />
      <a class="message" href="#SCI_MARKERSETBACK">SCI_MARKERSETBACK(int markerNumber, colour back)</a><br />
      <a class="message" href="#SCI_MARKERSETBACKTRANSLUCENT">SCI_MARKERSETBACKTRANSLUCENT(int markerNumber, colouralpha back)</a><br />
-    <a class="message" href="#SCI_MARKERSETBACKSELECTED">SCI_MARKERSETBACKSELECTED(int markerNumber, colour
-    back)</a><br />
+    <a class="message" href="#SCI_MARKERSETBACKSELECTED">SCI_MARKERSETBACKSELECTED(int markerNumber, colour back)</a><br />
     <a class="message" href="#SCI_MARKERSETBACKSELECTEDTRANSLUCENT">SCI_MARKERSETBACKSELECTEDTRANSLUCENT(int markerNumber, colouralpha
     back)</a><br />
-    <a class="message" href="#SCI_MARKERSETSTROKEWIDTH">SCI_MARKERSETSTROKEWIDTH(int markerNumber, int hundredths)</a><br />
+    <a class="message" href="#SCI_MARKERSETSTROKEWIDTH">SCI_MARKERSETSTROKEWIDTH(int markerNumber, pixels hundredths)</a><br />
     <a class="message" href="#SCI_MARKERENABLEHIGHLIGHT">SCI_MARKERENABLEHIGHLIGHT(bool enabled)</a><br />
      <a class="message" href="#SCI_MARKERSETLAYER">SCI_MARKERSETLAYER(int markerNumber, int layer)</a><br />
      <a class="message" href="#SCI_MARKERGETLAYER">SCI_MARKERGETLAYER(int markerNumber) &rarr; int</a><br />
@@ -5953,7 +5954,7 @@ struct Sci_TextToFindFull {
      <b id="SCI_MARKERSETBACKSELECTEDTRANSLUCENT">SCI_MARKERSETBACKSELECTEDTRANSLUCENT(int markerNumber, <a class="jump" href="#colouralpha">colouralpha</a> back)</b><br />
      This message sets the highlight background colour of a marker number when its folding block is selected. The default colour is #FF0000.</p>
 
-     <p><b id="SCI_MARKERSETSTROKEWIDTH">SCI_MARKERSETSTROKEWIDTH(int markerNumber, int hundredths)</b><br />
+     <p><b id="SCI_MARKERSETSTROKEWIDTH">SCI_MARKERSETSTROKEWIDTH(int markerNumber, pixels hundredths)</b><br />
      This message sets the stroke width used to draw the marker in hundredths of a pixel.
      The default value is 100 indicating a single pixel wide line.</p>
 
@@ -6112,8 +6113,8 @@ struct Sci_TextToFindFull {
      <a class="message" href="#SCI_INDICSETFORE">SCI_INDICSETFORE(int indicator, colour
     fore)</a><br />
      <a class="message" href="#SCI_INDICGETFORE">SCI_INDICGETFORE(int indicator) &rarr; colour</a><br />
-     <a class="message" href="#SCI_INDICSETSTROKEWIDTH">SCI_INDICSETSTROKEWIDTH(int indicator, int hundredths)</a><br />
-     <a class="message" href="#SCI_INDICGETSTROKEWIDTH">SCI_INDICGETSTROKEWIDTH(int indicator) &rarr; int</a><br />
+     <a class="message" href="#SCI_INDICSETSTROKEWIDTH">SCI_INDICSETSTROKEWIDTH(int indicator, pixels hundredths)</a><br />
+     <a class="message" href="#SCI_INDICGETSTROKEWIDTH">SCI_INDICGETSTROKEWIDTH(int indicator) &rarr; pixels</a><br />
      <a class="message" href="#SCI_INDICSETALPHA">SCI_INDICSETALPHA(int indicator, alpha alpha)</a><br />
      <a class="message" href="#SCI_INDICGETALPHA">SCI_INDICGETALPHA(int indicator) &rarr; int</a><br />
      <a class="message" href="#SCI_INDICSETOUTLINEALPHA">SCI_INDICSETOUTLINEALPHA(int indicator, alpha alpha)</a><br />
@@ -6393,10 +6394,10 @@ struct Sci_TextToFindFull {
      <code>SCI_INDICSETFORE(1, 0xff0000);</code> (light blue)<br />
      <code>SCI_INDICSETFORE(2, 0x0000ff);</code> (light red)</p>
 
-     <a class="message" href="#SCI_INDICSETSTROKEWIDTH">SCI_INDICSETSTROKEWIDTH(int indicator, int hundredths)</a><br />
-     <a class="message" href="#SCI_INDICGETSTROKEWIDTH">SCI_INDICGETSTROKEWIDTH(int indicator) &rarr; int</a><br />
-    <p><b id="SCI_INDICSETSTROKEWIDTH">SCI_INDICSETSTROKEWIDTH(int indicator, int hundredths)</b><br />
-     <b id="SCI_INDICGETSTROKEWIDTH">SCI_INDICGETSTROKEWIDTH(int indicator) &rarr; int</b><br />
+     <a class="message" href="#SCI_INDICSETSTROKEWIDTH">SCI_INDICSETSTROKEWIDTH(int indicator, pixels hundredths)</a><br />
+     <a class="message" href="#SCI_INDICGETSTROKEWIDTH">SCI_INDICGETSTROKEWIDTH(int indicator) &rarr; pixels</a><br />
+    <p><b id="SCI_INDICSETSTROKEWIDTH">SCI_INDICSETSTROKEWIDTH(int indicator, pixels hundredths)</b><br />
+     <b id="SCI_INDICGETSTROKEWIDTH">SCI_INDICGETSTROKEWIDTH(int indicator) &rarr; pixels</b><br />
      These two messages set and get the stroke width used to draw an indicator in hundredths of a pixel.
      The default value is 100 indicating a width of one pixel.
      Some indicator styles do not support setting stroke width, generally where it makes no sense (<code>INDIC_POINT</code>) or
@@ -6919,7 +6920,7 @@ struct Sci_TextToFindFull {
      <a class="message" href="#SCI_CALLTIPSETBACK">SCI_CALLTIPSETBACK(colour back)</a><br />
      <a class="message" href="#SCI_CALLTIPSETFORE">SCI_CALLTIPSETFORE(colour fore)</a><br />
      <a class="message" href="#SCI_CALLTIPSETFOREHLT">SCI_CALLTIPSETFOREHLT(colour fore)</a><br />
-     <a class="message" href="#SCI_CALLTIPUSESTYLE">SCI_CALLTIPUSESTYLE(int tabSize)</a><br />
+     <a class="message" href="#SCI_CALLTIPUSESTYLE">SCI_CALLTIPUSESTYLE(pixels tabSize)</a><br />
      <a class="message" href="#SCI_CALLTIPSETPOSITION">SCI_CALLTIPSETPOSITION(bool above)</a><br />
     </code>
 
@@ -6983,7 +6984,7 @@ struct Sci_TextToFindFull {
      The colour of highlighted call tip text can be set with this message; the default colour
     is dark blue.</p>
 
-    <p><b id="SCI_CALLTIPUSESTYLE">SCI_CALLTIPUSESTYLE(int tabSize)</b><br />
+    <p><b id="SCI_CALLTIPUSESTYLE">SCI_CALLTIPUSESTYLE(pixels tabSize)</b><br />
      This message changes the style used for call tips from <code>STYLE_DEFAULT</code> to
     <code>STYLE_CALLTIP</code> and sets a tab size in screen pixels. If <code class="parameter">tabsize</code> is
     less than 1, Tab characters are not treated specially. Once this call has been used, the
@@ -8315,15 +8316,15 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
      <a class="message" href="#SCI_GETWRAPVISUALFLAGSLOCATION">SCI_GETWRAPVISUALFLAGSLOCATION &rarr; int</a><br />
      <a class="message" href="#SCI_SETWRAPINDENTMODE">SCI_SETWRAPINDENTMODE(int wrapIndentMode)</a><br />
      <a class="message" href="#SCI_GETWRAPINDENTMODE">SCI_GETWRAPINDENTMODE &rarr; int</a><br />
-     <a class="message" href="#SCI_SETWRAPSTARTINDENT">SCI_SETWRAPSTARTINDENT(int indent)</a><br />
-     <a class="message" href="#SCI_GETWRAPSTARTINDENT">SCI_GETWRAPSTARTINDENT &rarr; int</a><br />
+     <a class="message" href="#SCI_SETWRAPSTARTINDENT">SCI_SETWRAPSTARTINDENT(pixels indent)</a><br />
+     <a class="message" href="#SCI_GETWRAPSTARTINDENT">SCI_GETWRAPSTARTINDENT &rarr; pixels</a><br />
      <a class="message" href="#SCI_SETLAYOUTCACHE">SCI_SETLAYOUTCACHE(int cacheMode)</a><br />
      <a class="message" href="#SCI_GETLAYOUTCACHE">SCI_GETLAYOUTCACHE &rarr; int</a><br />
      <a class="message" href="#SCI_SETPOSITIONCACHE">SCI_SETPOSITIONCACHE(int size)</a><br />
      <a class="message" href="#SCI_GETPOSITIONCACHE">SCI_GETPOSITIONCACHE &rarr; int</a><br />
      <a class="message" href="#SCI_SETLAYOUTTHREADS">SCI_SETLAYOUTTHREADS(int threads)</a><br />
      <a class="message" href="#SCI_GETLAYOUTTHREADS">SCI_GETLAYOUTTHREADS &rarr; int</a><br />
-     <a class="message" href="#SCI_LINESSPLIT">SCI_LINESSPLIT(int pixelWidth)</a><br />
+     <a class="message" href="#SCI_LINESSPLIT">SCI_LINESSPLIT(pixels pixelWidth)</a><br />
      <a class="message" href="#SCI_LINESJOIN">SCI_LINESJOIN</a><br />
      <a class="message" href="#SCI_WRAPCOUNT">SCI_WRAPCOUNT(line docLine) &rarr; line</a><br />
     </code>
@@ -8494,8 +8495,8 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
       </tbody>
     </table>
 
-    <p><b id="SCI_SETWRAPSTARTINDENT">SCI_SETWRAPSTARTINDENT(int indent)</b><br />
-     <b id="SCI_GETWRAPSTARTINDENT">SCI_GETWRAPSTARTINDENT &rarr; int</b><br />
+    <p><b id="SCI_SETWRAPSTARTINDENT">SCI_SETWRAPSTARTINDENT(pixels indent)</b><br />
+     <b id="SCI_GETWRAPSTARTINDENT">SCI_GETWRAPSTARTINDENT &rarr; pixels</b><br />
      <code>SCI_SETWRAPSTARTINDENT</code> sets the size of indentation of sublines for
                  wrapped lines in terms of the average character width in
                 <a class="message" href="#StyleDefinition"><code>STYLE_DEFAULT</code></a>.
@@ -8576,7 +8577,7 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
      If an application just wants maximum concurrency then call with a large number
      <code>SCI_SETLAYOUTTHREADS(1000)</code> and that will be reduced to a reasonable value.</p>
 
-    <p><b id="SCI_LINESSPLIT">SCI_LINESSPLIT(int pixelWidth)</b><br />
+    <p><b id="SCI_LINESSPLIT">SCI_LINESSPLIT(pixels pixelWidth)</b><br />
      Split a range of lines indicated by the target into lines that are at most pixelWidth wide.
      Splitting occurs on word boundaries wherever possible in a similar manner to line wrapping.
      When <code class="parameter">pixelWidth</code> is 0 then the width of the window is used.

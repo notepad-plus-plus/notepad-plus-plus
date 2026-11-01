@@ -1,0 +1,13 @@
+{2}# For issue #390.
+# Demonstrate inconsistent CRLF line ends where \r is in one style and \n a different style.
+# Lines 6 and 11 show the problem.
+{0}
+{2}# Heredoc SCE_PL_HERE_Q
+{5}print{0} {22}<<'EOF'{23}
+a
+EOF{0}
+
+{2}# Format data SCE_PL_FORMAT
+{5}format{0} {41}IDENT={42}
+.{0}
+

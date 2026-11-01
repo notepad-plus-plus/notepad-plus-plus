@@ -1,0 +1,19 @@
+{1}:: A demonstration of tcmd styles 0-4 6-10
+:: 5 (SCE_TCMD_COMMAND) is not currently used.
+{4}@{2}SETLOCAL{0}
+
+{2}iff{0} {8}%#{2} eq{0} 0{2} then{0}
+  {2}echo{0} Need an argument
+  {2}goto{0} {10}:end{0}
+{2}endiff{0}
+
+{2}set{0} file{7}={6}%1{0}
+
+{2}iff{0} {8}%file{2} then{0}
+  grep "local" {8}%file{0}
+{2}else{0}
+  {2}echo{0} No file {9}!file!{0}.
+{2}endiff{0}
+
+{3}:end
+{2}ENDLOCAL{0}

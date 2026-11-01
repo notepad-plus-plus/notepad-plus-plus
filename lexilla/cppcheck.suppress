@@ -148,7 +148,6 @@ constParameterReference:lexilla/lexers/LexOScript.cxx
 constParameterReference:lexilla/lexers/LexPascal.cxx
 variableScope:lexilla/lexers/LexPB.cxx
 constParameterReference:lexilla/lexers/LexPerl.cxx
-constVariableReference:lexilla/lexers/LexPerl.cxx
 functionStatic:lexilla/lexers/LexPerl.cxx
 constParameterReference:lexilla/lexers/LexPLM.cxx
 constParameterReference:lexilla/lexers/LexPO.cxx
@@ -163,6 +162,7 @@ constParameterReference:lexilla/lexers/LexProgress.cxx
 constParameterReference:lexilla/lexers/LexRaku.cxx
 variableScope:lexilla/lexers/LexRaku.cxx
 functionStatic:lexilla/lexers/LexRaku.cxx
+redundantAssignment:lexilla/lexers/LexRaku.cxx
 redundantInitialization:lexilla/lexers/LexRegistry.cxx
 constParameterReference:lexilla/lexers/LexRuby.cxx
 constParameterReference:lexilla/lexers/LexRust.cxx

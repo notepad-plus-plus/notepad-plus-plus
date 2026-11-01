@@ -1,0 +1,14 @@
+ 2 400 401 + # For issue #390.
+ 0 401 401 | # Demonstrate inconsistent CRLF line ends where \r is in one style and \n a different style.
+ 0 401 400 | # Lines 6 and 11 show the problem.
+ 1 400 400   
+ 0 400 400   # Heredoc SCE_PL_HERE_Q
+ 2 400 401 + print <<'EOF'
+ 0 401 401 | a
+ 0 401 400 | EOF
+ 1 400 400   
+ 0 400 400   # Format data SCE_PL_FORMAT
+ 0 400 400   format IDENT=
+ 0 400 400   .
+ 1 400 400   
+ 0 400   0   

@@ -1,4 +1,4 @@
- 0 400 400   
+ 0 400 400   # coding:utf-8
  0 400 400   # Comment here
  0 400 400   const bar = '\n'
  0 400 400   
@@ -22,4 +22,10 @@
  0 400 400   
  0 400 400   #= Dummy function =#
  0 400 400   test_fun²(:sym, true, raw"test", `echo 1`)
+ 0 400 400   
+ 0 400 400   # Too many characters in character literal -> 19=SCE_JULIA_LEXERROR
+ 0 400 400   x = 'yy'
+ 0 400 400   
+ 0 400 400   # Command Literal -> 17=SCE_JULIA_COMMANDLITERAL
+ 0 400 400   raw`echo $PROFILE`
  1 400 400   

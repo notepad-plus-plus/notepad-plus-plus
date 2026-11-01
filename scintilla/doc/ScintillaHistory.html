@@ -598,9 +598,40 @@
 	<td>RealMalWare</td>
 	<td>Schreiner</td>
 	<td>Masayuki HINO</td>
+      </tr><tr>
+	<td>Micha Wiedenmann</td>
     </tr>
     </table>
     <h2 id="Releases">Releases</h2>
+    <h3>
+       <a href="https://www.scintilla.org/scintilla568.zip">Release 5.6.8</a>
+    </h3>
+    <ul>
+	<li>
+	Released 31 October 2026.
+	</li>
+	<li>
+	Improve speed by avoiding line layout when determining positions at line starts.
+	Increase maximum size of cached lexemes from 30 to 40 as many identifiers, column names, and
+	common values are larger than 30 bytes.
+	</li>
+	<li>
+	Update case conversion and character categories to Unicode 17.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1569/">Feature #1569</a>.
+	</li>
+	<li>
+	Fix crash with change history undo caused by optimizing bulk deletion in version 5.3.8.
+	</li>
+	<li>
+	On Win32 fix crash and invisible text for invalid weight and stretch font settings with DirectWrite.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2520/">Bug #2520</a>.
+	</li>
+	<li>
+	On Win32 when building with nmake -f scintilla.mak, move PDB file to DIR_O directory
+	so that it is removed by nmake -f scintilla.mak clean.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2521/">Bug #2521</a>.
+	</li>
+    </ul>
     <h3>
        <a href="https://www.scintilla.org/scintilla567.zip">Release 5.6.7</a>
     </h3>

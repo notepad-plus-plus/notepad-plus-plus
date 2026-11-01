@@ -660,10 +660,15 @@ Point EditView::LocationFromPosition(Surface *surface, const EditModel &model, S
 		posLineStart = model.pdoc->LineStart(lineDoc);
 	}
 	const Sci::Line lineVisible = model.pcs->DisplayFromDoc(lineDoc);
+	const XYPOSITION lineVisibleY = static_cast<XYPOSITION>((lineVisible - topLine) * vs.lineHeight);
+	const int posInLine = static_cast<int>(pos.Position() - posLineStart);
+	if ((posInLine == 0) && (pos.VirtualSpace() == 0)) {
+		// Simple case at start of document line avoids expensive LayoutLine.
+		return Point(vs.textStart - model.xOffset, lineVisibleY);
+	}
 	std::shared_ptr<LineLayout> ll = RetrieveLineLayout(lineDoc, model);
 	if (surface && ll) {
 		LayoutLine(model, surface, vs, ll.get(), model.wrapWidth);
-		const int posInLine = static_cast<int>(pos.Position() - posLineStart);
 		pt = ll->PointFromPosition(posInLine, vs.lineHeight, pe);
 		pt.x += vs.textStart - model.xOffset;
 
@@ -687,7 +692,7 @@ Point EditView::LocationFromPosition(Surface *surface, const EditModel &model, S
 				pt.y = static_cast<XYPOSITION>(subLine*vs.lineHeight);
 			}
 		}
-		pt.y += static_cast<XYPOSITION>((lineVisible - topLine) * vs.lineHeight);
+		pt.y += lineVisibleY;
 		pt.x += pos.VirtualSpaceWidth(vs.styles[ll->EndLineStyle()].spaceWidth);
 	}
 	return pt;
@@ -804,11 +809,15 @@ SelectionPosition EditView::SPositionFromLineX(Surface *surface, const EditModel
 Sci::Line EditView::DisplayFromPosition(Surface *surface, const EditModel &model, Sci::Position pos, const ViewStyle &vs) {
 	const Sci::Line lineDoc = model.pdoc->SciLineFromPosition(pos);
 	Sci::Line lineDisplay = model.pcs->DisplayFromDoc(lineDoc);
+	const Sci::Position posLineStart = model.pdoc->LineStart(lineDoc);
+	const Sci::Position posInLine = pos - posLineStart;
+	if (posInLine == 0) {
+		// Avoid expensive LayoutLine since first position on line is always on first display line.
+		return lineDisplay;
+	}
 	std::shared_ptr<LineLayout> ll = RetrieveLineLayout(lineDoc, model);
 	if (surface && ll) {
 		LayoutLine(model, surface, vs, ll.get(), model.wrapWidth);
-		const Sci::Position posLineStart = model.pdoc->LineStart(lineDoc);
-		const Sci::Position posInLine = pos - posLineStart;
 		lineDisplay--; // To make up for first increment ahead.
 		for (int subLine = 0; subLine < ll->lines; subLine++) {
 			if (posInLine >= ll->LineStart(subLine)) {

@@ -197,9 +197,10 @@ class ColourRGBA {
 	static constexpr int gShift = 8;
 	static constexpr int bShift = 16;
 	static constexpr int aShift = 24;
-	int co;
+	int co = 0;
 public:
-	constexpr explicit ColourRGBA(int co_ = 0) noexcept : co(co_) {
+	constexpr ColourRGBA() noexcept = default;
+	constexpr explicit ColourRGBA(int co_) noexcept : co(co_) {
 	}
 
 	constexpr ColourRGBA(unsigned int red, unsigned int green, unsigned int blue, unsigned int alpha=maximumByte) noexcept :

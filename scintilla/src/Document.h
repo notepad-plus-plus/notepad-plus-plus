@@ -530,6 +530,7 @@ public:
 
 	void DelChar(Sci::Position pos);
 	void DelCharBack(Sci::Position pos);
+	Sci::Position BackSpace(Sci::Position pos, bool allowLineStartDeletion);
 
 	char CharAt(Sci::Position position) const noexcept { return cb.CharAt(position); }
 	void SCI_METHOD GetCharRange(char *buffer, Sci_Position position, Sci_Position lengthRetrieve) const override {

@@ -175,6 +175,11 @@ constexpr bool isoperator(int ch) noexcept {
 	return false;
 }
 
+constexpr bool IsAGraphic(int ch) noexcept {
+	// excludes C0 control characters and whitespace
+	return ch > ' ' && ch <= '~';
+}
+
 // Simple case functions for ASCII supersets.
 
 template <typename T>

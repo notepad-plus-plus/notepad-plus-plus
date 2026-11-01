@@ -98,6 +98,19 @@ TEST_CASE("SparseState") {
 		REQUIRE(2u == ss.size());
 	}
 
+	SECTION("StartAt") {
+		int startValue = ss.StartAt(1);
+		REQUIRE(0 == startValue);
+		ss.Set(2, 10);
+		ss.Set(3, 30);
+		REQUIRE(2u == ss.size());
+
+		// StartAt truncates the state before the position and returns the value at that position
+		int startValue2 = ss.StartAt(3);
+		REQUIRE(10 == startValue2);
+		REQUIRE(1u == ss.size());
+	}
+
 	SECTION("MergeBetween") {
 		ss.Set(0, 30);
 		ss.Set(2, 32);

@@ -224,7 +224,7 @@ void SCI_METHOD LexerRegistry::Lex(Sci_PositionU startPos,
 	while (context.More()) {
 		if (context.atLineStart) {
 			Sci_Position currPos = static_cast<Sci_Position>(context.currentPos);
-			bool continued = styler[currPos-3] == '\\';
+			bool continued = styler.SafeGetCharAt(currPos-3) == '\\';
 			highlight = continued ? true : false;
 		}
 		switch (context.state) {

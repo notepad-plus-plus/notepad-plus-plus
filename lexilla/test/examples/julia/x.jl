@@ -1,4 +1,4 @@
-
+# coding:utf-8
 # Comment here
 const bar = '\n'
 
@@ -22,3 +22,9 @@ t[]!='#'
 
 #= Dummy function =#
 test_fun²(:sym, true, raw"test", `echo 1`)
+
+# Too many characters in character literal -> 19=SCE_JULIA_LEXERROR
+x = 'yy'
+
+# Command Literal -> 17=SCE_JULIA_COMMANDLITERAL
+raw`echo $PROFILE`

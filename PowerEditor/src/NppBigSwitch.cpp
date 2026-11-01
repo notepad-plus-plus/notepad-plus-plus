@@ -797,12 +797,24 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				_pDocMap->reloadMap();
 			}
 
+			// Close AutoComplete and CallTip
+			_mainEditView.execute(SCI_AUTOCCANCEL);
+			_subEditView.execute(SCI_AUTOCCANCEL);
+			_mainEditView.execute(SCI_CALLTIPCANCEL);
+			_subEditView.execute(SCI_CALLTIPCANCEL);
+
 			result = TRUE;
 			break;
 		}
 
 		case WM_MOVE:
 		{
+			// Close AutoComplete and CallTip
+			_mainEditView.execute(SCI_AUTOCCANCEL);
+			_subEditView.execute(SCI_AUTOCCANCEL);
+			_mainEditView.execute(SCI_CALLTIPCANCEL);
+			_subEditView.execute(SCI_CALLTIPCANCEL);
+
 			result = TRUE;
 			break;
 		}

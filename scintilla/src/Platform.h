@@ -160,6 +160,7 @@ public:
 	virtual const Font *FontOfPosition(size_t position) const = 0;
 	virtual XYPOSITION RepresentationWidth(size_t position) const = 0;
 	virtual XYPOSITION TabPositionAfter(XYPOSITION xPosition) const = 0;
+	virtual XYPOSITION CharacterX(size_t /*position*/) const { return 0.0; }
 };
 
 class IScreenLineLayout {

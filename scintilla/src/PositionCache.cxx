@@ -430,6 +430,13 @@ XYPOSITION ScreenLine::TabPositionAfter(XYPOSITION xPosition) const {
 	return (std::floor((xPosition + TabWidthMinimumPixels()) / TabWidth()) + 1) * TabWidth();
 }
 
+XYPOSITION ScreenLine::CharacterX(size_t position) const {
+	if (position >= len) {
+		return ll->positions[start + len] - ll->positions[start];
+	}
+	return ll->positions[start + position] - ll->positions[start];
+}
+
 bool SignificantLines::LineMayCache(Sci::Line line) const noexcept {
 	switch (level) {
 	case LineCache::None:

@@ -4546,14 +4546,19 @@ void ScintillaEditView::changeTextDirection(bool isRTL)
 		// DirectWrite surface mirroring causes inverted glyphs with WS_EX_LAYOUTRTL.
 		// Dynamically fallback to GDI default technology so RTL window mirroring works smoothly.
 		execute(SCI_SETTECHNOLOGY, SC_TECHNOLOGY_DEFAULT);
+		execute(SCI_SETBIDIRECTIONAL, SC_BIDIRECTIONAL_R2L);
 	}
 	else
 	{
-		// In LTR mode, restore user's preferred DirectWrite technology engine and enable bidi.
+		// In LTR mode, restore user's preferred DirectWrite technology engine.
 		execute(SCI_SETTECHNOLOGY, nppGui._writeTechnologyEngine);
 		if (nppGui._writeTechnologyEngine > defaultTechnology)
 		{
 			execute(SCI_SETBIDIRECTIONAL, SC_BIDIRECTIONAL_L2R);
+		}
+		else
+		{
+			execute(SCI_SETBIDIRECTIONAL, SC_BIDIRECTIONAL_DISABLED);
 		}
 	}
 

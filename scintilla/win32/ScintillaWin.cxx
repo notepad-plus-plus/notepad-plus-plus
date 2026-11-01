@@ -2306,8 +2306,6 @@ sptr_t ScintillaWin::SciMessage(Message iMessage, uptr_t wParam, sptr_t lParam) 
 #else
 					return 0;
 #endif
-				} else {
-					bidirectional = Bidirectional::Disabled;
 				}
 				DropRenderTarget();
 				technology = technologyNew;
@@ -2319,9 +2317,7 @@ sptr_t ScintillaWin::SciMessage(Message iMessage, uptr_t wParam, sptr_t lParam) 
 		break;
 
 	case Message::SetBidirectional:
-		if (technology == Technology::Default) {
-			bidirectional = Bidirectional::Disabled;
-		} else if (static_cast<Bidirectional>(wParam) <= Bidirectional::R2L) {
+		if (static_cast<Bidirectional>(wParam) <= Bidirectional::R2L) {
 			bidirectional = static_cast<Bidirectional>(wParam);
 		}
 		// Invalidate all cached information including layout.

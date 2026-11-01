@@ -1649,6 +1649,7 @@ void DrawBackground(Surface *surface, const EditModel &model, const ViewStyle &v
 	}
 	BreakFinder bfBack(ll, &model.sel, lineRange, posLineStart, bidiLayout ? 0.0f : xStartVisible,
 		breakFor, model.pdoc, model.reprs.get(), &vsDraw, !bidiLayout);
+	XYPOSITION visualRight = static_cast<XYPOSITION>(xStart);
 
 	// Background drawing loop
 	while (bfBack.More()) {
@@ -1666,6 +1667,7 @@ void DrawBackground(Surface *surface, const EditModel &model, const ViewStyle &v
 		if (visualIntervals.empty())
 			visualIntervals.push_back(ll->Span(ts.start, ts.end()).Offset(horizontalOffset));
 		for (const Interval horizontal : visualIntervals) {
+			visualRight = std::max(visualRight, horizontal.right);
 		// Only try to draw if really visible - enhances performance by not calling environment to
 		// draw strings that are completely past the right side of the window.
 		if (!horizontal.Empty() && rcLine.Intersects(horizontal)) {
@@ -1723,6 +1725,22 @@ void DrawBackground(Surface *surface, const EditModel &model, const ViewStyle &v
 				}
 			}
 		}
+		}
+	}
+	if (bidiLayout && (lineRange.end > lineRange.start)) {
+		const XYPOSITION logicalRight = ll->positions[lineRange.end] + horizontalOffset;
+		if (logicalRight > visualRight) {
+			const PRectangle rcGap = Intersection(rcLine, Interval{ visualRight, logicalRight });
+			const Sci::Position iLast = lineRange.end - 1;
+			const Sci::Position iDocLast = iLast + posLineStart;
+			InSelection inSelection = vsDraw.selection.visible ? model.sel.CharacterInSelection(iDocLast) : InSelection::inNone;
+			if (FlagSet(vsDraw.caret.style, CaretStyle::Curses) && (inSelection == InSelection::inMain))
+				inSelection = CharacterInCursesSelection(iDocLast, model, vsDraw);
+			const bool inHotspot = model.hotspot.Valid() && model.hotspot.ContainsCharacter(iDocLast);
+			const ColourRGBA gapBack = TextBackground(model, vsDraw, ll, background, inSelection,
+				inHotspot, ll->styles[iLast], iLast);
+			if (!rcGap.Empty())
+				surface->FillRectangleAligned(rcGap, Fill(gapBack));
 		}
 	}
 }
@@ -2148,6 +2166,7 @@ void EditView::DrawForeground(Surface *surface, const EditModel &model, const Vi
 		? BreakFinder::BreakFor::ForegroundAndSelection : BreakFinder::BreakFor::Foreground;
 	BreakFinder bfFore(ll, &model.sel, lineRange, posLineStart, slLayout ? 0.0f : xStartVisible,
 		breakFor, model.pdoc, model.reprs.get(), &vsDraw, !slLayout);
+	XYPOSITION visualRight = static_cast<XYPOSITION>(xStart);
 
 	while (bfFore.More()) {
 
@@ -2164,6 +2183,7 @@ void EditView::DrawForeground(Surface *surface, const EditModel &model, const Vi
 		if (visualIntervals.empty())
 			visualIntervals.push_back(ll->Span(ts.start, ts.end()).Offset(horizontalOffset));
 		for (const Interval horizontal : visualIntervals) {
+			visualRight = std::max(visualRight, horizontal.right);
 		// Only try to draw if really visible - enhances performance by not calling environment to
 		// draw strings that are completely past the right side of the window.
 		if (rcLine.Intersects(horizontal)) {
@@ -2354,6 +2374,22 @@ void EditView::DrawForeground(Surface *surface, const EditModel &model, const Vi
 				surface->FillRectangleAligned(rcUL, colourUnderline);
 			}
 		}
+		}
+	}
+	if (slLayout && (phasesDraw == PhasesDraw::One) && (lineRange.end > lineRange.start)) {
+		const XYPOSITION logicalRight = ll->positions[lineRange.end] + horizontalOffset;
+		if (logicalRight > visualRight) {
+			const PRectangle rcGap = Intersection(rcLine, Interval{ visualRight, logicalRight });
+			const Sci::Position iLast = lineRange.end - 1;
+			const Sci::Position iDocLast = iLast + posLineStart;
+			InSelection inSelection = vsDraw.selection.visible ? model.sel.CharacterInSelection(iDocLast) : InSelection::inNone;
+			if (FlagSet(vsDraw.caret.style, CaretStyle::Curses) && (inSelection == InSelection::inMain))
+				inSelection = CharacterInCursesSelection(iDocLast, model, vsDraw);
+			const bool inHotspot = model.hotspot.Valid() && model.hotspot.ContainsCharacter(iDocLast);
+			const ColourRGBA gapBack = TextBackground(model, vsDraw, ll, background, inSelection,
+				inHotspot, ll->styles[iLast], iLast);
+			if (!rcGap.Empty())
+				surface->FillRectangleAligned(rcGap, Fill(gapBack));
 		}
 	}
 }

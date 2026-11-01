@@ -1807,13 +1807,47 @@ BufferID FileManager::newEmptyDocument()
 
 	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str(), false);
 
-	const NewDocDefaultSettings& ndds = (nppParams.getNppGUI()).getNewDocDefaultSettings();
-	if (ndds._lang == L_USER && !ndds._udl.empty())
+	NewDocDefaultSettings& ndds = const_cast<NewDocDefaultSettings&>((nppParams.getNppGUI()).getNewDocDefaultSettings());
+
+	if (ndds._lang != L_USER)
 	{
-		newBuf->setLangType(L_USER, ndds._udl.c_str());
-	}
-	else
 		newBuf->_lang = ndds._lang;
+	}
+	else // ndds._lang == L_USER
+	{
+		if (ndds._udl.empty())
+		{
+			ndds._lang = L_TEXT;
+			newBuf->_lang = L_TEXT;
+		}
+		else // ndds._lang == L_USER and ndds._udl is not empty
+		{
+			// check if the user-defined language is still present in our settings, if not, we will fallback to L_TEXT
+			bool found = false;
+			for (size_t u = 0; u < static_cast<size_t>(nppParams.getNbUserLang()); u++)
+			{
+				const UserLangContainer* ulc = nppParams.getULCFromIndex(u);
+				const wchar_t* lName = ulc->getName();
+
+				if (ndds._udl == lName)
+				{
+					found = true;
+					break;
+				}
+			}
+
+			if (!found)
+			{
+				ndds._lang = L_TEXT;
+				ndds._udl = L"";
+				newBuf->_lang = L_TEXT;
+			}
+			else
+			{
+				newBuf->setLangType(L_USER, ndds._udl.c_str());
+			}
+		}
+	}
 
 	BufferID id = newBuf;
 	newBuf->_id = id;

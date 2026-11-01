@@ -1,0 +1,17 @@
+{9}<!-- Issue 375. Add more server side starts for JSP and ASP.
+For {15}<%!{56} {15}%>{9}, {15}<%#{56} {15}%>{9}, {15}<%${56} {15}%>{9}, and {15}<%:{56} {15}%>{9}, the character following
+the server side sequence should be included in SCE_H_ASP.
+The above examples are JSP declaration, ASP data-binding, ASP expression builder, ASP encoded expression.
+-->{0}
+
+{15}<%@{16}language=javascript{15}%>{0}
+{15}<%!{56} {61}int{56} {61}i{56} {65}={56} {60}0{65};{56} {15}%>{0}
+About to increment i...
+{15}<%{56} {61}i{65}++;{56} {15}%>{0}
+{15}<%={56} {65}({61}new{56} {61}java.util.Date{65}()).{61}toLocaleString{65}(){56} {15}%>{0}
+ 
+{15}<%@{16}language=vbscript{15}%>{0}
+{15}<%={86}DateTime.Now.ToString{81}() {15}%>{0}
+{2}<asp:Label ID="lblHello" runat="server" Text="{15}<%#{81} {86}SayHello{15}%>{2}"></asp:Label>{0}
+{2}<asp:Literal ID="Literal1" runat="server" Text="{15}<%${81} {86}AppSettings{81}: {86}copyright{81} {15}%>{2}"></asp:Literal>{0}
+{15}<%:{86}DateTime.Now.ToString{81}() {15}%>{0}

@@ -310,7 +310,7 @@ static Sci_Position ParseTeXCommand(Sci_PositionU pos, Accessor &styler, char *c
   }
 
   // find end
-     while(isWordChar(ch) && !isNumber(ch) && ch!='_' && ch!='.' && length<100){
+     while(isWordChar(ch) && !isNumber(ch) && ch!='_' && ch!='.' && length<99){
           command[length]=ch;
           length++;
           ch=styler.SafeGetCharAt(pos+length+1);

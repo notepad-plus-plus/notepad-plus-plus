@@ -1,0 +1,71 @@
+{15}<%@{16}language=java{15}%>{0}
+{15}<%{56} 
+{61}rem{56} {61}VB{56} {61}comment{56}
+{58}// JavaScript comment{56}
+{61}#{56} {61}Python{56} {61}comment{56}
+{15}%>{0}
+
+{15}<%@{16}language=vbscript{15}%>{0}
+{15}<%{81} 
+{86}rem{81} {86}VB{81} {86}comment{81}
+// {86}JavaScript{81} {86}comment{81}
+# {86}Python{81} {86}comment{81}
+{15}%>{0}
+
+{15}<%@{16}language=c#{15}%>{0}
+{15}<%{56} 
+{61}rem{56} {61}VB{56} {61}comment{56}
+{58}// JavaScript comment{56}
+{61}#{56} {61}Python{56} {61}comment{56}
+{61}$foo{56}
+{15}%>{0}
+
+{15}<%@{16}language=vb{15}%>{0}
+{15}<%{81} 
+{86}rem{81} {86}VB{81} {86}comment{81}
+// {86}JavaScript{81} {86}comment{81}
+# {86}Python{81} {86}comment{81}
+${86}foo{81}
+{15}%>{0}
+
+{1}<script{8} {3}language{8}={6}"vbs"{1}>{70}
+{76}rem{71} {76}VB{71} {76}comment{71}
+// {76}JavaScript{71} {76}comment{71}
+# {76}Python{71} {76}comment{71}
+{1}</script>{0}
+
+{1}<script{8} {3}runat{8}={6}"server"{1}>{70}
+{76}rem{71} {76}VB{71} {76}comment{71}
+// {76}JavaScript{71} {76}comment{71}
+# {76}Python{71} {76}comment{71}
+${76}foo{71}
+{1}</script>{0}
+
+{15}<%@{16}language=php{15}%>{0}
+{15}<%{118} 
+rem VB comment
+{125}// JavaScript comment{118}
+{125}# Python comment{118}
+{123}$foo{118}
+{15}%>{0}
+
+{1}<script{8} {3}language{8}={6}"javascript"{1}>{40}
+{46}rem{41} {46}VB{41} {46}comment{41}
+{43}// JavaScript comment{41}
+{46}#{41} {46}Python{41} {46}comment{41}
+{1}</script>{0}
+
+{1}<script{8} {3}language{8}={6}"python"{1}>{90}
+{102}rem{91} {102}VB{91} {102}comment{91}
+{101}//{91} {102}JavaScript{91} {102}comment{91}
+{92}# Python comment{91}
+{1}</script>{0}
+
+{9}<!-- Folding for Python is incorrect. See #235. -->{0}
+{15}<%@{16}language=python{15}%>{0}
+{15}<%{106} 
+{117}rem{106} {117}VB{106} {117}comment{106}
+{116}//{106} {117}JavaScript{106} {117}comment{106}
+{107}# Python comment{106}
+${117}foo{106}
+{15}%>{0}

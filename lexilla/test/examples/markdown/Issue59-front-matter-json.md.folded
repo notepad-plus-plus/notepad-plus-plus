@@ -1,0 +1,13 @@
+ 0 400   0   ;;;
+ 0 400   0   {
+ 0 400   0     "title": "My Article Title",
+ 0 400   0     "date": "2024-01-15",
+ 0 400   0     "author": "John Doe",
+ 0 400   0     "tags": ["markdown", "tutorial", "web"]
+ 0 400   0   }
+ 0 400   0   ;;;
+ 0 400   0   
+ 0 400   0   # Article Content Starts Here
+ 0 400   0   
+ 0 400   0   Your regular Markdown content follows...
+ 0 400   0   

@@ -932,7 +932,9 @@ $(DIR_O)/LexMarkdown.obj: \
 	../lexlib/Accessor.h \
 	../lexlib/StyleContext.h \
 	../lexlib/CharacterSet.h \
-	../lexlib/LexerModule.h
+	../lexlib/LexerModule.h \
+	../lexlib/OptionSet.h \
+	../lexlib/DefaultLexer.h
 $(DIR_O)/LexMatlab.obj: \
 	../lexers/LexMatlab.cxx \
 	../../scintilla/include/ILexer.h \

@@ -853,7 +853,7 @@ void SCI_METHOD LexerBash::Lex(Sci_PositionU startPos, Sci_Position length, int 
 						} else {
 							// skip escape prefix
 						}
-					} else if (HereDoc.Quoted || setHereDoc2.Contains(sc.ch) || (sc.ch > 32 && sc.ch < 127 && (HereDoc.BackslashCount & 1) != 0)) {
+					} else if (HereDoc.Quoted || setHereDoc2.Contains(sc.ch) || (IsAGraphic(sc.ch) && (HereDoc.BackslashCount & 1) != 0)) {
 						HereDoc.BackslashCount = 0;
 						HereDoc.Append(sc.ch);
 					} else {

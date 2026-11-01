@@ -1316,6 +1316,10 @@ constexpr Sci::Position NextTab(Sci::Position pos, Sci::Position tabSize) noexce
 	return ((pos / tabSize) + 1) * tabSize;
 }
 
+constexpr Sci::Position PreviousTab(Sci::Position pos, Sci::Position tabSize) noexcept {
+	return ((pos - 1) / tabSize) * tabSize;
+}
+
 std::string CreateIndentation(Sci::Position indent, int tabSize, bool insertSpaces) {
 	std::string indentation;
 	if (!insertSpaces) {
@@ -1764,6 +1768,21 @@ void Document::DelCharBack(Sci::Position pos) {
 	} else {
 		DeleteChars(pos - 1, 1);
 	}
+}
+
+Sci::Position Document::BackSpace(Sci::Position pos, bool allowLineStartDeletion) {
+	// Returns valid position only for complex cases where changing indentation may have
+	// replaced text so the automatic selection movement may be wrong.
+	const Sci::Line lineCurrentPos = SciLineFromPosition(pos);
+	if (allowLineStartDeletion || (LineStart(lineCurrentPos) != pos)) {
+		const Sci::Position column = GetColumn(pos);
+		const int indentation = GetLineIndentation(lineCurrentPos);
+		if ((column <= indentation) && (column > 0) && backspaceUnindents) {
+			return SetLineIndentation(lineCurrentPos, PreviousTab(indentation, IndentSize()));
+		}
+		DelCharBack(pos);
+	}
+	return Sci::invalidPosition;
 }
 
 int SCI_METHOD Document::GetLineIndentation(Sci_Position line) {

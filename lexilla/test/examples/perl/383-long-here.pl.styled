@@ -1,0 +1,7 @@
+{2}# encoding: UTF-8
+{0}
+{2}# For issue #383.
+# Demonstrate long here-doc delimiter with multi-byte character near limit.
+{0}
+{22}<<"abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij{1}abc文{0}
+{2}# End

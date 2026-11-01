@@ -596,9 +596,136 @@
 	<td>Peter C. Jones</td>
 	<td>Stefan Löffler</td>
 	<td>p4p3r of CYBERONE</td>
+      </tr><tr>
+	<td>Allen Yen</td>
     </tr>
     </table>
     <h2 id="Releases">Releases</h2>
+    <h3>
+       <a href="https://www.scintilla.org/lexilla555.zip">Release 5.5.5</a>
+    </h3>
+    <ul>
+	<li>
+	Released 31 October 2026.
+	</li>
+	<li>
+	Update character categories to Unicode 17.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1569/">Feature #1569</a>.
+	</li>
+	<li>
+	C++: Fix crash with incomplete preprocessor macro invocation.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/388">Issue #388</a>.
+	</li>
+	<li>
+	DMIS: Fix out-of-bounds write with long word.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/388">Issue #388</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/387">Pull request #387</a>.
+	</li>
+	<li>
+	HTML: Fix handling of HTML comments in scripts.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/371">Issue #371</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/338">Issue #338</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/373">Pull request #373</a>.
+	</li>
+	<li>
+	HTML: Allow '$', '#' and non-ASCII characters in JavaScript identifiers.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/371">Issue #371</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/373">Pull request #373</a>.
+	</li>
+	<li>
+	HTML: Support nested template literals in JavaScript.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/290">Issue #290</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/373">Pull request #373</a>.
+	</li>
+	<li>
+	HTML: Style extra type-distinguishing character in JSP and ASP tags as SCE_H_ASP.
+	These are the '!', '#', '$', and ':' in declarations, data binding, and expressions.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/375">Issue #375</a>.
+	</li>
+	<li>
+	HTML: Do not terminate JavaScript regex literal for '/' when inside character class '[]'.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/377">Issue #377</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/373">Pull request #373</a>.
+	</li>
+	<li>
+	HTML: Recognize more language aliases including "java" and "C#" for JSP and ASP.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/376">Issue #376</a>.
+	</li>
+	<li>
+	JavaScript: Fix non-stable lexing of regex literals in both JavaScript and HTML files.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/374">Issue #374</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/373">Pull request #373</a>.
+	</li>
+	<li>
+	Julia: Fix hang for unterminated character literal at file end when
+	lexer.julia.highlight.lexerror enabled.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/388">Issue #388</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/384">Pull request #384</a>.
+	</li>
+	<li>
+	Markdown: Recognize 'front matter' key-value metadata at file start specified in YAML, TOML or JSON.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/59">Issue #59</a>.
+	</li>
+	<li>
+	Perl: Fix hang when NUL inside here-doc.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/388">Issue #388</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/389">Pull request #389</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/379">Pull request #379</a>.
+	</li>
+	<li>
+	Perl: Fix out-of-bounds write with long here-doc delimiter with multi-byte character near limit.
+	Stop SCE_PL_ERROR leaking past line end causing non-stable results.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/388">Issue #388</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/383">Pull request #383</a>.
+	</li>
+	<li>
+	Perl: Fix inconsistent styling of CRLF line end bytes for here-docs and formats.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/390">Issue #390</a>.
+	</li>
+	<li>
+	PHP: Style variable variable ($$variable) as SCE_HPHP_VARIABLE.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2208/">Bug #2208</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/373">Pull request #373</a>.
+	</li>
+	<li>
+	PHP: Disallow DEL character in PHP identifiers.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/371">Issue #371</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/373">Pull request #373</a>.
+	</li>
+	<li>
+	Raku: Fix out-of-bounds write with long word.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/388">Issue #388</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/381">Pull request #381</a>.
+	</li>
+	<li>
+	Ruby: Fix potential out-of-bounds reads at file start.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/388">Issue #388</a>.
+	</li>
+	<li>
+	SQL: Improve performance of q-string literals.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/378">Issue #378</a>.
+	</li>
+	<li>
+	TCMD: Fix out-of-bounds write with long word.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/388">Issue #388</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/386">Pull request #386</a>.
+	</li>
+	<li>
+	TeX: Fix out-of-bounds write with long command.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/388">Issue #388</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/382">Pull request #382</a>.
+	</li>
+	<li>
+	Visual Prolog: Fix crash with deep nesting.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/388">Issue #388</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/380">Pull request #380</a>.
+	</li>
+	<li>
+	X12: Fix read into empty allocation.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/388">Issue #388</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/385">Pull request #385</a>.
+	</li>
+    </ul>
     <h3>
        <a href="https://www.scintilla.org/lexilla554.zip">Release 5.5.4</a>
     </h3>

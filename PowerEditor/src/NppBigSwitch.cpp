@@ -275,6 +275,14 @@ int CharacterIs(wchar_t c, const wchar_t *any)
 	return FALSE;
 }
 
+// Auto-completion list & call tip are popups positioned in screen coordinates:
+// close them when the main window moves or is resized, otherwise they stay detached from the caret
+static void closeAutoCompleteAndCallTip(const ScintillaEditView& view)
+{
+	view.execute(SCI_AUTOCCANCEL);
+	view.execute(SCI_CALLTIPCANCEL);
+}
+
 LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	LRESULT result = FALSE;
@@ -797,12 +805,18 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				_pDocMap->reloadMap();
 			}
 
+			closeAutoCompleteAndCallTip(_mainEditView);
+			closeAutoCompleteAndCallTip(_subEditView);
+
 			result = TRUE;
 			break;
 		}
 
 		case WM_MOVE:
 		{
+			closeAutoCompleteAndCallTip(_mainEditView);
+			closeAutoCompleteAndCallTip(_subEditView);
+
 			result = TRUE;
 			break;
 		}

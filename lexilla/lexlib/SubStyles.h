@@ -12,14 +12,14 @@ namespace Lexilla {
 
 class WordClassifier {
 	int baseStyle;
-	int firstStyle;
-	int lenStyles;
+	int firstStyle = 0;
+	int lenStyles = 0;
 	using WordStyleMap = std::map<std::string, int, std::less<>>;
 	WordStyleMap wordToStyle;
 
 public:
 
-	explicit WordClassifier(int baseStyle_) : baseStyle(baseStyle_), firstStyle(0), lenStyles(0) {
+	explicit WordClassifier(int baseStyle_) : baseStyle(baseStyle_) {
 	}
 
 	void Allocate(int firstStyle_, int lenStyles_) noexcept {
@@ -28,19 +28,19 @@ public:
 		wordToStyle.clear();
 	}
 
-	int Base() const noexcept {
+	[[nodiscard]] int Base() const noexcept {
 		return baseStyle;
 	}
 
-	int Start() const noexcept {
+	[[nodiscard]] int Start() const noexcept {
 		return firstStyle;
 	}
 
-	int Last() const noexcept {
+	[[nodiscard]] int Last() const noexcept {
 		return firstStyle + lenStyles - 1;
 	}
 
-	int Length() const noexcept {
+	[[nodiscard]] int Length() const noexcept {
 		return lenStyles;
 	}
 
@@ -50,15 +50,14 @@ public:
 		wordToStyle.clear();
 	}
 
-	int ValueFor(std::string_view s) const {
+	[[nodiscard]] int ValueFor(std::string_view s) const {
 		WordStyleMap::const_iterator const it = wordToStyle.find(s);
 		if (it != wordToStyle.end())
 			return it->second;
-		else
-			return -1;
+		return -1;
 	}
 
-	bool IncludesStyle(int style) const noexcept {
+	[[nodiscard]] bool IncludesStyle(int style) const noexcept {
 		return (style >= firstStyle) && (style < (firstStyle + lenStyles));
 	}
 
@@ -102,15 +101,15 @@ constexpr int SubStylesFirst = 0x80;
 constexpr int SubStylesAvailable = 0x40;
 
 class SubStyles {
-	int classifications;
+	int classifications = 0;
 	const char *baseStyles;
 	int styleFirst;
 	int stylesAvailable;
 	int secondaryDistance;
-	int allocated;
+	int allocated = 0;
 	std::vector<WordClassifier> classifiers;
 
-	int BlockFromBaseStyle(int baseStyle) const noexcept {
+	[[nodiscard]] int BlockFromBaseStyle(int baseStyle) const noexcept {
 		for (int b=0; b < classifications; b++) {
 			if (baseStyle == baseStyles[b])
 				return b;
@@ -118,7 +117,7 @@ class SubStyles {
 		return -1;
 	}
 
-	int BlockFromStyle(int style) const noexcept {
+	[[nodiscard]] int BlockFromStyle(int style) const noexcept {
 		int b = 0;
 		for (const WordClassifier &wc : classifiers) {
 			if (wc.IncludesStyle(style))
@@ -130,20 +129,18 @@ class SubStyles {
 
 public:
 
-	SubStyles(const char *baseStyles_, int styleFirst_=SubStylesFirst, int stylesAvailable_=SubStylesAvailable, int secondaryDistance_=0) :
-		classifications(0),
+	explicit SubStyles(const char *baseStyles_, int styleFirst_=SubStylesFirst, int stylesAvailable_=SubStylesAvailable, int secondaryDistance_=0) :
 		baseStyles(baseStyles_),
 		styleFirst(styleFirst_),
 		stylesAvailable(stylesAvailable_),
-		secondaryDistance(secondaryDistance_),
-		allocated(0) {
+		secondaryDistance(secondaryDistance_) {
 		while (baseStyles[classifications]) {
-			classifiers.push_back(WordClassifier(baseStyles[classifications]));
+			classifiers.emplace_back(baseStyles[classifications]);
 			classifications++;
 		}
 	}
 
-	int Allocate(int styleBase, int numberStyles) noexcept {
+	[[nodiscard]] int Allocate(int styleBase, int numberStyles) noexcept {
 		const int block = BlockFromBaseStyle(styleBase);
 		if (block >= 0) {
 			if ((allocated + numberStyles) > stylesAvailable)
@@ -152,34 +149,32 @@ public:
 			allocated += numberStyles;
 			classifiers[block].Allocate(startBlock, numberStyles);
 			return startBlock;
-		} else {
-			return -1;
 		}
+		return -1;
 	}
 
-	int Start(int styleBase) noexcept {
+	[[nodiscard]] int Start(int styleBase) noexcept {
 		const int block = BlockFromBaseStyle(styleBase);
 		return (block >= 0) ? classifiers[block].Start() : -1;
 	}
 
-	int Length(int styleBase) noexcept {
+	[[nodiscard]] int Length(int styleBase) noexcept {
 		const int block = BlockFromBaseStyle(styleBase);
 		return (block >= 0) ? classifiers[block].Length() : 0;
 	}
 
-	int BaseStyle(int subStyle) const noexcept {
+	[[nodiscard]] int BaseStyle(int subStyle) const noexcept {
 		const int block = BlockFromStyle(subStyle);
 		if (block >= 0)
 			return classifiers[block].Base();
-		else
-			return subStyle;
+		return subStyle;
 	}
 
-	int DistanceToSecondaryStyles() const noexcept {
+	[[nodiscard]] int DistanceToSecondaryStyles() const noexcept {
 		return secondaryDistance;
 	}
 
-	int FirstAllocated() const noexcept {
+	[[nodiscard]] int FirstAllocated() const noexcept {
 		int start = 257;
 		for (const WordClassifier &wc : classifiers) {
 			if ((wc.Length() > 0) && (start > wc.Start()))
@@ -188,7 +183,7 @@ public:
 		return (start < 256) ? start : -1;
 	}
 
-	int LastAllocated() const noexcept {
+	[[nodiscard]] int LastAllocated() const noexcept {
 		int last = -1;
 		for (const WordClassifier &wc : classifiers) {
 			if ((wc.Length() > 0) && (last < wc.Last()))
@@ -210,7 +205,7 @@ public:
 		}
 	}
 
-	const WordClassifier &Classifier(int baseStyle) const noexcept {
+	[[nodiscard]] const WordClassifier &Classifier(int baseStyle) const noexcept {
 		const int block = BlockFromBaseStyle(baseStyle);
 		return classifiers[block >= 0 ? block : 0];
 	}

@@ -16,6 +16,8 @@
 
 #pragma once
 
+#include <string>
+
 #include "ListView.h"
 
 class AsciiListView : public ListView
@@ -24,10 +26,9 @@ public:
 	void setValues(int codepage = 0);
 	void resetValues(int codepage);
 
-	std::wstring getAscii(unsigned char value);
-	std::wstring getHtmlName(unsigned char value);
-	int getHtmlNumber(unsigned char value);
+	std::wstring getAscii(unsigned char value) const;
+	static std::wstring getHtmlName(unsigned char value);
+	static int getHtmlNumber(unsigned char value);
 private:
 	int _codepage = -1;
 };
-

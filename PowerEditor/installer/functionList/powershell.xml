@@ -27,13 +27,13 @@
 							[A-Za-z_]\w*
 							:
 						)?
-						[A-Za-z_][\w\-]*
+						[A-Za-z_][\w\-\+]*
 						\s*
 						[({]
 					"
 			>
 				<functionName>
-					<nameExpr expr="[A-Za-z_][\w\-]*(?=\s*[({])" />
+					<nameExpr expr="[A-Za-z_][\w\-\+]*(?=\s*[({])" />
 				</functionName>
 				<className>
 					<nameExpr expr="[A-Za-z_]\w*(?=:)" />

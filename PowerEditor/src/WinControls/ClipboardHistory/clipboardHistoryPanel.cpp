@@ -22,8 +22,8 @@
 #include <commctrl.h>
 
 #include <algorithm>
-#include <cstring>
 #include <cwchar>
+#include <stdexcept>
 #include <string>
 
 #include <Scintilla.h>
@@ -39,8 +39,6 @@
 #include "dockingResource.h"
 #include "menuCmdID.h"
 #include "resource.h"
-
-#define MAX_DISPLAY_LENGTH 64
 
 ClipboardDataInfo ClipboardHistoryPanel::getClipboadData()
 {
@@ -101,54 +99,6 @@ ClipboardDataInfo ClipboardHistoryPanel::getClipboadData()
 	}
 	CloseClipboard();
 	return clipboardData;
-}
-
-ByteArray::ByteArray(const ClipboardDataInfo& cd)
-{
-	_length = cd._data.size();
-	if (!_length)
-	{
-		_pBytes = NULL;
-		return;
-	}
-	_pBytes = new unsigned char[_length];
-	for (size_t i = 0 ; i < _length ; ++i)
-	{
-		_pBytes[i] = cd._data[i];
-	}
-}
-
-StringArray::StringArray(const ClipboardDataInfo& cd, size_t maxLen)
-{
-	size_t len = cd._data.size();
-
-	if (!len)
-	{
-		_pBytes = NULL;
-		return;
-	}
-
-	bool isCompleted = (len <= maxLen);
-	_length = isCompleted?len:maxLen;
-
-	
-	_pBytes = new unsigned char[_length+(isCompleted?0:2)];
-	size_t i = 0;
-	for ( ; i < _length ; ++i)
-	{
-		if (!isCompleted && (i == _length-5 || i == _length-3 || i == _length-1))
-			_pBytes[i] = 0;
-		else if (!isCompleted && (i == _length-6 || i == _length-4 || i == _length-2))
-			_pBytes[i] = '.';
-		else
-			_pBytes[i] = cd._data[i];
-	}
-
-	if (!isCompleted)
-	{
-		_pBytes[i++] = 0;
-		_pBytes[i] = 0;
-	}
 }
 
 void CBHListView::init(HINSTANCE hInst, HWND hParent)
@@ -216,6 +166,61 @@ int ClipboardHistoryPanel::getClipboardDataIndex(const ClipboardDataInfo& cbd) c
 	return iFound;
 }
 
+std::wstring ClipboardHistoryPanel::getDisplayStr(const ClipboardDataInfo& cbd)
+{
+	const auto& data = cbd._data;
+	static constexpr size_t maxLen = MAX_PATH - 3; // list view label hard limit
+	const size_t nBytes = data.size();
+	std::wstring displayStr;
+	bool truncated = false;
+
+	if (cbd._isBinaryContained)
+	{
+		const auto len = std::min<size_t>(nBytes, maxLen);
+		truncated = nBytes > len;
+
+		const auto raw = std::string(data.begin(), data.begin() + len);
+		displayStr = string2wstring(raw);
+	}
+	else if (nBytes % sizeof(wchar_t) == 0)
+	{
+		size_t wLen = nBytes / sizeof(wchar_t);
+		auto wStr = reinterpret_cast<const wchar_t*>(data.data());
+
+		// Remove extra null terminator
+		if (wLen > 0 && wStr[wLen - 1] == L'\0')
+		{
+			--wLen;
+		}
+
+		auto len = std::min<size_t>(wLen, maxLen - 1);
+		truncated = wLen > len;
+
+		// truncation happen on UTF 16 surrogate pairs
+		if (truncated && len > 0
+			&& wStr[len - 1] >= 0xD800 && wStr[len - 1] <= 0xDBFF
+			&& wStr[len] >= 0xDC00 && wStr[len] <= 0xDFFF)
+		{
+			--len;
+		}
+
+		displayStr.assign(wStr, len);
+	}
+	else
+	{
+		// Cannot display this clipboard data.
+		displayStr = L"";
+	}
+
+	if (truncated)
+	{
+		// this will be over maxLen, but it is already accounted
+		displayStr += L"...";
+	}
+
+	return displayStr;
+}
+
 void ClipboardHistoryPanel::addToClipboadHistory(const ClipboardDataInfo& cbd)
 {
 	const int idx = getClipboardDataIndex(cbd);
@@ -230,30 +235,20 @@ void ClipboardHistoryPanel::addToClipboadHistory(const ClipboardDataInfo& cbd)
 		idx != -1)
 	{
 		std::rotate(it, it + idx, it + idx + 1);
-		ListView_DeleteItem(_listView, idx);
+		ListView_DeleteItem(_listView.getHSelf(), idx);
 	}
 	else
 	{
 		_clipboardDataInfos.insert(it, cbd);
 	}
 
-	StringArray sa(cbd, MAX_DISPLAY_LENGTH);
-	std::wstring displayStr;
-	if (cbd._isBinaryContained)
-	{
-		const char* displayStrA = reinterpret_cast<const char*>(sa.getPointer());
-		displayStr = string2wstring(displayStrA);
-	}
-	else
-	{
-		displayStr = reinterpret_cast<const wchar_t*>(sa.getPointer());
-	}
+	std::wstring displayStr = getDisplayStr(cbd);
 
 	LVITEM item{};
 	item.mask = LVIF_TEXT;
 	item.iItem = 0;
 	item.pszText = displayStr.data();
-	ListView_InsertItem(_listView, &item);
+	ListView_InsertItem(_listView.getHSelf(), &item);
 }
 
 void ClipboardHistoryPanel::onDoubleClick(HWND hList)
@@ -275,37 +270,43 @@ void ClipboardHistoryPanel::onDoubleClick(HWND hList)
 		codepage = SC_CP_UTF8;
 	}
 
-	char* c = nullptr;
 	try
 	{
-		const auto& data = _clipboardDataInfos[i];
-		if (data._isBinaryContained)
+		if (const auto& data = _clipboardDataInfos[i]._data;
+			_clipboardDataInfos[i]._isBinaryContained)
 		{
 			(*_ppEditView)->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
-			(*_ppEditView)->execute(SCI_ADDTEXT, static_cast<WPARAM>(data._data.size()), reinterpret_cast<LPARAM>(data._data.data()));
+			(*_ppEditView)->execute(SCI_ADDTEXT, static_cast<WPARAM>(data.size()), reinterpret_cast<LPARAM>(data.data()));
+			(*_ppEditView)->grabFocus();
+		}
+		else if (const size_t nBytes = data.size();
+			nBytes % sizeof(wchar_t) == 0)
+		{
+			size_t wLen = nBytes / sizeof(wchar_t);
+			auto wStr = reinterpret_cast<const wchar_t*>(data.data());
+
+			if (wLen > 0 && wStr[wLen - 1] == L'\0') // remove trailing null terminator
+			{
+				--wLen;
+			}
+
+			if (wLen > 0)
+			{
+				const std::string strA = wstring2string(std::wstring(wStr, wLen), codepage);
+
+				(*_ppEditView)->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
+				(*_ppEditView)->execute(SCI_ADDTEXT, static_cast<WPARAM>(strA.length()), reinterpret_cast<LPARAM>(strA.c_str()));
+				(*_ppEditView)->grabFocus();
+			}
 		}
 		else
 		{
-			ByteArray ba(data);
-			const int nbChar = ::WideCharToMultiByte(codepage, 0, reinterpret_cast<const wchar_t*>(ba.getPointer()), static_cast<int>(ba.getLength()), nullptr, 0, nullptr, nullptr);
-
-			c = new char[nbChar + 1];
-
-			::WideCharToMultiByte(codepage, 0, reinterpret_cast<const wchar_t*>(ba.getPointer()), static_cast<int>(ba.getLength()), c, nbChar + 1, nullptr, nullptr);
-
-			c[nbChar] = '\0';
-
-			(*_ppEditView)->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
-			(*_ppEditView)->execute(SCI_ADDTEXT, static_cast<WPARAM>(std::strlen(c)), reinterpret_cast<LPARAM>(c));
-			delete[] c;
+			throw std::runtime_error("Invalid clipboard data size"); // will be handled in catch (...)
 		}
-		(*_ppEditView)->grabFocus();
 	}
 	catch (...)
 	{
 		NppDarkMode::darkMessageBoxW(_hSelf, L"Cannot process this clipboard data in the history:\nThe data is too large to be treated.", L"Clipboard problem", MB_OK | MB_APPLMODAL);
-		if (c)
-			delete[] c;
 	}
 }
 

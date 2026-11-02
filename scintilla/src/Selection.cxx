@@ -145,29 +145,25 @@ void SelectionRange::MoveForInsertDelete(bool insertion, Sci::Position startChan
 bool SelectionRange::Contains(Sci::Position pos) const noexcept {
 	if (anchor.Position() > caret.Position())
 		return (pos >= caret.Position()) && (pos <= anchor.Position());
-	else
-		return (pos >= anchor.Position()) && (pos <= caret.Position());
+	return (pos >= anchor.Position()) && (pos <= caret.Position());
 }
 
 bool SelectionRange::Contains(SelectionPosition sp) const noexcept {
 	if (anchor > caret)
 		return (sp >= caret) && (sp <= anchor);
-	else
-		return (sp >= anchor) && (sp <= caret);
+	return (sp >= anchor) && (sp <= caret);
 }
 
 bool SelectionRange::ContainsCharacter(Sci::Position posCharacter) const noexcept {
 	if (anchor.Position() > caret.Position())
 		return (posCharacter >= caret.Position()) && (posCharacter < anchor.Position());
-	else
-		return (posCharacter >= anchor.Position()) && (posCharacter < caret.Position());
+	return (posCharacter >= anchor.Position()) && (posCharacter < caret.Position());
 }
 
 bool SelectionRange::ContainsCharacter(SelectionPosition spCharacter) const noexcept {
 	if (anchor > caret)
 		return (spCharacter >= caret) && (spCharacter < anchor);
-	else
-		return (spCharacter >= anchor) && (spCharacter < caret);
+	return (spCharacter >= anchor) && (spCharacter < caret);
 }
 
 SelectionSegment SelectionRange::Intersect(SelectionSegment check) const noexcept {
@@ -258,9 +254,7 @@ void SelectionRange::Truncate(Sci::Position length) noexcept {
 // If range is all virtual collapse to start of virtual space
 void SelectionRange::MinimizeVirtualSpace() noexcept {
 	if (caret.Position() == anchor.Position()) {
-		Sci::Position virtualSpace = caret.VirtualSpace();
-		if (virtualSpace > anchor.VirtualSpace())
-			virtualSpace = anchor.VirtualSpace();
+		const Sci::Position virtualSpace = std::min(caret.VirtualSpace(), anchor.VirtualSpace());
 		caret.SetVirtualSpace(virtualSpace);
 		anchor.SetVirtualSpace(virtualSpace);
 	}

@@ -34,7 +34,7 @@ public:
 	explicit Range(Sci::Position pos=0) noexcept :
 		start(pos), end(pos) {
 	}
-	Range(Sci::Position start_, Sci::Position end_) noexcept :
+	constexpr Range(Sci::Position start_, Sci::Position end_) noexcept :
 		start(start_), end(end_) {
 	}
 
@@ -48,10 +48,6 @@ public:
 
 	[[nodiscard]] bool Empty() const noexcept {
 		return start == end;
-	}
-
-	[[nodiscard]] Sci::Position Length() const noexcept {
-		return std::abs(end - start);
 	}
 
 	[[nodiscard]] Sci::Position First() const noexcept {
@@ -88,6 +84,52 @@ public:
 		Contains(other.end) ||
 		other.Contains(start) ||
 		other.Contains(end);
+	}
+};
+
+/**
+ * The ForwardRange class represents a range of text in a document.
+ * It is ordered so that the start is always less than or equal to the end.
+ */
+class ForwardRange {
+	Sci::Position start = 0;
+	Sci::Position end = 0;
+public:
+	constexpr ForwardRange() noexcept = default;
+
+	constexpr ForwardRange(Sci::Position start_, Sci::Position end_) noexcept :
+		start(start_), end(end_) {
+		PLATFORM_ASSERT(start_ <= end_);
+	}
+
+	explicit constexpr ForwardRange(const Range &range) noexcept :
+		start(range.start), end(range.end) {
+		PLATFORM_ASSERT(start <= end);
+	}
+
+	explicit constexpr operator Range() const noexcept {
+		return { start, end };
+	}
+
+	bool operator==(const ForwardRange &other) const noexcept {
+		return (start == other.start) && (end == other.end);
+	}
+
+	[[nodiscard]] bool Empty() const noexcept {
+		return start == end;
+	}
+
+	[[nodiscard]] Sci::Position First() const noexcept {
+		return start;
+	}
+
+	[[nodiscard]] Sci::Position Last() const noexcept {
+		return end;
+	}
+
+	// Is the character after pos within the range?
+	[[nodiscard]] bool ContainsCharacter(Sci::Position pos) const noexcept {
+		return (pos >= start && pos < end);
 	}
 };
 
@@ -344,6 +386,7 @@ public:
 	/// Can also be SC_CP_UTF8 to enable UTF-8 mode
 	int dbcsCodePage;
 	Scintilla::LineEndType lineEndBitSet;
+	static constexpr int standardTabSize = 8;
 	int tabInChars;
 	int indentInChars;
 	int actualIndentInChars;
@@ -509,7 +552,7 @@ public:
 	int MarkerNumberFromLine(Sci::Line line, int which) const noexcept;
 	int MarkerHandleFromLine(Sci::Line line, int which) const noexcept;
 	Sci_Position SCI_METHOD LineStart(Sci_Position line) const override;
-	[[nodiscard]] Range LineRange(Sci::Line line) const noexcept;
+	[[nodiscard]] Sci::Position LineLength(Sci::Line line) const noexcept;
 	bool IsLineStartPosition(Sci::Position position) const noexcept;
 	Sci_Position SCI_METHOD LineEnd(Sci_Position line) const override;
 	Sci::Position LineStartPosition(Sci::Position position) const noexcept;
@@ -636,14 +679,8 @@ public:
 	UndoGroup &operator=(UndoGroup &&) = delete;
 	~UndoGroup() {
 		if (groupNeeded) {
-			// EndUndoAction can throw as it allocates but throw in destructor is fatal.
-			// To fix this UndoHistory should allocate any memory needed by EndUndoAction
-			// beforehand or change EndUndoAction to not require allocation.
 			pdoc->EndUndoAction();
 		}
-	}
-	[[nodiscard]] bool Needed() const noexcept {
-		return groupNeeded;
 	}
 };
 

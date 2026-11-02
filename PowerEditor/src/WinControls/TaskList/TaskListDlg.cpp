@@ -128,10 +128,11 @@ intptr_t CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 
 		case WM_ACTIVATE:
 		{
-			// Dismiss it if window became active again while not pressing ctrl key.
+			// Dismiss it if window became active again while not pressing ctrl key or mouse right button.
 			// But allow mouse clicking to change document.
 			if (LOWORD(wParam) == WA_ACTIVE
-				&& ::GetKeyState(VK_CONTROL) >= 0)
+				&& ::GetKeyState(VK_CONTROL) >= 0
+				&& ::GetKeyState(VK_RBUTTON) >= 0)
 			{
 				::EndDialog(_hSelf, -1);
 				return TRUE;

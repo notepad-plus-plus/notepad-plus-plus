@@ -974,12 +974,15 @@ Translation note:
 			<Preference title="環境設定">
 				<Item id="6001" name="閉じる"/>
 				<Global title="全般設定">
-					<Item id="6123" name="言語"/>
+					<Item id="6123" name="言語(&amp;L)"/>
 					<Item id="6131" name="メニュー"/>
-					<Item id="6122" name="隠す(表示するには Alt か F10 を押す)"/>
-					<Item id="6132" name="右端の ＋ ▼ ✕ ボタンを非表示にする"/>
+					<Item id="6122" name="隠す(表示するには Alt か F10 を押す)(&amp;H)"/>
+					<Item id="6132" name="右端の ＋ ▼ ✕ ボタンを非表示にする(&amp;R)"/>
 					<Item id="6133" name="ステータスバー"/>
-					<Item id="6134" name="隠す"/>
+					<Item id="6134" name="隠す(&amp;D)"/>
+					<Item id="7165" name="ダイアログのフォント (Notepad++の再起動が必要)"/>
+					<Item id="7166" name="サイズ(&amp;S)"/>
+					<Item id="7168" name="フォント名:"/>
 				</Global>
 
 				<Toolbar title="ツールバー">
@@ -1234,8 +1237,6 @@ Translation note:
 				<Searching title="検索">
 					<Item id="6902" name="検索画面で固定幅フォントを使用する（Notepad++ の再起動が必要）"/>
 					<Item id="6903" name="検索結果を結果ウィンドウに表示する時に、検索画面を自動で閉じないようにする"/>
-					<Item id="6904" name="「すべての文書で置換」を実行する前に、確認する"/>
-					<Item id="6905" name="置換時に、次の出現箇所に移動しない"/>
 					<Item id="6906" name="検索結果画面：可能であれば、複数回一致した行を 1行にまとめて表示する"/>
 					<Item id="6907" name="検索画面を開くときの動作"/>
 					<Item id="6908" name="検索文字列欄に、選択中の文字列を自動入力する"/>
@@ -1771,6 +1772,8 @@ OKボタンを押すと検索ダイアログが開きます。
 			<default-open-save-select-folder value="既定のディレクトリを選択してください"/>
 			<shift-change-direction-tip value="Shift+Enter で逆方向に検索します"/>
 			<two-find-buttons-tip value="検索ボタンを2個に分ける"/>
+			<confirm-replace-in-all-open-docs-tip value="「すべての文書で置換」を実行する前に、確認する"/>
+			<replace-and-stop-tip value="置換したあと、次の出現箇所に移動しない"/>
 			<find-in-files-filter-tip value="例）cpp, cxx, h, hxx, hpp のファイル内を検索する：
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1808,6 +1811,7 @@ OKボタンを押すと検索ダイアログが開きます。
 			<find-status-replace-readonly value="置換：置換できません。この文書は読み取り専用です"/>
 			<find-status-cannot-find value="検索：見つかりません。&quot;$STR_REPLACE$&quot;"/>
 			<find-status-cannot-find-pebkac-maybe value="一致するものはありません。「先頭/末尾から再検索」をオンにし忘れたり、「大/小文字を区別」をオフにし忘れたり、「単語単位」をオフにし忘れたりしていませんか？"/>
+			<find-status-regex-find-empty-string value="正規表現が空の文字列に一致しました"/>
 			<find-status-scope-selection value="（選択範囲内）"/>
 			<find-status-scope-all value="（ファイル全体）"/>
 			<find-status-scope-backward value="（ファイル先頭から カーソル位置まで）"/>

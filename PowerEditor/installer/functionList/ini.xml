@@ -19,7 +19,7 @@
 						"
 		>
 			<function
-				mainExpr="^\h*[\[&quot;][\w*.;\x20()\-]+[&quot;\]]"
+				mainExpr="^\h*[\[&quot;][\w*.;\x20()+\-]+[&quot;\]]"
 			>
 				<functionName>
 					<nameExpr expr="[^[\]&quot;]*" />

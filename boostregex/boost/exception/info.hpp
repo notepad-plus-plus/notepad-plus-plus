@@ -11,7 +11,9 @@
 #include <boost/exception/to_string_stub.hpp>
 #include <boost/exception/detail/error_info_impl.hpp>
 #include <boost/exception/detail/shared_ptr.hpp>
+#include <boost/exception/detail/encoder.hpp>
 #include <map>
+#include <type_traits>
 
 #ifndef BOOST_EXCEPTION_ENABLE_WARNINGS
 #if defined(__GNUC__) && __GNUC__*100+__GNUC_MINOR__>301
@@ -28,6 +30,17 @@
 namespace
 boost
     {
+    namespace
+    exception_serialization
+        {
+        // Stub
+        template <class Encoder, class T, class... Deprioritize>
+        typename std::enable_if<std::is_base_of<exception_detail::encoder, Encoder>::value>::type
+        serialize(Encoder &, T const &, char const *, Deprioritize...)
+            {
+            }
+        }
+
     template <class Tag,class T>
     inline
     std::string
@@ -51,6 +64,17 @@ boost
     name_value_string() const
         {
         return to_string_stub(*this);
+        }
+
+    template <class Tag,class T>
+    inline
+    void
+    error_info<Tag,T>::
+    serialize_to(exception_detail::encoder & e) const
+        {
+        char buf[256];
+        using namespace exception_serialization;
+        serialize(e, value(), to_zstr(buf, exception_detail::get_pretty_tag_type_name<Tag>()));
         }
 
     namespace
@@ -106,6 +130,16 @@ boost
                     tmp.str().swap(diagnostic_info_str_);
                     }
                 return diagnostic_info_str_.c_str();
+                }
+
+            void
+            serialize_to( encoder & e ) const
+                {
+                for( error_info_map::const_iterator i=info_.begin(),end=info_.end(); i!=end; ++i )
+                    {
+                    error_info_base const & x = *i->second;
+                    x.serialize_to(e);
+                    }
                 }
 
             private:

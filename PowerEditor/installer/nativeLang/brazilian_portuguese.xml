@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 16 Sep 2026 for 8.9.8+
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 19 Oct 2026 for 8.9.8.1+
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -969,12 +969,15 @@ Translation note:
 			<Preference title="Preferências">
 				<Item id="6001" name="Fechar"/>
 				<Global title="Geral">
-					<Item id="6123" name="Localização"/>
+					<Item id="6123" name="&amp;Localização"/>
 					<Item id="6131" name="Menu"/>
-					<Item id="6122" name="Ocultar (use teclas Alt ou F10 para alternar)"/>
-					<Item id="6132" name="Ocultar atalhos à direita ＋ ▼ ✕"/>
+					<Item id="6122" name="O&amp;cultar (use teclas Alt ou F10 para alternar)"/>
+					<Item id="6132" name="Oculta&amp;r atalhos à direita ＋ ▼ ✕"/>
 					<Item id="6133" name="Barra de Status"/>
-					<Item id="6134" name="Ocultar"/>
+					<Item id="6134" name="Ocul&amp;tar"/>
+					<Item id="7165" name="Fonte de Diálogo (Necessário reiniciar o Notepad++)"/>
+					<Item id="7166" name="Ta&amp;manho:"/>
+					<Item id="7168" name="Nome:"/>
 				</Global>
 
 				<Toolbar title="Ferramentas">
@@ -1230,8 +1233,6 @@ Translation note:
 				<Searching title="Pesquisa">
 					<Item id="6902" name="Usar fonte monoespaçada na caixa de diálogo Localizar (é necessário reiniciar o Notepad++)"/>
 					<Item id="6903" name="A caixa de diálogo Localizar permanece aberta após a pesquisa que resulta na janela de resultados"/>
-					<Item id="6904" name="Confirmar Substituir todos em todos os documentos abertos"/>
-					<Item id="6905" name="Substituir: não mova para a ocorrência seguinte"/>
 					<Item id="6906" name="Janela de resultados da busca: mostre apenas uma ocorrência por linha, se for possível"/>
 					<Item id="6907" name="Quando a caixa de diálogo de localização for acionada"/>
 					<Item id="6908" name="Preencher o texto selecionado no campo de localização"/>
@@ -1361,7 +1362,7 @@ Translation note:
 
 				<MISC title="Diversos">
 					<ComboBox id="6347">
-						<Element name="Habilitar para o arquivo atual"/>
+						<Element name="Habilitar para arquivo(s) atual(is)"/>
 						<Element name="Habilitar para todos os arquivos abertos"/>
 						<Element name="Desabilitar"/>
 					</ComboBox>
@@ -1772,6 +1773,8 @@ Continue apenas se você compreender os riscos."/>
 			<default-open-save-select-folder value="Selecione uma pasta como pasta padrão"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Usar Shift+Enter para pesquisar na direção oposta."/>
 			<two-find-buttons-tip value="Modo 2 botões"/>
+			<confirm-replace-in-all-open-docs-tip value="Confirmar ação &quot;Substituir Todos em Todos os Documentos Abertos&quot;"/>
+			<replace-and-stop-tip value="Após substituição, não mover para a próxima ocorrência"/>
 			<find-in-files-filter-tip value="Procurar em cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1809,6 +1812,7 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
 			<find-status-replace-readonly value="Substituir: Texto não substituído. O documento é somente leitura."/>
 			<find-status-cannot-find value="Localizar: Texto &quot;$STR_REPLACE$&quot; não localizado."/>
 			<find-status-cannot-find-pebkac-maybe value="A ocorrência procurada não foi encontrada. Você pode ter se esquecido de marcar a opção &quot;Pesquisa circular&quot; (para Ativado), &quot;Correspondência apenas de Maiúsculas-Minúsculas&quot; (para Desativado), ou &quot;Correspondência apenas da Palavra Inteira&quot; (para Desativado)."/>
+			<find-status-regex-find-empty-string value="A expressão regular informada corresponde a cadeias de caracteres vazias."/>
 			<find-status-scope-selection value="no texto selecionado"/>
 			<find-status-scope-all value="no arquivo inteiro"/>
 			<find-status-scope-backward value="do começo do arquivo ao cursor"/>

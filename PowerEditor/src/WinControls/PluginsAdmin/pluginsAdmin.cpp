@@ -202,7 +202,6 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent, WORD 
 	auto initListView = [&](PluginViewList& list) -> void {
 		list.addColumn(columnInfo(pluginStr, szColName));
 		list.addColumn(columnInfo(vesionStr, szColVer));
-		list.setViewStyleOption(LVS_EX_CHECKBOXES);
 		list.initView(_hInst, _hSelf);
 		const HWND hList = list.getViewHwnd();
 		ListView_SetBkColor(hList, bgColor);
@@ -224,7 +223,6 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent, WORD 
 	switchDialog(0);
 
 	NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
-	NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
 
 	HWND hPluginListVersionNumber = ::GetDlgItem(_hSelf, IDC_PLUGINLIST_VERSIONNUMBER_STATIC);
 	::SetWindowText(hPluginListVersionNumber, _pluginListVersion.c_str());

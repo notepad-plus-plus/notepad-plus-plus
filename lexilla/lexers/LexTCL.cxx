@@ -152,7 +152,7 @@ next:
 			if ((sc.state == SCE_TCL_IDENTIFIER && expected) ||  sc.state == SCE_TCL_MODIFIER) {
 				char w[100];
 				sc.GetCurrent(w, sizeof(w));
-				char *s=w;
+				const char *s=w;
 				if (w[strlen(w)-1]=='\r')
 					w[strlen(w)-1]=0;
 				while (*s == ':') // ignore leading : like in ::set a 10

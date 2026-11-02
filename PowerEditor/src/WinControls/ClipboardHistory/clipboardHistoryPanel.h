@@ -21,6 +21,7 @@
 
 #include <commctrl.h>
 
+#include <string>
 #include <vector>
 
 #include "DockingDlgInterface.h"
@@ -37,36 +38,11 @@ struct ClipboardDataInfo {
 	bool _isBinaryContained = false;
 };
 
-class ByteArray {
-public:
-	ByteArray() = default;
-	explicit ByteArray(const ClipboardDataInfo& cd);
-	
-	~ByteArray() {
-		if (_pBytes)
-			delete [] _pBytes;
-	}
-	const unsigned char* getPointer() const { return _pBytes; }
-	size_t getLength() const { return _length; }
-protected:
-	unsigned char *_pBytes = nullptr;
-	size_t _length = 0;
-};
-
-class StringArray : public ByteArray {
-public:
-	StringArray(const ClipboardDataInfo& cd, size_t maxLen);
-};
-
 class CBHListView : public ListViewBase
 {
 public:
 	CBHListView() = default;
 	~CBHListView() override = default;
-
-	operator HWND() const noexcept {
-		return _hSelf;
-	}
 
 	void init(HINSTANCE hInst, HWND hParent) override;
 	void reSizeToWH(int width, int height);
@@ -91,17 +67,19 @@ public:
 	}
 
 	ClipboardDataInfo getClipboadData();
+
+	[[nodiscard]] std::wstring getDisplayStr(const ClipboardDataInfo& cbd);
 	void addToClipboadHistory(const ClipboardDataInfo& cbd);
 	int getClipboardDataIndex(const ClipboardDataInfo& cbd) const;
 
 	void setBackgroundColor(COLORREF bgColour) override {
-		ListView_SetBkColor(_listView, bgColour);
-		ListView_SetTextBkColor(_listView, bgColour);
-		::RedrawWindow(_listView, nullptr, nullptr, RDW_INVALIDATE);
+		ListView_SetBkColor(_listView.getHSelf(), bgColour);
+		ListView_SetTextBkColor(_listView.getHSelf(), bgColour);
+		::RedrawWindow(_listView.getHSelf(), nullptr, nullptr, RDW_INVALIDATE);
 	}
 	void setForegroundColor(COLORREF fgColour) override {
-		ListView_SetTextColor(_listView, fgColour);
-		::RedrawWindow(_listView, nullptr, nullptr, RDW_INVALIDATE);
+		ListView_SetTextColor(_listView.getHSelf(), fgColour);
+		::RedrawWindow(_listView.getHSelf(), nullptr, nullptr, RDW_INVALIDATE);
 	}
 
 	bool trackClipboardOps(bool bTrack) {

@@ -1030,6 +1030,9 @@ Updated to :
 					<Item id="6132" name="Скрыть кнопки ＋ ▼ ✕ в строке меню"/>
 					<Item id="6133" name="Строка Статуса"/>
 					<Item id="6134" name="Скрыть"/>
+					<Item id="7165" name="Размер шрифта диалоговых окон (треб. перез.)"/>
+					<Item id="7166" name="Размер:"/>
+					<Item id="7168" name="Имя:"/>
 				</Global>
 				<Toolbar title="Панель Инструментов">
 					<Item id="6102" name="Скрыть"/>
@@ -1244,7 +1247,6 @@ Updated to :
 				<Searching title="Поиск">
 					<Item id="6902" name="Моноширинный шрифт в окне поиска (необходим перезапуск Notepad++)"/>
 					<Item id="6903" name="Оставлять окно Поиска открытым после окончания поиска"/>
-					<Item id="6904" name="Запрашивать подтверждение операции &quot;Заменить все во Всех Открытых Документах&quot;"/>
 					<Item id="6905" name="Замена: не переходить к следующему совпадению, только при повторном нажатии"/>
 					<Item id="6906" name="Результаты поиска: все совпадения в строке отображать одной записью если это возможно"/>
 
@@ -1768,6 +1770,7 @@ $STR_REPLACE$
 			<default-open-save-select-folder value="Выберите папку в качестве директории по умолчанию"/>
 			<shift-change-direction-tip value="Используйте Shift+Enter для поиска в обратном направлении."/>
 			<two-find-buttons-tip value="2 направления поиска"/>
+			<confirm-replace-in-all-open-docs-tip value="Подтвердите действие &quot;Заменить всё во всех открытых документах&quot;"/>
 			<find-in-files-filter-tip value="Искать в cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1806,6 +1809,7 @@ $STR_REPLACE$
 			<find-status-replace-invalid-replace-chars value="Замена: нельзя заменить текст в ANSI документе, который не соответствующий стандарту ANSI."/>
 			<find-status-cannot-find value="Поиск: Не удается найти текст &quot;$STR_REPLACE$&quot;"/>
 			<find-status-cannot-find-pebkac-maybe value="Данное совпадение не может быть найдено. Возможно, вы забыли установить флажок &quot;Зациклить поиск&quot; (на ВКЛ), &quot;Учитывать регистр&quot; (на ВЫКЛ), или &quot;Только целые слова&quot; (на ВЫКЛ)."/>
+			<find-status-regex-find-empty-string value="Данное регулярное выражение соответствует пустым строкам."/>
 			<find-status-scope-selection value="в выделенном тексте"/>
 			<find-status-scope-all value="во всем файле"/>
 			<find-status-scope-backward value="от начала файла до знак вставки"/>

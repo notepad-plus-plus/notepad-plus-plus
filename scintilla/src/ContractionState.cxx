@@ -43,7 +43,7 @@ class ContractionState final : public IContractionState {
 
 	void EnsureData();
 
-	bool OneToOne() const noexcept {
+	[[nodiscard]] bool OneToOne() const noexcept {
 		// True when each document line is exactly one display line so need for
 		// complex data structures.
 		return visible == nullptr;
@@ -63,29 +63,29 @@ public:
 
 	void Clear() noexcept override;
 
-	Sci::Line LinesInDoc() const noexcept override;
-	Sci::Line LinesDisplayed() const noexcept override;
-	Sci::Line DisplayFromDoc(Sci::Line lineDoc) const noexcept override;
-	Sci::Line DisplayFromDocSub(Sci::Line lineDoc, Sci::Line lineSub) const noexcept override;
-	Sci::Line DisplayLastFromDoc(Sci::Line lineDoc) const noexcept override;
-	Sci::Line DocFromDisplay(Sci::Line lineDisplay) const noexcept override;
+	[[nodiscard]] Sci::Line LinesInDoc() const noexcept override;
+	[[nodiscard]] Sci::Line LinesDisplayed() const noexcept override;
+	[[nodiscard]] Sci::Line DisplayFromDoc(Sci::Line lineDoc) const noexcept override;
+	[[nodiscard]] Sci::Line DisplayFromDocSub(Sci::Line lineDoc, Sci::Line lineSub) const noexcept override;
+	[[nodiscard]] Sci::Line DisplayLastFromDoc(Sci::Line lineDoc) const noexcept override;
+	[[nodiscard]] Sci::Line DocFromDisplay(Sci::Line lineDisplay) const noexcept override;
 
 	void InsertLines(Sci::Line lineDoc, Sci::Line lineCount) override;
 	void DeleteLines(Sci::Line lineDoc, Sci::Line lineCount) override;
 
-	bool GetVisible(Sci::Line lineDoc) const noexcept override;
+	[[nodiscard]] bool GetVisible(Sci::Line lineDoc) const noexcept override;
 	bool SetVisible(Sci::Line lineDocStart, Sci::Line lineDocEnd, bool isVisible) override;
-	bool HiddenLines() const noexcept override;
+	[[nodiscard]] bool HiddenLines() const noexcept override;
 
-	const char *GetFoldDisplayText(Sci::Line lineDoc) const noexcept override;
+	[[nodiscard]] const char *GetFoldDisplayText(Sci::Line lineDoc) const noexcept override;
 	bool SetFoldDisplayText(Sci::Line lineDoc, const char *text) override;
 
-	bool GetExpanded(Sci::Line lineDoc) const noexcept override;
+	[[nodiscard]] bool GetExpanded(Sci::Line lineDoc) const noexcept override;
 	bool SetExpanded(Sci::Line lineDoc, bool isExpanded) override;
 	bool ExpandAll() override;
-	Sci::Line ContractedNext(Sci::Line lineDocStart) const noexcept override;
+	[[nodiscard]] Sci::Line ContractedNext(Sci::Line lineDocStart) const noexcept override;
 
-	int GetHeight(Sci::Line lineDoc) const noexcept override;
+	[[nodiscard]] int GetHeight(Sci::Line lineDoc) const noexcept override;
 	bool SetHeight(Sci::Line lineDoc, int height) override;
 
 	void ShowAll() noexcept override;
@@ -160,29 +160,26 @@ template <typename LINE>
 Sci::Line ContractionState<LINE>::LinesInDoc() const noexcept {
 	if (OneToOne()) {
 		return linesInDocument;
-	} else {
-		return displayLines->Partitions() - 1;
 	}
+	return displayLines->Partitions() - 1;
 }
 
 template <typename LINE>
 Sci::Line ContractionState<LINE>::LinesDisplayed() const noexcept {
 	if (OneToOne()) {
 		return linesInDocument;
-	} else {
-		return displayLines->PositionFromPartition(line_cast(LinesInDoc()));
 	}
+	return displayLines->PositionFromPartition(line_cast(LinesInDoc()));
 }
 
 template <typename LINE>
 Sci::Line ContractionState<LINE>::DisplayFromDoc(Sci::Line lineDoc) const noexcept {
 	if (OneToOne()) {
 		return (lineDoc <= linesInDocument) ? lineDoc : linesInDocument;
-	} else {
-		if (lineDoc > displayLines->Partitions())
-			lineDoc = displayLines->Partitions();
-		return displayLines->PositionFromPartition(line_cast(lineDoc));
 	}
+	if (lineDoc > displayLines->Partitions())
+		lineDoc = displayLines->Partitions();
+	return displayLines->PositionFromPartition(line_cast(lineDoc));
 }
 
 template <typename LINE>
@@ -200,17 +197,16 @@ template <typename LINE>
 Sci::Line ContractionState<LINE>::DocFromDisplay(Sci::Line lineDisplay) const noexcept {
 	if (OneToOne()) {
 		return lineDisplay;
-	} else {
-		if (lineDisplay < 0) {
-			return 0;
-		}
-		if (lineDisplay > LinesDisplayed()) {
-			return displayLines->PartitionFromPosition(line_cast(LinesDisplayed()));
-		}
-		const Sci::Line lineDoc = displayLines->PartitionFromPosition(line_cast(lineDisplay));
-		PLATFORM_ASSERT(GetVisible(lineDoc));
-		return lineDoc;
 	}
+	if (lineDisplay < 0) {
+		return 0;
+	}
+	if (lineDisplay > LinesDisplayed()) {
+		return displayLines->PartitionFromPosition(line_cast(LinesDisplayed()));
+	}
+	const Sci::Line lineDoc = displayLines->PartitionFromPosition(line_cast(lineDisplay));
+	PLATFORM_ASSERT(GetVisible(lineDoc));
+	return lineDoc;
 }
 
 template <typename LINE>
@@ -241,49 +237,45 @@ template <typename LINE>
 bool ContractionState<LINE>::GetVisible(Sci::Line lineDoc) const noexcept {
 	if (OneToOne()) {
 		return true;
-	} else {
-		if (lineDoc >= visible->Length())
-			return true;
-		return visible->ValueAt(line_cast(lineDoc)) == 1;
 	}
+	if (lineDoc >= visible->Length())
+		return true;
+	return visible->ValueAt(line_cast(lineDoc)) == 1;
 }
 
 template <typename LINE>
 bool ContractionState<LINE>::SetVisible(Sci::Line lineDocStart, Sci::Line lineDocEnd, bool isVisible) {
 	if (OneToOne() && isVisible) {
 		return false;
-	} else {
-		EnsureData();
-		Check();
-		if ((lineDocStart <= lineDocEnd) && (lineDocStart >= 0) && (lineDocEnd < LinesInDoc())) {
-			bool changed = false;
-			for (Sci::Line line = lineDocStart; line <= lineDocEnd; line++) {
-				if (GetVisible(line) != isVisible) {
-					changed = true;
-					const int heightLine = heights->ValueAt(line_cast(line));
-					const int difference = isVisible ? heightLine : -heightLine;
-					displayLines->InsertText(line_cast(line), difference);
-				}
-			}
-			if (changed) {
-				visible->FillRange(line_cast(lineDocStart), isVisible ? 1 : 0,
-					line_cast(lineDocEnd - lineDocStart) + 1);
-			}
-			Check();
-			return changed;
-		} else {
-			return false;
-		}
 	}
+	EnsureData();
+	Check();
+	if ((lineDocStart <= lineDocEnd) && (lineDocStart >= 0) && (lineDocEnd < LinesInDoc())) {
+		bool changed = false;
+		for (Sci::Line line = lineDocStart; line <= lineDocEnd; line++) {
+			if (GetVisible(line) != isVisible) {
+				changed = true;
+				const int heightLine = heights->ValueAt(line_cast(line));
+				const int difference = isVisible ? heightLine : -heightLine;
+				displayLines->InsertText(line_cast(line), difference);
+			}
+		}
+		if (changed) {
+			visible->FillRange(line_cast(lineDocStart), isVisible ? 1 : 0,
+				line_cast(lineDocEnd - lineDocStart) + 1);
+		}
+		Check();
+		return changed;
+	}
+	return false;
 }
 
 template <typename LINE>
 bool ContractionState<LINE>::HiddenLines() const noexcept {
 	if (OneToOne()) {
 		return false;
-	} else {
-		return !visible->AllSameAs(1);
 	}
+	return !visible->AllSameAs(1);
 }
 
 template <typename LINE>
@@ -301,76 +293,67 @@ bool ContractionState<LINE>::SetFoldDisplayText(Sci::Line lineDoc, const char *t
 		foldDisplayTexts->SetValueAt(lineDoc, std::move(uns));
 		Check();
 		return true;
-	} else {
-		Check();
-		return false;
 	}
+	Check();
+	return false;
 }
 
 template <typename LINE>
 bool ContractionState<LINE>::GetExpanded(Sci::Line lineDoc) const noexcept {
 	if (OneToOne()) {
 		return true;
-	} else {
-		Check();
-		return expanded->ValueAt(line_cast(lineDoc)) == 1;
 	}
+	Check();
+	return expanded->ValueAt(line_cast(lineDoc)) == 1;
 }
 
 template <typename LINE>
 bool ContractionState<LINE>::SetExpanded(Sci::Line lineDoc, bool isExpanded) {
 	if (OneToOne() && isExpanded) {
 		return false;
-	} else {
-		EnsureData();
-		if (isExpanded != (expanded->ValueAt(line_cast(lineDoc)) == 1)) {
-			expanded->SetValueAt(line_cast(lineDoc), isExpanded ? 1 : 0);
-			Check();
-			return true;
-		} else {
-			Check();
-			return false;
-		}
 	}
+	EnsureData();
+	if (isExpanded != (expanded->ValueAt(line_cast(lineDoc)) == 1)) {
+		expanded->SetValueAt(line_cast(lineDoc), isExpanded ? 1 : 0);
+		Check();
+		return true;
+	}
+	Check();
+	return false;
 }
 
 template <typename LINE>
 bool ContractionState<LINE>::ExpandAll() {
 	if (OneToOne()) {
 		return false;
-	} else {
-		const LINE lines = expanded->Length();
-		const bool changed = expanded->FillRange(0, 1, lines).changed;
-		Check();
-		return changed;
 	}
+	const LINE lines = expanded->Length();
+	const bool changed = expanded->FillRange(0, 1, lines).changed;
+	Check();
+	return changed;
 }
 
 template <typename LINE>
 Sci::Line ContractionState<LINE>::ContractedNext(Sci::Line lineDocStart) const noexcept {
 	if (OneToOne()) {
 		return -1;
-	} else {
-		Check();
-		if (!expanded->ValueAt(line_cast(lineDocStart))) {
-			return lineDocStart;
-		} else {
-			const Sci::Line lineDocNextChange = expanded->EndRun(line_cast(lineDocStart));
-			if (lineDocNextChange < LinesInDoc())
-				return lineDocNextChange;
-			else
-				return -1;
-		}
 	}
+	Check();
+	if (!expanded->ValueAt(line_cast(lineDocStart))) {
+		return lineDocStart;
+	}
+	const Sci::Line lineDocNextChange = expanded->EndRun(line_cast(lineDocStart));
+	if (lineDocNextChange < LinesInDoc())
+		return lineDocNextChange;
+	return -1;
 }
 
 template <typename LINE>
 int ContractionState<LINE>::GetHeight(Sci::Line lineDoc) const noexcept {
 	if (OneToOne()) {
 		return 1;
-	} else {
-		return heights->ValueAt(line_cast(lineDoc));
 	}
+	return heights->ValueAt(line_cast(lineDoc));
 }
 
 // Set the number of display lines needed for this line.
@@ -379,7 +362,8 @@ template <typename LINE>
 bool ContractionState<LINE>::SetHeight(Sci::Line lineDoc, int height) {
 	if (OneToOne() && (height == 1)) {
 		return false;
-	} else if (lineDoc < LinesInDoc()) {
+	}
+	if (lineDoc < LinesInDoc()) {
 		EnsureData();
 		if (GetHeight(lineDoc) != height) {
 			if (GetVisible(lineDoc)) {
@@ -388,13 +372,10 @@ bool ContractionState<LINE>::SetHeight(Sci::Line lineDoc, int height) {
 			heights->SetValueAt(line_cast(lineDoc), height);
 			Check();
 			return true;
-		} else {
-			Check();
-			return false;
 		}
-	} else {
-		return false;
+		Check();
 	}
+	return false;
 }
 
 template <typename LINE>
@@ -434,8 +415,7 @@ namespace Scintilla::Internal {
 std::unique_ptr<IContractionState> ContractionStateCreate(bool largeDocument) {
 	if (largeDocument)
 		return std::make_unique<ContractionState<Sci::Line>>();
-	else
-		return std::make_unique<ContractionState<int>>();
+	return std::make_unique<ContractionState<int>>();
 }
 
 }

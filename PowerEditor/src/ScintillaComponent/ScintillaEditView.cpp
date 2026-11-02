@@ -2399,8 +2399,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	}
 	execute(SCI_SETCHANGEHISTORY, enabledCHFlag);
 
-	if (isTextDirectionRTL() != buffer->isRTL())
-		changeTextDirection(buffer->isRTL());
+	changeTextDirection(buffer->isRTL());
 
 	return;	//all done
 }
@@ -4537,9 +4536,6 @@ void ScintillaEditView::changeTextDirection(bool isRTL)
 		}
 	}
 
-	if (isTextDirectionRTL() == isRTL)
-		return;
-
 	const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 	if (isRTL)
 	{
@@ -4561,6 +4557,9 @@ void ScintillaEditView::changeTextDirection(bool isRTL)
 			execute(SCI_SETBIDIRECTIONAL, SC_BIDIRECTIONAL_DISABLED);
 		}
 	}
+
+	if (isTextDirectionRTL() == isRTL)
+		return;
 
 	long exStyle = static_cast<long>(::GetWindowLongPtr(_hSelf, GWL_EXSTYLE));
 	exStyle = isRTL ? (exStyle | WS_EX_LAYOUTRTL) : (exStyle & (~WS_EX_LAYOUTRTL));

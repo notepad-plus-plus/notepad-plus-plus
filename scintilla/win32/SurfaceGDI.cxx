@@ -835,12 +835,17 @@ public:
 			}
 		}
 
-		// Refinement 2: Paired brackets, identifier prefix, and function call boundaries
+		// Refinements 2 & 3 across RTL <-> LTR run boundaries:
+		// - Refinement 2: Attach trailing '_' identifier prefixes at the end of an odd-level
+		//   run to the start of an immediately following even-level identifier (e.g. "_rtlFiles").
+		// - Refinement 3A: Attach leading ')' or ']' at the start of an odd-level run when they
+		//   close unclosed '(' or '[' inside the preceding even-level run (e.g. "Fill(gapBack))").
+		// - Refinement 3B: Attach balanced "(...)" or "[...]" call suffixes at the start of an
+		//   odd-level run to the preceding even-level run (e.g. "TextBackground(...)").
 		for (size_t i = 0; i + 1 < tempMerged.size(); ++i) {
 			LogicalItem &cur = tempMerged[i];
 			LogicalItem &next = tempMerged[i + 1];
 
-			// 2A: Underscore prefix before LTR identifier (e.g. _rtlFiles)
 			if ((cur.level % 2 != 0) && (next.level % 2 == 0)) {
 				int uPos = cur.endChar;
 				while (uPos > cur.startChar && wtext[uPos - 1] == L'_') {
@@ -851,47 +856,16 @@ public:
 					cur.endChar = uPos;
 					next.startChar = uPos;
 				}
-			}
-
-			// 2B: Paired brackets around pure LTR sequence
-			// Look for '(' or '[' at the end of cur (RTL) immediately before next (LTR)
-			if ((cur.level % 2 != 0) && (next.level % 2 == 0)) {
-				int openPos = cur.endChar - 1;
-				while (openPos >= cur.startChar && (wtext[openPos] == L' ' || wtext[openPos] == L'*' || wtext[openPos] == L'_')) {
-					--openPos;
-				}
-				if (openPos >= cur.startChar && (wtext[openPos] == L'(' || wtext[openPos] == L'[')) {
-					const wchar_t openCh = wtext[openPos];
-					const wchar_t closeCh = (openCh == L'(') ? L')' : L']';
-
-					// Look for matching close bracket in run i+2
-					if (i + 2 < tempMerged.size() && (tempMerged[i + 2].level % 2 != 0)) {
-						int closePos = tempMerged[i + 2].startChar;
-						while (closePos < tempMerged[i + 2].endChar && (wtext[closePos] == L'*' || wtext[closePos] == L'_')) {
-							++closePos;
-						}
-						if (closePos < tempMerged[i + 2].endChar && wtext[closePos] == closeCh) {
-							cur.endChar = openPos;
-							next.startChar = openPos;
-							next.endChar = closePos + 1;
-							tempMerged[i + 2].startChar = closePos + 1;
-						}
-					}
-				}
-			}
-
-			// 2C: LTR to RTL boundary: unclosed brackets and function call suffixes
-			if ((cur.level % 2 == 0) && (next.level % 2 != 0)) {
-				// Check unclosed brackets across the line up to cur:
+			} else if ((cur.level % 2 == 0) && (next.level % 2 != 0)) {
+				// Count unclosed '(' or '[' strictly inside cur (the even-level LTR run itself),
+				// NOT in earlier RTL runs on the line!
 				int unclosedParen = 0;
 				int unclosedBracket = 0;
-				for (size_t prevIdx = 0; prevIdx <= i; ++prevIdx) {
-					for (int k = tempMerged[prevIdx].startChar; k < tempMerged[prevIdx].endChar; ++k) {
-						if (wtext[k] == L'(') ++unclosedParen;
-						else if (wtext[k] == L')' && unclosedParen > 0) --unclosedParen;
-						else if (wtext[k] == L'[') ++unclosedBracket;
-						else if (wtext[k] == L']' && unclosedBracket > 0) --unclosedBracket;
-					}
+				for (int k = cur.startChar; k < cur.endChar; ++k) {
+					if (wtext[k] == L'(') ++unclosedParen;
+					else if (wtext[k] == L')' && unclosedParen > 0) --unclosedParen;
+					else if (wtext[k] == L'[') ++unclosedBracket;
+					else if (wtext[k] == L']' && unclosedBracket > 0) --unclosedBracket;
 				}
 
 				while (next.startChar < next.endChar) {
@@ -1145,10 +1119,8 @@ public:
 };
 
 std::unique_ptr<IScreenLineLayout> SurfaceGDI::Layout(const IScreenLine *screenLine) {
-	if (mode.bidiR2L) {
-		return std::make_unique<ScreenLineLayoutGDI>(screenLine, mode.bidiR2L);
-	}
-	return {};
+	const bool isRTL = mode.bidiR2L || (hdc && ((::GetLayout(hdc) & LAYOUT_RTL) != 0));
+	return std::make_unique<ScreenLineLayoutGDI>(screenLine, isRTL);
 }
 
 bool SurfaceGDI::DrawLayout(IScreenLineLayout *layout, Point /*origin*/, PRectangle /*clip*/, ColourRGBA /*fore*/) {
@@ -1161,36 +1133,31 @@ bool SurfaceGDI::DrawLayout(IScreenLineLayout *layout, Point /*origin*/, PRectan
 using TextPositionsI = VarBuffer<int, stackBufferLength>;
 
 void SurfaceGDI::DrawTextCommon(PRectangle rc, const Font *font_, XYPOSITION ybase, std::string_view text, UINT fuOptions) {
+	const BiDiDrawHint hint = std::exchange(bidiDrawHint, BiDiDrawHint::Auto);
 	SetFont(font_);
 	const RECT rcw = RectFromPRectangle(rc);
 	const int x = static_cast<int>(rc.left);
 	const int yBaseInt = static_cast<int>(ybase);
 
-	if (mode.codePage == CpUtf8 || mode.bidiR2L) {
+	const bool isRTLMode = mode.bidiR2L || (hdc && ((::GetLayout(hdc) & LAYOUT_RTL) != 0));
+
+	if (mode.codePage == CpUtf8 || isRTLMode) {
 		// codePage 0 means the system ANSI code page, matching the previous ExtTextOutA path.
 		const TextWide tbuf(text, mode.codePage);
-		if (mode.bidiR2L && tbuf.tlen > 0) {
-			const BiDiDrawHint hint = std::exchange(bidiDrawHint, BiDiDrawHint::Auto);
-			bool isRTLSegment = false;
-			if (ContainsRTLWide(tbuf.AsView())) {
-				isRTLSegment = true;
-			} else if (hint == BiDiDrawHint::RTL) {
-				isRTLSegment = true;
-			} else if (hint == BiDiDrawHint::LTR) {
-				isRTLSegment = false;
-			} else {
-				isRTLSegment = false;
-			}
-
-			if (!isRTLSegment) {
-				VarBuffer<wchar_t, stackBufferLength + 2> lrmBuf(static_cast<size_t>(tbuf.tlen) + 2);
-				lrmBuf.buffer[0] = L'\u200E';
-				std::copy(tbuf.buffer, tbuf.buffer + tbuf.tlen, lrmBuf.buffer + 1);
-				lrmBuf.buffer[tbuf.tlen + 1] = L'\u200E';
-				::ExtTextOutW(hdc, x, yBaseInt, fuOptions, &rcw, lrmBuf.buffer, tbuf.tlen + 2, nullptr);
-			} else {
-				::ExtTextOutW(hdc, x, yBaseInt, fuOptions, &rcw, tbuf.buffer, tbuf.tlen, nullptr);
-			}
+		if (isRTLMode && tbuf.tlen > 0) {
+			const bool isRTLSegment = (hint == BiDiDrawHint::RTL) ? true
+				: (hint == BiDiDrawHint::LTR) ? false
+				: ContainsRTLWide(tbuf.AsView());
+			// Wrap the isolated segment in directional marks matching its resolved ScreenLineLayoutGDI
+			// BiDi run level: RLM (U+200F) for odd/RTL runs so GDI applies Unicode Rule L4 glyph
+			// mirroring to paired parentheses/brackets, or LRM (U+200E) for even/LTR runs so GDI
+			// keeps LTR punctuation and brackets unmirrored in left-to-right order.
+			const wchar_t dirMark = isRTLSegment ? L'\u200F' : L'\u200E';
+			VarBuffer<wchar_t, stackBufferLength + 2> dirBuf(static_cast<size_t>(tbuf.tlen) + 2);
+			dirBuf.buffer[0] = dirMark;
+			std::copy(tbuf.buffer, tbuf.buffer + tbuf.tlen, dirBuf.buffer + 1);
+			dirBuf.buffer[tbuf.tlen + 1] = dirMark;
+			::ExtTextOutW(hdc, x, yBaseInt, fuOptions, &rcw, dirBuf.buffer, tbuf.tlen + 2, nullptr);
 		} else {
 			::ExtTextOutW(hdc, x, yBaseInt, fuOptions, &rcw, tbuf.buffer, tbuf.tlen, nullptr);
 		}
@@ -1283,34 +1250,25 @@ XYPOSITION SurfaceGDI::WidthText(const Font *font_, std::string_view text) {
 }
 
 void SurfaceGDI::DrawTextCommonUTF8(PRectangle rc, const Font *font_, XYPOSITION ybase, std::string_view text, UINT fuOptions) {
+	const BiDiDrawHint hint = std::exchange(bidiDrawHint, BiDiDrawHint::Auto);
 	SetFont(font_);
 	const RECT rcw = RectFromPRectangle(rc);
 	const int x = static_cast<int>(rc.left);
 	const int yBaseInt = static_cast<int>(ybase);
 
-	const TextWide tbuf(text, CpUtf8);
-	if (mode.bidiR2L && tbuf.tlen > 0) {
-		const BiDiDrawHint hint = std::exchange(bidiDrawHint, BiDiDrawHint::Auto);
-		bool isRTLSegment = false;
-		if (ContainsRTLWide(tbuf.AsView())) {
-			isRTLSegment = true;
-		} else if (hint == BiDiDrawHint::RTL) {
-			isRTLSegment = true;
-		} else if (hint == BiDiDrawHint::LTR) {
-			isRTLSegment = false;
-		} else {
-			isRTLSegment = false;
-		}
+	const bool isRTLMode = mode.bidiR2L || (hdc && ((::GetLayout(hdc) & LAYOUT_RTL) != 0));
 
-		if (!isRTLSegment) {
-			VarBuffer<wchar_t, stackBufferLength + 2> lrmBuf(static_cast<size_t>(tbuf.tlen) + 2);
-			lrmBuf.buffer[0] = L'\u200E';
-			std::copy(tbuf.buffer, tbuf.buffer + tbuf.tlen, lrmBuf.buffer + 1);
-			lrmBuf.buffer[tbuf.tlen + 1] = L'\u200E';
-			::ExtTextOutW(hdc, x, yBaseInt, fuOptions, &rcw, lrmBuf.buffer, tbuf.tlen + 2, nullptr);
-		} else {
-			::ExtTextOutW(hdc, x, yBaseInt, fuOptions, &rcw, tbuf.buffer, tbuf.tlen, nullptr);
-		}
+	const TextWide tbuf(text, CpUtf8);
+	if (isRTLMode && tbuf.tlen > 0) {
+		const bool isRTLSegment = (hint == BiDiDrawHint::RTL) ? true
+			: (hint == BiDiDrawHint::LTR) ? false
+			: ContainsRTLWide(tbuf.AsView());
+		const wchar_t dirMark = isRTLSegment ? L'\u200F' : L'\u200E';
+		VarBuffer<wchar_t, stackBufferLength + 2> dirBuf(static_cast<size_t>(tbuf.tlen) + 2);
+		dirBuf.buffer[0] = dirMark;
+		std::copy(tbuf.buffer, tbuf.buffer + tbuf.tlen, dirBuf.buffer + 1);
+		dirBuf.buffer[tbuf.tlen + 1] = dirMark;
+		::ExtTextOutW(hdc, x, yBaseInt, fuOptions, &rcw, dirBuf.buffer, tbuf.tlen + 2, nullptr);
 	} else {
 		::ExtTextOutW(hdc, x, yBaseInt, fuOptions, &rcw, tbuf.buffer, tbuf.tlen, nullptr);
 	}

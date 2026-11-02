@@ -646,6 +646,37 @@ void SurfaceGDI::Copy(PRectangle rc, Point from, Surface &surfaceSource) {
 		static_cast<int>(from.x), static_cast<int>(from.y), SRCCOPY);
 }
 
+constexpr bool IsRTLWideChar(wchar_t ch) noexcept {
+	return (ch >= 0x0590 && ch <= 0x08FF) ||	// Hebrew, Arabic, Syriac, Thaana, Samaritan, Mandaic, Arabic Extended-A/B
+		(ch >= 0xFB1D && ch <= 0xFDFF) ||	// Hebrew Presentation Forms, Arabic Presentation Forms-A
+		(ch >= 0xFE70 && ch <= 0xFEFF) ||	// Arabic Presentation Forms-B
+		(ch == 0x200F) ||			// Right-to-Left Mark (RLM)
+		(ch == 0x202B) ||			// Right-to-Left Embedding (RLE)
+		(ch == 0x202E) ||			// Right-to-Left Override (RLO)
+		(ch == 0x2067);				// Right-to-Left Isolate (RLI)
+}
+
+constexpr bool IsRTLSurrogatePair(wchar_t high, wchar_t low) noexcept {
+	if (high >= 0xD800 && high <= 0xDBFF && low >= 0xDC00 && low <= 0xDFFF) {
+		const uint32_t cp = 0x10000U + ((static_cast<uint32_t>(high - 0xD800) << 10U) | static_cast<uint32_t>(low - 0xDC00));
+		return (cp >= 0x10800U && cp <= 0x10FFFU) || (cp >= 0x1E800U && cp <= 0x1E95FU);
+	}
+	return false;
+}
+
+bool ContainsRTLWide(std::wstring_view wview) noexcept {
+	for (size_t i = 0; i < wview.length(); ++i) {
+		const wchar_t ch = wview[i];
+		if (IsRTLWideChar(ch)) {
+			return true;
+		}
+		if (i + 1 < wview.length() && IsRTLSurrogatePair(ch, wview[i + 1])) {
+			return true;
+		}
+	}
+	return false;
+}
+
 class ScreenLineLayoutGDI : public IScreenLineLayout {
 	std::string text;
 	std::wstring wtext;
@@ -664,6 +695,7 @@ class ScreenLineLayoutGDI : public IScreenLineLayout {
 	std::vector<XYPOSITION> charVisualLeft;
 	std::vector<XYPOSITION> charVisualRight;
 	std::vector<XYPOSITION> positionsWide;
+	std::vector<size_t> breakPositions;
 
 	size_t WideCharFromByte(size_t bytePos) const noexcept {
 		if (text.empty() || bytePos == 0) {
@@ -704,7 +736,33 @@ public:
 		charVisualLeft.resize(numWideChars, 0.0);
 		charVisualRight.resize(numWideChars, 0.0);
 
+		const bool hasRTL = ContainsRTLWide(wtext);
+		if (!hasRTL) {
+			// Pure-LTR line: keep the entire line as a single cohesive LTR run (level = 0)
+			// so leading bullets/punctuation and trailing punctuation are never torn to
+			// opposite ends of the sentence when viewed in RTL mode.
+			Run singleRun;
+			singleRun.itemStart = 0;
+			singleRun.itemEnd = static_cast<int>(numWideChars);
+			singleRun.level = 0;
+			singleRun.visualLeft = 0.0;
+			singleRun.width = positionsWide[numWideChars];
+			runs.push_back(singleRun);
+
+			for (size_t k = 0; k < numWideChars; ++k) {
+				if (isRTLMode) {
+					charVisualLeft[k] = singleRun.width - positionsWide[k + 1];
+					charVisualRight[k] = singleRun.width - positionsWide[k];
+				} else {
+					charVisualLeft[k] = positionsWide[k];
+					charVisualRight[k] = positionsWide[k + 1];
+				}
+			}
+			return;
+		}
+
 		SCRIPT_CONTROL sc = {};
+		sc.fMergeNeutralItems = 1;
 		SCRIPT_STATE ss = {};
 		ss.uBidiLevel = isRTLMode ? 1 : 0;
 
@@ -728,15 +786,36 @@ public:
 			return;
 		}
 
-		std::vector<BYTE> levels(numItems);
+		// Coalesce adjacent SCRIPT_ITEMs that share the same resolved BiDi level
+		// so contiguous LTR or RTL runs are never fragmented across punctuation/digits.
+		struct LogicalItem {
+			int startChar = 0;
+			int endChar = 0;
+			BYTE level = 0;
+		};
+		std::vector<LogicalItem> mergedItems;
+		mergedItems.reserve(numItems);
 		for (int i = 0; i < numItems; ++i) {
-			levels[i] = items[i].a.s.uBidiLevel;
+			const int start = items[i].iCharPos;
+			const int end = items[i + 1].iCharPos;
+			const BYTE lvl = static_cast<BYTE>(items[i].a.s.uBidiLevel);
+			if (!mergedItems.empty() && mergedItems.back().level == lvl) {
+				mergedItems.back().endChar = end;
+			} else {
+				mergedItems.push_back(LogicalItem{ start, end, lvl });
+			}
 		}
 
-		std::vector<int> visualToLogical(numItems);
-		std::vector<int> logicalToVisual(numItems);
+		const int numMerged = static_cast<int>(mergedItems.size());
+		std::vector<BYTE> levels(numMerged);
+		for (int i = 0; i < numMerged; ++i) {
+			levels[i] = mergedItems[i].level;
+		}
+
+		std::vector<int> visualToLogical(numMerged);
+		std::vector<int> logicalToVisual(numMerged);
 		hr = ::ScriptLayout(
-			numItems,
+			numMerged,
 			levels.data(),
 			visualToLogical.data(),
 			logicalToVisual.data()
@@ -750,22 +829,22 @@ public:
 			return;
 		}
 
-		std::vector<XYPOSITION> runWidths(numItems);
-		for (int i = 0; i < numItems; ++i) {
-			const int start = items[i].iCharPos;
-			const int end = items[i + 1].iCharPos;
+		std::vector<XYPOSITION> runWidths(numMerged);
+		for (int i = 0; i < numMerged; ++i) {
+			const int start = mergedItems[i].startChar;
+			const int end = mergedItems[i].endChar;
 			runWidths[i] = positionsWide[end] - positionsWide[start];
 		}
 
-		runs.resize(numItems);
+		runs.resize(numMerged);
 		if (isRTLMode) {
 			// In WS_EX_LAYOUTRTL: x = 0 is at right margin, increasing x moves leftward.
-			// The run at visual right (visualToLogical[numItems - 1]) is placed at x = 0.
+			// The run at visual right (visualToLogical[numMerged - 1]) is placed at x = 0.
 			XYPOSITION curX = 0.0;
-			for (int v = numItems - 1; v >= 0; --v) {
+			for (int v = numMerged - 1; v >= 0; --v) {
 				const int logIdx = visualToLogical[v];
-				runs[logIdx].itemStart = items[logIdx].iCharPos;
-				runs[logIdx].itemEnd = items[logIdx + 1].iCharPos;
+				runs[logIdx].itemStart = mergedItems[logIdx].startChar;
+				runs[logIdx].itemEnd = mergedItems[logIdx].endChar;
 				runs[logIdx].level = levels[logIdx];
 				runs[logIdx].visualLeft = curX;
 				runs[logIdx].width = runWidths[logIdx];
@@ -774,10 +853,10 @@ public:
 		} else {
 			// In standard LTR: x = 0 is at left margin, increasing x moves rightward.
 			XYPOSITION curX = 0.0;
-			for (int v = 0; v < numItems; ++v) {
+			for (int v = 0; v < numMerged; ++v) {
 				const int logIdx = visualToLogical[v];
-				runs[logIdx].itemStart = items[logIdx].iCharPos;
-				runs[logIdx].itemEnd = items[logIdx + 1].iCharPos;
+				runs[logIdx].itemStart = mergedItems[logIdx].startChar;
+				runs[logIdx].itemEnd = mergedItems[logIdx].endChar;
 				runs[logIdx].level = levels[logIdx];
 				runs[logIdx].visualLeft = curX;
 				runs[logIdx].width = runWidths[logIdx];
@@ -785,8 +864,12 @@ public:
 			}
 		}
 
-		for (int logIdx = 0; logIdx < numItems; ++logIdx) {
+		breakPositions.reserve(numMerged > 1 ? static_cast<size_t>(numMerged) - 1 : 0);
+		for (int logIdx = 0; logIdx < numMerged; ++logIdx) {
 			const Run &r = runs[logIdx];
+			if (r.itemStart > 0) {
+				breakPositions.push_back(UTF8PositionFromUTF16Position(text, static_cast<size_t>(r.itemStart)));
+			}
 			const XYPOSITION runStartPos = positionsWide[r.itemStart];
 			const bool isRtlRun = (r.level % 2 != 0);
 
@@ -816,6 +899,10 @@ public:
 	}
 
 	~ScreenLineLayoutGDI() noexcept override = default;
+
+	std::vector<size_t> GetBreakPositions() const override {
+		return breakPositions;
+	}
 
 	size_t PositionFromX(XYPOSITION xDistance, bool charPosition) override {
 		if (text.empty() || numWideChars == 0) {
@@ -932,9 +1019,20 @@ void SurfaceGDI::DrawTextCommon(PRectangle rc, const Font *font_, XYPOSITION yba
 	const int x = static_cast<int>(rc.left);
 	const int yBaseInt = static_cast<int>(ybase);
 
-	if (mode.codePage == CpUtf8) {
+	if (mode.codePage == CpUtf8 || mode.bidiR2L) {
+		// codePage 0 means the system ANSI code page, matching the previous ExtTextOutA path.
 		const TextWide tbuf(text, mode.codePage);
-		::ExtTextOutW(hdc, x, yBaseInt, fuOptions, &rcw, tbuf.buffer, tbuf.tlen, nullptr);
+		if (mode.bidiR2L && tbuf.tlen > 0 && !ContainsRTLWide(tbuf.AsView())) {
+			// Wrap the isolated LTR fragment in Left-to-Right Marks so GDI's internal
+			// BiDi resolves neutrals to LTR instead of reversing or mirroring them.
+			VarBuffer<wchar_t, stackBufferLength + 2> lrmBuf(static_cast<size_t>(tbuf.tlen) + 2);
+			lrmBuf.buffer[0] = L'\u200E';
+			std::copy(tbuf.buffer, tbuf.buffer + tbuf.tlen, lrmBuf.buffer + 1);
+			lrmBuf.buffer[tbuf.tlen + 1] = L'\u200E';
+			::ExtTextOutW(hdc, x, yBaseInt, fuOptions, &rcw, lrmBuf.buffer, tbuf.tlen + 2, nullptr);
+		} else {
+			::ExtTextOutW(hdc, x, yBaseInt, fuOptions, &rcw, tbuf.buffer, tbuf.tlen, nullptr);
+		}
 	} else {
 		::ExtTextOutA(hdc, x, yBaseInt, fuOptions, &rcw, text.data(), static_cast<UINT>(text.length()), nullptr);
 	}
@@ -1029,7 +1127,17 @@ void SurfaceGDI::DrawTextCommonUTF8(PRectangle rc, const Font *font_, XYPOSITION
 	const int yBaseInt = static_cast<int>(ybase);
 
 	const TextWide tbuf(text, CpUtf8);
-	::ExtTextOutW(hdc, x, yBaseInt, fuOptions, &rcw, tbuf.buffer, tbuf.tlen, nullptr);
+	if (mode.bidiR2L && tbuf.tlen > 0 && !ContainsRTLWide(tbuf.AsView())) {
+		// Wrap the isolated LTR fragment in Left-to-Right Marks so GDI's internal
+		// BiDi resolves neutrals to LTR instead of reversing or mirroring them.
+		VarBuffer<wchar_t, stackBufferLength + 2> lrmBuf(static_cast<size_t>(tbuf.tlen) + 2);
+		lrmBuf.buffer[0] = L'\u200E';
+		std::copy(tbuf.buffer, tbuf.buffer + tbuf.tlen, lrmBuf.buffer + 1);
+		lrmBuf.buffer[tbuf.tlen + 1] = L'\u200E';
+		::ExtTextOutW(hdc, x, yBaseInt, fuOptions, &rcw, lrmBuf.buffer, tbuf.tlen + 2, nullptr);
+	} else {
+		::ExtTextOutW(hdc, x, yBaseInt, fuOptions, &rcw, tbuf.buffer, tbuf.tlen, nullptr);
+	}
 }
 
 void SurfaceGDI::DrawTextNoClipUTF8(PRectangle rc, const Font *font_, XYPOSITION ybase, std::string_view text,

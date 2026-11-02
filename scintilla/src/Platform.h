@@ -169,6 +169,11 @@ public:
 	virtual size_t PositionFromX(XYPOSITION xDistance, bool charPosition) = 0;
 	virtual XYPOSITION XFromPosition(size_t caretPosition) = 0;
 	virtual std::vector<Interval> FindRangeIntervals(size_t start, size_t end) = 0;
+	// UTF-8 byte positions where the layout breaks the line into runs.
+	// EditView uses these to split text segments so none span two runs.
+	virtual std::vector<size_t> GetBreakPositions() const {
+		return {};
+	}
 };
 
 /**

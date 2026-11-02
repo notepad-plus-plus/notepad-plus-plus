@@ -1682,6 +1682,11 @@ void DrawBackground(Surface *surface, const EditModel &model, const ViewStyle &v
 	}
 	BreakFinder bfBack(ll, &model.sel, lineRange, posLineStart, bidiLayout ? 0.0f : xStartVisible,
 		breakFor, model.pdoc, model.reprs.get(), &vsDraw, !bidiLayout);
+	if (bidiLayout) {
+		for (const size_t breakPos : bidiLayout->GetBreakPositions()) {
+			bfBack.Insert(lineRange.First() + static_cast<Sci::Position>(breakPos));
+		}
+	}
 	XYPOSITION visualRight = static_cast<XYPOSITION>(xStart);
 
 	// Background drawing loop
@@ -2199,6 +2204,11 @@ void EditView::DrawForeground(Surface *surface, const EditModel &model, const Vi
 		? BreakFinder::BreakFor::ForegroundAndSelection : BreakFinder::BreakFor::Foreground;
 	BreakFinder bfFore(ll, &model.sel, lineRange, posLineStart, slLayout ? 0.0f : xStartVisible,
 		breakFor, model.pdoc, model.reprs.get(), &vsDraw, !slLayout);
+	if (slLayout) {
+		for (const size_t breakPos : slLayout->GetBreakPositions()) {
+			bfFore.Insert(lineRange.First() + static_cast<Sci::Position>(breakPos));
+		}
+	}
 	XYPOSITION visualRight = static_cast<XYPOSITION>(xStart);
 
 	while (bfFore.More()) {

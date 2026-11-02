@@ -414,9 +414,11 @@ public:
 		execute(SCI_SETWRAPINDENTMODE, mode);
 	}
 
+	void updateWhitespaceSize();
+
 	void showWSAndTab(bool willBeShowed = true) {
 		execute(SCI_SETVIEWWS, willBeShowed?SCWS_VISIBLEALWAYS:SCWS_INVISIBLE);
-		execute(SCI_SETWHITESPACESIZE, 2, 0);
+		updateWhitespaceSize();
 	}
 
 	bool isShownSpaceAndTab() {

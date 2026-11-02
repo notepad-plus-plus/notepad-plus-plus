@@ -347,6 +347,20 @@ static bool isCharSingleQuote(__inout wchar_t const c)
     else return false;
 }
 
+void ScintillaEditView::updateWhitespaceSize()
+{
+	const int baseFontSize = static_cast<int>(execute(SCI_STYLEGETSIZE, STYLE_DEFAULT));
+	const int zoom = static_cast<int>(execute(SCI_GETZOOM));
+	const int zoomedFontSize = std::max(1, baseFontSize + zoom);
+	const int dpiScaledSize = DPIManagerV2::scale(3, _hParent);
+
+	const int zoomAdjustedSize = baseFontSize > 0
+		? std::max(1, (dpiScaledSize * zoomedFontSize + baseFontSize / 2) / baseFontSize)
+		: dpiScaledSize;
+	const int whitespaceSize = std::max(2, (zoomAdjustedSize + 1) / 2);
+	execute(SCI_SETWHITESPACESIZE, whitespaceSize, 0);
+}
+
 void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 {
 	if (!_SciInit)
@@ -391,6 +405,8 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	{
 		throw std::runtime_error("ScintillaEditView::init : SCI_GETDIRECTPOINTER message failed");
 	}
+
+	updateWhitespaceSize();
 
 	execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 	execute(SCI_SETIDLESTYLING, SC_IDLESTYLING_ALL, 0);

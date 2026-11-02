@@ -504,6 +504,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		case SCN_ZOOM:
 		{
 			if (!notifyView) return FALSE;
+			notifyView->updateWhitespaceSize();
 
 			ScintillaEditView* unfocusView = isFromPrimary ? &_subEditView : &_mainEditView;
 			_smartHighlighter.highlightView(notifyView, unfocusView);

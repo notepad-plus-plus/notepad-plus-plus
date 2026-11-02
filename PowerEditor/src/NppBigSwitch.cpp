@@ -3967,6 +3967,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case WM_DPICHANGED:
 		{
 			const UINT dpi = LOWORD(wParam);
+			_mainEditView.updateWhitespaceSize();
+			_subEditView.updateWhitespaceSize();
 			_toolBar.resizeIconsDpi(dpi);
 
 			_mainDocTab.dpiManager().setDpi(dpi);

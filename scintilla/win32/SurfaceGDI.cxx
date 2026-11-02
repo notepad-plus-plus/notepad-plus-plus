@@ -24,6 +24,7 @@
 #include <iterator>
 #include <memory>
 #include <mutex>
+#include <utility>
 
 // Want to use std::min and std::max so don't want Windows.h version of min and max
 #if !defined(NOMINMAX)
@@ -144,6 +145,9 @@ class SurfaceGDI : public Surface {
 
 	int logPixelsY = USER_DEFAULT_SCREEN_DPI;
 
+	enum class BiDiDrawHint { Auto, LTR, RTL };
+	BiDiDrawHint bidiDrawHint = BiDiDrawHint::Auto;
+
 	static constexpr int maxWidthMeasure = INT_MAX;
 	// There appears to be a 16 bit string length limit in GDI on NT.
 	static constexpr int maxLenText = 65535;
@@ -194,6 +198,7 @@ public:
 	void Copy(PRectangle rc, Point from, Surface &surfaceSource) override;
 
 	std::unique_ptr<IScreenLineLayout> Layout(const IScreenLine *screenLine) override;
+	bool DrawLayout(IScreenLineLayout *layout, Point origin, PRectangle clip, ColourRGBA fore) override;
 
 	void DrawTextCommon(PRectangle rc, const Font *font_, XYPOSITION ybase, std::string_view text, UINT fuOptions);
 	void DrawTextNoClip(PRectangle rc, const Font *font_, XYPOSITION ybase, std::string_view text, ColourRGBA fore, ColourRGBA back) override;
@@ -696,6 +701,15 @@ class ScreenLineLayoutGDI : public IScreenLineLayout {
 	std::vector<XYPOSITION> charVisualRight;
 	std::vector<XYPOSITION> positionsWide;
 	std::vector<size_t> breakPositions;
+	mutable bool lastIntervalRTL = false;
+
+	static constexpr bool IsAsciiIdentifierStart(wchar_t ch) noexcept {
+		return (ch >= L'A' && ch <= L'Z') || (ch >= L'a' && ch <= L'z') || (ch >= L'0' && ch <= L'9');
+	}
+
+	static constexpr bool IsRangeDashChar(wchar_t ch) noexcept {
+		return ch == L'-' || ch == L'\u2013' || ch == L'\u2014';
+	}
 
 	size_t WideCharFromByte(size_t bytePos) const noexcept {
 		if (text.empty() || bytePos == 0) {
@@ -786,23 +800,144 @@ public:
 			return;
 		}
 
-		// Coalesce adjacent SCRIPT_ITEMs that share the same resolved BiDi level
-		// so contiguous LTR or RTL runs are never fragmented across punctuation/digits.
+		// Coalesce adjacent SCRIPT_ITEMs with BiDi refinement logic:
 		struct LogicalItem {
 			int startChar = 0;
 			int endChar = 0;
 			BYTE level = 0;
 		};
-		std::vector<LogicalItem> mergedItems;
-		mergedItems.reserve(numItems);
+		std::vector<LogicalItem> rawItems;
+		rawItems.reserve(numItems);
 		for (int i = 0; i < numItems; ++i) {
-			const int start = items[i].iCharPos;
-			const int end = items[i + 1].iCharPos;
-			const BYTE lvl = static_cast<BYTE>(items[i].a.s.uBidiLevel);
-			if (!mergedItems.empty() && mergedItems.back().level == lvl) {
-				mergedItems.back().endChar = end;
+			rawItems.push_back(LogicalItem{ items[i].iCharPos, items[i + 1].iCharPos, static_cast<BYTE>(items[i].a.s.uBidiLevel) });
+		}
+
+		// Refinement 1: Range dash promotion (e.g. 1763–1777 or 2412–2427)
+		// When an isolated range dash (-, en-dash, or em-dash) of length 1 sits between
+		// two LTR (even level) runs, promote the dash to LTR so numbers are not inverted.
+		for (size_t i = 1; i + 1 < rawItems.size(); ++i) {
+			const int len = rawItems[i].endChar - rawItems[i].startChar;
+			if ((rawItems[i].level % 2 != 0) && len == 1 && IsRangeDashChar(wtext[rawItems[i].startChar])) {
+				if ((rawItems[i - 1].level % 2 == 0) && (rawItems[i + 1].level % 2 == 0)) {
+					rawItems[i].level = rawItems[i - 1].level;
+				}
+			}
+		}
+
+		// Coalesce adjacent items with same level into tempMerged
+		std::vector<LogicalItem> tempMerged;
+		tempMerged.reserve(rawItems.size());
+		for (const auto &it : rawItems) {
+			if (!tempMerged.empty() && tempMerged.back().level == it.level) {
+				tempMerged.back().endChar = it.endChar;
 			} else {
-				mergedItems.push_back(LogicalItem{ start, end, lvl });
+				tempMerged.push_back(it);
+			}
+		}
+
+		// Refinement 2: Paired brackets, identifier prefix, and function call boundaries
+		for (size_t i = 0; i + 1 < tempMerged.size(); ++i) {
+			LogicalItem &cur = tempMerged[i];
+			LogicalItem &next = tempMerged[i + 1];
+
+			// 2A: Underscore prefix before LTR identifier (e.g. _rtlFiles)
+			if ((cur.level % 2 != 0) && (next.level % 2 == 0)) {
+				int uPos = cur.endChar;
+				while (uPos > cur.startChar && wtext[uPos - 1] == L'_') {
+					--uPos;
+				}
+				if (uPos < cur.endChar && uPos > cur.startChar &&
+					next.startChar < next.endChar && IsAsciiIdentifierStart(wtext[next.startChar])) {
+					cur.endChar = uPos;
+					next.startChar = uPos;
+				}
+			}
+
+			// 2B: Paired brackets around pure LTR sequence
+			// Look for '(' or '[' at the end of cur (RTL) immediately before next (LTR)
+			if ((cur.level % 2 != 0) && (next.level % 2 == 0)) {
+				int openPos = cur.endChar - 1;
+				while (openPos >= cur.startChar && (wtext[openPos] == L' ' || wtext[openPos] == L'*' || wtext[openPos] == L'_')) {
+					--openPos;
+				}
+				if (openPos >= cur.startChar && (wtext[openPos] == L'(' || wtext[openPos] == L'[')) {
+					const wchar_t openCh = wtext[openPos];
+					const wchar_t closeCh = (openCh == L'(') ? L')' : L']';
+
+					// Look for matching close bracket in run i+2
+					if (i + 2 < tempMerged.size() && (tempMerged[i + 2].level % 2 != 0)) {
+						int closePos = tempMerged[i + 2].startChar;
+						while (closePos < tempMerged[i + 2].endChar && (wtext[closePos] == L'*' || wtext[closePos] == L'_')) {
+							++closePos;
+						}
+						if (closePos < tempMerged[i + 2].endChar && wtext[closePos] == closeCh) {
+							cur.endChar = openPos;
+							next.startChar = openPos;
+							next.endChar = closePos + 1;
+							tempMerged[i + 2].startChar = closePos + 1;
+						}
+					}
+				}
+			}
+
+			// 2C: LTR to RTL boundary: unclosed brackets and function call suffixes
+			if ((cur.level % 2 == 0) && (next.level % 2 != 0)) {
+				// Check unclosed brackets across the line up to cur:
+				int unclosedParen = 0;
+				int unclosedBracket = 0;
+				for (size_t prevIdx = 0; prevIdx <= i; ++prevIdx) {
+					for (int k = tempMerged[prevIdx].startChar; k < tempMerged[prevIdx].endChar; ++k) {
+						if (wtext[k] == L'(') ++unclosedParen;
+						else if (wtext[k] == L')' && unclosedParen > 0) --unclosedParen;
+						else if (wtext[k] == L'[') ++unclosedBracket;
+						else if (wtext[k] == L']' && unclosedBracket > 0) --unclosedBracket;
+					}
+				}
+
+				while (next.startChar < next.endChar) {
+					if (unclosedParen > 0 && wtext[next.startChar] == L')') {
+						++cur.endChar;
+						++next.startChar;
+						--unclosedParen;
+					} else if (unclosedBracket > 0 && wtext[next.startChar] == L']') {
+						++cur.endChar;
+						++next.startChar;
+						--unclosedBracket;
+					} else {
+						break;
+					}
+				}
+
+				// Function call suffix: e.g. TextBackground(...)
+				if (next.startChar < next.endChar && (wtext[next.startChar] == L'(' || wtext[next.startChar] == L'[')) {
+					const wchar_t openCh = wtext[next.startChar];
+					const wchar_t closeCh = (openCh == L'(') ? L')' : L']';
+					int depth = 0;
+					int matchEnd = -1;
+					for (int k = next.startChar; k < next.endChar; ++k) {
+						if (wtext[k] == openCh) ++depth;
+						else if (wtext[k] == closeCh) {
+							--depth;
+							if (depth == 0) { matchEnd = k + 1; break; }
+						}
+					}
+					if (matchEnd > next.startChar) {
+						cur.endChar = matchEnd;
+						next.startChar = matchEnd;
+					}
+				}
+			}
+		}
+
+		// Final merge into mergedItems (discard empty items, merge adjacent items with same level)
+		std::vector<LogicalItem> mergedItems;
+		mergedItems.reserve(tempMerged.size());
+		for (const auto &it : tempMerged) {
+			if (it.startChar >= it.endChar) continue;
+			if (!mergedItems.empty() && mergedItems.back().level == it.level) {
+				mergedItems.back().endChar = it.endChar;
+			} else {
+				mergedItems.push_back(it);
 			}
 		}
 
@@ -988,6 +1123,7 @@ public:
 			}
 
 			const Run &r = runs[runIdx];
+			lastIntervalRTL = (r.level % 2 != 0);
 			const size_t segEnd = std::min(wEnd, static_cast<size_t>(r.itemEnd));
 
 			XYPOSITION leftBound = std::min(charVisualLeft[cur], charVisualRight[cur]);
@@ -1002,6 +1138,10 @@ public:
 
 		return ret;
 	}
+
+	bool IsLastIntervalRTL() const noexcept {
+		return lastIntervalRTL;
+	}
 };
 
 std::unique_ptr<IScreenLineLayout> SurfaceGDI::Layout(const IScreenLine *screenLine) {
@@ -1009,6 +1149,13 @@ std::unique_ptr<IScreenLineLayout> SurfaceGDI::Layout(const IScreenLine *screenL
 		return std::make_unique<ScreenLineLayoutGDI>(screenLine, mode.bidiR2L);
 	}
 	return {};
+}
+
+bool SurfaceGDI::DrawLayout(IScreenLineLayout *layout, Point /*origin*/, PRectangle /*clip*/, ColourRGBA /*fore*/) {
+	if (const auto *sl = dynamic_cast<const ScreenLineLayoutGDI *>(layout)) {
+		bidiDrawHint = sl->IsLastIntervalRTL() ? BiDiDrawHint::RTL : BiDiDrawHint::LTR;
+	}
+	return false;
 }
 
 using TextPositionsI = VarBuffer<int, stackBufferLength>;
@@ -1022,14 +1169,28 @@ void SurfaceGDI::DrawTextCommon(PRectangle rc, const Font *font_, XYPOSITION yba
 	if (mode.codePage == CpUtf8 || mode.bidiR2L) {
 		// codePage 0 means the system ANSI code page, matching the previous ExtTextOutA path.
 		const TextWide tbuf(text, mode.codePage);
-		if (mode.bidiR2L && tbuf.tlen > 0 && !ContainsRTLWide(tbuf.AsView())) {
-			// Wrap the isolated LTR fragment in Left-to-Right Marks so GDI's internal
-			// BiDi resolves neutrals to LTR instead of reversing or mirroring them.
-			VarBuffer<wchar_t, stackBufferLength + 2> lrmBuf(static_cast<size_t>(tbuf.tlen) + 2);
-			lrmBuf.buffer[0] = L'\u200E';
-			std::copy(tbuf.buffer, tbuf.buffer + tbuf.tlen, lrmBuf.buffer + 1);
-			lrmBuf.buffer[tbuf.tlen + 1] = L'\u200E';
-			::ExtTextOutW(hdc, x, yBaseInt, fuOptions, &rcw, lrmBuf.buffer, tbuf.tlen + 2, nullptr);
+		if (mode.bidiR2L && tbuf.tlen > 0) {
+			const BiDiDrawHint hint = std::exchange(bidiDrawHint, BiDiDrawHint::Auto);
+			bool isRTLSegment = false;
+			if (ContainsRTLWide(tbuf.AsView())) {
+				isRTLSegment = true;
+			} else if (hint == BiDiDrawHint::RTL) {
+				isRTLSegment = true;
+			} else if (hint == BiDiDrawHint::LTR) {
+				isRTLSegment = false;
+			} else {
+				isRTLSegment = false;
+			}
+
+			if (!isRTLSegment) {
+				VarBuffer<wchar_t, stackBufferLength + 2> lrmBuf(static_cast<size_t>(tbuf.tlen) + 2);
+				lrmBuf.buffer[0] = L'\u200E';
+				std::copy(tbuf.buffer, tbuf.buffer + tbuf.tlen, lrmBuf.buffer + 1);
+				lrmBuf.buffer[tbuf.tlen + 1] = L'\u200E';
+				::ExtTextOutW(hdc, x, yBaseInt, fuOptions, &rcw, lrmBuf.buffer, tbuf.tlen + 2, nullptr);
+			} else {
+				::ExtTextOutW(hdc, x, yBaseInt, fuOptions, &rcw, tbuf.buffer, tbuf.tlen, nullptr);
+			}
 		} else {
 			::ExtTextOutW(hdc, x, yBaseInt, fuOptions, &rcw, tbuf.buffer, tbuf.tlen, nullptr);
 		}
@@ -1064,6 +1225,7 @@ void SurfaceGDI::DrawTextTransparent(PRectangle rc, const Font *font_, XYPOSITIO
 			return;
 		}
 	}
+	bidiDrawHint = BiDiDrawHint::Auto;
 }
 
 void SurfaceGDI::MeasureWidths(const Font *font_, std::string_view text, XYPOSITION *positions) {
@@ -1127,14 +1289,28 @@ void SurfaceGDI::DrawTextCommonUTF8(PRectangle rc, const Font *font_, XYPOSITION
 	const int yBaseInt = static_cast<int>(ybase);
 
 	const TextWide tbuf(text, CpUtf8);
-	if (mode.bidiR2L && tbuf.tlen > 0 && !ContainsRTLWide(tbuf.AsView())) {
-		// Wrap the isolated LTR fragment in Left-to-Right Marks so GDI's internal
-		// BiDi resolves neutrals to LTR instead of reversing or mirroring them.
-		VarBuffer<wchar_t, stackBufferLength + 2> lrmBuf(static_cast<size_t>(tbuf.tlen) + 2);
-		lrmBuf.buffer[0] = L'\u200E';
-		std::copy(tbuf.buffer, tbuf.buffer + tbuf.tlen, lrmBuf.buffer + 1);
-		lrmBuf.buffer[tbuf.tlen + 1] = L'\u200E';
-		::ExtTextOutW(hdc, x, yBaseInt, fuOptions, &rcw, lrmBuf.buffer, tbuf.tlen + 2, nullptr);
+	if (mode.bidiR2L && tbuf.tlen > 0) {
+		const BiDiDrawHint hint = std::exchange(bidiDrawHint, BiDiDrawHint::Auto);
+		bool isRTLSegment = false;
+		if (ContainsRTLWide(tbuf.AsView())) {
+			isRTLSegment = true;
+		} else if (hint == BiDiDrawHint::RTL) {
+			isRTLSegment = true;
+		} else if (hint == BiDiDrawHint::LTR) {
+			isRTLSegment = false;
+		} else {
+			isRTLSegment = false;
+		}
+
+		if (!isRTLSegment) {
+			VarBuffer<wchar_t, stackBufferLength + 2> lrmBuf(static_cast<size_t>(tbuf.tlen) + 2);
+			lrmBuf.buffer[0] = L'\u200E';
+			std::copy(tbuf.buffer, tbuf.buffer + tbuf.tlen, lrmBuf.buffer + 1);
+			lrmBuf.buffer[tbuf.tlen + 1] = L'\u200E';
+			::ExtTextOutW(hdc, x, yBaseInt, fuOptions, &rcw, lrmBuf.buffer, tbuf.tlen + 2, nullptr);
+		} else {
+			::ExtTextOutW(hdc, x, yBaseInt, fuOptions, &rcw, tbuf.buffer, tbuf.tlen, nullptr);
+		}
 	} else {
 		::ExtTextOutW(hdc, x, yBaseInt, fuOptions, &rcw, tbuf.buffer, tbuf.tlen, nullptr);
 	}
@@ -1166,6 +1342,7 @@ void SurfaceGDI::DrawTextTransparentUTF8(PRectangle rc, const Font *font_, XYPOS
 			return;
 		}
 	}
+	bidiDrawHint = BiDiDrawHint::Auto;
 }
 
 void SurfaceGDI::MeasureWidthsUTF8(const Font *font_, std::string_view text, XYPOSITION *positions) {

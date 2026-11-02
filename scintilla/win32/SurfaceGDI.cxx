@@ -35,6 +35,8 @@
 #define WINVER 0x0A00
 #define WIN32_LEAN_AND_MEAN 1
 #include <windows.h>
+#include <usp10.h>
+#pragma comment(lib, "usp10.lib")
 #include <commctrl.h>
 #include <richedit.h>
 #include <windowsx.h>
@@ -644,7 +646,281 @@ void SurfaceGDI::Copy(PRectangle rc, Point from, Surface &surfaceSource) {
 		static_cast<int>(from.x), static_cast<int>(from.y), SRCCOPY);
 }
 
-std::unique_ptr<IScreenLineLayout> SurfaceGDI::Layout(const IScreenLine *) {
+class ScreenLineLayoutGDI : public IScreenLineLayout {
+	std::string text;
+	std::wstring wtext;
+	bool isRTLMode = false;
+	size_t numWideChars = 0;
+
+	struct Run {
+		int itemStart = 0;
+		int itemEnd = 0;
+		BYTE level = 0;
+		XYPOSITION visualLeft = 0.0;
+		XYPOSITION width = 0.0;
+	};
+
+	std::vector<Run> runs;
+	std::vector<XYPOSITION> charVisualLeft;
+	std::vector<XYPOSITION> charVisualRight;
+	std::vector<XYPOSITION> positionsWide;
+
+	size_t WideCharFromByte(size_t bytePos) const noexcept {
+		if (text.empty() || bytePos == 0) {
+			return 0;
+		}
+		if (bytePos >= text.length()) {
+			return numWideChars;
+		}
+		const std::string_view sub = std::string_view(text).substr(0, bytePos);
+		return UTF16Length(sub);
+	}
+
+public:
+	ScreenLineLayoutGDI(const IScreenLine *screenLine, bool bidiR2L) {
+		if (!screenLine || !screenLine->Length()) {
+			return;
+		}
+
+		text = screenLine->Text();
+		isRTLMode = bidiR2L;
+
+		const TextWide wideText(text, CpUtf8);
+		wtext.assign(wideText.buffer, wideText.tlen);
+		std::replace(wtext.begin(), wtext.end(), L'\t', L' ');
+		numWideChars = wtext.length();
+
+		if (numWideChars == 0) {
+			return;
+		}
+
+		positionsWide.resize(numWideChars + 1, 0.0);
+		for (size_t w = 0; w < numWideChars; ++w) {
+			const size_t bytePos = UTF8PositionFromUTF16Position(text, w);
+			positionsWide[w] = screenLine->CharacterX(bytePos);
+		}
+		positionsWide[numWideChars] = screenLine->CharacterX(text.length());
+
+		charVisualLeft.resize(numWideChars, 0.0);
+		charVisualRight.resize(numWideChars, 0.0);
+
+		SCRIPT_CONTROL sc = {};
+		SCRIPT_STATE ss = {};
+		ss.uBidiLevel = isRTLMode ? 1 : 0;
+
+		std::vector<SCRIPT_ITEM> items(numWideChars + 2);
+		int numItems = 0;
+		HRESULT hr = ::ScriptItemize(
+			wtext.c_str(),
+			static_cast<int>(numWideChars),
+			static_cast<int>(items.size()),
+			&sc,
+			&ss,
+			items.data(),
+			&numItems
+		);
+
+		if (FAILED(hr) || numItems <= 0) {
+			for (size_t w = 0; w < numWideChars; ++w) {
+				charVisualLeft[w] = positionsWide[w];
+				charVisualRight[w] = positionsWide[w + 1];
+			}
+			return;
+		}
+
+		std::vector<BYTE> levels(numItems);
+		for (int i = 0; i < numItems; ++i) {
+			levels[i] = items[i].a.s.uBidiLevel;
+		}
+
+		std::vector<int> visualToLogical(numItems);
+		std::vector<int> logicalToVisual(numItems);
+		hr = ::ScriptLayout(
+			numItems,
+			levels.data(),
+			visualToLogical.data(),
+			logicalToVisual.data()
+		);
+
+		if (FAILED(hr)) {
+			for (size_t w = 0; w < numWideChars; ++w) {
+				charVisualLeft[w] = positionsWide[w];
+				charVisualRight[w] = positionsWide[w + 1];
+			}
+			return;
+		}
+
+		std::vector<XYPOSITION> runWidths(numItems);
+		for (int i = 0; i < numItems; ++i) {
+			const int start = items[i].iCharPos;
+			const int end = items[i + 1].iCharPos;
+			runWidths[i] = positionsWide[end] - positionsWide[start];
+		}
+
+		runs.resize(numItems);
+		if (isRTLMode) {
+			// In WS_EX_LAYOUTRTL: x = 0 is at right margin, increasing x moves leftward.
+			// The run at visual right (visualToLogical[numItems - 1]) is placed at x = 0.
+			XYPOSITION curX = 0.0;
+			for (int v = numItems - 1; v >= 0; --v) {
+				const int logIdx = visualToLogical[v];
+				runs[logIdx].itemStart = items[logIdx].iCharPos;
+				runs[logIdx].itemEnd = items[logIdx + 1].iCharPos;
+				runs[logIdx].level = levels[logIdx];
+				runs[logIdx].visualLeft = curX;
+				runs[logIdx].width = runWidths[logIdx];
+				curX += runWidths[logIdx];
+			}
+		} else {
+			// In standard LTR: x = 0 is at left margin, increasing x moves rightward.
+			XYPOSITION curX = 0.0;
+			for (int v = 0; v < numItems; ++v) {
+				const int logIdx = visualToLogical[v];
+				runs[logIdx].itemStart = items[logIdx].iCharPos;
+				runs[logIdx].itemEnd = items[logIdx + 1].iCharPos;
+				runs[logIdx].level = levels[logIdx];
+				runs[logIdx].visualLeft = curX;
+				runs[logIdx].width = runWidths[logIdx];
+				curX += runWidths[logIdx];
+			}
+		}
+
+		for (int logIdx = 0; logIdx < numItems; ++logIdx) {
+			const Run &r = runs[logIdx];
+			const XYPOSITION runStartPos = positionsWide[r.itemStart];
+			const bool isRtlRun = (r.level % 2 != 0);
+
+			for (int k = r.itemStart; k < r.itemEnd; ++k) {
+				const XYPOSITION cStart = positionsWide[k] - runStartPos;
+				const XYPOSITION cEnd = positionsWide[k + 1] - runStartPos;
+
+				if (isRTLMode) {
+					if (isRtlRun) {
+						charVisualLeft[k] = r.visualLeft + cStart;
+						charVisualRight[k] = r.visualLeft + cEnd;
+					} else {
+						charVisualLeft[k] = r.visualLeft + (r.width - cEnd);
+						charVisualRight[k] = r.visualLeft + (r.width - cStart);
+					}
+				} else {
+					if (!isRtlRun) {
+						charVisualLeft[k] = r.visualLeft + cStart;
+						charVisualRight[k] = r.visualLeft + cEnd;
+					} else {
+						charVisualLeft[k] = r.visualLeft + (r.width - cEnd);
+						charVisualRight[k] = r.visualLeft + (r.width - cStart);
+					}
+				}
+			}
+		}
+	}
+
+	~ScreenLineLayoutGDI() noexcept override = default;
+
+	size_t PositionFromX(XYPOSITION xDistance, bool charPosition) override {
+		if (text.empty() || numWideChars == 0) {
+			return 0;
+		}
+
+		for (size_t k = 0; k < numWideChars; ++k) {
+			const XYPOSITION left = std::min(charVisualLeft[k], charVisualRight[k]);
+			const XYPOSITION right = std::max(charVisualLeft[k], charVisualRight[k]);
+
+			if (xDistance >= left && xDistance <= right) {
+				if (charPosition) {
+					return UTF8PositionFromUTF16Position(text, k);
+				} else {
+					const XYPOSITION mid = (left + right) / 2.0;
+					size_t targetChar = k;
+					if (xDistance > mid) {
+						targetChar = k + 1;
+					}
+					return UTF8PositionFromUTF16Position(text, targetChar);
+				}
+			}
+		}
+
+		if (xDistance <= 0.0) {
+			return 0;
+		}
+		return text.length();
+	}
+
+	XYPOSITION XFromPosition(size_t caretPosition) override {
+		if (text.empty() || numWideChars == 0) {
+			return 0.0;
+		}
+		if (caretPosition >= text.length()) {
+			return positionsWide.back();
+		}
+
+		const size_t wPos = WideCharFromByte(caretPosition);
+		if (wPos >= numWideChars) {
+			return positionsWide.back();
+		}
+
+		for (const Run &r : runs) {
+			if (static_cast<int>(wPos) >= r.itemStart && static_cast<int>(wPos) < r.itemEnd) {
+				const bool isRtlRun = (r.level % 2 != 0);
+				if (isRTLMode) {
+					return isRtlRun ? charVisualLeft[wPos] : charVisualRight[wPos];
+				} else {
+					return isRtlRun ? charVisualRight[wPos] : charVisualLeft[wPos];
+				}
+			}
+		}
+
+		return charVisualLeft[wPos];
+	}
+
+	std::vector<Interval> FindRangeIntervals(size_t start, size_t end) override {
+		std::vector<Interval> ret;
+		if (text.empty() || start >= end || start >= text.length()) {
+			return ret;
+		}
+		end = std::min(end, text.length());
+
+		const size_t wStart = WideCharFromByte(start);
+		const size_t wEnd = WideCharFromByte(end);
+
+		if (wStart >= wEnd || wStart >= numWideChars) {
+			return ret;
+		}
+
+		size_t cur = wStart;
+		while (cur < wEnd) {
+			int runIdx = -1;
+			for (size_t r = 0; r < runs.size(); ++r) {
+				if (static_cast<int>(cur) >= runs[r].itemStart && static_cast<int>(cur) < runs[r].itemEnd) {
+					runIdx = static_cast<int>(r);
+					break;
+				}
+			}
+			if (runIdx == -1) {
+				break;
+			}
+
+			const Run &r = runs[runIdx];
+			const size_t segEnd = std::min(wEnd, static_cast<size_t>(r.itemEnd));
+
+			XYPOSITION leftBound = std::min(charVisualLeft[cur], charVisualRight[cur]);
+			XYPOSITION rightBound = std::max(charVisualLeft[cur], charVisualRight[cur]);
+			for (size_t k = cur + 1; k < segEnd; ++k) {
+				leftBound = std::min(leftBound, std::min(charVisualLeft[k], charVisualRight[k]));
+				rightBound = std::max(rightBound, std::max(charVisualLeft[k], charVisualRight[k]));
+			}
+			ret.push_back(Interval{ leftBound, rightBound });
+			cur = segEnd;
+		}
+
+		return ret;
+	}
+};
+
+std::unique_ptr<IScreenLineLayout> SurfaceGDI::Layout(const IScreenLine *screenLine) {
+	if (mode.bidiR2L) {
+		return std::make_unique<ScreenLineLayoutGDI>(screenLine, mode.bidiR2L);
+	}
 	return {};
 }
 
